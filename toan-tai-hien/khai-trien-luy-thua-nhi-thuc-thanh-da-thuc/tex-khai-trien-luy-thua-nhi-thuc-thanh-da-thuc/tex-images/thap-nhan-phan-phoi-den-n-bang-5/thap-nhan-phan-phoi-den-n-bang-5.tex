@@ -1,0 +1,258 @@
+\documentclass[12pt]{standalone}
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+\setotherlanguages{vietnamese}
+\usepackage{fontspec}
+\usepackage{
+    amsmath, 
+    amsfonts, 
+    amssymb
+}
+\usepackage{unicode-math}
+\setmainfont{STIX Two Text}
+\setmathfont{STIX Two Math} 
+\usepackage{xcolor}
+\usepackage{tikz}
+
+\begin{document}
+\begin{tikzpicture}%[level distance=1.5cm,sibling distance=2.5cm]
+    
+    % Thêm đỉnh tháp
+    \node (d00) at (0,13.5) {$1$};    
+    
+    
+    
+    % Dòng thứ nhất
+    \node (d11) at (-1,12) {$1$};
+    \node (d12) at (0,12) {$+$};
+    \node (d13) at (1,12) {$x$};
+    
+    % \node (sum) at (0, 12) {$a + b$};
+    % Dòng thứ hai
+    \node (d21) at (-2, 10.5) {$1$};
+    \node (d22) at (-1, 10.5) {$+$};
+    \node (d23) at (0, 10.5) {$2x$};
+    \node (d24) at (1, 10.5) {$+$};
+    \node (d25) at (2, 10.5) {$x^2$};
+
+    % Dòng thứ ba
+    \node (d31) at (-3, 9) {$1$};
+    \node (d32) at (-2, 9) {$+$};
+    \node (d33) at (-1, 9) {$3x$};
+    \node (d34) at (0, 9) {$+$};
+    \node (d35) at (1, 9) {$3x^2$};
+    \node (d36) at (2, 9) {$+$};
+    \node (d37) at (3, 9) {$x^3$};
+
+    % Dòng thứ tư
+    \node (d41) at (-4, 7.5) {$1$};
+    \node (d42) at (-3, 7.5) {$+$};
+    \node (d43) at (-2, 7.5) {$4x$};
+    \node (d44) at (-1, 7.5) {$+$};
+    \node (d45) at (0, 7.5) {$6x^2$};
+    \node (d46) at (1, 7.5) {$+$};
+    \node (d47) at (2, 7.5) {$4x^3$};
+    \node (d48) at (3, 7.5) {$+$};
+    \node (d49) at (4, 7.5) {$x^4$};
+
+    % Dòng thứ năm    
+    \node (d51) at (-5, 6) {$1$};
+    \node (d52) at (-4, 6) {$+$};
+    \node (d53) at (-3, 6) {$5x$};
+    \node (d54) at (-2, 6) {$+$};
+    \node (d55) at (-1, 6) {$10x^2$};
+    \node (d56) at (0, 6) {$+$};
+    \node (d57) at (1, 6) {$10x^3$};
+    \node (d58) at (2, 6) {$+$};
+    \node (d59) at (3, 6) {$5x^4$};
+    \node (d510) at (4, 6) {$+$};
+    \node (d511) at (5, 6) {$x^5$};
+
+    % Dòng thứ sáu
+    % \node (d61) at (-6, 4.5) {$a^6$};
+    % \node (d62) at (-5, 4.5) {$+$};
+    % \node (d63) at (-4, 4.5) {$6a^5b$};
+    % \node (d64) at (-3, 4.5) {$+$};
+    % \node (d65) at (-2, 4.5) {$15a^4b^2$};
+    % \node (d66) at (-1, 4.5) {$+$};
+    % \node (d67) at (0, 4.5) {$20a^3b^3$};
+    % \node (d68) at (1, 4.5) {$+$};
+    % \node (d69) at (2, 4.5) {$15a^2b^4$};
+    % \node (d610) at (3, 4.5) {$+$};
+    % \node (d611) at (4, 4.5) {$6ab^5$};
+    % \node (d612) at (5, 4.5) {$+$};
+    % \node (d613) at (6, 4.5) {$b^6$};
+
+    % Dòng thứ bảy
+    % \node (d71) at (-7, 3) {$a^7$};
+    % \node (d72) at (-6, 3) {$+$};
+    % \node (d73) at (-5, 3) {$7a^6b$};
+    % \node (d74) at (-4, 3) {$+$};
+    % \node (d75) at (-3, 3) {$21a^5b^2$};
+    % \node (d76) at (-2, 3) {$+$};
+    % \node (d77) at (-1, 3) {$35a^4b^3$};
+    % \node (d78) at (0, 3) {$+$};
+    % \node (d79) at (1, 3) {$35a^3b^4$};
+    % \node (d710) at (2, 3) {$+$};
+    % \node (d711) at (3, 3) {$21a^2b^5$};
+    % \node (d712) at (4, 3) {$+$};
+    % \node (d713) at (5, 3) {$7ab^6$};
+    % \node (d714) at (6, 3) {$+$};
+    % \node (d715) at (7, 3) {$b^7$};
+
+    % Dòng thứ tám
+    % \node (d81) at (-8, 1.5) {$a^8$};
+    % \node (d82) at (-7, 1.5) {$+$};
+    % \node (d83) at (-6, 1.5) {$8a^7b$};
+    % \node (d84) at (-5, 1.5) {$+$};
+    % \node (d85) at (-4, 1.5) {$28a^6b^2$};
+    % \node (d86) at (-3, 1.5) {$+$};
+    % \node (d87) at (-2, 1.5) {$56a^5b^3$};
+    % \node (d88) at (-1, 1.5) {$+$};
+    % \node (d89) at (0, 1.5) {$70a^4b^4$};
+    % \node (d810) at (1, 1.5) {$+$};
+    % \node (d811) at (2, 1.5) {$56a^3b^5$};
+    % \node (d812) at (3, 1.5) {$+$};
+    % \node (d813) at (4, 1.5) {$28a^2b^6$};
+    % \node (d814) at (5, 1.5) {$+$};
+    % \node (d815) at (6, 1.5) {$8ab^7$};
+    % \node (d816) at (7, 1.5) {$+$};
+    % \node (d817) at (8, 1.5) {$b^8$};
+
+    % Dòng thứ chín
+    % \node (d91) at (-9, 0) {$a^9$};
+    % \node (d92) at (-8, 0) {$+$};
+    % \node (d93) at (-7, 0) {$9a^8b$};
+    % \node (d94) at (-6, 0) {$+$};
+    % \node (d95) at (-5, 0) {$36a^7b^2$};
+    % \node (d96) at (-4, 0) {$+$};
+    % \node (d97) at (-3, 0) {$84a^6b^3$};
+    % \node (d98) at (-2, 0) {$+$};
+    % \node (d99) at (-1, 0) {$126a^5b^4$};
+    % \node (d910) at (0, 0) {$+$};
+    % \node (d911) at (1, 0) {$126a^4b^5$};
+    % \node (d912) at (2, 0) {$+$};
+    % \node (d913) at (3, 0) {$84a^3b^6$};
+    % \node (d914) at (4, 0) {$+$};
+    % \node (d915) at (5, 0) {$36a^2b^7$};
+    % \node (d916) at (6, 0) {$+$};
+    % \node (d917) at (7, 0) {$9ab^8$};
+    % \node (d918) at (8, 0) {$+$};
+    % \node (d919) at (9, 0) {$b^9$};
+
+    % Các nhị thức tương ứng
+    \node (d0) at (-7,13.5) {$(1+x)^0$};
+    \node (d1) at (-7,12) {$(1+x)^1 $};
+    \node (d2) at (-7,10.5) {$(1+x)^2 $};
+    \node (d3) at (-7,9) {$(1+x)^3 $};
+    \node (d4) at (-7,7.5) {$(1+x)^4 $};
+    \node (d5) at (-7,6) {$(1+x)^5 $};
+    % \node (d6) at (-8,4.5) {$(a+b)^6 =$};
+    % \node (d7) at (-8,3) {$(a+b)^7 =$};
+    % \node (d8) at (-8,1.5) {$(a+b)^8 =$};
+    % \node (d9) at (-8,0) {$(a+b)^9 =$};
+
+    % Các đoạn thẳng
+    \begin{scope}[every path/.style={color=gray}, every node/.style={color=gray,font=\tiny}]
+    \draw [->] (d00)--(d11) node[midway, left] {\(1\)};
+    \draw [->] (d00)--(d13) node[midway, right] {\(x\)};
+
+    \draw [->] (d11)--(d21) node[midway, left] {\(1\)};
+    \draw [->] (d11)--(d23) node[midway, right] {\(x\)};
+    \draw [->] (d13)--(d23) node[midway, left] {\(1\)};
+    \draw [->] (d13)--(d25) node[midway, right] {\(x\)};
+    
+    \draw [->] (d21)--(d31) node[midway, left] {\(1\)};
+    \draw [->] (d21)--(d33) node[midway, right] {\(x\)};
+    \draw [->] (d23)--(d33) node[midway, left] {\(1\)};
+    \draw [->] (d23)--(d35) node[midway, right] {\(x\)};
+    \draw [->] (d25)--(d35) node[midway, left] {\(1\)};
+    \draw [->] (d25)--(d37) node[midway, right] {\(x\)};
+    
+    \draw [->] (d31)--(d41) node[midway, left] {\(1\)};
+    \draw [->] (d31)--(d43) node[midway, right] {\(x\)};
+    \draw [->] (d33)--(d43) node[midway, left] {\(1\)};
+    \draw [->] (d33)--(d45) node[midway, right] {\(x\)};
+    \draw [->] (d35)--(d45) node[midway, left] {\(1\)};
+    \draw [->] (d35)--(d47) node[midway, right] {\(x\)};
+    \draw [->] (d37)--(d47) node[midway, left] {\(1\)};
+    \draw [->] (d37)--(d49) node[midway, right] {\(x\)};
+    
+    \draw [->] (d41)--(d51) node[midway, left] {\(1\)};
+    \draw [->] (d41)--(d53) node[midway, right] {\(x\)};
+    \draw [->] (d43)--(d53) node[midway, left] {\(1\)};
+    \draw [->] (d43)--(d55) node[midway, right] {\(x\)};
+    \draw [->] (d45)--(d55) node[midway, left] {\(1\)};
+    \draw [->] (d45)--(d57) node[midway, right] {\(x\)};
+    \draw [->] (d47)--(d57) node[midway, left] {\(1\)};
+    \draw [->] (d47)--(d59) node[midway, right] {\(x\)};
+    \draw [->] (d49)--(d59) node[midway, left] {\(1\)};
+    \draw [->] (d49)--(d511) node[midway, right] {\(x\)};
+    
+    % \draw [-] (d51)--(d61) node[midway, left] {$a$};
+    % \draw [-] (d51)--(d63) node[midway, right] {$b$};
+    % \draw [-] (d53)--(d63) node[midway, left] {$a$};
+    % \draw [-] (d53)--(d65) node[midway, right] {$b$};
+    % \draw [-] (d55)--(d65) node[midway, left] {$a$};
+    % \draw [-] (d55)--(d67) node[midway, right] {$b$};
+    % \draw [-] (d57)--(d67) node[midway, left] {$a$};
+    % \draw [-] (d57)--(d69) node[midway, right] {$b$};
+    % \draw [-] (d59)--(d69) node[midway, left] {$a$};
+    % \draw [-] (d59)--(d611) node[midway, right] {$b$};
+    % \draw [-] (d511)--(d611) node[midway, left] {$a$};
+    % \draw [-] (d511)--(d613) node[midway, right] {$b$};
+    
+    % \draw [-] (d61)--(d71) node[midway, left] {$a$};
+    % \draw [-] (d61)--(d73) node[midway, right] {$b$};
+    % \draw [-] (d63)--(d73) node[midway, left] {$a$};
+    % \draw [-] (d63)--(d75) node[midway, right] {$b$};
+    % \draw [-] (d65)--(d75) node[midway, left] {$a$};
+    % \draw [-] (d65)--(d77) node[midway, right] {$b$};
+    % \draw [-] (d67)--(d77) node[midway, left] {$a$};
+    % \draw [-] (d67)--(d79) node[midway, right] {$b$};
+    % \draw [-] (d69)--(d79) node[midway, left] {$a$};
+    % \draw [-] (d69)--(d711) node[midway, right] {$b$};
+    % \draw [-] (d611)--(d711) node[midway, left] {$a$};
+    % \draw [-] (d611)--(d713) node[midway, right] {$b$};
+    % \draw [-] (d613)--(d713) node[midway, left] {$a$};
+    % \draw [-] (d613)--(d715) node[midway, right] {$b$};
+    
+    % \draw [-] (d71)--(d81) node[midway, left] {$a$};
+    % \draw [-] (d71)--(d83) node[midway, right] {$b$};
+    % \draw [-] (d73)--(d83) node[midway, left] {$a$};
+    % \draw [-] (d73)--(d85) node[midway, right] {$b$};
+    % \draw [-] (d75)--(d85) node[midway, left] {$a$};
+    % \draw [-] (d75)--(d87) node[midway, right] {$b$};
+    % \draw [-] (d77)--(d87) node[midway, left] {$a$};
+    % \draw [-] (d77)--(d89) node[midway, right] {$b$};
+    % \draw [-] (d79)--(d89) node[midway, left] {$a$};
+    % \draw [-] (d79)--(d811) node[midway, right] {$b$};
+    % \draw [-] (d711)--(d811) node[midway, left] {$a$};
+    % \draw [-] (d711)--(d813) node[midway, right] {$b$};
+    % \draw [-] (d713)--(d813) node[midway, left] {$a$};
+    % \draw [-] (d713)--(d815) node[midway, right] {$b$};
+    % \draw [-] (d715)--(d815) node[midway, left] {$a$};
+    % \draw [-] (d715)--(d817) node[midway, right] {$b$};
+    
+    % \draw [-] (d81)--(d91) node[midway, left] {$a$};
+    % \draw [-] (d81)--(d93) node[midway, right] {$b$};
+    % \draw [-] (d83)--(d93) node[midway, left] {$a$};
+    % \draw [-] (d83)--(d95) node[midway, right] {$b$};
+    % \draw [-] (d85)--(d95) node[midway, left] {$a$};
+    % \draw [-] (d85)--(d97) node[midway, right] {$b$};
+    % \draw [-] (d87)--(d97) node[midway, left] {$a$};
+    % \draw [-] (d87)--(d99) node[midway, right] {$b$};
+    % \draw [-] (d89)--(d99) node[midway, left] {$a$};
+    % \draw [-] (d89)--(d911) node[midway, right] {$b$};
+    % \draw [-] (d811)--(d911) node[midway, left] {$a$};
+    % \draw [-] (d811)--(d913) node[midway, right] {$b$};
+    % \draw [-] (d813)--(d913) node[midway, left] {$a$};
+    % \draw [-] (d813)--(d915) node[midway, right] {$b$};
+    % \draw [-] (d815)--(d915) node[midway, left] {$a$};
+    % \draw [-] (d815)--(d917) node[midway, right] {$b$};
+    % \draw [-] (d817)--(d917) node[midway, left] {$a$};
+    % \draw [-] (d817)--(d919) node[midway, right] {$b$};
+    \end{scope}
+    
+\end{tikzpicture}
+\end{document}

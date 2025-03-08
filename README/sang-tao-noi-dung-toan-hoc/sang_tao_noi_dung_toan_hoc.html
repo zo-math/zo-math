@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.41">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>sang_tao_noi_dung_toan_hoc – ZO Math</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-f3c2ea88cadbcfb37ba28ffa2c97cfc1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../custom.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Trang chủ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">Giới thiệu</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../shop/index.html"> 
+<span class="menu-text">Cửa hàng</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../contact.html"> 
+<span class="menu-text">Liên hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#bắt-đầu-từ-đâu" id="toc-bắt-đầu-từ-đâu" class="nav-link active" data-scroll-target="#bắt-đầu-từ-đâu">1. <strong>Bắt đầu từ đâu?</strong></a></li>
+  <li><a href="#các-bước-cụ-thể-để-khởi-đầu" id="toc-các-bước-cụ-thể-để-khởi-đầu" class="nav-link" data-scroll-target="#các-bước-cụ-thể-để-khởi-đầu">2. <strong>Các bước cụ thể để khởi đầu:</strong></a></li>
+  <li><a href="#thu-nhập-tiềm-năng-và-mức-độ-ổn-định" id="toc-thu-nhập-tiềm-năng-và-mức-độ-ổn-định" class="nav-link" data-scroll-target="#thu-nhập-tiềm-năng-và-mức-độ-ổn-định">3. <strong>Thu nhập tiềm năng và mức độ ổn định</strong>:</a></li>
+  <li><a href="#blue1brown-grant-sanderson---youtube" id="toc-blue1brown-grant-sanderson---youtube" class="nav-link" data-scroll-target="#blue1brown-grant-sanderson---youtube">1. <strong>3Blue1Brown (Grant Sanderson) - YouTube</strong></a></li>
+  <li><a href="#numberphile" id="toc-numberphile" class="nav-link" data-scroll-target="#numberphile">2. <strong>Numberphile</strong></a></li>
+  <li><a href="#eddie-woo---youtube-và-tiktok" id="toc-eddie-woo---youtube-và-tiktok" class="nav-link" data-scroll-target="#eddie-woo---youtube-và-tiktok">3. <strong>Eddie Woo - YouTube và TikTok</strong></a></li>
+  <li><a href="#khan-academy---nền-tảng-giáo-dục-đa-kênh" id="toc-khan-academy---nền-tảng-giáo-dục-đa-kênh" class="nav-link" data-scroll-target="#khan-academy---nền-tảng-giáo-dục-đa-kênh">4. <strong>Khan Academy - Nền tảng giáo dục đa kênh</strong></a></li>
+  <li><a href="#maths-genie---website-và-youtube" id="toc-maths-genie---website-và-youtube" class="nav-link" data-scroll-target="#maths-genie---website-và-youtube">5. <strong>Maths Genie - Website và YouTube</strong></a></li>
+  <li><a href="#tài-liệu-thống-kê-trên-các-nền-tảng-như-udemy-và-coursera" id="toc-tài-liệu-thống-kê-trên-các-nền-tảng-như-udemy-và-coursera" class="nav-link" data-scroll-target="#tài-liệu-thống-kê-trên-các-nền-tảng-như-udemy-và-coursera">6. <strong>Tài liệu Thống kê trên các nền tảng như Udemy và Coursera</strong></a></li>
+  <li><a href="#ben-orlin---math-with-bad-drawings-blog-và-sách" id="toc-ben-orlin---math-with-bad-drawings-blog-và-sách" class="nav-link" data-scroll-target="#ben-orlin---math-with-bad-drawings-blog-và-sách">7. <strong>Ben Orlin - Math with Bad Drawings (Blog và sách)</strong></a></li>
+  <li><a href="#tóm-lại-các-nhà-sáng-tạo-nội-dung-toán-học-thành-công-thường-bắt-đầu-bằng-cách-tìm-ra-một-ngách-riêng-và-phát-triển-phong-cách-trình-bày-độc-đáo.-bạn-cũng-có-thể-chọn-một-lĩnh-vực-cụ-thể-trong-xác-suất-và-thống-kê-để-xây-dựng-thương-hiệu-của-mình-chẳng-hạn-như-tập-trung-vào-các-ứng-dụng-thực-tế-của-thống-kê-trong-phân-tích-dữ-liệu-hoặc-sử-dụng-các-tình-huống-trong-đời-sống-để-minh-họa-các-quy-luật-xác-suất." id="toc-tóm-lại-các-nhà-sáng-tạo-nội-dung-toán-học-thành-công-thường-bắt-đầu-bằng-cách-tìm-ra-một-ngách-riêng-và-phát-triển-phong-cách-trình-bày-độc-đáo.-bạn-cũng-có-thể-chọn-một-lĩnh-vực-cụ-thể-trong-xác-suất-và-thống-kê-để-xây-dựng-thương-hiệu-của-mình-chẳng-hạn-như-tập-trung-vào-các-ứng-dụng-thực-tế-của-thống-kê-trong-phân-tích-dữ-liệu-hoặc-sử-dụng-các-tình-huống-trong-đời-sống-để-minh-họa-các-quy-luật-xác-suất." class="nav-link" data-scroll-target="#tóm-lại-các-nhà-sáng-tạo-nội-dung-toán-học-thành-công-thường-bắt-đầu-bằng-cách-tìm-ra-một-ngách-riêng-và-phát-triển-phong-cách-trình-bày-độc-đáo.-bạn-cũng-có-thể-chọn-một-lĩnh-vực-cụ-thể-trong-xác-suất-và-thống-kê-để-xây-dựng-thương-hiệu-của-mình-chẳng-hạn-như-tập-trung-vào-các-ứng-dụng-thực-tế-của-thống-kê-trong-phân-tích-dữ-liệu-hoặc-sử-dụng-các-tình-huống-trong-đời-sống-để-minh-họa-các-quy-luật-xác-suất."><strong>Tóm lại</strong>, các nhà sáng tạo nội dung Toán học thành công thường bắt đầu bằng cách tìm ra một ngách riêng và phát triển phong cách trình bày độc đáo. Bạn cũng có thể chọn một lĩnh vực cụ thể trong Xác suất và Thống kê để xây dựng thương hiệu của mình, chẳng hạn như tập trung vào các ứng dụng thực tế của Thống kê trong Phân tích dữ liệu hoặc sử dụng các tình huống trong đời sống để minh họa các quy luật xác suất.</a></li>
+  <li><a href="#blue1brown-grant-sanderson" id="toc-blue1brown-grant-sanderson" class="nav-link" data-scroll-target="#blue1brown-grant-sanderson">1. <strong>3Blue1Brown (Grant Sanderson)</strong></a></li>
+  <li><a href="#statquest-josh-starmer" id="toc-statquest-josh-starmer" class="nav-link" data-scroll-target="#statquest-josh-starmer">2. <strong>StatQuest (Josh Starmer)</strong></a></li>
+  <li><a href="#khan-academy-salman-khan" id="toc-khan-academy-salman-khan" class="nav-link" data-scroll-target="#khan-academy-salman-khan">3. <strong>Khan Academy (Salman Khan)</strong></a></li>
+  <li><a href="#zach-star" id="toc-zach-star" class="nav-link" data-scroll-target="#zach-star">4. <strong>Zach Star</strong></a></li>
+  <li><a href="#ali-abdaal" id="toc-ali-abdaal" class="nav-link" data-scroll-target="#ali-abdaal">5. <strong>Ali Abdaal</strong></a></li>
+  <li><a href="#thu-nhập-từ-các-kênh-này" id="toc-thu-nhập-từ-các-kênh-này" class="nav-link" data-scroll-target="#thu-nhập-từ-các-kênh-này">Thu nhập từ các kênh này</a></li>
+  <li><a href="#lời-khuyên-cho-bạn" id="toc-lời-khuyên-cho-bạn" class="nav-link" data-scroll-target="#lời-khuyên-cho-bạn"><strong>Lời khuyên cho bạn</strong></a></li>
+  <li><a href="#cách-hoạt-động-của-patreon" id="toc-cách-hoạt-động-của-patreon" class="nav-link" data-scroll-target="#cách-hoạt-động-của-patreon">1. <strong>Cách hoạt động của Patreon</strong></a></li>
+  <li><a href="#những-gì-bạn-có-thể-cung-cấp-trên-patreon" id="toc-những-gì-bạn-có-thể-cung-cấp-trên-patreon" class="nav-link" data-scroll-target="#những-gì-bạn-có-thể-cung-cấp-trên-patreon">2. <strong>Những gì bạn có thể cung cấp trên Patreon</strong></a></li>
+  <li><a href="#ví-dụ-kiếm-tiền-từ-patreon" id="toc-ví-dụ-kiếm-tiền-từ-patreon" class="nav-link" data-scroll-target="#ví-dụ-kiếm-tiền-từ-patreon">3. <strong>Ví dụ kiếm tiền từ Patreon</strong></a></li>
+  <li><a href="#lợi-ích-của-việc-kiếm-tiền-qua-patreon" id="toc-lợi-ích-của-việc-kiếm-tiền-qua-patreon" class="nav-link" data-scroll-target="#lợi-ích-của-việc-kiếm-tiền-qua-patreon">4. <strong>Lợi ích của việc kiếm tiền qua Patreon</strong></a></li>
+  <li><a href="#thu-nhập-từ-patreon" id="toc-thu-nhập-từ-patreon" class="nav-link" data-scroll-target="#thu-nhập-từ-patreon">5. <strong>Thu nhập từ Patreon</strong></a></li>
+  <li><a href="#cách-bắt-đầu-với-patreon" id="toc-cách-bắt-đầu-với-patreon" class="nav-link" data-scroll-target="#cách-bắt-đầu-với-patreon">6. <strong>Cách bắt đầu với Patreon</strong></a></li>
+  <li><a href="#lời-kết" id="toc-lời-kết" class="nav-link" data-scroll-target="#lời-kết">Lời kết</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+<p>Mình muốn sáng tạo nội dung Toán học để kiếm thu nhập, chủ đề mình đang quan tâm là Xác suất và Thống kê. Mình hướng đến cách trình bày hiện đại, thân thiện và đa nền tảng như Website cá nhân, YouTube, TikTok, Facebook và nếu còn kênh nào nữa thì bạn gợi ý giúp mình. Mình nên bắt đầu từ đâu? Thu nhập có thể là bao nhiêu? Có thể ổn định được không?</p>
+<hr>
+<p>Việc sáng tạo nội dung Toán học, đặc biệt về Xác suất và Thống kê, là một lựa chọn rất tiềm năng với nhu cầu học tập trực tuyến ngày càng cao. Để bắt đầu và phát triển một kênh kiếm thu nhập từ nội dung giáo dục, bạn có thể cân nhắc các bước và chiến lược sau:</p>
+<section id="bắt-đầu-từ-đâu" class="level3">
+<h3 class="anchored" data-anchor-id="bắt-đầu-từ-đâu">1. <strong>Bắt đầu từ đâu?</strong></h3>
+<ul>
+<li><strong>Lên kế hoạch nội dung chi tiết</strong>: Hãy chọn một ngách cụ thể trong Xác suất và Thống kê mà bạn cảm thấy có thể trình bày một cách độc đáo và dễ hiểu. Ví dụ: các ứng dụng thực tiễn của Xác suất trong đời sống hoặc Thống kê cho phân tích dữ liệu.</li>
+<li><strong>Định dạng nội dung hiện đại và thân thiện</strong>:
+<ul>
+<li><strong>Website cá nhân</strong>: Tạo trang blog để chia sẻ kiến thức chuyên sâu, bài tập, các ví dụ thực tế và cung cấp tài liệu tải về.</li>
+<li><strong>YouTube</strong>: Tập trung vào video giải thích lý thuyết, các bài giải chi tiết bài tập, và livestream giải đáp thắc mắc.</li>
+<li><strong>TikTok &amp; Facebook</strong>: Là nơi bạn có thể đăng các video ngắn, trực quan và dễ hiểu về các khái niệm cơ bản hoặc các mẹo nhỏ về Xác suất và Thống kê. TikTok giúp bạn tiếp cận nhanh chóng với lượng lớn người xem nhờ các đoạn video ngắn hấp dẫn.</li>
+<li><strong>Các kênh khác</strong>: Bạn cũng có thể xem xét <strong>LinkedIn</strong> để tiếp cận người làm trong các ngành liên quan đến dữ liệu và thống kê, hoặc <strong>Instagram</strong> cho việc chia sẻ infographics, slide ngắn, và stories tương tác.</li>
+</ul></li>
+</ul>
+</section>
+<section id="các-bước-cụ-thể-để-khởi-đầu" class="level3">
+<h3 class="anchored" data-anchor-id="các-bước-cụ-thể-để-khởi-đầu">2. <strong>Các bước cụ thể để khởi đầu:</strong></h3>
+<ul>
+<li><strong>Phát triển thương hiệu cá nhân</strong>: Chọn một phong cách riêng biệt về cách giảng dạy, chẳng hạn như sử dụng ví dụ minh họa từ đời sống thực tiễn hoặc cách trình bày đồ họa bắt mắt.</li>
+<li><strong>Chất lượng sản phẩm</strong>: Đầu tư vào thiết kế hình ảnh và âm thanh chất lượng cao (trên YouTube, TikTok). Nội dung hấp dẫn, dễ hiểu và hữu ích luôn thu hút người học.</li>
+<li><strong>Xây dựng kế hoạch xuất bản</strong>: Bạn cần có lịch đăng tải đều đặn trên các kênh để thu hút và duy trì sự quan tâm. Có thể bắt đầu từ những video ngắn giải thích các khái niệm cơ bản và từ từ mở rộng sang các chủ đề phức tạp hơn.</li>
+<li><strong>Tương tác với cộng đồng</strong>: Tận dụng các phản hồi và câu hỏi từ người xem để làm nội dung mới, xây dựng cộng đồng người học theo dõi và tham gia học tập.</li>
+</ul>
+</section>
+<section id="thu-nhập-tiềm-năng-và-mức-độ-ổn-định" class="level3">
+<h3 class="anchored" data-anchor-id="thu-nhập-tiềm-năng-và-mức-độ-ổn-định">3. <strong>Thu nhập tiềm năng và mức độ ổn định</strong>:</h3>
+<p>Thu nhập từ việc sáng tạo nội dung về Toán học có thể đến từ nhiều nguồn, bao gồm: - <strong>YouTube (quảng cáo và tài trợ)</strong>: Nếu kênh của bạn thu hút đủ người xem (cần ít nhất 1.000 người đăng ký và 4.000 giờ xem công khai trong 12 tháng qua để bắt đầu kiếm tiền từ quảng cáo). - <strong>TikTok (quỹ sáng tạo và tài trợ)</strong>: Khi lượng người theo dõi đủ lớn, bạn có thể nhận được quỹ sáng tạo từ TikTok hoặc được các thương hiệu, tổ chức giáo dục tài trợ. - <strong>Khóa học trực tuyến</strong>: Bạn có thể tự xây dựng khóa học và bán trên nền tảng cá nhân hoặc các nền tảng như Udemy, Coursera. - <strong>Tư vấn và giảng dạy cá nhân</strong>: Nếu bạn xây dựng được thương hiệu mạnh, bạn có thể nhận học viên hoặc tư vấn cho các công ty/doanh nghiệp về các chủ đề liên quan đến Thống kê và phân tích dữ liệu. - <strong>Affiliate Marketing</strong>: Đăng các đường link tiếp thị liên kết (affiliate) đến các khóa học hoặc sản phẩm liên quan đến học tập, sách về Toán học.</p>
+<p><strong>Thu nhập có thể bao nhiêu?</strong> - <strong>YouTube</strong>: Thu nhập từ YouTube phụ thuộc vào nhiều yếu tố, nhưng trung bình bạn có thể kiếm được khoảng $3 - $5 cho mỗi 1.000 lượt xem với nội dung giáo dục chất lượng cao. - <strong>TikTok</strong>: Với mức độ tương tác cao, TikTok có thể trả khoảng $0.02 - $0.04 cho mỗi 1.000 lượt xem, ngoài ra bạn còn có thể nhận các hợp đồng tài trợ từ các doanh nghiệp giáo dục. - <strong>Khóa học trực tuyến</strong>: Một khóa học có thể mang lại từ vài trăm đến vài nghìn đô la, tùy thuộc vào quy mô và chất lượng nội dung.</p>
+<p><strong>Có thể ổn định được không?</strong> Thu nhập từ việc sáng tạo nội dung có thể khá không ổn định ban đầu, nhưng nếu bạn xây dựng được cộng đồng học viên theo dõi trung thành, phát triển nội dung thường xuyên và đa dạng hóa các nguồn thu nhập, bạn có thể kiếm được thu nhập ổn định và thậm chí cao hơn từ việc sáng tạo nội dung giáo dục.</p>
+<p><strong>Gợi ý chiến lược dài hạn</strong>: - Đầu tư vào nội dung và xây dựng một cộng đồng học tập. - Xây dựng và bán các khóa học nâng cao khi đã có lượng người theo dõi đủ lớn. - Đa dạng hóa nguồn thu nhập qua nhiều kênh: từ nội dung miễn phí trên YouTube, TikTok đến nội dung trả phí qua các khóa học hoặc dịch vụ tư vấn.</p>
+<p>Nếu bạn tập trung xây dựng nội dung nhất quán và sáng tạo, thu nhập có thể tăng dần và trở thành nguồn thu nhập chính ổn định trong dài hạn.</p>
+<hr>
+<p>Bạn có những ví dụ thành công nào không?</p>
+<hr>
+<p>Có rất nhiều ví dụ về những người đã thành công khi sáng tạo nội dung Toán học và giáo dục nói chung trên các nền tảng như YouTube, TikTok, và blog cá nhân. Dưới đây là một số ví dụ tiêu biểu:</p>
+</section>
+<section id="blue1brown-grant-sanderson---youtube" class="level3">
+<h3 class="anchored" data-anchor-id="blue1brown-grant-sanderson---youtube">1. <strong>3Blue1Brown (Grant Sanderson) - YouTube</strong></h3>
+<ul>
+<li><strong>Mô tả</strong>: Grant Sanderson, người sáng lập kênh YouTube 3Blue1Brown, đã tạo ra nội dung Toán học với phong cách hình ảnh độc đáo, sử dụng đồ họa sinh động để giải thích các khái niệm toán học phức tạp. Nội dung của kênh bao gồm nhiều chủ đề khác nhau, từ Đại số tuyến tính, Giải tích, Xác suất đến các khái niệm toán học trừu tượng khác.</li>
+<li><strong>Lượt theo dõi</strong>: Hiện tại, 3Blue1Brown có hơn 4 triệu người đăng ký.</li>
+<li><strong>Thành công</strong>: Kênh này không chỉ nổi tiếng vì các video sáng tạo mà còn được sử dụng trong giảng dạy tại các trường đại học. Grant kiếm thu nhập từ quảng cáo YouTube, các khóa học và tài trợ từ các tổ chức giáo dục.</li>
+<li><strong>Phong cách</strong>: Nội dung mang tính chất khám phá và hình ảnh trực quan cao, giúp học sinh, sinh viên hiểu sâu hơn về Toán học.</li>
+</ul>
+</section>
+<section id="numberphile" class="level3">
+<h3 class="anchored" data-anchor-id="numberphile">2. <strong>Numberphile</strong></h3>
+<ul>
+<li><strong>Mô tả</strong>: Numberphile là một kênh YouTube tập trung vào các chủ đề toán học thú vị, đôi khi mang tính chất giải trí hơn là giảng dạy chuyên sâu. Họ đưa ra các thí nghiệm, các vấn đề Toán học đáng kinh ngạc và đôi khi cả những câu đố toán học hài hước.</li>
+<li><strong>Lượt theo dõi</strong>: Kênh có hơn 4 triệu người đăng ký.</li>
+<li><strong>Thành công</strong>: Numberphile đã thành công trong việc biến Toán học trở nên hấp dẫn và giải trí đối với đông đảo người xem, đồng thời thu hút tài trợ từ các tổ chức giáo dục.</li>
+<li><strong>Phong cách</strong>: Nội dung Toán học nhẹ nhàng, thú vị, gần gũi với đời sống.</li>
+</ul>
+</section>
+<section id="eddie-woo---youtube-và-tiktok" class="level3">
+<h3 class="anchored" data-anchor-id="eddie-woo---youtube-và-tiktok">3. <strong>Eddie Woo - YouTube và TikTok</strong></h3>
+<ul>
+<li><strong>Mô tả</strong>: Eddie Woo là một giáo viên Toán nổi tiếng người Úc đã bắt đầu chia sẻ các bài giảng của mình trên YouTube như một cách để giúp học sinh của mình theo kịp bài học. Kênh của anh tập trung vào việc giảng dạy Toán học theo cách dễ hiểu cho học sinh trung học và đại học.</li>
+<li><strong>Lượt theo dõi</strong>: Kênh YouTube của Eddie Woo có hơn 1,7 triệu người đăng ký và anh cũng rất thành công trên TikTok với các video ngắn, giải thích những khái niệm Toán học đơn giản và trực quan.</li>
+<li><strong>Thành công</strong>: Eddie đã nhận được nhiều giải thưởng cho công việc giảng dạy và đóng góp cho cộng đồng giáo dục. Anh cũng xuất bản sách và cung cấp tài liệu học tập cho học sinh, giúp tăng thêm nguồn thu nhập.</li>
+<li><strong>Phong cách</strong>: Sử dụng phương pháp giảng dạy đơn giản, dễ hiểu và kết hợp nhiều ví dụ thực tiễn.</li>
+</ul>
+</section>
+<section id="khan-academy---nền-tảng-giáo-dục-đa-kênh" class="level3">
+<h3 class="anchored" data-anchor-id="khan-academy---nền-tảng-giáo-dục-đa-kênh">4. <strong>Khan Academy - Nền tảng giáo dục đa kênh</strong></h3>
+<ul>
+<li><strong>Mô tả</strong>: Sal Khan, người sáng lập Khan Academy, đã bắt đầu kênh YouTube để giúp em họ của mình học Toán. Từ đó, ông phát triển Khan Academy thành một nền tảng giáo dục lớn, cung cấp bài giảng miễn phí về nhiều môn học, bao gồm Toán học, Xác suất, Thống kê và Khoa học.</li>
+<li><strong>Lượt theo dõi</strong>: Khan Academy có hơn 8 triệu người đăng ký trên YouTube và hàng triệu học sinh trên toàn thế giới sử dụng nền tảng này mỗi ngày.</li>
+<li><strong>Thành công</strong>: Khan Academy nhận được tài trợ từ các tổ chức lớn như Bill &amp; Melinda Gates Foundation và Google, đồng thời phát triển các khóa học trực tuyến hoàn toàn miễn phí. Sal Khan kiếm được thu nhập từ tài trợ, quảng cáo, và các chương trình giáo dục hợp tác.</li>
+<li><strong>Phong cách</strong>: Cách giảng dạy chi tiết, mang tính học thuật cao nhưng dễ tiếp cận cho mọi đối tượng người học.</li>
+</ul>
+</section>
+<section id="maths-genie---website-và-youtube" class="level3">
+<h3 class="anchored" data-anchor-id="maths-genie---website-và-youtube">5. <strong>Maths Genie - Website và YouTube</strong></h3>
+<ul>
+<li><strong>Mô tả</strong>: Maths Genie là một website giáo dục Toán học từ cơ bản đến nâng cao, chủ yếu phục vụ học sinh trung học chuẩn bị cho các kỳ thi tại Anh Quốc. Ngoài website, họ còn có kênh YouTube để cung cấp video giải bài tập.</li>
+<li><strong>Thành công</strong>: Thu nhập của Maths Genie đến từ quảng cáo trên YouTube, tài trợ từ các tổ chức giáo dục và bán tài liệu học tập có phí trên website.</li>
+<li><strong>Phong cách</strong>: Nội dung Toán học đơn giản, trực tiếp, phục vụ cụ thể nhu cầu của học sinh.</li>
+</ul>
+</section>
+<section id="tài-liệu-thống-kê-trên-các-nền-tảng-như-udemy-và-coursera" class="level3">
+<h3 class="anchored" data-anchor-id="tài-liệu-thống-kê-trên-các-nền-tảng-như-udemy-và-coursera">6. <strong>Tài liệu Thống kê trên các nền tảng như Udemy và Coursera</strong></h3>
+<ul>
+<li><strong>Mô tả</strong>: Nhiều giảng viên đã thành công bằng cách tạo các khóa học Thống kê và Phân tích dữ liệu trên các nền tảng như <strong>Udemy</strong> và <strong>Coursera</strong>. Họ cung cấp các khóa học từ cơ bản đến nâng cao, hướng dẫn cách sử dụng các công cụ như Excel, R, và Python cho phân tích dữ liệu.</li>
+<li><strong>Thành công</strong>: Một số khóa học bán chạy có thể kiếm được hàng chục ngàn đô la mỗi năm nhờ bán khóa học và nhận phản hồi tích cực từ học viên. Những khóa học có nội dung chất lượng và được đánh giá cao có thể tạo ra thu nhập ổn định trong thời gian dài.</li>
+</ul>
+</section>
+<section id="ben-orlin---math-with-bad-drawings-blog-và-sách" class="level3">
+<h3 class="anchored" data-anchor-id="ben-orlin---math-with-bad-drawings-blog-và-sách">7. <strong>Ben Orlin - Math with Bad Drawings (Blog và sách)</strong></h3>
+<ul>
+<li><strong>Mô tả</strong>: Ben Orlin nổi tiếng với blog <strong>Math with Bad Drawings</strong>, nơi anh sử dụng những hình ảnh vẽ tay đơn giản và hài hước để giải thích các khái niệm Toán học phức tạp. Anh cũng xuất bản nhiều sách dựa trên nội dung từ blog của mình.</li>
+<li><strong>Thành công</strong>: Ben kiếm tiền từ việc bán sách và các sản phẩm liên quan. Blog của anh thu hút lượng lớn người đọc nhờ cách tiếp cận Toán học vui nhộn và dễ hiểu.</li>
+<li><strong>Phong cách</strong>: Hài hước, gần gũi, và sử dụng hình ảnh đơn giản nhưng hiệu quả để giảng dạy.</li>
+</ul>
+</section>
+<section id="tóm-lại-các-nhà-sáng-tạo-nội-dung-toán-học-thành-công-thường-bắt-đầu-bằng-cách-tìm-ra-một-ngách-riêng-và-phát-triển-phong-cách-trình-bày-độc-đáo.-bạn-cũng-có-thể-chọn-một-lĩnh-vực-cụ-thể-trong-xác-suất-và-thống-kê-để-xây-dựng-thương-hiệu-của-mình-chẳng-hạn-như-tập-trung-vào-các-ứng-dụng-thực-tế-của-thống-kê-trong-phân-tích-dữ-liệu-hoặc-sử-dụng-các-tình-huống-trong-đời-sống-để-minh-họa-các-quy-luật-xác-suất." class="level3">
+<h3 class="anchored" data-anchor-id="tóm-lại-các-nhà-sáng-tạo-nội-dung-toán-học-thành-công-thường-bắt-đầu-bằng-cách-tìm-ra-một-ngách-riêng-và-phát-triển-phong-cách-trình-bày-độc-đáo.-bạn-cũng-có-thể-chọn-một-lĩnh-vực-cụ-thể-trong-xác-suất-và-thống-kê-để-xây-dựng-thương-hiệu-của-mình-chẳng-hạn-như-tập-trung-vào-các-ứng-dụng-thực-tế-của-thống-kê-trong-phân-tích-dữ-liệu-hoặc-sử-dụng-các-tình-huống-trong-đời-sống-để-minh-họa-các-quy-luật-xác-suất."><strong>Tóm lại</strong>, các nhà sáng tạo nội dung Toán học thành công thường bắt đầu bằng cách tìm ra một ngách riêng và phát triển phong cách trình bày độc đáo. Bạn cũng có thể chọn một lĩnh vực cụ thể trong Xác suất và Thống kê để xây dựng thương hiệu của mình, chẳng hạn như tập trung vào các ứng dụng thực tế của Thống kê trong Phân tích dữ liệu hoặc sử dụng các tình huống trong đời sống để minh họa các quy luật xác suất.</h3>
+<hr>
+<p>Có nhiều ví dụ thành công trong lĩnh vực sáng tạo nội dung giáo dục Toán học, đặc biệt trong các chủ đề như Xác suất và Thống kê. Dưới đây là một số trường hợp nổi bật để bạn tham khảo:</p>
+</section>
+<section id="blue1brown-grant-sanderson" class="level3">
+<h3 class="anchored" data-anchor-id="blue1brown-grant-sanderson">1. <strong>3Blue1Brown (Grant Sanderson)</strong></h3>
+<ul>
+<li><strong>Nền tảng</strong>: YouTube</li>
+<li><strong>Chủ đề</strong>: Các chủ đề Toán học nâng cao, bao gồm cả Xác suất và Thống kê.</li>
+<li><strong>Thành công</strong>: 3Blue1Brown sử dụng kỹ thuật minh họa hình ảnh để giải thích các khái niệm phức tạp một cách trực quan và sinh động. Kênh đã thu hút hơn 4 triệu người đăng ký và mỗi video có hàng triệu lượt xem. Grant kiếm tiền từ YouTube qua quảng cáo, Patreon, và cả việc bán các khóa học liên quan đến Toán học.</li>
+<li><strong>Điểm mạnh</strong>: Tính trực quan và khả năng giải thích những khái niệm trừu tượng bằng các ví dụ sinh động, khiến người học cảm thấy dễ tiếp cận hơn.</li>
+</ul>
+</section>
+<section id="statquest-josh-starmer" class="level3">
+<h3 class="anchored" data-anchor-id="statquest-josh-starmer">2. <strong>StatQuest (Josh Starmer)</strong></h3>
+<ul>
+<li><strong>Nền tảng</strong>: YouTube</li>
+<li><strong>Chủ đề</strong>: Xác suất, Thống kê và phân tích dữ liệu.</li>
+<li><strong>Thành công</strong>: StatQuest với Josh Starmer đã tạo dựng một kênh YouTube nổi tiếng với hơn 900 nghìn người theo dõi. Các video của ông dễ hiểu, thân thiện, và tập trung vào cách tiếp cận thực tiễn của Thống kê, giúp học viên tự tin hơn khi làm việc với dữ liệu. Josh kiếm thu nhập từ quảng cáo trên YouTube, Patreon, và bán sách hướng dẫn.</li>
+<li><strong>Điểm mạnh</strong>: Giải thích rõ ràng các khái niệm phức tạp bằng cách đơn giản hóa vấn đề mà không làm mất đi tính chính xác.</li>
+</ul>
+</section>
+<section id="khan-academy-salman-khan" class="level3">
+<h3 class="anchored" data-anchor-id="khan-academy-salman-khan">3. <strong>Khan Academy (Salman Khan)</strong></h3>
+<ul>
+<li><strong>Nền tảng</strong>: Website, YouTube, và ứng dụng.</li>
+<li><strong>Chủ đề</strong>: Toán học cơ bản đến nâng cao, bao gồm Xác suất và Thống kê.</li>
+<li><strong>Thành công</strong>: Khan Academy đã phát triển từ một kênh YouTube cá nhân thành một nền tảng giáo dục toàn cầu với hàng triệu người dùng. Tổ chức này chủ yếu dựa vào tài trợ từ các cá nhân và tổ chức lớn như Gates Foundation, nhưng mô hình của họ vẫn dựa trên việc cung cấp các khóa học miễn phí, giúp người học tiếp cận kiến thức một cách dễ dàng.</li>
+<li><strong>Điểm mạnh</strong>: Khả năng tiếp cận toàn cầu và hệ thống bài học phong phú từ cơ bản đến nâng cao, giúp học sinh tự học hiệu quả.</li>
+</ul>
+</section>
+<section id="zach-star" class="level3">
+<h3 class="anchored" data-anchor-id="zach-star">4. <strong>Zach Star</strong></h3>
+<ul>
+<li><strong>Nền tảng</strong>: YouTube</li>
+<li><strong>Chủ đề</strong>: Thống kê, phân tích dữ liệu, và các kỹ năng cần thiết cho nghề nghiệp liên quan đến lĩnh vực này.</li>
+<li><strong>Thành công</strong>: Zach Star bắt đầu với các video giải thích kiến thức Toán học và Thống kê, sau đó mở rộng sang các nội dung tư vấn nghề nghiệp trong lĩnh vực phân tích dữ liệu. Kênh của anh thu hút đông đảo người xem, đặc biệt là những người muốn theo đuổi nghề nghiệp trong các ngành công nghiệp dữ liệu.</li>
+<li><strong>Điểm mạnh</strong>: Kết hợp kiến thức lý thuyết với ứng dụng thực tiễn, giúp người học dễ dàng thấy được giá trị của Xác suất và Thống kê trong đời sống và công việc.</li>
+</ul>
+</section>
+<section id="ali-abdaal" class="level3">
+<h3 class="anchored" data-anchor-id="ali-abdaal">5. <strong>Ali Abdaal</strong></h3>
+<ul>
+<li><strong>Nền tảng</strong>: YouTube, blog, khóa học trực tuyến.</li>
+<li><strong>Chủ đề</strong>: Tập trung vào năng suất và học tập, nhưng anh cũng có nhiều nội dung liên quan đến Thống kê trong nghiên cứu y học và phân tích dữ liệu.</li>
+<li><strong>Thành công</strong>: Ali Abdaal bắt đầu như một người chia sẻ kinh nghiệm học tập và nhanh chóng phát triển thành một doanh nhân sáng tạo nội dung với hàng triệu người theo dõi. Anh kiếm tiền từ YouTube, các khóa học trực tuyến và tư vấn cá nhân.</li>
+<li><strong>Điểm mạnh</strong>: Cách tiếp cận thân thiện, gần gũi với người học và khả năng chuyển tải kiến thức một cách dễ hiểu, hấp dẫn.</li>
+</ul>
+</section>
+<section id="thu-nhập-từ-các-kênh-này" class="level3">
+<h3 class="anchored" data-anchor-id="thu-nhập-từ-các-kênh-này">Thu nhập từ các kênh này</h3>
+<p>Những người sáng tạo nội dung kể trên không chỉ kiếm tiền từ <strong>quảng cáo</strong> mà còn từ <strong>Patreon</strong>, <strong>bán khóa học</strong>, <strong>sách hướng dẫn</strong>, và cả <strong>tài trợ từ các tổ chức</strong> lớn. Mức thu nhập có thể từ vài nghìn đô/tháng cho đến hàng trăm nghìn đô mỗi năm, tùy thuộc vào quy mô khán giả và các nguồn thu khác nhau.</p>
+</section>
+<section id="lời-khuyên-cho-bạn" class="level3">
+<h3 class="anchored" data-anchor-id="lời-khuyên-cho-bạn"><strong>Lời khuyên cho bạn</strong></h3>
+<p>Bạn có thể áp dụng các chiến lược từ những ví dụ trên vào việc sáng tạo nội dung của mình. Việc sử dụng kết hợp nhiều nền tảng sẽ giúp tăng sự hiện diện và thu hút lượng khán giả đa dạng, từ đó tăng cơ hội kiếm thu nhập. Hãy bắt đầu từ những video ngắn dễ tiếp cận và dần mở rộng nội dung khi lượng khán giả tăng lên.</p>
+<hr>
+<p>Kiếm tiền từ từ Patreon là sao?</p>
+<hr>
+<p><strong>Patreon</strong> là một nền tảng cho phép các nhà sáng tạo nội dung kiếm thu nhập từ sự ủng hộ trực tiếp của cộng đồng, thường được gọi là “patrons” (người bảo trợ). Thay vì dựa vào quảng cáo hay bán sản phẩm, nhà sáng tạo có thể nhận sự tài trợ liên tục từ người hâm mộ của mình thông qua một mô hình <strong>hỗ trợ định kỳ</strong> (theo tháng hoặc theo nội dung). Dưới đây là cách kiếm tiền từ Patreon và cách nó hoạt động:</p>
+</section>
+<section id="cách-hoạt-động-của-patreon" class="level3">
+<h3 class="anchored" data-anchor-id="cách-hoạt-động-của-patreon">1. <strong>Cách hoạt động của Patreon</strong></h3>
+<ul>
+<li><strong>Người sáng tạo</strong> đăng ký một tài khoản trên Patreon và tạo một trang riêng cho dự án của mình, giải thích về nội dung họ đang làm và lý do vì sao cần sự hỗ trợ từ cộng đồng.</li>
+<li><strong>Người hâm mộ</strong> (patrons) có thể chọn hỗ trợ bằng cách đăng ký trả một khoản tiền định kỳ (thường theo tháng) để đổi lại <strong>nội dung độc quyền</strong> hoặc <strong>phần thưởng</strong> đặc biệt mà chỉ có patrons mới được nhận.</li>
+<li>Khoản hỗ trợ có thể bắt đầu từ mức rất nhỏ, ví dụ từ 1 đô la/tháng cho đến các mức cao hơn, như 5, 10, 20 đô la/tháng, tùy thuộc vào mức độ tài trợ và phần thưởng mà nhà sáng tạo cung cấp.</li>
+</ul>
+</section>
+<section id="những-gì-bạn-có-thể-cung-cấp-trên-patreon" class="level3">
+<h3 class="anchored" data-anchor-id="những-gì-bạn-có-thể-cung-cấp-trên-patreon">2. <strong>Những gì bạn có thể cung cấp trên Patreon</strong></h3>
+<p>Để khuyến khích người xem hỗ trợ trên Patreon, bạn cần cung cấp các <strong>phần thưởng đặc biệt</strong> mà họ chỉ nhận được khi trở thành patrons. Những phần thưởng này có thể bao gồm: - <strong>Nội dung độc quyền</strong>: Ví dụ, video bài giảng nâng cao hoặc giải chi tiết các bài tập phức tạp chỉ dành cho patrons. - <strong>Tài liệu học tập</strong>: PDF tài liệu, sách hướng dẫn, hoặc bài tập có lời giải mà bạn không công khai. - <strong>Tương tác cá nhân</strong>: Hỏi đáp trực tiếp, tư vấn học tập, hoặc livestream chỉ dành cho patrons. - <strong>Phiên bản video sớm</strong>: Patrons có thể xem các video hoặc nội dung trước khi công khai. - <strong>Tham gia nhóm cộng đồng riêng tư</strong>: Một cộng đồng trên Discord, Facebook chỉ dành cho những người hỗ trợ bạn, nơi họ có thể trao đổi, thảo luận và học hỏi thêm. - <strong>Sản phẩm vật lý</strong>: Áo thun, sách có chữ ký, hoặc bất cứ vật phẩm nào liên quan đến dự án của bạn.</p>
+</section>
+<section id="ví-dụ-kiếm-tiền-từ-patreon" class="level3">
+<h3 class="anchored" data-anchor-id="ví-dụ-kiếm-tiền-từ-patreon">3. <strong>Ví dụ kiếm tiền từ Patreon</strong></h3>
+<ul>
+<li><strong>StatQuest (Josh Starmer)</strong>: Josh cung cấp nội dung video về Thống kê và Xác suất trên YouTube miễn phí. Nhưng anh ấy cũng có một trang Patreon, nơi patrons có thể hỗ trợ và đổi lại, họ có quyền truy cập vào các tài liệu PDF, các bài giải chi tiết và cơ hội tham gia vào một cộng đồng học tập riêng.</li>
+<li><strong>3Blue1Brown (Grant Sanderson)</strong>: Kênh này cũng cung cấp nội dung miễn phí, nhưng nhận tài trợ từ Patreon để hỗ trợ việc tạo ra các video chất lượng cao hơn. Những patrons của Grant được truy cập vào các cập nhật và quá trình sáng tạo của video sớm hơn.</li>
+</ul>
+</section>
+<section id="lợi-ích-của-việc-kiếm-tiền-qua-patreon" class="level3">
+<h3 class="anchored" data-anchor-id="lợi-ích-của-việc-kiếm-tiền-qua-patreon">4. <strong>Lợi ích của việc kiếm tiền qua Patreon</strong></h3>
+<ul>
+<li><strong>Nguồn thu nhập ổn định</strong>: Khác với việc dựa vào quảng cáo (thay đổi theo lượng xem), Patreon mang lại thu nhập định kỳ, giúp bạn dự đoán và quản lý tài chính dễ dàng hơn.</li>
+<li><strong>Tập trung vào chất lượng nội dung</strong>: Patreon cho phép bạn tập trung vào chất lượng nội dung mà không phải lo lắng quá nhiều về lượng xem hoặc quảng cáo.</li>
+<li><strong>Gắn kết hơn với cộng đồng</strong>: Người hâm mộ trên Patreon thường trung thành và gắn bó hơn vì họ đã đầu tư vào dự án của bạn. Điều này giúp bạn có cơ hội xây dựng một cộng đồng vững mạnh.</li>
+</ul>
+</section>
+<section id="thu-nhập-từ-patreon" class="level3">
+<h3 class="anchored" data-anchor-id="thu-nhập-từ-patreon">5. <strong>Thu nhập từ Patreon</strong></h3>
+<p>Thu nhập từ Patreon phụ thuộc vào số lượng patrons và mức độ hỗ trợ mỗi tháng: - Nếu bạn có 100 patrons và mỗi người hỗ trợ trung bình 5 đô la/tháng, bạn có thể kiếm được <strong>500 đô la/tháng</strong>. - Với nội dung giáo dục chất lượng cao như Toán học, đặc biệt trong Xác suất và Thống kê, nhiều người có thể sẵn sàng trả từ 5-10 đô la/tháng nếu họ nhận được giá trị lớn từ nội dung bạn cung cấp.</p>
+</section>
+<section id="cách-bắt-đầu-với-patreon" class="level3">
+<h3 class="anchored" data-anchor-id="cách-bắt-đầu-với-patreon">6. <strong>Cách bắt đầu với Patreon</strong></h3>
+<ul>
+<li><strong>Tạo tài khoản và trang Patreon</strong>: Thiết kế trang với thông tin rõ ràng về những gì bạn cung cấp và lý do mọi người nên ủng hộ bạn.</li>
+<li><strong>Thiết lập mức hỗ trợ (tiers)</strong>: Xác định các mức tài trợ (ví dụ: 1 đô la, 5 đô la, 10 đô la/tháng) và tương ứng với các phần thưởng đặc biệt cho mỗi mức.</li>
+<li><strong>Quảng bá trang Patreon</strong>: Liên kết trang Patreon với các kênh khác của bạn (YouTube, TikTok, Facebook) và khuyến khích người xem ủng hộ.</li>
+<li><strong>Duy trì sự gắn kết với patrons</strong>: Cập nhật thường xuyên về tiến trình dự án và tương tác với cộng đồng của bạn để duy trì sự ủng hộ.</li>
+</ul>
+</section>
+<section id="lời-kết" class="level3">
+<h3 class="anchored" data-anchor-id="lời-kết">Lời kết</h3>
+<p>Kiếm tiền qua Patreon là một cách hiệu quả để xây dựng nguồn thu nhập lâu dài và ổn định cho người sáng tạo nội dung. Đặc biệt trong lĩnh vực giáo dục như Toán học, khi bạn cung cấp được giá trị thực sự và tạo ra một cộng đồng học tập chất lượng, người hâm mộ sẵn sàng hỗ trợ bạn qua Patreon.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2025 ZO Math - Học toán sáng tạo</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p><a href="contact.qmd">Liên hệ</a> | <a href="https://facebook.com/zo-math">Facebook</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

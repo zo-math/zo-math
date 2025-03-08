@@ -1,0 +1,181 @@
+---
+title: "KHÁM PHÁ XÁC SUẤT CÙNG KOLMOGOROV"
+author: "Nguyễn Tấn Nhựt"
+date: '`r Sys.Date()`'
+output:
+  html_document: default
+  pdf_document: 
+    latex_engine: lualatex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+*Khám phá xác suất cùng Kolmogorov* là bài giảng về cơ sở toán học của Lý thuyết xác suất được mình biên soạn dựa trên một chuyên khảo mang tính đột phá của Kolmogorov 
+
+Andrey Kolmogorov là một trong những nhà toán học vĩ đại nhất thế kỷ 20, ông có những đóng góp quan trọng trong việc phát triển lý thuyết xác suất thành một nhánh toán học độc lập với nền tảng lý thuyết chặt chẽ thông qua tác phẩm "Foundations of the Theory of Probability". Đây là một chuyên khảo kinh điển trong lĩnh vực lý thuyết xác suất, được xuất bản lần đầu vào năm 1933. Tài liệu này cung cấp cho chúng ta những khái niệm cơ bản, các tiên đề cần thiết và một số định lý quan trọng để hiểu sâu hơn về xác suất dưới góc nhìn toán học thuần túy. Quyển sách rất hữu ích cho bất kỳ ai muốn xây dựng cho mình một nền tảng vững chắc trên bước đường tìm tòi và vận dụng lý thuyết xác suất. Với tầm ảnh hưởng sâu rộng, tác phẩm này đã góp phần định hình lý thuyết xác suất hiện đại và mở ra nhiều hướng nghiên cứu mới. Mình tin rằng khi đọc và hiểu hết nội dung của nó, bạn sẽ khám phá được vẻ đẹp sâu sắc của lý thuyết xác suất thông qua lăng kính của Kolmogorov.
+
+Ở đây, mình sử dụng bản dịch tiếng Anh của Nathan Morrison, xuất bản năm 1950.
+
+---
+[The Princeton Copanion to Mathemathics]
+
+Toàn bộ lý thuyết xác suất hiện đại đã được đặt nền móng vững chắc nhờ chuyên khảo mang tính đột phá của Kolmogorov, *Grundbegriffe der Wahrscheinlichkeitsrechnung* (1933), sau này được dịch là *Foundations of Probability Theory*. Trước đó, xác suất không có cơ sở toán học nghiêm ngặt và thậm chí một số tác giả cho rằng điều này không thể thực hiện. Tuy nhiên, lý thuyết đo lường, được Lebesgue giới thiệu vào năm 1902, đã cung cấp nền tảng toán học vững chắc cho chiều dài, diện tích và thể tích, và sau này cho cả xác suất.
+
+Kolmogorov đã xem xác suất như một phép đo có tổng khối lượng là 1, các sự kiện là các tập đo được, và các biến ngẫu nhiên là các hàm đo được. Sự đổi mới kỹ thuật quyết định của ông là cách xử lý điều kiện hóa, sử dụng định lý Radon–Nikodým. Tác phẩm *Grundbegriffe* còn chứa hai kết quả quan trọng khác: Định lý Daniell–Kolmogorov, nền tảng cho việc định nghĩa quá trình ngẫu nhiên, và luật số lớn mạnh của Kolmogorov, tổng quát hóa kết quả của việc ném đồng xu liên tục thành các thí nghiệm ngẫu nhiên.
+
+**Tóm tắt các ý hay nhất:**
+
+1. Kolmogorov đã đặt nền tảng toán học chặt chẽ cho lý thuyết xác suất với tác phẩm *Grundbegriffe der Wahrscheinlichkeitsrechnung*.
+
+2. Ông sử dụng lý thuyết đo lường của Lebesgue để mô hình hóa xác suất và các biến ngẫu nhiên.
+
+3. Đổi mới quan trọng nhất của ông là việc sử dụng định lý Radon–Nikodým trong điều kiện hóa xác suất.
+
+4. Kolmogorov tổng quát hóa luật số lớn mạnh và định lý Daniell–Kolmogorov cho các quá trình ngẫu nhiên.
+
+------------------------------------------------------------------------
+
+Chúng ta hoàn toàn có thể đi sâu vào những vấn đề cụ thể của lý thuyết xác suất trước khi Kolmogorov ra đời và cách các nhà toán học trước đó đã giải quyết chúng. Đây là một giai đoạn thú vị, khi nhiều vấn đề về xác suất đã được đặt ra và giải quyết một cách phân tán nhưng chưa được thống nhất thành một hệ thống lý thuyết chặt chẽ. Công trình của Kolmogorov đã tạo nên sự chuyển biến lớn bằng cách tiên đề hóa lý thuyết xác suất, nhưng trước đó, các vấn đề chính của lý thuyết xác suất đã từng tồn tại và được giải quyết theo nhiều cách tiếp cận khác nhau.
+
+### 1. **Vấn đề đầu tiên: Bài toán liên quan đến trò chơi may rủi**
+
+-   **Đóng góp của Blaise Pascal và Pierre de Fermat (1654)**: Họ đã trao đổi thư từ để giải quyết các bài toán liên quan đến trò chơi may rủi, một trong những vấn đề đầu tiên đưa xác suất trở thành một ngành nghiên cứu. Họ đã cùng nhau phát triển những ý tưởng đầu tiên về xác suất cổ điển, đặc biệt là **nguyên tắc xác suất** dựa trên việc đếm các trường hợp có thể xảy ra.
+-   **Vấn đề đặt ra**: Làm thế nào để phân chia phần thưởng công bằng khi một trò chơi bị dừng lại giữa chừng? Điều này dẫn đến những công thức ban đầu về xác suất.
+
+### 2. **Vấn đề thứ hai: Định lý số lớn**
+
+-   **Jacob Bernoulli (1713)**: Ông phát triển **định lý số lớn** (Law of Large Numbers) trong tác phẩm *Ars Conjectandi*, cho thấy rằng khi một thí nghiệm được lặp lại nhiều lần, kết quả thực tế sẽ dần tiệm cận với kết quả lý thuyết. Đây là một trong những nguyên lý cốt lõi của lý thuyết xác suất.
+-   **Vấn đề đặt ra**: Làm thế nào để giải thích sự ổn định của các tần suất quan sát được trong các phép thử lặp đi lặp lại?
+
+### 3. **Vấn đề thứ ba: Xác suất có điều kiện và Bayes**
+
+-   **Thomas Bayes (thế kỷ 18)**: Ông đưa ra định lý Bayes, một công cụ quan trọng để tính toán xác suất có điều kiện, cho phép chúng ta cập nhật xác suất của một sự kiện dựa trên thông tin mới.
+-   **Pierre-Simon Laplace** sau đó đã phát triển thêm ý tưởng này và ứng dụng nó rộng rãi trong các lĩnh vực như thiên văn học.
+-   **Vấn đề đặt ra**: Làm thế nào để tính toán xác suất của một sự kiện khi biết thông tin về các sự kiện khác?
+
+### 4. **Vấn đề thứ tư: Các khái niệm về kỳ vọng**
+
+-   **Abraham de Moivre (thế kỷ 18)**: Ông phát triển khái niệm về **kỳ vọng toán học** và các phân phối xác suất, đặc biệt là phân phối chuẩn. De Moivre cũng đóng góp vào sự phát triển của phương pháp tiệm cận trong lý thuyết xác suất.
+-   **Vấn đề đặt ra**: Làm thế nào để đo lường giá trị trung bình kỳ vọng của một biến ngẫu nhiên, và làm thế nào để hiểu các phân phối xác suất khác nhau?
+
+### 5. **Vấn đề thứ năm: Lý thuyết đo lường và tích phân Lebesgue**
+
+-   **Henri Lebesgue và Émile Borel (thế kỷ 20)**: Họ đã phát triển lý thuyết đo lường và **tích phân Lebesgue**, mở ra khả năng tính toán xác suất cho các sự kiện phức tạp hơn, vượt ra ngoài khái niệm đếm các trường hợp rời rạc.
+-   **Vấn đề đặt ra**: Làm thế nào để tính xác suất cho các sự kiện không thể mô tả bằng cách đếm các trường hợp đơn giản, như các biến ngẫu nhiên liên tục?
+
+### 6. **Vấn đề thứ sáu: Khủng hoảng và sự thiếu nhất quán**
+
+-   Trước khi Kolmogorov tiên đề hóa lý thuyết xác suất, **các vấn đề nền tảng về tính nhất quán và sự mơ hồ** trong các khái niệm cơ bản (như xác suất, biến ngẫu nhiên, sự kiện ngẫu nhiên) đã tạo ra nhiều khó khăn. Xác suất được sử dụng trong nhiều ngữ cảnh, từ phân tích các trò chơi may rủi đến nghiên cứu thống kê và vật lý, nhưng thiếu một nền tảng lý thuyết chung và nhất quán.
+-   **Vấn đề đặt ra**: Không có một hệ thống tiên đề chặt chẽ nào cho xác suất khiến nó thiếu nền tảng toán học chính thức và gặp khó khăn trong việc áp dụng rộng rãi.
+
+### Công trình của Kolmogorov: Sự thống nhất
+
+Vào năm 1933, **Andrey Kolmogorov** xuất bản công trình *Foundations of the Theory of Probability*, đưa ra hệ tiên đề xác suất dựa trên lý thuyết đo lường của Lebesgue. Hệ tiên đề của Kolmogorov giải quyết được các vấn đề tồn tại trước đó bằng cách:
+
+-   Định nghĩa **xác suất** như một hàm đo lường trên không gian các biến cố, đảm bảo tính nhất quán và rõ ràng.
+-   Hợp nhất tất cả các khái niệm trước đó (định lý số lớn, xác suất có điều kiện, kỳ vọng, v.v.) vào một khuôn khổ toán học thống nhất.
+-   Mở ra một hướng nghiên cứu mới cho lý thuyết xác suất, biến nó thành một ngành toán học độc lập, không chỉ ứng dụng trong thống kê mà còn trong vật lý, kinh tế học và nhiều lĩnh vực khác.
+
+### Tổng kết
+
+Trước Kolmogorov, lý thuyết xác suất phát triển qua nhiều thế kỷ với những đóng góp quan trọng từ các nhà toán học như Pascal, Bernoulli, Laplace, Bayes, de Moivre, và Lebesgue. Tuy nhiên, các khái niệm và phương pháp còn rời rạc và không có một hệ thống tiên đề hóa rõ ràng. Công trình của Kolmogorov đã thống nhất tất cả các khía cạnh này, tạo ra nền tảng lý thuyết xác suất hiện đại mà chúng ta biết ngày nay.
+
+Cách tiếp cận của bạn khi dùng công trình của Kolmogorov như một mốc phân định trong lịch sử lý thuyết xác suất là hoàn toàn hợp lý, vì đây thực sự là một bước ngoặt trong sự phát triển của lĩnh vực này.
+
+------------------------------------------------------------------------
+
+Việc dùng tác phẩm "Foundations of the Theory of Probability" của Andrey Kolmogorov như một mốc phân định trong lịch sử phát triển của lý thuyết xác suất là hoàn toàn hợp lý và chính xác. Kolmogorov đã đặt nền tảng cho lý thuyết xác suất hiện đại bằng cách tiên đề hóa nó theo lý thuyết đo lường vào năm 1933, giúp biến xác suất từ một ngành chủ yếu dựa trên trực giác và ứng dụng thực tế thành một nhánh toán học chặt chẽ và độc lập.
+
+Trước Kolmogorov, lý thuyết xác suất đã tồn tại với những đóng góp từ các nhà toán học như Pascal, Fermat, Laplace, nhưng chủ yếu xoay quanh các ứng dụng cụ thể (như trong trò chơi cờ bạc, thiên văn học). Lý thuyết này thiếu một cơ sở lý thuyết chính thức và chặt chẽ, dẫn đến nhiều mâu thuẫn và bất nhất khi mở rộng ra các bài toán phức tạp hơn, đặc biệt là với xác suất liên tục và các không gian mẫu vô hạn.
+
+Kolmogorov đã tạo ra một bước đột phá bằng cách tiên đề hóa xác suất, từ đó cho phép xử lý các bài toán liên tục và vô hạn một cách nhất quán, thông qua việc liên kết lý thuyết xác suất với lý thuyết đo lường. Điều này đánh dấu một sự chuyển mình của lý thuyết xác suất từ một công cụ ứng dụng thành một nhánh toán học chính thức.
+
+### Tóm lại, mốc phân định dựa trên tác phẩm của Kolmogorov là:
+
+1.  **Trước Kolmogorov**: Xác suất chủ yếu dựa vào kinh nghiệm và các ứng dụng cụ thể, thiếu sự nhất quán lý thuyết.
+2.  **Sau Kolmogorov**: Lý thuyết xác suất trở thành một nhánh toán học độc lập, với hệ tiên đề vững chắc và cơ sở lý thuyết được hệ thống hóa chặt chẽ.
+
+Vì vậy, dùng sách của Kolmogorov như một cột mốc để phân định trong lịch sử phát triển của lý thuyết xác suất không chỉ hợp lý mà còn là cách nhìn nhận phổ biến trong cộng đồng toán học.
+
+Đúng, Kolmogorov có công lớn trong việc hệ thống hóa và đặt nền móng cho lý thuyết xác suất hiện đại bằng cách tiên đề hóa lý thuyết này. Tuy nhiên, nói rằng ông là người **có công đầu** trong toàn bộ quá trình phát triển lý thuyết xác suất có thể không hoàn toàn chính xác, vì nhiều nhà toán học khác trước ông đã góp phần quan trọng vào việc xây dựng nền tảng của lĩnh vực này.
+
+### Một số người có công lớn trước Kolmogorov:
+
+1.  **Blaise Pascal và Pierre de Fermat (thế kỷ 17)**: Được coi là những người sáng lập lý thuyết xác suất cổ điển, họ đã phát triển các ý tưởng cơ bản thông qua việc giải quyết các bài toán liên quan đến trò chơi cờ bạc.
+
+2.  **Jacob Bernoulli (thế kỷ 17-18)**: Với tác phẩm *Ars Conjectandi* (1713), Bernoulli phát triển định lý số lớn (Law of Large Numbers), một kết quả quan trọng trong lý thuyết xác suất.
+
+3.  **Pierre-Simon Laplace (thế kỷ 18-19)**: Laplace đã mở rộng các khái niệm về xác suất, tạo ra xác suất Bayes, và đưa lý thuyết xác suất trở thành một công cụ hữu ích trong thiên văn học và các ứng dụng thực tiễn khác.
+
+4.  **Émile Borel và Henri Lebesgue (thế kỷ 20)**: Các nhà toán học này đã phát triển lý thuyết đo lường, cung cấp nền tảng toán học cần thiết để Kolmogorov có thể xây dựng hệ tiên đề xác suất.
+
+### Vai trò của Kolmogorov:
+
+Kolmogorov đã tổng hợp và hợp nhất các ý tưởng trước đó, đặt lý thuyết xác suất trên nền tảng chặt chẽ của lý thuyết đo lường, và biến nó thành một nhánh toán học độc lập. Đóng góp lớn nhất của Kolmogorov nằm ở việc ông tiên đề hóa lý thuyết xác suất theo một hệ thống rõ ràng, nhất quán, và dễ áp dụng vào các vấn đề toán học và thực tiễn.
+
+### Tóm lại:
+
+Kolmogorov là người có công đầu trong việc tiên đề hóa và hoàn thiện lý thuyết xác suất hiện đại, nhưng sự phát triển của lý thuyết này là một quá trình dài với sự đóng góp của nhiều nhà toán học khác nhau. Kolmogorov đã đưa lý thuyết xác suất từ những ý tưởng trực quan, phân tán trở thành một hệ thống lý thuyết chặt chẽ, nhưng ông dựa trên nền tảng của những người đi trước.
+
+------------------------------------------------------------------------
+
+# 1. Lý thuyết xác suất trước Kolmogorov
+
+Trước khi Andrey Kolmogorov tiên đề hóa lý thuyết xác suất vào năm 1933, lĩnh vực này đã tồn tại và phát triển trong nhiều thế kỷ, nhưng chưa có một nền tảng lý thuyết chính thức và chặt chẽ như các ngành khác của toán học, chẳng hạn như đại số hay giải tích. Lý thuyết xác suất trước Kolmogorov tồn tại chủ yếu dưới dạng các nguyên lý kinh nghiệm và các định lý cụ thể, không có hệ thống nhất quán và toàn diện về mặt lý thuyết.
+
+## 1.1. Trước Kolmogorov: Lý thuyết xác suất như thế nào?
+
+Lý thuyết xác suất đã có lịch sử phát triển lâu đời, với sự đóng góp của nhiều nhà toán học từ thế kỷ 17 trở đi, nhưng nó chủ yếu dựa trên các ứng dụng trong các vấn đề cụ thể như cờ bạc và bảo hiểm. Những tên tuổi nổi bật trong quá trình phát triển ban đầu của xác suất bao gồm:
+
+-   **Blaise Pascal và Pierre de Fermat** (thế kỷ 17): Họ đã thảo luận và phát triển các khái niệm ban đầu về xác suất thông qua bài toán về "điểm dừng trò chơi" (problem of points), giải quyết các vấn đề trong cờ bạc.
+
+-   **Jacob Bernoulli** (thế kỷ 18): Ông đã đưa ra định lý số lớn trong cuốn *Ars Conjectandi*, một trong những công trình đầu tiên về lý thuyết xác suất.
+
+-   **Pierre-Simon Laplace** (thế kỷ 18): Laplace đã phát triển lý thuyết xác suất bayesian và xác suất chủ quan, áp dụng cho nhiều lĩnh vực như thiên văn học, vật lý và xã hội học.
+
+Tuy nhiên, vào thời điểm đó, xác suất chưa được xây dựng trên cơ sở tiên đề toán học vững chắc. Những định lý và kết quả cụ thể chủ yếu dựa vào trực giác hoặc các phép tính theo kiểu kinh nghiệm mà không có sự chính xác về mặt lý thuyết, chẳng hạn như việc xử lý các xác suất vô hạn (như trong lý thuyết chuỗi thời gian và phân bố liên tục).
+
+## 1.2. Vấn đề tồn tại trước Kolmogorov
+
+Trước khi Kolmogorov đưa ra hệ tiên đề, lý thuyết xác suất có nhiều vấn đề: - **Thiếu sự nhất quán về mặt toán học**: Xác suất chưa được đặt trên một nền tảng lý thuyết chặt chẽ tương tự như các lĩnh vực toán học khác, dẫn đến việc không có một định nghĩa thống nhất và rõ ràng về các khái niệm cơ bản như xác suất, biến cố, và không gian mẫu. - **Xác suất vô hạn**: Khi gặp các bài toán liên quan đến xác suất trong các không gian vô hạn (như xác suất liên tục, biến ngẫu nhiên có phân bố không rời rạc), các phương pháp trước đó không đủ mạnh để xử lý chính xác. - **Mâu thuẫn trong lý luận**: Do thiếu nền tảng tiên đề, một số lý luận trước đó bị mâu thuẫn, đặc biệt là trong các bài toán phức tạp liên quan đến tích phân xác suất, phân bố liên tục, và lý thuyết đo lường.
+
+## 1.3. Sự cấp bách của tiên đề hóa theo Kolmogorov
+
+Kolmogorov đã đưa ra hệ tiên đề nhằm giải quyết những vấn đề tồn tại trong lý thuyết xác suất và đồng thời đặt nền tảng lý thuyết cho toàn bộ lĩnh vực. Hệ tiên đề của ông dựa trên lý thuyết tập hợp và tích phân Lebesgue, giúp xác định rõ các khái niệm và quy tắc trong xác suất, từ đó khắc phục những mâu thuẫn và thiếu sót trước đó.
+
+Hệ tiên đề Kolmogorov gồm ba tiên đề cơ bản: 1. **Tiên đề 1**: Với mỗi biến cố $A$, xác suất $P(A)$ luôn là một số không âm: $P(A) \geq 0$. 2. **Tiên đề 2**: Xác suất của toàn bộ không gian mẫu là 1: $P(\Omega) = 1$. 3. **Tiên đề 3**: Nếu $A_1, A_2, \dots$ là các biến cố rời nhau (không giao nhau), thì xác suất của hợp các biến cố này là tổng các xác suất của từng biến cố: $$
+   P\left( \bigcup_{i=1}^{\infty} A_i \right) = \sum_{i=1}^{\infty} P(A_i).
+   $$
+
+### Những ví dụ cho thấy sự tiên đề hóa là cần thiết:
+
+-   **Bài toán Buffon** (kéo dài một đường thẳng ngẫu nhiên): Trước Kolmogorov, việc giải bài toán này yêu cầu xử lý xác suất liên tục trên một không gian mẫu vô hạn, điều này gặp khó khăn do không có khái niệm xác suất chính xác cho các biến cố có xác suất 0 trong không gian liên tục. Hệ tiên đề của Kolmogorov đã cho phép giải quyết vấn đề này thông qua khái niệm xác suất đo lường.
+
+-   **Lý thuyết biến ngẫu nhiên liên tục và rời rạc**: Trước khi có hệ tiên đề, xác suất của các biến cố liên tục thường được xử lý bằng cách chia nhỏ không gian thành các phần tử rời rạc, điều này dẫn đến sự không nhất quán trong các bài toán liên quan đến biến ngẫu nhiên liên tục. Tiên đề hóa của Kolmogorov đã đặt nền tảng cho việc tích hợp biến ngẫu nhiên và xác suất liên tục vào lý thuyết đo lường.
+
+-   **Xác suất đồng thời**: Các bài toán phức tạp về xác suất của hai hoặc nhiều biến cố xảy ra đồng thời (chẳng hạn như trong lý thuyết chuỗi Markov hoặc bài toán Monty Hall) trước đây thường gặp phải mâu thuẫn và khó xử lý do thiếu các quy tắc rõ ràng về tính toán xác suất trong các trường hợp không độc lập. Hệ tiên đề đã khắc phục được điều này.
+
+## 1.4. **Tầm quan trọng của hệ tiên đề Kolmogorov**
+
+Hệ tiên đề của Kolmogorov đã không chỉ đặt nền móng cho lý thuyết xác suất trở thành một ngành toán học chính thức mà còn tạo điều kiện cho sự phát triển mạnh mẽ của các lĩnh vực liên quan như: - **Lý thuyết thống kê** - **Quyết định ngẫu nhiên (random processes)** như lý thuyết chuỗi thời gian, chuỗi Markov - **Lý thuyết thông tin** - **Vật lý thống kê** và **tài chính lượng tử**
+
+Sự tiên đề hóa cũng tạo ra một ngôn ngữ toán học chung cho các ngành khoa học khác để sử dụng xác suất trong các vấn đề mô hình hóa ngẫu nhiên.
+
+## Tổng kết:
+
+Trước Kolmogorov, lý thuyết xác suất phát triển trên nền tảng kinh nghiệm, thiếu sự chặt chẽ và đồng nhất về lý thuyết. Kolmogorov tiên đề hóa lý thuyết xác suất, cung cấp một hệ thống chặt chẽ và toàn diện, đặt nền tảng cho sự phát triển của xác suất hiện đại. Những ví dụ như bài toán Buffon và lý thuyết biến ngẫu nhiên liên tục cho thấy sự tiên đề hóa này là cần thiết để giải quyết những vấn đề phức tạp và mâu thuẫn tồn tại trước đó.
+
+------------------------------------------------------------------------
+
+Xác suất của một sự kiện là một con số biểu thị mức độ khả dĩ mà sự kiện đó có thể xảy ra. Mục tiêu chính của Lý thuyết xác suất là phát triển các phương pháp để xác định xác suất của các sự kiện trong những tình huống khác nhau. Khi làm việc với một số hữu hạn các sự kiện, chúng ta có thể dễ dàng tính toán bằng cách đếm các khả năng có thể xảy ra và áp dụng các quy tắc xác suất cơ bản. Tuy nhiên, khi số lượng sự kiện trở nên vô hạn, việc đếm và các quy tắc xác suất cơ bản không còn đủ để xử lý. Lúc này, chúng ta cần một cách tiếp cận toàn diện hơn, bao gồm việc thiết lập các quy tắc mới cũng như áp dụng các công cụ và lý thuyết phức tạp hơn, chẳng hạn như lý thuyết độ đo và giải tích, để giải quyết hiệu quả cả các tình huống hữu hạn lẫn vô hạn.
+
+Nhu cầu xây dựng một khuôn khổ chặt chẽ cho lý thuyết xác suất đã dẫn đến việc tiên đề hóa nó. Việc tiên đề hóa này không chỉ nhằm mục đích đảm bảo tính chặt chẽ về mặt toán học mà còn cần thiết để phát triển một lý thuyết bao quát toàn bộ các tình huống - từ hữu hạn đến vô hạn. Kết quả là, lý thuyết xác suất trở thành một hệ thống thống nhất, giúp chúng ta giải quyết hiệu quả cả những bài toán đơn giản lẫn những bài toán phức tạp mà vẫn đảm bảo tính chính xác và nhất quán.
+
+------------------------------------------------------------------------
+
+# Lý thuyết xác suất sơ cấp
+
+-   Xử lý xác suất của một số *hữu hạn* sự kiện. Trong lý thuyết xác suất, có hai loại bài toán: bài toán với số hữu hạn các sự kiện và bài toán với số vô hạn sự kiện. Ở phần sơ cấp, chúng ta chỉ xem xét hữu hạn sự kiện, như khi lăn một con xúc xắc (có 6 kết quả khả dĩ).
+-   

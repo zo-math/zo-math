@@ -1,0 +1,77 @@
+\documentclass[12pt]{article} % Định dạng tài liệu, kích thước chữ 12pt
+
+\usepackage{polyglossia} % Quản lí ngôn ngữ
+\setdefaultlanguage{vietnamese}
+\setotherlanguages{english}
+\usepackage{fontspec} % Cung cấp khả năng sử dụng phông chữ OpenType và TrueType
+\usepackage{
+    amsmath, % Các lệnh toán học
+    amsfonts, % Các kí hiệu toán học
+    amssymb % Các kí hiệu toán học
+}
+\usepackage{unicode-math} % Cung cấp hỗ trợ cho các phông chữ toán học Unicode
+\setmainfont{STIX Two Text} % Thiết lập phông chữ chính là STIX Two Text
+\setmathfont{STIX Two Math} % Thiết lập phông chữ toán học là STIX Two Math
+
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry} % Định dạng kích thước và lề trang
+
+\usepackage{graphicx} % Hỗ trợ chèn hình ảnh vào tài liệu
+
+\usepackage{xcolor} % Gói màu sắc để tùy chỉnh màu sắc
+
+\usepackage[vietnamese]{hyperref} % Tạo liên kết và tham chiếu trong tài liệu
+\hypersetup{
+    colorlinks=true, % Kích hoạt màu sắc cho các liên kết
+    linkcolor=darkgray, % Màu của liên kết nội bộ
+    citecolor=blue, % Màu của liên kết tham chiếu
+    filecolor=blue, % Màu của liên kết tập tin
+    urlcolor=blue % Màu của liên kết URL
+}
+\renewcommand{\sectionautorefname}{Mục} % Đổi tên tự động của các liên kết phần mục từ "Section" thành "Mục"
+
+\usepackage{bookmark} % Tạo mục lục nhanh và chính xác hơn
+
+\usepackage[backend=biber,style=authoryear,sorting=none]{biblatex} % Quản lí tài liệu tham khảo với biblatex và biber
+\addbibresource{references.bib} % Thêm tài liệu tham khảo từ tệp references.bib
+\DeclareLanguageMapping{vietnamese}{vietnamese-english} % Định nghĩa ánh xạ ngôn ngữ cho tiếng Việt
+\DeclareLanguageMapping{english}{english} % Định nghĩa ánh xạ ngôn ngữ cho tiếng Anh
+
+\newcounter{myproblem} % Tạo một bộ đếm mới cho môi trường myproblem
+\newenvironment{myproblem}[1][]{%
+    \vspace{10pt} % Khảng cách từ trên xuống
+    \noindent\textsc{Bài tập #1} % Định dạng tiêu đề môi trường myproblem
+    \noindent
+}{%
+    \par
+    \vspace{10pt} % Khoảng cách từ dưới lên
+}
+\newenvironment{mydotproblem}[1][]{%
+    \vspace{10pt}
+    \noindent\textsc{Bài tập. #1}
+    \noindent
+}{%
+    \par
+    \vspace{10pt} 
+}
+\newenvironment{mynumproblem}[1][]{%
+    \refstepcounter{myproblem}
+    \vspace{10pt}
+    \noindent\textsc{Bài tập \theproblem. #1}
+    \noindent
+}{%
+    \par
+    \vspace{10pt} 
+}
+
+\title{Tiêu đề}
+\author{Nguyễn Tấn Nhựt}
+\date{\today}
+
+\allowdisplaybreaks % Cho phép ngắt dòng trong các công thức toán học dài
+
+\begin{document}
+
+\maketitle
+% \tableofcontents
+
+\end{document}

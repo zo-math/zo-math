@@ -1,0 +1,101 @@
+\documentclass[12pt]{article} % Định dạng tài liệu, kích thước chữ 12pt
+
+\usepackage{polyglossia} % Quản lí ngôn ngữ
+\setdefaultlanguage{vietnamese}
+\setotherlanguages{english}
+\usepackage{fontspec} % Cung cấp khả năng sử dụng phông chữ OpenType và TrueType
+\usepackage{
+    amsmath, % Các lệnh toán học
+    amsfonts, % Các kí hiệu toán học
+    amssymb % Các kí hiệu toán học
+}
+\usepackage{unicode-math} % Cung cấp hỗ trợ cho các phông chữ toán học Unicode
+\setmainfont{STIX Two Text} % Thiết lập phông chữ chính là STIX Two Text
+\setmathfont{STIX Two Math} % Thiết lập phông chữ toán học là STIX Two Math
+
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry} % Định dạng kích thước và lề trang
+
+\usepackage{graphicx} % Hỗ trợ chèn hình ảnh vào tài liệu
+
+\usepackage{xcolor} % Gói màu sắc để tùy chỉnh màu sắc
+
+\usepackage[vietnamese]{hyperref} % Tạo liên kết và tham chiếu trong tài liệu
+\hypersetup{
+    colorlinks=true, % Kích hoạt màu sắc cho các liên kết
+    linkcolor=darkgray, % Màu của liên kết nội bộ
+    citecolor=blue, % Màu của liên kết tham chiếu
+    filecolor=blue, % Màu của liên kết tập tin
+    urlcolor=blue % Màu của liên kết URL
+}
+\renewcommand{\sectionautorefname}{Mục} % Đổi tên tự động của các liên kết phần mục từ "Section" thành "Mục"
+
+\usepackage{bookmark} % Tạo mục lục nhanh và chính xác hơn
+
+\usepackage[backend=biber,style=authoryear,sorting=none]{biblatex} % Quản lí tài liệu tham khảo với biblatex và biber
+\addbibresource{references.bib} % Thêm tài liệu tham khảo từ tệp references.bib
+\DeclareLanguageMapping{vietnamese}{vietnamese-english} % Định nghĩa ánh xạ ngôn ngữ cho tiếng Việt
+\DeclareLanguageMapping{english}{english} % Định nghĩa ánh xạ ngôn ngữ cho tiếng Anh
+
+\newcounter{myproblem} % Tạo một bộ đếm mới cho môi trường myproblem
+\newenvironment{myproblem}[1][]{%
+    \vspace{10pt} % Khảng cách từ trên xuống
+    \noindent\textsc{Bài tập #1} % Định dạng tiêu đề môi trường myproblem
+    \noindent
+}{%
+    \par
+    \vspace{10pt} % Khoảng cách từ dưới lên
+}
+\newenvironment{mydotproblem}[1][]{%
+    \vspace{10pt}
+    \noindent\textsc{Bài tập. #1}
+    \noindent
+}{%
+    \par
+    \vspace{10pt} 
+}
+\newenvironment{mynumproblem}[1][]{%
+    \refstepcounter{myproblem}
+    \vspace{10pt}
+    \noindent\textsc{Bài tập \theproblem. #1}
+    \noindent
+}{%
+    \par
+    \vspace{10pt} 
+}
+
+\title{Ma trận}
+\author{Nguyễn Tấn Nhựt}
+\date{}
+
+\allowdisplaybreaks % Cho phép ngắt dòng trong các công thức toán học dài
+
+\begin{document}
+
+\maketitle
+% \tableofcontents
+% ----------------------------------------
+
+% MỤC 1
+\section{Dẫn nhập}
+Đố bạn biết \(x\) là số nào nếu biết hai lần \(x\) bằng sáu? Tôi tự tin khẳng định rằng nếu các bạn đã ngồi ở đây thì không ai trong các bạn không biết đáp án của câu đố này, đó là \(x\) bằng ba. Ngôn ngữ toán học đó là tìm \(x\) biết \(2x=6\). Nói cách khác là giải phương trình \(2x=6\). Giải ở đây có nghĩa là tìm \(x\), còn biểu thức toán học \(2x=6\) được gọi là phương trình, chính thức hơn một biểu thức có dạng như thế được là phương trình bậc nhất một ẩn số. Ẩn số là để chỉ số chưa biết \(x\), từ bậc nhất để nhấn mạnh rằng trong phương trình này, ẩn số là \(x\) không phải là \(x^2\), \(x^3\), hay vân vân, một thứ bất kì mà bạn nghĩ ra và muốn \(x\) đội lên đầu sao cho điều đó có nghĩa.
+
+Khái quát hóa, phương trình bậc nhất một ẩn số là phương trình có dạng \(ax=b\). Trong đó, \(x\) là số chưa biết, \(a\) và \(b\) là các số đã biết. Chúng ta gọi \(x\) là ẩn, gọi \(a\) và \(b\) là các hệ số.
+
+% ----------------------------------------
+
+Tôi xin thừa nhận ngay một điều. Khi tôi có các con số trong $A$ và $x$, và tôi muốn tính toán $Ax$, thì tôi có xu hướng sử dụng tích vô hướng: cách tiếp cận dựa trên hàng. Nhưng nếu tôi muốn hiểu $Ax$, thì cách tiếp cận dựa trên cột lại tốt hơn. Véc-tơ cột $Ax$ là một tổ hợp tuyến tính của các cột của $A$.
+
+Nguyên văn từ sách Introduction to Linear Algebra (Ấn bản thứ 6, năm 2023) của Gilbert Strang.
+
+Let me admit something right away. If I have numbers in $A$ and $x$, and I want to compute $Ax$, then I tend to \emph{use dot products}: the row picture. But if I want to \emph{understand} $Ax$, the column picture is better. ``The column vector $Ax$ is a combination of the columns of $A$.''
+
+% MỤC 1
+
+
+
+
+
+
+
+
+\end{document}

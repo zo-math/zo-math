@@ -1,0 +1,34 @@
+% \documentclass[tikz,border=3.14mm]{standalone}
+\documentclass[12pt]{standalone}
+\usepackage{polyglossia}
+\setdefaultlanguage{vietnamese}
+\setotherlanguages{english}
+\usepackage{fontspec}
+\usepackage{
+    amsmath, 
+    amsfonts, 
+    amssymb
+}
+\usepackage{unicode-math}
+\setmainfont{STIX Two Text}
+\setmathfont{STIX Two Math} 
+\usepackage{tikz}
+\usepackage{amsmath}
+
+\begin{document}
+
+\begin{tikzpicture}
+
+    % Vẽ hình chữ nhật không border, nền xám tối
+    \filldraw[fill=gray!30, draw=none] (0, 0) rectangle (1, 1);
+
+    % Vẽ hình tròn màu trắng không có border
+    \fill[white] (.25, .25) circle (3pt);
+
+    % Vẽ hình tròn màu đen
+    \fill[black] (.75, .75) circle (3pt);
+
+\end{tikzpicture}
+
+
+\end{document}

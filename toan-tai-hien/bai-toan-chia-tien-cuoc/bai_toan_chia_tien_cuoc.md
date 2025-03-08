@@ -1,0 +1,66 @@
+---
+title: "BÀI TOÁN CHIA TIỀN CƯỢC"
+author: "Nguyễn Tấn Nhựt"
+date: "2025-02-09"
+output:
+  html_document:
+    keep_md: true
+  pdf_document: 
+    latex_engine: lualatex
+header-includes:
+  - \usepackage{forest}
+---
+
+
+
+Bạn có biết, một trong những bài toán làm động lực thúc đẩy sự ra đời của lý thuyết xác suất bắt nguồn từ việc chia tiền cược khi trò chơi bị dừng lại giữa chừng? Đây là vấn đề mà hai nhà toán học lừng danh Pierre de Fermat và Blaise Pascal đã cùng thảo luận từ năm 1654. Họ muốn tìm cách chia tiền cược công bằng khi một trò chơi may rủi bị dừng lại trước khi có kết quả cuối cùng. Bài toán này không chỉ có ý nghĩa lịch sử trong lý thuyết xác suất mà còn đặt nền móng cho lý thuyết trò chơi và kinh tế hiện đại. Từ những trò chơi đơn giản, lý thuyết xác suất đã thay đổi cách chúng ta hiểu về việc ra quyết định và quản lý rủi ro.
+
+## Dẫn nhập
+
+Chúng mình hãy cùng chơi trò tung đồng xu, mỗi người chọn một mặt để ghi điểm cho mình. Ai ghi đủ 4 điểm trước sẽ thắng toàn bộ số tiền cược. Nếu trò chơi phải dừng vào lúc bạn có 2 điểm và mình có 1 điểm, chúng mình phải chia tiền cược như thế nào cho công bằng?
+
+Trọng tài đề xuất chia số tiền cược thành 3 phần bằng nhau, bạn sẽ nhận 2 phần vì có 2 điểm, còn mình chỉ nhận 1 phần vì có 1 điểm. *Đề xuất chia theo tỷ số điểm hiện tại 2:1 có công bằng không?*
+
+Bây giờ, giả sử luật chơi yêu cầu 55 điểm để chiến thắng, và tại thời điểm dừng lại, mình có 54 điểm và bạn có 45 điểm. Theo trọng tài, chúng mình sẽ chia tiền theo tỷ lệ 54:45. Nghĩa là, nếu tiền cược có 99 đồng, bạn nhận 45 đồng, còn mình nhận 54 đồng. Tuy nhiên, chỉ cần thêm một chiến thắng nữa, mình sẽ nhận toàn bộ 99 đồng, còn bạn phải cần đến 10 lần chiến thắng liên tiếp để làm điều đó. Chắc chắn mình không muốn chấp nhận đề xuất chia theo tỷ lệ này, vì rõ ràng lợi thế đang hoàn toàn nghiêng về phía mình.
+
+Từ góc nhìn của bạn, bạn cũng không thể đồng ý. Hãy tưởng tượng ngay sau vòng đầu tiên, mình ghi 1 điểm, còn bạn chưa có điểm nào. Theo trọng tài, mình sẽ nhận toàn bộ số tiền cược, còn bạn sẽ trắng tay? Trong một trò chơi nhiều ván, chiến thắng một ván không thể quyết định tất cả. Chắc chắn bạn không chịu cách chia này.
+
+Như vậy, việc chia tiền theo tỷ số điểm chưa làm hài lòng cả hai bên, bởi đôi khi có lợi cho mình thì thiệt thòi cho bạn và ngược lại. Đó là vì nó chỉ dựa trên một khoảnh khắc nhất thời mà chưa phản ánh đầy đủ cơ hội chiến thắng của bạn và mình người trong tương lai. Nhiệm vụ của chúng mình là tìm một cách chia tiền công bằng hơn, cả hai đều chấp nhận.
+
+## Diễn biến của trò chơi
+
+Bạn đừng để những mô tả ngắn gọn về trò chơi này đánh lừa mình. Nó không đơn giản như những gì bạn vừa đọc qua. Trên thực tế, trò chơi này đã được mô tả
+
+Không gì có thể trợ giúp chúng mình hiểu ra trò chơi này bằng cách liệt kê ra tất cả các kịch bản chiến thắng của mình và bạn, nói cách khác là tất cả các kịch bản diễn biến từ lúc bắt đầu đến khi kết thúc trò chơi. Mình làm việc này mà không sợ lẫn lộn bằng cách dùng sơ đồ nhị phân như dưới đây.
+
+<img src="images/cay_kich_ban_tro_choi_chia_phan_thuong/cay_kich_ban_tro_choi_chia_phan_thuong.svg" alt="Hình vẽ TikZ dưới dạng SVG">
+
+<!--![Hình vẽ TikZ dưới dạng SVG](images/cay_kich_ban_tro_choi_chia_phan_thuong/cay_kich_ban_tro_choi_chia_phan_thuong.svg)
+
+![Hình vẽ TikZ dưới dạng SVG](images/cay_kich_ban_tro_choi_chia_phan_thuong/cay_kich_ban_tro_choi_chia_phan_thuong.pdf)-->
+
+Điều quan trọng hơn là chúng mình cần xem xét cơ hội chiến thắng còn lại của mỗi người nếu trò chơi được tiếp tục. Chính cơ hội này mới là yếu tố then chốt giúp chúng mình tìm ra cách chia tiền công bằng.
+
+Mình cần tìm được yếu tố chi phối trò chơi để định lượng nó. Một khi định lượng được mình sẽ so sánh được. Một khi so sánh được mình sẽ phân biệt được hơn kém. Một khi phân biệt được hơn kém mình có thể đưa ra quyết định. Và đó chính là mục đích mà chúng mình hướng tới - ra quyết định.
+
+## Cách giải quyết của Fermat
+
+## Cách giải quyết của Pascal
+
+## Tổng quát hóa
+
+Để thực hiện nhiệm vụ này, chúng mình thử tập trung vào những câu hỏi dưới đây:
+
+-   Chơi tối đa bao nhiêu vòng sẽ có người thắng toàn bộ số tiền cược?
+
+-   Cần tối đa bao nhiêu vòng nữa để thắng toàn bộ số tiền cược nếu giả sử trò chơi được tiếp tục?
+
+-   Chúng mình đã chơi bao nhiêu vòng trước khi dừng lại?
+
+Cần thực hiện ít nhất 5 lần và nhiều nhất 9 lần tung đồng xu cho đến khi một mặt xuất hiện đủ 5 lần. Vì sao? Vì nếu một mặt đã xuất hiện đủ 5 lần, mặt còn lại có thể xuất hiện từ 0 đến 4 lần, số lần tung tối thiểu là $5+0=5$ và tối đa là $5+4=9$.
+
+Trường hợp biên trên, người có điểm số cao hơn nắm ưu thế rõ ràng. Trường hợp biên dưới, người có điểm số ban đầu cao cũng có lợi thế không tương xứng.
+
+## Thư mục
+
+[Problem of Points](https://en.wikipedia.org/wiki/Problem_of_points)
