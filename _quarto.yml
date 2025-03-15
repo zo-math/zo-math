@@ -1,25 +1,49 @@
 project:
   type: website
   output-dir: _site
+  render:
+    - "*.qmd*"
 
 website:
   title: "ZO Math"
+  description: "Cùng học toán theo hướng 'Tầm nguyên và Tái hiện'."
+  site-url: "https://zo-math.github.io/"
+  favicon: "images/favicon.ico"
   navbar:
     left:
-      - href: index.qmd
-        text: Trang chủ
-      - href: about.qmd
-        text: Giới thiệu
-      - href: shop/index.qmd
-        text: Cửa hàng
-      - href: contact.qmd
-        text: Liên hệ
+      - href: index.html
+        text: "<i class='bi bi-house-door'></i>"
+      - href: about.html
+        text: "Giới thiệu"
+      - text: "Trung học phổ thông"
+        menu:
+          - text: "Toán 10"
+            href: toan-thpt/toan-10/index.html
+          - text: "Toán 11"
+            href: toan-thpt/toan-11/index.html
+          - text: "Toán 12"
+            href: toan-thpt/toan-12/index.html
+
+      - href: toan-tai-hien/index.html
+        text: "Toán Tái Hiện"
+
+    right:
+      - href: shop/index.html
+        text: "🛒 ZO Shop"
+      - href: support/donate.html
+        text: "💖 Bảo trợ"
+      - href: contact.html
+        text: "☎️ Liên hệ"
+
   page-footer:
-    left: "© 2025 ZO Math - Học toán sáng tạo"
-    right: "[Liên hệ](contact.qmd) | [Facebook](https://facebook.com/zo-math)"
+    left: "© 2025 ZO Math - Cùng học, cùng khám phá."
+    right: "[Liên hệ](contact.html) | [Facebook](https://facebook.com/zo-math)"
 
 format:
   html:
     theme: flatly
     css: custom.css
+    html-math-method: mathjax
+    mathjax:
+      url: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
     toc: true
