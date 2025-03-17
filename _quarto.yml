@@ -4,6 +4,8 @@ project:
   render:
     - "*.qmd*"
 
+lang: vi
+
 website:
   title: "ZO Math"
   description: "Cùng học toán theo hướng 'Tầm nguyên và Tái hiện'."
@@ -47,3 +49,17 @@ format:
     mathjax:
       url: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
     toc: true
+  pdf:
+    pdf-engine: lualatex
+    include-in-header: custom.tex
+    keep-tex: true
+
+execute:
+  freeze: auto # Chỉ chạy lại code khi file .qmd hoặc dữ liệu đầu vào thay đổi.
+  cache: true # Không render nếu code không đổi
+  echo: false # Mặc định ẩn code trong toàn bộ tài liệu
+  warning: false # Ẩn cảnh báo nếu có
+  massage: false # Ẩn các thông báo thừa
+
+filters:
+  - custom.lua

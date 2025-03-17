@@ -49,6 +49,175 @@
 
 /*===================================*/
 
+/* Định dạng bảng */
+
+/* Phần tử này ảnh hưởng đến định dạng bảng khi render sang PDF*/
+.content-visible {
+  /* Căn giữa nội dung */
+  display: flex;
+  justify-content: center;
+}
+table {
+  /* Căn giữa bảng */
+  margin: auto;
+  width: 50%;
+  text-align: center;
+}
+th,
+td {
+  border: 1px solid #ddd; /* Viền nhẹ */
+}
+
+/*===================================*/
+
+/* ĐỊNH DẠNG BÀI TẬP */
+.bai-tap {
+  display: block;
+  border: none; /* Loại bỏ viền */
+  background-color: #f8d7da;
+  text-align: center;
+  padding: 10px;
+  width: 100%; /* Chiều rộng full */
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  /* font-variant: small-caps; */
+  cursor: pointer; /* Hiển thị con trỏ khi di chuột vào */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+  /*transition: background-color 0.3s ease;*/ /* Hiệu ứng chuyển đổi màu nền */
+}
+.bai-tap p {
+  margin: 0; /* Tránh Quarto tự thêm khoảng cách */
+}
+.bai-tap:hover {
+  background-color: #f1bfc4; /* Màu nền khi di chuột qua */
+}
+.bai-tap:active {
+  background-color: #e89aa0; /* Màu nền khi di chuột qua */
+}
+
+/*===================================*/
+
+/* ĐỊNH DẠNG ĐÁP ÁN */
+.dap-an {
+  display: block;
+  border: none; /* Loại bỏ viền */
+  background-color: #d4edda; /* Lục nhạt */
+  /* color: black; */
+  /* font-weight: bold; */
+  text-align: center;
+  padding: 10px;
+  width: 100%; /* Chiều rộng full */
+  margin-top: 20px;
+  margin-bottom: 10px;
+  /* font-size: 1.1em; */
+  border-radius: 10px;
+  /* font-variant: small-caps; */
+  cursor: pointer; /* Hiển thị con trỏ khi di chuột vào */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+  /*transition: background-color 0.3s ease;*/ /* Hiệu ứng chuyển đổi màu nền */
+}
+.dap-an p {
+  margin: 0; /* Tránh Quarto tự thêm khoảng cách */
+}
+.dap-an:hover {
+  background-color: #bfe1bf; /* Màu nền khi di chuột qua */
+}
+.dap-an:active {
+  background-color: #9aca9a; /* Màu nền khi di chuột qua */
+}
+
+/*===================================*/
+
+/* ĐỊNH DẠNG LỜI GIẢI */
+.loi-giai {
+  display: block;
+  border: none; /* Loại bỏ viền */
+  background-color: #cfe2ff; /* Thanh nhạt */
+  /* color: black; */
+  /* font-weight: bold; */
+  text-align: center;
+  padding: 10px;
+  width: 100%; /* Chiều rộng full */
+  margin-top: 20px;
+  margin-bottom: 10px;
+  /* font-size: 1.1em; */
+  border-radius: 10px;
+  /* font-variant: small-caps; */
+  cursor: pointer; /* Hiển thị con trỏ khi di chuột vào */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+  /*transition: background-color 0.3s ease;*/ /* Hiệu ứng chuyển đổi màu nền */
+}
+.loi-giai p {
+  margin: 0; /* Tránh Quarto tự thêm khoảng cách */
+}
+.loi-giai:hover {
+  background-color: #b0ccff; /* Màu nền khi di chuột qua */
+}
+.loi-giai:active {
+  background-color: #9ab6ff; /* Màu nền khi di chuột qua */
+}
+
+/*===================================*/
+
+/* DẤU KẾT THÚC */
+.ket-thuc {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px 0;
+}
+.ket-thuc::after {
+  content: "\25FB"; /* Ô vuông */
+  font-size: 20px;
+  /* color: #333; */
+}
+
+/*===================================*/
+
+/* Ẩn tam giác trong <summary> */
+.details summary {
+  list-style: none; /* Xóa tam giác */
+  /* font-weight: bold; */
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  /* background: #f8d7da; */ /* Màu nhạt hơn */
+  /* display: block; */
+  border: none; /* Loại bỏ viền */
+  background-color: #f8d7da;
+  width: 100%; /* Chiều rộng full */
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-variant: small-caps;
+  cursor: pointer; /* Hiển thị con trỏ khi di chuột vào */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+  /*transition: background-color 0.3s ease;*/ /* Hiệu ứng chuyển đổi màu nền */
+}
+.details summary p {
+  margin: 0; /* Tránh Quarto tự thêm khoảng cách */
+}
+.details summary:hover {
+  background-color: #f1bfc4; /* Màu nền khi di chuột qua */
+}
+.details summary:active {
+  background-color: #e89aa0; /* Màu nền khi di chuột qua */
+}
+
+/* Phần nội dung ẩn bên trong */
+.details {
+  border-radius: 10px;
+  border: none;
+  background: white;
+  padding: 5px;
+}
+
+/* Tạo khoảng trắng giữa summary và nội dung khi mở */
+.details[open] summary {
+  margin-bottom: 10px;
+}
+
+/*===================================*/
+
 /*  Đoạn CSS của bạn đã xử lý được:
       Tích hợp font STIX Two Text cho nội dung.
       Font STIX Two Math cho công thức toán MathJax.
@@ -123,3 +292,5 @@ mjx-container {
   width: 100%;
   border-collapse: collapse;
 }
+
+/*===================================*/

@@ -1,0 +1,33 @@
+---
+title: "ZO Math"
+author: "Tên của bạn"
+format: html
+---
+# Giới thiệu
+Chào mừng bạn đến với ZO Math! Chúng ta sẽ khám phá các khái niệm toán học thông qua các công cụ tương tác.
+# Tính toán hàm số
+## Hàm số R
+
+### Định nghĩa hàm số
+```{r}
+calculate_square <- function(x) {
+    return(x^2)
+}
+```
+
+### Vẽ đồ thị hàm số
+
+```{r}
+library(ggplot2)
+# Tạo dữ liệu
+x_values <- seq(-10, 10, by = 0.5)
+y_values <- calculate_square(x_values)
+# Tạo dataframe
+data <- data.frame(x = x_values, y = y_values)
+# Vẽ đồ thị
+ggplot(data, aes(x = x, y = y)) +
+    geom_line(color = "blue") +
+    labs(title = "Đồ thị hàm số y = x^2", x = "x", y = "y")
+theme_minimal()
+```
+
