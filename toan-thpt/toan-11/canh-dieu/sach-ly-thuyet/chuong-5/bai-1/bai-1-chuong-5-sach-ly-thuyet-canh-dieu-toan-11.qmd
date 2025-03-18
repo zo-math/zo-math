@@ -14,6 +14,8 @@ library(MASS)
 
 Nếu không có yêu cầu làm tròn đặc biệt, các con số sẽ được làm tròn đến 4 chữ số thập phân để tiện đối chiếu khi bạn tự tìm đáp án. 
 
+# Bài học
+
 <!-- Hoạt động 1 -->
 
 <details>
@@ -222,25 +224,25 @@ Lời giải
 
 Sang Hoạt động 2, tình huống đảo ngược: số liệu cụ thể được cho, nhưng bảng tần số thì chưa có. Nhiệm vụ của chúng mình là ghép các số liệu thành năm nhóm có độ dài bằng nhau.
 
-Điều thú vị là, với hai tiêu chí "số lượng nhóm" và "độ dài nhóm", mình chưa thể xác lập một cách ghép nhóm duy nhất. Vẫn còn nhiều cách khác nhau để chia nhóm, và đây chính là cơ hội để khám phá sâu hơn về cấu trúc dữ liệu.
+Điều thú vị là, với hai tiêu chí "số lượng nhóm" và "độ dài nhóm", mình chưa thể xác lập một cách ghép nhóm duy nhất. Vẫn còn nhiều cách khác nhau để chia nhóm, và đây chính là cơ hội để khám phá sâu hơn về về cách tổ chức và sắp xếp số liệu.
 
 > - Hoạt động 1: Có bảng tần số nhưng thiếu số liệu.
 > - Hoạt động 2: Có số liệu nhưng cần tự ghép nhóm, và việc ghép nhóm không có duy nhất một cách làm.
 
 :::
 
-Số liệu nhỏ nhất là 160, số liệu lớn nhất là 174, nên miền chứa dữ liệu là $[160; 174]$. Cần chia miền này thành 5 nhóm có độ dài bằng nhau, nên độ dài mỗi nhóm là
+Số liệu nhỏ nhất là 160, số liệu lớn nhất là 174, nên miền chứa toàn bộ số liệu là $[160; 174]$. Cần chia miền này thành 5 nhóm có độ dài bằng nhau, nên độ dài mỗi nhóm là
 $$
     \frac{174-160}{5}=2,8.
 $$
 
-Nhưng nếu chia nhóm theo độ dài 2,8 cm, sẽ gặp các ranh giới không đẹp: 
+Nhưng nếu chia nhóm theo độ dài 2,8 cm, sẽ gặp các ranh giới thập phân không đẹp: 
 
 ::: {.center}
 $[160;162,8)$, $[162,8;165,6)$, $[165,6;168,4)$, $[168,4;171,2)$, $[171,2;174]$.
 :::
 
-Rõ ràng, các số thập phân như 2,8; 162,8; 165,6; 168,4; 171,2 rất khó đọc, khó vẽ biểu đồ và không phù hợp với cách làm thống kê trong thực tế.
+Rõ ràng, các số thập phân như 162,8 rất khó đọc, khó vẽ biểu đồ và không phù hợp với cách làm thống kê trong thực tế.
 
 Số 3 là số nguyên nhỏ nhất gần với 2,8. Nếu chọn độ dài nhóm là 3, miền dữ liệu cần mở rộng ra một chút để bao phủ toàn bộ dữ liệu cũ. Lúc này, nếu vẫn giữ đầu dưới là 160, thì đầu trên là
 $$
@@ -253,7 +255,7 @@ Khi đó, các nhóm mới là
 $[160;163)$, $[163;166)$, $[166;169)$, $[169;172)$, $[172;175)$.
 :::
 
-Nhóm cuối mình ghi là nửa khoảng, $[172; 175)$, vì 175 không có trong số liệu gốc.
+Nhóm cuối, $[172; 175)$, ghi theo dạng nửa khoảng là hợp lý, vì 175 không có trong số liệu gốc.
 
 ::: {.ket-thuc}
 :::
@@ -327,10 +329,10 @@ Lập bảng tần số ghép nhóm có tám nhóm ứng với tám nửa khoả
 :::
 
 ::: {.callout-note title="Mẹo" collapse="true" appearance="simple" icon="false"}
-Sắp xếp số liệu theo thứ tự tăng dần giúp mình dễ phân nhóm hơn.
+Sắp xếp số liệu theo thứ tự *tăng dần* giúp mình dễ phân nhóm hơn.
 :::
 
-Để đảm bảo phân nhóm chính xác, hãy sắp xếp số liệu theo thứ tự tăng dần. 
+Để đảm bảo phân nhóm chính xác, số liệu nên được sắp xếp theo thứ tự tăng dần. 
 
 <!-- Sắp xếp số liệu tăng dần -->
 
@@ -346,7 +348,7 @@ if (output_format == "html") {
 }
 ```
 
-Nhìn vào dãy có thứ tự tăng dần, dễ dàng thấy rằng thuộc vào nhóm $[25;34)$ có ba số liệu bao gồm 30; 31; 33. Hãy tiếp tục quan sát để thu được bảng tần số ghép nhóm.
+Nhìn vào dãy có thứ tự tăng dần, dễ dàng thấy rằng thuộc vào nhóm $[25;34)$ có ba số liệu bao gồm 30; 31; 33. Bảng tần số ghép nhóm được thành lập dựa trên các quan sát như thế cho đến khi duyệt hết số liệu.
 
 <!-- Bảng tần số ghép nhóm -->
 
@@ -459,7 +461,7 @@ if (output_format == "html") {
 
 </details>
 
-<!-- lời giải Hoạt động 3 -->
+<!-- Lời giải Hoạt động 3 -->
 
 <details>
 
@@ -495,14 +497,14 @@ $$
 :::
 
 ::: {.callout-note title="Tần số tích lũy" appearance="simple" icon=false collapse=true}
-Đáp số câu a cho biết tần số tích lũy của nhóm 1 là 6. Đáp số câu b cho biết tần số tích lũy của nhóm 2 là 18. Đáp số câu e cho biết tần số tích lũy của nhóm 5 là 36.
+Đáp số câu a cho biết tần số tích lũy của nhóm 1 là $cf_1=6$. Đáp số câu b cho biết tần số tích lũy của nhóm 2 là $cf_2=18$. Đáp số câu e cho biết tần số tích lũy của nhóm 5 là $cf_5=36$.
 
 *Tần số tích lũy* của một nhóm là số số liệu có giá trị nhỏ hơn đầu mút phải của nhóm đó.
 :::
 
 </details>
 
-<!-- LUYỆN TẬP  3 -->
+<!-- Luyện tập  3 -->
 <details>
 
 ::: {.content-visible when-format="html"}
@@ -519,13 +521,22 @@ Trong bài toán ở Luyện tập 2, lập bảng tần số ghép nhóm bao g�
 <!-- Lời giải Luyện tập 3 -->
 <details>
 ::: {.content-visible when-format="html"}
-<summary class="loi-giai">Lời giải</summary>
+<summary class="loi-giai">Lời giải Luyện tập 3</summary>
 :::
 
 ::: {.content-visible when-format="pdf"}
 \begin{center}
 \textbf{Lời giải}
 \end{center}
+:::
+
+::: {.callout-note title="Mẹo" collapse="true" appearance="simple" icon="false"}
+Có hai cách để tính tần số tích lũy $cf_3$ của nhóm 3.
+
+- Cách 1: $cf_3=n_1+n_2+n_3$, tính tần số tích lũy của nhóm 3 bằng cách cộng tần số của nhóm 1, nhóm 2 và nhóm 3.
+- Cách 2: $cf_3=cf_2+n_3$, tính tần số tích lũy của nhóm 3 bằng cách cộng tần số tích lũy của nhóm 2 và tần số của nhóm 3.
+
+Theo bạn, khi nào cách 2 nhanh hơn?
 :::
 
 ```{r, echo = FALSE}
@@ -549,7 +560,8 @@ if (output_format == "html") {
 :::
 </details>
 
-<!-- HOẠT ĐỘNG 4 -->
+<!-- Hoạt động 4 -->
+
 <details>
 
 ::: {.content-visible when-format="html"}
@@ -614,7 +626,7 @@ if (output_format == "html") {
 <details>
 
 ::: {.content-visible when-format="html"}
-<summary class="loi-giai">Lời giải</summary>
+<summary class="loi-giai">Lời giải Hoạt động 4</summary>
 :::
 
 ::: {.content-visible when-format="pdf"}
@@ -634,10 +646,18 @@ b. Tương tự, giá trị đại diện cho các nhóm còn lại được tí
     - Nhóm 4, $[169; 172)$: $x_4=\frac{169+172}{2}=170,5$ (cm).
     - Nhóm 5, $[172; 175)$: $x_5=\frac{172+175}{2}=173,5$ (cm).
 
-c. Từ *Bảng 4* và các giá trị đại diện vừa tính, mình lập được bảng dưới đây.
+c. Từ *Bảng 4* và các giá trị đại diện vừa tính, *Bảng 7* được hoàn thiện như dưới đây.
 
 ```{r, echo=FALSE}
 data <- data.frame(hd2$df[, c(-1, -3, -4, -7), drop = FALSE], check.names = FALSE)
+# Tạo chỉ mục tự động
+if (nrow(data) >0) {
+index <- 1:nrow(data)
+data$`Giá trị đại diện` <- paste0("\\(x_", index, "=", data$`Giá trị đại diện`, "\\)")
+data$`Tần số` <- paste0("\\(n_", index, "=", data$`Tần số`, "\\)")
+} else {
+    stop("Dữ liệu df trống hoặc không hợp lệ")
+}
 data <- rbind(data, c("", "", "\\(n=36\\)"))
 data[] <- lapply(data, function(x) {
     x <- as.character(x) # Đảm bảo x là kiểu character
@@ -663,7 +683,7 @@ hd2$n <- length(hd2$data)
 hd2$barx <- fractions(sum(hd2$df$`Giá trị đại diện` * hd2$df$`Tần số`) / sum(hd2$df$`Tần số`))
 ```
 
-Số trung bình cộng của mẫu số liệu đã cho là
+Số trung bình cộng của mẫu số liệu là
     \begin{align*}
         \overline{x} 
             & = \frac{1}{36}(6\cdot 161,5+12\cdot 164,5+10\cdot 167,5+5\cdot170,5+3\cdot 173,5) \\
@@ -692,12 +712,12 @@ Xác định số trung bình cộng của mẫu số liệu ghép nhóm trong b
 
 </details>
 
-<!-- Lời giải luyện tập 4 -->
+<!-- Lời giải Luyện tập 4 -->
 
 <details>
 
 ::: {.content-visible when-format="html"}
-<summary class="loi-giai">Lời giải</summary>
+<summary class="loi-giai">Lời giải Luyện tập 4</summary>
 :::
 
 ::: {.content-visible when-format="pdf"}
@@ -706,7 +726,7 @@ Xác định số trung bình cộng của mẫu số liệu ghép nhóm trong b
 \end{center}
 :::
 
-Bảng tần số ghép nhóm và giá trị đại diện của mẫu số liệu trong bài toán ở Luyện tập 2:
+Bảng tần số ghép nhóm và giá trị đại diện của mẫu số liệu trong bài toán ở Luyện tập 2 được cho trong bảng dưới đây.
 
 ```{r, echo = FALSE}
 data <- data.frame(lt2$df[, c(-1, -3, -4, -7), drop = FALSE], check.names = FALSE)
@@ -811,9 +831,9 @@ if (output_format == "html") {
 \end{center}
 :::
 
-a. Vì $40 <details 49,5 <details 60$, trong đó 40 và 60 lần lượt là tần số tích lũy của nhóm 2 và 3, nên khẳng định nhóm 3 là nhóm đầu tiên có tần số tích lũy lớn hơn hoặc 49,5 là đúng.
+a. Vì $cf_2=40 <\frac{n}{2}=\frac{99}{2}= 49,5 < cf_3=60$, nên khẳng định nhóm 3 là nhóm đầu tiên có tần số tích lũy lớn hơn hoặc bằng 49,5 là đúng.
 
-b. Nhóm 3, $[37,5;42,5)$, có đầu mút trái là $r=37,5$, độ dài là $d=42,5-37,5=5$, tần số là $n_3=20$. Tần số tích lũy của nhóm 2 là $cf_2=40$.
+b. Nhóm 3, $[37,5;42,5)$, có đầu mút trái $r=37,5$, độ dài $d=42,5-37,5=5$, tần số $n_3=20$. Tần số tích lũy của nhóm 2 là $cf_2=40$.
 
 c. Giá trị $M_e$ theo công thức là
 \begin{align*}
@@ -833,7 +853,7 @@ c. Giá trị $M_e$ theo công thức là
 <details>
 
 ::: {.content-visible when-format="html"}
-<summary class="loi-giai">Luyện tập 5</summary>
+<summary class="bai-tap">Luyện tập 5</summary>
 :::
 
 ::: {.content-visible when-format="pdf"}
@@ -858,14 +878,14 @@ Xác định trung vị của mẫu số liệu ghép nhóm ở *Bảng 1*.
 \end{center}
 :::
 
-Thêm vào *Bảng 1* cột tần số tích lũy để có bảng dưới đây.
+Thêm vào *Bảng 1* cột tần số tích lũy để thu được bảng dưới đây.
 
 ```{r}
 data <- data.frame(hd1$df[, c(-1, -3, -4, -5), drop = FALSE], check.names = FALSE)
 data <- rbind(data, c("", "\\(n=120\\)", ""))
 output_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 if (output_format == "html") {
-    kable(data, format = "html", align = "c", col.names = NA, caption = "Bảng 1 thêm cột Tần số tích lũy") %>%
+    kable(data, format = "html", align = "c", col.names = NA) %>%
         kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
 } else if (output_format == "latex") {
     kable(data, format = "latex", booktabs = TRUE, align = "c", col.names = NA, escape = FALSE, longtable = TRUE) %>%
@@ -921,9 +941,9 @@ Trung vị của mẫu số liệu là
 \section*{Hoạt động 6}
 :::
 
-Giáo viên chủ nhiệm chia thời gian sử dụng Internet trong một ngày của 40 học sinh thành năm nhóm (đơn vị: phút) và lập bảng tần số ghép nhóm bao gồm cả tần số tích luỹ như *Bảng 12.*
+Giáo viên chủ nhiệm chia thời gian sử dụng Internet trong một ngày của 40 học sinh thành năm nhóm (đơn vị: phút) và lập bảng tần số ghép nhóm bao gồm cả tần số tích lũy như *Bảng 12.*
 
-a. Tìm trung vị $M_e$ của mẩu số liệu ghép nhóm đó. Trung vị $M_e$ còn gọi là tứ phân vị thứ hai $Q_2$ của mẫu số liệu trên.
+a. Tìm trung vị $M_e$ của mẫu số liệu ghép nhóm đó. Trung vị $M_e$ còn gọi là tứ phân vị thứ hai $Q_2$ của mẫu số liệu trên.
 
 b. Nhóm 2 là nhóm đầu tiên có tần số tích lũy lớn hơn hoặc bằng 
 $$
@@ -986,11 +1006,11 @@ if (output_format == "html") {
 \textbf{Lời giải}
 \end{center}
 :::
-a. Quan sát từ cột tần số tích lũy, 
+a. Quan sát từ cột Tần số tích lũy, 
 $$
-    19 < \frac{n}{2} = \frac{40}{2} = 20 < 32,
+    cf_2 = 19 < \frac{n}{2} = \frac{40}{2} = 20 < cf_3 = 32,
 $$
-rút ra nhóm 3, $[120; 180)$, là nhóm đầu tiên có tần số tích lũy lớn hơn 20. Nhóm này có đầu mút trái $r=120$, độ dài $d=60$, tần số $n_3=13$ và nhóm 2 có tần số tích lũy $cf_2 = 19$. 
+suy ra nhóm 3, $[120; 180)$, là nhóm đầu tiên có tần số tích lũy lớn hơn 20. Nhóm này có đầu mút trái $r=120$, độ dài $d=60$, tần số $n_3=13$ và nhóm 2 có tần số tích lũy $cf_2 = 19$. Trung vị $M_e$ hay tứ phân vị thứ hai $Q_2$ là
 
 <!-- Trung vị Hoạt động 6 -->
 
@@ -1004,7 +1024,6 @@ hd6$me <- fractions(hd6$r + ((hd6$n / 2 - ifelse(hd6$k > 1, hd6$df$`Tần số t
 # hd6$me
 ```
 
-Trung vị $M_e$ hay tứ phân vị thứ hai $Q_2$ là
 \begin{align*}
     M_e = Q_2
         & = r + \left( \frac{\frac{n}{2} - cf_2}{n_3}\right)\cdot d \\
@@ -1013,13 +1032,13 @@ Trung vị $M_e$ hay tứ phân vị thứ hai $Q_2$ là
         & = `r format(round(as.numeric(hd6$me), 4), decimal.mark = ",")` \text{ (phút).}
 \end{align*}
 
-b. Quan sát từ cột tần số tích lũy, 
+b. Quan sát từ cột Tần số tích lũy, 
 $$
-    6 < \frac{n}{4} = \frac{40}{4} = 10 < 19,
+    cf_1 = 6 < \frac{n}{4} = \frac{40}{4} = 10 < cf_2 = 19,
 $$
-nên khẳng định nhóm 2 là nhóm đầu tiên có tần số tích lũy lớn hơn hoặc bằng 10 là khẳng định đúng. Nhóm 2, $[60; 120)$, có đầu mút trái $s=60$, độ dài $h=60$, tần số $n_2=13$ và nhóm 1 có tần số tích lũy $cf_1 = 6$. 
+nên khẳng định nhóm 2 là nhóm đầu tiên có tần số tích lũy lớn hơn hoặc bằng 10 là khẳng định đúng. Nhóm 2, $[60; 120)$, có đầu mút trái $s=60$, độ dài $h=60$, tần số $n_2=13$ và nhóm 1 có tần số tích lũy $cf_1 = 6$. Tứ phân vị thứ nhất là
 
-<!-- Tứ phân vị thứ nhất Q1 -->
+<!-- Tứ phân vị thứ nhất Q1 Hoạt động 6-->
 
 ```{r}
 # Tìm nhóm tứ phân vị thứ nhất
@@ -1033,7 +1052,6 @@ hd6$q1 <- fractions(hd6$s + ((hd6$n / 4 - ifelse(hd6$p > 1, hd6$df$`Tần số t
 # hd6$q1
 ```
 
-Tứ phân vị thứ nhất là 
 \begin{align*}
     Q_1 
         & = s + \left (\frac{10-cf_1}{n_2}\right)\cdot h \\
@@ -1042,13 +1060,13 @@ Tứ phân vị thứ nhất là
         & = `r format(round(as.numeric(hd6$q1), 4), decimal.mark = ",")` \text{ (phút).}
 \end{align*}
 
-c. Quan sát từ cột tần số tích lũy, 
+c. Quan sát từ cột Tần số tích lũy, 
 $$
-    19 < \frac{n}{4} = \frac{3\cdot 40}{4} = 30 < 32,
+    cf_2 = 19 < \frac{n}{4} = \frac{3\cdot 40}{4} = 30 < cf_3 = 32,
 $$
-nên khẳng định nhóm 3 là nhóm đầu tiên có tần số tích lũy lớn hơn hoặc bằng 30 là khẳng định đúng. Nhóm 3, $[120;180)$, có đầu mút trái $t=120$, độ dài $l=60$, tần số $n_3=13$ và nhóm 2 có tần số tích lũy $cf_2 = 19$. 
+nên khẳng định nhóm 3 là nhóm đầu tiên có tần số tích lũy lớn hơn hoặc bằng 30 là khẳng định đúng. Nhóm 3, $[120;180)$, có đầu mút trái $t=120$, độ dài $l=60$, tần số $n_3=13$ và nhóm 2 có tần số tích lũy $cf_2 = 19$. Tứ phân vị thứ ba là 
 
-<!-- Tứ phân vị thứ nhất Q3 -->
+<!-- Tứ phân vị thứ nhất Q3 Hoạt động 6-->
 
 ```{r, echo = FALSE}
 # Tìm nhóm tứ phân vị thứ ba
@@ -1062,7 +1080,6 @@ hd6$q3 <- fractions(hd6$t + (((3 * hd6$n) / 4 - ifelse(hd6$q > 1, hd6$df$`Tần 
 # hd6$q3
 ```
 
-Tứ phân vị thứ ba là 
 \begin{align*}
     Q_3 
         & = t + \left (\frac{30-cf_2}{n_3}\right)\cdot l \\
@@ -1106,7 +1123,7 @@ Tìm tứ phân vị của mẫu số liệu trong *Bảng 1* (làm tròn các k
 \end{center}
 :::
 
-*Bảng 1* thêm vào cột Tần số tích lũy:
+*Bảng 1* thêm vào cột Tần số tích lũy được trình bày như dưới đây.
 
 ```{r}
 data <- data.frame(hd1$df[, c(-1, -3, -4, -5), drop = FALSE], check.names = FALSE)
@@ -1123,11 +1140,11 @@ if (output_format == "html") {
 
 <!-- Tứ phân vị thứ nhất Q1 -->
 
-- Quan sát từ cột tần số tích lũy, 
+- Quan sát từ cột Tần số tích lũy, 
 $$
-    13 < \frac{n}{4} = \frac{120}{4} = 30 < 42,
+    cf_1 = 13 < \frac{n}{4} = \frac{120}{4} = 30 < cf_2 = 42,
 $$
-nên nhóm 2 là nhóm đầu tiên có tần số tích lũy lớn hơn 30. Nhóm 2, $[60; 120)$, có đầu mút trái $s=4$, độ dài $h=4$, tần số $n_2=29$ và nhóm 1 có tần số tích lũy $cf_1 = 13$. 
+nên nhóm 2 là nhóm đầu tiên có tần số tích lũy lớn hơn 30. Nhóm 2, $[4; 8)$, có đầu mút trái $s=4$, độ dài $h=4$, tần số $n_2=29$ và nhóm 1 có tần số tích lũy $cf_1 = 13$. Tứ phân vị thứ nhất là 
 
 ```{r}
 # Tìm nhóm tứ phân vị thứ nhất
@@ -1141,7 +1158,6 @@ hd1$q1 <- fractions(hd1$s + ((hd1$n / 4 - ifelse(hd1$p > 1, hd1$df$`Tần số t
 # hd1$q1
 ```
 
-Tứ phân vị thứ nhất là 
 \begin{align*}
     Q_1 
         & = 4 + \left (\frac{30-13}{29}\right)\cdot 4 \\
@@ -1149,11 +1165,11 @@ Tứ phân vị thứ nhất là
         & \approx `r format(round(as.numeric(hd1$q1), 0), decimal.mark = ",")` \text{ (năm).}
 \end{align*}
 
-- Quan sát từ cột tần số tích lũy, 
+- Quan sát từ cột Tần số tích lũy, 
 $$
-    42 < \frac{n}{2} = \frac{120}{2} = 60 < 90,
+    cf_2 = 42 < \frac{n}{2} = \frac{120}{2} = 60 < cf_3 = 90,
 $$
-rút ra nhóm 3 là nhóm đầu tiên có tần số tích lũy lớn hơn 60. Nhóm 3, $[8; 12)$, có đầu mút trái $r=8$, độ dài $d=4$, tần số $n_3=48$ và nhóm 2 có tần số tích lũy $cf_2 = 42$. 
+rút ra nhóm 3 là nhóm đầu tiên có tần số tích lũy lớn hơn 60. Nhóm 3, $[8; 12)$, có đầu mút trái $r=8$, độ dài $d=4$, tần số $n_3=48$ và nhóm 2 có tần số tích lũy $cf_2 = 42$. Tứ phân vị thứ hai là
 
 <!-- Trung vị Hoạt động 6 -->
 
@@ -1167,7 +1183,6 @@ hd1$me <- fractions(hd1$r + ((hd1$n / 2 - ifelse(hd1$k > 1, hd1$df$`Tần số t
 # hd1$me
 ```
 
-Tứ phân vị thứ hai là
 \begin{align*}
     Q_2
         & = 8 + \left( \frac{60-42}{48}\right)\cdot 4 \\
@@ -1175,13 +1190,13 @@ Tứ phân vị thứ hai là
         & \approx `r format(round(as.numeric(hd1$me), 0), decimal.mark = ",")` \text{ (năm).}
 \end{align*}
 
-- Quan sát từ cột tần số tích lũy, 
+- Quan sát từ cột Tần số tích lũy, 
 $$
-    42 < \frac{n}{4} = \frac{3\cdot 120}{4} = 90,
+    cf_2=42 < \frac{n}{4} = \frac{3\cdot 120}{4} = 90 = cf_3,
 $$
-nên nhóm 3, $[8;12)$, là nhóm đầu tiên có tần số tích lũy bằng 90.
+nên nhóm 3, $[8;12)$, là nhóm đầu tiên có tần số tích lũy bằng 90. Tứ phân vị thứ ba là
 
-<!-- Tứ phân vị thứ nhất Q3 -->
+<!-- Tứ phân vị thứ nhất Q3 Luyện tập 6 -->
 
 ```{r, echo = FALSE}
 # Tìm nhóm tứ phân vị thứ ba
@@ -1194,8 +1209,7 @@ hd1$l <- hd1$df$`Mút phải`[hd1$q] - hd1$df$`Mút trái`[hd1$q]
 hd1$q3 <- fractions(hd1$t + (((3 * hd1$n) / 4 - ifelse(hd1$q > 1, hd1$df$`Tần số tích lũy`[hd1$q - 1], 0)) / hd1$df$`Tần số`[hd1$q]) * hd1$h)
 # hd1$q3
 ```
-
-Tứ phân vị thứ ba là 
+ 
 \begin{align*}
     Q_3
         & = 8 + \left(\frac{90-42}{48}\right)\cdot 4 \\
@@ -1328,7 +1342,7 @@ if (output_format == "html") {
 }
 ```
 
-Quan sát cột tần số, nhóm 3, $[50;60)$, là nhóm có tần số lớn nhất $n_3=16$, có đầu mút trái $u=50$ và độ dài $g=10$. Nhóm 2 có tần số $n_2=10$ và nhóm 4 có tần số $n_4=8$. 
+Quan sát cột Tần số, nhóm 3, $[50;60)$, là nhóm có tần số lớn nhất $n_3=16$, có đầu mút trái $u=50$ và độ dài $g=10$. Nhóm 2 có tần số $n_2=10$ và nhóm 4 có tần số $n_4=8$. Mốt là
 
 <!-- Mốt -->
 
@@ -1344,7 +1358,6 @@ hd7$mo <- fractions(hd7$u + ((hd7$df$`Tần số`[hd7$i] - ifelse(hd7$i > 1, hd7
 # hd7$mo
 ```
 
-Mốt là
 \begin{align*}
     M_o
         & = u + \left(\frac{n_3-n_2}{2n_3-n_2-n_4}\right)\cdot g \\
@@ -1357,6 +1370,10 @@ Mốt là
 :::
 
 </details>
+
+# Bài tập
+
+Xem Đáp án để tra nhanh kết quả.
 
 <!-- Bài tập 1 -->
 
@@ -1372,7 +1389,8 @@ Mốt là
 
 Mẫu số liệu dưới đây ghi lại tốc độ của 40 ô-tô khi đi qua một trạm đo tốc độ (đơn vị: km/h):
 
-<!-- DỮ LIỆU -->
+<!-- Dữ liệu -->
+
 ```{r, echo = FALSE}
 bai1 <- new.env()
 # Tạo dữ liệu
@@ -1410,7 +1428,8 @@ b. Xác định trung bình cộng, trung vị, tứ phân vị của mẫu số
 c.  Mốt của mẫu số liệu ghép nhóm trên là bao nhiêu?
 </details>
 
-<!-- LỜI GIẢI BÀI TẬP 1 -->
+<!-- Lời giải Bài tập 1 -->
+
 <details>
 
 ::: {.content-visible when-format="html"}
@@ -1423,18 +1442,14 @@ c.  Mốt của mẫu số liệu ghép nhóm trên là bao nhiêu?
 \end{center}
 :::
 
-<!-- KHUNG DỮ LIỆU -->
+<!-- Khung dữ liệu Bài tập 1 -->
+
 ```{r, echo=FALSE}
-# Các điểm chia
 bai1$points <- seq(40, 70, by = 5)
-# Các giá trị đại liện
 bai1$x <- .5 * (bai1$points[-length(bai1$points)] + bai1$points[-1])
-# Tần số
 bai1$categories <- cut(bai1$data, bai1$points, right = FALSE)
 bai1$f <- as.vector(table(bai1$categories))
-# Tần số tích lũy
 bai1$cf <- cumsum(bai1$f)
-# Khung dữ liệu
 bai1$df <- data.frame(
     ` ` = seq(1, length(bai1$points) - 1, by = 1),
     Nhóm = c(paste0("\\(", levels(bai1$categories), "\\)")),
@@ -1447,9 +1462,10 @@ bai1$df <- data.frame(
 )
 ```
 
-a. Để đảm bảo phân nhóm chính xác, trước tiên mình sắp xếp số liệu theo thứ tự tăng dần. 
+a. Để đảm bảo phân nhóm chính xác, số liệu nên được sắp xếp theo thứ tự tăng dần. 
 
-<!-- SẮP XẾP SỐ LIỆU TĂNG DẦN -->
+<!-- Sắp xếp số liệu tăng dần -->
+
 ```{r, echo=FALSE}
 data <- format(matrix(sort(bai1$data), nrow = 4, byrow = TRUE), decimal.mark = ",")
 output_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
@@ -1462,14 +1478,14 @@ if (output_format == "html") {
 }
 ```
 
-Nhìn vào dãy có thứ tự tăng dần, bạn dễ dàng thấy rằng thuộc vào nhóm $[40,45)$ có bốn số liệu bao gồm 41; 43; 44; 44,5. Hãy tiếp tục quan sát để thu được bảng tần số ghép nhóm.
+Nhìn vào dãy có thứ tự tăng dần, dễ dàng thấy rằng thuộc vào nhóm $[40;45)$ có bốn số liệu bao gồm 41; 43; 44; 44,5. Bảng tần số ghép nhóm được thành lập dựa trên các quan sát như thế cho đến khi duyệt hết số liệu.
 
-<!-- BẢNG TẦN SỐ GHÉP NHÓM -->
+<!-- Bảng tần số ghép nhóm Bài tập 1 -->
+
 ```{r, echo = FALSE}
-# data <- data.frame(bai1$df[, c(-1, -3, -4, -5, -7), drop = FALSE], check.names = FALSE)
 data <- rbind(bai1$df[, c(-1, -3, -4, -5, -7), drop = FALSE], c("", "\\(n=40\\)"))
 data[] <- lapply(data, function(x) {
-    x <- as.character(x) # Đảm bảo x là kiểu character
+    x <- as.character(x)
     x <- gsub(",", ";", x)
 })
 output_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
@@ -1482,18 +1498,18 @@ if (output_format == "html") {
 }
 ```
 
-b. Mình thêm vào bảng tần số ghép nhóm ở trên cột số thứ tự để dễ quan sát, cột Giá trị đại diện để tính trung bình, và cột Tần số tích lũy để tính tứ phân vị. 
+b. Thêm vào bảng tần số ghép nhóm ở trên cột số thứ tự để dễ quan sát, cột Giá trị đại diện để tính trung bình, và cột Tần số tích lũy để tính tứ phân vị. 
 
-<!-- BẢNG TẦN SỐ GHÉP NHÓM MỞ RỘNG -->
+<!-- Bảng tần số ghép nhóm mở rộng Bài tập 1 -->
+
 ```{r, echo = FALSE}
 data <- rbind(bai1$df[, c(-3, -4), drop = FALSE], c("", "", "", "\\(n=40\\)", ""))
 data[] <- lapply(data, function(x) {
-    x <- as.character(x) # Đảm bảo x là kiểu character
-    x <- gsub(",", "TEMP_MARKER", x) # Đổi dấu ',' thành ký hiệu tạm
-    x <- gsub("\\.", ",", x) # Đổi dấu '.' thành ','
-    gsub("TEMP_MARKER", ";", x) # Đổi ký hiệu tạm thành ';'
+    x <- as.character(x) 
+    x <- gsub(",", "TEMP_MARKER", x) 
+    x <- gsub("\\.", ",", x) 
+    gsub("TEMP_MARKER", ";", x) 
 })
-# Chọn định dạng dựa vào output
 output_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 if (output_format == "html") {
     kable(data, format = "html", align = "c", col.names = NA) %>%
@@ -1505,14 +1521,14 @@ if (output_format == "html") {
 
 ```
 
-<!-- TRUNG BÌNH -->
+<!-- Trung bình Bài tập 1 -->
+
 ```{r, echo = FALSE}
-# Kích thước mẫu
 bai1$n <- length(bai1$data)
 bai1$barx <- fractions(sum(bai1$df$`Giá trị đại diện` * bai1$df$`Tần số`) / sum(bai1$df$`Tần số`))
 ```
 
-- Mẫu có $n=40$ số liệu. Nhóm một, $[40;45)$, có trung điểm $x_1=42,5$ làm giá trị đại diện và có tần số $n_1=4$. Ký hiệu tương tự cho các nhóm còn lại. Trung bình cộng là
+- Mẫu có $n=40$ số liệu. Nhóm 1, $[40;45)$, có trung điểm $x_1=42,5$ làm giá trị đại diện và có tần số $n_1=4$. Ký hiệu tương tự cho các nhóm còn lại. Trung bình cộng là
 \begin{align*}
     \overline{x} 
         & = \frac{1}{n} (n_1\cdot x_1 + n_2\cdot x_2 + n_3\cdot x_3 + n_4\cdot x_4 + n_5\cdot x_5 + n_6\cdot x_6) \\
@@ -1521,19 +1537,20 @@ bai1$barx <- fractions(sum(bai1$df$`Giá trị đại diện` * bai1$df$`Tần s
         & = `r format(round(as.numeric(bai1$barx), 4), decimal.mark = ",")` \text{ (km/h)}.
 \end{align*}
 
-<!-- TRUNG VỊ -->
+<!-- Trung vị M_e và tứ phân vị thứ hai Q_2 Bài tập 1 -->
+
 ```{r, echo = FALSE}
-# Tìm nhóm trung vị
 bai1$k <- which(bai1$df$`Tần số tích lũy` >= bai1$n / 2)[1]
-# Mút trái nhóm trung vị
 bai1$r <- bai1$df$`Mút trái`[bai1$k]
-# Độ rộng nhóm
 bai1$d <- bai1$df$`Mút phải`[bai1$k] - bai1$df$`Mút trái`[bai1$k]
-# Tính trung vị
 bai1$me <- fractions(bai1$r + ((bai1$n / 2 - ifelse(bai1$k > 1, bai1$df$`Tần số tích lũy`[bai1$k - 1], 0)) / bai1$df$`Tần số`[bai1$k]) * bai1$d)
 ```
 
-- Nhóm ba, $[50;55)$, là nhóm đầu tiên có tần số tích lũy $cf_3=22$ không nhỏ hơn $\frac{n}{2}=20$. Nhóm này có đầu mút trái $r=50$, độ dài $d=5$ và tần số $n_3=7$. Nhóm hai có tần số tích lũy $cf_2=15$. Trung vị là
+- Quan sát cột Tần số tích lũy, ta thấy 
+$$
+    cf_2=15 < \frac{n}{2}=\frac{40}{2}=20 < cf_3=22.
+$$
+Suy ra nhóm 3, $[50;55)$, là nhóm đầu tiên có tần số tích lũy không nhỏ hơn 20. Nhóm này có đầu mút trái $r=50$, độ dài $d=5$ và tần số $n_3=7$. Trung vị là
     \begin{align*}
         M_e
             & = r+\left(\frac{\frac{n}{2}-cf_2}{n_3}\right)\cdot d \\
@@ -1542,18 +1559,20 @@ bai1$me <- fractions(bai1$r + ((bai1$n / 2 - ifelse(bai1$k > 1, bai1$df$`Tần s
             & \approx `r format(round(as.numeric(bai1$me), 4), decimal.mark = ",")` \text{ (km/h).}
     \end{align*}
 
-<!-- TỨ PHÂN VỊ THỨ NHẤT -->
+<!-- Tứ phân vị thứ nhất Q_1 Bài tập 1 -->
+
 ```{r, echo = FALSE}
 bai1$p <- which(bai1$df$`Tần số tích lũy` >= bai1$n / 4)[1]
-# Mút trái nhóm tứ phân vị thứ nhất
 bai1$s <- bai1$df$`Mút trái`[bai1$p]
-# Độ rộng nhóm tứ phân vị thứ nhất
 bai1$h <- bai1$df$`Mút phải`[bai1$p] - bai1$df$`Mút trái`[bai1$p]
-# Tính tứ phân vị thứ nhất
 bai1$q1 <- fractions(bai1$s + ((bai1$n / 4 - ifelse(bai1$p > 1, bai1$df$`Tần số tích lũy`[bai1$p - 1], 0)) / bai1$df$`Tần số`[bai1$p]) * bai1$h)
 ```
 
-- Nhóm hai, $[45;50)$, là nhóm đầu tiên có tần số tích lũy $cf_2=15$ không nhỏ hơn $\frac{n}{4}=10$. Nhóm này có đầu mút trái $s=45$, độ dài $h=5$ và tần số $n_2=11$. Nhóm một có tần số tích lũy là $cf_1=4$. Tứ phân vị thứ nhất là
+- Quan sát cột Tần số tích lũy, ta thấy
+$$
+cf_1=4 < \frac{n}{4}=\frac{40}{4}=10 < cf_2=15.
+$$
+Suy ra nhóm 2, $[45;50)$, là nhóm đầu tiên có tần số tích lũy không nhỏ hơn 10. Nhóm này có đầu mút trái $s=45$, độ dài $h=5$ và tần số $n_2=11$. Tứ phân vị thứ nhất là
     \begin{align*}
         Q_1
             & = s + \left( \frac{\frac{n}{4}-cf_1}{n_2}\right)\cdot h \\
@@ -1564,19 +1583,20 @@ bai1$q1 <- fractions(bai1$s + ((bai1$n / 4 - ifelse(bai1$p > 1, bai1$df$`Tần s
 
 - Tứ phân vị thứ hai $Q_2$ chính là trung vị $M_e$, hay $Q_2 = M_e = `r format(round(as.numeric(bai1$me), 4), decimal.mark = ",")`$ (km/h).
 
-<!-- TỨ PHÂN VỊ THỨ BA -->
+<!-- Tứ phân vị thứ ba Bài tập 1 -->
+
 ```{r, echo = FALSE}
-# Tìm nhóm tứ phân vị thứ ba
 bai1$q <- which(bai1$df$`Tần số tích lũy` >= (3 * bai1$n) / 4)[1]
-# Mút trái nhóm tứ phân vị thứ ba
 bai1$t <- bai1$df$`Mút trái`[bai1$q]
-# Độ rộng nhóm tứ phân vị thứ ba
 bai1$l <- bai1$df$`Mút phải`[bai1$q] - bai1$df$`Mút trái`[bai1$q]
-# Tính tứ phân vị thứ ba
 bai1$q3 <- fractions(bai1$t + (((3 * bai1$n) / 4 - ifelse(bai1$q > 1, bai1$df$`Tần số tích lũy`[bai1$q - 1], 0)) / bai1$df$`Tần số`[bai1$q]) * bai1$l)
 ```
 
-- Nhóm bốn, $[55;60)$, là nhóm đầu tiên có tần số tích lũy $cf_4=30$ bằng với $\frac{3n}{4}=\frac{3\cdot 40}{4}=30$. Nhóm này có đầu mút trái $t=55$, độ dài $l=5$ và tần số $n_4=8$. Nhóm thứ ba có tần số tích lũy là $cf_3=22$. Tứ phân vị thứ ba là
+- Quan sát cột Tần số tích lũy, ta thấy
+$$
+cf_3=22 < \frac{3n}{4} = \frac{3 \cdot 40}{4} = 30 = cf_4.
+$$
+Suy ra nhóm 4, $[55;60)$, là nhóm đầu tiên có tần số tích lũy bằng với 30. Nhóm này có đầu mút trái $t=55$, độ dài $l=5$ và tần số $n_4=8$. Tứ phân vị thứ ba là
     \begin{align*}
         Q_3
             & = t + \left(\frac{\frac{3n}{4}-cf_3}{n_4}\right)\cdot l \\
@@ -1584,19 +1604,16 @@ bai1$q3 <- fractions(bai1$t + (((3 * bai1$n) / 4 - ifelse(bai1$q > 1, bai1$df$`T
             & = `r format(round(as.numeric(bai1$q3), 4), decimal.mark = ",")` \text{ (km/h).}
     \end{align*}
 
-<!-- MỐT -->
+<!-- Mốt Bài tập 1 -->
+
 ```{r, echo = FALSE}
-# Tìm nhóm có tần số lớn nhất
 bai1$i <- which.max(bai1$df$`Tần số`)
-# Mút trái của nhóm mốt
 bai1$u <- bai1$df$`Mút trái`[bai1$i]
-# Độ rộng nhóm mốt
 bai1$g <- bai1$df$`Mút phải`[bai1$i] - bai1$df$`Mút trái`[bai1$i]
-# Tính mốt
 bai1$mo <- fractions(bai1$u + ((bai1$df$`Tần số`[bai1$i] - ifelse(bai1$i > 1, bai1$df$`Tần số`[bai1$i - 1], 0)) / (2 * bai1$df$`Tần số`[bai1$i] - ifelse(bai1$i > 1, bai1$df$`Tần số`[bai1$i - 1]) - ifelse(bai1$i < nrow(bai1$df), bai1$df$`Tần số`[bai1$i + 1], 0))) * bai1$g)
 ```
 
-c. Nhóm hai, $[45;50)$, là nhóm có tần số lớn nhất $n_2=11$. Nó có đầu mút trái $u=45$ và độ dài $g=5$. Nhóm một có tần số $n_1=4$ và nhóm ba có tần số $n_3=7$. Mốt là
+c. Quan sát cột Tần số, nhóm 2, $[45;50)$, là nhóm có tần số lớn nhất $n_2=11$. Nó có đầu mút trái $u=45$ và độ dài $g=5$. Nhóm 1 có tần số $n_1=4$ và nhóm 3 có tần số $n_3=7$. Mốt là
     \begin{align*}
         M_o
             & = u + \left(\frac{n_2-n_1}{2n_2-n_1-n_3}\right) \cdot g \\
@@ -1634,7 +1651,8 @@ $\overline{x}$ & $Q_1$ & $Q_2$ ($M_e$) & $Q_3$ & $M_o$ \\
 :::
 </details>
 
-<!-- ĐÁP ÁN BÀI TẬP 1 -->
+<!-- Đáp án Bài tập 1 -->
+
 <details>
 
 ::: {.content-visible when-format="html"}
@@ -1644,12 +1662,11 @@ $\overline{x}$ & $Q_1$ & $Q_2$ ($M_e$) & $Q_3$ & $M_o$ \\
 ```{r, echo = FALSE}
 data <- rbind(bai1$df[, c(-3, -4), drop = FALSE], c("", "", "", "\\(n=40\\)", ""))
 data[] <- lapply(data, function(x) {
-    x <- as.character(x) # Đảm bảo x là kiểu character
-    x <- gsub(",", "TEMP_MARKER", x) # Đổi dấu ',' thành ký hiệu tạm
-    x <- gsub("\\.", ",", x) # Đổi dấu '.' thành ','
-    gsub("TEMP_MARKER", ";", x) # Đổi ký hiệu tạm thành ';'
+    x <- as.character(x)
+    x <- gsub(",", "TEMP_MARKER", x)
+    x <- gsub("\\.", ",", x)
+    gsub("TEMP_MARKER", ";", x)
 })
-# Chọn định dạng dựa vào output
 output_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 if (output_format == "html") {
     kable(data, format = "html", align = "c", col.names = NA) %>%
@@ -1658,7 +1675,6 @@ if (output_format == "html") {
 ```
 
 ```{r, echo = FALSE}
-# Tạo khung dữ liệu với một hàng duy nhất
 data <- data.frame(
     `\\(\\overline{x}\\)` = format(round(as.numeric(bai1$barx), 4), decimal.mark = ","),
     `\\(Q_1\\)` = format(round(as.numeric(bai1$q1), 4), decimal.mark = ","),
@@ -1667,9 +1683,7 @@ data <- data.frame(
     `\\(M_o\\)` = format(round(as.numeric(bai1$mo), 4), decimal.mark = ","),
     check.names = FALSE
 )
-# Kiểm tra định dạng đầu ra
 output_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
-# Hiển thị bảng nếu định dạng đầu ra là HTML
 if (output_format == "html") {
     knitr::kable(data, align = "c", format = "html") %>%
         kableExtra::kable_styling(
@@ -1681,9 +1695,8 @@ if (output_format == "html") {
 
 </details>
 
-<!-------------------------------------------------------------------->
+<!-- Bài tập 2 -->
 
-<!-- BÀI TẬP 2 -->
 <details>
 
 ::: {.content-visible when-format="html"}
@@ -1696,15 +1709,13 @@ if (output_format == "html") {
 
 Mẫu số liệu sau ghi lại cân nặng của 30 bạn học sinh (đơn vị: kg):
 
-<!-- DỮ LIỆU -->
+<!-- Dữ liệu Bài tập 2 -->
+
 ```{r, echo = FALSE}
 bai2 <- new.env()
-# Tạo dữ liệu
 bai2$data <- c(17.0, 40.0, 39.0, 40.5, 42.0, 51.0, 41.5, 39.0, 41.0, 30.0, 40.0, 42.0, 40.5, 39.5, 41.0, 40.5, 37.0, 39.5, 40.0, 41.0, 38.5, 39.5, 40.0, 41.0, 39.0, 40.5, 40.0, 38.5, 39.5, 41.5)
 data <- matrix(bai2$data, nrow = 3, byrow = TRUE)
-# Định dạng số thập phân: thay dấu "." bằng ","
 data <- format(data, decimal.mark = ",")
-# Bảng
 output_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 if (output_format == "html") {
     kable(data, format = "html", align = "c", col.names = NA) %>%
@@ -1734,7 +1745,8 @@ b. Xác định trung bình cộng, trung vị, tứ phân vị của mẫu số
 c. Mốt của mẫu số liệu ghép nhóm trên là bao nhiêu?
 </details>
 
-<!-- LỜI GIẢI BÀI TẬP 2 -->
+<!-- Lời giải Bài tập 2 -->
+
 <details>
 
 ::: {.content-visible when-format="html"}
@@ -1747,18 +1759,14 @@ c. Mốt của mẫu số liệu ghép nhóm trên là bao nhiêu?
 \end{center}
 :::
 
-<!-- KHUNG DỮ LIỆU -->
+<!-- Khung dữ liệu Bài tập 2 -->
+
 ```{r, echo=FALSE}
-# Các điểm chia
 bai2$points <- seq(15, 55, by = 5)
-# Các giá trị đại liện
 bai2$x <- .5 * (bai2$points[-length(bai2$points)] + bai2$points[-1])
-# Tần số
 bai2$categories <- cut(bai2$data, bai2$points, right = FALSE)
 bai2$f <- as.vector(table(bai2$categories))
-# Tần số tích lũy
 bai2$cf <- cumsum(bai2$f)
-# Khung dữ liệu
 bai2$df <- data.frame(
     ` ` = seq(1, length(bai2$points) - 1, by = 1),
     Nhóm = c(paste0("\\(", levels(bai2$categories), "\\)")),
@@ -1771,9 +1779,10 @@ bai2$df <- data.frame(
 )
 ```
 
-a. Để đảm bảo phân nhóm chính xác, trước tiên mình sắp xếp số liệu theo thứ tự tăng dần. 
+a. Để đảm bảo phân nhóm chính xác, số liệu nên được sắp xếp theo thứ tự tăng dần. 
 
 <!-- Sắp xếp số liệu tăng dần -->
+
 ```{r, echo=FALSE}
 data <- format(matrix(sort(bai2$data), nrow = 3, byrow = TRUE), decimal.mark = ",")
 output_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
@@ -1791,13 +1800,14 @@ if (output_format == "html") {
 }
 ```
 
-Nhìn vào dãy có thứ tự tăng dần, bạn dễ dàng thấy rằng thuộc vào nhóm $[15,20)$ chỉ có một số liệu là 17. Hãy tiếp tục quan sát để thu được bảng tần số ghép nhóm.
+Nhìn vào dãy có thứ tự tăng dần, dễ dàng thấy rằng thuộc vào nhóm $[15,20)$ chỉ có một số liệu là 17. Bảng tần số ghép nhóm được thành lập dựa trên các quan sát như thế cho đến khi duyệt hết số liệu.
 
-<!-- BẢNG TẦN SỐ GHÉP NHÓM -->
+<!-- Bảng tần số ghép nhóm Bài tập 2 -->
+
 ```{r, echo = FALSE}
-data <- rbind(bai2$df[, c(-1, -3, -4, -5, -7), drop = FALSE], c("", "\\(n=40\\)"))
+data <- rbind(bai2$df[, c(-1, -3, -4, -5, -7), drop = FALSE], c("", "\\(n=30\\)"))
 data[] <- lapply(data, function(x) {
-    x <- as.character(x) # Đảm bảo x là kiểu character
+    x <- as.character(x)
     x <- gsub(",", ";", x)
 })
 output_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
@@ -1810,16 +1820,17 @@ if (output_format == "html") {
 }
 ```
 
-b. Mình thêm vào bảng tần số ghép nhóm ở trên cột số thứ tự để dễ quan sát, cột Giá trị đại diện để tính trung bình, và cột Tần số tích lũy để tính tứ phân vị.
+b. Thêm vào bảng tần số ghép nhóm ở trên cột số thứ tự để dễ quan sát, cột Giá trị đại diện để tính trung bình, và cột Tần số tích lũy để tính tứ phân vị.
 
-<!-- BẢNG TẦN SỐ GHÉP NHÓM MỞ RỘNG -->
+<!-- Bảng tần số ghép nhóm mở rộng Bài tập 2 -->
+
 ```{r, echo = FALSE}
-data <- rbind(bai2$df[, c(-3, -4), drop = FALSE], c("", "", "", "\\(n=40\\)", ""))
+data <- rbind(bai2$df[, c(-3, -4), drop = FALSE], c("", "", "", "\\(n=30\\)", ""))
 data[] <- lapply(data, function(x) {
-    x <- as.character(x) # Đảm bảo x là kiểu character
-    x <- gsub(",", "TEMP_MARKER", x) # Đổi dấu ',' thành ký hiệu tạm
-    x <- gsub("\\.", ",", x) # Đổi dấu '.' thành ','
-    gsub("TEMP_MARKER", ";", x) # Đổi ký hiệu tạm thành ';'
+    x <- as.character(x)
+    x <- gsub(",", "TEMP_MARKER", x)
+    x <- gsub("\\.", ",", x)
+    gsub("TEMP_MARKER", ";", x)
 })
 output_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 if (output_format == "html") {
@@ -1831,14 +1842,14 @@ if (output_format == "html") {
 }
 ```
 
-<!-- TRUNG BÌNH -->
+<!-- Trung bình Bài tập 2 -->
+
 ```{r, echo = FALSE}
-# Kích thước mẫu
 bai2$n <- length(bai2$data)
 bai2$barx <- fractions(sum(bai2$df$`Giá trị đại diện` * bai2$df$`Tần số`) / sum(bai2$df$`Tần số`))
 ```
 
-- Mẫu có $n=30$ số liệu. Nhóm một, $[15;20)$, có trung điểm $x_1=17,5$ làm giá trị đại diện và có tần số $n_1=1$. Ký hiệu tương tự với các nhóm còn lại. Trung bình là
+- Mẫu có $n=30$ số liệu. Nhóm 1, $[15;20)$, có trung điểm $x_1=17,5$ làm giá trị đại diện và có tần số $n_1=1$. Ký hiệu tương tự với các nhóm còn lại. Trung bình là
 \begin{align*}
 \overline{x}
     & = \frac{1}{n}(n_1\cdot x_1 + n_2\cdot x_2 + n_3\cdot x_3 + n_4\cdot x_4 + n_5\cdot x_5 + n_6\cdot x_6 + n_7\cdot x_7 + n_8\cdot x_8) \\
@@ -1846,19 +1857,20 @@ bai2$barx <- fractions(sum(bai2$df$`Giá trị đại diện` * bai2$df$`Tần s
     & = `r format(round(as.numeric(bai2$barx), 4), decimal.mark = ",")` \text{ (kg).}
 \end{align*}
 
-<!-- TRUNG VỊ -->
+<!-- Trung vị Bài tập 2 -->
+
 ```{r, echo = FALSE}
-# Tìm nhóm trung vị
 bai2$k <- which(bai2$df$`Tần số tích lũy` >= bai2$n / 2)[1]
-# Mút trái nhóm trung vị
 bai2$r <- bai2$df$`Mút trái`[bai2$k]
-# Độ rộng nhóm
 bai2$d <- bai2$df$`Mút phải`[bai2$k] - bai2$df$`Mút trái`[bai2$k]
-# Tính trung vị
 bai2$me <- fractions(bai2$r + ((bai2$n / 2 - ifelse(bai2$k > 1, bai2$df$`Tần số tích lũy`[bai2$k - 1], 0)) / bai2$df$`Tần số`[bai2$k]) * bai2$d)
 ```
 
-- Nhóm sáu, $[40;45)$, là nhóm đầu tiên có tần số tích lũy $cf_6=29$ không nhỏ hơn $\frac{n}{2}=15$. Nhóm này có đầu mút trái $r=40$, độ dài $d=5$ và tần số $n_6=17$. Nhóm năm liền trước nó có tần số tích lũy $cf_5=12$. Trung vị là
+- Quan sát cột Tần số tích lũy, ta thấy
+$$
+cf_5=12 < \frac{n}{2}=15 < cf_6=29.
+$$
+Suy ra nhóm 6, $[40;45)$, là nhóm đầu tiên có tần số tích lũy không nhỏ hơn 15. Nhóm này có đầu mút trái $r=40$, độ dài $d=5$ và tần số $n_6=17$. Trung vị là
 \begin{align*}
 M_e
     & = r + \left(\frac{\frac{n}{2}-cf_5}{n_6}\right)\cdot d \\
@@ -1871,66 +1883,65 @@ M_e
 
 ```{r, echo = FALSE}
 bai2$p <- which(bai2$df$`Tần số tích lũy` >= bai2$n / 4)[1]
-# Mút trái nhóm tứ phân vị thứ nhất
 bai2$s <- bai2$df$`Mút trái`[bai2$p]
-# Độ rộng nhóm tứ phân vị thứ nhất
 bai2$h <- bai2$df$`Mút phải`[bai2$p] - bai2$df$`Mút trái`[bai2$p]
-# Tính tứ phân vị thứ nhất
 bai2$q1 <- fractions(bai2$s + ((bai2$n / 4 - ifelse(bai2$p > 1, bai2$df$`Tần số tích lũy`[bai2$p - 1], 0)) / bai2$df$`Tần số`[bai2$p]) * bai2$h)
 ```
 
-- Nhóm năm $[35;40)$ là nhóm đầu tiên có tần số tích lũy $cf_5=12$ không nhỏ hơn $\frac{n}{4}=7,5$. Nhóm này có đầ mút trái $s=35$, độ dài $h=5$ và tần số $n_5=10$. Nhóm bốn liền trước nó có tần số tích lũy $cf_4=2$. Tứ phân vị thứ nhất là
-\begin{align*}
-Q_1
-    & = s + \left( \frac{\frac{n}{4}-cf_4}{n_5}\right)\cdot h \\
-    & = 35 + \left(\frac{7,5-2}{10}\right)\cdot 5 \\
-    & = \frac{151}{4} \\
-    & = `r format(round(as.numeric(bai2$q1), 4), decimal.mark = ",")` \text{ (kg).}
-\end{align*}
+- Quan sát cột Tần số tích lũy, ta thấy
+$$
+cf_4=2 <\frac{n}{4}=\frac{30}{4}=7,5 < cf_5=12.
+$$
+Suy ra nhóm 5, $[35;40)$, là nhóm đầu tiên có tần số tích lũy, không nhỏ hơn 7,5. Nhóm này có đầ mút trái $s=35$, độ dài $h=5$ và tần số $n_5=10$. Tứ phân vị thứ nhất là
+    \begin{align*}
+        Q_1
+            & = s + \left( \frac{\frac{n}{4}-cf_4}{n_5}\right)\cdot h \\
+            & = 35 + \left(\frac{7,5-2}{10}\right)\cdot 5 \\
+            & = \frac{151}{4} \\
+            & = `r format(round(as.numeric(bai2$q1), 4), decimal.mark = ",")` \text{ (kg).}
+    \end{align*}
 
 - Tứ phân vị thứ hai $Q_2$ chính là trung vị $M_e$, hay $Q_2=M_e \approx `r format(round(as.numeric(bai2$me), 4), decimal.mark = ",")`$ (kg).
 
-<!-- TỨ PHÂN VỊ THỨ BA -->
+<!-- Tứ phân vị thứ ba Bài tập 2 -->
+
 ```{r, echo = FALSE}
-# Tìm nhóm tứ phân vị thứ ba
 bai2$q <- which(bai2$df$`Tần số tích lũy` >= (3 * bai2$n) / 4)[1]
-# Mút trái nhóm tứ phân vị thứ ba
 bai2$t <- bai2$df$`Mút trái`[bai2$q]
-# Độ rộng nhóm tứ phân vị thứ ba
 bai2$l <- bai2$df$`Mút phải`[bai2$q] - bai2$df$`Mút trái`[bai2$q]
-# Tính tứ phân vị thứ ba
 bai2$q3 <- fractions(bai2$t + (((3 * bai2$n) / 4 - ifelse(bai2$q > 1, bai2$df$`Tần số tích lũy`[bai2$q - 1], 0)) / bai2$df$`Tần số`[bai2$q]) * bai2$l)
 ```
 
-- Nhóm sáu $[40;45)$ là nhòm đầu tiên có tần số tích lũy $cf_6=29$ không nhỏ hơn $\frac{3n}{4}=22,5$. Nhóm này có đầu mút trái $t=40$, độ dài $l=5$ và tần số $n_6=17$. Nhóm năm liền trước nó có tần số tích lũy là $cf_5=12$. Tứ phân vị thứ ba là
-\begin{align*}
-Q_3
-    & = t + \left(\frac{\frac{3n}{4}-cf_5}{n_6}\right)\cdot l \\
-    & = 40 +\left(\frac{22,5-12}{17}\right) \cdot 5 \\
-    & = \frac{1465}{34} \\
-    & \approx `r format(round(as.numeric(bai2$q3), 4), decimal.mark = ",")` \text{ (kg).} 
-\end{align*}
+- Quan sát cột Tần số tích lũy, ta có
+$$
+cf_5=12<\frac{3n}{4}=\frac{3\cdot 30}{3}=22,5<cf_6=29.
+$$
+Suy ra nhóm 6, $[40;45)$ là nhòm đầu tiên có tần số tích lũy không nhỏ hơn 22,5. Nhóm này có đầu mút trái $t=40$, độ dài $l=5$ và tần số $n_6=17$. Tứ phân vị thứ ba là
+    \begin{align*}
+        Q_3
+            & = t + \left(\frac{\frac{3n}{4}-cf_5}{n_6}\right)\cdot l \\
+            & = 40 +\left(\frac{22,5-12}{17}\right) \cdot 5 \\
+            & = \frac{1465}{34} \\
+            & \approx `r format(round(as.numeric(bai2$q3), 4), decimal.mark = ",")` \text{ (kg).} 
+    \end{align*}
 
-<!-- MỐT -->
+<!-- Mốt Bài tập 2 -->
+
 ```{r, echo = FALSE}
-# Tìm nhóm có tần số lớn nhất
 bai2$i <- which.max(bai2$df$`Tần số`)
-# Mút trái của nhóm mốt
 bai2$u <- bai2$df$`Mút trái`[bai2$i]
-# Độ rộng nhóm mốt
 bai2$g <- bai2$df$`Mút phải`[bai2$i] - bai2$df$`Mút trái`[bai2$i]
-# Tính mốt
 bai2$mo <- fractions(bai2$u + ((bai2$df$`Tần số`[bai2$i] - ifelse(bai2$i > 1, bai2$df$`Tần số`[bai2$i - 1], 0)) / (2 * bai2$df$`Tần số`[bai2$i] - ifelse(bai2$i > 1, bai2$df$`Tần số`[bai2$i - 1]) - ifelse(bai2$i < nrow(bai2$df), bai2$df$`Tần số`[bai2$i + 1], 0))) * bai2$g, 4)
 ```
 
-c. Nhóm sáu $[40,45)$ là nhóm có tần số lớn nhất $n_6=17$. Nhóm này có đầu mút trái $u=40$ và độ dài $g=5$. Nhóm năm liền trước nó có tần số $n_5=10$ và nhóm bảy liền sau nó có tần số $n_7=0$. Mốt là
-\begin{align*}
-M_o 
-    & = u + \left(\frac{n_6-n_5}{2n_6 - n_5 - n_7}\right)\cdot g \\
-    & = 40 + \left(\frac{17-10}{2\cdot 17 - 10 - 0}\right)\cdot 5 \\
-    & = \frac{995}{24} \\
-    & \approx `r formatC(round(as.numeric(bai2$mo), 4), format = "f", digits = 1, decimal.mark = ",")` \text{ (kg).}
-\end{align*}
+c. Quan sát cột Tần số, nhóm 6, $[40,45)$ là nhóm có tần số lớn nhất $n_6=17$. Nhóm này có đầu mút trái $u=40$ và độ dài $g=5$. Nhóm 5 liền trước nó có tần số $n_5=10$ và nhóm 7 liền sau nó có tần số $n_7=0$. Mốt là
+    \begin{align*}
+        M_o 
+            & = u + \left(\frac{n_6-n_5}{2n_6 - n_5 - n_7}\right)\cdot g \\
+            & = 40 + \left(\frac{17-10}{2\cdot 17 - 10 - 0}\right)\cdot 5 \\
+            & = \frac{995}{24} \\
+            & \approx `r formatC(round(as.numeric(bai2$mo), 4), format = "f", digits = 1, decimal.mark = ",")` \text{ (kg).}
+    \end{align*}
 
 ::: {.content-visible when-format="pdf"}
 Tóm lại, bảng tần số ghép nhóm là
@@ -1960,7 +1971,8 @@ $\overline{x}$ & $Q_1$ & $Q_2$ ($M_e$) & $Q_3$ & $M_o$ \\
 :::
 </details>
 
-<!-- ĐÁP ÁN BÀI TẬP 2 -->
+<!-- Đáp án Bài tập 2 -->
+
 <details>
 
 ::: {.content-visible when-format="html"}
@@ -1970,12 +1982,11 @@ $\overline{x}$ & $Q_1$ & $Q_2$ ($M_e$) & $Q_3$ & $M_o$ \\
 ```{r, echo = FALSE}
 data <- rbind(bai2$df[, c(-3, -4), drop = FALSE], c("", "", "", "\\(n=40\\)", ""))
 data[] <- lapply(data, function(x) {
-    x <- as.character(x) # Đảm bảo x là kiểu character
-    x <- gsub(",", "TEMP_MARKER", x) # Đổi dấu ',' thành ký hiệu tạm
-    x <- gsub("\\.", ",", x) # Đổi dấu '.' thành ','
-    gsub("TEMP_MARKER", ";", x) # Đổi ký hiệu tạm thành ';'
+    x <- as.character(x) 
+    x <- gsub(",", "TEMP_MARKER", x) 
+    x <- gsub("\\.", ",", x) 
+    gsub("TEMP_MARKER", ";", x) 
 })
-# Chọn định dạng dựa vào output
 output_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 if (output_format == "html") {
     kable(data, format = "html", align = "c", col.names = NA) %>%
@@ -1985,7 +1996,6 @@ if (output_format == "html") {
 ```
 
 ```{r, echo = FALSE}
-# Tạo khung dữ liệu với một hàng duy nhất
 data <- data.frame(
     `\\(\\overline{x}\\)` = format(round(as.numeric(bai2$barx), 4), decimal.mark = ","),
     `\\(Q_1\\)` = format(round(as.numeric(bai2$q1), 4), decimal.mark = ","),
@@ -1994,9 +2004,7 @@ data <- data.frame(
     `\\(M_o\\)` = format(round(as.numeric(bai2$mo), 4), decimal.mark = ","),
     check.names = FALSE
 )
-# Kiểm tra định dạng đầu ra
 output_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
-# Hiển thị bảng nếu định dạng đầu ra là HTML
 if (output_format == "html") {
     knitr::kable(data, align = "c", format = "html") %>%
         kableExtra::kable_styling(
@@ -2008,9 +2016,8 @@ if (output_format == "html") {
 
 </details>
 
-<!-------------------------------------------------------------------->
+<!-- Bài tập 3 -->
 
-<!-- BÀI TẬP 3 -->
 <details>
 
 ::: {.content-visible when-format="html"}
@@ -2043,7 +2050,6 @@ bai3$df <- data.frame(
 )
 data <- data.frame(bai3$df[, c(-1, -3, -4, -5), drop = FALSE], check.names = FALSE)
 data <- rbind(data, c("", "\\(n=40\\)", ""))
-# Chọn định dạng dựa vào output
 output_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 if (output_format == "html") {
     kable(data, format = "html", align = "c", col.names = NA, caption = "Bảng 15") %>%
@@ -2070,13 +2076,12 @@ if (output_format == "html") {
 \end{center}
 :::
 
-a. Mình sẽ thêm vào bảng đã cho cột Giá trị đại diện để tính trung bình, và cột số thứ tự để dễ quan sát.
+a.Thêm vào bảng đã cho cột Giá trị đại diện để tính trung bình, và cột số thứ tự để dễ quan sát.
 
-<!-- Bảng tần số mở rộng -->
+<!-- Bảng tần số mở rộng Bài tập 3-->
 
 ```{r, echo = FALSE}
 data <- rbind(bai3$df[, c(-3, -4), drop = FALSE], c("", "", "", "\\(n=40\\)", ""))
-# Chọn định dạng dựa vào output
 output_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 if (output_format == "html") {
     kable(data, format = "html", align = "c", col.names = NA) %>%
@@ -2087,14 +2092,14 @@ if (output_format == "html") {
 }
 ```
 
-<!-- Trung bình -->
+<!-- Trung bình Bài tập 3-->
 
 ```{r, echo = FALSE}
 bai3$n <- sum(bai3$df$`Tần số`)
 bai3$barx <- fractions((1 / bai3$n) * sum(bai3$df$`Giá trị đại diện` * bai3$df$`Tần số`))
 ```
 
-- Mẫu có $n=40$ số liệu. Nhóm một có giá trị đại diện $x_1=35$ và tần số $n_1=4$, vân vân cho đến nhóm sáu có giá trị đại diện $x_6=85$ và tần số $n_6=2$. Trung bình là
+- Mẫu có $n=40$ số liệu. Nhóm 1 có giá trị đại diện $x_1=35$ và tần số $n_1=4$, vân vân cho đến nhóm 6 có giá trị đại diện $x_6=85$ và tần số $n_6=2$. Trung bình là
 
 \begin{align*}
     \overline{x}
@@ -2104,43 +2109,43 @@ bai3$barx <- fractions((1 / bai3$n) * sum(bai3$df$`Giá trị đại diện` * b
         & = `r format(round(as.numeric(bai3$barx), 4), decimal.mark = ",")` \text{ (cm).}
 \end{align*}
 
-<!-- Trung vị -->
+<!-- Trung vị Bài tập 3-->
 
 ```{r, echo = FALSE}
-# Tìm nhóm trung vị
-bai3$k <- which(bai3$df$`Tần số tích lũy` >= bai3$n / 2)[1] # Tìm chỉ mục (vị trí hàng) đầu tiên ([1]) trong bai3$df sao cho giá trị của cột "Tần số tích lũy" lớn hơn hoặc bằng bai3$n / 2, rồi lưu vào bai3$k.
-# Mút trái nhóm trung vị
+bai3$k <- which(bai3$df$`Tần số tích lũy` >= bai3$n / 2)[1] 
 bai3$r <- bai3$df$`Mút trái`[bai3$k]
-# Độ rộng nhóm
 bai3$d <- bai3$df$`Mút phải`[bai3$k] - bai3$df$`Mút trái`[bai3$k]
-# Tính trung vị
 bai3$me <- fractions(bai3$r + ((bai3$n / 2 - ifelse(bai3$k > 1, bai3$df$`Tần số tích lũy`[bai3$k - 1], 0)) / bai3$df$`Tần số`[bai3$k]) * bai3$d)
 ```
 
-- Nhóm ba, $[50;55)$, là nhóm đầu tiên có tần số tích lũy $cf_3=28$ không nhỏ hơn $\frac{n}{2}=20$. Nhóm này có đầu mút trái $r=50$, độ dài $d=10$ và tần số $n_3=14$. Nhóm hai liền trước nó có tần số tích lũy $cf_2=14$. Trung vị là
+- Quan sát cột Tần số tích lũy, ta thấy
+$$
+cf_2=14 <\frac{n}{2}=\frac{40}{2}=20 <cf_3=28.
+$$
+Suy ra nhóm 3, $[50;55)$, là nhóm đầu tiên có tần số tích lũy không nhỏ hơn 20. Nhóm này có đầu mút trái $r=50$, độ dài $d=10$ và tần số $n_3=14$. Trung vị là
 
-\begin{align*}
-M_e
-    & = r + \left(\frac{\frac{n}{2}-cf_2}{n_3}\right)\cdot d \\
-    & = 50 + \left(\frac{20-14}{14}\right)\cdot 10 \\
-    & = \frac{380}{7} \\
-    & \approx `r format(round(as.numeric(bai3$me), 4), decimal.mark = ",")` \text{ (cm).}
-\end{align*}
+    \begin{align*}
+        M_e
+            & = r + \left(\frac{\frac{n}{2}-cf_2}{n_3}\right)\cdot d \\
+            & = 50 + \left(\frac{20-14}{14}\right)\cdot 10 \\
+            & = \frac{380}{7} \\
+            & \approx `r format(round(as.numeric(bai3$me), 4), decimal.mark = ",")` \text{ (cm).}
+    \end{align*}
 
 <!-- Tứ phân vị thứ nhất Q1 -->
 
 ```{r, echo = FALSE}
-# Tìm nhóm tứ phân vị thứ nhất
 bai3$p <- which(bai3$df$`Tần số tích lũy` >= bai3$n / 4)[1]
-# Mút trái nhóm tứ phân vị thứ nhất
 bai3$s <- bai3$df$`Mút trái`[bai3$p]
-# Độ rộng nhóm tứ phân vị thứ nhất
 bai3$h <- bai3$df$`Mút phải`[bai3$p] - bai3$df$`Mút trái`[bai3$p]
-# Tính tứ phân vị thứ nhất
 bai3$q1 <- fractions(bai3$s + ((bai3$n / 4 - ifelse(bai3$p > 1, bai3$df$`Tần số tích lũy`[bai3$p - 1], 0)) / bai3$df$`Tần số`[bai3$p]) * bai3$h)
 ```
 
-- Nhóm hai, $[40;50)$, là nhóm đầu tiên có tần số tích lũy $cf_2=14$ không nhỏ hơn $\frac{n}{4}=10$. Nhóm này có đầu mút trái $s=40$, độ dài $h=10$ và tần số $n_2=10$. Nhóm một có tần số tích lũy là $cf_1=4$. Tứ phân vị thứ nhất là
+- Quan sát cột Tần số tích lũy, ta thấy
+$$
+cf_1=4 < \frac{n}{4}=\frac{40}{4}=10 < cf_2=14.
+$$
+Suy ra nhóm 2, $[40;50)$, là nhóm đầu tiên có tần số tích lũy không nhỏ hơn 10. Nhóm này có đầu mút trái $s=40$, độ dài $h=10$ và tần số $n_2=10$. Tứ phân vị thứ nhất là
 
     \begin{align*}
         Q_1
@@ -2154,17 +2159,17 @@ bai3$q1 <- fractions(bai3$s + ((bai3$n / 4 - ifelse(bai3$p > 1, bai3$df$`Tần s
 <!-- Tứ phân vị thứ ba Q3 -->
 
 ```{r, echo = FALSE}
-# Tìm nhóm tứ phân vị thứ ba
 bai3$q <- which(bai3$df$`Tần số tích lũy` >= (3 * bai3$n) / 4)[1]
-# Mút trái nhóm tứ phân vị thứ ba
 bai3$t <- bai3$df$`Mút trái`[bai3$q]
-# Độ rộng nhóm tứ phân vị thứ ba
 bai3$l <- bai3$df$`Mút phải`[bai3$q] - bai3$df$`Mút trái`[bai3$q]
-# Tính tứ phân vị thứ ba
 bai3$q3 <- fractions(bai3$t + (((3 * bai3$n) / 4 - ifelse(bai3$q > 1, bai3$df$`Tần số tích lũy`[bai3$q - 1], 0)) / bai3$df$`Tần số`[bai3$q]) * bai3$h)
 ```
 
-- Nhóm bốn, $[60;70)$, là nhóm đầu tiên có tần số tích lũy $cf_4=34$ không nhỏ hơn $\frac{3n}{4}=30$. Nhóm này có đầu mút trái $t=60$, độ dài $l=10$ và tần số $n_4=6$. Nhóm thứ ba có tần số tích lũy là $cf_3=28$. Tứ phân vị thứ ba là
+- Quan sát cột Tần số tích lũy, ta thấy
+$$
+cf_3=28<\frac{3n}{4}=\frac{3\cdot 40}{4}=30<cf_4=34.
+$$
+Suy ra nhóm 4, $[60;70)$, là nhóm đầu tiên có tần số tích lũy không nhỏ hơn 30. Nhóm này có đầu mút trái $t=60$, độ dài $l=10$ và tần số $n_4=6$. Tứ phân vị thứ ba là
 
     \begin{align*}
         Q_3
@@ -2177,17 +2182,13 @@ bai3$q3 <- fractions(bai3$t + (((3 * bai3$n) / 4 - ifelse(bai3$q > 1, bai3$df$`T
 <!-- Mốt -->
 
 ```{r, echo = FALSE}
-# Tìm nhóm có tần số lớn nhất
 bai3$i <- which.max(bai3$df$`Tần số`)
-# Mút trái của nhóm mốt
 bai3$u <- bai3$df$`Mút trái`[bai3$i]
-# Độ rộng nhóm mốt
 bai3$g <- bai3$df$`Mút phải`[bai3$i] - bai3$df$`Mút trái`[bai3$i]
-# Tính mốt
 bai3$mo <- fractions(bai3$u + ((bai3$df$`Tần số`[bai3$i] - ifelse(bai3$i > 1, bai3$df$`Tần số`[bai3$i - 1], 0)) / (2 * bai3$df$`Tần số`[bai3$i] - ifelse(bai3$i > 1, bai3$df$`Tần số`[bai3$i - 1]) - ifelse(bai3$i < nrow(bai3$df), bai3$df$`Tần số`[bai3$i + 1], 0))) * bai3$g, 4)
 ```
 
-b. Nhóm ba, $[50;60)$, là nhóm có tần số lớn nhất $n_3=14$. Nó có đầu mút trái $u=50$ và độ dài $g=10$. Nhóm hai có tần số $n_2=10$ và nhóm bốn có tần số $n_4=6$. Mốt là
+b. Quan sát cột Tần số, nhóm 3, $[50;60)$, là nhóm có tần số lớn nhất $n_3=14$. Nó có đầu mút trái $u=50$ và độ dài $g=10$. Nhóm 2 có tần số $n_2=10$ và nhóm 4 có tần số $n_4=6$. Mốt là
     \begin{align*}
         M_o
             & = u + \left(\frac{n_3-n_2}{2n_3-n_2-n_4}\right) \cdot g \\
@@ -2235,12 +2236,11 @@ $\overline{x}$ & $Q_1$ & $Q_2$ ($M_e$) & $Q_3$ & $M_o$ \\
 ```{r, echo = FALSE}
 data <- rbind(bai3$df[, c(-3, -4), drop = FALSE], c("", "", "", "\\(n=40\\)", ""))
 data[] <- lapply(data, function(x) {
-    x <- as.character(x) # Đảm bảo x là kiểu character
-    x <- gsub(",", "TEMP_MARKER", x) # Đổi dấu ',' thành ký hiệu tạm
-    x <- gsub("\\.", ",", x) # Đổi dấu '.' thành ','
-    gsub("TEMP_MARKER", ";", x) # Đổi ký hiệu tạm thành ';'
+    x <- as.character(x) 
+    x <- gsub(",", "TEMP_MARKER", x)
+    x <- gsub("\\.", ",", x) 
+    gsub("TEMP_MARKER", ";", x)
 })
-# Chọn định dạng dựa vào output
 output_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 if (output_format == "html") {
     kable(data, format = "html", align = "c", col.names = NA) %>%
@@ -2250,7 +2250,6 @@ if (output_format == "html") {
 ```
 
 ```{r, echo = FALSE}
-# Tạo khung dữ liệu với một hàng duy nhất
 data <- data.frame(
     `\\(\\overline{x}\\)` = format(round(as.numeric(bai3$barx), 4), decimal.mark = ","),
     `\\(Q_1\\)` = format(round(as.numeric(bai3$q1), 4), decimal.mark = ","),
@@ -2259,9 +2258,7 @@ data <- data.frame(
     `\\(M_o\\)` = format(round(as.numeric(bai3$mo), 4), decimal.mark = ","),
     check.names = FALSE
 )
-# Kiểm tra định dạng đầu ra
 output_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
-# Hiển thị bảng nếu định dạng đầu ra là HTML
 if (output_format == "html") {
     knitr::kable(data, align = "c", format = "html") %>%
         kableExtra::kable_styling(
