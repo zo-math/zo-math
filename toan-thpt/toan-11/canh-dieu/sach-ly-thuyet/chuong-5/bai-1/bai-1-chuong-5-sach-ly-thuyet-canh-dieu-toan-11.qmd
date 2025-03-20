@@ -82,7 +82,7 @@ if (output_format == "html") {
 \end{center}
 :::
 
-::: {.callout-note title="Mẹo" collapse="true" appearance="simple" icon="false"}
+::: {.callout-note title="Mẹo" collapse="true" icon="false"}
 Bạn có biết? Khi chưa quen với cách lập luận, bắt chước sách giáo khoa là một cách tốt để làm quen với cách trình bày. Khi đã hiểu rõ, bạn có thể tự phát triển cách lập luận của riêng mình.
 :::
 
@@ -95,7 +95,7 @@ Từ *Bảng 1*, quan sát theo hàng để đếm số ô-tô trong từng nhó
 ::: {.ket-thuc}
 :::
 
-::: {.callout-note title="Nhóm & tần số" collapse="true" appearance="simple" icon="false"}
+::: {.callout-note title="Nhóm & tần số" collapse="true" icon="false"}
 
 Việc xác định có 13 ô-tô có độ tuổi dưới 4 cho mình biết rằng nhóm $[0;4)$ có tần số 13.
 
@@ -105,7 +105,7 @@ Việc xác định có 13 ô-tô có độ tuổi dưới 4 cho mình biết r�
 Biết có 13 ô-tô có độ tuổi dưới 4, nhưng không biết tuổi cụ thể của từng ô-tô. 
 :::
 
-::: {.callout-note title="Khám phá" collapse="true" appearance="minimal" icon="false"}
+::: {.callout-note title="Khám phá" collapse="true" icon="false"}
 Nhìn vào bảng số liệu, bạn có nhận xét gì về số lượng ô-tô theo từng nhóm độ tuổi?
 
 - Số lượng ô-tô cũ (trên 12 năm) có ít hơn xe mới không?
@@ -260,7 +260,7 @@ Nhóm cuối, $[172; 175)$, ghi theo dạng nửa khoảng là hợp lý, vì 17
 ::: {.ket-thuc}
 :::
 
-::: {.callout-note title="Khám phá" collapse="true" appearance="minimal" icon="false"}
+::: {.callout-note title="Khám phá" collapse="true" icon="false"}
 Có điều gì ngăn cản mình chọn ghép các số liệu thành năm nhóm sau đây không: 
 
 ::: {.center}
@@ -1391,7 +1391,7 @@ Mẫu số liệu dưới đây ghi lại tốc độ của 40 ô-tô khi đi qu
 
 <!-- Dữ liệu -->
 
-```{r, echo = FALSE}
+```{r}
 bai1 <- new.env()
 # Tạo dữ liệu
 bai1$data <- c(48.5, 43, 50, 55, 45, 60, 53, 55.5, 44, 65, 51, 62.5, 41, 44.5, 57, 57, 68, 49, 46.5, 53.5, 61, 49.5, 54, 62, 59, 56, 47, 50, 60, 61, 49.5, 52.5, 57, 47, 60, 55, 45, 47.5, 48, 61.5)
@@ -1502,7 +1502,7 @@ b. Thêm vào bảng tần số ghép nhóm ở trên cột số thứ tự đ�
 
 <!-- Bảng tần số ghép nhóm mở rộng Bài tập 1 -->
 
-```{r, echo = FALSE}
+```{r}
 data <- rbind(bai1$df[, c(-3, -4), drop = FALSE], c("", "", "", "\\(n=40\\)", ""))
 data[] <- lapply(data, function(x) {
     x <- as.character(x) 
