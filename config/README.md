@@ -1,1 +1,0 @@
-Hiện tại, các tệp như _quarto.yml, custom.css, custom.js nằm cùng cấp với nội dung. Bạn có thể gom chúng vào một thư mục riêng như config/ hoặc _config/.

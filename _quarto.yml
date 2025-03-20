@@ -1,6 +1,6 @@
 project:
   type: website
-  output-dir: _site
+  output-dir: docs
   render:
     - "*.qmd*"
 
@@ -13,38 +13,41 @@ website:
   favicon: "images/favicon.ico"
   navbar:
     left:
-      - href: index.html
+      - href: content/index.qmd
         text: "<i class='bi bi-house-door'></i>"
-      - href: about.html
+      - href: content/about.qmd
         text: "Giới thiệu"
       - text: "Trung học phổ thông"
         menu:
           - text: "Toán 10"
-            href: toan-thpt/toan-10/index.html
+            href: content/toan-thpt/toan-10/index.qmd
           - text: "Toán 11"
-            href: toan-thpt/toan-11/index.html
+            href: content/toan-thpt/toan-11/index.qmd
           - text: "Toán 12"
-            href: toan-thpt/toan-12/index.html
+            href: content/toan-thpt/toan-12/index.qmd
+      
+      - text: "Ứng dụng"
+        href: apps/index.qmd
 
-      - href: toan-tai-hien/index.html
+      - href: content/toan-tai-hien/index.qmd
         text: "Toán Tái Hiện"
 
     right:
-      - href: shop/index.html
+      - href: content/shop/index.qmd
         text: "🛒 ZO Shop"
-      - href: support/donate.html
+      - href: content/support/donate.qmd
         text: "💖 Bảo trợ"
-      - href: contact.html
+      - href: content/contact.qmd
         text: "☎️ Liên hệ"
 
   page-footer:
     left: "© 2025 ZO Math - Cùng học, cùng khám phá."
-    right: "[Liên hệ](contact.html) | [Facebook](https://facebook.com/zo-math)"
+    right: "[Liên hệ](content/contact.qmd) | [Facebook](https://facebook.com/zo-math)"
 
 format:
   html:
     theme: default
-    css: custom.css
+    css: assets/styles/custom.css
     html-math-method: mathjax
     mathjax:
       url: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
@@ -53,8 +56,8 @@ format:
 
   pdf:
     pdf-engine: lualatex
-    include-in-header: custom.tex
-    keep-tex: true
+    include-in-header: assets/tex/custom.tex
+    keep-tex: false
 
 execute:
   freeze: auto # Chỉ chạy lại code khi file .qmd hoặc dữ liệu đầu vào thay đổi.
@@ -64,4 +67,4 @@ execute:
   massage: false # Ẩn các thông báo thừa
 
 filters:
-  - custom.lua
+  - assets/lua/custom.lua
