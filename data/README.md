@@ -1,1 +1,0 @@
-Nơi lưu trữ dữ liệu cho các bài viết (chẳng hạn bảng số liệu, hình ảnh minh họa cho các chứng minh toán học).
