@@ -2,8 +2,7 @@ project:
   type: website
   output-dir: docs
   render:
-    - content/index.qmd
-    - "*.qmd*"
+    - "*.qmd"
 
 lang: vi
 
@@ -11,34 +10,35 @@ website:
   title: "ZO Math"
   description: "Cùng học toán theo hướng 'Tầm nguyên và Tái hiện'."
   site-url: "https://zo-math.github.io/"
+  site-path: "/" # Đảm bảo đường dẫn gốc là /
   favicon: "images/favicon.ico"
   navbar:
     left:
-      - href: content/index.qmd
+      - href: "index.qmd"
         text: "<i class='bi bi-house-door'></i>"
-      - href: content/about.qmd
+      - href: "content/about.qmd"
         text: "Giới thiệu"
       - text: "Trung học phổ thông"
         menu:
           - text: "Toán 10"
-            href: content/toan-thpt/toan-10/index.qmd
+            href: "content/toan-thpt/toan-10/index.qmd"
           - text: "Toán 11"
-            href: content/toan-thpt/toan-11/index.qmd
+            href: "content/toan-thpt/toan-11/index.qmd"
           - text: "Toán 12"
-            href: content/toan-thpt/toan-12/index.qmd
+            href: "content/toan-thpt/toan-12/index.qmd"
 
-      - href: content/toan-tai-hien/index.qmd
+      - href: "content/toan-tai-hien/index.qmd"
         text: "Toán Tái Hiện"
 
       - text: "Ứng dụng"
-        href: apps/index.qmd
+        href: "content/ung-dung/index.qmd"
 
     right:
-      - href: content/shop/index.qmd
+      - href: "content/shop/index.qmd"
         text: "🛒 ZO Shop"
-      - href: content/support/donate.qmd
+      - href: "content/support/donate.qmd"
         text: "💖 Bảo trợ"
-      - href: content/contact.qmd
+      - href: "content/contact.qmd"
         text: "☎️ Liên hệ"
 
   page-footer:
@@ -48,10 +48,10 @@ website:
 format:
   html:
     theme: default
-    css: assets/styles/custom.css
+    css: "assets/styles/custom.css"
     html-math-method: mathjax
     mathjax:
-      url: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+      url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
     toc: true
     toc-title: "Mục lục"
 
@@ -65,7 +65,7 @@ execute:
   cache: true # Không render nếu code không đổi
   echo: false # Mặc định ẩn code trong toàn bộ tài liệu
   warning: false # Ẩn cảnh báo nếu có
-  massage: false # Ẩn các thông báo thừa
+  message: false # Ẩn các thông báo thừa
 
 filters:
-  - assets/lua/custom.lua
+  - "assets/lua/custom.lua"
