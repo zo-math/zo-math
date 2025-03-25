@@ -1,0 +1,272 @@
+/* Ẩn "Others Format" */
+/* .quarto-alternate-formats h2 {
+  display: none;
+} */
+
+/* Định dạng đầu trang */
+.quarto-title-meta-heading {
+  display: none;
+}
+
+.article-meta .author::before {
+  content: "Tác giả: ";
+}
+
+.article-meta .abstract h2::before {
+  content: "Tóm tắt";
+  display: block;
+}
+.article-meta .abstract h2 {
+  display: none;
+}
+
+/* Căn giữa */
+.center {
+  text-align: center;
+}
+
+/* Định dạng bảng */
+table {
+  margin: auto;
+  width: 50%;
+  text-align: center;
+  font-size: 1rem !important;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  font-family: "STIX Two Text", serif;
+}
+
+.kable-table {
+  font-size: inherit !important;
+}
+
+.kable-table table {
+  width: 100%;
+}
+
+.kable-table mjx-container {
+  font-size: 1rem !important;
+  font-family: "STIX Two Math", serif;
+}
+
+/* Định dạng bài tập, đáp án, lời giải, và details */
+.bai-tap,
+.dap-an,
+.loi-giai,
+.details summary {
+  display: block;
+  border: none;
+  text-align: center;
+  padding: 10px;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.bai-tap p,
+.dap-an p,
+.loi-giai p,
+.details summary p {
+  margin: 0;
+}
+
+.bai-tap,
+.details summary {
+  background-color: #f8d7da;
+}
+.bai-tap:hover,
+.details summary:hover {
+  background-color: #f1bfc4;
+}
+.bai-tap:active,
+.details summary:active {
+  background-color: #e89aa0;
+}
+
+.dap-an {
+  background-color: #d4edda;
+}
+.dap-an:hover {
+  background-color: #bfe1bf;
+}
+.dap-an:active {
+  background-color: #9aca9a;
+}
+
+.loi-giai {
+  background-color: #cfe2ff;
+}
+.loi-giai:hover {
+  background-color: #b0ccff;
+}
+.loi-giai:active {
+  background-color: #9ab6ff;
+}
+
+.details summary {
+  list-style: none;
+  font-variant: small-caps;
+}
+
+.details {
+  border-radius: 5px;
+  border: none;
+  background: white;
+  padding: 5px;
+}
+
+.details[open] summary {
+  margin-bottom: 10px;
+}
+
+/* Dấu kết thúc */
+.ket-thuc {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px 0;
+}
+.ket-thuc::after {
+  content: "\25FB";
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Nhúng font STIX */
+@font-face {
+  font-family: "STIX Two Text";
+  src: url("../fonts/STIXTwoText-Regular.woff2") format("woff2"),
+    url("../fonts/STIXTwoText-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "STIX Two Math";
+  src: url("../fonts/STIXTwoMath-Regular.woff2") format("woff2"),
+    url("../fonts/STIXTwoMath-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Font chữ nội dung */
+body {
+  font-family: "STIX Two Text", serif;
+}
+
+/* Đồng bộ font, màu chữ và cỡ chữ cho công thức toán */
+mjx-container {
+  font-family: "STIX Two Math", serif;
+  font-size: 1rem;
+  color: inherit;
+  line-height: 1.4;
+  filter: brightness(90%);
+}
+
+mjx-math {
+  font-family: inherit !important;
+}
+
+mjx-mrow {
+  margin: 0 2px;
+}
+
+mjx-container[jax="CHTML"][display="true"] {
+  margin: 0.8rem 0;
+  text-align: center;
+}
+
+/* Tùy chỉnh công thức toán trong tooltip */
+.mathjax-tooltip mjx-container {
+  font-size: 0.75em;
+  filter: none;
+  margin: 0.5em 0;
+}
+
+.mathjax-tooltip mjx-container[jax="CHTML"][display="true"] {
+  margin: 0.5em auto;
+  display: block;
+}
+
+/* Tùy chỉnh container tooltip */
+.tooltip {
+  --bs-tooltip-zindex: 1000;
+  --bs-tooltip-max-width: calc(50vw - 40px);
+  --tooltip-before-background: rgba(0, 0, 0, 0.85);
+  position: relative; /* Đảm bảo .tooltip::before định vị tương đối với .tooltip */
+}
+
+/* Tùy chỉnh nội dung tooltip */
+.tooltip-inner {
+  font-family: "STIX Two Text", serif;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  font-size: 0.75em;
+  padding: 8px 12px;
+  border-radius: 5px;
+  text-align: left;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.95);
+  /* min-width: 200px; */
+}
+
+/* Tùy chỉnh mũi tên bằng pseudo-element của .tooltip */
+.tooltip::before {
+  content: "";
+  position: absolute;
+  display: block;
+  border-style: solid;
+}
+
+/* Mũi tên hướng xuống (tooltip ở trên) */
+.bs-tooltip-top.tooltip::before {
+  border-width: 5px 5px 0;
+  border-color: var(--tooltip-before-background) transparent transparent;
+  bottom: -5px; /* Đặt mũi tên ở dưới cùng */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Mũi tên hướng lên (tooltip ở dưới) */
+.bs-tooltip-bottom.tooltip::before {
+  border-width: 0 5px 5px;
+  border-color: transparent transparent var(--tooltip-before-background);
+  top: -5px; /* Đặt mũi tên ở trên cùng */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Mũi tên hướng phải (tooltip ở bên trái) */
+.bs-tooltip-start.tooltip::before {
+  border-width: 5px 0 5px 5px;
+  border-color: transparent transparent transparent
+    var(--tooltip-before-background);
+  right: -5px; /* Đặt mũi tên ở bên phải */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Mũi tên hướng trái (tooltip ở bên phải) */
+.bs-tooltip-end.tooltip::before {
+  border-width: 5px 5px 5px 0;
+  border-color: transparent var(--tooltip-before-background) transparent
+    transparent;
+  left: -5px; /* Đặt mũi tên ở bên trái */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Tùy chỉnh từ có tooltip */
+[data-bs-toggle="tooltip"] {
+  color: #007bff;
+  cursor: pointer;
+}
+/* 
+svg text {
+  font-family: "STIX Two Math", "STIX Two Text", serif;
+} */
