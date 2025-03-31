@@ -1,0 +1,45 @@
+% CÁC GÓI CƠ BẢN (LUÔN CẦN)
+\RequirePackage{amsmath}
+\RequirePackage{tikz}
+\usetikzlibrary{arrows.meta, calc, positioning}
+
+% CẤU HÌNH TIKZ CHUNG
+\tikzset{
+  >=Stealth,
+  every node/.style={
+    font=\normalfont,
+    inner sep=0pt,
+    outer sep=0pt
+  },
+  every picture/.style={
+    font=\normalfont
+  }
+}
+
+% CẤU HÌNH FONT STIX (CHỈ KÍCH HOẠT VỚI LuaLaTeX/XeLaTeX)
+\ifdefined\HCode
+  % Khi chạy TeX4ht: Kích hoạt driver đặc biệt cho SVG
+  \def\pgfsysdriver{pgfsys-tex4ht.def}
+  
+  % Định nghĩa fallback font nếu cần
+  \providecommand{\FontPath}{./fonts}
+\else
+  % Khi chạy LuaLaTeX/XeLaTeX: Dùng fontspec
+  \RequirePackage{fontspec}
+  \RequirePackage{unicode-math}
+  \providecommand{\FontPath}{./fonts}
+  
+  \setmainfont[
+    Path = \FontPath,
+    Extension = .otf,
+    UprightFont = STIXTwoText-Regular,
+    BoldFont = STIXTwoText-Bold,
+    ItalicFont = STIXTwoText-Italic,
+    BoldItalicFont = STIXTwoText-BoldItalic
+  ]{STIXTwoText}
+
+  \setmathfont[
+    Path = \FontPath,
+    Extension = .otf
+  ]{STIXTwoMath}
+\fi

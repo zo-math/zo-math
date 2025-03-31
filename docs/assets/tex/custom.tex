@@ -1,0 +1,26 @@
+\RequirePackage{fontspec}
+\RequirePackage{unicode-math}
+\RequirePackage{tikz}  % Thêm dòng này
+
+% Thiết lập font STIX (dùng chung \FontPath từ .qmd)
+\setmainfont[
+  Path = \FontPath,
+  Extension = .otf,
+  UprightFont = STIXTwoText-Regular,
+  BoldFont = STIXTwoText-Bold,
+  ItalicFont = STIXTwoText-Italic,
+  BoldItalicFont = STIXTwoText-BoldItalic
+]{STIXTwoText}
+
+\setmathfont[
+  Path = \FontPath,
+  Extension = .otf
+]{STIXTwoMath}
+
+% Cấu hình mặc định cho TikZ
+\usetikzlibrary{arrows.meta, calc, positioning}
+\tikzset{
+  >=Stealth,
+  every node/.style={font=\normalsize},
+  baseline=(current bounding box.center)
+}
