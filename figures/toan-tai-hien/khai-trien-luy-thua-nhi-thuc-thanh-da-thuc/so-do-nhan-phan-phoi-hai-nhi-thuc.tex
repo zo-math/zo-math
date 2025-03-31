@@ -1,7 +1,8 @@
 \documentclass{standalone}
+\newcommand{\FontPath}{../../../assets/fonts/} 
 \input{../../../assets/tex/tikz-preamble.tex}
 \begin{document}
-\begin{tikzpicture}%[level distance=1.5cm,sibling distance=2.5cm]
+\begin{tikzpicture}
     % Dòng thứ nhất
     \node (d11) at (-1,12) {$1$};
     \node (d12) at (0,12) {$+$};
@@ -22,15 +23,13 @@
     
     % Các đoạn thẳng
     \begin{scope}[every path/.style={color=gray}, every node/.style={color=gray,font=\tiny}]  
-
     \draw [->] (d11)--(d21) node[midway, left] {$1$};
     \draw [->] (d11)--(d23) node[midway, right] {$x$};
     \draw [->] (d13)--(d23) node[midway, left] {$1$};
     \draw [->] (d13)--(d25) node[midway, right] {$x$};
 
-    \draw [->] (d1l)--(d2l) node[midway,right] {\(1+x\)};
-    \draw [->] (d1r)--(d2r) node[midway,right] {\(1+x\)};
+    \draw [->] (d1l)--(d2l) node[midway,right] {$1+x$};
+    \draw [->] (d1r)--(d2r) node[midway,right] {$1+x$};
     \end{scope}
-    
 \end{tikzpicture}
 \end{document}

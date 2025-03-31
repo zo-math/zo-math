@@ -3,8 +3,11 @@ project:
   output-dir: docs
   render:
     - "*.qmd"
-  resources:
-    - "figures/**"
+resources:
+  - "assets/"
+  - "assets/fonts/**"
+  - "assets/tex/**"
+  - "figures/**" # Đảm bảo Quarto nhận diện tất cả tệp trong figures/ và các thư mục con. Lưu ý: Dùng đường dẫn như /figures/... trong .qmd để tham chiếu tài nguyên từ gốc dự án
 
 lang: vi
 
@@ -131,23 +134,33 @@ format:
     toc: true
     toc-title: "Mục lục"
 
-  pdf:
-    pdf-engine: lualatex
-    default-image-extension: pdf
-    # execute:
-    #   allow-shell: true
-    pdf-engine-opts:
-      - "-shell-escape"
-    include-in-header: "assets/tex/custom.tex"
-    # keep-tex: true
+  # pdf:
+  #   pdf-engine: lualatex
+  #   default-image-extension: pdf
+  #   # execute:
+  #   #   allow-shell: true
+  #   pdf-engine-opts:
+  #     - "-shell-escape"
+  #   include-in-header: "assets/tex/custom.tex"
+  #   # keep-tex: true
 
 execute:
   freeze: auto # Chỉ chạy lại code khi file .qmd hoặc dữ liệu đầu vào thay đổi.
-  cache: false # Không render nếu code không đổi
+  cache: true # Không render nếu code không đổi
   echo: false # Mặc định ẩn code trong toàn bộ tài liệu
   warning: false # Ẩn cảnh báo nếu có
   message: false # Ẩn các thông báo thừa
   tex-math: true
+  # dir: .
 
 filters:
   - "assets/lua/custom.lua"
+
+crossref:
+  fig-title: "Hình" # Dùng cho chú thích ảnh
+  fig-prefix: "Hình" # Dùng cho tham chiếu chéo
+  tbl-title: "Bảng"
+  tbl-prefix: "Bảng"
+  eq-title: "Phương trình"
+  eq-prefix: ""
+  sec-prefix: "Mục"

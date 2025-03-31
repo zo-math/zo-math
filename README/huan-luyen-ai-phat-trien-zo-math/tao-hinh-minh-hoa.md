@@ -6,5 +6,3 @@ Mình có thể vẽ hình minh họa bằng cách nhún trực tiếp TikZ-code
 
 Có, có một số cách để xử lý và nhúng hình ảnh TikZ một cách hiệu quả hơn trong tài liệu Quarto. Dưới đây là một số phương pháp phổ biến:
 
-### 1. Sử dụng R Markdown để tạo hình ảnh TikZ
-Bạn có thể

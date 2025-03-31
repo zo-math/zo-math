@@ -94,29 +94,29 @@
 \def\fps@figure{htbp}
 \makeatother
 
-% Cấu hình font chữ chính và toán học
 \usepackage{fontspec}
 \usepackage{unicode-math}
-\setmainfont{STIX Two Text}
-\setsansfont{STIX Two Text}
-\setmonofont{STIX Two Text}
-\setmathfont{STIX Two Math}
 
-% Cấu hình kích thước chữ
-% \fontsize{12pt}{14pt}\selectfont
+% Thiết lập phông chữ chính
+\setmainfont{STIXTwoText-Regular.otf}[
+  BoldFont = STIXTwoText-Bold.otf,
+  ItalicFont = STIXTwoText-Italic.otf,
+  BoldItalicFont = STIXTwoText-BoldItalic.otf,
+  FontFace = {sb}{n}{STIXTwoText-Semibold.otf},
+  FontFace = {sb}{it}{STIXTwoText-SemiboldItalic.otf},
+  FontFace = {m}{n}{STIXTwoText-Medium.otf},
+  FontFace = {m}{it}{STIXTwoText-MediumItalic.otf}
+]
 
-% Đánh số section
-\setcounter{secnumdepth}{3}
+% Thiết lập phông chữ toán học
+\setmathfont{STIXTwoMath.otf}
 
-% Các gói hỗ trợ bổ sung
-\usepackage{hyperref}  % Hỗ trợ liên kết
-\usepackage{graphicx}  % Hỗ trợ hình ảnh
-\usepackage{amsmath, amssymb}  % Hỗ trợ toán học nâng cao
-\usepackage{svg}  % Hỗ trợ hình ảnh SVG
 \usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{svg}
 \usepackage{tikz}
-  \usetikzlibrary{arrows, positioning}
-
+\usetikzlibrary{arrows, positioning}
 \KOMAoption{captions}{tableheading}
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
@@ -137,14 +137,14 @@
   \newcommand\listtablename{List of Tables}
 \fi
 \ifdefined\figurename
-  \renewcommand*\figurename{Figure}
+  \renewcommand*\figurename{Hình}
 \else
-  \newcommand\figurename{Figure}
+  \newcommand\figurename{Hình}
 \fi
 \ifdefined\tablename
-  \renewcommand*\tablename{Table}
+  \renewcommand*\tablename{Bảng}
 \else
-  \newcommand\tablename{Table}
+  \newcommand\tablename{Bảng}
 \fi
 }
 \@ifpackageloaded{float}{}{\usepackage{float}}
