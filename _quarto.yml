@@ -5,9 +5,10 @@ project:
     - "*.qmd"
 resources:
   - "assets/"
-  - "assets/fonts/**"
+  # - "assets/fonts/**"
+  - "assets/fonts/*"
   - "assets/tex/**"
-  - "figures/**" # Đảm bảo Quarto nhận diện tất cả tệp trong figures/ và các thư mục con. Lưu ý: Dùng đường dẫn như /figures/... trong .qmd để tham chiếu tài nguyên từ gốc dự án
+  - "figures/**"
 
 lang: vi
 
@@ -22,8 +23,8 @@ website:
       - href: "index.qmd"
         text: "<i class='bi bi-house-door'></i>"
       - href: "content/about.qmd"
-        text: "Giới thiệu"
-      - text: "Trung học phổ thông"
+        text: "Giới Thiệu"
+      - text: "Trung Học Phổ Thông"
         menu:
           - text: "Toán 10"
             href: "content/toan-thpt/toan-10/index.qmd"
@@ -32,19 +33,24 @@ website:
           - text: "Toán 12"
             href: "content/toan-thpt/toan-12/index.qmd"
 
-      - href: "content/toan-tai-hien/index.qmd"
-        text: "Toán Tái Hiện"
+      - href: "content/zo-o/index.qmd"
+        text: "ZO Ồ!"
 
-      - text: "Ứng dụng"
-        href: "content/ung-dung/index.qmd"
+      - text: "ZO Lab"
+        href: "content/zo-lab/index.qmd"
 
     right:
       - href: "content/shop/index.qmd"
         text: "🛒 ZO Shop"
       - href: "content/support/donate.qmd"
-        text: "💖 Bảo trợ"
+        text: "💖 Bảo Trợ"
       - href: "content/contact.qmd"
-        text: "☎️ Liên hệ"
+        text: "☎️ Liên Hệ"
+
+  # sidebar:
+  #   style: "docked"
+  #   search: true
+  #   contents:
 
   page-footer:
     left: "© 2025 ZO Math - Tầm nguyên tái hiện."
@@ -53,18 +59,11 @@ website:
 format:
   html:
     theme: default
+    title-block-banner: true
     default-image-extension: svg
     css: "assets/css/custom.css"
     include-in-header:
       - text: |
-          <script>
-            document.addEventListener('DOMContentLoaded', function () {
-              const alternateFormatsHeading = document.querySelector('.quarto-alternate-formats h2');
-              if (alternateFormatsHeading) {
-                alternateFormatsHeading.textContent = 'Định dạng khác';
-              }
-            });
-          </script>
           <script>
             document.addEventListener('DOMContentLoaded', function () {
               const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
@@ -127,21 +126,26 @@ format:
               });
             });
           </script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
     html-math-method: mathjax
     mathjax:
       url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
       config: "TeX-MML-AM_CHTML"
     toc: true
-    toc-title: "Mục lục"
 
   # pdf:
+  #   documentclass: article
   #   pdf-engine: lualatex
   #   default-image-extension: pdf
   #   # execute:
   #   #   allow-shell: true
   #   pdf-engine-opts:
   #     - "-shell-escape"
-  #   include-in-header: "assets/tex/custom.tex"
+  #     - "-file-line-error"
+  #   latex-auto-install: true
+  #   latex-auto-mk: true
+  #   include-in-header:
+  #     - "assets/tex/custom.tex"
   #   # keep-tex: true
 
 execute:
@@ -155,12 +159,3 @@ execute:
 
 filters:
   - "assets/lua/custom.lua"
-
-crossref:
-  fig-title: "Hình" # Dùng cho chú thích ảnh
-  fig-prefix: "Hình" # Dùng cho tham chiếu chéo
-  tbl-title: "Bảng"
-  tbl-prefix: "Bảng"
-  eq-title: "Phương trình"
-  eq-prefix: ""
-  sec-prefix: "Mục"

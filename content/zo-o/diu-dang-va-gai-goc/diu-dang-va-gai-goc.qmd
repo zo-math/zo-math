@@ -1,0 +1,515 @@
+---
+title: "Dịu dàng và gai góc"
+subtitle: "Khai triển lũy thừa nhị thức thành đa thức"
+summary: "Phân tích chi tiết về khai triển nhị thức và sự xuất hiện của tam giác Pascal."
+description: "Bài viết giải thích cách khai triển biểu thức $(1+x)^n$ bằng quy tắc nhân phân phối, minh họa sự xuất hiện tự nhiên của tam giác Pascal trong định lý nhị thức."
+abstract: |
+    Bài viết đi sâu vào từng chi tiết của quá trình khai triển biểu thức $(1+x)^n$ thành đa thức $$1+nx+\frac{(n-1)n}{2}x^2+\frac{(n-2)(n-1)n}{6}x^3+\cdots+x^n$$ bằng quy tắc nhân phân phối. Quy tắc này được áp dụng khéo léo vào các trường hợp đơn giản, kèm theo sơ đồ minh họa phù hợp, làm xuất hiện các hình mẫu cần thiết để diễn giải định lý nhị thức. Sự xuất hiện tự nhiên của tam giác <span data-bs-toggle="tooltip" title="Pascal">Pát-si-cao</span>\footnote{Pascal}, nổi tiếng là một hình mẫu để tính các hệ số nhị thức, đã minh chứng cho sự khéo léo này. Bài viết không chỉ truyền đạt kiến thức kỹ thuật, mà còn thúc đẩy khả năng tư duy hợp lý và sáng tạo trong nghiên cứu, từ khi phát hiện đến khi hoàn thiện một vấn đề toán học.
+
+date: last-modified
+date-format: "DD-MM-YYYY"
+author: "ZO Math"
+citation:
+    type: article-journal
+    title: "Khai triển lũy thừa nhị thức thành đa thức"
+    author: "ZO Math"
+    keyword: zomath2025
+    abstract: |
+        Bài viết đi sâu vào từng chi tiết của quá trình khai triển lũy thừa nhị thức thành đa thức bằng quy tắc nhân phân phối. Quy tắc này được áp dụng khéo léo vào các trường hợp đơn giản, kèm theo sơ đồ minh họa phù hợp, làm xuất hiện các hình mẫu cần thiết để diễn giải định lý nhị thức. Sự xuất hiện tự nhiên của tam giác Pascal, nổi tiếng là một hình mẫu để tính các hệ số nhị thức, đã minh chứng cho sự khéo léo này. Bài viết không chỉ truyền đạt kiến thức kỹ thuật, mà còn thúc đẩy khả năng tư duy hợp lý và sáng tạo trong nghiên cứu, từ khi phát hiện đến khi hoàn thiện một vấn đề toán học.
+
+bibliography: references.bib
+
+categories: ["Toán tái hiện"]
+
+lightbox:
+  match: auto
+  effect: fade
+  desc-position: right
+  loop: false
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(kableExtra)
+library(dplyr)
+library(MASS)
+```
+
+## Dẫn nhập {#sec-dan-nhap}
+
+Hai biểu thức này,
+
+$$
+    (1+x)^n
+$$
+
+và
+
+$$
+    1+nx+\frac{(n-1)n}{2}x^2+\frac{(n-2)(n-1)n}{6}x^3+\cdots+x^n,
+$$
+
+chúng tuy hai mà một, tuy một mà hai. Mình nói "tuy hai mà một" là vì thoạt nhìn bề ngoài, chúng trông rất khác nhau: một lũy thừa dịu dàng so với một tổng gai góc. Thế nhưng, thực chất chúng lại có giá trị bằng nhau với mọi $x$. Điều đó có nghĩa là
+
+$$
+    (1+x)^n
+        = 1+nx+\frac{(n-1)n}{2}x^2+\frac{(n-2)(n-1)n}{6}x^3+\cdots+x^n.
+$$
+
+Đây chính là công thức <span data-bs-toggle="tooltip" title="Còn gọi là định lý nhị thức">khai triển nhị thức</span>, được trình bày đầy đủ hơn trong mục @sec-dinh-ly-nhi-thuc, cho thấy hai biểu thức tưởng chừng quá khác biệt nhưng hóa ra chỉ là hai biểu hiện của cùng một giá trị.
+
+::: {.column-margin}
+
+::: {#exr-1}
+Bạn có thể viết tiếp số hạng chứa $x^4$ của vế phải không?
+:::
+
+:::
+
+Ngược lại, mình nói "tuy một mà hai" là vì mỗi biểu thức lại có vị trí và vai trò riêng trong những ngữ cảnh khác nhau. Chẳng hạn, nếu bạn thay $x=1$ vào cả hai vế để tính toán, sự khác biệt sẽ bộc lộ rõ ràng. Nhìn vào vế phải, bạn đối mặt với một phép tính dài dòng và phức tạp: 
+
+$$
+    1+n\cdot 1+\frac{(n-1)n}{2}\cdot 1^2+\frac{(n-2)(n-1)n}{6}\cdot 1^3+\cdots+1^n.
+$$ 
+
+Việc cộng từng hạng tử như vậy không chỉ tốn thời gian mà còn dễ dẫn đến những sai sót. Nhưng nếu nhìn vào vế trái, $(1+1)^n=2^n$, bạn sẽ thấy một phép toán cực kỳ đơn giản, chỉ cần nâng 2 lên lũy thừa $n$ là xong. Điều này cho thấy vế trái mang lại tiện lợi trong tính toán trực tiếp.
+
+Tuy nhiên, vế phải lại tỏa sáng trong những tình huống khác, chẳng hạn khi cần ước lượng giá trị gần đúng của vế trái với $x$ bé. Khi $x$ bé, các số hạng bậc cao hơn của nó là $x^2$, $x^3$, vâng vâng, ngày càng bé hơn, nên bạn có thể dùng <span data-bs-toggle="tooltip" title="Đây là một ý tưởng quan trọng trong giải tích và được ứng dụng trong nhiều bài toán thuộc các lĩnh vực khác như vật lý (xấp xỉ hàm số), tài chính (lãi kép gần đúng).">*tổng một số số hạng đầu của vế phải để xấp xỉ cho vế trái*</span>\footnote{Đây là một ý tưởng quan trọng trong giải tích và được ứng dụng trong nhiều bài toán thuộc các lĩnh vực khác như vật lý (xấp xỉ hàm số), tài chính (lãi kép gần đúng).}. Giả sử, bạn muốn tính $1,01^5$, mà không dùng máy tính, bạn phải nhân 1,01 với chính nó 5 lần - một quá trình khá mất thời gian.Kết quả chính xác là 1,0510100501, nhưng quá trình tính toán không đơn giản. Bạn hãy dùng nhãn quan vế trái để quan sát con số này, bạn sẽ thấy $1,01^5=(1+0,01)^5$, ở đây $x=0,01$ và $n=5$. Áp dụng vế phải, bạn khai triển được:
+
+$$
+\begin{aligned}
+    (1+0,01)^5
+        & = 1 + 5\cdot 0,01 + \frac{4\cdot 5}{2} \cdot (0,01)^2 \\
+        & \qquad+ \frac{3\cdot 4\cdot 5}{6}\cdot (0,01)^3+ \frac{2\cdot 3\cdot 4\cdot 5}{24}\cdot (0,01)^4 + (0,01)^5.
+\end{aligned}
+$$
+
+Nếu bạn dừng lại ở số hạng thứ hai của vế phải, bạn có $1,01^5\approx 1,05$. Nếu bạn dừng lại ở số hạng thứ ba của vế phải, bạn có $1,01^5\approx 1,051$. Nếu bạn dừng lại ở số hạng thứ tư của vế phải, bạn có $1,01^5\approx 1,05101$. Các kết quả này rất gần với giá trị thật 1,0510100501, nhưng tính toán đơn giản hơn nhiều. Điều này cho thấy vế phải phát huy vai trò vượt trội trong việc tính toán gián tiếp. Chính thức hơn mà nói, vế phải cho phép bạn thấy rõ đóng góp của từng lũy thừa của $x$, hữu ích trong việc nghiên cứu các hệ số hoặc mức độ ảnh hưởng của $x$. 
+
+Tóm lại, trong khi khi $(1+x)^n$ lý tưởng cho việc tính toán chính xác và nhanh gọn khi có sự hỗ trợ của công cụ tính toán hoặc khi $x$ lớn, thì vế phải tỏ ra vượt trội khi bạn cần phân tích, ước lượng, hoặc làm việc với các giá trị nhỏ mà không cần độ chính xác tuyệt đối. Vì vậy, dù hai biểu thức này thực chất là một về mặt giá trị, cách chúng được sử dụng lại tạo nên sự khác biệt rõ rệt, giống như hai mặt của cùng một đồng xu.
+
+::: {.column-margin}
+
+::: {.callout-note title="Dịu dàng và gai góc" collapse=true icon=false}
+Vậy nên, dịu dàng ẩn chứa gai góc, mà gai góc lại ôm trọn dịu dàng. Gặp một người dịu dàng, hãy thử tìm hiểu nét sắc sảo ẩn sâu trong họ. Lại gần một người gai góc, đừng ngại khám phá sự mềm mại họ giấu kín. Dịu dàng hay gai góc, mỗi thứ đều có nét duyên riêng, chỉ là bạn có đủ tinh tế để nhận ra hay không.
+:::
+
+:::
+
+Biểu thức $(1+x)^2$ là một trường hợp riêng của biểu thức $(x+y)^2$ với $y=1$, nhưng khi biết dạng khai triển của biểu thức trước vẫn có thể suy ra dạng khai triển của biểu thức sau. Để nhìn thấy điều này, với $x\ne 0$, mình đã quan sát
+
+$$
+\begin{aligned}
+    (x+y)^2
+        &=x^2\left(1+\frac{y}{x}\right)^2 \\
+        &=x^2\left[1+2\left(\frac{y}{x}\right)+\left(\frac{y}{x}\right)^2\right] \\
+        &=x^2+2xy+y^2.
+\end{aligned}
+$$
+
+Tương tự như vậy, mình cũng có 
+
+$$
+    (x+y)^n
+        =x^n\left(1+\frac{y}{x}\right)^n,
+$$
+
+do đó, việc nghiên cứu dạng khai triển của $(1+x)^n$ không làm mất tính tổng quát của bài toán.
+
+Để ngắn gọn và đạt hiệu quả truyền đạt cao hơn trong khi lập luận, mình gọi $p_n$ là dạng khai triển của $(1+x)^n$. Ví dụ, $p_2=1+2x+x^2$ là dạng khai triển của $(1+x)^2$. Khi nói đến $p_2$, mình nghĩ đến $1+2x+x^2$, không phải $(1+x)^2$ hay các dạng trung gian.
+
+Để bài toán được hoàn thiện về mặt phát biểu, mình xác định hai trường hợp đặc biệt, $(1+x)^0=1$ theo qui ước và $(1+x)^1=1+x$ là tầm thường. Kể từ đây, mình hiểu $n$ là một số nguyên không âm, $p_0=1$ và $p_1=1+x$.
+
+Bạn và mình có thể gọi việc khai triển biểu thức $(1+x)^n$ hay $(x+y)^n$ là *khai triển nhị thức* vì biểu thức $1+x$ hay $x+y$ có dạng nhị thức. Mục tiêu là xác định $p_n$ và kết quả này được gọi là *định lý nhị thức*.
+
+## Dáng điệu $p_n$ {#sec-dang-dieu-pn}
+
+Có một sự thật mà đôi khi bạn và mình đã lãng quên, biểu thức $(1+x)^n$ là cách viết ngắn gọn của tích
+
+$$
+    \underbrace{(1+x)(1+x)\cdots(1+x)}_{\text{có }n \text{ thừa số}}.
+$$
+
+Căn cứ vào đấy, mình thấy rằng áp dụng luật phân phối của phép nhân đối với phép cộng là cách tự nhiên nhất để khai triển $(1+x)^n$ thành $p_n$. Vì thế, mình bắt đầu với trường hợp đơn giản nhất, tìm $p_2$ theo cách đó,
+
+$$
+\begin{aligned}
+    (1+x)^2
+    & = (1+x)(1+x) \\
+    & = (1+x)1 + (1+x)x \\
+    & = 1 + x + x +x^2 \\
+    & = 1 + 2x + x^2.
+\end{aligned}
+$$
+
+Ở đây, nhị thức thứ nhất được nhân phân phối với từng số hạng của nhị thức thứ hai. Nói một cách hình thức, việc tìm $p_2$ được thực hiện bằng cách nhân phân phối $1+x$ với $p_1$. Quá trình nhân phân phối này được mô tả thông qua sơ đồ tại @fig-so-do-nhan-phan-phoi-hai-nhi-thuc.
+
+![Sơ đồ nhân phân phối <span class="math">\\(1+x\\)</span> với <span class="math">\\(p_1\\)</span> thu được <span class="math">\\(p_2\\)</span>.](/figures/zo-o/diu-dang-va-gai-goc/so-do-nhan-phan-phoi-hai-nhi-thuc){#fig-so-do-nhan-phan-phoi-hai-nhi-thuc fig-alt="Sơ đồ nhân phân phối hai nhị thức bậc nhất để thu được một tam thức bậc hai."}
+
+Để tìm $p_3$, thay vì trực tiếp nhân phân phối ba nhị thức, mình sẽ nhân phân phối $1+x$ với $p_2$ đã tìm được trước đó,
+
+$$
+\begin{aligned}
+    (1+x)^3
+        & = (1+x)(1+x)^2 \\
+        & = (1+x)(1+2x+x^2) \\
+        & = (1+x)1+(1+x)2x+(1+x)x^2\\
+        & = 1 + x + 2x + 2x^2 + x^2 +x^3\\
+        & = 1 + 3x + 3x^2 + x^3.
+\end{aligned}
+$$
+
+Quá trình nhân phân phối này cũng được mô tả thông qua sơ đồ tại @fig-so-do-nhan-phan-phoi-nhi-thuc-voi-tam-thuc.
+
+![Sơ đồ nhân phân phối <span class="math">\\(1+x\\)</span> với <span class="math">\\(p_2\\)</span> thu được <span class="math">\\(p_3\\)</span>.](/figures/zo-o/diu-dang-va-gai-goc/so-do-nhan-phan-phoi-nhi-thuc-voi-tam-thuc){#fig-so-do-nhan-phan-phoi-nhi-thuc-voi-tam-thuc}
+
+Nói chung, để tìm $p_n$, mình áp dụng qui tắc nhân phân phối cho biểu thức $(1+x)p_{n-1}$ tương tự như đã làm ở trên. Minh họa chi tiết cho thủ thuật này được thể hiện qua sơ đồ tìm $p_5$ tại @fig-thap-nhan-phan-phoi-den-n-bang-5. Rồi bạn sẽ thấy, nó chứa các hình mẫu xác định $p_n$.
+
+![Sơ đồ nhân phân phối <span class="math">\\(1+x\\)</span> với <span class="math">\\(p_0\\)</span>, <span class="math">\\(p_1\\)</span>, <span class="math">\\(p_2\\)</span>, <span class="math">\\(p_3\\)</span>, <span class="math">\\(p_4\\)</span> thu được <span class="math">\\(p_5\\)</span>.](/figures/zo-o/diu-dang-va-gai-goc/thap-nhan-phan-phoi-den-n-bang-5){#fig-thap-nhan-phan-phoi-den-n-bang-5}
+
+Để chuẩn bị cho việc viết ra các hình mẫu đó, mình cần một số kí hiệu phù hợp. Gọi $\binom{n}{j}$, với $0\leq j\leq n$, là hệ số của $x^j$ trong $p_n$. Định nghĩa $\binom{n}{0}=\binom{n}{n}=1$ <em>với mọi $n$</em>. Định nghĩa này hợp lý vì, với mọi $n$, $p_n$ có duy nhất số hạng $x^0$ theo qui ước chính là $1$ và có duy nhất số hạng $x^n$. Như vậy, $\binom{n}{0}$ là hệ số của $x^0$ và $\binom{n}{n}$ là hệ số của $x^n$.
+
+Các hệ số $\binom{n}{j}$ sẽ được gọi là các <em>hệ số nhị thức</em>. Đây là cách gọi ngắn gọn, nếu mô tả đầy đủ hơn, nó nên được gọi là các hệ số có trong đa thức khai triển của lũy thừa nhị thức mũ $n$. Mà tốt hơn, bạn và mình nên quên cách gọi dài dòng này đi.
+
+Ví dụ, $p_2$ và $p_3$ được viết lại theo các kí hiệu của hệ số nhị thức là $p_2=\binom{2}{0}+\binom{2}{1}x+\binom{2}{2}x^2$ và $p_3=\binom{3}{0}+\binom{3}{1}x+\binom{3}{2}x^2+\binom{3}{3}x^3$.
+
+Sơ đồ tại @fig-thap-nhan-phan-phoi-den-n-bang-5 gợi ý rằng, với mọi số nguyên không âm $n$, mình có thể viết $p_n$ là
+
+$$
+    p_n=\binom{n}{0}+\binom{n}{1}x+\cdots+\binom{n}{n-1}x^{n-1}+\binom{n}{n}x^n. 
+$$ {#eq-dang-khai-trien}
+
+Bên cạnh đó, với $1\leq j\leq n$, mình có
+
+$$
+    \binom{n}{j}=\binom{n-1}{j-1}+\binom{n-1}{j},
+$$ {#eq-tinh-he-so-nhi-thuc-theo-chieu-doc}
+
+và với $0\leq j\leq n$, mình có
+
+$$
+    \binom{n}{j}=\binom{n}{n-j}. 
+$$ {#eq-tinh-doi-xung}
+
+Để chứng minh các công thức trên, mình sử dụng phương pháp qui nạp.
+
+Lấy $p_2=1+2x+x^2$ và $p_3=1+3x+3x^2+x^3$ làm cơ sở qui nạp, vì dễ dàng kiểm chứng chúng thỏa mãn các Công thức @eq-dang-khai-trien, @eq-tinh-he-so-nhi-thuc-theo-chieu-doc và @eq-tinh-doi-xung.
+
+Xem Công thức @eq-dang-khai-trien và @eq-tinh-he-so-nhi-thuc-theo-chieu-doc là các giả thiết qui nạp, áp dụng chúng để có phép biến đổi
+
+$$
+\begin{aligned}
+    (1+x)p_{n}
+        & = (1+x)\binom{n}{0}+(1+x)\binom{n}{1}x+\cdots+(1+x)\binom{n}{n-1}x^{n-1}+(1+x)\binom{n}{n}x^n \\
+        & = \binom{n}{0} + \left[\binom{n}{0}+\binom{n}{1}\right] x + \cdots + \left[\binom{n}{n-1}+\binom{n}{n}\right]x^{n}+\binom{n}{n}x^{n+1} \\
+        & = \binom{n+1}{0} + \binom{n+1}{1}x+\cdots+\binom{n+1}{n}x^n+\binom{n+1}{n+1}x^{n+1}.
+\end{aligned}
+$$
+
+Đây chính là kết luận qui nạp cần rút ra cho hai công thức @eq-dang-khai-trien và @eq-tinh-he-so-nhi-thuc-theo-chieu-doc, với lưu ý $\binom{n+1}{0}$ được viết thay cho $\binom{n}{0}$ là vì cả hai đều bằng $1$ theo định nghĩa. Tương tự, $\binom{n}{n}$ được thay bởi $\binom{n+1}{n+1}$ với cùng lý do.
+
+Áp dụng công thức @eq-tinh-he-so-nhi-thuc-theo-chieu-doc, mà ở trên vừa chứng minh xong, để chỉ ra
+
+$$
+    \binom{n+1}{j}=\binom{n}{j-1}+\binom{n}{j}
+$$
+
+và
+
+$$
+    \binom{n+1}{n+1-j}=\binom{n}{n-j}+\binom{n}{n+1-j}.
+$$
+
+Theo giả thiết qui nạp @eq-tinh-doi-xung, mình có $\binom{n}{j}=\binom{n}{n-j}$ với $0\leq j\leq n$. Điều này cũng ngụ ý rằng nếu $0\leq j-1\leq n$ thì $\binom{n}{j-1}=\binom{n}{n-(j-1)}$. Vậy, suy ra
+
+$$
+    \binom{n+1}{j}=\binom{n+1}{n+1-j}.
+$$
+
+Đây chính là kết luận qui nạp dành cho công thức @eq-tinh-doi-xung. $\square$
+
+Kết thúc mục này tại đây, mình tạm kết luận rằng, khi viết dưới dạng tổng <span data-bs-toggle="tooltip" title="sigma">xích-mờ</span>, $p_n$ có dạng
+
+$$
+    p_n=\sum_{j=0}^n\binom{n}{j}x^j.
+$$
+
+Tuy nhiên, bạn nên lưu ý, công thức này vẫn chưa hoàn chỉnh. Bởi vì các hệ số nhị thức $\binom{n}{j}$ chứa trong nó, ngoài hai tính chất @eq-tinh-he-so-nhi-thuc-theo-chieu-doc và @eq-tinh-doi-xung, vẫn chưa có một công thức tường minh để tính toán chúng. Cả hai công thức kia đều thể hiện tính chất truy hồi hoặc đối xứng của các hệ số nhị thức, nhưng không cung cấp một cách tính trực tiếp và rõ ràng các giá trị của chúng. Trong mục tiếp theo, chúng ta sẽ cố gắng giải quyết vấn đề này.
+
+## Dáng điệu $\binom{n}{j}$ {#sec-dang-dieu-hsnt}
+
+Nhờ vào công thức @eq-tinh-he-so-nhi-thuc-theo-chieu-doc, mình có thể tiếp tục mở rộng chân tháp tại @fig-thap-nhan-phan-phoi-den-n-bang-5. Ví dụ, mình có thể lần lượt viết thêm các $p_6$, $p_7$, $p_8$ và $p_9$. Để đơn giản, lần này mình chỉ viết các hệ số, kết quả được hiển thị tại @fig-thap-he-so-nhi-thuc-den-n-bang-9. Thay thế các con số cụ thể bằng các kí hiệu, mình có được @fig-thap-he-so-nhi-thuc-dang-ki-hieu-den-n-bang-9, trong đó các kí hiệu giúp dễ dàng theo dõi các qui luật hình thành tháp mà đôi khi các con số cụ thể chưa thể hiện được.
+
+::: {layout-ncol=2}
+![Trong các văn bản toán học, tháp này thường được gọi là tam giác <span data-bs-toggle="tooltip" title="Pascal">Pát-si-cao</span> [@edwards2019pascal].](/figures/zo-o/diu-dang-va-gai-goc/thap-he-so-nhi-thuc-den-n-bang-9){#fig-thap-he-so-nhi-thuc-den-n-bang-9}
+
+![Tháp hệ số nhị thức dạng kí hiệu.](/figures/zo-o/diu-dang-va-gai-goc/thap-he-so-nhi-thuc-dang-ki-hieu-den-n-bang-9){#fig-thap-he-so-nhi-thuc-dang-ki-hieu-den-n-bang-9}
+:::
+
+Tháp tại @fig-thap-he-so-nhi-thuc-den-n-bang-9 còn có thể mở rộng vô hạn về phía đáy chỉ bằng cách sử dụng phép cộng để viết tiếp các $p_{10}$, $p_{11}$, vân vân. Tuy nhiên, khi $n$ tăng lên, khối lượng cần ghi chú ngày càng lớn, điều này bộc lộ hạn chế khi muốn viết một $p_n$ với $n$ lớn. Như đã thấy, mình cần viết từ $p_0$ đến $p_8$ trước khi có thể viết $p_9$, và tương tự, cần viết từ $p_0$ đến $p_{n-1}$ trước khi viết $p_n$. Về mặt lý thuyết, điều này có thể thực hiện được, nhưng trong thực tế, công việc trở nên quá nhàm chán, mặc dù chỉ đơn giản là phép cộng và ghi chú.
+
+Chưa hoàn hảo chưa ngừng cải tiến. mình tự hỏi liệu có cách nào để viết trực tiếp $p_n$ hay không? Cụ thể hơn, liệu có tồn tại công thức tính $\binom{n}{j}$ thông qua $\binom{n}{j-1}$ hay không?
+
+Mình đã quan sát dãy hệ số của $p_5$ bao gồm $\binom{5}{0}=1$, $\binom{5}{1}=5$, $\binom{5}{2}=10$, $\binom{5}{3}=10$, $\binom{5}{4}=5$, $\binom{5}{5}=1$. Lấy các hệ số này nhân với các số mũ tương ứng của $x$, sẽ thu được kết quả như ở cột bên trái dưới đây. Mặt khác, theo công thức @eq-tinh-doi-xung, từ cột bên trái, mình cũng viết được cột bên phải.
+
+$$
+\begin{aligned}
+    0\cdot\binom{5}{0}&=0 &\qquad (5-5)\cdot\binom{5}{5}&=0 \\
+    1\cdot\binom{5}{1}&=5 &\qquad (5-4)\cdot\binom{5}{4}&=5 \\
+    2\cdot\binom{5}{2}&=20 &\qquad (5-3)\cdot\binom{5}{3}&=20 \\
+    3\cdot\binom{5}{3}&=30 &\qquad (5-2)\cdot\binom{5}{2}&=30 \\
+    4\cdot\binom{5}{4}&=20 &\qquad (5-1)\cdot\binom{5}{1}&=20 \\
+    5\cdot\binom{5}{5}&=5 &\qquad (5-0)\cdot\binom{5}{0}&=5
+\end{aligned}
+$$
+
+Bây giờ, mình bỏ đi dòng đầu tiên của cả hai cột và viết nghịch đảo lại cột bên phải, mình thu được hai cột như dưới đây.
+
+$$
+\begin{aligned}
+    1\cdot\binom{5}{1}&=5 &\qquad (5-0)\cdot\binom{5}{0}&=5 \\
+    2\cdot\binom{5}{2}&=20 &\qquad (5-1)\cdot\binom{5}{1}&=20 \\
+    3\cdot\binom{5}{3}&=30 &\qquad (5-2)\cdot\binom{5}{2}&=30 \\
+    4\cdot\binom{5}{4}&=20 &\qquad (5-3)\cdot\binom{5}{3}&=20 \\
+    5\cdot\binom{5}{5}&=5 &\qquad (5-4)\cdot\binom{5}{4}&=5
+\end{aligned}
+$$
+
+Từ quan sát như vậy, mình đưa ra giả thiết qui nạp là, với $1\leq j \leq n$,
+
+::: {.callout-important appearance="minimal"}
+
+$$
+    j\binom{n}{j}=(n-j+1)\binom{n}{j-1}.
+$$ {#eq-tinh-he-so-nhi-thuc-theo-chieu-ngang}
+
+:::
+
+Cơ sở qui nạp là bất kì trường hợp nào được liệt kê trong tháp hệ số ở @fig-thap-he-so-nhi-thuc-den-n-bang-9, cũng như trường hợp vừa xét qua ở trên, các hệ số của $p_5$.
+
+Sử dụng công thức @eq-tinh-he-so-nhi-thuc-theo-chieu-doc kết hợp với giả thiết qui nạp là công thức @eq-tinh-he-so-nhi-thuc-theo-chieu-ngang để có hai phép biến đổi
+
+$$
+\begin{aligned}
+    \binom{n+1}{j}
+        &= \binom{n}{j-1}+\binom{n}{j} \\
+        &= \binom{n}{j-1}+\frac{n-j+1}{j}\binom{n}{j-1} \\
+        &= \frac{n+1}{j}\binom{n}{j-1}
+    \end{aligned}
+$$
+
+và
+
+$$
+\begin{aligned}
+    \binom{n+1}{j-1}\frac{n-j+2}{j}
+        &= \left[\binom{n}{j-2}+\binom{n}{j-1} \right] \frac{n-j+2}{j} \\
+        &= \left[\frac{j-1}{n-j+2}\binom{n}{j-1}+\binom{n}{j-1} \right] \frac{n-j+2}{j} \\
+        &= \frac{n+1}{j}\binom{n}{j-1}.
+\end{aligned}
+$$
+
+Từ đây, mình suy ra kết luận qui nạp là
+
+$$
+    j\binom{n+1}{j} = (n-j+2)\binom{n+1}{j-1}.\square
+$$
+
+Để xây dựng tháp hệ số như tại @fig-thap-he-so-nhi-thuc-den-n-bang-9, công thức @eq-tinh-he-so-nhi-thuc-theo-chieu-doc cho phép mình tiến hành theo chiều dọc và công thức @eq-tinh-he-so-nhi-thuc-theo-chieu-ngang cho phép mình tiến hành theo chiều ngang. Nương theo chiều hướng suy luận như thế, một câu hỏi hợp lý phát sinh là liệu có thể tiến hành theo các đường chéo được hay không? Diễn đạt toán học cho câu hỏi này là liệu có thể tính được $\binom{n}{j}$ hoặc thông qua $\binom{n-1}{j-1}$ - đường chéo hướng từ trái sang phải, hoặc thông qua $\binom{n-1}{j}$ - đường chéo còn lại, hay không?
+
+Câu trả lời là có thể, bạn hãy xem hai phép biến đổi dưới đây. Với $1\leq j\leq n-1$, mình có
+
+$$
+\begin{aligned}
+    \binom{n}{j}
+        &= \binom{n-1}{j-1}+\binom{n-1}{j} \\
+        &= \binom{n-1}{j-1}+\frac{n-j}{j}\binom{n-1}{j-1} \\
+        &= \frac{n}{j}\binom{n-1}{j-1}
+    \end{aligned}
+$$
+
+và
+
+$$
+\begin{aligned}
+    \binom{n}{j}
+        &= \binom{n-1}{j-1}+\binom{n-1}{j} \\
+        &= \frac{j}{n-j}\binom{n-1}{j}+\binom{n-1}{j} \\
+        &= \frac{n}{n-j}\binom{n-1}{j}.\square
+\end{aligned}
+$$
+
+Chúng ta kết luận, với $1\leq j \leq n-1$,
+
+::: {.callout-important appearance="minimal"}
+$$
+    \binom{n}{j}=\frac{n}{j}\binom{n-1}{j-1}
+$$ {#eq-tinh-he-so-nhi-thuc-theo-duong-cheo-trai}
+
+và
+
+$$
+    \binom{n}{j}=\frac{n}{n-j}\binom{n-1}{j}.
+$$ {#eq-tinh-he-so-nhi-thuc-theo-duong-cheo-phai}
+
+:::
+
+Quan sát các bước biến đổi dẫn đến hai đẳng thức trên, mình thấy rằng phép dựng tháp hệ số nhị thức theo đường chéo là sự kết hợp của hai phép dựng theo chiều dọc và chiều ngang. Với các số <span data-bs-toggle="tooltip" title="Stirling">Sì-tớ-liềng</span> loại hai, mình có thể thấy những tính chất tương tự như với các hệ số nhị thức hay không? Việc áp dụng và mở rộng ý tưởng này liệu có mang lại những kết quả thú vị khác trong toán học hay không?
+
+Bạn và mình phải cùng lưu ý điểm này. Cách nói chiều dọc, chiều ngang, đường chéo trái và đường chéo phải chỉ là tương đối, vì tam giác <span data-bs-toggle="tooltip" title="Pascal">Pát-si-cao</span> tại @fig-thap-he-so-nhi-thuc-den-n-bang-9 không phải là cách trình bày duy nhất, xem @fig-thap-he-so-nhi-thuc-dang-tam-giac-vuong-den-n-bang-9, thậm chí ngay cả <span data-bs-toggle="tooltip" title="Pascal">Pát-si-cao</span> cũng không viết như thế [@edwards2019pascal]. Do đó, mấy chữ mở rộng ý tưởng ở đoạn trước là quan trọng, nó được hiểu là cần có sự linh hoạt trong cách trình bày và sự tương đồng giữa các hình thức diễn đạt, tương tự như cách chúng ta xem xét điểm trong không gian nhiều chiều dựa trên khái niệm điểm trong không gian ba chiều và điểm trên mặt phẳng hai chiều.
+
+![Một cách viết khác của tam giác <span data-bs-toggle="tooltip" title="Pascal">Pát-si-cao</span>.](/figures/zo-o/diu-dang-va-gai-goc/thap-he-so-nhi-thuc-dang-tam-giac-vuong-den-n-bang-9){#fig-thap-he-so-nhi-thuc-dang-tam-giac-vuong-den-n-bang-9}
+
+Quay trở lại với vấn đề đang cần giải quyết, mình tiếp tục đặt ra câu hỏi sâu hơn, có một công thức tổng quát để tính $\binom{n}{j}$ chỉ phụ thuộc vào $n$ và $j$ mà không cần dựa vào các hệ số khác hay không?
+
+Câu hỏi này quan trọng bởi nếu có một công thức tổng quát như vậy, mình có thể tính trực tiếp các hệ số nhị thức mà không cần sử dụng các hệ số nhị thức khác làm trung gian. Điều này sẽ giúp tiết kiệm thời gian và công sức, đặc biệt là khi làm việc với các hệ số nhị thức lớn. Hơn nữa, điều quan trọng là một công thức như vậy sẽ cung cấp một cái nhìn sâu sắc hơn về bản chất của các hệ số nhị thức và mối quan hệ giữa chúng với $n$ và $j$.
+
+Căn cứ vào công @eq-tinh-he-so-nhi-thuc-theo-duong-cheo-trai, xét phép biến đổi
+
+$$
+\begin{aligned}
+    \binom{n}{j}
+        &= \frac{n}{j}\binom{n-1}{j-1} \\
+        &= \frac{n}{j}\frac{n-1}{j-1}\binom{n-2}{j-2} \\
+        &= \frac{n}{j}\frac{n-1}{j-1} \cdots \frac{n-j+1}{1}\binom{n-j}{0} \\
+        &= \frac{n(n-1)\cdots (n-j+1)}{j(j-1)\cdots 1}.
+\end{aligned}
+$$
+
+Với các công thức @eq-tinh-he-so-nhi-thuc-theo-chieu-doc, @eq-tinh-he-so-nhi-thuc-theo-chieu-ngang, @eq-tinh-he-so-nhi-thuc-theo-duong-cheo-trai và @eq-tinh-he-so-nhi-thuc-theo-duong-cheo-phai, mình có thể tính một hệ số nhị thức thông qua các hệ số nhị thức khác ở xung quanh. Nhưng với công thức vừa tìm được, mình có thể tính trực tiếp một hệ số nhị thức chỉ cần biết vị trí của nó trong tháp ở @fig-thap-he-so-nhi-thuc-dang-ki-hieu-den-n-bang-9. Nói cách khác là bây giờ mình đã có thể tính được hệ số của bất kì $x^j$ với $0\leq j \leq n$ khi khai triển $(1+x)^n$ với $n$ tùy ý. Ví dụ, hệ số của $x^6$ khi khai triển $(1+x)^9$ là
+
+$$
+    \binom{9}{6}
+        =\frac{9\cdot 8\cdot 7\cdot 6\cdot 5 \cdot 4}{6\cdot 5\cdot 4\cdot 3\cdot 2\cdot 1}=84.
+$$
+
+Hãy đối chiếu kết quả này với con số tại vị trí thứ bảy thuộc dòng thứ mười trong tháp ở @fig-thap-he-so-nhi-thuc-den-n-bang-9 để xác nhận kết quả.
+
+Định nghĩa $0!=1$ và $n!=n\cdot (n-1)\cdots 1$. Gọi vế trái của mỗi đẳng thức lần lượt là <em>$0$ giai thừa </em> và <em>$n$ giai thừa</em>. Công thức tính hệ số nhị thức vừa tìm được ở trên viết theo định nghĩa này có dạng
+
+::: {.callout-important appearance="minimal"}
+
+$$
+    \binom{n}{j} 
+        = \frac{n!}{j!(n-j)!}. 
+$$ {#eq-tinh-he-so-nhi-thuc}
+
+:::
+
+Định nghĩa $0!=1$ là hợp lý, vì nó biểu diễn được hai trường hợp đặc biệt là $\binom{n}{0}=\frac{n!}{0!(n-0)!}=\frac{n!}{0!n!}=1$ và $\binom{n}{n}=\frac{n!}{n!(n-n)!}=\frac{n!}{n!0!}=1$.
+
+Công thức @eq-tinh-he-so-nhi-thuc là một bất ngờ vì nó cho thấy rằng các hệ số nhị thức thực sự liên quan đến một công thức có ý nghĩa quan trọng trong lý thuyết tổ hợp. Cụ thể, công thức này còn được biết đến khi cần đếm số tập con $j$ phần tử của tập $n$ phần tử, hay số cách chọn $j$ phần tử không kể thứ tự từ $n$ phần tử. Do đó mình có thể gọi $\binom{n}{j}$ là <em>$n$ chọn $j$</em> hay số <em>tổ hợp</em> chập $j$ của $n$. Vì sao lại có mối liên hệ này giữa hệ số nhị thức và số tổ hợp?
+
+Ví dụ, trong khai triển $(1+x)^3=\binom{3}{0}+\binom{3}{1}x+\binom{3}{2}x^2+\binom{3}{3}x^3$, hệ số $\binom{3}{2}$ chính là số lượng $x^2$ có trong tích $(1+x)(1+x)(1+x)$. Mặt khác, nó cũng có thể được hiểu là số cách chọn hai phần tử $x$ từ ba phần tử là các thừa số ở vế trái để viết một số hạng là tích ba thừa số ở vế phải, bao gồm hai thừa số $x$ và một thừa số $1$. Điều này thể hiện qua cách viết khai triển chưa rút gọn của $(1+x)^3$ như sau
+
+$$
+\begin{aligned}
+    (1+x)(1+x)(1+x)
+        = 1 \cdot 1 \cdot 1 & + x \cdot 1 \cdot 1 + 1 \cdot x \cdot 1 + x \cdot x \cdot 1 \\ & + 1 \cdot 1 \cdot x + x\cdot 1 \cdot x + 1 \cdot x \cdot x + x \cdot x \cdot x.
+\end{aligned}
+$$
+
+Tổng quát, $\binom{n}{j}$ là số cách chọn $j$ phần tử $x$ từ $n$ phần tử là các thừa số của tích
+
+$$
+\underbrace{(1+x)(1+x)\cdots(1+x)}_{\text{có $n$ thừa số}}.
+$$
+
+::: {.column-margin}
+
+::: {#exr-2}
+
+Một tập hợp có $n$ phần tử thì có bao nhiêu tập con, kể cả tập rỗng và chính nó?
+
+:::
+
+:::
+
+## Định lý nhị thức {#sec-dinh-ly-nhi-thuc}
+
+Giờ đây bạn và mình đã có đủ chất liệu để phát biểu định lý nhị thức, tổng hợp lại những kiến thức đã phát hiện được trong quá trình khai triển lũy thừa $(1+x)^n$ đã tiến hành.
+
+::: {.callout-important title="Định lý nhị thức" icon="false"}
+
+Lũy thừa nguyên không âm $n$ của nhị thức $1+x$ được khai triển thành tổng có dạng
+
+$$
+    (1+x)^n
+        =\binom{n}{0}+\binom{n}{1}x+\cdots+\binom{n}{n-1}x^{n-1}+\binom{n}{n}x^n
+$$
+
+hoặc viết dưới dạng tổng xích-mờ là
+
+$$
+    (1+x)^n
+        =\sum_{j=0}^n\binom{n}{j}x^n.
+$$
+
+Trong đó, $\binom{n}{j}$ được gọi là các hệ số nhị thức và được xác định bằng công thức
+
+$$
+    \binom{n}{j}
+        =\frac{n!}{j!(n-j)!}=\frac{n(n-1)\cdots(n-j+1)}{j(j-1)\cdots 1},
+$$
+
+với qui ước $0!=1$. Các hệ số nhị thức này có các tính chất
+
+$$
+\begin{aligned}
+    \binom{n}{j}&=\binom{n-1}{j-1}+\binom{n-1}{j}, \\
+    \binom{n}{j}&=\binom{n}{n-j}, \\
+    \binom{n}{j}&=\frac{n-j+1}{j}\binom{n}{j-1},\\
+    \binom{n}{j}&=\frac{n}{j}\binom{n-1}{j-1}, \\
+    \binom{n}{j}&=\frac{n}{n-j}\binom{n-1}{j}.
+\end{aligned}
+$$
+
+::: {.column-margin}
+
+::: {#exr-3}
+Bạn hãy chứng minh lại các đẳng thức trên bằng công thức tính hệ số nhị thức mới tìm được.
+:::
+
+:::
+
+Như đã đề cập ở @sec-dan-nhap, nếu $x\ne 0$, mình có thể khai triển lũy thừa $(x+y)^n$ bằng cách áp dụng dạng khai triển của $(1+x)^n$ như sau
+
+$$
+\begin{aligned}
+    (x+y)^n
+        &=x^n\left[1+\left(\frac{y}{x}\right)\right]^n \\
+        &=x^n\sum_{j=0}^n \binom{n}{j}\left(\frac{y}{x}\right)^j \\
+        &=\sum_{j=0}^n\binom{n}{j}x^{n-j}y^j.
+\end{aligned}
+$$
+
+Mặt khác, do $x$ và $y$ có vai trò như nhau trong biểu thức $(x+y)^n$ nên có thể viết
+
+$$
+    (x+y)^n=\sum_{j=1}^n\binom{n}{j}x^jy^{n-j}.
+$$
+
+Đây là phiên bản quen thuộc và thường được sử dụng khi trình bày định lý nhị thức.
+
+::: {.column-margin}
+
+::: {#exr-4}
+Chứng minh
+
+$$
+    \binom{2n}{0} -\binom{2n}{2} +\binom{2n}{4}-\cdots+(-1)^{n}\binom{2n}{2n}=2^n\cos{\frac{n\pi}{2}}.
+$$
+
+Sự hiện diện của $\cos{\frac{n\pi}{2}}$ trong đẳng thức này gợi lên trong bạn những suy nghĩ gì?
+
+:::
+
+:::
+
+::: {.column-margin}
+
+::: {#exr-5}
+CCho $n$ là số nguyên không âm, chứng minh rằng khi $n$ tăng vô hạn, $\sum_{j=0}^n\frac{1}{j!}$ và $\left(1+\frac{1}{n}\right)^n$ cùng hội tụ về một giới hạn. Được biết giới hạn đó chính là số $\operatorname{e}=2,718\ldots$.
+:::
+
+:::

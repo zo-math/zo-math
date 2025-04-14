@@ -1,0 +1,18 @@
+\documentclass[border=1mm]{standalone}
+\newcommand{\FontPath}{../../../../../../../assets/fonts/} 
+\input{../../../../../../../assets/tex/tikz-preamble.tex}
+\usepackage{pgfplots}
+\usepackage{tkz-tab}
+\usepackage{amsmath}
+\usetikzlibrary{arrows}
+
+\begin{document}
+
+\begin{tikzpicture}
+    \tkzTabInit[lgt=1.5,espcl=5]{$x$ / 1, $g'(x)$ / 1, $g(x)$ / 3}
+    {$-\infty$, $0$, $+\infty$}%
+    \tkzTabLine{ , -, d, -, }
+    \tkzTabVar{+/ $0$ / ,-D+/ $-\infty$ / $+\infty$ , -/ $0$ /}
+    \end{tikzpicture}
+
+\end{document}

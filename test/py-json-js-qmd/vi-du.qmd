@@ -1,0 +1,64 @@
+---
+title: "Cây nhị thức (1+x)^2"
+format: html
+mathjax: true
+---
+
+<div id="tree-container" style="position: relative; width: 600px; height: 300px; margin: auto;">
+  <svg id="tree-svg" width="600" height="300" style="position: absolute; top: 0; left: 0;"></svg>
+</div>
+
+<script type="text/javascript">
+// Dữ liệu cây: viết thẳng trong JS cho chắc chắn
+const data = {
+  nodes: [
+    { id: "A", label: "$(1+x)^2$", x: 1, y: 0 },
+    { id: "B", label: "$\\binom{2}{0}x^0$", x: 0, y: 1 },
+    { id: "C", label: "$\\binom{2}{1}x^1$", x: 1, y: 1 },
+    { id: "D", label: "$\\binom{2}{2}x^2$", x: 2, y: 1 }
+  ],
+  links: [
+    { from: "A", to: "B" },
+    { from: "A", to: "C" },
+    { from: "A", to: "D" }
+  ]
+};
+
+const svg = document.getElementById("tree-svg");
+const container = document.getElementById("tree-container");
+
+const xOffset = 100;
+const yOffset = 50;
+const xScale = 100;
+const yScale = 100;
+
+// Vẽ các cạnh (nhánh)
+for (const link of data.links) {
+  const from = data.nodes.find(n => n.id === link.from);
+  const to = data.nodes.find(n => n.id === link.to);
+  const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+  line.setAttribute("x1", xOffset + from.x * xScale);
+  line.setAttribute("y1", yOffset + from.y * yScale);
+  line.setAttribute("x2", xOffset + to.x * xScale);
+  line.setAttribute("y2", yOffset + to.y * yScale);
+  line.setAttribute("stroke", "#666");
+  svg.appendChild(line);
+}
+
+// Vẽ các nút bằng div chứa công thức LaTeX
+for (const node of data.nodes) {
+  const div = document.createElement("div");
+  div.style.position = "absolute";
+  div.style.left = `${xOffset + node.x * xScale}px`;
+  div.style.top = `${yOffset + node.y * yScale}px`;
+  div.style.transform = "translate(-50%, -50%)";
+  div.style.fontSize = "18px";
+  div.innerHTML = node.label;
+  container.appendChild(div);
+}
+
+// Kích hoạt MathJax để render công thức
+if (window.MathJax) {
+  MathJax.typeset();
+}
+</script>

@@ -1,0 +1,19 @@
+\documentclass[border=1mm]{standalone}
+\newcommand{\FontPath}{../../../../../../../assets/fonts/} 
+\input{../../../../../../../assets/tex/tikz-preamble.tex}
+\usepackage{pgfplots}
+\usepackage{tkz-tab}
+\usepackage{amsmath}
+\usetikzlibrary{arrows}
+
+\begin{document}
+
+\begin{tikzpicture}
+  \tkzTabInit[espcl=2] % nocadre: bỏ khung bên ngoài bảng 
+    {$x$/1, $h'(x)$/1, $h(x)$/2}
+    {$0$, $450$, $1800$, $2000$}
+  \tkzTabLine{t, -, 0, +, 0, -, t} 
+  \tkzTabVar{+/ $840$ /, -/ $\frac{7365}{16}$ /, +/ $\frac{15315}{11}$ /, -/ $\frac{43720}{33}$ /}
+\end{tikzpicture}
+
+\end{document}

@@ -1,0 +1,52 @@
+\documentclass[tikz, border=1mm]{standalone}
+\newcommand{\FontPath}{../../../../../../../assets/fonts/} 
+\input{../../../../../../../assets/tex/tikz-preamble.tex}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines=middle,
+    axis line style={<->},
+    xlabel={$x$ (giờ)},
+    ylabel={$t$ (°C)},
+    xlabel style={at={(axis cs:26,0)},anchor=west},
+    ylabel style={at={(axis cs:0,40)},anchor=south},
+    xmin=-2, xmax=26,
+    ymin=-5, ymax=40,
+    % xtick={2,4,6,8,10,12,14,16,18,20,22,24},
+    % ytick={2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34},
+    xtick={4, 8, 12, 16, 20, 24},
+    ytick={25},
+    % grid=both,
+    scale only axis,
+    % axis equal image,
+    xscale=1.5,
+    % width=10cm,
+    % height=8cm,
+    clip=false,
+]
+\node at (axis cs:-.35,-.75) [anchor=north east] {O};
+
+\draw [dashed, opacity=0.5] (4,0) -- (4,20);
+\draw [dashed, opacity=0.5] (8,0) -- (8,31);
+\draw [dashed, opacity=0.5] (12,0) -- (12,28);
+\draw [dashed, opacity=0.5] (16,0) -- (16,34);
+\draw [dashed, opacity=0.5] (20,0) -- (20,27);
+\draw [dashed, opacity=0.5] (24,0) -- (24,24);
+
+\node at (4,20) [anchor=south, yshift=5] {20};
+\node at (8,31) [anchor=south, yshift=5] {31};
+\node at (12,28) [anchor=south, yshift=5] {28};
+\node at (16,34) [anchor=south, yshift=5] {34};
+\node at (20,27) [anchor=south, yshift=5] {27};
+\node at (24,24) [anchor=south, yshift=5] {24};
+
+
+\input{hoat-dong-kham-pha-1-spline.tex}
+
+
+
+\end{axis}
+\end{tikzpicture}
+\end{document}

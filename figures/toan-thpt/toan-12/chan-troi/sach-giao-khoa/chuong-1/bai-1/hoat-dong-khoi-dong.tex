@@ -1,0 +1,38 @@
+\documentclass[tikz, border=1mm]{standalone}
+\newcommand{\FontPath}{../../../../../../../assets/fonts/} 
+\input{../../../../../../../assets/tex/tikz-preamble.tex}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines=middle,
+    axis line style={<->},
+    xlabel={$t$},
+    ylabel={$h$},
+    xlabel style={at={(axis cs:9,0)},anchor=west},
+    ylabel style={at={(axis cs:0,600)},anchor=south},
+    xmin=-1, xmax=9,
+    ymin=-100, ymax=600,
+    xtick={0, 3, 6, 8},
+    ytick={0, 324, 405, 480},
+    scale only axis,
+    % grid=both,
+    % width=10cm,
+    % height=8cm,
+    % clip=false,
+]
+\addplot[domain=0:8, samples=100, thick] {6*x^3 - 81*x^2 + 324*x};
+% \addplot[mark=*] coordinates {(0,0) (3,405) (6,324) (8,480)};
+\node at (axis cs:0,-2) [anchor=north east] {O};
+% \node at (0,0) {O};
+% \node at (0,0) [anchor=north east] {O};
+\draw [dashed, opacity=0.5] (0,324) -- (6,324);
+\draw [dashed, opacity=0.5] (6,324) -- (6,0);
+\draw [dashed, opacity=0.5] (0,405) -- (3,405);
+\draw [dashed, opacity=0.5] (3,405) -- (3,0);
+\draw [dashed, opacity=0.5] (0,480) -- (8,480);
+\draw [dashed, opacity=0.5] (8,480) -- (8,0);
+\end{axis}
+\end{tikzpicture}
+\end{document}

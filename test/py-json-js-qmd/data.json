@@ -1,0 +1,17 @@
+import json
+
+nodes = [
+    {"id": "A", "label": "$(1+x)^2$", "x": 1, "y": 0},
+    {"id": "B", "label": "$\\binom{2}{0}x^0$", "x": 0, "y": 1},
+    {"id": "C", "label": "$\\binom{2}{1}x^1$", "x": 1, "y": 1},
+    {"id": "D", "label": "$\\binom{2}{2}x^2$", "x": 2, "y": 1}
+]
+
+links = [
+    {"from": "A", "to": "B"},
+    {"from": "A", "to": "C"},
+    {"from": "A", "to": "D"}
+]
+
+with open("tree_data.json", "w", encoding="utf-8") as f:
+    json.dump({"nodes": nodes, "links": links}, f, indent=2, ensure_ascii=False)

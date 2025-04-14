@@ -1,0 +1,71 @@
+---
+title: Vẽ nhiều khung hình với p5.js trong Quarto (Đã sửa)
+---
+
+# Hai khung hình vẽ độc lập
+
+<div id="myCanvas1"></div>
+
+<script>
+  (function() {
+    new p5(function(p) {
+      p.setup = function() {
+        let canvas1 = p.createCanvas(400, 300);
+        canvas1.parent('myCanvas1');
+        p.background(240);
+        p.ellipse(100, 150, 80, 80);
+        p.rect(250, 100, 100, 150);
+        p.arc(200, 200, 100, 100, 0, PI/3);
+      };
+
+      p.draw = function() {
+        // Hàm draw có thể để trống nếu bạn chỉ vẽ tĩnh
+      };
+    });
+  })();
+</script>
+
+<div id="myCanvas2"></div>
+
+<script>
+  (function() {
+    new p5(function(p) {
+      p.setup = function() {
+        let canvas2 = p.createCanvas(300, 200);
+        canvas2.parent('myCanvas2');
+        p.background(240);
+        p.line(20, 20, 280, 180);
+        p.triangle(50, 50, 150, 50, 100, 150);
+      };
+
+      p.draw = function() {
+        // Hàm draw có thể để trống nếu bạn chỉ vẽ tĩnh
+      };
+    });
+  })();
+</script>
+
+<div id="myCanvas3" style="position: relative;">
+  <div id="latex-annotation" style="position: absolute; top: 150px; left: 220px; font-size: 16px; color: blue;">
+    $x^2 + y^2 = r^2$
+  </div>
+</div>
+
+<script>
+  (function() {
+    new p5(function(p) {
+      p.setup = function() {
+        let canvas3 = p.createCanvas(400, 400);
+        canvas3.parent('myCanvas3');
+        p.background(200); // Màu xám nhạt
+        p.stroke(0);       // Viền đen
+        p.fill(255, 0, 0);  // Tô đỏ
+        p.arc(200, 200, 100, 100, 0, p.PI/3, p.PIE); // Vẽ hình cung kiểu PIE
+      };
+
+      p.draw = function() {
+        // Hàm draw có thể để trống nếu bạn chỉ vẽ tĩnh
+      };
+    });
+  })();
+</script>

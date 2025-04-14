@@ -1,0 +1,17 @@
+\documentclass[border=1mm]{standalone}
+\newcommand{\FontPath}{../../../../../../../assets/fonts/} 
+\input{../../../../../../../assets/tex/tikz-preamble.tex}
+\usepackage{tkz-tab}
+\usepackage{amsmath}
+\usetikzlibrary{arrows}
+
+\begin{document}
+
+\begin{tikzpicture}
+  \tkzTabInit[espcl=2] 
+    {$t$/1, $h'(t)$/1}
+    {$0$, $3$, $6$, $8$}
+  \tkzTabLine{\vert, +, 0, -, 0, +, \vert}
+\end{tikzpicture}
+
+\end{document}

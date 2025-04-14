@@ -1,0 +1,1131 @@
+---
+title: "Bài 1. Tính đơn điệu và cực trị của hàm số"
+subtitle: "Chương 1 | Chân Trời Sáng Tạo | Toán 12"
+
+date: last-modified
+date-format: "DD-MM-YYYY"
+author: "ZO Math"
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(kableExtra)
+library(dplyr)
+library(MASS)
+# library(ggplot2)
+```
+
+<!-- Hoạt động khởi động -->
+
+<details>
+
+<summary class="de-muc">Hoạt động khởi động</summary>
+
+::: {layout-ncol=2}
+Trong 8 phút đầu kể từ khi xuất phát, độ cao $h$ (tính bằng mét) của khinh khí cầu vào thời điểm $t$ phút được cho bởi công thức $h(t) = 6t^3 − 81t^2 + 324t$. Đồ thị của hàm số $h(t)$ được biểu diễn trong hình bên. Trong các khoảng thời gian nào khinh khí cầu tăng dần độ cao, giảm dần độ cao? Độ cao của khinh khí cầu vào các thời điểm 3 phút và 6 phút sau khi xuất phát có gì đặc biệt?
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/hoat-dong-khoi-dong){fig-alt="Đồ thị trong Hoạt động khởi động, một đường cong đi qua các điểm (0;0), cực đại (3;405), cực tiểu (6;324) và (8;480)." fig-align="right"}
+:::
+
+</details>
+
+<!-- Giải Hoạt động khởi động -->
+
+<details>
+
+<summary class="giai-de-muc">Luận giải: Bóng tối</summary>
+
+Có những đồ thị không chỉ uốn lượn theo trục tọa độ, mà còn lặng lẽ vẽ nên những chuyển động khiến lòng người nao nao. Không cần lời giải, không cần định lý - chỉ cần ngắm nhìn đường cong ấy thôi cũng đủ thấy tim mình bị kéo theo từng nhịp lên xuống. Khởi đầu nhẹ như một lời thì thầm, rồi bất chợt dâng trào ở phút thứ 3, rơi xuống ở phút thứ 6 như một khoảng lặng giữa bản nhạc, trước khi bật cao lần nữa, cao đến mức tưởng chừng không thể với tới.
+
+Phút thứ 3 và phút thứ 6 không chỉ là những con số - đó là khoảnh khắc. Những điểm dừng để tự hỏi: điều gì đang xảy ra bên trong hàm số ấy? Có phải ở đó, khinh khí cầu đã do dự? Hay chính là lúc mọi thứ chuyển mình, lặng lẽ nhưng quyết liệt?
+
+Muốn nghe được lời thì thầm của đường cong ấy, cần có thứ ngôn ngữ tên gọi là *tính đơn điệu*, là *cực trị* - những khái niệm tưởng khô khan nhưng lại chính là chìa khóa mở cửa cảm xúc của một hàm số. Tạm giữ lấy chút bối rối ấy, để đến phần <a href="#van-dung-1">Vận dụng 1</a>, mọi bí mật sẽ tự nhiên hé lộ - như một lời tỏ tình muộn màng mà thật lòng.
+
+</details>
+
+<!-- Thực hành 1 -->
+
+<details>
+
+<summary class="de-muc">Thực hành 1</summary>
+
+Tìm các khoảng đơn điệu của hàm số $y=f(x)$ có đồ thị như Hình 3.
+
+![Hình 3](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/hinh-3){fig-alt="Đồ thị trong Thực hành 1, một đường cong bậc 4 đi qua các điểm (-3;-4.75), cực đại (-2;2), cực tiểu (-1;1.25), cực đại (0,2) và (1;-4.75)."}
+
+</details>
+
+<!-- Giải Thực hành 1 -->
+
+<details>
+
+<summary class="giai-de-muc">Luận giải: Tìm đèn</summary>
+
+Quan sát đồ thị cho ở Hình 3, ta **phỏng đoán** rằng hàm số $y=f(x)$ *đơn điệu* trên các khoảng $(-3;-2)$, $(-2;-1)$, $(-1;0)$, và $(0;1)$. Cụ thể:
+
+- Hàm số **có vẻ** *đồng biến (tăng)* trên các khoảng $(-3;-2)$ và $(-1;0)$, vì với $x_1<x_2$, đồ thị cho thấy $f(x_1)<f(x_2)$. 
+- Hàm số **có vẻ** *nghịch biến (giảm)* trên các khoảng $(-2;-1)$ và $(0;1)$, vì đồ thị cho thấy $f(x_1)>f(x_2)$ với $x_1<x_2$. 
+
+Lưu ý rằng đây chỉ là những nhận xét dựa trên trực quan từ đồ thị, không phải kết luận được kiểm chứng từ công thức hàm số.
+
+Tóm lại, các khoảng đơn điệu trên chỉ mang tính phỏng đoán. Để khẳng định chính xác tính đồng biến hay nghịch biến theo định nghĩa toán học, cần biết công thức của hàm số và kiểm tra bằng định nghĩa hoặc đạo hàm nếu có.
+
+::: {.ket-thuc}
+
+:::
+
+</details>
+
+<!-- Ghi chú: Từ đồ thị đến tính đơn điệu của hàm số  -->
+
+::: {.column-margin}
+
+::: {.callout-note title="Ghi chú" collapse="true" icon="false"}
+
+Trong bài toán này, học sinh được yêu cầu xác định các khoảng đồng biến - nghịch biến từ đồ thị mà không có công thức hàm số. Việc sử dụng cụm từ "có vẻ đồng biến" hay "được phỏng đoán là nghịch biến" giúp học sinh nhận diện tính đơn điệu thông qua trực quan, nhưng vẫn giữ thái độ thận trọng về mặt lập luận toán học.
+
+Điều này giúp tránh hiểu lầm phổ biến rằng: "nhìn thấy đồ thị đi lên thì hàm chắc chắn đồng biến". Trên thực tế, để kết luận một cách chính xác, học sinh cần sử dụng định nghĩa hoặc đạo hàm khi có công thức.
+
+Khuyến khích giáo viên đặt thêm câu hỏi mở rộng như:
+
+- Nếu đồ thị có đoạn gãy khúc thì sao?
+- Liệu có cần hàm liên tục mới nói đến đơn điệu?
+- Nếu chỉ xét đạo hàm âm/dương thì có đủ chưa?
+
+:::
+
+:::
+
+<!-- Đáp án Thực hành 1 -->
+
+<details>
+
+<summary class="ket-qua">Kết quả</summary>
+
+- Hàm số đồng biến trên các khoảng $(-3;-2)$ và $(-1;0)$, vì đồ thị cho thấy $f(x_1)<f(x_2)$ với $x_1<x_2$ trên từng khoảng. 
+- Hàm số nghịch biến trên các khoảng $(-2;-1)$ và $(0;1)$, vì đồ thị cho thấy $f(x_1)>f(x_2)$ với $x_1<x_2$ trên từng khoảng.
+
+</details>
+
+<!-- Hoạt động khám phá 1 -->
+
+<details>
+
+<summary class="de-muc">Hoạt động khám phá 1</summary>
+
+::: {layout-ncol=2}
+
+::: {.column}
+
+Cho hàm số $y=f(x)=x^2$.
+
+a. Từ đồ thị của hàm số $y=f(x)$ (Hình 4), hãy chỉ ra các khoảng đồng biến và nghịch biến của hàm số đã cho.
+b. Tính đạo hàm $f'(x)$ và xét dấu $f'(x)$.
+c. Từ đó, nhận xét về mối liên hệ giữa các khoảng đồng biến, nghịch biến của hàm số với dấu của $f'(x)$.
+
+:::
+
+::: {.column}
+
+![Hình 4](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/hinh-4){fig-alt="Đồ thị trong Hoạt động khám phá 1, đường cong parabol $y=x^2$ đi qua các điểm cho sẵn (-3;9), (-2;4), (-1;1), cựa tiểu (0,0), (1;1), (2;4) và (3;9)." fig-align="right"}
+
+:::
+
+:::
+
+</details>
+
+<!-- Luận giải Hoạt động khám phá 1 -->
+
+<details>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+a. Quan sát đồ thị ở Hình 4 cho thấy:
+
+    - Hàm số nghịch biến trên khoảng $(-\infty;0)$, vì với mọi $x_1<x_2$ trong khoảng này, đều có $f(x_1)>f(x_2)$. Khẳng định này có thể kiểm bằng công thức của hàm số. Với mọi $x_1,x_2\in(-\infty,0)$ và $x_1<x_2$, theo quy tắc nhân với số âm, xét thấy
+    $$
+        x_1^2 > x_1\cdot x_2
+    $$
+    và
+    $$
+        x_1\cdot x_2 > x_2^2.
+    $$
+    Suy ra $x_1^2>x_2^2$, tức là $f(x_1)>f(x_2)$.
+    - Hàm số đồng biến trên khoảng $(0;+\infty)$, vì với mọi $x_1<x_2$ trong khoảng này, đều có $f(x_1)<f(x_2)$. Khẳng định này có thể kiểm lại bằng công thức của hàm số. Kiểm chứng tương tự bằng cách xét các công thức:
+    $$
+        x_1^2 < x_1\cdot x_2
+    $$
+    và
+    $$
+        x_1\cdot x_2 < x_2^2.
+    $$
+    Suy ra $x_1^2<x_2^2$, tức là $f(x_1)<f(x_2)$.
+
+b. Đạo hàm của $f(x)=x^2$ là $f'(x)=2x$. 
+    - Với $x = 0$, rõ ràng $f'(x) = 0$.
+    - Với mọi $x < 0$, khi nhân $2$ với một số âm thì $f'(x) = 2x < 0$.
+    - Với mọi $x > 0$, khi nhân $2$ với một số dương thì $f'(x) = 2x > 0$.
+
+    Có thể lập *bảng xét dấu* như dưới đây để trình bày một cách trực quan hơn về dấu của đạo hàm. 
+
+    ![Bảng xét dấu $f'(x)=2x$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/hdkp1-bang-xet-dau-dh){width=350px}
+
+    > Khi xét dấu của đạo hàm, việc đầu tiên là giải phương trình $f'(x) = 0$. Vì sao? Vì nghiệm của phương trình này chính là những điểm mà đạo hàm chuyển dấu - hay nói cách khác, là những điểm có thể xảy ra sự thay đổi về chiều biến thiên. Những điểm ấy thường gắn với cực trị hoặc là ranh giới của khoảng đơn điệu. Không tìm chúng, tức là đang dò đường trong sương mù mà chưa biết ngã rẽ.
+
+c. Từ kết quả xét dấu của đạo hàm, có thể thấy $f'(x)<0$ trên khoảng nghịch biến và $f'(x)>0$ trên khoảng đồng biến.
+
+::: {.ket-thuc}
+
+:::
+
+</details>
+
+<!-- Kết quả Hoạt động khám phá 1 -->
+
+<details>
+
+<summary class="ket-qua">Kết quả</summary>
+
+a. Theo đồ thị Hình 4: 
+    - Hàm số nghịch biến trên khoảng $(-\infty;0)$.
+    - Hàm số đồng biến trên khoảng $(0;+\infty)$.
+b. Đạo hàm của $f(x)=x^2$ là $f'(x)=2x$. 
+    - Với $x = 0$: $f'(x) = 0$.
+    - Với $x < 0$: $f'(x) < 0$.
+    - Với $x > 0$: $f'(x) > 0$.
+c. Đạo hàm $f'(x)$ âm trên khoảng nghịch biến, dương trên khoảng đồng biến.
+
+</details>
+
+<!-- Thực hành 2 -->
+
+<details>
+
+<summary class="de-muc">Thực hành 2</summary>
+
+Xét tính đơn điệu của các hàm số sau:
+
+a. $f(x)=x^3-6x^2+9x$;
+b. $g(x)=\frac{1}{x}$.
+
+</details>
+
+<!-- Luận giải Thực hành 2 -->
+
+<details>
+
+<summary class="giai-de-muc">Luận giải: Tìm đèn</summary>
+
+a. Hàm số $f(x)=x^3-6x^2+9x$ có tập xác định $D=\mathbb{R}$. Đạo hàm của hàm số này là
+
+    $$
+        f'(x) = 3x^2-12x+9.
+    $$
+
+    Phương trình $f'(x)=0$ có hai nghiệm $x_1=1$ và $x_2=3$.
+
+    Lập bảng biến thiên như dưới đây.
+
+    ![Bảng biến thiên $f(x)=x^3-6x^2+9x$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/th-2-a-bang-bien-thien){width=450px}
+
+    Từ bảng biến thiên, hàm số đồng biến trên các khoảng $(-\infty;1)$ và $(3;+\infty)$, và nghịch biến trên khoảng $(1;3)$.
+
+b. Hàm số $g(x)=\frac{1}{x}$ có tập xác định là $D=\mathbb{R}\backslash\{0\}$. Đạo hàm của hàm số này là
+
+    $$
+        g'(x) = -\frac{1}{x^2}.
+    $$
+
+    Vì $x^2>0$ với mọi $x\in D$, nên suy ra $g'(x)<0$ với mọi $x\in D$. 
+    
+    Trong trường hợp này, đến đây đã có thể kết luận hàm số đã cho nghịch biến trên toàn tập xác định của nó. Tuy nhiên, vẫn có thể lập bảng biến thiên như dưới đây.
+
+    ![Bảng biến thiên $g(x)=\frac{1}{x}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/th-2-b-bang-bien-thien){width=500px}
+
+</details>
+
+<!-- Kết quả Thực hành 2 -->
+
+<details>
+
+<summary class="ket-qua">Kết quả</summary>
+
+a. Tính đơn điệu của hàm số $f(x)=x^3-6x^2+9x$
+    - Hàm số đồng biến trên: $(-\infty;1)$ và $(3;+\infty)$.
+    - Hàm số nghịch biến trên: $(1;3)$.
+b. Tính đơn điệu của hàm số $g(x)=\frac{1}{x}$
+    - Hàm số nghịch biến trên: $(-\infty;0)$ và $(0;+\infty)$.
+
+</details>
+
+
+<!-- Thực hành 3 -->
+
+<details>
+
+<summary class="de-muc">Thực hành 3</summary>
+
+Chứng minh rằng hàm số $f(x)=3x-\sin x$ đồng biến trên $\mathbb{R}$.
+
+</details>
+
+<!-- Giải Thực hành 3 -->
+
+<details>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+Hàm số $f(x) = 3x - \sin x$ xác định trên $\mathbb{R}$ và có đạo hàm 
+
+$$
+    f'(x) = 3 - \cos x.
+$$
+
+Vì $\cos x \le 1$ với mọi $x \in \mathbb{R}$, nên
+
+$$
+    f'(x) = 3 - \cos x \ge 3 - 1 = 2 > 0, \quad \forall x \in \mathbb{R}.
+$$
+
+Đạo hàm luôn dương trên $\mathbb{R}$, suy ra hàm số đồng biến trên $\mathbb{R}$.
+
+::: {.ket-thuc}
+
+:::
+
+::: {.callout-tip title="Ngách Chậm Tiêu" collapse="true" icon="false"}
+
+Hàm số $f(x)=3x-\sin x$ có tập xác định là $D=\mathbb{R}$ và đạo hàm $f'(x)=3-\cos x$. Với mọi $x\in\mathbb{R}$, luôn có bất đẳng thức 
+
+$$
+    -1\leq \cos x\leq 1.
+$$
+
+Nhân -1 vào các vế, để có bất đẳng thức đảo chiều 
+
+$$
+    1\geq -\cos x\geq -1.
+$$
+
+Cộng 3 vào các vế, để có bất đẳng thức 
+
+$$
+    4\geq 3-\cos x\geq 2.
+$$
+
+Tức là $2\leq f'(x)\leq 4$. Vậy, $f'(x)>0$ với mọi $x\in \mathbb{R}$, mà tập xác định của $f(x)$ là $D=\mathbb{R}$, nên suy ra $f(x)$ đồng biến trên $\mathbb{R}$.
+
+::: {.ket-thuc}
+
+:::
+
+</details>
+
+<!-- Ghi chú -->
+
+::: {.column-margin}
+
+::: {.callout-note title="Ghi chú" collapse="true" icon="false"}
+
+- **Vai trò của đạo hàm:** Khi muốn kiểm tra xem một hàm số có đồng biến hay không, đạo hàm là công cụ đáng tin cậy. Việc đạo hàm luôn **dương** chính là dấu hiệu rõ ràng cho tính **đồng biến**.
+
+- **Lưu ý:** Không chỉ tính đạo hàm rồi nhìn qua là kết luận. Cần xác định kỹ xem đạo hàm **lớn hơn, nhỏ hơn hay bằng 0** ở đâu — và **luôn luôn** hay **chỉ tại vài điểm**.
+
+- **Trực giác:** Hàm số $f(x) = 3x - \sin x$ là một hàm bậc nhất kết hợp với một dao động nhỏ (do $\sin x$). Trực giác có thể gợi ý nó "tăng dần", nhưng **chỉ có đạo hàm mới xác nhận chắc chắn** điều đó.
+
+- **Mở rộng:** Bản thân $\cos x$ là hàm dao động từ -1 đến 1, nên $3 - \cos x$ dao động từ $2$ đến $4$. Điều này cho thấy đạo hàm **không chỉ dương mà còn luôn lớn hơn hoặc bằng 2 và bé hơn hoặc bằng 4**, nên hàm số này "tăng đều đặn" chứ không phải chỉ là "tăng nhẹ nhàng" hay "tăng mạnh mẽ".
+
+    > Hàm số này đúng kiểu "tăng có tâm" - không lề mề, mà cũng chẳng lăng xăng. Lúc nào cũng điềm đạm, bước đều như thể có ai đó bấm nhịp phía sau. Một bên thì lề mề như rùa mới ngủ dậy là anh $\ln x$, một bên lại lăng xăng như sóc vừa uống trà đá là anh $e^x$.
+    
+:::
+
+:::
+
+<!-- Vận dụng 1 -->
+
+<details id="van-dung-1">
+
+<summary class="de-muc">Vận dụng 1</summary>
+
+Hãy trả lời câu hỏi trong Hoạt động khởi động bằng cách xét dấu đạo hàm của hàm số $h(t)=6t^3-81t^2+324t$ với $0\leq t\leq 8$.
+
+</details>
+
+<!-- Giải Vận dụng 1 -->
+
+<details>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+Đạo hàm của $h(t)$ là $h'(t)=18t^2-162t+324$. Để xét dấu $h'(t)$ với $0\leq t\leq 8$, trước tiên, cần giải phương trình $h'(t)=0$ với $0\leq t\leq 8$. Phương trình này có hai nghiệm thỏa mãn điều kiện là $t=3$ và $t=6$. Bảng xét dấu đạo hàm:
+
+![Bảng xét dấu $h'(t)$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/vd1-bang-xet-dau-dh){width=60%}
+
+- Khinh khí cầu *tăng* độ cao trong các khoảng $(0;3)$ và $(6;8)$.
+- Khinh khí cầu *giảm* độ cao trong khoảng $(3;6)$.
+- Tại $t=3$ phút, đ*ạo hàm đổi dấu từ dương sang âm*. Điều này có nghĩa là độ cao tại thời điểm 3 phút là lớn nhất so với các thời điểm xung quanh, ít nhất là với tất cả $t\in(0;6)\backslash\{3\}$.
+- Tại $t=6$ phút, *đạo hàm đổi dấu từ âm sang dương*. Điều này có nghĩa là độ cao tại thời điểm 6 phút là nhỏ nhất so với các thời điểm xung quanh, ít nhất là với tất cả $t\in(3;8)\backslash\{6\}$.
+
+::: {.ket-thuc}
+
+:::
+
+</details>
+
+<!-- Hoạt động khám phá 2 -->
+
+<details>
+
+<summary class="de-muc">Hoạt động khám phá 2</summary>
+
+::: {layout-ncol=2}
+
+::: {.column}
+Quan sát đồ thị của hàm số $y=f(x)=x^3–3x^2+1$ trong Hình 5.
+
+a. Tìm khoảng $(a;b)$ chứa điểm $x = 0$ mà trên đó $f(x)<f(0)$ với mọi $x\ne 0$.
+b. Tìm khoảng $(a;b)$ chứa điểm $x = 2$ mà trên đó $f(x)>f(2)$ với mọi $x\ne 2$.
+c. Tồn tại hay không khoảng $(a;b)$ chứa điểm $x=1$ mà trên đó $f(x)>f(1)$ với mọi $x\ne 1$ hoặc $f(x)<f(1)$ với mọi $x\ne 1$?
+:::
+
+::: {.column}
+
+![Hình 5](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/hinh-5){fig-alt="Đồ thị trong Hoạt động khám phá 2, đường cong bậc ba $y=x^3-3x^2+1$ đi qua các điểm cho sẵn (-1;-3), cực đại (0;1), (1;-1), cựa tiểu (2,-3) và (3;1)." fig-align="right"}
+
+:::
+
+:::
+
+</details>
+
+<!-- Giải Hoạt động khám phá 2 -->
+
+<details>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+Hãy quan sát đồ thị hàm số $y = f(x) = x^3 - 3x^2 + 1$ trong Hình 5.
+
+a. Tại điểm $x = 0$, đồ thị vươn lên một đỉnh rõ rệt. Khi rời khỏi điểm này một khoảng nhỏ về cả hai phía, giá trị của hàm số đều nhỏ hơn giá trị tại chính điểm đó. Điều này cho thấy có thể chọn một khoảng $(a; b)$ bao quanh $x = 0$ sao cho với mọi $x \ne 0$ trong khoảng này, luôn có $f(x) < f(0)$. Có vô số khoảng như vậy, miễn là khoảng được chọn đủ nhỏ để hoàn toàn nằm trong vùng mà giá trị của hàm số không vượt lên trên $f(0)$. Ví dụ, $(-1;1)$ và $\left(-2;\frac{1}{2}\right)$.
+
+b. Tại điểm $x = 2$, đồ thị chạm đến một vùng trũng rõ rệt. Nếu xét các điểm lân cận ở hai phía, giá trị của hàm số đều lớn hơn giá trị tại $x = 2$. Do đó, có thể chọn một khoảng $(a; b)$ chứa điểm này sao cho với mọi $x \ne 2$ trong khoảng, luôn có $f(x) > f(2)$. Tương tự như ở câu a, cũng có vô số khoảng thỏa mãn điều kiện. Ví dụ, $(1;3)$ và $\left(\frac{3}{2};4\right)$.
+
+c. Hai điểm $x=0$ và $x=2$ vừa xét đều cho thấy một tính chất đặc biệt: có thể tìm được những khoảng bao quanh mỗi điểm sao cho trong khoảng ấy, giá trị của hàm số tại chính điểm đó đều *vượt trội* so với các điểm còn lại - một bên là cao nhất khoảng, một bên là tháp nhất khoảng. 
+
+    Điều này đặt ra một câu hỏi tự nhiên: liệu những điểm khác trên đồ thị, như $x=1$, có chia sẻ đặc điểm tương tự, hay đó chính là các điểm đặc biệt của hàm số này? Đây chính là cách diễn đạt khác cho câu hỏi c.
+
+    Quan sát đồ thị cho thấy, tính chất ấy không còn xuất hiện ở đây. Phía bên trái $x = 1$, đồ thị đang đi xuống, tức là hàm số giảm và có giá trị lớn hơn $f(1)$. Phía bên phải, đồ thị tiếp tục hạ thấp hơn nữa, tức là giá trị hàm số nhỏ hơn $f(1)$. Nói cách khác, trong bất kỳ khoảng nào chứa $x = 1$, đều tồn tại điểm có giá trị lớn hơn và điểm có giá trị nhỏ hơn so với $f(1)$. Không thể tìm được một khoảng nào mà trong đó $f(1)$ vượt trội theo bất kỳ chiều nào như đã thấy tại hai điểm trước.
+
+::: {.ket-thuc}
+
+:::
+
+</details>
+
+<!-- Kết quả HOạt động khám phá 2 -->
+
+<details>
+
+<summary class="giai-de-muc">Kết quả</summary>
+
+a. Có vô số khoảng $(a;b)$ thỏa yêu cầu: dễ thấy như $(-1;1)$, $(-1;2)$; hoặc chưa được thể hiện rõ trên hình như $(-1;\frac{1}{2})$, $(-\frac{1}{2};1)$, $(-\frac{1}{2};2)$, $(-2;1)$, $(-2;2)$, v.v.. Các khoảng được chọn miễn sao đủ nhỏ để giá trị tại $x=0$ vẫn luôn lớn nhất trong khoảng đó.
+
+b. Tương tự, cũng có vô số khoảng $(a;b)$ thỏa yêu cầu: $(-1;3)$, $(0;3)$, $(1;3)$, $(-\frac{1}{2};3)$, $(\frac{1}{2};3)$, $(\frac{3}{2};3)$, $(-2;3)$, $(-2;\frac{5}{2})$, $(-2;4)$, v.v.. Các khoảng được chọn càng rộng thì càng cần kiểm tra cẩn thận để đảm bảo không có điểm nào trong khoảng đó cho giá trị nhỏ hơn $f(2)$.
+
+c. Không tồn tại khoảng $(a;b)$ thỏa yêu cầu, vì trong bất kỳ khoảng nào chứa $x=1$, đều có điểm cho giá trị hàm số lớn hơn và điểm cho giá trị nhỏ hơn so với $f(1)$.
+
+</details>
+
+<!-- Thực hành 4 -->
+
+<details>
+
+<summary class="de-muc">Thực hành 4</summary>
+
+
+Tìm các điểm cực trị của hàm số $y=f(x)$ có đồ thị cho ở Hình 8.
+
+![Hình 8](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/hinh-8){fig-alt="Đồ thị trong Thực hành 4, parabol $y=\frac{3}{4}x^2-\frac{9}{2}x^2+\frac{35}{4}$ được vẽ giới hạn trong khoảng $[1;5]$ và đi qua các điểm cho sẵn (1;5), cực tiểu (3;2), (5;5). Một parabol khác là $y=x^2-14x+50$ được vẽ giới hạn trong khoảng $[5;9]$ và đi qua các điểm cho sẵn (5;5), cực tiểu (7;1), (9;5)."}
+
+</details>
+
+<!-- Giải Thực hành 4 -->
+
+<details>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+Đồ thị của hàm số $y=f(x)$ ở Hình 8 có 3 điểm cực trị, hai điểm cực tiểu là $(3;2)$ và $(7;1)$, cùng một điểm cực đại là $(5;5)$.
+
+- Điểm $(3;2)$ là một điểm cực tiểu vì tồn tại khoảng $(2;4)$ thỏa mãn $f(x)>f(3)=2$ với mọi $x\in(2;4)\backslash\{3\}$. Điểm $(7;1)$ cũng là điểm cực tiểu với lý do tương tự.    
+- Điểm $(5;5)$ là một điểm cực đại vì tồn tại khoảng $(4;6)$ thỏa mãn $f(x)>f(5)=5$ với mọi $x\in(4;6)\backslash\{5\}$.
+
+::: {.ket-thuc}
+
+:::
+
+</details>
+
+
+::: {.callout-tip title="Ngách Mộng Du" collapse="true" icon="false"}
+
+Trên một sân khấu trải dài từ 1 đến 9, đồ thị lần lượt đưa ba ngôi sao bước ra trong ánh đèn rực rỡ.
+
+Ở điểm $x=3$, đồ thị nhẹ nhàng cúi mình, tao nên một cực tiểu dịu dàng. Từ 2 đến 4, mọi điểm trong ấy đều cao hơn, như thể khán giả đồng loạt cuối đầu nhìn vào chỗ nhân vật chính bước ra.
+
+Xa hơn, tại $x=7$, lại một pha cuối mình mềm mại, lần này càng khiêm tốn hơn, chạm đến giá trị thấp nhất là 1. Hãy xem, trong vùng từ 6 đến 8, mọi giá trị khác đều cao hơn, như cả khán phòng lặng yên để lắng nghe một nốt trầm tuyệt đẹo. Cực tiểu lần hai, lay động lòng người.
+
+Và rồi, ở giữa hai kẻ ấy, tại $x=5$, đồ thị bất ngờ vươn lên đầy kiêu hãnh. Khắp vùng từ $4$ đến $6$, không ai sánh bằng. Đây chưa phải là nơi cao duy nhất trên vùng đất $[1;9]$ nhưng chắc chắn là điểm rực rỡ nhất, mọi ánh đèn sân khấu muốn dồn lại - một điểm cực đại, chói sáng và tự tin như một đỉnh núi vươn mình chạm đến trời cao.
+
+Hai cực tiểu dịu dàng, một cực đại bừng sáng. Ba điểm cực trị ấy không chỉ tạo hình cho đồ thị, mà còn kể một câu chuyện đẹp - bằng chính sự lên xuống của hàm số.
+
+:::
+
+
+<!-- Kết quả Thực hành 4 -->
+
+<details>
+
+<summary class="giai-de-muc">Kết quả</summary>
+
+Đồ thị của hàm số $y=f(x)$ ở Hình 8 có 3 điểm cực trị.
+
+- Cực tiểu: $(3;2)$ và $(7;1)$.
+- Cực đại: $(5;5)$.
+
+</details>
+
+<!-- Hoạt động khám phá 3 -->
+
+<details>
+
+<summary class="de-muc">Hoạt động khám phá 3</summary>
+
+::: {layout-ncol="2"}
+
+::: {.column}
+Đồ thị của hàm số dưới đây được cho như ở Hình 9:
+
+$$
+    y=\left \{
+        \begin{aligned}
+            x^2 &\quad \text{khi } x \leq 1, \\
+            2-x &\quad \text{khi } x > 1.
+        \end{aligned}
+    \right.
+$$
+
+a. Tìm điểm cực đại và điểm cực tiểu của hàm số.
+b. Tại $x = 1$, hàm số có đạo hàm không?
+c. Thay mỗi dấu ? bằng kí hiệu $(+,–)$ thích hợp để hoàn thành
+bảng biến thiên dưới đây. Nhận xét về dấu của $y\prime$ khi $x$ đi
+qua điểm cực đại và điểm cực tiểu.
+
+:::
+
+::: {.column}
+
+![Hình 9](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/hinh-9){fig-alt="Đồ thị trong HOạt động khám phá 3, parabol $y=x^2$ được vẽ giới hạn trong khoảng $[-3;1]$ và đường thẳng $y=2-x$ được vẽ giới hạn trong khoảng $[1;4]$." fig-align="right"}
+
+![Bảng biến thiên đồ thị Hình 9.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/hdkp-3-bang-bien-thien){fig-alt="Bảng biến thiên đồ thị Hình 9 cần điền vào dấu thích hợp cho đạo hàm tại vị trí các dấu hỏi." fig-align="right"}
+
+:::
+
+:::
+
+</details>
+
+<!-- Giai Hoạt động khám phá 3 -->
+
+<details>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+a. Theo dồ thị cho ở Hình 9, hàm số này có điểm cực tiểu $x=1$ và điểm cực đại $x=1$. 
+    - Điểm $x=0$ là một điểm cực tiểu vì tồn tại khoảng $\left(-\frac{1}{2};\frac{1}{2}\right)$ bao quanh nó mà $f(x)>f(0)$ với mọi $x\in\left(-\frac{1}{2};\frac{1}{2}\right)\backslash\{0\}$. 
+    - Điểm $x=1$ là một điểm cực đại vì tồn tại khoảng $\left(\frac{1}{2};\frac{3}{2}\right)$ bao quanh nó mà $f(x)<f(1)$ với mọi $x\in\left(\frac{1}{2};\frac{3}{2}\right)\backslash\{1\}$. 
+
+b. Tại $x=1$, hàm số *không có* đạo hàm. Thật vậy, nếu giới hạn
+
+    $$
+        \lim_{x\to 1}\frac{y(x)-y(1)}{x-1}
+    $$
+
+    tồn tại, thì nó chính là đạo hàm tại $x=1$. Tuy nhiên, giới hạn này không tồn tại, và lý do là vì các giới hạn bên trái và bên phải tương ứng không bằng nhau.
+
+    - **Giới hạn bên trái.** Theo công thức hàm số, nếu $x\leq 1$ thì $y=x^2$, do đó giới hạn bên trái là
+
+    $$
+        \lim_{x\to 1^-}\frac{y(x)-y(1)}{x-1} 
+        = \lim_{x\to 1^-}\frac{x^2-1}{x-1}
+        =\lim_{x\to 1^-}\frac{(x-1)(x+1)}{x-1}
+        =\lim_{x\to 1^-}(x+1)
+        =2.
+    $$
+
+    - **Giới hạn bên phải.** Mặt khác, nếu $x>1$ thì $y=2-x$, do đó giới hạn bên phải là
+
+    $$
+        \lim_{x\to 1^+}\frac{y(x)-y(1)}{x-1} 
+        = \lim_{x\to 1^+}\frac{(2-x)-1}{x-1}
+        =\lim_{x\to 1^+}\frac{1-x}{x-1}
+        =-1.
+    $$
+
+c. Thay mỗi dấu ? bằng kí hiệu $(+,–)$ thích hợp, bảng biến thiên hoàn thành như dưới đây.
+
+    ![Bảng biến thiên hoàn thành.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/hdkp-3-bang-bien-thien-hoan-thanh){fig-alt="Bảng biến thiên đồ thị Hình 9 cần điền vào dấu thích hợp cho đạo hàm tại vị trí các dấu hỏi." width=450px}
+
+    Bảng biến thiên cho thấy dấu của $y\prime$ thay đổi khi $x$ đi qua điểm cực đại và điểm cực tiểu. Cụ thể, khi $x$ đi qua điểm cực tiểu $x=0$ dấu của $y\prime$ chuyển từ âm (-) sang dương (+), sau đó lại chuyển từ dương (+) sang âm (-) khi $x$ đi qua điểm cực đại $x=1$.
+
+::: {.ket-thuc}
+
+:::
+
+</details>
+
+::: {.callout-tip title="Ngách Điên Loạn" collapse="true" icon="false"}
+
+> **Có bao giờ một cái nhìn đến từ hai phía lại cho hai cảm nhận hoàn toàn khác nhau?**  
+> Từ bên trái, đồ thị lượn cong như một nét cọ mềm mại đi lên, để rồi bất ngờ, bên phải lại là một đường thẳng lạnh lùng đi xuống.  
+>  
+> Vậy thì... nếu muốn vẽ tiếp tuyến tại đúng nơi hai thế giới chạm nhau - điểm $x = 1$ - có thể nào chỉ vẽ **một** đường thẳng duy nhất không?  
+>  
+> Một đường vừa chạm được đường cong phía trái, lại vừa khẽ lướt qua đường thẳng phía phải?  
+>  
+> Hãy thử dừng lại thật lâu ở điểm nối ấy, thử lùi lại nhìn cả hai hướng, rồi xem: liệu có một con đường duy nhất xứng đáng là tiếp tuyến? Hay tất cả chỉ là ảo ảnh khi nhìn từ một phía?
+
+**Góc độ hình học**  
+Đồ thị hàm số  
+$$
+    y = \begin{cases}
+        x^2 & \text{khi } x \leq 1, \\
+        2 - x & \text{khi } x > 1
+    \end{cases}
+$$  
+là một đường cong nối với một đường thẳng tại điểm $(1,1)$. Nếu chỉ nhìn vào hình vẽ, ta thấy đồ thị liên tục - không đứt đoạn - nhưng khi đặt câu hỏi: *"Có thể vẽ tiếp tuyến duy nhất tại đó không?"*, thì chuyện trở nên tinh tế hơn.
+
+Từ bên trái, nhánh $y = x^2$ tiến đến điểm $x = 1$ theo một đường cong có tiếp tuyến là đường thẳng dốc $2$. Từ bên phải, nhánh $y = 2 - x$ lại là một đường thẳng với dốc cố định là $-1$. Không thể có **một** đường thẳng duy nhất vừa có độ dốc bằng 2 (từ trái), vừa có độ dốc bằng -1 (từ phải). Điều này cho thấy: không thể có tiếp tuyến duy nhất tại điểm nối ấy.
+
+**Về mặt đại số** 
+
+Xây dựng hai hàm số khác nhau như dưới đây.
+
+- **Hàm A** là hàm ban đầu:  
+$$
+    y_A = \begin{cases}
+        x^2 & \text{khi } x \leq 1, \\
+        2 - x & \text{khi } x > 1.
+    \end{cases}
+$$
+Với hàm này, $x = 1$ thuộc nhánh thứ nhất nên có thể tính đạo hàm tại đó bằng công thức $y' = 2x$, suy ra:  
+$$
+    y\prime_A(1) = 2.
+$$
+Đây chính là đạo hàm bên **trái** - đo độ dốc đồ thị tiến đến từ bên trái điểm $x = 1$.
+
+- **Hàm B** là phiên bản giả lập, đảo ngược điều kiện để $x = 1$ thuộc nhánh thứ hai:  
+$$
+    y_B = \begin{cases}
+        x^2 & \text{khi } x < 1, \\
+        2 - x & \text{khi } x \geq 1.
+    \end{cases}
+$$
+Với hàm này, $x = 1$ thuộc nhánh $y = 2 - x$, nên đạo hàm tại đó là:  
+$$
+    y'_B(1) = -1.
+$$
+Đây là đạo hàm bên **phải** - phản ánh độ dốc khi tiến vào điểm $x = 1$ từ phía lớn hơn.
+
+Hai đạo hàm, hai độ dốc, và không trùng nhau. Như vậy, đạo hàm tại $x = 1$ **không tồn tại**, vì muốn có đạo hàm thì phải có cùng một tiếp tuyến nhìn từ cả hai phía.
+
+**Kết luận**  
+Hai hàm A và B tuy có đồ thị giống hệt nhau, nhưng khi hỏi về đạo hàm tại điểm nối - nơi hai thế giới chạm nhau - thì lại cho hai đáp án khác biệt. Điều này cho thấy, chỉ cần thay đổi cách **gán công thức tại một điểm**, bản chất đạo hàm có thể thay đổi hoàn toàn. Vì vậy, hàm ban đầu **không có đạo hàm tại $x = 1$**, dù đồ thị vẫn liền mạch như chưa từng có gì chia cắt.
+
+:::
+
+<!-- Kết quả Hoạt động khám phá 3 -->
+
+<details>
+
+<summary class="giai-de-muc">Kết luận</summary>
+
+a. Hàm số có điểm cực tiểu $x=0$ và điểm cực đại $x=1$.
+b. Hàm số không có đạo hàm tại $x=1$.
+c. Bảng biến thiên hoàn thành
+
+    ![Bảng biến thiên hoàn thành.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/hdkp-3-bang-bien-thien-hoan-thanh){fig-alt="Bảng biến thiên đồ thị Hình 9 cần điền vào dấu thích hợp cho đạo hàm tại vị trí các dấu hỏi." width=450px}
+
+    Khi $x$ đi qua điểm cực tiểu $x=0$, đạo hàm chuyển dấu từ âm sang dương, sau đó lại chuyển từ dương sang âm khi qua điểm cực đại $x=1$.
+
+</details>
+
+
+<!-- Thực hành 5 -->
+
+<details>
+
+<summary class="de-muc">Thực hành 5</summary>
+
+Tìm cực trị của hàm số $g(x)=\frac{x^2+x+4}{x+1}$.
+
+</details>
+
+<!-- Giải Thực hành 5 -->
+
+<details>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+</details>
+
+::: {.callout-tip title="Các bước tìm cự trị hàm số $y=f(x)$" collapse="false" icon="false"}
+
+*Bước 1.* Tìm tập xác định $D$ của hàm số.
+
+*Bước 2.* Tìm đạo hàm $f\prime (x)$ của hàm số. Tìm các điểm $x$ thuộc $D$ mà tại đó đạo hàm $f\prime (x)$ bằng 0 hoặc đạo hàm không tồn tại.
+
+*Bước 3.* Lập bảng biến thiên của hàm số.
+
+*Bước 4.* Từ bảng biến thiên kết luận về cực trị của hàm số.
+
+::: {.nguon}
+Chân Trời Sáng Tạo. Toán 12. Tập 1. Trang 12. Năm 2024
+:::
+
+:::
+
+Hàm số $g(x)=\frac{x^2+x+4}{x+1}$ xác định với mọi $x\ne -1$, tức là nó có tập xác định $D=\mathbb{R}\backslash \{-1\}$. 
+
+Để tính đạo hàm đơn giản hơn, $g(x)$ nên được viết lại dưới dạng
+
+$$
+    g(x)=x+\frac{4}{x+1}.
+$$
+
+Hơn nữa cách viết này cũng giúp tính các giới hạn dễ hơn. Trong trường hợp của hàm số này, để viết được như trên chỉ cần nhóm số hạn, tách phân số và rút gọn:
+
+$$
+    g(x)=\frac{x^2+x+4}{x+1}
+        =\frac{x(x+1)+4}{x+1}
+        =\frac{x(x+1)}{x+1}+\frac{4}{x+1}
+        =x+\frac{4}{x+1}.
+$$
+
+Bên cạnh đó, cũng có thể gặp các trường hợp cần thêm bớt số hạn. Cách tổng quát nhất là thực hiện chia đa thức tử số cho mẫu số.
+
+Đạo hàm của $g(x)$ là 
+
+$$
+    g\prime (x)=1-\frac{4}{(x+1)^2}.
+$$
+
+Thấy ngay $g\prime (x)$ cũng không tồn tại tại $x=-1$, nhưng đã biết điểm này không thuộc tập xác định $D$. Bây giờ, cần tìm các điểm $x\in D$ mà $g\prime (x)=0$, nói cách khác là tìm nghiệm của phương trình 
+
+$$
+    1-\frac{4}{(x+1)^2} = 0.
+$$
+
+Phương trình này có hai nghiệm $x=-3$ và $x=1$, cả hai đều thuộc tập xác định $D$ của hàm số $g(x)$.
+
+Hàm số $g(x)$ có bảng biến thiên như dưới đây.
+
+![Bảng biến thiên $g(x)=\frac{x^2+x+4}{x+1}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/th-5-bang-bien-thien){width=700px}
+
+Các giá trị xuất hiện ở dòng $g(x)$ của bảng được tính như dưới đây.
+
+- $g(-3)=-5$
+- $g(1)=3$
+- $\lim_{x\to-\infty}g(x)=\lim_{x\to-\infty}\left(x+\frac{4}{x+1}\right)=-\infty$
+- $\lim_{x\to+\infty}g(x)=\lim_{x\to+\infty}\left(x+\frac{4}{x+1}\right)=+\infty$
+- $\lim_{x\to -1}g(x)=\lim_{x\to -1}\left(x+\frac{4}{x+1}\right)$
+
+    - Nếu $x<-1$ thì $\lim_{x\to -1}g(x)=\lim_{x\to -1^-}g(x)=\lim_{x\to -1^-}\left(x+\frac{4}{x+1}\right)=-\infty$
+    - Nếu $x>-1$ thì $\lim_{x\to -1}g(x)=\lim_{x\to -1^-}g(x)=\lim_{x\to -1^+}\left(x+\frac{4}{x+1}\right)=+\infty$
+
+Quan sát bảng biến thiên, thấy rằng hàm số $g(x)=\frac{x^2+x+4}{x+1}$ có hai cực trị. 
+
+- Hàm số đạt cực đại tại $x=-3$, giá trị cực đại là $g(-3)=-5$.
+- Hàm số đạt cực tiểu tại $x=1$, giá trị cực tiểu là $g(1)=3$.
+
+Hai điểm cực trị này được xác định nhờ nghiệm của phương trình $g\prime (x)=0$, tức là các điểm mà đạo hàm đổi dấu - một dấu hiệu cho thấy đồ thị *quay đầu*.
+
+::: {.ket-thuc}
+
+:::
+
+> Trường hợp này có đủ đánh đỗ ý niệm của bạn rằng giá trị cực đại phải luôn lớn hơn giá trị cực tiểu chưa. Cực trị nói chung chỉ oai phong trong lãnh địa của chúng mà thôi.
+
+<!-- Kết quả Thực hành 5 -->
+
+<details>
+
+<summary class="giai-de-muc">Kết quả</summary>
+
+- Hàm số có tập xác định $D=\mathbb{R}\backslash\{-1\}$.
+- Hàm số có đạo hàm $g\prime (x)=1-\frac{4}{(x+1)^2}$. Đạo hàm bằng $0$ tại $x=-3$ và $x=1$, hai điểm này đều thuộc tập xác định $D$. Đạo hàm không xác định tại $x=-1$, nhưng điểm này không thuộc tập xác định $D$.
+- Hàm số có bảng biến thiên như dưới đây.
+
+    ![Bảng biến thiên $g(x)=\frac{x^2+x+4}{x+1}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/th-5-bang-bien-thien){width=700px}
+
+- Hàm số đạt cực đại tại $x=-3$, giá trị cực đại là $g(-3)=-5$. Hàm số đạt cực tiểu tại $x=1$, giá trị cực tiểu là $g(1)=3$.
+
+</details>
+
+<!-- Vận dụng 2 -->
+
+<details>
+
+<summary class="de-muc">Vận dụng 2</summary>
+
+Một phần lát cắt của dãy núi có độ cao tính bằng mét được mô tả bởi hàm số
+
+$$
+    y=h(x)=-\frac{1}{1320000}x^3+\frac{9}{3520}x^2-\frac{81}{44}x+840 \text{ với } 0\leq x\leq 2000.
+$$
+
+Tìm toạ độ các đỉnh của lát cắt dãy núi trên đoạn $[0; 2 000]$.
+
+![Hình 10 (*Theo:* Tập bản đồ bài tập và bài thực hành Địa lí 8, Nhà xuất bản Giáo dục Việt Nam, 2011)](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/hinh-10){fig-alt="Đồ thị lát cắt một dãy núi trong Vận dụng 2."}
+
+</details>
+
+<!-- Giải Vận dụng 2 -->
+
+<details>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+</details>
+
+Bài toán cho biết độ cao (tính bằng mét) của một phần lát cắt dãy núi được mô tả bằng hàm số
+
+$$
+    h(x) = -\frac{1}{1320000}x^3 + \frac{9}{3520}x^2 - \frac{81}{44}x + 840, \text{ với } 0\leq x \leq 2000.
+$$
+
+Trong thực tế, một dãy núi có thể có nhiều đỉnh - mỗi đỉnh là một vị trí cao hơn hẳn so với vùng xung quanh. Tương tự, trong toán học, một hàm số có cực đại tại điểm nào đó nếu giá trị của hàm tại đó lớn hơn so với các điểm lân cận. Nhìn trên đồ thị, cực đại chẳng khác nào đỉnh trong lát cắt của một dãy núi. Những cực đại này chính là phiên bản toán học của "đỉnh núi" được đề cập trong bài toán.
+
+Việc xác định tọa độ các đỉnh của lát cắt dãy núi tương đương với việc tìm các điểm cực của đồ thị hàm số $h(x)$ trên đoạn $[0;2000]$.
+
+Tập xác định của hàm số $h(x)$, xuất phát từ yêu cầu của bài toán, là $D=[0;2000]$. 
+
+Đạo hàm của $h(x)$ là
+$$
+    h\prime (x)= -\frac{1}{440000}x^2+\frac{9}{1760}x-\frac{81}{44}.
+$$
+
+Xét phương trình $h\prime (x)=0$, tức là
+
+$$
+    -\frac{1}{440000}x^2+\frac{9}{1760}x-\frac{81}{44}
+        = 0
+$$
+
+Phương trình này có hai nghiệm là $x=450$ và $x=1800$. Tại $x=450$, giá trị của hàm số là $h(450)=\frac{7365}{16}$; tại $x=1800$, giá trị của hàm số là $h(1800)=\frac{15315}{11}$.
+
+Lập bảng biến thiên hàm số $h(x)$ như dưới đây để tìm cực đại.
+
+![Bảng biến thiên $h(x)$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/vd-2-bang-bien-thien){width=450px}
+
+Từ bảng biến thiên, thấy rằng hàm số $h(x)$ đạt cực đại tại $x=1800$, giá trị cực đại là $h(1800)=\frac{15315}{11}$. 
+
+Vậy, trên đoạn $[0;2000]$, lát cắt dãy núi có một đỉnh với tọa độ chính xác là $\left(1800;\frac{15315}{11}\right)$. Trong ngữ cảnh thực tế, tại vị trí cách mốc ban đầu $1800$ mét theo phương ngang, có một đỉnh núi cao khoảng 1932,27 mét.
+
+<!-- Kết quả Vận dụng 2 -->
+
+<details>
+
+<summary class="ket-qua">Kết quả</summary>
+
+Trên đoạn $[0;2000]$, hàm số  
+
+$$
+    h(x) = -\frac{1}{1320000}x^3 + \frac{9}{3520}x^2 - \frac{81}{44}x + 840
+$$
+
+có một cực đại tại $x = 1800$ với giá trị $h(1800) = \frac{15315}{11}$.
+
+Vậy lát cắt dãy núi trên đoạn $[0;2000]$ có một đỉnh với tọa độ
+
+$$
+    \left(1800;\, \frac{15315}{11}\right).
+$$
+
+</details>
+
+## Bài tập
+
+<!-- Bài tập 1 -->
+
+<details>
+
+<summary class="de-muc">Bài tập 1</summary>
+
+Tìm các khoảng đơn điệu và cực trị của các hàm số có đồ thị cho ở Hình 11.
+
+::: {layout-ncol=2}
+
+![Hình 11-a](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/hinh-11-a)
+
+![Hình 11-b](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/hinh-11-b)
+
+:::
+
+</details>
+
+<!-- Giải Bài tập 1 -->
+
+<details>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+a. **Tính đơn điệu.** Từ đồ thị, phỏng đoán hàm số nghịch biến trên các khoảng $(-1;0)$ và $(2;4)$, đồng biến trên các khoảng $(0;2)$ và $(4;5)$.
+    - Hàm số nghịch biến trên khoảng $(-1;0)$, vì $f(x_1)>f(x_2)$ với mọi $x_1<x_2$ thuộc khoảng này. Giải thích tương tự cho khoảng $(2;4)$.
+    - Hàm số đồng biến trên khoảng $(0;2)$, vì $f(x_1)<f(x_2)$ với mọi $x_1<x_2$ thuộc khoảng này. Giải thích tương tự cho khoảng $(4;5)$.
+
+    **Cực trị.** Đồ thị của hàm số có hai điểm cực tiểu là $(0;-1)$ và $(4;-1)$, và một điểm cực đại là $(2;2)$.
+    - Hàm số có cực tiểu tại $x=0$ với giá trị $y(0)=-1$, vì từ đồ thị cho thấy tồn tại khoảng $\left(-\frac{1}{2};\frac{1}{2}\right)$ mà $y(0)<y(x)$ với mọi $x\ne 0$ thuộc khoảng đó. Giải thích tương tự cho điểm cực tiểu còn lại $(4;-1)$
+    - Hàm số có cực đại tại $x=2$ với giá trị $y(2)=2$, vì từ đồ thị cho thấy tồn tại khoảng $(1;3)$ mà $y(2)<y(x)$ với mọi $x\ne 2$ thuộc khoảng đó.
+
+    ![Hình 11-a](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/hinh-11-a){width=400px}
+
+a. **Tính đơn điệu.** Từ đồ thị, phỏng đoán hàm số đồng biến trên các khoảng $(-3;-1)$ và $(1;3)$, nghịch biến trên khoảng $(-1;1)$.
+    - Hàm số đồng biến trên khoảng $(-3;-1)$, vì $f(x_1)<f(x_2)$ với mọi $x_1<x_2$ thuộc khoảng này. Giải thích tương tự cho khoảng $(1;3)$.
+    - Hàm số nghịch biến trên khoảng $(-1;1)$, vì $f(x_1)>f(x_2)$ với mọi $x_1<x_2$ thuộc khoảng này.
+
+    **Cực trị.** Đồ thị của hàm số có điểm cực đại là $(-1;3)$, và điểm cực đại tiểu $(1;-1)$.
+    - Hàm số có cực đại tại $x=-1$ với giá trị $y(-1)=3$, vì từ đồ thị cho thấy tồn tại khoảng $(-2;0)$ mà $y(-1)>y(x)$ với mọi $x\ne -1$ thuộc khoảng đó. 
+    - Hàm số có cực tiểu tại $x=1$ với giá trị $y(1)=-1$, vì từ đồ thị cho thấy tồn tại khoảng $(0;2)$ mà $y(1)<y(x)$ với mọi $x\ne 1$ thuộc khoảng đó.
+
+    ![Hình 11-b](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/hinh-11-b){width=400px}
+
+::: {.ket-thuc}
+
+:::
+
+</details>
+
+<!-- Kết quả Bài tập 1 -->
+
+<details>
+
+<summary class="ket-qua">Kết quả</summary>
+
+a. **Tính đơn điệu.** 
+    - Hàm số nghịch biến trên các khoảng $(-1;0)$ và $(2;4)$.
+    - Hàm số đồng biến trên các khoảng $(0;2)$ và $(4;5)$.
+
+    **Cực trị.** 
+    - Hàm số có hai điểm cực tiểu trên đồ thị với tọa độ $(0;-1)$ và $(4;-1)$.
+    - Hàm số có một điểm cực đại trên đồ thị với tọa độ $(2;2)$.
+b. **Tính đơn điệu.** 
+    - Hàm số đồng biến trên các khoảng $(-3;-1)$ và $(1;3)$.
+    - Hàm số nghịch biến trên khoảng $(-1;1)$.
+
+    **Cực trị.** 
+    - Hàm số có một điểm cực đại trên đồ thị với tọa độ $(-1;3)$.
+    - Hàm số có một điểm cực tiểu trên đồ thị với tọa độ $(1;-1)$.
+
+</details>
+
+
+
+<!-- Bài tập 2 -->
+
+<details>
+
+<summary class="de-muc">Bài tập 2</summary>
+
+Xét tính đơn điệu và tìm điểm cực trị của các hàm số sau:
+
+::: {layout-ncol="3"}
+
+::: {.column}
+a. $y=4x^3+3x^2-36x+6$
+:::
+
+::: {.column}
+b. $y=\frac{x^2-2x-7}{x-4}$
+:::
+
+:::
+
+</details>
+
+<!-- Giải Bài tập 2 -->
+
+<details>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+</details>
+
+Khi cần xét tính đơn điệu và tìm cực trị của một hàm số, việc lập bảng biến thiên là một bước gần như không thể thiếu. Từ bảng này, có thể đọc ra tính đơn điệu và các điểm cực trị của hàm số một cách hệ thống.
+
+a. **Tính đơn điệu.** Hàm số $y=4x^3+3x^2-36x+6$ có tập xác định $D=\mathbb{R}$ và đạo hàm 
+
+    $$
+    y\prime (x)=12x^2+6x-36.
+    $$
+
+    Giải phương trình $y\prime (x)=0$, tức là
+
+    $$
+    12x^2+6x-36=0,
+    $$
+
+    thu được hai nghiệm $x=-2$ và $x=\frac{3}{2}$. Tại $x=-2$, hàm số có giá trị $y(-2)=58$; và tại $x=\frac{3}{2}$ hàm số có giá trị $y\left(\frac{3}{2}\right)=-\frac{111}{4}$.
+
+    Hàm số $y=4x^3+3x^2-36x+6$ có bảng biến thiên như dưới đây.
+
+    ![Bảng biến thiên hàm số $y=4x^3+3x^2-36x+6$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/bt-2-a-bang-bien-thien){width=400px}
+
+    Từ bảng biến thiên rút ra những kết luận như sau:
+    - Hàm số đồng biến trên các khoảng $(-\infty;-2)$ và $\left(\frac{3}{2};+\infty\right)$.
+    - Hàm số nghịch biến trên khoảng $\left(-2;\frac{3}{2}\right)$.
+    - Hàm số đạt cực đại tại $x=2$, giá trị cực đại là $y_{\text{CĐ}}=y(-2)=58$.    
+    - Hàm số đạt cực tiểu tại $x=\frac{3}{2}$, giá trị cực tiểu là $y_{\text{CT}}=y\left(\frac{3}{2}\right)=-\frac{111}{4}$.   
+     
+
+
+
+
+<!-- Kết quả Bài tập 2 -->
+
+<details>
+
+<summary class="ket-qua">Kết quả</summary>
+
+</details>
+
+a. Hàm số $y=4x^3+3x^2-36x+6$ có tập xác định $D=\mathbb{R}$. Tính đơn điệu và cực trị của hàm số như sau:
+    - Hàm số đồng biến trên các khoảng $(-\infty;-2)$ và $\left(\frac{3}{2};+\infty\right)$.
+    - Hàm số nghịch biến trên khoảng $\left(-2;\frac{3}{2}\right)$.
+    - Hàm số đạt cực đại tại $x=2$, giá trị cực đại là $y_{\text{CĐ}}=y(-2)=58$.    
+    - Hàm số đạt cực tiểu tại $x=\frac{3}{2}$, giá trị cực tiểu là $y_{\text{CT}}=y\left(\frac{3}{2}\right)=-\frac{111}{4}$. 
+
+<!-- Bài tập 3 -->
+
+<details>
+
+<summary class="de-muc">Bài tập 3</summary>
+
+Tìm cực trị của các hàm số sau:
+
+::: {layout-ncol="3"}
+
+::: {.column}
+a. $y=2x^3+3x^2-36x+1$
+:::
+
+::: {.column}
+b. $y=\frac{x^2-8x+10}{x-2}$
+:::
+
+::: {.column}
+c. $y=\sqrt{-x^2+4}$
+:::
+
+:::
+
+</details>
+
+<!--  -->
+
+<details>
+
+<summary class="giai-de-muc">Lời giải</summary>
+
+
+</details>
+
+<!-- Bài tập 4 -->
+
+<details>
+
+<summary class="de-muc">Bài tập 4</summary>
+
+Chứng minh rằng hàm số $y=\frac{2x+1}{x-3}$ nghịch biến trên từng khoảng xác định của nó.
+
+</details>
+
+<!--  -->
+
+<details>
+
+<summary class="giai-de-muc">Lời giải</summary>
+
+
+
+</details>
+
+<!-- Bài tập 5 -->
+
+<details>
+
+<summary class="de-muc">Bài tập 5</summary>
+
+Kim ngạch xuất khẩu rau quả của Việt Nam trong các năm từ 2010 đến 2017 có thể được tính xấp xỉ bằng công thức $f(x)=0,01x^3–0,04x^2+0,25x + 0,44$ (tỉ USD) với $x$ là số năm tính từ 2010 đến 2017 ($0 \leq x \leq 7$).
+
+<div class="nguon">(*Theo*: https://infographics.vn/interactive-xuat-khau-rau-quadu-
+bao-bung-no-dat-4-ty-usd-trong-nam-2023/116220.vna)</div>
+
+a. Tính đạo hàm của hàm số $y=f(x)$.
+b. Chứng minh rằng kim ngạch xuất khẩu rau quả của Việt Nam tăng liên tục trong các năm từ 2010 đến 2017.
+
+</details>
+
+<!--  -->
+
+<details>
+
+<summary class="giai-de-muc">Lời giải</summary>
+
+
+
+</details>
+
+<!-- Bài tập 6 -->
+
+<details>
+
+<summary class="de-muc">Bài tập 7</summary>
+
+Xét một chất điểm chuyển động dọc theo trục Ox. Toạ độ của chất điểm tại thời điểm $t$ được xác định bởi hàm số $x(t) = t^3 – 6t^2 + 9t$ với $t \geq 0$. Khi đó $x'(t)$ là vận tốc của chất điểm tại thời điểm $t$, kí hiệu $v(t)$; $v'(t)$ là gia tốc chuyển động của chất điểm tại thời điểm $t$, kí hiệu $a(t)$.
+
+a. Tìm các hàm $v(t)$ và $a(t)$.
+b. Trong khoảng thời gian nào vận tốc của chất điểm tăng, trong khoảng thời gian nào vận tốc của chất điểm giảm?
+
+</details>
+
+<!--  -->
+
+<details>
+
+<summary class="giai-de-muc">Lời giải</summary>
+
+
+
+</details>
+
+<!-- Bài tập 7 -->
+
+<details>
+
+<summary class="de-muc">Bài tập 8</summary>
+
+Đạo hàm $f'(x)$ của hàm số $y=f(x)$ có đồ thị như Hình 12. Xét tính đơn điệu và tìm điểm cực trị của hàm số $y=f(x)$.
+
+![Hình 12](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/hinh-12)
+
+</details>
+
+<!-- Luận giải Bài tập 7 -->
+
+<details>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+</details>

@@ -1,0 +1,17 @@
+\documentclass[border=1mm]{standalone}
+\newcommand{\FontPath}{../../../../../../../assets/fonts/} 
+\input{../../../../../../../assets/tex/tikz-preamble.tex}
+\usepackage{tkz-tab}
+\usepackage{amsmath}
+\usetikzlibrary{arrows}
+
+\begin{document}
+
+\begin{tikzpicture}
+  \tkzTabInit[espcl=2] 
+    {$x$/1, $f'(x)$/1}
+    {$-\infty$, $0$, $+\infty$}
+  \tkzTabLine{, -, 0, +, }
+\end{tikzpicture}
+
+\end{document}
