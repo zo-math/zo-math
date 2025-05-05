@@ -1,30 +1,3 @@
-/* Ẩn "Others Format" */
-/* .quarto-alternate-formats h2 {
-  display: none;
-} */
-
-/* Định dạng đầu trang */
-.quarto-title-meta-heading {
-  display: none;
-}
-
-.article-meta .author::before {
-  content: "Tác giả: ";
-}
-
-.article-meta .abstract h2::before {
-  content: "Tóm tắt";
-  display: block;
-}
-.article-meta .abstract h2 {
-  display: none;
-}
-
-/* Căn giữa */
-.center {
-  text-align: center;
-}
-
 /* Định dạng bảng */
 table {
   margin: auto;
@@ -54,13 +27,14 @@ td {
 }
 
 /* Định dạng bài tập, đáp án, lời giải, và details */
-.bai-tap,
-.dap-an,
-.loi-giai,
+.de-muc,
+.ket-qua,
+.giai-de-muc,
 .details summary {
   display: block;
   border: none;
   text-align: center;
+  font-weight: bold;
   padding: 10px;
   width: 100%;
   margin-top: 20px;
@@ -70,43 +44,43 @@ td {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.bai-tap p,
-.dap-an p,
-.loi-giai p,
+.de-muc p,
+.ket-qua p,
+.giai-de-muc p,
 .details summary p {
   margin: 0;
 }
 
-.bai-tap,
+.de-muc,
 .details summary {
   background-color: #f8d7da;
 }
-.bai-tap:hover,
+.de-muc:hover,
 .details summary:hover {
   background-color: #f1bfc4;
 }
-.bai-tap:active,
+.de-muc:active,
 .details summary:active {
   background-color: #e89aa0;
 }
 
-.dap-an {
+.ket-qua {
   background-color: #d4edda;
 }
-.dap-an:hover {
+.ket-qua:hover {
   background-color: #bfe1bf;
 }
-.dap-an:active {
+.ket-qua:active {
   background-color: #9aca9a;
 }
 
-.loi-giai {
+.giai-de-muc {
   background-color: #cfe2ff;
 }
-.loi-giai:hover {
+.giai-de-muc:hover {
   background-color: #b0ccff;
 }
-.loi-giai:active {
+.giai-de-muc:active {
   background-color: #9ab6ff;
 }
 
@@ -143,20 +117,75 @@ td {
 @font-face {
   font-family: "STIX Two Text";
   src: url("../fonts/STIXTwoText-Regular.woff2") format("woff2"),
-    url("../fonts/STIXTwoText-Regular.woff") format("woff");
+    url("../fonts/STIXTwoText-Regular.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
+  font-family: "STIX Two Text";
+  src: url("../fonts/STIXTwoText-Italic.woff2") format("woff2"),
+    url("../fonts/STIXTwoText-Italic.otf") format("opentype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "STIX Two Text";
+  src: url("../fonts/STIXTwoText-Bold.woff2") format("woff2"),
+    url("../fonts/STIXTwoText-Bold.otf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "STIX Two Text";
+  src: url("../fonts/STIXTwoText-BoldItalic.woff2") format("woff2"),
+    url("../fonts/STIXTwoText-BoldItalic.otf") format("opentype");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "STIX Two Text";
+  src: url("../fonts/STIXTwoText-Medium.woff2") format("woff2"),
+    url("../fonts/STIXTwoText-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "STIX Two Text";
+  src: url("../fonts/STIXTwoText-MediumItalic.woff2") format("woff2"),
+    url("../fonts/STIXTwoText-MediumItalic.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "STIX Two Text";
+  src: url("../fonts/STIXTwoText-Semibold.woff2") format("woff2"),
+    url("../fonts/STIXTwoText-Semibold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "STIX Two Text";
+  src: url("../fonts/STIXTwoText-SemiboldItalic.woff2") format("woff2"),
+    url("../fonts/STIXTwoText-SemiboldItalic.otf") format("opentype");
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
   font-family: "STIX Two Math";
-  src: url("../fonts/STIXTwoMath-Regular.woff2") format("woff2"),
-    url("../fonts/STIXTwoMath-Regular.woff") format("woff");
+  src: url("../fonts/STIXTwoMath.woff2") format("woff2"),
+    url("../fonts/STIXTwoMath.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
 
-/* -------------------------------------------- */
 /* Font chữ nội dung */
 body {
   font-family: "STIX Two Text", serif;
@@ -166,17 +195,19 @@ body {
   font-family: "STIX Two Text", serif;
 }
 
-svg:not(.MathJax) text {
+/* svg:not(.MathJax) text {
   font-family: "STIX Two Math", serif !important;
-}
+} */
 
 /* Đồng bộ font, màu chữ và cỡ chữ cho công thức toán */
 mjx-container {
-  font-family: "STIX Two Math", serif;
+  font-family: "STIX Two Math", "STIX Math", "Cambria Math", serif;
   font-size: 1rem;
   color: inherit;
   line-height: 1.4;
   filter: brightness(90%);
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 mjx-math {
@@ -190,6 +221,7 @@ mjx-mrow {
 mjx-container[jax="CHTML"][display="true"] {
   margin: 0.8rem 0;
   text-align: center;
+  padding-bottom: 0.2em;
 }
 
 /* Tùy chỉnh công thức toán trong tooltip */
@@ -292,4 +324,48 @@ a.quarto-xref {
 a.quarto-xref:hover {
   text-decoration: underline; /* Gạch dưới khi hover */
   color: #007bff; /* Giữ màu chữ giống văn bản xung quanh */
+}
+
+/* Ghi nguồn của một trích dẫn */
+.nguon {
+  width: 90%; /* Giới hạn chiều rộng 50% */
+  margin-left: auto; /* Căn phải trong container cha */
+  text-align: right; /* Căn phải nguồn */
+  font-size: 0.8em; /* Kích thước chữ nhỏ hơn */
+  color: #777; /* Màu chữ nhạt hơn */
+  margin-top: 0.5em; /* Khoảng cách phía trên nguồn */
+}
+
+/* Tùy chỉnh tham chiếu trên trang */
+a {
+  color: inherit; /* Màu xanh dương */
+  text-decoration: none; /* Bỏ gạch chân */
+  transition: color 0.3s ease; /* Hiệu ứng chuyển màu mượt mà */
+}
+
+a:hover {
+  color: #007bff;
+  text-decoration: underline; /* Thêm gạch chân khi hover */
+}
+
+a:focus {
+  outline: 2px solid #007bff; /* Viền focus rõ ràng */
+}
+
+a:active {
+  color: #dc3545; /* Màu đỏ khi nhấp */
+}
+
+a:visited {
+  color: #6c757d; /* Màu xám cho liên kết đã xem */
+}
+
+/* Tiêu đề chú thích */
+.tieu-de-chu-thich {
+  font-weight: bold; 
+  color: #666666; 
+  font-size: 0.85em; /* Kích thước 0.85 lần kích thước cha */
+  margin-top: 1em; 
+  margin-bottom: 0.5em; 
+  display: block; /* Đảm bảo nó hoạt động như một khối */
 }

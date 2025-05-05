@@ -1,0 +1,24 @@
+\documentclass[border=1mm]{standalone}
+
+\usepackage{amsmath}
+\usepackage{xcolor}
+\definecolor{den-6}{HTML}{666666}
+\usepackage{tkz-tab}
+\usetikzlibrary{arrows}
+
+\begin{document}
+
+\begin{tikzpicture}
+
+  \tkzTabInit[
+    lgt=2, 
+    deltacl=.5, 
+    espcl=3.75]
+    {$x$/1, $s^\prime (x)$/1, $s(x)$/2.5}
+    {$0$, $\frac{5}{\sqrt{2}}$, $5$}
+  \tkzTabLine{, +, 0, -, } 
+  \tkzTabVar{-/$0$, +/$\frac{25}{4}$, -/$0$}
+  
+\end{tikzpicture}
+
+\end{document}

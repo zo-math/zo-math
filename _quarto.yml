@@ -5,7 +5,6 @@ project:
     - "*.qmd"
 resources:
   - "assets/"
-  # - "assets/fonts/**"
   - "assets/fonts/*"
   - "assets/tex/**"
   - "figures/**"
@@ -58,12 +57,26 @@ website:
 
 format:
   html:
-    theme: default
+    theme: sandstone.scss
     title-block-banner: true
     default-image-extension: svg
     css: "assets/css/custom.css"
     include-in-header:
       - text: |
+          <script>
+            MathJax = {
+              loader: { load: ['[tex]/ams'] },
+              tex: {
+                packages: { '[+]': ['ams'] }
+              },
+              chtml: {
+                scale: 1.0
+              },
+              options: {
+                renderActions: { addMenu: [] }
+              }
+            };
+          </script>
           <script>
             document.addEventListener('DOMContentLoaded', function () {
               const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
@@ -127,10 +140,10 @@ format:
             });
           </script>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
-    html-math-method: mathjax
+    # html-math-method: mathjax
     mathjax:
       url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-      config: "TeX-MML-AM_CHTML"
+      # config: "TeX-MML-AM_CHTML"
     toc: true
 
   # pdf:

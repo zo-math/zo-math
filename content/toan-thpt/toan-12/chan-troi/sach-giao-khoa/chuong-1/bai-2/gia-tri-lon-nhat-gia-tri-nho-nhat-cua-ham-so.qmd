@@ -17,26 +17,17 @@ library(MASS)
 
 <!-- Hoạt động khởi động -->
 
-<details>
+<details id="hoat-dong-khoi-dong" open>
 
 <summary class="de-muc">Hoạt động khởi động</summary>
 
-::: {layout-ncol=2}
-
-::: {.column}
-Sự phân huỷ của rác thải hữu cơ có trong nước sẽ làm tiêu hao oxygen hoà tan trong nước. Nồng độ oxygen (mg/l) trong một hồ nước sau t giờ ($t \geq 0$) khi một lượng rác thải hữu cơ bị xả vào hồ được xấp xỉ bởi hàm số (có đồ thị như đường màu đỏ ở hình bên)
+Sự phân hủy của rác thải hữu cơ có trong nước sẽ làm tiêu hao <span data-bs-toggle="tooltip" title="oxygen">ô-xy</span> hoà tan trong nước. Nồng độ <span data-bs-toggle="tooltip" title="oxygen">ô-xy</span> (mg/l) trong một hồ nước sau $t$ giờ ($t \geq 0$) khi một lượng rác thải hữu cơ bị xả vào hồ được xấp xỉ bởi hàm số 
 
 $$
     y = 5 - \frac{15t}{9t^2+1}.
 $$
 
-:::
-
-::: {.column}
-![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/hoat-dong-khoi-dong){fig-align="right"}
-:::
-
-:::
+![Đồ thị hàm số $y=5-\frac{15t}{9t^2+1}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/hoat-dong-khoi-dong){width=350px}
 
 Vào các thời điểm nào nồng độ oxygen trong nước cao nhất và thấp nhất?
 
@@ -44,62 +35,1715 @@ Vào các thời điểm nào nồng độ oxygen trong nước cao nhất và t
 
 </details>
 
+<!-- Giải Hoạt động khởi động -->
 
-<details>
+<details open>
 
-<summary class="giai-de-muc">Lời giải</summary>
+<summary class="giai-de-muc"><a href="van-dung">Luận giải</a></summary>
+
+Khi một lượng rác thải hữu cơ bị xả vào hồ, nó bắt đầu phân hủy, và quá trình phân hủy này cần tiêu tốn ô-xy hoà tan trong nước. Hàm số $y = 5 - \dfrac{15t}{9t^2 + 1}$ mô tả nồng độ ô-xy còn lại trong hồ theo thời gian $t$ (tính bằng giờ) kể từ lúc xả thải. Với mỗi giá trị của biến $t$, hàm số cho biết nồng độ ô-xy tương ứng. 
+
+- Tại thời điểm ban đầu $t=0$, nồng độ ô-xy hòa tan trong hồ là 
+    
+    $$
+        y(0)=5-\frac{15\cdot 0}{9\cdot 0^2+1}
+            =5 \text{ (mg/l)}.    
+    $$
+
+- Sau $1$ giờ xả thải, tức là tại thời điểm $t=1$, nồng độ ô-xy hòa tan trong hồ là 
+    
+    $$
+        y(1)=5-\frac{15\cdot 1}{9\cdot 1^2+1}
+            =3,5 \text{ (mg/l)}.    
+    $$
+
+Trong suốt quá trình diễn ra sự phân hủy, lượng ô-xy trong nước sẽ thay đổi - giảm rồi tăng, hoặc ngược lại. 
+
+*Thời điểm nào ô-xy còn lại ít nhất? Thời điểm nào ô-xy còn lại nhiều nhất?* Đây là những câu hỏi quan trọng, không chỉ để theo dõi tình trạng của hồ mà còn để kịp thời đưa ra giải pháp xử lý nếu ô-xy giảm quá mức.
+
+Những thời điểm mà nồng độ ô-xy đạt mức cao nhất hoặc thấp nhất chính là các điểm $t$ thuộc khoảng $[0;+\infty)$ mà hàm số $y = 5 - \dfrac{15t}{9t^2 + 1}$ đạt *giá trị lớn nhất* hoặc *giá trị nhỏ nhất*.
+
+> Khái niệm *giá trị cực đại* và *giá trị cực tiểu* - là những mức cao nhất hoặc thấp nhất mà hàm số đạt được trong một vùng lân cận nhỏ. Chúng phản ánh tính chất địa phương của hàm số tại một điểm. Trong khi đó, *giá trị lớn nhất* và *giá trị nhỏ nhất* của hàm số được xét trong toàn bộ miền khảo sát. Một giá trị được gọi là lớn nhất (hoặc nhỏ nhất) nếu không có giá trị nào khác trong miền khảo sát vượt qua nó (hoặc thấp hơn nó), bất kể điều đó xảy ra ở điểm cực trị, điểm thường, hay đầu mút.
+>
+> Do khác biệt về phạm vi xem xét, không phải mọi giá trị cực đại đều là giá trị lớn nhất, và ngược lại. Việc xác định giá trị lớn nhất và nhỏ nhất đòi hỏi phân tích tổng thể hành vi của hàm số trên toàn miền khảo sát, chứ không chỉ dựa vào những đặc điểm tại một điểm riêng lẻ.
+>
+> Hàm $f(x)=x^3-3x$ có giá trị cực đại, cực tiểu nhưng không có giá trị lớn nhất hay nhỏ nhất nếu xem xét trên $\mathbb{R}$.
+>
+    - Hàm số có $x=1$ là điểm cực tiểu, giá trị cực tiểu là $f(1)=-2$.
+    - Hàm số có $x=-1$ là điểm cực cực đại, giá trị cực đại là $f(-1)=2$.
+    - Hàm số không có giá trị lớn nhất, vì $\lim_{x\to+\infty} f(x)=+\infty$.
+    - Hàm số không có giá trị nhỏ nhất, vì $\lim_{x\to-\infty} f(x)=-\infty$.
+>
+> ![Đồ thị hàm số $f(x)=x^3-3x$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/vi-du-1){width=350px}
+>
+> Nếu xem xét trên $[-3;3]$, hàm số có giá trị cực đại, cực tiểu, và có giá trị lớn nhất, nhỏ nhất.
+> 
+    - Hàm số có $x=1$ là điểm cực tiểu, giá trị cực tiểu là $f(1)=-2$.
+    - Hàm số có $x=-1$ là điểm cực cực đại, giá trị cực đại là $f(-1)=2$.
+    - Tại $x=-3$, hàm số đạt giá trị nhỏ nhất $f(-3)=-18$.
+    - Tại $x=3$, hàm số đạt giá trị lớn nhất $f(3)=18$.
+>
+> Nếu xem xét trên $[-\sqrt{3};\sqrt{3}]$, hàm số có giá trị cực đại, cực tiểu lần lượt là các giá trị lớn nhất, nhỏ nhất tương ứng.
+>
+    - Hàm số có $x=1$ là điểm cực tiểu, giá trị cực tiểu là $f(1)=-2$, và đây cũng là giá trị nhỏ nhất.
+    - Hàm số có $x=-1$ là điểm cực cực đại, giá trị cực đại là $f(-1)=2$, và đây cũng là giá trị lớn nhất.
+>
+> Nếu xem xét trên $[1;3]$, hàm số có giá trị lớn nhất, nhỏ nhất, nhưng không có giá trị cực đại, cực tiểu. Lí do là vì trên đoạn này hàm số đồng biến.
+> 
+    - Tại $x=1$, hàm số đạt giá trị nhỏ nhất $f(1)=-2$.
+    - Tại $x=3$, hàm số đạt giá trị lớn nhất $f(3)=18$.
+
+
+
+
 
 </details>
 
 <!-- Hoạt động khám phá 1 -->
 
-<details>
+<details open>
 
 <summary class="de-muc">Hoạt động khám phá 1</summary>
 
-</details>
-
-::: {layout-ncol=2}
-
-::: {.column}
 Hình 1 cho biết sự thay đổi của nhiệt độ ở một thành phố trong một ngày.
 
 a. Khẳng định nào sau đây đúng? Vì sao?
 
     i. Nhiệt độ cao nhất trong ngày là 28 °C.
     ii. Nhiệt độ cao nhất trong ngày là 40 °C.
-    iii Nhiệt độ cao nhất trong ngày là 34 °C.
+    iii. Nhiệt độ cao nhất trong ngày là 34 °C.
 
 b. Hãy xác định thời điểm có nhiệt độ cao nhất trong ngày.
 c. Nhiệt độ thấp nhất trong ngày là bao nhiêu?
-:::
 
-::: {.column}
-![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/hoat-dong-kham-pha-1){fig-align="right"}
-:::
+![Hình 1](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/hdkp-1-hinh-1){width=350px}
 
-:::
+</details>
 
 <!-- Giải Hoạt động khám phá 1 -->
 
-<details>
+<details open>
 
-<summary class="giai-de-muc">Lời giải</summary>
+<summary class="giai-de-muc">Luận giải</summary>
+
+a. Phát biểu i, "Nhiệt độ cao nhất trong ngày là 28 °C", là *sai*, vì 28 không phải là tung độ của điểm cao nhất trên đồ thị. 
+
+    Phát biểu ii, "Nhiệt độ cao nhất trong ngày là 40 °C", là *sai*, vì 40 không phải là tung độ của bất kỳ điểm nào trên đồ thị.
+
+    Phát biểu iii, "Nhiệt độ cao nhất trong ngày là 34 °C", là *đúng*, vì 34 là tung độ của điểm cao nhất trên đồ thị $(16;34)$.
+
+b. Nhiệt độ cao nhất trong ngày 34 °C, chính là tung độ của điểm cao nhất $(16;34)$. Do đó, thời điểm có nhiệt độ cao nhất là 16 giờ, hoành độ của điểm này.
+
+c. Nhiệt độ thấp nhất trong ngày là 20 °C, tung độ của điểm thấp nhất $(4;20)$. Thời điểm có nhiệt độ thấp nhất là 4 giờ.
+
+
+</details>
+
+<!-- Kết quả Hoạt động khám phá 1 -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+a. Khẳng định đúng là iii, vì 34 °C là tung độ của điểm cao nhất trên đồ thị.
+b. Thời điểm có nhiệt độ cao nhất: 16 giờ.
+c. Nhiệt độ thấp nhất trong ngày: 20 °C.
+
+</details>
+
+<!-- Thực hành 1 -->
+
+<details open>
+
+<summary class="de-muc">Thực hành 1</summary>
+
+Tìm giá trị lớn nhất, giá trị nhỏ nhất của hàm số:
+
+a. $f(x)=2x^3-9x^2+12x+1$ trên đoạn $[0;3]$;
+b. $g(x)=x+\frac{1}{x}$ trên khoảng $(0;5)$;
+c. $h(x)=x\sqrt{2-x^2}$.
+
+</details>
+
+<!-- Giải Thực hành 1 -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+> Giá trị lớn nhất, giá trị nhỏ nhất của một hàm số có thể được hình dung qua đồ thị, đó là những gì Hoạt động khám phá 1 đã gợi mở. Điểm cao nhất và thấp nhất trên đường cong hiện lên rõ ràng, như thể đáp án đang chờ được xác nhận. Tuy nhiên, để vẽ được một đồ thị cung cấp thông tin đáng tin cậy, cần phân tích sự biến thiên của hàm số thông qua các lập luận toán học chặt chẽ, chẳng hạn như xét đạo hàm và xu hướng thay đổi của hàm số. Thay vì chỉ dựa vào đồ thị, việc sử dụng bảng biến thiên giúp hệ thống hóa các phân tích toán học, mang lại độ chính xác và là cơ sở để vẽ đồ thị đúng, đồng thời hỗ trợ trực tiếp việc tìm giá trị lớn nhất, nhỏ nhất.
+>
+> Bảng biến thiên và đồ thị là hai cách biểu diễn sự biến thiên của hàm số, mỗi cách có thế mạnh riêng. Bảng biến thiên hệ thống hóa thông tin về dấu của đạo hàm, chiều biến thiên, và giá trị tại các điểm đặc biệt, cung cấp dữ liệu chính xác để phân tích tính đơn điệu, cực trị, và giá trị lớn nhất, nhỏ nhất. Thông tin này là cơ sở để vẽ đồ thị, giúp đảm bảo đường cong phản ánh đúng xu hướng tăng, giảm, các điểm cực trị, và hành vi của hàm số gần các điểm mút. Đồ thị, với tính trực quan, giúp học sinh dễ dàng hình dung các đặc điểm của hàm số, củng cố sự hiểu biết sau khi đã phân tích qua bảng biến thiên. Cả hai cách bổ trợ lẫn nhau: bảng biến thiên mang lại độ chính xác và cấu trúc, còn đồ thị làm rõ kết luận bằng hình ảnh trực quan.
+>
+> Việc phân tích sự biến thiên là nền tảng cho nhiều bài toán liên quan đến hàm số, bao gồm xét tính đơn điệu, xác định cực trị, và tìm giá trị lớn nhất, nhỏ nhất. Từ bài học trước, việc xét tính đơn điệu giúp xác định các khoảng mà hàm số tăng hoặc giảm, cung cấp cái nhìn tổng quát về xu hướng thay đổi của hàm số. Xác định cực trị cho phép tìm các điểm mà hàm số đạt giá trị cao nhất hoặc thấp nhất cục bộ, thường là những điểm đặc biệt cần xem xét. Bài toán tìm giá trị lớn nhất, nhỏ nhất xây dựng trên nền tảng này, nhưng mở rộng bằng cách xét thêm các điểm mút trên đoạn kín hoặc xu hướng của hàm số gần các điểm mút trên khoảng mở, nhằm tìm giá trị lớn nhất, nhỏ nhất trên toàn miền khảo sát. Bảng biến thiên là công cụ chung, giúp hệ thống hóa thông tin về tính đơn điệu, cực trị, và giá trị hàm số, từ đó hỗ trợ giải quyết cả ba bài toán một cách rõ ràng và hiệu quả.
+>
+> Vì thế, để tìm giá trị lớn nhất, nhỏ nhất, phương pháp được khuyến khích là lập bảng biến thiên, vì nó giúp trình bày các lập luận một cách rõ ràng và dễ hiểu, đồng thời tận dụng các kiến thức đã học về tính đơn điệu và cực trị. Tuy nhiên, việc lập bảng biến thiên không phải lúc nào cũng bắt buộc. Trong các bài toán dưới đây, giá trị lớn nhất, nhỏ nhất sẽ được tìm trước tiên bằng cách xét trực tiếp các điểm cực trị và xu hướng của hàm số, sau đó sử dụng bảng biến thiên để làm rõ sự tiện lợi của phương pháp này. Qua các ví dụ, học sinh sẽ thấy cách áp dụng linh hoạt các kiến thức đã học trên đoạn kín, nơi luôn có giá trị lớn nhất, nhỏ nhất, và trên khoảng mở, nơi cần xét thêm giới hạn để đưa ra kết luận chính xác.
+
+
+a. Xét hàm số $f(x)=2x^3-9x^2+12x+1$ trên đoạn $[0;3]$. 
+
+    > Ở hoạt động khám phá 1, giá trị lớn nhất là giá trị cực đại lớn nhất, giá trị nhỏ nhất là giá trị cực tiểu nhỏ nhất. Kết quả này mang đến một thông tin quan trọng là giá trị lớn nhất, nhỏ nhất có thể là các giá trị cực trị. Nhưng, kết quả này cũng có thể dẫn đến một hiểu lầm và một thiếu sót khi tìm giá trị lớn nhất, nhỏ nhất trên đoạn $[0;3]$. 
+    >
+    > Thiếu sót là bỏ qua các điểm mút $x=0$ và $x=3$. Vì hàm số luôn đơn điệu trên các khoảng từ điểm mút đến điểm cực trị gần nhất, giá trị lớn nhất hoặc nhỏ nhất có thể đạt tại các điểm này. Bỏ sót các điểm mút dễ dẫn đến sai lầm.
+    >
+    > Hiểu lầm là nghĩ rằng cần phân loại các cực trị thành cực đại hay cực tiểu trước khi tìm giá trị lớn nhất, nhỏ nhất. Thực tế, trên đoạn kín, chỉ cần xác định các điểm cực trị, tính giá trị hàm số tại đó và so sánh với các giá trị tại các điểm mút, mà không cần xác định tính chất cực trị.
+    >
+    > Do đó, để tìm giá trị lớn nhất, nhỏ nhất một cách đầy đủ, cần xét tất cả các điểm đặc biệt: các điểm cực trị trong $[0;3]$ và hai đầu mút $x=0$, $x=3$.
+
+    Để tìm các điểm cực trị, cần khảo sát các điểm đặc biệt mà tại đó đạo hàm bằng $0$ hoặc không xác định. Đạo hàm được tính như sau: 
+
+    $$
+        f^\prime (x)=6(x-1)(x-2). 
+    $$
+
+    > $f^\prime (x)=6x^2-18x+12=6(x-1)(x-2)$
+
+    Đây cũng là một hàm đa thức xác định trên $[0;3]$, do đó các điểm đặc biệt cần khảo sát chỉ có thể là các điểm mà tại đó đạo hàm bằng $0$. 
+    
+    Phương trình $f^\prime (x)=0$ có hai nghiệm phân biệt $x=1$ và $x=2$ đều thuộc đoạn $[0;3]$. Đây là hai điểm cực trị của hàm số. 
+    
+    - Khi $x=1$, giá trị hàm số là $f(1)=6$.
+    - Khi $x=2$, giá trị hàm số là $f(2)=5$.
+
+    Ngoài các điểm cực trị, cũng cần tính giá trị của hàm số tại hai điểm mút của đoạn khảo sát là $x=0$ và $x=3$. Bởi vì trên từng đoạn từ điểm mút đến điểm cực trị gần nhất, hàm số luôn đồng biến hoặc luôn nghịch biến, nên không thể loại trừ khả năng giá trị lớn nhất hoặc nhỏ nhất nằm tại biên.
+
+    - Khi $x=0$, giá trị hàm số là $f(0)=1$.
+    - Khi $x=3$, giá trị hàm số là $f(3)=10$.
+
+    So sánh bốn giá trị vừa xác định ở trên để rút ra kết luận:
+
+    - Giá trị nhỏ nhất của hàm số $f(x)=2x^3-9x^2+12x+1$ trên đoạn $[0;3]$ là $f(0)=1$, nghĩa là
+        $$
+            \min_{[0;3]} f(x) = f(0) = 1.
+        $$
+    - Giá trị lớn nhất của hàm số $f(x)=2x^3-9x^2+12x+1$ trên đoạn $[0;3]$ là $f(3)=10$, nghĩa là
+        $$
+            \max_{[0;3]} f(x) = f(3) = 10.
+        $$    
+
+    Kết quả này cho thấy giá trị lớn nhất và giá trị nhỏ nhất không rơi vào cực trị mà lại đạt được tại các điểm mút.
+
+    > Đến đây, bài toán đã có đáp án, cho nên việc lập bảng biến thiên dưới đây là không bắt buộc. Mặc dù vậy, bảng biến thiên là công cụ mạnh mẽ hỗ trợ nhận thức bao quát về quá trình giải bài toán. 
+    >
+    Bảng biến thiên của hàm số $f(x)=2x^3-9x^2+12x+1$ trên đoạn $[0;3]$:
+    > 
+    > ![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/th-1-a-bang-bien-thien){width=475px fig-align="center"}
+    >
+    > Từ bảng biến thiên, mọi thứ hiện lên rõ ràng: giá trị lớn nhất và nhỏ nhất đều đạt tại các điểm mút.
+
+b. Xét hàm số $g(x) = x + \dfrac{1}{x}$ trên khoảng $(0;5)$. 
+    
+    > Trong câu a, việc tìm giá trị lớn nhất, nhỏ nhất của hàm số trên đoạn kín $[0;3]$ được thực hiện bằng cách xét các điểm cực trị và hai điểm mút. Kết quả cho thấy giá trị lớn nhất và nhỏ nhất có thể đạt tại các điểm mút, không nhất thiết tại cực trị. Tuy nhiên, trên khoảng mở $(0;5)$, hàm số không xác định tại $x=0
+    $ và $x=5$, nên không thể tính giá trị tại các điểm mút. Điều này dẫn đến một thách thức mới: làm thế nào để xác định giá trị lớn nhất, nhỏ nhất khi không có điểm mút để so sánh?
+    >
+    > Để giải quyết bài toán, cần phân tích cách hàm số thay đổi trên khoảng $(0;5)$. Trước hết, việc tìm các điểm cực trị là cần thiết, vì chúng có thể là nơi hàm số đạt giá trị lớn nhất hoặc nhỏ nhất. Tiếp theo, cần xem xét xu hướng của hàm số khi $x$ tiến gần đến các điểm mút $x=0$ và $x=5$, thông qua giới hạn. Mục đích là để xác định liệu hàm số có giữ được giá trị lớn nhất hoặc nhỏ nhất trong khoảng, hay giá trị của nó có thể tăng hoặc giảm không giới hạn. Kết quả này sẽ giúp đưa ra kết luận chính xác về sự tồn tại của giá trị lớn nhất, nhỏ nhất.
+
+    Đạo hàm của hàm số được tính như sau:  
+
+    $$
+        g'(x) = 1 - \dfrac{1}{x^2}.
+    $$
+
+    Đạo hàm này xác định trên $(0;5)$. Phương trình $g'(x) = 0$ có nghiệm duy nhất trong khoảng đã cho là $x = 1$, đây là điểm cực trị duy nhất của hàm số trên $(0;5)$.
+
+    - Tại $x=1$, giá trị của hàm số là $g(1)=2$.
+
+    Tiếp theo, cần xem xét xu hướng của hàm số khi $x$ tiến gần các điểm mút.
+    
+    - Khi $x$ tiến về $0$ từ bên phải, viết $x \to 0^+$, $g(x)$ tiến về $+\infty$, viết $g(x) \to +\infty$. Nói cách khác,
+
+        $$
+            \lim_{x\to0^+} g(x)
+                =\lim_{x\to0^+} \left(x+\frac{1}{x}\right)
+                =+\infty.
+        $$    
+
+        > Cách viết dưới đây là hấp dẫn, nhưng cần được hiểu chính xác. Hiểu để có thêm một công cụ tư duy, không hiểu cũng chẳng sao. $$\lim_{x\to0^+} \left(x+\frac{1}{x}\right)=0+\frac{1}{0^+}=0+(+\infty)=+\infty$$
+
+        Điều này cho thấy giá trị của $g(x)$ tăng lên rất lớn khi $x$ tiến gần $0$, nên *không tồn tại một giá trị lớn nhất*.
+
+    - Khi $x$ tiến về $5$ từ bên trái, viết $x \to 5^-$, $g(x)$ tiến về $\frac{25}{6}$, viết $g(x) \to \frac{25}{6}$. Nói cách khác,
+
+        $$
+            \lim_{x\to5^-} g(x)
+                =\lim_{x\to5^-} \left(x+\frac{1}{x}\right)
+                =\frac{26}{5}.
+        $$
+
+        Vậy, khi $x$ tiến gần $5$, giá trị $g(x)$ tiến tới $\frac{26}{5}$, nhưng không dạt chính xác giá trị này.
+    
+    Để xác định giá trị nhỏ nhất, cần kiểm tra xem có giá trị nào nhỏ hơn $g(1)=2$ hay không. Xét sự biến thiên của hàm số bằng cách phân tích dấu của đạo hàm.
+
+    - Trong khoảng $(0;1)$, vì $x^2<1$, nên $\frac{1}{x^2}>1$. Suy ra $g^\prime (x)=1-\frac{1}{x^2}<0$, nghĩa là hàm số nghịch biến.
+    - Trong khoảng $(1;5)$, vì $x^2>1$, nên $\frac{1}{x^2}<1$. Suy ra $g^\prime (x)=1-\frac{1}{x^2}>0$, nghĩa là hàm số đồng biến.
+
+    Như vậy, tại $x=1$, hàm số chuyển từ nghịch biến sang đồng biến, nên $x=1$ là điểm cực tiểu, và $g(1)=2$ là giá trị nhỏ nhất trong khoảng $(0;5)$. Khi $x$ giảm từ $1$ về gần $0$, giá trị $g(x)$ tăng lên vô cực, nên không có giá trị nào nhỏ hơn $2$. Khi x tăng từ $1$ đến gần $5$, giá trị $g(x)$ tăng từ $2$ đến gần $\frac{26}{5}$.
+
+    Từ các phân tích trên, có thể kết luận:
+
+    - Giá trị nhỏ nhất của hàm số $g(x) = x + \dfrac{1}{x}$ trên khoảng $(0;5)$ là $g(1)=2$, nghĩa là
+
+        $$
+            \min_{(0;5)} g(x) = g(1) = 2.
+        $$
+
+    - Không tồn tại giá trị lớn nhất, vì giá trị của $g(x)$ tăng lên vô cực khi $x$ tiến gần $0$.
+
+    > Cũng như trước, việc lập bảng biến thiên dưới đây không bắt buộc để giải bài toán, nhưng giúp làm rõ xu hướng thay đổi của hàm số:
+    >
+    > ![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/th-1-b-bang-bien-thien){width=475px fig-align="center"}
+    >
+    > Bảng biến thiên cho thấy: hàm số đạt giá trị nhỏ nhất là $2$ tại $x=1$, và không có giá trị lớn nhất vì giá trị của hàm số tăng lên vô cực khi $x$ tiến gần $0$.
+    >
+    > Kết quả này khác với câu a, nơi giá trị lớn nhất và nhỏ nhất đều tồn tại và đạt tại các điểm mút. Trong câu b, do miền khảo sát là khoảng mở, giá trị lớn nhất không tồn tại vì hàm số không có giới hạn trên. *Qua hai bài toán, có thể rút ra bài học: trên đoạn kín, giá trị lớn nhất và nhỏ nhất luôn tồn tại và đạt tại các điểm cực trị hoặc điểm mút; trên khoảng mở, cần xét điểm cực trị và xu hướng của hàm số gần các điểm mút thông qua giới hạn, đồng thời nhận ra rằng giá trị lớn nhất hoặc nhỏ nhất có thể không tồn tại.*
+​
+c. Hàm số $h(x)=x\sqrt{2-x^2}$ xác định với mọi $x$ thỏa điều kiện $2-x^2\geq0$, nên có tập xác định 
+
+    $$
+        D=\left[-\sqrt 2; \sqrt 2\right].
+    $$
+
+    Đề bài không yêu cầu tìm giá trị lớn nhất, nhỏ nhất trên tập cụ thể nào nên việc này sẽ được thực hiện trên tập xác định của hàm số. 
+    
+    Vì $D$ là một đoạn kín như ở câu a, theo đó luôn tồn tại giá trị lớn nhất và giá trị nhỏ nhất hoặc tại hai đầu mút hoặc tại các điểm cực trị.
+
+    - Tại hai điểm mút $x=\pm\sqrt{2}$, giá trị của hàm số là 
+
+    $$
+        h \left(\pm\sqrt{2}\right) = 0.
+    $$
+
+    Trên khoảng $(-\sqrt{2};\sqrt{2})$, đạo hàm của hàm số là
+
+    $$
+        h^\prime (x)
+            = \frac{2-2x^2}{\sqrt{2-x^2}}.
+    $$
+
+    Phương trình $h^\prime (x)=0$ có hai nghiệm phân biệt $x=-1$ và $x=1$ đều thuộc tập xác định của đạo hàm và tập xác định của hàm số. Đây là hai điểm cực trị của hàm số.
+
+    - Tại $x=\pm 1$, giá trị của hàm số là $h(\pm 1)=\pm 1$.
+
+    So sánh các giá trị vừa tính được để đưa ra các kết luận sau:
+
+    - Tại $x=-1$, hàm số $h(x)=x\sqrt{2-x^2}$ đạt giá trị nhỏ nhất là $h(-1)=-1$, hay
+
+        $$
+            \min_{[-\sqrt{2};\sqrt{2}]} h(x) = h(-1) = -1.
+        $$
+
+    - Tại $x=1$, hàm số đạt giá trị lớn nhất là $h(1)=1$.
+
+        $$
+            \max_{[-\sqrt{2};\sqrt{2}]} h(x) = h(1) = 1.
+        $$
+    
+    > Bảng biến thiên hàm số $h(x)=x\sqrt{2-x^2}$ trên $[-\sqrt{2};\sqrt{2}]$:
+    >
+    > ![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/th-1-c-bang-bien-thien){width=475px fig-align="center"}
+
+
+
+::: {.ket-thuc}
+
+:::
+
+
+</details>
+
+<!-- Kết quả Thực hành 1 -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+a. Trên đoạn $[0;3]$, hàm số $f(x)=2x^3-9x^2+12x+1$ đạt giá trị lớn nhất, nhỏ nhất hoặc tại các điểm mút $x=0$ và $x=3$, hoặc tại các điểm cực trị.
+
+    - Tại $x=0$, giá trị của hàm số là $f(0)=1$.
+    - Tại $x=3$, giá trị của hàm số là $f(3)=10$.
+
+    Đạo hàm của hàm số là
+
+    $$
+        f^\prime (x)=6(x-1)(x-2).
+    $$
+
+    Đạo hàm bằng $0$ tại hai điểm $x=1$ và $x=2$ đều thuộc đoạn $[0;3]$, là hai điểm cực trị của hàm số. 
+    
+    - Khi $x=1$, giá trị hàm số là $f(1)=6$.
+    - Khi $x=2$, giá trị hàm số là $f(2)=5$.
+
+    So sánh bốn giá trị vừa xác định để rút ra kết luận:
+
+    $$
+        \min_{[0;3]} f(x) = f(0) = 1 \text{ và } \max_{[0;3]} f(x) = f(3) = 10.
+    $$
+
+b. Trên khoảng $(0;5)$, hàm số $g(x) = x + \dfrac{1}{x}$ chỉ có thể đạt giá trị lớn nhất, nhỏ nhất tại các điểm cực trị, hoặc thậm chí không tồn tại.
+
+    Đạo hàm của hàm số được tính như sau:
+
+    $$
+        g'(x) = 1 - \dfrac{1}{x^2}.
+    $$
+
+    Đạo hàm này xác định trên $(0;5)$ và bằng $0$ tại $x = 1$, điểm cực trị duy nhất của hàm số trên khoảng này.
+
+    - Tại $x=1$, giá trị của hàm số là $g(1)=2$.
+
+    Xu hướng của hàm số khi $x$ tiến gần các điểm mút được thể hiện qua các giới hạn:
+
+    $$
+            \lim_{x\to 0^+} g(x)
+                =\lim_{x\to0^+} \left(x+\frac{1}{x}\right)
+                =+\infty
+    $$
+
+    và 
+
+    $$
+            \lim_{x\to5^-} g(x)
+                =\lim_{x\to5^-} \left(x+\frac{1}{x}\right)
+                =\frac{26}{5}.
+    $$
+
+    Bảng biến thiên hàm số $g(x) = x + \dfrac{1}{x}$ trên khoảng $(0;5)$ được lập như dưới đây.
+
+    ![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/th-1-b-bang-bien-thien){width=475px fig-align="center"}
+
+    Bảng biến thiên cho thấy hàm số không có giá trị lớn nhất, nhưng có giá trị nhỏ nhất chính là giá trị cực tiểu:
+
+    $$
+            \min_{(0;5)} g(x) = g(1) = 2.
+    $$
+
+c. Hàm số $h(x)=x\sqrt{2-x^2}$ có tập xác định $D=[-\sqrt 2; \sqrt 2]$. Trên đoạn này, hàm số $h(x)$ có giá trị lớn nhất, nhỏ nhất hoặc tại hai đầu mút hoặc tại các điểm cực trị.
+
+    - Tại hai điểm mút $x=\pm\sqrt{2}$, giá trị của hàm số là $h (\pm\sqrt{2}) = 0$.
+
+    Trên khoảng $(-\sqrt{2};\sqrt{2})$, đạo hàm của hàm số là
+
+    $$
+        h^\prime (x)
+            = \frac{2-2x^2}{\sqrt{2-x^2}}.
+    $$
+
+    Đạo hàm này bằng $0$ tại $x=-1$ và $x=1$, đều thuộc tập xác định của đạo hàm và tập xác định của hàm số, là hai điểm cực trị của hàm số.
+
+    - Tại $x=\pm 1$, giá trị của hàm số là $h(\pm 1)=\pm 1$.
+
+    So sánh các giá trị vừa tính được để đưa ra các kết luận sau:
+
+    $$
+        \min_{[-\sqrt{2};\sqrt{2}]} h(x) = h(-1) = -1
+        \text{ và }
+        \max_{[-\sqrt{2};\sqrt{2}]} h(x) = h(1) = 1.
+    $$
+
+
+</details>
+
+<!-- Vận dụng -->
+
+<details id="van-dung" open>
+
+<summary class="de-muc">Vận dụng</summary>
+
+Sử dụng đạo hàm và lập bảng biến thiên, trả lời câu hỏi trong <a href="#hoat-dong-khoi-dong">Hoạt động khởi động</a> (trang 14).
+
+</details>
+
+<!-- Giải Vận dụng -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+::: {.tieu-de-chu-thich}
+Mô hình hóa: Dịch bài toán thực tế thành bài toán toán học
+:::
+
+Trong ngữ cảnh môi trường, nồng độ ô-xy hòa tan là yếu tố quan trọng quyết định chất lượng nước. Khi rác thải hữu cơ được xả vào hồ, quá trình phân hủy tiêu tốn ô-xy, làm nồng độ giảm. Hàm số $y = 5 - \frac{15t}{9t^2+1}$ trên nửa khoảng $[0;+\infty)$ mô phỏng sự thay đổi này: 
+
+- $y$ là nồng độ ô-xy (mg/l), 
+- $t$ là thời gian (giờ) kể từ khi xả thải.
+
+Ban đầu, nồng độ ô-xy có thể cao, nhưng giảm khi phân hủy diễn ra mạnh, rồi tăng trở lại khi quá trình phân hủy chậm dần. Bài toán yêu cầu tìm các thời điểm mà nồng độ ô-xy cao nhất và thấp nhất, tức là xác định giá trị lớn nhất và nhỏ nhất của hàm số $y$ trên miền $[0;+\infty)$.
+
+::: {.tieu-de-chu-thich}
+Giải bài toán toán học
+:::
+
+Để tìm giá trị lớn nhất và nhỏ nhất của hàm số $y = 5 - \frac{15t}{9t^2+1}$ trên $[0;+\infty)$, cần phân tích sự biến thiên của hàm số, bao gồm xét điểm cực trị, điểm mút, và xu hướng khi $t$ tăng vô hạn. Các điểm cực trị là nơi hàm số đạt giá trị cực đại hoặc cực tiểu cục bộ, nhưng giá trị lớn nhất, nhỏ nhất toàn cục cần được xác định bằng cách so sánh giá trị tại các điểm này với giá trị tại điểm mút và giới hạn tại dương vô cực.
+
+Trước tiên, tính giá trị hàm số tại điểm mút $t=0$:
+
+$$
+    y(0)=5-\frac{15\cdot 0}{9\cdot 0^2+1}=5.
+$$
+
+Điều này cho thấy nồng độ ô-xy ban đầu là 5 mg/l.
+
+Tiếp theo, xét xu hướng của hàm số khi $t\to +\infty$:
+
+$$
+    \lim_{t\to+\infty} y 
+        = \lim_{t\to+\infty} \left(5 - \frac{15t}{9t^2+1}\right)
+        = 5-\lim_{t\to+\infty} \frac{15t}{9t^2+1}
+        = 5.
+$$
+
+Điều này chỉ ra rằng nồng độ ô-xy tiến gần 5 mg/l khi thời gian trôi qua lâu.
+
+Để tìm cực trị, cần xét các điểm mà đạo hàm của hàm số bằng $0$ hoặc không xác định. Hàm số có đạo hàm là
+
+$$
+    y^\prime = \frac{135t^2-15}{(9t^2+1)^2},
+$$
+
+cũng xác định trên $[0;+\infty)$.
+
+Phương trình $y^\prime=0$ có một nghiệm thuộc $[0;+\infty)$ là $t=\frac{1}{3}$, điểm cực trị duy nhất của hàm số trên nửa khoảng này.
+
+Giá trị của hàm số tại $t=\frac{1}{3}$ là 
+
+$$
+    y\left(\frac{1}{3}\right)
+        =5-\frac{15\cdot \frac{1}{3}}{9\cdot \left(\frac{1}{2}\right)^2+1}
+        =\frac{5}{2}.
+$$
+
+Hàm số giảm trên khoảng $\left(0;\frac{1}{3}\right)$. vì $y^\prime<0$ trên khoảng này. Dấu của $y^\prime$ chỉ phụ thuộc vào dấu của tử số $135t^2-15$, mà $135t^2-15<0$ với mọi $t\in\left(0;\frac{1}{3}\right)$.
+
+Hàm số tăng trên khoảng $\left(\frac{1}{3};+\infty\right)$. vì $y^\prime>0$ trên khoảng này. Đó là vì tử số của đạo hàm $135t^2-15>0$ với mọi $t\in\left(\frac{1}{3};+\infty\right)$.
+
+Tại $t=\frac{1}{3}$, hàm chuyển từ giảm sang tăng, nên $t=\frac{1}{3}$ là điểm cực tiểu.
+
+Bảng biến thiên hàm số $y = 5 - \frac{15t}{9t^2+1}$ trên $[0;+\infty)$ được lập như dưới đây.
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/vd-bang-bien-thien){width=475px fig-align="center"}
+
+Từ bảng biến thiên, thấy rằng không có giá trị nào của hàm số vượt quá 5 và dưới $\frac{5}{2}$ nên kết luận:
+
+$$
+    \max_{[0;+\infty)}y=y(0)=5
+    \text{ và }
+    \min_{[0;+\infty)}y=y\left(\frac{1}{3}\right)=\frac{5}{2}.
+$$
+
+::: {.tieu-de-chu-thich}
+Trả về ngữ cảnh ban đầu
+:::
+
+Theo ngữ cảnh của <a href="#hoat-dong-khoi-dong">Hoạt động khởi động</a>, câu hỏi "Vào các thời điểm nào nồng độ ô-xy trong nước cao nhất và thấp nhất?" được trả lời như sau:
+
+- Nồng độ ô-xy trong nước cao nhất tại lúc bắt đầu xả thải, với giá trị 5 mg/l.
+- Nồng độ ô-xy trong nước xuống thấp nhất vào thời điểm 20 phút sau xả thải, với giá trị 2,5 mg/l.
+
+::: {.ket-thuc}
+
+:::
+
+</details>
+
+<!-- Kết quả Vận dụng -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+Xét hàm số $y = 5 - \frac{15t}{9t^2+1}$ trên $[0;+\infty)$.
+
+- Tại $t = 0$, giá trị hàm số là $y(0) = 5$.
+- Khi $t$ tiến đến vô cực, giá trị hàm số có giới hạn: $\lim_{t \to +\infty} y=5$.
+
+Đạo hàm của hàm số là
+$$
+y'=\frac{135t^2 - 15}{(9t^2+1)^2}.
+$$
+
+Trên $[0;+\infty)$, phương trình $y^\prime=0$ có một nghiệm $t=\frac{1}{3}$, đây là điểm cực trị duy nhất của hàm số trên đoạn này.
+
+- Tại $t=\frac{1}{3}$, giá trị  hàm số là $y\left(\frac{1}{3}\right)=\frac{5}{2}$. 
+
+Phân tích dấu đạo hàm cho thấy các kết luận dưới đây.
+
+- Trên khoảng $\left(0;\frac{1}{3}\right)$, $y^\prime<0$, nên hàm giảm.
+- Trên khoảng $\left(\frac{1}{3};+\infty\right)$, $y^\prime>0$, nên hàm tăng.
+
+Bảng biến thiên là
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/vd-bang-bien-thien){width=475px fig-align="center"}
+
+Từ bảng biến thiên, kết luận:
+
+$$
+    \max_{[0;+\infty)} y = y(0) = 5
+    \text{ và }
+    \min_{[0;+\infty)} y = y\left(\frac{1}{3}\right) = \frac{5}{2}.
+$$
+
+Theo ngữ cảnh ban đầu của bài toán, câu trả lời là:
+
+- Nồng độ ô-xy cao nhất tại lúc bắt đầu xả thải, với giá trị 5 mg/l.
+- Nồng độ ô-xy xuống thấp nhất vào thời điểm 20 phút sau xả thải, với giá trị 2,5 mg/l.
+
+</details>
+
+<!-- Hoạt động khám phá 2  -->
+
+<details open>
+
+<summary class="de-muc">Hoạt động khám phá 2</summary>
+
+Hình 3 cho ta đồ thị, trên đoạn $[-1;3]$, của ba hàm số
+
+$$
+\begin{aligned}
+    y=f(x)&=\frac{1}{2}x^2; \\
+    y=g(x)&=\begin{cases}
+        \frac{1}{2}x^2 &\text{ nếu } x\leq 2, \\
+        -4x+10 &\text{ nếu } x\geq 2;
+    \end{cases} \\
+    y=h(x)&=3-\frac{1}{2}x^2.
+\end{aligned}
+$$
+
+a. Hàm số nào đạt giá trị lớn nhất tại một điểm cực đại của nó?
+b. Các hàm số còn lại đạt giá trị lớn nhất tại điểm nào?
+
+::: {layout-ncol=3}
+
+![Hình 3-a](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/hdkp-2-hinh-3-a){width=350px}
+
+![Hình 3-b](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/hdkp-2-hinh-3-b){width=350px}
+
+![Hình 3-c](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/hdkp-2-hinh-3-c){width=350px}
+
+:::
+
+</details>
+
+<!-- Giải Hoạt động khám phá 2 -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+> Hoạt động khám phá 2 mời gọi phân tích ba hàm số $y=f(x)$, $y=g(x)$, $y=h(x)$ trên $[-1;3]$, có đủ công thức và đồ thị, để trả lời hai câu hỏi:
+>
+    - Câu a: Hàm số nào đạt giá trị lớn nhất tại một điểm cực đại?
+    - Câu b: Các hàm số còn lại đạt giá trị lớn nhất tại điểm nào?
+>
+> Để giải quyết, cần khám phá hành vi của từng hàm số, tìm các điểm nơi giá trị hàm có thể đạt cực đại hoặc lớn nhất. Đồ thị gợi ý những điểm "cao nhất" trên đoạn $[-1;3]$, nhưng để xác nhận, cần kiểm chứng bằng toán học: sử dụng đạo hàm để tìm điểm cực trị, phân tích tính đơn điệu, và so sánh giá trị tại các điểm đặc biệt. Qua đó, phương pháp tìm giá trị lớn nhất trên đoạn kín $[a;b]$ sẽ dần lộ diện.
+
+a. Quan sát Hình 3b, trên đoạn $[-1;3]$, đường cong của hàm số $y=g(x)$ cao nhất tại điểm $(2;2)$, làm cơ sở cho phán đoán 
+
+    $$
+        \max_{[-1;3]}g(x)
+            = g(2)
+            = 2.
+    $$
+
+    Quan sát đồ thị, nhận thấy $g(x)<g(2)$ với mọi $x\in(0;3)\setminus\{2\}$. Điều này lại cho phép phán đoán $x=2$ là điểm cực đại.
+
+    Mặt khác, có thể chứng minh $g(2)$ vừa là giá trị lớn nhất, vừa là giá trị cực đại dựa trên cơ sở toán học chặt chẽ.
+    
+    Trên đoạn $[-1;3]$, xét hàm số 
+
+    $$
+        y=g(x)
+            =\begin{cases}
+                \frac{1}{2}x^2 &\text{ nếu } x\leq 2, \\
+                -4x+10 &\text{ nếu } x\geq 2.
+            \end{cases}
+    $$
+
+    Hàm $g(x)$ liên tục trên đoạn $[-1;3]$. Để kiểm chứng $g(2)$ là giá trị lớn nhất trên đoạn $[-1;3]$, cần tìm ra tất cả các điểm mà giá trị của $g(x)$ tại đó có thể là lớn nhất và giá trị lớn nhất chính là $g(2)$.
+
+    - Các điểm đó có thể là các điểm mút $x=-1$ hoặc $x=3$.
+
+        - Tại $x=-1$, giá trị của hàm số là $g(-1)=\frac{1}{2}(-1)^2=\frac{1}{2}$.
+        - Tại $x=3$, giá trị của hàm số là $g(3)=-4\cdot 3+10=-2$.
+
+    - Nếu các điểm đó thuộc vào khoảng $(-1;3)$ thì đạo hàm tại đó phải bằng $0$ hoặc không tồn tại. Bằng ngược lại *nếu đạo hàm tồn tại và khác $0$ thì hàm số đang tiếp tục tăng hoặc giảm, do đó không thể là điểm có khả năng đạt giá trị lớn nhất*.
+
+        > Hàm số $g(x)$ tuy liên tục tại $x=2$, nhưng không có đạo hàm tại đây. Thật vậy, nếu giới hạn
+        >
+            $$
+                \lim_{x\to 2}\frac{g(x)-g(2)}{x-2}
+            $$
+        >
+        > tồn tại, thì nó chính là đạo hàm tại $x=2$. Tuy nhiên, giới hạn này không tồn tại, và lý do là vì các giới hạn bên trái và bên phải tương ứng không bằng nhau.
+        >
+        > Theo công thức hàm số, nếu $x\leq 2$ thì $g(x)=\frac{1}{2}x^2$, do đó giới hạn bên trái là
+        >
+            $$
+                \lim_{x\to 2^-}\frac{g(x)-g(2)}{x-2} 
+                = \lim_{x\to 2^-}\frac{\frac{1}{2}x^2-2}{x-2}
+                =\lim_{x\to 2^-}\frac{(x-2)(x+2)}{2(x-2)}
+                =\lim_{x\to 2^-}\frac{x+2}{2}
+                =2.
+            $$
+        > 
+        > Mặt khác, nếu $x\geq 2$ thì $g(x)=-4x+10$, do đó giới hạn bên phải là
+        >
+            $$
+                \lim_{x\to 2^+}\frac{g(x)-g(2)}{x-2} 
+                = \lim_{x\to 2^+}\frac{(-4x+10)-2}{x-2}
+                =-4.
+            $$
+
+        - Tại $x=2$, điểm không tồn tại đạo hàm, giá trị hàm số là $g(2)=2$.
+
+        Trên khoảng $(2;3)$, $g(x)=-4x+10$ có đạo hàm không đổi $g^\prime (x)=-4$.
+
+        Trên khoảng $(-1;2)$, $g(x)=\frac{1}{2}x^2$ có đạo hàm là $g^\prime (x)=x$. Dễ thấy đạo hàm bằng $0$ tại $x=0$.
+
+        - Tại $x=0$, giá trị hàm số là $g(0)=0$.
+    
+    So sánh bốn giá trị $g(-1)=\frac{1}{2}$, $g(0)=0$, $g(2)=2$, và $g(3)=-2$ đã sáng tỏ $g(2)=2$ là giá trị lớn nhất.
+
+    Để chứng minh $g(2)$ cũng là giá trị cực đại, cách được chọn là chỉ ra tại $x=2$ đạo hàm đổi dấu từ dương sang âm.
+
+    - Với $x<2$, có $g(x)=\frac{1}{2}x^2$ nên $g^\prime (x)=x$.
+
+    - Với $x>2$, có $g(x)=-4x+10$ nên $g^\prime (x)=-4$.
+
+    Xét dấu đạo hàm quanh điểm $x=2$:
+
+    - Với $x$ gần 2 và nhỏ hơn 2, $g^\prime (x) = x >0$.
+
+    - Với $x$ gần 2 và lớn hơn 2, $g^\prime (x) = -4<0$.
+
+    Vì đạo hàm đổi dấu từ dương sang âm khi đi qua $x=2$, nên $x=2$ là điểm cực đại, do đó $g(2)$ là giá trị cực đại. 
+
+    Tất cả các thông tin trên được tổng hợp lại trong bảng biến thiên:
+
+    ![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/hdkp-2-b-bang-bien-thien){width=475px fig-align="center"}    
+
+    > Các điểm "nghi ngờ" có giá trị lớn nhất của $g(x)$ trên đoạn $[-1;3]$:
+    >
+        - Các điểm mà đạo hàm bằng $0$.
+        - Các điểm mà đạo hàm không tồn tại.
+        - Các điểm mút của đoạn.
+
+    Quan sát Hình 3c, trên đoạn $[-1;3]$, đường cong của hàm số $y=h(x)$ cao nhất tại điểm $(0;3)$. Từ đó, có thể phán đoán
+
+    $$
+        \max_{[-1;3]}h(x) = h(0) = 3.
+    $$
+
+    Từ đồ thị, nhận thấy $h(x) < h(0)$ với mọi $x\in [-1;3]\setminus\{0\}$. Điều này cho phép phán đoán $x=0$ là điểm cực đại.
+
+    Vận dụng kinh nghiệm thu được từ những lập luận đối với hàm số $y=g(x)$ trước đó để kiểm chứng nhanh hơn với 
+
+    $$
+        y = h(x) = 3 - \frac{1}{2}x^2.
+    $$
+
+    Giá trị tại các điểm mút:
+
+    - Tại $x=-1$, giá trị hàm số là $h(-1)=\frac{5}{2}$.
+    - Tại $x=3$, giá trị hàm số là $h(3)=-\frac{3}{2}$.
+    
+
+    Hàm số có đạo hàm là
+
+    $$
+        h^\prime (x) = -x,
+    $$
+    
+    xác định trên $(-1;3)$ và bằng $0$ tại $x=0$. Khác với $g(x)$, hàm số $h(x)$ có đạo hàm với mọi $x\in(-1;3)$.
+
+    - Tại $x=0$, giá trị hàm số là $h(0)=3$.
+
+    So sánh ba giá trị vừa tính ra đã chứng tỏ giá trị lớn nhất của hàm số là $h(0)=3$.
+
+    Tiếp theo sẽ chứng minh $h(0)$ cũng là giá trị cực đại. 
+    
+    Dấu đạo hàm trên $(-1;3)$:
+
+    - Với $x\in (-1;0)$, $h^\prime (x) = -x > 0$.
+    - Với $x$ gần 0 và lớn hơn 0, $h^\prime (x) = -x < 0$.
+
+    Vì đạo hàm đổi dấu từ dương sang âm khi đi qua $x=0$, nên $x=0$ là điểm cực đại, do đó $h(0)$ là giá trị cực đại. 
+
+b. Quan sát Hình 3a, trên đoạn $[-1;3]$, đường cong có điểm cao nhất là $\left(3;\frac{9}{2}\right)$, từ đây có thể phán đoán
+
+    $$
+        \max_{[-1;3]}f(x)
+            = f(3)
+            = \frac{9}{2}.
+    $$
+
+    Để kiểm chứng, xét hàm số
+
+    $$
+        y=f(x)=\frac{1}{2}x^2
+    $$
+
+    trên đoạn $[-1;3]$.
+
+    - Giá trị tại các đầu mút:
+
+    $$
+        f(-1)=\frac{1}{2}(-1)^2=\frac{1}{2}
+        \text{ và }
+        f(3)=\frac{1}{2}\cdot 3^2=\frac{9}{2}.
+    $$
+
+    Hàm số có đạo hàm 
+    $$
+        f^\prime (x)=x
+    $$
+
+    xác định với mọi $x\in(-1;3)$. Đạo hàm bằng $0$ tại $x=0$.
+
+    - Tại $x=0$, giá trị hàm số là 
+    
+    $$
+        f(0)=\frac{1}{2}\cdot 0^2=0.
+    $$
+
+    So sánh ba giá trị $f(-1)=\frac{1}{2}$, $f(3)=\frac{9}{2}$, và $f(0)=0$ chứng tỏ $f(3)$ là giá trị lớn nhất, đạt tại $x=3$, đầu mút phải của đoạn $[-1;3]$.
+    
+::: {.ket-thuc}
+
+:::
+
+</details>
+
+<!-- Kết quả Hoạt động khám phá 2 -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+<!-- Hoạt động khám phá 2 yêu cầu phân tích ba hàm số khác nhau trên cùng một đoạn $[-1;3]$ để trả lời:  
+
+- Hàm số nào đạt giá trị lớn nhất tại điểm cực đại?  
+- Các hàm số còn lại đạt giá trị lớn nhất tại điểm nào? -->
+
+a\. Hai hàm số $g(x)$ và $h(x)$ đạt giá trị lớn nhất tại điểm cực đại.
+
+Đường cong $y=g(x)$ cao nhất tại điểm $(2;2)$, suy ra
+
+$$
+    \max_{[-1;3]}g(x)
+        = g(2)
+        = 2.
+$$
+
+Hơn nữa, đồ thị còn cho thấy $g(x)<g(2)$ với mọi $x\in(0;3)\setminus\{2\}$. Suy ra $x=2$ là điểm cực đại.
+
+Chứng minh $g(2)$ vừa là giá trị lớn nhất, vừa là giá trị cực đại.
+
+Trên đoạn $[-1;3]$, xét hàm số 
+
+$$
+    y=g(x)
+        =\begin{cases}
+            \frac{1}{2}x^2 &\text{ nếu } x\leq 2, \\
+            -4x+10 &\text{ nếu } x\geq 2.
+        \end{cases}
+$$
+
+Hàm $g(x)$ liên tục trên đoạn $[-1;3]$ và có đạo hàm là
+
+$$
+    g^\prime (x)
+        =\begin{cases}
+            x &\text{ nếu } -1<x< 2, \\
+            -4 &\text{ nếu } 2<x<3.
+        \end{cases}
+$$
+
+Giá trị lớn nhất chỉ có thể đạt được tại các điểm dưới đây.
+
+- Điểm mút $x=-1$ hoặc $x=3$: $g(-1)=\frac{1}{2}$ và $g(3)=-2$.
+- Điểm có đạo hàm triệt tiêu $x=0$: $g(0)=0$.
+- Điểm không tồn tại đạo hàm $x=2$: $g(2)=2$.
+    
+So sánh bốn giá trị $g(-1)=\frac{1}{2}$, $g(0)=0$, $g(2)=2$, và $g(3)=-2$ đã sáng tỏ $g(2)=2$ là giá trị lớn nhất.
+
+Giá trị $g(2)$ cũng là giá trị cực đại vì tại $x=2$ đạo hàm đổi dấu từ dương sang âm:
+
+- Với $x$ gần 2 và nhỏ hơn 2, $g^\prime (x) = x >0$.
+- Với $x$ gần 2 và lớn hơn 2, $g^\prime (x) = -4<0$.
+
+Đường cong $y=h(x)$ cao nhất tại điểm $(0;3)$, suy ra
+
+$$
+    \max_{[-1;3]}h(x) = h(0) = 3.
+$$
+
+Từ đồ thị, nhận thấy $h(x) < h(0)$ với mọi $x\in [-1;3]\setminus\{0\}$. Suy ra $x=0$ là điểm cực đại.
+
+Trên đoạn $[-1;3]$, xét hàm số 
+
+$$
+    y = h(x) = 3 - \frac{1}{2}x^2.
+$$
+
+Hàm $h(x)$ liên tục trên đoạn $[-1;3]$ và có đạo hàm là
+
+$$
+    h^\prime (x) = -x,
+$$
+
+xác định với mọi $x\in (-1;3)$.
+
+Giá trị lớn nhất chỉ có thể đạt được tại các điểm dưới đây.
+
+- Điểm mút $x=-1$ hoặc $x=3$: $h(-1)=\frac{5}{2}$ và $h(3)=-\frac{3}{2}$.
+- Điểm có đạo hàm triệt tiêu $x=0$: $h(0)=3$.
+    
+So sánh ba giá trị $h(-1)=\frac{5}{2}$, $h(0)=3$, và $h(3)=-\frac{3}{2}$ đã sáng tỏ $h(0)=3$ là giá trị lớn nhất.
+
+Dấu đạo hàm trên $(-1;3)$:
+
+- Với $x\in (-1;0)$, $h^\prime (x) = -x > 0$.
+- Với $x$ gần 0 và lớn hơn 0, $h^\prime (x) = -x < 0$.
+
+Vì đạo hàm đổi dấu từ dương sang âm khi đi qua $x=0$, nên $x=0$ là điểm cực đại, do đó $h(0)$ là giá trị cực đại.
+
+b\. Hàm còn lại $y=f(x)$ đạt giá trị lớn nhất tại mút phải $x=3$. 
+
+Đường cong $y=f(x)$ có điểm cao nhất là $\left(3;\frac{9}{2}\right)$, suy ra
+
+$$
+    \max_{[-1;3]}f(x)
+        = f(3)
+        = \frac{9}{2}.
+$$
+
+Để kiểm chứng, xét hàm số
+
+$$
+    y=f(x)=\frac{1}{2}x^2
+$$
+
+trên đoạn $[-1;3]$. Hàm $h(x)$ liên tục trên đoạn $[-1;3]$ và có đạo hàm là
+
+$$
+    f^\prime (x) = x,
+$$
+
+xác định với mọi $x\in (-1;3)$.
+
+Giá trị lớn nhất chỉ có thể đạt được tại các điểm dưới đây.
+
+- Điểm mút $x=-1$ hoặc $x=3$: $f(-1)=\frac{1}{2}$ và $f(3)=\frac{9}{2}$.
+- Điểm có đạo hàm triệt tiêu $x=0$: $f(0)=0$.
+
+So sánh ba giá trị $f(-1)=\frac{1}{2}$, $f(0)=0$, và $f(3)=\frac{9}{2}$ đã sáng tỏ $f(3)=\frac{9}{2}$ là giá trị lớn nhất.
+
+</details>
+
+<!--  -->
+
+::: {.callout-important title="Các bước tìm giá trị lớn nhất, nhỏ nhất trên $[a;b]$" collapse="false" icon="false"}
+
+Cho hàm số $y=f(x)$ liên tục trên đoạn $[a;b]$ và có đạo hàm trên khoảng $(a;b)$. Đạo hàm có thể bằng $0$ hoặc không tồn tại với một số hữu hạn điểm trong $(a;b)$. 
+
+Với những hàm số $f(x)$ được mô tả như trên, có thể tìm giá trị lớn nhất và giá trị nhỏ nhất qua các bước như sau:
+
+*Bước 1.* Tìm các điểm $x_1$, $x_2$,..., $x_n$ thuộc khoảng $(a;b)$ mà tại đó $f^\prime (x)$ bằng $0$ hoặc không tồn tại.
+
+*Bước 2.* Tính $f(a)$, $f(x_1)$, $f(x_2)$,..., $f(x_n)$, $f(b)$.
+
+*Bước 3.* Gọi $M$ là số lớn nhất và $m$ là số nhỏ nhất trong các giá trị tìm được ở Bước 2. Khi đó:
+
+$$
+    M=\max_{[a;b]} f(x) \text{ và } m=\min_{[a;b]} f(x).
+$$
+
+<div class="nguon">Chân Trời Sáng Tạo. Toán 12. Tập 1. Trang 17. Năm 2024</div>
+
+:::
+
+<!-- Thực hành 2 -->
+
+<details open>
+
+<summary class="de-muc">Thực hành 2</summary>
+
+Tìm giá trị lớn nhất, giá trị nhỏ nhất của hàm số $g(x)=x+\frac{4}{x^2}$ trên đoạn $[1;4]$.
+
+</details>
+
+<!-- Giải Thực hành 2 -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+Hàm số $g(x)$ có đạo hàm là
+
+$$
+    g^\prime (x)
+        = 1-\frac{8}{x^3}
+$$
+
+với mọi $x\in (1;4)$.
+
+Đạo hàm triệt tiêu tại $x=2$ thuộc khoảng $(1;4)$.
+
+Hàm số chỉ có thể đạt giá trị lớn nhất tại một trong các điểm dưới đây.
+
+- Tại điểm mút $x=1$ hoặc $x=4$, giá trị hàm số lần lượt là
+
+$$
+    f(1)=1+\frac{4}{1^2}=5
+    \text{ và }
+    f(4)=4+\frac{4}{4^2}=\frac{17}{4}.
+$$
+
+- Tại điểm đạo hàm triệt tiêu $x=2$, giá trị hàm số là
+
+$$
+    f(2)=2+\frac{4}{2^2}=3.
+$$
+
+So sánh ba giá trị $f(1)=5$, $f(2)=3$, và $f(4)=\frac{17}{4}$ để kết luận
+
+$$
+    \max_{[1;4]} f(x)=f(1)=5.
+$$
+
+</details>
+
+<!-- Thực hành 3 -->
+
+<details open>
+
+<summary class="de-muc">Thực hành 3</summary>
+
+Tam giác vuông có cạnh huyền bằng $5$ cm có thể có diện tích lớn nhất bằng bao nhiêu?
+
+</details>
+
+<!-- Giải Thực hành 3 -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+Đã biết tam giác vuông có cạnh huyền dài $5$ cm. Giả sử độ dài một trong hai cạnh góc vuông là $x$ cm, cạnh còn lại có độ dài $\displaystyle\sqrt{25-x^2}$ cm, theo định lý <span data-bs-toggle="tooltip" title="Pythagoras">Pai-tha-go-rớt</span>. 
+
+Theo đó, diện tích của tam giác vuông được tính bởi công thức
+
+$$
+    s(x)
+        = \frac{1}{2}x\cdot \sqrt{25-x^2}.
+$$
+
+Tại đây, có thể có hai cách chọn tập xác định cho $s(x)$: hoặc $x\in(0;5)$, hoặc $x\in[0;5]$.
+
+Nếu giả thiết $x\in(0;5)$, thì mỗi giá trị $x$ dương đều tương ứng với một tam giác vuông thực sự. Khi đó, việc tìm giá trị lớn nhất của $s(x)$ được gắn với việc khảo sát hàm trên khoảng đã cho: cần xét đạo hàm, tìm cực trị, rồi so sánh giới hạn của $s(x)$ khi $x$ tiến đến hai đầu mút $0$ và $5$ để khẳng định không tồn tại giá trị nào lớn hơn.
+
+Ngược lại, nếu mở rộng miền khảo sát thành đoạn $[0;5]$, thì dù tại hai đầu mút tam giác trở nên suy biến (một cạnh bằng $0$, diện tích bằng $0$), hàm số $s(x)$ vẫn liên tục trên đoạn, nên việc tìm giá trị lớn nhất có thể thực hiện bằng cách so sánh giá trị tại hai đầu mút và tại điểm cực trị nội tại.
+
+> Cả hai cách tiếp cận đều hợp lý và có thể quy đổi cho nhau. Cách này đòi hỏi khảo sát giới hạn, cách kia chỉ cần so sánh giá trị cụ thể. Dù chọn cách nào, lập luận vẫn phải đủ chặt chẽ để đảm bảo tính đúng đắn của kết quả. Việc lựa chọn hướng đi, vì thế, không chỉ là kỹ thuật tính toán mà còn thể hiện phong cách và cảm nhận toán học khác nhau - một khía cạnh làm nên sự sinh động trong quá trình học tập và giải toán.
+
+Khảo sát $s(x)$ trên $[0;5]$
+
+Hàm số $s(x)$ liên tục trên $[0;5]$ và có đạo hàm là
+
+$$
+    s^\prime (x)
+        = \frac{1}{2}\left(\sqrt{25-x^2}+x\cdot\frac{-2x}{\displaystyle 2\sqrt{25-x^2}}\right)
+        = \frac{1}{2}\cdot \frac{25-2x^2}{\displaystyle\sqrt{25-x^2}}
+$$
+
+xác định với mọi $x\in(0;5)$. Phương trình $s^\prime (x)=0$ có hai nghiệm, nhưng chỉ có $x=\frac{5}{\sqrt{2}}$ là thuộc khoảng $(0;5)$.
+
+Hàm số $s(x)$ chỉ có thể đạt giá trị lớn nhất tại một trong các điểm dưới đây.
+
+- Điểm mút $x=0$ hoặc $x=5$: $s(0)=s(5)=0$.
+- Điểm cực trị $x=\frac{5}{\sqrt{2}}$: $s\left(\frac{5}{\sqrt{2}}\right)=\frac{25}{4}$.
+
+So sánh ba giá trị $s(0)=s(5)=0$, và $s\left(\frac{5}{\sqrt{2}}\right)=\frac{25}{4}$ để kết luận:
+
+$$
+    \max_{[0;5]}s(x)
+        = s\left(\frac{5}{\sqrt{2}}\right)=\frac{25}{4}.
+$$
+
+Vậy, tam giác vuông có cạnh huyền bằng 5 cm có diện tích lớn nhất bằng 6,25 cm².
+
+Khảo sát trên $(0;5)$
+
+Như đã tính ở trên, đạo hàm 
+
+$$
+    s^\prime (x)
+        = \frac{1}{2}\cdot \frac{25-2x^2}{\displaystyle\sqrt{25-x^2}}
+$$
+
+xác định với mọi $x\in(0;5)$, nên giá trị lớn nhất chỉ có thể đạt được tại các điểm mà $s^\prime (x)=0$. 
+
+Phương trình $s^\prime (x)=0$ có hai nghiệm, nhưng chỉ có $x=\frac{5}{\sqrt{2}}$ là thuộc khoảng $(0;5)$.
+
+- Tại $x=\frac{5}{\sqrt{2}}$, giá trị hàm số là $s\left(\frac{5}{\sqrt{2}}\right)=\frac{25}{4}$.
+
+Dấu của đạo hàm $s^\prime (x)$ và tính đơn điệu của hàm số $s(x)$ được xác định như dưới đây.
+
+- Nếu $x\in\left(0;\frac{5}{\sqrt{2}}\right)$ thì $s^\prime (x)>0$, nên hàm số đồng biến trên khoảng này.
+- Nếu $x\in\left(\frac{5}{\sqrt{2}};5\right)$ thì $s^\prime (x)<0$, nên hàm số nghịch biến trên khoảng này.
+
+Tại $x=\frac{5}{\sqrt{2}}$, đạo hàm chuyển dấu từ dương sang âm, nên đây là một điểm cực đại.
+
+Hơn nữa, xu hướng của $s(x)$ tại các điểm mút được cho bởi các giới hạn sau:
+
+$$
+    \lim_{x\to 0^+} s(x)
+        = \lim_{x\to 5^-} s(x)
+        = 0.
+$$
+
+Bảng biến thiên $s(x)=\frac{1}{2}x\displaystyle\sqrt{25-x^2}$ trên khoảng $(0;5)$:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/th-3-bang-bien-thien){width=475px fig-align="center"}
+
+Từ bảng biến thiên suy ra
+
+$$
+    \max_{[0;5]}s(x)
+        = s\left(\frac{5}{\sqrt{2}}\right)=\frac{25}{4}.
+$$
+
+Vậy, tam giác vuông có cạnh huyền bằng 5 cm có diện tích lớn nhất bằng 6,25 cm².
+
+**So sánh xét trên khoảng và trên đoạn**
+
+
+| Tiêu chí | Xét trên khoảng $(0;5)$ | Xét trên đoạn $[0;5]$ |
+|---------|--------------------------|------------------------|
+| **Giả thiết** | Tam giác thực sự tồn tại (không suy biến) | Chấp nhận cả tam giác suy biến (có thể có cạnh bằng 0) |
+| **Áp dụng đạo hàm** | Chỉ xét điểm cực trị trong khoảng, cần thêm lý luận giới hạn để đảm bảo cực trị là giá trị lớn nhất | Sử dụng định lý giá trị lớn nhất trên đoạn - xét cực trị **và** đầu mút |
+| **Lập luận đơn giản hơn?** | Phức tạp hơn - cần biện luận giới hạn hai đầu mút | Gọn hơn - so sánh trực tiếp các giá trị |
+| **Giá trị biên có nghĩa?** | Loại bỏ $x = 0$, $x = 5$ do tam giác suy biến | Vẫn xét $x = 0$, $x = 5$, kết luận giá trị bằng 0 |
+| **Giáo dục tư duy** | Giúp học sinh hiểu sâu về giới hạn, đạo hàm, vai trò của khoảng | Cho thấy tính tổng quát, trực quan, kết hợp định lý cơ bản |
+
+
+</details>
+
+<!-- Kết quả Thực hành 3 -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+Biết tam giác vuông có cạnh huyển 5 cm. Giả sử độ dài một trong hai cạnh góc vuông là $x$ cm, với điều kiện $0<x<5$. Theo định lý <span data-bs-toggle="tooltip" title="Pythagoras">Pai-tha-go-rớt</span>, cạnh còn lại có độ dài $\displaystyle\sqrt{25-x^2}$ cm. Diện tích được tính bởi công thức
+
+$$
+    s(x)
+        = \frac{1}{2}x\cdot \sqrt{25-x^2}.
+$$
+
+Diện tích lớn nhất của tam giác vuông chính là giá trị lớn nhất của hàm số $s(x)$ trên khoảng $(0;5)$.
+
+Hàm số $s(x)$ có đạo hàm là
+
+$$
+    s^\prime (x)
+        = \frac{1}{2}\cdot \frac{25-2x^2}{\sqrt{25-x^2}}
+$$
+
+xác định với mọi $x\in(0;5)$, nên giá trị lớn nhất của $s(x)$ chỉ có thể đạt được tại $x$ thỏa $s^\prime (x)=0$.
+
+Phương trình $s^\prime (x)=0$ có hai nghiệm nhưng chỉ có nghiệm $x=\frac{5}{\sqrt{2}}$ thuộc khoảng $(0;5)$.
+
+Bảng biến thiên là
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/th-3-bang-bien-thien){width=475px fig-align="center"}
+
+Từ bản biến thiên suy ra
+
+$$
+    \max_{[0;5]}s(x)
+        = s\left(\frac{5}{\sqrt{2}}\right)=\frac{25}{4}.
+$$
+
+Vậy, tam giác vuông có cạnh huyền bằng 5 cm có diện tích lớn nhất bằng 6,25 cm².
+
+> Lưu ý, nếu chọn điều kiện $0\leq x\leq 5$, bài toán trở thành tìm giá trị lớn nhất của hàm số $s(x)$ trên đoạn $[0;5]$. Khi đó, không cần lập bảng biến thiên, giá trị lớn nhất được rút ra từ việc so sánh ba giá trị $s(0)$, $s\left(\frac{5}{\sqrt{2}}\right)$, và $s(5)$. Tuy nhiên, khi $x=0$ hoặc $x=5$, phải hiểu rằng tam giác <span data-bs-toggle="tooltip" title="Mô tả một trường hợp đặc biệt của một đối tượng toán học mà tại đó một số tính chất thông thường hoặc cấu trúc phức tạp của nó bị mất đi hoặc trở nên đơn giản hơn về bản chất. Một đường tròn suy biến có bán kính bằng 0, trở thành một điểm. Một i-líp-sờ suy biến có hai tiêu điểm trùng nhau, trở thành một đường tròn. Một i-líp-sờ suy biến thành một đoạn thẳng khi trục bé của nó có độ dài bằng 0, và các điểm của i-líp-sờ nằm trên đoạn thẳng nối hai tiêu điểm (hai tiêu điểm lúc này là hai đầu mút của đoạn thẳng).">*suy biến*</span> thành một đoạn thẳng có độ dài bằng 5, do đó có diện tích bằng 0. 
+
+</details>
+
+<!--  -->
+
+## Bài tập
+
+<!-- Bài tập 1 -->
+
+<details open>
+
+<summary class="de-muc">Bài tập 1</summary>
+
+Tìm giá trị lớn nhất và giá trị nhỏ nhất của hàm số có đồ thị được cho ở Hình 5.
+
+::: {layout-ncol=2}
+
+![Hình 5-a](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/bt-1-hinh-5-a){width=350px}
+
+![Hình 5-b](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/bt-1-hinh-5-b){width=350px}
+
+:::
+
+</details>
+
+<!-- Giải Bài tập 1 -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+a\. Điểm cao nhất và thấp nhất trên đồ thị hàm số $y=f(x)$ trong đoạn $[1;6]$ lần lượt là $(1;6)$ và $(5;1)$. Suy ra
+
+$$
+    \max_{[1;6]}f(x)=f(1)=6
+    \text{ và }
+    \min_{[1;6]}f(x)=f(5)=1.
+$$
+
+b\. Đồ thị hàm số $y=g(x)$ trong đoạn $[-3;3]$ có một điểm cao nhất là $(1;7)$, và hai điểm thấp nhất là $(-3;1)$ và $(-1;1)$. Suy ra
+
+$$
+    \max_{[-3;3]}g(x)=g(1)=7
+    \text{ và }
+    \min_{[-3;3]}g(x)=g(-3)=g(-1)=1.
+$$
+
+</details>
+
+<!-- Kết quả Bài tập 1  -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+</details>
+
+<!-- Bài tập 2 -->
+
+<details open>
+
+<summary class="de-muc">Bài tập 2</summary>
+
+Tìm giá trị lớn nhất, giá trị nhỏ nhất của các hàm số sau:
+
+a. $y=x^3-12x+1$ trên đoạn $[-1;3]$;
+b. $y=-x^3+24x^2-180x+400$ trên đoạn $[3;11]$;
+c. $y=\frac{2x+1}{x-2}$ trên đoạn $[3;7]$;
+d. $y=\sin 2x$ trên đoạn $\left[0;\frac{7\pi}{12}\right]$.
+
+</details>
+
+<!-- Giải Bài tập 2 -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+a\. Hàm số $y=x^3-12x+1$ liên tục trên đoạn $[-1;3]$ và có đạo hàm $y^\prime=3x^2-12$ xác định với mọi $x\in(-1;3)$. Đạo hàm triệt tiêu tại $x=\pm 2$, nhưng chỉ có $x=2$ thuộc khoảng $(-1;0)$.
+
+Hàm số chỉ có thể đạt giá trị lớn nhất, nhỏ nhất tại các điểm dưới đây.
+
+- Điểm mút $x=-1$, với giá trị là $y(-1)=12$.
+- Điểm mút $x=3$, với giá trị $y(3)= -8$.
+- Điểm cực trị $x=2$, với giá trị $y(2)=-15$.
+
+So sánh các giá trị $y(-1)=12$, $y(2)=-15$, $y(3)=-8$ suy ra
+
+$$
+    \max_{[-1;3]}y=y(-1)=12
+    \text{ và }
+    \min_{[-1;3]}y=y(2)=-15.
+$$
+
+b\. Hàm số $y=-x^3+24x^2-180x+400$ liên tục trên đoạn $[3;11]$ và có đạo hàm $y^\prime=-3x^2+48x-180$ xác định với mọi $x\in(3;11)$. Đạo hàm triệt tiêu tại $x=6$ và $x=10$, cả hai đều thuộc khoảng $(3;11)$.
+
+Hàm số có thể đạt giá trị lớn nhất, nhỏ nhất tại các điểm dưới đây.
+
+- Điểm mút $x=3$, với giá trị là $y(3)=49$.
+- Điểm mút $x=11$, với giá trị $y(11)= -7$.
+- Điểm cực trị $x=6$, với giá trị $y(6)=-32$.
+- Điểm cực trị $x=10$, với giá trị $y(10)=0$.
+
+So sánh các giá trị $y(3)=49$, $y(6)=-32$, $y(10)=0$, $y(11)=-7$ suy ra
+
+$$
+    \max_{[3;11]}y=y(3)=49
+    \text{ và }
+    \min_{[3;11]}y=y(6)=-32.
+$$
+
+c\. Hàm số $y=\frac{2x+1}{x-2}$ liên tục trên đoạn $[3;7]$ và có đạo hàm $y^\prime=-\frac{5}{(x-2)^2}$ xác định với mọi $x\in(3;7)$. Do đạo hàm luôn âm, nên hàm số giảm trên $(3;7)$. Suy ra
+
+$$
+    \max_{[3;7]}y=y(3)=7
+    \text{ và }
+    \min_{[3;7]}y=y(7)=3.
+$$
+
+d\. Hàm số $y=\sin 2x$ liên tục trên đoạn $\left[0;\frac{7\pi}{12}\right]$ và có đạo hàm $y^\prime=2\cos 2x$ xác định với mọi $x\in\left(0;\frac{7\pi}{12}\right)$. Đạo hàm triệt tiêu tại $x=\frac{\pi}{4}$ thuộc khoảng $\left(0;\frac{7\pi}{12}\right)$.
+
+Hàm số có thể đạt giá trị lớn nhất, nhỏ nhất tại các điểm dưới đây.
+
+- Điểm mút $x=0$, với giá trị là $y(0)=0$.
+- Điểm mút $x=\frac{7\pi}{12}$, với giá trị 
+
+    $$
+        y\left(\frac{7\pi}{12}\right)
+            = \sin \left(2\cdot\frac{7\pi}{12}\right)
+            = \sin\left(\pi+\frac{\pi}{6}\right)
+            = -\sin\left(\frac{\pi}{6}\right)
+            = -\frac{1}{2}.
+    $$
+- Điểm cực trị $x=\frac{\pi}{4}$, với giá trị $y\left(\frac{\pi}{2}\right)=1$.
+
+So sánh các giá trị $y(0)=0$, $y\left(\frac{\pi}{4}\right)=1$, $y\left(\frac{7\pi}{12}\right)=-\frac{1}{2}$ suy ra
+
+$$
+    \max_{\left[0;\frac{7\pi}{12}\right]}y=y\left(\frac{\pi}{4}\right)=1
+    \text{ và }
+    \min_{\left[0;\frac{7\pi}{12}\right]}y=y\left(\frac{7\pi}{12}\right)=-\frac{1}{2}.
+$$
 
 </details>
 
 
+<!-- Bài tập 3  -->
+
+<details open>
+
+<summary class="de-muc">Bài tập 3</summary>
+
+Tìm giá trị nhỏ nhất của các hàm số sau:
+
+a. $y=x^3-3x-4$ trên nửa khoảng $[-3;2)$;
+b. $y=\frac{3x^2-4x}{x^2-1}$ trên khoảng $(-1;+\infty)$.
+
+</details>
+
+<!-- Giải bài tập 3 -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+a\. Hàm số $y=x^3-3x-4$ liên tục trên đoạn $[-3;2)$ và có đạo hàm $y^\prime=3x^2-3$ xác định với mọi $x\in(-3;2)$. Đạo hàm triệt tiêu tại $x=\pm 1$, cả hai đều thuộc khoảng $(-3;2)$.
+
+Bảng biến thiên hàm số $y=x^3-3x-4$ liên tục trên đoạn $[-3;2)$ được lập như dưới đây.
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/bt-3-a-bang-bien-thien){width=475px fig-align="center"}
+
+Dựa vào bảng biến thiên kết luận:
+
+$$
+    \min_{[-3;2)} y
+        =y(-3)
+        =-22.
+$$
+
+b\. Hàm số $y=\frac{3x^2-4x}{x^2-1}$ liên tục trên đoạn $(1;+\infty)$.
+
+Đạo hàm được tính như sau:
+
+$$
+\begin{aligned}
+    y^\prime
+        & =\frac{(3x^2-4x)^\prime (x^2-1)-(3x^2-4x)(x^2-1)^\prime}{(x^2-1)^2} \\
+        &=\frac{(6x-4) (x^2-1)-(3x^2-4x)(2x)}{(x^2-1)^2} \\
+        &=\frac{4x^2-6x+4}{(x^2-1)^2} \\
+        &= \frac{4\left(x^2-\frac{3}{2}x+1\right)}{(x^2-1)^2} \\
+        &= \frac{4\left(x^2-2\cdot \frac{3}{4}x+\frac{9}{16}-\frac{9}{16}+1\right)}{(x^2-1)^2} \\
+        &= \frac{4\left( \left(x-\frac{3}{4}\right)^2+\frac{7}{16}\right)}{(x^2-1)^2} \\
+        &= \frac{ \left(2x-\frac{3}{2}\right)^2+\frac{7}{4}}{(x^2-1)^2}
+\end{aligned}
+$$
+
+Từ công thức thấy đạo hàm luôn dương với mọi $x\in(1;+\infty)$. Suy ra hàm số đồng biến trên trên $(1;+\infty)$, dó đó không có giá trị nhỏ nhất.
+
+</details>
+
+<!-- Bài tập 4 -->
+
+<details open>
+
+<summary class="de-muc">Bài tập 4</summary>
+
+Khi làm nhà kho, bác An muốn cửa sổ có dạng hình chữ nhật với chu vi bằng 4 m (Hình 6). Tìm kích thước khung cửa sổ sao cho diện tích cửa sổ lớn nhất (để hứng được nhiều ánh sáng nhất)?
+
+![Hình 6](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/bt-4-hinh-6-modify){width=300px}
+
+</details>
+
+<!--  -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+Cửa sổ có dạng hình chữ nhật với chu vi bằng 4 m, tức là tổng chiều dài và chiều rộng bằng 2 m. 
+
+Giả sử chiều dài là $x$ m, khi đó chiều rộng là $2-x$ m. Chiều dài không ngắn hơn chiều rộng, nên 
+
+$$
+    x \geq 2 - x
+    \text{ hay }
+    x\geq 1.
+$$
+
+Mặt khác, vì $x$ là chiều dài nên không vượt quá nửa chu vi, tức là $x<2$.
+
+Diện tích cửa sổ là 
+
+$$
+    s(x)
+        = x(2-x).
+$$ 
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/bt-4-hinh-6-modify-giai){width=300px fig-align="center"}
+
+Bài toán trở thành tìm giá trị lớn nhất của hàm số $s(x)$ trên nửa khoảng $[1;2)$. 
+
+Đạo hàm của hàm số $s(x)$ là 
+
+$$
+    s^\prime (x)
+        = 2-2x.
+$$
+
+Với mọi $x\in(1;2)$: 
+
+$$
+    1<x<2
+    \text{ hay } 
+    2<2x<4
+    \text{ hay }
+    -2>-2x>-4
+    \text{ hay }
+    0>2-2x>-2.
+$$
+
+Do đó, $s^\prime (x)<0$ với mọi $x\in(1;2)$. Suy ra hàm số $s(x)$ nghịch biến trên nửa khoảng $[1;2)$, nên giá trị lớn nhất của $s(x)$ trên nửa khoảng này đạt tại đầu mút trái:  
+
+$$
+    \max_{[1;2)}s(x)=s(1)=1.
+$$
+
+Vậy diện tích lớn nhất của cửa sổ là 1 m², đạt được khi chiều dài bằng 1 m và chiều rộng cũng bằng 1 m.
 
 
 
+</details>
+
+<!--  -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+</details>
+
+<!-- Bài tập 5 -->
+
+<details open>
+
+<summary class="de-muc">Bài tập 5</summary>
+
+Tìm giá trị lớn nhất, giá trị nhỏ nhất của hàm số $y=2\sqrt{1-x^2}+x^2$.
+
+</details>
+
+<!-- Giải Bài tập 5 -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+Hàm số đã cho là
+
+$$
+    y=2\sqrt{1-x^2}+x^2.
+$$
+
+Điều kiện để biểu thức có nghĩ là $1-x^2\geq 0$, tương đương với $x\in[-1;1]$. Tập xác định của hàm số là đoạn $[-1;1]$. 
+
+Đạo hàm được tính như sau:
+
+$$
+\begin{aligned}
+    y^\prime 
+        &=\left(2\sqrt{1-x^2}+x^2\right)^\prime \\
+        &=2\cdot\frac{(1-x^2)^\prime}{2\sqrt{1-x^2}}+\left(x^2\right)^\prime \\
+        &= \frac{-2x}{\sqrt{1-x^2}}+2x\\
+        &= 2x\left(1-\frac{1}{\sqrt{1-x^2}}\right).
+\end{aligned}
+$$
+
+Đạo hàm xác định với mọi $x\in(-1;1)$. Đạo hàm triệt tiêu tại điểm duy nhất thuộc khoảng này là $x=0$ .
+
+Giá trị lớn nhất, nhỏ nhất của hàm số chỉ có thể xảy ra tại điểm mút $x=-1$ và $x=1$,  điểm cực trị $x=0$. Giá trị tại các điểm này:
+
+$$
+    y(-1)=y(1)=1
+    \text{ và }
+    y(0)=2.
+$$
+
+So sánh ba giá trị trên cho thấy kết quả:
+
+$$
+    \max_{[-1;1]}y=y(0)=2
+    \text{ và }
+    \min_{[-1;1]}y=y(-1)=y(1)=1.
+$$
+
+::: {.ket-thuc}
+
+:::
+
+</details>
+
+<!--  -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+Tập xác định của hàm số là $[-1;1]$. 
+
+Đạo hàm của hàm số là
+
+$$
+    y^\prime 
+        = 2x\left(1-\frac{1}{\sqrt{1-x^2}}\right)
+$$
+
+xác định trên $(-1;1)$.
+
+Phuong trình $y^\prime=0$ có nghiệm $x=0$ thuộc vào tập xác định của đạo hàm, và hàm số.
+
+Giá trị lớn nhất, nhỏ nhất của hàm số chỉ có thể xảy ra tại các điểm $x=0$, $x=-1$ hoặc $x=1$. So sánh giá trị tại các điểm này đã chỉ ra
+
+$$
+    \max_{[-1;1]}y=y(0)=2
+    \text{ và }
+    \min_{[-1;1]}y=y(-1)=y(1)=1.
+$$
 
 
+</details>
 
+<!-- Bài tập 6 -->
 
+<details open>
 
+<summary class="de-muc">Bài tập 6</summary>
 
-<details>
+Khối lượng $q$ (kg) của một mặt hàng mà cửa tiệm bán được trong một ngày phụ thuộc vào giá bán $p$ (nghìn đồng/kg) theo công thức $p=15-\frac{1}{2}q$. Doanh thu từ việc bán mặt hàng trên của cửa tiệm được tính theo công thức $R = pq$.
 
-<summary class="de-muc"></summary>
+a. Viết công thức biểu diễn $R$ theo $p$.
+b. Tìm giá bán mỗi ki-lô-gam sản phẩm để đạt được doanh thu cao nhất và xác định doanh thu cao nhất đó.
+
+</details>
+
+<!-- Giải Bài tập 6  -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+Khối lượng tiêu thụ $q$ và giá bán $p$ liên hệ bởi công thức
+
+$$
+    p=15-\frac{1}{2}q.
+$$
+
+Từ đây, suy ra
+
+$$
+    q=30-2p.
+$$
+
+a\. Doanh thu được tính bởi $R=pq$ có thể viết lại theo biến $p$ là
+
+$$
+    R(p)
+        =p(30-2p)
+        =-2p^2+30p.
+$$
+
+b\. Để tìm giá bán mang lại doanh thu cao nhất và xác định doanh thu cao nhất đó, cần xét giá trị lớn nhất của hàm số $R(p)$. 
+
+Tập xác định của hàm số $R(p)$ được xác định từ điều kiện thực tế:
+
+- Khối lượng tiêu thụ $q$ không âm, tức $q=30-2p\geq 0$ hay $p\leq 15$.
+- Giá bán $p$ không âm, tức $p\geq 0$.
+
+Suy ra, nên xét hàm số $R(p)$ trên đoạn $[0;15]$.
+
+Đạo hàm của hàm số là 
+
+$$
+    R^\prime (p)
+        = -4p+30.
+$$
+
+Nghiệm của phương trình $R^\prime(p)=0$ là $p=\frac{15}{2}$. Giá trị này thuộc đoạn xét đến. Tiến hành so sánh giá trị hàm số tại ba điểm:
+
+$$
+\begin{aligned}
+    R(0)&=-2\cdot 0^2+30\cdot 0=0, \\
+    R(15)&=-2\cdot 15^2+30\cdot 15=0, \\
+    R\left(\frac{15}{2}\right)&=-2\cdot \left(\frac{15}{2}\right)^2+30\cdot \frac{15}{2}=112,5.
+\end{aligned}
+$$
+
+Giá trị lớn nhất của hàm số trên đoạn $[0;15]$ là
+
+$$
+    \max_{[0;15]} R(p)
+        = R\left(\frac{15}{2}\right)
+        =112,5.
+$$
+
+Doanh thu cao nhất là 112500 đồng, đạt được khi giá bán là 7500 đồng mỗi ki-lô-gam.  
+
+::: {.ket-thuc}
+
+:::
+
+</details>
+
+<!-- Kết quả Bài tập 6 -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+</details>
+
+<!-- Bài tập 7 -->
+
+<details open>
+
+<summary class="de-muc">Bài tập 7</summary>
+
+Hộp sữa $1$ lít được thiết kế dạng hình hộp chữ nhật với đáy là hình vuông cạnh $x$ cm. Tìm $x$ để diện tích toàn phần của hộp nhỏ nhất.
+
+</details>
+
+<!-- Giải Bài tập 7 -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+Thể tích hộp sữa là $1$ lít, tức là $1000$ cm³. Hộp có đáy là hình vuông cạnh $x$ cm. Giả sử chiều cao của hộp là $h$ cm. Do đó, 
+
+$$
+    x^2h = 1000.
+$$
+
+Từ đây suy ra
+
+$$
+    h = \frac{1000}{x^2}.
+$$
+
+![Hộp sữa với kích thước giả định](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/bt-7-hop-sua){width=200px fig-align="center"}
+
+Diện tích toàn phần của hộp gồm diện tích hai đáy và bốn mặt bên. Đáy là hình vuông cạnh $x$, mặt bên là hình chữ nhật kích thước $x \times h$, nên diện tích toàn phần là
+
+$$
+    s(x) 
+        = 2x^2 + 4xh 
+        = 2x^2 + \frac{4000}{x}.
+$$
+
+Hàm số này có chứa phân thức $\frac{4000}{x}$, mẫu số phải khác 0. Đồng thời, $x$ là một trong ba kích thước của một chiếc hộp có thể tích khác $0$ nên phải dương. Do đó, tập xác định của hàm số $s(x)$ là 
+
+$$
+    (0;+\infty).
+$$
+
+Xét hàm số $s(x) = 2x^2 + \dfrac{4000}{x}$ trên tập xác định $(0;+\infty)$. Đạo hàm là
+
+$$
+    s'(x) 
+        = 4x - \frac{4000}{x^2}.
+$$
+
+Phương trình $s'(x) = 0$ có nghiệm $x=10$. 
+
+Bảng biến thiên của hàm số $s(x)$ trên khoảng $(0;+\infty)$ là
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/bt-7-bang-bien-thien){width=475px fig-align="center"}
+
+Từ bảng biến thiên suy ra
+
+$$
+    \min_{(0;+\infty)} s(x) = s(10) = 600.
+$$
+
+Vậy, diện tích toàn phần của hộp nhỏ nhất là $600$ cm² khi $x=10$ cm. Lúc này, chiều cao cũng là $10$ cm, nên hộp có hình lập phương cạnh $10$ cm.
+
+![Hộp sữa với kích thước cho diện tích toàn phần nhỏ nhất](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/bt-7-hop-sua-toi-uu){width=200px fig-align="center"}
+
+::: {.ket-thuc}
+
+:::
+
+</details>
+
+<!-- Kết quả Bài tập 7 -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+Hộp có thể tích $1$ lít và đáy hình vuông cạnh $x$ cm, nên chiều cao của hộp là
+
+$$
+    \frac{1000}{x^2} \text{ cm }.
+$$
+
+Diện tích toàn phần của hộp gồm diện tích hai đáy và bốn mặt bên, được tính bởi công thức:
+
+$$
+    s(x) 
+        = 2x^2 + \frac{4000}{x}.
+$$
+
+Vì $x$ là kích thước của một chiếc hộp có thể tích khác $0$ nên $x>0$.
+
+Để tìm $x$ sao cho diện tích toàn phần của hộp nhỏ nhất, cần xét giá trị nhỏ nhất của hàm số $s(x)$ trên khoảng $(0;+\infty)$.
+
+Hàm số có đạo hàm là
+
+$$
+    s'(x) 
+        = 4x - \frac{4000}{x^2}.
+$$
+
+Phương trình $s'(x) = 0$ có nghiệm $x=10$. 
+
+Bảng biến thiên:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/bt-7-bang-bien-thien){width=475px fig-align="center"}
+
+Từ bảng biến thiên suy ra
+
+$$
+    \min_{(0;+\infty)} s(x) = s(10) = 600.
+$$
+
+Vậy, khi $x=10$ cm, diện tích toàn phần của hộp có giá trị nhỏ nhất là $600$ cm².
 
 </details>

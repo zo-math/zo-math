@@ -1,0 +1,24 @@
+\documentclass[border=1mm]{standalone}
+
+\usepackage{amsmath}
+\usepackage{xcolor}
+\definecolor{den-6}{HTML}{666666}
+\usepackage{tkz-tab}
+\usetikzlibrary{arrows}
+
+\begin{document}
+
+\begin{tikzpicture}
+
+  \tkzTabInit[
+    lgt=2, 
+    deltacl=.5, 
+    espcl=3.75]
+    {$x$/1, $g^\prime (x)$/1, $g(x)$/2.5}
+    {$0$, $1$, $5$}
+  \tkzTabLine{d, -, 0, +, } 
+  \tkzTabVar{D+/$+\infty$, -/$2$, +/$\frac{25}{6}$}
+  
+\end{tikzpicture}
+
+\end{document}

@@ -1,0 +1,755 @@
+---
+title: "Đường tiệm cận của đồ thị hàm số"
+subtitle: "Chương 1 | Chân Trời Sáng Tạo | Toán 12"
+
+date: last-modified
+date-format: "DD-MM-YYYY"
+author: "ZO Math"
+
+keywords:
+    - Tiệm cận
+    - Tiệm cận đứng
+    - Tiệm cận ngang
+    - Tiệm cận xiên 
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(kableExtra)
+library(dplyr)
+library(MASS)
+# library(ggplot2)
+```
+
+<!-- Hoạt động khởi động  -->
+
+<details id="khoi-dong" open>
+
+<summary class="de-muc">Hoạt động khởi động</summary>
+
+Theo thuyết tương đối hẹp, khối lượng $m$ (kg) của một hạt phụ thuộc vào tốc độ di chuyển $v$ (km/s) của nó trong hệ quy chiếu quán tính theo công thức 
+
+$$
+    m=m(v)=\frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}},
+$$
+
+trong đó $m_0$ là khối lượng nghỉ của hạt, $c=300000$ km/s là tốc độ ánh sáng. Khi hạt di chuyển với tốc độ càng gần tốc độ ánh sáng thì khối lượng của hạt thay đổi thế nào? Điều này thể hiện trên đồ thị hàm số $m=m(v)$ ở hình bên như thế nào? 
+
+![Đồ thị hàm số $m(v)=\frac{1}{\sqrt{1-\frac{v^2}{c^2}}}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/hdkd-do-thi){width=350px}
+
+<div class="nguon">(*Theo*: https://www.britannica.com/science/relativistic-mass)</div>
+
+</details>
+
+<!-- Giải Hoạt động khởi động -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+</details>
+
+<!-- Kết quả Hoạt động khởi động-->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+</details>
+
+</details>
+
+<!-- Hoạt động khám phá 1-->
+
+<details open>
+
+<summary class="de-muc">Hoạt động khám phá 1</summary>
+
+Cho hàm số $y=\frac{1}{x-1}$ có đồ thị như Hình 1.
+
+a. Tìm $\lim_{x \to 1^+} \frac{1}{x-1}$ và $\lim_{x \to 1^-} \frac{1}{x-1}$. 
+b. Gọi $M$ là điểm trên đồ thị có hoành độ $x$. Đường thẳng đi qua $M$ và vuông góc với trục $Oy$ cắt đường thẳng $x=1$ tại điểm $N$. Tính $MN$ khi $x\to 1^+$ và $x\to 1^-$.
+
+![Đồ thị hàm số $y=\frac{1}{x-1}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/hdkp-1-do-thi){width=350px}
+
+</details>
+
+<!-- Giải Hoạt động khám phá 1 -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+a\. Để ý rằng biểu thức $\frac{1}{x-1}$ không xác định tại $x=1$, vì khi đó mẫu số bằng 0. Tuy nhiên, khi $x$ tiến lại gần $1$, giá trị của biểu thức $\left\lvert\frac{1}{x-1}\right\rvert$ sẽ rất lớn. Đặc biệt, khi $x$ tiến lại gần $1$ từ bên phải (tức là $x>1$), giá trị của biểu thức $\frac{1}{x-1}$ sẽ là một số dương rất lớn, ngôn ngữ toán học diễn đạt là 
+
+$$
+    \lim_{x\to 1^+}\frac{1}{x-1}=+\infty.
+$$
+
+| $x$        | $\frac{1}{x - 1}$ |
+|:-------------:|:---------------------:|
+| $1,1$          | $10$                   |
+| $1,01$         | $100$                  |
+| $1,001$        | $1\,000$               |
+| $1,0001$       | $10\,000$              |
+| $1,00001$      | $100\,000$
+
+: Khi $x$ càng gần $1$ nhưng luôn *lớn* hơn $1$, $\frac{1}{x-1}$ là một số dương càng lớn. {.striped .hover} 
+
+Ngược lại, khi $x$ tiến lại gần $1$ từ bên trái (tức là $x<1$), giá trị của biểu thức $\frac{1}{x-1}$ sẽ là một số âm rất lớn, nghĩa là
+
+$$
+    \lim_{x\to 1^-}\frac{1}{x-1}=-\infty.
+$$
+
+| $x$        | $\frac{1}{x - 1}$ |
+|:-------------:|:---------------------:|
+| $0,9$          | $-10$                   |
+| $0,99$         | $-100$                  |
+| $0,999$        | $-1\,000$               |
+| $0,9999$       | $-10\,000$              |
+| $0,99999$      | $-100\,000$
+
+: Khi $x$ càng gần $1$ nhưng luôn *bé* hơn $1$, $\frac{1}{x-1}$ là một số âm càng lớn. {.striped .hover}
+
+b\. Điểm $M$ nằm trên đồ thị hàm số $y=\frac{1}{x-1}$ và có hoành độ $x$, nên tung độ của nó là $y=\frac{1}{x-1}$:
+
+$$
+    M\left(x;\frac{1}{x-1}\right).
+$$
+
+Điểm $N$ nằm trên đường thẳng $x=1$, nên có hoành độ là $1$. Hơn nữa, $N$ cũng thuộc đường thẳng đi qua $M$ và vuông góc với $Oy$, nên $N$ có cùng tung độ với $M$ là $\frac{1}{1-x}$:
+
+$$
+    N\left(1;\frac{1}{x-1}\right).
+$$
+
+Độ dài đoạn $MN$ là
+
+$$
+    MN
+        = \sqrt{(1-x)^2+\left(\frac{1}{x-1}-\frac{1}{x-1}\right)^2}
+        = \lvert x-1\rvert.
+$$
+
+![Đồ thị hàm số $y=\frac{1}{x-1}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/hdkp-1-do-thi){width=350px}
+
+> Cách nhanh hơn để tính $MN$ là hãy chiếu nó lên trục $Ox$. Từ đồ thị đã cho có thể thấy:
+>
+    - Khi $x>1$: $MN=x-1$.
+    - Khi $x<1$: $MN=1-x$.
+
+Khi $x\to 1^+$, tức là $x$ đến $1$ nhưng luôn lớn hơn $1$, thì $x-1>0$ và rất nhỏ. Do đó, $\lvert x-1\rvert = x-1\to 0$. Nghĩa là
+
+$$
+    \lim_{x\to1^+}\lvert x-1\rvert
+        = 0.
+$$
+
+Ngược lại, khi $x\to 1^-$, tức là $x$ đến $1$ nhưng luôn bé hơn $1$, thì $x-1<0$ và có giá trị tuyệt đối rất nhỏ. Do đó, $\lvert x-1\rvert = -(x-1)=1-x\to 0$. Nghĩa là
+
+$$
+    \lim_{x\to1^-}\lvert x-1\rvert
+        = 0.
+$$
+
+Vậy trong cả hai trường hợp, độ dài đoạn thẳng $MN$ đều tiến về $0$. Điều này cho thấy rằng, khi $x$ tiến dần đến $1$, điểm $M$ trên đồ thị càng lúc càng tiến gần đến đường thẳng $x=1$, nhưng không bao giờ chạm tới đường thẳng đó. Đây là đặc điểm hình học tiêu biểu của **tiệm cận đứng**.
+
+::: {.ket-thuc}
+
+:::
+
+</details>
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+a\. Các giới hạn cần tính là
+
+$$
+    \lim_{x\to 1^+}\frac{1}{x-1}
+        =+\infty
+    \text{ và }
+    \lim_{x\to 1^-}\frac{1}{x-1}
+        =-\infty.
+$$
+
+b\. Chiếu đoạn $MN$ lên trục $Ox$. Từ đồ thị đã cho có thể thấy:
+
+- Khi $x\to 1^+$, tức là $x\to 1$ và $x>1$, thì $MN=x-1 \to 0$.
+- Khi $x\to 1^-$, tức là $x\to 1$ và $x<1$, thì $MN=1-x \to 0$.
+
+Tóm lại, đoạn $MN$ có độ dài dần về $0$ khi $x\to 1^+$ và $x\to 1^-$.
+
+</details>
+
+<!-- Thực hành 1 -->
+
+<details open>
+
+<summary class="de-muc">Thực hành 1</summary>
+
+Tìm tiệm cận đứng của đồ thị các hàm số sau:
+
+a. $y=f(x)=\frac{2x+3}{-x+5}$;
+b. $y=g(x)=\frac{x^2-2x}{x-1}$.
+
+
+</details>
+
+<!-- Giải Thực hành 1-->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+a\. Biểu thức $\frac{2x+3}{-x+5}$ có nghĩa khi $-x+5\ne 0$, tức là $x\ne 5$. Do đó, hàm số có tập xác định $D=\mathbb{R}\setminus\{5\}$. 
+
+Vì
+
+$$
+    \lim_{x\to 5^-}\frac{2x+3}{-x+5}=-\infty
+    \text{ và } 
+    \lim_{x\to 5^+}\frac{2x+3}{-x+5}=+\infty,
+$$
+
+nên đường thẳng $x=5$ là tiệm cận đứng của đồ thị hàm số $y=f(x)$.
+
+b\. Biểu thức $\frac{x^2-2x}{x-1}$ có nghĩa khi $x-1\ne 0$, tức là $x\ne 1$. Do đó, hàm số có tập xác định $D=\mathbb{R}\setminus\{1\}$. 
+
+Hàm số có thể viết lại dưới dạng 
+
+$$
+    g(x)
+        =\frac{x^2-2x}{x-1}
+        =\frac{x^2-2x+1-1}{x-1}
+        =\frac{(x-1)^2-1}{x-1}
+        =x-1-\frac{1}{x-1}.
+$$
+
+Vì 
+
+$$
+    \lim_{x\to 1^-}\left(x-1-\frac{1}{x-1}\right)=+\infty
+    \text{ và }
+    \lim_{x\to 1^+}\left(x-1-\frac{1}{x-1}\right)=-\infty,
+$$
+
+nên đuờng thẳng $x=1$ là tiệm cận đứng của đồ thị hàm số $y=g(x)$.
+
+</details>
+
+<!-- Kết quả Thực hành 1-->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+a\. Vì $\lim_{x\to 5^-}\frac{2x+3}{-x+5}=-\infty$ và $\lim_{x\to 5^+}\frac{2x+3}{-x+5}=+\infty$, nên đường thẳng $x=5$ là tiệm cận đứng của đồ thị hàm số $y=f(x)$.
+
+b\. Vì $\lim_{x\to 1^-}\frac{x^2-1}{x-1}=+\infty$ và $\lim_{x\to 1^+}\frac{x^2-1}{x-1}=-\infty$, nên đường thẳng $x=1$ là tiệm cận đứng của đồ thị hàm số $y=g(x)$.
+
+</details>
+
+<!-- Hoạt động khám phá 2 -->
+
+<details open>
+
+<summary class="de-muc">Hoạt động khám phá 2</summary>
+
+Cho hàm số $y=\frac{x+1}{x}$ có đồ thị như Hình 4.
+
+a. Tìm $\lim_{x\to+\infty}\frac{x+1}{x}$ và $\lim_{x\to-\infty}\frac{x+1}{x}$.
+b. Đường thẳng vuông góc với trục $Ox$ tại điểm $x$ cắt đồ thị hàm số tại điểm $M$ và cắt đường thẳng $y=1$ tại điểm $N$ (Hình 4). Tính $MN$ theo $x$ và nhận xét về $MN$ khi $x\to+\infty$ hoặc $x\to-\infty$.
+
+![Đồ thị hàm số $y=\frac{x+1}{x}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/hdkp-2-do-thi){width=350px}
+
+</details>
+
+<!-- Giải Hoạt động khám phá 2 -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+a\. Xét biểu thức $\frac{x+1}{x}$. Khi $x$ tiến ra vô cùng, cả tử và mẫu đều lớn, nên cần biến đổi để thấy rõ xu hướng của phân thức:
+
+$$
+\frac{x+1}{x} = \frac{x}{x} + \frac{1}{x} = 1 + \frac{1}{x}.
+$$
+
+Khi $x \to +\infty$, $\frac{1}{x} \to 0$, nên
+
+$$
+\lim_{x \to +\infty} \frac{x+1}{x} = 1.
+$$
+
+Tương tự, khi $x \to -\infty$, $\frac{1}{x} \to 0$, nên
+
+$$
+\lim_{x \to -\infty} \frac{x+1}{x} = 1.
+$$
+
+> Hai giới hạn này cho thấy đồ thị hàm số sẽ càng lúc càng áp sát đường thẳng $y=1$, nhưng không chạm tới.
+
+Để hình dung rõ hơn, hãy xem giá trị của biểu thức $\frac{x+1}{x}$ khi $x$ lớn hoặc nhỏ dần thông qua các bảng dưới đây.
+
+|     $x$    | $\frac{x + 1}{x}$ |
+| :--------: | :----------------: |
+|    $10$    |       $1{,}1$      |
+|    $100$   |      $1{,}01$      |
+|  $1\,000$  |      $1{,}001$     |
+|  $10\,000$ |     $1{,}0001$     |
+| $100\,000$ |     $1{,}00001$    |
+
+: Khi $x$ càng lớn, $\frac{x+1}{x}$ càng gần 1. {.striped .hover}
+
+|     $x$     | $\frac{x + 1}{x}$ |
+| :---------: | :----------------: |
+|    $-10$    |       $0{,}9$      |
+|    $-100$   |      $0{,}99$      |
+|  $-1\,000$  |      $0{,}999$     |
+|  $-10\,000$ |     $0{,}9999$     |
+| $-100\,000$ |     $0{,}99999$    |
+
+: Khi $x$ càng âm lớn, $\frac{x+1}{x}$ cũng càng gần 1. {.striped .hover}
+
+Vậy, khi $x$ tiến ra vô cùng (cả về phía dương và âm), giá trị hàm số tiến gần đến 1. Đường thẳng $y = 1$ đóng vai trò như một ranh giới nằm ngang mà đồ thị càng lúc càng tiến gần nhưng không vượt qua - đó là **tiệm cận ngang** của đồ thị hàm số.
+
+b\. Điểm $M$ có hoành độ $x$, nên có tọa độ $M\left(x;\dfrac{x+1}{x}\right)$. Đường thẳng vuông góc với trục hoành tại điểm $x$ cắt đường thẳng $y = 1$ tại điểm $N\left(x; 1\right)$. Đoạn thẳng $MN$ là đoạn thẳng thẳng đứng, nên độ dài của nó chính là độ chênh lệch giữa hai tung độ:
+
+$$
+MN = \left| \frac{x+1}{x} - 1 \right| = \left| \frac{1}{x} \right|.
+$$
+
+Xét giới hạn của $MN$ khi $x\to+\infty$ và $x\to-\infty$. Khi đó, $\left| \frac{1}{x} \right| \to 0$, nên
+
+$$
+\lim_{x \to \pm\infty} MN = 0.
+$$
+
+Điều này có nghĩa là, khi $x$ càng tiến ra xa về hai phía, điểm $M$ trên đồ thị càng tiến gần đến đường thẳng $y = 1$, và khoảng cách đến đường thẳng đó càng nhỏ. Đây là biểu hiện hình học của **tiệm cận ngang**: đồ thị càng đi xa, càng tiến sát một đường thẳng nằm ngang.
+
+</details>
+
+<!-- Kết quả Hoạt động khám phá 2 -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+a\. Các giới hạn cần tính là
+
+$$
+\lim_{x \to +\infty} \frac{x + 1}{x}
+    = 1
+\text{ và }
+\lim_{x \to -\infty} \frac{x + 1}{x}
+    = 1.
+$$
+
+b\. Từ đồ thị đã cho, có thể thấy:
+
+- Khi $x \to +\infty$, thì $MN = \left\lvert \frac{1}{x} \right\rvert \to 0$.
+- Khi $x \to -\infty$, thì $MN = \left\lvert \frac{1}{x} \right\rvert \to 0$.
+
+Tóm lại, đoạn $MN$ có độ dài dần về $0$ khi $x$ tiến ra xa hai phía.
+
+
+</details>
+
+<!-- Thực hành 2 -->
+
+<details open>
+
+<summary class="de-muc">Thực hành 2</summary>
+
+Tìm tiệm cận đứng của đồ thị các hàm số sau:
+
+a. $y=f(x)=\frac{x-1}{4x+1}$;
+b. $y=g(x)=\frac{\sqrt{x}}{\sqrt{x}+2}$.
+
+</details>
+
+<!-- Giải Thực hành 2-->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+</details>
+
+<!-- Kết quả Thực hành 2-->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+
+</details>
+
+<!-- Hoạt động khám phá 3 -->
+
+<details open>
+
+<summary class="de-muc">Hoạt động khám phá 3</summary>
+
+Cho đồ thị của hàm số $y=\frac{x^2+1}{x}$ và đường thẳng $y=x$. Đường thẳng vuông góc với trục $Ox$ tại điểm $x$ cắt đồ thị hàm số tại điểm $M$ và cắt đường thẳng $y=x$ tại điểm $N$ (Hình 7).
+
+a. Tính $\lim_{x\to-\infty}\left(\frac{x^2+1}{x}-x\right)$ và $\lim_{x\to+\infty}\left(\frac{x^2+1}{x}-x\right)$.
+b. Tính $MN$ theo $x$ và nhận xét về $MN$ khi $x\to+\infty$ hoặc $x\to-\infty$.
+
+![Đồ thị hàm số $y=\frac{x^2+1}{x}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/hdkp-3-do-thi){width=350px}
+
+</details>
+
+<!-- Giải Hoạt động khám phá 3 -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+a\. Biểu thức $\dfrac{x^2 + 1}{x} - x$ có thể rút gọn thành:
+
+$$
+\frac{x^2 + 1}{x} - x = \left( \frac{x^2}{x} + \frac{1}{x} \right) - x = x + \frac{1}{x} - x = \frac{1}{x}.
+$$
+
+Khi $x \to +\infty$ hoặc $x \to -\infty$, đều có $\frac{1}{x} \to 0$, nên
+
+$$
+\lim_{x \to \pm\infty} \left( \frac{x^2 + 1}{x} - x \right) = 0.
+$$
+
+> Điều này cho thấy đồ thị hàm số $y=\frac{x^2+1}{x}$ sẽ càng lúc càng áp sát đường thẳng $y = x$ khi $x$ tiến ra vô cùng.
+
+Để hình dung rõ hơn, hãy xem giá trị của biểu thức $\frac{x^2 + 1}{x} - x$ khi $x$ lớn hoặc nhỏ dần qua bảng dưới đây.
+
+|     $x$    | $\frac{x^2 + 1}{x} - x$ |
+| :--------: | :----------------------: |
+|    $10$    |          $0{,}1$         |
+|    $100$   |         $0{,}01$         |
+|  $1\,000$  |         $0{,}001$        |
+|  $10\,000$ |        $0{,}0001$        |
+| $100\,000$ |        $0{,}00001$       |
+
+: Khi $x$ càng lớn, $\frac{x^2 + 1}{x} - x$ càng gần 0. {.striped .hover}
+
+|     $x$     | $\frac{x^2 + 1}{x} - x$ |
+| :---------: | :----------------------: |
+|    $-10$    |         $-0{,}1$         |
+|    $-100$   |         $-0{,}01$        |
+|  $-1\,000$  |        $-0{,}001$        |
+|  $-10\,000$ |        $-0{,}0001$       |
+| $-100\,000$ |       $-0{,}00001$       |
+
+: Khi $x$ càng âm lớn, biểu thức cũng tiến gần 0. {.striped .hover}
+
+Vậy, khi $x \to \pm\infty$, giá trị hàm số tiến gần đến $y = x$. Đường thẳng $y = x$ đóng vai trò như một ranh giới mà hai nhánh của đồ thị càng lúc càng áp sát - đó là **tiệm cận xiên** của đồ thị hàm số.
+
+b\. Điểm $M$ có hoành độ $x$, nên tọa độ là:
+
+$$
+M\left( x;\, \frac{x^2 + 1}{x} \right).
+$$
+
+Điểm $N$ có cùng hoành độ với điểm $M$ và nằm trên đường thẳng $y = x$, nên có tọa độ:
+
+$$
+    N\left( x;\, x \right).
+$$
+
+Độ dài của $MN$ theo phương $Oy$ chính là độ chênh lệch giữa hai tung độ:
+
+$$
+    MN 
+        = \left\lvert \frac{x^2 + 1}{x} - x \right\rvert 
+        = \left\lvert \frac{1}{x} \right\rvert.
+$$
+
+Xét giới hạn của $MN$ khi $x \to \pm\infty$:
+
+$$
+    \lim_{x \to \pm\infty} MN 
+        = \lim_{x \to \pm\infty} \left\lvert \frac{1}{x} \right\rvert 
+        = 0.
+$$
+
+Điều này cho thấy rằng, khi $x$ càng lớn (về cả hai phía), điểm $M$ trên đồ thị càng tiến gần đến đường thẳng $y = x$, và khoảng cách giữa chúng càng nhỏ. Đây là biểu hiện hình học của **tiệm cận xiên**: đồ thị càng đi xa, càng tiến sát một đường thẳng xiên.
+
+</details>
+
+<!-- Kết quả Hoạt động khám phá 3 -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+a\. Các giới hạn cần tính là
+
+$$
+    \lim_{x \to +\infty} \left( \frac{x^2 + 1}{x} - x \right)
+        = 0
+    \text{ và }
+    \lim_{x \to -\infty} \left( \frac{x^2 + 1}{x} - x \right)
+        = 0.
+$$
+
+b\. Từ đồ thị đã cho, có thể thấy:
+
+- Khi $x \to +\infty$, thì $MN = \left\lvert \frac{1}{x} \right\rvert \to 0$.
+- Khi $x \to -\infty$, thì $MN = \left\lvert \frac{1}{x} \right\rvert \to 0$.
+
+Tóm lại, đoạn $MN$ có độ dài dần về $0$ khi $x$ tiến ra xa hai phía.
+
+
+</details>
+
+<!-- Thực hành 3 -->
+
+<details open>
+
+<summary class="de-muc">Thực hành 3</summary>
+
+Tìm tiệm cận xiên của đồ thị hàm số $y=\frac{2x^2-3x}{x+5}$.
+
+</details>
+
+<!-- Giải Thực hành 3 -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+</details>
+
+<!-- Kết quả Thực hành 3 -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+</details>
+
+<!-- Thực hành 4 -->
+
+<details open>
+
+<summary class="de-muc">Thực hành 4</summary>
+
+Nếu trong một ngày, một xưởng sản xuất được $x$ ki-lô-gam sản phẩm thì chi phí trung bình (tính bằng nghìn đồng) cho một sản phẩm được cho bởi công thức:
+
+$$
+    C(x)
+        = \frac{50x+2000}{x}.
+$$
+
+Tìm các đường tiệm cận của đồ thị hàm số $y=C(x)$.
+</details>
+
+<!-- Giải Thực hành 4 -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+</details>
+
+<!-- Kết quả Thực hành 4 -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+</details>
+
+<!-- Bài tập -->
+
+## Bài tập
+
+<!-- Bài tập 1 -->
+
+<details open>
+
+<summary class="de-muc">Bài tập 1</summary>
+
+Tìm các tiệm cận đứng và tiệm cận ngang của đồ thị hàm số sau:
+
+a. $y=\frac{4x-5}{2x-3}$;
+b. $y=\frac{-2x+7}{4x-3}$;
+c. $y=\frac{5x}{3x-7}$.
+
+</details>
+
+<!-- Giải Bài tập 1 -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+</details>
+
+<!-- Kết quả Bài tập 1 -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+</details>
+
+<!-- Bài tập 2 -->
+
+<details open>
+
+<summary class="de-muc">Bài tập 2</summary>
+
+Tìm các tiệm cận đứng và tiệm cận xiên của đồ thị hàm số sau:
+
+a. $y=\frac{x^2+2}{2x-4}$;
+b. $y=\frac{2x^2-3x-6}{x+2}$;
+c. $y=\frac{2x^2+9x+11}{2x+5}$.
+
+</details>
+
+<!-- Giải Bài tập 2 -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+</details>
+
+<!-- Kết quả Bài tập 2-->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+</details>
+
+
+<!-- Bài tập 3 -->
+
+<details open>
+
+<summary class="de-muc">Bài tập 3</summary>
+
+Tìm các tiệm cận của đồ thị hàm số sau:
+
+a. $y=\frac{2x-3}{5x^2-15x+10}$
+
+![Đồ thị hàm số $y=\frac{2x-3}{5x^2-15x+10}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/bt-3-a-do-thi){width=350px}
+
+b. $y=\frac{x^2+x+1}{x}$
+
+![Đồ thị hàm số $y=\frac{x^2+x+1}{x}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/bt-3-b-do-thi){width=350px}
+
+c. $y=\frac{16x^2-8x}{16x^2+1}$
+
+![Đồ thị hàm số $y=\frac{16x^2-8x}{16x^2+1}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/bt-3-c-do-thi){width=350px}
+
+</details>
+
+<!-- Giải Bài tập 3-->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+</details>
+
+<!-- Kết quả Bài tập 3-->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+</details>
+
+
+<!-- Bài tập 4 -->
+
+<details open>
+
+<summary class="de-muc">Bài tập 4</summary>
+
+</details>
+
+<!-- Giải Bài tập 4 -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+Nồng độ ô-xy trong hồ theo thời gian $t$ cho bởi công thức $y(t)=5-\frac{15t}{9t^2+1}$, với $y$ được tính theo mg/l và $t$ được tính theo giờ, $t\geq 0$. Tìm các đường tiệm cận của đồ thị hàm số $y=y(t)$. Từ đó, có nhận xét gì về nồng độ ô-xy trong hồ khi thời gian $t$ trở nên rất lớn?
+
+<div class="nguon">(*Theo:* www.researchgate.net/publication/264903978_Microrespirometric_
+characterization_of_activated_sludge_inhibition_by_copper_and_zinc)</div>
+
+</details>
+
+<!-- Kết quả Bài tập 4 -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+</details>
+
+
+<!-- Bài tập 5 -->
+
+<details open>
+
+<summary class="de-muc">Bài tập 5</summary>
+
+Tìm tiệm cận của đồ thị hàm số khối lượng hạt $m=m(v)=\frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}$ trong <a href="#khoi-dong">Hoạt động khởi động</a>.
+
+</details>
+
+<!-- Giải Bài tập 5-->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+</details>
+
+<!-- Kết quả Bài tập 5-->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+</details>
+
+
+<!-- ------ -->
+
+<details open>
+
+<summary class="de-muc"></summary>
+
+</details>
+
+<!-- Giải -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+</details>
+
+<!-- Kết quả -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+</details>
+
+
+
+
+
