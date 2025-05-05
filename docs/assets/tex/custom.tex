@@ -1,26 +1,22 @@
-\RequirePackage{fontspec}
-\RequirePackage{unicode-math}
-\RequirePackage{tikz}  % Thêm dòng này
+% Cấu hình font chữ chính và toán học
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\setmainfont{STIX Two Text}
+\setsansfont{STIX Two Text}
+\setmonofont{STIX Two Text}
+\setmathfont{STIX Two Math}
 
-% Thiết lập font STIX (dùng chung \FontPath từ .qmd)
-\setmainfont[
-  Path = \FontPath,
-  Extension = .otf,
-  UprightFont = STIXTwoText-Regular,
-  BoldFont = STIXTwoText-Bold,
-  ItalicFont = STIXTwoText-Italic,
-  BoldItalicFont = STIXTwoText-BoldItalic
-]{STIXTwoText}
+% Cấu hình kích thước chữ
+% \fontsize{12pt}{14pt}\selectfont
 
-\setmathfont[
-  Path = \FontPath,
-  Extension = .otf
-]{STIXTwoMath}
+% Đánh số section
+\setcounter{secnumdepth}{3}
 
-% Cấu hình mặc định cho TikZ
-\usetikzlibrary{arrows.meta, calc, positioning}
-\tikzset{
-  >=Stealth,
-  every node/.style={font=\normalsize},
-  baseline=(current bounding box.center)
-}
+% Các gói hỗ trợ bổ sung
+\usepackage{hyperref}  % Hỗ trợ liên kết
+\usepackage{graphicx}  % Hỗ trợ hình ảnh
+\usepackage{amsmath, amssymb}  % Hỗ trợ toán học nâng cao
+\usepackage{svg}  % Hỗ trợ hình ảnh SVG
+\usepackage{xcolor}
+\usepackage{tikz}
+  \usetikzlibrary{arrows, positioning}

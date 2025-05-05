@@ -1,66 +1,33 @@
-/* Ẩn "Others Format" */
-/* .quarto-alternate-formats h2 {
-  display: none;
-} */
+/* 
+#111111	(17, 17, 17)
+#222222	(34, 34, 34)
+#333333	(51, 51, 51)
+#444444	(68, 68, 68)
+#555555	(85, 85, 85)
+#666666	(102, 102, 102)
+*/
 
-/* Định dạng đầu trang */
-.quarto-title-meta-heading {
-  display: none;
+body {
+  font-size: 1rem; /* Kích thước font cơ bản của văn bản */
+  font-weight: 400; /* Độ đậm nhạt mặc định của văn bản (normal, bold, 400, 700, ...) */
+  color: #222222; /* Màu chữ mặc định của văn bản (ví dụ: màu xám đậm) */
 }
 
-.article-meta .author::before {
-  content: "Tác giả: ";
-}
-
-.article-meta .abstract h2::before {
-  content: "Tóm tắt";
-  display: block;
-}
-.article-meta .abstract h2 {
-  display: none;
-}
-
-/* Căn giữa */
-.center {
-  text-align: center;
-}
-
-/* Định dạng bảng */
-table {
-  margin: auto;
-  width: 50%;
-  text-align: center;
-  font-size: 1rem !important;
-  border-collapse: collapse;
-}
-
-th,
-td {
-  border: 1px solid #ddd;
-  font-family: "STIX Two Text", serif;
-}
-
-.kable-table {
-  font-size: inherit !important;
-}
-
-.kable-table table {
-  width: 100%;
-}
-
-.kable-table mjx-container {
-  font-size: 1rem !important;
-  font-family: "STIX Two Math", serif;
+mjx-container {
+  font-size: 1rem !important; /* Đồng bộ kích thước, !important để ghi đè */
+  font-weight: 400 !important; /* Đồng bộ độ đậm nhạt, !important để ghi đè */
+  color: inherit !important; /* Đồng bộ màu sắc, !important để ghi đè */
 }
 
 /* Định dạng bài tập, đáp án, lời giải, và details */
-.bai-tap,
-.dap-an,
-.loi-giai,
+.de-muc,
+.ket-qua,
+.giai-de-muc,
 .details summary {
   display: block;
   border: none;
   text-align: center;
+  font-weight: bold;
   padding: 10px;
   width: 100%;
   margin-top: 20px;
@@ -70,43 +37,43 @@ td {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.bai-tap p,
-.dap-an p,
-.loi-giai p,
+.de-muc p,
+.ket-qua p,
+.giai-de-muc p,
 .details summary p {
   margin: 0;
 }
 
-.bai-tap,
+.de-muc,
 .details summary {
   background-color: #f8d7da;
 }
-.bai-tap:hover,
+.de-muc:hover,
 .details summary:hover {
   background-color: #f1bfc4;
 }
-.bai-tap:active,
+.de-muc:active,
 .details summary:active {
   background-color: #e89aa0;
 }
 
-.dap-an {
+.ket-qua {
   background-color: #d4edda;
 }
-.dap-an:hover {
+.ket-qua:hover {
   background-color: #bfe1bf;
 }
-.dap-an:active {
+.ket-qua:active {
   background-color: #9aca9a;
 }
 
-.loi-giai {
+.giai-de-muc {
   background-color: #cfe2ff;
 }
-.loi-giai:hover {
+.giai-de-muc:hover {
   background-color: #b0ccff;
 }
-.loi-giai:active {
+.giai-de-muc:active {
   background-color: #9ab6ff;
 }
 
@@ -138,116 +105,8 @@ td {
   font-weight: bold;
 }
 
-/* ------------------------------------- */
-/* Nhúng font STIX */
-@font-face {
-  font-family: "STIX Two Text";
-  src: url("../fonts/STIXTwoText-Regular.woff2") format("woff2"),
-    url("../fonts/STIXTwoText-Regular.otf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "STIX Two Text";
-  src: url("../fonts/STIXTwoText-Italic.woff2") format("woff2"),
-    url("../fonts/STIXTwoText-Italic.otf") format("opentype");
-  font-weight: normal;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "STIX Two Text";
-  src: url("../fonts/STIXTwoText-Bold.woff2") format("woff2"),
-    url("../fonts/STIXTwoText-Bold.otf") format("opentype");
-  font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "STIX Two Text";
-  src: url("../fonts/STIXTwoText-BoldItalic.woff2") format("woff2"),
-    url("../fonts/STIXTwoText-BoldItalic.otf") format("opentype");
-  font-weight: bold;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "STIX Two Text";
-  src: url("../fonts/STIXTwoText-Medium.woff2") format("woff2"),
-    url("../fonts/STIXTwoText-Medium.otf") format("opentype");
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "STIX Two Text";
-  src: url("../fonts/STIXTwoText-MediumItalic.woff2") format("woff2"),
-    url("../fonts/STIXTwoText-MediumItalic.otf") format("opentype");
-  font-weight: 500;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "STIX Two Text";
-  src: url("../fonts/STIXTwoText-Semibold.woff2") format("woff2"),
-    url("../fonts/STIXTwoText-Semibold.otf") format("opentype");
-  font-weight: 600;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "STIX Two Text";
-  src: url("../fonts/STIXTwoText-SemiboldItalic.woff2") format("woff2"),
-    url("../fonts/STIXTwoText-SemiboldItalic.otf") format("opentype");
-  font-weight: 600;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "STIX Two Math";
-  src: url("../fonts/STIXTwoMath.woff2") format("woff2"),
-    url("../fonts/STIXTwoMath.otf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
-}
-/* -------------------------------------------- */
-
-/* Font chữ nội dung */
-body {
-  font-family: "STIX Two Text", serif;
-}
-
-.quarto-xref {
-  font-family: "STIX Two Text", serif;
-}
-
-svg:not(.MathJax) text {
-  font-family: "STIX Two Math", serif !important;
-}
-
-/* Đồng bộ font, màu chữ và cỡ chữ cho công thức toán */
-mjx-container {
-  font-family: "STIX Two Math", serif;
-  font-size: 1rem;
-  color: inherit;
-  line-height: 1.4;
-  filter: brightness(90%);
-  overflow-x: auto;
-  overflow-y: hidden;
-}
-
-mjx-math {
-  font-family: inherit !important;
-}
-
 mjx-mrow {
   margin: 0 2px;
-}
-
-mjx-container[jax="CHTML"][display="true"] {
-  margin: 0.8rem 0;
-  text-align: center;
 }
 
 /* Tùy chỉnh công thức toán trong tooltip */
@@ -255,6 +114,7 @@ mjx-container[jax="CHTML"][display="true"] {
   font-size: 0.75em;
   filter: none;
   margin: 0.5em 0;
+  font-family: inherit !important;
 }
 
 .mathjax-tooltip mjx-container[jax="CHTML"][display="true"] {
@@ -262,7 +122,7 @@ mjx-container[jax="CHTML"][display="true"] {
   display: block;
 }
 
-/* Tùy chỉnh container tooltip */
+/* Các định dạng tooltip, tham chiếu, nguồn, liên kết, chú thích... (giữ nguyên) */
 .tooltip {
   --bs-tooltip-zindex: 1000;
   --bs-tooltip-max-width: calc(50vw - 40px);
@@ -270,9 +130,7 @@ mjx-container[jax="CHTML"][display="true"] {
   position: relative; /* Đảm bảo .tooltip::before định vị tương đối với .tooltip */
 }
 
-/* Tùy chỉnh nội dung tooltip */
 .tooltip-inner {
-  font-family: "STIX Two Text", serif;
   background-color: rgba(0, 0, 0, 0.85);
   color: #fff;
   font-size: 0.75em;
@@ -283,7 +141,6 @@ mjx-container[jax="CHTML"][display="true"] {
   /* min-width: 200px; */
 }
 
-/* Tùy chỉnh mũi tên bằng pseudo-element của .tooltip */
 .tooltip::before {
   content: "";
   position: absolute;
@@ -291,7 +148,6 @@ mjx-container[jax="CHTML"][display="true"] {
   border-style: solid;
 }
 
-/* Mũi tên hướng xuống (tooltip ở trên) */
 .bs-tooltip-top.tooltip::before {
   border-width: 5px 5px 0;
   border-color: var(--tooltip-before-background) transparent transparent;
@@ -300,7 +156,6 @@ mjx-container[jax="CHTML"][display="true"] {
   transform: translateX(-50%);
 }
 
-/* Mũi tên hướng lên (tooltip ở dưới) */
 .bs-tooltip-bottom.tooltip::before {
   border-width: 0 5px 5px;
   border-color: transparent transparent var(--tooltip-before-background);
@@ -309,7 +164,6 @@ mjx-container[jax="CHTML"][display="true"] {
   transform: translateX(-50%);
 }
 
-/* Mũi tên hướng phải (tooltip ở bên trái) */
 .bs-tooltip-start.tooltip::before {
   border-width: 5px 0 5px 5px;
   border-color: transparent transparent transparent
@@ -319,7 +173,6 @@ mjx-container[jax="CHTML"][display="true"] {
   transform: translateY(-50%);
 }
 
-/* Mũi tên hướng trái (tooltip ở bên phải) */
 .bs-tooltip-end.tooltip::before {
   border-width: 5px 5px 5px 0;
   border-color: transparent var(--tooltip-before-background) transparent
@@ -329,7 +182,6 @@ mjx-container[jax="CHTML"][display="true"] {
   transform: translateY(-50%);
 }
 
-/* Tùy chỉnh từ chứa tooltip */
 [data-bs-toggle="tooltip"] {
   color: inherit;
   cursor: pointer;
@@ -337,17 +189,56 @@ mjx-container[jax="CHTML"][display="true"] {
 }
 
 [data-bs-toggle="tooltip"]:hover {
-  color: #007bff; /* Màu xanh dương, bạn có thể đổi */
+  color: #007bff;
 }
 
-/* Tùy chỉnh tham chiếu chéo */
 a.quarto-xref {
   text-decoration: none; /* Bỏ gạch dưới */
-  color: inherit; /* Giữ màu chữ giống văn bản xung quanh */
+  color: inherit;
 }
 
-/* Tùy chọn: Thêm hiệu ứng khi hover (nếu muốn) */
 a.quarto-xref:hover {
   text-decoration: underline; /* Gạch dưới khi hover */
-  color: #007bff; /* Giữ màu chữ giống văn bản xung quanh */
+  color: #007bff;
+}
+
+.nguon {
+  width: 90%; /* Giới hạn chiều rộng 50% */
+  margin-left: auto; /* Căn phải trong container cha */
+  text-align: right; /* Căn phải nguồn */
+  font-size: 0.8em; /* Kích thước chữ nhỏ hơn */
+  color: #777; /* Màu chữ nhạt hơn */
+  margin-top: 0.5em; /* Khoảng cách phía trên nguồn */
+}
+
+a {
+  color: inherit; /* Màu xanh dương */
+  text-decoration: none; /* Bỏ gạch chân */
+  transition: color 0.3s ease; /* Hiệu ứng chuyển màu mượt mà */
+}
+
+a:hover {
+  color: #007bff;
+  text-decoration: underline; /* Thêm gạch chân khi hover */
+}
+
+a:focus {
+  outline: 2px solid #007bff; /* Viền focus rõ ràng */
+}
+
+a:active {
+  color: #dc3545; /* Màu đỏ khi nhấp */
+}
+
+/* a:visited {
+  color: #6c757d; 
+} */
+
+.tieu-de-chu-thich {
+  font-weight: bold;
+  color: #666666;
+  font-size: 0.85em; /* Kích thước 0.85 lần kích thước cha */
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  display: block; /* Đảm bảo nó hoạt động như một khối */
 }
