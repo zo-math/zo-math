@@ -1,0 +1,3035 @@
+---
+title: "Bài 4. Khảo sát và vẽ đồ thị một số hàm số cơ bản"
+subtitle: "Chương 1 | Chân Trời Sáng Tạo | Toán 12"
+
+date: last-modified
+date-format: "DD-MM-YYYY"
+author: "ZO Math"
+
+keywords: 
+    - khảo sát hàm số
+    - vẽ đồ thị hàm số 
+    - hàm đa thức bậc ba
+    - hàm hữu tỷ bậc nhất trên bậc nhất 
+    - hàm hữu tỷ bậc hai trên bậc nhất 
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(kableExtra)
+library(dplyr)
+library(MASS)
+# library(ggplot2)
+```
+
+<!-- Hoạt động khởi động -->
+
+<details>
+
+<summary class="de-muc">Hoạt động khởi động</summary>
+
+Giả sử chi phí tiền xăng $C \text{ (đồng)}$ phụ thuộc vào tốc độ trung bình $v \text{ (km/h)}$ theo công thức:
+
+$$
+    C(v)
+        = \frac{16000}{v} +\frac{5}{2}v \quad (0<v\leq 120).
+$$
+
+Để biểu diễn trực quan sự thay đổi của $C(v)$ theo $v$, người ta đã vẽ đồ thị hàm số $C=C(v)$ như hình bên dưới.
+
+Làm thế nào vẽ được đồ thị hàm số này?
+
+![Đồ thị hàm số $C(v)= \frac{16000}{v} +\frac{5}{2}v$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/hdkd-do-thi){width=350px}
+
+</details>
+
+<!-- Giải Hoạt động khởi động -->
+
+<details>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+Trước tiên, để có bối cảnh tư duy vững chắc, cần hiểu rõ ý nghĩa thực tế của hai đại lượng $v$ và $C$.
+
+* $v$ là *tốc độ trung bình* của chuyến đi, tính bằng $\text{km/h}$.
+* $C(v)$ là *chi phí tiền xăng* cho toàn bộ chuyến đi, tính bằng $\text{đồng}$. Quan sát dòng đầu tiên trong bảng trên, với tốc độ $20 \text{ km/h}$, chi phí tương ứng là $850 \text{ đồng}$ - nếu được hiểu là tiền xăng đi mỗi km dành cho một xe gắn máy thông thường thì khá hợp lý.
+
+Để vẽ đồ thị của hàm số $C(v)=\frac{16000}{v}+\frac{5}{2}v$ với $0<v\leq 120$, có thể bắt đầu bằng cách chọn một vài giá trị cụ thể của $v$, tính giá trị tương ứng $C=C(v)$, rồi chấm các điểm $(v;C(v))$ trên mặt phẳng tọa độ và nối lại để hình dung đồ thị. 
+
+Quản lý các điểm bằng cách lập bảng giá trị như sau:
+
+| $v$ <br> (km/h) | $\dfrac{16000}{v}$ | $\dfrac{5}{2}v$ | $C(v)$ <br> (đồng) |
+| :--------: | :----------------: | :-------------: | :-----------: |
+|     $20$     |        $800$         |       $50$        |      $850$      |
+|     $40$     |        $400$         |       $100$       |      $500$      |
+|     $60$     |       $266,67$       |       $150$       |    $416,67$     |
+|     $80$     |        $200$         |       $200$       |      $400$      |
+|    $100$     |        $160$         |       $250$       |      $410$      |
+|    $120$     |       $133,33$       |       $300$       |    $433,33$     |
+: {.striped .hover}
+
+Mỗi hàng trong bảng tương ứng với một cặp tọa độ $(v; C(v))$ trên mặt phẳng, thể hiện chi phí tương ứng với một mức tốc độ cụ thể. Khi chấm các điểm này và nối chúng lại, hình dạng đường cong hiện ra, phản ánh *quy luật thay đổi của chi phí theo tốc độ* - ban đầu giảm rồi tăng.
+
+![Đồ thị hàm số $C(v)=\frac{16000}{v}+\frac{5}{2}v$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/hdkd-do-thi-diem){width=350px fig-align="center"}
+
+Các điểm được chấm lên mặt phẳng tọa độ, càng nhiều càng tốt, giúp hình thành dần hình dáng đồ thị. Tuy nhiên, số điểm dù nhiều đến đâu cũng chỉ đại diện cho một phần rất nhỏ trong vô số điểm mà đồ thị hàm số có thể đi qua. Vì vậy, đồ thị vẽ từ thực nghiệm có thể gợi ý hình dạng, nhưng không thể đảm bảo đúng quy luật biến thiên thực sự của hàm số.
+
+Đây là giới hạn tự nhiên của cách làm thực nghiệm: *nó chỉ cho thấy điều quan sát được*, chứ chưa khẳng định được đặc trưng hình học ổn định của đồ thị. Muốn có cơ sở để vẽ một đường cong phản ánh đúng quy luật vận động nội tại của hàm số - *liền mạch, trơn tru và đi theo một xu hướng nhất định* - cần có sự đảm bảo bằng lý luận toán học. 
+
+* Hàm liên tục ở đâu thì ở đó đường cong được vẽ liền mạch mà không bị "đứt đoạn".
+* Hàm đồng biến hay nghịch biến ở đâu thì ở đó đường cong được vẽ hướng lên hay hướng xuống tương ứng.
+* Hàm số có cực trị ở đâu thì ở đó đường cong sẽ đổi hướng.
+
+Hàm số $C(v)$ liên tục trên $(0;120]$ vì nó là tổng của hai thành phần đều liên tục trên đó gồm $\frac{16000}{v}$ và $\frac{5}{2} v$. Trước khi đi vào các phân tích về chiều biến thiên và cực trị của $C(v)$, hãy thử tìm hiểu ý nghĩa của $C(v)$ thông qua hai thành phần có xu hướng đối lập này.
+
+* Thành phần $\frac{16000}{v}$ là *khoản chi phí tỉ lệ nghịch với tốc độ*. Khi đi chậm, quãng đường được thực hiện trong thời gian dài hơn, tức là động cơ phải duy trì hoạt động lâu hơn để hoàn thành hành trình. Dù tốc độ thấp giúp tiết kiệm nhiên liệu mỗi phút, nhưng *thời gian kéo dài khiến tổng lượng nhiên liệu tiêu thụ tăng*, làm chi phí tăng.
+
+    > Mình đoán 16000 trong biểu thức $\frac{16000}{v}$ là giá tiền của một lít xăng ở thời điểm bài toán được xây dựng. Nhưng trong thực tế, giá xăng hay nhiên liệu nói chung biến động theo thời gian và tùy khu vực, nên biểu thức chi phí này có thể trở nên lỗi thời và không còn phù hợp để tham khảo lâu dài. Thay vì dùng tiền, nếu bài toán tính trực tiếp lượng nhiên liệu tiêu thụ, thì mô hình sẽ ổn định hơn và có giá trị tham khảo bền vững hơn theo thời gian. Khi cần, chỉ việc nhân thêm với giá nhiên liệu hiện tại để ra chi phí thực tế.
+
+* Thành phần $\frac{5}{2}v$ là *khoản chi phí tỉ lệ thuận với tốc độ*. Khi đi nhanh, thời gian di chuyển ngắn lại, nhưng để đạt tốc độ cao, động cơ phải hoạt động mạnh hơn. Điều này dẫn đến *mức tiêu hao nhiên liệu trên mỗi đơn vị thời gian hoặc quãng đường cao hơn*, nên chi phí cũng tăng.
+
+Tóm lại, đi chậm làm tăng chi phí vì *lâu* (dù tiêu tốn ít mỗi phút nhưng kéo dài), còn đi nhanh làm tăng chi phí vì *hao* (mỗi phút tiêu hao nhiều hơn dù thời gian ngắn). *Một bên là dài lâu nên tốn, một bên là mạnh mẽ nên tốn* - cả hai cùng làm tổng chi phí tăng, nhưng theo hai cách khác nhau.
+
+Hàm số $C(v)$ có đạo hàm là
+
+$$
+    C'(v) 
+        = -\frac{16000}{v^2} + \frac{5}{2}.
+$$
+
+Phương trình $C'(v) = 0$ có nghiệm $v=80$. Dấu của đạo hàm $C^\prime(v)$ và chiều biến thiên của hàm số $C(v)$ được xác định như sau:
+
+* Vì $C'(v) < 0$ với $0<v<80$, nên hàm $C(v)$ nghịch biến trên $(0;80)$.
+* Vì $C'(v) > 0$ với $80<v<120$, nên hàm $C(v)$ đồng biến trên $(80;120)$.
+* Vì đạo hàm đổi dấu từ *âm sang dương* khi $v$ qua $80$ theo chiều dương, nên $C(v)$ đạt cực tiểu tại $v=80$ với giá trị cực tiểu là $C(80)=400$. 
+
+Hơn nữa, giá trị cực tiểu cũng là giá trị nhỏ nhất của hàm số, nghĩa là
+
+$$
+    \min_{(0;120]}C(v)
+        =C(80)
+        =400.
+$$ 
+
+Vì hàm giảm trên $(0;80)$ và tăng $(80;120]$, nên $C(80)=400$ phải là giá trị nhỏ nhất của $C(v)$ trên $(0;120]$.
+
+Kết quả toán học này mang lại một ý nghĩa thực tế quan trọng: muốn chi phí thấp nhất, nên đi với vận tốc khoảng $80 \text{ km/h}$. 
+
+Khảo sát và vẽ đồ thị hàm số $C(v)$ không chỉ là thao tác toán học, mà còn là công cụ để cân nhắc giữa hai yếu tố quan trọng trong thực tế: *chi phí* và *thời gian* di chuyển.
+
+::: {.callout-note title="Câu hỏi" collapse="true" icon="false"}
+Nếu bạn điều hành một doanh nghiệp vận tải thì bài toán này mang đến ý tưởng gì?
+:::
+
+</details>
+
+<!-- Hoạt động khám phá 1 -->
+
+<details>
+
+<summary class="de-muc">Hoạt động khám phá 1</summary>
+
+Cho hàm số $y=-x^2+4x-3$.
+
+a. Lập bảng biến thiên.
+b. Vẽ đồ thị của hàm số.
+
+</details>
+
+<!-- Giải Hoạt động khám phá 1 -->
+
+<details>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+**a\.** Hàm số $y=-x^2+4x-3$ là một hàm đa thức bậc hai, nên có tập xác định là $\mathbb{R}$.
+
+Đạo hàm $y^\prime=-2x+4$ xác định với mọi $x\in\mathbb{R}$ và triệt tiêu tại $x=2$. Chiều biến thiên và cực trị của hàm số được xác định nhờ dấu của đạo hàm.
+
+* Vì $y^\prime (x)=-2x+4>0$, với mọi $x<2$, nên hàm số *đồng biến* trên khoảng $(-\infty;2)$.
+* Vì $y^\prime (x)=-2x+4<0$, với mọi $x>2$, nên hàm số *nghịch biến* trên khoảng $(2;+\infty)$.
+* Vì đạo hàm chuyển dấu từ *dương sang âm* khi  $x$ qua $2$ theo chiều dương, nên hàm số đạt cực đại tại $x=2$ với giá trị cực đại là $y(2)=1$.
+
+Các giới hạn tại vô cực cho biết xu thế đồ thị ở hai đầu trục hoành:
+
+$$
+\begin{aligned}
+    \lim_{x\to\pm\infty}y(x)
+        &=\lim_{x\to\pm\infty}(-x^2+4x-3)\\
+        &=\lim_{x\to\pm\infty}x^2\left(-1+\frac{4}{x}-\frac{3}{x^2}\right)\\
+        &=-\infty.
+\end{aligned}
+$$
+
+Điều này cho biết ở cả phía trái và phía phải trục hoành, đồ thị hàm số luôn đi xuống.
+
+Từ các thông tin trên, lập bảng biến thiên:
+
+![Bảng bảng biến thiên hàm số $y=-x^2+4x-3$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/hdkp-1-bang-bien-thien){width=450px fig-align="center"}
+
+**b\.** Nếu đồ thị hàm số có tâm đối xứng hay trục đối xứng thì việc vẽ đồ thị trở nên nhanh chóng và chính xác hơn. Nhìn vào bảng biến thiên, thấy rằng đường thẳng $x = 2$ có thể là trục đối xứng. 
+
+Với mỗi điểm $\hat M(\hat x;\hat y)$ thuộc vào đồ thị, gọi điểm đối xứng tương ứng là $\check M(\check x;\check y)$. Khi đó, vì đường thẳng $x=2$ vuông góc với trục hoành $Ox$ nên $\hat y=\check y$. Mặt khác, vì trung điểm của đoạn $\hat M\check M$ luôn nằm trên đường thẳng $x=2$ nên 
+$$
+    \frac{\hat x+\check x}{2}=2
+$$
+
+hay
+$$
+    \hat x=4-\check x.
+$$
+
+Để chứng minh đồ thị đối xứng qua đường thẳng $x=2$, cần chứng minh $\check M$ cũng thuộc đồ thị, hay tọa độ $\check M$ thỏa công thức hàm số $y=-x^2+4x^2-3$. Thật vậy, vì $\hat y=\check y$, nên
+$$
+\begin{aligned}
+    \check y
+        &=\hat y\\
+        &=y(\hat x)\\
+        &=y(4-\check x)\\
+        &=-(4-\check x)^2+4(4-\check x)-3\\
+        &=-(16-8\check x+\check x^2)+(16-4\check x)-3\\
+        &=-\check x^2+4\check x-3\\
+        &=y(\check x).
+\end{aligned}
+$$
+
+Đây là điều cần chứng minh.
+
+::: {.callout-tip title="Đồ thị có trục đối xứng $x=a$" collapse="true" icon="false"}
+Nếu $f(2a-x)=f(x)$ với mọi $x\in \mathcal{D}$, thì đường thẳng $x=a$ là trục đối xứng của đồ thị hàm số $f(x)$.
+:::
+
+Để định vị đồ thị trên mặt phẳng tọa độ, cần xác định một số điểm mà đồ thị đi qua, ưu tiên những điểm đóng vai trò quan trọng trong việc định hình đường cong. Những điểm này bao gồm điểm cực đại, các điểm cắt trục tọa độ nếu có, và các điểm đối xứng với các điểm đã biết qua đường thẳng $x=2$. 
+
+* Hàm số có điểm cực đại $(2;1)$. Điểm này quan trọng nhất vì nó xác định nơi hàm số đổi chiều biến thiên và là điểm nằm trên trục đối xứng của đồ thị, đường thẳng $x=2$. Do hàm số đồng biến trên $(-\infty;2)$ và nghịch biến trên $(2;+\infty)$, nên giá trị cực đại $y(2)=1$ đồng thời cũng là giá trị lớn nhất của hàm số, nghĩa là 
+
+    $$
+        \max_{x\in\mathbb{R}}y(x)
+            =y(2)
+            =1.
+    $$
+
+    Suy ra $(2;1)$ là điểm cao nhất trên đồ thị.
+
+* Đồ thị cắt trục hoành tại hai điểm $(1;0)$ và $(3;0)$, được tìm ra bằng cách thay $y=0$ vào công thức hàm số rồi tìm $x$. Việc này dẫn đến giải phương trình: $-x^2 + 4x - 3 = 0$. Nghiệm của phương trình này chính là hoành độ của các giao điểm, vì thế những phương trình xuất hiện trong cùng tình huống thường được gọi là *phương trình hoành độ giao điểm*. 
+
+* Đồ thị cắt trục tung tại điểm $(0;-3)$, được tìm ra bằng cách thay $x=0$ vào công thức hàm số để có $y=y(0)=-3$, đây có lẽ là điểm dễ xác định nhât. 
+
+* Điểm $(4; -3)$ đối xứng với $(0; -3)$ qua đường thẳng $x=2$. Điểm này hỗ trợ vẽ đường cong cân đối hơn.
+
+Có thể chọn thêm điểm để gia tăng sự chính xác khi vẽ đồ thị, số lượng tùy ý, càng nhiều càng tôt.
+
+Kết hợp các thông tin đã có, đồ thị hàm số $y=-x^2+4x-3$ là một đường cong được mô tả như dưới đây.
+
+* Đối xứng qua đường thẳng $x=2$.
+* Điểm cao nhất là $(2;1)$.
+* Trong khoảng $(-\infty;2)$, đồ thị đi lên, cắt trục tung tại điểm $(0;-3)$, và cắt trục hoành tại điểm $(1;0)$. 
+* Trong khoảng $(2;+\infty)$, đồ thị đi xuống, cắt trục hoành tại điểm $(3;0)$, và đi qua điểm $(4;-3)$ đối xứng với $(0;-3)$ qua đường thẳng $x=2$. 
+
+Nếu biết về hàm số bậc hai, có thể nhận ra đồ thị này là một đường cong gọi là <span data-bs-toggle="tooltip" title="parabola">*pơ-rá-bơ-lờ*</span>. Dưới đây là các bước vẽ đồ thị.
+
+* Đánh dấu các điểm: $(2; 1)$, $(1; 0)$, $(3; 0)$, $(0; -3)$, $(4; -3)$.
+
+    ![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/hdkp-1-do-thi-buoc-1){width=350px fig-align="center"}
+
+* Vẽ đường thẳng đứng $x = 2$ để thể hiện tính đối xứng, ví dụ $(0; -3)$ và $(4; -3)$ nằm cân đối hai bên.
+
+    ![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/hdkp-1-do-thi-buoc-2){width=350px fig-align="center"}
+
+* Nối các điểm bằng đường cong mượt mà, đảm bảo:
+    - Từ bên trái, đường cong tăng từ rất thấp, qua $(0; -3)$, $(1; 0)$, đến $(2; 1)$.
+    - Từ $(2; 1)$, đường cong giảm qua $(3; 0)$, $(4; -3)$, và tiếp tục xuống thấp.
+
+    ![Đồ thị $y=-x^2+4x-3$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/hdkp-1-do-thi){width=350px fig-align="center"}
+
+* Kiểm tra tính đối xứng qua đường thẳng $x = 2$ và hình dạng cong tại $(2; 1)$ để đảm bảo đồ thị cân đối.
+
+</details>
+
+<!-- Kết quả Hoạt động khởi động 1 -->
+
+<details>
+
+<summary class="ket-qua">Kết quả</summary>
+
+**a\.** Hàm số $y=-x^2+4x-3$ có tập xác định là $\mathbb{R}$. Đạo hàm là $y^\prime=-2x+4$ triệt tiêu tại $x=2$. 
+
+* Hàm số đồng biến trên $(-\infty;2)$, vì $y^\prime (x)>0$ với mọi $x<2$.
+- Hàm số nghịch biến trên $(2;+\infty)$, vì $y^\prime (x)<0$ với mọi $x>2$.
+- Hàm số đạt cực đại tại $x=2$, giá trị cực đại là $y(2)=1$, vì đạo hàm đổi dấu từ *dương sang âm* khi $x$ qua $2$ theo chiều dương.
+
+Đồ thị hàm số luôn đi xuống về hai phía trục hoành, vì
+$$
+    \lim_{x\to\pm\infty}y(x)
+        =\lim_{x\to\pm\infty}(-x^2+4x-3)        
+        =-\infty.
+$$
+
+Từ các thông tin trên, lập bảng biến thiên:
+
+![Bảng bảng biến thiên hàm số $y=-x^2+4x-3$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/hdkp-1-bang-bien-thien.svg){width=525px fig-align="center"}
+
+**b\.** Đồ thị hàm số đối xứng qua đường thẳng $x=2$, vì
+
+$$
+\begin{aligned}
+    y(2\cdot 2-x)
+        &=y(4-x)\\
+        &=-(4-x)^2+4(4-x)-3\\
+        &=-(16-8x+x^2)+(16-4x)-3\\
+        &=-x^2+4x-3\\
+        &=y(x).
+\end{aligned}
+$$
+
+Tính chất này giúp vẽ đồ thị nhanh chóng và chính xác hơn. 
+
+Để định vị đồ thị trên mặt phẳng tọa độ, cần xác định một số điểm đặc biệt mà đồ thị đi qua.
+
+* Điểm cực đại $(2;1)$.
+* Điểm giao với trục tung $(0;-3)$.
+* Điểm giao với trục hoành $(1;0)$ và $(3;0)$.
+* Điểm đối xứng với $(0;-3)$ qua đường thẳng $x=2$ là $(4;-3)$.
+
+Đồ thị của hàm số đã cho là
+
+![Đồ thị $y=-x^2+4x-3$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/hdkp-1-do-thi){width=350px fig-align="center"}
+
+</details>
+
+<!-- Sơ đồ khảo sát hàm số -->
+
+::: {.callout-important title="Các bước khảo sát và vẽ đồ thị hàm số" collapse="true" icon="false"}
+
+**Bước 1.** Tìm tập xác định của hàm số
+
+**Bước 2.** Xét sự biến thiên của hàm số
+
+* Tìm đạo hàm $y^\prime$, xét dấu $y^\prime$, xác định khoảng đơn điệu, cực trị (nếu có) của hàm số.
+* Tìm giới hạn tại vô cực, giới hạn vô cực của hàm số và các đường tiệm cận của đồ thị
+hàm số (nếu có).
+* Lập bảng biến thiên của hàm số.
+
+**Bước 3.** Vẽ đồ thị của hàm số
+
+* Xác định các điểm cực trị (nếu có), giao điểm của đồ thị với các trục toạ độ (nếu có và dễ tìm), v.v..
+* Vẽ các đường tiệm cận của đồ thị hàm số (nếu có).
+* Vẽ đồ thị hàm số.
+
+**Chú ý:** Chỉ ra tâm đối xứng và trục đối xứng của đồ thị hàm số (nếu có).
+
+<div class="nguon">Chân Trời Sáng Tạo. Toán 12. Tập 1. Trang 26. Năm 2024</div>
+
+:::
+
+<!-- Thực hành 1 -->
+
+<details open>
+
+<summary class="de-muc">Thực hành 1</summary>
+
+Khảo sát và vẽ đồ thị của các hàm số sau:
+
+a. $y=-2x^3-3x^2+1$;
+b. $y=x^3+3x^2+3x+2$.
+
+</details>
+
+<!-- Nháp Thực hành 1 -->
+
+<details open>
+
+<summary class="de-muc">Nháp</summary>
+
+**a.** Khảo sát và vẽ đồ thị hàm số $y=-2x^3-3x^2+1$
+
+::: {.tieu-de-chu-thich}
+Tập xác định
+:::
+
+$\mathcal{D}=\mathbb{R}$
+
+::: {.tieu-de-chu-thich}
+Sự biến thiên
+:::
+
+* Chiều biến thiên và cực trị
+    * Đạo hàm: $y^\prime=-6x^2-6x$
+    * $y^\prime(x)=0$: $x=-1$, $x=0$
+    * Nghịch biến: $(-\infty;-1)$, $(0;+\infty)$
+    * Đồng biến: $(-1;0)$
+    * Cực tiểu: $(-1;0)$
+    * Cực đại: $(0;1)$
+
+* Giới hạn tại vô cực 
+
+    $$
+    \begin{aligned}
+        \lim_{x\to\pm\infty}y(x)
+            &=\lim_{x\to\pm\infty}(-2x^3-3x^2+1)\\
+            &=\lim_{x\to\pm\infty}x^3\left(-2-\frac{3}{x}+\frac{1}{x^3}\right)\\
+            &=\mp\infty
+    \end{aligned}
+    $$
+
+* Bảng biến thiên 
+
+    ![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-1-a-bang-bien-thien){width=450px fig-align="center"}
+
+::: {.tieu-de-chu-thich}
+Đồ thị
+:::
+
+* Điểm cực tiểu, đồng thời tiếp xúc với $Ox$: $(-1;0)$. Giao điểm còn lại với trục  hoành: $\left(\frac{1}{2};0\right)$
+* Điểm cực đại, đồng thời giao với $Oy$: $(0;1)$
+* Tâm đối xứng: $I\left(-\frac{1}{2}; \frac{1}{2}\right)$
+* Điểm cực đại và cực tiểu đối xứng nhau qua $I$
+* Điểm $\left(-\frac{3}{2};1\right)$ đối xứng với $\left(\frac{1}{2};0\right)$ qua $I$
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-1-a-do-thi-diem-uon){width=350px fig-align="center"}
+
+**b.** Khảo sát và vẽ đồ thị hàm số $y=x^3+3x^2+3x+2$
+
+::: {.tieu-de-chu-thich}
+Tập xác định 
+:::
+
+$\mathcal{D}=\mathbb{R}$
+
+::: {.tieu-de-chu-thich}
+Chiều biến thiên 
+:::
+
+* Chiều biến thiên và cực trị
+    * Đạo hàm: $y^\prime=3(x+1)^2\geq 0, \forall x\in \mathbb{R}$
+    * Đồng biến: $\mathbb{R}$
+
+* Giới hạn tại vô cực 
+
+    $$
+    \begin{aligned}
+        \lim_{x\to\pm\infty}y(x)
+            &=\lim_{x\to\pm\infty}(x^3+3x^2+3x+2)\\
+            &=\lim_{x\to\pm\infty}x^3\left(1+\frac{3}{x}+\frac{3}{x^2}+\frac{2}{x^3}\right)\\
+            &=\pm\infty
+    \end{aligned}
+    $$
+
+* Bảng biến thiên:
+
+    ![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-1-b-bang-bien-thien){width=350px fig-align="center"}
+
+::: {.tieu-de-chu-thich}
+Đồ thị
+:::
+
+* Giao điểm $Oy$: $(0;2)$
+* Giao điểm $Ox$: $(-2;0)$
+* Tâm đối xứng: $I(-1;1)$
+* Điểm $(0;2)$ đối xứng với $(-2;0)$ qua $I$
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-1-b-do-thi){width=375px fig-align="center"}
+
+</details>
+
+<!-- Giải Thực hành 1 -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+**a\.** Hàm số $y=-2x^3-3x^2+1$ có tập xác định là $\mathbb{R}$. 
+
+Hàm số có đạo hàm là $y^\prime=-6x^2-6x$. Xét phương trình $y^\prime=0$, khi đó  
+
+$$
+    -6x^2-6x=0
+$$
+
+tương đương với
+
+$$
+    -6x(x+1)=0.
+$$
+
+Dạng tích giúp tìm được hai nghiệm $x=-1$ và $x=0$ thuận lợi hơn.
+
+Chiều biến thiên và cực trị của hàm số được xác định nhờ dấu của đạo hàm.
+
+* Vì $y^\prime (x)<0$ với mọi $x<-1$ hoặc $x>0$, nên hàm số nghịch biến trên $(-\infty;-1)$ và $(0;+\infty)$.
+* Vì $y^\prime (x)>0$ với mọi $-1<x<0$, nên hàm số đồng biến trên $(-1;0)$.
+* Vì $y^\prime(x)$ đổi dấu từ *âm sang dương* khi $x$ qua $-1$ theo chiều dương, nên hàm số đạt cực tiểu tại $x=-1$, giá trị cực tiểu là $y(-1)=0$.
+* Ngược lại, vì $y^\prime(x)$ đổi dấu từ *dương sang âm* khi $x$ qua $0$, nên hàm số đạt cực đại tại $x=0$, giá trị cực đại là $y(0)=1$.
+
+Các giới hạn tại vô cực cho biết xu hướng đồ thị ở hai phía của mặt phẳng tọa độ.
+
+* Vì 
+
+    $$
+    \begin{aligned}
+        \lim_{x\to-\infty}y(x)
+            &=\lim_{x\to-\infty}(-2x^3-3x^2+1)\\
+            &=\lim_{x\to-\infty}x^3\left(-2-\frac{3}{x}+\frac{1}{x^3}\right)\\
+            &=+\infty,
+    \end{aligned}
+    $$
+
+    nên đồ thị giữ xu hướng đi *lên về phía trái* của mặt phẳng tọa độ.
+
+* Vì 
+
+    $$
+    \begin{aligned}
+        \lim_{x\to+\infty}y(x)
+            &=\lim_{x\to+\infty}(-2x^3-3x^2+1)\\
+            &=\lim_{x\to+\infty}x^3\left(-2-\frac{3}{x}+\frac{1}{x^3}\right)\\
+            &=-\infty.
+    \end{aligned}
+    $$
+
+    nên đồ thị giữ xu hướng đi *xuống về phía phải* của mặt phẳng tọa độ, 
+
+Từ các thông tin đã có, lập bảng biến thiên:
+
+![Bảng biến thiên $y=-2x^3-3x^2+1$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-1-a-bang-bien-thien){width=450px fig-align="center"}
+
+Các điểm dưới đây giúp định vị đồ thị trên mặt phẳng tọa độ.
+
+* Điểm cực đại $(0;1)$ đồng thời cũng là giao điểm của của đồ thị với trục tung $Oy$, vì có hoành độ bằng $0$.
+* Điểm cực tiểu $(-1;0)$ đồng thời cũng là một trong các giao điểm của đồ thị với trục hoành $Ox$, vì có tung độ bằng $0$. Nhưng lưu ý rằng đây là một loại giao điểm đặc biệt - tiếp điểm. Điều này cho thấy hoành độ điểm cực tiểu $x=-1$ là nghiệm kép của phương trình
+
+    $$
+        -2x^3-3x^2+1=0.
+    $$
+
+    Thông tin nghiệm kép giúp biến đổi phương trình về dạng tích 
+
+    $$
+        (x+1)^2(-2x+1)=0.
+    $$
+
+    Từ đây, suy ra hoành độ giao điểm còn lại là $x=\frac{1}{2}$. Vậy, giao điểm còn lại giữa đồ thị và trục hoành là $\left(\frac{1}{2};0\right)$. 
+
+Dựa vào tính liên tục, chiều biến thiên và các điểm đã xét, vẽ đồ thị:
+
+![Đồ thị $y=-2x^3-3x^2+1$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-1-a-do-thi){width=350px fig-align="center"}
+
+Quan sát đồ thị, nhận thấy $I\left(-\frac{1}{2}; \frac{1}{2}\right)$, nằm giữa hai cực trị $(-1; 0)$ và $(0; 1)$, là một điểm đặc biệt. Điểm này dường như đóng vai trò quan trọng cả về hình dạng cong lẫn tính đối xứng của đồ thị.
+
+![Đồ thị $y=-2x^3-3x^2+1$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-1-a-do-thi-diem-i){width=350px fig-align="center"}
+
+* Bên trái $I$, mọi tiếp tuyến đều nằm *dưới đồ thị* ở lân cận tiếp điểm, cho thấy đồ thị cong lên so với tiếp tuyến.
+* Bên phải $I$, mọi tiếp tuyến đều nằm *trên đồ thị* ở lân cận tiếp điểm, cho thấy đồ thị cong xuống so với tiếp tuyến.
+
+Nếu gọi phần đồ thị bên trái $I$ là *lồi*, thì phần bên phải sẽ gọi là *lõm*. Sự khác biệt này cho thấy $I\left(-\frac{1}{2}; \frac{1}{2}\right)$ là nơi đồ thị thay đổi hướng cong: từ "ngửa lên" sang "gập xuống". Điểm mà đồ thị thay đổi hướng cong được gọi là *điểm uốn*.
+
+* Tại $I$, tiếp tuyến cắt ngang đồ thị. Phần tiếp tuyến bên trái $I$ nằm dưới đồ thị, và phần bên phải $I$ nằm trên đồ thị. Sự chuyển đổi này qua tiếp tuyến cho thấy điểm uốn không chỉ là nơi thay đổi hướng cong mà còn là một mốc trung gian, nơi đồ thị "trượt qua" một cách hài hòa. Tiếp tuyến tại $I$ như một đường cân bằng, minh họa rõ ràng sự thay đổi mượt mà từ lồi sang lõm, đồng thời củng cố ý tưởng rằng $I$ là *tâm đối xứng* - nơi hai phần đồ thị đối lập nhau nhưng vẫn giữ được sự cân đối khi quay $180°$.
+
+Bên cạnh đó, đồ thị dường như đối xứng quanh $I$. Chẳng hạn, cặp điểm $(-1; 0)$ và $(0; 1)$ có trung điểm chính là $I$, và cả hai điểm đều thuộc đồ thị. Điều này gợi ý rằng $I$ có thể là tâm đối xứng - nơi mà nếu quay đồ thị $180°$ quanh đó, đồ thị sẽ giữ nguyên hình dạng ban đầu.
+
+Điểm uốn là nơi đồ thị thay đổi hướng cong, từ lồi sang lõm, tạo nên một sự chuyển tiếp êm dịu. Tâm đối xứng, trong trường hợp này, là điểm mà đồ thị đối xứng quay $180^\circ$, nghĩa là hai phần đồ thị hai bên $I$ có hình dạng đối lập nhưng cân bằng. Với hàm bậc ba, điểm uốn thường trùng với tâm đối xứng, vì sự thay đổi hướng cong tạo ra sự hài hòa đặc trưng, dẫn đến tính đối xứng này.
+
+Để xác định điểm uốn một cách chính xác, cần đo lường hướng cong của đồ thị. Hướng cong liên quan đến độ dốc của tiếp tuyến, được cho bởi $y^\prime$, và tốc độ thay đổi của độ dốc, được cho bởi $y^{\prime\prime}$:
+
+* Đạo hàm bậc nhất $y^\prime$ cho biết độ dốc tại mỗi điểm.
+* Đạo hàm bậc hai $y^{\prime\prime}$ đo lường tốc độ thay đổi của độ dốc:
+  * Nếu $y^{\prime\prime} > 0$, độ dốc tăng, đồ thị lồi, và tiếp tuyến nằm dưới đồ thị.
+  * Nếu $y^{\prime\prime} < 0$, độ dốc giảm, đồ thị lõm, và tiếp tuyến nằm trên đồ thị.
+  * Qua điểm uốn, hướng cong thay đổi, nên $y^{\prime\prime} = 0$, và $y^{\prime\prime}$ đổi dấu qua điểm đó.
+
+Hàm số $y=-2x^3-3x^2+1$ có đạo hàm cấp hai là $y^{\prime\prime}=-12x-6$ triệt tiêu tại $x=-\frac{1}{2}$. Hơn nữa, $y^{\prime\prime}$ đổi từ *dương sang âm* khi qua $x=-\frac{1}{2}$, nên $I\left(-\frac{1}{2}; \frac{1}{2}\right)$ đúng là điểm uốn như đã quan sát trên đồ thị.
+
+Mặt khác, đồ thị cũng cho thấy $I\left(-\frac{1}{2}; \frac{1}{2}\right)$ là tâm đối xứng. Để xác nhận, cần chứng minh rằng nếu $\hat M(\hat x; \hat y)$ đối xứng qua $I$ với điểm $M(x; y)$ thuộc đồ thị, thì cũng phải thuộc đồ thị. Nghĩa là cần chứng minh tọa độ của điểm $\hat M$ thỏa công thức hàm số. 
+
+Vì $\hat M$ đối xứng với $M$ qua $I$, nên tọa độ của $\hat M$ là
+
+$$
+  (\hat x;\hat y)=(-1-x;1-y).
+$$
+
+Thay $\hat x = -1 - x$ vào hàm số:
+
+$$
+  \hat y = -2(-1 - x)^3 - 3(-1 - x)^2 + 1.
+$$
+
+Sau khi khai triển và rút gọn, sẽ thu được 
+
+$$
+  \hat y=2x^3+3x^3.
+$$
+
+Tại đây, dùng một chút kỹ thuật thêm bớt để làm sáng tỏ điều cần chứng minh là
+
+$$
+  \hat y
+    =1-\left(-2x^3-3x^2+1\right)
+    =1-y.
+$$
+
+Với hàm bậc ba, điểm uốn thường là duy nhất, vì đạo hàm bậc hai có biểu thức là một đa thức bậc nhất. Sự thay đổi từ lồi sang lõm tại điểm uốn tạo nên sự đối xứng hình học: phần bên trái và bên phải của đồ thị trở nên đối lập nhưng cân bằng. Tiếp tuyến tại các điểm hai bên $I$ - nằm dưới đồ thị bên trái, trên đồ thị bên phải - càng làm nổi bật sự đối lập hài hòa này, dẫn đến tính đối xứng quay $180°$ quanh $I$. Hơn nữa, tâm đối xứng của một hàm bậc ba là duy nhất, vì không thể tồn tại một tâm đối xứng khác mà không làm thay đổi bản chất của đồ thị.
+
+Giải phương trình $y^{\prime\prime}=0$ để xác định hoành độ điểm uốn là cách hệ thống để xác định điểm này, và vì trùng với tâm đối xứng, nên đây là cách gián tiếp hiệu quả để tìm tâm đối xứng.
+
+Bảng biến thiên và đồ thị khi có thể hiện tâm đối xứng:
+
+![Bảng biến thiên $y=-2x^3-3x^2+1$ với tâm đối xứng $I\left(-\frac{1}{2};\frac{1}{2}\right)$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-1-a-bang-bien-thien-diem-uon){width=450px fig-align="center"}
+
+![Đồ thị $y=-2x^3-3x^2+1$ với tâm đối xứng $I\left(-\frac{1}{2};\frac{1}{2}\right)$, và điểm $\left(-\frac{3}{2};1\right)$ đối xứng với điểm $\left(\frac{1}{2};0\right)$ qua tâm $I$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-1-a-do-thi-diem-uon){width=350px fig-align="center"}
+
+**b\.** Hàm số $y=x^3+3x^2+3x+2$ có tập xác định là $\mathbb{R}$. 
+
+Hàm số có đạo hàm là 
+
+$$
+    y^\prime
+        =3x^2+6x+3
+        =3(x+1)^2\geq 0,
+$$
+
+với mọi $x\in\mathbb{R}$. Vậy, hàm số luôn đồng biến trên $\mathbb{R}$.
+
+Các giới hạn tại vô cực cho biết xu hướng đồ thị ở hai phía của mặt phẳng tọa độ.
+
+* Vì
+
+    $$
+        \begin{aligned}
+            \lim_{x\to-\infty}y(x)
+                &=\lim_{x\to-\infty}(x^3+3x^2+3x+2)\\          
+                &=\lim_{x\to-\infty}x^3\left(1+\frac{3}{x}+\frac{3}{x^2}+\frac{2}{x^3}\right)\\
+                &=-\infty,
+        \end{aligned}
+    $$
+
+    nên đồ thị giữ xu hướng đi *xuống về phía trái* của mặt phẳng tọa độ.
+
+* Vì
+
+    $$
+        \begin{aligned}
+            \lim_{x\to+\infty}y(x)
+                &=\lim_{x\to+\infty}(x^3+3x^2+3x+2)\\           
+                &=\lim_{x\to+\infty}x^3\left(1+\frac{3}{x}+\frac{3}{x^2}+\frac{2}{x^3}\right)\\
+                &=+\infty, 
+        \end{aligned}
+    $$
+
+    nên đồ thị giữ xu hướng đi *lên về phía phải* của mặt phẳng tọa độ.
+
+Từ các thông tin đã có, lập bảng biến thiên:
+
+![Bảng biến thiên $y=x^3+3x^2+3x+2$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-1-b-bang-bien-thien){width=350px fig-align="center"}
+
+Hoành độ của tâm đối xứng là nghiệm của phương trình $y^{\prime\prime}=0$, tức là 
+
+$$
+    6x+6=0.
+$$
+
+Giải phương trình được $x=-1$, và giá trị hàm số tương ứng là $y(-1)=1$. Vậy, tâm đối xứng của đồ thị là $I(-1;1)$.
+
+Để định vị đồ thị trên mặt phẳng tọa độ, xét một số điểm đặc biệt.
+
+* Tại $x=0$ hàm số có giá trị là $y=2$, nên đồ thị hàm số giao với trục tung $Oy$ tại điểm $(0;2)$.
+* Vì hàm số luôn đồng biến trên $\mathbb{R}$, nên đồ thị chỉ có thể giao với trục hoành $Ox$ tại duy nhất một điểm, có hoành độ phải là nghiệm duy nhất của phương trình 
+
+    $$
+        x^3+3x^2+3x+2=0.
+    $$
+
+    Nhẩm được nghiệm đó $x=-2$. Dựa vào đây đưa phương trình về dạng tích:
+
+    $$
+        (x+2)(x^2+x+1)=0.
+    $$
+
+    Vì $x^2+x+1=\left(x+\frac{1}{2}\right)^2+\frac{3}{4}>0$, nên $x=-2$ đúng là nghiệm duy nhất.
+
+    Vậy, giao điểm với trục hoành là $(-2;0)$.
+
+Dựa trên tính liên tục, đối xứng tâm, chiều biến thiên và các điểm đã xét, vẽ đồ thị:
+
+![Đồ thị $y=x^3+3x^2+3x+2$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-1-b-do-thi){width=375px fig-align="center"}
+
+</details>
+
+<!-- Kết quả Thực hành 1 -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+**a\.** Hàm số $y=-2x^3-3x^2+1$ có tập xác định là $\mathbb{R}$. 
+
+Đạo hàm $y^\prime=-6x^2-6x$ triệt tiêu tại $x=-1$ hoặc $x=0$. 
+
+* Hàm số *nghịch biến* trên $(-\infty;-1)$ và $(0;+\infty)$, vì $y^\prime=-6x^2-6x<0$ với mọi $x<-1$ và $x>0$.
+* Hàm số *đồng biến* trên $(-1;0)$, vì $y^\prime=-6x^2-6x>0$ với mọi $-1<x<0$.
+* Hàm số đạt *cực tiểu* tại $x=-1$, giá trị cực tiểu là $y(-1)=0$, vì $y^\prime$ đổi dấu từ *âm sang dương* khi $x$ qua $-1$ theo chiều dương.
+* Hàm số đạt *cực đại* tại $x=0$, giá trị cực đại là $y(0)=1$, vì $y^\prime$ đổi dấu từ *dương sang âm* khi $x$ qua $0$ theo chiều dương.
+
+Các giới hạn tại vô cực cho biết xu hướng đồ thị ở hai phía của mặt phẳng tọa độ.
+
+* Đồ thị giữ xu hướng đi *lên về phía trái* của mặt phẳng tọa độ, vì 
+
+    $$
+    \begin{aligned}
+        \lim_{x\to-\infty}y(x)
+            &=\lim_{x\to-\infty}(-2x^3-3x^2+1)\\
+            &=\lim_{x\to-\infty}x^3\left(-\frac{2}{x^3}-\frac{3}{x}+\frac{1}{x^3}\right)\\
+            &=+\infty.
+    \end{aligned}
+    $$
+* Đồ thị giữ xu hướng đi *xuống về phía phải* của mặt phẳng tọa độ, vì 
+    $$
+    \begin{aligned}
+        \lim_{x\to+\infty}y(x)
+            &=\lim_{x\to+\infty}(-2x^3-3x^2+1)\\
+            &=\lim_{x\to+\infty}x^3\left(-\frac{2}{x^3}-\frac{3}{x}+\frac{1}{x^3}\right)\\
+            &=-\infty.
+    \end{aligned}
+    $$
+
+Bảng biến thiên:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-1-a-bang-bien-thien){width=375px fig-align="center"}
+
+Đồ thị của hàm số bậc ba luôn có một tâm đối xứng với hoành độ là nghiệm của phương trình 
+
+$$
+    y^{\prime\prime}=-12x-6=0.
+$$
+
+Giải ra được $x=-\frac{1}{2}$. Vậy, tâm đối xứng là
+
+$$
+    I\left(-\frac{1}{2};y\left(-\frac{1}{2}\right)\right)
+        = I\left(-\frac{1}{2};\frac{1}{2}\right).
+$$
+
+Các điểm dưới đây giúp định vị đồ thị trên mặt phẳng tọa độ.
+
+* Điểm cực đại $(0;1)$ đồng thời cũng là giao điểm của của đồ thị với $Oy$.
+* Điểm cực tiểu $(-1;0)$ đồng thời cũng là một trong các giao điểm của đồ thị với $Ox$. Đây là một loại giao điểm đặc biệt - tiếp điểm. Điều này cho thấy hoành độ điểm cực tiểu $x=-1$ là nghiệm kép của phương trình
+
+    $$
+        -2x^3-3x^2+1=0.
+    $$
+
+    Thông tin nghiệm kép giúp biến đổi phương trình về dạng tích 
+
+    $$
+        (x+1)^2(-2x+1)=0.
+    $$
+
+    Từ đây, suy ra hoành độ giao điểm còn lại là $x=\frac{1}{2}$. Vậy, giao điểm còn lại giữa đồ thị và trục hoành là $\left(\frac{1}{2};0\right)$. 
+
+* Điểm $\left(-\frac{3}{2};1\right)$ đối xướng với điểm $\left(\frac{1}{2};0\right)$ qua tâm $I$. 
+
+Đồ thị:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-1-a-do-thi-diem-uon){width=350px fig-align="center"}
+
+**b\.** Hàm số $y=x^3+3x^2+3x+2$ có tập xác định là $\mathbb{R}$.
+
+Hàm số luôn đồng biến trên $\mathbb{R}$, vì 
+
+$$
+    y^\prime
+        =3x^2+6x+3
+        =3(x+1)^2\geq 0,
+$$  
+
+với mọi $x\in\mathbb{R}$.
+
+Các giới hạn tại vô cực cho biết xu hướng đồ thị ở hai phía của mặt phẳng tọa độ.
+
+* Đồ thị giữ xu hướng đi *xuống về phía trái* của mặt phẳng tọa độ, vì
+
+$$
+    \begin{aligned}
+        \lim_{x\to-\infty}y(x)
+            &=\lim_{x\to-\infty}(x^3+3x^2+3x+2)\\          
+            &=\lim_{x\to-\infty}x^3\left(1+\frac{3}{x}+\frac{3}{x^2}+\frac{2}{x^3}\right)\\
+            &=-\infty. 
+    \end{aligned}
+$$
+
+* Đồ thị giữ xu hướng đi *lên về phía phải* của mặt phẳng tọa độ, vì
+
+$$
+    \begin{aligned}
+        \lim_{x\to+\infty}y(x)
+            &=\lim_{x\to+\infty}(x^3+3x^2+3x+2)\\           
+            &=\lim_{x\to+\infty}x^3\left(1+\frac{3}{x}+\frac{3}{x^2}+\frac{2}{x^3}\right)\\
+            &=+\infty. 
+    \end{aligned}
+$$
+
+Bảng biến thiên:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-1-b-bang-bien-thien){width=350px fig-align="center"}
+
+Đồ thị của hàm số bậc ba luôn có một tâm đối xứng với hoành độ là nghiệm của phương trình
+
+$$
+    y^{\prime\prime}=6x+6=0.
+$$
+
+Giải ra được $x=-1$. Vậy, tâm đối xứng là
+
+$$
+    I(-1;y(-1))=I(-1;1).
+$$
+
+Các điểm dưới đây giúp định vị đồ thị trên mặt phẳng tọa độ.
+
+* Giao với trục tung $Oy$ tại điểm $(0;2)$, vì $y(0)=2$.
+* Giao với trục hoành $Ox$ tại điểm duy nhất $(-2;0)$, vì phương trình hoành độ giao điểm 
+
+    $$
+        x^3+3x^2+3x+2
+            =(x+2)(x^2+x+1)
+            =0
+    $$ 
+
+    chỉ có nghiệm duy nhất $x=-2$.
+
+* Giao điểm trên trục tung $(0;2)$ đối xứng với giao điểm trên trục hoành $(-2;0)$ qua tâm $I$.
+
+Đồ thị:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-1-b-do-thi){width=350px fig-align="center"}
+
+</details>
+
+::: {.callout-tip title="Các bước khảo sát và vẽ đồ thị hàm số đa thức bậc ba" icon="false" appearance="simple" collapse="false"}
+
+::: {.tieu-de-chu-thich}
+Tập xác định 
+:::
+
+1. Tập xác định.
+    
+    Hàm số $y=ax^3+bx^2+cx+d$ là một hàm đa thức bậc ba, nên xác định với mọi $x\in\mathbb{R}$.
+
+::: {.tieu-de-chu-thich}
+Sự biến thiên 
+:::
+
+2. Chiều biến thiên và cực trị.
+    
+    Chiều biến thiên và cực trị của hàm số được xác định nhờ dấu của đạo hàm $y^\prime=3ax^2+2bx+c$. 
+    
+    * Nếu $y^\prime>0$ trên một khoảng thì hàm số đồng biến trên khoảng đó. Ngược lại, nếu $y^\prime<0$, thì hàm số nghịch biến.
+    * Nếu $y^\prime$ đổi dấu từ *dương sang âm* tại một nghiệm của phương trình $y^\prime=0$, thì nghiệm đó là điểm cực đại. Ngược lại, nếu $y^\prime$ đổi dấu từ *âm sang dương*, thì nghiệm đó là điểm cực tiểu.
+
+3. Giới hạn tại vô cực.
+
+    Vì hàm số là đa thức bậc ba, nên khi $x$ rất lớn (hoặc rất bé), giá trị của $y$ chủ yếu phụ thuộc vào số hạng bậc ba là $ax^3$.
+
+    * Nếu $a > 0$, thì $\lim_{x \to -\infty} y(x) = -\infty$ và $\lim_{x \to +\infty} y(x) = +\infty$, nên đồ thị đi xuống về phía bên trái và đi lên về phía bên phải.
+
+    * Nếu $a < 0$, thì $\lim_{x \to -\infty} y(x) = +\infty$ và $\lim_{x \to +\infty} y(x) = -\infty$, nên : đồ thị đi lên về phía bên trái và đi xuống về phía bên phải.
+
+    Nói cách khác, *hai đầu của đồ thị luôn đi về hai hướng trái ngược*, tạo nên một đường cong mềm mại, uốn lượn - hình dáng rất đặc trưng của đồ thị hàm bậc ba.
+
+4. Lập bảng biến thiên. 
+
+    Ghi lại các khoảng đồng biến, nghịch biến và giá trị cực trị của hàm số.
+
+::: {.tieu-de-chu-thich}
+Đồ thị
+:::
+
+5. Tính chất đối xứng của đồ thị.
+
+    Đồ thị của hàm đa thức bậc ba có tâm đối xứng 
+    
+    $$
+        I\left(\frac{-b}{3a};\frac{2b^3}{27a^2}-\frac{cb}{3a}+d\right),
+    $$
+    
+    với hoành độ $\frac{-b}{3a}$ là nghiệm của phương trình $y^{\prime\prime}=0$. 
+    
+    Nếu biết một điểm $\hat M(\hat x;\hat y)$ trên đồ thị, thì điểm 
+    
+    $$
+        \check M(\check x=2\left(\frac{-b}{3a}\right);\check y=2\left(\frac{2b^3}{27a^2}-\frac{cb}{3a}+d\right)-\hat y)
+    $$ 
+    
+    đối xứng với $\hat M$ qua $I$ cũng nằm trên đồ thị. Tính chất này giúp vẽ đồ thị cân đối và nhanh chóng hơn.
+
+6. Xác định một số điểm đặc biệt để hỗ trợ vẽ đồ thị.
+
+    * Các điểm cực trị.
+    * Nếu có giao điểm với trục tung, thì điểm đó có tọa độ $(0;y(0))$.
+    * Nếu có giao điểm với trục hoành, thì hoành độ giao điểm là nghiệm của phương trình $y=0$.
+    * Chọn thêm điểm đối xứng nếu cần, đặc biệt khi đã biết đồ thị có tâm đối xứng.
+
+7. Vẽ đồ thị.
+
+    * Phác thảo trục tọa độ.
+    * Đánh dấu các điểm đặc biệt: điểm cực trị, điểm uốn, giao điểm với các trục, và một số điểm phụ nếu cần.
+    * Dựa vào bảng biến thiên để định hướng đồ thị: xác định đoạn lên, đoạn xuống.
+    * Nối các đoạn một cách mượt mà, tôn trọng chiều biến thiên và tính đối xứng.
+    * Lưu ý hình dạng tổng thể của đồ thị bậc ba:
+        * Nếu có hai cực trị, đồ thị có dạng hình chữ S.
+        * Nếu không có cực trị, đồ thị luôn đồng biến hoặc nghịch biến.
+
+:::
+
+<!-- Thực hành 2 -->
+
+<details>
+
+<summary class="de-muc">Thực hành 2</summary>
+
+Khảo sát và vẽ đồ thị của các hàm số sau:
+
+a. $y=\dfrac{x+1}{x-1}$;
+b. $y=\dfrac{2x}{3x-1}$;
+c. $y=\dfrac{5+x}{2-x}$.
+
+</details>
+
+<!-- Giải Thực hành 2 -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+**a\.** Biểu thức hàm số $y=\frac{x+1}{x-1}$ có nghĩa với điều kiện $x-1\ne0$, tức $x\ne 1$. Do đó, hàm số có tập xác định là $\mathbb{R}\setminus \{1\}$.
+
+Để dễ tính đạo hàm và các giới hạn, viết hàm số dưới dạng
+$$
+\begin{aligned}
+    y
+        &=\frac{x+1}{x-1}\\
+        &=\frac{x-1+1+1}{x-1}\\
+        &=\frac{(x-1)+2}{x-1}\\
+        &=1+\frac{2}{x-1}.
+\end{aligned}
+$$
+
+Hàm số có đạo hàm là
+$$
+    y^\prime
+        =-\frac{2}{(x-1)^2}<0,
+$$
+
+với mọi $x\ne 1$, nên hàm số luôn nghịch biến trên từng khoảng xác định $(-\infty;1)$ và $(1;+\infty)$.
+
+Giới hạn vô cực và giới hạn tại vô cực của hàm số cho phép xác định các tiệm cận như sau.
+
+* Vì 
+$$
+    \lim_{x\to 1^\pm}y(x)
+        =\lim_{x\to 1^\pm}\left(1+\frac{2}{x-1}\right)
+        =\pm\infty,
+$$
+
+    nên đường thẳng $x=1$ là tiệm cận đứng của đồ thị hàm số.
+
+* Vì 
+$$
+    \lim_{x\to \pm\infty}y(x)
+        =\lim_{x\to \pm\infty}\left(1+\frac{2}{x-1}\right)
+        =1,
+$$
+
+    nên đường thẳng $y=1$ là tiệm cận ngang của đồ thị hàm số.
+
+Từ những thông tin trên, lập bảng biến thiên:
+
+![Bảng biến thiên $y=\frac{x+1}{x-1}.$](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-2-a-bang-bien-thien){width=475px fig-align="center"}
+
+Đồ thị của hàm số phân thức bậc nhất trên bậc nhất có một tâm đối xứng và hai trục đối xứng.
+
+* Tâm đối xứng $I(1;1)$ là giao điểm của hai tiệm cận.
+
+    Với mỗi điểm $\hat M\left(\hat x;1+\frac{2}{\hat x-1}\right)$ thuộc đồ thị, điểm $\check M(\check x;\check y)$ đối xứng với $\hat M$ qua $I(1;1)$ sẽ có tọa độ thỏa công thức trung điểm
+    $$
+        (1;1)=\frac{\left(\hat x;1+\frac{2}{\hat x-1}\right)+(\check x;\check y)}{2}
+    $$
+
+    hay 
+    $$
+    \begin{aligned}
+        (\check x;\check y)
+            &=2(1;1)-\left(\hat x;1+\frac{2}{\hat x-1}\right)\\
+            &=\left(2-\hat x;1-\frac{2}{\hat x-1}\right).
+    \end{aligned}
+    $$
+
+    Để chứng minh $I$ là tâm đối xứng của đồ thị, cần chứng minh $\check M$ cũng thuộc đồ thị, nghĩa là phải chứng minh tọa độ của $\check M$ thỏa công thức hàm số. Thật vậy, thay $x=2-\hat x$ vào công thức của hàm số:
+    $$
+        \check y 
+            = y(\check x)
+            =y(2-\hat x)
+            = 1+\frac{2}{(2-\hat x)-1}
+            = 1-\frac{2}{\hat x-1}.
+    $$
+    Đây chính là điều cần chứng minh. 
+
+* Hai trục đối xứng là $y=x$ và $y=-x+2$, tương ứng với hai đường phân giác của góc vuông tạo bởi hai tiệm cận tại $I(1;1)$.
+
+    * Đặt $1+\frac{2}{x-1}=f(x)$, khi đó biểu thức hàm số được viết lại là $y=f(x)$. Để chứng minh $y=x$ là trục đối xứng, cần chứng minh rằng nếu $(x;y)$ thuộc đồ thị hàm số, thì $(y;x)$ cũng thuộc đồ thị hàm số.
+
+        Xét $(x;y)$ thuộc đồ thị hàm số, nghĩa là $(x;y)=(x;f(x))$. Để chứng minh $(y;x)$ cũng thuộc vào đồ thị hàm số, cần kiểm tra xem $x$ có bằng $f(y)$ không, tức là $x=f(y)=f(f(x))$. Thật vậy,
+        $$
+        \begin{aligned}
+            f(f(x))
+                &=1+\frac{2}{f(x)-1}\\
+                &=1+\frac{2}{\frac{x+1}{x-1}-1}\\
+                &=1+\frac{2(x-1)}{2}\\
+                &=x.
+        \end{aligned}
+        $$
+
+        Đây là điều cần phải chứng minh.
+        
+        > Bạn hãy nhớ lấy sự thật quyến rũ này: chỉ có gương $y=x$ mới có ảnh nằm ở điểm có tung-hoành đổi chỗ - không gương nào khác làm điều này dễ dàng đến vậy.
+    
+    * Với mỗi điểm $\hat M(\hat x;\hat y)$ thuộc vào đồ thị, gọi điểm đối xứng  qua $y=-x+2$ là $\check M(\check x;\check y)$. 
+    
+        Trung điểm đoạn $\hat M\check M$ có tọa độ $\left(\frac{\hat x+\check x}{2};\frac{\hat y+\check y}{2}\right)$ và nằm trên đường thẳng $y=-x+2$, nên 
+        $$
+            \frac{\hat y+\check y}{2}
+                = -\frac{\hat x+\check x}{2}+2.
+        $$
+
+        Tương dương đẳng thức 
+        $$
+            \check x+\check y
+                =4-\hat x-\hat y.
+        $$
+
+        Mặt khác, đường thẳng qua $\hat M$ và $\check M$ có hệ số góc là $1$, vì vuông góc $y=-x+2$ là đường thẳng có hệ số góc $-1$. Do đó, suy ra
+        $$
+            \frac{\hat y-\check y}{\hat x-\check x}
+                =1.
+        $$
+
+        Tương đương đắng thức
+        $$
+           \check x-\check y=\hat x- \hat y,
+        $$
+
+        khi $\hat x-\check x\ne0$.
+
+        Xem $\check x$ và $\check y$ là ẩn, giải hệ
+        $$
+        \begin{aligned}
+            \check x+\check y
+                &=4-\hat x-\hat y,\\
+            \check x-\check y
+                &=\hat x- \hat y.
+        \end{aligned}
+        $$
+
+        Hệ có nghiệm
+        $$
+        \begin{aligned}
+            \check x
+                &=2-\hat x,\\
+            \check y
+                &=2-\hat y.
+        \end{aligned}
+        $$
+
+        Để chứng minh $y=-x+2$ là trục đối xứng, cần chứng minh $\check M(\check x;\check y)$ thuộc đồ thị hàm số, tức là cần kiểm tra tọa độ $\check M$ thỏa hàm số $y=1+\frac{2}{x-1}$. Thật vậy, thay $x$ bởi $\check x$:
+        $$
+        \begin{aligned}
+            y(\check x)
+                &=1+\frac{2}{\check x-1}\\
+                &= 1+\frac{2}{(2-\hat x)-1}\\
+                &= 1+\frac{2}{1-\hat x}\\
+                &= 2-\left(1-\frac{2}{\hat x-1}\right)\\
+                &=2-\hat y.
+        \end{aligned}
+        $$
+
+        Đây là điều cần chứng minh.
+
+Các điểm dưới đây giúp định vị đồ thị trên mặt phẳng tọa độ.
+
+* Tại $x=0$, hàm số có giá trị $y=-1$. Đồ thị hàm số giao với trục tung $Oy$ tại điểm $(0;-1)$.
+* Phương trình hoành độ giao điểm $\frac{x+1}{x-1}=0$ có nghiệm $x=-1$. Đồ thị hàm số giao với trục hoành $Ox$ tại điểm $(-1;0)$.
+* Hai điểm $(-1;0)$, $(0;-1)$ lần lượt đối xứng với hai điểm $(3;2)$, $(2;3)$ qua đường thẳng $y=-x+2$. Bốn điểm này tạo thành bốn đỉnh của một hình chữ nhật. 
+
+Dựa trên tính liên tục, tính đối xứng, chiều biến thiên và các điểm đặc biệt đã xác định, vẽ đồ thị:
+
+![Đồ thị hàm số $y=\frac{x+1}{x-1}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-2-a-do-thi){width=375px fig-align="center"}
+
+**b\.** Biểu thức hàm số $y=\frac{2x}{3x-1}$ có nghĩa với điều kiện $3x-1\ne0$, tức $x\ne \frac{1}{3}$. Do đó, hàm số có tập xác định là $\mathbb{R}\setminus \left\{\frac{1}{3}\right\}$.
+
+Để dễ tính đạo hàm và các giới hạn, viết hàm số dưới dạng
+$$
+\begin{aligned}
+    y
+        &=\frac{2x}{3x-1}\\
+        &=\frac{\frac{2}{3}(3x-1)+\frac{2}{3}}{3x-1}\\
+        &=\frac{2}{3}+\frac{2}{3(3x-1)}.
+\end{aligned}
+$$
+
+
+Hàm số có đạo hàm là
+$$
+    y^\prime
+        =-\frac{2}{(3x-1)^2}<0,
+$$
+
+với mọi $x\ne \frac{1}{3}$, nên hàm số luôn nghịch biến trên từng khoảng xác định $\left(-\infty;\frac{1}{3}\right)$ và $\left(\frac{1}{3};+\infty\right)$.
+
+Giới hạn vô cực và giới hạn tại vô cực của hàm số cho phép xác định các tiệm cận như sau.
+
+* Vì 
+$$
+    \lim_{x\to \frac{1}{3}^\pm}y(x)
+        =\lim_{x\to \frac{1}{3}^\pm}\left(\frac{2}{3}+\frac{2}{3(3x-1)}\right)
+        =\pm\infty,
+$$
+
+nên đường thẳng $x=\frac{1}{3}$ là tiệm cận đứng của đồ thị hàm số.
+
+* Vì 
+$$
+    \lim_{x\to \pm\infty}y(x)
+        =\lim_{x\to \pm\infty}\left(\frac{2}{3}+\frac{2}{3(3x-1)}\right)
+        =\frac{2}{3},
+$$
+
+nên đường thẳng $y=\frac{2}{3}$ là tiệm cận ngang của đồ thị hàm số.
+
+Từ những thông tin trên, lập bảng biến thiên:
+
+![Bảng biến thiên $y=\frac{2x}{3x-1}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-2-b-bang-bien-thien){width=475px fig-align="center"}
+
+Đồ thị của hàm số phân thức bậc nhất trên bậc nhất có một tâm đối xứng và hai trục đối xứng.
+
+* Tâm đối xứng $I\left(\frac{1}{3};\frac{2}{3}\right)$ là giao điểm của tiệm cận đứng $x=\frac{1}{3}$ và tiệm cận ngang $y=\frac{2}{3}$.
+*  Hai trục đối xứng là $y=x+\frac{1}{3}$ và $y=-x+1$, tương ứng với hai đường phân giác của góc vuông tạo bởi hai tiệm cận tại $I\left(\frac{1}{3};\frac{2}{3}\right)$.
+
+Để định vị đồ thị trên mặt phẳng tọa độ, cần xét một số điểm đặc trưng mà đồ thị đi qua.
+
+* Đồ thị đi qua gốc tọa độ $(0;0)$, vì $y(0)=0$.
+* Điểm $\left(\frac{2}{3};\frac{4}{3}\right)$ là đối xứng của $(0;0)$ qua tâm $I\left(\frac{1}{3};\frac{2}{3}\right)$.
+* Điểm $\left(-\frac{1}{3};\frac{1}{3}\right)$ là đối xứng của $(0;0)$ qua tâm trục đối xứng $y=x+\frac{1}{3}$.
+* Điểm $(1;1)$ là đối xứng của $(0;0)$ qua tâm trục đối xứng $y=-x+2$.
+
+Dựa trên bảng biến thiên, tính đối xứng và các điểm định vị, đồ thị được vẽ như sau:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-2-b-do-thi){width=375px fig-align="center"}
+
+**c\.** Biểu thức hàm số $y=\frac{5+x}{2-x}$ có nghĩa với điều kiện $2-x\ne$, tức là $x\ne 2$. Do đó, hàm số có tập xác định là $\mathbb{R}\setminus \{2\}$.
+
+Để dễ tính đạo hàm và các giới hạn, viết hàm số dưới dạng
+$$
+\begin{aligned}
+    y
+        &=\frac{5+x}{2-x}\\
+        &=-\frac{-5-x}{2-x}\\
+        &=-\frac{-7+(2-x)}{2-x}\\
+        &=-1+\frac{7}{2-x}.
+\end{aligned}
+$$
+
+Hàm số có đạo hàm là 
+$$
+    y^\prime
+        =\frac{7}{(2-x)^2}>0,
+$$
+
+với mọi $x\ne 2$, nên hàm số luôn đồng biến trên từng khoảng xác định $(-\infty;2)$ và $(2;+\infty)$. 
+
+Giới hạn vô cực và giới hạn tại vô cực của hàm số cho phép xác định các tiệm cận như sau.
+
+* Vì 
+$$
+    \lim_{x\to 2^\pm}y(x)
+        =\lim_{x\to 2^\pm}\left(-1+\frac{7}{2-x}\right)
+        =\mp\infty,
+$$
+
+nên đường thẳng $x=2$ là tiệm cận đứng của đồ thị hàm số.
+
+* Vì 
+$$
+    \lim_{x\to \pm\infty}y(x)
+        =\lim_{x\to \pm\infty}\left(-1+\frac{7}{2-x}\right)
+        =-1,
+$$
+
+nên đường thẳng $y=\frac{2}{3}$ là tiệm cận ngang.
+
+Từ những thông tin trên, lập bảng biến thiên:
+
+![Bảng biến thiên $y=\frac{5+x}{2-x}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-2-c-bang-bien-thien){width=475px fig-align="center"}
+
+Đồ thị của hàm số phân thức bậc nhất trên bậc nhất có một tâm đối xứng và hai trục đối xứng.
+
+* Tâm đối xứng $I(2;-1)$ là giao điểm của tiệm cận đứng $x=2$ và $y=-1$.
+*  Hai trục đối xứng là $y=x-3$ và $y=-x+1$, tương ứng với hai đường phân giác của góc vuông tạo bởi hai tiệm cận tại $I(2;-1)$.
+
+Để định vị đồ thị trên mặt phẳng tọa độ, cần xét một số điểm đặc trưng mà đồ thị đi qua.
+
+* Đồ thị giao trục tung $Oy$ tại $\left(0;\frac{5}{2}\right)$, vì $y(0)=\frac{5}{2}$.
+* Đồ thị giao trục hoành $Ox$ tại $(-5;0)$, vì $\frac{5+x}{2-x}=0$ khi $x=-5$.
+* Điểm $\left(4;-\frac{9}{2}\right)$ là đối xứng của $\left(0;\frac{5}{2}\right)$ qua tâm $I(2;-1)$.
+* Điểm $(9;-2)$ là đối xứng của $(-5;0)$ qua tâm $I(2;-1)$.
+
+Dựa trên bảng biến thiên, tính đối xứng và các điểm định vị, đồ thị được vẽ như sau:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-2-c-do-thi){width=375px fig-align="center"}
+
+</details>
+
+<!-- Kết quả Thực hành 2 -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+**a\.** Hàm số $y=\frac{x+1}{x-1}$ xác định khi $x\ne 1$, nên có tập xác định là $\mathbb{R}\setminus \{1\}$.
+
+Để dễ tính đạo hàm và các giới hạn, viết hàm số dưới dạng
+$$
+    y=1+\frac{2}{x-1}.
+$$
+
+Hàm số luôn nghịch biến trên từng khoảng xác định $(-\infty;1)$ và $(1;+\infty)$, vì 
+$$
+    y^\prime
+        =-\frac{2}{(x-1)^2}<0,
+$$
+
+với mọi $x\ne 1$.
+
+Các tiệm cận được xác định nhờ các giới hạn vô cực và tại vô cực.
+
+* Đường thẳng $x=1$ là tiệm cận đứng, vì 
+$$
+    \lim_{x\to 1^\pm}y(x)
+        =\lim_{x\to 1^\pm}\left(1+\frac{2}{x-1}\right)
+        =\pm\infty.
+$$
+
+* Đường thẳng $y=1$ là tiệm cận ngang, vì
+$$
+    \lim_{x\to \pm\infty}y(x)
+        =\lim_{x\to \pm\infty}\left(1+\frac{2}{x-1}\right)
+        =1.
+$$
+
+Từ những thông tin trên, lập bảng biến thiên:
+
+![Bảng biến thiên $y=\frac{x+1}{x-1}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-2-a-bang-bien-thien){width=475px fig-align="center"}
+
+Đồ thị của hàm phân thức bậc nhất trên bậc nhất có một tâm đối xứng và hai trục đối xứng.
+
+* Tâm đối xứng $I(1;1)$ là giao điểm của hai tiệm cận.
+* Hai trục đối xứng là $y=x$ và $y=-x+2$, tương ứng với hai đường phân giác của góc vuông tạo bởi hai tiệm cận tại $(1;1)$.
+
+Các điểm đặc trưng giúp định vị đồ thị trên mặt phẳng tọa độ:
+
+* Đồ thị giao trục tung $Oy$ tại $(0;-1)$, vì $y(0)=-1$.
+* Đồ thị giao trục hoành $Ox$ tại $(-1;0)$, vì $\frac{x+1}{x-1}=0$ khi $x=-1$. 
+* Hai điểm $(0;-1)$ và $(-1;0)$ đối xứng qua $y=x$.
+* Điểm $(2;3)$ là đối xứng của $(0;-1)$ qua tâm $I(1;1)$.
+* Điểm $(3;2)$ là đối xứng của $(-1;0)$ qua tâm $I(1;1)$.
+
+Dựa trên bảng biến thiên, tính đối xứng và các điểm định vị, đồ thị được vẽ như sau:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-2-a-do-thi){width=375px fig-align="center"}
+
+**b\.** Hàm số $y=\frac{2x}{3x-1}$ xác định khi $x\ne \frac{1}{3}$, nên có tập xác định là $\mathbb{R}\setminus \left\{\frac{1}{3}\right\}$.
+
+Để dễ tính đạo hàm và các giới hạn, viết hàm số dưới dạng
+$$
+\begin{aligned}
+    y=\frac{2}{3}+\frac{2}{3(3x-1)}.
+\end{aligned}
+$$
+
+Hàm số luôn nghịch biến trên từng khoảng xác định $\left(-\infty;\frac{1}{3}\right)$ và $\left(\frac{1}{3};+\infty\right)$, vì 
+$$
+    y^\prime
+        =-\frac{2}{(3x-1)^2}<0,
+$$
+
+với mọi $x\ne \frac{1}{3}$.
+
+Các tiệm cận được xác định nhờ các giới hạn vô cực và tại vô cực.
+
+* Đường thẳng $x=\frac{1}{3}$ là tiệm cận đứng, vì 
+$$
+    \lim_{x\to \frac{1}{3}^\pm}y(x)
+        =\lim_{x\to \frac{1}{3}^\pm}\left(\frac{2}{3}+\frac{2}{3(3x-1)}\right)
+        =\pm\infty.
+$$
+
+* Đường thẳng $y=\frac{2}{3}$ là tiệm cận ngang, vì 
+$$
+    \lim_{x\to \pm\infty}y(x)
+        =\lim_{x\to \pm\infty}\left(\frac{2}{3}+\frac{2}{3(3x-1)}\right)
+        =\frac{2}{3}.
+$$
+
+Từ những thông tin trên, lập bảng biến thiên:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-2-b-bang-bien-thien){width=475px fig-align="center"}
+
+Đồ thị của hàm số phân thức bậc nhất trên bậc nhất có một tâm đối xứng và hai trục đối xứng.
+
+* Tâm đối xứng $I\left(\frac{1}{3};\frac{2}{3}\right)$ là giao điểm của hai tiệm cận.
+*  Hai trục đối xứng là $y=x+\frac{1}{3}$ và $y=-x+1$, tương ứng với hai đường phân giác của góc vuông tạo bởi hai tiệm cận tại $I\left(\frac{1}{3};\frac{2}{3}\right)$.
+
+Để định vị đồ thị trên mặt phẳng tọa độ, cần xét một số điểm đặc trưng mà đồ thị đi qua.
+
+* Đồ thị đi qua gốc tọa độ $(0;0)$, vì $y(0)=0$.
+* Điểm $\left(\frac{2}{3};\frac{4}{3}\right)$ là đối xứng của $(0;0)$ qua tâm $I\left(\frac{1}{3};\frac{2}{3}\right)$.
+* Điểm $\left(-\frac{1}{3};\frac{1}{3}\right)$ là đối xứng của $(0;0)$ qua tâm trục đối xứng $y=x+\frac{1}{3}$.
+* Điểm $(1;1)$ là đối xứng của $(0;0)$ qua tâm trục đối xứng $y=-x+2$.
+
+Dựa trên bảng biến thiên, tính đối xứng và các điểm định vị, đồ thị được vẽ như sau:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-2-b-do-thi){width=375px fig-align="center"}
+
+**c\.** Hàm số $y=\frac{5+x}{2-x}$ xác định khi $x\ne 2$, nên có tập xác định là $\mathbb{R}\setminus \{2\}$.
+
+Để dễ tính đạo hàm và các giới hạn, viết hàm số dưới dạng
+$$
+    y=-1+\frac{7}{2-x}.
+$$
+
+Hàm số luôn đồng biến trên từng khoảng xác định $(-\infty;2)$ và $(2;+\infty)$, vì 
+$$
+    y^\prime
+        =\frac{7}{(2-x)^2}>0,
+$$
+
+với mọi $x\ne 2$.
+
+Các tiệm cận được xác định nhờ các giới hạn vô cực và tại vô cực.
+
+* Đường thẳng $x=2$ là tiệm cận đứng, vì 
+$$
+    \lim_{x\to 2^\pm}y(x)
+        =\lim_{x\to 2^\pm}\left(-1+\frac{7}{2-x}\right)
+        =\mp\infty.
+$$
+
+* Đường thẳng $y=\frac{2}{3}$ là tiệm cận ngang, vì 
+$$
+    \lim_{x\to \pm\infty}y(x)
+        =\lim_{x\to \pm\infty}\left(-1+\frac{7}{2-x}\right)
+        =-1.
+$$
+
+Từ những thông tin trên, lập bảng biến thiên:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-2-c-bang-bien-thien){width=475px fig-align="center"}
+
+Đồ thị của hàm số phân thức bậc nhất trên bậc nhất có một tâm đối xứng và hai trục đối xứng.
+
+* Tâm đối xứng $I(2;-1)$ là giao điểm của hai tiệm cận.
+*  Hai trục đối xứng là $y=x-3$ và $y=-x+1$, tương ứng với hai đường phân giác của góc vuông tạo bởi hai tiệm cận tại $I(2;-1)$.
+
+Để định vị đồ thị trên mặt phẳng tọa độ, cần xét một số điểm đặc trưng mà đồ thị đi qua.
+
+* Đồ thị giao trục tung $Oy$ tại $\left(0;\frac{5}{2}\right)$, vì $y(0)=\frac{5}{2}$.
+* Đồ thị giao trục hoành $Ox$ tại $(-5;0)$, vì $\frac{5+x}{2-x}=0$ khi $x=-5$.
+* Điểm $\left(4;-\frac{9}{2}\right)$ là đối xứng của $\left(0;\frac{5}{2}\right)$ qua tâm $I(2;-1)$.
+* Điểm $(9;-2)$ là đối xứng của $(-5;0)$ qua tâm $I(2;-1)$.
+
+Dựa trên bảng biến thiên, tính đối xứng và các điểm định vị, đồ thị được vẽ như sau:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-2-c-do-thi){width=375px fig-align="center"}
+
+</details>
+
+::: {.callout-tip title="Các bước khảo sát và vẽ đồ thị hàm số phân thức bậc nhất trên bậc nhất" icon="false" appearance="simple" collapse="false"}
+
+Xét hàm số 
+$$
+    y
+        =\frac{ax+b}{cx+d}.
+$$
+
+Để đảm bảo đây là một phân thức bậc nhất trên bậc nhất thực sự, cần $c\ne 0$ và $(a;b)\ne k(c;d)$ với mọi $k\in\mathbb{R}$.
+
+1. Tập xác định.
+    
+    Tập xác định của hàm số là 
+    $$
+        \mathbb{R}\setminus\left\{-\frac{d}{c}\right\},
+    $$
+    
+    tập hợp các $x$ sao cho mẫu số $cx+d\ne 0$, tức là $x\ne-\frac{d}{c}$.
+
+2. Chiều biến thiên và cực trị.
+
+    Để thuận tiện khảo sát, cụ thể là dễ tính đạo hàm và các giới hạn, viết lại hàm số dưới dạng
+    $$
+        y
+            =\frac{a}{c}-\frac{ad-bc}{c(cx+d)}.
+    $$
+    
+    Đạo hàm là
+    $$
+        y^\prime
+            =\frac{ad-bc}{(cx+d)^2}.
+    $$ 
+
+    Mẫu số luôn dương với mọi $x\ne -\frac{d}{c}$, nên dấu của đạo hàm phụ thuộc vào dấu của hằng số $ad-bc$. Suy ra, hàm số luôn đồng biến hoặc luôn nghịch biến trên từng khoảng xác định. Vì thế, hàm số không có cực trị. 
+
+    * Nếu $ad-bc>0$, hàm số đồng biến trên $\left(-\infty;-\frac{d}{c}\right)$ và $\left(-\frac{d}{c};+\infty\right)$.
+    * Nếu $ad-bc<0$, hàm số nghịch biến trên $\left(-\infty;-\frac{d}{c}\right)$ và $\left(-\frac{d}{c};+\infty\right)$.
+
+    > **Câu hỏi.** Hàm phân thức bậc nhất trên bậc nhất là hàm đơn điệu trên tập xác định. Có thể kết luận luôn tồn tại ít nhất một giao điểm với trục tung hoặc trục hoành không? Giải thích. 
+
+3. Giới hạn vô cực và tại vô cực.
+
+    Các giới hạn vô cực và tại vô cực của hàm số này sẽ chỉ ra các tiệm cận của đồ thị hàm số.
+
+    * Vì
+    $$
+    \begin{aligned}
+        \lim_{x\to \frac{-d}{c}^\pm}y(x)
+            &= \lim_{x\to \frac{-d}{c}^\pm}\left(\frac{a}{c}-\frac{ad-bc}{cx+d}\right)\\
+            &=\pm\infty\text{ hoặc }\mp\infty,
+    \end{aligned}
+    $$
+
+    nên đường thẳng $x=\frac{-d}{c}$ là tiệm cận đứng của đồ thị hàm số.
+
+    * Vì
+    $$
+    \begin{aligned}
+        \lim_{x\to \pm\infty}y(x)
+            &= \lim_{x\to \pm\infty}\left(\frac{a}{c}-\frac{ad-bc}{cx+d}\right)\\
+            &=\frac{a}{c},
+    \end{aligned}
+    $$
+
+    nên đường thẳng $y=\frac{a}{c}$ là tiệm cận ngang của đồ thị hàm số.
+
+    Tiệm cận đứng và ngang của đồ thị đóng vai trò định hướng hình dạng tổng thể của hai nhánh đồ thị.
+
+4. Lập bảng biến thiên. 
+
+    Bảng biến thiên hàm số $y=\frac{ax+b}{cx+d}$ rơi vào một trong hai dạng dưới đây, tùy theo dấu của $ad-bc$.
+
+    ![Trường hợp đồng biến, $ad-bc>0$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/phan-thuc-bac-nhat-tren-bac-nhat-bang-bien-thien-dao-ham-duong){width=475px fig-align="center"}
+
+    ![Trường hợp nghịch biến, $ad-bc<0$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/phan-thuc-bac-nhat-tren-bac-nhat-bang-bien-thien-dao-ham-am){width=475px fig-align="center"}
+
+5. Tính chất đối xứng của đồ thị.
+
+    Đồ thị hàm phân thức bậc nhất trên bậc nhất có một tâm đối xứng và hai trục đối xứng.
+    
+    * Tâm đối xứng 
+        $$
+            I\left(-\frac{d}{c};\frac{a}{c}\right)
+        $$
+        
+        là giao điểm của tiệm cận đứng $x=-\frac{d}{c}$ và tiệm cận ngang $y=\frac{a}{c}$.
+            
+        Nếu biết một điểm $\hat M(\hat x; \hat y)$ trên đồ thị, điểm 
+        $$
+            \check M\left(\check x=2\left(-\frac{d}{c}\right)-\hat x;\check y =2\left(\frac{a}{c}\right)-\hat y\right)
+        $$
+        
+        đối xứng với $\hat M$ qua $I$ cũng nằm trên đồ thị. 
+    * Hai trục đối xứng là 
+        $$
+            y
+                =x+\frac{a+d}{c}
+        $$
+        
+        và
+        $$
+            y
+                =-x+\frac{a-d}{c}.
+        $$
+
+6. Xác định một số điểm đặc biệt để hỗ trợ vẽ đồ thị.
+
+    * Nếu có giao điểm với trục tung, thì điểm đó có tọa độ $(0;y(0))$.
+    * Nếu có giao điểm với trục hoành, thì hoành độ giao điểm là nghiệm của phương trình $y=0$.
+    * Chọn thêm điểm đối xứng nếu cần, đặc biệt khi đã biết đồ thị có một tâm đối xứng và hai trục đối xứng. Khi chọn thêm điểm để vẽ, ưu tiên chọn giá trị $x$ nguyên hoặc sao cho $cx+d$ chia hết tử số, để dễ tính giá trị.
+
+7. Vẽ đồ thị.
+
+    * Vẽ tiệm cận đứng $x=-\frac{d}{c}$ và tiệm cận ngang $y=\frac{a}{c}$.
+    * Vẽ hai trục đối xứng $y=x+\frac{a+d}{c}$ và $-x+\frac{a-d}{c}$.
+    * Đánh dấu các điểm đặc biệt: tâm đối xứng $\left(-\frac{d}{c};\frac{a}{c}\right)$, giao điểm với các trục, và một số điểm phụ nếu cần.
+    * Đồ thị gồm hai nhánh nằm về hai góc phần tư đối nhau, được tạo bởi hai đường tiệm cận, hoặc là hướng xuống hoặc là luôn hướng lên tùy vào hàm số luôn nghịch biến hoặc luôn đồng biến.
+    * Dựa vào bảng biến thiên để vẽ hai nhánh, tôn trọng chiều biến thiên và tính đối xứng.
+
+    Đồ thị hàm số $y=\frac{ax+b}{cx+d}$ rơi vào một trong hai dạng dưới đây, tùy theo dấu của $ab-bc$.
+
+    ![Trường hợp đồng biến, $ab-bc>0$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/phan-thuc-bac-nhat-tren-bac-nhat-do-thi-dong-bien){width=275px fig-align="center"}
+
+    ![Trường hợp nghịch biến, $ab-bc<0$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/phan-thuc-bac-nhat-tren-bac-nhat-do-thi-nghich-bien){width=275px fig-align="center"}
+
+:::
+
+<!-- Thực hành 3 -->
+
+<details>
+
+<summary class="de-muc">Thực hành 3</summary>
+
+Khảo sát và vẽ đồ thị của các hàm số sau:
+
+a. $y=x-\dfrac{1}{x}$;
+b. $y=-x+2-\dfrac{1}{x+1}$;
+c. $y=\dfrac{-x^2-x+2}{x+1}$.
+
+</details>
+
+<!-- Giải Thực hành 3 -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+**a\.** Tập xác định của hàm số $y=x-\frac{1}{x}$ là tất cả các $x\ne 0$, tức là $\mathbb{R}\setminus\{0\}$.
+
+Đạo hàm của hàm số là
+$$
+    y^\prime
+        = 1+\frac{1}{x^2}>0,
+$$
+
+với mọi $x\ne 0$. Do đó, hàm số luôn đồng biến trên từng khoảng xác định $(-\infty;0)$ và $(0;+\infty)$.
+
+Giới hạn vô cực và giới hạn tại vô cực của hàm số cho phép xác định các tiệm cận như sau.
+
+* Vì 
+$$
+    \lim_{x\to 0^\pm}y(x)
+        = \lim_{x\to 0^\pm}\left(x-\frac{1}{x}\right)
+        =\mp\infty,
+$$
+
+    nên trục tung $x=0$ là tiệm cận đứng của đồ thị hàm số.
+
+* Vì 
+$$
+    \lim_{x\to \pm\infty}y(x)
+        = \lim_{x\to \pm\infty}\left(x-\frac{1}{x}\right)
+        =\pm\infty,
+$$
+
+    nên đường thẳng $y=x$ là tiệm cận xiên của đồ thị hàm số.
+
+Từ những thông tin trên, lập bảng biến thiên:
+
+![Bảng biến thiên $y=x-\frac{1}{x}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-3-a-bang-bien-thien){width=475px fig-align="center"}
+
+Đồ thị hàm số có tâm đối xứng $(0,0)$ là giao điểm của tiệm cận đứng $x=0$ và tiệm cận xiên $y=x$.
+
+* Với mỗi điểm $\hat M\left(\hat x;\hat x-\frac{1}{\hat x}\right)$ thuộc đồ thị, điểm $\check M(\check x;\check y)$ đối xứng với $\hat M$ qua $(0;0)$ sẽ có tọa độ thỏa công thức trung điểm
+    $$
+        (0;0)=\frac{\hat M\left(\hat x;\hat x-\frac{1}{\hat x}\right)+(\check x;\check y)}{2}
+    $$
+
+    hay 
+    $$
+    \begin{aligned}
+        (\check x;\check y)
+            &=2(0;0)-\left(\hat x;\hat x-\frac{1}{\hat x}\right)\\
+            &=\left(-\hat x;-\hat x+\frac{1}{\hat x}\right).
+    \end{aligned}
+    $$
+
+    Để chứng minh $(0;0)$ là tâm đối xứng của đồ thị, cần chứng minh $\check M$ cũng thuộc đồ thị, nghĩa là phải chứng minh tọa độ của $\check M$ thỏa công thức hàm số. Thật vậy, thay $x=\check x$ vào công thức của hàm số:
+    $$
+    \begin{aligned}
+        y(\check x)
+            &=y(-\hat x)\\
+            &=-\hat x-\frac{1}{-\hat x}\\
+            &=-\hat x+\frac{1}{\hat x}\\
+            &=\check y.
+    \end{aligned}
+    $$
+    Đây chính là điều cần chứng minh.
+
+Các điểm dưới đây giúp định vị đồ thị trên mặt phẳng tọa độ.
+
+* Giao với trục hoành tại $(-1;0)$ và $(1;0)$, hai điểm này đối xứng nhau qua $(0,0)$.
+* Các cặp điểm $\left(-2,-\frac{3}{2}\right)$ và $\left(2,\frac{3}{2}\right)$, $\left(-\frac{1}{2},\frac{3}{2}\right)$ và $\left(\frac{1}{2},-\frac{3}{2}\right)$ thuộc vào đồ thị cũng đối xứng qua $(0,0)$.
+
+Dựa trên tính liên tục, tính đối xứng, chiều biến thiên và các điểm đặc biệt đã xác định, vẽ đồ thị:
+
+![Đồ thị $y=x-\frac{1}{x}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-3-a-do-thi){width=375px fig-align="center"}
+
+<!-- Câu b -->
+
+**b\.** Tập xác định của hàm số $y=-x+2-\frac{1}{x+1}$ là tất cả các $x\ne -1$, tức là $\mathbb{R}\setminus\{-1\}$.
+
+Đạo hàm của hàm số là
+$$
+    y^\prime
+        = -1+\frac{1}{(x+1)^2},
+$$
+
+với mọi $x\ne -1$.
+
+Phương trình
+$$
+    -1+\frac{1}{(x+1)^2}
+        =0
+$$
+
+có hai nghiệm $x=-2$ và $x=0$. Do đó, đạo hàm $y^\prime=0$ tại
+
+* $x=-2$ với giá trị tương ứng $y(-2)=5$, và
+* $x=0$ với giá trị tương ứng $y(0)=1$.
+
+Chiều biến thiên và cực trị của hàm số được xác định nhờ dấu của đạo hàm như dưới đây.
+
+* Vì $y^\prime<0$ với mọi $x<-2$ và $x>0$, nên hàm số nghịch biến trên các khoảng $(-\infty;-2)$ và $(0;+\infty)$.
+* Vì $y^\prime>0$ với mọi $-2<x<-1$ và $-1<x<0$, nên hàm số đồng biến trên các khoảng $(-2;-1)$ và $(-1;0)$.
+* Vì $y^\prime$ đổi dấu từ *âm sang dương* tại $x=-2$ nên hàm số đạt cực tiểu tại điểm này, giá trị cực tiểu tương ứng là $y(-2)=5$.
+* Vì $y^\prime$ đổi dấu từ *dương sang âm* tại $x=0$ nên hàm số đạt cực đại tại điểm này, giá trị cực đại tương ứng là $y(0)=1$.
+
+Tiệm cận đứng và tiệm cận xiên được xác định nhờ các giới hạn vô cực và tại vô cực.
+
+* Vì
+$$
+\begin{aligned}
+    \lim_{x\to -1^\pm}y(x)
+        &=\lim_{x\to -1^\pm}\left(-x+2-\frac{1}{x+1}\right)\\
+        &=\mp\infty,
+\end{aligned}
+$$
+
+    nên đường thẳng $x=-1$ là tiệm cận đứng của đồ thị hàm số.
+
+* Vì
+$$
+\begin{aligned}
+    \lim_{x\to \pm\infty}\left(y(x)-(-x+2)\right)
+        &=\lim_{x\to \pm\infty}\left(-\frac{1}{x+1}\right)\\
+        &=0,
+\end{aligned}
+$$
+
+    nên đường thẳng $y=-x+2$ là tiệm cận xiên của đồ thị hàm số.
+
+Từ những thông tin đã có, lập bảng biến thiên:
+
+![Bảng biến thiên $y=-x+2-\frac{1}{x+1}$](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-3-b-bang-bien-thien){width=475px fig-align="center"}
+
+Hàm số có tâm đối xứng $(-1;3)$ là giao điểm của tiệm cận đứng $x=-1$ và tiệm cận xiên $y=-x+2$.
+
+Xét các điểm mà đồ thị hàm số sẽ đi qua dưới đây để giúp định vị đồ thị trên mặt phẳng tọa độ.
+
+* Đồ thị có điểm cực tiểu là $(-2;5)$.
+* Đồ thị có điểm cực đại là $(0;1)$. Đây cũng là giao điểm của đồ thị với trục tung $Oy$.
+* Giao với trục hoành $Ox$ tại hai điểm $\left(\frac{1-\sqrt{5}}{2};0\right)$ và $\left(\frac{1+\sqrt{5}}{2};0\right)$.
+* Đối xứng với $\left(\frac{1-\sqrt{5}}{2};0\right)$ qua $(-1;3)$ là điểm $\left(-\frac{5-\sqrt{5}}{2};6\right)$.
+* Đối xứng với $\left(\frac{1+\sqrt{5}}{2};0\right)$ qua $(-1;3)$ là điểm $\left(-\frac{5+\sqrt{5}}{2};6\right)$.
+
+Dựa trên tính liên tục, tính đối xứng, chiều biến thiên và các điểm đặc biệt đã xác định, vẽ đồ thị:
+
+![Đồ thị $y=-x+2-\frac{1}{x+1}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-3-b-do-thi){width=375px fig-align="center"}
+
+<!-- Câu c -->
+
+**c\.** Tập xác định của hàm số $y=\frac{-x^-x+2}{x+1}$ là tất cả các $x\ne -1$, tức là $\mathbb{R}\setminus\{-1\}$.
+
+Để dễ tính đạo hàm và giới hạn, viết hàm số lại dưới dạng
+$$
+    y
+        =-x+\frac{2}{x+1}.
+$$
+
+Đạo hàm của hàm số là
+$$
+    y^\prime
+        = -1-\frac{2}{(x+1)^2}<0,
+$$
+
+với mọi $x\ne -1$. Do đó, hàm số luôn nghịch biến trên từng khoảng xác định $(-\infty;-1)$ và $(-1;+\infty)$.
+
+Giới hạn vô cực và giới hạn tại vô cực của hàm số cho phép xác định các tiệm cận như sau.
+
+* Vì 
+$$
+    \lim_{x\to -1^\pm}y(x)
+        = \lim_{x\to -1^\pm}\left(-x+\frac{2}{x+1}\right)
+        =\pm\infty,
+$$
+
+    nên đường thẳng $x=-1$ là tiệm cận đứng của đồ thị hàm số.
+
+* Vì 
+$$
+    \lim_{x\to \pm\infty}\left(y(x)-(-x)\right)
+        = \lim_{x\to \pm\infty}\left(\frac{2}{x+1}\right)
+        =0,
+$$
+
+    nên đường thẳng $y=-x$ là tiệm cận xiên của đồ thị hàm số.
+
+Từ những thông tin trên, lập bảng biến thiên:
+
+![Bảng biến thiên $y=\frac{-x^2-x+2}{x+1}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-3-c-bang-bien-thien){width=475px fig-align="center"}
+
+Đồ thị hàm số có tâm đối xứng $(-1;1)$ là giao điểm của tiệm cận đứng $x=-1$ và tiệm cận xiên $y=-x$.
+
+Các điểm dưới đây giúp định vị đồ thị trên mặt phẳng tọa độ.
+
+* Giao với trục tung tại $(0;2)$, vì $y(0)=2$.
+* Giao với trục hoành tại $(-2;0)$ và $(1;0)$, vì $-x+\frac{2}{x+1}=0$ có hai nghiệm $x=-2$ và $x=1$.
+* Các cặp điểm $(0;2)$ và $(-2;0)$, $(1;0)$ và $(-3;2)$ đối xứng qua $$(-1;1)$.
+
+Dựa trên tính liên tục, tính đối xứng, chiều biến thiên và các điểm đặc biệt đã xác định, vẽ đồ thị:
+
+![Đồ thị $y=\frac{-x^2-x+2}{x+1}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-3-c-do-thi){width=375px fig-align="center"}
+
+</details>
+
+<!-- Kết quả Thực hành 3 -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+**a\.** Tập xác định của hàm số $y=x-\frac{1}{x}$ là tất cả các $x\ne 0$, tức là $\mathbb{R}\setminus\{0\}$.
+
+Hàm số luôn đồng biến trên từng khoảng xác định $(-\infty;0)$ và $(0;+\infty)$, vì đạo hàm
+$$
+    y^\prime
+        = 1+\frac{1}{x^2}>0,
+$$
+
+với mọi $x\ne 0$.
+
+Giới hạn vô cực và giới hạn tại vô cực của hàm số cho phép xác định các tiệm cận.
+
+Hàm số có tiệm cận đứng là trục tung $x=0$, vì
+$$
+    \lim_{x\to 0^\pm}y(x)
+        = \lim_{x\to 0^\pm}\left(x-\frac{1}{x}\right)
+        =\mp\infty.
+$$
+
+Hàm số có tiệm cận xiên là đường thẳng $y=x$, vì 
+$$
+    \lim_{x\to \pm\infty}y(x)
+        = \lim_{x\to \pm\infty}\left(x-\frac{1}{x}\right)
+        =\pm\infty.
+$$
+
+Từ những thông tin trên, lập bảng biến thiên:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-3-a-bang-bien-thien){width=475px fig-align="center"}
+
+Đồ thị hàm số có tâm đối xứng $(0,0)$ là giao điểm của tiệm cận đứng $x=0$ và tiệm cận xiên $y=x$.
+
+Các điểm dưới đây giúp định vị đồ thị trên mặt phẳng tọa độ.
+
+* Giao với trục hoành tại $(-1;0)$ và $(1;0)$, hai điểm này đối xứng nhau qua $(0,0)$.
+* Các cặp điểm $\left(-2,-\frac{3}{2}\right)$ và $\left(2,\frac{3}{2}\right)$, $\left(-\frac{1}{2},\frac{3}{2}\right)$ và $\left(\frac{1}{2},-\frac{3}{2}\right)$ thuộc vào đồ thị cũng đối xứng qua $(0,0)$.
+
+Dựa trên tính liên tục, tính đối xứng, chiều biến thiên và các điểm đặc biệt đã xác định, vẽ đồ thị:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-3-a-do-thi){width=375px fig-align="center"}
+
+<!-- Câu b -->
+
+**b\.** Tập xác định của hàm số $y=-x+2-\frac{1}{x+1}$ là tất cả các $x\ne -1$, tức là $\mathbb{R}\setminus\{-1\}$.
+
+Đạo hàm của hàm số là
+$$
+    y^\prime
+        = -1+\frac{1}{(x+1)^2},
+$$
+
+với mọi $x\ne -1$. 
+
+Phương trình
+$$
+    -1+\frac{1}{(x+1)^2}
+        =0
+$$
+
+có hai nghiệm $x=-2$ và $x=0$. Do đó, đạo hàm $y^\prime=0$ tại $x=-2$ và $x=0$. 
+
+Chiều biến thiên và cực trị của hàm số được xác định nhờ dấu của đạo hàm.
+
+* Hàm số nghịch biến trên các khoảng $(-\infty;-2)$ và $(0;+\infty)$, vì $y^\prime<0$ với mọi $x<-2$ và $x>0$.
+* Hàm số đồng biến trên các khoảng $(-2;-1)$ và $(-1;0)$, vì $y^\prime>0$ với mọi $-2<x<-1$ và $-1<x<0$.
+* Hàm số đạt cực tiểu tại $x=-2$, giá trị cực tiểu tương ứng là $y(-2)=5$, vì $y^\prime$ đổi dấu từ *âm sang dương* tại $x=-2$ 
+* Hàm số đạt cực đại tại điểm $x=0$, giá trị cực đại tương ứng là $y(0)=1$, vì $y^\prime$ đổi dấu từ *dương sang âm* tại $x=0$.
+
+Tiệm cận đứng và tiệm cận xiên được xác định nhờ các giới hạn vô cực và tại vô cực.
+
+* Đường thẳng $x=-1$ là tiệm cận đứng, vì
+$$
+\begin{aligned}
+    \lim_{x\to -1^\pm}y(x)
+        &=\lim_{x\to -1^\pm}\left(-x+2-\frac{1}{x+1}\right)\\
+        &=\mp\infty.
+\end{aligned}
+$$
+
+* Đường thẳng $y=-x+2$ là tiệm cận xiên, vì
+$$
+\begin{aligned}
+    \lim_{x\to \pm\infty}\left(y(x)-(-x+2)\right)
+        &=\lim_{x\to \pm\infty}\left(-\frac{1}{x+1}\right)\\
+        &=0.
+\end{aligned}
+$$
+
+Từ những thông tin đã có, lập bảng biến thiên:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-3-b-bang-bien-thien){width=475px fig-align="center"}
+
+Hàm số có tâm đối xứng $(-1;3)$ là giao điểm của tiệm cận đứng $x=-1$ và tiệm cận xiên $y=-x+2$.
+
+Xét các điểm dưới đây giúp định vị đồ thị trên mặt phẳng tọa độ.
+
+* Đồ thị có điểm cực tiểu là $(-2;5)$.
+* Đồ thị có điểm cực đại là $(0;1)$. Đây cũng là giao điểm của đồ thị với trục tung $Oy$.
+* Giao với trục hoành $Ox$ tại hai điểm $\left(\frac{1-\sqrt{5}}{2};0\right)$ và $\left(\frac{1+\sqrt{5}}{2};0\right)$.
+* Đối xứng với $\left(\frac{1-\sqrt{5}}{2};0\right)$ qua $(-1;3)$ là điểm $\left(-\frac{5-\sqrt{5}}{2};6\right)$.
+* Đối xứng với $\left(\frac{1+\sqrt{5}}{2};0\right)$ qua $(-1;3)$ là điểm $\left(-\frac{5+\sqrt{5}}{2};6\right)$.
+
+Dựa trên tính liên tục, tính đối xứng, chiều biến thiên và các điểm đặc biệt đã xác định, vẽ đồ thị:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-3-b-do-thi){width=375px fig-align="center"}
+
+
+<!-- Câu c -->
+
+**c\.** Tập xác định của hàm số $y=\frac{-x^2-x+2}{x+1}$ là tất cả các $x\ne -1$, tức là $\mathbb{R}\setminus\{-1\}$.
+
+Viết lại hàm số dưới dạng
+$$
+    y
+        =-x+\frac{2}{x+1}.
+$$
+
+Hàm số luôn nghịch biến trên từng khoảng xác định $(-\infty;-1)$ và $(-1;+\infty)$, vì đạo hàm
+$$
+    y^\prime
+        = -1-\frac{2}{(x+1)^2}<0,
+$$
+
+với mọi $x\ne -1$.
+
+Giới hạn vô cực và giới hạn tại vô cực của hàm số cho phép xác định các tiệm cận.
+
+* Đường thẳng $x=-1$ là tiệm cận đứng, vì
+$$
+    \lim_{x\to -1^\pm}y(x)
+        = \lim_{x\to 0^\pm}\left(-x+\frac{2}{x+1}\right)
+        =\mp\infty.
+$$
+
+* Đường thẳng $y=-x$ là tiệm cận xiên, vì 
+$$
+    \lim_{x\to \pm\infty}\left(y(x)-(-x)\right)
+        = \lim_{x\to \pm\infty}\left(\frac{2}{x+1}\right)
+        =0.
+$$
+
+Từ những thông tin trên, lập bảng biến thiên:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-3-c-bang-bien-thien){width=475px fig-align="center"}
+
+Đồ thị hàm số có tâm đối xứng $(-1;1)$ là giao điểm của tiệm cận đứng $x=-1$ và tiệm cận xiên $y=-x$.
+
+Các điểm dưới đây giúp định vị đồ thị trên mặt phẳng tọa độ.
+
+* Giao với trục tung tại $(0;2)$, vì $y(0)=2$.
+* Giao với trục hoành tại $(-2;0)$ và $(1;0)$, vì $-x+\frac{2}{x+1}=0$ có hai nghiệm $x=-2$ và $x=1$.
+* Các cặp điểm $(0;2)$ và $(-2;0)$, $(1;0)$ và $(-3;2)$ đối xứng qua $$(-1;1)$.
+
+Dựa trên tính liên tục, tính đối xứng, chiều biến thiên và các điểm đặc biệt đã xác định, vẽ đồ thị:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-3-c-do-thi){width=375px fig-align="center"}
+
+</details>
+
+::: {.callout-tip title="Các bước khảo sát và vẽ đồ thị hàm số phân thức bậc hai trên bậc nhất" icon="false" appearance="simple" collapse="false"}
+
+Xét hàm số
+$$
+    y
+        =\frac{ax^2+bx+c}{dx+e}.
+$$
+
+Để đảm bảo đây là một phân thức bậc hai trên bậc nhất thực sự, cần $ad\ne 0$ và $a\left(-\frac{e}{d}\right)^2+b\left(-\frac{e}{d}\right)+c\ne 0$. Điều kiện thứ hai thực ra là yêu cầu nghiệm của mẫu số không là nghiệm của tử số, nói cách khác tử số không chia hết cho mẫu số. Điều kiện này tương đương $ae^2-bde+cd^2\ne 0$ với $d\ne 0$.
+
+1. Tập xác định.
+    
+    Tập xác định của hàm số là 
+    $$
+    \mathbb{R}\setminus\left\{-\frac{e}{d}\right\},
+    $$
+    
+    tập hợp các $x$ sao cho mẫu số $dx+e\ne 0$, tức là $x\ne-\frac{e}{d}$.
+
+2. Chiều biến thiên và cực trị.
+
+    Để thuận tiện khảo sát, cụ thể là dễ tính đạo hàm và các giới hạn, viết lại hàm số dưới dạng
+    $$
+        y
+            =\frac{a}{d}x+\frac{bd-ae}{d^2}+\frac{ae^2-bde+cd^2}{d^2(dx+e)}.
+    $$
+    
+    Đạo hàm là
+    $$
+    \begin{aligned}
+        y^\prime
+            &=\frac{a}{d}-\frac{ae^2-bde+cd^2}{d(dx+e)^2}\\
+            &=\frac{adx^2+2aex+be-cd}{(dx+e)^2}.
+    \end{aligned}
+    $$ 
+
+    Tùy vào từng bài toán cụ thể mà chọn cách thuận lợi nhất để xét dấu $y^\prime$ - không phải lúc nào cũng cần thiết đưa $y^\prime$ về dạng tử số là một tam thức bậc hai. Tuy nhiên, dạng chứa tam thức bậc hai mang theo một số thông tin để nhận thức hàm số một cách khái quát.
+    
+    * Dấu của $y^\prime$ chính là dấu của tam thức bậc hai và ngược lại.
+    * Với điều kiện $ad\ne 0$ và $ae^2-bde+cd^2\ne 0$, tam thức không thể có nghiệm kép. Do đó, chỉ còn lại hai trường hợp:
+
+        * Nếu tam thức vô nghiệm, hàm số luôn đồng biến hoặc luôn nghịch biến.
+        * Nếu tam thức có hai nghiệm phân biệt, hàm số có một cực đại và một cực tiểu.  
+
+    > **Câu hỏi.** Có tồn tại hay không một hàm thực sự có dạng phân thức bậc hai trên bậc nhất mà đạo hàm của nó có tử số là một tam thức bậc hai có nghiệm kép? 
+
+3. Giới hạn vô cực và tại vô cực.
+
+    * Vì $\lim_{x\to -\frac{e}{d}^\pm}y(x)$ có kết quả hoặc là $\pm\infty$ hoặc $\pm\infty$ tùy luộc vào dấu của $ae^2-bde+cd^2$, nên đường thẳng $x=-\frac{d}{c}$ là tiệm cận đứng của đồ thị hàm số.
+
+    * Vì
+    $$
+    \begin{aligned}
+        \lim_{x\to \pm\infty}&\left(y(x)-\left(\frac{a}{d}x+\frac{bd-ae}{d^2}\right)\right)\\
+            &= \lim_{x\to \pm\infty}\frac{ae^2-bde+cd^2}{d^2(dx+e)}\\
+            &=0,
+    \end{aligned}
+    $$
+
+    nên đường thẳng $y=\frac{a}{d}x+\frac{bd-ae}{d^2}$ là tiệm cận xiên của đồ thị hàm số.
+
+4. Lập bảng biến thiên. 
+
+    Bảng biến thiên hàm số $y=\frac{ax^2+bx+c}{dx+e}$ rơi vào một trong bốn dạng dưới đây.
+
+    ![Trường hợp nghịch biến, khi $ad<0$ và $ae^2-bde+cd^2<0$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/phan-thuc-bac-hai-tren-bac-nhat-bang-bien-thien-dao-ham-duong){width=475px fig-align="center"}
+
+    ![Trường hợp đồng biến, khi $ad>0$ và $ae^2-bde+cd^2<0$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/phan-thuc-bac-hai-tren-bac-nhat-bang-bien-thien-dao-ham-am){width=475px fig-align="center"}
+
+    ![Trường hợp nghịch biến, khi $ad>0$ và $ae^2-bde+cd^2>0$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/phan-thuc-bac-hai-tren-bac-nhat-bang-bien-thien-cuc-dai-trai){width=575px fig-align="center"}
+
+    ![Trường hợp nghịch biến, khi $ad<0$ và $ae^2-bde+cd^2>0$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/phan-thuc-bac-hai-tren-bac-nhat-bang-bien-thien-cuc-dai-phai){width=575px fig-align="center"}
+
+5. Tính chất đối xứng của đồ thị.
+
+    Đồ thị của hàm phân thức bậc hai trên bậc nhất có một tâm đối xứng.
+    
+    * Tâm đối xứng $\left(-\frac{d}{c};-\frac{a}{c}+\frac{bd-ae}{d^2}\right)$ là giao điểm của tiệm cận đứng $x=-\frac{d}{c}$ và tiệm cận xiên $y=\frac{a}{d}x+\frac{bd-ae}{d^2}$.         
+        Nếu biết một điểm $\hat M(\hat x; \hat y)$ trên đồ thị, điểm 
+        $$
+            \check M\left(2\left(-\frac{d}{c}\right)-\hat x;2\left(-\frac{a}{c}+\frac{bd-ae}{d^2}\right)-\hat y\right)
+        $$
+        
+        đối xứng với $\hat M$ qua $I$ cũng nằm trên đồ thị.
+
+6. Xác định một số điểm đặc biệt để hỗ trợ vẽ đồ thị.
+
+    * Nếu có giao điểm với trục tung, thì điểm đó có tọa độ $(0;y(0))$.
+    * Nếu có giao điểm với trục hoành, thì hoành độ giao điểm là nghiệm của phương trình $y=0$.
+    * Chọn thêm điểm đối xứng nếu cần, đặc biệt khi đã biết đồ thị có một tâm đối xứng.
+
+7. Vẽ đồ thị.
+
+    * Vẽ tiệm cận đứng và tiệm cận xiên.
+    * Đánh dấu các điểm đặc biệt: tâm đối xứng, giao điểm với các trục, và một số điểm phụ nếu cần.
+    * Đồ thị gồm hai nhánh nằm về hai góc phần tư đối nhau, được tạo bởi hai đường tiệm cận, hoặc là hướng xuống hoặc là luôn hướng lên tùy vào hàm số luôn nghịch biến hoặc luôn đồng biến.
+    * Dựa vào bảng biến thiên để vẽ hai nhánh, tôn trọng chiều biến thiên và tính đối xứng.
+
+    Đồ thị hàm số $y=\frac{ax^2+bx+c}{dx+e}$ rơi vào một trong hai dạng dưới đây.
+
+    ![Trường hợp $ad<0$ và $ae^2-bde+cd^2<0$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/phan-thuc-bac-hai-tren-bac-nhat-do-thi-dong-bien){width=275px fig-align="center"}
+
+    ![Trường hợp $ad>0$ và $ae^2-bde+cd^2<0$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/phan-thuc-bac-hai-tren-bac-nhat-do-thi-nghich-bien){width=275px fig-align="center"}
+
+    ![Trường hợp $ad>0$ và $ae^2-bde+cd^2>0$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/phan-thuc-bac-hai-tren-bac-nhat-do-thi-cuc-dai-trai){width=275px fig-align="center"}
+
+    ![Trường hợp $ad<0$ và $ae^2-bde+cd^2>0$..](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/phan-thuc-bac-hai-tren-bac-nhat-do-thi-cuc-dai-phai){width=275px fig-align="center"}
+
+:::
+
+<!-- Thực hành 4 -->
+
+<details>
+
+<summary class="de-muc">Thực hành 4</summary>
+
+Xét một vật thật đặt trước thấu kính hội tụ có tiêu cự $f > 0$. Gọi $d$ là khoảng cách từ vật đến thấu kính ($d > 0$), $d^\prime$ là khoảng cách từ thấu kính đến ảnh (ảnh thật thì $d^\prime>0$, ảnh ảo thì $d^\prime<0$). Ta có công thức:
+
+$$
+    \frac{1}{f}=\frac{1}{d}+\frac{1}{d^\prime}
+$$
+
+hay 
+
+$$
+    d^\prime=\frac{df}{d-f}.
+$$
+
+<div class="nguon">(Vật lí 11, Nhà xuất bản Giáo dục Việt Nam, 2012, trang 182, 187.)</div>
+
+Xét trường hợp $f=3$, đặt $x=d$, $y=d^\prime$. Ta có hàm số $y=\frac{3x}{x-3}$ và $x\ne 3$.
+
+a. Khảo sát và vẽ đồ thị của hàm số trên.
+b. Dựa vào đồ thị hàm số trên, hãy cho biết vị trí của vật để ảnh của vật là: ảnh thật, ảnh ảo.
+c. Khi vật tiến gần đến tiêu điểm thì ảnh thay đổi như thế nào?
+
+![Ảnh của một vật qua thấu kính hội tụ, trường hợp ảnh thật.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-4-anh-cua-vat-qua-thau-kinh){width=450px}
+
+</details>
+
+<!-- Giải Thực hành 4 -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+Khoảng cách từ ảnh đến thấu kính được biểu diễn bởi hàm số
+
+$$
+    y = \dfrac{3x}{x - 3},
+$$
+
+với $x$ là khoảng cách từ vật đến thấu kính, và $y$ là khoảng cách từ ảnh đến thấu kính. Đây là một mô hình toán học tái hiện lại mối quan hệ giữa vị trí đặt vật và ảnh qua thấu kính hội tụ có tiêu cự $f=3$.
+
+Mặc dù cả hai đại lượng $x$ và $y$ đều là khoảng cách, nhưng giữa chúng có sự khác biệt đáng lưu ý.
+
+- Do vật luôn đặt phía trước thấu kính, nên $x > 0$.
+- Với $y$, dù cũng là khoảng cách, nhưng để biểu diễn đúng tính chất vật lý, người ta cho phép nó mang dấu _âm_ khi ảnh nằm cùng phía với vật (tức ảnh ảo), và _dương_ khi ảnh nằm phía bên kia thấu kính (tức ảnh thật).
+
+a\. Hàm số có tập xác định là $D=(0;+\infty)\setminus\{3\}$.
+
+Hàm số có đạo hàm là
+
+$$
+    y^\prime
+        = \dfrac{-9}{(x - 3)^2}
+        <0
+$$
+
+với mọi $x \ne 3$, cho thấy hàm số luôn nghịch biến trên mỗi khoảng xác định.
+
+Vì
+
+$$
+    \lim_{x\to 3^\pm}y(x)
+        =\lim_{x\to 3^\pm}\frac{3x}{x-3}
+        =\pm \infty,
+$$
+
+nên đường thẳng $x=3$ là tiệm cận đứng của đồ thị hàm số.
+
+Vì
+
+$$
+    \lim_{x\to +\infty}y(x)
+        =\lim_{x\to +\infty}\frac{3x}{x-3}
+        =\lim_{x\to +\infty}\left(3+\frac{9}{x-3}\right)
+        =3,
+$$
+
+nên đường thẳng $y=3$ là tiệm cận ngang của đồ thị hàm số.
+
+Hơn nữa, khi $x\to 0^+$, thì
+
+$$
+    \lim_{x\to 0^+}y(x)
+        =\lim_{x\to 0^+}\frac{3x}{x-3}
+        =0.
+$$
+
+Tất cả những thông tin trên kết lại thành bảng biến thiên và đồ thị hàm số - chính là phần hình học minh họa cho đặc trưng hội tụ của thấu kính.
+
+::: {.tieu-de-chu-thich}
+Bảng biến thiên
+:::
+
+![Bảng bảng biến thiên hàm số $y=\frac{3x}{x-3}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-4-bang-bien-thien.svg){width=450px}
+
+::: {.tieu-de-chu-thich}
+Đồ thị
+:::
+
+![Đồ thị hàm số $y=\frac{3x}{x-3}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-4-do-thi.svg){width=350px}
+
+b\. Quan sát đồ thị thu được những nhận định dưới đây:
+
+* Nếu $0<x<3$, thì $y<0$, nghĩa là ảnh nằm cùng phía với vật - đây là *ảnh ảo*.
+* Nếu $x>3$, thì $y>0$, tức là ảnh nằm đối phía với vật - đây là *ảnh thật*.
+
+Như vậy, từ đồ thị, có thể phân biệt được ảnh thật và ảnh ảo chỉ bằng cách nhìn vào dấu của $y$ ứng với từng giá trị $x$.
+
+c\. Khi vật tiến về gần tiêu điểm, nói theo mô hình toán học là khi $x\to 3^\pm$, thì ảnh càng rời xa thấu kính, vì mô hình toán học cho thấy $y\to\pm\infty$. Hơn nữa, khi đó ảnh cũng càng được phóng đại theo.
+
+Như vậy, câu a tương ứng với việc giải mô hình toán học của thấu kính hội tụ, câu b là cách đọc tính chất vật lý từ mô hình ấy, và câu c hé lộ một vùng đặc biệt - tiêu điểm - nơi lý thuyết toán học phản ánh sinh động một biểu hiện vật lý rất chân thật.
+
+</details>
+
+<!-- Kết quả Thực hành 4 -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+</details>
+
+<!-- Thực hành 5 -->
+
+<details open>
+
+<summary class="de-muc">Thực hành 5</summary>
+
+Người ta muốn chế tạo một chiếc hộp hình hộp chữ nhật
+có thể tích $500$ cm³ với yêu cầu dùng ít vật liệu nhất.
+
+Chiều cao hộp phải là $2$ cm, các kích thước khác là $x$, $y$
+với $x > 0$ và $y > 0$.
+
+a. Hãy biểu thị $y$ theo $x$.
+b. Chứng tỏ rằng diện tích toàn phần của chiếc hộp là:
+
+    $$
+        S(x)
+            = 500+4x+\frac{1000}{x}.
+    $$
+
+c. Lập bảng biến thiên của hàm số $S(x)$ trên khoảng $(0; +\infty)$.
+d. Kích thước của hộp là bao nhiêu thì dùng ít vật liệu nhất? (Làm tròn kết quả đến hàng phần mười.)
+
+![Hộp có chiều cao $2$ cm và $500$ cm³. Kích thước đáy chưa biết.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-5-hop){width=350px fig-align="center"}
+
+</details>
+
+> Nội dung Thực hành 5 này có làm bạn liên tưởng đến Bài tập 7 ở "<a href="../bai-2/gia-tri-lon-nhat-gia-tri-nho-nhat-cua-ham-so.qmd">Bài 2. Giá trị lớn nhất, giá trị nhỏ nhất của hàm số</a>"?
+
+<!-- Giải Thực hành 5 -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+Chiếc hộp hình hộp chữ nhật này có chiều cao và thể tích cố định lần lượt là $2$ cm và $500$ cm³, hai kích thước còn lại là $x>0$ và $y>0$. Để giải quyết yêu cầu chế tạo dùng ít vật liệu nhất, cần giải bài toán tìm diện tích toàn phần nhỏ nhất.
+
+a\. Thể tích của chiếc hộp và ba kích thước của nó liên hệ qua công thức 
+
+$$
+    500=2xy.
+$$
+
+Từ đây, $y$ được biểu thị theo $x$ qua công thức
+
+$$
+    y=\frac{250}{x}.
+$$
+
+b\. Diện tích toàn phần của chiếc hộp bằng tổng diện tích của tất cả các mặt. Trong đó, mặt đáy có diện tích là
+
+$$
+    x\cdot \frac{250}{x}
+        =250 \,\left(\text{cm}^2\right).
+$$
+
+Và hai mặt bên liền kề có diện tích lần lượt là $2x$ cm² và $\frac{500}{x}$ cm². Nếu gọi $S(x)$ là hàm số để của diện tích toàn phần của chiếc hộp theo $x$ thì 
+
+$$
+    S(x)
+        =2\left(250+2x+\frac{500}{x}\right)
+        =500+4x+\frac{1000}{x}.
+$$
+
+c\. Xét hàm số $S(x)=500+4x+\frac{1000}{x}$ trên khoảng $(0;+\infty)$.
+
+Hàm số $S(x)$ có đạo hàm là
+
+$$
+    S^\prime(x)
+        = 4-\frac{1000}{x^2}.
+$$
+
+Trong khoảng $(0;+\infty)$, đạo hàm này triệt tiêu tại $x=5\sqrt{10}$. Chiều biến thiên và cực trị của hàm số được xác định thông qua dấu của đạo hàm như dưới đây.
+
+* Nếu $x\in(0;5\sqrt{10})$ thì $S^\prime (x)<0$, nên hàm số $S(x)$ nghịch biến trên khoảng $(0;5\sqrt{10})$.
+* Nếu $x\in(5\sqrt{10};+\infty)$ thì $S^\prime (x)>0$, nên hàm số $S(x)$ đồng biến trên khoảng $(5\sqrt{10};+\infty)$.
+* Vì đạo hàm đổi dấu từ *âm sang dương* tại $x=5\sqrt{10}$ nên đây là một điểm cực tiểu, giá trị cực tiểu là $S(5\sqrt{10})=500+40\sqrt{10}$. 
+
+Hàm số có các giới hạn đáng chú ý và những kết luận rút ra từ chúng như sau:
+
+* Vì 
+
+    $$
+        \lim_{x\to 0^+} S(x)
+            =\lim_{x\to 0^+} \left(500+4x+\frac{1000}{x}\right)
+            = +\infty,
+    $$
+
+    nên đường thẳng $x=0$ hay trục tung là tiệm cận đứng của đồ thị hàm số.
+
+* Vì 
+
+    $$
+        \lim_{x\to +\infty} S(x)
+            =\lim_{x\to +\infty} \left(500+4x+\frac{1000}{x}\right)
+            = +\infty,
+    $$
+
+    nên hàm số không có tiệm cận ngang.
+
+    * Vì 
+
+    $$
+        \lim_{x\to +\infty} (S(x)-(500+4x))
+            =\lim_{x\to +\infty} \frac{1000}{x}
+            = 0,
+    $$
+
+    nên đường thẳng $y=500+4x$ là tiệm cận xiên của đồ thị hàm số.
+
+Kết hợp tất cả các thông tin trên để lập ra bảng biến thiên của hàm số $S(x)$ trên khoảng $(0;+\infty)$ như sau:
+
+![Bảng bảng biến thiên hàm số $S(x)=500+4x+\frac{1000}{x}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-5-bang-bien-thien){width=450px}
+
+d. Dựa trên bảng biến thiên, nhận thấy rằng hàm số đạt giá trị nhỏ nhất tại điểm cực tiểu $x=5\sqrt{10}$, nghĩa là
+
+$$
+    \min_{(0;+\infty)}S(x)
+        =S(5\sqrt{10})
+        =500+40\sqrt{10}.
+$$
+
+Ít tốn vật liệu nhất khi diện tích toàn phần là nhỏ nhất với giá trị $S(5\sqrt{10})=500+40\sqrt{10}$ cm². Khi đó, hai kích thước còn lại của hộp là $x=5\sqrt{10}$ cm và $y=\frac{250}{x}=\frac{250}{5\sqrt{10}}=5\sqrt{10}$ cm. 
+
+Nói một cách thực tế hơn, hộp nên có đáy là hình vuông, cạnh xấp xỉ $15,8$ cm để tốn ít vật liệu nhất.
+
+</details>
+
+<!-- Kết quả Thực hành 5 -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+a\. Vì thể tích là tích của ba kích thước, theo giả thiết $500=2xy$, nên $y$ được biểu thị qua $x$ bởi công thức
+
+$$
+    y=\frac{250}{x}.
+$$
+
+b\. Diện tích toàn phần bằng tổng diện tích của tất cả các mặt:
+
+$$
+    S(x)
+        =2\left(250+2\cdot x+2\cdot \frac{250}{x}\right)
+        =500+4x+\frac{1000}{x}.
+$$
+
+c\. Xét hàm số $S(x)=500+4x+\frac{1000}{x}$ trên khoảng $(0;+\infty)$.
+
+Hàm số $S(x)$ có đạo hàm là
+
+$$
+    S^\prime(x)
+        = 4-\frac{1000}{x^2}.
+$$
+
+Phương trình $S^\prime (x)=0$ có nghiệm $x=5\sqrt{10}$ thuộc tập xác định của hàm số. Chiều biến thiên và cực trị của hàm số được xem xét qua dấu của đạo hàm như sau:
+
+* Hàm số nghịch biến trên khoảng $(0;5\sqrt{10})$, vì $S^\prime (x)<0$ trên khoảng này.
+* Hàm số đồng biến trên khoảng $(5\sqrt{10});+\infty$, vì $S^\prime (x)>0$ trên khoảng này.
+* Hàm số đạt cực tiểu tại $x=5\sqrt{10}$, giá trị cực tiểu là $S(5\sqrt{10})=500+40\sqrt{10}$. Lí do, đạo hàm đổi dấu từ *âm sang dương* tại $x=5\sqrt{10}$.
+
+Các giới hạn đáng chú ý của hàm số:
+
+* Vì $\lim_{x\to 0^+} S(x)=\lim_{x\to 0^+} \left(500+4x+\frac{1000}{x}\right)= +\infty$, nên đường thẳng $x=0$ là tiệm cận đứng.
+* Vì $\lim_{x\to +\infty} S(x)=\lim_{x\to +\infty} \left(500+4x+\frac{1000}{x}\right)= +\infty$, nên hàm số không có tiệm cận ngang.
+* Vì $\lim_{x\to +\infty} (S(x)-(500+4x))=\lim_{x\to +\infty} \frac{1000}{x}= 0$, nên đường thẳng $y=500+4x$ là tiệm cận xiên.
+
+Kết hợp các thông tin trên để lập ra bảng biến thiên của hàm số $S(x)$ trên khoảng $(0;+\infty)$ như sau:
+
+![Bảng bảng biến thiên hàm số $S(x)=500+4x+\frac{1000}{x}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/th-5-bang-bien-thien){width=450px}
+
+d\. Ít tốn vật liệu nhất khi diện tích toàn phần là nhỏ nhất. Bảng biến thiên chỉ ra giá trị nhỏ nhất đó là $S(5\sqrt{10})=500+40\sqrt{10}$ cm². Tương ứng với diện tích nhỏ nhất này là hai kích thước $x=y=5\sqrt{10}$ cm. 
+
+Nói theo thực tế, hộp nên có đáy là hình vuông, cạnh xấp xỉ $15,8$ cm để tốn ít vật liệu nhất.
+
+</details>
+
+## Bài tập 
+
+<!-- Bài tập 1 -->
+
+<details open>
+
+<summary class="de-muc">Bài tập 1</summary>
+
+Khảo sát và vẽ đồ thị của các hàm số sau:
+
+a. $y=x^3+x-2$;
+b. $y=2x^3+x^2-\dfrac{1}{2}x-3$.
+
+</details>
+
+<!-- Kết quả Bài tập 1 -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+**a\.** Hàm số $y=x^3+x-2$ có tập xác định là $\mathbb{R}$. 
+
+Hàm số luôn đồng biến trên $\mathbb{R}$, vì 
+$$
+    y^\prime=3x^2+1>0
+$$
+ với mọi số thực $x$.
+
+Xu hướng của đồ thị ở hai đầu trục hoành.
+
+* Hướng xuống về phía trái, vì 
+    $$
+    \begin{aligned}
+        \lim_{x\to-\infty}y(x)
+            &=\lim_{x\to-\infty}(x^3+x-2)\\
+            &=\lim_{x\to-\infty}x^3\left(1+\frac{1}{x^2}-\frac{2}{x^3}\right)\\
+            &=-\infty.
+    \end{aligned}
+    $$
+
+* Hướng lên về phía phải, vì 
+    $$
+    \begin{aligned}
+        \lim_{x\to+\infty}y(x)
+            &=\lim_{x\to+\infty}(x^3+x-2)\\
+            &=\lim_{x\to+\infty}x^3\left(1+\frac{1}{x^2}-\frac{2}{x^3}\right)\\
+            &=+\infty.
+    \end{aligned}
+    $$
+
+Bảng biến thiên hàm số $y=x^3+x-2$:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/bt-1-a-bang-bien-thien){width=375px fig-align="center"}
+
+Đồ thị có tâm đối xứng $(0;-2)$ cũng thuộc đồ thị, trong đó hoành độ là nghiệm của phương trình $y^{\prime\prime}=12x=0$.
+
+Một số điểm giúp định vị đồ thị.
+
+* Giao với trục tung tại tâm đối xứng $(0;-2)$.
+* Giao với trục hoành tại $(1;0)$.
+* Điểm $(-1;-4)$ đối xứng với $(1;0)$ qua tâm $(0;-2)$.
+
+Đồ thị hàm số $y=x^3+x-2$:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/bt-1-a-do-thi){width=350px fig-align="center"}
+
+<!-- Câu b -->
+
+**b\.** Hàm số $y=2x^3+x^2-\frac{1}{2}x-3$ có tập xác định là $\mathbb{R}$. 
+
+Hàm số có đạo hàm là 
+$$
+    y^\prime=6x^2+2x-\frac{1}{2}
+$$
+
+triệt tiêu tại $x=-\frac{1}{2}$ hoặc $x=\frac{1}{6}$.
+
+* Hàm số đồng biến trên $(-\infty;-\frac{1}{2})$ và $(\frac{1}{6};+\infty)$, vì $y^\prime>0$ với mọi $x<-\frac{1}{2}$.
+* Hàm số nghịch biến trên $\left(-\frac{1}{2};\frac{1}{6}\right)$, vì $y^\prime<0$ với mọi $x<-\frac{1}{2}$.
+* Hàm số đạt cực đại tại $x=-\frac{1}{2}$ với giá trị cực đại là lai $y\left(-\frac{1}{2}\right)=-\frac{11}{4}$, vì $y^\prime$ đổi dấu từ *dương sang âm* tại $x=-\frac{1}{2}$.
+* Hàm số đạt cực tiểu tại $x=\frac{1}{6}$ với giá trị cực tiểu là $y\left(\frac{1}{6}\right)=-\frac{329}{108}$, vì $y^\prime$ đổi dấu từ *âm sang dương* tại $x=\frac{1}{6}$.
+
+Xu hướng của đồ thị ở hai đầu trục hoành.
+
+* Hướng xuống về phía trái, vì 
+    $$
+    \begin{aligned}
+        \lim_{x\to-\infty}y(x)
+            &=\lim_{x\to-\infty}(2x^3+x^2-\frac{1}{2}x-3)\\
+            &=\lim_{x\to-\infty}x^3\left(2+\frac{1}{x}-\frac{1}{2x^2}-\frac{3}{x^3}\right)\\
+            &=-\infty.
+    \end{aligned}
+    $$
+
+* Hướng lên về phía phải, vì 
+    $$
+    \begin{aligned}
+        \lim_{x\to+\infty}y(x)
+            &=\lim_{x\to+\infty}(2x^3+x^2-\frac{1}{2}x-3)\\
+            &=\lim_{x\to+\infty}x^3\left(2+\frac{1}{x}-\frac{1}{2x^2}-\frac{3}{x^3}\right)\\
+            &=+\infty.
+    \end{aligned}
+    $$
+
+Bảng biến thiên hàm số $y=2x^3+x^2-\frac{1}{2}x-3$:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/bt-1-b-bang-bien-thien){width=500px fig-align="center"}
+
+Đồ thị có tâm đối xứng $\left(-\frac{1}{6};-\frac{313}{108}\right)$ cũng thuộc đồ thị, trong đó hoành độ là nghiệm của phương trình $y^{\prime\prime}=12x+2=0$.
+
+Một số điểm giúp định vị đồ thị.
+
+* Giao với trục tung tại $(0;-3)$.
+* Đi qua điểm $\left(1;-\frac{1}{2}\right)$.
+* Điểm cực đại là $\left(-\frac{1}{2};-\frac{11}{4}\right)$.
+* Điểm cực tiểu là $\left(\frac{1}{6};-\frac{313}{108}\right)$.
+
+Đồ thị hàm số $y=2x^3+x^2-\frac{1}{2}x-3$:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/bt-1-b-do-thi){width=500px fig-align="center"}
+
+</details>
+
+<!-- Bài tập 2 -->
+
+<details open>
+
+<summary class="de-muc">Bài tập 2</summary>
+
+Cho hàm số $y = x^3 − 3x^2 + 2$.
+    
+a. Tìm điểm $I$ thuộc đồ thị hàm số biết hoành độ của $I$ là nghiệm của phương trình $y^{\prime\prime} = 0$.
+b. Chứng minh rằng $I$ là trung điểm của đoạn thẳng nối hai điểm cực trị của đồ thị hàm số.
+
+</details>
+
+<!-- Kết quả Bài tập 2 -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+Hàm số $y = x^3 − 3x^2 + 2$ có tập xác định là $\mathbb{R}$.
+
+**a.** Hàm số có đạo hàm là $y^{\prime} = 3x^2 − 6x$, và đạo hàm cấp hai là $y^{\prime\prime} = 6x − 6$. Đạo hàm cấp hai $y^{\prime\prime}$ triệt tiêu khi $x = 1$, nên hoành độ điểm $I$ là $1$. Khi đó, tung độ của $I$ là 
+$$
+    y(1) 
+        = 1^3 − 3 \cdot 1^2 + 2 
+        = 0.
+$$
+
+Vậy, $I(1; 0)$.
+
+**b.** Đạo hàm $y^{\prime} = 3x^2 − 6x$ triệt tiêu khi $x = 0$ hoặc $x = 2$. Do đó, hoành độ hai điểm cực trị của đồ thị hàm số là $0$ và $2$. Tung độ của hai điểm cực trị này lần lượt là $y(0) = 2$ và $y(2) = -2$. Vậy, tọa độ hai điểm cực trị là $(0; 2)$ và $(2; -2)$. Vì
+$$
+    \frac{(0; 2) + (2; -2)}{2}
+        = \frac{1}{2}(2;0) 
+        = (1; 0) 
+$$
+
+chính là tọa độ của điểm $I$, nên $I$ là trung điểm của đoạn thẳng nối hai điểm cực trị của đồ thị hàm số.
+</details>
+
+<!-- Bài tập 3 -->
+
+<details open>
+
+<summary class="de-muc">Bài tập 3</summary>
+
+Khảo sát và vẽ đồ thị của các hàm số sau:
+
+a. $y=3+\dfrac{1}{x}$;
+b. $y=\dfrac{x-3}{1-x}$.
+
+</details>
+
+<!-- Kết quả Bài tập 3 -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+**a.** Hàm số $y=3+\frac{1}{x}$ có tập xác định là $\mathbb{R}\setminus\{0\}$.
+
+Hàm số nghịch biến trên $(-\infty;0)$ và $(0;+\infty)$, vì đạo hàm
+$$
+    y^\prime
+        =-\frac{1}{x^2}
+        <0
+$$
+
+với mọi $x\ne 0$.
+
+Xu hướng của đồ thị hàm số tại điểm không xác định $x=0$ và tại vô cực.
+
+* Đường thẳng $x=0$ là tiệm cận đứng, vì
+    $$
+        \lim_{x\to 0^\pm}y(x)
+            = \lim_{x\to 0^\pm}\left(3+\frac{1}{x}\right)
+            =\pm\infty.
+    $$
+
+* Đường thẳng $y=3$ là tiệm cận ngang, vì
+    $$
+        \lim_{x\to \pm\infty}y(x)
+            = \lim_{x\to \pm\infty}\left(3+\frac{1}{x}\right)
+            =3.
+    $$
+
+Bảng biến thiên hàm số $y=3+\frac{1}{x}$:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/bt-3-a-bang-bien-thien){width=475px fig-align="center"}
+
+Đồ thị hàm số có tâm đối xứng $(0;3)$ là giao điểm của hai tiệm cận, và hai trục đối xứng $y=x+3$ và $y=-x+3$.
+
+Một số điểm giúp định vị đồ thị.
+
+* Giao với trục hoành tại $\left(-\frac{1}{3};0\right)$.
+* Qua $\left(\frac{1}{3};6\right)$ đối xứng với $\left(-\frac{1}{3};0\right)$ qua tâm $(0;3)$.
+
+Đồ thị hàm số $y=3+\frac{1}{x}$:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/bt-3-a-do-thi){width=350px fig-align="center"}
+
+**b.** Hàm số $y=\frac{x-3}{1-x}$ có tập xác định là $\mathbb{R}\setminus\{1\}$.
+
+Viết lại hàm số dưới dạng
+$$
+    y
+        = -1 - \frac{2}{1-x}.
+$$
+
+Hàm số nghịch biến trên $(-\infty;1)$ và $(1;+\infty)$, vì đạo hàm
+$$
+    y^\prime
+        =-\frac{2}{(1-x)^2}
+        <0
+$$
+
+với mọi $x\ne 1$.
+
+Xu hướng của đồ thị hàm số tại điểm không xác định $x=1$ và tại vô cực.
+
+* Đường thẳng $x=1$ là tiệm cận đứng, vì
+    $$
+        \lim_{x\to 1^\pm}y(x)
+            = \lim_{x\to 1^\pm}\left(-1-\frac{2}{1-x}\right)
+            =\pm\infty.
+    $$
+
+* Đường thẳng $y=-1$ là tiệm cận ngang, vì
+    $$
+        \lim_{x\to \pm\infty}y(x)
+            = \lim_{x\to \pm\infty}\left(-1-\frac{2}{1-x}\right)
+            =-1.
+    $$
+
+Bảng biến thiên hàm số $y=\frac{x-3}{1-x}$:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/bt-3-b-bang-bien-thien){width=475px fig-align="center"}
+
+Đồ thị hàm số có tâm đối xứng $(1;-1)$ là giao điểm của hai tiệm cận, và hai trục đối xứng $y=x-2$ và $y=-x$.
+
+Một số điểm giúp định vị đồ thị.
+
+
+* Giao với trục tung tại $(0;-3)$.
+* Giao với trục hoành tại $(3;0)$.
+
+Đồ thị hàm số $y=\frac{x-3}{1-x}$:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/bt-3-b-do-thi){width=350px fig-align="center"}
+
+
+</details>
+
+<!-- Bài tập 4 -->
+
+<details open>
+
+<summary class="de-muc">Bài tập 4</summary>
+
+Khảo sát và vẽ đồ thị của các hàm số sau:
+
+a. $y=\dfrac{x^2-2x+2}{x-1}$;
+b. $y=2x-\dfrac{1}{1-2x}$.
+
+</details>
+
+<!-- Kết quả Bài tập 4 -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+**a.** Hàm số $y=\frac{x^2-2x+2}{x-1}$ có tập xác định $\mathbb{R}\setminus\{1\}$.
+
+Viết lại hàm số dưới dạng
+$$
+    y
+        = x-1+\frac{1}{x-1}.
+$$
+
+Đạo hàm
+$$
+    y^\prime
+        = 1-\frac{1}{(x-1)^2}
+$$
+
+triệt tiêu khi $x=0$ hoặc $x=2$.
+
+* Hàm số đồng biến trên khoảng $(-\infty;0)$ và $(2;+\infty)$, vì $y^\prime>0$ với mọi $x<0$ và $x>2$.
+
+* Hàm số nghịch biến trên khoảng $(0;1)$ và $(1;2)$, vì $y^\prime<0$ với mọi $0<x<1$ và $1<x<2$.
+
+* Hàm số đạt cực đại tại $x=0$ với giá trị cực đại $y(0)=-2$, vì $y^\prime$ đổi dấu từ *dương sang âm* tại $x=0$.
+
+* Hàm số đạt cực tiểu tại $x=2$ với giá trị cực tiểu $y(2)=2$, vì $y^\prime$ đổi dấu từ *âm sang dương* tại $x=2$.
+
+Tiệm cận đứng và tiệm cận xiên:
+
+* Đồ thị hàm số có tiệm cận đứng là đường thẳng $x=1$, vì
+    $$
+        \lim_{x\to 1^\pm}y(x)
+            =\lim_{x\to 1^\pm}\left(x-1+\frac{1}{x-1}\right) 
+            = \pm\infty.
+    $$
+
+* Đồ thị hàm số có tiệm cận xiên là đường thẳng $y=x-1$, vì
+    $$
+        \lim_{x\to \pm\infty}(y(x)-(x-1))
+            =\lim_{x\to \pm\infty}\left(\frac{1}{x-1}\right) 
+            = 0.
+    $$
+
+Bảng biến thiên hàm số $y=\frac{x^2-2x+2}{x-1}$:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/bt-4-a-bang-bien-thien){width=475px fig-align="center"}
+
+Tâm đối xứng: Đồ thị hàm số đối xứng quanh điểm $(1;0)$, là giao điểm của tiệm cận đứng và tiệm cận xiên.
+
+Một số điểm giúp định vị đồ thị:
+
+* Điểm cực đại cũng là giao điểm với trục tung $(0;-2)$.
+* Điểm cực tiểu $(2;2)$.
+
+Đồ thị hàm số $y=\frac{x^2-2x+2}{x-1}$:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/bt-4-a-do-thi){width=475px fig-align="center"}
+
+**b.** Hàm số $y=2x-\frac{1}{1-2x}$ có tập xác định $\mathbb{R}\setminus\left\{\frac{1}{2}\right\}$.
+
+Đạo hàm
+$$
+    y^\prime
+        = 2-\frac{2}{(1-2x)^2}
+$$
+
+triệt tiêu khi $x=0$ hoặc $x=1$.
+
+* Hàm số đồng biến trên khoảng $(-\infty;0)$ và $(1;+\infty)$, vì $y^\prime>0$ với mọi $x<0$ và $x>1$.
+
+* Hàm số nghịch biến trên khoảng $\left(0;\frac{1}{2}\right)$ và $\left(\frac{1}{2};1\right)$, vì $y^\prime<0$ với mọi $0<x<\frac{1}{2}$ và $\frac{1}{2}<x<1$.
+
+* Hàm số đạt cực đại tại $x=0$ với giá trị cực đại $y(0)=-1$, vì $y^\prime$ đổi dấu từ *dương sang âm* tại $x=0$.
+
+* Hàm số đạt cực tiểu tại $x=1$ với giá trị cực tiểu $y(1)=3$, vì $y^\prime$ đổi dấu từ *âm sang dương* tại $x=1$.
+
+Tiệm cận đứng và tiệm cận xiên:
+
+* Đồ thị hàm số có tiệm cận đứng là đường thẳng $x=\frac{1}{2}$, vì
+    $$
+        \lim_{x\to \frac{1}{2}^\pm}y(x)
+            =\lim_{x\to \frac{1}{2}^\pm}\left(2x+\frac{1}{1-2x}\right) 
+            = \mp\infty.
+    $$
+
+* Đồ thị hàm số có tiệm cận xiên là đường thẳng $y=2x$, vì
+    $$
+        \lim_{x\to \pm\infty}(y(x)-(2x))
+            =\lim_{x\to \pm\infty}\left(\frac{1}{1-2x}\right) 
+            = 0.
+    $$
+
+Bảng biến thiên hàm số $y=2x+\frac{1}{1-2x}$:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/bt-4-b-bang-bien-thien){width=475px fig-align="center"}
+
+Tâm đối xứng: Đồ thị hàm số đối xứng quanh điểm $(1;0)$, là giao điểm của tiệm cận đứng và tiệm cận xiên.
+
+Một số điểm giúp định vị đồ thị:
+
+* Điểm cực đại cũng là giao điểm với trục tung $(0;-1)$.
+* Điểm cực tiểu $(1;3)$.
+
+Đồ thị hàm số $y=2x+\frac{1}{1-2x}$:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/bt-4-b-do-thi){width=475px fig-align="center"}
+
+</details>
+
+<!-- Bài tập 5 -->
+
+<details open>
+
+<summary class="de-muc">Bài tập 5</summary>
+
+Cho hàm số $y=\dfrac{-x^2+3x+1}{x+2}$.
+
+a. Khảo sát và vẽ đồ thị hàm số đã cho.
+b. Tìm toạ độ trung điểm đoạn nối hai điểm cực trị của đồ thị hàm số. Có nhận xét gì về điểm này?
+
+</details>
+
+<!-- Kết quả Bài tập 5 -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+**a.** Hàm số $y=\frac{-x^2+3x+1}{x+2}$ có tập xác định $\mathbb{R}\setminus\{-2\}$.
+
+Viết hàm số lại dưới dạng
+$$
+    y
+        =-x+5-\frac{9}{x+2}.
+$$
+
+<!-- Hàm số nghịch biến trên $(-\infty;-2)$ và $(-2;+\infty)$, vì -->
+Đạo hàm của hàm số là
+$$
+    y^\prime
+        = -1+\frac{9}{(x+2)^2}
+$$
+
+triệt tiêu khi $x=-5$ hoặc $x=1$.
+
+* Hàm số nghịch biến trên $(-\infty;-5)$ và $(1;+\infty)$, vì $y^\prime<0$ với mọi $x<-5$ và $x>1$.
+* Hàm số đồng biến trên $(-5;-2)$ và $(-2;1)$, vì $y^\prime>0$ với mọi $-5<x<-2$ và $-2<x<1$.
+* Hàm số đạt cực tiểu tại $x=$x=-5$ với giá trị cực tiểu $y=13$, vì $y^\prime$ đổi dấu từ *âm sang dương* khi $x$ qua $-5$.
+* Hàm số đạt cực đại tại $x=1$ với giá trị cực đại $y=1$, vì $y^\prime$ đổi dấu từ *dương sang âm* khi $x$ qua $1$.
+
+Tiệm cận đứng và tiệm cận xiên:
+
+* Đồ thị hàm số có tiệm cận đứng là đường thẳng $x=-2$, vì
+    $$
+        \lim_{x\to -2^\pm}y(x)
+            =\lim_{x\to -2^\pm}\left(-x+5-\frac{9}{x+2}\right) 
+            = \mp\infty.
+    $$
+
+* Đồ thị hàm số có tiệm cận xiên là đường thẳng $y=2x$, vì
+    $$
+        \lim_{x\to \pm\infty}(y(x)-(-x+5))
+            =\lim_{x\to \pm\infty}\left(-\frac{9}{-x+5}\right) 
+            = 0.
+    $$
+
+Bảng biến thiên hàm số $y=\frac{-x^2+3x+1}{x+2}$:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/bt-5-bang-bien-thien){width=475px fig-align="center"}
+
+Tâm đối xứng: Đồ thị hàm số đối xứng quanh điểm $(-2;7)$, là giao điểm của tiệm cận đứng và tiệm cận xiên.
+
+Một số điểm giúp định vị đồ thị:
+
+* Giao điểm với $Oy$ là $\left(0;\frac{1}{2}\right)$.
+* Giao điểm với $Ox$ là $\left(\frac{3-\sqrt{13}}{2};0\right)$ và $\left(\frac{3+\sqrt{13}}{2};0\right)$.
+* Điểm cực đại là $(1;1)$.
+* Điểm cực tiểu $(-5;13)$.
+
+Đồ thị hàm số $y=\frac{-x^2+3x+1}{x+2}$:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/bt-5-do-thi){width=475px fig-align="center"}
+
+</details>
+
+<!-- Bài tập 6 -->
+
+<details open>
+
+<summary class="de-muc">Bài tập 6</summary>
+
+Bạn Việt muốn dùng tấm bìa hình vuông cạnh $6$ dm làm một chiếc hộp không nắp, có đáy là hình vuông bằng cách cắt bỏ đi $4$ hình vuông nhỏ ở bốn góc của tấm bìa.
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/bt-6-mo-hinh-chiec-hop){width=225px fig-align="center"}
+
+Bạn Việt muốn tìm độ dài cạnh hình vuông cần cắt bỏ để chiếc hộp đạt thể tích lớn nhất.
+
+a. Hãy thiết lập hàm số biểu thị thể tích hộp theo $x$, với $x$ là độ dài cạnh hình vuông cần cắt đi.
+b. Khảo sát và vẽ đồ thị hàm số tìm được.
+
+Từ đó, hãy tư vấn cho bạn Việt cách giải quyết vấn đề và giải thích vì sao cần chọn giá trị này. (Làm tròn kết quả đến hàng phần mười.)
+
+</details>
+
+<!-- Nháp -->
+
+<details open>
+
+<summary class="nhap">Nháp</summary>
+
+**a.** Thiết lập hàm số thể tích $V(x)$
+
+::: {.tieu-de-chu-thich}
+Thể tích hộp
+:::
+
+* Chiều cao: $x$
+* Diện tích đáy: $(6 - 2x)^2$
+* Thể tích: $V(x)=x(6-2x)^2$
+
+::: {.tieu-de-chu-thich}
+Tập xác định 
+:::
+
+* $x>0$: đảm bảo hộp có chiều cao, tức có thành
+
+* $6-2x>0 \Leftrightarrow x<3$: đảm bảo đáy hộp có diện tích
+
+* Tập xác định: $(0;3)$
+
+::: {.tieu-de-chu-thich}
+Có thể xét cả $x=0$ và $x=3$?
+:::
+
+* $x=0 \Rightarrow V(0)=0$: hộp không có thành
+
+* $x=3 \Rightarrow V(3)=0$: đáy thu về một điểm
+
+* Tập xác định mở rộng: $[0;3]$
+
+* Thuận lợi: có thể áp dụng thuật toán tìm giá trị lớn nhất và nhỏ nhất đối với hàm liên tục trên đoạn $[a;b]$ và có đạo hàm trên khoảng $(a;b)$
+
+* Bất lợi: hộp thể tích $0$ không có ý nghĩa thực tế
+
+* Chọn tập xác định $(0;3)$ để đảm bảo cả thực tế và toán học.
+
+**b.** Khảo sát và vẽ đồ thị hàm số $V(x)=x(6-2x)^2$
+
+::: {.tieu-de-chu-thich}
+Tập xác định 
+:::
+
+* $(0;3)$
+
+::: {.tieu-de-chu-thich}
+Đạo hàm 
+:::
+
+* $V^\prime(x)=12(1-x)(3-x)$
+
+::: {.tieu-de-chu-thich}
+Chiều biến thiên 
+:::
+
+* $V^\prime(1)=0$ 
+* $V^\prime(3)=0$, $3\notin(0;3)$
+* $V(x)\uparrow(0;1)$: $V^\prime(x)>0, 0<x<1$
+
+    $V\left(\frac{1}{2}\right)=15>0$
+
+* $V(x)\downarrow (1;3)$: $V^\prime(x)<0, 1<x<3$
+
+    $V(2)=-12<0$
+
+::: {.tieu-de-chu-thich}
+Cực trị
+:::
+
+* $V_{\text{CĐ}}=V(1)=16$: $x$ tiến về $3^-$, $V^\prime (x)$ chuyển dấu từ *dương sang âm* khi $x$ qua $1$
+
+::: {.tieu-de-chu-thich}
+Giới hạn
+:::
+
+* $\lim_{x\to 0^+}V(x)=\lim_{x\to 0^+}x(6-2x)^2=0$ kết hợp $V(x)$ đồng biến trên $(0;1)$
+
+    * $V(x)$ tăng dần từ $0$ đến $16$
+    * Đồ thị bắt đầu từ sát trục hoành, vươn dần đến điểm cực đại $(1;16)$
+    * Sự tăng lên của chiều cao $x$ lấn át sự giảm xuống của diện tích đáy $(6-2x)^2$
+
+* $\lim_{x\to 3^-}V(x)=\lim_{x\to 3^-}x(6-2x)^2=0$ kết hợp $V(x)$ nghịch biến trên $(1;3)$
+
+    * $V(x)$ giảm dần từ $16$ về $0$
+    * Đồ thị bắt đầu từ điểm cực đại $(1;16)$ hạ dần về sát trục hoành
+    * Sự tăng lên của chiều cao $x$ không còn lấn át được sự giảm xuống của diện tích đáy $(6-2x)^2$, mà ngược lại
+
+::: {.tieu-de-chu-thich}
+Bảng biến thiên 
+:::
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/bt-6-bang-bien-thien){width=475px fig-align="center"}
+
+::: {.tieu-de-chu-thich}
+Một số điểm thuộc đồ thị 
+:::
+
+|   $x$   | $0,25$ |  $0,5$  |  $1$  |  $1,5$  |  $2$  |  $2,5$  |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| $V(x)$ | $7,5625$ |  $12,5$  |  $16$  |  $13,5$  |  $8$  |  $2,5$  |
+
+::: {.tieu-de-chu-thich}
+Đồ thị 
+:::
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/bt-6-do-thi){width=350px fig-align="center"}
+
+
+</details>
+
+<!-- Giải Bài tập 6 -->
+
+<details open>
+
+<summary class="giai-de-muc">Luận giải</summary>
+
+**a.** Tấm bìa hình vuông cạnh $6$ dm bị cắt bỏ ở mỗi góc một hình vuông nhỏ cạnh $x$ dm, rồi phần còn lại được gấp thành một chiếc hộp không nắp có đáy là hình vuông cạnh $6 - 2x$ dm và chiều cao $x$ dm. Thể tích của chiếc hộp được biểu diễn bởi hàm số
+
+$$
+V(x) = x(6 - 2x)^2,
+$$
+
+tức là tích của chiều cao và diện tích đáy.
+
+Để bài toán có ý nghĩa thực tiễn, cần xác định rõ các giá trị mà biến số $x$ có thể nhận. 
+
+* Vì $x$ đại diện chiều dài cạnh hình vuông bị cắt nên $x > 0$.
+* Vì $6-2x$ đại diện chiều dài cạnh hình vuông là đáy hộp nên $6-2x > 0$ hay $x<3$.
+
+Như vậy, để thực sự có một chiếc hộp, $x$ phải thuộc khoảng $(0; 3)$.
+
+Tuy nhiên, nếu xét thuần tuý về mặt toán học hình thức, có thể mở rộng miền khảo sát từ khoảng $(0;3)$ thành đoạn $[0;3]$, vì hàm số $V(x)$ vẫn liên tục và xác định tại hai đầu mút. Khi đó, tại $x=0$ hoặc $x=3$, chiếc hộp bị suy biến thành hình phẳng, hoặc không có thành hoặc không có đáy, dẫn đến thể tích bằng $0$. Việc mở rộng tạo nên thuận lợi trong việc giải bài toán tìm giá trị lớn nhất và nhỏ nhất thông qua giải thuật dành riêng cho hàm liên tục trên trên đoạn $[a;b]$ và có đạo hàm trên khoảng $(a;b)$. Nhưng, ở đây, điều này làm lu mờ bối cảnh thực tế của bài toán - một chiếc hộp thực sự sẽ không có thể tích bằng $0$.
+
+Vì thế, để vừa phù hợp với thực tiễn vừa đảm bảo yêu cầu toán học, nên khảo sát hàm số $V(x)$ trên khoảng $(0; 3)$.
+
+**b.** Xét hàm số $V(x)=x(6-2x)^2$ trên khoảng $(0;3)$.
+
+Hàm số có đạo hàm là 
+
+$$
+    y^\prime
+        = 12(1-x)(3-x).
+$$
+
+Trên khoảng $(0;3)$, đạo hàm triệt tiêu tại $x=1$. Hơn nữa, trên $(0;3)$, hàm số có những tính chất dưới đây.
+
+* Vì $V^\prime(x)>0$ với mọi $0<x<1$, nên hàm số đồng biến trên $(0;1)$.
+* Vì $V^\prime(x)<0$ với mọi $1<x<3$, nên hàm số nghịch biến trên $(1;3)$.
+* Vì $V^\prime (x)$ đổi dấu từ *dương sang âm* khi $x$ qua $1$, hàm số đạt cực đại tại $x=1$ với giá trị cực đại $V(1)=16$.
+
+Đồ thị hàm số có xu hướng tiến về trục hoành khi $x$ tiến về $0$ hoặc $3$, vì
+
+$$
+    \lim_{x\to 0^+}V(x)
+        = \lim_{x\to 0^+}x(6-2x)^2
+        =0
+$$
+
+và
+
+$$
+    \lim_{x\to 3^-}V(x)
+        = \lim_{x\to 3^-}x(6-2x)^2
+        =0.
+$$
+
+Bảng biến thiên hàm số $y=x(6-2x)^2$ trên khoảng $(0;3)$:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/bt-6-bang-bien-thien){width=475px fig-align="center"}
+
+Một số điểm giúp định vị đồ thị trên mặt phẳng tọa độ:
+
+* Đồ thị có điểm cực đại là $(1;16)$.
+* Ngoài ra, đồ thị hàm số còn qua các điểm $\left(\frac{1}{4};\frac{121}{16}\right)$, $\left(\frac{1}{2};\frac{25}{2}\right)$, $\left(\frac{3}{2};\frac{27}{2}\right)$, $(2;8)$, $\left(\frac{5}{2};\frac{5}{2}\right)$.
+
+Đồ thị hàm số $y=x(6-2x)^2$ trên khoảng $(0;3)$:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/bt-6-do-thi){width=350px fig-align="center"}
+
+Từ đồ thị cho thấy
+
+$$
+    \max_{x\in(0;3)}V(x)
+        = \max_{x\in(0;3)}x(6-2x)^2
+        = V(1)
+        = 16.
+$$
+
+Vậy, để chiếc hộp có thể tích lớn nhất, bạn Việt nên cắt mỗi góc một hình vuông cạnh $1$ dm. Khi đó, thể tích hộp đạt giá trị lớn nhất là $16$ dm³.
+
+</details>
+
+<!-- Kết quả Bài tập 6 -->
+
+<details open>
+
+<summary class="ket-qua">Kết quả</summary>
+
+**a.** Hộp có chiều cao $x$ $\text{dm}$ và diện tích đáy $(6-2x)^2$ $\text{dm}^2$, nên có thể tích
+
+$$
+    V(x)
+        =x(6-2x)^2 \quad (\mathrm{dm}^3).
+$$
+
+Vì $x$ và $6-2x$ đều là các con số đại diện cho chiều dài nên cần điều kiện $x>0$ và $6-2x>0$. Suy ra tập xác định của $V(x)$ là $(0;3)$.
+
+**b.** Xét hàm số $V(x)=x(6-2x)^2$ trên khoảng $(0;3)$.
+
+Đạo hàm 
+$$
+    y^\prime
+        = 12(1-x)(3-x)
+$$
+
+triệt tiêu tại $x=1$ thuộc khoảng $(0;3)$.
+
+* Hàm số đồng biến trên $(0;1)$, vì $V^\prime(x)>0$ với mọi $0<x<1$.
+* Hàm số nghịch biến trên $(1;3)$, vì $V^\prime(x)<0$ với mọi $1<x<3$.
+* Hàm số đạt cực đại tại $x=1$ với giá trị cực đại là $V(1)=16$, vì $V^\prime (x)$ đổi dấu từ *dương sang âm* khi $x$ qua $1$.
+
+Đồ thị hàm số có xu hướng tiến về $Ox$ khi $x$ tiến về $0$ hoặc $3$, vì
+
+$$
+    \lim_{x\to 0^+}V(x)
+        = \lim_{x\to 3^-}V(x)
+        =0.
+$$
+
+Bảng biến thiên:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/bt-6-bang-bien-thien){width=475px fig-align="center"}
+
+Một số điểm giúp định vị đồ thị trên mặt phẳng tọa độ:
+
+* Điểm cực đại $(1;16)$.
+* Qua các điểm $\left(\frac{1}{4};\frac{121}{16}\right)$, $\left(\frac{1}{2};\frac{25}{2}\right)$, $\left(\frac{3}{2};\frac{27}{2}\right)$, $(2;8)$, $\left(\frac{5}{2};\frac{5}{2}\right)$.
+
+Đồ thị:
+
+![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/bt-6-do-thi){width=350px fig-align="center"}
+
+Từ đồ thị suy ra
+
+$$
+    \max_{x\in(0;3)}V(x)
+        = \max_{x\in(0;3)}x(6-2x)^2
+        = V(1)
+        = 16.
+$$
+
+Vậy, bạn Việt nên cắt mỗi góc một hình vuông cạnh $1$ $\mathrm{dm}$ để thể tích hộp đạt giá trị lớn nhất là $16$ $\mathrm{dm}^3$.
+
+</details>

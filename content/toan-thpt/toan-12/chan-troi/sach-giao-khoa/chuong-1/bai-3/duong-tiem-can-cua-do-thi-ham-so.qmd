@@ -27,15 +27,15 @@ library(MASS)
 
 <summary class="de-muc">Hoạt động khởi động</summary>
 
-Theo thuyết tương đối hẹp, khối lượng $m$ (kg) của một hạt phụ thuộc vào tốc độ di chuyển $v$ (km/s) của nó trong hệ quy chiếu quán tính theo công thức 
+Theo thuyết tương đối hẹp, khối lượng $m$ (kg) của một hạt phụ thuộc vào tốc độ di chuyển $v$ (km/s) của nó trong <span data-bs-toggle="tooltip" title='Hệ quy chiếu quán tính là hệ mà trong đó một vật không chịu lực sẽ chuyển động thẳng đều hoặc đứng yên. Đây là hệ "ổn định" theo nghĩa của cơ học cổ điển và là nền tảng để áp dụng các định luật Niu-tơn (Newton) hoặc thuyết tương đối hẹp.'>hệ quy chiếu quán tính</span> theo công thức 
 
 $$
     m=m(v)=\frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}},
 $$
 
-trong đó $m_0$ là khối lượng nghỉ của hạt, $c=300000$ km/s là tốc độ ánh sáng. Khi hạt di chuyển với tốc độ càng gần tốc độ ánh sáng thì khối lượng của hạt thay đổi thế nào? Điều này thể hiện trên đồ thị hàm số $m=m(v)$ ở hình bên như thế nào? 
+trong đó $m_0$ là khối lượng nghỉ của hạt, $c=300\,000$ km/s là tốc độ ánh sáng. Khi hạt di chuyển với tốc độ càng gần tốc độ ánh sáng thì khối lượng của hạt thay đổi thế nào? Điều này thể hiện trên đồ thị hàm số $m=m(v)$ đã cho như thế nào? 
 
-![Đồ thị hàm số $m(v)=\frac{1}{\sqrt{1-\frac{v^2}{c^2}}}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/hdkd-do-thi){width=350px}
+![Đồ thị hàm số $m(v)=\frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/hdkd-do-thi){width=350px}
 
 <div class="nguon">(*Theo*: https://www.britannica.com/science/relativistic-mass)</div>
 
@@ -46,6 +46,22 @@ trong đó $m_0$ là khối lượng nghỉ của hạt, $c=300000$ km/s là t�
 <details open>
 
 <summary class="giai-de-muc">Luận giải</summary>
+
+Khi một hạt chuyển động nhanh dần, khối lượng của nó cũng tăng lên. Theo công thức vật lý đã cho, tốc độ càng tiến gần đến tốc độ ánh sáng thì khối lượng càng tăng mạnh, gần như không giới hạn.
+
+Trên đồ thị hàm số $m(v) = \frac{m_0}{\sqrt{1 - \frac{v^2}{c^2}}}$, có thể thấy đường cong càng lúc càng vươn cao khi $v \to c^-$. Mỗi bước tiến nhỏ về phía tốc độ ánh sáng $c$ đều kéo theo một bước nhảy lớn về khối lượng.
+
+Tuy nhiên, đường cong không bao giờ chạm vào trục thẳng đứng tại $v = c$. Dường như có một giới hạn vô hình mà đồ thị chỉ có thể áp sát nhưng không vượt qua - rào cản vật lý không thể đạt vận tốc ánh sáng với mọi hạt có khối lượng nghỉ lớn hơn $0$. Toán học diễn tả điều này bằng cách nói rằng 
+
+$$
+    \lim_{v \to c^-} m(v) 
+        = +\infty.
+$$
+
+Trong nhiều hàm số, cũng có những đường mà đồ thị tiến gần mãi nhưng không chạm tới - đó là **đường tiệm cận**.
+
+Để hiểu rõ hơn hiện tượng này, hãy cùng khám phá ba tình huống cụ thể: khi đồ thị **vươn lên vô hạn**, khi nó **tiến gần một đường ngang**, và khi nó **nghiêng sát một đường chéo**.
+
 
 </details>
 
@@ -258,7 +274,7 @@ b\. Vì $\lim_{x\to 1^-}\frac{x^2-1}{x-1}=+\infty$ và $\lim_{x\to 1^+}\frac{x^2
 
 <summary class="de-muc">Hoạt động khám phá 2</summary>
 
-Cho hàm số $y=\frac{x+1}{x}$ có đồ thị như Hình 4.
+Cho hàm số $y=\frac{x+1}{x}$ có đồ thị như trên hình.
 
 a. Tìm $\lim_{x\to+\infty}\frac{x+1}{x}$ và $\lim_{x\to-\infty}\frac{x+1}{x}$.
 b. Đường thẳng vuông góc với trục $Ox$ tại điểm $x$ cắt đồ thị hàm số tại điểm $M$ và cắt đường thẳng $y=1$ tại điểm $N$ (Hình 4). Tính $MN$ theo $x$ và nhận xét về $MN$ khi $x\to+\infty$ hoặc $x\to-\infty$.
@@ -276,19 +292,23 @@ b. Đường thẳng vuông góc với trục $Ox$ tại điểm $x$ cắt đồ
 a\. Xét biểu thức $\frac{x+1}{x}$. Khi $x$ tiến ra vô cùng, cả tử và mẫu đều lớn, nên cần biến đổi để thấy rõ xu hướng của phân thức:
 
 $$
-\frac{x+1}{x} = \frac{x}{x} + \frac{1}{x} = 1 + \frac{1}{x}.
+    \frac{x+1}{x} 
+        = \frac{x}{x} + \frac{1}{x} 
+        = 1 + \frac{1}{x}.
 $$
 
 Khi $x \to +\infty$, $\frac{1}{x} \to 0$, nên
 
 $$
-\lim_{x \to +\infty} \frac{x+1}{x} = 1.
+    \lim_{x \to +\infty} \frac{x+1}{x} 
+        = 1.
 $$
 
 Tương tự, khi $x \to -\infty$, $\frac{1}{x} \to 0$, nên
 
 $$
-\lim_{x \to -\infty} \frac{x+1}{x} = 1.
+    \lim_{x \to -\infty} \frac{x+1}{x} 
+        = 1.
 $$
 
 > Hai giới hạn này cho thấy đồ thị hàm số sẽ càng lúc càng áp sát đường thẳng $y=1$, nhưng không chạm tới.
@@ -315,21 +335,30 @@ $$
 
 : Khi $x$ càng âm lớn, $\frac{x+1}{x}$ cũng càng gần 1. {.striped .hover}
 
-Vậy, khi $x$ tiến ra vô cùng (cả về phía dương và âm), giá trị hàm số tiến gần đến 1. Đường thẳng $y = 1$ đóng vai trò như một ranh giới nằm ngang mà đồ thị càng lúc càng tiến gần nhưng không vượt qua - đó là **tiệm cận ngang** của đồ thị hàm số.
+Vậy, khi $x$ tiến ra vô cùng (cả về phía dương và âm), giá trị hàm số tiến gần đến 1. Đường thẳng $y = 1$ đóng vai trò như một ranh giới nằm ngang mà các nhánh riêng biệt của đồ thị càng lúc càng tiến gần nhưng không vượt qua - đó là **tiệm cận ngang** của đồ thị hàm số.
 
 b\. Điểm $M$ có hoành độ $x$, nên có tọa độ $M\left(x;\dfrac{x+1}{x}\right)$. Đường thẳng vuông góc với trục hoành tại điểm $x$ cắt đường thẳng $y = 1$ tại điểm $N\left(x; 1\right)$. Đoạn thẳng $MN$ là đoạn thẳng thẳng đứng, nên độ dài của nó chính là độ chênh lệch giữa hai tung độ:
 
 $$
-MN = \left| \frac{x+1}{x} - 1 \right| = \left| \frac{1}{x} \right|.
+    MN 
+        = \left\lvert \frac{x+1}{x} - 1 \right\rvert 
+        = \left\lvert \frac{1}{x} \right\rvert.
 $$
+
+![Đồ thị hàm số $y=\frac{x+1}{x}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/hdkp-2-do-thi){width=350px}
 
 Xét giới hạn của $MN$ khi $x\to+\infty$ và $x\to-\infty$. Khi đó, $\left| \frac{1}{x} \right| \to 0$, nên
 
 $$
-\lim_{x \to \pm\infty} MN = 0.
+    \lim_{x \to \pm\infty} MN 
+        = 0.
 $$
 
 Điều này có nghĩa là, khi $x$ càng tiến ra xa về hai phía, điểm $M$ trên đồ thị càng tiến gần đến đường thẳng $y = 1$, và khoảng cách đến đường thẳng đó càng nhỏ. Đây là biểu hiện hình học của **tiệm cận ngang**: đồ thị càng đi xa, càng tiến sát một đường thẳng nằm ngang.
+
+::: {.ket-thuc}
+
+:::
 
 </details>
 
@@ -365,7 +394,7 @@ Tóm lại, đoạn $MN$ có độ dài dần về $0$ khi $x$ tiến ra xa hai 
 
 <summary class="de-muc">Thực hành 2</summary>
 
-Tìm tiệm cận đứng của đồ thị các hàm số sau:
+Tìm tiệm cận ngang của đồ thị các hàm số sau:
 
 a. $y=f(x)=\frac{x-1}{4x+1}$;
 b. $y=g(x)=\frac{\sqrt{x}}{\sqrt{x}+2}$.
@@ -378,6 +407,34 @@ b. $y=g(x)=\frac{\sqrt{x}}{\sqrt{x}+2}$.
 
 <summary class="giai-de-muc">Luận giải</summary>
 
+a\. Biểu thức $\frac{x - 1}{4x + 1}$ có nghĩa khi $4x + 1 \ne 0$, tức là $x \ne -\frac{1}{4}$. Do đó, hàm số có tập xác định $D = \mathbb{R} \setminus \left\{-\frac{1}{4}\right\}$.
+
+Các giới hạn khi $x$ tiến ra vô cùng:
+
+$$
+    \lim_{x \to +\infty} \frac{x - 1}{4x + 1}
+        =\lim_{x \to -\infty} \frac{x - 1}{4x + 1}
+        = \frac{1}{4}.
+$$
+
+Vì giới hạn tại hai phía vô cùng đều bằng $\dfrac{1}{4}$, nên đường thẳng $y = \dfrac{1}{4}$ là tiệm cận ngang của đồ thị hàm số $y = f(x)$.
+
+b\. Biểu thức $\frac{\sqrt{x}}{\sqrt{x} + 2}$ có nghĩa khi $x \ge 0$, nên hàm số có tập xác định $D = [0, +\infty)$.
+
+Giới hạn khi $x$ tiến ra dương vô cùng:
+
+$$
+    \lim_{x \to +\infty} \frac{\sqrt{x}}{\sqrt{x} + 2}
+        = \lim_{x \to +\infty} \frac{1}{1 + \frac{2}{\sqrt{x}}}
+        = 1.
+$$
+
+Vì giới hạn tại dương vô cùng là $1$, nên đường thẳng $y = 1$ là tiệm cận ngang của đồ thị hàm số $y = g(x)$. 
+
+::: {.ket-thuc}
+
+:::
+
 </details>
 
 <!-- Kết quả Thực hành 2-->
@@ -386,6 +443,29 @@ b. $y=g(x)=\frac{\sqrt{x}}{\sqrt{x}+2}$.
 
 <summary class="ket-qua">Kết quả</summary>
 
+a\. Hàm số $y=f(x)=\frac{x-1}{4x+1}$ có tập xác định $D=\mathbb{R}\setminus\left\{-\frac{1}{4}\right\}$.
+
+Vì
+
+$$
+    \lim_{x \to +\infty} \frac{x - 1}{4x + 1}
+        =\lim_{x \to -\infty} \frac{x - 1}{4x + 1}
+        = \frac{1}{4}.
+$$
+
+nên đường thẳng $y=\frac{1}{4}$ là tiệm cận ngang của đồ thị hàm số $y=f(x)$.
+
+b\. Hàm số $y=g(x)=\frac{\sqrt{x}}{\sqrt{x}+2}$ có tập xác định $D=[0;+\infty)$.
+
+Vì
+
+$$
+    \lim_{x \to +\infty} \frac{\sqrt{x}}{\sqrt{x} + 2}
+        = \lim_{x \to +\infty} \frac{1}{1 + \frac{2}{\sqrt{x}}}
+        = 1.
+$$
+
+nên đường thẳng $y=1$ là tiệm cận ngang của đồ thị hàm số $y=g(x)$.
 
 </details>
 
@@ -395,7 +475,7 @@ b. $y=g(x)=\frac{\sqrt{x}}{\sqrt{x}+2}$.
 
 <summary class="de-muc">Hoạt động khám phá 3</summary>
 
-Cho đồ thị của hàm số $y=\frac{x^2+1}{x}$ và đường thẳng $y=x$. Đường thẳng vuông góc với trục $Ox$ tại điểm $x$ cắt đồ thị hàm số tại điểm $M$ và cắt đường thẳng $y=x$ tại điểm $N$ (Hình 7).
+Cho đồ thị của hàm số $y=\frac{x^2+1}{x}$ và đường thẳng $y=x$. Đường thẳng vuông góc với trục $Ox$ tại điểm $x$ cắt đồ thị hàm số tại điểm $M$ và cắt đường thẳng $y=x$ tại điểm $N$.
 
 a. Tính $\lim_{x\to-\infty}\left(\frac{x^2+1}{x}-x\right)$ và $\lim_{x\to+\infty}\left(\frac{x^2+1}{x}-x\right)$.
 b. Tính $MN$ theo $x$ và nhận xét về $MN$ khi $x\to+\infty$ hoặc $x\to-\infty$.
@@ -410,7 +490,7 @@ b. Tính $MN$ theo $x$ và nhận xét về $MN$ khi $x\to+\infty$ hoặc $x\to-
 
 <summary class="giai-de-muc">Luận giải</summary>
 
-a\. Biểu thức $\dfrac{x^2 + 1}{x} - x$ có thể rút gọn thành:
+a\. Biểu thức $\frac{x^2 + 1}{x} - x$ có thể rút gọn thành:
 
 $$
 \frac{x^2 + 1}{x} - x = \left( \frac{x^2}{x} + \frac{1}{x} \right) - x = x + \frac{1}{x} - x = \frac{1}{x}.
@@ -422,9 +502,9 @@ $$
 \lim_{x \to \pm\infty} \left( \frac{x^2 + 1}{x} - x \right) = 0.
 $$
 
-> Điều này cho thấy đồ thị hàm số $y=\frac{x^2+1}{x}$ sẽ càng lúc càng áp sát đường thẳng $y = x$ khi $x$ tiến ra vô cùng.
+> Điều này cho thấy đồ thị hàm số $y=\frac{x^2+1}{x}$ sẽ càng lúc càng áp sát, nhưng không bao giờ chạm tới, đường thẳng $y = x$ khi $x$ tiến ra vô cùng.
 
-Để hình dung rõ hơn, hãy xem giá trị của biểu thức $\frac{x^2 + 1}{x} - x$ khi $x$ lớn hoặc nhỏ dần qua bảng dưới đây.
+Để hình dung rõ hơn, hãy xem giá trị của biểu thức $\frac{x^2 + 1}{x} - x$ khi $x$ tiến ra dương vô cùng hoặc tiến ra âm vô cùng lần lượt qua hai bảng dưới đây.
 
 |     $x$    | $\frac{x^2 + 1}{x} - x$ |
 | :--------: | :----------------------: |
@@ -444,17 +524,17 @@ $$
 |  $-10\,000$ |        $-0{,}0001$       |
 | $-100\,000$ |       $-0{,}00001$       |
 
-: Khi $x$ càng âm lớn, biểu thức cũng tiến gần 0. {.striped .hover}
+: Khi $x$ càng âm lớn, biểu thức cũng càng gần 0. {.striped .hover}
 
-Vậy, khi $x \to \pm\infty$, giá trị hàm số tiến gần đến $y = x$. Đường thẳng $y = x$ đóng vai trò như một ranh giới mà hai nhánh của đồ thị càng lúc càng áp sát - đó là **tiệm cận xiên** của đồ thị hàm số.
+Vậy, khi $x \to \pm\infty$, giá trị hàm số tiến gần đến $y = x$. Đường thẳng $y = x$ đóng vai trò như một ranh giới mà các nhánh của đồ thị càng lúc càng áp sát - đó là **tiệm cận xiên** của đồ thị hàm số.
 
-b\. Điểm $M$ có hoành độ $x$, nên tọa độ là:
+b\. Điểm $M$ có hoành độ $x$, nên có tọa độ là
 
 $$
 M\left( x;\, \frac{x^2 + 1}{x} \right).
 $$
 
-Điểm $N$ có cùng hoành độ với điểm $M$ và nằm trên đường thẳng $y = x$, nên có tọa độ:
+Điểm $N$ có cùng hoành độ với điểm $M$ và nằm trên đường thẳng $y = x$, nên có tọa độ là
 
 $$
     N\left( x;\, x \right).
@@ -476,7 +556,16 @@ $$
         = 0.
 $$
 
-Điều này cho thấy rằng, khi $x$ càng lớn (về cả hai phía), điểm $M$ trên đồ thị càng tiến gần đến đường thẳng $y = x$, và khoảng cách giữa chúng càng nhỏ. Đây là biểu hiện hình học của **tiệm cận xiên**: đồ thị càng đi xa, càng tiến sát một đường thẳng xiên.
+Điều này cho thấy rằng, khi $\lvert x\rvert$ càng lớn, điểm $M$ trên đồ thị càng tiến gần đến đường thẳng $y = x$, và khoảng cách giữa chúng càng nhỏ. Đây là biểu hiện hình học của **tiệm cận xiên**: đồ thị càng đi xa, càng tiến sát một đường thẳng xiên.
+
+> "Đường thẳng xiên" ở đây là thuật ngữ tạm dùng để chỉ đường thẳng có hệ số góc xác định và khác $0$. Tiệm cận xiên phân biệt với tiệm cận đứng và tiệm cận ngang ở chỗ:
+>
+    - Tiệm cận đứng: hệ số góc không xác định.
+    - Tiệm cận ngang: hệ số góc bằng $0$.
+
+::: {.ket-thuc}
+
+:::
 
 </details>
 
@@ -486,7 +575,7 @@ $$
 
 <summary class="ket-qua">Kết quả</summary>
 
-a\. Các giới hạn cần tính là
+a\. Các giới hạn cần tính:
 
 $$
     \lim_{x \to +\infty} \left( \frac{x^2 + 1}{x} - x \right)
@@ -496,12 +585,12 @@ $$
         = 0.
 $$
 
-b\. Từ đồ thị đã cho, có thể thấy:
+b\. Từ đồ thị và các suy luận đại số:
 
 - Khi $x \to +\infty$, thì $MN = \left\lvert \frac{1}{x} \right\rvert \to 0$.
 - Khi $x \to -\infty$, thì $MN = \left\lvert \frac{1}{x} \right\rvert \to 0$.
 
-Tóm lại, đoạn $MN$ có độ dài dần về $0$ khi $x$ tiến ra xa hai phía.
+Vậy, độ dài đoạn $MN$ tiến đến $0$ khi $\lvert x\rvert$ tiến đến $+\infty$.
 
 
 </details>
@@ -522,6 +611,69 @@ Tìm tiệm cận xiên của đồ thị hàm số $y=\frac{2x^2-3x}{x+5}$.
 
 <summary class="giai-de-muc">Luận giải</summary>
 
+Với $a\ne 0$, giả sử $y=ax+b$ là tiệm cận xiên của đồ thị hàm số $y=\frac{2x^2-3x}{x+5}$. Khi đó, các hệ số $a$ và $b$ được xác định bởi các giới hạn:
+
+$$
+    a
+        =\lim_{x\to+\infty}\frac{y(x)}{x}
+        =\lim_{x\to+\infty}\frac{2x^2-3x}{x(x+5)}
+        =\lim_{x\to+\infty}\frac{2x-3}{x+5} 
+        =2
+$$
+
+và 
+
+$$
+    b
+        =\lim_{x\to+\infty}\left(y(x)-ax\right)
+        =\lim_{x\to+\infty}\left(\frac{2x^2-3x}{x+5}-2x\right)
+        =\lim_{x\to+\infty}\frac{-13x}{x+5}
+        =-13.
+$$
+
+> Thay vì xét giới hạn khi $x$ tiến đến $+\infty$, có thể xét giới hạn khi $x$ tiến đến $-\infty$.
+
+Đường thẳng $y=2x-13$ là tiệm cận xiên của hàm số đã cho.
+
+> Với hàm số có dạng phân thức bậc hai trên bậc nhất như hàm số đã cho, có thể tìm nhanh tiệm cận xiên bằng cách viết lại biểu thức dưới dạng:
+>
+    $$
+        y
+            = \frac{2x^2-3x}{x+5}
+            = 2x-13+\frac{65}{x+5}.
+    $$
+>
+> Để viết ra dạng tương đương có chứa công thức tiệm cận xiên ngay trong công thức của hàm số trên, có thể thực hiện "thêm-bớt" làm bước trung gian biến đổi:
+>
+    $$
+        y
+            = \frac{2x^2-3x}{x+5}            
+            = \frac{(2x-13)(x+5)+65}{x+5}
+            = 2x-13+\frac{65}{x+5}.
+    $$
+>
+> Tổng quát hơn, tiến hành chia đa thức thông qua giải thuật:
+>
+    ![](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/th-3-chia-da-thuc){width=285px fig-align="center"}
+>
+> Trong công thức $y=2x-13+\frac{65}{x+5}$, vì sao khẳng định $y=2x-13$ là tiệm cận xiên?
+>
+> Đó là vì $\lim_{x\to +\infty}(y(x)-(2x-13))=0$, đúng theo định nghĩa của một tiệm cận xiên. Cụ thể, giới hạn này được tính, dựa trên dạng viết lại của hàm số, như sau:
+>
+    $$
+    \begin{aligned}
+        \lim_{x\to +\infty}(y(x)-(2x-13))
+            &= \lim_{x\to +\infty}\left(\frac{2x^2-3x}{x+5}-(2x-13)\right) \\
+            &=\lim_{x\to +\infty}\left(\left((2x-13)+\frac{65}{x+5}\right)-(2x-13)\right) \\
+            &=\lim_{x\to +\infty}\frac{65}{x+5} \\
+            &=0
+    \end{aligned}
+    $$
+
+::: {.ket-thuc}
+
+:::
+
 </details>
 
 <!-- Kết quả Thực hành 3 -->
@@ -529,6 +681,28 @@ Tìm tiệm cận xiên của đồ thị hàm số $y=\frac{2x^2-3x}{x+5}$.
 <details open>
 
 <summary class="ket-qua">Kết quả</summary>
+
+Với $a\ne 0$, giả sử $y=ax+b$ là tiệm cận xiên của đồ thị hàm số. Các hệ số $a$ và $b$ được xác định bởi:
+
+$$
+    a
+        =\lim_{x\to+\infty}\frac{y(x)}{x}
+        =\lim_{x\to+\infty}\frac{2x^2-3x}{x(x+5)}
+        =\lim_{x\to+\infty}\frac{2x-3}{x+5} 
+        =2
+$$
+
+và 
+
+$$
+    b
+        =\lim_{x\to+\infty}\left(y(x)-ax\right)
+        =\lim_{x\to+\infty}\left(\frac{2x^2-3x}{x+5}-2x\right)
+        =\lim_{x\to+\infty}\frac{-13x}{x+5}
+        =-13.
+$$
+
+Vậy, $y=2x-13$ là tiệm cận xiên cần tìm.
 
 </details>
 
@@ -538,7 +712,7 @@ Tìm tiệm cận xiên của đồ thị hàm số $y=\frac{2x^2-3x}{x+5}$.
 
 <summary class="de-muc">Thực hành 4</summary>
 
-Nếu trong một ngày, một xưởng sản xuất được $x$ ki-lô-gam sản phẩm thì chi phí trung bình (tính bằng nghìn đồng) cho một sản phẩm được cho bởi công thức:
+Nếu trong một ngày, một xưởng sản xuất được $x$ kg sản phẩm thì chi phí trung bình (tính bằng nghìn đồng) cho một sản phẩm được cho bởi công thức:
 
 $$
     C(x)
@@ -554,6 +728,52 @@ Tìm các đường tiệm cận của đồ thị hàm số $y=C(x)$.
 
 <summary class="giai-de-muc">Luận giải</summary>
 
+Hàm số đã cho là
+
+$$
+    C(x) 
+        = \frac{50x + 2000}{x}.
+$$
+
+Đây là chi phí trung bình (nghìn đồng) cho một sản phẩm khi sản lượng mỗi ngày là $x$ kg sản phẩm. Vì $x$ biểu diễn khối lượng sản phẩm được sản xuất trong một ngày, nên chỉ xét với $x$ không âm. Hơn nữa, $x$ nằm ở mẫu số trong biểu thức hàm số nên $x$ không thể bằng $0$. Như vậy, tập xác định của hàm số $C(x)$ là
+
+$$
+    D = (0; +\infty).
+$$
+
+Viết lại biểu thức như sau:
+
+$$
+    C(x) 
+        = 50 + \frac{2000}{x}.
+$$
+
+Từ dạng này, xét các giới hạn quan trọng:
+
+- Khi $x \to 0^+$,
+
+$$
+    \lim_{x \to 0^+} C(x) 
+        = \lim_{x \to 0^+} \left(50 + \frac{2000}{x} \right) = +\infty.
+$$
+
+Đường thẳng $x = 0$ là tiệm cận đứng của đồ thị hàm số.
+
+- Khi $x \to +\infty$,
+
+$$
+    \lim_{x \to +\infty} C(x) 
+        = \lim_{x \to +\infty} \left(50 + \frac{2000}{x} \right) = 50.
+$$
+
+Đường thẳng $y = 50$ là tiệm cận ngang của đồ thị hàm số.
+
+Biểu thức $\frac{2000}{x}$ cho thấy rằng nếu sản lượng $x$ rất nhỏ (gần $0$), thì phần chi phí cố định $2$ triệu đồng được chia cho rất ít sản phẩm, khiến chi phí trung bình tăng vọt - đó là lý do đồ thị tiến ra dương vô cùng khi $x\to 0^+$ và đường thẳng $x=0$ trở thành tiệm cận đứng. Ngược lại, khi khối lượng sản phẩm $x$ càng lớn, phần $\frac{2000}{x}$ càng nhỏ, nên chi phí trung bình tiến gần về 50 nghìn đồng. Lúc này, chi phí trung bình cho một sản phần trở nên ổn định - điều này phản ánh sự xuất hiện của tiệm cận ngang $y=50$.
+
+::: {.ket-thuc}
+
+:::
+
 </details>
 
 <!-- Kết quả Thực hành 4 -->
@@ -561,6 +781,33 @@ Tìm các đường tiệm cận của đồ thị hàm số $y=C(x)$.
 <details open>
 
 <summary class="ket-qua">Kết quả</summary>
+
+Hàm số có thể được viết lại dưới dạng 
+
+$$
+    C(x)
+        =50+\frac{2000}{x}.
+$$
+
+Tập xác định của hàm số là $D=(0;+\infty)$.
+
+Vì
+
+$$
+    \lim_{x \to 0^+} \left(50 + \frac{2000}{x} \right) 
+        = +\infty,
+$$
+
+nên đường thẳng $x=1$ là tiệm cận đứng của đồ thị hàm số $C(x)$.
+
+Vì 
+
+$$
+    \lim_{x \to +\infty} \left(50 + \frac{2000}{x} \right) 
+        = 50,
+$$
+
+nên đường thẳng $y = 50$ là tiệm cận ngang của đồ thị hàm số $C(x)$.
 
 </details>
 
@@ -588,6 +835,66 @@ c. $y=\frac{5x}{3x-7}$.
 
 <summary class="giai-de-muc">Luận giải</summary>
 
+a\. Hàm số $y = \frac{4x - 5}{2x - 3}$ là một phân thức hữu tỉ, có nghĩa khi mẫu số khác 0, tức $2x - 3 \ne 0$, hay $x \ne \frac{3}{2}$. Tại điểm này, biểu thức không xác định và giá trị của hàm số tăng hoặc giảm đột ngột - đó là dấu hiệu của một tiệm cận đứng.
+
+Vì
+
+$$
+    \lim_{x \to \frac{3}{2}^\pm} \frac{4x - 5}{2x - 3} 
+        = \pm\infty,
+$$
+
+nên đường thẳng $x = \frac{3}{2}$ là tiệm cận đứng của đồ thị.
+
+Vì
+
+$$
+    \lim_{x \to \pm\infty} \frac{4x - 5}{2x - 3} 
+        = \frac{4}{2} 
+        = 2,
+$$
+
+nên đường thẳng $y = 2$ là tiệm cận ngang của đồ thị.
+
+> Tử và mẫu đều là bậc nhất, nên giới hạn hữu hạn được xác định bởi tỉ số hệ số cao nhất.
+
+b\. Hàm số $y = \frac{-2x + 7}{4x - 3}$ có mẫu số bằng 0 khi $x = \frac{3}{4}$. Khi $x$ tiến đến giá trị này, biểu thức tiến ra vô cùng, cụ thể:
+
+$$
+    \lim_{x \to \frac{3}{4}^\pm} \frac{-2x + 7}{4x - 3} 
+        = \pm\infty.
+$$
+
+Vậy $x = \frac{3}{4}$ là tiệm cận đứng của đồ thị hàm số.
+
+Xét giới hạn khi $x \to \pm\infty$, vì tử và mẫu đều là bậc nhất:
+
+$$
+    \lim_{x \to \pm\infty} \frac{-2x + 7}{4x - 3} 
+        = \frac{-2}{4} 
+        = -\frac{1}{2}.
+$$
+
+Vậy đường thẳng $y = -\frac{1}{2}$ là tiệm cận ngang của đồ thị hàm số.
+
+c\. Hàm số $y = \frac{5x}{3x - 7}$ không xác định tại $x = \frac{7}{3}$, vì mẫu số bằng 0. Khi $x$ tiến gần giá trị này, hàm số tiến ra vô cùng, cụ thể:
+
+$$
+    \lim_{x \to \frac{7}{3}^\pm} \frac{5x}{3x - 7} 
+        = \pm\infty.
+$$
+
+Do đó, $x = \frac{7}{3}$ là tiệm cận đứng của đồ thị hàm số.
+
+Về tiệm cận ngang, khi $x \to \pm\infty$, tử và mẫu đều bậc nhất nên:
+
+$$
+    \lim_{x \to \pm\infty} \frac{5x}{3x - 7} 
+        = \frac{5}{3}.
+$$
+
+Vậy đường thẳng $y = \frac{5}{3}$ là tiệm cận ngang của đồ thị hàm số.
+
 </details>
 
 <!-- Kết quả Bài tập 1 -->
@@ -595,6 +902,61 @@ c. $y=\frac{5x}{3x-7}$.
 <details open>
 
 <summary class="ket-qua">Kết quả</summary>
+
+a\. Vì 
+
+$$
+    \lim_{x \to \frac{3}{2}^\pm} \frac{4x - 5}{2x - 3} 
+        = \pm\infty,
+$$
+
+nên đường thẳng $x = \frac{3}{2}$ là tiệm cận đứng. 
+
+Vì 
+
+$$
+    \lim_{x \to \pm\infty} \frac{4x - 5}{2x - 3} 
+        = \frac{4}{2} = 2,
+$$
+
+nên đường thẳng $y = 2$ là tiệm cận ngang.
+
+b\. Vì 
+
+$$
+    \lim_{x \to \frac{3}{4}^\pm} \frac{-2x + 7}{4x - 3}
+        =\pm\infty,
+$$
+
+nên đường thẳng $x=\frac{3}{4}$ là tiệm cận đứng.
+
+Vì 
+
+$$
+    \lim_{x \to \pm\infty} \frac{-2x + 7}{4x - 3} 
+        = \frac{-2}{4} 
+        = -\frac{1}{2},
+$$
+
+nên đường thẳng $y = -\frac{1}{2}$ là tiệm cận ngang.
+
+c\. Vì 
+
+$$
+    \lim_{x \to \frac{7}{3}^\pm} \frac{5x}{3x - 7}
+        =\pm\infty,
+$$
+
+nên đường thẳng $x=\frac{7}{3}$ là tiệm cận đứng.
+
+Vì 
+
+$$
+    \lim_{x \to \pm\infty} \frac{5x}{3x - 7}
+        =\frac{5}{3},
+$$
+
+nên đường thẳng $y=\frac{5}{3}$ là tiệm cận ngang.
 
 </details>
 
@@ -618,6 +980,117 @@ c. $y=\frac{2x^2+9x+11}{2x+5}$.
 
 <summary class="giai-de-muc">Luận giải</summary>
 
+a\. Hàm số $y = \frac{x^2 + 2}{2x - 4}$ là một phân thức hữu tỉ, có nghĩa khi mẫu số khác 0, tức $2x - 4 \ne 0$, hay $x \ne 2$. Do đó, tập xác định của hàm số là $\mathbb{R}\setminus\{2\}$. Mặt khác, hàm số có thể được viết lại dưới dạng
+
+$$
+    y
+        = \frac{1}{2}x+1-\frac{3}{x-2}.
+$$
+
+::: {.tieu-de-chu-thich}
+Tiệm cận đứng
+:::
+
+Tại điểm $x = 2$, biểu thức không xác định và hàm số có thể tiến đến dương vô cùng hoặc âm vô cùng, báo hiệu một tiệm cận đứng.
+
+Vì
+
+$$
+    \lim_{x \to 2^\pm} y(x)
+        = \lim_{x \to 2^\pm} \left(\frac{1}{2}x+1-\frac{3}{x-2}\right)
+        = \pm\infty,
+$$
+
+nên đường thẳng $x = 2$ là tiệm cận đứng của đồ thị hàm số.
+
+::: {.tieu-de-chu-thich}
+Tiệm cận xiên
+:::
+
+Vì
+
+$$
+    \lim_{x\to \pm\infty} \left(y(x)-\left(\frac{1}{2}x+1\right)\right)
+        = \lim_{x\to \pm\infty} \left(-\frac{3}{x-2}\right)
+        =0,
+$$
+
+nên đường thẳng $y = \frac{1}{2}x + 1$ là tiệm cận xiên của đồ thị hàm số.
+
+b\. Hàm số xác định khi $x + 2 \ne 0$, tức $x \ne -2$. Do đó, hàm số có tập xác định là $\mathbb{R}\setminus\{-2\}$. Hàm số đã cho có thể được viết lại dưới dạng
+
+$$
+    y
+        = 2x-7+\frac{8}{x+2}.
+$$
+
+::: {.tieu-de-chu-thich}
+Tiệm cận đứng
+:::
+
+Tại $x = -2$, mẫu số bằng 0, biểu thức không xác định, và nếu giới hạn là vô cùng thì đó là một tiệm cận đứng.
+
+Vì
+
+$$
+    \lim_{x \to -2^\pm} y(x)
+        =\lim_{x \to -2^\pm}\left(2x-7+\frac{8}{x+2}\right)
+        = \pm\infty,
+$$
+
+nên đường thẳng $x = -2$ là tiệm cận đứng của đồ thị hàm số.
+
+::: {.tieu-de-chu-thich}
+Tiệm cận xiên 
+:::
+
+Vì
+
+$$
+    \lim_{x\to \pm\infty} \left(y(x)-(2x-7)\right)
+        = \lim_{x\to \pm\infty} \left(\frac{8}{x+2}\right)
+        =0,
+$$
+
+nên đường thẳng $y = 2x-7$ là tiệm cận xiên của đồ thị hàm số.
+
+c\. Điều kiện xác định: $2x + 5 \ne 0$ hay $x \ne -\frac{5}{2}$. Do đó, hàm số có tập xác định $\mathbb{R}\setminus\left\{-\frac{5}{2}\right\}$. Hơn nữa, có thể viết lại hàm số dưới dạng
+
+$$
+    y
+        =x+2+\frac{1}{2x+5}.
+$$
+
+::: {.tieu-de-chu-thich}
+Tiệm cận đứng 
+:::
+
+Tại $x = -\frac{5}{2}$, hàm số không xác định, và nếu giới hạn tại đó là vô cùng thì sẽ có tiệm cận đứng.
+
+Vì
+
+$$
+    \lim_{x \to -\frac{5}{2}^\pm} y(x)
+        =\lim_{x \to -\frac{5}{2}^\pm}\left(x+2+\frac{1}{2x + 5}\right)
+        =\pm\infty,
+$$
+
+nên đường thẳng $x = -\frac{5}{2}$ là tiệm cận đứng của đồ thị hàm số.
+
+::: {.tieu-de-chu-thich}
+Tiệm cận xiên 
+:::
+
+Vì
+
+$$
+    \lim_{x\to \pm\infty} \left(y(x)-(x+2)\right)
+        = \lim_{x\to \pm\infty} \left(\frac{1}{2x+5}\right)
+        =0,
+$$
+
+nên đường thẳng $y = x+2$ là tiệm cận xiên của đồ thị hàm số.
+
 </details>
 
 <!-- Kết quả Bài tập 2-->
@@ -625,6 +1098,88 @@ c. $y=\frac{2x^2+9x+11}{2x+5}$.
 <details open>
 
 <summary class="ket-qua">Kết quả</summary>
+
+a\. Hàm số có tập xác định $\mathbb{R}\setminus\{2\}$, và có thể viết lại dưới dạng
+
+$$
+    y
+        = \frac{1}{2}x+1-\frac{3}{x-2}.
+$$
+
+Vì
+
+$$
+    \lim_{x \to 2^\pm} y(x)
+        = \lim_{x \to 2^\pm} \left(\frac{1}{2}x+1-\frac{3}{x-2}\right)
+        = \pm\infty,
+$$
+
+nên đường thẳng $x = 2$ là tiệm cận đứng.
+
+Vì
+
+$$
+    \lim_{x\to \pm\infty} \left(y(x)-\left(\frac{1}{2}x+1\right)\right)
+        = \lim_{x\to \pm\infty} \left(-\frac{3}{x-2}\right)
+        =0,
+$$
+
+nên đường thẳng $y = \frac{1}{2}x + 1$ là tiệm cận xiên.
+
+b\. Hàm số có tập xác định là $\mathbb{R}\setminus\{-2\}$, có thể viết lại dưới dạng
+
+$$
+    y
+        = 2x-7+\frac{8}{x+2}.
+$$
+
+Vì
+
+$$
+    \lim_{x \to -2^\pm} y(x)
+        =\lim_{x \to -2^\pm}\left(2x-7+\frac{8}{x+2}\right)
+        = \pm\infty,
+$$
+
+nên đường thẳng $x = -2$ là tiệm cận đứng.
+
+Vì
+
+$$
+    \lim_{x\to \pm\infty} \left(y(x)-(2x-7)\right)
+        = \lim_{x\to \pm\infty} \left(\frac{8}{x+2}\right)
+        =0,
+$$
+
+nên đường thẳng $y = 2x-7$ là tiệm cận xiên.
+
+c\. Hàm số có tập xác định là $\mathbb{R}\setminus\left\{-\frac{5}{2}\right\}$, và có thể viết lại dưới dạng
+
+$$
+    y
+        =x+2+\frac{1}{2x+5}.
+$$
+
+
+Vì
+
+$$
+    \lim_{x \to -\frac{5}{2}^\pm} y(x)
+        =\lim_{x \to -\frac{5}{2}^\pm}\left(x+2+\frac{1}{2x + 5}\right)
+        =\pm\infty,
+$$
+
+nên đường thẳng $x = -\frac{5}{2}$ là tiệm cận đứng.
+
+Vì
+
+$$
+    \lim_{x\to \pm\infty} \left(y(x)-(x+2)\right)
+        = \lim_{x\to \pm\infty} \left(\frac{1}{2x+5}\right)
+        =0,
+$$
+
+nên đường thẳng $y = x+2$ là tiệm cận xiên.
 
 </details>
 
@@ -641,9 +1196,9 @@ a. $y=\frac{2x-3}{5x^2-15x+10}$
 
 ![Đồ thị hàm số $y=\frac{2x-3}{5x^2-15x+10}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/bt-3-a-do-thi){width=350px}
 
-b. $y=\frac{x^2+x+1}{x}$
+b. $y=\frac{x^2+x-1}{x}$
 
-![Đồ thị hàm số $y=\frac{x^2+x+1}{x}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/bt-3-b-do-thi){width=350px}
+![Đồ thị hàm số $y=\frac{x^2+x-1}{x}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/bt-3-b-do-thi){width=350px}
 
 c. $y=\frac{16x^2-8x}{16x^2+1}$
 
@@ -657,6 +1212,110 @@ c. $y=\frac{16x^2-8x}{16x^2+1}$
 
 <summary class="giai-de-muc">Luận giải</summary>
 
+a\. Đồ thị cho thấy hàm số $y=\frac{2x-3}{5x^2-15x+10}$ có ba đường tiệm cận.
+
+- Tiệm cận đứng: hai đường thẳng $x=1$ và $x=2$.
+- Tiệm cận ngang: trục hoành $y=0$.
+
+![Đồ thị hàm số $y=\frac{2x-3}{5x^2-15x+10}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/bt-3-a-do-thi){width=350px}
+
+Hàm số có thể viết lại dưới dạng
+
+$$
+    y
+        = \frac{1}{5}\left(\frac{1}{x-1}+\frac{1}{x-2}\right).
+$$
+
+Các khẳng định về tiệm cận đứng và tiệm cận ngang có thể kiểm tra lại bằng các giới hạn.
+
+Vì
+
+$$
+    \lim_{x\to 1^\pm}y(x)
+        = \lim_{x\to 1^\pm} \frac{1}{5}\left(\frac{1}{x-1}+\frac{1}{x-2}\right)
+        =\pm\infty,
+$$
+
+nên đường thẳng $x=1$ là tiệm cận đứng.
+
+Tương tự, vì
+
+$$
+    \lim_{x\to 2^\pm}y(x)
+        = \lim_{x\to 2^\pm} \frac{1}{5}\left(\frac{1}{x-1}+\frac{1}{x-2}\right)
+        =\pm\infty,
+$$
+
+nên đường thẳng $x=2$ cũng là tiệm cận đứng.
+
+Vì 
+
+$$
+    \lim_{x\to \pm\infty}y(x)
+        = \lim_{x\to \pm\infty} \frac{1}{5}\left(\frac{1}{x-1}+\frac{1}{x-2}\right)
+        =0,
+$$
+
+nên đường thẳng $y=0$ là tiệm cận ngang.
+
+b\. Đồ thị cho thấy hàm số $y=\frac{x^2+x-1}{x}$ có hai đường tiệm cận.
+
+- Tiệm cận đứng: trục tung $x=10$.
+- Tiệm cận xiên: đường thẳng $y=x+1$.
+
+![Đồ thị hàm số $y=\frac{x^2+x-1}{x}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/bt-3-b-do-thi){width=350px}
+
+Hàm số có thể viết lại dưới dạng
+
+$$
+    y
+        = x+1-\frac{1}{x}.
+$$
+
+Tiệm cận đứng được kiểm tra thông qua giới hạn
+
+$$
+    \lim_{x\to 0^\pm}y(x)
+        = \lim_{x\to 0^\pm} \left(x+1-\frac{1}{x}\right)
+        =\mp\infty.
+$$
+Do đó, trục tung $x=0$ đúng là tiệm cận đứng.
+
+Tiệm cận xiên được kiểm tra thông qua giới hạn
+
+$$
+    \lim_{x\to \pm\infty}(y(x)-(x+1))
+        = \lim_{x\to \pm\infty} \left(-\frac{1}{x}\right)
+        =0.
+$$
+
+Do đó, đường thẳng $y=x+1$ đúng là tiệm cận xiên.
+
+c\. Đồ thị cho thấy hàm số $y=\frac{16x^2-8x}{16x^2+1}$ chỉ có tiệm cận ngang là đường thẳng $y=1$.
+
+![Đồ thị hàm số $y=\frac{16x^2-8x}{16x^2+1}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/bt-3-c-do-thi){width=350px}
+
+Vì
+
+$$
+    \lim_{x\to\pm\infty} y(x)
+        =\lim_{x\to\pm\infty}\frac{16x^2-8x}{16x^2+1}
+        =\lim_{x\to\pm\infty}\left(1-\frac{8x+1}{16x^2+1}\right)
+        =1,
+$$
+
+nên đường thẳng $y=1$ đúng là tiệm cận ngang. Hơn nữa, đây cũng là đường tiệm cận duy nhất của đồ thị hàm số.
+
+Thật vậy, hàm số xác định với mọi $x\in\mathbb{R}$, nên nó không có tiệm cận đứng. Hơn nữa, vì 
+$$
+    \lim_{x\to\pm\infty}\frac{y(x)}{x}
+        = \lim_{x\to\pm\infty}\frac{16x^2-8x}{x(16x^2+1)}
+        = \lim_{x\to\pm\infty}\frac{16x-8}{16x^2+1}
+        =0,
+$$
+
+nên không tồn tại tiệm cận xiên đúng nghĩa với hệ số góc khác $0$. 
+
 </details>
 
 <!-- Kết quả Bài tập 3-->
@@ -664,6 +1323,18 @@ c. $y=\frac{16x^2-8x}{16x^2+1}$
 <details open>
 
 <summary class="ket-qua">Kết quả</summary>
+
+a\. Đồ thị hàm số $y=\frac{2x-3}{5x^2-15x+10}$ có ba đường tiệm cận.
+
+- Tiệm cận đứng: $x=1$ và $x=2$.
+- Tiệm cận ngang: $y=0$.
+
+b\. Đồ thị hàm số $y=\frac{x^2+x-1}{x}$ có hai đường tiệm cận.
+
+- Tiệm cận đứng: trục tung $x=10$.
+- Tiệm cận xiên: đường thẳng $y=x+1$.
+
+c\. Đồ thị hàm số $y=\frac{16x^2-8x}{16x^2+1}$ chỉ có tiệm cận ngang là đường thẳng $y=1$.
 
 </details>
 
@@ -674,6 +1345,11 @@ c. $y=\frac{16x^2-8x}{16x^2+1}$
 
 <summary class="de-muc">Bài tập 4</summary>
 
+Nồng độ ô-xy trong hồ theo thời gian $t$ cho bởi công thức $y(t)=5-\frac{15t}{9t^2+1}$, với $y$ được tính theo mg/l và $t$ được tính theo giờ, $t\geq 0$. Tìm các đường tiệm cận của đồ thị hàm số $y=y(t)$. Từ đó, có nhận xét gì về nồng độ ô-xy trong hồ khi thời gian $t$ trở nên rất lớn?
+
+<div class="nguon">(*Theo:* www.researchgate.net/publication/264903978_Microrespirometric_
+characterization_of_activated_sludge_inhibition_by_copper_and_zinc)</div>
+
 </details>
 
 <!-- Giải Bài tập 4 -->
@@ -682,10 +1358,29 @@ c. $y=\frac{16x^2-8x}{16x^2+1}$
 
 <summary class="giai-de-muc">Luận giải</summary>
 
-Nồng độ ô-xy trong hồ theo thời gian $t$ cho bởi công thức $y(t)=5-\frac{15t}{9t^2+1}$, với $y$ được tính theo mg/l và $t$ được tính theo giờ, $t\geq 0$. Tìm các đường tiệm cận của đồ thị hàm số $y=y(t)$. Từ đó, có nhận xét gì về nồng độ ô-xy trong hồ khi thời gian $t$ trở nên rất lớn?
+Theo giả thiết, hàm số $y(t) = 5 - \dfrac{15t}{9t^2 + 1}$ được xét với mọi $t \geq 0$, và mẫu số luôn dương, nên hàm số có tập xác định là $[0;+\infty)$, và không tồn tại tiệm cận đứng.
 
-<div class="nguon">(*Theo:* www.researchgate.net/publication/264903978_Microrespirometric_
-characterization_of_activated_sludge_inhibition_by_copper_and_zinc)</div>
+Vì
+
+$$
+    \lim_{t\to+\infty}\frac{y(t)}{t}
+        =\lim_{t\to+\infty}\left(\frac{5}{t}-\frac{15}{9t^2+1}\right)
+        =0,
+$$
+
+nên đồ thị hàm số không tồn tại tiệm cận xiên đúng nghĩa với hệ số góc khác $0$.
+
+Vì
+
+$$
+    \lim_{t \to +\infty} y(t)
+        = \lim_{t \to +\infty} \left( 5 - \frac{15t}{9t^2 + 1} \right)
+        =5,
+$$
+
+nên đường thẳng $y=5$ là tiệm cận ngang của đồ thị hàm số.
+
+Vậy, hàm số không có tiệm cận đứng và tiệm cận xiên, chỉ có tiệm cận ngang là đường thẳng $y=5$.
 
 </details>
 
@@ -694,6 +1389,28 @@ characterization_of_activated_sludge_inhibition_by_copper_and_zinc)</div>
 <details open>
 
 <summary class="ket-qua">Kết quả</summary>
+
+Hàm số $y(t) = 5 - \dfrac{15t}{9t^2 + 1}$ được xét với tập xác định $[0;+\infty)$, và không có tiệm cận đứng vì xác định với mọi $t$ thuộc tập này.
+
+Vì
+
+$$
+    \lim_{t\to+\infty}\frac{y(t)}{t}
+        =\lim_{t\to+\infty}\left(\frac{5}{t}-\frac{15}{9t^2+1}\right)
+        =0,
+$$
+
+nên không tồn tại tiệm cận xiên đúng nghĩa với hệ số góc khác $0$.
+
+Vì
+
+$$
+    \lim_{t \to +\infty} y(t)
+        = \lim_{t \to +\infty} \left( 5 - \frac{15t}{9t^2 + 1} \right)
+        =5,
+$$
+
+nên đường thẳng $y=5$ là tiệm cận ngang của đồ thị hàm số.
 
 </details>
 
@@ -714,6 +1431,47 @@ Tìm tiệm cận của đồ thị hàm số khối lượng hạt $m=m(v)=\fra
 
 <summary class="giai-de-muc">Luận giải</summary>
 
+![Đồ thị hàm số $m(v)=\frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}$.](/figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/hdkd-do-thi){width=350px}
+
+Biểu thức $\frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}$ có nghĩa khi $1-\frac{v^2}{c^2}>0$, hay $\lvert v\rvert<c$. Hơn nữa, từ đồ thị đã cho, thấy $v\geq 0$. Do đó, hàm số
+
+$$
+    m(v)
+        =\frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}
+$$
+
+được xét trên tập xác định $D=[0;c)$. Với tập xác định này, hàm số không có tiệm cận ngang và tiệm cận xiên, do không thể xét $v\to \pm\infty$.
+
+Khi $v\to c^-$, tức vận tốc tiến gần đến tốc độ ánh sáng, có giới hạn: 
+
+$$
+    \lim_{v\to c^-}\frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}
+        = +\infty,
+$$
+
+Điều này có nghĩa là khối lượng của hạt tăng không giới hạn khi nó tiến gần đến tốc độ ánh sáng.
+
+> Về mặt vật lý, đây là một trong những kết luận nổi bật của Thuyết tương đối hẹp, theo cách hiểu cổ điển:
+Một hạt có khối lượng nghỉ $m_0$ không thể đạt đến tốc độ ánh sáng $c$, vì khi đó khối lượng của nó sẽ trở nên vô hạn, kéo theo yêu cầu năng lượng cũng vô hạn.
+
+Vậy, đường thẳng $v=c$ là tiệm cận đứng của đồ thị hàm số $m(v)$. 
+
+> Bạn hãy xem qua cách viết hấp dẫn này:
+    $$
+    \begin{aligned}
+        \lim_{v\to c^-}\frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}
+            &=\frac{m_0}{\sqrt{1-\frac{(c^-)^2}{c^2}}}
+            =\frac{m_0}{\sqrt{1-\left(\frac{c^-}{c}\right)^2}} \\
+            &=\frac{m_0}{\sqrt{1-(1^-)^2}}
+            =\frac{m_0}{\sqrt{1-1^-}} \\
+            &=\frac{m_0}{\sqrt{0^+}}
+            =\frac{m_0}{0^+}
+            =+\infty.
+    \end{aligned}
+    $$
+>
+> Hợp với trực giác, nhưng không phải cách viết toán học chính thống.
+
 </details>
 
 <!-- Kết quả Bài tập 5-->
@@ -722,30 +1480,23 @@ Tìm tiệm cận của đồ thị hàm số khối lượng hạt $m=m(v)=\fra
 
 <summary class="ket-qua">Kết quả</summary>
 
-</details>
+Hàm số
 
+$$
+    m(v)
+        =\frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}
+$$
 
-<!-- ------ -->
+được xét với tập xác định xác định $[0;c)$. Với tập xác định này, hàm số không có tiệm cận ngang và tiệm cận xiên.
 
-<details open>
+Vì 
 
-<summary class="de-muc"></summary>
+$$
+    \lim_{v\to c^-}\frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}
+        = +\infty,
+$$
 
-</details>
-
-<!-- Giải -->
-
-<details open>
-
-<summary class="giai-de-muc">Luận giải</summary>
-
-</details>
-
-<!-- Kết quả -->
-
-<details open>
-
-<summary class="ket-qua">Kết quả</summary>
+nên đường thẳng $v=c$ là tiệm cận đứng của đồ thị hàm số $m(v)$. 
 
 </details>
 

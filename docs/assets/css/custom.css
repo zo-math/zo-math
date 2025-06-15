@@ -21,6 +21,7 @@ mjx-container {
 
 /* Định dạng bài tập, đáp án, lời giải, và details */
 .de-muc,
+.nhap,
 .ket-qua,
 .giai-de-muc,
 .details summary {
@@ -38,6 +39,7 @@ mjx-container {
 }
 
 .de-muc p,
+.nhap p,
 .ket-qua p,
 .giai-de-muc p,
 .details summary p {
@@ -55,6 +57,16 @@ mjx-container {
 .de-muc:active,
 .details summary:active {
   background-color: #e89aa0;
+}
+
+.nhap {
+  background-color: #f0f0f0;
+}
+.nhap:hover {
+  background-color: #dddddd;
+}
+.nhap:active {
+  background-color: #bbbbbb;
 }
 
 .ket-qua {
@@ -206,9 +218,10 @@ a.quarto-xref:hover {
   width: 90%; /* Giới hạn chiều rộng 50% */
   margin-left: auto; /* Căn phải trong container cha */
   text-align: right; /* Căn phải nguồn */
-  font-size: 0.8em; /* Kích thước chữ nhỏ hơn */
-  color: #777; /* Màu chữ nhạt hơn */
+  font-size: 15.3px; /* Kích thước chữ nhỏ hơn */
+  color: #6d7a86; /* Màu chữ nhạt hơn */
   margin-top: 0.5em; /* Khoảng cách phía trên nguồn */
+  margin-bottom: 0.5em; /* Khoảng cách phía trên nguồn */
 }
 
 a {
@@ -241,4 +254,9 @@ a:active {
   margin-top: 1em;
   margin-bottom: 0.5em;
   display: block; /* Đảm bảo nó hoạt động như một khối */
+}
+
+/* In đậm  a. b. ... */
+ol[type="a"] li::marker {
+  font-weight: bold;
 }

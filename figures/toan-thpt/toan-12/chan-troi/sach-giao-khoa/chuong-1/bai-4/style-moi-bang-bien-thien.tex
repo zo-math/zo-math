@@ -1,0 +1,27 @@
+\documentclass[border=1mm]{standalone}
+
+\usepackage{amsmath}
+\usepackage{xcolor}
+\definecolor{den-6}{HTML}{666666}
+\usepackage{tkz-tab}
+\usetikzlibrary{arrows}
+
+\begin{document}
+
+{\fontseries{m}\selectfont % Độ đậm trung bình (tương đương font-weight 400)
+\begin{tikzpicture}
+    \tkzTabInit[
+        lgt=2,
+        deltacl=.5,
+        espcl=2.5,
+        color=den-6
+    ]
+    {$x$/1, $y^\prime$/1, $y$/2.5}
+    {$-\infty$, $1$,$+\infty$}
+    \tkzTabLine{, -, d, -, }
+    \tkzTabVar{+/$1$, -D+ /$-\infty$/$+\infty$, -/$1$}
+     % \tkzTabVal[draw]{2}{3}{0.5}{$-\frac{1}{2}$}{$\frac{1}{2}$}
+\end{tikzpicture}
+}
+
+\end{document}
