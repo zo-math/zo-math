@@ -276,7 +276,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Ngày cập nhật</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">06-05-2025</p>
+        <p class="date">08-05-2025</p>
       </div>
     </div>
     
@@ -315,15 +315,15 @@ window.Quarto = {
 <summary class="de-muc">
 Hoạt động khởi động
 </summary>
-<p>Theo thuyết tương đối hẹp, khối lượng <span class="math inline">\(m\)</span> (kg) của một hạt phụ thuộc vào tốc độ di chuyển <span class="math inline">\(v\)</span> (km/s) của nó trong hệ quy chiếu quán tính theo công thức</p>
+<p>Theo thuyết tương đối hẹp, khối lượng <span class="math inline">\(m\)</span> (kg) của một hạt phụ thuộc vào tốc độ di chuyển <span class="math inline">\(v\)</span> (km/s) của nó trong <span data-bs-toggle="tooltip" title="Hệ quy chiếu quán tính là hệ mà trong đó một vật không chịu lực sẽ chuyển động thẳng đều hoặc đứng yên. Đây là hệ &quot;ổn định&quot; theo nghĩa của cơ học cổ điển và là nền tảng để áp dụng các định luật Niu-tơn (Newton) hoặc thuyết tương đối hẹp.">hệ quy chiếu quán tính</span> theo công thức</p>
 <p><span class="math display">\[
     m=m(v)=\frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}},
 \]</span></p>
-<p>trong đó <span class="math inline">\(m_0\)</span> là khối lượng nghỉ của hạt, <span class="math inline">\(c=300000\)</span> km/s là tốc độ ánh sáng. Khi hạt di chuyển với tốc độ càng gần tốc độ ánh sáng thì khối lượng của hạt thay đổi thế nào? Điều này thể hiện trên đồ thị hàm số <span class="math inline">\(m=m(v)\)</span> ở hình bên như thế nào?</p>
+<p>trong đó <span class="math inline">\(m_0\)</span> là khối lượng nghỉ của hạt, <span class="math inline">\(c=300\,000\)</span> km/s là tốc độ ánh sáng. Khi hạt di chuyển với tốc độ càng gần tốc độ ánh sáng thì khối lượng của hạt thay đổi thế nào? Điều này thể hiện trên đồ thị hàm số <span class="math inline">\(m=m(v)\)</span> đã cho như thế nào?</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../../../../../../..\figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/hdkd-do-thi.svg" class="img-fluid figure-img" width="350"></p>
-<figcaption>Đồ thị hàm số <span class="math inline">\(m(v)=\frac{1}{\sqrt{1-\frac{v^2}{c^2}}}\)</span>.</figcaption>
+<figcaption>Đồ thị hàm số <span class="math inline">\(m(v)=\frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}\)</span>.</figcaption>
 </figure>
 </div>
 <div class="nguon">
@@ -335,6 +335,15 @@ Hoạt động khởi động
 <summary class="giai-de-muc">
 Luận giải
 </summary>
+<p>Khi một hạt chuyển động nhanh dần, khối lượng của nó cũng tăng lên. Theo công thức vật lý đã cho, tốc độ càng tiến gần đến tốc độ ánh sáng thì khối lượng càng tăng mạnh, gần như không giới hạn.</p>
+<p>Trên đồ thị hàm số <span class="math inline">\(m(v) = \frac{m_0}{\sqrt{1 - \frac{v^2}{c^2}}}\)</span>, có thể thấy đường cong càng lúc càng vươn cao khi <span class="math inline">\(v \to c^-\)</span>. Mỗi bước tiến nhỏ về phía tốc độ ánh sáng <span class="math inline">\(c\)</span> đều kéo theo một bước nhảy lớn về khối lượng.</p>
+<p>Tuy nhiên, đường cong không bao giờ chạm vào trục thẳng đứng tại <span class="math inline">\(v = c\)</span>. Dường như có một giới hạn vô hình mà đồ thị chỉ có thể áp sát nhưng không vượt qua - rào cản vật lý không thể đạt vận tốc ánh sáng với mọi hạt có khối lượng nghỉ lớn hơn <span class="math inline">\(0\)</span>. Toán học diễn tả điều này bằng cách nói rằng</p>
+<p><span class="math display">\[
+    \lim_{v \to c^-} m(v)
+        = +\infty.
+\]</span></p>
+<p>Trong nhiều hàm số, cũng có những đường mà đồ thị tiến gần mãi nhưng không chạm tới - đó là <strong>đường tiệm cận</strong>.</p>
+<p>Để hiểu rõ hơn hiện tượng này, hãy cùng khám phá ba tình huống cụ thể: khi đồ thị <strong>vươn lên vô hạn</strong>, khi nó <strong>tiến gần một đường ngang</strong>, và khi nó <strong>nghiêng sát một đường chéo</strong>.</p>
 </details>
 <!-- Kết quả Hoạt động khởi động-->
 <details open="">
@@ -550,7 +559,7 @@ Kết quả
 <summary class="de-muc">
 Hoạt động khám phá 2
 </summary>
-<p>Cho hàm số <span class="math inline">\(y=\frac{x+1}{x}\)</span> có đồ thị như Hình 4.</p>
+<p>Cho hàm số <span class="math inline">\(y=\frac{x+1}{x}\)</span> có đồ thị như trên hình.</p>
 <ol type="a">
 <li>Tìm <span class="math inline">\(\lim_{x\to+\infty}\frac{x+1}{x}\)</span> và <span class="math inline">\(\lim_{x\to-\infty}\frac{x+1}{x}\)</span>.</li>
 <li>Đường thẳng vuông góc với trục <span class="math inline">\(Ox\)</span> tại điểm <span class="math inline">\(x\)</span> cắt đồ thị hàm số tại điểm <span class="math inline">\(M\)</span> và cắt đường thẳng <span class="math inline">\(y=1\)</span> tại điểm <span class="math inline">\(N\)</span> (Hình 4). Tính <span class="math inline">\(MN\)</span> theo <span class="math inline">\(x\)</span> và nhận xét về <span class="math inline">\(MN\)</span> khi <span class="math inline">\(x\to+\infty\)</span> hoặc <span class="math inline">\(x\to-\infty\)</span>.</li>
@@ -569,15 +578,19 @@ Luận giải
 </summary>
 <p>a. Xét biểu thức <span class="math inline">\(\frac{x+1}{x}\)</span>. Khi <span class="math inline">\(x\)</span> tiến ra vô cùng, cả tử và mẫu đều lớn, nên cần biến đổi để thấy rõ xu hướng của phân thức:</p>
 <p><span class="math display">\[
-\frac{x+1}{x} = \frac{x}{x} + \frac{1}{x} = 1 + \frac{1}{x}.
+    \frac{x+1}{x}
+        = \frac{x}{x} + \frac{1}{x}
+        = 1 + \frac{1}{x}.
 \]</span></p>
 <p>Khi <span class="math inline">\(x \to +\infty\)</span>, <span class="math inline">\(\frac{1}{x} \to 0\)</span>, nên</p>
 <p><span class="math display">\[
-\lim_{x \to +\infty} \frac{x+1}{x} = 1.
+    \lim_{x \to +\infty} \frac{x+1}{x}
+        = 1.
 \]</span></p>
 <p>Tương tự, khi <span class="math inline">\(x \to -\infty\)</span>, <span class="math inline">\(\frac{1}{x} \to 0\)</span>, nên</p>
 <p><span class="math display">\[
-\lim_{x \to -\infty} \frac{x+1}{x} = 1.
+    \lim_{x \to -\infty} \frac{x+1}{x}
+        = 1.
 \]</span></p>
 <blockquote class="blockquote">
 <p>Hai giới hạn này cho thấy đồ thị hàm số sẽ càng lúc càng áp sát đường thẳng <span class="math inline">\(y=1\)</span>, nhưng không chạm tới.</p>
@@ -645,16 +658,28 @@ Luận giải
 </tr>
 </tbody>
 </table>
-<p>Vậy, khi <span class="math inline">\(x\)</span> tiến ra vô cùng (cả về phía dương và âm), giá trị hàm số tiến gần đến 1. Đường thẳng <span class="math inline">\(y = 1\)</span> đóng vai trò như một ranh giới nằm ngang mà đồ thị càng lúc càng tiến gần nhưng không vượt qua - đó là <strong>tiệm cận ngang</strong> của đồ thị hàm số.</p>
+<p>Vậy, khi <span class="math inline">\(x\)</span> tiến ra vô cùng (cả về phía dương và âm), giá trị hàm số tiến gần đến 1. Đường thẳng <span class="math inline">\(y = 1\)</span> đóng vai trò như một ranh giới nằm ngang mà các nhánh riêng biệt của đồ thị càng lúc càng tiến gần nhưng không vượt qua - đó là <strong>tiệm cận ngang</strong> của đồ thị hàm số.</p>
 <p>b. Điểm <span class="math inline">\(M\)</span> có hoành độ <span class="math inline">\(x\)</span>, nên có tọa độ <span class="math inline">\(M\left(x;\dfrac{x+1}{x}\right)\)</span>. Đường thẳng vuông góc với trục hoành tại điểm <span class="math inline">\(x\)</span> cắt đường thẳng <span class="math inline">\(y = 1\)</span> tại điểm <span class="math inline">\(N\left(x; 1\right)\)</span>. Đoạn thẳng <span class="math inline">\(MN\)</span> là đoạn thẳng thẳng đứng, nên độ dài của nó chính là độ chênh lệch giữa hai tung độ:</p>
 <p><span class="math display">\[
-MN = \left| \frac{x+1}{x} - 1 \right| = \left| \frac{1}{x} \right|.
+    MN
+        = \left\lvert \frac{x+1}{x} - 1 \right\rvert
+        = \left\lvert \frac{1}{x} \right\rvert.
 \]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../../../../..\figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/hdkp-2-do-thi.svg" class="img-fluid figure-img" width="350"></p>
+<figcaption>Đồ thị hàm số <span class="math inline">\(y=\frac{x+1}{x}\)</span>.</figcaption>
+</figure>
+</div>
 <p>Xét giới hạn của <span class="math inline">\(MN\)</span> khi <span class="math inline">\(x\to+\infty\)</span> và <span class="math inline">\(x\to-\infty\)</span>. Khi đó, <span class="math inline">\(\left| \frac{1}{x} \right| \to 0\)</span>, nên</p>
 <p><span class="math display">\[
-\lim_{x \to \pm\infty} MN = 0.
+    \lim_{x \to \pm\infty} MN
+        = 0.
 \]</span></p>
 <p>Điều này có nghĩa là, khi <span class="math inline">\(x\)</span> càng tiến ra xa về hai phía, điểm <span class="math inline">\(M\)</span> trên đồ thị càng tiến gần đến đường thẳng <span class="math inline">\(y = 1\)</span>, và khoảng cách đến đường thẳng đó càng nhỏ. Đây là biểu hiện hình học của <strong>tiệm cận ngang</strong>: đồ thị càng đi xa, càng tiến sát một đường thẳng nằm ngang.</p>
+<div class="ket-thuc">
+
+</div>
 </details>
 <!-- Kết quả Hoạt động khám phá 2 -->
 <details open="">
@@ -681,7 +706,7 @@ Kết quả
 <summary class="de-muc">
 Thực hành 2
 </summary>
-<p>Tìm tiệm cận đứng của đồ thị các hàm số sau:</p>
+<p>Tìm tiệm cận ngang của đồ thị các hàm số sau:</p>
 <ol type="a">
 <li><span class="math inline">\(y=f(x)=\frac{x-1}{4x+1}\)</span>;</li>
 <li><span class="math inline">\(y=g(x)=\frac{\sqrt{x}}{\sqrt{x}+2}\)</span>.</li>
@@ -692,19 +717,54 @@ Thực hành 2
 <summary class="giai-de-muc">
 Luận giải
 </summary>
+<p>a. Biểu thức <span class="math inline">\(\frac{x - 1}{4x + 1}\)</span> có nghĩa khi <span class="math inline">\(4x + 1 \ne 0\)</span>, tức là <span class="math inline">\(x \ne -\frac{1}{4}\)</span>. Do đó, hàm số có tập xác định <span class="math inline">\(D = \mathbb{R} \setminus \left\{-\frac{1}{4}\right\}\)</span>.</p>
+<p>Các giới hạn khi <span class="math inline">\(x\)</span> tiến ra vô cùng:</p>
+<p><span class="math display">\[
+    \lim_{x \to +\infty} \frac{x - 1}{4x + 1}
+        =\lim_{x \to -\infty} \frac{x - 1}{4x + 1}
+        = \frac{1}{4}.
+\]</span></p>
+<p>Vì giới hạn tại hai phía vô cùng đều bằng <span class="math inline">\(\dfrac{1}{4}\)</span>, nên đường thẳng <span class="math inline">\(y = \dfrac{1}{4}\)</span> là tiệm cận ngang của đồ thị hàm số <span class="math inline">\(y = f(x)\)</span>.</p>
+<p>b. Biểu thức <span class="math inline">\(\frac{\sqrt{x}}{\sqrt{x} + 2}\)</span> có nghĩa khi <span class="math inline">\(x \ge 0\)</span>, nên hàm số có tập xác định <span class="math inline">\(D = [0, +\infty)\)</span>.</p>
+<p>Giới hạn khi <span class="math inline">\(x\)</span> tiến ra dương vô cùng:</p>
+<p><span class="math display">\[
+    \lim_{x \to +\infty} \frac{\sqrt{x}}{\sqrt{x} + 2}
+        = \lim_{x \to +\infty} \frac{1}{1 + \frac{2}{\sqrt{x}}}
+        = 1.
+\]</span></p>
+<p>Vì giới hạn tại dương vô cùng là <span class="math inline">\(1\)</span>, nên đường thẳng <span class="math inline">\(y = 1\)</span> là tiệm cận ngang của đồ thị hàm số <span class="math inline">\(y = g(x)\)</span>.</p>
+<div class="ket-thuc">
+
+</div>
 </details>
 <!-- Kết quả Thực hành 2-->
 <details open="">
 <summary class="ket-qua">
 Kết quả
 </summary>
+<p>a. Hàm số <span class="math inline">\(y=f(x)=\frac{x-1}{4x+1}\)</span> có tập xác định <span class="math inline">\(D=\mathbb{R}\setminus\left\{-\frac{1}{4}\right\}\)</span>.</p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x \to +\infty} \frac{x - 1}{4x + 1}
+        =\lim_{x \to -\infty} \frac{x - 1}{4x + 1}
+        = \frac{1}{4}.
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(y=\frac{1}{4}\)</span> là tiệm cận ngang của đồ thị hàm số <span class="math inline">\(y=f(x)\)</span>.</p>
+<p>b. Hàm số <span class="math inline">\(y=g(x)=\frac{\sqrt{x}}{\sqrt{x}+2}\)</span> có tập xác định <span class="math inline">\(D=[0;+\infty)\)</span>.</p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x \to +\infty} \frac{\sqrt{x}}{\sqrt{x} + 2}
+        = \lim_{x \to +\infty} \frac{1}{1 + \frac{2}{\sqrt{x}}}
+        = 1.
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(y=1\)</span> là tiệm cận ngang của đồ thị hàm số <span class="math inline">\(y=g(x)\)</span>.</p>
 </details>
 <!-- Hoạt động khám phá 3 -->
 <details open="">
 <summary class="de-muc">
 Hoạt động khám phá 3
 </summary>
-<p>Cho đồ thị của hàm số <span class="math inline">\(y=\frac{x^2+1}{x}\)</span> và đường thẳng <span class="math inline">\(y=x\)</span>. Đường thẳng vuông góc với trục <span class="math inline">\(Ox\)</span> tại điểm <span class="math inline">\(x\)</span> cắt đồ thị hàm số tại điểm <span class="math inline">\(M\)</span> và cắt đường thẳng <span class="math inline">\(y=x\)</span> tại điểm <span class="math inline">\(N\)</span> (Hình 7).</p>
+<p>Cho đồ thị của hàm số <span class="math inline">\(y=\frac{x^2+1}{x}\)</span> và đường thẳng <span class="math inline">\(y=x\)</span>. Đường thẳng vuông góc với trục <span class="math inline">\(Ox\)</span> tại điểm <span class="math inline">\(x\)</span> cắt đồ thị hàm số tại điểm <span class="math inline">\(M\)</span> và cắt đường thẳng <span class="math inline">\(y=x\)</span> tại điểm <span class="math inline">\(N\)</span>.</p>
 <ol type="a">
 <li>Tính <span class="math inline">\(\lim_{x\to-\infty}\left(\frac{x^2+1}{x}-x\right)\)</span> và <span class="math inline">\(\lim_{x\to+\infty}\left(\frac{x^2+1}{x}-x\right)\)</span>.</li>
 <li>Tính <span class="math inline">\(MN\)</span> theo <span class="math inline">\(x\)</span> và nhận xét về <span class="math inline">\(MN\)</span> khi <span class="math inline">\(x\to+\infty\)</span> hoặc <span class="math inline">\(x\to-\infty\)</span>.</li>
@@ -721,7 +781,7 @@ Hoạt động khám phá 3
 <summary class="giai-de-muc">
 Luận giải
 </summary>
-<p>a. Biểu thức <span class="math inline">\(\dfrac{x^2 + 1}{x} - x\)</span> có thể rút gọn thành:</p>
+<p>a. Biểu thức <span class="math inline">\(\frac{x^2 + 1}{x} - x\)</span> có thể rút gọn thành:</p>
 <p><span class="math display">\[
 \frac{x^2 + 1}{x} - x = \left( \frac{x^2}{x} + \frac{1}{x} \right) - x = x + \frac{1}{x} - x = \frac{1}{x}.
 \]</span></p>
@@ -730,9 +790,9 @@ Luận giải
 \lim_{x \to \pm\infty} \left( \frac{x^2 + 1}{x} - x \right) = 0.
 \]</span></p>
 <blockquote class="blockquote">
-<p>Điều này cho thấy đồ thị hàm số <span class="math inline">\(y=\frac{x^2+1}{x}\)</span> sẽ càng lúc càng áp sát đường thẳng <span class="math inline">\(y = x\)</span> khi <span class="math inline">\(x\)</span> tiến ra vô cùng.</p>
+<p>Điều này cho thấy đồ thị hàm số <span class="math inline">\(y=\frac{x^2+1}{x}\)</span> sẽ càng lúc càng áp sát, nhưng không bao giờ chạm tới, đường thẳng <span class="math inline">\(y = x\)</span> khi <span class="math inline">\(x\)</span> tiến ra vô cùng.</p>
 </blockquote>
-<p>Để hình dung rõ hơn, hãy xem giá trị của biểu thức <span class="math inline">\(\frac{x^2 + 1}{x} - x\)</span> khi <span class="math inline">\(x\)</span> lớn hoặc nhỏ dần qua bảng dưới đây.</p>
+<p>Để hình dung rõ hơn, hãy xem giá trị của biểu thức <span class="math inline">\(\frac{x^2 + 1}{x} - x\)</span> khi <span class="math inline">\(x\)</span> tiến ra dương vô cùng hoặc tiến ra âm vô cùng lần lượt qua hai bảng dưới đây.</p>
 <table class="table-striped table-hover caption-top table">
 <caption>Khi <span class="math inline">\(x\)</span> càng lớn, <span class="math inline">\(\frac{x^2 + 1}{x} - x\)</span> càng gần 0.</caption>
 <thead>
@@ -765,7 +825,7 @@ Luận giải
 </tbody>
 </table>
 <table class="table-striped table-hover caption-top table">
-<caption>Khi <span class="math inline">\(x\)</span> càng âm lớn, biểu thức cũng tiến gần 0.</caption>
+<caption>Khi <span class="math inline">\(x\)</span> càng âm lớn, biểu thức cũng càng gần 0.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: center;"><span class="math inline">\(x\)</span></th>
@@ -795,12 +855,12 @@ Luận giải
 </tr>
 </tbody>
 </table>
-<p>Vậy, khi <span class="math inline">\(x \to \pm\infty\)</span>, giá trị hàm số tiến gần đến <span class="math inline">\(y = x\)</span>. Đường thẳng <span class="math inline">\(y = x\)</span> đóng vai trò như một ranh giới mà hai nhánh của đồ thị càng lúc càng áp sát - đó là <strong>tiệm cận xiên</strong> của đồ thị hàm số.</p>
-<p>b. Điểm <span class="math inline">\(M\)</span> có hoành độ <span class="math inline">\(x\)</span>, nên tọa độ là:</p>
+<p>Vậy, khi <span class="math inline">\(x \to \pm\infty\)</span>, giá trị hàm số tiến gần đến <span class="math inline">\(y = x\)</span>. Đường thẳng <span class="math inline">\(y = x\)</span> đóng vai trò như một ranh giới mà các nhánh của đồ thị càng lúc càng áp sát - đó là <strong>tiệm cận xiên</strong> của đồ thị hàm số.</p>
+<p>b. Điểm <span class="math inline">\(M\)</span> có hoành độ <span class="math inline">\(x\)</span>, nên có tọa độ là</p>
 <p><span class="math display">\[
 M\left( x;\, \frac{x^2 + 1}{x} \right).
 \]</span></p>
-<p>Điểm <span class="math inline">\(N\)</span> có cùng hoành độ với điểm <span class="math inline">\(M\)</span> và nằm trên đường thẳng <span class="math inline">\(y = x\)</span>, nên có tọa độ:</p>
+<p>Điểm <span class="math inline">\(N\)</span> có cùng hoành độ với điểm <span class="math inline">\(M\)</span> và nằm trên đường thẳng <span class="math inline">\(y = x\)</span>, nên có tọa độ là</p>
 <p><span class="math display">\[
     N\left( x;\, x \right).
 \]</span></p>
@@ -816,14 +876,24 @@ M\left( x;\, \frac{x^2 + 1}{x} \right).
         = \lim_{x \to \pm\infty} \left\lvert \frac{1}{x} \right\rvert
         = 0.
 \]</span></p>
-<p>Điều này cho thấy rằng, khi <span class="math inline">\(x\)</span> càng lớn (về cả hai phía), điểm <span class="math inline">\(M\)</span> trên đồ thị càng tiến gần đến đường thẳng <span class="math inline">\(y = x\)</span>, và khoảng cách giữa chúng càng nhỏ. Đây là biểu hiện hình học của <strong>tiệm cận xiên</strong>: đồ thị càng đi xa, càng tiến sát một đường thẳng xiên.</p>
+<p>Điều này cho thấy rằng, khi <span class="math inline">\(\lvert x\rvert\)</span> càng lớn, điểm <span class="math inline">\(M\)</span> trên đồ thị càng tiến gần đến đường thẳng <span class="math inline">\(y = x\)</span>, và khoảng cách giữa chúng càng nhỏ. Đây là biểu hiện hình học của <strong>tiệm cận xiên</strong>: đồ thị càng đi xa, càng tiến sát một đường thẳng xiên.</p>
+<blockquote class="blockquote">
+<p>“Đường thẳng xiên” ở đây là thuật ngữ tạm dùng để chỉ đường thẳng có hệ số góc xác định và khác <span class="math inline">\(0\)</span>. Tiệm cận xiên phân biệt với tiệm cận đứng và tiệm cận ngang ở chỗ:</p>
+<ul>
+<li>Tiệm cận đứng: hệ số góc không xác định.</li>
+<li>Tiệm cận ngang: hệ số góc bằng <span class="math inline">\(0\)</span>.</li>
+</ul>
+</blockquote>
+<div class="ket-thuc">
+
+</div>
 </details>
 <!-- Kết quả Hoạt động khám phá 3 -->
 <details open="">
 <summary class="ket-qua">
 Kết quả
 </summary>
-<p>a. Các giới hạn cần tính là</p>
+<p>a. Các giới hạn cần tính:</p>
 <p><span class="math display">\[
     \lim_{x \to +\infty} \left( \frac{x^2 + 1}{x} - x \right)
         = 0
@@ -831,12 +901,12 @@ Kết quả
     \lim_{x \to -\infty} \left( \frac{x^2 + 1}{x} - x \right)
         = 0.
 \]</span></p>
-<p>b. Từ đồ thị đã cho, có thể thấy:</p>
+<p>b. Từ đồ thị và các suy luận đại số:</p>
 <ul>
 <li>Khi <span class="math inline">\(x \to +\infty\)</span>, thì <span class="math inline">\(MN = \left\lvert \frac{1}{x} \right\rvert \to 0\)</span>.</li>
 <li>Khi <span class="math inline">\(x \to -\infty\)</span>, thì <span class="math inline">\(MN = \left\lvert \frac{1}{x} \right\rvert \to 0\)</span>.</li>
 </ul>
-<p>Tóm lại, đoạn <span class="math inline">\(MN\)</span> có độ dài dần về <span class="math inline">\(0\)</span> khi <span class="math inline">\(x\)</span> tiến ra xa hai phía.</p>
+<p>Vậy, độ dài đoạn <span class="math inline">\(MN\)</span> tiến đến <span class="math inline">\(0\)</span> khi <span class="math inline">\(\lvert x\rvert\)</span> tiến đến <span class="math inline">\(+\infty\)</span>.</p>
 </details>
 <!-- Thực hành 3 -->
 <details open="">
@@ -850,19 +920,91 @@ Thực hành 3
 <summary class="giai-de-muc">
 Luận giải
 </summary>
+<p>Với <span class="math inline">\(a\ne 0\)</span>, giả sử <span class="math inline">\(y=ax+b\)</span> là tiệm cận xiên của đồ thị hàm số <span class="math inline">\(y=\frac{2x^2-3x}{x+5}\)</span>. Khi đó, các hệ số <span class="math inline">\(a\)</span> và <span class="math inline">\(b\)</span> được xác định bởi các giới hạn:</p>
+<p><span class="math display">\[
+    a
+        =\lim_{x\to+\infty}\frac{y(x)}{x}
+        =\lim_{x\to+\infty}\frac{2x^2-3x}{x(x+5)}
+        =\lim_{x\to+\infty}\frac{2x-3}{x+5}
+        =2
+\]</span></p>
+<p>và</p>
+<p><span class="math display">\[
+    b
+        =\lim_{x\to+\infty}\left(y(x)-ax\right)
+        =\lim_{x\to+\infty}\left(\frac{2x^2-3x}{x+5}-2x\right)
+        =\lim_{x\to+\infty}\frac{-13x}{x+5}
+        =-13.
+\]</span></p>
+<blockquote class="blockquote">
+<p>Thay vì xét giới hạn khi <span class="math inline">\(x\)</span> tiến đến <span class="math inline">\(+\infty\)</span>, có thể xét giới hạn khi <span class="math inline">\(x\)</span> tiến đến <span class="math inline">\(-\infty\)</span>.</p>
+</blockquote>
+<p>Đường thẳng <span class="math inline">\(y=2x-13\)</span> là tiệm cận xiên của hàm số đã cho.</p>
+<blockquote class="blockquote">
+<p>Với hàm số có dạng phân thức bậc hai trên bậc nhất như hàm số đã cho, có thể tìm nhanh tiệm cận xiên bằng cách viết lại biểu thức dưới dạng:</p>
+<p><span class="math display">\[
+y
+= \frac{2x^2-3x}{x+5}
+= 2x-13+\frac{65}{x+5}.
+\]</span></p>
+<p>Để viết ra dạng tương đương có chứa công thức tiệm cận xiên ngay trong công thức của hàm số trên, có thể thực hiện “thêm-bớt” làm bước trung gian biến đổi:</p>
+<p><span class="math display">\[
+y
+= \frac{2x^2-3x}{x+5}            
+= \frac{(2x-13)(x+5)+65}{x+5}
+= 2x-13+\frac{65}{x+5}.
+\]</span></p>
+<p>Tổng quát hơn, tiến hành chia đa thức thông qua giải thuật:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../../../../..\figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/th-3-chia-da-thuc.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="285"></p>
+</figure>
+</div>
+<p>Trong công thức <span class="math inline">\(y=2x-13+\frac{65}{x+5}\)</span>, vì sao khẳng định <span class="math inline">\(y=2x-13\)</span> là tiệm cận xiên?</p>
+<p>Đó là vì <span class="math inline">\(\lim_{x\to +\infty}(y(x)-(2x-13))=0\)</span>, đúng theo định nghĩa của một tiệm cận xiên. Cụ thể, giới hạn này được tính, dựa trên dạng viết lại của hàm số, như sau:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\lim_{x\to +\infty}(y(x)-(2x-13))
+&amp;= \lim_{x\to +\infty}\left(\frac{2x^2-3x}{x+5}-(2x-13)\right) \\
+&amp;=\lim_{x\to +\infty}\left(\left((2x-13)+\frac{65}{x+5}\right)-(2x-13)\right) \\
+&amp;=\lim_{x\to +\infty}\frac{65}{x+5} \\
+&amp;=0
+\end{aligned}
+\]</span></p>
+</blockquote>
+<div class="ket-thuc">
+
+</div>
 </details>
 <!-- Kết quả Thực hành 3 -->
 <details open="">
 <summary class="ket-qua">
 Kết quả
 </summary>
+<p>Với <span class="math inline">\(a\ne 0\)</span>, giả sử <span class="math inline">\(y=ax+b\)</span> là tiệm cận xiên của đồ thị hàm số. Các hệ số <span class="math inline">\(a\)</span> và <span class="math inline">\(b\)</span> được xác định bởi:</p>
+<p><span class="math display">\[
+    a
+        =\lim_{x\to+\infty}\frac{y(x)}{x}
+        =\lim_{x\to+\infty}\frac{2x^2-3x}{x(x+5)}
+        =\lim_{x\to+\infty}\frac{2x-3}{x+5}
+        =2
+\]</span></p>
+<p>và</p>
+<p><span class="math display">\[
+    b
+        =\lim_{x\to+\infty}\left(y(x)-ax\right)
+        =\lim_{x\to+\infty}\left(\frac{2x^2-3x}{x+5}-2x\right)
+        =\lim_{x\to+\infty}\frac{-13x}{x+5}
+        =-13.
+\]</span></p>
+<p>Vậy, <span class="math inline">\(y=2x-13\)</span> là tiệm cận xiên cần tìm.</p>
 </details>
 <!-- Thực hành 4 -->
 <details open="">
 <summary class="de-muc">
 Thực hành 4
 </summary>
-<p>Nếu trong một ngày, một xưởng sản xuất được <span class="math inline">\(x\)</span> ki-lô-gam sản phẩm thì chi phí trung bình (tính bằng nghìn đồng) cho một sản phẩm được cho bởi công thức:</p>
+<p>Nếu trong một ngày, một xưởng sản xuất được <span class="math inline">\(x\)</span> kg sản phẩm thì chi phí trung bình (tính bằng nghìn đồng) cho một sản phẩm được cho bởi công thức:</p>
 <p><span class="math display">\[
     C(x)
         = \frac{50x+2000}{x}.
@@ -874,12 +1016,65 @@ Tìm các đường tiệm cận của đồ thị hàm số <span class="math i
 <summary class="giai-de-muc">
 Luận giải
 </summary>
+<p>Hàm số đã cho là</p>
+<p><span class="math display">\[
+    C(x)
+        = \frac{50x + 2000}{x}.
+\]</span></p>
+<p>Đây là chi phí trung bình (nghìn đồng) cho một sản phẩm khi sản lượng mỗi ngày là <span class="math inline">\(x\)</span> kg sản phẩm. Vì <span class="math inline">\(x\)</span> biểu diễn khối lượng sản phẩm được sản xuất trong một ngày, nên chỉ xét với <span class="math inline">\(x\)</span> không âm. Hơn nữa, <span class="math inline">\(x\)</span> nằm ở mẫu số trong biểu thức hàm số nên <span class="math inline">\(x\)</span> không thể bằng <span class="math inline">\(0\)</span>. Như vậy, tập xác định của hàm số <span class="math inline">\(C(x)\)</span> là</p>
+<p><span class="math display">\[
+    D = (0; +\infty).
+\]</span></p>
+<p>Viết lại biểu thức như sau:</p>
+<p><span class="math display">\[
+    C(x)
+        = 50 + \frac{2000}{x}.
+\]</span></p>
+<p>Từ dạng này, xét các giới hạn quan trọng:</p>
+<ul>
+<li>Khi <span class="math inline">\(x \to 0^+\)</span>,</li>
+</ul>
+<p><span class="math display">\[
+    \lim_{x \to 0^+} C(x)
+        = \lim_{x \to 0^+} \left(50 + \frac{2000}{x} \right) = +\infty.
+\]</span></p>
+<p>Đường thẳng <span class="math inline">\(x = 0\)</span> là tiệm cận đứng của đồ thị hàm số.</p>
+<ul>
+<li>Khi <span class="math inline">\(x \to +\infty\)</span>,</li>
+</ul>
+<p><span class="math display">\[
+    \lim_{x \to +\infty} C(x)
+        = \lim_{x \to +\infty} \left(50 + \frac{2000}{x} \right) = 50.
+\]</span></p>
+<p>Đường thẳng <span class="math inline">\(y = 50\)</span> là tiệm cận ngang của đồ thị hàm số.</p>
+<p>Biểu thức <span class="math inline">\(\frac{2000}{x}\)</span> cho thấy rằng nếu sản lượng <span class="math inline">\(x\)</span> rất nhỏ (gần <span class="math inline">\(0\)</span>), thì phần chi phí cố định <span class="math inline">\(2\)</span> triệu đồng được chia cho rất ít sản phẩm, khiến chi phí trung bình tăng vọt - đó là lý do đồ thị tiến ra dương vô cùng khi <span class="math inline">\(x\to 0^+\)</span> và đường thẳng <span class="math inline">\(x=0\)</span> trở thành tiệm cận đứng. Ngược lại, khi khối lượng sản phẩm <span class="math inline">\(x\)</span> càng lớn, phần <span class="math inline">\(\frac{2000}{x}\)</span> càng nhỏ, nên chi phí trung bình tiến gần về 50 nghìn đồng. Lúc này, chi phí trung bình cho một sản phần trở nên ổn định - điều này phản ánh sự xuất hiện của tiệm cận ngang <span class="math inline">\(y=50\)</span>.</p>
+<div class="ket-thuc">
+
+</div>
 </details>
 <!-- Kết quả Thực hành 4 -->
 <details open="">
 <summary class="ket-qua">
 Kết quả
 </summary>
+<p>Hàm số có thể được viết lại dưới dạng</p>
+<p><span class="math display">\[
+    C(x)
+        =50+\frac{2000}{x}.
+\]</span></p>
+<p>Tập xác định của hàm số là <span class="math inline">\(D=(0;+\infty)\)</span>.</p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x \to 0^+} \left(50 + \frac{2000}{x} \right)
+        = +\infty,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(x=1\)</span> là tiệm cận đứng của đồ thị hàm số <span class="math inline">\(C(x)\)</span>.</p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x \to +\infty} \left(50 + \frac{2000}{x} \right)
+        = 50,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(y = 50\)</span> là tiệm cận ngang của đồ thị hàm số <span class="math inline">\(C(x)\)</span>.</p>
 </details>
 <!-- Bài tập -->
 <section id="bài-tập" class="level2">
@@ -901,12 +1096,91 @@ Bài tập 1
 <summary class="giai-de-muc">
 Luận giải
 </summary>
+<p>a. Hàm số <span class="math inline">\(y = \frac{4x - 5}{2x - 3}\)</span> là một phân thức hữu tỉ, có nghĩa khi mẫu số khác 0, tức <span class="math inline">\(2x - 3 \ne 0\)</span>, hay <span class="math inline">\(x \ne \frac{3}{2}\)</span>. Tại điểm này, biểu thức không xác định và giá trị của hàm số tăng hoặc giảm đột ngột - đó là dấu hiệu của một tiệm cận đứng.</p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x \to \frac{3}{2}^\pm} \frac{4x - 5}{2x - 3}
+        = \pm\infty,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(x = \frac{3}{2}\)</span> là tiệm cận đứng của đồ thị.</p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x \to \pm\infty} \frac{4x - 5}{2x - 3}
+        = \frac{4}{2}
+        = 2,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(y = 2\)</span> là tiệm cận ngang của đồ thị.</p>
+<blockquote class="blockquote">
+<p>Tử và mẫu đều là bậc nhất, nên giới hạn hữu hạn được xác định bởi tỉ số hệ số cao nhất.</p>
+</blockquote>
+<p>b. Hàm số <span class="math inline">\(y = \frac{-2x + 7}{4x - 3}\)</span> có mẫu số bằng 0 khi <span class="math inline">\(x = \frac{3}{4}\)</span>. Khi <span class="math inline">\(x\)</span> tiến đến giá trị này, biểu thức tiến ra vô cùng, cụ thể:</p>
+<p><span class="math display">\[
+    \lim_{x \to \frac{3}{4}^\pm} \frac{-2x + 7}{4x - 3}
+        = \pm\infty.
+\]</span></p>
+<p>Vậy <span class="math inline">\(x = \frac{3}{4}\)</span> là tiệm cận đứng của đồ thị hàm số.</p>
+<p>Xét giới hạn khi <span class="math inline">\(x \to \pm\infty\)</span>, vì tử và mẫu đều là bậc nhất:</p>
+<p><span class="math display">\[
+    \lim_{x \to \pm\infty} \frac{-2x + 7}{4x - 3}
+        = \frac{-2}{4}
+        = -\frac{1}{2}.
+\]</span></p>
+<p>Vậy đường thẳng <span class="math inline">\(y = -\frac{1}{2}\)</span> là tiệm cận ngang của đồ thị hàm số.</p>
+<p>c. Hàm số <span class="math inline">\(y = \frac{5x}{3x - 7}\)</span> không xác định tại <span class="math inline">\(x = \frac{7}{3}\)</span>, vì mẫu số bằng 0. Khi <span class="math inline">\(x\)</span> tiến gần giá trị này, hàm số tiến ra vô cùng, cụ thể:</p>
+<p><span class="math display">\[
+    \lim_{x \to \frac{7}{3}^\pm} \frac{5x}{3x - 7}
+        = \pm\infty.
+\]</span></p>
+<p>Do đó, <span class="math inline">\(x = \frac{7}{3}\)</span> là tiệm cận đứng của đồ thị hàm số.</p>
+<p>Về tiệm cận ngang, khi <span class="math inline">\(x \to \pm\infty\)</span>, tử và mẫu đều bậc nhất nên:</p>
+<p><span class="math display">\[
+    \lim_{x \to \pm\infty} \frac{5x}{3x - 7}
+        = \frac{5}{3}.
+\]</span></p>
+<p>Vậy đường thẳng <span class="math inline">\(y = \frac{5}{3}\)</span> là tiệm cận ngang của đồ thị hàm số.</p>
 </details>
 <!-- Kết quả Bài tập 1 -->
 <details open="">
 <summary class="ket-qua">
 Kết quả
 </summary>
+<p>a. Vì</p>
+<p><span class="math display">\[
+    \lim_{x \to \frac{3}{2}^\pm} \frac{4x - 5}{2x - 3}
+        = \pm\infty,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(x = \frac{3}{2}\)</span> là tiệm cận đứng.</p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x \to \pm\infty} \frac{4x - 5}{2x - 3}
+        = \frac{4}{2} = 2,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(y = 2\)</span> là tiệm cận ngang.</p>
+<p>b. Vì</p>
+<p><span class="math display">\[
+    \lim_{x \to \frac{3}{4}^\pm} \frac{-2x + 7}{4x - 3}
+        =\pm\infty,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(x=\frac{3}{4}\)</span> là tiệm cận đứng.</p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x \to \pm\infty} \frac{-2x + 7}{4x - 3}
+        = \frac{-2}{4}
+        = -\frac{1}{2},
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(y = -\frac{1}{2}\)</span> là tiệm cận ngang.</p>
+<p>c. Vì</p>
+<p><span class="math display">\[
+    \lim_{x \to \frac{7}{3}^\pm} \frac{5x}{3x - 7}
+        =\pm\infty,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(x=\frac{7}{3}\)</span> là tiệm cận đứng.</p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x \to \pm\infty} \frac{5x}{3x - 7}
+        =\frac{5}{3},
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(y=\frac{5}{3}\)</span> là tiệm cận ngang.</p>
 </details>
 <!-- Bài tập 2 -->
 <details open="">
@@ -925,12 +1199,147 @@ Bài tập 2
 <summary class="giai-de-muc">
 Luận giải
 </summary>
+<p>a. Hàm số <span class="math inline">\(y = \frac{x^2 + 2}{2x - 4}\)</span> là một phân thức hữu tỉ, có nghĩa khi mẫu số khác 0, tức <span class="math inline">\(2x - 4 \ne 0\)</span>, hay <span class="math inline">\(x \ne 2\)</span>. Do đó, tập xác định của hàm số là <span class="math inline">\(\mathbb{R}\setminus\{2\}\)</span>. Mặt khác, hàm số có thể được viết lại dưới dạng</p>
+<p><span class="math display">\[
+    y
+        = \frac{1}{2}x+1-\frac{3}{x-2}.
+\]</span></p>
+<div class="tieu-de-chu-thich">
+<p>Tiệm cận đứng</p>
+</div>
+<p>Tại điểm <span class="math inline">\(x = 2\)</span>, biểu thức không xác định và hàm số có thể tiến đến dương vô cùng hoặc âm vô cùng, báo hiệu một tiệm cận đứng.</p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x \to 2^\pm} y(x)
+        = \lim_{x \to 2^\pm} \left(\frac{1}{2}x+1-\frac{3}{x-2}\right)
+        = \pm\infty,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(x = 2\)</span> là tiệm cận đứng của đồ thị hàm số.</p>
+<div class="tieu-de-chu-thich">
+<p>Tiệm cận xiên</p>
+</div>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x\to \pm\infty} \left(y(x)-\left(\frac{1}{2}x+1\right)\right)
+        = \lim_{x\to \pm\infty} \left(-\frac{3}{x-2}\right)
+        =0,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(y = \frac{1}{2}x + 1\)</span> là tiệm cận xiên của đồ thị hàm số.</p>
+<p>b. Hàm số xác định khi <span class="math inline">\(x + 2 \ne 0\)</span>, tức <span class="math inline">\(x \ne -2\)</span>. Do đó, hàm số có tập xác định là <span class="math inline">\(\mathbb{R}\setminus\{-2\}\)</span>. Hàm số đã cho có thể được viết lại dưới dạng</p>
+<p><span class="math display">\[
+    y
+        = 2x-7+\frac{8}{x+2}.
+\]</span></p>
+<div class="tieu-de-chu-thich">
+<p>Tiệm cận đứng</p>
+</div>
+<p>Tại <span class="math inline">\(x = -2\)</span>, mẫu số bằng 0, biểu thức không xác định, và nếu giới hạn là vô cùng thì đó là một tiệm cận đứng.</p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x \to -2^\pm} y(x)
+        =\lim_{x \to -2^\pm}\left(2x-7+\frac{8}{x+2}\right)
+        = \pm\infty,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(x = -2\)</span> là tiệm cận đứng của đồ thị hàm số.</p>
+<div class="tieu-de-chu-thich">
+<p>Tiệm cận xiên</p>
+</div>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x\to \pm\infty} \left(y(x)-(2x-7)\right)
+        = \lim_{x\to \pm\infty} \left(\frac{8}{x+2}\right)
+        =0,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(y = 2x-7\)</span> là tiệm cận xiên của đồ thị hàm số.</p>
+<p>c. Điều kiện xác định: <span class="math inline">\(2x + 5 \ne 0\)</span> hay <span class="math inline">\(x \ne -\frac{5}{2}\)</span>. Do đó, hàm số có tập xác định <span class="math inline">\(\mathbb{R}\setminus\left\{-\frac{5}{2}\right\}\)</span>. Hơn nữa, có thể viết lại hàm số dưới dạng</p>
+<p><span class="math display">\[
+    y
+        =x+2+\frac{1}{2x+5}.
+\]</span></p>
+<div class="tieu-de-chu-thich">
+<p>Tiệm cận đứng</p>
+</div>
+<p>Tại <span class="math inline">\(x = -\frac{5}{2}\)</span>, hàm số không xác định, và nếu giới hạn tại đó là vô cùng thì sẽ có tiệm cận đứng.</p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x \to -\frac{5}{2}^\pm} y(x)
+        =\lim_{x \to -\frac{5}{2}^\pm}\left(x+2+\frac{1}{2x + 5}\right)
+        =\pm\infty,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(x = -\frac{5}{2}\)</span> là tiệm cận đứng của đồ thị hàm số.</p>
+<div class="tieu-de-chu-thich">
+<p>Tiệm cận xiên</p>
+</div>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x\to \pm\infty} \left(y(x)-(x+2)\right)
+        = \lim_{x\to \pm\infty} \left(\frac{1}{2x+5}\right)
+        =0,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(y = x+2\)</span> là tiệm cận xiên của đồ thị hàm số.</p>
 </details>
 <!-- Kết quả Bài tập 2-->
 <details open="">
 <summary class="ket-qua">
 Kết quả
 </summary>
+<p>a. Hàm số có tập xác định <span class="math inline">\(\mathbb{R}\setminus\{2\}\)</span>, và có thể viết lại dưới dạng</p>
+<p><span class="math display">\[
+    y
+        = \frac{1}{2}x+1-\frac{3}{x-2}.
+\]</span></p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x \to 2^\pm} y(x)
+        = \lim_{x \to 2^\pm} \left(\frac{1}{2}x+1-\frac{3}{x-2}\right)
+        = \pm\infty,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(x = 2\)</span> là tiệm cận đứng.</p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x\to \pm\infty} \left(y(x)-\left(\frac{1}{2}x+1\right)\right)
+        = \lim_{x\to \pm\infty} \left(-\frac{3}{x-2}\right)
+        =0,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(y = \frac{1}{2}x + 1\)</span> là tiệm cận xiên.</p>
+<p>b. Hàm số có tập xác định là <span class="math inline">\(\mathbb{R}\setminus\{-2\}\)</span>, có thể viết lại dưới dạng</p>
+<p><span class="math display">\[
+    y
+        = 2x-7+\frac{8}{x+2}.
+\]</span></p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x \to -2^\pm} y(x)
+        =\lim_{x \to -2^\pm}\left(2x-7+\frac{8}{x+2}\right)
+        = \pm\infty,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(x = -2\)</span> là tiệm cận đứng.</p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x\to \pm\infty} \left(y(x)-(2x-7)\right)
+        = \lim_{x\to \pm\infty} \left(\frac{8}{x+2}\right)
+        =0,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(y = 2x-7\)</span> là tiệm cận xiên.</p>
+<p>c. Hàm số có tập xác định là <span class="math inline">\(\mathbb{R}\setminus\left\{-\frac{5}{2}\right\}\)</span>, và có thể viết lại dưới dạng</p>
+<p><span class="math display">\[
+    y
+        =x+2+\frac{1}{2x+5}.
+\]</span></p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x \to -\frac{5}{2}^\pm} y(x)
+        =\lim_{x \to -\frac{5}{2}^\pm}\left(x+2+\frac{1}{2x + 5}\right)
+        =\pm\infty,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(x = -\frac{5}{2}\)</span> là tiệm cận đứng.</p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x\to \pm\infty} \left(y(x)-(x+2)\right)
+        = \lim_{x\to \pm\infty} \left(\frac{1}{2x+5}\right)
+        =0,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(y = x+2\)</span> là tiệm cận xiên.</p>
 </details>
 <!-- Bài tập 3 -->
 <details open="">
@@ -948,12 +1357,12 @@ Bài tập 3
 </figure>
 </div>
 <ol start="2" type="a">
-<li><span class="math inline">\(y=\frac{x^2+x+1}{x}\)</span></li>
+<li><span class="math inline">\(y=\frac{x^2+x-1}{x}\)</span></li>
 </ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../../../../../../..\figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/bt-3-b-do-thi.svg" class="img-fluid figure-img" width="350"></p>
-<figcaption>Đồ thị hàm số <span class="math inline">\(y=\frac{x^2+x+1}{x}\)</span>.</figcaption>
+<figcaption>Đồ thị hàm số <span class="math inline">\(y=\frac{x^2+x-1}{x}\)</span>.</figcaption>
 </figure>
 </div>
 <ol start="3" type="a">
@@ -971,34 +1380,165 @@ Bài tập 3
 <summary class="giai-de-muc">
 Luận giải
 </summary>
+<p>a. Đồ thị cho thấy hàm số <span class="math inline">\(y=\frac{2x-3}{5x^2-15x+10}\)</span> có ba đường tiệm cận.</p>
+<ul>
+<li>Tiệm cận đứng: hai đường thẳng <span class="math inline">\(x=1\)</span> và <span class="math inline">\(x=2\)</span>.</li>
+<li>Tiệm cận ngang: trục hoành <span class="math inline">\(y=0\)</span>.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../../../../..\figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/bt-3-a-do-thi.svg" class="img-fluid figure-img" width="350"></p>
+<figcaption>Đồ thị hàm số <span class="math inline">\(y=\frac{2x-3}{5x^2-15x+10}\)</span>.</figcaption>
+</figure>
+</div>
+<p>Hàm số có thể viết lại dưới dạng</p>
+<p><span class="math display">\[
+    y
+        = \frac{1}{5}\left(\frac{1}{x-1}+\frac{1}{x-2}\right).
+\]</span></p>
+<p>Các khẳng định về tiệm cận đứng và tiệm cận ngang có thể kiểm tra lại bằng các giới hạn.</p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x\to 1^\pm}y(x)
+        = \lim_{x\to 1^\pm} \frac{1}{5}\left(\frac{1}{x-1}+\frac{1}{x-2}\right)
+        =\pm\infty,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(x=1\)</span> là tiệm cận đứng.</p>
+<p>Tương tự, vì</p>
+<p><span class="math display">\[
+    \lim_{x\to 2^\pm}y(x)
+        = \lim_{x\to 2^\pm} \frac{1}{5}\left(\frac{1}{x-1}+\frac{1}{x-2}\right)
+        =\pm\infty,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(x=2\)</span> cũng là tiệm cận đứng.</p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x\to \pm\infty}y(x)
+        = \lim_{x\to \pm\infty} \frac{1}{5}\left(\frac{1}{x-1}+\frac{1}{x-2}\right)
+        =0,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(y=0\)</span> là tiệm cận ngang.</p>
+<p>b. Đồ thị cho thấy hàm số <span class="math inline">\(y=\frac{x^2+x-1}{x}\)</span> có hai đường tiệm cận.</p>
+<ul>
+<li>Tiệm cận đứng: trục tung <span class="math inline">\(x=10\)</span>.</li>
+<li>Tiệm cận xiên: đường thẳng <span class="math inline">\(y=x+1\)</span>.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../../../../..\figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/bt-3-b-do-thi.svg" class="img-fluid figure-img" width="350"></p>
+<figcaption>Đồ thị hàm số <span class="math inline">\(y=\frac{x^2+x-1}{x}\)</span>.</figcaption>
+</figure>
+</div>
+<p>Hàm số có thể viết lại dưới dạng</p>
+<p><span class="math display">\[
+    y
+        = x+1-\frac{1}{x}.
+\]</span></p>
+<p>Tiệm cận đứng được kiểm tra thông qua giới hạn</p>
+<p><span class="math display">\[
+    \lim_{x\to 0^\pm}y(x)
+        = \lim_{x\to 0^\pm} \left(x+1-\frac{1}{x}\right)
+        =\mp\infty.
+\]</span> Do đó, trục tung <span class="math inline">\(x=0\)</span> đúng là tiệm cận đứng.</p>
+<p>Tiệm cận xiên được kiểm tra thông qua giới hạn</p>
+<p><span class="math display">\[
+    \lim_{x\to \pm\infty}(y(x)-(x+1))
+        = \lim_{x\to \pm\infty} \left(-\frac{1}{x}\right)
+        =0.
+\]</span></p>
+<p>Do đó, đường thẳng <span class="math inline">\(y=x+1\)</span> đúng là tiệm cận xiên.</p>
+<p>c. Đồ thị cho thấy hàm số <span class="math inline">\(y=\frac{16x^2-8x}{16x^2+1}\)</span> chỉ có tiệm cận ngang là đường thẳng <span class="math inline">\(y=1\)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../../../../..\figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/bt-3-c-do-thi.svg" class="img-fluid figure-img" width="350"></p>
+<figcaption>Đồ thị hàm số <span class="math inline">\(y=\frac{16x^2-8x}{16x^2+1}\)</span>.</figcaption>
+</figure>
+</div>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{x\to\pm\infty} y(x)
+        =\lim_{x\to\pm\infty}\frac{16x^2-8x}{16x^2+1}
+        =\lim_{x\to\pm\infty}\left(1-\frac{8x+1}{16x^2+1}\right)
+        =1,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(y=1\)</span> đúng là tiệm cận ngang. Hơn nữa, đây cũng là đường tiệm cận duy nhất của đồ thị hàm số.</p>
+<p>Thật vậy, hàm số xác định với mọi <span class="math inline">\(x\in\mathbb{R}\)</span>, nên nó không có tiệm cận đứng. Hơn nữa, vì <span class="math display">\[
+    \lim_{x\to\pm\infty}\frac{y(x)}{x}
+        = \lim_{x\to\pm\infty}\frac{16x^2-8x}{x(16x^2+1)}
+        = \lim_{x\to\pm\infty}\frac{16x-8}{16x^2+1}
+        =0,
+\]</span></p>
+<p>nên không tồn tại tiệm cận xiên đúng nghĩa với hệ số góc khác <span class="math inline">\(0\)</span>.</p>
 </details>
 <!-- Kết quả Bài tập 3-->
 <details open="">
 <summary class="ket-qua">
 Kết quả
 </summary>
+<p>a. Đồ thị hàm số <span class="math inline">\(y=\frac{2x-3}{5x^2-15x+10}\)</span> có ba đường tiệm cận.</p>
+<ul>
+<li>Tiệm cận đứng: <span class="math inline">\(x=1\)</span> và <span class="math inline">\(x=2\)</span>.</li>
+<li>Tiệm cận ngang: <span class="math inline">\(y=0\)</span>.</li>
+</ul>
+<p>b. Đồ thị hàm số <span class="math inline">\(y=\frac{x^2+x-1}{x}\)</span> có hai đường tiệm cận.</p>
+<ul>
+<li>Tiệm cận đứng: trục tung <span class="math inline">\(x=10\)</span>.</li>
+<li>Tiệm cận xiên: đường thẳng <span class="math inline">\(y=x+1\)</span>.</li>
+</ul>
+<p>c. Đồ thị hàm số <span class="math inline">\(y=\frac{16x^2-8x}{16x^2+1}\)</span> chỉ có tiệm cận ngang là đường thẳng <span class="math inline">\(y=1\)</span>.</p>
 </details>
 <!-- Bài tập 4 -->
 <details open="">
 <summary class="de-muc">
 Bài tập 4
 </summary>
+<p>Nồng độ ô-xy trong hồ theo thời gian <span class="math inline">\(t\)</span> cho bởi công thức <span class="math inline">\(y(t)=5-\frac{15t}{9t^2+1}\)</span>, với <span class="math inline">\(y\)</span> được tính theo mg/l và <span class="math inline">\(t\)</span> được tính theo giờ, <span class="math inline">\(t\geq 0\)</span>. Tìm các đường tiệm cận của đồ thị hàm số <span class="math inline">\(y=y(t)\)</span>. Từ đó, có nhận xét gì về nồng độ ô-xy trong hồ khi thời gian <span class="math inline">\(t\)</span> trở nên rất lớn?</p>
+<div class="nguon">
+(<em>Theo:</em> www.researchgate.net/publication/264903978_Microrespirometric_ characterization_of_activated_sludge_inhibition_by_copper_and_zinc)
+</div>
 </details>
 <!-- Giải Bài tập 4 -->
 <details open="">
 <summary class="giai-de-muc">
 Luận giải
 </summary>
-<p>Nồng độ ô-xy trong hồ theo thời gian <span class="math inline">\(t\)</span> cho bởi công thức <span class="math inline">\(y(t)=5-\frac{15t}{9t^2+1}\)</span>, với <span class="math inline">\(y\)</span> được tính theo mg/l và <span class="math inline">\(t\)</span> được tính theo giờ, <span class="math inline">\(t\geq 0\)</span>. Tìm các đường tiệm cận của đồ thị hàm số <span class="math inline">\(y=y(t)\)</span>. Từ đó, có nhận xét gì về nồng độ ô-xy trong hồ khi thời gian <span class="math inline">\(t\)</span> trở nên rất lớn?</p>
-<div class="nguon">
-(<em>Theo:</em> www.researchgate.net/publication/264903978_Microrespirometric_ characterization_of_activated_sludge_inhibition_by_copper_and_zinc)
-</div>
+<p>Theo giả thiết, hàm số <span class="math inline">\(y(t) = 5 - \dfrac{15t}{9t^2 + 1}\)</span> được xét với mọi <span class="math inline">\(t \geq 0\)</span>, và mẫu số luôn dương, nên hàm số có tập xác định là <span class="math inline">\([0;+\infty)\)</span>, và không tồn tại tiệm cận đứng.</p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{t\to+\infty}\frac{y(t)}{t}
+        =\lim_{t\to+\infty}\left(\frac{5}{t}-\frac{15}{9t^2+1}\right)
+        =0,
+\]</span></p>
+<p>nên đồ thị hàm số không tồn tại tiệm cận xiên đúng nghĩa với hệ số góc khác <span class="math inline">\(0\)</span>.</p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{t \to +\infty} y(t)
+        = \lim_{t \to +\infty} \left( 5 - \frac{15t}{9t^2 + 1} \right)
+        =5,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(y=5\)</span> là tiệm cận ngang của đồ thị hàm số.</p>
+<p>Vậy, hàm số không có tiệm cận đứng và tiệm cận xiên, chỉ có tiệm cận ngang là đường thẳng <span class="math inline">\(y=5\)</span>.</p>
 </details>
 <!-- Kết quả Bài tập 4 -->
 <details open="">
 <summary class="ket-qua">
 Kết quả
 </summary>
+<p>Hàm số <span class="math inline">\(y(t) = 5 - \dfrac{15t}{9t^2 + 1}\)</span> được xét với tập xác định <span class="math inline">\([0;+\infty)\)</span>, và không có tiệm cận đứng vì xác định với mọi <span class="math inline">\(t\)</span> thuộc tập này.</p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{t\to+\infty}\frac{y(t)}{t}
+        =\lim_{t\to+\infty}\left(\frac{5}{t}-\frac{15}{9t^2+1}\right)
+        =0,
+\]</span></p>
+<p>nên không tồn tại tiệm cận xiên đúng nghĩa với hệ số góc khác <span class="math inline">\(0\)</span>.</p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{t \to +\infty} y(t)
+        = \lim_{t \to +\infty} \left( 5 - \frac{15t}{9t^2 + 1} \right)
+        =5,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(y=5\)</span> là tiệm cận ngang của đồ thị hàm số.</p>
 </details>
 <!-- Bài tập 5 -->
 <details open="">
@@ -1012,29 +1552,61 @@ Bài tập 5
 <summary class="giai-de-muc">
 Luận giải
 </summary>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../../../../..\figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/hdkd-do-thi.svg" class="img-fluid figure-img" width="350"></p>
+<figcaption>Đồ thị hàm số <span class="math inline">\(m(v)=\frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}\)</span>.</figcaption>
+</figure>
+</div>
+<p>Biểu thức <span class="math inline">\(\frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}\)</span> có nghĩa khi <span class="math inline">\(1-\frac{v^2}{c^2}&gt;0\)</span>, hay <span class="math inline">\(\lvert v\rvert&lt;c\)</span>. Hơn nữa, từ đồ thị đã cho, thấy <span class="math inline">\(v\geq 0\)</span>. Do đó, hàm số</p>
+<p><span class="math display">\[
+    m(v)
+        =\frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}
+\]</span></p>
+<p>được xét trên tập xác định <span class="math inline">\(D=[0;c)\)</span>. Với tập xác định này, hàm số không có tiệm cận ngang và tiệm cận xiên, do không thể xét <span class="math inline">\(v\to \pm\infty\)</span>.</p>
+<p>Khi <span class="math inline">\(v\to c^-\)</span>, tức vận tốc tiến gần đến tốc độ ánh sáng, có giới hạn:</p>
+<p><span class="math display">\[
+    \lim_{v\to c^-}\frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}
+        = +\infty,
+\]</span></p>
+<p>Điều này có nghĩa là khối lượng của hạt tăng không giới hạn khi nó tiến gần đến tốc độ ánh sáng.</p>
+<blockquote class="blockquote">
+<p>Về mặt vật lý, đây là một trong những kết luận nổi bật của Thuyết tương đối hẹp, theo cách hiểu cổ điển: Một hạt có khối lượng nghỉ <span class="math inline">\(m_0\)</span> không thể đạt đến tốc độ ánh sáng <span class="math inline">\(c\)</span>, vì khi đó khối lượng của nó sẽ trở nên vô hạn, kéo theo yêu cầu năng lượng cũng vô hạn.</p>
+</blockquote>
+<p>Vậy, đường thẳng <span class="math inline">\(v=c\)</span> là tiệm cận đứng của đồ thị hàm số <span class="math inline">\(m(v)\)</span>.</p>
+<blockquote class="blockquote">
+<p>Bạn hãy xem qua cách viết hấp dẫn này: <span class="math display">\[
+\begin{aligned}
+\lim_{v\to c^-}\frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}
+&amp;=\frac{m_0}{\sqrt{1-\frac{(c^-)^2}{c^2}}}
+=\frac{m_0}{\sqrt{1-\left(\frac{c^-}{c}\right)^2}} \\
+&amp;=\frac{m_0}{\sqrt{1-(1^-)^2}}
+=\frac{m_0}{\sqrt{1-1^-}} \\
+&amp;=\frac{m_0}{\sqrt{0^+}}
+=\frac{m_0}{0^+}
+=+\infty.
+\end{aligned}
+\]</span></p>
+<p>Hợp với trực giác, nhưng không phải cách viết toán học chính thống.</p>
+</blockquote>
 </details>
 <!-- Kết quả Bài tập 5-->
 <details open="">
 <summary class="ket-qua">
 Kết quả
 </summary>
-</details>
-<!-- ------ -->
-<details open="">
-<summary class="de-muc">
-</summary>
-</details>
-<!-- Giải -->
-<details open="">
-<summary class="giai-de-muc">
-Luận giải
-</summary>
-</details>
-<!-- Kết quả -->
-<details open="">
-<summary class="ket-qua">
-Kết quả
-</summary>
+<p>Hàm số</p>
+<p><span class="math display">\[
+    m(v)
+        =\frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}
+\]</span></p>
+<p>được xét với tập xác định xác định <span class="math inline">\([0;c)\)</span>. Với tập xác định này, hàm số không có tiệm cận ngang và tiệm cận xiên.</p>
+<p>Vì</p>
+<p><span class="math display">\[
+    \lim_{v\to c^-}\frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}
+        = +\infty,
+\]</span></p>
+<p>nên đường thẳng <span class="math inline">\(v=c\)</span> là tiệm cận đứng của đồ thị hàm số <span class="math inline">\(m(v)\)</span>.</p>
 </details>
 
 

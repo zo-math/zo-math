@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="ZO Math">
+
+<title>Bài tập cuối chương I – ZO Math</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../../../../">
+<link href="../../../../../../../images/favicon.ico" rel="icon">
+<script src="../../../../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../../../../site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../../../../site_libs/bootstrap/bootstrap-e83117e711fad372bcb8c8022997a9a8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../../../../../assets/css/custom.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../../../../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../../../../../content/toan-thpt/toan-10/index.qmd">
+ <span class="dropdown-text">Toán 10</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../../../../content/toan-thpt/toan-11/index.html">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../../../../content/toan-thpt/toan-12/index.html">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../../../content/zo-o/index.html"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../../../content/zo-lab/index.html"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../../../content/shop/index.html"> 
+<span class="menu-text">🛒 ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../../../content/support/donate.html"> 
+<span class="menu-text">💖 Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../../../content/contact.html"> 
+<span class="menu-text">☎️ Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Bài tập cuối chương I</h1>
+            <p class="subtitle lead">Chương 1 | Chân Trời Sáng Tạo | Toán 12</p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Tác giả</div>
+      <div class="quarto-title-meta-contents">
+               <p>ZO Math </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Ngày cập nhật</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">04-06-2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Trên trang này</h2>
+   
+  <ul>
+  <li><a href="#câu-hỏi-trắc-nghiệm" id="toc-câu-hỏi-trắc-nghiệm" class="nav-link active" data-scroll-target="#câu-hỏi-trắc-nghiệm">Câu hỏi trắc nghiệm</a></li>
+  <li><a href="#bài-tập-tự-luận" id="toc-bài-tập-tự-luận" class="nav-link" data-scroll-target="#bài-tập-tự-luận">Bài tập tự luận</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="câu-hỏi-trắc-nghiệm" class="level2">
+<h2 class="anchored" data-anchor-id="câu-hỏi-trắc-nghiệm">Câu hỏi trắc nghiệm</h2>
+<!-- Bài tập 1 -->
+<details open="">
+<summary class="de-muc">
+Bài tập 1
+</summary>
+<p>Cho hàm số <span class="math inline">\(y=f(x)\)</span> có đồ thị như trên Hình 1. Hàm số <span class="math inline">\(y=f(x)\)</span> đồng biến trên khoảng</p>
+<div class="quarto-layout-panel" data-layout-ncol="4">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>A. <span class="math inline">\((5;+\infty)\)</span>.</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>B. <span class="math inline">\((3;5)\)</span>.</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>C. <span class="math inline">\((0;5)\)</span>.</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>D. <span class="math inline">\((3;+\infty)\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../../../../..\figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-5/bt-1.svg" class="img-fluid figure-img" width="350"></p>
+<figcaption>Hình 1</figcaption>
+</figure>
+</div>
+</details>
+<!-- Giải Bài tập 1-->
+<details open="">
+<summary class="giai-de-muc">
+Luận giải
+</summary>
+</details>
+<!-- Kết quả Bài tập 1-->
+<details open="">
+<summary class="ket-qua">
+Kết quả
+</summary>
+</details>
+<!-- Bài tập 2 -->
+<details open="">
+<summary class="de-muc">
+Bài tập 2
+</summary>
+<p>Cho hàm số <span class="math inline">\(y=f(x)\)</span> có đồ thị như trên Hình 1. Hàm số đạt cực đại tại</p>
+<div class="quarto-layout-panel" data-layout-ncol="4">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>A. <span class="math inline">\(x=0\)</span>.</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>B. <span class="math inline">\(x=3\)</span>.</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>C. <span class="math inline">\(x=4\)</span>.</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>D. <span class="math inline">\(x=5\)</span>.</p>
+</div>
+</div>
+</div>
+</details>
+<!-- Giải Bài tập 2 -->
+<details open="">
+<summary class="giai-de-muc">
+Luận giải
+</summary>
+</details>
+<!-- Kết quả Bài tập 2 -->
+<details open="">
+<summary class="ket-qua">
+Kết quả
+</summary>
+</details>
+<!-- Bài tập 3 -->
+<details open="">
+<summary class="de-muc">
+Bài tập 3
+</summary>
+<p>Cho hàm số <span class="math inline">\(y=\frac{x^2-4x+1}{x-4}\)</span>. Trong các khẳng định sau, khẳng định nào đúng?</p>
+<p>A. Hàm số đạt cực tiểu tại <span class="math inline">\(x=3\)</span>, giá trị cực tiểu là <span class="math inline">\(y=2\)</span>.</p>
+<p>B. Hàm số đạt cực tiểu tại <span class="math inline">\(x=5\)</span>, giá trị cực tiểu là <span class="math inline">\(y=6\)</span>.</p>
+<p>C. Hàm số đạt cực tiểu tại <span class="math inline">\(x=3\)</span>, giá trị cực tiểu là <span class="math inline">\(y=6\)</span>.</p>
+<p>D. Hàm số đạt cực tiểu tại <span class="math inline">\(x=5\)</span>, giá trị cực tiểu là <span class="math inline">\(y=2\)</span>.</p>
+</details>
+<!-- Giải Bài tập 3 -->
+<details open="">
+<summary class="giai-de-muc">
+Luận giải
+</summary>
+</details>
+<!-- Kết quả Bài tập 3 -->
+<details open="">
+<summary class="ket-qua">
+Kết quả
+</summary>
+</details>
+<!-- Bài tập 4 -->
+<details open="">
+<summary class="de-muc">
+Bài tập 4
+</summary>
+<p>Đạo hàm của hàm số <span class="math inline">\(y=f(x)\)</span> là hàm số có đồ thị được cho trong Hình 2. Hàm số <span class="math inline">\(y=f(x)\)</span> nghịch biến trên khoảng</p>
+<div class="quarto-layout-panel" data-layout-ncol="4">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>A. <span class="math inline">\((-1;3)\)</span>.</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>B. <span class="math inline">\((-3;1)\)</span>.</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>C. <span class="math inline">\((1;5)\)</span>.</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>D. <span class="math inline">\((3;+\infty)\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../../../../..\figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-5/bt-4.svg" class="img-fluid figure-img" width="350"></p>
+<figcaption>Hình 2</figcaption>
+</figure>
+</div>
+</details>
+<!-- Giải Bài tập 4 -->
+<details open="">
+<summary class="giai-de-muc">
+Luận giải
+</summary>
+</details>
+<!-- Kết quả Bài tập 4 -->
+<details open="">
+<summary class="ket-qua">
+Kết quả
+</summary>
+</details>
+<!-- Bài tập 5 -->
+<details open="">
+<summary class="de-muc">
+Bài tập 5
+</summary>
+<p>Giá trị nhỏ nhất của hàm số <span class="math display">\[
+    y=\sqrt{x^2+2x+3}
+\]</span></p>
+<p>trên đoạn <span class="math inline">\([-2;3]\)</span> là</p>
+<div class="quarto-layout-panel" data-layout-ncol="4">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>A. <span class="math inline">\(\sqrt{3}\)</span>.</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>B. <span class="math inline">\(\sqrt{30}\)</span>.</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>C. <span class="math inline">\(\sqrt{2}\)</span>.</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>D. <span class="math inline">\(0\)</span>.</p>
+</div>
+</div>
+</div>
+</details>
+<!-- Giải Bài tập 5-->
+<details open="">
+<summary class="giai-de-muc">
+Luận giải
+</summary>
+</details>
+<!-- Kết quả Bài tập 5-->
+<details open="">
+<summary class="ket-qua">
+Kết quả
+</summary>
+</details>
+<!-- Bài tập 6 -->
+<details open="">
+<summary class="de-muc">
+Bài tập 6
+</summary>
+<p>Tiệm cận xiên của đồ thị hàm số <span class="math display">\[
+    y=\frac{2x^3+3x^2-3}{x^2-1}
+\]</span></p>
+<p>là đường thẳng có phương trình</p>
+<div class="quarto-layout-panel" data-layout-ncol="4">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>A. <span class="math inline">\(y=2x+3\)</span>.</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>B. <span class="math inline">\(y=2x+1\)</span>.</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>C. <span class="math inline">\(y=x+3\)</span>.</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>D. <span class="math inline">\(y=x+1\)</span>.</p>
+</div>
+</div>
+</div>
+</details>
+<!-- Giải Bài tập 6 -->
+<details open="">
+<summary class="giai-de-muc">
+Luận giải
+</summary>
+</details>
+<!-- Kết quả Bài tập 6 -->
+<details open="">
+<summary class="ket-qua">
+Kết quả
+</summary>
+</details>
+<!-- Bài tập 7 -->
+<details open="">
+<summary class="de-muc">
+Bài tập 7
+</summary>
+<p>Tiệm cận xiên của đồ thị hàm số <span class="math display">\[
+    y=\frac{-2x+3}{5x+1}
+\]</span></p>
+<p>là đường thẳng có phương trình</p>
+<div class="quarto-layout-panel" data-layout-ncol="4">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>A. <span class="math inline">\(y=-\frac{1}{5}\)</span>.</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>B. <span class="math inline">\(x=-\frac{1}{5}\)</span>.</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>C. <span class="math inline">\(y=-\frac{2}{5}\)</span>.</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p>D. <span class="math inline">\(x=-\frac{2}{5}\)</span>.</p>
+</div>
+</div>
+</div>
+</details>
+<!-- Giải Bài tập 7 -->
+<details open="">
+<summary class="giai-de-muc">
+Luận giải
+</summary>
+</details>
+<!-- Kết quả Bài tập 7 -->
+<details open="">
+<summary class="ket-qua">
+Kết quả
+</summary>
+</details>
+<!-- Bài tập 8 -->
+<details open="">
+<summary class="de-muc">
+Bài tập 8
+</summary>
+<p>Cho hàm số <span class="math display">\[
+    y=\frac{-2x-3}{4-x}.
+\]</span></p>
+<p>Trong các khẳng định sau, khẳng định nào đúng?</p>
+<p>A. Hàm số đồng biến trên <span class="math inline">\((-\infty;-4)\)</span> và nghịch biến trên <span class="math inline">\((-4;+\infty)\)</span>.</p>
+<p>B. Hàm số đồng biến trên <span class="math inline">\((-\infty;4)\)</span> và <span class="math inline">\((4;+\infty)\)</span>.</p>
+<p>C. Hàm số nghịch biến trên <span class="math inline">\((-\infty;4)\)</span> và <span class="math inline">\((4;+\infty)\)</span>.</p>
+<p>D. Hàm số nghịch biến trên <span class="math inline">\((-\infty;-4)\)</span> và <span class="math inline">\((-4;+\infty)\)</span>.</p>
+</details>
+<!-- Giải Bài tập 8 -->
+<details open="">
+<summary class="giai-de-muc">
+Luận giải
+</summary>
+</details>
+<!-- Kết quả Bài tập 8 -->
+<details open="">
+<summary class="ket-qua">
+Kết quả
+</summary>
+</details>
+</section>
+<section id="bài-tập-tự-luận" class="level2">
+<h2 class="anchored" data-anchor-id="bài-tập-tự-luận">Bài tập tự luận</h2>
+<!-- Bài tập 9 -->
+<details open="">
+<summary class="de-muc">
+Bài tập 9
+</summary>
+<p>Tìm hai số không âm <span class="math inline">\(a\)</span> và <span class="math inline">\(b\)</span> có tổng bằng <span class="math inline">\(10\)</span> sao cho:</p>
+<ol type="a">
+<li>Biểu thức <span class="math inline">\(ab\)</span> đạt giá trị lớn nhất;</li>
+<li>Tổng bình phương của chúng đạt giá trị nhỏ nhất;</li>
+<li>Biểu thức <span class="math inline">\(ab^2\)</span> đạt giá trị lớn nhất.</li>
+</ol>
+</details>
+<!-- Giải Bài tập 9 -->
+<details open="">
+<summary class="giai-de-muc">
+Luận giải
+</summary>
+</details>
+<!-- Kết quả Bài tập 9 -->
+<details open="">
+<summary class="ket-qua">
+Kết quả
+</summary>
+</details>
+<!-- Bài tập 10 -->
+<details open="">
+<summary class="de-muc">
+Bài tập 10
+</summary>
+<p>Cho hàm số bậc ba <span class="math inline">\(y = f (x)\)</span> có đồ thị như Hình 3. Viết công thức của hàm số.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../../../../..\figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-5/bt-10-do-thi.svg" class="img-fluid figure-img"></p>
+<figcaption>Hình 3</figcaption>
+</figure>
+</div>
+</details>
+<!-- Giải Bài tập 10 -->
+<details open="">
+<summary class="giai-de-muc">
+Luận giải
+</summary>
+</details>
+<!-- Kết quả Bài tập 10 -->
+<details open="">
+<summary class="ket-qua">
+Kết quả
+</summary>
+</details>
+<!-- Bài tập 11 -->
+<details open="">
+<summary class="de-muc">
+Bài tập 11
+</summary>
+<p>Cho hàm số <span class="math display">\[
+    y=\frac{1}{3}x^3-x^2+4.
+\]</span></p>
+<ol type="a">
+<li>Khảo sát và vẽ đồ thị của hàm số.</li>
+<li>Tính khoảng cách giữa hai điểm cực trị của đồ thị hàm số.</li>
+</ol>
+</details>
+<!-- Giải Bài tập 11 -->
+<details open="">
+<summary class="giai-de-muc">
+Luận giải
+</summary>
+</details>
+<!-- Kết quả Bài tập 11 -->
+<details open="">
+<summary class="ket-qua">
+Kết quả
+</summary>
+</details>
+<!-- Bài tập 12 -->
+<details open="">
+<summary class="de-muc">
+Bài tập 12
+</summary>
+<p>Cho hàm số <span class="math display">\[
+    y=\frac{2x+1}{x-1}.
+\]</span></p>
+<ol type="a">
+<li>Khảo sát và vẽ đồ thị của hàm số.</li>
+<li>Gọi <span class="math inline">\(A\)</span> là giao điểm của đồ thị hàm số với trục <span class="math inline">\(Oy\)</span>, <span class="math inline">\(I\)</span> là giao điểm của hai đường tiệm cận của đồ thị hàm số. Tìm điểm <span class="math inline">\(B\)</span> đối xứng với <span class="math inline">\(A\)</span> qua <span class="math inline">\(I\)</span>. Chứng minh rằng <span class="math inline">\(B\)</span> cũng thuộc đồ thị hàm số này.</li>
+</ol>
+</details>
+<!-- Giải Bài tập 12 -->
+<details open="">
+<summary class="giai-de-muc">
+Luận giải
+</summary>
+</details>
+<!-- Kết quả Bài tập 12 -->
+<details open="">
+<summary class="ket-qua">
+Kết quả
+</summary>
+</details>
+<!-- Bài tập 13 -->
+<details open="">
+<summary class="de-muc">
+Bài tập 13
+</summary>
+<p>Cho hàm số <span class="math display">\[
+    y=\frac{x^2+4x-1}{x-1}.
+\]</span></p>
+<ol type="a">
+<li>Khảo sát và vẽ đồ thị của hàm số.</li>
+<li>Tìm giá trị lớn nhất và giá trị nhỏ nhất của hàm số đã cho trên đoạn <span class="math inline">\([2; 4]\)</span>.</li>
+</ol>
+</details>
+<!-- Giải Bài tập 13 -->
+<details open="">
+<summary class="giai-de-muc">
+Luận giải
+</summary>
+</details>
+<!-- Kết quả Bài tập 13 -->
+<details open="">
+<summary class="ket-qua">
+Kết quả
+</summary>
+</details>
+<!-- Bài tập 14 -->
+<details open="">
+<summary class="de-muc">
+Bài tập 14
+</summary>
+<p>Cho một hình trụ nội tiếp trong hình nón có chiều cao bằng <span class="math inline">\(12\)</span> cm và bán kính đáy bằng <span class="math inline">\(5\)</span> cm (Hình 4a). Người ta cắt hình nón, trụ này theo mặt phẳng chứa đường thẳng nối đỉnh và tâm hình tròn đáy của hình nón thì thu được một hình phẳng như Hình 4b.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../../../../..\figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-5/bt-14-a-hinh-tru-noi-tiep-hinh-non.svg" class="img-fluid figure-img"></p>
+<figcaption>Hình 14a</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../../../../..\figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-5/bt-14-b-hinh-tru-noi-tiep-hinh-non.svg" class="img-fluid figure-img"></p>
+<figcaption>Hình 14b</figcaption>
+</figure>
+</div>
+<ol type="a">
+<li><p>Chứng minh rằng công thức tính bán kính <span class="math inline">\(r\)</span> của đáy hình trụ theo chiều cao <span class="math inline">\(h\)</span> của nó là: <span class="math display">\[
+r = \frac{5(12-h)}{12}.
+\]</span></p></li>
+<li><p>Chứng minh biểu thức sau biểu thị thể tích khối trụ theo <span class="math inline">\(h\)</span>: <span class="math display">\[
+V(h)
+     =\frac{25\pi h(12-h)^2}{144}.
+\]</span></p></li>
+<li><p>Tìm <span class="math inline">\(h\)</span> để khối trụ có thể tích lớn nhất.</p></li>
+</ol>
+</details>
+<!-- Giải Bài tập 14 -->
+<details open="">
+<summary class="giai-de-muc">
+Luận giải
+</summary>
+</details>
+<!-- Kết quả Bài tập 14 -->
+<details open="">
+<summary class="ket-qua">
+Kết quả
+</summary>
+</details>
+<!-- Bài tập 15 -->
+<details open="">
+<summary class="de-muc">
+Bài tập 15
+</summary>
+<p>Trong một nhà hàng, mỗi tuần để chế biến <span class="math inline">\(x\)</span> phần ăn (<span class="math inline">\(x\)</span> lấy giá trị trong khoảng từ <span class="math inline">\(30\)</span> đến <span class="math inline">\(120\)</span>) thì chi phí trung bình (đơn vị: nghìn đồng) của một phần ăn được cho bởi công thức: <span class="math display">\[
+    \bar{C}(x)
+        =2x-230+\frac{7200}{x}.
+\]</span></p>
+<ol type="a">
+<li>Khảo sát và vẽ đồ thị hàm số <span class="math inline">\(\bar C(x)\)</span> trên <span class="math inline">\([30; 120]\)</span>.</li>
+<li>Từ kết quả trên, tìm số phần ăn sao cho chi phí trung bình của một phần ăn là thấp nhất.</li>
+</ol>
+</details>
+<!-- Giải Bài tập 15 -->
+<details open="">
+<summary class="giai-de-muc">
+Luận giải
+</summary>
+</details>
+<!-- Kết quả Bài tập 15 -->
+<details open="">
+<summary class="ket-qua">
+Kết quả
+</summary>
+</details>
+<!-- Bài tập 16 -->
+<details open="">
+<summary class="de-muc">
+Bài tập 16
+</summary>
+<p>Điện trở <span class="math inline">\(R\)</span> (<span class="math inline">\(\Omega\)</span>) là một đoạn dây dẫn hình trụ được làm từ vật liệu có điện trở suất <span class="math inline">\(\rho\)</span> (<span class="math inline">\(\Omega\text{m}\)</span>), chiều dài <span class="math inline">\(\ell\)</span> (<span class="math inline">\(\text{m}\)</span>) và tiết diện <span class="math inline">\(S\)</span> (<span class="math inline">\(\text{m}^2\)</span>) được cho bởi công thức <span class="math display">\[
+    R=\rho\cdot \frac{\ell}{S}.
+\]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../../../../..\figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-5/bt-16-day-dan.svg" class="img-fluid figure-img"></p>
+<figcaption>Hình 5</figcaption>
+</figure>
+</div>
+<div class="nguon">
+(Vật lí 11 - Chân trời sáng tạo, Nhà xuất bản Giáo dục Việt Nam, 2023, trang 104.)
+</div>
+<p>Giả sử người ta khảo sát sự biến thiên của điện trở <span class="math inline">\(R\)</span> theo tiết diện <span class="math inline">\(S\)</span> (ở nhiệt độ <span class="math inline">\(20^\circ \text{C}\)</span>) của một sợi dây điện dài <span class="math inline">\(10\)</span> <span class="math inline">\(\text{m}\)</span> làm từ kim loại có điện trở suất <span class="math inline">\(\rho\)</span> và thu được đồ thị hàm số như Hình 6.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../../../../..\figures/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-5/bt-16-do-thi.svg" class="img-fluid figure-img"></p>
+<figcaption>Hình 6</figcaption>
+</figure>
+</div>
+<ol type="a">
+<li>Có nhận xét gì về sự biến thiên của điện trở <span class="math inline">\(R\)</span> theo tiết diện <span class="math inline">\(S\)</span>?</li>
+<li>Từ đồ thị, hãy giải thích ý nghĩa của toạ độ giao điểm của đồ thị hàm số với đường thẳng <span class="math inline">\(R = 0,001\)</span>.</li>
+<li>Tính điện trở suất <span class="math inline">\(\rho\)</span> của dây điện. Từ đó, hãy cho biết dây điện được làm bằng kim loại nào trong số các kim loại được cho ở bảng sau:</li>
+</ol>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Kim loại</th>
+<th style="text-align: center;">Điện trở suất <span class="math inline">\(20^\circ\text{C}\)</span> (<span class="math inline">\(\Omega\text{m}\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Bạc</td>
+<td style="text-align: center;"><span class="math inline">\(1,6 \cdot 10^{-8}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Đồng</td>
+<td style="text-align: center;"><span class="math inline">\(1,69 \cdot 10^{-8}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Vàng</td>
+<td style="text-align: center;"><span class="math inline">\(2,44 \cdot 10^{-8}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Nhôm</td>
+<td style="text-align: center;"><span class="math inline">\(2,75 \cdot 10^{-8}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Sắt</td>
+<td style="text-align: center;"><span class="math inline">\(9,68 \cdot 10^{-8}\)</span></td>
+</tr>
+</tbody>
+</table>
+</details>
+<!-- Giải Bài tập 16 -->
+<details open="">
+<summary class="giai-de-muc">
+Luận giải
+</summary>
+</details>
+<!-- Kết quả Bài tập 16 -->
+<details open="">
+<summary class="ket-qua">
+Kết quả
+</summary>
+</details>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2025 ZO Math - Tầm nguyên tái hiện.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p><a href="../../../../../../../content/contact.html">Liên hệ</a> | <a href="https://facebook.com/zo-math">Facebook</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
