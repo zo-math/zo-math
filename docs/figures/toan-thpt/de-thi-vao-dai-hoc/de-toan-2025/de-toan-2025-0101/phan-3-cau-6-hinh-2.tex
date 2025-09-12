@@ -1,0 +1,125 @@
+\documentclass[border=2mm]{standalone}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta, 
+  calc, 
+  positioning, 
+  decorations.pathreplacing, 
+  calligraphy}
+
+% Thiết lập vị trí đặt nhãn gốc tọa độ
+\tikzset{
+  >=Stealth,
+  originlabel/.style={
+    font=\small\sf,
+    anchor=north east, % Vị trí tương đối so với gốc
+    yshift=-0.1ex,     % Điều chỉnh vị trí dọc một chút
+    xshift=-0.1ex      % Điều chỉnh vị trí ngang một chút
+  }
+}
+
+% Bán kính hình cầu
+\pgfmathsetmacro{\R}{5.8}
+% Bán kích thiết diện
+\pgfmathsetmacro{\r}{3.5}
+% Tính góc chắn cung (đơn vị độ)
+\pgfmathsetmacro{\angle}{2 * asin(\r / \R)}
+% Chiều cao nắp
+\pgfmathsetmacro{\h}{\R - sqrt(\R*\R - \r*\r)} 
+
+\begin{document}
+\begin{tikzpicture}[scale=0.8]
+  \begin{axis}[
+    font=\small\sf,
+    % axis lines = middle,
+    axis lines = none,
+    axis line style={<->},
+    xlabel=$x$, ylabel=$y$,
+    xlabel style={below, font=\small\sf},
+    ylabel style={left, font=\small\sf},
+    samples=200, 
+    domain=-6:6,
+    xmin=-5.7, xmax=5.7, 
+    ymin=-5.7, ymax=5.7, 
+    xtick={},
+    xticklabels={},
+    xtick style={draw=none},
+    ytick={1},    
+    yticklabels={}, 
+    ytick style={draw=none},  
+    tick label style={font=\footnotesize\sf},
+    clip=false,
+    axis equal image,
+  ]
+
+  % Tô phần nắp cầu
+  \fill[gray, opacity=0.7]
+    (-\r, \h) arc[start angle=180, end angle=0, x radius=\r, y radius=0.35]
+    --
+    (-\r,\h) arc[start angle={270-\angle/2}, end angle={270+\angle/2}, radius=\R];
+
+  % Mặt cầu
+  \draw[dashed] (\R,\R) arc[start angle=0, end angle=360, radius=\R];
+  
+  % Thiết diện lớn
+  \draw[dashed] (\R,\R) arc[start angle=0, end angle=360, x radius=\R, y radius=1.5];
+  \draw[dashed] (-\R,\R) -- (\R,\R);
+
+  % Thiết diện nhỏ
+  \draw[dashed] (\r, \h) arc[start angle=0, end angle=360, x radius=\r, y radius=0.35];  
+  \draw[dashed] (-\r, \h) -- (\r, \h);
+
+  % Ghi chú
+  \node at (0,\h/2) {$H$};
+
+  \end{axis}
+\end{tikzpicture}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% \documentclass[border=2mm]{standalone}
+% \usepackage{tikz}
+% \usepackage{tikz-3dplot}
+% \usetikzlibrary{shadings}
+
+% \begin{document}
+% \tdplotsetmaincoords{80}{0}
+% %
+% \begin{tikzpicture}[tdplot_main_coords, scale=0.5]
+%     % Thông số chính xác
+%     \pgfmathsetmacro{\R}{5.8}   % Bán kính hình cầu (cm)
+%     \pgfmathsetmacro{\r}{3.5}   % Bán kính mặt cắt (cm)
+%     \pgfmathsetmacro{\h}{sqrt(\R^2-\r^2)} % Tính toán tự động
+
+%     \draw[dashed, rotate around x=90] (-\R,0,0) arc (180:360:{\R} and {\R});
+%     \draw[dashed, rotate around x=-90] (-\R,0,0) arc (180:360:{\R} and {\R});
+    
+%     % Vẽ hình cầu (phần sau)
+
+%     \draw[dashed] (-\R,0,0) arc (180:360:{\R} and {\R});
+%     \draw[dashed] (\R,0,0) arc (0:180:{\R} and {\R});
+
+%     \draw[dashed] (-\r,0,-\h) arc (180:360:{\r} and {\r});
+
+%     \draw[dashed] (\r,0,-\h) arc (0:180:{\r} and {\r});
+    
+%     % Chú thích
+%     % \node[below] at (0,0,-\R) {Đáy};
+%     % \node[above] at (0,0,\R*0.8) {Hình cầu};
+% \end{tikzpicture}
+% \end{document}

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZO Math - Trang Chủ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Be+Vietnam+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Be Vietnam Pro', 'Roboto', sans-serif;
+            background-color: #FFFFFF;
+            color: #1A1A1A;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* Header */
+        header {
+            background-color: #1A1A1A;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FF3D3D, #FFC107);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+        nav ul li a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #FFC107;
+        }
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #FF3D3D, #FFC107);
+            padding: 80px 20px;
+            text-align: center;
+            color: #FFFFFF;
+            border-radius: 0 0 20px 20px;
+        }
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .hero .cta-button {
+            background-color: #FF3D3D;
+            color: #FFFFFF;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .hero .cta-button:hover {
+            background-color: #FFC107;
+            transform: scale(1.05);
+        }
+        /* Features Section */
+        .features {
+            padding: 60px 0;
+            background-color: #FFFFFF;
+        }
+        .features h2 {
+            color: #FF3D3D;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .feature-card {
+            background-color: #FFFFFF;
+            border: 2px solid #4A90E2;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .feature-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+        }
+        .feature-card .icon {
+            color: #FFC107;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .feature-card h3 {
+            color: #FF3D3D;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        /* Courses Section */
+        .courses {
+            padding: 60px 0;
+            background-color: #1A1A1A;
+            color: #FFFFFF;
+        }
+        .courses h2 {
+            color: #FFC107;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+        }
+        .course-card {
+            background-color: #FFFFFF;
+            color: #1A1A1A;
+            border: 2px solid #4A90E2;
+            padding: 20px;
+            border-radius: 8px;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .course-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+        }
+        .course-card h3 {
+            color: #FF3D3D;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .course-card .cta-button {
+            background-color: #4A90E2;
+            color: #FFFFFF;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .course-card .cta-button:hover {
+            background-color: #FF3D3D;
+        }
+        /* Testimonials Section */
+        .testimonials {
+            padding: 60px 0;
+            background-color: #FFFFFF;
+        }
+        .testimonials h2 {
+            color: #FF3D3D;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+        }
+        .testimonial-card {
+            background-color: #FFFFFF;
+            border: 1px solid #4A90E2;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            transition: box-shadow 0.3s ease;
+        }
+        .testimonial-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .testimonial-card p {
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        .testimonial-card .author {
+            color: #FFC107;
+            font-weight: bold;
+        }
+        /* Footer */
+        footer {
+            background-color: #1A1A1A;
+            color: #FFFFFF;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        footer a {
+            color: #FFC107;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+        footer a:hover {
+            color: #FF3D3D;
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+            .hero p {
+                font-size: 1em;
+            }
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">ZO Math</div>
+            <ul>
+                <li><a href="#">Trang Chủ</a></li>
+                <li><a href="#">Khóa Học</a></li>
+                <li><a href="#">Về Chúng Tôi</a></li>
+                <li><a href="#">Liên Hệ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Chinh phục Toán học cùng ZO Math</h1>
+            <p>Trở thành nhân vật chính trong hành trình học tập với phương pháp hiện đại, năng động!</p>
+            <button class="cta-button">Bắt đầu ngay</button>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2>Tại sao chọn ZO Math?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon">📚</div>
+                    <h3>Học tập hiện đại</h3>
+                    <p>Phương pháp học tương tác, dễ hiểu, phù hợp với giới trẻ.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">⭐</div>
+                    <h3>Nổi bật như nhân vật chính</h3>
+                    <p>Khóa học giúp bạn tự tin chinh phục mọi thử thách toán học.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🚀</div>
+                    <h3>Công nghệ tiên tiến</h3>
+                    <p>Sử dụng công nghệ để cá nhân hóa trải nghiệm học tập.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses">
+        <div class="container">
+            <h2>Khóa học nổi bật</h2>
+            <div class="features-grid">
+                <div class="course-card">
+                    <h3>Toán Nâng Cao</h3>
+                    <p>Khóa học chuyên sâu cho học sinh muốn chinh phục các kỳ thi.</p>
+                    <button class="cta-button">Xem chi tiết</button>
+                </div>
+                <div class="course-card">
+                    <h3>Toán Cơ Bản</h3>
+                    <p>Xây dựng nền tảng vững chắc với phương pháp dễ hiểu.</p>
+                    <button class="cta-button">Xem chi tiết</button>
+                </div>
+                <div class="course-card">
+                    <h3>Toán Tư Duy</h3>
+                    <p>Phát triển tư duy logic qua các bài toán sáng tạo.</p>
+                    <button class="cta-button">Xem chi tiết</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>Học viên nói gì?</h2>
+            <div class="features-grid">
+                <div class="testimonial-card">
+                    <p>"ZO Math giúp mình yêu toán hơn và tự tin làm bài thi!"</p>
+                    <p class="author">Nguyễn Anh Tuấn</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Phương pháp học rất thú vị, không còn sợ toán nữa!"</p>
+                    <p class="author">Trần Minh Thư</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Học ở ZO Math như được làm nhân vật chính trong lớp học."</p>
+                    <p class="author">Lê Hoàng Nam</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>ZO Math © 2025 | <a href="#">Liên Hệ</a> | <a href="#">Về Chúng Tôi</a> | <a href="#">Chính Sách</a></p>
+        </div>
+    </footer>
+</body>
+</html>
