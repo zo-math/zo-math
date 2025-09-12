@@ -1,0 +1,101 @@
+\documentclass[border=2mm]{standalone}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta, 
+  calc, 
+  positioning, 
+  decorations.pathreplacing, 
+  calligraphy}
+
+% Thiết lập vị trí đặt nhãn gốc tọa độ
+\tikzset{
+  >=Stealth,
+  originlabel/.style={
+    font=\small\sf,
+    anchor=north east, % Vị trí tương đối so với gốc
+    yshift=-0.1ex,     % Điều chỉnh vị trí dọc một chút
+    xshift=-0.1ex      % Điều chỉnh vị trí ngang một chút
+  }
+}
+
+% Bán kính hình cầu
+\pgfmathsetmacro{\R}{5.7}
+% Bán kích thiết diện
+\pgfmathsetmacro{\r}{3.5}
+% Tính góc chắn cung (đơn vị độ)
+\pgfmathsetmacro{\angle}{2 * asin(\r / \R)}
+% Chiều cao nắp
+\pgfmathsetmacro{\h}{\R - sqrt(\R*\R - \r*\r)} 
+
+\begin{document}
+
+% Thiết lập định dạng dấu phẩy
+\pgfkeys{/pgf/number format/use comma,
+         /pgf/number format/set decimal separator={,}}
+
+\begin{tikzpicture}
+  \begin{axis}[
+    font=\small\sf,
+    axis lines = middle,
+    axis line style={<->},
+    xlabel=$x$, ylabel=$y$,
+    xlabel style={below, font=\small\sf},
+    ylabel style={left, font=\small\sf},
+    samples=200, 
+    domain=-6:6,
+    xmin=-7, xmax=7, 
+    ymin=-7, ymax=7, 
+    xtick={},
+    xticklabels={},
+    xtick style={draw=none},
+    ytick={1},    
+    yticklabels={}, 
+    ytick style={draw=none},  
+    tick label style={font=\footnotesize\sf},
+    clip=false,
+    axis equal image,
+  ]
+
+    \node[originlabel] at (axis cs:0,0) {$O$};
+    \draw (0,0) circle (\R);
+    \node at (0,\r) [left] {$\pgfmathprintnumber{\r}$};
+    \node at (0,\R) [above right] {$\pgfmathprintnumber{\R}$};
+    \node at (\R,\h) [above right] {$H$};
+    \draw (\R-\h+.25,\h-.25)--(\R+.25,\h+.25);
+
+    % Tô phần nắp cầu
+    \fill [gray, opacity=0.7]
+      (\R-\h, \r) arc[start angle=90, end angle=270, x radius=.35, y radius=\r]
+      --
+      (\R-\h, -\r) arc[start angle={-\angle/2}, end angle={\angle/2}, radius=\R];
+
+    % Thiết diện lớn
+    % \draw[dashed] (0,\R) arc[start angle=90, end angle=450, x radius=1.5, y radius=\R];
+
+    \draw[dashed] (0,\R) arc[start angle=90, end angle=270, x radius=1.5, y radius=\R];
+
+    \draw (0,\R) arc[start angle=90, end angle=-90, x radius=1.5, y radius=\R];
+
+    % Thiết diện nhỏ
+    % \draw [dashed] (\R-\h, \r) arc[start angle=90, end angle=480, x radius=.35, y radius=\r]; 
+    \draw [dashed] (\R-\h, \r) arc[start angle=90, end angle=270, x radius=.35, y radius=\r]; 
+
+    \draw (\R-\h, \r) arc[start angle=90, end angle=-90, x radius=.35, y radius=\r]; 
+
+    \draw[dashed] (\R-\h, \r) -- (\R-\h, -\r);
+
+    \addplot[dashed] coordinates {
+        (0,\r)
+        (\R-\h,\r)
+        };
+
+    % \addplot[dashed] coordinates {
+    %     (-1,-2.5)
+    %     (-1,6.5)
+    %     };
+  \end{axis}
+\end{tikzpicture}
+
+\end{document}

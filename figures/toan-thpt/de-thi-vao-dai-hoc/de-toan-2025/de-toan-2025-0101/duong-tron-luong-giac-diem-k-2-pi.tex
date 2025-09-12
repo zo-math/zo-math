@@ -1,0 +1,29 @@
+\documentclass[border=10pt]{standalone}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, 
+  calc, 
+  positioning, 
+  decorations.pathreplacing, 
+  calligraphy}
+
+\begin{document}
+\begin{tikzpicture}[scale=2.5]
+
+% Vẽ trục và đường tròn
+\draw[<->] (-1.55,0) -- (1.55,0) node[right] {$\cos x$};
+\draw[<->] (0,-1.25) -- (0,1.25) node[above] {$\sin x$};
+
+\draw (0,0) circle (1);
+% \draw[red] (1,0) arc[start angle=0, end angle=90, radius=1] node[midway, right] {$\frac{\pi}{2}$};
+% \draw (0,1) arc[start angle=90, end angle=360, radius=1];
+
+% Điểm O
+\node[below left] at (0,0) {$O$};
+
+% sin x = 0
+\filldraw[red] (1,0) circle (.5pt) node[above right] { $k2\pi$};
+% \filldraw[red] (-1,0) circle (.5pt) node[above left] { $\pi+k2\pi$};
+
+\end{tikzpicture}
+\end{document}

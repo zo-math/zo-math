@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="ZO Math">
+<meta name="description" content="Thay vì khởi đầu từ lí thuyết khô khan, chúng ta bắt tay ngay vào việc khảo sát và vẽ đồ thị từng hàm số cụ thể. Bạn sẽ trực tiếp cảm nhận sự sống của hàm số. Từ những ví dụ đơn giản đến phức tạp, mỗi hàm số đều chứa đựng một bài học chỉ dẫn bạn đến cái nhìn khái quát hơn.">
+
+<title>100+ Hàm số: Sự biến thiên và Đồ thị – ZO Math</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../">
+<link href="../../../../images/favicon.ico" rel="icon">
+<script src="../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap-e83117e711fad372bcb8c8022997a9a8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../../assets/css/custom.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../../content/toan-thpt/toan-10/index.qmd">
+ <span class="dropdown-text">Toán 10</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../content/toan-thpt/toan-11/index.html">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../content/toan-thpt/toan-12/index.html">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../content/zo-o/index.html"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../content/zo-lab/index.html"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../content/shop/index.html"> 
+<span class="menu-text">🛒 ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../content/support/donate.html"> 
+<span class="menu-text">💖 Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../content/contact.html"> 
+<span class="menu-text">☎️ Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">100+ Hàm số: Sự biến thiên và Đồ thị</h1>
+            <p class="subtitle lead">Khảo sát sự biến thiên và vẽ đồ thị hơn 100 hàm số phổ thông tiêu biểu</p>
+                  <div>
+        <div class="description">
+          Thay vì khởi đầu từ lí thuyết khô khan, chúng ta bắt tay ngay vào việc khảo sát và vẽ đồ thị từng hàm số cụ thể. Bạn sẽ trực tiếp cảm nhận sự sống của hàm số. Từ những ví dụ đơn giản đến phức tạp, mỗi hàm số đều chứa đựng một bài học chỉ dẫn bạn đến cái nhìn khái quát hơn.
+        </div>
+      </div>
+                </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Tác giả</div>
+      <div class="quarto-title-meta-contents">
+               <p>ZO Math </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Ngày cập nhật</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">12-09-2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  <div>
+    <div class="abstract">
+      <div class="block-title">Tóm tắt</div>
+      <p>Dự án “100+ Hàm số: Sự biến thiên và Đồ thị” được xây dựng với mục tiêu giúp bạn học tiếp cận khái niệm hàm số theo con đường tự nhiên nhất: <em>đi từ trải nghiệm cụ thể đến sự khái quát</em>.</p>
+      <p><em>Hàm số</em> được nhìn nhận như một phương tiện trình bày mối liên hệ giữa các đại lượng thay đổi, gắn liền với vô số hiện tượng tự nhiên và xã hội. <em>Sự biến thiên</em> chính là linh hồn của hàm số: nó cho ta thấy khi biến đầu vào thay đổi thì kết quả đầu ra vận động ra sao. <em>Đồ thị</em> là bản đồ trực quan giúp người học quan sát quy luật bằng mắt, thay vì chỉ nắm bằng ký hiệu và những ý niệm.</p>
+      <p>Với hơn 100 hàm số thuộc nhiều dạng, dự án này vừa là hành trình khám phá đầy cảm hứng, vừa là tài liệu tham khảo giàu hình ảnh cho học sinh, giáo viên và bất kỳ ai muốn hiểu sâu hơn về hàm số.</p>
+    </div>
+  </div>
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Trên trang này</h2>
+   
+  <ul>
+  <li><a href="#hàm-số-là-gì" id="toc-hàm-số-là-gì" class="nav-link active" data-scroll-target="#hàm-số-là-gì">1. Hàm số là gì</a>
+  <ul class="collapse">
+  <li><a href="#bài-tập" id="toc-bài-tập" class="nav-link" data-scroll-target="#bài-tập">Bài tập</a></li>
+  </ul></li>
+  <li><a href="#sự-biến-thiên-của-hàm-số-là-gì" id="toc-sự-biến-thiên-của-hàm-số-là-gì" class="nav-link" data-scroll-target="#sự-biến-thiên-của-hàm-số-là-gì">2. Sự biến thiên của hàm số là gì</a></li>
+  <li><a href="#bài-tập-1" id="toc-bài-tập-1" class="nav-link" data-scroll-target="#bài-tập-1">Bài tập</a></li>
+  <li><a href="#đồ-thị-hàm-số-là-gì" id="toc-đồ-thị-hàm-số-là-gì" class="nav-link" data-scroll-target="#đồ-thị-hàm-số-là-gì">3. Đồ thị hàm số là gì?</a>
+  <ul class="collapse">
+  <li><a href="#bài-tập-2" id="toc-bài-tập-2" class="nav-link" data-scroll-target="#bài-tập-2">Bài tập</a></li>
+  </ul></li>
+  <li><a href="#hàm-số" id="toc-hàm-số" class="nav-link" data-scroll-target="#hàm-số">100+ Hàm số</a>
+  <ul class="collapse">
+  <li><a href="#bài-tập-3" id="toc-bài-tập-3" class="nav-link" data-scroll-target="#bài-tập-3">Bài tập</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="hàm-số-là-gì" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-số-là-gì">1. Hàm số là gì</h2>
+<p>Viết <span class="math inline">\(y = x^2\)</span>, và hiểu theo nghĩa: hễ <span class="math inline">\(x\)</span> được chọn thì <span class="math inline">\(y\)</span> cũng lập tức được xác định. Nói cách khác, <span class="math inline">\(x\)</span> là đại lượng được tự do lựa chọn, gọi là <em>biến độc lập</em>; còn <span class="math inline">\(y\)</span> thì luôn phải tuân theo <span class="math inline">\(x\)</span>, gọi là <em>biến phụ thuộc</em>. Tập hợp những giá trị mà <span class="math inline">\(x\)</span> có thể nhận gọi là <em>tập xác định</em>, và những giá trị mà <span class="math inline">\(y\)</span> có thể đạt tới gọi là <em>tập giá trị</em>. Với ví dụ này, <span class="math inline">\(x\)</span> có thể là bất kỳ số thực nào, nhưng <span class="math inline">\(y\)</span> thì chỉ nhận các giá trị không âm.</p>
+<blockquote class="blockquote">
+<p>Kí hiệu <span class="math inline">\(x\)</span> được gọi là một <em>biến số</em> khi nó đại diện cho một giá trị có thể thay đổi trong một <em>tập số</em> nhất định. Nếu tập đang xét không phải là tập số thì chỉ gọi là <em>biến</em>. Trong cách dùng thường ngày, “biến” đôi khi cũng được dùng thay thế cho “biến số” khi ngữ cảnh đã rõ.</p>
+</blockquote>
+<p>Hệ thức <span class="math inline">\(y = x^2\)</span> là một <em>hàm số</em>. Ta cũng nói: <span class="math inline">\(y\)</span> là hàm của <span class="math inline">\(x\)</span>. Chính thức hơn, ở mức phổ thông, một hàm số được hiểu theo định nghĩa dưới đây.</p>
+<div class="highlight-box-soft-red">
+<p>Cho <span class="math inline">\(D\)</span> là một tập con của tập số thực <span class="math inline">\(\mathbb{R}\)</span>, tức là <span class="math inline">\(D\subset \mathbb{R}\)</span>. Một <em>hàm số</em> trên tập <span class="math inline">\(D\)</span> là một quy tắc <span class="math inline">\(f\)</span> gắn cho mỗi <span class="math inline">\(x\in D\)</span> đúng một số thực <em>duy nhất</em> <span class="math inline">\(y\)</span>, thường viết</p>
+<p><span class="math display">\[
+y = f(x).
+\]</span></p>
+<p>Tập <span class="math inline">\(D\)</span> được gọi là <em>tập xác định</em> của hàm số. Tập tất cả các giá trị <span class="math inline">\(f(x)\)</span> khi <span class="math inline">\(x\)</span> chạy trong <span class="math inline">\(D\)</span> được gọi là <em>tập giá trị</em> của hàm số.</p>
+</div>
+<blockquote class="blockquote">
+<p>Trong Toán học bậc cao, một hàm số được hiểu như một <em>ánh xạ</em> <span class="math inline">\(f\)</span> từ <span class="math inline">\(D\)</span> vào <span class="math inline">\(\mathbb{R}\)</span>, được kí hiệu như sau: <span class="math display">\[
+\begin{alignedat}{2}
+f\colon &amp; D &amp;\;\longrightarrow\;&amp; \mathbb{R} \\
+      &amp; $x$ &amp;\;\longmapsto\;&amp; y=f(x).
+\end{alignedat}
+\]</span></p>
+</blockquote>
+<p>Điểm mấu chốt ở đây là tính <em>duy nhất</em>: với mỗi <span class="math inline">\(x\)</span>, chỉ có đúng một <span class="math inline">\(y\)</span> đi kèm. Chẳng hạn, khi <span class="math inline">\(x=2\)</span> thì <span class="math inline">\(y=4\)</span>, khi <span class="math inline">\(x=-2\)</span> thì <span class="math inline">\(y\)</span> cũng bằng <span class="math inline">\(4\)</span>. Dù hai giá trị khác nhau của <span class="math inline">\(x\)</span> có thể cùng dẫn đến một <span class="math inline">\(y\)</span>, điều quan trọng là không bao giờ tồn tại một <span class="math inline">\(x\)</span> cụ thể mà lại đi kèm hai giá trị <span class="math inline">\(y\)</span> khác nhau.</p>
+<p>Thoạt nhìn, dễ lầm tưởng rằng hàm số luôn phải có một công thức đại số. Nhưng thực ra không phải vậy. Chẳng hạn, với tập xác định <span class="math inline">\(\{1,2,3,5\}\)</span>, việc quy định <span class="math inline">\(f(1)=2\)</span>, <span class="math inline">\(f(2)=2\)</span>, <span class="math inline">\(f(3)=-1\)</span> và <span class="math inline">\(f(5)=3\)</span> cũng xác định nên một hàm số. Một ví dụ sâu sắc hơn là hàm số <span class="math inline">\(\pi(n)\)</span>, đếm số lượng số nguyên tố nhỏ hơn số nguyên dương <span class="math inline">\(n\)</span>. Khi <span class="math inline">\(n=6\)</span>, ta có <span class="math inline">\(\pi(6)=3\)</span> vì ba số nguyên tố <span class="math inline">\(2, 3, 5\)</span> đều nhỏ hơn <span class="math inline">\(6\)</span>. Ở đây, giá trị của <span class="math inline">\(\pi(n)\)</span>luôn được xác định duy nhất với mỗi <span class="math inline">\(n\)</span>, mặc dù cho đến nay chưa hề có một công thức đại số nào để viết trực tiếp <span class="math inline">\(\pi(n)\)</span>.</p>
+<p>Ngay cả khi có công thức, không phải hàm số nào cũng “hiền lành”. Hàm <span class="math inline">\(y = x^2\)</span> thì trơn tru, có điểm thấp nhất ở <span class="math inline">\(x=0\)</span> và sau đó tăng dần về hai phía. Nhưng hàm <span class="math inline">\(y=\frac{1}{x}\)</span> lại cư xử rất khác khi <span class="math inline">\(x\)</span> tiến gần đến <span class="math inline">\(0\)</span>: đi từ phía âm, giá trị <span class="math inline">\(y\)</span> lao xuống âm vô cực; đi từ phía dương, giá trị <span class="math inline">\(y\)</span> vọt lên dương vô cực. Dù <span class="math inline">\(0\)</span> không thuộc tập xác định, chính sự “trái tính” này khiến hàm số trở nên đặc biệt. Có những hàm số còn rắc rối theo kiểu khác, chẳng hạn <span class="math inline">\(y=\sqrt{x}\)</span> không chấp nhận <span class="math inline">\(x\)</span> âm, hoặc <span class="math inline">\(y = \sin\left(\frac{1}{x}\right)\)</span> dao động dữ dội khi <span class="math inline">\(x\)</span> tiến gần <span class="math inline">\(0\)</span>.</p>
+<p>Từ những ví dụ trên, ta thấy hàm số có thể hiền lành như <span class="math inline">\(y=x^2\)</span>, tinh vi như <span class="math inline">\(\pi(n)\)</span>, hoặc khó lường như <span class="math inline">\(\sin\left(\frac{1}{x}\right)\)</span>. Hàm số là một trong những khái niệm nền tảng và có nội hàm phong phú bậc nhất của toán học: nó là ngôn ngữ phổ quát và hiệu quả để mô tả sự thay đổi, từ giản dị đến phức tạp.</p>
+<p>Chính vì thế, khi học hàm số không nên dừng lại ở việc nhận biết công thức. Điều cốt yếu là phải nắm bắt được dáng điệu của biến phụ thuộc mà công thức ẩn chứa trong nó: khi <span class="math inline">\(x\)</span>thay đổi, <span class="math inline">\(y\)</span>biểu hiện thế nào - tăng ở đâu, giảm ở chỗ nào, nhanh hay chậm, dừng lại tại đâu, hay giao động ra sao? Vì vậy, hiểu một hàm số tức là hiểu quy luật biến thiên của nó.</p>
+<section id="bài-tập" class="level3">
+<h3 class="anchored" data-anchor-id="bài-tập">Bài tập</h3>
+<details class="collapsible-box-honey-gold">
+<summary>
+Thí nghiệm trên mặt phẳng nghiêng
+</summary>
+<div class="content">
+<p>Galileo Galilei (1564–1642) là một trong những nhà khoa học tiên phong. Ông muốn tìm hiểu quy luật chuyển động, trong khi nhiều người cùng thời vẫn tin rằng vật nặng rơi nhanh hơn vật nhẹ.</p>
+<p>Trực tiếp nghiên cứu rơi tự do thì quá khó, vì vật rơi nhanh khiến việc đo đạc gần như bất khả thi với công cụ thời bấy giờ. Galileo đã nghĩ ra cách thay thế thông minh: cho một quả bóng lăn trên mặt phẳng nghiêng. Nhờ đó:</p>
+<ul>
+<li><p>Làm chậm chuyển động: Góc nghiêng giảm gia tốc của quả bóng, giúp Galileo dễ dàng đo thời gian và quãng đường chính xác hơn bằng các công cụ thô sơ (như đồng hồ nước hoặc nhịp tim).</p></li>
+<li><p>Tái hiện rơi tự do: Chuyển động trên mặt phẳng nghiêng cũng chịu ảnh hưởng của trọng lực tương tự rơi tự do nhưng với gia tốc nhỏ hơn.</p></li>
+<li><p>Khám phá quy luật toán học: Qua thí nghiệm, Galileo phát hiện quãng đường <span class="math inline">\(y\)</span> tỉ lệ với bình phương thời gian <span class="math inline">\(x\)</span> (tức <span class="math inline">\(y=kx^2\)</span>), một phát hiện mang tính cách mạng, đặt nền móng cho cơ học hiện đại.</p></li>
+</ul>
+<p>Sự sắc sảo của Galileo không chỉ nằm ở việc thiết kế thí nghiệm mà còn ở cách ông dùng dữ liệu để rút ra quy luật. Ông không chỉ đo lường mà còn tìm cách biểu diễn mối quan hệ giữa thời gian và quãng đường bằng một quy tắc toán học - chính là khái niệm <em>hàm số</em> mà chúng ta đang tìm hiểu.</p>
+</div>
+</details>
+<ol type="1">
+<li><p>Galileo Galilei (1564–1642) muốn khám phá quy luật của chuyển động dưới tác dụng của trọng lực. Nếu thả một vật rơi tự do, nó di chuyển quá nhanh, khiến việc đo chính xác thời gian và quãng đường chính xác rất khó. Galileo đã nghĩ ra cách: để một quả bóng lăn xuống một mặt phẳng nghiêng với góc nhỏ. Điều này làm chậm chuyển động, giúp ông đo lường dễ dàng hơn, đồng thời vẫn cho phép khám phá quy luật tương tự như trong rơi tự do: <em>quãng đường tỉ lệ với bình phương thời gian</em>.</p>
+<p>Dựa trên thí nghiệm của Galileo, ta xét dữ liệu giả định sau:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Thời gian <span class="math inline">\(x\)</span> (giây)</th>
+<th style="text-align: center;">Quãng đường <span class="math inline">\(y\)</span> (mét)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0{,}5\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2{,}0\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(4{,}5\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(4\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(8{,}0\)</span></td>
+</tr>
+</tbody>
+</table>
+<ol type="a">
+<li><p>Hãy tính tỉ số <span class="math inline">\(\frac{y}{x^2}\)</span> cho mỗi hàng số liệu. Các tỉ số này có gì giống nhau? Dựa vào kết quả, bạn đoán quy tắc <span class="math inline">\(f\)</span> nào liên kết thời gian <span class="math inline">\(x\)</span> với quãng đường <span class="math inline">\(y\)</span>? Dùng quy tắc vừa tìm được, hãy tính quãng đường khi <span class="math inline">\(x=5\)</span> (giây).</p></li>
+<li><p>Trong thí nghiệm, mỗi thời gian <span class="math inline">\(x\)</span> chỉ tương ứng với một quãng đường <span class="math inline">\(y\)</span>. Nếu tại <span class="math inline">\(x=2\)</span>, ta đo được hai quãng đường khác nhau (như <span class="math inline">\(2\)</span> mét và <span class="math inline">\(3\)</span> mét), điều đó có hợp lý không? Tại sao?</p></li>
+<li><p>Trong thí nghiệm, thời gian <span class="math inline">\(x\)</span> có thể nhận giá trị nào? Có thể là số âm không? Tại sao? Quãng đường <span class="math inline">\(y\)</span> có thể âm không? Giá trị nhỏ nhất của <span class="math inline">\(y\)</span> là bao nhiêu?</p></li>
+<li><p>Khi thời gian <span class="math inline">\(x\)</span> tăng từ <span class="math inline">\(1\)</span> giây đến <span class="math inline">\(4\)</span> giây, quãng đường <span class="math inline">\(y\)</span> thay đổi thế nào? Ví dụ: từ <span class="math inline">\(1\)</span> giây đến <span class="math inline">\(2\)</span> giây, <span class="math inline">\(y\)</span> tăng bao nhiêu? Từ <span class="math inline">\(2\)</span> giây đến <span class="math inline">\(3\)</span> giây thì sao? Bạn có nhận thấy <span class="math inline">\(y\)</span> tăng nhanh hơn khi <span class="math inline">\(x\)</span> lớn hơn không?</p></li>
+<li><p>Tại sao Galileo chọn dùng mặt phẳng nghiêng để nghiên cứu chuyển động thay vì chỉ quan sát rơi tự do? Theo bạn, cách làm này giúp ông khám phá quy tắc <span class="math inline">\(y=kx^2\)</span> như thế nào? (Gợi ý: Nghĩ về tốc độ chuyển động và khả năng đo lường chính xác).</p></li>
+</ol></li>
+<li><p>Trong các quy tắc sau, quy tắc nào xác định một hàm số? Giải thích vì sao.</p>
+<ol type="a">
+<li><span class="math inline">\(y = \pm \sqrt{x}\)</span>.</li>
+<li><span class="math inline">\(y = \sqrt{x}\)</span>.</li>
+<li>Với mỗi số nguyên <span class="math inline">\(n\)</span>, gán cho <span class="math inline">\(n\)</span> số chữ số của nó trong hệ thập phân.</li>
+<li>Với mỗi số thực <span class="math inline">\(x\)</span>, gán cho <span class="math inline">\(x\)</span> số lượng nghiệm của phương trình <span class="math inline">\(t^2 = x\)</span>.</li>
+</ol></li>
+<li><p>Cho hàm số <span class="math inline">\(f(x)\)</span> thỏa mãn <span class="math inline">\(f(x+1)=x^2+2x+1\)</span> với mọi <span class="math inline">\(x\in\mathbb{R}\)</span>.</p>
+<ol type="a">
+<li>Tính <span class="math inline">\(f(2)\)</span> và <span class="math inline">\(f(3)\)</span>.</li>
+<li>Tìm công thức <span class="math inline">\(f(x)\)</span>.</li>
+<li>Dùng công thức vừa tìm được để tính lại <span class="math inline">\(f(2)\)</span> và <span class="math inline">\(f(3)\)</span>.</li>
+</ol></li>
+</ol>
+</section>
+</section>
+<section id="sự-biến-thiên-của-hàm-số-là-gì" class="level2">
+<h2 class="anchored" data-anchor-id="sự-biến-thiên-của-hàm-số-là-gì">2. Sự biến thiên của hàm số là gì</h2>
+<p>Công thức của một hàm số giống như bản nhạc viết trên giấy: các nốt nhạc nằm đó, nhưng để thực sự thưởng thức, ta phải nghe giai điệu mà chúng tạo ra. Với hàm số cũng vậy: không chỉ dừng lại ở ký hiệu, điều quan trọng là cảm nhận được <em>nhịp điệu</em> mà nó thể hiện khi biến độc lập dịch chuyển.</p>
+<div class="highlight-box-soft-red">
+<p>Sự biến thiên của hàm số là cách giá trị <span class="math inline">\(y\)</span> thay đổi khi <span class="math inline">\(x\)</span> thay đổi. Nó trả lời câu hỏi: khi ta dịch chuyển <span class="math inline">\(x\)</span>, thì <span class="math inline">\(y\)</span> phản ứng thế nào? Đây chính là linh hồn của khái niệm hàm số, giúp ta hiểu mối quan hệ giữa biến độc lập <span class="math inline">\(x\)</span> và biến phụ thuộc <span class="math inline">\(y\)</span>.</p>
+</div>
+<p>Để nhìn thấy <span class="math inline">\(y\)</span> thay đổi theo <span class="math inline">\(x\)</span> ra sao, ta <em>thăm dò</em> bằng cách lập <em>bảng giá trị</em>. Chẳng hạn, xét hàm số <span class="math inline">\(y=x^2\)</span> với một số giá trị quanh <span class="math inline">\(x=0\)</span>:</p>
+<table class="caption-top table">
+<caption>Bảng một số giá trị quanh <span class="math inline">\(x=0\)</span> của hàm <span class="math inline">\(y=x^2\)</span>. Các giá trị <span class="math inline">\(y\)</span> được làm tròn đến hai chữ số thập phân.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(x\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(y = x^2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(-2,0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(4,00\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(-1,0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1,00\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(-0,9\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0,81\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(-0,7\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0,49\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(-0,5\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0,25\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(-0,3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0,09\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(-0,1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0,01\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(0,1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0,01\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(0,3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0,09\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(0,5\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0,25\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(0,7\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0,49\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(0,9\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0,81\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(1,0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1,00\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(2,0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(4,00\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Khi <span class="math inline">\(x\)</span> tăng dần từ <span class="math inline">\(-2\)</span> về <span class="math inline">\(0\)</span>, <span class="math inline">\(y\)</span> giảm dần và tiến về <span class="math inline">\(0\)</span>. Tại <span class="math inline">\(x=0\)</span>, hàm số đạt giá trị nhỏ nhất <span class="math inline">\(y=0\)</span> trên toàn miền xác định. Khi <span class="math inline">\(x\)</span> tiếp tục tăng sang phía dương, <span class="math inline">\(y\)</span> trở lại tăng lên. Ngoài ra, ta nhận ra tính đối xứng <span class="math inline">\(x=0\)</span>: chẳng hạn <span class="math inline">\(x=-2\)</span> và <span class="math inline">\(x=2\)</span> đều cho <span class="math inline">\(y=4\)</span>.</p>
+<p>Với hàm số <span class="math inline">\(y=\frac{1}{x}\)</span>, ta cũng thử quan sát một số giá trị quanh <span class="math inline">\(x=0\)</span>:</p>
+<table class="caption-top table">
+<caption>Bảng một số giá trị quanh <span class="math inline">\(x=0\)</span> của hàm <span class="math inline">\(y=\frac{1}{x}\)</span>. Các giá trị <span class="math inline">\(y\)</span> được làm tròn đến hai chữ số thập phân.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(x\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(y=\frac{1}{x}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(-0,25\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(-4,00\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(-0,21\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(-4,76\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(-0,17\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(-5,88\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(-0,13\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(-7,69\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(-0,09\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(-11,11\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(-0,05\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(-20,00\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(-0,01\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(-100,00\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;">không xác định</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(0,01\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(100,00\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(0,05\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(20,00\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(0,09\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(11,11\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(0,13\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(7,69\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(0,17\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(5,88\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(0,21\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(4,76\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(0,25\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(4,00\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Khi <span class="math inline">\(x\)</span> tiến dần về <span class="math inline">\(0\)</span> từ phía âm, <span class="math inline">\(y\)</span> rơi xuống những giá trị âm cực lớn; còn khi <span class="math inline">\(x\)</span> tiến về <span class="math inline">\(0\)</span> từ phía dương, <span class="math inline">\(y\)</span> lại vọt lên những giá trị dương cực lớn. Trái và phải của <span class="math inline">\(0\)</span> trở thành hai miền tách biệt, giống như hai thế giới không thể nối liền, vì <span class="math inline">\(x=0\)</span> không thuộc tập xác định của hàm số.</p>
+<p>Còn với hàm <span class="math inline">\(y=\sin\left(\frac{1}{x}\right)\)</span>, ta sẽ thấy một tiết tấu hoàn toàn khác. Để quan sát, ta không thể chọn <span class="math inline">\(x\)</span> cách đều, mà phải chọn những điểm đặc biệt sao cho <span class="math inline">\(\frac{1}{x}\)</span> rơi đúng vào những bội số quen thuộc của <span class="math inline">\(\pi\)</span> (nơi giá trị của hàm bằng <span class="math inline">\(0\)</span>, <span class="math inline">\(1\)</span> hoặc <span class="math inline">\(-1\)</span>). Chẳng hạn, với <span class="math inline">\(x&gt;0\)</span>:</p>
+<table class="caption-top table">
+<caption>Bảng một số giá trị quanh <span class="math inline">\(x=0\)</span> của hàm <span class="math inline">\(y=\sin\left(\frac{1}{x}\right)\)</span>.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(x\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(y=\sin\left(\frac{1}{x}\right)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(\frac{2}{\pi}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(\frac{1}{\pi}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(\frac{2}{3\pi}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(-1\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(\frac{1}{2\pi}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(\frac{2}{5\pi}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(\frac{1}{3\pi}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(\frac{2}{7\pi}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(-1\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(\frac{1}{4\pi}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">…</td>
+<td style="text-align: center;">…</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;">không xác định</td>
+</tr>
+</tbody>
+</table>
+<p>Khi <span class="math inline">\(x\)</span> từ phía dương tiến về <span class="math inline">\(0\)</span>, giá trị <span class="math inline">\(\frac{1}{x}\)</span> chạy ra vô cực, nên <span class="math inline">\(\sin\left(\frac{1}{x}\right)\)</span> lặp đi lặp lại nhịp điệu quen thuộc <span class="math inline">\(1\to 0\to -1\to 0\to 1\to 0\to -1\to 0\to\dots\)</span> mãi không ngừng. Chính sự “dao động vĩnh viễn” này làm hàm số trở nên đặc biệt: càng tiến sát về <span class="math inline">\(0\)</span>, ta càng thấy nó rung lắc nhanh hơn và dồn dập hơn.</p>
+<p>Hãy lưu ý rằng, trong hầu hết các trường hợp, việc lập bảng giá trị chỉ cho ta một bức tranh <em>cục bộ</em> và mang tính <em>thăm dò</em>. Dù có liệt kê bao nhiêu giá trị đi nữa, ta vẫn không thể kết luận chắc chắn về quy luật biến thiên của hàm số. Chẳng hạn, với <span class="math inline">\(y=x^2\)</span>, tập xác định là toàn bộ <span class="math inline">\(\mathbb{R}\)</span> và tập giá trị là <span class="math inline">\([0; +\infty)\)</span> - cả hai đều vô hạn và không thể liệt kê hết. Nhìn vào vài giá trị trong đoạn <span class="math inline">\([-2;2]\)</span>, ta có cảm giác rằng hàm số giảm xuống khi <span class="math inline">\(x&lt;0\)</span> và tăng lên khi <span class="math inline">\(x&gt;0\)</span>. Nhưng đó mới chỉ là một phỏng đoán; để biến cảm giác thành khẳng định, ta cần đến chứng minh toán học.</p>
+<p>Để thấy bức tranh toàn diện về sự biến thiên, ta cần đến các công cụ toán học và một cách biểu diễn trực quan để hình dung nhịp điệu của hàm số. Chúng ta sẽ khám phá cách này trong phần tiếp theo.</p>
+</section>
+<section id="bài-tập-1" class="level2">
+<h2 class="anchored" data-anchor-id="bài-tập-1">Bài tập</h2>
+<ol type="1">
+<li><p><em>Lập bảng giá trị</em> cho các hàm <span class="math inline">\(y=2x\)</span>, <span class="math inline">\(y=\lvert x\rvert\)</span>, <span class="math inline">\(y=x^2\)</span>, <span class="math inline">\(y=\sqrt{x}\)</span>, <span class="math inline">\(y=x^3\)</span> với <span class="math inline">\(x\)</span> từ <span class="math inline">\(-2\)</span> đến <span class="math inline">\(2\)</span>, bước nhảy <span class="math inline">\(0{,}5\)</span>. Ngoại trừ <span class="math inline">\(y=\sqrt{x}\)</span> có tập xác định là <span class="math inline">\([0,\infty)\)</span>, các hàm còn lại đều có tập xác định là <span class="math inline">\(\mathbb{R}\)</span> (Đúng/Sai)? Vì sao không tính giá trị của hàm <span class="math inline">\(y=\sqrt{x}\)</span> khi <span class="math inline">\(x&lt;0\)</span>?</p></li>
+<li><p>Dựa vào bảng giá trị, mô tả <em>sự biến thiên của từng hàm</em> bằng cách trả lời các câu hỏi:</p>
+<ul>
+<li>Hàm tăng hay giảm khi <span class="math inline">\(x\)</span> tăng?</li>
+<li>Bản thân sự tăng/giảm ấy lại biến thiên thế nào?</li>
+</ul></li>
+<li><p>Dựa vào bảng giá trị, <em>so sánh giá trị của các hàm</em> bằng cách trả lời các câu hỏi dưới đây.</p>
+<ol type="a">
+<li>Giữa <span class="math inline">\(y=2x\)</span> và <span class="math inline">\(y=\lvert x\rvert\)</span>: Trên <span class="math inline">\((0, 2)\)</span>, hàm nào có giá trị lớn hơn? Tại sao?</li>
+<li>Giữa <span class="math inline">\(y=\lvert x\rvert\)</span> và <span class="math inline">\(y=x^2\)</span>: Trên <span class="math inline">\((-1, 1)\)</span>, hàm nào lớn hơn tại <span class="math inline">\(x\)</span> = <span class="math inline">\(0{,}5\)</span>? Trên <span class="math inline">\((1, 2)\)</span>, hàm nào lớn hơn?</li>
+<li>Giữa <span class="math inline">\(y=x^2\)</span> và <span class="math inline">\(y=\sqrt{x}\)</span> trên <span class="math inline">\((0, 2)\)</span>: Trên <span class="math inline">\((0, 1)\)</span>, hàm nào lớn hơn? Trên <span class="math inline">\((1, 2)\)</span>, hàm nào lớn hơn? Khi <span class="math inline">\(x\)</span> qua <span class="math inline">\(1\)</span>, có sự kiện gì xảy ra với giá trị <span class="math inline">\(y\)</span> của hai hàm?</li>
+<li>Giữa <span class="math inline">\(y=x^2\)</span> và <span class="math inline">\(y=x^3\)</span>: Trên <span class="math inline">\((0, 1)\)</span>, hàm nào lớn hơn? Trên <span class="math inline">\((1, 2)\)</span>, hàm nào lớn hơn? Khi <span class="math inline">\(x\)</span> qua <span class="math inline">\(1\)</span>, có sự kiện gì xảy ra với giá trị <span class="math inline">\(y\)</span> của hai hàm? Khi <span class="math inline">\(x\)</span> qua <span class="math inline">\(0\)</span>, giá trị <span class="math inline">\(y\)</span> của mỗi hàm biến đổi khác nhau thế nào?</li>
+</ol></li>
+<li><p>Dựa vào bảng giá trị, <em>so sánh sự biến thiên của các hàm</em> bằng cách trả lời những câu hỏi dưới đây.</p>
+<ol type="a">
+<li>Giữa <span class="math inline">\(y=2x\)</span> và <span class="math inline">\(y=\lvert x\rvert\)</span>: Trên <span class="math inline">\([0, 2]\)</span>, hàm nào tăng đều? Tốc độ tăng của hàm nào nhanh hơn?</li>
+<li>Giữa <span class="math inline">\(y=x^2\)</span> và <span class="math inline">\(y=\lvert x\rvert\)</span>: Trên <span class="math inline">\([0, 2]\)</span>, hàm nào tăng nhanh hơn?</li>
+<li>Giữa <span class="math inline">\(y=x^2\)</span> và <span class="math inline">\(y=x^3\)</span>: Trên <span class="math inline">\([0, 2]\)</span>, hàm nào tăng nhanh hơn?</li>
+<li>Giữa <span class="math inline">\(y=x^2\)</span> và <span class="math inline">\(y=\sqrt{x}\)</span>: Hàm nào tăng nhanh dần? Hàm nào tăng chậm dần? Trên <span class="math inline">\((0, 1)\)</span>, hàm <span class="math inline">\(y=\sqrt{x}\)</span> luôn tăng nhanh hơn hàm <span class="math inline">\(y=x^2\)</span> ?</li>
+</ol></li>
+<li><p>Hàm số <span class="math inline">\(y=\sin\left(\frac{1}{x}\right)\)</span> có hành vi đặc biệt khi <span class="math inline">\(x\)</span> tiến gần <span class="math inline">\(0\)</span>. Hãy khám phá qua các bước sau:</p>
+<ol type="a">
+<li><p>Với <span class="math inline">\(x&gt;0\)</span>, lập bảng giá trị khi <span class="math inline">\(x\)</span> lần lượt là <span class="math inline">\(1{,}00; 0{,}09; 0{,}08; 0{,}07; 0{,}06; 0{,}05; 0{,}04; 0{,}03; 0{,}02; 0{,}01\)</span>. Từ bảng này, bạn có thể phỏng đoán <span class="math inline">\(y\)</span> sẽ tăng, giảm, dao động, hay tiến về một giá trị cố định khi <span class="math inline">\(x \to 0\)</span> không? Hành vi ấy có lặp lại theo một quy luật rõ ràng không?</p>
+<p><strong>Ghi chú:</strong> Ở đây ta chỉ xét phía <span class="math inline">\(x&gt;0\)</span> để bảng số liệu gọn gàng; thực ra với <span class="math inline">\(x&lt;0\)</span>, hàm số cũng dao động tương tự do tính chất <span class="math inline">\(\sin(-x)=-\sin(x)\)</span>.</p></li>
+<li><p>Lập một bảng giá trị khác với <span class="math inline">\(x\)</span> lần lượt là <span class="math inline">\(\frac{2}{\pi}\)</span>, <span class="math inline">\(\frac{1}{\pi}\)</span>, <span class="math inline">\(\frac{2}{3\pi}\)</span>,<span class="math inline">\(\frac{1}{2\pi}\)</span>, <span class="math inline">\(\frac{2}{5\pi}\)</span>, <span class="math inline">\(\frac{1}{3\pi}\)</span>, <span class="math inline">\(\frac{2}{7\pi}\)</span>, <span class="math inline">\(\frac{1}{4\pi}\)</span>. Lúc này, <span class="math inline">\(y\)</span> biến đổi ra sao? Có xuất hiện sự lặp lại theo chu kỳ nào không?</p></li>
+<li><p>So sánh hai bảng trên: một bảng gợi cảm giác “hỗn loạn”, một bảng lại cho thấy sự “có trật tự”. Từ đó, bạn hãy giải thích tại sao chỉ dựa vào bảng giá trị thì chưa thể kết luận chắc chắn về sự biến thiên của hàm khi <span class="math inline">\(x \to 0\)</span>.</p></li>
+<li><p>Hãy chỉ ra ba dãy số khác nhau cùng hội tụ về <span class="math inline">\(0\)</span> nhưng cho ba dãy giá trị <span class="math inline">\(y\)</span> lần lượt tiến tới <span class="math inline">\(1\)</span>, <span class="math inline">\(0\)</span> và <span class="math inline">\(-1\)</span>. Từ đó kết luận: hàm số này có giới hạn tại <span class="math inline">\(x=0\)</span> hay không?. (Lưu ý, một hàm có thể không xác định tại một điểm nhưng vẫn có giới hạn ở đó. Ví dụ, hàm <span class="math inline">\(\frac{\sin(x)}{x}\)</span> không xác định tại <span class="math inline">\(x=0\)</span>, nhưng vẫn có giới hạn tại đây là <span class="math inline">\(1\)</span>. Đây chính là sự khác nhau giữa <em>giá trị của hàm</em> và <em>giới hạn của hàm</em>.)</p></li>
+</ol></li>
+</ol>
+</section>
+<section id="đồ-thị-hàm-số-là-gì" class="level1">
+<h1>3. Đồ thị hàm số là gì?</h1>
+<p>Bạn thích ngắm bầu trời đầy sao, hay chỉ muốn nghe người khác kể về nó? Bảng giá trị giống như một lời kể: từng cặp <span class="math inline">\((x, f(x))\)</span> hé lộ một lát cắt nhỏ của câu chuyện. Muốn thấy toàn cảnh, ta cần một cách nhìn trực quan hơn.</p>
+<p>Hãy bắt đầu bằng trực giác: trải tập xác định lên một đường thẳng nằm ngang có chiều dương hướng từ trái sang phải, và đặt một điểm đặc biệt <span class="math inline">\(O\)</span> chỉ vị trí số <span class="math inline">\(0\)</span>. Tại mỗi điểm được chọn trong số những điểm thuộc tập xác định, dựng một đoạn thẳng <em>vuông góc</em> có độ dài đúng bằng giá trị của hàm tại điểm đó. Nói chính xác hơn: đoạn có độ dài <span class="math inline">\(\lvert f(x)\rvert\)</span>, hướng lên nếu <span class="math inline">\(f(x)&gt;0\)</span>, hướng xuống nếu <span class="math inline">\(f(x)&lt;0\)</span>. Những “đoạn” cao thấp nối tiếp nhau cho ta cảm giác về nhịp điệu biến thiên.</p>
+<p>Trong đa số trường hợp, ta không thể dựng được toàn bộ các đoạn thẳng như vậy, vì tập xác định có thể có <em>quá nhiều</em> phần tử, đặc biệt là trường hợp <em>vô hạn</em>, thậm chí <em>không đếm được</em>. Nhưng với một số đoạn thẳng tiêu biểu sẽ mang lại cảm giác về nhịp điệu biến thiên: cao thấp, lên xuống, dương âm.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../..\figures/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/mot-so-doan-thang-gia-tri-ham-y-bang-x-binh-phuong.svg" class="img-fluid figure-img" width="500"></p>
+<figcaption>Một số giá trị của hàm <span class="math inline">\(y=x^2\)</span> trên đoạn <span class="math inline">\([-2;2]\)</span></figcaption>
+</figure>
+</div>
+<p>Rồi một phát hiện đơn giản nhưng quan trọng xuất hiện: ta không cần giữ cả đoạn, chỉ cần đầu mút của nó để biết “tại <span class="math inline">\(x\)</span> này, <span class="math inline">\(f(x)\)</span> bằng bao nhiêu”. Để so sánh vị trí các đầu mút theo phương thẳng đứng, ta cần thêm một chuẩn chung cho <span class="math inline">\(y\)</span>. Vì thế, dựng thêm một đường thẳng vuông góc với đường ngang ban đầu, chiều dương hướng lên và cũng đi qua <span class="math inline">\(O\)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../..\figures/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/mot-so-mut-gia-tri-ham-y-bang-x-binh-phuong.svg" class="img-fluid figure-img" width="500"></p>
+<figcaption>Một số giá trị của hàm <span class="math inline">\(y=x^2\)</span> trên đoạn <span class="math inline">\([-2;2]\)</span></figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../..\figures/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/mot-so-diem-ham-y-bang-x-binh-phuong.svg" class="img-fluid figure-img" width="500"></p>
+<figcaption>Một số giá trị của hàm <span class="math inline">\(y=x^2\)</span> trên đoạn <span class="math inline">\([-2;2]\)</span></figcaption>
+</figure>
+</div>
+<p>Giờ ta có hai đường thẳng vuông góc cắt nhau tại <span class="math inline">\(O\)</span>: đường ngang để ghi <span class="math inline">\(x\)</span>, và đường dọc để ghi <span class="math inline">\(f(x)\)</span>. Cả hai mở ra một mặt phẳng, trong đó mỗi giá trị <span class="math inline">\(x\)</span> được gắn với đúng một điểm <span class="math inline">\((x,f(x))\)</span>. Đường ngang ấy gọi là <em>trục hoành <span class="math inline">\(Ox\)</span></em>, đường dọc gọi là <em>trục tung <span class="math inline">\(Oy\)</span></em>, và không gian do chúng tạo thành gọi là <em>mặt phẳng tọa độ <span class="math inline">\(Oxy\)</span></em>.</p>
+<div class="highlight-box-soft-red">
+<p>Đồ thị của hàm số <span class="math inline">\(y=f(x)\)</span> là tập hợp tất cả các điểm <span class="math inline">\((x, f(x))\)</span> trên mặt phẳng tọa độ, khi <span class="math inline">\(x\)</span> chạy qua tập xác định của hàm số.</p>
+</div>
+<p>Khi một hàm số có đồ thị là một đường cong, ta phải dựng nó từ một số điểm chọn lọc được nối lại theo quy luật của hàm số. Cái “nối” ấy không phải tùy tiện, mà dựa trên kiến thức toán học: tính liên tục, giới hạn, đạo hàm. Chính những công cụ ấy cho phép ta biến một số ít điểm tiêu biểu thành bức tranh toàn cục của hàm số.</p>
+<p>Đồ thị đem lại cho ta một bức tranh liền mạch: những chỗ hàm bằng <span class="math inline">\(0\)</span> (giao trục hoành), những vùng hàm dương hay âm (nằm trên hay dưới trục hoành), những đỉnh, đáy hay các đoạn cong mượt mà, cũng như những chỗ đường cong bị gãy hoặc không xác định. Nếu hàm số liên tục trên một khoảng, đồ thị trên khoảng đó là một đường cong liên tục; nếu hàm số có biến thiên mạnh, đồ thị sẽ dốc đứng, nhấp nhô hay dao động.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../..\figures/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/do-thi-ham-y-bang-x-binh-phuong.svg" class="img-fluid figure-img" width="500"></p>
+<figcaption>Đồ thị hàm <span class="math inline">\(y=x^2\)</span> trên đoạn <span class="math inline">\([-2;2]\)</span></figcaption>
+</figure>
+</div>
+<p>Hãy thử so sánh: nếu vẫn giữ cách vẽ bằng những đoạn thẳng, hai hàm <span class="math inline">\(y=x^2\)</span> và <span class="math inline">\(y=2x\)</span> sẽ chồng chéo rối rắm. Nhưng khi thay bằng các điểm <span class="math inline">\((x,f(x))\)</span> trong mặt phẳng tọa độ, dáng hình của chúng hiện ra rõ ràng: một đường cong trơn, đối xứng qua trục tung và có điểm thấp nhất tại gốc; một đường thẳng đi qua gốc và <em>nghiêng đều</em>, <em>tốc độ</em> thay đổi là không đổi. Chúng tách biệt, dễ quan sát, dễ so sánh.</p>
+<p>Vì vậy đồ thị không chỉ là minh họa - nó là bản đồ hành vi của hàm số: chỉ nhìn vào nó, ta có thể thấy nhanh nơi hàm tăng, nơi hàm giảm, những điểm dừng hay ngoặt, hoặc vùng dao động. Nhưng để biến những quan sát trực quan ấy thành lập luận chặt chẽ, ta sẽ cần đến giải tích. Ở đó, chỉ với một số điểm then chốt, cùng giới hạn và đạo hàm, ta có thể khẳng định chính xác những gì đồ thị đang hé lộ.</p>
+<section id="bài-tập-2" class="level2">
+<h2 class="anchored" data-anchor-id="bài-tập-2">Bài tập</h2>
+<div class="tieu-de-chu-thich">
+<p>Từ đoạn thẳng đến điểm</p>
+</div>
+<ol type="1">
+<li>Với hàm số <span class="math inline">\(y=x^2\)</span>, trên đoạn <span class="math inline">\([-2;2]\)</span>, hãy chọn ra 5 giá trị <span class="math inline">\(x\)</span> nguyên.
+<ol type="a">
+<li>Vẽ các đoạn thẳng vuông góc từ trục hoành có độ dài <span class="math inline">\(\lvert f(x)\rvert\)</span>, hướng lên hoặc xuống tùy theo dấu của <span class="math inline">\(f(x)\)</span>.</li>
+<li>Sau đó chỉ giữ lại các đầu mút của các đoạn. So sánh hai cách biểu diễn này: điểm nào giống nhau, điểm nào khác?</li>
+</ol></li>
+</ol>
+<div class="tieu-de-chu-thich">
+<p>Tập xác định và vô hạn</p>
+</div>
+<ol start="2" type="1">
+<li>Giải thích tại sao ta không thể vẽ hết các đoạn thẳng ứng với tất cả giá trị của hàm số <span class="math inline">\(y=\sin (x)\)</span> trên đoạn <span class="math inline">\([0;2\pi]\)</span>. Thay vào đó, hãy chọn ra 8 giá trị đặc biệt của <span class="math inline">\(x\)</span> (ví dụ: bội số của <span class="math inline">\(\frac{\pi}{4}\)</span>) và biểu diễn chúng trên mặt phẳng tọa độ.</li>
+</ol>
+<div class="tieu-de-chu-thich">
+<p>Vẽ đồ thị từ điểm chọn lọc</p>
+</div>
+<ol start="3" type="1">
+<li><p>Dùng bảng giá trị sau, hãy dựng đồ thị gần đúng của hàm số <span class="math inline">\(y=2x\)</span>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(x\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(-2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(-1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(y\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(-4\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(-2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(4\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Điều gì thúc đẩy bạn nối các điểm thành một đường thẳng thay vì một đường cong ngẫu nhiên?</p></li>
+</ol>
+<div class="tieu-de-chu-thich">
+<p>Đồ thị và tính chất hàm số</p>
+</div>
+<ol start="4" type="1">
+<li>Xét hai hàm số <span class="math inline">\(y=x^2\)</span> và <span class="math inline">\(y=2x\)</span>.
+<ol type="a">
+<li>Hãy vẽ đồ thị cả hai hàm trên cùng một mặt phẳng tọa độ.</li>
+<li>Dựa vào hình, nêu nhận xét về: vị trí giao điểm, sự đối xứng, tốc độ thay đổi (dốc đứng hay thoải), điểm đặc biệt (đỉnh, đáy, hay gốc).</li>
+</ol></li>
+</ol>
+<div class="tieu-de-chu-thich">
+<p>Quan sát để dự đoán</p>
+</div>
+<ol start="5" type="1">
+<li>Cho biết đồ thị của hàm số <span class="math inline">\(y=\frac{1}{x}\)</span>.
+<ol type="a">
+<li>Dựa vào hình vẽ, bạn có nhận xét gì về tập xác định của hàm số?</li>
+<li>Khi <span class="math inline">\(x\)</span> tiến lại gần <span class="math inline">\(0\)</span>, bạn thấy đồ thị có biểu hiện gì?</li>
+<li>Theo bạn, có thể dùng đồ thị để đoán được tính chất của giới hạn hay không?</li>
+</ol></li>
+</ol>
+<div class="tieu-de-chu-thich">
+<p>Từ bảng giá trị đến đồ thị</p>
+</div>
+<ol start="6" type="1">
+<li>Cho hàm số <span class="math inline">\(y = f(x) = x^2 - 2x\)</span>.
+<ol type="a">
+<li>Lập bảng giá trị của hàm số với <span class="math inline">\(x\)</span> lần lượt là: <span class="math inline">\(-1\)</span>; <span class="math inline">\(0\)</span>; <span class="math inline">\(0{,}5\)</span>; <span class="math inline">\(1\)</span>; <span class="math inline">\(1{,}5\)</span>; <span class="math inline">\(2\)</span>; <span class="math inline">\(3\)</span>.</li>
+<li>Trên mặt phẳng tọa độ <span class="math inline">\(Oxy\)</span>, hãy biểu diễn các điểm <span class="math inline">\((x, f(x))\)</span> tương ứng từ bảng giá trị trên.</li>
+<li>Dựa vào vị trí các điểm vừa vẽ, bạn hãy <em>phác họa dự đoán</em> đường cong đồ thị của hàm số. Đồ thị nên là đường cong trơn hay thực sự là các đoạn được nối lại với nhau? Vì sao? Có đối xứng không? Nếu có thì mô tả sự đối xứng đó.</li>
+<li>So sánh bức tranh toàn cảnh từ đồ thị dự đoán với danh sách các con số trong bảng giá trị. Cách nào giúp bạn hình dung rõ hơn về sự biến thiên của hàm số?</li>
+<li>Tìm giá trị nhỏ nhất của hàm số.</li>
+</ol></li>
+</ol>
+<div class="tieu-de-chu-thich">
+<p>Phân tích sâu - Từ trực quan đến chứng minh</p>
+</div>
+<ol start="7" type="1">
+<li>Xét hàm số <span class="math inline">\(y = f(x) = x^3 - 3x\)</span>.
+<ol type="a">
+<li>Lập bảng giá trị với <span class="math inline">\(x\)</span> từ <span class="math inline">\(-2\)</span> đến <span class="math inline">\(2\)</span>, bước nhảy <span class="math inline">\(0{,}5\)</span>.</li>
+<li>Biểu diễn các điểm lên mặt phẳng tọa độ và phác họa đồ thị của nó.</li>
+<li>Dựa vào đồ thị đã phác họa, bạn hãy dự đoán:
+<ul>
+<li>Số điểm mà đồ thị cắt trục hoành.</li>
+<li>Các khoảng trên trục hoành mà đồ thị nằm phía trên hoặc phía dưới.</li>
+<li>Các khoảng mà hàm số đồng biến hoặc nghịch biến.</li>
+</ul></li>
+<li>Mình có các dự đoán sau:
+<ul>
+<li>Điểm <span class="math inline">\((-1;2)\)</span> là điểm <em>cao nhấ</em>t trong một vùng lân cận của đường cong đồ thị. Và đây là điểm duy nhất có tính chất này.</li>
+<li>Điểm <span class="math inline">\((1;-2)\)</span> là điểm <em>thấp nhất</em> trong một vùng lân cận của đường cong đồ thị. Và đây là điểm duy nhất có tính chất này.</li>
+<li>Đồ thị của hàm số này có tâm đối xứng là gốc tọa độ.</li>
+</ul></li>
+<li>Hãy chứng minh tất cả các dự đoán của bạn và mình về sự biến thiên của hàm số <span class="math inline">\(y=x^3-3x\)</span> chặt chẽ bằng lập luận toán học.</li>
+</ol></li>
+</ol>
+</section>
+</section>
+<section id="hàm-số" class="level1">
+<h1>100+ Hàm số</h1>
+<p>Đến đây, ta đã có trong tay ba mảnh ghép quan trọng: khái niệm hàm số, biết sự biến thiên của hàm số, và đồ thị hàm số. Nhưng đó mới chỉ là khung cảnh chung. Điều hấp dẫn nhất nằm ở chỗ: mỗi loại hàm số lại có “tính cách” riêng, có đồ thị mang dáng hình đặc trưng và một nhịp biến thiên không lẫn vào đâu.</p>
+<p>Vì thế, từ phần tiếp theo, ta sẽ bước vào hành trình khám phá hơn một trăm hàm số quen thuộc trong chương trình phổ thông - đi từ đơn giản đến phức tạp. Với mỗi hàm, ta sẽ xem nó biến thiên ra sao, đồ thị có hình dáng thế nào, và đâu là những chi tiết đáng nhớ.</p>
+<p>Hành trình này bắt đầu từ một điểm tưởng như quá đơn giản chẳng còn gì để nói: <em>hàm hằng</em>. Nhưng chính trong sự giản dị ấy, ta sẽ thấy được nền móng cho những câu chuyện phong phú và phức tạp hơn phía sau.</p>
+<hr>
+<p><strong>Chương trình khung</strong></p>
+<ol start="0" type="1">
+<li><p>Hàm hằng</p></li>
+<li><p>Hàm bậc nhất</p></li>
+<li><p>Hàm bậc hai</p></li>
+<li><p>Hàm bậc ba</p></li>
+<li><p>Hàm bậc bốn</p>
+<p>Trọng tâm: <em>hàm trùng phương</em> <span class="math inline">\(y=ax^4+bx^2+c\)</span>.</p></li>
+<li><p>Hàm phân thức bậc nhất/bậc nhất</p></li>
+<li><p>Hàm phân thức bậc hai/bậc nhất</p></li>
+<li><p>Hàm lũy thừa (bao gồm hàm căn)</p>
+<p>Bao gồm cả <em>hàm căn</em> và <em>hàm dạng nghịch đảo</em> <span class="math inline">\(\tfrac{1}{x^n}\)</span>.</p></li>
+<li><p>Hàm lượng giác và lượng giác ngược</p></li>
+<li><p>Hàm mũ và lô-ga-rít</p></li>
+<li><p>Hàm tổng hợp và hàm đặc biệt</p></li>
+</ol>
+<ul>
+<li>Hàm tổng hợp: <span class="math inline">\(y=x+\sin x\)</span>, <span class="math inline">\(y=x+\ln x\)</span>, …</li>
+<li>Hàm đặc biệt: trị tuyệt đối, bậc thang, phần nguyên, dấu.</li>
+</ul>
+<hr>
+<p><strong>Cấu trúc cho mỗi hàm số</strong></p>
+<ol type="1">
+<li><p>Định nghĩa và dạng tổng quát</p>
+<ul>
+<li>Công thức, điều kiện tham số, tập xác định.</li>
+<li>Đặc điểm “cốt lõi” (bậc, phân thức, lượng giác, mũ, …).</li>
+</ul></li>
+<li><p>Tính chất cơ bản</p>
+<ul>
+<li>Liên tục, tập giá trị.</li>
+<li>Đối xứng (chẵn, lẻ), tuần hoàn (nếu có).</li>
+<li>Giới hạn ở các điểm đặc biệt (vô cực, tiệm cận).</li>
+</ul></li>
+<li><p>Sự biến thiên</p>
+<ul>
+<li>Xác định khoảng đồng biến, nghịch biến.</li>
+<li>Tìm cực trị (nếu có).</li>
+<li>Lập bảng biến thiên.</li>
+</ul></li>
+<li><p>Đồ thị</p>
+<ul>
+<li>Vẽ dựa trên biến thiên.</li>
+<li>Hình dáng đặc trưng (thẳng, cong, dao động, …).</li>
+<li>Các điểm nổi bật: giao trục, cực trị, tiệm cận.</li>
+</ul></li>
+<li><p>So sánh và liên hệ</p>
+<ul>
+<li>Đặt cạnh các hàm “cùng họ”.</li>
+<li>Ảnh hưởng của tham số đến đồ thị.</li>
+</ul></li>
+<li><p>Ứng dụng và ý nghĩa</p>
+<ul>
+<li>Liên hệ thực tế, mô hình hóa.</li>
+<li>Vai trò trong chương trình học.</li>
+</ul></li>
+<li><p>Bài tập và khai thác thêm</p>
+<ul>
+<li>Bài tập cơ bản.</li>
+<li>Bài tập nâng cao hoặc mở rộng.</li>
+</ul></li>
+</ol>
+<hr>
+<p>Từ đây, mỗi hàm số sẽ được soi chiếu theo khung 7 mục này. Không phải hàm nào cũng đi trọn đủ bảy bước, nhưng chính sự lặp lại khung chung ấy sẽ giúp ta nhận ra điểm tương đồng và khác biệt trong “tính cách” từng hàm.</p>
+<p>Hành trình khởi đầu từ <em>hàm hằng</em> - giản dị mà nền tảng - rồi mở rộng dần tới hàm bậc nhất, bậc hai, phân thức, căn thức, lượng giác, mũ, lô-ga-rít và những hàm đặc biệt khác.</p>
+<!-- HÀM SỐ HẰNG -->
+<div class="tieu-de-chu-thich">
+<p>Hàm số hằng</p>
+</div>
+<!-- Hàm 001 -->
+<details open="">
+<summary class="cau">
+<span class="math inline">\(y=1\)</span>
+</summary>
+<p>Hàm số <span class="math inline">\(y=1\)</span> có lẽ là trường hợp đơn giản nhất để bắt đầu. Nhưng ấn tượng đầu tiên mà nó mang đến là sự ngỡ ngàng: <em><span class="math inline">\(x\)</span> đâu?</em> Không thấy <span class="math inline">\(x\)</span>vì sao vẫn gọi nó là một hàm số?</p>
+<p>Thực ra, không thấy <span class="math inline">\(x\)</span> không có nghĩa là <span class="math inline">\(x\)</span> biến mất, mà là <span class="math inline">\(y=1\)</span> với mọi <span class="math inline">\(x\)</span>. Hàm này chỉ có một đầu ra duy nhất là <span class="math inline">\(1\)</span> cho mọi đầu vào. <em>Tổng quát hơn, nếu vế phải là bất kì hằng số nào khác thay cho <span class="math inline">\(1\)</span>, ta đều nhận được cùng một kiểu: <strong>hàm số hằng</strong></em>.</p>
+<p>Cú chững lại trong nhận thức về cách viết của hàm số hằng <span class="math inline">\(y=1\)</span> xuất phát từ những hình ảnh quen thuộc về hàm số: <span class="math inline">\(y=2x\)</span>, <span class="math inline">\(y=x^2\)</span>, <span class="math inline">\(y=\sqrt{x}\)</span>, v.v.. Tổng quát là</p>
+<p><span class="math display">\[
+y=f(x).
+\]</span></p>
+<p>Trong cách viết này, ta nhìn thấy rõ:</p>
+<ul>
+<li>Vế trái <span class="math inline">\(y\)</span> là <em>biến phụ thuộc</em>, kết quả của hàm.</li>
+<li>Vế phải <span class="math inline">\(f(x)\)</span> là biểu thức theo <em>biến độc lập</em> <span class="math inline">\(x\)</span>.</li>
+</ul>
+<p>Điều cốt lõi nằm ở chỗ: ký hiệu <span class="math inline">\(f(x)\)</span> nhắc chúng ta rằng đang có một quy tắc gắn mỗi giá trị <span class="math inline">\(x\)</span> với đúng một giá trị <span class="math inline">\(y\)</span>.</p>
+<p>Ví dụ:</p>
+<ul>
+<li>Với hàm số <span class="math inline">\(y=2x\)</span>, ta có <span class="math inline">\(f(x)=2x\)</span>: quy tắc là “lấy <span class="math inline">\(x\)</span>, nhân đôi nó”.</li>
+<li>Với hàm số <span class="math inline">\(y=x^2\)</span>, ta có <span class="math inline">\(f(x)=x^2\)</span>: quy tắc là “lấy <span class="math inline">\(x\)</span>, bình phương nó”.</li>
+<li>Với hàm số <span class="math inline">\(y=\sqrt{x}\)</span>, ta có <span class="math inline">\(f(x)=\sqrt{x}\)</span>: quy tắc là “lấy <span class="math inline">\(x\)</span>, căn bậc hai của nó”.</li>
+</ul>
+<p>Nói ngắn gọn: viết <span class="math inline">\(y=\dots\)</span> nhấn mạnh kết quả; viết <span class="math inline">\(f(x)=\dots\)</span> nhấn mạnh quy tắc. Hai cách viết gắn liền và bổ sung cho nhau trong việc hiểu hàm số.</p>
+<p>Trở lại với hàm số <span class="math inline">\(y=1\)</span>. Lúc này, ta thấy bên phải không hề có bóng dáng của <span class="math inline">\(x\)</span>. Nhưng nếu viết lại dưới dạng quy tắc:</p>
+<p><span class="math display">\[
+f(x) = 1,
+\]</span></p>
+<p>thì mọi sự trở nên rõ ràng. Quy tắc ở đây chính là: <em>dù đầu vào <span class="math inline">\(x\)</span> là gì, kết quả đầu ra luôn là <span class="math inline">\(1\)</span></em>. Nói cách khác, ta có một “cỗ máy” mà bất kỳ giá trị <span class="math inline">\(x\)</span> nào đi vào thì giá trị đi ra đều giống nhau.</p>
+<p>Điều này hoàn toàn thỏa mãn định nghĩa hàm số: với <em>mỗi</em> giá trị của <span class="math inline">\(x\)</span>, ta thu được <em>duy nhất một</em> giá trị của <span class="math inline">\(y\)</span>. Điểm khác biệt duy nhất là quy tắc lần này “quá đơn giản”: không thay đổi gì theo <span class="math inline">\(x\)</span>.</p>
+<p>Hàm số hằng có thể khiến ta cảm thấy kì quặc, bởi ý tưởng cơ bản khi nhắc đến hàm số thường gắn với sự biến đổi: biến độc lập thay đổi thì biến phụ thuộc cũng thay đổi theo. Ở đây, biến độc lập có thay đổi bao nhiêu đi nữa thì biến phụ thuộc vẫn cứ giữ nguyên một giá trị.</p>
+<p>Nhưng nếu đổi cách nhìn, ta thấy hàm số hằng không hề ngoại lệ: nó vẫn mô tả một mối liên hệ chặt chẽ giữa hai biến. Chỉ có điều, mối liên hệ này là “tĩnh tuyệt đối” - mọi giá trị <span class="math inline">\(x\)</span> đều quy về cùng một kết quả. Có thể xem đó như một biến đặc biệt với miền giá trị chỉ gồm một phần tử duy nhất.</p>
+<p>Vậy nên, thay vì coi hàm hằng là ngoại lệ, hãy coi nó là điểm xuất phát: hình ảnh đơn giản nhất, bất biến nhất, để từ đó ta đi dần tới những hàm số phức tạp hơn - nơi mà sự thay đổi và biến thiên mới thật sự lộ rõ trên đồ thị và trong phép tính.</p>
+<section id="bài-tập-3" class="level3">
+<h3 class="anchored" data-anchor-id="bài-tập-3">Bài tập</h3>
+<ol type="1">
+<li>Với <span class="math inline">\(a\ne 0\)</span>, các hàm số có dạng <span class="math inline">\(y=ax+b\)</span> và <span class="math inline">\(y=ax^2+bx+c\)</span> lần lượt được gọi là hàm bậc nhất và hàm bậc hai. Vậy, hàm hằng nên được gọi là hàm bậc mấy?</li>
+<li>Cho biết <span class="math inline">\(f(x_1-x_1)=f(x_1)f(x_2)\)</span>. Xác định <span class="math inline">\(f(x)\)</span>.</li>
+<li>Cho biết <span class="math inline">\(f(x_1+x_1)=x_1f(x_2)\)</span>. Xác định <span class="math inline">\(f(x)\)</span>.</li>
+</ol>
+</section></details>
+<!-- HÀM SỐ BẬC NHẤT -->
+<div class="tieu-de-chu-thich">
+<p>Hàm số bậc nhất: <span class="math inline">\(y=ax+b\)</span></p>
+</div>
+<!-- Đường phân giác của góc phần tư thứ nhất -->
+<details>
+<summary class="cau">
+<span class="math inline">\(y=x\)</span>
+</summary>
+</details>
+<details>
+<summary class="cau">
+<span class="math inline">\(y=2x\)</span>
+</summary>
+</details>
+<details>
+<summary class="cau">
+<span class="math inline">\(y=\frac{1}{2}x\)</span>
+</summary>
+</details>
+<!-- Đường phân giác của góc phần tư thứ hai -->
+<details>
+<summary class="cau">
+<span class="math inline">\(y=-x\)</span>
+</summary>
+</details>
+<details>
+<summary class="cau">
+<span class="math inline">\(y=x+1\)</span>
+</summary>
+</details>
+<details>
+<summary class="cau">
+<span class="math inline">\(y=2x+1\)</span>
+</summary>
+</details>
+<!-- HÀM BẬC HAI -->
+<div class="tieu-de-chu-thich">
+<p>Hàm số bậc hai: <span class="math inline">\(y=ax^2+bx+c\)</span></p>
+</div>
+<details>
+<summary class="cau">
+<span class="math inline">\(y=x^2\)</span>
+</summary>
+</details>
+<details>
+<summary class="cau">
+<span class="math inline">\(y=2x^2\)</span>
+</summary>
+</details>
+<details>
+<summary class="cau">
+<span class="math inline">\(y=\frac{1}{2}x^2\)</span>
+</summary>
+</details>
+<hr>
+<div class="tieu-de-chu-thich">
+<p>Hàm số bậc ba: <span class="math inline">\(y=ax^3+bx^2+cx+d\)</span></p>
+</div>
+<hr>
+<div class="tieu-de-chu-thich">
+<p>Hàm số bậc bốn: <span class="math inline">\(y=ax^4+bx^3+cx^2+dx+e\)</span></p>
+</div>
+<hr>
+<div class="tieu-de-chu-thich">
+<p>Hàm phân thức bậc nhất trên bậc nhất: <span class="math inline">\(y=\frac{ax+b}{cx+d}\)</span></p>
+</div>
+<hr>
+<div class="tieu-de-chu-thich">
+<p>Hàm phân thức bậc hai trên bậc nhất: <span class="math inline">\(y=\frac{ax^2+bx+c}{dx+e}\)</span></p>
+</div>
+<hr>
+<div class="tieu-de-chu-thich">
+<p>Hàm lũy thừa: <span class="math inline">\(y=x^\alpha\)</span></p>
+</div>
+<hr>
+<div class="tieu-de-chu-thich">
+<p>Hàm lượng giác và hàm lượng giác ngược: <span class="math inline">\(y=\sin x\)</span>, <span class="math inline">\(y=\cos x\)</span>, <span class="math inline">\(y=\tan x\)</span>, <span class="math inline">\(y=\cot x\)</span>; và <span class="math inline">\(y=\arcsin x\)</span>, <span class="math inline">\(y=\arccos x\)</span>, <span class="math inline">\(y=\arctan x\)</span></p>
+</div>
+<details open="">
+<summary class="cau">
+<span class="math inline">\(y=\sin\left(\frac{1}{x}\right)\)</span>
+</summary>
+<p>Vì biểu thức <span class="math inline">\(\frac{1}{x}\)</span> xác định với mọi <span class="math inline">\(x\ne 0\)</span>, nên hàm số có <em>tập xác định</em>: <span class="math inline">\(D=\mathbb{R}\setminus\{0\}\)</span>.</p>
+<p>Đạo hàm của hàm số này được tính như sau:</p>
+<p><span class="math display">\[
+y^\prime
+   =\left(\frac{1}{x}\right)^\prime\cdot \cos\left(\frac{1}{x}\right)
+   =-\frac{1}{x^2}\cos\left(\frac{1}{x}\right)
+\]</span></p>
+<p>Thấy rằng <span class="math inline">\(y^\prime=0\)</span> khi và chỉ khi <span class="math inline">\(\cos\left(\frac{1}{x}\right)=0\)</span>, vì <span class="math inline">\(\frac{1}{x^2}&gt;0\)</span> với mọi <span class="math inline">\(x\ne 0\)</span>.</p>
+</details>
+<hr>
+<div class="tieu-de-chu-thich">
+<p>Hàm mũ và hàm lô-ga-rít: <span class="math inline">\(y=a^x\)</span>và <span class="math inline">\(y=\log_a x\)</span></p>
+</div>
+<hr>
+<div class="tieu-de-chu-thich">
+<p>Một số hàm khác: tổng hợp từ các hàm đã có, và những hàm đặc biệt như hàm giá trị tuyệt đối <span class="math inline">\(y=\lvert x\rvert\)</span>, hàm sàn <span class="math inline">\(y=\lfloor x\rfloor\)</span>, hàm trần <span class="math inline">\(y=\lceil x\rceil\)</span></p>
+</div>
+<details>
+<summary class="cau">
+<span class="math inline">\(y=\dfrac{\sin(x)}{x}\)</span>
+</summary>
+</details>
+
+
+</section>
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2025 ZO Math - Tầm nguyên tái hiện.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p><a href="../../../../content/contact.html">Liên hệ</a> | <a href="https://facebook.com/zo-math">Facebook</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

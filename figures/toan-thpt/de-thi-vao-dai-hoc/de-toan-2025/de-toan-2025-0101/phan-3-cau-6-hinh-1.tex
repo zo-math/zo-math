@@ -1,0 +1,67 @@
+\documentclass[border=2mm]{standalone}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{calc}
+
+\begin{document}
+\tdplotsetmaincoords{80}{125}
+
+\begin{tikzpicture}[tdplot_main_coords, scale=0.5] % Scale 0.5 để vừa kích thước thật
+
+% Đặt kích thước chính xác
+\def\a{10.4} % Cạnh đáy lớn
+\def\b{7.4}  % Cạnh đáy nhỏ
+\def\h{1.5}   % Chiều cao
+
+% Đáy dưới ABCD (hình vuông)
+\coordinate (A) at (0,0,0);
+\coordinate (B) at (\a,0,0);
+\coordinate (C) at (\a,\a,0);
+\coordinate (D) at (0,\a,0);
+
+% Đáy trên A'B'C'D' (hình vuông nhỏ, căn giữa)
+\coordinate (Ap) at ({(\a-\b)/2},{(\a-\b)/2},\h);
+\coordinate (Bp) at ({(\a+\b)/2},{(\a-\b)/2},\h);
+\coordinate (Cp) at ({(\a+\b)/2},{(\a+\b)/2},\h);
+\coordinate (Dp) at ({(\a-\b)/2},{(\a+\b)/2},\h);
+
+% Vẽ đáy dưới
+\draw[dashed] (A) -- (B);
+\draw[dashed] (A) -- (D);
+\draw (B) -- (C);
+\draw (C) -- (D);
+
+% Vẽ đáy trên
+\draw (Ap) -- (Bp) -- (Cp) -- (Dp) -- cycle;
+
+% Vẽ các cạnh bên
+\draw[dashed] (A) -- (Ap);
+\draw (B) -- (Bp);
+\draw (C) -- (Cp);
+\draw (D) -- (Dp);
+
+% Nhãn các đỉnh
+% \node[below] at (A) {$A$};
+% \node[above left] at (B) {$B$};
+% \node[below] at (C) {$C$};
+% \node[below] at (D) {$D$};
+% \node[above left] at (Ap) {$A'$};
+% \node[above] at (Bp) {$B'$};
+% \node[above] at (Cp) {$C'$};
+% \node[above right] at (Dp) {$D'$};
+
+% Ghi chú kích thước (tùy chọn)
+\draw[<->, dashed] ($(C)+(1.5,0,0)$) -- ($(B)+(1.5,0,0)$) node[midway,below] {\small 10,4 cm};
+
+\draw ($(C)+(1.5,0,0)$) -- (C);
+\draw ($(B)+(1.5,0,0)$) -- (B);
+
+\draw[<->, dashed] ($(Ap)+(0,0,.5)$) -- ($(Dp)+(0,0,.5)$) node[midway, above] {\small 7,4 cm};
+
+\draw ($(Ap)+(0,0,.5)$) -- (Ap);
+\draw ($(Dp)+(0,0,.5)$) -- (Dp);
+
+\draw[<->, dashed] ($(Cp)$) -- ($(Cp)+(0,0,-\h)$) node[midway, left] {\small 1,5 cm};
+
+\end{tikzpicture}
+\end{document}

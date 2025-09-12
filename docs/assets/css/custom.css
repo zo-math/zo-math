@@ -7,6 +7,27 @@
 #666666	(102, 102, 102)
 */
 
+/* 
+#f44336 Red Salsa: Rực rỡ, hiện đại
+#ffc107 Amber: Sáng, hiện đại
+
+#dc143c Crimson Red: Sâu, mạnh mẽ
+#fdd835 Sunset Yellow: Nhẹ nhàng, như nắng chiều
+
+#ef5350 Soft Red: Dịu hơn, dùng làm nền phụ
+#fcbf49 Goldenrod: Gợi màu áo dài học sinh 
+
+#a1170f Rosewood: Đỏ nâu cổ điển, sang trọng
+#e0ac00 Honey Gold: Vàng sẫm, gợi chiều sâu
+*/
+
+/* PHỐI MÀU 001
+Chính: #f44336 Red Salsa
+Phụ: #ffc107 Amber
+Nền: #fefefe hoặc #f9f9f9
+Nhấn: #fdd835 Sunset Yellow hoặc #ef5350 Soft Red
+*/
+
 body {
   font-size: 1rem; /* Kích thước font cơ bản của văn bản */
   font-weight: 400; /* Độ đậm nhạt mặc định của văn bản (normal, bold, 400, 700, ...) */
@@ -120,6 +141,96 @@ mjx-container {
 mjx-mrow {
   margin: 0 2px;
 }
+
+/* === Dành cho câu hỏi trong các đề thi === */
+
+.cau,
+.dap-an,
+.giai-thich,
+.luyen-tap,
+.details summary {
+  display: block;
+  border: none;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.cau p,
+.dap-an p,
+.giai-thich p,
+.luyen-tap p,
+.details summary p {
+  margin: 0;
+}
+
+.cau,
+.details summary {
+  background-color: #f44336;
+}
+.cau:hover,
+.details summary:hover {
+  background-color: #666666;
+}
+.cau:active,
+.details summary:active {
+  background-color: #111111;
+}
+
+.dap-an {
+  background-color: #ffc107;
+}
+.dap-an:hover {
+  background-color: #666666;
+}
+.dap-an:active {
+  background-color: #111111;
+}
+
+.giai-thich {
+  background-color: #a1170f;
+}
+.giai-thich:hover {
+  background-color: #666666;
+}
+.giai-thich:active {
+  background-color: #111111;
+}
+
+.luyen-tap {
+  background-color: #e0ac00;
+}
+.luyen-tap:hover {
+  background-color: #666666;
+}
+.luyen-tap:active {
+  background-color: #111111;
+}
+
+.details summary {
+  list-style: none;
+  font-variant: small-caps;
+}
+
+.details {
+  border-radius: 5px;
+  border: none;
+  background: white;
+  padding: 5px;
+}
+
+.details[open] summary {
+  margin-bottom: 10px;
+}
+
+/* ========== */
 
 /* Tùy chỉnh công thức toán trong tooltip */
 .mathjax-tooltip mjx-container {
@@ -257,6 +368,312 @@ a:active {
 }
 
 /* In đậm  a. b. ... */
-ol[type="a"] li::marker {
+ol li::marker {
   font-weight: bold;
 }
+
+ol[type="A"] {
+  padding-left: 1.5em;
+  margin: 1em 0;
+}
+
+ol[type="A"] li::marker {
+  font-weight: bold;
+}
+
+/* Nhấn mạnh */
+
+.highlight-box-rosewood {
+  /* Rosewood */
+  border: 1px solid #a1170f;
+  /* Light gray */
+  /* background-color: #f5f5f5;  */
+  /* Snow gray */
+  /* background-color: #f2f2f2;  */
+  /* Paper gray */
+  /* background-color: #eeeeee;  */
+  /* Mid gray */
+  /* background-color: #e0e0e0;  */
+  /* Cool gray */
+  background-color: #e8e8e8;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  font-weight: normal;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05); /* Nhẹ nhàng hiện đại */
+}
+
+/* Xóa margin cuối cùng của phần tử con bên trong box */
+.highlight-box-rosewood > *:last-child {
+  margin-bottom: 0;
+}
+
+.highlight-box-crimson-red {
+  /* Crimson Red */
+  border: 1px solid #dc143c;
+  /* Light gray */
+  /* background-color: #f5f5f5;  */
+  /* Snow gray */
+  /* background-color: #f2f2f2;  */
+  /* Paper gray */
+  /* background-color: #eeeeee;  */
+  /* Mid gray */
+  /* background-color: #e0e0e0;  */
+  /* Cool gray */
+  background-color: #e8e8e8;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  font-weight: normal;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05); /* Nhẹ nhàng hiện đại */
+}
+
+/* Xóa margin cuối cùng của phần tử con bên trong box */
+.highlight-box-crimson-red > *:last-child {
+  margin-bottom: 0;
+}
+
+.highlight-box-red-salsa {
+  /* Red Salsa */
+  border: 1px solid #f44336;
+  /* Light gray */
+  /* background-color: #f5f5f5;  */
+  /* Snow gray */
+  /* background-color: #f2f2f2;  */
+  /* Paper gray */
+  /* background-color: #eeeeee;  */
+  /* Mid gray */
+  /* background-color: #e0e0e0;  */
+  /* Cool gray */
+  background-color: #e8e8e8;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  font-weight: normal;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05); /* Nhẹ nhàng hiện đại */
+}
+
+/* Xóa margin cuối cùng của phần tử con bên trong box */
+.highlight-box-red-salsa > *:last-child {
+  margin-bottom: 0;
+}
+
+.highlight-box-soft-red {
+  /* Soft Red */
+  border: 1px solid #ef5350;
+  /* Light gray */
+  /* background-color: #f5f5f5;  */
+  /* Snow gray */
+  /* background-color: #f2f2f2;  */
+  /* Paper gray */
+  /* background-color: #eeeeee;  */
+  /* Mid gray */
+  /* background-color: #e0e0e0;  */
+  /* Cool gray */
+  background-color: #e8e8e8;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  font-weight: normal;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05); /* Nhẹ nhàng hiện đại */
+}
+
+/* Xóa margin cuối cùng của phần tử con bên trong box */
+.highlight-box-soft-red > *:last-child {
+  margin-bottom: 0;
+}
+
+.highlight-box-honey-gold {
+  /* Honey Gold */
+  border: 1px solid #e0ac00;
+  /* Light gray */
+  /* background-color: #f5f5f5;  */
+  /* Snow gray */
+  /* background-color: #f2f2f2;  */
+  /* Paper gray */
+  /* background-color: #eeeeee;  */
+  /* Mid gray */
+  /* background-color: #e0e0e0;  */
+  /* Cool gray */
+  background-color: #e8e8e8;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  font-weight: normal;
+  /* Nhẹ nhàng hiện đại */
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Xóa margin cuối cùng của phần tử con bên trong box */
+.highlight-box-honey-gold > *:last-child {
+  margin-bottom: 0;
+}
+
+.highlight-box-goldenrod {
+  /* Goldenord */
+  border: 1px solid #fcbf49;
+  /* Light gray */
+  /* background-color: #f5f5f5;  */
+  /* Snow gray */
+  /* background-color: #f2f2f2;  */
+  /* Paper gray */
+  /* background-color: #eeeeee;  */
+  /* Mid gray */
+  /* background-color: #e0e0e0;  */
+  /* Cool gray */
+  background-color: #e8e8e8;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  font-weight: normal;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05); /* Nhẹ nhàng hiện đại */
+}
+
+/* Xóa margin cuối cùng của phần tử con bên trong box */
+.highlight-box-goldenrod > *:last-child {
+  margin-bottom: 0;
+}
+
+.highlight-box-amber {
+  /* Amber */
+  border: 1px solid #ffc107;
+  /* Light gray */
+  /* background-color: #f5f5f5;  */
+  /* Snow gray */
+  /* background-color: #f2f2f2;  */
+  /* Paper gray */
+  /* background-color: #eeeeee;  */
+  /* Mid gray */
+  /* background-color: #e0e0e0;  */
+  /* Cool gray */
+  background-color: #e8e8e8;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  font-weight: normal;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05); /* Nhẹ nhàng hiện đại */
+}
+
+/* Xóa margin cuối cùng của phần tử con bên trong box */
+.highlight-box-amber > *:last-child {
+  margin-bottom: 0;
+}
+
+.highlight-box-sunset-yellow {
+  /* Sunset Yellow */
+  border: 1px solid #fdd835;
+  /* Light gray */
+  /* background-color: #f5f5f5;  */
+  /* Snow gray */
+  /* background-color: #f2f2f2;  */
+  /* Paper gray */
+  /* background-color: #eeeeee;  */
+  /* Mid gray */
+  /* background-color: #e0e0e0;  */
+  /* Cool gray */
+  background-color: #e8e8e8;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  font-weight: normal;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05); /* Nhẹ nhàng hiện đại */
+}
+
+/* Xóa margin cuối cùng của phần tử con bên trong box */
+.highlight-box-sunset-yellow > *:last-child {
+  margin-bottom: 0;
+}
+
+/* =========== BOX: Tư liệu =========== */
+/* HONEY GOLD */
+/* Box Cuộn Vàng Mật: Thiết lập màu nền và đường viền */
+.collapsible-box-honey-gold {
+  border: 1px solid #e0ac00;
+  background-color: #e8e8e8; /* Cool-gray */
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  padding: 0;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Tiêu đề Box: Sử dụng lớp summary bên trong */
+.collapsible-box-honey-gold summary {
+  background-color: #e0ac00; /* Honey Gold */
+  color: #fff; /* Chữ trắng */
+  font-weight: bold;
+  font-variant: normal;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  list-style: none;
+}
+
+/* Hiệu ứng hover cho tiêu đề */
+.collapsible-box-honey-gold summary:hover {
+  background-color: #d4a200; /* Sắc thái đậm hơn khi hover */
+}
+
+/* Xóa border-radius dưới khi box mở */
+.collapsible-box-honey-gold[open] summary {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* Nội dung của box */
+.collapsible-box-honey-gold .content {
+  padding: 10px 15px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Ẩn mũi tên tùy chỉnh */
+.collapsible-box-honey-gold summary::before {
+  content: "";
+  display: none;
+}
+
+/* ROSEWOOD */
+/* Box Cuộn Rosewood: Thiết lập màu nền và đường viền */
+.collapsible-box-rosewood {
+  border: 1px solid #a1170f;
+  background-color: #f5eded; /* Màu xám nhạt phù hợp với tông đỏ */
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  padding: 0;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Tiêu đề Box: Sử dụng lớp summary bên trong */
+.collapsible-box-rosewood summary {
+  background-color: #a1170f; /* Rosewood */
+  color: #fff; /* Chữ trắng */
+  font-weight: bold;
+  font-variant: normal;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  list-style: none;
+}
+
+/* Hiệu ứng hover cho tiêu đề */
+.collapsible-box-rosewood summary:hover {
+  background-color: #7b120c; /* Sắc thái đậm hơn khi hover */
+}
+
+/* Xóa border-radius dưới khi box mở */
+.collapsible-box-rosewood[open] summary {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* Nội dung của box */
+.collapsible-box-rosewood .content {
+  padding: 10px 15px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Ẩn mũi tên tùy chỉnh */
+.collapsible-box-rosewood summary::before {
+  content: "";
+  display: none;
+}
+/* ===================================== */

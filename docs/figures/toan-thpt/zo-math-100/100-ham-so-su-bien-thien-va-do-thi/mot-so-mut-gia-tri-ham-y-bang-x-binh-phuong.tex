@@ -1,0 +1,26 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\begin{document}
+\begin{tikzpicture}[
+  x=1.5cm, y=1cm, % Kéo ngang, nén dọc
+% >=Stealth, thick,
+  every node/.style={font=\scriptsize, inner sep=1pt}
+]
+  % Trục x
+  \draw[<->] (-2.5,0) -- (2.5,0) node[right] {$x$};
+  \filldraw (0,0) circle (1pt) node[below, yshift=-2pt] {$O$};
+
+  % Các đoạn thẳng
+  \foreach \x in {-2, -1.5, -1, -.5, 0, .5, 1, 1.5, 2}{
+    \pgfmathsetmacro{\y}{\x*\x}
+    \draw[dashed] 
+      (\x,0)
+        % Nếu x khác 0 thì mới ghi nhãn
+        node[below, yshift=-2pt] {\ifdim\x pt=0pt\relax\else\pgfmathprintnumber[fixed, precision=1, use comma]{\x}\fi}
+      --
+      (\x,\y) node[above, yshift=1pt] {\ifdim\y pt=0pt\relax\else\pgfmathprintnumber[fixed, precision=2, use comma]{\y}\fi};
+    \filldraw (\x,\y) circle (1pt);
+  }
+\end{tikzpicture}
+\end{document}
