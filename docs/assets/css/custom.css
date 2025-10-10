@@ -631,49 +631,52 @@ ol[type="A"] li::marker {
   display: none;
 }
 
-/* ROSEWOOD */
-/* Box Cuộn Rosewood: Thiết lập màu nền và đường viền */
-.collapsible-box-rosewood {
-  border: 1px solid #a1170f;
-  background-color: #f5eded; /* Màu xám nhạt phù hợp với tông đỏ */
-  border-radius: 8px;
-  margin: 1.5rem 0;
-  padding: 0;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05);
+/* ===================================== */
+
+/* --- # Tạo bảng HTML với căn giữa theo dấu phẩy --- */
+.math-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+    font-family: monospace;
+}
+.math-table th {
+    text-align: center;
+    padding: 8px;
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+}
+.math-table td {
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+.number-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.integer-part {
+    text-align: right;
+    flex: 1;
+}
+.decimal-part {
+    text-align: left;
+    flex: 1;
+}
+.decimal-comma {
+    padding: 0 2px;
+}
+/* ===================================== */
+
+/* Căn chỉnh ảnh trong listing card thành khung vuông 150x150 */
+.quarto-grid .thumbnail img {
+  object-fit: contain;   /* giữ nguyên tỉ lệ ảnh, thêm khoảng trắng nếu cần */
+  width: 150px;
+  height: 150px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Tiêu đề Box: Sử dụng lớp summary bên trong */
-.collapsible-box-rosewood summary {
-  background-color: #a1170f; /* Rosewood */
-  color: #fff; /* Chữ trắng */
-  font-weight: bold;
-  font-variant: normal;
-  padding: 10px 15px;
-  border-radius: 8px;
-  cursor: pointer;
-  list-style: none;
-}
-
-/* Hiệu ứng hover cho tiêu đề */
-.collapsible-box-rosewood summary:hover {
-  background-color: #7b120c; /* Sắc thái đậm hơn khi hover */
-}
-
-/* Xóa border-radius dưới khi box mở */
-.collapsible-box-rosewood[open] summary {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-/* Nội dung của box */
-.collapsible-box-rosewood .content {
-  padding: 10px 15px;
-  transition: all 0.3s ease-in-out;
-}
-
-/* Ẩn mũi tên tùy chỉnh */
-.collapsible-box-rosewood summary::before {
-  content: "";
-  display: none;
-}
 /* ===================================== */
