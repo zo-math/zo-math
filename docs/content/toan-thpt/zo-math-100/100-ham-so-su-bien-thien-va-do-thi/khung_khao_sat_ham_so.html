@@ -1,0 +1,1920 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="ZO Math">
+
+<title>Khung khảo sát hàm số – ZO Math</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../">
+<link href="../../../../images/favicon.ico" rel="icon">
+<script src="../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap-719951764d4ca359be86a642d82fdf9d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../../assets/css/custom.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../../content/toan-thpt/toan-10/index.qmd">
+ <span class="dropdown-text">Toán 10</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../content/toan-thpt/toan-11/index.html">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../content/toan-thpt/toan-12/index.html">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.html">
+ <span class="dropdown-text">100+ Hàm số</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../content/zo-o/index.html"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../content/zo-lab/index.html"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../content/shop/index.html"> 
+<span class="menu-text">ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Khung khảo sát hàm số</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Tác giả</div>
+      <div class="quarto-title-meta-contents">
+               <p>ZO Math </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Ngày cập nhật</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">28-09-2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Trên trang này</h2>
+   
+  <ul>
+  <li><a href="#khung-khảo-sát-hàm-số" id="toc-khung-khảo-sát-hàm-số" class="nav-link active" data-scroll-target="#khung-khảo-sát-hàm-số">Khung khảo sát hàm số</a>
+  <ul class="collapse">
+  <li><a href="#nhận-diện-hàm-số" id="toc-nhận-diện-hàm-số" class="nav-link" data-scroll-target="#nhận-diện-hàm-số">0. Nhận diện hàm số</a></li>
+  <li><a href="#miền-xác-định" id="toc-miền-xác-định" class="nav-link" data-scroll-target="#miền-xác-định">1. Miền xác định</a></li>
+  <li><a href="#các-tính-cơ-bản-chẵnlẻ-tuần-hoàn-liên-tụcgián-đoạn" id="toc-các-tính-cơ-bản-chẵnlẻ-tuần-hoàn-liên-tụcgián-đoạn" class="nav-link" data-scroll-target="#các-tính-cơ-bản-chẵnlẻ-tuần-hoàn-liên-tụcgián-đoạn">2. Các tính cơ bản: chẵn/lẻ, tuần hoàn, liên tục/gián đoạn</a></li>
+  <li><a href="#giới-hạn-và-tiệm-cận" id="toc-giới-hạn-và-tiệm-cận" class="nav-link" data-scroll-target="#giới-hạn-và-tiệm-cận">3. Giới hạn và tiệm cận</a></li>
+  <li><a href="#đạo-hàm-cấp-một-chiều-biến-thiên-và-cực-trị" id="toc-đạo-hàm-cấp-một-chiều-biến-thiên-và-cực-trị" class="nav-link" data-scroll-target="#đạo-hàm-cấp-một-chiều-biến-thiên-và-cực-trị">4. Đạo hàm cấp một: chiều biến thiên và cực trị</a></li>
+  <li><a href="#giá-trị-lớn-nhất-và-nhỏ-nhất-trên-đoạn" id="toc-giá-trị-lớn-nhất-và-nhỏ-nhất-trên-đoạn" class="nav-link" data-scroll-target="#giá-trị-lớn-nhất-và-nhỏ-nhất-trên-đoạn">5. Giá trị lớn nhất và nhỏ nhất trên đoạn</a></li>
+  <li><a href="#đạo-hàm-cấp-hai-độ-cong-và-điểm-uốn" id="toc-đạo-hàm-cấp-hai-độ-cong-và-điểm-uốn" class="nav-link" data-scroll-target="#đạo-hàm-cấp-hai-độ-cong-và-điểm-uốn">6. Đạo hàm cấp hai: độ cong và điểm uốn</a></li>
+  <li><a href="#bảng-biến-thiên" id="toc-bảng-biến-thiên" class="nav-link" data-scroll-target="#bảng-biến-thiên">7. Bảng biến thiên</a></li>
+  <li><a href="#đồ-thị" id="toc-đồ-thị" class="nav-link" data-scroll-target="#đồ-thị">8. Đồ thị</a></li>
+  <li><a href="#ảnh-hưởng-của-tham-số-và-so-sánh" id="toc-ảnh-hưởng-của-tham-số-và-so-sánh" class="nav-link" data-scroll-target="#ảnh-hưởng-của-tham-số-và-so-sánh">9. Ảnh hưởng của tham số và so sánh</a></li>
+  <li><a href="#ứng-dụng-và-ý-nghĩa-toán-học" id="toc-ứng-dụng-và-ý-nghĩa-toán-học" class="nav-link" data-scroll-target="#ứng-dụng-và-ý-nghĩa-toán-học">10. Ứng dụng và ý nghĩa toán học</a></li>
+  <li><a href="#bài-tập-và-mở-rộng" id="toc-bài-tập-và-mở-rộng" class="nav-link" data-scroll-target="#bài-tập-và-mở-rộng">11. Bài tập và mở rộng</a></li>
+  <li><a href="#danh-sách-kiểm-tra-checklist-khung-khảo-sát-hàm-số" id="toc-danh-sách-kiểm-tra-checklist-khung-khảo-sát-hàm-số" class="nav-link" data-scroll-target="#danh-sách-kiểm-tra-checklist-khung-khảo-sát-hàm-số">Danh sách kiểm tra (checklist) khung khảo sát hàm số</a></li>
+  <li><a href="#danh-sách-kiểm-tra-khung-khảo-sát-hàm-số-bản-rút-gọn" id="toc-danh-sách-kiểm-tra-khung-khảo-sát-hàm-số-bản-rút-gọn" class="nav-link" data-scroll-target="#danh-sách-kiểm-tra-khung-khảo-sát-hàm-số-bản-rút-gọn">Danh sách kiểm tra khung khảo sát hàm số (bản rút gọn)</a></li>
+  </ul></li>
+  <li><a href="#danh-sách-hàm-số" id="toc-danh-sách-hàm-số" class="nav-link" data-scroll-target="#danh-sách-hàm-số">Danh sách hàm số</a>
+  <ul class="collapse">
+  <li><a href="#nguyên-tắc-phân-nhóm" id="toc-nguyên-tắc-phân-nhóm" class="nav-link" data-scroll-target="#nguyên-tắc-phân-nhóm">Nguyên tắc phân nhóm</a></li>
+  <li><a href="#nhãn" id="toc-nhãn" class="nav-link" data-scroll-target="#nhãn">Nhãn</a></li>
+  <li><a href="#hàm-hằng" id="toc-hàm-hằng" class="nav-link" data-scroll-target="#hàm-hằng">0. Hàm hằng</a></li>
+  <li><a href="#hàm-đa-thức-bậc-nhất" id="toc-hàm-đa-thức-bậc-nhất" class="nav-link" data-scroll-target="#hàm-đa-thức-bậc-nhất">1. Hàm đa thức bậc nhất</a></li>
+  <li><a href="#hàm-đa-thức-bậc-hai" id="toc-hàm-đa-thức-bậc-hai" class="nav-link" data-scroll-target="#hàm-đa-thức-bậc-hai">2. Hàm đa thức bậc hai</a></li>
+  <li><a href="#hàm-đa-thức-bậc-ba" id="toc-hàm-đa-thức-bậc-ba" class="nav-link" data-scroll-target="#hàm-đa-thức-bậc-ba">3. Hàm đa thức bậc ba</a></li>
+  <li><a href="#hàm-đa-thức-bậc-bốn" id="toc-hàm-đa-thức-bậc-bốn" class="nav-link" data-scroll-target="#hàm-đa-thức-bậc-bốn">4. Hàm đa thức bậc bốn</a></li>
+  <li><a href="#một-số-hàm-đa-thức-bậc-cao" id="toc-một-số-hàm-đa-thức-bậc-cao" class="nav-link" data-scroll-target="#một-số-hàm-đa-thức-bậc-cao">5. Một số hàm đa thức bậc cao</a></li>
+  <li><a href="#hàm-phân-thức-bậc-không-trên-bậc-nhất-01" id="toc-hàm-phân-thức-bậc-không-trên-bậc-nhất-01" class="nav-link" data-scroll-target="#hàm-phân-thức-bậc-không-trên-bậc-nhất-01">6. Hàm phân thức bậc không trên bậc nhất (0/1)</a></li>
+  <li><a href="#hàm-phân-thức-bậc-nhất-trên-bậc-nhất-11" id="toc-hàm-phân-thức-bậc-nhất-trên-bậc-nhất-11" class="nav-link" data-scroll-target="#hàm-phân-thức-bậc-nhất-trên-bậc-nhất-11">7. Hàm phân thức bậc nhất trên bậc nhất (1/1)</a></li>
+  <li><a href="#hàm-phân-thức-bậc-hai-trên-bậc-nhất-21" id="toc-hàm-phân-thức-bậc-hai-trên-bậc-nhất-21" class="nav-link" data-scroll-target="#hàm-phân-thức-bậc-hai-trên-bậc-nhất-21">8. Hàm phân thức bậc hai trên bậc nhất (2/1)</a></li>
+  <li><a href="#một-số-hàm-hữu-tỉ" id="toc-một-số-hàm-hữu-tỉ" class="nav-link" data-scroll-target="#một-số-hàm-hữu-tỉ">9. Một số hàm hữu tỉ</a></li>
+  <li><a href="#hàm-lũy-thừa-hàm-căn-thức" id="toc-hàm-lũy-thừa-hàm-căn-thức" class="nav-link" data-scroll-target="#hàm-lũy-thừa-hàm-căn-thức">10. Hàm lũy thừa &amp; Hàm căn thức</a></li>
+  <li><a href="#trị-tuyệt-đối-từng-đoạn-rời-rạc" id="toc-trị-tuyệt-đối-từng-đoạn-rời-rạc" class="nav-link" data-scroll-target="#trị-tuyệt-đối-từng-đoạn-rời-rạc">11. Trị tuyệt đối, từng đoạn &amp; rời rạc</a></li>
+  <li><a href="#lượng-giác" id="toc-lượng-giác" class="nav-link" data-scroll-target="#lượng-giác">12. Lượng giác</a></li>
+  <li><a href="#hàm-lượng-giác-ngược" id="toc-hàm-lượng-giác-ngược" class="nav-link" data-scroll-target="#hàm-lượng-giác-ngược">13. Hàm lượng giác ngược</a></li>
+  <li><a href="#hàm-mũ-hàm-lô-ga" id="toc-hàm-mũ-hàm-lô-ga" class="nav-link" data-scroll-target="#hàm-mũ-hàm-lô-ga">14. Hàm mũ &amp; Hàm lô-ga</a></li>
+  <li><a href="#hàm-hai-pơ-hyperbolic-hàm-hai-pơ-ngược" id="toc-hàm-hai-pơ-hyperbolic-hàm-hai-pơ-ngược" class="nav-link" data-scroll-target="#hàm-hai-pơ-hyperbolic-hàm-hai-pơ-ngược">15. Hàm hai-pơ (hyperbolic) &amp; Hàm hai-pơ ngược</a></li>
+  <li><a href="#hàm-lai-ghép" id="toc-hàm-lai-ghép" class="nav-link" data-scroll-target="#hàm-lai-ghép">16. Hàm lai ghép</a></li>
+  <li><a href="#hàm-xuất-hiện-trong-lĩnh-vực-xác-suất-và-thống-kê" id="toc-hàm-xuất-hiện-trong-lĩnh-vực-xác-suất-và-thống-kê" class="nav-link" data-scroll-target="#hàm-xuất-hiện-trong-lĩnh-vực-xác-suất-và-thống-kê">17. Hàm xuất hiện trong lĩnh vực xác suất và thống kê</a></li>
+  <li><a href="#hàm-xuất-hiện-trong-lĩnh-vực-logistic-tăng-trưởng" id="toc-hàm-xuất-hiện-trong-lĩnh-vực-logistic-tăng-trưởng" class="nav-link" data-scroll-target="#hàm-xuất-hiện-trong-lĩnh-vực-logistic-tăng-trưởng">18. Hàm xuất hiện trong lĩnh vực Logistic &amp; tăng trưởng</a></li>
+  <li><a href="#activation-aiml" id="toc-activation-aiml" class="nav-link" data-scroll-target="#activation-aiml">19. Activation (AI/ML)</a></li>
+  <li><a href="#phụ-lục-học-thuật" id="toc-phụ-lục-học-thuật" class="nav-link" data-scroll-target="#phụ-lục-học-thuật">20. Phụ lục học thuật</a></li>
+  </ul></li>
+  <li><a href="#danh-sách-hàm-số-thpt" id="toc-danh-sách-hàm-số-thpt" class="nav-link" data-scroll-target="#danh-sách-hàm-số-thpt">Danh sách hàm số THPT</a>
+  <ul class="collapse">
+  <li><a href="#hàm-hằng-1" id="toc-hàm-hằng-1" class="nav-link" data-scroll-target="#hàm-hằng-1">0. Hàm hằng</a></li>
+  <li><a href="#hàm-đa-thức-bậc-nhất-1" id="toc-hàm-đa-thức-bậc-nhất-1" class="nav-link" data-scroll-target="#hàm-đa-thức-bậc-nhất-1">1. Hàm đa thức bậc nhất</a></li>
+  <li><a href="#hàm-đa-thức-bậc-hai-1" id="toc-hàm-đa-thức-bậc-hai-1" class="nav-link" data-scroll-target="#hàm-đa-thức-bậc-hai-1">2. Hàm đa thức bậc hai</a></li>
+  <li><a href="#hàm-đa-thức-bậc-ba-1" id="toc-hàm-đa-thức-bậc-ba-1" class="nav-link" data-scroll-target="#hàm-đa-thức-bậc-ba-1">3. Hàm đa thức bậc ba</a></li>
+  <li><a href="#hàm-đa-thức-bậc-bốn-1" id="toc-hàm-đa-thức-bậc-bốn-1" class="nav-link" data-scroll-target="#hàm-đa-thức-bậc-bốn-1">4. Hàm đa thức bậc bốn</a></li>
+  <li><a href="#hàm-đa-thức-bậc-cao" id="toc-hàm-đa-thức-bậc-cao" class="nav-link" data-scroll-target="#hàm-đa-thức-bậc-cao">5. Hàm đa thức bậc cao</a></li>
+  <li><a href="#hàm-phân-thức-bậc-không-trên-bậc-nhất-01-1" id="toc-hàm-phân-thức-bậc-không-trên-bậc-nhất-01-1" class="nav-link" data-scroll-target="#hàm-phân-thức-bậc-không-trên-bậc-nhất-01-1">6. Hàm phân thức bậc không trên bậc nhất (0/1)</a></li>
+  <li><a href="#hàm-phân-thức-bậc-nhất-trên-bậc-nhất-11-1" id="toc-hàm-phân-thức-bậc-nhất-trên-bậc-nhất-11-1" class="nav-link" data-scroll-target="#hàm-phân-thức-bậc-nhất-trên-bậc-nhất-11-1">7. Hàm phân thức bậc nhất trên bậc nhất (1/1)</a></li>
+  <li><a href="#hàm-phân-thức-bậc-hai-trên-bậc-nhất-21-1" id="toc-hàm-phân-thức-bậc-hai-trên-bậc-nhất-21-1" class="nav-link" data-scroll-target="#hàm-phân-thức-bậc-hai-trên-bậc-nhất-21-1">8. Hàm phân thức bậc hai trên bậc nhất (2/1)</a></li>
+  <li><a href="#một-số-hàm-hữu-tỉ-1" id="toc-một-số-hàm-hữu-tỉ-1" class="nav-link" data-scroll-target="#một-số-hàm-hữu-tỉ-1">9. Một số hàm hữu tỉ</a></li>
+  <li><a href="#hàm-lũy-thừa-căn-thức" id="toc-hàm-lũy-thừa-căn-thức" class="nav-link" data-scroll-target="#hàm-lũy-thừa-căn-thức">10. Hàm lũy thừa &amp; căn thức</a></li>
+  <li><a href="#trị-tuyệt-đối" id="toc-trị-tuyệt-đối" class="nav-link" data-scroll-target="#trị-tuyệt-đối">11. Trị tuyệt đối</a></li>
+  <li><a href="#lượng-giác-1" id="toc-lượng-giác-1" class="nav-link" data-scroll-target="#lượng-giác-1">12. Lượng giác</a></li>
+  <li><a href="#hàm-lượng-giác-ngược-1" id="toc-hàm-lượng-giác-ngược-1" class="nav-link" data-scroll-target="#hàm-lượng-giác-ngược-1">13. Hàm lượng giác ngược</a></li>
+  <li><a href="#hàm-mũ-lô-ga" id="toc-hàm-mũ-lô-ga" class="nav-link" data-scroll-target="#hàm-mũ-lô-ga">14. Hàm mũ &amp; lô-ga</a></li>
+  </ul></li>
+  <li><a href="#quy-trình-làm-việc" id="toc-quy-trình-làm-việc" class="nav-link" data-scroll-target="#quy-trình-làm-việc">Quy trình làm việc</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="khung-khảo-sát-hàm-số" class="level1">
+<h1>Khung khảo sát hàm số</h1>
+<p>Khảo sát hàm số là quá trình nghiên cứu một cách hệ thống các tính chất cơ bản và quan trọng của hàm số, từ miền xác định, sự liên tục, đối xứng, tiệm cận, đến sự biến thiên, cực trị, độ cong và đồ thị. Đây là công việc cốt lõi trong giải tích sơ cấp, giúp hình thành cái nhìn toàn diện về một hàm số cụ thể.</p>
+<p>Khung khảo sát dưới đây được xây dựng với mục đích bao quát hầu hết các dạng hàm số thường gặp trong chương trình trung học phổ thông và một phần các hàm nâng cao. Khi áp dụng cho từng hàm cụ thể, có thể có những bước không cần thiết. Trong trường hợp đó, người khảo sát chỉ cần ghi nhận là không áp dụng hoặc hàm số không có tính chất tương ứng.</p>
+<section id="nhận-diện-hàm-số" class="level3">
+<h3 class="anchored" data-anchor-id="nhận-diện-hàm-số">0. Nhận diện hàm số</h3>
+<p>Trước khi đi vào các thao tác kỹ thuật, ta cần một bước “làm quen” với hàm số đã cho. Bước này gọi là <em>nhận diện hàm số</em>.</p>
+<p>Nhìn vào công thức hoặc cách mô tả, ta thử trả lời: hàm số này mang dáng vẻ gì? Nó có quen thuộc như một hàm bậc nhất hay bậc hai, hay nó gây bất ngờ vì không thấy bóng dáng của biến số, như hàm hằng (y=1)? Nó có mượt mà theo một công thức duy nhất, hay lại là một hàm “lai ghép” với nhiều mảnh định nghĩa khác nhau? Có khi, nó không hiện ra bằng công thức, mà chỉ qua một lời mô tả về hiện tượng, buộc ta phải hình dung quy tắc gán giá trị.</p>
+<p>Bước nhận diện không nhằm khảo sát chi tiết, mà để nắm được “diện mạo ban đầu” của hàm số:</p>
+<ul>
+<li>Nếu là hàm quen thuộc, ta biết sẽ đi theo những bước thông thường nào trong khung khảo sát này.</li>
+<li>Nếu là hàm đặc biệt, ta biết cần cẩn trọng và linh hoạt ở đâu.</li>
+<li>Nếu hàm thuộc một họ, ta nhận ra ngay bức tranh chung của cả họ.</li>
+</ul>
+<p>Nói cách khác, <em>nhận diện hàm số</em> chính là bước đặt tên và vẽ phác họa cho nhân vật trước khi theo dõi hành vi của nó. Nhờ thế, toàn bộ quá trình khảo sát sau đó sẽ có định hướng rõ ràng và ý nghĩa hơn.</p>
+</section>
+<section id="miền-xác-định" class="level3">
+<h3 class="anchored" data-anchor-id="miền-xác-định">1. Miền xác định</h3>
+<p>Miền xác định của hàm số <span class="math inline">\(y=f(x)\)</span> là tập hợp tất cả các giá trị <span class="math inline">\(x\)</span> mà tại đó biểu thức <span class="math inline">\(f(x)\)</span> có nghĩa. Việc xác định miền là bước đầu tiên và bắt buộc, bởi nếu không biết rõ miền xác định, ta không thể nói đến sự liên tục, tính đơn điệu hay vẽ đồ thị chính xác.</p>
+<p>Công việc tìm miền xác định có thể được tiến hành theo hai cách:</p>
+<ul>
+<li>Cách thứ nhất là viết ra tất cả những điều kiện cần thiết để <span class="math inline">\(f(x)\)</span> có nghĩa, rồi lấy giao các điều kiện ấy.</li>
+<li>Cách thứ hai là xuất phát từ tập số thực và loại bỏ dần những giá trị làm cho <span class="math inline">\(f(x)\)</span> trở nên vô nghĩa.</li>
+</ul>
+<p>Các nguyên tắc cụ thể bao gồm: mẫu số không được bằng không trong trường hợp phân thức, biểu thức trong căn bậc chẵn phải không âm, đối số của <span class="math inline">\(\log\)</span> phải dương, góc của các hàm lượng giác như <span class="math inline">\(\tan\)</span> hoặc <span class="math inline">\(\cot\)</span> không được làm mẫu số bằng không, và trong hàm hợp thì giá trị của hàm trong phải nằm trong miền xác định của hàm ngoài.</p>
+</section>
+<section id="các-tính-cơ-bản-chẵnlẻ-tuần-hoàn-liên-tụcgián-đoạn" class="level3">
+<h3 class="anchored" data-anchor-id="các-tính-cơ-bản-chẵnlẻ-tuần-hoàn-liên-tụcgián-đoạn">2. Các tính cơ bản: chẵn/lẻ, tuần hoàn, liên tục/gián đoạn</h3>
+<p>Trước hết, cần xét <em>tính chẵn/lẻ</em> của hàm số. Trên miền đối xứng qua <span class="math inline">\(0\)</span>, một hàm được gọi là <em>chẵn</em> nếu giá trị của hàm tại <span class="math inline">\(-x\)</span> luôn bằng giá trị của hàm tại <span class="math inline">\(x\)</span>, nghĩa là</p>
+<p><span class="math display">\[
+  f(-x)=f(x).
+\]</span></p>
+<p>Khi đó, <em>đồ thị đối xứng qua trục tung</em>.</p>
+<p>Và một hàm số được gọi là <em>lẻ</em> nếu giá trị của hàm tại <span class="math inline">\(-x\)</span> luôn bằng số đối của giá trị tại <span class="math inline">\(x\)</span>, tức là</p>
+<p><span class="math display">\[
+f(-x)=-f(x).
+\]</span></p>
+<p>Khi đó, <em>đồ thị đối xứng qua gốc tọa độ</em>.</p>
+<p>Các phép tịnh tiến còn tạo ra đối xứng qua một đường thẳng hoặc một điểm khác, nếu xuất phát từ hàm chẵn hoặc lẻ. Nếu một hàm gốc là <em>chẵn</em> thì khi tịnh tiến theo dạng <span class="math inline">\(f(x)=g(x-h)+k\)</span>, đồ thị sẽ có trục đối xứng là đường thẳng <span class="math inline">\(x=h\)</span>. Nếu hàm gốc là <em>lẻ</em> thì đồ thị của hàm tịnh tiến sẽ có tâm đối xứng tại điểm <span class="math inline">\((h,k)\)</span>.</p>
+<p>Bên cạnh đó, cần xét <em>tính tuần hoàn</em>. Một hàm số được gọi là tuần hoàn nếu tồn tại một số dương <span class="math inline">\(T\)</span> sao cho giá trị của hàm tại <span class="math inline">\(x+T\)</span> luôn bằng giá trị của hàm tại <span class="math inline">\(x\)</span> với mọi <span class="math inline">\(x\)</span> trong miền xác định, nghĩa là</p>
+<p><span class="math display">\[
+f(x+T)=f(x).
+\]</span></p>
+<p>Khi đó <span class="math inline">\(T\)</span> được gọi là <em>chu kỳ</em> của hàm. Nếu tồn tại nhiều chu kỳ thì số dương nhỏ nhất trong đó được gọi là chu kỳ cơ bản. Khi khảo sát một hàm tuần hoàn, ta chỉ cần khảo sát đồ thị trên một khoảng có độ dài bằng chu kỳ cơ bản, sau đó dùng phép tịnh tiến để xác định đồ thị trên toàn trục số.</p>
+<p><em>Liên tục</em> là một trong những tính chất nền tảng của hàm số. Trên mỗi khoảng con của miền xác định, cần kiểm tra xem hàm có liên tục hay không. Nếu hàm số liên tục trên toàn miền xác định, đồ thị của nó sẽ liền mạch, không bị đứt gãy - nhờ đó, việc phác thảo đồ thị trở nên thuận lợi, ta chỉ cần lần theo sự biến thiên để dựng đường cong. Ngược lại, khi tồn tại điểm gián đoạn, phải chỉ rõ dạng gián đoạn: gián đoạn <em>có thể khử</em>, gián đoạn <em>bước nhảy</em> hoặc gián đoạn <em>vô cực</em>. Việc nhận diện đúng loại gián đoạn giúp ta biết chính xác đồ thị cần bị “ngắt” tại đâu, có cần chèn lỗ trống, bước nhảy hay đường tiệm cận đứng, từ đó hình vẽ mới phản ánh trung thực bản chất của hàm số.</p>
+</section>
+<section id="giới-hạn-và-tiệm-cận" class="level3">
+<h3 class="anchored" data-anchor-id="giới-hạn-và-tiệm-cận">3. Giới hạn và tiệm cận</h3>
+<p>Ở rìa miền xác định - tức là khi <span class="math inline">\(x\)</span> tiến gần đến các <em>điểm bị loại bỏ</em> hoặc ra <em>vô cực</em> - có thể xuất hiện những tình huống khác nhau: giá trị tiến về một số hữu hạn, tiến ra vô hạn, dao động không ngừng. Để diễn tả hàm số trong những hoàn cảnh như vậy, ta dùng <em>giới hạn</em>.</p>
+<p>Khái niệm <em>giới hạn</em> cho phép trả lời một cách chính xác: khi <span class="math inline">\(x\)</span> tiến tới một điểm đặc biệt hoặc ra vô cực, thì <span class="math inline">\(f(x)\)</span> có xu hướng về đâu. Nhờ giới hạn, ta có thể khép kín bức tranh mô tả hành vi của hàm số: không chỉ biết nó thế nào “ở bên trong miền”, mà còn biết nó ra sao ở những nơi công thức không còn cho giá trị trực tiếp.</p>
+<p>Từ kết quả giới hạn, một hiện tượng quan trọng hiện ra: nhiều hàm số có đồ thị có xu hướng tiến lại gần một đường thẳng, gọi là <em>đường tiệm cận</em>. Có ba loại đường tiệm cận là đường thẳng:</p>
+<ul>
+<li><em>Tiệm cận đứng</em>: <span class="math inline">\(x=a\)</span> nếu <span class="math inline">\(\lim_{x\to a} f(x)=\pm\infty\)</span>.</li>
+<li><em>Tiệm cận ngang</em>: <span class="math inline">\(y=a\)</span> nếu <span class="math inline">\(\lim_{x\to \pm\infty} f(x)=a\)</span>.</li>
+<li><em>Tiệm cận xiên</em>: <span class="math inline">\(y=ax+b\)</span> nếu <span class="math inline">\(\lim_{x\to \pm\infty}[f(x)-(ax+b)]=0\)</span>.</li>
+</ul>
+<p>Các đường tiệm cận chính là những nét khung định hình cho đồ thị: chúng chỉ ra xu hướng dài hạn mà đồ thị bám theo.</p>
+<blockquote class="blockquote">
+<p>Hàm tiến về một số hữu hạn khi <span class="math inline">\(x\)</span> tiến về một số hữu hạn, và hàm tiến về một số hữu hạn khi <span class="math inline">\(x\)</span> tiến ra vô cực khi so sánh với nhau có đặc trưng gì đáng để mô tả không?</p>
+<p>Hàm tăng vô hạn khi <span class="math inline">\(x\)</span> tiến về một số hữu hạn, và hàm tăng vô hạn khi <span class="math inline">\(x\)</span> tiến ra vô cực khi so sánh với nhau có đặc trưng gì đáng để mô tả không?</p>
+<p>Hàm dao động không ngừng khi <span class="math inline">\(x\)</span> tiến về một số hữu hạn, và hàm dao động không ngừng khi <span class="math inline">\(x\)</span> tiến ra vô cực khi so sánh với nhau có đặc trưng gì đáng để mô tả không?</p>
+</blockquote>
+</section>
+<section id="đạo-hàm-cấp-một-chiều-biến-thiên-và-cực-trị" class="level3">
+<h3 class="anchored" data-anchor-id="đạo-hàm-cấp-một-chiều-biến-thiên-và-cực-trị">4. Đạo hàm cấp một: chiều biến thiên và cực trị</h3>
+<p><em>Đạo hàm</em> là công cụ chính để khảo sát sự biến thiên của hàm số. Sau khi tính <span class="math inline">\(f^\prime(x)\)</span>, ta tìm các <em>điểm tới hạn</em>, tức là những nghiệm của phương trình <span class="math inline">\(f^\prime(x)=0\)</span> hoặc những điểm mà đạo hàm không xác định nhưng hàm số vẫn có nghĩa. Đây là những vị trí mà chiều biến thiên của hàm số có thể thay đổi.</p>
+<p>Trên mỗi khoảng xác định bởi các điểm tới hạn và các biên của miền xác định, ta xét dấu của <span class="math inline">\(f^\prime(x)\)</span>:</p>
+<ul>
+<li>Nếu <span class="math inline">\(f^\prime(x)&gt;0\)</span> thì hàm số <em>đồng biến</em> trên khoảng đó.<br>
+</li>
+<li>Nếu <span class="math inline">\(f^\prime(x)&lt;0\)</span> thì hàm số <em>nghịch biến</em>.</li>
+</ul>
+<p>Từ sự thay đổi dấu của <span class="math inline">\(f^\prime(x)\)</span> khi đi qua điểm tới hạn, ta nhận biết các điểm cực trị:</p>
+<ul>
+<li>Nếu <span class="math inline">\(f^\prime(x)\)</span> chuyển từ <em>dương sang âm</em>, điểm đó là <em>cực đại</em>.<br>
+</li>
+<li>Nếu <span class="math inline">\(f^\prime(x)\)</span> chuyển từ <em>âm sang dương</em>, điểm đó là <em>cực tiểu</em>.<br>
+</li>
+<li>Nếu <span class="math inline">\(f^\prime(x)\)</span> không đổi dấu, điểm tới hạn ấy không phải cực trị.</li>
+</ul>
+</section>
+<section id="giá-trị-lớn-nhất-và-nhỏ-nhất-trên-đoạn" class="level3">
+<h3 class="anchored" data-anchor-id="giá-trị-lớn-nhất-và-nhỏ-nhất-trên-đoạn">5. Giá trị lớn nhất và nhỏ nhất trên đoạn</h3>
+<p>Nếu bài toán yêu cầu khảo sát trên một đoạn kín, ta cần so sánh giá trị hàm số tại hai đầu mút và tại các điểm tới hạn nằm trong đoạn để xác định <em>giá trị lớn nhất</em> và <em>giá trị nhỏ nhất</em>.</p>
+</section>
+<section id="đạo-hàm-cấp-hai-độ-cong-và-điểm-uốn" class="level3">
+<h3 class="anchored" data-anchor-id="đạo-hàm-cấp-hai-độ-cong-và-điểm-uốn">6. Đạo hàm cấp hai: độ cong và điểm uốn</h3>
+<p>Khái niệm <em>độ cong</em> cho biết dáng điệu hình học của đồ thị và tính chất đại số tương ứng của hàm số.</p>
+<ul>
+<li><p>Về mặt lý thuyết, ta nói <em>hàm số lồi</em> trên một khoảng nếu với mọi <span class="math inline">\(x_1, x_2\)</span> trong khoảng và mọi <span class="math inline">\(0\leq \lambda \leq 1\)</span>, ta có</p>
+<p><span class="math display">\[
+f(\lambda x_1 + (1-\lambda)x_2) \leq \lambda f(x_1) + (1-\lambda)f(x_2).
+\]</span></p>
+<p>Khi đó, đồ thị của hàm nằm dưới hoặc trùng với mọi dây cung nối hai điểm bất kỳ trên đồ thị.</p></li>
+<li><p>Ngược lại, nếu bất đẳng thức đảo chiều thì hàm số được gọi là <strong>hàm số lõm</strong>, và đồ thị nằm trên hoặc trùng với mọi dây cung.</p></li>
+</ul>
+<p>Trong thực hành, khi hàm số có đạo hàm cấp hai, dấu của <span class="math inline">\(f^{\prime\prime}(x)\)</span> cho ta một tiêu chuẩn nhanh:</p>
+<ul>
+<li>Nếu <span class="math inline">\(f^{\prime\prime}(x)&gt;0\)</span> trên một khoảng thì hàm số <em>lồi</em> trên khoảng đó; đồ thị <em>cong lên</em>, mở miệng hướng lên trên.<br>
+</li>
+<li>Nếu <span class="math inline">\(f^{\prime\prime}(x)&lt;0\)</span> trên một khoảng thì hàm số <em>lõm</em> trên khoảng đó; đồ thị <em>cong xuống</em>, mở miệng hướng xuống dưới.</li>
+</ul>
+<p>Một điểm <span class="math inline">\(x=a\)</span> được gọi là <em>điểm uốn</em> nếu tại đó đồ thị chuyển từ <em>lồi sang lõm</em> hoặc từ <em>lõm sang lồi</em>. Thông thường, điểm uốn xuất hiện ở nghiệm của phương trình <span class="math inline">\(f^{\prime\prime}(x)=0\)</span> hoặc ở những điểm mà <span class="math inline">\(f^{\prime\prime}(x)\)</span> không xác định nhưng hàm số vẫn có nghĩa. Để khẳng định, cần kiểm tra dấu của <span class="math inline">\(f^{\prime\prime}(x)\)</span> ở hai phía: chỉ khi có sự đổi dấu mới thực sự là điểm uốn.</p>
+<p>Biết hàm số lồi hay lõm giúp ta hiểu rõ hơn hình dạng đồ thị:</p>
+<ul>
+<li>Xác định dáng điệu cong, hỗ trợ việc vẽ chính xác hơn.<br>
+</li>
+<li>Liên hệ với cực trị: cực tiểu thường nằm trong miền lồi, cực đại trong miền lõm.<br>
+</li>
+<li>Nhận diện điểm uốn, nơi đồ thị thay đổi dáng điệu.</li>
+</ul>
+<p>Như vậy, đạo hàm cấp hai bổ sung cho đạo hàm cấp một một lớp thông tin mới: không chỉ biết đồ thị đi lên hay đi xuống, mà còn biết nó cong thế nào và ở đâu xảy ra sự đổi góc độ cong. Hơn nữa, đạo hàm cấp hai không chỉ cung cấp một bức tranh hình học (lồi, lõm, điểm uốn), mà còn mang ý nghĩa đại số: nó cho biết đạo hàm cấp một đang tăng hay giảm, tức là tốc độ thay đổi của hàm số đang lớn dần hay nhỏ dần. Nói cách khác, đạo hàm cấp hai cho ta biết “cái tăng đang nhanh dần hay chậm lại”, và “cái giảm đang dịu đi hay gấp gáp hơn”. Đây là thông tin quan trọng để hiểu sâu hơn hành vi của hàm số, vượt ra ngoài việc chỉ xác định cực trị.</p>
+</section>
+<section id="bảng-biến-thiên" class="level3">
+<h3 class="anchored" data-anchor-id="bảng-biến-thiên">7. Bảng biến thiên</h3>
+<p>Bảng biến thiên là công cụ tổng hợp và sắp xếp có hệ thống những thông tin quan trọng về hàm số. Trong bảng thường thể hiện:</p>
+<ul>
+<li>Miền xác định và các điểm bị loại bỏ.<br>
+</li>
+<li>Giới hạn của hàm số tại vô cực và tại các điểm đặc biệt.<br>
+</li>
+<li>Dấu của <span class="math inline">\(f^\prime(x)\)</span> và <span class="math inline">\(f^{\prime\prime}(x)\)</span>.<br>
+</li>
+<li>Các khoảng đồng biến, nghịch biến, lồi, lõm.<br>
+</li>
+<li>Giá trị của hàm số tại các điểm đặc biệt như cực trị, điểm uốn, v.v..</li>
+</ul>
+<p>Nhờ bảng biến thiên, ta nhìn thấy toàn bộ hành vi của hàm số trên một trang: ở đâu tăng hay giảm, cong lên hay cong xuống, đạt cực trị hoặc có điểm uốn. Nó không chỉ là “bản đồ dẫn đường” mà còn là nền tảng chắc chắn để dựng đồ thị một cách chính xác.</p>
+</section>
+<section id="đồ-thị" class="level3">
+<h3 class="anchored" data-anchor-id="đồ-thị">8. Đồ thị</h3>
+<p>Từ bảng biến thiên và các tính chất đã xác định, ta vẽ đồ thị của hàm số. Các điểm mốc cần chú ý: giao với trục tọa độ, cực trị, điểm uốn, tiệm cận. Đồ thị được dựng từ trái sang phải, tôn trọng tính đối xứng, tuần hoàn và hình dáng tổng quát dự kiến.</p>
+</section>
+<section id="ảnh-hưởng-của-tham-số-và-so-sánh" class="level3">
+<h3 class="anchored" data-anchor-id="ảnh-hưởng-của-tham-số-và-so-sánh">9. Ảnh hưởng của tham số và so sánh</h3>
+<p>Trong nhiều hàm số, công thức có chứa các tham số. Khi khảo sát, ta thường cố định tham số để xem xét từng hàm cụ thể. Tuy nhiên, việc thay đổi tham số sẽ dẫn đến sự dịch chuyển, co giãn hoặc lật của đồ thị. Toàn bộ các hàm ứng với những giá trị tham số khác nhau hợp lại thành một <em>họ hàm số</em>. Khảo sát ảnh hưởng của tham số giúp ta hiểu mối quan hệ giữa các đồ thị trong cùng một họ, từ đó rèn luyện trực giác hình học.</p>
+<p>Ngoài ra, việc đặt các đồ thị cần khảo sát bên cạnh những đồ thị quen thuộc cũng giúp nhận diện đặc điểm riêng biệt và hiểu rõ hơn vai trò của từng thành phần trong công thức.</p>
+</section>
+<section id="ứng-dụng-và-ý-nghĩa-toán-học" class="level3">
+<h3 class="anchored" data-anchor-id="ứng-dụng-và-ý-nghĩa-toán-học">10. Ứng dụng và ý nghĩa toán học</h3>
+<p>Khảo sát một hàm số không chỉ là một bài tập kỹ thuật, mà còn mở ra nhiều ý nghĩa.</p>
+<p><em>Về thực tế:</em> các dạng hàm quen thuộc thường gắn liền với hiện tượng đời sống. Chẳng hạn, hàm bậc hai mô tả quỹ đạo chuyển động ném xiên; hàm mũ và lô-ga xuất hiện trong tăng trưởng dân số, lãi kép hay sự phóng xạ; hàm lượng giác mô tả dao động sóng. Việc hiểu rõ đặc điểm biến thiên của hàm số giúp ta dự đoán, tối ưu và kiểm soát các quá trình trong thực tế.</p>
+<p><em>Về toán học:</em> mỗi hàm số tiêu biểu thường là đại diện cho một lớp khái niệm. Việc khảo sát toàn diện làm nổi bật mối liên hệ giữa các công cụ: giới hạn, đạo hàm, cực trị, độ cong, đồ thị. Đồng thời, nó chuẩn bị cho những chủ đề cao hơn như tích phân, bất đẳng thức, chuỗi hay phương trình vi phân.</p>
+<p><em>Về giáo dục:</em> khảo sát hàm số rèn cho người học khả năng quan sát, mô hình hóa và tư duy lô-gic. Từ một công thức cụ thể, ta có thể dựng nên “bức tranh toàn cảnh” vừa chính xác vừa trực quan, qua đó thấy được giá trị của toán học trong việc mô tả và giải thích thế giới.</p>
+</section>
+<section id="bài-tập-và-mở-rộng" class="level3">
+<h3 class="anchored" data-anchor-id="bài-tập-và-mở-rộng">11. Bài tập và mở rộng</h3>
+<p>Phần bài tập giúp củng cố kiến thức và rèn luyện kỹ năng khảo sát hàm số.</p>
+<ul>
+<li><em>Bài tập cơ bản:</em> tính miền xác định, đạo hàm, lập bảng biến thiên, tìm cực trị và điểm uốn, vẽ đồ thị.<br>
+</li>
+<li><em>Bài tập nâng cao:</em> khảo sát hàm có tham số; tìm điều kiện tham số để hàm có số cực trị nhất định; phân tích tiệm cận và tốc độ tăng trưởng.<br>
+</li>
+<li><em>Mở rộng:</em> so sánh với những hàm quen thuộc; đặt trong bối cảnh ứng dụng thực tế; xem xét biến đổi đồ thị; liên hệ tới các chủ đề cao hơn như bất đẳng thức và tích phân.</li>
+</ul>
+<p>Những bài tập này không chỉ giúp người học nắm vững kỹ thuật, mà còn khơi gợi tư duy sáng tạo và khả năng kết nối kiến thức.</p>
+</section>
+<section id="danh-sách-kiểm-tra-checklist-khung-khảo-sát-hàm-số" class="level2">
+<h2 class="anchored" data-anchor-id="danh-sách-kiểm-tra-checklist-khung-khảo-sát-hàm-số">Danh sách kiểm tra (checklist) khung khảo sát hàm số</h2>
+<ol start="0" type="1">
+<li>Nhận thức hàm số là dạng quen thuộc hay xa lạ, từ đó hình dung sơ bộ quy trình khảo sát.</li>
+<li>Hãy xác định miền xác định của hàm số, nêu rõ những giá trị nào của biến số bị loại bỏ và giải thích vì sao.</li>
+<li>Hãy kiểm tra xem hàm số có tính chẵn, tính lẻ hoặc tính đối xứng đặc biệt nào khác hay không.</li>
+<li>Nếu hàm số có khả năng tuần hoàn, hãy xác định chu kỳ cơ bản và giới hạn khoảng cần khảo sát.</li>
+<li>Hãy xét tính liên tục trên miền xác định, chỉ rõ các điểm gián đoạn và phân loại chúng (có thể khử, bước nhảy hay vô cực).</li>
+<li>Tính các giới hạn tại vô cực và tại những điểm biên của miền xác định để xác định ứng xử của hàm số ở rìa miền.</li>
+<li>Từ các giới hạn, hãy tìm và mô tả các đường tiệm cận đứng, ngang hoặc xiên nếu có.</li>
+<li>Tính đạo hàm cấp một, tìm các điểm tới hạn và xác định trên mỗi khoảng hàm số đồng biến hay nghịch biến.</li>
+<li>Dựa vào sự thay đổi dấu của đạo hàm, hãy kết luận về các điểm cực trị và giá trị cực trị.</li>
+<li>Nếu khảo sát trên một đoạn kín, hãy so sánh giá trị tại các đầu mút và các điểm tới hạn để xác định giá trị lớn nhất và nhỏ nhất trên đoạn.</li>
+<li>Tính đạo hàm cấp hai, xét dấu của nó để xác định khoảng lồi, lõm và các điểm uốn của đồ thị.</li>
+<li>Lập bảng biến thiên, ghi rõ miền xác định, giới hạn, dấu của các đạo hàm, các khoảng biến thiên, cực trị và điểm uốn.</li>
+<li>Từ bảng biến thiên và các tính chất đã biết, hãy vẽ đồ thị một cách chính xác, thể hiện các điểm đặc biệt, tiệm cận và tính đối xứng nếu có.</li>
+<li>Nếu hàm số có tham số, hãy phân tích ảnh hưởng của tham số đối với hình dạng đồ thị và so sánh với những đồ thị quen thuộc.</li>
+<li>Cuối cùng, hãy nêu rõ các ứng dụng thực tế hoặc ý nghĩa toán học của hàm số, và làm thêm các bài tập để củng cố cũng như mở rộng kiến thức.</li>
+</ol>
+</section>
+<section id="danh-sách-kiểm-tra-khung-khảo-sát-hàm-số-bản-rút-gọn" class="level2">
+<h2 class="anchored" data-anchor-id="danh-sách-kiểm-tra-khung-khảo-sát-hàm-số-bản-rút-gọn">Danh sách kiểm tra khung khảo sát hàm số (bản rút gọn)</h2>
+<ol start="0" type="1">
+<li>Nhận diện hàm số và hình dung quy trình khảo sát.</li>
+<li>Xác định miền xác định, chỉ rõ các giá trị bị loại bỏ và nguyên nhân.</li>
+<li>Kiểm tra tính chẵn, lẻ, tuần hoàn và liên tục của hàm số.</li>
+<li>Tính giới hạn ở các điểm biên và vô cực để tìm các đường tiệm cận.</li>
+<li>Tính đạo hàm cấp một để xét chiều biến thiên và cực trị.</li>
+<li>Nếu cần, so sánh giá trị tại các đầu mút và điểm tới hạn để tìm giá trị lớn nhất và nhỏ nhất.</li>
+<li>Tính đạo hàm cấp hai để xác định khoảng lồi, lõm và điểm uốn.</li>
+<li>Lập bảng biến thiên, sau đó vẽ đồ thị và nhận xét ý nghĩa hoặc ứng dụng nếu có.</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="danh-sách-hàm-số" class="level1">
+<h1>Danh sách hàm số</h1>
+<section id="nguyên-tắc-phân-nhóm" class="level2">
+<h2 class="anchored" data-anchor-id="nguyên-tắc-phân-nhóm">Nguyên tắc phân nhóm</h2>
+<ol type="1">
+<li><p><strong>Theo cấu trúc đại số/giải tích</strong> (đa thức, hữu tỉ, lũy thừa, mũ/ló, lượng giác,…).</p></li>
+<li><p><strong>Hàm ngược</strong>: tách riêng khi việc chọn <em>miền/cành</em> làm thay đổi bản chất (ví dụ lượng giác ngược). Với <strong>mũ/ló</strong>: gộp trong <em>một nhóm “cặp ngược”</em> nhưng tách <em>tiểu nhóm</em> mũ/ló để dạy song hành.</p></li>
+<li><p><strong>Hàm từng đoạn &amp; rời rạc</strong> tách hẳn: đây không phải “đặc biệt” mơ hồ mà là một <em>kiểu định nghĩa</em>.</p></li>
+<li><p><strong>Hàm lai ghép</strong> (tổ hợp/composition hoặc cộng-nhân giữa các họ khác) gom thành <em>một nhóm chuyên đề</em>, có các <strong>mô-típ</strong> (dao động tắt dần, khuếch đại dao động, sinc, dao động vô hạn gần <span class="math inline">\(0\)</span>,…).</p></li>
+</ol>
+</section>
+<section id="nhãn" class="level2">
+<h2 class="anchored" data-anchor-id="nhãn">Nhãn</h2>
+<ul>
+<li>[C] (CORE): hàm tối thiểu mà dự án phải có.</li>
+<li>[B] (BREADTH): hàm được thêm vào để mở rộng dự án theo chiều ngang, biến thể của hàm [C].</li>
+<li>[D] (DEPTH): hàm được thêm vào để thúc đẩy dự án tiến vào chiều sâu, hướng tới các cấp học cao hơn.</li>
+</ul>
+</section>
+<section id="hàm-hằng" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-hằng">0. Hàm hằng</h2>
+<ol type="1">
+<li><span class="math inline">\(y=0\)</span> [C]</li>
+<li><span class="math inline">\(y=1\)</span> [B]</li>
+<li><span class="math inline">\(y=c\)</span> [C] [B]</li>
+</ol>
+</section>
+<section id="hàm-đa-thức-bậc-nhất" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-đa-thức-bậc-nhất">1. Hàm đa thức bậc nhất</h2>
+<ol start="4" type="1">
+<li><span class="math inline">\(y=x\)</span> [C]</li>
+<li><span class="math inline">\(y=-x\)</span> [B]</li>
+<li><span class="math inline">\(y=2x\)</span> [B]</li>
+<li><span class="math inline">\(y=\frac{1}{2}x\)</span> [B]</li>
+<li><span class="math inline">\(y=x+1\)</span> [B]</li>
+<li><span class="math inline">\(y=x-1\)</span> [B]</li>
+<li><span class="math inline">\(y=2x+1\)</span> [B]</li>
+<li><span class="math inline">\(y=ax+b\)</span> [C]</li>
+</ol>
+</section>
+<section id="hàm-đa-thức-bậc-hai" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-đa-thức-bậc-hai">2. Hàm đa thức bậc hai</h2>
+<ol start="12" type="1">
+<li><span class="math inline">\(y=x^2\)</span> [C]</li>
+<li><span class="math inline">\(y=-x^2\)</span> [C]</li>
+<li><span class="math inline">\(y=2x^2\)</span> [B]</li>
+<li><span class="math inline">\(y=\frac{1}{2}x^2\)</span> [B]</li>
+<li><span class="math inline">\(y=(x-1)^2\)</span> [B]</li>
+<li><span class="math inline">\(y=(x+1)^2\)</span> [B]</li>
+<li><span class="math inline">\(y=x^2+1\)</span> [B]</li>
+<li><span class="math inline">\(y=x^2-1\)</span> [B]</li>
+<li><span class="math inline">\(y=x^2-2x\)</span> [B]</li>
+<li><span class="math inline">\(y=(x-1)^2\)</span> [C]</li>
+<li><span class="math inline">\(y=a(x-h)^2+k\)</span> [C]</li>
+<li><span class="math inline">\(y=ax^2+bx+c\)</span> [C]</li>
+</ol>
+</section>
+<section id="hàm-đa-thức-bậc-ba" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-đa-thức-bậc-ba">3. Hàm đa thức bậc ba</h2>
+<ol start="24" type="1">
+<li><span class="math inline">\(y=x^3\)</span> [C]</li>
+<li><span class="math inline">\(y=-x^3\)</span> [B]</li>
+<li><span class="math inline">\(y=3x^3\)</span> [B]</li>
+<li><span class="math inline">\(y=\frac{1}{3}x^3\)</span> [B]</li>
+<li><span class="math inline">\(y=x^3-3x\)</span> [C]</li>
+<li><span class="math inline">\(y=(x-1)^2(x+1)\)</span> [B]</li>
+<li><span class="math inline">\(y=x^3+x\)</span> [B]</li>
+<li><span class="math inline">\(y=(x-1)^3\)</span> [B]</li>
+<li><span class="math inline">\(y=x^3+1\)</span> [B]</li>
+<li><span class="math inline">\(y=ax^3+bx^2+cx+d\)</span> [C]</li>
+</ol>
+</section>
+<section id="hàm-đa-thức-bậc-bốn" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-đa-thức-bậc-bốn">4. Hàm đa thức bậc bốn</h2>
+<ol start="34" type="1">
+<li><span class="math inline">\(y=x^4\)</span> [C]</li>
+<li><span class="math inline">\(y=-x^4\)</span> [B]</li>
+<li><span class="math inline">\(y=x^4-2x^2\)</span> [C]</li>
+<li><span class="math inline">\(y=x^4+x^2\)</span> [B]</li>
+<li><span class="math inline">\(y=(x^2-1)^2\)</span> [B]</li>
+<li><span class="math inline">\(y=x^4-4x^3\)</span> [D]</li>
+<li><span class="math inline">\(y=x^4+x\)</span> [D]</li>
+<li><span class="math inline">\(y=(x-1)^4\)</span> [B]</li>
+<li><span class="math inline">\(y=ax^4+bx^3+cx^2+dx+e\)</span> [C]</li>
+<li><span class="math inline">\(y=ax^4+bx^2+c\)</span> [C]</li>
+</ol>
+</section>
+<section id="một-số-hàm-đa-thức-bậc-cao" class="level2">
+<h2 class="anchored" data-anchor-id="một-số-hàm-đa-thức-bậc-cao">5. Một số hàm đa thức bậc cao</h2>
+<ol start="44" type="1">
+<li><span class="math inline">\(y=x^5\)</span> [C]</li>
+<li><span class="math inline">\(y=-x^5\)</span> [B]</li>
+<li><span class="math inline">\(y=x^6\)</span> [C]</li>
+<li><span class="math inline">\(y=x^6-x^4\)</span> [B]</li>
+<li><span class="math inline">\(y=16x^5-20x^3+5x\)</span> [D]</li>
+<li><span class="math inline">\(y=x^n,\ n\geq 5\)</span> [C]</li>
+</ol>
+</section>
+<section id="hàm-phân-thức-bậc-không-trên-bậc-nhất-01" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-phân-thức-bậc-không-trên-bậc-nhất-01">6. Hàm phân thức bậc không trên bậc nhất (0/1)</h2>
+<ol start="50" type="1">
+<li><span class="math inline">\(y=\frac{1}{x}\)</span> [C]</li>
+<li><span class="math inline">\(y=-\frac{1}{x}\)</span> [B]</li>
+<li><span class="math inline">\(y=\frac{1}{x-1}\)</span> [B]</li>
+</ol>
+</section>
+<section id="hàm-phân-thức-bậc-nhất-trên-bậc-nhất-11" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-phân-thức-bậc-nhất-trên-bậc-nhất-11">7. Hàm phân thức bậc nhất trên bậc nhất (1/1)</h2>
+<ol start="53" type="1">
+<li><span class="math inline">\(y=\frac{x-1}{x+1}\)</span> [B]</li>
+<li><span class="math inline">\(y=\frac{x+1}{x-1}\)</span> [B]</li>
+<li><span class="math inline">\(y=\frac{2x+1}{x-2}\)</span> [B]</li>
+<li><span class="math inline">\(y=\frac{ax+b}{cx+d}\)</span> [C]</li>
+</ol>
+</section>
+<section id="hàm-phân-thức-bậc-hai-trên-bậc-nhất-21" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-phân-thức-bậc-hai-trên-bậc-nhất-21">8. Hàm phân thức bậc hai trên bậc nhất (2/1)</h2>
+<ol start="57" type="1">
+<li><span class="math inline">\(y=\frac{x^2-1}{x}\)</span> [C]</li>
+<li><span class="math inline">\(y=-\frac{x^2-1}{x}\)</span> [B]</li>
+<li><span class="math inline">\(y=\frac{x^2+1}{x}\)</span> [C]</li>
+<li><span class="math inline">\(y=-\frac{x^2+1}{x}\)</span> [B]</li>
+<li><span class="math inline">\(y=\frac{x^2-1}{x-1}=x+1\)</span> [B]</li>
+<li><span class="math inline">\(y=\frac{x^2}{x+1}\)</span> [C]</li>
+<li><span class="math inline">\(y=\frac{x^2}{x-1}\)</span> [B]</li>
+<li><span class="math inline">\(y=\frac{x^2+bx+c}{x+a}\)</span> [C]</li>
+</ol>
+</section>
+<section id="một-số-hàm-hữu-tỉ" class="level2">
+<h2 class="anchored" data-anchor-id="một-số-hàm-hữu-tỉ">9. Một số hàm hữu tỉ</h2>
+<ol start="65" type="1">
+<li><span class="math inline">\(y=\frac{x^2+1}{x^2+2}\)</span> [B]</li>
+<li><span class="math inline">\(y=\frac{2x-1}{x+3}\)</span> [B]</li>
+<li><span class="math inline">\(y=\frac{x^2-1}{x^2-1}=1\)</span> [B]</li>
+<li><span class="math inline">\(y=\frac{x^3}{x^2+1}\)</span> [B]</li>
+<li><span class="math inline">\(y=\frac{x^3}{x-1}\)</span> [D]</li>
+<li><span class="math inline">\(y=\frac{x^4}{x^2+1}\)</span> [D]</li>
+<li><span class="math inline">\(y=\frac{1}{x(x-1)}\)</span> [B]</li>
+<li><span class="math inline">\(y=\frac{x-1}{x(x-1)}=\frac{1}{x}\)</span> [B]</li>
+<li><span class="math inline">\(y=\frac{(x-1)^2}{x(x-1)}=\frac{x-1}{x}\)</span> [B]</li>
+</ol>
+</section>
+<section id="hàm-lũy-thừa-hàm-căn-thức" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-lũy-thừa-hàm-căn-thức">10. Hàm lũy thừa &amp; Hàm căn thức</h2>
+<ol start="76" type="1">
+<li><span class="math inline">\(y=x^n\)</span> [C]</li>
+<li><span class="math inline">\(y=\sqrt{x}\)</span> [C]</li>
+<li><span class="math inline">\(y=\sqrt{x-1}\)</span> [B]</li>
+<li><span class="math inline">\(y=\sqrt[3]{x}\)</span> [B]</li>
+<li><span class="math inline">\(y=x^{2/3}\)</span> [D]</li>
+<li><span class="math inline">\(y=\frac{1}{x^2}\)</span> [B]</li>
+<li><span class="math inline">\(y=\frac{1}{x^3}\)</span> [B]</li>
+<li><span class="math inline">\(y=x^\alpha\)</span> [D]</li>
+<li><span class="math inline">\(y=(x-h)^\alpha+k\)</span> [B] [D]</li>
+</ol>
+</section>
+<section id="trị-tuyệt-đối-từng-đoạn-rời-rạc" class="level2">
+<h2 class="anchored" data-anchor-id="trị-tuyệt-đối-từng-đoạn-rời-rạc">11. Trị tuyệt đối, từng đoạn &amp; rời rạc</h2>
+<ol start="85" type="1">
+<li><span class="math inline">\(y=\lvert x\rvert\)</span> [C]</li>
+<li><span class="math inline">\(y=\lvert x-1\rvert\)</span> [B]</li>
+<li><span class="math inline">\(y=\operatorname{sgn}x\)</span> [B]</li>
+<li><span class="math inline">\(y=H(x-a)\)</span> [D]</li>
+<li><span class="math inline">\(y=\lfloor x\rfloor\)</span> [D]</li>
+<li><span class="math inline">\(y=\lceil x\rceil\)</span> [D]</li>
+<li><span class="math inline">\(y=\{x\}\)</span> [D]</li>
+<li><span class="math inline">\(y=\max(0,x)\)</span> (ReLU) [D]</li>
+<li><span class="math inline">\(y=\max(\alpha x,x)\)</span> (Leaky ReLU) [D]</li>
+<li><span class="math inline">\(y=\begin{cases}1-\lvert x\rvert,&amp;\lvert x\rvert\le1\\0,&amp;\text{khác}\end{cases}\)</span> [B]</li>
+</ol>
+</section>
+<section id="lượng-giác" class="level2">
+<h2 class="anchored" data-anchor-id="lượng-giác">12. Lượng giác</h2>
+<ol start="95" type="1">
+<li><span class="math inline">\(y=\sin x\)</span> [C]</li>
+<li><span class="math inline">\(y=\cos x\)</span> [C]</li>
+<li><span class="math inline">\(y=\tan x\)</span> [C]</li>
+<li><span class="math inline">\(y=\cot x\)</span> [B]</li>
+<li><span class="math inline">\(y=\sin(2x)\)</span> [B]</li>
+<li><span class="math inline">\(y=\cos(x-\frac{\pi}{3})\)</span> [B]</li>
+<li><span class="math inline">\(y=a\sin(\omega x+\varphi)\)</span> [C]</li>
+<li><span class="math inline">\(y=\lvert \sin x \rvert\)</span> [B]</li>
+<li><span class="math inline">\(y=\sin x+\cos x\)</span> [B]</li>
+<li><span class="math inline">\(y=\sec x\)</span> [B]</li>
+<li><span class="math inline">\(y=\csc x\)</span> [B]</li>
+</ol>
+</section>
+<section id="hàm-lượng-giác-ngược" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-lượng-giác-ngược">13. Hàm lượng giác ngược</h2>
+<p>Tách riêng khỏi nhóm lượng giác vì vấn đề <em>cành/miền</em> cốt lỗi.</p>
+<ol start="106" type="1">
+<li><span class="math inline">\(y=\arcsin x\)</span> [B]</li>
+<li><span class="math inline">\(y=\arccos x\)</span> [B]</li>
+<li><span class="math inline">\(y=\arctan x\)</span> [B]</li>
+<li><span class="math inline">\(y=\operatorname{arccot}x\)</span> [D]</li>
+<li><span class="math inline">\(y=\arctan(ax)+b\)</span> [B]</li>
+</ol>
+</section>
+<section id="hàm-mũ-hàm-lô-ga" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-mũ-hàm-lô-ga">14. Hàm mũ &amp; Hàm lô-ga</h2>
+<ol start="111" type="1">
+<li><span class="math inline">\(y=e^x\)</span> [C]</li>
+<li><span class="math inline">\(y=e^{-x}\)</span> [B]</li>
+<li><span class="math inline">\(y=a^x\)</span> [C]</li>
+<li><span class="math inline">\(y=\ln x\)</span> [C]</li>
+<li><span class="math inline">\(y=\log_a x\)</span> [B]</li>
+<li><span class="math inline">\(y=\ln(x+1)\)</span> [B]</li>
+<li><span class="math inline">\(y=\ln(x-1)\)</span> [B]</li>
+<li><span class="math inline">\(y=e^x+1\)</span> [B]</li>
+<li><span class="math inline">\(y=e^{x-h}+k\)</span> [B]</li>
+<li><span class="math inline">\(y=xe^x\)</span> [D]</li>
+<li><span class="math inline">\(y=x\ln x\)</span> [D]</li>
+</ol>
+</section>
+<section id="hàm-hai-pơ-hyperbolic-hàm-hai-pơ-ngược" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-hai-pơ-hyperbolic-hàm-hai-pơ-ngược">15. Hàm hai-pơ (hyperbolic) &amp; Hàm hai-pơ ngược</h2>
+<ol start="122" type="1">
+<li><span class="math inline">\(y=\sinh x\)</span> [D]</li>
+<li><span class="math inline">\(y=\cosh x\)</span> [D]</li>
+<li><span class="math inline">\(y=\tanh x\)</span> [D]</li>
+<li><span class="math inline">\(y=\operatorname{arsinh}x\)</span> [D]</li>
+<li><span class="math inline">\(y=\operatorname{arcosh}x\)</span> [D]</li>
+<li><span class="math inline">\(y=\operatorname{artanh}x\)</span> [D]</li>
+</ol>
+</section>
+<section id="hàm-lai-ghép" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-lai-ghép">16. Hàm lai ghép</h2>
+<ol start="128" type="1">
+<li><span class="math inline">\(y=e^{-x}\sin x\)</span> [D]</li>
+<li><span class="math inline">\(y=x\sin x\)</span> [B] [D]</li>
+<li><span class="math inline">\(y=\frac{\sin x}{x}\)</span> [D]</li>
+<li><span class="math inline">\(y=\sin\left(\frac{1}{x}\right)\)</span> [D]</li>
+<li><span class="math inline">\(y=x+\sin x\)</span> [B]</li>
+<li><span class="math inline">\(y=\ln(\sin x)\)</span> (<span class="math inline">\(x\in(0,\pi)\)</span>) [D]</li>
+<li><span class="math inline">\(y=\sqrt{1-x^2}\)</span> [B]</li>
+<li><span class="math inline">\(y=\sqrt{x(1-x)}\)</span> [B]</li>
+<li><span class="math inline">\(y=\frac{x}{1+x^2}\)</span> [B]</li>
+<li><span class="math inline">\(y=\frac{x^2}{1+x^2}\)</span> [B]</li>
+</ol>
+</section>
+<section id="hàm-xuất-hiện-trong-lĩnh-vực-xác-suất-và-thống-kê" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-xuất-hiện-trong-lĩnh-vực-xác-suất-và-thống-kê">17. Hàm xuất hiện trong lĩnh vực xác suất và thống kê</h2>
+<ol start="138" type="1">
+<li><span class="math inline">\(y=e^{-\frac{1}{2}x^2}\)</span> [D]</li>
+<li><span class="math inline">\(y=e^{-\lvert x\rvert}\)</span> [D]</li>
+<li><span class="math inline">\(y=\frac{1}{1+x^2}\)</span> [D]</li>
+<li><span class="math inline">\(y=\frac{e^{-x}}{(1+e^{-x})^2}\)</span> [D]</li>
+<li><span class="math inline">\(y=\frac{1}{x}e^{-\frac{1}{2}(\ln x)^2}\)</span> [D]</li>
+</ol>
+</section>
+<section id="hàm-xuất-hiện-trong-lĩnh-vực-logistic-tăng-trưởng" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-xuất-hiện-trong-lĩnh-vực-logistic-tăng-trưởng">18. Hàm xuất hiện trong lĩnh vực Logistic &amp; tăng trưởng</h2>
+<ol start="143" type="1">
+<li><span class="math inline">\(y=\frac{1}{1+e^{-x}}\)</span> [B] [D]</li>
+<li><span class="math inline">\(y=\frac{1}{1+e^{-k(x-x_0)}}\)</span> [D]</li>
+<li><span class="math inline">\(y=e^{-e^{-x}}\)</span> (Gompertz) [D]</li>
+<li><span class="math inline">\(y=\frac{V_{\max}x}{K_M+x}\)</span> [D]</li>
+<li><span class="math inline">\(y=\frac{x^n}{K^n+x^n}\)</span> [D]</li>
+<li><span class="math inline">\(y=1-e^{-x}\)</span> [B]</li>
+<li><span class="math inline">\(y=\frac{x}{1+x}\)</span> [B]</li>
+</ol>
+</section>
+<section id="activation-aiml" class="level2">
+<h2 class="anchored" data-anchor-id="activation-aiml">19. Activation (AI/ML)</h2>
+<ol start="150" type="1">
+<li><span class="math inline">\(y=\mathrm{ELU}(x)\)</span> [D]</li>
+<li><span class="math inline">\(y=\ln(1+e^x)\)</span> (Softplus) [D]</li>
+<li><span class="math inline">\(y=\frac{x}{1+e^{-x}}\)</span> (Swish) [D]</li>
+<li><span class="math inline">\(y=\mathrm{GELU}(x)\)</span> [D]</li>
+<li><span class="math inline">\(y=\mathrm{Mish}(x)\)</span> [D]</li>
+</ol>
+</section>
+<section id="phụ-lục-học-thuật" class="level2">
+<h2 class="anchored" data-anchor-id="phụ-lục-học-thuật">20. Phụ lục học thuật</h2>
+<ol start="155" type="1">
+<li><span class="math inline">\(y=\Gamma(x)\)</span> [D]</li>
+<li><span class="math inline">\(y=\operatorname{erf}(x)\)</span> [D]</li>
+<li><span class="math inline">\(y=J_0(x)\)</span> [D]</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="danh-sách-hàm-số-thpt" class="level1">
+<h1>Danh sách hàm số THPT</h1>
+<section id="hàm-hằng-1" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-hằng-1">0. Hàm hằng</h2>
+<ol type="1">
+<li><span class="math inline">\(y=0\)</span><br>
+</li>
+<li><span class="math inline">\(y=1\)</span><br>
+</li>
+<li><span class="math inline">\(y=c\)</span></li>
+</ol>
+</section>
+<section id="hàm-đa-thức-bậc-nhất-1" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-đa-thức-bậc-nhất-1">1. Hàm đa thức bậc nhất</h2>
+<ol start="4" type="1">
+<li><span class="math inline">\(y=x\)</span><br>
+</li>
+<li><span class="math inline">\(y=-x\)</span><br>
+</li>
+<li><span class="math inline">\(y=2x\)</span><br>
+</li>
+<li><span class="math inline">\(y=\frac{1}{2}x\)</span><br>
+</li>
+<li><span class="math inline">\(y=x+1\)</span><br>
+</li>
+<li><span class="math inline">\(y=x-1\)</span><br>
+</li>
+<li><span class="math inline">\(y=2x+1\)</span><br>
+</li>
+<li><span class="math inline">\(y=ax+b\)</span></li>
+</ol>
+</section>
+<section id="hàm-đa-thức-bậc-hai-1" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-đa-thức-bậc-hai-1">2. Hàm đa thức bậc hai</h2>
+<ol start="12" type="1">
+<li><span class="math inline">\(y=x^2\)</span><br>
+</li>
+<li><span class="math inline">\(y=-x^2\)</span><br>
+</li>
+<li><span class="math inline">\(y=2x^2\)</span><br>
+</li>
+<li><span class="math inline">\(y=\frac{1}{2}x^2\)</span><br>
+</li>
+<li><span class="math inline">\(y=(x-1)^2\)</span><br>
+</li>
+<li><span class="math inline">\(y=(x+1)^2\)</span><br>
+</li>
+<li><span class="math inline">\(y=x^2+1\)</span><br>
+</li>
+<li><span class="math inline">\(y=x^2-1\)</span><br>
+</li>
+<li><span class="math inline">\(y=x^2-2x\)</span><br>
+</li>
+<li><span class="math inline">\(y=(x-1)^2\)</span><br>
+</li>
+<li><span class="math inline">\(y=a(x-h)^2+k\)</span><br>
+</li>
+<li><span class="math inline">\(y=ax^2+bx+c\)</span></li>
+</ol>
+</section>
+<section id="hàm-đa-thức-bậc-ba-1" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-đa-thức-bậc-ba-1">3. Hàm đa thức bậc ba</h2>
+<ol start="24" type="1">
+<li><span class="math inline">\(y=x^3\)</span><br>
+</li>
+<li><span class="math inline">\(y=-x^3\)</span><br>
+</li>
+<li><span class="math inline">\(y=3x^3\)</span><br>
+</li>
+<li><span class="math inline">\(y=\frac{1}{3}x^3\)</span><br>
+</li>
+<li><span class="math inline">\(y=x^3-3x\)</span><br>
+</li>
+<li><span class="math inline">\(y=(x-1)^2(x+1)\)</span><br>
+</li>
+<li><span class="math inline">\(y=x^3+x\)</span><br>
+</li>
+<li><span class="math inline">\(y=(x-1)^3\)</span><br>
+</li>
+<li><span class="math inline">\(y=x^3+1\)</span><br>
+</li>
+<li><span class="math inline">\(y=ax^3+bx^2+cx+d\)</span></li>
+</ol>
+</section>
+<section id="hàm-đa-thức-bậc-bốn-1" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-đa-thức-bậc-bốn-1">4. Hàm đa thức bậc bốn</h2>
+<ol start="34" type="1">
+<li><span class="math inline">\(y=x^4\)</span><br>
+</li>
+<li><span class="math inline">\(y=-x^4\)</span><br>
+</li>
+<li><span class="math inline">\(y=x^4-2x^2\)</span><br>
+</li>
+<li><span class="math inline">\(y=x^4+x^2\)</span><br>
+</li>
+<li><span class="math inline">\(y=(x^2-1)^2\)</span><br>
+</li>
+<li><span class="math inline">\(y=(x-1)^4\)</span><br>
+</li>
+<li><span class="math inline">\(y=ax^4+bx^3+cx^2+dx+e\)</span><br>
+</li>
+<li><span class="math inline">\(y=ax^4+bx^2+c\)</span></li>
+</ol>
+</section>
+<section id="hàm-đa-thức-bậc-cao" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-đa-thức-bậc-cao">5. Hàm đa thức bậc cao</h2>
+<ol start="44" type="1">
+<li><span class="math inline">\(y=x^5\)</span><br>
+</li>
+<li><span class="math inline">\(y=-x^5\)</span><br>
+</li>
+<li><span class="math inline">\(y=x^6\)</span><br>
+</li>
+<li><span class="math inline">\(y=x^n,\ n\geq 5\)</span></li>
+</ol>
+</section>
+<section id="hàm-phân-thức-bậc-không-trên-bậc-nhất-01-1" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-phân-thức-bậc-không-trên-bậc-nhất-01-1">6. Hàm phân thức bậc không trên bậc nhất (0/1)</h2>
+<ol start="50" type="1">
+<li><span class="math inline">\(y=\frac{1}{x}\)</span><br>
+</li>
+<li><span class="math inline">\(y=-\frac{1}{x}\)</span><br>
+</li>
+<li><span class="math inline">\(y=\frac{1}{x-1}\)</span></li>
+</ol>
+</section>
+<section id="hàm-phân-thức-bậc-nhất-trên-bậc-nhất-11-1" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-phân-thức-bậc-nhất-trên-bậc-nhất-11-1">7. Hàm phân thức bậc nhất trên bậc nhất (1/1)</h2>
+<ol start="53" type="1">
+<li><span class="math inline">\(y=\frac{x-1}{x+1}\)</span><br>
+</li>
+<li><span class="math inline">\(y=\frac{x+1}{x-1}\)</span><br>
+</li>
+<li><span class="math inline">\(y=\frac{2x+1}{x-2}\)</span><br>
+</li>
+<li><span class="math inline">\(y=\frac{ax+b}{cx+d}\)</span></li>
+</ol>
+</section>
+<section id="hàm-phân-thức-bậc-hai-trên-bậc-nhất-21-1" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-phân-thức-bậc-hai-trên-bậc-nhất-21-1">8. Hàm phân thức bậc hai trên bậc nhất (2/1)</h2>
+<ol start="57" type="1">
+<li><span class="math inline">\(y=\frac{x^2-1}{x}\)</span><br>
+</li>
+<li><span class="math inline">\(y=-\frac{x^2-1}{x}\)</span><br>
+</li>
+<li><span class="math inline">\(y=\frac{x^2+1}{x}\)</span><br>
+</li>
+<li><span class="math inline">\(y=-\frac{x^2+1}{x}\)</span><br>
+</li>
+<li><span class="math inline">\(y=\frac{x^2}{x+1}\)</span><br>
+</li>
+<li><span class="math inline">\(y=\frac{x^2}{x-1}\)</span><br>
+</li>
+<li><span class="math inline">\(y=\frac{x^2+bx+c}{x+a}\)</span></li>
+</ol>
+</section>
+<section id="một-số-hàm-hữu-tỉ-1" class="level2">
+<h2 class="anchored" data-anchor-id="một-số-hàm-hữu-tỉ-1">9. Một số hàm hữu tỉ</h2>
+<ol start="65" type="1">
+<li><span class="math inline">\(y=\frac{x^2+1}{x^2+2}\)</span><br>
+</li>
+<li><span class="math inline">\(y=\frac{2x-1}{x+3}\)</span><br>
+</li>
+<li><span class="math inline">\(y=\frac{x^3}{x^2+1}\)</span><br>
+</li>
+<li><span class="math inline">\(y=\frac{1}{x(x-1)}\)</span><br>
+</li>
+<li><span class="math inline">\(y=\frac{x-1}{x}\)</span></li>
+</ol>
+</section>
+<section id="hàm-lũy-thừa-căn-thức" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-lũy-thừa-căn-thức">10. Hàm lũy thừa &amp; căn thức</h2>
+<ol start="76" type="1">
+<li><span class="math inline">\(y=x^n\)</span><br>
+</li>
+<li><span class="math inline">\(y=\sqrt{x}\)</span><br>
+</li>
+<li><span class="math inline">\(y=\sqrt{x-1}\)</span><br>
+</li>
+<li><span class="math inline">\(y=\sqrt[3]{x}\)</span><br>
+</li>
+<li><span class="math inline">\(y=\frac{1}{x^2}\)</span><br>
+</li>
+<li><span class="math inline">\(y=\frac{1}{x^3}\)</span><br>
+</li>
+<li><span class="math inline">\(y=x^\alpha\)</span></li>
+</ol>
+</section>
+<section id="trị-tuyệt-đối" class="level2">
+<h2 class="anchored" data-anchor-id="trị-tuyệt-đối">11. Trị tuyệt đối</h2>
+<ol start="85" type="1">
+<li><span class="math inline">\(y=\lvert x\rvert\)</span><br>
+</li>
+<li><span class="math inline">\(y=\lvert x-1\rvert\)</span></li>
+</ol>
+</section>
+<section id="lượng-giác-1" class="level2">
+<h2 class="anchored" data-anchor-id="lượng-giác-1">12. Lượng giác</h2>
+<ol start="95" type="1">
+<li><span class="math inline">\(y=\sin x\)</span><br>
+</li>
+<li><span class="math inline">\(y=\cos x\)</span><br>
+</li>
+<li><span class="math inline">\(y=\tan x\)</span><br>
+</li>
+<li><span class="math inline">\(y=\cot x\)</span><br>
+</li>
+<li><span class="math inline">\(y=\sin(2x)\)</span><br>
+</li>
+<li><span class="math inline">\(y=\cos(x-\frac{\pi}{3})\)</span><br>
+</li>
+<li><span class="math inline">\(y=a\sin(\omega x+\varphi)\)</span><br>
+</li>
+<li><span class="math inline">\(y=\lvert \sin x \rvert\)</span><br>
+</li>
+<li><span class="math inline">\(y=\sin x+\cos x\)</span><br>
+</li>
+<li><span class="math inline">\(y=\sec x\)</span><br>
+</li>
+<li><span class="math inline">\(y=\csc x\)</span></li>
+</ol>
+</section>
+<section id="hàm-lượng-giác-ngược-1" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-lượng-giác-ngược-1">13. Hàm lượng giác ngược</h2>
+<ol start="106" type="1">
+<li><span class="math inline">\(y=\arcsin x\)</span><br>
+</li>
+<li><span class="math inline">\(y=\arccos x\)</span><br>
+</li>
+<li><span class="math inline">\(y=\arctan x\)</span></li>
+</ol>
+</section>
+<section id="hàm-mũ-lô-ga" class="level2">
+<h2 class="anchored" data-anchor-id="hàm-mũ-lô-ga">14. Hàm mũ &amp; lô-ga</h2>
+<ol start="111" type="1">
+<li><span class="math inline">\(y=e^x\)</span><br>
+</li>
+<li><span class="math inline">\(y=e^{-x}\)</span><br>
+</li>
+<li><span class="math inline">\(y=a^x\)</span><br>
+</li>
+<li><span class="math inline">\(y=\ln x\)</span><br>
+</li>
+<li><span class="math inline">\(y=\log_a x\)</span><br>
+</li>
+<li><span class="math inline">\(y=\ln(x+1)\)</span><br>
+</li>
+<li><span class="math inline">\(y=\ln(x-1)\)</span><br>
+</li>
+<li><span class="math inline">\(y=e^x+1\)</span><br>
+</li>
+<li><span class="math inline">\(y=e^{x-h}+k\)</span></li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="quy-trình-làm-việc" class="level1">
+<h1>Quy trình làm việc</h1>
+<p>Mình không muốn chỉ có một bản tóm tắt khô khan, liệt kê từng gạch đầu dòng như “bản ghi chú nhanh”. Thứ mình cần cho <em>ZO Math</em> phải là những <em>bài luận mạch lạc</em>, trong đó các ý không tách rời mà gắn kết với nhau thành một dòng chảy tự nhiên. Ở đó, mỗi kết quả khảo sát vừa được nêu ra vừa có lời giải thích vì sao lại như vậy, giống như đang dẫn dắt học sinh/độc giả đi qua cả quá trình khám phá.</p>
+<p>Chúng ta có thể làm theo quy trình như sau:</p>
+<ol type="1">
+<li>Chọn một hàm số cụ thể.</li>
+<li>Bạn sẽ soạn <em>bản ghi chú nhanh</em> để liệt kê đủ ý theo khung khảo sát.</li>
+<li>Từ đó, bạn viết lại thành <em>bài luận hoàn chỉnh</em>, trong đó:</li>
+</ol>
+<ul>
+<li>Các phần được kết nối bằng lời văn mượt mà.</li>
+<li>Có giải thích ngắn gọn cho từng nhận định.</li>
+<li>Giữ phong cách nghiêm trang ở phần cốt lõi, đúng định hướng bạn đặt ra.</li>
+</ul>
+<ol start="4" type="1">
+<li>Mình sẽ phản hồi để tinh chỉnh văn phong và độ dài.</li>
+</ol>
+<p>Như vậy, chúng ta vừa không bỏ sót ý nhờ “bản ghi chú nhanh”, vừa có thành phẩm chính thức là “bài luận hoàn chỉnh” để đăng trên ZO Math.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a><br>
+<br> <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a><br>
+<br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

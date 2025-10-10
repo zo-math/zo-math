@@ -1,0 +1,1554 @@
+/*-- scss:defaults --*/
+/* ======================================================
+   ZO MATH – THEME FOUNDATION (clean + organized)
+   ====================================================== */
+
+$theme: "sandstone" !default;
+
+/* ======================================================
+   A. COLOR SYSTEM & TOKENS
+   ====================================================== */
+
+$white: #ffffff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #f8f5f0 !default;
+$gray-300: #dfd7ca !default;
+$gray-400: #ced4da !default;
+$gray-500: #98978b !default;
+$gray-600: #8e8c84 !default;
+$gray-700: #495057 !default;
+$gray-800: #3e3f3a !default;
+$gray-900: #212529 !default;
+$black: #000000 !default;
+
+$blue: #42a5f5 !default;
+$indigo: #7986cb !default;
+
+$red-01: #fdeded !default;
+$red-02: #fbdcdc !default;
+$red-03: #facbca !default;
+$red-04: #f8bab9 !default;
+$red-05: #f7a9a7 !default;
+$red-06: #f59796 !default;
+$red-07: #f38684 !default;
+$red-08: #f27572 !default;
+$red-09: #f06461 !default;
+$red-10: #ef5350 !default; /* chính */
+$red-11: #d74a48 !default;
+$red-12: #bf4240 !default;
+$red-13: #a73a38 !default;
+$red-14: #8f3130 !default;
+$red-15: #772928 !default;
+$red-16: #5f2120 !default;
+$red-17: #471818 !default;
+$red-18: #2f1010 !default;
+$red-19: #170808 !default;
+
+$yellow-01: #fff9e9 !default;
+$yellow-02: #fff4d4 !default;
+$yellow-03: #ffefbe !default;
+$yellow-04: #ffe9a9 !default;
+$yellow-05: #ffe493 !default;
+$yellow-06: #ffdf73 !default;
+$yellow-07: #ffd968 !default;
+$yellow-08: #ffd452 !default;
+$yellow-09: #ffcf3d !default;
+$yellow-10: #ffca28 !default; /* chính */
+$yellow-11: #e5b524 !default;
+$yellow-12: #cca120 !default;
+$yellow-13: #b28d1c !default;
+$yellow-14: #997918 !default;
+$yellow-15: #7f6514 !default;
+$yellow-16: #665010 !default;
+$yellow-17: #4c3c0c !default;
+$yellow-18: #332808 !default;
+$yellow-19: #191404 !default;
+
+$teal: #1de8b5 !default;
+
+$primary: $red-10 !default;
+$secondary: $yellow-10 !default;
+$success: $teal !default;
+$info: $blue !default;
+$warning: $yellow-15 !default;
+$danger: $red-15 !default;
+$light: $gray-200 !default;
+$dark: $gray-800 !default;
+
+$min-contrast-ratio: 2 !default;
+
+/* ======================================================
+   B. TYPOGRAPHY / BODY / LINKS
+   ====================================================== */
+
+$body-color: $gray-800 !default;
+$link-color: $success !default;
+
+/* Nội dung mặc định (giữ Roboto) */
+$font-family-sans-serif: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+  "Segoe UI Symbol" !default;
+
+$headings-font-weight: 400 !default;
+
+/* ======================================================
+   C. COMPONENT TOKENS (Bootstrap/Quarto)
+   ====================================================== */
+
+/* Dropdowns */
+$dropdown-link-color: $gray-600 !default;
+$dropdown-link-hover-color: $dropdown-link-color !default;
+$dropdown-link-hover-bg: $gray-200 !default;
+$dropdown-link-active-color: $dropdown-link-color !default;
+$dropdown-link-active-bg: $dropdown-link-hover-bg !default;
+
+/* Navs */
+$nav-link-padding-x: 0.9rem !default;
+$nav-link-disabled-color: $gray-300 !default;
+$nav-tabs-border-color: $gray-300 !default;
+$nav-tabs-link-hover-border-color: $gray-300 !default;
+$nav-tabs-link-active-bg: $white !default;
+$nav-pills-link-active-color: $gray-600 !default;
+$nav-pills-link-active-bg: $gray-200 !default;
+
+/* Pagination */
+$pagination-color: $gray-600 !default;
+$pagination-bg: $gray-200 !default;
+$pagination-border-color: $gray-300 !default;
+$pagination-hover-color: $pagination-color !default;
+$pagination-active-color: $pagination-color !default;
+$pagination-active-bg: $gray-300 !default;
+$pagination-active-border-color: $gray-300 !default;
+$pagination-disabled-color: $gray-300 !default;
+$pagination-disabled-bg: $gray-200 !default;
+$pagination-disabled-border-color: $pagination-border-color !default;
+
+/* Cards */
+$card-border-color: rgba($gray-300, 0.75) !default;
+$card-cap-bg: rgba($gray-200, 0.25) !default;
+
+/* Popovers */
+$popover-header-bg: $gray-200 !default;
+
+/* Modals */
+$modal-content-border-color: $gray-300 !default;
+$modal-header-border-color: $modal-content-border-color !default;
+
+/* Progress */
+$progress-bg: $gray-300 !default;
+$progress-border-radius: 10px !default;
+$progress-bar-color: $primary !default;
+
+/* List group */
+$list-group-border-color: $gray-300 !default;
+$list-group-hover-bg: $gray-200 !default;
+$list-group-active-color: $body-color !default;
+$list-group-active-bg: $gray-200 !default;
+$list-group-active-border-color: $gray-300 !default;
+$list-group-disabled-color: $gray-500 !default;
+$list-group-disabled-bg: $white !default;
+$list-group-action-color: $list-group-active-color !default;
+$list-group-action-active-color: $list-group-active-color !default;
+$list-group-action-active-bg: $gray-300 !default;
+
+/* Breadcrumb */
+$breadcrumb-padding-y: 0.375rem !default;
+$breadcrumb-padding-x: 0.75rem !default;
+$breadcrumb-bg: $pagination-bg !default;
+$breadcrumb-border-radius: 0.25rem !default;
+
+/* Close button */
+$btn-close-color: $white !default;
+$btn-close-opacity: 0.8 !default;
+$btn-close-hover-opacity: 1 !default;
+
+/*-- scss:rules --*/
+
+/* ======================================================
+   D. BASE IMPORTS / HELPERS
+   ====================================================== */
+
+$web-font-path: "https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Be+Vietnam+Pro:wght@300;400;500&display=swap" !default;
+@if $web-font-path {
+  @import url($web-font-path);
+}
+
+/* UI font cho thanh điều khiển (ưu tiên Manrope; có Be Vietnam Pro fallback) */
+$ui-font-family: "Manrope", "Be Vietnam Pro", "Nunito Sans", "Inter",
+  -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial,
+  sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
+
+/* Kiểu chữ UI chung (nhiều component @extend .sandstone) */
+.sandstone {
+  font-family: $ui-font-family;
+  font-size: 12px; /* nhỏ gọn hơn mặc định */
+  font-weight: 400; /* mảnh */
+  line-height: 20px;
+  text-transform: uppercase; /* hiển thị IN HOA cho UI */
+  letter-spacing: 0.25px;
+}
+
+/* ======================================================
+   E. THEME BASE RULES (Sandstone bootstrap layer)
+   ====================================================== */
+
+/* Navbar (base + glass) */
+.navbar {
+  .nav-link {
+    @extend .sandstone;
+  }
+  &-form input,
+  &-form .form-control {
+    border: none;
+  }
+}
+
+/* Buttons */
+.btn {
+  @extend .sandstone;
+  &:hover {
+    border-color: transparent;
+  }
+  &-success,
+  &-warning {
+    color: $white;
+  }
+}
+
+/* Tables */
+.table {
+  .thead-dark th {
+    background-color: $dark;
+  }
+}
+
+/* Forms */
+input,
+.form-control {
+  @include box-shadow(none);
+  &:focus {
+    @include box-shadow(none);
+  }
+}
+
+/* Navs – Tabs */
+.nav-tabs {
+  .nav-link {
+    @extend .sandstone;
+    background-color: $gray-200;
+    border-color: $gray-300;
+  }
+  .nav-link,
+  .nav-link:hover,
+  .nav-link:focus {
+    color: $gray-600;
+  }
+  .nav-link.disabled,
+  .nav-link.disabled:hover,
+  .nav-link.disabled:focus {
+    color: $nav-link-disabled-color;
+    background-color: $gray-200;
+    border-color: $gray-300;
+  }
+}
+
+/* Navs – Pills */
+.nav-pills {
+  .nav-link {
+    @extend .sandstone;
+    color: $gray-600;
+    border: 1px solid transparent;
+  }
+  .nav-link.active,
+  .nav-link:hover,
+  .nav-link:focus {
+    background-color: $gray-200;
+    border-color: $gray-300;
+  }
+  .nav-link.disabled,
+  .nav-link.disabled:hover {
+    color: $gray-300;
+    background-color: transparent;
+    border-color: transparent;
+  }
+}
+
+/* Breadcrumb (base) */
+.breadcrumb {
+  @extend .sandstone;
+  border: 1px solid $gray-300;
+}
+
+/* Pagination */
+.pagination {
+  @extend .sandstone;
+  a:hover {
+    text-decoration: none;
+  }
+}
+
+/* Dropdown */
+.dropdown-menu {
+  .dropdown-item {
+    @extend .sandstone;
+  }
+}
+
+/* Alerts */
+.alert {
+  color: $white;
+  a,
+  .alert-link {
+    color: $white;
+    text-decoration: underline;
+  }
+
+  &-primary,
+  &-secondary,
+  &-success,
+  &-info,
+  &-danger,
+  &-warning,
+  &-dark {
+    &,
+    > th,
+    > td {
+      background-color: currentColor;
+    }
+  }
+  &-primary {
+    color: $primary;
+  }
+  &-secondary {
+    color: $secondary;
+  }
+  &-success {
+    color: $success;
+  }
+  &-info {
+    color: $info;
+  }
+  &-danger {
+    color: $danger;
+  }
+  &-warning {
+    color: $warning;
+  }
+  &-dark {
+    color: $dark;
+  }
+
+  &-light {
+    &,
+    > th,
+    > td {
+      background-color: $light;
+    }
+    &,
+    a:not(.btn),
+    .alert-link {
+      color: $body-color;
+    }
+  }
+}
+
+/* Badge */
+.badge {
+  &.bg-light {
+    color: $dark;
+  }
+}
+
+/* Tooltip */
+.tooltip {
+  @extend .sandstone;
+}
+
+/* Containers (modal/toast/offcanvas) – close btn */
+.modal,
+.toast,
+.offcanvas {
+  .btn-close {
+    background-image: escape-svg(
+      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$gray-300}'><path d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/></svg>")
+    );
+  }
+}
+
+/* ======================================================
+   F. ZO MATH CUSTOM OVERRIDES
+   Cartoon Flat + Outline + Glass
+   ====================================================== */
+
+/* F0. Biến giao diện chung */
+:root {
+  --navbar-h: 56px;
+  --bc-h: 32px;
+  --sidebar-w: 280px;
+}
+
+/* ------------------------------------------------------
+   F1. NAVBAR – kính mờ + màu
+   ------------------------------------------------------ */
+#quarto-header .navbar {
+  background: rgba($white, 0.35);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border-bottom: 3px solid rgba($black, 0.125);
+  // box-shadow: 0 2px 6px rgba($black, 0.08);
+  box-shadow: 0 2px 4px rgba($black, 0.08); /* Bóng tinh tế, tiệp giao diện glass */
+  // box-shadow: 0 3px 8px rgba($black, 0.12); /* Tách navbar hẳn khỏi nền */
+  // box-shadow: 0 1px 3px rgba($black, 0.06); /* Tự nhiên, ít tương phản */
+
+  /* Bootstrap CSS vars sync */
+  --bs-navbar-color: #{$black};
+  --bs-navbar-hover-color: #{$red-10};
+  --bs-navbar-active-color: #{$black};
+  --bs-navbar-brand-color: #{$black};
+  --bs-navbar-brand-hover-color: #{$red-10};
+  --bs-navbar-toggler-border-color: #{$black};
+
+  position: relative;
+  z-index: 1045; /* cao hơn breadcrumb */
+}
+
+/* Toggler icon */
+.navbar .navbar-toggler {
+  border-width: 1px;
+  &-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0,0,0)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  }
+}
+
+/* Navbar links/tools */
+.navbar a {
+  color: $black;
+  font-weight: 400;
+  text-decoration: none;
+  &:hover {
+    color: $red-10;
+    text-decoration: none;
+  }
+}
+.navbar .quarto-navbar-tools a,
+.navbar .quarto-navbar-tools button,
+.navbar .quarto-navbar-tools svg,
+.navbar .quarto-navbar-tools i {
+  color: $black !important;
+  fill: $black !important;
+  stroke: $black !important;
+}
+.navbar-dark .quarto-navbar-tools a,
+.navbar-dark .quarto-navbar-tools button,
+.navbar-dark .quarto-navbar-tools svg,
+.navbar-dark .quarto-navbar-tools i {
+  color: $black !important;
+  fill: $black !important;
+  stroke: $black !important;
+}
+
+/* Làm dịu icon kính lúp và căn chỉnh kích thước */
+.aa-DetachedSearchButton,
+.aa-DetachedSearchButtonIcon svg,
+.aa-DetachedSearchButton .aa-SubmitIcon {
+  color: rgba($black, 0.65) !important; /* màu xám đậm nhẹ */
+  fill: rgba($black, 0.65) !important;
+  stroke: rgba($black, 0.65) !important;
+  width: 0.95rem; /* hoặc 0.95rem để tinh tế hơn */
+  height: 0.95rem;
+  vertical-align: middle;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+/* Hiệu ứng khi rê chuột */
+.aa-DetachedSearchButton:hover svg,
+.aa-DetachedSearchButton:hover .aa-SubmitIcon {
+  color: rgba($black, 0.85) !important;
+  fill: rgba($black, 0.85) !important;
+  stroke: rgba($black, 0.85) !important;
+  transform: scale(1.05);
+}
+
+/* ------------------------------------------------------
+   F2. BREADCRUMB – kính mờ + cấu hình
+   ------------------------------------------------------ */
+.breadcrumb {
+  position: static !important;
+  top: auto !important;
+  height: auto !important;
+  line-height: normal !important;
+  background: transparent !important;
+  border: 0 !important;
+  margin: 0;
+  padding: 0.25rem 1rem;
+}
+body {
+  padding-top: var(--navbar-h, 56px);
+}
+
+#quarto-header .quarto-secondary-nav {
+  background: rgba($white, 0.35) !important;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border-bottom: 3px solid rgba($black, 0.125);
+  box-shadow: 0 2px 4px rgba($black, 0.08); /* Bóng tinh tế, tiệp giao diện glass */
+  // box-shadow: 0 3px 8px rgba($black, 0.12); /* Tách navbar hẳn khỏi nền */
+  // box-shadow: 0 1px 3px rgba($black, 0.06); /* Tự nhiên, ít tương phản */
+  z-index: 1030;
+  display: block !important;
+  visibility: visible !important;
+
+  .container-fluid {
+    min-height: var(--bc-h);
+    align-items: center;
+  }
+  .flex-grow-1 {
+    background: transparent !important;
+    border: 0 !important;
+    height: var(--bc-h);
+    pointer-events: none;
+  }
+  .quarto-btn-toggle,
+  .btn,
+  .bi {
+    color: $black !important;
+    fill: $black !important;
+    stroke: $black !important;
+  }
+}
+#quarto-header .quarto-secondary-nav .quarto-search-button {
+  display: none !important;
+}
+
+#quarto-header .quarto-page-breadcrumbs .breadcrumb {
+  background: transparent;
+  margin: 0;
+  padding: 0 1rem;
+  line-height: var(--bc-h);
+  font-size: 0.9rem;
+  .breadcrumb-item {
+    font-weight: 400;
+    color: $black;
+    a {
+      color: $black;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color 0.15s ease, border-color 0.15s ease;
+      &:hover {
+        color: $red-10;
+        text-decoration: none;
+      }
+    }
+    &.active {
+      color: $gray-700;
+    }
+    + .breadcrumb-item::before {
+      content: "›";
+      color: rgba($black, 0.65);
+      padding: 0 0.3rem;
+      font-weight: 700;
+    }
+  }
+}
+@media (max-width: 768px) {
+  :root {
+    --bc-h: 30px;
+  }
+  #quarto-header .quarto-page-breadcrumbs .breadcrumb {
+    font-size: 0.875rem;
+    padding: 0 0.75rem;
+    .breadcrumb-item:not(:first-child):not(:last-child) {
+      display: none;
+    }
+    .breadcrumb-item:first-child::after {
+      content: "…";
+      margin: 0 0.25rem;
+      color: rgba($black, 0.8);
+    }
+  }
+}
+.page-header .breadcrumb,
+.quarto-title-breadcrumbs {
+  display: none !important;
+}
+
+/* F2.9 FIX: dropdown không bị che bởi breadcrumb */
+#quarto-header {
+  .quarto-secondary-nav {
+    position: relative;
+    z-index: 1030;
+  }
+  .navbar {
+    position: relative;
+    z-index: 1045;
+  }
+  .navbar .dropdown-menu {
+    position: absolute;
+    z-index: 1060;
+  }
+}
+
+/* ------------------------------------------------------
+   F3. SIDEBAR – offcanvas (mobile + desktop) + kính mờ
+   ------------------------------------------------------ */
+
+#quarto-sidebar {
+  position: fixed;
+  top: var(--navbar-h, 56px);
+  left: 0;
+  height: 100%;
+  width: var(--sidebar-w);
+  background: rgba($white, 0.35) !important; /* glass */
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border-right: 3px solid rgba($black, 0.125);
+  box-shadow: inset -1px 0 0 rgba($black, 0.08);
+  padding: 1rem;
+  z-index: 1100; /* cao hơn overlay để không bị che */
+  overflow-y: auto;
+  font-weight: 400;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+
+  h3 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: $black;
+  }
+  a {
+    display: block;
+    margin: 0.5rem 0;
+    text-decoration: none;
+    color: $black;
+    font-weight: 400;
+    &:hover {
+      color: $red-10;
+      text-decoration: none;
+    }
+  }
+  .active > a,
+  a.active {
+    color: $red-10;
+    font-weight: 600;
+  }
+}
+#quarto-sidebar.show {
+  transform: translateX(0);
+}
+#quarto-sidebar {
+  box-sizing: border-box;
+  will-change: transform;
+}
+#quarto-sidebar.collapse,
+#quarto-sidebar.collapse-horizontal {
+  display: block !important;
+}
+#quarto-sidebar.collapsing,
+#quarto-sidebar.collapsing-horizontal {
+  transition: none !important;
+  width: var(--sidebar-w) !important;
+  height: 100% !important;
+  overflow: visible !important;
+}
+/* text safety */
+#quarto-sidebar * {
+  min-width: 0;
+}
+#quarto-sidebar .sidebar-link {
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+}
+
+/* Toggle arrow nằm cùng hàng, canh phải */
+#quarto-sidebar .sidebar-item-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#quarto-sidebar .sidebar-link {
+  flex: 1;
+}
+#quarto-sidebar .menu-toggle {
+  display: inline-flex;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: $black;
+}
+
+/* F3.5 Overlay + Ẩn header khi sidebar mở */
+body.sidebar-open #quarto-header .navbar,
+body.sidebar-open #quarto-header .quarto-secondary-nav {
+  display: none !important;
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba($black, 0.4);
+  z-index: 1035; /* thấp hơn sidebar (1100) */
+  display: none;
+  cursor: pointer;
+}
+/* Khi sidebar mở, overlay chừa vùng sidebar bên trái */
+body.sidebar-open .sidebar-overlay {
+  left: var(--sidebar-w);
+}
+.sidebar-overlay.active {
+  display: block;
+}
+
+/* ------------------------------------------------------
+   F4.BANNER — Frameless Air Glass 
+   ------------------------------------------------------ */
+
+.quarto-title-block {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Banner không viền/hộp, nền kính mờ nhẹ, phủ trắng mỏng */
+.quarto-title-block .quarto-title-banner {
+  position: relative;
+  padding: clamp(1.25rem, 4vw, 2rem) clamp(1rem, 3vw, 1.5rem);
+
+  /* KHÔNG đóng khung */
+  border: 0 !important;
+  box-shadow: none !important;
+
+  /* Glass nhẹ + blend tốt nếu trang có image: ... trong YAML */
+  background: linear-gradient(to bottom, rgba($white, 0.65), rgba($white, 0.45)),
+    var(--title-block-banner-image);
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: lighten;
+
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  backdrop-filter: blur(8px) saturate(120%);
+
+  border-radius: 18px; /* bo mềm cho hiện đại; nếu muốn phẳng tuyệt đối: 0 */
+  color: $black;
+}
+
+/* (Tùy chọn) Hairline cực mảnh ở đáy để “neo mắt”, không tạo khung */
+.quarto-title-block .quarto-title-banner::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba($black, 0.12),
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* Tiêu đề: không IN HOA, dày vừa, màu trung tính; nhấn bằng “gạch màu” dưới title */
+.quarto-title-block .title {
+  font-family: $ui-font-family;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  color: $red-10;
+  margin: 0;
+  font-size: clamp(28px, 4.4vw, 42px);
+  line-height: 1.15;
+  position: relative;
+}
+
+/* Thanh nhấn bên dưới tiêu đề - thay cho viền/hộp */
+// .quarto-title-block .title::after {
+//   content: "";
+//   display: block;
+//   width: 64px; height: 4px;
+//   margin-top: .6rem;
+//   background: $yellow-10;
+//   border-radius: 999px;
+// }
+
+.quarto-title-block .subtitle,
+.quarto-title-block .description {
+  color: $gray-800;
+  margin-top: 0.6rem;
+  font-size: clamp(14px, 1.8vw, 16px);
+  line-height: 1.6;
+}
+
+/* Chips categories: pill mềm, KHÔNG viền đen */
+.quarto-title .quarto-categories .quarto-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.6rem;
+  background: rgba($black, 0.06);
+  border: 0;
+  border-radius: 999px;
+  font-family: $ui-font-family;
+  font-size: 12px;
+  line-height: 18px;
+  color: $black;
+  margin-right: 0.4rem;
+}
+
+/* Biến thể “gọn” nếu cần: thêm classes: [banner-compact] trong YAML của TRANG */
+body.banner-compact .quarto-title-block .quarto-title-banner {
+  padding: 1rem 1rem;
+  border-radius: 14px;
+}
+body.banner-compact .quarto-title-block .title {
+  font-size: clamp(22px, 3.4vw, 32px);
+}
+
+/* Tôn trọng người dùng giảm chuyển động */
+@media (prefers-reduced-motion: reduce) {
+  .quarto-title-block .quarto-title-banner {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* TOC – sticky + highlight */
+:root {
+  --toc-offset: calc(var(--navbar-h, 56px) + var(--bc-h, 32px) + 12px);
+}
+.toc,
+.quarto-toc,
+nav#TOC {
+  position: sticky;
+  top: var(--toc-offset);
+  max-height: calc(100vh - var(--toc-offset) - 16px);
+  overflow: auto;
+  z-index: 1000;
+  background: $white;
+  border: 1px solid rgba($gray-800, 0.125);
+  border-radius: 6px;
+  padding: 1rem;
+}
+.toc h3,
+nav#TOC .toc-title {
+  margin-top: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.toc ul,
+nav#TOC ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+.toc .nav .nav,
+nav#TOC .nav .nav {
+  margin-left: 0.75rem;
+  padding-left: 0.75rem;
+  border-left: 1px dotted $gray-300;
+}
+.toc a,
+.quarto-toc a,
+nav#TOC a {
+  display: block;
+  color: $black;
+  text-decoration: none;
+  padding: 0.25rem 0;
+}
+.toc a:hover,
+.quarto-toc a:hover,
+nav#TOC a:hover {
+  color: $red-10;
+}
+.toc a.active,
+.quarto-toc a.active,
+nav#TOC a.active,
+.toc a[aria-current="true"],
+.quarto-toc a[aria-current="true"],
+nav#TOC a[aria-current="true"] {
+  color: $red-10;
+  font-weight: 700;
+  border-left: 2px solid $red-10;
+  padding-left: 0.5rem;
+  background: rgba($red-10, 0.06);
+}
+body.sidebar-open .toc,
+body.sidebar-open nav#TOC,
+body.sidebar-open .quarto-toc {
+  top: 12px;
+  max-height: calc(100vh - 28px);
+}
+@media (max-width: 991.98px) {
+  .toc,
+  .quarto-toc,
+  nav#TOC {
+    position: static;
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+/* Cards */
+.card {
+  background: $white;
+  border: 2px solid $black;
+  border-radius: 6px;
+  padding: 1rem;
+  text-align: center;
+  h4 {
+    color: $yellow-11;
+    margin-top: 0;
+  }
+  p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Carousel */
+.carousel {
+  border: 2px solid $black;
+  .carousel-item {
+    background: $white;
+    border: 2px solid $black;
+    border-radius: 6px;
+    padding: 1rem;
+    text-align: center;
+  }
+  button {
+    background: $red-10;
+    color: $white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+}
+
+/* ------------------------------------------------------
+   F8. FOOTER — Compact fixed-height, centered layout
+   ------------------------------------------------------ */
+
+.nav-footer {
+  position: relative;
+  background: $gray-100;
+  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.05);
+  color: $black;
+  text-align: center;
+  border-top: 3px solid rgba(0, 0, 0, 0.125);
+  font-family: "Manrope", "Be Vietnam Pro", sans-serif;
+  font-size: 13px;
+
+  /* Cố định chiều cao tổng thể */
+  min-height: 90px; /* đủ cho 2 hàng link + bản quyền */
+  padding: 0.75rem 0; /* nhỏ gọn, không thay đổi theo màn hình */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem; /* khoảng cách giữa các hàng */
+
+  /* Các liên kết */
+  a {
+    color: $black;
+    font-weight: 400;
+    text-decoration: none;
+    margin: 0 0.5rem;
+    transition: color 0.2s ease;
+    &:hover {
+      color: $red-10;
+      text-decoration: none;
+    }
+  }
+
+  i {
+    font-size: 1.25rem;
+    color: $black;
+    margin: 0 0.25rem;
+    transition: color 0.2s ease;
+    &:hover {
+      color: $red-10;
+    }
+  }
+
+  /* Quarto tự sinh các cột .nav-footer-left/right/center */
+  .nav-footer-left,
+  .nav-footer-center,
+  .nav-footer-right {
+    display: inline-block;
+    width: auto;
+    float: none !important;
+    text-align: center;
+    margin: 0 auto;
+  }
+}
+
+/* Không thay đổi padding/font-size trên mobile */
+@media (max-width: 767.98px) {
+  .nav-footer {
+    min-height: 90px;
+    padding: 0.75rem 0;
+    font-size: 13px;
+  }
+}
+
+/* ======================================================
+   F9. GLOBAL FOCUS RING + UI UPPERCASE/LIGHTER
+   ====================================================== */
+
+/* Focus ring thống nhất = $teal (cho click & phím) */
+:root {
+  --focus-ring-color: #{$teal};
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 3px;
+  --focus-ring-radius: 6px;
+  --bs-focus-ring-color: #{rgba($teal, 0.25)};
+  --bs-btn-focus-box-shadow: 0 0 0 0.2rem #{rgba($teal, 0.45)};
+  --bs-navbar-toggler-focus-width: 0.2rem;
+  --bs-navbar-toggler-focus-shadow: 0 0 0 0.2rem #{rgba($teal, 0.45)};
+}
+
+/* Áp ring cho phần tử tương tác phổ biến */
+/* Focus ring thống nhất = $teal (chỉ hiện khi dùng bàn phím, không hiện khi click chuột) */
+:where(
+    a,
+    button,
+    [role="button"],
+    [tabindex],
+    input:not([type="search"]),
+    select,
+    textarea,
+    summary,
+    .nav-link,
+    .navbar-brand,
+    .navbar-toggler,
+    .dropdown-toggle,
+    .dropdown-item,
+    .quarto-btn-toggle,
+    .quarto-navbar-tools a,
+    .quarto-navbar-tools button,
+    #quarto-sidebar a,
+    #quarto-sidebar .sidebar-link,
+    #quarto-header .quarto-secondary-nav .breadcrumb a,
+    .toc a,
+    .quarto-toc a,
+    nav#TOC a,
+    .pagination .page-link,
+    .list-group-item
+  ):focus {
+  outline: none !important; /* KHÔNG hiện ring khi click chuột */
+  box-shadow: none !important;
+}
+
+:where(
+    a,
+    button,
+    [role="button"],
+    [tabindex],
+    input:not([type="search"]),
+    select,
+    textarea,
+    summary,
+    .nav-link,
+    .navbar-brand,
+    .navbar-toggler,
+    .dropdown-toggle,
+    .dropdown-item,
+    .quarto-btn-toggle,
+    .quarto-navbar-tools a,
+    .quarto-navbar-tools button,
+    #quarto-sidebar a,
+    #quarto-sidebar .sidebar-link,
+    #quarto-header .quarto-secondary-nav .breadcrumb a,
+    .toc a,
+    .quarto-toc a,
+    nav#TOC a,
+    .pagination .page-link,
+    .list-group-item
+  ):focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color) !important;
+  outline-offset: var(--focus-ring-offset);
+  box-shadow: none !important;
+  border-radius: var(--focus-ring-radius);
+}
+
+/* Form controls & buttons */
+.form-control:focus,
+.form-select:focus,
+.btn:focus,
+.btn:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color) !important;
+  outline-offset: var(--focus-ring-offset);
+  box-shadow: none !important;
+  border-radius: var(--focus-ring-radius);
+}
+
+/* focus ring đồng bộ hệ thống (nếu bạn đang dùng) — vẫn không tạo “hộp” */
+#quarto-header .quarto-secondary-nav .toc-toggle-btn:focus-visible {
+  outline: 2px solid $teal;
+  outline-offset: 3px;
+  border-radius: 8px; /* chỉ là viền focus, không có nền/viền nút */
+}
+
+/* UI IN HOA + chữ mảnh nhỏ cho controls (nếu phần nào chưa extend .sandstone) */
+#quarto-header .navbar,
+#quarto-header .quarto-secondary-nav,
+#quarto-header .quarto-navbar-tools,
+#quarto-header .navbar .nav-link,
+#quarto-header .navbar .navbar-brand,
+#quarto-header .navbar .dropdown-toggle,
+#quarto-header .navbar .dropdown-menu .dropdown-item,
+#quarto-header .quarto-secondary-nav .breadcrumb a,
+#quarto-sidebar,
+#quarto-sidebar .sidebar-link,
+#quarto-sidebar a,
+.toc,
+.quarto-toc,
+nav#TOC,
+.toc a,
+.quarto-toc a,
+nav#TOC a,
+.nav-tabs .nav-link,
+.nav-pills .nav-link,
+.pagination,
+.pagination .page-link,
+.dropdown-menu .dropdown-item,
+.list-group .list-group-item,
+.btn,
+.form-control,
+.form-select {
+  font-family: $ui-font-family;
+  font-weight: 400 !important;
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+  text-transform: uppercase;
+}
+
+/* Ngoại lệ: không in hoa cho input/placeholder, code trong TOC, v.v. */
+input,
+textarea,
+select,
+#quarto-sidebar .form-control,
+.dropdown-menu .form-control,
+.toc code,
+.quarto-toc code,
+nav#TOC code {
+  text-transform: none !important;
+}
+
+/* Ngoại lệ bổ sung: không in hoa công thức Toán (MathJax / KaTeX) */
+.toc mjx-container,
+.toc mjx-math,
+.quarto-toc mjx-container,
+.quarto-toc mjx-math,
+nav#TOC mjx-container,
+nav#TOC mjx-math {
+  text-transform: none !important;
+  font-size: 1em !important;
+  // vertical-align: baseline;
+  vertical-align: 0.05;
+  // color: inherit !important;
+  // opacity: 0.9; /* cho nhẹ hơn chữ xung quanh một chút nếu muốn */
+}
+
+/* Utility: muốn mục nào KHÔNG in hoa */
+.ui-no-uppercase {
+  text-transform: none !important;
+}
+
+/* Giảm vệt chạm xanh trên mobile */
+a,
+button,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+// ==========================
+/* ======================================================
+   F5.TOC — Dock bên phải cho mọi biến thể TOC của Quarto
+   ====================================================== */
+
+/* 0) Tham số */
+:root {
+  --toc-w: 300px;
+} /* rộng TOC desktop */
+
+/* ------------------------------------------------------
+   1) Panel TOC – áp cho MỌI biến thể:
+      .q-toc  |  nav#TOC  |  .quarto-toc  |  .toc
+   - Mặc định: ẩn + nằm ngoài mép phải
+   - Khi mở:   thêm .is-open (nếu là .q-toc) HOẶC body.toc-open
+   ------------------------------------------------------ */
+
+/* Base style + trạng thái ĐÓNG */
+.q-toc,
+nav#TOC,
+.quarto-toc,
+.toc {
+  position: fixed; /* KHÔNG bám breadcrumb */
+  top: calc(var(--navbar-h, 56px) + var(--bc-h, 32px) + 12px);
+  right: 12px;
+  left: auto;
+  width: var(--toc-w);
+  max-height: calc(100vh - (var(--navbar-h, 56px) + var(--bc-h, 32px) + 24px));
+
+  /* đóng: khuất ngoài mép phải */
+  transform: translateX(calc(100% + 12px));
+  opacity: 0;
+  pointer-events: none;
+
+  /* thẩm mỹ tối giản */
+  background: rgba($white, 1);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba($black, 0.125);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba($black, 0.08);
+  padding: 0.6rem 0.75rem;
+  z-index: 1075;
+
+  /* chữ nhỏ gọn */
+  font-family: $ui-font-family;
+  font-weight: 400;
+  font-size: 11.5px;
+  line-height: 18px;
+  letter-spacing: 0.2px;
+  text-transform: none;
+  color: $black;
+
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+/* Trạng thái MỞ:
+   - với .q-toc: dùng .is-open
+   - với TOC mặc định: dùng body.toc-open (fallback) */
+.q-toc.is-open,
+body.toc-open nav#TOC,
+body.toc-open .quarto-toc,
+body.toc-open .toc {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Mobile & tablet: dock phải, rộng theo màn hình */
+@media (max-width: 991.98px) {
+  .q-toc,
+  nav#TOC,
+  .quarto-toc,
+  .toc {
+    top: calc(var(--navbar-h, 56px) + var(--bc-h, 32px) + 8px);
+    right: 8px;
+    left: auto !important;
+    width: min(92vw, 340px);
+    max-height: calc(
+      100vh - (var(--navbar-h, 56px) + var(--bc-h, 32px) + 16px)
+    );
+    transform: translateX(10px); /* đóng: lệch nhẹ sang phải */
+  }
+  .q-toc.is-open,
+  body.toc-open nav#TOC,
+  body.toc-open .quarto-toc,
+  body.toc-open .toc {
+    transform: translateX(0);
+  }
+}
+
+/* ------------------------------------------------------
+   2) Nội dung bên trong panel
+   ------------------------------------------------------ */
+.q-toc .toc-title,
+nav#TOC .toc-title,
+.quarto-toc .toc-title,
+.toc .toc-title {
+  font-size: 11.5px !important;
+  // font-size: 0.9rem !important;
+  text-transform: uppercase !important;
+  text-align: center;
+  line-height: 1.2;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+  margin: 0 0 0.25rem;
+  padding-bottom: 0.25rem;
+  color: $black;
+  border-bottom: 1px solid rgba($black, 0.125);
+}
+.q-toc ul,
+nav#TOC ul,
+.quarto-toc ul,
+.toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.q-toc .nav .nav,
+nav#TOC .nav .nav,
+.quarto-toc .nav .nav,
+.toc .nav .nav {
+  margin-left: 0.6rem;
+  padding-left: 0;
+  border-left: 0;
+}
+.q-toc a,
+nav#TOC a,
+.quarto-toc a,
+.toc a {
+  display: block;
+  padding: 0.18rem 0;
+  color: $black;
+  text-decoration: none;
+}
+.q-toc a:hover,
+nav#TOC a:hover,
+.quarto-toc a:hover,
+.toc a:hover {
+  color: $red-10;
+}
+.q-toc a.active,
+.q-toc a[aria-current="true"],
+nav#TOC a.active,
+nav#TOC a[aria-current="true"],
+.quarto-toc a.active,
+.quarto-toc a[aria-current="true"],
+.toc a.active,
+.toc a[aria-current="true"] {
+  color: $black;
+  font-weight: 400;
+}
+
+/* TOC toggle — match sidebar toggle icon (no box, same size/color) */
+:root {
+  --toc-icon-size: 16px;
+} /* chỉnh 20–24 tuỳ ý, giống sidebar */
+
+#quarto-header .quarto-secondary-nav .toc-toggle-btn {
+  /* không dùng style của button mặc định */
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  margin: 0;
+  padding: 0.25rem; /* vùng bấm nhỏ, không tạo “hộp” */
+  line-height: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: $gray-800; /* màu như sidebar */
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: 0; /* không bo khung */
+}
+#quarto-header .quarto-secondary-nav .toc-toggle-btn:hover {
+  color: $red-10;
+}
+
+/* icon TOC dùng currentColor nên tự theo màu trên */
+#quarto-header .quarto-secondary-nav .toc-toggle-btn .toc-icon {
+  width: var(--toc-icon-size);
+  height: var(--toc-icon-size);
+  display: block;
+}
+
+/* TOC: bỏ vạch dọc của item active, giữ nguyên background */
+.q-toc .nav-link.active,
+.q-toc a[aria-current="true"],
+nav#TOC .nav-link.active,
+nav#TOC a[aria-current="true"],
+.quarto-toc .nav-link.active,
+.quarto-toc a[aria-current="true"],
+.toc .nav-link.active,
+.toc a[aria-current="true"] {
+  border-left: 0 !important; /* nhiều theme dùng border-left làm vạch */
+  box-shadow: none !important; /* một số dùng inset box-shadow */
+  padding-left: 0 !important; /* bỏ bù lệch do vạch */
+  background: $red-03;
+}
+
+/* Loại bỏ hoàn toàn ring-focus của icon sidebar trong breadcrumb (secondary nav) */
+#quarto-header .quarto-secondary-nav .quarto-btn-toggle.btn:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important; /* phòng trường hợp bootstrap tạo border-focus */
+}
+
+/* Sidebar toggle ở breadcrumb: chỉ đổi màu khi hover, không nháy */
+#quarto-header .quarto-secondary-nav .quarto-btn-toggle.btn,
+#quarto-header .quarto-secondary-nav .quarto-btn-toggle.btn i {
+  color: rgba($black, 0.7);
+  transition: color 0.15s ease; /* chỉ animate màu */
+}
+
+/* Hover -> đỏ */
+#quarto-header .quarto-secondary-nav .quarto-btn-toggle.btn:hover,
+#quarto-header .quarto-secondary-nav .quarto-btn-toggle.btn:hover i {
+  color: $red-10 !important;
+}
+
+/* Click chuột: không ring */
+#quarto-header .quarto-secondary-nav .quarto-btn-toggle.btn:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Dùng Tab: có ring */
+#quarto-header .quarto-secondary-nav .quarto-btn-toggle.btn:focus-visible {
+  outline: 2px solid $teal !important;
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+/* Xóa khung đen của nút navbar (hamburger icon) */
+.navbar-toggler {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Icon mặc định (đen nhạt) */
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0,0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+  transition: filter 0.2s ease, background-image 0.2s ease;
+}
+
+/* Hover: chuyển sang đỏ $red-10 */
+.navbar-toggler:hover .navbar-toggler-icon,
+.navbar-toggler:focus-visible .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23ff4d4d' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+// =======================================
+
+/* Box cuộn primary ($red-10): Thiết lập màu nền và đường viền */
+.collapsible-box-primary {
+  border: 1px solid $primary;
+  background-color: $white;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  padding: 0;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Tiêu đề Box: Sử dụng lớp summary bên trong */
+.collapsible-box-primary summary {
+  background-color: $red-01; /* Rosewood */
+  color: $primary; /* Chữ trắng */
+  font-weight: normal;
+  font-variant: normal;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  list-style: none;
+}
+
+/* Hiệu ứng hover cho tiêu đề */
+.collapsible-box-primary summary:hover {
+  background-color: $red-02;
+}
+
+/* Xóa border-radius dưới khi box mở */
+.collapsible-box-primary[open] summary {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* Nội dung của box */
+.collapsible-box-primary .content {
+  padding: 10px 15px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Ẩn mũi tên tùy chỉnh */
+.collapsible-box-primary summary::before {
+  content: "";
+  display: none;
+}
+
+// Box cuộn secondary ($yellow-10)
+/* Thiết lập màu nền và đường viền */
+.collapsible-box-secondary {
+  border: 1px solid $secondary;
+  background-color: $white;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  padding: 0;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Tiêu đề Box: Sử dụng lớp summary bên trong */
+.collapsible-box-secondary summary {
+  background-color: $yellow-01; /* Rosewood */
+  color: $primary; /* Chữ trắng */
+  font-weight: normal;
+  font-variant: normal;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  list-style: none;
+}
+
+/* Hiệu ứng hover cho tiêu đề */
+.collapsible-box-secondary summary:hover {
+  background-color: $yellow-02;
+}
+
+/* Xóa border-radius dưới khi box mở */
+.collapsible-box-secondary[open] summary {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* Nội dung của box */
+.collapsible-box-secondary .content {
+  padding: 10px 15px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Ẩn mũi tên tùy chỉnh */
+.collapsible-box-secondary summary::before {
+  content: "";
+  display: none;
+}
+
+// CÔNG THỨC LATEX CO GIÃN THEO CỠ CHỮ
+/* MathJax v3 (CHTML) – thu nhỏ công thức inline trong tiêu đề */
+h1 mjx-container.MathJax {
+  font-size: 0.95em !important;
+  vertical-align: baseline;
+}
+// h1 mjx-container.MathJax { font-size: 0.95em !important; vertical-align: 0.03em; }
+h2 mjx-container.MathJax {
+  font-size: 0.95em !important;
+}
+h3 mjx-container.MathJax {
+  font-size: 0.95em !important;
+}
+h4 mjx-container.MathJax {
+  font-size: 0.95em !important;
+}
+
+/* Giúp công thức MathJax trong TOC và các menu kế thừa đúng màu chữ */
+nav#TOC a mjx-container,
+nav#TOC a mjx-math,
+nav#TOC a mjx-mi,
+nav#TOC a mjx-mo,
+nav#TOC a mjx-mn,
+nav#TOC a mjx-c,
+nav#TOC a .MathJax,
+.quarto-toc a mjx-container,
+.quarto-toc a mjx-math,
+.quarto-toc a mjx-mi,
+.quarto-toc a mjx-mo,
+.quarto-toc a mjx-mn,
+.quarto-toc a mjx-c,
+.quarto-toc a .MathJax {
+  color: inherit !important;
+  fill: currentColor !important;
+  opacity: 0.95;
+}

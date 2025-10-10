@@ -13,6 +13,7 @@ lang: vi
 
 website:
   title: "ZO Math"
+  bread-crumbs: true
   description: "Cùng học toán theo hướng 'Tầm nguyên và Tái hiện'."
   site-url: "https://zo-math.github.io/"
   site-path: "/" # Đảm bảo đường dẫn gốc là /
@@ -31,6 +32,8 @@ website:
             href: "content/toan-thpt/toan-11/index.qmd"
           - text: "Toán 12"
             href: "content/toan-thpt/toan-12/index.qmd"
+          - text: "100+ Hàm số"
+            href: "content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.qmd"
 
       - href: "content/zo-o/index.qmd"
         text: "ZO Ồ!"
@@ -40,27 +43,53 @@ website:
 
     right:
       - href: "content/shop/index.qmd"
-        text: "🛒 ZO Shop"
+        text: "ZO Shop"
       - href: "content/support/donate.qmd"
-        text: "💖 Bảo Trợ"
+        text: "Bảo Trợ"
       - href: "content/contact.qmd"
-        text: "☎️ Liên Hệ"
+        text: "Liên Hệ"
 
-  # sidebar:
-  #   style: "docked"
-  #   search: true
-  #   contents:
+  sidebar:
+    - id: hamso100
+      title: "100+ Hàm số"
+      style: docked
+      search: true
+      contents:
+        - text: "100+ Hàm số: sự biến thiên và đồ thị"
+          href: content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.qmd
+        - section: "Danh sách hàm cơ bản"
+          href: content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/index.qmd
+          contents:
+            - text: "Hàm số hằng"
+              href: content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_hang.qmd
+            - content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_bac_nhat.qmd
+        - section: "Danh sách hàm mở rộng"
+        - section: "Danh sách hàm đào sâu"
 
   page-footer:
-    left: "© 2025 ZO Math - Tầm nguyên tái hiện."
-    right: "[Liên hệ](/content/contact.qmd) | [Facebook](https://facebook.com/zo-math)"
+    center: |
+        [Blog](#) | [Help](#) | [Credits](#) | [Privacy Policy](#) | [Contact Us](#)  
+        <br>
+        <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a>
+        <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a>
+        <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a>  
+        <br>
+        © 2025 <strong>ZO Math</strong>
+    
+    # left: "© 2025 ZO Math."
+    # right: "[Liên hệ](/content/contact.qmd) | [Facebook](https://facebook.com/zo-math) | [YouTube](https://www.youtube.com/@ZO-Math)"
 
 format:
   html:
-    theme: sandstone.scss
+    theme:
+      # - sandstone
+      # - zo-math.organized.scss
+      - zo-math.scss
     title-block-banner: true
     default-image-extension: svg
     css: "assets/css/custom.css"
+    include-after-body:
+      - assets/html/sidebar-layer.html
     include-in-header:
       - text: |
           <script>

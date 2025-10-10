@@ -1,0 +1,867 @@
+---
+title: "100+ Hàm số: Sự biến thiên và đồ thị"
+subtitle: "Khảo sát sự biến thiên và vẽ đồ thị hơn 100 hàm số tiêu biểu"
+summary: "Khám phá hơn 100 hàm số tiêu biểu qua sự biến thiên và đồ thị với cách tiếp cận trực quan, dễ nắm bắt và truyền cảm hứng."
+description: "Thay vì khởi đầu từ lí thuyết khô khan, chúng ta bắt tay ngay vào việc khảo sát và vẽ đồ thị từng hàm số cụ thể. Bạn sẽ trực tiếp cảm nhận sự sống của hàm số. Từ những ví dụ đơn giản đến phức tạp, mỗi hàm số đều chứa đựng một bài học chỉ dẫn bạn đến cái nhìn khái quát hơn."
+abstract: |
+   Dự án "100+ Hàm số: Sự biến thiên và đồ thị" được xây dựng với mục tiêu giúp bạn học tiếp cận khái niệm hàm số theo con đường tự nhiên nhất: *đi từ trải nghiệm cụ thể đến sự khái quát*. 
+   
+   *Hàm số* là phương tiện trình bày mối liên hệ giữa các đại lượng thay đổi. *Sự biến thiên* chính là linh hồn của hàm số: khi đầu vào thay đổi thì đầu ra phản ứng ra sao. *Đồ thị* là bản vẽ hình dáng sự biến thiên giúp quan sát quy luật bằng mắt, thay vì chỉ bằng những khẳng định toán học khô khan.
+
+   Với hơn 100 hàm số thuộc nhiều dạng, dự án này vừa là hành trình khám phá đầy cảm hứng, vừa là tài liệu tham khảo giàu hình ảnh cho học sinh, giáo viên và bất kỳ ai muốn hiểu sâu hơn về hàm số.
+
+date: last-modified
+date-format: "DD-MM-YYYY"
+author: "ZO Math"
+
+format:
+  html:
+    theme: cosmo   # chọn theme Bootstrap
+    css: assets/css/zo-math.css   # file CSS riêng của bạn
+    toc: true
+    toc-location: left
+    page-layout: full
+    mainfont: "STIX Two Text"
+    monofont: "Fira Code"
+
+execute:
+  python: "C:/Users/DELL/AppData/Local/Programs/Python/Python312/python.exe"
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(kableExtra)
+library(dplyr)
+library(MASS)
+library(ggplot2)
+```
+
+## 1. Hàm số
+
+Viết $y=x^2$, và hiểu theo nghĩa: hễ $x$ được chọn thì $y$ cũng lập tức được xác định. Nói cách khác, $x$ là đại lượng được tự do lựa chọn, gọi là *biến độc lập*; còn $y$ thì luôn phải tuân theo $x$, gọi là *biến phụ thuộc*. Tập hợp những giá trị mà $x$ có thể nhận gọi là *tập xác định*, và những giá trị mà $y$ có thể đạt tới gọi là *tập giá trị*. Với ví dụ này, $x$ có thể là bất kỳ số thực nào, nhưng $y$ thì chỉ nhận các giá trị không âm.
+
+> Kí hiệu $x$ được gọi là một *biến số* khi nó đại diện cho một giá trị có thể thay đổi trong một *tập số* nhất định. Nếu tập đang xét không phải là tập số thì chỉ gọi là *biến*. Trong cách dùng thường ngày, "biến" đôi khi cũng được dùng thay thế cho "biến số" khi ngữ cảnh đã rõ.
+
+Hệ thức $y=x^2$ là một *hàm số*. Ta cũng nói: $y$ là hàm của $x$. Chính thức hơn, ở mức phổ thông, một hàm số được hiểu theo định nghĩa dưới đây.
+
+::: {.highlight-box-soft-red}
+Cho $D$ là một tập con của tập số thực $\mathbb{R}$, tức là $D\subset \mathbb{R}$. Một *hàm số* trên tập $D$ là một quy tắc $f$ gắn cho mỗi $x\in D$ đúng một số thực *duy nhất* $y$, thường viết
+
+$$
+y=f(x).
+$$
+
+Tập $D$ được gọi là *tập xác định* của hàm số. Tập tất cả các giá trị $f(x)$ khi $x$ chạy trong $D$ được gọi là *tập giá trị* của hàm số.
+:::
+
+> Trong Toán học bậc cao, một hàm số được hiểu như một *ánh xạ* $f$ từ $D$ vào $\mathbb{R}$, được kí hiệu như sau:
+> $$
+>\begin{alignedat}{2}
+>  f\colon & D &\;\longrightarrow\;& \mathbb{R} \\
+>          & x &\;\longmapsto\;    & y=f(x).
+>\end{alignedat}
+>$$
+>
+
+Điểm mấu chốt ở đây là tính *duy nhất*: với mỗi $x$, chỉ có đúng một $y$ đi kèm. Chẳng hạn, khi $x=2$ thì $y=4$, khi $x=-2$ thì $y$ cũng bằng $4$. Dù hai giá trị khác nhau của $x$ có thể cùng dẫn đến một $y$, điều quan trọng là không bao giờ tồn tại một $x$ cụ thể mà lại đi kèm hai giá trị $y$ khác nhau.
+
+Thoạt nhìn, dễ lầm tưởng rằng hàm số luôn phải có một công thức đại số. Nhưng thực ra không phải vậy. Chẳng hạn, với tập xác định $\{1,2,3,5\}$, việc quy định $f$1$=2$, $f(2)=2$, $f(3)=-1$ và $f(5)=3$ cũng xác định nên một hàm số. Một ví dụ sâu sắc hơn là hàm số $\pi(n)$, đếm số lượng số nguyên tố nhỏ hơn số nguyên dương $n$. Khi $n=6$, ta có $\pi(6)=3$ vì ba số nguyên tố $2, 3, 5$ đều nhỏ hơn $6$. Ở đây, giá trị của $\pi(n)$luôn được xác định duy nhất với mỗi $n$, mặc dù cho đến nay chưa hề có một công thức đại số nào để viết trực tiếp $\pi(n)$.
+
+Ngay cả khi có công thức, không phải hàm số nào cũng "hiền lành". Hàm $y=x^2$ thì trơn tru, có điểm thấp nhất ở $x=0$ và sau đó tăng dần về hai phía. Nhưng hàm $y=\frac{1}{x}$ lại cư xử rất khác khi $x$ tiến gần đến $0$: đi từ phía âm, giá trị $y$ lao xuống âm vô cực; đi từ phía dương, giá trị $y$ vọt lên dương vô cực. Dù $0$ không thuộc tập xác định, chính sự "trái tính" này khiến hàm số trở nên đặc biệt. Có những hàm số còn rắc rối theo kiểu khác, chẳng hạn $y=\sqrt{x}$ không chấp nhận $x$ âm, hoặc $y=\sin\left(\frac{1}{x}\right)$ dao động dữ dội khi $x$ tiến gần $0$.
+
+Từ những ví dụ trên, ta thấy hàm số có thể hiền lành như $y=x^2$, tinh vi như $\pi(n)$, hoặc khó lường như $\sin\left(\frac{1}{x}\right)$. Hàm số là một trong những khái niệm nền tảng và có nội hàm phong phú bậc nhất của toán học: nó là ngôn ngữ phổ quát và hiệu quả để mô tả sự thay đổi, từ giản dị đến phức tạp. 
+
+Chính vì thế, khi học hàm số không nên dừng lại ở việc nhận biết công thức. Điều cốt yếu là phải nắm bắt được dáng điệu của biến phụ thuộc mà công thức ẩn chứa trong nó: khi $x$ thay đổi, $y$ biểu hiện thế nào - tăng ở đâu, giảm ở chỗ nào, nhanh hay chậm, dừng lại tại đâu, hay giao động ra sao? Vì vậy, hiểu một hàm số tức là hiểu quy luật biến thiên của nó.
+
+### Bài tập
+
+<details class="collapsible-box-honey-gold">
+<summary>Thí nghiệm trên mặt phẳng nghiêng</summary>
+
+<div class="content">
+Galileo Galilei (1564–1642) là một trong những nhà khoa học tiên phong. Ông muốn tìm hiểu quy luật chuyển động, trong khi nhiều người cùng thời vẫn tin rằng vật nặng rơi nhanh hơn vật nhẹ.
+
+Trực tiếp nghiên cứu rơi tự do thì quá khó, vì vật rơi nhanh khiến việc đo đạc gần như bất khả thi với công cụ thời bấy giờ. Galileo đã nghĩ ra cách thay thế thông minh: cho một quả bóng lăn trên mặt phẳng nghiêng. Nhờ đó:
+
+* Làm chậm chuyển động: Góc nghiêng giảm gia tốc của quả bóng, giúp Galileo dễ dàng đo thời gian và quãng đường chính xác hơn bằng các công cụ thô sơ (như đồng hồ nước hoặc nhịp tim).
+
+* Tái hiện rơi tự do: Chuyển động trên mặt phẳng nghiêng cũng chịu ảnh hưởng của trọng lực tương tự rơi tự do nhưng với gia tốc nhỏ hơn.
+
+* Khám phá quy luật toán học: Qua thí nghiệm, Galileo phát hiện quãng đường $y$ tỉ lệ với bình phương thời gian $x$ (tức $y=kx^2$), một phát hiện mang tính cách mạng, đặt nền móng cho cơ học hiện đại.
+
+Sự sắc sảo của Galileo không chỉ nằm ở việc thiết kế thí nghiệm mà còn ở cách ông dùng dữ liệu để rút ra quy luật. Ông không chỉ đo lường mà còn tìm cách biểu diễn mối quan hệ giữa thời gian và quãng đường bằng một quy tắc toán học - chính là khái niệm *hàm số* mà chúng ta đang tìm hiểu.
+</div>
+
+</details>
+
+1. Galileo Galilei (1564–1642) muốn khám phá quy luật rơi tự do. Nếu thả một vật từ trên cao, nó di chuyển quá nhanh, khiến việc đo chính xác thời gian và quãng đường rất khó. Galileo đã nghĩ ra cách: để một quả bóng lăn xuống một mặt phẳng nghiêng với góc nhỏ. Điều này làm chậm chuyển động, giúp ông đo lường dễ dàng hơn, đồng thời vẫn cho phép khám phá quy luật tương tự như rơi tự do: *quãng đường tỉ lệ với bình phương thời gian*. 
+
+   Dựa trên thí nghiệm của Galileo, ta xét dữ liệu giả định sau:
+
+   | Thời gian $x$ (giây) | Quãng đường $y$ (mét) |
+   | :--------------: | :---------------: |
+   | $1$ | $0{,}5$ | 
+   | $2$ | $2{,}0$ |
+   | $3$ | $4{,}5$ |
+   | $4$ | $8{,}0$ |
+
+   a. Hãy tính tỉ số $\frac{y}{x^2}$ cho mỗi hàng số liệu. Các tỉ số này có gì giống nhau? Dựa vào kết quả, bạn đoán quy tắc $f$ nào liên kết thời gian $x$ với quãng đường $y$? Dùng quy tắc vừa tìm được, hãy tính quãng đường khi $x=5$ (giây).
+
+   b. Trong thí nghiệm, mỗi thời điểm $x$ chỉ tương ứng với một quãng đường $y$. Nếu tại $x=2$, ta đo được hai quãng đường khác nhau (như $2$ mét và $3$ mét), điều đó có hợp lý không? Tại sao? 
+
+   c. Trong thí nghiệm, thời gian $x$ có thể nhận giá trị nào? Có thể là số âm không? Tại sao? Quãng đường $y$ có thể âm không? Giá trị nhỏ nhất của $y$ là bao nhiêu?
+
+   d. Khi thời gian $x$ tăng từ $1$ giây đến $4$ giây, quãng đường $y$ thay đổi thế nào? Ví dụ: từ $1$ giây đến $2$ giây, $y$ tăng bao nhiêu? Từ $2$ giây đến $3$ giây thì sao? Bạn có nhận thấy $y$ tăng nhanh hơn khi $x$ lớn hơn không?
+
+   e. Vì sao Galileo không trực tiếp nghiên cứu rơi tự do mà lại chọn chuyển động trên mặt phẳng nghiêng? Tại sao chuyển động trên mặt phẳng nghiêng có thể xem là một thay thế hợp lý cho rơi tự do? Theo bạn, cách làm này đã giúp ông khám phá quy tắc $y=kx^2$ như thế nào? (Gợi ý: Hãy nghĩ đến tốc độ chuyển động và khả năng đo lường chính xác của thời gian và quãng đường).
+
+2. Trong các quy tắc sau, quy tắc nào xác định một hàm số? Giải thích.
+   a. $y=\pm \sqrt{x}$.
+   b. $y=\sqrt{x}$.
+   c. Với mỗi số nguyên $n$, gán cho $n$ số chữ số của nó trong hệ thập phân.
+   d. Với mỗi số thực $x$, gán cho $x$ số lượng nghiệm của phương trình $t^2=x$.
+
+3. Cho hàm số $f(x)$ thỏa mãn $f(x+1)=x^2+2x+1$ với mọi $x\in\mathbb{R}$.
+   a. Tính $f(2)$ và $f(3)$.
+   b. Tìm công thức $f(x)$.
+   c. Dùng công thức vừa tìm được để tính lại $f(2)$ và $f(3)$.
+
+## 2. Sự biến thiên của hàm số
+
+Công thức của một hàm số giống như bản nhạc viết trên giấy: để thực sự thưởng thức, bạn phải nghe giai điệu mà các nốt nhạc tạo ra. Với hàm số cũng vậy: không chỉ dừng lại ở sự mô tả hay công thức, điều quan trọng là cảm nhận được *nhịp điệu* mà nó thể hiện khi biến độc lập dịch chuyển.
+
+::: {.highlight-box-soft-red}
+Nói đến sự biến thiên của hàm số là nói đến quy luật tăng-giảm của giá trị $y$ khi $x$ thay đổi. Khảo sát sự biến thiên là để trả lời câu hỏi: khi dịch chuyển $x$, thì $y$ phản ứng thế nào? Đây chính là chìa khóa để hiểu mối quan hệ giữa biến độc lập $x$ và biến phụ thuộc $y$.
+:::
+
+Để nhìn thấy $y$ thay đổi theo $x$ ra sao, ta *thăm dò* bằng cách lập *bảng giá trị*. Chẳng hạn, xét hàm số $y=x^2$ với một số giá trị quanh $x=0$:
+
+|  $x$ |  $y=x^2$ |
+|:-------:|:-------------:|
+|   $-2,0$   |      $4,00$       |        
+|   $-1,0$   |      $1,00$       |          
+|  $-0,9$  |     $0,81$     |          
+|  $-0,7$  |     $0,49$     |          
+|  $-0,5$  |     $0,25$     |          
+|  $-0,3$  |     $0,09$     |        
+|  $-0,1$  |     $0,01$     |           
+|    $0$   |      $0$       | 
+|   $0,1$  |     $0,01$     |
+|   $0,3$  |     $0,09$     | 
+|   $0,5$  |     $0,25$     |
+|   $0,7$  |     $0,49$     | 
+|   $0,9$  |     $0,81$     | 
+|    $1,0$   |      $1,00$       | 
+|    $2,0$   |      $4,00$       |
+: Một số giá trị quanh $x=0$ của hàm $y=x^2$. Các giá trị $y$ được làm tròn đến hai chữ số thập phân.
+
+Khi $x$ tăng dần từ $-2$ đến $0$, $y$ giảm dần về $0$. Tại $x=0$, hàm số đạt giá trị nhỏ nhất $y=0$ trên toàn miền xác định. Khi $x$ tiếp tục tăng vượt qua $0$, $y$ bắt đầu tăng lên. Ngoài ra, ta nhận ra tính chất: hai điểm đối xứng qua $x=0$ sẽ cho cùng một giá trị, chẳng hạn $x=-2$ và $x=2$ đều cho $y=4$.
+
+::: {.highlight-box-soft-red}
+Hàm số có tính chất $f(-x)=f(x)$ với mọi $x$ thuộc tập xác định được gọi là *hàm chẵn*.
+:::
+
+Với hàm số $y=\frac{1}{x}$, ta cũng thử quan sát một số giá trị quanh $x=0$:
+
+|   $x$ | $y=\frac{1}{x}$ |
+| :------: | :----------------: |
+| $-0,25$|       $-4,00$|
+|  $-0,21$|        $-4,76$      |
+| $-0,17$|       $-5,88$      |
+|  $-0,13$|       $-7,69$      |
+|  $-0,09$|       $-11,11$      |
+|  $-0,05$|       $-20,00$      |
+| $-0,01$|       $-100,00$     |
+|   $0$ | không xác định   |
+|  $0,01$|       $100,00$      |
+|  $0,05$|       $20,00$      |
+|  $0,09$|       $11,11$      |
+|  $0,13$|       $7,69$      |
+| $0,17$|       $5,88$      |
+|  $0,21$|        $4,76$      |
+| $0,25$|       $4,00$|
+: Một số giá trị quanh $x=0$ của hàm $y=\frac{1}{x}$. Các giá trị $y$ được làm tròn đến hai chữ số thập phân.
+
+Khi $x$ tiến về $0$ từ phía âm, $y$ rơi xuống những giá trị âm cực lớn so với $x$; còn khi $x$ tiến về $0$ từ phía dương, $y$ lại vọt lên những giá trị dương cực lớn so với $x$. Trái và phải của $0$ trở thành hai miền tách biệt, giống như hai thế giới không thể nối liền, vì $x=0$ không thuộc tập xác định của hàm số. Với hàm này, ta nhận ra tính chất: hai điểm đối xứng qua $x=0$ sẽ cho hai giá trị có độ lớn bằng nhau nhưng trái dấu, chẳng hạn $x=-0{,}01$ và $x=0{,}01$ lần lượt cho $y=-100$ và $y=100$.
+
+::: {.highlight-box-soft-red}
+Hàm số có tính chất $f(-x)=-f(x)$ với mọi $x$ thuộc tập xác định được gọi là *hàm lẻ*.
+:::
+
+Còn với hàm $y=\sin\left(\frac{1}{x}\right)$, ta sẽ thấy một tiết tấu hoàn toàn khác. Để quan sát điều thú vị, ta chọn những $x$ đặc biệt sao cho $\frac{1}{x}$ rơi đúng vào những bội số quen thuộc của $\pi$ (nơi giá trị của hàm bằng $0$, $1$ hoặc $-1$). Hơn nữa, ta còn có thể chọn được vô số $x$ như thế, chẳng hạn: $x=\frac{2}{k\pi}$ ($k$ là số nguyên khác $0$). Ta quan sát một số giá trị ứng với $k$ không âm:
+
+| $x$ | $y=\sin\left(\frac{1}{x}\right)$ |
+|:-----:|:--------------:|
+| $\frac{2}{\pi}$ | $1$ |
+| $\frac{1}{\pi}$ | $0$ |
+| $\frac{2}{3\pi}$ | $-1$ |
+| $\frac{1}{2\pi}$ | $0$ |
+| $\frac{2}{5\pi}$ | $1$ |
+| $\frac{1}{3\pi}$ | $0$ |
+| $\frac{2}{7\pi}$ | $-1$ |
+| $\frac{1}{4\pi}$ | $0$ |
+| ... | ... |
+| $0$ | không xác định |
+: Một số giá trị "chọn lọc" quanh $x=0$ của hàm $y=\sin\left(\frac{1}{x}\right)$.
+
+Từ bảng giá trị trên, ta nhận ra khi $x$ tiến về $0$, ta không thu được một giá trị giới hạn cố định nào cho $y$. Thay vào đó, hàm số liên tục nhảy giữa các giá trị quen thuộc $1$, $0$, $-1$. Nói cách khác, khi $x$ càng nhỏ thì $\frac{1}{x}$ càng lớn, nên $\sin\left(\frac{1}{x}\right)$ lặp đi lặp lại nhịp điệu $1\to 0\to -1\to 0\to 1\to 0\to -1\to 0\to\dots$ mãi không ngừng. Chính sự "dao động vĩnh viễn" này làm hàm số trở nên đặc biệt: càng tiến sát về $0$, ta càng thấy nó rung lắc nhanh hơn và dồn dập hơn.
+
+> Bạn có để ý rằng ở trên, mình chỉ xét $x>0$ mà chưa nói gì đến $x<0$? Theo bạn, khi $x$ từ phía ấm tiến về $0$, chuyện gì sẽ xảy ra?
+
+Hãy lưu ý rằng, trong hầu hết các trường hợp, việc lập bảng giá trị chỉ cho ta một bức tranh *cục bộ* và mang tính *thăm dò*. Dù có liệt kê bao nhiêu giá trị đi nữa, ta vẫn không thể kết luận chắc chắn về quy luật biến thiên của hàm số. Chẳng hạn, với $y=x^2$, tập xác định là toàn bộ $\mathbb{R}$ và tập giá trị là $[0; +\infty)$ - cả hai đều vô hạn và không thể liệt kê hết. Nhìn vào vài giá trị trong đoạn $[-2;2]$, ta có cảm giác rằng hàm số giảm xuống khi $x<0$ và tăng lên khi $x>0$. Nhưng đó mới chỉ là một phỏng đoán; để biến cảm giác thành khẳng định, ta cần đến chứng minh toán học.
+
+Để thấy bức tranh toàn diện về sự biến thiên, ta cần đến các công cụ toán học và một cách biểu diễn trực quan để hình dung nhịp điệu của hàm số. Chúng ta sẽ khám phá cách này trong phần tiếp theo.
+
+## Bài tập
+
+1. *Lập bảng giá trị* cho các hàm $y=2x$, $y=\lvert x\rvert$, $y=x^2$, $y=\sqrt{x}$, $y=x^3$ với $x$ từ $-2$ đến $2$, bước nhảy $0{,}5$. Ngoại trừ $y=\sqrt{x}$ có tập xác định là $[0,\infty)$, các hàm còn lại đều có tập xác định là $\mathbb{R}$ (Đúng/Sai)? Vì sao không tính giá trị của hàm $y=\sqrt{x}$ khi $x<0$?
+
+2. Dựa vào bảng giá trị, mô tả *sự biến thiên của từng hàm* bằng cách trả lời các câu hỏi:
+   * Hàm tăng hay giảm khi $x$ tăng?
+   * Bản thân sự tăng/giảm ấy lại biến thiên thế nào?
+
+3. Dựa vào bảng giá trị, *so sánh giá trị của các hàm* bằng cách trả lời các câu hỏi dưới đây.
+   a. Giữa $y=2x$ và $y=\lvert x\rvert$: Trên $(0, 2)$, hàm nào có giá trị lớn hơn? Tại sao?
+   b. Giữa $y=\lvert x\rvert$ và $y=x^2$: Trên $(-1, 1)$, hàm nào lớn hơn tại $x$=$0{,}5$? Trên $(1, 2)$, hàm nào lớn hơn?
+   c. Giữa $y=x^2$ và $y=\sqrt{x}$ trên $(0, 2)$: Trên $(0, 1)$, hàm nào lớn hơn? Trên $(1, 2)$, hàm nào lớn hơn? Khi $x$ qua $1$, có sự kiện gì xảy ra với giá trị $y$ của hai hàm?
+   d. Giữa $y=x^2$ và $y=x^3$: Trên $(0, 1)$, hàm nào lớn hơn? Trên $(1, 2)$, hàm nào lớn hơn? Khi $x$ qua $1$, có sự kiện gì xảy ra với giá trị $y$ của hai hàm? Khi $x$ qua $0$, giá trị $y$ của mỗi hàm biến đổi khác nhau thế nào?
+
+4. Dựa vào bảng giá trị, *so sánh sự biến thiên của các hàm* bằng cách trả lời những câu hỏi dưới đây.
+   a. Giữa $y=2x$ và $y=\lvert x\rvert$: Trên $[0, 2]$, hàm nào tăng đều? Tốc độ tăng của hàm nào nhanh hơn?
+   b. Giữa $y=x^2$ và $y=\lvert x\rvert$: Trên $[0, 2]$, hàm nào tăng nhanh hơn? 
+   c. Giữa $y=x^2$ và $y=x^3$: Trên $[0, 2]$, hàm nào tăng nhanh hơn?
+   d. Giữa $y=x^2$ và $y=\sqrt{x}$: Hàm nào tăng nhanh dần? Hàm nào tăng chậm dần? Trên $(0, 1)$, hàm $y=\sqrt{x}$ luôn tăng nhanh hơn hàm $y=x^2$ ?
+
+5. Hàm số $y=\sin\left(\frac{1}{x}\right)$ có hành vi đặc biệt khi $x$ tiến gần $0$. Hãy khám phá qua các bước sau:
+   a. Với $x>0$, lập bảng giá trị khi $x$ lần lượt là $1{,}00; 0{,}09; 0{,}08; 0{,}07; 0{,}06; 0{,}05; 0{,}04; 0{,}03; 0{,}02; 0{,}01$. Từ bảng này, bạn có thể phỏng đoán $y$ sẽ tăng, giảm, dao động, hay tiến về một giá trị cố định khi $x \to 0$ không? Hành vi ấy có lặp lại theo một quy luật rõ ràng không?
+   
+      **Ghi chú:** Ở đây ta chỉ xét phía $x>0$ để bảng số liệu gọn gàng; thực ra với $x<0$, hàm số cũng dao động tương tự do tính chất $\sin(-x)=-\sin(x)$.
+
+   b. Lập một bảng giá trị khác với $x$ lần lượt là $\frac{2}{\pi}$, $\frac{1}{\pi}$, $\frac{2}{3\pi}$,$\frac{1}{2\pi}$, $\frac{2}{5\pi}$, $\frac{1}{3\pi}$, $\frac{2}{7\pi}$, $\frac{1}{4\pi}$. Lúc này, $y$ biến đổi ra sao? Có xuất hiện sự lặp lại theo chu kỳ nào không?
+   c. So sánh hai bảng trên: một bảng gợi cảm giác "hỗn loạn", một bảng lại cho thấy sự "có trật tự". Từ đó, bạn hãy giải thích tại sao chỉ dựa vào bảng giá trị thì chưa thể kết luận chắc chắn về sự biến thiên của hàm khi $x \to 0$.
+   d. Hãy chỉ ra ba dãy số khác nhau cùng hội tụ về $0$ nhưng cho ba dãy giá trị $y$ lần lượt tiến tới $1$, $0$ và $-1$. Từ đó kết luận: hàm số này có giới hạn tại $x=0$ hay không?. (Lưu ý, một hàm có thể không xác định tại một điểm nhưng vẫn có giới hạn ở đó. Ví dụ, hàm $\frac{\sin(x)}{x}$ không xác định tại $x=0$, nhưng vẫn có giới hạn tại đây là $1$. Đây chính là sự khác nhau giữa *giá trị của hàm* và *giới hạn của hàm*.)
+
+
+# 3. Đồ thị hàm số
+
+Bạn thích ngắm bầu trời đầy sao, hay chỉ muốn nghe người khác kể về nó? Bảng giá trị giống như một lời kể: từng cặp $(x, f(x))$ hé lộ một lát cắt nhỏ của câu chuyện. Muốn thấy toàn cảnh, ta cần một cách nhìn trực quan hơn.
+
+Hãy bắt đầu bằng trực giác: trải tập xác định lên một đường thẳng nằm ngang có chiều dương hướng từ trái sang phải, và đặt một điểm đặc biệt $O$ chỉ vị trí số $0$. Tại mỗi điểm được chọn trong số những điểm thuộc tập xác định, dựng một đoạn thẳng *vuông góc* có độ dài đúng bằng giá trị của hàm tại điểm đó. Nói chính xác hơn: đoạn có độ dài $\lvert f(x)\rvert$, hướng lên nếu $f(x)>0$, hướng xuống nếu $f(x)<0$. Những "đoạn" cao thấp nối tiếp nhau cho ta cảm giác về nhịp điệu biến thiên.
+
+Trong đa số trường hợp, ta không thể dựng được toàn bộ các đoạn thẳng như vậy, vì tập xác định có thể có *quá nhiều* phần tử, đặc biệt là trường hợp *vô hạn*, thậm chí *không đếm được*. Nhưng với một số đoạn thẳng tiêu biểu sẽ mang lại cảm giác về nhịp điệu biến thiên: cao thấp, lên xuống, dương âm.
+
+![Một số giá trị của hàm $y=x^2$ trên đoạn $[-2;2]$](/figures/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/mot-so-doan-thang-gia-tri-ham-y-bang-x-binh-phuong){fig-align="center" width=500px}
+
+Rồi một phát hiện đơn giản nhưng quan trọng xuất hiện: ta không cần giữ cả đoạn, chỉ cần đầu mút của nó để biết "tại $x$ này, $f(x)$ bằng bao nhiêu". Để so sánh vị trí các đầu mút theo phương thẳng đứng, ta cần thêm một chuẩn chung cho $y$. Vì thế, dựng thêm một đường thẳng vuông góc với đường ngang ban đầu, chiều dương hướng lên và cũng đi qua $O$. 
+
+![Một số giá trị của hàm $y=x^2$ trên đoạn $[-2;2]$](/figures/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/mot-so-mut-gia-tri-ham-y-bang-x-binh-phuong){fig-align="center" width=500px}
+
+![Một số giá trị của hàm $y=x^2$ trên đoạn $[-2;2]$](/figures/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/mot-so-diem-ham-y-bang-x-binh-phuong){fig-align="center" width=500px}
+
+Giờ ta có hai đường thẳng vuông góc cắt nhau tại $O$: đường ngang để ghi $x$, và đường dọc để ghi $f(x)$. Cả hai mở ra một mặt phẳng, trong đó mỗi giá trị $x$ được gắn với đúng một điểm $(x,f(x))$. Đường ngang ấy gọi là *trục hoành $Ox$*,  đường dọc gọi là *trục tung $Oy$*, và không gian do chúng tạo thành gọi là *mặt phẳng tọa độ $Oxy$*. 
+
+::: {.highlight-box-soft-red}
+Đồ thị của hàm số $y=f(x)$ là tập hợp tất cả các điểm $(x, f(x))$ trên mặt phẳng tọa độ, khi $x$ chạy qua tập xác định của hàm số.
+:::
+
+Khi một hàm số có đồ thị là một đường cong, ta phải dựng nó từ một số điểm chọn lọc được nối lại theo quy luật của hàm số. Cái "nối" ấy không phải tùy tiện, mà dựa trên kiến thức toán học: tính liên tục, giới hạn, đạo hàm. Chính những công cụ ấy cho phép ta biến một số ít điểm tiêu biểu thành bức tranh toàn cục của hàm số.
+
+Đồ thị đem lại cho ta một bức tranh liền mạch: những chỗ hàm bằng $0$ (giao trục hoành), những vùng hàm dương hay âm (nằm trên hay dưới trục hoành), những đỉnh, đáy hay các đoạn cong mượt mà, cũng như những chỗ đường cong bị gãy hoặc không xác định. Nếu hàm số liên tục trên một khoảng, đồ thị trên khoảng đó là một đường cong liên tục; nếu hàm số có biến thiên mạnh, đồ thị sẽ dốc đứng, nhấp nhô hay dao động.
+
+![Đồ thị hàm $y=x^2$ trên đoạn $[-2;2]$](/figures/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/do-thi-ham-y-bang-x-binh-phuong){fig-align="center" width=500px}
+
+Hãy thử so sánh: nếu vẫn giữ cách vẽ bằng những đoạn thẳng, hai hàm $y=x^2$ và $y=2x$ sẽ chồng chéo rối rắm. Nhưng khi thay bằng các điểm $(x,f(x))$ trong mặt phẳng tọa độ, dáng hình của chúng hiện ra rõ ràng: một đường cong trơn, đối xứng qua trục tung và có điểm thấp nhất tại gốc; một đường thẳng đi qua gốc và *nghiêng đều*, *tốc độ* thay đổi là không đổi. Chúng tách biệt, dễ quan sát, dễ so sánh.
+
+Vì vậy đồ thị không chỉ là minh họa - nó là bản đồ hành vi của hàm số: chỉ nhìn vào nó, ta có thể thấy nhanh nơi hàm tăng, nơi hàm giảm, những điểm dừng hay ngoặt, hoặc vùng dao động. Nhưng để biến những quan sát trực quan ấy thành lập luận chặt chẽ, ta sẽ cần đến giải tích. Ở đó, chỉ với một số điểm then chốt, cùng giới hạn và đạo hàm, ta có thể khẳng định chính xác những gì đồ thị đang hé lộ.
+
+## Bài tập
+
+::: {.tieu-de-chu-thich}
+Từ đoạn thẳng đến điểm
+:::
+
+1. Với hàm số $y=x^2$, trên đoạn $[-2;2]$, hãy chọn ra 5 giá trị $x$ nguyên.
+   a. Vẽ các đoạn thẳng vuông góc từ trục hoành có độ dài $\lvert f(x)\rvert$, hướng lên hoặc xuống tùy theo dấu của $f(x)$.
+   b. Sau đó chỉ giữ lại các đầu mút của các đoạn. So sánh hai cách biểu diễn này: điểm nào giống nhau, điểm nào khác?
+
+::: {.tieu-de-chu-thich}
+Tập xác định và vô hạn
+:::
+
+2. Giải thích tại sao ta không thể vẽ hết các đoạn thẳng ứng với tất cả giá trị của hàm số $y=\sin $x$$ trên đoạn $[0;2\pi]$. Thay vào đó, hãy chọn ra 8 giá trị đặc biệt của $x$ (ví dụ: bội số của $\frac{\pi}{4}$) và biểu diễn chúng trên mặt phẳng tọa độ.
+
+::: {.tieu-de-chu-thich}
+Vẽ đồ thị từ điểm chọn lọc
+:::
+
+3. Dùng bảng giá trị sau, hãy dựng đồ thị gần đúng của hàm số $y=2x$:
+
+   +:---:+:----:+:----:+:---:+:---:+:---:+
+   | $x$ | $-2$ | $-1$ | $0$ | $1$ | $2$ |
+   +-----+------+------+-----+-----+-----+
+   | $y$ | $-4$ | $-2$ | $0$ | $2$ | $4$ |
+   +-----+------+------+-----+-----+-----+
+
+   Điều gì thúc đẩy bạn nối các điểm thành một đường thẳng thay vì một đường cong ngẫu nhiên?
+
+::: {.tieu-de-chu-thich}
+Đồ thị và tính chất hàm số
+:::
+
+4. Xét hai hàm số $y=x^2$ và $y=2x$.
+   a. Hãy vẽ đồ thị cả hai hàm trên cùng một mặt phẳng tọa độ.
+   b. Dựa vào hình, nêu nhận xét về: vị trí giao điểm, sự đối xứng, tốc độ thay đổi (dốc đứng hay thoải), điểm đặc biệt (đỉnh, đáy, hay gốc).
+
+::: {.tieu-de-chu-thich}
+Quan sát để dự đoán
+:::
+
+5. Cho biết đồ thị của hàm số $y=\frac{1}{x}$.
+   a. Dựa vào hình vẽ, bạn có nhận xét gì về tập xác định của hàm số?
+   b. Khi $x$ tiến lại gần $0$, bạn thấy đồ thị có biểu hiện gì?
+   c. Theo bạn, có thể dùng đồ thị để đoán được tính chất của giới hạn hay không?
+
+::: {.tieu-de-chu-thich}
+Từ bảng giá trị đến đồ thị
+:::
+
+6. Cho hàm số $y=f(x)=x^2 - 2x$.
+   a. Lập bảng giá trị của hàm số với $x$ lần lượt là: $-1$; $0$; $0{,}5$; $1$; $1{,}5$; $2$; $3$.
+   b. Trên mặt phẳng tọa độ $Oxy$, hãy biểu diễn các điểm $(x, f(x))$ tương ứng từ bảng giá trị trên.
+   c. Dựa vào vị trí các điểm vừa vẽ, bạn hãy *phác họa dự đoán* đường cong đồ thị của hàm số. Đồ thị nên là đường cong trơn hay thực sự là các đoạn được nối lại với nhau? Vì sao? Có đối xứng không? Nếu có thì mô tả sự đối xứng đó.
+   d. So sánh bức tranh toàn cảnh từ đồ thị dự đoán với danh sách các con số trong bảng giá trị. Cách nào giúp bạn hình dung rõ hơn về sự biến thiên của hàm số?
+   e. Tìm giá trị nhỏ nhất của hàm số.
+
+::: {.tieu-de-chu-thich}
+Phân tích sâu - Từ trực quan đến chứng minh
+:::
+
+7. Xét hàm số $y=f(x)=x^3 - 3x$.
+   a. Lập bảng giá trị với $x$ từ $-2$ đến $2$, bước nhảy $0{,}5$.
+   b. Biểu diễn các điểm lên mặt phẳng tọa độ và phác họa đồ thị của nó.
+   c. Dựa vào đồ thị đã phác họa, bạn hãy dự đoán:
+      * Số điểm mà đồ thị cắt trục hoành.
+      * Các khoảng trên trục hoành mà đồ thị nằm phía trên hoặc phía dưới.
+      * Các khoảng mà hàm số đồng biến hoặc nghịch biến.
+   d. Mình có các dự đoán sau:
+      * Điểm $(-1;2)$ là điểm *cao nhấ*t trong một vùng lân cận của đường cong đồ thị. Và đây là điểm duy nhất có tính chất này.
+      * Điểm $(1;-2)$ là điểm *thấp nhất* trong một vùng lân cận của đường cong đồ thị. Và đây là điểm duy nhất có tính chất này.
+      * Đồ thị của hàm số này có tâm đối xứng là gốc tọa độ.
+   e. Hãy chứng minh tất cả các dự đoán của bạn và mình về sự biến thiên của hàm số $y=x^3-3x$ chặt chẽ bằng lập luận toán học.
+
+---
+
+# 100+ Hàm số
+
+Đến đây, ta đã có trong tay ba mảnh ghép quan trọng: khái niệm hàm số, biết sự biến thiên của hàm số, và đồ thị hàm số. Nhưng đó mới chỉ là khung cảnh chung. Điều hấp dẫn nhất nằm ở chỗ: mỗi loại hàm số lại có "tính cách" riêng, có đồ thị mang dáng hình đặc trưng và một nhịp biến thiên không lẫn vào đâu.
+
+Vì thế, từ phần tiếp theo, ta sẽ bước vào hành trình khám phá hơn một trăm hàm số quen thuộc trong chương trình phổ thông - đi từ đơn giản đến phức tạp. Với mỗi hàm, ta sẽ xem nó biến thiên ra sao, đồ thị có hình dáng thế nào, và đâu là những chi tiết đáng nhớ.
+
+Hành trình này bắt đầu từ một điểm tưởng như quá đơn giản chẳng còn gì để nói: *hàm hằng*. Nhưng chính trong sự giản dị ấy, ta sẽ thấy được nền móng cho những câu chuyện phong phú và phức tạp hơn phía sau.
+
+---
+
+Từ đây, mỗi hàm số sẽ được soi chiếu theo khung 7 mục này. Không phải hàm nào cũng đi trọn đủ bảy bước, nhưng chính sự lặp lại khung chung ấy sẽ giúp ta nhận ra điểm tương đồng và khác biệt trong "tính cách" từng hàm.
+
+Hành trình khởi đầu từ *hàm hằng* - giản dị mà nền tảng - rồi mở rộng dần tới hàm bậc nhất, bậc hai, phân thức, căn thức, lượng giác, mũ, lô-ga-rít và những hàm đặc biệt khác.
+
+
+<!-- HÀM SỐ HẰNG -->
+
+::: {.tieu-de-chu-thich}
+Hàm số hằng
+:::
+
+<!-- Hàm 001 -->
+<details open>
+<summary class="cau">$y=1$</summary>
+
+Hàm số $y=1$ tưởng chừng như quá đơn giản để bàn đến. Thế nhưng, thoạt nhìn lại thấy lạ: *$x$ đâu rồi?* Thực ra, không thấy $x$ không có nghĩa là không có $x$, mà là $y=1$ với mọi $x$. Hàm này chỉ có một đầu ra duy nhất là $1$ cho mọi đầu vào. Tổng quát hơn, nếu vế phải là một hằng số $c$ bất kỳ, ta được hàm số $y=c$. Đây được gọi là **hàm số hằng**.
+
+<details class="collapsible-box-rosewood" open>
+<summary>Hàm số: Bóng dáng quen thuộc</summary>
+
+<div class="content">
+Cú chững lại trong nhận thức về cách viết của hàm số hằng $y=1$ xuất phát từ những hình ảnh quen thuộc về một hàm số thường thấy như: $y=2x$, $y=x^2$, $y=\sqrt{x}$. Trong cách viết này, vế trái $y$ là *biến phụ thuộc*; vế phải là một biểu thức của *biến độc lập* $x$.
+
+Tổng quát là
+$$
+y=f(x).
+$$
+
+Hệ thức này được hiểu là đang có một quy tắc $f$ gắn mỗi giá trị $x$ với đúng một giá trị $y$. Chẳng hạn, với $y=2x$, quy tắc $f$ là "nhân đôi $x$ để được $y$"; với $y=x^2$, quy tắc $f$ là "bình phương $x$"; với $y=\sqrt{x}$, quy tắc $f$ là "căn bậc hai $x$".
+
+Viết $y=\dots$ khi nhấn mạnh kết quả; viết $f(x)=\dots$ nhấn mạnh quy tắc. Hai cách viết gắn liền và bổ sung cho nhau trong việc hiểu hàm số.
+
+Vế phải hàm số $y=1$ không hề có bóng dáng của $x$. Nhưng nếu gọi $f$ là quy tắc cho hàm số này, nghĩa là
+
+$$
+f(x)=1,
+$$
+
+thì mọi sự trở nên rõ ràng. Quy tắc ở đây chính là: *dù đầu vào $x$ là mấy, đầu ra vẫn luôn là $1$*. Điều này hoàn toàn thỏa mãn định nghĩa hàm số: với *mỗi* giá trị của $x$, ta thu được *duy nhất một* giá trị của $y$. Điểm khác biệt là quy tắc này "quá đơn giản": không thay đổi gì theo $x$.
+</div>
+</details>
+
+Hàm số hằng khiến ta cảm thấy kì quặc, bởi ý tưởng cơ bản khi nhắc đến hàm số thường gắn với sự biến đổi: biến độc lập thay đổi thì biến phụ thuộc cũng thay đổi theo. Ở đây, biến độc lập có thay đổi bao nhiêu đi nữa thì biến phụ thuộc vẫn cứ giữ nguyên một giá trị. Nhưng nếu đổi cách nhìn, ta thấy hàm số hằng không hề ngoại lệ: nó vẫn mô tả một mối liên hệ chặt chẽ giữa hai biến. Chỉ có điều, mối liên hệ này là "tĩnh tuyệt đối" - mọi giá trị $x$ đều quy về cùng một kết quả. Có thể xem đây là một hàm số đặc biệt: tập giá trị của nó chỉ gồm đúng một phần tử duy nhất. Vậy nên, thay vì coi hàm hằng là ngoại lệ, hãy để nó là điểm xuất phát: sự biến thiên đơn giản nhất chính là bất biến, để từ đó đi dần tới những sự biến thiên ngày một phức tạp hơn.
+
+Hàm số $y=1$ có miền xác định là toàn bộ tập số thực, nghĩa là 
+
+$$
+D=\mathbb{R}.
+$$
+
+Vì công thức $y=1$ có nghĩa với mọi $x$, không có bất kỳ giá trị nào bị loại bỏ. Tính chất liên tục của nó cũng hiển nhiên.
+
+Về chẵn/lẻ, ta nhận thấy $f(-x)=f(x)=1$, do đó hàm số này được xếp vào loại *chẵn*, đồ thị đối xứng qua trục tung. Thực ra, sự đối xứng ở đây còn "phổ quát" hơn: đường thẳng ngang $y=1$ đối xứng qua bất kỳ trục dọc nào vuông góc với trục hoành. Bên cạnh đó, vì $f(x+T)=f(x)$ với mọi số dương $T$, hàm $y=1$ cũng có thể coi là tuần hoàn với mọi chu kỳ. Hàm số hằng là tuần hoàn, và đặc biệt nó nhận mọi số dương làm chu kỳ. Do đó, khái niệm "chu kỳ cơ bản nhỏ nhất" không áp dụng cho trường hợp này.
+
+Xét giới hạn, khi $x$ tiến ra vô cực, giá trị hàm vẫn giữ nguyên bằng $1$. Ta có $\lim_{x\to\pm\infty}f(x)=1$. Nếu muốn mô tả theo ngôn ngữ tiệm cận, có thể nói rằng $y=1$ chính là một đường tiệm cận ngang. Nhưng đây là trường hợp đặc biệt, vì đường tiệm cận và đồ thị trùng nhau; không có gì cần vẽ thêm ngoài chính đường thẳng đó.
+
+Đạo hàm cấp một của hàm số bằng $0$ trên toàn miền: $f^\prime (x)=0$. Điều này có nghĩa là đồ thị không tăng, không giảm, mà hoàn toàn bất biến. Không có sự đổi dấu nào của đạo hàm, nên tất nhiên không xuất hiện điểm cực trị. Trên bất kỳ đoạn kín nào, giá trị lớn nhất và giá trị nhỏ nhất cũng đồng thời bằng $1$. Đạo hàm cấp hai cũng bằng $0$: $f^{\prime\prime} (x)=0$. Theo định nghĩa thông thường, một hàm tuyến tính (trong đó có hàm hằng) vừa được coi là lồi vừa được coi là lõm, vì nó thỏa đồng thời cả hai bất đẳng thức. Một số tác giả khác thì gọi đây là trường hợp "không lồi, không lõm", để nhấn mạnh tính chất trung hòa. Dù dùng cách diễn đạt nào, điều quan trọng vẫn là: đồ thị không có dáng cong, và vì vậy không có điểm uốn.
+
+Khi lập bảng biến thiên, ta chỉ thấy một dòng duy nhất: từ âm vô cực đến dương vô cực, giá trị của hàm giữ nguyên bằng $1$. Đồ thị là một đường thẳng song song với trục hoành, đi qua điểm $(0;1)$. Đường thẳng này cắt trục tung tại $(0;1)$, nhưng không bao giờ cắt trục hoành. Nếu thay số $1$ bằng một hằng số $c$, ta sẽ thu được đường thẳng ngang $y=c$, dịch chuyển lên hoặc xuống theo giá trị của $c$. Trường hợp $c=0$ đặc biệt quan trọng, bởi đồ thị khi ấy chính là trục hoành - đường tham chiếu cơ bản trong hệ tọa độ.
+
+Hàm số hằng, với sự giản lược của nó, đóng vai trò như một trường hợp cơ sở trong toán học. Nhiều khái niệm giải tích trở nên "tầm thường" khi áp dụng cho hàm hằng: đạo hàm luôn bằng $0$, cực trị không có, tiệm cận trùng đồ thị. Nhưng sự tầm thường này không vô nghĩa. Nó cho ta một chuẩn gốc để so sánh. Giống như số $0$ trong phép cộng: bản thân nó không làm thay đổi kết quả, nhưng chính nó cho thấy thế nào là ‘không thay đổi’, từ đó ta hiểu rõ ý nghĩa của phép cộng. Cũng thế, hàm số hằng cho ta một điểm mốc để thấy được rằng đạo hàm, cực trị hay tiệm cận chỉ thật sự mang ý nghĩa khi có sự biến thiên. Từ sự bất biến này, toàn bộ khái niệm về biến thiên mới trở nên rõ ràng.
+
+Về mặt ứng dụng, hàm số hằng mô tả những hiện tượng không thay đổi theo thời gian hoặc theo biến quan sát: nhiệt độ ổn định trong một phòng kín, vận tốc tức thời bằng $0$ của vật đứng yên, hoặc mức điện áp không đổi trong một mạch điện. Về mặt giáo dục, đây là điểm khởi đầu tự nhiên. Học sinh dễ dàng tiếp nhận, rồi từ đó đi dần đến những hàm số phức tạp hơn. Chính vì vậy, sự khảo sát hàm số hằng không chỉ có ý nghĩa kỹ thuật, mà còn có ý nghĩa phương pháp: nó cho thấy cái đơn giản nhất, cái "tĩnh tuyệt đối", lại là bước đầu tiên để hiểu cái phức tạp, cái biến thiên không ngừng.
+
+
+### Bài tập
+
+1. Xác định tập giá trị của hàm số $y=1$. So sánh với tập giá trị của các hàm số $y=x$ và $y=x^2$.
+
+2. Do đặc trưng gì của đường thẳng mà ta nói: "Đồ thị của hàm số hằng $y=1$ đối xứng qua bất kỳ trục dọc nào vuông góc với trục hoành."
+
+3. Với $a\ne 0$, các hàm số có dạng $y=ax+b$ và $y=ax^2+bx+c$ lần lượt được gọi là hàm bậc nhất và hàm bậc hai. Vậy, hàm hằng nên được gọi là hàm bậc mấy?
+
+4. Chứng minh rằng hàm số $y=1$ là tuần hoàn và có mọi số dương làm chu kỳ. Tại sao trong trường hợp này khái niệm "chu kỳ cơ bản" không có ý nghĩa?
+
+5. Hãy tìm đạo hàm cấp một và đạo hàm cấp hai của hàm số $y=1$. Từ kết quả đó, kết luận về chiều biến thiên và độ cong của hàm số.
+
+6. So sánh đồ thị các hàm số $y=0$, $y=1$, $y=2$. Nêu nhận xét về sự giống và khác nhau.
+
+7. Xét hàm số $y=c$ với tham số $c$. Hãy xác định ảnh hưởng của tham số $c$ đến đồ thị.
+
+8. Trong thực tế, hãy nêu một hiện tượng có thể được mô hình hóa bằng hàm số hằng.
+
+9. Cho biết $f(x_1-x_2)=f(x_1)f(x_2)$. Xác định $f(x)$. 
+
+10. Cho biết $f(x_1+x_2)=x_1f(x_2)$. Xác định $f(x)$. 
+
+</details>
+
+<!-- HÀM SỐ BẬC NHẤT -->
+
+::: {.tieu-de-chu-thich}
+Hàm số bậc nhất: $y=ax+b$
+:::
+
+<!-- Đường phân giác của góc phần tư thứ nhất -->
+
+<details>
+<summary class="cau">$y=x$</summary>
+
+</details>
+
+<details>
+<summary class="cau">$y=2x$</summary>
+
+</details>
+
+<details>
+<summary class="cau">$y=\frac{1}{2}x$</summary>
+
+</details>
+
+<!-- Đường phân giác của góc phần tư thứ hai -->
+
+<details>
+<summary class="cau">$y=-x$</summary>
+
+</details>
+
+<details>
+<summary class="cau">$y=x+1$</summary>
+
+</details>
+
+<details>
+<summary class="cau">$y=2x+1$</summary>
+
+</details>
+
+<!-- HÀM BẬC HAI -->
+
+::: {.tieu-de-chu-thich}
+Hàm số bậc hai: $y=ax^2+bx+c$
+:::
+
+<details>
+<summary class="cau">$y=x^2$</summary>
+
+</details>
+
+<details>
+<summary class="cau">$y=2x^2$</summary>
+
+</details>
+
+<details>
+<summary class="cau">$y=\frac{1}{2}x^2$</summary>
+
+</details>
+
+---
+
+::: {.tieu-de-chu-thich}
+Hàm số bậc ba: $y=ax^3+bx^2+cx+d$
+:::
+
+<details>
+<summary class="cau">$y=x^3$</summary>
+
+</details>
+
+<details>
+<summary class="cau">$y=3x^3$</summary>
+
+</details>
+
+<details>
+<summary class="cau">$y=\frac{1}{3}x^3$</summary>
+
+</details>
+
+<details>
+<summary class="cau">$y=x^3-3x$</summary>
+
+</details>
+
+---
+
+::: {.tieu-de-chu-thich}
+Hàm số bậc bốn: $y=ax^4+bx^3+cx^2+dx+e$
+:::
+
+---
+
+::: {.tieu-de-chu-thich}
+Hàm phân thức bậc nhất trên bậc nhất: $y=\frac{ax+b}{cx+d}$
+:::
+
+---
+
+::: {.tieu-de-chu-thich}
+Hàm phân thức bậc hai trên bậc nhất: $y=\frac{ax^2+bx+c}{dx+e}$
+:::
+
+---
+
+::: {.tieu-de-chu-thich}
+Hàm lũy thừa: $y=x^\alpha$
+:::
+
+---
+
+::: {.tieu-de-chu-thich}
+Hàm lượng giác và hàm lượng giác ngược: $y=\sin x$, $y=\cos x$, $y=\tan x$, $y=\cot x$; và $y=\arcsin x$, $y=\arccos x$, $y=\arctan x$
+:::
+
+<details open>
+<summary class="cau">$y=\sin\left(\frac{1}{x}\right)$</summary>
+
+::: {.tieu-de-chu-thich}
+Nhận diện hàm số
+:::
+
+Vì $\frac{1}{x}$ chỉ vô nghĩa tại $x=0$, nên hàm 
+
+$$
+f(x)=\sin\left(\frac{1}{x}\right)
+$$
+
+có tập xác định:
+
+$$
+D=\mathbb{R}\setminus\{0\}.
+$$
+
+Điểm $x=0$ có vẻ là một điểm đặc biệt, vì hàm đột nhiên "bốc hơi" ở đó. Liệu đồ thị ở lân cận $0$ có hé lộ điều gì thú vị không? Ta sẽ dần khám phá.
+
+Hàm $\sin(x)$ thì quen thuộc hơn: xác định trên toàn $\mathbb{R}$, dao động đều đặn giữa $-1$ và $1$, và lặp lại sau mỗi chu kỳ $2\pi$, vì $\sin(x + 2k\pi)=\sin(x)$ ($k \in \mathbb{Z}$). Nhưng ở đây đối số của $\sin$ không còn là $x$ mà là $\frac{1}{x}$; do đó $f$ là một hàm hợp: $\sin$ "bọc ngoài" kết quả của $\frac{1}{x}$. Vì vậy, cách $\frac{1}{x}$ thay đổi khi $x$ dịch chuyển sẽ quyết định toàn bộ hành vi của $f$.
+
+> Đối số của $f$ là gì?
+
+Hàm $f(x)$ mang hai tính cách đối lập: *dịu dàng* khi $x\to \infty$ và *dữ dội* khi $x\to 0$. Sự tập trung nên đặt vào $x>0$; với $x<0$, kết quả được suy ra tương tự nhờ tính chất *hàm lẻ*: $f(-x)=-f(x)$.
+
+::: {.tieu-de-chu-thich}
+Dịu dàng
+:::
+
+1. Khi $x\to +\infty$ thì $\frac{1}{x}\to 0^+$. 
+
+   Với những giá trị rất nhỏ của $u$, $\sin(u)$ gần như trùng với $u$ - điều này được khẳng định bởi giới hạn
+
+   $$
+   \lim_{u\to 0}\frac{\sin(u)}{u}=1.
+   $$
+
+   Do đó, khi $x$ lớn dần, $\sin\left(\frac{1}{x}\right)$ không chỉ tiến về $0$ mà còn xấp xỉ $\frac{1}{x}$. Nói cách khác, càng đi xa gốc tọa độ, đồ thị hàm $y=\sin\left(\frac{1}{x}\right)$ càng trở nên êm dịu, gần như dán sát lấy trục hoành, tựa đồ thị hàm $y=\frac{1}{x}$, gợi cảm giác lặng sóng.
+
+   > Thật sự lặng sóng hay chỉ là dao động quá nhẹ?
+
+::: {.tieu-de-chu-thich}
+Dữ dội
+:::
+
+2. Khi $x\to 0^+$ thì $\frac{1}{x}\to +\infty$. 
+
+   Thực ra, $\frac{1}{x}$ tăng vọt: đến một lúc nào đó, chỉ trong một khoảng rất nhỏ $x$ gần $0$, $\frac{1}{x}$ sẽ quét qua nhiều chu kỳ của sóng sin. Hệ quả là $\sin\left(\frac{1}{x}\right)$ không ngừng dao động giữa $-1$ và $1$. Nhịp điệu ấy giống như $\sin(x)$ khi $x\to\infty$, nhưng có một khác biệt lớn: với $\sin(x)$, các dao động được trải dài trên cả trục số, còn với $\sin\left(\frac{1}{x}\right)$, toàn bộ tiết tấu ấy bị "nén" vào một khoảng rất nhỏ gần $x=0$.
+
+   Cụ thể, ở $x=0{,}1$ ta có $y=10$, xuống $x=0{,}01$ thì $y=100$, và đến $x=0{,}001$ thì vọt tới $y=1000$. Trong khoảng rất hẹp quanh $0$, đối số đã quét qua hàng loạt chu kỳ của sóng sin. Và mỗi khi $\frac{1}{x}$ tăng thêm $2\pi$, hàm số lại hoàn tất một vòng dao động: từ đỉnh qua đáy rồi trở về đỉnh.
+
+   Khi $x$ càng tiến sát $0$, khoảng thay đổi $x$ để $\frac{1}{x}$ tăng thêm $2\pi$ càng nhỏ - vì vậy các đỉnh và đáy xuất hiện ngày càng dày đặc hơn, đồ thị "rung" dồn dập. Nếu phóng to vùng quanh $0$, một "rừng sóng" chen chúc sẽ được nhìn thấy, không có điểm dừng.
+
+Nhằm củng cố lập luận, một bảng giá trị tập trung vào $x>0$ được lập ra ngay bên dưới. Bảng giúp so sánh $\sin(x)$ (tham chiếu) và $\sin\left(\frac{1}{x}\right)$ (hành vi thực sự), đồng thời cho thấy rõ dao động dồn ở gần $0$ và xu hướng về $0$ khi $x\to\infty$.
+
+* Trên khoảng $\left(0,\frac{2}{\pi}\right]$, chọn ra một số $x$ được tính theo công thức $x=\frac{2}{k\pi}$ ($k$ là số nguyên dương) sao cho $\frac{1}{x}$ là bội của $\frac{\pi}{2}$, khi đó: $\sin\left(\frac{1}{x}\right)$ chỉ nhận các giá trị điển hình $1$, $0$, $-1$ một cách lặ đi lặp lại - giúp nhìn thấy dao động dồn khi $x\to 0^+$.
+
+* Trên khoảng $\left(\frac{2}{\pi}, \infty\right)$, lấy vài điểm với bước nhảy lớn hơn để thấy xu hướng tiến về $0$ khi $x\to +\infty$. 
+
+Bảng dưới đây sắp xếp $x$ theo thứ tự tăng dần, với giá trị làm tròn 4 chữ số thập phân:
+
+```{python}
+#| echo: false
+#| output: asis
+#| warning: false
+
+import numpy as np
+
+# Tạo dữ liệu
+n = np.arange(1, 15)
+x_near_0 = 2/(n*np.pi)
+x_far_from_0 = np.array([1, 2, 5, 10, 50, 100, 1000])
+
+# Ghép tất cả giá trị x và sắp xếp
+all_x = np.concatenate([x_near_0, x_far_from_0])
+all_x_sorted = np.sort(all_x)
+
+# Tính các giá trị tương ứng
+one_over_x = 1 / all_x_sorted
+sin_x = np.sin(all_x_sorted)
+sin_one_over_x = np.sin(one_over_x)
+
+print("<table class='math-table'>")
+print("<thead><tr>")
+print("<th>$x$</th>")
+print("<th>$\\frac{1}{x}$</th>")
+print("<th>$\\sin(x)$</th>")
+print("<th>$\\sin\\left(\\frac{1}{x}\\right)$</th>")
+print("</tr></thead><tbody>")
+
+def format_number_with_decimal_center(value):
+    """Định dạng số với dấu phẩy căn giữa"""
+    if abs(value) < 1e-10:
+        value = 0.0
+    
+    # Định dạng số
+    str_value = f"{value:.4f}".replace('.', ',')
+    
+    # Tách phần nguyên và phần thập phân
+    if ',' in str_value:
+        integer_part, decimal_part = str_value.split(',')
+    else:
+        integer_part = str_value
+        decimal_part = "0000"
+    
+    # Căn chỉnh dấu phẩy ở giữa
+    return f'<div class="number-cell"><span class="integer-part">{integer_part}</span><span class="decimal-comma">,</span><span class="decimal-part">{decimal_part}</span></div>'
+
+for i in range(len(all_x_sorted)):
+    # Xử lý số rất nhỏ gần bằng 0
+    sin_inv_x_val = sin_one_over_x[i]
+    if abs(sin_inv_x_val) < 1e-10:
+        sin_inv_x_val = 0.0
+    
+    # Định dạng các số với dấu phẩy căn giữa
+    x_val = format_number_with_decimal_center(all_x_sorted[i])
+    inv_x_val = format_number_with_decimal_center(one_over_x[i])
+    sin_x_val = format_number_with_decimal_center(sin_x[i])
+    sin_inv_x_val = format_number_with_decimal_center(sin_inv_x_val)
+    
+    print(f"<tr><td>{x_val}</td>")
+    print(f"<td>{inv_x_val}</td>")
+    print(f"<td>{sin_x_val}</td>")
+    print(f"<td>{sin_inv_x_val}</td></tr>")
+
+print("</tbody></table>")
+```
+
+
+::: {.tieu-de-chu-thich}
+Tính chất tĩnh
+:::
+
+Hàm $y=\sin\left(\frac{1}{x}\right)$ chỉ có thể nhận giá trị trong đoạn $[-1;1]$, vì bản chất là một hàm $\sin$. Nhưng có giá trị nào bị bỏ sót không?
+
+Câu trả lời là *không*, và điều đó có nghĩa là: với mọi $y\in[-1;0]$, luôn tìm được $x\ne 0$ sao cho $\sin\left(\frac{1}{x}\right)=y$.
+
+* Trước hết, phương trình $\sin$T$=y$ luôn có nghiệm. Nếu $y\ne 0$, có thể chọn ngay một nghiệm $t\ne 0$. Khi đó, $x=\frac{1}{t}$ là một số thực khác $0$, và $\sin\left(\frac{1}{x}\right)=\sin$T$=y$ .
+
+* Riêng $y=0$, lưu ý rằng $\sin$T$=0$ không chỉ xảy ra ở $t=0$ mà còn xảy ra ở mọi $t=k\pi$ với $k$ nguyên dương. Vì vậy, có thể chọn $x=\frac{1}{k\pi}$.
+
+Vậy, với mọi $y\in[-1;1]$, luôn tìm được $x\ne 0$ thỏa mãn $\sin\left(\frac{1}{x}\right)=y$. Do đó, *tập giá trị* của hàm số $y=\sin\left(\frac{1}{x}\right)$ chính là
+
+$$
+[-1;1].
+$$
+
+- **Liên tục**: Hàm có "mượt mà" trên miền xác định không? Vì $\frac{1}{x}$ liên tục trên $\mathbb{R} \setminus \{0\}$, và sin liên tục trên $\mathbb{R}$, hàm tổ hợp $\sin(1/x)$ cũng liên tục trên $D_f$. Nhưng tại $x=0$, hàm không xác định, nên ta sẽ xét hành vi ở đây sau (mục 3).
+
+- **Đối xứng**: Hàm có đối xứng không? Thử kiểm tra tính chẵn/lẻ: $f(-x)=\sin\left(\frac{1}{-x}\right)=\sin\left(-\frac{1}{x}\right)=-\sin\left(\frac{1}{x}\right)=-f(x)$. Hàm lẻ, tức đồ thị đối xứng qua gốc tọa độ. Điều này rất hữu ích: ta chỉ cần khảo sát trên $x > 0$, rồi phản xạ qua gốc để được nhánh $x < 0$.
+
+- **Tuần hoàn**: Hàm sin có chu kỳ $2\pi$, nhưng $\frac{1}{x}$ có tuần hoàn không? Thử kiểm tra: $f(x + T)=\sin\left(\frac{1}{x + T}\right)$. Để tuần hoàn, cần $\frac{1}{x + T}=\frac{1}{x} + 2k\pi$, nhưng phương trình này không có $T$ cố định cho mọi $x$. Vậy, hàm không tuần hoàn, khác với $\sin(x)$. Có lẽ tần số dao động thay đổi theo $x$, ta sẽ kiểm tra kỹ hơn ở các bước sau.
+
+Vậy, ta biết gì? Hàm dao động trong $[-1, 1]$, lẻ, liên tục trên $D_f$, và không tuần hoàn. Những tính chất này gợi ý rằng đồ thị có thể dao động giống sin, nhưng với tần số biến đổi, và đối xứng qua gốc. Hãy tiếp tục xem hành vi ở những điểm đặc biệt!
+
+#### 3. Tính Chất Biên: Đồ Thị Làm Gì Ở Xa Và Gần Điểm Bất Thường?
+
+Bây giờ, ta khám phá hành vi của hàm tại "ranh giới" (vô cực và điểm bất thường như $x=0$). Hãy đặt câu hỏi:
+
+- **Khi $x$ rất lớn hoặc rất nhỏ?** Thử tính giới hạn tại vô cực:
+  - Nếu $x \to +\infty$, thì $\frac{1}{x} \to 0^+$, nên $f(x)=\sin\left(\frac{1}{x}\right) \to \sin(0)=0$. Nhưng sin dao động, nên ta thử một vài giá trị:
+    - $x=10$, $\frac{1}{x}=0.1$, $f(x)=\sin(0.1) \approx 0.0998$.
+    - $x=100$, $\frac{1}{x}=0.01$, $f(x)=\sin(0.01) \approx 0.009999$.
+    Có vẻ hàm dao động gần 0, với biên độ giảm dần. Nhưng giới hạn chính xác là gì? Vì $\frac{1}{x}$ đến 0, $\sin(1/x)$ dao động giữa các giá trị gần 0, nên $\lim_{x \to +\infty} f(x)$ không tồn tại hữu hạn, nhưng đồ thị tiến gần $y=0$.
+  - Tương tự, $x \to -\infty$, $\frac{1}{x} \to 0^-$, và $f(x) \to 0$ với dao động. Ta có thể nói đồ thị có "hành vi như tiệm cận ngang" $y=0$ ở vô cực.
+
+- **Tại $x=0$?** Vì $x=0$ không thuộc $D_f$, ta xét giới hạn:
+  - Khi $x \to 0^+$, $\frac{1}{x} \to +\infty$, nên $\sin(1/x)$ dao động vô hạn giữa -1 và 1. Ví dụ:
+    - $x=\frac{1}{\pi/2}$, $f(x)=\sin(\pi/2)=1$.
+    - $x=\frac{1}{\pi}$, $f(x)=\sin(\pi)=0$.
+    - $x=\frac{1}{3\pi/2}$, $f(x)=\sin(3\pi/2)=-1$.
+    Dao động này không dừng, nên $\lim_{x \to 0^+} f(x)$ không tồn tại.
+  - Tương tự, $x \to 0^-$, $\frac{1}{x} \to -\infty$, và $f(x)$ dao động vô hạn. Vậy, không có tiệm cận dọc tại $x=0$, vì $|f(x)| \leq 1$.
+
+- **Tiệm cận?** Không có tiệm cận dọc (vì $\lvert f(x)\rvert$ không tới vô cực). Tiệm cận ngang $y=0$ có vẻ hợp lý ở $x \to \pm \infty$, vì hàm dao động quanh 0. Tiệm cận xiên thì sao? $\lim_{x \to \pm \infty} \frac{f(x)}{x}=\lim_{x \to \pm \infty} \frac{\sin(1/x)}{x}=0$, nên không có tiệm cận xiên.
+
+- **Lỗ hổng?** Không có, vì hàm không phải phân thức với tử/mẫu đồng thời bằng 0.
+
+Vậy, đồ thị dao động dồn dập gần $x=0$, không có giới hạn cố định, và tiến gần $y=0$ ở xa. Điều này gợi ý một đồ thị rất đặc biệt, có lẽ giống sóng lượn liên tục!
+
+#### 4. Sự Biến Thiên: Hàm Thay Đổi Thế Nào?
+
+Bây giờ, ta xem hàm tăng, giảm, hay cong thế nào. Hãy tính đạo hàm:
+- $f^\prime$x$=\cos\left(\frac{1}{x}\right) \cdot \left(-\frac{1}{x^2}\right)=-\frac{1}{x^2} \cos\left(\frac{1}{x}\right)$.
+- Dấu của $f^\prime (x)$ phụ thuộc vào $\cos(1/x)$, vì $-\frac{1}{x^2} < 0$. Khi $\cos(1/x) > 0$, $f^\prime (x) < 0$ (giảm); khi $\cos(1/x) < 0$, $f^\prime (x) > 0$ (tăng). Thử tìm điểm tới hạn: $f^\prime$x$=0$ khi $\cos(1/x)=0$, tức $\frac{1}{x}=\frac{\pi}{2} + k\pi$, $x=\frac{1}{\pi/2 + k\pi}$. Có vô hạn điểm như vậy gần $x=0$.
+
+Thử kiểm tra trên $x > 0$:
+- Tại $x=\frac{1}{\pi/2}$, $f^\prime$x$=0$, vì $\cos(\pi/2)=0$.
+- Tại $x=\frac{1}{\pi}$, $\cos(\pi)=-1$, $f^\prime$x$ > 0$ (tăng).
+- Tại $x=\frac{1}{2\pi}$, $\cos(2\pi)=1$, $f^\prime$x$ < 0$ (giảm).
+
+Hàm dao động giữa tăng và giảm vô hạn lần khi $x \to 0^+$. Cực trị xảy ra tại điểm tới hạn, ví dụ $x=\frac{1}{\pi/2 + 2k\pi}$, $f(x)=1$ (cực đại); $x=\frac{1}{3\pi/2 + 2k\pi}$, $f(x)=-1$ (cực tiểu). Nhưng do vô hạn điểm, ta không thể lập bảng biến thiên đầy đủ.
+
+Đạo hàm bậc 2 thì phức tạp hơn, nhưng có thể thấy hàm đổi chiều cong (lõm lên/lõm xuống) vô hạn lần gần $0$. Điều này xác nhận đồ thị sẽ lượn rất nhiều gần $x=0$, tạo hình "sin dồn".
+
+#### 5. Đồ Thị: Hình Dáng Ra Sao?
+
+Hãy hình dung đồ thị:
+- Trên $x > 0$: Hàm dao động giữa $-1$ và $1$, với tần số tăng khi $x \to 0^+$. Các đỉnh tại $x=\frac{1}{\pi/2 + 2k\pi}$ ($f=1$), $x=\frac{1}{3\pi/2 + 2k\pi}$ ($f=-1$).
+- Trên $x < 0$: Đối xứng qua gốc, dao động tương tự.
+- Ở xa ($\lvert x\rvert > 1$): Hàm gần $y=0$, dao động nhẹ.
+
+Đồ thị trông như sóng lượn, dồn dập gần $x=0$, và "êm" dần ở xa. Ta có thể dùng phần mềm như Desmos để kiểm tra, hoặc thử vẽ tay trên $[0.1, 1]$ để thấy dao động nhanh.
+
+#### 6. Ảnh Hưởng Tham Số Và So Sánh: Điều Gì Thay Đổi Nếu Ta Thêm Tham Số?
+
+Nếu xét dạng $f(x)=a\sin\left(\frac{b}{x + c}\right) + d$:
+- $a$: Thay đổi biên độ. Nếu $a=2$, dao động trong $[-2, 2]$.
+- $b$: Tăng tần số dao động gần $x=0$.
+- $c$: Dịch điểm kỳ dị sang $x=-c$.
+- $d$: Dịch đồ thị dọc.
+
+So với $\sin(x)$, hàm này không tuần hoàn, dao động nhanh hơn gần 0. So với $x \sin(1/x)$, biên độ giảm khi $x \to 0$, làm đồ thị "êm" hơn. Những so sánh này giúp ta hiểu tại sao $\sin(1/x)$ đặc biệt.
+
+#### 7. Ứng Dụng Và Ý Nghĩa: Tại Sao Hàm Này Thú Vị?
+
+Hàm này xuất hiện trong vật lý (sóng dao động trong môi trường hẹp), hoặc trong phân tích tín hiệu (dao động với tần số thay đổi). Trong toán học, nó minh họa giới hạn không tồn tại và hành vi dao động phức tạp. Bạn có nghĩ hàm này có thể mô hình hóa hiện tượng nào trong thực tế không? Ví dụ, dao động của một con lắc bị ảnh hưởng bởi lực thay đổi nhanh.
+
+#### 8. Bài Tập Và Mở Rộng: Thử Sức Cùng Hàm Này!
+
+- **Cơ bản**: Tính $f(x)$ tại $x=\frac{1}{k\pi}$, $k=1, 2, 3$. Điều gì xảy ra khi $k$ lớn?
+- **Nâng cao**: Chứng minh $\lim_{x\to 0} x \sin\left(\frac{1}{x}\right)=0$. Điều này nói gì về hành vi?
+- **Mở rộng**: Thử khảo sát $\sin\left(\frac{1}{x^2}\right)$. Tần số dao động thay đổi thế nào?
+
+### Kết Luận
+
+Hàm $f(x)=\sin\left(\frac{1}{x}\right)$ đưa ta vào một hành trình khám phá thú vị: từ dao động đều đặn ở xa đến lượn dồn dập gần $x=0$. Qua khung sườn, ta thấy nó lẻ, dao động trong $[-1, 1]$, không tuần hoàn, và có hành vi đặc biệt gần điểm kỳ dị. Hy vọng cách tiếp cận này khiến bạn cảm thấy như đang cùng khám phá! Nếu bạn muốn điều chỉnh giọng điệu hoặc đi sâu vào phần nào (như đạo hàm, đồ thị), hãy cho tôi biết nhé!
+
+---
+
+### Bài tập
+
+1. Tính giá trị $y=\sin\left(\frac{1}{x}\right)$ tại các điểm $x$ lần lượt là $5$, $10$, $20$, $50$. Hãy nhận xét sự thay đổi của $y$.
+
+2. So sánh hai hàm số $y=\sin\left(\frac{1}{x}\right)$ và $y=\frac{1}{x}$ tại các điểm $x$ lần lượt là $5$, $10$, $20$, $50$. Hãy cho nhận xét về mức độ gần nhau của hai hàm này. Khi $x$ càng lớn, hai hàm số trên có xu hướng giống nhau như thế nào về mặt đồ thị?
+
+3. Chứng minh rằng 
+
+   $$
+   \lim_{x\to 0}\frac{\sin(x)}{x}=1.
+   $$
+
+   Từ đó giải thích vì sao với những giá trị rất nhỏ của $x$, ta có thể xem $\sin(x)\approx x$.
+
+4. Hãy tính giới hạn  
+
+   $$
+   \lim_{x\to \infty}\sin\left(\frac{1}{x}\right).
+   $$
+
+   Sau đó so sánh tốc độ tiến về $0$ của $\sin\left(\frac{1}{x}\right)$ và của $\frac{1}{x}$.
+
+5. Chứng minh bất đẳng thức
+
+   $$
+   \lvert\sin u\rvert\le \lvert u\rvert \; (u\in\mathbb{R}).
+   $$
+
+   Từ đó suy ra
+
+   $$
+   \left\lvert\sin\left(\frac{1}{x}\right)\right\rvert\leq \frac{1}{x} \; (x>0).
+   $$
+
+   Kết luận về giới hạn của $\sin\left(\frac{1}{x}\right)$ khi $x\to\infty$.
+
+6. Với $f(x)=\sin\left(\frac{1}{x}\right)$, hãy tính $f^\prime (x)$. Chứng minh rằng
+
+   $$
+   \lvert f^\prime (x)\rvert \le \frac{1}{x^2}.
+   $$
+
+   Hãy giải thích ý nghĩa của kết quả này về tốc độ thay đổi của $f(x)$ khi $x$ lớn.
+
+7. Dựa trên các bất đẳng thức và kết quả đạo hàm đã có, hãy mô tả dáng điệu của đồ thị $y=\sin\left(\frac{1}{x}\right)$ khi $x\to\infty$. So sánh với đồ thị $y=\frac{1}{x}$.
+
+</details>
+
+
+
+---
+
+::: {.tieu-de-chu-thich}
+Hàm mũ và hàm lô-ga-rít: $y=a^x$và $y=\log_a x$
+:::
+
+---
+
+::: {.tieu-de-chu-thich}
+Một số hàm khác: tổng hợp từ các hàm đã có, và những hàm đặc biệt như hàm giá trị tuyệt đối $y=\lvert x\rvert$, hàm sàn $y=\lfloor x\rfloor$, hàm trần $y=\lceil x\rceil$
+:::
+
+<details>
+<summary class="cau">$y=\dfrac{\sin(x)}{x}$</summary>
+
+</details>

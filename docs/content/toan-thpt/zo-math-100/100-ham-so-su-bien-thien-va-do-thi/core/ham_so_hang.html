@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="ZO Math">
+<meta name="description" content="Thay vì xét cả họ y=c, ta chọn y=1 làm đại diện để khảo sát sự biến thiên và vẽ đồ thị. Qua đó, bạn sẽ cảm nhận được sự sống động của hàm số hằng - không đơn điệu như vẻ bề ngoài. Mỗi hàm số đều ẩn chứa một bài học, dẫn dắt bạn suy nghĩ sâu sắc hơn.">
+
+<title>Hàm số hằng – ZO Math</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../../">
+<link href="../../../../../images/favicon.ico" rel="icon">
+<script src="../../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../../site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../../site_libs/bootstrap/bootstrap-719951764d4ca359be86a642d82fdf9d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../../../assets/css/custom.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../../../content/toan-thpt/toan-10/index.qmd">
+ <span class="dropdown-text">Toán 10</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../../content/toan-thpt/toan-11/index.html">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../../content/toan-thpt/toan-12/index.html">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.html">
+ <span class="dropdown-text">100+ Hàm số</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/zo-o/index.html"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/zo-lab/index.html"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/shop/index.html"> 
+<span class="menu-text">ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/index.html">Danh sách hàm cơ bản</a></li><li class="breadcrumb-item"><a href="../../../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_hang.html">Hàm số hằng</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/index.html">Danh sách hàm cơ bản</a></li><li class="breadcrumb-item"><a href="../../../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_hang.html">Hàm số hằng</a></li></ol></nav>
+      <h1 class="title">Hàm số hằng</h1>
+            <p class="subtitle lead">Khảo sát sự biến thiên và vẽ đồ thị hàm số hằng <span class="math inline">\(y=1\)</span></p>
+                  <div>
+        <div class="description">
+          Thay vì xét cả họ <span class="math inline">\(y=c\)</span>, ta chọn <span class="math inline">\(y=1\)</span> làm đại diện để khảo sát sự biến thiên và vẽ đồ thị. Qua đó, bạn sẽ cảm nhận được sự sống động của hàm số hằng - không đơn điệu như vẻ bề ngoài. Mỗi hàm số đều ẩn chứa một bài học, dẫn dắt bạn suy nghĩ sâu sắc hơn.
+        </div>
+      </div>
+                </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Tác giả</div>
+      <div class="quarto-title-meta-contents">
+               <p>ZO Math </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Ngày cập nhật</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">09-10-2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  <div>
+    <div class="abstract">
+      <div class="block-title">Tóm tắt</div>
+      <p>Hàm số hằng, tiêu biểu với <span class="math inline">\(y=1\)</span>, tuy bất biến với mọi <span class="math inline">\(x\)</span> nhưng lại chứa đựng gần như đầy đủ các tính chất cơ bản của một hàm số: đối xứng, tuần hoàn, liên tục, có đạo hàm, giá trị lớn nhất và nhỏ nhất, v.v. tất cả đều hiện diện dưới dạng “tầm thường”. Chính sự giản lược này khiến nó trở thành một chuẩn gốc để so sánh: từ sự bất biến tuyệt đối, ta thấy rõ ý nghĩa của biến thiên, cực trị hay tiệm cận ở những hàm số phức tạp hơn. Nhờ đó, hàm số hằng vừa là điểm khởi đầu tự nhiên trong việc học, vừa là tấm gương phản chiếu để hiểu sâu bản chất của hàm số.</p>
+    </div>
+  </div>
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">100+ Hàm số: sự biến thiên và đồ thị</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Danh sách hàm cơ bản</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_hang.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Hàm số hằng</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_bac_nhat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm số bậc nhất</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Danh sách hàm mở rộng</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Danh sách hàm đào sâu</span></span>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Trên trang này</h2>
+   
+  <ul>
+  <li><a href="#khảo-sát-hàm-số-y1" id="toc-khảo-sát-hàm-số-y1" class="nav-link active" data-scroll-target="#khảo-sát-hàm-số-y1">Khảo sát hàm số <span class="math inline">\(y=1\)</span></a></li>
+  <li><a href="#bài-tập" id="toc-bài-tập" class="nav-link" data-scroll-target="#bài-tập">Bài tập</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="khảo-sát-hàm-số-y1" class="level1">
+<h1>Khảo sát hàm số <span class="math inline">\(y=1\)</span></h1>
+<div class="tieu-de-chu-thich">
+<p>Nhận diện</p>
+</div>
+<p>Hàm số <span class="math inline">\(y=1\)</span> tưởng chừng như quá đơn giản để bàn đến. Thế nhưng, thoạt nhìn lại thấy lạ: <em><span class="math inline">\(x\)</span> đâu rồi?</em> Thực ra, không thấy <span class="math inline">\(x\)</span> không có nghĩa là không có <span class="math inline">\(x\)</span>, mà là <span class="math inline">\(y=1\)</span> với mọi <span class="math inline">\(x\)</span>. Hàm này chỉ có một đầu ra duy nhất là <span class="math inline">\(1\)</span> cho mọi đầu vào. Tổng quát hơn, nếu vế phải là một hằng số <span class="math inline">\(c\)</span> bất kỳ, ta được hàm số <span class="math inline">\(y=c\)</span>. Đây được gọi là <strong>hàm số hằng</strong>.</p>
+<details class="collapsible-box-primary">
+<summary>
+Hàm số: Bóng dáng quen thuộc
+</summary>
+<div class="content">
+<p>Cú chững lại trong nhận thức về cách viết của hàm số hằng <span class="math inline">\(y=1\)</span> xuất phát từ những hình ảnh quen thuộc về một hàm số thường thấy như: <span class="math inline">\(y=2x\)</span>, <span class="math inline">\(y=x^2\)</span>, <span class="math inline">\(y=\sqrt{x}\)</span>. Trong các hệ thức này, vế trái <span class="math inline">\(y\)</span> là <em>biến phụ thuộc</em>; vế phải là một biểu thức của <em>biến độc lập</em> <span class="math inline">\(x\)</span>.</p>
+<p>Tổng quát là <span class="math display">\[
+y=f(x).
+\]</span></p>
+<p>Hệ thức này được hiểu là đang có một quy tắc <span class="math inline">\(f\)</span> gắn mỗi giá trị <span class="math inline">\(x\)</span> với đúng một giá trị <span class="math inline">\(y\)</span>. Chẳng hạn, với <span class="math inline">\(y=2x\)</span>, quy tắc <span class="math inline">\(f\)</span> là “nhân đôi <span class="math inline">\(x\)</span> để được <span class="math inline">\(y\)</span>”; với <span class="math inline">\(y=x^2\)</span>, quy tắc <span class="math inline">\(f\)</span> là “bình phương <span class="math inline">\(x\)</span>”; với <span class="math inline">\(y=\sqrt{x}\)</span>, quy tắc <span class="math inline">\(f\)</span> là “căn bậc hai <span class="math inline">\(x\)</span>”.</p>
+<p>Viết <span class="math inline">\(y=\dots\)</span> khi nhấn mạnh kết quả; viết <span class="math inline">\(f(x)=\dots\)</span> nhấn mạnh quy tắc. Hai cách viết gắn liền và bổ sung cho nhau trong việc hiểu hàm số.</p>
+<p>Vế phải hàm số <span class="math inline">\(y=1\)</span> không hề có bóng dáng của <span class="math inline">\(x\)</span>. Nhưng nếu gọi <span class="math inline">\(f\)</span> là quy tắc cho hàm số này, nghĩa là</p>
+<p><span class="math display">\[
+f(x)=1,
+\]</span></p>
+<p>thì mọi sự trở nên rõ ràng. Quy tắc ở đây chính là: <em>dù đầu vào <span class="math inline">\(x\)</span> là mấy, đầu ra vẫn luôn là <span class="math inline">\(1\)</span></em>. Điều này hoàn toàn thỏa mãn định nghĩa hàm số: với <em>mỗi</em> giá trị của <span class="math inline">\(x\)</span>, ta thu được <em>duy nhất một</em> giá trị của <span class="math inline">\(y\)</span>. Điểm khác biệt là quy tắc này “quá đơn giản”: không thay đổi gì theo <span class="math inline">\(x\)</span>.</p>
+</div>
+</details>
+<p>Hàm số hằng khiến ta cảm thấy kì quặc, bởi ý tưởng cơ bản khi nhắc đến hàm số thường gắn với sự biến đổi: biến độc lập thay đổi thì biến phụ thuộc cũng thay đổi theo. Ở đây, biến độc lập có thay đổi bao nhiêu đi nữa thì biến phụ thuộc vẫn cứ giữ nguyên một giá trị. Nhưng nếu đổi cách nhìn, ta thấy hàm số hằng không hề ngoại lệ: nó vẫn mô tả một mối liên hệ chặt chẽ giữa hai biến. Chỉ có điều, mối liên hệ này là “tĩnh tuyệt đối” - mọi giá trị <span class="math inline">\(x\)</span> đều quy về cùng một kết quả. Có thể xem đây là một hàm số đặc biệt: tập giá trị của nó chỉ gồm đúng một phần tử duy nhất. Vậy nên, thay vì coi hàm hằng là ngoại lệ, hãy để nó là điểm xuất phát: sự biến thiên đơn giản nhất chính là bất biến, để từ đó đi dần tới những sự biến thiên ngày một phức tạp hơn.</p>
+<div class="tieu-de-chu-thich">
+<p>Miền xác định</p>
+</div>
+<p>Hàm số <span class="math inline">\(y=1\)</span> có miền xác định là toàn bộ tập số thực, nghĩa là</p>
+<p><span class="math display">\[
+D=\mathbb{R}.
+\]</span></p>
+<p>Vì công thức <span class="math inline">\(y=1\)</span> có nghĩa với mọi <span class="math inline">\(x\)</span>, không có bất kỳ giá trị nào bị loại bỏ. Tính chất liên tục của nó cũng hiển nhiên.</p>
+<div class="tieu-de-chu-thich">
+<p>Tính chất cơ bản: chẵn/lẻ, tuần hoàn, liên tục/gián đoạn</p>
+</div>
+<p>Về chẵn/lẻ, ta nhận thấy <span class="math inline">\(f(-x)=f(x)=1\)</span>, do đó hàm số này được xếp vào loại <em>chẵn</em>, đồ thị đối xứng qua trục tung. Thực ra, sự đối xứng ở đây còn “phổ quát” hơn: đường thẳng ngang <span class="math inline">\(y=1\)</span> đối xứng qua bất kỳ trục dọc nào vuông góc với trục hoành. Bên cạnh đó, vì <span class="math inline">\(f(x+T)=f(x)\)</span> với mọi số dương <span class="math inline">\(T\)</span>, hàm <span class="math inline">\(y=1\)</span> cũng có thể coi là tuần hoàn với mọi chu kỳ. Hàm số hằng là tuần hoàn, và đặc biệt nó nhận mọi số dương làm chu kỳ. Do đó, khái niệm “chu kỳ cơ bản nhỏ nhất” không áp dụng cho trường hợp này.</p>
+<div class="tieu-de-chu-thich">
+<p>Giới hạn và tiệm cận</p>
+</div>
+<p>Xét giới hạn, khi <span class="math inline">\(x\)</span> tiến ra vô cực, giá trị hàm vẫn giữ nguyên bằng <span class="math inline">\(1\)</span>. Ta có <span class="math inline">\(\lim_{x\to\pm\infty}f(x)=1\)</span>. Nếu muốn mô tả theo ngôn ngữ tiệm cận, có thể nói rằng <span class="math inline">\(y=1\)</span> chính là một đường tiệm cận ngang. Nhưng đây là trường hợp đặc biệt, vì đường tiệm cận và đồ thị trùng nhau; không có gì cần vẽ thêm ngoài chính đường thẳng đó.</p>
+<div class="tieu-de-chu-thich">
+<p>Đạo hàm cấp một: chiều biến thiên và cực trị</p>
+</div>
+<p>Đạo hàm cấp một của hàm số bằng <span class="math inline">\(0\)</span> trên toàn miền: <span class="math inline">\(f^\prime (x)=0\)</span>. Điều này có nghĩa là đồ thị không tăng, không giảm, mà hoàn toàn bất biến. Không có sự đổi dấu nào của đạo hàm, nên tất nhiên không xuất hiện điểm cực trị.</p>
+<div class="tieu-de-chu-thich">
+<p>Giá trị lớn nhất và giá trị nhỏ nhất</p>
+</div>
+<p>Trên bất kỳ đoạn kín nào, giá trị lớn nhất và giá trị nhỏ nhất cũng đồng thời bằng <span class="math inline">\(1\)</span>.</p>
+<div class="tieu-de-chu-thich">
+<p>Đạo hàm cấp hai: độ cong và điểm uốn</p>
+</div>
+<p>Đạo hàm cấp hai cũng bằng <span class="math inline">\(0\)</span>: <span class="math inline">\(f^{\prime\prime} (x)=0\)</span>. Theo định nghĩa thông thường, một hàm tuyến tính (trong đó có hàm hằng) vừa được coi là lồi vừa được coi là lõm, vì nó thỏa đồng thời cả hai bất đẳng thức. Một số tác giả khác thì gọi đây là trường hợp “không lồi, không lõm”, để nhấn mạnh tính chất trung hòa. Dù dùng cách diễn đạt nào, điều quan trọng vẫn là: đồ thị không có dáng cong, và vì vậy không có điểm uốn.</p>
+<div class="tieu-de-chu-thich">
+<p>Bảng biến thiên</p>
+</div>
+<p>Khi lập bảng biến thiên, ta chỉ thấy một dòng duy nhất: từ âm vô cực đến dương vô cực, giá trị của hàm giữ nguyên bằng <span class="math inline">\(1\)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../../..\figures/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_hang_bbt.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="325"></p>
+</figure>
+</div>
+<div class="tieu-de-chu-thich">
+<p>Đồ thị</p>
+</div>
+<p>Đồ thị là một đường thẳng song song với trục hoành, đi qua điểm <span class="math inline">\((0;1)\)</span>. Đường thẳng này cắt trục tung tại <span class="math inline">\((0;1)\)</span>, nhưng không bao giờ cắt trục hoành.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../../..\figures/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_hang_dt.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="450"></p>
+</figure>
+</div>
+<div class="tieu-de-chu-thich">
+<p>Ảnh hưởng của tham số và so sánh</p>
+</div>
+<p>Nếu thay số <span class="math inline">\(1\)</span> bằng một hằng số <span class="math inline">\(c\)</span>, ta sẽ thu được đường thẳng ngang <span class="math inline">\(y=c\)</span>, dịch chuyển lên hoặc xuống theo giá trị của <span class="math inline">\(c\)</span>. Trường hợp <span class="math inline">\(c=0\)</span> đặc biệt quan trọng, bởi đồ thị khi ấy chính là trục hoành - đường tham chiếu cơ bản trong hệ tọa độ.</p>
+<div class="tieu-de-chu-thich">
+<p>Ý nghĩa toán học và ứng dụng</p>
+</div>
+<p>Hàm số hằng, với sự giản lược triệt để của nó, giữ vai trò như một trường hợp cơ sở trong toán học. Gần như mọi tính chất quan trọng của hàm số đều hiện diện, nhưng ở dạng “tầm thường”: là hàm chẵn, và không chỉ đối xứng qua trục tung mà còn qua mọi đường thẳng song song với trục tung; tuần hoàn không phải với một chu kỳ duy nhất, mà với mọi chu kỳ; liên tục trên toàn bộ <span class="math inline">\(\mathbb{R}\)</span>; đạo hàm cấp một luôn bằng <span class="math inline">\(0\)</span>, nên không xuất hiện cực trị; giá trị lớn nhất và nhỏ nhất đồng thời bằng nhau; đạo hàm cấp hai cũng bằng <span class="math inline">\(0\)</span>, nên có thể xem là vừa lồi vừa lõm. Trong khi ở những hàm khác, mỗi tính chất chỉ hiện ra trong những điều kiện riêng biệt, thì ở hàm hằng, tất cả cùng xuất hiện, tuy ở mức giản lược nhất. Bởi vậy, nó không chỉ là khởi đầu đơn giản nhất, mà còn là một tấm gương soi chiếu: từ sự “tĩnh tuyệt đối” này, ta thấy rõ bản chất của biến thiên, đối xứng, tuần hoàn hay cực trị ở những hàm số phức tạp hơn.</p>
+<p>Về ứng dụng, hàm số hằng mô tả các hiện tượng không đổi theo thời gian hoặc biến quan sát: nhiệt độ ổn định trong một phòng kín, vận tốc tức thời bằng <span class="math inline">\(0\)</span> của vật đứng yên, hay điện áp không đổi trong một mạch điện. Trong giáo dục, nó là điểm xuất phát tự nhiên: học sinh dễ nắm bắt, rồi từ đó bước sang những hàm số đa dạng và phong phú hơn. Vì vậy, khảo sát hàm số hằng không chỉ mang tính kỹ thuật, mà còn gợi mở phương pháp - cho thấy rằng cái đơn giản nhất, cái “bất biến tuyệt đối”, lại chính là nền tảng để hiểu cái phức tạp và luôn biến đổi.</p>
+</section>
+<section id="bài-tập" class="level1">
+<h1>Bài tập</h1>
+<ol type="1">
+<li><p>Xác định tập giá trị của hàm số <span class="math inline">\(y=1\)</span>. So sánh với tập giá trị của các hàm số <span class="math inline">\(y=x\)</span> và <span class="math inline">\(y=x^2\)</span>.</p></li>
+<li><p>Do đặc trưng gì của đường thẳng mà ta nói: “Đồ thị của hàm số hằng <span class="math inline">\(y=1\)</span> đối xứng qua bất kỳ trục dọc nào vuông góc với trục hoành.”</p></li>
+<li><p>Với <span class="math inline">\(a\ne 0\)</span>, các hàm số đa thức có dạng <span class="math inline">\(y=ax+b\)</span> và <span class="math inline">\(y=ax^2+bx+c\)</span> lần lượt được gọi là <em>hàm bậc nhất</em> và <em>hàm bậc hai</em>. Vậy, hàm số hằng nên được gọi là hàm bậc mấy?</p></li>
+<li><p>Chứng minh rằng hàm số <span class="math inline">\(y=1\)</span> là tuần hoàn và có mọi số dương làm chu kỳ. Tại sao trong trường hợp này khái niệm “chu kỳ cơ bản” không có ý nghĩa?</p></li>
+<li><p>Hãy tìm đạo hàm cấp một và đạo hàm cấp hai của hàm số <span class="math inline">\(y=1\)</span>. Từ kết quả đó, kết luận về chiều biến thiên và độ cong của hàm số.</p></li>
+<li><p>So sánh đồ thị các hàm số <span class="math inline">\(y=0\)</span>, <span class="math inline">\(y=1\)</span>, <span class="math inline">\(y=2\)</span>. Nêu nhận xét về sự giống và khác nhau.</p></li>
+<li><p>Xét hàm số <span class="math inline">\(y=c\)</span> với tham số <span class="math inline">\(c\)</span>. Hãy xác định ảnh hưởng của tham số <span class="math inline">\(c\)</span> đến đồ thị.</p></li>
+<li><p>Trong thực tế, hãy nêu một hiện tượng có thể được mô hình hóa bằng hàm số hằng.</p></li>
+<li><p>Cho biết <span class="math inline">\(f(x_1-x_2)=f(x_1)f(x_2)\)</span>. Xác định <span class="math inline">\(f(x)\)</span>.</p></li>
+<li><p>Cho biết <span class="math inline">\(f(x_1+x_2)=x_1f(x_2)\)</span>. Xác định <span class="math inline">\(f(x)\)</span>.</p></li>
+<li><p>Các đồ thị của họ hàm số <span class="math inline">\(y=c\)</span>, với <span class="math inline">\(c\in \mathbb{R}\)</span>, có phủ kín mặt phẳng tọa độ không?</p></li>
+</ol>
+
+
+</section>
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a><br>
+<br> <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a><br>
+<br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

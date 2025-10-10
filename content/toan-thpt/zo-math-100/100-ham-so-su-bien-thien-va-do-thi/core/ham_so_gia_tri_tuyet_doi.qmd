@@ -1,0 +1,44 @@
+---
+title: "Hàm số giá trị tuyệt đối"
+format:
+  html:
+    toc: true
+    toc-location: left
+    # number-sections: true
+---
+
+
+```{r setup, include=FALSE}
+library(knitr)
+library(kableExtra)
+library(dplyr)
+library(MASS)
+library(ggplot2)
+```
+
+# Khảo sát sự biến thiên của hàm số $y=\lvert x\rvert$
+
+<details class="collapsible-box-primary" open>
+<summary>Bất biến có điều kiện: Theo giá trị và theo quy luật</summary>
+
+<div class="content">
+
+2. Xét hai hàm số
+  $$
+  y = f(x) = \lvert x\rvert 
+  \quad \text{và} \quad 
+  y = g(x) =
+    \begin{cases}
+      1 & \text{khi } x \geq 0,\\
+      -1 & \text{khi } x < 0.
+    \end{cases}
+  $$
+
+    a. Khi $x$ thay đổi, trong mỗi hàm trên có phần nào (khoảng giá trị của $x$) mà giá trị của hàm *không thay đổi*? Hãy nêu rõ khoảng đó và giá trị mà hàm giữ nguyên.
+    b. Với hàm $y=\lvert x\rvert$, trong phần nào của miền xác định, hàm có quy luật giống với hàm $y=x$?
+    c. Từ hai quan sát trên, bạn có thể nói rằng:
+      * $y=f(x)$ là bất biến theo giá trị có điều kiện, vì ...
+      * $y=g(x)$ là bất biến theo quy luật có điều kiện, vì ...
+    d. Theo bạn, trong các trường hợp trên, điều gì làm cho từ "có điều kiện" trở nên cần thiết?
+</div>
+</details>

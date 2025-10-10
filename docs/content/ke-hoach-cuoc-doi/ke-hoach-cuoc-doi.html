@@ -1,0 +1,2370 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>KẾ HOẠCH CUỘC ĐỜI – ZO Math</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../images/favicon.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-719951764d4ca359be86a642d82fdf9d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../assets/css/custom.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../content/toan-thpt/toan-10/index.qmd">
+ <span class="dropdown-text">Toán 10</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/toan-thpt/toan-11/index.html">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/toan-thpt/toan-12/index.html">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.html">
+ <span class="dropdown-text">100+ Hàm số</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../content/zo-o/index.html"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../content/zo-lab/index.html"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../content/shop/index.html"> 
+<span class="menu-text">ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">KẾ HOẠCH CUỘC ĐỜI</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Trên trang này</h2>
+   
+  <ul>
+  <li><a href="#a.-tầm-nhìn-mục-tiêu-dài-hạn" id="toc-a.-tầm-nhìn-mục-tiêu-dài-hạn" class="nav-link active" data-scroll-target="#a.-tầm-nhìn-mục-tiêu-dài-hạn">A. TẦM NHÌN &amp; MỤC TIÊU DÀI HẠN</a></li>
+  <li><a href="#b.-nguồn-lực" id="toc-b.-nguồn-lực" class="nav-link" data-scroll-target="#b.-nguồn-lực">B. NGUỒN LỰC</a>
+  <ul class="collapse">
+  <li><a href="#b.1.-kỹ-năng-kiến-thức" id="toc-b.1.-kỹ-năng-kiến-thức" class="nav-link" data-scroll-target="#b.1.-kỹ-năng-kiến-thức">B.1. Kỹ năng &amp; kiến thức</a></li>
+  <li><a href="#b.2.-tài-chính-vật-chất" id="toc-b.2.-tài-chính-vật-chất" class="nav-link" data-scroll-target="#b.2.-tài-chính-vật-chất">B.2. Tài chính &amp; vật chất</a></li>
+  <li><a href="#b.3.-mối-quan-hệ-hỗ-trợ-xã-hội" id="toc-b.3.-mối-quan-hệ-hỗ-trợ-xã-hội" class="nav-link" data-scroll-target="#b.3.-mối-quan-hệ-hỗ-trợ-xã-hội">B.3. Mối quan hệ &amp; hỗ trợ xã hội</a></li>
+  <li><a href="#b.4.-sức-khỏe-thể-chất" id="toc-b.4.-sức-khỏe-thể-chất" class="nav-link" data-scroll-target="#b.4.-sức-khỏe-thể-chất">B.4. Sức khỏe &amp; Thể chất</a></li>
+  <li><a href="#b.5.-thời-gian-quản-lý-công-việc" id="toc-b.5.-thời-gian-quản-lý-công-việc" class="nav-link" data-scroll-target="#b.5.-thời-gian-quản-lý-công-việc">B.5. Thời gian &amp; Quản lý công việc</a></li>
+  <li><a href="#b.6.-giá-trị-cốt-lõi-động-lực-tinh-thần" id="toc-b.6.-giá-trị-cốt-lõi-động-lực-tinh-thần" class="nav-link" data-scroll-target="#b.6.-giá-trị-cốt-lõi-động-lực-tinh-thần">B.6. Giá trị cốt lõi &amp; Động lực tinh thần</a></li>
+  </ul></li>
+  <li><a href="#c.-định-hướng-chiến-lược" id="toc-c.-định-hướng-chiến-lược" class="nav-link" data-scroll-target="#c.-định-hướng-chiến-lược">C. ĐỊNH HƯỚNG &amp; CHIẾN LƯỢC</a>
+  <ul class="collapse">
+  <li><a href="#c.1.-định-hướng-tổng-thể" id="toc-c.1.-định-hướng-tổng-thể" class="nav-link" data-scroll-target="#c.1.-định-hướng-tổng-thể">C.1. Định hướng tổng thể</a></li>
+  <li><a href="#c.2.-chiến-lược-phát-triển-sự-nghiệp" id="toc-c.2.-chiến-lược-phát-triển-sự-nghiệp" class="nav-link" data-scroll-target="#c.2.-chiến-lược-phát-triển-sự-nghiệp">C.2. Chiến lược phát triển sự nghiệp</a></li>
+  <li><a href="#c.3-chiến-lược-phát-triển-cá-nhân" id="toc-c.3-chiến-lược-phát-triển-cá-nhân" class="nav-link" data-scroll-target="#c.3-chiến-lược-phát-triển-cá-nhân">C.3 Chiến lược phát triển cá nhân</a></li>
+  <li><a href="#c.4-rủi-ro-nguyên-tắc-ứng-xử" id="toc-c.4-rủi-ro-nguyên-tắc-ứng-xử" class="nav-link" data-scroll-target="#c.4-rủi-ro-nguyên-tắc-ứng-xử">C.4 Rủi ro &amp; Nguyên tắc ứng xử</a></li>
+  <li><a href="#c.5-đồng-minh-môi-trường" id="toc-c.5-đồng-minh-môi-trường" class="nav-link" data-scroll-target="#c.5-đồng-minh-môi-trường">C.5 Đồng minh &amp; Môi trường</a></li>
+  <li><a href="#c.6-lộ-trình-cột-mốc" id="toc-c.6-lộ-trình-cột-mốc" class="nav-link" data-scroll-target="#c.6-lộ-trình-cột-mốc">C.6 Lộ trình &amp; Cột mốc</a></li>
+  </ul></li>
+  <li><a href="#d.-kế-hoạch-hành-động-chi-tiết---năm-thứ-nhất" id="toc-d.-kế-hoạch-hành-động-chi-tiết---năm-thứ-nhất" class="nav-link" data-scroll-target="#d.-kế-hoạch-hành-động-chi-tiết---năm-thứ-nhất">D. KẾ HOẠCH HÀNH ĐỘNG CHI TIẾT - NĂM THỨ NHẤT</a>
+  <ul class="collapse">
+  <li><a href="#dàn-ý" id="toc-dàn-ý" class="nav-link" data-scroll-target="#dàn-ý">DÀN Ý</a></li>
+  <li><a href="#d.1.-nguyên-lý-vận-hành-zo---đơn-vị-kiến-thức-trong-zo-math-1" id="toc-d.1.-nguyên-lý-vận-hành-zo---đơn-vị-kiến-thức-trong-zo-math-1" class="nav-link" data-scroll-target="#d.1.-nguyên-lý-vận-hành-zo---đơn-vị-kiến-thức-trong-zo-math-1">D.1. Nguyên lý vận hành: ZO - Đơn vị kiến thức trong ZO Math</a></li>
+  <li><a href="#d.2.-trục-công-việc-1" id="toc-d.2.-trục-công-việc-1" class="nav-link" data-scroll-target="#d.2.-trục-công-việc-1">D.2. Trục công việc</a></li>
+  <li><a href="#d.3.-lộ-trình-12-tháng-102025---092026-1" id="toc-d.3.-lộ-trình-12-tháng-102025---092026-1" class="nav-link" data-scroll-target="#d.3.-lộ-trình-12-tháng-102025---092026-1">D.3. Lộ trình 12 tháng (10/2025 - 09/2026)</a></li>
+  <li><a href="#d.4.-lịch-làm-việc-hằng-ngày-1" id="toc-d.4.-lịch-làm-việc-hằng-ngày-1" class="nav-link" data-scroll-target="#d.4.-lịch-làm-việc-hằng-ngày-1">D.4. Lịch làm việc hằng ngày</a></li>
+  </ul></li>
+  <li><a href="#phụ-lục" id="toc-phụ-lục" class="nav-link" data-scroll-target="#phụ-lục">Phụ lục</a>
+  <ul class="collapse">
+  <li><a href="#phụ-lục-1.-checklist-một-ngày-zo-trọn-vẹn" id="toc-phụ-lục-1.-checklist-một-ngày-zo-trọn-vẹn" class="nav-link" data-scroll-target="#phụ-lục-1.-checklist-một-ngày-zo-trọn-vẹn">Phụ lục 1. Checklist “Một ngày ZO trọn vẹn”</a></li>
+  <li><a href="#phụ-lục-2.-template-mô-tả-zo" id="toc-phụ-lục-2.-template-mô-tả-zo" class="nav-link" data-scroll-target="#phụ-lục-2.-template-mô-tả-zo">Phụ lục 2. Template mô tả ZO</a></li>
+  <li><a href="#phụ-lục-3.-mẫu-script-video-zo-45-60s" id="toc-phụ-lục-3.-mẫu-script-video-zo-45-60s" class="nav-link" data-scroll-target="#phụ-lục-3.-mẫu-script-video-zo-45-60s">Phụ lục 3. Mẫu script video ZO (45-60s)</a></li>
+  <li><a href="#phụ-lục-4.-tuyên-ngôn-làm-việc-của-zo-math" id="toc-phụ-lục-4.-tuyên-ngôn-làm-việc-của-zo-math" class="nav-link" data-scroll-target="#phụ-lục-4.-tuyên-ngôn-làm-việc-của-zo-math">Phụ lục 4. Tuyên ngôn làm việc của ZO Math</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="a.-tầm-nhìn-mục-tiêu-dài-hạn" class="level2">
+<h2 class="anchored" data-anchor-id="a.-tầm-nhìn-mục-tiêu-dài-hạn">A. TẦM NHÌN &amp; MỤC TIÊU DÀI HẠN</h2>
+<p>Nếu một buổi sáng tỉnh dậy và mọi thứ diễn ra đúng như mong muốn, tôi sẽ thấy mình đang sống ở một nơi tràn đầy năng lượng tích cực: hoặc là một căn nhà do chính tay mình chọn thiết kế, tiện nghi và đủ đầy cho công việc cũng như sinh hoạt bên người bạn đời đồng hành; hoặc là một ngôi chùa thanh tịnh, nơi tôi tu học Phật pháp, nghiên cứu và số hóa kinh điển, có thầy là bậc giác ngộ và huynh đệ cùng đi trên con đường thực tập. Tôi cũng thấy mình có đủ tài chính để sống, để hỗ trợ người thân và cộng đồng; và gia đình tôi thì khỏe mạnh, hòa thuận, an lạc trong đời sống thực tập Phật pháp.</p>
+<p>Trong 5 năm tới, tôi mong muốn trở thành một bậc thầy truyền thụ kiến thức Toán học. Không phải theo con đường nghiên cứu hàn lâm, mà là người kiến tạo một <strong>hệ sinh thái học toán</strong> dành cho học sinh, sinh viên và những ai khao khát tự học để nâng cao hiểu biết.</p>
+<p>Trung tâm của hệ sinh thái ấy là ZO Math, bao gồm trang tin, kênh YouTube, phòng thu và không gian trưng bày sản phẩm học tập. Song song với ZO Math, tôi tiếp tục nuôi dưỡng những mục tiêu học tập cá nhân còn dang dở: học ngoại ngữ, đọc sách, theo các khóa học mở (MIT OpenCourseWare), để mở rộng tầm nhìn và làm giàu vốn tri thức - trực tiếp nuôi dưỡng sự phát triển bền vững cho ZO Math.</p>
+<p>Để hiện thực hóa tầm nhìn, tôi đặt ra những mục tiêu cụ thể:</p>
+<ul>
+<li><strong>Tài chính</strong>: đủ để nuôi sống bản thân, phụng dưỡng gia đình, xây dựng cuộc sống ổn định và còn dư cho những điều mình yêu thích.</li>
+<li><strong>Sức khỏe</strong>: cơ thể khỏe mạnh, dẻo dai, tinh thần minh mẫn, giọng nói truyền cảm để giảng dạy.</li>
+<li><strong>Mối quan hệ</strong>: mở rộng kết nối, gặp gỡ những người bạn có lý tưởng tương đồng, và có thể tìm được một mối nhân duyên sâu sắc.</li>
+<li><strong>Đóng góp</strong>: trước hết cho bản thân, sau đó cho gia đình, học trò và cộng đồng trẻ, với khát vọng để lại một ảnh hưởng tích cực lâu dài.</li>
+</ul>
+<p>Tôi tóm gọn tầm nhìn này trong một câu: <strong>“Một bậc thầy truyền thụ kiến thức Toán học, với thân-tâm an lạc, mang năng lượng tích cực đến giới trẻ.”</strong></p>
+<p>Tuy vậy, tôi cũng ý thức rõ những giới hạn. Nếu sau 5 năm, hệ sinh thái học toán ZO Math không tạo được nguồn thu ổn định, nếu tôi chưa thể phụng dưỡng người thân, hoặc nếu để sức khỏe, ngoại hình và tinh thần suy giảm, thì đó sẽ là những thất bại khó cứu vãn.</p>
+<p>Những người tôi muốn đồng hành là giới trẻ: học sinh, sinh viên, và cả những ai có tinh thần tự học suốt đời. Tôi mong vừa lan tỏa ảnh hưởng đến họ, vừa nhận lại sự thôi thúc, năng lượng và niềm vui từ họ. Biểu tượng cho tầm nhìn ấy là một <strong>phòng học hiện đại</strong>: có màn hình tương tác thông minh, bàn ghế tiện nghi, đầy đủ thiết bị ghi hình - ghi âm - nghe nhìn - chiếu sáng. Đó là không gian sáng tạo vừa chuyên nghiệp vừa cá tính, nơi tôi gửi gắm nguồn cảm hứng học tập và sẻ chia cùng mọi người.</p>
+<!-------------------------------------->
+</section>
+<section id="b.-nguồn-lực" class="level2">
+<h2 class="anchored" data-anchor-id="b.-nguồn-lực">B. NGUỒN LỰC</h2>
+<p>Các nguồn lực bao gồm kiến thức, kỹ năng, kinh nghiệm, điều kiện tài chính, quan hệ xã hội, sức khỏe thể chất - tinh thần, quỹ thời gian và hệ thống giá trị cá nhân.</p>
+<section id="b.1.-kỹ-năng-kiến-thức" class="level3">
+<h3 class="anchored" data-anchor-id="b.1.-kỹ-năng-kiến-thức">B.1. Kỹ năng &amp; kiến thức</h3>
+<ul>
+<li><p><strong>Chuyên môn học thuật</strong></p>
+<ul>
+<li>Toán học (xác suất &amp; thống kê), trình độ Thạc sĩ; từng theo hướng nghiên cứu tiến sĩ nhưng bỏ dở. Có thể dạy toán phổ thông và đại học nếu chuẩn bị kỹ.</li>
+<li>Phật pháp: luôn quan tâm, nhất là Thiền tông.</li>
+</ul></li>
+<li><p><strong>Kỹ năng nghề nghiệp</strong></p>
+<ul>
+<li>Giảng dạy: có kinh nghiệm gia sư, truyền đạt tốt khi chuẩn bị kỹ.</li>
+<li>Viết lách, biên soạn tài liệu: yêu thích.</li>
+<li>Ứng dụng CNTT: có khả năng làm ví; thiết kế trang tin bằng Quarto; biết sử dụng LaTeX, R, Python, TikZ, Geogebra dưới sự hỗ trợ.</li>
+<li>Kinh nghiệm kinh doanh: chưa thành công nhưng hiểu tâm lý giới trẻ, phụ huynh.</li>
+</ul></li>
+<li><p><strong>Phẩm chất cá nhân</strong></p>
+<ul>
+<li>Mạnh: tự học, kiên trì, sáng tạo.</li>
+<li>Yếu: giao tiếp chưa lưu loát, thiếu kỹ năng quản lý thời gian và tổ chức công việc.</li>
+<li>Năng lực tinh thần: tìm hiểu nhiều về Phật pháp.</li>
+</ul></li>
+</ul>
+</section>
+<section id="b.2.-tài-chính-vật-chất" class="level3">
+<h3 class="anchored" data-anchor-id="b.2.-tài-chính-vật-chất">B.2. Tài chính &amp; vật chất</h3>
+<ul>
+<li><p><strong>Tài chính cá nhân</strong></p>
+<ul>
+<li>Thu nhập chưa ổn định, hiện chủ yếu nhờ chu cấp từ mẹ.</li>
+<li>Chi tiêu: thuê mặt bằng (chia sẻ với em), thực phẩm, cà phê, điện nước.</li>
+<li>Tiết kiệm: chưa có.</li>
+</ul></li>
+<li><p><strong>Nguồn lực vật chất</strong></p>
+<ul>
+<li>Nhà riêng cách cửa hàng 3 km.</li>
+<li>Thiết bị: desktop Dell Vostro 3888 (Core i3, 16GB RAM), Remarkable 2, iPhone 11 (2), iPad Pro 9.7, Macbook M2; có Internet, nhiều sách.</li>
+<li>Tiềm năng: có thể chuyển đổi cửa hàng thành không gian quay video khi có thu nhập.</li>
+</ul></li>
+<li><p><strong>Tiềm năng tài chính</strong></p>
+<ul>
+<li>Hướng mở rộng: dạy học, viết tài liệu, phát triển trang tin.</li>
+<li>Hỗ trợ gia đình: mẹ hỗ trợ sinh hoạt; có thể vay mượn thêm nhưng hạn chế.</li>
+</ul></li>
+</ul>
+</section>
+<section id="b.3.-mối-quan-hệ-hỗ-trợ-xã-hội" class="level3">
+<h3 class="anchored" data-anchor-id="b.3.-mối-quan-hệ-hỗ-trợ-xã-hội">B.3. Mối quan hệ &amp; hỗ trợ xã hội</h3>
+<ul>
+<li><p><strong>Gia đình</strong></p>
+<ul>
+<li>Chỗ dựa tinh thần và tài chính: mẹ, ngoại.</li>
+<li>Mọi người ủng hộ hết mình, nhưng lo lắng vì kinh tế chưa ổn.</li>
+<li>Kỳ vọng: có sự nghiệp ổn định.</li>
+</ul></li>
+<li><p><strong>Bạn bè &amp; đồng nghiệp</strong></p>
+<ul>
+<li>Bạn thân: một người ở xa, hỗ trợ tinh thần, từng cho vay tiền.</li>
+<li>Học thuật: thầy hướng dẫn đã mất, còn lại chủ yếu tự học.</li>
+<li>Cộng tác: hiện chưa có, dự định tìm khi ZO Math phát triển.</li>
+</ul></li>
+<li><p><strong>Cộng đồng &amp; kết nối rộng</strong></p>
+<ul>
+<li>Từng tham gia: viết bài cho Math2it, Tạp chí Thông tin Toán học, Tạp chí Khoa học Đại học KHTN (ĐHQGTPHCM), cuộc thi Toán mô hình, đọc báo cáo tại nhiều hội nghị Toán học.</li>
+<li>Tác động: được khích lệ tinh thần, nhưng hỗ trợ thực tế không nhiều.</li>
+</ul></li>
+<li><p><strong>Mạng lưới tiềm năng</strong></p>
+<ul>
+<li>Nên kết nối: giáo viên Toán, cộng đồng Quarto, LaTeX/R/Geogebra, YouTuber/TikToker giáo dục, các tăng đoàn.</li>
+<li>Khả năng mở rộng nhanh nhất: qua ZO Math.</li>
+</ul></li>
+</ul>
+</section>
+<section id="b.4.-sức-khỏe-thể-chất" class="level3">
+<h3 class="anchored" data-anchor-id="b.4.-sức-khỏe-thể-chất">B.4. Sức khỏe &amp; Thể chất</h3>
+<ul>
+<li>Thể trạng: chưa có vấn đề nghiêm trọng nhưng không có thói quen tập luyện đều.</li>
+<li>Thói quen: ăn uống bình thường, ăn chay, đôi khi mất cân bằng do công việc.</li>
+<li>Tinh thần: chịu ảnh hưởng của căng thẳng tài chính, nhưng niềm tin vào tương lai và Phật pháp giúp giữ thăng bằng.</li>
+<li>Tiềm năng: nếu xây dựng được thói quen tập luyện và ăn uống khoa học, sức khỏe có thể cải thiện nhanh.</li>
+</ul>
+</section>
+<section id="b.5.-thời-gian-quản-lý-công-việc" class="level3">
+<h3 class="anchored" data-anchor-id="b.5.-thời-gian-quản-lý-công-việc">B.5. Thời gian &amp; Quản lý công việc</h3>
+<ul>
+<li><p><strong>Hiện trạng</strong></p>
+<ul>
+<li>Thời gian chưa phân bổ hiệu quả, dễ rơi vào việc gấp rút, thiếu kế hoạch.</li>
+<li>Ưu tiên cho ZO Math nhưng chưa có khung thời gian rõ ràng.</li>
+</ul></li>
+<li><p><strong>Điểm mạnh</strong></p>
+<ul>
+<li>Kiên trì, làm việc tập trung khi có mục tiêu rõ.</li>
+</ul></li>
+<li><p><strong>Điểm yếu</strong></p>
+<ul>
+<li>Dễ mất cân bằng giữa công việc và nghỉ ngơi.</li>
+<li>Quản lý công việc còn cảm tính, chưa theo hệ thống.</li>
+</ul></li>
+</ul>
+</section>
+<section id="b.6.-giá-trị-cốt-lõi-động-lực-tinh-thần" class="level3">
+<h3 class="anchored" data-anchor-id="b.6.-giá-trị-cốt-lõi-động-lực-tinh-thần">B.6. Giá trị cốt lõi &amp; Động lực tinh thần</h3>
+<ul>
+<li><p><strong>Giá trị cốt lõi</strong></p>
+<ul>
+<li>Học hỏi liên tục, tự do sáng tạo, trung thực với chính mình.</li>
+<li>Sống giản dị, giữ sự an tĩnh, tránh bon chen.</li>
+</ul></li>
+<li><p><strong>Động lực tinh thần</strong></p>
+<ul>
+<li>Khao khát làm rõ “Kế hoạch cuộc đời” và thực hiện đến cùng.</li>
+<li>Mong muốn có cuộc sống tự chủ, ý nghĩa.</li>
+<li>Tìm thấy sự hỗ trợ từ Phật pháp và thực hành thiền.</li>
+</ul></li>
+</ul>
+<!-------------------------------------->
+</section>
+</section>
+<section id="c.-định-hướng-chiến-lược" class="level2">
+<h2 class="anchored" data-anchor-id="c.-định-hướng-chiến-lược">C. ĐỊNH HƯỚNG &amp; CHIẾN LƯỢC</h2>
+<section id="c.1.-định-hướng-tổng-thể" class="level3">
+<h3 class="anchored" data-anchor-id="c.1.-định-hướng-tổng-thể">C.1. Định hướng tổng thể</h3>
+<p>Phần này là kim chỉ nam chung - câu trả lời ngắn gọn cho câu hỏi: từ điểm khởi đầu (B) làm sao đi tới tầm nhìn (A)? Định hướng tổng thể không liệt kê công việc chi tiết, mà nêu rõ <em>quan điểm</em>, <em>ưu tiên</em> và <em>nguyên tắc hành động</em> để mọi quyết định sau này (C.2 - C.4) đều có một thước đo chung.</p>
+<section id="trục-chính" class="level4">
+<h4 class="anchored" data-anchor-id="trục-chính">Trục chính</h4>
+<p>ZO Math là <em>xương sống</em> của mọi nỗ lực. Mọi sản phẩm, học tập, mối quan hệ, và quyết định tài chính đều xoay quanh việc xây dựng và duy trì một hệ sinh thái học toán: nội dung chất lượng, cộng đồng người học, và nguồn thu bền vững từ giáo dục. Xác định ZO Math làm trung tâm giúp ta tránh bị phân tán - khi có cơ hội hay ý tưởng mới, câu hỏi đầu tiên luôn là: <em>việc này có làm mạnh hơn ZO Math không?</em></p>
+</section>
+<section id="dòng-chảy-song-hành" class="level4">
+<h4 class="anchored" data-anchor-id="dòng-chảy-song-hành">Dòng chảy song hành</h4>
+<p>Các nhu cầu học tập cá nhân (ngoại ngữ, đọc sách, khoá học mở) không phải “việc phụ” mà là nhiên liệu trí tuệ cho ZO Math. Mỗi khóa học, mỗi cuốn sách, mỗi kỹ năng mới cần được đánh giá theo hai tiêu chí: (1) lợi ích trực tiếp cho nội dung/giảng dạy; (2) giá trị cho sự phát triển bền vững của bản thân. Khi chúng phục vụ được một trong hai mục tiêu này thì sẽ được ưu tiên thời gian và nguồn lực hợp lý.</p>
+</section>
+<section id="thái-độ-chiến-lược" class="level4">
+<h4 class="anchored" data-anchor-id="thái-độ-chiến-lược">Thái độ chiến lược</h4>
+<p>Tôi chọn chất lượng hơn số lượng: một bài giảng sâu sắc có giá trị hơn mười sản phẩm hời hợt. Tôi muốn tiến chậm nhưng chắc, đặt từng viên gạch nền móng vững vàng trước khi mở rộng. Tuy nhiên, với những hạng mục mới mẻ mà tôi chưa có kinh nghiệm, tôi sẵn sàng thử nghiệm nhỏ (ví dụ: một video ngắn, một bài viết mẫu, một tài liệu PDF) để vừa học hỏi vừa điều chỉnh. Trên hết, tôi không chấp nhận đánh đổi sức khỏe để chạy theo thành công. Tôi đặt giới hạn rõ ràng: ngủ đủ 8-9 tiếng mỗi ngày, ưu tiên tập thói quen ngủ sớm; duy trì vận động thể chất với những hoạt động yêu thích như nhảy dây, gym, trượt ván ít nhất 3 buổi/tuần; cho phép bản thân nghỉ ngắn khi cảm thấy căng thẳng; và coi sức khỏe thân-tâm là nền tảng bắt buộc để đi đường dài cùng ZO Math. Trong nội dung lẫn tương tác với học trò, cộng sự và gia đình tôi phải luôn giữ sự minh bạch và chân thật.</p>
+</section>
+<section id="nguyên-tắc-không-thương-lượng" class="level4">
+<h4 class="anchored" data-anchor-id="nguyên-tắc-không-thương-lượng">Nguyên tắc không thương lượng</h4>
+<p>Ba điều không bao giờ được đánh đổi là: sức khỏe thân-tâm, tình thân gia đình, và các giá trị cá nhân. Song song với việc xây dựng ZO Math, tôi cần một nguồn thu ổn định để duy trì cuộc sống cơ bản. Tôi dự tính khai thác các nền tảng như TikTok, Shorts, Reels để đăng video toán học ngắn: giải bài tập phổ thông, chia sẻ các mẹo nhỏ, giảng những chủ đề thú vị. Điều này vừa giúp gây dựng thương hiệu cho ZO Math, vừa có thể mở đường cho thu nhập từ bảo trợ, bán tài liệu hoặc sản phẩm gắn thương hiệu. Khi đứng trước một quyết định lớn, tôi sẽ tự hỏi: quyết định này ảnh hưởng thế nào đến bản thân, người thân và dự án ZO Math? Nó có đưa tôi xa rời tầm nhìn không?</p>
+</section>
+<section id="ưu-tiên-khởi-đầu" class="level4">
+<h4 class="anchored" data-anchor-id="ưu-tiên-khởi-đầu">Ưu tiên khởi đầu</h4>
+<p>Trong ngắn hạn, ưu tiên lớn nhất là hoàn thành tiểu dự án “100+ Hàm số: Sự biến thiên và đồ thị”, bao gồm cả bài viết công phu để đọc trên ZO Math và video ngắn cho từng hàm số. Tôi cũng sẽ xây dựng thói quen làm việc đều đặn: viết bài giảng, sau đó biến ngay thành kịch bản video để tăng tốc độ xuất bản. Về tài chính, mục tiêu ngắn hạn là duy trì mức sống cơ bản khoảng 6 triệu đồng/tháng, đủ để an tâm tập trung cho ZO Math.</p>
+</section>
+<section id="dấu-hiệu-đi-đúng-đường" class="level4">
+<h4 class="anchored" data-anchor-id="dấu-hiệu-đi-đúng-đường">Dấu hiệu đi đúng đường</h4>
+<p>Để biết mình đi đúng hướng, tôi sẽ theo dõi một vài chỉ số đơn giản: số học sinh theo dõi nội dung của ZO Math; số bài giảng và video hoàn thiện; mức độ ổn định của sức khỏe (số giờ ngủ, số buổi tập/tuần); và số kết nối mới trong lĩnh vực giáo dục (một học sinh tích cực, một cộng sự, hay một giáo viên cùng chí hướng). Những chỉ số này không chỉ phản ánh tiến độ công việc, mà còn nhắc tôi duy trì sự cân bằng giữa nghề nghiệp, sức khỏe và các mối quan hệ.</p>
+</section>
+<section id="ghi-nhớ" class="level4">
+<h4 class="anchored" data-anchor-id="ghi-nhớ"><strong>Ghi nhớ</strong></h4>
+<p><em>Xây dựng ZO Math từng bước một, bằng nội dung chất lượng và các thử nghiệm thị trường nhỏ, trong khi song hành phát triển năng lực cá nhân để nuôi dưỡng và mở rộng hệ sinh thái - tất cả được điều chỉnh bởi nguyên tắc: bền vững, trung thực và giữ sức khỏe.</em></p>
+</section>
+</section>
+<section id="c.2.-chiến-lược-phát-triển-sự-nghiệp" class="level3">
+<h3 class="anchored" data-anchor-id="c.2.-chiến-lược-phát-triển-sự-nghiệp">C.2. Chiến lược phát triển sự nghiệp</h3>
+<p>Con đường phát triển của ZO Math, cũng như của chính bản thân tôi, được hình dung như một hành trình nhiều chặng. Mỗi giai đoạn không chỉ bổ sung cho giai đoạn trước mà còn mở ra những tầng phát triển mới. Tôi xác định bốn giai đoạn chính như sau:</p>
+<section id="giai-đoạn-1---xây-dựng-nền-tảng-nội-dung" class="level4">
+<h4 class="anchored" data-anchor-id="giai-đoạn-1---xây-dựng-nền-tảng-nội-dung">Giai đoạn 1 - Xây dựng nền tảng nội dung</h4>
+<p>Trước hết, tôi tập trung toàn lực vào việc tạo dựng nền tảng học liệu vững chắc: hệ thống bài viết, blog, video, cùng những ứng dụng Shiny trực quan. Đây là phần cốt lõi để ZO Math được nhận diện không phải như một ý tưởng rời rạc, mà như một kho nội dung chất lượng, liên tục được cập nhật. Tôi muốn mọi sản phẩm đều mang tính học thuật chặt chẽ, đồng thời gần gũi, dễ tiếp nhận.</p>
+</section>
+<section id="giai-đoạn-2---mở-rộng-mạng-lưới-học-tập" class="level4">
+<h4 class="anchored" data-anchor-id="giai-đoạn-2---mở-rộng-mạng-lưới-học-tập">Giai đoạn 2 - Mở rộng mạng lưới học tập</h4>
+<p>Khi đã có một nền tảng đủ dày, tôi sẽ hướng đến việc xây dựng cộng đồng xung quanh ZO Math. Điều này bao gồm kết nối với học sinh, cộng tác viên và các đối tác giáo dục. Tôi tin rằng một dự án giáo dục chỉ có thể phát triển bền vững nếu tạo ra được mạng lưới trao đổi hai chiều, nơi học sinh học hỏi, đóng góp, còn tôi và đội ngũ cũng học được từ chính trải nghiệm thực tế của họ.</p>
+</section>
+<section id="giai-đoạn-3---tạo-nguồn-thu-ổn-định" class="level4">
+<h4 class="anchored" data-anchor-id="giai-đoạn-3---tạo-nguồn-thu-ổn-định">Giai đoạn 3 - Tạo nguồn thu ổn định</h4>
+<p>Nội dung và cộng đồng là tiền đề, nhưng để duy trì lâu dài, ZO Math cần có tài chính ổn định. Tôi định hình các nguồn thu như: xuất bản sách, mở khóa học, tổ chức dạy học trực tuyến, và từng bước triển khai sản phẩm gắn thương hiệu (tài liệu, vật phẩm học tập, thậm chí áo phông, hoodie). Tôi muốn nguồn thu này không chỉ nuôi sống dự án, mà còn tái đầu tư để nâng cao chất lượng nội dung và mở rộng đội ngũ.</p>
+</section>
+<section id="giai-đoạn-4---mở-rộng-dự-án-giáo-dục-khác-tùy-chọn" class="level4">
+<h4 class="anchored" data-anchor-id="giai-đoạn-4---mở-rộng-dự-án-giáo-dục-khác-tùy-chọn">Giai đoạn 4 - Mở rộng dự án giáo dục khác (tùy chọn)</h4>
+<p>Khi ZO Math đã đi vào quỹ đạo ổn định, tôi mơ ước mở rộng nó thành một hệ sinh thái học toán đa ngôn ngữ (tiếng Việt, tiếng Anh, tiếng Trung), vừa mang tính chuyên nghiệp, vừa giữ được sự gắn bó cá nhân. Đây có thể là lúc ZO Math không chỉ đơn thuần là một dự án, mà trở thành cầu nối để lan tỏa niềm say mê toán học ra phạm vi rộng lớn hơn.</p>
+</section>
+</section>
+<section id="c.3-chiến-lược-phát-triển-cá-nhân" class="level3">
+<h3 class="anchored" data-anchor-id="c.3-chiến-lược-phát-triển-cá-nhân">C.3 Chiến lược phát triển cá nhân</h3>
+<p>Để ZO Math có thể trưởng thành bền vững, bản thân người sáng lập cũng cần song hành trong một hành trình phát triển cá nhân. Ba trục chính gồm: <em>học tập song hành</em>, <em>sức khỏe - tinh thần</em>, và <em>kỹ năng bổ trợ</em>.</p>
+<section id="học-tập-song-hành" class="level4">
+<h4 class="anchored" data-anchor-id="học-tập-song-hành">Học tập song hành</h4>
+<p>Việc học không chỉ để mở rộng tri thức, mà còn là nhiên liệu trực tiếp nuôi dưỡng ZO Math. Trong giai đoạn này, ưu tiên gồm:</p>
+<ul>
+<li><p><strong>Ngoại ngữ</strong>: củng cố tiếng Anh để đọc - viết tài liệu toán học quốc tế và bắt đầu từ con số 0 với tiếng Trung, hướng tới việc mở rộng ZO Math ra nhiều ngôn ngữ trong tương lai.</p></li>
+<li><p><strong>Danh sách tài liệu cần đọc</strong></p>
+<ul>
+<li><em>Hàm thực và Giải tích hàm (Hoàng Tụy)</em></li>
+<li>Các câu truyện Toán học (Nguyễn Bá Đô+)</li>
+<li><em>An introduction to probability theory and its applications (William Feller)</em></li>
+<li>Probability and measure (Patrick Billingsley)</li>
+<li>Convergence of probability measures (Patrick Billingsley)</li>
+<li>Chúa Trời có phải là Nhà toán học (Mario Livio)</li>
+<li><em>What is Mathematics? An elementary approach to ideas and methods (Richard Courant+)</em></li>
+<li><em>Introduction to linear algebra (Gilbert Strang)</em></li>
+<li>Calculus (James Stewart)</li>
+<li>How to solve it? Anew aspect of mathematical method (Polya)</li>
+<li>Toán học và những suy luận có lý (Polya)</li>
+<li>Sáng tạo Toán học (Polya)</li>
+<li>Elements (Euclid)</li>
+<li>Toán cao cấp (Nguyễn Đình Trí)</li>
+<li>Introduction to Probability Models (Sheldon M. Ross)</li>
+<li><em>Discrete mathematics and its applications (Kenneth H. Rosen)</em></li>
+<li><em>Introduction to Calculus and Analysis (Richard Courant+)</em></li>
+</ul></li>
+<li><p><strong>Khóa học</strong>: khai thác MIT OpenCourseWare, đặc biệt là các khóa của Gilbert Strang, David Jerison, John Tsitsiklis, vừa học lý thuyết, vừa rèn kỷ luật tự học.</p></li>
+</ul>
+</section>
+<section id="sức-khỏe-thân-tâm" class="level4">
+<h4 class="anchored" data-anchor-id="sức-khỏe-thân-tâm">Sức khỏe thân-tâm</h4>
+<p>Thể chất và tâm an là nền móng cho sự sáng tạo dài lâu. Định hướng gồm:</p>
+<ul>
+<li><p><strong>Giấc ngủ</strong>: duy trì 8-9 giờ ngủ mỗi ngày, xây dựng lại thói quen ngủ sớm (trước 12 giờ đêm).</p></li>
+<li><p><strong>Vận động</strong>: nhảy dây, tập thể hình, trượt ván tối thiểu 3 buổi/tuần để giữ sức bền và giải tỏa căng thẳng.</p></li>
+<li><p><strong>Tinh thần</strong>: dành thời gian tiếp cận và thực tập <em>Duy thức học</em> (bắt đầu với <em>Khảo nghiệm Duy thức học</em> - HT. Thích Thắng Hoan) để khám phá chiều sâu tinh thần, đồng thời rèn luyện sự quân bình trong công việc và đời sống.</p></li>
+</ul>
+</section>
+<section id="kỹ-năng-bổ-trợ" class="level4">
+<h4 class="anchored" data-anchor-id="kỹ-năng-bổ-trợ">Kỹ năng bổ trợ</h4>
+<p>Để nâng cao năng lực thực hành và truyền đạt, cần rèn luyện các kỹ năng:</p>
+<ul>
+<li><p><strong>Giao tiếp và diễn đạt</strong>: tập nói trôi chảy, mạch lạc, có nhịp điệu rõ ràng để giảng dạy và làm video.</p></li>
+<li><p><strong>Kỹ năng truyền thông</strong>: học cách làm video, sắp xếp phòng thu hình - ghi âm, tạo dựng phong cách trình bày nhất quán.</p></li>
+<li><p><strong>Quản lý</strong>: củng cố kỹ năng quản lý dự án, kết hợp với phương pháp sư phạm hiện đại để dẫn dắt học sinh và cộng sự trong tương lai.</p></li>
+</ul>
+</section>
+</section>
+<section id="c.4-rủi-ro-nguyên-tắc-ứng-xử" class="level3">
+<h3 class="anchored" data-anchor-id="c.4-rủi-ro-nguyên-tắc-ứng-xử">C.4 Rủi ro &amp; Nguyên tắc ứng xử</h3>
+<section id="rủi-ro" class="level4">
+<h4 class="anchored" data-anchor-id="rủi-ro">Rủi ro</h4>
+<p>Nguy cơ lớn nhất có thể khiến kế hoạch ZO Math và cả kế hoạch cuộc đời bị gián đoạn chính là <em>thiếu hụt tài chính</em>. Trong quá khứ, tôi cũng từng mắc vào những “cái bẫy” như <em>trì hoãn</em> hay <em>phân tâm bởi nhiều việc khác</em>, khiến bản thân chững lại và đánh mất nhịp độ.</p>
+</section>
+<section id="nguyên-tắc-ứng-xử" class="level4">
+<h4 class="anchored" data-anchor-id="nguyên-tắc-ứng-xử">Nguyên tắc ứng xử</h4>
+<p>Khi đối diện với khó khăn, tôi chọn cách cân bằng: việc nào tự giải quyết được thì tự giải quyết, còn khi cần thiết, tôi tìm sự hỗ trợ từ người khác. Đã từng có lúc, trong nghiên cứu tôi tự kiên nhẫn tìm ra lời giải; nhưng trong kinh doanh, khi thiếu vốn, tôi không ngần ngại tìm đến những người có thể giúp, hết người này thì hỏi đến người khác.</p>
+<p>Nguyên tắc tôi không bao giờ cho phép mình vi phạm là: <em>không ép buộc người khác</em>. Tôi tin mỗi người cần có tự do để lựa chọn cách đi của riêng họ. Và nếu có lúc đi chệch khỏi quỹ đạo, “nguyên tắc mềm” của tôi là: chờ đến khi tìm lại được <em>hứng thú</em> hoặc <em>một lợi ích tốt hơn</em> để tự khơi lại động lực.</p>
+</section>
+</section>
+<section id="c.5-đồng-minh-môi-trường" class="level3">
+<h3 class="anchored" data-anchor-id="c.5-đồng-minh-môi-trường">C.5 Đồng minh &amp; Môi trường</h3>
+<p>Trên hành trình kiến tạo ZO Math và phát triển bản thân, đồng minh không chỉ là chỗ dựa mà còn là nguồn động lực. Gia đình là hậu phương vững chắc, bạn bè cùng học là người đồng hành trên con đường tri thức, cộng tác viên sẽ là những mắt xích quan trọng để ZO Math mở rộng sức mạnh tập thể. ChatGPT, trong vai trò bạn đồng hành tri thức và phản biện, cũng nằm trong nhóm đồng minh đặc biệt.</p>
+<p>Môi trường lý tưởng để làm việc và học tập được định hình: một góc riêng tư, yên tĩnh, đủ sự tập trung để đi vào chiều sâu; đồng thời vẫn luôn mở ra khả năng kết nối trực tuyến với thế giới - nơi tri thức và cộng đồng toàn cầu có thể được chạm tới chỉ trong một cú nhấp chuột. Đây chính là thế cân bằng giữa nội tâm và ngoại giới, giữa tập trung cá nhân và giao lưu rộng mở.</p>
+</section>
+<section id="c.6-lộ-trình-cột-mốc" class="level3">
+<h3 class="anchored" data-anchor-id="c.6-lộ-trình-cột-mốc">C.6 Lộ trình &amp; Cột mốc</h3>
+<p>Lộ trình sự nghiệp được thiết kế theo từng năm, với những mục tiêu cụ thể:</p>
+<ul>
+<li><strong>Năm thứ nhất</strong>: xây dựng nền tảng nội dung với các bài giảng Toán phổ thông. Song song, sản xuất video ngắn để lan tỏa trên các nền tảng TikTok, YouTube Shorts, Facebook Reels, và có thể mở rộng thêm sang Instagram Reels hoặc Bilibili (cho đối tượng học sinh Trung Quốc).</li>
+<li><strong>Năm thứ hai và thứ ba</strong>: hoàn thiện hệ thống bài giảng, bố trí phòng thu chuyên nghiệp, bắt đầu triển khai các khóa học và luyện thi.</li>
+<li><strong>Năm thứ tư và thứ năm</strong>: nâng cấp phòng thu, mở dịch vụ cho thuê hoặc hỗ trợ giáo viên xây dựng khóa học, đồng thời bắt tay vào phát triển ứng dụng học Toán phổ thông.</li>
+<li><strong>Năm thứ sáu</strong>: mở rộng sang các khóa học toán cho bậc đại học và đối tượng nâng cao, với các chủ đề như Xác suất, Thống kê, Vi tích phân, Giải tích, Đại số tuyến tính, Toán rời rạc.</li>
+</ul>
+<p>Cột mốc quan trọng mở đầu cho hành trình này là dự án con <em>“100+ Hàm số: Sự biến thiên và đồ thị”</em> - một bộ sưu tập bài học nền tảng vừa là dấu ấn chuyên môn, vừa là lời giới thiệu mạnh mẽ về tinh thần ZO Math.</p>
+<!-------------------------------------------->
+</section>
+</section>
+<section id="d.-kế-hoạch-hành-động-chi-tiết---năm-thứ-nhất" class="level2">
+<h2 class="anchored" data-anchor-id="d.-kế-hoạch-hành-động-chi-tiết---năm-thứ-nhất">D. KẾ HOẠCH HÀNH ĐỘNG CHI TIẾT - NĂM THỨ NHẤT</h2>
+<section id="dàn-ý" class="level3">
+<h3 class="anchored" data-anchor-id="dàn-ý">DÀN Ý</h3>
+<section id="d.1.-nguyên-lý-vận-hành-zo---đơn-vị-kiến-thức-trong-zo-math" class="level4">
+<h4 class="anchored" data-anchor-id="d.1.-nguyên-lý-vận-hành-zo---đơn-vị-kiến-thức-trong-zo-math">D.1. Nguyên lý vận hành: ZO - Đơn vị kiến thức trong ZO Math</h4>
+<ul>
+<li>D.1.1. Khái niệm</li>
+<li>D.1.2. Đặc tính của ZO</li>
+<li>D.1.3. Cấu trúc ZO</li>
+</ul>
+</section>
+<section id="d.2.-trục-công-việc" class="level4">
+<h4 class="anchored" data-anchor-id="d.2.-trục-công-việc">D.2. Trục công việc</h4>
+<ul>
+<li>D.2.1. Trục chính</li>
+<li>D.2.2. Trục phụ</li>
+</ul>
+</section>
+<section id="d.3.-lộ-trình-12-tháng-102025---092026" class="level4">
+<h4 class="anchored" data-anchor-id="d.3.-lộ-trình-12-tháng-102025---092026">D.3. Lộ trình 12 tháng (10/2025 - 09/2026)</h4>
+<ul>
+<li>D.3.1. Mục tiêu định lượng năm thứ nhất</li>
+<li>D.3.2. Lộ trình chi tiết 12 tháng</li>
+</ul>
+</section>
+<section id="d.4.-lịch-làm-việc-hằng-ngày" class="level4">
+<h4 class="anchored" data-anchor-id="d.4.-lịch-làm-việc-hằng-ngày">D.4. Lịch làm việc hằng ngày</h4>
+<ul>
+<li><p>D.4.1. Lịch tổng quát trong ngày</p></li>
+<li><p>D.4.2. Nguyên tắc vận hành các ca</p></li>
+<li><p>D.4.3. Mô tả chi tiết từng ca làm việc</p>
+<ul>
+<li>D.4.3.1. CA1 - Sáng sớm: “Đi chợ”</li>
+<li>D.4.3.2. CA2 - Buổi sáng: “Sơ chế”</li>
+<li>D.4.3.3. CA3 - Trưa: “Kỹ thuật, đồ thị &amp; video script”</li>
+<li>D.4.3.4. CA4 - Chiều: “Đóng gói &amp; kiểm thử”</li>
+<li>D.4.3.5. CA5 - Tối: “Ghi hình &amp; xuất bản”</li>
+</ul></li>
+<li><p>D.4.4. Chu trình trong ngày (tổng kết 5 ca)</p></li>
+</ul>
+</section>
+<section id="d.5.-chu-trình-vận-hành-zo-trong-hệ-thống-zo-math" class="level4">
+<h4 class="anchored" data-anchor-id="d.5.-chu-trình-vận-hành-zo-trong-hệ-thống-zo-math">D.5. Chu trình vận hành ZO trong hệ thống ZO Math</h4>
+<ul>
+<li>D.5.1. Tổng quan chu trình</li>
+<li>D.5.2. Chu trình ngày - sản xuất 1 ZO</li>
+<li>D.5.3. Chu trình tuần - tinh luyện &amp; chuẩn hóa</li>
+<li>D.5.4. Chu trình tháng - cải tiến hệ thống</li>
+<li>D.5.5. Chu trình mở rộng - vòng đời dài hạn của một ZO</li>
+<li>D.5.6. Tóm tắt chu trình vận hành ZO</li>
+<li>D.5.7. Sơ đồ tổng quát chu trình ZO (tùy chọn minh họa)</li>
+</ul>
+</section>
+<section id="d.6.-quản-lý-tiến-độ-sức-khỏe-và-nhịp-làm-việc" class="level4">
+<h4 class="anchored" data-anchor-id="d.6.-quản-lý-tiến-độ-sức-khỏe-và-nhịp-làm-việc">D.6. Quản lý tiến độ, sức khỏe và nhịp làm việc</h4>
+<ul>
+<li>D.6.1. Nguyên tắc quản lý tiến độ</li>
+<li>D.6.2. Chu kỳ theo dõi tiến độ (ngày - tuần - tháng)</li>
+<li>D.6.3. Biểu mẫu rà soát hàng tuần</li>
+<li>D.6.4. Báo cáo tháng (rút gọn)</li>
+<li>D.6.5. Quy tắc xử lý khi chậm tiến độ</li>
+<li>D.6.6. Công cụ hỗ trợ quản lý</li>
+<li>D.6.7. Nhịp độ tái tạo năng lượng</li>
+</ul>
+</section>
+<section id="d.7.-hệ-thống-đánh-giá-cải-tiến-zo-math" class="level4">
+<h4 class="anchored" data-anchor-id="d.7.-hệ-thống-đánh-giá-cải-tiến-zo-math">D.7. Hệ thống đánh giá &amp; Cải tiến ZO Math</h4>
+<p><em>(bao gồm cả chu trình Review Cycle + Growth Loop)</em></p>
+<ul>
+<li><p>D.7.1. Mục đích của hệ thống đánh giá</p></li>
+<li><p>D.7.2. Bộ chỉ số KPI</p>
+<ul>
+<li>D.7.2.1. Chỉ số sản xuất (Production KPIs)</li>
+<li>D.7.2.2. Chỉ số chất lượng (Quality KPIs)</li>
+<li>D.7.2.3. Chỉ số năng lượng cá nhân (Personal KPIs)</li>
+</ul></li>
+<li><p>D.7.3. Vòng lặp cải tiến (Feedback Loop)</p>
+<ul>
+<li>D.7.3.1. Đánh giá hằng ngày (Daily Review)</li>
+<li>D.7.3.2. Đánh giá hằng tuần (Weekly Retro)</li>
+<li>D.7.3.3. Đánh giá hằng tháng (Monthly Growth Review)</li>
+<li>D.7.3.4. Đánh giá hằng quý (Quarterly Reflection)</li>
+</ul></li>
+<li><p>D.7.4. Lưu trữ &amp; Báo cáo</p></li>
+<li><p>D.7.5. Nguyên tắc cải tiến</p></li>
+<li><p>D.7.6. Growth Loop - Chu trình phát triển liên tục</p></li>
+<li><p>D.7.7. Công cụ hỗ trợ Review</p></li>
+<li><p>D.7.8. Nguyên tắc vàng khi Review</p></li>
+</ul>
+</section>
+<section id="d.8.-hệ-thống-tổ-chức-dữ-liệu-quy-trình-xuất-bản" class="level4">
+<h4 class="anchored" data-anchor-id="d.8.-hệ-thống-tổ-chức-dữ-liệu-quy-trình-xuất-bản">D.8. Hệ thống tổ chức dữ liệu &amp; Quy trình xuất bản</h4>
+<ul>
+<li>D.8.1. Cấu trúc thư mục tổng thể</li>
+<li>D.8.2. Chu trình xử lý một ZO</li>
+<li>D.8.3. Quy ước đặt tên &amp; ghi log</li>
+<li>D.8.4. Hệ thống automation bán tự động</li>
+<li>D.8.5. Quy trình kiểm soát chất lượng (QA)</li>
+<li>D.8.6. Chu trình bảo trì &amp; sao lưu</li>
+<li>D.8.7. Cấu trúc dữ liệu mở rộng (tương lai)</li>
+<li>D.8.8. Kết luận phần D.8</li>
+</ul>
+</section>
+<section id="d.9.-phụ-lục-tổng-hợp" class="level4">
+<h4 class="anchored" data-anchor-id="d.9.-phụ-lục-tổng-hợp">D.9. Phụ lục tổng hợp</h4>
+<ul>
+<li>D.9.1. Checklist CA1-CA5</li>
+<li>D.9.2. File naming &amp; folder structure</li>
+<li>D.9.3. Template ZO (bài viết Quarto)</li>
+<li>D.9.4. Template script video (45-60s)</li>
+</ul>
+</section>
+<section id="tổng-kết-logic" class="level4">
+<h4 class="anchored" data-anchor-id="tổng-kết-logic">Tổng kết logic</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 49%">
+<col style="width: 46%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Mục</th>
+<th>Nội dung trọng tâm</th>
+<th>Vai trò trong hệ thống</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D.1</td>
+<td>Triết lý hạt nhân ZO</td>
+<td>Nền tảng tư tưởng</td>
+</tr>
+<tr class="even">
+<td>D.2</td>
+<td>Trục công việc</td>
+<td>Hướng hành động chính</td>
+</tr>
+<tr class="odd">
+<td>D.3</td>
+<td>Mục tiêu &amp; lộ trình năm</td>
+<td>Đích đến của năm 1</td>
+</tr>
+<tr class="even">
+<td>D.4</td>
+<td>Lịch ngày &amp; các ca</td>
+<td>Hệ thống làm việc cá nhân</td>
+</tr>
+<tr class="odd">
+<td>D.5</td>
+<td>Chu trình ZO</td>
+<td>Vận hành theo tầng</td>
+</tr>
+<tr class="even">
+<td>D.6</td>
+<td>Quản lý tiến độ &amp; sức khỏe</td>
+<td>Nhịp độ bền vững</td>
+</tr>
+<tr class="odd">
+<td>D.7</td>
+<td>Hệ thống đánh giá &amp; Growth Loop</td>
+<td>Cơ chế phản hồi - cải tiến</td>
+</tr>
+<tr class="even">
+<td>D.8</td>
+<td>Hệ thống dữ liệu &amp; xuất bản</td>
+<td>Nền tảng kỹ thuật</td>
+</tr>
+<tr class="odd">
+<td>D.9</td>
+<td>Phụ lục</td>
+<td>Biểu mẫu, template, hướng dẫn</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>Trọng tâm năm thứ nhất là dự án <em>“ZO Math – 100+ Hàm số: Sự biến thiên và đồ thị”</em>, giai đoạn thiết lập hạ tầng tri thức đầu tiên và là phép thử về nhịp làm việc, kỷ luật, cũng như khả năng biến tư duy toán học thành sản phẩm giáo dục thực tế.</p>
+</section>
+</section>
+<section id="d.1.-nguyên-lý-vận-hành-zo---đơn-vị-kiến-thức-trong-zo-math-1" class="level3">
+<h3 class="anchored" data-anchor-id="d.1.-nguyên-lý-vận-hành-zo---đơn-vị-kiến-thức-trong-zo-math-1">D.1. Nguyên lý vận hành: ZO - Đơn vị kiến thức trong ZO Math</h3>
+<section id="d.1.1.-khái-niệm" class="level4">
+<h4 class="anchored" data-anchor-id="d.1.1.-khái-niệm">D.1.1. Khái niệm</h4>
+<p><strong>ZO</strong> là đơn vị kiến thức tối giản, trọn vẹn và không thể chia nhỏ. Mỗi ZO được hình thành khi một <em>ý niệm toán học</em> được trình bày đầy đủ dưới hai hình thức:</p>
+<ol type="1">
+<li><p><strong>Bài luận:</strong> Trình bày mạch lạc, khơi gợi trực giác, phân tích bản chất toán học, dẫn dắt đến tri thức chuẩn.</p>
+<p><em>Nguyên tắc:</em> Bài viết phải <em>quan trọng</em>, <em>khó tránh</em>, <em>khó lường</em>, <em>ngắn gọn</em>.</p></li>
+<li><p><strong>Băng hình:</strong> Truyền đạt lại bài luận bằng lời nói, kết hợp minh họa, tập trung vào <strong>ý niệm</strong>, không phải người trình bày.</p>
+<p><em>Nguyên tắc:</em> Bắt đầu từ <em>trực giác</em>, kết thúc ở <em>ý niệm thuần túy</em>.</p></li>
+</ol>
+<p>Một ZO là <em>“hạt nhân tri thức”</em>: người học sau khi tiếp cận sẽ nhớ được bản chất của ý niệm.</p>
+</section>
+<section id="d.1.2.-đặc-tính-của-zo" class="level4">
+<h4 class="anchored" data-anchor-id="d.1.2.-đặc-tính-của-zo">D.1.2. Đặc tính của ZO</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 86%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Thuộc tính</th>
+<th>Mô tả</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Không thể thu hẹp</strong></td>
+<td>Cắt bỏ phần nào sẽ làm mất đi tri thức trọn vẹn của ý niệm.</td>
+</tr>
+<tr class="even">
+<td><strong>Có thể mở rộng</strong></td>
+<td>Mở theo ba chiều: <em>chiều sâu</em> (đi sâu bản chất), <em>chiều rộng</em> (liên hệ tương đồng), <em>chiều ứng dụng</em> (gắn thực tiễn hoặc lịch sử).</td>
+</tr>
+<tr class="odd">
+<td><strong>Giới hạn mở rộng</strong></td>
+<td>Khi mở rộng làm mất tính nhận diện của đối tượng, ta đã bước sang <strong>một ZO mới</strong>.</td>
+</tr>
+<tr class="even">
+<td><strong>Độc lập</strong></td>
+<td>Mỗi ZO đứng riêng vẫn mang trọn tri thức cốt lõi.</td>
+</tr>
+<tr class="odd">
+<td><strong>Liên kết</strong></td>
+<td>Các ZO nối nhau thành mạng lưới tri thức, ZO này gợi mở và soi sáng ZO khác.</td>
+</tr>
+<tr class="even">
+<td><strong>Song hành</strong></td>
+<td>Mỗi ZO tồn tại song song ở hai hình thức: bài luận và video, bổ trợ lẫn nhau.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="d.1.3.-cấu-trúc-zo" class="level4">
+<h4 class="anchored" data-anchor-id="d.1.3.-cấu-trúc-zo">D.1.3. Cấu trúc ZO</h4>
+<p>Mỗi một ZO được cấu trúc thành ba lớp:</p>
+<ul>
+<li><strong>ZO-core:</strong> phần cốt lõi nhận diện.</li>
+<li><strong>ZO-extension:</strong> các bổ sung hợp lệ.</li>
+<li><strong>ZO-network:</strong> mối liên hệ với các ZO khác.</li>
+</ul>
+<p><strong>Tóm tắt:</strong> ZO là đơn vị tri thức cơ bản nhất của ZO Math - trọn vẹn, có khả năng mở rộng, và được kết nối thành một mạng lưới nhận thức thống nhất.</p>
+</section>
+</section>
+<section id="d.2.-trục-công-việc-1" class="level3">
+<h3 class="anchored" data-anchor-id="d.2.-trục-công-việc-1">D.2. Trục công việc</h3>
+<section id="d.2.1.-trục-chính" class="level4">
+<h4 class="anchored" data-anchor-id="d.2.1.-trục-chính">D.2.1. Trục chính</h4>
+<ol type="1">
+<li>Xuất bản “100+ Hàm số: Sự biến thiên và đồ thị”.</li>
+<li>Hoàn thiện bộ nhận diện ZO Math.</li>
+</ol>
+</section>
+<section id="d.2.2.-trục-phụ" class="level4">
+<h4 class="anchored" data-anchor-id="d.2.2.-trục-phụ">D.2.2. Trục phụ</h4>
+<p>Không tranh tài nguyên với trục chính.</p>
+<ol type="1">
+<li>Đọc và đối chiếu SGK Toán phổ thông, sách <em>Polya</em> và <em>Courant</em> để củng cố nền tảng sư phạm.</li>
+<li>Cải tiến kỹ thuật xuất bản: Quarto templates, scripts tự động và quản lý nội dung.</li>
+</ol>
+</section>
+</section>
+<section id="d.3.-lộ-trình-12-tháng-102025---092026-1" class="level3">
+<h3 class="anchored" data-anchor-id="d.3.-lộ-trình-12-tháng-102025---092026-1">D.3. Lộ trình 12 tháng (10/2025 - 09/2026)</h3>
+<section id="d.3.1.-mục-tiêu-định-lượng-năm-thứ-nhất" class="level4">
+<h4 class="anchored" data-anchor-id="d.3.1.-mục-tiêu-định-lượng-năm-thứ-nhất">D.3.1. Mục tiêu định lượng năm thứ nhất</h4>
+<ul>
+<li>Hoàn thành <em>100 ZO</em> (mỗi ZO gồm bài + video).</li>
+<li>Duy trì nhịp <em>5 ZO/tuần</em>.</li>
+<li>Xây dựng <em>hệ thống xuất bản tự động</em>, <em>template chuẩn</em>, và <em>dashboard theo dõi tiến độ</em>.</li>
+<li>Thiết lập nền tảng cho *ZO Shiny app** và <em>ZO-network</em>.</li>
+</ul>
+</section>
+<section id="d.3.2.-lộ-trình-chi-tiết-12-tháng" class="level4">
+<h4 class="anchored" data-anchor-id="d.3.2.-lộ-trình-chi-tiết-12-tháng">D.3.2. Lộ trình chi tiết 12 tháng</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 9%">
+<col style="width: 68%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Giai đoạn</th>
+<th>Trọng tâm</th>
+<th>Mục tiêu cụ thể</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>10-11/2025</strong></td>
+<td><em>Khởi động</em></td>
+<td>Ra mắt 20 ZO đầu tiên; hoàn chỉnh template Quarto; hoàn thiện bộ nhận diện ZO Math.</td>
+</tr>
+<tr class="even">
+<td><strong>12/2025 - 01/2026</strong></td>
+<td><em>Tăng tốc</em></td>
+<td>Xuất bản 40 ZO tiếp theo (mục tiêu 20/tháng); 50% có ví.</td>
+</tr>
+<tr class="odd">
+<td><strong>02-03/2026</strong></td>
+<td><em>Củng cố</em></td>
+<td>Hoàn tất 100 ZO; 80% có ví; tổng kết vòng sản xuất đầu tiên.</td>
+</tr>
+<tr class="even">
+<td><strong>04-09/2026</strong></td>
+<td><em>Mở rộng</em></td>
+<td>Duy trì xuất bản định kỳ (5 ZO/tuần); khởi động hướng Shiny app; đào sâu ZO-network.</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="d.4.-lịch-làm-việc-hằng-ngày-1" class="level3">
+<h3 class="anchored" data-anchor-id="d.4.-lịch-làm-việc-hằng-ngày-1">D.4. Lịch làm việc hằng ngày</h3>
+<p>Lịch trình này được thiết kế cho <em>nhịp sinh học tối ưu</em>: làm việc sâu vào sáng sớm, duy trì các khoảng nghỉ ngắn để phục hồi năng lượng, và kết thúc ngày trong sự thư giãn, chuẩn bị cho chu trình hôm sau.</p>
+<section id="lịch-tổng-quát-trong-ngày" class="level4">
+<h4 class="anchored" data-anchor-id="lịch-tổng-quát-trong-ngày">Lịch tổng quát trong ngày</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 41%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Thời gian</th>
+<th>Hoạt động</th>
+<th>Ghi chú</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>03:45 - 04:15</strong></td>
+<td>Báo thức, vệ sinh</td>
+<td>Khởi đầu trong tĩnh lặng, tránh tiếp xúc điện thoại.</td>
+</tr>
+<tr class="even">
+<td><strong>04:15 - 06:30</strong></td>
+<td><em>CA1 - Sáng sớm: “Đi chợ”</em></td>
+<td>Xác định ZO của ngày, thu thập tri thức, viết dàn ý.</td>
+</tr>
+<tr class="odd">
+<td><strong>06:30 - 06:40</strong></td>
+<td>Dự bị</td>
+<td>Giãn cơ nhẹ, uống nước.</td>
+</tr>
+<tr class="even">
+<td><strong>06:40 - 07:00</strong></td>
+<td>Thể dục</td>
+<td>Nhảy dây, duỗi cơ, hít thở sâu.</td>
+</tr>
+<tr class="odd">
+<td><strong>07:00 - 07:30</strong></td>
+<td>Tắm rửa, ăn sáng nhẹ</td>
+<td>Bắt đầu ngày trong tinh thần sảng khoái.</td>
+</tr>
+<tr class="even">
+<td><strong>07:40 - 10:00</strong></td>
+<td><em>CA2 - Buổi sáng: “Sơ chế”</em></td>
+<td>Viết bản thảo bài luận hoàn chỉnh.</td>
+</tr>
+<tr class="odd">
+<td><strong>10:00 - 10:10</strong></td>
+<td>Dự bị</td>
+<td>Nghỉ ngắn, chuẩn bị cho ca kế tiếp.</td>
+</tr>
+<tr class="even">
+<td><strong>10:10 - 11:30</strong></td>
+<td><em>CA3 - Trưa: “Kỹ thuật, đồ thị &amp; video script”</em></td>
+<td>Hoàn thành đồ thị minh họa và kịch bản video.</td>
+</tr>
+<tr class="odd">
+<td><strong>11:40 - 13:30</strong></td>
+<td>Ăn trưa + ngủ trưa (30 phút)</td>
+<td>Nghỉ phục hồi năng lượng.</td>
+</tr>
+<tr class="even">
+<td><strong>13:40 - 16:00</strong></td>
+<td><em>CA4 - Chiều: “Đóng gói &amp; kiểm thử”</em></td>
+<td>Biên tập, format, render thử, chuẩn bị xuất bản.</td>
+</tr>
+<tr class="odd">
+<td><strong>16:00 - 16:30</strong></td>
+<td>Nghỉ ngắn</td>
+<td>Thư giãn, uống nước hoặc nghe nhạc nhẹ.</td>
+</tr>
+<tr class="even">
+<td><strong>16:30 - 18:00</strong></td>
+<td>Trông cháu / đọc nhẹ</td>
+<td>Thời gian linh hoạt, vẫn giữ kết nối gia đình.</td>
+</tr>
+<tr class="odd">
+<td><strong>18:10 - 18:50</strong></td>
+<td>Ăn tối</td>
+<td>Ăn chậm, nghỉ ngơi.</td>
+</tr>
+<tr class="even">
+<td><strong>19:00 - 20:50</strong></td>
+<td><em>CA5 - Tối: “Ghi hình &amp; xuất bản”</em></td>
+<td>Quay video, đăng bài, tương tác phản hồi.</td>
+</tr>
+<tr class="odd">
+<td><strong>21:00 - 21:30</strong></td>
+<td>Vệ sinh, tắt thiết bị</td>
+<td>Không xem điện thoại trước ngủ.</td>
+</tr>
+<tr class="even">
+<td><strong>21:30 - 04:00</strong></td>
+<td>Ngủ</td>
+<td>Duy trì 7.5-8 giờ giấc ngủ sâu.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mô-tả-chi-tiết-về-ca-làm-việc" class="level4">
+<h4 class="anchored" data-anchor-id="mô-tả-chi-tiết-về-ca-làm-việc">Mô tả chi tiết về ca làm việc</h4>
+<p><strong>Nguyên tắc vận hành:</strong> Mỗi ca làm việc phải <em>bắt đầu có kế hoạch, giữa ca không phân vân, cuối ca có sản phẩm.</em></p>
+<section id="ca1-đi-chợ-0415-0630" class="level5">
+<h5 class="anchored" data-anchor-id="ca1-đi-chợ-0415-0630">CA1: <em>Đi chợ</em> (04:15-06:30)</h5>
+<ul>
+<li><strong>Thời lượng:</strong> 2 giờ 15 phút</li>
+<li><strong>Mục tiêu:</strong> Xác định <em>ZO của ngày</em> (tức là hàm số hoặc ý niệm toán học sẽ được biên soạn trong ngày), thu thập tri thức cần thiết và hoàn thiện <em>dàn ý chi tiết</em> - đủ để CA2 có thể triển khai thành bài luận hoàn chỉnh.</li>
+</ul>
+<section id="bảng-công-việc-chi-tiết" class="level6">
+<h6 class="anchored" data-anchor-id="bảng-công-việc-chi-tiết">Bảng công việc chi tiết</h6>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 19%">
+<col style="width: 66%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Thời gian</th>
+<th>Hoạt động</th>
+<th>Mô tả</th>
+<th>Thời lượng</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>04:15-04:25</td>
+<td><em>Khởi động mạch tư duy</em></td>
+<td>Mở tệp ghi chú của ngày hôm qua, đọc nhanh 3-5 dòng cuối để nối lại mạch suy nghĩ. Không xử lý vấn đề tồn đọng trong ca này. Nếu có phản hồi hoặc góp ý từ người xem, chỉ ghi chú lại để xem xét vào “ngày tổng hợp” (thứ Bảy). Kết thúc bước này bằng một dòng ngắn ghi cảm nhận hoặc tinh thần buổi sáng.</td>
+<td>10 phút</td>
+</tr>
+<tr class="even">
+<td>04:25-04:40</td>
+<td><em>Chốt hàm số trong ngày</em></td>
+<td>Chọn một hàm số trong danh sách, xác định mã số và slug (mã định danh viết không dấu, dùng cho tên tệp).</td>
+<td>15 phút</td>
+</tr>
+<tr class="odd">
+<td>04:40-05:10</td>
+<td><em>Đọc tài liệu &amp; xác thực kiến thức</em></td>
+<td>Tham khảo nhanh sách giáo khoa và tài liệu chuyên sâu, ghi tóm tắt ba ý trọng tâm.</td>
+<td>30 phút</td>
+</tr>
+<tr class="even">
+<td>05:10-06:00</td>
+<td><em>Soạn dàn ý chi tiết</em></td>
+<td>Xây dựng khung bố cục bài: tiêu đề, mở bài, định nghĩa, tính chất, bảng biến thiên, hai ví dụ minh họa, phần mở rộng và gợi ý nội dung ví.</td>
+<td>50 phút</td>
+</tr>
+<tr class="odd">
+<td>06:00-06:20</td>
+<td><em>Ghi công thức &amp; phác họa đồ thị</em></td>
+<td>Vẽ sơ đồ nhanh, ghi lại các công thức và chú giải cần thiết để dùng cho CA3.</td>
+<td>20 phút</td>
+</tr>
+<tr class="even">
+<td>06:20-06:30</td>
+<td><em>Lưu &amp; ghi chú chuyển ca</em></td>
+<td>Lưu tệp dàn ý vào thư mục làm việc, đặt tên theo mẫu 100HS-###_slug.qmd. Ghi một dòng ngắn về trọng tâm cần hoàn thiện trong CA2, sau đó cập nhật nhật ký công việc.</td>
+<td>10 phút</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="giải-thích-thêm" class="level6">
+<h6 class="anchored" data-anchor-id="giải-thích-thêm">Giải thích thêm</h6>
+<ul>
+<li>ZO của ngày: là đơn vị bài học trọng tâm bạn chọn làm trong ngày; ví dụ, “Hàm số <span class="math inline">\(y=\sin x\)</span>” hoặc “Hàm số bậc nhất”.</li>
+<li>Slug: là mã ngắn, viết thường, không dấu và có gạch nối hoặc gạch dưới để định danh nội dung. Dạng chuẩn: <code>100HS-017_y_sin_x</code>.</li>
+</ul>
+</section>
+<section id="kết-quả" class="level6">
+<h6 class="anchored" data-anchor-id="kết-quả">Kết quả</h6>
+<ul>
+<li>Hoàn thành một tệp dàn ý đầy đủ: <code>100HS-###_slug.qmd</code></li>
+</ul>
+</section>
+</section>
+<section id="ca2-sơ-chế-0740---1000" class="level5">
+<h5 class="anchored" data-anchor-id="ca2-sơ-chế-0740---1000">CA2: <em>Sơ chế</em> (07:40 - 10:00)</h5>
+<ul>
+<li><strong>Thời lượng:</strong> 2 giờ 20 phút</li>
+<li><strong>Mục tiêu:</strong> Biến dàn ý đã soạn ở CA1 thành <strong>bản thảo bài luận hoàn chỉnh</strong>, thể hiện trọn vẹn mạch tư duy toán học qua ngôn ngữ tự nhiên, bao gồm phần trình bày, ví dụ minh họa, lời giải, và vị trí được đánh dấu cho hình minh họa hoặc mã lệnh kỹ thuật (nếu có). Ca này được xem là <em>khâu sáng tạo trọng tâm</em>, nơi ý niệm trừu tượng được chuyển hóa thành nội dung sư phạm cụ thể.</li>
+</ul>
+<section id="bảng-công-việc-chi-tiết-1" class="level6">
+<h6 class="anchored" data-anchor-id="bảng-công-việc-chi-tiết-1">Bảng công việc chi tiết</h6>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 12%">
+<col style="width: 79%">
+<col style="width: 3%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Thời gian</th>
+<th style="text-align: left;">Hoạt động</th>
+<th style="text-align: left;">Mô tả</th>
+<th style="text-align: center;">Thời lượng</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>07:40 - 07:50</strong></td>
+<td style="text-align: left;"><em>Mở dàn ý và xác định mục tiêu</em></td>
+<td style="text-align: left;">Mở lại tệp dàn ý được hoàn thiện trong CA1. Đọc mục tiêu học tập và nội dung chính để định hướng toàn bộ bài viết. Xác định trọng tâm của bài - phần kiến thức mà người học phải nắm được sau khi đọc.</td>
+<td style="text-align: center;">10 phút</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>07:50 - 08:40</strong></td>
+<td style="text-align: left;"><em>Viết phần mở đầu và phần khái niệm</em></td>
+<td style="text-align: left;">Viết đoạn mở đầu khoảng 400-500 chữ. Giới thiệu ý nghĩa của vấn đề, tạo liên hệ thực tế hoặc trực giác giúp người học dễ tiếp nhận. Trình bày khái niệm trung tâm, các định nghĩa, ký hiệu, tập xác định hoặc tính chất nền tảng của đối tượng đang xét.</td>
+<td style="text-align: center;">50 phút</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>08:40 - 09:30</strong></td>
+<td style="text-align: left;"><em>Phân tích bản chất và viết Ví dụ 1</em></td>
+<td style="text-align: left;">Phát triển nội dung theo hướng giải thích bản chất toán học: cách biến thiên, quy luật, quan hệ giữa đại lượng. Viết <strong>Ví dụ 1</strong> dưới dạng dẫn nhập hoặc khám phá - một bài toán đơn giản giúp người đọc tự nhận thấy quy luật hoặc tính chất của đối tượng.</td>
+<td style="text-align: center;">50 phút</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>09:30 - 09:55</strong></td>
+<td style="text-align: left;"><em>Viết Ví dụ 2 hoặc bài tập củng cố</em></td>
+<td style="text-align: left;">Viết <strong>Ví dụ 2</strong> nhằm củng cố kiến thức hoặc minh họa ứng dụng trực tiếp của nội dung vừa trình bày. Có thể kèm theo một bài tập nhỏ tương tự để người học tự luyện. Mỗi ví dụ cần có lời giải rõ ràng và phần kết luận ngắn.</td>
+<td style="text-align: center;">25 phút</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>09:55 - 10:00</strong></td>
+<td style="text-align: left;"><em>Đánh dấu vị trí hình và mã kỹ thuật</em></td>
+<td style="text-align: left;">Ghi chú vị trí chèn đồ thị, sơ đồ, hoặc đoạn mã (TikZ, GeoGebra, R, Python, v.v..). Mỗi hình nên có dòng mô tả (alt text) và ghi rõ tên tệp hình tương ứng.</td>
+<td style="text-align: center;">5 phút</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="yêu-cầu-về-chất-lượng-bản-thảo" class="level6">
+<h6 class="anchored" data-anchor-id="yêu-cầu-về-chất-lượng-bản-thảo">Yêu cầu về chất lượng bản thảo</h6>
+<ul>
+<li><p>Bản thảo phải có <em>bố cục mạch lạc</em>, các phần được phân tách rõ bằng tiêu đề.</p></li>
+<li><p>Ngôn ngữ sử dụng <em>rõ ràng, giản dị, chính xác</em>, tránh thuật ngữ thừa hoặc lời dẫn mơ hồ.</p></li>
+<li><p>Các <em>ví dụ</em> phải tuân theo nguyên tắc “hai tầng”:</p>
+<ul>
+<li><em>Ví dụ 1</em>: khám phá - giúp người đọc thấy được quy luật hoặc tính chất.</li>
+<li><em>Ví dụ 2</em>: vận dụng - củng cố hiểu biết hoặc thực hành kỹ năng.</li>
+</ul></li>
+<li><p>Mỗi đoạn văn nên kết thúc bằng <strong>một câu khép ý</strong>, giúp người đọc nhận ra điểm dừng tự nhiên trước khi sang phần tiếp theo.</p></li>
+<li><p>Nếu có công thức hoặc biểu đồ, cần ghi chú rõ ràng vị trí và nội dung sẽ được bổ sung trong CA3.</p></li>
+</ul>
+</section>
+<section id="kết-quả-của-ca2" class="level6">
+<h6 class="anchored" data-anchor-id="kết-quả-của-ca2">Kết quả của CA2</h6>
+<ul>
+<li><p>Hoàn thành <em>một bản thảo bài luận hoàn chỉnh</em> dài khoảng 1000-1200 chữ.</p></li>
+<li><p>Bài viết bao gồm:</p>
+<ul>
+<li>Phần mở bài và định nghĩa,</li>
+<li>Phần phân tích nội dung và ví dụ minh họa,</li>
+<li>Ghi chú rõ vị trí hình ảnh, đồ thị, mã lệnh.</li>
+</ul></li>
+<li><p>Lưu tệp với tên: <code>100HS-###_slug_draft.qmd</code> (ví dụ: <code>100HS-017_y_sin_x_draft.qmd</code>) trong thư mục <code>drafts/</code>.</p></li>
+<li><p>Ghi vào nhật ký công việc:</p>
+<blockquote class="blockquote">
+<p>“Hoàn thành bản thảo sơ chế - nội dung đã có cấu trúc và mạch tư duy rõ ràng, sẵn sàng cho CA3: xử lý kỹ thuật và đồ thị.”</p>
+</blockquote></li>
+</ul>
+</section>
+</section>
+<section id="ca3-kỹ-thuật-đồ-thị-và-kịch-bản-video-1010---1130" class="level5">
+<h5 class="anchored" data-anchor-id="ca3-kỹ-thuật-đồ-thị-và-kịch-bản-video-1010---1130">CA3: <em>Kỹ thuật, đồ thị và kịch bản video</em> (10:10 - 11:30)</h5>
+<ul>
+<li><strong>Thời lượng:</strong> 1 giờ 20 phút</li>
+<li><strong>Mục tiêu:</strong> Hoàn thiện <em>đồ thị minh họa trực quan</em> cho bài viết và soạn <em>kịch bản video ngắn</em> (45-60 giây) giúp truyền đạt nội dung cốt lõi của ZO một cách sinh động và dễ tiếp nhận. Đây là ca chuyển đổi giữa tư duy học thuật (văn bản) và tư duy trực quan (hình ảnh - âm thanh), nhằm chuẩn bị cho hai ca tiếp theo là biên tập và xuất bản.</li>
+</ul>
+<section id="bảng-công-việc-chi-tiết-2" class="level6">
+<h6 class="anchored" data-anchor-id="bảng-công-việc-chi-tiết-2">Bảng công việc chi tiết</h6>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 10%">
+<col style="width: 81%">
+<col style="width: 2%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Thời gian</th>
+<th style="text-align: left;">Hoạt động</th>
+<th style="text-align: left;">Mô tả</th>
+<th style="text-align: center;">Thời lượng</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>10:10 - 10:35</strong></td>
+<td style="text-align: left;"><em>Vẽ đồ thị và thiết kế hình minh họa</em></td>
+<td style="text-align: left;">Dựa trên nội dung đã viết ở Ca 2, chọn dạng đồ thị hoặc sơ đồ phù hợp. Dùng TikZ, GeoGebra hoặc phần mềm vẽ tương đương để dựng hình chính xác, ghi rõ các điểm đặc biệt và chú thích cần thiết. Xuất tệp ảnh với độ phân giải 1920×1080 cho hình chính và 1200×628 cho ảnh thumbnail.</td>
+<td style="text-align: center;">25 phút</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>10:35 - 11:00</strong></td>
+<td style="text-align: left;"><em>Chuẩn hóa công thức và mã lệnh</em></td>
+<td style="text-align: left;">Kiểm tra lại các biểu thức, ký hiệu và đoạn mã (LaTeX, R, Python…) sử dụng trong bài. Chỉnh sửa cú pháp, bảo đảm công thức hiển thị đúng khi render Quarto. Lưu hình ảnh và mã lệnh trong các thư mục tương ứng để tiện tích hợp ở Ca 4.</td>
+<td style="text-align: center;">25 phút</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>11:00 - 11:20</strong></td>
+<td style="text-align: left;"><em>Soạn kịch bản video ngắn</em></td>
+<td style="text-align: left;">Viết kịch bản video (script) dài 45-60 giây, theo cấu trúc <em>Hook - Main - CTA</em>:</td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><em>Hook (0-7s):</em> câu mở đầu gây tò mò hoặc gợi tình huống.</li>
+<li><em>Main (7-45s):</em> trình bày nội dung chính, minh họa bằng đồ thị hoặc ví dụ.</li>
+<li><em>CTA (45-60s):</em> kêu gọi xem bài chi tiết hoặc gợi suy nghĩ mở rộng. Kịch bản cần dùng ngôn từ tự nhiên, nhịp rõ ràng, và có ghi chú hành động, giọng điệu. | 20 phút | | <strong>11:20 - 11:30</strong> | <em>Lưu và ghi siêu dữ liệu (metadata)</em> | Ghi tiêu đề video, từ khóa (tags), và mô tả ngắn (description). Lưu tệp kịch bản vào thư mục <em>scripts</em>, đồng thời sao chép tên tệp ảnh tương ứng để liên kết với phần video trong CA5. | 10 phút |</li>
+</ul>
+</section>
+<section id="yêu-cầu-về-chất-lượng-kỹ-thuật" class="level6">
+<h6 class="anchored" data-anchor-id="yêu-cầu-về-chất-lượng-kỹ-thuật">Yêu cầu về chất lượng kỹ thuật</h6>
+<ul>
+<li>Đồ thị phải <em>chính xác, rõ ràng, cân đối và dễ đọc</em>, ưu tiên bố cục trung tâm, phông chữ đồng nhất với toàn dự án ZO Math.</li>
+<li>Màu sắc nên hài hòa, tránh quá sáng hoặc quá tương phản; có thể sử dụng cùng bảng màu nhận diện của ZO Math.</li>
+<li>Mọi tệp hình phải có tên thống nhất với mã ZO (ví dụ: <code>100HS-017_graph.png</code>) và được lưu vào thư mục <code>media/</code>.</li>
+<li>Kịch bản video phải <em>diễn đạt được bản chất của ý niệm toán học trong thời lượng ngắn</em>, không sa vào chi tiết kỹ thuật.</li>
+<li>Ngôn ngữ trong kịch bản nên gần gũi, giàu hình ảnh, có nhịp điệu khi đọc thành tiếng.</li>
+</ul>
+</section>
+<section id="kết-quả-của-ca3" class="level6">
+<h6 class="anchored" data-anchor-id="kết-quả-của-ca3">Kết quả của CA3</h6>
+<ul>
+<li>Hoàn thành <em>tệp hình minh họa đồ thị</em> (định dạng PNG hoặc SVG), lưu trong <code>media/</code>.</li>
+<li>Hoàn thành <em>tệp kịch bản video ngắn</em>, lưu trong <code>scripts/</code>.</li>
+<li>Bản thảo đã sẵn sàng để chuyển sang Ca 4 - <em>Đóng gói và kiểm thử</em>.</li>
+</ul>
+</section>
+<section id="ghi-chú-cho-nhật-ký-công-việc" class="level6">
+<h6 class="anchored" data-anchor-id="ghi-chú-cho-nhật-ký-công-việc">Ghi chú cho nhật ký công việc</h6>
+<blockquote class="blockquote">
+<p>“CA3 hoàn tất - hình minh họa và kịch bản video đã hoàn chỉnh, công thức được chuẩn hóa, sẵn sàng biên tập ở Ca 4.”</p>
+</blockquote>
+</section>
+</section>
+<section id="ca4-đóng-gói-và-kiểm-thử-1340---1600" class="level5">
+<h5 class="anchored" data-anchor-id="ca4-đóng-gói-và-kiểm-thử-1340---1600">CA4: <em>Đóng gói và kiểm thử</em> (13:40 - 16:00)</h5>
+<ul>
+<li><strong>Thời lượng:</strong> 2 giờ 20 phút</li>
+<li><strong>Mục tiêu:</strong> Hoàn thiện <em>bản thảo bài viết</em> để trở thành <em>sản phẩm học thuật hoàn chỉnh</em> trên Quarto, đảm bảo định dạng, công thức và hình ảnh đều chính xác, thống nhất phong cách trình bày của ZO Math. Đây là ca kiểm định chất lượng - bước chuyển từ bản nháp kỹ thuật sang ấn phẩm có thể công bố.</li>
+</ul>
+<section id="bảng-công-việc-chi-tiết-3" class="level6">
+<h6 class="anchored" data-anchor-id="bảng-công-việc-chi-tiết-3">Bảng công việc chi tiết</h6>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 14%">
+<col style="width: 77%">
+<col style="width: 2%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Thời gian</th>
+<th style="text-align: left;">Hoạt động</th>
+<th style="text-align: left;">Mô tả</th>
+<th style="text-align: center;">Thời lượng</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>13:40 - 14:10</strong></td>
+<td style="text-align: left;"><em>Chèn hình và cập nhật phần đầu tệp (front-matter)</em></td>
+<td style="text-align: left;">Mở tệp <code>.qmd</code> của bài viết. Bổ sung các trường thông tin: <em>title, slug, tags, description</em> và ngày tạo. Chèn hình minh họa đã hoàn thiện từ Ca 3, thêm mô tả thay thế (<em>alt-text</em>) và chú thích. Kiểm tra đường dẫn tương đối để đảm bảo khi xuất bản không lỗi ảnh.</td>
+<td style="text-align: center;">30 phút</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>14:10 - 15:00</strong></td>
+<td style="text-align: left;"><em>Biên tập và chuẩn hóa nội dung</em></td>
+<td style="text-align: left;">Rà soát toàn bộ bài: bố cục, cách xuống dòng, định dạng công thức, ký hiệu, trích dẫn, dấu câu và chính tả. Kiểm tra sự nhất quán giữa phần viết và phần hình (tên biến, giá trị, ký hiệu). Chuẩn hóa cách trình bày tiêu đề, bảng, callout, đoạn mã hoặc chú thích trong Quarto.</td>
+<td style="text-align: center;">50 phút</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>15:00 - 15:40</strong></td>
+<td style="text-align: left;"><em>Kiểm thử kết xuất (render)</em></td>
+<td style="text-align: left;">Thực hiện render thử ra định dạng HTML và PDF. Đọc lại toàn bài trong trình duyệt: kiểm tra lỗi hiển thị công thức, hình ảnh, hoặc khoảng cách dòng. Với PDF, kiểm tra phông chữ, biểu tượng, và lỗi tràn trang. Ghi chú chỉnh sửa nếu có.</td>
+<td style="text-align: center;">40 phút</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>15:40 - 16:00</strong></td>
+<td style="text-align: left;"><em>Lưu trữ và ghi nhật ký</em></td>
+<td style="text-align: left;">Lưu phiên bản cuối cùng. Ghi nhật ký công việc: ngày, giờ, tình trạng bài (<em>ready</em> hoặc <em>published-draft</em>), đường dẫn nội bộ, ghi chú những vấn đề còn tồn đọng. Thực hiện sao lưu (backup) tệp <code>.qmd</code> và hình vào thư mục <em>archive</em> nếu cần.</td>
+<td style="text-align: center;">20 phút</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="yêu-cầu-về-chất-lượng-biên-tập" class="level6">
+<h6 class="anchored" data-anchor-id="yêu-cầu-về-chất-lượng-biên-tập">Yêu cầu về chất lượng biên tập</h6>
+<ul>
+<li>Tệp <code>.qmd</code> phải <em>render ổn định</em> trên cả hai định dạng HTML và PDF.</li>
+<li>Mọi hình ảnh phải hiển thị đúng vị trí, kích thước và tỷ lệ.</li>
+<li>Công thức Toán học hiển thị chính xác, không lỗi cú pháp.</li>
+<li>Toàn bộ metadata (title, tags, description) được điền đầy đủ, đúng quy ước.</li>
+<li>Phong cách trình bày tuân thủ quy chuẩn của dự án ZO Math (phông chữ, bảng màu, định dạng callout, v.v.).</li>
+<li>Ngôn từ cuối cùng cần mạch lạc, tránh lặp từ và đảm bảo giọng văn thống nhất giữa các bài.</li>
+</ul>
+</section>
+<section id="kết-quả-của-ca4" class="level6">
+<h6 class="anchored" data-anchor-id="kết-quả-của-ca4">Kết quả của CA4</h6>
+<ul>
+<li>Hoàn thành <em>tệp <code>.qmd</code></em> đã định dạng và kiểm thử thành công.</li>
+<li>Hai bản xem trước (HTML và PDF) đều hoạt động tốt, sẵn sàng công bố.</li>
+<li>Trạng thái bài: <em>Ready</em> hoặc <em>Published-draft</em>.</li>
+<li>Có ghi nhật ký công việc và sao lưu tệp gốc.</li>
+</ul>
+</section>
+<section id="ghi-chú-cho-nhật-ký-công-việc-1" class="level6">
+<h6 class="anchored" data-anchor-id="ghi-chú-cho-nhật-ký-công-việc-1">Ghi chú cho nhật ký công việc</h6>
+<blockquote class="blockquote">
+<p>“CA4 hoàn tất - bài viết đã được định dạng, kiểm thử và sẵn sàng công bố. Mọi công thức, hình ảnh và metadata đã được xác nhận hiển thị đúng.”</p>
+</blockquote>
+</section>
+</section>
+<section id="ca5-ghi-hình-và-xuất-bản-1900---2050" class="level5">
+<h5 class="anchored" data-anchor-id="ca5-ghi-hình-và-xuất-bản-1900---2050">CA5: <em>Ghi hình và xuất bản</em> (19:00 - 20:50)</h5>
+<ul>
+<li><strong>Thời lượng:</strong> 1 giờ 50 phút</li>
+<li><strong>Mục tiêu:</strong> Ghi hình video, hoàn thiện sản phẩm truyền thông, xuất bản hoặc lên lịch đăng tải bài viết và video. Đồng thời, ghi nhận phản hồi đầu tiên để điều chỉnh cho chu kỳ kế tiếp. Đây là ca tổng kết của ngày - nơi kết tinh giữa nội dung, kỹ thuật và cảm xúc chia sẻ.</li>
+</ul>
+<section id="bảng-công-việc-chi-tiết-4" class="level6">
+<h6 class="anchored" data-anchor-id="bảng-công-việc-chi-tiết-4">Bảng công việc chi tiết</h6>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 14%">
+<col style="width: 76%">
+<col style="width: 3%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Thời gian</th>
+<th style="text-align: left;">Hoạt động</th>
+<th style="text-align: left;">Mô tả</th>
+<th style="text-align: center;">Thời lượng</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>19:00 - 19:10</strong></td>
+<td style="text-align: left;"><em>Chuẩn bị thiết bị và không gian ghi hình</em></td>
+<td style="text-align: left;">Kiểm tra ánh sáng, bố trí camera, micro, phông nền, áo hoặc logo thương hiệu. Mở tệp <em>script video</em> soạn ở Ca 3, đọc lại để điều chỉnh giọng và nhịp nói. Giữ tâm thế tự nhiên, tập trung, nhẹ nhàng trước khi quay.</td>
+<td style="text-align: center;">10 phút</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>19:10 - 19:35</strong></td>
+<td style="text-align: left;"><em>Ghi hình video ngắn</em></td>
+<td style="text-align: left;">Thực hiện 1-2 lượt quay (take) dựa trên kịch bản. Ưu tiên rõ giọng, ánh sáng ổn định, khung hình cân đối. Nếu có lỗi nhỏ, ghi chú để chỉnh trong giai đoạn biên tập.</td>
+<td style="text-align: center;">25 phút</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>19:35 - 20:05</strong></td>
+<td style="text-align: left;"><em>Biên tập cơ bản</em></td>
+<td style="text-align: left;">Cắt bỏ khoảng thừa, thêm phụ đề (caption), chèn logo hoặc watermark. Xuất video ở định dạng MP4 (1080p) và tạo bản thumbnail (1200×628). Đảm bảo dung lượng dưới mức giới hạn của nền tảng đăng tải.</td>
+<td style="text-align: center;">30 phút</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>20:05 - 20:30</strong></td>
+<td style="text-align: left;"><em>Đăng tải và đặt lịch xuất bản</em></td>
+<td style="text-align: left;">Viết mô tả ngắn, thêm thẻ hashtag, gắn liên kết về bài viết gốc trên ZO Math. Đăng hoặc đặt lịch trên TikTok, YouTube Shorts, Facebook Reels (và các nền tảng mở rộng nếu có). Ghi lại đường dẫn video trong nhật ký công việc.</td>
+<td style="text-align: center;">25 phút</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>20:30 - 20:50</strong></td>
+<td style="text-align: left;"><em>Tương tác và chuẩn bị cho ngày kế tiếp</em></td>
+<td style="text-align: left;">Theo dõi lượt xem và bình luận đầu tiên. Trả lời hoặc thả cảm xúc khích lệ học sinh, ghi chú phản hồi đáng chú ý. Sau cùng, mở danh sách “100 hàm số”, chọn trước hàm của ngày mai và ghi vào nhật ký.</td>
+<td style="text-align: center;">20 phút</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="yêu-cầu-về-chất-lượng-sản-phẩm" class="level6">
+<h6 class="anchored" data-anchor-id="yêu-cầu-về-chất-lượng-sản-phẩm">Yêu cầu về chất lượng sản phẩm</h6>
+<ul>
+<li>Video có âm thanh rõ, ánh sáng cân đối, cắt gọn gàng, không có khoảng lặng thừa.</li>
+<li>Giọng nói tự nhiên, tốc độ vừa phải, truyền cảm, thể hiện đúng tinh thần “giải thích - truyền cảm hứng”.</li>
+<li>Phụ đề hiển thị chính xác, không lỗi chính tả, đồng bộ với lời nói.</li>
+<li>Mô tả, hashtag và tiêu đề được tối ưu để dễ tìm kiếm.</li>
+<li>Khi đăng tải, cần gắn liên kết về bài viết gốc trong hệ sinh thái ZO Math nhằm tạo sự gắn kết giữa kênh video và trang web.</li>
+</ul>
+</section>
+<section id="kết-quả-của-ca5" class="level6">
+<h6 class="anchored" data-anchor-id="kết-quả-của-ca5">Kết quả của CA5</h6>
+<ul>
+<li>Video ngắn hoàn chỉnh (<em>định dạng MP4</em>) đã được đăng tải hoặc lên lịch.</li>
+<li>Bài viết trên trang ZO Math đã được xuất bản hoặc chờ duyệt (<em>status: publish/scheduled</em>).</li>
+<li>Dàn ý cho bài ZO của ngày hôm sau đã được ghi vào nhật ký công việc.</li>
+<li>Nhật ký phản hồi được cập nhật, sẵn sàng làm tư liệu đánh giá cuối tuần.</li>
+</ul>
+</section>
+<section id="ghi-chú-cho-nhật-ký-công-việc-2" class="level6">
+<h6 class="anchored" data-anchor-id="ghi-chú-cho-nhật-ký-công-việc-2">Ghi chú cho nhật ký công việc</h6>
+<blockquote class="blockquote">
+<p>“CA5 hoàn tất - video và bài viết đã được công bố. Phản hồi đầu tiên được ghi nhận, hàm số kế tiếp đã được chọn cho chu kỳ mới.”</p>
+</blockquote>
+</section>
+</section>
+</section>
+</section>
+</section>
+<section id="phụ-lục" class="level2">
+<h2 class="anchored" data-anchor-id="phụ-lục">Phụ lục</h2>
+<section id="phụ-lục-1.-checklist-một-ngày-zo-trọn-vẹn" class="level3">
+<h3 class="anchored" data-anchor-id="phụ-lục-1.-checklist-một-ngày-zo-trọn-vẹn">Phụ lục 1. Checklist “Một ngày ZO trọn vẹn”</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Hạng mục</th>
+<th style="text-align: left;">Đã hoàn thành?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">CA1: Dàn ý ZO hoàn chỉnh</td>
+<td style="text-align: left;">☐</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CA2: Viết bản thảo đầy đủ</td>
+<td style="text-align: left;">☐</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CA3: Có đồ thị + script video</td>
+<td style="text-align: left;">☐</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CA4: Render thử HTML/PDF</td>
+<td style="text-align: left;">☐</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CA5: Quay + xuất bản video</td>
+<td style="text-align: left;">☐</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ghi log và commit</td>
+<td style="text-align: left;">☐</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ngủ ≥ 7.5h, tập ≥ 30 phút</td>
+<td style="text-align: left;">☐</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tâm trạng ≥ 4/5</td>
+<td style="text-align: left;">☐</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="phụ-lục-2.-template-mô-tả-zo" class="level3">
+<h3 class="anchored" data-anchor-id="phụ-lục-2.-template-mô-tả-zo">Phụ lục 2. Template mô tả ZO</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">zo_id</span><span class="kw">:</span><span class="at"> </span><span class="st">"100HS-045"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Hàm số y = (x + 1)/(x - 2)"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">category</span><span class="kw">:</span><span class="at"> </span><span class="st">"Hàm phân thức"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">level</span><span class="kw">:</span><span class="at"> </span><span class="st">"THPT 12"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">duration</span><span class="kw">:</span><span class="at"> </span><span class="st">"1 ngày (5 ca)"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">goals</span><span class="kw">:</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> Nhận dạng dạng đồ thị</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> Tìm tiệm cận, cực trị, tính đơn điệu</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> Viết script video 60 giây</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">outputs</span><span class="kw">:</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="st">"Bài viết Quarto (.qmd)"</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="st">"Đồ thị minh họa (.png)"</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="st">"Video script (.md)"</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="st">"Video ngắn (.mp4)"</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">status</span><span class="kw">:</span><span class="at"> </span><span class="st">"ready"</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">notes</span><span class="kw">:</span><span class="at"> </span><span class="st">"Dễ gây nhầm với hàm bậc nhất, cần so sánh trực quan."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="phụ-lục-3.-mẫu-script-video-zo-45-60s" class="level3">
+<h3 class="anchored" data-anchor-id="phụ-lục-3.-mẫu-script-video-zo-45-60s">Phụ lục 3. Mẫu script video ZO (45-60s)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 16%">
+<col style="width: 69%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Phần</th>
+<th style="text-align: left;">Nội dung</th>
+<th style="text-align: left;">Gợi ý</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Hook (0-5s)</strong></td>
+<td style="text-align: left;">Gợi tò mò</td>
+<td style="text-align: left;">“Có bao giờ bạn thấy đồ thị này giống hyperbol mà không hiểu vì sao?”</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Main (5-45s)</strong></td>
+<td style="text-align: left;">Truyền đạt trọng tâm</td>
+<td style="text-align: left;">Giải thích ngắn gọn, dùng ví dụ trực quan.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>CTA (45-60s)</strong></td>
+<td style="text-align: left;">Kêu gọi hành động</td>
+<td style="text-align: left;">“Nếu bạn muốn hiểu sâu hơn về dạng đồ thị này, đọc bài chi tiết trên ZO Math nhé!”</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="phụ-lục-4.-tuyên-ngôn-làm-việc-của-zo-math" class="level3">
+<h3 class="anchored" data-anchor-id="phụ-lục-4.-tuyên-ngôn-làm-việc-của-zo-math">Phụ lục 4. Tuyên ngôn làm việc của ZO Math</h3>
+<ul>
+<li><em>“Làm việc không chỉ để tạo ra sản phẩm, mà còn để tôi luyện bản thân.”</em></li>
+<li><em>“Mỗi ZO là một viên gạch lát trên con đường trở thành bậc thầy truyền thụ toán học.”</em></li>
+<li><em>“Không ép buộc, không so đo, không vội vàng - luôn trung thực, luôn bền bỉ, luôn chú tâm.”</em></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a><br>
+<br> <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a><br>
+<br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -1,0 +1,158 @@
+---
+title: "Hàm số hằng"
+subtitle: "Khảo sát sự biến thiên và vẽ đồ thị hàm số hằng $y=1$"
+summary: "Khám phá hàm số hằng $y=1$ đại diện cho họ $y=c$ qua sự biến thiên và đồ thị với cách tiếp cận từng chi tiết và sâu sắc."
+description: "Thay vì xét cả họ $y=c$, ta chọn $y=1$ làm đại diện để khảo sát sự biến thiên và vẽ đồ thị. Qua đó, bạn sẽ cảm nhận được sự sống động của hàm số hằng - không đơn điệu như vẻ bề ngoài. Mỗi hàm số đều ẩn chứa một bài học, dẫn dắt bạn suy nghĩ sâu sắc hơn."
+image: /figures/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/mot-so-doan-thang-gia-tri-ham-y-bang-x-binh-phuong.svg
+listing-order: 1
+
+abstract: |
+    Hàm số hằng, tiêu biểu với $y=1$, tuy bất biến với mọi $x$ nhưng lại chứa đựng gần như đầy đủ các tính chất cơ bản của một hàm số: đối xứng, tuần hoàn, liên tục, có đạo hàm, giá trị lớn nhất và nhỏ nhất, v.v. tất cả đều hiện diện dưới dạng "tầm thường". Chính sự giản lược này khiến nó trở thành một chuẩn gốc để so sánh: từ sự bất biến tuyệt đối, ta thấy rõ ý nghĩa của biến thiên, cực trị hay tiệm cận ở những hàm số phức tạp hơn. Nhờ đó, hàm số hằng vừa là điểm khởi đầu tự nhiên trong việc học, vừa là tấm gương phản chiếu để hiểu sâu bản chất của hàm số.
+
+date: last-modified
+date-format: "DD-MM-YYYY"
+author: "ZO Math"
+
+execute:
+  python: "C:/Users/DELL/AppData/Local/Programs/Python/Python312/python.exe"
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(kableExtra)
+library(dplyr)
+library(MASS)
+library(ggplot2)
+```
+
+# Khảo sát hàm số $y=1$
+
+::: {.tieu-de-chu-thich}
+Nhận diện
+:::
+
+Hàm số $y=1$ tưởng chừng như quá đơn giản để bàn đến. Thế nhưng, thoạt nhìn lại thấy lạ: *$x$ đâu rồi?* Thực ra, không thấy $x$ không có nghĩa là không có $x$, mà là $y=1$ với mọi $x$. Hàm này chỉ có một đầu ra duy nhất là $1$ cho mọi đầu vào. Tổng quát hơn, nếu vế phải là một hằng số $c$ bất kỳ, ta được hàm số $y=c$. Đây được gọi là **hàm số hằng**.
+
+<details class="collapsible-box-primary">
+<summary>Hàm số: Bóng dáng quen thuộc</summary>
+
+<div class="content">
+Cú chững lại trong nhận thức về cách viết của hàm số hằng $y=1$ xuất phát từ những hình ảnh quen thuộc về một hàm số thường thấy như: $y=2x$, $y=x^2$, $y=\sqrt{x}$. Trong các hệ thức này, vế trái $y$ là *biến phụ thuộc*; vế phải là một biểu thức của *biến độc lập* $x$.
+
+Tổng quát là
+$$
+y=f(x).
+$$
+
+Hệ thức này được hiểu là đang có một quy tắc $f$ gắn mỗi giá trị $x$ với đúng một giá trị $y$. Chẳng hạn, với $y=2x$, quy tắc $f$ là "nhân đôi $x$ để được $y$"; với $y=x^2$, quy tắc $f$ là "bình phương $x$"; với $y=\sqrt{x}$, quy tắc $f$ là "căn bậc hai $x$".
+
+Viết $y=\dots$ khi nhấn mạnh kết quả; viết $f(x)=\dots$ nhấn mạnh quy tắc. Hai cách viết gắn liền và bổ sung cho nhau trong việc hiểu hàm số.
+
+Vế phải hàm số $y=1$ không hề có bóng dáng của $x$. Nhưng nếu gọi $f$ là quy tắc cho hàm số này, nghĩa là
+
+$$
+f(x)=1,
+$$
+
+thì mọi sự trở nên rõ ràng. Quy tắc ở đây chính là: *dù đầu vào $x$ là mấy, đầu ra vẫn luôn là $1$*. Điều này hoàn toàn thỏa mãn định nghĩa hàm số: với *mỗi* giá trị của $x$, ta thu được *duy nhất một* giá trị của $y$. Điểm khác biệt là quy tắc này "quá đơn giản": không thay đổi gì theo $x$.
+</div>
+</details>
+
+Hàm số hằng khiến ta cảm thấy kì quặc, bởi ý tưởng cơ bản khi nhắc đến hàm số thường gắn với sự biến đổi: biến độc lập thay đổi thì biến phụ thuộc cũng thay đổi theo. Ở đây, biến độc lập có thay đổi bao nhiêu đi nữa thì biến phụ thuộc vẫn cứ giữ nguyên một giá trị. Nhưng nếu đổi cách nhìn, ta thấy hàm số hằng không hề ngoại lệ: nó vẫn mô tả một mối liên hệ chặt chẽ giữa hai biến. Chỉ có điều, mối liên hệ này là "tĩnh tuyệt đối" - mọi giá trị $x$ đều quy về cùng một kết quả. Có thể xem đây là một hàm số đặc biệt: tập giá trị của nó chỉ gồm đúng một phần tử duy nhất. Vậy nên, thay vì coi hàm hằng là ngoại lệ, hãy để nó là điểm xuất phát: sự biến thiên đơn giản nhất chính là bất biến, để từ đó đi dần tới những sự biến thiên ngày một phức tạp hơn.
+
+::: {.tieu-de-chu-thich}
+Miền xác định
+:::
+
+Hàm số $y=1$ có miền xác định là toàn bộ tập số thực, nghĩa là 
+
+$$
+D=\mathbb{R}.
+$$
+
+Vì công thức $y=1$ có nghĩa với mọi $x$, không có bất kỳ giá trị nào bị loại bỏ. Tính chất liên tục của nó cũng hiển nhiên.
+
+::: {.tieu-de-chu-thich}
+Tính chất cơ bản: chẵn/lẻ, tuần hoàn, liên tục/gián đoạn  
+:::
+
+Về chẵn/lẻ, ta nhận thấy $f(-x)=f(x)=1$, do đó hàm số này được xếp vào loại *chẵn*, đồ thị đối xứng qua trục tung. Thực ra, sự đối xứng ở đây còn "phổ quát" hơn: đường thẳng ngang $y=1$ đối xứng qua bất kỳ trục dọc nào vuông góc với trục hoành. Bên cạnh đó, vì $f(x+T)=f(x)$ với mọi số dương $T$, hàm $y=1$ cũng có thể coi là tuần hoàn với mọi chu kỳ. Hàm số hằng là tuần hoàn, và đặc biệt nó nhận mọi số dương làm chu kỳ. Do đó, khái niệm "chu kỳ cơ bản nhỏ nhất" không áp dụng cho trường hợp này.
+
+::: {.tieu-de-chu-thich}
+Giới hạn và tiệm cận
+:::
+
+Xét giới hạn, khi $x$ tiến ra vô cực, giá trị hàm vẫn giữ nguyên bằng $1$. Ta có $\lim_{x\to\pm\infty}f(x)=1$. Nếu muốn mô tả theo ngôn ngữ tiệm cận, có thể nói rằng $y=1$ chính là một đường tiệm cận ngang. Nhưng đây là trường hợp đặc biệt, vì đường tiệm cận và đồ thị trùng nhau; không có gì cần vẽ thêm ngoài chính đường thẳng đó.
+
+::: {.tieu-de-chu-thich}
+Đạo hàm cấp một: chiều biến thiên và cực trị 
+:::
+
+Đạo hàm cấp một của hàm số bằng $0$ trên toàn miền: $f^\prime (x)=0$. Điều này có nghĩa là đồ thị không tăng, không giảm, mà hoàn toàn bất biến. Không có sự đổi dấu nào của đạo hàm, nên tất nhiên không xuất hiện điểm cực trị. 
+
+::: {.tieu-de-chu-thich}
+Giá trị lớn nhất và giá trị nhỏ nhất 
+:::
+
+Trên bất kỳ đoạn kín nào, giá trị lớn nhất và giá trị nhỏ nhất cũng đồng thời bằng $1$. 
+
+::: {.tieu-de-chu-thich}
+Đạo hàm cấp hai: độ cong và điểm uốn 
+:::
+
+Đạo hàm cấp hai cũng bằng $0$: $f^{\prime\prime} (x)=0$. Theo định nghĩa thông thường, một hàm tuyến tính (trong đó có hàm hằng) vừa được coi là lồi vừa được coi là lõm, vì nó thỏa đồng thời cả hai bất đẳng thức. Một số tác giả khác thì gọi đây là trường hợp "không lồi, không lõm", để nhấn mạnh tính chất trung hòa. Dù dùng cách diễn đạt nào, điều quan trọng vẫn là: đồ thị không có dáng cong, và vì vậy không có điểm uốn.
+
+::: {.tieu-de-chu-thich}
+Bảng biến thiên 
+:::
+
+Khi lập bảng biến thiên, ta chỉ thấy một dòng duy nhất: từ âm vô cực đến dương vô cực, giá trị của hàm giữ nguyên bằng $1$. 
+
+![](/figures/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_hang_bbt){width=325px fig-align="center"}
+
+
+::: {.tieu-de-chu-thich}
+Đồ thị
+:::
+
+Đồ thị là một đường thẳng song song với trục hoành, đi qua điểm $(0;1)$. Đường thẳng này cắt trục tung tại $(0;1)$, nhưng không bao giờ cắt trục hoành. 
+
+![](/figures/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_hang_dt){width=450px fig-align="center"}
+
+::: {.tieu-de-chu-thich}
+Ảnh hưởng của tham số và so sánh 
+:::
+
+Nếu thay số $1$ bằng một hằng số $c$, ta sẽ thu được đường thẳng ngang $y=c$, dịch chuyển lên hoặc xuống theo giá trị của $c$. Trường hợp $c=0$ đặc biệt quan trọng, bởi đồ thị khi ấy chính là trục hoành - đường tham chiếu cơ bản trong hệ tọa độ.
+
+::: {.tieu-de-chu-thich}
+Ý nghĩa toán học và ứng dụng
+:::
+
+Hàm số hằng, với sự giản lược triệt để của nó, giữ vai trò như một trường hợp cơ sở trong toán học. Gần như mọi tính chất quan trọng của hàm số đều hiện diện, nhưng ở dạng "tầm thường": là hàm chẵn, và không chỉ đối xứng qua trục tung mà còn qua mọi đường thẳng song song với trục tung; tuần hoàn không phải với một chu kỳ duy nhất, mà với mọi chu kỳ; liên tục trên toàn bộ $\mathbb{R}$; đạo hàm cấp một luôn bằng $0$, nên không xuất hiện cực trị; giá trị lớn nhất và nhỏ nhất đồng thời bằng nhau; đạo hàm cấp hai cũng bằng $0$, nên có thể xem là vừa lồi vừa lõm. Trong khi ở những hàm khác, mỗi tính chất chỉ hiện ra trong những điều kiện riêng biệt, thì ở hàm hằng, tất cả cùng xuất hiện, tuy ở mức giản lược nhất. Bởi vậy, nó không chỉ là khởi đầu đơn giản nhất, mà còn là một tấm gương soi chiếu: từ sự "tĩnh tuyệt đối" này, ta thấy rõ bản chất của biến thiên, đối xứng, tuần hoàn hay cực trị ở những hàm số phức tạp hơn.
+
+Về ứng dụng, hàm số hằng mô tả các hiện tượng không đổi theo thời gian hoặc biến quan sát: nhiệt độ ổn định trong một phòng kín, vận tốc tức thời bằng $0$ của vật đứng yên, hay điện áp không đổi trong một mạch điện. Trong giáo dục, nó là điểm xuất phát tự nhiên: học sinh dễ nắm bắt, rồi từ đó bước sang những hàm số đa dạng và phong phú hơn. Vì vậy, khảo sát hàm số hằng không chỉ mang tính kỹ thuật, mà còn gợi mở phương pháp - cho thấy rằng cái đơn giản nhất, cái "bất biến tuyệt đối", lại chính là nền tảng để hiểu cái phức tạp và luôn biến đổi.
+
+# Bài tập
+
+1. Xác định tập giá trị của hàm số $y=1$. So sánh với tập giá trị của các hàm số $y=x$ và $y=x^2$.
+
+2. Do đặc trưng gì của đường thẳng mà ta nói: "Đồ thị của hàm số hằng $y=1$ đối xứng qua bất kỳ trục dọc nào vuông góc với trục hoành."
+
+3. Với $a\ne 0$, các hàm số đa thức có dạng $y=ax+b$ và $y=ax^2+bx+c$ lần lượt được gọi là *hàm bậc nhất* và *hàm bậc hai*. Vậy, hàm số hằng nên được gọi là hàm bậc mấy?
+
+4. Chứng minh rằng hàm số $y=1$ là tuần hoàn và có mọi số dương làm chu kỳ. Tại sao trong trường hợp này khái niệm "chu kỳ cơ bản" không có ý nghĩa?
+
+5. Hãy tìm đạo hàm cấp một và đạo hàm cấp hai của hàm số $y=1$. Từ kết quả đó, kết luận về chiều biến thiên và độ cong của hàm số.
+
+6. So sánh đồ thị các hàm số $y=0$, $y=1$, $y=2$. Nêu nhận xét về sự giống và khác nhau.
+
+7. Xét hàm số $y=c$ với tham số $c$. Hãy xác định ảnh hưởng của tham số $c$ đến đồ thị.
+
+8. Trong thực tế, hãy nêu một hiện tượng có thể được mô hình hóa bằng hàm số hằng.
+
+9. Cho biết $f(x_1-x_2)=f(x_1)f(x_2)$. Xác định $f(x)$. 
+
+10. Cho biết $f(x_1+x_2)=x_1f(x_2)$. Xác định $f(x)$.
+
+11. Các đồ thị của họ hàm số $y=c$, với $c\in \mathbb{R}$, có phủ kín mặt phẳng tọa độ không?
