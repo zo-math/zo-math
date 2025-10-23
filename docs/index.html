@@ -8,7 +8,7 @@
 
 <meta name="description" content="Học toán theo triết lý Tầm nguyên - Tái hiện.">
 
-<title>Chào mừng bạn đến với ZO Math – ZO Math</title>
+<title>ZO Math</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,6 +32,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./images/favicon.ico" rel="icon">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -69,6 +71,36 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-date','listing-title','listing-author','listing-subtitle','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      page: 25,
+    pagination: { item: "<li class='page-item'><a class='page page-link' href='#'></a></li>" },
+      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
 <script>
   MathJax = {
     loader: { load: ['[tex]/ams'] },
@@ -147,6 +179,35 @@ ul.task-list li input[type="checkbox"] {
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="assets/css/custom.css">
 </head>
@@ -232,7 +293,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Chào mừng bạn đến với ZO Math</h1>
+      <h1 class="title">ZO Math</h1>
             <p class="subtitle lead">Cộng đồng học toán ZO Math</p>
                   <div>
         <div class="description">
@@ -264,15 +325,1636 @@ ul.task-list li input[type="checkbox"] {
 
 
 
+
+
+
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1760151666000" data-listing-file-modified-sort="1760151666661" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="49" data-listing-word-count-sort="9624">
+<div class="thumbnail"><a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/100_ham_so_su_bien_thien_va_do_thi.html" class="no-external">
+
+<p class="card-img-top"><img src="figures\toan-thpt\zo-math-100\100-ham-so-su-bien-thien-va-do-thi\mot-so-doan-thang-gia-tri-ham-y-bang-x-binh-phuong.svg"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/100_ham_so_su_bien_thien_va_do_thi.html" class="no-external">100+ Hàm số: Sự biến thiên và đồ thị</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/100_ham_so_su_bien_thien_va_do_thi.html" class="no-external">Khảo sát sự biến thiên và vẽ đồ thị hơn 100 hàm số tiêu biểu</a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/100_ham_so_su_bien_thien_va_do_thi.html" class="no-external">
+<p>Thay vì khởi đầu từ lí thuyết khô khan, chúng ta bắt tay ngay vào việc khảo sát và vẽ đồ thị từng hàm số cụ thể. Bạn sẽ trực tiếp cảm nhận sự sống của hàm số. Từ những ví dụ đơn giản đến phức tạp, mỗi hàm số đều chứa đựng một bài học chỉ dẫn bạn đến cái nhìn khái quát hơn.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/100_ham_so_su_bien_thien_va_do_thi.html" class="no-external">
+<div class="listing-date">
+11 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1760151667000" data-listing-file-modified-sort="1760151667226" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="thumbnail"><a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.html" class="no-external">100+ Hàm số: Sự biến thiên và đồ thị</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.html" class="no-external">Khảo sát sự biến thiên và vẽ đồ thị hơn 100 hàm số tiêu biểu</a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.html" class="no-external">
+<p>Thay vì khởi đầu từ lí thuyết khô khan, chúng ta bắt tay ngay vào việc khảo sát và vẽ đồ thị từng hàm số cụ thể. Bạn sẽ trực tiếp cảm nhận sự sống của hàm số. Từ những ví dụ đơn giản đến phức tạp, mỗi hàm số đều chứa đựng một bài học chỉ dẫn bạn đến cái nhìn khái quát hơn.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.html" class="no-external">
+<div class="listing-date">
+11 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-listing-date-sort="1760151667000" data-listing-file-modified-sort="1760151667258" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="49" data-listing-word-count-sort="9624">
+<div class="thumbnail"><a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/zo-math-css_100_ham_so_su_bien_thien_va_do_thi.html" class="no-external">
+
+<p class="card-img-top"><img src="figures\toan-thpt\zo-math-100\100-ham-so-su-bien-thien-va-do-thi\mot-so-doan-thang-gia-tri-ham-y-bang-x-binh-phuong.svg"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/zo-math-css_100_ham_so_su_bien_thien_va_do_thi.html" class="no-external">100+ Hàm số: Sự biến thiên và đồ thị</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/zo-math-css_100_ham_so_su_bien_thien_va_do_thi.html" class="no-external">Khảo sát sự biến thiên và vẽ đồ thị hơn 100 hàm số tiêu biểu</a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/zo-math-css_100_ham_so_su_bien_thien_va_do_thi.html" class="no-external">
+<p>Thay vì khởi đầu từ lí thuyết khô khan, chúng ta bắt tay ngay vào việc khảo sát và vẽ đồ thị từng hàm số cụ thể. Bạn sẽ trực tiếp cảm nhận sự sống của hàm số. Từ những ví dụ đơn giản đến phức tạp, mỗi hàm số đều chứa đựng một bài học chỉ dẫn bạn đến cái nhìn khái quát hơn.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/zo-math-css_100_ham_so_su_bien_thien_va_do_thi.html" class="no-external">
+<div class="listing-date">
+11 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-listing-date-sort="1760151670000" data-listing-file-modified-sort="1760151670628" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="406">
+<div class="thumbnail"><a href="./content/zo-khoa-hoc/xac-suat-va-thong-ke/bien-ngau-nhien/bien-ngau-nhien.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/zo-khoa-hoc/xac-suat-va-thong-ke/bien-ngau-nhien/bien-ngau-nhien.html" class="no-external">Biến ngẫu nhiên</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/zo-khoa-hoc/xac-suat-va-thong-ke/bien-ngau-nhien/bien-ngau-nhien.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/zo-khoa-hoc/xac-suat-va-thong-ke/bien-ngau-nhien/bien-ngau-nhien.html" class="no-external">
+Mình có hai nhóm số, nhóm A bao gồm 0 và 1; nhóm B bao gồm 0, 1 và 1. Hai nhóm này chỉ chứa hai số 0 và 1, đó là điểm tương đồng. Nhưng nhóm B có nhiều số 1 hơn nhóm A, đó…
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/zo-khoa-hoc/xac-suat-va-thong-ke/bien-ngau-nhien/bien-ngau-nhien.html" class="no-external">
+<div class="listing-date">
+11 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-listing-file-modified-sort="1760151665850" data-listing-reading-time-sort="66" data-listing-word-count-sort="13055">
+<div class="thumbnail"><a href="./content/toan-thpt/toan-11/canh-dieu/sach-giao-khoa/chuong-5/bai-1/cac-sdt-do-xttt-msl-ghep-nhom.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/toan-11/canh-dieu/sach-giao-khoa/chuong-5/bai-1/cac-sdt-do-xttt-msl-ghep-nhom.html" class="no-external">Bài 1. Các số đặc trưng đo xu thế trung tâm cho mẫu số liệu ghép nhóm</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/toan-11/canh-dieu/sach-giao-khoa/chuong-5/bai-1/cac-sdt-do-xttt-msl-ghep-nhom.html" class="no-external">Chương 5 | Cánh Diều | Toán 11</a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/toan-11/canh-dieu/sach-giao-khoa/chuong-5/bai-1/cac-sdt-do-xttt-msl-ghep-nhom.html" class="no-external">
+Nếu không có yêu cầu làm tròn đặc biệt, các con số sẽ được làm tròn đến 4 chữ số thập phân để tiện đối chiếu khi bạn tự tìm đáp án.
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/toan-11/canh-dieu/sach-giao-khoa/chuong-5/bai-1/cac-sdt-do-xttt-msl-ghep-nhom.html" class="no-external">
+<div class="listing-author">
+ZO | <code>r Sys.Date()</code>
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="5" data-listing-date-sort="1760151666000" data-listing-file-modified-sort="1760151666536" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="56" data-listing-word-count-sort="11027">
+<div class="thumbnail"><a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/tinh-don-dieu-va-cuc-tri-cua-ham-so.html" class="no-external">
+
+<p class="card-img-top"><img src="figures\toan-thpt\toan-12\chan-troi\sach-giao-khoa\chuong-1\bai-1\hoat-dong-khoi-dong.svg" alt="Đồ thị trong Hoạt động khởi động, một đường cong đi qua các điểm (0;0), cực đại (3;405), cực tiểu (6;324) và (8;480)."  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/tinh-don-dieu-va-cuc-tri-cua-ham-so.html" class="no-external">Bài 1. Tính đơn điệu và cực trị của hàm số</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/tinh-don-dieu-va-cuc-tri-cua-ham-so.html" class="no-external">Chương 1 | Chân Trời Sáng Tạo | Toán 12</a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/tinh-don-dieu-va-cuc-tri-cua-ham-so.html" class="no-external">
+<p>Sử dụng <em>đạo hàm</em> phân tích <em>tính đơn điệu</em> của hàm số, và từ đó phát hiện các <em>điểm cực trị</em>.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-1/tinh-don-dieu-va-cuc-tri-cua-ham-so.html" class="no-external">
+<div class="listing-date">
+11 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="6" data-listing-file-modified-sort="1760151666473" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="thumbnail"><a href="./content/toan-thpt/toan-11/canh-dieu/sach-giao-khoa/chuong-5/bai-2/quy-tac-tinh-xac-suat.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/toan-11/canh-dieu/sach-giao-khoa/chuong-5/bai-2/quy-tac-tinh-xac-suat.html" class="no-external">Bài 2. Biến cố hợp và biến cố giao. Biến cố độc lập. Các quy tắc tính xác suất</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/toan-11/canh-dieu/sach-giao-khoa/chuong-5/bai-2/quy-tac-tinh-xac-suat.html" class="no-external">Chương 5 | Cánh Diều | Toán 11</a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/toan-11/canh-dieu/sach-giao-khoa/chuong-5/bai-2/quy-tac-tinh-xac-suat.html" class="no-external">
+
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/toan-11/canh-dieu/sach-giao-khoa/chuong-5/bai-2/quy-tac-tinh-xac-suat.html" class="no-external">
+<div class="listing-author">
+ZO | <code>r Sys.Date()</code>
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="7" data-listing-date-sort="1760151666000" data-listing-file-modified-sort="1760151666536" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="61" data-listing-word-count-sort="12181">
+<div class="thumbnail"><a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/gia-tri-lon-nhat-gia-tri-nho-nhat-cua-ham-so.html" class="no-external">
+
+<p class="card-img-top"><img src="figures\toan-thpt\toan-12\chan-troi\sach-giao-khoa\chuong-1\bai-2\hoat-dong-khoi-dong.svg"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/gia-tri-lon-nhat-gia-tri-nho-nhat-cua-ham-so.html" class="no-external">Bài 2. Giá trị lớn nhất, giá trị nhỏ nhất của hàm số</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/gia-tri-lon-nhat-gia-tri-nho-nhat-cua-ham-so.html" class="no-external">Chương 1 | Chân Trời Sáng Tạo | Toán 12</a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/gia-tri-lon-nhat-gia-tri-nho-nhat-cua-ham-so.html" class="no-external">
+Sự phân hủy của rác thải hữu cơ có trong nước sẽ làm tiêu hao <span data-bs-toggle="tooltip" title="oxygen">ô-xy</span> hoà tan trong nước. Nồng độ <span data-bs-toggle="tooltip" title="oxygen">ô-xy</span> (mg/l) trong một hồ nước sau <span class="math inline">\(t\)</span> giờ (<span class="math inline">\(t \geq 0\)</span>) khi một lượng rác…
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-2/gia-tri-lon-nhat-gia-tri-nho-nhat-cua-ham-so.html" class="no-external">
+<div class="listing-date">
+11 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="8" data-listing-date-sort="1760151666000" data-listing-file-modified-sort="1760151666583" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="102" data-listing-word-count-sort="20206">
+<div class="thumbnail"><a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/khao-sat-va-ve-do-thi-mot-so-ham-so-co-ban.html" class="no-external">
+
+<p class="card-img-top"><img src="figures\toan-thpt\toan-12\chan-troi\sach-giao-khoa\chuong-1\bai-4\hdkd-do-thi.svg"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/khao-sat-va-ve-do-thi-mot-so-ham-so-co-ban.html" class="no-external">Bài 4. Khảo sát và vẽ đồ thị một số hàm số cơ bản</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/khao-sat-va-ve-do-thi-mot-so-ham-so-co-ban.html" class="no-external">Chương 1 | Chân Trời Sáng Tạo | Toán 12</a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/khao-sat-va-ve-do-thi-mot-so-ham-so-co-ban.html" class="no-external">
+Giả sử chi phí tiền xăng <span class="math inline">\(C \text{ (đồng)}\)</span> phụ thuộc vào tốc độ trung bình <span class="math inline">\(v \text{ (km/h)}\)</span> theo công thức:
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-4/khao-sat-va-ve-do-thi-mot-so-ham-so-co-ban.html" class="no-external">
+<div class="listing-date">
+11 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="9" data-listing-date-sort="1760151666000" data-listing-file-modified-sort="1760151666598" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="27" data-listing-word-count-sort="5314">
+<div class="thumbnail"><a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-5/bai-tap-cuoi-chuong-1.html" class="no-external">
+
+<p class="card-img-top"><img src="figures\toan-thpt\de-thi-vao-dai-hoc\de-toan-2025\de-toan-2025-0101\bai-5\bt-1.svg"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-5/bai-tap-cuoi-chuong-1.html" class="no-external">Bài tập cuối chương I</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-5/bai-tap-cuoi-chuong-1.html" class="no-external">Chương 1 | Chân Trời Sáng Tạo | Toán 12</a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-5/bai-tap-cuoi-chuong-1.html" class="no-external">
+Cho hàm số <span class="math inline">\(y=f(x)\)</span> có đồ thị như trên Hình 1. Hàm số <span class="math inline">\(y=f(x)\)</span> đồng biến trên khoảng
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-5/bai-tap-cuoi-chuong-1.html" class="no-external">
+<div class="listing-date">
+11 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="10" data-listing-file-modified-sort="1760286554040" data-listing-reading-time-sort="13" data-listing-word-count-sort="2457">
+<div class="thumbnail"><a href="./documents/bang_chu_cai_tieng_viet.pdf" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./documents/bang_chu_cai_tieng_viet.pdf" class="no-external">Bảng chữ cái tiếng Việt</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./documents/bang_chu_cai_tieng_viet.pdf" class="no-external">Tên gọi và Phát âm</a>
+</div>
+<div class="delink listing-description"><a href="./documents/bang_chu_cai_tieng_viet.pdf" class="no-external">
+
+</a></div>
+</div>
+<div class="metadata">
+<a href="./documents/bang_chu_cai_tieng_viet.pdf" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="11" data-listing-file-modified-sort="1760151665550" data-listing-reading-time-sort="1" data-listing-word-count-sort="163">
+<div class="thumbnail"><a href="./content/support/donate.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/support/donate.html" class="no-external">Bảo trợ ZO Math</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/support/donate.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/support/donate.html" class="no-external">
+ZO Math là một dự án phi lợi nhuận nhằm mang lại tài nguyên học toán miễn phí, sáng tạo và dễ hiểu cho tất cả mọi người. Nếu bạn thấy ZO Math hữu ích và muốn góp phần duy…
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/support/donate.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="12" data-listing-file-modified-sort="1760151666489" data-listing-reading-time-sort="1" data-listing-word-count-sort="122">
+<div class="thumbnail"><a href="./content/toan-thpt/toan-12/chan-troi/index.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/toan-12/chan-troi/index.html" class="no-external">Chân Trời Sáng Tạo</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/toan-12/chan-troi/index.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/toan-12/chan-troi/index.html" class="no-external">
+
+
 <ul>
-<li><a href="./content/toan-thpt/index.html">Toán trung học phổ thông</a></li>
-<li><a href="./content/zo-o/index.html">ZO Ồ!</a></li>
-<li><a href="./content/zo-thau/index.html">ZO Thấu</a></li>
+<li>Sách lý thuyết
+<ul>
+<li>Chương I. Ứng dụng đạo hàm để khảo sát hàm số
+<ul>
+<li>Bài 1. Tính đơn điệu và cực trị của hàm số</li>
+<li>Bài 2. Giá trị lớn nhất, giá trị nhỏ nhất của hàm số</li>
+<li>Bài 3.…</li><li></li><li></li></ul></li></ul></li></ul>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/toan-12/chan-troi/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="13" data-listing-date-sort="1760151666000" data-listing-file-modified-sort="1760151666645" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="thumbnail"><a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/ud-dao-ham-de-ks-ham-so.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/ud-dao-ham-de-ks-ham-so.html" class="no-external">Chương 1. Ứng dụng đạo hàm để khảo sát hàm số</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/ud-dao-ham-de-ks-ham-so.html" class="no-external">Chân Trời Sáng Tạo | Toán 12</a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/ud-dao-ham-de-ks-ham-so.html" class="no-external">
+
+
+
+
+
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/ud-dao-ham-de-ks-ham-so.html" class="no-external">
+<div class="listing-date">
+11 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="14" data-listing-date-sort="1760151666000" data-listing-file-modified-sort="1760151666645" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="thumbnail"><a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-3/cac-sdt-do-mdpt-cho-msl-ghep-nhom.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-3/cac-sdt-do-mdpt-cho-msl-ghep-nhom.html" class="no-external">Chương 3. Các số đặc trưng đo mức độ phân tán cho mẫu số liệu ghép nhóm</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-3/cac-sdt-do-mdpt-cho-msl-ghep-nhom.html" class="no-external">Chân Trời Sáng Tạo | Toán 12</a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-3/cac-sdt-do-mdpt-cho-msl-ghep-nhom.html" class="no-external">
+
+
+
+
+
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-3/cac-sdt-do-mdpt-cho-msl-ghep-nhom.html" class="no-external">
+<div class="listing-date">
+11 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="15" data-listing-file-modified-sort="1760151666489" data-listing-reading-time-sort="1" data-listing-word-count-sort="42">
+<div class="thumbnail"><a href="./content/toan-thpt/toan-11/canh-dieu/sach-giao-khoa/chuong-5/index.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/toan-11/canh-dieu/sach-giao-khoa/chuong-5/index.html" class="no-external">Chương V. Một số yếu tố thống kê và xác suất</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/toan-11/canh-dieu/sach-giao-khoa/chuong-5/index.html" class="no-external">Sách lý thuyết | Cánh Diều | Toán 11</a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/toan-11/canh-dieu/sach-giao-khoa/chuong-5/index.html" class="no-external">
+
+
+<ul>
+<li>Bài 1. Các số đặc trưng đo xu thế trung tâm cho mẫu số liệu ghép nhóm</li>
+<li>Bài 2. Biến cố hợp và biến cố giao. Biến cố độc lập. Các quy tắc tính xác suất</li>
+<li>Bài tập cuối chương V</li>
+</ul>…
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/toan-11/canh-dieu/sach-giao-khoa/chuong-5/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="16" data-listing-date-sort="1760674941000" data-listing-file-modified-sort="1760674941266" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="96" data-listing-word-count-sort="19186">
+<div class="thumbnail"><a href="./content/toan-thpt/de-cuong/ctgd_nang_cao_mon_toan_trong_truong_THPTC.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/de-cuong/ctgd_nang_cao_mon_toan_trong_truong_THPTC.html" class="no-external">Chương trình giáo dục nâng cao môn Toán trong trường trung học phổ thông chuyên</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/de-cuong/ctgd_nang_cao_mon_toan_trong_truong_THPTC.html" class="no-external">Kèm theo Thông tư số 22/2025/TT-BGDĐT ngày 30 tháng 9 năm 2025 của Bộ trưởng Bộ Giáo dục và Đào tạo</a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/de-cuong/ctgd_nang_cao_mon_toan_trong_truong_THPTC.html" class="no-external">
+Chương trình giáo dục nâng cao trong trường trung học phổ thông chuyên nhằm mục đích phát triển năng khiếu của học sinh đối với môn học, trên cơ sở bảo đảm giáo dục phổ…
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/de-cuong/ctgd_nang_cao_mon_toan_trong_truong_THPTC.html" class="no-external">
+<div class="listing-date">
+17 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="17" data-listing-date-sort="1760886881000" data-listing-file-modified-sort="1760886881956" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="370" data-listing-word-count-sort="73932">
+<div class="thumbnail"><a href="./content/toan-thpt/de-cuong/ctgd_pho_thong_mon_toan.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/de-cuong/ctgd_pho_thong_mon_toan.html" class="no-external">Chương trình giáo dục phổ thông môn Toán</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/de-cuong/ctgd_pho_thong_mon_toan.html" class="no-external">Ban hành kèm theo Thông tư số 32/2018/TT-BGDĐT ngày 26 tháng 12 năm 2018 của Bộ trưởng Bộ Giáo dục và Đào tạo</a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/de-cuong/ctgd_pho_thong_mon_toan.html" class="no-external">
+Chương trình môn Toán giúp học sinh đạt các mục tiêu chủ yếu sau:
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/de-cuong/ctgd_pho_thong_mon_toan.html" class="no-external">
+<div class="listing-date">
+19 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="18" data-listing-file-modified-sort="1760151667206" data-listing-reading-time-sort="1" data-listing-word-count-sort="3">
+<div class="thumbnail"><a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/index.html" class="no-external">
+
+<p class="card-img-top"><img src="figures\toan-thpt\zo-math-100\100-ham-so-su-bien-thien-va-do-thi\mot-so-doan-thang-gia-tri-ham-y-bang-x-binh-phuong.svg"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/index.html" class="no-external">Các hàm số cơ bản</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/index.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/index.html" class="no-external">
+<p>Đây là danh sách các hàm số nền tảng, thường gặp nhất trong chương trình Toán THPT. Chúng đặt nền móng cho việc học những hàm phức tạp hơn sau này.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="19" data-listing-file-modified-sort="1760151665285" data-listing-reading-time-sort="2" data-listing-word-count-sort="255">
+<div class="thumbnail"><a href="./content/faq-contact.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/faq-contact.html" class="no-external">Câu hỏi thường gặp - ZO Math</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/faq-contact.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/faq-contact.html" class="no-external">
+ZO Math là không gian toán học dành cho những ai yêu thích khám phá, học hỏi và hiểu sâu về toán theo triết lý <strong>Tầm nguyên và Tái hiện</strong>.
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/faq-contact.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="20" data-listing-file-modified-sort="1760151665582" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="thumbnail"><a href="./content/support/faq.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/support/faq.html" class="no-external">Câu hỏi thường gặp về bảo trợ và hỗ trợ</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/support/faq.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/support/faq.html" class="no-external">
+
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/support/faq.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="21" data-listing-file-modified-sort="1760151674414" data-listing-reading-time-sort="2" data-listing-word-count-sort="273">
+<div class="thumbnail"><a href="./test/py-json-js-qmd/vi-du.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./test/py-json-js-qmd/vi-du.html" class="no-external">Cây nhị thức (1+x)^2</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./test/py-json-js-qmd/vi-du.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./test/py-json-js-qmd/vi-du.html" class="no-external">
+<svg id="tree-svg" width="600" height="300" style="position: absolute; top: 0; left: 0;"></svg>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./test/py-json-js-qmd/vi-du.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="22" data-listing-file-modified-sort="1760151665675" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="thumbnail"><a href="./content/support/thanks.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/support/thanks.html" class="no-external">Danh sách bạn đọc bảo trợ</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/support/thanks.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/support/thanks.html" class="no-external">
+
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/support/thanks.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="23" data-categories="VG8lQzMlQTFuJTIwdCVDMyVBMWklMjBoaSVFMSVCQiU4N24=" data-listing-date-sort="1760151668000" data-listing-file-modified-sort="1760151668507" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="21" data-listing-word-count-sort="4110">
+<div class="thumbnail"><a href="./content/zo-o/diu-dang-va-gai-goc/diu-dang-va-gai-goc.html" class="no-external">
+
+<p class="card-img-top"><img src="figures\zo-o\diu-dang-va-gai-goc\so-do-nhan-phan-phoi-hai-nhi-thuc.svg" alt="Sơ đồ nhân phân phối hai nhị thức bậc nhất để thu được một tam thức bậc hai."  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/zo-o/diu-dang-va-gai-goc/diu-dang-va-gai-goc.html" class="no-external">Dịu dàng và gai góc</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/zo-o/diu-dang-va-gai-goc/diu-dang-va-gai-goc.html" class="no-external">Khai triển lũy thừa nhị thức thành đa thức</a>
+</div>
+<div class="delink listing-description"><a href="./content/zo-o/diu-dang-va-gai-goc/diu-dang-va-gai-goc.html" class="no-external">
+<p>Bài viết giải thích cách khai triển biểu thức <span class="math inline">\((1+x)^n\)</span> bằng quy tắc nhân phân phối, minh họa sự xuất hiện tự nhiên của tam giác Pascal trong định lý nhị thức.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/zo-o/diu-dang-va-gai-goc/diu-dang-va-gai-goc.html" class="no-external">
+<div class="listing-date">
+11 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="24" data-listing-date-sort="1760151663000" data-listing-file-modified-sort="1760151663883" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="317">
+<div class="thumbnail"><a href="./README/gpt-la-gi/gpt_la_gi.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./README/gpt-la-gi/gpt_la_gi.html" class="no-external">GPT LÀ GÌ</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./README/gpt-la-gi/gpt_la_gi.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./README/gpt-la-gi/gpt_la_gi.html" class="no-external">
+<strong>GPT = Generative Pre-trained Transformer</strong>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./README/gpt-la-gi/gpt_la_gi.html" class="no-external">
+<div class="listing-date">
+11 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="25" data-listing-file-modified-sort="1760151665269" data-listing-reading-time-sort="4" data-listing-word-count-sort="746">
+<div class="thumbnail"><a href="./content/about.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/about.html" class="no-external">Giới thiệu về ZO Math</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/about.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/about.html" class="no-external">
+ZO Math là trang toán học dành cho học sinh, sinh viên, những bạn cần học toán và những ai yêu thích toán học.
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/about.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="26" data-listing-file-modified-sort="1760151666692" data-listing-reading-time-sort="10" data-listing-word-count-sort="1872">
+<div class="thumbnail"><a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_bac_nhat.html" class="no-external">
+
+<img loading="lazy" data-src="./figures/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/mot-so-doan-thang-gia-tri-ham-y-bang-x-binh-phuong.svg" class="thumbnail-image">
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_bac_nhat.html" class="no-external">Hàm số bậc nhất</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_bac_nhat.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_bac_nhat.html" class="no-external">
+<p>Đồ thị là một đường thẳng.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_bac_nhat.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="27" data-listing-file-modified-sort="1760151667169" data-listing-reading-time-sort="2" data-listing-word-count-sort="211">
+<div class="thumbnail"><a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_gia_tri_tuyet_doi.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_gia_tri_tuyet_doi.html" class="no-external">Hàm số giá trị tuyệt đối</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_gia_tri_tuyet_doi.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_gia_tri_tuyet_doi.html" class="no-external">
+Xét hai hàm số <span class="math display">\[
+  y = f(x) = \lvert x\rvert
+  \quad \text{và} \quad
+  y = g(x) =
+\begin{cases}
+   1 &amp; \text{khi } x \geq 0,\\
+   -1 &amp; \text{khi } x &lt; 0.
+\end{cases}
+  \]</span>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_gia_tri_tuyet_doi.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="28" data-listing-date-sort="1760151667000" data-listing-file-modified-sort="1760151667169" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1618">
+<div class="thumbnail"><a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_hang.html" class="no-external">
+
+<img loading="lazy" data-src="./figures/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/mot-so-doan-thang-gia-tri-ham-y-bang-x-binh-phuong.svg" class="thumbnail-image">
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_hang.html" class="no-external">Hàm số hằng</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_hang.html" class="no-external">Khảo sát sự biến thiên và vẽ đồ thị hàm số hằng <span class="math inline">\(y=1\)</span></a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_hang.html" class="no-external">
+<p>Thay vì xét cả họ <span class="math inline">\(y=c\)</span>, ta chọn <span class="math inline">\(y=1\)</span> làm đại diện để khảo sát sự biến thiên và vẽ đồ thị. Qua đó, bạn sẽ cảm nhận được sự sống động của hàm số hằng - không đơn điệu như vẻ bề ngoài. Mỗi hàm số đều ẩn chứa một bài học, dẫn dắt bạn suy nghĩ sâu sắc hơn.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_hang.html" class="no-external">
+<div class="listing-date">
+11 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="29" data-listing-file-modified-sort="1760151665660" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="thumbnail"><a href="./content/support/sponsorship.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/support/sponsorship.html" class="no-external">Hợp tác tài trợ (cho doanh nghiệp, tổ chức)</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/support/sponsorship.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/support/sponsorship.html" class="no-external">
+
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/support/sponsorship.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="30" data-listing-date-sort="1760151667000" data-listing-file-modified-sort="1760151667234" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="24" data-listing-word-count-sort="4640">
+<div class="thumbnail"><a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/khung_khao_sat_ham_so.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/khung_khao_sat_ham_so.html" class="no-external">Khung khảo sát hàm số</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/khung_khao_sat_ham_so.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/khung_khao_sat_ham_so.html" class="no-external">
+Khảo sát hàm số là quá trình nghiên cứu một cách hệ thống các tính chất cơ bản và quan trọng của hàm số, từ miền xác định, sự liên tục, đối xứng, tiệm cận, đến sự biến…
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/khung_khao_sat_ham_so.html" class="no-external">
+<div class="listing-date">
+11 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="31" data-listing-file-modified-sort="1760151665379" data-listing-reading-time-sort="66" data-listing-word-count-sort="13191">
+<div class="thumbnail"><a href="./content/ke-hoach-cuoc-doi/ke-hoach-cuoc-doi.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/ke-hoach-cuoc-doi/ke-hoach-cuoc-doi.html" class="no-external">KẾ HOẠCH CUỘC ĐỜI</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/ke-hoach-cuoc-doi/ke-hoach-cuoc-doi.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/ke-hoach-cuoc-doi/ke-hoach-cuoc-doi.html" class="no-external">
+Nếu một buổi sáng tỉnh dậy và mọi thứ diễn ra đúng như mong muốn, tôi sẽ thấy mình đang sống ở một nơi tràn đầy năng lượng tích cực: hoặc là một căn nhà do chính tay mình…
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/ke-hoach-cuoc-doi/ke-hoach-cuoc-doi.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="32" data-listing-file-modified-sort="1760151665472" data-listing-reading-time-sort="2" data-listing-word-count-sort="311">
+<div class="thumbnail"><a href="./content/ke-hoach-cuoc-doi/promt.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/ke-hoach-cuoc-doi/promt.html" class="no-external">KẾ HOẠCH CUỘC ĐỜI</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/ke-hoach-cuoc-doi/promt.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/ke-hoach-cuoc-doi/promt.html" class="no-external">
+Xây dựng bản Kế hoạch cuộc đời: định hướng và hành động chi tiết mà bản thân cần thực hiện để đạt được cuộc sống ước mơ.
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/ke-hoach-cuoc-doi/promt.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="33" data-listing-file-modified-sort="1760151665269" data-listing-reading-time-sort="1" data-listing-word-count-sort="108">
+<div class="thumbnail"><a href="./content/contact.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/contact.html" class="no-external">Liên hệ</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/contact.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/contact.html" class="no-external">
+Nếu bạn có bất kỳ câu hỏi, góp ý hoặc muốn hợp tác cùng <strong>ZO Math</strong>, hãy liên hệ qua các kênh sau.
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/contact.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="34" data-listing-file-modified-sort="1760151674430" data-listing-reading-time-sort="1" data-listing-word-count-sort="4">
+<div class="thumbnail"><a href="./test/test-tikz.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./test/test-tikz.html" class="no-external">Minimal TikZ Test</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./test/test-tikz.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./test/test-tikz.html" class="no-external">
+<code>\begin{tikzpicture}
+\draw (0,0) -- (1,1);
+\end{tikzpicture}</code>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./test/test-tikz.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="35" data-listing-file-modified-sort="1760151667258" data-listing-reading-time-sort="1" data-listing-word-count-sort="38">
+<div class="thumbnail"><a href="./content/zo-lab/mau-so-lieu-ghep-nhom-dac-trung-do-xu-the-trung-tam/mau-so-lieu-ghep-nhom-dac-trung-do-xu-the-trung-tam.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/zo-lab/mau-so-lieu-ghep-nhom-dac-trung-do-xu-the-trung-tam/mau-so-lieu-ghep-nhom-dac-trung-do-xu-the-trung-tam.html" class="no-external">Số đặc trưng độ xu thế trung tâm - Thống kê lớp 11</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/zo-lab/mau-so-lieu-ghep-nhom-dac-trung-do-xu-the-trung-tam/mau-so-lieu-ghep-nhom-dac-trung-do-xu-the-trung-tam.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/zo-lab/mau-so-lieu-ghep-nhom-dac-trung-do-xu-the-trung-tam/mau-so-lieu-ghep-nhom-dac-trung-do-xu-the-trung-tam.html" class="no-external">
+Ứng dụng này giúp bạn tính toán các số đặc trưng đo xu thế trung tâm như trung bình, trung vị, tứ phân vị và mốt cho dữ liệu ghép nhóm.
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/zo-lab/mau-so-lieu-ghep-nhom-dac-trung-do-xu-the-trung-tam/mau-so-lieu-ghep-nhom-dac-trung-do-xu-the-trung-tam.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="36" data-categories="VG8lQzMlQTFuJTIwdCVDMyVBMWklMjBoaSVFMSVCQiU4N24=" data-listing-date-sort="1760151668000" data-listing-file-modified-sort="1760151668576" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="224">
+<div class="thumbnail"><a href="./content/zo-o/so/so.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/zo-o/so/so.html" class="no-external">Số: từ đếm đến đo</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/zo-o/so/so.html" class="no-external">Từ số tự nhiên đến số thực</a>
+</div>
+<div class="delink listing-description"><a href="./content/zo-o/so/so.html" class="no-external">
+<p>Bài viết giải thích cách thức mà số thực hình thành, minh họa sự xuất hiện tự nhiên của số thực xuất phát từ sự tách biệt giữa nhu cầu đếm và nhu cầu đo.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/zo-o/so/so.html" class="no-external">
+<div class="listing-date">
+11 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="37" data-listing-file-modified-sort="1760151665834" data-listing-reading-time-sort="1" data-listing-word-count-sort="71">
+<div class="thumbnail"><a href="./content/toan-thpt/toan-11/canh-dieu/index.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/toan-11/canh-dieu/index.html" class="no-external">Toán 11</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/toan-11/canh-dieu/index.html" class="no-external">Cánh Diều</a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/toan-11/canh-dieu/index.html" class="no-external">
+
+
+<ul>
+<li>Sách lý thuyết
+<ul>
+<li>Chương V. Một số yếu tố thống kê và xác suất
+<ul>
+<li>Bài 1. Các số đặc trưng đo xu thế trung tâm cho mẫu số liệu ghép nhóm</li>
+<li>Bài 2. Biến cố hợp và biến cố giao.…</li></ul></li></ul></li></ul>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/toan-11/canh-dieu/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="38" data-listing-file-modified-sort="1760151666489" data-listing-reading-time-sort="1" data-listing-word-count-sort="65">
+<div class="thumbnail"><a href="./content/toan-thpt/toan-11/canh-dieu/sach-giao-khoa/index.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/toan-11/canh-dieu/sach-giao-khoa/index.html" class="no-external">Toán 11</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/toan-11/canh-dieu/sach-giao-khoa/index.html" class="no-external">Cánh Diều | Sách lý thuyết</a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/toan-11/canh-dieu/sach-giao-khoa/index.html" class="no-external">
+
+
+<ul>
+<li>Chương V. Một số yếu tố thống kê và xác suất
+<ul>
+<li>Bài 1. Các số đặc trưng đo xu thế trung tâm cho mẫu số liệu ghép nhóm</li>
+<li>Bài 2. Biến cố hợp và biến cố giao. Biến cố độc lập.…</li><li></li></ul></li></ul>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/toan-11/canh-dieu/sach-giao-khoa/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="39" data-listing-file-modified-sort="1760151666489" data-listing-reading-time-sort="1" data-listing-word-count-sort="58">
+<div class="thumbnail"><a href="./content/toan-thpt/toan-11/index.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/toan-11/index.html" class="no-external">Toán 11</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/toan-11/index.html" class="no-external">Cánh Diều</a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/toan-11/index.html" class="no-external">
+
+
+<ul>
+<li>Cánh Diều
+<ul>
+<li>Sách lý thuyết
+<ul>
+<li>Chương V. Một số yếu tố thống kê và xác suất
+<ul>
+<li>Bài 1. Các số đặc trưng đo xu thế trung tâm cho mẫu số liệu ghép nhóm</li>
+</ul></li>
+</ul></li>
+</ul></li>
 </ul>
 
 
 
-</main> <!-- /main -->
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/toan-11/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="40" data-listing-file-modified-sort="1760151666645" data-listing-reading-time-sort="1" data-listing-word-count-sort="146">
+<div class="thumbnail"><a href="./content/toan-thpt/toan-12/index.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/toan-12/index.html" class="no-external">Toán 12</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/toan-12/index.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/toan-12/index.html" class="no-external">
+
+
+<ul>
+<li>Chân Trời Sáng Tạo
+<ul>
+<li>Sách lý thuyết
+<ul>
+<li>Chương I. Ứng dụng đạo hàm để khảo sát hàm số
+<ul>
+<li>Bài 1. Tính đơn điệu và cực trị của hàm số</li>
+<li>Bài 2. Giá trị lớn nhất, giá trị nhỏ nhất…</li><li></li><li></li><li></li></ul></li></ul></li></ul></li></ul>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/toan-12/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="41" data-listing-file-modified-sort="1760151665787" data-listing-reading-time-sort="1" data-listing-word-count-sort="57">
+<div class="thumbnail"><a href="./content/toan-thpt/index.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/index.html" class="no-external">Toán trung học phổ thông</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/index.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/index.html" class="no-external">
+Sách giáo khoa, sách bài tập, sách chuyên đề với ba bộ sách gồm Cánh Diều, Chân Trời Sáng Tạo và Kết Nối Tri Thức Với Cuộc Sống.
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="42" data-listing-file-modified-sort="1760151674398" data-listing-reading-time-sort="3" data-listing-word-count-sort="419">
+<div class="thumbnail"><a href="./test/p5/p5-thuc-hanh.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./test/p5/p5-thuc-hanh.html" class="no-external">Vẽ nhiều khung hình với p5.js trong Quarto (Đã sửa)</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./test/p5/p5-thuc-hanh.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./test/p5/p5-thuc-hanh.html" class="no-external">
+
+
+<div id="myCanvas1">
+
+</div>
+<script>
+  (function() {
+    new p5(function(p) {
+      p.setup = function() {
+        let canvas1 = p.createCanvas(400, 300);
+        canvas1.parent('myCanvas1');
+       …</script><div id="myCanvas2"></div><script></script><div id="myCanvas3" style="position: relative;"><div id="latex-annotation" style="position: absolute; top: 150px; left: 220px; font-size: 16px; color: blue;"><pre><code></code></pre></div></div><script></script>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./test/p5/p5-thuc-hanh.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="43" data-listing-file-modified-sort="1760151670663" data-listing-reading-time-sort="1" data-listing-word-count-sort="5">
+<div class="thumbnail"><a href="./content/zo-khoa-hoc/xac-suat-va-thong-ke/index.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/zo-khoa-hoc/xac-suat-va-thong-ke/index.html" class="no-external">Xác suất và thống kê</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/zo-khoa-hoc/xac-suat-va-thong-ke/index.html" class="no-external">Khóa học xác suất và thống kê trong Toán học</a>
+</div>
+<div class="delink listing-description"><a href="./content/zo-khoa-hoc/xac-suat-va-thong-ke/index.html" class="no-external">
+🔹 Biến ngẫu nhiên
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/zo-khoa-hoc/xac-suat-va-thong-ke/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="44" data-listing-file-modified-sort="1760151667258" data-listing-reading-time-sort="1" data-listing-word-count-sort="18">
+<div class="thumbnail"><a href="./content/zo-lab/index.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/zo-lab/index.html" class="no-external">ZO Lab</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/zo-lab/index.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/zo-lab/index.html" class="no-external">
+Toán 11 | Mẫu số liệu ghép nhóm | Các số đặc trưng đo xu thế trung tâm
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/zo-lab/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="45" data-listing-date-sort="1760151667000" data-listing-file-modified-sort="1760151667258" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="9">
+<div class="thumbnail"><a href="./content/toan-thpt/zo-math-100/index.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/zo-math-100/index.html" class="no-external">ZO Math 100+</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/zo-math-100/index.html" class="no-external">Hành trình chinh phục toán Trung học phổ thông</a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/zo-math-100/index.html" class="no-external">
+
+<li>100+ hàm số: khảo sát và đồ thị</li>
+
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/zo-math-100/index.html" class="no-external">
+<div class="listing-date">
+11 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="46" data-listing-date-sort="1761240130000" data-listing-file-modified-sort="1761240130169" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="72" data-listing-word-count-sort="14375">
+<div class="thumbnail"><a href="./content/toan-thpt/de-cuong/ctgd_toan_hoc_pho_thong_zo_math.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/de-cuong/ctgd_toan_hoc_pho_thong_zo_math.html" class="no-external">ZO Math: Chương trình Toán học cấp Trung học phổ thông</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/de-cuong/ctgd_toan_hoc_pho_thong_zo_math.html" class="no-external">Khung định hướng chương trình học tập môn Toán cấp Trung học phổ thông trong Cộng đồng ZO Math</a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/de-cuong/ctgd_toan_hoc_pho_thong_zo_math.html" class="no-external">
+<p>Chương trình Toán học cấp Trung học phổ thông của ZO Math, một khung học tập mở và luôn được cập nhật theo sự phát triển của Toán học, giáo dục và công nghệ.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/de-cuong/ctgd_toan_hoc_pho_thong_zo_math.html" class="no-external">
+<div class="listing-date">
+24 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="47" data-listing-file-modified-sort="1760195434522" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="thumbnail"><a href="./content/zo-khoa-hoc/index.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/zo-khoa-hoc/index.html" class="no-external">ZO Thấu</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/zo-khoa-hoc/index.html" class="no-external">Các khóa học của ZO</a>
+</div>
+<div class="delink listing-description"><a href="./content/zo-khoa-hoc/index.html" class="no-external">
+
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1760151670000" data-listing-file-modified-sort="1760151670628" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="406">
+<div class="thumbnail">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</div>
+<div class="body">
+
+<div class="listing-subtitle">
+
+</div>
+<div class="delink listing-description">
+Mình có hai nhóm số, nhóm A bao gồm 0 và 1; nhóm B bao gồm 0, 1 và 1. Hai nhóm này chỉ chứa hai số 0 và 1, đó là điểm tương đồng. Nhưng nhóm B có nhiều số 1 hơn nhóm A, đó…
+</div>
+</div>
+<div class="metadata">
+
+<div class="listing-date">
+11 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-listing-file-modified-sort="1760151670663" data-listing-reading-time-sort="1" data-listing-word-count-sort="5">
+<div class="thumbnail">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</div>
+<div class="body">
+
+<div class="listing-subtitle">
+Khóa học xác suất và thống kê trong Toán học
+</div>
+<div class="delink listing-description">
+🔹 Biến ngẫu nhiên
+</div>
+</div>
+<div class="metadata">
+
+
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">No matching items</div>
+
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/zo-khoa-hoc/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="48" data-listing-file-modified-sort="1760151668523" data-listing-reading-time-sort="1" data-listing-word-count-sort="11">
+<div class="thumbnail"><a href="./content/zo-o/index.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/zo-o/index.html" class="no-external">ZO Ồ!</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/zo-o/index.html" class="no-external">Lạ mà quen, quen mà lạ.</a>
+</div>
+<div class="delink listing-description"><a href="./content/zo-o/index.html" class="no-external">
+
+
+<ul>
+<li>Khai triển lũy thừa nhị thức thành đa thức</li>
+</ul>
+
+
+
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/zo-o/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="49" data-listing-file-modified-sort="1760151665379" data-listing-reading-time-sort="14" data-listing-word-count-sort="2651">
+<div class="thumbnail"><a href="./content/ke-hoach-cuoc-doi/ZO-don-vi-la-gi.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/ke-hoach-cuoc-doi/ZO-don-vi-la-gi.html" class="no-external">ZO: Đơn vị kiến thức ZO Math</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/ke-hoach-cuoc-doi/ZO-don-vi-la-gi.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/ke-hoach-cuoc-doi/ZO-don-vi-la-gi.html" class="no-external">
+Việc phát minh (hoặc tái khám phá) ra khái niệm <strong>“Đơn vị Kiến thức” (Knowledge Unit - KU)</strong> để cấu trúc dự án ZO Math <strong>thật sự là một bước ngoặt</strong> - không chỉ trong phạm vi ZO…
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/ke-hoach-cuoc-doi/ZO-don-vi-la-gi.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="50" data-listing-date-sort="1760151666000" data-listing-file-modified-sort="1760151666567" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="37" data-listing-word-count-sort="7355">
+<div class="thumbnail"><a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/duong-tiem-can-cua-do-thi-ham-so.html" class="no-external">
+
+<p class="card-img-top"><img data-src="figures\toan-thpt\toan-12\chan-troi\sach-giao-khoa\chuong-1\bai-3\hdkd-do-thi.svg"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/duong-tiem-can-cua-do-thi-ham-so.html" class="no-external">Đường tiệm cận của đồ thị hàm số</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/duong-tiem-can-cua-do-thi-ham-so.html" class="no-external">Chương 1 | Chân Trời Sáng Tạo | Toán 12</a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/duong-tiem-can-cua-do-thi-ham-so.html" class="no-external">
+Theo thuyết tương đối hẹp, khối lượng <span class="math inline">\(m\)</span> (kg) của một hạt phụ thuộc vào tốc độ di chuyển <span class="math inline">\(v\)</span> (km/s) của nó trong <span data-bs-toggle="tooltip" title="Hệ quy chiếu quán tính là hệ mà trong đó một vật không chịu lực sẽ chuyển động thẳng đều hoặc đứng yên. Đây là hệ &quot;ổn định&quot; theo nghĩa của cơ học cổ điển và là nền tảng để áp dụng các định luật Niu-tơn (Newton) hoặc thuyết tương đối hẹp.">hệ quy chiếu quán tính</span> theo công thức
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/toan-12/chan-troi/sach-giao-khoa/chuong-1/bai-3/duong-tiem-can-cua-do-thi-ham-so.html" class="no-external">
+<div class="listing-date">
+11 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="51" data-listing-date-sort="1760151665000" data-listing-file-modified-sort="1760151665722" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="92" data-listing-word-count-sort="18293">
+<div class="thumbnail"><a href="./content/toan-thpt/de-thi-vao-dai-hoc/toan-2025-0101.html" class="no-external">
+
+<p class="card-img-top"><img data-src="figures\toan-thpt\de-thi-vao-dai-hoc\de-toan-2025\de-toan-2025-0101\phan-1-cau-1-hinh-lang-tru.svg"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/de-thi-vao-dai-hoc/toan-2025-0101.html" class="no-external">Đề thi tốt nghiệp Trung Học Phổ Thông 2025</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/de-thi-vao-dai-hoc/toan-2025-0101.html" class="no-external">Mã đề 0101</a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/de-thi-vao-dai-hoc/toan-2025-0101.html" class="no-external">
+Cho hình lăng trụ <span class="math inline">\(ABC.A^\prime B^\prime C^\prime\)</span> (xem hình dưới). Phát biểu nào sau đây là đúng?
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/de-thi-vao-dai-hoc/toan-2025-0101.html" class="no-external">
+<div class="listing-date">
+11 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="52" data-listing-date-sort="1760151665000" data-listing-file-modified-sort="1760151665772" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="33" data-listing-word-count-sort="6417">
+<div class="thumbnail"><a href="./content/toan-thpt/de-thi-vao-dai-hoc/toan-2025-0102.html" class="no-external">
+
+<p class="card-img-top"><img data-src="figures\toan-thpt\de-thi-vao-dai-hoc\de-toan-2025\de-toan-2025-0102\phan-1-cau-5-bang-bien-thien.svg"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/de-thi-vao-dai-hoc/toan-2025-0102.html" class="no-external">Đề thi tốt nghiệp Trung Học Phổ Thông 2025</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/de-thi-vao-dai-hoc/toan-2025-0102.html" class="no-external">Mã đề 0102</a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/de-thi-vao-dai-hoc/toan-2025-0102.html" class="no-external">
+Trong mặt phẳng với hệ tọa độ <span class="math inline">\(Oxy\)</span>, diện tích <span class="math inline">\(S\)</span> của hình phẳng giới hạn bởi đồ thị của hàm số <span class="math inline">\(y=2x+1\)</span>, trục hoành và hai đường thẳng <span class="math inline">\(x=1\)</span>, <span class="math inline">\(x=2\)</span> được xác định…
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/de-thi-vao-dai-hoc/toan-2025-0102.html" class="no-external">
+<div class="listing-date">
+11 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="53" data-listing-date-sort="1760151671000" data-listing-file-modified-sort="1760151671288" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="19" data-listing-word-count-sort="3791">
+<div class="thumbnail"><a href="./figures/toan-thpt/de-thi-vao-dai-hoc/de-toan-2025/de-toan-2025-0102/toan-2025-0102.html" class="no-external">
+
+<p class="card-img-top"><img data-src="figures\toan-thpt\de-thi-vao-dai-hoc\de-toan-2025\de-toan-2025-0102\phan-1-cau-5-bang-bien-thien.svg"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./figures/toan-thpt/de-thi-vao-dai-hoc/de-toan-2025/de-toan-2025-0102/toan-2025-0102.html" class="no-external">Đề thi tốt nghiệp Trung Học Phổ Thông 2025</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./figures/toan-thpt/de-thi-vao-dai-hoc/de-toan-2025/de-toan-2025-0102/toan-2025-0102.html" class="no-external">Mã đề 0102</a>
+</div>
+<div class="delink listing-description"><a href="./figures/toan-thpt/de-thi-vao-dai-hoc/de-toan-2025/de-toan-2025-0102/toan-2025-0102.html" class="no-external">
+Trong mặt phẳng với hệ tọa độ <span class="math inline">\(Oxy\)</span>, diện tích <span class="math inline">\(S\)</span> của hình phẳng giới hạn bởi đồ thị của hàm số <span class="math inline">\(y=2x+1\)</span>, trục hoành và hai đường thẳng <span class="math inline">\(x=1\)</span>, <span class="math inline">\(x=2\)</span> được xác định…
+</a></div>
+</div>
+<div class="metadata">
+<a href="./figures/toan-thpt/de-thi-vao-dai-hoc/de-toan-2025/de-toan-2025-0102/toan-2025-0102.html" class="no-external">
+<div class="listing-date">
+11 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="54" data-listing-date-sort="1760151665000" data-listing-file-modified-sort="1760151665722" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="11">
+<div class="thumbnail"><a href="./content/toan-thpt/de-thi-vao-dai-hoc/index.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/de-thi-vao-dai-hoc/index.html" class="no-external">Đề thi vào Đại học</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/de-thi-vao-dai-hoc/index.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/de-thi-vao-dai-hoc/index.html" class="no-external">
+
+
+<section id="năm-2025" class="level2">
+
+</section>
+
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/de-thi-vao-dai-hoc/index.html" class="no-external">
+<div class="listing-date">
+11 thg 10, 2025
+</div>
+<div class="listing-author">
+ZO Math
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="55" data-listing-file-modified-sort="1760151674398" data-listing-reading-time-sort="1" data-listing-word-count-sort="11">
+<div class="thumbnail"><a href="./test/chen-anh.html" class="no-external">
+
+<p class="card-img-top"><img data-src="figures\toan-thpt\toan-12\chan-troi\sach-giao-khoa\chuong-1\bai-2\vd-bang-bien-thien.svg"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./test/chen-anh.html" class="no-external">Ảnh tự căn trái khi để trống []</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./test/chen-anh.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./test/chen-anh.html" class="no-external">
+Một đoạn văn bản.
+</a></div>
+</div>
+<div class="metadata">
+<a href="./test/chen-anh.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="56" data-listing-file-modified-sort="1760151665519">
+<div class="thumbnail"><a href="./content/shop/index.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/shop/index.html" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/shop/index.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/shop/index.html" class="no-external">
+
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/shop/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="57" data-listing-file-modified-sort="1760151665787">
+<div class="thumbnail"><a href="./content/toan-thpt/suy-ngam/index.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/suy-ngam/index.html" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/suy-ngam/index.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/suy-ngam/index.html" class="no-external">
+
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/suy-ngam/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="58" data-listing-file-modified-sort="1760151666661">
+<div class="thumbnail"><a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_bac_hai.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_bac_hai.html" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_bac_hai.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_bac_hai.html" class="no-external">
+
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_bac_hai.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="59" data-listing-file-modified-sort="1760151667191">
+<div class="thumbnail"><a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_phan_thuc_bac_nhat_tren_bac_nhat.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_phan_thuc_bac_nhat_tren_bac_nhat.html" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_phan_thuc_bac_nhat_tren_bac_nhat.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_phan_thuc_bac_nhat_tren_bac_nhat.html" class="no-external">
+
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/core/ham_so_phan_thuc_bac_nhat_tren_bac_nhat.html" class="no-external">
+</a>
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">No matching items</div>
+<nav id="listing-pagination" class="listing-pagination" aria-label="Page Navigation">
+  <ul class="pagination"></ul>
+</nav>
+</div></main> <!-- /main -->
 <!-- Overlay để click ra ngoài và đóng sidebar -->
 
 <div class="sidebar-overlay" aria-hidden="true"></div>

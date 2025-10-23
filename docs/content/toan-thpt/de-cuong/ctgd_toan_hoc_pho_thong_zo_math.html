@@ -1,0 +1,1977 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="ZO Math">
+<meta name="description" content="Chương trình Toán học cấp Trung học phổ thông của ZO Math, một khung học tập mở và luôn được cập nhật theo sự phát triển của Toán học, giáo dục và công nghệ.">
+
+<title>ZO Math: Chương trình Toán học cấp Trung học phổ thông – ZO Math</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-719951764d4ca359be86a642d82fdf9d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+<style>
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 8px;
+    text-align: left;
+}
+</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../assets/css/custom.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-10/index.qmd">
+ <span class="dropdown-text">Toán 10</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-11/index.html">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-12/index.html">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.html">
+ <span class="dropdown-text">100+ Hàm số</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-o/index.html"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-lab/index.html"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/shop/index.html"> 
+<span class="menu-text">ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page-left">
+      <h1 class="title">ZO Math: Chương trình Toán học cấp Trung học phổ thông</h1>
+            <p class="subtitle lead">Khung định hướng chương trình học tập môn Toán cấp Trung học phổ thông trong Cộng đồng ZO Math</p>
+                  <div>
+        <div class="description">
+          Chương trình Toán học cấp Trung học phổ thông của ZO Math, một khung học tập mở và luôn được cập nhật theo sự phát triển của Toán học, giáo dục và công nghệ.
+        </div>
+      </div>
+                </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-page-left">
+
+      <div>
+      <div class="quarto-title-meta-heading">Tác giả</div>
+      <div class="quarto-title-meta-contents">
+               <p>ZO Math </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Ngày cập nhật</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">24-10-2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  <div>
+    <div class="abstract">
+      <div class="block-title">Tóm tắt</div>
+      <p>Chương trình Toán học cấp Trung học phổ thông của ZO Math được thiết kế như một khung học tập mở, cho phép mở rộng và điều chỉnh linh hoạt, đồng thời luôn được cập nhật theo sự phát triển của Toán học, giáo dục và công nghệ. Mục tiêu của chương trình là duy trì tính hiện đại, liên thông và phù hợp với bối cảnh học tập của thời đại số.</p>
+    </div>
+  </div>
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Trên trang này</h2>
+   
+  <ul>
+  <li><a href="#dàn-ý" id="toc-dàn-ý" class="nav-link active" data-scroll-target="#dàn-ý">Dàn ý</a></li>
+  <li><a href="#giới-thiệu-chung" id="toc-giới-thiệu-chung" class="nav-link" data-scroll-target="#giới-thiệu-chung">1. Giới thiệu chung</a>
+  <ul class="collapse">
+  <li><a href="#mục-đích-của-tài-liệu" id="toc-mục-đích-của-tài-liệu" class="nav-link" data-scroll-target="#mục-đích-của-tài-liệu"><strong>1.1. Mục đích của tài liệu</strong></a></li>
+  <li><a href="#cơ-sở-hình-thành-chương-trình" id="toc-cơ-sở-hình-thành-chương-trình" class="nav-link" data-scroll-target="#cơ-sở-hình-thành-chương-trình"><strong>1.2. Cơ sở hình thành chương trình</strong></a></li>
+  <li><a href="#đối-tượng-áp-dụng" id="toc-đối-tượng-áp-dụng" class="nav-link" data-scroll-target="#đối-tượng-áp-dụng"><strong>1.3. Đối tượng áp dụng</strong></a></li>
+  </ul></li>
+  <li><a href="#cấu-trúc-nội-dung-chương-trình" id="toc-cấu-trúc-nội-dung-chương-trình" class="nav-link" data-scroll-target="#cấu-trúc-nội-dung-chương-trình">5. Cấu trúc nội dung chương trình</a>
+  <ul class="collapse">
+  <li><a href="#tổng-quan-về-tám-mạch-kiến-thức" id="toc-tổng-quan-về-tám-mạch-kiến-thức" class="nav-link" data-scroll-target="#tổng-quan-về-tám-mạch-kiến-thức">5.1. Tổng quan về tám mạch kiến thức</a></li>
+  <li><a href="#khung-mô-tả-tám-mạch-kiến-thức" id="toc-khung-mô-tả-tám-mạch-kiến-thức" class="nav-link" data-scroll-target="#khung-mô-tả-tám-mạch-kiến-thức">5.2. Khung mô tả tám mạch kiến thức</a>
+  <ul class="collapse">
+  <li><a href="#mạch-1-số-học" id="toc-mạch-1-số-học" class="nav-link" data-scroll-target="#mạch-1-số-học">5.2.1. Mạch 1: Số học</a></li>
+  <li><a href="#mạch-2-đại-số" id="toc-mạch-2-đại-số" class="nav-link" data-scroll-target="#mạch-2-đại-số">5.2.2. Mạch 2: Đại số</a></li>
+  <li><a href="#mạch-3-giải-tích" id="toc-mạch-3-giải-tích" class="nav-link" data-scroll-target="#mạch-3-giải-tích">5.2.3 Mạch 3: Giải tích</a></li>
+  </ul></li>
+  <li><a href="#định-nghĩa-và-phạm-vi-khoa-học-của-mạch" id="toc-định-nghĩa-và-phạm-vi-khoa-học-của-mạch" class="nav-link" data-scroll-target="#định-nghĩa-và-phạm-vi-khoa-học-của-mạch">1. Định nghĩa và phạm vi khoa học của mạch</a></li>
+  <li><a href="#nội-dung-cốt-lõi-của-chương-trình-thpt" id="toc-nội-dung-cốt-lõi-của-chương-trình-thpt" class="nav-link" data-scroll-target="#nội-dung-cốt-lõi-của-chương-trình-thpt">2. Nội dung cốt lõi của chương trình THPT</a></li>
+  <li><a href="#mối-quan-hệ-với-các-mạch-khác-2" id="toc-mối-quan-hệ-với-các-mạch-khác-2" class="nav-link" data-scroll-target="#mối-quan-hệ-với-các-mạch-khác-2">3. Mối quan hệ với các mạch khác</a></li>
+  <li><a href="#giới-hạn-nội-dung-và-năng-lực-hình-thành-2" id="toc-giới-hạn-nội-dung-và-năng-lực-hình-thành-2" class="nav-link" data-scroll-target="#giới-hạn-nội-dung-và-năng-lực-hình-thành-2">4. Giới hạn nội dung và năng lực hình thành</a></li>
+  <li><a href="#định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-2" id="toc-định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-2" class="nav-link" data-scroll-target="#định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-2">5. Định hướng phát triển nội dung theo ba mức độ học tập</a></li>
+  </ul></li>
+  <li><a href="#mạch-4---hình-học" id="toc-mạch-4---hình-học" class="nav-link" data-scroll-target="#mạch-4---hình-học">Mạch 4 - Hình học</a>
+  <ul class="collapse">
+  <li><a href="#định-nghĩa-và-phạm-vi-khoa-học-của-mạch-1" id="toc-định-nghĩa-và-phạm-vi-khoa-học-của-mạch-1" class="nav-link" data-scroll-target="#định-nghĩa-và-phạm-vi-khoa-học-của-mạch-1">1. Định nghĩa và phạm vi khoa học của mạch</a></li>
+  <li><a href="#nội-dung-cốt-lõi-của-chương-trình-thpt-1" id="toc-nội-dung-cốt-lõi-của-chương-trình-thpt-1" class="nav-link" data-scroll-target="#nội-dung-cốt-lõi-của-chương-trình-thpt-1">2. Nội dung cốt lõi của chương trình THPT</a></li>
+  <li><a href="#mối-quan-hệ-với-các-mạch-khác-3" id="toc-mối-quan-hệ-với-các-mạch-khác-3" class="nav-link" data-scroll-target="#mối-quan-hệ-với-các-mạch-khác-3">3. Mối quan hệ với các mạch khác</a></li>
+  <li><a href="#giới-hạn-nội-dung-và-năng-lực-hình-thành-3" id="toc-giới-hạn-nội-dung-và-năng-lực-hình-thành-3" class="nav-link" data-scroll-target="#giới-hạn-nội-dung-và-năng-lực-hình-thành-3">4. Giới hạn nội dung và năng lực hình thành</a></li>
+  <li><a href="#định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-3" id="toc-định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-3" class="nav-link" data-scroll-target="#định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-3">5. Định hướng phát triển nội dung theo ba mức độ học tập</a></li>
+  </ul></li>
+  <li><a href="#mạch-5---toán-rời-rạc" id="toc-mạch-5---toán-rời-rạc" class="nav-link" data-scroll-target="#mạch-5---toán-rời-rạc">Mạch 5 - Toán rời rạc</a>
+  <ul class="collapse">
+  <li><a href="#định-nghĩa-và-phạm-vi-khoa-học-của-mạch-2" id="toc-định-nghĩa-và-phạm-vi-khoa-học-của-mạch-2" class="nav-link" data-scroll-target="#định-nghĩa-và-phạm-vi-khoa-học-của-mạch-2">1. Định nghĩa và phạm vi khoa học của mạch</a></li>
+  <li><a href="#nội-dung-cốt-lõi-của-chương-trình-thpt-2" id="toc-nội-dung-cốt-lõi-của-chương-trình-thpt-2" class="nav-link" data-scroll-target="#nội-dung-cốt-lõi-của-chương-trình-thpt-2">2. Nội dung cốt lõi của chương trình THPT</a></li>
+  <li><a href="#mối-quan-hệ-với-các-mạch-khác-4" id="toc-mối-quan-hệ-với-các-mạch-khác-4" class="nav-link" data-scroll-target="#mối-quan-hệ-với-các-mạch-khác-4">3. Mối quan hệ với các mạch khác</a></li>
+  <li><a href="#giới-hạn-nội-dung-và-năng-lực-hình-thành-4" id="toc-giới-hạn-nội-dung-và-năng-lực-hình-thành-4" class="nav-link" data-scroll-target="#giới-hạn-nội-dung-và-năng-lực-hình-thành-4">4. Giới hạn nội dung và năng lực hình thành</a></li>
+  <li><a href="#định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-4" id="toc-định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-4" class="nav-link" data-scroll-target="#định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-4">5. Định hướng phát triển nội dung theo ba mức độ học tập</a></li>
+  </ul></li>
+  <li><a href="#mạch-6---thống-kê" id="toc-mạch-6---thống-kê" class="nav-link" data-scroll-target="#mạch-6---thống-kê">Mạch 6 - Thống kê</a>
+  <ul class="collapse">
+  <li><a href="#định-nghĩa-và-phạm-vi-khoa-học-của-mạch-3" id="toc-định-nghĩa-và-phạm-vi-khoa-học-của-mạch-3" class="nav-link" data-scroll-target="#định-nghĩa-và-phạm-vi-khoa-học-của-mạch-3">1. Định nghĩa và phạm vi khoa học của mạch</a></li>
+  <li><a href="#nội-dung-cốt-lõi-của-chương-trình-thpt-3" id="toc-nội-dung-cốt-lõi-của-chương-trình-thpt-3" class="nav-link" data-scroll-target="#nội-dung-cốt-lõi-của-chương-trình-thpt-3">2. Nội dung cốt lõi của chương trình THPT</a></li>
+  <li><a href="#mối-quan-hệ-với-các-mạch-khác-5" id="toc-mối-quan-hệ-với-các-mạch-khác-5" class="nav-link" data-scroll-target="#mối-quan-hệ-với-các-mạch-khác-5">3. Mối quan hệ với các mạch khác</a></li>
+  <li><a href="#giới-hạn-nội-dung-và-năng-lực-hình-thành-5" id="toc-giới-hạn-nội-dung-và-năng-lực-hình-thành-5" class="nav-link" data-scroll-target="#giới-hạn-nội-dung-và-năng-lực-hình-thành-5">4. Giới hạn nội dung và năng lực hình thành</a></li>
+  <li><a href="#định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-5" id="toc-định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-5" class="nav-link" data-scroll-target="#định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-5">5. Định hướng phát triển nội dung theo ba mức độ học tập</a></li>
+  </ul></li>
+  <li><a href="#mạch-7---xác-suất" id="toc-mạch-7---xác-suất" class="nav-link" data-scroll-target="#mạch-7---xác-suất">Mạch 7 - Xác suất</a>
+  <ul class="collapse">
+  <li><a href="#định-nghĩa-và-phạm-vi-khoa-học-của-mạch-4" id="toc-định-nghĩa-và-phạm-vi-khoa-học-của-mạch-4" class="nav-link" data-scroll-target="#định-nghĩa-và-phạm-vi-khoa-học-của-mạch-4">1. Định nghĩa và phạm vi khoa học của mạch</a></li>
+  <li><a href="#nội-dung-cốt-lõi-của-chương-trình-thpt-4" id="toc-nội-dung-cốt-lõi-của-chương-trình-thpt-4" class="nav-link" data-scroll-target="#nội-dung-cốt-lõi-của-chương-trình-thpt-4">2. Nội dung cốt lõi của chương trình THPT</a></li>
+  <li><a href="#mối-quan-hệ-với-các-mạch-khác-6" id="toc-mối-quan-hệ-với-các-mạch-khác-6" class="nav-link" data-scroll-target="#mối-quan-hệ-với-các-mạch-khác-6">3. Mối quan hệ với các mạch khác</a></li>
+  <li><a href="#giới-hạn-nội-dung-và-năng-lực-hình-thành-6" id="toc-giới-hạn-nội-dung-và-năng-lực-hình-thành-6" class="nav-link" data-scroll-target="#giới-hạn-nội-dung-và-năng-lực-hình-thành-6">4. Giới hạn nội dung và năng lực hình thành</a></li>
+  <li><a href="#định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-6" id="toc-định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-6" class="nav-link" data-scroll-target="#định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-6">5. Định hướng phát triển nội dung theo ba mức độ học tập</a></li>
+  </ul></li>
+  <li><a href="#mạch-8---ứng-dụng-toán-học" id="toc-mạch-8---ứng-dụng-toán-học" class="nav-link" data-scroll-target="#mạch-8---ứng-dụng-toán-học">Mạch 8 - Ứng dụng Toán học</a>
+  <ul class="collapse">
+  <li><a href="#định-nghĩa-và-phạm-vi-khoa-học-của-mạch-5" id="toc-định-nghĩa-và-phạm-vi-khoa-học-của-mạch-5" class="nav-link" data-scroll-target="#định-nghĩa-và-phạm-vi-khoa-học-của-mạch-5">1. Định nghĩa và phạm vi khoa học của mạch</a></li>
+  <li><a href="#nội-dung-cốt-lõi-của-chương-trình-thpt-5" id="toc-nội-dung-cốt-lõi-của-chương-trình-thpt-5" class="nav-link" data-scroll-target="#nội-dung-cốt-lõi-của-chương-trình-thpt-5">2. Nội dung cốt lõi của chương trình THPT</a></li>
+  <li><a href="#mối-quan-hệ-với-các-mạch-khác-7" id="toc-mối-quan-hệ-với-các-mạch-khác-7" class="nav-link" data-scroll-target="#mối-quan-hệ-với-các-mạch-khác-7">3. Mối quan hệ với các mạch khác</a></li>
+  <li><a href="#giới-hạn-nội-dung-và-năng-lực-hình-thành-7" id="toc-giới-hạn-nội-dung-và-năng-lực-hình-thành-7" class="nav-link" data-scroll-target="#giới-hạn-nội-dung-và-năng-lực-hình-thành-7">4. Giới hạn nội dung và năng lực hình thành</a></li>
+  <li><a href="#định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-7" id="toc-định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-7" class="nav-link" data-scroll-target="#định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-7">5. Định hướng phát triển nội dung theo ba mức độ học tập</a></li>
+  </ul></li>
+  <li><a href="#cấp-độ-học-tập-và-tiến-trình-phát-triển-năng-lực-toán-học" id="toc-cấp-độ-học-tập-và-tiến-trình-phát-triển-năng-lực-toán-học" class="nav-link" data-scroll-target="#cấp-độ-học-tập-và-tiến-trình-phát-triển-năng-lực-toán-học">6. Cấp độ học tập và tiến trình phát triển năng lực Toán học</a>
+  <ul class="collapse">
+  <li><a href="#kết-cấu-ba-mức-độ-học-tập" id="toc-kết-cấu-ba-mức-độ-học-tập" class="nav-link" data-scroll-target="#kết-cấu-ba-mức-độ-học-tập">6.1. Kết cấu ba mức độ học tập</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+
+
+
+
+
+<section id="dàn-ý" class="level1">
+<h1>Dàn ý</h1>
+<p><em>“ZO Math: Chương trình Toán học cấp Trung học phổ thông”</em> được xây dựng như một khung định hướng học thuật của Cộng đồng học Toán ZO Math. Tài liệu này xác lập cấu trúc tổng thể cho việc học, dạy và tự học môn Toán ở cấp trung học phổ thông, dựa trên nền tảng của chương trình quốc gia và tham chiếu các chuẩn quốc tế hiện đại.</p>
+<p>Chương trình không chỉ xác định hệ thống kiến thức và năng lực cốt lõi, mà còn định hướng phương pháp, hình thức học tập và cách tổ chức nội dung theo tám mạch Toán học. Toàn bộ cấu trúc dưới đây thể hiện bản đồ phát triển hoàn chỉnh của chương trình, là cơ sở để triển khai các cấp độ chi tiết hơn trong hệ thống ZO Math.</p>
+<p><strong>ZO Math: Chương trình Toán học cấp Trung học phổ thông</strong></p>
+<p><em>Khung định hướng chương trình học tập môn Toán cấp Trung học phổ thông trong Cộng đồng ZO Math</em></p>
+<p><strong>1. Giới thiệu chung</strong></p>
+<p><strong>1.1. Mục đích của tài liệu</strong></p>
+<p>Tài liệu “ZO Math: Chương trình Toán học cấp Trung học phổ thông” được biên soạn nhằm xác lập khung định hướng học tập, giảng dạy và tự học môn Toán trong cộng đồng ZO Math, đồng thời tạo cơ sở cho việc phát triển nội dung, hoạt động và công cụ học tập thống nhất trong toàn hệ thống.</p>
+<p><strong>1.2. Cơ sở hình thành chương trình</strong></p>
+<p>Chương trình được xây dựng dựa trên các chương trình Toán học quốc gia hiện hành, và các khung chương trình quốc tế uy tín như PISA, Singapore Math và Common Core. Việc đối chiếu này bảo đảm tính hiện đại, tính liên thông và khả năng hội nhập quốc tế của ZO Math.</p>
+<p><strong>Chú thích.</strong> Thuật ngữ <em>các chương trình Toán học quốc gia hiện hành</em> trong tài liệu này được hiểu là toàn bộ hệ thống chương trình giáo dục môn Toán do Bộ Giáo dục và Đào tạo Việt Nam ban hành, bao gồm chương trình dành cho tất cả học sinh, chương trình nâng cao bồi dưỡng học sinh xuất sắc, ở các phiên bản được cập nhật theo từng giai đoạn.</p>
+<p><em>(Tại thời điểm thiết kế chương trình này, về mặt tham chiếu học thuật, ZO Math đối chiếu trực tiếp với <strong>Chương trình Giáo dục phổ thông môn Toán</strong> được ban hành kèm theo Thông tư số 32/2018/TT-BGDĐT ngày 26 tháng 12 năm 2018 của Bộ trưởng Bộ Giáo dục và Đào tạo, và <strong>Chương trình Giáo dục nâng cao môn Toán trong trường THPT chuyên</strong> được ban hành kèm theo Thông tư số 22/2025/TT-BGDĐT ngày 30 tháng 9 năm 2025 của Bộ trưởng Bộ Giáo dục và Đào tạo.)</em></p>
+<p><strong>1.3. Đối tượng áp dụng</strong></p>
+<p>Chương trình được thiết kế cho năm nhóm người học chính:</p>
+<ol type="1">
+<li><p>học sinh phổ thông đại trà;</p></li>
+<li><p>học sinh có năng khiếu hoặc yêu thích Toán học;</p></li>
+<li><p>người tự học hoặc học lại Toán để củng cố kiến thức;</p></li>
+<li><p>giáo viên và người làm công tác giảng dạy Toán;</p></li>
+<li><p>người yêu Toán học nói chung.</p></li>
+</ol>
+<p>Việc mở rộng đối tượng giúp chương trình vừa đáp ứng yêu cầu phổ cập, vừa phục vụ nhu cầu học tập suốt đời.</p>
+<p><strong>2. Mục tiêu và định hướng tổng thể</strong></p>
+<p><strong>2.1. Mục tiêu chung</strong></p>
+<p>Chương trình hướng tới việc giúp người học nắm vững kiến thức Toán học nền tảng, phát triển năng lực tư duy, giải quyết vấn đề và mô hình hóa thực tế, đồng thời hình thành thái độ tích cực, chủ động và sáng tạo trong học tập.</p>
+<p><strong>2.2. Mục tiêu cụ thể theo nhóm người học</strong></p>
+<p>Mỗi nhóm đối tượng trong cộng đồng ZO Math được xác định mục tiêu riêng: học sinh phổ thông cần đạt chuẩn kiến thức và kỹ năng; học sinh giỏi cần được bồi dưỡng năng lực sáng tạo; người tự học cần có lộ trình tự chủ; giáo viên cần có công cụ hỗ trợ giảng dạy; người yêu Toán cần có không gian trao đổi và mở rộng hiểu biết.</p>
+<p><strong>2.3. Phạm vi và giới hạn của chương trình</strong></p>
+<p>Chương trình bao quát toàn bộ nội dung Toán học cấp Trung học phổ thông, bao gồm cả phần chuẩn, nâng cao và mở rộng. Tuy nhiên, chương trình không bao gồm các nội dung chuyên sâu thuộc Toán học đại học hay nghiên cứu lý thuyết trừu tượng.</p>
+<p><strong>3. Triết lý giáo dục và nguyên tắc thiết kế</strong></p>
+<p><strong>3.1. Triết lý giáo dục của ZO Math</strong></p>
+<p>ZO Math quan niệm rằng Toán học là ngôn ngữ giúp con người hiểu thế giới, là công cụ rèn luyện tư duy logic và là phương tiện sáng tạo tri thức. Triết lý này chi phối cách lựa chọn nội dung, phương pháp và hình thức học tập trong toàn bộ chương trình.</p>
+<p><strong>3.2. Nguyên tắc thiết kế chương trình</strong></p>
+<p>Chương trình được xây dựng dựa trên ba nguyên tắc:</p>
+<ol type="1">
+<li><p>bảo đảm tính hệ thống và liên thông giữa các mạch nội dung;</p></li>
+<li><p>phát triển năng lực thực hành và tư duy;</p></li>
+<li><p>duy trì tính mở để có thể cập nhật và mở rộng theo sự phát triển của khoa học và công nghệ.</p></li>
+</ol>
+<p><strong>3.3. Quan điểm học tập “Làm - Soi - Học”</strong></p>
+<p>Phương châm học tập của ZO Math nhấn mạnh vào ba giai đoạn: hành động (làm), phản tư (soi), và khái quát (học). Tiến trình này giúp người học hình thành hiểu biết bền vững và khả năng tư duy độc lập.</p>
+<p><strong>4. Hệ năng lực Toán học ZO Math</strong></p>
+<p><strong>4.1. Sáu năng lực cốt lõi</strong></p>
+<p>Chương trình ZO Math xác định sáu năng lực trọng tâm cần hình thành và phát triển:</p>
+<ol type="1">
+<li><p>tư duy và lập luận Toán học;</p></li>
+<li><p>giải quyết vấn đề;</p></li>
+<li><p>mô hình hóa Toán học;</p></li>
+<li><p>giao tiếp Toán học;</p></li>
+<li><p>sử dụng công cụ và công nghệ Toán học;</p></li>
+<li><p>phân tích dữ liệu và tư duy xác suất.</p></li>
+</ol>
+<p><strong>4.2. Mối quan hệ với năng lực trong chương trình quốc gia</strong></p>
+<p>Sáu năng lực trên kế thừa năm năng lực Toán học của chương trình quốc gia 2018, đồng thời mở rộng thêm “phân tích dữ liệu và tư duy xác suất” để phù hợp với định hướng khoa học dữ liệu hiện đại.</p>
+<p><strong>4.3. Cấp độ phát triển năng lực</strong></p>
+<p>Chương trình mô tả quá trình phát triển năng lực theo ba cấp độ: người học trước hết hiểu và vận dụng khái niệm; sau đó khái quát và kết nối kiến thức; cuối cùng sáng tạo và áp dụng trong bối cảnh mới. Tiến trình này phản ánh quy luật phát triển tự nhiên của tư duy Toán học.</p>
+<p><strong>5. Cấu trúc nội dung chương trình</strong></p>
+<p><strong>5.1. Tổng quan về tám mạch kiến thức</strong></p>
+<p>Chương trình Toán ZO Math cấp Trung học phổ thông được cấu trúc theo tám mạch nội dung chính:</p>
+<ol type="1">
+<li>Số học,</li>
+<li>Đại số,</li>
+<li>Giải tích,</li>
+<li>Hình học,</li>
+<li>Toán rời rạc,</li>
+<li>Thống kê,</li>
+<li>Xác suất, và</li>
+<li>Ứng dụng Toán học.</li>
+</ol>
+<p>Mỗi mạch được coi là một lĩnh vực độc lập nhưng liên thông, phản ánh đầy đủ diện mạo của Toán học phổ thông hiện đại.</p>
+<p><strong>5.2. Khung mô tả tám mạch kiến thức</strong></p>
+<p>Mỗi mạch được trình bày theo năm phần thống nhất:</p>
+<ol type="1">
+<li><p>Định nghĩa và phạm vi khoa học;</p></li>
+<li><p>Nội dung cốt lõi của chương trình THPT;</p></li>
+<li><p>Mối quan hệ với các mạch khác;</p></li>
+<li><p>Giới hạn nội dung và năng lực hình thành;</p></li>
+<li><p>Định hướng phát triển nội dung theo ba mức độ học tập.</p></li>
+</ol>
+<p><strong>5.2.1. Mạch 1: Số học</strong></p>
+<p><strong>5.2.2. Mạch 2: Đại số</strong></p>
+<p><strong>5.2.3. Mạch 3: Giải tích</strong></p>
+<p><strong>5.2.4. Mạch 4: Hình học</strong></p>
+<p><strong>5.2.5. Mạch 5: Toán rời rạc</strong></p>
+<p><strong>5.2.6. Mạch 6: Thống kê</strong></p>
+<p><strong>5.2.7. Mạch 7: Xác suất</strong></p>
+<p><strong>5.2.8. Mạch 8: Ứng dụng Toán học</strong></p>
+<p><em>(Tám mạch trên hợp thành trung tâm nội dung học thuật của toàn bộ chương trình.)</em></p>
+<p><strong>5.3. Liên kết giữa các mạch kiến thức</strong></p>
+<p>Phần này phân tích mối liên hệ ngang (giữa các mạch cùng cấp) và dọc (phát triển qua các cấp học), qua đó làm rõ sự thống nhất nội tại của toàn bộ cấu trúc Toán học.</p>
+<p><strong>5.4. Các cấp độ triển khai nội dung chương trình</strong></p>
+<p>Chương trình Toán ZO Math được thiết kế theo hai cấp độ triển khai nhằm đảm bảo tính hệ thống, rõ ràng và khả năng áp dụng trong dạy học thực tế.</p>
+<p><strong>5.4.1. Cấp độ 1: Khung tổng thể chi tiết</strong></p>
+<p>Ở cấp độ này, mỗi mạch kiến thức được chia thành các chủ đề lớn (thường từ bốn đến sáu chủ đề), phản ánh cấu trúc nội dung của Toán học phổ thông ở cấp Trung học phổ thông.</p>
+<p>Mỗi chủ đề được trình bày bằng một mô tả ngắn gọn, xác định rõ những khái niệm trọng tâm, kỹ năng cần hình thành và loại hình hoạt động học tập chủ yếu.</p>
+<p>Ví dụ, trong mạch Giải tích, các chủ đề bao gồm: Hàm số và đồ thị, Giới hạn và liên tục, Đạo hàm và ứng dụng, Nguyên hàm - tích phân. Cấp độ này đóng vai trò như bản đồ tri thức chi tiết, định hướng cho việc thiết kế học liệu, giảng dạy và tự học.</p>
+<p><strong>5.4.2. Cấp độ 2: Chương trình học cụ thể theo lớp</strong></p>
+<p>Ở cấp độ này, nội dung của từng mạch được phân bổ theo lớp, học kỳ và chủ đề học tập, thể hiện ở ba thành tố cơ bản:</p>
+<ol type="1">
+<li>Mục tiêu học tập - xác định kiến thức, kỹ năng và năng lực cần đạt được;</li>
+<li>Nội dung học tập - mô tả chi tiết các khái niệm, định lý, phương pháp và dạng bài tập;</li>
+<li>Kết quả đầu ra - chỉ rõ yêu cầu về năng lực và sản phẩm học tập ở các mức Chuẩn, Nâng cao và Mở rộng (ZO Math).</li>
+</ol>
+<p>Ví dụ, trong “Lớp 11 - Giải tích - Chủ đề 2: Giới hạn và liên tục”, chương trình quy định các yêu cầu: hiểu và vận dụng được khái niệm giới hạn, tính được giới hạn cơ bản, xác định tính liên tục của hàm số và phân tích điểm gián đoạn.</p>
+<p>Cấp độ này hình thành bản chương trình giảng dạy hoàn chỉnh, làm cơ sở cho việc xây dựng bài giảng, đánh giá và phát triển học liệu điện tử.</p>
+<p><strong>5.5. Kết nối với các giai đoạn học tập khác</strong></p>
+<p>Trình bày sự liên thông giữa Toán THPT với Toán THCS và bậc Đại học, nhằm định hướng cho giáo viên, học sinh và người tự học hiểu rõ mạch phát triển dài hạn của Toán học.</p>
+<p><strong>6. Cấp độ học tập và tiến trình phát triển năng lực Toán học</strong></p>
+<p><strong>6.1. Ba cấp độ học tập</strong></p>
+<p>Chương trình quy định ba cấp độ tiếp cận nội dung: mức Chuẩn, mức Nâng cao và mức Mở rộng (ZO Math). Mỗi cấp độ được xác định bởi độ sâu kiến thức, mức độ tư duy và phạm vi ứng dụng.</p>
+<p><strong>6.2. Tiến trình phát triển năng lực học Toán</strong></p>
+<p>Người học được dẫn dắt qua bốn giai đoạn: hiểu khái niệm, vận dụng kiến thức, khái quát quy luật và sáng tạo trong bối cảnh mới. Việc miêu tả tiến trình này nhằm định hướng cho hoạt động dạy và học theo hướng phát triển năng lực.</p>
+<p><strong>6.3. Phân hóa đối tượng học tập</strong></p>
+<p>Phần này trình bày cơ chế để các nhóm người học khác nhau có thể học cùng một chương trình nhưng ở cấp độ phù hợp, thông qua lựa chọn nội dung, phương pháp và công cụ học tập thích hợp.</p>
+<p><strong>7. Phương pháp và hình thức học tập</strong></p>
+<p><strong>7.1. Định hướng phương pháp chung</strong></p>
+<p>Chương trình ZO Math định hướng phương pháp học tập chủ động, coi học sinh là người kiến tạo tri thức thông qua khám phá, phản tư và ứng dụng. Các phương pháp học tập trong chương này cụ thể hóa triết lý “Làm - Soi - Học”.</p>
+<p><strong>7.2. Các phương pháp học tập đặc trưng</strong></p>
+<p>Ba phương pháp chủ đạo được khuyến khích là: học thông qua khám phá vấn đề, học bằng mô phỏng và công nghệ, và học qua dự án hoặc tình huống thực tế.</p>
+<p><strong>7.3. Hình thức học tập trong cộng đồng ZO Math</strong></p>
+<p>Phần này mô tả các hình thức học tập linh hoạt như tự học có hướng dẫn, học nhóm, học mở trực tuyến, hoặc học thông qua các ứng dụng tương tác như Shiny.</p>
+<p><strong>7.4. Vai trò của người học và người hướng dẫn</strong></p>
+<p>Người học giữ vai trò trung tâm trong quá trình học tập, còn người hướng dẫn đóng vai trò cố vấn và dẫn đường học thuật. Việc hợp tác và phản hồi được coi là thành tố cốt lõi của văn hóa học tập ZO Math.</p>
+<p><strong>8. Đánh giá kết quả học tập</strong></p>
+<p><strong>8.1. Mục tiêu của đánh giá</strong></p>
+<p>Đánh giá được thực hiện nhằm ghi nhận sự tiến bộ của người học, hỗ trợ điều chỉnh quá trình học tập và không chỉ để xếp loại kết quả.</p>
+<p><strong>8.2. Hình thức đánh giá</strong></p>
+<p>Ba hình thức chính bao gồm: đánh giá thường xuyên, đánh giá định kỳ và đánh giá thông qua dự án hoặc sản phẩm học tập.</p>
+<p><strong>8.3. Tiêu chí đánh giá năng lực</strong></p>
+<p>Tiêu chí đánh giá được xây dựng gắn với sáu năng lực Toán học ZO Math, phản ánh khả năng tư duy, giải thích và vận dụng của người học thay vì chỉ kiểm tra kỹ năng tính toán.</p>
+<p>Các tiêu chí đánh giá năng lực được mô tả chi tiết trong phụ lục đánh giá đi kèm, làm cơ sở cho việc thiết kế công cụ kiểm tra và phản hồi kết quả học tập.</p>
+<p><strong>8.4. Phản hồi và tự đánh giá</strong></p>
+<p>Người học được khuyến khích tự theo dõi sự tiến bộ của mình thông qua các công cụ phản hồi và nhật ký học tập, qua đó hình thành năng lực tự điều chỉnh.</p>
+<p><strong>9. Ứng dụng công nghệ và kết nối thực tiễn</strong></p>
+<p><strong>9.1. Vai trò của công nghệ trong học Toán</strong></p>
+<p>Công nghệ được sử dụng như phương tiện trực quan hóa, mô phỏng và kiểm chứng, giúp người học hiểu sâu thay vì học thuộc lòng. Mỗi mạch nội dung đều có thể được mô phỏng bằng công cụ công nghệ tương ứng.</p>
+<p><strong>9.2. Công cụ và nền tảng khuyến nghị</strong></p>
+<p>Chương trình khuyến khích sử dụng các phần mềm như GeoGebra, Python, Excel, hoặc các mô hình Shiny để phục vụ hoạt động học tập và khám phá.</p>
+<p><strong>9.3. Tích hợp liên môn và ứng dụng thực tế</strong></p>
+<p>Phần này trình bày cách Toán học kết nối với các lĩnh vực khác như vật lý, kinh tế, sinh học, dữ liệu và công nghệ, giúp học sinh thấy được vai trò của Toán học trong đời sống.</p>
+<p><strong>10. Kết luận và định hướng phát triển</strong></p>
+<p><strong>10.1. Vai trò của chương trình trong hệ thống ZO Math</strong></p>
+<p>Chương trình Toán học cấp Trung học phổ thông được coi là trụ cột đầu tiên trong hệ sinh thái học Toán ZO Math, làm nền tảng cho các cấp độ học tập khác.</p>
+<p><strong>10.2. Tầm nhìn phát triển dài hạn</strong></p>
+<p>ZO Math hướng tới việc mở rộng chương trình xuống cấp THCS và lên bậc học cao hơn, đồng thời hình thành các khóa học ứng dụng và chuyên sâu phục vụ cộng đồng học Toán.</p>
+<p><strong>10.3. Cơ chế cập nhật và phản hồi cộng đồng</strong></p>
+<p>Chương trình được duy trì ở dạng mở, cho phép cập nhật định kỳ dựa trên phản hồi của người học, giáo viên và nhà nghiên cứu trong cộng đồng ZO Math.</p>
+<p><strong>10.4. Kết luận chung</strong></p>
+<p>Phần kết luận tổng hợp giá trị cốt lõi của chương trình: hệ thống - mở - phát triển năng lực, nhấn mạnh sứ mệnh của ZO Math là thắp sáng tinh thần học Toán suốt đời.</p>
+<hr>
+</section>
+<section id="giới-thiệu-chung" class="level1">
+<h1>1. Giới thiệu chung</h1>
+<section id="mục-đích-của-tài-liệu" class="level2">
+<h2 class="anchored" data-anchor-id="mục-đích-của-tài-liệu"><strong>1.1. Mục đích của tài liệu</strong></h2>
+<p><strong>ZO Math: Chương trình Toán học cấp Trung học phổ thông</strong> được biên soạn nhằm xác lập <strong>khung định hướng học tập, giảng dạy và tự học môn Toán</strong> trong <em>Cộng đồng học Toán ZO Math</em>. Tài liệu này là nền tảng cho việc thiết kế, phát triển và điều phối thống nhất các hoạt động học – dạy – nghiên cứu trong hệ sinh thái ZO Math.</p>
+<p>Bên cạnh việc xác định mục tiêu, nội dung và năng lực cần đạt, tài liệu còn đóng vai trò <strong>bản chuẩn định hướng</strong> cho việc xây dựng học liệu, thiết kế hoạt động học tập trực tuyến, các ứng dụng tương tác Shiny, và các khóa học ứng dụng mở rộng trong tương lai.</p>
+</section>
+<section id="cơ-sở-hình-thành-chương-trình" class="level2">
+<h2 class="anchored" data-anchor-id="cơ-sở-hình-thành-chương-trình"><strong>1.2. Cơ sở hình thành chương trình</strong></h2>
+<p>Chương trình được xây dựng dựa trên <strong>các chương trình Toán học quốc gia hiện hành</strong>, cùng các <strong>khung chương trình quốc tế uy tín</strong> như PISA, Singapore Math và Common Core. Việc đối chiếu này bảo đảm tính hiện đại, tính liên thông và khả năng hội nhập quốc tế của ZO Math.</p>
+<p><strong>Chú thích.</strong> Thuật ngữ <em>các chương trình Toán học quốc gia hiện hành</em> trong tài liệu này được hiểu là toàn bộ hệ thống chương trình giáo dục môn Toán do Bộ Giáo dục và Đào tạo Việt Nam ban hành, bao gồm <strong>chương trình dành cho tất cả học sinh</strong> và <strong>chương trình nâng cao bồi dưỡng học sinh xuất sắc</strong>, ở các phiên bản được cập nhật theo từng giai đoạn.</p>
+<p><em>(Tại thời điểm thiết kế chương trình này, về mặt tham chiếu học thuật, ZO Math đối chiếu trực tiếp với <strong>Chương trình Giáo dục phổ thông môn Toán</strong> ban hành kèm theo Thông tư số 32/2018/TT-BGDĐT ngày 26 tháng 12 năm 2018, và <strong>Chương trình Giáo dục nâng cao môn Toán trong trường THPT chuyên</strong> ban hành kèm theo Thông tư số 22/2025/TT-BGDĐT ngày 30 tháng 9 năm 2025.)</em></p>
+</section>
+<section id="đối-tượng-áp-dụng" class="level2">
+<h2 class="anchored" data-anchor-id="đối-tượng-áp-dụng"><strong>1.3. Đối tượng áp dụng</strong></h2>
+<p>Chương trình được thiết kế cho <strong>năm nhóm người học chính</strong> trong Cộng đồng ZO Math:</p>
+<ol type="1">
+<li><strong>Học sinh phổ thông đại trà</strong> – hướng tới việc đạt chuẩn kiến thức và kỹ năng theo yêu cầu chung.</li>
+<li><strong>Học sinh có năng khiếu hoặc yêu thích Toán học</strong> – được bồi dưỡng năng lực sáng tạo và tư duy nghiên cứu.</li>
+<li><strong>Người tự học hoặc học lại Toán</strong> – có lộ trình cá nhân để củng cố và phát triển kiến thức.</li>
+<li><strong>Giáo viên và người làm công tác giảng dạy Toán</strong> – sử dụng chương trình như nguồn tham chiếu và hệ thống hỗ trợ giảng dạy.</li>
+<li><strong>Người yêu Toán nói chung</strong> – có không gian trao đổi, khám phá và mở rộng hiểu biết Toán học.</li>
+</ol>
+<p>Việc mở rộng phạm vi đối tượng giúp chương trình vừa <strong>đáp ứng yêu cầu phổ cập</strong>, vừa <strong>phục vụ nhu cầu học tập suốt đời</strong>, phù hợp với sứ mệnh xây dựng một cộng đồng học Toán mở, liên thông và sáng tạo.</p>
+</section>
+</section>
+<section id="cấu-trúc-nội-dung-chương-trình" class="level1">
+<h1>5. Cấu trúc nội dung chương trình</h1>
+<section id="tổng-quan-về-tám-mạch-kiến-thức" class="level2">
+<h2 class="anchored" data-anchor-id="tổng-quan-về-tám-mạch-kiến-thức">5.1. Tổng quan về tám mạch kiến thức</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 2%">
+<col style="width: 6%">
+<col style="width: 28%">
+<col style="width: 37%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>STT</strong></th>
+<th style="text-align: left;"><strong>Tên mạch</strong></th>
+<th style="text-align: left;"><strong>Vai trò khái quát</strong></th>
+<th style="text-align: left;"><strong>Phạm vi khoa học &amp; nội dung cốt lõi</strong></th>
+<th style="text-align: left;"><strong>Năng lực hình thành chủ đạo</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>1</strong></td>
+<td style="text-align: left;"><strong>Số học</strong></td>
+<td style="text-align: left;">Nền tảng của các khái niệm số, phép tính và cấu trúc đại số sơ cấp.</td>
+<td style="text-align: left;">Nghiên cứu các hệ số, phép chia hết, đồng dư, ước chung - bội chung, căn bậc, số nguyên tố, và quy luật tính toán.</td>
+<td style="text-align: left;">Tư duy tính toán, khái quát hóa số học, chính xác và cẩn trọng trong lập luận.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>2</strong></td>
+<td style="text-align: left;"><strong>Đại số</strong></td>
+<td style="text-align: left;">Ngôn ngữ ký hiệu của Toán học, công cụ biểu diễn và khái quát hóa quy luật.</td>
+<td style="text-align: left;">Biểu thức, phương trình - bất phương trình, hệ phương trình, hàm số, biến đổi và biểu diễn đại số.</td>
+<td style="text-align: left;">Năng lực biểu diễn, suy luận ký hiệu, khái quát hóa và biến đổi biểu thức.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: left;"><strong>Giải tích</strong></td>
+<td style="text-align: left;">Hệ thống hóa các khái niệm giới hạn, đạo hàm, tích phân; mô tả và phân tích biến thiên.</td>
+<td style="text-align: left;">Giới hạn, liên tục, đạo hàm, vi phân, cực trị, tích phân và ứng dụng mô hình hóa quá trình biến đổi.</td>
+<td style="text-align: left;">Năng lực phân tích biến thiên, tư duy hàm số và mô hình hóa liên tục.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>4</strong></td>
+<td style="text-align: left;"><strong>Hình học</strong></td>
+<td style="text-align: left;">Mô tả không gian, hình dạng và quan hệ vị trí; phát triển tư duy trực quan.</td>
+<td style="text-align: left;">Hình phẳng, véc-tơ, tọa độ, hình không gian, phép biến hình, và ứng dụng trong kỹ thuật.</td>
+<td style="text-align: left;">Tưởng tượng không gian, chứng minh hình học, mô hình hóa bằng hình và tọa độ.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>5</strong></td>
+<td style="text-align: left;"><strong>Toán rời rạc</strong></td>
+<td style="text-align: left;">Nghiên cứu cấu trúc không liên tục và tư duy thuật toán.</td>
+<td style="text-align: left;">Tổ hợp, nguyên lý Dirichlet, logic mệnh đề, đồ thị, cây, hệ đếm và mã hóa thông tin.</td>
+<td style="text-align: left;">Suy luận logic, tư duy cấu trúc, tổ chức và mô hình hóa rời rạc.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>6</strong></td>
+<td style="text-align: left;"><strong>Thống kê</strong></td>
+<td style="text-align: left;">Phân tích, mô tả và diễn giải dữ liệu thực tế.</td>
+<td style="text-align: left;">Thu thập, phân loại dữ liệu; chỉ số thống kê mô tả; phân bố tần suất; mối liên hệ hai biến; dự án dữ liệu.</td>
+<td style="text-align: left;">Năng lực dữ liệu: thu thập, mô tả, so sánh, phản biện và diễn giải.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>7</strong></td>
+<td style="text-align: left;"><strong>Xác suất</strong></td>
+<td style="text-align: left;">Nghiên cứu quy luật của ngẫu nhiên và dự đoán khả năng xảy ra.</td>
+<td style="text-align: left;">Biến cố, xác suất cổ điển, độc lập, có điều kiện, biến ngẫu nhiên rời rạc, kỳ vọng, mô phỏng ngẫu nhiên.</td>
+<td style="text-align: left;">Mô hình hóa ngẫu nhiên, suy luận xác suất, tư duy dự đoán và ra quyết định.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>8</strong></td>
+<td style="text-align: left;"><strong>Ứng dụng Toán học</strong></td>
+<td style="text-align: left;">Hội tụ và tổng hợp Toán học vào thực tiễn đời sống, khoa học, công nghệ.</td>
+<td style="text-align: left;">Quy trình mô hình hóa, sử dụng công cụ Toán học, ứng dụng theo lĩnh vực, dự án thực hành và công nghệ số.</td>
+<td style="text-align: left;">Năng lực mô hình hóa, giải quyết vấn đề, phản biện và giao tiếp Toán học.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="khung-mô-tả-tám-mạch-kiến-thức" class="level2">
+<h2 class="anchored" data-anchor-id="khung-mô-tả-tám-mạch-kiến-thức">5.2. Khung mô tả tám mạch kiến thức</h2>
+<section id="mạch-1-số-học" class="level3">
+<h3 class="anchored" data-anchor-id="mạch-1-số-học">5.2.1. Mạch 1: Số học</h3>
+<section id="định-nghĩa-và-phạm-vi-khoa-học" class="level4">
+<h4 class="anchored" data-anchor-id="định-nghĩa-và-phạm-vi-khoa-học">Định nghĩa và phạm vi khoa học</h4>
+<p><em>Số học</em> là ngành của Toán học nghiên cứu <em>các con số, phép tính và các quy luật chi phối chúng</em>. Từ những phép đếm ban đầu, con người đã hình thành hệ thống các loại số như số tự nhiên, số nguyên, số hữu tỉ, số thực và số phức - tạo nên nền tảng cho toàn bộ Toán học.</p>
+<p>Số học không chỉ quan tâm đến cách tính toán, mà còn tìm hiểu <em>bản chất và cấu trúc của các quan hệ giữa các số</em>, như chia hết, đồng dư hay ước chung - bội chung.</p>
+<p>Ở cấp trung học phổ thông, mạch <em>Số học</em> giúp học sinh củng cố và mở rộng những hiểu biết cơ bản về hệ thống số đã học ở các cấp dưới, đồng thời khám phá sâu hơn <em>cấu trúc đại số tiềm ẩn trong tập hợp các số</em>. Học sinh được rèn luyện khả năng <em>tư duy quy luật, phân tích cấu trúc và chứng minh bằng lập luận suy diễn</em>, chuẩn bị cho việc tiếp cận các lĩnh vực khác như Đại số, Giải tích và Toán rời rạc.</p>
+</section>
+<section id="nội-dung-cốt-lõi" class="level4">
+<h4 class="anchored" data-anchor-id="nội-dung-cốt-lõi">Nội dung cốt lõi</h4>
+<p>Trong chương trình ZO Math, mạch <em>Số học</em> ở cấp THPT bao gồm các nhóm nội dung sau:</p>
+<section id="hệ-thống-số" class="level5">
+<h5 class="anchored" data-anchor-id="hệ-thống-số"><strong>(1) Hệ thống số</strong></h5>
+<p>Học sinh ôn tập và khái quát hóa các loại số quen thuộc, nhận biết mối liên hệ giữa chúng trong sơ đồ mở rộng: <span class="math inline">\(\mathbb{N} \subset \mathbb{Z} \subset \mathbb{Q} \subset \mathbb{R} \subset \mathbb{C}\)</span>. Các em hiểu ý nghĩa của sự mở rộng này, vai trò của từng tập hợp trong biểu diễn và tính toán, cũng như giới thiệu sơ bộ về số vô tỉ, số phức và giá trị tuyệt đối.</p>
+</section>
+<section id="quan-hệ-chia-hết-và-đồng-dư" class="level5">
+<h5 class="anchored" data-anchor-id="quan-hệ-chia-hết-và-đồng-dư"><strong>(2) Quan hệ chia hết và đồng dư</strong></h5>
+<p>Học sinh được học các khái niệm chia hết, ước, bội, ước chung lớn nhất, bội chung nhỏ nhất; biết cách sử dụng các thuật toán chia và tính ước chung bằng phương pháp Euclid. Khái niệm <em>đồng dư</em> được giới thiệu như một mở rộng tự nhiên của quan hệ chia hết, qua đó học sinh hiểu được ứng dụng của đồng dư trong mã hóa, kiểm tra chia hết và giải phương trình trong số nguyên.</p>
+</section>
+<section id="số-nguyên-tố-và-phân-tích-thừa-số" class="level5">
+<h5 class="anchored" data-anchor-id="số-nguyên-tố-và-phân-tích-thừa-số"><strong>(3) Số nguyên tố và phân tích thừa số</strong></h5>
+<p>Học sinh nhận biết số nguyên tố, định lý cơ bản của số học về phân tích một số nguyên dương thành tích các thừa số nguyên tố, và hiểu ý nghĩa của định lý này trong việc giải bài toán chia hết, bội chung và cấu trúc của tập hợp số nguyên.</p>
+</section>
+<section id="phương-trình-diophantine-cơ-bản" class="level5">
+<h5 class="anchored" data-anchor-id="phương-trình-diophantine-cơ-bản"><strong>(4) Phương trình Diophantine cơ bản</strong></h5>
+<p>Học sinh được làm quen với khái niệm phương trình Diophantine, tức là các phương trình có nghiệm nguyên. Các em học cách giải các phương trình đơn giản dạng <span class="math inline">\(ax+by=c\)</span> bằng phương pháp Euclid mở rộng, hiểu điều kiện có nghiệm và mối liên hệ giữa nghiệm, ước chung và quan hệ đồng dư. Thông qua đó, học sinh nhận ra cách Số học biểu diễn và phân tích các quan hệ giữa số nguyên, đồng thời thấy được ứng dụng của các kết quả này trong mã hóa và các bài toán tối ưu hóa đơn giản.</p>
+</section>
+<section id="cấp-số-và-dãy-vô-hạn-đơn-giản" class="level5">
+<h5 class="anchored" data-anchor-id="cấp-số-và-dãy-vô-hạn-đơn-giản"><strong>(5) Cấp số và dãy vô hạn đơn giản</strong></h5>
+<p>Học sinh học cách mô tả các dãy số theo quy luật cho trước (cấp số cộng, cấp số nhân), biết tính tổng <span class="math inline">\(n\)</span> số hạng đầu và sử dụng các biểu thức này để mô hình hóa những bài toán thực tế như gửi tiết kiệm hoặc tăng trưởng dân số.</p>
+</section>
+<section id="các-biểu-diễn-và-hệ-đếm" class="level5">
+<h5 class="anchored" data-anchor-id="các-biểu-diễn-và-hệ-đếm"><strong>(6) Các biểu diễn và hệ đếm</strong></h5>
+<p>Học sinh được làm quen với cách biểu diễn số trong các hệ cơ số khác nhau, đặc biệt là cơ số 10, 2 và 16, hiểu cơ chế chuyển đổi giữa các hệ và vai trò của chúng trong khoa học dữ liệu và công nghệ thông tin.</p>
+<p>Phạm vi của mạch <em>Số học</em> ở THPT không bao gồm các nội dung chuyên sâu như lý thuyết số đại số, hàm số học hay các định lý nâng cao về số nguyên tố; thay vào đó, chương trình tập trung vào <em>bản chất cấu trúc và quy luật tính toán</em>, hướng tới sự hiểu biết sâu nhưng vững chắc.</p>
+</section>
+</section>
+<section id="mối-quan-hệ-với-các-mạch-khác" class="level4">
+<h4 class="anchored" data-anchor-id="mối-quan-hệ-với-các-mạch-khác">Mối quan hệ với các mạch khác</h4>
+<p>Số học là nền tảng của hầu hết các mạch trong chương trình ZO Math. Các phép biến đổi đại số đều bắt nguồn từ quy tắc tính toán của số học, và những tính chất của số nguyên là điểm xuất phát của các khái niệm trong Đại số. Trong Giải tích, khái niệm giới hạn và liên tục được phát triển từ việc hiểu sâu hơn các dãy số và giá trị thực. Mạch Toán rời rạc cũng dựa vào quan hệ chia hết và đồng dư trong các bài toán mã hóa và tổ hợp. Thống kê và Xác suất dựa trên năng lực tính toán và biểu diễn số liệu, vốn được rèn luyện từ Số học.</p>
+<p>Như vậy, <em>Số học</em> vừa là <em>nền tảng logic</em> vừa là <em>nguồn ngôn ngữ chung</em> của toàn bộ chương trình Toán học phổ thông.</p>
+</section>
+<section id="giới-hạn-nội-dung-và-năng-lực-hình-thành" class="level4">
+<h4 class="anchored" data-anchor-id="giới-hạn-nội-dung-và-năng-lực-hình-thành">Giới hạn nội dung và năng lực hình thành</h4>
+<p>Mạch <em>Số học</em> trong chương trình THPT giới hạn ở phạm vi hữu hạn và cụ thể, không bao gồm các chủ đề mang tính lý thuyết cao như đồng dư bậc cao, hàm số học hay định lý Fermat nhỏ. Tuy nhiên, trong giới hạn ấy, học sinh được hình thành và phát triển các năng lực quan trọng:</p>
+<section id="năng-lực-tư-duy-quy-luật" class="level5">
+<h5 class="anchored" data-anchor-id="năng-lực-tư-duy-quy-luật"><strong>Năng lực tư duy quy luật</strong></h5>
+<p>Biết nhận ra, mô tả và chứng minh các quy luật số học.</p>
+</section>
+<section id="năng-lực-thao-tác-biểu-thức-số" class="level5">
+<h5 class="anchored" data-anchor-id="năng-lực-thao-tác-biểu-thức-số"><strong>Năng lực thao tác biểu thức số</strong></h5>
+<p>Biết chuyển đổi, tính toán và rút gọn chính xác các biểu thức chứa nhiều lớp phép toán.</p>
+</section>
+<section id="năng-lực-suy-luận" class="level5">
+<h5 class="anchored" data-anchor-id="năng-lực-suy-luận"><strong>Năng lực suy luận</strong></h5>
+<p>Biết sử dụng lập luận logic, chứng minh phản chứng, hoặc quy nạp trong các bài toán số học.</p>
+</section>
+<section id="năng-lực-mô-hình-hóa" class="level5">
+<h5 class="anchored" data-anchor-id="năng-lực-mô-hình-hóa"><strong>Năng lực mô hình hóa</strong></h5>
+<p>Biết biểu diễn các tình huống thực tế bằng dãy số, công thức hay hệ thức số học.</p>
+</section>
+</section>
+<section id="định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập" class="level4">
+<h4 class="anchored" data-anchor-id="định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập">Định hướng phát triển nội dung theo ba mức độ học tập</h4>
+<p>Trong chương trình ZO Math, nội dung Số học được phát triển theo ba mức độ phù hợp với năng lực của học sinh.</p>
+<section id="chuẩn" class="level5">
+<h5 class="anchored" data-anchor-id="chuẩn"><strong>Chuẩn</strong></h5>
+<p>Học sinh nắm vững các phép tính cơ bản, hiểu khái niệm chia hết, đồng dư, ước - bội, và vận dụng được các công thức tính tổng cấp số.</p>
+</section>
+<section id="nâng-cao" class="level5">
+<h5 class="anchored" data-anchor-id="nâng-cao"><strong>Nâng cao</strong></h5>
+<p>Học sinh mở rộng kiến thức sang các tính chất của số nguyên tố, sử dụng được phương pháp Euclid và đồng dư để giải quyết các bài toán số học có ràng buộc.</p>
+</section>
+<section id="mở-rộng" class="level5">
+<h5 class="anchored" data-anchor-id="mở-rộng"><strong>Mở rộng</strong></h5>
+<p>Học sinh được tiếp cận tư duy số học hiện đại: khám phá ứng dụng của đồng dư trong mã hóa thông tin, tìm hiểu mối quan hệ giữa cấp số và hàm số, cũng như phát hiện các quy luật số học trong dữ liệu thực tế.</p>
+<p>Ba mức độ này giúp học sinh không chỉ tính toán thành thạo, mà còn <em>hiểu sâu bản chất của con số, tư duy theo quy luật, và ứng dụng Toán học vào những tình huống đời sống có ý nghĩa</em>.</p>
+<blockquote class="blockquote">
+<p><strong>Tóm tắt.</strong> <em>Số học</em> là mạch kiến thức nền tảng của Chương trình Toán học cấp THPT của ZO Math. Mạch này giúp học sinh hiểu bản chất và quy luật của các con số, phát triển năng lực tư duy luận lý, lập luận và mô hình hóa, đồng thời tạo nền tảng cho việc học Đại số, Giải tích, Xác suất và các lĩnh vực ứng dụng của Toán học.</p>
+</blockquote>
+</section>
+</section>
+</section>
+<section id="mạch-2-đại-số" class="level3">
+<h3 class="anchored" data-anchor-id="mạch-2-đại-số">5.2.2. Mạch 2: Đại số</h3>
+<section id="định-nghĩa-và-phạm-vi-khoa-học-1" class="level4">
+<h4 class="anchored" data-anchor-id="định-nghĩa-và-phạm-vi-khoa-học-1">1. Định nghĩa và phạm vi khoa học</h4>
+<p><em>Đại số</em> là ngành của Toán học nghiên cứu các đại lượng thông qua <em>ký hiệu</em> và <em>quy tắc biến đổi</em>. Đại số cho phép ta biểu diễn quan hệ giữa các đại lượng bằng <em>biểu thức</em>, <em>phương trình</em>, <em>bất phương trình</em> và <em>hệ</em> tương ứng.</p>
+<p>Ở cấp THPT, mạch Đại số hướng tới việc giúp học sinh hiểu bản chất của <em>biến số</em>, làm chủ <em>biến đổi biểu thức</em>, giải <em>phương trình/bất phương trình/hệ</em> phổ thông, và sử dụng <em>hàm số</em> như một cách mô tả quan hệ giữa các đại lượng. Đại số ở đây đóng vai trò <em>ngôn ngữ chung</em>, chuẩn bị trực tiếp cho Giải tích và Hình học giải tích.</p>
+</section>
+<section id="nội-dung-cốt-lõi-1" class="level4">
+<h4 class="anchored" data-anchor-id="nội-dung-cốt-lõi-1">2. Nội dung cốt lõi</h4>
+<section id="biểu-thức-đại-số-và-phép-biến-đổi" class="level5">
+<h5 class="anchored" data-anchor-id="biểu-thức-đại-số-và-phép-biến-đổi">Biểu thức đại số và phép biến đổi</h5>
+<p>Học sinh học cách viết và đọc biểu thức có biến; thực hiện rút gọn, khai triển, phân tích nhân tử; làm chủ các phép toán với <em>phân thức đại số</em> (quy đồng, rút gọn, cộng trừ nhân chia). Mục tiêu là biến đổi biểu thức <em>đúng quy tắc</em> và <em>có chủ đích</em>.</p>
+</section>
+<section id="phương-trình-và-hệ-phương-trình" class="level5">
+<h5 class="anchored" data-anchor-id="phương-trình-và-hệ-phương-trình">Phương trình và hệ phương trình</h5>
+<p>Học sinh củng cố và mở rộng phương pháp giải các phương trình thường gặp: bậc nhất, bậc hai, phương trình quy về bậc hai, phương trình chứa căn ở mức phổ thông, phương trình mũ, phương trình lô-ga cơ bản (ở mức thao tác biến đổi). Học sinh biết ý nghĩa của “nghiệm”, kiểm tra nghiệm, và ý tưởng giải <em>hệ phương trình</em> bằng thế, cộng, hoặc lập luận đại số đơn giản.</p>
+</section>
+<section id="bất-đẳng-thức-bất-phương-trình-và-hệ-bất-phương-trình" class="level5">
+<h5 class="anchored" data-anchor-id="bất-đẳng-thức-bất-phương-trình-và-hệ-bất-phương-trình">Bất đẳng thức, bất phương trình và hệ bất phương trình</h5>
+<p>Học sinh nắm các quy tắc so sánh, hiểu khi nào được nhân chia với số âm, biểu diễn miền nghiệm của bất phương trình một ẩn trên trục số, và giải một số <em>hệ bất phương trình hai ẩn</em> bằng minh họa hình học đơn giản. Ở mức phù hợp, học sinh làm quen với một số <em>bất đẳng thức cơ bản</em> (ví dụ AM-GM ở mức áp dụng).</p>
+</section>
+<section id="hàm-số-và-đồ-thị-của-hàm-số-mức-đại-số" class="level5">
+<h5 class="anchored" data-anchor-id="hàm-số-và-đồ-thị-của-hàm-số-mức-đại-số">Hàm số và đồ thị của hàm số (mức đại số)</h5>
+<p>Học sinh hiểu khái niệm hàm số như một quy tắc gán từ tập xác định sang tập giá trị; nhận biết <em>miền xác định</em>, <em>giá trị</em>, <em>tính đơn điệu</em> ở mức sử dụng quy tắc đại số. Học sinh vẽ và đọc <em>đồ thị của các hàm số thường gặp</em> trong chương trình phổ thông như bậc nhất, bậc hai, đa thức bậc thấp, phân thức, mũ và logarit. Việc <em>khảo sát chi tiết bằng giới hạn-đạo hàm</em> thuộc mạch Giải tích; ở đây ta giới hạn ở mức đại số và hình học cơ bản.</p>
+</section>
+<section id="đa-thức-và-số-phức-ở-mức-phổ-thông" class="level5">
+<h5 class="anchored" data-anchor-id="đa-thức-và-số-phức-ở-mức-phổ-thông">Đa thức và số phức ở mức phổ thông</h5>
+<p>Học sinh làm việc với <em>đa thức</em>: bậc, nghiệm, hệ số; chia đa thức; hệ thức Viète (mức áp dụng). Học sinh làm quen với <em>số phức cơ bản</em>: dạng <span class="math inline">\(a+bi\)</span>, mô-đun, phép cộng-nhân, liên hệ giữa nghiệm phương trình bậc hai và số phức. Nội dung dừng ở <em>mức công cụ</em> phục vụ giải phương trình và đọc cấu trúc nghiệm.</p>
+<blockquote class="blockquote">
+<p>Ghi chú phạm vi: các nội dung <em>cấu trúc đại số trừu tượng</em> (nhóm, vành, trường) và <em>đại số tuyến tính đầy đủ</em> không thuộc chương trình THPT của mạch này.</p>
+</blockquote>
+</section>
+</section>
+<section id="mối-quan-hệ-với-các-mạch-khác-1" class="level4">
+<h4 class="anchored" data-anchor-id="mối-quan-hệ-với-các-mạch-khác-1">3. Mối quan hệ với các mạch khác</h4>
+<ul>
+<li>Với <em>Số học</em>: các quy tắc tính và quan hệ chia hết-đồng dư là nền cho ngôn ngữ và phép biến đổi đại số.</li>
+<li>Với <em>Giải tích</em>: Đại số cung cấp ký hiệu và phép biến đổi để nghiên cứu biến thiên liên tục; nhiều bài toán Giải tích bắt đầu từ biểu thức đại số.</li>
+<li>Với <em>Hình học</em>: nhiều bài toán hình học có thể chuyển về <em>phương trình/bất phương trình</em> trong hệ tọa độ, tạo nên <em>Hình học giải tích</em>.</li>
+<li>Với <em>Toán rời rạc</em>: Đại số hỗ trợ diễn đạt các công thức đếm, thiết lập quan hệ giữa các biến trong bài toán tổ hợp.</li>
+<li>Với <em>Thống kê và Xác suất</em>: Đại số hỗ trợ biến đổi công thức, xử lý ký hiệu và mô tả mối quan hệ đại lượng trong mô hình.</li>
+</ul>
+<p>Nhờ những liên hệ này, Đại số hoạt động như <em>ngôn ngữ trung tâm</em> kết nối các mạch, giúp các mạch khác diễn đạt và giải quyết vấn đề một cách chuẩn xác.</p>
+</section>
+<section id="giới-hạn-nội-dung-và-năng-lực-hình-thành-1" class="level4">
+<h4 class="anchored" data-anchor-id="giới-hạn-nội-dung-và-năng-lực-hình-thành-1">4. Giới hạn nội dung và năng lực hình thành</h4>
+<section id="giới-hạn-nội-dung" class="level5">
+<h5 class="anchored" data-anchor-id="giới-hạn-nội-dung">Giới hạn nội dung</h5>
+<p>Mạch Đại số ở THPT <em>không</em> đi vào lý thuyết trừu tượng (nhóm, vành, trường), <em>không</em> yêu cầu phương pháp ma trận bậc cao, <em>không</em> khảo sát hàm bằng đạo hàm hay giới hạn (việc này thuộc Giải tích).</p>
+</section>
+<section id="năng-lực-hình-thành" class="level5">
+<h5 class="anchored" data-anchor-id="năng-lực-hình-thành">Năng lực hình thành</h5>
+<ul>
+<li><em>Biểu diễn ký hiệu:</em> học sinh diễn tả quan hệ bằng biến, biểu thức, phương trình/hệ; viết đúng và đủ điều kiện xác định.</li>
+<li><em>Biến đổi có chiến lược:</em> học sinh chọn và thực hiện chuỗi biến đổi <em>hợp lý</em> để rút gọn, giải phương trình/bất phương trình.</li>
+<li><em>Suy luận đại số:</em> học sinh dùng quy tắc, đẳng thức, bất đẳng thức để giải thích và chứng minh ở mức phổ thông.</li>
+<li><em>Mô hình hóa bằng đại số:</em> học sinh chuyển tình huống thực tế thành phương trình/hệ, giải và <em>diễn giải ý nghĩa</em> của nghiệm.</li>
+</ul>
+</section>
+</section>
+<section id="định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-1" class="level4">
+<h4 class="anchored" data-anchor-id="định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-1">5. Định hướng phát triển nội dung theo ba mức độ học tập</h4>
+<section id="chuẩn-1" class="level5">
+<h5 class="anchored" data-anchor-id="chuẩn-1">Chuẩn</h5>
+<p>Học sinh làm chủ biến đổi biểu thức thường gặp; giải vững <em>phương trình/bất phương trình</em> cơ bản; vẽ và đọc <em>đồ thị hàm số</em> ở mức đại số (không dùng đạo hàm).</p>
+</section>
+<section id="nâng-cao-1" class="level5">
+<h5 class="anchored" data-anchor-id="nâng-cao-1">Nâng cao</h5>
+<ul>
+<li>** Học sinh xử lý <em>bài toán tham số vừa</em>, hệ phương trình có nhiều cách tiếp cận; áp dụng <em>bất đẳng thức cơ bản</em> và kỹ thuật biến đổi tinh gọn; hiểu sâu mối liên hệ giữa công thức và hình dạng đồ thị.</li>
+</ul>
+</section>
+<section id="mở-rộng-1" class="level5">
+<h5 class="anchored" data-anchor-id="mở-rộng-1">Mở rộng</h5>
+<p>Học sinh mô hình hóa các tình huống thực (chi phí-doanh thu, tốc độ-quãng đường ở mức đại số); sử dụng <em>công cụ số</em> (máy tính, phần mềm đồ thị) để kiểm tra, khám phá và diễn giải kết quả; kết nối sang Giải tích khi cần, nhưng <em>không</em> thay thế nội dung của mạch Giải tích.</p>
+<blockquote class="blockquote">
+<p><strong>Tóm tắt.</strong> Đại số trong ZO Math THPT là <em>ngôn ngữ ký hiệu</em> của chương trình: học sinh biểu diễn quan hệ bằng biến, biến đổi có chiến lược, giải phương trình/bất phương trình/hệ và sử dụng hàm số cùng đồ thị của chúng ở mức đại số. Mạch này tạo nền vững chắc để bước sang Giải tích, Hình học giải tích, Thống kê-Xác suất và các ứng dụng thực tế.</p>
+</blockquote>
+</section>
+</section>
+</section>
+<section id="mạch-3-giải-tích" class="level3">
+<h3 class="anchored" data-anchor-id="mạch-3-giải-tích">5.2.3 Mạch 3: Giải tích</h3>
+</section>
+</section>
+<section id="định-nghĩa-và-phạm-vi-khoa-học-của-mạch" class="level2">
+<h2 class="anchored" data-anchor-id="định-nghĩa-và-phạm-vi-khoa-học-của-mạch">1. Định nghĩa và phạm vi khoa học của mạch</h2>
+<p><strong>Giải tích</strong> là ngành của Toán học nghiên cứu <strong>sự biến thiên và liên tục của các đại lượng</strong>. Nếu Đại số xem xét các mối quan hệ cố định giữa các đại lượng, thì Giải tích quan tâm đến <strong>sự thay đổi</strong> của chúng - cách một đại lượng phụ thuộc vào đại lượng khác và diễn biến của mối quan hệ đó trong không gian liên tục.</p>
+<p>Giải tích gồm hai lĩnh vực cốt lõi: <strong>vi phân học</strong> (nghiên cứu tốc độ thay đổi, cực trị, tiếp tuyến) và <strong>tích phân học</strong> (nghiên cứu diện tích, thể tích, và tổng cộng vô hạn). Ở cấp trung học phổ thông, mạch Giải tích giúp học sinh hình thành tư duy <strong>biến thiên liên tục</strong>, hiểu sâu hơn về <strong>khái niệm hàm số</strong>, <strong>giới hạn</strong>, <strong>đạo hàm</strong>, <strong>tích phân</strong>, và biết vận dụng chúng để mô tả, phân tích các hiện tượng tự nhiên, kinh tế, kỹ thuật.</p>
+</section>
+<section id="nội-dung-cốt-lõi-của-chương-trình-thpt" class="level2">
+<h2 class="anchored" data-anchor-id="nội-dung-cốt-lõi-của-chương-trình-thpt">2. Nội dung cốt lõi của chương trình THPT</h2>
+<p><strong>(1) Giới hạn và tính liên tục.</strong> Học sinh được làm quen với khái niệm giới hạn của dãy số và hàm số thông qua trực quan đồ thị và quy tắc đại số. Các em hiểu ý nghĩa của giới hạn như biểu hiện của “tiến gần vô tận”, học cách xác định giới hạn hữu hạn và vô cực, và nhận biết khái niệm <strong>liên tục</strong> tại một điểm hoặc trên một khoảng. Phần này tạo nền tảng lý thuyết cho toàn bộ phần đạo hàm và tích phân.</p>
+<p><strong>(2) Đạo hàm và ý nghĩa hình học.</strong> Học sinh được học định nghĩa đạo hàm của hàm số một biến, quy tắc tính đạo hàm (cộng, nhân, chia, hợp), và mối liên hệ giữa đạo hàm và hệ số góc của tiếp tuyến tại một điểm. Các em hiểu rằng đạo hàm mô tả tốc độ thay đổi tức thời của hàm số, là công cụ chính để <strong>nghiên cứu tính đơn điệu, cực trị và tiệm cận của đồ thị</strong>. Việc khảo sát hàm số bằng đạo hàm giúp học sinh nắm được phương pháp phân tích biến thiên và hình dáng đồ thị, từ đó rèn luyện khả năng diễn giải hiện tượng toán học dưới dạng hình học.</p>
+<p><strong>(3) Tích phân và ý nghĩa hình học.</strong> Học sinh được học khái niệm nguyên hàm, định nghĩa tích phân xác định và các quy tắc cơ bản để tính tích phân. Các em hiểu mối quan hệ giữa đạo hàm và tích phân (định lý cơ bản của Giải tích), biết rằng tích phân có thể biểu diễn diện tích hình phẳng giới hạn bởi đồ thị và trục tọa độ, hoặc được dùng để mô hình hóa tổng cộng liên tục của đại lượng thay đổi.</p>
+<p><strong>(4) Ứng dụng của đạo hàm và tích phân.</strong> Phần này giúp học sinh vận dụng đạo hàm để tìm cực trị, khảo sát và vẽ đồ thị hàm số; dùng tích phân để tính diện tích, thể tích và bài toán thực tế đơn giản (ví dụ tính quãng đường, năng suất, chi phí). Qua đó, học sinh nhận thấy Giải tích không chỉ là phép tính trừu tượng mà còn là <strong>công cụ mô tả và tối ưu hóa các hiện tượng tự nhiên và xã hội</strong>.</p>
+<p><strong>(5) Dãy số, chuỗi và khái niệm mở rộng.</strong> Học sinh được giới thiệu khái niệm dãy số hội tụ, công thức tính giới hạn của dãy, và ý niệm tổng vô hạn ở mức nhập môn. Mục tiêu là giúp học sinh hiểu được mối liên hệ giữa dãy, hàm và khái niệm giới hạn trong toàn bộ tư duy Giải tích.</p>
+<p>Phạm vi nội dung của mạch <em>Giải tích</em> ở THPT dừng ở mức một biến; các chủ đề về đạo hàm riêng, vi phân đa biến, tích phân nhiều lớp, chuỗi Fourier và ứng dụng cao cấp không nằm trong chương trình.</p>
+</section>
+<section id="mối-quan-hệ-với-các-mạch-khác-2" class="level2">
+<h2 class="anchored" data-anchor-id="mối-quan-hệ-với-các-mạch-khác-2">3. Mối quan hệ với các mạch khác</h2>
+<ul>
+<li>Với <strong>Đại số</strong>: Giải tích sử dụng các phép biến đổi và ngôn ngữ đại số để mô tả sự biến thiên và tìm cực trị.</li>
+<li>Với <strong>Hình học</strong>: khái niệm tiếp tuyến, diện tích, thể tích và độ cong đều là cầu nối giữa Hình học và Giải tích.</li>
+<li>Với <strong>Số học</strong>: dãy số là cầu nối giữa thế giới rời rạc của Số học và thế giới liên tục của Giải tích.</li>
+<li>Với <strong>Toán rời rạc</strong>: Giải tích và Toán rời rạc bổ sung cho nhau - một bên nghiên cứu liên tục, một bên nghiên cứu rời rạc.</li>
+<li>Với <strong>Ứng dụng Toán học</strong>: Giải tích cung cấp công cụ tính toán và mô hình hóa cho các bài toán kinh tế, vật lý, sinh học, và dữ liệu.</li>
+</ul>
+<p>Nhờ các liên hệ này, <em>Giải tích</em> là <strong>trục trung tâm về tư duy biến thiên</strong> trong Toán học phổ thông, giúp học sinh thống nhất khái niệm thay đổi, giới hạn và tối ưu hóa.</p>
+</section>
+<section id="giới-hạn-nội-dung-và-năng-lực-hình-thành-2" class="level2">
+<h2 class="anchored" data-anchor-id="giới-hạn-nội-dung-và-năng-lực-hình-thành-2">4. Giới hạn nội dung và năng lực hình thành</h2>
+<p><strong>Giới hạn nội dung.</strong> Chương trình không yêu cầu chứng minh các định lý Giải tích trừu tượng, không dạy tích phân hoặc đạo hàm nhiều biến, và không bao gồm các kỹ thuật tính phức tạp. Các công thức và phương pháp chỉ được trình bày trong phạm vi ứng dụng phổ thông, gắn liền với việc mô tả đồ thị và giải quyết vấn đề.</p>
+<p><strong>Năng lực hình thành.</strong></p>
+<ul>
+<li><strong>Năng lực tư duy biến thiên:</strong> nhận biết sự thay đổi của đại lượng và mô tả bằng ngôn ngữ hàm số.</li>
+<li><strong>Năng lực suy luận liên tục:</strong> hiểu khái niệm giới hạn, liên tục và vận dụng vào phân tích đồ thị.</li>
+<li><strong>Năng lực phân tích và tối ưu hóa:</strong> sử dụng đạo hàm để tìm cực trị, giá trị lớn nhất, nhỏ nhất, và mô tả hành vi của hàm số.</li>
+<li><strong>Năng lực mô hình hóa:</strong> áp dụng đạo hàm, tích phân để mô phỏng các hiện tượng thực tế và diễn giải kết quả bằng ngôn ngữ đời sống.</li>
+</ul>
+</section>
+<section id="định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-2" class="level2">
+<h2 class="anchored" data-anchor-id="định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-2">5. Định hướng phát triển nội dung theo ba mức độ học tập</h2>
+<ul>
+<li><p><strong>Mức Chuẩn.</strong> Học sinh nắm được ý nghĩa trực quan của giới hạn, đạo hàm và tích phân; tính được đạo hàm, nguyên hàm và tích phân của các hàm cơ bản; hiểu mối liên hệ giữa đạo hàm và đồ thị hàm số.</p></li>
+<li><p><strong>Mức Nâng cao.</strong> Học sinh biết vận dụng đạo hàm để khảo sát hàm số phức tạp hơn, giải các bài toán cực trị có tham số; hiểu mối quan hệ giữa đạo hàm và sự thay đổi thực tế của đại lượng; biết sử dụng tích phân để tính diện tích và thể tích của hình phẳng đơn giản.</p></li>
+<li><p><strong>Mức Mở rộng (ZO Math).</strong> Học sinh được khuyến khích khám phá các ứng dụng của Giải tích trong mô hình hóa, mô phỏng bằng công cụ số (phần mềm đồ thị, CAS), và đặt các vấn đề mở: cực trị trong kinh tế, tăng trưởng trong sinh học, tốc độ trong vật lý.</p>
+<p>Học sinh được giới thiệu thêm khái niệm chuỗi hình học và cách dùng nó để ước lượng tổng vô hạn đơn giản, hiểu mối liên hệ giữa dãy - chuỗi - tích phân trong việc mô tả các quá trình tiệm cận liên tục.</p>
+<p>Qua đó, các em thấy rõ Giải tích là <strong>ngôn ngữ của mọi quá trình biến thiên trong tự nhiên và xã hội</strong>.</p></li>
+</ul>
+<p><strong>Tóm tắt</strong></p>
+<blockquote class="blockquote">
+<p><em>Giải tích</em> trong chương trình ZO Math THPT nghiên cứu sự biến thiên và liên tục của đại lượng thông qua các khái niệm giới hạn, đạo hàm và tích phân. Mạch học này giúp học sinh phát triển tư duy biến thiên, khả năng mô hình hóa, và năng lực phân tích - tối ưu hóa, đồng thời là cầu nối giữa Toán học thuần túy và thế giới ứng dụng.</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="mạch-4---hình-học" class="level1">
+<h1>Mạch 4 - Hình học</h1>
+<p><em>(Khung mô tả thuộc Chương trình Toán ZO Math THPT)</em></p>
+<section id="định-nghĩa-và-phạm-vi-khoa-học-của-mạch-1" class="level2">
+<h2 class="anchored" data-anchor-id="định-nghĩa-và-phạm-vi-khoa-học-của-mạch-1">1. Định nghĩa và phạm vi khoa học của mạch</h2>
+<p><strong>Hình học</strong> là ngành của Toán học nghiên cứu <strong>hình dạng, kích thước và vị trí của các đối tượng trong không gian</strong> cùng với các mối quan hệ giữa chúng. Khác với Đại số hay Giải tích - nơi các đối tượng được mô tả bằng ký hiệu hoặc công thức - Hình học thể hiện thế giới Toán học bằng <strong>hình ảnh trực quan, quan hệ không gian và lập luận logic hình học</strong>.</p>
+<p>Ở cấp trung học phổ thông, Hình học không chỉ giúp học sinh <strong>quan sát, mô tả và chứng minh</strong> các quan hệ hình học phẳng và không gian, mà còn rèn năng lực <strong>tư duy trực quan, suy luận logic và tưởng tượng không gian</strong>. Học sinh được tiếp cận <strong>các công cụ hiện đại như véc-tơ và tọa độ</strong>, nhờ đó gắn kết Hình học với Đại số, Giải tích và các lĩnh vực ứng dụng trong đời sống.</p>
+</section>
+<section id="nội-dung-cốt-lõi-của-chương-trình-thpt-1" class="level2">
+<h2 class="anchored" data-anchor-id="nội-dung-cốt-lõi-của-chương-trình-thpt-1">2. Nội dung cốt lõi của chương trình THPT</h2>
+<p><strong>(1) Hình học phẳng và các quan hệ cơ bản.</strong> Học sinh ôn lại và mở rộng các khái niệm điểm, đường thẳng, góc, tam giác, đường tròn; chứng minh các định lý cơ bản về song song, vuông góc, đồng dạng, tỉ số lượng giác trong tam giác và hệ thức giữa các yếu tố của đường tròn. Phần này giúp học sinh làm chủ <strong>tư duy chứng minh hình học</strong>, một năng lực đặc thù và quan trọng của Toán học.</p>
+<p><strong>(2) Véc-tơ và phép tính với véc-tơ.</strong> Học sinh được học khái niệm véc-tơ, các phép cộng, trừ, nhân véc-tơ với số, tích vô hướng của hai véc-tơ và ứng dụng của chúng trong chứng minh hình học. Việc sử dụng véc-tơ giúp học sinh mô tả các quan hệ hình học bằng ngôn ngữ đại số, giảm tính phụ thuộc vào hình vẽ và chuẩn bị cho việc học Hình học tọa độ.</p>
+<p><strong>(3) Hệ tọa độ phẳng và phương trình hình học.</strong> Học sinh học cách thiết lập hệ trục tọa độ Oxy, biểu diễn điểm và vectơ bằng tọa độ, xác định phương trình đường thẳng, đường tròn, elip, parabol và hypebol ở mức cơ bản. Qua đó, học sinh thấy được <strong>sự gắn kết giữa Đại số và Hình học</strong>, khi mỗi hình có thể được biểu diễn bằng một phương trình.</p>
+<p><strong>(4) Hình học không gian.</strong> Học sinh được làm quen với các khái niệm cơ bản của không gian ba chiều: điểm, đường, mặt phẳng, vị trí tương đối giữa các đối tượng, khoảng cách, góc giữa hai mặt phẳng hoặc đường thẳng, thể tích khối đa diện và khối tròn xoay. Phần này giúp học sinh rèn <strong>khả năng tưởng tượng không gian và tư duy hình học ba chiều</strong>, đồng thời liên hệ với ứng dụng thực tế như kiến trúc, kỹ thuật, và vật lý.</p>
+<p><strong>(5) Phép biến hình trong mặt phẳng.</strong> Học sinh được học khái niệm phép biến hình như một quy tắc gán mỗi điểm trong mặt phẳng cho đúng một điểm khác, bao gồm các phép tịnh tiến, đối xứng, quay, vị tự và đồng dạng.</p>
+<p>Các phép biến hình này không chỉ được xem như công cụ giải bài toán, mà còn là cách nhìn động học về Hình học, trong đó các quan hệ hình học được hiểu qua sự bảo toàn (khoảng cách, góc, hướng, tỉ số).</p>
+<p>Việc học phép biến hình giúp học sinh hiểu rằng mọi hình có thể được biến đổi thành hình khác mà vẫn giữ nguyên bản chất cấu trúc, từ đó phát triển tư duy trừu tượng, khả năng phát hiện đối xứng và sự tương đương hình học.</p>
+</section>
+<section id="mối-quan-hệ-với-các-mạch-khác-3" class="level2">
+<h2 class="anchored" data-anchor-id="mối-quan-hệ-với-các-mạch-khác-3">3. Mối quan hệ với các mạch khác</h2>
+<ul>
+<li>Với <strong>Đại số</strong>: Hình học sử dụng ngôn ngữ tọa độ và phương trình để mô tả hình và quan hệ, hình thành mạch Hình học giải tích.</li>
+<li>Với <strong>Giải tích</strong>: các khái niệm tiếp tuyến, độ cong, diện tích và thể tích là cầu nối tự nhiên giữa hai mạch.</li>
+<li>Với <strong>Toán rời rạc</strong>: phép biến hình giúp học sinh làm quen với ý tưởng “phép toán trên đối tượng”, mở đường cho khái niệm nhóm biến đổi - nền tảng của nhiều lĩnh vực hiện đại.</li>
+<li>Với <strong>Ứng dụng Toán học</strong>: Hình học là công cụ thiết yếu để mô hình hóa không gian trong các bài toán kỹ thuật, kiến trúc, bản đồ và đồ họa máy tính. Phép biến hình là cơ sở cho đồ họa máy tính, mô phỏng, thiết kế kỹ thuật, và các ứng dụng về đối xứng trong khoa học tự nhiên.</li>
+</ul>
+<p>Nhờ những liên hệ này, <em>Hình học</em> không chỉ là mạch trực quan mà còn là <strong>mạch của tư duy không gian và mô hình hóa</strong>, giúp học sinh kết nối giữa cái nhìn trực giác và ngôn ngữ ký hiệu.</p>
+</section>
+<section id="giới-hạn-nội-dung-và-năng-lực-hình-thành-3" class="level2">
+<h2 class="anchored" data-anchor-id="giới-hạn-nội-dung-và-năng-lực-hình-thành-3">4. Giới hạn nội dung và năng lực hình thành</h2>
+<p><strong>Giới hạn nội dung.</strong> Chương trình không bao gồm hình học phi Ơ-clit, hình học giải tích nâng cao hoặc hình học tọa độ trong không gian ba chiều ở mức tổng quát. Phần chứng minh giữ ở mức phổ thông, không yêu cầu học sinh nắm các kỹ thuật suy luận trừu tượng phức tạp.</p>
+<p><strong>Năng lực hình thành.</strong></p>
+<ul>
+<li><strong>Năng lực quan sát và tưởng tượng không gian:</strong> hình dung được vị trí, quan hệ và hình dạng của các đối tượng hình học trong không gian.</li>
+<li><strong>Năng lực suy luận và chứng minh:</strong> biết xây dựng lập luận hình học, sử dụng tính chất và định lý để chứng minh mệnh đề.</li>
+<li><strong>Năng lực biểu diễn và mô hình hóa:</strong> biết sử dụng véc-tơ, tọa độ và phương trình để mô tả và giải quyết bài toán hình học.</li>
+<li><strong>Năng lực liên hệ thực tế:</strong> nhận biết các yếu tố hình học trong đời sống, kỹ thuật, thiết kế và tự nhiên.</li>
+</ul>
+</section>
+<section id="định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-3" class="level2">
+<h2 class="anchored" data-anchor-id="định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-3">5. Định hướng phát triển nội dung theo ba mức độ học tập</h2>
+<ul>
+<li><p><strong>Mức Chuẩn.</strong> Học sinh hiểu và vận dụng được các định lý cơ bản của hình học phẳng, thực hiện được các phép biến hình cơ bản, xác định được phương trình đường thẳng, đường tròn và biết tính diện tích, thể tích của các hình đơn giản.</p></li>
+<li><p><strong>Mức Nâng cao.</strong> Học sinh chứng minh được các bài toán hình học tổng hợp phức tạp hơn, vận dụng véc-tơ và tọa độ để giải các bài toán hình học, nhận biết các quan hệ song song, vuông góc, và áp dụng được các phép biến hình để chứng minh tính đồng dạng.</p></li>
+<li><p><strong>Mức Mở rộng (ZO Math).</strong> Học sinh được khuyến khích khai thác Hình học trong các bối cảnh thực tế: thiết kế hình học, kiến trúc, đồ họa, robot, hoặc lập trình mô phỏng hình học bằng công cụ số. Các em nhận ra Hình học không chỉ là học về hình, mà là <strong>học cách nhìn thế giới bằng cấu trúc không gian và đối xứng</strong>.</p>
+<p>Học sinh được khuyến khích dùng phép biến hình để tái tạo và khám phá thế giới hình học bằng tư duy sáng tạo. Các em có thể sử dụng phần mềm hình học động (như GeoGebra hoặc Cabri) để mô phỏng quá trình tịnh tiến, quay, vị tự, và khám phá các cấu trúc đối xứng trong thiên nhiên, nghệ thuật, kiến trúc. ZO Math coi đây là một “cửa ngõ sáng tạo hình học”, nơi học sinh không chỉ học Hình học mà còn nghĩ bằng Hình học - nhìn thấy quy luật chuyển động, sự biến đổi, và tính thống nhất trong mọi hình dạng.</p></li>
+</ul>
+<p><strong>Tóm tắt</strong></p>
+<blockquote class="blockquote">
+<p><em>Hình học</em> trong chương trình ZO Math THPT nghiên cứu hình dạng, vị trí và quan hệ không gian của các đối tượng. Mạch học này rèn cho học sinh tư duy trực quan, lập luận logic và năng lực mô hình hóa, đồng thời gắn kết chặt chẽ với Đại số, Giải tích và các ứng dụng trong đời sống, kỹ thuật và công nghệ hiện đại.</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="mạch-5---toán-rời-rạc" class="level1">
+<h1>Mạch 5 - Toán rời rạc</h1>
+<section id="định-nghĩa-và-phạm-vi-khoa-học-của-mạch-2" class="level2">
+<h2 class="anchored" data-anchor-id="định-nghĩa-và-phạm-vi-khoa-học-của-mạch-2">1. Định nghĩa và phạm vi khoa học của mạch</h2>
+<p><strong>Toán rời rạc</strong> là một ngành của Toán học nghiên cứu các cấu trúc <strong>không liên tục</strong>, tức là những hệ thống được tạo nên từ các phần tử tách biệt có thể <strong>đếm, sắp xếp, phân loại hoặc kết nối</strong> theo quy tắc xác định. Khác với Giải tích - nơi các đối tượng biến thiên liên tục theo đại lượng thực - Toán rời rạc hướng đến <strong>thế giới của những đối tượng hữu hạn và rời rạc</strong>, chẳng hạn như dãy số, mạng lưới, quan hệ logic hay mã số.</p>
+<p>Ở cấp trung học phổ thông, Toán rời rạc giúp học sinh hình thành <strong>tư duy cấu trúc và tư duy thuật toán</strong>, biết chia một vấn đề phức tạp thành những bước hợp lý, nhận diện được quy luật trong sự rời rạc và xác định tính đúng sai của các lập luận. Hơn nữa, việc học Toán rời rạc còn giúp học sinh nhận thấy <strong>mối liên hệ trực tiếp giữa Toán học và công nghệ hiện đại</strong>, bởi mọi máy tính, mạng dữ liệu và hệ thống thông tin trong thế giới số đều được xây dựng trên những nguyên tắc của Toán rời rạc.</p>
+</section>
+<section id="nội-dung-cốt-lõi-của-chương-trình-thpt-2" class="level2">
+<h2 class="anchored" data-anchor-id="nội-dung-cốt-lõi-của-chương-trình-thpt-2">2. Nội dung cốt lõi của chương trình THPT</h2>
+<p>Trong chương trình ZO Math cấp trung học phổ thông, mạch <em>Toán rời rạc</em> bao gồm năm nhóm nội dung cơ bản, được lựa chọn phù hợp với năng lực và nhu cầu của học sinh phổ thông.</p>
+<p><strong>(1) Tổ hợp học cơ bản.</strong> Học sinh được học các quy tắc đếm cơ bản như quy tắc cộng, quy tắc nhân và cách biểu diễn quá trình đếm bằng sơ đồ cây. Từ đó, các em hiểu được khái niệm hoán vị, chỉnh hợp và tổ hợp, cũng như biết vận dụng các công thức tương ứng để tính số cách sắp xếp hoặc lựa chọn trong những tình huống cụ thể của đời sống. Việc học phần này giúp học sinh hình thành khả năng ước lượng, so sánh và lý giải kết quả đếm của mình một cách có cơ sở.</p>
+<p><strong>(2) Đếm có ràng buộc và nguyên lý Dirichlet.</strong> Học sinh được làm quen với các bài toán tổ hợp có điều kiện, biết cách chia trường hợp và tránh đếm trùng lặp. Các em được học và vận dụng nguyên lý Dirichlet - thường gọi là nguyên lý “chiếc hộp” - để suy luận về sự tồn tại của các trường hợp đặc biệt trong những tập hợp hữu hạn.</p>
+<p><strong>(3) Logic mệnh đề và suy luận đúng - sai.</strong> Phần này giới thiệu các khái niệm cơ bản của logic toán học như mệnh đề, phủ định, kéo theo và tương đương. Học sinh biết cách lập bảng chân trị để kiểm tra tính đúng sai của các phát biểu và bước đầu hiểu cách sử dụng lập luận logic trong chứng minh toán học cũng như trong các vấn đề đời sống.</p>
+<p><strong>(4) Đồ thị, cây và mô hình mạng lưới rời rạc.</strong> Học sinh được tiếp cận với những khái niệm nền tảng của lý thuyết đồ thị: đỉnh, cạnh, bậc, đường đi và chu trình. Từ đó, các em nhận ra rằng nhiều vấn đề thực tế, chẳng hạn như lập lịch, phân công công việc hoặc tìm đường đi ngắn nhất, đều có thể biểu diễn bằng mô hình đồ thị hoặc cây.</p>
+<p><strong>(5) Hệ đếm và mã hóa thông tin.</strong> Học sinh được học cách biểu diễn số trong các hệ cơ số khác nhau như cơ số 2, 8 và 16, hiểu nguyên lý hoạt động của các hệ đếm này và cách chuyển đổi giữa chúng. Bên cạnh đó, các em làm quen với một số ý niệm cơ bản của mã hóa thông tin, như mã PIN, mã kiểm tra, hoặc cách đếm theo chu kỳ của đồng hồ và lịch tuần.</p>
+<p>Phạm vi của các nội dung trên được giới hạn ở mức ý niệm phổ thông và ứng dụng thực tế đơn giản; chương trình không bao gồm các chủ đề chuyên sâu như định lý Ramsey, lý thuyết độ phức tạp tính toán hay các chứng minh hình thức dài.</p>
+</section>
+<section id="mối-quan-hệ-với-các-mạch-khác-4" class="level2">
+<h2 class="anchored" data-anchor-id="mối-quan-hệ-với-các-mạch-khác-4">3. Mối quan hệ với các mạch khác</h2>
+<p>Toán rời rạc có mối liên hệ chặt chẽ với nhiều mạch kiến thức khác trong chương trình ZO Math. Trong mạch <strong>Xác suất</strong>, các quy tắc đếm và tổ hợp học được sử dụng làm công cụ để xác định xác suất cổ điển. Trong mạch <strong>Số học</strong>, các khái niệm chia hết và đồng dư xuất hiện trở lại khi giải thích nguyên lý của các dạng mã hóa và kiểm tra lỗi. Mạch <strong>Đại số</strong> cung cấp ngôn ngữ biểu thức và phép biến đổi đại số giúp diễn tả, rút gọn hoặc chứng minh các công thức đếm. Đặc biệt, mạch <strong>Ứng dụng Toán học</strong> sử dụng các mô hình rời rạc, như đồ thị hoặc cây, để mô tả và giải quyết các bài toán thực tế như tối ưu hóa tuyến đường, sắp xếp kế hoạch hay tổ chức mạng lưới.</p>
+<p>Nhờ những mối liên hệ này, Toán rời rạc không chỉ là một mạch riêng biệt mà còn là <strong>cầu nối giữa Toán học cổ điển và Toán học hiện đại</strong>, gắn kết tư duy đại số - xác suất - dữ liệu thành một hệ thống thống nhất, trong đó người học có thể đi từ việc đếm các phần tử đến mô hình hóa những hệ thống phức tạp hơn.</p>
+</section>
+<section id="giới-hạn-nội-dung-và-năng-lực-hình-thành-4" class="level2">
+<h2 class="anchored" data-anchor-id="giới-hạn-nội-dung-và-năng-lực-hình-thành-4">4. Giới hạn nội dung và năng lực hình thành</h2>
+<p>Phần nội dung của mạch <em>Toán rời rạc</em> ở cấp THPT được giới hạn ở mức phổ thông, đảm bảo học sinh có thể tiếp cận và vận dụng được các kiến thức cơ bản mà không cần đến công cụ lập trình hay kỹ năng chứng minh phức tạp. Chương trình không yêu cầu học sinh tiếp cận các khái niệm thuộc lĩnh vực Toán học rời rạc nâng cao hoặc Khoa học máy tính lý thuyết.</p>
+<p>Thông qua việc học mạch này, học sinh hình thành và phát triển những năng lực sau:</p>
+<ul>
+<li><strong>Năng lực tổ chức và phân tích thông tin:</strong> biết sắp xếp, phân loại và hệ thống hóa các khả năng xảy ra trong một vấn đề rời rạc.</li>
+<li><strong>Năng lực suy luận logic:</strong> biết kiểm tra tính hợp lý của các lập luận và phát biểu, biết nhận diện lỗi sai trong suy luận.</li>
+<li><strong>Năng lực mô hình hóa:</strong> biết biểu diễn các tình huống thực tế bằng mô hình rời rạc như bảng, sơ đồ, đồ thị hoặc cây.</li>
+<li><strong>Năng lực kết nối liên ngành:</strong> nhận ra vai trò của Toán học trong công nghệ thông tin, dữ liệu, và các lĩnh vực ứng dụng hiện đại.</li>
+</ul>
+</section>
+<section id="định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-4" class="level2">
+<h2 class="anchored" data-anchor-id="định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-4">5. Định hướng phát triển nội dung theo ba mức độ học tập</h2>
+<p>Mạch <em>Toán rời rạc</em> trong chương trình ZO Math được phát triển theo ba mức độ tương ứng với ba tầng năng lực học tập của học sinh.</p>
+<p>Ở <strong>mức Chuẩn</strong>, học sinh nắm vững các quy tắc đếm cơ bản, hiểu khái niệm hoán vị, chỉnh hợp, tổ hợp và vận dụng được chúng để giải các bài toán đếm và xác suất đơn giản.</p>
+<p>Ở <strong>mức Nâng cao</strong>, học sinh được mở rộng kiến thức sang các dạng bài có ràng buộc, làm quen với nguyên lý Dirichlet và logic mệnh đề, đồng thời bước đầu sử dụng đồ thị hoặc cây để mô tả cấu trúc của một vấn đề.</p>
+<p>Ở <strong>mức Mở rộng (ZO Math)</strong>, học sinh được khuyến khích vận dụng tư duy rời rạc để giải quyết các tình huống thực tế, chẳng hạn như lập lịch, tìm đường đi hoặc mã hóa dữ liệu, và có thể sử dụng công cụ số để mô phỏng và kiểm chứng kết quả. Học sinh có thể được giới thiệu khái niệm về mạng dữ liệu và ứng dụng của đồ thị trong trí tuệ nhân tạo, qua đó thấy rõ vai trò của tư duy rời rạc trong công nghệ hiện đại.</p>
+<p>Qua tiến trình ba mức độ ấy, học sinh không chỉ tiếp thu tri thức Toán học mà còn phát triển <strong>tư duy hệ thống, tư duy thuật toán và khả năng vận dụng Toán học trong đời sống</strong>, đúng với định hướng “học Toán để hiểu và tổ chức thế giới” của ZO Math.</p>
+<p><strong>Tóm tắt</strong></p>
+<blockquote class="blockquote">
+<p><em>Toán rời rạc</em> trong chương trình ZO Math THPT nghiên cứu các cấu trúc đếm được và các quy luật logic rời rạc. Mạch học này giúp học sinh phát triển tư duy thuật toán, tư duy cấu trúc và năng lực mô hình hóa, đồng thời mở ra cánh cửa kết nối giữa Toán học và các lĩnh vực ứng dụng hiện đại như dữ liệu, mạng và công nghệ thông tin.</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="mạch-6---thống-kê" class="level1">
+<h1>Mạch 6 - Thống kê</h1>
+<p><em>(Khung mô tả thuộc Chương trình Toán ZO Math THPT)</em></p>
+<section id="định-nghĩa-và-phạm-vi-khoa-học-của-mạch-3" class="level2">
+<h2 class="anchored" data-anchor-id="định-nghĩa-và-phạm-vi-khoa-học-của-mạch-3">1. Định nghĩa và phạm vi khoa học của mạch</h2>
+<p><strong>Thống kê</strong> là lĩnh vực của Toán học nghiên cứu <strong>cách thu thập, xử lý, mô tả và phân tích dữ liệu</strong> để rút ra kết luận hoặc hỗ trợ ra quyết định. Nếu Số học và Đại số làm việc với con số và biểu thức cố định, thì Thống kê làm việc với <strong>tập hợp dữ liệu thực tế</strong>, trong đó mỗi giá trị chỉ mang ý nghĩa khi được xem trong <strong>bối cảnh tổng thể</strong>.</p>
+<p>Ở cấp trung học phổ thông, Thống kê giúp học sinh hiểu rằng Toán học không chỉ nói về các con số lý tưởng, mà còn <strong>phản ánh và diễn giải thế giới thực</strong> thông qua dữ liệu. Học sinh học cách tổ chức, biểu diễn và tóm tắt dữ liệu; biết <strong>so sánh, nhận xét, và suy luận</strong> từ kết quả thống kê, từ đó phát triển tư duy <strong>phân tích - diễn giải - phản biện</strong>.</p>
+</section>
+<section id="nội-dung-cốt-lõi-của-chương-trình-thpt-3" class="level2">
+<h2 class="anchored" data-anchor-id="nội-dung-cốt-lõi-của-chương-trình-thpt-3">2. Nội dung cốt lõi của chương trình THPT</h2>
+<p><strong>(1) Thu thập và phân loại dữ liệu.</strong> Học sinh học cách xác định mục tiêu điều tra, chọn mẫu, và thu thập dữ liệu phù hợp. Các em biết phân loại dữ liệu theo kiểu định tính, định lượng, rời rạc hoặc liên tục; biết trình bày dữ liệu bằng bảng, biểu đồ cột, biểu đồ tròn hoặc tần suất. Phần này rèn cho học sinh kỹ năng <strong>đọc và tạo biểu đồ</strong>, nền tảng cho phân tích sau này.</p>
+<p><strong>(2) Các chỉ số thống kê mô tả.</strong> Học sinh được học cách tính và diễn giải các đại lượng đặc trưng như số trung bình, trung vị, mốt, phương sai, độ lệch chuẩn. Các em hiểu ý nghĩa của từng chỉ số trong việc mô tả <strong>xu hướng trung tâm</strong> và <strong>mức độ phân tán</strong> của dữ liệu, đồng thời biết so sánh hai nhóm dữ liệu bằng các chỉ số đó.</p>
+<p><strong>(3) Phân bố tần suất và tần suất ghép nhóm.</strong> Học sinh biết cách chia dữ liệu thành các lớp, tính tần số - tần suất ghép nhóm, vẽ biểu đồ hình quạt hoặc đa giác tần suất. Qua đó, học sinh hiểu được cách mô tả phân bố dữ liệu theo quy mô và xu hướng, nhận ra hình dạng phân bố như lệch trái, lệch phải hoặc đối xứng.</p>
+<p><strong>(4) Mối liên hệ giữa hai biến số.</strong> Học sinh được làm quen với bảng hai chiều, đồ thị phân tán và khái niệm <strong>hệ số tương quan tuyến tính</strong> ở mức nhập môn. Các em học cách nhận xét mối quan hệ giữa hai đại lượng (ví dụ giữa chiều cao và cân nặng, hoặc giữa thời gian học và kết quả thi), hiểu rằng Thống kê không chỉ mô tả mà còn <strong>phân tích mối quan hệ dữ liệu</strong>.</p>
+<p><strong>(5) Ứng dụng và diễn giải dữ liệu.</strong> Học sinh biết cách trình bày kết quả điều tra, giải thích và đánh giá dữ liệu trong bối cảnh thực tế như kinh tế, xã hội, môi trường hoặc khoa học. Phần này rèn <strong>năng lực diễn giải và phản biện dữ liệu</strong>, một năng lực thiết yếu của công dân thời đại số.</p>
+<p>Phạm vi mạch <em>Thống kê</em> ở THPT tập trung vào <strong>thống kê mô tả</strong>, chưa bao gồm thống kê suy luận (ước lượng, kiểm định giả thuyết), nhưng tạo tiền đề tự nhiên để học sinh tiếp cận các khái niệm đó trong giai đoạn học cao hơn.</p>
+</section>
+<section id="mối-quan-hệ-với-các-mạch-khác-5" class="level2">
+<h2 class="anchored" data-anchor-id="mối-quan-hệ-với-các-mạch-khác-5">3. Mối quan hệ với các mạch khác</h2>
+<ul>
+<li>Với <strong>Xác suất</strong>, Thống kê cung cấp dữ liệu thực nghiệm làm nền cho mô hình xác suất; ngược lại, xác suất giúp diễn giải ý nghĩa của kết quả thống kê.</li>
+<li>Với <strong>Đại số và Giải tích</strong>, Thống kê sử dụng công cụ tính toán và biểu đồ hàm để xử lý và mô tả dữ liệu.</li>
+<li>Với <strong>Ứng dụng Toán học</strong>, Thống kê là công cụ chủ lực trong mô hình hóa, dự đoán và ra quyết định dựa trên dữ liệu.</li>
+<li>Với <strong>Toán rời rạc</strong>, Thống kê liên quan đến tổ hợp và đếm trường hợp trong việc xây dựng mẫu và dữ liệu rời rạc.</li>
+</ul>
+<p>Nhờ các mối quan hệ này, <em>Thống kê</em> là <strong>cầu nối giữa Toán học và thực tiễn</strong>, giúp học sinh hiểu rằng mọi số liệu đều có câu chuyện của nó.</p>
+</section>
+<section id="giới-hạn-nội-dung-và-năng-lực-hình-thành-5" class="level2">
+<h2 class="anchored" data-anchor-id="giới-hạn-nội-dung-và-năng-lực-hình-thành-5">4. Giới hạn nội dung và năng lực hình thành</h2>
+<p><strong>Giới hạn nội dung.</strong> Chương trình không yêu cầu học sinh học sâu về ước lượng, kiểm định, hoặc các phân bố xác suất phức tạp. Các phép tính thống kê được thực hiện bằng phương pháp thủ công và công cụ công nghệ phổ thông (máy tính, bảng tính, phần mềm mô phỏng).</p>
+<p><strong>Năng lực hình thành.</strong></p>
+<ul>
+<li><strong>Năng lực thu thập và tổ chức dữ liệu:</strong> biết cách thu thập thông tin từ thực tế, xử lý và sắp xếp có hệ thống.</li>
+<li><strong>Năng lực mô tả và biểu diễn:</strong> biết chọn biểu đồ phù hợp, đọc và diễn giải thông tin trên biểu đồ.</li>
+<li><strong>Năng lực phân tích và so sánh:</strong> sử dụng các chỉ số thống kê để nhận xét xu hướng và mức độ phân tán của dữ liệu.</li>
+<li><strong>Năng lực phản biện và diễn giải:</strong> biết đánh giá độ tin cậy và giới hạn của dữ liệu, hiểu rằng số liệu thống kê cần được đặt trong bối cảnh.</li>
+</ul>
+</section>
+<section id="định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-5" class="level2">
+<h2 class="anchored" data-anchor-id="định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-5">5. Định hướng phát triển nội dung theo ba mức độ học tập</h2>
+<ul>
+<li><p><strong>Mức Chuẩn.</strong> Học sinh biết thu thập, phân loại và trình bày dữ liệu bằng bảng và biểu đồ; tính được trung bình, trung vị, mốt và độ lệch chuẩn; đưa ra nhận xét định tính về phân bố dữ liệu.</p></li>
+<li><p><strong>Mức Nâng cao.</strong> Học sinh biết ghép nhóm dữ liệu, phân tích mối liên hệ giữa hai biến bằng đồ thị phân tán, và sử dụng phần mềm đơn giản (như Excel, GeoGebra) để tính toán và vẽ biểu đồ; biết phát hiện xu hướng hoặc bất thường trong dữ liệu.</p></li>
+<li><p><strong>Mức Mở rộng (ZO Math).</strong> Học sinh được khuyến khích thực hiện <strong>dự án thống kê nhỏ</strong>: tự đặt câu hỏi, thu thập dữ liệu thực, xử lý bằng công cụ số, và trình bày kết quả bằng ngôn ngữ toán học và ngôn ngữ đời sống. Ở mức này, học sinh phát triển năng lực <strong>tư duy dữ liệu (data literacy)</strong> - nền tảng của công dân trong kỷ nguyên thông tin.</p></li>
+</ul>
+<p><strong>Tóm tắt</strong></p>
+<blockquote class="blockquote">
+<p><em>Thống kê</em> trong chương trình ZO Math THPT rèn cho học sinh khả năng thu thập, xử lý và diễn giải dữ liệu thực tế. Mạch học này giúp hình thành tư duy dữ liệu, năng lực phản biện và khả năng ra quyết định dựa trên số liệu, đồng thời tạo cầu nối giữa Toán học, công nghệ và đời sống thực.</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="mạch-7---xác-suất" class="level1">
+<h1>Mạch 7 - Xác suất</h1>
+<p><em>(Khung mô tả thuộc Chương trình Toán ZO Math THPT)</em></p>
+<section id="định-nghĩa-và-phạm-vi-khoa-học-của-mạch-4" class="level2">
+<h2 class="anchored" data-anchor-id="định-nghĩa-và-phạm-vi-khoa-học-của-mạch-4">1. Định nghĩa và phạm vi khoa học của mạch</h2>
+<p><strong>Xác suất</strong> là ngành của Toán học nghiên cứu <strong>tính quy luật trong cái ngẫu nhiên</strong>. Nó giúp ta đo lường và dự đoán khả năng xảy ra của các biến cố - từ việc tung đồng xu, rút thẻ bài, cho tới phân tích rủi ro trong kinh tế hay khoa học dữ liệu.</p>
+<p>Nếu <em>Thống kê</em> đi từ dữ liệu để rút ra quy luật, thì <em>Xác suất</em> đi từ quy luật để <strong>dự đoán dữ liệu có thể xuất hiện</strong>. Hai mạch này bổ sung cho nhau, tạo nên <strong>ngôn ngữ của sự bất định</strong>, giúp học sinh hiểu rằng trong tự nhiên và xã hội, không phải mọi việc đều chắc chắn, nhưng vẫn có thể <strong>đo lường và phân tích hợp lý</strong>.</p>
+<p>Ở cấp trung học phổ thông, Xác suất giúp học sinh hình thành <strong>tư duy mô hình hóa ngẫu nhiên</strong>, biết phân biệt hiện tượng tất định và ngẫu nhiên, hiểu khái niệm biến cố, xác suất, và quy tắc tính xác suất trong các tình huống quen thuộc.</p>
+</section>
+<section id="nội-dung-cốt-lõi-của-chương-trình-thpt-4" class="level2">
+<h2 class="anchored" data-anchor-id="nội-dung-cốt-lõi-của-chương-trình-thpt-4">2. Nội dung cốt lõi của chương trình THPT</h2>
+<p><strong>(1) Hiện tượng ngẫu nhiên và biến cố.</strong> Học sinh được làm quen với khái niệm hiện tượng ngẫu nhiên, không gian mẫu và biến cố. Các em học cách liệt kê kết quả có thể xảy ra, xác định biến cố, và phân biệt các loại biến cố (hợp, giao, đối, xung khắc). Phần này xây nền cho việc định nghĩa và tính xác suất.</p>
+<p><strong>(2) Xác suất cổ điển.</strong> Học sinh học quy tắc xác suất cổ điển trong trường hợp các kết quả đồng khả năng xảy ra. Các em hiểu rằng xác suất của biến cố là tỉ số giữa số trường hợp thuận lợi và tổng số trường hợp có thể, học và vận dụng các quy tắc:</p>
+<ul>
+<li>quy tắc cộng (biến cố loại trừ nhau),</li>
+<li>quy tắc nhân (biến cố độc lập),</li>
+<li>quy tắc xác suất đối,</li>
+<li>công thức xác suất có điều kiện đơn giản.</li>
+</ul>
+<p><strong>(3) Biến cố độc lập và xác suất có điều kiện.</strong> Học sinh được học cách phân biệt biến cố độc lập và biến cố phụ thuộc, tính xác suất của tích các biến cố độc lập, và áp dụng trong bài toán thực tế (như sản phẩm lỗi, xác suất trúng thưởng, hoặc chọn ngẫu nhiên trong nhóm).</p>
+<p><strong>(4) Biến ngẫu nhiên rời rạc và kỳ vọng.</strong> Học sinh được giới thiệu khái niệm biến ngẫu nhiên rời rạc, bảng phân phối xác suất và công thức tính kỳ vọng (trung bình xác suất). Các em biết cách diễn giải giá trị kỳ vọng như “kết quả trung bình trong dài hạn” và vận dụng trong các bài toán mô hình hóa đơn giản (trò chơi, lựa chọn chiến lược, rủi ro - lợi ích).</p>
+<p><strong>(5) Ứng dụng của xác suất trong đời sống và dữ liệu.</strong> Học sinh tìm hiểu cách xác suất được sử dụng để mô tả các hiện tượng thực tế: thời tiết, dịch bệnh, tài chính, dữ liệu ngẫu nhiên, mô hình dự đoán. Phần này rèn cho học sinh tư duy <strong>ra quyết định trong điều kiện bất định</strong>, hiểu rằng xác suất không phải là trò chơi, mà là công cụ của mọi khoa học dự báo.</p>
+<p><strong>(6) Mô phỏng ngẫu nhiên và thực nghiệm xác suất.</strong> Học sinh được làm quen với cách <strong>thực nghiệm xác suất</strong> thông qua các tình huống quen thuộc: tung đồng xu, gieo xúc xắc, bốc thăm, chọn ngẫu nhiên, v.v. Các em thực hiện lặp lại nhiều lần để <strong>ước lượng xác suất thực nghiệm</strong>, so sánh với xác suất lý thuyết, và nhận ra rằng khi số lần thử tăng lên, tần suất xuất hiện của biến cố tiến gần tới xác suất lý thuyết.</p>
+<p>Ở mức mở rộng, học sinh được <strong>mô phỏng các hiện tượng ngẫu nhiên bằng công cụ số</strong> (như bảng tính, Python hoặc GeoGebra). Hoạt động này giúp học sinh:</p>
+<ul>
+<li>hình dung được quy luật tiệm cận trong ngẫu nhiên (định luật số lớn ở mức trực quan),</li>
+<li>hiểu ý nghĩa thực tế của “mẫu ngẫu nhiên” trong Thống kê,</li>
+<li>và nhận thấy rằng xác suất không chỉ là phép tính mà là <strong>một mô hình hóa thế giới thực thông qua lặp lại và quan sát</strong>.</li>
+</ul>
+<blockquote class="blockquote">
+<p>Đây là cầu nối giữa <em>Toán rời rạc</em> (tổ hợp - đếm trường hợp) và <em>Thống kê</em> (dữ liệu thực nghiệm), đồng thời là bước chuẩn bị tự nhiên để học sinh tiếp cận <em>tư duy khoa học dữ liệu</em> ở bậc học cao hơn.</p>
+</blockquote>
+</section>
+<section id="mối-quan-hệ-với-các-mạch-khác-6" class="level2">
+<h2 class="anchored" data-anchor-id="mối-quan-hệ-với-các-mạch-khác-6">3. Mối quan hệ với các mạch khác</h2>
+<ul>
+<li>Với <strong>Toán rời rạc</strong>: xác suất sử dụng kỹ thuật đếm (tổ hợp, hoán vị, chỉnh hợp) để tính số trường hợp; đây là mối liên hệ nền tảng.</li>
+<li>Với <strong>Thống kê</strong>: xác suất và thống kê là hai hướng ngược chiều của cùng một tư duy - xác suất dự đoán dữ liệu, thống kê rút ra quy luật từ dữ liệu.</li>
+<li>Với <strong>Đại số và Giải tích</strong>: công cụ đại số và đồ thị được dùng để biểu diễn hàm xác suất, hàm phân phối và mô hình hóa mối quan hệ giữa biến cố và biến số.</li>
+<li>Với <strong>Ứng dụng Toán học</strong>: xác suất là trụ cột trong mô hình hóa thực tiễn - từ kinh tế, bảo hiểm, kỹ thuật, y học đến trí tuệ nhân tạo.</li>
+</ul>
+<p>Nhờ các mối liên hệ này, <em>Xác suất</em> trở thành <strong>mạch của tư duy dự đoán và phân tích rủi ro</strong>, giúp học sinh thấy rõ Toán học không chỉ giải bài toán chắc chắn mà còn điều khiển được cái ngẫu nhiên.</p>
+</section>
+<section id="giới-hạn-nội-dung-và-năng-lực-hình-thành-6" class="level2">
+<h2 class="anchored" data-anchor-id="giới-hạn-nội-dung-và-năng-lực-hình-thành-6">4. Giới hạn nội dung và năng lực hình thành</h2>
+<p><strong>Giới hạn nội dung.</strong> Chương trình không yêu cầu học sinh học các phân bố xác suất liên tục, không đòi hỏi mô hình xác suất suy luận hay định lý Bayes ở mức chứng minh. Các bài toán chỉ dừng ở xác suất rời rạc và ứng dụng trực quan.</p>
+<p><strong>Năng lực hình thành.</strong></p>
+<ul>
+<li><strong>Năng lực mô hình hóa ngẫu nhiên:</strong> nhận biết và mô tả hiện tượng có tính ngẫu nhiên, xác định biến cố, không gian mẫu.</li>
+<li><strong>Năng lực suy luận xác suất:</strong> sử dụng các quy tắc cộng, nhân, đối và điều kiện để tính toán và lý giải kết quả.</li>
+<li><strong>Năng lực diễn giải và đánh giá:</strong> hiểu và giải thích ý nghĩa của xác suất trong bối cảnh thực, biết đánh giá rủi ro hoặc độ tin cậy của một kết luận.</li>
+<li><strong>Năng lực ứng dụng:</strong> biết vận dụng xác suất để dự đoán và ra quyết định trong các tình huống đời sống, học tập và nghề nghiệp.</li>
+</ul>
+</section>
+<section id="định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-6" class="level2">
+<h2 class="anchored" data-anchor-id="định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-6">5. Định hướng phát triển nội dung theo ba mức độ học tập</h2>
+<ul>
+<li><p><strong>Mức Chuẩn.</strong> Học sinh hiểu khái niệm biến cố, không gian mẫu, biết tính xác suất theo định nghĩa cổ điển, và vận dụng quy tắc cộng, nhân, đối trong các tình huống đơn giản.</p></li>
+<li><p><strong>Mức Nâng cao.</strong> Học sinh xử lý được các bài toán có nhiều bước hoặc điều kiện, phân biệt được biến cố độc lập và phụ thuộc, hiểu ý nghĩa của xác suất có điều kiện, và vận dụng được khái niệm kỳ vọng trong các tình huống quen thuộc.</p></li>
+<li><p><strong>Mức Mở rộng (ZO Math).</strong> Học sinh được tiếp cận các mô hình xác suất trong đời sống hiện đại: trò chơi, dự đoán thời tiết, mô hình dịch bệnh, rủi ro tài chính, hay mô phỏng ngẫu nhiên bằng máy tính. Ở mức này, học sinh học cách <strong>tư duy theo mô hình xác suất</strong>, đặt giả định, mô phỏng kết quả, và diễn giải theo ngôn ngữ dữ liệu - một năng lực nền cho khoa học dữ liệu và tư duy xác suất hiện đại.</p></li>
+</ul>
+<p><strong>Tóm tắt</strong></p>
+<blockquote class="blockquote">
+<p><em>Xác suất</em> trong chương trình ZO Math THPT nghiên cứu quy luật của cái ngẫu nhiên và khả năng xảy ra của các biến cố. Mạch học này giúp học sinh phát triển tư duy mô hình hóa, năng lực dự đoán, và khả năng ra quyết định trong điều kiện bất định - một năng lực trung tâm của công dân và nhà khoa học trong thế kỷ 21.</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="mạch-8---ứng-dụng-toán-học" class="level1">
+<h1>Mạch 8 - Ứng dụng Toán học</h1>
+<p><em>(Khung mô tả thuộc Chương trình Toán ZO Math THPT)</em></p>
+<section id="định-nghĩa-và-phạm-vi-khoa-học-của-mạch-5" class="level2">
+<h2 class="anchored" data-anchor-id="định-nghĩa-và-phạm-vi-khoa-học-của-mạch-5">1. Định nghĩa và phạm vi khoa học của mạch</h2>
+<p><strong>Ứng dụng Toán học</strong> nghiên cứu cách con người <strong>dùng khái niệm, phương pháp và công cụ Toán học</strong> để mô tả, phân tích và giải quyết vấn đề trong thực tế. Mạch này bao quát <strong>hai chiều chuyển hóa</strong>: (i) từ hiện tượng thật sang <strong>mô hình Toán học</strong> (xác định biến, tham số, quan hệ), và (ii) từ kết quả Toán học trở lại <strong>diễn giải thực tế</strong> (ý nghĩa, giới hạn, khuyến nghị). Ở cấp THPT, mạch này giúp học sinh hình thành <strong>năng lực mô hình hóa và giải quyết vấn đề</strong> trong bối cảnh đời sống, khoa học và công nghệ.</p>
+</section>
+<section id="nội-dung-cốt-lõi-của-chương-trình-thpt-5" class="level2">
+<h2 class="anchored" data-anchor-id="nội-dung-cốt-lõi-của-chương-trình-thpt-5">2. Nội dung cốt lõi của chương trình THPT</h2>
+<p><strong>(1) Quy trình mô hình hóa Toán học.</strong> Học sinh quan sát hiện tượng, xác định đại lượng then chốt, đặt giả thiết đơn giản hóa, và biểu diễn mối quan hệ bằng biểu thức, phương trình, bất phương trình hoặc hàm số; sau đó học sinh kiểm tra mô hình bằng dữ liệu hoặc lý giải định tính. <strong>(2) Lựa chọn và sử dụng công cụ Toán học.</strong> Học sinh lựa chọn công cụ phù hợp: Đại số để biểu diễn và biến đổi; Giải tích để khảo sát biến thiên và tối ưu; Hình học để mô tả không gian; Xác suất-Thống kê để mô hình hóa bất định và dữ liệu. <strong>(3) Ứng dụng theo lĩnh vực.</strong> Học sinh khai thác các chủ đề điển hình ở mức phổ thông: chuyển động và năng lượng (Vật lý-kỹ thuật), chi phí-doanh thu-lợi nhuận (Kinh tế-xã hội), tăng trưởng-lan truyền (Sinh học-môi trường), thuật toán và mã hóa cơ bản (Tin học-dữ liệu). <strong>(4) Thực hành dự án Toán học.</strong> Học sinh thực hiện dự án quy mô nhỏ: xác định câu hỏi, thu thập dữ liệu, xây dựng mô hình, tính toán/khảo sát, kiểm chứng, và trình bày kết quả bằng ngôn ngữ Toán học và ngôn ngữ đời sống. <strong>(5) Ứng dụng với công nghệ số.</strong> Học sinh sử dụng bảng tính, phần mềm đồ thị hoặc công cụ lập trình cơ bản để mô phỏng, trực quan hóa và đánh giá mô hình; mục tiêu là tập trung vào <strong>ý nghĩa Toán học</strong> thay vì thao tác tính toán thuần túy.</p>
+</section>
+<section id="mối-quan-hệ-với-các-mạch-khác-7" class="level2">
+<h2 class="anchored" data-anchor-id="mối-quan-hệ-với-các-mạch-khác-7">3. Mối quan hệ với các mạch khác</h2>
+<p>Ứng dụng Toán học <strong>hội tụ</strong> các mạch: dùng <strong>Đại số</strong> và <strong>Giải tích</strong> để thiết lập và tối ưu mô hình; dùng <strong>Hình học</strong> để mô tả cấu trúc và kích thước; dùng <strong>Thống kê</strong> để tóm tắt và diễn giải dữ liệu; dùng <strong>Xác suất</strong> để xử lý bất định; và dùng <strong>Toán rời rạc</strong> để thiết kế thuật toán, lập lịch, hoặc mô hình rời rạc. Nhờ sự liên thông này, học sinh nhận thấy Toán học là <strong>một hệ thống công cụ thống nhất</strong> phục vụ nhận thức và hành động trong thế giới thật.</p>
+</section>
+<section id="giới-hạn-nội-dung-và-năng-lực-hình-thành-7" class="level2">
+<h2 class="anchored" data-anchor-id="giới-hạn-nội-dung-và-năng-lực-hình-thành-7">4. Giới hạn nội dung và năng lực hình thành</h2>
+<p><strong>Giới hạn nội dung.</strong> Mạch này chỉ chọn các tình huống có thể mô hình hóa bằng kiến thức THPT, không đi vào chuyên đề kỹ thuật sâu (kinh tế vĩ mô, cơ học nâng cao, khoa học dữ liệu ở mức học thuật). Trọng tâm nằm ở <strong>quy trình mô hình hóa</strong> và <strong>diễn giải kết quả</strong> trong bối cảnh. <strong>Năng lực hình thành.</strong></p>
+<ul>
+<li><strong>Mô hình hóa Toán học:</strong> xác định vấn đề, chọn biến-tham số, lập và kiểm chứng mô hình.</li>
+<li><strong>Giải quyết vấn đề:</strong> huy động liên mạch để đưa ra lời giải hợp lý và khả dụng.</li>
+<li><strong>Phản biện Toán học:</strong> phân tích giả thiết, đánh giá giới hạn mô hình, đề xuất cải tiến.</li>
+<li><strong>Giao tiếp Toán học:</strong> trình bày kết quả bằng biểu thức, đồ thị, bảng số và lời văn mạch lạc.</li>
+<li><strong>Tích hợp công nghệ:</strong> sử dụng công cụ số để mô phỏng, trực quan hóa và kiểm tra kết quả.</li>
+</ul>
+</section>
+<section id="định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-7" class="level2">
+<h2 class="anchored" data-anchor-id="định-hướng-phát-triển-nội-dung-theo-ba-mức-độ-học-tập-7">5. Định hướng phát triển nội dung theo ba mức độ học tập</h2>
+<ul>
+<li><strong>Mức Chuẩn.</strong> Học sinh nhận biết tình huống có thể mô hình hóa; thiết lập biểu thức/phương trình/hàm số cho bài toán đơn giản; diễn giải kết quả trong ngữ cảnh.</li>
+<li><strong>Mức Nâng cao.</strong> Học sinh xây dựng mô hình có nhiều yếu tố, chọn công cụ phù hợp (đạo hàm, hệ phương trình, dữ liệu thống kê), kiểm chứng và nêu rõ giới hạn áp dụng.</li>
+<li><strong>Mức Mở rộng (ZO Math).</strong> Học sinh thực hiện <strong>dự án ứng dụng mở</strong>: thu thập dữ liệu, mô phỏng bằng phần mềm, hoặc phân tích một vấn đề xã hội/khoa học cụ thể; học sinh đưa ra khuyến nghị dựa trên mô hình và dữ liệu, thể hiện tư duy Toán học sáng tạo.</li>
+</ul>
+</section>
+</section>
+<section id="cấp-độ-học-tập-và-tiến-trình-phát-triển-năng-lực-toán-học" class="level1">
+<h1>6. Cấp độ học tập và tiến trình phát triển năng lực Toán học</h1>
+<section id="kết-cấu-ba-mức-độ-học-tập" class="level2">
+<h2 class="anchored" data-anchor-id="kết-cấu-ba-mức-độ-học-tập">6.1. Kết cấu ba mức độ học tập</h2>
+<p>Tất cả tám mạch đều được phát triển theo ba tầng năng lực:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 43%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>Mức độ</strong></th>
+<th style="text-align: left;"><strong>Đặc trưng phát triển</strong></th>
+<th style="text-align: left;"><strong>Mục tiêu trọng tâm</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>Chuẩn</strong></td>
+<td style="text-align: left;">Nắm được kiến thức cơ bản, thực hiện được kỹ năng cốt lõi.</td>
+<td style="text-align: left;">Hiểu - Vận dụng trực tiếp trong bài toán phổ thông.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>Nâng cao</strong></td>
+<td style="text-align: left;">Mở rộng, tổng hợp và kết nối kiến thức giữa các mạch.</td>
+<td style="text-align: left;">Giải quyết tình huống phức hợp, lý giải và chứng minh.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>Mở rộng (ZO Math)</strong></td>
+<td style="text-align: left;">Ứng dụng vào đời sống, sáng tạo mô hình và giải pháp.</td>
+<td style="text-align: left;">Sáng tạo - Diễn giải - Mô phỏng - Phản biện.</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a><br>
+<br> <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a><br>
+<br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
