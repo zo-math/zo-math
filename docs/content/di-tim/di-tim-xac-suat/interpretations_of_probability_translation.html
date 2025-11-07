@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="ZO Math">
+
+<title>Các diễn giải về xác suất – ZO Math</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-719951764d4ca359be86a642d82fdf9d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../assets/css/custom.css">
+<link rel="stylesheet" href="../../../assets/css/three-columns.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-10/index.qmd">
+ <span class="dropdown-text">Toán 10</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-11/index.html">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-12/index.html">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.html">
+ <span class="dropdown-text">100+ Hàm số</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-o/index.html"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-lab/index.html"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/shop/index.html"> 
+<span class="menu-text">ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page">
+      <h1 class="title">Các diễn giải về xác suất</h1>
+            <p class="subtitle lead">Interpretations of Probability: Bản dịch đối chiếu song ngữ Anh - Việt</p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-page">
+
+      <div>
+      <div class="quarto-title-meta-heading">Tác giả</div>
+      <div class="quarto-title-meta-contents">
+               <p>ZO Math </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Ngày cập nhật</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">06-11-2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
+
+
+
+
+
+<!-- 
+quarto preview e:/zo-math/content/di-tim/di-tim-xac-suat/interpretations_of_probability_translation.qmd --html
+-->
+<section id="bản-dịch-đối-chiếu-song-ngữ-anh---việt" class="level2">
+<h2 class="anchored" data-anchor-id="bản-dịch-đối-chiếu-song-ngữ-anh---việt">Bản dịch đối chiếu song ngữ Anh - Việt</h2>
+<!-- Tiêu đề bài luận -->
+<div class="three-cols">
+<div class="row">
+<section id="interpretations-of-probability" class="level3 col-original">
+<h3 class="anchored" data-anchor-id="interpretations-of-probability">Interpretations of Probability</h3>
+</section>
+<section id="các-diễn-giải-về-xác-suất" class="level3 col-translation">
+<h3 class="anchored" data-anchor-id="các-diễn-giải-về-xác-suất">Các diễn giải về xác suất</h3>
+</section>
+<section id="ghi-chú" class="level3 col-notes">
+<h3 class="anchored" data-anchor-id="ghi-chú">Ghi chú</h3>
+</section>
+</div>
+</div>
+<!-- Câu nói của Russell -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p><em>Probability the most important concept in modern science, especially as nobody has the slightest notion what it means.</em></p>
+<p>— Bertrand Russell, 1929 Lecture (cited in Bell 1945, 587)</p>
+</div>
+<div class="col-translation">
+<p><em>Xác suất là khái niệm quan trọng nhất trong khoa học hiện đại, nhất là khi không ai có chút khái niệm nào về ý nghĩa của nó.</em></p>
+<p>— Bertrand Russell, Bài giảng 1929 (dẫn lại trong Bell 1945, tr. 587)</p>
+</div>
+<div class="col-notes">
+<ul>
+<li><p><em>Xác suất:</em> trung tâm của khoa học hiện đại nhưng chưa có nền tảng ý nghĩa thống nhất.</p></li>
+<li><p><em>Vấn đề:</em> hiểu xác suất là gì, không chỉ dùng nó để tính toán.</p></li>
+<li><p><em>explication</em> được giữ là <em>triển nghĩa</em> để phân biệt với <em>explanation</em> là <em>giải thích</em>. Đây là thuật ngữ kỹ thuật Carnap dùng: to explicate a concept = tinh chỉnh khái niệm thô thành khái niệm khoa học.</p></li>
+<li><p><em>measure theory</em> dịch là <em>lý thuyết đo lường</em> thay vì lý thuyết đo để đúng truyền thống Việt ngữ toán học.</p></li>
+<li><p><em>updating such functions</em> là <em>sự cập nhật</em>, một thuật ngữ thống kê Bayes.</p></li>
+</ul>
+<p>Giữ mạch câu dài như nguyên bản, có nhịp triết học “trùng trùng nhịp logic” của tiếng Anh hàn lâm; tránh rút gọn gây mất chiều sâu.</p>
+</div>
+</div>
+</div>
+<!-- Những phát biểu có tính xác suất -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>One regularly reads and hears probabilistic claims like the following:</p>
+</div>
+<div class="col-translation">
+<p>Người ta thường xuyên đọc và nghe những phát biểu có tính xác suất như sau:</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!---->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<ul>
+<li>The Democrats will probably win the next election.</li>
+<li>The coin is just as likely to land heads as tails.</li>
+<li>There’s a 30% chance of rain tomorrow.</li>
+<li>The probability that a radium atom decays in one year is roughly 0.0004.</li>
+</ul>
+</div>
+<div class="col-translation">
+<ul>
+<li>Đảng Dân chủ có lẽ sẽ thắng trong cuộc bầu cử sắp tới.</li>
+<li>Đồng xu có khả năng rơi vào mặt ngửa và mặt sấp ngang nhau.</li>
+<li>Có 30 % khả năng trời sẽ mưa vào ngày mai.</li>
+<li>Xác suất để một nguyên tử radium phân rã trong vòng một năm xấp xỉ 0,0004.</li>
+</ul>
+</div>
+<div class="col-notes">
+<ul>
+<li><p>Bốn miền biểu hiện của xác suất:</p>
+<ol type="1">
+<li>Chính trị: niềm tin chủ quan.</li>
+<li>Trò chơi: xác suất cổ điển.</li>
+<li>Khí tượng: xác suất tần suất.</li>
+<li>Vật lý: khuynh hướng tự nhiên.</li>
+</ol></li>
+<li><p>Ngôn ngữ thường đã hàm chứa các <em>diễn giải</em> khác nhau.</p></li>
+</ul>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>But what do these statements mean? This may be understood as a metaphysical question about what kinds of things are probabilities, or more generally as a question about what makes probability statements true or false. At a first pass, various <em>interpretations of probability</em> answer this question, one way or another.</p>
+</div>
+<div class="col-translation">
+<p>Nhưng những phát biểu ấy có ý nghĩa gì? Câu hỏi này có thể được hiểu theo hướng siêu hình học: “Xác suất thuộc về loại thực thể nào?”; hoặc, nói rộng hơn, như một câu hỏi: “Điều gì khiến cho các phát biểu xác suất là đúng hay sai?” — Ở cách nhìn đầu tiên, các diễn giải xác suất khác nhau tìm cách trả lời câu hỏi này theo những cách khác nhau.</p>
+</div>
+<div class="col-notes">
+<p><strong>Câu hỏi triết học trung tâm</strong></p>
+<ul>
+<li>Các phát biểu xác suất có nghĩa gì?</li>
+<li>Hai hướng trả lời:
+<ul>
+<li><em>Siêu hình</em> (metaphysical): Xác suất là thuộc tính của thế giới?</li>
+<li><em>Chân trị luận</em> (truth-conditional / epistemic): Điều gì khiến một phát biểu xác suất đúng hay sai?</li>
+</ul></li>
+<li>Đây là điểm khởi đầu cho mọi diễn giải về xác suất.</li>
+</ul>
+<p><strong>Siêu hình</strong></p>
+<p>Từ <em>metaphysical</em>, dịch là <em>siêu hình học</em>, trong triết học phương Tây không mang nghĩa <em>huyền bí</em> như cách dùng phổ thông, mà nghĩa rất kỹ thuật: Siêu hình học là lĩnh vực nghiên cứu bản chất của tồn tại và loại sự vật mà thế giới bao gồm. Vậy khi Hájek nói “a metaphysical question about what kinds of things are probabilities”, ông đang hỏi:</p>
+<ul>
+<li>Xác suất là một loại sự vật nào trong thế giới?</li>
+<li>Nó là thuộc tính vật lý, cấu trúc thống kê, hay hàm tin tưởng của con người?</li>
+</ul>
+<p>Trong văn cảnh này, <em>siêu hình</em> song song với:</p>
+<ul>
+<li>Nhận thức luận (epistemological): hỏi về tri thức, niềm tin, điều kiện biết đúng.</li>
+<li>Ngữ nghĩa / chân trị luận (semantic / truth-conditional): hỏi về điều kiện để một phát biểu đúng.</li>
+</ul>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>However, there is also a stricter usage: an ‘interpretation’ <em>of a formal theory</em> provides meanings for its primitive symbols or terms, with an eye to turning its axioms and theorems into true statements about some subject. In the case of probability, Kolmogorov’s axiomatization (which we will see shortly) is the usual formal theory, and the so-called ‘interpretations of probability’ usually interpret <em>it</em>. That axiomatization introduces a function ‘<span class="math inline">\(P\)</span>’ that has certain formal properties. We may then ask ‘What is <span class="math inline">\(P\)</span>?’. Several of the views that we will discuss also answer this question, one way or another.</p>
+</div>
+<div class="col-translation">
+<p>Tuy nhiên, còn một cách hiểu nghiêm ngặt hơn: một “diễn giải” của <em>một lý thuyết hình thức</em> là việc gán ý nghĩa cho các ký hiệu hay thuật ngữ nguyên thủy của nó, nhằm biến các tiên đề và định lý của lý thuyết đó thành những phát biểu đúng về một lĩnh vực nhất định. Trong trường hợp của xác suất, tiên đề hóa của Kolmogorov (mà ta sẽ sớm bàn tới) là lý thuyết hình thức chuẩn mực, và cái gọi là “các diễn giải của xác suất” thường chính là những cách diễn giải <em>lý thuyết ấy</em>. Hệ tiên đề đó giới thiệu một hàm <span class="math inline">\(P\)</span> có các tính chất hình thức nhất định; khi đó, ta có thể hỏi: “<span class="math inline">\(P\)</span> là gì?” — Một số quan điểm sẽ được thảo luận dưới đây tìm cách trả lời chính câu hỏi ấy, theo những cách khác nhau.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Our topic is complicated by the fact that there are various alternative formalizations of probability. Moreover, as we will see, some of the leading ‘interpretations of probability’ do not obey all of Kolmogorov’s axioms, yet they have not lost their title for that. And various other quantities that have nothing to do with probability <em>do</em> satisfy Kolmogorov’s axioms, and thus are ‘interpretations’ of it in the strict sense: normalized mass, length, area, volume, and other quantities that fall under the scope of measure theory, the abstract mathematical theory that generalizes such quantities. Nobody seriously considers these to be ‘interpretations of probability’, however, because they do not play the right role in our conceptual apparatus.</p>
+</div>
+<div class="col-translation">
+<p>Chủ đề này trở nên phức tạp hơn vì thực tế tồn tại nhiều hình thức hóa thay thế của lý thuyết xác suất. Hơn nữa, như ta sẽ thấy, có những “diễn giải hàng đầu” của xác suất không tuân thủ đầy đủ các tiên đề của Kolmogorov, nhưng điều đó không khiến chúng đánh mất danh xưng của mình. Ngược lại, có nhiều đại lượng chẳng liên quan gì đến xác suất lại thỏa mãn các tiên đề ấy, nên theo nghĩa chặt chẽ chúng cũng là “diễn giải” của lý thuyết đó: khối lượng chuẩn hóa, độ dài, diện tích, thể tích, và các đại lượng khác nằm trong phạm vi của lý thuyết đo lường (measure theory), ngành toán trừu tượng tổng quát hóa các đại lượng ấy. Tuy nhiên, không ai xem nghiêm túc những đại lượng đó là “diễn giải về xác suất”, bởi chúng không đảm nhiệm đúng vai trò trong hệ thống khái niệm của chúng ta.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Perhaps we would do better, then, to think of the interpretations as analyses of various concepts of probability. Or perhaps better still, we might regard them as explications of such concepts, refining them to be fruitful for philosophical and scientific theorizing (à la Carnap 1950, 1962).</p>
+</div>
+<div class="col-translation">
+<p>Có lẽ vì thế, ta nên xem các diễn giải này như những phân tích về các khái niệm xác suất khác nhau — hoặc, có thể nói đúng hơn, như những sự triển nghĩa (explications) của các khái niệm ấy, được tinh chế sao cho hữu ích cho việc lý thuyết hóa triết học và khoa học (theo tinh thần Carnap 1950, 1962).</p>
+</div>
+<div class="col-notes">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 30%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Anh</th>
+<th>Việt</th>
+<th>Ghi chú</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>probability</td>
+<td>xác suất</td>
+<td>đại lượng mô tả khả năng / niềm tin</td>
+</tr>
+<tr class="even">
+<td>interpretation</td>
+<td>diễn giải</td>
+<td>gán ý nghĩa cho ký hiệu hoặc khái niệm</td>
+</tr>
+<tr class="odd">
+<td>metaphysical</td>
+<td>siêu hình học</td>
+<td>hỏi về bản thể của sự vật</td>
+</tr>
+<tr class="even">
+<td>epistemic / truth-conditional</td>
+<td>nhận thức luận / chân trị luận</td>
+<td>hỏi điều kiện để phát biểu đúng</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>However we think of it, the project of finding such interpretations is an important one. Probability is virtually ubiquitous. It plays a role in almost all the sciences. It underpins much of the social sciences — witness the prevalent use of statistical testing, confidence intervals, regression methods, and so on. It finds its way, moreover, into much of philosophy. In epistemology, the philosophy of mind, and cognitive science, we see states of opinion being modeled by subjective probability functions, and learning being modeled by the updating of such functions. Since probability theory is central to decision theory and game theory, it has ramifications for ethics and political philosophy. It figures prominently in such staples of metaphysics as causation and laws of nature. It appears again in the philosophy of science in the analysis of confirmation of theories, scientific explanation, and in the philosophy of specific scientific theories, such as quantum mechanics, statistical mechanics, evolutionary biology, and genetics. It can even take center stage in the philosophy of logic, the philosophy of language, and the philosophy of religion. Thus, problems in the foundations of probability bear at least indirectly, and sometimes directly, upon central scientific, social scientific, and philosophical concerns. The interpretation of probability is one of the most important such foundational problems.</p>
+</div>
+<div class="col-translation">
+<p>Dù ta nhìn nhận thế nào, công trình tìm kiếm các diễn giải như vậy là một công trình quan trọng. Xác suất gần như hiện diện ở khắp nơi: nó đóng vai trò trong hầu hết mọi ngành khoa học, là nền tảng của phần lớn khoa học xã hội — thể hiện qua việc sử dụng phổ biến các phép kiểm định thống kê, khoảng tin cậy, phương pháp hồi quy, v.v.. Hơn thế nữa, nó thâm nhập sâu vào nhiều lĩnh vực triết học. Trong nhận thức luận, triết học tâm thức và khoa học nhận thức, các trạng thái ý kiến thường được mô hình hóa bằng hàm xác suất chủ quan, và quá trình học tập được mô hình hóa bằng sự cập nhật các hàm ấy. Vì lý thuyết xác suất giữ vị trí trung tâm trong lý thuyết quyết định và lý thuyết trò chơi, nó có ảnh hưởng tới đạo đức học và triết học chính trị. Nó cũng hiện diện nổi bật trong các chủ đề cốt lõi của siêu hình học như nhân quả và các định luật tự nhiên; và tái xuất hiện trong triết học khoa học khi phân tích sự chứng thực các lý thuyết, giải thích khoa học, cũng như trong triết học của các lý thuyết khoa học cụ thể — cơ học lượng tử, cơ học thống kê, sinh học tiến hóa, di truyền học. Thậm chí, nó có thể giữ vai trò trung tâm trong triết học logic, triết học ngôn ngữ, và triết học tôn giáo. Vì vậy, các vấn đề trong nền tảng của xác suất ít nhất có ảnh hưởng gián tiếp — và đôi khi trực tiếp — đến các mối quan tâm trung tâm của khoa học, khoa học xã hội và triết học. Diễn giải xác suất là một trong những vấn đề nền tảng quan trọng nhất ấy.</p>
+</div>
+<div class="col-notes">
+<p>Phần Mở đầu này đặt toàn bộ nền tảng cho bài viết:</p>
+<ol type="1">
+<li>Nó chuyển từ ngôn ngữ đời thường sang khung triết học về ý nghĩa của xác suất.</li>
+<li>Nó nhấn mạnh hai tầng diễn giải: (i) gán nghĩa siêu hình cho xác suất, (ii) gán nghĩa cho hàm <span class="math inline">\(P\)</span> trong tiên đề Kolmogorov.</li>
+<li>Nó nêu phạm vi ảnh hưởng xuyên ngành của xác suất — một cách hợp thức hóa triết lý vì sao vấn đề này xứng đáng là vấn đề nền tảng.</li>
+</ol>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<ul>
+<li><a href="#kolmogorovs-probability-calculus">1. Kolmogorov’s Probability Calculus</a></li>
+<li><a href="#criteria-of-adequacy-for-the-interpretations-of-probability">2. Criteria of adequacy for the interpretations of probability</a></li>
+<li><a href="#the-main-interpretations">3. The Main Interpretations</a>
+<ul>
+<li><a href="#classical-probability">3.1 Classical Probability</a></li>
+<li><a href="#logical-evidential-probability">3.2 Logical/Evidential Probability</a></li>
+<li><a href="#subjective-probability">3.3 Subjective Probability</a></li>
+<li><a href="#frequency-interpretations">3.4 Frequency Interpretations</a></li>
+<li><a href="#propensity-interpretations">3.5 Propensity Interpretations</a></li>
+<li><a href="#best-system-interpretations">3.6 Best-System Interpretations</a></li>
+</ul></li>
+<li><a href="#conclusion-future-prospects">4. Conclusion: Future Prospects?</a>
+<ul>
+<li><a href="#suggested-further-reading">Suggested Further Reading</a></li>
+</ul></li>
+<li><a href="#bibliography">Bibliography</a></li>
+<li><a href="#notes">Notes</a></li>
+</ul>
+</div>
+<div class="col-translation">
+
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="kolmogorovs-probability-calculus" class="level4 col-original">
+<h4 class="anchored" data-anchor-id="kolmogorovs-probability-calculus">Kolmogorov’s Probability Calculus</h4>
+</section>
+<section id="phép-tính-xác-suất-của-kolmogorov" class="level4 col-translation">
+<h4 class="anchored" data-anchor-id="phép-tính-xác-suất-của-kolmogorov">Phép tính xác suất của Kolmogorov</h4>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Probability theory was a relative latecomer in intellectual history. To be sure, proto-probabilistic ideas concerning evidence and inference date back to antiquity (see Franklin 2001). However, probability’s mathematical treatment had to wait until the Fermat-Pascal correspondence, and their analysis of games of chance in 17<sup>th</sup> century France. Its axiomatization had to wait still longer, in Kolmogorov’s classic <em>Foundations of the Theory of Probability</em> (1933). Roughly, probabilities lie between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span> inclusive, and they are additive. More formally, let <span class="math inline">\(\Omega\)</span> be a non-empty set (‘the universal set’). <em>A field</em> (or <em>algebra</em>) on <span class="math inline">\(\Omega\)</span> is a set <span class="math inline">\(\mathbf{F}\)</span> of subsets of <span class="math inline">\(\Omega\)</span> that has <span class="math inline">\(\Omega\)</span> as a member, and that is closed under complementation (with respect to <span class="math inline">\(\Omega\)</span>) and union. Let <span class="math inline">\(P\)</span> be a function from <span class="math inline">\(\mathbf{F}\)</span> to the real numbers obeying:</p>
+</div>
+<div class="col-translation">
+<p>Lý thuyết xác suất (probability theory) là một “người đến muộn” trong lịch sử tư tưởng. Quả thật, các ý niệm tiền-xác-suất (proto-probabilistic ideas) liên quan đến chứng cứ và suy luận đã xuất hiện từ thời cổ đại (xem Franklin 2001). Tuy nhiên, việc xử lý xác suất bằng toán học phải đợi đến thư từ giữa Fermat và Pascal cùng với phân tích các trò may rủi ở Pháp thế kỷ XVII. Sự tiên đề hóa (axiomatization) của xác suất lại phải chờ lâu hơn nữa — trong tác phẩm kinh điển <em>Foundations of the Theory of Probability</em> (1933) của Kolmogorov. Một cách đại khái, các giá trị xác suất nằm trong khoảng từ <span class="math inline">\(0\)</span> đến <span class="math inline">\(1\)</span> (gồm cả hai đầu mút) và có tính cộng. Một cách chính thức hơn: Cho <span class="math inline">\(\Omega\)</span> là một tập không rỗng (non-empty set, “tập vũ trụ”). <em>Trường</em> (field hay algebra) trên <span class="math inline">\(\Omega\)</span> là một tập <span class="math inline">\(\mathbf{F}\)</span> các tập con của <span class="math inline">\(\Omega\)</span> sao cho <span class="math inline">\(\Omega\in\mathbf{F}\)</span> và <span class="math inline">\(\mathbf{F}\)</span> đóng dưới phép bổ (complementation with respect to <span class="math inline">\(\Omega\)</span>) và phép hợp. Ký hiệu <span class="math inline">\(P\)</span> là một hàm từ <span class="math inline">\(\mathbf{F}\)</span> vào tập số thực, thỏa mãn ba tiên đề:</p>
+</div>
+<div class="col-notes">
+<p>Kolmogorov đặt dấu mốc khi biến xác suất từ một ý niệm mơ hồ (liên quan đến “may rủi” và “bằng chứng”) thành một cấu trúc hình thức thuần toán học. Ba yếu tố của ông – tập vũ trụ <span class="math inline">\(\Omega\)</span>, trường biến cố <span class="math inline">\(\mathbf{F}\)</span>, và hàm xác suất <span class="math inline">\(P\)</span> – biến xác suất thành một <em>hệ đo</em> (measure system) có thể nghiên cứu bằng đại số và giải tích. Điểm quan trọng là: từ đây, xác suất được định nghĩa không cần nhắc đến may rủi hay tin tưởng – chỉ cần tính chất hình thức của <span class="math inline">\(P\)</span>.</p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<ol type="1">
+<li>(Non-negative) <span class="math inline">\(P(A)\geq 0\)</span>, for all <span class="math inline">\(A\in\mathbf{F}\)</span>.</li>
+<li>(Normalization) <span class="math inline">\(P(\Omega)=1\)</span>.</li>
+<li>(Finte additivity) <span class="math inline">\(P(A\cup B)=P(A)+P(B)\)</span> for all <span class="math inline">\(A, B\in\mathbf{F}\)</span> such that <span class="math inline">\(A\cap B=\emptyset\)</span>.</li>
+</ol>
+</div>
+<div class="col-translation">
+<ol type="1">
+<li>(Không âm) <span class="math inline">\(P(A)\geq 0\)</span>, với mọi <span class="math inline">\(A\in\mathbf{F}\)</span>.</li>
+<li>(Chuẩn hóa) <span class="math inline">\(P(\Omega)=1\)</span>.</li>
+<li>(Cộng hữu hạn) <span class="math inline">\(P(A\cup B)=P(A)+P(B)\)</span> với mọi <span class="math inline">\(A, B\in\mathbf{F}\)</span> mà <span class="math inline">\(A\cap B=\emptyset\)</span>.</li>
+</ol>
+</div>
+<div class="col-notes">
+<p>Ba tiên đề tạo nên cấu trúc cơ bản của mọi lý thuyết xác suất.</p>
+<ol type="1">
+<li><em>Không âm</em> vì <span class="math inline">\(P(A)\)</span> phải diễn tả mức độ tồn tại của biến cố <span class="math inline">\(A\)</span> - không phải như “hướng”trong đại lượng véc-tơ.</li>
+<li><em>Chuẩn hóa</em> vì xác suất cần một điểm tựa tuyệt đối để có ý nghĩa: <span class="math inline">\(P(\Omega)=1\)</span> chính là định nghĩa ngầm của “thế giới đầy đủ khả năng”. Nhờ đó, mọi biến cố đều được định lượng như một tỉ phần của toàn thể chắc chắn — cũng như mọi độ dài được hiểu theo đơn vị mét đầu tiên.</li>
+<li>Đặc biệt, <em>cộng hữu hạn</em> là linh hồn của phép tính xác suất: từ đó suy ra công thức cộng, trừ, giao, hợp cho mọi biến cố rời nhau. Hai tiên đề còn lại chỉ là quy ước - nhưng việc tồn tại giá trị tối đa <span class="math inline">\(1\)</span> làm xác suất khác với các độ đo quen thuộc khác như <em>độ dài</em>, <em>thể tích</em>.</li>
+</ol>
+<p>Từ ba nguyên lý này, toàn bộ phép toán xác suất được tái tạo mà không cần thêm giả định triết học nào.</p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Call <span class="math inline">\(P\)</span> a <em>probability function</em>, and <span class="math inline">\((\Omega,\mathbf{F},P)\)</span> a <em>probability space</em>. This is Kolmogorov’s “elementary theory of probability”.</p>
+</div>
+<div class="col-translation">
+<p>Khi đó, <span class="math inline">\(P\)</span> được gọi là một <em>hàm xác suất</em>, và bộ ba <span class="math inline">\((\Omega, \mathbf{F},P)\)</span> được gọi là một <em>không gian xác suất</em>. Đây là “lý thuyết xác suất sơ đẳng” (the elementary theory of probability) theo Kolmogorov.</p>
+</div>
+<div class="col-notes">
+<p>hái niệm hàm xác suất và không gian xác suất xác định vũ trụ hình thức của Kolmogorov: nơi mọi sự kiện chỉ còn là “tập con” của <span class="math inline">\(\Omega\)</span>, và xác suất chỉ là số đo trên chúng. Nó tách rời hoàn toàn khỏi khái niệm “ngẫu nhiên” trong đời sống, tạo nên nền tảng cho mô hình xác suất trong mọi ngành khoa học sau này.</p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>The non-negativity and normalization axioms are largely matters of convention, although it is non-trivial that probability functions take at least the two values <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>, and that they have a maximal value (unlike various other measures, such as length, volume, and so on, which are unbounded). We will return to finite additivity at a number of points below.</p>
+</div>
+<div class="col-translation">
+<p>Hai tiên đề không âm và chuẩn hóa phần lớn là quy ước. Tuy nhiên, điều không tầm thường là hàm xác suất luôn nhận ít nhất hai giá trị <span class="math inline">\(0\)</span> và <span class="math inline">\(1\)</span>, và có một giá trị tối đa - khác với các độ đo khác như độ dài, thể tích v.v., vốn không bị chặn. Vấn đề cộng hữu hạn sẽ được nhắc lại nhiều lần ở các phần sau.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>The non-negativity and normalization axioms are largely matters of convention, although it is non-trivial that probability functions take at least the two values <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>, and that they have a maximal value (unlike various other measures, such as length, volume, and so on, which are unbounded). We will return to finite additivity at a number of points below.</p>
+</div>
+<div class="col-translation">
+<p>Hai tiên đề không âm và chuẩn hóa phần lớn là quy ước. Tuy nhiên, điều không tầm thường là hàm xác suất luôn nhận ít nhất hai giá trị <span class="math inline">\(0\)</span> và <span class="math inline">\(1\)</span>, và có một giá trị tối đa - khác với các độ đo khác như độ dài, thể tích v.v., vốn không bị chặn. Vấn đề cộng hữu hạn sẽ được nhắc lại nhiều lần ở các phần sau.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>The non-negativity and normalization axioms are largely matters of convention, although it is non-trivial that probability functions take at least the two values <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>, and that they have a maximal value (unlike various other measures, such as length, volume, and so on, which are unbounded). We will return to finite additivity at a number of points below.</p>
+</div>
+<div class="col-translation">
+<p>Hai tiên đề không âm và chuẩn hóa phần lớn là quy ước. Tuy nhiên, điều không tầm thường là hàm xác suất luôn nhận ít nhất hai giá trị <span class="math inline">\(0\)</span> và <span class="math inline">\(1\)</span>, và có một giá trị tối đa - khác với các độ đo khác như độ dài, thể tích v.v., vốn không bị chặn. Vấn đề cộng hữu hạn sẽ được nhắc lại nhiều lần ở các phần sau.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>We may now apply the theory to various familiar cases. For example, we may represent the results of tossing a single die once by the set <span class="math inline">\(\Omega=\{1,2,3,4,5,6\}\)</span>, and we could let <span class="math inline">\(\mathbf{F}\)</span> be the set of all subsets of <span class="math inline">\(\Omega\)</span>. Under the natural assignment of probabilities to members of <span class="math inline">\(\mathbf{F}\)</span>, we obtain such welcome results as the following:</p>
+<p><span class="math display">\[
+    \begin{align*}
+        P(\{1\})
+          &amp;=\frac{1}{6},\\
+        P(\text{even})
+          &amp;=P(\{2\}\cup\{4\}\cup\{6\})\\
+          &amp;=\frac{3}{6},\\
+        P(\text{odd or less than 4})
+          &amp;=P(\text{odd})+P(\text{less than 4})\\
+          &amp;\qquad-P(\text{odd}\cap\text{less than 4})\\
+          &amp;=\frac{1}{2}+\frac{1}{2}-\frac{2}{6}\\
+          &amp;=\frac{4}{6},
+    \end{align*}
+\]</span></p>
+<p>and so on.</p>
+</div>
+<div class="col-translation">
+<p>Giờ ta có thể áp dụng lý thuyết này cho những trường hợp quen thuộc. Chẳng hạn, khi tung một con xúc xắc, ta biểu diễn kết quả bằng tập <span class="math inline">\(\Omega=\{1,2,3,4,5,6\}\)</span> và chọn <span class="math inline">\(\mathbf{F}\)</span> là tập mọi tập con của <span class="math inline">\(\Omega\)</span>. Với phép gán xác suất tự nhiên cho các phần tử của <span class="math inline">\(\mathbf{F}\)</span>, ta thu được những kết quả quen thuộc sau:</p>
+<p><span class="math display">\[
+    \begin{align*}
+        P(\{1\})
+          &amp;=\frac{1}{6},\\
+        P(\text{chẵn})
+          &amp;=P(\{2\}\cup\{4\}\cup\{6\})\\
+          &amp;=\frac{3}{6},\\
+        P(\text{lẻ hoặc bé hơn 4})
+          &amp;=P(\text{lẽ})+P(\text{bé hơn 4})\\
+          &amp;\qquad-P(\text{lẽ}\cap\text{bé hơn 4})\\
+          &amp;=\frac{1}{2}+\frac{1}{2}-\frac{2}{6}\\
+          &amp;=\frac{4}{6},
+    \end{align*}
+\]</span></p>
+<p>vân vân.</p>
+</div>
+<div class="col-notes">
+<p>Ví dụ xúc xắc cho thấy sức mạnh của hình thức hóa: chỉ với ba tiên đề, ta có thể mô tả chính xác mọi phép tính xác suất trong tình huống quen thuộc mà không cần bàn “ý nghĩa” của may rủi. Kolmogorov chứng minh rằng toán học của xác suất có thể hoạt động hoàn hảo, độc lập với mọi diễn giải triết học – và đó chính là lý do mà các triết gia sau này phải quay lại hỏi:</p>
+<blockquote class="blockquote">
+<p>“Nếu mô hình đã hoàn hảo, vậy xác suất thật sự nói về điều gì?”</p>
+</blockquote>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>We could instead attach probabilities to members of a collection <span class="math inline">\(\mathbf{S}\)</span> of sentences of a formal language, closed under (countable) truth-functional combinations, with the following counterpart axiomatization:</p>
+</div>
+<div class="col-translation">
+
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+
+</div>
+<div class="col-translation">
+
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+
+</div>
+<div class="col-translation">
+
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+
+</div>
+<div class="col-translation">
+
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+
+</div>
+<div class="col-translation">
+
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+
+</div>
+<div class="col-translation">
+
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+
+</div>
+<div class="col-translation">
+
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+
+</div>
+<div class="col-translation">
+
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+
+</div>
+<div class="col-translation">
+
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+
+</div>
+<div class="col-translation">
+
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+
+</div>
+<div class="col-translation">
+
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a><br>
+<br> <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a><br>
+<br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

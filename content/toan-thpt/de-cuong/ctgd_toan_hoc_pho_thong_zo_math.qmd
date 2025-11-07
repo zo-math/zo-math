@@ -310,34 +310,177 @@ Phần kết luận tổng hợp giá trị cốt lõi của chương trình: h�
 
 # 1. Giới thiệu chung
 
-## **1.1. Mục đích của tài liệu**
+## 1.1. Mục đích của tài liệu
 
-**ZO Math: Chương trình Toán học cấp Trung học phổ thông** được biên soạn nhằm xác lập **khung định hướng học tập, giảng dạy và tự học môn Toán** trong *Cộng đồng học Toán ZO Math*.
-Tài liệu này là nền tảng cho việc thiết kế, phát triển và điều phối thống nhất các hoạt động học – dạy – nghiên cứu trong hệ sinh thái ZO Math.
+*ZO Math: Chương trình Toán học cấp Trung học phổ thông* được biên soạn nhằm xác lập *khung định hướng học tập, giảng dạy và tự học môn Toán* trong *Cộng đồng học Toán ZO Math*. Tài liệu này là nền tảng cho việc thiết kế, phát triển và điều phối thống nhất các hoạt động *học* - *dạy* - *nghiên cứu* trong hệ sinh thái ZO Math.
 
-Bên cạnh việc xác định mục tiêu, nội dung và năng lực cần đạt, tài liệu còn đóng vai trò **bản chuẩn định hướng** cho việc xây dựng học liệu, thiết kế hoạt động học tập trực tuyến, các ứng dụng tương tác Shiny, và các khóa học ứng dụng mở rộng trong tương lai.
+Bên cạnh việc xác định mục tiêu, nội dung và năng lực cần đạt, tài liệu còn đóng vai trò *bản chuẩn định hướng* cho việc xây dựng học liệu, thiết kế hoạt động học tập trực tuyến, các ứng dụng tương tác Shiny, và các khóa học ứng dụng mở rộng trong tương lai.
 
-## **1.2. Cơ sở hình thành chương trình**
+## 1.2. Cơ sở hình thành chương trình
 
-Chương trình được xây dựng dựa trên **các chương trình Toán học quốc gia hiện hành**, cùng các **khung chương trình quốc tế uy tín** như PISA, Singapore Math và Common Core.
-Việc đối chiếu này bảo đảm tính hiện đại, tính liên thông và khả năng hội nhập quốc tế của ZO Math.
+Chương trình được xây dựng dựa trên *các chương trình Toán học quốc gia hiện hành*, cùng các *khung chương trình quốc tế uy tín* như PISA, Singapore Math và Common Core. Việc đối chiếu này bảo đảm tính hiện đại, tính liên thông và khả năng hội nhập quốc tế của ZO Math.
 
 **Chú thích.**
-Thuật ngữ *các chương trình Toán học quốc gia hiện hành* trong tài liệu này được hiểu là toàn bộ hệ thống chương trình giáo dục môn Toán do Bộ Giáo dục và Đào tạo Việt Nam ban hành, bao gồm **chương trình dành cho tất cả học sinh** và **chương trình nâng cao bồi dưỡng học sinh xuất sắc**, ở các phiên bản được cập nhật theo từng giai đoạn.
+Thuật ngữ *các chương trình Toán học quốc gia hiện hành* trong tài liệu này được hiểu là toàn bộ hệ thống chương trình giáo dục môn Toán do Bộ Giáo dục và Đào tạo Việt Nam ban hành, bao gồm *chương trình dành cho tất cả học sinh* và *chương trình nâng cao bồi dưỡng học sinh xuất sắc*, ở các phiên bản được cập nhật theo từng giai đoạn.
 
 *(Tại thời điểm thiết kế chương trình này, về mặt tham chiếu học thuật, ZO Math đối chiếu trực tiếp với **Chương trình Giáo dục phổ thông môn Toán** ban hành kèm theo Thông tư số 32/2018/TT-BGDĐT ngày 26 tháng 12 năm 2018, và **Chương trình Giáo dục nâng cao môn Toán trong trường THPT chuyên** ban hành kèm theo Thông tư số 22/2025/TT-BGDĐT ngày 30 tháng 9 năm 2025.)*
 
-## **1.3. Đối tượng áp dụng**
+## 1.3. Đối tượng áp dụng
 
-Chương trình được thiết kế cho **năm nhóm người học chính** trong Cộng đồng ZO Math:
+ZO Math xem Toán học ở cấp Trung học phổ thông là giai đoạn người học vừa rèn luyện, vừa vận dụng ba kiểu tư duy cốt lõi của Toán học:
 
-1. **Học sinh phổ thông đại trà** – hướng tới việc đạt chuẩn kiến thức và kỹ năng theo yêu cầu chung.
-2. **Học sinh có năng khiếu hoặc yêu thích Toán học** – được bồi dưỡng năng lực sáng tạo và tư duy nghiên cứu.
-3. **Người tự học hoặc học lại Toán** – có lộ trình cá nhân để củng cố và phát triển kiến thức.
-4. **Giáo viên và người làm công tác giảng dạy Toán** – sử dụng chương trình như nguồn tham chiếu và hệ thống hỗ trợ giảng dạy.
-5. **Người yêu Toán nói chung** – có không gian trao đổi, khám phá và mở rộng hiểu biết Toán học.
+* *Tư duy luận lý* hình thành qua hoạt động suy luận, chứng minh và khái quát hoá; đồng thời giúp người học hiểu sâu hơn bản chất của các cấu trúc đại số và lập luận hình học.
 
-Việc mở rộng phạm vi đối tượng giúp chương trình vừa **đáp ứng yêu cầu phổ cập**, vừa **phục vụ nhu cầu học tập suốt đời**, phù hợp với sứ mệnh xây dựng một cộng đồng học Toán mở, liên thông và sáng tạo.
+* *Tư duy biểu tượng* được phát triển thông qua việc sử dụng ngôn ngữ ký hiệu, công thức và đồ thị trong học hàm số, giải tích và các công cụ tính toán; tư duy này lại chính là cầu nối giúp người học diễn đạt và thao tác với khái niệm trừu tượng.
+
+* *Tư duy mô hình hoá* được nuôi dưỡng qua quá trình xây dựng và phân tích các mô hình Toán học cho tình huống thực tiễn; đồng thời cho phép người học kết nối các khái niệm xác suất, thống kê và dữ liệu trong bối cảnh rộng hơn.
+
+Ba kiểu tư duy này phát triển song hành với các lĩnh vực nội dung, tạo nên một cấu trúc năng động: người học rèn luyện tư duy Toán học thông qua việc học Toán, và chính tư duy ấy giúp họ không chỉ hiểu sâu hơn bản chất của Toán học, mà còn vận dụng hiệu quả vào những lĩnh vực khác của tri thức và đời sống.
+
+Từ quan niệm đó, chương trình được thiết kế cho tất cả những ai có nhu cầu học Toán ở cấp độ THPT, từ người học trong hệ thống giáo dục chính quy đến cộng đồng tự học, nhằm đáp ứng các mục tiêu học tập từ cơ bản đến nâng cao. Năm nhóm dưới đây chỉ là những hình ảnh điển hình để hình dung người học trong cộng đồng thông qua mục tiêu của họ:
+
+1. *Học sinh phổ thông đại trà:* hướng tới việc đạt chuẩn kiến thức và kỹ năng theo yêu cầu chung dành cho học sinh cấp THPT toàn quốc.
+2. *Học sinh có năng khiếu hoặc yêu thích Toán học:* được bồi dưỡng năng lực sáng tạo và tư duy nghiên cứu.
+3. *Người tự học hoặc học lại Toán:* có lộ trình cá nhân để củng cố và phát triển kiến thức.
+4. *Giáo viên và người làm công tác giảng dạy Toán:* sử dụng chương trình như nguồn tham chiếu và hệ thống hỗ trợ giảng dạy.
+5. *Người yêu Toán nói chung:* có không gian trao đổi, khám phá và mở rộng hiểu biết Toán học.
+
+Việc mở rộng phạm vi đối tượng giúp chương trình vừa *đáp ứng yêu cầu phổ cập*, vừa *phục vụ nhu cầu học tập suốt đời*, phù hợp với sứ mệnh xây dựng một cộng đồng học Toán mở, liên thông và sáng tạo.
+
+
+
+# 2. Mục tiêu và định hướng tổng thể
+
+## 2.1. Mục tiêu chung
+
+Chương trình hướng tới việc giúp người học nắm vững kiến thức Toán học nền tảng, phát triển năng lực tư duy, giải quyết vấn đề và mô hình hóa thực tế, đồng thời hình thành thái độ tích cực, chủ động và sáng tạo trong học tập và đời sống.
+
+Mục tiêu của chương trình không chỉ là truyền đạt đầy đủ tri thức Toán học, mà còn hướng dẫn người học sử dụng Toán học như một phương tiện tư duy để hiểu thế giới và hành động trong thế giới.
+
+Người học được khuyến khích hiểu sâu, suy luận chặt, diễn đạt rõ và hành động có căn cứ - coi tư duy Toán học như một cách sống trí tuệ.
+
+Chương trình đặt ra bốn định hướng phát triển chính:
+
+1. *Kiến thức:* Hình thành hiểu biết hệ thống, sâu sắc và liên thông về các khái niệm, quy luật và cấu trúc Toán học cốt lõi ở cấp THPT; tạo nền tảng cho việc học tập và ứng dụng ở các bậc cao hơn.
+
+2. *Tư duy:* Rèn luyện năng lực suy luận, khái quát hóa, chứng minh và biểu đạt; giúp người học tiếp cận vấn đề một cách logic, độc lập và sáng tạo.
+
+3. *Ứng dụng:* Phát triển khả năng mô hình hóa và vận dụng Toán học để mô tả, phân tích và giải quyết các tình huống thực tiễn trong khoa học, công nghệ và đời sống.
+
+4. *Thái độ:* Nuôi dưỡng tình yêu Toán học, tinh thần chính xác, kiên trì và cởi mở với tri thức mới; hình thành thói quen tự học và năng lực học tập suốt đời.
+
+Như vậy, ZO Math không chỉ dạy Toán, mà dạy cách tư duy bằng Toán học - một cách tư duy mạch lạc, linh hoạt và có khả năng soi sáng thế giới bằng lý trí.
+
+## 2.2. Mục tiêu cụ thể theo nhóm người học
+
+Mỗi nhóm người học trong Cộng đồng ZO Math có định hướng phát triển riêng, phù hợp với nhu cầu và năng lực cá nhân:
+
+1. *Học sinh phổ thông:* đạt chuẩn kiến thức, kỹ năng và năng lực Toán học theo yêu cầu của chương trình quốc gia; hình thành tư duy luận lý và khả năng vận dụng Toán học vào học tập và đời sống.
+
+2. *Học sinh có năng khiếu hoặc yêu thích Toán học:* được bồi dưỡng năng lực sáng tạo, tư duy nghiên cứu và khả năng tự khám phá vấn đề mới trong Toán học.
+
+3. *Người tự học hoặc cần học lại môn Toán:* có lộ trình học tập tự chủ, củng cố nền tảng kiến thức, đồng thời phát triển tư duy hệ thống và kỹ năng tự đánh giá tiến bộ.
+
+4. *Giáo viên và người làm công tác giảng dạy Toán:* có công cụ và tài nguyên tham chiếu phục vụ việc dạy học, thiết kế bài giảng, đánh giá năng lực và hướng dẫn học sinh tự học.
+
+5. *Người yêu Toán nói chung:* có môi trường trao đổi, học hỏi và mở rộng hiểu biết Toán học, kết nối tri thức Toán với các lĩnh vực khác của khoa học và đời sống.
+
+### 2.3. Phạm vi và giới hạn của chương trình
+
+Chương trình bao quát toàn bộ nội dung Toán học phù hợp ở cấp Trung học phổ thông, bao gồm các mạch kiến thức chính: Số học, Đại số, Giải tích, Hình học, Toán rời rạc, Thống kê, Xác suất và Ứng dụng Toán học.
+
+Chương trình được thiết kế theo ba mức độ tiếp cận:
+
+* *Chuẩn:* đáp ứng yêu cầu cơ bản của chương trình quốc gia.
+
+* *Nâng cao:* mở rộng và kết nối kiến thức, rèn luyện tư duy phân tích và tổng hợp.
+
+* *Mở rộng (ZO Math):* phát triển năng lực tư duy sáng tạo, khám phá và ứng dụng sâu hơn trong thực tiễn.
+
+Mặc dù phạm vi kiến thức trải rộng, chương trình không đi vào các nội dung chuyên sâu thuộc Toán học đại học hoặc nghiên cứu lý thuyết trừu tượng.
+
+Mục tiêu là giúp người học nắm vững nền tảng Toán học phổ thông, hình thành tư duy độc lập và sẵn sàng cho các bước học tập hoặc ứng dụng cao hơn.
+
+
+
+# 3. Triết lý giáo dục và nguyên tắc thiết kế
+
+## 3.1. Triết lý giáo dục của ZO Math
+
+ZO Math quan niệm rằng: *Toán học là công cụ giúp con người **tìm hiểu thế giới**, **rèn luyện tư duy luận lý** và **sáng tạo tri thức***.
+
+Triết lý này xuất phát từ bản chất của Toán học và từ vai trò của nó trong sự phát triển nhận thức của con người.
+
+Thứ nhất, *Toán học là công cụ nhận thức thế giới*, vì nó cung cấp hệ thống khái niệm, ký hiệu và mô hình giúp con người mô tả, phân tích và dự đoán hiện tượng. Thông qua Toán học, con người hiểu rõ hơn về quy luật tự nhiên, xã hội và công nghệ - từ quỹ đạo hành tinh đến mô hình kinh tế, từ tín hiệu âm thanh đến cấu trúc dữ liệu.
+
+Thứ hai, *Toán học rèn luyện tư duy luận lý*, bởi mọi hoạt động Toán học đều đòi hỏi tính chính xác, mạch lạc và khả năng chứng minh. Việc học Toán giúp người học hình thành thói quen suy nghĩ có căn cứ, biết kiểm tra giả thiết và kết luận, biết phân biệt giữa điều đúng và điều có vẻ đúng.
+
+Thứ ba, *Toán học nuôi dưỡng năng lực sáng tạo tri thức*, vì quá trình học và dạy Toán luôn là quá trình tìm tòi - từ phát hiện mẫu hình, đặt giả thuyết, đến khái quát hoá thành định lý. Mỗi người học, trong hành trình đó, đều được rèn luyện khả năng khám phá và sáng tạo - không chỉ trong Toán học mà còn trong tư duy khoa học nói chung.
+
+Từ ba luận điểm trên, ZO Math xây dựng chương trình theo định hướng: *học Toán để hiểu - để nghĩ - và để sáng tạo*. Mọi nội dung, phương pháp và hình thức học tập trong chương trình đều được thiết kế nhằm hiện thực hóa triết lý này.
+
+## 3.2. Nguyên tắc thiết kế chương trình
+
+Các nguyên tắc thiết kế của ZO Math được xây dựng trên nền tảng triết lý: *Toán học là công cụ giúp con người tìm hiểu thế giới, rèn luyện tư duy luận lý và sáng tạo tri thức.*
+
+Mọi lựa chọn về nội dung, phương pháp và hình thức học tập trong chương trình đều hướng tới việc hiện thực hóa triết lý này.
+
+### 1. Nguyên tắc hệ thống và liên thông
+
+Chương trình được cấu trúc theo *trình tự phát triển tự nhiên của tri thức Toán học*, đảm bảo tính liên kết giữa các mạch kiến thức và giữa các cấp học. Mỗi nội dung đều được đặt trong quan hệ tổng thể - giúp người học thấy Toán học là một hệ thống thống nhất chứ không phải tập hợp rời rạc các chủ đề.
+Nguyên tắc này phản ánh quan điểm rằng *hiểu Toán học là hiểu cấu trúc và quy luật của thế giới*.
+
+### 2. Nguyên tắc phát triển năng lực
+
+Chương trình không chỉ truyền đạt kiến thức mà hướng tới *hình thành và phát triển năng lực Toán học toàn diện*: tư duy luận lý, giải quyết vấn đề, mô hình hóa và giao tiếp Toán học. Mọi hoạt động học tập, giảng dạy và đánh giá đều được thiết kế để người học *tự kiến tạo hiểu biết*, *phản tư về quá trình học*, và *vận dụng Toán học trong ngữ cảnh thực tế*. Nguyên tắc này thể hiện niềm tin rằng *rèn luyện tư duy Toán học chính là rèn luyện năng lực tư duy của con người*.
+
+### 3. Nguyên tắc mở và cập nhật
+
+Chương trình được thiết kế với *tính mở và khả năng phát triển liên tục*, cho phép điều chỉnh, mở rộng và cập nhật theo sự tiến bộ của khoa học, công nghệ và nhu cầu học tập mới. Cấu trúc nội dung và phương pháp dạy học được thiết kế linh hoạt, khuyến khích sáng tạo của người học và người dạy.
+Nguyên tắc này thể hiện tinh thần rằng *Toán học không phải tri thức đã đóng kín, mà là quá trình sáng tạo tri thức mới* - nơi mỗi người học đều có thể góp phần làm giàu thêm hiểu biết của mình và của cộng đồng.
+
+
+
+# 4. Hệ năng lực Toán học ZO Math
+
+## 4.1. Sáu năng lực cốt lõi
+
+Chương trình xác định sáu năng lực cốt lõi cần hình thành và phát triển ở người học Toán cấp Trung học phổ thông. Các năng lực này không tồn tại tách biệt mà tạo thành một hệ thống gắn kết, phản ánh toàn bộ tiến trình học và làm Toán: từ quan sát, suy luận, mô hình hóa cho đến giao tiếp và ứng dụng.
+
+Trước hết, *tư duy và lập luận Toán học* là nền tảng của mọi hoạt động Toán học. Người học được rèn luyện để phân tích, suy luận, chứng minh, và hình thành thói quen kiểm chứng mọi kết luận bằng lý lẽ chặt chẽ. Trên nền đó, năng lực *giải quyết vấn đề Toán học* được phát triển - không chỉ để tìm ra lời giải cho những bài toán quen thuộc, mà còn để xây dựng chiến lược, dự đoán và phản tư về chính quá trình tư duy của mình.
+
+Hai năng lực này tạo điều kiện cho *mô hình hóa Toán học* - khả năng diễn tả và phân tích các hiện tượng thực tế bằng công cụ Toán học. Người học học cách chuyển đổi qua lại giữa tình huống thực tiễn và mô hình trừu tượng, đồng thời biết giới hạn của mô hình trong việc phản ánh thực tế.
+
+Để tri thức Toán học trở nên chia sẻ và lan tỏa, người học cần *giao tiếp Toán học*: diễn đạt rõ ràng ý tưởng bằng ngôn ngữ tự nhiên, ký hiệu, đồ thị hoặc sơ đồ. Giao tiếp giúp Toán học không chỉ là hoạt động cá nhân mà còn là quá trình hợp tác và sáng tạo tập thể.
+
+Cùng với đó, năng lực *sử dụng công cụ và công nghệ Toán học* mở rộng khả năng học tập và khám phá của người học. Việc sử dụng phần mềm, thiết bị số hay mô phỏng trực quan không thay thế tư duy, mà giúp người học kiểm chứng, dự đoán và nhìn thấy những mối quan hệ mà tư duy thuần túy khó nhận ra.
+
+Cuối cùng, trong thế giới dữ liệu, năng lực *phân tích dữ liệu và tư duy xác suất* trở thành cầu nối giữa Toán học và đời sống. Người học biết phân tích, đánh giá rủi ro và ra quyết định trên cơ sở định lượng - qua đó hình thành tư duy khoa học và phản biện.
+
+Sáu năng lực này hợp thành *khung năng lực Toán học ZO Math* - một hệ thống mở, trong đó mỗi năng lực vừa độc lập phát triển, vừa bổ trợ lẫn nhau, cùng hướng tới mục tiêu: *học Toán để hiểu, để tư duy và để sáng tạo*.
+
+
+## 4.2. Mối quan hệ với năng lực trong chương trình quốc gia
+
+Khung năng lực Toán học của ZO Math kế thừa trực tiếp từ năm năng lực được xác định trong Chương trình Giáo dục phổ thông môn Toán năm 2018 của Việt Nam: tư duy và lập luận Toán học, mô hình hóa Toán học, giải quyết vấn đề, giao tiếp Toán học, và sử dụng công cụ, phương tiện học Toán. Tuy nhiên, ZO Math không chỉ dừng lại ở việc duy trì cấu trúc đó, mà còn mở rộng và làm sâu sắc hơn nhằm đáp ứng yêu cầu học tập trong bối cảnh mới.
+
+Trước hết, các năng lực được hiểu theo hướng *động* chứ không *tĩnh*. Người học không chỉ “có năng lực” mà phải được tạo cơ hội để *vận dụng, phản tư và phát triển năng lực* trong nhiều tình huống khác nhau - từ giải toán trên lớp đến mô hình hóa hiện tượng thực tiễn. Cách hiểu này chuyển trọng tâm từ việc “đánh giá năng lực” sang “nuôi dưỡng và phát triển năng lực”.
+
+Thứ hai, ZO Math bổ sung năng lực *phân tích dữ liệu và tư duy xác suất*, coi đây là mở rộng tự nhiên của năng lực mô hình hóa trong thời đại dữ liệu. Việc hiểu và xử lý thông tin, đánh giá rủi ro, ra quyết định trên cơ sở xác suất không chỉ là nội dung kiến thức, mà là một cách tư duy nền tảng của con người hiện đại.
+
+Cuối cùng, mối quan hệ giữa sáu năng lực trong ZO Math được thiết kế mang tính *hệ thống*: tư duy là trung tâm, mô hình hóa là cầu nối, giao tiếp và công nghệ là phương tiện, còn phân tích dữ liệu mở rộng phạm vi ứng dụng. Cấu trúc này giúp chương trình vừa giữ được sự tương thích với chương trình quốc gia, vừa mở ra không gian phát triển vượt ra khỏi khuôn khổ truyền thống - hướng tới năng lực tư duy độc lập, sáng tạo và thích ứng suốt đời.
+
+## 4.3. Cấp độ phát triển năng lực
+
+Sự hình thành năng lực Toán học không diễn ra tức thời, mà qua một tiến trình phát triển dần dần, trong đó người học chuyển từ *hiểu biết khái niệm* đến *vận dụng*, rồi *sáng tạo*. Chương trình ZO Math mô tả tiến trình này qua ba cấp độ phát triển chính, phản ánh quy luật tự nhiên của tư duy Toán học.
+
+Ở *cấp độ thứ nhất*, người học *hiểu và vận dụng* kiến thức cơ bản. Đây là giai đoạn hình thành nền tảng: nhận biết khái niệm, nắm được quy tắc, định lý, và biết sử dụng chúng để giải quyết các bài toán quen thuộc. Năng lực tư duy bắt đầu hình thành từ việc thao tác với các đối tượng Toán học một cách có ý thức và có mục đích.
+
+Sang *cấp độ thứ hai*, người học bắt đầu *khái quát và kết nối*. Kiến thức không còn tồn tại riêng lẻ, mà được tổ chức thành hệ thống. Học sinh có khả năng so sánh, phát hiện cấu trúc chung giữa các bài toán, nhận ra mối liên hệ giữa các mạch nội dung như đại số, hình học, giải tích hay xác suất. Đây là giai đoạn người học hình thành tư duy trừu tượng - nền tảng của khả năng suy luận và sáng tạo.
+
+Cuối cùng, ở *cấp độ thứ ba*, người học đạt tới khả năng *sáng tạo và ứng dụng trong bối cảnh mới*. Họ có thể tự đặt vấn đề, đề xuất giả thuyết, mô hình hóa hiện tượng phức tạp, và đánh giá kết quả bằng tiêu chí hợp lý. Việc học Toán trở thành một hoạt động khám phá và sáng tạo tri thức - đúng như tinh thần mà ZO Math theo đuổi: *dùng Toán học để hiểu, để tư duy và để kiến tạo thế giới*.
+
+Ba cấp độ này không tách rời nhau, mà liên tục đan xen trong quá trình học tập. Người học có thể đồng thời ở nhiều cấp độ khác nhau tùy vào nội dung, năng lực và kinh nghiệm học tập. Chính sự linh hoạt này cho phép chương trình ZO Math thích ứng với nhiều đối tượng, từ học sinh phổ thông đến người tự học và người yêu Toán nói chung.
 
 
 
@@ -345,7 +488,21 @@ Việc mở rộng phạm vi đối tượng giúp chương trình vừa **đáp
 
 ## 5.1. Tổng quan về tám mạch kiến thức
 
-| **STT** | **Tên mạch**          | **Vai trò khái quát**                                                                   | **Phạm vi khoa học & nội dung cốt lõi**                                                                            | **Năng lực hình thành chủ đạo**                                                |
+Cấu trúc nội dung của chương trình ZO Math được tổ chức theo tám mạch kiến thức Toán học, phản ánh diện mạo toàn diện của Toán học phổ thông hiện đại. Mỗi mạch đại diện cho một cách con người tiếp cận và diễn giải thế giới thông qua Toán học - từ những con số cụ thể đến các mô hình trừu tượng, từ cấu trúc logic đến sự bất định của hiện tượng tự nhiên.
+
+Tám mạch đó gồm: Số học, Đại số, Giải tích, Hình học, Toán rời rạc, Thống kê, Xác suất và Ứng dụng Toán học.
+Chúng không tồn tại tách biệt, mà liên kết chặt chẽ như những dòng chảy của cùng một hệ thống tri thức. Số học và Đại số hình thành ngôn ngữ và quy tắc thao tác của Toán học. Giải tích mở rộng khả năng hiểu sự biến thiên và liên tục của thế giới. Hình học cung cấp cái nhìn không gian - trực quan và cấu trúc. Toán rời rạc mô tả thế giới của hệ thống, dữ liệu và thuật toán. Thống kê và Xác suất đưa Toán học đến gần thực tiễn bằng khả năng mô tả, dự đoán và ra quyết định trong điều kiện không chắc chắn. Cuối cùng, Ứng dụng Toán học kết nối tất cả các mạch trên, cho thấy Toán học vừa là công cụ, vừa là phương pháp tư duy trong mọi lĩnh vực đời sống.
+
+Việc tổ chức nội dung theo tám mạch giúp chương trình ZO Math vừa bao quát toàn bộ phổ kiến thức phổ thông, vừa mở ra khả năng học tập theo chiều sâu. Mỗi mạch là một hướng đi độc lập để phát triển năng lực, nhưng đồng thời là một phần không thể tách rời trong bức tranh chung của Toán học - thống nhất, mở và luôn phát triển.
+
+
+## 5.2. Khung mô tả tám mạch kiến thức
+
+Các mạch kiến thức là cấu trúc trung tâm của chương trình ZO Math, thể hiện cách Toán học được tổ chức thành những lĩnh vực vừa độc lập vừa liên thông. Mỗi mạch không chỉ là một tập hợp nội dung, mà còn là một hướng tiếp cận giúp người học hình thành năng lực Toán học một cách toàn diện: từ tính toán, suy luận, mô hình hóa đến ứng dụng thực tiễn.
+
+Tám mạch kiến thức và vai trò của chúng trong chương trình được tóm lược trong bảng dưới đây. Bảng này không chỉ mô tả phạm vi khoa học, mà còn chỉ ra năng lực chủ đạo mà mỗi mạch góp phần hình thành ở người học.
+
+| **STT** | **Mạch**          | **Vai trò khái quát**                                                                   | **Phạm vi & Nội dung **                                                                            | **Năng lực hình thành**                                                |
 | :-----: | :-------------------- | :-------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------- |
 |  **1**  | **Số học**            | Nền tảng của các khái niệm số, phép tính và cấu trúc đại số sơ cấp.                     | Nghiên cứu các hệ số, phép chia hết, đồng dư, ước chung - bội chung, căn bậc, số nguyên tố, và quy luật tính toán. | Tư duy tính toán, khái quát hóa số học, chính xác và cẩn trọng trong lập luận. |
 |  **2**  | **Đại số**            | Ngôn ngữ ký hiệu của Toán học, công cụ biểu diễn và khái quát hóa quy luật.             | Biểu thức, phương trình - bất phương trình, hệ phương trình, hàm số, biến đổi và biểu diễn đại số.                 | Năng lực biểu diễn, suy luận ký hiệu, khái quát hóa và biến đổi biểu thức.     |
@@ -356,7 +513,9 @@ Việc mở rộng phạm vi đối tượng giúp chương trình vừa **đáp
 |  **7**  | **Xác suất**          | Nghiên cứu quy luật của ngẫu nhiên và dự đoán khả năng xảy ra.                          | Biến cố, xác suất cổ điển, độc lập, có điều kiện, biến ngẫu nhiên rời rạc, kỳ vọng, mô phỏng ngẫu nhiên.           | Mô hình hóa ngẫu nhiên, suy luận xác suất, tư duy dự đoán và ra quyết định.    |
 |  **8**  | **Ứng dụng Toán học** | Hội tụ và tổng hợp Toán học vào thực tiễn đời sống, khoa học, công nghệ.                | Quy trình mô hình hóa, sử dụng công cụ Toán học, ứng dụng theo lĩnh vực, dự án thực hành và công nghệ số.          | Năng lực mô hình hóa, giải quyết vấn đề, phản biện và giao tiếp Toán học.      |
 
-## 5.2. Khung mô tả tám mạch kiến thức
+Tám mạch này hợp thành cấu trúc học thuật của chương trình, phản ánh tính hệ thống, mở và liên thông của ZO Math. Chúng không phải tám “môn học” tách biệt, mà là tám cách nhìn thế giới qua lăng kính Toán học - nơi tri thức, tư duy và ứng dụng gặp nhau trong một chỉnh thể thống nhất.
+
+Phần tiếp theo sẽ trình bày chi tiết từng mạch, bắt đầu từ mạch Số học, nền tảng của toàn bộ hệ thống Toán học phổ thông.
 
 ### 5.2.1. Mạch 1: Số học
 
@@ -987,6 +1146,74 @@ Các bài toán chỉ dừng ở xác suất rời rạc và ứng dụng trực
 * **Mức Chuẩn.** Học sinh nhận biết tình huống có thể mô hình hóa; thiết lập biểu thức/phương trình/hàm số cho bài toán đơn giản; diễn giải kết quả trong ngữ cảnh.
 * **Mức Nâng cao.** Học sinh xây dựng mô hình có nhiều yếu tố, chọn công cụ phù hợp (đạo hàm, hệ phương trình, dữ liệu thống kê), kiểm chứng và nêu rõ giới hạn áp dụng.
 * **Mức Mở rộng (ZO Math).** Học sinh thực hiện **dự án ứng dụng mở**: thu thập dữ liệu, mô phỏng bằng phần mềm, hoặc phân tích một vấn đề xã hội/khoa học cụ thể; học sinh đưa ra khuyến nghị dựa trên mô hình và dữ liệu, thể hiện tư duy Toán học sáng tạo.
+
+
+
+## 5.3. Liên kết giữa các mạch kiến thức
+
+Tám mạch kiến thức của chương trình ZO Math không tồn tại như những phần tách rời, mà hợp thành một *hệ thống tri thức thống nhất*, trong đó mỗi mạch vừa giữ bản sắc riêng, vừa đảm nhiệm vai trò kết nối và bổ sung cho các mạch khác. Chính sự liên kết này làm nên tính toàn vẹn của chương trình, giúp người học hiểu Toán học không phải là tập hợp rời rạc của công thức và kỹ năng, mà là một mạng lưới ý tưởng có trật tự, mở rộng không ngừng.
+
+Trước hết, các *liên kết ngang* giữa các mạch trong cùng cấp học thể hiện ở chỗ: cùng một khái niệm Toán học có thể được tiếp cận qua nhiều góc nhìn khác nhau. Chẳng hạn, khái niệm *hàm số* được hình thành từ ngôn ngữ *Đại số*, được biểu diễn và phân tích bằng *Giải tích*, được trực quan hóa trong *Hình học*, và được ứng dụng trong *Thống kê* hay *Xác suất* để mô tả các quy luật thực tiễn. Cách tổ chức này giúp người học thấy được sự tương thích giữa các lĩnh vực, đồng thời phát triển năng lực chuyển đổi và kết nối tri thức - một đặc trưng quan trọng của tư duy Toán học.
+
+Bên cạnh đó, các *liên kết dọc* thể hiện quá trình phát triển của từng mạch qua các giai đoạn học tập. Kiến thức ở lớp dưới đóng vai trò nền tảng, làm cơ sở cho việc hình thành khái niệm mới ở lớp trên. Chẳng hạn, trong mạch Giải tích, khái niệm giới hạn giữ vai trò nền tảng cho việc hình thành các khái niệm liên tục, đạo hàm và tích phân. Theo trật tự lý luận của Toán học, giới hạn được trình bày trước vì nó tạo cơ sở chặt chẽ cho toàn bộ hệ thống Giải tích. Tuy nhiên, trong tiến trình học tập, sự phát triển tư duy không nhất thiết tuân theo trật tự đó: người học có thể bắt đầu từ việc khảo sát sự thay đổi của đại lượng và nhu cầu đo lường “tốc độ biến thiên tức thời” của nó. Khi cố gắng định nghĩa một cách chính xác khái niệm đạo hàm - công cụ trung tâm của Giải tích - người học tự nhiên nhận ra cần hiểu sâu hơn về quá trình “tiến dần” của giá trị, và chính từ đó, khái niệm giới hạn được hình thành một cách tất yếu. Cách tổ chức như vậy phản ánh bản chất của tư duy Toán học nói chung: tri thức không chỉ được xây dựng theo trật tự lý luận, mà còn theo nhu cầu nhận thức và tiến trình khám phá của người học. Cơ chế phát triển này không chỉ thuộc về riêng Giải tích, mà còn là quy luật chung chi phối mọi mạch nội dung trong chương trình này của ZO Math - từ Đại số, Hình học đến Thống kê và Xác suất. Nhờ đó, mỗi mạch kiến thức không chỉ là chuỗi khái niệm nối tiếp, mà là một quá trình tư duy phát triển tự nhiên - nơi mỗi khái niệm mới ra đời để làm sáng tỏ, mở rộng và kết nối sâu hơn hiểu biết của con người về thế giới Toán học. Cấu trúc này bảo đảm tính *liên thông theo chiều sâu*, giúp người học không chỉ ghi nhớ mà còn hiểu cách tri thức Toán học tiến hóa.
+
+Cuối cùng, chương trình còn nhấn mạnh *liên kết tích hợp* giữa Toán học và các lĩnh vực khác của đời sống và khoa học. Các mạch *Thống kê*, *Xác suất* và *Ứng dụng Toán học* đóng vai trò cầu nối, giúp học sinh nhận ra rằng những ý tưởng trừu tượng trong *Đại số*, *Giải tích* hay *Toán rời rạc* đều có thể trở thành công cụ mô hình hóa, dự đoán và ra quyết định trong thực tế. Tính tích hợp này thể hiện quan niệm cốt lõi của ZO Math: *học Toán để hiểu thế giới và hành động trong thế giới*.
+
+Nhờ ba tầng liên kết - ngang, dọc và tích hợp - chương trình ZO Math duy trì được cả tính *hệ thống* lẫn *tính mở*. Mỗi mạch vừa là một cánh cửa dẫn vào thế giới Toán học, vừa là sợi dây kết nối với các mạch khác trong một chỉnh thể thống nhất, nơi tri thức không ngừng được mở rộng và tái cấu trúc qua hoạt động học tập.
+
+
+## 5.4. Các cấp độ triển khai nội dung chương trình 
+
+Chương trình được triển khai theo hai cấp độ có quan hệ kế thừa:
+
+* Cấp độ 1 - Khung tổng thể chi tiết;
+* Cấp độ 2 - Chương trình học cụ thể theo lớp.
+
+Cấp độ 1 được biên soạn trước để xác lập cấu trúc học thuật của toàn bộ chương trình; cấp độ 2 cụ thể hóa cấu trúc ấy thành lộ trình học tập hằng năm. Hai cấp độ không tách rời: cấp độ 1 cung cấp khuôn khổ để thiết kế, còn cấp độ 2 là nơi khuôn khổ đó được hiện thực hóa và kiểm chứng trong dạy - học.
+
+### 5.4.1. Cấp độ 1: Khung tổng thể chi tiết
+
+Nội dung Toán học THPT được tổ chức theo tám mạch kiến thức, mỗi mạch được phân rã thành các chủ đề lớn phản ánh cấu trúc nội tại của lĩnh vực. Các chủ đề này xác định:
+
+* Phạm vi tri thức trọng tâm;
+* Kỹ năng và năng lực cần hình thành;
+* Loại hình hoạt động học tập đặc trưng (thực hành, mô hình hóa, chứng minh, khám phá, v.v.).
+
+Mục tiêu của cấp này là trả lời câu hỏi “Toán học phổ thông gồm những miền tri thức nào và chúng liên thông ra sao?”. Nhờ vậy, cấp độ 1 đóng vai trò như bản đồ tri thức, cho thấy mỗi chủ đề đứng ở đâu trong toàn thể và vì sao nó có mặt trong chương trình.
+
+Ví dụ, trong mạch Giải tích, các chủ đề bao gồm: *Hàm số và đồ thị*, *Giới hạn và liên tục*, *Đạo hàm và ứng dụng*, *Nguyên hàm và tích phân*. Mỗi chủ đề thể hiện một bước phát triển của tư duy Toán học - từ mô tả đến phân tích, từ cụ thể đến khái quát - tạo nên tuyến tri thức liên tục và có chiều sâu.
+
+
+### 5.4.2. Cấp độ 2: Chương trình học cụ thể theo lớp
+
+Chuyển bản đồ ấy thành lộ trình học theo lớp. Ở tầng này, từng chủ đề của cấp độ 1 được phân bổ vào các năm học và được mô tả bằng “mục tiêu học tập” theo đúng nghĩa sư phạm: kiến thức (người học cần hiểu gì), kỹ năng (người học làm được gì sau khi học), và năng lực (người học huy động tổng hợp kiến thức–kỹ năng–thái độ để giải quyết tình huống mới như thế nào). Như vậy, “nội dung trọng tâm” ở cấp độ 2 không chỉ là danh mục bài học, mà là phương tiện để đạt tới các mục tiêu nói trên, còn “kết quả đầu ra” quy định mức độ đạt được ở ba nấc: Chuẩn, Nâng cao và Mở rộng (ZO Math). Sự phân bổ theo lớp bảo đảm cùng một ý tưởng toán học được gặp lại trong các bối cảnh ngày càng sâu hơn, giúp người học vừa củng cố vừa phát triển năng lực.
+
+Mỗi đơn vị học tập ở cấp độ lớp được mô tả theo ba thành tố cơ bản:
+
+1. Mục tiêu học tập: xác định rõ kiến thức, kỹ năng và năng lực cần đạt.
+
+2. Nội dung học tập: nêu cụ thể khái niệm, quy tắc, định lý, phương pháp và các dạng bài tập điển hình.
+
+3. Kết quả đầu ra: quy định chuẩn năng lực ở ba mức - Chuẩn, Nâng cao, và Mở rộng (ZO Math).
+
+Ví dụ, trong Lớp 11 – Mạch Giải tích – Chủ đề “Giới hạn và liên tục”, người học được hướng dẫn để:
+
+* Hiểu bản chất của giới hạn hàm số;
+* Tính được các giới hạn cơ bản và xác định tính liên tục;
+* Nhận biết và phân tích các dạng gián đoạn;
+* Ứng dụng khái niệm liên tục vào việc mô hình hóa hiện tượng biến thiên trong tự nhiên và kỹ thuật.
+
+Cấp độ này là cơ sở trực tiếp cho việc thiết kế kế hoạch dạy học, học liệu, hoạt động trải nghiệm và đánh giá năng lực.
+
+### 5.4.3. Mối quan hệ giữa hai cấp độ
+
+Hai cấp độ triển khai không tách biệt mà vận hành trong mối quan hệ hai chiều:
+
+* Từ trên xuống: khung tổng thể định hướng cấu trúc nội dung và năng lực cốt lõi, bảo đảm tính khoa học, hệ thống và liên thông.
+
+* Từ dưới lên: phản hồi từ thực tiễn dạy – học ở từng lớp học cung cấp dữ liệu để điều chỉnh, cập nhật và hoàn thiện khung tổng thể.
+
+Nhờ cơ chế tương tác này, chương trình ZO Math duy trì được sự ổn định học thuật đồng thời vẫn linh hoạt và mở rộng theo nhu cầu phát triển tri thức, công nghệ và thực tiễn giáo dục.
 
 
 

@@ -1,0 +1,101 @@
+/* ===========================================================
+   Template: Translation Page (Song ngữ học thuật ZO Math)
+   Mục tiêu: Giữ layout theme, chỉ mở rộng phần nội dung
+   =========================================================== */
+
+/* 1️⃣ Mở rộng phần nội dung chính (không đụng header) */
+.page-content.container,
+.page-content.container-fluid,
+main.page-content {
+  max-width: 1600px !important; /* mở rộng hơn mặc định (~1140px) */
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+  margin: 0 auto !important; /* căn giữa nội dung */
+}
+
+/* 2️⃣ Giữ phần header theo theme (không full width nữa) */
+#title-block-header {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 2rem 0 2rem;
+  box-sizing: border-box;
+}
+
+/* 3️⃣ Nội dung chính song ngữ (trong khung mở rộng) */
+.three-cols {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%; /* chiếm toàn bộ vùng nội dung, không tràn ra ngoài */
+  box-sizing: border-box;
+  padding: 1.5rem 0; /* đệm trong */
+  background-color: #fff; /* nền trắng trung tính */
+}
+
+/* 4️⃣ Mỗi hàng song ngữ */
+.row {
+  display: grid;
+  grid-template-columns: 1.5fr 1.5fr 1fr; /* ba cột bằng nhau */
+  gap: 1rem;
+  align-items: stretch;
+}
+
+/* 5️⃣ Ba cột trong mỗi hàng */
+.col-original,
+.col-translation,
+.col-notes {
+  padding: 1rem;
+  background: #fafafa;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.col-translation {
+  background: #fcfcfc;
+}
+.col-notes {
+  font-size: 0.75rem;
+  color: var(--gray-70);
+  border-left: 3px solid var(--teal);
+  padding-left: 1rem;
+  background-color: var(--gray-05);
+}
+
+/* 6️⃣ Tiêu đề linh hoạt trong các cột */
+.three-cols h1,
+.three-cols h2,
+.three-cols h3,
+.three-cols h4,
+.three-cols h5,
+.three-cols h6 {
+  margin-top: 0;
+  text-align: left;
+  font-weight: 600;
+}
+
+/* 7️⃣ Responsive: khi màn hình hẹp */
+@media (max-width: 900px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+  .page-content.container,
+  .page-content.container-fluid,
+  main.page-content {
+    max-width: 100%;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+/* ====== Căn thẳng tiêu đề với phần nội dung ====== */
+#title-block-header.quarto-title-block.default {
+  position: relative;
+  left: calc(var(--bs-gutter-x, 0rem) + var(--sidebar-width, 0px)); /* dịch sang phải bằng khoảng lề nội dung */
+  max-width: 1600px; /* giữ khung nhỏ hơn phần đọc */
+  margin: 0 auto; /* căn giữa trong khung */
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  box-sizing: border-box;
+}

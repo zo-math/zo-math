@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="ZO Math">
+
+<title>Mục lục sách What is Mathematics? – ZO Math</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-719951764d4ca359be86a642d82fdf9d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../assets/css/custom.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-10/index.qmd">
+ <span class="dropdown-text">Toán 10</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-11/index.html">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-12/index.html">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.html">
+ <span class="dropdown-text">100+ Hàm số</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-o/index.html"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-lab/index.html"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/shop/index.html"> 
+<span class="menu-text">ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Mục lục sách What is Mathematics?</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Tác giả</div>
+      <div class="quarto-title-meta-contents">
+               <p>ZO Math </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Ngày cập nhật</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">28-10-2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p>CONTENTS</p>
+<p><strong><em>Preface to Second Edition</em></strong></p>
+<p><strong><em>Preface to Revised Editions</em></strong></p>
+<p><strong><em>Preface to First Edition</em></strong></p>
+<p><strong><em>How to Use the Book</em></strong></p>
+<p><strong><em>What Is Mathematics?</em></strong></p>
+<p><strong>Chapter I. <em>The Natural Numbers</em></strong> - <em>p.&nbsp;1</em></p>
+<p><em>Introduction</em></p>
+<p><em>§1. Calculation with Integers</em> - <em>p.&nbsp;1</em></p>
+<ol type="1">
+<li>Laws of Arithmetic</li>
+<li>The Representation of Integers</li>
+<li>Computation in Systems Other than the Decimal</li>
+</ol>
+<p><em>§2. The Infinitude of the Number System. Mathematical Induction</em> - <em>p.&nbsp;9</em></p>
+<ol type="1">
+<li>The Principle of Mathematical Induction</li>
+<li>The Arithmetical Progression</li>
+<li>The Geometrical Progression</li>
+<li>The Sum of the First <span class="math inline">\(n\)</span> Squares</li>
+<li>An Important Inequality</li>
+<li>The Binomial Theorem</li>
+<li>Further Remarks on Mathematical Induction</li>
+</ol>
+<p><strong>Supplement to Chapter I. <em>The Theory of Numbers</em></strong> - <em>p.&nbsp;21</em></p>
+<p><em>Introduction</em> - <em>p.&nbsp;21</em></p>
+<p><em>§1. The Prime Numbers</em> - <em>p.&nbsp;21</em></p>
+<ol type="1">
+<li><p>Fundamental Facts</p></li>
+<li><p>The Distribution of the Primes</p>
+<ol type="a">
+<li>Formulas Producing Primes</li>
+<li>Primes in Arithmetical Progressions</li>
+<li>The Prime Number Theorem</li>
+<li>Two Unsolved Problems Concerning Prime Numbers</li>
+</ol></li>
+</ol>
+<p><em>§2. Congruences</em> - <em>p.&nbsp;31</em></p>
+<ol type="1">
+<li>General Concepts</li>
+<li>Fermat’s Theorem</li>
+<li>Quadratic Residues</li>
+</ol>
+<p><em>§3. Pythagorean Numbers and Fermat’s Last Theorem</em> - <em>p.&nbsp;40</em></p>
+<p><em>§4. The Euclidean Algorithm</em> - <em>p.&nbsp;42</em></p>
+<ol type="1">
+<li>General Theory</li>
+<li>Application to the Fundamental Theorem of Arithmetic</li>
+<li>Euler’s <span class="math inline">\(\phi\)</span> Function</li>
+<li>Fermat’s Theorem Again</li>
+<li>Continued Fractions</li>
+<li>Diophantine Equations</li>
+</ol>
+<p><strong>Chapter II. <em>The Number System of Mathematics</em></strong> - <em>p.&nbsp;52</em></p>
+<p><em>Introduction</em> - <em>p.&nbsp;52</em></p>
+<p><em>§1. The Rational Numbers</em> - <em>p.&nbsp;52</em></p>
+<ol type="1">
+<li>Rational Numbers as a Device for Measuring</li>
+<li>Intrinsic Need for the Rational Numbers</li>
+<li>Principal of Generalization</li>
+<li>Geometrical Interpretation of Rational Numbers</li>
+</ol>
+<p><em>§2. Incommensurable Segments, Irrational Numbers, and the Concept of Limit</em> - <em>p.&nbsp;58</em></p>
+<ol type="1">
+<li>Introduction</li>
+<li>Decimal Fractions. Infinite Decimals</li>
+<li>Limits. Infinite Geometrical Series</li>
+<li>Rational Numbers and Periodic Decimals</li>
+<li>General Definition of Irrational Numbers by Nested Intervals</li>
+<li>Alternative Methods of Defining Irrational Numbers. Dedekind Cuts</li>
+</ol>
+<p><em>§3. Remarks on Analytic Geometry</em> - <em>p.&nbsp;72</em></p>
+<ol type="1">
+<li>The Basic Principle</li>
+<li>Equations of Lines and Curves</li>
+</ol>
+<p><em>§4. The Mathematical Analysis of Infinity</em> - <em>p.&nbsp;77</em></p>
+<ol type="1">
+<li>Fundamental Concepts</li>
+<li>The Denumerability of the Rational Numbers and the Non-Denumerability of the Continuum</li>
+<li>Cantor’s “Cardinal Numbers”</li>
+<li>The Indirect Method of Proof</li>
+<li>The Paradoxes of the Infinite</li>
+<li>The Foundations of Mathematics</li>
+</ol>
+<p><em>§5. Complex Numbers</em> - <em>p.&nbsp;88</em></p>
+<ol type="1">
+<li>The Origin of Complex Numbers</li>
+<li>The Geometrical Interpretation of Complex Numbers</li>
+<li>De Moivre’s Formula and the Roots of Unity</li>
+<li>The Fundamental Theorem of Algebra</li>
+</ol>
+<p><em>§6. Algebraic and Transcendental Numbers</em> - <em>p.&nbsp;103</em></p>
+<ol type="1">
+<li>Definition and Existence</li>
+<li>Liouville’s Theorem and the Construction of Transcendental Numbers</li>
+</ol>
+<p><strong>Supplement to Chapter II. <em>The Algebra of Sets</em></strong> - <em>p.&nbsp;108</em></p>
+<ol type="1">
+<li>General Theory</li>
+<li>Application to Mathematical Logic</li>
+<li>An Application to the Theory of Probability</li>
+</ol>
+<p><strong>Chapter III. <em>Geometrical Constructions. The Algebra of Number Fields</em></strong> - <em>p.&nbsp;117</em></p>
+<p><em>Introduction</em> - <em>p.&nbsp;117</em></p>
+<p><strong><em>Part I. Impossibility Proofs and Algebra</em></strong> - <em>p.&nbsp;120</em></p>
+<p><em>§1. Fundamental Geometrical Constructions</em> - <em>p.&nbsp;120</em></p>
+<ol type="1">
+<li>Construction of Fields and Square Root Extraction</li>
+<li>Regular Polygons</li>
+<li>Apollonius’ Problem</li>
+</ol>
+<p><em>§2. Constructible Numbers and Number Fields</em> - <em>p.&nbsp;127</em></p>
+<ol type="1">
+<li>General Theory</li>
+<li>All Constructible Numbers Are Algebraic</li>
+</ol>
+<p><em>§3. The Unsolvability of the Three Greek Problems</em> - <em>p.&nbsp;134</em></p>
+<ol type="1">
+<li>Doubling the Cube</li>
+<li>A Theorem on Cubic Equations</li>
+<li>Trisecting the Angle</li>
+<li>The Regular Heptagon</li>
+<li>Remarks on the Problem of Squaring the Circle</li>
+</ol>
+<p><strong><em>Part II. Various Methods for Performing Constructions</em></strong> - <em>p.&nbsp;140</em></p>
+<p><em>§4. Geometrical Transformations. Inversion</em> - <em>p.&nbsp;140</em></p>
+<ol type="1">
+<li>General Remarks</li>
+<li>Properties of Inversion</li>
+<li>Geometrical Construction of Inverse Points</li>
+<li>How to Bisect a Segment and Find the Center of a Circle with the Compass Alone</li>
+</ol>
+<p><em>§5. Constructions with Other Tools. Mascheroni Constructions with Compass Alone</em> - <em>p.&nbsp;146</em></p>
+<ol type="1">
+<li>A Classical Construction for Doubling the Cube</li>
+<li>Restriction to the Use of the Compass Alone</li>
+<li>Drawing with Mechanical Instruments. Mechanical Curves. Cycloids</li>
+<li>Linkages. Peaucellier’s and Hart’s Inversors</li>
+</ol>
+<p><em>§6. More About Inversions and Its Applications</em> - <em>p.&nbsp;158</em></p>
+<ol type="1">
+<li>Invariance of Angles</li>
+<li>Families of Circles</li>
+<li>Application to the Problem of Apollonius</li>
+<li>Repeated Reflections</li>
+</ol>
+<p><strong>Chapter IV. Projective Geometry. Axiomatics. Non-Euclidean Geometries</strong> - <em>p.&nbsp;165</em></p>
+<p><em>§1. Introduction</em> - <em>p.&nbsp;166</em></p>
+<ol type="1">
+<li>Classification of Geometrical Properties. Invariance under Transformations</li>
+<li>Projective Transformations</li>
+</ol>
+<p><em>§2. Fundamental Concepts</em> - <em>p.&nbsp;168</em></p>
+<ol type="1">
+<li>The Group of Projective Transformations</li>
+<li>Desargues’s Theorem</li>
+</ol>
+<p><em>§3. Cross-Ratio</em> - <em>p.&nbsp;172</em></p>
+<ol type="1">
+<li>Definition and Proof of Invariance</li>
+<li>Application to the Complete Quadrilateral</li>
+</ol>
+<p><em>§4. Parallelism and Infinity</em>- <em>p.&nbsp;180</em></p>
+<ol type="1">
+<li>Points at Infinity as “Ideal Points”</li>
+<li>Ideal Elements and Projection</li>
+<li>Cross-Ratio with Elements at Infinity</li>
+</ol>
+<p><em>§5. Applications</em> - <em>p.&nbsp;185</em></p>
+<ol type="1">
+<li>Preliminary Remarks</li>
+<li>Proof of Desargues’s Theorem in the Plane</li>
+<li>Pascal’s Theorem</li>
+<li>Brianchon’s Theorem</li>
+<li>Remark on Duality</li>
+</ol>
+<p><em>§6. Analytic Representation</em> - <em>p.&nbsp;191</em></p>
+<ol type="1">
+<li>Introductory Remarks</li>
+<li>Homogeneous Coordinates</li>
+<li>The Algebraic Basis of Duality</li>
+</ol>
+<p><em>§7. Problems on Constructions with the Straightedge Alone</em> - <em>p.&nbsp;196</em></p>
+<p><em>§8. Conics and Quadric Surfaces</em> - <em>p.&nbsp;198</em></p>
+<ol type="1">
+<li>Elementary Metric Geometry of Conics</li>
+<li>Projective Properties of Conics</li>
+<li>Conics as Line Curves</li>
+<li>Pascal’s and Brianchon’s General Theorems for Conics</li>
+<li>The Hyperboloid</li>
+</ol>
+<p><em>§9. Axiomatics and Non-Euclidean Geometry</em> - <em>p.&nbsp;214</em></p>
+<ol type="1">
+<li>The Axiomatic Method</li>
+<li>Hyperbolic Non-Euclidean Geometry</li>
+<li>Geometry and Reality</li>
+<li>Poincaré’s Model</li>
+<li>Elliptic or Riemannian Geometry</li>
+</ol>
+<p><strong>Appendix: <em>Geometry in More Than Three Dimensions</em></strong> - <em>p.&nbsp;227</em></p>
+<ol type="1">
+<li>Introduction</li>
+<li>Analytic Approach</li>
+<li>Geometrical or Combinatorial Approach</li>
+</ol>
+<p><strong>Chapter V. <em>Topology</em></strong> - <em>p.&nbsp;235</em></p>
+<p><em>Introduction</em> - <em>p.&nbsp;235</em></p>
+<p><em>§1. Euler’s Formula for Polyhedra</em> - <em>p.&nbsp;236</em></p>
+<p><em>§2. Topological Properties of Figures</em> - <em>p.&nbsp;241</em></p>
+<ol type="1">
+<li>Topological Properties</li>
+<li>Connectivity</li>
+</ol>
+<p><em>§3. Other Examples of Topological Theorems</em> - <em>p.&nbsp;244</em></p>
+<ol type="1">
+<li>The Jordan Curve Theorem</li>
+<li>The Four Color Problem</li>
+<li>The Concept of Dimension</li>
+<li>A Fixed Point Theorem</li>
+<li>Knots</li>
+</ol>
+<p><em>§4. The Topological Classification of Surfaces</em> - <em>p.&nbsp;256</em></p>
+<ol type="1">
+<li>The Genus of a Surface</li>
+<li>The Euler Characteristic of a Surface</li>
+<li>One-Sided Surfaces</li>
+</ol>
+<p><strong>Appendix</strong> - <em>p.&nbsp;264</em></p>
+<ol type="1">
+<li>The Five Color Theorem</li>
+<li>The Jordan Curve Theorem for Polygons</li>
+<li>The Fundamental Theorem of Algebra</li>
+</ol>
+<p><strong>Chapter VI. <em>Functions and Limits</em></strong> - <em>p.&nbsp;272</em></p>
+<p><em>Introduction</em> - <em>p.&nbsp;273</em></p>
+<p><em>§1. Variable and Function</em> - <em>p.&nbsp;273</em></p>
+<ol type="1">
+<li>Definitions and Examples</li>
+<li>Radian Measure of Angles</li>
+<li>The Graph of a Function. Inverse Functions</li>
+<li>Compound Functions</li>
+<li>Continuity</li>
+<li>Functions of Several Variables</li>
+<li>Functions and Transformations</li>
+</ol>
+<p><em>§2. Limits</em> - <em>p.&nbsp;289</em></p>
+<ol type="1">
+<li>The Limit of a Sequence <span class="math inline">\(a_n\)</span></li>
+<li>Monotone Sequences</li>
+<li>Euler’s Number <span class="math inline">\(e\)</span></li>
+<li>The Number <span class="math inline">\(\pi\)</span></li>
+<li>Continued Fractions</li>
+</ol>
+<p><em>§3. Limits by Continuous Approach</em> - <em>p.&nbsp;303</em></p>
+<ol type="1">
+<li>Introduction. General Definition</li>
+<li>Remarks on the Limit Concept</li>
+<li>The Limit of <span class="math inline">\(\frac{\sin x}{x}\)</span></li>
+<li>Limits as <span class="math inline">\(x \to \infty\)</span></li>
+</ol>
+<p><em>§4. Precise Definition of Continuity</em> - <em>p.&nbsp;310</em></p>
+<p><em>§5. Two Fundamental Theorems on Continuous Functions</em> - <em>p.&nbsp;312</em></p>
+<ol type="1">
+<li>Bolzano’s Theorem</li>
+<li>Proof of Bolzano’s Theorem</li>
+<li>Weierstrass’ Theorem on Extreme Values</li>
+<li>A Theorem on Sequences. Compact Sets</li>
+</ol>
+<p><em>§6. Some Applications of Bolzano’s Theorem</em> - <em>p.&nbsp;317</em></p>
+<ol type="1">
+<li>Geometrical Applications</li>
+<li>Application to a Problem in Mechanics</li>
+</ol>
+<p><strong>Supplement to Chapter VI. <em>More Examples on Limits and Continuity</em></strong> - <em>p.&nbsp;322</em></p>
+<p><em>§1. Examples of Limits</em> - <em>p.&nbsp;322</em></p>
+<ol type="1">
+<li>General Remarks.</li>
+<li>The Limit of <span class="math inline">\(q^n\)</span>.</li>
+<li>The Limit of <span class="math inline">\(\sqrt[n]{p}\)</span>.</li>
+<li>Discontinuous Functions as Limits of Continuous Functions</li>
+<li>Limits by Iteration.</li>
+</ol>
+<p><em>§2. Example on Continuity</em> - <em>p.&nbsp;327</em></p>
+<p><strong>Chapter VII. <em>Maxima and Minima</em></strong> - <em>p.&nbsp;329</em></p>
+<p><em>Introduction</em> - <em>p.&nbsp;329</em></p>
+<p><em>§1. Problems in Elementary Geometry</em> - <em>p.&nbsp;330</em></p>
+<ol type="1">
+<li>Maximum Area of a Triangle with Two Sides Given</li>
+<li>Heron’s Theorem. Extremum Property of Light Rays</li>
+<li>Applications to Problems on Triangles</li>
+<li>Tangent Properties of Ellipse and Hyperbola. Corresponding Extremum Properties</li>
+<li>Extreme Distances to a Given Curve</li>
+</ol>
+<p><em>§2. A General Principle Underlying Extreme Value Problems</em> - <em>p.&nbsp;338</em></p>
+<ol type="1">
+<li>The Principle</li>
+<li>Examples</li>
+</ol>
+<p><em>§3. Stationary Points and the Differential Calculus</em> - <em>p.&nbsp;341</em></p>
+<ol type="1">
+<li>Extrema and Stationary Points</li>
+<li>Maxima and Minima of Functions of Several Variables. Saddle Points</li>
+<li>Minimax Points and Topology</li>
+<li>The Distance from a Point to a Surface</li>
+</ol>
+<p><em>§4. Schwarz’s Triangle Problem</em> - <em>p.&nbsp;346</em></p>
+<ol type="1">
+<li>Schwarz’s Proof</li>
+<li>Another Proof</li>
+<li>Obtuse Triangles</li>
+<li>Triangles Formed by Light Rays</li>
+<li>Remarks Concerning Problems of Reflection and Ergodic Motion</li>
+</ol>
+<p><em>§5. Steiner’s Problem</em> - <em>p.&nbsp;354</em></p>
+<ol type="1">
+<li>Problem and Solution</li>
+<li>Analysis of the Alternatives</li>
+<li>A Complementary Problem</li>
+<li>Remarks and Exercises</li>
+<li>Generalization to the Street Network Problem</li>
+</ol>
+<p><em>§6. Extrema and Inequalities</em> - <em>p.&nbsp;361</em></p>
+<ol type="1">
+<li>The Arithmetical and Geometrical Mean of Two Positive Quantities</li>
+<li>Generalization to <span class="math inline">\(n\)</span> Variables</li>
+<li>The Method of Least Squares</li>
+</ol>
+<p><em>§7. The Existence of an Extremum. Dirichlet’s Principle</em> - <em>p.&nbsp;366</em></p>
+<ol type="1">
+<li>General Remarks</li>
+<li>Examples</li>
+<li>Elementary Extremum Problems</li>
+<li>Difficulties in Higher Cases</li>
+</ol>
+<p><em>§8. The Isoperimetric Problem</em> - <em>p.&nbsp;373</em></p>
+<p><em>§9. Extremum Problems with Boundary Conditions. Connection Between Steiner’s Problem and the Isoperimetric Problem</em> - <em>p.&nbsp;376</em></p>
+<p><em>§10. The Calculus of Variations</em> - <em>p.&nbsp;379</em></p>
+<ol type="1">
+<li>Introduction</li>
+<li>The Calculus of Variations. Fermat’s Principle in Optics</li>
+<li>Bernoulli’s Treatment of the Brachistochrone Problem</li>
+<li>Geodesics on a Sphere. Geodesics and Maxi-Minima</li>
+</ol>
+<p><em>§11. Experimental Solutions of Minimum Problems. Soap Film Experiments</em> - <em>p.&nbsp;385</em></p>
+<ol type="1">
+<li>Introduction</li>
+<li>Soap Film Experiments</li>
+<li>New Experiments on Plateau’s Problem</li>
+<li>Experimental Solutions of Other Mathematical Problems</li>
+</ol>
+<p><strong>Chapter VIII. <em>The Calculus</em></strong> - <em>p.&nbsp;398</em></p>
+<p><em>Introduction</em> - <em>p.&nbsp;398</em></p>
+<p><em>§1. The Integral</em> - <em>p.&nbsp;399</em></p>
+<ol type="1">
+<li>Area as a Limit</li>
+<li>The Integral</li>
+<li>General Remarks on the Integral Concept. General Definition</li>
+<li>Examples of Integration. Integration of <span class="math inline">\(x^r\)</span></li>
+<li>Rules for the “Integral Calculus”</li>
+</ol>
+<p><em>§2. The Derivative</em> - <em>p.&nbsp;414</em></p>
+<ol type="1">
+<li>The Derivative as a Slope</li>
+<li>The Derivative as a Limit</li>
+<li>Examples</li>
+<li>Derivatives of Trigonometrical Functions</li>
+<li>Differentiation and Continuity</li>
+<li>Derivative and Velocity. Second Derivative and Acceleration</li>
+<li>Geometrical Meaning of the Second Derivative</li>
+<li>Maxima and Minima</li>
+</ol>
+<p><em>§3. The Technique of Differentiation</em> - <em>p.&nbsp;427</em></p>
+<p><em>§4. Leibniz’ Notation and the “Infinitely Small”</em> - <em>p.&nbsp;433</em></p>
+<p><em>§5. The Fundamental Theorem of the Calculus</em> - <em>p.&nbsp;436</em></p>
+<ol type="1">
+<li>The Fundamental Theorem</li>
+<li>First Applications. Integration of <span class="math inline">\(x^r\)</span>, <span class="math inline">\(\cos x\)</span>, <span class="math inline">\(\sin x\)</span>, <span class="math inline">\(\arctan x\)</span></li>
+<li>Leibniz’ Formula for <span class="math inline">\(\pi\)</span></li>
+</ol>
+<p><em>§6. The Exponential Function and the Logarithm</em> - <em>p.&nbsp;442</em></p>
+<ol type="1">
+<li>Definition and Properties of the Logarithm. Euler’s Number <span class="math inline">\(e\)</span></li>
+<li>The Exponential Function</li>
+<li>Formulas for Differentiation of <span class="math inline">\(e^x\)</span>, <span class="math inline">\(a^x\)</span>, <span class="math inline">\(x^n\)</span></li>
+<li>Explicit Expressions for <span class="math inline">\(e^x\)</span>, <span class="math inline">\(e^{-x}\)</span>, <span class="math inline">\(\log x\)</span> as Limits</li>
+<li>Infinite Series for the Logarithm. Numerical Calculation</li>
+</ol>
+<p><em>§7. Differential Equations</em> - <em>p.&nbsp;453</em></p>
+<ol type="1">
+<li>Definition</li>
+<li>The Differential Equation of the Exponential Function. Radioactive Disintegration. Law of Growth. Compound Interest</li>
+<li>Other Examples. Simplest Vibrations</li>
+<li>Newton’s Law of Dynamics</li>
+</ol>
+<p><strong>Supplement to Chapter VIII.</strong> - <em>p.&nbsp;462</em></p>
+<p><em>§1. Matters of Principle</em> - <em>p.&nbsp;462</em></p>
+<ol type="1">
+<li>Differentiability</li>
+<li>The Integral.</li>
+<li>Other Applications of the Concept of Integral. Work. Length.</li>
+</ol>
+<p><em>§2. Orders of Magnitude</em> - <em>p.&nbsp;469</em></p>
+<ol type="1">
+<li>The Exponential Function and Powers of <span class="math inline">\(x\)</span></li>
+<li>Order of Magnitude of <span class="math inline">\(\log (n!)\)</span></li>
+</ol>
+<p><em>§3. Infinite Series and Infinite Products</em> - <em>p.&nbsp;472</em></p>
+<ol type="1">
+<li>Infinite Series of Functions.</li>
+<li>Euler’s Formula, <span class="math inline">\(\cos x + i \sin x=e^{ix}\)</span>.</li>
+<li>The Harmonic Series and the Zeta Function. Euler’s Product for the Sine.</li>
+</ol>
+<p><em>§4. The Prime Number Theorem Obtained by Statistical Methods</em> - <em>p.&nbsp;482</em></p>
+<p><strong>Chapter IX. <em>Recent Developments</em></strong> - <em>p.&nbsp;487</em></p>
+<p><em>§1. A Formula for Primes</em> - <em>p.&nbsp;487</em></p>
+<p><em>§2. The Goldbach Conjecture and Twin Primes</em> - <em>p.&nbsp;488</em></p>
+<p><em>§3. Fermat’s Last Theorem</em> - <em>p.&nbsp;491</em></p>
+<p><em>§4. The Continuum Hypothesis</em> - <em>p.&nbsp;493</em></p>
+<p><em>§5. Set-Theoretic Notation</em> - <em>p.&nbsp;494</em></p>
+<p><em>§6. The Four Color Theorem</em> - <em>p.&nbsp;495</em></p>
+<p><em>§7. Hausdorff Dimension and Fractals</em> - <em>p.&nbsp;499</em></p>
+<p><em>§8. Knots</em> - <em>p.&nbsp;501</em></p>
+<p><em>§9. A Problem in Mechanics</em> - <em>p.&nbsp;505</em></p>
+<p><em>§10. Steiner’s Problem</em> - <em>p.&nbsp;507</em></p>
+<p><em>§11. Soap Films and Minimal Surfaces</em> - <em>p.&nbsp;513</em></p>
+<p><em>§12. Nonstandard Analysis</em> - <em>p.&nbsp;518</em></p>
+<p><strong>Appendix: <em>Supplementary Remarks, Problems, and Exercises</em></strong> - <em>p.&nbsp;525</em></p>
+<p><em>Arithmetic and Algebra</em> - <em>p.&nbsp;525</em></p>
+<p><em>Analytic Geometry</em> - <em>p.&nbsp;526</em></p>
+<p><em>Geometrical Constructions</em> - <em>p.&nbsp;532</em></p>
+<p><em>Projective and Non-Euclidean Geometry</em> - <em>p.&nbsp;533</em></p>
+<p><em>Topology</em> - <em>p.&nbsp;534</em></p>
+<p><em>Functions, Limits, and Continuity</em> - <em>p.&nbsp;537</em></p>
+<p><em>Maxima and Minima</em> - <em>p.&nbsp;538</em></p>
+<p><em>The Calculus</em> - <em>p.&nbsp;540</em></p>
+<p><em>Technique of Integration</em> - <em>p.&nbsp;542</em></p>
+<p><strong><em>Suggestions for Further Reading</em></strong> - <em>p.&nbsp;549</em></p>
+<p><strong><em>Suggestions for Additional Reading</em></strong> - <em>p.&nbsp;553</em></p>
+<p><strong><em>Index</em></strong> - <em>p.&nbsp;559</em></p>
+
+
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a><br>
+<br> <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a><br>
+<br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
