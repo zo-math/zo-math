@@ -280,7 +280,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Ngày cập nhật</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">06-11-2025</p>
+        <p class="date">07-11-2025</p>
       </div>
     </div>
     
@@ -600,9 +600,14 @@ quarto preview e:/zo-math/content/di-tim/di-tim-xac-suat/interpretations_of_prob
 <ol type="1">
 <li><em>Không âm</em> vì <span class="math inline">\(P(A)\)</span> phải diễn tả mức độ tồn tại của biến cố <span class="math inline">\(A\)</span> - không phải như “hướng”trong đại lượng véc-tơ.</li>
 <li><em>Chuẩn hóa</em> vì xác suất cần một điểm tựa tuyệt đối để có ý nghĩa: <span class="math inline">\(P(\Omega)=1\)</span> chính là định nghĩa ngầm của “thế giới đầy đủ khả năng”. Nhờ đó, mọi biến cố đều được định lượng như một tỉ phần của toàn thể chắc chắn — cũng như mọi độ dài được hiểu theo đơn vị mét đầu tiên.</li>
-<li>Đặc biệt, <em>cộng hữu hạn</em> là linh hồn của phép tính xác suất: từ đó suy ra công thức cộng, trừ, giao, hợp cho mọi biến cố rời nhau. Hai tiên đề còn lại chỉ là quy ước - nhưng việc tồn tại giá trị tối đa <span class="math inline">\(1\)</span> làm xác suất khác với các độ đo quen thuộc khác như <em>độ dài</em>, <em>thể tích</em>.</li>
+<li><em>Cộng hữu hạn</em> vì xác suất phải bảo toàn lượng khả năng giữa các biến cố rời nhau: nếu hai biến cố không thể cùng xảy ra, thì khả năng của “một trong hai” chính là tổng khả năng riêng của mỗi bên — quy luật đo lường bảo đảm tính nhất quán của thế giới ngẫu nhiên.</li>
 </ol>
-<p>Từ ba nguyên lý này, toàn bộ phép toán xác suất được tái tạo mà không cần thêm giả định triết học nào.</p>
+<p>Từ ba tiên đề này, toàn bộ phép toán xác suất được tái tạo mà không cần thêm giả định triết học nào. Chúng tạo thành một bộ ba hài hòa:</p>
+<ol type="1">
+<li>Không âm là <em>bản chất của tồn tại</em>.</li>
+<li>Chuẩn hóa là <em>thang đo tuyệt đối</em>.</li>
+<li>Cộng hữu hạn là <em>nguyên lý bảo toàn khả năng</em>.</li>
+</ol>
 </div>
 </div>
 </div>
@@ -616,7 +621,7 @@ quarto preview e:/zo-math/content/di-tim/di-tim-xac-suat/interpretations_of_prob
 <p>Khi đó, <span class="math inline">\(P\)</span> được gọi là một <em>hàm xác suất</em>, và bộ ba <span class="math inline">\((\Omega, \mathbf{F},P)\)</span> được gọi là một <em>không gian xác suất</em>. Đây là “lý thuyết xác suất sơ đẳng” (the elementary theory of probability) theo Kolmogorov.</p>
 </div>
 <div class="col-notes">
-<p>hái niệm hàm xác suất và không gian xác suất xác định vũ trụ hình thức của Kolmogorov: nơi mọi sự kiện chỉ còn là “tập con” của <span class="math inline">\(\Omega\)</span>, và xác suất chỉ là số đo trên chúng. Nó tách rời hoàn toàn khỏi khái niệm “ngẫu nhiên” trong đời sống, tạo nên nền tảng cho mô hình xác suất trong mọi ngành khoa học sau này.</p>
+<p>Khái niệm hàm xác suất và không gian xác suất xác định vũ trụ hình thức của Kolmogorov: nơi mọi sự kiện chỉ còn là “tập con” của <span class="math inline">\(\Omega\)</span>, và xác suất chỉ là số đo trên chúng. Nó tách rời hoàn toàn khỏi khái niệm “ngẫu nhiên” trong đời sống, tạo nên nền tảng cho mô hình xác suất trong mọi ngành khoa học sau này.</p>
 </div>
 </div>
 </div>
@@ -630,35 +635,7 @@ quarto preview e:/zo-math/content/di-tim/di-tim-xac-suat/interpretations_of_prob
 <p>Hai tiên đề không âm và chuẩn hóa phần lớn là quy ước. Tuy nhiên, điều không tầm thường là hàm xác suất luôn nhận ít nhất hai giá trị <span class="math inline">\(0\)</span> và <span class="math inline">\(1\)</span>, và có một giá trị tối đa - khác với các độ đo khác như độ dài, thể tích v.v., vốn không bị chặn. Vấn đề cộng hữu hạn sẽ được nhắc lại nhiều lần ở các phần sau.</p>
 </div>
 <div class="col-notes">
-
-</div>
-</div>
-</div>
-<!--  -->
-<div class="three-cols">
-<div class="row">
-<div class="col-original">
-<p>The non-negativity and normalization axioms are largely matters of convention, although it is non-trivial that probability functions take at least the two values <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>, and that they have a maximal value (unlike various other measures, such as length, volume, and so on, which are unbounded). We will return to finite additivity at a number of points below.</p>
-</div>
-<div class="col-translation">
-<p>Hai tiên đề không âm và chuẩn hóa phần lớn là quy ước. Tuy nhiên, điều không tầm thường là hàm xác suất luôn nhận ít nhất hai giá trị <span class="math inline">\(0\)</span> và <span class="math inline">\(1\)</span>, và có một giá trị tối đa - khác với các độ đo khác như độ dài, thể tích v.v., vốn không bị chặn. Vấn đề cộng hữu hạn sẽ được nhắc lại nhiều lần ở các phần sau.</p>
-</div>
-<div class="col-notes">
-
-</div>
-</div>
-</div>
-<!--  -->
-<div class="three-cols">
-<div class="row">
-<div class="col-original">
-<p>The non-negativity and normalization axioms are largely matters of convention, although it is non-trivial that probability functions take at least the two values <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>, and that they have a maximal value (unlike various other measures, such as length, volume, and so on, which are unbounded). We will return to finite additivity at a number of points below.</p>
-</div>
-<div class="col-translation">
-<p>Hai tiên đề không âm và chuẩn hóa phần lớn là quy ước. Tuy nhiên, điều không tầm thường là hàm xác suất luôn nhận ít nhất hai giá trị <span class="math inline">\(0\)</span> và <span class="math inline">\(1\)</span>, và có một giá trị tối đa - khác với các độ đo khác như độ dài, thể tích v.v., vốn không bị chặn. Vấn đề cộng hữu hạn sẽ được nhắc lại nhiều lần ở các phần sau.</p>
-</div>
-<div class="col-notes">
-
+<p>Hai tiên đề đầu mang tính quy ước: ta có thể chọn hệ đơn vị khác, nhưng <span class="math inline">\(P(\Omega)=1\)</span> giúp mọi xác suất có trần trên là <span class="math inline">\(1\)</span> – điều khiến xác suất khác với các độ đo khác (độ dài, thể tích - nhưng chúng có đơn vị) vốn không bị giới hạn. Điểm này thể hiện ý nghĩa khái niệm của “1” trong xác suất: nó không phải độ lớn vật lý, mà là giới hạn của khả năng.</p>
 </div>
 </div>
 </div>
@@ -716,7 +693,7 @@ quarto preview e:/zo-math/content/di-tim/di-tim-xac-suat/interpretations_of_prob
 <p>We could instead attach probabilities to members of a collection <span class="math inline">\(\mathbf{S}\)</span> of sentences of a formal language, closed under (countable) truth-functional combinations, with the following counterpart axiomatization:</p>
 </div>
 <div class="col-translation">
-
+<p>Thay vì thế, ta có thể gán xác suất cho các phần tử của một tập hợp <span class="math inline">\(\mathbf{S}\)</span> gồm các câu của một ngôn ngữ hình thức, được đóng dưới (đếm được) các phép kết hợp theo giá trị chân lý, với hệ tiên đề tương ứng sau:</p>
 </div>
 <div class="col-notes">
 
@@ -727,10 +704,18 @@ quarto preview e:/zo-math/content/di-tim/di-tim-xac-suat/interpretations_of_prob
 <div class="three-cols">
 <div class="row">
 <div class="col-original">
-
+<ol type="i">
+<li><span class="math inline">\(P(A)\geq 0\)</span> for all <span class="math inline">\(A\in \mathbf{S}\)</span></li>
+<li>If <span class="math inline">\(T\)</span> is a logical truth (in classical logic), then <span class="math inline">\(P(T)=1\)</span>.</li>
+<li><span class="math inline">\(P(A\lor B)=P(A)+P(B)\)</span> for all <span class="math inline">\(A\in\mathbf{S}\)</span> and <span class="math inline">\(B\in\mathbf{S}\)</span> such that <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are logically incompatible.</li>
+</ol>
 </div>
 <div class="col-translation">
-
+<ol type="i">
+<li><span class="math inline">\(P(A)\geq 0\)</span> với mọi <span class="math inline">\(A\in \mathbf{S}\)</span></li>
+<li>Nếu <span class="math inline">\(T\)</span> là một mệnh đề đúng về mặt lô-gic (trong lô-gic cổ điển), thì <span class="math inline">\(P(T)=1\)</span>.</li>
+<li><span class="math inline">\(P(A\lor B)=P(A)+P(B)\)</span> với mọi <span class="math inline">\(A, B\in \mathbf{S}\)</span> sao cho <span class="math inline">\(A\)</span> và <span class="math inline">\(B\)</span> loại trừ nhau về mặt lô-gic.</li>
+</ol>
 </div>
 <div class="col-notes">
 
@@ -741,10 +726,10 @@ quarto preview e:/zo-math/content/di-tim/di-tim-xac-suat/interpretations_of_prob
 <div class="three-cols">
 <div class="row">
 <div class="col-original">
-
+<p>The bearers of probabilities are sometimes also called “events”, “outcomes”, or “propositions”, but the underlying formalism remains the same. More attention has been given to interpreting ‘<span class="math inline">\(P\)</span>’ than to interpreting its bearers; we will be concerned with the former.</p>
 </div>
 <div class="col-translation">
-
+<p>Những đối tượng mang xác suất đôi khi cũng được gọi là “biến cố”, “kết quả”, hoặc “mệnh đề”, nhưng hình thức cơ bản bên dưới thì vẫn giữ nguyên. Người ta đã dành nhiều sự chú ý hơn cho việc diễn giải ký hiệu <span class="math inline">\(P\)</span> so với việc diễn giải các đối tượng mà nó áp dụng lên; trong phần này, chúng ta sẽ quan tâm đến điều thứ nhất.</p>
 </div>
 <div class="col-notes">
 
@@ -755,10 +740,10 @@ quarto preview e:/zo-math/content/di-tim/di-tim-xac-suat/interpretations_of_prob
 <div class="three-cols">
 <div class="row">
 <div class="col-original">
-
+<p>The elementary theory of probability suffices for most everyday applications of probability, and it will suffice for most of our discussion below. But more advanced treatments in mathematics, statistics, and science require more mathematical sophistication involving countable infinite extensions. (Readers less interested in the mathematical details may want to skip to “<em>The conditional probability</em> …” three paragaphs below.) Now let us strengthen our closure assumptions regarding <span class="math inline">\(\mathbf{F}\)</span>, requiring it to be closed under complementation and countable union; it is then called a <em>sigma field</em> (or <em>sigma algebra</em>) on <span class="math inline">\(\Omega\)</span>. It is controversial whether we should strengthen finite additivity, as Kolmogorov does:</p>
 </div>
 <div class="col-translation">
-
+<p>Lý thuyết xác suất sơ đẳng đủ dùng cho hầu hết các ứng dụng thường ngày của xác suất, và cũng sẽ đủ cho phần lớn các thảo luận của chúng ta phía dưới. Tuy nhiên, các xử lý nâng cao hơn trong toán học, thống kê và khoa học đòi hỏi sự tinh vi toán học lớn hơn, bao gồm các phép mở rộng vô hạn đếm được. (Những độc giả ít quan tâm đến chi tiết toán học có thể bỏ qua đến đoạn “Xác suất có điều kiện” ở ba đoạn phía dưới.) Bây giờ, ta tăng cường giả thiết về tính đóng của <span class="math inline">\(\mathbf{F}\)</span>, yêu cầu nó được đóng dưới phép bù và phép hợp đếm được; khi đó, nó được gọi là trường sigma (đại số sigma) trên trên <span class="math inline">\(\Omega\)</span>. Vấn đề gây tranh cãi là liệu ta có nên mở rộng tiên đề cộng hữu hạn hay không; Kolmogorov đã làm điều đó:</p>
 </div>
 <div class="col-notes">
 
@@ -769,10 +754,16 @@ quarto preview e:/zo-math/content/di-tim/di-tim-xac-suat/interpretations_of_prob
 <div class="three-cols">
 <div class="row">
 <div class="col-original">
-
+<p>3′. (Countable additivity) If <span class="math inline">\(A_1, A_2, A_3,\dots\)</span> is a countably infinite sequence of (pairwise) disjoint sets, each of which is an element of <span class="math inline">\(\mathbf{F}\)</span>, then</p>
+<p><span class="math display">\[
+    P\left(\bigcup_{n=1}^\infty A_n\right)=\sum_{n=1}^\infty P(A_n).
+\]</span></p>
 </div>
 <div class="col-translation">
-
+<p>3′. (Cộng đếm được) Nếu <span class="math inline">\(A_1, A_2, A_3,\dots\)</span> là một dãy vô hạn đếm được các tập rời nhau từng đôi, mỗi tập thuộc <span class="math inline">\(\mathbf{F}\)</span>, thì</p>
+<p><span class="math display">\[
+    P\left(\bigcup_{n=1}^\infty A_n\right)=\sum_{n=1}^\infty P(A_n).
+\]</span></p>
 </div>
 <div class="col-notes">
 
@@ -783,10 +774,10 @@ quarto preview e:/zo-math/content/di-tim/di-tim-xac-suat/interpretations_of_prob
 <div class="three-cols">
 <div class="row">
 <div class="col-original">
-
+<p>Kolmogorov comments that infinite probability spaces are idealized models of real random processes, and that he limits himself arbitrarily to only those models that satisfy countable additivity. This axiom is the cornerstone of the assimilation of probability theory to measure theory.</p>
 </div>
 <div class="col-translation">
-
+<p>Kolmogorov nhận xét rằng các không gian xác suất vô hạn là những mô hình lý tưởng hóa của các quá trình ngẫu nhiên trong thực tế, và rằng ông tự giới hạn mình, một cách tùy ý, vào chỉ những mô hình thỏa mãn tiên đề cộng đếm được. Tiên đề này là viên đá nền tảng của việc đồng nhất lý thuyết xác suất với lý thuyết độ đo.</p>
 </div>
 <div class="col-notes">
 
@@ -797,10 +788,16 @@ quarto preview e:/zo-math/content/di-tim/di-tim-xac-suat/interpretations_of_prob
 <div class="three-cols">
 <div class="row">
 <div class="col-original">
-
+<p><em>The conditional probability of (A) given (B)</em> is then given by the ratio of unconditional probabilities:</p>
+<p><span class="math display">\[
+P(A\mid B)=\frac{P(A\cap B)}{P(B)},\, \text{provided} P(B)&gt;0.
+\]</span></p>
 </div>
 <div class="col-translation">
-
+<p><em>Xác suất có điều kiện của (A) khi biết (B)</em> được cho bởi tỉ số giữa các xác suất không điều kiện:</p>
+<p><span class="math display">\[
+P(A\mid B)=\frac{P(A\cap B)}{P(B)},\, \text{khi} P(B)&gt;0.
+\]</span></p>
 </div>
 <div class="col-notes">
 
@@ -811,10 +808,10 @@ quarto preview e:/zo-math/content/di-tim/di-tim-xac-suat/interpretations_of_prob
 <div class="three-cols">
 <div class="row">
 <div class="col-original">
-
+<p>This is often taken to be the <em>definition</em> of conditional probability, although it should be emphasized that this is a technical usage of the term that may not align perfectly with a pretheoretical concept that we might have (see Hájek, 2003). We recognize it in locutions such as “the probability that the die lands 1, given that it lands odd, is 1/3”, or “the probability that it will rain tomorrow, given that there are dark clouds in the sky tomorrow morning, is high”. It is the concept of the probability of something <em>given</em> or <em>in the light of</em> some piece of evidence or information. Indeed, some authors take conditional probability to be the primitive notion, and axiomatize it directly (e.g.&nbsp;Popper 1959b, Rényi 1970, van Fraassen 1976, Spohn 1986, and Roeper and Leblanc 1999).</p>
 </div>
 <div class="col-translation">
-
+<p>Công thức này thường được xem là <em>định nghĩa</em> của xác suất có điều kiện, tuy nhiên cần nhấn mạnh rằng đây là cách dùng mang tính kỹ thuật của thuật ngữ, và có thể không hoàn toàn trùng khớp với khái niệm tiền lý thuyết mà ta có thể đang nghĩ tới (xem Hájek, 2003). Ta nhận ra cách dùng này trong các phát biểu như: “Xác suất để xúc xắc ra mặt 1, khi biết rằng nó ra mặt lẻ, là 1/3”, hoặc “Xác suất trời mưa ngày mai, khi biết rằng sáng mai có mây đen, là cao”. Đây là khái niệm về xác suất của một điều gì đó <em>khi biết</em> hay <em>dưới ánh sáng của</em> một bằng chứng hoặc thông tin nào đó. Thật vậy, một số tác giả xem xác suất có điều kiện là khái niệm nguyên thủy và tiên đề hóa trực tiếp nó (xem Popper 1959b; Rényi 1970; van Fraassen 1976; Spohn 1986; Roeper và Leblanc 1999).</p>
 </div>
 <div class="col-notes">
 
@@ -825,10 +822,10 @@ quarto preview e:/zo-math/content/di-tim/di-tim-xac-suat/interpretations_of_prob
 <div class="three-cols">
 <div class="row">
 <div class="col-original">
-
+<p>There are other formalizations that give up normalization; that give up countable additivity, and even additivity; that allow probabilities to take infinitesimal values (positive, but smaller than every positive real number); that allow probabilities to be imprecise — interval-valued, or more generally represented with sets of precise probability functions; and that treat probabilities comparatively rather than quantitatively. (See Fine 1974, Halpern 2003, Cozman 2016, Fine 2016, Hawthorne 2016, Lyon 2016.) For now, however, when we speak of ‘the probability calculus’, we will mean Kolmogorov’s approach, as is standard. See Hájek and Hitchcock (2016b) for a relatively non-technical introduction to it, intended for philosophers.</p>
 </div>
 <div class="col-translation">
-
+<p>Có những hình thức hóa khác của xác suất từ bỏ tiên đề chuẩn hóa; từ bỏ tính cộng đếm được, thậm chí từ bỏ cả tính cộng; cho phép xác suất nhận các giá trị vô cùng nhỏ (dương nhưng nhỏ hơn mọi số thực dương); cho phép xác suất không chính xác — được biểu diễn bằng các khoảng giá trị, hoặc nói chung hơn là bằng các tập hợp các hàm xác suất chính xác; và xem xác suất theo nghĩa so sánh thay vì định lượng. (Xem Fine 1974; Halpern 2003; Cozman 2016; Fine 2016; Hawthorne 2016; Lyon 2016.) Tuy nhiên, trong phạm vi hiện tại, khi chúng ta nói đến <em>phép tính xác suất</em>, ta sẽ hiểu nó theo cách tiếp cận của Kolmogorov, vốn là tiêu chuẩn chung. Xem Hájek và Hitchcock (2016b) để biết một phần giới thiệu tương đối không kỹ thuật, hướng đến độc giả triết học.</p>
 </div>
 <div class="col-notes">
 
@@ -839,10 +836,10 @@ quarto preview e:/zo-math/content/di-tim/di-tim-xac-suat/interpretations_of_prob
 <div class="three-cols">
 <div class="row">
 <div class="col-original">
-
+<p>Given certain probabilities as inputs, the axioms and theorems allow us to compute various further probabilities. However, apart from the assignment of 1 to the universal set and 0 to the empty set, they are silent regarding the initial assignment of probabilities.<sup><a href="#note-1">[1]</a></sup> For guidance with that, we need to turn to the interpretations of probability. First, however, let us list some criteria of adequacy for such interpretations.</p>
 </div>
 <div class="col-translation">
-
+<p>Với một số xác suất nhất định được cho làm đầu vào, các tiên đề và định lý cho phép chúng ta tính được nhiều xác suất khác. Tuy nhiên, ngoài việc gán 1 cho tập toàn thể và 0 cho tập rỗng, các tiên đề ấy không nói gì về việc gán xác suất ban đầu.<sup><a href="#note-1">[1]</a></sup> Để có định hướng cho việc đó, ta cần chuyển sang các diễn giải của xác suất. Trước hết, hãy liệt kê một số tiêu chí về tính đầy đủ của các diễn giải như vậy.</p>
 </div>
 <div class="col-notes">
 

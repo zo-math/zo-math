@@ -353,11 +353,14 @@ Ba yếu tố của ông – tập vũ trụ $\Omega$, trường biến cố $\m
 Ba tiên đề tạo nên cấu trúc cơ bản của mọi lý thuyết xác suất.
 
 1. *Không âm* vì $P(A)$ phải diễn tả mức độ tồn tại của biến cố $A$ - không phải như “hướng”trong đại lượng véc-tơ.
-2. *Chuẩn hóa* vì xác suất cần một điểm tựa tuyệt đối để có ý nghĩa: $P(\Omega)=1$ chính là định nghĩa ngầm của “thế giới đầy đủ khả năng”.
-Nhờ đó, mọi biến cố đều được định lượng như một tỉ phần của toàn thể chắc chắn — cũng như mọi độ dài được hiểu theo đơn vị mét đầu tiên.
-3. Đặc biệt, *cộng hữu hạn* là linh hồn của phép tính xác suất: từ đó suy ra công thức cộng, trừ, giao, hợp cho mọi biến cố rời nhau. Hai tiên đề còn lại chỉ là quy ước - nhưng việc tồn tại giá trị tối đa $1$ làm xác suất khác với các độ đo quen thuộc khác như *độ dài*, *thể tích*.
+2. *Chuẩn hóa* vì xác suất cần một điểm tựa tuyệt đối để có ý nghĩa: $P(\Omega)=1$ chính là định nghĩa ngầm của “thế giới đầy đủ khả năng”. Nhờ đó, mọi biến cố đều được định lượng như một tỉ phần của toàn thể chắc chắn — cũng như mọi độ dài được hiểu theo đơn vị mét đầu tiên.
+3. *Cộng hữu hạn* vì xác suất phải bảo toàn lượng khả năng giữa các biến cố rời nhau: nếu hai biến cố không thể cùng xảy ra, thì khả năng của “một trong hai” chính là tổng khả năng riêng của mỗi bên — quy luật đo lường bảo đảm tính nhất quán của thế giới ngẫu nhiên.
 
-Từ ba nguyên lý này, toàn bộ phép toán xác suất được tái tạo mà không cần thêm giả định triết học nào.
+Từ ba tiên đề này, toàn bộ phép toán xác suất được tái tạo mà không cần thêm giả định triết học nào. Chúng tạo thành một bộ ba hài hòa:
+
+1. Không âm là *bản chất của tồn tại*.
+2. Chuẩn hóa là *thang đo tuyệt đối*.
+3. Cộng hữu hạn là *nguyên lý bảo toàn khả năng*.
 :::
 
 :::
@@ -377,7 +380,7 @@ Khi đó, $P$ được gọi là một *hàm xác suất*, và bộ ba $(\Omega,
 :::
 
 ::: {.col-notes}
-hái niệm hàm xác suất và không gian xác suất xác định vũ trụ hình thức của Kolmogorov: nơi mọi sự kiện chỉ còn là “tập con” của $\Omega$, và xác suất chỉ là số đo trên chúng.
+Khái niệm hàm xác suất và không gian xác suất xác định vũ trụ hình thức của Kolmogorov: nơi mọi sự kiện chỉ còn là “tập con” của $\Omega$, và xác suất chỉ là số đo trên chúng.
 Nó tách rời hoàn toàn khỏi khái niệm “ngẫu nhiên” trong đời sống, tạo nên nền tảng cho mô hình xác suất trong mọi ngành khoa học sau này.
 :::
 
@@ -399,51 +402,7 @@ Vấn đề cộng hữu hạn sẽ được nhắc lại nhiều lần ở các
 :::
 
 ::: {.col-notes}
-
-:::
-
-:::
-:::
-
-
-
-<!--  -->
-::: {.three-cols}
-::: {.row}
-
-::: {.col-original}
-The non-negativity and normalization axioms are largely matters of convention, although it is non-trivial that probability functions take at least the two values $0$ and $1$, and that they have a maximal value (unlike various other measures, such as length, volume, and so on, which are unbounded). We will return to finite additivity at a number of points below.
-:::
-
-::: {.col-translation}
-Hai tiên đề không âm và chuẩn hóa phần lớn là quy ước.
-Tuy nhiên, điều không tầm thường là hàm xác suất luôn nhận ít nhất hai giá trị $0$ và $1$, và có một giá trị tối đa - khác với các độ đo khác như độ dài, thể tích v.v., vốn không bị chặn.
-Vấn đề cộng hữu hạn sẽ được nhắc lại nhiều lần ở các phần sau.
-:::
-
-::: {.col-notes}
-:::
-
-:::
-:::
-
-
-
-<!--  -->
-::: {.three-cols}
-::: {.row}
-
-::: {.col-original}
-The non-negativity and normalization axioms are largely matters of convention, although it is non-trivial that probability functions take at least the two values $0$ and $1$, and that they have a maximal value (unlike various other measures, such as length, volume, and so on, which are unbounded). We will return to finite additivity at a number of points below.
-:::
-
-::: {.col-translation}
-Hai tiên đề không âm và chuẩn hóa phần lớn là quy ước.
-Tuy nhiên, điều không tầm thường là hàm xác suất luôn nhận ít nhất hai giá trị $0$ và $1$, và có một giá trị tối đa - khác với các độ đo khác như độ dài, thể tích v.v., vốn không bị chặn.
-Vấn đề cộng hữu hạn sẽ được nhắc lại nhiều lần ở các phần sau.
-:::
-
-::: {.col-notes}
+Hai tiên đề đầu mang tính quy ước: ta có thể chọn hệ đơn vị khác, nhưng $P(\Omega)=1$ giúp mọi xác suất có trần trên là $1$ – điều khiến xác suất khác với các độ đo khác (độ dài, thể tích - nhưng chúng có đơn vị) vốn không bị giới hạn. Điểm này thể hiện ý nghĩa khái niệm của “1” trong xác suất: nó không phải độ lớn vật lý, mà là giới hạn của khả năng.
 :::
 
 :::
@@ -516,6 +475,7 @@ We could instead attach probabilities to members of a collection $\mathbf{S}$  o
 :::
 
 ::: {.col-translation}
+Thay vì thế, ta có thể gán xác suất cho các phần tử của một tập hợp $\mathbf{S}$ gồm các câu của một ngôn ngữ hình thức, được đóng dưới (đếm được) các phép kết hợp theo giá trị chân lý, với hệ tiên đề tương ứng sau:
 :::
 
 ::: {.col-notes}
@@ -529,9 +489,15 @@ We could instead attach probabilities to members of a collection $\mathbf{S}$  o
 ::: {.row}
 
 ::: {.col-original}
+i. $P(A)\geq 0$ for all $A\in \mathbf{S}$
+ii. If $T$ is a logical truth (in classical logic), then $P(T)=1$.
+iii. $P(A\lor B)=P(A)+P(B)$ for all $A\in\mathbf{S}$ and $B\in\mathbf{S}$ such that $A$ and $B$ are logically incompatible.
 :::
 
 ::: {.col-translation}
+i. $P(A)\geq 0$ với mọi $A\in \mathbf{S}$
+ii. Nếu $T$ là một mệnh đề đúng về mặt lô-gic (trong lô-gic cổ điển), thì $P(T)=1$.
+iii. $P(A\lor B)=P(A)+P(B)$ với mọi $A, B\in \mathbf{S}$ sao cho $A$ và $B$ loại trừ nhau về mặt lô-gic.
 :::
 
 ::: {.col-notes}
@@ -545,9 +511,12 @@ We could instead attach probabilities to members of a collection $\mathbf{S}$  o
 ::: {.row}
 
 ::: {.col-original}
+The bearers of probabilities are sometimes also called “events”, “outcomes”, or “propositions”, but the underlying formalism remains the same. More attention has been given to interpreting ‘$P$’ than to interpreting its bearers; we will be concerned with the former.
 :::
 
 ::: {.col-translation}
+Những đối tượng mang xác suất đôi khi cũng được gọi là “biến cố”, “kết quả”, hoặc “mệnh đề”, nhưng hình thức cơ bản bên dưới thì vẫn giữ nguyên.
+Người ta đã dành nhiều sự chú ý hơn cho việc diễn giải ký hiệu $P$ so với việc diễn giải các đối tượng mà nó áp dụng lên; trong phần này, chúng ta sẽ quan tâm đến điều thứ nhất.
 :::
 
 ::: {.col-notes}
@@ -561,9 +530,15 @@ We could instead attach probabilities to members of a collection $\mathbf{S}$  o
 ::: {.row}
 
 ::: {.col-original}
+The elementary theory of probability suffices for most everyday applications of probability, and it will suffice for most of our discussion below. But more advanced treatments in mathematics, statistics, and science require more mathematical sophistication involving countable infinite extensions. (Readers less interested in the mathematical details may want to skip to "*The conditional probability* ..." three paragaphs below.) Now let us strengthen our closure assumptions regarding $\mathbf{F}$, requiring it to be closed under complementation and countable union; it is then called a *sigma field* (or *sigma algebra*) on $\Omega$. It is controversial whether we should strengthen finite additivity, as Kolmogorov does:
 :::
 
 ::: {.col-translation}
+Lý thuyết xác suất sơ đẳng đủ dùng cho hầu hết các ứng dụng thường ngày của xác suất, và cũng sẽ đủ cho phần lớn các thảo luận của chúng ta phía dưới.
+Tuy nhiên, các xử lý nâng cao hơn trong toán học, thống kê và khoa học đòi hỏi sự tinh vi toán học lớn hơn, bao gồm các phép mở rộng vô hạn đếm được.
+(Những độc giả ít quan tâm đến chi tiết toán học có thể bỏ qua đến đoạn “Xác suất có điều kiện” ở ba đoạn phía dưới.)
+Bây giờ, ta tăng cường giả thiết về tính đóng của $\mathbf{F}$, yêu cầu nó được đóng dưới phép bù và phép hợp đếm được; khi đó, nó được gọi là trường sigma (đại số sigma) trên trên $\Omega$.
+Vấn đề gây tranh cãi là liệu ta có nên mở rộng tiên đề cộng hữu hạn hay không; Kolmogorov đã làm điều đó:
 :::
 
 ::: {.col-notes}
@@ -577,9 +552,19 @@ We could instead attach probabilities to members of a collection $\mathbf{S}$  o
 ::: {.row}
 
 ::: {.col-original}
+3&#8242;. (Countable additivity) If $A_1, A_2, A_3,\dots$ is a countably infinite sequence of (pairwise) disjoint sets, each of which is an element of $\mathbf{F}$, then
+
+$$
+    P\left(\bigcup_{n=1}^\infty A_n\right)=\sum_{n=1}^\infty P(A_n).
+$$
 :::
 
 ::: {.col-translation}
+3&#8242;. (Cộng đếm được) Nếu $A_1, A_2, A_3,\dots$ là một dãy vô hạn đếm được các tập rời nhau từng đôi, mỗi tập thuộc $\mathbf{F}$, thì
+
+$$
+    P\left(\bigcup_{n=1}^\infty A_n\right)=\sum_{n=1}^\infty P(A_n).
+$$
 :::
 
 ::: {.col-notes}
@@ -593,9 +578,12 @@ We could instead attach probabilities to members of a collection $\mathbf{S}$  o
 ::: {.row}
 
 ::: {.col-original}
+Kolmogorov comments that infinite probability spaces are idealized models of real random processes, and that he limits himself arbitrarily to only those models that satisfy countable additivity. This axiom is the cornerstone of the assimilation of probability theory to measure theory.
 :::
 
 ::: {.col-translation}
+Kolmogorov nhận xét rằng các không gian xác suất vô hạn là những mô hình lý tưởng hóa của các quá trình ngẫu nhiên trong thực tế, và rằng ông tự giới hạn mình, một cách tùy ý, vào chỉ những mô hình thỏa mãn tiên đề cộng đếm được.
+Tiên đề này là viên đá nền tảng của việc đồng nhất lý thuyết xác suất với lý thuyết độ đo.
 :::
 
 ::: {.col-notes}
@@ -609,9 +597,19 @@ We could instead attach probabilities to members of a collection $\mathbf{S}$  o
 ::: {.row}
 
 ::: {.col-original}
+*The conditional probability of \(A\) given \(B\)* is then given by the ratio of unconditional probabilities:
+
+$$
+P(A\mid B)=\frac{P(A\cap B)}{P(B)},\, \text{provided} P(B)>0.
+$$
 :::
 
 ::: {.col-translation}
+*Xác suất có điều kiện của \(A\) khi biết \(B\)* được cho bởi tỉ số giữa các xác suất không điều kiện:
+
+$$
+P(A\mid B)=\frac{P(A\cap B)}{P(B)},\, \text{khi} P(B)>0.
+$$
 :::
 
 ::: {.col-notes}
@@ -625,9 +623,14 @@ We could instead attach probabilities to members of a collection $\mathbf{S}$  o
 ::: {.row}
 
 ::: {.col-original}
+This is often taken to be the *definition* of conditional probability, although it should be emphasized that this is a technical usage of the term that may not align perfectly with a pretheoretical concept that we might have (see Hájek, 2003). We recognize it in locutions such as “the probability that the die lands 1, given that it lands odd, is 1/3”, or “the probability that it will rain tomorrow, given that there are dark clouds in the sky tomorrow morning, is high”. It is the concept of the probability of something *given* or *in the light of* some piece of evidence or information. Indeed, some authors take conditional probability to be the primitive notion, and axiomatize it directly (e.g. Popper 1959b, Rényi 1970, van Fraassen 1976, Spohn 1986, and Roeper and Leblanc 1999).
 :::
 
 ::: {.col-translation}
+Công thức này thường được xem là *định nghĩa* của xác suất có điều kiện, tuy nhiên cần nhấn mạnh rằng đây là cách dùng mang tính kỹ thuật của thuật ngữ, và có thể không hoàn toàn trùng khớp với khái niệm tiền lý thuyết mà ta có thể đang nghĩ tới (xem Hájek, 2003).
+Ta nhận ra cách dùng này trong các phát biểu như: “Xác suất để xúc xắc ra mặt 1, khi biết rằng nó ra mặt lẻ, là 1/3”, hoặc “Xác suất trời mưa ngày mai, khi biết rằng sáng mai có mây đen, là cao”.
+Đây là khái niệm về xác suất của một điều gì đó *khi biết* hay *dưới ánh sáng của* một bằng chứng hoặc thông tin nào đó.
+Thật vậy, một số tác giả xem xác suất có điều kiện là khái niệm nguyên thủy và tiên đề hóa trực tiếp nó (xem Popper 1959b; Rényi 1970; van Fraassen 1976; Spohn 1986; Roeper và Leblanc 1999).
 :::
 
 ::: {.col-notes}
@@ -641,9 +644,13 @@ We could instead attach probabilities to members of a collection $\mathbf{S}$  o
 ::: {.row}
 
 ::: {.col-original}
+There are other formalizations that give up normalization; that give up countable additivity, and even additivity; that allow probabilities to take infinitesimal values (positive, but smaller than every positive real number); that allow probabilities to be imprecise — interval-valued, or more generally represented with sets of precise probability functions; and that treat probabilities comparatively rather than quantitatively. (See Fine 1974, Halpern 2003, Cozman 2016, Fine 2016, Hawthorne 2016, Lyon 2016.) For now, however, when we speak of ‘the probability calculus’, we will mean Kolmogorov’s approach, as is standard. See Hájek and Hitchcock (2016b) for a relatively non-technical introduction to it, intended for philosophers.
 :::
 
 ::: {.col-translation}
+Có những hình thức hóa khác của xác suất từ bỏ tiên đề chuẩn hóa; từ bỏ tính cộng đếm được, thậm chí từ bỏ cả tính cộng; cho phép xác suất nhận các giá trị vô cùng nhỏ (dương nhưng nhỏ hơn mọi số thực dương); cho phép xác suất không chính xác — được biểu diễn bằng các khoảng giá trị, hoặc nói chung hơn là bằng các tập hợp các hàm xác suất chính xác; và xem xác suất theo nghĩa so sánh thay vì định lượng. (Xem Fine 1974; Halpern 2003; Cozman 2016; Fine 2016; Hawthorne 2016; Lyon 2016.)
+Tuy nhiên, trong phạm vi hiện tại, khi chúng ta nói đến *phép tính xác suất*, ta sẽ hiểu nó theo cách tiếp cận của Kolmogorov, vốn là tiêu chuẩn chung.
+Xem Hájek và Hitchcock (2016b) để biết một phần giới thiệu tương đối không kỹ thuật, hướng đến độc giả triết học.
 :::
 
 ::: {.col-notes}
@@ -657,9 +664,14 @@ We could instead attach probabilities to members of a collection $\mathbf{S}$  o
 ::: {.row}
 
 ::: {.col-original}
+Given certain probabilities as inputs, the axioms and theorems allow us to compute various further probabilities. However, apart from the assignment of 1 to the universal set and 0 to the empty set, they are silent regarding the initial assignment of probabilities.<sup>[[1]](#note-1)</sup> For guidance with that, we need to turn to the interpretations of probability. First, however, let us list some criteria of adequacy for such interpretations.
 :::
 
 ::: {.col-translation}
+Với một số xác suất nhất định được cho làm đầu vào, các tiên đề và định lý cho phép chúng ta tính được nhiều xác suất khác.
+Tuy nhiên, ngoài việc gán 1 cho tập toàn thể và 0 cho tập rỗng, các tiên đề ấy không nói gì về việc gán xác suất ban đầu.<sup>[[1]](#note-1)</sup>
+Để có định hướng cho việc đó, ta cần chuyển sang các diễn giải của xác suất.
+Trước hết, hãy liệt kê một số tiêu chí về tính đầy đủ của các diễn giải như vậy.
 :::
 
 ::: {.col-notes}
