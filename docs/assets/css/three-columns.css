@@ -35,7 +35,7 @@ main.page-content {
 /* 4️⃣ Mỗi hàng song ngữ */
 .row {
   display: grid;
-  grid-template-columns: 1.5fr 1.5fr 1fr; /* ba cột bằng nhau */
+  grid-template-columns: 1.5fr 1.5fr 2fr; /* ba cột bằng nhau */
   gap: 1rem;
   align-items: stretch;
 }
@@ -96,7 +96,9 @@ main.page-content {
 /* ====== Căn thẳng tiêu đề với phần nội dung ====== */
 #title-block-header.quarto-title-block.default {
   position: relative;
-  left: calc(var(--bs-gutter-x, 0rem) + var(--sidebar-width, 0px)); /* dịch sang phải bằng khoảng lề nội dung */
+  left: calc(
+    var(--bs-gutter-x, 0rem) + var(--sidebar-width, 0px)
+  ); /* dịch sang phải bằng khoảng lề nội dung */
   max-width: 1600px; /* giữ khung nhỏ hơn phần đọc */
   margin: 0 auto; /* căn giữa trong khung */
   padding-left: 0.5rem;

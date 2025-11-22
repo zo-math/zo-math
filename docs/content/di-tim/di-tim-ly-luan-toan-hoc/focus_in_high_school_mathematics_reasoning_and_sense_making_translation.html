@@ -1,0 +1,3565 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="ZO Math">
+
+<title>Lý luận và kiến tạo ý nghĩa trong Toán học Trung học Phổ thông – ZO Math</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-719951764d4ca359be86a642d82fdf9d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../assets/css/custom.css">
+<link rel="stylesheet" href="../../../assets/css/three-columns.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-10/index.qmd">
+ <span class="dropdown-text">Toán 10</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-11/index.html">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-12/index.html">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.html">
+ <span class="dropdown-text">100+ Hàm số</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-o/index.html"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-lab/index.html"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/shop/index.html"> 
+<span class="menu-text">ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page">
+      <h1 class="title">Lý luận và kiến tạo ý nghĩa trong Toán học Trung học Phổ thông</h1>
+            <p class="subtitle lead">Focus in High School Mathematics - Reasoning and Sense Making: Bản dịch đối chiếu song ngữ Anh - Việt</p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-page">
+
+      <div>
+      <div class="quarto-title-meta-heading">Tác giả</div>
+      <div class="quarto-title-meta-contents">
+               <p>ZO Math </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Ngày cập nhật</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">22-11-2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
+
+
+
+
+
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="preface" class="level1 col-original">
+<h1>Preface</h1>
+</section>
+<section id="lời-nói-đầu" class="level1 col-translation">
+<h1>Lời nói đầu</h1>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="background" class="level2 col-original">
+<h2 class="anchored" data-anchor-id="background">Background</h2>
+<p>The National Council of Teachers of Mathematics (NCTM) has a long tradition of providing leadership and vision to support teachers in ensuring equitable mathematics learning of the highest quality for all students. In the three decades since the 1980 publication of An Agenda for Action, NCTM has consistently advocated a coherent prekindergarten through grade 12 mathematics curriculum focused on mathematical problem solving. NCTM refined this message in Curriculum and Evaluation Standards for School Mathematics (1989), which argued for a common core of mathematics for all students, with attention to the processes of problem solving, reasoning, connections, and communication. Continuing to provide leadership in 2000, NCTM issued Principles and Standards for School Mathematics (Principles and Standards) (2000a), which updated and elaborated on the 1989 recommendations in a set of five Content Standards and five Process Standards to include in every school mathematics program. In 2006, the Council’s Curriculum Focal Points for Prekindergarten through Grade 8 Mathematics (Curriculum Focal Points) (NCTM 2006a) offered guidance on how to focus the mathematical content for each grade level from prekindergarten through grade 8 while reminding educators of the importance of consistently embedding the relevant mathematical processes throughout the content in every mathematical learning experience.</p>
+</section>
+<section id="bối-cảnh" class="level2 col-translation">
+<h2 class="anchored" data-anchor-id="bối-cảnh">Bối cảnh</h2>
+<p>Hội đồng Quốc gia Giáo viên Toán học (NCTM) có một truyền thống lâu dài trong việc đưa ra định hướng và tầm nhìn nhằm hỗ trợ giáo viên bảo đảm cơ hội học Toán công bằng và chất lượng cao nhất cho mọi học sinh. Trong ba thập kỷ kể từ khi <em>An Agenda for Action</em> được công bố năm 1980, NCTM đã nhất quán thúc đẩy một chương trình Toán học mạch lạc từ mẫu giáo đến hết lớp 12, với trọng tâm là giải quyết vấn đề toán học.</p>
+<p>NCTM tinh chỉnh thông điệp này trong <em>Curriculum and Evaluation Standards for School Mathematics</em> (1989), văn bản nhấn mạnh sự cần thiết của một “cốt lõi chung” về Toán học cho tất cả học sinh, đồng thời chú trọng vào các quá trình: giải quyết vấn đề, lập luận, kết nối và giao tiếp toán học.</p>
+<p>Tiếp tục vai trò dẫn dắt vào năm 2000, NCTM ban hành <em>Principles and Standards for School Mathematics</em> (<em>Principles and Standards</em>) (2000a), tài liệu cập nhật và triển khai sâu hơn các khuyến nghị năm 1989 thông qua năm Chuẩn Nội dung (Content Standards) và năm Chuẩn Quá trình (Process Standards) nhằm tích hợp vào mọi chương trình Toán học ở trường phổ thông.</p>
+<p>Đến năm 2006, tài liệu <em>Curriculum Focal Points for Prekindergarten through Grade 8 Mathematics</em> (<em>Curriculum Focal Points</em>) (NCTM 2006a) tiếp tục đưa ra định hướng về cách tập trung hóa nội dung Toán cho từng lớp từ mầm non đến lớp 8, đồng thời nhắc nhở giáo viên về tầm quan trọng của việc nhất quán gắn kết các quá trình toán học có liên quan vào mọi trải nghiệm học tập Toán.</p>
+</section>
+<div class="col-notes">
+<p><strong>1. Vai trò của NCTM</strong> NCTM đóng vai trò kiến tạo định hướng và triết lý cho giáo dục Toán học Hoa Kỳ. Các tài liệu của NCTM không phải sách giáo khoa mà là hệ thống chuẩn mực để chương trình, nhà trường và giáo viên dựa vào trong việc thiết kế và tổ chức dạy học.</p>
+<p><strong>2. Dòng tiến hóa tư tưởng (1980-2006)</strong></p>
+<ul>
+<li><em>An Agenda for Action</em> (1980): đưa ra tầm nhìn “giải quyết vấn đề” là trọng tâm.</li>
+<li><em>Curriculum and Evaluation Standards</em> (1989): thiết lập cốt lõi chung về toán, xác lập các quá trình trọng yếu (giải quyết vấn đề, lập luận, kết nối, giao tiếp).</li>
+<li><em>Principles and Standards</em> (2000): hệ thống hóa thành năm Chuẩn Nội dung và năm Chuẩn Quá trình.</li>
+<li><em>Curriculum Focal Points</em> (2006): tập trung hóa nội dung theo từng lớp; nhấn mạnh tính nhất quán và tích hợp quá trình toán học trong mọi trải nghiệm học.</li>
+</ul>
+<p><strong>3. Ba trụ cột xuyên suốt</strong></p>
+<ul>
+<li>Giải quyết vấn đề là trọng tâm của học Toán.</li>
+<li>Lập luận và tạo nghĩa là hạt nhân của tri thức toán học.</li>
+<li>Cấu trúc chương trình phải mạch lạc, có tiến trình phát triển rõ ràng.</li>
+</ul>
+<p><strong>4. Ý nghĩa đối với dự án “Đi tìm Lý luận Toán học”</strong></p>
+<ul>
+<li>Cuốn <em>Reasoning and Sense Making</em> là kết quả của quá trình hoàn thiện tư duy dạy học Toán trong hơn ba thập kỷ.</li>
+<li>Lập luận (reasoning) và tạo nghĩa (sense making) cần được xem là nền tảng lý luận cốt lõi.</li>
+<li>Việc xây dựng nội dung và hoạt động trong ZO Math cần dựa trên nguyên tắc: trọng tâm - nhất quán - hướng tới năng lực lập luận.</li>
+</ul>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Realizing a parallel need for focus and coherence at the high school level, although perhaps of a different kind from that addressed in Curriculum Focal Points (NCTM 2006a), a 2006 NCTM task force recommended the development of a framework based on Principles and Standards (NCTM 2000a) that would guide future work regarding high school mathematics. As a result, a writing group was appointed to produce the framework outlined in this publication. Concurrently, a planning committee was appointed to oversee the larger high school curriculum project, which included guiding the review process for this publication; planning its rollout, including pamphlets summarizing the vision presented in this publication for various audiences; and proposing a series of topic books that elaborate the publication’s core messages.</p>
+</div>
+<div class="col-translation">
+<p><strong>Bản dịch</strong></p>
+<p>Nhận thấy nhu cầu tương tự về sự tập trung và mạch lạc ở cấp trung học phổ thông-dù có thể mang bản chất khác so với những vấn đề được đề cập trong <em>Curriculum Focal Points</em> (NCTM 2006a)-một nhóm công tác của NCTM năm 2006 đã khuyến nghị phát triển một khung định hướng dựa trên <em>Principles and Standards</em> (NCTM 2000a) nhằm dẫn dắt những nỗ lực tiếp theo liên quan đến Toán học THPT. Kết quả là một nhóm biên soạn được thành lập để xây dựng khung định hướng được trình bày trong ấn phẩm này.</p>
+<p>Song song với đó, một ban lập kế hoạch cũng được thành lập để giám sát dự án chương trình Toán THPT ở quy mô lớn hơn. Dự án này bao gồm việc định hướng quy trình phản biện cho ấn phẩm này; lập kế hoạch triển khai, bao gồm các tờ thông tin tóm tắt tầm nhìn của ấn phẩm dành cho những nhóm đối tượng khác nhau; và đề xuất một loạt sách theo chủ đề nhằm diễn giải sâu hơn các thông điệp cốt lõi của ấn phẩm.</p>
+</div>
+<div class="col-notes">
+<p><strong>1. Bối cảnh NCTM trong tiến trình hình thành ấn phẩm</strong></p>
+<p><em>NCTM (National Council of Teachers of Mathematics)</em> là tổ chức nghề nghiệp lớn nhất của giáo viên Toán tại Hoa Kỳ. Từ năm 1980, NCTM liên tục dẫn dắt cải tổ chương trình Toán phổ thông qua một chuỗi tài liệu quan trọng:</p>
+<ol type="1">
+<li><strong>An Agenda for Action</strong> (1980) - Định hướng cải cách tổng quan.</li>
+<li><strong>Curriculum and Evaluation Standards</strong> (1989) - Bộ chuẩn đầu tiên, nêu “cốt lõi Toán học cho mọi học sinh”.</li>
+<li><strong>Principles and Standards for School Mathematics</strong> (2000) - Củng cố thành 10 chuẩn (5 nội dung + 5 quá trình).</li>
+<li><strong>Curriculum Focal Points</strong> (2006) - Xác định “trọng tâm nội dung” từ mầm non đến lớp 8.</li>
+<li><strong>Reasoning and Sense Making Framework</strong> (2009) - Mở rộng cải tổ lên cấp THPT.</li>
+</ol>
+<p>Đoạn văn đang dịch mô tả <em>giai đoạn chuẩn bị để hình thành cuốn Reasoning and Sense Making</em>.</p>
+<p><strong>2. Các nhóm tham gia và vai trò</strong></p>
+<p><strong>Task Force (Nhóm công tác 2006)</strong></p>
+<ul>
+<li>Nhận định nhu cầu xây dựng một <em>khung định hướng</em> dành cho Toán THPT.</li>
+<li>Đề xuất yêu cầu phải phát triển tài liệu dựa trên <em>Principles and Standards</em> (2000).</li>
+</ul>
+<p><strong>Writing Group (Nhóm biên soạn)</strong></p>
+<ul>
+<li>Soạn thảo nội dung và cấu trúc chính của ấn phẩm <em>Focus in High School Mathematics: Reasoning and Sense Making</em>.</li>
+</ul>
+<p><strong>Planning Committee (Ban hoạch định)</strong></p>
+<ul>
+<li>Giám sát dự án cải tổ chương trình Toán THPT ở quy mô lớn hơn.</li>
+<li>Điều phối quy trình phản biện bản thảo.</li>
+<li>Lập kế hoạch triển khai ấn phẩm (rollout).</li>
+<li>Đề xuất loạt tài liệu mở rộng theo chủ đề (topic books).</li>
+</ul>
+<p><strong>3. Thuật ngữ quan trọng</strong></p>
+<p><strong>Framework (Khung định hướng)</strong></p>
+<p>Không phải chương trình học; là <em>tài liệu nền tảng</em> xác định:</p>
+<ul>
+<li>mục tiêu năng lực,</li>
+<li>thói quen lập luận,</li>
+<li>quan điểm về cách học có ý nghĩa,</li>
+<li>định hướng thiết kế và đánh giá chương trình.</li>
+</ul>
+<p><strong>Rollout (Kế hoạch triển khai)</strong></p>
+<p>Chiến lược đưa ấn phẩm vào thực tiễn:</p>
+<ul>
+<li>giới thiệu, tập huấn, tài liệu tóm tắt, truyền thông.</li>
+</ul>
+<p><strong>Pamphlets summarizing the vision</strong></p>
+<p>Các tờ thông tin ngắn, giới thiệu “tầm nhìn” của ấn phẩm cho những nhóm đối tượng khác nhau (giáo viên, quản lý giáo dục, phụ huynh).</p>
+<p><strong>Topic books (Sách theo chủ đề)</strong></p>
+<p>Những tài liệu được dự kiến dùng để mở rộng các thông điệp cốt lõi của ấn phẩm theo từng mảng (đại số, hình học, dữ liệu/xác suất). <em>Không phải tất cả các đầu sách được đề cập đều xác minh được là đã xuất bản hoàn chỉnh.</em></p>
+<p><strong>4. Ý nghĩa của đoạn văn trong toàn bộ dự án NCTM</strong></p>
+<p>Đoạn văn cho thấy ấn phẩm này không xuất hiện một cách độc lập, mà là <em>bước tiếp theo trong chuỗi cải tổ dạy học Toán của NCTM</em>, nhằm đưa “lập luận” và “kiến tạo ý nghĩa” trở thành trọng tâm ở cấp THPT; đồng thời thiết lập nền tảng để phát triển thêm các tài liệu chuyên môn sâu hơn.</p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="purpose" class="level2 col-original">
+<h2 class="anchored" data-anchor-id="purpose">Purpose</h2>
+</section>
+<section id="mục-đích" class="level2 col-translation">
+<h2 class="anchored" data-anchor-id="mục-đích">Mục đích</h2>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>This publication advocates that all high school mathematics programs focus on reasoning and sense making. The audience for this publication is intended to be everyone involved in decisions regarding high school mathematics programs, including formal decision makers within the system; people charged with implementing those decisions; and other stakeholders affected by, and involved in, those decisions.</p>
+<p>A number of publications produced over the past few years have provided detailed analyses of the topics that should be addressed in each course of high school mathematics (cf.&nbsp;American Diploma Project 2004; College Board 2006, 2007; ACT 2007; Achieve 2007a, 2007b.) This publication takes a somewhat different approach, proposing curricular emphases and instructional approaches that make reasoning and sense making foundational to the content that is taught and learned. Along with the more-detailed content recommendations outlined in Principles and Standards, this publication supplies a critical filter in examining any curriculum arrangement to ensure that the ultimate goals of the high school mathematics program are achieved.</p>
+</div>
+<div class="col-translation">
+<p>Ấn phẩm này chủ trương rằng mọi chương trình Toán học ở bậc trung học phổ thông cần đặt trọng tâm vào <em>lập luận<strong> và </strong>kiến tạo ý nghĩa</em>. Đối tượng độc giả của ấn phẩm bao gồm tất cả những người tham gia vào việc đưa ra quyết định liên quan đến chương trình Toán THPT: những nhà hoạch định chính thức trong hệ thống; những người chịu trách nhiệm triển khai các quyết định ấy; và những bên liên quan khác chịu tác động và có vai trò trong quá trình đó.</p>
+<p>Trong vài năm gần đây, đã có nhiều ấn phẩm đưa ra các phân tích chi tiết về những chủ đề cần được đề cập trong từng môn học Toán THPT (so sánh: American Diploma Project 2004; College Board 2006, 2007; ACT 2007; Achieve 2007a, 2007b). Tuy nhiên, ấn phẩm này tiếp cận theo một hướng khác: đề xuất các trọng tâm chương trình và các phương pháp dạy học nhằm khiến <em>lập luận và kiến tạo ý nghĩa trở thành nền tảng</em> cho mọi nội dung được dạy và học.</p>
+<p>Cùng với những khuyến nghị nội dung chi tiết hơn trong <em>Principles and Standards</em>, ấn phẩm này cung cấp một <em>bộ lọc mang tính quyết định</em> để đánh giá bất kỳ cách sắp xếp chương trình nào, nhằm bảo đảm rằng các mục tiêu tối hậu của chương trình Toán THPT được thực hiện.</p>
+</div>
+<div class="col-notes">
+<p><strong>1. Trọng tâm của ấn phẩm</strong></p>
+<p>Ấn phẩm khẳng định rằng <em>reasoning</em> (lập luận) và <em>sense making</em> (kiến tạo ý nghĩa) phải trở thành <em>nền tảng</em> của mọi chương trình Toán THPT. Điểm nhấn:</p>
+<ul>
+<li>Đây không chỉ là một “mục tiêu năng lực”.</li>
+<li>Mà là <em>tiêu chí xuyên suốt</em> để thiết kế, chọn lọc và đánh giá mọi nội dung.</li>
+</ul>
+<p><strong>2. Đối tượng độc giả</strong></p>
+<p>Phạm vi độc giả rộng nhằm bảo đảm tác động ở nhiều cấp của hệ thống giáo dục:</p>
+<ul>
+<li><em>Formal decision makers</em>: lãnh đạo nhà trường, sở/ban ngành, hội đồng thẩm định chương trình.</li>
+<li><em>Implementers</em>: giáo viên, tổ chuyên môn, người thiết kế bài giảng, người biên soạn tài liệu.</li>
+<li><em>Stakeholders</em>: học sinh, phụ huynh, cộng đồng, các tổ chức hỗ trợ học thuật.</li>
+</ul>
+<p>Ý nghĩa: Ấn phẩm này không chỉ dành cho giáo viên mà còn là tài liệu định hướng ở tầm <em>quản trị và thiết kế chương trình</em>.</p>
+<p><strong>3. Sự khác biệt với các tài liệu khác</strong></p>
+<p>Các tài liệu như American Diploma Project, ACT, College Board, Achieve… cung cấp:</p>
+<ul>
+<li>danh mục chủ đề,</li>
+<li>yêu cầu nội dung từng khóa học,</li>
+<li>chuẩn đầu ra chi tiết.</li>
+</ul>
+<p>Ấn phẩm NCTM này <em>không cạnh tranh với danh mục nội dung</em>. Thay vào đó, nó đưa ra:</p>
+<ul>
+<li><em>curricular emphases</em>: cách ưu tiên, cách tổ chức nội dung,</li>
+<li><em>instructional approaches</em>: phương pháp giảng dạy nhằm đưa lập luận - kiến tạo ý nghĩa vào “bản chất của việc học toán”.</li>
+</ul>
+<p>Tức là:</p>
+<blockquote class="blockquote">
+<p>Những tài liệu kia nói <em>“học cái gì”</em>. Cuốn này nói <em>“học như thế nào để tạo ra tư duy toán học thật sự”</em>.</p>
+</blockquote>
+<p><strong>4. “Critical filter” (Bộ lọc mang tính quyết định)</strong></p>
+<p>Từ khóa quan trọng nhất trong đoạn:</p>
+<p><strong>Critical filter = công cụ để đánh giá một chương trình học xem có đạt mục tiêu tư duy Toán hay không.</strong></p>
+<p>Chức năng:</p>
+<ul>
+<li>Kiểm tra xem nội dung và phương pháp giảng dạy có <em>thực sự tạo ra năng lực lập luận và hiểu sâu</em>.</li>
+<li>Giúp tránh tình trạng “dạy theo danh mục” nhưng không tạo ra năng lực toán học cốt lõi.</li>
+</ul>
+<p>Điểm quan trọng:</p>
+<ul>
+<li>Bộ lọc này <strong>hoàn thiện</strong> (không thay thế) các chuẩn nội dung trong <em>Principles and Standards</em>.</li>
+<li>Nó trả lời câu hỏi: “Nếu nội dung như nhau, cách tổ chức nào giúp học sinh thật sự hiểu và biết suy nghĩ bằng ngôn ngữ toán học?”</li>
+</ul>
+<p><strong>5. Ý nghĩa trong lộ trình cải cách của NCTM</strong></p>
+<p>Phần “Purpose” định vị cuốn sách này như:</p>
+<ul>
+<li>Công cụ cân bằng giữa <em>nội dung</em> và <em>quá trình tư duy</em>.</li>
+<li>Một tầng khái niệm cao hơn so với chuẩn nội dung.</li>
+<li>Một tài liệu chiến lược định hướng cách nhìn mới về dạy học Toán THPT.</li>
+</ul>
+<p>Nói cách khác, cuốn sách nhằm thay đổi <em>cái cốt lõi</em> của chương trình: từ <em>dạy toán như tập hợp các chủ đề</em> sang <em>dạy toán như một quá trình tạo lập tư duy</em>.</p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="organization-of-the-publication" class="level2 col-original">
+<h2 class="anchored" data-anchor-id="organization-of-the-publication">Organization of the Publication</h2>
+<p>The first section of the publication presents an overview of reasoning and sense making. Chapter 1 describes what constitutes reasoning and sense making in the mathematics classroom; why they should be considered as foundational for high school mathematics; and how they link with other mathematical processes, such as representation, communication, connections, and problem solving. Chapter 2 describes in more detail the mathematical reasoning habits that students should continue to acquire throughout their high school mathematics experiences, a general trajectory for how they develop, suggestions for how to promote them in the classroom, and an explanation of how reasoning and sense making fit into the larger picture of mathematical activity.</p>
+<p>The second section of the publication demonstrates with examples how reasoning and sense making can be incorporated into the high school curriculum. Chapter 3 provides an overview, and chapters 4-8 describe how reasoning and sense making fit into five overarching areas of high school mathematics-number and measurement, algebraic symbols, functions, geometry, and statistics and probability.</p>
+<p>The final section discusses issues in implementing reasoning and sense making across the high school mathematics program. Chapter 9 focuses on how to provide equitable opportunities for all students to engage in reasoning and sense making. Chapter 10 addresses the importance of coherent expectations regarding curriculum, instruction, and assessment in promoting reasoning and sense making. Finally, chapter 11 presents questions to consider as stakeholders work together to improve high school mathematics education.</p>
+<p>For the convenience of the reader, an annotated bibliography is included that describes pertinent research works that underlie this publication, organized by chapter.</p>
+</section>
+<section id="cấu-trúc-của-ấn-phẩm" class="level2 col-translation">
+<h2 class="anchored" data-anchor-id="cấu-trúc-của-ấn-phẩm">Cấu trúc của Ấn phẩm</h2>
+<p>Phần thứ nhất của ấn phẩm trình bày tổng quan về lập luận và kiến tạo ý nghĩa. Chương 1 mô tả những thành tố tạo nên lập luận và kiến tạo ý nghĩa trong lớp học Toán; lý do chúng cần được xem là nền tảng của Toán học THPT; và cách chúng liên kết với các quá trình toán học khác như biểu diễn, giao tiếp, kết nối và giải quyết vấn đề. Chương 2 mô tả chi tiết hơn những <em>thói quen lập luận toán học</em> mà học sinh cần tiếp tục phát triển trong suốt quá trình học Toán THPT; quỹ đạo phát triển tổng quát của các thói quen ấy; gợi ý để thúc đẩy chúng trong lớp học; và giải thích cách lập luận - kiến tạo ý nghĩa hòa vào bức tranh rộng lớn hơn của hoạt động toán học.</p>
+<p>Phần thứ hai minh họa - thông qua các ví dụ - cách tích hợp lập luận và kiến tạo ý nghĩa vào chương trình Toán THPT. Chương 3 đưa ra tổng quan, và các chương 4-8 mô tả cách lập luận và kiến tạo ý nghĩa vận hành trong năm lĩnh vực lớn của Toán THPT: số và đo lường, ký hiệu đại số, hàm số, hình học, và thống kê - xác suất.</p>
+<p>Phần cuối cùng thảo luận những vấn đề liên quan đến việc triển khai lập luận và kiến tạo ý nghĩa xuyên suốt chương trình Toán THPT. Chương 9 tập trung vào cách bảo đảm cơ hội công bằng để mọi học sinh đều có thể tham gia vào lập luận và kiến tạo ý nghĩa. Chương 10 đề cập tầm quan trọng của sự nhất quán giữa chương trình, phương pháp giảng dạy và đánh giá trong việc thúc đẩy lập luận và kiến tạo ý nghĩa. Cuối cùng, chương 11 nêu ra những câu hỏi cần cân nhắc khi các bên liên quan cùng hợp tác cải thiện giáo dục Toán THPT.</p>
+<p>Để thuận tiện cho người đọc, ấn phẩm còn kèm theo một <em>thư mục chú giải</em> (annotated bibliography), trình bày những công trình nghiên cứu liên quan làm nền tảng cho ấn phẩm, được sắp xếp theo từng chương.</p>
+</section>
+<div class="col-notes">
+<p><strong>1. Cấu trúc tổng thể của ấn phẩm</strong></p>
+<p>Ấn phẩm được chia thành <em>ba phần lớn</em>, mỗi phần có một chức năng rõ ràng trong việc xây dựng nền tảng “Reasoning and Sense Making” cho Toán THPT:</p>
+<ol type="1">
+<li><strong>Phần 1 - Cơ sở lý luận</strong></li>
+<li><strong>Phần 2 - Ứng dụng vào chương trình</strong></li>
+<li><strong>Phần 3 - Triển khai trong thực tiễn giáo dục</strong></li>
+</ol>
+<p>Cấu trúc này phản ánh cách NCTM xây dựng tài liệu theo cả ba tầng: <em>lí luận → minh họa nội dung → thực thi hệ thống</em>.</p>
+<p><strong>2. Phần 1 - Lý luận nền (Chương 1-2)</strong></p>
+<p><strong>2.1. Chương 1 - Định nghĩa và vai trò</strong></p>
+<p>Trình bày:</p>
+<ul>
+<li><p>Thế nào là <em>reasoning</em> và <em>sense making</em> trong bối cảnh lớp học.</p></li>
+<li><p>Vì sao chúng phải là nền tảng cho toàn bộ Toán THPT.</p></li>
+<li><p>Cách chúng gắn kết với các <em>quá trình toán học cốt lõi</em>:</p>
+<ul>
+<li>biểu diễn (representation)</li>
+<li>giao tiếp (communication)</li>
+<li>kết nối (connections)</li>
+<li>giải quyết vấn đề (problem solving)</li>
+</ul></li>
+</ul>
+<p><strong>2.2. Chương 2 - Mathematical Reasoning Habits</strong></p>
+<p>Khái niệm quan trọng: <em>thói quen lập luận toán học</em> (reasoning habits). Chương này mô tả:</p>
+<ul>
+<li>Danh mục các thói quen học sinh cần hình thành.</li>
+<li>Quỹ đạo phát triển theo thời gian.</li>
+<li>Cách thúc đẩy các thói quen này trong lớp học.</li>
+<li>Vị trí của lập luận - kiến tạo ý nghĩa trong toàn bộ hoạt động toán học (định lí - chứng minh - mô hình - biểu diễn - giải quyết vấn đề).</li>
+</ul>
+<p>Vai trò: cung cấp <em>bộ ngôn ngữ khái niệm</em> để nhận diện và mô tả tư duy toán học của học sinh.</p>
+<p><strong>3. Phần 2 - Ứng dụng trong chương trình THPT (Chương 3-8)</strong></p>
+<p><strong>3.1. Chương 3 - Tổng quan</strong></p>
+<p>Giải thích cách tích hợp reasoning và sense making vào dạy học trung học, làm cầu nối giữa phần lý luận (1-2) và phần nội dung (4-8).</p>
+<p><strong>3.2. Chương 4-8 - Năm miền nội dung lớn</strong></p>
+<p>Mỗi miền nội dung → một chương minh họa cách reasoning &amp; sense making thể hiện trong:</p>
+<ol type="1">
+<li><strong>Số và đo lường</strong> (Number and Measurement)</li>
+<li><strong>Ký hiệu đại số</strong> (Algebraic Symbols)</li>
+<li><strong>Hàm số</strong> (Functions)</li>
+<li><strong>Hình học</strong> (Geometry)</li>
+<li><strong>Thống kê và xác suất</strong> (Statistics and Probability)</li>
+</ol>
+<p>Điểm quan trọng: Không chỉ mô tả nội dung, mà chỉ ra <em>cách học sinh suy nghĩ</em>, <em>cách thiết kế nhiệm vụ</em>, và <em>cách giáo viên dẫn dắt</em> sao cho lập luận trở thành bản chất của việc học.</p>
+<p><strong>4. Phần 3 - Triển khai trong toàn hệ thống giáo dục (Chương 9-11)</strong></p>
+<p><strong>4.1. Chương 9 - Công bằng trong tiếp cận học Toán</strong></p>
+<p>Nhấn mạnh: mọi học sinh (không chỉ nhóm giỏi) phải có cơ hội tham gia vào reasoning &amp; sense making. Tập trung vào rào cản, tiếp cận, hỗ trợ.</p>
+<p><strong>4.2. Chương 10 - Sự nhất quán giữa chương trình - giảng dạy - đánh giá</strong></p>
+<p>Thông điệp chính:</p>
+<blockquote class="blockquote">
+<p>Một chương trình dạy học chỉ thực sự hướng tới lập luận và kiến tạo ý nghĩa nếu <em>ba tầng</em> (curriculum - instruction - assessment) cùng nhất quán theo tư tưởng đó.</p>
+</blockquote>
+<p>Chương này kết nối triết lý với quản trị chương trình.</p>
+<p><strong>4.3. Chương 11 - Câu hỏi định hướng cải cách</strong></p>
+<p>Đưa ra danh mục câu hỏi để các bên liên quan (stakeholders) cùng suy xét khi cải thiện giáo dục Toán THPT.</p>
+<p><strong>5. Thư mục chú giải (Annotated Bibliography)</strong></p>
+<p>Thư mục kèm giải thích giúp:</p>
+<ul>
+<li>Xác định nền tảng nghiên cứu làm cơ sở cho các lập luận của NCTM.</li>
+<li>Liên kết trực tiếp từng chương với các công trình khoa học tương ứng.</li>
+<li>Tạo minh bạch học thuật (academic transparency).</li>
+</ul>
+<p>Điều này cho thấy ấn phẩm không phải là “tuyên bố chính sách”, mà là một tài liệu <em>dựa trên nghiên cứu</em>.</p>
+<p><strong>6. Ý nghĩa tổng thể của phần Lời nói đầu</strong></p>
+<p>Phần này đặt ấn phẩm vào bối cảnh:</p>
+<ul>
+<li>có cấu trúc chặt chẽ,</li>
+<li>có cơ sở nghiên cứu,</li>
+<li>hướng đến thay đổi hệ thống,</li>
+<li>có phạm vi tác động rộng (giáo viên - quản lý - nhà thiết kế chương trình - nhà làm chính sách).</li>
+</ul>
+<p>Đây là lời giới thiệu giúp độc giả hiểu ngay rằng cuốn sách là <em>tài liệu định hướng chiến lược</em>, không phải giáo trình nội dung thông thường.</p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="section-1.-defining-reasoning-and-sense-making" class="level1 col-original">
+<h1>Section 1. Defining Reasoning and Sense Making</h1>
+</section>
+<section id="phần-1.-định-nghĩa-lập-luận-và-kiến-tạo-ý-nghĩa" class="level1 col-translation">
+<h1>Phần 1. Định nghĩa lập luận và kiến tạo ý nghĩa</h1>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="chapter-1.-reasoning-and-sense-making" class="level2 col-original">
+<h2 class="anchored" data-anchor-id="chapter-1.-reasoning-and-sense-making">Chapter 1. Reasoning and Sense Making</h2>
+</section>
+<section id="chương-1.-lập-luận-và-kiến-tạo-ý-nghĩa" class="level2 col-translation">
+<h2 class="anchored" data-anchor-id="chương-1.-lập-luận-và-kiến-tạo-ý-nghĩa">Chương 1. Lập luận và kiến tạo ý nghĩa</h2>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p><strong>(Epigraph)</strong></p>
+<p>A high school mathematics program based on reasoning and sense making will prepare students for citizenship, for the workplace, and for further study.</p>
+</div>
+<div class="col-translation">
+<p><strong>(Đề từ)</strong></p>
+<p><em>Một chương trình Toán học trung học phổ thông được xây dựng trên nền tảng lập luận và kiến tạo ý nghĩa sẽ chuẩn bị cho học sinh trở thành những công dân có trách nhiệm, trở thành lực lượng lao động có năng lực, và tiếp tục học tập ở bậc cao hơn.</em></p>
+</div>
+<div class="col-notes">
+<p><strong>1. Hình thức: đây là “đề từ chương” (epigraph)</strong></p>
+<ul>
+<li>Được đặt <em>ngay dưới tiêu đề chương</em>, trước phần nội dung chính.</li>
+<li><em>In nghiêng</em>, căn giữa, tách biệt khỏi văn bản chính.</li>
+<li>Không được đánh số mục.</li>
+<li>Thường thể hiện <em>tuyên bố cốt lõi</em> của chương, như “thesis” nén lại.</li>
+</ul>
+<p>Về chức năng biên tập:</p>
+<ul>
+<li>Nó không giải thích, không phân tích.</li>
+<li>Nó đóng vai trò “ý hướng mở”, dẫn dắt độc giả vào tinh thần của toàn chương.</li>
+<li>Trong các tài liệu NCTM, dạng câu này thường là <strong>statement</strong> chứ không phải trích dẫn văn học.</li>
+</ul>
+<p>Trong bản dịch ZO Math, bạn có thể đặt dưới dạng <em>epigraph</em> theo chuẩn Quarto (căn giữa, in nghiêng, cỡ chữ nhỏ/normalsize).</p>
+<p><strong>2. Nội dung: câu đề từ chứa toàn bộ triết lý của chương 1</strong></p>
+<p>Câu này nén lại ba luận điểm lớn:</p>
+<p><strong>2.1. Lập luận và kiến tạo ý nghĩa là “nền tảng chương trình”</strong></p>
+<p>Không phải phụ lục, không phải “thêm vào bài học”, mà là:</p>
+<ul>
+<li>nguyên lý thiết kế chương trình,</li>
+<li>nguyên tắc chọn nội dung,</li>
+<li>chuẩn năng lực xuyên suốt cấp THPT.</li>
+</ul>
+<p>Nó khẳng định tính <em>cốt lõi</em> (foundational).</p>
+<p><strong>2.2. Mục tiêu của Toán THPT vượt xa phạm vi toán học</strong></p>
+<p>Câu đề từ liệt kê 3 mục tiêu giáo dục lớn:</p>
+<ol type="1">
+<li><em>Citizenship</em> - trở thành công dân biết suy xét, biết ra quyết định dựa trên lập luận.</li>
+<li><em>Workplace</em> - lực lượng lao động có khả năng phân tích, đánh giá, giải quyết vấn đề.</li>
+<li><em>Further study</em> - nền tảng để tiếp tục học các lĩnh vực khoa học, kỹ thuật, kinh tế…</li>
+</ol>
+<p>Điều này phản ánh quan điểm của NCTM:</p>
+<blockquote class="blockquote">
+<p>Dạy Toán ở THPT không chỉ là dạy thao tác tính toán, mà là dạy năng lực suy nghĩ có tính toán (mathematical thinking).</p>
+</blockquote>
+<p><strong>2.3. Lập luận và kiến tạo ý nghĩa tạo ra “năng lực chuyển hóa”</strong></p>
+<p>Câu đề từ ngầm khẳng định:</p>
+<ul>
+<li>Các quy tắc, kỹ thuật, công thức chỉ có giá trị khi học sinh <em>tự hiểu</em> (sense making).</li>
+<li>Khả năng giải thích, kết nối, nhìn thấy ý nghĩa mới là yếu tố làm nên sự trưởng thành trí tuệ.</li>
+<li>Reasoning + sense making → năng lực chuyển từ kiến thức toán học sang bối cảnh thực tiễn.</li>
+</ul>
+<p>Đây chính là định hướng xuyên suốt toàn bộ chương 1.</p>
+<p><strong>3. Ý nghĩa biên tập trong thiết kế chương</strong></p>
+<p>Câu đề từ này không chỉ là “câu hay”, mà là:</p>
+<ul>
+<li>khung tư tưởng chi phối cách đọc toàn chương;</li>
+<li>lời nhắc nhở rằng toàn bộ chương 1 là để <em>giải thích, chứng minh và mở rộng</em> điều được nói trong đề từ;</li>
+<li>bản tuyên bố sứ mệnh (mission statement) của lập luận và kiến tạo ý nghĩa trong Toán THPT.</li>
+</ul>
+<p>Do đó, khi bạn dịch hoặc triển khai nội dung trong ZO Math, câu đề từ này có thể xem như:</p>
+<ul>
+<li><em>thông điệp triết lý</em>,</li>
+<li><em>câu mở định hướng</em>,</li>
+<li><em>trục tư tưởng</em> của toàn phần 1.</li>
+</ul>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>High school mathematics prepares students for possible postsecondary work and study in three broad areas (cf.&nbsp;NCTM [2000a]):</p>
+<ol type="1">
+<li>Mathematics for life</li>
+<li>Mathematics for the workplace</li>
+<li>Mathematics for the scientific and technical community</li>
+</ol>
+<p>As the demands for mathematical literacy increase, students face challenges in all three areas. First, the report of the Programme for International Student Assessment (2007) suggests that students in the United States are lagging in mathematical literacy, which that report defines as the ability to apply mathematics “to analyse, reason and communicate effectively as they pose, solve and interpret mathematical problems in a variety of situations” (p.&nbsp;304), including as future citizens. Second, globalization and the rise of technology are presenting new economic and workforce challenges (Friedman 2007), and the traditional mathematics curriculum is insufficient for students entering many fields (Ganter and Barker 2004). Finally, the United States is in danger of losing its leadership position in science, technology, engineering, and mathematics (Task Force on the Future of American Innovation 2005; Committee on Science, Engineering and Public Policy 2006; Tapping America’s Potential 2008).</p>
+</div>
+<div class="col-translation">
+<p>Giáo dục Toán học ở bậc trung học phổ thông chuẩn bị cho học sinh hướng tới học tập và làm việc sau phổ thông trong ba lĩnh vực rộng (xem NCTM [2000a]):</p>
+<ol type="1">
+<li>Toán học cho đời sống</li>
+<li>Toán học cho môi trường làm việc</li>
+<li>Toán học cho cộng đồng khoa học và kỹ thuật</li>
+</ol>
+<p>Khi yêu cầu về năng lực toán học ngày càng tăng, học sinh phải đối mặt với thách thức trong cả ba lĩnh vực này. Thứ nhất, báo cáo của Chương trình Đánh giá Học sinh Quốc tế (Programme for International Student Assessment - PISA, 2007) cho thấy học sinh ở Hoa Kỳ đang tụt hậu về năng lực toán học. Báo cáo đó định nghĩa năng lực toán học là khả năng vận dụng toán học “để phân tích, lập luận và giao tiếp một cách hiệu quả khi đặt ra, giải quyết và diễn giải các vấn đề toán học trong nhiều tình huống khác nhau” (tr. 304), bao gồm cả trong vai trò công dân tương lai.</p>
+<p>Thứ hai, toàn cầu hóa và sự trỗi dậy của công nghệ đang mang đến những thách thức kinh tế và nhân lực mới (Friedman 2007), và chương trình Toán học truyền thống là không đủ đối với học sinh bước vào nhiều lĩnh vực nghề nghiệp (Ganter và Barker 2004).</p>
+<p>Cuối cùng, Hoa Kỳ đang đứng trước nguy cơ đánh mất vị thế dẫn đầu trong khoa học, công nghệ, kỹ thuật và toán học (Task Force on the Future of American Innovation 2005; Committee on Science, Engineering and Public Policy 2006; Tapping America’s Potential 2008).</p>
+</div>
+<div class="col-notes">
+<p><strong>1. Bối cảnh tổng thể của đoạn</strong></p>
+<p>Đoạn này đóng vai trò như “lý do tồn tại” của chương 1: nó giải thích <em>vì sao</em> lập luận và kiến tạo ý nghĩa cần trở thành nền tảng của Toán học THPT. NCTM đưa ra ba tầng nhu cầu xã hội - giáo dục, rồi chứng minh rằng cách dạy toán truyền thống không còn đáp ứng nổi.</p>
+<p><strong>2. Ba lĩnh vực mà Toán THPT phải phục vụ</strong></p>
+<p>Theo NCTM (2000), Toán THPT phải chuẩn bị học sinh cho ba mục tiêu:</p>
+<p><strong>2.1. Mathematics for life</strong></p>
+<p>Toán học dùng trong sinh hoạt, đời sống công dân, các quyết định thực tế (tài chính cá nhân, thông tin thống kê, rủi ro, tỷ lệ, dữ liệu truyền thông…). <em>Đây là năng lực phổ quát.</em></p>
+<p><strong>2.2. Mathematics for the workplace</strong></p>
+<p>Toán học phục vụ lao động, từ các ngành kỹ thuật đến phân tích dữ liệu, logistics, tài chính doanh nghiệp. <em>Đây là năng lực thị trường lao động.</em></p>
+<p><strong>2.3. Mathematics for the scientific and technical community</strong></p>
+<p>Nền tảng toán học để bước vào các ngành STEM. <em>Đây là năng lực học thuật - chuyên môn.</em></p>
+<p><strong>Điểm quan trọng</strong>: TOÁN THPT không chỉ để “thi cử”, mà là công cụ sống - làm việc - học tiếp.</p>
+<p><strong>3. Vấn đề 1: Năng lực toán học thấp (PISA 2007)</strong></p>
+<p><strong>Mathematical literacy = năng lực toán học thực hành</strong></p>
+<p>PISA định nghĩa: khả năng dùng toán để <em>phân tích - lập luận - giao tiếp</em> trong các tình huống có vấn đề.</p>
+<p>Các động từ này quan trọng:</p>
+<ul>
+<li><em>analyse</em> → phân tích</li>
+<li><em>reason</em> → lập luận</li>
+<li><em>communicate</em> → trình bày có logic</li>
+<li><em>pose problems</em> → đặt vấn đề</li>
+<li><em>solve problems</em> → giải quyết vấn đề</li>
+<li><em>interpret</em> → diễn giải kết quả trong bối cảnh thực</li>
+</ul>
+<p>Nói cách khác:</p>
+<blockquote class="blockquote">
+<p>Năng lực toán học mà PISA đánh giá chính là <em>reasoning + sense making</em> trong thực tế.</p>
+</blockquote>
+<p>NCTM dùng luận cứ này để chứng minh rằng học sinh Mỹ đang thiếu chính thứ năng lực mà chương này đề xuất.</p>
+<p><strong>4. Vấn đề 2: Toán học truyền thống không đáp ứng nhu cầu kinh tế - công nghệ</strong></p>
+<p>Globalization + technological rise tạo ra:</p>
+<ul>
+<li>nghề mới,</li>
+<li>yêu cầu phân tích dữ liệu,</li>
+<li>yêu cầu xử lý thông tin số,</li>
+<li>yêu cầu suy luận phi chuẩn.</li>
+</ul>
+<p>Citing Friedman (2007): đổi mới + cạnh tranh toàn cầu → thị trường lao động khó hơn.</p>
+<p>Citing Ganter &amp; Barker (2004): <em>Chương trình toán học truyền thống “không đủ”</em> để trang bị kỹ năng cho thế hệ mới.</p>
+<p>→ Đây là lời phê bình trực tiếp vào kiểu dạy:</p>
+<ul>
+<li>nhiều kỹ thuật,</li>
+<li>ít hiểu,</li>
+<li>ít ứng dụng,</li>
+<li>không phát triển tư duy.</li>
+</ul>
+<p><strong>5. Vấn đề 3: Mỹ có nguy cơ mất vị thế trong STEM</strong></p>
+<p>Các báo cáo (2005-2008) cảnh báo rằng Hoa Kỳ:</p>
+<ul>
+<li>mất lợi thế cạnh tranh khoa học - kỹ thuật,</li>
+<li>thiếu nhân lực có nền tảng toán học sâu,</li>
+<li>đào tạo không theo kịp quốc tế.</li>
+</ul>
+<p>Điều này đưa đến thông điệp:</p>
+<blockquote class="blockquote">
+<p>Lập luận và kiến tạo ý nghĩa không chỉ phục vụ đời sống - công việc, mà còn là yếu tố sống còn để duy trì sức mạnh khoa học quốc gia.</p>
+</blockquote>
+<p><strong>6. Ý nghĩa tổng hợp của đoạn</strong></p>
+<p>Đoạn văn đưa ra một chuỗi lập luận rất chiến lược:</p>
+<ol type="1">
+<li>Toán THPT phải phục vụ ba mục tiêu lớn.</li>
+<li>Cả ba mục tiêu đều đang gặp khủng hoảng.</li>
+<li>Nguyên nhân: chương trình toán truyền thống không tạo ra năng lực toán học thực sự.</li>
+<li>Và giải pháp: chuyển trọng tâm sang <em>reasoning</em> (lập luận) và <em>sense making</em> (kiến tạo ý nghĩa).</li>
+</ol>
+<p>Đây là cách NCTM xây dựng “vấn đề” để dẫn sang “giải pháp” là toàn bộ nội dung của chương.</p>
+<p><strong>7. Thuật ngữ quan trọng cần ghi nhớ</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 35%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Thuật ngữ</th>
+<th>Giải nghĩa ngắn</th>
+<th>Vai trò trong văn bản</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Mathematical literacy</strong></td>
+<td>năng lực vận dụng toán vào ngữ cảnh thực, theo PISA</td>
+<td>Bằng chứng cho thấy học sinh đang thiếu năng lực tư duy toán học</td>
+</tr>
+<tr class="even">
+<td><strong>Globalization</strong></td>
+<td>toàn cầu hóa</td>
+<td>Gây áp lực thay đổi kỹ năng cần thiết</td>
+</tr>
+<tr class="odd">
+<td><strong>Workforce challenges</strong></td>
+<td>thách thức thị trường lao động</td>
+<td>Lý do chương trình toán truyền thống không còn phù hợp</td>
+</tr>
+<tr class="even">
+<td><strong>STEM leadership</strong></td>
+<td>vị thế dẫn đầu trong khoa học-kỹ thuật</td>
+<td>Động lực quốc gia để thay đổi cách dạy toán</td>
+</tr>
+<tr class="odd">
+<td><strong>Pose - Solve - Interpret</strong></td>
+<td>đặt vấn đề - giải quyết - diễn giải</td>
+<td>Ba hành vi cốt lõi trong tư duy toán thực tiễn</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><strong>Thuật ngữ: STEM</strong></p>
+<p><strong>STEM</strong> là viết tắt của bốn lĩnh vực học thuật - kỹ thuật cốt lõi:</p>
+<ul>
+<li><strong>S</strong>cience - Khoa học</li>
+<li><strong>T</strong>echnology - Công nghệ</li>
+<li><strong>E</strong>ngineering - Kỹ thuật</li>
+<li><strong>M</strong>athematics - Toán học</li>
+</ul>
+<p>Thuật ngữ này không chỉ chỉ bốn môn học, mà chỉ một <strong>hệ tư duy liên ngành</strong> trong đó các ý tưởng khoa học, công nghệ, kỹ thuật và toán học được kết nối để giải quyết những vấn đề thực tiễn. Giáo dục STEM nhấn mạnh:</p>
+<ul>
+<li>tư duy hệ thống,</li>
+<li>năng lực mô hình hóa toán học,</li>
+<li>sử dụng và phát triển công nghệ,</li>
+<li>thiết kế - kiểm chứng - tối ưu trong kỹ thuật,</li>
+<li>khả năng phân tích và diễn giải dữ liệu khoa học.</li>
+</ul>
+<p>Trong bối cảnh giáo dục Toán THPT, STEM quan trọng vì Toán học là nền tảng của năng lực tư duy trong cả bốn lĩnh vực. NCTM thường nhắc đến STEM khi bàn về năng lực toán học cần thiết để duy trì sức mạnh khoa học - công nghệ của quốc gia và để học sinh có thể bước vào các ngành nghề của thế kỷ 21.</p>
+<p>Trong ZO Math, thuật ngữ <strong>STEM</strong> được giữ nguyên khi dịch, kèm theo chú thích ngắn gọn ở lần xuất hiện đầu tiên: <strong>“STEM: Khoa học - Công nghệ - Kỹ thuật - Toán học.”</strong></p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>A focus on reasoning and sense making, when developed in the context of important content, will ensure that students can accurately carry out mathematical procedures, understand why those procedures work, and know how they might be used and their results interpreted. This understanding will expand students’ abilities to apply mathematical perspectives, concepts, and tools flexibly in each of the three areas mentioned above. Such a focus on reasoning and sense making will produce citizens who make informed and reasoned decisions, including quantitatively sophisticated choices about their personal finances, about which public policies deserve their support, and about which insurance or health plans to select. It will also produce workers who can satisfy the increased mathe matical needs in professional areas ranging from health care to small business to digital technology (American Diploma Project 2004).</p>
+</div>
+<div class="col-translation">
+<p>Tập trung vào lập luận và kiến tạo ý nghĩa, khi được phát triển gắn liền với các nội dung toán học quan trọng, sẽ bảo đảm rằng học sinh có thể thực hiện chính xác các thao tác toán học, hiểu được vì sao các thao tác ấy hoạt động, và biết cách chúng có thể được sử dụng cũng như cách diễn giải kết quả của chúng. Sự hiểu biết này sẽ mở rộng khả năng của học sinh trong việc vận dụng một cách linh hoạt các quan điểm, khái niệm và công cụ toán học trong cả ba lĩnh vực đã đề cập ở trên.</p>
+<p>Một trọng tâm như vậy vào lập luận và kiến tạo ý nghĩa sẽ hình thành nên những công dân có khả năng đưa ra các quyết định sáng suốt và có lập luận, bao gồm các lựa chọn có tính định lượng liên quan đến tài chính cá nhân, các chính sách công mà họ nên ủng hộ, hoặc việc chọn lựa gói bảo hiểm hay kế hoạch chăm sóc sức khỏe phù hợp. Nó cũng sẽ tạo ra những người lao động có thể đáp ứng nhu cầu toán học ngày càng tăng trong các ngành nghề chuyên môn, từ chăm sóc sức khỏe, kinh doanh nhỏ cho đến công nghệ số (American Diploma Project 2004).</p>
+</div>
+<div class="col-notes">
+<p><strong>1. Vai trò của “reasoning” và “sense making” trong học toán</strong></p>
+<p>Đoạn văn giải thích cơ chế <em>vì sao</em> lập luận và kiến tạo ý nghĩa lại cần thiết hơn việc học thao tác kỹ thuật.</p>
+<p>Khi học sinh:</p>
+<ul>
+<li>thực hiện <em>chính xác</em> (procedural accuracy),</li>
+<li>hiểu <em>tại sao</em> (conceptual understanding),</li>
+<li>biết <em>dùng ở đâu / diễn giải thế nào</em> (application &amp; interpretation),</li>
+</ul>
+<p>thì năng lực toán học của các em trở nên <em>linh hoạt</em>, <em>thích ứng</em>, và <em>chuyển hóa</em> được vào đời sống lẫn các lĩnh vực nghề nghiệp.</p>
+<p>Đây là tầng năng lực mà kiến thức thuần “kỹ thuật + công thức” không thể tạo ra.</p>
+<p><strong>2. “Important content” - nội dung quan trọng là gì?</strong></p>
+<p>NCTM có chủ đích:</p>
+<ul>
+<li>Không phải reasoning/sense making <em>thay thế</em> nội dung.</li>
+<li>Chúng <em>phải được phát triển cùng nội dung trọng yếu</em> (algebra, functions, geometry, statistics…).</li>
+</ul>
+<p>Lập luận và kiến tạo ý nghĩa = cách “kích hoạt” nội dung, không phải phụ trội.</p>
+<p><strong>3. Tác động vào ba lĩnh vực (life - workplace - STEM)</strong></p>
+<p>Đoạn văn khẳng định: khi học sinh hiểu cách thức và lý do của quy trình toán học, thì:</p>
+<ul>
+<li>các em có thể chuyển toán học sang đời sống (toán cho cuộc sống),</li>
+<li>sang nghề nghiệp (phân tích dữ liệu, mô hình, quyết định),</li>
+<li>và sang STEM (khoa học - kỹ thuật).</li>
+</ul>
+<p>Từ khóa: <em>flexibly apply</em> → “vận dụng linh hoạt”.</p>
+<p>Linh hoạt = năng lực bậc cao nhất trong tháp Bloom toán học.</p>
+<p><strong>4. Công dân (citizenship) có tư duy định lượng</strong></p>
+<p>Một trong những luận điểm mạnh mẽ của NCTM:</p>
+<blockquote class="blockquote">
+<p>Một công dân tốt cần có lập luận định lượng (quantitative reasoning).</p>
+</blockquote>
+<p>Các ví dụ được liệt kê rất cụ thể:</p>
+<ul>
+<li>tài chính cá nhân (lãi suất, rủi ro, nợ, tích lũy),</li>
+<li>chính sách công (thuế, ngân sách, rủi ro môi trường…),</li>
+<li>lựa chọn bảo hiểm/y tế (phân tích chi phí - lợi ích),</li>
+</ul>
+<p>Đây là “toán học công dân”.</p>
+<p>→ Học sinh chỉ làm được khi có <em>sense making</em>, không phải khi chỉ thuộc công thức.</p>
+<p><strong>5. Người lao động trong nền kinh tế hiện đại</strong></p>
+<p>American Diploma Project (2004) được trích dẫn để nhấn mạnh nhu cầu:</p>
+<ul>
+<li>xử lý dữ liệu,</li>
+<li>hiểu quy trình định lượng,</li>
+<li>giải quyết vấn đề phi chuẩn,</li>
+<li>làm việc với mô hình toán trong môi trường công nghệ.</li>
+</ul>
+<p>NCTM đang định vị toán học như <em>kỹ năng kỹ thuật số (digital literacy)</em>.</p>
+<p><strong>6. Thông điệp tổng quát của đoạn</strong></p>
+<p>Đoạn này có ba tầng ý nghĩa:</p>
+<ol type="1">
+<li><em>Lập luận</em> + <em>Kiến tạo ý nghĩa</em> = hiểu sâu.</li>
+<li>Hiểu sâu = vận dụng linh hoạt.</li>
+<li>Vận dụng linh hoạt = đáp ứng nhu cầu đời sống - lao động - STEM.</li>
+</ol>
+<p>Đây là cầu nối giữa phần “mục tiêu xã hội” (đoạn trước) và nội dung “bản chất của reasoning/sense making” (các đoạn sau).</p>
+<p><strong>7. Thuật ngữ quan trọng</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 29%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Thuật ngữ</th>
+<th>Giải nghĩa</th>
+<th>Gợi ý dịch</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>Mathematical procedures</em></td>
+<td>Quy trình/kỹ thuật toán học đã chuẩn hóa</td>
+<td>thao tác toán học / quy trình toán học</td>
+</tr>
+<tr class="even">
+<td><em>Interpret results</em></td>
+<td>Đặt kết quả vào bối cảnh và rút ý nghĩa</td>
+<td>diễn giải kết quả</td>
+</tr>
+<tr class="odd">
+<td><em>Mathematical perspectives</em></td>
+<td>Cách nhìn toán học đối với tình huống</td>
+<td>quan điểm toán học</td>
+</tr>
+<tr class="even">
+<td><em>Quantitatively sophisticated choices</em></td>
+<td>các quyết định dựa trên phân tích định lượng phức tạp</td>
+<td>lựa chọn định lượng có cơ sở</td>
+</tr>
+<tr class="odd">
+<td><em>Workforce needs</em></td>
+<td>nhu cầu toán học của thị trường lao động</td>
+<td>nhu cầu toán học trong nghề nghiệp</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>A high school curriculum that focuses on reasoning and sense making will help satisfy the increasing demand for scientists, engineers, and mathematicians while preparing students for whatever professional, vocational, or technical needs may arise. Recent studies suggest that students will experience career changes multiple times during their lives (U.S. Department of Labor 2006), and many of the jobs they will hold in the future do not yet exist. Mathematics is increasingly essential for a wide range of careers, including finance, advertising, forensics, and sports journalism. The advent of the Internet has produced an explosion of new careers in mathematics and statistics that involve harnessing the huge amount of data at people’s fingertips (Baker and Leak 2006). By emphasizing both content and reasoning ability, high school mathematics programs can help prepare workers who are able to navigate this uncharted territory.</p>
+</div>
+<div class="col-translation">
+<p>Một chương trình Toán học trung học phổ thông lấy lập luận và kiến tạo ý nghĩa làm trọng tâm sẽ góp phần đáp ứng nhu cầu ngày càng tăng về đội ngũ nhà khoa học, kỹ sư và nhà toán học, đồng thời chuẩn bị cho học sinh đối mặt với bất kỳ nhu cầu nghề nghiệp, chuyên môn hoặc kỹ thuật nào có thể xuất hiện trong tương lai. Các nghiên cứu gần đây cho thấy học sinh sẽ trải qua nhiều lần chuyển đổi nghề nghiệp trong suốt cuộc đời (U.S. Department of Labor 2006), và nhiều công việc mà các em sẽ đảm nhận trong tương lai thậm chí hiện nay vẫn chưa tồn tại. Toán học ngày càng trở nên thiết yếu trong một loạt ngành nghề rộng lớn, bao gồm tài chính, quảng cáo, pháp y và báo chí thể thao. Sự ra đời của Internet đã tạo ra sự bùng nổ các công việc mới trong toán học và thống kê, liên quan đến việc khai thác khối lượng dữ liệu khổng lồ nằm trong tầm tay con người (Baker và Leak 2006). Bằng cách nhấn mạnh cả nội dung lẫn năng lực lập luận, các chương trình Toán THPT có thể giúp chuẩn bị những người lao động có khả năng thích ứng với những miền nghề nghiệp chưa được định hình trước.</p>
+</div>
+<div class="col-notes">
+<p><strong>1. Ý nghĩa tổng thể của đoạn</strong></p>
+<p>Đoạn văn củng cố một luận điểm quan trọng: <em>Reasoning + sense making không chỉ để học tốt Toán, mà để sống trong một thế giới nghề nghiệp biến động liên tục.</em></p>
+<p>Về mặt chiến lược, NCTM đang trả lời câu hỏi xã hội:</p>
+<blockquote class="blockquote">
+<p>“Vì sao phải thay đổi cách dạy Toán?” → Vì bản chất tương lai nghề nghiệp của học sinh đã thay đổi.</p>
+</blockquote>
+<p><strong>2. Lập luận chính</strong></p>
+<p><em>(1) Tăng nhu cầu về nhân lực STEM</em></p>
+<ul>
+<li>Khoa học - kỹ thuật - toán học tiếp tục mở rộng.</li>
+<li>Lập luận: muốn có nhân lực chất lượng, cần chương trình Toán THPT đổi mới.</li>
+</ul>
+<p><em>(2) Nghề nghiệp tương lai không ổn định và không thể dự đoán</em></p>
+<p>Trích dẫn Bộ Lao động Hoa Kỳ:</p>
+<ul>
+<li>Học sinh sẽ đổi nghề nhiều lần.</li>
+<li>Nhiều nghề tương lai <em>chưa tồn tại</em>.</li>
+</ul>
+<p>Ý nghĩa: → Việc dạy kỹ thuật cố định là lỗi thời; phải dạy cách tư duy để thích ứng với nghề mới.</p>
+<p><em>(3) Toán học len vào nhiều nghề tưởng như “phi toán học”</em></p>
+<p>Các ví dụ rất có chủ đích:</p>
+<ul>
+<li>Tài chính → phân tích dữ liệu, mô hình hóa rủi ro</li>
+<li>Quảng cáo → tối ưu hóa thuật toán phân phối thông tin</li>
+<li>Pháp y → suy luận xác suất, phân tích mẫu</li>
+<li>Báo chí thể thao → phân tích thống kê (sabermetrics, analytics)</li>
+</ul>
+<p>Ý chính: <em>Toán học là “ngôn ngữ ngầm” của nghề nghiệp hiện đại.</em></p>
+<p><em>(4) Internet tạo ra “data economy”</em></p>
+<p>Câu “explosion of new careers… harnessing huge amount of data” là mấu chốt.</p>
+<ul>
+<li>Internet → dữ liệu khổng lồ</li>
+<li>Dữ liệu → nhu cầu toán thống kê</li>
+<li>Thị trường lao động → nhu cầu nhân lực biết đọc - hiểu - phân tích dữ liệu</li>
+</ul>
+<p>NCTM lập luận rằng chương trình Toán THPT phải chuẩn bị cho <em>Data Age</em>.</p>
+<p><strong>3. Liên hệ với reasoning và sense making</strong></p>
+<p>Toàn đoạn khẳng định:</p>
+<ul>
+<li>Biết làm bài tập không đủ.</li>
+<li>Biết công thức không đủ.</li>
+</ul>
+<p>Những nhu cầu nghề nghiệp mới đòi hỏi:</p>
+<ul>
+<li><em>phân tích</em> (analysis)</li>
+<li><em>lập luận</em> (reasoning)</li>
+<li><em>diễn giải dữ liệu</em> (interpretation)</li>
+<li><em>ra quyết định định lượng</em> (quantitative decision making)</li>
+<li><em>ứng dụng linh hoạt</em> (flexible application)</li>
+</ul>
+<p>Đây chính là những năng lực mà reasoning &amp; sense making tạo ra.</p>
+<p><strong>4. Các thuật ngữ quan trọng</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 39%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Thuật ngữ</th>
+<th>Giải nghĩa</th>
+<th>Gợi ý dịch</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>uncharted territory</em></td>
+<td>miền nghề nghiệp mới, không có bản đồ sẵn</td>
+<td>“lãnh vực chưa được định hình trước”</td>
+</tr>
+<tr class="even">
+<td><em>harness data</em></td>
+<td>khai thác - tận dụng dữ liệu khổng lồ</td>
+<td>khai thác dữ liệu</td>
+</tr>
+<tr class="odd">
+<td><em>mathematical needs</em></td>
+<td>yêu cầu toán học trong nghề nghiệp</td>
+<td>nhu cầu toán học</td>
+</tr>
+<tr class="even">
+<td><em>postsecondary work/study</em></td>
+<td>nghề nghiệp hoặc học tập sau THPT</td>
+<td>học tập và làm việc sau phổ thông</td>
+</tr>
+<tr class="odd">
+<td><em>range of careers</em></td>
+<td>phổ ngành nghề rộng</td>
+<td>loạt ngành nghề rộng</td>
+</tr>
+</tbody>
+</table>
+<p><strong>5. Vai trò của đoạn này trong Chương 1</strong></p>
+<p>Nó thực hiện ba nhiệm vụ:</p>
+<ol type="1">
+<li><p><em>Thiết lập lý do cấp thiết</em> → Vì tương lai nghề nghiệp thay đổi, Toán THPT phải thay đổi.</p></li>
+<li><p><em>Mở rộng phạm vi trách nhiệm của Toán THPT</em> → Không chỉ chuẩn bị STEM mà còn “non-STEM professions”.</p></li>
+<li><p><em>Dẫn tới luận điểm trung tâm của chương</em> → Reasoning + sense making = năng lực sống còn trong thế kỷ 21.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="what-are-reasoning-and-sense-making" class="level3 col-original">
+<h3 class="anchored" data-anchor-id="what-are-reasoning-and-sense-making">What Are Reasoning and Sense Making?</h3>
+</section>
+<section id="lập-luận-và-kiến-tạo-ý-nghĩa-là-gì" class="level3 col-translation">
+<h3 class="anchored" data-anchor-id="lập-luận-và-kiến-tạo-ý-nghĩa-là-gì">Lập luận và Kiến tạo Ý nghĩa là gì?</h3>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>In the most general terms, reasoning can be thought of as the process of drawing conclusions on the basis of evidence or stated assumptions. Although reasoning is an important part of all disciplines, it plays a special and fundamental role in mathematics. Reasoning in mathematics is often understood to encompass formal reasoning, or proof, in which conclusions are logically deduced from assumptions and definitions. However, mathematical reasoning can take many forms, ranging from informal explanation and justification to formal deduction, as well as inductive observations. Reasoning often begins with explorations, conjectures at various levels, false starts, and partial explanations before a result is reached. As students develop a repertoire of increasingly sophisticated methods of reasoning and proof during their time in high school, “standards for accepting explanations should become more stringent” (NCTM 2000a, p.&nbsp;342).</p>
+</div>
+<div class="col-translation">
+<p>Ở nghĩa tổng quát nhất, <em>lập luận</em> có thể được xem là quá trình rút ra kết luận dựa trên bằng chứng hoặc trên những giả thiết đã nêu. Mặc dù lập luận là một phần quan trọng của mọi lĩnh vực, nó giữ một vai trò đặc biệt và nền tảng trong Toán học. Lập luận trong Toán thường được hiểu là bao gồm <em>lập luận hình thức</em>, hay <em>chứng minh</em>, trong đó các kết luận được suy ra một cách logic từ các giả thiết và định nghĩa. Tuy nhiên, lập luận toán học có thể xuất hiện dưới nhiều hình thức: từ giải thích và biện minh phi hình thức đến suy luận hình thức, cũng như các quan sát mang tính quy nạp. Lập luận thường bắt đầu bằng những thăm dò, những phỏng đoán ở nhiều mức độ, những bước đi sai, và những giải thích còn sơ bộ trước khi đạt được kết quả cuối cùng. Khi học sinh phát triển dần kho năng lực gồm các phương pháp lập luận và chứng minh ngày càng tinh vi hơn trong những năm trung học phổ thông, thì “các chuẩn mực để chấp nhận một lời giải thích cũng cần trở nên nghiêm ngặt hơn” (NCTM 2000a, tr. 342).</p>
+</div>
+<div class="col-notes">
+<p><strong>Phân tích - Giải nghĩa - Chú giải thuật ngữ</strong></p>
+<p>Đoạn này là <em>hạt nhân đầu tiên</em> của toàn chương và toàn cuốn sách. Đây là nơi NCTM xác lập <em>khái niệm nền tảng</em>, làm cơ sở cho mọi lập luận tiếp theo.</p>
+<p><strong>1. “Reasoning” - Lập luận là gì?</strong></p>
+<p>Tác giả bắt đầu bằng định nghĩa rộng:</p>
+<p><strong>Lập luận = rút ra kết luận dựa trên bằng chứng hoặc giả thiết.</strong></p>
+<p>Nhưng ngay sau đó, văn bản nhấn mạnh rằng trong Toán học, lập luận:</p>
+<ul>
+<li>không chỉ là suy nghĩ hợp lý,</li>
+<li>mà là <em>trục cốt lõi</em> của toàn bộ hoạt động toán học.</li>
+</ul>
+<p>Tức là: <em>Trong Toán, lập luận không phải phụ trợ cho nội dung - lập luận </em>là* nội dung.*</p>
+<p><strong>2. Các dạng lập luận trong Toán học</strong></p>
+<p>Đoạn văn phân loại rất rõ, theo một trật tự “phi hình thức → bán hình thức → hình thức”:</p>
+<p><em>(1) Giải thích phi hình thức (informal explanation)</em></p>
+<ul>
+<li>Diễn đạt ý tưởng, nói ra lý do vì sao kết quả có thể đúng.</li>
+<li>Không yêu cầu cấu trúc logic chặt chẽ.</li>
+</ul>
+<p><em>(2) Biện minh (justification)</em></p>
+<ul>
+<li>Đưa ra lý do mang tính logic hơn.</li>
+<li>Vẫn có thể dựa vào hình ảnh trực quan, ví dụ minh họa.</li>
+</ul>
+<p><em>(3) Suy luận quy nạp (inductive observations)</em></p>
+<ul>
+<li>Nhận ra mẫu, quy luật từ một số trường hợp cụ thể.</li>
+<li>Chưa phải chứng minh.</li>
+</ul>
+<p><em>(4) Lập luận hình thức (formal deduction / proof)</em></p>
+<ul>
+<li>Sử dụng định nghĩa, định lý, tiên đề.</li>
+<li>Lập luận chặt chẽ, hợp logic.</li>
+</ul>
+<p>Điều quan trọng:</p>
+<blockquote class="blockquote">
+<p>Tất cả các hình thức trên đều là <em>lập luận toán học</em>.</p>
+</blockquote>
+<p>NCTM phản đối cách hiểu hẹp: <em>“lập luận = chứng minh hình thức”</em>. Họ muốn khẳng định rằng <em>oàn bộ quá trình tư duy</em> đều là reasoning.</p>
+<p><strong>3. “Lập luận toán học là một quá trình có thật”</strong></p>
+<p>Đoạn văn mô tả bản chất của quá trình toán học thực sự:</p>
+<ul>
+<li>bắt đầu bằng <em>thăm dò</em>,</li>
+<li>có nhiều <em>phỏng đoán</em> (conjectures) ở nhiều mức độ,</li>
+<li>có <em>sai sót</em>,</li>
+<li>có <em>lý giải chưa hoàn chỉnh</em>,</li>
+<li>rồi mới dẫn đến kết luận.</li>
+</ul>
+<p>Đây là một mô tả chính xác về thực hành toán học của nhà toán học thật - không phải của việc làm bài tập thuần tuý.</p>
+<p>NCTM muốn đưa <em>thực hành toán học chân thật</em> vào lớp học.</p>
+<p><strong>4. “Chuẩn mực ngày càng nghiêm ngặt”</strong></p>
+<p>Câu trích dẫn (NCTM 2000a) là rất quan trọng:</p>
+<blockquote class="blockquote">
+<p>Khi học sinh lớn hơn, <em>chuẩn mực cho việc chấp nhận lời giải thích phải nghiêm ngặt hơn.</em></p>
+</blockquote>
+<p>Điều này nghĩa là:</p>
+<ul>
+<li>Ở THCS → có thể chấp nhận giải thích trực quan.</li>
+<li>Ở đầu THPT → bắt đầu yêu cầu cơ sở logic rõ ràng hơn.</li>
+<li>Ở cuối THPT → hướng đến cấu trúc chứng minh chính thức.</li>
+</ul>
+<p>Nói cách khác: <em>Lập luận phải phát triển theo một quỹ đạo - không cố định, không đồng mức.</em></p>
+<p>Điều này dẫn trực tiếp đến nội dung của Chương 2: <em>Reasoning Habits</em>.</p>
+<p><strong>5. Thuật ngữ quan trọng</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 50%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Thuật ngữ</th>
+<th>Giải nghĩa</th>
+<th>Gợi ý dịch</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>reasoning</em></td>
+<td>quá trình suy luận rút ra kết luận dựa trên bằng chứng</td>
+<td>lập luận</td>
+</tr>
+<tr class="even">
+<td><em>evidence</em></td>
+<td>bằng chứng, dữ kiện, quan sát</td>
+<td>bằng chứng</td>
+</tr>
+<tr class="odd">
+<td><em>assumptions</em></td>
+<td>giả thiết được nêu rõ</td>
+<td>giả thiết</td>
+</tr>
+<tr class="even">
+<td><em>formal reasoning / proof</em></td>
+<td>lập luận hình thức, chứng minh</td>
+<td>chứng minh</td>
+</tr>
+<tr class="odd">
+<td><em>informal explanation</em></td>
+<td>giải thích phi hình thức</td>
+<td>giải thích phi hình thức</td>
+</tr>
+<tr class="even">
+<td><em>conjecture</em></td>
+<td>phỏng đoán toán học</td>
+<td>phỏng đoán</td>
+</tr>
+<tr class="odd">
+<td><em>deduction</em></td>
+<td>suy luận diễn dịch, hình thức</td>
+<td>suy luận (diễn dịch)</td>
+</tr>
+<tr class="even">
+<td><em>stringent standards</em></td>
+<td>chuẩn mực nghiêm ngặt hơn</td>
+<td>chuẩn mực nghiêm ngặt hơn</td>
+</tr>
+</tbody>
+</table>
+<p><strong>6. Ý nghĩa triết lý của đoạn văn</strong></p>
+<p>Đoạn này ẩn chứa một quan điểm sư phạm mạnh:</p>
+<blockquote class="blockquote">
+<p>Dạy học Toán không phải là đào tạo học sinh làm bài tập, mà là hướng dẫn các em bước vào “quy trình toán học thật sự”.</p>
+</blockquote>
+<p>NCTM đang tái định nghĩa mục tiêu của Toán THPT: <em>từ làm theo mẫu → hiểu → suy luận → chứng minh → tư duy độc lập.</em></p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>We define sense making as developing understanding of a situation, context, or concept by connecting it with existing knowledge. In practice, reasoning and sense making are intertwined across the continuum from informal observations to formal deductions, as seen in figure 1.1, despite the common perception that identifies sense making with the informal end of the continuum and reasoning, especially proof, with the more formal end.</p>
+<p>Fig. 1.1. The relationship of reasoning and sense making</p>
+</div>
+<div class="col-translation">
+<p>Chúng tôi định nghĩa <em>kiến tạo ý nghĩa</em> là quá trình hình thành sự hiểu biết về một tình huống, một bối cảnh, hoặc một khái niệm thông qua việc kết nối nó với tri thức sẵn có. Trong thực tế, lập luận và kiến tạo ý nghĩa luôn đan xen với nhau trên một phổ liên tục kéo dài từ những quan sát phi hình thức đến các suy luận hình thức, như thể hiện trong hình 1.1, mặc dù cách hiểu thông thường thường đồng nhất <em>kiến tạo ý nghĩa</em> với đầu “phi hình thức” của phổ và <em>lập luận</em>, đặc biệt là chứng minh, với đầu “hình thức” hơn.</p>
+<p><em>Hình 1.1. Mối quan hệ giữa lập luận và kiến tạo ý nghĩa</em></p>
+</div>
+<div class="col-notes">
+<p>Đoạn này có tính bản lề: xác lập định nghĩa chính thức của <em>sense making</em>, rồi mô tả quan hệ giữa <em>reasoning</em> và <em>sense making</em> trong thực hành toán học.</p>
+<p><strong>1. Định nghĩa trung tâm: Sense making</strong></p>
+<section id="sense-making-hiểu-bằng-cách-kết-nối-với-tri-thức-có-sẵn" class="level3">
+<h3 class="anchored" data-anchor-id="sense-making-hiểu-bằng-cách-kết-nối-với-tri-thức-có-sẵn"><strong>Sense making = hiểu bằng cách kết nối với tri thức có sẵn</strong></h3>
+<p>Các từ khóa quan trọng:</p>
+<ul>
+<li><em>understanding</em> → “hình thành sự hiểu biết”, không phải ghi nhớ</li>
+<li><em>connecting</em> → liên kết, gắn kết</li>
+<li><em>existing knowledge</em> → kiến thức nền, cấu trúc đã có</li>
+</ul>
+<p>Như vậy, sense making là năng lực:</p>
+<ul>
+<li>chủ động</li>
+<li>có tính xây dựng</li>
+<li>dựa trên mạng lưới tri thức</li>
+<li>không tách rời bối cảnh</li>
+</ul>
+<p><em>Đây là khái niệm nền tảng trong giáo dục toán hiện đại, đối lập với việc học máy móc.</em></p>
+<p><strong>2. Reasoning và Sense making không tách rời</strong></p>
+<p>Đoạn văn bác bỏ cách hiểu giản lược:</p>
+<ul>
+<li>“Sense making = trực giác, ví dụ, quan sát, nói bằng lời”</li>
+<li>“Reasoning = chứng minh, logic hình thức”</li>
+</ul>
+<p>NCTM khẳng định:</p>
+<p><strong>Chúng nằm trên một phổ (continuum), và luôn đan xen nhau.</strong></p>
+<p>Điểm tối quan trọng:</p>
+<ul>
+<li>Một lời giải thích trực quan vẫn <em>có lập luận</em></li>
+<li>Một chứng minh hình thức vẫn <em>đòi hỏi kiến tạo ý nghĩa</em></li>
+<li>Không có ranh giới cứng giữa hai khái niệm</li>
+</ul>
+<p><strong>Figure 1.1</strong> (mặc dù ta chưa thấy hình trực tiếp) có thể mô tả phổ sau:</p>
+<p><em>(phi hình thức) - quan sát → giải thích → biện minh → suy luận → chứng minh - (hình thức)</em></p>
+<p>→ Và reasoning-sense making xuyên suốt toàn phổ.</p>
+<p><strong>3. Lý do phải nhấn mạnh điểm này</strong></p>
+<p>Trong thực hành lớp học, nhiều giáo viên hiểu lầm:</p>
+<ul>
+<li>Sense making chỉ là “nói theo ý hiểu”, “trực giác”, “không chính thức”.</li>
+<li>Reasoning chỉ là “chứng minh”.</li>
+</ul>
+<p>NCTM muốn phá bỏ định kiến đó.</p>
+<p>**Mục tiêu của chương này là tái cấu trúc cách hiểu về lập luận trong Toán:</p>
+<p>không phải là hai mảng riêng, mà là một quá trình thống nhất.**</p>
+<p><strong>4. Từ khóa quan trọng</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 54%">
+<col style="width: 21%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Thuật ngữ</th>
+<th>Giải nghĩa</th>
+<th>Bản dịch đề xuất</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>sense making</em></td>
+<td>Hình thành hiểu biết bằng cách kết nối với tri thức đã có</td>
+<td>kiến tạo ý nghĩa</td>
+</tr>
+<tr class="even">
+<td><em>continuum</em></td>
+<td>Phổ liên tục từ ít hình thức đến rất hình thức</td>
+<td>phổ liên tục</td>
+</tr>
+<tr class="odd">
+<td><em>informal observations</em></td>
+<td>quan sát phi hình thức</td>
+<td>quan sát phi hình thức</td>
+</tr>
+<tr class="even">
+<td><em>formal deductions</em></td>
+<td>suy luận hình thức</td>
+<td>suy luận hình thức</td>
+</tr>
+<tr class="odd">
+<td><em>intertwined</em></td>
+<td>đan xen, không tách rời</td>
+<td>đan xen</td>
+</tr>
+</tbody>
+</table>
+<p><strong>5. Ý nghĩa triết lý của đoạn</strong></p>
+<p>Đây là quan điểm then chốt:</p>
+<blockquote class="blockquote">
+<p>Toán học không phải chỉ là đi từ định nghĩa đến chứng minh. Toán học là quá trình chuyển động liên tục giữa trực giác - quan sát - lý giải - biện minh - chứng minh.</p>
+</blockquote>
+<p>Reasoning và sense making chính là “động cơ” của quá trình đó.</p>
+<p><strong>6. Vai trò của đoạn trong mạch chương</strong></p>
+<ul>
+<li>Đoạn trước định nghĩa <em>reasoning</em></li>
+<li>Đoạn này định nghĩa <em>sense making</em></li>
+<li>Đoạn tiếp theo sẽ liên kết cả hai trong hoạt động toán học</li>
+</ul>
+<p>Đây là cấu trúc rất logic: <em>định nghĩa → quan hệ → quỹ đạo phát triển (trong các phần sau).</em></p>
+</section>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>On one hand, formal reasoning may be based on sense making in which one identifies common elements across a number of observations and realizes how those common elements connect with previously experienced situations. On the other hand, “a good proof is one that also helps one understand the meaning of what is being proved: to see not only that it is true but also why it is true” (Yackel and Hanna 2003, p.228). As sense making develops, it increasingly incorporates more formal elements. For instance, in example 8, “Squaring It Away,” when asked to solve a quadratic equation, students use an informal geometric model to complete the square of the trinomial but then, realizing that more than one solution may exist, they extend the ideas they have developed with more formal algebra to find both solutions.</p>
+</div>
+<div class="col-translation">
+<p>Một mặt, lập luận hình thức có thể được xây dựng trên nền tảng của kiến tạo ý nghĩa, trong đó người học nhận ra những yếu tố chung xuất hiện trong nhiều quan sát và thấy được cách các yếu tố chung đó kết nối với những tình huống mà họ đã từng trải nghiệm. Mặt khác, “một chứng minh tốt là chứng minh giúp người ta hiểu được ý nghĩa của điều đang được chứng minh: không chỉ thấy rằng nó đúng, mà còn hiểu vì sao nó đúng” (Yackel và Hanna 2003, tr. 228). Khi kiến tạo ý nghĩa phát triển, nó ngày càng tích hợp nhiều yếu tố mang tính hình thức hơn. Chẳng hạn, trong ví dụ 8, “Squaring It Away”, khi được yêu cầu giải một phương trình bậc hai, học sinh sử dụng một mô hình hình học phi hình thức để hoàn thành bình phương của tam thức bậc hai, nhưng sau đó - nhận ra rằng có thể tồn tại hơn một nghiệm - các em mở rộng những ý tưởng đã hình thành bằng đại số hình thức hơn để tìm cả hai nghiệm.</p>
+</div>
+<div class="col-notes">
+<p>Đoạn này <em>cực kỳ quan trọng</em> vì nó mô tả <strong>quan hệ hai chiều</strong> giữa reasoning (lập luận) và sense making (kiến tạo ý nghĩa). Đây là trục tư tưởng của toàn chương.</p>
+<p><strong>1. Ý chính: Reasoning và Sense Making nuôi dưỡng lẫn nhau</strong></p>
+<p>Đoạn mở đầu bằng hai mệnh đề song song:</p>
+<p><em>(1) Lập luận hình thức bắt nguồn từ kiến tạo ý nghĩa</em></p>
+<p>Khi học sinh:</p>
+<ul>
+<li>quan sát nhiều trường hợp,</li>
+<li>nhận ra mẫu chung,</li>
+<li>kết nối với kinh nghiệm trước đó,</li>
+</ul>
+<p>họ bắt đầu hình thành cấu trúc ý nghĩa → đây chính là nền tảng để xây dựng <em>lập luận hình thức</em>.</p>
+<p><strong>Thông điệp:</strong> Chứng minh <em>không xuất hiện từ hư vô</em>; nó mọc lên từ trực giác - quan sát - kết nối.</p>
+<p><em>(2) Một chứng minh tốt phải tạo ra kiến tạo ý nghĩa</em></p>
+<p>Trích dẫn Yackel &amp; Hanna (2003):</p>
+<blockquote class="blockquote">
+<p>“Một chứng minh tốt giúp người ta hiểu <em>tại sao</em> điều đó đúng.”</p>
+</blockquote>
+<p>Ý nghĩa sâu sắc:</p>
+<ul>
+<li>Chứng minh không chỉ để “xác nhận tính đúng”.</li>
+<li>Chứng minh phải <em>mở khóa ý nghĩa</em>.</li>
+<li>Mục tiêu của chứng minh là <em>sense making</em>, không chỉ là logic.</li>
+</ul>
+<p><strong>Thông điệp:</strong> Ngược lại với ý (1): reasoning tạo ra sense making.</p>
+<p><strong>Động lực hai chiều:</strong></p>
+<ul>
+<li>Sense making → Reasoning</li>
+<li>Reasoning (đặc biệt là proof) → Sense making</li>
+</ul>
+<p>Đây là một trong những quan điểm tinh tế nhất của NCTM.</p>
+<p><strong>2. “As sense making develops, it increasingly incorporates more formal elements”</strong></p>
+<p>Điểm then chốt:</p>
+<p>Khi học sinh trưởng thành trong kiến tạo ý nghĩa, các em sẽ <em>tự nhiên</em> chuyển sang dùng:</p>
+<ul>
+<li>ký hiệu,</li>
+<li>cấu trúc logic,</li>
+<li>quy tắc hình thức,</li>
+<li>chứng minh chính thức hơn.</li>
+</ul>
+<p><em>Điều này bác bỏ quan niệm sai lầm</em>: “Kiến tạo ý nghĩa là phi hình thức → không thể dẫn đến chứng minh.”</p>
+<p>NCTM nhìn thấy một <em>quỹ đạo phát triển tự nhiên</em>:</p>
+<blockquote class="blockquote">
+<p>Trực giác → Giải thích → Biện minh → Quy nạp → Diễn dịch → Chứng minh hình thức.</p>
+</blockquote>
+<p><strong>3. Phân tích ví dụ “Squaring It Away” (ví dụ 8)</strong></p>
+<p>Ví dụ được nêu minh họa mạch reasoning-sense making:</p>
+<section id="bước-1.-học-sinh-dùng-mô-hình-hình-học-phi-hình-thức" class="level3">
+<h3 class="anchored" data-anchor-id="bước-1.-học-sinh-dùng-mô-hình-hình-học-phi-hình-thức"><strong>Bước 1. Học sinh dùng mô hình hình học (phi hình thức)</strong></h3>
+<ul>
+<li>Khoảng trống: vùng cần thêm trong hình vuông.</li>
+<li>Đây là bản chất của “hoàn thành bình phương”.</li>
+</ul>
+<p><strong>Bước 2. Học sinh nhận ra có khả năng nhiều nghiệm</strong></p>
+<p>Đây là <em>sense making</em>: cảm nhận được tính chất cấu trúc của phương trình.</p>
+<p><strong>Bước 3. Học sinh chuyển sang đại số hình thức hơn</strong></p>
+<ul>
+<li>Giải tam thức bậc hai bằng đại số.</li>
+<li>Tìm hai nghiệm.</li>
+</ul>
+<p>Rõ ràng: <em>Quá trình chuyển từ trực giác → hình học → cấu trúc đại số → nghiệm</em> là một chuỗi reasoning-sense making đan xen.</p>
+<p><strong>4. Thuật ngữ quan trọng</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 39%">
+<col style="width: 31%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Thuật ngữ</th>
+<th>Giải nghĩa</th>
+<th>Bản dịch đề xuất</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>formal reasoning</em></td>
+<td>lập luận dựa trên logic hình thức và định nghĩa</td>
+<td>lập luận hình thức</td>
+</tr>
+<tr class="even">
+<td><em>common elements</em></td>
+<td>yếu tố chung xuất hiện qua nhiều quan sát</td>
+<td>các yếu tố chung</td>
+</tr>
+<tr class="odd">
+<td><em>proof</em></td>
+<td>chứng minh</td>
+<td>chứng minh</td>
+</tr>
+<tr class="even">
+<td><em>meaning of what is being proved</em></td>
+<td>ý nghĩa sâu xa của định lý</td>
+<td>ý nghĩa của điều đang được chứng minh</td>
+</tr>
+<tr class="odd">
+<td><em>extend ideas</em></td>
+<td>mở rộng ý tưởng ban đầu sang dạng hình thức hơn</td>
+<td>mở rộng ý tưởng</td>
+</tr>
+<tr class="even">
+<td><em>trinomial</em></td>
+<td>tam thức bậc hai</td>
+<td>tam thức bậc hai</td>
+</tr>
+</tbody>
+</table>
+<p><strong>5. Ý nghĩa triết lý của đoạn</strong></p>
+<p>Đoạn này đặt nền tảng tư tưởng:</p>
+<ol type="1">
+<li>Trực giác dẫn đến chứng minh.</li>
+<li>Chứng minh dẫn đến hiểu sâu.</li>
+<li>Sense making và reasoning tạo thành một vòng xoay phát triển không ngừng.</li>
+<li>Học toán không phải là học công thức → mà là <em>học cách chuyển từ trải nghiệm sang lập luận</em>.</li>
+</ol>
+<p>Đây là hiện thân của phương pháp “Toán học như quá trình tư duy”.</p>
+</section>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Mathematical reasoning and sense making are both important outcomes of mathematics instruction, as well as important means by which students come to know mathematics. As the term is used in this publication, mathematical reasoning encompasses statistical reasoning; see “Statistical Reasoning” in chapter 2.</p>
+</div>
+<div class="col-translation">
+<p>Lập luận toán học và kiến tạo ý nghĩa đều là những kết quả quan trọng của việc dạy học Toán, đồng thời cũng là những phương tiện quan trọng giúp học sinh <em>chiếm lĩnh</em> tri thức toán học. Trong phạm vi sử dụng của ấn phẩm này, <em>lập luận toán học</em> bao hàm cả <em>lập luận thống kê</em>; xem mục “Lập luận thống kê” trong chương 2.</p>
+</div>
+<div class="col-notes">
+<p>Đoạn này ngắn nhưng có <em>giá trị chiến lược</em> vì xác lập hai ý tưởng trọng tâm của toàn cuốn sách.</p>
+<p><strong>1. Reasoning và Sense making: vừa là “kết quả”, vừa là “phương tiện”</strong></p>
+<p>Đây là một luận điểm sư phạm quan trọng:</p>
+<p><em>(1) Kết quả (outcomes)</em></p>
+<p>→ Lập luận và kiến tạo ý nghĩa là <em>mục tiêu cuối cùng</em> của giáo dục Toán. Tức là chương trình Toán THPT phải đào tạo học sinh:</p>
+<ul>
+<li>biết giải thích,</li>
+<li>biết suy luận,</li>
+<li>biết diễn giải kết quả,</li>
+<li>biết kết nối tri thức.</li>
+</ul>
+<p>Đây là năng lực “đầu ra”.</p>
+<p><em>(2) Phương tiện (means)</em></p>
+<p>→ Lập luận và kiến tạo ý nghĩa đồng thời <em>là con đường</em> để học sinh hiểu Toán. Học sinh không thể:</p>
+<ul>
+<li>học thuộc,</li>
+<li>áp dụng công thức,</li>
+<li>làm bài tập theo mẫu mà mong “hiểu Toán”.</li>
+</ul>
+<p>NCTM đặt trọng tâm vào một nguyên lý tinh tế:</p>
+<blockquote class="blockquote">
+<p><strong>Học bằng lập luận → Hiểu toán. Hiểu toán → Biết lập luận.</strong> Hai quá trình nuôi dưỡng lẫn nhau.</p>
+</blockquote>
+<p>Đây là nền tảng của “mathematical thinking”.</p>
+<p><strong>2. “Mathematical reasoning includes statistical reasoning”</strong></p>
+<p>Câu này cực kỳ quan trọng và có tác động sâu đến cách dạy học thống kê.</p>
+<p><strong>Trong quan điểm của NCTM:</strong></p>
+<ul>
+<li>Reasoning không chỉ là chứng minh logic trong đại số - hình học.</li>
+<li>Nó còn bao gồm cả <em>lập luận thống kê</em>, tức là suy luận dưới điều kiện không chắc chắn.</li>
+</ul>
+<p>Điều này mở rộng phạm vi của reasoning, bao gồm:</p>
+<ul>
+<li>suy luận dựa trên dữ liệu,</li>
+<li>lập luận xác suất,</li>
+<li>phân tích sai số,</li>
+<li>kết luận dựa vào mẫu,</li>
+<li>đánh giá độ tin cậy.</li>
+</ul>
+<p>NCTM đang nhấn mạnh:</p>
+<blockquote class="blockquote">
+<p>Trong thời đại dữ liệu, lập luận thống kê không phải phụ lục - nó là một phần của lập luận toán học.</p>
+</blockquote>
+<p>Điều này sẽ được khai triển sâu trong chương 2.</p>
+<p><strong>3. Thuật ngữ quan trọng</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 44%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Thuật ngữ</th>
+<th>Giải nghĩa</th>
+<th>Gợi ý dịch</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>outcomes</em></td>
+<td>kết quả đầu ra của giáo dục</td>
+<td>kết quả</td>
+</tr>
+<tr class="even">
+<td><em>means</em></td>
+<td>phương tiện, cách thức</td>
+<td>phương tiện</td>
+</tr>
+<tr class="odd">
+<td>*come to know mathematics**</td>
+<td>chiếm lĩnh tri thức toán học</td>
+<td>đến với hiểu biết toán học</td>
+</tr>
+<tr class="even">
+<td><em>statistical reasoning</em></td>
+<td>suy luận trong bối cảnh dữ liệu và bất định</td>
+<td>lập luận thống kê</td>
+</tr>
+</tbody>
+</table>
+<p><strong>4. Vai trò của đoạn trong mạch chương</strong></p>
+<p>Đoạn này thực hiện hai nhiệm vụ:</p>
+<ol type="1">
+<li><p><em>Đặt định vị kép:</em> Reasoning &amp; sense making = mục tiêu + phương pháp.</p></li>
+<li><p><em>Mở cánh cửa sang một lĩnh vực lớn:</em> Giới thiệu rằng reasoning bao gồm <em>statistical reasoning</em>, và chương 2 sẽ phân tích kỹ.</p></li>
+</ol>
+<p>Nó là cầu nối giữa các định nghĩa ở các đoạn trước và phân tích chuyên sâu ở các đoạn sau.</p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="why-reasoning-and-sense-making" class="level3 col-original">
+<h3 class="anchored" data-anchor-id="why-reasoning-and-sense-making">Why Reasoning and Sense Making?</h3>
+</section>
+<div class="col-translation">
+<p>Vì sao cần Lập luận và Kiến tạo Ý nghĩa?</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>This publication emphasizes that reasoning and sense making are the foundations of the NCTM Process Standards (2000a). The processes of mathematics-Problem Solving, Reasoning and Proof, Connections, Communication, and Representation-are all manifestations of the act of making sense of mathematics and of reasoning as defined above. Problem solving and proof are impossible without reasoning, and both are avenues through which students develop mathematical reasoning and make sense of mathematical ideas. The communications, connections, and representations chosen by a student must support reasoning and sense making, and reasoning must be employed in making those decisions.</p>
+</div>
+<div class="col-translation">
+<p>Ấn phẩm này nhấn mạnh rằng lập luận và kiến tạo ý nghĩa chính là nền tảng của các Chuẩn Quá trình (Process Standards) do NCTM ban hành (2000a). Các quá trình của Toán học - Giải quyết vấn đề, Lập luận và Chứng minh, Kết nối, Giao tiếp, và Biểu diễn - đều là những biểu hiện của hành động kiến tạo ý nghĩa toán học và của lập luận theo như đã định nghĩa ở trên. Giải quyết vấn đề và chứng minh là không thể thực hiện nếu thiếu lập luận, và chính thông qua hai quá trình này mà học sinh phát triển lập luận toán học cũng như kiến tạo ý nghĩa cho các ý tưởng toán học. Việc học sinh lựa chọn cách giao tiếp, kết nối và biểu diễn phải phục vụ lập luận và kiến tạo ý nghĩa; đồng thời chính lập luận cũng phải được sử dụng để đưa ra những lựa chọn đó.</p>
+</div>
+<div class="col-notes">
+<p>Đây là <em>đoạn quan trọng bậc nhất của chương 1</em>, vì nó thiết lập <em>quan hệ nền tảng</em> giữa Reasoning-Sense Making và 5 Chuẩn Quá trình của NCTM (2000).</p>
+<p>Nói cách khác: <em>NCTM tái khẳng định rằng mọi quá trình toán học đều là biểu hiện của reasoning và sense making.</em></p>
+<p><strong>1. Reasoning và Sense Making = nền tảng của 5 Process Standards</strong></p>
+<p>5 Chuẩn Quá trình của NCTM (2000):</p>
+<ol type="1">
+<li>Problem Solving - Giải quyết vấn đề</li>
+<li>Reasoning and Proof - Lập luận và Chứng minh</li>
+<li>Connections - Kết nối</li>
+<li>Communication - Giao tiếp</li>
+<li>Representation - Biểu diễn</li>
+</ol>
+<p>Đoạn văn khẳng định:</p>
+<blockquote class="blockquote">
+<p>Tất cả 5 quá trình này <em>đều là những dạng thức</em> của reasoning và sense making.</p>
+</blockquote>
+<p>Nói cách khác, nếu không có reasoning-sense making thì 5 Process Standards <em>không thể tồn tại đúng nghĩa</em>.</p>
+<p><strong>2. Hai chiều tác động: reasoning là điều kiện - cũng là hệ quả</strong></p>
+<p><em>(1) Problem solving &amp; proof là “đầu ra” của reasoning</em></p>
+<ul>
+<li>Không thể giải quyết vấn đề nếu không có suy luận, đặt câu hỏi, kết nối yếu tố.</li>
+<li>Không thể chứng minh nếu không có tư duy diễn dịch và cấu trúc logic.</li>
+</ul>
+<p><em>(2) Nhưng đồng thời, chúng cũng là “con đường” phát triển reasoning</em></p>
+<ul>
+<li>Khi giải quyết vấn đề, học sinh học cách suy luận chiến lược.</li>
+<li>Khi chứng minh, học sinh học cách suy luận chính thức.</li>
+</ul>
+<p>→ Đây là một mối quan hệ tương hỗ.</p>
+<p><strong>3. Communication - Connections - Representation</strong></p>
+<p>là các công cụ để kiến tạo ý nghĩa</p>
+<p>Hai câu rất quan trọng trong đoạn:</p>
+<blockquote class="blockquote">
+<p>“The communications, connections, and representations chosen by a student must support reasoning and sense making.” “Reasoning must be employed in making those decisions.”</p>
+</blockquote>
+<p>Ý nghĩa sâu sắc:</p>
+<p><em>(1) Không phải mọi biểu diễn hay cách giao tiếp đều là toán học.</em></p>
+<p>Học sinh phải chọn:</p>
+<ul>
+<li>biểu diễn phù hợp,</li>
+<li>cách kết nối đúng bản chất,</li>
+<li>ngôn ngữ toán học rõ ràng.</li>
+</ul>
+<p><em>(2) Chính reasoning quyết định việc chọn gì.</em></p>
+<p>Lựa chọn biểu diễn/dạng kết nối/giao tiếp = một hành vi lập luận.</p>
+<p>Ví dụ:</p>
+<ul>
+<li>Chọn biểu diễn đồ thị thay vì bảng giá trị → một quyết định dựa vào reasoning.</li>
+<li>Chọn biểu thức ẩn thay cho phương trình tường minh → reasoning.</li>
+<li>Chọn cách mô tả tình huống bằng mô hình tuyến tính hay bậc hai → reasoning.</li>
+</ul>
+<p><strong>4. Cấu trúc logic của đoạn văn: một lập luận 3 bước</strong></p>
+<ul>
+<li><p><strong>Bước 1:</strong> Reasoning-sense making là nền tảng của các Process Standards.</p></li>
+<li><p><strong>Bước 2:</strong> Problem Solving và Proof <em>cần</em> reasoning-sense making để vận hành.</p></li>
+<li><p><strong>Bước 3:</strong> Communication, Connections, Representation <em>phải được lựa chọn thông qua</em> reasoning-sense making.</p></li>
+</ul>
+<p>Đoạn văn đang gắn 5 Process Standards vào một trục trung tâm: <em>Reasoning-Sense Making</em>.</p>
+<p><strong>5. Thuật ngữ quan trọng</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 35%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Thuật ngữ</th>
+<th>Giải nghĩa</th>
+<th>Gợi ý dịch</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>Process Standards</em></td>
+<td>5 chuẩn quá trình của NCTM</td>
+<td>Chuẩn Quá trình</td>
+</tr>
+<tr class="even">
+<td><em>manifestations</em></td>
+<td>sự biểu hiện cụ thể</td>
+<td>biểu hiện</td>
+</tr>
+<tr class="odd">
+<td><em>avenues</em></td>
+<td>con đường, phương tiện</td>
+<td>phương tiện</td>
+</tr>
+<tr class="even">
+<td><em>support reasoning and sense making</em></td>
+<td>phục vụ việc lập luận và kiến tạo ý nghĩa</td>
+<td>hỗ trợ lập luận và kiến tạo ý nghĩa</td>
+</tr>
+</tbody>
+</table>
+<p><strong>6. Ý nghĩa triết lý của đoạn</strong></p>
+<p>Đoạn này xác lập một quan điểm cực kỳ quan trọng:</p>
+<blockquote class="blockquote">
+<p>Các Process Standards không phải là 5 mảnh riêng rẽ. Chúng là 5 góc nhìn khác nhau của cùng một quá trình: Reasoning + Sense Making.</p>
+</blockquote>
+<p>Điều này dẫn đến một kết luận lớn: <em>Muốn dạy theo Process Standards → phải dạy reasoning và sense making.</em></p>
+<p>Đây là một luận cứ có ảnh hưởng trực tiếp đến cấu trúc Chương 3 và toàn bộ Phần 2 của sách.</p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Proof is a communication of formal reasoning built on a foundation of sense making, and it is an important outcome of mathematical thinking. Proof can (1) explain why a particular mathematical result must be true, (2) develop autonomous learners by providing the skills needed to evaluate the validity of their own reasoning and that of others, and (3) reveal connections and provide insight into the underlying structure of mathematics (Knuth 2000). Regardless of the specific format of a proof, students may use formal reasoning to make connections with prior learning, extend thinking, support articulation, and stimulate reflection.</p>
+</div>
+<div class="col-translation">
+<p>Chứng minh là sự truyền đạt của lập luận hình thức, được xây dựng trên nền tảng của kiến tạo ý nghĩa, và là một kết quả quan trọng của tư duy toán học. Chứng minh có thể (1) giải thích vì sao một kết quả toán học nào đó phải đúng, (2) giúp phát triển người học tự chủ bằng cách trang bị cho họ kỹ năng cần thiết để đánh giá tính đúng đắn trong lập luận của chính mình và của người khác, và (3) làm lộ ra các mối liên hệ và cung cấp những hiểu biết sâu sắc về cấu trúc nền tảng của Toán học (Knuth 2000). Bất kể hình thức cụ thể của một chứng minh ra sao, học sinh có thể sử dụng lập luận hình thức để kết nối với tri thức đã học, mở rộng tư duy, hỗ trợ việc diễn đạt, và thúc đẩy sự phản tư.</p>
+</div>
+<div class="col-notes">
+<p>Đoạn này cực kỳ quan trọng vì nó xác định <em>vị trí của chứng minh (proof)</em> trong tổng thể reasoning-sense making. NCTM đang tái định nghĩa “proof” không chỉ là hình thức, mà là thành phần thiết yếu của <em>việc hiểu</em>.</p>
+<p><strong>1. Proof = Communication of Formal Reasoning</strong></p>
+<p>Định nghĩa then chốt:</p>
+<blockquote class="blockquote">
+<p><strong>Chứng minh là một hình thức giao tiếp của lập luận hình thức, nhưng nền tảng của nó là kiến tạo ý nghĩa.</strong></p>
+</blockquote>
+<p>Điều này chứa ba hàm nghĩa lớn:</p>
+<p><em>(1) Proof là giao tiếp (communication)</em></p>
+<p>Chứng minh không phải hành vi tách biệt; nó là cách diễn đạt công khai của reasoning.</p>
+<p><em>(2) Proof là reasoning hình thức</em></p>
+<p>Logic - định nghĩa - tiên đề - lập luận chặt chẽ.</p>
+<p><em>(3) Nhưng proof </em>không thể tồn tại* nếu thiếu sense making*</p>
+<p>Trước khi chứng minh, học sinh phải:</p>
+<ul>
+<li>hiểu vấn đề,</li>
+<li>hình thành ý nghĩa,</li>
+<li>kết nối mẫu hình,</li>
+<li>cảm nhận cấu trúc.</li>
+</ul>
+<p>Proof chính là “đỉnh cao hình thức hóa” của quá trình đó.</p>
+<p><strong>2. Ba vai trò quan trọng của chứng minh (theo Knuth 2000)</strong></p>
+<p>Đoạn liệt kê ba chức năng nền tảng của chứng minh:</p>
+<p><em>(1) Giải thích </em>vì sao* điều gì đó đúng*</p>
+<p>Chứng minh = lý do, không phải nghi thức. Đây là sense making cấp độ cao nhất.</p>
+<p><em>(2) Phát triển năng lực tự chủ (autonomous learners)</em></p>
+<p>Chứng minh yêu cầu người học:</p>
+<ul>
+<li>đánh giá tính hợp lý,</li>
+<li>phản biện lập luận,</li>
+<li>tự kiểm tra suy nghĩ của mình.</li>
+</ul>
+<p>Đây là năng lực cốt lõi của tư duy toán học trưởng thành.</p>
+<p><em>(3) Phát hiện cấu trúc nền tảng của Toán học</em></p>
+<p>Chứng minh:</p>
+<ul>
+<li>làm rõ các mối liên hệ,</li>
+<li>phơi bày cấu trúc,</li>
+<li>giải thích “tại sao hệ thống toán hoạt động”.</li>
+</ul>
+<p>Không có chứng minh → chỉ có thao tác mà không có cấu trúc.</p>
+<p><strong>3. Proof trong lớp học không chỉ có một hình thức</strong></p>
+<p>Đoạn văn nhấn mạnh:</p>
+<blockquote class="blockquote">
+<p><em>Regardless of the specific format of a proof…</em> (Dù chứng minh được trình bày dưới dạng gì…)</p>
+</blockquote>
+<p>Chứng minh có thể:</p>
+<ul>
+<li>bằng lời,</li>
+<li>bằng hình,</li>
+<li>bằng ký hiệu,</li>
+<li>bằng diễn dịch hình thức,</li>
+<li>bằng mô hình trực quan.</li>
+</ul>
+<p>Quan trọng không phải là “dạng đúng chuẩn truyền thống”, mà là <em>chất lượng reasoning</em> và <em>mức độ kiến tạo ý nghĩa</em> trong đó.</p>
+<p><strong>4. Các năng lực mà proof nuôi dưỡng</strong></p>
+<p>Đoạn cuối nêu rõ 4 năng lực mà học sinh có được khi thực hành chứng minh:</p>
+<p><em>(1) Make connections with prior learning</em></p>
+<p>Kết nối với tri thức cũ → củng cố cấu trúc tri thức.</p>
+<p><em>(2) Extend thinking</em></p>
+<p>Mở rộng tư duy → tạo ra tư duy bậc cao.</p>
+<p><em>(3) Support articulation</em></p>
+<p>Hình thành khả năng diễn đạt rõ ràng, logic → Communication Standard.</p>
+<p><em>(4) Stimulate reflection</em></p>
+<p>Phản tư → học sinh hiểu sâu về cách mình suy nghĩ → meta-cognition.</p>
+<p>Đây là các mục tiêu lớn của NCTM.</p>
+<p><strong>5. Thuật ngữ quan trọng</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 32%">
+<col style="width: 35%">
+<col style="width: 31%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Thuật ngữ</th>
+<th>Giải nghĩa</th>
+<th>Gợi ý dịch</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>proof</em></td>
+<td>chứng minh toán học</td>
+<td>chứng minh</td>
+</tr>
+<tr class="even">
+<td><em>communication of formal reasoning</em></td>
+<td>diễn đạt công khai của lập luận hình thức</td>
+<td>sự truyền đạt của lập luận hình thức</td>
+</tr>
+<tr class="odd">
+<td><em>autonomous learners</em></td>
+<td>người học tự chủ</td>
+<td>người học tự chủ</td>
+</tr>
+<tr class="even">
+<td><em>underlying structure</em></td>
+<td>cấu trúc nền tảng</td>
+<td>cấu trúc nền tảng</td>
+</tr>
+<tr class="odd">
+<td><em>reflection</em></td>
+<td>phân tích lại tư duy của chính mình</td>
+<td>phản tư</td>
+</tr>
+</tbody>
+</table>
+<p><strong>6. Ý nghĩa triết lý của đoạn</strong></p>
+<p>Đoạn này đưa ra một cách nhìn hiện đại và nhân bản về chứng minh:</p>
+<ul>
+<li>Proof không phải mục đích tự thân.</li>
+<li>Không phải để “làm khó” học sinh.</li>
+<li>Không phải nghi lễ hình thức.</li>
+</ul>
+<p>Proof là:</p>
+<ul>
+<li>nền tảng của hiểu biết,</li>
+<li>công cụ phát triển tư duy,</li>
+<li>hành động giao tiếp,</li>
+<li>phương tiện để học sinh trở thành người tư duy độc lập.</li>
+</ul>
+<p>NCTM đang thay đổi triệt để cách dạy và hiểu chứng minh ở THPT.</p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>At the high school level, reasoning and sense making are of particular importance, but historically “reasoning” has been limited to very select areas of the high school curriculum, and sense making is in many instances not present at all. However, an emphasis on students’ reasoning and sense making can help students organize their knowledge in ways that enhance the development of number sense, algebraic fluency, functional relationships, geometric reasoning, and statistical thinking, as exemplified in section 2. When students connect new learning with their existing knowledge, they are more likely to understand and retain the new information (Hiebert 2003) than when it is simply presented as a list of isolated procedures. Without such conceptual understanding, “learning new topics becomes harder since there is no network of previously learned concepts and skills to link a new topic to” (Kilpatrick, Swafford, and Findell 2001, p.&nbsp;123), meaning that procedures may be forgotten as quickly as they are apparently learned. A refocus on reasoning and sense making will increase understanding and foster meaning.</p>
+</div>
+<div class="col-translation">
+<p>Ở bậc trung học phổ thông, lập luận và kiến tạo ý nghĩa có tầm quan trọng đặc biệt; tuy nhiên, xét về mặt lịch sử, “lập luận” thường chỉ xuất hiện trong một số rất ít chủ đề của chương trình THPT, và kiến tạo ý nghĩa thì trong nhiều trường hợp hầu như không có mặt. Tuy vậy, việc nhấn mạnh vào lập luận và kiến tạo ý nghĩa của học sinh có thể giúp các em tổ chức tri thức theo những cách thức thúc đẩy sự phát triển của cảm giác về số, sự thành thạo đại số, hiểu biết về quan hệ hàm số, lập luận hình học và tư duy thống kê - như được minh họa trong phần 2. Khi học sinh kết nối kiến thức mới với tri thức đã có, các em có nhiều khả năng hiểu và ghi nhớ thông tin mới (Hiebert 2003) hơn là khi nội dung được trình bày đơn thuần dưới dạng một danh sách các quy trình tách rời. Thiếu vắng hiểu biết khái niệm như vậy, “việc học các chủ đề mới trở nên khó khăn hơn vì không có mạng lưới các khái niệm và kỹ năng đã học để liên kết với chủ đề mới” (Kilpatrick, Swafford và Findell 2001, tr. 123), có nghĩa là các quy trình có thể bị quên nhanh chóng như cách mà chúng dường như đã được học. Việc tái tập trung vào lập luận và kiến tạo ý nghĩa sẽ làm tăng sự hiểu biết và nuôi dưỡng ý nghĩa.</p>
+</div>
+<div class="col-notes">
+<p>Đoạn này chỉ ra vấn đề mang tính lịch sử của giáo dục Toán THPT: <em>lập luận bị thu hẹp</em>, <em>sense making bị thiếu vắng</em>, và từ đó khẳng định vì sao cần phải tái tập trung vào hai năng lực này để xây dựng hiểu biết bền vững.</p>
+<p><strong>1. Vấn đề lịch sử: Reasoning bị thu hẹp, Sense making vắng bóng</strong></p>
+<p>Trong nhiều thập kỷ, chương trình Toán THPT thường hiểu sai hoặc thu hẹp lập luận:</p>
+<p><em>(1) “Reasoning” chỉ xuất hiện trong một vài chủ đề</em> Ví dụ: chứng minh hình học hoặc một số phần đại số nâng cao. → Điều này khiến học sinh nghĩ rằng lập luận không phải năng lực phổ quát.</p>
+<p><em>(2) “Sense making” gần như không được chú trọng</em> Nội dung được dạy như “kỹ thuật”, không phải “hiểu biết”. → Học sinh có thể làm bài tập nhưng không hiểu bản chất.</p>
+<p>Kết quả: thiếu nền tảng để phát triển tư duy toán học thực sự.</p>
+<p><strong>2. Vai trò của Reasoning &amp; Sense making đối với các năng lực toán học cốt lõi</strong></p>
+<p>Đoạn văn khẳng định rằng khi học sinh được dẫn dắt bằng reasoning-sense making, họ sẽ phát triển các năng lực then chốt:</p>
+<p><em>(1) Number sense</em> Cảm giác về số, ước lượng, hiểu tính chất số.</p>
+<p><em>(2) Algebraic fluency</em> Sự thành thạo đại số dựa trên hiểu biết, không chỉ thao tác.</p>
+<p><em>(3) Functional relationships</em> Hiểu sâu về hàm số và các mối quan hệ biến đổi.</p>
+<p><em>(4) Geometric reasoning</em> Lập luận hình học vượt ra ngoài thao tác tính toán.</p>
+<p><em>(5) Statistical thinking</em> Suy luận với dữ liệu và bất định.</p>
+<p>Đây là 5 trụ cột mà NCTM muốn tái kích hoạt thông qua lý luận toán học.</p>
+<p><strong>3. Kết nối tri thức mới với tri thức cũ = hiểu sâu + nhớ lâu</strong></p>
+<p>Theo Hiebert (2003), học sinh học hiệu quả khi:</p>
+<p><em>(1) Kiến thức mới được gắn với cấu trúc tri thức đã có</em> → hình thành mạng lưới ý nghĩa, dễ kích hoạt.</p>
+<p><em>(2) Mỗi khái niệm không bị “trôi nổi” như một kỹ thuật tách rời</em> → vì kỹ thuật rời rạc không thể nhớ lâu.</p>
+<p>Đoạn trích dẫn Kilpatrick-Swafford-Findell (2001) đặc biệt quan trọng:</p>
+<blockquote class="blockquote">
+<p>Không có mạng lưới khái niệm và kỹ năng → học chủ đề mới trở nên khó khăn.</p>
+</blockquote>
+<p>Điều này khẳng định tính tất yếu của conceptual understanding.</p>
+<p><strong>4. Hậu quả của việc thiếu conceptual understanding</strong></p>
+<p><em>(1) Học sinh dễ quên kỹ thuật như cách các em đã “học thuộc” chúng</em> Không có ý nghĩa → không có cơ chế lưu trữ dài hạn.</p>
+<p><em>(2) Không liên kết được chủ đề mới với chủ đề cũ</em> Ví dụ: không thấy phương trình - đồ thị - hàm số là một hệ thống liên kết.</p>
+<p><em>(3) Thiếu cấu trúc → cản trở mọi phát triển tiếp theo</em> Toán học trở thành “danh sách công thức” thay vì “hệ thống ý tưởng”.</p>
+<p><strong>5. Thuật ngữ quan trọng</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 46%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Thuật ngữ</th>
+<th>Giải nghĩa</th>
+<th>Gợi ý dịch</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>number sense</em></td>
+<td>trực giác và cảm giác về số</td>
+<td>cảm giác về số</td>
+</tr>
+<tr class="even">
+<td><em>algebraic fluency</em></td>
+<td>sự thành thạo đại số dựa trên hiểu biết</td>
+<td>sự thành thạo đại số</td>
+</tr>
+<tr class="odd">
+<td><em>functional relationships</em></td>
+<td>hiểu về các quan hệ hàm số</td>
+<td>quan hệ hàm số</td>
+</tr>
+<tr class="even">
+<td><em>geometric reasoning</em></td>
+<td>suy luận toán học trong hình học</td>
+<td>lập luận hình học</td>
+</tr>
+<tr class="odd">
+<td><em>statistical thinking</em></td>
+<td>tư duy dựa trên dữ liệu và bất định</td>
+<td>tư duy thống kê</td>
+</tr>
+<tr class="even">
+<td><em>isolated procedures</em></td>
+<td>quy trình rời rạc, không gắn kết ý nghĩa</td>
+<td>quy trình tách rời</td>
+</tr>
+<tr class="odd">
+<td><em>conceptual understanding</em></td>
+<td>hiểu biết khái niệm, hiểu bản chất</td>
+<td>hiểu biết khái niệm</td>
+</tr>
+</tbody>
+</table>
+<p><strong>6. Ý nghĩa triết lý của đoạn</strong></p>
+<p>Đoạn này đưa ra một lập luận sư phạm mạnh:</p>
+<ul>
+<li>Toán học không thể dạy bằng danh sách thao tác rời rạc.</li>
+<li>Học sinh chỉ có thể hiểu dài hạn nếu các em <em>tự kiến tạo ý nghĩa</em>.</li>
+<li>Reasoning và sense making không chỉ “hay thì có”, mà là <em>điều kiện cần</em> để học sinh phát triển tư duy toán học thật sự.</li>
+<li>Tái tập trung vào reasoning-sense making = tái tập trung vào bản chất của toán học và cách con người học toán.</li>
+</ul>
+<p>Đây là một trong những đoạn quan trọng nhất để biện minh cho hướng tiếp cận toàn cuốn sách.</p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="how-do-we-include-reasoning-and-sense-making-in-the-classroom" class="level3 col-original">
+<h3 class="anchored" data-anchor-id="how-do-we-include-reasoning-and-sense-making-in-the-classroom">How Do We Include Reasoning and Sense Making in the Classroom?</h3>
+</section>
+<section id="làm-thế-nào-để-đưa-lập-luận-và-kiến-tạo-ý-nghĩa-vào-lớp-học" class="level3 col-translation">
+<h3 class="anchored" data-anchor-id="làm-thế-nào-để-đưa-lập-luận-và-kiến-tạo-ý-nghĩa-vào-lớp-học">Làm thế nào để đưa Lập luận và Kiến tạo Ý nghĩa vào lớp học?</h3>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Reasoning and sense making should occur in every mathematics classroom every day. In such an environment, teachers and students ask and answer such questions as “What’s going on here?” and “Why do you think that?” Addressing reasoning and sense making does not need to be an extra burden for teachers struggling with students who are having a difficult time just learning the procedures. On the contrary, the structure that reasoning brings forms a vital support for understanding and continued learning. Currently, many students have difficulty because they find mathematics meaningless. Without the connections that reasoning and sense making provide, a seemingly endless cycle of reteaching may result. With purposeful attention and planning, teachers can hold all students in every high school mathematics classroom accountable for personally engaging in reasoning and sense making, and thus lead students to experience reasoning for themselves rather than merely observe it. Moreover, technology should be used strategically throughout the high school curriculum to help reach this goal; this point is addressed further in chapter 2.</p>
+</div>
+<div class="col-translation">
+<p>Lập luận và kiến tạo ý nghĩa cần diễn ra trong mọi lớp học Toán - mỗi ngày. Trong môi trường như vậy, giáo viên và học sinh đều đặt và trả lời những câu hỏi như “Điều gì đang diễn ra ở đây?” và “Vì sao em nghĩ như vậy?”. Việc chú trọng đến lập luận và kiến tạo ý nghĩa không phải là một gánh nặng bổ sung cho giáo viên - những người vốn đang chật vật giúp học sinh chỉ để học được các quy trình. Trái lại, cấu trúc mà lập luận mang lại chính là một sự hỗ trợ quan trọng giúp hình thành sự hiểu biết và duy trì việc học. Hiện nay, rất nhiều học sinh gặp khó khăn vì các em cảm thấy Toán học vô nghĩa. Không có những kết nối mà lập luận và kiến tạo ý nghĩa đem lại, giáo viên có thể rơi vào vòng lặp dường như vô tận của việc dạy lại. Với sự chú ý và lên kế hoạch có chủ đích, giáo viên có thể yêu cầu <em>mọi</em> học sinh trong <em>mọi</em> lớp Toán THPT phải tham gia <em>trực tiếp</em> vào lập luận và kiến tạo ý nghĩa - qua đó giúp học sinh tự mình trải nghiệm lập luận, thay vì chỉ quan sát nó. Hơn nữa, công nghệ cần được sử dụng một cách chiến lược xuyên suốt chương trình Toán THPT để hỗ trợ mục tiêu này; nội dung này sẽ được bàn thêm trong chương 2.</p>
+</div>
+<div class="col-notes">
+<p>Đoạn này là bước chuyển rất quan trọng: từ lý luận → thực hành lớp học. Nó trả lời câu hỏi trung tâm của giáo viên: <em>“Làm sao đưa reasoning-sense making vào lớp học mà không quá tải?”</em></p>
+<p><strong>1. Reasoning &amp; Sense making phải diễn ra <em>mỗi ngày</em></strong></p>
+<p>Điểm nhấn then chốt:</p>
+<p><em>(1) Không phải hoạt động đặc biệt</em> Reasoning-sense making không phải “tiết bồi dưỡng”, không phải “hoạt động nâng cao”.</p>
+<p><em>(2) Nó là bản chất của mọi giờ học</em> Mọi buổi học đều phải có cơ hội để học sinh hỏi, giải thích, biện minh, kết nối.</p>
+<p><em>(3) Hai câu hỏi khởi động cốt lõi</em></p>
+<ul>
+<li>“What’s going on here?” → yêu cầu <em>sense making</em></li>
+<li>“Why do you think that?” → yêu cầu <em>reasoning</em></li>
+</ul>
+<p>Đây là hai câu hỏi chiến lược trong dạy học Toán dựa trên tư duy.</p>
+<p><strong>2. Reasoning không làm tăng gánh nặng, mà giảm gánh nặng</strong></p>
+<p>Đoạn văn bác bỏ một lo ngại phổ biến của giáo viên:</p>
+<p><em>(1) Lý do giáo viên sợ:</em> Học sinh còn đang vật lộn với kỹ thuật - thêm reasoning sẽ “quá tải”.</p>
+<p><em>(2) Quan điểm của NCTM:</em> Reasoning giúp tổ chức tri thức → hỗ trợ hiểu biết → giảm reteaching.</p>
+<p><em>(3) Một lập luận then chốt:</em></p>
+<blockquote class="blockquote">
+<p>Khi học sinh hiểu bản chất, giáo viên sẽ không phải dạy lại nhiều lần.</p>
+</blockquote>
+<p>NCTM đang nói rõ: Reasoning-sense making là giải pháp, không phải vấn đề.</p>
+<p><strong>3. “Mathematics feels meaningless” - vấn đề thực sự</strong></p>
+<p>Đoạn văn trình bày chẩn đoán sâu sắc:</p>
+<p><em>(1) Nhiều học sinh thấy toán học vô nghĩa</em> → vì các em chỉ học quy trình rời rạc, làm theo mẫu.</p>
+<p><em>(2) Khi không có connection, học sinh không thể xây hiểu biết bền vững</em> → nên lặp lại vòng “học - quên - dạy lại”.</p>
+<p><em>(3) Reasoning-sense making </em>tạo ý nghĩa*, phá vòng lặp dạy lại vô tận.</p>
+<p><strong>4. Giáo viên có thể buộc <em>tất cả</em> học sinh tham gia reasoning</strong></p>
+<p>Một điểm xác lập quan trọng:</p>
+<p><em>(1) Reasoning không dành cho “học sinh giỏi”</em> Nó dành cho <em>tất cả</em> học sinh.</p>
+<p><em>(2) Giáo viên cần “planning &amp; purposeful attention”</em> Tức là thiết kế câu hỏi, hoạt động, nhiệm vụ dẫn dắt tư duy.</p>
+<p><em>(3) Học sinh phải </em>tự trải nghiệm reasoning*, không chỉ nhìn giáo viên reasoning. → điểm then chốt của dạy học dựa trên tư duy.</p>
+<p><strong>5. Công nghệ là công cụ hỗ trợ (không phải thay thế)</strong></p>
+<p>Đoạn cuối mở một nhánh cho Chương 2:</p>
+<p><em>(1) Công nghệ phải được sử dụng </em>chiến lược** Không phải trình chiếu, không phải máy tính giải thay học sinh.</p>
+<p><em>(2) Vai trò của công nghệ:</em></p>
+<ul>
+<li>trực quan hóa,</li>
+<li>mô phỏng,</li>
+<li>khám phá,</li>
+<li>thử nghiệm,</li>
+<li>phản hồi nhanh,</li>
+<li>hỗ trợ reasoning và sense making.</li>
+</ul>
+<p><em>(3) Đây sẽ là một chủ đề phát triển thêm ở Chương 2.</em></p>
+<p><strong>6. Thuật ngữ quan trọng</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 53%">
+<col style="width: 21%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Thuật ngữ</th>
+<th>Giải nghĩa</th>
+<th>Gợi ý dịch</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>reteaching</em></td>
+<td>dạy lại nhiều lần vì học sinh không hiểu bản chất</td>
+<td>dạy lại</td>
+</tr>
+<tr class="even">
+<td><em>purposeful attention</em></td>
+<td>sự chú ý có chủ đích, có kế hoạch</td>
+<td>sự chú ý có chủ đích</td>
+</tr>
+<tr class="odd">
+<td><em>personally engaging</em></td>
+<td>học sinh tự tham gia, tự nhập cuộc</td>
+<td>tham gia trực tiếp</td>
+</tr>
+<tr class="even">
+<td><em>meaningless</em></td>
+<td>không có ý nghĩa nội tại</td>
+<td>vô nghĩa</td>
+</tr>
+<tr class="odd">
+<td><em>strategically</em></td>
+<td>có chiến lược, có mục đích rõ ràng</td>
+<td>một cách chiến lược</td>
+</tr>
+</tbody>
+</table>
+<p><strong>7. Ý nghĩa triết lý của đoạn</strong></p>
+<p>Đoạn này mang tinh thần sư phạm rất mạnh:</p>
+<ul>
+<li>Reasoning-sense making không phải “phần nâng cao”, mà là nền tảng của mọi giờ Toán.</li>
+<li>Cảm giác “vô nghĩa” là sản phẩm của cách dạy kỹ thuật rời rạc - không phải do học sinh “kém”.</li>
+<li>Nếu muốn mọi học sinh học được Toán “đúng nghĩa”, phải để các em <em>trải nghiệm quá trình tư duy toán học</em>, không chỉ quan sát nó.</li>
+<li>Công nghệ, nếu dùng đúng, là đòn bẩy mạnh để thực hiện điều đó.</li>
+</ul>
+<p>Đây chính là tư tưởng chủ đạo của phần còn lại trong Chương 1 và dẫn trực tiếp vào Chương 2.</p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>What exactly do reasoning and sense making involve in the mathematics classroom? The following example shows how reasoning and sense making can be infused into teaching a formula that many students often regard as meaningless and hard to remember, the distance formula. The first scenario illustrates what frequently happens when students are asked to recall a procedure taught without understanding.</p>
+</div>
+<div class="col-translation">
+<p>Chính xác thì lập luận và kiến tạo ý nghĩa bao gồm những gì trong lớp học Toán? Ví dụ sau đây minh họa cách lập luận và kiến tạo ý nghĩa có thể được lồng ghép vào việc dạy một công thức mà nhiều học sinh thường xem là vô nghĩa và khó nhớ: công thức khoảng cách. Kịch bản đầu tiên cho thấy điều thường xuyên xảy ra khi học sinh được yêu cầu nhớ lại một quy trình đã được dạy mà không có sự hiểu biết.</p>
+</div>
+<div class="col-notes">
+<p>Đoạn này chuyển trọng tâm từ lý thuyết → minh họa thực hành, bằng cách dùng <em>công thức khoảng cách</em>-một ví dụ điển hình của nội dung mà học sinh thường học thuộc mà không hiểu.</p>
+<p><strong>1. Câu hỏi dẫn nhập: “Reasoning &amp; sense making trong lớp học gồm những gì?”</strong></p>
+<p>Đây là câu hỏi bản lề:</p>
+<p><em>(1) Sau khi định nghĩa lý thuyết, giờ chuyển sang “thực hành trong lớp học”</em> Chương đang bước từ triết lý → thực nghiệm lớp học.</p>
+<p><em>(2) Câu hỏi này chuẩn bị cho một ví dụ minh họa dạng “Before-After”</em></p>
+<ul>
+<li>Trước: dạy theo kiểu kỹ thuật thuần túy</li>
+<li>Sau: dạy bằng reasoning-sense making</li>
+</ul>
+<p><strong>2. Công thức khoảng cách = trường hợp kinh điển của “học thuộc nhưng không hiểu”</strong></p>
+<p>NCTM chọn “distance formula” không phải ngẫu nhiên:</p>
+<p><em>(1) Đây là công thức phổ biến trong Đại số và Hình học Analytical</em> <span class="math inline">\(d=\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}\)</span></p>
+<p><em>(2) Phần lớn học sinh học thuộc nhưng không hiểu </em>vì sao* nó như vậy* → đúng với luận điểm về “sense making vắng bóng”.</p>
+<p><em>(3) Cuốn sách dùng ví dụ này để chứng minh rằng mọi công thức đều có thể (và cần) được dạy qua reasoning-sense making.</em></p>
+<p><strong>3. Scenario 1 = minh họa cách dạy “không reasoning-sense making”</strong></p>
+<p>Đoạn cuối chuẩn bị cho người đọc thấy một “kịch bản thất bại” quen thuộc:</p>
+<p><em>(1) Giáo viên yêu cầu học sinh nhớ lại một công thức</em> Không nhắc đến bản chất.</p>
+<p><em>(2) Học sinh cố nhớ - hoặc không nhớ</em> Vì tri thức không có “neo” trong hiểu biết.</p>
+<p><em>(3) NCTM dùng kịch bản này để phê bình cách dạy học chỉ dựa vào quy trình rời rạc.</em></p>
+<p><em>→ Scenario 1 là “bức tranh hiện thực” mà NCTM muốn thay đổi.</em></p>
+<p><strong>4. Thuật ngữ quan trọng</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 43%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Thuật ngữ</th>
+<th>Giải nghĩa</th>
+<th>Gợi ý dịch</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>infused</em></td>
+<td>được lồng ghép một cách tự nhiên, có chủ đích</td>
+<td>được lồng ghép</td>
+</tr>
+<tr class="even">
+<td><em>distance formula</em></td>
+<td>công thức tính khoảng cách giữa hai điểm</td>
+<td>công thức khoảng cách</td>
+</tr>
+<tr class="odd">
+<td><em>recall a procedure</em></td>
+<td>nhớ lại một quy trình thao tác</td>
+<td>nhớ lại một quy trình</td>
+</tr>
+<tr class="even">
+<td><em>taught without understanding</em></td>
+<td>được dạy mà không có sự hiểu biết</td>
+<td>dạy mà không có sự hiểu biết</td>
+</tr>
+<tr class="odd">
+<td><em>scenario</em></td>
+<td>kịch bản (tình huống mô phỏng trong lớp học)</td>
+<td>kịch bản</td>
+</tr>
+</tbody>
+</table>
+<p><strong>5. Ý nghĩa triết lý của đoạn</strong></p>
+<ul>
+<li>Reasoning-sense making không chỉ dành cho nội dung “nâng cao”; nó áp dụng ngay cả với những công thức cơ bản.</li>
+<li>Một công thức trở thành “vô nghĩa - khó nhớ” không phải vì học sinh kém, mà vì cách dạy thiếu kết nối.</li>
+<li>Tình huống sắp được mô tả là “ảnh chụp” của lớp học truyền thống - thứ mà NCTM muốn thay đổi hoàn toàn.</li>
+</ul>
+<p>Đoạn kế tiếp (Scenario 1) sẽ là minh họa rõ ràng nhất cho <em>hậu quả của việc dạy học không dựa trên tư duy</em>.</p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p><em>Teacher:</em> Today’s lesson requires that we calculate the distance between the center of a circle and a point on the circle in order to determine the circle’s radius. Who remembers how to find the distance between two points?</p>
+<p><em>Student 1:</em> Isn’t there a formula for that?</p>
+<p><em>Student 2:</em> I think it’s <span class="math inline">\(x_1\)</span> plus <span class="math inline">\(x_2\)</span> squared, or something like that.</p>
+<p><em>Student 1:</em> Oh, yeah, I remember-there’s a great big square root sign, but I don’t remember what goes under it.</p>
+<p><em>Student 3:</em> I know! It’s <span class="math inline">\(x_1\)</span> plus <span class="math inline">\(x_2\)</span> all over 2, isn’t it?</p>
+<p><em>Student 4:</em> No, that’s the midpoint formula.</p>
+<p>(The discussion continues along these lines until the teacher reminds the class of the formula.)</p>
+</div>
+<div class="col-translation">
+<p><em>Giáo viên:</em> Bài hôm nay yêu cầu chúng ta tính khoảng cách từ tâm của một đường tròn đến một điểm nằm trên đường tròn để xác định bán kính của đường tròn. Ai nhớ cách tìm khoảng cách giữa hai điểm không?</p>
+<p><em>Học sinh 1:</em> Hình như có một công thức cho cái đó thì phải?</p>
+<p><em>Học sinh 2:</em> Em nghĩ là <span class="math inline">\(x_1\)</span> cộng <span class="math inline">\(x_2\)</span> rồi bình phương… gì đó.</p>
+<p><em>Học sinh 1:</em> À đúng rồi, em nhớ là có một dấu căn rất to, nhưng em không nhớ bên dưới là gì.</p>
+<p><em>Học sinh 3:</em> Em biết! Là <span class="math inline">\(x_1\)</span> cộng <span class="math inline">\(x_2\)</span> rồi chia cho 2, đúng không ạ?</p>
+<p><em>Học sinh 4:</em> Không, cái đó là công thức trung điểm.</p>
+<p>(Cuộc trao đổi cứ tiếp diễn theo kiểu này cho đến khi giáo viên nhắc lại công thức cho cả lớp.)</p>
+</div>
+<div class="col-notes">
+<p>Đây là <em>Scenario 1</em> - minh họa sinh động một lớp học trong đó học sinh được yêu cầu “nhớ công thức” mà không hề hiểu bản chất của nó.</p>
+<p><strong>1. Vấn đề trung tâm: Học sinh đang “tìm công thức”, không tìm ý nghĩa</strong></p>
+<p>Đoạn hội thoại bộc lộ chính xác kiểu dạy-học mà NCTM đang phê phán:</p>
+<p><em>(1) Học sinh cố lục trí nhớ xem “công thức trông như thế nào”</em> Không ai nói đến ý nghĩa hình học hoặc cách công thức được tạo ra.</p>
+<p><em>(2) Nhầm lẫn giữa các công thức có dạng tương tự</em> Ví dụ: midpoint formula vs.&nbsp;distance formula.</p>
+<p><em>(3) Trí nhớ sai lệch, rời rạc, không nối kết với hình ảnh hoặc ý nghĩa</em> → dấu căn “rất to” nhưng không biết bên trong là gì.</p>
+<p><em>(4) Cả lớp chỉ chờ giáo viên nhắc lại công thức</em> → học sinh không thể tự kiến tạo tri thức.</p>
+<p><strong>2. Những dấu hiệu cho thấy thiếu Reasoning-Sense making</strong></p>
+<p>NCTM dùng đoạn này để chỉ ra những biểu hiện của lớp học không có reasoning:</p>
+<p><em>(1) Không ai đặt câu hỏi bản chất:</em> “Khoảng cách giữa hai điểm nghĩa là gì?” “Có cách nào hình dung nó không?”</p>
+<p><em>(2) Học sinh chỉ nhớ theo “mảnh vụn ký hiệu”</em> Không có cấu trúc khái niệm để dựa vào.</p>
+<p><em>(3) Không có kết nối với kinh nghiệm hoặc khái niệm đã biết</em> Ví dụ: định lý Pythagoras hoàn toàn không được nhắc tới.</p>
+<p><em>(4) Không có lập luận, không có khám phá</em> Chỉ có “nhớ theo mẫu”.</p>
+<p><strong>3. Lớp học trở thành “trò chơi đoán công thức”</strong></p>
+<p>Điều NCTM muốn phê phán:</p>
+<p><em>(1) Khi dạy công thức như đối tượng để học thuộc → mất ý nghĩa</em> Học sinh chỉ nói tên công thức chứ không hiểu khái niệm đằng sau.</p>
+<p><em>(2) Trò chơi đoán công thức = dấu hiệu giáo dục thất bại</em> Không giúp học sinh hiểu hay giải quyết vấn đề.</p>
+<p><em>(3) Giáo viên phải “giải cứu” bằng cách nhắc lại công thức</em> → củng cố sự phụ thuộc, không xây dựng khả năng tư duy.</p>
+<p><strong>4. Đây là minh họa hoàn hảo cho lập luận ở đoạn trước</strong></p>
+<p>Tình huống này chứng minh:</p>
+<ul>
+<li>Khi tri thức không được kết nối → nó biến mất khỏi trí nhớ.</li>
+<li>Khi không có sense making → dạy lại lặp đi lặp lại.</li>
+<li>Khi công thức không có cơ sở reasoning → nó trở nên dễ nhầm, dễ quên, vô nghĩa.</li>
+</ul>
+<p>Đoạn trước nói lý thuyết, đoạn này cho hình ảnh thực tế.</p>
+<p><strong>5. Thuật ngữ quan trọng</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 35%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Thuật ngữ</th>
+<th>Giải nghĩa</th>
+<th>Gợi ý dịch</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>the distance between two points</em></td>
+<td>khoảng cách giữa hai điểm</td>
+<td>khoảng cách giữa hai điểm</td>
+</tr>
+<tr class="even">
+<td><em>midpoint formula</em></td>
+<td>công thức trung điểm</td>
+<td>công thức trung điểm</td>
+</tr>
+<tr class="odd">
+<td><em>recall</em></td>
+<td>nhớ lại (mang tính máy móc, không hiểu)</td>
+<td>nhớ lại</td>
+</tr>
+<tr class="even">
+<td><em>procedure taught without understanding</em></td>
+<td>quy trình được dạy mà không hiểu bản chất</td>
+<td>quy trình dạy-học không hiểu biết</td>
+</tr>
+</tbody>
+</table>
+<p><strong>6. Ý nghĩa triết lý của đoạn</strong></p>
+<ul>
+<li>Đây là bức tranh chân thực của lớp học Toán truyền thống.</li>
+<li>Học sinh không sai - cách dạy khiến tri thức trở thành “mảnh vụn”.</li>
+<li>Công thức không phải vấn đề; vấn đề là <em>cách công thức được sinh ra trong lớp học</em>.</li>
+<li>Reasoning-sense making không phải điều xa vời - nó sửa chữa trực tiếp những vấn đề đang thấy ở đây.</li>
+</ul>
+<p>Đoạn tiếp theo (Scenario 2) sẽ đưa ra cách dạy đối lập: dạy bằng tư duy, bằng kiến tạo ý nghĩa, không phải ghi nhớ công thức.</p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>The next year, this teacher decides to try a different approach that will engage the students in solving a problem. In the following scenario, we see students reasoning about mathematics, connecting what they are learning with their existing knowledge, and making sense of what the distance formula means.</p>
+</div>
+<div class="col-translation">
+<p>Năm sau, giáo viên này quyết định thử một cách tiếp cận khác nhằm giúp học sinh thật sự tham gia vào việc giải quyết một vấn đề. Trong kịch bản dưới đây, chúng ta sẽ thấy học sinh lập luận về toán học, kết nối điều các em đang học với tri thức đã có, và kiến tạo ý nghĩa cho công thức khoảng cách.</p>
+</div>
+<div class="col-notes">
+<p>Đoạn này chuyển sang <em>Scenario 2</em>, đối lập với Scenario 1. Đây là bước chuyển từ “học thuộc” → “hiểu bằng tư duy”.</p>
+<p><strong>1. Giáo viên thay đổi chiến lược: từ dạy công thức → dạy giải quyết vấn đề</strong></p>
+<p>Điểm nhấn then chốt:</p>
+<p><em>(1) Giáo viên không còn bắt đầu bằng “ai nhớ công thức?”</em> Thay vào đó, giáo viên tạo ra một <em>tình huống có vấn đề</em>.</p>
+<p><em>(2) Mục tiêu: đưa học sinh vào quá trình tư duy toán học</em> Chứ không phải nhắc lại hay chép máy móc.</p>
+<p><em>(3) Cụm từ “engage the students in solving a problem” rất quan trọng</em> Nó thể hiện triết lý dạy học của NCTM:</p>
+<blockquote class="blockquote">
+<p><em>Học sinh phải học toán bằng cách làm toán.</em></p>
+</blockquote>
+<p><strong>2. Học sinh bắt đầu “reasoning”, không “đoán công thức”</strong></p>
+<p>Đoạn này chuẩn bị cho kịch bản trong đó học sinh:</p>
+<p><em>(1) đặt câu hỏi,</em> <em>(2) phân tích tình huống,</em> <em>(3) lập luận từ hình học hoặc kiến thức có trước,</em> <em>(4) tự xây dựng công thức (hoặc nhìn ra nó).</em></p>
+<p>Không còn:</p>
+<ul>
+<li>“xoay ô chữ công thức,”</li>
+<li>“x nhớ cộng x chia hai,”</li>
+<li>“bình phương cái gì đó,”</li>
+</ul>
+<p>mà là <em>tư duy thực sự</em>.</p>
+<p><strong>3. Kết nối tri thức mới với tri thức cũ = bản chất của sense making</strong></p>
+<p>Đoạn văn nhấn mạnh:</p>
+<p><em>(1) Học sinh gắn điều đang học với điều đã biết</em> → quá trình kiến tạo ý nghĩa diễn ra.</p>
+<p><em>(2) Hiểu bản chất của công thức khoảng cách</em> → không còn là ký hiệu rời rạc.</p>
+<p><em>(3) Đây là điều mà Scenario 1 đã thất bại hoàn toàn.</em></p>
+<p><strong>4. Chuẩn bị cho minh họa trực quan và chiến lược</strong></p>
+<p>Đoạn này là lời dẫn cho kịch bản quan trọng tiếp theo - nơi ta thấy:</p>
+<ul>
+<li>giáo viên tạo tình huống,</li>
+<li>học sinh phân tích hình học,</li>
+<li>học sinh tự dựng lại công thức từ Định lý Pythagoras,</li>
+<li>công thức trở thành <em>kết quả của reasoning</em>, không phải gánh nặng trí nhớ.</li>
+</ul>
+<p><strong>5. Thuật ngữ quan trọng</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 40%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Thuật ngữ</th>
+<th>Giải nghĩa</th>
+<th>Gợi ý dịch</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>engage the students</em></td>
+<td>khiến học sinh tham gia chủ động vào hoạt động</td>
+<td>giúp học sinh tham gia tích cực</td>
+</tr>
+<tr class="even">
+<td><em>solving a problem</em></td>
+<td>giải quyết một vấn đề có ý nghĩa thật sự</td>
+<td>giải một vấn đề</td>
+</tr>
+<tr class="odd">
+<td><em>reasoning about mathematics</em></td>
+<td>lập luận dựa trên các ý tưởng toán học</td>
+<td>lập luận về toán học</td>
+</tr>
+<tr class="even">
+<td><em>connecting … with existing knowledge</em></td>
+<td>gắn kết tri thức mới với tri thức có sẵn</td>
+<td>kết nối với tri thức đã có</td>
+</tr>
+<tr class="odd">
+<td><em>make sense of the formula</em></td>
+<td>hiểu bản chất, ý nghĩa của công thức</td>
+<td>kiến tạo ý nghĩa cho công thức</td>
+</tr>
+</tbody>
+</table>
+<p><strong>6. Ý nghĩa triết lý của đoạn</strong></p>
+<ul>
+<li>Học sinh không phải “bình chứa công thức”, mà là người kiến tạo tri thức.</li>
+<li>Việc dạy học dựa trên tư duy tạo ra năng lực bền vững: học sinh <em>hiểu</em>, không chỉ <em>nhớ</em>.</li>
+<li>Sự thay đổi nhỏ trong cách đặt vấn đề có thể thay đổi hoàn toàn cách học sinh tiếp cận Toán học.</li>
+<li>Scenario 2 là hình ảnh lớp học theo tinh thần NCTM: một cộng đồng học tập lập luận, khám phá và hiểu.</li>
+</ul>
+<p>Bạn có thể gửi tiếp đoạn chứa Scenario 2 để mình dịch và phân tích theo đúng định dạng chuẩn.</p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p><em>Teacher:</em> Let’s take a look at a situation in which we need to find the distance between two locations on a map. Suppose this map shows your school; your house, which is located two blocks west and five blocks north of school; and your best friend’s house, which is located eight blocks east and one block south of school. If the city had a system of evenly spaced perpendicular streets, how many blocks would we have to drive to get from your house to your friend’s house?</p>
+<p><em>Student 1:</em> Well, we would have to drive ten blocks to the east and six blocks to the south, so I guess it would be sixteen blocks, right?</p>
+<p><em>Teacher:</em> Now, what if you could use a helicopter to fly straight to your friend’s house? How could we find the distance “as the crow flies”? Work with your partners to establish a coordinate-axis system and show the path you’d have to drive to get to your friend’s house. Next, work on calculating the direct distance between the houses if you could fly.</p>
+<p><em>Student 1:</em> What if we use the school as the origin? Then wouldn’t my house be at <span class="math inline">\((-2, 5)\)</span> and my friend’s house, at <span class="math inline">\((8, −1)\)</span>?</p>
+<p><em>Student 2:</em> Yeah, that sounds right. Here, let’s draw the path on the streets connecting the two houses and then draw a line segment connecting the two houses.</p>
+<p><em>Student 1:</em> Maybe we could measure the length of a block and fi nd the distance with a ruler.</p>
+<p><strong><em>(Hình ảnh)</em></strong></p>
+<p><em>Student 3:</em> Wait a minute-you just drew a right triangle, because the streets are perpendicular.</p>
+<p><em>Student 4:</em> So that means we could use the Pythagorean theorem: <span class="math inline">\(10^2+6^2=c^2\)</span>, so <span class="math inline">\(c=\sqrt{136}\)</span>.</p>
+<p><em>Student 2:</em> But how many blocks would that be?</p>
+<p><em>Student 3:</em> Shouldn’t the distance be between eleven and twelve blocks, since <span class="math inline">\(121 &lt; 136 &lt; 144\)</span>? Actually, it’s probably closer to twelve blocks, since <span class="math inline">\(136\)</span> is much closer to <span class="math inline">\(144\)</span>.</p>
+<p>(The teacher then extends the discussion to consider other examples and finally to develop a general formula.)</p>
+</div>
+<div class="col-translation">
+<p><em>Giáo viên:</em> Chúng ta hãy xem một tình huống trong đó ta cần tìm khoảng cách giữa hai vị trí trên bản đồ. Giả sử bản đồ này thể hiện trường học của em; nhà của em - nằm cách trường hai dãy phố về phía tây và năm dãy phố về phía bắc - và nhà của bạn thân em - nằm cách trường tám dãy phố về phía đông và một dãy phố về phía nam. Nếu thành phố có hệ thống các con phố vuông góc và cách đều nhau, thì chúng ta sẽ phải đi bao nhiêu dãy phố để đi từ nhà em đến nhà bạn em?</p>
+<p><em>Học sinh 1:</em> Ờ… mình phải đi mười dãy phố về phía đông và sáu dãy phố về phía nam, vậy chắc là mười sáu dãy phố, đúng không ạ?</p>
+<p><em>Giáo viên:</em> Bây giờ, giả sử em có thể dùng trực thăng để bay thẳng đến nhà bạn. Làm thế nào để ta tìm được khoảng cách “đường chim bay”? Hãy làm việc theo nhóm để thiết lập một hệ trục tọa độ và biểu diễn đường đi trên các con phố từ nhà em đến nhà bạn. Sau đó, hãy tính khoảng cách trực tiếp giữa hai ngôi nhà nếu em được bay thẳng.</p>
+<p><em>Học sinh 1:</em> Nếu dùng trường học làm gốc tọa độ thì sao ạ? Khi đó, nhà em sẽ ở <span class="math inline">\((-2, 5)\)</span>, còn nhà bạn em ở <span class="math inline">\((8, -1)\)</span>, đúng không?</p>
+<p><em>Học sinh 2:</em> Nghe hợp lý đó. Đây này, chúng ta vẽ đường đi theo các con phố nối hai ngôi nhà, rồi sau đó vẽ đoạn thẳng nối hai ngôi nhà.</p>
+<p><em>Học sinh 1:</em> Hay là mình đo chiều dài một dãy phố rồi dùng thước để tính khoảng cách?</p>
+<p><strong><em>(Có hình minh họa ở đây)</em></strong></p>
+<p><em>Học sinh 3:</em> Khoan đã - bạn vừa vẽ một tam giác vuông mà, vì các con phố vuông góc với nhau.</p>
+<p><em>Học sinh 4:</em> Vậy tức là ta có thể dùng định lý Pythagoras: <span class="math inline">\(10^2 + 6^2 = c^2\)</span>, nên <span class="math inline">\(c = \sqrt{136}\)</span>.</p>
+<p><em>Học sinh 2:</em> Nhưng như vậy là bao nhiêu dãy phố?</p>
+<p><em>Học sinh 3:</em> Nó phải nằm giữa 11 và 12 dãy phố, vì <span class="math inline">\(121 &lt; 136 &lt; 144\)</span>. Thực ra chắc gần 12 hơn, vì <span class="math inline">\(136\)</span> gần <span class="math inline">\(144\)</span> hơn.</p>
+<p>(Giáo viên sau đó mở rộng thảo luận sang các ví dụ khác và cuối cùng xây dựng công thức tổng quát.)</p>
+</div>
+<div class="col-notes">
+<p>Đây là <em>Scenario 2</em> - mô hình lớp học nơi học sinh <em>tự kiến tạo</em> công thức khoảng cách thông qua lập luận, kết nối và khám phá. Cảnh này minh họa đầy đủ cách reasoning-sense making hoạt động trong thực tế lớp học.</p>
+<p><strong>1. Tình huống mở đầu: vấn đề thực (real context) kích thích tư duy</strong></p>
+<p>Kịch bản mở bằng một <em>vấn đề có ý nghĩa</em>:</p>
+<p><em>(1) Tìm khoảng cách giữa hai ngôi nhà trên bản đồ</em> → gắn với kinh nghiệm đời sống → tạo động lực tự nhiên.</p>
+<p><em>(2) Dữ liệu cho bằng lời, không cho sẵn tọa độ</em> → học sinh buộc phải “tạo mô hình” (modeling).</p>
+<p><em>(3) Bài toán có hai “khoảng cách”:</em></p>
+<ul>
+<li>đường phố (Manhattan distance),</li>
+<li>đường chim bay (Euclidean distance).</li>
+</ul>
+<p>Điều này mở đường cho <em>tư duy hình học và đại số</em>.</p>
+<p><strong>2. Học sinh bắt đầu reasoning: dựng hệ trục, biểu diễn vị trí</strong></p>
+<p>Ở bước này xuất hiện <em>sense making thực thụ</em>:</p>
+<p><em>(1) Học sinh tự chọn gốc tọa độ (origin = school)</em> → học toán như làm toán.</p>
+<p><em>(2) Học sinh tự tìm tọa độ hai điểm</em> ((-2, 5)) và ((8, -1)) → không sao chép, mà xây dựng.</p>
+<p><em>(3) Học sinh biểu diễn đường đi trên phố và đoạn thẳng</em> → tạo kết nối hình học - đại số.</p>
+<p>Điều mà Scenario 1 hoàn toàn không có.</p>
+<p><strong>3. Khoảnh khắc khám phá: “Bạn đã vẽ tam giác vuông rồi!”</strong></p>
+<p>Đây là điểm xoay quan trọng của hoạt động:</p>
+<p><em>(1) Học sinh 3 tự phát hiện cấu trúc tam giác vuông</em> → reasoning tự nhiên, không gợi mở trực tiếp.</p>
+<p><em>(2) Nhận định này dựa vào kiến thức nền:</em> “Các con phố vuông góc → góc vuông.”</p>
+<p><em>(3) Kiến thức hình học liên kết với bối cảnh thực</em> → quá trình kết nối (connection) diễn ra.</p>
+<p>Đây là <em>nguyên mẫu</em> của sense making.</p>
+<p><strong>4. Tự sinh ra công thức từ Định lý Pythagoras</strong></p>
+<p><em>(1) Học sinh 4 đề xuất sử dụng Pythagoras</em> → reasoning hình thức hơn bắt đầu xuất hiện.</p>
+<p><em>(2) Biến đổi: <span class="math inline">\(10^2 + 6^2 = c^2\)</span></em> → công thức đường thẳng trở thành “hệ quả tự nhiên”.</p>
+<p><em>(3) Công thức khoảng cách được tái tạo chứ không “tra từ trí nhớ”.</em></p>
+<p><strong>5. Suy luận định lượng xấp xỉ - statistical / numerical reasoning</strong></p>
+<p>Học sinh 3 tiếp tục reasoning:</p>
+<p><em>(1) So sánh 136 với các bình phương lân cận:</em> (121 &lt; 136 &lt; 144)</p>
+<p>*(2) Từ đó suy ra khoảng cách nằm giữa 11 và 12, gần 12 hơn.</p>
+<p>Đây là <em>tư duy định lượng bậc cao</em>, kết hợp:</p>
+<ul>
+<li>số học,</li>
+<li>xấp xỉ,</li>
+<li>trực giác đại số.</li>
+</ul>
+<p><strong>6. Giáo viên dẫn dắt bằng câu hỏi - không cung cấp công thức</strong></p>
+<p>Trong kịch bản này:</p>
+<p><em>(1) Giáo viên đưa ra nhiệm vụ, không đưa công thức</em> → học sinh được chủ động tư duy.</p>
+<p><em>(2) Giáo viên chỉ dẫn dắt bằng các câu hỏi định hướng</em> → môi trường reasoning được kích hoạt.</p>
+<p><em>(3) Cuối cùng mới dẫn vào “công thức tổng quát”</em> Nhưng lúc này công thức là <em>sản phẩm của tư duy</em>, không phải gánh nặng trí nhớ.</p>
+<p><strong>7. Thuật ngữ quan trọng</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 50%">
+<col style="width: 21%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Thuật ngữ</th>
+<th>Giải nghĩa</th>
+<th>Gợi ý dịch</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>as the crow flies</em></td>
+<td>khoảng cách đường thẳng giữa hai điểm</td>
+<td>đường chim bay</td>
+</tr>
+<tr class="even">
+<td><em>coordinate-axis system</em></td>
+<td>hệ trục tọa độ</td>
+<td>hệ trục tọa độ</td>
+</tr>
+<tr class="odd">
+<td><em>blocks</em></td>
+<td>dãy phố (đơn vị khoảng cách trong thành phố)</td>
+<td>dãy phố</td>
+</tr>
+<tr class="even">
+<td><em>extend the discussion</em></td>
+<td>mở rộng thảo luận</td>
+<td>mở rộng thảo luận</td>
+</tr>
+<tr class="odd">
+<td><em>general formula</em></td>
+<td>công thức tổng quát</td>
+<td>công thức tổng quát</td>
+</tr>
+</tbody>
+</table>
+<p><strong>8. Ý nghĩa triết lý của đoạn</strong></p>
+<p>Đây là một hình mẫu dạy học Toán theo tư duy:</p>
+<ul>
+<li>Kiến thức không được “cho sẵn” - nó được “xây dựng”.</li>
+<li>Học sinh không đi tìm công thức, mà đi tìm <em>ý nghĩa</em>.</li>
+<li>Định lý Pythagoras xuất hiện tự nhiên trong tư duy học sinh - không phải theo mệnh lệnh.</li>
+<li>Học sinh trở thành người khám phá, không phải người tiếp nhận.</li>
+</ul>
+<p>Scenario 2 chính là minh họa trực quan cho triết lý lớn của NCTM: <em>Lập luận và kiến tạo ý nghĩa là cách duy nhất để Toán học trở thành một hệ thống sống - chứ không phải một danh sách công thức cần ghi nhớ.</em></p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>By having her students approach the distance formula from a reasoning-and-sense-making perspective the second year, the teacher increases their understanding of the formula and why it is true, increasing the likelihood that they will be able to retrieve, or quickly recreate, the formula at a later time.</p>
+</div>
+<div class="col-translation">
+<p>Bằng việc để học sinh tiếp cận công thức khoảng cách từ góc độ lập luận và kiến tạo ý nghĩa trong năm thứ hai, giáo viên đã giúp các em hiểu sâu hơn về công thức và <em>vì sao</em> nó đúng - từ đó làm tăng khả năng rằng sau này các em sẽ có thể nhớ lại, hoặc nhanh chóng tự tái tạo lại, công thức ấy.</p>
+</div>
+<div class="col-notes">
+<p>Đoạn này tổng kết trực tiếp sự khác biệt giữa <em>Scenario 1</em> (ghi nhớ máy móc) và <em>Scenario 2</em> (tư duy có ý nghĩa). Đây là kết luận giáo dục then chốt của toàn ví dụ.</p>
+<p><strong>1. Hiểu <em>vì sao đúng</em> → tạo ra sự ghi nhớ bền vững</strong></p>
+<p>Điểm then chốt của đoạn:</p>
+<p><em>(1) Khi học sinh hiểu lý do của công thức (sense making),</em> → tri thức có cấu trúc, có “móc treo”, có liên kết.</p>
+<p><em>(2) Khi công thức được xây dựng từ reasoning,</em> → học sinh biết nó đến từ đâu, không chỉ “nó trông như thế nào”.</p>
+<p><em>(3) Điều này khắc phục triệt để vấn đề của Scenario 1:</em> công thức không còn là “mảnh vụn ký hiệu vô nghĩa”.</p>
+<p><strong>2. Khả năng “retrieve or quickly recreate” = năng lực toán học đích thực</strong></p>
+<p>Cụm từ rất quan trọng:</p>
+<blockquote class="blockquote">
+<p><em>retrieve, or quickly recreate</em> nhớ lại - hoặc tự dựng lại nhanh chóng.</p>
+</blockquote>
+<p><em>(1) Giáo dục toán học không nhằm mục tiêu “thuộc lòng mãi mãi”.</em> Không ai mong học sinh thuộc 100 công thức suốt đời.</p>
+<p><em>(2) NCTM xác lập tiêu chí mới:</em> Học sinh có thể <em>tự tái tạo</em> công thức khi cần.</p>
+<p><em>(3) Đây mới là bản chất của hiểu sâu:</em> Công thức không nằm trong bộ nhớ thụ động, mà nằm trong <em>cơ chế tư duy</em>.</p>
+<p><strong>3. Vai trò của cách dạy dựa trên reasoning-sense making</strong></p>
+<p>Đoạn văn khẳng định trực tiếp lợi ích của Scenario 2:</p>
+<p><em>(1) Tăng understanding</em> → hiểu bản chất, không học thuộc lòng.</p>
+<p><em>(2) Tăng “why it is true”</em> → học sinh thấy được cơ chế sinh ra công thức.</p>
+<p><em>(3) Tăng khả năng sử dụng tri thức lâu dài</em> → tránh “siêu quên nhanh” khi chỉ học quy trình.</p>
+<p><em>(4) Học sinh có thể hồi phục tri thức ngay cả khi quên ký hiệu.</em> → ưu thế rõ rệt so với cách dạy truyền thống.</p>
+<p><strong>4. Thuật ngữ quan trọng</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 40%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Thuật ngữ</th>
+<th>Giải nghĩa</th>
+<th>Gợi ý dịch</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>retrieve</em></td>
+<td>nhớ lại từ trí nhớ một cách chính xác</td>
+<td>nhớ lại</td>
+</tr>
+<tr class="even">
+<td><em>quickly recreate</em></td>
+<td>tự tái dựng lại công thức dựa trên hiểu biết</td>
+<td>nhanh chóng tái tạo</td>
+</tr>
+<tr class="odd">
+<td><em>why it is true</em></td>
+<td>lý do của tính đúng đắn của công thức</td>
+<td>vì sao nó đúng</td>
+</tr>
+<tr class="even">
+<td><em>reasoning-and-sense-making perspective</em></td>
+<td>cách tiếp cận dựa trên lập luận và kiến tạo ý nghĩa</td>
+<td>góc độ lập luận và kiến tạo ý nghĩa</td>
+</tr>
+</tbody>
+</table>
+<p><strong>5. Ý nghĩa triết lý của đoạn</strong></p>
+<p>Đoạn này thể hiện triết lý giáo dục nền tảng của NCTM:</p>
+<ul>
+<li>Hiểu → mạnh hơn nhớ.</li>
+<li>Tri thức có thể mất khỏi bộ nhớ, nhưng cấu trúc reasoning sẽ vẫn còn.</li>
+<li>Giáo dục toán học phải giúp học sinh có khả năng <em>tự nghĩ lại</em>, không chỉ “nhớ lại”.</li>
+<li>Điều quan trọng nhất không phải kho công thức, mà là <em>năng lực tái kiến tạo toán học</em>.</li>
+</ul>
+<p>Đây là điểm mấu chốt của toàn bộ chương: <em>Reasoning và sense making tạo ra sự hiểu biết bền vững - và đó mới là mục tiêu thực sự của giáo dục Toán THPT.</em></p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="conclusion" class="level3 col-original">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+</section>
+<section id="kết-luận" class="level3 col-translation">
+<h3 class="anchored" data-anchor-id="kết-luận">Kết luận</h3>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Reasoning and sense making are the cornerstones of mathematics. Restructuring the high school mathematics program around them enhances students’ development of both the content and process knowledge they need to be successful in their continuing study of mathematics and in their lives.</p>
+</div>
+<div class="col-translation">
+<p>Lập luận và kiến tạo ý nghĩa là những viên đá nền tảng của Toán học. Việc tái cấu trúc chương trình Toán THPT xoay quanh hai năng lực này sẽ tăng cường sự phát triển của học sinh trong cả <em>tri thức nội dung</em> lẫn <em>tri thức quá trình</em> - những điều cần thiết để các em thành công trong việc học Toán tiếp theo và trong cuộc sống.</p>
+</div>
+<div class="col-notes">
+<p>Đoạn kết chương 1 cô đọng toàn bộ tư tưởng của chương: <em>Reasoning</em> và <em>Sense making</em> không chỉ là kỹ năng bổ sung mà là <em>bản chất</em> của Toán học và <em>điểm tựa</em> của chương trình Toán THPT.</p>
+<p><strong>1. Reasoning và Sense making = Cornerstones of Mathematics</strong></p>
+<p>Cụm từ cực kỳ quan trọng:</p>
+<blockquote class="blockquote">
+<p><em>cornerstones of mathematics</em> → “những viên đá nền tảng của Toán học”.</p>
+</blockquote>
+<p>Điều này mang ba ý nghĩa:</p>
+<p><em>(1) Toán học được xây dựng trên lập luận và kiến tạo ý nghĩa</em> Chúng không đến sau nội dung - chúng tạo ra nội dung.</p>
+<p><em>(2) Không có reasoning-sense making → không có tư duy toán học đúng nghĩa</em> Công thức, kỹ thuật, bài tập đều phải dựa vào chúng.</p>
+<p><em>(3) Đây là lập trường triết lý của NCTM đối với giáo dục Toán.</em></p>
+<p><strong>2. Tái cấu trúc chương trình Toán THPT xoay quanh reasoning-sense making</strong></p>
+<p>Đoạn văn khẳng định:</p>
+<p><em>(1) Chương trình hiện tại chưa được xây dựng theo tư duy này</em> → dẫn đến học thuộc lòng, thiếu hiểu biết khái niệm.</p>
+<p><em>(2) Tái cấu trúc = thay đổi trọng tâm</em> Từ: “quy trình - kỹ thuật - công thức” Sang: “tư duy - hiểu biết - lập luận - kết nối”.</p>
+<p><em>(3) Đây không phải sửa nhỏ; đây là </em>thay đổi hệ trục* của chương trình.*</p>
+<p><strong>3. Hai loại tri thức học sinh cần được phát triển</strong></p>
+<p>NCTM nhắc lại phân loại cốt lõi:</p>
+<p><em>(1) Content knowledge</em> → Tri thức nội dung: số, đại số, hàm số, hình học, thống kê.</p>
+<p><em>(2) Process knowledge</em> → Tri thức quá trình: giải quyết vấn đề, chứng minh, giao tiếp, kết nối, biểu diễn.</p>
+<p>Điểm mấu chốt:</p>
+<blockquote class="blockquote">
+<p>Reasoning-Sense making nuôi dưỡng <em>cả hai loại tri thức</em>.</p>
+</blockquote>
+<p>Ngược với quan niệm cũ cho rằng quá trình chỉ phục vụ bổ trợ cho nội dung.</p>
+<p><strong>4. Thành công trong học Toán tiếp theo và trong đời sống</strong></p>
+<p>Đoạn văn nhấn mạnh hai phạm vi thành công:</p>
+<p><em>(1) Success in continuing study of mathematics</em> → có nền tảng vững chắc để học cao hơn.</p>
+<p><em>(2) Success in their lives</em> → dùng được toán trong suy luận, công việc, và quyết định thực tế.</p>
+<p>Điều này kết nối trở lại với phần đầu chương: <em>toán cho cuộc sống - toán cho công việc - toán cho STEM.</em></p>
+<p><strong>5. Thuật ngữ quan trọng</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 52%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Thuật ngữ</th>
+<th>Giải nghĩa</th>
+<th>Gợi ý dịch</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>cornerstones</em></td>
+<td>nền tảng, trụ cột cấu trúc</td>
+<td>viên đá nền tảng</td>
+</tr>
+<tr class="even">
+<td><em>restructuring</em></td>
+<td>tái cấu trúc, thay đổi trọng tâm</td>
+<td>tái cấu trúc</td>
+</tr>
+<tr class="odd">
+<td><em>content knowledge</em></td>
+<td>tri thức nội dung toán học</td>
+<td>tri thức nội dung</td>
+</tr>
+<tr class="even">
+<td><em>process knowledge</em></td>
+<td>tri thức về các quá trình toán học</td>
+<td>tri thức quá trình</td>
+</tr>
+<tr class="odd">
+<td><em>continuing study</em></td>
+<td>việc học Toán tiếp theo ở các cấp cao hơn</td>
+<td>học Toán tiếp theo</td>
+</tr>
+</tbody>
+</table>
+<p><strong>6. Ý nghĩa triết lý của đoạn</strong></p>
+<p>Đoạn kết này tóm lược tư tưởng xuyên suốt chương:</p>
+<ul>
+<li>Toán học không phải là danh sách công thức - nó là một quá trình tinh thần.</li>
+<li>Reasoning và sense making chính là bản chất của quá trình đó.</li>
+<li>Chương trình Toán THPT phải xoay quanh tư duy, chứ không xoay quanh kỹ thuật.</li>
+<li>Mục tiêu cuối cùng là hình thành con người tư duy độc lập, hiểu sâu và hành động có lý tính - không chỉ học sinh biết làm bài tập.</li>
+</ul>
+<p>Chương 1 kết thúc bằng việc mở đường sang Chương 2 - nơi NCTM phân tích các <em>thói quen tư duy</em> (reasoning habits) mà học sinh cần phát triển trong suốt hành trình học Toán THPT.</p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+
+</div>
+<div class="col-translation">
+
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+
+</div>
+<div class="col-translation">
+
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+
+</div>
+<div class="col-translation">
+
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+
+</div>
+<div class="col-translation">
+
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+
+</div>
+<div class="col-translation">
+
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+
+</div>
+<div class="col-translation">
+
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+
+</div>
+<div class="col-translation">
+
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+
+</div>
+<div class="col-translation">
+
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+
+</div>
+<div class="col-translation">
+
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+
+
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a><br>
+<br> <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a><br>
+<br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
