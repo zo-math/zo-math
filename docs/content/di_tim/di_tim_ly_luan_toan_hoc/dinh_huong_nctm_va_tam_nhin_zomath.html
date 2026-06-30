@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>dinh_huong_nctm_va_tam_nhin_zomath – ZO Math</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-3d1903c5838503892ba651cf513ab205.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+
+<link rel="stylesheet" href="../../../assets/css/custom.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-11/index.qmd">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-12/index.qmd">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.qmd">
+ <span class="dropdown-text">100+ Hàm số</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-o/index.qmd"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-lab/index.qmd"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/shop/index.html"> 
+<span class="menu-text">ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block"></header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Trên trang này</h2>
+   
+  <ul>
+  <li><a href="#định-hướng-nctm-và-tầm-nhìn-zo-math" id="toc-định-hướng-nctm-và-tầm-nhìn-zo-math" class="nav-link active" data-scroll-target="#định-hướng-nctm-và-tầm-nhìn-zo-math">Định hướng NCTM và Tầm nhìn ZO Math</a>
+  <ul class="collapse">
+  <li><a href="#triết-lý-nctm-trong-một-trang" id="toc-triết-lý-nctm-trong-một-trang" class="nav-link" data-scroll-target="#triết-lý-nctm-trong-một-trang">1. Triết lý NCTM trong một trang</a>
+  <ul class="collapse">
+  <li><a href="#toán-học-là-cách-tư-duy-không-chỉ-là-nội-dung" id="toc-toán-học-là-cách-tư-duy-không-chỉ-là-nội-dung" class="nav-link" data-scroll-target="#toán-học-là-cách-tư-duy-không-chỉ-là-nội-dung">1.1. Toán học là cách tư duy, không chỉ là nội dung</a></li>
+  <li><a href="#hai-trụ-cột-content-standards-và-process-standards" id="toc-hai-trụ-cột-content-standards-và-process-standards" class="nav-link" data-scroll-target="#hai-trụ-cột-content-standards-và-process-standards">1.2. Hai trụ cột: Content Standards và Process Standards</a></li>
+  <li><a href="#reasoning-sense-making-là-cốt-lõi-của-toán-học" id="toc-reasoning-sense-making-là-cốt-lõi-của-toán-học" class="nav-link" data-scroll-target="#reasoning-sense-making-là-cốt-lõi-của-toán-học">1.3. Reasoning &amp; Sense Making <em>là</em> cốt lõi của toán học</a></li>
+  <li><a href="#học-sinh-phải-làm-toán-không-chỉ-làm-bài-tập" id="toc-học-sinh-phải-làm-toán-không-chỉ-làm-bài-tập" class="nav-link" data-scroll-target="#học-sinh-phải-làm-toán-không-chỉ-làm-bài-tập">1.4. Học sinh phải <em>làm toán</em>, không chỉ <em>làm bài tập</em></a></li>
+  <li><a href="#mục-tiêu-cuối-cùng-công-dân-biết-tư-duy-định-lượng" id="toc-mục-tiêu-cuối-cùng-công-dân-biết-tư-duy-định-lượng" class="nav-link" data-scroll-target="#mục-tiêu-cuối-cùng-công-dân-biết-tư-duy-định-lượng">1.5. Mục tiêu cuối cùng: công dân biết tư duy định lượng</a></li>
+  </ul></li>
+  <li><a href="#sơ-đồ-tư-duy-hệ-thống-nctm-dạng-chữ" id="toc-sơ-đồ-tư-duy-hệ-thống-nctm-dạng-chữ" class="nav-link" data-scroll-target="#sơ-đồ-tư-duy-hệ-thống-nctm-dạng-chữ">2. Sơ đồ tư duy hệ thống NCTM (dạng chữ)</a></li>
+  <li><a href="#so-sánh-nctm-với-chương-trình-việt-nam-tóm-tắt-nhanh" id="toc-so-sánh-nctm-với-chương-trình-việt-nam-tóm-tắt-nhanh" class="nav-link" data-scroll-target="#so-sánh-nctm-với-chương-trình-việt-nam-tóm-tắt-nhanh">3. So sánh NCTM với chương trình Việt Nam (tóm tắt nhanh)</a>
+  <ul class="collapse">
+  <li><a href="#triết-lý" id="toc-triết-lý" class="nav-link" data-scroll-target="#triết-lý">3.1. Triết lý</a></li>
+  <li><a href="#nội-dung" id="toc-nội-dung" class="nav-link" data-scroll-target="#nội-dung">3.2. Nội dung</a></li>
+  <li><a href="#năng-lực-quá-trình" id="toc-năng-lực-quá-trình" class="nav-link" data-scroll-target="#năng-lực-quá-trình">3.3. Năng lực / quá trình</a></li>
+  <li><a href="#đánh-giá" id="toc-đánh-giá" class="nav-link" data-scroll-target="#đánh-giá">3.4. Đánh giá</a></li>
+  </ul></li>
+  <li><a href="#định-hướng-dành-cho-zo-math-dựa-trên-triết-lý-nctm" id="toc-định-hướng-dành-cho-zo-math-dựa-trên-triết-lý-nctm" class="nav-link" data-scroll-target="#định-hướng-dành-cho-zo-math-dựa-trên-triết-lý-nctm">4. Định hướng dành cho ZO Math dựa trên triết lý NCTM</a>
+  <ul class="collapse">
+  <li><a href="#giữ-tinh-thần-nctm---điều-chỉnh-sang-bối-cảnh-việt-nam" id="toc-giữ-tinh-thần-nctm---điều-chỉnh-sang-bối-cảnh-việt-nam" class="nav-link" data-scroll-target="#giữ-tinh-thần-nctm---điều-chỉnh-sang-bối-cảnh-việt-nam">4.1. Giữ tinh thần NCTM - điều chỉnh sang bối cảnh Việt Nam</a></li>
+  <li><a href="#hai-lớp-nội-dung-trong-mỗi-bài-giảng" id="toc-hai-lớp-nội-dung-trong-mỗi-bài-giảng" class="nav-link" data-scroll-target="#hai-lớp-nội-dung-trong-mỗi-bài-giảng">4.2. Hai lớp nội dung trong mỗi bài giảng</a></li>
+  <li><a href="#xây-dựng-chuẩn-tư-duy-zo-math" id="toc-xây-dựng-chuẩn-tư-duy-zo-math" class="nav-link" data-scroll-target="#xây-dựng-chuẩn-tư-duy-zo-math">4.3. Xây dựng “Chuẩn tư duy ZO Math”</a></li>
+  <li><a href="#zo-math-phát-triển-độc-lập-với-tiến-độ-cải-cách-hệ-thống" id="toc-zo-math-phát-triển-độc-lập-với-tiến-độ-cải-cách-hệ-thống" class="nav-link" data-scroll-target="#zo-math-phát-triển-độc-lập-với-tiến-độ-cải-cách-hệ-thống">4.4. ZO Math phát triển độc lập với tiến độ cải cách hệ thống</a></li>
+  <li><a href="#lộ-trình-dài-hạn" id="toc-lộ-trình-dài-hạn" class="nav-link" data-scroll-target="#lộ-trình-dài-hạn">4.5. Lộ trình dài hạn</a></li>
+  </ul></li>
+  <li><a href="#kết-luận" id="toc-kết-luận" class="nav-link" data-scroll-target="#kết-luận">Kết luận</a></li>
+  </ul></li>
+  <li><a href="#zo-math-tuyên-ngôn-về-một-cộng-đồng-học-toán-hai-lớp" id="toc-zo-math-tuyên-ngôn-về-một-cộng-đồng-học-toán-hai-lớp" class="nav-link" data-scroll-target="#zo-math-tuyên-ngôn-về-một-cộng-đồng-học-toán-hai-lớp">ZO Math: Tuyên ngôn về một Cộng đồng Học Toán Hai Lớp</a>
+  <ul class="collapse">
+  <li><a href="#vì-sao-zo-math-chọn-con-đường-hai-lớp" id="toc-vì-sao-zo-math-chọn-con-đường-hai-lớp" class="nav-link" data-scroll-target="#vì-sao-zo-math-chọn-con-đường-hai-lớp"><strong>1. Vì sao ZO Math chọn con đường “hai lớp”?</strong></a></li>
+  <li><a href="#tại-sao-tư-duy-toán-học-lại-cấp-thiết-đến-vậy" id="toc-tại-sao-tư-duy-toán-học-lại-cấp-thiết-đến-vậy" class="nav-link" data-scroll-target="#tại-sao-tư-duy-toán-học-lại-cấp-thiết-đến-vậy"><strong>2. Tại sao tư duy toán học lại cấp thiết đến vậy?</strong></a>
+  <ul class="collapse">
+  <li><a href="#vì-thế-giới-không-còn-đo-năng-lực-toán-bằng-việc-làm-đúng-bài-tập" id="toc-vì-thế-giới-không-còn-đo-năng-lực-toán-bằng-việc-làm-đúng-bài-tập" class="nav-link" data-scroll-target="#vì-thế-giới-không-còn-đo-năng-lực-toán-bằng-việc-làm-đúng-bài-tập"><strong>2.1. Vì thế giới không còn đo năng lực toán bằng việc làm đúng bài tập</strong></a></li>
+  <li><a href="#vì-nền-kinh-tế-hiện-đại-cần-con-người-biết-phân-tích-không-chỉ-làm-phép-toán" id="toc-vì-nền-kinh-tế-hiện-đại-cần-con-người-biết-phân-tích-không-chỉ-làm-phép-toán" class="nav-link" data-scroll-target="#vì-nền-kinh-tế-hiện-đại-cần-con-người-biết-phân-tích-không-chỉ-làm-phép-toán"><strong>2.2. Vì nền kinh tế hiện đại cần con người biết phân tích, không chỉ làm phép toán</strong></a></li>
+  </ul></li>
+  <li><a href="#những-hạn-chế-hiện-thời-mà-zo-math-muốn-bù-đắp" id="toc-những-hạn-chế-hiện-thời-mà-zo-math-muốn-bù-đắp" class="nav-link" data-scroll-target="#những-hạn-chế-hiện-thời-mà-zo-math-muốn-bù-đắp"><strong>3. Những hạn chế hiện thời mà ZO Math muốn bù đắp</strong></a></li>
+  <li><a href="#zo-math-muốn-kiến-tạo-điều-gì" id="toc-zo-math-muốn-kiến-tạo-điều-gì" class="nav-link" data-scroll-target="#zo-math-muốn-kiến-tạo-điều-gì"><strong>4. ZO Math muốn kiến tạo điều gì?</strong></a>
+  <ul class="collapse">
+  <li><a href="#một-cộng-đồng-học-toán-nghiêm-túc-có-chiều-sâu" id="toc-một-cộng-đồng-học-toán-nghiêm-túc-có-chiều-sâu" class="nav-link" data-scroll-target="#một-cộng-đồng-học-toán-nghiêm-túc-có-chiều-sâu"><strong>(1) Một cộng đồng học toán nghiêm túc, có chiều sâu</strong></a></li>
+  <li><a href="#một-chuẩn-tư-duy-thống-nhất-cho-học-sinh-việt-nam" id="toc-một-chuẩn-tư-duy-thống-nhất-cho-học-sinh-việt-nam" class="nav-link" data-scroll-target="#một-chuẩn-tư-duy-thống-nhất-cho-học-sinh-việt-nam"><strong>(2) Một chuẩn tư duy thống nhất cho học sinh Việt Nam</strong></a></li>
+  <li><a href="#một-hệ-thống-bài-giảng-hai-lớp" id="toc-một-hệ-thống-bài-giảng-hai-lớp" class="nav-link" data-scroll-target="#một-hệ-thống-bài-giảng-hai-lớp"><strong>(3) Một hệ thống bài giảng “hai lớp”</strong></a></li>
+  <li><a href="#một-tinh-thần-học-thuật-tĩnh-tại" id="toc-một-tinh-thần-học-thuật-tĩnh-tại" class="nav-link" data-scroll-target="#một-tinh-thần-học-thuật-tĩnh-tại"><strong>(4) Một tinh thần học thuật tĩnh tại</strong></a></li>
+  </ul></li>
+  <li><a href="#kết-lời-tại-sao-zo-math-quan-trọng" id="toc-kết-lời-tại-sao-zo-math-quan-trọng" class="nav-link" data-scroll-target="#kết-lời-tại-sao-zo-math-quan-trọng"><strong>5. Kết lời: Tại sao ZO Math quan trọng?</strong></a></li>
+  </ul></li>
+  <li><a href="#about-zo-math---giới-thiệu-zo-math" id="toc-about-zo-math---giới-thiệu-zo-math" class="nav-link" data-scroll-target="#about-zo-math---giới-thiệu-zo-math">About ZO Math - Giới thiệu ZO Math</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="định-hướng-nctm-và-tầm-nhìn-zo-math" class="level1">
+<h1>Định hướng NCTM và Tầm nhìn ZO Math</h1>
+<blockquote class="blockquote">
+<p>“Toán học không bắt đầu từ công thức - mà từ tư duy.”</p>
+</blockquote>
+<p>Ghi chú này tổng hợp bốn nội dung cốt lõi:</p>
+<ol type="1">
+<li>Triết lý NCTM* trong một trang<br>
+</li>
+<li>Sơ đồ tư duy hệ thống NCTM<br>
+</li>
+<li>So sánh NCTM với chương trình Việt Nam<br>
+</li>
+<li>Định hướng dành cho ZO Math dựa trên triết lý NCTM</li>
+</ol>
+<p>*NCTM: National Council of Teachers of Mathematics (tạm dịch: Hội đồng Toán học dành cho Giáo viên Hoa Kỳ).</p>
+<section id="triết-lý-nctm-trong-một-trang" class="level2">
+<h2 class="anchored" data-anchor-id="triết-lý-nctm-trong-một-trang">1. Triết lý NCTM trong một trang</h2>
+<section id="toán-học-là-cách-tư-duy-không-chỉ-là-nội-dung" class="level3">
+<h3 class="anchored" data-anchor-id="toán-học-là-cách-tư-duy-không-chỉ-là-nội-dung">1.1. Toán học là cách tư duy, không chỉ là nội dung</h3>
+<p>Toán học trong trường phổ thông không chỉ là:</p>
+<ul>
+<li>công thức,<br>
+</li>
+<li>kỹ thuật,<br>
+</li>
+<li>phương pháp giải bài,</li>
+</ul>
+<p>mà là:</p>
+<ul>
+<li>đặt câu hỏi,<br>
+</li>
+<li>lập luận,<br>
+</li>
+<li>mô hình hóa,<br>
+</li>
+<li>giao tiếp và phản tư.</li>
+</ul>
+<p>Mục tiêu chính: <em>phát triển tư duy toán học</em>, không chỉ học xong chương trình.</p>
+</section>
+<section id="hai-trụ-cột-content-standards-và-process-standards" class="level3">
+<h3 class="anchored" data-anchor-id="hai-trụ-cột-content-standards-và-process-standards">1.2. Hai trụ cột: Content Standards và Process Standards</h3>
+<p><strong>Content Standards:</strong></p>
+<ul>
+<li>Số &amp; phép tính<br>
+</li>
+<li>Đại số<br>
+</li>
+<li>Hàm số<br>
+</li>
+<li>Hình học<br>
+</li>
+<li>Thống kê - xác suất</li>
+</ul>
+<p><strong>Process Standards:</strong></p>
+<ol type="1">
+<li>Giải quyết vấn đề<br>
+</li>
+<li>Lập luận &amp; chứng minh<br>
+</li>
+<li>Giao tiếp<br>
+</li>
+<li>Kết nối<br>
+</li>
+<li>Biểu diễn</li>
+</ol>
+<p>Nội dung phải được học <em>thông qua quá trình tư duy</em>, không tách rời.</p>
+</section>
+<section id="reasoning-sense-making-là-cốt-lõi-của-toán-học" class="level3">
+<h3 class="anchored" data-anchor-id="reasoning-sense-making-là-cốt-lõi-của-toán-học">1.3. Reasoning &amp; Sense Making <em>là</em> cốt lõi của toán học</h3>
+<ul>
+<li><em>Reasoning</em> = lập luận từ bằng chứng/giả thiết<br>
+</li>
+<li><em>Sense making</em> = hiểu bằng cách kết nối với tri thức đã có</li>
+</ul>
+<p>Chúng vừa là <em>mục tiêu</em>, vừa là <em>phương tiện</em> để học sinh tiếp cận Toán học.</p>
+</section>
+<section id="học-sinh-phải-làm-toán-không-chỉ-làm-bài-tập" class="level3">
+<h3 class="anchored" data-anchor-id="học-sinh-phải-làm-toán-không-chỉ-làm-bài-tập">1.4. Học sinh phải <em>làm toán</em>, không chỉ <em>làm bài tập</em></h3>
+<p>Lớp học phải tạo điều kiện cho học sinh:</p>
+<ul>
+<li>khám phá,<br>
+</li>
+<li>phỏng đoán,<br>
+</li>
+<li>giải thích,<br>
+</li>
+<li>biện minh,<br>
+</li>
+<li>tranh luận,<br>
+</li>
+<li>mô hình hóa.</li>
+</ul>
+<p>Giáo viên không chỉ “trình diễn lời giải” mà <em>tổ chức tư duy toán học</em>.</p>
+</section>
+<section id="mục-tiêu-cuối-cùng-công-dân-biết-tư-duy-định-lượng" class="level3">
+<h3 class="anchored" data-anchor-id="mục-tiêu-cuối-cùng-công-dân-biết-tư-duy-định-lượng">1.5. Mục tiêu cuối cùng: công dân biết tư duy định lượng</h3>
+<p>Toán học giúp học sinh:</p>
+<ul>
+<li>ra quyết định (đời sống - tài chính - thông tin),<br>
+</li>
+<li>đáp ứng nhu cầu năng lực số của nền kinh tế,<br>
+</li>
+<li>là nền tảng vào STEM.</li>
+</ul>
+</section>
+</section>
+<section id="sơ-đồ-tư-duy-hệ-thống-nctm-dạng-chữ" class="level2">
+<h2 class="anchored" data-anchor-id="sơ-đồ-tư-duy-hệ-thống-nctm-dạng-chữ">2. Sơ đồ tư duy hệ thống NCTM (dạng chữ)</h2>
+<ul>
+<li><em>NCTM - Triết lý giáo dục Toán</em>
+<ul>
+<li><em>Mục tiêu tổng quát</em>
+<ul>
+<li>Tư duy toán học<br>
+</li>
+<li>Công dân định lượng<br>
+</li>
+<li>Nền tảng STEM</li>
+</ul></li>
+<li><em>Chuẩn nội dung (Content Standards)</em>
+<ul>
+<li>Số &amp; phép tính<br>
+</li>
+<li>Đại số<br>
+</li>
+<li>Hàm số<br>
+</li>
+<li>Hình học<br>
+</li>
+<li>Thống kê &amp; Xác suất</li>
+</ul></li>
+<li><em>Chuẩn quá trình (Process Standards)</em>
+<ul>
+<li>Giải quyết vấn đề<br>
+</li>
+<li>Lập luận &amp; chứng minh<br>
+</li>
+<li>Giao tiếp<br>
+</li>
+<li>Kết nối<br>
+</li>
+<li>Biểu diễn</li>
+</ul></li>
+<li><em>Reasoning &amp; Sense Making</em>
+<ul>
+<li>trao đổi, khám phá, phỏng đoán, mô hình hóa, chứng minh<br>
+</li>
+<li>phát triển từ phi hình thức → hình thức</li>
+</ul></li>
+<li><em>Reasoning Habits (Chương 2)</em>
+<ul>
+<li>đặt câu hỏi<br>
+</li>
+<li>tìm mẫu hình<br>
+</li>
+<li>kết nối biểu diễn<br>
+</li>
+<li>kiểm tra tính hợp lý<br>
+</li>
+<li>giải thích “vì sao”<br>
+</li>
+<li>phản tư</li>
+</ul></li>
+<li><em>Tổ chức dạy học</em>
+<ul>
+<li>nhiệm vụ mở<br>
+</li>
+<li>thảo luận - tranh luận<br>
+</li>
+<li>công nghệ hỗ trợ<br>
+</li>
+</ul></li>
+<li><em>Kết quả mong đợi</em>
+<ul>
+<li>hiểu sâu<br>
+</li>
+<li>tự lập luận<br>
+</li>
+<li>vận dụng vào tình huống mới</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="so-sánh-nctm-với-chương-trình-việt-nam-tóm-tắt-nhanh" class="level2">
+<h2 class="anchored" data-anchor-id="so-sánh-nctm-với-chương-trình-việt-nam-tóm-tắt-nhanh">3. So sánh NCTM với chương trình Việt Nam (tóm tắt nhanh)</h2>
+<section id="triết-lý" class="level3">
+<h3 class="anchored" data-anchor-id="triết-lý">3.1. Triết lý</h3>
+<p><strong>NCTM / quốc tế:</strong></p>
+<ul>
+<li>Toán = tư duy<br>
+</li>
+<li>Reasoning &amp; sense making là trọng tâm</li>
+</ul>
+<p><strong>Việt Nam (phổ biến):</strong></p>
+<ul>
+<li>Toán = kỹ thuật giải bài<br>
+</li>
+<li>Tư duy thường xuất hiện ở bài khó, không xuyên suốt</li>
+</ul>
+</section>
+<section id="nội-dung" class="level3">
+<h3 class="anchored" data-anchor-id="nội-dung">3.2. Nội dung</h3>
+<ul>
+<li>VN mạnh về kỹ thuật, tính toán, biến đổi.<br>
+</li>
+<li>NCTM mạnh về kết nối, biểu diễn, hiểu khái niệm.</li>
+</ul>
+</section>
+<section id="năng-lực-quá-trình" class="level3">
+<h3 class="anchored" data-anchor-id="năng-lực-quá-trình">3.3. Năng lực / quá trình</h3>
+<p><em>NCTM:</em> 5 Process Standards<br>
+<em>VN:</em> có trong văn bản, yếu trong thực hành lớp học.</p>
+</section>
+<section id="đánh-giá" class="level3">
+<h3 class="anchored" data-anchor-id="đánh-giá">3.4. Đánh giá</h3>
+<ul>
+<li><em>NCTM:</em> đánh giá lập luận, quá trình, giải thích<br>
+</li>
+<li><em>VN:</em> nặng trắc nghiệm, đáp số, kỹ thuật nhanh</li>
+</ul>
+<p>Luyện thi trở thành lực kéo ngược lớp học.</p>
+</section>
+</section>
+<section id="định-hướng-dành-cho-zo-math-dựa-trên-triết-lý-nctm" class="level2">
+<h2 class="anchored" data-anchor-id="định-hướng-dành-cho-zo-math-dựa-trên-triết-lý-nctm">4. Định hướng dành cho ZO Math dựa trên triết lý NCTM</h2>
+<section id="giữ-tinh-thần-nctm---điều-chỉnh-sang-bối-cảnh-việt-nam" class="level3">
+<h3 class="anchored" data-anchor-id="giữ-tinh-thần-nctm---điều-chỉnh-sang-bối-cảnh-việt-nam">4.1. Giữ tinh thần NCTM - điều chỉnh sang bối cảnh Việt Nam</h3>
+<ul>
+<li>Giữ trọng tâm reasoning - sense making<br>
+</li>
+<li>Điều chỉnh ví dụ, hoạt động, ngôn ngữ theo học sinh Việt Nam</li>
+</ul>
+</section>
+<section id="hai-lớp-nội-dung-trong-mỗi-bài-giảng" class="level3">
+<h3 class="anchored" data-anchor-id="hai-lớp-nội-dung-trong-mỗi-bài-giảng">4.2. Hai lớp nội dung trong mỗi bài giảng</h3>
+<ol type="1">
+<li>Lớp kỹ thuật - phù hợp thi cử</li>
+<li>Lớp tư duy - lý luận - khám phá</li>
+</ol>
+<p>Học sinh được bảo vệ về thi cử <em>và</em> được nuôi dưỡng tư duy.</p>
+</section>
+<section id="xây-dựng-chuẩn-tư-duy-zo-math" class="level3">
+<h3 class="anchored" data-anchor-id="xây-dựng-chuẩn-tư-duy-zo-math">4.3. Xây dựng “Chuẩn tư duy ZO Math”</h3>
+<p>Ví dụ về các “thói quen ZO Math”:</p>
+<ul>
+<li>Hỏi “Điều gì đang diễn ra?”<br>
+</li>
+<li>Tìm mẫu và cấu trúc<br>
+</li>
+<li>Kết nối điều đang học với điều đã biết<br>
+</li>
+<li>Kiểm tra tính hợp lý<br>
+</li>
+<li>Giải thích “vì sao”<br>
+</li>
+<li>Phản tư về lời giải</li>
+</ul>
+<p>Chuẩn này nên xuất hiện xuyên suốt:</p>
+<ul>
+<li>bài giảng,<br>
+</li>
+<li>hoạt động khám phá,<br>
+</li>
+<li>video,<br>
+</li>
+<li>bài 100+ Hàm số,<br>
+</li>
+<li>Đi tìm Xác suất, v.v.</li>
+</ul>
+</section>
+<section id="zo-math-phát-triển-độc-lập-với-tiến-độ-cải-cách-hệ-thống" class="level3">
+<h3 class="anchored" data-anchor-id="zo-math-phát-triển-độc-lập-với-tiến-độ-cải-cách-hệ-thống">4.4. ZO Math phát triển độc lập với tiến độ cải cách hệ thống</h3>
+<p>ZO Math có thể tạo ra:</p>
+<ul>
+<li>không gian tư duy độc lập,<br>
+</li>
+<li>tài liệu chất lượng cao cho giáo viên,<br>
+</li>
+<li>cộng đồng học sinh ham tư duy toán học.</li>
+</ul>
+</section>
+<section id="lộ-trình-dài-hạn" class="level3">
+<h3 class="anchored" data-anchor-id="lộ-trình-dài-hạn">4.5. Lộ trình dài hạn</h3>
+<ul>
+<li>Xây mạch nội dung THPT theo “hai lớp”<br>
+</li>
+<li>Viết bộ “Chuẩn tư duy ZO Math”<br>
+</li>
+<li>Xuất bản tài liệu “Toán lý luận cho THPT” dựa trên NCTM nhưng phát triển riêng cho Việt Nam</li>
+</ul>
+</section>
+</section>
+<section id="kết-luận" class="level2">
+<h2 class="anchored" data-anchor-id="kết-luận">Kết luận</h2>
+<p>NCTM đại diện cho xu thế giáo dục toán tiên tiến nhất trên thế giới. Định hướng mà ZO Math theo đuổi không chỉ đúng - mà còn <em>đi trước bối cảnh Việt Nam</em>. Ghi chú này là nền tảng để bạn hình thành:</p>
+<ul>
+<li>triết lý ZO Math,<br>
+</li>
+<li>cách dạy - cách viết - cách thiết kế nội dung,<br>
+</li>
+<li>và hệ chuẩn tư duy xuyên suốt toàn bộ hệ sinh thái.</li>
+</ul>
+<hr>
+<p>Dưới đây là <strong>bản giới thiệu dài, chuẩn mực, học thuật tĩnh tại</strong>, viết theo đúng ba yêu cầu của bạn:</p>
+<ul>
+<li>hướng đến <strong>mọi đối tượng</strong> (học sinh, phụ huynh, giáo viên, người học độc lập),</li>
+<li>giọng <strong>nghiêm trang - sáng sủa - chuẩn mực</strong>,</li>
+<li>nội dung <strong>phân tích - dẫn chứng - lập luận đầy đủ</strong>,</li>
+<li>thể hiện rõ <strong>tầm nhìn “hai lớp”</strong> của ZO Math,</li>
+<li>nêu bật tính <strong>cấp thiết</strong> của định hướng reasoning-sense making theo tinh thần của NCTM và xu thế giáo dục toán thế giới.</li>
+</ul>
+<p>Bạn có thể dùng bài này làm <strong>“Lời giới thiệu”, “Tuyên ngôn ZO Math”, “Giới thiệu cộng đồng”,</strong> hoặc làm <strong>bài viết chính thức trên trang chủ ZO Math</strong>.</p>
+<hr>
+</section>
+</section>
+<section id="zo-math-tuyên-ngôn-về-một-cộng-đồng-học-toán-hai-lớp" class="level1">
+<h1>ZO Math: Tuyên ngôn về một Cộng đồng Học Toán Hai Lớp</h1>
+<p>Trong nhiều năm qua, giáo dục toán học tại Việt Nam đã hình thành một mô hình quen thuộc: học sinh được dẫn dắt bởi lời giải mẫu, bởi kỹ thuật thao tác, bởi mục tiêu làm đúng và làm nhanh. Mô hình ấy giúp nhiều học sinh đạt điểm số tốt, nhưng lại lặng lẽ lấy đi một điều cốt tử: <strong>khả năng tư duy toán học đúng nghĩa</strong>.</p>
+<p>Trong khi đó, thế giới - được đại diện bởi các triết lý và chuẩn mực của <strong>NCTM (National Council of Teachers of Mathematics)</strong> - đã chuyển dịch mạnh mẽ sang hướng dạy học xoay quanh <strong>lập luận (reasoning)</strong> và <strong>kiến tạo ý nghĩa (sense making)</strong>. Toán học không còn được định vị như một tập hợp công thức, mà như một <em>cách sống trong tư duy</em>: biết đặt câu hỏi, biết phân tích, biết giải thích, biết đánh giá, và biết kết nối các biểu diễn.</p>
+<p>Khoảng cách giữa hai mô hình ấy đang ngày càng mở rộng.</p>
+<p>Và ZO Math được sinh ra từ chính khoảng cách đó.</p>
+<hr>
+<section id="vì-sao-zo-math-chọn-con-đường-hai-lớp" class="level2">
+<h2 class="anchored" data-anchor-id="vì-sao-zo-math-chọn-con-đường-hai-lớp"><strong>1. Vì sao ZO Math chọn con đường “hai lớp”?</strong></h2>
+<p>ZO Math nhận ra rằng học sinh Việt Nam đang đồng thời chịu hai áp lực:</p>
+<ol type="1">
+<li><strong>Áp lực bên trong</strong>: thi cử trong nước, kiểm tra định kỳ, yêu cầu thao tác nhanh, kỹ thuật thuần thục.</li>
+<li><strong>Áp lực bên ngoài</strong>: yêu cầu của thế giới về tư duy, lập luận, mô hình hóa, khả năng tiếp cận toán học hiện đại.</li>
+</ol>
+<p>Nếu chỉ học cách giải bài để thi, học sinh mất đi năng lực tư duy lâu dài. Nếu chỉ học tư duy mà không đáp ứng cách thi hiện nay, học sinh mất lợi thế trong môi trường thực tế.</p>
+<p>Một cộng đồng học toán nghiêm túc phải <strong>không đẩy học sinh vào lựa chọn giữa hai con đường ấy</strong>. ZO Math vì vậy chọn mô hình <strong>hai lớp</strong>:</p>
+<ul>
+<li><strong>Lớp 1: Tư duy - Lý luận - Reasoning &amp; Sense Making</strong> Phát triển năng lực nền tảng theo chuẩn quốc tế (NCTM, PISA, Singapore, IB), thông qua hoạt động khám phá, phân tích, biện luận và kết nối.</li>
+<li><strong>Lớp 2: Kỹ thuật - Bài tập - Thi cử trong nước</strong> Củng cố kỹ thuật, phương pháp giải bài, mẹo làm bài phù hợp yêu cầu hiện hành.</li>
+</ul>
+<p><strong>Không lớp nào thay thế lớp nào.</strong> Hai lớp cùng tồn tại, bổ trợ, tạo ra học sinh đầy đủ năng lực: <em>thực dụng trong thi cử, bản lĩnh trong tư duy</em>.</p>
+<hr>
+</section>
+<section id="tại-sao-tư-duy-toán-học-lại-cấp-thiết-đến-vậy" class="level2">
+<h2 class="anchored" data-anchor-id="tại-sao-tư-duy-toán-học-lại-cấp-thiết-đến-vậy"><strong>2. Tại sao tư duy toán học lại cấp thiết đến vậy?</strong></h2>
+<section id="vì-thế-giới-không-còn-đo-năng-lực-toán-bằng-việc-làm-đúng-bài-tập" class="level3">
+<h3 class="anchored" data-anchor-id="vì-thế-giới-không-còn-đo-năng-lực-toán-bằng-việc-làm-đúng-bài-tập"><strong>2.1. Vì thế giới không còn đo năng lực toán bằng việc làm đúng bài tập</strong></h3>
+<p>Trong <em>Reasoning and Sense Making</em> (NCTM, 2009), toán học phổ thông được định nghĩa lại:</p>
+<blockquote class="blockquote">
+<p>“Toán học là quá trình lập luận và kiến tạo ý nghĩa, được thực hiện mỗi ngày, trong mọi nội dung.”</p>
+</blockquote>
+<p>Giải bài bằng kỹ thuật không còn đủ. Học sinh cần:</p>
+<ul>
+<li>biết <em>vì sao</em> một công thức đúng,</li>
+<li>biết <em>khi nào</em> một phương pháp có thể áp dụng,</li>
+<li>biết <em>đánh giá</em> tính hợp lý của kết quả,</li>
+<li>biết <em>chuyển đổi</em> giữa nhiều biểu diễn (đồ thị - bảng - mô tả - công thức),</li>
+<li>biết <em>phát triển lập luận</em>, không chỉ đưa ra đáp số.</li>
+</ul>
+<p>Đây là những tiêu chuẩn đã trở thành phổ quát trong OECD/PISA, Common Core, Singapore Math, IB, Cambridge A-level, và hàng chục hệ thống giáo dục chất lượng cao khác.</p>
+</section>
+<section id="vì-nền-kinh-tế-hiện-đại-cần-con-người-biết-phân-tích-không-chỉ-làm-phép-toán" class="level3">
+<h3 class="anchored" data-anchor-id="vì-nền-kinh-tế-hiện-đại-cần-con-người-biết-phân-tích-không-chỉ-làm-phép-toán"><strong>2.2. Vì nền kinh tế hiện đại cần con người biết phân tích, không chỉ làm phép toán</strong></h3>
+<p>Ngày nay, toán học xuất hiện trong:</p>
+<ul>
+<li>dữ liệu và trí tuệ nhân tạo,</li>
+<li>mô hình tài chính cá nhân,</li>
+<li>phân tích rủi ro,</li>
+<li>chiến lược kinh doanh,</li>
+<li>truyền thông số,</li>
+<li>y sinh - kỹ thuật - công nghệ thông tin.</li>
+</ul>
+<p>Một học sinh chỉ giỏi làm kỹ thuật trong bài kiểm tra sẽ hụt hơi trong các môi trường này. Một học sinh biết lập luận, phân tích, đánh giá, mô hình hóa - sẽ sống được bằng tri thức toán học.</p>
+<hr>
+</section>
+</section>
+<section id="những-hạn-chế-hiện-thời-mà-zo-math-muốn-bù-đắp" class="level2">
+<h2 class="anchored" data-anchor-id="những-hạn-chế-hiện-thời-mà-zo-math-muốn-bù-đắp"><strong>3. Những hạn chế hiện thời mà ZO Math muốn bù đắp</strong></h2>
+<p>Không phải do giáo viên không nhìn thấy vấn đề. Không phải do học sinh không có năng lực.</p>
+<p>Vấn đề nằm ở:</p>
+<ul>
+<li>cấu trúc thi cử thiên về tốc độ và kỹ thuật,</li>
+<li>sĩ số lớp đông,</li>
+<li>thời lượng hạn chế,</li>
+<li>chương trình dày đặc,</li>
+<li>thiếu tài liệu dạy reasoning trong bối cảnh Việt Nam,</li>
+<li>thiếu một hệ chuẩn tư duy để giáo viên dựa vào.</li>
+</ul>
+<p>ZO Math không thay thế hệ thống, nhưng ZO Math có thể <strong>xây một vùng an toàn cho tư duy</strong> - nơi học sinh được rèn luyện những năng lực mà môi trường lớp học truyền thống không có điều kiện nuôi dưỡng.</p>
+<hr>
+</section>
+<section id="zo-math-muốn-kiến-tạo-điều-gì" class="level2">
+<h2 class="anchored" data-anchor-id="zo-math-muốn-kiến-tạo-điều-gì"><strong>4. ZO Math muốn kiến tạo điều gì?</strong></h2>
+<p>ZO Math hướng đến việc xây dựng:</p>
+<section id="một-cộng-đồng-học-toán-nghiêm-túc-có-chiều-sâu" class="level3">
+<h3 class="anchored" data-anchor-id="một-cộng-đồng-học-toán-nghiêm-túc-có-chiều-sâu"><strong>(1) Một cộng đồng học toán nghiêm túc, có chiều sâu</strong></h3>
+<p>Không chạy theo đáp số. Không bị bó buộc bởi kỹ thuật. Không xem toán là một chuỗi thách thức “giải nhanh”.</p>
+</section>
+<section id="một-chuẩn-tư-duy-thống-nhất-cho-học-sinh-việt-nam" class="level3">
+<h3 class="anchored" data-anchor-id="một-chuẩn-tư-duy-thống-nhất-cho-học-sinh-việt-nam"><strong>(2) Một chuẩn tư duy thống nhất cho học sinh Việt Nam</strong></h3>
+<p>Gồm các thói quen:</p>
+<ul>
+<li>đặt câu hỏi “Điều gì đang diễn ra ở đây?”</li>
+<li>tìm mẫu và cấu trúc</li>
+<li>kết nối điều đang học với điều đã biết</li>
+<li>kiểm tra tính hợp lý</li>
+<li>giải thích <em>vì sao</em></li>
+<li>phản tư sau mỗi lời giải</li>
+</ul>
+<p>Đây là phiên bản “Vietnam-adapted” của <em>Reasoning Habits</em> trong NCTM.</p>
+</section>
+<section id="một-hệ-thống-bài-giảng-hai-lớp" class="level3">
+<h3 class="anchored" data-anchor-id="một-hệ-thống-bài-giảng-hai-lớp"><strong>(3) Một hệ thống bài giảng “hai lớp”</strong></h3>
+<ul>
+<li>Lớp kỹ thuật phục vụ thi cử</li>
+<li>Lớp tư duy phục vụ phát triển lâu dài</li>
+</ul>
+<p>Mỗi bài học đều mang hai lớp này, không tách rời.</p>
+</section>
+<section id="một-tinh-thần-học-thuật-tĩnh-tại" class="level3">
+<h3 class="anchored" data-anchor-id="một-tinh-thần-học-thuật-tĩnh-tại"><strong>(4) Một tinh thần học thuật tĩnh tại</strong></h3>
+<p>Trang trọng, sáng sủa, nghiêm túc, nhân văn - thay vì gây áp lực, đe nẹt, hay chạy đua.</p>
+<hr>
+</section>
+</section>
+<section id="kết-lời-tại-sao-zo-math-quan-trọng" class="level2">
+<h2 class="anchored" data-anchor-id="kết-lời-tại-sao-zo-math-quan-trọng"><strong>5. Kết lời: Tại sao ZO Math quan trọng?</strong></h2>
+<p>Bởi vì ZO Math không chỉ dạy toán. ZO Math dạy <strong>cách nhìn thế giới qua toán học</strong>.</p>
+<p>Học sinh trong cộng đồng ZO Math sẽ:</p>
+<ul>
+<li>làm được bài thi trong nước,</li>
+<li>không tụt hậu so với thế giới,</li>
+<li>hiểu vì sao toán học có giá trị,</li>
+<li>và quan trọng hơn cả: <strong>trở thành người có tư duy vững vàng, biết phân tích, biết đánh giá, biết kết nối, biết hiểu bản chất.</strong></li>
+</ul>
+<p>ZO Math không phải là một lớp học. ZO Math là một <em>cộng đồng tư duy</em>.</p>
+<p>Và đây mới chỉ là điểm khởi đầu.</p>
+<hr>
+<p>Nếu bạn muốn, mình có thể viết thêm:</p>
+<ul>
+<li>phiên bản ngắn (poster / landing page),</li>
+<li>phiên bản “gây thương nhớ” theo phong cách văn crush,</li>
+<li>phiên bản dùng cho mục “About us” trên website,</li>
+<li>hoặc bản mô tả tầm nhìn dài hạn để đưa vào hồ sơ dự án.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="about-zo-math---giới-thiệu-zo-math" class="level1">
+<h1>About ZO Math - Giới thiệu ZO Math</h1>
+<p>ZO Math được hình thành từ một nhu cầu rõ ràng và cấp thiết: <em>xây dựng một cộng đồng học toán nghiêm túc</em>, nơi học sinh và người học độc lập được phát triển tư duy toán học theo chuẩn quốc tế, nhưng đồng thời vẫn đáp ứng đầy đủ yêu cầu học tập và thi cử trong nước.</p>
+<p>Trong nhiều năm, giáo dục toán học Việt Nam đã vận hành chủ yếu theo mô hình luyện kỹ thuật và lời giải mẫu. Mô hình ấy giúp học sinh làm đúng bài tập, nhưng lại khó tạo nên những năng lực cốt lõi mà thế giới xem là nền tảng của toán học: <em>lập luận (reasoning)</em>, <em>kiến tạo ý nghĩa (sense making)</em>, <em>phân tích</em>, <em>mô hình hóa</em>, và <em>diễn đạt tư duy một cách rõ ràng</em>.</p>
+<p>Trái lại, các chuẩn mực hiện đại do <em>National Council of Teachers of Mathematics (NCTM)</em> dẫn dắt xem toán học phổ thông là một quá trình tư duy sâu sắc: học sinh phải được đặt trong tình huống khám phá, so sánh, tranh luận, giải thích, chứng minh, và kết nối nhiều biểu diễn. Những năng lực đó không chỉ phục vụ học thuật mà còn trở thành nền tảng của công dân số trong thế kỷ 21.</p>
+<p>ZO Math lựa chọn một định hướng khác: <em>một mô hình “hai lớp”</em>, trong đó:</p>
+<ul>
+<li><em>Lớp tư duy</em> phát triển khả năng lập luận và hiểu sâu theo tinh thần Reasoning &amp; Sense Making;</li>
+<li><em>Lớp kỹ thuật</em> hỗ trợ học sinh làm bài thi, nắm chắc phương pháp, và đáp ứng yêu cầu của chương trình hiện hành.</li>
+</ul>
+<p>Hai lớp này <em>không tách biệt</em> mà song hành trong mọi bài học, giúp học sinh vừa “vững tư duy” vừa “vững kỹ thuật”.</p>
+<p>Chúng tôi tin rằng người học toán không được hình thành chỉ bằng kỹ thuật, mà bằng <em>thói quen tư duy</em>: biết nhìn vào cấu trúc, biết đặt câu hỏi, biết lý giải, biết kiểm tra tính hợp lý, và biết kết nối điều mới với điều đã biết. Những thói quen đó chính là nền tảng để học sinh học tốt hơn, hiểu sâu hơn, và sử dụng toán học trong cuộc sống một cách tự tin và có trách nhiệm.</p>
+<p>ZO Math không chỉ là một website hay một tài nguyên học tập. ZO Math là một <em>cộng đồng tư duy</em>, một hệ sinh thái tri thức hướng tới việc nuôi dưỡng người học trở thành những cá nhân có khả năng phân tích, lý luận, và nhìn thế giới bằng con mắt của toán học.</p>
+<p>Từ hệ thống bài giảng, hoạt động khám phá, bài viết học thuật, công cụ trực quan đến các dự án như <em>Đi tìm Lý luận Toán học</em>, <em>Đi tìm Xác suất</em>, <em>100+ Hàm số</em>, ZO Math cam kết đồng hành cùng người học trong hành trình xây dựng tư duy vững chắc, sâu sắc và có ý nghĩa.</p>
+<p><strong><em>ZO Math - Học để hiểu. Hiểu để tư duy. Tư duy để trưởng thành.</em></strong></p>
+<hr>
+<p>Nếu bạn muốn, mình có thể tạo thêm:</p>
+<ul>
+<li>phiên bản cực ngắn (3-4 câu) cho footer hoặc sidebar,</li>
+<li>phiên bản mang tính “thương hiệu” cho banner trang chủ,</li>
+<li>bản tiếng Anh để dùng trong hồ sơ hoặc publication.</li>
+</ul>
+<p>Bạn muốn mở rộng hướng nào tiếp theo?</p>
+<hr>
+
+
+</section>
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a><br>
+<br> <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a><br>
+<br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
