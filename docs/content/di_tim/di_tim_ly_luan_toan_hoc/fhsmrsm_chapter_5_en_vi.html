@@ -1,0 +1,2117 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="ZO Math">
+
+<title>Trọng tâm trong Toán học Trung học Phổ thông: Lý luận và kiến tạo ý nghĩa – ZO Math</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-3d1903c5838503892ba651cf513ab205.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../assets/css/custom.css">
+<link rel="stylesheet" href="../../../assets/css/three-columns.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-11/index.qmd">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-12/index.qmd">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.qmd">
+ <span class="dropdown-text">100+ Hàm số</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-o/index.qmd"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-lab/index.qmd"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/shop/index.html"> 
+<span class="menu-text">ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page">
+      <h1 class="title">Trọng tâm trong Toán học Trung học Phổ thông: Lý luận và kiến tạo ý nghĩa</h1>
+            <p class="subtitle lead">Focus in High School Mathematics - Reasoning and Sense Making: Bản dịch đối chiếu song ngữ Anh - Việt</p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-page">
+
+      <div>
+      <div class="quarto-title-meta-heading">Tác giả</div>
+      <div class="quarto-title-meta-contents">
+               <p>ZO Math </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Ngày cập nhật</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">20-04-2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
+
+
+
+
+
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="chapter-5.-reasoning-with-algebraic-symbols" class="level2 col-original">
+<h2 class="anchored" data-anchor-id="chapter-5.-reasoning-with-algebraic-symbols">Chapter 5. Reasoning with Algebraic Symbols</h2>
+</section>
+<section id="chương-5.-luận-với-ký-hiệu-đại-số" class="level2 col-translation">
+<h2 class="anchored" data-anchor-id="chương-5.-luận-với-ký-hiệu-đại-số">Chương 5. Luận với ký hiệu đại số</h2>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>The algebraic notation we use today is a major accomplishment of humankind, allowing for the compact representation of complex calculations and problems (Fey 1984; Radford and Puig 2007). However, that very compactness can be a barrier to sense making (Radford and Puig 2007; Saul 2001). A basic task for teachers of algebra is to help students reason their way through that barrier.</p>
+<p>Key elements of reasoning and sense making with algebraic symbols include the following:</p>
+<ul>
+<li><em>Meaningful use of symbols.</em> Choosing variables and constructing expressions and equations in context; interpreting the form of expressions and equations; manipulating expressions so that interesting interpretations can be made.</li>
+<li><em>Mindful manipulation.</em> Connecting manipulation with the laws of arithmetic; anticipating the results of manipulations; choosing procedures purposefully in context; picturing calculations mentally.</li>
+<li><em>Reasoned solving.</em> Seeing solution steps as logical deductions about equality; interpreting solutions in context.</li>
+<li><em>Connecting algebra with geometry.</em> Representing geometric situations algebraically and algebraic situations geometrically; using connections in solving problems.</li>
+<li><em>Linking expressions and functions.</em> Using multiple algebraic representations to understand functions; working with function notation.</li>
+</ul>
+<p>We address these key elements in more detail in the following sections.</p>
+</div>
+<div class="col-translation">
+<p>Ký hiệu đại số mà ta sử dụng ngày nay là một thành tựu lớn của nhân loại, cho phép biểu diễn gọn gàng những phép tính và bài toán phức tạp (Fey 1984; Radford và Puig 2007). Tuy nhiên, chính sự cô đọng đó đôi khi lại trở thành rào cản đối với việc hiểu (Radford và Puig 2007; Saul 2001). Một nhiệm vụ cơ bản của giáo viên đại số là giúp học sinh luận để vượt qua rào cản ấy.</p>
+<p>Các yếu tố then chốt của luận và hiểu với các ký hiệu đại số bao gồm:</p>
+<ul>
+<li><em>Sử dụng ký hiệu có nghĩa.</em> Chọn biến và lập các biểu thức, phương trình trong ngữ cảnh; diễn giải dạng của các biểu thức và phương trình; biến đổi biểu thức để có thể đưa ra những diễn giải đáng chú ý.</li>
+<li><em>Biến đổi có ý thức.</em> Gắn việc biến đổi với các quy luật số học; dự đoán kết quả của các phép biến đổi; lựa chọn thủ tục có chủ đích trong ngữ cảnh; hình dung các phép tính trong đầu.</li>
+<li><em>Giải có luận cứ.</em> Nhìn nhận các bước giải như những suy diễn có tính luận lý về quan hệ bằng nhau; diễn giải nghiệm trong ngữ cảnh.</li>
+<li><em>Kết nối đại số với hình học.</em> Biểu diễn các tình huống hình học bằng đại số và các tình huống đại số bằng hình học; sử dụng các kết nối đó trong quá trình giải quyết vấn đề.</li>
+<li><em>Liên kết biểu thức và hàm số.</em> Sử dụng nhiều dạng biểu diễn đại số để hiểu biết hàm số; làm việc với ký hiệu hàm.</li>
+</ul>
+<p>Chúng tôi sẽ trình bày chi tiết hơn các yếu tố then chốt này trong các phần tiếp theo.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="meaningful-use-of-symbols" class="level3 col-original">
+<h3 class="anchored" data-anchor-id="meaningful-use-of-symbols">Meaningful Use of Symbols</h3>
+</section>
+<section id="sử-dụng-ký-hiệu-một-cách-có-nghĩa" class="level3 col-translation">
+<h3 class="anchored" data-anchor-id="sử-dụng-ký-hiệu-một-cách-có-nghĩa">Sử dụng ký hiệu một cách có nghĩa</h3>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Meaningful use of symbols includes carefully defining the meaning of symbols introduced to solve problems, including specifying units and distinguishing among the three main uses of variables — (1) as unknowns (e.g., find the value of <span class="math inline">\(Q\)</span> such that <span class="math inline">\(3Q - 4 = 11\)</span>), (2) as placeholders that can take on a range of values (e.g., <span class="math inline">\(a + c = c + a\)</span> for all <span class="math inline">\(a\)</span> and <span class="math inline">\(c\)</span>), and (3) as parameters of a function (e.g., What is the effect of increasing m on the graph of <span class="math inline">\(y = mx + b\)</span>?) (Usiskin 1988).</p>
+</div>
+<div class="col-translation">
+<p>Sử dụng ký hiệu có nghĩa bao gồm việc xác định rõ ràng ý nghĩa của các ký hiệu được đưa vào để giải quyết vấn đề, trong đó có việc chỉ rõ đơn vị đo và phân biệt ba cách sử dụng biến số: (1) như là ẩn số (ví dụ: tìm giá trị của <span class="math inline">\(Q\)</span> sao cho <span class="math inline">\(3Q - 4 = 11\)</span>); (2) như là ký hiệu giữ chỗ có thể nhận nhiều giá trị (ví dụ: <span class="math inline">\(a + c = c + a\)</span> với mọi <span class="math inline">\(a\)</span> và <span class="math inline">\(c\)</span>); (3) như là tham số của một hàm số (ví dụ: ảnh hưởng của việc tăng <span class="math inline">\(m\)</span> đối với đồ thị của hàm <span class="math inline">\(y = mx + b\)</span> là gì?) (Usiskin 1988).</p>
+</div>
+<div class="col-notes">
+<p>Có ba loại biến: - biến-ẩnsố, - biến-tham số, - biến-giữ chỗ (biến-tự do).</p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Although a long-term goal of algebraic learning is a fluid, nearly automatic facility with manipulating algebraic expressions that might seem to resemble what is often called “mindless manipulation,” this ease can best be achieved by first learning to pay close attention to interpreting expressions, both at a formal level and as statements about real-world situations. At the outset, the reasons and justifi cations for forming and manipulating expressions should be major emphases of instruction (Kaput, Blanton, and Moreno 2008). As comfort with expressions grows, constructing and interpreting them require less and less effort and gradually become almost subconscious. The true foundation for algebraic manipulation is close attention to meaning and structure.</p>
+</div>
+<div class="col-translation">
+<p>Mặc dù một mục tiêu dài hạn của việc học đại số là đạt tới sự thành thạo trôi chảy, gần như tự động, trong việc biến đổi các biểu thức đại số, một năng lực thoạt nhìn có thể giống với điều thường được gọi là “sự biến đổi vô thức”, thì sự thành thạo ấy được hình thành tốt nhất khi trước hết người học học cách chú ý sát sao đến việc diễn giải các biểu thức, cả ở bình diện hình thức lẫn ở bình diện như những phát biểu về các tình huống trong thế giới thực. Ở giai đoạn đầu, các lí do và sự biện minh cho việc lập nên và biến đổi các biểu thức cần phải là những trọng tâm lớn của dạy học (Kaput, Blanton, and Moreno 2008). Khi mức độ thành thạo với các biểu thức tăng lên, việc tạo lập và diễn giải chúng đòi hỏi ngày càng ít công sức hơn và dần trở nên gần như dưới ngưỡng ý thức. Nền tảng thực sự của việc biến đổi đại số là sự chú ý sát sao đến ý nghĩa và cấu trúc.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Reasoning with algebraic expressions depends on being able to read them in different ways, for example, seeing <span class="math inline">\(3 - (4 - x)^2\)</span> as 3 minus a quantity squared and thus as a value less than or equal to 3, as a function of <span class="math inline">\(4 - x\)</span>, and as a function of <span class="math inline">\(x\)</span>. In example 5 students are asked to interpret the purposes of different forms of the same expression.</p>
+</div>
+<div class="col-translation">
+<p>Luận với biểu thức đại số phụ thuộc vào khả năng đọc chúng theo nhiều cách khác nhau. Chẳng hạn, biểu thức <span class="math inline">\(3 - (4 - x)^2\)</span> có thể được hiểu là <span class="math inline">\(3\)</span> trừ đi bình phương của một đại lượng, từ đó suy ra giá trị của nó luôn nhỏ hơn hoặc bằng <span class="math inline">\(3\)</span>; đồng thời có thể được xem như một hàm theo biến <span class="math inline">\(4 - x\)</span>, và cũng là một hàm theo biến <span class="math inline">\(x\)</span>. Trong Ví dụ 5, học sinh được yêu cầu diễn giải mục đích của các dạng khác nhau của cùng một biểu thức.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="example-5-horeshoes-in-flight" class="level4 col-original">
+<h4 class="anchored" data-anchor-id="example-5-horeshoes-in-flight">Example 5: Horeshoes in Flight</h4>
+<p><strong>Task</strong></p>
+<p>The height of a thrown horseshoe depends on the time that has elapsed since its release, as shown in the graph. Note that this graph is parabolic, but it may not be the same as the graph of the horseshoe’s path. Its height (measured in feet) as a function of time (measured in seconds) from the instant of release is</p>
+<p><span class="math display">\[
+  1\frac{3}{16}+18t-16t^2.
+\]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p32_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>The expressions (a)–(d) below are equivalent. Which is most useful for finding the maximum height of the horseshoe, and why is it the most useful expression?</p>
+<ol type="a">
+<li><span class="math inline">\(1\frac{3}{16}+18-16t^2\)</span></li>
+<li><span class="math inline">\(-16\left(t-\frac{19}{16}\right)\left(t+\frac{1}{16}\right)\)</span></li>
+<li><span class="math inline">\(\frac{1}{16}\left(19-16t\right)\left(16t+1\right)\)</span></li>
+<li><span class="math inline">\(-16\left(t-\frac{19}{16}\right)^2+\frac{100}{16}\)</span></li>
+</ol>
+<p><strong>In the Classroom (Second-Year Algebra)</strong></p>
+<div class="dialogue">
+<dl>
+<dt>Group report:</dt>
+<dd>
+We eliminated expression (a). It tells us the starting height and starting upward speed, but the question is not about either of those. Expressions (b) and (c) are pretty much the same, except that the denominators in the factors have been pulled out in front in (c). One of us used (b) to find the zeros (<span class="math inline">\(\frac{19}{16}\)</span> and <span class="math inline">\(-\frac{1}{16}\)</span>), and then found the midpoint (<span class="math inline">\(\frac{9}{16}\)</span>), which should be the time at which the maximum height is achieved. But we finally decided on (d) because the term
+</dd>
+</dl>
+<p><span class="math display">\[
+  -16\left(t-\frac{9}{16}\right)^2
+\]</span></p>
+<p>is always negative or zero, so we could see that the height never goes above <span class="math inline">\(\frac{100}{16}\)</span> feet, or <span class="math inline">\(6\frac{1}{4}\)</span> feet, and that it reaches this height at <span class="math inline">\(t=\frac{9}{16}\)</span> seconds, which is the same as the midpoint found by using (b).</p>
+</div>
+<p><strong>Key Elements of Mathematics</strong></p>
+<p>Reasoning with Algebraic Symbols — Meaningful use of symbols; Linking expressions and functions</p>
+<p><strong>Reasoning Habits</strong></p>
+<p>Analyzing a problem — looking for hidden structure</p>
+<p>Reflecting on a solution — interpreting a solution; justifying or validating a solution</p>
+</section>
+<section id="ví-dụ-5-móng-ngựa-trên-không" class="level4 col-translation">
+<h4 class="anchored" data-anchor-id="ví-dụ-5-móng-ngựa-trên-không">Ví dụ 5: Móng ngựa trên không</h4>
+<p><strong>Nhiệm vụ</strong></p>
+<p>Độ cao của một chiếc móng ngựa được ném phụ thuộc vào thời gian đã trôi qua kể từ lúc nó rời tay, như được minh họa trên đồ thị. Lưu ý rằng đồ thị này có dạng parabol, nhưng không nhất thiết trùng với quỹ đạo chuyển động của móng ngựa. Độ cao của nó (tính bằng feet), như một hàm theo thời gian (tính bằng giây) kể từ thời điểm thả tay, được cho bởi</p>
+<p><span class="math display">\[
+1\frac{3}{16}+18t-16t^2.
+\]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p32_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Các biểu thức (a)–(d) dưới đây là tương đương nhau. Biểu thức nào hữu ích nhất để tìm độ cao lớn nhất của móng ngựa, và vì sao đó là biểu thức hữu ích nhất?</p>
+<ol type="a">
+<li><span class="math inline">\(1\frac{3}{16}+18t-16t^2\)</span><br>
+</li>
+<li><span class="math inline">\(-16\left(t-\frac{19}{16}\right)\left(t+\frac{1}{16}\right)\)</span><br>
+</li>
+<li><span class="math inline">\(\frac{1}{16}\left(19-16t\right)\left(16t+1\right)\)</span><br>
+</li>
+<li><span class="math inline">\(-16\left(t-\frac{9}{16}\right)^2+\frac{100}{16}\)</span></li>
+</ol>
+<p><strong>Trong lớp học (Đại số năm thứ hai)</strong></p>
+<div class="dialogue">
+<dl>
+<dt>Báo cáo nhóm:</dt>
+<dd>
+Chúng em loại biểu thức (a). Nó cho biết độ cao ban đầu và tốc độ đi lên ban đầu, nhưng câu hỏi không hỏi về điều nào trong hai điều đó. Các biểu thức (b) và (c) hầu như giống nhau, chỉ khác là ở (c), các mẫu số trong các thừa số đã được đưa ra ngoài phía trước. Một bạn trong nhóm dùng (b) để tìm các nghiệm <span class="math inline">\(\left(\frac{19}{16} \text{ và } -\frac{1}{16}\right)\)</span>, rồi tìm trung điểm <span class="math inline">\(\left(\frac{9}{16}\right)\)</span>, và đó phải là thời điểm mà độ cao cực đại đạt được. Nhưng cuối cùng chúng em chọn (d), vì hạng tử
+</dd>
+</dl>
+<p><span class="math display">\[
+  -16\left(t-\frac{9}{16}\right)^2
+\]</span></p>
+<p>luôn âm hoặc bằng không, nên chúng em thấy rằng độ cao không bao giờ vượt quá <span class="math inline">\(\frac{100}{16}\)</span> feet, hay <span class="math inline">\(6\frac{1}{4}\)</span> feet, và đạt tới độ cao này tại <span class="math inline">\(t=\frac{9}{16}\)</span> giây, đúng bằng trung điểm tìm được khi dùng (b).</p>
+</div>
+<p><strong>Các yếu tố then chốt của Toán học</strong></p>
+<p>Luận với ký hiệu đại số — Sử dụng ký hiệu có ý nghĩa; Liên kết biểu thức và hàm số</p>
+<p><strong>Thói quen lập luận</strong></p>
+<p>Phân tích bài toán — tìm kiếm cấu trúc ẩn</p>
+<p>Suy ngẫm về một lời giải — diễn giải lời giải; biện minh hoặc xác nhận lời giải</p>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Example 5 also raises a common difficulty to which teachers may need to be sensitive — confusion between a representation of the actual flight of an object (in this instance a horseshoe) and the time-versus-height graph. To help clarify this issue, teachers might ask such questions as “How far do you think the horseshoe would travel?” (certainly more than 1.2 feet) or “How do the scales of the two axes compare?”</p>
+</div>
+<div class="col-translation">
+<p>Ví dụ 5 cũng làm nổi bật một khó khăn phổ biến mà giáo viên cần lưu ý: sự nhầm lẫn giữa hình ảnh biểu diễn quỹ đạo chuyển động thực tế của một vật (trong trường hợp này là chiếc móng ngựa) và đồ thị biểu diễn mối quan hệ giữa thời gian và độ cao. Để làm rõ vấn đề này, giáo viên có thể đặt ra những câu hỏi như: “Theo em, chiếc móng ngựa sẽ bay được bao xa?” (chắc chắn là nhiều hơn 1.2 foot) hoặc “Thang đo trên hai trục của đồ thị khác nhau như thế nào?”</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="mindful-manipulation" class="level3 col-original">
+<h3 class="anchored" data-anchor-id="mindful-manipulation">Mindful Manipulation</h3>
+</section>
+<section id="biến-đổi-có-ý-thức" class="level3 col-translation">
+<h3 class="anchored" data-anchor-id="biến-đổi-có-ý-thức">Biến đổi có ý thức</h3>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Mindful manipulation includes learning algebraic manipulation as a process guided by understanding and goals (how do I want to use this expression, and what will make it most useful for this purpose?) and seeing that the basic rules of arithmetic provide a rationale for all legitimate manipulations of polynomial expressions. Of these, the distributive property, which is the only rule connecting the operations of addition and multiplication, is the one to which we must constantly appeal when doing anything that involves both operations at once, including a wide range of manipulations: expanding, factoring, collecting like terms, and putting fractions over a common denominator. Example 6 illustrates the difference between mindless and mindful manipulation when multiplying polynomials. It also illustrates the importance of organizing one’s solution.</p>
+</div>
+<div class="col-translation">
+<p>Biến đổi có ý thức bao gồm việc học các phép biến đổi đại số như một quá trình được dẫn dắt bởi sự hiểu biết và mục tiêu (ta muốn sử dụng biểu thức này để làm gì, và dạng nào sẽ khiến nó hữu ích nhất cho mục đích đó?), đồng thời nhận ra rằng các quy tắc cơ bản của số học chính là cơ sở lý giải cho mọi phép biến đổi hợp lệ của các biểu thức đa thức. Trong số các quy tắc này, tính chất phân phối, vốn là quy tắc duy nhất nối kết hai phép toán cộng và nhân, là quy tắc mà ta phải liên tục viện đến khi thực hiện bất kỳ thao tác nào có liên quan đồng thời đến cả hai phép toán, bao gồm một loạt các phép biến đổi như: khai triển, phân tích thành nhân tử, thu gọn các hạng tử đồng dạng, và quy đồng mẫu số. Ví dụ 6 minh họa sự khác biệt giữa biến đổi máy móc và biến đổi có ý thức khi nhân các đa thức. Đồng thời, ví dụ này cũng cho thấy tầm quan trọng của việc tổ chức lời giải.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="example-6-distribute-thoroughly" class="level4 col-original">
+<h4 class="anchored" data-anchor-id="example-6-distribute-thoroughly">Example 6: Distribute Thoroughly</h4>
+<p><strong>Task</strong></p>
+<p>Expand:</p>
+<ol type="a">
+<li><span class="math inline">\((1 + x^3)(1 + x + x^2)\)</span></li>
+<li><span class="math inline">\((1 + x)(1 + x + x^2)\)</span></li>
+</ol>
+<p><strong>In the Classroom (First-Year Algebra)</strong></p>
+<p>Student 1 is accustomed to using the mnemonic FOIL (First, Outer, Inner, Last) to expand products of two binomials, such as <span class="math inline">\((1 + x)(1 + x^2)\)</span>, and applies it to the problem <span class="math inline">\((1 + x^3)(1 + x + x^2)\)</span>, getting <span class="math inline">\(1 + x^2 + x^3 + x^5\)</span> .</p>
+<p>Student 2 says, “You missed the products of the middle term, x, in the second factor. The distributive property means we have to multiply each term of one factor with each term of the other, and then add all the products.</p>
+<p>So I get</p>
+<p><span class="math display">\[
+\begin{aligned}
+  &amp;(1 + x^3)(1 + x + x^2) \\
+    &amp;\quad= 1 \cdot 1 + 1 \cdot x + 1 \cdot x^2 + x^3 \cdot 1\\
+    &amp;\qquad + x^3 \cdot x + x^3 \cdot x^2 \\
+    &amp;\quad= 1 + x + x^2 + x^3 + x4 + x^5.
+\end{aligned}
+\]</span></p>
+<p>I sometimes remember this as ‘each with each.’ Sometimes you can just multiply the terms mentally. I like to visualize the steps and write as little as possible. For example, when I apply ‘each with each’ to</p>
+<p><span class="math display">\[
+\begin{aligned}
+  &amp;(1 - x)(1 + x + x^2) \\
+  &amp;\quad = 1 + x + x^2 - x - x^2 - x^3 \\
+  &amp;\quad = 1 - x^3,
+\end{aligned}
+\]</span></p>
+<p>I can see that the second and third terms from the multiplication by <span class="math inline">\(1\)</span> are opposites of the first and second terms from multiplication by <span class="math inline">\(-x\)</span>, so I can just write down the remaining terms.”</p>
+<p><strong>Key Elements of Mathematics</strong></p>
+<p>Reasoning with Algebraic Symbols — Meaningful use of symbols; Mindful manipulation</p>
+<p>Reasoning with Numbers and Measurements-Number systems</p>
+<p><strong>Reasoning Habits</strong></p>
+<p>Analyzing a problem — applying previously learned concepts</p>
+<p>Implementing a strategy — making purposeful use of procedures; organizing the solution</p>
+<p>Seeking and using connections</p>
+</section>
+<section id="ví-dụ-6.-phân-phối-triệt-để" class="level4 col-translation">
+<h4 class="anchored" data-anchor-id="ví-dụ-6.-phân-phối-triệt-để">Ví dụ 6. Phân phối triệt để</h4>
+<p><strong>Nhiệm vụ</strong></p>
+<p>Khai triển:</p>
+<ol type="a">
+<li><p><span class="math inline">\((1 + x^3)(1 + x + x^2)\)</span></p></li>
+<li><p><span class="math inline">\((1 + x)(1 + x + x^2)\)</span></p></li>
+</ol>
+<p><strong>Trong lớp học (Đại số năm thứ nhất)</strong></p>
+<p>Học sinh 1 đã quen dùng mẹo nhớ FOIL (First, Outer, Inner, Last) để khai triển tích của hai nhị thức, chẳng hạn như <span class="math inline">\((1 + x)(1 + x^2)\)</span>, và áp dụng nó vào bài toán <span class="math inline">\((1 + x^3)(1 + x + x^2)\)</span>, thu được <span class="math inline">\(1 + x^2 + x^3 + x^5\)</span>.</p>
+<p>Học sinh 2 nói: “Bạn đã bỏ sót các tích có chứa hạng tử ở giữa, <span class="math inline">\(x\)</span>, trong thừa số thứ hai. Tính phân phối có nghĩa là ta phải nhân mỗi hạng tử của một thừa số với mỗi hạng tử của thừa số kia, rồi cộng tất cả các tích lại.</p>
+<p>Vì thế mình được</p>
+<p><span class="math display">\[
+\begin{aligned}
+  &amp;(1 + x^3)(1 + x + x^2) \\
+    &amp;\quad= 1 \cdot 1 + 1 \cdot x + 1 \cdot x^2 + x^3 \cdot 1 \\
+    &amp;\qquad + x^3 \cdot x + x^3 \cdot x^2 \\
+    &amp;\quad= 1 + x + x^2 + x^3 + x^4 + x^5.
+\end{aligned}
+\]</span></p>
+<p>Đôi khi mình nhớ điều này bằng câu ‘mỗi với mỗi.’ Đôi khi ta có thể nhân các hạng tử ngay trong đầu. Mình thích hình dung các bước và viết ít nhất có thể. Chẳng hạn, khi mình áp dụng ‘mỗi với mỗi’ vào</p>
+<p><span class="math display">\[
+\begin{aligned}
+  &amp;(1 - x)(1 + x + x^2) \\
+  &amp;\quad = 1 + x + x^2 - x - x^2 - x^3 \\
+  &amp;\quad = 1 - x^3,
+\end{aligned}
+\]</span></p>
+<p>mình có thể thấy rằng hạng tử thứ hai và thứ ba do phép nhân với <span class="math inline">\(1\)</span> tạo ra đối nhau với hạng tử thứ nhất và thứ hai do phép nhân với <span class="math inline">\(-x\)</span> tạo ra, nên mình chỉ cần viết ra các hạng tử còn lại.”</p>
+<p><strong>Các yếu tố then chốt của toán học</strong></p>
+<p>Luận với kí hiệu đại số — Sử dụng kí hiệu một cách có nghĩa; Biến đổi một cách tỉnh táo</p>
+<p>Luận với số và đo lường — Các hệ thống số</p>
+<p><strong>Thói quen luận</strong></p>
+<p>Phân tích bài toán — vận dụng các khái niệm đã học trước đó</p>
+<p>Triển khai một chiến lược — sử dụng các thủ tục một cách có chủ đích; tổ chức lời giải</p>
+<p>Tìm kiếm và sử dụng các kết nối</p>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="reasoned-solving" class="level3 col-original">
+<h3 class="anchored" data-anchor-id="reasoned-solving">Reasoned Solving</h3>
+</section>
+<section id="giải-có-luận-cứ" class="level3 col-translation">
+<h3 class="anchored" data-anchor-id="giải-có-luận-cứ">Giải có luận cứ</h3>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Equation solving is a goal-oriented process of logical argument; it is based on general principles of equality and procedures of algebraic manipulation consistent with the rules of arithmetic. Problem solving with equations should include careful attention to increasingly difficult problems that span the border between arithmetic and algebra. Such problems can help students view algebra as a sense-making activity that extends one’s problem-solving skills into domains in which reasoning as done in arithmetic becomes too complicated or cumbersome to carry out. Seeing the essential parallels between algebraic and arithmetic solution methods can help students realize that algebra is not something totally new but simply a more powerful tool for dealing with problems that are hard to approach with arithmetic by itself (Saul 2001). In example 7 we illustrate reasoned solving of equations. Worth noting is the fact that although one student used a standard algebraic approach and the other used reasoning based on the concrete context, the steps in their solutions are essentially the same. Examples of this sort can help students see algebra as an extension of concrete arithmetic reasoning.</p>
+</div>
+<div class="col-translation">
+<p>Việc giải phương trình là một quá trình biện giải có định hướng đích đến; nó dựa trên những nguyên lí chung của sự bằng nhau và những thủ tục biến đổi đại số phù hợp với các quy tắc số học. Việc giải quyết vấn đề bằng phương trình cần bao gồm sự chú ý cẩn trọng đến những bài toán ngày càng khó hơn, nằm ở vùng ranh giới giữa số học và đại số. Những bài toán như vậy có thể giúp học sinh nhìn đại số như một hoạt động kiến tạo hiểu, mở rộng năng lực giải quyết vấn đề của mình sang những miền mà cách lập luận theo lối số học trở nên quá phức tạp hoặc quá cồng kềnh để thực hiện. Việc nhìn ra những tương đồng cốt yếu giữa các phương pháp giải bằng đại số và bằng số học có thể giúp học sinh nhận ra rằng đại số không phải là một cái gì hoàn toàn mới, mà chỉ là một công cụ mạnh hơn để xử lí những bài toán khó tiếp cận nếu chỉ dùng riêng số học (Saul 2001). Trong Ví dụ 7, chúng tôi minh họa việc giải có luận cứ đối với phương trình. Điều đáng lưu ý là mặc dù một học sinh dùng cách tiếp cận đại số quen thuộc còn học sinh kia dùng lối lập luận dựa trên ngữ cảnh cụ thể, các bước trong hai lời giải ấy về thực chất là giống nhau. Những ví dụ kiểu này có thể giúp học sinh nhìn đại số như một sự mở rộng của lập luận số học cụ thể.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="example-7-finding-balance" class="level4 col-original">
+<h4 class="anchored" data-anchor-id="example-7-finding-balance">Example 7: Finding Balance</h4>
+<p><strong>Task</strong></p>
+<p>A slab of soap on one pan of a scale balances <span class="math inline">\(\frac{3}{4}\)</span> of a slab of soap of equal weight and a <span class="math inline">\(\frac{3}{4}\)</span>-pound weight on the other pan. How much does the slab of soap weigh? Solve the problem both with an algebraic equation and by direct arithmetic reasoning. (Adapted from Kordemsky and Parry [1992])</p>
+<p><strong>In the Classroom (Ninth-Grade Students’ Solutions)</strong></p>
+<div class="dialogue">
+<dl>
+<dt>Student 1:</dt>
+<dd>
+If <span class="math inline">\(x\)</span> is the weight of the slab in pounds, then one side of the balance weighs <span class="math inline">\(x\)</span> pounds and the other weighs
+</dd>
+</dl>
+<p><span class="math display">\[
+\frac{3}{4}x+\frac{3}{4},
+\]</span></p>
+<p>so</p>
+<p><span class="math display">\[
+x=\frac{3}{4}x+\frac{3}{4}.
+\]</span></p>
+<p>Subtracting <span class="math inline">\(\frac{3}{4}\)</span> from both sides gives</p>
+<p><span class="math display">\[
+\frac{1}{4}x=\frac{3}{4}
+\]</span></p>
+<p>so <span class="math inline">\(x=3\)</span>.</p>
+<dl>
+<dt>Student 2:</dt>
+<dd>
+It’s just as easy without equations! If a slab of soap balances <span class="math inline">\(\frac{3}{4}\)</span> of a slab and <span class="math inline">\(\frac{3}{4}\)</span> pound, take <span class="math inline">\(\frac{3}{4}\)</span> of a slab off each side. That leaves <span class="math inline">\(\frac{1}{4}\)</span> of a slab on one side and <span class="math inline">\(\frac{3}{4}\)</span> pound on the other. So a quarter of a slab weighs <span class="math inline">\(\frac{3}{4}\)</span> of a pound. A full slab is four quarters, and that will make <span class="math inline">\(3\)</span> pounds.
+</dd>
+<dt>Teacher:</dt>
+<dd>
+Good! Can you see the connection between your two solutions?
+</dd>
+<dt>Student 1:</dt>
+<dd>
+Oh, I see. What she did is really the same except she didn’t use an <span class="math inline">\(x\)</span>.
+</dd>
+</dl>
+</div>
+<p><strong>Key Mathematical Elements</strong></p>
+<p>Reasoning with Algebraic Symbols — Meaningful use of symbols; Reasoned solving</p>
+<p><strong>Reasoning Habits</strong></p>
+<p>Implementing a strategy — making purposeful use of procedures; making logical deductions Seeking and using connections</p>
+</section>
+<section id="ví-dụ-7-tìm-thế-cân-bằng" class="level4 col-translation">
+<h4 class="anchored" data-anchor-id="ví-dụ-7-tìm-thế-cân-bằng">Ví dụ 7: Tìm thế cân bằng</h4>
+<p><strong>Nhiệm vụ</strong></p>
+<p>Một bánh xà phòng đặt trên một đĩa cân thì cân bằng với <span class="math inline">\(\frac{3}{4}\)</span> bánh xà phòng cùng khối lượng và một quả cân <span class="math inline">\(\frac{3}{4}\)</span> pound đặt trên đĩa bên kia. Bánh xà phòng nặng bao nhiêu? Hãy giải bài toán bằng cả một phương trình đại số lẫn lập luận số học trực tiếp. (Phỏng theo Kordemsky and Parry [1992])</p>
+<p><strong>Trong lớp học (Lời giải của học sinh lớp 9)</strong></p>
+<div class="dialogue">
+<dl>
+<dt>Học sinh 1:</dt>
+<dd>
+Nếu gọi <span class="math inline">\(x\)</span> là khối lượng của bánh xà phòng, tính theo pound, thì một bên cân nặng <span class="math inline">\(x\)</span> pound, còn bên kia nặng
+</dd>
+</dl>
+<p><span class="math display">\[
+\frac{3}{4}x+\frac{3}{4},
+\]</span></p>
+<p>nên</p>
+<p><span class="math display">\[
+x=\frac{3}{4}x+\frac{3}{4}.
+\]</span></p>
+<p>Trừ <span class="math inline">\(\frac{3}{4}x\)</span> ở cả hai vế, ta được</p>
+<p><span class="math display">\[
+\frac{1}{4}x=\frac{3}{4},
+\]</span></p>
+<p>nên <span class="math inline">\(x=3\)</span>.</p>
+<dl>
+<dt>Học sinh 2:</dt>
+<dd>
+Không cần phương trình cũng dễ như vậy thôi! Nếu một bánh xà phòng cân bằng với <span class="math inline">\(\frac{3}{4}\)</span> bánh xà phòng và <span class="math inline">\(\frac{3}{4}\)</span> pound, thì hãy lấy <span class="math inline">\(\frac{3}{4}\)</span> bánh xà phòng ra khỏi mỗi bên. Khi đó còn lại <span class="math inline">\(\frac{1}{4}\)</span> bánh xà phòng ở một bên và <span class="math inline">\(\frac{3}{4}\)</span> pound ở bên kia. Vậy một phần tư bánh xà phòng nặng <span class="math inline">\(\frac{3}{4}\)</span> pound. Một bánh đầy đủ gồm bốn phần tư, nên sẽ nặng <span class="math inline">\(3\)</span> pound.
+</dd>
+<dt>Giáo viên:</dt>
+<dd>
+Tốt! Em có nhìn ra mối liên hệ giữa hai lời giải của mình không?
+</dd>
+<dt>Học sinh 1:</dt>
+<dd>
+À, em hiểu rồi. Cách bạn ấy làm thực ra cũng y hệt, chỉ là bạn ấy không dùng <span class="math inline">\(x\)</span>.
+</dd>
+</dl>
+</div>
+<p><strong>Các yếu tố then chốt của Toán học</strong></p>
+<p>Luận với kí hiệu đại số — Sử dụng kí hiệu một cách có nghĩa; Giải có luận cứ</p>
+<p><strong>Thói quen luận</strong></p>
+<p>Triển khai một chiến lược — sử dụng các thủ tục một cách có chủ đích; rút ra các hệ quả hợp lẽ</p>
+<p>Tìm kiếm và sử dụng các kết nối</p>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="connecting-algebra-with-geometry" class="level3 col-original">
+<h3 class="anchored" data-anchor-id="connecting-algebra-with-geometry">Connecting Algebra with Geometry</h3>
+</section>
+<section id="kết-nối-đại-số-với-hình-học" class="level3 col-translation">
+<h3 class="anchored" data-anchor-id="kết-nối-đại-số-với-hình-học">Kết nối đại số với hình học</h3>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>An interplay exists between algebra and geometry: such geometric representations as graphs or figures can cast light on algebraic expressions and equations, and algebraic representations can be used to deduce geometric relationships (Katz 2007). Example 8 shows how the area model given in example 4, “A Model Idea,” can be extended in a geometrically compelling way to help students make sense of completing the square, a process that students often find mysterious. This example additionally illustrates the power of an effective representation as a basis for reasoning and shows how structure can be uncovered in that representation to move toward a general solution.</p>
+</div>
+<div class="col-translation">
+<p>Giữa đại số và hình học có một sự tác động qua lại: những biểu diễn hình học như đồ thị hay hình vẽ có thể soi sáng các biểu thức và phương trình đại số, còn những biểu diễn đại số có thể được dùng để suy ra các quan hệ hình học (Katz 2007). Ví dụ 8 cho thấy cách mô hình diện tích được nêu trong Ví dụ 4, “Một ý tưởng mô hình,” có thể được mở rộng theo một cách có sức thuyết phục về mặt hình học để giúp học sinh hiểu phép hoàn thành bình phương, một quá trình mà học sinh thường thấy khó nắm bắt. Ví dụ này đồng thời cũng minh họa sức mạnh của một biểu diễn hiệu quả như một nền tảng cho luận, và cho thấy cách cấu trúc có thể được phát hiện ngay trong biểu diễn ấy để tiến tới một lời giải tổng quát.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="example-8-squaring-it-away" class="level4 col-original">
+<h4 class="anchored" data-anchor-id="example-8-squaring-it-away">Example 8: Squaring It Away</h4>
+<p><strong>Task</strong></p>
+<p>Find a way of solving the equation <span class="math inline">\(x^2 + 10x = 144\)</span> by using an area model.</p>
+<p><strong>In the Classroom (Intermediate Algebra Class)</strong></p>
+<div class="dialogue">
+<dl>
+<dt>Teacher:</dt>
+<dd>
+Can anybody see how to think of <span class="math inline">\(x^2 + 10x\)</span> as an area?
+</dd>
+<dt>Student 1:</dt>
+<dd>
+Well, <span class="math inline">\(x^2\)</span> is the area of a square with side <span class="math inline">\(x\)</span>, and <span class="math inline">\(10x\)</span> is the area of a rectangle with sides <span class="math inline">\(x\)</span> and <span class="math inline">\(10\)</span>, so we can put the rectangle and the square together like this. [See the figure at the right.] But I don’t see how this helps.
+</dd>
+</dl>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p36_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<dl>
+<dt>Student 2:</dt>
+<dd>
+Maybe if we knew what the area of the square was, we could just take the square root to find <span class="math inline">\(x\)</span>.
+</dd>
+<dt>Teacher:</dt>
+<dd>
+Is there a way of rearranging the figure so that it’s close to being a square?
+</dd>
+<dt>Student 1:</dt>
+<dd>
+I know! If we cut the rectangle into two rectangles of width 5, we could put one on each side like this! [See the figure at the right.]
+</dd>
+</dl>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p36_2.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<dl>
+<dt>Student 2:</dt>
+<dd>
+But it’s not a complete square, it’s missing a corner.
+</dd>
+<dt>Teacher:</dt>
+<dd>
+What’s the area of the corner?
+</dd>
+<dt>Student 2:</dt>
+<dd>
+Oh, it must be 25, since the white square lines up with ends of the rectangles, so it has side length 5. And since the gray area is 144, the entire area of the big square is <span class="math inline">\(144 + 25 = 169\)</span>.
+</dd>
+<dt>Student 1:</dt>
+<dd>
+And that means the side length of the square is 13, so <span class="math inline">\(x + 5 = 13\)</span>, which means <span class="math inline">\(x = 8\)</span>.
+</dd>
+<dt>Student 2:</dt>
+<dd>
+Shouldn’t there be another solution, since the <span class="math inline">\((x + 5)\)</span> is squared?
+</dd>
+<dt>Teacher:</dt>
+<dd>
+Interesting point. Let’s take a closer look. Can you write down what you did algebraically?
+</dd>
+<dt>Student 2:</dt>
+<dd>
+We started with <span class="math inline">\(x^2 + 10x = 144\)</span>, and then we added 25 to the 144. I guess that means we add 25 to both sides of the equation, so we get <span class="math inline">\(x^2 + 10x + 25 = 169\)</span>.
+</dd>
+<dt>Student 1:</dt>
+<dd>
+So to get 25, we divide the 10 by 2 to get 5, then square that to get 25.
+</dd>
+<dt>Student 2:</dt>
+<dd>
+Yeah, and then the left-hand side is a perfect square, so you get <span class="math inline">\((x + 5)^2 = 169\)</span>.
+</dd>
+<dt>Student 1:</dt>
+<dd>
+The algebraic way gives you both solutions, because you get <span class="math inline">\(x + 5 = 13\)</span> or <span class="math inline">\(x + 5 = -13\)</span>, so <span class="math inline">\(x = 8\)</span> or <span class="math inline">\(x = -18\)</span>, but I guess the area model can’t give you the negative solution.
+</dd>
+<dt>Teacher:</dt>
+<dd>
+Good observations. The process of adding a constant to a quadratic expression so that it becomes a perfect square is called “completing the square.” In the geometric interpretation, you just found that constant by adding in a corner piece. Can you see how this process might work for other quadratic equations?
+</dd>
+</dl>
+</div>
+<p>The teacher could continue this discussion to lead to the development of the quadratic formula.</p>
+<p><strong>Key Mathematical Elements</strong></p>
+<p>Reasoning with Algebraic Symbols — Meaningful use of symbols; Mindful manipulation;</p>
+<p>Connecting algebra with geometry</p>
+<p><strong>Reasoning Habits</strong></p>
+<p>Analyzing a problem — looking for hidden structure</p>
+<p>Seeking and using connections</p>
+<p>Reflecting on a solution — revisiting initial assumptions; generalizing a solution</p>
+</section>
+<section id="ví-dụ-8-hoàn-thành-bình-phương-bình-phương-nó-đi" class="level4 col-translation">
+<h4 class="anchored" data-anchor-id="ví-dụ-8-hoàn-thành-bình-phương-bình-phương-nó-đi">Ví dụ 8: Hoàn thành bình phương (Bình phương nó đi)</h4>
+<p><strong>Nhiệm vụ</strong></p>
+<p>Hãy tìm cách giải phương trình <span class="math inline">\(x^2 + 10x = 144\)</span> bằng cách sử dụng mô hình diện tích.</p>
+<p><strong>Trong lớp học (Lớp Đại số trung cấp)</strong></p>
+<div class="dialogue">
+<dl>
+<dt>Giáo viên:</dt>
+<dd>
+Có bạn nào thấy có thể nghĩ <span class="math inline">\(x^2 + 10x\)</span> như một diện tích không?
+</dd>
+<dt>Học sinh 1:</dt>
+<dd>
+Ừm, <span class="math inline">\(x^2\)</span> là diện tích của một hình vuông có cạnh dài <span class="math inline">\(x\)</span>, còn <span class="math inline">\(10x\)</span> là diện tích của một hình chữ nhật có các cạnh <span class="math inline">\(x\)</span> và <span class="math inline">\(10\)</span>, nên ta có thể ghép hình chữ nhật và hình vuông lại với nhau như thế này. [Xem hình bên dưới.] Nhưng mình chưa thấy điều này giúp gì.
+</dd>
+</dl>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p36_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<dl>
+<dt>Học sinh 2:</dt>
+<dd>
+Có lẽ nếu biết diện tích của hình vuông là bao nhiêu thì ta chỉ việc lấy căn bậc hai để tìm <span class="math inline">\(x\)</span>.
+</dd>
+<dt>Giáo viên:</dt>
+<dd>
+Có cách nào sắp xếp lại hình để nó gần thành một hình vuông không?
+</dd>
+<dt>Học sinh 1:</dt>
+<dd>
+Em biết rồi! Nếu cắt hình chữ nhật thành hai hình chữ nhật có chiều rộng <span class="math inline">\(5\)</span>, ta có thể đặt một hình vào mỗi bên như thế này! [Xem hình bên dưới.]
+</dd>
+</dl>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p36_2.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<dl>
+<dt>Học sinh 2:</dt>
+<dd>
+Nhưng nó chưa phải là một hình vuông hoàn chỉnh, nó còn thiếu một góc.
+</dd>
+<dt>Giáo viên:</dt>
+<dd>
+Diện tích của phần góc ấy là bao nhiêu?
+</dd>
+<dt>Học sinh 2:</dt>
+<dd>
+À, chắc phải là <span class="math inline">\(25\)</span>, vì hình vuông trắng khớp với các đầu mút của các hình chữ nhật, nên nó có cạnh dài <span class="math inline">\(5\)</span>. Và vì phần tô xám có diện tích là <span class="math inline">\(144\)</span>, nên toàn bộ diện tích của hình vuông lớn là <span class="math inline">\(144 + 25 = 169\)</span>.
+</dd>
+<dt>Học sinh 1:</dt>
+<dd>
+Và điều đó có nghĩa là cạnh của hình vuông là <span class="math inline">\(13\)</span>, nên <span class="math inline">\(x + 5 = 13\)</span>, suy ra <span class="math inline">\(x = 8\)</span>.
+</dd>
+<dt>Học sinh 2:</dt>
+<dd>
+Chẳng phải phải có thêm một nghiệm nữa sao, vì <span class="math inline">\((x + 5)\)</span> được bình phương?
+</dd>
+<dt>Giáo viên:</dt>
+<dd>
+Nhận xét thú vị đấy. Ta hãy xem kĩ hơn. Em có thể viết lại bằng đại số điều em vừa làm không?
+</dd>
+<dt>Học sinh 2:</dt>
+<dd>
+Chúng em bắt đầu với <span class="math inline">\(x^2 + 10x = 144\)</span>, rồi cộng <span class="math inline">\(25\)</span> vào <span class="math inline">\(144\)</span>. Chắc điều đó có nghĩa là phải cộng <span class="math inline">\(25\)</span> vào cả hai vế của phương trình, nên ta được <span class="math inline">\(x^2 + 10x + 25 = 169\)</span>.
+</dd>
+<dt>Học sinh 1:</dt>
+<dd>
+Vậy để được <span class="math inline">\(25\)</span>, ta lấy <span class="math inline">\(10\)</span> chia cho <span class="math inline">\(2\)</span> được <span class="math inline">\(5\)</span>, rồi bình phương lên được <span class="math inline">\(25\)</span>.
+</dd>
+<dt>Học sinh 2:</dt>
+<dd>
+Đúng, và khi đó vế trái là một bình phương hoàn chỉnh, nên ta được <span class="math inline">\((x + 5)^2 = 169\)</span>.
+</dd>
+<dt>Học sinh 1:</dt>
+<dd>
+Cách làm bằng đại số cho cả hai nghiệm, vì ta có <span class="math inline">\(x + 5 = 13\)</span> hoặc <span class="math inline">\(x + 5 = -13\)</span>, nên <span class="math inline">\(x = 8\)</span> hoặc <span class="math inline">\(x = -18\)</span>, nhưng em đoán là mô hình diện tích không cho được nghiệm âm.
+</dd>
+<dt>Giáo viên:</dt>
+<dd>
+Những nhận xét rất tốt. Quá trình cộng một hằng số vào một biểu thức bậc hai để nó trở thành một bình phương hoàn chỉnh được gọi là “hoàn thành bình phương.” Trong cách hiểu hình học, các em vừa tìm ra hằng số ấy bằng cách thêm vào một mảnh ở góc. Các em có thấy quá trình này có thể áp dụng thế nào cho những phương trình bậc hai khác không?
+</dd>
+</dl>
+</div>
+<p>Giáo viên có thể tiếp tục cuộc thảo luận này để dẫn tới việc hình thành công thức nghiệm của phương trình bậc hai.</p>
+<p><strong>Các yếu tố then chốt của Toán học</strong></p>
+<p>Luận với kí hiệu đại số — Sử dụng kí hiệu một cách có nghĩa; Biến đổi một cách tỉnh táo</p>
+<p>Kết nối đại số với hình học</p>
+<p><strong>Thói quen lập luận</strong></p>
+<p>Phân tích bài toán — tìm kiếm cấu trúc ẩn</p>
+<p>Tìm kiếm và sử dụng các kết nối</p>
+<p>Suy ngẫm về một lời giải — xem xét lại những giả định ban đầu; khái quát hóa một lời giải</p>
+</section>
+<div class="col-notes">
+<p>Ví dụ 8 đặc biệt đáng chú ý ở chỗ nó cho thấy hoàn thành bình phương có thể được dạy như một sự hướng tới một <em>cấu trúc đích</em>, chứ không như một thủ thuật phải ghi nhớ. Điểm tựa của việc tổ chức dạy học ở đây là làm cho học sinh nhận ra rằng dạng</p>
+<p><span class="math display">\[
+(\text{bình phương}) = (\text{hằng số})
+\]</span></p>
+<p>là một dạng quen thuộc, dễ xử lí, vì khi ấy có thể giải bằng cách khai căn và xét các khả năng tương ứng. Từ điểm tựa ấy, phương trình</p>
+<p><span class="math display">\[
+x^2+10x=144
+\]</span></p>
+<p>được đọc không phải như một biểu thức cần biến đổi máy móc, mà như một biểu thức <em>chưa đạt tới</em> cấu trúc mong muốn.</p>
+<p>Theo hướng đó, hằng số <span class="math inline">\(25\)</span> không nên xuất hiện như một mẹo, mà như một tất yếu của cấu trúc: muốn vế trái trở thành một bình phương hoàn chỉnh thì phải có</p>
+<p><span class="math display">\[
+x^2+10x+25=(x+5)^2.
+\]</span></p>
+<p>Vai trò của mô hình diện tích là làm lộ ra và biện minh cho sự xuất hiện của phần bù ấy. Nó giúp học sinh <em>thấy vì sao</em> cần thêm một mảnh góc có diện tích <span class="math inline">\(25\)</span>, chứ không thay thế cho luận đại số. Chính ở điểm này, ví dụ cho thấy một biểu diễn hình học hiệu quả có thể nâng đỡ hiểu mà không làm mất đi bản chất của việc giải có luận cứ.</p>
+<p>Cũng vì thế, giá trị sư phạm của ví dụ không nằm riêng ở việc tìm được nghiệm, mà ở việc làm sáng tỏ quan hệ giữa ba tầng: cấu trúc đại số cần đạt tới, biểu diễn hình học làm lộ cấu trúc ấy, và thủ tục biến đổi phương trình được biện minh từ cấu trúc chứ không từ thói quen thao tác. Thuật ngữ <em>hoàn thành bình phương</em> vì vậy nên đến sau khi ý nghĩa đã được dựng lên đủ rõ.</p>
+<p>Nếu dùng ví dụ này như một neo cấu trúc trong dạy học, thì mô hình diện tích nên được đặt đúng vai trò của nó: một phương tiện biện minh và soi sáng, không phải con đường bắt buộc duy nhất. Cách tổ chức ấy vừa giữ được chiều trực quan cho những học sinh cần biểu diễn, vừa không che khuất đối với những học sinh đã có thể đi thẳng bằng tư duy cấu trúc.</p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="linking-expressions-and-functions" class="level3 col-original">
+<h3 class="anchored" data-anchor-id="linking-expressions-and-functions">Linking Expressions and Functions</h3>
+</section>
+<section id="liên-kết-biểu-thức-và-hàm-số" class="level3 col-translation">
+<h3 class="anchored" data-anchor-id="liên-kết-biểu-thức-và-hàm-số">Liên kết biểu thức và hàm số</h3>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Although multiple representations of functions — symbolic, graphical, numerical, and verbalare commonly seen, the idea of multiple algebraic representations of functions is less commonly made explicit. Different but equivalent ways of writing the same function may reveal different properties of the function, as illustrated in example 5, “Horseshoes in Flight.”</p>
+</div>
+<div class="col-translation">
+<p>Mặc dù các dạng biểu diễn khác nhau của hàm số — ký hiệu, đồ thị, số liệu và ngôn ngữ, thường được sử dụng, nhưng ý tưởng về nhiều biểu diễn đại số khác nhau của cùng một hàm số thì ít khi được làm rõ một cách tường minh. Những cách viết khác nhau nhưng tương đương của cùng một hàm số có thể làm lộ ra những tính chất khác nhau của hàm, như đã được minh họa trong Ví dụ 5, “Móng ngựa trên không”.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Symbolic representation shifts to a higher level when we start to use letters to stand for functions and introduce function notation (Saul 2001). The magnitude of this shift is often overlooked. High school students have difficulty with extending the four basic arithmetic operations to functions and also with composition of functions. Embedding these experiences in a context may enhance students’ comprehension of the concepts and improve both their retention and their ability to make connections (Katz 2007), as in example 5, “Horseshoes in Flight.” Example 9 illustrates the power of using technology to link functions and expressions in an abstract mathematical context.</p>
+</div>
+<div class="col-translation">
+<p>Biểu diễn ký hiệu chuyển sang một cấp độ cao hơn khi ta bắt đầu dùng các chữ cái để đại diện cho hàm số và giới thiệu ký hiệu hàm (Saul 2001). Mức độ chuyển dịch này thường bị đánh giá thấp. Học sinh trung học phổ thông gặp khó khăn khi mở rộng bốn phép toán số học cơ bản sang các hàm số, cũng như khi làm việc với phép hợp thành hàm. Việc đặt các trải nghiệm này trong một bối cảnh cụ thể có thể giúp nâng cao sự hiểu biết của học sinh về các khái niệm, đồng thời cải thiện khả năng ghi nhớ và năng lực tạo lập các mối liên hệ (Katz 2007), như trong Ví dụ 5, “Móng ngựa trên không”. Ví dụ 9 minh họa sức mạnh của việc sử dụng công nghệ để liên kết hàm số và các biểu thức trong một bối cảnh toán học trừu tượng.</p>
+</div>
+<div class="col-notes">
+<p>Điểm đáng chú ý ở đây là sự chuyển dịch từ việc xem chữ cái như đại diện cho số sang việc xem kí hiệu như <span class="math inline">\(f(x)\)</span> hay <span class="math inline">\(g(x)\)</span> như biểu diễn của một hàm. Đây không chỉ là một thay đổi về cách viết, mà là một bước chuyển về đối tượng thao tác: từ những giá trị riêng lẻ sang chính quan hệ phụ thuộc. Vì thế, khó khăn của học sinh với các biểu thức như <span class="math inline">\((f+g)(x)\)</span>, <span class="math inline">\((fg)(x)\)</span> hay <span class="math inline">\(f(g(x))\)</span> không đơn thuần là khó khăn tính toán, mà là khó khăn trong việc hiểu mình đang thao tác trên cái gì và kí hiệu đang nói điều gì.</p>
+<p>Ở điểm này, tác giả muốn nhấn mạnh rằng việc liên kết biểu thức với hàm số không thể chỉ dừng ở mức biến đổi hình thức. Học sinh cần thấy các phép toán trên hàm và phép hợp thành như những thao tác có nghĩa, gắn với cách một đại lượng phụ thuộc vào đại lượng khác. Chính vì vậy, việc đặt các kí hiệu ấy trong ngữ cảnh và sử dụng công nghệ để liên kết động giữa biểu thức, giá trị và đồ thị có vai trò đặc biệt quan trọng. Chúng giúp học sinh nhận ra rằng thay đổi trong biểu thức kéo theo thay đổi trong cách hàm vận hành, chứ không chỉ tạo ra một cách viết khác.</p>
+<p>Giá trị sư phạm của đoạn này nằm ở chỗ nó buộc việc dạy kí hiệu hàm phải được xem như việc giới thiệu một đối tượng mới của luận, không phải chỉ là một quy ước kí hiệu mới. Khi điều đó bị xem nhẹ, học sinh rất dễ thực hiện được các thao tác nhưng không nắm được ý nghĩa của chúng.</p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Building fluency in working with algebraic notation that is grounded in reasoning and sense making will ensure that students can flexibly apply the powerful tools of algebra in a variety of contexts both within and outside mathematics.</p>
+</div>
+<div class="col-translation">
+<p>Việc xây dựng sự thành thạo trong làm việc với ký hiệu đại số, khi được đặt nền trên luận và hiểu, sẽ bảo đảm rằng học sinh có thể vận dụng linh hoạt các công cụ mạnh mẽ của đại số trong nhiều bối cảnh khác nhau, cả bên trong lẫn bên ngoài toán học.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="example-9-more-than-meets-the-eye" class="level4 col-original">
+<h4 class="anchored" data-anchor-id="example-9-more-than-meets-the-eye">Example 9: More Than Meets the Eye</h4>
+<p><strong>Task</strong></p>
+<p>In earlier grades you may have seen problems that asked you to find the next term in a sequence, such as <span class="math inline">\(3\)</span>, <span class="math inline">\(7\)</span>, <span class="math inline">\(11\)</span>. One possible answer is <span class="math inline">\(15\)</span>, assuming the sequence is generated by evaluating <span class="math inline">\(f(x) = 4x - 1\)</span> at <span class="math inline">\(x = 1, 2, 3\)</span>. But are other answers possible?</p>
+<p><strong>In the Classroom (Fourth-Year Mathematics)</strong></p>
+<div class="dialogue">
+<dl>
+<dt>Teacher:</dt>
+<dd>
+Find the sequence generated by evaluating <span class="math inline">\(g(x) = x^3 - 6x^2 + 15x - 7\)</span> at <span class="math inline">\(x = 1, 2, 3\)</span>.
+</dd>
+<dt>Student:</dt>
+<dd>
+I get <span class="math inline">\(g(1) = 3\)</span>, <span class="math inline">\(g(2) = 7\)</span>, and <span class="math inline">\(g(3) = 11\)</span>. It’s the same sequence: <span class="math inline">\(3\)</span>, <span class="math inline">\(7\)</span>, <span class="math inline">\(11\)</span>.
+</dd>
+<dt>Teacher:</dt>
+<dd>
+What would be the next term if you used <span class="math inline">\(g(x)\)</span> instead of <span class="math inline">\(f(x)\)</span>?
+</dd>
+<dt>Student:</dt>
+<dd>
+It would be <span class="math inline">\(g(4) = 21\)</span>. That’s different from what we get by using <span class="math inline">\(f(x)\)</span>.
+</dd>
+<dt>Teacher:</dt>
+<dd>
+Can you find other polynomials that generate the sequence <span class="math inline">\(3\)</span>, <span class="math inline">\(7\)</span>, <span class="math inline">\(11\)</span>?
+</dd>
+<dt>Student:</dt>
+<dd>
+I don’t see how you came up with that weird cubic for <span class="math inline">\(g\)</span> in the first place.
+</dd>
+<dt>Teacher:</dt>
+<dd>
+What does it mean when we say that <span class="math inline">\(g(1) = 3\)</span>?
+</dd>
+<dt>Student:</dt>
+<dd>
+Well, it means that the <span class="math inline">\(y\)</span>-value, or output, is <span class="math inline">\(3\)</span> when the <span class="math inline">\(x\)</span>-value, or input, is <span class="math inline">\(1\)</span>.
+</dd>
+<dt>Teacher:</dt>
+<dd>
+So how can two different functions, <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, have the same values at <span class="math inline">\(x = 1, 2, \text{ and } 3\)</span>?
+</dd>
+<dt>Student:</dt>
+<dd>
+I suppose that both of their graphs would have to have the same <span class="math inline">\(y\)</span>-values…. Hey, that means they must intersect at those three points! Let me check that by graphing them. Yes, when I graph them, I see that the straight line graph of <span class="math inline">\(f(x)\)</span> intersects the cubic graph of <span class="math inline">\(g(x)\)</span> at <span class="math inline">\(x = 1, 2, \text{ and } 3\)</span>.
+</dd>
+</dl>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p38_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<dl>
+<dt>Teacher:</dt>
+<dd>
+Can you see now how you might find another polynomial graphically?
+</dd>
+<dt>Student:</dt>
+<dd>
+Maybe I could figure out a way to change the shape of the cubic graph but keep the intersection points the same.
+</dd>
+<dt>Teacher:</dt>
+<dd>
+How would you do that algebraically?
+</dd>
+<dt>Student:</dt>
+<dd>
+I could try to stretch the difference between <span class="math inline">\(f(x)\)</span> and <span class="math inline">\(g(x)\)</span>, which is
+</dd>
+</dl>
+<p><span class="math display">\[
+  g(x) - f(x) = x^3 - 6x^2 + 11x - 6.
+\]</span></p>
+<p>I could triple that, for example, and add it back on to <span class="math inline">\(f(x)\)</span> and get</p>
+<p><span class="math display">\[
+\begin{aligned}
+  &amp;4x - 1 + 3(x^3 - 6x^2 + 11x - 6) \\
+  &amp;\quad= 3x^3 - 18x^2 + 37x - 19.
+\end{aligned}
+\]</span></p>
+<dl>
+<dt>Teacher:</dt>
+<dd>
+Excellent. Now I want to understand what is really going on here. Is there anything special about the polynomial <span class="math inline">\(x^3 - 6x^2 + 11x - 6\)</span> that makes this work?
+</dd>
+<dt>Student:</dt>
+<dd>
+Not that I can see.
+</dd>
+<dt>Teacher:</dt>
+<dd>
+Why don’t you try factoring it on your CAS?
+</dd>
+<dt>Student:</dt>
+<dd>
+I get
+</dd>
+</dl>
+<p><span class="math display">\[
+\begin{aligned}
+  &amp;x^3 - 6x^2 + 11x - 6 \\
+  &amp;\quad = (x - 1)(x - 2)(x - 3).
+\end{aligned}
+\]</span></p>
+<p>Oh, I see. When I look at the factored form, I can see that the difference between <span class="math inline">\(f(x)\)</span> and <span class="math inline">\(g(x)\)</span> is <span class="math inline">\(0\)</span> at <span class="math inline">\(x = 1, 2, \text{ and } 3\)</span>. So I could get many polynomials that generate the same sequence just by adding a multiple of this polynomial to <span class="math inline">\(f(x)\)</span>.</p>
+<dl>
+<dt>Teacher:</dt>
+<dd>
+What is the general form of such a polynomial?
+</dd>
+<dt>Student:</dt>
+<dd>
+It is
+</dd>
+</dl>
+<p><span class="math display">\[
+  4x - 1 + k(x - 1)(x - 2)(x - 3),
+\]</span></p>
+<p>where <span class="math inline">\(k\)</span> can be any real number. When I look at my graphing program, I notice that as <span class="math inline">\(k\)</span> ncreases, the graph of the polynomial stretches away from the line.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p39_2.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+<p><strong>Key Mathematical Elements</strong></p>
+<p>Reasoning with Algebraic Symbols — Mindful manipulation; Linking expressions and functions</p>
+<p>Reasoning with Functions — Using multiple representations of functions</p>
+<p><strong>Reasoning Habits</strong></p>
+<p>Analyzing a problem — identifying relevant concepts, representations, or procedures; seeking patterns and relationships</p>
+<p>Seeking and using connections</p>
+</section>
+<section id="ví-dụ-9-chưa-thấy-hết-quy-luật" class="level4 col-translation">
+<h4 class="anchored" data-anchor-id="ví-dụ-9-chưa-thấy-hết-quy-luật">Ví dụ 9: Chưa thấy hết quy luật</h4>
+<p><strong>Nhiệm vụ</strong></p>
+<p>Ở các lớp trước, có thể em đã gặp những bài toán yêu cầu tìm số hạng tiếp theo của một dãy, chẳng hạn <span class="math inline">\(3\)</span>, <span class="math inline">\(7\)</span>, <span class="math inline">\(11\)</span>. Một câu trả lời có thể là <span class="math inline">\(15\)</span>, nếu giả sử dãy được tạo ra bằng cách tính giá trị của <span class="math inline">\(f(x)=4x-1\)</span> tại <span class="math inline">\(x=1,2,3\)</span>. Nhưng liệu còn có những câu trả lời khác không?</p>
+<p><strong>Trong lớp học (Toán năm thứ tư)</strong></p>
+<div class="dialogue">
+<dl>
+<dt>Giáo viên:</dt>
+<dd>
+Hãy tìm dãy được tạo ra bằng cách tính <span class="math inline">\(g(x)=x^3-6x^2+15x-7\)</span> tại <span class="math inline">\(x=1,2,3\)</span>.
+</dd>
+<dt>Học sinh:</dt>
+<dd>
+Em được <span class="math inline">\(g(1)=3\)</span>, <span class="math inline">\(g(2)=7\)</span>, và <span class="math inline">\(g(3)=11\)</span>. Vẫn là cùng dãy ấy: <span class="math inline">\(3\)</span>, <span class="math inline">\(7\)</span>, <span class="math inline">\(11\)</span>.
+</dd>
+<dt>Giáo viên:</dt>
+<dd>
+Nếu em dùng <span class="math inline">\(g(x)\)</span> thay cho <span class="math inline">\(f(x)\)</span> thì số hạng tiếp theo sẽ là gì?
+</dd>
+<dt>Học sinh:</dt>
+<dd>
+Khi đó sẽ là <span class="math inline">\(g(4)=21\)</span>. Khác với kết quả nhận được khi dùng <span class="math inline">\(f(x)\)</span>.
+</dd>
+<dt>Giáo viên:</dt>
+<dd>
+Em có thể tìm những đa thức khác cũng sinh ra dãy <span class="math inline">\(3\)</span>, <span class="math inline">\(7\)</span>, <span class="math inline">\(11\)</span> không?
+</dd>
+<dt>Học sinh:</dt>
+<dd>
+Em không hiểu ngay từ đầu làm sao thầy lại nghĩ ra được cái đa thức bậc ba lạ như vậy cho <span class="math inline">\(g\)</span>.
+</dd>
+<dt>Giáo viên:</dt>
+<dd>
+Khi ta nói <span class="math inline">\(g(1)=3\)</span> thì điều đó có nghĩa là gì?
+</dd>
+<dt>Học sinh:</dt>
+<dd>
+Dạ, nghĩa là giá trị <span class="math inline">\(y\)</span>, hay đầu ra, bằng <span class="math inline">\(3\)</span> khi giá trị <span class="math inline">\(x\)</span>, hay đầu vào, bằng <span class="math inline">\(1\)</span>.
+</dd>
+<dt>Giáo viên:</dt>
+<dd>
+Vậy thì làm sao hai hàm khác nhau, <span class="math inline">\(f\)</span> và <span class="math inline">\(g\)</span>, lại có cùng giá trị tại <span class="math inline">\(x=1,2,\text{ và }3\)</span>?
+</dd>
+<dt>Học sinh:</dt>
+<dd>
+Em đoán là cả hai đồ thị của chúng phải có cùng giá trị <span class="math inline">\(y\)</span>…. À, nghĩa là chúng phải cắt nhau tại ba điểm ấy! Để em kiểm tra bằng cách vẽ đồ thị. Đúng rồi, khi em vẽ ra thì thấy đồ thị đường thẳng của <span class="math inline">\(f(x)\)</span> cắt đồ thị bậc ba của <span class="math inline">\(g(x)\)</span> tại <span class="math inline">\(x=1,2,\text{ và }3\)</span>.
+</dd>
+</dl>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p38_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<dl>
+<dt>Giáo viên:</dt>
+<dd>
+Bây giờ em có thấy mình có thể tìm một đa thức khác bằng cách nhìn hình không?
+</dd>
+<dt>Học sinh:</dt>
+<dd>
+Có lẽ em có thể tìm cách làm thay đổi dạng của đồ thị bậc ba nhưng vẫn giữ nguyên các giao điểm.
+</dd>
+<dt>Giáo viên:</dt>
+<dd>
+Về mặt đại số, em sẽ làm điều đó thế nào?
+</dd>
+<dt>Học sinh:</dt>
+<dd>
+Em có thể thử kéo giãn hiệu giữa <span class="math inline">\(f(x)\)</span> và <span class="math inline">\(g(x)\)</span>, tức là
+</dd>
+</dl>
+<p><span class="math display">\[
+  g(x)-f(x)=x^3-6x^2+11x-6.
+\]</span></p>
+<p>Chẳng hạn, em có thể nhân hiệu đó với <span class="math inline">\(3\)</span>, rồi cộng trở lại vào <span class="math inline">\(f(x)\)</span> để được</p>
+<p><span class="math display">\[
+\begin{aligned}
+  &amp;4x-1+3(x^3-6x^2+11x-6)\\
+    &amp;\quad=3x^3-18x^2+37x-19.
+\end{aligned}
+\]</span></p>
+<dl>
+<dt>Giáo viên:</dt>
+<dd>
+Rất tốt. Bây giờ thầy muốn hiểu điều gì thực sự đang diễn ra ở đây. Có điều gì đặc biệt ở đa thức <span class="math inline">\(x^3-6x^2+11x-6\)</span> khiến cách này hoạt động không?
+</dd>
+<dt>Học sinh:</dt>
+<dd>
+Em chưa thấy.
+</dd>
+<dt>Giáo viên:</dt>
+<dd>
+Sao em không thử phân tích nó thành nhân tử trên CAS?
+</dd>
+<dt>Học sinh:</dt>
+<dd>
+Em được
+</dd>
+</dl>
+<p><span class="math display">\[
+\begin{aligned}
+  &amp;x^3-6x^2+11x-6 \\
+  &amp;\quad=(x-1)(x-2)(x-3).
+\end{aligned}
+\]</span></p>
+<p>À, em hiểu rồi. Khi nhìn dạng đã phân tích, em thấy hiệu giữa <span class="math inline">\(f(x)\)</span> và <span class="math inline">\(g(x)\)</span> bằng <span class="math inline">\(0\)</span> tại <span class="math inline">\(x=1,2,\text{ và }3\)</span>. Vậy nên em có thể tạo ra nhiều đa thức cho cùng một dãy chỉ bằng cách cộng vào <span class="math inline">\(f(x)\)</span> một bội của đa thức này.</p>
+<dl>
+<dt>Giáo viên:</dt>
+<dd>
+Dạng tổng quát của một đa thức như thế là gì?
+</dd>
+<dt>Học sinh:</dt>
+<dd>
+Đó là
+</dd>
+</dl>
+<p><span class="math display">\[
+4x-1+k(x-1)(x-2)(x-3),
+\]</span></p>
+<p>trong đó <span class="math inline">\(k\)</span> có thể là bất kì số thực nào. Khi nhìn trên phần mềm vẽ đồ thị, em nhận thấy rằng khi <span class="math inline">\(k\)</span> tăng lên, đồ thị của đa thức càng tách xa khỏi đường thẳng.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p39_2.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+<p><strong>Các yếu tố then chốt của Toán học</strong></p>
+<p>Luận với kí hiệu đại số — Biến đổi một cách tỉnh táo; Liên kết biểu thức với hàm số</p>
+<p>Luận với hàm số — Sử dụng nhiều biểu diễn của hàm số</p>
+<p><strong>Thói quen luận</strong></p>
+<p>Phân tích một vấn đề — nhận ra những khái niệm, biểu diễn, hoặc thủ tục thích hợp; tìm kiếm các mẫu và các quan hệ</p>
+<p>Tìm kiếm và sử dụng các kết nối</p>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+
+
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a><br>
+<br> <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a><br>
+<br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

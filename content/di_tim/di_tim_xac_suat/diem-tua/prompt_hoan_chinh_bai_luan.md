@@ -1,0 +1,3 @@
+# PROMPT HOÀN THIỆN BÀI LUẬN
+
+Mình muốn hiệu chỉnh bài luận này một cách toàn diện, trên các phương diện sau: ngôn ngữ diễn đạt (từ vựng, câu cú, ngữ pháp, dấu câu, văn phong), tổ chức văn bản (tách đoạn, nối đoạn, tiêu đề, nhịp chuyển ý), lập luận (mạch suy luận, tiến trình lập luận, độ chặt chẽ và độ sáng của các bước suy ra), cấu trúc nhận thức (thứ tự xuất hiện của các ý, động cơ nhận thức của từng bước, vị trí các mục Khám phá và Bài tập), hệ khái niệm (độ rõ, độ tự khép kín, quan hệ giữa các khái niệm), sự nhất quán (thuật ngữ, ký hiệu, giọng văn), hiệu lực sư phạm và độ chuẩn xác học thuật của toàn bài.

@@ -1,0 +1,54 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\begin{document}
+
+\begin{tikzpicture}
+\begin{axis}[
+  width=7.2cm,
+  height=4.0cm,
+  scale only axis,
+  axis lines=middle,
+  axis line style={<->},
+  xmin=-1, xmax=32,
+  ymin=-150, ymax=1100,
+  xtick={0,5,10,15,20,25,30},
+  xticklabels={,, , ,20, ,},
+  ytick={0,100,200,300,400,500,600,700,800,900,1000},
+  yticklabels={0,,,,,500,,,,,1000},
+  tick style={line width=.8pt},
+  major tick length=2.2pt,
+  xlabel={$n$},
+  ylabel={$A_n$},
+  xlabel style={right},
+  ylabel style={above},
+  clip=false
+]
+  % dotted curve through given data (and a few plateau points)
+  \addplot[
+    black,
+    thick,
+    dotted,
+    smooth
+  ]
+  table[row sep=\\]{
+  n   An\\
+   1  440\\
+   2  616\\
+   3  686.40\\
+   4  714.56\\
+   5  725.82\\
+   6  730.33\\
+   7  732.13\\
+   8  732.85\\
+   9  733.14\\
+  10  733.26\\
+  11  733.30\\
+  12  733.32\\
+  20  733.33\\
+  30  733.33\\
+  };
+\end{axis}
+\end{tikzpicture}
+
+\end{document}

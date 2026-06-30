@@ -635,43 +635,43 @@ ol[type="A"] li::marker {
 
 /* --- # Tạo bảng HTML với căn giữa theo dấu phẩy --- */
 .math-table {
-    border-collapse: collapse;
-    width: 100%;
-    margin: 1em 0;
-    font-family: monospace;
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+  font-family: monospace;
 }
 .math-table th {
-    text-align: center;
-    padding: 8px;
-    background-color: #f2f2f2;
-    border: 1px solid #ddd;
+  text-align: center;
+  padding: 8px;
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
 }
 .math-table td {
-    padding: 4px 8px;
-    border: 1px solid #ddd;
-    text-align: center;
+  padding: 4px 8px;
+  border: 1px solid #ddd;
+  text-align: center;
 }
 .number-cell {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .integer-part {
-    text-align: right;
-    flex: 1;
+  text-align: right;
+  flex: 1;
 }
 .decimal-part {
-    text-align: left;
-    flex: 1;
+  text-align: left;
+  flex: 1;
 }
 .decimal-comma {
-    padding: 0 2px;
+  padding: 0 2px;
 }
 /* ===================================== */
 
 /* Căn chỉnh ảnh trong listing card thành khung vuông 150x150 */
 .quarto-grid .thumbnail img {
-  object-fit: contain;   /* giữ nguyên tỉ lệ ảnh, thêm khoảng trắng nếu cần */
+  object-fit: contain; /* giữ nguyên tỉ lệ ảnh, thêm khoảng trắng nếu cần */
   width: 150px;
   height: 150px;
   display: block;
@@ -680,3 +680,42 @@ ol[type="A"] li::marker {
 }
 
 /* ===================================== */
+
+/* Toàn bộ khối hội thoại hiển thị dạng lưới 2 cột */
+.dialogue dl {
+  display: grid;
+  grid-template-columns: auto 1fr; /* cột trái hẹp, cột phải rộng */
+  column-gap: 0.75em;
+  margin: 0;
+}
+
+/* Cột trái: người nói – in nghiêng, canh trên cùng */
+.dialogue dt {
+  grid-column: 1;
+  font-style: italic;
+  font-weight: normal; /* bỏ in đậm mặc định của <dt> */
+  margin: 0;
+}
+
+/* Cột phải: lời nói – chữ thường, không thụt đầu dòng */
+.dialogue dd {
+  grid-column: 2;
+  margin: 0 0 0.25em 0; /* giãn nhẹ giữa các lượt nói */
+}
+
+/* ===================================== */
+
+/* Các môi trường thụt lề cho nội dung */
+
+.indent-left {
+  margin-left: 2em !important;
+}
+
+.indent-both {
+  margin-left: 2em !important;
+  margin-right: 2em !important;
+}
+
+.indent-right {
+  margin-right: 2em !important;
+}

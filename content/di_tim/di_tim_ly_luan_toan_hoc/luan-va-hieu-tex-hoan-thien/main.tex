@@ -1,0 +1,594 @@
+\documentclass[
+  10pt,
+  a4paper,
+  landscape,
+  twoside,
+  openright
+]{scrbook}
+
+% --------------------------------------------------
+% Trang và gói cơ bản
+% --------------------------------------------------
+\usepackage[
+  left=16mm,
+  right=16mm,
+  top=16mm,
+  bottom=18mm,
+  headheight=14pt,
+  headsep=8mm,
+  footskip=10mm
+]{geometry}
+
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{xcolor}
+\usepackage{ragged2e}
+\usepackage{enumitem}
+\usepackage{paracol}
+\usepackage[most]{tcolorbox}
+
+% --------------------------------------------------
+% Phông chữ và toán
+% --------------------------------------------------
+\usepackage{fontspec}
+\usepackage{unicode-math}
+
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+\setmathfont{latinmodern-math.otf}
+
+\newfontfamily\hanfont[
+  Path = ../../../../assets/fonts/,
+  Extension = .ttf
+]{NotoSerifSC-Regular}
+
+% --------------------------------------------------
+% Vi chỉnh chữ và đoạn
+% --------------------------------------------------
+\usepackage{microtype}
+\usepackage{setspace}
+\setstretch{1.08}
+
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0pt}
+\emergencystretch=1.5em
+
+% \setlist{nosep,leftmargin=*}
+\setlist[itemize,enumerate]{nosep,leftmargin=*}
+
+% --------------------------------------------------
+% Liên kết PDF và đầu trang
+% --------------------------------------------------
+\usepackage[
+  unicode,
+  hidelinks
+]{hyperref}
+\usepackage{bookmark}
+
+\usepackage{csquotes}
+\usepackage[
+  backend=biber,
+  style=authortitle,
+  sorting=nyt,
+  giveninits=true,
+  maxbibnames=99,
+  doi=false,
+  isbn=false,
+  url=true
+]{biblatex}
+
+\addbibresource{references.bib}
+\renewcommand*{\bibnamedash}{\rule[0.6ex]{3em}{0.45pt}\addnbspace}
+
+\usepackage{scrlayer-scrpage}
+
+\clearpairofpagestyles
+\KOMAoptions{headsepline=true}
+
+\RedeclareSectionCommand[tocindent=0pt,tocnumwidth=3em]{chapter}
+\RedeclareSectionCommand[tocindent=3em,tocnumwidth=0pt]{section}
+
+% --------------------------------------------------
+% Thông tin sách
+% --------------------------------------------------
+\newcommand{\BookTitleDisplay}{TRỌNG TÂM TRONG\\ TOÁN HỌC TRUNG HỌC PHỔ THÔNG}
+\newcommand{\BookShortTitle}{TRỌNG TÂM TRONG TOÁN HỌC TRUNG HỌC PHỔ THÔNG}
+\newcommand{\BookSubtitle}{LUẬN VÀ HIỂU}
+\newcommand{\OriginalTitle}{Dịch từ \textit{Focus in High School Mathematics: Reasoning and Sense Making}}
+\newcommand{\OriginalAuthor}{Nguyên tác: W. Gary Martin và cộng sự}
+\newcommand{\BookAuthor}{Chuyển ngữ và bình giải: ZO Math}
+
+\lehead{\small\scshape \BookShortTitle}
+\rehead{\small\pagemark}
+\lohead{\small\pagemark}
+\rohead{\small\itshape \rightmark}
+\cfoot{}
+
+\hypersetup{
+  pdftitle={\BookShortTitle},
+  pdfauthor={\BookAuthor}
+}
+
+% -------------------------------------------------
+% Mục lục
+% ------------------------------------------------- 
+
+\makeatletter
+\newcommand{\TOCPage}{%
+  \clearpage
+  \markright{Mục lục}%
+  {\centering\normalfont\bfseries\Huge Mục lục\par}
+  \vspace{1.5\baselineskip}
+  \@starttoc{toc}%
+  \cleardoublepage
+}
+\makeatother
+
+% -------------------------------------------------
+% Danh sách ví dụ
+% ------------------------------------------------- 
+
+\makeatletter
+\newcommand{\LOEPage}{%
+  \clearpage
+  \markright{Danh sách ví dụ}%
+  {\centering\normalfont\bfseries\Huge Danh sách ví dụ\par}
+  \vspace{1.5\baselineskip}
+  \@starttoc{loe}%
+  \cleardoublepage
+}
+\makeatother
+
+% --------------------------------------------------
+% Bố cục ba cột
+% --------------------------------------------------
+\setcolumnwidth{\fill,\fill,\fill}
+\setlength{\columnsep}{7mm}
+\setlength{\columnseprule}{0pt}
+
+\newcommand{\OpenGrid}{%
+  \begin{paracol}{3}
+  \sloppy
+}
+
+\newcommand{\CloseGrid}{\end{paracol}}
+
+\newcommand{\OddInclude}[1]{%
+  \cleardoublepage
+  \include{#1}
+}
+
+% --------------------------------------------------
+% Macro tiện ích cục bộ
+% --------------------------------------------------
+\newcommand{\EN}[1]{#1}
+\newcommand{\VI}[1]{#1}
+\newcommand{\NOTE}[1]{#1}
+
+% --------------------------------------------------
+% Hình và dẫn chiếu
+% --------------------------------------------------
+\counterwithin{figure}{chapter}
+\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
+
+\newcommand{\figrefEN}[1]{Fig.~\ref{#1}.}
+\newcommand{\figrefVI}[1]{Hình~\ref{#1}.}
+
+\newcommand{\CurrentBilingualFigureNo}{0.0}
+
+\newcommand{\BeginBilingualFigure}[1]{%
+  \refstepcounter{figure}%
+  \xdef\CurrentBilingualFigureNo{\thefigure}%
+  \label{#1}%
+}
+
+\newcommand{\FigureCaptionEN}[1]{%
+  \par\small\noindent\textbf{Fig.~\CurrentBilingualFigureNo.\ }#1\par
+}
+
+\newcommand{\FigureCaptionVI}[1]{%
+  \par\small\noindent\textbf{Hình~\CurrentBilingualFigureNo.\ }#1\par
+}
+
+% --------------------------------------------------
+% Macro cấu trúc
+% --------------------------------------------------
+\newcounter{zpart}
+\newcounter{parallelstarchapter}
+\newcommand{\CurrentChapterNo}{0}
+\newcommand{\PartLabelGap}{1.2\baselineskip}
+
+\newcommand{\RightPartBlock}[2]{%
+  {\raggedleft
+   \normalfont\bfseries\LARGE #1\par
+   \vspace{\PartLabelGap}
+   \normalfont\bfseries\LARGE #2\par}%
+}
+
+\newcommand{\PartPage}[3]{%
+  \cleardoublepage
+  \refstepcounter{zpart}%
+  \phantomsection
+  \addcontentsline{toc}{part}{Phần \arabic{zpart}\quad #2}%
+  \markright{#2}%
+  \thispagestyle{empty}
+  \begin{paracol}{3}
+  \vspace*{0.14\textheight}
+  \RightPartBlock{\Large Section \arabic{zpart}}{#1}
+  \switchcolumn
+  \vspace*{0.14\textheight}
+  \RightPartBlock{\Large Phần \arabic{zpart}}{#2}
+  \switchcolumn
+  \vspace*{0.14\textheight}
+  {\raggedleft\normalfont\large #3\par}
+  \switchcolumn[0]*
+  \end{paracol}
+}
+
+\newcommand{\ParallelChapter}[3]{%
+  \refstepcounter{chapter}%
+  \xdef\CurrentChapterNo{\thechapter}%
+  \phantomsection
+%   \addcontentsline{toc}{chapter}{\protect\numberline{\thechapter\quad}#2}%
+  \addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}#2}%
+  \markright{#2}%
+  {\noindent\normalfont\bfseries\large Chapter \CurrentChapterNo\par}
+  \vspace{0.3\baselineskip}
+  {\noindent\normalfont\bfseries\Large #1\par}
+  \switchcolumn
+  {\noindent\normalfont\bfseries\large Chương \CurrentChapterNo\par}
+  \vspace{0.3\baselineskip}
+  {\noindent\normalfont\bfseries\Large #2\par}
+  \switchcolumn
+  {\noindent\normalfont\bfseries\Large #3\par}
+  \switchcolumn[0]*[\vspace{1.0\baselineskip}]
+}
+
+\newcommand{\ParallelChapterStar}[3]{%
+  \refstepcounter{parallelstarchapter}%
+  \phantomsection
+  \addcontentsline{toc}{chapter}{#2}%
+  \pdfbookmark[0]{#2}{parallelstar-\arabic{parallelstarchapter}}%
+  \markright{#2}%
+  {\noindent\normalfont\bfseries\Large #1\par}
+  \switchcolumn
+  {\noindent\normalfont\bfseries\Large #2\par}
+  \switchcolumn
+  {\noindent\normalfont #3\par}
+  \switchcolumn[0]*[\vspace{1.0\baselineskip}]
+}
+% ------
+\newcommand{\BackMatterChapterStar}[1]{%
+  \refstepcounter{parallelstarchapter}%
+  \phantomsection
+  \addcontentsline{toc}{chapter}{#1}%
+  \pdfbookmark[0]{#1}{parallelstar-\arabic{parallelstarchapter}}%
+  \markright{#1}%
+  {\noindent\normalfont\bfseries\Large #1\par}
+  \vspace{1.0\baselineskip}
+}
+
+\defbibenvironment{bibliography}
+  {\list{}%
+     {%
+       \setlength{\leftmargin}{2.8em}%
+       \setlength{\itemindent}{-2.8em}%
+       \setlength{\itemsep}{0.45\baselineskip}%
+       \setlength{\parsep}{0pt}%
+       \setlength{\topsep}{0pt}%
+     }%
+   \RaggedRight}
+  {\endlist}
+  {\item}
+% -------
+
+\newcommand{\ParallelSection}[3]{%
+  \refstepcounter{section}%
+  \phantomsection
+%   \addcontentsline{toc}{section}{\protect\numberline{\thesection\ }#2}%
+  \addcontentsline{toc}{section}{#2}%
+  \markright{#2}%
+  {\noindent\normalfont\bfseries\large #1\par}
+  \switchcolumn
+  {\noindent\normalfont\bfseries\large #2\par}
+  \switchcolumn
+  {\noindent\normalfont #3\par}
+  \switchcolumn[0]*[\vspace{0.7\baselineskip}]
+}
+
+% --------------------------------------------------
+% Đơn vị nội dung song song
+% --------------------------------------------------
+\NewDocumentCommand{\TriPara}{+m +m +m}{%
+  #1\par
+  \switchcolumn
+  #2\par
+  \switchcolumn
+  #3\par
+  \switchcolumn[0]*[\vspace{0.95\baselineskip}]
+}
+
+% \newcommand{\TriFigure}[5]{%
+%   \BeginBilingualFigure{#5}%
+%   \switchcolumn[0]
+%   \begin{center}
+%     \includegraphics[width=.92\linewidth]{#1}
+%     \FigureCaptionEN{#3}
+%   \end{center}
+%   \switchcolumn
+%   \begin{center}
+%     \includegraphics[width=.92\linewidth]{#2}
+%     \FigureCaptionVI{#4}
+%   \end{center}
+%   \switchcolumn
+%   \NOTE{}
+%   \switchcolumn[0]*[\vspace{0.95\baselineskip}]
+% }
+
+% #1: bình giải, tùy chọn
+% #2: hình tiếng Anh
+% #3: hình tiếng Việt
+% #4: chú thích tiếng Anh
+% #5: chú thích tiếng Việt
+% #6: nhãn/khóa dùng cho \BeginBilingualFigure
+
+\newcommand{\TriFigure}[6][]{%
+  \BeginBilingualFigure{#6}%
+  \switchcolumn[0]
+  \begin{center}
+    \includegraphics[width=.92\linewidth]{#2}
+    \FigureCaptionEN{#4}
+  \end{center}
+  \switchcolumn
+  \begin{center}
+    \includegraphics[width=.92\linewidth]{#3}
+    \FigureCaptionVI{#5}
+  \end{center}
+  \switchcolumn
+  \NOTE{#1}
+  \switchcolumn[0]*[\vspace{0.95\baselineskip}]
+}
+
+% --------------------------------------------------
+% Hộp ví dụ song ngữ
+% --------------------------------------------------
+\newcounter{example}
+\renewcommand{\theexample}{\arabic{example}}
+
+\newcommand{\CurrentBilingualExampleNo}{0}
+
+\newcommand{\BeginBilingualExample}{%
+  \refstepcounter{example}%
+  \xdef\CurrentBilingualExampleNo{\theexample}%
+}
+
+\newtcolorbox{ExampleBoxEN}[1]{%
+  enhanced,
+  breakable,
+  colback=white,
+  colframe=black,
+  colbacktitle=black,
+  coltitle=white,
+  boxrule=0.5pt,
+  arc=1mm,
+  left=1mm,
+  right=1mm,
+  top=1mm,
+  bottom=1mm,
+  before upper={\setlength{\parskip}{0.35\baselineskip}},
+  title={Example \CurrentBilingualExampleNo: #1},
+  fonttitle=\bfseries,
+  center title
+}
+
+\newtcolorbox{ExampleBoxVI}[1]{%
+  enhanced,
+  breakable,
+  colback=white,
+  colframe=black,
+  colbacktitle=black,
+  coltitle=white,
+  boxrule=0.5pt,
+  arc=1mm,
+  left=1mm,
+  right=1mm,
+  top=1mm,
+  bottom=1mm,
+  before upper={\setlength{\parskip}{0.35\baselineskip}},
+  title={Ví dụ \CurrentBilingualExampleNo: #1},
+  fonttitle=\bfseries,
+  center title
+}
+
+\NewDocumentCommand{\TriExample}{m +m m +m +m}{%
+  \BeginBilingualExample
+  \phantomsection
+  \addcontentsline{loe}{section}{Ví dụ \CurrentBilingualExampleNo: #3}%
+  \begin{ExampleBoxEN}{#1}
+  #2
+  \end{ExampleBoxEN}
+  \switchcolumn
+  \begin{ExampleBoxVI}{#3}
+  #4
+  \end{ExampleBoxVI}
+  \switchcolumn
+  #5\par
+  \switchcolumn[0]*[\vspace{0.95\baselineskip}]
+}
+
+% --------------------------------------------------
+% Ví dụ dài song ngữ (chỉ dùng cho trường hợp đặc biệt)
+% --------------------------------------------------
+
+\newtcolorbox{ExampleContBox}{
+  enhanced,
+  breakable,
+  colback=white,
+  colframe=black,
+  boxrule=0.5pt,
+  arc=1mm,
+  left=1mm,
+  right=1mm,
+  top=1mm,
+  bottom=1mm,
+  before upper={\setlength{\parskip}{0.35\baselineskip}}
+}
+
+\NewDocumentCommand{\TriExampleLong}{m +m m +m +m}{%
+  \BeginBilingualExample
+  \phantomsection
+  \addcontentsline{loe}{section}{Ví dụ \CurrentBilingualExampleNo: #3}%
+  \begin{ExampleBoxEN}{#1}
+  #2
+  \end{ExampleBoxEN}
+  \switchcolumn
+  \begin{ExampleBoxVI}{#3}
+  #4
+  \end{ExampleBoxVI}
+  \switchcolumn
+  #5\par
+  \switchcolumn[0]*[\vspace{0.95\baselineskip}]
+}
+
+\NewDocumentCommand{\TriExampleLongNext}{+m +m +m}{%
+  \begin{ExampleContBox}
+  #1
+  \end{ExampleContBox}
+  \switchcolumn
+  \begin{ExampleContBox}
+  #2
+  \end{ExampleContBox}
+  \switchcolumn
+  #3\par
+  \switchcolumn[0]*[\vspace{0.95\baselineskip}]
+}
+
+% --------------------------------------------------
+% Danh sách lời thoại
+% --------------------------------------------------
+\newlength{\scriptlabelwidth}
+\setlength{\scriptlabelwidth}{24mm}
+
+\newcommand{\scriptlabel}[1]{%
+  \normalfont\slshape\makebox[\scriptlabelwidth][l]{#1}%
+}
+
+\newenvironment{scriptlist}{%
+  \begin{list}{}{%
+    \setlength{\labelwidth}{\scriptlabelwidth}%
+    \setlength{\labelsep}{0.6em}%
+    \setlength{\leftmargin}{\dimexpr\labelwidth+\labelsep\relax}%
+    \setlength{\itemindent}{0pt}%
+    \setlength{\listparindent}{0pt}%
+    \setlength{\parsep}{0pt}%
+    \setlength{\itemsep}{0.35\baselineskip}%
+    \setlength{\topsep}{0.35\baselineskip}%
+    \let\makelabel\scriptlabel
+  }%
+}{%
+  \end{list}%
+}
+
+\newenvironment{hanglist}{}{}
+
+\newcommand{\hangitem}[1]{%
+  \par\noindent
+  \hangindent=2em
+  \hangafter=1
+  #1\par
+}
+
+% \includeonly{dan_nhap}
+% \includeonly{chuong_01}
+% \includeonly{chuong_02}
+% \includeonly{chuong_03}
+% \includeonly{chuong_04}
+% \includeonly{chuong_05}
+% \includeonly{chuong_06}
+% \includeonly{chuong_07}
+% \includeonly{chuong_08}
+% \includeonly{chuong_09}
+% \includeonly{chuong_10}
+% \includeonly{chuong_11}
+% \includeonly{thu_muc_chu_giai}
+
+% ================================
+
+\begin{document}
+
+\hypersetup{pageanchor=false}
+
+% Title page
+\thispagestyle{empty}
+\vspace*{0.12\textheight}
+\begin{center}
+  {\Huge\bfseries \BookTitleDisplay\par}
+  \vspace{0.8em}
+  {\Large\bfseries \BookSubtitle\par}
+  \vspace{1em}
+  {\large \OriginalTitle\par}
+  \vspace{0.4em}
+  {\large \OriginalAuthor\par}
+  \vspace{1.4em}
+  {\large \BookAuthor\par}
+\end{center}
+\vfill
+\cleardoublepage
+
+\hypersetup{pageanchor=true}
+
+\pagestyle{scrheadings}
+\pagenumbering{arabic}
+
+% MỤC LỤC
+\TOCPage
+
+% DANH SÁCH VÍ DỤ 
+\LOEPage
+
+%  DẪN NHẬP
+\OddInclude{dan_nhap}
+
+% PHẦN 1
+\PartPage
+{Defining Reasoning and Sense Making}
+{Định nghĩa Luận và Hiểu}
+{}
+
+\OddInclude{chuong_01}
+\OddInclude{chuong_02}
+
+%  PHẦN 2
+\PartPage
+{Reasoning and Sense Making in the Curriculum}
+{Luận và hiểu trong chương trình học}
+{}
+
+\OddInclude{chuong_03}
+\OddInclude{chuong_04}
+\OddInclude{chuong_05}
+\OddInclude{chuong_06}
+\OddInclude{chuong_07}
+\OddInclude{chuong_08}
+
+%  PHẦN 3
+\PartPage
+{Reasoning and Sense Making in the High School Mathematics Program}
+{Luận và hiểu trong chương trình toán trung học phổ thông}
+{}
+
+\OddInclude{chuong_09}
+\OddInclude{chuong_10}
+\OddInclude{chuong_11}
+
+% THƯ MỤC CHÚ GIẢI
+\OddInclude{thu_muc_chu_giai}
+
+% TÀI LIỆU THAM KHẢO
+\BackMatterChapterStar{Tài liệu tham khảo}
+\nocite{*}
+\printbibliography[heading=none]
+
+\end{document}

@@ -1,0 +1,30 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+  width=\linewidth,
+  height=.45\linewidth,
+  scale only axis,
+  xmin=0, xmax=1.75,
+  ymin=0, ymax=7,
+  axis lines=left,
+  xtick={0,0.5,1.0,1.5},
+  ytick={0,2,4,6},
+  minor x tick num=1,
+  minor y tick num=1,
+  grid=both,
+  clip=true,
+  ticklabel style={font=\small},
+]
+\addplot[
+  domain=0:1.25,
+  samples=200,
+  line width=1pt
+] {19/16 + 18*x - 16*x^2};
+\end{axis}
+\end{tikzpicture}
+\end{document}

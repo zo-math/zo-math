@@ -1,0 +1,38 @@
+\documentclass[border=6pt]{standalone}
+
+\usepackage{array}
+\usepackage{tabularx}
+
+\begin{document}
+
+% --- Tham số bố cục (chỉ chỉnh ở đây) ---
+\newlength{\LeftColW}\setlength{\LeftColW}{5.2cm}
+\newlength{\RightColW}\setlength{\RightColW}{10.0cm}
+\setlength{\tabcolsep}{1pt}
+\renewcommand{\arraystretch}{1.25}
+
+% --- Khung ngoài ---
+\fbox{%
+  \begin{minipage}[t]{\dimexpr\LeftColW+\RightColW+2\tabcolsep\relax}
+  \vspace{6pt}
+  \begin{tabularx}{\linewidth}{@{}>{\itshape\bfseries}p{\LeftColW} >{\raggedright\arraybackslash}p{\RightColW}@{}}
+    Hiểu khái niệm--- &
+    sự hiểu về các khái niệm, các phép toán\\ & và các quan hệ toán học \\[0pt]
+
+    Thành thạo thủ tục--- &
+    kỹ năng thực hiện các thủ tục một cách linh hoạt, chính xác,\\ & hiệu quả và phù hợp \\[0pt]
+
+    Năng lực chiến lược--- &
+    khả năng hình thành, biểu diễn và giải các bài toán toán học \\[0pt]
+
+    Suy luận thích ứng--- &
+    năng lực tư duy theo luận lý, phản tư, giải thích\\ & và biện minh \\[0pt]
+
+    Thái độ tích cực--- &
+    khuynh hướng bền vững nhìn toán học là có nghĩa, hữu ích và đáng học, đi cùng với niềm tin vào sự chuyên cần và vào khả năng của chính mình
+  \end{tabularx}
+  \vspace{6pt}
+  \end{minipage}%
+}
+
+\end{document}

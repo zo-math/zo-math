@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>tri_thuc_tham_dinh_quyet_dinh – ZO Math</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-3d1903c5838503892ba651cf513ab205.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../assets/css/custom.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-11/index.qmd">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-12/index.qmd">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.qmd">
+ <span class="dropdown-text">100+ Hàm số</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-o/index.qmd"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-lab/index.qmd"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/shop/index.html"> 
+<span class="menu-text">ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block"></header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Trên trang này</h2>
+   
+  <ul>
+  <li><a href="#tri-thức---thẩm-định---quyết-định" id="toc-tri-thức---thẩm-định---quyết-định" class="nav-link active" data-scroll-target="#tri-thức---thẩm-định---quyết-định">Tri thức - Thẩm định - Quyết định</a>
+  <ul class="collapse">
+  <li><a href="#một-khảo-sát-qua-toán-học" id="toc-một-khảo-sát-qua-toán-học" class="nav-link" data-scroll-target="#một-khảo-sát-qua-toán-học">Một khảo sát qua Toán học</a></li>
+  <li><a href="#vấn-đề-đặt-ra" id="toc-vấn-đề-đặt-ra" class="nav-link" data-scroll-target="#vấn-đề-đặt-ra">1. Vấn đề đặt ra</a></li>
+  <li><a href="#ttq-như-một-cấu-trúc-thao-tác-tư-duy" id="toc-ttq-như-một-cấu-trúc-thao-tác-tư-duy" class="nav-link" data-scroll-target="#ttq-như-một-cấu-trúc-thao-tác-tư-duy">2. TTQ như một cấu trúc thao tác tư duy</a></li>
+  <li><a href="#ttq-như-một-cấu-trúc-ra-đề-toán-học" id="toc-ttq-như-một-cấu-trúc-ra-đề-toán-học" class="nav-link" data-scroll-target="#ttq-như-một-cấu-trúc-ra-đề-toán-học">3. TTQ như một cấu trúc ra đề Toán học</a>
+  <ul class="collapse">
+  <li><a href="#tri-thức-nền-tảng-toán-học" id="toc-tri-thức-nền-tảng-toán-học" class="nav-link" data-scroll-target="#tri-thức-nền-tảng-toán-học">3.1. Tri thức: nền tảng Toán học</a></li>
+  <li><a href="#thẩm-định-xem-xét-và-đánh-giá-tri-thức-toán-học" id="toc-thẩm-định-xem-xét-và-đánh-giá-tri-thức-toán-học" class="nav-link" data-scroll-target="#thẩm-định-xem-xét-và-đánh-giá-tri-thức-toán-học">3.2. Thẩm định: xem xét và đánh giá tri thức Toán học</a></li>
+  <li><a href="#quyết-định-lập-trường-và-trách-nhiệm" id="toc-quyết-định-lập-trường-và-trách-nhiệm" class="nav-link" data-scroll-target="#quyết-định-lập-trường-và-trách-nhiệm">3.3. Quyết định: lập trường và trách nhiệm</a></li>
+  </ul></li>
+  <li><a href="#nguyên-tắc-phân-ranh-giữa-thẩm-định-và-quyết-định" id="toc-nguyên-tắc-phân-ranh-giữa-thẩm-định-và-quyết-định" class="nav-link" data-scroll-target="#nguyên-tắc-phân-ranh-giữa-thẩm-định-và-quyết-định">4. Nguyên tắc phân ranh giữa Thẩm định và Quyết định</a></li>
+  <li><a href="#ý-nghĩa-của-cấu-trúc-ttq" id="toc-ý-nghĩa-của-cấu-trúc-ttq" class="nav-link" data-scroll-target="#ý-nghĩa-của-cấu-trúc-ttq">5. Ý nghĩa của cấu trúc TTQ</a></li>
+  <li><a href="#prompt-kỹ-thuật" id="toc-prompt-kỹ-thuật" class="nav-link" data-scroll-target="#prompt-kỹ-thuật">6. Prompt kỹ thuật</a></li>
+  </ul></li>
+  <li><a href="#ra-đề-toán-theo-cấu-trúc-ttq" id="toc-ra-đề-toán-theo-cấu-trúc-ttq" class="nav-link" data-scroll-target="#ra-đề-toán-theo-cấu-trúc-ttq">RA ĐỀ TOÁN THEO CẤU TRÚC TTQ</a>
+  <ul class="collapse">
+  <li><a href="#i.-cấu-trúc-ttq" id="toc-i.-cấu-trúc-ttq" class="nav-link" data-scroll-target="#i.-cấu-trúc-ttq">I. Cấu trúc TTQ</a>
+  <ul class="collapse">
+  <li><a href="#i.1.-tầng-tri-thức" id="toc-i.1.-tầng-tri-thức" class="nav-link" data-scroll-target="#i.1.-tầng-tri-thức">I.1. Tầng Tri thức</a></li>
+  <li><a href="#i.2.-nguyên-tắc-tương-thích-tri-thức---quyết-định" id="toc-i.2.-nguyên-tắc-tương-thích-tri-thức---quyết-định" class="nav-link" data-scroll-target="#i.2.-nguyên-tắc-tương-thích-tri-thức---quyết-định">I.2. Nguyên tắc tương thích Tri thức - Quyết định</a></li>
+  <li><a href="#i.3.-tầng-thẩm-định" id="toc-i.3.-tầng-thẩm-định" class="nav-link" data-scroll-target="#i.3.-tầng-thẩm-định">I.3. Tầng Thẩm định</a></li>
+  <li><a href="#i.4.-tầng-quyết-định" id="toc-i.4.-tầng-quyết-định" class="nav-link" data-scroll-target="#i.4.-tầng-quyết-định">I.4. Tầng Quyết định</a></li>
+  <li><a href="#i.5.-nguyên-tắc-phân-ranh" id="toc-i.5.-nguyên-tắc-phân-ranh" class="nav-link" data-scroll-target="#i.5.-nguyên-tắc-phân-ranh">I.5. Nguyên tắc phân ranh</a></li>
+  </ul></li>
+  <li><a href="#ii.-chế-độ-xuất-bản-đề" id="toc-ii.-chế-độ-xuất-bản-đề" class="nav-link" data-scroll-target="#ii.-chế-độ-xuất-bản-đề">II. Chế độ xuất bản đề</a></li>
+  <li><a href="#iii.-văn-phong" id="toc-iii.-văn-phong" class="nav-link" data-scroll-target="#iii.-văn-phong">III. Văn phong</a></li>
+  <li><a href="#iv.-tiêu-chí-kiểm-định" id="toc-iv.-tiêu-chí-kiểm-định" class="nav-link" data-scroll-target="#iv.-tiêu-chí-kiểm-định">IV. Tiêu chí kiểm định</a></li>
+  <li><a href="#v.-đề-mẫu" id="toc-v.-đề-mẫu" class="nav-link" data-scroll-target="#v.-đề-mẫu">V. Đề mẫu</a></li>
+  </ul></li>
+  <li><a href="#lý-trí-trong-y-tế-cộng-đồng" id="toc-lý-trí-trong-y-tế-cộng-đồng" class="nav-link" data-scroll-target="#lý-trí-trong-y-tế-cộng-đồng">LÝ TRÍ TRONG Y TẾ CỘNG ĐỒNG</a>
+  <ul class="collapse">
+  <li><a href="#câu-1-20-điểm" id="toc-câu-1-20-điểm" class="nav-link" data-scroll-target="#câu-1-20-điểm">Câu 1 (2,0 điểm)</a></li>
+  <li><a href="#câu-2-15-điểm" id="toc-câu-2-15-điểm" class="nav-link" data-scroll-target="#câu-2-15-điểm">Câu 2 (1,5 điểm)</a></li>
+  <li><a href="#câu-3-15-điểm" id="toc-câu-3-15-điểm" class="nav-link" data-scroll-target="#câu-3-15-điểm">Câu 3 (1,5 điểm)</a></li>
+  <li><a href="#câu-4-20-điểm" id="toc-câu-4-20-điểm" class="nav-link" data-scroll-target="#câu-4-20-điểm">Câu 4 (2,0 điểm)</a></li>
+  <li><a href="#câu-5-15-điểm" id="toc-câu-5-15-điểm" class="nav-link" data-scroll-target="#câu-5-15-điểm">Câu 5 (1,5 điểm)</a></li>
+  </ul></li>
+  <li><a href="#lý-trí-trong-y-tế-cộng-đồng-bản-hiệu-chỉnh" id="toc-lý-trí-trong-y-tế-cộng-đồng-bản-hiệu-chỉnh" class="nav-link" data-scroll-target="#lý-trí-trong-y-tế-cộng-đồng-bản-hiệu-chỉnh">LÝ TRÍ TRONG Y TẾ CỘNG ĐỒNG: BẢN HIỆU CHỈNH</a>
+  <ul class="collapse">
+  <li><a href="#câu-1-20-điểm-1" id="toc-câu-1-20-điểm-1" class="nav-link" data-scroll-target="#câu-1-20-điểm-1">Câu 1 (2,0 điểm)</a></li>
+  <li><a href="#câu-2-15-điểm-1" id="toc-câu-2-15-điểm-1" class="nav-link" data-scroll-target="#câu-2-15-điểm-1">Câu 2 (1,5 điểm)</a></li>
+  <li><a href="#câu-3-15-điểm-1" id="toc-câu-3-15-điểm-1" class="nav-link" data-scroll-target="#câu-3-15-điểm-1">Câu 3 (1,5 điểm)</a></li>
+  <li><a href="#câu-4-30-điểm" id="toc-câu-4-30-điểm" class="nav-link" data-scroll-target="#câu-4-30-điểm">Câu 4 (3,0 điểm)</a></li>
+  <li><a href="#câu-5-20-điểm" id="toc-câu-5-20-điểm" class="nav-link" data-scroll-target="#câu-5-20-điểm">Câu 5 (2,0 điểm)</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="tri-thức---thẩm-định---quyết-định" class="level1">
+<h1>Tri thức - Thẩm định - Quyết định</h1>
+<section id="một-khảo-sát-qua-toán-học" class="level2">
+<h2 class="anchored" data-anchor-id="một-khảo-sát-qua-toán-học">Một khảo sát qua Toán học</h2>
+<p><strong>Câu hỏi trung tâm:</strong> Con người hình thành lập trường sống và đưa ra quyết định như thế nào dựa trên tri thức đã được thẩm định?</p>
+</section>
+<section id="vấn-đề-đặt-ra" class="level2">
+<h2 class="anchored" data-anchor-id="vấn-đề-đặt-ra">1. Vấn đề đặt ra</h2>
+<p>Hoạt động đánh giá trong giáo dục Toán học thường được tổ chức theo hướng kiểm tra kiến thức và kỹ năng. Người học được yêu cầu nhớ, hiểu và vận dụng các công cụ toán học để đi tới một đáp án đúng. Cách tiếp cận này phản ánh được mức độ nắm vững tri thức, nhưng mới chỉ chạm tới một phần hạn chế của tư duy con người, và nghiêm trọng hơn là không quan sát tri thức được vận dụng ra sao.</p>
+<p>Trong thực tế, con người không chỉ <em>biết</em> mà còn phải <em>đánh giá</em> cái mình biết, và cuối cùng <em>quyết định</em> sẽ hành động như thế nào dựa trên tri thức đó. Sự khác biệt giữa các cá nhân không chỉ nằm ở lượng tri thức họ nắm giữ, mà còn ở cách họ đánh giá tri thức và ở những quyết định họ lựa chọn khi phải chịu trách nhiệm cho hệ quả của lựa chọn đó.</p>
+<p>Từ nhận định này, cấu trúc <em>Tri thức - Thẩm định - Quyết định (TTQ)</em> được đề xuất như một cấu trúc thao tác tư duy, dùng để tổ chức và quan sát dòng chảy từ hiểu biết đến lập trường và hành động của con người, với Toán học đóng vai trò môi trường thao tác và khảo sát. Quyết định được xem xét trong phạm vi mô hình đã được xác lập; mọi hệ quả đều phải có thể truy nguyên qua cấu trúc toán học của mô hình đó.</p>
+</section>
+<section id="ttq-như-một-cấu-trúc-thao-tác-tư-duy" class="level2">
+<h2 class="anchored" data-anchor-id="ttq-như-một-cấu-trúc-thao-tác-tư-duy">2. TTQ như một cấu trúc thao tác tư duy</h2>
+<p>TTQ không phải là một học thuyết triết học về con người, cũng không nhằm định nghĩa bản chất của tư duy. TTQ được xây dựng như một <em>cấu trúc thao tác</em>, tức là một cách phân tầng hoạt động tư duy để có thể quan sát và phân tích một cách rõ ràng.</p>
+<p>Theo cấu trúc này, tư duy của người học được xem xét qua ba tầng liên tiếp:</p>
+<ol type="1">
+<li><strong>Tri thức</strong> - những gì người học biết và hiểu;</li>
+<li><strong>Thẩm định</strong> - tri thức được kiểm định về tính đúng đắn, phạm vi hiệu lực và giá trị của nó thông qua việc xem xét, phân tích và đánh giá theo các tiêu chí nội tại;</li>
+<li><strong>Quyết định</strong> - lựa chọn hành động được đưa ra trong một bối cảnh cụ thể, dựa trên tri thức đã được thẩm định, trong đó người học xác lập và bảo vệ một tiêu chí ưu tiên giữa các hệ quả đã được mô hình hóa và có thể đo lường, đồng thời chấp nhận trách nhiệm đối với hệ quả của lựa chọn đó.</li>
+</ol>
+<p>Ba tầng này có liên hệ chặt chẽ, nhưng không thể giản lược lẫn nhau. Việc hiểu tri thức không đồng nghĩa với khả năng kiểm định hiệu lực và giá trị của tri thức đó; và việc thẩm định đúng cũng không tự động dẫn tới một quyết định có trách nhiệm.</p>
+</section>
+<section id="ttq-như-một-cấu-trúc-ra-đề-toán-học" class="level2">
+<h2 class="anchored" data-anchor-id="ttq-như-một-cấu-trúc-ra-đề-toán-học">3. TTQ như một cấu trúc ra đề Toán học</h2>
+<p>Trong bối cảnh giáo dục Toán học, cấu trúc TTQ được sử dụng như một cấu trúc ra đề, nhằm chuyển cấu trúc thao tác tư duy nói trên thành một công cụ sư phạm cụ thể. Theo đó, việc đánh giá người học không còn dừng lại ở kết quả đúng sai, mà được mở rộng sang năng lực thẩm định và năng lực ra quyết định.</p>
+<p>Cấu trúc TTQ cho phép phân biệt rõ ba loại năng lực khác nhau, vốn thường bị trộn lẫn trong các hình thức kiểm tra truyền thống.</p>
+<section id="tri-thức-nền-tảng-toán-học" class="level3">
+<h3 class="anchored" data-anchor-id="tri-thức-nền-tảng-toán-học">3.1. Tri thức: nền tảng Toán học</h3>
+<p>Tầng <em>Tri thức</em> nhằm xác lập mức độ nắm vững tri thức Toán học của người học. Trọng tâm đặt vào các khái niệm, định nghĩa, mệnh đề và điều kiện áp dụng của chúng.</p>
+<p>Các câu hỏi ở tầng này có thể yêu cầu:</p>
+<ul>
+<li>xác nhận đúng hoặc sai;</li>
+<li>giải thích hoặc chứng minh;</li>
+<li>chỉ ra phạm vi hiệu lực của một kết quả toán học.</li>
+</ul>
+<p>Mục tiêu của tầng Tri thức là trả lời câu hỏi: <em>Người học biết gì và hiểu gì trong Toán học?</em>.</p>
+</section>
+<section id="thẩm-định-xem-xét-và-đánh-giá-tri-thức-toán-học" class="level3">
+<h3 class="anchored" data-anchor-id="thẩm-định-xem-xét-và-đánh-giá-tri-thức-toán-học">3.2. Thẩm định: xem xét và đánh giá tri thức Toán học</h3>
+<p>Ở tầng <em>Thẩm định</em>, tri thức Toán học không còn chỉ là nội dung để nắm vững, mà trở thành đối tượng được xem xét và kiểm định.</p>
+<p>Việc thẩm định có thể diễn ra dưới hai hình thức khác nhau.</p>
+<p>Thứ nhất, <em>thẩm định mức độ nắm vững tri thức</em>. Ở hình thức này, người học được yêu cầu xác định điều kiện áp dụng của một định nghĩa hay định lý, phát hiện sai lầm trong một lập luận, chỉ ra điểm thiếu sót hoặc chưa đầy đủ trong một lời giải, hoặc làm rõ phạm vi hiệu lực của một kết quả. Mục đích không phải là tái hiện tri thức, mà là kiểm tra tính đúng đắn, độ chặt chẽ và chiều sâu của sự hiểu biết.</p>
+<p>Thứ hai, <em>thẩm định giá trị tương đối của các tri thức hoặc phương pháp</em>. Khi một vấn đề có thể được tiếp cận theo nhiều cách khác nhau, người học được yêu cầu so sánh và đánh giá các cách tiếp cận đó dựa trên những tiêu chí nội tại của Toán học, chẳng hạn như mức độ chặt chẽ của lập luận, tính khái quát, hiệu quả tính toán, khả năng mở rộng hoặc độ ổn định khi thay đổi giả thiết.</p>
+<p>Không phải mọi tình huống thẩm định đều đòi hỏi tồn tại nhiều phương án hợp lệ. Tuy nhiên, trong mọi trường hợp, tiêu chí đánh giá phải có thể được diễn đạt và bảo vệ bằng lập luận Toán học, không dựa trên sở thích cá nhân hay ưu tiên ngoài Toán học.</p>
+<p>Kết luận ở tầng Thẩm định vẫn nằm hoàn toàn trong phạm vi Toán học. Tầng này trả lời câu hỏi: <em>Tri thức Toán học đang được sử dụng có đúng, đủ và đáng tin cậy hay không, và trong chừng mực nào?</em>.</p>
+</section>
+<section id="quyết-định-lập-trường-và-trách-nhiệm" class="level3">
+<h3 class="anchored" data-anchor-id="quyết-định-lập-trường-và-trách-nhiệm">3.3. Quyết định: lập trường và trách nhiệm</h3>
+<p>Tầng <em>Quyết định</em> là điểm khác biệt căn bản của cấu trúc TTQ so với các hình thức đánh giá truyền thống.</p>
+<p>Ở tầng này, người học buộc phải đưa ra một quyết định trong một bối cảnh cụ thể đã được mô hình hóa bằng Toán học. Có thể tồn tại nhiều phương án hợp lệ, tương ứng với những hệ quả khác nhau có thể được đo lường trong mô hình. Quyết định không được hiểu là việc tối ưu hóa một đại lượng duy nhất được mặc định trước, mà là việc xác lập và bảo vệ một tiêu chí ưu tiên giữa các đại lượng đã mô hình hóa đó.</p>
+<p>Người học phải biện minh cho lựa chọn dựa trên các kết quả Toán học đã có và chỉ ra hệ quả phải chấp nhận của lựa chọn ấy. Trong bối cảnh có nhiều hệ quả xung đột, các ưu tiên về “giá trị” hay “nhân đạo” không được đưa vào bằng lời kêu gọi cảm tính, mà phải được thể hiện thông qua việc ưu tiên một số hệ quả định lượng (chẳng hạn giảm bỏ sót, giảm điều trị nhầm, giảm chi phí, giảm rủi ro, v.v.) và chấp nhận đánh đổi tương ứng trong mô hình.</p>
+<p>Tầng Quyết định trả lời câu hỏi: <em>Tôi chọn phương án nào để hành động, theo tiêu chí ưu tiên nào trong các đại lượng đã mô hình hóa, và vì sao tôi chấp nhận hệ quả của lựa chọn đó?</em>.</p>
+</section>
+</section>
+<section id="nguyên-tắc-phân-ranh-giữa-thẩm-định-và-quyết-định" class="level2">
+<h2 class="anchored" data-anchor-id="nguyên-tắc-phân-ranh-giữa-thẩm-định-và-quyết-định">4. Nguyên tắc phân ranh giữa Thẩm định và Quyết định</h2>
+<p>Để tránh nhầm lẫn giữa hai tầng cuối, cấu trúc TTQ tuân theo một nguyên tắc phân ranh rõ ràng:</p>
+<ul>
+<li>Nếu kết luận còn nằm trong thế giới Toán học, đó là tầng <em>Thẩm định</em>.</li>
+<li>Nếu kết luận gắn với hành động, lập trường và trách nhiệm của con người, đó là tầng <em>Quyết định</em>.</li>
+</ul>
+<p>Nguyên tắc này giúp giữ cho cấu trúc TTQ nhất quán và có thể sử dụng ổn định trong thiết kế đề và phân tích tư duy.</p>
+</section>
+<section id="ý-nghĩa-của-cấu-trúc-ttq" class="level2">
+<h2 class="anchored" data-anchor-id="ý-nghĩa-của-cấu-trúc-ttq">5. Ý nghĩa của cấu trúc TTQ</h2>
+<p>Cấu trúc <em>Tri thức - Thẩm định - Quyết định</em> không nhằm làm đề toán khó hơn, mà nhằm làm rõ các tầng tư duy mà người học phải đi qua. Thông qua TTQ, toán học không chỉ là công cụ để tìm đáp án, mà trở thành phương tiện để quan sát cách con người hiểu, đánh giá và lựa chọn khi phải chịu trách nhiệm cho quyết định của mình.</p>
+</section>
+<section id="prompt-kỹ-thuật" class="level2">
+<h2 class="anchored" data-anchor-id="prompt-kỹ-thuật">6. Prompt kỹ thuật</h2>
+</section>
+</section>
+<section id="ra-đề-toán-theo-cấu-trúc-ttq" class="level1">
+<h1>RA ĐỀ TOÁN THEO CẤU TRÚC TTQ</h1>
+<p>Bạn đóng vai trò người ra đề Toán học. Nhiệm vụ của bạn là xây dựng một đề Toán hoàn chỉnh, có thể sử dụng trực tiếp cho người học, dựa trên các thông tin đã được cung cấp về:</p>
+<ul>
+<li>chủ đề Toán học;</li>
+<li>bối cảnh của đề bài;</li>
+<li>đối tượng học sinh.</li>
+</ul>
+<p>Đề bài phải được thiết kế theo cấu trúc Tri thức - Thẩm định - Quyết định (TTQ) nhằm quan sát và đánh giá cách người học:</p>
+<ol type="1">
+<li>nắm vững tri thức Toán học;</li>
+<li>thẩm định tri thức đó bằng các tiêu chí nội tại của Toán học;</li>
+<li>đưa ra quyết định hành động trong một bối cảnh được mô hình hóa bằng các tri thức Toán học đó, kèm theo lập luận và hệ quả chấp nhận.</li>
+</ol>
+<p>Toán học giữ vai trò môi trường thao tác và lập luận, không phải mục đích tự thân.</p>
+<section id="i.-cấu-trúc-ttq" class="level2">
+<h2 class="anchored" data-anchor-id="i.-cấu-trúc-ttq">I. Cấu trúc TTQ</h2>
+<section id="i.1.-tầng-tri-thức" class="level3">
+<h3 class="anchored" data-anchor-id="i.1.-tầng-tri-thức">I.1. Tầng Tri thức</h3>
+<p>Mục tiêu của tầng này là khảo sát những gì người học biết và hiểu trong Toán học.</p>
+<p>Đề bài phải thiết lập rõ các khái niệm, định nghĩa, mệnh đề, ký hiệu, công thức hoặc mô hình Toán học cần thiết, cùng với điều kiện áp dụng và phạm vi hiệu lực của chúng.</p>
+<p>Các yêu cầu hợp lệ ở tầng này bao gồm: thiết lập, tính toán, biến đổi, suy luận, chứng minh, giải thích hoặc diễn giải ý nghĩa Toán học của các đối tượng xuất hiện trong đề.</p>
+<p>Giới hạn tuyệt đối:</p>
+<ul>
+<li>kết luận chỉ là kết luận Toán học;</li>
+<li>không xuất hiện lựa chọn hành động;</li>
+<li>không xuất hiện lập trường, ưu tiên hay hệ quả ngoài Toán học.</li>
+</ul>
+</section>
+<section id="i.2.-nguyên-tắc-tương-thích-tri-thức---quyết-định" class="level3">
+<h3 class="anchored" data-anchor-id="i.2.-nguyên-tắc-tương-thích-tri-thức---quyết-định">I.2. Nguyên tắc tương thích Tri thức - Quyết định</h3>
+<p>Nếu đề bài yêu cầu người học đưa ra một Quyết định hành động, bạn phải bảo đảm rằng loại Quyết định đó có thể dựa trực tiếp vào ít nhất một căn cứ Toán học đã xuất hiện, hoặc có thể dẫn xuất từ tầng Tri thức.</p>
+<p>Không được yêu cầu người học đưa ra Quyết định nếu:</p>
+<ul>
+<li>tri thức đã cung cấp không đủ khả năng làm căn cứ Toán học để đánh giá hành động;</li>
+<li>hoặc Quyết định ngầm đòi hỏi thêm một loại đánh giá Toán học chưa được thiết lập trong đề.</li>
+</ul>
+<p>Không được đặt người học vào tình huống buộc phải đưa ra Quyết định trong khi thiếu sự tương thích giữa Tri thức đã cho và bản chất của Quyết định được yêu cầu.</p>
+</section>
+<section id="i.3.-tầng-thẩm-định" class="level3">
+<h3 class="anchored" data-anchor-id="i.3.-tầng-thẩm-định">I.3. Tầng Thẩm định</h3>
+<p>Mục tiêu của tầng này là khảo sát cách người học kiểm định và đánh giá các tri thức Toán học đã xuất hiện trong đề.</p>
+<p>Đề bài có thể thiết kế tầng Thẩm định theo một hoặc nhiều hình thức sau:</p>
+<ol type="1">
+<li><p>Yêu cầu người học xác định điều kiện áp dụng, phạm vi hiệu lực hoặc giới hạn của một kết quả Toán học.</p></li>
+<li><p>Yêu cầu phân tích, phát hiện và giải thích sai lầm hoặc điểm thiếu chặt chẽ trong một lập luận.</p></li>
+<li><p>Yêu cầu đánh giá độ đầy đủ, độ chính xác hoặc mức độ khái quát của một cách tiếp cận.</p></li>
+<li><p>Khi tồn tại nhiều phương pháp hoặc lập luận, yêu cầu so sánh và đánh giá giá trị tương đối của chúng theo các tiêu chí nội tại của Toán học.</p></li>
+</ol>
+<p>Việc thẩm định không mặc định phải có ít nhất hai phương án hợp lệ. Tuy nhiên, nếu có nhiều phương án, các phương án đó phải có cơ sở Toán học rõ ràng và việc so sánh phải dựa trên những tiêu chí có thể biện minh bằng lập luận Toán học.</p>
+<p>Các tiêu chí thẩm định hợp lệ có thể bao gồm:</p>
+<ul>
+<li><p>mức độ chặt chẽ của lập luận;</p></li>
+<li><p>phạm vi và điều kiện áp dụng;</p></li>
+<li><p>tính khái quát hoặc tính đặc thù;</p></li>
+<li><p>hiệu quả và tính đơn giản của phương pháp;</p></li>
+<li><p>khả năng mở rộng hoặc tái sử dụng;</p></li>
+<li><p>độ ổn định của kết quả khi thay đổi giả thiết.</p></li>
+</ul>
+<p>Giới hạn tuyệt đối:</p>
+<ul>
+<li><p>kết luận ở tầng này phải nằm hoàn toàn trong phạm vi Toán học;</p></li>
+<li><p>không yêu cầu lựa chọn hành động;</p></li>
+<li><p>không yêu cầu chấp nhận hệ quả ngoài Toán học.</p></li>
+</ul>
+<p>Nếu kết luận còn thuần túy là đánh giá giá trị hoặc hiệu lực của tri thức Toán học, yêu cầu đó thuộc tầng Thẩm định.</p>
+</section>
+<section id="i.4.-tầng-quyết-định" class="level3">
+<h3 class="anchored" data-anchor-id="i.4.-tầng-quyết-định">I.4. Tầng Quyết định</h3>
+<p>Mục tiêu của tầng này là khảo sát lập trường của người học khi phải chọn một phương án để hành động trong bối cảnh đã được mô hình hóa bằng Toán học.</p>
+<p>Người học phải đưa ra một quyết định hành động cụ thể. Có thể tồn tại nhiều quyết định hợp lệ, và quyết định không bắt buộc trùng với phương án được đánh giá cao nhất về mặt Toán học.</p>
+<p>Người học phải:</p>
+<ul>
+<li>nêu rõ tiêu chí ra quyết định;</li>
+<li>tiêu chí đó phải có thể đối chiếu trực tiếp với các đại lượng đã được mô hình hóa trong bài toán;</li>
+<li>nếu viện dẫn các ưu tiên về giá trị hoặc nhân đạo, các ưu tiên đó phải được thể hiện bằng việc ưu tiên một số hệ quả định lượng đã mô hình hóa và chấp nhận đánh đổi tương ứng;</li>
+<li>biện minh lựa chọn dựa trên kết quả Thẩm định và một ưu tiên hoặc lập trường được chấp nhận trong bối cảnh;</li>
+<li>chỉ ra hệ quả phải chấp nhận của lựa chọn đó.</li>
+</ul>
+<p>Giới hạn tuyệt đối:</p>
+<ul>
+<li>không kết luận thay người học;</li>
+<li>không biến Quyết định thành bài toán tối ưu thuần túy.</li>
+</ul>
+<p>Ở tầng Quyết định, hàm mục tiêu (nếu có) không được mặc định là tiêu chí duy nhất. Người học có quyền xác lập tiêu chí ưu tiên, miễn là tiêu chí đó có thể đối chiếu với các đại lượng đã xuất hiện.</p>
+</section>
+<section id="i.5.-nguyên-tắc-phân-ranh" class="level3">
+<h3 class="anchored" data-anchor-id="i.5.-nguyên-tắc-phân-ranh">I.5. Nguyên tắc phân ranh</h3>
+<ul>
+<li>Nếu kết luận còn nằm trong Toán học, yêu cầu đó thuộc tầng Thẩm định.</li>
+<li>Nếu kết luận gắn với hành động, lựa chọn và trách nhiệm, yêu cầu đó thuộc tầng Quyết định.</li>
+</ul>
+<p>Hai tầng này không được trộn lẫn trong cùng một yêu cầu.</p>
+</section>
+</section>
+<section id="ii.-chế-độ-xuất-bản-đề" class="level2">
+<h2 class="anchored" data-anchor-id="ii.-chế-độ-xuất-bản-đề">II. Chế độ xuất bản đề</h2>
+<p>Sản phẩm đầu ra phải là một đề Toán liền mạch, có thể sử dụng trực tiếp.</p>
+<p>Trong đề:</p>
+<ul>
+<li>mọi thuật ngữ không thuần Toán học xuất hiện trong đề phải được định nghĩa rõ bằng lời trước khi sử dụng;</li>
+<li>không xuất hiện nhãn tầng TTQ;</li>
+<li>không mô tả cấu trúc tư duy hay quy trình thiết kế;</li>
+<li>không dùng văn phong liệt kê kỹ thuật;</li>
+<li>không để lộ dấu vết của prompt.</li>
+</ul>
+<p>Cấu trúc TTQ chỉ được nhận ra qua hệ thống câu hỏi và yêu cầu.</p>
+</section>
+<section id="iii.-văn-phong" class="level2">
+<h2 class="anchored" data-anchor-id="iii.-văn-phong">III. Văn phong</h2>
+<ul>
+<li>Giọng văn phải trung tính, học thuật, nghiêm túc.</li>
+<li>Người ra đề ẩn hoàn toàn, không bộc lộ quan điểm cá nhân.</li>
+<li>Không sử dụng ngôn ngữ cảm tính, khẩu hiệu hoặc phán xét đạo đức trực tiếp.</li>
+<li>Mọi giá trị và ưu tiên chỉ được đưa vào thông qua cấu trúc Toán học của bài toán, không qua lời văn.</li>
+</ul>
+</section>
+<section id="iv.-tiêu-chí-kiểm-định" class="level2">
+<h2 class="anchored" data-anchor-id="iv.-tiêu-chí-kiểm-định">IV. Tiêu chí kiểm định</h2>
+<p>Một đề bài đạt chuẩn TTQ khi:</p>
+<ol type="1">
+<li>người học buộc phải đi qua đủ ba tầng Tri thức - Thẩm định - Quyết định;</li>
+<li>người chấm có thể nhận ra ba tầng này qua bài làm, không cần nhìn đề;</li>
+<li>tồn tại nhiều quyết định hợp lệ nếu được biện minh chặt chẽ;</li>
+<li>mọi Quyết định đều có thể truy ngược về ít nhất một căn cứ Toán học đã xuất hiện hoặc được dẫn xuất từ tầng Tri thức.</li>
+</ol>
+<p>Cấu trúc TTQ nhằm làm cách con người hiểu, đánh giá và lựa chọn trong Toán học trở nên quan sát được, bất kể chủ đề cụ thể là gì.</p>
+</section>
+<section id="v.-đề-mẫu" class="level2">
+<h2 class="anchored" data-anchor-id="v.-đề-mẫu">V. Đề mẫu</h2>
+</section>
+</section>
+<section id="lý-trí-trong-y-tế-cộng-đồng" class="level1">
+<h1>LÝ TRÍ TRONG Y TẾ CỘNG ĐỒNG</h1>
+<p><strong>Thời gian làm bài:</strong> 60 phút<br>
+<strong>Đối tượng:</strong> Học sinh lớp 12 nâng cao<br>
+<strong>Thang điểm:</strong> 10 điểm</p>
+<p>Một địa phương triển khai chương trình sàng lọc bệnh (X) trong cộng đồng nhằm phát hiện sớm người mắc bệnh và tổ chức điều trị phù hợp. Mỗi người tham gia chương trình được thực hiện một xét nghiệm y tế. Kết quả xét nghiệm có thể là <em>dương tính</em> hoặc <em>âm tính</em>. Trong đề này, <em>dương tính</em> được hiểu là xét nghiệm báo có bệnh, còn <em>âm tính</em> được hiểu là xét nghiệm báo không có bệnh. Do giới hạn kỹ thuật, xét nghiệm không hoàn toàn chính xác và có thể xảy ra sai sót.</p>
+<p>Chọn ngẫu nhiên một người trong cộng đồng. Gọi (X) là biến cố người đó thực sự mắc bệnh (X), () là biến cố người đó không mắc bệnh, và (D) là biến cố xét nghiệm cho kết quả dương tính. Theo thống kê dịch tễ, tỷ lệ mắc bệnh trong cộng đồng là (2%), tức là [ P(X)=0{,}02. ]</p>
+<p>Xét nghiệm được sử dụng có các đặc tính kỹ thuật sau:</p>
+<ul>
+<li>Xác suất xét nghiệm cho kết quả dương tính khi người đó thực sự mắc bệnh là <span class="math inline">\(0{,}95\)</span>. Chỉ số này được gọi là <em>độ nhạy</em> của xét nghiệm; phần sai sót dẫn đến kết quả âm tính khi có bệnh được gọi là <em>tỉ lệ âm tính giả</em>.</li>
+<li>Xác suất xét nghiệm cho kết quả âm tính khi người đó thực sự không mắc bệnh là <span class="math inline">\(0{,}95\)</span>. Chỉ số này được gọi là <em>độ đặc hiệu</em> của xét nghiệm; phần sai sót dẫn đến kết quả dương tính khi không có bệnh được gọi là <em>tỉ lệ dương tính giả</em>.</li>
+</ul>
+<section id="câu-1-20-điểm" class="level2">
+<h2 class="anchored" data-anchor-id="câu-1-20-điểm">Câu 1 (2,0 điểm)</h2>
+<p>Dựa trên hai khả năng “người được xét nghiệm mắc bệnh” và “người được xét nghiệm không mắc bệnh”, hãy thiết lập công thức xác suất để tính (P(D)) theo công thức xác suất toàn phần và tính giá trị của xác suất này.</p>
+<p>Tiếp theo, sử dụng công thức Bayes để tính xác suất (P(XD)), rồi viết kết quả dưới dạng phần trăm (làm tròn đến hàng phần trăm). Cuối cùng, hãy diễn giải ý nghĩa thực tế của xác suất (P(XD)) đối với một người vừa nhận kết quả xét nghiệm dương tính.</p>
+</section>
+<section id="câu-2-15-điểm" class="level2">
+<h2 class="anchored" data-anchor-id="câu-2-15-điểm">Câu 2 (1,5 điểm)</h2>
+<p>Một cán bộ y tế đưa ra nhận định sau:</p>
+<p>“Xét nghiệm này có độ chính xác rất cao, nên nếu một người có kết quả dương tính thì khả năng người đó thực sự mắc bệnh là rất lớn.”</p>
+<p>Nhận định trên đúng hay sai? Hãy phân tích bằng lập luận xác suất. Trong lời giải, cần làm rõ sự khác nhau về ý nghĩa giữa hai xác suất (P(DX)) và (P(XD)), đồng thời chỉ ra nguyên nhân dẫn đến sai lầm trong suy luận nếu có.</p>
+</section>
+<section id="câu-3-15-điểm" class="level2">
+<h2 class="anchored" data-anchor-id="câu-3-15-điểm">Câu 3 (1,5 điểm)</h2>
+<p>Để hạn chế các trường hợp điều trị không cần thiết, địa phương cân nhắc phương án xét nghiệm lần hai đối với những người đã có kết quả dương tính ở lần xét nghiệm thứ nhất. Gọi (D_1) là biến cố người đó dương tính ở lần xét nghiệm thứ nhất và (D_2) là biến cố người đó dương tính ở lần xét nghiệm thứ hai. Giả sử rằng, khi đã biết tình trạng bệnh của một người (mắc bệnh hay không mắc bệnh), kết quả của hai lần xét nghiệm là độc lập với nhau, đồng thời các đặc tính của xét nghiệm ở lần thứ hai không thay đổi so với lần thứ nhất.</p>
+<p>Tính xác suất (P(XD_1D_2)). So sánh xác suất này với (P(XD)) đã tính ở Câu 1.</p>
+</section>
+<section id="câu-4-20-điểm" class="level2">
+<h2 class="anchored" data-anchor-id="câu-4-20-điểm">Câu 4 (2,0 điểm)</h2>
+<p>Trong chương trình can thiệp y tế, mỗi người trong cộng đồng khi được chọn ngẫu nhiên sẽ làm phát sinh một chi phí cho hệ thống, tùy thuộc vào quyết định điều trị. Quy ước rằng việc điều trị một người không mắc bệnh gây ra chi phí (10) (đơn vị chi phí), việc không điều trị một người thực sự mắc bệnh gây ra chi phí (200), và mỗi lần xét nghiệm bổ sung gây ra chi phí (5).</p>
+<p>Địa phương đang cân nhắc hai chiến lược can thiệp. Theo chiến lược thứ nhất, tất cả những người có kết quả dương tính ở lần xét nghiệm thứ nhất đều được điều trị. Theo chiến lược thứ hai, chỉ những người dương tính ở cả hai lần xét nghiệm mới được điều trị, còn những người dương tính ở lần thứ nhất sẽ được xét nghiệm lại trước khi quyết định.</p>
+<p>Với mỗi chiến lược, gọi (L) là chi phí phát sinh đối với một người được chọn ngẫu nhiên trong cộng đồng.</p>
+<p>Thiết lập hai biểu thức riêng biệt tính kỳ vọng ((L)) của chi phí đối với mỗi chiến lược, dựa trên các xác suất đã xác định ở các câu trên.</p>
+<p>So sánh hai giá trị kỳ vọng thu được. Trong phân tích, cần chỉ ra rõ những thành phần nào của kỳ vọng chi phí thay đổi giữa hai chiến lược, và giải thích nguyên nhân toán học của sự thay đổi đó.</p>
+</section>
+<section id="câu-5-15-điểm" class="level2">
+<h2 class="anchored" data-anchor-id="câu-5-15-điểm">Câu 5 (1,5 điểm)</h2>
+<p>Dựa trên các kết quả xác suất và kỳ vọng đã tính được, hãy chọn một trong hai chiến lược để áp dụng.</p>
+<p>Trong câu trả lời, cần nêu rõ tiêu chí ra quyết định dưới dạng một ưu tiên có thể đối chiếu trực tiếp với các đại lượng đã xuất hiện trong biểu thức kỳ vọng ở Câu 4; biện minh cho lựa chọn dựa trên các kết quả Toán học đã có; và chỉ ra hệ quả phải chấp nhận của chiến lược đã chọn đối với hệ thống y tế.</p>
+</section>
+</section>
+<section id="lý-trí-trong-y-tế-cộng-đồng-bản-hiệu-chỉnh" class="level1">
+<h1>LÝ TRÍ TRONG Y TẾ CỘNG ĐỒNG: BẢN HIỆU CHỈNH</h1>
+<p><strong>Thời gian làm bài:</strong> 60 phút <strong>Đối tượng:</strong> Học sinh lớp 12 nâng cao <strong>Thang điểm:</strong> 10 điểm</p>
+<p>Một địa phương triển khai chương trình sàng lọc bệnh (X) trong cộng đồng nhằm phát hiện sớm người mắc bệnh và tổ chức điều trị phù hợp. Mỗi người tham gia chương trình được thực hiện một xét nghiệm y tế. Kết quả xét nghiệm có thể là <em>dương tính</em> hoặc <em>âm tính</em>. Trong đề này, <em>dương tính</em> được hiểu là xét nghiệm báo có bệnh, còn <em>âm tính</em> được hiểu là xét nghiệm báo không có bệnh. Do giới hạn kỹ thuật, xét nghiệm không hoàn toàn chính xác và có thể xảy ra sai sót.</p>
+<p>Chọn ngẫu nhiên một người trong cộng đồng. Gọi (X) là biến cố người đó thực sự mắc bệnh (X), () là biến cố người đó không mắc bệnh, và (D) là biến cố xét nghiệm cho kết quả dương tính. Theo thống kê dịch tễ, tỷ lệ mắc bệnh trong cộng đồng là (2%), tức là [ P(X)=0{,}02. ]</p>
+<p>Xét nghiệm được sử dụng có các đặc tính kỹ thuật sau:</p>
+<ul>
+<li>Xác suất xét nghiệm cho kết quả dương tính khi người đó thực sự mắc bệnh là (0{,}95). Chỉ số này được gọi là <em>độ nhạy</em> của xét nghiệm; phần sai sót dẫn đến kết quả âm tính khi có bệnh được gọi là <em>tỉ lệ âm tính giả</em>.</li>
+<li>Xác suất xét nghiệm cho kết quả âm tính khi người đó thực sự không mắc bệnh là (0{,}95). Chỉ số này được gọi là <em>độ đặc hiệu</em> của xét nghiệm; phần sai sót dẫn đến kết quả dương tính khi không có bệnh được gọi là <em>tỉ lệ dương tính giả</em>.</li>
+</ul>
+<section id="câu-1-20-điểm-1" class="level2">
+<h2 class="anchored" data-anchor-id="câu-1-20-điểm-1">Câu 1 (2,0 điểm)</h2>
+<p>Dựa trên hai khả năng “người được xét nghiệm mắc bệnh” và “người được xét nghiệm không mắc bệnh”, hãy thiết lập công thức xác suất để tính (P(D)) theo công thức xác suất toàn phần và tính giá trị của xác suất này.</p>
+<p>Tiếp theo, sử dụng công thức Bayes để tính xác suất (P(XD)), rồi viết kết quả dưới dạng phần trăm (làm tròn đến hàng phần trăm). Cuối cùng, hãy diễn giải ý nghĩa thực tế của xác suất (P(XD)) đối với một người vừa nhận kết quả xét nghiệm dương tính.</p>
+</section>
+<section id="câu-2-15-điểm-1" class="level2">
+<h2 class="anchored" data-anchor-id="câu-2-15-điểm-1">Câu 2 (1,5 điểm)</h2>
+<p>Một cán bộ y tế đưa ra nhận định sau:</p>
+<p>“Xét nghiệm này có độ chính xác rất cao, nên nếu một người có kết quả dương tính thì khả năng người đó thực sự mắc bệnh là rất lớn.”</p>
+<p>Nhận định trên đúng hay sai? Hãy phân tích bằng lập luận xác suất. Trong lời giải, cần làm rõ sự khác nhau về ý nghĩa giữa hai xác suất (P(DX)) và (P(XD)), đồng thời chỉ ra nguyên nhân dẫn đến sai lầm trong suy luận nếu có.</p>
+</section>
+<section id="câu-3-15-điểm-1" class="level2">
+<h2 class="anchored" data-anchor-id="câu-3-15-điểm-1">Câu 3 (1,5 điểm)</h2>
+<p>Để hạn chế các trường hợp điều trị không cần thiết, địa phương cân nhắc phương án xét nghiệm lần hai đối với những người đã có kết quả dương tính ở lần xét nghiệm thứ nhất. Gọi (D_1) là biến cố người đó dương tính ở lần xét nghiệm thứ nhất và (D_2) là biến cố người đó dương tính ở lần xét nghiệm thứ hai. Giả sử rằng, khi đã biết tình trạng bệnh của một người (mắc bệnh hay không mắc bệnh), kết quả của hai lần xét nghiệm là độc lập với nhau, đồng thời các đặc tính của xét nghiệm ở lần thứ hai không thay đổi so với lần thứ nhất.</p>
+<p>Tính xác suất (P(XD_1D_2)). So sánh xác suất này với (P(XD)) đã tính ở Câu 1.</p>
+</section>
+<section id="câu-4-30-điểm" class="level2">
+<h2 class="anchored" data-anchor-id="câu-4-30-điểm">Câu 4 (3,0 điểm)</h2>
+<p>Trong chương trình can thiệp y tế, mỗi người trong cộng đồng khi được chọn ngẫu nhiên sẽ làm phát sinh các hệ quả sau:</p>
+<ul>
+<li>Nếu một người thực sự mắc bệnh nhưng không được điều trị, hệ thống phải chịu một tổn thất quy ước là (200) (đơn vị).</li>
+<li>Nếu một người không mắc bệnh nhưng vẫn bị điều trị, hệ thống phải chịu một tổn thất quy ước là (12).</li>
+<li>Mỗi lần xét nghiệm bổ sung làm phát sinh chi phí (5).</li>
+<li>Nếu một người được điều trị nhưng sau đó phải ngừng điều trị do kết quả xét nghiệm lần hai âm tính, hệ thống phải chịu thêm một tổn thất là (3).</li>
+</ul>
+<p>Địa phương đang cân nhắc ba chiến lược can thiệp:</p>
+<ul>
+<li><strong>Chiến lược A:</strong> Điều trị tất cả những người có kết quả dương tính ở lần xét nghiệm thứ nhất.</li>
+<li><strong>Chiến lược B:</strong> Những người có kết quả dương tính ở lần xét nghiệm thứ nhất sẽ được xét nghiệm lần hai. Chỉ những người dương tính ở cả hai lần xét nghiệm mới được điều trị; các trường hợp còn lại không được điều trị.</li>
+<li><strong>Chiến lược C:</strong> Tất cả những người có kết quả dương tính ở lần xét nghiệm thứ nhất đều được điều trị ngay. Đồng thời họ được xét nghiệm lần hai; nếu lần hai cho kết quả âm tính thì ngừng điều trị. Việc ngừng điều trị (nếu có) diễn ra ngay sau khi có kết quả xét nghiệm lần hai và không phát sinh thêm hệ quả nào khác ngoài tổn thất đã quy ước.</li>
+</ul>
+<p>Với mỗi chiến lược, gọi (L) là tổng tổn thất (bao gồm chi phí và tổn thất quy ước) phát sinh đối với một người được chọn ngẫu nhiên trong cộng đồng.</p>
+<ol type="1">
+<li>Tính xác suất bỏ sót người bệnh.</li>
+<li>Tính xác suất điều trị nhầm.</li>
+<li>Thiết lập biểu thức tính kỳ vọng ((L)) đối với từng chiến lược, trong đó phải làm rõ các thành phần:</li>
+</ol>
+<ul>
+<li>tổn thất do bỏ sót,</li>
+<li>tổn thất do điều trị nhầm,</li>
+<li>chi phí xét nghiệm bổ sung,</li>
+<li>và tổn thất do điều trị rồi ngừng.</li>
+</ul>
+</section>
+<section id="câu-5-20-điểm" class="level2">
+<h2 class="anchored" data-anchor-id="câu-5-20-điểm">Câu 5 (2,0 điểm)</h2>
+<p>Dựa trên các kết quả đã tính ở trên, hãy chọn một trong ba chiến lược để áp dụng.</p>
+<p>Trong câu trả lời, cần:</p>
+<ul>
+<li>nêu rõ tiêu chí ưu tiên được sử dụng (chẳng hạn ưu tiên giảm tổn thất kỳ vọng, giảm xác suất bỏ sót, giảm điều trị nhầm, hoặc một sự cân bằng giữa các đại lượng đó);</li>
+<li>chỉ ra đại lượng nào được ưu tiên và đại lượng nào bị đánh đổi;</li>
+<li>biện minh cho lựa chọn dựa trên các kết quả Toán học đã có;</li>
+<li>nêu rõ hệ quả phải chấp nhận của chiến lược đã chọn trong mô hình đã cho.</li>
+</ul>
+<p>Không được mặc định tổn thất kỳ vọng nhỏ nhất là tiêu chí duy nhất.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a><br>
+<br> <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a><br>
+<br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

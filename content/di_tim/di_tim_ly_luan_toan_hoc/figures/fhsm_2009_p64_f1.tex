@@ -1,0 +1,26 @@
+% fhsm_2009_p64_1.tex
+\documentclass[tikz,border=6pt]{standalone}
+\usetikzlibrary{calc}
+
+\begin{document}
+\begin{tikzpicture}[line cap=round,line join=round]
+
+% ----- road (curved then flat) -----
+\draw[line width=1.0pt]
+  (1.5,1.7)
+    .. controls (3.9,0.6) ..
+  (3.9,0.6)
+    -- (6.8,0.6);
+
+% road label
+\node at (5,0.15) {Road};
+
+% ----- bridge (rectangle above the flat part of the road) -----
+\draw[line width=1.0pt,fill=gray!60]
+  (3.9,1.35) rectangle (6.1,1.75);
+
+% bridge label
+\node at (5.0,2.05) {Bridge};
+
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,52 @@
+% fhsm_2009_p58_1_fixed50_shiftedP.tex
+\documentclass[tikz,border=6pt]{standalone}
+\usetikzlibrary{calc,angles,quotes,arrows.meta}
+
+\begin{document}
+\begin{tikzpicture}[font=\small,line cap=round,line join=round,>=Stealth]
+
+% ----- base points -----
+\coordinate (A) at (0,0);
+\coordinate (B) at (6,0);
+
+% ----- circle determined by chord AB and inscribed angle 50° -----
+% R = AB/(2 sin 50°) = 3/sin 50°
+\pgfmathsetmacro{\R}{3/sin(50)}
+% distance from midpoint to center: d = sqrt(R^2 - (AB/2)^2) = sqrt(R^2 - 9)
+\pgfmathsetmacro{\d}{sqrt(\R*\R - 9)}
+% choose center ABOVE AB so the "top" arc is the MAJOR arc A..B
+\coordinate (O) at (3,\d);
+
+% ----- choose P on the major arc, a bit closer to B (but not making the triangle near-right) -----
+% tweak 55..70 for "natural" placement; 60 is a good default.
+\coordinate (P) at ($(O)+(60:\R)$);
+
+% ----- triangle -----
+\draw[line width=1.0pt] (A) -- (B) -- (P) -- cycle;
+
+% ----- points + labels -----
+\fill (A) circle (1.5pt) node[below left=2pt] {$A$};
+\fill (B) circle (1.5pt) node[below right=2pt] {$B$};
+\fill (P) circle (1.5pt) node[above right=1pt] {$P$};
+
+% ----- dotted MAJOR arc from A to B (only the top arc; no extra arc below) -----
+% With O above AB, A has polar angle 220°, B has 320° (relative to O).
+% The MAJOR arc goes 220 -> 360 -> 320.
+\foreach \ang in {220,210,...,90,80,70,...,0,350,340,...,320}{
+  \fill ($(O)+(\ang:\R)$) circle (0.8pt);
+}
+
+% ----- angle marker at P (50°) -----
+\pic[
+  draw,
+  dotted,
+  line width=0.9pt,
+  angle radius=8mm,
+  angle eccentricity=1.05
+] {angle=A--P--B};
+
+% ----- text -----
+\node[anchor=west] at (2.25,5.75) {$m\angle APB=50^\circ$};
+
+\end{tikzpicture}
+\end{document}

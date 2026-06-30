@@ -1,0 +1,115 @@
+\documentclass[tikz,border=6pt]{standalone}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\begin{document}
+\begin{tikzpicture}[
+  x=1cm,y=1cm,
+  line cap=round, line join=round,
+  font=\small
+]
+
+% =================================================
+% A) THAM SỐ (CHỈNH Ở ĐÂY)
+% =================================================
+\def\xRoot{0.8}
+\def\yRoot{0}
+
+% vị trí các NÚT (tick) của lần chọn thứ nhất
+\def\xFirst{3.0}
+\def\dyFirst{1.6}
+
+% vị trí các NÚT (tick) lá của lần chọn thứ hai
+\def\xSecond{6.4}
+\def\dySecond{1.0}
+
+% khoảng chừa để ghi nhãn nút, và vị trí phân nhánh sau nút
+\def\labGap{0.10}   % chữ cách tick sang phải
+\def\afterNode{1}   % đoạn kéo dài sau nút tới junction (để chừa chỗ)
+
+% tick
+\def\tickFirst{0.2}   % tick cấp 1
+\def\tickSecond{0.2}  % tick cấp 2
+
+% tiêu đề
+\def\titleY{4.5}
+\def\titleXFirst{3.65}
+\def\titleXSecond{7.25}
+\def\ulHalf{1}
+
+% =================================================
+% B) ĐIỂM (NÚT + JUNCTION)
+% =================================================
+\coordinate (P)   at (\xRoot,\yRoot);
+
+% Nút cấp 1 (tick đặt tại đây)
+\coordinate (FirstGirl) at (\xFirst,{\yRoot+\dyFirst});
+\coordinate (FirstBoy)  at (\xFirst,{\yRoot-\dyFirst});
+
+% Junction sau nút cấp 1 (tách nhánh lần 2 ở đây)
+\coordinate (JGirl) at ({\xFirst+\afterNode},{\yRoot+\dyFirst});
+\coordinate (JBoy)  at ({\xFirst+\afterNode},{\yRoot-\dyFirst});
+
+% Nút lá cấp 2 (tick đặt tại đây)
+\coordinate (GG) at (\xSecond,{\yRoot+\dyFirst+\dySecond});
+\coordinate (GB) at (\xSecond,{\yRoot+\dyFirst-\dySecond});
+\coordinate (BG) at (\xSecond,{\yRoot-\dyFirst+\dySecond});
+\coordinate (BB) at (\xSecond,{\yRoot-\dyFirst-\dySecond});
+
+% =================================================
+% C) VẼ CẠNH (đến nút -> qua junction -> tách)
+% =================================================
+% từ gốc đến nút cấp 1
+\draw[thick] (P) -- (FirstGirl);
+\draw[thick] (P) -- (FirstBoy);
+
+% từ nút cấp 1 đến junction (đoạn “chừa chỗ” cho nhãn nút)
+% \draw[thick] (FirstGirl) -- (JGirl);
+% \draw[thick] (FirstBoy)  -- (JBoy);
+
+% từ junction tách thành 2 nhánh đến các nút lá
+\draw[thick] (JGirl) -- (GG);
+\draw[thick] (JGirl) -- (GB);
+
+\draw[thick] (JBoy) -- (BG);
+\draw[thick] (JBoy) -- (BB);
+
+% =================================================
+% D) TICK (đặt tại NÚT, không đặt tại junction)
+% =================================================
+% tick cấp 1
+\draw[thick] ($(FirstGirl)+(0,\tickFirst)$) -- ($(FirstGirl)+(0,-\tickFirst)$);
+\draw[thick] ($(FirstBoy)+(0,\tickFirst)$)  -- ($(FirstBoy)+(0,-\tickFirst)$);
+
+% tick cấp 2
+\foreach \X in {GG,GB,BG,BB}{
+  \draw[thick] ($(\X)+(0,\tickSecond)$) -- ($(\X)+(0,-\tickSecond)$);
+}
+
+% =================================================
+% E) NHÃN NÚT (Girl/Boy là nhãn của NÚT)
+% =================================================
+% cấp 1
+\node[anchor=west] at ($(FirstGirl)+(\labGap,0)$) {Girl};
+\node[anchor=west] at ($(FirstBoy)+(\labGap,0)$)  {Boy};
+
+% cấp 2
+\node[anchor=west] at ($(GG)+(\labGap,0)$) {Girl};
+\node[anchor=west] at ($(GB)+(\labGap,0)$) {Boy};
+\node[anchor=west] at ($(BG)+(\labGap,0)$) {Girl};
+\node[anchor=west] at ($(BB)+(\labGap,0)$) {Boy};
+
+% =================================================
+% F) TIÊU ĐỀ + GẠCH CHÂN
+% =================================================
+\node[align=left,font=\bfseries] at (\titleXFirst,\titleY)
+  {Gender\\of First\\Student};
+% \draw (\titleXFirst-\ulHalf,\titleY-0.65) -- (\titleXFirst+\ulHalf,\titleY-0.65);
+
+\node[align=left,font=\bfseries] at (\titleXSecond,\titleY)
+  {Gender\\of Second\\Student};
+% \draw (\titleXSecond-\ulHalf,\titleY-0.65) -- (\titleXSecond+\ulHalf,\titleY-0.65);
+
+\end{tikzpicture}
+\end{document}

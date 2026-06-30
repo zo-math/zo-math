@@ -1,0 +1,36 @@
+% !TeX program = lualatex
+\documentclass[varwidth,border=6pt]{standalone}
+
+\usepackage{fontspec}
+\usepackage{array}
+\usepackage{ragged2e}
+
+\setsansfont{DejaVu Sans}
+
+\begin{document}
+
+{\sffamily\small
+\renewcommand{\arraystretch}{1.22}
+\begin{tabular}{|>{\centering\arraybackslash}m{0.95cm}|>{\RaggedRight\arraybackslash}m{6.1cm}|}
+\hline
+4 &
+Uses the concept of relative error to establish an upper bound for the error
+through a clear argument with minimal gaps.
+Provides an example that reflects the argument. \\
+\hline
+3 &
+Uses the concept of relative error to establish an upper bound for the error
+but provides an argument with one or more gaps,
+or the example does not reflect the argument. \\
+\hline
+2 &
+Shows some understanding of relative error
+but is unable to establish an upper bound for the error. \\
+\hline
+1 &
+Shows limited understanding of relative error. \\
+\hline
+\end{tabular}
+}
+
+\end{document}

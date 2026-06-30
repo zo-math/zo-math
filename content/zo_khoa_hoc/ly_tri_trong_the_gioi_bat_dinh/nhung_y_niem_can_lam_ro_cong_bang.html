@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="ZO Math">
+
+<title>CÔNG BẰNG: NHỮNG Ý NIỆM CẦN LÀM RÕ – ZO Math</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-3d1903c5838503892ba651cf513ab205.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../assets/css/custom.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-11/index.qmd">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-12/index.qmd">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.qmd">
+ <span class="dropdown-text">100+ Hàm số</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-o/index.qmd"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-lab/index.qmd"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/shop/index.html"> 
+<span class="menu-text">ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">CÔNG BẰNG: NHỮNG Ý NIỆM CẦN LÀM RÕ</h1>
+            <p class="subtitle lead">Từ công bằng đến xác suất trong tình huống bất định qua Bài toán chia tiền cược</p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Tác giả</div>
+      <div class="quarto-title-meta-contents">
+               <p>ZO Math </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Ngày cập nhật</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">07-04-2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Trên trang này</h2>
+   
+  <ul>
+  <li><a href="#công-bằng-những-ý-niệm-cần-làm-rõ" id="toc-công-bằng-những-ý-niệm-cần-làm-rõ" class="nav-link active" data-scroll-target="#công-bằng-những-ý-niệm-cần-làm-rõ">CÔNG BẰNG: NHỮNG Ý NIỆM CẦN LÀM RÕ</a>
+  <ul class="collapse">
+  <li><a href="#một-số-cách-chia-chưa-hợp-lý" id="toc-một-số-cách-chia-chưa-hợp-lý" class="nav-link" data-scroll-target="#một-số-cách-chia-chưa-hợp-lý">MỘT SỐ CÁCH CHIA CHƯA HỢP LÝ</a>
+  <ul class="collapse">
+  <li><a href="#bảng-tổng-hợp-các-cách-chia-tiền-cược-sai-lầm" id="toc-bảng-tổng-hợp-các-cách-chia-tiền-cược-sai-lầm" class="nav-link" data-scroll-target="#bảng-tổng-hợp-các-cách-chia-tiền-cược-sai-lầm">Bảng Tổng Hợp Các Cách Chia Tiền Cược Sai Lầm</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#bản-đồ-các-sai-lầm-tư-duy-trong-lịch-sử-xác-suất-học" id="toc-bản-đồ-các-sai-lầm-tư-duy-trong-lịch-sử-xác-suất-học" class="nav-link" data-scroll-target="#bản-đồ-các-sai-lầm-tư-duy-trong-lịch-sử-xác-suất-học">BẢN ĐỒ CÁC SAI LẦM TƯ DUY TRONG LỊCH SỬ XÁC SUẤT HỌC</a>
+  <ul class="collapse">
+  <li><a href="#tư-duy-cào-bằng-sự-phủ-nhận-vị-thế-equal-division" id="toc-tư-duy-cào-bằng-sự-phủ-nhận-vị-thế-equal-division" class="nav-link" data-scroll-target="#tư-duy-cào-bằng-sự-phủ-nhận-vị-thế-equal-division">1. Tư duy “Cào bằng”: Sự phủ nhận vị thế (Equal Division)</a></li>
+  <li><a href="#tư-duy-hướng-quá-khứ-tỷ-lệ-thuận-ván-thắng-luca-pacioli-1494" id="toc-tư-duy-hướng-quá-khứ-tỷ-lệ-thuận-ván-thắng-luca-pacioli-1494" class="nav-link" data-scroll-target="#tư-duy-hướng-quá-khứ-tỷ-lệ-thuận-ván-thắng-luca-pacioli-1494">2. Tư duy “Hướng quá khứ”: Tỷ lệ thuận ván thắng (Luca Pacioli, 1494)</a></li>
+  <li><a href="#tư-duy-trừ-lùi-tỷ-lệ-hiệu-số-niccolò-tartaglia-1556" id="toc-tư-duy-trừ-lùi-tỷ-lệ-hiệu-số-niccolò-tartaglia-1556" class="nav-link" data-scroll-target="#tư-duy-trừ-lùi-tỷ-lệ-hiệu-số-niccolò-tartaglia-1556">3. Tư duy “Trừ lùi”: Tỷ lệ hiệu số (Niccolò Tartaglia, 1556)</a></li>
+  <li><a href="#tư-duy-rào-cản-tuyến-tính-tỷ-lệ-nghịch-ván-thiếu" id="toc-tư-duy-rào-cản-tuyến-tính-tỷ-lệ-nghịch-ván-thiếu" class="nav-link" data-scroll-target="#tư-duy-rào-cản-tuyến-tính-tỷ-lệ-nghịch-ván-thiếu">4. Tư duy “Rào cản tuyến tính”: Tỷ lệ nghịch ván thiếu</a></li>
+  <li><a href="#tư-duy-bảo-toàn-vốn-cách-của-forestani-1603" id="toc-tư-duy-bảo-toàn-vốn-cách-của-forestani-1603" class="nav-link" data-scroll-target="#tư-duy-bảo-toàn-vốn-cách-của-forestani-1603">5. Tư duy “Bảo toàn vốn”: Cách của Forestani (1603)</a></li>
+  <li><a href="#tư-duy-liệt-kê-kịch-bản-sai-sai-lầm-của-dalembert" id="toc-tư-duy-liệt-kê-kịch-bản-sai-sai-lầm-của-dalembert" class="nav-link" data-scroll-target="#tư-duy-liệt-kê-kịch-bản-sai-sai-lầm-của-dalembert">6. Tư duy “Liệt kê kịch bản sai”: Sai lầm của d’Alembert</a></li>
+  <li><a href="#lời-kết-tại-sao-tất-cả-đều-thất-bại" id="toc-lời-kết-tại-sao-tất-cả-đều-thất-bại" class="nav-link" data-scroll-target="#lời-kết-tại-sao-tất-cả-đều-thất-bại">LỜI KẾT: TẠI SAO TẤT CẢ ĐỀU THẤT BẠI?</a></li>
+  <li><a href="#phân-tích-sâu-hơn-qua-bức-tranh-khả-năng" id="toc-phân-tích-sâu-hơn-qua-bức-tranh-khả-năng" class="nav-link" data-scroll-target="#phân-tích-sâu-hơn-qua-bức-tranh-khả-năng">Phân tích sâu hơn qua “Bức tranh khả năng”</a></li>
+  <li><a href="#pascal-và-fermat" id="toc-pascal-và-fermat" class="nav-link" data-scroll-target="#pascal-và-fermat">PASCAL VÀ FERMAT</a>
+  <ul class="collapse">
+  <li><a href="#pascal-và-phương-pháp-cắt-đôi-giải-thưởng-đệ-quy" id="toc-pascal-và-phương-pháp-cắt-đôi-giải-thưởng-đệ-quy" class="nav-link" data-scroll-target="#pascal-và-phương-pháp-cắt-đôi-giải-thưởng-đệ-quy">1. Pascal và phương pháp “Cắt đôi giải thưởng” (Đệ quy)</a></li>
+  <li><a href="#fermat-và-phương-pháp-kéo-dài-giả-định-tổ-hợp" id="toc-fermat-và-phương-pháp-kéo-dài-giả-định-tổ-hợp" class="nav-link" data-scroll-target="#fermat-và-phương-pháp-kéo-dài-giả-định-tổ-hợp">2. Fermat và phương pháp “Kéo dài giả định” (Tổ hợp)</a></li>
+  <li><a href="#tam-giác-pascal-máy-tính-cho-fermat" id="toc-tam-giác-pascal-máy-tính-cho-fermat" class="nav-link" data-scroll-target="#tam-giác-pascal-máy-tính-cho-fermat">3. Tam giác Pascal: máy tính cho Fermat</a></li>
+  <li><a href="#kết-luận" id="toc-kết-luận" class="nav-link" data-scroll-target="#kết-luận">Kết luận</a></li>
+  </ul></li>
+  <li><a href="#bài-toán-ban-đầu-và-bài-toán-tương-đương" id="toc-bài-toán-ban-đầu-và-bài-toán-tương-đương" class="nav-link" data-scroll-target="#bài-toán-ban-đầu-và-bài-toán-tương-đương">Bài toán ban đầu và bài toán tương đương</a></li>
+  </ul></li>
+  <li><a href="#từ-xác-suất-đến-số-tiền-hợp-lý-được-nhận" id="toc-từ-xác-suất-đến-số-tiền-hợp-lý-được-nhận" class="nav-link" data-scroll-target="#từ-xác-suất-đến-số-tiền-hợp-lý-được-nhận">Từ xác suất đến số tiền hợp lý được nhận</a>
+  <ul class="collapse">
+  <li><a href="#một-luận-giải-về-bài-toán-chia-tiền-cược" id="toc-một-luận-giải-về-bài-toán-chia-tiền-cược" class="nav-link" data-scroll-target="#một-luận-giải-về-bài-toán-chia-tiền-cược"><em>Một luận giải về Bài toán chia tiền cược</em></a></li>
+  <li><a href="#thứ-đang-được-chia-không-phải-là-quá-khứ-mà-là-một-quyền-đối-với-tương-lai" id="toc-thứ-đang-được-chia-không-phải-là-quá-khứ-mà-là-một-quyền-đối-với-tương-lai" class="nav-link" data-scroll-target="#thứ-đang-được-chia-không-phải-là-quá-khứ-mà-là-một-quyền-đối-với-tương-lai">1. Thứ đang được chia không phải là quá khứ, mà là một quyền đối với tương lai</a></li>
+  <li><a href="#xác-suất-đo-độ-mạnh-của-quyền-ấy" id="toc-xác-suất-đo-độ-mạnh-của-quyền-ấy" class="nav-link" data-scroll-target="#xác-suất-đo-độ-mạnh-của-quyền-ấy">2. Xác suất đo độ mạnh của quyền ấy</a></li>
+  <li><a href="#vì-sao-số-tiền-hợp-lý-phải-là-pm" id="toc-vì-sao-số-tiền-hợp-lý-phải-là-pm" class="nav-link" data-scroll-target="#vì-sao-số-tiền-hợp-lý-phải-là-pm">3. Vì sao số tiền hợp lý phải là <span class="math inline">\(pM\)</span>?</a>
+  <ul class="collapse">
+  <li><a href="#cơ-sở-đầu-tiên-quyền-ấy-chỉ-có-hai-đầu-mút" id="toc-cơ-sở-đầu-tiên-quyền-ấy-chỉ-có-hai-đầu-mút" class="nav-link" data-scroll-target="#cơ-sở-đầu-tiên-quyền-ấy-chỉ-có-hai-đầu-mút">3.1. Cơ sở đầu tiên: quyền ấy chỉ có hai đầu mút</a></li>
+  <li><a href="#cơ-sở-thứ-hai-tính-nhất-quán-với-bước-kế-tiếp" id="toc-cơ-sở-thứ-hai-tính-nhất-quán-với-bước-kế-tiếp" class="nav-link" data-scroll-target="#cơ-sở-thứ-hai-tính-nhất-quán-với-bước-kế-tiếp">3.2. Cơ sở thứ hai: tính nhất quán với bước kế tiếp</a></li>
+  <li><a href="#cơ-sở-thứ-ba-khi-kết-cục-cuối-cùng-chỉ-là-nhận-m-hoặc-nhận-0" id="toc-cơ-sở-thứ-ba-khi-kết-cục-cuối-cùng-chỉ-là-nhận-m-hoặc-nhận-0" class="nav-link" data-scroll-target="#cơ-sở-thứ-ba-khi-kết-cục-cuối-cùng-chỉ-là-nhận-m-hoặc-nhận-0">3.3. Cơ sở thứ ba: khi kết cục cuối cùng chỉ là “nhận <span class="math inline">\(M\)</span>” hoặc “nhận <span class="math inline">\(0\)</span>”</a></li>
+  </ul></li>
+  <li><a href="#nói-thật-gọn-xác-suất-biến-quyền-tương-lai-thành-phần-tiền-hiện-tại" id="toc-nói-thật-gọn-xác-suất-biến-quyền-tương-lai-thành-phần-tiền-hiện-tại" class="nav-link" data-scroll-target="#nói-thật-gọn-xác-suất-biến-quyền-tương-lai-thành-phần-tiền-hiện-tại">4. Nói thật gọn: xác suất biến quyền tương lai thành phần tiền hiện tại</a></li>
+  <li><a href="#kết-luận-1" id="toc-kết-luận-1" class="nav-link" data-scroll-target="#kết-luận-1">5. Kết luận</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="công-bằng-những-ý-niệm-cần-làm-rõ" class="level1">
+<h1>CÔNG BẰNG: NHỮNG Ý NIỆM CẦN LÀM RÕ</h1>
+<ol type="1">
+<li><p>“Ở biên trên, hãy đổi luật chơi một chút để điểm yếu hiện ra rõ hơn. Giả sử ai ghi đủ <span class="math inline">\(5\)</span> điểm trước thì nhận trọn tiền cược, và trò chơi bị dừng khi <span class="math inline">\(A\)</span> đang dẫn <span class="math inline">\(4\!-\!1\)</span>. Nếu vẫn chia theo tỉ số điểm, ta sẽ cho <span class="math inline">\(A\)</span> nhận <span class="math inline">\(\frac{4}{5}\)</span> tổng tiền cược, còn <span class="math inline">\(B\)</span> nhận <span class="math inline">\(\frac{1}{5}\)</span>. Nhưng cách chia này vẫn có thể làm <span class="math inline">\(A\)</span> không hài lòng, và sự không hài lòng ấy hoàn toàn có lý. Từ tình thế <span class="math inline">\(4\!-\!1\)</span>, <span class="math inline">\(A\)</span> chỉ cần thêm đúng một ván nữa là thắng chung cuộc; còn <span class="math inline">\(B\)</span> phải thắng liên tiếp bốn ván mới có thể lật ngược tình thế. Vị thế của <span class="math inline">\(A\)</span> ở đây <strong>mạnh hơn rất nhiều</strong> so với điều mà tỉ phần <span class="math inline">\(\frac{4}{5}\)</span> diễn tả.”</p>
+<p><strong>Mạnh hơn rất nhiều</strong> nhưng cụ thể là bao nhiêu? Câu hỏi này không hề mơ hồ mà nó có câu trả lời cụ thể bằng con số dựa trên lập luận xác suất: xác suất để <span class="math inline">\(A\)</span> chiến thắng là <span class="math inline">\(\frac{1}{2}\)</span>, còn xác suất để <span class="math inline">\(B\)</span> chiến thắng là <span class="math inline">\(\frac{1}{2^4}\)</span>. Nghĩa là, nếu dùng xác suất để lập luận, mạnh hơn rất nhiều ở đây cụ thể là <span class="math inline">\(8\)</span> lần thay vì <span class="math inline">\(4\)</span> lần như điểm số phản ánh.</p>
+<p>Nhưng, một câu hỏi nhận thức ở đây là: <em>vì sao xác suất thắng chung cuộc lại đáng tin hơn điểm số</em>?</p></li>
+<li><p>Vì sao ở tình thế <span class="math inline">\(2\!-\!1\)</span> nghiêng về <span class="math inline">\(A\)</span>, cuộc chơi có thể kết thúc ngay sau khi <span class="math inline">\(A\)</span> thắng thêm một ván - nghĩa là, không cần chơi thêm bất kỳ ván nào nữa - nhưng lại có thể liệt kê các khả năng <span class="math inline">\(AA\)</span>, <span class="math inline">\(AB\)</span> bên cạnh <span class="math inline">\(BA\)</span> (bình thường) để thấy rằng <span class="math inline">\(A\)</span> có khả năng thắng gấp <span class="math inline">\(3\)</span> lần <span class="math inline">\(B\)</span> với chỉ một khả năng <span class="math inline">\(BB\)</span>?</p>
+<p>Gợi ý: Liệu ta có thể xem <span class="math inline">\(ABAA\)</span> và <span class="math inline">\(ABABB\)</span> là ngang nhau về khả năng xuất hiện?</p>
+<p>Khả năng xuất hiện của <span class="math inline">\(ABAB\)</span> rõ ràng là gấp đôi khả năng xuất hiện của <span class="math inline">\(ABABB\)</span>. Mà chúng ta không có lý do gì đặc biệt để cho rằng khả năng xuất hiện <span class="math inline">\(ABAA\)</span> và <span class="math inline">\(ABAB\)</span> là thiên lệch nhau. Do đó, khả năng xuất hiện của <span class="math inline">\(ABAA\)</span> cũng phải gấp đôi khả năng xuất hiện <span class="math inline">\(ABABB\)</span>. Hãy lập luận tiếp nếu hướng này sáng.</p></li>
+<li><p>Chữ “độ nặng” có chuẩn chưa?</p></li>
+<li><p>Vì sao viết <span class="math inline">\(AA\)</span> và <span class="math inline">\(AB\)</span> là hợp lệ khi trò chơi đã dừng lại ở ván thứ <span class="math inline">\(4\)</span> khi <span class="math inline">\(A\)</span> thắng ván này?</p></li>
+<li><p>Những tình thế có cách chia tiền tự nhiên nhất trong bài toán này.</p>
+<ul>
+<li><span class="math inline">\(0\!-\!0\)</span>: <span class="math inline">\(A\)</span> nhận <span class="math inline">\(36\)</span> đồng, <span class="math inline">\(B\)</span> nhận <span class="math inline">\(36\)</span> đồng. Vì tình thế này được hiểu một cách tự nhiên là trò chơi bị dừng lại ngay khi vừa hoàn thành luật chơi, chưa một ván chơi nào xảy ra.</li>
+<li><span class="math inline">\(1\!-\!1\)</span>, <span class="math inline">\(2\!-\!2\)</span>: <span class="math inline">\(A\)</span> nhận <span class="math inline">\(36\)</span> đồng, <span class="math inline">\(B\)</span> nhận <span class="math inline">\(36\)</span> đồng. Vì điểm số của hai người là như sau, điều đó cho thấy từ lúc bắt đầu chơi cho đến thời điểm của vị thế hiện tại, chưa ai trong hai người chơi chiếm được ưu thế hơn người kia. Do đó, không có lý do để một trong hai người được hưởng nhiều hơn người còn lại.</li>
+</ul>
+<p>Như vậy, nếu chia tiền theo điểm số, với hai tình thế <span class="math inline">\(1\!-\!1\)</span> và <span class="math inline">\(2\!-\!2\)</span>, chia đều được hiểu theo tỉ số điểm. Nhưng với tình thế <span class="math inline">\(0\!-\!0\)</span>, chia đều lại không thể hiểu theo tỉ số điểm; nếu hiểu theo tỉ số điểm, mỗi người sẽ nhận <span class="math inline">\(0\)</span> đồng. Như vậy, chia theo tỉ số điểm sẽ không thể hiểu một cách nhất quán. Một ví dụ khác càng khó chấp nhận hơn là các tình thế <span class="math inline">\(1\!-\!0\)</span>, <span class="math inline">\(2\!-\!0\)</span> nghiêng về <span class="math inline">\(A\)</span>. Lúc này, chẳng lẽ <span class="math inline">\(A\)</span> được nhận toàn bộ số tiền cược, còn <span class="math inline">\(B\)</span> thì không có đồng nào - điều này chẳng khác nào tình thế chung cuộc <span class="math inline">\(3\!-\!0\)</span> cho <span class="math inline">\(A\)</span>.</p>
+<p>Như vậy, phương pháp chia tiền hợp lý phải có tính nhất quán, nghĩa là nó áp dụng được cho tất cả các tình thế - đặc biệt là các tình thế “khó xử” như trên vừa nêu ra.</p></li>
+<li><p>Trước khi tìm một cách chia mới, có thể kiểm tra ngay cách chia theo điểm số bằng những tình thế tự nhiên nhất của trò chơi. Ở tình thế <span class="math inline">\(0\!-\!0\)</span>, trò chơi vừa mới bắt đầu, chưa một ván nào diễn ra, nên hai người hoàn toàn đứng ngang nhau trước số tiền cược: mỗi người phải được nhận <span class="math inline">\(36\)</span> đồng. Ở các tình thế <span class="math inline">\(1\!-\!1\)</span> và <span class="math inline">\(2\!-\!2\)</span> cũng vậy. Tuy trò chơi đã đi được một quãng, nhưng từ đầu đến thời điểm ấy chưa ai chiếm được ưu thế hơn người kia, nên không có lý do gì để một trong hai người được hưởng nhiều hơn người còn lại.</p>
+<p>Nhưng chính tại đây, cách chia theo tỉ số điểm bắt đầu lộ ra sự bất ổn. Với <span class="math inline">\(1\!-\!1\)</span> và <span class="math inline">\(2\!-\!2\)</span>, nó còn cho kết quả chia đều. Song ở tình thế <span class="math inline">\(0\!-\!0\)</span>, nếu vẫn cố hiểu “chia theo điểm số” theo đúng nghĩa đen, thì mỗi người sẽ có <span class="math inline">\(0\)</span> điểm và cách chia ấy không còn biết dựa vào đâu nữa. Tệ hơn, ở các tình thế <span class="math inline">\(1\!-\!0\)</span> hoặc <span class="math inline">\(2\!-\!0\)</span> nghiêng về <span class="math inline">\(A\)</span>, lối chia ấy sẽ đẩy ta tới kết luận rằng <span class="math inline">\(A\)</span> phải nhận toàn bộ số tiền cược, còn <span class="math inline">\(B\)</span> không được gì cả, như thể trò chơi đã kết thúc với tỉ số <span class="math inline">\(3\!-\!0\)</span>. Điều đó cho thấy cách chia theo điểm số không thể đứng vững như một nguyên tắc chung cho mọi tình thế dang dở của cùng một trò chơi.</p>
+<p>Vì thế, nếu muốn nói đến công bằng một cách nhất quán, ta phải tìm một đại lượng khác ngoài điểm số hiện có: một đại lượng phản ánh đúng vị thế hiện tại của mỗi người đối với chiến thắng chung cuộc.</p></li>
+<li><p>Đại lượng cần tìm nhằm thay thế cho điểm số để xây dựng các phương án chia tiền công bằng là “xác suất”. Nói rõ hơn, nó là xác suất <span class="math inline">\(A\)</span> giành chiến thắng chung cuộc khi <span class="math inline">\(A\)</span> có vị thế hiện tại.</p></li>
+</ol>
+<hr>
+<section id="một-số-cách-chia-chưa-hợp-lý" class="level2">
+<h2 class="anchored" data-anchor-id="một-số-cách-chia-chưa-hợp-lý">MỘT SỐ CÁCH CHIA CHƯA HỢP LÝ</h2>
+<p>Dưới đây là bảng tổng hợp các cách chia tiền cược sai lầm trong lịch sử toán học, được sắp xếp để giúp bạn có cái nhìn hệ thống về sự tiến hóa của tư duy xác suất:</p>
+<section id="bảng-tổng-hợp-các-cách-chia-tiền-cược-sai-lầm" class="level3">
+<h3 class="anchored" data-anchor-id="bảng-tổng-hợp-các-cách-chia-tiền-cược-sai-lầm">Bảng Tổng Hợp Các Cách Chia Tiền Cược Sai Lầm</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">STT</th>
+<th style="text-align: left;">Người đề xuất</th>
+<th style="text-align: left;">Mô tả</th>
+<th style="text-align: left;">Ví dụ</th>
+<th style="text-align: left;">Phản ví dụ</th>
+<th style="text-align: left;">Nguyên nhân</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>1</strong></td>
+<td style="text-align: left;"><em>(Dân gian)</em></td>
+<td style="text-align: left;"><strong>Chia đều (Equal Division):</strong> Chia đôi số tiền đặt cược cho mỗi người.</td>
+<td style="text-align: left;">Mỗi người nhận <span class="math inline">\(70\)</span> đồng.</td>
+<td style="text-align: left;">Nếu tỷ số là <span class="math inline">\(9\!-\!1\)</span>, người dẫn trước chắc chắn không chấp nhận mất đi lợi thế quá lớn của mình.</td>
+<td style="text-align: left;">Bỏ qua hoàn toàn <strong>lợi thế</strong> và giá trị của các ván thắng đã thực hiện.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>2</strong></td>
+<td style="text-align: left;"><strong>Luca Pacioli</strong> (1494)</td>
+<td style="text-align: left;"><strong>Tỷ lệ ván thắng (Proportional to wins):</strong> Chia theo tỷ lệ số ván mỗi người đã thắng (<span class="math inline">\(a\!:\!b\)</span>).</td>
+<td style="text-align: left;">Chia theo tỷ lệ <span class="math inline">\(8\!:\!5\)</span>. Người <span class="math inline">\(A\)</span> nhận <span class="math inline">\(86\)</span> đồng, người <span class="math inline">\(B\)</span> nhận <span class="math inline">\(54\)</span> đồng.</td>
+<td style="text-align: left;"><strong>Trường hợp <span class="math inline">\(1\!-\!0\)</span>:</strong> Người <span class="math inline">\(A\)</span> lấy hết tiền, dù người <span class="math inline">\(B\)</span> mới chỉ thua <span class="math inline">\(1\)</span> ván và còn rất nhiều cơ hội.</td>
+<td style="text-align: left;">Chỉ nhìn vào <strong>quá khứ</strong>, không tính đến số ván cần thiết để kết thúc trò chơi.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>3</strong></td>
+<td style="text-align: left;"><strong>Niccolò Tartaglia</strong> (1556)</td>
+<td style="text-align: left;"><strong>Tỷ lệ hiệu số (Difference-based):</strong> Lấy hiệu số ván thắng làm căn cứ để người thắng lấy thêm tiền từ quỹ.</td>
+<td style="text-align: left;">Người <span class="math inline">\(A\)</span> dẫn <span class="math inline">\(3\)</span> ván, lấy thêm một phần quỹ tương ứng với <span class="math inline">\(3\)</span> ván đó.</td>
+<td style="text-align: left;">Nếu chơi đến <span class="math inline">\(100\)</span> ván và tỷ số là <span class="math inline">\(10\!-\!7\)</span>, cách chia này cho kết quả giống như chơi đến <span class="math inline">\(20\)</span> ván và tỷ số <span class="math inline">\(10\!-\!7\)</span>.</td>
+<td style="text-align: left;">Không xét đến <strong>quy mô</strong> của cuộc chơi (còn bao xa nữa thì về đích).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>4</strong></td>
+<td style="text-align: left;"><em>(Vô danh)</em></td>
+<td style="text-align: left;"><strong>Tỷ lệ nghịch ván thiếu:</strong> Chia theo tỷ lệ nghịch đảo của số ván còn thiếu để thắng (<span class="math inline">\(\frac{1}{n} \!:\! \frac{1}{m}\)</span>).</td>
+<td style="text-align: left;"><span class="math inline">\(A\)</span> thiếu <span class="math inline">\(2\)</span> ván, <span class="math inline">\(B\)</span> thiếu <span class="math inline">\(5\)</span> ván. Chia tỷ lệ <span class="math inline">\(\frac{1}{2}\!:\!\frac{1}{5}\)</span> (tương đương <span class="math inline">\(5\!-\!2\)</span>). <span class="math inline">\(A\)</span> nhận <span class="math inline">\(100\)</span> đồng, <span class="math inline">\(B\)</span> nhận <span class="math inline">\(40\)</span> đồng.</td>
+<td style="text-align: left;">Trong tỷ số <span class="math inline">\(1\!-\!0\)</span> (đến <span class="math inline">\(2\)</span>), <span class="math inline">\(A\)</span> cần <span class="math inline">\(1\)</span>, <span class="math inline">\(B\)</span> cần <span class="math inline">\(2\)</span>. Tỷ lệ <span class="math inline">\(2\!:\!1\)</span> (<span class="math inline">\(A\)</span> nhận <span class="math inline">\(66\%\)</span>). Thực tế xác suất <span class="math inline">\(A\)</span> thắng là <span class="math inline">\(75\%\)</span>.</td>
+<td style="text-align: left;">Giả định giá trị các ván đấu là <strong>tuyến tính</strong>, trong khi xác suất thay đổi theo hàm mũ.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>5</strong></td>
+<td style="text-align: left;"><strong>Forestani</strong> (1603)</td>
+<td style="text-align: left;"><strong>Bảo tồn và Chia đôi:</strong> Người dẫn trước lấy lại tiền cược của mình, phần còn lại chia đôi.</td>
+<td style="text-align: left;">Người <span class="math inline">\(A\)</span> lấy lại tiền cược ban đầu, số tiền còn dư trong quỹ chia đều cho <span class="math inline">\(A\)</span> và <span class="math inline">\(B\)</span>.</td>
+<td style="text-align: left;">Không công bằng nếu cả hai đặt cược không bằng nhau hoặc khi một người đã chạm sát nút chiến thắng.</td>
+<td style="text-align: left;">Nhầm lẫn giữa <strong>vốn liếng</strong> ban đầu và <strong>giá trị kỳ vọng</strong> của giải thưởng.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>6</strong></td>
+<td style="text-align: left;"><strong>Jean d’Alembert</strong> (Thế kỷ 18)</td>
+<td style="text-align: left;"><strong>Đồng khả năng kịch bản:</strong> Liệt kê các kịch bản tương lai nhưng coi chúng có xác suất bằng nhau.</td>
+<td style="text-align: left;">Nếu cần tung 2 ván, các mặt <span class="math inline">\((S)\)</span>, <span class="math inline">\((NS)\)</span>, <span class="math inline">\((NN)\)</span> đều có xác suất <span class="math inline">\(\frac{1}{3}\)</span>.</td>
+<td style="text-align: left;">Trong tung đồng xu, kịch bản <span class="math inline">\((S)\)</span> thực chất gồm <span class="math inline">\((SS)\)</span> và <span class="math inline">\((SN)\)</span>, chiếm 50% chứ không phải <span class="math inline">\(33.3\%\)</span>.</td>
+<td style="text-align: left;">Sai lầm trong việc xác định các <strong>biến cố đồng khả năng</strong> (Equiprobable events).</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>Chào bạn, tôi rất trân trọng sự nhắc nhở thẳng thắn của bạn. Để đảm bảo tính học thuật và sự tôn trọng đối với tiến trình tư duy mà chúng ta đã cùng xây dựng từ đầu phiên chat, tôi xin hệ thống lại toàn bộ các cách chia sai lầm một cách nghiêm túc, chi tiết và đầy đủ nhất.</p>
+<p>Dưới đây là bài luận phân tích sâu về 6 hình thái sai lầm của trực giác trong bài toán chia tiền cược (<strong>Problem of Points</strong>).</p>
+<hr>
+</section>
+</section>
+</section>
+<section id="bản-đồ-các-sai-lầm-tư-duy-trong-lịch-sử-xác-suất-học" class="level1">
+<h1>BẢN ĐỒ CÁC SAI LẦM TƯ DUY TRONG LỊCH SỬ XÁC SUẤT HỌC</h1>
+<p>Bài toán chia tiền cược không chỉ là một vấn đề chia chác tài sản, mà là một “phòng thí nghiệm” nơi nhân loại học cách định lượng tương lai. Qua dòng chảy lịch sử, từ những ghi chép sơ khai của Pacioli đến những tranh biện của d’Alembert, sáu cách tiếp cận sai lầm dưới đây đại diện cho những nỗ lực dùng số học tuyến tính để giải quyết một vấn đề vốn thuộc về bản chất phi tuyến tính của xác suất.</p>
+<section id="tư-duy-cào-bằng-sự-phủ-nhận-vị-thế-equal-division" class="level3">
+<h3 class="anchored" data-anchor-id="tư-duy-cào-bằng-sự-phủ-nhận-vị-thế-equal-division">1. Tư duy “Cào bằng”: Sự phủ nhận vị thế (Equal Division)</h3>
+<p>Đây là cách tiếp cận nguyên thủy nhất, thường xuất hiện khi các bên không tìm được tiếng nói chung về toán học. * <strong>Nguyên lý:</strong> Vì trận đấu chưa kết thúc, không ai là người thắng thực sự, nên quỹ thưởng phải được chia đôi. * <strong>Ví dụ:</strong> Quỹ <strong>800<span class="math inline">\(**, tỷ số **2–1** (đến 3). Mỗi người nhận **400\)</span></strong>. * <strong>Sai lầm:</strong> Cách này bỏ qua hoàn toàn “giá trị tích lũy” của người đang dẫn trước. Nó coi một người chỉ còn thiếu 1 bước chân cũng giống hệt một người còn thiếu 2 bước chân, phủ nhận hoàn toàn lợi thế về cơ hội.</p>
+</section>
+<section id="tư-duy-hướng-quá-khứ-tỷ-lệ-thuận-ván-thắng-luca-pacioli-1494" class="level3">
+<h3 class="anchored" data-anchor-id="tư-duy-hướng-quá-khứ-tỷ-lệ-thuận-ván-thắng-luca-pacioli-1494">2. Tư duy “Hướng quá khứ”: Tỷ lệ thuận ván thắng (Luca Pacioli, 1494)</h3>
+<p>Pacioli nhìn vào những gì đã xảy ra để quyết định phần thưởng. * <strong>Nguyên lý:</strong> Tiền chia theo tỷ lệ số ván thắng hiện tại (<span class="math inline">\(a:b\)</span>). * <strong>Ví dụ:</strong> Tỷ số <strong>2–1</strong>, người A thắng gấp đôi B nên nhận <strong>2/3</strong> quỹ (<span class="math inline">\(533.3\)</span>). Người B nhận <strong>1/3</strong> (<span class="math inline">\(266.6\)</span>). * <strong>Sai lầm:</strong> Chỉ nhìn vào quá khứ mà không nhìn vào “quy mô” trận đấu. Nếu tỷ số là 1–0 trong trận đấu đến 100, cách này sẽ đưa hết tiền cho A, trong khi B vẫn còn 99% khả năng lật ngược thế cờ.</p>
+</section>
+<section id="tư-duy-trừ-lùi-tỷ-lệ-hiệu-số-niccolò-tartaglia-1556" class="level3">
+<h3 class="anchored" data-anchor-id="tư-duy-trừ-lùi-tỷ-lệ-hiệu-số-niccolò-tartaglia-1556">3. Tư duy “Trừ lùi”: Tỷ lệ hiệu số (Niccolò Tartaglia, 1556)</h3>
+<p>Tartaglia cố gắng sửa sai cho Pacioli bằng cách dùng hiệu số ván dẫn trước để tính tiền thưởng thêm. * <strong>Nguyên lý:</strong> Người dẫn trước lấy lại vốn, sau đó lấy thêm một phần quỹ tương ứng với (Hiệu số ván thắng / Số ván tối đa của trận đấu). * <strong>Ví dụ:</strong> Tỷ số <strong>2–1</strong> (đến 3), hiệu số là 1. Người A lấy lại vốn và lấy thêm một phần tiền thưởng nhỏ dựa trên hiệu số 1 này. * <strong>Sai lầm:</strong> Cách này vẫn bị mắc kẹt vào số học đơn thuần. Nó không phân biệt được sự khác biệt giữa hiệu số 1 ván khi trận đấu mới bắt đầu và hiệu số 1 ván khi một người đã chạm sát nút chiến thắng.</p>
+</section>
+<section id="tư-duy-rào-cản-tuyến-tính-tỷ-lệ-nghịch-ván-thiếu" class="level3">
+<h3 class="anchored" data-anchor-id="tư-duy-rào-cản-tuyến-tính-tỷ-lệ-nghịch-ván-thiếu">4. Tư duy “Rào cản tuyến tính”: Tỷ lệ nghịch ván thiếu</h3>
+<p>Đây là cách chúng ta đã thảo luận kỹ về việc gán cho mỗi người một “sức mạnh vị thế” dựa trên số bước còn lại. * <strong>Nguyên lý:</strong> Sức mạnh của một người tỷ lệ nghịch với số ván họ còn thiếu. Tỷ lệ là <span class="math inline">\(1/n : 1/m\)</span> (<span class="math inline">\(n, m\)</span> là số ván thiếu). * <strong>Ví dụ:</strong> Tỷ số <strong>2–1</strong> (đến 3). A thiếu 1 ván, B thiếu 2 ván. Tỷ lệ sức mạnh là <span class="math inline">\(1/1 : 1/2\)</span> (tương đương <strong>2:1</strong>). A nhận <strong>533.3<span class="math inline">\(**, B nhận **266.6\)</span></strong>. * <strong>Sai lầm:</strong> Đánh đồng mọi rào cản có sức cản trở như nhau. Nó không nhận ra rằng rào cản thứ hai khó vượt qua hơn rào cản thứ nhất rất nhiều vì nó đòi hỏi sự “thắng liên tiếp” (tính chất nhân xác suất).</p>
+</section>
+<section id="tư-duy-bảo-toàn-vốn-cách-của-forestani-1603" class="level3">
+<h3 class="anchored" data-anchor-id="tư-duy-bảo-toàn-vốn-cách-của-forestani-1603">5. Tư duy “Bảo toàn vốn”: Cách của Forestani (1603)</h3>
+<p>Một cách tiếp cận mang tính thực dụng và tâm lý. * <strong>Nguyên lý:</strong> Hoàn trả tiền đặt cược ban đầu cho người đang dẫn trước, sau đó chia đôi phần còn lại của quỹ thưởng. * <strong>Ví dụ:</strong> Quỹ <strong>800<span class="math inline">\(**, A dẫn 2–1. A lấy lại **400\)</span></strong> tiền cọc của mình. <strong>400<span class="math inline">\(** còn lại chia đôi. Kết quả A nhận **600\)</span></strong>, B nhận <strong>200$</strong>. * <strong>Sai lầm:</strong> Tuy kết quả ví dụ này ngẫu nhiên trùng với xác suất đúng của Pascal, nhưng phương pháp này sai về bản chất vì nó giả định phần tiền chưa định đoạt luôn có xác suất 50/50, bất chấp người A đang ở vị thế thuận lợi như thế nào.</p>
+</section>
+<section id="tư-duy-liệt-kê-kịch-bản-sai-sai-lầm-của-dalembert" class="level3">
+<h3 class="anchored" data-anchor-id="tư-duy-liệt-kê-kịch-bản-sai-sai-lầm-của-dalembert">6. Tư duy “Liệt kê kịch bản sai”: Sai lầm của d’Alembert</h3>
+<p>Đây là sai lầm tinh vi nhất, ngay cả khi con người đã biết đến việc liệt kê tương lai. * <strong>Nguyên lý:</strong> Liệt kê các chuỗi kết quả có thể xảy ra cho đến khi có người thắng: {A}, {BA}, {BB}. Coi mỗi kịch bản có xác suất <strong>1/3</strong>. * <strong>Ví dụ:</strong> Tỷ số <strong>2–1</strong>. A thắng ở 2 kịch bản ({A} và {BA}), B thắng ở 1 kịch bản ({BB}). Tỷ lệ chia <strong>2:1</strong>. * <strong>Sai lầm:</strong> Đây là lỗi “đếm sai không gian mẫu”. Kịch bản {A} (A thắng ngay ván đầu) thực chất dễ xảy ra hơn kịch bản {BB} (B phải thắng hai lần liên tiếp). Trong xác suất đúng, kịch bản {A} chiếm 2/4 (hay 1/2), trong khi {BA} và {BB} mỗi cái chỉ chiếm 1/4.</p>
+</section>
+<section id="lời-kết-tại-sao-tất-cả-đều-thất-bại" class="level3">
+<h3 class="anchored" data-anchor-id="lời-kết-tại-sao-tất-cả-đều-thất-bại">LỜI KẾT: TẠI SAO TẤT CẢ ĐỀU THẤT BẠI?</h3>
+<p>Cả sáu cách chia trên đều gặp một lỗi hệ thống: <strong>Dùng phép cộng (số học) để giải quyết một bài toán phép nhân (xác suất).</strong></p>
+<p>Khi chúng ta nói về việc vượt qua rào cản để đến chiến thắng, chúng ta không bước đi trên một con đường bằng phẳng nơi mỗi mét dài đều như nhau. Chúng ta đang bước trên một “cây quyết định”, nơi mỗi ván thắng là một nhánh rẽ. Người còn 1 ván thắng có một lợi thế khổng lồ vì họ có nhiều “con đường” dẫn đến vinh quang hơn, trong khi người còn nhiều ván thắng buộc phải đi trên một “sợi dây hẹp” không được phép sai lầm.</p>
+<p>Pascal và Fermat đã vĩ đại ở chỗ họ không chia tiền dựa trên những gì đã mất hay những gì còn lại, mà họ chia tiền dựa trên <strong>“tổng trọng số của tất cả các tương lai có thể xảy ra”</strong>. Đó là khoảnh khắc mà toán học thoát ly khỏi thực tại hữu hình để đo lường những khả năng vô hình.</p>
+<hr>
+</section>
+<section id="phân-tích-sâu-hơn-qua-bức-tranh-khả-năng" class="level3">
+<h3 class="anchored" data-anchor-id="phân-tích-sâu-hơn-qua-bức-tranh-khả-năng">Phân tích sâu hơn qua “Bức tranh khả năng”</h3>
+<p>Để hiểu tại sao các cách trên đều sai, chúng ta hãy nhìn vào cách chia đúng của Pascal và Fermat. Giả sử người A cần 1 ván nữa, người B cần 2 ván nữa (Tỷ số ví dụ 2-1 trong trận đấu đến 3).</p>
+<p><strong>Cách chia đúng (Pascal/Fermat):</strong> Họ không nhìn vào số ván đã qua (2 và 1). Họ nhìn vào tối đa 2 ván đấu tiếp theo để xác định người thắng: 1. <strong>Ván 1: A thắng</strong> <span class="math inline">\(\rightarrow\)</span> A thắng toàn bộ (Xác suất <span class="math inline">\(1/2\)</span>). 2. <strong>Ván 1: B thắng, Ván 2: A thắng</strong> <span class="math inline">\(\rightarrow\)</span> A thắng toàn bộ (Xác suất <span class="math inline">\(1/4\)</span>). 3. <strong>Ván 1: B thắng, Ván 2: B thắng</strong> <span class="math inline">\(\rightarrow\)</span> B thắng toàn bộ (Xác suất <span class="math inline">\(1/4\)</span>).</p>
+<ul>
+<li><strong>Tổng quyền lợi của A:</strong> <span class="math inline">\(1/2 + 1/4 = 3/4\)</span> (75%)</li>
+<li><strong>Tổng quyền lợi của B:</strong> <span class="math inline">\(1/4\)</span> (25%)</li>
+</ul>
+<p><strong>Kết luận:</strong> Mọi cách chia sai lầm (Pacioli, Tartaglia, d’Alembert) đều thất bại vì họ cố gắng đo lường <strong>“công sức”</strong> thay vì đo lường <strong>“cơ hội”</strong>. Trong toán học xác suất, giá trị của một vị thế phụ thuộc hoàn toàn vào những gì có thể xảy ra trong tương lai.</p>
+<p>Bạn có muốn thử tính toán cho một tỷ số cụ thể nào khác dựa trên “Bức tranh khả năng” này không?</p>
+<hr>
+</section>
+<section id="pascal-và-fermat" class="level2">
+<h2 class="anchored" data-anchor-id="pascal-và-fermat">PASCAL VÀ FERMAT</h2>
+<section id="pascal-và-phương-pháp-cắt-đôi-giải-thưởng-đệ-quy" class="level3">
+<h3 class="anchored" data-anchor-id="pascal-và-phương-pháp-cắt-đôi-giải-thưởng-đệ-quy">1. Pascal và phương pháp “Cắt đôi giải thưởng” (Đệ quy)</h3>
+<p>Pascal đặt câu hỏi: “Giá trị của ván đấu hiện tại là bao nhiêu?” - Ông dùng quy tắc trung bình cộng: Giá trị của một vị thế bằng trung bình cộng giá trị của các vị thế tiếp theo có thể xảy ra. - Cách này rất “đẹp” về mặt toán học nhưng khi số ván đấu còn lại quá lớn, việc tính ngược (backwards induction) trở nên vô cùng cồng kềnh.</p>
+</section>
+<section id="fermat-và-phương-pháp-kéo-dài-giả-định-tổ-hợp" class="level3">
+<h3 class="anchored" data-anchor-id="fermat-và-phương-pháp-kéo-dài-giả-định-tổ-hợp">2. Fermat và phương pháp “Kéo dài giả định” (Tổ hợp)</h3>
+<p>Fermat đã đưa ra một đột phá: Ngay cả khi trận đấu dừng lại sớm, hãy cứ giả định họ chơi tiếp cho đến hết số ván tối đa.</p>
+<ul>
+<li>Ví dụ: A cần 2 ván, B cần 1 ván. Trận đấu tối đa cần 2 ván nữa là xong. Fermat liệt kê: (Thắng-Thắng), (Thắng-Thua), (Thua-Thắng), (Thua-Thua).</li>
+<li>Cách này giúp đưa bài toán về việc đếm các kịch bản đồng khả năng (equally likely outcomes).</li>
+</ul>
+</section>
+<section id="tam-giác-pascal-máy-tính-cho-fermat" class="level3">
+<h3 class="anchored" data-anchor-id="tam-giác-pascal-máy-tính-cho-fermat">3. Tam giác Pascal: máy tính cho Fermat</h3>
+<p>Khi đọc thư Fermat, Pascal nhận ra phương pháp liệt kê của Fermat rất chính xác nhưng sẽ “bùng nổ” về số lượng nếu trận đấu còn dài (ví dụ cần thắng thêm 10 ván nữa thì không thể liệt kê tay).</p>
+<p>Lúc này, Pascal đã dùng Tam giác Số học (Arithmetic Triangle) của mình để “giải cứu”. Thay vì liệt kê từng kịch bản như Fermat:</p>
+<ul>
+<li>Pascal nhận ra tổng số kịch bản chính là <span class="math inline">\(2^n\)</span> (tổng một hàng trong tam giác).</li>
+<li>Số kịch bản có lợi cho mỗi người chính là tổng các hệ số nhị thức (các con số trong hàng đó).</li>
+</ul>
+</section>
+<section id="kết-luận" class="level3">
+<h3 class="anchored" data-anchor-id="kết-luận">Kết luận</h3>
+<p>Cách đệ quy của Pascal chính là nền tảng của Phương trình Bellman trong quy hoạch động sau này, còn cách tổ hợp của Fermat (được hỗ trợ bởi tam giác Pascal) chính là nền tảng của Phân phối Nhị thức. Cả hai đều là những cột trụ của xác suất hiện đại.</p>
+<hr>
+</section>
+</section>
+<section id="bài-toán-ban-đầu-và-bài-toán-tương-đương" class="level2">
+<h2 class="anchored" data-anchor-id="bài-toán-ban-đầu-và-bài-toán-tương-đương">Bài toán ban đầu và bài toán tương đương</h2>
+<p><strong>Bài toán ban đầu:</strong> phần chia công bằng cho người chơi <span class="math inline">\(A\)</span> là bao nhiêu khi trò chơi bị dừng tại lúc <span class="math inline">\(A\)</span> có <span class="math inline">\(2\)</span> điểm và <span class="math inline">\(B\)</span> có <span class="math inline">\(1\)</span> điểm, biết rằng ai đạt được <span class="math inline">\(3\)</span> điểm trước sẽ nhận toàn bộ tiền?</p>
+<p><strong>Bài toán tương đương:</strong> xác suất người chơi <span class="math inline">\(A\)</span> thắng ít nhất <span class="math inline">\(1\)</span> ván trong hai ván tiếp theo là bao nhiêu?</p>
+<hr>
+</section>
+</section>
+<section id="từ-xác-suất-đến-số-tiền-hợp-lý-được-nhận" class="level1">
+<h1>Từ xác suất đến số tiền hợp lý được nhận</h1>
+<section id="một-luận-giải-về-bài-toán-chia-tiền-cược" class="level3">
+<h3 class="anchored" data-anchor-id="một-luận-giải-về-bài-toán-chia-tiền-cược"><em>Một luận giải về Bài toán chia tiền cược</em></h3>
+<p><strong>Luận đề:</strong></p>
+<p><em>“Nếu xác suất để <span class="math inline">\(A\)</span> thắng chung cuộc từ tình thế hiện tại là <span class="math inline">\(p\)</span>, thì vì sao số tiền hợp lý mà <span class="math inline">\(A\)</span> nên được nhận lại là <span class="math inline">\(pM\)</span>, trong đó <span class="math inline">\(M\)</span> là tổng số tiền cược?”</em></p>
+<p>Câu hỏi này tưởng nhỏ, nhưng thật ra là điểm nối rất sâu giữa ba ý niệm:</p>
+<ul>
+<li><strong>công bằng</strong>,</li>
+<li><strong>xác suất</strong>, và</li>
+<li><strong>kỳ vọng toán học</strong>.</li>
+</ul>
+<p>Nếu không giải thích được vì sao <span class="math inline">\(pM\)</span> là số tiền hợp lý, thì việc đưa xác suất vào bài toán chia tiền cược vẫn chỉ là một thủ thuật tính toán. Còn nếu giải thích được điều đó, ta sẽ thấy xác suất không phải là vật trang trí của bài toán, mà là cơ sở khiến cách chia tiền trở nên có lý.</p>
+</section>
+<section id="thứ-đang-được-chia-không-phải-là-quá-khứ-mà-là-một-quyền-đối-với-tương-lai" class="level2">
+<h2 class="anchored" data-anchor-id="thứ-đang-được-chia-không-phải-là-quá-khứ-mà-là-một-quyền-đối-với-tương-lai">1. Thứ đang được chia không phải là quá khứ, mà là một quyền đối với tương lai</h2>
+<p>Điều đầu tiên phải nhìn cho rõ là: khi trò chơi bị dừng giữa chừng, số tiền cược chưa thật sự thuộc về ai. Nó chỉ sẽ thuộc về người thắng cuối cùng <strong>nếu</strong> trò chơi được chơi tiếp cho tới khi kết thúc.</p>
+<p>Vì thế, tại thời điểm dừng lại, điều mỗi người đang nắm không phải là một phần tiền đã thuộc hẳn về mình, mà là một <strong>quyền có điều kiện</strong> đối với số tiền ấy.</p>
+<p>Nếu xét riêng người chơi <span class="math inline">\(A\)</span>, thì quyền của <span class="math inline">\(A\)</span> có dạng rất đơn giản:</p>
+<ul>
+<li>nếu <span class="math inline">\(A\)</span> thắng chung cuộc, quyền ấy trả cho <span class="math inline">\(A\)</span> toàn bộ số tiền cược <span class="math inline">\(M\)</span>;</li>
+<li>nếu <span class="math inline">\(A\)</span> thua chung cuộc, quyền ấy trả cho <span class="math inline">\(A\)</span> số tiền <span class="math inline">\(0\)</span>.</li>
+</ul>
+<p>Nói gọn hơn, từ tình thế hiện tại, phần của <span class="math inline">\(A\)</span> là một khoản thu nhập trong tương lai chỉ có hai giá trị: <span class="math display">\[
+M \quad \text{hoặc} \quad 0.
+\]</span></p>
+<p>Do đó, câu hỏi “<span class="math inline">\(A\)</span> nên được nhận bao nhiêu tiền ngay bây giờ?” thực chất là câu hỏi:</p>
+<blockquote class="blockquote">
+<p><strong>Giá trị hiện tại công bằng của một quyền sẽ trả <span class="math inline">\(M\)</span> nếu <span class="math inline">\(A\)</span> thắng, và trả <span class="math inline">\(0\)</span> nếu <span class="math inline">\(A\)</span> thua, là bao nhiêu?</strong></p>
+</blockquote>
+<p>Đặt bài toán dưới dạng ấy, ta thấy ngay vì sao xác suất có chỗ bước vào. Bởi vì độ mạnh của quyền ấy phụ thuộc hoàn toàn vào việc từ tình thế hiện tại, <strong><span class="math inline">\(A\)</span> có thể thắng chung cuộc đến mức nào</strong>.</p>
+</section>
+<section id="xác-suất-đo-độ-mạnh-của-quyền-ấy" class="level2">
+<h2 class="anchored" data-anchor-id="xác-suất-đo-độ-mạnh-của-quyền-ấy">2. Xác suất đo độ mạnh của quyền ấy</h2>
+<p>Giả sử từ tình thế hiện tại, xác suất để <span class="math inline">\(A\)</span> thắng chung cuộc là <span class="math inline">\(p\)</span>. Khi đó, trong phần tương lai còn bỏ ngỏ của trò chơi, kết cục “<span class="math inline">\(A\)</span> nhận trọn <span class="math inline">\(M\)</span>” được nâng đỡ ở mức <span class="math inline">\(p\)</span>, còn kết cục “<span class="math inline">\(A\)</span> nhận <span class="math inline">\(0\)</span>” được nâng đỡ ở mức <span class="math inline">\(1-p\)</span>.</p>
+<p>Nếu nói bằng ngôn ngữ gần với Bài toán chia tiền cược hơn, thì xác suất <span class="math inline">\(p\)</span> đo <strong>phần khả năng thắng chung cuộc</strong> thuộc về <span class="math inline">\(A\)</span> kể từ tình thế hiện tại.</p>
+<p>Ví dụ, ở tình thế <span class="math inline">\((2,1)\)</span>, Fermat cho ta bốn kịch bản đồng khả năng: <span class="math display">\[
+AA,\ AB,\ BA,\ BB.
+\]</span> Trong đó, ba kịch bản đầu dẫn tới việc <span class="math inline">\(A\)</span> thắng chung cuộc, còn chỉ có kịch bản cuối dẫn tới việc <span class="math inline">\(B\)</span> thắng chung cuộc. Vì thế, <span class="math display">\[
+P(A\text{ thắng chung cuộc}\mid (2,1))=\frac{3}{4},
+\qquad
+P(B\text{ thắng chung cuộc}\mid (2,1))=\frac{1}{4}.
+\]</span></p>
+<p>Như vậy, xác suất không phải là một con số thêm vào từ bên ngoài. Nó là con số biểu thị <strong>độ mạnh hiện tại của quyền sẽ nhận trọn số tiền trong tương lai</strong>.</p>
+<p>Tới đây, ta mới có thể hỏi tiếp:</p>
+<blockquote class="blockquote">
+<p>Nếu quyền của <span class="math inline">\(A\)</span> mạnh ở mức <span class="math inline">\(p\)</span>, thì hiện tại nó đáng giá bao nhiêu tiền?</p>
+</blockquote>
+</section>
+<section id="vì-sao-số-tiền-hợp-lý-phải-là-pm" class="level2">
+<h2 class="anchored" data-anchor-id="vì-sao-số-tiền-hợp-lý-phải-là-pm">3. Vì sao số tiền hợp lý phải là <span class="math inline">\(pM\)</span>?</h2>
+<p>Đây là điểm then chốt.</p>
+<p>Câu trả lời ngắn gọn là: <strong>vì chỉ có <span class="math inline">\(pM\)</span> mới là số tiền hiện tại phản ánh đúng cấu trúc của quyền tương lai ấy và giữ được tính nhất quán với toàn bộ trò chơi</strong>.</p>
+<p>Nhưng câu trả lời ấy còn quá ngắn. Ta phải phân tích thật chậm.</p>
+<section id="cơ-sở-đầu-tiên-quyền-ấy-chỉ-có-hai-đầu-mút" class="level3">
+<h3 class="anchored" data-anchor-id="cơ-sở-đầu-tiên-quyền-ấy-chỉ-có-hai-đầu-mút">3.1. Cơ sở đầu tiên: quyền ấy chỉ có hai đầu mút</h3>
+<p>Với người chơi <span class="math inline">\(A\)</span>, tương lai chỉ có hai đầu mút:</p>
+<ul>
+<li><span class="math inline">\(A\)</span> nhận <span class="math inline">\(M\)</span>,</li>
+<li>hoặc <span class="math inline">\(A\)</span> nhận <span class="math inline">\(0\)</span>.</li>
+</ul>
+<p>Nếu xác suất để <span class="math inline">\(A\)</span> rơi vào đầu mút thứ nhất là <span class="math inline">\(p\)</span>, thì phần hiện tại của <span class="math inline">\(A\)</span> phải nằm ở đâu đó giữa <span class="math inline">\(0\)</span> và <span class="math inline">\(M\)</span>, và mức nghiêng về phía <span class="math inline">\(M\)</span> phải đúng bằng mức mà tương lai nghiêng về phía kết cục “<span class="math inline">\(A\)</span> thắng”.</p>
+<p>Con số duy nhất có tính chất đó là <span class="math display">\[
+pM.
+\]</span></p>
+<p>Bởi vì:</p>
+<ul>
+<li>khi <span class="math inline">\(p=0\)</span>, ta được <span class="math inline">\(pM=0\)</span>;</li>
+<li>khi <span class="math inline">\(p=1\)</span>, ta được <span class="math inline">\(pM=M\)</span>;</li>
+<li>khi <span class="math inline">\(p\)</span> tăng, phần của <span class="math inline">\(A\)</span> tăng đúng theo độ mạnh của quyền thắng chung cuộc.</li>
+</ul>
+<p>Nói bằng trực giác: nếu <span class="math inline">\(A\)</span> chỉ có <span class="math inline">\(\frac14\)</span> khả năng thắng, thì không thể cho <span class="math inline">\(A\)</span> hưởng gần như toàn bộ tiền cược; nếu <span class="math inline">\(A\)</span> có <span class="math inline">\(\frac34\)</span> khả năng thắng, thì không thể chỉ cho <span class="math inline">\(A\)</span> một phần rất nhỏ. Phần hiện tại phải “đi theo” đúng xác suất thắng.</p>
+<p>Nhưng trực giác ấy vẫn chưa đủ. Ta cần một cơ sở chặt hơn.</p>
+</section>
+<section id="cơ-sở-thứ-hai-tính-nhất-quán-với-bước-kế-tiếp" class="level3">
+<h3 class="anchored" data-anchor-id="cơ-sở-thứ-hai-tính-nhất-quán-với-bước-kế-tiếp">3.2. Cơ sở thứ hai: tính nhất quán với bước kế tiếp</h3>
+<p>Giả sử phần công bằng hiện tại của <span class="math inline">\(A\)</span> là một số <span class="math inline">\(x\)</span>.</p>
+<p>Bây giờ hãy dời việc chia tiền thêm đúng <strong>một ván</strong> nữa. Sau một ván, trò chơi sẽ chuyển sang những tình thế mới, và ở những tình thế mới ấy, phần công bằng của <span class="math inline">\(A\)</span> lại có thể được xác định.</p>
+<p>Nếu cách chia hiện tại là thật sự công bằng, thì nó phải <strong>ăn khớp</strong> với những cách chia ở ngay bước kế tiếp. Nếu không, chỉ cần trì hoãn quyết định thêm đúng một bước nữa, ta đã có một giá trị “công bằng” khác; khi ấy, khái niệm công bằng hiện tại sẽ tự mâu thuẫn với chính tương lai gần nhất của nó.</p>
+<p>Đây là chỗ công thức trung bình cộng xuất hiện.</p>
+<p>Lấy đúng tình thế <span class="math inline">\((2,1)\)</span> làm ví dụ. Gọi <span class="math inline">\(x\)</span> là phần công bằng của <span class="math inline">\(A\)</span> ở tình thế này.</p>
+<p>Sau một ván nữa, chỉ có hai khả năng ngang nhau:</p>
+<ul>
+<li>nếu <span class="math inline">\(A\)</span> thắng, trò chơi kết thúc ngay, nên phần của <span class="math inline">\(A\)</span> là <span class="math inline">\(72\)</span>;</li>
+<li>nếu <span class="math inline">\(B\)</span> thắng, trò chơi chuyển sang <span class="math inline">\((2,2)\)</span>, nơi hai người ngang nhau, nên phần của <span class="math inline">\(A\)</span> là <span class="math inline">\(36\)</span>.</li>
+</ul>
+<p>Vì hai khả năng ấy mở ra ngang nhau, nên phần hiện tại <span class="math inline">\(x\)</span> phải nằm đúng giữa hai giá trị đó:</p>
+<p><span class="math display">\[
+x=\frac{72+36}{2}=54.
+\]</span></p>
+<p>Và thật đúng là</p>
+<p><span class="math display">\[
+54=\frac34\cdot 72.
+\]</span></p>
+<p>Điều này cho thấy: <strong>phép nhân xác suất với tổng số tiền cược không phải một mẹo tính rơi từ trời xuống.</strong> Nó xuất hiện từ yêu cầu rằng giá trị hiện tại phải khớp với các giá trị công bằng ở các tình thế ngay sau đó.</p>
+<p>Viết tổng quát hơn, nếu sau bước kế tiếp có hai tình thế với các phần công bằng của <span class="math inline">\(A\)</span> lần lượt là <span class="math inline">\(x_1\)</span> và <span class="math inline">\(x_2\)</span>, và chúng mở ra với xác suất <span class="math inline">\(q\)</span> và <span class="math inline">\(1-q\)</span>, thì phần hiện tại buộc phải là <span class="math display">\[
+x=qx_1+(1-q)x_2.
+\]</span></p>
+<p>Đây chính là cấu trúc của <strong>kỳ vọng toán học</strong>.</p>
+</section>
+<section id="cơ-sở-thứ-ba-khi-kết-cục-cuối-cùng-chỉ-là-nhận-m-hoặc-nhận-0" class="level3">
+<h3 class="anchored" data-anchor-id="cơ-sở-thứ-ba-khi-kết-cục-cuối-cùng-chỉ-là-nhận-m-hoặc-nhận-0">3.3. Cơ sở thứ ba: khi kết cục cuối cùng chỉ là “nhận <span class="math inline">\(M\)</span>” hoặc “nhận <span class="math inline">\(0\)</span>”</h3>
+<p>Trong Bài toán chia tiền cược, quyền của <span class="math inline">\(A\)</span> ở cuối cùng chỉ nhận hai giá trị: <span class="math display">\[
+M \quad \text{hoặc} \quad 0.
+\]</span> Nếu xác suất tương ứng là <span class="math inline">\(p\)</span> và <span class="math inline">\(1-p\)</span>, thì công thức nhất quán ở trên trở thành</p>
+<p><span class="math display">\[
+x=pM+(1-p)\cdot 0=pM.
+\]</span></p>
+<p>Tức là:</p>
+<blockquote class="blockquote">
+<p><strong>phần công bằng hiện tại của <span class="math inline">\(A\)</span> bằng kỳ vọng toán học của khoản thu nhập tương lai của <span class="math inline">\(A\)</span>.</strong></p>
+</blockquote>
+<p>Đây là lý do thật sự của công thức <span class="math inline">\(pM\)</span>.</p>
+<p>Không phải vì “nghe hợp lý”. Không phải vì “đã có xác suất thì cứ nhân vào”. Mà vì trong một trò chơi còn dang dở, phần tiền hiện tại phải là giá trị công bằng của một khoản nhận tiền bất định trong tương lai; và giá trị công bằng ấy, nếu muốn nhất quán với cấu trúc của các khả năng còn mở, chỉ có thể là kỳ vọng của khoản ấy.</p>
+</section>
+</section>
+<section id="nói-thật-gọn-xác-suất-biến-quyền-tương-lai-thành-phần-tiền-hiện-tại" class="level2">
+<h2 class="anchored" data-anchor-id="nói-thật-gọn-xác-suất-biến-quyền-tương-lai-thành-phần-tiền-hiện-tại">4. Nói thật gọn: xác suất biến quyền tương lai thành phần tiền hiện tại</h2>
+<p>Tất cả có thể được gom lại thành một ý.</p>
+<p>Trong Bài toán chia tiền cược, ở thời điểm trò chơi bị dừng, mỗi người không sở hữu sẵn một phần tiền cố định. Mỗi người chỉ nắm một <strong>quyền còn bất định</strong> đối với việc sẽ nhận trọn số tiền trong tương lai.</p>
+<p>Xác suất thắng chung cuộc đo đúng độ mạnh của quyền ấy. Kỳ vọng toán học chuyển quyền ấy thành một số tiền hiện tại. Vì thế, nếu xác suất để <span class="math inline">\(A\)</span> thắng là <span class="math inline">\(p\)</span>, thì số tiền hợp lý mà <span class="math inline">\(A\)</span> nên được nhận là</p>
+<p><span class="math display">\[
+pM.
+\]</span></p>
+<p>Nói ngắn gọn nhất:</p>
+<blockquote class="blockquote">
+<p><strong>Xác suất cho biết mỗi người đang nắm bao nhiêu phần khả năng thắng; kỳ vọng biến phần khả năng ấy thành phần tiền hiện tại.</strong></p>
+</blockquote>
+</section>
+<section id="kết-luận-1" class="level2">
+<h2 class="anchored" data-anchor-id="kết-luận-1">5. Kết luận</h2>
+<p>Nếu đã có khái niệm xác suất, thì Bài toán chia tiền cược không còn là một bài toán mơ hồ về “công bằng” theo trực giác. Nó trở thành một bài toán rất sáng:</p>
+<ul>
+<li>xác định xác suất thắng chung cuộc của mỗi người từ tình thế hiện tại;</li>
+<li>rồi lấy xác suất ấy nhân với tổng số tiền cược để được phần tiền công bằng tương ứng.</li>
+</ul>
+<p>Sở dĩ làm được như vậy là vì số tiền hiện tại không phải được chia theo điểm số đã có, mà theo <strong>giá trị hiện tại của quyền sẽ nhận trọn tiền trong tương lai</strong>. Xác suất đo độ mạnh của quyền ấy; kỳ vọng cho nó một giá trị bằng tiền ngay bây giờ.</p>
+<p>Bởi thế, công thức</p>
+<p><span class="math display">\[
+pM
+\]</span></p>
+<p>không phải là một thủ thuật tính toán. Nó là cầu nối giữa ba điều: <strong>tương lai còn bất định</strong>, <strong>quyền sở hữu trong tương lai</strong>, và <strong>số tiền hợp lý được nhận ở hiện tại</strong>. Chính ở điểm đó, công bằng gặp xác suất, và xác suất gặp kỳ vọng.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a><br>
+<br> <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a><br>
+<br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -1,0 +1,198 @@
+% !TeX program = lualatex
+\documentclass[tikz,border=2pt]{standalone}
+
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm, line cap=round, line join=round, font=\small]
+
+% ============================================================
+% A) THAM SỐ HÓA (đổi ở đây)
+% ============================================================
+\def\gDeg{7.0}          % g = 7.0°
+\def\wDeg{3.90}         % w = 3.90°
+\def\dDraw{2.55}        % chiều cao vẽ (đơn vị hình)
+\def\dLabel{8.22}       % nhãn d (cm)
+\def\tG{4.25}           % đặt G trên dốc (từ P lên-trái theo dốc)
+
+% Độ dài các đường để khớp bố cục ảnh
+\def\roadLeft{6}
+\def\roadRight{6}
+\def\groundLeft{2.2}
+\def\groundRight{6}
+
+% Khung ngoài
+\def\FrameW{16.2}
+\def\FrameH{6.3}
+
+% Vị trí cụm hình trái
+\def\LeftShiftX{1.05}
+\def\LeftShiftY{1.15}
+
+% Ô trục bên phải
+% \def\InsetX{9.35}
+% \def\InsetY{0.85}
+\def\InsetX{-.5}
+\def\InsetY{-6.5}
+\def\InsetW{6.05}
+\def\InsetH{5.65}
+
+% ============================================================
+% B) TIỀN TÍNH (tránh lỗi calc với cos/sin)
+% ============================================================
+\pgfmathsetmacro{\dxRoadLeft}{-\roadLeft*cos(\gDeg)}
+\pgfmathsetmacro{\dyRoadLeft}{ \roadLeft*sin(\gDeg)}
+\pgfmathsetmacro{\dxRoadRight}{ \roadRight*cos(\gDeg)}
+\pgfmathsetmacro{\dyRoadRight}{-\roadRight*sin(\gDeg)}
+
+% Điểm nhãn C' (đặt gần chân trái như ảnh)
+\pgfmathsetmacro{\dxCprime}{-2.6*cos(\gDeg)}
+\pgfmathsetmacro{\dyCprime}{ 2.6*sin(\gDeg)}
+
+% ============================================================
+% D) HÌNH BÊN TRÁI: đường + xe + QP + nhãn
+% ============================================================
+\begin{scope}[shift={(\LeftShiftX,\LeftShiftY)}]
+
+  % mốc P
+  \coordinate (P) at (0,0);
+
+  % G trên đường dốc, phía trái P
+  \pgfmathsetmacro{\Gx}{-\tG*cos(\gDeg)}
+  \pgfmathsetmacro{\Gy}{ \tG*sin(\gDeg)}
+  \coordinate (G) at (\Gx,\Gy);  
+
+  % B là giao của đường qua G góc -w với mặt đất y=0
+  % Điều kiện: sin(w)>0 và Gy>0
+  \pgfmathsetmacro{\tB}{\Gy/sin(\wDeg)}
+  \pgfmathsetmacro{\Bx}{\Gx + \tB*cos(\wDeg)}
+  \coordinate (B) at (\Bx,0);
+
+  % dựng hình chữ nhật G-C-D-B (chiều cao dDraw theo pháp tuyến GB)
+  \pgfmathsetmacro{\wx}{\Bx-\Gx}
+  \pgfmathsetmacro{\wy}{0-\Gy}
+  \pgfmathsetmacro{\Lw}{sqrt(\wx*\wx+\wy*\wy)}
+
+  \pgfmathsetmacro{\nx}{-(\wy)/\Lw}
+  \pgfmathsetmacro{\ny}{ (\wx)/\Lw}
+
+  \pgfmathsetmacro{\Cx}{\Gx + \dDraw*\nx}
+  \pgfmathsetmacro{\Cy}{\Gy + \dDraw*\ny}
+  \pgfmathsetmacro{\Dx}{\Bx + \dDraw*\nx}
+  \pgfmathsetmacro{\Dy}{0   + \dDraw*\ny}
+  \coordinate (C) at (\Cx,\Cy);
+  \coordinate (D) at (\Dx,\Dy);
+
+  % Q = CD ∩ (x=0)
+  \pgfmathsetmacro{\tQ}{(0-\Cx)/(\Dx-\Cx)}
+  \pgfmathsetmacro{\Qx}{\Cx + \tQ*(\Dx-\Cx)}
+  \pgfmathsetmacro{\Qy}{\Cy + \tQ*(\Dy-\Cy)}
+  \coordinate (Q) at (\Qx,\Qy);
+
+  % H = GB ∩ (x=0)
+  \pgfmathsetmacro{\tH}{(0-\Gx)/(\Bx-\Gx)}
+  \pgfmathsetmacro{\Hx}{\Gx + \tH*(\Bx-\Gx)}
+  \pgfmathsetmacro{\Hy}{\Gy + \tH*(0-\Gy)}
+  \coordinate (H) at (\Hx,\Hy);
+
+  % Mặt đất (ngang) + đường dốc (đi qua P)
+  \draw[line width=1.0pt] (P) -- (\groundRight,0);
+  \draw[dashed, line width=1.0pt] ($(P)+(\dxRoadLeft,0)$) -- (P);
+
+  \draw[line width=1.0pt] ($(P)+(\dxRoadLeft,\dyRoadLeft)$) -- (P);
+
+  % Xe + đáy GB + đường thẳng đứng QP
+  \draw[line width=1.0pt] (G)--(C)--(D)--(B)--cycle;
+  % \draw[line width=1.0pt] (G)--(B);
+  \draw[line width=1.0pt] (Q)--(P);
+
+  % Nhãn điểm (đặt gần giống ảnh)
+  \node [above] at (C) {C};
+  \node [above] at (Q) {Q};
+  \node [above] at (D) {D};
+  \node [above right] at (H) {H};
+  \node [below] at (P) {P};
+  \node [below] at (B) {B};
+  \node [below] at (G) {G};
+
+  % Nhãn w, d: ở giữa phía trên cụm trái
+  \node[above] at ($(P)+(0,4)$) {$w=\wDeg^\circ\;\; d=\dLabel\ \text{cm}$};
+
+  % Nhãn g: ở giữa phía dưới cụm trái
+  \node[below] at ($(P)+(0,-1)$) {$g=\gDeg^\circ$};
+
+\end{scope}
+
+% ============================================================
+% E) Ô TRỤC TỌA ĐỘ BÊN PHẢI (tick dày, nhãn -10,-5,5,10)
+% ============================================================
+
+\begin{scope}[shift={(\InsetX,\InsetY)}]
+
+  % \draw[line width=1.0pt] (0,0) rectangle (\InsetW,\InsetH);
+
+  % Chọn tâm O
+  \coordinate (O) at ({0.25*\InsetW},{0.25*\InsetH});
+
+  % Nửa chiều dài trục theo đơn vị cm trong ô
+  \def\Ax{3}
+  \def\Ay{3}
+
+  % Trục
+  \draw[line width=1.0pt] ($(O)+(-\Ax,0)$) -- ($(O)+(\Ax,0)$);
+  \draw[line width=1.0pt] ($(O)+(0,-\Ay)$) -- ($(O)+(0,\Ay)$);
+
+  % Ticks dày đặc: giả lập thang -10..10 (mỗi 1 đơn vị là một tick nhỏ)
+  % Quy ước: 10 đơn vị trải trên \Ax (hoặc \Ay), nên bước tick = \Ax/10
+  \pgfmathsetmacro{\sx}{\Ax/10}
+  \pgfmathsetmacro{\sy}{\Ay/10}
+
+  % Tick nhỏ và tick dài (bội 5)
+  \foreach \k in {-10,-9,...,10}{
+    \pgfmathsetmacro{\x}{\k*\sx}
+    \pgfmathsetmacro{\len}{0.06}
+    \ifnum\k=0\relax\pgfmathsetmacro{\len}{0.10}\fi
+    \ifnum\k=5\relax\pgfmathsetmacro{\len}{0.12}\fi
+    \ifnum\k=-5\relax\pgfmathsetmacro{\len}{0.12}\fi
+    \ifnum\k=10\relax\pgfmathsetmacro{\len}{0.14}\fi
+    \ifnum\k=-10\relax\pgfmathsetmacro{\len}{0.14}\fi
+    \draw ($(O)+(\x,\len)$) -- ($(O)+(\x,-\len)$);
+  }
+  \foreach \k in {-10,-9,...,10}{
+    \pgfmathsetmacro{\y}{\k*\sy}
+    \pgfmathsetmacro{\len}{0.06}
+    \ifnum\k=0\relax\pgfmathsetmacro{\len}{0.10}\fi
+    \ifnum\k=5\relax\pgfmathsetmacro{\len}{0.12}\fi
+    \ifnum\k=-5\relax\pgfmathsetmacro{\len}{0.12}\fi
+    \ifnum\k=10\relax\pgfmathsetmacro{\len}{0.14}\fi
+    \ifnum\k=-10\relax\pgfmathsetmacro{\len}{0.14}\fi
+    \draw ($(O)+(\len,\y)$) -- ($(O)+(-\len,\y)$);
+  }
+
+  % Nhãn số giống ảnh: -10, -5, 5, 10
+  \node[below] at ($(O)+(-10*\sx,0)$) {$-10$};
+  \node[below] at ($(O)+( 10*\sx,0)$) {$10$};
+
+  \node[left]  at ($(O)+(0, 10*\sy)$) {$10$};
+  \node[left]  at ($(O)+(0,  5*\sy)$) {$5$};
+  \node[left]  at ($(O)+(0, -5*\sy)$) {$-5$};
+  \node[left]  at ($(O)+(0,-10*\sy)$) {$-10$};
+
+  % Nhãn trục
+  \node[above] at ($(O)+(0,\Ay+0.35)$) {d-axis};
+  \node[right] at ($(O)+(\Ax+0.45,0)$) {w-axis};
+
+  % Đường cong (đặt cao ~7-8, lệch trái nhẹ như ảnh)
+  \draw[line width=1pt]
+    plot[smooth] coordinates {
+      ($(O)+( 0.10,  7.75*\sy)$)
+      ($(O)+( 0.85,  8.25*\sy)$)
+      ($(O)+( 1.65,  7.725*\sy)$)
+    };
+
+\end{scope}
+
+\end{tikzpicture}
+\end{document}
