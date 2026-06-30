@@ -1,0 +1,1180 @@
+/*-- scss:defaults --*/
+// quarto-scss-analysis-annotation { "origin": "sandstone (builtin theme)" }
+
+$theme: "sandstone" !default;
+
+/* ======================================================
+   A. COLOR SYSTEM & TOKENS
+   ====================================================== */
+
+$white: #ffffff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #f8f5f0 !default;
+$gray-300: #dfd7ca !default;
+$gray-400: #ced4da !default;
+$gray-500: #98978b !default;
+$gray-600: #8e8c84 !default;
+$gray-700: #495057 !default;
+$gray-800: #3e3f3a !default;
+$gray-900: #212529 !default;
+$black: #000000 !default;
+
+$blue: #42a5f5 !default;
+$indigo: #7986cb !default;
+
+$red-01: #fdeded !default;
+$red-02: #fbdcdc !default;
+$red-03: #facbca !default;
+$red-04: #f8bab9 !default;
+$red-05: #f7a9a7 !default;
+$red-06: #f59796 !default;
+$red-07: #f38684 !default;
+$red-08: #f27572 !default;
+$red-09: #f06461 !default;
+$red-10: #ef5350 !default; /* chính */
+$red-11: #d74a48 !default;
+$red-12: #bf4240 !default;
+$red-13: #a73a38 !default;
+$red-14: #8f3130 !default;
+$red-15: #772928 !default;
+$red-16: #5f2120 !default;
+$red-17: #471818 !default;
+$red-18: #2f1010 !default;
+$red-19: #170808 !default;
+
+$yellow-01: #fff9e9 !default;
+$yellow-02: #fff4d4 !default;
+$yellow-03: #ffefbe !default;
+$yellow-04: #ffe9a9 !default;
+$yellow-05: #ffe493 !default;
+$yellow-06: #ffdf73 !default;
+$yellow-07: #ffd968 !default;
+$yellow-08: #ffd452 !default;
+$yellow-09: #ffcf3d !default;
+$yellow-10: #ffca28 !default; /* chính */
+$yellow-11: #e5b524 !default;
+$yellow-12: #cca120 !default;
+$yellow-13: #b28d1c !default;
+$yellow-14: #997918 !default;
+$yellow-15: #7f6514 !default;
+$yellow-16: #665010 !default;
+$yellow-17: #4c3c0c !default;
+$yellow-18: #332808 !default;
+$yellow-19: #191404 !default;
+
+$teal: #1de8b5 !default;
+
+$primary: $red-10 !default;
+$secondary: $yellow-10 !default;
+$success: $teal !default;
+$info: $blue !default;
+$warning: $yellow-15 !default;
+$danger: $red-15 !default;
+$light: $gray-200 !default;
+$dark: $gray-800 !default;
+
+$min-contrast-ratio: 2 !default;
+
+/* ======================================================
+   B. TYPOGRAPHY / BODY / LINKS
+   ====================================================== */
+
+$body-color: $gray-800 !default;
+$link-color: $success !default;
+
+// stylelint-disable-next-line value-keyword-case
+$font-family-sans-serif: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+  "Segoe UI Symbol" !default;
+
+$headings-font-weight: 400 !default;
+
+/* UI font cho thanh điều khiển */
+$ui-font-family: "Manrope", "Nunito Sans", "Inter", -apple-system,
+  BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif,
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
+
+/* ======================================================
+   C. COMPONENT TOKENS (Bootstrap/Quarto)
+   ====================================================== */
+
+// Dropdowns
+$dropdown-link-color: $gray-600 !default;
+$dropdown-link-hover-color: $dropdown-link-color !default;
+$dropdown-link-hover-bg: $gray-200 !default;
+$dropdown-link-active-color: $dropdown-link-color !default;
+$dropdown-link-active-bg: $dropdown-link-hover-bg !default;
+
+// Navs
+$nav-link-padding-x: 0.9rem !default;
+$nav-link-disabled-color: $gray-300 !default;
+$nav-tabs-border-color: $gray-300 !default;
+$nav-tabs-link-hover-border-color: $gray-300 !default;
+$nav-tabs-link-active-bg: $white !default;
+$nav-pills-link-active-color: $gray-600 !default;
+$nav-pills-link-active-bg: $gray-200 !default;
+
+// Pagination
+$pagination-color: $gray-600 !default;
+$pagination-bg: $gray-200 !default;
+$pagination-border-color: $gray-300 !default;
+$pagination-hover-color: $pagination-color !default;
+$pagination-active-color: $pagination-color !default;
+$pagination-active-bg: $gray-300 !default;
+$pagination-active-border-color: $gray-300 !default;
+$pagination-disabled-color: $gray-300 !default;
+$pagination-disabled-bg: $gray-200 !default;
+$pagination-disabled-border-color: $pagination-border-color !default;
+
+// Cards
+$card-border-color: rgba($gray-300, 0.75) !default;
+$card-cap-bg: rgba($gray-200, 0.25) !default;
+
+// Popovers
+$popover-header-bg: $gray-200 !default;
+
+// Modals
+$modal-content-border-color: $gray-300 !default;
+$modal-header-border-color: $modal-content-border-color !default;
+
+// Progress
+$progress-bg: $gray-300 !default;
+$progress-border-radius: 10px !default;
+$progress-bar-color: $primary !default;
+
+// List group
+$list-group-border-color: $gray-300 !default;
+$list-group-hover-bg: $gray-200 !default;
+$list-group-active-color: $body-color !default;
+$list-group-active-bg: $gray-200 !default;
+$list-group-active-border-color: $gray-300 !default;
+$list-group-disabled-color: $gray-500 !default;
+$list-group-disabled-bg: $white !default;
+$list-group-action-color: $list-group-active-color !default;
+$list-group-action-active-color: $list-group-active-color !default;
+$list-group-action-active-bg: $gray-300 !default;
+
+// Breadcrumb
+$breadcrumb-padding-y: 0.375rem !default;
+$breadcrumb-padding-x: 0.75rem !default;
+$breadcrumb-bg: $pagination-bg !default;
+$breadcrumb-border-radius: 0.25rem !default;
+
+// Close button
+$btn-close-color: $white !default;
+$btn-close-opacity: 0.8 !default;
+$btn-close-hover-opacity: 1 !default;
+
+/*-- scss:rules --*/
+
+/* ======================================================
+   D. BASE IMPORTS / HELPERS
+   ====================================================== */
+
+$web-font-path: "https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Roboto:wght@400;500;700&display=swap" !default;
+// $web-font-path: "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" !default;
+@if $web-font-path {
+  @import url($web-font-path);
+}
+
+.sandstone {
+  font-family: $ui-font-family; /* << thêm dòng này */
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 22px;
+  text-transform: uppercase;
+  letter-spacing: 0.2px; /* chút xíu tracking cho cỡ nhỏ */
+}
+
+/* ======================================================
+   E. THEME BASE RULES (Sandstone bootstrap layer)
+   ====================================================== */
+
+// Navbar
+.navbar {
+  .nav-link {
+    @extend .sandstone;
+  }
+
+  &-form input,
+  &-form .form-control {
+    border: none;
+  }
+}
+
+// Buttons
+.btn {
+  @extend .sandstone;
+
+  &:hover {
+    border-color: transparent;
+  }
+
+  &-success,
+  &-warning {
+    color: $white;
+  }
+}
+
+// Tables
+.table {
+  .thead-dark th {
+    background-color: $dark;
+  }
+}
+
+// Forms
+input,
+.form-control {
+  @include box-shadow(none);
+
+  &:focus {
+    @include box-shadow(none);
+  }
+}
+
+// Navs – Tabs
+.nav-tabs {
+  .nav-link {
+    @extend .sandstone;
+    background-color: $gray-200;
+    border-color: $gray-300;
+  }
+
+  .nav-link,
+  .nav-link:hover,
+  .nav-link:focus {
+    color: $gray-600;
+  }
+
+  .nav-link.disabled,
+  .nav-link.disabled:hover,
+  .nav-link.disabled:focus {
+    color: $nav-link-disabled-color;
+    background-color: $gray-200;
+    border-color: $gray-300;
+  }
+}
+
+// Navs – Pills
+.nav-pills {
+  .nav-link {
+    @extend .sandstone;
+    color: $gray-600;
+    border: 1px solid transparent;
+  }
+
+  .nav-link.active,
+  .nav-link:hover,
+  .nav-link:focus {
+    background-color: $gray-200;
+    border-color: $gray-300;
+  }
+
+  .nav-link.disabled,
+  .nav-link.disabled:hover {
+    color: $gray-300;
+    background-color: transparent;
+    border-color: transparent;
+  }
+}
+
+// Breadcrumb (base)
+.breadcrumb {
+  @extend .sandstone;
+  border: 1px solid $gray-300;
+}
+
+// Pagination
+.pagination {
+  @extend .sandstone;
+
+  a:hover {
+    text-decoration: none;
+  }
+}
+
+// Dropdown
+.dropdown-menu {
+  .dropdown-item {
+    @extend .sandstone;
+  }
+}
+
+// Alerts
+.alert {
+  color: $white;
+
+  a,
+  .alert-link {
+    color: $white;
+    text-decoration: underline;
+  }
+
+  &-primary,
+  &-secondary,
+  &-success,
+  &-info,
+  &-danger,
+  &-warning,
+  &-dark {
+    &,
+    > th,
+    > td {
+      background-color: currentColor;
+    }
+  }
+
+  &-primary {
+    color: $primary;
+  }
+  &-secondary {
+    color: $secondary;
+  }
+  &-success {
+    color: $success;
+  }
+  &-info {
+    color: $info;
+  }
+  &-danger {
+    color: $danger;
+  }
+  &-warning {
+    color: $warning;
+  }
+  &-dark {
+    color: $dark;
+  }
+
+  &-light {
+    &,
+    > th,
+    > td {
+      background-color: $light;
+    }
+
+    &,
+    a:not(.btn),
+    .alert-link {
+      color: $body-color;
+    }
+  }
+}
+
+// Badge
+.badge {
+  &.bg-light {
+    color: $dark;
+  }
+}
+
+// Tooltip
+.tooltip {
+  @extend .sandstone;
+}
+
+// Containers (modal/toast/offcanvas) – close btn
+.modal,
+.toast,
+.offcanvas {
+  .btn-close {
+    background-image: escape-svg(
+      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$gray-300}'><path d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/></svg>")
+    );
+  }
+}
+
+/* ======================================================
+   F. ZO MATH CUSTOM OVERRIDES (kept after base)
+   Cartoon Flat + Outline + Glass
+   ====================================================== */
+
+/* ------------------------------------------------------
+   F0. Biến tham chiếu toàn cục (navbar/breadcrumb)
+   ------------------------------------------------------ */
+:root {
+  --navbar-h: 56px; /* chiều cao navbar */
+  --bc-h: 32px; /* chiều cao breadcrumb */
+}
+
+/* ------------------------------------------------------
+   F1. NAVBAR – kính mờ + outline
+   ------------------------------------------------------ */
+.navbar {
+  background: rgba($white, 0.35);
+  backdrop-filter: blur(6px);
+  border-bottom: 3px solid $black;
+
+  /* Bootstrap CSS vars sync */
+  --bs-navbar-color: #{$black};
+  --bs-navbar-hover-color: #{$red-10};
+  --bs-navbar-active-color: #{$black};
+  --bs-navbar-brand-color: #{$black};
+  --bs-navbar-brand-hover-color: #{$red-10};
+  --bs-navbar-toggler-border-color: #{$black};
+}
+
+/* Toggler (menu ba gạch) */
+.navbar .navbar-toggler {
+  border-width: 1px;
+
+  &-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0,0,0)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  }
+}
+
+/* Link trong navbar */
+.navbar a {
+  color: $black;
+  font-weight: bold;
+  text-decoration: none;
+
+  &:hover {
+    color: $red-10;
+    text-decoration: none;
+  }
+}
+
+/* Icon search trong navbar */
+.navbar .quarto-navbar-tools a,
+.navbar .quarto-navbar-tools button,
+.navbar .quarto-navbar-tools svg,
+.navbar .quarto-navbar-tools i {
+  color: $black !important;
+  fill: $black !important;
+  stroke: $black !important;
+}
+
+/* Override khi .navbar-dark xuất hiện (giữ nguyên – override chủ đích) */
+.navbar-dark .quarto-navbar-tools a,
+.navbar-dark .quarto-navbar-tools button,
+.navbar-dark .quarto-navbar-tools svg,
+.navbar-dark .quarto-navbar-tools i {
+  color: $black !important;
+  fill: $black !important;
+  stroke: $black !important;
+}
+
+/* Algolia button */
+.aa-DetachedSearchButton {
+  color: $black !important;
+}
+.aa-DetachedSearchButtonIcon svg,
+.aa-DetachedSearchButton .aa-SubmitIcon {
+  color: $black !important;
+  fill: $black !important;
+  stroke: $black !important;
+}
+
+/* ------------------------------------------------------
+   F2. BREADCRUMB – cấu hình lại toàn diện
+   ------------------------------------------------------ */
+
+/* Reset mọi override cũ để tránh xung đột */
+.breadcrumb {
+  position: static !important;
+  top: auto !important;
+  height: auto !important;
+  line-height: normal !important;
+  background: transparent !important;
+  border: 0 !important;
+  margin: 0;
+  padding: 0.25rem 1rem;
+}
+
+/* Khoảng trống Body dưới navbar */
+body {
+  padding-top: var(--navbar-h, 56px);
+}
+
+/* Khối secondary nav (nơi chứa breadcrumb) */
+#quarto-header .quarto-secondary-nav {
+  background: rgba($white, 0.35) !important;
+  backdrop-filter: blur(6px);
+  border-bottom: 3px solid $black;
+  z-index: 1030;
+
+  display: block !important;
+  visibility: visible !important;
+
+  .container-fluid {
+    min-height: var(--bc-h);
+    align-items: center;
+  }
+
+  .flex-grow-1 {
+    background: transparent !important;
+    border: 0 !important;
+    height: var(--bc-h);
+  }
+
+  .quarto-btn-toggle,
+  .btn,
+  .bi {
+    color: $black !important;
+    fill: $black !important;
+    stroke: $black !important;
+  }
+}
+
+/* Ẩn nút search tại secondary nav */
+#quarto-header .quarto-secondary-nav .quarto-search-button {
+  display: none !important;
+}
+
+/* Nội dung breadcrumb */
+#quarto-header .quarto-page-breadcrumbs .breadcrumb {
+  background: transparent;
+  margin: 0;
+  padding: 0 1rem;
+  line-height: var(--bc-h);
+  font-size: 0.9rem;
+
+  .breadcrumb-item {
+    font-weight: 600;
+    color: $black;
+
+    a {
+      color: $black;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color 0.15s ease, border-color 0.15s ease;
+
+      &:hover {
+        color: $red-10;
+        text-decoration: none;
+      }
+    }
+
+    &.active {
+      color: $gray-700;
+    }
+
+    + .breadcrumb-item::before {
+      content: "›";
+      color: rgba($black, 0.65);
+      padding: 0 0.3rem;
+      font-weight: 700;
+    }
+  }
+}
+
+/* Responsive breadcrumb (mobile < 768px) */
+@media (max-width: 768px) {
+  :root {
+    --bc-h: 30px;
+  }
+
+  #quarto-header .quarto-page-breadcrumbs .breadcrumb {
+    font-size: 0.875rem;
+    padding: 0 0.75rem;
+
+    .breadcrumb-item:not(:first-child):not(:last-child) {
+      display: none;
+    }
+
+    .breadcrumb-item:first-child::after {
+      content: "…";
+      margin: 0 0.25rem;
+      color: rgba($black, 0.8);
+    }
+  }
+}
+
+/* Vô hiệu hóa bắt click trên vùng rỗng */
+#quarto-header .quarto-secondary-nav .flex-grow-1 {
+  pointer-events: none;
+}
+/* Nhưng toggle vẫn bấm được */
+#quarto-header .quarto-secondary-nav .quarto-btn-toggle {
+  pointer-events: auto;
+}
+
+/* Ẩn breadcrumb dư trong banner */
+.page-header .breadcrumb,
+.quarto-title-breadcrumbs {
+  display: none !important;
+}
+
+/* ------------------------------------------------------
+   F2.9. FIX: Navbar dropdown bị che bởi breadcrumb
+   ------------------------------------------------------ */
+#quarto-header {
+  /* Breadcrumb/secondary nav thấp hơn navbar */
+  .quarto-secondary-nav {
+    position: relative; /* cần để z-index có hiệu lực */
+    z-index: 1030;
+  }
+
+  /* Navbar ở tầng cao hơn breadcrumb */
+  .navbar {
+    position: relative; /* tạo stacking context hợp lệ */
+    z-index: 1045;
+  }
+
+  /* Dropdown phải cao hơn cả navbar & breadcrumb */
+  .navbar .dropdown-menu {
+    position: absolute; /* bootstrap mặc định, đảm bảo lại cho chắc */
+    z-index: 1060; /* > 1045 và > 1030 */
+  }
+}
+
+/* ------------------------------------------------------
+   F3. SIDEBAR – offcanvas cho cả mobile + desktop
+   ------------------------------------------------------ */
+
+:root {
+  --sidebar-w: 280px; /* dùng chung cho sidebar & overlay */
+}
+
+#quarto-sidebar {
+  position: fixed;
+  top: var(--navbar-h, 56px);
+  left: 0;
+  height: 100%;
+  width: var(--sidebar-w);
+  background: $yellow-02;
+  border-right: 3px solid $black;
+  padding: 1rem;
+  z-index: 1100; /* cao hơn overlay để không bị che */
+  overflow-y: auto;
+  font-weight: bold;
+
+  /* hiệu ứng trượt ra/vào */
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+
+  h3 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: $black;
+  }
+
+  a {
+    display: block;
+    margin: 0.5rem 0;
+    text-decoration: none;
+    color: $black;
+    font-weight: bold;
+
+    &:hover {
+      color: $red-10;
+      text-decoration: none;
+    }
+  }
+
+  .active > a,
+  a.active {
+    color: $red-10;
+    font-weight: bold;
+  }
+}
+
+#quarto-sidebar.show {
+  transform: translateX(0);
+}
+
+/* Chống wrap kỳ lạ */
+#quarto-sidebar * {
+  min-width: 0;
+}
+#quarto-sidebar .sidebar-link {
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+}
+
+/* FIX flicker: vô hiệu hoá co/giãn ngang của Bootstrap khi lỡ gắn collapse */
+#quarto-sidebar {
+  box-sizing: border-box;
+  will-change: transform;
+}
+
+#quarto-sidebar.collapse,
+#quarto-sidebar.collapse-horizontal {
+  display: block !important;
+}
+
+#quarto-sidebar.collapsing,
+#quarto-sidebar.collapsing-horizontal {
+  transition: none !important;
+  width: var(--sidebar-w) !important;
+  height: 100% !important;
+  overflow: visible !important;
+}
+
+/* ------------------------------------------------------
+   F3.5. SIDEBAR INTERACTION – overlay + ẩn navbar/breadcrumb
+   ------------------------------------------------------ */
+
+/* Ẩn navbar + breadcrumb khi sidebar mở */
+body.sidebar-open #quarto-header .navbar,
+body.sidebar-open #quarto-header .quarto-secondary-nav {
+  display: none !important;
+}
+
+/* Overlay: mặc định phủ toàn màn hình */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; /* inset: 0; */
+  background: rgba($black, 0.4);
+  z-index: 1035; /* THẤP hơn sidebar (1100) để không che sidebar */
+  display: none;
+  cursor: pointer;
+}
+
+/* Khi sidebar mở, overlay tự chừa phần bên trái đúng bề rộng sidebar
+   => bảo đảm overlay không đè lên sidebar ở desktop/mobile */
+body.sidebar-open .sidebar-overlay {
+  left: var(--sidebar-w);
+}
+
+.sidebar-overlay.active {
+  display: block;
+}
+
+/* Giảm chuyển động cho người dùng nhạy cảm với animation */
+@media (prefers-reduced-motion: reduce) {
+  #quarto-sidebar {
+    transition: none !important;
+  }
+}
+
+/* ------------------------------------------------------
+   F1.x FIX: Navbar link/brand bị "mất chữ" khi click/active
+   ------------------------------------------------------ */
+
+/* Khóa biến màu của navbar để .navbar-dark cũng phải dùng màu ta muốn */
+#quarto-header .navbar {
+  --bs-navbar-color: #{$black};
+  --bs-navbar-hover-color: #{$red-10};
+  --bs-navbar-active-color: #{$black};
+  --bs-navbar-brand-color: #{$black};
+  --bs-navbar-brand-hover-color: #{$red-10};
+}
+
+/* Gia cố trực tiếp cho mọi trạng thái (ưu tiên cao, tránh biến bị theme khác ghi đè) */
+#quarto-header .navbar .nav-link,
+#quarto-header .navbar .navbar-brand {
+  color: $black !important;
+}
+
+#quarto-header .navbar .nav-link:hover,
+#quarto-header .navbar .navbar-brand:hover,
+#quarto-header .navbar .nav-link:focus,
+#quarto-header .navbar .navbar-brand:focus {
+  color: $red-10 !important;
+  text-decoration: none;
+}
+
+#quarto-header .navbar .nav-link:active,
+#quarto-header .navbar .navbar-brand:active,
+#quarto-header .navbar .nav-link.active,
+#quarto-header .navbar .nav-link[aria-current="page"],
+#quarto-header .navbar .dropdown-toggle.show {
+  color: $black !important;
+  text-decoration: none;
+}
+
+/* Đề phòng màu visited lạ của trình duyệt */
+#quarto-header .navbar .nav-link:visited,
+#quarto-header .navbar .navbar-brand:visited {
+  color: $black !important;
+}
+
+/* Dropdown toggle trong navbar */
+#quarto-header .navbar .dropdown-toggle {
+  color: $black !important;
+}
+
+/* ------------------------------------------------------
+   F4. BANNER / TOC / CARDS / CAROUSEL / FOOTER
+   ------------------------------------------------------ */
+
+/* Banner */
+.banner {
+  background: $red-03;
+  border: 3px solid $black;
+  text-align: center;
+  padding: 3rem 1rem;
+
+  h1 {
+    color: $red-10;
+    font-size: 2.5rem;
+    margin: 0;
+  }
+
+  p {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+  }
+}
+
+/* TOC */
+.toc {
+  background: $white;
+  border: 2px solid $black;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+
+  h3 {
+    margin-top: 0;
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  li {
+    margin: 0.5rem 0;
+  }
+}
+
+/* Card */
+.card {
+  background: $white;
+  border: 2px solid $black;
+  border-radius: 6px;
+  padding: 1rem;
+  text-align: center;
+
+  h4 {
+    color: $yellow-11;
+    margin-top: 0;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Carousel */
+.carousel {
+  border: 2px solid $black;
+
+  .carousel-item {
+    background: $white;
+    border: 2px solid $black;
+    border-radius: 6px;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  button {
+    background: $red-10;
+    color: $white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
+
+/* Footer */
+.footer {
+  background: $yellow-01;
+  border-top: 3px solid $black;
+  text-align: center;
+  padding: 1rem;
+
+  a {
+    color: $red-10;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 0 0.5rem;
+
+    &:hover {
+      color: $red-11;
+    }
+  }
+}
+
+/* ======================================================
+   F9. GLOBAL FOCUS RING – unify to $teal for ALL UI
+   - Hiển thị khi click & khi dùng phím
+   - Bo góc đồng nhất
+   - Loại bỏ viền/đổ bóng xanh mặc định
+   ====================================================== */
+
+:root {
+  --focus-ring-color: #{$teal};
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 3px;
+  --focus-ring-radius: 6px;
+
+  /* Đồng bộ một số biến Bootstrap để tránh "đổ bóng xanh" */
+  --bs-focus-ring-color: #{rgba($teal, 0.25)};
+  --bs-btn-focus-box-shadow: 0 0 0 0.2rem #{rgba($teal, 0.45)};
+  --bs-navbar-toggler-focus-width: 0.2rem;
+  --bs-navbar-toggler-focus-shadow: 0 0 0 0.2rem #{rgba($teal, 0.45)};
+}
+
+/* 1) Áp outline $teal cho hầu hết phần tử tương tác
+      (link, button, toggler, dropdown, sidebar, TOC, pagination...) */
+:where(
+  a,
+  button,
+  [role="button"],
+  [tabindex],
+  input,
+  select,
+  textarea,
+  summary,
+  /* Navbars */
+  .nav-link,
+  .navbar-brand,
+  .navbar-toggler,
+  .dropdown-toggle,
+  .dropdown-item,
+  /* Quarto tools & toggles */
+  .quarto-btn-toggle,
+  .quarto-navbar-tools a,
+  .quarto-navbar-tools button,
+  /* Sidebar */
+  #quarto-sidebar a,
+  #quarto-sidebar .sidebar-link,
+  /* Breadcrumb */
+  #quarto-header .quarto-secondary-nav .breadcrumb a,
+  /* TOC */
+  .toc a,
+  .quarto-toc a,
+  nav#TOC a,
+  /* Pagination & list navs */
+  .pagination .page-link,
+  .list-group-item
+):focus,
+:where(
+  a,
+  button,
+  [role="button"],
+  [tabindex],
+  input,
+  select,
+  textarea,
+  summary,
+  .nav-link,
+  .navbar-brand,
+  .navbar-toggler,
+  .dropdown-toggle,
+  .dropdown-item,
+  .quarto-btn-toggle,
+  .quarto-navbar-tools a,
+  .quarto-navbar-tools button,
+  #quarto-sidebar a,
+  #quarto-sidebar .sidebar-link,
+  #quarto-header .quarto-secondary-nav .breadcrumb a,
+  .toc a,
+  .quarto-toc a,
+  nav#TOC a,
+  .pagination .page-link,
+  .list-group-item
+):focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color) !important;
+  outline-offset: var(--focus-ring-offset);
+  box-shadow: none !important; /* loại shadow xanh mặc định */
+  border-radius: var(--focus-ring-radius);
+}
+
+/* 2) Form controls & buttons: loại bỏ shadow mặc định, dùng outline $teal */
+.form-control:focus,
+.form-select:focus,
+.btn:focus,
+.btn:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color) !important;
+  outline-offset: var(--focus-ring-offset);
+  box-shadow: none !important;
+  border-radius: var(--focus-ring-radius);
+}
+
+/* 3) Giảm vệt chạm xanh trên mobile */
+a,
+button,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ------------------------------------------------------
+   F3.a SIDEBAR GLASS LOOK – trắng mờ + khung đen
+   ------------------------------------------------------ */
+
+:root {
+  --sidebar-w: 280px; /* đã dùng trước đó, giữ nguyên để overlay tự canh */
+}
+
+/* Kính mờ giống navbar/breadcrumb: nền trắng trong, blur nền sau, viền đen rõ */
+#quarto-sidebar {
+  background: rgba($white, 0.35) !important;
+  -webkit-backdrop-filter: blur(6px); /* Safari/iOS */
+  backdrop-filter: blur(6px);
+
+  /* Khung đen đồng bộ */
+  border: 3px solid $black !important;
+
+  /* Cảm giác “kính” sắc nét hơn một chút mà vẫn phẳng */
+  box-shadow: inset -1px 0 0 rgba($black, 0.15); /* đường inner rất nhẹ ở mép */
+}
+
+/* Tiêu đề/link bên trong vẫn rõ nét trên nền kính */
+#quarto-sidebar h3,
+#quarto-sidebar a,
+#quarto-sidebar .sidebar-link {
+  color: $black;
+}
+
+/* (Tùy chọn) Khi hover link trong kính mờ: đổi màu như navbar/breadcrumb */
+#quarto-sidebar a:hover,
+#quarto-sidebar .sidebar-link:hover {
+  color: $red-10;
+  text-decoration: none;
+}
+
+/* Áp font UI cho các control chưa extend .sandstone */
+#quarto-header .navbar,
+#quarto-header .quarto-secondary-nav,
+#quarto-header .quarto-navbar-tools,
+#quarto-sidebar,
+#quarto-sidebar .sidebar-link,
+.toc,
+.quarto-toc,
+nav#TOC,
+.nav-tabs .nav-link,
+.nav-pills .nav-link,
+.dropdown-menu .dropdown-item,
+.pagination,
+.pagination .page-link,
+.form-control,
+.form-select,
+.btn,
+.list-group .list-group-item {
+  font-family: $ui-font-family;
+  font-weight: 500; /* mảnh nhưng rõ nét */
+  letter-spacing: 0.2px;
+}
+
+.dropdown-menu .dropdown-item,
+#quarto-header .quarto-secondary-nav .breadcrumb a,
+.toc a,
+.quarto-toc a,
+nav#TOC a {
+  font-weight: 400;
+}
+
+/* ------------------------------------------------------
+   F9. UI CONTROLS – Uppercase by default (VN-friendly)
+   ------------------------------------------------------ */
+:root {
+  --ui-letterspace: 0.2px;
+}
+
+/* Tất cả control hiển thị IN HOA */
+#quarto-header .navbar .nav-link,
+#quarto-header .navbar .navbar-brand,
+#quarto-header .navbar .dropdown-toggle,
+#quarto-header .quarto-navbar-tools a,
+#quarto-header .quarto-navbar-tools button,
+#quarto-header .quarto-secondary-nav .breadcrumb a,
+#quarto-sidebar .sidebar-link,
+#quarto-sidebar a,
+.nav-tabs .nav-link,
+.nav-pills .nav-link,
+.dropdown-menu .dropdown-item,
+.pagination .page-link,
+.list-group .list-group-item-action,
+.toc a,
+.quarto-toc a,
+nav#TOC a,
+.btn {
+  text-transform: uppercase;
+  letter-spacing: var(--ui-letterspace);
+}
+
+/* Ngoại lệ: input/placeholder, form control, code trong TOC, v.v. giữ nguyên */
+input,
+textarea,
+select,
+#quarto-sidebar .form-control,
+.dropdown-menu .form-control,
+.toc code,
+.quarto-toc code,
+nav#TOC code {
+  text-transform: none !important;
+}
+
+/* Utility: muốn mục nào KHÔNG in hoa thì thêm class này vào phần tử đó */
+.ui-no-uppercase {
+  text-transform: none !important;
+}
+
+/* ------------------------------------------------------
+   F9.1 UI CONTROLS – lighter weight + smaller size
+   (giữ IN HOA từ cấu hình trước)
+   ------------------------------------------------------ */
+:root {
+  --ui-font-size: 12px; /* <— "bé hơn một chút": đổi 11.5px/12.5px tùy mắt */
+  --ui-font-weight: 400; /* mảnh: 400; nếu muốn mảnh nữa, thử 300 */
+  --ui-line-height: 20px; /* cân đối với cỡ 12px */
+  --ui-letterspace: 0.25px; /* chút tracking cho chữ IN HOA nhỏ */
+}
+
+/* Nhiều control của bạn đang @extend .sandstone -> chỉnh ở đây sẽ lan tỏa */
+.sandstone {
+  font-weight: var(--ui-font-weight);
+  font-size: var(--ui-font-size);
+  line-height: var(--ui-line-height);
+  letter-spacing: var(--ui-letterspace);
+}
+
+/* Đảm bảo các control KHÔNG extend .sandstone cũng theo style này */
+#quarto-header .navbar,
+#quarto-header .quarto-secondary-nav,
+#quarto-header .quarto-navbar-tools,
+#quarto-header .navbar .nav-link,
+#quarto-header .navbar .navbar-brand,
+#quarto-header .navbar .dropdown-toggle,
+#quarto-header .navbar .dropdown-menu .dropdown-item,
+#quarto-header .quarto-secondary-nav .breadcrumb a,
+#quarto-sidebar,
+#quarto-sidebar .sidebar-link,
+#quarto-sidebar a,
+.toc,
+.quarto-toc,
+nav#TOC,
+.toc a,
+.quarto-toc a,
+nav#TOC a,
+.nav-tabs .nav-link,
+.nav-pills .nav-link,
+.pagination,
+.pagination .page-link,
+.dropdown-menu .dropdown-item,
+.list-group .list-group-item,
+.btn,
+.form-control,
+.form-select {
+  font-weight: var(--ui-font-weight) !important;
+  font-size: var(--ui-font-size);
+  line-height: var(--ui-line-height);
+  letter-spacing: var(--ui-letterspace);
+}
+
+/* Nút bấm & dropdown vốn hay đặt 500/600 -> ép về nhẹ */
+.btn,
+.dropdown-menu .dropdown-item {
+  font-weight: var(--ui-font-weight) !important;
+}
+
+/* (tuỳ chọn) mobile có thể tăng 0.5–1px cho dễ đọc */
+@media (max-width: 575.98px) {
+  :root {
+    --ui-font-size: 12.5px;
+    --ui-line-height: 20px;
+  }
+}
