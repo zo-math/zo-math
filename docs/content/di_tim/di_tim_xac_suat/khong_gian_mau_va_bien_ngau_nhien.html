@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>khong_gian_mau_va_bien_ngau_nhien – ZO Math</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-3d1903c5838503892ba651cf513ab205.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../assets/css/custom.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-11/index.qmd">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-12/index.qmd">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.qmd">
+ <span class="dropdown-text">100+ Hàm số</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-o/index.qmd"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-lab/index.qmd"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/shop/index.html"> 
+<span class="menu-text">ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block"></header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Trên trang này</h2>
+   
+  <ul>
+  <li><a href="#ghi-chú-nghịch-lý-bertrand-nguyên-lý-thờ-ơ-và-phân-biệt-không-gian-mẫu-với-biến-ngẫu-nhiên" id="toc-ghi-chú-nghịch-lý-bertrand-nguyên-lý-thờ-ơ-và-phân-biệt-không-gian-mẫu-với-biến-ngẫu-nhiên" class="nav-link active" data-scroll-target="#ghi-chú-nghịch-lý-bertrand-nguyên-lý-thờ-ơ-và-phân-biệt-không-gian-mẫu-với-biến-ngẫu-nhiên">Ghi chú: Nghịch lý Bertrand, Nguyên lý thờ ơ và phân biệt <em>không gian mẫu</em> với <em>biến ngẫu nhiên</em></a>
+  <ul class="collapse">
+  <li><a href="#ý-trực-giác-mình-vừa-nhận-ra" id="toc-ý-trực-giác-mình-vừa-nhận-ra" class="nav-link" data-scroll-target="#ý-trực-giác-mình-vừa-nhận-ra">1. Ý trực giác mình vừa nhận ra</a></li>
+  <li><a href="#thiết-lập-hình-thức-omega-p-và-các-biến-ngẫu-nhiên-l-a-v" id="toc-thiết-lập-hình-thức-omega-p-và-các-biến-ngẫu-nhiên-l-a-v" class="nav-link" data-scroll-target="#thiết-lập-hình-thức-omega-p-và-các-biến-ngẫu-nhiên-l-a-v">2. Thiết lập hình thức: <span class="math inline">\(\Omega\)</span>, <span class="math inline">\(P\)</span> và các biến ngẫu nhiên <span class="math inline">\(L, A, V\)</span></a>
+  <ul class="collapse">
+  <li><a href="#sự-kiện-hình-học-duy-nhất" id="toc-sự-kiện-hình-học-duy-nhất" class="nav-link" data-scroll-target="#sự-kiện-hình-học-duy-nhất">Sự kiện hình học duy nhất</a></li>
+  </ul></li>
+  <li><a href="#nguyên-lý-thờ-ơ-đã-phá-điều-gì" id="toc-nguyên-lý-thờ-ơ-đã-phá-điều-gì" class="nav-link" data-scroll-target="#nguyên-lý-thờ-ơ-đã-phá-điều-gì">3. Nguyên lý thờ ơ đã “phá” điều gì?</a>
+  <ul class="collapse">
+  <li><a href="#diễn-giải-bằng-ngôn-ngữ-độ-đo" id="toc-diễn-giải-bằng-ngôn-ngữ-độ-đo" class="nav-link" data-scroll-target="#diễn-giải-bằng-ngôn-ngữ-độ-đo">Diễn giải bằng ngôn ngữ độ đo</a></li>
+  </ul></li>
+  <li><a href="#cách-nhìn-measure-theoretic-chọn-một-p-rồi-tất-cả-tự-sinh-ra" id="toc-cách-nhìn-measure-theoretic-chọn-một-p-rồi-tất-cả-tự-sinh-ra" class="nav-link" data-scroll-target="#cách-nhìn-measure-theoretic-chọn-một-p-rồi-tất-cả-tự-sinh-ra">4. Cách nhìn measure-theoretic: chọn một <span class="math inline">\(P\)</span>, rồi tất cả tự sinh ra</a>
+  <ul class="collapse">
+  <li><a href="#điểm-rạch-ròi" id="toc-điểm-rạch-ròi" class="nav-link" data-scroll-target="#điểm-rạch-ròi">Điểm rạch ròi</a></li>
+  </ul></li>
+  <li><a href="#kết-luận-khái-niệm-mình-đã-hiểu-rõ-hơn-điều-gì" id="toc-kết-luận-khái-niệm-mình-đã-hiểu-rõ-hơn-điều-gì" class="nav-link" data-scroll-target="#kết-luận-khái-niệm-mình-đã-hiểu-rõ-hơn-điều-gì">5. Kết luận khái niệm: mình đã hiểu rõ hơn điều gì?</a></li>
+  <li><a href="#ghi-chú-cho-bản-thân-để-dùng-sau-này" id="toc-ghi-chú-cho-bản-thân-để-dùng-sau-này" class="nav-link" data-scroll-target="#ghi-chú-cho-bản-thân-để-dùng-sau-này">6. Ghi chú cho bản thân (để dùng sau này)</a></li>
+  </ul></li>
+  <li><a href="#phiên-bản-giải-thích-bằng-lời-dành-cho-người-ít-dùng-ký-hiệu" id="toc-phiên-bản-giải-thích-bằng-lời-dành-cho-người-ít-dùng-ký-hiệu" class="nav-link" data-scroll-target="#phiên-bản-giải-thích-bằng-lời-dành-cho-người-ít-dùng-ký-hiệu">Phiên bản giải thích bằng lời, dành cho người ít dùng ký hiệu</a>
+  <ul class="collapse">
+  <li><a href="#có-một-sự-kiện-duy-nhất---nhưng-nó-lại-bị-gán-ba-xác-suất-khác-nhau" id="toc-có-một-sự-kiện-duy-nhất---nhưng-nó-lại-bị-gán-ba-xác-suất-khác-nhau" class="nav-link" data-scroll-target="#có-một-sự-kiện-duy-nhất---nhưng-nó-lại-bị-gán-ba-xác-suất-khác-nhau">1. Có một sự kiện duy nhất - nhưng nó lại bị gán ba xác suất khác nhau</a></li>
+  <li><a href="#nguyên-nhân-sâu-xa-nhầm-lẫn-giữa-thế-giới-thật-và-cách-ta-đo-nó" id="toc-nguyên-nhân-sâu-xa-nhầm-lẫn-giữa-thế-giới-thật-và-cách-ta-đo-nó" class="nav-link" data-scroll-target="#nguyên-nhân-sâu-xa-nhầm-lẫn-giữa-thế-giới-thật-và-cách-ta-đo-nó">2. Nguyên nhân sâu xa: nhầm lẫn giữa “thế giới thật” và “cách ta đo nó”</a>
+  <ul class="collapse">
+  <li><a href="#a-thế-giới-thật" id="toc-a-thế-giới-thật" class="nav-link" data-scroll-target="#a-thế-giới-thật">(a) Thế giới thật</a></li>
+  <li><a href="#b-những-đại-lượng-ta-dùng-để-mô-tả-nó" id="toc-b-những-đại-lượng-ta-dùng-để-mô-tả-nó" class="nav-link" data-scroll-target="#b-những-đại-lượng-ta-dùng-để-mô-tả-nó">(b) Những đại lượng ta dùng để mô tả nó</a></li>
+  </ul></li>
+  <li><a href="#xác-suất-đúng-phải-được-gán-trên-thế-giới-thật-không-phải-trên-cách-mô-tả" id="toc-xác-suất-đúng-phải-được-gán-trên-thế-giới-thật-không-phải-trên-cách-mô-tả" class="nav-link" data-scroll-target="#xác-suất-đúng-phải-được-gán-trên-thế-giới-thật-không-phải-trên-cách-mô-tả">3. Xác suất đúng phải được gán trên “thế giới thật”, không phải trên cách mô tả</a></li>
+  <li><a href="#nghịch-lý-xuất-hiện-vì-người-ta-lén-thay-đổi-cách-chọn-ngẫu-nhiên" id="toc-nghịch-lý-xuất-hiện-vì-người-ta-lén-thay-đổi-cách-chọn-ngẫu-nhiên" class="nav-link" data-scroll-target="#nghịch-lý-xuất-hiện-vì-người-ta-lén-thay-đổi-cách-chọn-ngẫu-nhiên">4. Nghịch lý xuất hiện vì người ta lén thay đổi “cách chọn ngẫu nhiên”</a></li>
+  <li><a href="#cách-hiểu-đúng-theo-trực-giác-và-theo-kolmogorov" id="toc-cách-hiểu-đúng-theo-trực-giác-và-theo-kolmogorov" class="nav-link" data-scroll-target="#cách-hiểu-đúng-theo-trực-giác-và-theo-kolmogorov">5. Cách hiểu đúng (theo trực giác và theo Kolmogorov)</a></li>
+  <li><a href="#tóm-lại-bằng-một-câu" id="toc-tóm-lại-bằng-một-câu" class="nav-link" data-scroll-target="#tóm-lại-bằng-một-câu">6. Tóm lại bằng một câu</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>A, mình vừa nhận ra một điểm quan trọng - bạn xem giúp mình có đúng không nhé. Trong bài toán khối lập phương liên quan đến nghịch lý Bertrand, ta xét <em>một sự kiện duy nhất</em>:</p>
+<blockquote class="blockquote">
+<p>“Khối lập phương có cạnh không vượt quá <span class="math inline">\(\frac{1}{2}\)</span>.”</p>
+</blockquote>
+<p>Nhưng nếu áp dụng <em>Nguyên lý thờ ơ</em> theo ba cách diễn đạt khác nhau (trên cạnh, diện tích mặt, hoặc thể tích), ta lại thu được <em>ba giá trị xác suất khác nhau</em>. Mình nghĩ nguyên nhân không phải do bài toán “mâu thuẫn thật”, mà do <em>nhầm lẫn giữa không gian mẫu và biến ngẫu nhiên</em>.</p>
+<p>Cụ thể:</p>
+<ul>
+<li><p><em>Không gian mẫu</em> <span class="math inline">\(\Omega\)</span> phải là <em>tập tất cả các khối lập phương</em> mà ta đang xét.</p></li>
+<li><p>Các đại lượng <span class="math inline">\(L\)</span> (chiều dài cạnh), <span class="math inline">\(A = L^2\)</span> (diện tích mặt), <span class="math inline">\(V = L^3\)</span>(thể tích) chỉ là <em>các biến ngẫu nhiên</em> được định nghĩa trên cùng một <span class="math inline">\(\Omega\)</span>.</p></li>
+<li><p>Một <em>độ đo xác suất</em> <span class="math inline">\(P\)</span> trên <span class="math inline">\(\Omega\)</span> sẽ cảm sinh các phân phối tương ứng của từng <span class="math inline">\(L\)</span>, <span class="math inline">\(A\)</span>, <span class="math inline">\(V\)</span> qua công thức quen thuộc:</p>
+<p><span class="math display">\[
+P_L(B) = P(L^{-1}(B)),\quad  P_A(C) = P(A^{-1}(C)),\quad P_V(D) = P(V^{-1}(D)).
+\]</span></p>
+<p>Mặc dù các phân phối này có thể <em>khác nhau về dạng</em> (vì <span class="math inline">\(A\)</span> và <span class="math inline">\(V\)</span> là các hàm phi tuyến của <span class="math inline">\(L\)</span>), nhưng <em>khi cùng dùng chúng để tính xác suất cho cùng một sự kiện trên <span class="math inline">\(\Omega\)</span></em> thì chúng <em>phải</em> cho cùng một kết quả.</p></li>
+<li><p>Sai lầm trong cách trình bày nghịch lý là: khi chuyển từ mô tả theo cạnh sang mô tả theo diện tích hoặc thể tích, người ta lại <em>gán phân bố đều mới</em> cho từng đại lượng. Điều này tương đương với việc thay đổi <em>độ đo xác suất</em> <span class="math inline">\(P\)</span> mỗi khi đổi biến mô tả, như thể <span class="math inline">\(L\)</span>, <span class="math inline">\(A\)</span>, <span class="math inline">\(V\)</span> là ba không gian mẫu khác nhau. Chính sự thay đổi ngầm này mới gây ra mâu thuẫn.</p></li>
+</ul>
+<hr>
+<section id="ghi-chú-nghịch-lý-bertrand-nguyên-lý-thờ-ơ-và-phân-biệt-không-gian-mẫu-với-biến-ngẫu-nhiên" class="level1">
+<h1>Ghi chú: Nghịch lý Bertrand, Nguyên lý thờ ơ và phân biệt <em>không gian mẫu</em> với <em>biến ngẫu nhiên</em></h1>
+<section id="ý-trực-giác-mình-vừa-nhận-ra" class="level2">
+<h2 class="anchored" data-anchor-id="ý-trực-giác-mình-vừa-nhận-ra">1. Ý trực giác mình vừa nhận ra</h2>
+<p>Điểm mấu chốt mình nhìn thấy:</p>
+<blockquote class="blockquote">
+<p>Trong bài toán khối lập phương kiểu Bertrand, <em>cùng một sự kiện hình học</em> (“khối có cạnh không lớn hơn <span class="math inline">\(\frac{1}{2}\)</span>”) lại nhận được <em>nhiều giá trị xác suất khác nhau</em> khi áp dụng Nguyên lý thờ ơ. Nguyên nhân sâu xa không phải do “thế giới mâu thuẫn”, mà do <em>lẫn lộn giữa</em>: - <em>Không gian mẫu</em> <span class="math inline">\(\Omega\)</span> (tập các khối lập phương), - với các <em>biến ngẫu nhiên</em> <span class="math inline">\((L, A, V)\)</span> (các cách đo/biểu diễn cùng một đối tượng).</p>
+</blockquote>
+<p>Ngôn ngữ hiện đại của xác suất (theo Kolmogorov) cho thấy cách hiểu này là đúng hướng: <em>xác suất sống trên <span class="math inline">\(\Omega\)</span> qua một độ đo <span class="math inline">\(P\)</span>; còn L, A, V chỉ là các ánh xạ từ <span class="math inline">\(\Omega\)</span> sang <span class="math inline">\(\mathbb{R}\)</span></em>.</p>
+</section>
+<section id="thiết-lập-hình-thức-omega-p-và-các-biến-ngẫu-nhiên-l-a-v" class="level2">
+<h2 class="anchored" data-anchor-id="thiết-lập-hình-thức-omega-p-và-các-biến-ngẫu-nhiên-l-a-v">2. Thiết lập hình thức: <span class="math inline">\(\Omega\)</span>, <span class="math inline">\(P\)</span> và các biến ngẫu nhiên <span class="math inline">\(L, A, V\)</span></h2>
+<p>Ta xét mô hình sau:</p>
+<ul>
+<li><p><em>Không gian mẫu</em>:<br>
+[ = { L } ] (nói không chính thức: “tập tất cả khối lập phương cạnh từ 0 đến 1 foot”).</p></li>
+<li><p><em>Độ đo xác suất</em>:<br>
+Một độ đo [ P: ] trên <span class="math inline">\(\Omega\)</span>, với <span class="math inline">\((\Omega, \mathcal{F}, P)\)</span> là *không gian xác suất** theo Kolmogorov. <span class="math inline">\(P\)</span> là nơi “xác suất thật sự cư trú”.</p></li>
+<li><p><em>Các biến ngẫu nhiên</em>:</p>
+<ul>
+<li><span class="math inline">\(L : \Omega \to [0,1]\)</span> - chiều dài cạnh,</li>
+<li><span class="math inline">\(A : \Omega \to [0,1]\)</span> - diện tích một mặt, với <span class="math inline">\(A = L^2\)</span>,</li>
+<li><span class="math inline">\(V : \Omega \to [0,1]\)</span> - thể tích, với <span class="math inline">\(V = L^3\)</span>.</li>
+</ul></li>
+</ul>
+<p>Như vậy, <span class="math inline">\(A\)</span> và <span class="math inline">\(V\)</span> <em>không phải</em> là các không gian mẫu mới, mà chỉ là <em>các phép biến đổi</em> của <span class="math inline">\(L\)</span> (và do đó là các ánh xạ bắc cầu từ <span class="math inline">\(\Omega\)</span> sang <span class="math inline">\(\mathbb{R}\)</span>).</p>
+<section id="sự-kiện-hình-học-duy-nhất" class="level3">
+<h3 class="anchored" data-anchor-id="sự-kiện-hình-học-duy-nhất">Sự kiện hình học duy nhất</h3>
+<p>Sự kiện “khối có cạnh <span class="math inline">\(\le \tfrac{1}{2}\)</span>” có thể được viết ở ba dạng:</p>
+<ul>
+<li><span class="math inline">\(\{L \le 1/2\}\)</span>,</li>
+<li><span class="math inline">\(\{A \le 1/4\}\)</span> (vì <span class="math inline">\(A = L^2\)</span>),</li>
+<li><span class="math inline">\(\{V \le 1/8\}\)</span> (vì <span class="math inline">\(V = L^3\)</span>).</li>
+</ul>
+<p>Nhưng về bản chất, đây là <em>cùng một tập con</em> của <span class="math inline">\(\Omega\)</span>:</p>
+<p>[ {L } ;=; {A } ;=; {V } . ]</p>
+<p>Nếu <span class="math inline">\(P\)</span> là cố định, thì xác suất phải thỏa:</p>
+<p>[ P(L /2) = P(A /4) = P(V /8). ]</p>
+<hr>
+</section>
+</section>
+<section id="nguyên-lý-thờ-ơ-đã-phá-điều-gì" class="level2">
+<h2 class="anchored" data-anchor-id="nguyên-lý-thờ-ơ-đã-phá-điều-gì">3. Nguyên lý thờ ơ đã “phá” điều gì?</h2>
+<p>Nguyên lý thờ ơ (vô phân biệt) nói:</p>
+<blockquote class="blockquote">
+<p>Khi ta <strong>không có lý do</strong> thiên vị giá trị này hơn giá trị kia, ta nên gán <strong>phân bố đều</strong> trên tập các giá trị có thể.</p>
+</blockquote>
+<p>Trong ví dụ Bertrand, người ta đã dùng nguyên lý này <strong>trực tiếp trên các tham số khác nhau</strong>:</p>
+<ol type="1">
+<li><p><strong>Gán đều trên <span class="math inline">\(L \in [0,1]\)</span></strong><br>
+[ f_L(l) = 1,l . ] Khi đó: [ P(L /2) = 1/2. ]</p></li>
+<li><p><strong>Gán đều trên <span class="math inline">\(A \in [0,1]\)</span></strong><br>
+[ f_A(a) = 1,a . ] Khi đó: [ P(A /4) = 1/4. ]</p></li>
+<li><p><strong>Gán đều trên <span class="math inline">\(V \in [0,1]\)</span></strong><br>
+[ f_V(v) = 1,v . ] Khi đó: [ P(V /8) = 1/8. ]</p></li>
+</ol>
+<p>Nhưng ta đã thấy: [ {L /2} = {A /4} = {V /8}. ]</p>
+<p>Vậy:</p>
+<ul>
+<li>cùng một sự kiện,<br>
+</li>
+<li>nhưng nhận ba xác suất khác nhau: <span class="math inline">\(1/2\)</span>, <span class="math inline">\(1/4\)</span>, <span class="math inline">\(1/8\)</span>.</li>
+</ul>
+<section id="diễn-giải-bằng-ngôn-ngữ-độ-đo" class="level3">
+<h3 class="anchored" data-anchor-id="diễn-giải-bằng-ngôn-ngữ-độ-đo">Diễn giải bằng ngôn ngữ độ đo</h3>
+<p>Về bản chất, ba cách làm trên tương đương với việc:</p>
+<ul>
+<li><strong>trong trường hợp 1</strong>: ta chọn một độ đo <span class="math inline">\(P^{(L)}\)</span> sao cho <span class="math inline">\(L\)</span> có phân phối đều,</li>
+<li><strong>trong trường hợp 2</strong>: ta chọn một độ đo <span class="math inline">\(P^{(A)}\)</span> sao cho <span class="math inline">\(A\)</span> có phân phối đều,</li>
+<li><strong>trong trường hợp 3</strong>: ta chọn một độ đo <span class="math inline">\(P^{(V)}\)</span> sao cho <span class="math inline">\(V\)</span> có phân phối đều.</li>
+</ul>
+<p>Đây <strong>không phải</strong> là ba biến khác nhau trên <strong>cùng một <span class="math inline">\(P\)</span></strong>, mà là <strong>ba độ đo xác suất khác nhau trên <span class="math inline">\(\Omega\)</span></strong>:</p>
+<p>[ P^{(L)} P^{(A)} P^{(V)}. ]</p>
+<p>Nói cách khác, nguyên lý thờ ơ đang:</p>
+<blockquote class="blockquote">
+<p><strong>bí mật thay đổi luôn độ đo <span class="math inline">\(P\)</span> trên <span class="math inline">\(\Omega\)</span> mỗi khi ta thay tham số <span class="math inline">\((L, A, V)\)</span>.</strong></p>
+</blockquote>
+<p>Chính hành vi này làm sụp đổ tính nhất quán:<br>
+xác suất trở nên phụ thuộc vào <em>cách ta “thích” mô tả vấn đề</em>, chứ không phụ thuộc vào <em>sự kiện vật lý</em>.</p>
+</section>
+</section>
+<section id="cách-nhìn-measure-theoretic-chọn-một-p-rồi-tất-cả-tự-sinh-ra" class="level2">
+<h2 class="anchored" data-anchor-id="cách-nhìn-measure-theoretic-chọn-một-p-rồi-tất-cả-tự-sinh-ra">4. Cách nhìn measure-theoretic: chọn một <span class="math inline">\(P\)</span>, rồi tất cả tự sinh ra</h2>
+<p>Theo quan điểm hiện đại:</p>
+<ol type="1">
+<li><p>Ta <em>chọn một độ đo xác suất duy nhất</em> <span class="math inline">\(P\)</span> trên <span class="math inline">\(\Omega\)</span>. Ví dụ: có thể xuất phát từ một mô hình vật lý hoặc một giả định hình học.</p></li>
+<li><p>Từ <span class="math inline">\(P\)</span> và biến ngẫu nhiên <span class="math inline">\(L\)</span>, ta có phân phối của <span class="math inline">\(L\)</span>: [ _L(B) = P(L^{-1}(B)),B . ]</p></li>
+<li><p>Từ <span class="math inline">\(P\)</span> và <span class="math inline">\(A = L^2\)</span>, ta có phân phối của <span class="math inline">\(A\)</span>: [ _A(C) = P(A^{-1}(C)) = P(L^{-1}()),C . ]</p></li>
+<li><p>Từ <span class="math inline">\(P\)</span> và <span class="math inline">\(V = L^3\)</span>, ta có phân phối của <span class="math inline">\(V\)</span> tương tự.</p></li>
+</ol>
+<p>Khi đó, dù các phân phối của <span class="math inline">\(L, A, V\)</span> <em>khác nhau về hình dạng</em> (mật độ không giống), xác suất của <em>cùng một sự kiện hình học</em> vẫn luôn giống nhau:</p>
+<p>[ P(L /2) = P(A /4) = P(V /8). ]</p>
+<section id="điểm-rạch-ròi" class="level3">
+<h3 class="anchored" data-anchor-id="điểm-rạch-ròi">Điểm rạch ròi</h3>
+<ul>
+<li><em><span class="math inline">\(P\)</span> cố định trên <span class="math inline">\(\Omega\)</span></em><br>
+</li>
+<li><em><span class="math inline">\(L, A, V\)</span> chỉ là các “công cụ đo” khác nhau</em></li>
+</ul>
+<p>Xác suất của một sự kiện hiện thực <em>không được phép</em> thay đổi chỉ vì ta nhìn nó qua một tham số khác.</p>
+</section>
+</section>
+<section id="kết-luận-khái-niệm-mình-đã-hiểu-rõ-hơn-điều-gì" class="level2">
+<h2 class="anchored" data-anchor-id="kết-luận-khái-niệm-mình-đã-hiểu-rõ-hơn-điều-gì">5. Kết luận khái niệm: mình đã hiểu rõ hơn điều gì?</h2>
+<ol type="1">
+<li><p><em>Không gian mẫu <span class="math inline">\(\Omega\)</span></em> là “thế giới thật” của mô hình (ở đây: tập các khối lập phương). Độ đo xác suất <span class="math inline">\(P\)</span> được xác lập trên <span class="math inline">\(\Omega\)</span>, không phải trên tham số.</p></li>
+<li><p><em>Biến ngẫu nhiên</em> như <span class="math inline">\(L, A, V\)</span> chỉ là các ánh xạ từ <span class="math inline">\(\Omega\)</span> sang <span class="math inline">\(\mathbb{R}\)</span>. Phân phối của chúng là kết quả “đẩy” độ đo <span class="math inline">\(P\)</span> từ <span class="math inline">\(\Omega\)</span> sang trục số.</p></li>
+<li><p><em>Nghịch lý Bertrand xuất hiện</em> khi:</p>
+<ul>
+<li>người ta vô tình xem <em>tham số</em> <span class="math inline">\((L, A, V)\)</span> như <em>không gian khả năng gốc</em>,<br>
+</li>
+<li>và mỗi lần đổi tham số là <em>mỗi lần đổi luôn độ đo <span class="math inline">\(P\)</span></em>,<br>
+</li>
+<li>nhưng vẫn ngộ nhận rằng mình đang xét “cùng một bài toán với cùng một xác suất”.</li>
+</ul></li>
+<li><p>Cách xử lý đúng theo Kolmogorov:</p>
+<ul>
+<li>Giữ một <span class="math inline">\((\Omega, \mathcal{F}, P)\)</span> duy nhất,<br>
+</li>
+<li>các biến ngẫu nhiên, tham số hóa chỉ là cách “nhìn” khác nhau,<br>
+</li>
+<li>xác suất của cùng một sự kiện phải bất biến trước việc đổi biến.</li>
+</ul></li>
+<li><p>Từ đây, có thể thấy <em>tầm nhìn của Kolmogorov</em>:</p>
+<ul>
+<li>tách bạch hẳn “thế giới” (Ω),<br>
+</li>
+<li>“cách ta đo” (biến ngẫu nhiên),<br>
+</li>
+<li>và “độ đo xác suất” (P).<br>
+Chính sự tách bạch này giải quyết sạch sẽ những rối rắm kiểu Bertrand,<br>
+nơi mà xác suất cổ điển (dựa trên Nguyên lý thờ ơ) tự mâu thuẫn với chính nó.</li>
+</ul></li>
+</ol>
+</section>
+<section id="ghi-chú-cho-bản-thân-để-dùng-sau-này" class="level2">
+<h2 class="anchored" data-anchor-id="ghi-chú-cho-bản-thân-để-dùng-sau-này">6. Ghi chú cho bản thân (để dùng sau này)</h2>
+<ul>
+<li>Ý tưởng “nghịch lý Bertrand = lẫn lộn không gian mẫu và biến ngẫu nhiên” là <em>một chìa khoá cực tốt</em> để:
+<ul>
+<li>giải thích vì sao Nguyên lý thờ ơ không ổn,<br>
+</li>
+<li>và vì sao cần cách tiếp cận Kolmogorov.</li>
+</ul></li>
+<li>Đây cũng là một ví dụ rất đẹp để minh hoạ cho học sinh/sinh viên:
+<ul>
+<li>sự khác nhau giữa “<em>mô tả bài toán</em>” và “<em>cấu trúc xác suất nền</em>”,<br>
+</li>
+<li>và nguy cơ gán “phân bố đều” một cách vô trách nhiệm.</li>
+</ul></li>
+<li>Về mặt triết học, ghi chú này giúp mình:
+<ul>
+<li>nhìn thấy rõ hạn chế của xác suất cổ điển,<br>
+</li>
+<li>và thấy được “chiều sâu” không hề tầm thường trong ba ký hiệu <span class="math inline">\((\Omega, \mathcal{F}, P)\)</span>.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="phiên-bản-giải-thích-bằng-lời-dành-cho-người-ít-dùng-ký-hiệu" class="level1">
+<h1>Phiên bản giải thích bằng lời, dành cho người ít dùng ký hiệu</h1>
+<p>Mình nghĩ mình đã hiểu rõ hơn chuyện gì thật sự xảy ra trong nghịch lý Bertrand, và muốn diễn đạt lại bằng lời sao cho trực quan nhất.</p>
+<section id="có-một-sự-kiện-duy-nhất---nhưng-nó-lại-bị-gán-ba-xác-suất-khác-nhau" class="level2">
+<h2 class="anchored" data-anchor-id="có-một-sự-kiện-duy-nhất---nhưng-nó-lại-bị-gán-ba-xác-suất-khác-nhau">1. Có một sự kiện duy nhất - nhưng nó lại bị gán ba xác suất khác nhau</h2>
+<p>Trong bài toán khối lập phương, ta chỉ xét một sự kiện rất đơn giản:</p>
+<blockquote class="blockquote">
+<p>Chọn ngẫu nhiên một khối lập phương - nó có cạnh không vượt quá một phần hai hay không?</p>
+</blockquote>
+<p>Đó là một câu hỏi bình thường, hoàn toàn không có gì mâu thuẫn.</p>
+<p>Nhưng khi áp dụng “Nguyên lý thờ ơ” theo ba cách mô tả khác nhau:</p>
+<ul>
+<li>mô tả bằng <em>độ dài cạnh</em>,</li>
+<li>mô tả bằng <em>diện tích mặt</em>,</li>
+<li>mô tả bằng <em>thể tích</em>,</li>
+</ul>
+<p>… thì ta lại thu được ba câu trả lời khác nhau:</p>
+<ul>
+<li>1/2 nếu dựa vào độ dài cạnh,</li>
+<li>1/4 nếu dựa vào diện tích mặt,</li>
+<li>1/8 nếu dựa vào thể tích.</li>
+</ul>
+<p>Rõ ràng đây là một điều vô lý, vì chỉ có <em>một</em> sự kiện trong đời thật - một khối lập phương không thể “có xác suất 1/2 hoặc 1/4 hoặc 1/8 tùy tâm trạng”.</p>
+</section>
+<section id="nguyên-nhân-sâu-xa-nhầm-lẫn-giữa-thế-giới-thật-và-cách-ta-đo-nó" class="level2">
+<h2 class="anchored" data-anchor-id="nguyên-nhân-sâu-xa-nhầm-lẫn-giữa-thế-giới-thật-và-cách-ta-đo-nó">2. Nguyên nhân sâu xa: nhầm lẫn giữa “thế giới thật” và “cách ta đo nó”</h2>
+<p>Điểm mấu chốt nằm ở đây:</p>
+<section id="a-thế-giới-thật" class="level3">
+<h3 class="anchored" data-anchor-id="a-thế-giới-thật">(a) Thế giới thật</h3>
+<p>Thứ ta rút thăm là <em>một khối lập phương thật sự</em>, với kích thước cụ thể. Tất cả những khối lập phương có thể rút được tạo thành <em>một tập</em> - đó mới là <em>không gian mẫu thật sự</em>.</p>
+</section>
+<section id="b-những-đại-lượng-ta-dùng-để-mô-tả-nó" class="level3">
+<h3 class="anchored" data-anchor-id="b-những-đại-lượng-ta-dùng-để-mô-tả-nó">(b) Những đại lượng ta dùng để mô tả nó</h3>
+<p>Một khối lập phương có ba đặc điểm liên hệ với nhau:</p>
+<ul>
+<li>chiều dài cạnh,</li>
+<li>diện tích một mặt,</li>
+<li>thể tích.</li>
+</ul>
+<p>Nhưng ba đặc điểm này <em>không tạo ra ba thế giới khác nhau</em>.</p>
+<p>Chúng chỉ là <em>ba cách diễn tả cùng một đồ vật</em>.</p>
+<p>Giống như một người vừa có:</p>
+<ul>
+<li>chiều cao,</li>
+<li>cân nặng,</li>
+<li>số đo vòng eo.</li>
+</ul>
+<p>Ba con số khác nhau - nhưng <em>chỉ một con người duy nhất</em>.</p>
+</section>
+</section>
+<section id="xác-suất-đúng-phải-được-gán-trên-thế-giới-thật-không-phải-trên-cách-mô-tả" class="level2">
+<h2 class="anchored" data-anchor-id="xác-suất-đúng-phải-được-gán-trên-thế-giới-thật-không-phải-trên-cách-mô-tả">3. Xác suất đúng phải được gán trên “thế giới thật”, không phải trên cách mô tả</h2>
+<p>Nếu ta muốn nói “xác suất chọn được khối lập phương có cạnh không quá 1/2”, ta phải:</p>
+<ul>
+<li>xét tất cả các khối lập phương có thể được tạo ra,</li>
+<li>xem trong số đó bao nhiêu khối có cạnh không quá 1/2,</li>
+<li>rồi lấy tỷ lệ.</li>
+</ul>
+<p><strong>Đó mới là cách đúng để gán xác suất.</strong></p>
+</section>
+<section id="nghịch-lý-xuất-hiện-vì-người-ta-lén-thay-đổi-cách-chọn-ngẫu-nhiên" class="level2">
+<h2 class="anchored" data-anchor-id="nghịch-lý-xuất-hiện-vì-người-ta-lén-thay-đổi-cách-chọn-ngẫu-nhiên">4. Nghịch lý xuất hiện vì người ta lén thay đổi “cách chọn ngẫu nhiên”</h2>
+<p>Khi ta nói:</p>
+<ul>
+<li>“tôi chọn đều theo cạnh” (tức mỗi độ dài cạnh từ 0 đến 1 có cơ hội ngang nhau),</li>
+</ul>
+<p>rồi chuyển sang nói:</p>
+<ul>
+<li>“tôi chọn đều theo diện tích mặt” (mỗi diện tích từ 0 đến 1 được gán cơ hội ngang nhau),</li>
+</ul>
+<p>ta đã <em>bí mật thay đổi cách chọn</em>, dù vẫn nghĩ rằng mình đang làm “y như lúc đầu”.</p>
+<p>Nhưng thật ra ba cách chọn đó <em>khác nhau hoàn toàn</em>.</p>
+<p>Ví dụ cụ thể:</p>
+<ul>
+<li>Khi bạn chọn đều theo <em>cạnh</em>, thì những khối lập phương có cạnh lớn xuất hiện thưa thớt.</li>
+<li>Khi bạn chọn đều theo <em>diện tích</em>, thì những khối có cạnh lớn xuất hiện dày hơn.</li>
+<li>Khi bạn chọn đều theo <em>thể tích</em>, thì những khối có cạnh lớn được ưu tiên nhiều hơn nữa.</li>
+</ul>
+<p>Nói cách khác:</p>
+<blockquote class="blockquote">
+<p><em>Đổi cách mô tả → đổi cách chọn → đổi xác suất.</em> Nhưng ta lại tưởng mình chỉ đổi câu chữ.</p>
+</blockquote>
+<p>Và đó chính là bản chất của nghịch lý Bertrand.</p>
+</section>
+<section id="cách-hiểu-đúng-theo-trực-giác-và-theo-kolmogorov" class="level2">
+<h2 class="anchored" data-anchor-id="cách-hiểu-đúng-theo-trực-giác-và-theo-kolmogorov">5. Cách hiểu đúng (theo trực giác và theo Kolmogorov)</h2>
+<p>Để không rơi vào nghịch lý, ta chỉ cần tư duy như sau:</p>
+<ul>
+<li>Trong đời thật, ta đang rút một khối lập phương từ một tập các khối lập phương.</li>
+<li>Chiều dài, diện tích và thể tích chỉ là <em>cách đo khác nhau</em> của cùng một vật.</li>
+<li>Nếu ta muốn nói “xác suất” thì phải nói về <em>cách chọn vật</em> trong thế giới thật, chứ không phải về cách đo.</li>
+</ul>
+<p>Vậy nên:</p>
+<blockquote class="blockquote">
+<p>Một sự kiện chỉ có một xác suất duy nhất - bất kể ta mô tả nó bằng tham số nào.</p>
+</blockquote>
+</section>
+<section id="tóm-lại-bằng-một-câu" class="level2">
+<h2 class="anchored" data-anchor-id="tóm-lại-bằng-một-câu">6. Tóm lại bằng một câu</h2>
+<p>Nghịch lý Bertrand chỉ xảy ra vì:</p>
+<ul>
+<li>ta dùng ba “cách đo” khác nhau (cạnh, diện tích, thể tích),</li>
+<li>nhưng lại lầm tưởng đó là cùng một “cách chọn ngẫu nhiên”.</li>
+</ul>
+<p>Nếu ta phân biệt rõ:</p>
+<ul>
+<li><em>thế giới thật</em> (tập các khối),</li>
+<li><em>cách ta chọn trong thế giới đó</em> (độ đo xác suất),</li>
+<li><em>cách ta mô tả đối tượng</em> (biến chiều dài/diện tích/thể tích),</li>
+</ul>
+<p>thì nghịch lý biến mất ngay lập tức.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a><br>
+<br> <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a><br>
+<br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
