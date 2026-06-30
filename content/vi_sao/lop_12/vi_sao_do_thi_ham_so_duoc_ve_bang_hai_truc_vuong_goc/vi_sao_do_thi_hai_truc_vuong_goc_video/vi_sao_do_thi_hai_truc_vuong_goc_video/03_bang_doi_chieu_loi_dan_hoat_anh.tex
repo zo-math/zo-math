@@ -1,0 +1,137 @@
+\documentclass[11pt,a4paper]{article}
+
+% Biên dịch khuyến nghị: lualatex
+% Mục đích: bản đối chiếu để in/duyệt, không phải nguồn chính để sửa dài hạn.
+
+\usepackage[a4paper,margin=1.6cm]{geometry}
+\usepackage{fontspec}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{amsmath}
+
+\setmainfont{DejaVu Serif}
+
+\definecolor{zored}{HTML}{ef5350}
+\definecolor{zoyellow}{HTML}{ffca28}
+\definecolor{zoteal}{HTML}{1de8b5}
+\definecolor{zodark}{HTML}{222222}
+\definecolor{zolight}{HTML}{fbfaf7}
+\definecolor{zoline}{HTML}{dddddd}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=zored,
+  urlcolor=zored
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}
+\renewcommand{\arraystretch}{1.25}
+
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+\newcommand{\SceneTitle}[1]{%
+  \multicolumn{3}{>{\columncolor{zolight}\raggedright\arraybackslash}p{\dimexpr\linewidth-6\tabcolsep\relax}}{\large\bfseries #1}\\
+}
+
+\begin{document}
+
+{\Huge\bfseries Vì sao đồ thị hàm số được vẽ bằng hai trục vuông góc?}
+
+\vspace{0.3em}
+
+{\Large Bảng đối chiếu lời dẫn và hoạt ảnh Manim}
+
+\vspace{1em}
+
+\textbf{Ghi chú.} Bản này dùng để rà soát sau khi đã có lời dẫn và kịch bản hoạt ảnh riêng. Khi cần sửa nội dung, nên sửa trong \texttt{01\_loi\_dan\_thu\_am.md} và \texttt{02\_kich\_ban\_hoat\_anh.md}, rồi mới cập nhật lại bản đối chiếu này.
+
+\vspace{1em}
+
+\begin{longtable}{|L{0.12\linewidth}|L{0.40\linewidth}|L{0.39\linewidth}|}
+\hline
+\textbf{Mã} & \textbf{Lời dẫn thu âm} & \textbf{Hoạt ảnh Manim}\\
+\hline
+\endfirsthead
+
+\hline
+\textbf{Mã} & \textbf{Lời dẫn thu âm} & \textbf{Hoạt ảnh Manim}\\
+\hline
+\endhead
+
+S00 &
+Vì sao đồ thị hàm số thường được vẽ bằng hai trục vuông góc? Một câu hỏi rất quen thuộc, nhưng không nên trả lời bằng thói quen. &
+Tiêu đề xuất hiện giữa màn hình. Công thức \(y=f(x)\) hiện bên dưới. Logo chữ ZO Math xuất hiện nhỏ ở góc.\\
+\hline
+
+S01 &
+Khi gặp một hàm số, ta gần như lập tức nghĩ đến đồ thị của nó: một trục ngang, một trục dọc, hai trục vuông góc, rồi một đường cong. Nhưng vì sao lại vẽ như vậy? &
+Hệ trục và đường cong quen thuộc hiện ra, sau đó mờ dần. Câu hỏi “Vì sao lại như vậy?” xuất hiện ở giữa.\\
+\hline
+
+S02 &
+Ta xét hàm số \(y=x^3-3x\). Hàm này đủ đơn giản để tính bằng tay, nhưng cũng đủ biến thiên để bảng số nhanh chóng trở nên khó nhìn. &
+Công thức \(y=x^3-3x\) xuất hiện lớn. Ba nhãn “dễ tính”, “có đổi chiều”, “đủ để quan sát” hiện lần lượt.\\
+\hline
+
+S03 &
+Trong một hàm số, \(x\) là giá trị ta đưa vào. Công thức trả lại một giá trị \(y\) tương ứng. Ta chọn \(x\) để hỏi; hàm số trả lời bằng \(y\). &
+Sơ đồ đầu vào--đầu ra: \(x\) đi vào hộp công thức, \(y\) đi ra. Mũi tên và hộp công thức được nhấn nhẹ.\\
+\hline
+
+S04 &
+Ta chọn các giá trị \(x\) cách nhau \(0.5\) đơn vị. Bảng số chính xác, nhưng muốn thấy \(y\) tăng hay giảm, ta vẫn phải đọc từng dòng. Ta cần một hình ảnh. &
+Bảng giá trị \((x,y)\) xuất hiện. Các vùng tăng--giảm--tăng được tô nhẹ. Sau đó hiện câu “Ta cần một hình ảnh.”\\
+\hline
+
+S05 &
+Các giá trị \(x\) có thứ tự tự nhiên, nên ta đặt chúng lên một đường ngang. Đường ngang ấy trở thành trục \(x\). &
+Các giá trị \(x\) rời khỏi bảng và xếp lên đường ngang. Trục \(x\) được vẽ từ trái sang phải.\\
+\hline
+
+S06 &
+Tại từng mốc \(x\), nếu \(y\) dương ta dựng đoạn đi lên; nếu \(y\) âm ta dựng đoạn đi xuống. Sự vuông góc bắt đầu có lí do: độ cao thay đổi, nhưng mốc \(x\) giữ nguyên. &
+Dựng các đoạn thẳng đứng tại từng mốc \(x\). Đoạn dương màu teal, đoạn âm màu đỏ. Một đoạn mẫu được nhấn cùng chú thích “mốc \(x\) giữ nguyên”.\\
+\hline
+
+S07 &
+Phần cần giữ là đầu mút của mỗi đoạn. Đầu mút chứa đủ hai thông tin: vị trí ngang cho biết \(x\), độ cao cho biết \(y\). Mỗi đầu mút là một điểm \((x,y)\). &
+Các đoạn mờ dần, các đầu mút trở thành chấm. Một điểm mẫu hiện đường chiếu và nhãn \((x,y)\).\\
+\hline
+
+S08 &
+Nếu chọn thêm nhiều giá trị \(x\), các điểm xuất hiện ngày càng dày. Khi đủ dày, mắt ta bắt đầu thấy một đường cong. &
+Điểm thưa chuyển thành điểm dày hơn, rồi đường cong \(y=x^3-3x\) được vẽ lên.\\
+\hline
+
+S09 &
+Đường cong giúp thấy hình dạng chung, nhưng ta vẫn cần một cách đọc giá trị \(y\) thống nhất. Vì vậy, trục \(y\) xuất hiện, đi qua mốc \(x=0\). &
+Một số nhãn \(y\) xuất hiện cạnh điểm rồi biến mất vì rối. Trục \(y\) được dựng qua \(x=0\). Gốc tọa độ được nhấn.\\
+\hline
+
+S10 &
+Một điểm trên hình được đọc bằng hai thao tác: nhìn xuống trục ngang để biết \(x\), nhìn sang trục dọc để biết \(y\). Hai phương đo không lẫn vào nhau. &
+Chọn điểm \(P\) trên đồ thị. Vẽ đường chiếu xuống trục \(x\), sang trục \(y\). Hiện nhãn “đọc \(x\)” và “đọc \(y\)”.\\
+\hline
+
+S11 &
+Bảng giá trị cho ta các con số cụ thể. Đồ thị cho ta hình ảnh tổng thể của sự biến thiên. &
+Bên trái là bảng nhỏ, bên phải là đồ thị. Một dòng trong bảng nối sang điểm tương ứng trên đồ thị.\\
+\hline
+
+S12 &
+Ta cần một trục để sắp xếp \(x\), một trục để đo \(y\). Sự vuông góc giúp hai việc ấy không lẫn vào nhau. &
+Đồ thị mờ ở nền. Ba mệnh đề kết tinh hiện lần lượt: trục ngang cho \(x\), trục dọc cho \(y\), vuông góc để tách bạch.\\
+\hline
+
+S13 &
+Đồ thị không bắt đầu từ một nét vẽ. Đồ thị bắt đầu từ nhu cầu nhìn thấy sự biến thiên. &
+Chuỗi biểu tượng: bảng số \(\rightarrow\) điểm \(\rightarrow\) đường cong. Dòng kết: “Đồ thị là hình ảnh của sự biến thiên.”\\
+\hline
+
+\end{longtable}
+
+\end{document}

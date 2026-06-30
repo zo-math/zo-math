@@ -1,0 +1,28 @@
+\documentclass[border=6pt]{standalone}
+
+\usepackage{array}
+\usepackage{tabularx}
+
+\begin{document}
+
+% --- Tham số bố cục (chỉ chỉnh ở đây) ---
+\newlength{\LeftColW}\setlength{\LeftColW}{5.5cm}
+\newlength{\RightColW}\setlength{\RightColW}{5.5cm} % tăng/giảm để giống mẫu
+\setlength{\tabcolsep}{1pt}
+\renewcommand{\arraystretch}{1.25}
+
+% --- Khung ngoài ---
+\fbox{%
+  \begin{minipage}[t]{\dimexpr\LeftColW+\RightColW+2\tabcolsep\relax}
+  \vspace{6pt}
+  Sự chú trọng đối với toán rời rạc được lồng ghép trong các mạch nội dung sau của \emph{Trọng tâm trong toán học trung học phổ thông}:
+  \begin{itemize}
+    \item Việc đếm được đưa vào như một yếu tố then chốt trong Luận với số và đo lường và được đề cập trong Ví dụ 20, ``Bao nhiêu khả năng? Phần A''.
+    \item Truy hồi được bao gồm trong yếu tố then chốt ``Nhiều biểu diễn của hàm số'' thuộc ``Luận với hàm số''; xem Ví dụ 11, ``Uống theo chỉ dẫn''.
+    \item Đồ thị đỉnh--cạnh được đề cập trong yếu tố then chốt cuối cùng của ``Luận với hình học''; xem Ví dụ 18, ``Xếp tần số''.
+  \end{itemize}
+  \vspace{6pt}
+  \end{minipage}%
+}
+
+\end{document}

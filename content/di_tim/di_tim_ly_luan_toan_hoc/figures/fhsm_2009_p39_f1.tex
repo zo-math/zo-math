@@ -1,0 +1,58 @@
+\documentclass[border=6pt]{standalone}
+
+\usepackage{array}
+\usepackage[table]{xcolor}
+\usepackage{amsmath}
+
+\renewcommand{\arraystretch}{1.28}
+\setlength{\arrayrulewidth}{0.5pt}
+
+\newcommand{\casprompt}{\raisebox{0.15ex}{\rule{0.8ex}{0.8ex}}\hspace{0.55em}}
+\newcommand{\casin}[1]{{\ttfamily\detokenize{#1}}}
+\newcommand{\casout}[1]{\(\displaystyle #1\)}
+
+\begin{document}
+
+\begin{tabular}{
+  |>{\raggedright\arraybackslash}p{4.5cm}
+  |>{\raggedright\arraybackslash}p{4.5cm}|
+}
+\hline
+\rowcolor{gray!10}
+\casprompt \casin{f(x)=4x-1} & \casout{f(x)=4x-1} \\
+\hline
+
+\rowcolor{gray!10}
+\casprompt \casin{g(x)=x^3-6x^2+15x-7} & \casout{g(x)=x^3-6x^2+15x-7} \\
+\hline
+
+\rowcolor{gray!10}
+\casprompt \casin{h(x)=g(x)-f(x)} & \casout{h(x)=x^3-6x^2+11x-6} \\
+\hline
+
+\rowcolor{gray!10}
+\casprompt \casin{factor(h(x))} & \casout{(x-3)\cdot(x-2)\cdot(x-1)} \\
+\hline
+
+\rowcolor{gray!10}
+\casprompt \casin{j(x)=f(x)+3*h(x)} & \casout{j(x)=3x^3-18x^2+37x-19} \\
+\hline
+
+\rowcolor{gray!10}
+\casprompt \casin{j(1)} & \casout{3} \\
+\hline
+
+\rowcolor{gray!10}
+\casprompt \casin{j(2)} & \casout{7} \\
+\hline
+
+\rowcolor{gray!10}
+\casprompt \casin{j(3)} & \casout{11} \\
+\hline
+
+\rowcolor{gray!10}
+\casprompt & \\
+\hline
+\end{tabular}
+
+\end{document}

@@ -1,0 +1,73 @@
+% !TeX program = lualatex
+\documentclass[tikz,border=6pt]{standalone}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\begin{document}
+\begin{tikzpicture}
+
+\begin{axis}[
+  title={Biểu đồ chấm về số từ nhớ lại được},
+  xlabel={Số từ nhớ lại được},
+  ylabel={Loại từ},
+  axis lines=box,
+  xmin=1, xmax=16,
+  ymin=0.7, ymax=2.775,
+  xtick={2,4,6,8,10,12,14,16},
+  ytick={1,2},
+  yticklabels={Vô nghĩa,Có nghĩa},
+  width=15.5cm,
+  height=4.75cm,
+  tick style={black},
+  major tick length=4pt,
+  title style={font=\bfseries},
+  label style={font=\small}
+]
+
+% Hai đường ngang
+\addplot[black, thick] coordinates {(1,1) (16,1)};
+\addplot[black, thick] coordinates {(1,2) (16,2)};
+
+% ------------------------------------------------------------
+% Vô nghĩa (baseline y=1), step=0.12
+% ------------------------------------------------------------
+\addplot[
+  only marks,
+  mark=*,
+  mark size=2.2pt
+] coordinates {
+  (2,1.00)
+  (3,1.00)
+  (4,1.00) (4,1.12) (4,1.24)
+  (5,1.00) (5,1.12)
+  (6,1.00) (6,1.12)
+  (7,1.00) (7,1.12) (7,1.24)
+  (8,1.00)
+  (9,1.00)
+  (10,1.00)
+};
+
+% ------------------------------------------------------------
+% Có nghĩa (baseline y=2), step=0.12
+% ------------------------------------------------------------
+\addplot[
+  only marks,
+  mark=*,
+  mark size=2.2pt
+] coordinates {
+  (3,2.00)
+  (5,2.00)
+  (7,2.00)
+  (9,2.00) (9,2.12) (9,2.24)
+  (10,2.00) (10,2.12)
+  (11,2.00)
+  (12,2.00) (12,2.12) (12,2.24)
+  (13,2.00)
+  (14,2.00)
+  (15,2.00)
+};
+
+\end{axis}
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,23 @@
+\documentclass[border=2mm]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\begin{document}
+% \begin{tikzpicture}[
+%     node/.style={circle, draw, minimum size=8mm, thick},
+%     edge/.style={draw, thick}]
+\begin{tikzpicture}
+% khung ngoài (6 × 4 ô lớn)
+\draw (0,-.3) rectangle (6.2,4);
+
+% các đường lưới “chính”
+\foreach \x in {1,...,6} \draw (\x,-.3)--(\x,4);
+\foreach \y in {0,...,3} \draw (0,\y)--(6.2,\y);
+
+% các đường dồn sát bên phải
+\foreach \x in {6.1,6.2} \draw (\x,-.3)--(\x,4);
+
+% các đường dồn sát đáy
+\foreach \y in {-.1,-.2,-.3} \draw (0,\y)--(6.2,\y);
+\end{tikzpicture}
+\end{document}

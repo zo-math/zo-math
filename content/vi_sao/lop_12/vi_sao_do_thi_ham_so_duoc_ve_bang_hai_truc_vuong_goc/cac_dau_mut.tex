@@ -1,0 +1,99 @@
+\documentclass[tikz,border=6pt]{standalone}
+
+\usepackage{amsmath}
+\usetikzlibrary{arrows.meta}
+
+% Thứ tự lớp hiển thị: dưới -> trên
+\pgfdeclarelayer{axislayer}
+\pgfdeclarelayer{guidelayer}
+\pgfdeclarelayer{axispointlayer}
+\pgfdeclarelayer{datapointlayer}
+\pgfdeclarelayer{labellayer}
+\pgfsetlayers{axislayer,guidelayer,axispointlayer,datapointlayer,main,labellayer}
+
+\begin{document}
+
+\begin{tikzpicture}[
+  x=1.75cm,
+  y=0.5cm,
+  >=Stealth,
+  font=\scriptsize
+]
+
+% Dữ liệu: x / y / nhãn y / nhãn x
+\def\Data{
+  -2.5/-8.125/{-8.125}/{-2.5},
+  -2.0/-2.000/{-2.000}/{-2.0},
+  -1.5/ 1.125/{ 1.125}/{-1.5},
+  -1.0/ 2.000/{ 2.000}/{-1.0},
+  -0.5/ 1.375/{ 1.375}/{-0.5},
+   0.0/ 0.000/{ 0.000}/{ 0.0},
+   0.5/-1.375/{-1.375}/{ 0.5},
+   1.0/-2.000/{-2.000}/{ 1.0},
+   1.5/-1.125/{-1.125}/{ 1.5},
+   2.0/ 2.000/{ 2.000}/{ 2.0},
+   2.5/ 8.125/{ 8.125}/{ 2.5}
+}
+
+% Lớp 1: trục nền
+\begin{pgfonlayer}{axislayer}
+  \draw[line width=0.5pt] (-2.9,0) -- (2.9,0);
+\end{pgfonlayer}
+
+% Lớp 2: các đoạn dẫn nét đứt, mờ
+\begin{pgfonlayer}{guidelayer}
+  \foreach \xx/\yy/\ylab/\xlab in \Data {
+    \ifdim \yy pt=0pt
+      % Không vẽ đoạn khi y = 0
+    \else
+      \draw[dashed, line width=0.35pt, draw=black!15] (\xx,0) -- (\xx,\yy);
+    \fi
+  }
+\end{pgfonlayer}
+
+% Lớp 3: các điểm chia trên trục x
+\begin{pgfonlayer}{axispointlayer}
+  \foreach \xx/\yy/\ylab/\xlab in \Data {
+    \fill (\xx,0) circle (1.45pt);
+  }
+\end{pgfonlayer}
+
+% Lớp 4: các điểm dữ liệu
+\begin{pgfonlayer}{datapointlayer}
+  \foreach \xx/\yy/\ylab/\xlab in \Data {
+    \fill[black] (\xx,\yy) circle (2pt);
+  }
+\end{pgfonlayer}
+
+% Lớp 5: toàn bộ nhãn
+\begin{pgfonlayer}{labellayer}
+
+  % Nhãn trục
+  \node[right] at (2.9,0) {$x$};
+
+  \foreach \xx/\yy/\ylab/\xlab in \Data {
+
+    % Nhãn x:
+    % nếu y âm thì đặt phía trên trục,
+    % nếu y không âm thì đặt phía dưới trục.
+    \ifdim \yy pt<0pt
+      \node[above=2pt] at (\xx,0) {$\xlab$};
+    \else
+      \node[below=2pt] at (\xx,0) {$\xlab$};
+    \fi
+
+    % Nhãn y:
+    % nếu y âm thì đặt dưới điểm,
+    % nếu y không âm thì đặt trên điểm.
+    \ifdim \yy pt<0pt
+      \node[below=2pt] at (\xx,\yy) {$\ylab$};
+    \else
+      \node[above=2pt] at (\xx,\yy) {$\ylab$};
+    \fi
+  }
+
+\end{pgfonlayer}
+
+\end{tikzpicture}
+
+\end{document}

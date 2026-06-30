@@ -1,0 +1,185 @@
+---
+title: "CÔNG BẰNG TRONG BẤT ĐỊNH"
+subtitle: "Kiến tạo nhu cầu lượng hóa sự công bằng trong tình huống bất định thông qua Bài toán chia tiền cược"
+author: ZO Math
+date: last-modified
+date-format: "DD-MM-YYYY"
+---
+
+# CÔNG BẰNG TRONG BẤT ĐỊNH
+### *Kiến tạo nhu cầu lượng hóa sự công bằng trong tình huống bất định thông qua Bài toán chia tiền cược*
+
+## 1. Giới thiệu 
+
+Bài toán chia tiền cược đặt ra một câu hỏi rất đặc biệt: **khi một trò chơi phải dừng giữa chừng, trong lúc người thắng cuộc còn chưa xuất hiện, thì số tiền đặt cược phải được chia thế nào cho công bằng?**
+
+Nếu trò chơi được chơi đến cùng, câu trả lời rất đơn giản: ai thắng trước theo luật định thì nhận toàn bộ tiền cược. Nhưng khi trò chơi bị cắt ngang, kết cục ấy chưa xảy ra, trong khi việc chia tiền lại không thể trì hoãn. Chính ở đây, lý trí gặp một đòi hỏi mới: muốn nói đến công bằng, không thể chỉ nhìn vào những gì đã xảy ra, mà phải biết nhìn vào **những gì còn có thể xảy ra**.
+
+Bài viết này được viết để làm lộ ra đòi hỏi ấy. Nó chưa đi ngay vào ngôn ngữ chính thức của xác suất học. Điều cần thấy trước là: khi kết cục còn bỏ ngỏ nhưng quyết định phải đưa ra ngay, ta buộc phải tìm một cách đo **phần quyền hiện tại của mỗi người đối với một tài sản chỉ sẽ thuộc trọn về một người trong tương lai**. Chỉ khi nhu cầu ấy hiện ra rõ ràng, con đường sang ngôn ngữ chính thức mới thật sự có ý nghĩa.
+
+## 2. Tình huống gốc
+
+Hai người $A$ và $B$ cùng tham gia một trò chơi tung đồng xu. Mỗi người góp $36$ đồng, nên tổng số tiền cược là $72$ đồng. Trước khi chơi, $A$ chọn một mặt của đồng xu, $B$ chọn mặt còn lại. Mỗi lần tung, nếu đồng xu ra mặt mà $A$ đã chọn thì $A$ ghi được một điểm; nếu đồng xu ra mặt mà $B$ đã chọn thì $B$ ghi được một điểm. Đồng xu là công bằng, nên trước mỗi lần tung, khả năng ghi điểm của hai người là như nhau. Luật chơi rất đơn giản: ai ghi đủ $3$ điểm trước thì nhận toàn bộ $72$ đồng.
+
+Trò chơi đang diễn ra thì buộc phải dừng lại. Tại thời điểm dừng, $A$ đã ghi $2$ điểm, còn $B$ ghi $1$ điểm. Câu hỏi là: **phải chia $72$ đồng ấy thế nào cho công bằng?**
+
+## 3. Những cách hiểu công bằng dễ sai
+
+Một cách nghĩ rất dễ xuất hiện là chia đều: mỗi người nhận lại $36$ đồng mà mình đã bỏ ra. Cách chia này có một lý do bề mặt khá dễ chấp nhận. Lúc đầu mỗi người góp như nhau, mà trò chơi chưa kết thúc, nên mỗi người nhận lại số tiền mình đã bỏ ra để dừng cuộc chơi có vẻ là xác đáng. Nhưng lý do ấy không đứng vững.
+
+Giả sử tình huống thay đổi một chút: trò chơi bị dừng khi $A$ đang dẫn $2\!-\!0$. Nếu vẫn chia đều, thì $A$ và $B$ mỗi người nhận $36$ đồng. Kết quả đó *khó* có thể gọi là công bằng, vì từ tình thế $2\!-\!0$, $A$ chỉ cần thắng thêm một ván để thắng chung cuộc, còn $B$ cần phải thắng liên tiếp ba ván mới lật ngược được tình thế. Như vậy, được đối xử ngang  nhau ở điểm xuất phát không có nghĩa là ở mọi thời điểm dang dở của trò chơi sau đó, hai bên vẫn còn được đối xử ngang nhau.
+
+Sau khi từ bỏ cách chia đều, người ta thường chuyển sang một cách chia khác có vẻ hợp lý hơn: chia theo tỉ số điểm hiện tại. Vì $A$ đang dẫn $2\!-\!1$, ta đem $72$ đồng chia thành ba phần bằng nhau, rồi cho $A$ nhận hai phần, $B$ nhận một phần. Theo cách ấy, $A$ nhận $\frac{2}{3}\cdot 72=48$ đồng, còn $B$ nhận $\frac{1}{3}\cdot 72=24$ đồng. So với chia đều, cách chia này có tiến bộ ở chỗ nó đã nhìn thấy rằng $A$ đang có vị thế cao hơn $B$. Nhưng nó vẫn không đứng vững.
+
+Vấn đề nằm ở chỗ: số tiền được nhận không gắn với số điểm đã ghi cho tới lúc dừng, mà gắn với chiến thắng chung cuộc. Người chơi không tranh nhau từng phần tiền ứng với từng lượt đã qua; họ tranh nhau quyền nhận trọn $72$ đồng khi một người ghi đủ $3$ điểm. Vì vậy, điểm số hiện tại không phải là thứ trực tiếp quyết định phần chia. Nó chỉ cho biết từ đây mỗi người còn cách chiến thắng cuối cùng bao xa. Nói cách khác, chia theo tỉ số điểm chỉ mới thừa nhận $A$ có vị thế cao hơn $B$, nhưng chưa phản ánh được $A$ có vị thế thuận lợi để giành chiến thắng hơn $B$ đến mức nào. 
+
+Chỗ sai của cách chia theo tỉ số điểm hiện tại lộ ra rất rõ nếu ta đẩy nó về hai đầu biên của tình huống.
+
+Ở biên dưới, giả sử trò chơi bị dừng ngay sau ván đầu tiên, khi $A$ đang dẫn $1\!-\!0$. Nếu vẫn máy móc chia theo tỉ số điểm hiện tại, thì $A$ sẽ nhận toàn bộ $72$ đồng, còn $B$ không nhận gì cả. Kết quả ấy rõ ràng không thể chấp nhận, vì từ tình thế $1\!-\!0$, $B$ vẫn hoàn toàn có thể thắng ba ván tiếp theo và lấy toàn bộ tiền cược. Cho $B$ bằng $0$ ở thời điểm ấy chẳng khác nào tước hết mọi cơ hội của $B$, là đối xử với một khả năng đang sống như thể nó đã chết hoàn toàn.
+
+Ở biên trên, hãy đổi luật chơi một chút để điểm yếu này hiện ra mạnh hơn. Giả sử bây giờ luật chơi là ai ghi đủ $5$ điểm trước thì nhận trọn tiền cược, và trò chơi bị dừng khi $A$ đang dẫn $4\!-\!1$. Nếu vẫn chia theo tỉ số điểm, ta sẽ cho $A$ nhận $\frac{4}{5}$ tổng tiền cược, còn $B$ nhận $\frac{1}{5}$. Nhưng cách chia này vẫn có thể làm $A$ không hài lòng, và sự không hài lòng ấy hoàn toàn có lý. Từ tình thế $4\!-\!1$, $A$ chỉ cần thêm đúng một ván nữa là thắng chung cuộc; còn $B$ phải thắng liên tiếp bốn ván mới có thể lật ngược tình thế. Vị thế của $A$ ở đây mạnh hơn rất nhiều so với điều mà tỉ phần $\frac{4}{5}$ diễn tả. Nghĩa là, tỉ số điểm không chỉ có thể phóng đại thái quá ưu thế của người dẫn trước ở đầu trò chơi; mà nó còn có thể hạ thấp ưu thế của người dẫn trước ở gần cuối trò chơi.
+
+Hai phản ví dụ ấy cho thấy rằng *công bằng* ở đây không thể hiểu là chia đều, cũng không thể hiểu là chia theo tỉ số điểm hiện tại. Công bằng phải là sự phân chia phù hợp với vị thế hiện tại của mỗi người đối với chiến thắng chung cuộc. Nhưng vị thế ấy phải được đọc thế nào? Muốn trả lời, ta không thể chỉ nhìn vào số điểm đã có; ta phải nhìn vào những cách mà trò chơi còn có thể tiếp diễn rồi khép lại từ tình thế $2\!-\!1$.
+
+## 4. Hạt nhân khái niệm trung tâm
+
+Hạt nhân khái niệm của tình huống này là: **ở thời điểm hiện tại, mỗi người đang nắm bao nhiêu phần quyền đối với toàn bộ số tiền sẽ thuộc về người thắng trong tương lai**.
+
+Điều này cần được nói thật rõ. Khi trò chơi chưa kết thúc, chưa ai thật sự sở hữu trọn $72$ đồng. Nhưng cũng không phải vì thế mà hai người không có gì để phân biệt. Tại mỗi thời điểm của cuộc chơi, mỗi người đang đứng ở một **vị thế** nào đó đối với chiến thắng chung cuộc. Vị thế ấy càng thuận lợi thì phần quyền hiện tại đối với khối tiền cược càng lớn; vị thế ấy càng bất lợi thì phần quyền ấy càng nhỏ.
+
+Theo nghĩa này, công bằng ở đây không phải là một sự ngang nhau bất biến. Lúc bắt đầu trò chơi, hai người có cùng vị thế, nên phần quyền của mỗi người đối với tiền cược là như nhau. Nhưng khi trò chơi đã diễn ra với tỉ số điểm $2\!:\!1$, công bằng không còn là tiếp tục chia mỗi người một nửa. Công bằng lúc này phải biến đổi theo vị thế hiện tại. 
+
+Nói cách khác, khi không thể đợi tương lai tự quyết định bằng kết cục cuối cùng, ta phải tìm một cách **quy đổi vị thế hiện tại thành một tỉ phần sở hữu hiện tại** trên số tiền đang treo ở kết cục tương lai. Chính nhu cầu quy đổi ấy làm nảy sinh một đại lượng mới: một con số nằm giữa $0$ và $1$, diễn tả phần quyền hiện tại của mỗi người đối với toàn bộ số tiền cược.
+
+Vì vậy, câu hỏi thật sự của bài toán chia tiền cược không phải là “ai đang có nhiều điểm hơn”, mà là: **từ tình thế hiện tại, tương lai còn mở ra như thế nào, và tương lai ấy nghiêng về phía mỗi người đến mức nào**. Muốn trả lời câu hỏi đó, ta phải nhìn vào bức tranh các khả năng còn mở của trò chơi.
+
+## 5. Bức tranh khả năng của tình huống
+
+Tại thời điểm trò chơi bị dừng, $A$ đang dẫn $2\!-1$. Điều đó có nghĩa là:
+
+- $A$ chỉ cần thắng thêm $1$ ván nữa là chạm mốc $3$ điểm và nhận trọn $72$ đồng;
+- $B$ phải thắng liên tiếp $2$ ván nữa mới có thể vượt qua $A$ và nhận trọn số tiền ấy.
+
+Vì thế, muốn đọc đúng vị thế hiện tại của hai người, ta không được dừng ở bảng điểm $2\!-1$. Ta phải nhìn tiếp vào những cách mà trò chơi còn có thể diễn ra từ đây cho tới khi kết thúc.
+
+Từ tình thế $2\!-1$, nếu trò chơi tiếp tục, thì điểm kế tiếp sẽ đưa cuộc chơi vào một trong hai hướng:
+
+```text
+Trạng thái hiện tại: A dẫn 2–1
+
+├── A thắng ván kế tiếp
+│   └── A thắng chung cuộc
+└── B thắng ván kế tiếp
+    └── Tỉ số thành 2–2
+        ├── A thắng ván sau đó
+        │   └── A thắng chung cuộc
+        └── B thắng ván sau đó
+            └── B thắng chung cuộc
+```
+
+Cây khả năng này cho thấy rõ điều mà bảng điểm đơn thuần chưa nói hết. Từ $2\!-1$, tương lai của trò chơi không còn mở ra cân xứng cho hai người. $A$ chỉ cách chiến thắng một bước; còn $B$ chỉ có thể thắng nếu trước hết gỡ hòa, rồi sau đó thắng thêm một lần nữa. Nói cách khác, tương lai vẫn còn mở cho cả hai, nhưng nó mở rộng hơn về phía $A$ và hẹp hơn về phía $B$.
+
+Chính ở đây ta bắt đầu thấy rõ hơn ý nghĩa của “vị thế hiện tại”. Vị thế ấy không phải là số điểm đã giành được xét riêng cho bản thân nó. Vị thế ấy là hình dạng của **tương lai còn mở ra từ bảng điểm hiện tại**.
+
+## 6. Hai con đường đi tới cách chia công bằng
+
+### 6.1. Fermat: trải phẳng các khả năng còn mở
+
+Từ tình thế $2\!-\!1$, trò chơi chỉ còn có thể kéo dài nhiều nhất hai lần tung nữa. Vì vậy, để nhìn toàn bộ phần còn mở của trò chơi trên cùng một mặt bằng, Fermat xét hai lần tung tiếp theo và liệt kê tất cả các chuỗi kết quả có thể xảy ra:
+
+$$
+AA,\, AB,\, BA,\, BB.
+$$
+
+Ở đây, $AA$ nghĩa là cả hai lần tung tiếp theo đều có lợi cho $A$; $AB$ nghĩa là lần đầu có lợi cho $A$, lần sau có lợi cho $B$; và tương tự cho hai trường hợp còn lại. Vì trò chơi được xây dựng trên một đồng xu công bằng, nên bốn chuỗi này được đặt ngang nhau để so sánh. Nếu trò chơi kết thúc ngay ở ván 4, ta vẫn giữ một ô cho ván 5 chỉ để đặt mọi tiếp diễn lên cùng một mặt bằng. Kết quả ở ô ấy khi đó không còn ảnh hưởng đến người thắng chung cuộc.
+
+Điều quan trọng không phải là bản thân các chuỗi ấy, mà là người thắng chung cuộc tương ứng với mỗi chuỗi.
+
+Nếu chuỗi là $AA$, thì $A$ thắng chung cuộc. Nếu chuỗi là $AB$, thì $A$ cũng thắng chung cuộc, vì ngay sau lần tung đầu tiên, $A$ đã đủ $3$ điểm. Nếu chuỗi là $BA$, thì sau lần tung đầu tiên tỉ số trở thành $2\!-\!2$, rồi $A$ thắng lần tung tiếp theo và $A$ cũng thắng chung cuộc. Chỉ trong trường hợp $BB$, $B$ mới lật ngược được tình thế và thắng chung cuộc.
+
+| Số thứ tự | Ván 4 | Ván 5 | Người thắng | Lý do                                                                                                      |
+| :--------: | :---: | :---: | :---------: | ---------------------------------------------------------------------------------------------------------- |
+|         1 |  $A$  |  $A$  |     $A$     | Sau ván 4, $A$ đạt $3$ điểm nên thắng chung cuộc ngay. Kết quả ở ván 5 không còn làm thay đổi người thắng. |
+|         2 |  $A$  |  $B$  |     $A$     | Sau ván 4, $A$ đạt $3$ điểm nên thắng chung cuộc ngay. Kết quả ở ván 5 không còn làm thay đổi người thắng. |
+|         3 |  $B$  |  $A$  |     $A$     | Sau ván 4, tỉ số trở thành $2\!-\!2$. Đến ván 5, $A$ thắng nên đạt $3$ điểm và thắng chung cuộc.             |
+|         4 |  $B$  |  $B$  |     $B$     | Sau ván 4, tỉ số trở thành $2\!-\!2$. Đến ván 5, $B$ thắng nên đạt $3$ điểm và thắng chung cuộc.             |
+
+
+Như vậy, trong bốn cách khép lại còn mở của trò chơi, có ba cách đưa chiến thắng chung cuộc về phía $A$, và chỉ một cách đưa chiến thắng ấy về phía $B$. Từ đây, vị thế hiện tại của hai người hiện ra rõ hơn nhiều so với khi chỉ nhìn vào điểm số $2\!-\!1$. Tình thế không chỉ nói rằng $A$ đang dẫn điểm; nó còn cho thấy phần lớn các cách kết thúc còn mở đều đứng về phía $A$.
+
+Nếu phần chia công bằng phải phù hợp với vị thế hiện tại của mỗi người đối với chiến thắng chung cuộc, thì phần chia ấy cũng phải phản ánh đúng cấu trúc $3\!-\!1$ vừa hiện ra. Vì tổng số tiền cược là $72$ đồng, nên cách chia công bằng là
+
+- $A$ nhận $\frac{3}{4}\cdot 72 = 54$ đồng, 
+- $B$ nhận $\frac{1}{4}\cdot 72 = 18$ đồng.
+
+Lối giải của Fermat có một ưu điểm rất lớn: nó làm lộ ra trực tiếp điều mà điểm số hiện tại không tự mình nói hết, đó là trò chơi còn có thể khép lại theo những hướng nào.
+
+### 6.2. Pascal: suy ngược từ những tình thế liên tiếp
+
+Pascal đi theo một con đường khác. Ông không liệt kê toàn bộ các khả năng còn mở, mà nhìn vào cách chia công bằng ở một tình thế hiện tại thông qua những tình thế mà cuộc chơi có thể chuyển tới ngay sau một bước nữa.
+
+Ta bắt đầu từ tình thế $2\!-\!2$. Khi ấy, người thắng lần tung kế tiếp sẽ nhận trọn $72$ đồng. Vì đồng xu là công bằng, nên trước lần tung ấy hai người có cơ hội ngang nhau. Bởi vậy, cách chia công bằng ở tình thế $2\!-\!2$ phải là mỗi người $36$ đồng.
+
+Bây giờ trở lại tình thế $2\!-\!1$. Từ đây, chỉ có hai khả năng ngay ở lần tung kế tiếp.
+
+- Nếu $A$ thắng, trò chơi kết thúc và $A$ nhận trọn $72$ đồng.
+- Nếu $B$ thắng, trò chơi chuyển sang tình thế $2\!-\!2$, và khi đó phần chia công bằng của $A$ chỉ còn là $36$ đồng.
+
+Vì trước lần tung kế tiếp, hai khả năng ấy đứng ngang nhau, nên phần chia công bằng hiện tại của $A$ phải là trung bình của hai giá trị ấy:
+
+$$
+\frac{72+36}{2}=54 \, \text{(đồng)}.
+$$
+
+Tương tự, phần chia công bằng của $B$ là
+
+$$
+\frac{0+36}{2}=18 \, \text{(đồng)}.
+$$
+
+Như vậy, Pascal cũng đi tới đúng kết quả mà Fermat đã thu được:
+
+- $A$ nhận $54$ đồng,
+- $B$ nhận $18$ đồng.
+
+Điều đáng chú ý là lối giải của Pascal làm nổi bật một ý rất sâu: cách chia công bằng ở một tình thế hiện tại được quyết định bởi những tình thế mà cuộc chơi có thể chuyển tới. Nói cách khác, công bằng không được đọc bằng cách ngoái nhìn số điểm đã có, mà bằng cách nhìn xem từ tình thế hiện tại, cuộc chơi còn có thể chuyển sang những tình thế nào tiếp theo.
+
+### 6.3. Điều hai cách giải cùng làm lộ ra
+
+Fermat và Pascal đi theo hai con đường khác nhau, nhưng cùng làm hiện ra một điểm cốt lõi. Công bằng trong bài toán này không phải là chia đều lợi ích cho mọi người, cũng không phải là chia theo số điểm hiện tại. Công bằng là phân chia số tiền cược theo đúng vị thế hiện tại của mỗi người đối với chiến thắng chung cuộc.
+
+Nói cách khác, công bằng ở đây không có nghĩa là hai người phải nhận bằng nhau, mà là mỗi người phải nhận một phần phù hợp với mức độ mà người ấy đang đứng gần hay xa chiến thắng cuối cùng. Chính vì thế, cùng là “công bằng”, nhưng ở tình thế $2\!-\!2$ thì phải là $36\!-\!36$ đồng, còn ở tình thế $2\!-\!1$ thì phải là $54\!-\!18$ đồng.
+
+## 7. Đại lượng mới xuất hiện như một nhu cầu
+
+Nhưng chỉ nhìn ra cây khả năng vẫn chưa đủ. Bài toán không hỏi ta mô tả tương lai; bài toán hỏi ta **chia tiền**. Vì vậy, ta cần đi thêm một bước nữa: từ hình dạng của tương lai còn mở, phải rút ra được một **tỉ phần hiện tại** của số tiền cược cho mỗi người.
+
+Nói ngắn gọn, ta cần một con số đo được **phần quyền hiện tại** của mỗi người đối với toàn bộ $72$ đồng.
+
+Con số ấy phải có ba đặc điểm.
+
+Thứ nhất, nó phải nằm giữa $0$ và $1$, vì nó biểu thị một tỉ phần của toàn bộ số tiền cược.
+
+Thứ hai, phần quyền của hai người phải bù nhau thành $1$, vì toàn bộ số tiền cuối cùng chỉ thuộc về một trong hai người.
+
+Thứ ba, con số ấy phải phản ánh đúng vị thế hiện tại của mỗi người đối với chiến thắng chung cuộc, chứ không chỉ lặp lại bảng điểm theo một hình thức khác.
+
+Đến đây, một ý rất quan trọng hiện ra. Lúc đầu trò chơi chưa bắt đầu, vị thế của $A$ và $B$ là ngang nhau, nên phần quyền của mỗi người đối với tiền cược phải là $\tfrac12$. Nhưng khi trò chơi đã diễn ra và tỉ số trở thành $2\!-1$, công bằng không còn là chia $\tfrac12\!-\tfrac12$ nữa. Công bằng lúc này phải biến đổi theo vị thế hiện tại. Nếu không tiếp tục chơi mà buộc phải dừng lại, thì phần chia hợp lý không thể là phần chia của điểm xuất phát, mà phải là phần chia tương ứng với chỗ đứng hiện tại của mỗi người trong tương lai còn mở.
+
+Vì vậy, bài toán chia tiền cược thực chất là bài toán này: **làm thế nào để đo phần quyền hiện tại của mỗi người trên một tài sản chỉ sẽ thuộc trọn về một người trong tương lai**.
+
+## 8. Nguyên lý cấu trúc của tình huống
+
+Để đo phần quyền ấy, ta cần một nguyên lý đủ đơn giản để chấp nhận, nhưng cũng đủ mạnh để dẫn đường.
+
+Nguyên lý đó là thế này:
+
+> **Giá trị công bằng của một trạng thái dang dở phải được xác định từ những trạng thái mà trò chơi có thể chuyển tới ngay sau bước kế tiếp.**
+
+Lý do của nguyên lý này khá tự nhiên. Ở thời điểm hiện tại, điều duy nhất sắp xảy ra trực tiếp là **ván kế tiếp**. Sau ván ấy, trò chơi sẽ rơi vào một trạng thái mới, rồi từ đó mới tiếp tục đi tới kết cục cuối cùng. Vì thế, nếu muốn định giá trạng thái hiện tại một cách hợp lý, ta phải nhìn xem trạng thái ấy đứng trước những ngả rẽ nào gần nhất.
+
+Trong bài toán này, đồng xu là công bằng. Do đó, trước mỗi lần tung, khả năng để $A$ ghi điểm và khả năng để $B$ ghi điểm là như nhau. Bởi vậy, tại một trạng thái đang dang dở, nếu bước kế tiếp có hai ngả rẽ tương ứng với “$A$ ghi điểm” và “$B$ ghi điểm”, thì phần quyền hiện tại phải nằm đúng ở giữa hai trạng thái kế tiếp ấy, vì hiện tại chưa có lý do gì để nghiêng sang một trong hai ngả rẽ hơn ngả kia.
+
+Nói theo lối ngắn gọn hơn: **giá trị hiện tại của một vị thế bằng trung bình giá trị của các vị thế có thể đến ngay sau nó, khi các khả năng kế tiếp đang mở ra ngang nhau**.
+
+Nguyên lý này rất đáng chú ý, vì nó cho thấy một sự chuyển động tinh tế trong tư duy. Ta không còn định giá một trạng thái bằng cách nhìn nó như một vật đứng yên. Ta định giá nó bằng cách nhìn nó như một **điểm nút trong một quá trình có thể tiếp diễn theo nhiều hướng**. Chính sự chuyển động ấy là chỗ mà tư duy về bất định bắt đầu mang hình dạng toán học.

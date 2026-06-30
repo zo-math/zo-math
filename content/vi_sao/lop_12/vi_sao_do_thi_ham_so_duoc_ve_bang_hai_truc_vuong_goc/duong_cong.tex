@@ -1,0 +1,135 @@
+\documentclass[tikz,border=6pt]{standalone}
+
+\usepackage{amsmath}
+
+%==================================================
+% Các lớp hiển thị: dưới -> trên
+%==================================================
+\pgfdeclarelayer{guidelayer}
+\pgfdeclarelayer{curvelayer}
+\pgfdeclarelayer{axislayer}
+\pgfdeclarelayer{axispointlayer}
+\pgfdeclarelayer{datapointlayer}
+\pgfdeclarelayer{labellayer}
+\pgfsetlayers{
+  guidelayer,
+  curvelayer,
+  axislayer,
+  axispointlayer,
+  datapointlayer,
+  main,
+  labellayer
+}
+
+\begin{document}
+
+\begin{tikzpicture}[
+  x=1.75cm,
+  y=0.5cm,
+  font=\scriptsize,
+  guide/.style={dashed, line width=0.5pt, draw=black!15},
+  curve/.style={dashed, line width=0.5pt, draw=black!15},
+  axis/.style={line width=.5pt},
+  axispoint/.style={fill=black},
+  datapoint/.style={fill=black},
+  ylabel/.style={fill=white, inner sep=1pt}
+]
+
+%==================================================
+% Dữ liệu: x / y / nhãn y / nhãn x
+%==================================================
+\def\Data{
+  -2.5/-8.125/{-8.125}/{-2.5},
+  -2.0/-2.000/{-2.000}/{-2.0},
+  -1.5/ 1.125/{ 1.125}/{-1.5},
+  -1.0/ 2.000/{ 2.000}/{-1.0},
+  -0.5/ 1.375/{ 1.375}/{-0.5},
+   0.0/ 0.000/{ 0.000}/{ 0.0},
+   0.5/-1.375/{-1.375}/{ 0.5},
+   1.0/-2.000/{-2.000}/{ 1.0},
+   1.5/-1.125/{-1.125}/{ 1.5},
+   2.0/ 2.000/{ 2.000}/{ 2.0},
+   2.5/ 8.125/{ 8.125}/{ 2.5}
+}
+
+%==================================================
+% Lớp 1: các đoạn dẫn mờ
+%==================================================
+\begin{pgfonlayer}{guidelayer}
+  \foreach \xx/\yy/\ylab/\xlab in \Data {
+    \ifdim \yy pt=0pt
+      % Không vẽ đoạn dẫn khi y = 0
+    \else
+      \draw[guide] (\xx,0) -- (\xx,\yy);
+    \fi
+  }
+\end{pgfonlayer}
+
+%==================================================
+% Lớp 2: đường cong gợi ý
+%==================================================
+\begin{pgfonlayer}{curvelayer}
+  \draw[curve]
+    plot[
+      domain=-2.5:2.5,
+      samples=160,
+      smooth,
+      variable=\t
+    ] ({\t},{\t*\t*\t-3*\t});
+\end{pgfonlayer}
+
+%==================================================
+% Lớp 3: trục x
+%==================================================
+\begin{pgfonlayer}{axislayer}
+  \draw[axis] (-2.9,0) -- (2.9,0);
+\end{pgfonlayer}
+
+%==================================================
+% Lớp 4: các điểm trên trục x
+%==================================================
+\begin{pgfonlayer}{axispointlayer}
+  \foreach \xx/\yy/\ylab/\xlab in \Data {
+    \fill[axispoint] (\xx,0) circle (1.45pt);
+  }
+\end{pgfonlayer}
+
+%==================================================
+% Lớp 5: các điểm dữ liệu
+%==================================================
+\begin{pgfonlayer}{datapointlayer}
+  \foreach \xx/\yy/\ylab/\xlab in \Data {
+    \fill[datapoint] (\xx,\yy) circle (2pt);
+  }
+\end{pgfonlayer}
+
+%==================================================
+% Lớp 6: nhãn
+%==================================================
+\begin{pgfonlayer}{labellayer}
+
+  % Nhãn trục
+  \node[right] at (2.9,0) {$x$};
+
+  \foreach \xx/\yy/\ylab/\xlab in \Data {
+
+    % Nhãn x
+    \ifdim \yy pt<0pt
+      \node[above=2pt] at (\xx,0) {$\xlab$};
+    \else
+      \node[below=2pt] at (\xx,0) {$\xlab$};
+    \fi
+
+    % Nhãn y
+    \ifdim \yy pt<0pt
+      \node[below=2pt, ylabel] at (\xx,\yy) {$\ylab$};
+    \else
+      \node[above=2pt, ylabel] at (\xx,\yy) {$\ylab$};
+    \fi
+  }
+
+\end{pgfonlayer}
+
+\end{tikzpicture}
+
+\end{document}

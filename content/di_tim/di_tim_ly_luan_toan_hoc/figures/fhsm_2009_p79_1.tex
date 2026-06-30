@@ -1,0 +1,57 @@
+% !TeX program = lualatex
+\documentclass[tikz,border=6pt]{standalone}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+  title={Boxplot of Number Recalled},
+  xlabel={Number Recalled},
+  ylabel={Type of Word},
+  axis lines=box,
+  xmin=0.5, xmax=16.7,
+  ymin=0.4, ymax=2.6,
+  xtick={2,4,6,8,10,12,14,16},
+  ytick={1,2},
+  yticklabels={Nonsense, Meaningful},
+  width=16cm,
+  height=6.4cm,
+  tick style={black},
+  major tick length=4pt,
+  title style={font=\bfseries},
+  label style={font=\small},
+  tick label style={font=\small},
+  clip=false
+]
+
+% ------------------------------------------------------------
+% Nonsense
+% five-number summary inferred from the data:
+% min = 2, Q1 = 4, median = 6, Q3 = 7, max = 10
+% ------------------------------------------------------------
+\draw[line width=1pt] (axis cs:2,1) -- (axis cs:4,1);
+\draw[line width=1pt] (axis cs:7,1) -- (axis cs:10,1);
+\draw[line width=1pt, fill=gray!30] (axis cs:4,0.72) rectangle (axis cs:7,1.28);
+\draw[line width=1pt] (axis cs:6,0.72) -- (axis cs:6,1.28);
+
+% ------------------------------------------------------------
+% Meaningful
+% modified boxplot summary inferred from the data:
+% outlier = 3, lower whisker = 5, Q1 = 9, median = 10,
+% Q3 = 12, upper whisker = 15
+% ------------------------------------------------------------
+\draw[line width=1pt] (axis cs:5,2) -- (axis cs:9,2);
+\draw[line width=1pt] (axis cs:12,2) -- (axis cs:15,2);
+\draw[line width=1pt, fill=gray!30] (axis cs:9,1.72) rectangle (axis cs:12,2.28);
+\draw[line width=1pt] (axis cs:10,1.72) -- (axis cs:10,2.28);
+\addplot[
+  only marks,
+  mark=*,
+  mark size=3.2pt
+] coordinates {(3,2)};
+
+\end{axis}
+\end{tikzpicture}
+\end{document}

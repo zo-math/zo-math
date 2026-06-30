@@ -1,0 +1,88 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows.meta}
+
+
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm, line cap=round, line join=round, font=\small]
+
+% =========================================================
+% A) THAM SỐ (chỉ chỉnh ở đây)
+% =========================================================
+% Khung nhìn
+\def\xMin{-4}
+\def\xMax{11}
+\def\yMin{-3}
+\def\yMax{7}
+
+% Điểm
+\coordinate (H) at (-2,5);  % Your house
+\coordinate (S) at (0,0);   % School
+\coordinate (F) at (8,-1);  % Friend's house
+
+% Mũi tên “đi ngang rồi đi xuống”
+\def\arrowHead{Stealth}
+\tikzset{
+  gridline/.style={draw=black!35, line width=0.4pt},
+  border/.style={draw=black, line width=0.8pt},
+  axis/.style={draw=black, line width=0.8pt},
+  dot/.style={circle, fill=black, draw=black, inner sep=1.4pt},
+  route/.style={draw=black, line width=1.2pt, -{\arrowHead[length=3.5mm,width=1.5mm]}},
+  diag/.style={draw=black, line width=1.2pt, dotted, -{\arrowHead[length=3.0mm,width=1.5mm]}}
+}
+
+% =========================================================
+% B) LƯỚI + KHUNG
+% =========================================================
+\draw[gridline] (\xMin,\yMin) grid (\xMax,\yMax);
+\draw[border] (\xMin,\yMin) rectangle (\xMax,\yMax);
+
+% =========================================================
+% C) TRỤC TỌA ĐỘ
+% =========================================================
+\draw[axis] (\xMin,0) -- (\xMax,0);
+\draw[axis] (0,\yMin) -- (0,\yMax);
+
+% Vạch và nhãn trục y (giống hình mẫu: 6,4,2,0,-2)
+\foreach \yy in {-2,2,4,6}{
+  \draw[axis] (0.12,\yy) -- (-0.12,\yy);
+  \node[anchor=east] at (-0.2,\yy) {\yy};
+}
+
+% (Tùy chọn) vạch trục x mỗi 1 đơn vị, không ghi số (hình mẫu không ghi)
+\foreach \xx in {\xMin,...,\xMax}{
+  \draw[axis] (\xx,0.12) -- (\xx,-0.12);
+}
+\foreach \xx in {5,10}{
+  \node[anchor=north] at (\xx,-0.2) {\xx};
+}
+
+% =========================================================
+% D) ĐƯỜNG ĐI (ngang rồi xuống) + ĐƯỜNG CHÉO NÉT CHẤM
+% =====================================================
+% Đi ngang: từ H sang (x_F, y_H)
+\coordinate (R) at (8,5);
+\draw[route] (H) -- (R);
+% Đi xuống: từ (x_F, y_H) xuống F
+\draw[route] (R) -- (F);
+
+% Đường chéo nét chấm từ H đến F
+\draw[diag] (H) -- (F);
+
+% ======================================================
+% E) ĐIỂM + NHÃN
+% ======================================================
+\node[dot] at (H) {};
+\node[dot] at (S) {};
+\node[dot] at (F) {};
+
+% \node[anchor=east] at ($(H)+(-0.15,0)$) {Your house};
+\node[above=3pt] at (H) {Your house};
+% \node[anchor=west] at ($(S)+(0.25,-0.35)$) {School};
+\node[below left=3pt] at (S) {School};
+% \node[anchor=west] at ($(F)+(0.25,-0.05)$) {Friend's house};
+\node[below=3pt] at (F) {Friend's house};
+
+\end{tikzpicture}
+\end{document}

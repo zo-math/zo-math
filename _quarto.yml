@@ -1,8 +1,13 @@
 project:
   type: website
   output-dir: docs
-  render:
-    - "*.qmd"
+  preview:
+    port: 4200
+    browser: true
+
+# editor:
+#   render-on-save: true
+
 resources:
   - "assets/"
   - "assets/fonts/*"
@@ -27,8 +32,6 @@ website:
         text: "Giới Thiệu"
       - text: "Trung Học Phổ Thông"
         menu:
-          - text: "Toán 10"
-            href: "content/toan-thpt/toan-10/index.qmd"
           - text: "Toán 11"
             href: "content/toan-thpt/toan-11/index.qmd"
           - text: "Toán 12"
@@ -69,14 +72,14 @@ website:
 
   page-footer:
     center: |
-        [Blog](#) | [Help](#) | [Credits](#) | [Privacy Policy](#) | [Contact Us](#)  
-        <br>
-        <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a>
-        <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a>
-        <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a>  
-        <br>
-        © 2025 <strong>ZO Math</strong>
-    
+      [Blog](#) | [Help](#) | [Credits](#) | [Privacy Policy](#) | [Contact Us](#)  
+      <br>
+      <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a>
+      <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a>
+      <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a>  
+      <br>
+      © 2025 <strong>ZO Math</strong>
+
     # left: "© 2025 ZO Math."
     # right: "[Liên hệ](/content/contact.qmd) | [Facebook](https://facebook.com/zo-math) | [YouTube](https://www.youtube.com/@ZO-Math)"
 

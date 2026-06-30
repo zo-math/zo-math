@@ -8,8 +8,8 @@
 .page-content.container-fluid,
 main.page-content {
   max-width: 1600px !important; /* mở rộng hơn mặc định (~1140px) */
-  padding-left: 2rem !important;
-  padding-right: 2rem !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
   margin: 0 auto !important; /* căn giữa nội dung */
 }
 
@@ -33,9 +33,20 @@ main.page-content {
 }
 
 /* 4️⃣ Mỗi hàng song ngữ */
+/* .row {
+  display: grid;
+  grid-template-columns: 1.5fr 1.5fr 2fr;
+  gap: 1rem;
+  align-items: stretch;
+} */
+
 .row {
   display: grid;
-  grid-template-columns: 1.5fr 1.5fr 2fr; /* ba cột bằng nhau */
+  /* 3 cột: tỉ lệ 1.5 : 1.5 : 2, nhưng KHÔNG phình theo nội dung */
+  grid-template-columns:
+    minmax(0, 1.5fr)
+    minmax(0, 1.5fr)
+    minmax(0, 2fr);
   gap: 1rem;
   align-items: stretch;
 }

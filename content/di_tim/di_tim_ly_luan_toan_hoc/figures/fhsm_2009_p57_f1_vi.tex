@@ -1,0 +1,46 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usetikzlibrary{calc,angles,quotes,arrows.meta}
+
+\begin{document}
+
+\begin{tikzpicture}[font=\small,line cap=round,line join=round,>=Stealth]
+  \usetikzlibrary{calc,angles,quotes,arrows.meta}
+
+  % --- key points (chosen to match the layout) ---
+  \coordinate (A) at (1.4,0.6);
+  \coordinate (B) at (7.6,0.6);
+  \coordinate (P) at (1.9,3.4);
+
+  % --- triangle edges ---
+  \draw[line width=1.0pt] (P) -- (A);
+  \draw[line width=1.0pt] (P) -- (B);
+  \draw[line width=1.0pt] (A) -- (B);
+
+  % --- points ---
+  \fill (P) circle (1.6pt) node[above=2pt] {$P$};
+  \fill (A) circle (1.6pt) node[below left=2pt] {$A$};
+  \fill (B) circle (1.6pt) node[below right=2pt] {$B$};
+
+  % --- camera label ---
+  \node[font=\bfseries] at (1.65,4.05) {Máy ảnh};
+
+  % --- angle at P (dotted) ---
+  \pic[
+    draw,
+    dotted,
+    line width=0.9pt,
+    angle radius=8mm,
+    angle eccentricity=1.05
+  ] {angle=A--P--B};
+
+  % angle text
+  \node[anchor=west] at (2.55,3.25) {$m\angle APB=50^\circ$};
+
+  % --- interior label ---
+  \node[align=center] at (2.85,2.1) {Góc nhìn ngang};
+
+  % --- base label ---
+  \node at ($(A)!0.52!(B)$) [below=6pt] {Bề ngang của chủ thể};
+\end{tikzpicture}
+
+\end{document}

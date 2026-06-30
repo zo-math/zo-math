@@ -1,0 +1,169 @@
+---
+title: "ĐIỂM TỰA: BẢN CÔ ĐỌNG"
+subtitle: "Kiến tạo công thức Bayes từ một tình huống xét nghiệm y khoa"
+
+author: ZO Math
+date: last-modified
+date-format: "DD-MM-YYYY"
+---
+
+Mỗi đánh giá luôn cần một điểm tựa. Khi điểm tựa thay đổi, bản thân sự đánh giá cũng phải thay đổi theo. Điều này nghe có vẻ hiển nhiên, nhưng chính từ chỗ hiển nhiên ấy mà một công thức sâu sắc được hình thành: _công thức Bayes_.
+
+Trong nhiều cách trình bày quen thuộc, một công thức thường xuất hiện như một kết quả đã hoàn chỉnh. Người học thấy công thức, nhưng chưa chắc thấy vì sao cần đến nó và vì sao chính nó phải xuất hiện. Ở đây, ta đi theo chiều ngược lại. Ta không bắt đầu từ một quy tắc có sẵn, mà bắt đầu từ một tình huống xét nghiệm y khoa, rồi từ đó rút ra một quy tắc tổng quát cho việc đổi điểm tựa của đánh giá.
+
+Xét một căn bệnh xuất hiện ở $1\%$ dân số. Một xét nghiệm được dùng để phát hiện bệnh có hai đặc điểm sau: trong số những người thật sự mắc bệnh, $99\%$ cho kết quả dương tính; trong số những người không mắc bệnh, $5\%$ vẫn cho kết quả dương tính. Một người đi xét nghiệm và nhận kết quả dương tính. Câu hỏi được đặt ra là: khả năng người ấy thật sự mắc bệnh là bao nhiêu?
+
+Nhiều người dễ nghĩ rằng con số ấy phải rất cao. Lý do là con số $99\%$ rất dễ được hiểu theo cách: trong số những người dương tính có $99\%$ mắc bệnh. Nhưng đó không phải điều dữ kiện đã nói. Con số $99\%$ chỉ nói rằng trong số những người mắc bệnh có $99\%$ cho kết quả dương tính. Hai phát biểu này giống nhau ở bề mặt ngôn từ, nhưng không cùng một hướng đánh giá. Một bên lấy nhóm người mắc bệnh làm nền. Bên kia lấy nhóm người dương tính làm nền.
+
+Để thấy rõ điều đó, hãy trải tình huống ra trên một cộng đồng giả định gồm $10\,000$ người. Nếu tỉ lệ mắc bệnh là $1\%$, thì có khoảng $100$ người thật sự mắc bệnh và $9\,900$ người không mắc bệnh. Trong $100$ người mắc bệnh ấy, khoảng $99$ người cho kết quả dương tính. Nhưng trong $9\,900$ người không mắc bệnh, cũng có khoảng $495$ người cho kết quả dương tính. Như vậy, tổng số người dương tính là $594$. Trong số đó, chỉ có $99$ người thật sự mắc bệnh. Vì thế, nếu chọn một người trong nhóm dương tính, khả năng người ấy thật sự mắc bệnh là
+
+$$
+\frac{99}{594}\approx 16.7\%.
+$$
+
+Con số $1\%$ và con số $16.7\%$ không mâu thuẫn với nhau. Chúng được phát biểu trên hai nền khác nhau. Trước khi biết kết quả xét nghiệm, điểm tựa của đánh giá là toàn bộ cộng đồng. Sau khi biết một người dương tính, điểm tựa của đánh giá chuyển sang nhóm những người dương tính. Điều thay đổi không phải là thực tại của người được xét, mà là nơi từ đó ta nhìn tình huống.
+
+Ví dụ $10\,000$ người giúp ta nhìn rõ cấu trúc này, nhưng cũng cho thấy một giới hạn. Nếu thay $10\,000$ người bằng $100\,000$ người hay $1\,000\,000$ người, các con số tuyệt đối sẽ thay đổi, còn tỉ lệ cuối cùng thì không. Điều đó cho thấy bảng đếm chỉ là một biểu hiện cụ thể của một cấu trúc ổn định hơn nằm bên dưới. Muốn chạm vào cấu trúc ấy, ta cần mô hình hóa.
+
+Ta ký hiệu $B$ cho phần “mắc bệnh” và $D$ cho phần “dương tính”. Dấu $\neg$ dùng để chỉ sự phủ định, nên $\neg B$ là phần “không mắc bệnh”, còn $\neg D$ là phần “không dương tính”, tức là âm tính. Dấu $\cap$ dùng để chỉ phần chung của hai điều kiện, nên $B\cap D$ được đọc là “mắc bệnh và dương tính”. Khi đó, toàn bộ tình huống được trải ra thành bốn khả năng cơ bản:
+
+$$
+B\cap D,\quad B\cap \neg D,\quad \neg B\cap D,\quad \neg B\cap \neg D.
+$$
+
+Nói bằng lời, đó là bốn trường hợp: mắc bệnh và dương tính; mắc bệnh và âm tính; không mắc bệnh và dương tính; không mắc bệnh và âm tính. Bốn phần này loại trừ lẫn nhau và khi gộp lại thì bao phủ toàn bộ những gì có thể xảy ra. Ta gọi toàn bộ đó là bức tranh khả năng $\Omega$.
+
+Nhưng chỉ có bức tranh khả năng thôi thì chưa đủ. Nó cho ta biết điều gì có thể xảy ra, chứ chưa cho biết mỗi phần chiếm bao nhiêu trong toàn bộ bức tranh. Vì vậy, ta cần một cách đo. Ta ký hiệu phép đo ấy là $P$, và gọi giá trị mà nó gán cho mỗi phần là mức tin cậy. Với mỗi phần $A$, giá trị $P(A)$ cho biết phần ấy chiếm bao nhiêu trong toàn bộ bức tranh. Vì toàn bộ bức tranh được lấy làm nền của phép đo, nên
+
+$$
+P(\Omega)=1.
+$$
+
+Nếu hai phần rời nhau, thì mức tin cậy của phần gộp phải bằng tổng mức tin cậy của từng phần. Nếu không, cùng một phần của cùng một bức tranh sẽ có hai giá trị không tương thích.
+
+Nhờ vậy, dữ kiện “bệnh xuất hiện ở $1\%$ dân số” được viết thành
+
+$$
+P(B)=0.01.
+$$
+
+Nhưng hai dữ kiện còn lại không có cùng dạng như vậy. Phát biểu “$99\%$ người mắc bệnh cho kết quả dương tính” không nói về phần $D$ trong toàn bộ bức tranh; nó nói về phần $D$ bên trong phần $B$. Tương tự, “$5\%$ người không mắc bệnh vẫn cho kết quả dương tính” nói về phần $D$ bên trong phần $\neg B$. Điều đó buộc ta phải có thêm một cách đo: đo một phần trên nền của một phần khác.
+
+Nếu muốn đo $X$ trên nền $Y$, ta ký hiệu mức tin cậy ấy là
+
+$$
+P_Y(X).
+$$
+
+Khi đó, phần của $X$ thật sự được tính đến trên nền $Y$ không phải toàn bộ $X$, mà là phần chung $X\cap Y$. Vì vậy,
+
+$$
+P_Y(X)=\frac{P(X\cap Y)}{P(Y)},\quad P(Y)>0.
+$$
+
+Công thức này xuất hiện từ chính yêu cầu phải đo phần chung khi $Y$ trở thành nền mới của đánh giá.
+
+Nhờ đó, hai dữ kiện còn lại được viết thành
+
+$$
+P_B(D)=0.99,\quad P_{\neg B}(D)=0.05.
+$$
+
+Bây giờ toàn bộ tình huống đã nằm trong cùng một hệ thống:
+
+$$
+P(B)=0.01,\quad P_B(D)=0.99,\quad P_{\neg B}(D)=0.05,
+$$
+
+và điều cần tìm là
+
+$$
+P_D(B),
+$$
+
+tức là mức tin cậy của việc mắc bệnh trên nền dương tính.
+
+Điểm quyết định của toàn bộ tình huống nằm ở phần giao
+
+$$
+B\cap D,
+$$
+
+tức là những trường hợp vừa mắc bệnh vừa dương tính. Phần này là nơi hai hướng đánh giá gặp nhau. Từ phía $B$, ta biết trong nhóm mắc bệnh thì phần dương tính chiếm bao nhiêu. Từ phía $D$, điều ta cần biết lại là trong nhóm dương tính thì phần mắc bệnh chiếm bao nhiêu. Cả hai cách nhìn ấy đều chạm vào cùng một phần giao duy nhất.
+
+Từ phía $B$, ta có
+
+$$
+P_B(D)=\frac{P(B\cap D)}{P(B)},
+$$
+
+nên
+
+$$
+P(B\cap D)=P_B(D)P(B).
+$$
+
+Từ phía $D$, ta cũng có
+
+$$
+P_D(B)=\frac{P(B\cap D)}{P(D)},
+$$
+
+nên
+
+$$
+P(B\cap D)=P_D(B)P(D).
+$$
+
+Hai biểu thức này cùng nói về một phần giao duy nhất. Vì vậy,
+
+$$
+P_B(D)P(B)=P_D(B)P(D),
+$$
+
+và do đó
+
+$$
+P_D(B)=\frac{P_B(D)P(B)}{P(D)}.
+$$
+
+Công thức này có ý nghĩa gì? Nó cho thấy mức tin cậy của việc mắc bệnh trên nền dương tính không phải một đại lượng tách rời khỏi những dữ kiện ban đầu. Nó bị ràng buộc bởi cùng một phần giao mà hai hướng nhìn cùng chạm vào. Nói cách khác, công thức này cho ta một quy tắc đầu tiên để đổi điểm tựa: muốn biết phần “mắc bệnh” lớn đến đâu trên nền “dương tính”, ta phải nối nó với điều đã biết từ phía “mắc bệnh” thông qua phần giao chung.
+
+Nhưng công thức ấy chưa vận hành xong, vì nó còn chứa $P(D)$, tức là kích thước của chính nền mới. Muốn đo phần “mắc bệnh” trên nền dương tính, trước hết phải biết phần dương tính ấy lớn đến đâu trong toàn bộ bức tranh. Muốn vậy, cần nhìn lại cấu trúc của $D$. Mọi trường hợp dương tính đều thuộc đúng một trong hai loại: hoặc vừa mắc bệnh vừa dương tính, hoặc không mắc bệnh nhưng dương tính. Nói cách khác,
+
+$$
+D=(B\cap D)\cup(\neg B\cap D),
+$$
+
+và hai phần này loại trừ lẫn nhau. Vì vậy,
+
+$$
+P(D)=P(B\cap D)+P(\neg B\cap D).
+$$
+
+Thay mỗi phần giao bằng cách đọc từ nền tương ứng của nó, ta được
+
+$$
+P(D)=P_B(D)P(B)+P_{\neg B}(D)P(\neg B).
+$$
+
+Khi thay biểu thức này vào công thức trên, mức tin cậy của việc mắc bệnh trên nền dương tính được xác định hoàn toàn từ những dữ kiện ban đầu:
+
+$$
+P_D(B)=\frac{P_B(D)P(B)}
+{P_B(D)P(B)+P_{\neg B}(D)P(\neg B)}.
+$$
+
+Đến đây, cách công thức vận hành đã rõ. Nó làm việc theo ba bước. Trước hết, lấy mức tin cậy nền của việc mắc bệnh. Tiếp theo, gắn với mức dương tính trong nhóm mắc bệnh để xác định phần giao “mắc bệnh và dương tính”. Sau đó, so phần giao ấy với toàn bộ phần dương tính, trong đó phần dương tính được hợp thành từ hai nguồn: dương tính ở người mắc bệnh và dương tính ở người không mắc bệnh. Công thức không đơn thuần đảo chiều một dữ kiện; nó dựng lại nền mới rồi đặt phần cần tìm vào trong nền ấy.
+
+Thay các con số của tình huống vào:
+
+$$
+P_D(B)=\frac{0.99\cdot 0.01}{0.99\cdot 0.01+0.05\cdot 0.99}\approx 0.167.
+$$
+
+Như vậy, trong số những người dương tính, chỉ khoảng $16.7\%$ thật sự mắc bệnh.
+
+Điều quan trọng nhất ở đây không chỉ là kết quả. Quan trọng hơn là quy tắc đã xuất hiện từ đâu và dùng để làm gì. Nó cho phép ta đi từ những dữ kiện được phát biểu theo một hướng sang điều cần biết ở hướng ngược lại, nhưng không làm điều đó bằng một mẹo đổi vị trí ký hiệu. Nó làm điều đó bằng cách giữ cho việc đổi điểm tựa của đánh giá diễn ra một cách nhất quán trong cùng một bức tranh khả năng. Theo nghĩa đó, điều được rút ra ở đây không chỉ là một cách tính, mà là một quy tắc tổng quát cho việc đổi điểm tựa của đánh giá khi thông tin thay đổi.
+
+

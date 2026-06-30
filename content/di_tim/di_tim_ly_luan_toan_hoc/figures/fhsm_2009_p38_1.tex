@@ -1,0 +1,43 @@
+\documentclass[border=6pt]{standalone}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+  axis lines=middle,
+  axis line style={-},
+  unit vector ratio*=2 1 1,
+  scale only axis,
+  xmin=0, xmax=4,
+  ymin=0, ymax=14,
+  xtick={0,1,2,3,4},
+  ytick={0,2,4,6,8,10,12,14},
+  grid=both,
+  major grid style={line width=0.3pt},
+  minor grid style={line width=0.2pt},
+  minor tick num=1,
+  xlabel={$x$},
+  ylabel={$y$},
+  xlabel style={right},
+  ylabel style={above},
+]
+
+% f(x)=4x-1
+\addplot[domain=-0.2:3.6, samples=200, thick] {4*x - 1};
+
+% g(x)=x^3-6x^2+15x-7
+\addplot[domain=-0.2:3.6, samples=400, thick] {x^3 - 6*x^2 + 15*x - 7};
+
+% intersection points (1,3), (2,7), (3,11)
+\addplot[
+  only marks,
+  mark=*,
+  mark size=1.6pt
+] coordinates {(1,3) (2,7) (3,11)};
+
+\end{axis}
+\end{tikzpicture}
+\end{document}

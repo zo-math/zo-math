@@ -1,0 +1,365 @@
+---
+title: "CÔNG BẰNG: NHỮNG Ý NIỆM CẦN LÀM RÕ"
+subtitle: "Từ công bằng đến xác suất trong tình huống bất định qua Bài toán chia tiền cược"
+author: ZO Math
+date: last-modified
+date-format: "DD-MM-YYYY"
+---
+
+# CÔNG BẰNG: NHỮNG Ý NIỆM CẦN LÀM RÕ
+
+1. "Ở biên trên, hãy đổi luật chơi một chút để điểm yếu hiện ra rõ hơn. Giả sử ai ghi đủ $5$ điểm trước thì nhận trọn tiền cược, và trò chơi bị dừng khi $A$ đang dẫn $4\!-\!1$. Nếu vẫn chia theo tỉ số điểm, ta sẽ cho $A$ nhận $\frac{4}{5}$ tổng tiền cược, còn $B$ nhận $\frac{1}{5}$. Nhưng cách chia này vẫn có thể làm $A$ không hài lòng, và sự không hài lòng ấy hoàn toàn có lý. Từ tình thế $4\!-\!1$, $A$ chỉ cần thêm đúng một ván nữa là thắng chung cuộc; còn $B$ phải thắng liên tiếp bốn ván mới có thể lật ngược tình thế. Vị thế của $A$ ở đây **mạnh hơn rất nhiều** so với điều mà tỉ phần $\frac{4}{5}$ diễn tả."
+
+    **Mạnh hơn rất nhiều** nhưng cụ thể là bao nhiêu? Câu hỏi này không hề mơ hồ mà nó có câu trả lời cụ thể bằng con số dựa trên lập luận xác suất: xác suất để $A$ chiến thắng là $\frac{1}{2}$, còn xác suất để $B$ chiến thắng là $\frac{1}{2^4}$. Nghĩa là, nếu dùng xác suất để lập luận, mạnh hơn rất nhiều ở đây cụ thể là $8$ lần thay vì $4$ lần như điểm số phản ánh.
+
+    Nhưng, một câu hỏi nhận thức ở đây là: *vì sao xác suất thắng chung cuộc lại đáng tin hơn điểm số*?
+
+2. Vì sao ở tình thế $2\!-\!1$ nghiêng về $A$, cuộc chơi có thể kết thúc ngay sau khi $A$ thắng thêm một ván - nghĩa là, không cần chơi thêm bất kỳ ván nào nữa - nhưng lại có thể liệt kê các khả năng $AA$, $AB$ bên cạnh $BA$ (bình thường) để thấy rằng $A$ có khả năng thắng gấp $3$ lần $B$ với chỉ một khả năng $BB$?
+    
+    Gợi ý: Liệu ta có thể xem $ABAA$ và $ABABB$ là ngang nhau về khả năng xuất hiện?
+
+    Khả năng xuất hiện của $ABAB$ rõ ràng là gấp đôi khả năng xuất hiện của $ABABB$. Mà chúng ta không có lý do gì đặc biệt để cho rằng khả năng xuất hiện $ABAA$ và $ABAB$ là thiên lệch nhau. Do đó, khả năng xuất hiện của $ABAA$ cũng phải gấp đôi khả năng xuất hiện $ABABB$. Hãy lập luận tiếp nếu hướng này sáng.
+
+3. Chữ "độ nặng" có chuẩn chưa?
+
+4. Vì sao viết $AA$ và $AB$ là hợp lệ khi trò chơi đã dừng lại ở ván thứ $4$ khi $A$ thắng ván này?
+
+5. Những tình thế có cách chia tiền tự nhiên nhất trong bài toán này.
+
+    - $0\!-\!0$: $A$ nhận $36$ đồng, $B$ nhận $36$ đồng. Vì tình thế này được hiểu một cách tự nhiên là trò chơi bị dừng lại ngay khi vừa hoàn thành luật chơi, chưa một ván chơi nào xảy ra.
+    - $1\!-\!1$, $2\!-\!2$: $A$ nhận $36$ đồng, $B$ nhận $36$ đồng. Vì điểm số của hai người là như sau, điều đó cho thấy từ lúc bắt đầu chơi cho đến thời điểm của vị thế hiện tại, chưa ai trong hai người chơi chiếm được ưu thế hơn người kia. Do đó, không có lý do để một trong hai người được hưởng nhiều hơn người còn lại.    
+    
+    Như vậy, nếu chia tiền theo điểm số, với hai tình thế $1\!-\!1$ và $2\!-\!2$, chia đều được hiểu theo tỉ số điểm. Nhưng với tình thế $0\!-\!0$, chia đều lại không thể hiểu theo tỉ số điểm; nếu hiểu theo tỉ số điểm, mỗi người sẽ nhận $0$ đồng. Như vậy, chia theo tỉ số điểm sẽ không thể hiểu một cách nhất quán. Một ví dụ khác càng khó chấp nhận hơn là các tình thế $1\!-\!0$, $2\!-\!0$ nghiêng về $A$. Lúc này, chẳng lẽ $A$ được nhận toàn bộ số tiền cược, còn $B$ thì không có đồng nào - điều này chẳng khác nào tình thế chung cuộc $3\!-\!0$ cho $A$.
+
+    Như vậy, phương pháp chia tiền hợp lý phải có tính nhất quán, nghĩa là nó áp dụng được cho tất cả các tình thế - đặc biệt là các tình thế "khó xử" như trên vừa nêu ra.
+
+6. Trước khi tìm một cách chia mới, có thể kiểm tra ngay cách chia theo điểm số bằng những tình thế tự nhiên nhất của trò chơi. Ở tình thế $0\!-\!0$, trò chơi vừa mới bắt đầu, chưa một ván nào diễn ra, nên hai người hoàn toàn đứng ngang nhau trước số tiền cược: mỗi người phải được nhận $36$ đồng. Ở các tình thế $1\!-\!1$ và $2\!-\!2$ cũng vậy. Tuy trò chơi đã đi được một quãng, nhưng từ đầu đến thời điểm ấy chưa ai chiếm được ưu thế hơn người kia, nên không có lý do gì để một trong hai người được hưởng nhiều hơn người còn lại.
+
+    Nhưng chính tại đây, cách chia theo tỉ số điểm bắt đầu lộ ra sự bất ổn. Với $1\!-\!1$ và $2\!-\!2$, nó còn cho kết quả chia đều. Song ở tình thế $0\!-\!0$, nếu vẫn cố hiểu “chia theo điểm số” theo đúng nghĩa đen, thì mỗi người sẽ có $0$ điểm và cách chia ấy không còn biết dựa vào đâu nữa. Tệ hơn, ở các tình thế $1\!-\!0$ hoặc $2\!-\!0$ nghiêng về $A$, lối chia ấy sẽ đẩy ta tới kết luận rằng $A$ phải nhận toàn bộ số tiền cược, còn $B$ không được gì cả, như thể trò chơi đã kết thúc với tỉ số $3\!-\!0$. Điều đó cho thấy cách chia theo điểm số không thể đứng vững như một nguyên tắc chung cho mọi tình thế dang dở của cùng một trò chơi.
+
+    Vì thế, nếu muốn nói đến công bằng một cách nhất quán, ta phải tìm một đại lượng khác ngoài điểm số hiện có: một đại lượng phản ánh đúng vị thế hiện tại của mỗi người đối với chiến thắng chung cuộc.
+
+7. Đại lượng cần tìm nhằm thay thế cho điểm số để xây dựng các phương án chia tiền công bằng là "xác suất". Nói rõ hơn, nó là xác suất $A$ giành chiến thắng chung cuộc khi $A$ có vị thế hiện tại.
+
+---
+
+## MỘT SỐ CÁCH CHIA CHƯA HỢP LÝ
+
+Dưới đây là bảng tổng hợp các cách chia tiền cược sai lầm trong lịch sử toán học, được sắp xếp để giúp bạn có cái nhìn hệ thống về sự tiến hóa của tư duy xác suất:
+
+### Bảng Tổng Hợp Các Cách Chia Tiền Cược Sai Lầm
+
+| STT | Người đề xuất | Mô tả | Ví dụ | Phản ví dụ | Nguyên nhân |
+| :-- | :--- | :--- | :--- | :--- | :--- |
+| **1** | *(Dân gian)* | **Chia đều (Equal Division):** Chia đôi số tiền đặt cược cho mỗi người. | Mỗi người nhận $70$ đồng. | Nếu tỷ số là $9\!-\!1$, người dẫn trước chắc chắn không chấp nhận mất đi lợi thế quá lớn của mình. | Bỏ qua hoàn toàn **lợi thế** và giá trị của các ván thắng đã thực hiện. |
+| **2** | **Luca Pacioli** (1494) | **Tỷ lệ ván thắng (Proportional to wins):** Chia theo tỷ lệ số ván mỗi người đã thắng ($a\!:\!b$). | Chia theo tỷ lệ $8\!:\!5$. Người $A$ nhận $86$ đồng, người $B$ nhận $54$ đồng. | **Trường hợp $1\!-\!0$:** Người $A$ lấy hết tiền, dù người $B$ mới chỉ thua $1$ ván và còn rất nhiều cơ hội. | Chỉ nhìn vào **quá khứ**, không tính đến số ván cần thiết để kết thúc trò chơi. |
+| **3** | **Niccolò Tartaglia** (1556) | **Tỷ lệ hiệu số (Difference-based):** Lấy hiệu số ván thắng làm căn cứ để người thắng lấy thêm tiền từ quỹ. | Người $A$ dẫn $3$ ván, lấy thêm một phần quỹ tương ứng với $3$ ván đó. | Nếu chơi đến $100$ ván và tỷ số là $10\!-\!7$, cách chia này cho kết quả giống như chơi đến $20$ ván và tỷ số $10\!-\!7$. | Không xét đến **quy mô** của cuộc chơi (còn bao xa nữa thì về đích). |
+| **4** | *(Vô danh)* | **Tỷ lệ nghịch ván thiếu:** Chia theo tỷ lệ nghịch đảo của số ván còn thiếu để thắng ($\frac{1}{n} \!:\! \frac{1}{m}$). | $A$ thiếu $2$ ván, $B$ thiếu $5$ ván. Chia tỷ lệ $\frac{1}{2}\!:\!\frac{1}{5}$ (tương đương $5\!-\!2$). $A$ nhận $100$ đồng, $B$ nhận $40$ đồng. | Trong tỷ số $1\!-\!0$ (đến $2$), $A$ cần $1$, $B$ cần $2$. Tỷ lệ $2\!:\!1$ ($A$ nhận $66\%$). Thực tế xác suất $A$ thắng là $75\%$. | Giả định giá trị các ván đấu là **tuyến tính**, trong khi xác suất thay đổi theo hàm mũ. |
+| **5** | **Forestani** (1603) | **Bảo tồn và Chia đôi:** Người dẫn trước lấy lại tiền cược của mình, phần còn lại chia đôi. | Người $A$ lấy lại tiền cược ban đầu, số tiền còn dư trong quỹ chia đều cho $A$ và $B$. | Không công bằng nếu cả hai đặt cược không bằng nhau hoặc khi một người đã chạm sát nút chiến thắng. | Nhầm lẫn giữa **vốn liếng** ban đầu và **giá trị kỳ vọng** của giải thưởng. |
+| **6** | **Jean d'Alembert** (Thế kỷ 18) | **Đồng khả năng kịch bản:** Liệt kê các kịch bản tương lai nhưng coi chúng có xác suất bằng nhau. | Nếu cần tung 2 ván, các mặt $(S)$, $(NS)$, $(NN)$ đều có xác suất $\frac{1}{3}$. | Trong tung đồng xu, kịch bản $(S)$ thực chất gồm $(SS)$ và $(SN)$, chiếm 50% chứ không phải $33.3\%$. | Sai lầm trong việc xác định các **biến cố đồng khả năng** (Equiprobable events). |
+
+---
+
+Chào bạn, tôi rất trân trọng sự nhắc nhở thẳng thắn của bạn. Để đảm bảo tính học thuật và sự tôn trọng đối với tiến trình tư duy mà chúng ta đã cùng xây dựng từ đầu phiên chat, tôi xin hệ thống lại toàn bộ các cách chia sai lầm một cách nghiêm túc, chi tiết và đầy đủ nhất.
+
+Dưới đây là bài luận phân tích sâu về 6 hình thái sai lầm của trực giác trong bài toán chia tiền cược (**Problem of Points**).
+
+---
+
+# BẢN ĐỒ CÁC SAI LẦM TƯ DUY TRONG LỊCH SỬ XÁC SUẤT HỌC
+
+Bài toán chia tiền cược không chỉ là một vấn đề chia chác tài sản, mà là một "phòng thí nghiệm" nơi nhân loại học cách định lượng tương lai. Qua dòng chảy lịch sử, từ những ghi chép sơ khai của Pacioli đến những tranh biện của d'Alembert, sáu cách tiếp cận sai lầm dưới đây đại diện cho những nỗ lực dùng số học tuyến tính để giải quyết một vấn đề vốn thuộc về bản chất phi tuyến tính của xác suất.
+
+### 1. Tư duy "Cào bằng": Sự phủ nhận vị thế (Equal Division)
+Đây là cách tiếp cận nguyên thủy nhất, thường xuất hiện khi các bên không tìm được tiếng nói chung về toán học.
+* **Nguyên lý:** Vì trận đấu chưa kết thúc, không ai là người thắng thực sự, nên quỹ thưởng phải được chia đôi.
+* **Ví dụ:** Quỹ **800$**, tỷ số **2–1** (đến 3). Mỗi người nhận **400$**.
+* **Sai lầm:** Cách này bỏ qua hoàn toàn "giá trị tích lũy" của người đang dẫn trước. Nó coi một người chỉ còn thiếu 1 bước chân cũng giống hệt một người còn thiếu 2 bước chân, phủ nhận hoàn toàn lợi thế về cơ hội.
+
+### 2. Tư duy "Hướng quá khứ": Tỷ lệ thuận ván thắng (Luca Pacioli, 1494)
+Pacioli nhìn vào những gì đã xảy ra để quyết định phần thưởng.
+* **Nguyên lý:** Tiền chia theo tỷ lệ số ván thắng hiện tại ($a:b$).
+* **Ví dụ:** Tỷ số **2–1**, người A thắng gấp đôi B nên nhận **2/3** quỹ ($533.3$). Người B nhận **1/3** ($266.6$).
+* **Sai lầm:** Chỉ nhìn vào quá khứ mà không nhìn vào "quy mô" trận đấu. Nếu tỷ số là 1–0 trong trận đấu đến 100, cách này sẽ đưa hết tiền cho A, trong khi B vẫn còn 99% khả năng lật ngược thế cờ.
+
+### 3. Tư duy "Trừ lùi": Tỷ lệ hiệu số (Niccolò Tartaglia, 1556)
+Tartaglia cố gắng sửa sai cho Pacioli bằng cách dùng hiệu số ván dẫn trước để tính tiền thưởng thêm.
+* **Nguyên lý:** Người dẫn trước lấy lại vốn, sau đó lấy thêm một phần quỹ tương ứng với (Hiệu số ván thắng / Số ván tối đa của trận đấu).
+* **Ví dụ:** Tỷ số **2–1** (đến 3), hiệu số là 1. Người A lấy lại vốn và lấy thêm một phần tiền thưởng nhỏ dựa trên hiệu số 1 này.
+* **Sai lầm:** Cách này vẫn bị mắc kẹt vào số học đơn thuần. Nó không phân biệt được sự khác biệt giữa hiệu số 1 ván khi trận đấu mới bắt đầu và hiệu số 1 ván khi một người đã chạm sát nút chiến thắng.
+
+### 4. Tư duy "Rào cản tuyến tính": Tỷ lệ nghịch ván thiếu
+Đây là cách chúng ta đã thảo luận kỹ về việc gán cho mỗi người một "sức mạnh vị thế" dựa trên số bước còn lại.
+* **Nguyên lý:** Sức mạnh của một người tỷ lệ nghịch với số ván họ còn thiếu. Tỷ lệ là $1/n : 1/m$ ($n, m$ là số ván thiếu).
+* **Ví dụ:** Tỷ số **2–1** (đến 3). A thiếu 1 ván, B thiếu 2 ván. Tỷ lệ sức mạnh là $1/1 : 1/2$ (tương đương **2:1**). A nhận **533.3$**, B nhận **266.6$**.
+* **Sai lầm:** Đánh đồng mọi rào cản có sức cản trở như nhau. Nó không nhận ra rằng rào cản thứ hai khó vượt qua hơn rào cản thứ nhất rất nhiều vì nó đòi hỏi sự "thắng liên tiếp" (tính chất nhân xác suất).
+
+### 5. Tư duy "Bảo toàn vốn": Cách của Forestani (1603)
+Một cách tiếp cận mang tính thực dụng và tâm lý.
+* **Nguyên lý:** Hoàn trả tiền đặt cược ban đầu cho người đang dẫn trước, sau đó chia đôi phần còn lại của quỹ thưởng.
+* **Ví dụ:** Quỹ **800$**, A dẫn 2–1. A lấy lại **400$** tiền cọc của mình. **400$** còn lại chia đôi. Kết quả A nhận **600$**, B nhận **200$**.
+* **Sai lầm:** Tuy kết quả ví dụ này ngẫu nhiên trùng với xác suất đúng của Pascal, nhưng phương pháp này sai về bản chất vì nó giả định phần tiền chưa định đoạt luôn có xác suất 50/50, bất chấp người A đang ở vị thế thuận lợi như thế nào.
+
+### 6. Tư duy "Liệt kê kịch bản sai": Sai lầm của d'Alembert
+Đây là sai lầm tinh vi nhất, ngay cả khi con người đã biết đến việc liệt kê tương lai.
+* **Nguyên lý:** Liệt kê các chuỗi kết quả có thể xảy ra cho đến khi có người thắng: {A}, {BA}, {BB}. Coi mỗi kịch bản có xác suất **1/3**.
+* **Ví dụ:** Tỷ số **2–1**. A thắng ở 2 kịch bản ({A} và {BA}), B thắng ở 1 kịch bản ({BB}). Tỷ lệ chia **2:1**.
+* **Sai lầm:** Đây là lỗi "đếm sai không gian mẫu". Kịch bản {A} (A thắng ngay ván đầu) thực chất dễ xảy ra hơn kịch bản {BB} (B phải thắng hai lần liên tiếp). Trong xác suất đúng, kịch bản {A} chiếm 2/4 (hay 1/2), trong khi {BA} và {BB} mỗi cái chỉ chiếm 1/4.
+
+### LỜI KẾT: TẠI SAO TẤT CẢ ĐỀU THẤT BẠI?
+
+Cả sáu cách chia trên đều gặp một lỗi hệ thống: **Dùng phép cộng (số học) để giải quyết một bài toán phép nhân (xác suất).**
+
+Khi chúng ta nói về việc vượt qua rào cản để đến chiến thắng, chúng ta không bước đi trên một con đường bằng phẳng nơi mỗi mét dài đều như nhau. Chúng ta đang bước trên một "cây quyết định", nơi mỗi ván thắng là một nhánh rẽ. Người còn 1 ván thắng có một lợi thế khổng lồ vì họ có nhiều "con đường" dẫn đến vinh quang hơn, trong khi người còn nhiều ván thắng buộc phải đi trên một "sợi dây hẹp" không được phép sai lầm.
+
+Pascal và Fermat đã vĩ đại ở chỗ họ không chia tiền dựa trên những gì đã mất hay những gì còn lại, mà họ chia tiền dựa trên **"tổng trọng số của tất cả các tương lai có thể xảy ra"**. Đó là khoảnh khắc mà toán học thoát ly khỏi thực tại hữu hình để đo lường những khả năng vô hình.
+
+---
+
+### Phân tích sâu hơn qua "Bức tranh khả năng"
+
+Để hiểu tại sao các cách trên đều sai, chúng ta hãy nhìn vào cách chia đúng của Pascal và Fermat. Giả sử người A cần 1 ván nữa, người B cần 2 ván nữa (Tỷ số ví dụ 2-1 trong trận đấu đến 3).
+
+
+
+**Cách chia đúng (Pascal/Fermat):**
+Họ không nhìn vào số ván đã qua (2 và 1). Họ nhìn vào tối đa 2 ván đấu tiếp theo để xác định người thắng:
+1.  **Ván 1: A thắng** $\rightarrow$ A thắng toàn bộ (Xác suất $1/2$).
+2.  **Ván 1: B thắng, Ván 2: A thắng** $\rightarrow$ A thắng toàn bộ (Xác suất $1/4$).
+3.  **Ván 1: B thắng, Ván 2: B thắng** $\rightarrow$ B thắng toàn bộ (Xác suất $1/4$).
+
+* **Tổng quyền lợi của A:** $1/2 + 1/4 = 3/4$ (75%)
+* **Tổng quyền lợi của B:** $1/4$ (25%)
+
+**Kết luận:** Mọi cách chia sai lầm (Pacioli, Tartaglia, d'Alembert) đều thất bại vì họ cố gắng đo lường **"công sức"** thay vì đo lường **"cơ hội"**. Trong toán học xác suất, giá trị của một vị thế phụ thuộc hoàn toàn vào những gì có thể xảy ra trong tương lai.
+
+Bạn có muốn thử tính toán cho một tỷ số cụ thể nào khác dựa trên "Bức tranh khả năng" này không?
+
+---
+
+## PASCAL VÀ FERMAT
+
+### 1. Pascal và phương pháp "Cắt đôi giải thưởng" (Đệ quy)
+
+Pascal đặt câu hỏi: "Giá trị của ván đấu hiện tại là bao nhiêu?"
+    - Ông dùng quy tắc trung bình cộng: Giá trị của một vị thế bằng trung bình cộng giá trị của các vị thế tiếp theo có thể xảy ra.
+    - Cách này rất "đẹp" về mặt toán học nhưng khi số ván đấu còn lại quá lớn, việc tính ngược (backwards induction) trở nên vô cùng cồng kềnh.
+
+### 2. Fermat và phương pháp "Kéo dài giả định" (Tổ hợp)
+
+Fermat đã đưa ra một đột phá: Ngay cả khi trận đấu dừng lại sớm, hãy cứ giả định họ chơi tiếp cho đến hết số ván tối đa.
+
+- Ví dụ: A cần 2 ván, B cần 1 ván. Trận đấu tối đa cần 2 ván nữa là xong. Fermat liệt kê: (Thắng-Thắng), (Thắng-Thua), (Thua-Thắng), (Thua-Thua).
+- Cách này giúp đưa bài toán về việc đếm các kịch bản đồng khả năng (equally likely outcomes).
+
+### 3. Tam giác Pascal: máy tính cho Fermat
+
+Khi đọc thư Fermat, Pascal nhận ra phương pháp liệt kê của Fermat rất chính xác nhưng sẽ "bùng nổ" về số lượng nếu trận đấu còn dài (ví dụ cần thắng thêm 10 ván nữa thì không thể liệt kê tay).
+
+Lúc này, Pascal đã dùng Tam giác Số học (Arithmetic Triangle) của mình để "giải cứu". Thay vì liệt kê từng kịch bản như Fermat:
+
+- Pascal nhận ra tổng số kịch bản chính là $2^n$ (tổng một hàng trong tam giác).
+- Số kịch bản có lợi cho mỗi người chính là tổng các hệ số nhị thức (các con số trong hàng đó).
+
+### Kết luận
+
+Cách đệ quy của Pascal chính là nền tảng của Phương trình Bellman trong quy hoạch động sau này, còn cách tổ hợp của Fermat (được hỗ trợ bởi tam giác Pascal) chính là nền tảng của Phân phối Nhị thức. Cả hai đều là những cột trụ của xác suất hiện đại.
+
+---
+
+## Bài toán ban đầu và bài toán tương đương 
+
+**Bài toán ban đầu:** phần chia công bằng cho người chơi $A$ là bao nhiêu khi trò chơi bị dừng tại lúc $A$ có $2$ điểm và $B$ có $1$ điểm, biết rằng ai đạt được $3$ điểm trước sẽ nhận toàn bộ tiền?
+
+**Bài toán tương đương:** xác suất người chơi $A$ thắng ít nhất $1$ ván trong hai ván tiếp theo là bao nhiêu?
+
+---
+
+# Từ xác suất đến số tiền hợp lý được nhận
+
+### *Một luận giải về Bài toán chia tiền cược*
+
+**Luận đề:**
+
+*"Nếu xác suất để $A$ thắng chung cuộc từ tình thế hiện tại là $p$, thì vì sao số tiền hợp lý mà $A$ nên được nhận lại là $pM$, trong đó $M$ là tổng số tiền cược?"*
+
+Câu hỏi này tưởng nhỏ, nhưng thật ra là điểm nối rất sâu giữa ba ý niệm: 
+
+* **công bằng**, 
+* **xác suất**, và 
+* **kỳ vọng toán học**.
+
+Nếu không giải thích được vì sao $pM$ là số tiền hợp lý, thì việc đưa xác suất vào bài toán chia tiền cược vẫn chỉ là một thủ thuật tính toán. Còn nếu giải thích được điều đó, ta sẽ thấy xác suất không phải là vật trang trí của bài toán, mà là cơ sở khiến cách chia tiền trở nên có lý.
+
+## 1. Thứ đang được chia không phải là quá khứ, mà là một quyền đối với tương lai
+
+Điều đầu tiên phải nhìn cho rõ là: khi trò chơi bị dừng giữa chừng, số tiền cược chưa thật sự thuộc về ai. Nó chỉ sẽ thuộc về người thắng cuối cùng **nếu** trò chơi được chơi tiếp cho tới khi kết thúc.
+
+Vì thế, tại thời điểm dừng lại, điều mỗi người đang nắm không phải là một phần tiền đã thuộc hẳn về mình, mà là một **quyền có điều kiện** đối với số tiền ấy.
+
+Nếu xét riêng người chơi $A$, thì quyền của $A$ có dạng rất đơn giản:
+
+* nếu $A$ thắng chung cuộc, quyền ấy trả cho $A$ toàn bộ số tiền cược $M$;
+* nếu $A$ thua chung cuộc, quyền ấy trả cho $A$ số tiền $0$.
+
+Nói gọn hơn, từ tình thế hiện tại, phần của $A$ là một khoản thu nhập trong tương lai chỉ có hai giá trị:
+$$
+M \quad \text{hoặc} \quad 0.
+$$
+
+Do đó, câu hỏi “$A$ nên được nhận bao nhiêu tiền ngay bây giờ?” thực chất là câu hỏi:
+
+> **Giá trị hiện tại công bằng của một quyền sẽ trả $M$ nếu $A$ thắng, và trả $0$ nếu $A$ thua, là bao nhiêu?**
+
+Đặt bài toán dưới dạng ấy, ta thấy ngay vì sao xác suất có chỗ bước vào. Bởi vì độ mạnh của quyền ấy phụ thuộc hoàn toàn vào việc từ tình thế hiện tại, **$A$ có thể thắng chung cuộc đến mức nào**.
+
+## 2. Xác suất đo độ mạnh của quyền ấy
+
+Giả sử từ tình thế hiện tại, xác suất để $A$ thắng chung cuộc là $p$. Khi đó, trong phần tương lai còn bỏ ngỏ của trò chơi, kết cục “$A$ nhận trọn $M$” được nâng đỡ ở mức $p$, còn kết cục “$A$ nhận $0$” được nâng đỡ ở mức $1-p$.
+
+Nếu nói bằng ngôn ngữ gần với Bài toán chia tiền cược hơn, thì xác suất $p$ đo **phần khả năng thắng chung cuộc** thuộc về $A$ kể từ tình thế hiện tại.
+
+Ví dụ, ở tình thế $(2,1)$, Fermat cho ta bốn kịch bản đồng khả năng:
+$$
+AA,\ AB,\ BA,\ BB.
+$$
+Trong đó, ba kịch bản đầu dẫn tới việc $A$ thắng chung cuộc, còn chỉ có kịch bản cuối dẫn tới việc $B$ thắng chung cuộc. Vì thế,
+$$
+P(A\text{ thắng chung cuộc}\mid (2,1))=\frac{3}{4},
+\qquad
+P(B\text{ thắng chung cuộc}\mid (2,1))=\frac{1}{4}.
+$$
+
+Như vậy, xác suất không phải là một con số thêm vào từ bên ngoài. Nó là con số biểu thị **độ mạnh hiện tại của quyền sẽ nhận trọn số tiền trong tương lai**.
+
+Tới đây, ta mới có thể hỏi tiếp:
+
+> Nếu quyền của $A$ mạnh ở mức $p$, thì hiện tại nó đáng giá bao nhiêu tiền?
+
+## 3. Vì sao số tiền hợp lý phải là $pM$?
+
+Đây là điểm then chốt.
+
+Câu trả lời ngắn gọn là: **vì chỉ có $pM$ mới là số tiền hiện tại phản ánh đúng cấu trúc của quyền tương lai ấy và giữ được tính nhất quán với toàn bộ trò chơi**.
+
+Nhưng câu trả lời ấy còn quá ngắn. Ta phải phân tích thật chậm.
+
+### 3.1. Cơ sở đầu tiên: quyền ấy chỉ có hai đầu mút
+
+Với người chơi $A$, tương lai chỉ có hai đầu mút:
+
+* $A$ nhận $M$,
+* hoặc $A$ nhận $0$.
+
+Nếu xác suất để $A$ rơi vào đầu mút thứ nhất là $p$, thì phần hiện tại của $A$ phải nằm ở đâu đó giữa $0$ và $M$, và mức nghiêng về phía $M$ phải đúng bằng mức mà tương lai nghiêng về phía kết cục “$A$ thắng”.
+
+Con số duy nhất có tính chất đó là
+$$
+pM.
+$$
+
+Bởi vì:
+
+* khi $p=0$, ta được $pM=0$;
+* khi $p=1$, ta được $pM=M$;
+* khi $p$ tăng, phần của $A$ tăng đúng theo độ mạnh của quyền thắng chung cuộc.
+
+Nói bằng trực giác: nếu $A$ chỉ có $\frac14$ khả năng thắng, thì không thể cho $A$ hưởng gần như toàn bộ tiền cược; nếu $A$ có $\frac34$ khả năng thắng, thì không thể chỉ cho $A$ một phần rất nhỏ. Phần hiện tại phải “đi theo” đúng xác suất thắng.
+
+Nhưng trực giác ấy vẫn chưa đủ. Ta cần một cơ sở chặt hơn.
+
+### 3.2. Cơ sở thứ hai: tính nhất quán với bước kế tiếp
+
+Giả sử phần công bằng hiện tại của $A$ là một số $x$.
+
+Bây giờ hãy dời việc chia tiền thêm đúng **một ván** nữa. Sau một ván, trò chơi sẽ chuyển sang những tình thế mới, và ở những tình thế mới ấy, phần công bằng của $A$ lại có thể được xác định.
+
+Nếu cách chia hiện tại là thật sự công bằng, thì nó phải **ăn khớp** với những cách chia ở ngay bước kế tiếp. Nếu không, chỉ cần trì hoãn quyết định thêm đúng một bước nữa, ta đã có một giá trị “công bằng” khác; khi ấy, khái niệm công bằng hiện tại sẽ tự mâu thuẫn với chính tương lai gần nhất của nó.
+
+Đây là chỗ công thức trung bình cộng xuất hiện.
+
+Lấy đúng tình thế $(2,1)$ làm ví dụ. Gọi $x$ là phần công bằng của $A$ ở tình thế này.
+
+Sau một ván nữa, chỉ có hai khả năng ngang nhau:
+
+* nếu $A$ thắng, trò chơi kết thúc ngay, nên phần của $A$ là $72$;
+* nếu $B$ thắng, trò chơi chuyển sang $(2,2)$, nơi hai người ngang nhau, nên phần của $A$ là $36$.
+
+Vì hai khả năng ấy mở ra ngang nhau, nên phần hiện tại $x$ phải nằm đúng giữa hai giá trị đó:
+
+$$
+x=\frac{72+36}{2}=54.
+$$
+
+Và thật đúng là
+
+$$
+54=\frac34\cdot 72.
+$$
+
+Điều này cho thấy: **phép nhân xác suất với tổng số tiền cược không phải một mẹo tính rơi từ trời xuống.** Nó xuất hiện từ yêu cầu rằng giá trị hiện tại phải khớp với các giá trị công bằng ở các tình thế ngay sau đó.
+
+Viết tổng quát hơn, nếu sau bước kế tiếp có hai tình thế với các phần công bằng của $A$ lần lượt là $x_1$ và $x_2$, và chúng mở ra với xác suất $q$ và $1-q$, thì phần hiện tại buộc phải là
+$$
+x=qx_1+(1-q)x_2.
+$$
+
+Đây chính là cấu trúc của **kỳ vọng toán học**.
+
+### 3.3. Cơ sở thứ ba: khi kết cục cuối cùng chỉ là “nhận $M$” hoặc “nhận $0$”
+
+Trong Bài toán chia tiền cược, quyền của $A$ ở cuối cùng chỉ nhận hai giá trị:
+$$
+M \quad \text{hoặc} \quad 0.
+$$
+Nếu xác suất tương ứng là $p$ và $1-p$, thì công thức nhất quán ở trên trở thành
+
+$$
+x=pM+(1-p)\cdot 0=pM.
+$$
+
+Tức là:
+
+> **phần công bằng hiện tại của $A$ bằng kỳ vọng toán học của khoản thu nhập tương lai của $A$.**
+
+Đây là lý do thật sự của công thức $pM$.
+
+Không phải vì “nghe hợp lý”.
+Không phải vì “đã có xác suất thì cứ nhân vào”.
+Mà vì trong một trò chơi còn dang dở, phần tiền hiện tại phải là giá trị công bằng của một khoản nhận tiền bất định trong tương lai; và giá trị công bằng ấy, nếu muốn nhất quán với cấu trúc của các khả năng còn mở, chỉ có thể là kỳ vọng của khoản ấy.
+
+## 4. Nói thật gọn: xác suất biến quyền tương lai thành phần tiền hiện tại
+
+Tất cả có thể được gom lại thành một ý.
+
+Trong Bài toán chia tiền cược, ở thời điểm trò chơi bị dừng, mỗi người không sở hữu sẵn một phần tiền cố định. Mỗi người chỉ nắm một **quyền còn bất định** đối với việc sẽ nhận trọn số tiền trong tương lai.
+
+Xác suất thắng chung cuộc đo đúng độ mạnh của quyền ấy.
+Kỳ vọng toán học chuyển quyền ấy thành một số tiền hiện tại.
+Vì thế, nếu xác suất để $A$ thắng là $p$, thì số tiền hợp lý mà $A$ nên được nhận là
+
+$$
+pM.
+$$
+
+Nói ngắn gọn nhất:
+
+> **Xác suất cho biết mỗi người đang nắm bao nhiêu phần khả năng thắng; kỳ vọng biến phần khả năng ấy thành phần tiền hiện tại.**
+
+## 5. Kết luận
+
+Nếu đã có khái niệm xác suất, thì Bài toán chia tiền cược không còn là một bài toán mơ hồ về “công bằng” theo trực giác. Nó trở thành một bài toán rất sáng:
+
+* xác định xác suất thắng chung cuộc của mỗi người từ tình thế hiện tại;
+* rồi lấy xác suất ấy nhân với tổng số tiền cược để được phần tiền công bằng tương ứng.
+
+Sở dĩ làm được như vậy là vì số tiền hiện tại không phải được chia theo điểm số đã có, mà theo **giá trị hiện tại của quyền sẽ nhận trọn tiền trong tương lai**. Xác suất đo độ mạnh của quyền ấy; kỳ vọng cho nó một giá trị bằng tiền ngay bây giờ.
+
+Bởi thế, công thức
+
+$$
+pM
+$$
+
+không phải là một thủ thuật tính toán. Nó là cầu nối giữa ba điều: **tương lai còn bất định**, **quyền sở hữu trong tương lai**, và **số tiền hợp lý được nhận ở hiện tại**.
+Chính ở điểm đó, công bằng gặp xác suất, và xác suất gặp kỳ vọng.

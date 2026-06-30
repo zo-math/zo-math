@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>phong_cach_troi_sao_kien_tao_hoc_thuat – ZO Math</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../images/favicon.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-3d1903c5838503892ba651cf513ab205.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+
+<link rel="stylesheet" href="../../assets/css/custom.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../content/toan-thpt/toan-11/index.qmd">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/toan-thpt/toan-12/index.qmd">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.qmd">
+ <span class="dropdown-text">100+ Hàm số</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../content/zo-o/index.qmd"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../content/zo-lab/index.qmd"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../content/shop/index.html"> 
+<span class="menu-text">ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block"></header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Trên trang này</h2>
+   
+  <ul>
+  <li><a href="#trời-sao-kiến-tạo-học-thuật" id="toc-trời-sao-kiến-tạo-học-thuật" class="nav-link active" data-scroll-target="#trời-sao-kiến-tạo-học-thuật">TRỜI SAO KIẾN TẠO HỌC THUẬT</a>
+  <ul class="collapse">
+  <li><a href="#bản-chất" id="toc-bản-chất" class="nav-link" data-scroll-target="#bản-chất">1. Bản chất</a></li>
+  <li><a href="#không-gian-thị-giác" id="toc-không-gian-thị-giác" class="nav-link" data-scroll-target="#không-gian-thị-giác">2. Không gian thị giác</a></li>
+  <li><a href="#sự-xuất-hiện-của-đối-tượng" id="toc-sự-xuất-hiện-của-đối-tượng" class="nav-link" data-scroll-target="#sự-xuất-hiện-của-đối-tượng">3. Sự xuất hiện của đối tượng</a></li>
+  <li><a href="#sự-biến-đổi" id="toc-sự-biến-đổi" class="nav-link" data-scroll-target="#sự-biến-đổi">4. Sự biến đổi</a></li>
+  <li><a href="#màu-sắc" id="toc-màu-sắc" class="nav-link" data-scroll-target="#màu-sắc">5. Màu sắc</a></li>
+  <li><a href="#ánh-sáng-và-độ-nổi" id="toc-ánh-sáng-và-độ-nổi" class="nav-link" data-scroll-target="#ánh-sáng-và-độ-nổi">6. Ánh sáng và độ nổi</a></li>
+  <li><a href="#chữ-trên-màn-hình" id="toc-chữ-trên-màn-hình" class="nav-link" data-scroll-target="#chữ-trên-màn-hình">7. Chữ trên màn hình</a></li>
+  <li><a href="#công-thức" id="toc-công-thức" class="nav-link" data-scroll-target="#công-thức">8. Công thức</a></li>
+  <li><a href="#đường-điểm-khung-và-mũi-tên" id="toc-đường-điểm-khung-và-mũi-tên" class="nav-link" data-scroll-target="#đường-điểm-khung-và-mũi-tên">9. Đường, điểm, khung và mũi tên</a></li>
+  <li><a href="#nhịp" id="toc-nhịp" class="nav-link" data-scroll-target="#nhịp">10. Nhịp</a></li>
+  <li><a href="#âm-thanh" id="toc-âm-thanh" class="nav-link" data-scroll-target="#âm-thanh">11. Âm thanh</a></li>
+  <li><a href="#helper-hình-ảnh" id="toc-helper-hình-ảnh" class="nav-link" data-scroll-target="#helper-hình-ảnh">12. Helper hình ảnh</a></li>
+  <li><a href="#đặt-tên-trong-mã-nguồn" id="toc-đặt-tên-trong-mã-nguồn" class="nav-link" data-scroll-target="#đặt-tên-trong-mã-nguồn">13. Đặt tên trong mã nguồn</a></li>
+  <li><a href="#cấu-trúc-cảnh" id="toc-cấu-trúc-cảnh" class="nav-link" data-scroll-target="#cấu-trúc-cảnh">14. Cấu trúc cảnh</a></li>
+  <li><a href="#render-và-bảo-trì" id="toc-render-và-bảo-trì" class="nav-link" data-scroll-target="#render-và-bảo-trì">15. Render và bảo trì</a></li>
+  <li><a href="#điều-phong-cách-này-tránh" id="toc-điều-phong-cách-này-tránh" class="nav-link" data-scroll-target="#điều-phong-cách-này-tránh">16. Điều phong cách này tránh</a></li>
+  <li><a href="#tiêu-chuẩn-cuối-cùng" id="toc-tiêu-chuẩn-cuối-cùng" class="nav-link" data-scroll-target="#tiêu-chuẩn-cuối-cùng">17. Tiêu chuẩn cuối cùng</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="trời-sao-kiến-tạo-học-thuật" class="level1">
+<h1>TRỜI SAO KIẾN TẠO HỌC THUẬT</h1>
+<section id="bản-chất" class="level2">
+<h2 class="anchored" data-anchor-id="bản-chất">1. Bản chất</h2>
+<p><strong>Trời sao kiến tạo học thuật</strong> là phong cách hoạt ảnh của ZO Math.</p>
+<p>Phong cách này xem màn hình như một không gian tư duy. Trong không gian ấy, toán học không xuất hiện như một kết quả đã được bày sẵn. Toán học xuất hiện dần dần, qua nhu cầu, qua quan hệ, qua biến đổi, qua cấu trúc.</p>
+<p>Một đối tượng toán học không được đưa lên màn hình chỉ vì nó đẹp, quen, hay sẽ cần ở phần sau. Nó xuất hiện khi tư duy đã cần đến nó. Nó ở lại khi còn giữ vai trò trong cấu trúc. Nó mờ đi hoặc biến mất khi vai trò ấy đã hoàn thành.</p>
+<p>Tên gọi <strong>Trời sao</strong> không quy định một hình ảnh trang trí. Nó chỉ một khí chất thị giác: nền sâu, không gian rộng, ít nhiễu, mỗi đối tượng hiện ra như một điểm chú ý có vị trí, có vai trò riêng, có quan hệ với những điểm khác.</p>
+<p>Tên gọi <strong>kiến tạo học thuật</strong> xác định cách hình ảnh vận hành. Không trình diễn. Không minh họa hời hợt. Không làm kỹ xảo để gây ấn tượng. Hình ảnh dựng lại quá trình một ý niệm được hình thành.</p>
+<p>Nguyên tắc nền:</p>
+<p><strong>Cái gì chưa có lý do để xuất hiện thì chưa xuất hiện.</strong></p>
+</section>
+<section id="không-gian-thị-giác" class="level2">
+<h2 class="anchored" data-anchor-id="không-gian-thị-giác">2. Không gian thị giác</h2>
+<p>Không gian của phong cách này là một nền tối, tĩnh, sâu.</p>
+<p>Nền tối không nhằm tạo cảm giác huyền bí. Nền tối làm giảm nhiễu. Nền tối để các đối tượng toán học hiện ra rõ hơn. Nền tối làm cho mỗi đường, mỗi điểm, mỗi ký hiệu đều có trọng lượng.</p>
+<p>Màn hình không phải bảng đen lớp học. Không phải sân khấu trình diễn. Không phải giao diện phần mềm. Màn hình là một mặt phẳng suy nghĩ.</p>
+<p>Trên mặt phẳng ấy, khoảng trống có vai trò. Khoảng trống không phải phần chưa dùng đến. Khoảng trống giúp người xem cảm được điều chưa xuất hiện, điều đang chờ được hình thành.</p>
+<p>Bố cục vì vậy phải thoáng. Ít đối tượng. Ít chữ. Ít chuyển động. Không chen chúc. Không lấp đầy màn hình chỉ vì còn chỗ trống.</p>
+</section>
+<section id="sự-xuất-hiện-của-đối-tượng" class="level2">
+<h2 class="anchored" data-anchor-id="sự-xuất-hiện-của-đối-tượng">3. Sự xuất hiện của đối tượng</h2>
+<p>Một đối tượng trong phong cách này không xuất hiện bằng sự áp đặt. Nó xuất hiện như kết quả của một nhu cầu đã được chuẩn bị.</p>
+<p>Ban đầu có thể chỉ là một dấu nhỏ. Rồi dấu ấy được đặt vào vị trí. Sau đó nó nhận quan hệ với đối tượng khác. Từ quan hệ ấy, một cấu trúc lớn hơn bắt đầu hình thành.</p>
+<p>Sự xuất hiện phải có thứ tự.</p>
+<p>Cái nền xuất hiện trước cái phụ thuộc vào nền. Cái riêng xuất hiện trước cái tổng quát. Dấu hiệu xuất hiện trước tên gọi. Quan hệ xuất hiện trước kết luận. Cấu trúc xuất hiện trước công thức hóa.</p>
+<p>Một hình ảnh hoàn chỉnh chỉ được phép xuất hiện khi những thành phần làm nên nó đã có lý do tồn tại.</p>
+</section>
+<section id="sự-biến-đổi" class="level2">
+<h2 class="anchored" data-anchor-id="sự-biến-đổi">4. Sự biến đổi</h2>
+<p>Chuyển động trong phong cách này không nhằm làm màn hình sinh động. Chuyển động là cách làm lộ ra sự biến đổi của tư duy.</p>
+<p>Một đối tượng có thể di chuyển khi vị trí của nó đang được hiểu lại. Một đối tượng có thể đổi màu khi vai trò của nó thay đổi. Một nhóm đối tượng có thể gom lại khi người xem cần thấy chúng như một toàn thể. Một hình có thể tách ra khi người xem cần phân biệt các thành phần bên trong.</p>
+<p>Mọi chuyển động phải đọc được bằng mắt.</p>
+<p>Không chuyển động quá nhanh. Không xoay lật không cần thiết. Không nảy, rung, phóng đại kiểu biểu diễn. Không dùng hiệu ứng chỉ để tạo cảm giác hấp dẫn.</p>
+<p>Chuyển động tốt là chuyển động làm cho người xem hiểu thêm một quan hệ.</p>
+</section>
+<section id="màu-sắc" class="level2">
+<h2 class="anchored" data-anchor-id="màu-sắc">5. Màu sắc</h2>
+<p>Màu sắc trong phong cách này có chức năng ngữ nghĩa.</p>
+<p>Màu không dùng để trang trí. Màu không dùng để làm vui mắt. Màu không gắn vĩnh viễn với một biến, một khái niệm hay một dạng toán cụ thể. Màu chỉ nhận vai trò trong từng cấu trúc đang được dựng.</p>
+<p>Hệ màu nền tảng:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Nền và thang hiện diện</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>COLOR_BACKGROUND <span class="op">=</span> <span class="st">"#050507"</span> <span class="co"># nền sâu toàn cảnh</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>COLOR_SURFACE <span class="op">=</span> <span class="st">"#111114"</span> <span class="co"># bề mặt hộp, thẻ, panel, vùng chứa nhẹ</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Nội dung</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>COLOR_PRIMARY <span class="op">=</span> <span class="st">"#F5F5F5"</span> <span class="co"># nội dung chính, công thức chính, đường chính</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>COLOR_SECONDARY <span class="op">=</span> <span class="st">"#C8C8C8"</span> <span class="co"># nội dung phụ nhưng còn rõ</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>COLOR_MUTED <span class="op">=</span> <span class="st">"#9A9A9A"</span> <span class="co"># ghi chú, nhãn phụ, thông tin lùi</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Đường dẫn và hình mờ</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>COLOR_GUIDE <span class="op">=</span> <span class="st">"#5F5F5F"</span> <span class="co"># đường dẫn, khung, trục phụ, lưới phụ</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>COLOR_FAINT <span class="op">=</span> <span class="st">"#303030"</span> <span class="co"># hình mờ, đối tượng nền, phần đã lùi</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Màu nhấn ZO Math: chỉ khi được chỉ định trực tiếp mới đem ra sử dụng, không được tự quyết định</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>COLOR_ZO_RED <span class="op">=</span> <span class="st">"#ef5350"</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>COLOR_ZO_YELLOW <span class="op">=</span> <span class="st">"#ffca28"</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>COLOR_ZO_TEAL <span class="op">=</span> <span class="st">"#1de8b5"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Màu nhấn xuất hiện ít. Mỗi lần xuất hiện phải có vai trò rõ. Một màu nhấn có thể biểu thị một đối tượng, một trạng thái, một lựa chọn, một điểm cần chú ý, hoặc một quan hệ đang được phân biệt.</p>
+<p>Trong cùng một cảnh, một màu chỉ nên giữ một nghĩa. Nếu nghĩa thay đổi, sự thay đổi ấy phải được thể hiện bằng chuyển động hoặc chuyển cảnh rõ ràng.</p>
+</section>
+<section id="ánh-sáng-và-độ-nổi" class="level2">
+<h2 class="anchored" data-anchor-id="ánh-sáng-và-độ-nổi">6. Ánh sáng và độ nổi</h2>
+<p>Phong cách này không dùng ánh sáng như hiệu ứng sân khấu. Ánh sáng được hiểu là mức độ hiện diện của một ý niệm.</p>
+<p>Đối tượng chính sáng hơn. Đối tượng phụ mờ hơn. Đối tượng đã hoàn thành vai trò thì lùi xuống. Đối tượng đang được xét thì tiến lên.</p>
+<p>Độ mờ là một thao tác tư duy. Làm mờ không có nghĩa là xóa bỏ. Làm mờ có nghĩa là: đối tượng vẫn còn trong cấu trúc, nhưng không còn là điểm chú ý hiện tại.</p>
+<p>Đường phụ, khung phụ, mốc phụ và lưới phụ phải đủ thấy nhưng không được tranh vai với nội dung chính.</p>
+</section>
+<section id="chữ-trên-màn-hình" class="level2">
+<h2 class="anchored" data-anchor-id="chữ-trên-màn-hình">7. Chữ trên màn hình</h2>
+<p>Phong cách <strong>Trời sao kiến tạo học thuật</strong> dùng một hệ cỡ chữ ít bậc.</p>
+<p>Cỡ chữ không dùng để trang trí. Cỡ chữ dùng để phân tầng sự chú ý.</p>
+<p>Tất cả chữ văn bản trên màn hình được viết in hoa. Sự nhấn mạnh hoặc làm nhẹ không dựa vào kiểu chữ phức tạp, mà dựa vào ba yếu tố:</p>
+<pre class="text"><code>cỡ chữ
+màu sắc
+vị trí trong bố cục</code></pre>
+<p>Hệ cỡ chữ chuẩn:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>FONT_SIZE_DETAIL <span class="op">=</span> <span class="dv">16</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>FONT_SIZE_LABEL <span class="op">=</span> <span class="dv">18</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>FONT_SIZE_MAIN <span class="op">=</span> <span class="dv">24</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>FONT_SIZE_TITLE <span class="op">=</span> <span class="dv">32</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>FONT_SIZE_EMPHASIS <span class="op">=</span> <span class="dv">48</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>FONT_SIZE_HERO <span class="op">=</span> <span class="dv">72</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Ý nghĩa của từng cỡ:</p>
+<pre class="text"><code>DETAIL   = chi tiết nhỏ, mốc phụ, số nhỏ, thông tin nền
+LABEL    = nhãn đối tượng, nhãn nhóm, nhãn trục, ghi chú ngắn
+MAIN     = nội dung chính trên màn hình
+TITLE    = tiêu đề cảnh, câu hỏi chính, mệnh đề dẫn
+EMPHASIS = số lớn, từ khóa, kết luận tạm, điểm cần nhấn
+HERO     = kết quả trung tâm, ký hiệu lớn, khoảnh khắc kết tinh</code></pre>
+<p>Không tạo thêm cỡ chữ mới nếu chưa thật sự cần. Nếu cần ngoại lệ cục bộ, ưu tiên dùng phép nhân từ hệ chuẩn, chẳng hạn:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>FONT_SIZE_HERO <span class="op">*</span> <span class="fl">0.75</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>FONT_SIZE_MAIN <span class="op">+</span> <span class="dv">4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Nhưng ngoại lệ không được trở thành một cỡ chữ mới của phong cách.</p>
+<p>Chữ trên màn hình phải ngắn. Vì toàn bộ chữ được viết in hoa, mỗi dòng không nên quá dài. Một dòng chữ càng dài thì càng nên dùng cỡ nhỏ hơn và màu nhẹ hơn.</p>
+<p>Công thức toán học không bị ép vào hệ chữ văn bản. Công thức dùng <code>MathTex</code> hoặc đối tượng toán học tương ứng. Kích thước công thức vẫn nên quy chiếu về hệ cỡ chữ chuẩn để giữ nhịp thị giác thống nhất.</p>
+</section>
+<section id="công-thức" class="level2">
+<h2 class="anchored" data-anchor-id="công-thức">8. Công thức</h2>
+<p>Công thức không phải vật trang sức.</p>
+<p>Một công thức xuất hiện khi người xem đã có nhu cầu nén một quan hệ vào ký hiệu. Công thức không nên xuất hiện quá sớm. Công thức không nên đứng một mình như kết luận từ trên rơi xuống.</p>
+<p>Công thức có thể được dựng từng phần. Một vế xuất hiện trước. Một đại lượng được thay vào. Một quan hệ được biến đổi. Một kết quả được rút ra.</p>
+<p>Khi công thức biến đổi, hình ảnh phải cho thấy điều gì được giữ lại và điều gì đang thay đổi.</p>
+<p>Công thức lớn chỉ dành cho khoảnh khắc kết tinh. Công thức nhỏ dùng cho nhãn, mốc, giá trị, hoặc quan hệ cục bộ.</p>
+</section>
+<section id="đường-điểm-khung-và-mũi-tên" class="level2">
+<h2 class="anchored" data-anchor-id="đường-điểm-khung-và-mũi-tên">9. Đường, điểm, khung và mũi tên</h2>
+<p>Đường là quan hệ. Điểm là vị trí chú ý. Khung là phạm vi xét. Mũi tên là hướng phụ thuộc, hướng biến đổi, hoặc hướng đọc.</p>
+<p>Không dùng đường chỉ để trang trí. Không dùng khung chỉ để làm đẹp bố cục. Không dùng mũi tên nếu quan hệ đã đủ rõ bằng vị trí.</p>
+<p>Mũi tên phải ít. Một mũi tên xuất hiện thì nó phải trả lời được câu hỏi: từ đâu sang đâu, theo nghĩa nào.</p>
+<p>Khung không nên quá dày. Khung không nên chiếm vai trò chính. Khung chỉ giúp người xem biết: phần nào đang được xét như một đơn vị.</p>
+<p>Điểm nhấn không nên kéo dài quá lâu. Một đối tượng được nhấn, người xem nhận ra, rồi sự nhấn lùi xuống để cấu trúc tiếp tục vận động.</p>
+</section>
+<section id="nhịp" class="level2">
+<h2 class="anchored" data-anchor-id="nhịp">10. Nhịp</h2>
+<p>Nhịp của phong cách này chậm, nhưng không ì.</p>
+<p>Chậm để người xem kịp thấy. Chậm để một quan hệ có thời gian hình thành. Chậm để khoảng trống có nghĩa.</p>
+<p>Nhịp không đều một cách máy móc. Đoạn phát hiện cần chậm hơn. Đoạn chuyển nền cần gọn hơn. Đoạn kết tinh cần giữ lại lâu hơn. Đoạn phụ trợ cần nhẹ và ngắn.</p>
+<p>Một cảnh tốt không chạy theo số lượng hiệu ứng. Một cảnh tốt có một chuyển hóa chính.</p>
+</section>
+<section id="âm-thanh" class="level2">
+<h2 class="anchored" data-anchor-id="âm-thanh">11. Âm thanh</h2>
+<p>Âm thanh trong phong cách này là tín hiệu phụ. Nó không dẫn dắt cảm xúc thay cho hình ảnh. Nó không lấn lời đọc. Nó không tạo cảm giác trò chơi.</p>
+<p>Hệ âm thanh nền tảng:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>SFX <span class="op">=</span> {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"tick"</span>: <span class="st">"computer_mouse_click.wav"</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"hit"</span>: <span class="st">"menu_beep_accept_soft.wav"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"whoosh"</span>: <span class="st">"simple_whoosh.wav"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"typing"</span>: <span class="st">"keyboard_typing.wav"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Ý nghĩa thị giác của từng âm:</p>
+<pre class="text"><code>tick   = chọn, đánh dấu, xác nhận nhỏ
+hit    = nhấn, chốt, va vào một phát hiện
+whoosh = chuyển trạng thái, đổi bố cục, dịch khung nhìn
+typing = chữ đang được hình thành</code></pre>
+<p>Âm thanh phải nhỏ. Âm thanh phải thưa. Âm thanh phải có lý do.</p>
+<p>Mức âm lượng gợi ý:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>SFX_GAIN <span class="op">=</span> {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"tick"</span>: <span class="op">-</span><span class="dv">20</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"hit"</span>: <span class="op">-</span><span class="dv">16</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"whoosh"</span>: <span class="op">-</span><span class="dv">22</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"typing"</span>: <span class="op">-</span><span class="dv">12</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Có thể bổ sung một âm rất nhẹ cho khoảnh khắc kết tinh, nhưng âm ấy không được tạo cảm giác chiến thắng. Nó chỉ đánh dấu việc một cấu trúc đã trở nên rõ.</p>
+</section>
+<section id="helper-hình-ảnh" class="level2">
+<h2 class="anchored" data-anchor-id="helper-hình-ảnh">12. Helper hình ảnh</h2>
+<p>Mã nguồn của phong cách này phải phản ánh cùng một tinh thần với hình ảnh: rõ, ít nhiễu, có phân vai.</p>
+<p>Helper không chỉ là tiện ích kỹ thuật. Helper là cách mã nguồn giữ lại ngữ pháp thị giác của phong cách.</p>
+<p>Một helper tốt phải có ba đặc điểm:</p>
+<pre class="text"><code>phổ quát
+dễ đọc
+không chứa nội dung riêng của một bài</code></pre>
+<p>Bộ helper nền tảng:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>clear_screen()</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>play_sfx()</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>make_text()</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>make_text_block()</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>make_math()</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>fit_to_width()</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>make_frame()</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>make_scan_band()</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>play_type_text()</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>play_scan_once()</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>play_focus()</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>play_dim()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Các helper này tạo thành lớp ngữ pháp chung.</p>
+<p><code>clear_screen()</code> làm sạch màn hình bằng một chuyển cảnh nhẹ, để cảnh mới bắt đầu từ một không gian rõ ràng.</p>
+<p><code>play_sfx()</code> phát âm thanh ngắn theo tên đã định nghĩa, giúp âm thanh được tách khỏi logic hình ảnh.</p>
+<p><code>make_text()</code> tạo một dòng chữ văn bản theo chuẩn chữ của phong cách: in hoa, rõ, tối giản, đúng màu và đúng cỡ.</p>
+<p><code>make_text_block()</code> tạo một khối chữ ngắn gồm nhiều dòng, dùng cho câu hỏi, mệnh đề, tiêu đề hoặc kết luận tạm.</p>
+<p><code>make_math()</code> tạo công thức toán học theo cùng hệ màu và hệ kích thước thị giác, nhưng vẫn giữ hình thức toán học riêng.</p>
+<p><code>fit_to_width()</code> giới hạn chiều rộng của một đối tượng để bảo vệ bố cục và tránh chữ hoặc công thức vượt khỏi vùng nhìn.</p>
+<p><code>make_frame()</code> tạo một khung thị giác để xác định phạm vi đang được xét. Khung không phải trang trí; khung cho biết phần nào đang tạm thời được xem như một đơn vị.</p>
+<p><code>make_scan_band()</code> tạo một vệt quét mờ dùng cho thao tác dò, kiểm tra, đọc lướt hoặc chuyển sự chú ý qua một vùng.</p>
+<p><code>play_type_text()</code> làm chữ xuất hiện theo nhịp gõ, dùng khi một câu hỏi, một mệnh đề hoặc một kết luận đang được hình thành.</p>
+<p><code>play_scan_once()</code> cho một vệt quét đi qua đối tượng đúng một lần, dùng để biểu thị thao tác kiểm tra hoặc quan sát có hướng.</p>
+<p><code>play_focus()</code> làm một đối tượng hoặc một nhóm đối tượng trở thành tâm điểm chú ý.</p>
+<p><code>play_dim()</code> làm một đối tượng hoặc một nhóm đối tượng lùi xuống thành bối cảnh mà không bị xóa khỏi cấu trúc.</p>
+<p>Quy tắc đặt tên:</p>
+<pre class="text"><code>make_  = tạo đối tượng hình ảnh và trả về mobject
+play_  = phát một hoạt ảnh hoặc âm thanh
+fit_   = điều chỉnh kích thước để bảo vệ bố cục
+clear_ = dọn không gian hiển thị</code></pre>
+<p>Không đặt helper phổ quát theo nội dung riêng của một bài.</p>
+<p>Không đặt tên helper theo cảm giác cá nhân. Không đặt tên helper theo màu sắc nếu màu chỉ là biểu hiện của một vai trò. Không đặt tên helper theo một cảnh cụ thể nếu helper có thể dùng lại.</p>
+<p>Mã nguồn có ba lớp:</p>
+<pre class="text"><code>lớp phong cách
+lớp cấu trúc bài
+lớp cảnh cụ thể</code></pre>
+<p>Lớp phong cách chứa màu, chữ, âm thanh, helper phổ quát.</p>
+<p>Lớp cấu trúc bài chứa dữ liệu, đối tượng, hình tượng và tham số riêng của bài.</p>
+<p>Lớp cảnh cụ thể chứa thứ tự xuất hiện, biến đổi và kết tinh.</p>
+<p>Helper chung không chứa nội dung riêng của một bài. Helper riêng của một bài không được lẫn vào lõi phong cách. Helper riêng của một cảnh phải được đặt tên theo cảnh hoặc theo vai trò cục bộ của nó.</p>
+</section>
+<section id="đặt-tên-trong-mã-nguồn" class="level2">
+<h2 class="anchored" data-anchor-id="đặt-tên-trong-mã-nguồn">13. Đặt tên trong mã nguồn</h2>
+<p>Tên trong mã nguồn phải nói lên vai trò tư duy của đối tượng.</p>
+<p>Tên tốt:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>main_question</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>source_group</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>target_structure</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>guide_line</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>focus_point</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>faint_context</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>current_relation</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Tên chưa tốt:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>thing1</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>abc</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>text2</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>obj</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>temp</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>nice_box</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>cool_effect</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Tên hàm nên bắt đầu bằng nhóm tiền tố có vai trò rõ:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>make_  <span class="op">=</span> tạo đối tượng hình ảnh</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>build_ <span class="op">=</span> dựng một cụm hình phức hợp</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>play_  <span class="op">=</span> phát một hoạt ảnh hoặc âm thanh</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>fit_   <span class="op">=</span> điều chỉnh kích thước</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>clear_ <span class="op">=</span> dọn không gian hiển thị</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Tên helper không nên mô tả hiệu ứng bề mặt nếu chức năng thật là tư duy.</p>
+<p>Không đặt tên theo cảm giác cá nhân. Không đặt tên theo vị trí tạm thời nếu đối tượng có vai trò khái niệm. Không đặt tên theo màu nếu màu chỉ là biểu hiện của một vai trò.</p>
+</section>
+<section id="cấu-trúc-cảnh" class="level2">
+<h2 class="anchored" data-anchor-id="cấu-trúc-cảnh">14. Cấu trúc cảnh</h2>
+<p>Một cảnh là một đơn vị chuyển hóa.</p>
+<p>Cảnh không chỉ là một đoạn thời gian. Cảnh là nơi một điều gì đó trong tư duy thay đổi.</p>
+<p>Mỗi cảnh có một chuyển hóa chính:</p>
+<pre class="text"><code>từ rời rạc sang có trật tự
+từ ví dụ sang cấu trúc
+từ kết quả sang nguyên nhân
+từ thao tác sang ý nghĩa
+từ hình ảnh sang khái niệm
+từ mơ hồ sang phân biệt</code></pre>
+<p>Các pha trong cảnh không phải các hiệu ứng nối nhau. Chúng là các bước nhỏ của chuyển hóa ấy.</p>
+<p>Một cảnh không nên có quá nhiều trung tâm chú ý. Một cảnh không nên kết thúc bằng sự xuất hiện của một đối tượng chưa rõ vai trò. Một cảnh kết thúc tốt khi người xem thấy được vì sao bước tiếp theo trở nên cần thiết.</p>
+<p>Giữa hai cảnh cần có một khung hình định danh cảnh.</p>
+<p>Sau khi một cảnh kết thúc, trước khi nội dung của cảnh tiếp theo bắt đầu, màn hình chuyển về một trạng thái sạch. Trên nền ấy, tên cảnh tiếp theo xuất hiện ở giữa màn hình. Phía trên tên cảnh là số thứ tự của cảnh, nhỏ hơn và nhạt hơn. Số thứ tự nên viết bằng hai chữ số: 01, 02, 03…</p>
+<pre class="text"><code>02
+BIẾN ĐẦU VÀO X VÀ BIẾN PHỤ THUỘC Y</code></pre>
+<p>Không thêm chữ “cảnh” trước con số.</p>
+<p>Tên cảnh lấy từ tên mục trong bài luận hoặc tên cảnh trong kịch bản lời dẫn. Nhờ vậy, cấu trúc video, bài luận, kịch bản lời dẫn, kịch bản hoạt ảnh và mã Manim cùng quy chiếu về một hệ tên thống nhất.</p>
+<p>Khung định danh cảnh có ba vai trò.</p>
+<p>Thứ nhất, nó giúp người xem biết mình đang đi đến phần nào của mạch tư duy.</p>
+<p>Thứ hai, nó tạo một khoảng nghỉ ngắn để cảnh trước khép lại và cảnh sau bắt đầu rõ ràng.</p>
+<p>Thứ ba, nó giúp quá trình sản xuất dễ kiểm soát hơn: khi render, chỉnh sửa, đối chiếu âm thanh hoặc thay đổi hoạt ảnh, mỗi cảnh có một điểm mở đầu dễ nhận ra.</p>
+<p>Khung định danh cảnh không phải là một hiệu ứng trang trí. Nó là dấu ngắt cấu trúc. Nó giúp video giữ nhịp tĩnh, rõ và có trật tự.</p>
+</section>
+<section id="render-và-bảo-trì" class="level2">
+<h2 class="anchored" data-anchor-id="render-và-bảo-trì">15. Render và bảo trì</h2>
+<p>Mã nguồn phải cho phép render từng cảnh độc lập. Mỗi cảnh phải có thể kiểm tra riêng về bố cục, nhịp, chữ, màu, âm thanh và độ rõ.</p>
+<p>Cấu trúc render phản ánh cấu trúc tư duy:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> construct(<span class="va">self</span>):</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.scene_01()</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.scene_02()</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.scene_03()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Khi cần kiểm thử, có thể bật riêng từng cảnh mà không phá cấu trúc tổng thể.</p>
+<p>Các hằng số nằm ở đầu tệp hoặc trong lớp cấu hình. Dữ liệu riêng của bài nằm tách khỏi helper. Không rải màu, cỡ chữ, đường dẫn âm thanh và tham số bố cục khắp nơi trong code.</p>
+<p>Một thay đổi về phong cách phải sửa được ở một nơi. Một thay đổi về nội dung chỉ ảnh hưởng đến cảnh hoặc bài liên quan.</p>
+</section>
+<section id="điều-phong-cách-này-tránh" class="level2">
+<h2 class="anchored" data-anchor-id="điều-phong-cách-này-tránh">16. Điều phong cách này tránh</h2>
+<p>Không hoạt náo. Không giật mở. Không nhồi chữ. Không trình diễn kỹ xảo. Không dùng màu tùy hứng. Không để đối tượng xuất hiện trước lý do của nó. Không biến màn hình thành slide bài giảng. Không biến công thức thành vật trang trí. Không dùng âm thanh như phần gây phấn khích. Không để code trở thành chuỗi hiệu ứng khó bảo trì.</p>
+</section>
+<section id="tiêu-chuẩn-cuối-cùng" class="level2">
+<h2 class="anchored" data-anchor-id="tiêu-chuẩn-cuối-cùng">17. Tiêu chuẩn cuối cùng</h2>
+<p>Một hoạt ảnh theo phong cách <strong>Trời sao kiến tạo học thuật</strong> đạt chuẩn khi người xem có cảm giác:</p>
+<pre class="text"><code>Mình không chỉ thấy một hình.
+Mình thấy hình ấy được sinh ra.
+
+Mình không chỉ thấy một công thức.
+Mình thấy quan hệ khiến công thức ấy cần thiết.
+
+Mình không chỉ thấy một kết quả.
+Mình thấy con đường làm kết quả ấy trở nên tự nhiên.</code></pre>
+<p>Phong cách này không làm toán học dễ dãi hơn. Nó làm toán học hiện ra rõ hơn.</p>
+<p>Không thêm ồn ào vào tư duy. Không che lấp sự khó bằng hiệu ứng. Không làm thay phần suy nghĩ của người xem.</p>
+<p>Nó tạo một không gian đủ tĩnh để ý niệm tự hiện ra.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a><br>
+<br> <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a><br>
+<br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

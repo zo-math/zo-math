@@ -1,0 +1,81 @@
+% !TeX program = lualatex
+\documentclass[tikz,border=6pt]{standalone}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm, line cap=round, line join=round, font=\sffamily]
+
+% =========================================================
+% A) THAM SỐ (CHỈNH Ở ĐÂY)
+% =========================================================
+\def\P{4}            % chu kỳ theo trục x
+\def\nPeriod{2}      % số chu kỳ muốn vẽ (để kết thúc đúng đỉnh/bụng)
+\pgfmathsetmacro{\W}{\nPeriod*\P}  % bề rộng = nPeriod * P
+
+\def\A{1.65}         % biên độ
+\def\lw{20pt}        % độ dày ribbon
+\def\eps{0.38}       % nửa bề rộng đoạn tô đè tại mỗi giao
+
+\colorlet{ribbonLight}{black!35}
+\colorlet{ribbonDark}{black!65}
+
+% =========================================================
+% B) TIỀN TÍNH
+% =========================================================
+\pgfmathsetmacro{\kDeg}{360/\P}     % hệ số đổi x -> độ
+\pgfmathsetmacro{\halfStep}{\P/2}   % khoảng cách giữa các giao điểm (mỗi nửa chu kỳ)
+
+% Với cos: giao điểm (y=0) xảy ra tại x = P/4 + k*(P/2)
+\pgfmathsetmacro{\xFirstCross}{\P/4}
+
+% Tổng số giao điểm trong [0, W] là 2*nPeriod (tương ứng k = 0..2*nPeriod-1)
+\pgfmathtruncatemacro{\kMax}{2*\nPeriod-1}
+
+% =========================================================
+% C) VẼ 2 DẢI NỀN (BẮT ĐẦU Ở ĐỈNH/BỤNG)
+% =========================================================
+\draw[line width=\lw, draw=ribbonLight]
+  plot[smooth, domain=0:\W, samples=400]
+  ({\x},{\A*cos(\kDeg*\x)});
+
+\draw[line width=\lw, draw=ribbonDark]
+  plot[smooth, domain=0:\W, samples=400]
+  ({\x},{-\A*cos(\kDeg*\x)});
+
+% =========================================================
+% D) HIỆU ỨNG “ĐAN” TẠI CÁC GIAO ĐIỂM
+%    k chẵn: light ở trên, k lẻ: dark ở trên
+% =========================================================
+\foreach \k in {0,...,\kMax}{
+  \pgfmathsetmacro{\xCross}{\xFirstCross + \k*\halfStep}
+  \pgfmathsetmacro{\xA}{max(0, \xCross-\eps)}
+  \pgfmathsetmacro{\xB}{min(\W, \xCross+\eps)}
+  \pgfmathtruncatemacro{\isEven}{mod(\k,2)==0 ? 1 : 0}
+
+  \ifnum\isEven=1
+    \draw[line width=\lw, draw=ribbonLight]
+      plot[smooth, domain=\xA:\xB, samples=80]
+      ({\x},{\A*cos(\kDeg*\x)});
+  \else
+    \draw[line width=\lw, draw=ribbonDark]
+      plot[smooth, domain=\xA:\xB, samples=80]
+      ({\x},{-\A*cos(\kDeg*\x)});
+  \fi
+}
+
+% =========================================================
+% E) NHÃN “Informal” và “Formal”
+% =========================================================
+\node[rotate=90, font=\bfseries\LARGE] at (-0.7,0) {Informal};
+\node[rotate=90, font=\bfseries\LARGE] at (\W+0.7,0) {Formal};
+
+% =========================================================
+% F) CHỮ TRÊN DẢI (bạn chỉnh lại vị trí/rotate theo mắt)
+% =========================================================
+\node[rotate=295, font=\bfseries, text=white] at (3,0.05) {REASONING};
+\node[rotate=295, font=\bfseries, text=white] at (4.95,0.05) {SENSE MAKING};
+
+\end{tikzpicture}
+\end{document}

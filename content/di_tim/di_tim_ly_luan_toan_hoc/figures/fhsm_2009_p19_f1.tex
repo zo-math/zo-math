@@ -1,0 +1,28 @@
+\documentclass[border=6pt]{standalone}
+
+\usepackage{array}
+\usepackage{tabularx}
+
+\begin{document}
+
+% --- Tham số bố cục (chỉ chỉnh ở đây) ---
+\newlength{\LeftColW}\setlength{\LeftColW}{5.5cm}
+\newlength{\RightColW}\setlength{\RightColW}{5.5cm} % tăng/giảm để giống mẫu
+\setlength{\tabcolsep}{1pt}
+\renewcommand{\arraystretch}{1.25}
+
+% --- Khung ngoài ---
+\fbox{%
+  \begin{minipage}[t]{\dimexpr\LeftColW+\RightColW+2\tabcolsep\relax}
+  \vspace{6pt}
+  Attention to discrete mathematics is embedded in the following strands of \textsl{Focus in High School Mathematics}:
+  \begin{itemize}
+    \item Counting is incorporated as a key element within Reasoning with Number and Measurement and is addressed in example 20, ``What Are the Chances? Part A.''
+    \item Recursion is included in the ``Multiple representations of functions'' key element of Reasoning with Functions; see example 11, ``Take As Directed.''
+    \item Vertex--edge graphs are addressed in the last key element of Reasoning with Geometry; see example 18, ``Assigning Frequencies.''
+  \end{itemize}
+  \vspace{6pt}
+  \end{minipage}%
+}
+
+\end{document}

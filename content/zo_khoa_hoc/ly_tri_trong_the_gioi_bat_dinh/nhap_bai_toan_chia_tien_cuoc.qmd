@@ -1,0 +1,213 @@
+---
+title: "CÔNG BẰNG"
+subtitle: "Kiến tạo nhu cầu về xác suất từ Bài toán chia tiền cược"
+author: ZO Math
+date: last-modified
+date-format: "DD-MM-YYYY"
+---
+
+# CÔNG BẰNG
+### *Kiến tạo nhu cầu về xác suất từ Bài toán chia tiền cược*
+
+## 1. 
+
+Bạn có biết bài toán làm động lực thúc đẩy sự ra đời của Lý thuyết Xác suất? Đó là Bài toán chia tiền cược, vấn đề mà hai nhà toán học lừng danh Pierre de Fermat và Blaise Pascal đã thảo luận từ năm 1654. Họ muốn tìm cách chia tiền cược công bằng khi một trò chơi may rủi bị dừng lại trước khi có kết quả cuối cùng. Bài toán này không chỉ có ý nghĩa lịch sử trong Lý thuyết Xác suất mà còn đặt nền móng cho lý thuyết trò chơi và kinh tế hiện đại. Từ những trò chơi đơn giản, Lý thuyết Xác suất đã thay đổi cách chúng ta hiểu về việc ra quyết định và quản lý rủi ro.
+
+## 2. 
+
+Luật chơi nói rằng ai ghi đủ $3$ điểm trước thì thắng chung cuộc. Vì vậy, một cuộc chơi hoàn chỉnh không thể kéo dài quá $5$ lượt. Quả thật, khi một bên đạt $3$ điểm thì bên kia nhiều nhất chỉ có thể đạt $2$ điểm, nên tổng số lượt nhiều nhất là
+
+$$
+3+2=5.
+$$
+
+Từ đó, ta mô hình hóa toàn bộ trò chơi bằng tập tất cả các kịch bản dài $5$ lượt:
+$$
+\mathcal{K}=\{A,B\}^5.
+$$
+
+Mỗi phần tử của $\mathcal{K}$ là một dãy
+$$
+x=(x_1,x_2,x_3,x_4,x_5),
+$$
+trong đó $x_t=A$ nghĩa là ở lượt thứ $t$, điểm thuộc về $A$, còn $x_t=B$ nghĩa là ở lượt thứ $t$, điểm thuộc về $B$.
+
+Chẳng hạn, dãy
+$$
+(A,B,A,B,A)
+$$
+nghĩa là: ở lượt $1$, điểm thuộc về $A$; ở lượt $2$, điểm thuộc về $B$; ở lượt $3$, điểm thuộc về $A$; ở lượt $4$, điểm thuộc về $B$; và ở lượt $5$, điểm lại thuộc về $A$.
+
+Không phải mọi kịch bản đều thực sự cần chơi đủ $5$ lượt. Có những kịch bản mà cuộc chơi đã kết thúc từ lượt thứ ba hoặc thứ tư. Nhưng ta vẫn điền đầy tất cả các kịch bản tới cùng độ dài tối đa là $5$, để đặt toàn bộ trò chơi lên một mặt bằng chung. Người thắng chung cuộc của mỗi kịch bản được xác định ở thời điểm đầu tiên mà một bên đạt đủ $3$ điểm; phần còn lại của dãy, nếu còn, không làm thay đổi người thắng, nhưng vẫn được giữ lại để mọi kịch bản cùng nằm trong một mô hình thống nhất.
+
+Từ mỗi kịch bản, ta đọc điểm số tích lũy sau $t$ lượt bằng hai hàm đếm
+$$
+N_A(t)=\#\{s\le t:\ x_s=A\},\qquad
+N_B(t)=\#\{s\le t:\ x_s=B\}.
+$$
+Khi đó, sau $t$ lượt, điểm số của cuộc chơi là
+$$
+(N_A(t),N_B(t)).
+$$
+
+Ví dụ, nếu
+$$
+x=(A,B,A,B,A),
+$$
+thì ta có
+$$
+(N_A(1),N_B(1))=(1,0),
+$$
+$$
+(N_A(2),N_B(2))=(1,1),
+$$
+$$
+(N_A(3),N_B(3))=(2,1),
+$$
+$$
+(N_A(4),N_B(4))=(2,2),
+$$
+$$
+(N_A(5),N_B(5))=(3,2).
+$$
+
+Với mỗi kịch bản $x\in\mathcal{K}$, ta ký hiệu thời điểm cuộc chơi chấm dứt là
+$$
+\tau(x)=\min\{t\in\{1,2,3,4,5\}:N_A(t)=3\ \text{hoặc}\ N_B(t)=3\}.
+$$
+Đây là thời điểm đầu tiên mà một bên chạm mốc thắng. Người thắng chung cuộc được xác định bởi điểm số tại thời điểm đó: nếu
+$$
+N_A(\tau(x))=3
+$$
+thì $A$ thắng, còn nếu
+$$
+N_B(\tau(x))=3
+$$
+thì $B$ thắng.
+
+Như vậy, mô hình này không chỉ ghi lại người thắng, mà còn ghi lại toàn bộ đường đi của điểm số từ đầu đến cuối. Trong mô hình ấy, tình thế hiện tại $2$-$1$ không phải là cả bài toán, mà chỉ là một lát cắt của mô hình toàn bộ. Cụ thể, đó là lớp các kịch bản mà sau $3$ lượt đầu, điểm số là $2$-$1$:
+$$
+\mathcal{K}_{2,1}=\{x\in\mathcal{K}:(N_A(3),N_B(3))=(2,1)\}.
+$$
+
+Ba lượt đầu của các kịch bản trong lớp này chỉ có thể là
+$$
+AAB,\ ABA,\ BAA.
+$$
+Vì thế, ta có thể viết
+$$
+\mathcal{K}_{2,1}=\{AAB,ABA,BAA\}\times\{AA,AB,BA,BB\}.
+$$
+
+Điều này cho thấy lớp $\mathcal{K}_{2,1}$ có đúng
+$$
+3\times 4=12
+$$
+kịch bản. Như vậy, bốn trường hợp
+$$
+AA,\ AB,\ BA,\ BB
+$$
+mà Fermat dùng không phải là toàn bộ mô hình, mà chỉ là phần đuôi còn bỏ ngỏ của lớp kịch bản tương ứng với tình thế $2$-$1$.
+
+Nhưng chỉ mô hình hóa các kịch bản thôi vẫn chưa đủ. Mô hình cho ta biết cuộc chơi còn có thể đi theo những ngả nào, nhưng để đi từ đó tới một cách chia công bằng, ta cần thêm một đại lượng mới. Chỉ biết rằng một kết cục “còn có thể xảy ra” là chưa đủ; ta cần biết nó còn có thể xảy ra đến mức nào. Điều cần được gán cho mỗi tình thế còn mở là một con số nằm giữa $0$ và $1$, biểu thị mức độ mà phần trò chơi còn bỏ ngỏ đang đứng về phía một bên nào đó. Chính ở đây, đại lượng mới mà bài toán đang gọi ra bắt đầu lộ diện. Đại lượng ấy về sau sẽ được gọi bằng tên chính thức của nó: xác suất.
+
+Ta ký hiệu
+$$
+p_A(i,j),\qquad p_B(i,j)
+$$
+lần lượt là xác suất để $A$ thắng chung cuộc và xác suất để $B$ thắng chung cuộc khi cuộc chơi đang ở tình thế $i$-$j$. Ở các tình thế đã kết thúc, các đại lượng này được chốt ngay:
+$$
+p_A(3,j)=1,\qquad p_B(3,j)=0,
+$$
+$$
+p_A(i,3)=0,\qquad p_B(i,3)=1.
+$$
+
+Bây giờ xét riêng tình thế $2$-$1$. Trong lớp $\mathcal{K}_{2,1}$, ba phần đuôi
+$$
+AA,\ AB,\ BA
+$$
+đều dẫn tới chiến thắng chung cuộc của $A$, còn chỉ có
+$$
+BB
+$$
+dẫn tới chiến thắng chung cuộc của $B$. Vì mỗi phần đuôi xuất hiện với cùng một số lần trong lớp này, nên ta có
+$$
+p_A(2,1)=\frac{3}{4},\qquad p_B(2,1)=\frac{1}{4}.
+$$
+
+Từ đó, phần chia công bằng của $72$ đồng được xác định bởi
+$$
+72\cdot p_A(2,1)=72\cdot\frac{3}{4}=54,
+$$
+và
+$$
+72\cdot p_B(2,1)=72\cdot\frac{1}{4}=18.
+$$
+
+Cùng một mô hình ấy cũng giải thích được cách làm của Pascal. Khác với Fermat, Pascal không nhìn ở tầng các phần đuôi đầy đủ, mà nhìn ở tầng các tình thế. Từ tình thế $2$-$1$, cuộc chơi chỉ có thể chuyển ngay sang hai tình thế kế tiếp:
+- sang $3$-$1$ nếu lượt tiếp theo thuộc về $A$;
+- sang $2$-$2$ nếu lượt tiếp theo thuộc về $B$.
+
+Vì đồng xu là công bằng, hai khả năng chuyển này đứng ngang nhau. Do đó, xác suất để $A$ thắng chung cuộc từ tình thế $2$-$1$ phải là trung bình của hai xác suất tương ứng ở hai tình thế kế tiếp:
+$$
+p_A(2,1)=\frac{p_A(3,1)+p_A(2,2)}{2}.
+$$
+
+Ở đây,
+$$
+p_A(3,1)=1,
+$$
+vì $A$ đã thắng rồi. Còn ở tình thế $2$-$2$, hai bên hoàn toàn cân bằng, nên
+$$
+p_A(2,2)=\frac{1}{2}.
+$$
+Bởi vậy,
+$$
+p_A(2,1)=\frac{1+\frac{1}{2}}{2}=\frac{3}{4}.
+$$
+
+Tương tự,
+$$
+p_B(2,1)=\frac{0+\frac{1}{2}}{2}=\frac{1}{4}.
+$$
+
+Như vậy, Fermat và Pascal không đứng trên hai nền tảng khác nhau. Họ đang đọc cùng một mô hình của toàn bộ trò chơi, nhưng ở hai tầng khác nhau. Fermat đọc mô hình ở tầng các kịch bản đầy đủ; Pascal đọc cùng mô hình ấy ở tầng các tình thế và các bước chuyển giữa chúng. Chính mô hình này cho phép ta thấy rõ vì sao hai con đường lại gặp nhau ở cùng một kết quả. Quan trọng hơn, nó cũng cho thấy rằng để đi từ cấu trúc của các khả năng còn mở tới một cách chia công bằng, lý trí buộc phải đưa vào một đại lượng mới. Đại lượng ấy không còn là điểm số, cũng không phải là tiền chia, mà là một con số đo mức độ mà chiến thắng chung cuộc còn đứng về phía mỗi bên. Đó chính là xác suất.
+
+## 3. 
+
+Bây giờ áp dụng nguyên lý ấy vào tình thế $2\!-1$.
+
+Nếu ván kế tiếp do $A$ thắng, thì trò chơi kết thúc ngay, và $A$ nhận toàn bộ $72$ đồng. Trong trường hợp đó, phần quyền của $A$ là $1$.
+
+Nếu ván kế tiếp do $B$ thắng, thì tỉ số trở thành $2\!-2$. Nhưng ở trạng thái $2\!-2$, hai người hoàn toàn cân xứng: mỗi người chỉ cần thêm $1$ điểm để thắng chung cuộc. Vì vậy, ở đó phần quyền của mỗi người phải là $\tfrac12$.
+
+Do đồng xu là công bằng, trước ván kế tiếp hai khả năng này mở ra ngang nhau. Vì thế, phần quyền hiện tại của $A$ ở trạng thái $2\!-1$ phải bằng trung bình của hai giá trị vừa nêu:
+
+\[
+\frac{1+\frac12}{2}=\frac34.
+\]
+
+Như vậy, phần quyền hiện tại của $A$ là $\tfrac34$, còn phần quyền hiện tại của $B$ là $\tfrac14$.
+
+Suy ra, nếu phải chia $72$ đồng ngay tại thời điểm dừng cuộc chơi, thì cách chia công bằng là:
+
+\[
+A \text{ nhận } \frac34\cdot 72 = 54 \text{ đồng},\qquad
+B \text{ nhận } \frac14\cdot 72 = 18 \text{ đồng}.
+\]
+
+Kết quả này cho thấy rõ vì sao hai cách chia quen thuộc ở trên đều sai.
+
+- Chia đều $36\!-36$ là sai, vì nó đối xử tình thế $2\!-1$ như thể tương lai còn mở ra cân xứng cho hai người.
+- Chia theo tỉ số điểm $48\!-24$ cũng sai, vì nó lấy điểm số hiện tại làm chuẩn trực tiếp cho phần tiền, trong khi điều cần đo là vị thế của mỗi người đối với chiến thắng chung cuộc.
+
+Con số $\tfrac34$ nói lên điều đúng hơn: ở thời điểm bị dừng, $A$ chưa sở hữu trọn $72$ đồng, nhưng $A$ đang nắm $\tfrac34$ phần quyền hiện tại trên số tiền ấy. Còn $B$, tuy đang bất lợi, vẫn chưa mất hết cơ hội; vì vậy $B$ vẫn nắm $\tfrac14$ phần quyền.
+
+Có thể nhìn lại kết quả này bằng một cách viết khác. Từ tình thế $2\!-1$, nếu kéo trò chơi ra tối đa hai ván nữa, thì có bốn diễn tiến có thể xảy ra:
+
+\[
+AA,\ AB,\ BA,\ BB.
+\]
+
+Trong ba diễn tiến đầu, người cuối cùng nhận trọn tiền cược là $A$; chỉ ở diễn tiến cuối thì người nhận trọn tiền cược là $B$. Do đó, phần quyền của $A$ là $\tfrac34$, còn của $B$ là $\tfrac14$. Cách nhìn này ngắn hơn, nhưng bản chất không đổi: ta vẫn đang đo phần chia công bằng bằng cách nhìn vào **cấu trúc của tương lai còn mở** chứ không phải bằng cách nhìn vào điểm số hiện tại một cách cô lập.

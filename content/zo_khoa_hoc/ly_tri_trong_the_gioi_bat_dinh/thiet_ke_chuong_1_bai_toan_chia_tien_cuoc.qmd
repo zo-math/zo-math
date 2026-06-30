@@ -1,0 +1,164 @@
+---
+title: "THIẾT KẾ CHƯƠNG 1"
+subtitle: "*Bài toán chia tiền cược*"
+author: ZO Math
+date: last-modified
+date-format: "DD-MM-YYYY"
+---
+
+# THIẾT KẾ CHƯƠNG 1
+## *Bài toán chia tiền cược*
+
+## 1. Vị trí của chương trong toàn khóa
+
+Đây là chương mở đầu thật sự của khóa học **Lý trí trong thế giới bất định**. Nhiệm vụ của nó không phải là giới thiệu ngay một công thức xác suất cụ thể, mà là làm lộ ra **động cơ nền tảng của toàn khóa**: trong một thế giới chưa ngã ngũ, lý trí cần một cách biểu thị bằng số mức độ khả hữu của các khả năng.
+
+Nếu bỏ qua bước này, các chương sau rất dễ mang cảm giác rằng “xác suất” chỉ là một con số được đem vào từ bên ngoài. Chương mở đầu phải ngăn điều đó xảy ra. Nó phải làm người học thấy rằng con số xác suất không xuất hiện vì toán học thích lượng hóa mọi thứ, mà vì trong những tình huống thật sự cần phán đoán công bằng, **không thể chỉ nói có hoặc không**.
+
+Nói gọn lại, Chương 1 đặt viên gạch đầu tiên cho toàn khóa:
+
+**trước khi hỏi một xác suất cụ thể là bao nhiêu, phải hiểu vì sao lý trí cần xác suất.**
+
+## 2. Tình huống mở đầu
+
+Hai người chơi đang thi đấu một trò chơi có thưởng. Luật chơi quy định ai đạt đủ số điểm trước sẽ thắng toàn bộ tiền cược. Nhưng ván chơi bị dừng giữa chừng, khi kết cục cuối cùng chưa xảy ra nữa.
+
+Tiền thưởng đã có thật và phải chia ngay. Câu hỏi là:
+
+> Phải chia số tiền cược như thế nào để công bằng?
+
+Đây là một tình huống rất tốt để mở khóa học vì nó buộc người học đi thẳng vào một nhu cầu thực sự. Không thể trì hoãn câu trả lời bằng cách nói “cứ chơi tiếp rồi sẽ biết”. Ván chơi đã dừng. Tương lai còn bỏ ngỏ, nhưng quyết định phải được đưa ra ngay.
+
+## 3. Phán đoán tự nhiên ban đầu
+
+Một phán đoán rất tự nhiên là: cứ chia theo điểm số hiện tại. Ai đang dẫn thì được phần lớn hơn, ai đang thua thì được phần nhỏ hơn.
+
+Chẳng hạn, nếu trò chơi đánh đến 3 điểm và hiện tại tỉ số là \(2-1\), thì có thể nghĩ rằng người đang dẫn nên nhận \(\frac{2}{3}\) số tiền, còn người kia nhận \(\frac{1}{3}\).
+
+Phán đoán này nghe hợp lý vì nó có vẻ phản ánh “công lao đã làm được đến lúc này”. Nhưng nó vẫn còn thiếu một điều rất quan trọng: nó nhìn vào hiện tại, mà chưa nhìn vào **những cách tương lai còn có thể diễn ra**.
+
+## 4. Điểm vấp của trực giác
+
+Chỗ vấp nằm ở đây: tiền cược không được chia để thưởng cho quá khứ, mà để phân xử công bằng một kết cục chưa xảy ra.
+
+Vì vậy, không thể chỉ nhìn vào điểm số hiện tại như một bảng thành tích. Ta phải hỏi thêm:
+
+> Từ trạng thái hiện tại này, mỗi người còn có bao nhiêu con đường hợp lý để trở thành người thắng cuộc cuối cùng?
+
+Nếu không đặt câu hỏi ấy, việc chia tiền sẽ bị trượt khỏi bản chất của vấn đề. Ta sẽ tưởng rằng mình đang đánh giá cơ hội tương lai, trong khi thật ra chỉ đang phản ứng với cảm giác “ai đang dẫn thì đáng được nhiều hơn”.
+
+## 5. Câu hỏi trung tâm của chương
+
+Sau khi nhìn thấy điểm vấp ấy, câu hỏi trung tâm của chương có thể được chốt lại như sau:
+
+> Khi ván chơi bị dừng giữa chừng, làm thế nào để phần chia của mỗi người phản ánh đúng **các khả năng còn mở của tương lai**, thay vì chỉ phản ánh trạng thái hiện tại?
+
+Đây là câu hỏi mở đầu của toàn khóa được viết lại một cách sạch sẽ. Nó chuyển ta từ ngôn ngữ trực giác đời thường sang một nhu cầu nhận thức rõ ràng:
+
+- phải nhìn tương lai như một tập các khả năng còn bỏ ngỏ;
+- phải gán cho mỗi khả năng một trọng lượng;
+- rồi phải dùng các trọng lượng ấy để chia phần công bằng.
+
+## 6. Công cụ toán học xuất hiện như một nhu cầu
+
+### 6.1. Thiết lập mô hình
+
+Xét trường hợp đơn giản sau:
+
+- trò chơi đánh đến 3 điểm;
+- hiện tại người chơi \(A\) có 2 điểm;
+- người chơi \(B\) có 1 điểm;
+- mỗi ván tiếp theo là công bằng như nhau.
+
+Từ trạng thái này, ván chơi còn có thể kết thúc theo ba kịch bản ngắn nhất:
+
+- \(A\) thắng ngay ván tới;
+- \(B\) thắng ván tới rồi \(A\) thắng ván sau;
+- \(B\) thắng liên tiếp hai ván tới.
+
+Ba kịch bản này không chỉ là ba câu chuyện bằng lời. Chúng là ba khả năng còn mở của tương lai, và mỗi khả năng phải được nhìn với đúng trọng lượng của nó.
+
+### 6.2. Triển khai lập luận
+
+Nếu mỗi ván tiếp theo là công bằng, thì:
+
+- khả năng \(A\) thắng ngay ván tới có trọng lượng \(\frac{1}{2}\);
+- khả năng \(B\) thắng ván tới rồi \(A\) thắng ván sau có trọng lượng \(\frac{1}{4}\);
+- khả năng \(B\) thắng liên tiếp hai ván tới có trọng lượng \(\frac{1}{4}\).
+
+Như vậy, tổng phần tương lai dẫn tới chiến thắng chung cuộc của \(A\) là:
+
+\[
+\frac{1}{2}+\frac{1}{4}=\frac{3}{4},
+\]
+
+còn phần tương lai dẫn tới chiến thắng chung cuộc của \(B\) là:
+
+\[
+\frac{1}{4}.
+\]
+
+### 6.3. Kết quả toán học
+
+Nếu tổng tiền cược là \(S\), thì phần chia công bằng là:
+
+\[
+A:\ \frac{3}{4}S,\qquad B:\ \frac{1}{4}S.
+\]
+
+Điều quan trọng ở đây không phải là con số \(\frac{3}{4}\) riêng lẻ. Điều quan trọng là: phần chia được quyết định bằng cách nhìn vào **toàn bộ các khả năng tương lai còn mở**, rồi gán cho chúng những trọng lượng số học thích hợp.
+
+## 7. Đọc lại kết quả bằng ngôn ngữ của tình huống
+
+Kết quả trên không nói rằng người đang dẫn “xứng đáng” hơn theo nghĩa đạo đức. Nó chỉ nói rằng từ trạng thái hiện tại, tương lai nghiêng về phía người ấy với mức độ lớn hơn.
+
+Nói cách khác, bài toán này buộc ta chuyển từ một ngôn ngữ mơ hồ như “có vẻ có cơ hơn” sang một ngôn ngữ có thể chia phần thật sự:
+
+> người này có \(\frac{3}{4}\) phần trong tương lai còn mở, người kia có \(\frac{1}{4}\) phần.
+
+Chính ở đây, nhu cầu của xác suất lộ ra một cách tự nhiên.
+
+## 8. Ý niệm cốt lõi được rút ra
+
+Ý niệm cốt lõi của chương là:
+
+> **trong bất định, lý trí cần một con số giữa 0 và 1 để biểu thị mức độ khả hữu của các khả năng còn mở.**
+
+Không có con số ấy, ta vẫn có thể nói “khả năng này lớn hơn khả năng kia”, nhưng ta chưa thể chia phần, so sánh hay quyết định một cách chặt chẽ.
+
+## 9. Mở rộng hoặc soi thêm
+
+Một câu hỏi soi thêm rất tốt là:
+
+> Nếu hiện tại tỉ số không phải là \(2-1\) mà là \(2-0\), thì phần chia công bằng có thay đổi thế nào?
+
+Câu hỏi này giúp người học thấy rằng khi trạng thái hiện tại đổi, cấu trúc các khả năng tương lai cũng đổi, và vì thế trọng lượng gán cho mỗi người cũng phải đổi theo.
+
+## 10. Nối sang chương sau
+
+Sau khi hiểu Bài toán chia tiền cược, người học đã có một điểm tựa nền tảng: xác suất xuất hiện vì lý trí cần lượng hóa các khả năng trong một tương lai chưa ngã ngũ.
+
+Từ đây, khóa học có thể bước sang một câu hỏi tinh hơn ở **Bài toán hai con**:
+
+> khi đã có một con số để đánh giá khả năng, thì con số ấy được đặt trên nền khả năng nào, và một mẩu thông tin mới có thể buộc ta đổi lại nền ấy ra sao?
+
+## 11. Bài tập đi kèm
+
+### Tầng 1. Củng cố cấu trúc
+
+1. Trong trường hợp tỉ số hiện tại là \(2-1\), hãy liệt kê các cách ngắn nhất mà ván chơi còn có thể kết thúc.
+2. Trong các cách ấy, cách nào dẫn tới chiến thắng chung cuộc của \(A\), cách nào dẫn tới chiến thắng chung cuộc của \(B\)?
+
+### Tầng 2. Biến đổi tình huống
+
+3. Nếu hiện tại tỉ số là \(2-0\), hãy tính lại phần chia công bằng.
+4. Nếu hiện tại tỉ số là \(1-1\), hãy tính lại phần chia công bằng.
+
+### Tầng 3. Phản tư và diễn giải
+
+5. Vì sao “chia theo điểm hiện tại” nghe có vẻ hợp lý mà vẫn chưa đủ?
+6. Hãy viết lại bằng lời điều mà bài toán này dạy về lý do con người cần xác suất.
+
+## 12. Câu chốt của chương
+
+**Bài toán chia tiền cược không mở đầu khóa học bằng một công thức; nó mở đầu bằng nhu cầu phải gán cho tương lai chưa ngã ngũ những trọng lượng số học đủ chặt để lý trí có thể đánh giá và chia phần cho công bằng.**

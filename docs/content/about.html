@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.29">
+<meta name="generator" content="quarto-1.9.35">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Giới thiệu về ZO Math – ZO Math</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -37,10 +40,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-719951764d4ca359be86a642d82fdf9d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-3d1903c5838503892ba651cf513ab205.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -181,29 +184,25 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
         <li>
-    <a class="dropdown-item" href="../content/toan-thpt/toan-10/index.qmd">
- <span class="dropdown-text">Toán 10</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../content/toan-thpt/toan-11/index.html">
+    <a class="dropdown-item" href="../content/toan-thpt/toan-11/index.qmd">
  <span class="dropdown-text">Toán 11</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../content/toan-thpt/toan-12/index.html">
+    <a class="dropdown-item" href="../content/toan-thpt/toan-12/index.qmd">
  <span class="dropdown-text">Toán 12</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.html">
+    <a class="dropdown-item" href="../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.qmd">
  <span class="dropdown-text">100+ Hàm số</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="../content/zo-o/index.html"> 
+    <a class="nav-link" href="../content/zo-o/index.qmd"> 
 <span class="menu-text">ZO Ồ!</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../content/zo-lab/index.html"> 
+    <a class="nav-link" href="../content/zo-lab/index.qmd"> 
 <span class="menu-text">ZO Lab</span></a>
   </li>  
 </ul>
@@ -724,13 +723,14 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

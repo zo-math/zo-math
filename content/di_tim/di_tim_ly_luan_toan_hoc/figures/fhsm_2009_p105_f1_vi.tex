@@ -1,0 +1,31 @@
+% !TeX program = lualatex
+\documentclass[varwidth,border=6pt]{standalone}
+
+\usepackage{fontspec}
+\usepackage{array}
+\usepackage{ragged2e}
+
+\setsansfont{DejaVu Sans}
+
+\begin{document}
+
+{\sffamily\small
+\renewcommand{\arraystretch}{1.22}
+\begin{tabular}{|>{\centering\arraybackslash}m{0.95cm}|>{\RaggedRight\arraybackslash}m{6.1cm}|}
+\hline
+4 &
+Sử dụng khái niệm sai số tương đối để thiết lập một cận trên cho sai số thông qua một biện giải rõ ràng, hầu như không có lỗ hổng. Đưa ra một ví dụ phản ánh đúng biện giải ấy. \\
+\hline
+3 &
+Sử dụng khái niệm sai số tương đối để thiết lập một cận trên cho sai số, nhưng biện giải còn có một hoặc nhiều lỗ hổng, hoặc ví dụ đưa ra không phản ánh đúng biện giải. \\
+\hline
+2 &
+Thể hiện một mức độ hiểu biết nhất định về sai số tương đối, nhưng không thể thiết lập một cận trên cho sai số. \\
+\hline
+1 &
+Thể hiện mức độ hiểu biết hạn chế về sai số tương đối. \\
+\hline
+\end{tabular}
+}
+
+\end{document}

@@ -1,0 +1,725 @@
+---
+title: "ĐIỂM TỰA"
+subtitle: "KIẾN TẠO CÔNG THỨC BAYES TỪ MỘT TÌNH HUỐNG XÉT NGHIỆM Y KHOA"
+
+author: ZO Math
+date: last-modified
+date-format: "DD-MM-YYYY"
+---
+
+## Giới thiệu bài viết: nhìn thấy động cơ nhận thức trước công thức
+
+Thông thường, sách giáo khoa trình bày các khái niệm như xác suất, xác suất có điều kiện hay công thức Bayes dưới dạng những định nghĩa và biểu thức toán học đã hoàn chỉnh. Cách trình bày ấy có ưu điểm lớn về tính chặt chẽ và cô đọng. Nhưng với người mới học, chính sự hoàn chỉnh đó đôi khi lại che khuất con đường hình thành tri thức. Người học thấy công thức xuất hiện, nhưng chưa chắc đã thấy vì sao cần có công thức ấy; thấy ký hiệu được định nghĩa, nhưng chưa chắc đã thấy nhu cầu nhận thức nào làm nảy sinh ký hiệu đó.
+
+Bài viết này đi theo một hướng khác. Thay vì bắt đầu bằng hệ khái niệm xác suất học đã hoàn chỉnh, bài viết bắt đầu từ một tình huống xét nghiệm y khoa cụ thể. Mục đích không phải là gạt bỏ ngôn ngữ chính thức của xác suất học, mà là tạm lùi ngôn ngữ ấy lại để nhìn rõ sự vận động của vấn đề. Các khái niệm sẽ không được đưa vào ngay như những công cụ có sẵn, mà xuất hiện dần khi tình huống đòi hỏi.
+
+Ý tưởng trung tâm của bài viết là: *đánh giá luôn cần một điểm tựa, và khi thông tin thay đổi thì điểm tựa của đánh giá cũng thay đổi theo*. Từ câu hỏi “Dương tính thì khả năng thật sự mắc bệnh là bao nhiêu?”, bài viết sẽ lần lượt làm rõ điều gì đang được đánh giá, sự đánh giá ấy đang dựa trên nền nào, và vì sao khi nền thay đổi thì kết quả đánh giá cũng phải thay đổi theo. Khi cấu trúc ấy hiện ra, xác suất có điều kiện sẽ không còn là một ký hiệu được đưa vào sẵn, mà là cách diễn tả sự đánh giá lại trên một điểm tựa mới; còn công thức Bayes sẽ hiện ra như hệ quả tự nhiên của một yêu cầu đơn giản nhưng rất sâu: cùng một phần của tình huống phải được đọc nhất quán từ những điểm tựa khác nhau.
+
+## Tình huống: sự thay đổi của đánh giá khi thông tin thay đổi
+
+Hãy bắt đầu từ một tình huống xét nghiệm y khoa quen thuộc.
+
+Một căn bệnh chỉ xuất hiện ở $1\%$ dân số. Có một xét nghiệm đã được kiểm chứng: trong số những người thật sự mắc bệnh, $99\%$ cho kết quả dương tính; trong số những người không mắc bệnh, $5\%$ vẫn cho kết quả dương tính. Ở đây, *dương tính* nghĩa là xét nghiệm báo có dấu hiệu bệnh.
+
+Một người đi xét nghiệm và nhận kết quả dương tính. Câu hỏi được đặt ra là: *“Dương tính thì khả năng thật sự mắc bệnh là bao nhiêu?”*
+
+Thoạt nhìn, nhiều người dễ nghĩ rằng khả năng ấy phải rất cao. Lý do cũng dễ hiểu: nếu xét nghiệm phát hiện đúng tới $99\%$ ở người mắc bệnh, thì một kết quả dương tính dường như đồng nghĩa với việc thật sự mắc bệnh.
+
+Nhưng ở đây có một chỗ rất dễ nhầm. Con số $99\%$ **không nói rằng** *trong số những người dương tính có $99\%$ mắc bệnh*. Nó chỉ **nói rằng** *trong số những người mắc bệnh có $99\%$ cho kết quả dương tính*.
+
+Hai phát biểu này gần nhau ở bề mặt ngôn từ, nhưng không cùng một hướng đánh giá. Một phát biểu lấy nhóm *người mắc bệnh* làm nền; phát biểu kia lại lấy nhóm *người dương tính* làm nền. Nếu không phân biệt hai nền ấy, ta rất dễ biến một dữ kiện đúng thành một kết luận sai.
+
+Để nhìn rõ hơn, hãy xét một cộng đồng giả định gồm $10\,000$ người. Vì cộng đồng này chỉ là một mô hình minh họa cho các tỉ lệ đã cho trên toàn dân số, các con số dưới đây cần được hiểu như những giá trị gần đúng. Nếu tỉ lệ mắc bệnh là $1\%$, thì có khoảng $100$ người thực sự mắc bệnh và $9\,900$ người không mắc bệnh. Trong $100$ người mắc bệnh, khoảng $99$ người sẽ cho kết quả dương tính. Nhưng trong $9\,900$ người không mắc bệnh, cũng có khoảng $495$ người cho kết quả dương tính.
+
+Vì vậy, tổng số người có kết quả dương tính là
+
+$$
+99+495=594.
+$$
+
+Những con số vừa tính ra có thể được gom vào một bảng đếm đơn giản để nhìn rõ toàn bộ tình huống.
+
+###### Bảng phân bố kết quả xét nghiệm trong cộng đồng giả định $10\,000$ người
+
+| Kết quả xét nghiệm |    Bệnh | Không bệnh |     Tổng số |
+| ------------------ | ------: | ---------: | ----------: |
+| Dương tính         |  $99$ |    $495$ |     $594$ |
+| Âm tính            |   $1$ | $9\,405$ |  $9\,406$ |
+| Tổng số            | $100$ | $9\,900$ | $10\,000$ |
+
+Bảng này cho thấy rõ điều trực giác ban đầu đã bỏ qua: nhóm dương tính không chỉ gồm những người thật sự mắc bệnh, mà còn chứa một số lượng lớn những người không mắc bệnh.
+
+Do đó, nếu chọn một người trong nhóm dương tính, khả năng người ấy thật sự mắc bệnh không phải gần $99\%$, mà là
+
+$$
+\frac{99}{594}\approx 16.7\%.
+$$
+
+Chính ở đây, điều cốt lõi hiện ra: các con số $1\%$ và $16.7\%$ không mâu thuẫn với nhau, vì chúng không được phát biểu trên cùng một nền. Điều thay đổi không phải là thực tại của người được xét nghiệm, mà là _điểm tựa_ của sự đánh giá. Khi chưa biết kết quả xét nghiệm, điểm tựa là toàn bộ cộng đồng. Khi đã biết một người dương tính, điểm tựa chuyển sang nhóm những người dương tính. Đánh giá khi ấy phải được thực hiện lại trên điểm tựa mới.
+
+Ví dụ $10\,000$ người giúp kiểm tra trực tiếp bằng phép đếm, và nhờ đó làm lộ ra chỗ nhầm giữa các nền đánh giá. Nhưng nó cũng cho thấy một giới hạn. Nếu thay đổi quy mô cộng đồng, các con số tuyệt đối sẽ đổi, còn các tỉ lệ thì không đổi. Điều đó cho thấy bảng đếm chỉ là một biểu hiện cụ thể của một cấu trúc ổn định hơn nằm bên dưới.
+
+Giới hạn ấy càng lộ rõ khi tình huống trở nên phức tạp hơn, chẳng hạn khi có thêm một xét nghiệm thứ hai. Khi đó, việc dựng một cộng đồng giả định rồi chia đếm theo từng nhánh vẫn có thể làm được, nhưng sẽ nhanh chóng trở nên cồng kềnh. Vì vậy, điều còn thiếu không phải là một bảng đếm khác, mà là một cách biểu diễn trực tiếp cấu trúc của tình huống: tách cái bản chất khỏi quy mô minh họa, đặt các dữ kiện vào cùng một hệ thống, và nhìn rõ quan hệ giữa chúng. Đó chính là bước chuyển sang mô hình hóa.
+
+<details class="collapsible-box-honey-gold">
+<summary>Khám phá: Từ bảng đếm đến cấu trúc chung</summary>
+
+<div class="content">
+
+Tình huống ban đầu được cho bằng các tỉ lệ. Bảng đếm $10\,000$ người chỉ là một cách cụ thể hóa để nhìn rõ tình huống bằng phép đếm trực tiếp. Nhưng nếu đã có thể dựng một cộng đồng giả định $10\,000$ người, thì cũng có thể dựng $100\,000$ người hay $1\,000\,000$ người. Khi đó, điều đáng chú ý không chỉ là các con số cụ thể, mà là điều gì thay đổi theo quy mô minh họa và điều gì vẫn giữ nguyên vì thuộc về chính cấu trúc của tình huống.
+
+Hãy suy nghĩ qua ba câu hỏi sau.
+
+1. Thay cộng đồng giả định $10\,000$ người bằng $100\,000$ người rồi $1\,000\,000$ người. Mỗi lần, hãy tính lại số người mắc bệnh, số người dương tính thật, số người dương tính giả, và tỉ lệ người thật sự mắc bệnh trong nhóm dương tính. Khi đó, những con số nào thay đổi theo quy mô cộng đồng, và đại lượng nào vẫn giữ nguyên?
+
+2. Thay vì chọn một quy mô cụ thể, hãy gọi số người của cộng đồng giả định là $N$. Từ các dữ kiện của bài toán, hãy biểu diễn theo $N$ số người mắc bệnh, số người dương tính thật, số người dương tính giả, rồi viết tỉ lệ người thật sự mắc bệnh trong nhóm dương tính dưới dạng một biểu thức theo $N$. Khi rút gọn biểu thức ấy, $N$ còn lại hay biến mất? Điều đó cho thấy điều gì thực sự quyết định tỉ lệ cần tìm?
+
+3. Giả sử chỉ những người dương tính ở xét nghiệm thứ nhất mới tiếp tục làm xét nghiệm thứ hai. Trong số những người thật sự mắc bệnh và đã dương tính ở xét nghiệm thứ nhất, $95\%$ tiếp tục cho kết quả dương tính ở xét nghiệm thứ hai; còn trong số những người không mắc bệnh nhưng đã dương tính ở xét nghiệm thứ nhất, $2\%$ tiếp tục cho kết quả dương tính. Hãy tiếp tục dùng một cộng đồng giả định quy mô $N$ để tính tỉ lệ người thật sự mắc bệnh trong nhóm dương tính ở cả hai xét nghiệm. Khi so sánh với biểu thức ở câu trên, có nhận ra rằng dù tình huống đã phức tạp hơn, phép tính vẫn được tổ chức theo một khuôn mẫu ổn định hay không?
+
+**Gợi ý.** Ở hai câu đầu, có thể dùng bảng đếm. Ở câu 3, vì xét nghiệm thứ hai chỉ áp dụng cho những người đã dương tính ở xét nghiệm thứ nhất, có thể tiếp tục lập bảng trên chính nhóm này, hoặc dùng sơ đồ cây để biểu diễn rõ các nhánh của tình huống.
+</div>
+
+</details>
+
+
+## Mô hình hóa tình huống
+
+Bước đầu tiên của sự mô hình hóa là làm cho ngôn ngữ trở nên ổn định hơn. Trong cách nói tự nhiên, ta đã nhiều lần nhắc đến các mệnh đề trung tâm của tình huống: người được xét _mắc bệnh_ hay _không mắc bệnh_, và xét nghiệm cho kết quả _dương tính_ hay _âm tính_. Khi suy luận còn đơn giản, cách nói ấy vẫn đủ dùng. Nhưng khi cần theo dõi chặt chẽ quan hệ giữa nhiều dữ kiện, ngôn ngữ tự nhiên trở nên dài dòng và dễ nhập nhằng. Vì vậy, ta đặt ký hiệu
+
+$$
+\begin{aligned}
+B&: \text{“người được xét mắc bệnh”,} \\
+D&: \text{“xét nghiệm cho kết quả dương tính”.}
+\end{aligned}
+$$
+
+Khi đó, mệnh đề “người được xét không mắc bệnh” được ký hiệu là $\neg B$, trong đó dấu $\neg$ dùng để chỉ sự phủ định. Tương tự, $\neg D$ biểu thị mệnh đề “xét nghiệm không cho kết quả dương tính”, tức là cho kết quả âm tính.
+
+Trong tình huống này, ta cũng thường phải xét những trường hợp hai điều kiện cùng xảy ra. Để ghi ngắn gọn phần chung ấy, ta dùng ký hiệu $\cap$. Chẳng hạn,
+
+$$
+B\cap D
+$$
+
+được đọc là “mắc bệnh và dương tính”, nghĩa là phần những trường hợp trong đó cả hai điều kiện cùng xảy ra.
+
+Khi ấy, toàn bộ tình huống xét nghiệm có thể được mô tả bằng bốn khả năng cơ bản:
+
+$$
+B\cap D,\quad B\cap \neg D,\quad \neg B\cap D,\quad \neg B\cap \neg D.
+$$
+
+Bốn khả năng này loại trừ lẫn nhau và khi gộp lại thì bao phủ toàn bộ những gì có thể xảy ra trong tình huống đang xét. Ký hiệu $\cup$ được dùng để chỉ phép gộp các phần lại với nhau. Vì vậy, toàn bộ bức tranh khả năng của tình huống có thể được viết là
+
+$$
+\Omega=(B\cap D)\cup(B\cap \neg D)\cup(\neg B\cap D)\cup(\neg B\cap \neg D).
+$$
+
+Ta gọi $\Omega$ là _bức tranh khả năng_ của tình huống.
+
+<details class="collapsible-box-honey-gold">
+<summary>Khám phá: Vì sao bức tranh khả năng vẫn chưa đủ</summary>
+
+<div class="content">
+Đến đây, toàn bộ tình huống đã được trải ra thành một bức tranh gồm bốn khả năng cơ bản. Nhưng chỉ với bức tranh ấy thôi, ta đã đủ để trả lời câu hỏi “Dương tính thì khả năng thật sự mắc bệnh là bao nhiêu?” hay chưa?
+
+Hãy suy nghĩ qua các câu hỏi sau.
+
+1. Nếu chỉ biết rằng tình huống gồm bốn khả năng $B\cap D$, $B\cap\neg D$, $\neg B\cap D$, $\neg B\cap \neg D$, thì ta đã biết khả năng nào _lớn hơn_, khả năng nào _nhỏ hơn_ hay chưa?
+
+2. Một bức tranh khả năng cho ta biết _những gì có thể xảy ra_. Nhưng để đánh giá xem một khả năng là đáng tin nhiều hay ít, ta còn cần biết thêm điều gì?
+
+3. Vì sao việc chỉ liệt kê các khả năng vẫn chưa đủ để trả lời những câu hỏi kiểu:
+   - “Mắc bệnh có nhiều hơn không mắc bệnh không?”
+   - “Trong nhóm dương tính, phần thật sự mắc bệnh chiếm bao nhiêu?”
+   - “Một phần của tình huống lớn đến mức nào trong toàn bộ bức tranh?”
+</div>
+
+</details>
+
+Chỉ có bức tranh khả năng thôi thì vẫn chưa đủ. Khi ấy, ta mới biết điều gì có thể xảy ra, chứ chưa biết mỗi phần của bức tranh “lớn” đến đâu trong toàn bộ bức tranh ấy. Ta còn cần một cách đo để nói phần nào lớn, phần nào nhỏ trong toàn bộ bức tranh. Ta ký hiệu phép đo ấy là $P$, và gọi giá trị mà nó gán cho mỗi phần là _mức tin cậy_.
+
+Tên gọi này được dùng vì trong tình huống đang xét, ta chưa biết chắc người được xét thuộc phần nào của bức tranh. Do đó, con số gắn cho mỗi phần không chỉ biểu thị độ lớn của phần ấy trong toàn bộ bức tranh, mà còn biểu thị mức độ có cơ sở để tin rằng trường hợp đang xét nằm trong phần đó.
+
+Với mỗi phần $A$ của bức tranh $\Omega$, giá trị $P(A)$ biểu thị độ lớn của $A$ so với toàn bộ bức tranh. Trong ngôn ngữ chính thức của xác suất học, đây chính là xác suất của phần $A$. Nhưng ở đây, ta tạm gọi nó là mức tin cậy để giữ đúng tinh thần của bài toán đánh giá.
+
+Vì toàn bộ bức tranh được lấy làm nền của phép đo, nên
+
+$$
+P(\Omega)=1.
+$$
+
+Muốn phép đo này nhất quán, ta còn cần một nguyên tắc nữa: nếu hai phần $X$ và $Y$ không chồng lấn nhau, nghĩa là
+
+$$
+X\cap Y=\emptyset,
+$$
+
+thì mức tin cậy của phần gộp lại phải bằng tổng mức tin cậy của từng phần:
+
+$$
+P(X\cup Y)=P(X)+P(Y).
+$$
+
+Trong tình huống đang xét, bốn khả năng cơ bản
+
+$$
+B\cap D,\quad B\cap \neg D,\quad \neg B\cap D,\quad \neg B\cap \neg D.
+$$
+
+loại trừ lẫn nhau và khi gộp lại thì cho toàn bộ bức tranh $\Omega$. Do đó,
+
+$$
+P(\Omega)=P(B\cap D)+ P(B\cap \neg D)+ P(\neg B\cap D) + P(\neg B\cap \neg D).
+$$
+
+Mà $P(\Omega)=1$, nên tổng mức tin cậy của bốn khả năng cơ bản ấy phải bằng $1$. Nhờ nguyên tắc này, các phần của bức tranh có thể được tách ra hay ghép lại mà không làm mất đi tính nhất quán của phép đo.
+
+Từ đây, con số $1\%$ không còn chỉ là một dữ kiện rời rạc về cộng đồng. Nó trở thành mức tin cậy gắn với phần “mắc bệnh”, nên được viết là
+
+$$
+P(B)=0.01.
+$$
+
+Tuy nhiên, không phải mọi dữ kiện của tình huống đều có cùng dạng như vậy. Chẳng hạn, phát biểu “$99\%$ trường hợp mắc bệnh có kết quả dương tính” không nói về phần $D$ trong toàn bộ bức tranh $\Omega$. Nó nói về phần $D$ _bên trong_ phần $B$. Tương tự, phát biểu “$5\%$ trường hợp không mắc bệnh vẫn có kết quả dương tính” không nói về phần $D$ trong toàn bộ $\Omega$, mà nói về phần $D$ _bên trong_ phần $\neg B$.
+
+Điều đó cho thấy: ngoài việc đo một phần như một phần của toàn bộ bức tranh, ta còn cần một cách đo một phần _trên nền của một phần khác_.
+
+Nói chung, nếu $X$ và $Y$ là hai phần của bức tranh khả năng, và nếu muốn đo $X$ khi lấy $Y$ làm nền, ta ký hiệu mức tin cậy ấy bởi
+
+$$
+P_Y(X).
+$$
+
+Ký hiệu này được đọc là: “mức tin cậy của $X$ trên nền $Y$”. Nó không còn đo $X$ trong toàn bộ bức tranh $\Omega$, mà đo phần của $X$ nằm trong $Y$, tức là $X\cap Y$, khi $Y$ được lấy làm nền.
+
+Khi đó, hai dữ kiện còn lại của tình huống được viết gọn thành
+
+$$
+P_B(D)=0.99,\quad P_{\neg B}(D)=0.05.
+$$
+
+Phát biểu thứ nhất cho biết: nếu lấy nhóm những người mắc bệnh làm nền, thì phần có kết quả dương tính chiếm $99\%$ của nhóm ấy. Phát biểu thứ hai cho biết: nếu lấy nhóm những người không mắc bệnh làm nền, thì phần có kết quả dương tính chiếm $5\%$ của nhóm ấy.
+
+Như vậy, các dữ kiện ban đầu của tình huống đã được ghi lại trong cùng một hệ thống:
+
+$$
+P(B)=0.01,\quad P_B(D)=0.99,\quad P_{\neg B}(D)=0.05.
+$$
+
+Đến đây, ta không chỉ có các con số, mà còn biết mỗi con số thuộc về phần nào của bức tranh và được phát biểu trên nền nào.
+
+<details class="collapsible-box-honey-gold">
+<summary>Khám phá: Đo một phần trên một nền nghĩa là gì</summary>
+
+<div class="content">
+Khi nói đến mức tin cậy của $X$ trên nền $Y$, ta ngầm thực hiện một sự thay đổi điểm tựa: không còn đo trên toàn bộ bức tranh $\Omega$ nữa, mà đo trên nền $Y$. Nhưng khi ấy, cần làm rõ một câu hỏi: *phần nào của $X$ thực sự còn được tính đến khi ta chỉ xét bên trong $Y$?*
+
+Có thể suy nghĩ qua các câu hỏi sau.
+
+1. Nếu chỉ nhìn bên trong phần $Y$, thì phần $X$ còn xuất hiện trong đó là toàn bộ $X$, hay chỉ là phần chung của $X$ với $Y$?
+
+2. Vì sao khi đo $X$ trên nền $Y$, phần cần được đem ra so với $Y$ phải là
+
+   $$
+   X\cap Y
+   $$
+
+   chứ không phải toàn bộ $X$?
+   
+3. Nếu toàn bộ $Y$ được xem như nền mới của đánh giá, thì mức tin cậy của $X$ trên nền ấy phải được biểu diễn bằng tỉ số nào?
+</div>
+
+</details>
+
+Ký hiệu $P_Y(X)$ không chỉ là một cách viết tiện lợi cho hai dữ kiện $99\%$ và $5\%$. Nó còn đòi hỏi một công thức tổng quát. Nếu $X$ được đo trên nền $Y$, thì phần của $X$ thực sự nằm trong nền ấy chính là phần chung $X\cap Y$. Vì vậy, khi lấy $Y$ làm nền, mức tin cậy của $X$ trên nền $Y$ phải được xác định bởi tỉ số
+
+$$
+P_Y(X)=\frac{P(X\cap Y)}{P(Y)},\quad P(Y)>0.
+$$
+
+Trong ngôn ngữ ký hiệu quen thuộc của xác suất học, đại lượng này thường được viết là
+
+$$
+P(X\mid Y),
+$$
+
+trong đó dấu $\mid$ được đọc là "với điều kiện" hoặc "khi biết". Vì vậy, $P(X\mid Y)$ được đọc là “xác suất của $X$ với điều kiện $Y$” hoặc “xác suất của $X$ khi biết $Y$”.
+
+Về nội dung toán học, ký hiệu $P_Y(X)$ và $P(X\mid Y)$ là tương đương. Tuy nhiên, chúng có ưu thế khác nhau. Ký hiệu $P_Y(X)$ làm nổi bật hơn ý tưởng trung tâm của bài viết: đó là mức tin cậy của $X$ khi điểm tựa của đánh giá được chuyển sang $Y$. Còn ký hiệu $P(X\mid Y)$ là cách viết chuẩn của xác suất học và đặc biệt thuận tiện khi thực hiện các phép biến đổi đại số về sau.
+
+Đây là công thức tổng quát của phép đo trên một nền đã cho. Nó cũng cho thấy $P_Y$ không phải là một phép đo được đặt thêm từ bên ngoài, mà được rút ra từ chính $P$ khi điểm tựa của đánh giá được chuyển từ toàn bộ bức tranh $\Omega$ sang phần $Y$.
+
+Nói cách khác, $P$ và $P_Y$ không phải là hai phép đo độc lập. Chúng cùng được xác định trên một bức tranh khả năng duy nhất. Khác biệt chỉ ở chỗ: $P$ đo một phần trong toàn bộ bức tranh $\Omega$, còn $P_Y$ đo một phần trên nền $Y$. Vì vậy, chúng phải nhất quán với nhau: cùng một phần của bức tranh không thể có hai “kích thước” mâu thuẫn, mà chỉ có thể được đọc từ hai điểm tựa khác nhau.
+
+Bây giờ ta mới quay trở lại câu hỏi ban đầu của bài toán. Điều cần biết là: trong số những người có kết quả dương tính, khả năng thật sự mắc bệnh là bao nhiêu. Nói theo ngôn ngữ vừa xây dựng, đó chính là mức tin cậy của $B$ trên nền $D$, tức là
+
+$$
+P_D(B).
+$$
+
+Như vậy, điều bài toán yêu cầu không phải là một loại đại lượng hoàn toàn mới. Nó là một trường hợp đặc biệt của đúng kiểu đo vừa được xây dựng: đo một phần trên nền của một phần khác. Chỉ có điều trong trường hợp này, nền ấy chính là nhóm những người có kết quả dương tính.
+
+Đến đây, giai đoạn mô hình hóa mới thực sự hoàn tất. Ta đã có bức tranh khả năng của tình huống, một phép đo trên toàn bộ bức tranh, các dữ kiện ban đầu được đặt vào những vị trí xác định, và một công thức tổng quát cho việc đo một phần trên nền của một phần khác.
+
+Nói bằng ngôn ngữ chính thức của xác suất học, đó chính là mô hình xác suất cùng với xác suất có điều kiện. Nhưng điều cốt lõi không nằm ở tên gọi.
+
+Nếu nhìn lại toàn bộ tình huống dưới ngôn ngữ vừa xây dựng, thì bài toán ban đầu có thể được phát biểu gọn như sau: trên bức tranh khả năng $\Omega$, ta biết
+
+$$
+P(B)=0.01,\quad P_{B}(D)=0.99,\quad P_{\neg B}(D)=0.05,
+$$
+
+và điều cần xác định là
+
+$$
+P_D(B).
+$$
+
+Nói cách khác, từ mức tin cậy của phần mắc bệnh trong toàn bộ bức tranh, và từ hai mức tin cậy của việc dương tính trên hai nền đối lập $B$ và $\neg B$, ta cần suy ra mức tin cậy của việc mắc bệnh trên nền $D$.
+
+Từ đây, toàn bộ tình huống đã được đặt vào một cấu trúc đủ rõ để câu hỏi ban đầu có thể được nghiên cứu trực tiếp. Việc còn lại là khảo sát xem các phần của bức tranh ấy ràng buộc lẫn nhau ra sao, và từ đó mức tin cậy cần tìm được xác định như thế nào.
+
+## Từ phần giao đến công thức Bayes
+
+Khi mô hình đã được thiết lập, các dữ kiện ban đầu không còn đứng riêng lẻ. Chúng ràng buộc lẫn nhau qua cấu trúc của bức tranh khả năng. Trung tâm của những ràng buộc ấy là _phần giao_.
+
+Trong tình huống đang xét, phần giao quan trọng nhất là
+
+$$
+B\cap D,
+$$
+
+tức là những trường hợp vừa mắc bệnh vừa có kết quả dương tính. Đây là nơi hai cách nhìn gặp nhau: nhìn từ phía _mắc bệnh_ để hỏi bao nhiêu người mắc bệnh cho kết quả dương tính, và nhìn từ phía _dương tính_ để hỏi bao nhiêu người dương tính thật sự mắc bệnh.
+
+Từ phía $B$, dữ kiện
+
+$$
+P_B(D)=0.99
+$$
+
+cho biết rằng trong nhóm những người mắc bệnh, phần giao $B\cap D$ chiếm $99\%$ của cả nhóm. Theo đúng công thức đo trên nền đã xây dựng ở mục trước, điều đó có nghĩa là
+
+$$
+P_B(D)=\frac{P(B\cap D)}{P(B)},
+$$
+
+nên
+
+$$
+P(B\cap D)=P_B(D)\,P(B).
+$$
+
+Đây chỉ là cách nói rằng: kích thước của phần “mắc bệnh và dương tính” bằng kích thước của nhóm “mắc bệnh” nhân với tỉ lệ dương tính trong chính nhóm đó.
+
+Nhưng cũng chính phần giao ấy có thể được nhìn từ phía $D$. Khi đó, nó biểu thị phần những người dương tính mà thật sự mắc bệnh. Theo cùng công thức, ta có
+
+$$
+P_D(B)=\frac{P(B\cap D)}{P(D)},
+$$
+
+nên
+
+$$
+P(B\cap D)=P_D(B)P(D).
+$$
+
+Vì vậy, cùng một phần giao $B\cap D$ có hai cách biểu diễn:
+
+$$
+P(B\cap D)=P_B(D)P(B),
+$$
+
+và
+
+$$
+P(B\cap D)=P_D(B)P(D).
+$$
+
+Nhưng đây không phải là hai phần khác nhau. Cả hai đều đang đo đúng cùng một phần giao. Vì thế, chúng phải bằng nhau:
+
+$$
+P_B(D)\,P(B)=P_D(B)\,P(D).
+$$
+
+Từ đó suy ra
+
+$$
+P_D(B)=\frac{P_B(D)\,P(B)}{P(D)}.
+$$
+
+Đây chính là công thức Bayes dưới dạng phù hợp với ngôn ngữ của bài viết này: mức tin cậy của việc mắc bệnh trên nền dương tính được xác định bằng cách đọc cùng một phần giao một cách nhất quán từ hai điểm tựa khác nhau.
+
+Tuy nhiên, công thức trên vẫn còn một đại lượng chưa được cho trực tiếp, đó là $P(D)$, tức là mức tin cậy của việc xét nghiệm cho kết quả dương tính trong toàn bộ cộng đồng.
+
+Muốn tìm đại lượng này, ta phải nhìn lại chính miền $D$. Trong bức tranh khả năng của tình huống, mọi trường hợp dương tính đều thuộc đúng một trong hai loại: hoặc _mắc bệnh và dương tính_, hoặc _không mắc bệnh và dương tính_. Nói cách khác,
+
+$$
+D=(B\cap D)\cup(\neg B\cap D),
+$$
+
+và hai phần này loại trừ lẫn nhau. Vì vậy,
+
+$$
+P(D)=P(B\cap D)+P(\neg B\cap D).
+$$
+
+Mà ở trên ta đã có
+
+$$
+\begin{aligned}
+P(B\cap D)&=P_B(D)\,P(B), \\
+P(\neg B\cap D)&=P_{\neg B}(D)\,P(\neg B).
+\end{aligned}
+$$
+
+Do đó,
+
+$$
+P(D)=P_B(D)\,P(B)+P_{\neg B}(D)\,P(\neg B).
+$$
+
+Quan hệ này cho thấy mức tin cậy của việc dương tính trong toàn bộ cộng đồng được hợp thành từ hai nguồn: dương tính ở những người thật sự mắc bệnh và dương tính ở những người không mắc bệnh. Trong ngôn ngữ chính thức của xác suất học, quan hệ này được gọi là _công thức xác suất toàn phần_ cho $D$.
+
+Thay biểu thức này vào công thức trên, ta được
+
+$$
+P_D(B)=
+\frac{P_B(D)\,P(B)}
+{P_B(D)\,P(B)+P_{\neg B}(D)\,P(\neg B)}.
+$$
+
+Đây là hình thức đầy đủ của mức tin cậy cần tìm trong tình huống xét nghiệm đang xét.
+
+Nếu chuyển sang ký hiệu chính thức quen thuộc của xác suất học, ta viết
+
+$$
+P(B\mid D)=\frac{P(D\mid B)\,P(B)}{P(D)}
+$$
+
+và trong tình huống đang xét, khi biểu diễn $P(D)$ như tổng của hai phần cấu thành miền dương tính, điều này trở thành
+
+$$
+P(B\mid D)=\frac{P(D\mid B)\,P(B)}{P(D\mid B)\,P(B)+P(D\mid \neg B)\,P(\neg B)}.
+$$
+
+Ở đây, ta tạm chuyển sang ký hiệu chính thức của xác suất học. Về nội dung toán học, các công thức này hoàn toàn tương ứng với cách viết bằng $P_D(B)$, $P_B(D)$ và $P_{\neg B}(D)$ đã dùng từ đầu.
+
+Nhưng điều quan trọng không nằm ở hình thức ký hiệu. Điều quan trọng là: công thức này không được đưa vào từ bên ngoài như một quy tắc có sẵn. Nó xuất hiện từ một yêu cầu nội tại của mô hình: _cùng một phần giao phải được đọc một cách nhất quán, dù ta nhìn nó từ phía $B$ hay từ phía $D$_.
+
+Theo nghĩa đó, Bayes không phải trước hết là một mẹo biến đổi công thức. Nó là hệ quả của việc cùng một phần của bức tranh khả năng được đọc từ hai điểm tựa khác nhau mà vẫn phải cho cùng một kết quả.
+
+Từ cấu trúc vừa thiết lập, có thể nhìn lại công thức Bayes qua các khám phá sau.
+
+<details class="collapsible-box-honey-gold">
+<summary>Khám phá: Khi cùng một phần được nhìn từ hai điểm tựa</summary>
+
+<div class="content">
+Trong bức tranh khả năng của tình huống xét nghiệm, hãy xét phần
+
+$$
+B\cap D,
+$$
+
+tức là những trường hợp vừa mắc bệnh vừa có kết quả dương tính.
+
+1. Nếu nhìn phần này từ phía $B$, hãy diễn tả bằng lời ý nghĩa của tích
+
+$$
+P_B(D)\,P(B).
+$$
+
+2. Nếu nhìn cùng phần ấy từ phía $D$, hãy diễn tả bằng lời ý nghĩa của tích
+
+$$
+P_D(B)\,P(D).
+$$
+
+3. Vì sao hai biểu thức trên phải bằng nhau?
+
+4. Từ đó, hãy suy ra một công thức biểu thị $P_D(B)$ theo $P_B(D)$, $P(B)$ và $P(D)$.
+</div>
+</details>
+
+<details class="collapsible-box-honey-gold">
+<summary>Khám phá: Miền dương tính được hợp thành như thế nào</summary>
+
+<div class="content">
+1. Hãy giải thích vì sao
+
+$$
+D=(B\cap D)\cup(\neg B\cap D).
+$$
+
+2. Vì sao từ đó suy ra
+
+$$
+P(D)=P(B\cap D)+P(\neg B\cap D)?
+$$
+
+3. Hãy thay các phần giao bằng những biểu thức được đo từ phía $B$ và $\neg B$, rồi suy ra công thức
+
+$$
+P(D)=P_B(D)P(B)+P_{\neg B}(D)P(\neg B).
+$$
+
+4. Trong ngôn ngữ thông thường, công thức này nói gì về nguồn gốc của mọi kết quả dương tính trong cộng đồng?
+</div>
+</details>
+
+<details class="collapsible-box-honey-gold">
+<summary>Khám phá: Sức nặng của kết quả dương tính</summary>
+
+<div class="content">
+Có thể nhìn sự thay đổi do kết quả dương tính gây ra không chỉ qua từng mức tin cậy riêng lẻ, mà còn qua sự nghiêng của đánh giá giữa hai phía đối lập của bức tranh: phía *mắc bệnh* và phía *không mắc bệnh*.
+
+1. Trước khi biết kết quả xét nghiệm, hãy xét tỉ số
+
+   $$
+   \frac{P(B)}{P(\neg B)}.
+   $$
+
+   Tỉ số này cho biết điều gì về sự nghiêng của đánh giá ban đầu giữa hai phía _mắc bệnh_ và _không mắc bệnh_?
+
+2. Sau khi biết xét nghiệm dương tính, hãy xét tỉ số mới
+
+   $$
+   \frac{P_D(B)}{P_D(\neg B)}.
+   $$
+
+   Tỉ số này cho biết điều gì về sự nghiêng của đánh giá sau khi điểm tựa đã chuyển sang $D$?
+
+3. Từ công thức
+
+   $$
+   \begin{aligned}
+   P_D(B)&=\frac{P(B\cap D)}{P(D)} \text{ và}\\
+   P_D(\neg B)&=\frac{P(\neg B\cap D)}{P(D)},
+   \end{aligned}
+   $$
+
+   hãy chứng minh rằng
+
+   $$
+   \frac{P_D(B)}{P_D(\neg B)}=
+   \frac{P(B\cap D)}{P(\neg B\cap D)}.
+   $$
+
+4. Từ các quan hệ
+
+   $$
+   \begin{aligned}
+   P(B\cap D)&=P_B(D)\,P(B),\\
+   P(\neg B\cap D)&=P_{\neg B}(D)\,P(\neg B),
+   \end{aligned}
+   $$
+
+   hãy suy ra
+
+   $$
+   \frac{P_D(B)}{P_D(\neg B)}  =
+   \frac{P_B(D)}{P_{\neg B}(D)}
+   \cdot
+   \frac{P(B)}{P(\neg B)}.
+   $$
+
+5. Hãy diễn giải bằng lời ý nghĩa của tỉ số
+
+   $$
+   \frac{P_{B}(D)}{P_{\neg B}(D)}.
+   $$
+
+   Vì sao, trong ngôn ngữ của bài viết này, tỉ số này có thể được xem như “sức nặng” mà kết quả dương tính đặt lên phía mắc bệnh so với phía không mắc bệnh?
+</div>
+</details>
+
+
+## Trở lại bài toán ban đầu
+
+Sau khi cấu trúc của mô hình đã được làm rõ, ta trở lại tình huống xét nghiệm ban đầu. Lúc này, câu hỏi “Dương tính thì khả năng thật sự mắc bệnh là bao nhiêu?” không còn đứng riêng lẻ như ở đầu bài nữa. Nó đã trở thành việc xác định đại lượng 
+
+$$
+P_D(B),
+$$
+
+tức là mức tin cậy của việc mắc bệnh khi điểm tựa được chuyển sang nhóm những người có kết quả dương tính.
+
+Trước hết ta tính kích thước của phần giao $B\cap D$. Từ phía $B$, ta có
+
+$$
+\begin{aligned}
+P(B)&=0.01,\\ P_B(D)&=0.99,
+\end{aligned}
+$$
+
+nên
+
+$$
+\begin{aligned}
+P(B\cap D)&=P_B(D)\,P(B)\\&=0.99\times 0.01\\&=0.0099.
+\end{aligned}
+$$
+
+Điều này có nghĩa là trong toàn bộ cộng đồng, phần những người vừa mắc bệnh vừa có kết quả dương tính chiếm $0.0099$, tức $0.99\%$.
+
+Nhưng miền dương tính $D$ không chỉ gồm phần ấy. Nó còn chứa những trường hợp không mắc bệnh nhưng vẫn cho kết quả dương tính. Từ phía $\neg B$, ta có
+
+$$
+\begin{aligned}
+P(\neg B\cap D)&=P_{\neg B}(D)\,P(\neg B)\\&=0.05\times 0.99\\&=0.0495.
+\end{aligned}
+$$
+
+Vì vậy,
+
+$$
+\begin{aligned}
+P(D)&=P(B\cap D)+P(\neg B\cap D)\\&=0.0099+0.0495\\&=0.0594.
+\end{aligned}
+$$
+
+Bây giờ, khi lấy miền dương tính làm điểm tựa mới, mức tin cậy của việc mắc bệnh là
+
+$$
+\begin{aligned}
+P_D(B)&=\frac{P(B\cap D)}{P(D)}\\&=\frac{0.0099}{0.0594}\\&\approx 0.167.
+\end{aligned}
+$$
+
+Nghĩa là, trong số những người có kết quả xét nghiệm dương tính, chỉ khoảng $16.7\%$ thực sự mắc bệnh. Con số này thấp hơn rất nhiều so với trực giác ban đầu dựa vào $99\%$. Chính sự chênh lệch ấy cho thấy vì sao không thể bỏ qua việc đổi điểm tựa của đánh giá.
+
+Kết quả này cũng cho phép nhìn lại ví dụ $10\,000$ người ở đầu bài. Khi đó, trong $594$ người có kết quả dương tính chỉ có $99$ người thật sự mắc bệnh, nên tỉ lệ cần tìm là
+
+$$
+\frac{99}{594}\approx 16.7\%.
+$$
+
+Nếu cô đọng toàn bộ chuỗi tính toán trên bằng công thức đã rút ra ở mục trước, ta được
+
+$$
+P_D(B)=\frac{P_B(D)\,P(B)}{P_B(D)\,P(B)+P_{\neg B}(D)\,P(\neg B)}.
+$$
+
+Thay các dữ kiện của tình huống vào, ta có
+
+$$
+P_D(B)=\frac{0.99\cdot 0.01}{0.99\cdot 0.01+0.05\cdot 0.99}\approx 0.167.
+$$
+
+Cách viết này ngắn gọn hơn, nhưng không tạo ra một con đường khác. Nó chỉ cô đọng lại chính chuỗi lập luận vừa thực hiện: tính phần giao từ phía mắc bệnh, tách miền dương tính thành hai phần rời nhau, rồi đo phần mắc bệnh trên nền dương tính.
+
+Vì thế, bảng đếm và công thức không phải là hai con đường tách rời. Bảng đếm làm lộ ra cấu trúc của tình huống trong một trường hợp cụ thể; công thức phát biểu lại chính cấu trúc ấy ở dạng tổng quát.
+
+## Kết luận: Bayes như hình thức toán học của việc đổi điểm tựa
+
+Từ một tình huống xét nghiệm y khoa cụ thể, bài viết đã đi từ một câu hỏi đánh giá quen thuộc đến một cấu trúc tổng quát của suy luận trong thế bất định.
+
+Điều cốt lõi hiện ra là: mọi đánh giá đều cần một điểm tựa. Khi chưa có thông tin mới, điểm tựa có thể là toàn bộ bức tranh của tình huống. Khi thông tin mới xuất hiện, điểm tựa ấy có thể thay đổi. Trong ví dụ xét nghiệm, kết quả dương tính không làm thay đổi bức tranh khả năng ban đầu; nó chỉ buộc ta chuyển sang một điểm tựa hẹp hơn và đánh giá lại từ đó.
+
+Khi tình huống đã được đặt vào mô hình, các dữ kiện không còn đứng rời nhau. Chúng gắn kết với nhau qua cấu trúc của các phần, đặc biệt là các phần giao. Chính phần giao là nơi những cách đánh giá xuất phát từ các điểm tựa khác nhau gặp nhau và phải tương thích với nhau.
+
+Từ đó, Bayes xuất hiện. Nó không phải trước hết là một mẹo tính toán, *mà là hình thức toán học của việc đổi điểm tựa trong một cấu trúc nhất quán*. Khi thông tin thay đổi, mức tin cậy phải được đánh giá lại trên một nền mới. Nhưng sự đánh giá lại ấy không diễn ra tùy tiện, vì ta vẫn đang nói về cùng một phần của cùng một bức tranh khả năng.
+
+Hiểu xác suất có điều kiện và Bayes theo cách này không chỉ giúp giải một bài toán y khoa. Nó còn làm rõ một nguyên lý rộng hơn của tư duy: khi thông tin thay đổi, điều cần làm không phải là thay vội một con số bằng một con số khác, mà là nhận diện lại điểm tựa của đánh giá và giữ cho sự thay đổi ấy diễn ra trong một cấu trúc suy luận nhất quán.
+
+Theo nghĩa đó, điều bài viết cố gắng làm rõ không chỉ là một công thức, mà là cấu trúc nhận thức khiến công thức ấy trở nên tất yếu.
+
+## Bài tập
+
+### 1. Khi điểm tựa không làm thay đổi đánh giá
+
+Trong toàn bộ phân tích ở trên, sự thay đổi của điểm tựa thường kéo theo sự thay đổi của mức tin cậy. Nhưng cũng có thể đặt ra một câu hỏi ngược lại: *Có khi nào điểm tựa thay đổi mà đánh giá vẫn giữ nguyên hay không?*
+
+Xét hai phần $X$ và $Y$ của cùng một bức tranh khả năng. Giả sử rằng khi lấy $Y$ làm nền, mức tin cậy của $X$ không thay đổi, nói cách khác
+
+$$
+P_Y(X)=P(X).
+$$
+
+Hãy suy nghĩ qua các câu hỏi sau.
+
+1. Nếu diễn đạt bằng ngôn ngữ của bài viết, điều này có nghĩa gì đối với việc thay đổi điểm tựa?
+
+2. Từ công thức
+
+   $$
+   P_Y(X)=\frac{P(X\cap Y)}{P(Y)},
+   $$
+
+   hãy suy ra một hệ thức liên hệ giữa $P(X\cap Y)$, $P(X)$ và $P(Y)$.
+
+3. Hệ thức ấy cho biết điều gì về quan hệ giữa phần chung $X\cap Y$ và hai phần $X$, $Y$?
+
+4. Nếu trong tình huống xét nghiệm của bài viết này ta có
+   $$
+   P_D(B)=P(B),
+   $$
+   thì kết quả xét nghiệm dương tính còn mang thông tin mới về khả năng mắc bệnh hay không?
+
+5. Theo bạn, vì sao trường hợp này có thể được xem là một trạng thái đặc biệt, trong đó việc đổi điểm tựa không làm nghiêng sự đánh giá về phía nào cả?
+
+Trong ngôn ngữ chính thức của xác suất học, trường hợp này chính là *độc lập*.
+
+### 2. Dương tính ở cả hai xét nghiệm
+
+Trong bài viết, đã có tình huống một người dương tính ở xét nghiệm thứ nhất. Bây giờ hãy xét một tình huống mở rộng.
+
+Ngoài xét nghiệm sàng lọc thứ nhất, những người có kết quả dương tính còn được làm thêm một xét nghiệm khẳng định thứ hai. Ta tiếp tục ký hiệu
+
+$$
+\begin{aligned}  
+B&:\text{ “thật sự mắc bệnh”},\\
+D_1&:\text{ “dương tính ở xét nghiệm thứ nhất”},\\
+D_2&:\text{ “dương tính ở xét nghiệm thứ hai”}.
+\end{aligned}
+$$
+
+Giả sử rằng:
+
+- trong số những người _thật sự mắc bệnh và đã dương tính ở xét nghiệm thứ nhất_, $95\%$ tiếp tục cho kết quả dương tính ở xét nghiệm thứ hai;
+- trong số những người _không mắc bệnh nhưng đã dương tính ở xét nghiệm thứ nhất_, $2\%$ tiếp tục cho kết quả dương tính ở xét nghiệm thứ hai.
+
+Nói theo ký hiệu của bài viết, điều này có nghĩa là
+
+$$
+P_{B\cap D_1}(D_2)=0.95,\quad P_{\neg B\cap D_1}(D_2)=0.02.
+$$
+
+Hãy suy nghĩ qua các câu hỏi sau.
+
+1. Từ kết quả của bài toán ban đầu, hãy xác định lại các đại lượng
+
+   $$
+   P(B\cap D_1),\quad P(\neg B\cap D_1),
+   $$
+
+   rồi từ đó tính
+
+   $$
+   P(B\cap D_1\cap D_2),\quad P(\neg B\cap D_1\cap D_2).
+   $$
+
+2. Suy ra mức tin cậy của việc mắc bệnh trên nền những người dương tính ở cả hai xét nghiệm, tức là
+
+   $$
+   P_{D_1\cap D_2}(B).
+   $$
+
+3. Hãy chứng minh rằng kết quả ở câu 2 có thể được viết dưới dạng
+
+   $$
+   P_{D_1\cap D_2}(B)=\frac{P_{B\cap D_1}(D_2)P_{D_1}(B)}
+   {P_{B\cap D_1}(D_2)P_{D_1}(B)+P_{\neg B\cap D_1}(D_2)P_{D_1}(\neg B)}.
+   $$
+
+4. Hãy giải thích bằng lời công thức ở câu 3: mỗi thừa số trong tử số và mẫu số đang đo phần nào của bức tranh khả năng?
+
+5. Bây giờ hãy tạm quên ý nghĩa riêng của xét nghiệm. Thay $B, D_1, D_2$ lần lượt bằng ba phần bất kỳ $X, Y, Z$ của cùng một bức tranh khả năng, và viết lại công thức tổng quát tương ứng cho
+
+   $$
+   P_{Y\cap Z}(X).
+   $$
+
+6. Nhìn lại công thức tổng quát ở câu 5, theo bạn điều gì mới là bản chất của phép tính: việc $Y$ đến trước $Z$, hay việc ta đang đánh giá $X$ trên nền phần chung $Y\cap Z$? Vì sao?
+
+Bài tập này nhằm làm sáng tỏ một ý quan trọng: trong tình huống cụ thể, các thông tin có thể xuất hiện theo một trình tự nào đó; nhưng trong cấu trúc hình thức của việc đánh giá, điều cốt lõi là phần chung của thông tin đang được lấy làm điểm tựa.

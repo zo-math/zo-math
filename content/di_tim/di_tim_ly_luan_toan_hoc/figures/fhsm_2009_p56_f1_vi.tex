@@ -1,0 +1,75 @@
+\documentclass[tikz,border=2pt]{standalone}
+\usetikzlibrary{calc,angles,quotes,arrows.meta}
+
+\begin{document}
+
+\begin{tikzpicture}[font=\small,line cap=round,line join=round,>=Stealth]
+
+  % --- main point ---
+  \coordinate (P) at (0,3.0);
+
+  % --- direction points defining the two rays ---
+  \coordinate (Ldir) at (-2.8,-1.0);
+  \coordinate (Rdir) at ( 2.8,-1.0);
+
+  % --- rays of view (extended) ---
+  \draw[line width=1.0pt,-{Stealth[length=3mm]}] (P) -- (Ldir);
+  \draw[line width=1.0pt,-{Stealth[length=3mm]}] (P) -- (Rdir);
+
+  % --- points A and B ON the rays (interpolation) ---
+  \coordinate (A) at ($(P)!0.72!(Ldir)$);
+  \coordinate (B) at ($(P)!0.72!(Rdir)$);
+
+  % --- draw solid points A, B ---
+  \fill (A) circle (1.6pt);
+  \fill (B) circle (1.6pt);
+
+  % labels A, B
+  \node[left=2pt]  at (A) {$A$};
+  \node[right=2pt] at (B) {$B$};
+
+  % point P
+  \fill (P) circle (1.6pt);
+  \node[above=2pt] at (P) {$P$};
+
+  % Camera label
+  \node at (0,3.75) {\bf Máy ảnh};
+
+  % --- angle marker ---
+  \pic[
+    draw,
+    dotted,
+    line width=0.9pt,
+    angle radius=9mm,
+    angle eccentricity=1.0
+  ] {angle=A--P--B};
+
+  % angle text
+  \node[anchor=west] at (-2.75,2.5) {$m\angle APB=50^\circ$};
+
+  % central text
+  \node[align=center] at (0,.5)
+    {Góc nhìn ngang};
+
+  % % --- outline of scene ---
+  % \draw[dashed, line width=0.9pt]
+  %   (A) .. controls (-1.2,-1.05) and (1.2,-1.05) .. (B);
+
+  % --- a point on PB between P and B, close to B ---
+  \coordinate (C) at ($(P)!0.95!(B)$); 
+
+  % --- wavy + small staircase (close to the reference) ---
+\draw[dashed, line width=0.9pt]
+  (Ldir)
+    .. controls (-2.35,-0.55) and (-2.05,-0.95) .. (-1.70,-0.70)
+    .. controls (-1.40,-0.45) and (-1.10,-0.95) .. (-0.75,-0.75)
+    .. controls (-0.45,-0.60) and (-0.10,-0.95) .. ( 0.25,-0.75)
+    .. controls ( 0.55,-0.60) and ( 0.85,-0.85) .. 
+  (C);
+
+  % bottom label
+  \node[align=center] at (0,-1.55)
+    {Bố cục khung hình\\đang chụp};
+\end{tikzpicture}
+
+\end{document}

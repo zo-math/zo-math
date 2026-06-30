@@ -1,0 +1,926 @@
+---
+title: "NGUỒN GỐC CỦA VIÊN BI ĐỎ"
+subtitle: "KIẾN TẠO CÔNG THỨC BAYES TỪ MỘT BÀI TOÁN HAI HỘP BI"
+
+author: ZO Math
+date: last-modified
+date-format: "DD-MM-YYYY"
+---
+
+# NGUỒN GỐC CỦA VIÊN BI ĐỎ
+
+###### KIẾN TẠO CÔNG THỨC BAYES TỪ MỘT BÀI TOÁN HAI HỘP BI
+
+## Giới thiệu: bài toán không hỏi về màu, mà hỏi về xuất thân
+
+Có những bài toán xác suất đọc lên rất ngắn, nhưng lời giải lại không hề phẳng. Bài toán hai hộp bi dưới đây là một ví dụ như vậy. Bề mặt của nó chỉ gồm hai lần lấy bi. Nhưng nếu đọc kỹ, điều bài toán hỏi không phải là màu của viên bi được lấy ra ở bước cuối. Màu đỏ chỉ là dấu hiệu quan sát được. Điều thực sự cần xác định là xuất thân của viên bi ấy: nó có phải chính là viên vừa được chuyển từ hộp thứ nhất sang hay không.
+
+Chính ở đây, bài toán đổi tính chất. Nếu chỉ theo dõi màu sắc, ta rất dễ bỏ lỡ điều cốt lõi. Muốn trả lời đúng câu hỏi của đề bài, ta phải giữ được thêm một thông tin nữa: viên bi được rút ra ở lần hai đến từ đâu. Nói cách khác, đây không chỉ là một bài toán đếm màu, mà là một bài toán truy nguồn sau quan sát.
+
+Bài viết này đi theo một con đường gồm nhiều tầng. Trước hết, ta sẽ thử giải bài toán bằng cách nhìn trực tiếp theo “nguồn” của viên bi đỏ. Cách đó ngắn và khá dễ hiểu, nhưng vẫn còn một chỗ chưa thật kín: các tỉ lệ xuất hiện trong lời giải chưa hiện ra trực tiếp từ một mô hình rõ ràng. Vì thế, ta sẽ đi tiếp tới một mô hình gắn nhãn cho từng viên bi, để thấy chính xác các xác suất đến từ đâu. Khi cấu trúc ấy đã sáng, công thức Bayes sẽ xuất hiện như một cách viết ngắn gọn của điều mô hình đã cho thấy.
+
+## Tình huống
+
+Hộp thứ nhất chứa $6$ bi đỏ và $4$ bi vàng, hộp thứ hai chứa $7$ bi đỏ và $3$ bi vàng. Lấy từ hộp thứ nhất ra một bi rồi bỏ vào hộp thứ hai. Sau đó lại lấy từ hộp thứ hai ra một bi.
+
+Cần tính xác suất để viên bi lấy ra lần này là viên của hộp thứ nhất, biết rằng nó có màu đỏ.
+
+Ta đặt
+
+$$
+\begin{aligned}
+A&:\text{ “viên bi lấy ra ở bước hai chính là viên vừa chuyển từ hộp thứ nhất sang”,}\\
+R&:\text{ “viên bi lấy ra ở bước hai có màu đỏ”.}
+\end{aligned}
+$$
+
+Điều cần tìm là
+
+$$
+P(A\mid R).
+$$
+
+## Cách nhìn đầu tiên: đi thẳng theo nguồn của viên đỏ
+
+Khi đã biết viên bi lấy ra ở bước hai là đỏ, thì viên đỏ ấy chỉ có thể đến từ hai nguồn:
+
+* hoặc là viên đỏ vừa được chuyển từ hộp thứ nhất sang;
+* hoặc là một viên đỏ vốn đã có sẵn trong hộp thứ hai.
+
+Muốn tính $P(A\mid R)$, ta chỉ cần so sánh phần thứ nhất với toàn bộ các cách có thể tạo ra một viên đỏ ở bước hai.
+
+Hãy tạm gắn nhãn cho từng viên bi, nhưng chỉ dùng ở mức tối thiểu cần thiết. Ở bước đầu, có $10$ khả năng đồng đều cho viên được chuyển từ hộp thứ nhất. Sau đó, khi viên ấy đã được chuyển sang hộp thứ hai, có $11$ khả năng đồng đều cho viên được rút ra. Vì vậy, mỗi cặp
+
+$$
+(\text{viên được chuyển},\ \text{viên được rút ra})
+$$
+
+đều có xác suất như nhau. Nói cách khác, mọi kết quả sơ cấp đều đồng khả năng.
+
+Bây giờ ta chỉ đếm những kết quả cho ra một viên đỏ ở bước hai.
+
+* Nếu viên được chuyển từ hộp thứ nhất là đỏ, có $6$ cách chọn. Khi đó, trong hộp thứ hai mới có $8$ viên đỏ có thể được rút ra: $7$ viên đỏ cũ của hộp thứ hai, và chính viên đỏ vừa chuyển sang. Vì vậy trường hợp này cho
+  $$
+  6\cdot 8=48
+  $$
+  kết quả đỏ.
+
+* Nếu viên được chuyển là vàng, có $4$ cách chọn. Khi đó hộp thứ hai vẫn chỉ có $7$ viên đỏ để rút ra. Vì vậy trường hợp này cho
+  $$
+  4\cdot 7=28
+  $$
+  kết quả đỏ.
+
+Do đó, tổng số kết quả cho ra viên đỏ ở bước hai là
+
+$$
+48+28=76.
+$$
+
+Trong số đó, để viên đỏ được rút ra chính là viên vừa chuyển từ hộp thứ nhất sang, thì phải xảy ra đúng trường hợp sau: chuyển một viên đỏ của hộp thứ nhất, rồi rút đúng chính viên đó. Có $6$ cách như vậy. Vì thế,
+
+$$
+P(A\mid R)=\frac{6}{76}=\frac{3}{38}.
+$$
+
+Đây là cách giải ngắn nhất. Nó bám rất sát câu hỏi thực sự của bài toán: trong tất cả những cách để xuất hiện một viên đỏ ở bước hai, có bao nhiêu cách khiến viên đỏ ấy đến từ hộp thứ nhất.
+
+## Vì sao cách trên vẫn còn một chỗ chưa thật kín?
+
+Cách vừa rồi cho ra đáp số nhanh và sáng. Nhưng nếu dừng ở đó, vẫn còn một câu hỏi hợp lý:
+
+> vì sao ta có quyền đếm các cặp “viên chuyển – viên rút” như những kết quả đồng khả năng?
+
+Và sâu hơn nữa:
+
+> các tỉ lệ như $\frac{6}{10}$, $\frac{1}{11}$ hay $\frac{6}{76}$ thực sự sống trên không gian nào?
+
+Nếu không làm rõ điểm này, lời giải vẫn còn dựa một phần vào trực giác. Nó đúng, nhưng chưa cho thấy đầy đủ cấu trúc của bài toán. Muốn lấp chỗ hở ấy, ta cần mô hình hóa rõ hơn.
+
+## Mô hình hóa tình huống
+
+Ta gắn nhãn cho các viên bi như sau.
+
+Trong hộp thứ nhất có
+
+$$
+d_1,d_2,\dots,d_6,; v_1,v_2,v_3,v_4,
+$$
+
+trong đó $d_i$ là bi đỏ, $v_j$ là bi vàng.
+
+Trong hộp thứ hai có
+
+$$
+D_1,D_2,\dots,D_7,; V_1,V_2,V_3,
+$$
+
+trong đó $D_i$ là bi đỏ, $V_j$ là bi vàng.
+
+Một kết quả sơ cấp của thí nghiệm gồm hai bước:
+
+1. chọn một viên $x$ từ hộp thứ nhất để chuyển sang hộp thứ hai;
+2. sau đó chọn một viên $y$ từ hộp thứ hai mới để lấy ra.
+
+Vì hộp thứ nhất có $10$ viên, nên có $10$ khả năng cho $x$. Sau khi chuyển $x$, hộp thứ hai mới có đúng $11$ viên, nên có $11$ khả năng cho $y$. Do đó, toàn bộ không gian mẫu có thể được viết là
+
+$$
+\Omega={(x,y): x\in H_1,\ y\in H_2\cup{x}},
+$$
+
+và có số phần tử
+
+$$
+\lvert\Omega\rvert=10\cdot 11=110.
+$$
+
+Mỗi phần tử của (\Omega) là một cặp có thứ tự ((x,y)): viên nào được chuyển đi, và viên nào được rút ra.
+
+Bây giờ cần giải thích vì sao $110$ phần tử ấy đồng khả năng.
+
+Ở bước đầu, đề bài nói “lấy từ hộp thứ nhất ra một bi”. Theo mô hình xác suất chuẩn của bài toán, điều đó có nghĩa là mọi viên trong hộp thứ nhất đều có xác suất như nhau được chọn. Vì hộp thứ nhất có $10$ viên, nên với mọi (x\in H_1),
+
+$$
+P(X=x)=\frac{1}{10}.
+$$
+
+Sau khi (x) đã được chuyển sang hộp thứ hai, đề bài lại nói “lấy từ hộp thứ hai ra một bi”. Điều đó có nghĩa là mọi viên đang có mặt trong hộp thứ hai mới đều có xác suất như nhau được chọn. Vì khi ấy hộp thứ hai có đúng $11$ viên, nên với mọi viên (y) thuộc hộp thứ hai mới,
+
+$$
+P(Y=y\mid X=x)=\frac{1}{11}.
+$$
+
+Vì thế, với mọi cặp khả dĩ $(x,y)\in\Omega$, ta có
+
+$$
+P((x,y))=P(X=x),P(Y=y\mid X=x)=\frac{1}{10}\cdot\frac{1}{11}=\frac{1}{110}.
+$$
+
+Do đó, $110$ phần tử của $\Omega$ thật sự đồng khả năng trong mô hình này.
+
+Đến đây, hai biến cố của bài toán được mô tả rõ ràng như sau:
+
+$$
+A={(x,y)\in\Omega:\ y=x},
+$$
+
+nghĩa là viên rút ra ở bước hai đúng là viên vừa chuyển từ hộp thứ nhất sang;
+
+$$
+R={(x,y)\in\Omega:\ y \text{ là bi đỏ}}.
+$$
+
+## Các xác suất đến từ đâu?
+
+Bây giờ, mọi xác suất trong bài toán đều có thể được đọc trực tiếp từ mô hình.
+
+### Xác suất $P(A)$
+
+Biến cố $A$ gồm đúng các cặp
+
+$$
+(d_1,d_1),\dots,(d_6,d_6),(v_1,v_1),\dots,(v_4,v_4).
+$$
+
+Do đó,
+
+$$
+\lvert A\rvert=10,
+$$
+
+nên
+
+$$
+P(A)=\frac{\lvert A\rvert}{\lvert \Omega\rvert}=\frac{10}{110}=\frac{1}{11}.
+$$
+
+Con số $\frac{1}{11}$ không còn là một câu giải thích bằng lời. Nó là tỉ lệ giữa số kết quả trong đó rút đúng viên vừa chuyển và tổng số kết quả của mô hình.
+
+### Xác suất $P(R\mid A)$
+
+Trong $10$ phần tử của $A$, chỉ có $6$ phần tử là đỏ:
+
+$$
+(d_1,d_1),\dots,(d_6,d_6).
+$$
+
+Vì thế,
+
+$$
+\lvert A\cap R\rvert=6,
+$$
+
+nên
+
+$$
+P(R\mid A)=\frac{P(A\cap R)}{P(A)}
+=\frac{|A\cap R|}{\lvert A\rvert}
+=\frac{6}{10}.
+$$
+
+Đây là chỗ rất đáng chú ý. Con số $\frac{6}{10}$ không phải là một lời giải thích kiểu “vì hộp 1 có $6$ bi đỏ trên $10$ bi”. Đúng hơn, nó là tỉ lệ đếm được bên trong biến cố $A$: một khi đã biết viên được rút ra chính là viên vừa chuyển, thì chỉ còn $10$ khả năng đồng khả năng cho viên ấy; trong $10$ khả năng đó có $6$ khả năng đỏ.
+
+### Xác suất $P(R)$
+
+Muốn đếm $\lvert R\rvert$, ta chia theo màu của viên được chuyển.
+
+* Nếu chuyển một viên đỏ từ hộp thứ nhất, có $6$ cách chọn $x$. Khi đó hộp thứ hai mới có $8$ viên đỏ có thể được rút ra, nên cho
+
+  $$
+  6\cdot 8=48
+  $$
+
+  phần tử của $R$.
+
+* Nếu chuyển một viên vàng, có $4$ cách chọn $x$. Khi đó hộp thứ hai mới có $7$ viên đỏ có thể được rút ra, nên cho
+
+  $$
+  4\cdot 7=28
+  $$
+
+  phần tử của $R$.
+
+Vì vậy,
+
+$$
+|R|=48+28=76,
+$$
+
+nên
+
+$$
+P(R)=\frac{|R|}{|\Omega|}=\frac{76}{110}=\frac{38}{55}.
+$$
+
+### Xác suất cần tìm (P(A\mid R))
+
+Cuối cùng,
+
+$$
+P(A\mid R)=\frac{P(A\cap R)}{P(R)}
+=\frac{|A\cap R|}{|R|}
+=\frac{6}{76}
+=\frac{3}{38}.
+$$
+
+## Công thức Bayes xuất hiện ở đâu?
+
+Sau khi mô hình đã được thiết lập, công thức Bayes chỉ còn là một cách viết ngắn gọn của cấu trúc vừa thấy:
+
+$$
+P(A\mid R)=\frac{P(R\mid A),P(A)}{P(R)}.
+$$
+
+Ở đây, từ mô hình ta đã có
+
+$$
+P(R\mid A)=\frac{6}{10},\qquad P(A)=\frac{1}{11},\qquad P(R)=\frac{38}{55}.
+$$
+
+Thay vào, ta được
+
+$$
+P(A\mid R)=
+\frac{\frac{6}{10}\cdot\frac{1}{11}}{\frac{38}{55}}
+=\frac{3}{38}.
+$$
+
+Điều quan trọng là: Bayes không hề thay thế phần mô hình hóa ở trên. Nó chỉ cô đọng lại chính những đại lượng mà mô hình đã làm sáng tỏ. Nếu các biến cố (A) và (R) chưa được mô tả rõ, hoặc nếu chưa biết các tỉ lệ (\frac{6}{10}), (\frac{1}{11}), (\frac{38}{55}) đến từ đâu, thì công thức Bayes cũng không giúp ích được bao nhiêu.
+
+## Cách nào quan trọng nhất? Cách nào đẹp nhất?
+
+Bài toán này có thể được giải theo nhiều cách, nhưng không phải cách nào cũng giữ vai trò như nhau.
+
+Cách nhìn trực tiếp theo “nguồn của viên đỏ” là cách dễ hiểu nhất ở lần đọc đầu. Nó bám rất sát câu hỏi của đề bài: viên đỏ quan sát được đến từ đâu. Nhờ đó, người đọc nhanh chóng thấy bản chất truy nguồn của bài toán.
+
+Tuy nhiên, cách quan trọng nhất lại là mô hình gắn nhãn cho từng viên bi. Lý do là chỉ trong mô hình ấy, các biến cố mới được xác định thật rõ, và các xác suất mới hiện ra như những tỉ lệ có thể đếm được. Chính mô hình này lấp đầy chỗ sơ hở của cách giải ngắn ban đầu.
+
+Còn cách đẹp nhất là công thức Bayes. Nhưng vẻ đẹp ấy chỉ xuất hiện sau khi mô hình đã sáng. Khi đó, Bayes không còn là một mẹo tính được đem đến từ bên ngoài, mà là bản viết ngắn gọn nhất của cấu trúc đã hiểu.
+
+Nói ngắn gọn:
+
+* cách dễ hiểu nhất ở lần đầu: nhìn theo nguồn;
+* cách quan trọng nhất: mô hình gắn nhãn;
+* cách đẹp nhất: Bayes sau mô hình.
+
+## Kết luận
+
+Bài toán hai hộp bi tưởng chỉ là một bài đếm nhỏ, nhưng thực ra chứa một cấu trúc rất đáng chú ý. Điều được quan sát là màu đỏ. Điều cần xác định lại là xuất thân của viên bi đỏ ấy. Vì thế, đây không chỉ là một bài toán về màu sắc, mà là một bài toán về truy nguồn sau quan sát.
+
+Khi chưa biết màu của viên được rút ra, việc đánh giá biến cố (A) được thực hiện trên toàn bộ không gian mẫu (\Omega). Nhưng khi đã biết viên ấy màu đỏ, điểm tựa của đánh giá chuyển sang biến cố (R). Từ đó, câu hỏi của bài toán trở thành: trong tất cả những cách để xuất hiện một viên đỏ, phần nào là những cách mà viên đỏ ấy đến từ hộp thứ nhất?
+
+Theo nghĩa đó, Bayes xuất hiện ở đây không phải trước hết như một công thức, mà như hình thức toán học của việc đổi điểm tựa trong một bài toán truy nguồn. Cái được đổi không phải là quá khứ của viên bi, mà là nền của sự đánh giá. Và chính khi nền ấy thay đổi, câu trả lời cũng thay đổi theo.
+
+Nếu bạn muốn, lượt tiếp theo tôi sẽ tiếp tục **tinh chỉnh từng mục của bài luận này theo đúng cách ta đã làm với “Điểm tựa”**.
+
+---
+
+Có. Bài này có thể giải rất gọn theo nhiều cách. Chỗ dễ vướng nhất đúng là **không gian mẫu**.
+
+## Chỗ mấu chốt về không gian mẫu
+
+Nếu chỉ ghi theo màu, chẳng hạn:
+
+* chuyển đỏ rồi rút đỏ,
+* chuyển đỏ rồi rút vàng,
+* chuyển vàng rồi rút đỏ,
+* chuyển vàng rồi rút vàng,
+
+thì **chưa đủ**. Vì câu hỏi không chỉ hỏi “bi rút ra màu gì”, mà hỏi:
+
+> bi rút ra ở lần hai **có phải chính là bi từ hộp 1 chuyển sang hay không**.
+
+Muốn trả lời câu này, không gian mẫu phải giữ được **nguồn gốc** của viên bi ở lần rút thứ hai, chứ không chỉ giữ màu.
+
+Đặt:
+
+* (A): “bi rút ở hộp 2 chính là bi vừa chuyển từ hộp 1 sang”;
+* (R): “bi rút ở hộp 2 có màu đỏ”.
+
+Cần tính (P(A\mid R)).
+
+---
+
+## Cách 1: Dùng Bayes trực tiếp
+
+Ta có
+[
+P(A\mid R)=\frac{P(A\cap R)}{P(R)}.
+]
+
+### Tính (P(A\cap R))
+
+Để bi rút ra lần hai vừa là **bi từ hộp 1**, vừa **màu đỏ**, thì phải xảy ra:
+
+* chuyển từ hộp 1 sang một bi đỏ: xác suất (\dfrac{6}{10});
+* sau đó rút đúng chính viên bi vừa chuyển trong hộp 2 có (11) viên: xác suất (\dfrac{1}{11}).
+
+Vậy
+[
+P(A\cap R)=\frac{6}{10}\cdot\frac{1}{11}=\frac{3}{55}.
+]
+
+### Tính (P(R))
+
+Bi rút ở hộp 2 là đỏ có hai khả năng:
+
+* chuyển sang một bi đỏ, khi đó hộp 2 có (8) đỏ, (3) vàng:
+  [
+  \frac{6}{10}\cdot\frac{8}{11};
+  ]
+
+* chuyển sang một bi vàng, khi đó hộp 2 có (7) đỏ, (4) vàng:
+  [
+  \frac{4}{10}\cdot\frac{7}{11}.
+  ]
+
+Nên
+[
+P(R)=\frac{6}{10}\cdot\frac{8}{11}+\frac{4}{10}\cdot\frac{7}{11}
+=\frac{48}{110}+\frac{28}{110}
+=\frac{38}{55}.
+]
+
+Do đó
+[
+P(A\mid R)=\frac{3/55}{38/55}=\frac{3}{38}.
+]
+
+**Kết quả:**
+[
+\boxed{\frac{3}{38}}.
+]
+
+---
+
+## Cách 2: Dựng một không gian mẫu “đủ dùng”, không cần quá lớn
+
+Thay vì dựng không gian mẫu rất chi tiết, chỉ cần chia theo đúng những khả năng có ý nghĩa với bài toán:
+
+1. chuyển đỏ, rồi rút đúng viên đỏ vừa chuyển;
+2. chuyển đỏ, rồi rút một viên đỏ cũ của hộp 2;
+3. chuyển đỏ, rồi rút vàng;
+4. chuyển vàng, rồi rút đỏ;
+5. chuyển vàng, rồi rút đúng viên vàng vừa chuyển;
+6. chuyển vàng, rồi rút một viên vàng cũ của hộp 2.
+
+Đây là một **phân hoạch hợp lý** của bài toán.
+
+Tính xác suất từng trường hợp:
+
+[
+\begin{aligned}
+P(1)&=\frac{6}{10}\cdot\frac{1}{11}=\frac{3}{55},\
+P(2)&=\frac{6}{10}\cdot\frac{7}{11}=\frac{21}{55},\
+P(3)&=\frac{6}{10}\cdot\frac{3}{11}=\frac{9}{55},\
+P(4)&=\frac{4}{10}\cdot\frac{7}{11}=\frac{14}{55},\
+P(5)&=\frac{4}{10}\cdot\frac{1}{11}=\frac{2}{55},\
+P(6)&=\frac{4}{10}\cdot\frac{3}{11}=\frac{6}{55}.
+\end{aligned}
+]
+
+Trong đó:
+
+* biến cố cần tìm (A\cap R) chính là trường hợp (1);
+* biến cố (R) gồm các trường hợp (1), (2), (4).
+
+Vậy
+[
+P(A\mid R)=\frac{P(1)}{P(1)+P(2)+P(4)}
+=\frac{3/55}{3/55+21/55+14/55}
+=\frac{3}{38}.
+]
+
+Cách này rất hợp khi bạn đang lúng túng với không gian mẫu: **không cần quá mịn, chỉ cần đủ để phân biệt biến cố cần hỏi**.
+
+---
+
+## Cách 3: Gán nhãn từng viên bi để có không gian mẫu đều nhau
+
+Đây là cách “sạch” nhất nếu muốn có không gian mẫu thật sự rõ ràng.
+
+Gán nhãn:
+
+* hộp 1: (6) đỏ, (4) vàng;
+* hộp 2: (7) đỏ, (3) vàng.
+
+Lần 1: chọn 1 trong (10) viên của hộp 1.
+Lần 2: sau khi chuyển, hộp 2 có (11) viên, chọn 1 trong (11) viên.
+
+Vì thế có thể xem mỗi kết quả là một cặp có thứ tự
+[
+(\text{viên chuyển đi},\ \text{viên rút ra ở hộp 2}),
+]
+và có tổng cộng
+[
+10\cdot 11=110
+]
+kết quả đồng khả năng.
+
+### Đếm số kết quả thuận lợi
+
+Muốn “viên rút ra lần hai là viên của hộp 1 và đỏ”, thì:
+
+* phải chuyển một viên đỏ của hộp 1: có (6) cách;
+* rồi rút đúng chính viên đó: chỉ (1) cách.
+
+Số kết quả thuận lợi là
+[
+6.
+]
+
+### Đếm số kết quả mà lần hai rút được bi đỏ
+
+* nếu chuyển đỏ: có (6) cách chuyển, và khi đó hộp 2 có (8) viên đỏ để rút, nên có
+  [
+  6\cdot 8=48
+  ]
+  kết quả đỏ;
+
+* nếu chuyển vàng: có (4) cách chuyển, và khi đó hộp 2 có (7) viên đỏ để rút, nên có
+  [
+  4\cdot 7=28
+  ]
+  kết quả đỏ.
+
+Tổng số kết quả có bi đỏ ở lần hai là
+[
+48+28=76.
+]
+
+Vậy
+[
+P(A\mid R)=\frac{6}{76}=\frac{3}{38}.
+]
+
+---
+
+## Kết luận
+
+[
+\boxed{P(\text{bi rút lần hai là bi từ hộp 1}\mid \text{bi đó màu đỏ})=\frac{3}{38}}.
+]
+
+Điểm chính về không gian mẫu là:
+
+* **chỉ theo màu** thì không đủ;
+* phải theo dõi thêm **nguồn gốc của viên bi được rút ở lần hai**.
+
+Cách 2 thường là cách dễ dựng nhất trong các bài kiểu này.
+
+---
+
+Rất hợp để đưa vào mạch **“Điểm tựa”**. Ý đẹp nhất của bài này là:
+
+> **Câu hỏi không hỏi màu của viên bi, mà hỏi xuất thân của nó.**
+> Vì vậy, trục chia đầu tiên không nên là *đỏ/vàng*, mà là *từ hộp 1 chuyển sang / vốn đã ở hộp 2*.
+
+Chính chỗ đó làm bài toán nhỏ này trở nên sâu.
+
+## Ý tưởng trung tâm
+
+Đặt
+[
+A:\ \text{“viên rút ra ở hộp 2 chính là viên vừa chuyển từ hộp 1 sang”},
+]
+[
+R:\ \text{“viên rút ra ở hộp 2 có màu đỏ”}.
+]
+
+Điều cần tìm là
+[
+P(A\mid R).
+]
+
+Điểm hay là: **trước khi biết màu**, việc viên rút ra có phải là viên vừa chuyển hay không được đánh giá trên nền toàn bộ (11) viên trong hộp 2. Vì thế
+[
+P(A)=\frac1{11}.
+]
+
+Nhưng **sau khi biết viên rút ra là đỏ**, điểm tựa của đánh giá thay đổi. Ta không còn so sánh viên vừa chuyển với toàn bộ (11) viên nữa, mà với **những viên đỏ có thể xuất hiện ở lần rút thứ hai**. Lúc ấy, viên đỏ được rút ra có thể đến từ hai nguồn:
+
+* là viên từ hộp 1 chuyển sang;
+* hoặc là một viên đỏ vốn đã có sẵn trong hộp 2.
+
+Bài toán vì thế trở thành: **trong tất cả những cách để rút được một viên đỏ, phần nào thuộc về nguồn thứ nhất?**
+
+## Cách giải gọn nhất theo đúng tinh thần đó
+
+Nếu viên rút ra đúng là viên vừa chuyển, thì nó đỏ với xác suất
+[
+P(R\mid A)=\frac6{10},
+]
+vì viên được chuyển từ hộp 1 sang đỏ với xác suất (6/10).
+
+Nếu viên rút ra **không** phải là viên vừa chuyển, thì nó là một trong (10) viên vốn có của hộp 2. Trong (10) viên ấy có (7) viên đỏ, nên
+[
+P(R\mid A^c)=\frac7{10}.
+]
+
+Lại có
+[
+P(A)=\frac1{11},\qquad P(A^c)=\frac{10}{11}.
+]
+
+Do đó, theo Bayes,
+[
+P(A\mid R)=
+\frac{P(R\mid A)P(A)}
+{P(R\mid A)P(A)+P(R\mid A^c)P(A^c)}
+===================================
+
+\frac{\frac6{10}\cdot\frac1{11}}
+{\frac6{10}\cdot\frac1{11}+\frac7{10}\cdot\frac{10}{11}}
+========================================================
+
+\frac{3}{38}.
+]
+
+## Điều rất đáng nói
+
+Kết quả
+[
+\frac{3}{38}<\frac1{11}
+]
+nghĩa là: **biết viên rút ra là đỏ không làm tăng, mà còn làm giảm khả năng nó là viên từ hộp 1 chuyển sang**.
+
+Đây là điểm rất “Điểm tựa”:
+
+* trước khi biết màu, ta đánh giá trên nền toàn bộ (11) viên;
+* sau khi biết màu đỏ, ta đổi sang nền những viên đỏ;
+* mà trong nền mới ấy, đỏ vốn có của hộp 2 lại mạnh hơn đỏ từ hộp 1 chuyển sang.
+
+## Một đoạn văn có thể dùng luôn
+
+> Bài toán này thoạt nhìn chỉ là một bài đếm bi, nhưng thực ra là một bài truy nguồn sau quan sát. Điều được nhìn thấy là màu đỏ; điều cần xác định lại là xuất thân của viên bi. Khi chưa biết màu, xác suất viên rút ra là viên vừa chuyển chỉ là (1/11), vì sau khi chuyển xong, hộp thứ hai có (11) viên và viên vừa chuyển chỉ là một trong số đó. Nhưng khi biết viên rút ra là đỏ, điểm tựa của đánh giá thay đổi. Ta không còn so sánh viên vừa chuyển với toàn bộ (11) viên nữa, mà với những viên đỏ có thể được rút ra. Trong nhóm đỏ ấy có hai nguồn: đỏ từ hộp thứ nhất chuyển sang, và đỏ vốn đã có trong hộp thứ hai. Bayes xuất hiện đúng ở đây: nó cho phép đánh giá lại xuất thân của viên bi khi điểm tựa đã chuyển từ toàn bộ hộp sang riêng nhóm đỏ.
+
+Nếu bạn muốn, tôi sẽ viết tiếp bài này thành một tiểu mục hoàn chỉnh theo đúng giọng của “Điểm tựa”.
+
+---
+
+Đúng. Muốn thuyết phục thì phải **mô hình hóa để thấy tỉ lệ hiện ra từ chính không gian mẫu**, chứ không chỉ giải thích bằng lời.
+
+Với bài này, mô hình tự nhiên nhất là **gắn nhãn cho từng viên bi**.
+
+---
+
+## 1. Mô hình hóa bằng cách gắn nhãn
+
+Gọi các viên bi trong hộp 1 là
+
+[
+d_1,d_2,\dots,d_6,; v_1,v_2,v_3,v_4
+]
+
+trong đó (d_i) là bi đỏ, (v_j) là bi vàng.
+
+Gọi các viên bi trong hộp 2 là
+
+[
+D_1,D_2,\dots,D_7,; V_1,V_2,V_3
+]
+
+trong đó (D_i) là bi đỏ, (V_j) là bi vàng.
+
+Một kết quả sơ cấp của thí nghiệm là một cặp có thứ tự
+
+[
+(x,y),
+]
+
+trong đó
+
+* (x): viên được chuyển từ hộp 1 sang hộp 2;
+* (y): viên được rút ra sau đó từ hộp 2.
+
+Vì sau khi chuyển (x), hộp 2 có đúng (11) viên, nên với mỗi (x), viên (y) có thể là bất kỳ phần tử nào của
+[
+{D_1,\dots,D_7,V_1,V_2,V_3,x}.
+]
+
+Do đó không gian mẫu là
+
+[
+\Omega={(x,y): x\in H_1,; y\in H_2\cup{x}}.
+]
+
+Số phần tử của (\Omega) là
+
+[
+|\Omega|=10\cdot 11=110.
+]
+
+Mỗi phần tử của (\Omega) có xác suất bằng nhau:
+
+[
+P\bigl({(x,y)}\bigr)=\frac1{10}\cdot\frac1{11}=\frac1{110}.
+]
+
+Đây là điểm quan trọng: **sau khi gắn nhãn, ta có một mô hình hữu hạn đều xác suất**.
+
+---
+
+## 2. Mô tả các biến cố trong mô hình
+
+Đặt
+
+[
+A={(x,y)\in\Omega: y=x},
+]
+
+nghĩa là viên rút ra ở lần hai chính là viên vừa chuyển từ hộp 1 sang.
+
+Đặt
+
+[
+R={(x,y)\in\Omega: y \text{ là bi đỏ}}.
+]
+
+Cần tính
+
+[
+P(A\mid R).
+]
+
+---
+
+## 3. Từ mô hình, vì sao (P(R\mid A)=\frac{6}{10})?
+
+Đây chính là chỗ bạn muốn thấy rõ.
+
+Trước hết, hãy viết hẳn biến cố (A) ra:
+
+[
+A=
+{(d_1,d_1),\dots,(d_6,d_6),(v_1,v_1),\dots,(v_4,v_4)}.
+]
+
+Vậy
+
+[
+|A|=10.
+]
+
+Trong số 10 kết quả này, những kết quả đồng thời thuộc (R) là
+
+[
+A\cap R=
+{(d_1,d_1),\dots,(d_6,d_6)},
+]
+
+nên
+
+[
+|A\cap R|=6.
+]
+
+Vì các kết quả trong (\Omega) là đồng khả năng, nên trong không gian điều kiện (A), các phần tử của (A) cũng đồng khả năng. Do đó
+
+[
+P(R\mid A)=\frac{|A\cap R|}{|A|}=\frac{6}{10}.
+]
+
+Ở đây, (\frac{6}{10}) **không còn là một lời giải thích bằng lời**. Nó là tỉ số giữa:
+
+* số kết quả trong (A) mà viên ấy đỏ;
+* tổng số kết quả trong (A).
+
+Nói cách khác: **khi đã biết viên rút ra chính là viên vừa chuyển**, thì ta chỉ còn nhìn trong 10 khả năng của biến cố (A); trong 10 khả năng ấy có 6 khả năng đỏ.
+
+---
+
+## 4. Tương tự, từ mô hình cũng thấy ngay (P(A)=\frac1{11})
+
+Ta có
+
+[
+|A|=10,\qquad |\Omega|=110,
+]
+
+nên
+
+[
+P(A)=\frac{10}{110}=\frac1{11}.
+]
+
+Điều này cũng hiện ra trực tiếp từ mô hình.
+
+---
+
+## 5. Tính (P(R)) ngay trong mô hình
+
+Ta cần đếm số phần tử của (R).
+
+### Trường hợp 1: (x) là đỏ
+
+Có (6) cách chọn (x\in{d_1,\dots,d_6}).
+
+Khi đó hộp 2 có (8) viên đỏ có thể được rút ra:
+
+* (7) viên đỏ cũ (D_1,\dots,D_7),
+* và chính viên (x) vừa chuyển.
+
+Vậy số kết quả đỏ trong trường hợp này là
+
+[
+6\cdot 8=48.
+]
+
+### Trường hợp 2: (x) là vàng
+
+Có (4) cách chọn (x\in{v_1,\dots,v_4}).
+
+Khi đó hộp 2 chỉ có (7) viên đỏ có thể được rút ra, nên số kết quả đỏ là
+
+[
+4\cdot 7=28.
+]
+
+Suy ra
+
+[
+|R|=48+28=76,
+]
+
+nên
+
+[
+P(R)=\frac{76}{110}=\frac{38}{55}.
+]
+
+---
+
+## 6. Từ đó suy ra ngay đáp số
+
+Ta đã có
+
+[
+|A\cap R|=6,\qquad |R|=76.
+]
+
+Vậy
+
+[
+P(A\mid R)=\frac{|A\cap R|}{|R|}=\frac{6}{76}=\frac{3}{38}.
+]
+
+---
+
+## 7. Điều cốt lõi của mô hình này
+
+Mô hình này làm lộ rõ vì sao bài toán không thể chỉ chia theo màu.
+
+Câu hỏi không phải là:
+
+* viên rút ra đỏ hay vàng,
+
+mà là:
+
+* viên rút ra **có phải chính là viên từ hộp 1 chuyển sang hay không**.
+
+Cho nên không gian mẫu phải giữ được **lai lịch của viên bi**, và cách tự nhiên nhất là **gắn nhãn cho từng viên**.
+
+Khi đã làm vậy, các xác suất như
+
+[
+P(R\mid A)=\frac{6}{10}
+]
+
+không còn là “lời giải thích suông”, mà là **tỉ lệ đếm được bên trong một biến cố điều kiện cụ thể**.
+
+---
+
+Có. Với đúng kiểu bài như bài **hai hộp bi** này — tức là các bài cần:
+
+* dựng không gian mẫu đúng,
+* theo dõi **lai lịch / nguồn gốc** của đối tượng,
+* làm rõ xác suất có điều kiện và Bayes từ mô hình,
+
+thì tôi gợi ý đi theo **4 tầng** sau.
+
+### 1. Tầng nền: đếm và mô hình hóa rời rạc
+
+Nếu phần khó nhất của bạn là “dựng mô hình trước khi tính”, thì cuốn nên đọc sớm là:
+
+**Titu Andreescu & Zuming Feng — *A Path to Combinatorics for Undergraduates***
+
+Cuốn này được viết đúng với mục tiêu đưa người học từ các bài đếm phổ thông sang các bài tổ hợp tinh hơn, và nhấn mạnh vai trò của việc làm bài tập cùng lời giải bàn luận khá kỹ. Nó rất hợp để luyện “mắt nhìn cấu trúc” trước khi áp xác suất. ([Springer Nature Link][1])
+
+### 2. Tầng nền xác suất: học mô hình trước, công thức sau
+
+Nếu bạn muốn một cuốn đi đúng tinh thần “xây mô hình rồi mới dùng công thức”, thì lựa chọn mạnh nhất là:
+
+**Dimitri Bertsekas & John Tsitsiklis — *Introduction to Probability***
+
+MIT OpenCourseWare dùng chính cuốn này cho học phần “Introduction to Probability”, và phần giới thiệu của sách nói rất rõ đây là giáo trình nhập môn xác suất của MIT. Điểm rất đáng giá cho tự học là bản sách này có lời giải cho các bài trong notes, và Athena Scientific còn có thêm các bộ “additional problems” theo chương. Cuốn này rất hợp với kiểu tư duy bạn đang xây trong “Điểm tựa”. ([MIT OpenCourseWare][2])
+
+### 3. Tầng luyện bài hệ thống chuẩn đại học
+
+Nếu bạn cần một nguồn bài tập lớn, đi từ cơ bản đến chắc tay, thì nên dùng:
+
+**Sheldon Ross — *A First Course in Probability***
+
+Bản xem trước của ấn bản 10 cho biết cuối mỗi chương có ba lớp bài: Problems, Theoretical Exercises, và Self-Test Problems/Exercises. Đây là kiểu sách rất tốt để làm “số lượng lớn bài tiêu chuẩn”, đặc biệt cho xác suất rời rạc, điều kiện, Bayes, kỳ vọng, chuỗi Markov cơ bản. ([PagePlace][3])
+
+### 4. Tầng nâng cao bài tập: khi muốn đi lên độ khó thật sự
+
+Sau khi đã vững tầng trên, tôi sẽ chuyển sang:
+
+**Geoffrey Grimmett & David Stirzaker — *Probability and Random Processes***
+và đặc biệt là
+***One Thousand Exercises in Probability***
+
+Chính trang của tác giả ghi rõ hai cuốn này là một cặp, và cuốn bài tập có hơn 1000 bài cùng lời giải. Đây là nguồn rất mạnh khi bạn muốn đi từ “biết làm bài” sang “thấy cấu trúc sâu hơn của bài”. ([statslab.cam.ac.uk][4])
+
+---
+
+## Nếu muốn thêm một cuốn “nhỏ mà sắc”
+
+**Frederick Mosteller — *Fifty Challenging Problems in Probability with Solutions***
+
+Đây là một cuốn rất ngắn nhưng đắt. Nó không phải giáo trình nền, mà là cuốn để rèn cảm giác bài toán. Hợp khi bạn đã có căn bản và muốn va vào những bài xác suất ngắn mà khó. Dover hiện vẫn phát hành bản này. ([Dover Publications][5])
+
+---
+
+## Nếu tôi phải chọn cho bạn một lộ trình ngắn nhất
+
+Tôi sẽ chọn như sau:
+
+1. **A Path to Combinatorics for Undergraduates**
+   để chữa gốc phần **đếm và mô hình hóa**. ([Springer Nature Link][1])
+
+2. **Introduction to Probability** (Bertsekas–Tsitsiklis)
+   để học xác suất theo kiểu **mô hình trước, công thức sau**. ([MIT OpenCourseWare][2])
+
+3. **A First Course in Probability** (Ross)
+   để làm **khối lượng lớn bài tập tiêu chuẩn**. ([PagePlace][3])
+
+4. **One Thousand Exercises in Probability**
+   khi muốn lên một tầng khó hơn thật sự. ([statslab.cam.ac.uk][4])
+
+---
+
+## Chọn đúng với mục tiêu của bạn
+
+Nếu mục tiêu là **giải hệ thống bài giống bài hai hộp bi này**, thì cuốn đáng ưu tiên nhất không phải cuốn “nhiều công thức nhất”, mà là cuốn giúp bạn thấy:
+
+* phải theo dõi biến nào,
+* không gian mẫu nào là đúng,
+* xác suất điều kiện nào là cái cần được dựng chứ không phải được “đoán”.
+
+Theo tiêu chí ấy, tôi nghiêng mạnh nhất về bộ đôi:
+
+[
+\boxed{\text{Andreescu–Feng} ;\rightarrow; \text{Bertsekas–Tsitsiklis}}
+]
+
+rồi mới sang Ross để luyện số lượng bài lớn.
+
+Nếu bạn muốn, tôi sẽ dựng luôn cho bạn một **lộ trình 8–12 tuần**, chỉ rõ nên đọc chương nào và làm dạng bài nào để đi đúng vào mạch **đếm → điều kiện → Bayes → truy nguồn**.
+
+[1]: https://link.springer.com/book/10.1007/978-0-8176-8154-8 "https://link.springer.com/book/10.1007/978-0-8176-8154-8"
+[2]: https://ocw.mit.edu/courses/res-6-012-introduction-to-probability-spring-2018/pages/part-i-the-fundamentals/ "https://ocw.mit.edu/courses/res-6-012-introduction-to-probability-spring-2018/pages/part-i-the-fundamentals/"
+[3]: https://api.pageplace.de/preview/DT0400.9781292269238_A39514643/preview-9781292269238_A39514643.pdf "https://api.pageplace.de/preview/DT0400.9781292269238_A39514643/preview-9781292269238_A39514643.pdf"
+[4]: https://www.statslab.cam.ac.uk/~grg1000//books/prp4.html "https://www.statslab.cam.ac.uk/~grg1000//books/prp4.html"
+[5]: https://store.doverpublications.com/products/9780486653556?srsltid=AfmBOorRsLuNiuhW9yiQulD8nQ5Imb4OgyJhQjuVUqScslV-D_HL1DUF "https://store.doverpublications.com/products/9780486653556?srsltid=AfmBOorRsLuNiuhW9yiQulD8nQ5Imb4OgyJhQjuVUqScslV-D_HL1DUF"
+
