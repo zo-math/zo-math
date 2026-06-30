@@ -1,0 +1,16 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tkz-tab}
+\usepackage{amsmath}
+\usepackage{unicode-math}
+% \setmathfont{STIX Two Math}
+
+\begin{document}
+
+\begin{tikzpicture}
+  \tkzTabInit[lgt=1.0, espcl=4]%
+    {$x$/.8, $y^\prime$/.8, $y$/2}{$-\infty$, $+\infty$}
+  \tkzTabLine{,$1$,}
+  \tkzTabVar{-/$-\infty$, +/$+\infty$}
+\end{tikzpicture}
+
+\end{document}

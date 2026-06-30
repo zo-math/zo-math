@@ -1,0 +1,22 @@
+\documentclass[border=1mm]{standalone}
+
+\usepackage{amsmath}
+\usepackage{xcolor}
+\definecolor{den-6}{HTML}{666666}
+\usepackage{tkz-tab}
+\usetikzlibrary{arrows}
+
+\begin{document}
+
+\begin{tikzpicture}
+  \tkzTabInit[
+    lgt=2, 
+    deltacl=.5, 
+    espcl=2.5] 
+    {$x$/1, $f'(x)$/1, $f(x)$/2.5}
+    {$-\infty$, $1$, $3$, $+\infty$}
+  \tkzTabLine{, +, 0, -, 0, +, } 
+  \tkzTabVar{-/$-\infty$, +/$4$, -/$0$, +/$+\infty$}
+\end{tikzpicture}
+
+\end{document}
