@@ -288,6 +288,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#kiểm-tra-lại-trước-khi-push" id="toc-kiểm-tra-lại-trước-khi-push" class="nav-link" data-scroll-target="#kiểm-tra-lại-trước-khi-push">3. Kiểm tra lại trước khi <code>push</code></a></li>
   </ul></li>
   <li><a href="#tóm-gọn" id="toc-tóm-gọn" class="nav-link" data-scroll-target="#tóm-gọn">Tóm gọn</a></li>
+  <li><a href="#quy-trình-được-chatgpt-hiệu-chỉnh" id="toc-quy-trình-được-chatgpt-hiệu-chỉnh" class="nav-link" data-scroll-target="#quy-trình-được-chatgpt-hiệu-chỉnh">QUY TRÌNH ĐƯỢC CHATGPT HIỆU CHỈNH</a></li>
   </ul>
 </nav>
     </div>
@@ -387,6 +388,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .</span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Cập nhật nội dung xuất bản"</span></span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">--force</span> origin gh-pages</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="quy-trình-được-chatgpt-hiệu-chỉnh" class="level1">
+<h1>QUY TRÌNH ĐƯỢC CHATGPT HIỆU CHỈNH</h1>
+<p>Đây là <strong>quy trình chuẩn mới</strong> từ nay về sau.</p>
+<p>Lý do: nó giữ đúng mô hình đang dùng:</p>
+<pre class="text"><code>master    = nơi viết và render nội dung
+gh-pages  = nơi xuất bản bản web trong docs/</code></pre>
+<p>Quy trình nên dùng cố định:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout master</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Chuyển sang nhánh master, nơi bạn sửa nội dung gốc của website.</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin master</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Lấy phiên bản mới nhất của nhánh master từ GitHub về máy.</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Render toàn bộ website Quarto, tạo/cập nhật thư mục docs/.</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> docs/.nojekyll</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Báo cho GitHub Pages không xử lý site như Jekyll, để các file CSS/JS của Quarto được phục vụ đúng.</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add <span class="at">-A</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Đưa toàn bộ thay đổi trên master vào vùng chuẩn bị commit.</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Cập nhật nội dung mới"</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Lưu các thay đổi nội dung và bản render docs/ thành một commit.</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin master</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Đẩy nhánh master mới nhất lên GitHub.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Rồi xuất bản:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout gh-pages</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Chuyển sang nhánh gh-pages, nơi GitHub Pages lấy website để xuất bản.</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin gh-pages</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Lấy phiên bản mới nhất của nhánh gh-pages từ GitHub về máy.</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> rm <span class="at">-rf</span> docs</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Xóa thư mục docs cũ trên nhánh gh-pages.</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout master <span class="at">--</span> docs</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Sao chép thư mục docs mới đã render từ nhánh master sang nhánh gh-pages.</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add <span class="at">-A</span> docs</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Đưa toàn bộ thư mục docs mới vào vùng chuẩn bị commit.</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Cập nhật nội dung xuất bản"</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Lưu bản website mới trên nhánh gh-pages.</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin gh-pages</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Đẩy bản xuất bản mới lên GitHub Pages.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Chỉ dùng <code>--force</code> khi Git báo không push được và bạn hiểu rằng mình muốn ghi đè nhánh <code>gh-pages</code>.</p>
+<p>Với lần này, bạn cũng dùng đúng quy trình trên để sửa lỗi giao diện thô hiện tại. Sau đó vào GitHub Pages giữ:</p>
+<pre class="text"><code>Branch: gh-pages
+Folder: /docs</code></pre>
 
 
 </section>
