@@ -1,0 +1,28 @@
+\documentclass[border=2mm]{standalone}
+\usepackage{tikz}
+\usepackage{mathtools}
+% \usepackage{tikz-3dplot}
+\usetikzlibrary{calc}
+
+\begin{document}
+% \tdplotsetmaincoords{70}{120}
+
+\begin{tikzpicture}[>=stealth]
+  \coordinate (S) at (0,0);
+  \coordinate (O) at (2,1);
+  \coordinate (A) at (4,0.5);
+
+  \draw[->] (S) -- (O) node[midway, above left] {$\overrightarrow{\vphantom{A^{A}}SO}$};
+
+  \draw[->] (O) -- (A) node[midway, above right] {$\overrightarrow{\vphantom{A^{A}}OA}$};
+
+  \draw[->] (S) -- (A) node[midway, below] {$\overrightarrow{\vphantom{A^{A}}SA}$};
+
+  \fill (S) circle (1pt) node[below left] {$S$};
+
+  \fill (O) circle (1pt) node[above] {$O$};
+
+  \fill (A) circle (1pt) node[below right] {$A$};
+\end{tikzpicture}
+
+\end{document}
