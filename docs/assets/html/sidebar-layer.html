@@ -1,0 +1,190 @@
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const body = document.body;
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+    let overlay = document.querySelector(".sidebar-overlay");
+    if (!overlay) {
+      overlay = document.createElement("div");
+      overlay.className = "sidebar-overlay";
+      body.appendChild(overlay);
+    } else {
+      // xóa overlay dư thừa nếu có
+      const all = document.querySelectorAll(".sidebar-overlay");
+      for (let i = 1; i < all.length; i++) all[i].remove();
+    }
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+    const sidebar = document.getElementById("quarto-sidebar");
+    if (!sidebar) return;
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+    toggles.forEach(btn => {
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+    });
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+    function openSidebar() {
+      sidebar.classList.add("show");
+      overlay.classList.add("active");
+      overlay.style.display = "block";
+      body.classList.add("sidebar-open");
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+    }
+
+    function closeSidebar() {
+      sidebar.classList.remove("show");
+      // tắt overlay ngay để không "kẹt xám"
+      overlay.classList.remove("active");
+      overlay.style.display = "none";
+      body.classList.remove("sidebar-open");
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+    }
+
+    function toggleSidebar(e) {
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+      if (isOpen()) closeSidebar(); else openSidebar();
+    }
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+    toggles.forEach(btn => {
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+    });
+
+    // Click overlay -> luôn đóng
+    overlay.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      if (isOpen()) closeSidebar();
+    }, { capture: true });
+
+    // ESC -> đóng
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+    });
+
+    // Đồng bộ ban đầu
+    if (isOpen()) {
+      overlay.classList.add("active");
+      overlay.style.display = "block";
+      body.classList.add("sidebar-open");
+    } else {
+      overlay.classList.remove("active");
+      overlay.style.display = "none";
+      body.classList.remove("sidebar-open");
+    }
+  });
+</script>
+
+<!-- nav#TOC -->
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const body = document.body;
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+    const rawToc =
+      document.querySelector("nav#TOC") ||
+      document.querySelector(".quarto-toc") ||
+      document.querySelector(".toc");
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+    if (secContainer && !tocBtn) {
+      tocBtn = document.createElement("button");
+      tocBtn.type = "button";
+      tocBtn.className = "toc-toggle-btn only-icon";
+      tocBtn.setAttribute("aria-expanded", "false");
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+      tocBtn.innerHTML = `
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+           aria-hidden="true" focusable="false">
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+      </svg>
+    `;
+      const holder = document.createElement("div");
+      holder.className = "toc-toggle-holder";
+      holder.style.marginLeft = "auto";
+      holder.appendChild(tocBtn);
+      secContainer.appendChild(holder);
+    }
+
+    // ----- Chuẩn hoá panel TOC
+    let tocEl = null;
+    if (rawToc && secNav) {
+      tocEl = rawToc;
+      tocEl.classList.add("q-toc");
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+      tocEl.id = "TOC";
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+      tocEl.setAttribute("role", "region");
+      tocEl.setAttribute("aria-label", "Trên trang này");
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+      if (t) t.classList.add("toc-title");
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+      initScrollSpy();
+    }
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+    function toggleTOC() {
+      if (!tocEl) return;
+      const open = tocEl.classList.toggle("is-open");
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+      tocBtn?.setAttribute("aria-expanded", String(open));
+    }
+    tocBtn?.addEventListener("click", toggleTOC);
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+    const mo = new MutationObserver(() => {
+      if (body.classList.contains("sidebar-open")) {
+        tocEl?.classList.remove("is-open");
+        tocBtn?.setAttribute("aria-expanded", "false");
+      }
+    });
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+    function initScrollSpy() {
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+      document.body.setAttribute("data-bs-spy", "scroll");
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+      const cs = getComputedStyle(document.documentElement);
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+      const offset = nb + bc + 10;
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+        target: "#TOC",
+        offset
+      });
+      spy.refresh();
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+      window.addEventListener("resize", () => spy.refresh());
+    }
+  });
+</script>

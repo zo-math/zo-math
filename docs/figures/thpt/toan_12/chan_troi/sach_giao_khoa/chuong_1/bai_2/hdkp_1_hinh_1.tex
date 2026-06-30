@@ -1,0 +1,78 @@
+\documentclass[border=2mm]{standalone}
+
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{amsmath}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta, 
+  calc, 
+  positioning, 
+  decorations.pathreplacing, 
+  calligraphy}
+
+\usepackage{xcolor}
+\definecolor{den-1}{HTML}{111111}   % Đen #111111
+\definecolor{den-2}{HTML}{222222}   % Đen #222222
+\definecolor{den-3}{HTML}{333333}   % Đen #333333
+\definecolor{den-4}{HTML}{444444}   % Đen #444444
+\definecolor{den-5}{HTML}{555555}   % Đen #555555
+\definecolor{den-6}{HTML}{666666}   % Đen #666666
+
+% Thiết lập vị trí đặt nhãn gốc tọa độ
+\tikzset{
+  >=Stealth,
+  originlabel/.style={
+    font=\small\sf,
+    anchor=north east, % Vị trí tương đối so với gốc
+    yshift=-0.1ex,     % Điều chỉnh vị trí dọc một chút
+    xshift=-0.1ex      % Điều chỉnh vị trí ngang một chút
+  }
+}
+
+\begin{document}
+
+\begin{tikzpicture}
+
+\begin{axis}[
+    font=\small\sf,
+    axis lines=middle,
+    axis line style={<->, line width=2pt, color=den-6!50},
+    xlabel={$x \text{ (giờ)}$},
+    ylabel={$t \text{ (°C)}$},
+    xlabel style={below, font=\small\sf},
+    ylabel style={left, font=\small\sf},
+    xmin=-4, xmax=28,
+    ymin=-6, ymax=40,
+    xtick={4, 8, 12, 16, 20, 24},
+    ytick={25},
+    tick label style={font=\footnotesize\sf, /pgf/number format/use comma=false, /pgf/number format/1000 sep={}},
+    % xscale=1.5,
+    clip=false,
+]
+
+\node[originlabel] at (axis cs:0,0) {O};
+
+\draw [dashed, color=den-6!50] (4,0) -- (4,20);
+\draw [dashed, color=den-6!50] (8,0) -- (8,31);
+\draw [dashed, color=den-6!50] (12,0) -- (12,28);
+\draw [dashed, color=den-6!50] (16,0) -- (16,34);
+\draw [dashed, color=den-6!50] (20,0) -- (20,27);
+\draw [dashed, color=den-6!50] (24,0) -- (24,24);
+
+\node at (4,20) [anchor=south, yshift=5] {$20$};
+\node at (8,31) [anchor=south, yshift=5] {$31$};
+\node at (12,28) [anchor=south, yshift=5] {$28$};
+\node at (16,34) [anchor=south, yshift=5] {$34$};
+\node at (20,27) [anchor=south, yshift=5] {$27$};
+\node at (24,24) [anchor=south, yshift=5] {$24$};
+
+
+\input{hdkp-1-hinh-1-spline.tex}
+
+\end{axis}
+
+\end{tikzpicture}
+
+\end{document}

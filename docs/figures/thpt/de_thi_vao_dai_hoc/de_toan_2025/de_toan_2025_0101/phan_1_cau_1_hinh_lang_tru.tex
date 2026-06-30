@@ -1,0 +1,49 @@
+\documentclass[border=2mm]{standalone}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{calc} % Quan trọng!
+
+\begin{document}
+\tdplotsetmaincoords{70}{120}
+
+\begin{tikzpicture}[tdplot_main_coords, scale=1.5]
+    % Điểm đáy dưới
+    \coordinate (A) at (0,0,0);
+    \coordinate (B) at (3,0,0);
+    \coordinate (C) at (1.5,1.5,0);
+    
+    % Điểm đáy trên (điều chỉnh tọa độ cho rõ ràng)
+    \coordinate (Ap) at (0.5,0.5,2);
+    \coordinate (Bp) at (3.5,0.5,2);
+    \coordinate (Cp) at (2,2,2);
+
+    % Vẽ khung
+    \draw[dashed] (A) -- (B);
+    \draw[dashed] (A) -- (C);
+    \draw (B) -- (C);
+    \draw (Ap) -- (Bp) -- (Cp) -- cycle;
+    \draw[dashed] (A) -- (Ap);
+    \draw (B) -- (Bp);
+    \draw (C) -- (Cp);
+
+    % Macro góc vuông đơn giản hóa
+    % \newcommand{\vangle}[3][5mm]{
+    %     \draw ($(#2)!#1!(#3)$) -- 
+    %     ($($(#2)!#1!(#3)$)!#1!90:(#3)$) -- 
+    %     ($(#2)!#1!($(#3)!1!90:(#2)$)$);
+    % }
+
+    % Vẽ các góc vuông
+    % \vangle{Ap}{A}{B} % Góc tại A
+    % \vangle{A}{B}{C}  % Góc tại B đáy dưới
+    % \vangle{Ap}{Bp}{Cp} % Góc tại B' đáy trên
+
+    % Nhãn điểm
+    \node[above left] at (A) {$A$};
+    \node[left] at (B) {$B$};
+    \node[right] at (C) {$C$};
+    \node[above] at (Ap) {$A'$};
+    \node[left] at (Bp) {$B'$};
+    \node[right] at (Cp) {$C'$};
+\end{tikzpicture}
+\end{document}

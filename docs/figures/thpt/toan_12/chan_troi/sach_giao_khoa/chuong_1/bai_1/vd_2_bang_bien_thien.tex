@@ -1,0 +1,22 @@
+\documentclass[border=1mm]{standalone}
+
+\usepackage{amsmath}
+\usepackage{xcolor}
+\definecolor{den-6}{HTML}{666666}
+\usepackage{tkz-tab}
+\usetikzlibrary{arrows}
+
+\begin{document}
+
+\begin{tikzpicture}
+  \tkzTabInit[
+    lgt=2, 
+    deltacl=.5, 
+    espcl=2.5]
+    {$x$/1, $h'(x)$/1, $h(x)$/2.5}
+    {$0$, $450$, $1800$, $2000$}
+  \tkzTabLine{t, -, 0, +, 0, -, t} 
+  \tkzTabVar{+/ $840$ /, -/ $\frac{7365}{16}$ /, +/ $\frac{15315}{11}$ /, -/ $\frac{43720}{33}$ /}
+\end{tikzpicture}
+
+\end{document}
