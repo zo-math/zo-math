@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="ZO Math">
+
+<title>Trọng tâm trong Toán học Trung học Phổ thông: Lý luận và kiến tạo ý nghĩa – ZO Math</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-3d1903c5838503892ba651cf513ab205.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../assets/css/custom.css">
+<link rel="stylesheet" href="../../../assets/css/three-columns.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-11/index.qmd">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-12/index.qmd">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.qmd">
+ <span class="dropdown-text">100+ Hàm số</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-o/index.qmd"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-lab/index.qmd"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/shop/index.html"> 
+<span class="menu-text">ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page">
+      <h1 class="title">Trọng tâm trong Toán học Trung học Phổ thông: Lý luận và kiến tạo ý nghĩa</h1>
+            <p class="subtitle lead">Focus in High School Mathematics - Reasoning and Sense Making: Bản dịch đối chiếu song ngữ Anh - Việt</p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-page">
+
+      <div>
+      <div class="quarto-title-meta-heading">Tác giả</div>
+      <div class="quarto-title-meta-contents">
+               <p>ZO Math </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Ngày cập nhật</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">01-07-2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
+
+
+
+
+
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="chapter-10.-coherence" class="level2 col-original">
+<h2 class="anchored" data-anchor-id="chapter-10.-coherence">Chapter 10. Coherence</h2>
+</section>
+<section id="chương-10.-tính-nhất-quán" class="level1 col-translation">
+<h1>Chương 10. Tính nhất quán</h1>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p><strong><em>(Epigraph)</em></strong></p>
+<p><em>Curriculum, instruction, and assessment form a coherent whole to support reasoning and sense making.</em></p>
+</div>
+<div class="col-translation">
+<p><strong><em>(Lời đề từ)</em></strong></p>
+<p><em>Chương trình học, giảng dạy và đánh giá tạo thành một chỉnh thể nhất quán để hỗ trợ luận và hiểu.</em></p>
+</div>
+<div class="col-notes">
+<p>Lời đề từ này nêu ra một nguyên tắc nền tảng của Chương 10: luận và hiểu chỉ có thể được nuôi dưỡng bền vững khi chương trình học, giảng dạy và đánh giá vận hành như một chỉnh thể nhất quán. Nếu ba thành tố này không đi cùng một hướng, thì những nỗ lực thúc đẩy luận và hiểu trong lớp học sẽ dễ bị suy yếu hoặc triệt tiêu.</p>
+<p><strong>Ba khái niệm then chốt</strong></p>
+<ul>
+<li><em>Curriculum</em> không chỉ là danh sách các chủ đề phải dạy, mà là cách các ý tưởng toán học được lựa chọn, sắp xếp và liên kết thành một lộ trình học tập. Nó trả lời câu hỏi: học sinh sẽ được gặp những ý tưởng nào, theo thứ tự nào, và với mức độ sâu ra sao.</li>
+<li><em>Instruction</em> không chỉ là việc giáo viên trình bày kiến thức, mà là toàn bộ cách tổ chức việc học trong lớp: chọn nhiệm vụ nào, đặt câu hỏi ra sao, điều phối thảo luận thế nào, và tạo cơ hội nào để học sinh tham gia vào luận và hiểu.</li>
+<li><em>Assessment</em> không chỉ là các bài kiểm tra cho điểm, mà là mọi cách nhận biết và ghi nhận việc học của học sinh. Nó cho thấy điều gì được coi là quan trọng, đồng thời tác động ngược trở lại đến cách dạy và cách học.</li>
+</ul>
+<p><strong>Ý nghĩa sư phạm</strong></p>
+<p>Điểm cốt lõi của lời đề từ là: không thể mong học sinh phát triển luận và hiểu nếu chương trình học, giảng dạy và đánh giá gửi đi những tín hiệu khác nhau. Chẳng hạn, nếu lớp học khuyến khích học sinh giải thích và kết nối ý tưởng, nhưng đánh giá chủ yếu chỉ đòi hỏi làm đúng theo quy trình, thì điều được củng cố sau cùng sẽ không phải là luận và hiểu. Vì vậy, tính nhất quán ở đây không phải là một phẩm chất phụ thêm, mà là điều kiện cấu trúc để luận và hiểu trở thành một phần thực sự của trải nghiệm học toán.</p>
+<p><strong>Liên hệ với mạch sách</strong></p>
+<p>Nếu Chương 9 đặt trọng tâm vào câu hỏi ai có cơ hội được tham gia vào luận và hiểu, thì Chương 10 chuyển sang câu hỏi những cơ hội ấy có được hệ thống hóa và nâng đỡ một cách nhất quán hay không. Trọng tâm vì thế được chuyển từ vấn đề công bằng trong tiếp cận sang vấn đề tổ chức của chương trình, dạy học và đánh giá.</p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>To achieve the vision set forth in this publication, the components of the educational system must work together for the good of the students served by the system. Curriculum, instruction, and assessment can be designed to support students’ reasoning and sense making. A coherent and cohesive mathematics program requires strong alignment of these three elements.</p>
+</div>
+<div class="col-translation">
+<p>Để hiện thực hóa tầm nhìn được nêu ra trong ấn phẩm này, các thành tố của hệ thống giáo dục phải phối hợp với nhau vì lợi ích của học sinh mà hệ thống phục vụ. Chương trình học, giảng dạy và đánh giá có thể được thiết kế sao cho hỗ trợ luận và hiểu của học sinh. Một chương trình toán học mạch lạc và gắn kết đòi hỏi sự ăn khớp chặt chẽ giữa ba thành tố này.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="curriculum-and-instruction" class="level3 col-original">
+<h3 class="anchored" data-anchor-id="curriculum-and-instruction">Curriculum and Instruction</h3>
+</section>
+<section id="chương-trình-và-giảng-dạy" class="level3 col-translation">
+<h3 class="anchored" data-anchor-id="chương-trình-và-giảng-dạy">Chương trình và giảng dạy</h3>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Increasingly, calls are being made for consistency in the high school mathematics curriculum across the United States (National Science Board 2007). Several sets of recommendations propose a list of content topics delineated by grade level, reflecting a range of goals and priorities (American Diploma Project 2004; College Board 2006, 2007; ACT 2007; Achieve 2007a, 2007b; Franklin et al.&nbsp;2007). This publication calls for a different type of consistency across the curriculum-curricular emphases and instructional approaches that make reasoning and sense making foundational to the content that is taught and learned. Along with the more-detailed content recommendations outlined in <em>Principles and Standards</em> (NCTM 2000a), this publication provides a critical filter in examining any curriculum arrangement to ensure that the ultimate goals of the high school mathematics program are achieved.</p>
+</div>
+<div class="col-translation">
+<p>Ngày càng có nhiều lời kêu gọi hướng tới tính nhất quán trong chương trình toán trung học phổ thông trên toàn Hoa Kỳ (National Science Board 2007). Nhiều bộ khuyến nghị đã đề xuất danh sách các chủ đề nội dung được phân định theo từng khối lớp, phản ánh những mục tiêu và ưu tiên khác nhau (American Diploma Project 2004; College Board 2006, 2007; ACT 2007; Achieve 2007a, 2007b; Franklin et al.&nbsp;2007). Tuy nhiên, ấn phẩm này kêu gọi một kiểu nhất quán khác trong toàn bộ chương trình học—đó là những trọng tâm chương trình và cách tiếp cận giảng dạy khiến luận và hiểu trở thành nền tảng của nội dung được dạy và được học. Song song với các khuyến nghị nội dung chi tiết hơn được trình bày trong <em>Principles and Standards</em> (NCTM 2000a), ấn phẩm này cung cấp một bộ lọc mang tính phê phán để xem xét bất kỳ cách sắp xếp chương trình nào, nhằm bảo đảm rằng các mục tiêu tối hậu của chương trình Toán trung học phổ thông được hiện thực hóa.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Classrooms that promote the goals of this publication prepare students to view mathematics as a connected whole across mathematical domains that consistently involves reasoning and sense making. Fostering depth of students’ mathematical knowledge requires classrooms in which students are actively involved in solving problems that require them to make connections among content areas and to develop mathematical reasoning habits. The selection of mathematical tasks to use in instruction is central in promoting reasoning and sense making. Consider some of the qualities of the tasks given in the examples of this publication, including whether they—</p>
+<ul>
+<li>promote sound and significant mathematical content;</li>
+<li>reflect students’ understandings, interests, and experiences;</li>
+<li>support the range of ways that diverse students learn mathematics;</li>
+<li>engage students’ intellect by requiring reasoning and problem solving;</li>
+<li>help students build connections; and</li>
+<li>promote communication (cf.&nbsp;NCTM [1991]).</li>
+</ul>
+<p>Without engaging tasks, teachers’ efforts to promote students’ reasoning will be limited, no matter how skilled their efforts. The approach common in the United States for many years (Martin 2007), in which teachers introduce a new topic, work out several examples, and then ask their students to emulate what they have seen, will not achieve the goal. A more profitable approach may be “teaching via problem solving” (Schroder and Lester 1989), in which teachers use engaging tasks to help students reason about, and make sense of, new mathematical ideas.</p>
+</div>
+<div class="col-translation">
+<p>Những lớp học thúc đẩy các mục tiêu của ấn phẩm này chuẩn bị cho học sinh nhìn nhận toán học như một chỉnh thể liên kết xuyên suốt các lĩnh vực toán học, trong đó luận và hiểu luôn hiện diện một cách nhất quán. Việc bồi dưỡng chiều sâu hiểu biết toán học của học sinh đòi hỏi những lớp học nơi các em tham gia tích cực vào việc giải quyết những bài toán buộc các em phải tạo liên hệ giữa các mảng nội dung và phát triển các thói quen luận toán học. Việc lựa chọn các nhiệm vụ toán học dùng trong giảng dạy giữ vai trò trung tâm trong việc thúc đẩy luận và hiểu. Hãy xét một số phẩm chất của các nhiệm vụ xuất hiện trong các ví dụ của ấn phẩm này, chẳng hạn liệu chúng có—</p>
+<ul>
+<li>thúc đẩy nội dung toán học vững chắc và có ý nghĩa;</li>
+<li>phản ánh sự hiểu biết, mối quan tâm và trải nghiệm của học sinh;</li>
+<li>hỗ trợ những cách học toán khác nhau của những học sinh khác nhau;</li>
+<li>huy động trí tuệ của học sinh bằng cách đòi hỏi luận và giải quyết vấn đề;</li>
+<li>giúp học sinh xây dựng các mối liên kết; và</li>
+<li>thúc đẩy giao tiếp (x. NCTM [1991]).</li>
+</ul>
+<p>Nếu không có các nhiệm vụ hấp dẫn, những nỗ lực của giáo viên nhằm thúc đẩy luận của học sinh sẽ bị hạn chế, cho dù các nỗ lực đó có tinh vi đến đâu. Cách tiếp cận đã phổ biến tại Hoa Kỳ trong nhiều năm (Martin 2007)—trong đó giáo viên giới thiệu một chủ đề mới, làm mẫu một số ví dụ, rồi yêu cầu học sinh bắt chước những gì đã thấy—sẽ không đạt được mục tiêu này. Một cách tiếp cận hiệu quả hơn có thể là “dạy học thông qua giải quyết vấn đề” (Schroder và Lester 1989), trong đó giáo viên sử dụng các nhiệm vụ hấp dẫn để giúp học sinh luận và hiểu các ý tưởng toán học mới.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>As stated in the Curriculum Principle, “a curriculum is more than a collection of activities: it must be coherent, focused on important mathematics …” (NCTM 2000a, p.&nbsp;14). Careful attention must be given to developing sequences of tasks that help students learn important mathematics. Integrated curricula are particularly well suited to meet this goal because they are designed to emphasize connections across mathematical domains. Regardless of the way a curriculum is organized, those involved in the mathematics program must do their best to ensure that all students are being given a strong preparation in mathematics that emphasizes the curricular connections needed to support effective mathematical reasoning and sense making.</p>
+</div>
+<div class="col-translation">
+<p>Như đã nêu trong Nguyên lý Chương trình học, “một chương trình học không chỉ là một tập hợp các hoạt động: nó phải mạch lạc, tập trung vào những nội dung toán học quan trọng …” (NCTM 2000a, tr. 14). Cần dành sự chú ý cẩn trọng cho việc xây dựng các chuỗi nhiệm vụ giúp học sinh học được những nội dung toán học cốt lõi. Các chương trình tích hợp đặc biệt phù hợp với mục tiêu này vì chúng được thiết kế để nhấn mạnh các mối liên hệ giữa các lĩnh vực toán học. Bất kể chương trình được tổ chức theo cách nào, những người tham gia vào chương trình toán học đều phải nỗ lực hết sức để bảo đảm rằng mọi học sinh đều được trang bị một nền tảng toán học vững chắc, trong đó nhấn mạnh các liên kết chương trình cần thiết nhằm hỗ trợ việc tt luận và hiểu toán học một cách hiệu quả.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Merely creating an organization of worthwhile mathematical tasks within a coherent curriculum is clearly not enough. The tasks must be carried out in a classroom in which a teacher has built a classroom culture that values students’ reasoning and sense making. Effective instruction requires having and communicating high expectations for all students. In such learning environments, students continually explore interesting tasks, either individually or in groups, and communicate their conjectures and conclusions to others. Pedagogical techniques and carefully designed instructional materials further ensure that the focus of instruction is on students’ thinking and reasoning, and provide opportunities for all students to participate. Professional development is necessary to ensure that teachers have the tools they need to build such a classroom culture. See “Developing Reasoning Habits in the Classroom” in chapter 2 for additional commentary on teaching practices that may help develop reasoning and sense making.</p>
+</div>
+<div class="col-translation">
+<p>Chỉ riêng việc tổ chức các nhiệm vụ toán học có giá trị trong một chương trình mạch lạc rõ ràng chưa đủ. Các nhiệm vụ đó cần được triển khai trong một lớp học nơi giáo viên đã xây dựng được văn hóa lớp học coi trọng luận và hiểu của học sinh. Việc giảng dạy hiệu quả đòi hỏi giáo viên phải có và truyền đạt kỳ vọng cao đối với tất cả học sinh. Trong những môi trường học tập như vậy, học sinh liên tục khám phá các nhiệm vụ hấp dẫn, một cách cá nhân hoặc theo nhóm, và trao đổi với người khác về các phỏng đoán cũng như kết luận của mình. Các kỹ thuật sư phạm và những học liệu được thiết kế cẩn trọng giúp bảo đảm rằng trọng tâm của giảng dạy nằm ở tư duy và luận của học sinh, đồng thời tạo ra cơ hội để mọi học sinh đều có thể tham gia. Hoạt động phát triển chuyên môn là cần thiết để bảo đảm rằng giáo viên có được các công cụ cần thiết nhằm xây dựng một văn hóa lớp học như vậy. Có thể xem thêm mục “Phát triển các thói quen luận trong lớp học” trong Chương 2 để tham khảo thêm các bình luận về những thực hành giảng dạy có thể giúp phát triển luận và hiểu.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="vertical-alignment-of-curriculum" class="level3 col-original">
+<h3 class="anchored" data-anchor-id="vertical-alignment-of-curriculum">Vertical Alignment of Curriculum</h3>
+</section>
+<section id="sự-liên-thông-theo-chiều-dọc-của-chương-trình-học" class="level3 col-translation">
+<h3 class="anchored" data-anchor-id="sự-liên-thông-theo-chiều-dọc-của-chương-trình-học">Sự liên thông theo chiều dọc của chương trình học</h3>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>All too often students experience discontinuities as they move from one level of mathematics to another (Smith et al.&nbsp;2000), from middle school to high school and from high school to postsecondary education. The alignment of mathematical expectations related to the goals of this publication is important as students move from one school level to another. To achieve the goal of curricular coherence, an open dialogue is essential among prekindergarten through grade 8 teachers, high school mathematics teachers, mathematics teacher educators, and mathematics and statistics faculty in higher education, as well as from client disciplines, to ensure continuing support and development of students’ mathematical abilities.</p>
+</div>
+<div class="col-translation">
+<p>Quá thường xuyên, học sinh gặp phải những đứt đoạn khi chuyển từ trình độ học toán này sang trình độ học toán khác (Smith et al.&nbsp;2000), từ trung học cơ sở lên trung học phổ thông và từ trung học phổ thông lên bậc sau trung học. Sự ăn khớp giữa những kỳ vọng toán học gắn với các mục tiêu của ấn phẩm này là điều quan trọng khi học sinh chuyển từ cấp học này sang cấp học khác. Để đạt được mục tiêu về tính mạch lạc của chương trình, cần có một cuộc đối thoại cởi mở giữa giáo viên từ bậc mầm non đến lớp 8, giáo viên toán trung học phổ thông, những người đào tạo giáo viên toán, giảng viên toán và thống kê ở bậc đại học, cũng như các giảng viên thuộc những lĩnh vực có sử dụng toán và thống kê, nhằm bảo đảm sự hỗ trợ và phát triển liên tục đối với năng lực toán học của học sinh.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Schools, families, policymakers, and others need to see evidence that reasoning and sense making abilities are shared goals among all levels of mathematics teaching, including elementary school mathematics, high school mathematics, and the undergraduate curriculum. The time is right to build strong partnerships among the various constituencies, and to recognize the potential beneficial consequences resulting from a mathematics curriculum that focuses on reasoning and sense making as articulated parts of the continuum from prekindergarten through grade 16.</p>
+</div>
+<div class="col-translation">
+<p>Các nhà trường, gia đình, nhà hoạch định chính sách và các bên liên quan khác cần nhìn thấy những bằng chứng rõ ràng rằng luận và hiểu là những mục tiêu chung được chia sẻ ở mọi cấp độ của việc dạy và học toán, bao gồm toán tiểu học, toán trung học phổ thông và chương trình đại học bậc cử nhân. Thời điểm hiện nay là thích hợp để xây dựng những quan hệ hợp tác vững chắc giữa các nhóm liên quan khác nhau, đồng thời nhận diện những hệ quả tích cực tiềm tàng của một chương trình toán học đặt luận và hiểu làm trọng tâm như những thành phần được diễn đạt rõ ràng trong một trục liên tục từ mầm non đến lớp 16.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="alignment-with-prekindergarten-through-grade-8-mathematics" class="level4 col-original">
+<h4 class="anchored" data-anchor-id="alignment-with-prekindergarten-through-grade-8-mathematics"><em>Alignment with prekindergarten through grade 8 mathematics</em></h4>
+<p>This publication takes the recommendations of <em>Curriculum Focal Points for Prekindergarten through Grade 8 Mathematics (Curriculum Focal Points)</em> (NCTM 2006a) as its starting point for ensuring that proper alignment occurs between the middle grades and high school. For each grade level, prekindergarten through grade 8, <em>Curriculum Focal Points</em> outlines Focal Point content areas and describes objectives in additional areas of “related connections.” Each chapter of <em>Curriculum Focal Points</em> begins with two reminders:</p>
+<ul>
+<li>The “curriculum focal points and related connections … are the recommended content emphases for mathematics….” That is, the objectives outlined in the additional “related connections” are also required material. Otherwise, students will not receive the breadth of mathematical content required for high school, particularly in the areas of data analysis, probability, and statistics.</li>
+<li>“It is essential that these focal points be addressed in contexts that promote problem solving, reasoning, communication, making connections, and designing and analyzing representations.” That is, teaching skills without providing a foundation in, and without giving attention to, important mathematical processes, including reasoning and sense making, will not adequately prepare students for the kinds of thinking expected in high school mathematics.</li>
+</ul>
+<p>All students entering high school should have a sound base of mathematical experiences as described in the broadest interpretation of <em>Curriculum Focal Points</em>.</p>
+<p>Taking algebra in middle grades has become increasingly popular (National Center for Educational Statistics 2009). This publication contends that whenever new content is encountered-in elementary, middle, or high school-the foundation for conceptual understanding is laid, in part, through opportunities for students to reason with and about the mathematics being studied and to connect it with their prior knowledge. Therefore, middle school courses that contain significant algebraic content must build on and foster students’ reasoning and sense making-including making connections across various mathematical domains-to lay a foundation for success in later courses. For students without the content background described in <em>Curriculum Focal Points</em> and with insufficient experience in reasoning and sense making, taking a formal algebra course prematurely will result in missed opportunities for broadening and strengthening their understanding of fundamental mathematical concepts, including those that are foundational for later success in algebra. Taking a formal algebra course too early will be counterproductive unless students have the necessary prerequisite skills because “exposing students to such coursework before they are ready often leads to frustration, failure, and negative attitudes toward mathematics and learning” (NCTM 2008).</p>
+</section>
+<section id="sự-liên-thông-với-toán-học-từ-tiền-mẫu-giáo-đến-lớp-8" class="level4 col-translation">
+<h4 class="anchored" data-anchor-id="sự-liên-thông-với-toán-học-từ-tiền-mẫu-giáo-đến-lớp-8"><em>Sự liên thông với toán học từ tiền mẫu giáo đến lớp 8</em></h4>
+<p>Ấn phẩm này lấy những khuyến nghị của <em>Curriculum Focal Points for Prekindergarten through Grade 8 Mathematics (Curriculum Focal Points)</em> (NCTM 2006a) làm điểm xuất phát để bảo đảm có sự liên thông thích đáng giữa bậc trung học cơ sở và trung học phổ thông. Với mỗi cấp lớp từ tiền mẫu giáo đến lớp 8, <em>Curriculum Focal Points</em> nêu ra các lĩnh vực nội dung trọng tâm và mô tả các mục tiêu trong những lĩnh vực bổ sung thuộc phần “các kết nối liên quan”. Mỗi chương của <em>Curriculum Focal Points</em> đều mở đầu bằng hai lời nhắc:</p>
+<ul>
+<li>“Các trọng điểm chương trình và các kết nối liên quan … là những trọng tâm nội dung được khuyến nghị cho môn toán….” Nói cách khác, các mục tiêu được nêu trong phần bổ sung “các kết nối liên quan” cũng là những nội dung bắt buộc. Nếu không, học sinh sẽ không có được bề rộng nội dung toán học cần thiết cho trung học phổ thông, đặc biệt trong các lĩnh vực phân tích dữ liệu, xác suất và thống kê.</li>
+<li>“Điều thiết yếu là các trọng điểm này phải được đặt trong những ngữ cảnh thúc đẩy giải quyết vấn đề, luận, giao tiếp, thiết lập các kết nối, và thiết kế cũng như phân tích các biểu diễn.” Nói cách khác, nếu chỉ dạy kỹ năng mà không xây nền tảng cho các quá trình toán học quan trọng, cũng không chú ý đến chúng, trong đó có luận và hiểu, thì học sinh sẽ không được chuẩn bị đầy đủ cho những kiểu suy nghĩ được mong đợi trong toán học trung học phổ thông.</li>
+</ul>
+<p>Mọi học sinh bước vào trung học phổ thông đều cần có một nền tảng vững chắc về trải nghiệm toán học theo cách hiểu rộng nhất của <em>Curriculum Focal Points</em>.</p>
+<p>Việc học đại số ở bậc trung học cơ sở ngày càng trở nên phổ biến (National Center for Educational Statistics 2009). Ấn phẩm này cho rằng, mỗi khi học sinh gặp một nội dung mới—ở tiểu học, trung học cơ sở hay trung học phổ thông—thì nền tảng cho sự hiểu khái niệm được hình thành, một phần, nhờ những cơ hội để các em vừa dùng toán học đang học để luận, vừa luận về chính toán học ấy, đồng thời kết nối nó với kiến thức đã có. Vì vậy, những khóa học ở bậc trung học cơ sở có nội dung đại số đáng kể phải dựa trên và đồng thời nuôi dưỡng luận và hiểu của học sinh—bao gồm cả việc thiết lập các kết nối giữa các lĩnh vực toán học khác nhau—để đặt nền tảng cho thành công trong những khóa học về sau. Đối với những học sinh chưa có nền tảng nội dung như được mô tả trong <em>Curriculum Focal Points</em> và cũng chưa có đủ trải nghiệm về luận và hiểu, việc học một khóa đại số chính thức quá sớm sẽ khiến các em bỏ lỡ những cơ hội để mở rộng và củng cố sự hiểu của mình về các khái niệm toán học cơ bản, trong đó có cả những khái niệm làm nền cho thành công sau này trong đại số. Việc học một khóa đại số chính thức quá sớm sẽ phản tác dụng nếu học sinh chưa có những kỹ năng cần có từ trước, bởi “việc cho học sinh tiếp xúc với loại khóa học như vậy trước khi các em sẵn sàng thường dẫn đến nản lòng, thất bại, và thái độ tiêu cực đối với toán học và việc học” (NCTM 2008).</p>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="alignment-with-postsecondary-education" class="level4 col-original">
+<h4 class="anchored" data-anchor-id="alignment-with-postsecondary-education"><em>Alignment with postsecondary education</em></h4>
+<p><em>Principles and Standards</em> (NCTM 2000a) states, “All students are expected to study mathematics each of the four years that they are enrolled in high school” (p.&nbsp;288), and students must experience reasoning and sense making across all four years of a high-quality high school mathematics program. This expectation is reinforced in NCTM’s (2006b) Position Statement on Time: “Evidence supports the enrollment of high school students in a mathematics course every year, continuing beyond the equivalent of a second year of algebra and a year of geometry.”</p>
+<p>However, what courses to offer students who have taken formal algebra (and perhaps even geometry) in middle school has become increasingly problematic. If students take calculus in high school, they should take rigorous courses following the Advanced Placement guidelines (College Board 2008a) so that they are prepared to continue their study of mathematics at the collegiate level. Advanced Placement Statistics has become increasingly popular (College Board 2008b) and will meet the needs of many students going on to either mathematics-related or non-mathematics-related majors in college. Developing alternative courses that meet the needs of other students should also be considered-for example, capstone courses are being developed to help students connect what they have been learning with their future goals (cf.&nbsp;Charles A. Dana Center 2008). All upper-level courses should continue to promote the goals of reasoning and sense making as set forth in this publication.</p>
+<p>The recommendations in this publication are consistent with recommendations by the Mathematics Association of America (Ganter and Barker 2004, the Committee on the Undergraduate Program in Mathematics [CUPM] 2004), and the American Mathematical Association of Two-Year Colleges (2006). These organizations propose that the entire college-level mathematics curriculum, for all students, even those who take just one course, should develop “analytical, critical reasoning, problem-solving, and communication skills…” (CUPM 2004, pp.&nbsp;5, 13). The commonalities between recommendations for the undergraduate curriculum and those of the current publication provide opportunities to strengthen articulation between high school and postsecondary education. Furthermore, the framers of this publication believe that focusing on reasoning and sense making can move us forward on important issues, such as those involving mathematics placement examinations used by postsecondary institutions and articulation on the role of technology in high school and college mathematics.</p>
+</section>
+<section id="sự-liên-thông-với-giáo-dục-sau-trung-học" class="level4 col-translation">
+<h4 class="anchored" data-anchor-id="sự-liên-thông-với-giáo-dục-sau-trung-học"><em>Sự liên thông với giáo dục sau trung học</em></h4>
+<p><em>Principles and Standards</em> (NCTM 2000a) nêu rõ: “Tất cả học sinh được kỳ vọng sẽ học toán trong cả bốn năm khi các em theo học trung học phổ thông” (tr. 288), và học sinh cần trải nghiệm luận và hiểu xuyên suốt cả bốn năm của một chương trình toán trung học phổ thông chất lượng cao. Kỳ vọng này được củng cố trong Tuyên bố lập trường về Thời lượng của NCTM (2006b): “Các bằng chứng ủng hộ việc học sinh trung học phổ thông ghi danh vào một khóa toán mỗi năm, tiếp tục vượt qua mức tương đương với hai năm đại số và một năm hình học.”</p>
+<p>Tuy nhiên, việc nên cung cấp những khóa học nào cho các học sinh đã học đại số hình thức (và thậm chí cả hình học) ngay từ trung học cơ sở ngày càng trở nên nan giải. Nếu học sinh học giải tích ở trung học phổ thông, các em cần theo học những khóa học nghiêm ngặt theo hướng dẫn của Advanced Placement (College Board 2008a) để được chuẩn bị đầy đủ cho việc tiếp tục học toán ở bậc đại học. Advanced Placement Statistics ngày càng trở nên phổ biến (College Board 2008b) và đáp ứng nhu cầu của nhiều học sinh dự định theo học các ngành có liên quan hoặc không liên quan trực tiếp đến toán học ở bậc đại học. Việc phát triển các khóa học thay thế nhằm đáp ứng nhu cầu của những học sinh khác cũng cần được xem xét—chẳng hạn, các khóa học tổng kết đang được xây dựng để giúp học sinh kết nối những gì các em đã học với các mục tiêu tương lai (x. Charles A. Dana Center 2008). Tất cả các khóa học ở bậc trên đều cần tiếp tục thúc đẩy các mục tiêu về luận và hiểu như đã nêu trong ấn phẩm này.</p>
+<p>Các khuyến nghị trong ấn phẩm này phù hợp với những khuyến nghị của Mathematics Association of America (Ganter và Barker 2004; Ủy ban Chương trình Toán học bậc Đại học [CUPM] 2004) và American Mathematical Association of Two-Year Colleges (2006). Các tổ chức này đề xuất rằng toàn bộ chương trình toán học bậc đại học, dành cho tất cả sinh viên, kể cả những người chỉ học một môn toán duy nhất, đều cần phát triển “kỹ năng phân tích, luận phản biện, giải quyết vấn đề và giao tiếp…” (CUPM 2004, tr. 5, 13). Những điểm tương đồng giữa các khuyến nghị cho chương trình đại học và các khuyến nghị của ấn phẩm hiện tại mở ra cơ hội tăng cường sự ăn khớp giữa trung học phổ thông và giáo dục sau trung học. Hơn nữa, những người biên soạn ấn phẩm này tin rằng việc tập trung vào luận và hiểu có thể giúp thúc đẩy tiến bộ trong những vấn đề quan trọng, chẳng hạn như các kỳ thi xếp lớp toán được sử dụng ở bậc sau trung học và việc thống nhất quan điểm về vai trò của công nghệ trong toán học ở trung học phổ thông và đại học.</p>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="assessment" class="level3 col-original">
+<h3 class="anchored" data-anchor-id="assessment">Assessment</h3>
+</section>
+<section id="đánh-giá" class="level3 col-translation">
+<h3 class="anchored" data-anchor-id="đánh-giá">Đánh giá</h3>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>What we assess should reflect what we value. Assessments that support the goals of this publication will attend to students’ capabilities in mathematical reasoning and sense making and contribute to students’ progress in mathematics. This endeavor is essential for at least two reasons. First, we will not be able to gauge whether we are meeting our goals if those goals are not assessed. Second, high-stakes testing that concentrates primarily on procedural skills without assessing reasoning and sense making sends a message that is contrary to the vision set forth in this publication and can adversely influence instruction and students’ learning. Assessment that focuses primarily on students’ ability to do algebraic manipulations, apply geometric formulas, and perform basic statistical computations will lead students to believe that reasoning and sense making are not important.</p>
+</div>
+<div class="col-translation">
+<p>Những gì chúng ta đánh giá phải phản ánh những gì chúng ta coi trọng. Các hình thức đánh giá hỗ trợ mục tiêu của ấn phẩm này cần chú ý đến năng lực luận và hiểu toán học của học sinh, đồng thời góp phần thúc đẩy sự tiến bộ của các em trong toán học. Nỗ lực này là thiết yếu vì ít nhất hai lý do. Thứ nhất, chúng ta sẽ không thể biết liệu mình có đạt được các mục tiêu đã đặt ra hay không nếu các mục tiêu đó không được đánh giá. Thứ hai, các kỳ kiểm tra mang tính quyết định cao nếu chủ yếu tập trung vào kỹ năng thủ tục mà không đánh giá luận và hiểu sẽ gửi đi một thông điệp trái ngược với tầm nhìn của ấn phẩm này, đồng thời có thể tác động tiêu cực đến việc giảng dạy và việc học của học sinh. Những hình thức đánh giá chủ yếu nhắm vào khả năng thao tác đại số, áp dụng công thức hình học và thực hiện các phép tính thống kê cơ bản sẽ khiến học sinh tin rằng luận và hiểu không phải là điều quan trọng.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Assessing students’ progress in mathematics serves two distinct roles. One essential role of assessment is to provide summative measures of students’ understanding of and ability to use mathematics. All too often, high-stakes tests assess minimal standards that do not reflect the content that students need for their future success. As students, educators, and the community focus on students’ success in learning lower-level content, the importance of pushing students to succeed with higher-level content may be diminished. Moreover, this publication calls for further progress in the design of many high-stakes test items to better assess students’ reasoning and sense making.</p>
+</div>
+<div class="col-translation">
+<p>Việc đánh giá sự tiến bộ của học sinh trong toán học đảm nhiệm hai vai trò khác nhau. Một vai trò thiết yếu của đánh giá là cung cấp các thước đo tổng kết về mức độ hiểu biết của học sinh đối với toán học và khả năng vận dụng toán học của các em. Quá thường xuyên, các kỳ kiểm tra mang tính quyết định cao chỉ đánh giá các chuẩn tối thiểu, vốn không phản ánh đầy đủ những nội dung mà học sinh cần cho thành công trong tương lai. Khi học sinh, giáo viên và cộng đồng cùng tập trung vào việc học sinh đạt được thành công trong việc học các nội dung ở mức thấp, tầm quan trọng của việc thúc đẩy học sinh chinh phục các nội dung ở mức cao hơn có thể bị xem nhẹ. Hơn nữa, ấn phẩm này kêu gọi những bước tiến xa hơn trong thiết kế các câu hỏi của nhiều kỳ kiểm tra mang tính quyết định cao, nhằm đánh giá tốt hơn luận và hiểu của học sinh.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>The second essential component of assessment is formative assessment, which is an integral part of the learning process for the student. According to Black and Wiliam (1998), formative assessment involves providing students with learning activities and, on the basis of feedback from those activities, adjusting teaching to meet the students’ needs. Various forms of formative assessment can furnish information about students’ reasoning and sense making. These include teacher observations, classroom discussions, student journals, student presentations, homework, and inclass tasks, as well as tests and quizzes that ask students to explain their thinking. To ensure that their assessments reflect curricular priorities, teachers must use both summative and formative instruments for assessing students’ understanding of mathematics. Example 3, “Around Pi,” illustrates the use of an in-class assignment for formative assessment. Regardless of whether a grade is assigned, the teacher might design a rubric, such as that in figure 10.1, to better understand the students’ progress in understanding error and relative error.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p105_f1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Fig. 10.1. A rubric for assessing responses to example 3</p>
+</div>
+<div class="col-translation">
+<p>Thành tố thiết yếu thứ hai của đánh giá là đánh giá vì sự học, vốn là một phần không thể tách rời của quá trình học tập đối với học sinh. Theo Black và Wiliam (1998), đánh giá vì sự học bao gồm việc cung cấp cho học sinh các hoạt động học tập và, dựa trên phản hồi thu được từ những hoạt động đó, điều chỉnh việc giảng dạy để đáp ứng nhu cầu của học sinh. Nhiều hình thức đánh giá vì sự học khác nhau có thể cung cấp thông tin về luận và hiểu của học sinh. Những hình thức này bao gồm quan sát của giáo viên, thảo luận trong lớp, nhật ký học tập của học sinh, bài trình bày của học sinh, bài tập về nhà, các nhiệm vụ thực hiện ngay trên lớp, cũng như các bài kiểm tra và bài trắc nghiệm yêu cầu học sinh giải thích cách nghĩ của mình.</p>
+<p>Để bảo đảm rằng việc đánh giá phản ánh đúng các ưu tiên của chương trình, giáo viên cần sử dụng cả công cụ đánh giá tổng kết lẫn đánh giá vì sự học khi đánh giá mức độ hiểu biết toán học của học sinh. Ví dụ 3, “Quanh số <span class="math inline">\(\pi\)</span>”, minh họa việc sử dụng một bài tập trên lớp như một hình thức đánh giá vì sự học. Bất kể có chấm điểm hay không, giáo viên có thể thiết kế một bảng tiêu chí, chẳng hạn như bảng dưới đây, nhằm hiểu rõ hơn mức độ tiến bộ của học sinh trong việc nắm bắt khái niệm sai số và sai số tương đối.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p105_f1_vi.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Hình 10.1. Bảng tiêu chí đánh giá bài làm cho Ví dụ 3</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="conclusion" class="level3 col-original">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+</section>
+<section id="kết-luận" class="level3 col-translation">
+<h3 class="anchored" data-anchor-id="kết-luận">Kết luận</h3>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Alignment of curriculum, instruction, and assessment is a starting point on the road to implementing the goals set forth in this publication within the large and complex educational system of the United States. These three components cannot be viewed in isolation. Rather, decision makers or policymakers dealing with aspects of any one of these areas must ask themselves, “Is a coherent mathematics program being developed that takes into account all three programmatic elements?”</p>
+</div>
+<div class="col-translation">
+<p>Sự liên thông giữa chương trình học, giảng dạy và đánh giá là điểm khởi đầu trên con đường hiện thực hóa các mục tiêu được nêu ra trong ấn phẩm này trong hệ thống giáo dục lớn và phức tạp của Hoa Kỳ. Không thể xem ba thành tố này một cách tách rời. Trái lại, những người ra quyết định hoặc hoạch định chính sách liên quan đến bất kỳ phương diện nào của một trong ba lĩnh vực ấy đều phải tự hỏi: “Liệu có đang xây dựng một chương trình toán học nhất quán, có tính đến cả ba thành tố của chương trình hay không?”</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Efforts to focus the mathematics curriculum on reasoning and sense making will require responsible efforts of, and considerable work from, all stakeholders. Support will be required through governing policy statements that clearly align with the goals set forth here. The realization of these recommendations will require considerable time and resources to provide the significant professional development required for school faculty and administrators. Many of these efforts are discussed further in the next chapter.</p>
+</div>
+<div class="col-translation">
+<p>Những nỗ lực nhằm tập trung chương trình học toán vào luận và hiểu sẽ đòi hỏi sự tham gia có trách nhiệm, và khối lượng công việc đáng kể, từ tất cả các bên liên quan. Sự hỗ trợ là cần thiết thông qua các chính sách quản lý được xây dựng sao cho ăn khớp rõ ràng với những mục tiêu đã được nêu ra trong ấn phẩm này. Việc hiện thực hóa các khuyến nghị này sẽ cần nhiều thời gian và nguồn lực, đặc biệt để triển khai các hoạt động phát triển chuyên môn có chiều sâu dành cho đội ngũ giáo viên và cán bộ quản lý nhà trường. Nhiều khía cạnh của những nỗ lực này sẽ được bàn luận chi tiết hơn trong chương tiếp theo.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+
+
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/zo-math\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a><br>
+<br> <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a><br>
+<br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

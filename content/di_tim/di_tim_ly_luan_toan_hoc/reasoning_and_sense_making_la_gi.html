@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>reasoning_and_sense_making_la_gi – ZO Math</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-3d1903c5838503892ba651cf513ab205.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../assets/css/custom.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-11/index.qmd">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-12/index.qmd">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.qmd">
+ <span class="dropdown-text">100+ Hàm số</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-o/index.qmd"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-lab/index.qmd"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/shop/index.html"> 
+<span class="menu-text">ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block"></header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Trên trang này</h2>
+   
+  <ul>
+  <li><a href="#reasoning-và-sense-making" id="toc-reasoning-và-sense-making" class="nav-link active" data-scroll-target="#reasoning-và-sense-making">REASONING VÀ SENSE-MAKING</a>
+  <ul class="collapse">
+  <li><a href="#sense-making-thấu-hiểu-bản-chất" id="toc-sense-making-thấu-hiểu-bản-chất" class="nav-link" data-scroll-target="#sense-making-thấu-hiểu-bản-chất">1. Sense-making (Thấu hiểu bản chất)</a></li>
+  <li><a href="#reasoning-suy-luận" id="toc-reasoning-suy-luận" class="nav-link" data-scroll-target="#reasoning-suy-luận">2. Reasoning (Suy luận)</a></li>
+  <li><a href="#so-sánh-trực-diện-để-phân-biệt" id="toc-so-sánh-trực-diện-để-phân-biệt" class="nav-link" data-scroll-target="#so-sánh-trực-diện-để-phân-biệt">3. So sánh trực diện để phân biệt</a></li>
+  <li><a href="#trả-lời-câu-hỏi-cái-nào-có-trước" id="toc-trả-lời-câu-hỏi-cái-nào-có-trước" class="nav-link" data-scroll-target="#trả-lời-câu-hỏi-cái-nào-có-trước">Trả lời câu hỏi: Cái nào có trước?</a></li>
+  <li><a href="#ngược-lại-với-sense-making-là-sự-vô-nghĩa-rote-learning-alienation" id="toc-ngược-lại-với-sense-making-là-sự-vô-nghĩa-rote-learning-alienation" class="nav-link" data-scroll-target="#ngược-lại-với-sense-making-là-sự-vô-nghĩa-rote-learning-alienation">1. Ngược lại với Sense-making là “Sự vô nghĩa” (Rote Learning / Alienation)</a></li>
+  <li><a href="#ngược-lại-với-reasoning-là-sự-cảm-tính-đoán-mò-arbitrary-guessing-non-logical-leaps" id="toc-ngược-lại-với-reasoning-là-sự-cảm-tính-đoán-mò-arbitrary-guessing-non-logical-leaps" class="nav-link" data-scroll-target="#ngược-lại-với-reasoning-là-sự-cảm-tính-đoán-mò-arbitrary-guessing-non-logical-leaps">2. Ngược lại với reasoning là “Sự cảm tính / Đoán mò” (Arbitrary Guessing / Non-logical Leaps)</a></li>
+  <li><a href="#bảng-so-sánh-các-mặt-đối-lập" id="toc-bảng-so-sánh-các-mặt-đối-lập" class="nav-link" data-scroll-target="#bảng-so-sánh-các-mặt-đối-lập">3. Bảng so sánh các mặt đối lập</a></li>
+  <li><a href="#một-ví-dụ-tổng-hợp-để-bạn-thấy-cả-hai-mặt-đối-lập" id="toc-một-ví-dụ-tổng-hợp-để-bạn-thấy-cả-hai-mặt-đối-lập" class="nav-link" data-scroll-target="#một-ví-dụ-tổng-hợp-để-bạn-thấy-cả-hai-mặt-đối-lập">4. Một ví dụ tổng hợp để bạn thấy cả hai mặt đối lập</a>
+  <ul class="collapse">
+  <li><a href="#vị-trí-và-vai-trò-của-sense-making" id="toc-vị-trí-và-vai-trò-của-sense-making" class="nav-link" data-scroll-target="#vị-trí-và-vai-trò-của-sense-making">1. Vị trí và Vai trò của Sense-making</a></li>
+  <li><a href="#ví-dụ-giúp-phân-biệt-sense-making-và-reasoning" id="toc-ví-dụ-giúp-phân-biệt-sense-making-và-reasoning" class="nav-link" data-scroll-target="#ví-dụ-giúp-phân-biệt-sense-making-và-reasoning">2. Ví dụ giúp phân biệt Sense-making và Reasoning</a></li>
+  <li><a href="#tóm-tắt-sự-khác-biệt" id="toc-tóm-tắt-sự-khác-biệt" class="nav-link" data-scroll-target="#tóm-tắt-sự-khác-biệt">3. Tóm tắt sự khác biệt</a></li>
+  <li><a href="#sense-making-kiến-tạo-ý-nghĩa-hiểu-quy-luật-của-cuộc-chơi" id="toc-sense-making-kiến-tạo-ý-nghĩa-hiểu-quy-luật-của-cuộc-chơi" class="nav-link" data-scroll-target="#sense-making-kiến-tạo-ý-nghĩa-hiểu-quy-luật-của-cuộc-chơi">1. Sense-making (Kiến tạo ý nghĩa): “Hiểu quy luật của cuộc chơi”</a></li>
+  <li><a href="#reasoning-lập-luậnsuy-luận-đưa-ra-quyết-định-logic" id="toc-reasoning-lập-luậnsuy-luận-đưa-ra-quyết-định-logic" class="nav-link" data-scroll-target="#reasoning-lập-luậnsuy-luận-đưa-ra-quyết-định-logic">2. Reasoning (Lập luận/Suy luận): “Đưa ra quyết định logic”</a></li>
+  <li><a href="#tóm-tắt-sự-khác-biệt-qua-ví-dụ-này" id="toc-tóm-tắt-sự-khác-biệt-qua-ví-dụ-này" class="nav-link" data-scroll-target="#tóm-tắt-sự-khác-biệt-qua-ví-dụ-này">Tóm tắt sự khác biệt qua ví dụ này:</a></li>
+  <li><a href="#tại-sao-trong-toán-học-chúng-ta-cần-cả-hai" id="toc-tại-sao-trong-toán-học-chúng-ta-cần-cả-hai" class="nav-link" data-scroll-target="#tại-sao-trong-toán-học-chúng-ta-cần-cả-hai">Tại sao trong Toán học chúng ta cần cả hai?</a></li>
+  </ul></li>
+  <li><a href="#vì-sao-reasoning-and-sense-making-được-dịch-là-hiểu-và-luận" id="toc-vì-sao-reasoning-and-sense-making-được-dịch-là-hiểu-và-luận" class="nav-link" data-scroll-target="#vì-sao-reasoning-and-sense-making-được-dịch-là-hiểu-và-luận">Vì sao “Reasoning and Sense Making” được dịch là “Hiểu và luận”?</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="reasoning-và-sense-making" class="level1">
+<h1>REASONING VÀ SENSE-MAKING</h1>
+<p><strong>Ví dụ:</strong> <em>Tổng ba góc trong một tam giác bằng <span class="math inline">\(180^\circ\)</span>.</em></p>
+<section id="sense-making-thấu-hiểu-bản-chất" class="level3">
+<h3 class="anchored" data-anchor-id="sense-making-thấu-hiểu-bản-chất">1. Sense-making (Thấu hiểu bản chất)</h3>
+<p><strong>Câu hỏi của học sinh:</strong> “Tại sao lại là <span class="math inline">\(180^\circ\)</span>? Con số này ở đâu ra? Nó có liên quan gì đến thực tế không?”</p>
+<p>Để giúp học sinh <em>Sense-making</em>, giáo viên cho làm một thí nghiệm:</p>
+<ul>
+<li>Yêu cầu học sinh cắt một hình tam giác bất kỳ bằng giấy.</li>
+<li>Xé ba góc của tam giác đó ra.</li>
+<li>Đặt ba cái đỉnh đó chụm lại với nhau trên một mặt phẳng.</li>
+<li><strong>Kết quả:</strong> Học sinh thấy ba góc đó ghép lại vừa khít thành một <em>đường thẳng</em>.</li>
+</ul>
+<p><strong>Lúc này, Sense-making xảy ra:</strong></p>
+<blockquote class="blockquote">
+<p>Học sinh ồ lên: “À! Đường thẳng thì là <span class="math inline">\(180^\circ\)</span>. Vậy nên ba góc tam giác gộp lại phải là <span class="math inline">\(180^\circ\)</span> là điều hiển nhiên. Nó không phải là một con số từ trên trời rơi xuống, nó chính là một ‘nửa vòng tròn’ hay một ‘đường thẳng’!”</p>
+</blockquote>
+<p><strong>Đặc điểm của Sense-making ở đây:</strong> Học sinh dùng trực giác, sự quan sát và kết nối kiến thức cũ (đường thẳng <span class="math inline">\(180^\circ\)</span>) để thấy vấn đề này <em>hợp lý</em>.</p>
+</section>
+<section id="reasoning-suy-luận" class="level3">
+<h3 class="anchored" data-anchor-id="reasoning-suy-luận">2. Reasoning (Suy luận)</h3>
+<p><strong>Câu hỏi của học sinh:</strong> “Làm sao để chứng minh điều này luôn luôn đúng với <em>mọi</em> tam giác, kể cả những tam giác khổng lồ ngoài vũ trụ mà ta không thể cắt giấy được?”</p>
+<p>Để giúp học sinh <em>reasoning</em>, giáo viên hướng dẫn lập luận logic:</p>
+<ol type="1">
+<li>Vẽ tam giác <span class="math inline">\(ABC\)</span>.</li>
+<li>Qua đỉnh <span class="math inline">\(A\)</span>, vẽ một đường thẳng song song với cạnh <span class="math inline">\(BC\)</span>.</li>
+<li>Dựa vào tính chất của hai đường thẳng song song, ta có các cặp <em>góc so le trong</em> bằng nhau.</li>
+<li>Góc <span class="math inline">\(B\)</span> bằng góc <span class="math inline">\(A_1\)</span>, góc <span class="math inline">\(C\)</span> bằng góc <span class="math inline">\(A_2\)</span>.</li>
+<li>Mà <span class="math inline">\(\hat{A}_1+\hat{A}+\hat{A}_2=180^\circ\)</span> (vì chúng tạo thành một đường thẳng).</li>
+<li><strong>Kết luận:</strong> Vậy <span class="math inline">\(\hat{B}+\hat{A}+\hat{C}=180^\circ\)</span>.</li>
+</ol>
+<p><strong>Lúc này, Reasoning xảy ra:</strong></p>
+<blockquote class="blockquote">
+<p>Học sinh tư duy: “Vì mình đã biết chắc chắn là hai đường thẳng song song thì góc so le trong bằng nhau (giả định), nên theo logic này, tổng ba góc buộc phải là <span class="math inline">\(180^\circ\)</span>.”</p>
+</blockquote>
+<p><strong>Đặc điểm của Reasoning ở đây:</strong> Học sinh dùng các quy tắc, định nghĩa và tính logic “nếu… thì…” để xây dựng một bằng chứng không thể chối cãi.</p>
+</section>
+<section id="so-sánh-trực-diện-để-phân-biệt" class="level3">
+<h3 class="anchored" data-anchor-id="so-sánh-trực-diện-để-phân-biệt">3. So sánh trực diện để phân biệt</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 36%">
+<col style="width: 54%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Đặc điểm</th>
+<th>Sense-making (Thấu hiểu)</th>
+<th>Reasoning (Suy luận)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Hành động</strong></td>
+<td>Xé giấy, ghép hình, liên tưởng đến đường thẳng.</td>
+<td>Vẽ đường phụ, dùng tính chất so le trong, cộng trừ góc.</td>
+</tr>
+<tr class="even">
+<td><strong>Trạng thái não bộ</strong></td>
+<td>“À, mình thấy rồi, nó rất <em>hợp lý</em>!”</td>
+<td>“Mình đã <em>chứng minh</em> được, nó không thể khác đi được!”</td>
+</tr>
+<tr class="odd">
+<td><strong>Mục đích</strong></td>
+<td>Để <em>tin</em> vào kiến thức.</td>
+<td>Để <em>xác thực</em> kiến thức một cách chặt chẽ.</td>
+</tr>
+<tr class="even">
+<td><strong>Lỗi nếu thiếu</strong></td>
+<td>Nếu thiếu cái này, học sinh chỉ nhớ con số như một con vẹt mà không hiểu tại sao.</td>
+<td>Nếu thiếu cái này, học sinh chỉ biết nó đúng với tờ giấy đó, nhưng không biết cách giải các bài tập hình học phức tạp hơn.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="trả-lời-câu-hỏi-cái-nào-có-trước" class="level3">
+<h3 class="anchored" data-anchor-id="trả-lời-câu-hỏi-cái-nào-có-trước">Trả lời câu hỏi: Cái nào có trước?</h3>
+<p>Trong ví dụ này:</p>
+<ul>
+<li><em>Sense-making nên có trước:</em> Học sinh nên xé giấy trước để “tin” và “hiểu” cái cốt lõi. Khi tâm trí đã chấp nhận nó hợp lý, các em sẽ có động lực để tìm hiểu sâu hơn.</li>
+<li><em>Reasoning theo sau:</em> Sau khi đã hiểu, học sinh bắt đầu học cách trình bày logic để biến cái “cảm giác” đó thành một định lý toán học vững chắc.</li>
+</ul>
+<p><strong>Tóm lại:</strong></p>
+<ul>
+<li><em>Sense-making</em> là nhìn một bức tranh tổng thể để thấy nó đẹp và có nghĩa.</li>
+<li><em>Reasoning</em> là soi kỹ từng nét vẽ, từng mảng màu để giải thích tại sao bức tranh đó lại được tạo ra như vậy.</li>
+</ul>
+<p>Ví dụ này đã giúp bạn thấy rõ biên giới giữa hai khái niệm này chưa? Nếu bạn muốn, tôi có thể thử thách bạn bằng một ví dụ về <em>Đại số</em> (như hằng đẳng thức hay phương trình) để bạn tự phân biệt thử nhé?</p>
+<hr>
+<p>Để làm sáng tỏ hơn nữa, chúng ta hãy nhìn vào mặt tối của chúng. Cách tốt nhất để hiểu một khái niệm là xem khi <em>thiếu nó</em> thì chuyện gì sẽ xảy ra.</p>
+<p>Dưới đây là các khái niệm đối lập (tương phản) giúp bạn phân biệt rõ ràng:</p>
+</section>
+<section id="ngược-lại-với-sense-making-là-sự-vô-nghĩa-rote-learning-alienation" class="level2">
+<h2 class="anchored" data-anchor-id="ngược-lại-với-sense-making-là-sự-vô-nghĩa-rote-learning-alienation">1. Ngược lại với Sense-making là “Sự vô nghĩa” (Rote Learning / Alienation)</h2>
+<p>Khi một học sinh không thực hiện <em>Sense-making</em>, em đó đang rơi vào tình trạng <em>Học vẹt</em> hoặc <em>Thao tác máy móc</em>.</p>
+<ul>
+<li><strong>Trạng thái:</strong> Học sinh chấp nhận kiến thức như một “phép thuật” hoặc một “mệnh lệnh”.</li>
+<li><strong>Biểu hiện:</strong> “Thầy bảo công thức nó thế thì em làm thế, em không cần biết tại sao.”</li>
+<li><strong>Ví dụ:</strong> Khi tính diện tích hình chữ nhật, học sinh lấy dài nhân rộng vì thuộc lòng quy tắc. Nếu hỏi “Tại sao không phải là dài cộng rộng?”, học sinh sẽ tịt ngòi vì chưa bao giờ kết nối nó với việc “xếp các ô vuông nhỏ vào bên trong” (đây chính là sense-making).</li>
+<li><strong>Kết quả:</strong> Học sinh rất dễ quên kiến thức sau khi thi xong, vì kiến thức đó không có “neo” vào thực tế hay tư duy của em.</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Tóm lại:</strong> Ngược lại với sense-making là <em>“Cỗ máy”</em>. Cỗ máy thực hiện lệnh cực nhanh nhưng không hiểu lệnh đó để làm gì.</p>
+</blockquote>
+</section>
+<section id="ngược-lại-với-reasoning-là-sự-cảm-tính-đoán-mò-arbitrary-guessing-non-logical-leaps" class="level2">
+<h2 class="anchored" data-anchor-id="ngược-lại-với-reasoning-là-sự-cảm-tính-đoán-mò-arbitrary-guessing-non-logical-leaps">2. Ngược lại với reasoning là “Sự cảm tính / Đoán mò” (Arbitrary Guessing / Non-logical Leaps)</h2>
+<p>Khi một học sinh không thực hiện <em>reasoning</em>, em đó đang <em>tư duy đứt đoạn</em> hoặc <em>áp dụng sai quy luật</em>.</p>
+<ul>
+<li><p><strong>Trạng thái:</strong> Học sinh đưa ra câu trả lời dựa trên cảm giác, sự may rủi, hoặc một sự liên tưởng sai lầm mà không có logic dẫn dắt.</p></li>
+<li><p><strong>Biểu hiện:</strong> “Em thấy con số này có vẻ đúng”, hoặc “Em thấy bài này giống bài trước nên em cũng cộng hai số lại” (dù bài trước là tính tổng, bài này là tính tích).</p></li>
+<li><p><strong>Ví dụ:</strong> Bài toán hỏi “Nếu 3 người thợ xây một bức tường hết 6 tiếng, thì 6 người thợ xây hết mấy tiếng?”.</p></li>
+<li><p>Học sinh thiếu Reasoning sẽ trả lời: “12 tiếng” (Vì thấy số người gấp đôi thì số tiếng cũng gấp đôi - suy luận tuyến tính sai lầm mà không kiểm tra lại logic thực tế).</p></li>
+<li><p>Học sinh có reasoning sẽ nghĩ: “Nhiều người làm hơn thì thời gian phải ít đi chứ, phải là phép chia tỉ lệ nghịch mới đúng.”</p></li>
+<li><p><strong>Kết quả:</strong> Học sinh có thể làm đúng các bài toán mẫu, nhưng khi đề bài thay đổi một chút về cấu trúc logic, học sinh sẽ gãy ngay lập tức.</p></li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Tóm lại:</strong> Ngược lại với reasoning là <em>“sự chắp vá”</em>. Bạn có các mảnh thông tin nhưng không có sợi dây logic nào để xâu chuỗi chúng lại thành một hệ thống đúng đắn.</p>
+</blockquote>
+</section>
+<section id="bảng-so-sánh-các-mặt-đối-lập" class="level2">
+<h2 class="anchored" data-anchor-id="bảng-so-sánh-các-mặt-đối-lập">3. Bảng so sánh các mặt đối lập</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 44%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Khái niệm</th>
+<th>Trạng thái tích cực</th>
+<th>Trạng thái đối lập (Tiêu cực)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sense-making</strong></td>
+<td><em>Thấu hiểu:</em> “Tôi thấy nó có lý và kết nối được với những gì tôi đã biết.”</td>
+<td><em>Học vẹt:</em> “Tôi làm theo vì được dạy thế, dù thấy nó chẳng có ý nghĩa gì.”</td>
+</tr>
+<tr class="even">
+<td><strong>Reasoning</strong></td>
+<td><em>Lập luận:</em> “Tôi đi từ bước A sang bước B bằng các quy tắc logic chặt chẽ.”</td>
+<td><em>Đoán mò:</em> “Tôi nhảy thẳng đến kết luận dựa trên cảm giác hoặc thói quen cũ.”</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="một-ví-dụ-tổng-hợp-để-bạn-thấy-cả-hai-mặt-đối-lập" class="level2">
+<h2 class="anchored" data-anchor-id="một-ví-dụ-tổng-hợp-để-bạn-thấy-cả-hai-mặt-đối-lập">4. Một ví dụ tổng hợp để bạn thấy cả hai mặt đối lập</h2>
+<p>Giả sử có bài toán: <em>Giải phương trình <span class="math inline">\(2x+5=11\)</span>.</em></p>
+<ol type="1">
+<li><strong>Học sinh đối lập với sense-making:</strong> Sẽ máy móc chuyển vế đổi dấu: “<span class="math inline">\(+5\)</span> chuyển sang thành <span class="math inline">\(-5\)</span>”. Nếu hỏi tại sao lại đổi dấu, em trả lời: “Quy tắc nó thế”. (Em không hiểu bản chất là ta đang trừ 5 vào cả hai vế để giữ thăng bằng cho cái cân).</li>
+<li><strong>Học sinh đối lập với Reasoning:</strong> Sẽ nhìn vào số <span class="math inline">\(2\)</span>, <span class="math inline">\(5\)</span>, <span class="math inline">\(11\)</span> và thử đại: “Lấy <span class="math inline">\(11-5=6\)</span>, rồi lấy <span class="math inline">\(6/2=3\)</span>. À chắc <span class="math inline">\(x=3\)</span>”. Em làm đúng đáp án nhưng không biết trình bày các bước logic, hoặc nếu bài toán là <span class="math inline">\(2x-5=11\)</span> thì em có thể sẽ lúng túng không biết phải cộng hay trừ trước.</li>
+</ol>
+<p><strong>Kết luận cuối cùng:</strong></p>
+<ul>
+<li>Nếu bạn chỉ có <strong>Sense-making</strong> mà không có <strong>Reasoning</strong>: Bạn hiểu vấn đề nhưng không thể chứng minh hay giải quyết các bài toán phức tạp một cách chính xác.</li>
+<li>Nếu bạn chỉ có <strong>Reasoning</strong> mà không có <strong>Sense-making</strong>: Bạn là một lập trình viên giỏi nhưng không biết chương trình mình viết ra có ích gì cho đời hay không.</li>
+</ul>
+<p>Bạn thấy mình thường rơi vào trạng thái nào hơn khi học một kiến thức mới? Bạn thiên về việc “muốn hiểu nó để làm gì” (Sense-making) hay “muốn biết các bước logic để giải nó” (Reasoning)?</p>
+<hr>
+<p>Để hiểu vị trí của <em>sense-making</em> trong mối quan hệ với <em>reasoning</em>, hãy tưởng tượng một quá trình chuyển hóa từ “thông tin thô” thành “kiến thức sâu sắc”.</p>
+<p>Nếu <em>reasoning</em> là “động cơ” đẩy tư duy đi đúng hướng và là “kênh” để truyền tải tư duy đó ra ngoài, thì <em>sense-making</em> chính là <em>“nguồn năng lượng”</em> và <em>“nền móng”</em> ban đầu.</p>
+<section id="vị-trí-và-vai-trò-của-sense-making" class="level3">
+<h3 class="anchored" data-anchor-id="vị-trí-và-vai-trò-của-sense-making">1. Vị trí và Vai trò của Sense-making</h3>
+<p>Trong giáo dục toán học, <strong>Sense-making</strong> nằm ở giai đoạn tiếp nhận và kết nối.</p>
+<ul>
+<li><strong>Vị trí:</strong> Nó xuất hiện ngay từ giây phút đầu tiên khi bạn đối mặt với một vấn đề và kéo dài suốt quá trình giải quyết. Nó là cầu nối giữa cái bạn <strong>đã biết</strong> và cái bạn <strong>đang thấy</strong>.</li>
+<li><strong>Vai trò:</strong></li>
+<li><strong>Ngăn chặn việc học vẹt:</strong> sense-making giúp bạn hiểu “tại sao” thay vì chỉ “làm thế nào”.</li>
+<li><strong>Tạo ra sự kết nối:</strong> Nó gắn kết các con số khô khan với thực tế hoặc với các khái niệm toán học khác.</li>
+<li><strong>Định hướng cho lập luận:</strong> Khi bạn đã “thấy” ý nghĩa, bạn mới biết mình cần lập luận (reasoning) theo hướng nào để chứng minh cái ý nghĩa đó.</li>
+</ul>
+</section>
+<section id="ví-dụ-giúp-phân-biệt-sense-making-và-reasoning" class="level3">
+<h3 class="anchored" data-anchor-id="ví-dụ-giúp-phân-biệt-sense-making-và-reasoning">2. Ví dụ giúp phân biệt Sense-making và Reasoning</h3>
+<p>Hãy lấy ví dụ về việc học công thức tính <strong>Diện tích hình tam giác</strong>: .</p>
+<section id="trường-hợp-1-không-có-cả-hai-học-vẹt" class="level4">
+<h4 class="anchored" data-anchor-id="trường-hợp-1-không-có-cả-hai-học-vẹt">Trường hợp 1: Không có cả hai (Học vẹt)</h4>
+<p>Học sinh học thuộc lòng công thức. Khi đi thi, lắp số vào tính. Nếu quên số , học sinh chịu chết vì không hiểu bản chất.</p>
+</section>
+<section id="trường-hợp-2-quá-trình-sense-making-kiến-tạo-ý-nghĩa" class="level4">
+<h4 class="anchored" data-anchor-id="trường-hợp-2-quá-trình-sense-making-kiến-tạo-ý-nghĩa">Trường hợp 2: Quá trình Sense-making (Kiến tạo ý nghĩa)</h4>
+<p>Học sinh lấy một tờ giấy hình chữ nhật. Em cắt đôi nó theo đường chéo để tạo thành hai hình tam giác bằng nhau.</p>
+<ul>
+<li><strong>Aha! Moment:</strong> Em nhận ra: “Ồ, một hình tam giác thực chất chỉ là một nửa của hình chữ nhật!”.</li>
+<li><strong>Vị trí:</strong> Đây là lúc <strong>ý nghĩa được kiến tạo</strong>. Hình tam giác không còn là một công thức xa lạ, nó là “một nửa hình chữ nhật”. Đây là hoạt động diễn ra sâu sắc trong tâm trí.</li>
+</ul>
+</section>
+<section id="trường-hợp-3-quá-trình-reasoning-lập-luận" class="level4">
+<h4 class="anchored" data-anchor-id="trường-hợp-3-quá-trình-reasoning-lập-luận">Trường hợp 3: Quá trình Reasoning (Lập luận)</h4>
+<p>Sau khi đã hiểu ý nghĩa (Sense-making), giáo viên yêu cầu học sinh chứng minh công thức đó cho một tam giác bất kỳ (không phải tam giác vuông).</p>
+<ul>
+<li><strong>Trong óc:</strong> Học sinh bắt đầu suy nghĩ: “Nếu mình kẻ một đường cao, mình sẽ chia tam giác này thành hai tam giác vuông nhỏ. Mỗi tam giác vuông nhỏ lại là một nửa của một hình chữ nhật nhỏ tương ứng…”</li>
+<li><strong>Ra bên ngoài:</strong> Học sinh vẽ hình, viết các bước:</li>
+</ul>
+<ol type="1">
+<li>Gọi là chiều cao, là đáy.</li>
+<li>Chia đáy thành hai đoạn và .</li>
+<li>Tổng diện tích là .</li>
+</ol>
+<ul>
+<li><strong>Vị trí:</strong> Đây chính là <strong>Reasoning</strong>. Học sinh dùng logic để cấu trúc hóa cái “Aha!” ban đầu thành một hệ thống bằng chứng chặt chẽ.</li>
+</ul>
+</section>
+</section>
+<section id="tóm-tắt-sự-khác-biệt" class="level3">
+<h3 class="anchored" data-anchor-id="tóm-tắt-sự-khác-biệt">3. Tóm tắt sự khác biệt</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 37%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Đặc điểm</th>
+<th>Sense-making (Kiến tạo ý nghĩa)</th>
+<th>Reasoning (Lập luận)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Câu hỏi chủ đạo</strong></td>
+<td>“Cái này có nghĩa là gì?”, “Tại sao nó lại hợp lý?”</td>
+<td>“Làm sao để chứng minh điều này?”, “Kết luận này có logic không?”</td>
+</tr>
+<tr class="even">
+<td><strong>Trạng thái</strong></td>
+<td>Thấu hiểu, nhận ra mối liên hệ (Intuitive).</td>
+<td>Xây dựng, kết nối các bước logic (Analytical).</td>
+</tr>
+<tr class="odd">
+<td><strong>Kết quả</strong></td>
+<td>Sự thông suốt (Clarity).</td>
+<td>Sự chặt chẽ và bằng chứng (Validity/Proof).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Nói một cách ngắn gọn:</strong></p>
+<ul>
+<li><strong>Sense-making</strong> giúp bạn cảm thấy “ồ, đúng là nó phải như thế!”.</li>
+<li><strong>Reasoning</strong> giúp bạn chứng minh và giải thích cho thế giới thấy “tại sao nó bắt buộc phải như thế!”.</li>
+</ul>
+<hr>
+<p>Bạn có thấy trong quá trình học tập hay làm việc của mình, có lúc nào bạn “lập luận” rất giỏi nhưng thực ra lại chưa “kiến tạo ý nghĩa” (chưa thực sự hiểu bản chất) không? Nếu bạn muốn, tôi có thể đưa thêm một ví dụ trong đời sống hàng ngày để thấy hai cái này tách biệt thế nào.</p>
+<hr>
+<p>Để thấy rõ sự tách biệt giữa hai khái niệm này, chúng ta hãy bước ra khỏi lớp học toán và nhìn vào một tình huống rất quen thuộc: <em>Việc đi làm hàng ngày và kẹt xe.</em></p>
+<blockquote class="blockquote">
+<p><strong>Tình huống:</strong> Bạn mới chuyển đến một thành phố lớn và đang tìm đường đi làm.</p>
+</blockquote>
+</section>
+<section id="sense-making-kiến-tạo-ý-nghĩa-hiểu-quy-luật-của-cuộc-chơi" class="level3">
+<h3 class="anchored" data-anchor-id="sense-making-kiến-tạo-ý-nghĩa-hiểu-quy-luật-của-cuộc-chơi">1. Sense-making (Kiến tạo ý nghĩa): “Hiểu quy luật của cuộc chơi”</h3>
+<p>Khi mới đến, bạn quan sát và bắt đầu nhận ra những “mối liên hệ” mang tính bản chất của thành phố này:</p>
+<ul>
+<li>Bạn nhận ra: “À, hướng đông là nơi có cụm các tòa nhà văn phòng, còn hướng tây là khu dân cư.”</li>
+<li>Bạn thấy rằng: “Cứ hễ trời mưa là người ta sẽ đi ô tô nhiều hơn, dẫn đến tắc đường ở các cây cầu.”</li>
+<li>Bạn hiểu rằng: “Giờ cao điểm không chỉ là một con số trên đồng hồ, mà là lúc dòng người đổ xô từ vùng ven vào trung tâm.”</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Vai trò:</strong> Đây là <strong>Sense-making</strong>. Bạn đang xây dựng một <strong>“mô hình tâm trí” (mental model)</strong> trong đầu. Bạn không chỉ nhìn thấy những chiếc xe đứng yên, bạn <strong>hiểu ý nghĩa</strong> đằng sau sự tắc nghẽn đó. Nếu không có bước này, bạn sẽ chỉ thấy hỗn loạn và bực mình mà không hiểu tại sao.</p>
+</blockquote>
+</section>
+<section id="reasoning-lập-luậnsuy-luận-đưa-ra-quyết-định-logic" class="level3">
+<h3 class="anchored" data-anchor-id="reasoning-lập-luậnsuy-luận-đưa-ra-quyết-định-logic">2. Reasoning (Lập luận/Suy luận): “Đưa ra quyết định logic”</h3>
+<p>Dựa trên những ý nghĩa bạn đã kiến tạo ở trên, sáng nay khi thức dậy và thấy trời mưa, bạn bắt đầu thực hiện các bước <strong>Reasoning</strong>:</p>
+<ul>
+<li><strong>Tiền đề 1:</strong> Trời đang mưa.</li>
+<li><strong>Tiền đề 2:</strong> Mình đã biết (từ sense-making) là trời mưa thì các cây cầu sẽ tắc nghẽn nặng.</li>
+<li><strong>Tiền đề 3:</strong> Mình có một cuộc họp quan trọng lúc 8:30 sáng.</li>
+<li><strong>Kết luận:</strong> Mình phải đi làm sớm hơn 30 phút và đi bằng đường hầm thay vì đi qua cầu.</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Vai trò:</strong> Đây là <strong>Reasoning</strong>. Bạn đang dùng các mắt xích logic để đi đến một kết luận cụ thể.</p>
+<ul>
+<li>Nếu ai đó hỏi: “Tại sao bạn lại đi sớm thế?”, bạn sẽ trình bày lại các bước trên (đây là <strong>Lập luận ra bên ngoài</strong>).</li>
+<li>Quá trình bạn kết nối các tiền đề trong đầu là <strong>Suy luận nội tại</strong>.</li>
+</ul>
+</blockquote>
+</section>
+<section id="tóm-tắt-sự-khác-biệt-qua-ví-dụ-này" class="level3">
+<h3 class="anchored" data-anchor-id="tóm-tắt-sự-khác-biệt-qua-ví-dụ-này">Tóm tắt sự khác biệt qua ví dụ này:</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 51%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Đặc điểm</th>
+<th>Sense-making (Kiến tạo ý nghĩa)</th>
+<th>Reasoning (Lập luận)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Hành động</strong></td>
+<td>Quan sát, kết nối và thấu hiểu “bức tranh lớn”.</td>
+<td>Sử dụng dữ liệu từ bức tranh đó để giải quyết vấn đề cụ thể.</td>
+</tr>
+<tr class="even">
+<td><strong>Nếu thiếu nó…</strong></td>
+<td>Bạn sẽ giải quyết vấn đề một cách máy móc (như một robot chỉ biết đi theo bản đồ cũ mà không biết vì sao hôm nay đường lại đông).</td>
+<td>Bạn có thể hiểu rất rõ tại sao đường tắc, nhưng lại không biết tính toán để chọn lộ trình tối ưu nhất.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tại-sao-trong-toán-học-chúng-ta-cần-cả-hai" class="level3">
+<h3 class="anchored" data-anchor-id="tại-sao-trong-toán-học-chúng-ta-cần-cả-hai">Tại sao trong Toán học chúng ta cần cả hai?</h3>
+<p>Nếu một học sinh giỏi <em>reasoning</em> nhưng yếu <em>sense-making</em>: Em có thể giải một bài toán tích phân rất phức tạp vì em thuộc các bước biến đổi logic, nhưng em không hề biết tích phân đó dùng để làm gì trong thực tế.</p>
+<p>Nếu một học sinh giỏi <em>sense-making</em> nhưng yếu <em>reasoning</em>: Em hiểu rất rõ bản chất của phân số (là việc chia nhỏ một cái bánh), nhưng khi yêu cầu em thực hiện phép tính cộng hai phân số khác mẫu số, em lại lúng túng không biết sắp xếp các bước logic để tìm ra đáp án đúng.</p>
+<hr>
+</section>
+</section>
+<section id="vì-sao-reasoning-and-sense-making-được-dịch-là-hiểu-và-luận" class="level2">
+<h2 class="anchored" data-anchor-id="vì-sao-reasoning-and-sense-making-được-dịch-là-hiểu-và-luận">Vì sao “Reasoning and Sense Making” được dịch là “Hiểu và luận”?</h2>
+<p>Khi dịch cụm <em>reasoning and sense making</em>, điều khó nhất không nằm ở việc tìm một cặp từ tiếng Việt “tương đương”, mà ở việc quyết định <strong>ta muốn chuyển tải điều gì của khái niệm</strong>: hình thức thuật ngữ, hay cấu trúc tư duy mà thuật ngữ đó hàm chứa. Bởi <em>reasoning</em> và <em>sense making</em> không phải là hai danh từ rời rạc chỉ những kỹ năng riêng lẻ, mà là hai cách gọi cho những <strong>hoạt động nhận thức sống</strong>, diễn ra liên tục trong đầu người học khi họ thật sự học Toán.</p>
+<p>Trước hết, xét từ <em>reasoning</em>. Trong tiếng Anh, <em>reasoning</em> bắt nguồn từ danh từ <em>reason</em>, mà <em>reason</em> lại có gốc Latin là <em>ratio</em>. <em>Ratio</em> không chỉ có nghĩa là “lý do”, mà còn mang nghĩa rất cơ bản là “sự sắp xếp”, “tỷ lệ”, “trật tự hợp lý”. Từ này đi vào truyền thống triết học phương Tây với ý nghĩa chỉ <strong>khả năng tổ chức tư duy theo những quan hệ hợp lý</strong>, chứ không đơn thuần là nói ra lời giải. Vì vậy, <em>reasoning</em> về bản chất là một quá trình: con người nối các ý với nhau, cân nhắc, so sánh, loại trừ, biện minh, để đi từ những tiền đề đến một kết luận mà họ cho là có lý. Nó không đồng nhất với việc trình bày lời giải hoàn chỉnh; một người có thể đang <em>reason</em> mà chưa nói ra một câu nào. <em>Reasoning</em> là hoạt động bên trong của trí tuệ.</p>
+<p>Từ <em>sense making</em> lại có một xuất xứ rất khác. Nó không bắt nguồn từ một truyền thống logic hình thức, mà từ ngôn ngữ đời sống. <em>Sense</em> trong tiếng Anh vừa có nghĩa là “ý nghĩa”, vừa có nghĩa là “cảm nhận”, “điều có lý”. Cụm <em>to make sense</em> không có nghĩa là “sáng tạo ra ý nghĩa”, mà là “làm cho một điều trở nên có nghĩa đối với mình”. Khi nói “this makes sense”, ta không nói rằng ta vừa phát minh ra một ý nghĩa mới, mà nói rằng ta <strong>đã hiểu được điều đang diễn ra</strong>, đã thấy nó ăn khớp với những gì ta biết và chấp nhận được về mặt lý trí. Vì vậy, <em>sense making</em> là quá trình người học cố gắng làm sáng tỏ: điều này nghĩa là gì, tại sao lại như vậy, nó liên hệ thế nào với những kinh nghiệm và tri thức trước đó của tôi. Nó mang tính nội tại, chủ quan theo nghĩa tốt: nghĩa là nó xảy ra trong đầu người học, không thể áp đặt từ bên ngoài.</p>
+<p>Khi chuyển sang tiếng Việt, ta gặp hai từ: <strong>hiểu</strong> và <strong>luận</strong>. Cả hai đều là từ Hán–Việt, nhưng đã được Việt hóa sâu đến mức người dùng không còn cảm thấy chúng là “thuật ngữ ngoại lai”.</p>
+<p>“Hiểu” có gốc từ chữ Hán <strong>曉</strong>. Nghĩa gốc của chữ này là “trời sáng”, “rạng đông”, và từ đó phát triển thành nghĩa “làm cho sáng ra”, “thông suốt”. Điều đáng chú ý là trong tầng nghĩa gốc ấy, “hiểu” không bao giờ đồng nghĩa với “ghi nhớ” hay “biết thông tin”. Nó luôn hàm ý một <strong>sự chuyển trạng thái nhận thức</strong>: từ mờ sang rõ, từ tối sang sáng. Khi nói một người “hiểu” một vấn đề, ta không nói rằng người ấy đã tiếp nhận xong dữ kiện, mà nói rằng vấn đề đó đã trở nên sáng sủa, có nghĩa, không còn gây vướng mắc. Chính vì vậy, “hiểu” trong tiếng Việt, xét về ngữ nghĩa sâu, trùng khớp một cách tự nhiên với <em>sense making</em>: cả hai đều chỉ quá trình làm cho một điều trở nên có nghĩa đối với chủ thể nhận thức.</p>
+<p>“Luận” có gốc từ chữ Hán <strong>論</strong>. Chữ này gồm bộ “ngôn” (言) và phần “侖”, vốn mang nghĩa sắp xếp, phân loại. Ngay trong cấu tạo chữ đã hàm ý rằng “luận” không phải là nói bừa, mà là <strong>dùng lời (hoặc ký hiệu) để sắp xếp lý lẽ cho có trật tự</strong>. Trong truyền thống Hán học, “luận” luôn gắn với việc bàn xét, phân tích, cân nhắc, biện minh. Một bài “luận” không phải là nơi để kể lại sự kiện, mà là nơi để tổ chức tư duy, làm rõ vì sao một kết luận là hợp lý. Nếu bỏ đi các yếu tố văn phong, “luận” chính là biểu hiện ngôn ngữ của <em>reasoning</em>.</p>
+<p>Khi đặt “hiểu” và “luận” cạnh nhau, ta không ghép hai từ một cách ngẫu nhiên, mà vô tình – hoặc hữu ý – tái lập một trật tự nhận thức rất cổ điển: <strong>hiểu trước, rồi mới luận</strong>. Không có “luận” nào thực chất nếu chưa có “hiểu”; và một sự “hiểu” sâu sắc, nếu không thể được “luận” ra, thì vẫn chưa trở thành tri thức có thể chia sẻ, kiểm tra và phát triển. Trật tự này không mâu thuẫn với tinh thần của <em>reasoning and sense making</em>, mà trái lại, làm rõ điều mà cụm tiếng Anh đó ngầm giả định: reasoning và sense making không phải hai bước tách rời, mà là hai mặt của cùng một hoạt động học tập có ý nghĩa.</p>
+<p>Vì vậy, khi dịch <em>reasoning and sense making</em> thành <strong>“hiểu và luận”</strong>, ta không đơn giản hóa khái niệm, mà đang <strong>chưng cất nó về dạng ngôn ngữ phù hợp với trải nghiệm học tập của người Việt</strong>. “Hiểu” giữ trọn tinh thần <em>sense making</em> như một quá trình làm sáng nghĩa nội tại. “Luận” giữ trọn bản chất của <em>reasoning</em> như một hoạt động tổ chức lý lẽ. Còn sự đảo trật tự không phải là sự phản bội nguyên bản, mà là một lựa chọn sư phạm: đặt trọng tâm vào điều kiện tiên quyết của mọi lập luận có ý nghĩa, đó là sự hiểu.</p>
+<p>Do đó, “hiểu và luận” không chỉ là một bản dịch khả dĩ. Nó là một cách nói ngắn gọn, giàu chiều sâu ngữ nghĩa, và trung thành với bản chất nhận thức của khái niệm gốc – trung thành không ở mức chữ, mà ở mức tư tưởng.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/zo-math\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a><br>
+<br> <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a><br>
+<br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

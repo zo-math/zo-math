@@ -1,0 +1,2311 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="ZO Math">
+
+<title>Trọng tâm trong Toán học Trung học Phổ thông: Lý luận và kiến tạo ý nghĩa – ZO Math</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-3d1903c5838503892ba651cf513ab205.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../assets/css/custom.css">
+<link rel="stylesheet" href="../../../assets/css/three-columns.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-11/index.qmd">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-12/index.qmd">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.qmd">
+ <span class="dropdown-text">100+ Hàm số</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-o/index.qmd"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-lab/index.qmd"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/shop/index.html"> 
+<span class="menu-text">ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page">
+      <h1 class="title">Trọng tâm trong Toán học Trung học Phổ thông: Lý luận và kiến tạo ý nghĩa</h1>
+            <p class="subtitle lead">Focus in High School Mathematics - Reasoning and Sense Making: Bản dịch đối chiếu song ngữ Anh - Việt</p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-page">
+
+      <div>
+      <div class="quarto-title-meta-heading">Tác giả</div>
+      <div class="quarto-title-meta-contents">
+               <p>ZO Math </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Ngày cập nhật</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">01-07-2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
+
+
+
+
+
+<!-- Chapter 7 -->
+<div class="three-cols">
+<div class="row">
+<section id="chapter-7.-reasoning-with-geometry" class="level2 col-original">
+<h2 class="anchored" data-anchor-id="chapter-7.-reasoning-with-geometry">Chapter 7. Reasoning with Geometry</h2>
+</section>
+<section id="luận-với-hình-học" class="level2 col-translation">
+<h2 class="anchored" data-anchor-id="luận-với-hình-học">Luận với hình học</h2>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Classically, geometry has been the subject in which students encounter mathematical proof based on formal deduction. Although proof should be naturally incorporated in all areas of the curriculum, attention to proof in the geometry curriculum is strengthened by a focus on reasoning and sense making. In addition, geometry has connections with other mathematical domains and important applications in careers and in everyday life. Geometric ideas are a significant part of many high-technology developments, including high-definition television (HDTV), global positioning systems (GPS), computer animation, computerized axial tomography (CAT) scans, cellular telephone networks, robotics, virtual reality, and docking of the Space Shuttle. Geometric and visual reasoning often enter our daily lives.</p>
+</div>
+<div class="col-translation">
+<p>Theo truyền thống, hình học là lĩnh vực mà học sinh tiếp xúc với chứng minh toán học dựa trên suy diễn hình thức. Mặc dù chứng minh cần được tích hợp một cách tự nhiên trong tất cả các lĩnh vực của chương trình toán học, sự chú trọng đến chứng minh trong chương trình hình học được tăng cường khi đặt trọng tâm vào luận và hiểu. Bên cạnh đó, hình học có mối liên hệ với các lĩnh vực toán học khác và có những ứng dụng quan trọng trong nghề nghiệp cũng như trong đời sống hằng ngày. Các ý tưởng hình học là một bộ phận quan trọng của nhiều công nghệ cao, bao gồm truyền hình độ phân giải cao (HDTV), hệ thống định vị toàn cầu (GPS), hoạt hình máy tính, chụp cắt lớp vi tính (CAT), mạng điện thoại di động, robot, thực tế ảo và kỹ thuật ghép nối tàu con thoi. Luận hình học và trực quan thường xuyên xuất hiện trong đời sống hằng ngày của chúng ta.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>A considerable amount of research on students’ thinking in geometry can be used to promote students’ reasoning and sense making in this area. Much of this research bolsters the van Hiele levels of students’ geometric thinking (Battista 2007). These five van Hiele levels of thinking are sequential and hierarchical, meaning that students must pass through lower levels if they are to attain higher levels. The van Hiele levels of students’ thinking can be linked to the reasoning habits described in chapter 2 and can help promote students’ attainment of the reasoning and sense-making abilities exemplified in this publication. For instance, the first two van Hiele levels, <em>visual-holistic</em> and <em>descriptive-analytic</em> reasoning, link to the <em>empirical</em> reasoning level described in “Progression of Reasoning” in chapter 2. The third van Hiele level, <em>relational-inferential</em> reasoning, connects with the <em>preformal</em> level, and the fourth and fifth van Hiele levels, <em>formal deductive proof</em> and <em>rigor</em>, are tied to the <em>formal</em> level of reasoning. Accordingly, knowledge about students’ thinking not only allows us but requires us to support students at whatever level of thinking they may have attained when coming to high school and to provide them experiences that help them move to higher levels.</p>
+</div>
+<div class="col-translation">
+<p>Một lượng đáng kể các nghiên cứu về tư duy hình học của học sinh có thể được dùng để thúc đẩy luận và hiểu của học sinh trong lĩnh vực này. Phần lớn các nghiên cứu ấy củng cố quan niệm về các mức độ tư duy hình học của học sinh theo van Hiele (Battista 2007). Năm mức độ tư duy theo van Hiele này có tính tuần tự và thứ bậc, nghĩa là học sinh phải đi qua các mức thấp hơn nếu muốn đạt tới các mức cao hơn. Các mức độ tư duy của học sinh theo van Hiele có thể được liên kết với những thói quen luận được mô tả trong Chương 2, và có thể góp phần thúc đẩy việc học sinh đạt tới các năng lực luận và hiểu được minh họa trong công trình này. Chẳng hạn, hai mức độ đầu tiên theo van Hiele, <em>luận trực quan-toàn thể</em> và <em>luận mô tả-phân tích</em>, liên kết với mức độ luận <em>thực nghiệm</em> được mô tả trong mục “Tiến triển của luận” ở Chương 2. Mức độ thứ ba theo van Hiele, <em>luận quan hệ-suy luận</em>, tương ứng với mức <em>tiền hình thức</em>, còn mức độ thứ tư và thứ năm, <em>chứng minh suy diễn hình thức</em> và <em>nghiêm ngặt</em>, gắn với mức độ luận <em>hình thức</em>. Vì thế, hiểu biết về tư duy của học sinh không chỉ cho phép mà còn đòi hỏi ta phải hỗ trợ học sinh ở bất cứ mức độ tư duy nào mà các em đã đạt tới khi bước vào trung học phổ thông, đồng thời tạo cho các em những trải nghiệm giúp các em chuyển lên những mức độ cao hơn.</p>
+</div>
+<div class="col-notes">
+<p>Đoạn này đưa cơ sở nghiên cứu về tư duy hình học của học sinh vào trung tâm của định hướng dạy học. Điều tác giả muốn nhấn mạnh không chỉ là sự tồn tại của mô hình van Hiele, mà là hệ quả sư phạm của nó: sự phát triển tư duy hình học có tính tuần tự và thứ bậc, nên không thể đòi hỏi học sinh đạt tới chứng minh hình thức khi các em còn chưa đi qua những mức tư duy thấp hơn. Vì thế, nghiên cứu về tư duy của học sinh không phải một tri thức phụ trợ đứng ngoài lớp học, mà là căn cứ để quyết định nên yêu cầu gì và nên nâng đỡ học sinh theo hướng nào.</p>
+<p>Điểm quan trọng hơn nữa là tác giả không dùng van Hiele như một lí thuyết riêng của hình học, tách biệt khỏi phần còn lại của cuốn sách. Các mức van Hiele được nối trực tiếp với tiến trình của luận đã trình bày ở Chương 2: hai mức đầu gắn với luận thực nghiệm, khi học sinh còn dựa nhiều vào quan sát và mô tả; mức thứ ba tương ứng với giai đoạn tiền hình thức, khi các quan hệ và suy ra bắt đầu hiện rõ; hai mức cao nhất gắn với luận hình thức, nơi chứng minh và tính chặt chẽ trở thành trung tâm. Nhờ cách nối này, hình học không hiện ra như một ngoại lệ trong sách, mà như một miền trong đó cùng một tiến trình phát triển của luận và hiểu được biểu hiện dưới một dạng đặc thù.</p>
+<p>Câu kết của đoạn văn mang ý nghĩa sư phạm quyết định. Hiểu biết về tư duy của học sinh không chỉ cho phép mà còn buộc người dạy phải bắt đầu từ mức độ mà học sinh thực sự đang có, rồi tổ chức những trải nghiệm thích hợp để các em từng bước đi lên. Ở đây, tác giả đang bác bỏ ngầm một cách dạy quen thuộc: đòi hỏi quá sớm những hình thức suy diễn mà học sinh chưa có nền nhận thức để mang nổi. Đồng thời, đoạn này cũng biện minh cho giá trị của các hoạt động trực quan, mô tả và khám phá như những chặng cần thiết trên con đường đi tới chứng minh hình thức.</p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Key elements of reasoning and sense making with geometry include the following:</p>
+<ul>
+<li><em>Conjecturing about geometric objects.</em> Analyzing configurations and reasoning inductively about relationships to formulate conjectures.</li>
+<li><em>Construction and evaluation of geometric arguments.</em> Developing and evaluating deductive arguments (both formal and informal) about figures and their properties that help make sense of geometric situations.</li>
+<li><em>Multiple geometric approaches.</em> Analyzing mathematical situations by using transformations, synthetic approaches, and coordinate systems.</li>
+<li><em>Geometric connections and modeling.</em> Using geometric ideas, including spatial visualization, in other areas of mathematics, other disciplines, and in real-world situations.</li>
+</ul>
+<p>We address these key elements in more detail in the following sections.</p>
+</div>
+<div class="col-translation">
+<p>Các yếu tố then chốt của luận và hiểu với hình học bao gồm:</p>
+<ul>
+<li><em>Phỏng đoán về các đối tượng hình học.</em> Phân tích các cấu hình và luận quy nạp về các quan hệ để hình thành các phỏng đoán.</li>
+<li><em>Xây dựng và thẩm định các biện giải hình học.</em> Phát triển và thẩm định các lập luận suy diễn, cả hình thức lẫn không hình thức, về các hình và các tính chất của chúng nhằm giúp hiểu các tình huống hình học.</li>
+<li><em>Nhiều cách tiếp cận hình học.</em> Phân tích các tình huống toán học bằng cách sử dụng các phép biến hình, các cách tiếp cận tổng hợp, và các hệ tọa độ.</li>
+<li><em>Các kết nối hình học và mô hình hóa.</em> Sử dụng các ý tưởng hình học, bao gồm hình dung không gian, trong những lĩnh vực khác của toán học, trong các môn học khác, và trong những tình huống thực tế.</li>
+</ul>
+<p>Chúng tôi sẽ trình bày chi tiết hơn các yếu tố then chốt này trong những phần tiếp theo.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="conjecturing-about-geometric-objects" class="level3 col-original">
+<h3 class="anchored" data-anchor-id="conjecturing-about-geometric-objects">Conjecturing about Geometric Objects</h3>
+</section>
+<section id="phỏng-đoán-về-các-đối-tượng-hình-học" class="level3 col-translation">
+<h3 class="anchored" data-anchor-id="phỏng-đoán-về-các-đối-tượng-hình-học">Phỏng đoán về các đối tượng hình học</h3>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Making conjectures is a fundamental reasoning habit in mathematical inquiry. Geometry offers many opportunities for developing this reasoning habit through an abundance of intriguing and often surprising visual or measurable geometric relationships. Students can make conjectures by analyzing a planar or spatial configuration or by wondering whether a certain configuration can exist. Conjecturing activates their natural inquisitiveness, not only about “what might be happening” (the conjecture) but “why it would be happening” (looking for insight, validation, or refutation.) The process of seeking and making conjectures gives students the opportunity to become immersed in, and deepen their understanding of, the mathematical relationships involved, as well to sharpen their ability to validate them. By making conjectures about novel situations, students also learn to employ mathematics in new situations, a highly desirable skill in our fast-changing world. Further mention of this skill is made in the section titled “Geometric connections and modeling.”</p>
+</div>
+<div class="col-translation">
+<p>Việc đưa ra phỏng đoán là một thói quen luận nền tảng trong hoạt động tìm tòi toán học. Hình học mang lại nhiều cơ hội để phát triển thói quen luận này thông qua vô số các mối quan hệ hình học trực quan hoặc có thể đo đạc được, thường gây hứng thú và đôi khi bất ngờ. Học sinh có thể đưa ra các phỏng đoán bằng cách phân tích một cấu hình phẳng hoặc không gian, hoặc bằng cách tự hỏi liệu một cấu hình nhất định có thể tồn tại hay không. Hoạt động phỏng đoán khơi dậy tính tò mò tự nhiên của học sinh, không chỉ về “điều gì có thể đang diễn ra” (bản thân phỏng đoán), mà còn về “vì sao điều đó lại xảy ra” (tìm kiếm sự hiểu biết sâu sắc, sự xác nhận hoặc sự bác bỏ). Quá trình tìm kiếm và hình thành các phỏng đoán tạo cơ hội để học sinh đắm mình vào các mối quan hệ toán học liên quan, qua đó làm sâu sắc thêm sự hiểu biết của các em, đồng thời rèn luyện khả năng kiểm chứng các mối quan hệ đó. Thông qua việc đưa ra các phỏng đoán trong những tình huống mới mẻ, học sinh còn học cách vận dụng toán học trong những bối cảnh mới, một kỹ năng đặc biệt cần thiết trong một thế giới đang thay đổi nhanh chóng. Kỹ năng này sẽ tiếp tục được đề cập trong mục có tiêu đề “Các kết nối hình học và mô hình hóa bằng hình học”.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>In example 14 students develop mathematical conjectures related to a context drawn from everyday life. In addition to the immediate utility of the results in the context itself, such contexts (1) provide a recognizable, interesting situation in which students can immerse themselves for the purpose of mathematical analysis, (2) offer multiple accessible methods to explore the situation for the purpose of creating conjectures, and (3) foster the notion that mathematics is everywhere. Example 15, “Circling the Points,” builds on example 14. These two examples would appear in the curriculum after students have studied some properties of perpendicularity (e.g., that a point lies on the perpendicular bisector of a line segment if and only if it is equidistant from the two endpoints of the segment.) They would appear early in the study of geometric properties of circles and would ultimately lead to the study of the inscribed angle theorem and related results. These examples also support the reasoning habits of making conjectures and using deduction to explore those conjectures.</p>
+</div>
+<div class="col-translation">
+<p>Trong Ví dụ 14, học sinh xây dựng những phỏng đoán toán học gắn với một bối cảnh lấy từ đời sống hằng ngày. Ngoài tính hữu ích trực tiếp của các kết quả ngay trong chính bối cảnh ấy, những bối cảnh như vậy còn có ba giá trị khác: (1) cung cấp một tình huống quen thuộc, thú vị để học sinh có thể thực sự dấn mình vào đó cho mục đích phân tích toán học; (2) mở ra nhiều cách tiếp cận dễ tiếp cận để khảo sát tình huống nhằm hình thành các phỏng đoán; và (3) nuôi dưỡng ý niệm rằng toán học hiện diện ở khắp nơi. Ví dụ 15, “Khoanh tròn các điểm,” được xây dựng tiếp nối từ Ví dụ 14. Hai ví dụ này sẽ xuất hiện trong chương trình sau khi học sinh đã học một số tính chất của sự vuông góc, chẳng hạn tính chất: một điểm nằm trên đường trung trực của một đoạn thẳng khi và chỉ khi nó cách đều hai đầu mút của đoạn thẳng ấy. Chúng sẽ được đưa vào ở giai đoạn đầu của việc học các tính chất hình học của đường tròn, và sau cùng sẽ dẫn tới việc học định lí góc nội tiếp cùng các kết quả liên quan. Hai ví dụ này cũng hỗ trợ các thói quen luận như hình thành phỏng đoán và dùng suy diễn để khảo sát các phỏng đoán ấy.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="example-14-picture-this" class="level4 col-original">
+<h4 class="anchored" data-anchor-id="example-14-picture-this">Example 14: Picture This</h4>
+<p><strong>Task</strong></p>
+<p>In photography, the “horizontal viewing angle” describes the angular extent of a scene being captured, with the vertex representing the camera lens. (See the figure at the right, which depicts the horizontal plane of the camera shot.)</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p56_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Shelly wants to take an artistic photo of the decorated side of a building that sits on a flat plot of land. She wants to capture a level shot of the full width of the building (exactly), but she does not care whether the full building height is in the picture. So the horizontal expanse of the picture is fixed.</p>
+<p>She is using a camera lens with a fixed horizontal viewing angle of 50 degrees, and she wants to take a level shot of the side of the building. She has found one spot that works, as indicated by point P in the figure at the right. Shelly believes that she could stand at other places to capture the same horizontal expanse but from a different perspective. Before she snaps the picture, she wants to examine some of those other positions. Your task is to figure out the ground locations where Shelly could stand to create a picture fitting her criteria.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p57_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Explore the situation, write down any conjectures you have regarding possible positions, and justify any that you can. The objective is to eventually create a conjecture describing the full range of possible positions. Prepare to clearly state your conjectures, as well as the thinking, exploration, and reasoning that explain how you arrived at them.</p>
+<p><strong>In the Classroom (Geometry Class)</strong></p>
+<p>An interactive drawing utility (with a file containing the sketch above), a hard copy of the sketch and a physical manipulative (a rigid angle — e.g., the expanse of a rigid compass), or a real camera and wall could be used to facilitate exploration of possible locations. The lesson begins with a full-class discussion of initial thoughts. After some time for individual thought or explanation, the following dialogue ensues.</p>
+<div class="dialogue">
+<dl>
+<dt>Teacher:</dt>
+<dd>
+Do you have any immediate conjectures to suggest?
+</dd>
+<dt>Student 1:</dt>
+<dd>
+I think there is a point right in the middle where you could stand.
+</dd>
+<dt>Teacher:</dt>
+<dd>
+What do you mean by “middle”?
+</dd>
+<dt>Student 1:</dt>
+<dd>
+I mean I would stand at a point in the diagram that would be the same distance from points <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>.
+</dd>
+<dt>Student 2:</dt>
+<dd>
+Oh, that means the point would be somewhere on the perpendicular bisector of the segment <span class="math inline">\(AB\)</span>, which represents the building side. This is because we have already learned that the perpendicular bisector of the segment is the collection of points that are equidistant from points <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>.
+</dd>
+<dt>Teacher:</dt>
+<dd>
+How would you find such a point? The students engage in some more work.
+</dd>
+<dt>Student 1:</dt>
+<dd>
+I’d put a point on the perpendicular bisector of segment <span class="math inline">\(AB\)</span> and then move it back and forth until the angle exactly fit the segment.
+</dd>
+<dt>Teacher:</dt>
+<dd>
+Good, that gives some detail regarding how one might locate a second point. [The teacher writes down a conjecture that there is a possible vertex location on the perpendicular bisector of segment <span class="math inline">\(AB\)</span>. This conjecture will be addressed in a subsequent discussion — beyond the confines of this example.] Are there other ideas about possible vertices?
+</dd>
+</dl>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p57_2.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<dl>
+<dt>Student 2:</dt>
+<dd>
+Based on my experience with a camera, I think there would be many points where one could stand to show the entire building side.
+</dd>
+</dl>
+</div>
+<p>Many students in the class agree with the conjecture that many points would work. Another student jumps in and suggests that that the possible positions possess symmetry. Eventually, someone states that reflective symmetry would be evident in the collection of possible points across the perpendicular bisector of <span class="math inline">\(AB\)</span>. This conjecture will be evaluated subsequently, as well.</p>
+<div class="dialogue">
+<dl>
+<dt>Teacher:</dt>
+<dd>
+Now, by using either the interactive drawing utility or the physical manipulative, plot a collection of points that represent where the photographer might stand to snap the required image. See if any other conjectures emerge from this exploration.
+</dd>
+<dt>Student 4:</dt>
+<dd>
+[After some exploration] All the points seem to be on a circular arc that goes from point <span class="math inline">\(A\)</span> to point <span class="math inline">\(B\)</span> — even though the photographer can’t stand there.
+</dd>
+</dl>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p58_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+<p>The teacher next facilitates a discussion about stating in abstract terms what we refer to as the major conjecture: “Given a line segment <span class="math inline">\(AB\)</span> and a specified side of line <span class="math inline">\(AB\)</span>, each point, <span class="math inline">\(P\)</span>, on the specified side of <span class="math inline">\(AB\)</span> with the property that <span class="math inline">\(m\angle APB = 50^\circ\)</span> lies on a circular arc containing <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>.”</p>
+<p>This conjecture is not resolved immediately. Rather, a set of questions is compiled by the class for moving toward a proof of this conjecture. These questions include the following:</p>
+<ol type="1">
+<li>Can we find out which circular arc we are talking about? That is, can we find the circle that contains this arc?</li>
+<li>Would every point on the arc (except points <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>) represent possible positions where the photographer could stand?</li>
+<li>Would the arc miss any possible points?</li>
+</ol>
+<p>(See example 15 along with the supporting topic book on geometry for a full discussion of the conjecture.)</p>
+<p><strong>Key Elements of Mathematics</strong></p>
+<p>Reasoning with Geometry — Conjecturing about geometric objects; Multiple geometric approaches</p>
+<p><strong>Reasoning Habits</strong></p>
+<p>Analyzing the problem — identifying relevant concepts, representations, or procedures; looking for hidden structure; considering special cases or simpler analogs; seeking patterns and relationships; making preliminary deductions and conjectures</p>
+<p>Implementing a strategy — monitoring progress toward a solution; making logical deductions</p>
+</section>
+<section id="ví-dụ-14-đứng-đâu-để-chụp" class="level4 col-translation">
+<h4 class="anchored" data-anchor-id="ví-dụ-14-đứng-đâu-để-chụp">Ví dụ 14: Đứng đâu để chụp?</h4>
+<p><strong>Nhiệm vụ</strong></p>
+<p>Trong nhiếp ảnh, “góc nhìn ngang” mô tả độ mở góc của cảnh được thu vào ảnh, với đỉnh góc là ống kính máy ảnh. (Xem hình bên dưới, biểu diễn mặt phẳng ngang của cảnh chụp.)</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p56_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Shelly muốn chụp một bức ảnh nghệ thuật mặt được trang trí của một tòa nhà nằm trên một khu đất bằng phẳng. Cô muốn chụp một bức ảnh ngang sao cho toàn bộ bề rộng của tòa nhà được thu vào khung hình (một cách chính xác), nhưng không quan tâm liệu toàn bộ chiều cao của tòa nhà có xuất hiện trong ảnh hay không. Do đó, độ mở ngang của bức ảnh là cố định.</p>
+<p>Cô đang sử dụng một ống kính có góc nhìn ngang cố định là <span class="math inline">\(50\)</span> độ và muốn chụp một bức ảnh ngang của mặt bên tòa nhà. Cô đã tìm được một vị trí phù hợp, được ký hiệu là điểm <span class="math inline">\(P\)</span> trong hình bên dưới. Shelly tin rằng cô có thể đứng ở những vị trí khác để chụp được cùng một độ mở ngang đó nhưng từ những góc nhìn khác nhau. Trước khi bấm máy, cô muốn xem xét một số vị trí khác như vậy. Nhiệm vụ của bạn là xác định các vị trí trên mặt đất mà Shelly có thể đứng để tạo ra một bức ảnh thỏa mãn các tiêu chí đã nêu.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p57_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Hãy khám phá tình huống này, ghi lại bất kỳ phỏng đoán nào bạn có liên quan đến các vị trí có thể có, và biện minh cho những phỏng đoán mà bạn có thể. Mục tiêu cuối cùng là hình thành một phỏng đoán mô tả đầy đủ tập hợp các vị trí có thể. Hãy chuẩn bị để trình bày rõ ràng các phỏng đoán của bạn, cũng như các suy nghĩ, quá trình khám phá và lập luận đã dẫn bạn tới chúng.</p>
+<p><strong>Trong lớp học (Lớp Hình học)</strong></p>
+<p>Một công cụ vẽ tương tác (với tệp chứa hình phác thảo như trên), một bản in của hình vẽ và một dụng cụ thao tác vật lý (một góc cứng — chẳng hạn độ mở của một compa cố định), hoặc một máy ảnh thật và một bức tường, đều có thể được sử dụng để hỗ trợ việc khám phá các vị trí có thể. Bài học bắt đầu bằng một cuộc thảo luận chung của cả lớp về những suy nghĩ ban đầu. Sau một khoảng thời gian để suy nghĩ hoặc giải thích cá nhân, cuộc đối thoại sau đây diễn ra.</p>
+<div class="dialogue">
+<dl>
+<dt>Giáo viên:</dt>
+<dd>
+Các em có phỏng đoán ban đầu nào muốn đề xuất không?
+</dd>
+<dt>Học sinh 1:</dt>
+<dd>
+Em nghĩ có một điểm ở ngay chính giữa nơi người ta có thể đứng.
+</dd>
+<dt>Giáo viên:</dt>
+<dd>
+Em có ý gì khi nói “chính giữa”?
+</dd>
+<dt>Học sinh 1:</dt>
+<dd>
+Em muốn nói là em sẽ đứng tại một điểm trong hình sao cho khoảng cách đến các điểm <span class="math inline">\(A\)</span> và <span class="math inline">\(B\)</span> là như nhau.
+</dd>
+<dt>Học sinh 2:</dt>
+<dd>
+À, như vậy có nghĩa là điểm đó nằm đâu đó trên đường trung trực của đoạn thẳng <span class="math inline">\(AB\)</span>, đoạn thẳng biểu diễn mặt bên của tòa nhà. Điều này là vì chúng em đã học rằng đường trung trực của một đoạn thẳng là tập hợp các điểm cách đều hai đầu mút của đoạn thẳng đó.
+</dd>
+<dt>Giáo viên:</dt>
+<dd>
+Em sẽ tìm một điểm như vậy bằng cách nào? Học sinh tiếp tục làm việc thêm một lúc.
+</dd>
+<dt>Học sinh 1:</dt>
+<dd>
+Em sẽ đặt một điểm trên đường trung trực của đoạn <span class="math inline">\(AB\)</span> rồi di chuyển nó tới lui cho đến khi góc vừa khít với đoạn thẳng.
+</dd>
+<dt>Giáo viên:</dt>
+<dd>
+Tốt, điều đó cho thấy khá rõ cách người ta có thể xác định một điểm thứ hai. [Giáo viên ghi lại một phỏng đoán rằng có một vị trí đỉnh có thể nằm trên đường trung trực của đoạn <span class="math inline">\(AB\)</span>. Phỏng đoán này sẽ được xem xét trong một thảo luận tiếp theo — vượt ra ngoài phạm vi của ví dụ này.] Có ý tưởng nào khác về các vị trí đỉnh có thể có không?
+</dd>
+</dl>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p57_2.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<dl>
+<dt>Học sinh 2:</dt>
+<dd>
+Dựa trên kinh nghiệm của em với máy ảnh, em nghĩ sẽ có rất nhiều điểm mà người ta có thể đứng để chụp trọn mặt bên của tòa nhà.
+</dd>
+</dl>
+</div>
+<p>Nhiều học sinh trong lớp đồng ý với phỏng đoán rằng có rất nhiều điểm phù hợp. Một học sinh khác tham gia và gợi ý rằng các vị trí có thể có mang tính đối xứng. Cuối cùng, có người cho rằng đối xứng qua trục sẽ xuất hiện trong tập hợp các điểm có thể có, đối xứng qua đường trung trực của <span class="math inline">\(AB\)</span>. Phỏng đoán này cũng sẽ được đánh giá sau đó.</p>
+<div class="dialogue">
+<dl>
+<dt>Giáo viên:</dt>
+<dd>
+Bây giờ, bằng cách sử dụng công cụ vẽ tương tác hoặc dụng cụ thao tác vật lý, hãy vẽ một tập hợp các điểm biểu diễn những vị trí mà nhiếp ảnh gia có thể đứng để chụp bức ảnh theo yêu cầu. Hãy xem liệu có phỏng đoán nào khác xuất hiện từ quá trình khám phá này không.
+</dd>
+<dt>Học sinh 4:</dt>
+<dd>
+[Sau một thời gian khám phá] Tất cả các điểm dường như đều nằm trên một cung tròn đi từ điểm <span class="math inline">\(A\)</span> đến điểm <span class="math inline">\(B\)</span> — mặc dù nhiếp ảnh gia không thể đứng tại các điểm đó.
+</dd>
+</dl>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p58_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Sau đó, giáo viên điều phối một cuộc thảo luận về việc phát biểu một cách trừu tượng điều mà ta gọi là phỏng đoán chính: “Cho một đoạn thẳng <span class="math inline">\(AB\)</span> và một phía xác định của đường thẳng <span class="math inline">\(AB\)</span>, mỗi điểm <span class="math inline">\(P\)</span> nằm về phía đã xác định của <span class="math inline">\(AB\)</span> thỏa mãn điều kiện <span class="math inline">\(m\angle APB = 50^\circ\)</span> đều nằm trên một cung tròn chứa <span class="math inline">\(A\)</span> và <span class="math inline">\(B\)</span>.”</p>
+<p>Phỏng đoán này không được giải quyết ngay lập tức. Thay vào đó, lớp học tổng hợp một tập hợp các câu hỏi nhằm tiến tới việc chứng minh phỏng đoán này. Các câu hỏi đó bao gồm:</p>
+<ol type="1">
+<li>Chúng ta có thể xác định được cung tròn nào đang được nói tới không? Nói cách khác, ta có thể tìm được đường tròn chứa cung đó hay không?</li>
+<li>Mọi điểm trên cung (trừ các điểm <span class="math inline">\(A\)</span> và <span class="math inline">\(B\)</span>) có đều biểu diễn các vị trí mà nhiếp ảnh gia có thể đứng hay không?</li>
+<li>Liệu cung tròn đó có bỏ sót vị trí khả dĩ nào không?</li>
+</ol>
+<p>(Xem Ví dụ 15 cùng với tài liệu chủ đề hỗ trợ về hình học để có một thảo luận đầy đủ về phỏng đoán này.)</p>
+<p><strong>Các yếu tố then chốt của toán học</strong></p>
+<p>Luận với hình học — Phỏng đoán về các đối tượng hình học; Nhiều cách tiếp cận hình học</p>
+<p><strong>Thói quen luận</strong></p>
+<p>Phân tích một vấn đề — nhận ra những khái niệm, biểu diễn, hoặc thủ tục thích hợp; tìm kiếm cấu trúc ẩn; xét các trường hợp đặc biệt hoặc những tình huống tương tự đơn giản hơn; tìm kiếm các mẫu và các quan hệ; đưa ra những suy ra và phỏng đoán ban đầu</p>
+<p>Triển khai một chiến lược — theo dõi tiến trình hướng tới lời giải; thực hiện những bước suy ra hợp lẽ</p>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="construction-and-evaluation-of-geometric-arguments" class="level3 col-original">
+<h3 class="anchored" data-anchor-id="construction-and-evaluation-of-geometric-arguments">Construction and Evaluation of Geometric Arguments</h3>
+</section>
+<section id="xây-dựng-và-thẩm-định-các-biện-giải-hình-học" class="level3 col-translation">
+<h3 class="anchored" data-anchor-id="xây-dựng-và-thẩm-định-các-biện-giải-hình-học">Xây dựng và thẩm định các biện giải hình học</h3>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Making a conjecture, as in example 14, is a first step in mathematical inquiry. Students need to follow up many of their conjectures with efforts to either justify or disprove them. Although the major conjecture in example 14 is not resolved immediately, the activity leads naturally to the development of several important geometric results that emerge from question 1 in the example. In particular, the students in example 15 make progress toward resolving the conjecture by establishing the fact that three noncollinear points in the plane lie on a unique circle. Further progress is made when students prove the inscribed angle theorem, which states that every point, <span class="math inline">\(P\)</span>, on the conjectured circular arc would satisfy the condition that <span class="math inline">\(m\angle APB\)</span> equals 50 degrees. However, students would still need to prove that no other point on the same side of line AB could be the vertex of such an angle. Example 15 also exemplifies the reasoning habit of looking for hidden structure — in this example, an auxiliary line.</p>
+</div>
+<div class="col-translation">
+<p>Việc đưa ra một phỏng đoán, như trong Ví dụ 14, là bước khởi đầu của quá trình tìm tòi toán học. Học sinh cần tiếp tục theo đuổi nhiều phỏng đoán của mình bằng những nỗ lực nhằm biện minh hoặc bác bỏ chúng. Mặc dù phỏng đoán chính trong Ví dụ 14 không được giải quyết ngay lập tức, hoạt động này dẫn dắt một cách tự nhiên tới việc hình thành một số kết quả hình học quan trọng, xuất phát từ câu hỏi thứ nhất trong ví dụ. Cụ thể, trong Ví dụ 15, học sinh tiến thêm một bước trong việc giải quyết phỏng đoán bằng cách xác lập thực tế rằng ba điểm không thẳng hàng trong mặt phẳng cùng nằm trên một đường tròn duy nhất. Những tiến triển tiếp theo đạt được khi học sinh chứng minh định lý góc nội tiếp, theo đó mọi điểm <span class="math inline">\(P\)</span> nằm trên cung tròn được phỏng đoán đều thỏa mãn điều kiện <span class="math inline">\(m\angle APB\)</span> bằng <span class="math inline">\(50\)</span> độ. Tuy nhiên, học sinh vẫn cần phải chứng minh rằng không tồn tại điểm nào khác, nằm về cùng một phía của đường thẳng <span class="math inline">\(AB\)</span>, có thể là đỉnh của một góc như vậy. Ví dụ 15 cũng minh họa một thói quen luận quan trọng, đó là tìm kiếm cấu trúc ẩn — trong trường hợp này, là việc bổ sung một đường phụ trợ.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>The progress in levels of reasoning can clearly be seen in these two examples. Students begin with explorations at the empirical level, moving to the preformal level as students suggest initial conclusions that can be drawn, such as that the arc actually passes through endpoints <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>. Example 15 picks up the discussion with increasingly formal reasoning, culminating in conclusions supported by formal proof.</p>
+</div>
+<div class="col-translation">
+<p>Sự tiến triển qua các mức độ luận được thể hiện rõ ràng trong hai ví dụ này. Học sinh khởi đầu bằng các hoạt động khám phá ở mức thực nghiệm, rồi chuyển sang mức tiền hình thức khi các em đề xuất những kết luận ban đầu có thể rút ra, chẳng hạn như việc cung tròn thực sự đi qua hai đầu mút <span class="math inline">\(A\)</span> và <span class="math inline">\(B\)</span>. Ví dụ 15 tiếp nối cuộc thảo luận với các hình thức luận ngày càng mang tính hình thức hơn, và đạt tới đỉnh điểm là những kết luận được nâng đỡ bằng chứng minh hình thức.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="example-15-circle-of-points" class="level4 col-original">
+<h4 class="anchored" data-anchor-id="example-15-circle-of-points">Example 15: Circle of Points</h4>
+<p><strong>Task</strong></p>
+<p>This task answers question 1 raised at the end of example 14, “Picture This”: What circle contains the conjectured arc?</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p58_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p><strong>In the Classroom (Geometry Class)</strong></p>
+<p>Students are divided into groups with the assignment to decide what to do next. After a short time, the groups report on possible strategies:</p>
+<div class="dialogue">
+<dl>
+<dt>Group 1:</dt>
+<dd>
+We think you need to find the center and radius of the circle.
+</dd>
+<dt>Group 2:</dt>
+<dd>
+We think you just need to find the center of the circle. You don’t need to find the radius, because you already know at least one point on the circle — either the point <span class="math inline">\(P\)</span> specified in the original problem or points <span class="math inline">\(A\)</span> or <span class="math inline">\(B\)</span>, which are part of the conjecture. You can use the center and one of these points on the circle to draw the whole circle.
+</dd>
+<dt>Group 3:</dt>
+<dd>
+We think you need the center. We think the center should be a point on segment <span class="math inline">\(AB\)</span> halfway between <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>. The radius should be half the length of segment <span class="math inline">\(AB\)</span>.
+</dd>
+</dl>
+</div>
+<p>The groups reconvene to discuss these and possibly other thoughts. After a few more minutes the groups report.</p>
+<div class="dialogue">
+<dl>
+<dt>Group 4:</dt>
+<dd>
+We tested to see if the midpoint of segment <span class="math inline">\(AB\)</span> would be the center. The circle did not go through the point <span class="math inline">\(P\)</span> we were given, so the midpoint is not the center in this case. So next we used the interactive drawing utility to try to create the circle that fit the points and figure out its center. We got a pretty good circle. We didn’t think it would fit all the points because we just approximated the locations of points that would be vertices of 50 degree angles when we made them. But we are even more convinced that there is a circle through the point <span class="math inline">\(P\)</span>, which we were using for the 50 degree angle, and points <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> — and all actual real points where the photographer could stand.
+</dd>
+</dl>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p60_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>We then tried to think about the center and agreed that the center (like the midpoint of segment <span class="math inline">\(AB\)</span>) needs to be equidistant from both <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, since the circle goes through <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>. Thinking back to what we talked about when we started example 14, we conclude that the center of the circle has to be on the perpendicular bisector of segment <span class="math inline">\(AB\)</span>. We added the perpendicular bisector of segment <span class="math inline">\(AB\)</span> to our drawing, and it went right through the center of the circle we had drawn — just like it was supposed to!</p>
+<p>Then someone else in our group noticed that the same reasoning works with the two points <span class="math inline">\(A\)</span> and <span class="math inline">\(P\)</span>. That is, since the circle goes through <span class="math inline">\(A\)</span> and <span class="math inline">\(P\)</span>, its center would have to lie on the perpendicular bisector of the segment <span class="math inline">\(AP\)</span>, as well. We added the perpendicular bisector of segment <span class="math inline">\(AP\)</span> to our sketch, constructed these two bisectors, and found that they intersect in one point, which we called <span class="math inline">\(G\)</span>. That is the only point that lies on both perpendicular bisectors.</p>
+<p>So it is the only possible point for the center of a circle. So we could now draw the circle by choosing the center and any one of the points <span class="math inline">\(A\)</span>, <span class="math inline">\(P\)</span>, or <span class="math inline">\(B\)</span>.</p>
+<dl>
+<dt>Teacher:</dt>
+<dd>
+Before you draw your circle, let me ask you a question. It seems that you have shown that if there is a circle through the points <span class="math inline">\(P\)</span>, <span class="math inline">\(A\)</span>, and <span class="math inline">\(B\)</span>, the center must be <span class="math inline">\(G\)</span>. Can you or any other group prove that there will definitely be such a circle — that you weren’t just lucky this time with these particular points or that the drawing is misleading? Let’s work on that in our groups.
+</dd>
+</dl>
+</div>
+<p>After a few minutes, a new group is ready to contribute its proof:</p>
+<div class="dialogue">
+<dl>
+<dt>Group 5:</dt>
+<dd>
+We are assuming that we have the three noncollinear points <span class="math inline">\(P\)</span>, <span class="math inline">\(A\)</span>, and <span class="math inline">\(B\)</span> and that <span class="math inline">\(G\)</span> is the point of intersection of the perpendicular bisectors of sides <span class="math inline">\(AB\)</span> and <span class="math inline">\(AP\)</span>-like we have been talking about. We will show that <span class="math inline">\(G\)</span> is the center of a circle that goes through points <span class="math inline">\(P\)</span>, <span class="math inline">\(A\)</span>, and <span class="math inline">\(B\)</span>. Construct segments <span class="math inline">\(GP\)</span>, <span class="math inline">\(GA\)</span>, and <span class="math inline">\(GB\)</span>. Segments <span class="math inline">\(GP\)</span> and <span class="math inline">\(GA\)</span> have to have equal lengths because <span class="math inline">\(G\)</span> is on the perpendicular bisector of segment <span class="math inline">\(AP\)</span>. Segments <span class="math inline">\(GA\)</span> and <span class="math inline">\(GB\)</span> must be equal in length because <span class="math inline">\(G\)</span> is on the perpendicular bisector of segment <span class="math inline">\(AB\)</span>. Since both segments <span class="math inline">\(GP\)</span> and <span class="math inline">\(GB\)</span> are equal in length to segment <span class="math inline">\(GA\)</span>, all three segments have equal length. So if we draw the circle with center <span class="math inline">\(G\)</span> and radius equal to the length of segment <span class="math inline">\(GA\)</span>, the circle will defi nitely go through the three points <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(P\)</span>.
+</dd>
+</dl>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p61_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+<p>The teacher asks for comments and critiques from the class with regard to group 5’s presentation. (There are none.) The teacher then proposes that the day’s discussion suggests three results: (1) Three noncollinear points in the plane determine a unique circle. (2) (Circle construction algorithm) The center of that circle can be found by finding the point of intersection of the perpendicular bisectors of any two sides of the triangle that has the three noncollinear points as vertices. (3) The perpendicular bisectors of the three sides of a triangle intersect in a single point. The first two of these results comes directly from the discussion. The third is closely related.</p>
+<p>For homework, students are asked to write proofs of the first and third statements. In some instances this assignment requires organization, generalization, or extension of arguments given in the discussion. In others it involves adding detail. For the second statement, the students are asked to write an algorithm (i.e., well-defined sequence of steps) for constructing a circle through three noncollinear points in the plane.</p>
+<p><strong>Key Elements</strong></p>
+<p>Reasoning with Geometry — Construction and evaluation of geometric arguments</p>
+<p><strong>Reasoning Habits</strong></p>
+<p>Analyzing a problem — identifying relevant mathematical concepts, representations, or procedures; looking for hidden structure</p>
+<p>Implementing a strategy —- organizing a solution; making logical deductions; monitoring progress toward a solution</p>
+<p>Reflecting on a solution —- justifying or validating a solution</p>
+</section>
+<section id="ví-dụ-15-tâm-ở-đâu" class="level4 col-translation">
+<h4 class="anchored" data-anchor-id="ví-dụ-15-tâm-ở-đâu">Ví dụ 15: Tâm ở đâu?</h4>
+<p><strong>Nhiệm vụ</strong></p>
+<p>Nhiệm vụ này trả lời câu hỏi 1 được nêu ra ở cuối Ví dụ 14, “Đứng đâu để chụp?”: Đường tròn nào chứa cung tròn được phỏng đoán?</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p58_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p><strong>Trong lớp học (Lớp Hình học)</strong></p>
+<p>Học sinh được chia thành các nhóm và được giao nhiệm vụ quyết định bước tiếp theo cần thực hiện. Sau một thời gian ngắn, các nhóm báo cáo về những chiến lược có thể có:</p>
+<div class="dialogue">
+<dl>
+<dt>Nhóm 1:</dt>
+<dd>
+Chúng em nghĩ rằng cần tìm tâm và bán kính của đường tròn.
+</dd>
+<dt>Nhóm 2:</dt>
+<dd>
+Chúng em nghĩ rằng chỉ cần tìm tâm của đường tròn. Không cần tìm bán kính, vì đã biết ít nhất một điểm nằm trên đường tròn - hoặc là điểm <span class="math inline">\(P\)</span> được nêu trong bài toán ban đầu, hoặc là các điểm <span class="math inline">\(A\)</span> hay <span class="math inline">\(B\)</span>, vốn là một phần của phỏng đoán. Có thể dùng tâm và một trong các điểm đó để vẽ toàn bộ đường tròn.
+</dd>
+<dt>Nhóm 3:</dt>
+<dd>
+Chúng em nghĩ rằng cần tìm tâm. Theo chúng em, tâm phải là điểm nằm trên đoạn <span class="math inline">\(AB\)</span>, ở chính giữa <span class="math inline">\(A\)</span> và <span class="math inline">\(B\)</span>. Bán kính sẽ bằng một nửa độ dài đoạn <span class="math inline">\(AB\)</span>.
+</dd>
+</dl>
+</div>
+<p>Các nhóm tập hợp lại để thảo luận về những ý tưởng này, cũng như những suy nghĩ khác có thể có. Sau vài phút nữa, các nhóm tiếp tục báo cáo.</p>
+<div class="dialogue">
+<dl>
+<dt>Nhóm 4:</dt>
+<dd>
+Chúng em kiểm tra xem trung điểm của đoạn <span class="math inline">\(AB\)</span> có phải là tâm không. Đường tròn không đi qua điểm <span class="math inline">\(P\)</span> đã cho, nên trong trường hợp này trung điểm không phải là tâm. Vì vậy, tiếp theo chúng em dùng công cụ vẽ tương tác để thử dựng đường tròn đi qua các điểm đã cho và tìm tâm của nó. Chúng em dựng được một đường tròn khá tốt. Ban đầu chúng em không nghĩ nó sẽ đi qua tất cả các điểm, vì khi tạo các điểm ấy chúng em chỉ ước lượng vị trí của những điểm sẽ là đỉnh của các góc <span class="math inline">\(50^\circ\)</span>. Nhưng giờ chúng em còn tin hơn rằng có một đường tròn đi qua điểm <span class="math inline">\(P\)</span>, là điểm mà chúng em dùng cho góc <span class="math inline">\(50^\circ\)</span>, và qua các điểm <span class="math inline">\(A\)</span> và <span class="math inline">\(B\)</span> — cũng như qua mọi điểm thực sự mà người chụp ảnh có thể đứng.
+</dd>
+</dl>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p60_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Sau đó, chúng em nghĩ tiếp về tâm và đồng ý rằng tâm, cũng như trung điểm của đoạn <span class="math inline">\(AB\)</span>, phải cách đều <span class="math inline">\(A\)</span> và <span class="math inline">\(B\)</span>, vì đường tròn đi qua <span class="math inline">\(A\)</span> và <span class="math inline">\(B\)</span>. Nhớ lại điều đã bàn khi bắt đầu Ví dụ 14, chúng em kết luận rằng tâm của đường tròn phải nằm trên đường trung trực của đoạn <span class="math inline">\(AB\)</span>. Chúng em thêm đường trung trực của đoạn <span class="math inline">\(AB\)</span> vào hình vẽ, và nó đi đúng qua tâm của đường tròn mà chúng em đã dựng — đúng như dự đoán!</p>
+<p>Rồi một bạn khác trong nhóm nhận ra rằng cách lập luận ấy cũng đúng với hai điểm <span class="math inline">\(A\)</span> và <span class="math inline">\(P\)</span>. Nghĩa là, vì đường tròn đi qua <span class="math inline">\(A\)</span> và <span class="math inline">\(P\)</span>, nên tâm của nó cũng phải nằm trên đường trung trực của đoạn <span class="math inline">\(AP\)</span>. Chúng em thêm đường trung trực của đoạn <span class="math inline">\(AP\)</span> vào hình phác, dựng hai đường trung trực ấy, và thấy chúng cắt nhau tại một điểm, chúng em gọi là <span class="math inline">\(G\)</span>. Đó là điểm duy nhất nằm trên cả hai đường trung trực.</p>
+<p>Vì thế, đó là điểm duy nhất có thể là tâm của một đường tròn. Do đó, bây giờ chúng em có thể vẽ đường tròn bằng cách chọn tâm và một trong ba điểm <span class="math inline">\(A\)</span>, <span class="math inline">\(P\)</span>, hoặc <span class="math inline">\(B\)</span>.</p>
+<dl>
+<dt>Giáo viên:</dt>
+<dd>
+Trước khi các em vẽ đường tròn, thầy muốn hỏi một câu. Có vẻ như các em đã chỉ ra rằng nếu có một đường tròn đi qua các điểm <span class="math inline">\(P\)</span>, <span class="math inline">\(A\)</span>, và <span class="math inline">\(B\)</span>, thì tâm của nó phải là <span class="math inline">\(G\)</span>. Các em, hoặc nhóm nào khác, có thể chứng minh rằng chắc chắn sẽ có một đường tròn như vậy không — rằng không phải lần này các em chỉ tình cờ gặp may với những điểm cụ thể này, hay hình vẽ đang đánh lừa ta? Hãy tiếp tục làm việc trong nhóm về điều đó.
+</dd>
+</dl>
+</div>
+<p>Sau vài phút, một nhóm khác sẵn sàng trình bày chứng minh của mình:</p>
+<div class="dialogue">
+<dl>
+<dt>Nhóm 5:</dt>
+<dd>
+Chúng em giả sử có ba điểm không thẳng hàng <span class="math inline">\(P\)</span>, <span class="math inline">\(A\)</span> và <span class="math inline">\(B\)</span>, và <span class="math inline">\(G\)</span> là giao điểm của các đường trung trực của các đoạn <span class="math inline">\(AB\)</span> và <span class="math inline">\(AP\)</span>, như chúng ta đang thảo luận. Chúng em sẽ chỉ ra rằng <span class="math inline">\(G\)</span> là tâm của một đường tròn đi qua các điểm <span class="math inline">\(P\)</span>, <span class="math inline">\(A\)</span> và <span class="math inline">\(B\)</span>. Hãy dựng các đoạn <span class="math inline">\(GP\)</span>, <span class="math inline">\(GA\)</span> và <span class="math inline">\(GB\)</span>. Các đoạn <span class="math inline">\(GP\)</span> và <span class="math inline">\(GA\)</span> phải có độ dài bằng nhau vì <span class="math inline">\(G\)</span> nằm trên đường trung trực của đoạn <span class="math inline">\(AP\)</span>. Các đoạn <span class="math inline">\(GA\)</span> và <span class="math inline">\(GB\)</span> cũng phải bằng nhau vì <span class="math inline">\(G\)</span> nằm trên đường trung trực của đoạn <span class="math inline">\(AB\)</span>. Vì cả hai đoạn <span class="math inline">\(GP\)</span> và <span class="math inline">\(GB\)</span> đều có độ dài bằng độ dài đoạn <span class="math inline">\(GA\)</span>, nên cả ba đoạn này đều bằng nhau. Do đó, nếu vẽ đường tròn có tâm <span class="math inline">\(G\)</span> và bán kính bằng độ dài đoạn <span class="math inline">\(GA\)</span>, thì đường tròn chắc chắn sẽ đi qua ba điểm <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span> và <span class="math inline">\(P\)</span>.
+</dd>
+</dl>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p61_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+<p>Giáo viên yêu cầu cả lớp nhận xét và phản biện phần trình bày của Nhóm 5. (Không có ý kiến nào.) Sau đó, giáo viên đề xuất rằng cuộc thảo luận trong ngày gợi ra ba kết quả: (1) Ba điểm không thẳng hàng trong mặt phẳng xác định một đường tròn duy nhất. (2) (Thuật toán dựng đường tròn) Tâm của đường tròn ấy có thể được tìm bằng cách xác định giao điểm của các đường trung trực của bất kì hai cạnh nào của tam giác có ba điểm không thẳng hàng ấy làm đỉnh. (3) Các đường trung trực của ba cạnh của một tam giác cắt nhau tại một điểm. Hai kết quả đầu tiên rút ra trực tiếp từ cuộc thảo luận. Kết quả thứ ba có liên hệ rất gần.</p>
+<p>Về nhà, học sinh được yêu cầu viết các chứng minh cho mệnh đề thứ nhất và thứ ba. Trong một số trường hợp, nhiệm vụ này đòi hỏi phải tổ chức lại, khái quát hóa, hoặc mở rộng các biện giải đã được nêu ra trong cuộc thảo luận. Trong những trường hợp khác, nó đòi hỏi phải bổ sung thêm chi tiết. Đối với mệnh đề thứ hai, học sinh được yêu cầu viết một thuật toán, tức một dãy bước xác định rõ ràng, để dựng một đường tròn đi qua ba điểm không thẳng hàng trong mặt phẳng.</p>
+<p><strong>Các yếu tố then chốt</strong></p>
+<p>Luận với hình học — Xây dựng và thẩm định các biện giải hình học</p>
+<p><strong>Thói quen luận</strong></p>
+<p>Phân tích một vấn đề — nhận ra những khái niệm, biểu diễn, hoặc thủ tục toán học thích hợp; tìm kiếm cấu trúc ẩn</p>
+<p>Triển khai một chiến lược — tổ chức lời giải; thực hiện những bước suy ra hợp lẽ; theo dõi tiến trình hướng tới lời giải</p>
+<p>Suy ngẫm về một lời giải — biện minh hoặc kiểm chứng một lời giải</p>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>The validity of a proof is not determined by how it is presented. A two-column proof is not necessarily more valid (or rigorous) than a proof given in paragraph form. In fact, strict adherence to a specific proof format may elevate focus on form over function, thus obstructing the creative mix of reasoning habits and ultimately hindering the chance of students’ successfully understanding the mathematical consequences of the arguments (Herbst 2002). In addition to facility in constructing chains of reasoning, constructing a mathematical proof often requires resourcefulness in selecting a strategy, cultured intuition, and good judgment. Blind alleys and false starts sometimes generate insight along with the inevitable frustration that accompanies them — therein lies the challenge!</p>
+</div>
+<div class="col-translation">
+<p>Tính đúng đắn của một chứng minh không được quyết định bởi cách nó được trình bày. Một chứng minh hai cột không nhất thiết đúng hơn, hay chặt chẽ hơn, so với một chứng minh được viết dưới dạng đoạn văn. Thực ra, việc tuân thủ cứng nhắc một khuôn mẫu trình bày chứng minh cụ thể có thể đẩy trọng tâm từ chức năng sang hình thức, qua đó cản trở sự kết hợp sáng tạo của các thói quen luận và rốt cuộc làm giảm cơ hội để học sinh thực sự hiểu được những hệ quả toán học của các biện giải ấy (Herbst 2002). Ngoài năng lực xây dựng các chuỗi suy ra, việc dựng một chứng minh toán học còn thường đòi hỏi sự linh hoạt trong việc chọn chiến lược, một trực giác đã được rèn luyện, và khả năng phán đoán tốt. Những ngõ cụt và những khởi đầu sai hướng đôi khi vẫn đem lại những soi sáng, cùng với nỗi bực bội tất yếu đi kèm với chúng — chính đó là thách thức.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="multiple-geometric-approaches" class="level3 col-original">
+<h3 class="anchored" data-anchor-id="multiple-geometric-approaches">Multiple Geometric Approaches</h3>
+</section>
+<section id="nhiều-cách-tiếp-cận-hình-học" class="level3 col-translation">
+<h3 class="anchored" data-anchor-id="nhiều-cách-tiếp-cận-hình-học">Nhiều cách tiếp cận hình học</h3>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Geometric situations can be approached in many different ways, including the synthetic approach seen in examples 14 and 15 and the coordinate approach seen in the example involving the distance formula in chapter 1. The coordinate approach applies algebraic concepts in geometric contexts, and vice versa.</p>
+</div>
+<div class="col-translation">
+<p>Các tình huống hình học có thể được tiếp cận theo nhiều cách khác nhau, bao gồm cách tiếp cận tổng hợp được thể hiện trong các Ví dụ 14 và 15, cũng như cách tiếp cận tọa độ được minh họa trong ví dụ về công thức khoảng cách ở Chương 1. Cách tiếp cận tọa độ vận dụng các khái niệm đại số trong các ngữ cảnh hình học, và ngược lại.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>The value of transformations in geometry has been recognized for more than thirty years (cf.&nbsp;Coxford and Usiskin [1971]; NCTM [1989, 2000a]), although they continue to receive limited attention in many curricula. Geometric transformations — rotations, translations, reflections, and dilations — provide another useful approach to understanding geometric relationships. The transformation approach to geometry supports an alternative way of considering congruence, similarity, and symmetry. In example 16, students are challenged to go beyond simple but misleading rules and think carefully about rotational symmetry. Example 16 also exemplifies the reasoning habit of monitoring one’s progress, including considering approaches taken by other members of the class.</p>
+</div>
+<div class="col-translation">
+<p>Giá trị của các phép biến hình trong hình học đã được thừa nhận trong hơn ba thập niên qua (xem Coxford và Usiskin [1971]; NCTM [1989, 2000a]), mặc dù trong nhiều chương trình học, chúng vẫn chưa được chú ý tương xứng. Các phép biến hình hình học — bao gồm phép quay, phép tịnh tiến, phép đối xứng và phép vị tự — cung cấp một cách tiếp cận hữu ích khác để hiểu các mối quan hệ hình học. Cách tiếp cận hình học thông qua biến hình hỗ trợ một cách nhìn thay thế đối với các khái niệm bằng nhau, đồng dạng và đối xứng. Trong Ví dụ 16, học sinh được thử thách vượt qua những quy tắc đơn giản nhưng dễ gây hiểu lầm, để suy nghĩ một cách cẩn trọng hơn về đối xứng quay. Ví dụ 16 cũng minh họa thói quen luận là theo dõi tiến trình của chính mình, bao gồm cả việc xem xét những cách tiếp cận do các thành viên khác trong lớp đưa ra.</p>
+</div>
+<div class="col-notes">
+<p>Các phép biến hình đã được xem là có giá trị trong dạy học hình học từ lâu, nhưng trong thực tế chương trình học, chúng vẫn thường không được dành một vị trí tương xứng. Vì thế, điều cần thấy ở đây là một khoảng cách giữa điều đã được thừa nhận về mặt định hướng và điều thật sự được triển khai trong lớp học.</p>
+<p>Điểm khác của cách tiếp cận này nằm ở chỗ nó cho học sinh hiểu các quan hệ hình học qua sự biến đổi của hình. Khi nhìn hình qua phép quay, phép tịnh tiến, phép đối xứng hay phép vị tự, học sinh không chỉ xét hình “là gì”, mà còn xét hình “biến thành gì” và “điều gì vẫn được giữ lại”. Nhờ đó, các khái niệm như bằng nhau, đồng dạng và đối xứng không chỉ được nhận biết bằng các dấu hiệu tĩnh, mà còn được hiểu qua những quan hệ bảo toàn.</p>
+<p>Đối xứng quay là một trường hợp dễ làm lộ sự khác biệt giữa học thuộc quy tắc và hiểu bản chất. Những quy tắc ngắn gọn thường có thể giúp nhận dạng nhanh, nhưng cũng dễ dẫn tới kết luận sai nếu không kiểm tra kĩ điều kiện của tình huống. Vì vậy, việc buộc học sinh suy nghĩ cẩn thận hơn về đối xứng quay không chỉ nhằm sửa một nhầm lẫn cục bộ, mà còn nhằm rèn một cách học hình học có kiểm soát hơn.</p>
+<p>Việc theo dõi tiến trình của mình cũng hiện rõ ở đây. Khi một cách làm chưa đủ vững, học sinh cần biết dừng lại, xem lại, và đối chiếu với những cách tiếp cận khác trong lớp. Chính sự điều chỉnh ấy giúp quá trình tìm hiểu hình học không dừng ở phản ứng theo thói quen, mà tiến dần tới chỗ hiểu chắc hơn vì sao một kết luận là đúng.</p>
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="example-16-taking-a-spin" class="level4 col-original">
+<h4 class="anchored" data-anchor-id="example-16-taking-a-spin">Example 16: Taking a Spin</h4>
+<p><strong>Task</strong></p>
+<p>What regular polygons have <span class="math inline">\(80\)</span>-degree rotational symmetry?</p>
+<p><strong>In the Classroom (Geometry Class)</strong></p>
+<p>Students have been asked to answer the following problem for homework: “What regular polygons have <span class="math inline">\(80\)</span>-degree rotational symmetry?” (Martin 1996). At the beginning of class the following day, class members discuss this problem in small groups. One group goes to the front of the class to present its solution.</p>
+<div class="dialogue">
+<dl>
+<dt>Student 1:</dt>
+<dd>
+We concluded that there aren’t any, since <span class="math inline">\(80\)</span> does not divide into <span class="math inline">\(360\)</span> evenly. When we were looking at regular polygons last week, we saw that if you have, like, a pentagon, you can make five triangles, and each has a <span class="math inline">\(72\)</span>-degree angle. So if you turn the triangle <span class="math inline">\(72\)</span> degrees, it will match. But you can’t do that with 80. So it won’t work.
+</dd>
+<dt>Teacher:</dt>
+<dd>
+What did the rest of the groups conclude?
+</dd>
+<dt>Student 2:</dt>
+<dd>
+That’s what we thought at first. But then we thought about a <span class="math inline">\(360\)</span>-gon has a <span class="math inline">\(1\)</span>-degree angle and so it should be able to hit every degree, so if you rotate it 80 times, it will eventually work!
+</dd>
+<dt>Student 1:</dt>
+<dd>
+But is that possible? Eighty doesn’t divide into <span class="math inline">\(360\)</span>, right?
+</dd>
+</dl>
+</div>
+<p>The teacher asks the students to discuss this issue further in their small groups for a few minutes and then pulls the class back together, asking the groups to share their observations.</p>
+<div class="dialogue">
+<dl>
+<dt>Student 3:</dt>
+<dd>
+OK, we agree that <span class="math inline">\(360\)</span> will work. Like they said, it will hit every degree. [He draws a rough sketch with many small sides.] If you rotate it once, it will match. But you can keep on going. [He mimics doing lots of very small rotations.] And when you do this <span class="math inline">\(80\)</span> times, it will work.
+</dd>
+<dt>Teacher:</dt>
+<dd>
+Is that really <span class="math inline">\(80\)</span>-degree rotational symmetry?
+</dd>
+<dt>Student 3:</dt>
+<dd>
+We rotated <span class="math inline">\(80\)</span> degrees, and it matched up with itself.
+</dd>
+<dt>Student 4:</dt>
+<dd>
+We think that <span class="math inline">\(2\)</span> degrees should work, too.
+</dd>
+<dt>Teacher:</dt>
+<dd>
+What do you think they mean by that?
+</dd>
+<dt>Student 4:</dt>
+<dd>
+If you rotate it forty times, it will hit <span class="math inline">\(80\)</span> degrees.
+</dd>
+<dt>Student 5:</dt>
+<dd>
+But you can’t have a <span class="math inline">\(2\)</span>-gon! That wouldn’t even be a polygon.
+</dd>
+<dt>Student 4:</dt>
+<dd>
+Oh.
+</dd>
+<dt>Student 6:</dt>
+<dd>
+It’s not a <span class="math inline">\(2\)</span>-gon, it has a 2 degree angle. So if you divide <span class="math inline">\(2\)</span> into <span class="math inline">\(360\)</span>, that would be a <span class="math inline">\(180\)</span>-gon.
+</dd>
+</dl>
+</div>
+<p>The class continues to discuss the situation and finally agrees that both regular <span class="math inline">\(360\)</span>-gons and <span class="math inline">\(180\)</span>-gons will work. Students suggest other regular polygons that they think will work, and the teacher ends the discussion by assigning students the task of finding all regular polygons that have <span class="math inline">\(80\)</span>-degree rotational symmetry. He asks them to write up their findings in a short essay that they can share with their classmates the next day. The essay should both give all the regular polygons that they have found and prove that they have in fact found them all.</p>
+<p><strong>Key Elements of Mathematics</strong></p>
+<p>Reasoning with Geometry — Conjecturing about geometric objects; Construction and evaluation of geometric arguments; Multiple geometric approaches</p>
+<p><strong>Reasoning Habits</strong></p>
+<p>Analyzing a problem — identifying concepts, representations, or procedures; considering special cases or simpler analogs</p>
+<p>Implementing a strategy — monitoring progress toward a solution</p>
+<p>Reflection on a solution — reconciling different approaches; justifying or validating a solution; refining arguments</p>
+</section>
+<section id="ví-dụ-16-một-vòng-quay" class="level4 col-translation">
+<h4 class="anchored" data-anchor-id="ví-dụ-16-một-vòng-quay">Ví dụ 16: Một vòng quay</h4>
+<p><strong>Nhiệm vụ</strong></p>
+<p>Những đa giác đều nào có đối xứng quay <span class="math inline">\(80\)</span> độ?</p>
+<p><strong>Trong lớp học (Lớp Hình học)</strong></p>
+<p>Học sinh được yêu cầu làm bài tập về nhà sau: “Những đa giác đều nào có đối xứng quay <span class="math inline">\(80\)</span> độ?” (Martin 1996). Vào đầu giờ học ngày hôm sau, các thành viên trong lớp thảo luận bài toán này theo các nhóm nhỏ. Một nhóm lên phía trước lớp để trình bày lời giải của mình.</p>
+<div class="dialogue">
+<dl>
+<dt>Học sinh 1:</dt>
+<dd>
+Chúng em kết luận rằng không có đa giác nào như vậy, vì <span class="math inline">\(80\)</span> không phải ước của <span class="math inline">\(360\)</span>. Khi học về đa giác đều tuần trước, chúng em thấy rằng nếu có, chẳng hạn, một ngũ giác thì có thể chia nó thành năm tam giác, và mỗi tam giác có góc <span class="math inline">\(72\)</span> độ. Vì thế, nếu quay tam giác đi <span class="math inline">\(72\)</span> độ thì nó sẽ trùng khớp. Nhưng với <span class="math inline">\(80\)</span> thì không làm được như vậy. Nên điều đó không thể xảy ra.
+</dd>
+<dt>Giáo viên:</dt>
+<dd>
+Các nhóm còn lại kết luận thế nào?
+</dd>
+<dt>Học sinh 2:</dt>
+<dd>
+Ban đầu chúng em cũng nghĩ vậy. Nhưng rồi chúng em nghĩ đến một đa giác đều <span class="math inline">\(360\)</span> cạnh thì có góc <span class="math inline">\(1\)</span> độ, nên nó có thể “chạm” đến mọi độ. Vì thế nếu quay nó <span class="math inline">\(80\)</span> lần thì cuối cùng cũng sẽ khớp!
+</dd>
+<dt>Học sinh 1:</dt>
+<dd>
+Nhưng như thế có khả thi không? 80 không chia hết <span class="math inline">\(360\)</span> mà?
+</dd>
+</dl>
+</div>
+<p>Giáo viên yêu cầu học sinh tiếp tục thảo luận vấn đề này trong các nhóm nhỏ thêm vài phút, rồi tập hợp cả lớp lại và yêu cầu các nhóm chia sẻ quan sát của mình.</p>
+<div class="dialogue">
+<dl>
+<dt>Học sinh 3:</dt>
+<dd>
+Được rồi, chúng em đồng ý rằng đa giác đều <span class="math inline">\(360\)</span> cạnh sẽ hoạt động. Như các bạn nói, nó sẽ “chạm” đến mọi độ. [Bạn ấy vẽ một hình phác thảo thô với rất nhiều cạnh nhỏ.] Nếu quay một lần, nó sẽ trùng khớp. Nhưng bạn có thể tiếp tục quay. [Bạn ấy làm động tác quay rất nhiều lần với những góc rất nhỏ.] Và khi làm như vậy <span class="math inline">\(80\)</span> lần thì nó sẽ khớp.
+</dd>
+<dt>Giáo viên:</dt>
+<dd>
+Như vậy có thực sự là đối xứng quay <span class="math inline">\(80\)</span> độ không?
+</dd>
+<dt>Học sinh 3:</dt>
+<dd>
+Chúng em đã quay <span class="math inline">\(80\)</span> độ, và nó trùng khớp với chính nó.
+</dd>
+<dt>Học sinh 4:</dt>
+<dd>
+Chúng em nghĩ rằng <span class="math inline">\(2\)</span> độ cũng sẽ được.
+</dd>
+<dt>Giáo viên:</dt>
+<dd>
+Em nghĩ các bạn ấy có ý gì khi nói như vậy?
+</dd>
+<dt>Học sinh 4:</dt>
+<dd>
+Nếu quay bốn mươi lần thì sẽ đạt đến <span class="math inline">\(80\)</span> độ.
+</dd>
+<dt>Học sinh 5:</dt>
+<dd>
+Nhưng không thể có đa giác <span class="math inline">\(2\)</span> cạnh được! Như vậy thì thậm chí không phải là đa giác.
+</dd>
+<dt>Học sinh 4:</dt>
+<dd>
+À.
+</dd>
+<dt>Học sinh 6:</dt>
+<dd>
+Không phải là đa giác <span class="math inline">\(2\)</span> cạnh, mà là đa giác có góc quay <span class="math inline">\(2\)</span> độ. Nếu lấy <span class="math inline">\(360\)</span> chia cho <span class="math inline">\(2\)</span> thì sẽ được một đa giác đều <span class="math inline">\(180\)</span> cạnh.
+</dd>
+</dl>
+</div>
+<p>Lớp học tiếp tục thảo luận và cuối cùng đi đến thống nhất rằng cả đa giác đều 360 cạnh và đa giác đều <span class="math inline">\(180\)</span> cạnh đều thỏa mãn. Học sinh đề xuất thêm những đa giác đều khác mà các em cho rằng cũng sẽ thỏa mãn, và giáo viên kết thúc thảo luận bằng cách giao cho học sinh nhiệm vụ tìm tất cả các đa giác đều có đối xứng quay <span class="math inline">\(80\)</span> độ. Giáo viên yêu cầu các em viết lại kết quả của mình trong một bài luận ngắn để chia sẻ với các bạn học vào ngày hôm sau. Bài luận cần nêu đầy đủ các đa giác đều tìm được và chứng minh rằng các em thực sự đã tìm ra tất cả.</p>
+<p><strong>Các yếu tố then chốt của toán học</strong></p>
+<p>Luận với hình học — Phỏng đoán về các đối tượng hình học; Xây dựng và thẩm định các biện giải hình học; Nhiều cách tiếp cận hình học</p>
+<p><strong>Thói quen luận</strong></p>
+<p>Phân tích một vấn đề — nhận ra các khái niệm, biểu diễn, hoặc thủ tục thích hợp; xét các trường hợp đặc biệt hoặc những tình huống tương tự đơn giản hơn</p>
+<p>Triển khai một chiến lược — theo dõi tiến trình hướng tới lời giải</p>
+<p>Suy ngẫm về một lời giải — đối chiếu các cách tiếp cận khác nhau; biện minh hoặc kiểm chứng một lời giải; làm chặt thêm các biện giải</p>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>The idea of geometric transformations forges a link between geometry and other concepts of mathematics, such as the general concept of functions and the use of matrices in their representations.</p>
+</div>
+<div class="col-translation">
+<p>Ý tưởng về các phép biến hình hình học tạo ra một mối liên kết giữa hình học và những khái niệm khác của toán học, chẳng hạn như khái niệm tổng quát về hàm số và việc sử dụng ma trận trong việc biểu diễn các phép biến hình đó.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="geometric-connections-and-modeling" class="level3 col-original">
+<h3 class="anchored" data-anchor-id="geometric-connections-and-modeling">Geometric Connections and Modeling</h3>
+</section>
+<section id="các-liên-hệ-hình-học-và-mô-hình-hóa" class="level3 col-translation">
+<h3 class="anchored" data-anchor-id="các-liên-hệ-hình-học-và-mô-hình-hóa">Các liên hệ hình học và mô hình hóa</h3>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>The use of coordinate geometry to justify geometric properties is an important merging of geometry and algebra. But, as mentioned in chapter 2, geometric ideas also connect with many ideas in other mathematical domains. Such connections arise naturally and profitably in mathematical modeling situations. Example 17 contains a sequence of tasks that involve students in the four parts of the modeling cycle diagrammed in figure 2.1 in chapter 2. In this example, ideas from geometry, trigonometry, algebra, functions, number, and measurement all play a role in a modeling problem that is quite simple to state and begin but that becomes increasingly complex. The example involves a problem encountered in everyday life: a truck getting stuck under a bridge. In tasks 1 and 2 students collect some information (about road grades, for instance) and create a mathematical model with simplifying assumptions (see parts 1 and 2 of the modeling cycle in fi g. 2.1).</p>
+</div>
+<div class="col-translation">
+<p>Việc sử dụng hình học tọa độ để biện minh cho các tính chất hình học là một sự kết hợp quan trọng giữa hình học và đại số. Tuy nhiên, như đã đề cập trong Chương 2, các ý tưởng hình học còn liên hệ với nhiều ý tưởng khác trong những lĩnh vực toán học khác. Những mối liên hệ này xuất hiện một cách tự nhiên và mang lại hiệu quả trong các tình huống mô hình hóa toán học. Ví dụ 17 bao gồm một chuỗi nhiệm vụ đưa học sinh tham gia vào bốn giai đoạn của chu trình mô hình hóa được minh họa trong Hình 2.1 ở Chương 2. Trong ví dụ này, các ý tưởng từ hình học, lượng giác, đại số, hàm số, số học và đo lường đều đóng vai trò trong một bài toán mô hình hóa có cách phát biểu và khởi đầu khá đơn giản, nhưng dần trở nên ngày càng phức tạp. Ví dụ này xoay quanh một vấn đề gặp trong đời sống hằng ngày: một chiếc xe tải bị mắc kẹt dưới một cây cầu. Trong Nhiệm vụ 1 và 2, học sinh thu thập một số thông tin (chẳng hạn như về độ dốc của con đường) và xây dựng một mô hình toán học với những giả thiết đơn giản hóa (xem các phần 1 và 2 của chu trình mô hình hóa trong Hình 2.1).</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="example-17-clearing-the-bridge" class="level4 col-original">
+<h4 class="anchored" data-anchor-id="example-17-clearing-the-bridge">Example 17: Clearing the Bridge</h4>
+<p><strong>Task 1</strong></p>
+<p>Mathematician Henry Pollak (2004) pondered why tractor trailers often got stuck under a certain underpass when the “maximum clearance” was clearly labeled by a sign that indicated the height of the bridge. The bridge under consideration was level and located just at the base of a descending road. In this initial task students are asked to construct a two-dimensional visual model of the situation, listing assumptions that they make.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p64_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p><strong>In the Classroom (Second-Year Mathematics)</strong></p>
+<p>In a visual model, one set of trailer wheels is jacked up on the sloping part of the road as the truck passes under the edge of the bridge. This position causes a portion of the trailer to be raised higher than it would be on a flat surface. The real question is, How much higher? The model that students construct likely will include characteristics similar to the model in the diagram at the right. Such a model should at least contain the line segment <span class="math inline">\(PQ\)</span> — representing the “dangerous height” at which the trailer might hit the bridge. The model pictured here contains simplifying assumptions, such as representation of the wheels as circles and representation of the road as two straight line segments. Each simplifying assumption deserves discussion in class. In addition, after a fruitful discussion, the class may decide to measure the road grade in terms of degrees rather than as a percent. This decision is enacted in the analysis that follows. Some research by students may suggest that for most roadways, the road grade can reasonably be limited to what appears to be a small measure. In the present model, the road grade, <span class="math inline">\(g\)</span>, is limited to <span class="math inline">\(7\)</span> degrees — at least in this iteration of the modeling cycle. (Although a grade angle of 7 degrees may be steep for a large truck, some diagrams here include a much larger grade angle to illuminate detail.)</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p64_2.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>After students work on the construction of a model, an interactive computer model can be given to students so that they can explore how changes in various trailer dimensions and positions can affect the dangerous height, <span class="math inline">\(PQ\)</span>. One of these variables is the distance the trailer is under the bridge. Another, more subtle variable is the distance between the wheel axles. (By itself, the overhang of the trailer beyond either wheel axle does not affect the dangerous height and can be ignored.)</p>
+<p>The next decision made by this class was to simplify the model even further during the first trip through the modeling cycle, taking the wheels off the truck. See the simplified model at the right. (The supporting topic book on geometry offers an analysis of the situation that uses the full model with the wheels on.)</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p65_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p><strong>Task 2</strong></p>
+<p>Task 2 asks the students to examine what might be lost or misrepresented by this simplification. We do not provide a detailed classroom discussion of task 2. However, students should realize that taking the wheels off and lowering the shortened trailer box does not simply lower the dangerous height by an amount equal to the wheel radius. Rather, the left (raised) end of the truncated trailer box is lowered a bit more than the right end, and this positioning does have an additional measurable effect on the dangerous height. Nevertheless, an analysis of the simplified model will help us analyze the original situation with the more complex model, in which the trailer has wheels. Moreover, even in this simpler case with a small grade angle, the result may be surprising.</p>
+<p>Tasks 3 and 4 ask students to explore relationships in the simplified model both geometrically and symbolically.</p>
+<p><strong>Task 3</strong></p>
+<p>Let <span class="math inline">\(d\)</span> represent the length of segment <span class="math inline">\(PQ\)</span>, <span class="math inline">\(w\)</span> represent the measure of angle <span class="math inline">\(PBH\)</span> (the tilt of the trailer), <span class="math inline">\(s\)</span> represent the length of segment <span class="math inline">\(PB\)</span> (how far the trailer is under the bridge), and <span class="math inline">\(g\)</span> represent the grade in degrees. Explore the situation by using your interactive drawing of the simplified model. See if you can get a feel for — or make a conjecture about — when the dangerous height, <span class="math inline">\(d\)</span>, would be highest by considering <span class="math inline">\(w\)</span> or <span class="math inline">\(s\)</span> or both.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p66_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p><strong>In the Classroom (Second-Year Mathematics)</strong></p>
+<p>One group used the interactive drawing to trace the graph of the dangerous height, <span class="math inline">\(d\)</span>, as a function of <span class="math inline">\(w\)</span>, as seen in the figure above, where they have set <span class="math inline">\(g\)</span> equal to <span class="math inline">\(7\)</span> degrees. They noted that they were not able to find a symbolic representation of this function but that it did suggest useful information. In their exploration, they used several small values of <span class="math inline">\(g\)</span>, and each time the dangerous height looked greatest when</p>
+<p><span class="math display">\[
+  w=\frac{g}{2}.
+\]</span></p>
+<p>Another group used large angles for grades, for instance, 55 degrees, and that pattern did not hold up. But other students raised the objection that such large grades were unrealistic and not within bounds of the model. More insight was sought about what happens for small values of <span class="math inline">\(g\)</span>.</p>
+<p>After additional work, group 3 presented some theoretical evidence that adds some insight and support to the claim that the maximum value of the dangerous height occurs when</p>
+<p><span class="math display">\[
+  w=\frac{g}{2}
+\]</span></p>
+<p>for the (small) values of <span class="math inline">\(g\)</span> that our model allows.</p>
+<p>Group 3 drew an analogy to example 15, “Circling the Points,” and envisioned <span class="math inline">\(\angle GPB\)</span> inscribed in a circle together with chord <span class="math inline">\(GB\)</span>. The first thing to note is that the point <span class="math inline">\(P\)</span> changes position along the arc of the circle as the trailer box is drawn along the roadway. The perpendicular distance from <span class="math inline">\(P\)</span> to the chord <span class="math inline">\(GB\)</span> is greatest when the foot of this perpendicular, <span class="math inline">\(K\)</span>, is the midpoint of segment <span class="math inline">\(GB\)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p66_2.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<div class="dialogue">
+<dl>
+<dt>Student 3:</dt>
+<dd>
+When <span class="math inline">\(K\)</span> is the midpoint of segment <span class="math inline">\(GB\)</span>, angles <span class="math inline">\(\angle PGB\)</span> and <span class="math inline">\(\angle PBG\)</span> are congruent. I know that <span class="math inline">\(m\angle PGB + m\angle PBG = m\angle SPG\)</span>, and the measure of angle <span class="math inline">\(\angle SPG = g\)</span>. So now I have that
+</dd>
+</dl>
+<p><span class="math display">\[
+  m\angle PGB=m\angle PBG=\frac{g}{2}=w.
+\]</span></p>
+<p>Now I want to show that the part of the dangerous height represented by segment <span class="math inline">\(PH\)</span> is really close in length to segment <span class="math inline">\(PK\)</span> — wherever <span class="math inline">\(K\)</span> is on <span class="math inline">\(BG\)</span>. That is because the angle between segment <span class="math inline">\(PK\)</span> and segment <span class="math inline">\(PH\)</span> is small if <span class="math inline">\(g\)</span> is small. Here’s why that is true. Triangles <span class="math inline">\(PHK\)</span> and <span class="math inline">\(PHB\)</span> are similar because they are right triangles that share <span class="math inline">\(\angle PHK\)</span>. So <span class="math inline">\(m\angle HPK = m\angle PBH = w\)</span>. But I know that <span class="math inline">\(0 \leq w \leq g \leq 7^\circ\)</span>. Then <span class="math inline">\(0.99 \leq \cos(w) \leq 1\)</span>. Since</p>
+<p><span class="math display">\[
+  \cos(w)-\cos(\angle PHK)=\frac{\lvert PK\rvert}{\lvert PH\rvert},
+\]</span></p>
+<p>we’ve got that</p>
+<p><span class="math display">\[
+  0.99\leq \frac{\lvert PK\rvert}{\lvert PH\rvert}\leq 1.
+\]</span></p>
+<p>This means the two lengths in the fraction are really, really close. <em>The point is that part of the dangerous height represented by segment <span class="math inline">\(PH\)</span> should be maximized when the length of segment <span class="math inline">\(PK\)</span> is maximized, and that is when</em></p>
+<p><span class="math display">\[
+  m\angle PBG=\frac{g}{2}.
+\]</span></p>
+<dl>
+<dt>Teacher:</dt>
+<dd>
+That gives some pretty solid support for the idea that there is at least a portion of the dangerous height that is at least close to being maximized when
+</dd>
+</dl>
+<p><span class="math display">\[
+  w=\frac{g}{2}.
+\]</span></p>
+<p>Let’s continue by analyzing <span class="math inline">\(d\)</span> a little further.</p>
+</div>
+<p><strong>Task 4</strong></p>
+<p>Can you find a symbolic relationship between the tilt of the trailer, <span class="math inline">\(w\)</span>, and the measure of the dangerous height <span class="math inline">\(d\)</span>? You may use other measurements related to the model, such as <span class="math inline">\(s\)</span> (the distance the trailer is under the bridge, measured by segment <span class="math inline">\(PB\)</span>), the length of the shortened trailer box (measured by segment <span class="math inline">\(GB\)</span>), or some other measurement related to the situation. You may continue to find trigonometry useful.</p>
+<p><strong>In the Classroom (After Further Discussion)</strong></p>
+<div class="dialogue">
+<dl>
+<dt>Group 5:</dt>
+<dd>
+We did find trigonometry helpful. We found a relationship between the length of segment <span class="math inline">\(PH\)</span> and <span class="math inline">\(w\)</span> first. We got that
+</dd>
+</dl>
+<p><span class="math display">\[
+  \tan(w)=\frac{\lvert PH\rvert}{\lvert PB\rvert}.
+\]</span></p>
+<p>So <span class="math inline">\(\lvert PB\rvert\tan(w)=\lvert PH\rvert\)</span>. That is, <span class="math inline">\(s\cdot \tan(w)=\lvert PH\rvert\)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p68_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>We wanted to ﬁnd out something about the length of segment <span class="math inline">\(HQ\)</span> next. We didn’t get anywhere at first, but then one of our group members noticed that this segment sort of replaces the original height of the truck. So we decided to compare it to the original height of the truck. So then we drew segment <span class="math inline">\(QT\)</span> perpendicular to <span class="math inline">\(GB\)</span>. The length of segment <span class="math inline">\(QT\)</span> would be the original height of the truck. After we drew the segment, we saw that <span class="math inline">\(\angle PHB\)</span> and <span class="math inline">\(\angle THQ\)</span> were congruent because they are vertical angles. That makes the right triangles <span class="math inline">\(PHB\)</span> and <span class="math inline">\(THQ\)</span> similar. So <span class="math inline">\(\angle HQT = w\)</span>. We let <span class="math inline">\(h\)</span> stand for the original height of the truck. That is, <span class="math inline">\(h =\lvert QT\rvert\)</span>. So</p>
+<p><span class="math display">\[
+  \cos(w)=\frac{h}{\lvert HQ\rvert}.
+\]</span></p>
+<p>This means that</p>
+<p><span class="math display">\[
+  \lvert HQ\rvert=\frac{h}{\cos(w)}.
+\]</span></p>
+<p>We put these together and got</p>
+<p><span class="math display">\[
+  d=s\cdot \tan(w)+\frac{h}{\cos(w)}.
+\]</span></p>
+<dl>
+<dt>Teacher:</dt>
+<dd>
+Good. That relationship works for any value of <span class="math inline">\(w\)</span> that occurs within the model. Now it is time to think about interpreting these results in the real world. What value of <span class="math inline">\(g\)</span> should we use in our formula?
+</dd>
+<dt>Class:</dt>
+<dd>
+Seven degrees.
+</dd>
+<dt>Teacher:</dt>
+<dd>
+We have gathered support for testing <span class="math inline">\(w\)</span> at
+</dd>
+</dl>
+<p><span class="math display">\[
+  \frac{g}{2},
+\]</span></p>
+<p>or <span class="math inline">\(3.5\)</span> degrees. For homework, research a good height to use for the trailer box and a good length for the trailer length between points <span class="math inline">\(G\)</span> and <span class="math inline">\(B\)</span>. In addition, for</p>
+<p><span class="math display">\[
+  w=\frac{g}{2}
+\]</span></p>
+<p>and <span class="math inline">\(\lvert GB\rvert = m\)</span>, determine how one could figure out the value of <span class="math inline">\(s\)</span>. We will need to do that to determine the value of <span class="math inline">\(d\)</span>.</p>
+</div>
+<p>The next day students decide on <span class="math inline">\(h = 10\)</span> feet and <span class="math inline">\(m = 40\)</span> feet. In addition, <span class="math inline">\(\triangle PGB\)</span> is isosceles when</p>
+<p><span class="math display">\[
+  w=\frac{g}{2}.
+\]</span></p>
+<p>By constructing the altitude from <span class="math inline">\(P\)</span> to side <span class="math inline">\(GB\)</span>, one can derive the relationship</p>
+<p><span class="math display">\[
+  \cos\left(\frac{g}{2}\right)=\frac{m/2}{s} \, \text{or} \, s=\frac{m/2}{\cos(g/2)}.
+\]</span></p>
+<p>With these values,</p>
+<p><span class="math display">\[
+  d=\frac{20}{\cos(3.5)}\tan(3.5)+\frac{10}{\cos(3.5)}\approx 11.24 \, \text{feet},
+\]</span></p>
+<p>or about <span class="math inline">\(11\)</span> feet <span class="math inline">\(3\)</span> inches. Just looking at the value <span class="math inline">\(7\)</span> degrees as a small number might suggest that road grade does not matter. But our analysis for this specific and realistic example shows that with an initial trailer height of <span class="math inline">\(10\)</span> feet, the dangerous height for the trailer is <em>at least a foot higher</em>! As Dr.&nbsp;Pollak noted, road grade cannot be ignored.</p>
+<p><strong>Key Elements of Mathematics</strong></p>
+<p>Reasoning with Geometry — Geometric connections and modeling; Construction and evaluation of geometric arguments</p>
+<p>Reasoning with Algebraic Symbols — Meaningful use of symbols; Mindful manipulation</p>
+<p>Reasoning with Functions — Using multiple representations of functions</p>
+<p><strong>Reasoning Habits</strong></p>
+<p>Analyzing the problem — identifying relevant variables and conditions; seeking patterns and relationships; looking for hidden structure; considering special cases or simpler analogs</p>
+<p>Implementing a strategy — making purposeful use of procedures; making logical deductions; monitoring progress toward a solution</p>
+<p>Seeking and using connections</p>
+<p>Reflecting on a solution — considering the reasonableness of a solution; justifying or validating a solution; reconciling different approaches; generalizing a solution</p>
+</section>
+<section id="ví-dụ-17-qua-gầm-cầu" class="level4 col-translation">
+<h4 class="anchored" data-anchor-id="ví-dụ-17-qua-gầm-cầu">Ví dụ 17: Qua gầm cầu</h4>
+<p><strong>Nhiệm vụ 1</strong></p>
+<p>Nhà toán học Henry Pollak (2004) từng suy nghĩ về việc vì sao các xe đầu kéo kèm rơ-moóc thường bị mắc kẹt dưới một hầm chui nhất định, trong khi “độ tĩnh không tối đa” đã được ghi rõ trên một biển báo chỉ chiều cao của cây cầu. Cây cầu đang xét là nằm ngang và tọa lạc ngay tại chân của một con đường dốc xuống. Trong nhiệm vụ khởi đầu này, học sinh được yêu cầu xây dựng một mô hình trực quan hai chiều cho tình huống, đồng thời liệt kê những giả thiết mà các em đưa ra.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p64_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p><strong>Trong lớp học (Toán năm thứ hai)</strong></p>
+<p>Trong một mô hình trực quan, một bộ bánh xe của rơ-moóc được nâng lên trên phần đường dốc khi xe đi qua dưới mép cầu. Vị trí này khiến một phần của thùng xe bị nâng lên cao hơn so với khi xe ở trên mặt đường phẳng. Câu hỏi thực sự là: cao hơn bao nhiêu? Mô hình mà học sinh xây dựng nhiều khả năng sẽ có những đặc điểm tương tự mô hình trong hình vẽ bên dưới. Một mô hình như vậy tối thiểu phải chứa đoạn thẳng <span class="math inline">\(PQ\)</span> — biểu thị “độ cao nguy hiểm” tại đó thùng xe có thể chạm vào cầu. Mô hình minh họa ở đây bao gồm những giả thiết đơn giản hóa, chẳng hạn biểu diễn bánh xe bằng các đường tròn và biểu diễn mặt đường bằng hai đoạn thẳng. Mỗi giả thiết đơn giản hóa đều cần được thảo luận trong lớp. Ngoài ra, sau một cuộc thảo luận hiệu quả, lớp có thể quyết định đo độ dốc của đường theo đơn vị độ thay vì theo phần trăm. Quyết định này được sử dụng trong phần phân tích tiếp theo. Một số nghiên cứu do học sinh thực hiện có thể gợi ý rằng đối với hầu hết các tuyến đường, độ dốc có thể được giới hạn hợp lý trong một khoảng nhỏ. Trong mô hình hiện tại, độ dốc của đường, <span class="math inline">\(g\)</span>, được giới hạn đến <span class="math inline">\(7\)</span> độ — ít nhất là trong vòng lặp này của chu trình mô hình hóa. (Mặc dù độ dốc 7 độ có thể là khá lớn đối với một xe tải lớn, một số hình vẽ ở đây dùng góc dốc lớn hơn nhiều để làm nổi bật chi tiết.)</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p64_2.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Sau khi học sinh làm việc với việc xây dựng mô hình, có thể cung cấp cho các em một mô hình máy tính tương tác để các em khám phá việc thay đổi các kích thước và vị trí khác nhau của rơ-moóc có thể ảnh hưởng như thế nào đến độ cao nguy hiểm <span class="math inline">\(PQ\)</span>. Một trong các biến số là khoảng cách mà rơ-moóc đã đi vào dưới gầm cầu. Một biến số khác, tinh tế hơn, là khoảng cách giữa hai trục bánh xe. (Tự thân phần thùng xe nhô ra vượt quá mỗi trục bánh xe không ảnh hưởng đến độ cao nguy hiểm và có thể bỏ qua.)</p>
+<p>Quyết định tiếp theo của lớp là đơn giản hóa mô hình hơn nữa trong lượt đầu đi qua chu trình mô hình hóa, bằng cách tháo bánh xe khỏi xe tải. Xem mô hình đã đơn giản hóa ở hình bên phải. (Tài liệu chủ đề hỗ trợ về hình học cung cấp một phân tích tình huống dùng mô hình đầy đủ với bánh xe.)</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p65_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p><strong>Nhiệm vụ 2</strong></p>
+<p>Nhiệm vụ 2 yêu cầu học sinh xem xét những điều có thể bị mất mát hoặc bị mô tả sai do sự đơn giản hóa này. Chúng tôi không trình bày chi tiết thảo luận trên lớp cho Nhiệm vụ 2. Tuy nhiên, học sinh cần nhận ra rằng việc tháo bánh xe và hạ thấp thùng xe đã rút ngắn không đơn giản chỉ làm giảm độ cao nguy hiểm đúng bằng bán kính bánh xe. Thay vào đó, đầu bên trái (đầu được nâng lên) của thùng xe bị hạ xuống nhiều hơn một chút so với đầu bên phải, và cách đặt này tạo ra một tác động bổ sung có thể đo được đối với độ cao nguy hiểm. Dẫu vậy, việc phân tích mô hình đơn giản hóa sẽ giúp chúng ta phân tích tình huống ban đầu với mô hình phức tạp hơn, trong đó rơ-moóc có bánh xe. Hơn nữa, ngay cả trong trường hợp đơn giản này với góc dốc nhỏ, kết quả vẫn có thể gây bất ngờ.</p>
+<p>Nhiệm vụ 3 và 4 yêu cầu học sinh khám phá các mối quan hệ trong mô hình đơn giản hóa theo cả cách hình học lẫn cách ký hiệu.</p>
+<p><strong>Nhiệm vụ 3</strong></p>
+<p>Gọi <span class="math inline">\(d\)</span> là độ dài đoạn <span class="math inline">\(PQ\)</span>, gọi <span class="math inline">\(w\)</span> là số đo góc <span class="math inline">\(PBH\)</span> (độ nghiêng của thùng xe), gọi <span class="math inline">\(s\)</span> là độ dài đoạn <span class="math inline">\(PB\)</span> (mức độ thùng xe đã đi vào dưới gầm cầu), và gọi <span class="math inline">\(g\)</span> là độ dốc tính theo độ. Hãy khảo sát tình huống bằng cách sử dụng bản vẽ tương tác của mô hình đơn giản hóa. Hãy xem bạn có thể hình dung được — hoặc đưa ra một phỏng đoán về — khi nào độ cao nguy hiểm <span class="math inline">\(d\)</span> đạt lớn nhất bằng cách xét <span class="math inline">\(w\)</span> hoặc <span class="math inline">\(s\)</span> hoặc cả hai.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p66_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p><strong>Trong lớp học (Toán năm thứ hai)</strong></p>
+<p>Một nhóm dùng bản vẽ tương tác để truy vết đồ thị của độ cao nguy hiểm <span class="math inline">\(d\)</span> như một hàm của <span class="math inline">\(w\)</span>, như trong hình phía trên, trong đó họ đặt <span class="math inline">\(g\)</span> bằng <span class="math inline">\(7\)</span> độ. Họ lưu ý rằng họ không tìm được một biểu thức ký hiệu cho hàm số này, nhưng đồ thị gợi ý những thông tin hữu ích. Trong quá trình khảo sát, họ dùng một số giá trị nhỏ của <span class="math inline">\(g\)</span>, và mỗi lần như vậy, độ cao nguy hiểm có vẻ lớn nhất khi</p>
+<p><span class="math display">\[
+  w=\frac{g}{2}.
+\]</span></p>
+<p>Một nhóm khác dùng những góc dốc lớn, chẳng hạn <span class="math inline">\(55\)</span> độ, và khi đó quy luật trên không còn đúng. Nhưng các học sinh khác phản đối rằng những độ dốc lớn như vậy là không thực tế và vượt ngoài giới hạn của mô hình. Lớp tiếp tục tìm hiểu điều gì xảy ra khi <span class="math inline">\(g\)</span> nhỏ.</p>
+<p>Sau khi làm việc thêm, nhóm 3 trình bày một số bằng chứng mang tính lý thuyết, góp phần làm rõ và hỗ trợ cho khẳng định rằng giá trị lớn nhất của độ cao nguy hiểm xảy ra khi</p>
+<p><span class="math display">\[
+  w=\frac{g}{2}
+\]</span></p>
+<p>đối với các giá trị (nhỏ) của <span class="math inline">\(g\)</span> mà mô hình của chúng ta cho phép.</p>
+<p>Nhóm 3 liên hệ với Ví dụ 15, “Đường tròn qua các điểm”, và hình dung rằng góc <span class="math inline">\(\angle GPB\)</span> là một góc nội tiếp của một đường tròn có dây cung là <span class="math inline">\(GB\)</span>. Điều cần lưu ý đầu tiên là điểm <span class="math inline">\(P\)</span> thay đổi vị trí dọc theo cung tròn khi thùng xe được kéo dọc theo mặt đường. Khoảng cách vuông góc từ <span class="math inline">\(P\)</span> đến dây cung <span class="math inline">\(GB\)</span> đạt lớn nhất khi chân đường vuông góc này, <span class="math inline">\(K\)</span>, là trung điểm của đoạn <span class="math inline">\(GB\)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p66_2.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<div class="dialogue">
+<dl>
+<dt>Học sinh 3:</dt>
+<dd>
+Khi <span class="math inline">\(K\)</span> là trung điểm của đoạn <span class="math inline">\(GB\)</span>, các góc <span class="math inline">\(\angle PGB\)</span> và <span class="math inline">\(\angle PBG\)</span> bằng nhau. Em biết rằng <span class="math inline">\(m\angle PGB + m\angle PBG = m\angle SPG\)</span>, và số đo góc <span class="math inline">\(\angle SPG\)</span> bằng <span class="math inline">\(g\)</span>. Vậy bây giờ em có
+</dd>
+</dl>
+<p><span class="math display">\[
+  m\angle PGB=m\angle PBG=\frac{g}{2}=w.
+\]</span></p>
+<p>Bây giờ em muốn chỉ ra rằng phần của độ cao nguy hiểm được biểu diễn bởi đoạn <span class="math inline">\(PH\)</span> có độ dài rất gần với đoạn <span class="math inline">\(PK\)</span> — với mọi vị trí của <span class="math inline">\(K\)</span> trên <span class="math inline">\(BG\)</span>. Đó là vì góc giữa đoạn <span class="math inline">\(PK\)</span> và đoạn <span class="math inline">\(PH\)</span> là nhỏ nếu <span class="math inline">\(g\)</span> nhỏ. Đây là lý do. Hai tam giác <span class="math inline">\(PHK\)</span> và <span class="math inline">\(PHB\)</span> đồng dạng vì chúng là các tam giác vuông và có chung một góc nhọn. Do đó <span class="math inline">\(m\angle HPK = m\angle PBH = w\)</span>. Mà em biết <span class="math inline">\(0^\circ \leq w \leq g \leq 7^\circ\)</span>. Khi đó <span class="math inline">\(0.99 \leq \cos(w) \leq 1\)</span>. Vì</p>
+<p><span class="math display">\[
+  \cos(w)=\frac{\lvert PK\rvert}{\lvert PH\rvert},
+\]</span></p>
+<p>nên ta có</p>
+<p><span class="math display">\[
+  0.99\leq \frac{\lvert PK\rvert}{\lvert PH\rvert}\leq 1.
+\]</span></p>
+<p>Điều này có nghĩa là hai độ dài trong phân số là rất, rất gần nhau. <em>Điểm mấu chốt là: phần của độ cao nguy hiểm được biểu diễn bởi đoạn <span class="math inline">\(PH\)</span> sẽ đạt lớn nhất khi độ dài đoạn <span class="math inline">\(PK\)</span> đạt lớn nhất, và điều đó xảy ra khi</em></p>
+<p><span class="math display">\[
+  m\angle PBG=\frac{g}{2}.
+\]</span></p>
+<dl>
+<dt>Giáo viên:</dt>
+<dd>
+Lập luận đó cho thấy một sự hỗ trợ khá vững cho ý tưởng rằng có ít nhất một phần của độ cao nguy hiểm là gần như đạt cực đại khi
+</dd>
+</dl>
+<p><span class="math display">\[
+  w=\frac{g}{2}.
+\]</span></p>
+<p>Chúng ta hãy tiếp tục bằng cách phân tích <span class="math inline">\(d\)</span> sâu hơn một chút.</p>
+</div>
+<p><strong>Nhiệm vụ 4</strong></p>
+<p>Bạn có thể tìm một mối quan hệ ký hiệu giữa độ nghiêng của thùng xe, <span class="math inline">\(w\)</span>, và độ lớn của độ cao nguy hiểm <span class="math inline">\(d\)</span> hay không? Bạn có thể dùng các đại lượng khác liên quan đến mô hình, chẳng hạn như <span class="math inline">\(s\)</span> (khoảng cách thùng xe đã đi vào dưới gầm cầu, đo bởi đoạn <span class="math inline">\(PB\)</span>), độ dài thùng xe đã rút ngắn (đo bởi đoạn <span class="math inline">\(GB\)</span>), hoặc một đại lượng khác liên quan đến tình huống. Bạn có thể tiếp tục thấy lượng giác hữu ích.</p>
+<p><strong>Trong lớp học (Sau thảo luận thêm)</strong></p>
+<div class="dialogue">
+<dl>
+<dt>Nhóm 5:</dt>
+<dd>
+Chúng em thấy lượng giác hữu ích. Trước hết, chúng em tìm một quan hệ giữa độ dài đoạn <span class="math inline">\(PH\)</span> và <span class="math inline">\(w\)</span>. Chúng em có
+</dd>
+</dl>
+<p><span class="math display">\[
+  \tan(w)=\frac{\lvert PH\rvert}{\lvert PB\rvert}.
+\]</span></p>
+<p>Vậy <span class="math inline">\(\lvert PB\rvert\tan(w)=\lvert PH\rvert\)</span>. Tức là, <span class="math inline">\(s\cdot \tan(w)=\lvert PH\rvert\)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p68_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Tiếp theo, chúng em muốn tìm hiểu về độ dài đoạn <span class="math inline">\(HQ\)</span>. Lúc đầu chúng em không đi đến đâu cả, nhưng rồi một bạn trong nhóm nhận ra rằng đoạn này giống như thay thế cho chiều cao ban đầu của xe tải. Vì vậy chúng em quyết định so sánh nó với chiều cao ban đầu của xe. Chúng em kẻ đoạn <span class="math inline">\(QT\)</span> vuông góc với <span class="math inline">\(GB\)</span>. Độ dài đoạn <span class="math inline">\(QT\)</span> sẽ là chiều cao ban đầu của xe. Sau khi kẻ đoạn này, chúng em thấy <span class="math inline">\(\angle PHB\)</span> và <span class="math inline">\(\angle THQ\)</span> bằng nhau vì chúng là hai góc đối đỉnh. Do đó hai tam giác vuông <span class="math inline">\(PHB\)</span> và <span class="math inline">\(THQ\)</span> đồng dạng. Suy ra <span class="math inline">\(\angle HQT = w\)</span>. Chúng em ký hiệu <span class="math inline">\(h\)</span> là chiều cao ban đầu của xe, tức là <span class="math inline">\(h =\lvert QT\rvert\)</span>. Khi đó</p>
+<p><span class="math display">\[
+  \cos(w)=\frac{h}{\lvert HQ\rvert}.
+\]</span></p>
+<p>Điều này cho thấy</p>
+<p><span class="math display">\[
+  \lvert HQ\rvert=\frac{h}{\cos(w)}.
+\]</span></p>
+<p>Ghép các kết quả lại, chúng em được</p>
+<p><span class="math display">\[
+  d=s\cdot \tan(w)+\frac{h}{\cos(w)}.
+\]</span></p>
+<dl>
+<dt>Giáo viên:</dt>
+<dd>
+Tốt. Quan hệ đó đúng với mọi giá trị của <span class="math inline">\(w\)</span> xuất hiện trong mô hình. Bây giờ đã đến lúc nghĩ về việc diễn giải các kết quả này trong thế giới thực. Trong công thức của chúng ta, nên dùng giá trị nào của <span class="math inline">\(g\)</span>?
+</dd>
+<dt>Cả lớp:</dt>
+<dd>
+Bảy độ.
+</dd>
+<dt>Giáo viên:</dt>
+<dd>
+Chúng ta đã thu thập được cơ sở để thử <span class="math inline">\(w\)</span> tại
+</dd>
+</dl>
+<p><span class="math display">\[
+  \frac{g}{2},
+\]</span></p>
+<p>tức <span class="math inline">\(3.5\)</span> độ. Về nhà, hãy tìm hiểu một chiều cao hợp lý để dùng cho thùng xe và một độ dài hợp lý cho phần chiều dài thùng xe giữa các điểm <span class="math inline">\(G\)</span> và <span class="math inline">\(B\)</span>. Ngoài ra, với</p>
+<p><span class="math display">\[
+  w=\frac{g}{2}
+\]</span></p>
+<p>và <span class="math inline">\(\lvert GB\rvert = m\)</span>, hãy xác định cách tìm giá trị của <span class="math inline">\(s\)</span>. Chúng ta sẽ cần điều đó để xác định <span class="math inline">\(d\)</span>.</p>
+</div>
+<p>Ngày hôm sau, học sinh chọn <span class="math inline">\(h = 10\)</span> feet và <span class="math inline">\(m = 40\)</span> feet. Ngoài ra, tam giác <span class="math inline">\(\triangle PGB\)</span> cân khi</p>
+<p><span class="math display">\[
+  w=\frac{g}{2}.
+\]</span></p>
+<p>Bằng cách dựng đường cao từ <span class="math inline">\(P\)</span> xuống cạnh <span class="math inline">\(GB\)</span>, ta suy ra hệ thức</p>
+<p><span class="math display">\[
+  \cos\left(\frac{g}{2}\right)=\frac{m/2}{s} \, \text{hoặc} \, s=\frac{m/2}{\cos(g/2)}.
+\]</span></p>
+<p>Với các giá trị này,</p>
+<p><span class="math display">\[
+  d=\frac{20}{\cos(3.5)}\tan(3.5)+\frac{10}{\cos(3.5)}\approx 11.24 \, \text{feet},
+\]</span></p>
+<p>tức khoảng <span class="math inline">\(11\)</span> feet <span class="math inline">\(3\)</span> inch. Chỉ nhìn con số <span class="math inline">\(7\)</span> độ như một số nhỏ có thể khiến người ta nghĩ rằng độ dốc của đường không đáng kể. Nhưng phân tích của chúng ta trong ví dụ cụ thể và thực tế này cho thấy: với chiều cao ban đầu của thùng xe là <span class="math inline">\(10\)</span> feet, độ cao nguy hiểm của thùng xe <em>ít nhất cao hơn một foot</em>! Như Dr.&nbsp;Pollak đã nhận xét, độ dốc của đường không thể bị bỏ qua.</p>
+<p><strong>Các yếu tố then chốt của Toán học</strong></p>
+<p>Luận với hình học — Các liên hệ hình học và mô hình hóa; Xây dựng và đánh giá các lập luận hình học</p>
+<p>Luận với ký hiệu đại số — Sử dụng ký hiệu một cách có ý nghĩa; Thao tác có ý thức</p>
+<p>Luận với hàm số — Sử dụng nhiều biểu diễn của hàm số</p>
+<p><strong>Thói quen luận</strong></p>
+<p>Phân tích bài toán — xác định các biến và điều kiện liên quan; tìm kiếm các quy luật và mối quan hệ; tìm kiếm cấu trúc ẩn; xét các trường hợp đặc biệt hoặc các tương tự đơn giản hơn</p>
+<p>Thực hiện chiến lược — sử dụng các quy trình một cách có mục đích; đưa ra các suy diễn logic; theo dõi tiến trình hướng tới lời giải</p>
+<p>Tìm kiếm và sử dụng các liên hệ</p>
+<p>Suy ngẫm về lời giải — cân nhắc tính hợp lý của lời giải; biện minh hoặc kiểm chứng lời giải; đối chiếu các cách tiếp cận khác nhau; khái quát hóa lời giải</p>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>The geometry strand extends beyond two- and three-dimensional figures in Euclidean space to include other special configurations and visualizations. Example 18 illustrates a modeling context in which the most obvious geometric model of the situation — drawing circles of radius <span class="math inline">\(5\)</span> units and looking for overlaps that represent radio interference — is not the most useful. Rather, a basic representation in the growing fi eld of “graph theory” — usually considered a domain within discrete mathematics — is better suited to capture the relevant information in the modeling problem.</p>
+</div>
+<div class="col-translation">
+<p>Mạch nội dung hình học không chỉ dừng lại ở các hình hai chiều và ba chiều trong không gian Euclid, mà còn mở rộng sang những cấu hình đặc biệt khác và các dạng trực quan hóa đa dạng. Ví dụ 18 minh họa một bối cảnh mô hình hóa trong đó mô hình hình học hiển nhiên nhất của tình huống — vẽ các đường tròn bán kính <span class="math inline">\(5\)</span> đơn vị và tìm các vùng chồng lấn biểu thị sự nhiễu sóng vô tuyến — lại không phải là mô hình hữu ích nhất. Thay vào đó, một cách biểu diễn cơ bản trong lĩnh vực đang phát triển của “lý thuyết đồ thị” — thường được xem là một miền thuộc toán học rời rạc — lại phù hợp hơn để nắm bắt các thông tin then chốt trong bài toán mô hình hóa.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<section id="example-18-assigning-frequencies" class="level4 col-original">
+<h4 class="anchored" data-anchor-id="example-18-assigning-frequencies">Example 18: Assigning Frequencies</h4>
+<p><strong>Task</strong></p>
+<p>The Federal Communications Commission (FCC) needs to assign radio frequencies to seven new radio stations located on the grid at the right. Such assignments are based on several considerations, including the possibility of creating interference by assigning the same frequency to stations that are too close together. In this simplified situation, we assume that broadcasts from two stations located within <span class="math inline">\(200\)</span> miles of each other will create interference if they broadcast on the same frequency, whereas stations more than <span class="math inline">\(200\)</span> miles apart can use the same frequency to broadcast without causing interference with each other.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p70_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>How can a vertex-edge graph be used to assign frequencies so that the fewest number of frequencies are used and no stations interfere with each other? What would each vertex represent? What would an edge represent? What is the fewest number of frequencies needed? (Adapted from Hirsch et al.&nbsp;[2007])</p>
+<p><strong>In the Classroom</strong></p>
+<p>Students work on the task in groups. Each group seems to agree that a vertex in the graph represents a radio station. So the graph would have seven vertices. Some groups decide to make a graph model in which two vertices representing stations within 200 miles of each other will be joined by an edge.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p71_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Other groups suggest that two vertices will be joined with an edge if they are <em>more</em> than 200 miles apart. After some discussion, the choice is made to use the first suggestion, that of joining vertices with an edge if the distance between them is no more than 200 miles. The next task is to construct the model. Doing so requires computation of the distance between each pair of stations. Groups make these computations by using the distance formula or Pythagorean theorem and a calculator. Organization is valuable here because many computations are involved. Some groups might start by computing the distance from <span class="math inline">\(A\)</span> to the remaining six stations, then the distance from <span class="math inline">\(B\)</span> to the remaining five, and so on. A quick determination of how many computations are needed can help determine whether any list is missing an item. Experience with example 10, “Patterns, Plane and Symbol,” would be useful in this context.</p>
+<p>Groups produce models similar to the one above and then work at assigning frequencies to vertices so that no two vertices joined by a single edge have the same frequency. They look for a method that will use the fewest frequencies for this particular graph. One group explained their solution this way:</p>
+<p>“We found that the fewest number of frequencies that could be used was four. We reasoned this way: First, look at the collection of vertices <span class="math inline">\(A\)</span> through <span class="math inline">\(D\)</span>. Each of these vertices is joined by an edge to each of the other three in the collection. So no two vertices in the collection can have the same frequency. That means you can have no fewer than four frequencies.</p>
+<p>“Next, suppose you assign frequency 1 to vertex <span class="math inline">\(A\)</span>, frequency 2 to vertex <span class="math inline">\(B\)</span>, frequency 3 to vertex <span class="math inline">\(C\)</span>, and frequency 4 to vertex <span class="math inline">\(D\)</span>. You can finish the assignment by assigning frequency 1 to vertex <span class="math inline">\(G\)</span> (because <span class="math inline">\(G\)</span> doesn’t interfere with <span class="math inline">\(A\)</span>), frequency 2 to vertex <span class="math inline">\(F\)</span>, and frequency 3 to vertex <span class="math inline">\(E\)</span>. That proves you don’t need any more than four frequencies. That does it!”</p>
+<p><strong>Key Elements of Mathematics</strong></p>
+<p>Reasoning with Geometry — Geometric connections and modeling; Construction of geometric arguments</p>
+<p><strong>Reasoning Habits</strong> Analyzing a problem — seeking patterns and relationships; applying previously learned concepts</p>
+<p>Implementing a strategy — organizing a solution; making logical deductions</p>
+<p>Reflecting on a solution — justifying or validating a solution</p>
+</section>
+<section id="ví-dụ-18-xếp-tần-số" class="level4 col-translation">
+<h4 class="anchored" data-anchor-id="ví-dụ-18-xếp-tần-số">Ví dụ 18: Xếp tần số</h4>
+<p><strong>Nhiệm vụ</strong></p>
+<p>Ủy ban Truyền thông Liên bang Hoa Kỳ (Federal Communications Commission — FCC) cần phân bổ các tần số vô tuyến cho bảy đài phát thanh mới, được đặt tại các vị trí trên lưới tọa độ như trong hình bên dưới. Việc phân bổ này dựa trên nhiều yếu tố, trong đó có khả năng xảy ra nhiễu sóng khi gán cùng một tần số cho các đài ở quá gần nhau. Trong tình huống đã được đơn giản hóa này, ta giả sử rằng các đài phát thanh cách nhau không quá <span class="math inline">\(200\)</span> dặm sẽ gây nhiễu nếu cùng phát trên một tần số, trong khi các đài cách nhau hơn <span class="math inline">\(200\)</span> dặm có thể sử dụng cùng một tần số mà không gây nhiễu cho nhau.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p70_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Làm thế nào có thể sử dụng một đồ thị đỉnh-cạnh để phân bổ tần số sao cho số lượng tần số sử dụng là ít nhất và không có đài nào gây nhiễu cho đài khác? Mỗi đỉnh sẽ biểu diễn điều gì? Mỗi cạnh sẽ biểu diễn điều gì? Số lượng tần số ít nhất cần dùng là bao nhiêu? (Phỏng theo Hirsch và cộng sự [2007])</p>
+<p><strong>Trong lớp học</strong></p>
+<p>Học sinh làm việc theo nhóm để giải quyết nhiệm vụ. Mỗi nhóm đều đồng ý rằng một đỉnh trong đồ thị sẽ biểu diễn một đài phát thanh. Do đó, đồ thị sẽ có bảy đỉnh. Một số nhóm quyết định xây dựng mô hình đồ thị trong đó hai đỉnh biểu diễn các đài cách nhau không quá 200 dặm sẽ được nối với nhau bằng một cạnh.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fhsm_2009_p71_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Một số nhóm khác đề xuất rằng hai đỉnh sẽ được nối với nhau bằng một cạnh nếu chúng cách nhau <em>hơn</em> <span class="math inline">\(200\)</span> dặm. Sau một hồi thảo luận, lớp quyết định chọn phương án thứ nhất: nối hai đỉnh bằng một cạnh nếu khoảng cách giữa hai đài tương ứng không vượt quá <span class="math inline">\(200\)</span> dặm.</p>
+<p>Nhiệm vụ tiếp theo là xây dựng mô hình. Việc này đòi hỏi phải tính khoảng cách giữa từng cặp đài. Các nhóm thực hiện các phép tính này bằng cách sử dụng công thức khoảng cách hoặc định lý Pythagoras cùng với máy tính cầm tay. Việc tổ chức có vai trò quan trọng ở đây, vì số lượng phép tính là khá nhiều. Một số nhóm có thể bắt đầu bằng cách tính khoảng cách từ đài <span class="math inline">\(A\)</span> đến sáu đài còn lại, sau đó từ <span class="math inline">\(B\)</span> đến năm đài còn lại, và cứ tiếp tục như vậy. Việc nhanh chóng xác định cần bao nhiêu phép tính sẽ giúp kiểm tra xem danh sách có bị thiếu trường hợp nào hay không. Kinh nghiệm từ Ví dụ 10, “Thêm đường thêm miền”, sẽ hữu ích trong bối cảnh này.</p>
+<p>Các nhóm tạo ra những mô hình tương tự như hình trên và sau đó tiến hành gán tần số cho các đỉnh sao cho không có hai đỉnh nào được nối trực tiếp bởi một cạnh lại có cùng tần số. Các em tìm kiếm một phương pháp cho phép sử dụng ít tần số nhất cho đồ thị cụ thể này. Một nhóm đã trình bày lời giải của mình như sau:</p>
+<p>“Chúng em nhận thấy rằng số lượng tần số ít nhất có thể dùng là bốn. Lập luận của chúng em như sau: Trước hết, xét tập các đỉnh từ <span class="math inline">\(A\)</span> đến <span class="math inline">\(D\)</span>. Mỗi đỉnh trong tập này đều được nối bằng một cạnh với ba đỉnh còn lại trong tập. Vì vậy, không có hai đỉnh nào trong tập này có thể có cùng một tần số. Điều đó có nghĩa là không thể dùng ít hơn bốn tần số.</p>
+<p>Tiếp theo, giả sử ta gán tần số 1 cho đỉnh <span class="math inline">\(A\)</span>, tần số 2 cho đỉnh <span class="math inline">\(B\)</span>, tần số 3 cho đỉnh <span class="math inline">\(C\)</span>, và tần số 4 cho đỉnh <span class="math inline">\(D\)</span>. Ta có thể hoàn tất việc gán bằng cách gán tần số 1 cho đỉnh <span class="math inline">\(G\)</span> (vì <span class="math inline">\(G\)</span> không gây nhiễu với <span class="math inline">\(A\)</span>), tần số 2 cho đỉnh <span class="math inline">\(F\)</span>, và tần số 3 cho đỉnh <span class="math inline">\(E\)</span>. Điều đó chứng tỏ ta không cần dùng nhiều hơn bốn tần số. Như vậy là xong!”</p>
+<p><strong>Các yếu tố then chốt của toán học</strong></p>
+<p>Luận với hình học — Các kết nối hình học và mô hình hóa bằng hình học; Xây dựng các biện giải hình học</p>
+<p><strong>Thói quen luận</strong></p>
+<p>Phân tích bài toán — tìm kiếm các mẫu hình và mối quan hệ; vận dụng các khái niệm đã học</p>
+<p>Thực hiện chiến lược — tổ chức lời giải; đưa ra các suy diễn hợp lí</p>
+<p>Suy ngẫm về lời giải — biện minh hoặc kiểm chứng lời giải</p>
+</section>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+<p>Note that the vertex-edge representation of the frequency-assignment problem seems to have facilitated the structuring of an argument that four frequencies suffice — and even a way (algorithm) to assign four frequencies — for this example. Finding efficient algorithms for analogues of the general fewest-frequency problem for larger graphs remains an active area of current mathematical research. Such algorithms would find uses in many contexts.</p>
+</div>
+<div class="col-translation">
+<p>Lưu ý rằng cách biểu diễn bài toán phân bổ tần số bằng đồ thị đỉnh-cạnh dường như đã giúp cấu trúc hóa lập luận chứng minh rằng bốn tần số là đủ — đồng thời còn gợi ra một cách (một thuật toán) để gán bốn tần số trong ví dụ này. Việc tìm kiếm các thuật toán hiệu quả cho những bài toán tương tự của bài toán “ít tần số nhất” trong trường hợp các đồ thị lớn hơn hiện vẫn là một lĩnh vực nghiên cứu toán học đang phát triển mạnh. Những thuật toán như vậy có tiềm năng được ứng dụng trong nhiều bối cảnh khác nhau.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+<!--  -->
+<div class="three-cols">
+<div class="row">
+<div class="col-original">
+
+</div>
+<div class="col-translation">
+<p>Hình học mang đến một bối cảnh giàu sức gợi, trong đó học sinh có thể phát triển năng lực luận và hiểu. Bên cạnh đó, hình học còn cung cấp những công cụ và cách biểu diễn hữu ích, có thể được vận dụng trong nhiều tình huống đa dạng.</p>
+</div>
+<div class="col-notes">
+
+</div>
+</div>
+</div>
+
+
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/zo-math\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a><br>
+<br> <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a><br>
+<br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
