@@ -1,0 +1,2494 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Vì sao đồ thị hàm số được vẽ bằng hai trục vuông góc? – ZO Math</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../../../">
+<link href="../../../../../../images/favicon.ico" rel="icon">
+<script src="../../../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../../../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../../../site_libs/bootstrap/bootstrap-3d1903c5838503892ba651cf513ab205.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../../../../assets/css/custom.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../../../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../../../../content/toan-thpt/toan-11/index.qmd">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../../../content/toan-thpt/toan-12/index.qmd">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.qmd">
+ <span class="dropdown-text">100+ Hàm số</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../../content/zo-o/index.qmd"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../../content/zo-lab/index.qmd"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../../content/shop/index.html"> 
+<span class="menu-text">ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Vì sao đồ thị hàm số được vẽ bằng hai trục vuông góc?</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Trên trang này</h2>
+   
+  <ul>
+  <li><a href="#vì-sao-đồ-thị-hàm-số-được-vẽ-bằng-hai-trục-vuông-góc" id="toc-vì-sao-đồ-thị-hàm-số-được-vẽ-bằng-hai-trục-vuông-góc" class="nav-link active" data-scroll-target="#vì-sao-đồ-thị-hàm-số-được-vẽ-bằng-hai-trục-vuông-góc">VÌ SAO ĐỒ THỊ HÀM SỐ ĐƯỢC VẼ BẰNG HAI TRỤC VUÔNG GÓC?</a>
+  <ul class="collapse">
+  <li><a href="#kịch-bản-hoạt-ảnh" id="toc-kịch-bản-hoạt-ảnh" class="nav-link" data-scroll-target="#kịch-bản-hoạt-ảnh">KỊCH BẢN HOẠT ẢNH</a></li>
+  <li><a href="#nguyên-tắc-dựng-cho-video-này" id="toc-nguyên-tắc-dựng-cho-video-này" class="nav-link" data-scroll-target="#nguyên-tắc-dựng-cho-video-này">0. Nguyên tắc dựng cho video này</a></li>
+  <li><a href="#c01.-tự-vấn" id="toc-c01.-tự-vấn" class="nav-link" data-scroll-target="#c01.-tự-vấn">C01. TỰ VẤN</a>
+  <ul class="collapse">
+  <li><a href="#mục-tiêu-hoạt-ảnh" id="toc-mục-tiêu-hoạt-ảnh" class="nav-link" data-scroll-target="#mục-tiêu-hoạt-ảnh">Mục tiêu hoạt ảnh</a></li>
+  <li><a href="#khung-định-danh-cảnh" id="toc-khung-định-danh-cảnh" class="nav-link" data-scroll-target="#khung-định-danh-cảnh">Khung định danh cảnh</a></li>
+  <li><a href="#đối-tượng-được-phép-xuất-hiện" id="toc-đối-tượng-được-phép-xuất-hiện" class="nav-link" data-scroll-target="#đối-tượng-được-phép-xuất-hiện">Đối tượng được phép xuất hiện</a></li>
+  <li><a href="#đối-tượng-chưa-được-phép-giữ-lại-sau-cảnh" id="toc-đối-tượng-chưa-được-phép-giữ-lại-sau-cảnh" class="nav-link" data-scroll-target="#đối-tượng-chưa-được-phép-giữ-lại-sau-cảnh">Đối tượng chưa được phép giữ lại sau cảnh</a></li>
+  <li><a href="#diễn-tiến-hoạt-ảnh" id="toc-diễn-tiến-hoạt-ảnh" class="nav-link" data-scroll-target="#diễn-tiến-hoạt-ảnh">Diễn tiến hoạt ảnh</a></li>
+  <li><a href="#chữ-trên-màn-hình" id="toc-chữ-trên-màn-hình" class="nav-link" data-scroll-target="#chữ-trên-màn-hình">Chữ trên màn hình</a></li>
+  <li><a href="#âm-thanh" id="toc-âm-thanh" class="nav-link" data-scroll-target="#âm-thanh">Âm thanh</a></li>
+  <li><a href="#ghi-chú-manim" id="toc-ghi-chú-manim" class="nav-link" data-scroll-target="#ghi-chú-manim">Ghi chú Manim</a></li>
+  </ul></li>
+  <li><a href="#c02.-biến-đầu-vào-x-và-biến-phụ-thuộc-y" id="toc-c02.-biến-đầu-vào-x-và-biến-phụ-thuộc-y" class="nav-link" data-scroll-target="#c02.-biến-đầu-vào-x-và-biến-phụ-thuộc-y">C02. BIẾN ĐẦU VÀO X VÀ BIẾN PHỤ THUỘC Y</a>
+  <ul class="collapse">
+  <li><a href="#mục-tiêu-hoạt-ảnh-1" id="toc-mục-tiêu-hoạt-ảnh-1" class="nav-link" data-scroll-target="#mục-tiêu-hoạt-ảnh-1">Mục tiêu hoạt ảnh</a></li>
+  <li><a href="#khung-định-danh-cảnh-1" id="toc-khung-định-danh-cảnh-1" class="nav-link" data-scroll-target="#khung-định-danh-cảnh-1">Khung định danh cảnh</a></li>
+  <li><a href="#đối-tượng-được-phép-xuất-hiện-1" id="toc-đối-tượng-được-phép-xuất-hiện-1" class="nav-link" data-scroll-target="#đối-tượng-được-phép-xuất-hiện-1">Đối tượng được phép xuất hiện</a></li>
+  <li><a href="#đối-tượng-chưa-được-phép-hiện" id="toc-đối-tượng-chưa-được-phép-hiện" class="nav-link" data-scroll-target="#đối-tượng-chưa-được-phép-hiện">Đối tượng chưa được phép hiện</a></li>
+  <li><a href="#diễn-tiến-hoạt-ảnh-1" id="toc-diễn-tiến-hoạt-ảnh-1" class="nav-link" data-scroll-target="#diễn-tiến-hoạt-ảnh-1">Diễn tiến hoạt ảnh</a></li>
+  <li><a href="#chữ-trên-màn-hình-1" id="toc-chữ-trên-màn-hình-1" class="nav-link" data-scroll-target="#chữ-trên-màn-hình-1">Chữ trên màn hình</a></li>
+  <li><a href="#âm-thanh-1" id="toc-âm-thanh-1" class="nav-link" data-scroll-target="#âm-thanh-1">Âm thanh</a></li>
+  <li><a href="#ghi-chú-manim-1" id="toc-ghi-chú-manim-1" class="nav-link" data-scroll-target="#ghi-chú-manim-1">Ghi chú Manim</a></li>
+  </ul></li>
+  <li><a href="#c03.-trục-thứ-nhất-x" id="toc-c03.-trục-thứ-nhất-x" class="nav-link" data-scroll-target="#c03.-trục-thứ-nhất-x">C03. TRỤC THỨ NHẤT: X</a>
+  <ul class="collapse">
+  <li><a href="#mục-tiêu-hoạt-ảnh-2" id="toc-mục-tiêu-hoạt-ảnh-2" class="nav-link" data-scroll-target="#mục-tiêu-hoạt-ảnh-2">Mục tiêu hoạt ảnh</a></li>
+  <li><a href="#khung-định-danh-cảnh-2" id="toc-khung-định-danh-cảnh-2" class="nav-link" data-scroll-target="#khung-định-danh-cảnh-2">Khung định danh cảnh</a></li>
+  <li><a href="#đối-tượng-được-phép-xuất-hiện-2" id="toc-đối-tượng-được-phép-xuất-hiện-2" class="nav-link" data-scroll-target="#đối-tượng-được-phép-xuất-hiện-2">Đối tượng được phép xuất hiện</a></li>
+  <li><a href="#đối-tượng-chưa-được-phép-hiện-1" id="toc-đối-tượng-chưa-được-phép-hiện-1" class="nav-link" data-scroll-target="#đối-tượng-chưa-được-phép-hiện-1">Đối tượng chưa được phép hiện</a></li>
+  <li><a href="#diễn-tiến-hoạt-ảnh-2" id="toc-diễn-tiến-hoạt-ảnh-2" class="nav-link" data-scroll-target="#diễn-tiến-hoạt-ảnh-2">Diễn tiến hoạt ảnh</a></li>
+  <li><a href="#chữ-trên-màn-hình-2" id="toc-chữ-trên-màn-hình-2" class="nav-link" data-scroll-target="#chữ-trên-màn-hình-2">Chữ trên màn hình</a></li>
+  <li><a href="#âm-thanh-2" id="toc-âm-thanh-2" class="nav-link" data-scroll-target="#âm-thanh-2">Âm thanh</a></li>
+  <li><a href="#ghi-chú-manim-2" id="toc-ghi-chú-manim-2" class="nav-link" data-scroll-target="#ghi-chú-manim-2">Ghi chú Manim</a></li>
+  </ul></li>
+  <li><a href="#c04.-điểm-xy-và-đường-cong" id="toc-c04.-điểm-xy-và-đường-cong" class="nav-link" data-scroll-target="#c04.-điểm-xy-và-đường-cong">C04. ĐIỂM (X,Y) VÀ ĐƯỜNG CONG</a>
+  <ul class="collapse">
+  <li><a href="#mục-tiêu-hoạt-ảnh-3" id="toc-mục-tiêu-hoạt-ảnh-3" class="nav-link" data-scroll-target="#mục-tiêu-hoạt-ảnh-3">Mục tiêu hoạt ảnh</a></li>
+  <li><a href="#khung-định-danh-cảnh-3" id="toc-khung-định-danh-cảnh-3" class="nav-link" data-scroll-target="#khung-định-danh-cảnh-3">Khung định danh cảnh</a></li>
+  <li><a href="#đối-tượng-được-phép-xuất-hiện-3" id="toc-đối-tượng-được-phép-xuất-hiện-3" class="nav-link" data-scroll-target="#đối-tượng-được-phép-xuất-hiện-3">Đối tượng được phép xuất hiện</a></li>
+  <li><a href="#đối-tượng-chưa-được-phép-hiện-2" id="toc-đối-tượng-chưa-được-phép-hiện-2" class="nav-link" data-scroll-target="#đối-tượng-chưa-được-phép-hiện-2">Đối tượng chưa được phép hiện</a></li>
+  <li><a href="#diễn-tiến-hoạt-ảnh-3" id="toc-diễn-tiến-hoạt-ảnh-3" class="nav-link" data-scroll-target="#diễn-tiến-hoạt-ảnh-3">Diễn tiến hoạt ảnh</a></li>
+  <li><a href="#chữ-trên-màn-hình-3" id="toc-chữ-trên-màn-hình-3" class="nav-link" data-scroll-target="#chữ-trên-màn-hình-3">Chữ trên màn hình</a></li>
+  <li><a href="#âm-thanh-3" id="toc-âm-thanh-3" class="nav-link" data-scroll-target="#âm-thanh-3">Âm thanh</a></li>
+  <li><a href="#ghi-chú-manim-3" id="toc-ghi-chú-manim-3" class="nav-link" data-scroll-target="#ghi-chú-manim-3">Ghi chú Manim</a></li>
+  </ul></li>
+  <li><a href="#c05.-trục-thứ-hai-y" id="toc-c05.-trục-thứ-hai-y" class="nav-link" data-scroll-target="#c05.-trục-thứ-hai-y">C05. TRỤC THỨ HAI: Y</a>
+  <ul class="collapse">
+  <li><a href="#mục-tiêu-hoạt-ảnh-4" id="toc-mục-tiêu-hoạt-ảnh-4" class="nav-link" data-scroll-target="#mục-tiêu-hoạt-ảnh-4">Mục tiêu hoạt ảnh</a></li>
+  <li><a href="#khung-định-danh-cảnh-4" id="toc-khung-định-danh-cảnh-4" class="nav-link" data-scroll-target="#khung-định-danh-cảnh-4">Khung định danh cảnh</a></li>
+  <li><a href="#đối-tượng-được-phép-xuất-hiện-4" id="toc-đối-tượng-được-phép-xuất-hiện-4" class="nav-link" data-scroll-target="#đối-tượng-được-phép-xuất-hiện-4">Đối tượng được phép xuất hiện</a></li>
+  <li><a href="#đối-tượng-chưa-được-phép-hiện-3" id="toc-đối-tượng-chưa-được-phép-hiện-3" class="nav-link" data-scroll-target="#đối-tượng-chưa-được-phép-hiện-3">Đối tượng chưa được phép hiện</a></li>
+  <li><a href="#diễn-tiến-hoạt-ảnh-4" id="toc-diễn-tiến-hoạt-ảnh-4" class="nav-link" data-scroll-target="#diễn-tiến-hoạt-ảnh-4">Diễn tiến hoạt ảnh</a></li>
+  <li><a href="#chữ-trên-màn-hình-4" id="toc-chữ-trên-màn-hình-4" class="nav-link" data-scroll-target="#chữ-trên-màn-hình-4">Chữ trên màn hình</a></li>
+  <li><a href="#âm-thanh-4" id="toc-âm-thanh-4" class="nav-link" data-scroll-target="#âm-thanh-4">Âm thanh</a></li>
+  <li><a href="#ghi-chú-manim-4" id="toc-ghi-chú-manim-4" class="nav-link" data-scroll-target="#ghi-chú-manim-4">Ghi chú Manim</a></li>
+  </ul></li>
+  <li><a href="#c06.-hình-ảnh-của-sự-biến-thiên" id="toc-c06.-hình-ảnh-của-sự-biến-thiên" class="nav-link" data-scroll-target="#c06.-hình-ảnh-của-sự-biến-thiên">C06. HÌNH ẢNH CỦA SỰ BIẾN THIÊN</a>
+  <ul class="collapse">
+  <li><a href="#mục-tiêu-hoạt-ảnh-5" id="toc-mục-tiêu-hoạt-ảnh-5" class="nav-link" data-scroll-target="#mục-tiêu-hoạt-ảnh-5">Mục tiêu hoạt ảnh</a></li>
+  <li><a href="#khung-định-danh-cảnh-5" id="toc-khung-định-danh-cảnh-5" class="nav-link" data-scroll-target="#khung-định-danh-cảnh-5">Khung định danh cảnh</a></li>
+  <li><a href="#đối-tượng-được-phép-xuất-hiện-5" id="toc-đối-tượng-được-phép-xuất-hiện-5" class="nav-link" data-scroll-target="#đối-tượng-được-phép-xuất-hiện-5">Đối tượng được phép xuất hiện</a></li>
+  <li><a href="#đối-tượng-chưa-được-phép-hiện-quá-sớm" id="toc-đối-tượng-chưa-được-phép-hiện-quá-sớm" class="nav-link" data-scroll-target="#đối-tượng-chưa-được-phép-hiện-quá-sớm">Đối tượng chưa được phép hiện quá sớm</a></li>
+  <li><a href="#diễn-tiến-hoạt-ảnh-5" id="toc-diễn-tiến-hoạt-ảnh-5" class="nav-link" data-scroll-target="#diễn-tiến-hoạt-ảnh-5">Diễn tiến hoạt ảnh</a></li>
+  <li><a href="#chữ-trên-màn-hình-5" id="toc-chữ-trên-màn-hình-5" class="nav-link" data-scroll-target="#chữ-trên-màn-hình-5">Chữ trên màn hình</a></li>
+  <li><a href="#âm-thanh-5" id="toc-âm-thanh-5" class="nav-link" data-scroll-target="#âm-thanh-5">Âm thanh</a></li>
+  <li><a href="#ghi-chú-manim-5" id="toc-ghi-chú-manim-5" class="nav-link" data-scroll-target="#ghi-chú-manim-5">Ghi chú Manim</a></li>
+  </ul></li>
+  <li><a href="#c07.-kết-tinh" id="toc-c07.-kết-tinh" class="nav-link" data-scroll-target="#c07.-kết-tinh">C07. KẾT TINH</a>
+  <ul class="collapse">
+  <li><a href="#mục-tiêu-hoạt-ảnh-6" id="toc-mục-tiêu-hoạt-ảnh-6" class="nav-link" data-scroll-target="#mục-tiêu-hoạt-ảnh-6">Mục tiêu hoạt ảnh</a></li>
+  <li><a href="#khung-định-danh-cảnh-6" id="toc-khung-định-danh-cảnh-6" class="nav-link" data-scroll-target="#khung-định-danh-cảnh-6">Khung định danh cảnh</a></li>
+  <li><a href="#đối-tượng-được-phép-xuất-hiện-6" id="toc-đối-tượng-được-phép-xuất-hiện-6" class="nav-link" data-scroll-target="#đối-tượng-được-phép-xuất-hiện-6">Đối tượng được phép xuất hiện</a></li>
+  <li><a href="#diễn-tiến-hoạt-ảnh-6" id="toc-diễn-tiến-hoạt-ảnh-6" class="nav-link" data-scroll-target="#diễn-tiến-hoạt-ảnh-6">Diễn tiến hoạt ảnh</a></li>
+  <li><a href="#chữ-trên-màn-hình-6" id="toc-chữ-trên-màn-hình-6" class="nav-link" data-scroll-target="#chữ-trên-màn-hình-6">Chữ trên màn hình</a></li>
+  <li><a href="#âm-thanh-6" id="toc-âm-thanh-6" class="nav-link" data-scroll-target="#âm-thanh-6">Âm thanh</a></li>
+  <li><a href="#ghi-chú-manim-6" id="toc-ghi-chú-manim-6" class="nav-link" data-scroll-target="#ghi-chú-manim-6">Ghi chú Manim</a></li>
+  </ul></li>
+  <li><a href="#c08.-mình-đã-hiểu-chưa" id="toc-c08.-mình-đã-hiểu-chưa" class="nav-link" data-scroll-target="#c08.-mình-đã-hiểu-chưa">C08. MÌNH ĐÃ HIỂU CHƯA?</a>
+  <ul class="collapse">
+  <li><a href="#mục-tiêu-hoạt-ảnh-7" id="toc-mục-tiêu-hoạt-ảnh-7" class="nav-link" data-scroll-target="#mục-tiêu-hoạt-ảnh-7">Mục tiêu hoạt ảnh</a></li>
+  <li><a href="#khung-định-danh-cảnh-7" id="toc-khung-định-danh-cảnh-7" class="nav-link" data-scroll-target="#khung-định-danh-cảnh-7">Khung định danh cảnh</a></li>
+  <li><a href="#đối-tượng-được-phép-xuất-hiện-7" id="toc-đối-tượng-được-phép-xuất-hiện-7" class="nav-link" data-scroll-target="#đối-tượng-được-phép-xuất-hiện-7">Đối tượng được phép xuất hiện</a></li>
+  <li><a href="#diễn-tiến-hoạt-ảnh-7" id="toc-diễn-tiến-hoạt-ảnh-7" class="nav-link" data-scroll-target="#diễn-tiến-hoạt-ảnh-7">Diễn tiến hoạt ảnh</a></li>
+  <li><a href="#chữ-trên-màn-hình-7" id="toc-chữ-trên-màn-hình-7" class="nav-link" data-scroll-target="#chữ-trên-màn-hình-7">Chữ trên màn hình</a></li>
+  <li><a href="#âm-thanh-7" id="toc-âm-thanh-7" class="nav-link" data-scroll-target="#âm-thanh-7">Âm thanh</a></li>
+  <li><a href="#ghi-chú-manim-7" id="toc-ghi-chú-manim-7" class="nav-link" data-scroll-target="#ghi-chú-manim-7">Ghi chú Manim</a></li>
+  </ul></li>
+  <li><a href="#ghi-chú-chuyển-sang-mã-manim" id="toc-ghi-chú-chuyển-sang-mã-manim" class="nav-link" data-scroll-target="#ghi-chú-chuyển-sang-mã-manim">1. Ghi chú chuyển sang mã Manim</a></li>
+  <li><a href="#ghi-chú-kiểm-soát-đối-tượng-đích" id="toc-ghi-chú-kiểm-soát-đối-tượng-đích" class="nav-link" data-scroll-target="#ghi-chú-kiểm-soát-đối-tượng-đích">2. Ghi chú kiểm soát đối tượng đích</a></li>
+  <li><a href="#tiêu-chuẩn-kiểm-bản-nháp" id="toc-tiêu-chuẩn-kiểm-bản-nháp" class="nav-link" data-scroll-target="#tiêu-chuẩn-kiểm-bản-nháp">3. Tiêu chuẩn kiểm bản nháp</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="vì-sao-đồ-thị-hàm-số-được-vẽ-bằng-hai-trục-vuông-góc" class="level1">
+<h1>VÌ SAO ĐỒ THỊ HÀM SỐ ĐƯỢC VẼ BẰNG HAI TRỤC VUÔNG GÓC?</h1>
+<section id="kịch-bản-hoạt-ảnh" class="level3">
+<h3 class="anchored" data-anchor-id="kịch-bản-hoạt-ảnh">KỊCH BẢN HOẠT ẢNH</h3>
+</section>
+<section id="nguyên-tắc-dựng-cho-video-này" class="level2">
+<h2 class="anchored" data-anchor-id="nguyên-tắc-dựng-cho-video-này">0. Nguyên tắc dựng cho video này</h2>
+<p>Hoạt ảnh không minh họa lại từng câu lời dẫn.</p>
+<p>Hoạt ảnh dựng một con đường nhìn thấy được: từ bảng số, đến mốc <span class="math inline">\(x\)</span>, đến đoạn biểu diễn <span class="math inline">\(y\)</span>, đến điểm <span class="math inline">\((x,y)\)</span>, đến đường cong, rồi đến hệ hai trục vuông góc.</p>
+<p>Trong phần kiến tạo, đối tượng nào chưa có lý do thì chưa xuất hiện.</p>
+<p>Vì vậy:</p>
+<ul>
+<li><p>C01 được phép cho thấy hình ảnh đồ thị quen thuộc như một hình ảnh cần đặt lại câu hỏi.</p></li>
+<li><p>Từ C02 trở đi, sau khi quay về tình huống chưa có hình vẽ, đồ thị hoàn chỉnh không được hiện sẵn.</p></li>
+<li><p>C02 chưa có trục.</p></li>
+<li><p>C03 mới có trục x.</p></li>
+<li><p>C04 mới có điểm và đường cong.</p></li>
+<li><p>C05 mới có trục y và gốc chung.</p></li>
+<li><p>C06 mới gọi lại đồ thị như hình ảnh tổng thể của sự biến thiên.</p></li>
+</ul>
+<p>Mọi chữ văn bản trên màn hình viết in hoa.<br>
+Công thức toán học giữ hình thức toán học riêng, viết bằng LaTeX.</p>
+<p>Dữ liệu dùng trong toàn video:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x_values <span class="op">=</span> [<span class="op">-</span><span class="fl">2.5</span>, <span class="op">-</span><span class="fl">2.0</span>, <span class="op">-</span><span class="fl">1.5</span>, <span class="op">-</span><span class="fl">1.0</span>, <span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0.0</span>, <span class="fl">0.5</span>, <span class="fl">1.0</span>, <span class="fl">1.5</span>, <span class="fl">2.0</span>, <span class="fl">2.5</span>]</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>y_values <span class="op">=</span> [<span class="op">-</span><span class="fl">8.125</span>, <span class="op">-</span><span class="fl">2.0</span>, <span class="fl">1.125</span>, <span class="fl">2.0</span>, <span class="fl">1.375</span>, <span class="fl">0.0</span>, <span class="op">-</span><span class="fl">1.375</span>, <span class="op">-</span><span class="fl">2.0</span>, <span class="op">-</span><span class="fl">1.125</span>, <span class="fl">2.0</span>, <span class="fl">8.125</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Màu gợi ý theo vai trò cục bộ:</p>
+<pre class="text"><code>COLOR_PRIMARY   = nội dung chính, công thức, điểm đang xét
+COLOR_SECONDARY = nội dung phụ còn rõ
+COLOR_MUTED     = nhãn phụ, số cảnh, ghi chú
+COLOR_GUIDE     = đường phụ, khung, mốc
+COLOR_FAINT     = phần đã lùi, dữ liệu nền</code></pre>
+<p>Màu nhấn chỉ có nghĩa trong video này.<br>
+Không xem các màu trên là quy ước vĩnh viễn cho mọi bài.</p>
+</section>
+<section id="c01.-tự-vấn" class="level2">
+<h2 class="anchored" data-anchor-id="c01.-tự-vấn">C01. TỰ VẤN</h2>
+<section id="mục-tiêu-hoạt-ảnh" class="level3">
+<h3 class="anchored" data-anchor-id="mục-tiêu-hoạt-ảnh">Mục tiêu hoạt ảnh</h3>
+<p>Biến hình ảnh đồ thị quen thuộc thành một vấn đề cần được hiểu.</p>
+<p>Cảnh này được phép hiện các đồ thị quen thuộc vì lời dẫn bắt đầu từ điều đã quá quen. Nhưng các đồ thị ấy chỉ giữ vai trò đối tượng bị chất vấn, không phải kết quả được kiến tạo.</p>
+<p>Hình ảnh mở đầu là một tấm bảng nhỏ gồm nhiều đồ thị khác nhau. Chúng khác nhau về đường biểu diễn, nhưng đều chia sẻ một cấu trúc quen thuộc: khung vẽ, trục ngang, trục dọc, và một đường nằm trên hệ trục ấy.</p>
+<p>Cuối cảnh, toàn bộ hình ảnh quen thuộc phải được xóa khỏi màn hình để chuẩn bị quay về tình huống ban đầu: chỉ còn hàm số, giá trị <span class="math inline">\(x\)</span>, giá trị <span class="math inline">\(y\)</span>.</p>
+</section>
+<section id="khung-định-danh-cảnh" class="level3">
+<h3 class="anchored" data-anchor-id="khung-định-danh-cảnh">Khung định danh cảnh</h3>
+<pre class="text"><code>01
+TỰ VẤN</code></pre>
+<p>Số <code>01</code> dùng <code>FONT_SIZE_LABEL</code>, màu <code>COLOR_MUTED</code>. Tên cảnh dùng <code>FONT_SIZE_TITLE</code>, màu <code>COLOR_PRIMARY</code>.</p>
+<p>Âm thanh: <code>whoosh</code> rất nhẹ khi khung định danh hiện ra.</p>
+</section>
+<section id="đối-tượng-được-phép-xuất-hiện" class="level3">
+<h3 class="anchored" data-anchor-id="đối-tượng-được-phép-xuất-hiện">Đối tượng được phép xuất hiện</h3>
+<pre class="text"><code>một tấm bảng 3 × 3 gồm các đồ thị quen thuộc
+các khung vuông nhỏ
+các trục ngang và trục dọc trong mỗi khung
+các đường biểu diễn hàm số khác nhau
+câu hỏi chính
+công thức y = x^3 - 3x
+một cụm số rời rạc gợi sự khó nhìn</code></pre>
+</section>
+<section id="đối-tượng-chưa-được-phép-giữ-lại-sau-cảnh" class="level3">
+<h3 class="anchored" data-anchor-id="đối-tượng-chưa-được-phép-giữ-lại-sau-cảnh">Đối tượng chưa được phép giữ lại sau cảnh</h3>
+<pre class="text"><code>tấm bảng 3 × 3 các đồ thị
+hệ trục hoàn chỉnh
+đường cong hoàn chỉnh
+định nghĩa đồ thị
+các điểm (x,y) như đối tượng đã kiến tạo</code></pre>
+</section>
+<section id="diễn-tiến-hoạt-ảnh" class="level3">
+<h3 class="anchored" data-anchor-id="diễn-tiến-hoạt-ảnh">Diễn tiến hoạt ảnh</h3>
+<section id="pha-1.-tấm-bảng-các-đồ-thị-quen-thuộc-xuất-hiện" class="level4">
+<h4 class="anchored" data-anchor-id="pha-1.-tấm-bảng-các-đồ-thị-quen-thuộc-xuất-hiện">Pha 1. Tấm bảng các đồ thị quen thuộc xuất hiện</h4>
+<p>Trên nền tối, một ô đồ thị nhỏ xuất hiện ở giữa màn hình.</p>
+<p>Trong ô ấy, một khung vuông mảnh được dựng lên. Bên trong khung, một trục ngang và một trục dọc xuất hiện, cắt nhau tại trung tâm. Một đường biểu diễn đơn giản được vẽ vào trong ô.</p>
+<p>Ô đầu tiên lùi về vị trí của nó trong một lưới <code>3 × 3</code>.</p>
+<p>Tám ô còn lại lần lượt xuất hiện. Mỗi ô có cùng cấu trúc:</p>
+<pre class="text"><code>KHUNG VUÔNG
+HAI TRỤC VUÔNG GÓC
+MỘT ĐƯỜNG BIỂU DIỄN</code></pre>
+<p>Các đường biểu diễn có hình dạng khác nhau: đường hằng (<span class="math inline">\(y=1\)</span>), đường thẳng (<span class="math inline">\(y=x\)</span>), parabol (<span class="math inline">\(y=x^2\)</span>), đường bậc ba (<span class="math inline">\(y=\frac{1}{3}x^3-x\)</span>), đường bậc bốn (<span class="math inline">\(y=\frac{1}{4}x^4 - \frac{1}{2}x^2\)</span>), hyperbol (<span class="math inline">\(y=\frac{1}{x}\)</span> và <span class="math inline">\(y=x+\frac{1}{x}\)</span>), hàm mũ (<span class="math inline">\(y=e^x\)</span>), logarit (<span class="math inline">\(y=\ln(x)\)</span>).</p>
+<p>Không giải thích từng hàm. Không ghi công thức cho từng ô. Không yêu cầu người xem đọc từng đồ thị.</p>
+<p>Khi đủ 9 ô, toàn bộ lưới được giữ lại trong một nhịp ngắn. Người xem thấy nhiều đồ thị khác nhau, nhưng tất cả đều chia sẻ cùng một hình thức quen thuộc: hai trục vuông góc và một đường biểu diễn.</p>
+<p>Chữ trên màn hình:</p>
+<pre class="text"><code>MỘT HÌNH ẢNH QUÁ QUEN</code></pre>
+<p>Chữ đặt thấp, nhỏ, màu <code>COLOR_MUTED</code>.</p>
+<p>Hoạt ảnh tương ứng với C01-01 và C01-02.</p>
+</section>
+<section id="pha-2.-mẫu-số-chung-của-các-đồ-thị-được-làm-nổi" class="level4">
+<h4 class="anchored" data-anchor-id="pha-2.-mẫu-số-chung-của-các-đồ-thị-được-làm-nổi">Pha 2. Mẫu số chung của các đồ thị được làm nổi</h4>
+<p>Toàn bộ lưới <code>3 × 3</code> hơi mờ xuống.</p>
+<p>Một ô ở giữa, hoặc một ô đại diện, được giữ sáng hơn. Trong ô ấy, trục ngang được nhấn nhẹ. Sau đó trục dọc được nhấn nhẹ. Cuối cùng đường biểu diễn được nhấn nhẹ.</p>
+<p>Các chữ ngắn xuất hiện lần lượt, không hiện cùng lúc:</p>
+<pre class="text"><code>MỘT TRỤC NGANG
+MỘT TRỤC DỌC
+HAI TRỤC VUÔNG GÓC
+MỘT ĐƯỜNG CONG</code></pre>
+<p>Sau mỗi dòng, chữ mờ xuống để nhường chỗ cho dòng tiếp theo.</p>
+<p>Mục đích của pha này không phải giải thích. Pha này chỉ gom sự chú ý vào điều quá quen: hễ nói đến đồ thị hàm số, ta thường hình dung ngay một hệ trục vuông góc và một đường nằm trên đó.</p>
+<p>Hoạt ảnh tương ứng với C01-01 và C01-02.</p>
+</section>
+<section id="pha-3.-điều-quen-thuộc-bị-làm-chậm-lại" class="level4">
+<h4 class="anchored" data-anchor-id="pha-3.-điều-quen-thuộc-bị-làm-chậm-lại">Pha 3. Điều quen thuộc bị làm chậm lại</h4>
+<p>Tấm bảng 9 đồ thị lùi xuống độ mờ.</p>
+<p>Các cụm chữ lần lượt hiện ở xung quanh, không chen dày:</p>
+<pre class="text"><code>THẦY CÔ VẼ NHƯ VẬY
+SÁCH GIÁO KHOA VẼ NHƯ VẬY
+BÀI GIẢI CŨNG VẼ NHƯ VẬY</code></pre>
+<p>Sau đó ba cụm chữ mờ đi.</p>
+<p>Ở giữa màn hình hiện câu:</p>
+<pre class="text"><code>QUEN KHÔNG CÓ NGHĨA LÀ ĐÃ HIỂU</code></pre>
+<p>Âm thanh: <code>typing</code> nhẹ cho câu chính. Không dùng <code>hit</code>.</p>
+<p>Hoạt ảnh tương ứng với C01-02 và C01-03.</p>
+</section>
+<section id="pha-4.-thủ-tục-được-tách-thành-ba-bước" class="level4">
+<h4 class="anchored" data-anchor-id="pha-4.-thủ-tục-được-tách-thành-ba-bước">Pha 4. Thủ tục được tách thành ba bước</h4>
+<p>Tấm bảng 9 đồ thị biến mất dần.</p>
+<p>Hiện ba dòng chữ theo cột dọc:</p>
+<pre class="text"><code>LẬP BẢNG GIÁ TRỊ
+CHẤM VÀI ĐIỂM
+NỐI THÀNH ĐƯỜNG CONG</code></pre>
+<p>Mỗi dòng hiện ra bằng <code>play_type_text()</code>.</p>
+<p>Sau khi hiện đủ, cả ba dòng bị đặt trong một khung mờ với nhãn:</p>
+<pre class="text"><code>THỦ TỤC</code></pre>
+<p>Khung này không nổi mạnh. Nó chỉ cho thấy: nếu không hỏi vì sao, đồ thị dễ bị hiểu như một chuỗi thao tác quen tay.</p>
+<p>Hoạt ảnh tương ứng với C01-03.</p>
+</section>
+<section id="pha-5.-câu-hỏi-chính" class="level4">
+<h4 class="anchored" data-anchor-id="pha-5.-câu-hỏi-chính">Pha 5. Câu hỏi chính</h4>
+<p>Khung <code>THỦ TỤC</code> lùi xuống.</p>
+<p>Ba câu hỏi hiện lần lượt, mỗi câu một nhịp:</p>
+<pre class="text"><code>VÌ SAO TA LẠI LÀM NHƯ VẬY?
+VÌ SAO PHẢI CÓ HAI TRỤC?
+VÌ SAO HAI TRỤC ẤY LẠI VUÔNG GÓC?</code></pre>
+<p>Câu thứ ba dùng <code>FONT_SIZE_TITLE</code> hoặc <code>FONT_SIZE_EMPHASIS * 0.75</code>. Màu ưu tiên <code>COLOR_PRIMARY</code>. Chỉ dùng <code>COLOR_ZO_RED</code> nếu muốn đánh dấu đây là câu hỏi trung tâm của toàn video.</p>
+<p>Âm thanh: <code>hit</code> rất nhẹ ở câu hỏi thứ ba.</p>
+<p>Hoạt ảnh tương ứng với C01-04 và C01-05.</p>
+</section>
+<section id="pha-6.-xóa-hình-quen-thuộc-quay-về-dữ-liệu-ban-đầu" class="level4">
+<h4 class="anchored" data-anchor-id="pha-6.-xóa-hình-quen-thuộc-quay-về-dữ-liệu-ban-đầu">Pha 6. Xóa hình quen thuộc, quay về dữ liệu ban đầu</h4>
+<p>Toàn bộ câu hỏi mờ đi.</p>
+<p>Màn hình trở về trạng thái sạch.</p>
+<p>Ở giữa màn hình hiện công thức:</p>
+<p><span class="math display">\[
+y = x^3 - 3x
+\]</span></p>
+<p>Bên dưới công thức, các giá trị <span class="math inline">\(x\)</span> rời rạc xuất hiện như một hàng số:</p>
+<pre class="text"><code>-2.5  -2.0  -1.5  ...  2.5</code></pre>
+<p>Chưa có trục. Chưa có bảng đầy đủ. Chưa có điểm. Chưa có đường cong.</p>
+<p>Chỉ là các con số đặt trên màn hình.</p>
+<p>Sau đó, một vài giá trị <span class="math inline">\(y\)</span> tương ứng xuất hiện rải rác, chưa tổ chức thành bảng hoàn chỉnh. Các con số đủ nhiều để tạo cảm giác khó nhìn, nhưng không dày đến mức người xem phải đọc chúng.</p>
+<p>Chữ kết cảnh:</p>
+<pre class="text"><code>CẦN NHÌN THẤY Y THAY ĐỔI KHI X THAY ĐỔI</code></pre>
+<p>Cuối cảnh, các số rời rạc mờ đi một phần, chỉ giữ lại cảm giác rằng bảng số sắp được hình thành ở cảnh sau.</p>
+<p>Hoạt ảnh tương ứng với C01-06 đến C01-08.</p>
+</section>
+</section>
+<section id="chữ-trên-màn-hình" class="level3">
+<h3 class="anchored" data-anchor-id="chữ-trên-màn-hình">Chữ trên màn hình</h3>
+<pre class="text"><code>MỘT HÌNH ẢNH QUÁ QUEN
+MỘT TRỤC NGANG
+MỘT TRỤC DỌC
+HAI TRỤC VUÔNG GÓC
+MỘT ĐƯỜNG CONG
+QUEN KHÔNG CÓ NGHĨA LÀ ĐÃ HIỂU
+THỦ TỤC
+VÌ SAO TA LẠI LÀM NHƯ VẬY?
+VÌ SAO PHẢI CÓ HAI TRỤC?
+VÌ SAO HAI TRỤC ẤY LẠI VUÔNG GÓC?
+CẦN NHÌN THẤY Y THAY ĐỔI KHI X THAY ĐỔI</code></pre>
+</section>
+<section id="âm-thanh" class="level3">
+<h3 class="anchored" data-anchor-id="âm-thanh">Âm thanh</h3>
+<pre class="text"><code>whoosh = hiện tấm bảng đồ thị quen thuộc, chuyển sang dữ liệu ban đầu
+typing = các câu hỏi và câu kết cảnh
+hit    = câu hỏi chính cuối cùng</code></pre>
+<p>Âm thanh dùng rất nhẹ. Không tạo cảm giác mở màn kịch tính.</p>
+</section>
+<section id="ghi-chú-manim" class="level3">
+<h3 class="anchored" data-anchor-id="ghi-chú-manim">Ghi chú Manim</h3>
+<p>Helper dự kiến:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>clear_screen()</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>make_text()</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>make_text_block()</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>make_math()</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>make_frame()</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>play_type_text()</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>play_focus()</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>play_dim()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Đối tượng gợi ý:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>graph_gallery</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>graph_cell</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>cell_frame</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>cell_axes</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>cell_curve</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>representative_graph</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>procedure_steps</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>procedure_frame</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>main_questions</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>formula_tex</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>raw_x_values</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>raw_y_values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Cấu trúc tấm bảng gợi ý:</p>
+<pre class="text"><code>graph_gallery = lưới 3 × 3
+
+mỗi graph_cell gồm:
+- cell_frame
+- cell_axes
+- cell_curve</code></pre>
+<p>Các đồ thị trong <code>graph_gallery</code> không cần chính xác tuyệt đối như một bài khảo sát hàm số. Chúng chỉ cần gợi đúng các hình quen thuộc: hằng, tuyến tính, parabol, bậc ba, bậc bốn, phân thức, mũ, logarit.</p>
+<p>Điều quan trọng là mọi ô đều chia sẻ cùng một hình thức thị giác: khung nhỏ, hai trục vuông góc, một đường biểu diễn.</p>
+<p>Sau C01, không dùng lại <code>graph_gallery</code>. Từ C02 trở đi, toàn bộ hình ảnh phải được kiến tạo lại từ dữ liệu ban đầu.</p>
+</section>
+</section>
+<section id="c02.-biến-đầu-vào-x-và-biến-phụ-thuộc-y" class="level2">
+<h2 class="anchored" data-anchor-id="c02.-biến-đầu-vào-x-và-biến-phụ-thuộc-y">C02. BIẾN ĐẦU VÀO X VÀ BIẾN PHỤ THUỘC Y</h2>
+<section id="mục-tiêu-hoạt-ảnh-1" class="level3">
+<h3 class="anchored" data-anchor-id="mục-tiêu-hoạt-ảnh-1">Mục tiêu hoạt ảnh</h3>
+<p>Đặt người xem vào tình huống ban đầu: có một công thức, có các giá trị <span class="math inline">\(x\)</span> được chọn, và có các giá trị <span class="math inline">\(y\)</span> được trả lại.</p>
+<p>Cảnh này làm rõ hai vai trò:</p>
+<pre class="text"><code>X = GIÁ TRỊ ĐƯA VÀO
+Y = GIÁ TRỊ TRẢ LẠI</code></pre>
+<p>Từ bảng số, cảnh làm xuất hiện nhu cầu nhìn thấy sự phụ thuộc của <span class="math inline">\(y\)</span> vào <span class="math inline">\(x\)</span> rõ hơn.</p>
+</section>
+<section id="khung-định-danh-cảnh-1" class="level3">
+<h3 class="anchored" data-anchor-id="khung-định-danh-cảnh-1">Khung định danh cảnh</h3>
+<pre class="text"><code>02
+BIẾN ĐẦU VÀO X VÀ BIẾN PHỤ THUỘC Y</code></pre>
+</section>
+<section id="đối-tượng-được-phép-xuất-hiện-1" class="level3">
+<h3 class="anchored" data-anchor-id="đối-tượng-được-phép-xuất-hiện-1">Đối tượng được phép xuất hiện</h3>
+<pre class="text"><code>công thức y = x^3 - 3x
+một khung quy tắc / máy hàm số
+một hàng giá trị x
+một bảng hai cột x và y
+mũi tên biểu thị đưa vào và trả lại
+dấu nhấn cho các đoạn tăng, giảm, tăng của y</code></pre>
+</section>
+<section id="đối-tượng-chưa-được-phép-hiện" class="level3">
+<h3 class="anchored" data-anchor-id="đối-tượng-chưa-được-phép-hiện">Đối tượng chưa được phép hiện</h3>
+<pre class="text"><code>trục x
+trục y
+mặt phẳng tọa độ
+điểm (x,y)
+đường cong</code></pre>
+</section>
+<section id="diễn-tiến-hoạt-ảnh-1" class="level3">
+<h3 class="anchored" data-anchor-id="diễn-tiến-hoạt-ảnh-1">Diễn tiến hoạt ảnh</h3>
+<section id="pha-1.-công-thức-như-một-quy-tắc" class="level4">
+<h4 class="anchored" data-anchor-id="pha-1.-công-thức-như-một-quy-tắc">Pha 1. Công thức như một quy tắc</h4>
+<p>Hiện công thức ở trung tâm:</p>
+<p><span class="math display">\[
+y = x^3 - 3x
+\]</span></p>
+<p>Sau đó công thức được đặt trong một khung mờ như một “quy tắc”.</p>
+<p>Bên trái khung hiện:</p>
+<pre class="text"><code>X ĐƯA VÀO</code></pre>
+<p>Bên phải khung hiện:</p>
+<pre class="text"><code>Y TRẢ LẠI</code></pre>
+<p>Một giá trị <span class="math inline">\(x\)</span> mẫu đi từ trái vào khung.<br>
+Một giá trị <span class="math inline">\(y\)</span> tương ứng đi ra bên phải.</p>
+<p>Không cần dùng hình máy móc vui nhộn.<br>
+Chỉ dùng khung, mũi tên, công thức.</p>
+<p>Hoạt ảnh tương ứng với C02-01 đến C02-04.</p>
+</section>
+<section id="pha-2.-so-sánh-với-thời-điểm-và-nhiệt-độ" class="level4">
+<h4 class="anchored" data-anchor-id="pha-2.-so-sánh-với-thời-điểm-và-nhiệt-độ">Pha 2. So sánh với thời điểm và nhiệt độ</h4>
+<p>Công thức lùi xuống.</p>
+<p>Hiện một hàng thời điểm:</p>
+<pre class="text"><code>6 GIỜ   7 GIỜ   8 GIỜ   9 GIỜ</code></pre>
+<p>Bên dưới, hiện các chấm nhiệt độ không đều nhau về độ cao, nhưng chưa dựng trục.</p>
+<p>Chữ:</p>
+<pre class="text"><code>THỜI ĐIỂM ĐƯỢC CHỌN
+NHIỆT ĐỘ ĐƯỢC ĐO</code></pre>
+<p>Hai dòng này giúp người xem cảm vai trò chọn và nhận.</p>
+<p>Sau đó toàn bộ ví dụ nhiệt độ mờ đi để quay về hàm số.</p>
+<p>Hoạt ảnh tương ứng với C02-03.</p>
+</section>
+<section id="pha-3.-chọn-các-giá-trị-x" class="level4">
+<h4 class="anchored" data-anchor-id="pha-3.-chọn-các-giá-trị-x">Pha 3. Chọn các giá trị x</h4>
+<p>Hiện một hàng số nằm giữa màn hình, chưa phải trục:</p>
+<pre class="text"><code>-2.5  -2.0  -1.5  -1.0  -0.5  0  0.5  1.0  1.5  2.0  2.5</code></pre>
+<p>Một nhịp đều được gợi bằng khoảng cách đều giữa các số.</p>
+<p>Chữ nhỏ phía trên:</p>
+<pre class="text"><code>MỖI LẦN TĂNG 0.5</code></pre>
+<p>Các số <span class="math inline">\(x\)</span> dùng màu <code>COLOR_ZO_TEAL</code> hoặc <code>COLOR_PRIMARY</code>.</p>
+<p>Hoạt ảnh tương ứng với C02-05 và C02-06.</p>
+</section>
+<section id="pha-4.-tạo-bảng-giá-trị" class="level4">
+<h4 class="anchored" data-anchor-id="pha-4.-tạo-bảng-giá-trị">Pha 4. Tạo bảng giá trị</h4>
+<p>Hàng số <span class="math inline">\(x\)</span> chuyển thành cột trái của bảng.</p>
+<p>Cột phải được điền dần từng giá trị <span class="math inline">\(y\)</span>:</p>
+<pre class="text"><code>x       y
+-2.5   -8.125
+-2.0   -2
+-1.5    1.125
+-1.0    2
+-0.5    1.375
+ 0      0
+ 0.5   -1.375
+ 1.0   -2
+ 1.5   -1.125
+ 2.0    2
+ 2.5    8.125</code></pre>
+<p>Không cần hiện tất cả dòng quá lớn.<br>
+Có thể dùng bảng gọn, chia hai nửa, hoặc hiển thị 11 dòng với cỡ <code>FONT_SIZE_DETAIL</code>/<code>FONT_SIZE_LABEL</code>.</p>
+<p>Âm thanh: <code>typing</code> rất nhẹ khi bảng được điền.</p>
+<p>Hoạt ảnh tương ứng với C02-07.</p>
+</section>
+<section id="pha-5.-cột-x-đều-cột-y-không-đều" class="level4">
+<h4 class="anchored" data-anchor-id="pha-5.-cột-x-đều-cột-y-không-đều">Pha 5. Cột x đều, cột y không đều</h4>
+<p>Cột <span class="math inline">\(x\)</span> được quét nhẹ từ trên xuống, nhấn nhịp đều.</p>
+<p>Chữ:</p>
+<pre class="text"><code>X ĐI ĐỀU</code></pre>
+<p>Sau đó cột <span class="math inline">\(y\)</span> được nhấn theo ba đoạn:</p>
+<pre class="text"><code>TĂNG
+GIẢM
+TĂNG</code></pre>
+<p>Các nhóm dòng được đóng khung nhẹ:</p>
+<pre class="text"><code>x: -2.5 → -1      y: -8.125 → 2
+x: -1 → 1         y: 2 → -2
+x: 1 → 2.5        y: -2 → 8.125</code></pre>
+<p>Không vẽ đường cong.<br>
+Chỉ cho thấy bảng bắt đầu khó đọc nếu muốn thấy xu hướng.</p>
+<p>Hoạt ảnh tương ứng với C02-08 đến C02-10.</p>
+</section>
+<section id="pha-6.-nhu-cầu-biểu-diễn-khác" class="level4">
+<h4 class="anchored" data-anchor-id="pha-6.-nhu-cầu-biểu-diễn-khác">Pha 6. Nhu cầu biểu diễn khác</h4>
+<p>Bảng hơi dày lên: các dòng số lặp bóng mờ hoặc tăng độ rối nhẹ.</p>
+<p>Ở giữa hiện câu kết cảnh:</p>
+<pre class="text"><code>BẢNG CHÍNH XÁC
+NHƯNG CHƯA CHO THẤY DÁNG ĐIỆU BIẾN THIÊN</code></pre>
+<p>Sau đó hiện câu:</p>
+<pre class="text"><code>CẦN MỘT CÁCH BIỂU DIỄN KHÁC</code></pre>
+<p>Câu cuối là cầu nối sang C03.</p>
+<p>Hoạt ảnh tương ứng với C02-11 và C02-12.</p>
+</section>
+</section>
+<section id="chữ-trên-màn-hình-1" class="level3">
+<h3 class="anchored" data-anchor-id="chữ-trên-màn-hình-1">Chữ trên màn hình</h3>
+<pre class="text"><code>X ĐƯA VÀO
+Y TRẢ LẠI
+THỜI ĐIỂM ĐƯỢC CHỌN
+NHIỆT ĐỘ ĐƯỢC ĐO
+MỖI LẦN TĂNG 0.5
+X ĐI ĐỀU
+Y KHÔNG ĐI ĐỀU
+BẢNG CHÍNH XÁC
+NHƯNG CHƯA CHO THẤY DÁNG ĐIỆU BIẾN THIÊN
+CẦN MỘT CÁCH BIỂU DIỄN KHÁC</code></pre>
+</section>
+<section id="âm-thanh-1" class="level3">
+<h3 class="anchored" data-anchor-id="âm-thanh-1">Âm thanh</h3>
+<pre class="text"><code>typing = điền bảng
+tick   = mỗi lần nhấn một dòng hoặc một nhóm giá trị
+whoosh = chuyển từ công thức sang bảng, từ bảng sang nhu cầu</code></pre>
+</section>
+<section id="ghi-chú-manim-1" class="level3">
+<h3 class="anchored" data-anchor-id="ghi-chú-manim-1">Ghi chú Manim</h3>
+<p>Helper dự kiến:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>make_math()</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>make_text()</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>make_text_block()</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>make_frame()</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>play_type_text()</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>play_scan_once()</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>play_focus()</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>play_dim()</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>fit_to_width()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Đối tượng gợi ý:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>function_rule_frame</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>input_label</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>output_label</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>x_value_row</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>value_table</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>x_column</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>y_column</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>increase_group_left</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>decrease_group_middle</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>increase_group_right</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>need_for_representation</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="c03.-trục-thứ-nhất-x" class="level2">
+<h2 class="anchored" data-anchor-id="c03.-trục-thứ-nhất-x">C03. TRỤC THỨ NHẤT: X</h2>
+<section id="mục-tiêu-hoạt-ảnh-2" class="level3">
+<h3 class="anchored" data-anchor-id="mục-tiêu-hoạt-ảnh-2">Mục tiêu hoạt ảnh</h3>
+<p>Bắt đầu chuyển bảng số thành cấu trúc hình học.</p>
+<p>Cảnh này chỉ được dựng <strong>trục thứ nhất</strong> và các đoạn biểu diễn <span class="math inline">\(y\)</span> tại từng mốc <span class="math inline">\(x\)</span>.</p>
+<p>Trục <span class="math inline">\(y\)</span> chưa xuất hiện.<br>
+Đường cong chưa xuất hiện.<br>
+Điểm <span class="math inline">\((x,y)\)</span> chưa được gọi tên như điểm trên hệ trục hoàn chỉnh.</p>
+</section>
+<section id="khung-định-danh-cảnh-2" class="level3">
+<h3 class="anchored" data-anchor-id="khung-định-danh-cảnh-2">Khung định danh cảnh</h3>
+<pre class="text"><code>03
+TRỤC THỨ NHẤT: X</code></pre>
+</section>
+<section id="đối-tượng-được-phép-xuất-hiện-2" class="level3">
+<h3 class="anchored" data-anchor-id="đối-tượng-được-phép-xuất-hiện-2">Đối tượng được phép xuất hiện</h3>
+<pre class="text"><code>hàng giá trị x
+đường ngang
+các mốc x trên đường ngang
+các đoạn thẳng đứng biểu diễn y
+nhãn x
+nhãn y cục bộ trên vài đoạn</code></pre>
+</section>
+<section id="đối-tượng-chưa-được-phép-hiện-1" class="level3">
+<h3 class="anchored" data-anchor-id="đối-tượng-chưa-được-phép-hiện-1">Đối tượng chưa được phép hiện</h3>
+<pre class="text"><code>trục y
+đường cong
+hệ trục tọa độ hoàn chỉnh
+định nghĩa đồ thị</code></pre>
+</section>
+<section id="diễn-tiến-hoạt-ảnh-2" class="level3">
+<h3 class="anchored" data-anchor-id="diễn-tiến-hoạt-ảnh-2">Diễn tiến hoạt ảnh</h3>
+<section id="pha-1.-từ-cột-x-sang-thứ-tự-ngang" class="level4">
+<h4 class="anchored" data-anchor-id="pha-1.-từ-cột-x-sang-thứ-tự-ngang">Pha 1. Từ cột x sang thứ tự ngang</h4>
+<p>Cột <span class="math inline">\(x\)</span> trong bảng được tách ra khỏi bảng.</p>
+<p>Các giá trị <span class="math inline">\(x\)</span> di chuyển từ dạng cột sang một hàng ngang.</p>
+<p>Chưa có đường.<br>
+Chỉ có các số được sắp từ trái sang phải.</p>
+<p>Sau đó một đường ngang mảnh được vẽ qua các số.<br>
+Các số trở thành mốc trên đường ấy.</p>
+<p>Chữ:</p>
+<pre class="text"><code>GIỮ LẠI THỨ TỰ CỦA X</code></pre>
+<p>Hoạt ảnh tương ứng với C03-01 và C03-02.</p>
+</section>
+<section id="pha-2.-đường-ngang-được-gọi-là-trục-x" class="level4">
+<h4 class="anchored" data-anchor-id="pha-2.-đường-ngang-được-gọi-là-trục-x">Pha 2. Đường ngang được gọi là trục x</h4>
+<p>Đường ngang sáng hơn một chút.</p>
+<p>Nhãn nhỏ hiện bên phải:</p>
+<pre class="text"><code>X</code></pre>
+<p>Chữ trên màn hình:</p>
+<pre class="text"><code>TRỤC X</code></pre>
+<p>Từ các mốc đã chọn, hiện thêm vài mốc mờ ở giữa để gợi rằng giữa các giá trị đã chọn còn nhiều giá trị khác.</p>
+<p>Không làm dày quá.<br>
+Chỉ gợi bằng các vạch nhỏ mờ.</p>
+<p>Hoạt ảnh tương ứng với C03-03.</p>
+</section>
+<section id="pha-3.-câu-hỏi-tại-từng-mốc-x" class="level4">
+<h4 class="anchored" data-anchor-id="pha-3.-câu-hỏi-tại-từng-mốc-x">Pha 3. Câu hỏi tại từng mốc x</h4>
+<p>Ở vài mốc <span class="math inline">\(x\)</span>, hiện dấu hỏi nhỏ phía trên hoặc ngay gần mốc:</p>
+<pre class="text"><code>Y = ?</code></pre>
+<p>Các dấu hỏi hiện lần lượt từ trái sang phải.</p>
+<p>Ý nghĩa: tại mỗi mốc <span class="math inline">\(x\)</span>, công thức cần trả lại một giá trị <span class="math inline">\(y\)</span>.</p>
+<p>Hoạt ảnh tương ứng với C03-04.</p>
+</section>
+<section id="pha-4.-dựng-các-đoạn-biểu-diễn-y" class="level4">
+<h4 class="anchored" data-anchor-id="pha-4.-dựng-các-đoạn-biểu-diễn-y">Pha 4. Dựng các đoạn biểu diễn y</h4>
+<p>Từ từng mốc <span class="math inline">\(x\)</span>, dựng một đoạn thẳng đứng.</p>
+<p>Nếu <span class="math inline">\(y&gt;0\)</span>, đoạn đi lên.<br>
+Nếu <span class="math inline">\(y&lt;0\)</span>, đoạn đi xuống.<br>
+Nếu <span class="math inline">\(y=0\)</span>, chỉ hiện một chấm hoặc vạch ngắn ngay trên đường ngang.</p>
+<p>Các đoạn có độ dài theo tỉ lệ <span class="math inline">\(y\)</span> nhưng được scale để vừa màn hình.</p>
+<p>Nên dựng theo <code>LaggedStart</code>, từ trái sang phải, nhịp chậm.</p>
+<p>Màu gợi ý:</p>
+<pre class="text"><code>đường ngang / mốc x = COLOR_ZO_TEAL hoặc COLOR_PRIMARY
+đoạn y = COLOR_ZO_YELLOW hoặc COLOR_SECONDARY</code></pre>
+<p>Hoạt ảnh tương ứng với C03-05 và C03-06.</p>
+</section>
+<section id="pha-5.-phương-dọc-giữ-nguyên-vị-trí-x" class="level4">
+<h4 class="anchored" data-anchor-id="pha-5.-phương-dọc-giữ-nguyên-vị-trí-x">Pha 5. Phương dọc giữ nguyên vị trí x</h4>
+<p>Chọn một mốc <span class="math inline">\(x\)</span> cụ thể, ví dụ <span class="math inline">\(x=1\)</span>.</p>
+<p>Làm sáng mốc ấy và đoạn <span class="math inline">\(y\)</span> của nó.</p>
+<p>Một đường phụ mờ kéo dọc qua mốc đó, nhấn rằng đoạn đi lên/xuống không làm lệch vị trí ngang.</p>
+<p>Chữ:</p>
+<pre class="text"><code>THAY ĐỔI ĐỘ CAO
+NHƯNG GIỮ NGUYÊN MỐC X</code></pre>
+<p>Hoạt ảnh tương ứng với C03-07 và C03-08.</p>
+</section>
+<section id="pha-6.-vì-sao-không-dùng-phương-xiên" class="level4">
+<h4 class="anchored" data-anchor-id="pha-6.-vì-sao-không-dùng-phương-xiên">Pha 6. Vì sao không dùng phương xiên</h4>
+<p>Trong một khoảnh khắc ngắn, tại một mốc <span class="math inline">\(x\)</span>, hiện vài phương xiên mờ khác nhau.</p>
+<p>Các phương xiên này hiện rất nhẹ rồi mờ đi.</p>
+<p>Chữ:</p>
+<pre class="text"><code>PHƯƠNG XIÊN TẠO THÊM LỰA CHỌN TÙY TIỆN</code></pre>
+<p>Sau đó chỉ giữ lại phương thẳng đứng.</p>
+<p>Không biến đoạn này thành tranh luận hình học phức tạp.<br>
+Chỉ cần làm rõ: phương vuông góc là lựa chọn ổn định vì nó giữ mốc <span class="math inline">\(x\)</span>.</p>
+<p>Hoạt ảnh tương ứng với C03-09 và C03-10.</p>
+</section>
+<section id="pha-7.-bảng-số-đổi-thành-dấu-hiệu-hình-học" class="level4">
+<h4 class="anchored" data-anchor-id="pha-7.-bảng-số-đổi-thành-dấu-hiệu-hình-học">Pha 7. Bảng số đổi thành dấu hiệu hình học</h4>
+<p>Bảng giá trị mờ hiện bên trái như bóng nền.</p>
+<p>Các đoạn thẳng đứng trên trục <span class="math inline">\(x\)</span> hiện ở trung tâm.</p>
+<p>Một vài dòng bảng nối mờ tới các đoạn tương ứng.</p>
+<p>Chữ kết cảnh:</p>
+<pre class="text"><code>MỖI CẶP SỐ BẮT ĐẦU TRỞ THÀNH MỘT DẤU HIỆU HÌNH HỌC</code></pre>
+<p>Hoạt ảnh tương ứng với C03-11 và C03-12.</p>
+</section>
+</section>
+<section id="chữ-trên-màn-hình-2" class="level3">
+<h3 class="anchored" data-anchor-id="chữ-trên-màn-hình-2">Chữ trên màn hình</h3>
+<pre class="text"><code>GIỮ LẠI THỨ TỰ CỦA X
+TRỤC X
+Y = ?
+THAY ĐỔI ĐỘ CAO
+NHƯNG GIỮ NGUYÊN MỐC X
+PHƯƠNG XIÊN TẠO THÊM LỰA CHỌN TÙY TIỆN
+MỖI CẶP SỐ BẮT ĐẦU TRỞ THÀNH MỘT DẤU HIỆU HÌNH HỌC</code></pre>
+</section>
+<section id="âm-thanh-2" class="level3">
+<h3 class="anchored" data-anchor-id="âm-thanh-2">Âm thanh</h3>
+<pre class="text"><code>whoosh = chuyển cột x thành hàng ngang
+tick   = các mốc x xuất hiện
+hit    = khi phương thẳng đứng được giữ lại</code></pre>
+</section>
+<section id="ghi-chú-manim-2" class="level3">
+<h3 class="anchored" data-anchor-id="ghi-chú-manim-2">Ghi chú Manim</h3>
+<p>Helper dự kiến:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>make_text()</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>make_math()</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>make_frame()</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>play_focus()</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>play_dim()</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>play_scan_once()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Đối tượng gợi ý:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>x_value_column</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>x_value_row</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>x_axis_line</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>x_ticks</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>x_tick_labels</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>y_question_marks</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>vertical_y_segments</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>sample_oblique_guides</span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>table_shadow</span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>geometry_sign_note</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="c04.-điểm-xy-và-đường-cong" class="level2">
+<h2 class="anchored" data-anchor-id="c04.-điểm-xy-và-đường-cong">C04. ĐIỂM (X,Y) VÀ ĐƯỜNG CONG</h2>
+<section id="mục-tiêu-hoạt-ảnh-3" class="level3">
+<h3 class="anchored" data-anchor-id="mục-tiêu-hoạt-ảnh-3">Mục tiêu hoạt ảnh</h3>
+<p>Từ các đoạn biểu diễn <span class="math inline">\(y\)</span>, giữ lại phần thông tin cô đọng nhất: đầu mút.</p>
+<p>Các đầu mút trở thành các điểm.<br>
+Các điểm dày dần.<br>
+Đường cong xuất hiện như hình dạng được gợi ra bởi nhiều điểm, không phải như một nét vẽ áp đặt từ đầu.</p>
+<p>Trục <span class="math inline">\(y\)</span> vẫn chưa xuất hiện.</p>
+</section>
+<section id="khung-định-danh-cảnh-3" class="level3">
+<h3 class="anchored" data-anchor-id="khung-định-danh-cảnh-3">Khung định danh cảnh</h3>
+<pre class="text"><code>04
+ĐIỂM (X,Y) VÀ ĐƯỜNG CONG</code></pre>
+</section>
+<section id="đối-tượng-được-phép-xuất-hiện-3" class="level3">
+<h3 class="anchored" data-anchor-id="đối-tượng-được-phép-xuất-hiện-3">Đối tượng được phép xuất hiện</h3>
+<pre class="text"><code>trục x đã có
+các đoạn y
+các đầu mút
+các điểm (x,y)
+các điểm bổ sung dày hơn
+đường cong được tạo từ các điểm</code></pre>
+</section>
+<section id="đối-tượng-chưa-được-phép-hiện-2" class="level3">
+<h3 class="anchored" data-anchor-id="đối-tượng-chưa-được-phép-hiện-2">Đối tượng chưa được phép hiện</h3>
+<pre class="text"><code>trục y
+gốc chung của hai trục như đối tượng chính thức
+định nghĩa đồ thị đầy đủ</code></pre>
+</section>
+<section id="diễn-tiến-hoạt-ảnh-3" class="level3">
+<h3 class="anchored" data-anchor-id="diễn-tiến-hoạt-ảnh-3">Diễn tiến hoạt ảnh</h3>
+<section id="pha-1.-đầu-mút-được-nhận-ra" class="level4">
+<h4 class="anchored" data-anchor-id="pha-1.-đầu-mút-được-nhận-ra">Pha 1. Đầu mút được nhận ra</h4>
+<p>Các đoạn thẳng đứng từ C03 hiện lại.</p>
+<p>Đầu mút của mỗi đoạn sáng lên.<br>
+Thân đoạn lùi xuống.</p>
+<p>Chữ:</p>
+<pre class="text"><code>PHẦN CẦN GIỮ LẠI LÀ ĐẦU MÚT</code></pre>
+<p>Không xóa đoạn ngay.<br>
+Để người xem thấy đầu mút sinh ra từ đoạn.</p>
+<p>Hoạt ảnh tương ứng với C04-01 và C04-02.</p>
+</section>
+<section id="pha-2.-giữ-đầu-mút-làm-mờ-đoạn" class="level4">
+<h4 class="anchored" data-anchor-id="pha-2.-giữ-đầu-mút-làm-mờ-đoạn">Pha 2. Giữ đầu mút, làm mờ đoạn</h4>
+<p>Các đoạn dần mờ đi, chỉ còn các đầu mút.</p>
+<p>Mỗi đầu mút trở thành một điểm nhỏ.</p>
+<p>Một điểm mẫu được nhấn.<br>
+Bên cạnh điểm mẫu hiện nhãn:</p>
+<p><span class="math display">\[
+(x,y)
+\]</span></p>
+<p>Chữ:</p>
+<pre class="text"><code>MỘT ĐIỂM GIỮ LẠI HAI THÔNG TIN</code></pre>
+<p>Hoạt ảnh tương ứng với C04-03 và C04-04.</p>
+</section>
+<section id="pha-3.-xu-hướng-hiện-ra" class="level4">
+<h4 class="anchored" data-anchor-id="pha-3.-xu-hướng-hiện-ra">Pha 3. Xu hướng hiện ra</h4>
+<p>Các điểm được nhìn cùng nhau.</p>
+<p>Dùng một vệt quét rất nhẹ từ trái sang phải qua dãy điểm.<br>
+Khi quét, các nhóm điểm lần lượt sáng hơn:</p>
+<pre class="text"><code>ĐI LÊN
+QUAY XUỐNG
+LẠI ĐI LÊN</code></pre>
+<p>Không nối điểm bằng đường gấp khúc.<br>
+Chỉ nhấn bằng ánh sáng và vị trí.</p>
+<p>Hoạt ảnh tương ứng với C04-05.</p>
+</section>
+<section id="pha-4.-cân-xứng-quanh-vị-trí-trung-tâm" class="level4">
+<h4 class="anchored" data-anchor-id="pha-4.-cân-xứng-quanh-vị-trí-trung-tâm">Pha 4. Cân xứng quanh vị trí trung tâm</h4>
+<p>Nhấn hai cặp điểm đối xứng:</p>
+<pre class="text"><code>(-1, 2) và (1, -2)
+(-2.5, -8.125) và (2.5, 8.125)</code></pre>
+<p>Có thể dùng hai đường phụ mờ đi qua vị trí trung tâm để gợi đối xứng tâm, nhưng không cần gọi tên chính thức.</p>
+<p>Chữ:</p>
+<pre class="text"><code>ĐỔI X THÀNH -X
+Y CŨNG ĐỔI DẤU</code></pre>
+<p>Hoạt ảnh tương ứng với C04-06.</p>
+</section>
+<section id="pha-5.-khoảng-trống-giữa-các-điểm" class="level4">
+<h4 class="anchored" data-anchor-id="pha-5.-khoảng-trống-giữa-các-điểm">Pha 5. Khoảng trống giữa các điểm</h4>
+<p>Các điểm hiện có giữ nguyên.</p>
+<p>Khoảng trống giữa hai điểm được làm nổi bằng một vùng mờ hoặc dấu hỏi nhỏ.</p>
+<p>Chữ:</p>
+<pre class="text"><code>GIỮA HAI ĐIỂM THÌ SAO?</code></pre>
+<p>Sau đó hiện thêm các điểm mới ở giữa các điểm cũ.<br>
+Lần đầu thêm ít điểm.<br>
+Lần sau thêm nhiều hơn.</p>
+<p>Các điểm dày dần.</p>
+<p>Hoạt ảnh tương ứng với C04-07 đến C04-09.</p>
+</section>
+<section id="pha-6.-đường-cong-xuất-hiện" class="level4">
+<h4 class="anchored" data-anchor-id="pha-6.-đường-cong-xuất-hiện">Pha 6. Đường cong xuất hiện</h4>
+<p>Khi điểm đã đủ dày, một đường cong mảnh đi qua vùng điểm xuất hiện bằng <code>Create</code>.</p>
+<p>Đường cong không quá sáng ngay.<br>
+Nó sáng dần như hình dạng đã có trong các điểm.</p>
+<p>Các điểm cũ mờ đi một phần nhưng không biến mất hoàn toàn ngay.</p>
+<p>Chữ kết cảnh:</p>
+<pre class="text"><code>ĐƯỜNG CONG LÀ DÁNG ĐIỆU CHUNG CỦA SỰ THAY ĐỔI</code></pre>
+<p>Hoạt ảnh tương ứng với C04-09 và C04-10.</p>
+</section>
+</section>
+<section id="chữ-trên-màn-hình-3" class="level3">
+<h3 class="anchored" data-anchor-id="chữ-trên-màn-hình-3">Chữ trên màn hình</h3>
+<pre class="text"><code>PHẦN CẦN GIỮ LẠI LÀ ĐẦU MÚT
+MỘT ĐIỂM GIỮ LẠI HAI THÔNG TIN
+ĐI LÊN
+QUAY XUỐNG
+LẠI ĐI LÊN
+ĐỔI X THÀNH -X
+Y CŨNG ĐỔI DẤU
+GIỮA HAI ĐIỂM THÌ SAO?
+ĐƯỜNG CONG LÀ DÁNG ĐIỆU CHUNG CỦA SỰ THAY ĐỔI</code></pre>
+</section>
+<section id="âm-thanh-3" class="level3">
+<h3 class="anchored" data-anchor-id="âm-thanh-3">Âm thanh</h3>
+<pre class="text"><code>tick   = đầu mút sáng lên
+whoosh = các điểm dày dần
+hit    = đường cong hiện ra, rất nhẹ</code></pre>
+</section>
+<section id="ghi-chú-manim-3" class="level3">
+<h3 class="anchored" data-anchor-id="ghi-chú-manim-3">Ghi chú Manim</h3>
+<p>Helper dự kiến:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>play_focus()</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>play_dim()</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>play_scan_once()</span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>make_math()</span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>make_text()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Đối tượng gợi ý:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>vertical_y_segments</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>endpoint_dots</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>sample_point_label</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>trend_groups</span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>symmetric_point_pairs</span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>gap_questions</span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a>dense_sample_dots</span>
+<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a>curve_from_dense_points</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="c05.-trục-thứ-hai-y" class="level2">
+<h2 class="anchored" data-anchor-id="c05.-trục-thứ-hai-y">C05. TRỤC THỨ HAI: Y</h2>
+<section id="mục-tiêu-hoạt-ảnh-4" class="level3">
+<h3 class="anchored" data-anchor-id="mục-tiêu-hoạt-ảnh-4">Mục tiêu hoạt ảnh</h3>
+<p>Từ đường cong đã hình thành, làm xuất hiện nhu cầu về một thước đo chung cho giá trị <span class="math inline">\(y\)</span>.</p>
+<p>Trục <span class="math inline">\(y\)</span> không được hiện như một thói quen.<br>
+Nó xuất hiện vì các điểm và đường cong cần một cách đọc độ cao thống nhất.</p>
+</section>
+<section id="khung-định-danh-cảnh-4" class="level3">
+<h3 class="anchored" data-anchor-id="khung-định-danh-cảnh-4">Khung định danh cảnh</h3>
+<pre class="text"><code>05
+TRỤC THỨ HAI: Y</code></pre>
+</section>
+<section id="đối-tượng-được-phép-xuất-hiện-4" class="level3">
+<h3 class="anchored" data-anchor-id="đối-tượng-được-phép-xuất-hiện-4">Đối tượng được phép xuất hiện</h3>
+<pre class="text"><code>trục x đã có
+các điểm và đường cong đã hình thành
+các đoạn y cục bộ được gọi lại trong chốc lát
+thước đo dọc chung
+trục y
+gốc chung
+đường đọc ngang sang trục y</code></pre>
+</section>
+<section id="đối-tượng-chưa-được-phép-hiện-3" class="level3">
+<h3 class="anchored" data-anchor-id="đối-tượng-chưa-được-phép-hiện-3">Đối tượng chưa được phép hiện</h3>
+<pre class="text"><code>định nghĩa đồ thị chính thức
+khung tọa độ quá đầy đủ ngay từ đầu</code></pre>
+</section>
+<section id="diễn-tiến-hoạt-ảnh-4" class="level3">
+<h3 class="anchored" data-anchor-id="diễn-tiến-hoạt-ảnh-4">Diễn tiến hoạt ảnh</h3>
+<section id="pha-1.-đường-cong-đã-thấy-dáng-điệu-nhưng-chưa-đủ-để-đọc-y" class="level4">
+<h4 class="anchored" data-anchor-id="pha-1.-đường-cong-đã-thấy-dáng-điệu-nhưng-chưa-đủ-để-đọc-y">Pha 1. Đường cong đã thấy dáng điệu, nhưng chưa đủ để đọc y</h4>
+<p>Hiện trục <span class="math inline">\(x\)</span>, các điểm mờ và đường cong.</p>
+<p>Chữ:</p>
+<pre class="text"><code>ĐÃ THẤY DÁNG ĐIỆU CHUNG
+NHƯNG CHƯA CÓ THƯỚC ĐO CHUNG CHO Y</code></pre>
+<p>Một điểm trên đường cong được chọn.<br>
+Một dấu hỏi nhỏ hiện ngang với độ cao của điểm:</p>
+<pre class="text"><code>Y = ?</code></pre>
+<p>Hoạt ảnh tương ứng với C05-01.</p>
+</section>
+<section id="pha-2.-không-thể-giữ-mãi-các-đoạn-đứng" class="level4">
+<h4 class="anchored" data-anchor-id="pha-2.-không-thể-giữ-mãi-các-đoạn-đứng">Pha 2. Không thể giữ mãi các đoạn đứng</h4>
+<p>Gọi lại các đoạn đứng từ C03 nhưng hiện rất nhiều đoạn mờ, khiến hình trở nên dày.</p>
+<p>Sau đó làm mờ chúng nhanh.</p>
+<p>Chữ:</p>
+<pre class="text"><code>QUÁ NHIỀU ĐOẠN SẼ LÀM HÌNH RỐI</code></pre>
+<p>Tiếp theo, thử hiện nhiều nhãn <span class="math inline">\(y\)</span> nhỏ cạnh các điểm, rồi làm chúng mờ.</p>
+<p>Chữ:</p>
+<pre class="text"><code>QUÁ NHIỀU NHÃN SẼ CHE MẤT HÌNH DẠNG CHÍNH</code></pre>
+<p>Hoạt ảnh tương ứng với C05-02 và C05-03.</p>
+</section>
+<section id="pha-3.-nhu-cầu-thước-đo-chung" class="level4">
+<h4 class="anchored" data-anchor-id="pha-3.-nhu-cầu-thước-đo-chung">Pha 3. Nhu cầu thước đo chung</h4>
+<p>Ở bên cạnh đường cong, hiện một thước dọc mờ tạm thời.</p>
+<p>Các đường ngang mờ từ vài điểm trên đường cong chiếu sang thước dọc ấy.</p>
+<p>Chữ:</p>
+<pre class="text"><code>CẦN MỘT THƯỚC ĐO CHUNG CHO ĐỘ CAO</code></pre>
+<p>Thước này ban đầu có thể đặt lệch bên trái hoặc bên phải để đặt câu hỏi về vị trí.</p>
+<p>Hoạt ảnh tương ứng với C05-04 và C05-05.</p>
+</section>
+<section id="pha-4.-thước-dọc-cần-đi-qua-x-0" class="level4">
+<h4 class="anchored" data-anchor-id="pha-4.-thước-dọc-cần-đi-qua-x-0">Pha 4. Thước dọc cần đi qua x = 0</h4>
+<p>Thước dọc tạm thời được thử ở vài vị trí ngang khác nhau.<br>
+Mỗi vị trí hiện rất nhẹ, rồi mờ.</p>
+<p>Sau đó thước dọc di chuyển về mốc <span class="math inline">\(x=0\)</span>.</p>
+<p>Mốc <span class="math inline">\(x=0\)</span> trên trục ngang sáng lên.</p>
+<p>Chữ:</p>
+<pre class="text"><code>TRỤC DỌC KHÔNG NÊN GẮN VỚI MỘT VỊ TRÍ NGANG TÙY TIỆN</code></pre>
+<p>Sau đó:</p>
+<pre class="text"><code>NÓ ĐI QUA MỐC X = 0</code></pre>
+<p>Hoạt ảnh tương ứng với C05-06 và C05-07.</p>
+</section>
+<section id="pha-5.-trục-y-và-gốc-chung" class="level4">
+<h4 class="anchored" data-anchor-id="pha-5.-trục-y-và-gốc-chung">Pha 5. Trục y và gốc chung</h4>
+<p>Đường dọc qua <span class="math inline">\(x=0\)</span> sáng lên thành trục <span class="math inline">\(y\)</span>.</p>
+<p>Nhãn nhỏ hiện:</p>
+<pre class="text"><code>Y</code></pre>
+<p>Điểm giao với trục <span class="math inline">\(x\)</span> sáng lên.<br>
+Nhãn:</p>
+<p><span class="math display">\[
+(0,0)
+\]</span></p>
+<p>Chữ:</p>
+<pre class="text"><code>HAI MỐC GẶP NHAU TẠI MỘT GỐC CHUNG</code></pre>
+<p>Hoạt ảnh tương ứng với C05-08.</p>
+</section>
+<section id="pha-6.-đọc-một-điểm-bằng-hai-thao-tác" class="level4">
+<h4 class="anchored" data-anchor-id="pha-6.-đọc-một-điểm-bằng-hai-thao-tác">Pha 6. Đọc một điểm bằng hai thao tác</h4>
+<p>Chọn một điểm trên đường cong.</p>
+<p>Từ điểm ấy, hiện đường phụ dọc xuống trục <span class="math inline">\(x\)</span>.<br>
+Sau đó hiện đường phụ ngang sang trục <span class="math inline">\(y\)</span>.</p>
+<p>Chữ:</p>
+<pre class="text"><code>NHÌN XUỐNG ĐỂ ĐỌC X
+NHÌN SANG ĐỂ ĐỌC Y</code></pre>
+<p>Không làm thành hệ lưới dày.<br>
+Chỉ dùng một điểm mẫu.</p>
+<p>Hoạt ảnh tương ứng với C05-09.</p>
+</section>
+<section id="pha-7.-tách-bạch-hai-phương-đo" class="level4">
+<h4 class="anchored" data-anchor-id="pha-7.-tách-bạch-hai-phương-đo">Pha 7. Tách bạch hai phương đo</h4>
+<p>Trên hệ trục, hiện hai mũi tên rất nhẹ:</p>
+<pre class="text"><code>ĐI NGANG: THAY ĐỔI X
+ĐI DỌC: THAY ĐỔI ĐỘ CAO</code></pre>
+<p>Sau đó hai mũi tên lùi xuống, chỉ giữ lại hệ trục và đường cong.</p>
+<p>Chữ kết cảnh:</p>
+<pre class="text"><code>HAI PHƯƠNG ĐO ĐƯỢC TÁCH BẠCH</code></pre>
+<p>Hoạt ảnh tương ứng với C05-10 đến C05-13.</p>
+</section>
+</section>
+<section id="chữ-trên-màn-hình-4" class="level3">
+<h3 class="anchored" data-anchor-id="chữ-trên-màn-hình-4">Chữ trên màn hình</h3>
+<pre class="text"><code>ĐÃ THẤY DÁNG ĐIỆU CHUNG
+NHƯNG CHƯA CÓ THƯỚC ĐO CHUNG CHO Y
+QUÁ NHIỀU ĐOẠN SẼ LÀM HÌNH RỐI
+QUÁ NHIỀU NHÃN SẼ CHE MẤT HÌNH DẠNG CHÍNH
+CẦN MỘT THƯỚC ĐO CHUNG CHO ĐỘ CAO
+TRỤC DỌC KHÔNG NÊN GẮN VỚI MỘT VỊ TRÍ NGANG TÙY TIỆN
+NÓ ĐI QUA MỐC X = 0
+HAI MỐC GẶP NHAU TẠI MỘT GỐC CHUNG
+NHÌN XUỐNG ĐỂ ĐỌC X
+NHÌN SANG ĐỂ ĐỌC Y
+HAI PHƯƠNG ĐO ĐƯỢC TÁCH BẠCH</code></pre>
+</section>
+<section id="âm-thanh-4" class="level3">
+<h3 class="anchored" data-anchor-id="âm-thanh-4">Âm thanh</h3>
+<pre class="text"><code>whoosh = thước dọc di chuyển về x=0
+hit    = gốc chung sáng lên
+tick   = đọc x, đọc y</code></pre>
+</section>
+<section id="ghi-chú-manim-4" class="level3">
+<h3 class="anchored" data-anchor-id="ghi-chú-manim-4">Ghi chú Manim</h3>
+<p>Helper dự kiến:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>make_text()</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>make_math()</span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>play_focus()</span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>play_dim()</span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>make_scan_band()</span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a>play_scan_once()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Đối tượng gợi ý:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb88"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>x_axis_line</span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>curve</span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>endpoint_dots</span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>temporary_vertical_rulers</span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>y_axis_line</span>
+<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a>origin_dot</span>
+<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a>origin_label</span>
+<span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a>sample_point</span>
+<span id="cb88-9"><a href="#cb88-9" aria-hidden="true" tabindex="-1"></a>x_reading_guide</span>
+<span id="cb88-10"><a href="#cb88-10" aria-hidden="true" tabindex="-1"></a>y_reading_guide</span>
+<span id="cb88-11"><a href="#cb88-11" aria-hidden="true" tabindex="-1"></a>direction_arrows</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="c06.-hình-ảnh-của-sự-biến-thiên" class="level2">
+<h2 class="anchored" data-anchor-id="c06.-hình-ảnh-của-sự-biến-thiên">C06. HÌNH ẢNH CỦA SỰ BIẾN THIÊN</h2>
+<section id="mục-tiêu-hoạt-ảnh-5" class="level3">
+<h3 class="anchored" data-anchor-id="mục-tiêu-hoạt-ảnh-5">Mục tiêu hoạt ảnh</h3>
+<p>Nhìn lại bảng giá trị và hình vừa được dựng.</p>
+<p>Cảnh này làm rõ:</p>
+<pre class="text"><code>bảng giữ giá trị cụ thể
+đồ thị cho hình ảnh tổng thể của sự biến thiên</code></pre>
+<p>Định nghĩa đồ thị chỉ được gọi tên ở cuối cảnh, như kết quả tự nhiên của quá trình kiến tạo.</p>
+</section>
+<section id="khung-định-danh-cảnh-5" class="level3">
+<h3 class="anchored" data-anchor-id="khung-định-danh-cảnh-5">Khung định danh cảnh</h3>
+<pre class="text"><code>06
+HÌNH ẢNH CỦA SỰ BIẾN THIÊN</code></pre>
+</section>
+<section id="đối-tượng-được-phép-xuất-hiện-5" class="level3">
+<h3 class="anchored" data-anchor-id="đối-tượng-được-phép-xuất-hiện-5">Đối tượng được phép xuất hiện</h3>
+<pre class="text"><code>bảng giá trị
+hệ hai trục đã hình thành
+đường cong
+các điểm (x,y)
+công thức y = x^3 - 3x
+định nghĩa đồ thị</code></pre>
+</section>
+<section id="đối-tượng-chưa-được-phép-hiện-quá-sớm" class="level3">
+<h3 class="anchored" data-anchor-id="đối-tượng-chưa-được-phép-hiện-quá-sớm">Đối tượng chưa được phép hiện quá sớm</h3>
+<pre class="text"><code>định nghĩa đồ thị ngay đầu cảnh</code></pre>
+</section>
+<section id="diễn-tiến-hoạt-ảnh-5" class="level3">
+<h3 class="anchored" data-anchor-id="diễn-tiến-hoạt-ảnh-5">Diễn tiến hoạt ảnh</h3>
+<section id="pha-1.-bảng-trở-lại-với-vai-trò-của-nó" class="level4">
+<h4 class="anchored" data-anchor-id="pha-1.-bảng-trở-lại-với-vai-trò-của-nó">Pha 1. Bảng trở lại với vai trò của nó</h4>
+<p>Hiện bảng giá trị ở bên trái.</p>
+<p>Một dòng trong bảng được nhấn:</p>
+<pre class="text"><code>x = 2.5
+y = 8.125</code></pre>
+<p>Chữ:</p>
+<pre class="text"><code>BẢNG GIỮ CÁC GIÁ TRỊ CỤ THỂ</code></pre>
+<p>Hoạt ảnh tương ứng với C06-01.</p>
+</section>
+<section id="pha-2.-bảng-khó-cho-thấy-chuyển-động-chung" class="level4">
+<h4 class="anchored" data-anchor-id="pha-2.-bảng-khó-cho-thấy-chuyển-động-chung">Pha 2. Bảng khó cho thấy chuyển động chung</h4>
+<p>Các dòng bảng được quét liên tiếp từ trên xuống.</p>
+<p>Người xem thấy phải đọc nhiều dòng.</p>
+<p>Chữ:</p>
+<pre class="text"><code>MUỐN THẤY XU HƯỚNG
+PHẢI SO SÁNH NHIỀU DÒNG</code></pre>
+<p>Bảng lùi xuống.</p>
+<p>Hoạt ảnh tương ứng với C06-02.</p>
+</section>
+<section id="pha-3.-hình-cho-cái-nhìn-cùng-lúc" class="level4">
+<h4 class="anchored" data-anchor-id="pha-3.-hình-cho-cái-nhìn-cùng-lúc">Pha 3. Hình cho cái nhìn cùng lúc</h4>
+<p>Ở bên phải hiện hệ hai trục và đường cong đã kiến tạo.</p>
+<p>Các điểm sáng lên lần lượt theo chiều từ trái sang phải.</p>
+<p>Chữ:</p>
+<pre class="text"><code>HÌNH CHO THẤY CÁCH CÁC GIÁ TRỊ NỐI NHAU</code></pre>
+<p>Hoạt ảnh tương ứng với C06-03 đến C06-05.</p>
+</section>
+<section id="pha-4.-bảng-và-hình-không-thay-thế-nhau" class="level4">
+<h4 class="anchored" data-anchor-id="pha-4.-bảng-và-hình-không-thay-thế-nhau">Pha 4. Bảng và hình không thay thế nhau</h4>
+<p>Bảng ở bên trái, hình ở bên phải.</p>
+<p>Ở giữa hiện dấu phân biệt, không phải dấu hơn kém:</p>
+<pre class="text"><code>HAI CÁCH NHÌN
+HAI CÔNG VIỆC</code></pre>
+<p>Dưới bảng:</p>
+<pre class="text"><code>CHÍNH XÁC TỪNG DÒNG</code></pre>
+<p>Dưới hình:</p>
+<pre class="text"><code>TỔNG THỂ BIẾN THIÊN</code></pre>
+<p>Hoạt ảnh tương ứng với C06-06 và C06-07.</p>
+</section>
+<section id="pha-5.-định-nghĩa-xuất-hiện" class="level4">
+<h4 class="anchored" data-anchor-id="pha-5.-định-nghĩa-xuất-hiện">Pha 5. Định nghĩa xuất hiện</h4>
+<p>Bảng và hình lùi xuống.</p>
+<p>Ở giữa hiện:</p>
+<p><span class="math display">\[
+y=f(x)
+\]</span></p>
+<p>Sau đó hiện từng phần của định nghĩa:</p>
+<pre class="text"><code>ĐỒ THỊ LÀ TẬP HỢP CÁC ĐIỂM</code></pre>
+<p><span class="math display">\[
+(x, f(x))
+\]</span></p>
+<pre class="text"><code>TRONG MẶT PHẲNG TỌA ĐỘ</code></pre>
+<p>Chữ cuối:</p>
+<pre class="text"><code>ĐỊNH NGHĨA LÀ CÁCH NÓI GỌN CỦA NHU CẦU ĐÃ ĐƯỢC KIẾN TẠO</code></pre>
+<p>Hoạt ảnh tương ứng với C06-08.</p>
+</section>
+</section>
+<section id="chữ-trên-màn-hình-5" class="level3">
+<h3 class="anchored" data-anchor-id="chữ-trên-màn-hình-5">Chữ trên màn hình</h3>
+<pre class="text"><code>BẢNG GIỮ CÁC GIÁ TRỊ CỤ THỂ
+MUỐN THẤY XU HƯỚNG
+PHẢI SO SÁNH NHIỀU DÒNG
+HÌNH CHO THẤY CÁCH CÁC GIÁ TRỊ NỐI NHAU
+HAI CÁCH NHÌN
+HAI CÔNG VIỆC
+CHÍNH XÁC TỪNG DÒNG
+TỔNG THỂ BIẾN THIÊN
+ĐỒ THỊ LÀ TẬP HỢP CÁC ĐIỂM
+TRONG MẶT PHẲNG TỌA ĐỘ
+ĐỊNH NGHĨA LÀ CÁCH NÓI GỌN CỦA NHU CẦU ĐÃ ĐƯỢC KIẾN TẠO</code></pre>
+</section>
+<section id="âm-thanh-5" class="level3">
+<h3 class="anchored" data-anchor-id="âm-thanh-5">Âm thanh</h3>
+<pre class="text"><code>tick   = nhấn dòng bảng
+whoosh = chuyển từ bảng sang hình
+typing = định nghĩa xuất hiện từng phần</code></pre>
+</section>
+<section id="ghi-chú-manim-5" class="level3">
+<h3 class="anchored" data-anchor-id="ghi-chú-manim-5">Ghi chú Manim</h3>
+<p>Helper dự kiến:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb105"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>make_text()</span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a>make_text_block()</span>
+<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a>make_math()</span>
+<span id="cb105-4"><a href="#cb105-4" aria-hidden="true" tabindex="-1"></a>make_frame()</span>
+<span id="cb105-5"><a href="#cb105-5" aria-hidden="true" tabindex="-1"></a>play_scan_once()</span>
+<span id="cb105-6"><a href="#cb105-6" aria-hidden="true" tabindex="-1"></a>play_focus()</span>
+<span id="cb105-7"><a href="#cb105-7" aria-hidden="true" tabindex="-1"></a>play_dim()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Đối tượng gợi ý:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb106"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>value_table</span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>highlighted_table_row</span>
+<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a>full_coordinate_plane</span>
+<span id="cb106-4"><a href="#cb106-4" aria-hidden="true" tabindex="-1"></a>curve</span>
+<span id="cb106-5"><a href="#cb106-5" aria-hidden="true" tabindex="-1"></a>graph_points</span>
+<span id="cb106-6"><a href="#cb106-6" aria-hidden="true" tabindex="-1"></a>definition_parts</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="c07.-kết-tinh" class="level2">
+<h2 class="anchored" data-anchor-id="c07.-kết-tinh">C07. KẾT TINH</h2>
+<section id="mục-tiêu-hoạt-ảnh-6" class="level3">
+<h3 class="anchored" data-anchor-id="mục-tiêu-hoạt-ảnh-6">Mục tiêu hoạt ảnh</h3>
+<p>Gom lại toàn bộ quá trình kiến tạo.</p>
+<p>Cảnh này không thêm ví dụ mới.<br>
+Nó tái hiện con đường đã đi qua dưới dạng một bản đồ chuyển hóa ngắn gọn:</p>
+<pre class="text"><code>X ĐƯỢC CHỌN
+Y ĐƯỢC TRẢ LẠI
+TRỤC X GIỮ THỨ TỰ
+PHƯƠNG DỌC GIỮ MỐC X
+ĐIỂM GIỮ CẶP (X,Y)
+TRỤC Y LÀ THƯỚC ĐO CHUNG
+GỐC CHUNG QUY CHIẾU HAI PHÉP ĐO
+ĐỒ THỊ LÀ HÌNH ẢNH CỦA SỰ BIẾN THIÊN</code></pre>
+</section>
+<section id="khung-định-danh-cảnh-6" class="level3">
+<h3 class="anchored" data-anchor-id="khung-định-danh-cảnh-6">Khung định danh cảnh</h3>
+<pre class="text"><code>07
+KẾT TINH</code></pre>
+</section>
+<section id="đối-tượng-được-phép-xuất-hiện-6" class="level3">
+<h3 class="anchored" data-anchor-id="đối-tượng-được-phép-xuất-hiện-6">Đối tượng được phép xuất hiện</h3>
+<pre class="text"><code>toàn bộ cấu trúc đã kiến tạo
+bản đồ tóm tắt các bước
+câu hỏi ban đầu
+câu kết tinh</code></pre>
+</section>
+<section id="diễn-tiến-hoạt-ảnh-6" class="level3">
+<h3 class="anchored" data-anchor-id="diễn-tiến-hoạt-ảnh-6">Diễn tiến hoạt ảnh</h3>
+<section id="pha-1.-trở-lại-câu-hỏi-ban-đầu" class="level4">
+<h4 class="anchored" data-anchor-id="pha-1.-trở-lại-câu-hỏi-ban-đầu">Pha 1. Trở lại câu hỏi ban đầu</h4>
+<p>Màn hình tối, chỉ hiện câu hỏi:</p>
+<pre class="text"><code>VÌ SAO ĐỒ THỊ HÀM SỐ THƯỜNG ĐƯỢC VẼ BẰNG HAI TRỤC VUÔNG GÓC?</code></pre>
+<p>Câu hỏi giữ đủ lâu.</p>
+<p>Sau đó mờ xuống nhưng không biến mất hoàn toàn.</p>
+<p>Hoạt ảnh tương ứng với C07-01.</p>
+</section>
+<section id="pha-2.-dựng-bản-đồ-quá-trình" class="level4">
+<h4 class="anchored" data-anchor-id="pha-2.-dựng-bản-đồ-quá-trình">Pha 2. Dựng bản đồ quá trình</h4>
+<p>Lần lượt hiện các khối nhỏ theo chiều từ trái sang phải hoặc từ trên xuống dưới:</p>
+<pre class="text"><code>X ĐƯỢC CHỌN
+Y ĐƯỢC TRẢ LẠI
+THỨ TỰ CỦA X
+ĐỘ CAO CỦA Y
+ĐIỂM (X,Y)
+TRỤC Y
+GỐC CHUNG
+HÌNH ẢNH BIẾN THIÊN</code></pre>
+<p>Mỗi khối có một biểu tượng hình học rất đơn giản:</p>
+<pre class="text"><code>x row
+vertical segment
+endpoint dot
+y axis
+origin
+curve</code></pre>
+<p>Không làm thành sơ đồ quá nhiều mũi tên.<br>
+Ưu tiên chuyển hóa bằng vị trí và xuất hiện tuần tự.</p>
+<p>Hoạt ảnh tương ứng với C07-02 đến C07-07.</p>
+</section>
+<section id="pha-3.-hai-công-việc-được-tách-ra" class="level4">
+<h4 class="anchored" data-anchor-id="pha-3.-hai-công-việc-được-tách-ra">Pha 3. Hai công việc được tách ra</h4>
+<p>Hệ trục và đường cong hiện lại ở trung tâm.</p>
+<p>Trục ngang sáng nhẹ:</p>
+<pre class="text"><code>ĐI NGANG: THAY ĐỔI X</code></pre>
+<p>Trục dọc sáng nhẹ:</p>
+<pre class="text"><code>ĐI DỌC: ĐO Y</code></pre>
+<p>Sau đó cả hai cùng sáng vừa phải.</p>
+<p>Chữ:</p>
+<pre class="text"><code>HAI CÔNG VIỆC ĐƯỢC TÁCH RA
+NHƯNG GẶP NHAU TRONG CÙNG MỘT ĐIỂM</code></pre>
+<p>Hoạt ảnh tương ứng với C07-08.</p>
+</section>
+<section id="pha-4.-không-tuyệt-đối-hóa-hệ-trục-vuông-góc" class="level4">
+<h4 class="anchored" data-anchor-id="pha-4.-không-tuyệt-đối-hóa-hệ-trục-vuông-góc">Pha 4. Không tuyệt đối hóa hệ trục vuông góc</h4>
+<p>Hệ trục vuông góc lùi xuống.</p>
+<p>Hiện một dòng chữ nhỏ, màu <code>COLOR_MUTED</code>:</p>
+<pre class="text"><code>KHÔNG PHẢI CÁCH BIỂU DIỄN DUY NHẤT</code></pre>
+<p>Sau đó dòng chính hiện:</p>
+<pre class="text"><code>NHƯNG VỚI NHU CẦU NHÌN Y THAY ĐỔI THEO X
+NÓ LÀ MỘT CÁCH RÕ RÀNG, ỔN ĐỊNH, DỄ ĐỌC</code></pre>
+<p>Hoạt ảnh tương ứng với C07-09.</p>
+</section>
+<section id="pha-5.-kết-tinh-cuối" class="level4">
+<h4 class="anchored" data-anchor-id="pha-5.-kết-tinh-cuối">Pha 5. Kết tinh cuối</h4>
+<p>Toàn bộ hình gọn lại: hệ trục, đường cong, một vài điểm.</p>
+<p>Câu cuối hiện ở giữa hoặc phía dưới:</p>
+<pre class="text"><code>ĐỒ THỊ LÀ HÌNH ẢNH CỦA SỰ BIẾN THIÊN</code></pre>
+<p>Dòng này dùng <code>FONT_SIZE_EMPHASIS</code>, màu <code>COLOR_PRIMARY</code> hoặc một nhấn rất nhẹ.</p>
+<p>Giữ hình lâu hơn các cảnh trước.</p>
+<p>Hoạt ảnh tương ứng với C07-10.</p>
+</section>
+</section>
+<section id="chữ-trên-màn-hình-6" class="level3">
+<h3 class="anchored" data-anchor-id="chữ-trên-màn-hình-6">Chữ trên màn hình</h3>
+<pre class="text"><code>VÌ SAO ĐỒ THỊ HÀM SỐ THƯỜNG ĐƯỢC VẼ BẰNG HAI TRỤC VUÔNG GÓC?
+X ĐƯỢC CHỌN
+Y ĐƯỢC TRẢ LẠI
+THỨ TỰ CỦA X
+ĐỘ CAO CỦA Y
+ĐIỂM (X,Y)
+TRỤC Y
+GỐC CHUNG
+HÌNH ẢNH BIẾN THIÊN
+ĐI NGANG: THAY ĐỔI X
+ĐI DỌC: ĐO Y
+HAI CÔNG VIỆC ĐƯỢC TÁCH RA
+NHƯNG GẶP NHAU TRONG CÙNG MỘT ĐIỂM
+KHÔNG PHẢI CÁCH BIỂU DIỄN DUY NHẤT
+RÕ RÀNG
+ỔN ĐỊNH
+DỄ ĐỌC
+ĐỒ THỊ LÀ HÌNH ẢNH CỦA SỰ BIẾN THIÊN</code></pre>
+</section>
+<section id="âm-thanh-6" class="level3">
+<h3 class="anchored" data-anchor-id="âm-thanh-6">Âm thanh</h3>
+<pre class="text"><code>typing = câu hỏi ban đầu
+tick   = từng khối trong bản đồ quá trình
+hit    = câu kết tinh cuối, rất nhẹ</code></pre>
+</section>
+<section id="ghi-chú-manim-6" class="level3">
+<h3 class="anchored" data-anchor-id="ghi-chú-manim-6">Ghi chú Manim</h3>
+<p>Helper dự kiến:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb121"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a>make_text()</span>
+<span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a>make_text_block()</span>
+<span id="cb121-3"><a href="#cb121-3" aria-hidden="true" tabindex="-1"></a>make_math()</span>
+<span id="cb121-4"><a href="#cb121-4" aria-hidden="true" tabindex="-1"></a>make_frame()</span>
+<span id="cb121-5"><a href="#cb121-5" aria-hidden="true" tabindex="-1"></a>play_focus()</span>
+<span id="cb121-6"><a href="#cb121-6" aria-hidden="true" tabindex="-1"></a>play_dim()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Đối tượng gợi ý:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb122"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>initial_question</span>
+<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a>construction_map_blocks</span>
+<span id="cb122-3"><a href="#cb122-3" aria-hidden="true" tabindex="-1"></a>x_role_block</span>
+<span id="cb122-4"><a href="#cb122-4" aria-hidden="true" tabindex="-1"></a>y_role_block</span>
+<span id="cb122-5"><a href="#cb122-5" aria-hidden="true" tabindex="-1"></a>axis_role_blocks</span>
+<span id="cb122-6"><a href="#cb122-6" aria-hidden="true" tabindex="-1"></a>origin_block</span>
+<span id="cb122-7"><a href="#cb122-7" aria-hidden="true" tabindex="-1"></a>final_axes</span>
+<span id="cb122-8"><a href="#cb122-8" aria-hidden="true" tabindex="-1"></a>final_curve</span>
+<span id="cb122-9"><a href="#cb122-9" aria-hidden="true" tabindex="-1"></a>final_crystallization_text</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="c08.-mình-đã-hiểu-chưa" class="level2">
+<h2 class="anchored" data-anchor-id="c08.-mình-đã-hiểu-chưa">C08. MÌNH ĐÃ HIỂU CHƯA?</h2>
+<section id="mục-tiêu-hoạt-ảnh-7" class="level3">
+<h3 class="anchored" data-anchor-id="mục-tiêu-hoạt-ảnh-7">Mục tiêu hoạt ảnh</h3>
+<p>Dẫn người xem từ việc nghe lời giải thích sang việc tự đi lại con đường tư duy.</p>
+<p>Cảnh này không mở kiến thức mới.<br>
+Nó gợi thực hành: tự tính, tự dựng, tự trả lời.</p>
+</section>
+<section id="khung-định-danh-cảnh-7" class="level3">
+<h3 class="anchored" data-anchor-id="khung-định-danh-cảnh-7">Khung định danh cảnh</h3>
+<pre class="text"><code>08
+MÌNH ĐÃ HIỂU CHƯA?</code></pre>
+</section>
+<section id="đối-tượng-được-phép-xuất-hiện-7" class="level3">
+<h3 class="anchored" data-anchor-id="đối-tượng-được-phép-xuất-hiện-7">Đối tượng được phép xuất hiện</h3>
+<pre class="text"><code>bản đồ rút gọn các bước
+câu hỏi tự kiểm tra
+gợi ý bài luận ZO Math
+hình cuối cùng mờ ở nền</code></pre>
+</section>
+<section id="diễn-tiến-hoạt-ảnh-7" class="level3">
+<h3 class="anchored" data-anchor-id="diễn-tiến-hoạt-ảnh-7">Diễn tiến hoạt ảnh</h3>
+<section id="pha-1.-con-đường-được-rút-gọn" class="level4">
+<h4 class="anchored" data-anchor-id="pha-1.-con-đường-được-rút-gọn">Pha 1. Con đường được rút gọn</h4>
+<p>Hiện một chuỗi bước ngắn, theo chiều ngang hoặc vòng cung nhẹ:</p>
+<pre class="text"><code>BẢNG SỐ
+MỐC X
+ĐOẠN Y
+ĐIỂM (X,Y)
+ĐƯỜNG CONG
+HAI TRỤC</code></pre>
+<p>Mỗi bước có một hình tượng rất nhỏ:</p>
+<pre class="text"><code>mini table
+x ticks
+vertical segment
+dot
+curve
+axes</code></pre>
+<p>Các bước hiện lần lượt, không vội.</p>
+<p>Hoạt ảnh tương ứng với C08-01.</p>
+</section>
+<section id="pha-2.-câu-hỏi-tự-kiểm-tra" class="level4">
+<h4 class="anchored" data-anchor-id="pha-2.-câu-hỏi-tự-kiểm-tra">Pha 2. Câu hỏi tự kiểm tra</h4>
+<p>Ba câu hỏi hiện lần lượt, mỗi câu có thời gian đọc riêng:</p>
+<pre class="text"><code>BẢNG CÓ CHO THẤY RÕ Y ĐANG THAY ĐỔI KHÔNG?
+ĐOẠN THẲNG ĐỨNG GIỮ NGUYÊN THÔNG TIN NÀO?
+VÌ SAO SỰ VUÔNG GÓC GIÚP ĐỌC X VÀ Y KHÔNG LẪN VÀO NHAU?</code></pre>
+<p>Không cần minh họa thêm nhiều.<br>
+Mỗi câu hỏi có thể đi kèm một phần hình nhỏ tương ứng sáng lên trong chuỗi bước.</p>
+<p>Hoạt ảnh tương ứng với C08-02 và C08-03.</p>
+</section>
+<section id="pha-3.-dẫn-về-zo-math" class="level4">
+<h4 class="anchored" data-anchor-id="pha-3.-dẫn-về-zo-math">Pha 3. Dẫn về ZO Math</h4>
+<p>Hình cuối cùng mờ xuống.</p>
+<p>Hiện cụm chữ:</p>
+<pre class="text"><code>ĐỌC LẠI CHẬM HƠN
+TÍNH LẠI TỪNG GIÁ TRỊ
+VẼ LẠI TỪNG BƯỚC</code></pre>
+<p>Sau đó hiện:</p>
+<pre class="text"><code>ZO MATH</code></pre>
+<p>và dòng nhỏ:</p>
+<pre class="text"><code>BÀI LUẬN ĐẦY ĐỦ, BẢNG GIÁ TRỊ, HÌNH MINH HỌA, CÂU HỎI KHAI THÁC</code></pre>
+<p>Không dùng hiệu ứng quảng cáo.<br>
+Giữ tĩnh, nhẹ, như lời mời học tiếp.</p>
+<p>Hoạt ảnh tương ứng với C08-04.</p>
+</section>
+<section id="pha-4.-câu-hỏi-kết" class="level4">
+<h4 class="anchored" data-anchor-id="pha-4.-câu-hỏi-kết">Pha 4. Câu hỏi kết</h4>
+<p>Ở giữa màn hình hiện lại câu hỏi ban đầu:</p>
+<pre class="text"><code>VÌ SAO ĐỒ THỊ HÀM SỐ THƯỜNG ĐƯỢC VẼ BẰNG HAI TRỤC VUÔNG GÓC?</code></pre>
+<p>Bên dưới, rất nhỏ:</p>
+<pre class="text"><code>TỰ ĐI LẠI CON ĐƯỜNG MỘT LẦN NỮA</code></pre>
+<p>Fade out chậm.</p>
+</section>
+</section>
+<section id="chữ-trên-màn-hình-7" class="level3">
+<h3 class="anchored" data-anchor-id="chữ-trên-màn-hình-7">Chữ trên màn hình</h3>
+<pre class="text"><code>BẢNG SỐ
+MỐC X
+ĐOẠN Y
+ĐIỂM (X,Y)
+ĐƯỜNG CONG
+HAI TRỤC
+BẢNG CÓ CHO THẤY RÕ Y ĐANG THAY ĐỔI KHÔNG?
+ĐOẠN THẲNG ĐỨNG GIỮ NGUYÊN THÔNG TIN NÀO?
+VÌ SAO SỰ VUÔNG GÓC GIÚP ĐỌC X VÀ Y KHÔNG LẪN VÀO NHAU?
+ĐỌC LẠI CHẬM HƠN
+TÍNH LẠI TỪNG GIÁ TRỊ
+VẼ LẠI TỪNG BƯỚC
+ZO MATH
+BÀI LUẬN ĐẦY ĐỦ, BẢNG GIÁ TRỊ, HÌNH MINH HỌA, CÂU HỎI KHAI THÁC
+TỰ ĐI LẠI CON ĐƯỜNG MỘT LẦN NỮA</code></pre>
+</section>
+<section id="âm-thanh-7" class="level3">
+<h3 class="anchored" data-anchor-id="âm-thanh-7">Âm thanh</h3>
+<pre class="text"><code>tick   = từng bước trong chuỗi rút gọn
+typing = câu hỏi tự kiểm tra
+whoosh = chuyển sang phần ZO Math</code></pre>
+</section>
+<section id="ghi-chú-manim-7" class="level3">
+<h3 class="anchored" data-anchor-id="ghi-chú-manim-7">Ghi chú Manim</h3>
+<p>Helper dự kiến:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb135"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a>make_text()</span>
+<span id="cb135-2"><a href="#cb135-2" aria-hidden="true" tabindex="-1"></a>make_text_block()</span>
+<span id="cb135-3"><a href="#cb135-3" aria-hidden="true" tabindex="-1"></a>make_frame()</span>
+<span id="cb135-4"><a href="#cb135-4" aria-hidden="true" tabindex="-1"></a>play_type_text()</span>
+<span id="cb135-5"><a href="#cb135-5" aria-hidden="true" tabindex="-1"></a>play_focus()</span>
+<span id="cb135-6"><a href="#cb135-6" aria-hidden="true" tabindex="-1"></a>play_dim()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Đối tượng gợi ý:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb136"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a>summary_path</span>
+<span id="cb136-2"><a href="#cb136-2" aria-hidden="true" tabindex="-1"></a>mini_table_icon</span>
+<span id="cb136-3"><a href="#cb136-3" aria-hidden="true" tabindex="-1"></a>mini_x_ticks</span>
+<span id="cb136-4"><a href="#cb136-4" aria-hidden="true" tabindex="-1"></a>mini_y_segment</span>
+<span id="cb136-5"><a href="#cb136-5" aria-hidden="true" tabindex="-1"></a>mini_point</span>
+<span id="cb136-6"><a href="#cb136-6" aria-hidden="true" tabindex="-1"></a>mini_curve</span>
+<span id="cb136-7"><a href="#cb136-7" aria-hidden="true" tabindex="-1"></a>mini_axes</span>
+<span id="cb136-8"><a href="#cb136-8" aria-hidden="true" tabindex="-1"></a>self_check_questions</span>
+<span id="cb136-9"><a href="#cb136-9" aria-hidden="true" tabindex="-1"></a>zo_math_card</span>
+<span id="cb136-10"><a href="#cb136-10" aria-hidden="true" tabindex="-1"></a>final_question</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="ghi-chú-chuyển-sang-mã-manim" class="level2">
+<h2 class="anchored" data-anchor-id="ghi-chú-chuyển-sang-mã-manim">1. Ghi chú chuyển sang mã Manim</h2>
+<p>Khi chuyển sang <code>03_manim_scene.py</code>, không nên viết toàn bộ một mạch ngay.</p>
+<p>Thứ tự sản xuất nên là:</p>
+<pre class="text"><code>1. Dựng helper phong cách.
+2. Dựng dữ liệu hàm số và bảng giá trị.
+3. Render riêng C02 để kiểm bảng.
+4. Render riêng C03 để kiểm trục x và đoạn y.
+5. Render riêng C04 để kiểm điểm và đường cong.
+6. Render riêng C05 để kiểm trục y và gốc chung.
+7. Sau khi C02--C05 ổn, mới hoàn thiện C01, C06, C07, C08.</code></pre>
+<p>Lý do: lõi toán-hình của video nằm ở C02–C05.<br>
+Nếu phần này đúng, các cảnh mở đầu, kết tinh và dẫn thực hành sẽ dễ hoàn thiện hơn.</p>
+</section>
+<section id="ghi-chú-kiểm-soát-đối-tượng-đích" class="level2">
+<h2 class="anchored" data-anchor-id="ghi-chú-kiểm-soát-đối-tượng-đích">2. Ghi chú kiểm soát đối tượng đích</h2>
+<p>Không để các đối tượng sau xuất hiện quá sớm:</p>
+<pre class="text"><code>trục y
+gốc tọa độ
+mặt phẳng tọa độ hoàn chỉnh
+đường cong hoàn chỉnh
+định nghĩa đồ thị</code></pre>
+<p>Thứ tự xuất hiện bắt buộc:</p>
+<pre class="text"><code>bảng số
+→ hàng x
+→ đường ngang
+→ trục x
+→ đoạn y
+→ đầu mút
+→ điểm (x,y)
+→ nhiều điểm
+→ đường cong
+→ thước đo y
+→ trục y
+→ gốc chung
+→ hệ hai trục
+→ định nghĩa đồ thị</code></pre>
+<p>Nếu thứ tự này bị đảo, hoạt ảnh sẽ đi ngược tinh thần kiến tạo.</p>
+</section>
+<section id="tiêu-chuẩn-kiểm-bản-nháp" class="level2">
+<h2 class="anchored" data-anchor-id="tiêu-chuẩn-kiểm-bản-nháp">3. Tiêu chuẩn kiểm bản nháp</h2>
+<p>Một bản render nháp đạt yêu cầu khi người xem có thể trả lời bằng mắt:</p>
+<pre class="text"><code>TẠI SAO X ĐƯỢC ĐẶT TRÊN ĐƯỜNG NGANG?
+
+TẠI SAO Y ĐƯỢC DỰNG LÊN HOẶC HẠ XUỐNG TỪ MỖI MỐC X?
+
+TẠI SAO ĐẦU MÚT CỦA ĐOẠN GIỮ LẠI CẢ X VÀ Y?
+
+TẠI SAO NHIỀU ĐIỂM GỢI RA ĐƯỜNG CONG?
+
+TẠI SAO CẦN TRỤC Y?
+
+TẠI SAO HAI TRỤC CÙNG GẶP Ở MỘT GỐC?
+
+TẠI SAO ĐỒ THỊ LÀ HÌNH ẢNH CỦA SỰ BIẾN THIÊN?</code></pre>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a><br>
+<br> <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a><br>
+<br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
