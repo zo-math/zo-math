@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>nctm_2000_5_chuan_noi_dung – ZO Math</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../">
+<link href="../../../../images/favicon.ico" rel="icon">
+<script src="../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap-3d1903c5838503892ba651cf513ab205.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+
+<link rel="stylesheet" href="../../../../assets/css/custom.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../../content/toan-thpt/toan-11/index.qmd">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../content/toan-thpt/toan-12/index.qmd">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.qmd">
+ <span class="dropdown-text">100+ Hàm số</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../content/zo-o/index.qmd"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../content/zo-lab/index.qmd"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../content/shop/index.html"> 
+<span class="menu-text">ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block"></header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Trên trang này</h2>
+   
+  <ul>
+  <li><a href="#ghi-chú-5-chuẩn-nội-dung-của-nctm-2000-trong-toán-học-phổ-thông-hoa-kì" id="toc-ghi-chú-5-chuẩn-nội-dung-của-nctm-2000-trong-toán-học-phổ-thông-hoa-kì" class="nav-link active" data-scroll-target="#ghi-chú-5-chuẩn-nội-dung-của-nctm-2000-trong-toán-học-phổ-thông-hoa-kì">Ghi chú: 5 chuẩn nội dung của NCTM 2000 trong toán học phổ thông Hoa Kì</a>
+  <ul class="collapse">
+  <li><a href="#số-và-phép-toán" id="toc-số-và-phép-toán" class="nav-link" data-scroll-target="#số-và-phép-toán">1. Số và phép toán</a></li>
+  <li><a href="#đại-số" id="toc-đại-số" class="nav-link" data-scroll-target="#đại-số">2. Đại số</a></li>
+  <li><a href="#hình-học" id="toc-hình-học" class="nav-link" data-scroll-target="#hình-học">3. Hình học</a></li>
+  <li><a href="#đo-lường" id="toc-đo-lường" class="nav-link" data-scroll-target="#đo-lường">4. Đo lường</a></li>
+  <li><a href="#phân-tích-dữ-liệu-và-xác-suất" id="toc-phân-tích-dữ-liệu-và-xác-suất" class="nav-link" data-scroll-target="#phân-tích-dữ-liệu-và-xác-suất">5. Phân tích dữ liệu và xác suất</a></li>
+  </ul></li>
+  <li><a href="#vai-trò-của-5-chuẩn-nội-dung" id="toc-vai-trò-của-5-chuẩn-nội-dung" class="nav-link" data-scroll-target="#vai-trò-của-5-chuẩn-nội-dung">Vai trò của 5 chuẩn nội dung</a></li>
+  <li><a href="#tài-liệu-phổ-biến-liên-quan" id="toc-tài-liệu-phổ-biến-liên-quan" class="nav-link" data-scroll-target="#tài-liệu-phổ-biến-liên-quan">Tài liệu phổ biến liên quan</a></li>
+  <li><a href="#đánh-giá-chuyên-môn-tổng-quát" id="toc-đánh-giá-chuyên-môn-tổng-quát" class="nav-link" data-scroll-target="#đánh-giá-chuyên-môn-tổng-quát">Đánh giá chuyên môn tổng quát</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="ghi-chú-5-chuẩn-nội-dung-của-nctm-2000-trong-toán-học-phổ-thông-hoa-kì" class="level2">
+<h2 class="anchored" data-anchor-id="ghi-chú-5-chuẩn-nội-dung-của-nctm-2000-trong-toán-học-phổ-thông-hoa-kì">Ghi chú: 5 chuẩn nội dung của NCTM 2000 trong toán học phổ thông Hoa Kì</h2>
+<p>Nói chính xác, <strong>NCTM 2000 không ban hành “chương trình toán trung học phổ thông Hoa Kì” theo nghĩa chương trình quốc gia bắt buộc</strong>. Hoa Kì không vận hành chương trình toán phổ thông như một khung thống nhất toàn quốc kiểu Việt Nam. NCTM 2000, tức <em>Principles and Standards for School Mathematics</em>, là văn bản chuẩn nghề nghiệp có ảnh hưởng rất lớn, đưa ra tầm nhìn cho toán học phổ thông từ mầm non đến lớp 12. Trong đó, NCTM nêu <strong>5 chuẩn nội dung</strong> và <strong>5 chuẩn quá trình</strong>; các chuẩn nội dung có kì vọng học tập theo các dải lớp, trong đó có lớp 9–12. (<a href="https://www.nctm.org/Standards-and-Positions/Principles-and-Standards/?utm_source=chatgpt.com" title="Principles and Standards">NCTM</a>)</p>
+<p>Năm chuẩn nội dung của NCTM 2000 là:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode tex code-with-copy"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Number and Operations</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Algebra</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Geometry</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>Measurement</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Data Analysis and Probability</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Có thể dịch là:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode tex code-with-copy"><code class="sourceCode latex"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Số và phép toán</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Đại số</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Hình học</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>Đo lường</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>Phân tích dữ liệu và xác suất</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="số-và-phép-toán" class="level3">
+<h3 class="anchored" data-anchor-id="số-và-phép-toán">1. Số và phép toán</h3>
+<p>Chuẩn này yêu cầu học sinh hiểu số, cách biểu diễn số, quan hệ giữa các số và các hệ thống số; hiểu ý nghĩa của phép toán và quan hệ giữa các phép toán; đồng thời tính toán thành thạo và biết ước lượng hợp lí. (<a href="https://www.nctm.org/Standards-and-Positions/Principles-and-Standards/Number-and-Operations/?utm_source=chatgpt.com" title="Number and Operations">NCTM</a>)</p>
+<p>Với trung học phổ thông, vai trò của chuẩn này không còn là học số theo nghĩa sơ cấp, mà là mở rộng và củng cố <strong>luận định lượng</strong>: hiểu hệ số thực, số phức, vectơ, ma trận, đơn vị, độ lớn, ước lượng, sai số, tỉ lệ, và cách dùng số để biểu thị đại lượng. Đây là nền cho đại số, hàm số, mô hình hóa, xác suất, thống kê và khoa học tự nhiên.</p>
+<p>Đánh giá chuyên môn: đây là chuẩn nền tảng nhất, nhưng nếu giữ tên “Number and Operations” ở bậc THPT thì hơi hẹp. Lí do là toán THPT không chỉ làm việc với “số và phép toán”, mà còn với <strong>đại lượng</strong>, <strong>định lượng</strong>, <strong>đơn vị</strong>, <strong>xấp xỉ</strong>, <strong>mức độ chính xác</strong>. Sau này, Common Core chuyển sang tên <strong>Number and Quantity</strong>, phản ánh rõ hơn tinh thần định lượng ở bậc THPT. Common Core cũng nhấn mạnh rằng ở THPT, học sinh gặp nhiều loại đơn vị và đại lượng phức tạp hơn, không chỉ độ dài, diện tích, thể tích như ở lớp dưới. (<a href="https://learning.ccsso.org/wp-content/uploads/2022/11/ADA-Compliant-Math-Standards.pdf" title="Common Core State Standards for Mathematics">learning.ccsso.org</a>)</p>
+</section>
+<section id="đại-số" class="level3">
+<h3 class="anchored" data-anchor-id="đại-số">2. Đại số</h3>
+<p>Chuẩn Đại số của NCTM bao gồm: hiểu mẫu hình, quan hệ và hàm số; biểu diễn và phân tích tình huống toán học bằng kí hiệu đại số; dùng mô hình toán học để biểu diễn quan hệ định lượng; và phân tích sự thay đổi trong nhiều bối cảnh. (<a href="https://www.nctm.org/Standards-and-Positions/Principles-and-Standards/Algebra/?utm_source=chatgpt.com" title="Algebra">NCTM</a>)</p>
+<p>Ở THPT, đại số không nên hiểu hẹp là biến đổi biểu thức, giải phương trình, giải bất phương trình. Hạt nhân của chuẩn này là học sinh biết dùng <strong>kí hiệu</strong> để nắm bắt cấu trúc, mô tả quan hệ, tổng quát hóa quy luật, mô hình hóa tình huống và phân tích biến thiên.</p>
+<p>Đánh giá chuyên môn: chuẩn này rất mạnh vì đặt đại số vào cả ba trục: <strong>kí hiệu – hàm số – biến thiên</strong>. Tuy nhiên, vì quá rộng nên khi triển khai ở THPT, đại số dễ bị dạy thành danh sách thủ tục. Đây là lí do FHSM không giữ nguyên nhãn “Algebra”, mà tách thành hai trọng tâm rõ hơn: <strong>Algebraic Symbols</strong> và <strong>Functions</strong>. Cách tách này có cơ sở sư phạm: luận với kí hiệu đại số và luận với hàm số là hai năng lực gần nhau nhưng không trùng nhau.</p>
+</section>
+<section id="hình-học" class="level3">
+<h3 class="anchored" data-anchor-id="hình-học">3. Hình học</h3>
+<p>Chuẩn Hình học yêu cầu học sinh phân tích đặc điểm và tính chất của hình hai chiều, ba chiều; phát triển biện giải toán học về quan hệ hình học; dùng tọa độ và các hệ biểu diễn để mô tả vị trí, quan hệ không gian; dùng phép biến hình, đối xứng, trực quan hóa, luận không gian và mô hình hình học để giải quyết vấn đề. (<a href="https://www.nctm.org/Standards-and-Positions/Principles-and-Standards/Geometry/?utm_source=chatgpt.com" title="Geometry">NCTM</a>)</p>
+<p>Ở THPT, hình học là nơi nổi bật của <strong>luận suy diễn</strong>, <strong>chứng minh</strong>, <strong>xây dựng biện giải</strong>, <strong>liên kết trực quan với hình thức</strong>, và <strong>chuyển đổi giữa hình vẽ, ngôn ngữ, kí hiệu, tọa độ</strong>. Vì vậy, trong FHSM, hình học được giữ thành một mảng riêng là hoàn toàn có lí do.</p>
+<p>Đánh giá chuyên môn: đây là chuẩn có sức mạnh đặc biệt đối với “reasoning and proof”. Tuy nhiên, nếu dạy hình học chỉ như thao tác chứng minh hình thức, học sinh dễ mất phần “sense making”: thấy hình, nhận ra quan hệ, dự đoán, kiểm chứng, rồi mới hình thức hóa. FHSM xử lí đúng điểm này khi đặt trọng tâm không chỉ vào chứng minh, mà vào <strong>luận với hình học</strong>.</p>
+</section>
+<section id="đo-lường" class="level3">
+<h3 class="anchored" data-anchor-id="đo-lường">4. Đo lường</h3>
+<p>Chuẩn Đo lường yêu cầu học sinh hiểu thuộc tính đo được của đối tượng, hiểu đơn vị, hệ đơn vị, quá trình đo; đồng thời biết dùng kĩ thuật, công cụ và công thức phù hợp để xác định số đo. (<a href="https://www.nctm.org/Standards-and-Positions/Principles-and-Standards/Measurement/?utm_source=chatgpt.com" title="Measurement">NCTM</a>)</p>
+<p>Trong chương trình phổ thông, đo lường thường gắn với độ dài, diện tích, thể tích, góc, thời gian, khối lượng, đơn vị và công thức. Tuy nhiên, về ý niệm toán học rộng hơn, đo lường không chỉ thuộc hình học. Đo lường là việc gán một con số để biểu thị mức độ của một thuộc tính nào đó. Theo nghĩa này, xác suất cũng là một dạng đo lường mức độ khả hữu của biến cố; phương sai đo độ phân tán; tốc độ thay đổi đo mức biến thiên của một đại lượng theo đại lượng khác.</p>
+<p>Đánh giá chuyên môn: NCTM tách Đo lường thành chuẩn riêng là một điểm rất đáng chú ý, vì nó tránh làm đo lường bị chìm trong hình học. Cách này có chiều sâu hơn việc chỉ ghép “Hình học và Đo lường”, bởi đo lường thực chất là cầu nối giữa số, hình học, mô hình hóa, khoa học thực nghiệm, thống kê và đời sống. Tuy nhiên, trong thực tế dạy học, chuẩn này dễ bị thu hẹp thành công thức tính chu vi, diện tích, thể tích. Vì thế, khi đọc NCTM/FHSM, nên hiểu đo lường như một phần của <strong>luận định lượng</strong>, không chỉ là kĩ thuật đo hình.</p>
+</section>
+<section id="phân-tích-dữ-liệu-và-xác-suất" class="level3">
+<h3 class="anchored" data-anchor-id="phân-tích-dữ-liệu-và-xác-suất">5. Phân tích dữ liệu và xác suất</h3>
+<p>Chuẩn này yêu cầu học sinh biết đặt câu hỏi có thể trả lời bằng dữ liệu; thu thập, tổ chức và biểu diễn dữ liệu; chọn và dùng phương pháp thống kê phù hợp để phân tích dữ liệu; phát triển và đánh giá suy luận, dự đoán dựa trên dữ liệu; hiểu và vận dụng các khái niệm cơ bản của xác suất. (<a href="https://www.nctm.org/Standards-and-Positions/Principles-and-Standards/Data-Analysis-and-Probability/?utm_source=chatgpt.com" title="Data Analysis and Probability">NCTM</a>)</p>
+<p>Ở THPT, chuẩn này mở vào một kiểu luận rất khác với đại số hoặc hình học: <strong>luận trong bất định</strong>. Học sinh phải học cách đọc dữ liệu, nhận ra biến thiên, phân biệt mẫu và tổng thể, đánh giá mức độ tin cậy, hiểu ngẫu nhiên, xác suất, kì vọng, mô phỏng, và đưa ra kết luận trong điều kiện không chắc chắn.</p>
+<p>Đánh giá chuyên môn: đây là chuẩn hiện đại nhất trong 5 chuẩn nội dung NCTM 2000. Nó đưa dữ liệu và xác suất ra khỏi vị trí phụ trợ, đặt chúng thành thành phần cốt lõi của toán học phổ thông. Điểm cần lưu ý là tên “Data Analysis and Probability” vẫn hơi nghiêng về “phân tích dữ liệu”; trong các tài liệu sau này, cách gọi <strong>Statistics and Probability</strong> trở nên rõ hơn vì nhấn mạnh cả suy luận thống kê, thiết kế dữ liệu và ra quyết định trong bất định.</p>
+<hr>
+</section>
+</section>
+<section id="vai-trò-của-5-chuẩn-nội-dung" class="level2">
+<h2 class="anchored" data-anchor-id="vai-trò-của-5-chuẩn-nội-dung">Vai trò của 5 chuẩn nội dung</h2>
+<p>Năm chuẩn nội dung của NCTM 2000 không phải là 5 khóa học, cũng không bắt buộc trường học phải dạy thành 5 phần riêng. Chúng là <strong>bản đồ nội dung</strong>: chỉ ra những miền toán học mà mọi học sinh phổ thông cần có cơ hội học một cách có ý nghĩa.</p>
+<p>Điểm mạnh của NCTM 2000 là 5 chuẩn nội dung luôn đi cùng 5 chuẩn quá trình:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode tex code-with-copy"><code class="sourceCode latex"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Problem Solving</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Reasoning and Proof</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Communication</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>Connections</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Representation</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>tức là:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode tex code-with-copy"><code class="sourceCode latex"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Giải quyết vấn đề</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Luận và chứng minh</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Giao tiếp</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>Kết nối</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>Biểu diễn</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Vì vậy, nội dung không được xem như danh sách chủ đề cần “phủ”, mà là môi trường để học sinh giải quyết vấn đề, luận, chứng minh, giao tiếp, kết nối và biểu diễn toán học. (<a href="https://www.nctm.org/Standards-and-Positions/Principles-and-Standards/Principles%2C-Standards%2C-and-Expectations/?utm_source=chatgpt.com" title="Principles, Standards, and Expectations">NCTM</a>)</p>
+<hr>
+</section>
+<section id="tài-liệu-phổ-biến-liên-quan" class="level2">
+<h2 class="anchored" data-anchor-id="tài-liệu-phổ-biến-liên-quan">Tài liệu phổ biến liên quan</h2>
+<p>Tài liệu gốc quan trọng nhất là <strong>NCTM 2000, <em>Principles and Standards for School Mathematics</em></strong>. Đây là văn bản đặt nền cho cách nói về 5 chuẩn nội dung và 5 chuẩn quá trình.</p>
+<p>Sau đó, có ba lớp tài liệu rất quan trọng để hiểu sự phát triển của tư tưởng này:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode tex code-with-copy"><code class="sourceCode latex"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>NCTM 2000: Principles and Standards for School Mathematics</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>NCTM 2009: Focus in High School Mathematics: Reasoning and Sense Making</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Common Core 2010: Common Core State Standards for Mathematics</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>NCTM 2018: Catalyzing Change in High School Mathematics</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Trong đó, FHSM 2009 không lặp lại nguyên xi 5 chuẩn nội dung NCTM 2000, mà tái tổ chức toán THPT thành 5 mảng để làm nổi rõ luận và hiểu:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode tex code-with-copy"><code class="sourceCode latex"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Number and Measurement</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>Algebraic Symbols</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Functions</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>Geometry</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>Statistics and Probability</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Common Core 2010 lại tổ chức chuẩn THPT thành 6 phạm trù khái niệm:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode tex code-with-copy"><code class="sourceCode latex"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Number and Quantity</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Algebra</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>Functions</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>Modeling</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>Geometry</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>Statistics and Probability</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Common Core nói rõ các chuẩn THPT không quy định trình tự khóa học; các bang/trường có thể tổ chức theo chuỗi truyền thống như Algebra I, Geometry, Algebra II hoặc theo chuỗi tích hợp như Mathematics 1, 2, 3. (<a href="https://learning.ccsso.org/wp-content/uploads/2022/11/ADA-Compliant-Math-Standards.pdf" title="Common Core State Standards for Mathematics">learning.ccsso.org</a>)</p>
+<hr>
+</section>
+<section id="đánh-giá-chuyên-môn-tổng-quát" class="level2">
+<h2 class="anchored" data-anchor-id="đánh-giá-chuyên-môn-tổng-quát">Đánh giá chuyên môn tổng quát</h2>
+<p>Đánh giá công bằng nhất là:</p>
+<blockquote class="blockquote">
+<p><strong>NCTM 2000 cung cấp một bản đồ nội dung rất có giá trị, nhưng chưa phải là cách tổ chức tối ưu duy nhất cho toán học trung học phổ thông.</strong></p>
+</blockquote>
+<p>Nó có bốn điểm mạnh lớn.</p>
+<p>Thứ nhất, nó tách rõ các miền nội dung cơ bản của toán học phổ thông, đặc biệt không để Đo lường và Dữ liệu/Xác suất bị chìm sau Đại số và Hình học.</p>
+<p>Thứ hai, nó đặt nội dung bên cạnh quá trình toán học. Điều này rất quan trọng: học sinh không chỉ học “cái gì”, mà còn học cách làm toán, cách luận, cách biểu diễn, cách kết nối và cách giao tiếp toán học.</p>
+<p>Thứ ba, nó tạo được một ngôn ngữ nghề nghiệp chung cho giáo viên, nhà viết chương trình, nhà biên soạn sách và nhà nghiên cứu giáo dục toán.</p>
+<p>Thứ tư, nó mở đường cho các tài liệu sau này như FHSM, Common Core và Catalyzing Change tiếp tục tinh chỉnh toán học THPT theo hướng ít rời rạc hơn, giàu luận hơn, gần dữ liệu và mô hình hóa hơn.</p>
+<p>Nhưng nó cũng có giới hạn.</p>
+<p>Giới hạn lớn nhất là 5 chuẩn nội dung của NCTM 2000 <strong>không tự động cho ta một cấu trúc chương trình THPT tốt</strong>. Nếu biến chúng thành danh sách chủ đề cần “phủ hết”, chương trình vẫn có thể rời rạc. Ngoài ra, ở bậc THPT, chuẩn “Algebra” quá rộng, nên cần tách rõ hơn giữa luận với kí hiệu đại số và luận với hàm số. Chuẩn “Number and Operations” cũng cần được mở rộng thành “Number and Quantity” để nắm được vai trò của đơn vị, đại lượng, định lượng và mô hình hóa.</p>
+<p>Vì vậy, với ZO Math/FHSM, cách dùng tốt nhất là:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode tex code-with-copy"><code class="sourceCode latex"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>NCTM 2000 cho bản đồ nền về nội dung toán học phổ thông.</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>FHSM cho bản đồ nhận thức về nơi luận và hiểu cần được phát triển ở bậc THPT.</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>Chương trình Việt Nam 2018 cho khung triển khai địa phương.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Nói ngắn gọn: <strong>không nên xem 5 chuẩn nội dung NCTM 2000 là khuôn bắt buộc để thay thế chương trình Việt Nam; nên xem chúng là bản đồ phân tích giúp nhìn sâu hơn vào cấu trúc nội dung toán học phổ thông.</strong></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/zo-math\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a><br>
+<br> <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a><br>
+<br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

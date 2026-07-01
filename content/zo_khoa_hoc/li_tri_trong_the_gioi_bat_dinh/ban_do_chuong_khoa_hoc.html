@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="ZO Math">
+
+<title>BẢN ĐỒ CHƯƠNG CỦA KHÓA HỌC – ZO Math</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-3d1903c5838503892ba651cf513ab205.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+
+<link rel="stylesheet" href="../../../assets/css/custom.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-11/index.qmd">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-12/index.qmd">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.qmd">
+ <span class="dropdown-text">100+ Hàm số</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-o/index.qmd"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-lab/index.qmd"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/shop/index.html"> 
+<span class="menu-text">ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">BẢN ĐỒ CHƯƠNG CỦA KHÓA HỌC</h1>
+            <p class="subtitle lead"><em>Lý trí trong thế giới bất định</em></p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Tác giả</div>
+      <div class="quarto-title-meta-contents">
+               <p>ZO Math </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Ngày cập nhật</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">01-07-2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Trên trang này</h2>
+   
+  <ul>
+  <li><a href="#bản-đồ-chương-của-khóa-học" id="toc-bản-đồ-chương-của-khóa-học" class="nav-link active" data-scroll-target="#bản-đồ-chương-của-khóa-học">BẢN ĐỒ CHƯƠNG CỦA KHÓA HỌC</a>
+  <ul class="collapse">
+  <li><a href="#lý-trí-trong-thế-giới-bất-định" id="toc-lý-trí-trong-thế-giới-bất-định" class="nav-link" data-scroll-target="#lý-trí-trong-thế-giới-bất-định"><em>Lý trí trong thế giới bất định</em></a>
+  <ul class="collapse">
+  <li><a href="#mười-một-tình-huống-kinh-điển-mở-vào-xác-suất-dữ-liệu-và-quyết-định" id="toc-mười-một-tình-huống-kinh-điển-mở-vào-xác-suất-dữ-liệu-và-quyết-định" class="nav-link" data-scroll-target="#mười-một-tình-huống-kinh-điển-mở-vào-xác-suất-dữ-liệu-và-quyết-định"><em>Mười một tình huống kinh điển mở vào xác suất, dữ liệu và quyết định</em></a></li>
+  </ul></li>
+  <li><a href="#vai-trò-của-văn-bản-này" id="toc-vai-trò-của-văn-bản-này" class="nav-link" data-scroll-target="#vai-trò-của-văn-bản-này">Vai trò của văn bản này</a></li>
+  <li><a href="#mẫu-thống-nhất-cho-mỗi-chương" id="toc-mẫu-thống-nhất-cho-mỗi-chương" class="nav-link" data-scroll-target="#mẫu-thống-nhất-cho-mỗi-chương">Mẫu thống nhất cho mỗi chương</a></li>
+  </ul></li>
+  <li><a href="#phần-mở-đầu.-khai-sinh-nhu-cầu-xác-suất" id="toc-phần-mở-đầu.-khai-sinh-nhu-cầu-xác-suất" class="nav-link" data-scroll-target="#phần-mở-đầu.-khai-sinh-nhu-cầu-xác-suất">PHẦN MỞ ĐẦU. KHAI SINH NHU CẦU XÁC SUẤT</a>
+  <ul class="collapse">
+  <li><a href="#chương-1.-bài-toán-chia-tiền-cược" id="toc-chương-1.-bài-toán-chia-tiền-cược" class="nav-link" data-scroll-target="#chương-1.-bài-toán-chia-tiền-cược">Chương 1. Bài toán chia tiền cược</a></li>
+  </ul></li>
+  <li><a href="#phần-i.-mô-hình-hóa-các-khả-năng" id="toc-phần-i.-mô-hình-hóa-các-khả-năng" class="nav-link" data-scroll-target="#phần-i.-mô-hình-hóa-các-khả-năng">PHẦN I. MÔ HÌNH HÓA CÁC KHẢ NĂNG</a>
+  <ul class="collapse">
+  <li><a href="#chương-2.-bài-toán-hai-con" id="toc-chương-2.-bài-toán-hai-con" class="nav-link" data-scroll-target="#chương-2.-bài-toán-hai-con">Chương 2. Bài toán hai con</a></li>
+  <li><a href="#chương-3.-bài-toán-ngày-sinh-nhật" id="toc-chương-3.-bài-toán-ngày-sinh-nhật" class="nav-link" data-scroll-target="#chương-3.-bài-toán-ngày-sinh-nhật">Chương 3. Bài toán ngày sinh nhật</a></li>
+  </ul></li>
+  <li><a href="#phần-ii.-cập-nhật-đánh-giá-khi-thông-tin-thay-đổi" id="toc-phần-ii.-cập-nhật-đánh-giá-khi-thông-tin-thay-đổi" class="nav-link" data-scroll-target="#phần-ii.-cập-nhật-đánh-giá-khi-thông-tin-thay-đổi">PHẦN II. CẬP NHẬT ĐÁNH GIÁ KHI THÔNG TIN THAY ĐỔI</a>
+  <ul class="collapse">
+  <li><a href="#chương-4.-bài-toán-monty-hall" id="toc-chương-4.-bài-toán-monty-hall" class="nav-link" data-scroll-target="#chương-4.-bài-toán-monty-hall">Chương 4. Bài toán Monty Hall</a></li>
+  <li><a href="#chương-5.-bài-toán-chẩn-đoán-y-khoa" id="toc-chương-5.-bài-toán-chẩn-đoán-y-khoa" class="nav-link" data-scroll-target="#chương-5.-bài-toán-chẩn-đoán-y-khoa">Chương 5. Bài toán chẩn đoán y khoa</a></li>
+  </ul></li>
+  <li><a href="#phần-iii.-từ-rời-rạc-đến-liên-tục-từ-cá-thể-đến-tập-thể" id="toc-phần-iii.-từ-rời-rạc-đến-liên-tục-từ-cá-thể-đến-tập-thể" class="nav-link" data-scroll-target="#phần-iii.-từ-rời-rạc-đến-liên-tục-từ-cá-thể-đến-tập-thể">PHẦN III. TỪ RỜI RẠC ĐẾN LIÊN TỤC, TỪ CÁ THỂ ĐẾN TẬP THỂ</a>
+  <ul class="collapse">
+  <li><a href="#chương-6.-bài-toán-chiếc-gậy-gãy" id="toc-chương-6.-bài-toán-chiếc-gậy-gãy" class="nav-link" data-scroll-target="#chương-6.-bài-toán-chiếc-gậy-gãy">Chương 6. Bài toán chiếc gậy gãy</a></li>
+  <li><a href="#chương-7.-thí-nghiệm-bảng-đinh-galton" id="toc-chương-7.-thí-nghiệm-bảng-đinh-galton" class="nav-link" data-scroll-target="#chương-7.-thí-nghiệm-bảng-đinh-galton">Chương 7. Thí nghiệm bảng đinh Galton</a></li>
+  </ul></li>
+  <li><a href="#phần-iv.-học-từ-dữ-liệu" id="toc-phần-iv.-học-từ-dữ-liệu" class="nav-link" data-scroll-target="#phần-iv.-học-từ-dữ-liệu">PHẦN IV. HỌC TỪ DỮ LIỆU</a>
+  <ul class="collapse">
+  <li><a href="#chương-8.-thí-nghiệm-quý-bà-nếm-trà" id="toc-chương-8.-thí-nghiệm-quý-bà-nếm-trà" class="nav-link" data-scroll-target="#chương-8.-thí-nghiệm-quý-bà-nếm-trà">Chương 8. Thí nghiệm Quý bà nếm trà</a></li>
+  <li><a href="#chương-9.-nghịch-lý-simpson" id="toc-chương-9.-nghịch-lý-simpson" class="nav-link" data-scroll-target="#chương-9.-nghịch-lý-simpson">Chương 9. Nghịch lý Simpson</a></li>
+  </ul></li>
+  <li><a href="#phần-v.-giá-trị-rủi-ro-và-quyết-định" id="toc-phần-v.-giá-trị-rủi-ro-và-quyết-định" class="nav-link" data-scroll-target="#phần-v.-giá-trị-rủi-ro-và-quyết-định">PHẦN V. GIÁ TRỊ, RỦI RO VÀ QUYẾT ĐỊNH</a>
+  <ul class="collapse">
+  <li><a href="#chương-10.-nghịch-lý-saint-petersburg" id="toc-chương-10.-nghịch-lý-saint-petersburg" class="nav-link" data-scroll-target="#chương-10.-nghịch-lý-saint-petersburg">Chương 10. Nghịch lý Saint Petersburg</a></li>
+  <li><a href="#chương-11.-bài-toán-phá-sản-của-con-bạc" id="toc-chương-11.-bài-toán-phá-sản-của-con-bạc" class="nav-link" data-scroll-target="#chương-11.-bài-toán-phá-sản-của-con-bạc">Chương 11. Bài toán phá sản của con bạc</a></li>
+  <li><a href="#mạch-thống-nhất-của-toàn-bộ-bản-đồ-chương" id="toc-mạch-thống-nhất-của-toàn-bộ-bản-đồ-chương" class="nav-link" data-scroll-target="#mạch-thống-nhất-của-toàn-bộ-bản-đồ-chương">Mạch thống nhất của toàn bộ bản đồ chương</a></li>
+  <li><a href="#nguyên-tắc-để-phát-triển-tiếp-từ-bản-đồ-này" id="toc-nguyên-tắc-để-phát-triển-tiếp-từ-bản-đồ-này" class="nav-link" data-scroll-target="#nguyên-tắc-để-phát-triển-tiếp-từ-bản-đồ-này">Nguyên tắc để phát triển tiếp từ bản đồ này</a></li>
+  <li><a href="#câu-chốt-của-văn-bản-này" id="toc-câu-chốt-của-văn-bản-này" class="nav-link" data-scroll-target="#câu-chốt-của-văn-bản-này">Câu chốt của văn bản này</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="bản-đồ-chương-của-khóa-học" class="level1">
+<h1>BẢN ĐỒ CHƯƠNG CỦA KHÓA HỌC</h1>
+<section id="lý-trí-trong-thế-giới-bất-định" class="level2">
+<h2 class="anchored" data-anchor-id="lý-trí-trong-thế-giới-bất-định"><em>Lý trí trong thế giới bất định</em></h2>
+<section id="mười-một-tình-huống-kinh-điển-mở-vào-xác-suất-dữ-liệu-và-quyết-định" class="level3">
+<h3 class="anchored" data-anchor-id="mười-một-tình-huống-kinh-điển-mở-vào-xác-suất-dữ-liệu-và-quyết-định"><em>Mười một tình huống kinh điển mở vào xác suất, dữ liệu và quyết định</em></h3>
+</section>
+</section>
+<section id="vai-trò-của-văn-bản-này" class="level2">
+<h2 class="anchored" data-anchor-id="vai-trò-của-văn-bản-này">Vai trò của văn bản này</h2>
+<p>Nếu <strong>Cấu trúc nhận thức của khóa học</strong> trả lời câu hỏi <em>toàn khóa vận động thế nào</em>, thì <strong>Bản đồ chương của khóa học</strong> trả lời câu hỏi <em>toàn khóa ấy sẽ được triển khai thành các chương ra sao</em>.</p>
+<p>Vì vậy, văn bản này không đi sâu vào lời giải chi tiết. Nó chỉ làm một việc: xác định cho từng chương:</p>
+<ul>
+<li>chương này xoay quanh tình huống nào,</li>
+<li>tình huống ấy mở ra câu hỏi gì,</li>
+<li>khái niệm toán học nào phải xuất hiện,</li>
+<li>ngộ nhận nào phải được xử lý,</li>
+<li>và người học phải mang gì sang chương kế tiếp.</li>
+</ul>
+</section>
+<section id="mẫu-thống-nhất-cho-mỗi-chương" class="level2">
+<h2 class="anchored" data-anchor-id="mẫu-thống-nhất-cho-mỗi-chương">Mẫu thống nhất cho mỗi chương</h2>
+<p>Mỗi chương của khóa học được chốt theo 6 mục:</p>
+<ol type="1">
+<li><strong>Tình huống trung tâm</strong></li>
+<li><strong>Câu hỏi dẫn nhập</strong></li>
+<li><strong>Khái niệm cốt lõi</strong></li>
+<li><strong>Ngộ nhận chính cần phá</strong></li>
+<li><strong>Kết quả nhận thức của chương</strong></li>
+<li><strong>Vai trò nối sang chương sau</strong></li>
+</ol>
+</section>
+</section>
+<section id="phần-mở-đầu.-khai-sinh-nhu-cầu-xác-suất" class="level1">
+<h1>PHẦN MỞ ĐẦU. KHAI SINH NHU CẦU XÁC SUẤT</h1>
+<section id="chương-1.-bài-toán-chia-tiền-cược" class="level2">
+<h2 class="anchored" data-anchor-id="chương-1.-bài-toán-chia-tiền-cược">Chương 1. Bài toán chia tiền cược</h2>
+<p><strong>Tình huống trung tâm</strong><br>
+Hai người chơi đang chơi một trò chơi có thưởng nhưng ván chơi bị dừng giữa chừng. Hỏi số tiền cược phải được chia lại như thế nào cho công bằng, khi kết cục cuối cùng chưa ngã ngũ.</p>
+<p><strong>Câu hỏi dẫn nhập</strong><br>
+Khi tương lai còn bỏ ngỏ, ta phải dựa vào đâu để chia phần hợp lý cho mỗi khả năng và cho mỗi người?</p>
+<p><strong>Khái niệm cốt lõi</strong><br>
+Trọng lượng của khả năng; chuẩn hóa bằng số; xác suất như công cụ lượng hóa mức độ khả hữu; mầm của kỳ vọng công bằng.</p>
+<p><strong>Ngộ nhận chính cần phá</strong><br>
+Chỉ cần nhìn điểm số hiện tại hoặc chia đều tiền cược là đủ công bằng.</p>
+<p><strong>Kết quả nhận thức của chương</strong><br>
+Người học hiểu rằng trong bất định, nhiều đánh giá không thể dừng ở “có” hoặc “không”; phải gán cho các khả năng còn mở những trọng lượng số học nếu muốn nói đến công bằng và hợp lý.</p>
+<p><strong>Vai trò nối sang chương sau</strong><br>
+Đặt nền cho toàn khóa; từ đây mới có thể hỏi tiếp các con số ấy được dựng trên không gian khả năng nào và sẽ thay đổi ra sao khi thông tin đổi khác.</p>
+</section>
+</section>
+<section id="phần-i.-mô-hình-hóa-các-khả-năng" class="level1">
+<h1>PHẦN I. MÔ HÌNH HÓA CÁC KHẢ NĂNG</h1>
+<section id="chương-2.-bài-toán-hai-con" class="level2">
+<h2 class="anchored" data-anchor-id="chương-2.-bài-toán-hai-con">Chương 2. Bài toán hai con</h2>
+<p><strong>Tình huống trung tâm</strong><br>
+Một gia đình có hai con. Biết rằng gia đình ấy có ít nhất một con trai. Hỏi xác suất để cả hai con đều là con trai là bao nhiêu.</p>
+<p><strong>Câu hỏi dẫn nhập</strong><br>
+Khi nhận thêm một mẩu thông tin, ta có đang vô thức giữ nguyên không gian các khả năng ban đầu hay không?</p>
+<p><strong>Khái niệm cốt lõi</strong><br>
+Không gian mẫu; các khả năng đồng khả năng; điều kiện làm thay đổi tập khả năng đang xét.</p>
+<p><strong>Ngộ nhận chính cần phá</strong><br>
+Sau khi biết “ít nhất một con trai”, chỉ còn hai khả năng cân bằng: “một trai một gái” và “hai trai”.</p>
+<p><strong>Kết quả nhận thức của chương</strong><br>
+Người học hiểu rằng muốn tính xác suất đúng, trước hết phải xác định đúng <strong>không gian các khả năng còn lại sau điều kiện</strong>.</p>
+<p><strong>Vai trò nối sang chương sau</strong><br>
+Đặt nền cho tư duy đếm có kiểm soát; chuẩn bị cho tình huống ngày sinh nhật, nơi trực giác tiếp tục sai vì không nhìn thấy cấu trúc tổ hợp.</p>
+</section>
+<section id="chương-3.-bài-toán-ngày-sinh-nhật" class="level2">
+<h2 class="anchored" data-anchor-id="chương-3.-bài-toán-ngày-sinh-nhật">Chương 3. Bài toán ngày sinh nhật</h2>
+<p><strong>Tình huống trung tâm</strong><br>
+Trong một nhóm người, hỏi xác suất để có ít nhất hai người cùng ngày sinh là bao nhiêu.</p>
+<p><strong>Câu hỏi dẫn nhập</strong><br>
+Vì sao một biến cố có vẻ hiếm vẫn có thể xảy ra với xác suất khá lớn sớm hơn ta tưởng?</p>
+<p><strong>Khái niệm cốt lõi</strong><br>
+Biến cố đối; đếm tổ hợp; số cặp so sánh; tích xác suất liên tiếp.</p>
+<p><strong>Ngộ nhận chính cần phá</strong><br>
+Nhóm chưa đủ đông thì xác suất trùng ngày sinh chắc vẫn còn rất nhỏ.</p>
+<p><strong>Kết quả nhận thức của chương</strong><br>
+Người học hiểu rằng trực giác về độ hiếm thường sai khi số cấu hình hoặc số lần so sánh tăng nhanh.</p>
+<p><strong>Vai trò nối sang chương sau</strong><br>
+Hoàn tất chặng nhập môn về mô hình hóa các khả năng; chuẩn bị cho bước chuyển sang <strong>cập nhật xác suất khi có thêm thông tin</strong>.</p>
+</section>
+</section>
+<section id="phần-ii.-cập-nhật-đánh-giá-khi-thông-tin-thay-đổi" class="level1">
+<h1>PHẦN II. CẬP NHẬT ĐÁNH GIÁ KHI THÔNG TIN THAY ĐỔI</h1>
+<section id="chương-4.-bài-toán-monty-hall" class="level2">
+<h2 class="anchored" data-anchor-id="chương-4.-bài-toán-monty-hall">Chương 4. Bài toán Monty Hall</h2>
+<p><strong>Tình huống trung tâm</strong><br>
+Người chơi chọn một trong ba cánh cửa. Người dẫn chương trình biết trước cửa có thưởng và mở một cửa khác chắc chắn rỗng. Hỏi nên giữ hay đổi.</p>
+<p><strong>Câu hỏi dẫn nhập</strong><br>
+Khi một khả năng bị loại bỏ, xác suất có tự động chia đều cho những khả năng còn lại hay không?</p>
+<p><strong>Khái niệm cốt lõi</strong><br>
+Xác suất có điều kiện; cơ chế sinh thông tin; vai trò của quy tắc quan sát.</p>
+<p><strong>Ngộ nhận chính cần phá</strong><br>
+Còn hai cửa thì xác suất phải là 50–50.</p>
+<p><strong>Kết quả nhận thức của chương</strong><br>
+Người học hiểu rằng không chỉ bản thân thông tin quan trọng, mà <strong>cách thông tin được tạo ra</strong> cũng quyết định việc phải cập nhật xác suất thế nào.</p>
+<p><strong>Vai trò nối sang chương sau</strong><br>
+Làm mềm trực giác để bước vào bài chẩn đoán y khoa, nơi người học phải phân biệt rõ hai hướng của xác suất có điều kiện.</p>
+</section>
+<section id="chương-5.-bài-toán-chẩn-đoán-y-khoa" class="level2">
+<h2 class="anchored" data-anchor-id="chương-5.-bài-toán-chẩn-đoán-y-khoa">Chương 5. Bài toán chẩn đoán y khoa</h2>
+<p><strong>Tình huống trung tâm</strong><br>
+Một căn bệnh hiếm có tỉ lệ mắc thấp trong cộng đồng. Xét nghiệm có độ nhạy cao nhưng vẫn có dương tính giả. Khi một người nhận kết quả dương tính, xác suất thật sự mắc bệnh là bao nhiêu?</p>
+<p><strong>Câu hỏi dẫn nhập</strong><br>
+Vì sao “xét nghiệm tốt” không đồng nghĩa với “người dương tính gần như chắc chắn mắc bệnh”?</p>
+<p><strong>Khái niệm cốt lõi</strong><br>
+Xác suất tiên nghiệm; xác suất có điều kiện theo hai hướng; xác suất toàn phần; công thức Bayes.</p>
+<p><strong>Ngộ nhận chính cần phá</strong><br>
+Độ nhạy cao gần như đồng nghĩa với xác suất cao rằng người dương tính thật sự mắc bệnh.</p>
+<p><strong>Kết quả nhận thức của chương</strong><br>
+Người học hiểu rằng khi thông tin thay đổi, đánh giá phải được <strong>tái chuẩn hóa trên một điểm tựa mới</strong>; đây là hạt nhân của tư duy Bayes.</p>
+<p><strong>Vai trò nối sang chương sau</strong><br>
+Khép lại chặng “cập nhật khi có thông tin”; mở sang một miền mới, nơi xác suất không còn chỉ là đếm rời rạc mà còn là mô hình hóa liên tục.</p>
+</section>
+</section>
+<section id="phần-iii.-từ-rời-rạc-đến-liên-tục-từ-cá-thể-đến-tập-thể" class="level1">
+<h1>PHẦN III. TỪ RỜI RẠC ĐẾN LIÊN TỤC, TỪ CÁ THỂ ĐẾN TẬP THỂ</h1>
+<section id="chương-6.-bài-toán-chiếc-gậy-gãy" class="level2">
+<h2 class="anchored" data-anchor-id="chương-6.-bài-toán-chiếc-gậy-gãy">Chương 6. Bài toán chiếc gậy gãy</h2>
+<p><strong>Tình huống trung tâm</strong><br>
+Một chiếc gậy được bẻ ngẫu nhiên tại hai điểm thành ba đoạn. Hỏi xác suất để ba đoạn ghép được thành một tam giác là bao nhiêu.</p>
+<p><strong>Câu hỏi dẫn nhập</strong><br>
+Khi không thể liệt kê vài trường hợp rời rạc, xác suất phải được mô hình hóa như thế nào?</p>
+<p><strong>Khái niệm cốt lõi</strong><br>
+Không gian mẫu liên tục; xác suất hình học; miền khả dĩ và miền thuận lợi.</p>
+<p><strong>Ngộ nhận chính cần phá</strong><br>
+“Chọn ngẫu nhiên” trong miền liên tục là một ý niệm hiển nhiên, không cần quy ước rõ.</p>
+<p><strong>Kết quả nhận thức của chương</strong><br>
+Người học hiểu rằng ở miền liên tục, xác suất gắn với cấu trúc hình học của miền đang xét, chứ không còn là đếm trực tiếp vài trường hợp.</p>
+<p><strong>Vai trò nối sang chương sau</strong><br>
+Mở lối sang bức tranh tập thể của ngẫu nhiên, nơi sự lặp lại nhiều lần bắt đầu tạo nên quy luật ổn định.</p>
+</section>
+<section id="chương-7.-thí-nghiệm-bảng-đinh-galton" class="level2">
+<h2 class="anchored" data-anchor-id="chương-7.-thí-nghiệm-bảng-đinh-galton">Chương 7. Thí nghiệm bảng đinh Galton</h2>
+<p><strong>Tình huống trung tâm</strong><br>
+Nhiều viên bi rơi qua các hàng đinh; mỗi lần rơi sang trái hay phải có vẻ ngẫu nhiên, nhưng khi quan sát rất nhiều viên bi, ta lại thấy một hình dạng phân bố ổn định.</p>
+<p><strong>Câu hỏi dẫn nhập</strong><br>
+Vì sao vô số kết quả riêng lẻ thất thường lại có thể tạo thành một trật tự thống kê ổn định?</p>
+<p><strong>Khái niệm cốt lõi</strong><br>
+Phân bố xác suất; tần suất; quy luật dài hạn; ổn định thống kê.</p>
+<p><strong>Ngộ nhận chính cần phá</strong><br>
+Ngẫu nhiên nghĩa là hoàn toàn hỗn loạn, không thể xuất hiện cấu trúc ổn định.</p>
+<p><strong>Kết quả nhận thức của chương</strong><br>
+Người học hiểu rằng tính ngẫu nhiên ở cấp cá thể và tính ổn định ở cấp tập thể không mâu thuẫn nhau.</p>
+<p><strong>Vai trò nối sang chương sau</strong><br>
+Mở cửa sang thống kê: từ đây người học đã sẵn sàng chuyển từ “mô hình xác suất” sang “học từ dữ liệu”.</p>
+</section>
+</section>
+<section id="phần-iv.-học-từ-dữ-liệu" class="level1">
+<h1>PHẦN IV. HỌC TỪ DỮ LIỆU</h1>
+<section id="chương-8.-thí-nghiệm-quý-bà-nếm-trà" class="level2">
+<h2 class="anchored" data-anchor-id="chương-8.-thí-nghiệm-quý-bà-nếm-trà">Chương 8. Thí nghiệm Quý bà nếm trà</h2>
+<p><strong>Tình huống trung tâm</strong><br>
+Một người khẳng định có thể phân biệt hai kiểu pha trà bằng vị giác. Cần thiết kế phép thử thế nào để kiểm tra lời khẳng định ấy?</p>
+<p><strong>Câu hỏi dẫn nhập</strong><br>
+Làm sao chuyển từ một tuyên bố cảm tính sang một phép kiểm tra có thể đánh giá được bằng dữ liệu?</p>
+<p><strong>Khái niệm cốt lõi</strong><br>
+Thiết kế thí nghiệm; ngẫu nhiên hóa; giả thuyết không; ý nghĩa của kết quả hiếm.</p>
+<p><strong>Ngộ nhận chính cần phá</strong><br>
+Chỉ cần thử vài lần thấy đúng là đã có thể tin vào năng lực được tuyên bố.</p>
+<p><strong>Kết quả nhận thức của chương</strong><br>
+Người học hiểu rằng thống kê không chỉ là tính toán trên dữ liệu đã có, mà còn là <strong>thiết kế cách tạo ra dữ liệu có giá trị kiểm tra</strong>.</p>
+<p><strong>Vai trò nối sang chương sau</strong><br>
+Chuẩn bị cho nghịch lý Simpson, nơi vấn đề không còn là tạo dữ liệu, mà là <strong>đọc dữ liệu đúng cấu trúc</strong>.</p>
+</section>
+<section id="chương-9.-nghịch-lý-simpson" class="level2">
+<h2 class="anchored" data-anchor-id="chương-9.-nghịch-lý-simpson">Chương 9. Nghịch lý Simpson</h2>
+<p><strong>Tình huống trung tâm</strong><br>
+Trong từng nhóm nhỏ riêng biệt, cùng một xu hướng đều xuất hiện; nhưng khi gộp các nhóm lại, xu hướng chung lại đảo ngược.</p>
+<p><strong>Câu hỏi dẫn nhập</strong><br>
+Vì sao dữ liệu có thể nói một điều ở từng nhóm, nhưng lại nói điều ngược lại khi gộp chung?</p>
+<p><strong>Khái niệm cốt lõi</strong><br>
+Dữ liệu phân tầng; yếu tố gây nhiễu; giới hạn của dữ liệu gộp; thận trọng trong diễn giải.</p>
+<p><strong>Ngộ nhận chính cần phá</strong><br>
+Xu hướng chung trong dữ liệu gộp luôn phản ánh sự thật tốt hơn xu hướng trong từng nhóm.</p>
+<p><strong>Kết quả nhận thức của chương</strong><br>
+Người học hiểu rằng dữ liệu không tự nói lên kết luận đúng; cách chia nhóm và bối cảnh nền có thể quyết định toàn bộ cách đọc.</p>
+<p><strong>Vai trò nối sang chương sau</strong><br>
+Hoàn tất chặng “học từ dữ liệu”; từ đây khóa học chuyển sang câu hỏi khó hơn: <strong>dù đã tính được hay đọc được, thì nên quyết định ra sao?</strong></p>
+</section>
+</section>
+<section id="phần-v.-giá-trị-rủi-ro-và-quyết-định" class="level1">
+<h1>PHẦN V. GIÁ TRỊ, RỦI RO VÀ QUYẾT ĐỊNH</h1>
+<section id="chương-10.-nghịch-lý-saint-petersburg" class="level2">
+<h2 class="anchored" data-anchor-id="chương-10.-nghịch-lý-saint-petersburg">Chương 10. Nghịch lý Saint Petersburg</h2>
+<p><strong>Tình huống trung tâm</strong><br>
+Một trò chơi có phần thưởng tăng rất nhanh theo thời điểm xuất hiện mặt ngửa đầu tiên, đến mức giá trị kỳ vọng là vô hạn. Dù vậy, người chơi thực tế vẫn không muốn trả quá nhiều để tham gia.</p>
+<p><strong>Câu hỏi dẫn nhập</strong><br>
+Vì sao một trò chơi có kỳ vọng rất lớn, thậm chí vô hạn, vẫn không tự động trở thành một lựa chọn hấp dẫn ngoài đời?</p>
+<p><strong>Khái niệm cốt lõi</strong><br>
+Kỳ vọng; giới hạn của kỳ vọng như tiêu chuẩn quyết định; rủi ro; độ thỏa dụng.</p>
+<p><strong>Ngộ nhận chính cần phá</strong><br>
+Kỳ vọng càng lớn thì hành động tham gia càng rõ ràng là hợp lý.</p>
+<p><strong>Kết quả nhận thức của chương</strong><br>
+Người học hiểu rằng giữa giá trị toán học của một trò chơi và quyết định thực tế còn có những lớp trung gian như rủi ro, giới hạn nguồn lực và cách con người đánh giá lợi ích.</p>
+<p><strong>Vai trò nối sang chương sau</strong><br>
+Chuẩn bị cho chương cuối, nơi quyết định không diễn ra một lần, mà diễn ra lặp đi lặp lại trong thời gian dài.</p>
+</section>
+<section id="chương-11.-bài-toán-phá-sản-của-con-bạc" class="level2">
+<h2 class="anchored" data-anchor-id="chương-11.-bài-toán-phá-sản-của-con-bạc">Chương 11. Bài toán phá sản của con bạc</h2>
+<p><strong>Tình huống trung tâm</strong><br>
+Một người chơi bắt đầu với số vốn hữu hạn và liên tiếp thắng hoặc thua từng đơn vị qua nhiều ván chơi. Hỏi xác suất cuối cùng bị phá sản là bao nhiêu.</p>
+<p><strong>Câu hỏi dẫn nhập</strong><br>
+Trong một quá trình kéo dài theo thời gian, điều gì quan trọng hơn: từng ván riêng lẻ, hay toàn bộ quỹ đạo tích lũy của cuộc chơi?</p>
+<p><strong>Khái niệm cốt lõi</strong><br>
+Quá trình ngẫu nhiên; trạng thái hấp thụ; diễn tiến theo thời gian; xác suất phá sản; rủi ro tích lũy.</p>
+<p><strong>Ngộ nhận chính cần phá</strong><br>
+Nếu mỗi ván có vẻ công bằng hoặc còn cơ hội gỡ lại, thì về lâu dài vẫn có thể an toàn.</p>
+<p><strong>Kết quả nhận thức của chương</strong><br>
+Người học hiểu rằng trong bất định dài hạn, điều quyết định không chỉ là xác suất của từng bước, mà là cấu trúc của cả quá trình.</p>
+<p><strong>Vai trò nối sang phần kết của khóa</strong><br>
+Khép lại toàn khóa bằng một hình ảnh trưởng thành hơn về lý trí: lý trí không chỉ tính xác suất, mà còn nhìn thông tin, dữ liệu, rủi ro và thời gian như một chỉnh thể.</p>
+</section>
+<section id="mạch-thống-nhất-của-toàn-bộ-bản-đồ-chương" class="level2">
+<h2 class="anchored" data-anchor-id="mạch-thống-nhất-của-toàn-bộ-bản-đồ-chương">Mạch thống nhất của toàn bộ bản đồ chương</h2>
+<p>Từ đầu đến cuối, bản đồ này giữ một mạch duy nhất:</p>
+<ul>
+<li>mở đầu bằng nhu cầu <strong>lượng hóa mức độ khả hữu bằng số</strong>;</li>
+<li>chuyển sang việc <strong>xác định đúng không gian khả năng</strong>;</li>
+<li>rồi học cách <strong>cập nhật đánh giá khi thông tin thay đổi</strong>;</li>
+<li>sau đó mở sang <strong>miền liên tục</strong> và <strong>quy luật tập thể</strong>;</li>
+<li>tiếp đó bước vào <strong>suy luận từ dữ liệu</strong>;</li>
+<li>và cuối cùng đi đến <strong>giá trị, rủi ro và quyết định theo thời gian</strong>.</li>
+</ul>
+<p>Nhờ vậy, khóa học không bị vỡ thành những bài toán nổi tiếng đứng riêng lẻ. Mỗi chương làm một việc rõ ràng và đẩy người học sang một câu hỏi sâu hơn ở chương kế tiếp.</p>
+</section>
+<section id="nguyên-tắc-để-phát-triển-tiếp-từ-bản-đồ-này" class="level2">
+<h2 class="anchored" data-anchor-id="nguyên-tắc-để-phát-triển-tiếp-từ-bản-đồ-này">Nguyên tắc để phát triển tiếp từ bản đồ này</h2>
+<p>Khi phát triển mỗi chương thành bài viết, bài giảng hay video, cần giữ một nguyên tắc chung:</p>
+<blockquote class="blockquote">
+<p><strong>Chương nào cũng phải làm lộ ra một lý do nhận thức khiến công cụ toán học trở nên cần thiết.</strong></p>
+</blockquote>
+<p>Không bắt đầu từ công thức rồi đi tìm ví dụ để minh họa. Phải bắt đầu từ một tình huống mà nếu không có công cụ ấy thì lý trí sẽ mắc kẹt, đánh giá sai hoặc quyết định vội.</p>
+<p>Vì thế, khi phát triển từng chương thành bài hoàn chỉnh, nhịp cơ bản nên là:</p>
+<p><strong>tình huống</strong><br>
+→ <strong>phán đoán ban đầu của người học</strong><br>
+→ <strong>xung đột với trực giác</strong><br>
+→ <strong>công cụ toán học xuất hiện như một nhu cầu</strong><br>
+→ <strong>kết luận mới</strong><br>
+→ <strong>ý nghĩa rộng hơn đối với cách suy nghĩ và quyết định</strong></p>
+</section>
+<section id="câu-chốt-của-văn-bản-này" class="level2">
+<h2 class="anchored" data-anchor-id="câu-chốt-của-văn-bản-này">Câu chốt của văn bản này</h2>
+<p><strong>Bản đồ chương này đi từ nhu cầu gán số cho bất định tới việc sống có lý trí hơn giữa dữ liệu, rủi ro và thời gian.</strong></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/zo-math\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a><br>
+<br> <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a><br>
+<br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

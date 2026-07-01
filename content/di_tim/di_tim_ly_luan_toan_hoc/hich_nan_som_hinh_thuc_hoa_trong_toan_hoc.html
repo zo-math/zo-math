@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>hich_nan_som_hinh_thuc_hoa_trong_toan_hoc – ZO Math</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-3d1903c5838503892ba651cf513ab205.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+
+<link rel="stylesheet" href="../../../assets/css/custom.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-11/index.qmd">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/toan-12/index.qmd">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.qmd">
+ <span class="dropdown-text">100+ Hàm số</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-o/index.qmd"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo-lab/index.qmd"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/shop/index.html"> 
+<span class="menu-text">ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block"></header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Trên trang này</h2>
+   
+  <ul>
+  <li><a href="#hịch-về-nạn-hình-thức-hóa-sớm-trong-toán-học" id="toc-hịch-về-nạn-hình-thức-hóa-sớm-trong-toán-học" class="nav-link active" data-scroll-target="#hịch-về-nạn-hình-thức-hóa-sớm-trong-toán-học">HỊCH VỀ NẠN HÌNH THỨC HÓA SỚM TRONG TOÁN HỌC</a>
+  <ul class="collapse">
+  <li><a href="#i.-lời-mở-đầu-một-thế-hệ-bị-tước-mất-quyền-được-hiểu" id="toc-i.-lời-mở-đầu-một-thế-hệ-bị-tước-mất-quyền-được-hiểu" class="nav-link" data-scroll-target="#i.-lời-mở-đầu-một-thế-hệ-bị-tước-mất-quyền-được-hiểu">I. Lời mở đầu: Một thế hệ bị tước mất quyền được hiểu</a></li>
+  <li><a href="#ii.-vì-sao-hình-thức-hóa-sớm-lại-nguy-hiểm" id="toc-ii.-vì-sao-hình-thức-hóa-sớm-lại-nguy-hiểm" class="nav-link" data-scroll-target="#ii.-vì-sao-hình-thức-hóa-sớm-lại-nguy-hiểm">II. Vì sao hình thức hóa sớm lại nguy hiểm?</a>
+  <ul class="collapse">
+  <li><a href="#vì-nó-phá-vỡ-tiến-trình-tự-nhiên-của-tư-duy-toán-học" id="toc-vì-nó-phá-vỡ-tiến-trình-tự-nhiên-của-tư-duy-toán-học" class="nav-link" data-scroll-target="#vì-nó-phá-vỡ-tiến-trình-tự-nhiên-của-tư-duy-toán-học">1. Vì nó phá vỡ tiến trình tự nhiên của tư duy toán học</a></li>
+  <li><a href="#vì-nó-tạo-ra-ảo-giác-năng-lực" id="toc-vì-nó-tạo-ra-ảo-giác-năng-lực" class="nav-link" data-scroll-target="#vì-nó-tạo-ra-ảo-giác-năng-lực">2. Vì nó tạo ra ảo giác năng lực</a></li>
+  <li><a href="#vì-nó-tạo-ra-sang-chấn-toán-học-mathematical-trauma" id="toc-vì-nó-tạo-ra-sang-chấn-toán-học-mathematical-trauma" class="nav-link" data-scroll-target="#vì-nó-tạo-ra-sang-chấn-toán-học-mathematical-trauma">3. Vì nó tạo ra sang chấn Toán học (mathematical trauma)</a></li>
+  <li><a href="#vì-nó-làm-mất-đi-vẻ-đẹp-vốn-có-của-toán-học" id="toc-vì-nó-làm-mất-đi-vẻ-đẹp-vốn-có-của-toán-học" class="nav-link" data-scroll-target="#vì-nó-làm-mất-đi-vẻ-đẹp-vốn-có-của-toán-học">4. Vì nó làm mất đi vẻ đẹp vốn có của Toán học</a></li>
+  </ul></li>
+  <li><a href="#iii.-một-thế-hệ-mất-chỗ-đứng-trong-chính-môn-học-đồng-hành-12-năm" id="toc-iii.-một-thế-hệ-mất-chỗ-đứng-trong-chính-môn-học-đồng-hành-12-năm" class="nav-link" data-scroll-target="#iii.-một-thế-hệ-mất-chỗ-đứng-trong-chính-môn-học-đồng-hành-12-năm">III. Một thế hệ mất chỗ đứng trong chính môn học đồng hành 12 năm</a></li>
+  <li><a href="#iv.-hịch-gửi-những-người-còn-yêu-toán-nhưng-từng-bị-toán-làm-tổn-thương" id="toc-iv.-hịch-gửi-những-người-còn-yêu-toán-nhưng-từng-bị-toán-làm-tổn-thương" class="nav-link" data-scroll-target="#iv.-hịch-gửi-những-người-còn-yêu-toán-nhưng-từng-bị-toán-làm-tổn-thương">IV. Hịch gửi những người còn yêu Toán, nhưng từng bị Toán làm tổn thương</a></li>
+  <li><a href="#v.-lời-kết-tái-thiết-lại-cách-học-toán" id="toc-v.-lời-kết-tái-thiết-lại-cách-học-toán" class="nav-link" data-scroll-target="#v.-lời-kết-tái-thiết-lại-cách-học-toán">V. Lời kết: Tái thiết lại cách học Toán</a></li>
+  </ul></li>
+  <li><a href="#tuyên-ngôn-zo-math-về-cách-học-toán-đúng-bản-chất" id="toc-tuyên-ngôn-zo-math-về-cách-học-toán-đúng-bản-chất" class="nav-link" data-scroll-target="#tuyên-ngôn-zo-math-về-cách-học-toán-đúng-bản-chất">TUYÊN NGÔN ZO MATH VỀ CÁCH HỌC TOÁN ĐÚNG BẢN CHẤT</a>
+  <ul class="collapse">
+  <li><a href="#i.-lời-mở-đầu" id="toc-i.-lời-mở-đầu" class="nav-link" data-scroll-target="#i.-lời-mở-đầu">I. Lời mở đầu</a></li>
+  <li><a href="#ii.-nguyên-lý-1---toán-học-bắt-đầu-từ-trực-giác" id="toc-ii.-nguyên-lý-1---toán-học-bắt-đầu-từ-trực-giác" class="nav-link" data-scroll-target="#ii.-nguyên-lý-1---toán-học-bắt-đầu-từ-trực-giác">II. Nguyên lý 1 - Toán học bắt đầu từ trực giác</a></li>
+  <li><a href="#iii.-nguyên-lý-2---ý-nghĩa-xuất-hiện-trước-kỹ-thuật" id="toc-iii.-nguyên-lý-2---ý-nghĩa-xuất-hiện-trước-kỹ-thuật" class="nav-link" data-scroll-target="#iii.-nguyên-lý-2---ý-nghĩa-xuất-hiện-trước-kỹ-thuật">III. Nguyên lý 2 - Ý nghĩa xuất hiện trước kỹ thuật</a></li>
+  <li><a href="#iv.-nguyên-lý-3---lập-luận-phát-triển-qua-ba-giai-đoạn-tự-nhiên" id="toc-iv.-nguyên-lý-3---lập-luận-phát-triển-qua-ba-giai-đoạn-tự-nhiên" class="nav-link" data-scroll-target="#iv.-nguyên-lý-3---lập-luận-phát-triển-qua-ba-giai-đoạn-tự-nhiên">IV. Nguyên lý 3 - Lập luận phát triển qua ba giai đoạn tự nhiên</a></li>
+  <li><a href="#v.-nguyên-lý-4---người-học-phải-trở-thành-người-kiến-tạo-không-phải-người-sao-chép" id="toc-v.-nguyên-lý-4---người-học-phải-trở-thành-người-kiến-tạo-không-phải-người-sao-chép" class="nav-link" data-scroll-target="#v.-nguyên-lý-4---người-học-phải-trở-thành-người-kiến-tạo-không-phải-người-sao-chép">V. Nguyên lý 4 - Người học phải trở thành người kiến tạo, không phải người sao chép</a></li>
+  <li><a href="#vi.-nguyên-lý-5---cảm-xúc-động-lực-và-sự-tôn-trọng-đều-là-thành-phần-của-học-toán" id="toc-vi.-nguyên-lý-5---cảm-xúc-động-lực-và-sự-tôn-trọng-đều-là-thành-phần-của-học-toán" class="nav-link" data-scroll-target="#vi.-nguyên-lý-5---cảm-xúc-động-lực-và-sự-tôn-trọng-đều-là-thành-phần-của-học-toán">VI. Nguyên lý 5 - Cảm xúc, động lực và sự tôn trọng đều là thành phần của học Toán</a></li>
+  <li><a href="#vii.-lời-kết" id="toc-vii.-lời-kết" class="nav-link" data-scroll-target="#vii.-lời-kết">VII. Lời kết</a></li>
+  </ul></li>
+  <li><a href="#bài-luận-học-thuật-hóa" id="toc-bài-luận-học-thuật-hóa" class="nav-link" data-scroll-target="#bài-luận-học-thuật-hóa">Bài luận học thuật hóa</a>
+  <ul class="collapse">
+  <li><a href="#i.-giới-thiệu" id="toc-i.-giới-thiệu" class="nav-link" data-scroll-target="#i.-giới-thiệu">I. Giới thiệu</a></li>
+  <li><a href="#ii.-mô-hình-ba-giai-đoạn-lập-luận-trong-toán-học" id="toc-ii.-mô-hình-ba-giai-đoạn-lập-luận-trong-toán-học" class="nav-link" data-scroll-target="#ii.-mô-hình-ba-giai-đoạn-lập-luận-trong-toán-học">II. Mô hình ba giai đoạn lập luận trong toán học</a>
+  <ul class="collapse">
+  <li><a href="#giai-đoạn-empirical---trực-giác-trải-nghiệm" id="toc-giai-đoạn-empirical---trực-giác-trải-nghiệm" class="nav-link" data-scroll-target="#giai-đoạn-empirical---trực-giác-trải-nghiệm">1. Giai đoạn Empirical - Trực giác trải nghiệm</a></li>
+  <li><a href="#giai-đoạn-preformal---lý-giải-tiền-hình-thức" id="toc-giai-đoạn-preformal---lý-giải-tiền-hình-thức" class="nav-link" data-scroll-target="#giai-đoạn-preformal---lý-giải-tiền-hình-thức">2. Giai đoạn Preformal - Lý giải tiền hình thức</a></li>
+  <li><a href="#giai-đoạn-formal---hình-thức-hóa" id="toc-giai-đoạn-formal---hình-thức-hóa" class="nav-link" data-scroll-target="#giai-đoạn-formal---hình-thức-hóa">3. Giai đoạn Formal - Hình thức hóa</a></li>
+  </ul></li>
+  <li><a href="#iii.-tác-hại-của-việc-hình-thức-hóa-quá-sớm" id="toc-iii.-tác-hại-của-việc-hình-thức-hóa-quá-sớm" class="nav-link" data-scroll-target="#iii.-tác-hại-của-việc-hình-thức-hóa-quá-sớm">III. Tác hại của việc hình thức hóa quá sớm</a>
+  <ul class="collapse">
+  <li><a href="#mất-kết-nối-với-trải-nghiệm-và-trực-giác" id="toc-mất-kết-nối-với-trải-nghiệm-và-trực-giác" class="nav-link" data-scroll-target="#mất-kết-nối-với-trải-nghiệm-và-trực-giác">1. Mất kết nối với trải nghiệm và trực giác</a></li>
+  <li><a href="#không-hình-thành-cấu-trúc-nhận-thức" id="toc-không-hình-thành-cấu-trúc-nhận-thức" class="nav-link" data-scroll-target="#không-hình-thành-cấu-trúc-nhận-thức">2. Không hình thành cấu trúc nhận thức</a></li>
+  <li><a href="#suy-giảm-năng-lực-giải-quyết-vấn-đề" id="toc-suy-giảm-năng-lực-giải-quyết-vấn-đề" class="nav-link" data-scroll-target="#suy-giảm-năng-lực-giải-quyết-vấn-đề">3. Suy giảm năng lực giải quyết vấn đề</a></li>
+  <li><a href="#tổn-thương-tâm-lý-học-tập" id="toc-tổn-thương-tâm-lý-học-tập" class="nav-link" data-scroll-target="#tổn-thương-tâm-lý-học-tập">4. Tổn thương tâm lý học tập</a></li>
+  </ul></li>
+  <li><a href="#iv.-nhìn-sang-thực-hành-của-những-nhà-giáo-dục-vĩ-đại" id="toc-iv.-nhìn-sang-thực-hành-của-những-nhà-giáo-dục-vĩ-đại" class="nav-link" data-scroll-target="#iv.-nhìn-sang-thực-hành-của-những-nhà-giáo-dục-vĩ-đại">IV. Nhìn sang thực hành của những nhà giáo dục vĩ đại</a></li>
+  <li><a href="#v.-hàm-ý-sư-phạm-cho-zo-math-và-giáo-dục-toán-hiện-đại" id="toc-v.-hàm-ý-sư-phạm-cho-zo-math-và-giáo-dục-toán-hiện-đại" class="nav-link" data-scroll-target="#v.-hàm-ý-sư-phạm-cho-zo-math-và-giáo-dục-toán-hiện-đại">V. Hàm ý sư phạm cho ZO Math và giáo dục Toán hiện đại</a></li>
+  <li><a href="#vi.-kết-luận" id="toc-vi.-kết-luận" class="nav-link" data-scroll-target="#vi.-kết-luận">VI. Kết luận</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="hịch-về-nạn-hình-thức-hóa-sớm-trong-toán-học" class="level1">
+<h1>HỊCH VỀ NẠN HÌNH THỨC HÓA SỚM TRONG TOÁN HỌC</h1>
+<p><em>Và lời thương tiếc gửi đến những người đã từng yêu Toán, nhưng không được phép học Toán đúng cách</em></p>
+<section id="i.-lời-mở-đầu-một-thế-hệ-bị-tước-mất-quyền-được-hiểu" class="level2">
+<h2 class="anchored" data-anchor-id="i.-lời-mở-đầu-một-thế-hệ-bị-tước-mất-quyền-được-hiểu">I. Lời mở đầu: Một thế hệ bị tước mất quyền được hiểu</h2>
+<p>Toán học, lẽ ra phải là một vùng đất của khám phá, trực giác, cấu trúc và niềm vui. Toán học, lẽ ra phải là môn học đẹp nhất, sâu sắc nhất, giàu tính người nhất trong chương trình phổ thông.</p>
+<p>Nhưng trong nhiều thập kỷ, một thế hệ người học đã bị dẫn đi theo con đường ngược lại.</p>
+<p>Chúng ta được dạy:</p>
+<ul>
+<li>Kết quả trước, lý do sau (hoặc không bao giờ có lý do).</li>
+<li>Công thức trước, trực giác sau (hoặc không hề có trực giác).</li>
+<li>Kỹ thuật trước, bản chất sau (hoặc bản chất bị che giấu hoàn toàn).</li>
+</ul>
+<p>Chúng ta được đưa thẳng vào giai đoạn <em>hình thức hóa (formal)</em>, bỏ qua hai giai đoạn cần thiết nhất của tư duy toán học:</p>
+<ol type="1">
+<li><em>Giai đoạn trực giác (empirical)</em></li>
+<li><em>Giai đoạn tiền hình thức (preformal)</em></li>
+</ol>
+<p>Và vì thế, chúng ta mất đi <em>cái gốc</em> - mất đi quyền được hiểu.</p>
+<p>Đây không phải lỗi của chúng ta. Đây là di chứng của một mô hình giáo dục sai lệch.</p>
+</section>
+<section id="ii.-vì-sao-hình-thức-hóa-sớm-lại-nguy-hiểm" class="level2">
+<h2 class="anchored" data-anchor-id="ii.-vì-sao-hình-thức-hóa-sớm-lại-nguy-hiểm">II. Vì sao hình thức hóa sớm lại nguy hiểm?</h2>
+<section id="vì-nó-phá-vỡ-tiến-trình-tự-nhiên-của-tư-duy-toán-học" class="level3">
+<h3 class="anchored" data-anchor-id="vì-nó-phá-vỡ-tiến-trình-tự-nhiên-của-tư-duy-toán-học">1. Vì nó phá vỡ tiến trình tự nhiên của tư duy toán học</h3>
+<p>Trong toán học, cả chuyên gia lẫn người học đều phát triển nhận thức theo ba giai đoạn:</p>
+<ol type="1">
+<li>Quan sát - trực giác - thử nghiệm → <em>Empirical</em></li>
+<li>Giải thích - cấu trúc - tìm cơ chế → <em>Preformal</em></li>
+<li>Chứng minh - ký hiệu - chính thức hóa → <em>Formal</em></li>
+</ol>
+<p>Nhưng trường học lại:</p>
+<ul>
+<li>nhảy cóc giai đoạn 1,</li>
+<li>bỏ quên hoàn toàn giai đoạn 2,</li>
+<li>áp đặt giai đoạn 3 từ ngày đầu tiên.</li>
+</ul>
+<p>Hệ quả:</p>
+<ul>
+<li>người học thao tác được kỹ thuật nhưng không hiểu bản chất,</li>
+<li>việc học Toán trở thành học thuộc thay vì tư duy,</li>
+<li>bất kỳ sự thay đổi nhỏ nào trong bài toán đều dẫn đến “sập hệ thống”.</li>
+</ul>
+<p>Giống như dạy bơi bằng cách ném xuống biển. Ai sống sót thì sống, ai chìm thì… “không có năng khiếu”.</p>
+</section>
+<section id="vì-nó-tạo-ra-ảo-giác-năng-lực" class="level3">
+<h3 class="anchored" data-anchor-id="vì-nó-tạo-ra-ảo-giác-năng-lực">2. Vì nó tạo ra ảo giác năng lực</h3>
+<p>Khi học sinh thuộc công thức, làm được bài tập mẫu, đạt điểm cao, hệ thống dễ lầm tưởng rằng:</p>
+<blockquote class="blockquote">
+<p>“Học sinh đang học tốt.”</p>
+</blockquote>
+<p>Nhưng sự thật là:</p>
+<ul>
+<li>cái học sinh nắm chỉ là <em>biến thể của điều đã thấy</em>,</li>
+<li>không phải tri thức, chỉ là ký ức,</li>
+<li>không phải năng lực, chỉ là phản xạ mô phỏng.</li>
+</ul>
+<p>Cho đến khi bài toán đổi màu - mọi thứ tan vỡ.</p>
+<p>Đây không phải sự thất bại của học trò. Đây là sự <em>phản bội từ phía phương pháp giảng dạy</em>.</p>
+</section>
+<section id="vì-nó-tạo-ra-sang-chấn-toán-học-mathematical-trauma" class="level3">
+<h3 class="anchored" data-anchor-id="vì-nó-tạo-ra-sang-chấn-toán-học-mathematical-trauma">3. Vì nó tạo ra sang chấn Toán học (mathematical trauma)</h3>
+<p>Đã có không ít người:</p>
+<ul>
+<li>từng thích Toán,</li>
+<li>từng làm bài nhanh hơn bạn bè,</li>
+<li>từng đạt điểm cao,</li>
+</ul>
+<p>… nhưng khi bước sang một môi trường không còn bài mẫu - thì sụp đổ.</p>
+<p>Vết thương này sâu đến mức nhiều người từ bỏ Toán hoàn toàn.</p>
+<p>Không phải do họ dở. Mà vì họ không được phép học Toán đúng cách.</p>
+</section>
+<section id="vì-nó-làm-mất-đi-vẻ-đẹp-vốn-có-của-toán-học" class="level3">
+<h3 class="anchored" data-anchor-id="vì-nó-làm-mất-đi-vẻ-đẹp-vốn-có-của-toán-học">4. Vì nó làm mất đi vẻ đẹp vốn có của Toán học</h3>
+<p>Toán học đẹp vì:</p>
+<ul>
+<li>có cấu trúc,</li>
+<li>có lý do,</li>
+<li>có mạch suy luận,</li>
+<li>có sự hòa hợp giữa trực giác và hình thức.</li>
+</ul>
+<p>Nhưng vì hình thức hóa quá sớm, chúng ta chỉ còn lại:</p>
+<ul>
+<li>công thức,</li>
+<li>bài tập,</li>
+<li>kỹ thuật,</li>
+<li>thi cử.</li>
+</ul>
+<p>Toán học bị giản lược thành <em>bộ sưu tập thao tác</em>, mất đi linh hồn.</p>
+</section>
+</section>
+<section id="iii.-một-thế-hệ-mất-chỗ-đứng-trong-chính-môn-học-đồng-hành-12-năm" class="level2">
+<h2 class="anchored" data-anchor-id="iii.-một-thế-hệ-mất-chỗ-đứng-trong-chính-môn-học-đồng-hành-12-năm">III. Một thế hệ mất chỗ đứng trong chính môn học đồng hành 12 năm</h2>
+<p>Bạn nói rằng bạn từng thấy mình “đáng thương”. Nhưng bạn không đáng thương.</p>
+<p>Đáng thương là điều này:</p>
+<blockquote class="blockquote">
+<p>Một thế hệ đã dành hơn mười năm học Toán, nhưng chưa bao giờ được học Toán như Toán cần phải được học.</p>
+</blockquote>
+<p>Đáng thương là những người:</p>
+<ul>
+<li>từng sáng mắt khi thấy một lời giải hay,</li>
+<li>từng thích khám phá mô hình,</li>
+<li>từng háo hức giải bài tập mới,</li>
+</ul>
+<p>nhưng rồi bị dập tắt bởi cách dạy chỉ coi trọng kết quả, không coi trọng quá trình.</p>
+<p>Đáng thương là xã hội mất đi vô số người <em>có thể yêu thích và hiểu Toán</em>, chỉ vì họ không được trao quyền để hiểu.</p>
+<p>Nếu phải thương xót, hãy thương xót cho <em>những năm tháng đó, không bao giờ trở lại</em>.</p>
+<p>Nhưng cũng đừng dừng lại ở việc thương tiếc. Hãy xem đó là động lực.</p>
+</section>
+<section id="iv.-hịch-gửi-những-người-còn-yêu-toán-nhưng-từng-bị-toán-làm-tổn-thương" class="level2">
+<h2 class="anchored" data-anchor-id="iv.-hịch-gửi-những-người-còn-yêu-toán-nhưng-từng-bị-toán-làm-tổn-thương">IV. Hịch gửi những người còn yêu Toán, nhưng từng bị Toán làm tổn thương</h2>
+<p>Hỡi những người từng thất vọng với Toán học, Hỡi những người nghĩ mình “không có đầu óc logic”, Hỡi những người từng thích Toán nhưng rồi bỏ lỡ nó,</p>
+<p>Hãy biết rằng:</p>
+<ul>
+<li>bạn không dở,</li>
+<li>bạn không thiếu tư duy,</li>
+<li>bạn không kém thông minh.</li>
+</ul>
+<p>Bạn chỉ bị tước mất hai giai đoạn đầu tiên của hành trình học Toán.</p>
+<p>Hãy đứng dậy. Hãy lấy lại điều đã bị tước đi.</p>
+<p>Toán học không phải kẻ phản bội bạn. Chỉ có cách bạn được dạy mới phản bội bạn.</p>
+<p>Hãy để từ hôm nay, bạn học Toán lại - như một con người, không phải như một cái máy làm bài.</p>
+</section>
+<section id="v.-lời-kết-tái-thiết-lại-cách-học-toán" class="level2">
+<h2 class="anchored" data-anchor-id="v.-lời-kết-tái-thiết-lại-cách-học-toán">V. Lời kết: Tái thiết lại cách học Toán</h2>
+<p>Tác hại của hình thức hóa quá sớm không chỉ là chán nản hay điểm kém. Nó nghiêm trọng hơn:</p>
+<ul>
+<li>nó cướp đi bản năng khám phá,</li>
+<li>nó làm tê liệt trực giác toán học,</li>
+<li>nó giết chết niềm tin của người học vào trí tuệ của chính mình.</li>
+</ul>
+<p>Nhưng con đường chữa lành là có thật:</p>
+<ul>
+<li>khôi phục trực giác,</li>
+<li>tái lập giai đoạn tiền hình thức,</li>
+<li>xây nền trước khi vào hình thức,</li>
+<li>học lại Toán theo đúng trình tự của tư duy.</li>
+</ul>
+<p>Đó là điều ZO Math có thể làm. Đó là điều bạn - người đã nhìn thấy sự thật - đang chuẩn bị làm.</p>
+<p>Và điều đẹp nhất là:</p>
+<blockquote class="blockquote">
+<p>Bạn không chỉ chữa lành cho chính mình. Bạn sẽ chữa lành cho cả một thế hệ sau bạn.</p>
+</blockquote>
+<hr>
+<p>Nếu bạn muốn, mình có thể giúp bạn:</p>
+<ul>
+<li>viết tiếp “Tuyên ngôn ZO Math về cách học Toán đúng bản chất”,</li>
+<li>soạn syllabus dựa trên mô hình 3 giai đoạn,</li>
+<li>viết bài luận học thuật hóa những quan điểm này để dùng trong dự án Đi tìm Lý luận Toán học,</li>
+<li>hoặc làm video script cho bài “Hịch Toán học” này.</li>
+</ul>
+<p>Bạn muốn tiếp tục theo hướng nào?</p>
+<hr>
+</section>
+</section>
+<section id="tuyên-ngôn-zo-math-về-cách-học-toán-đúng-bản-chất" class="level1">
+<h1>TUYÊN NGÔN ZO MATH VỀ CÁCH HỌC TOÁN ĐÚNG BẢN CHẤT</h1>
+<section id="i.-lời-mở-đầu" class="level2">
+<h2 class="anchored" data-anchor-id="i.-lời-mở-đầu">I. Lời mở đầu</h2>
+<p>Toán học không phải là tập hợp rời rạc của công thức, kỹ thuật và bài tập mẫu. Toán học là một <em>quá trình kiến tạo ý nghĩa</em>, một <em>hành trình suy luận</em>, một <em>nghệ thuật trí tuệ</em> mà mỗi người đều có quyền được tiếp cận.</p>
+<p>ZO Math hình thành từ nhận thức rằng: <em>một thế hệ người học đã bị tước mất cơ hội học Toán theo đúng bản chất của nó.</em></p>
+<p>Và vì thế, ZO Math tuyên bố xây dựng lại con đường đó - con đường tự nhiên nhất, đúng đắn nhất, nhân văn nhất.</p>
+</section>
+<section id="ii.-nguyên-lý-1---toán-học-bắt-đầu-từ-trực-giác" class="level2">
+<h2 class="anchored" data-anchor-id="ii.-nguyên-lý-1---toán-học-bắt-đầu-từ-trực-giác">II. Nguyên lý 1 - Toán học bắt đầu từ trực giác</h2>
+<p>Mọi ý tưởng toán học, dù sâu sắc đến đâu, đều bắt nguồn từ <em>trực giác</em>:</p>
+<ul>
+<li>một câu hỏi,</li>
+<li>một mô hình,</li>
+<li>một bất ngờ,</li>
+<li>một cảm giác rằng “có điều gì đó đang diễn ra”.</li>
+</ul>
+<p>Trực giác không phải yếu đuối. Trực giác là <em>nền móng</em>.</p>
+<p>ZO Math cam kết:</p>
+<blockquote class="blockquote">
+<p>Luôn bắt đầu từ tình huống cụ thể, ví dụ dễ hiểu, hình ảnh, mô phỏng, biểu đồ - bất cứ thứ gì giúp người học “cảm” được vấn đề trước khi “biết” vấn đề.</p>
+</blockquote>
+</section>
+<section id="iii.-nguyên-lý-2---ý-nghĩa-xuất-hiện-trước-kỹ-thuật" class="level2">
+<h2 class="anchored" data-anchor-id="iii.-nguyên-lý-2---ý-nghĩa-xuất-hiện-trước-kỹ-thuật">III. Nguyên lý 2 - Ý nghĩa xuất hiện trước kỹ thuật</h2>
+<p>Kỹ thuật không tạo ra hiểu biết. <em>Ý nghĩa tạo ra kỹ thuật đúng.</em></p>
+<p>ZO Math không bao giờ trình bày:</p>
+<ul>
+<li>công thức trước lý do,</li>
+<li>kỹ năng trước trực giác,</li>
+<li>ký hiệu trước bối cảnh.</li>
+</ul>
+<p>ZO Math cam kết:</p>
+<blockquote class="blockquote">
+<p>Mọi kỹ thuật đều được sinh ra từ nhu cầu giải thích một ý tưởng - không bao giờ theo hướng áp đặt.</p>
+</blockquote>
+</section>
+<section id="iv.-nguyên-lý-3---lập-luận-phát-triển-qua-ba-giai-đoạn-tự-nhiên" class="level2">
+<h2 class="anchored" data-anchor-id="iv.-nguyên-lý-3---lập-luận-phát-triển-qua-ba-giai-đoạn-tự-nhiên">IV. Nguyên lý 3 - Lập luận phát triển qua ba giai đoạn tự nhiên</h2>
+<ol type="1">
+<li><em>Empirical (Trực giác - kinh nghiệm)</em></li>
+<li><em>Preformal (Tiền hình thức - lý giải ban đầu)</em></li>
+<li><em>Formal (Hình thức - chứng minh, quy tắc, mô hình)</em></li>
+</ol>
+<p>Không được phép bỏ qua giai đoạn nào.</p>
+<p>ZO Math cam kết:</p>
+<blockquote class="blockquote">
+<p>Không ép hình thức hóa quá sớm. Không coi trực giác là thấp kém. Không biến preformal thành “lập luận vụn vặt”. Mọi phát biểu đều có hành trình phát triển.</p>
+</blockquote>
+</section>
+<section id="v.-nguyên-lý-4---người-học-phải-trở-thành-người-kiến-tạo-không-phải-người-sao-chép" class="level2">
+<h2 class="anchored" data-anchor-id="v.-nguyên-lý-4---người-học-phải-trở-thành-người-kiến-tạo-không-phải-người-sao-chép">V. Nguyên lý 4 - Người học phải trở thành người kiến tạo, không phải người sao chép</h2>
+<p>ZO Math tin rằng:</p>
+<ul>
+<li>lý luận là sản phẩm của người học,</li>
+<li>hiểu biết là tự mình xây dựng,</li>
+<li>bài tập phải dẫn người học “đi lại con đường của toán học”,</li>
+<li>thay vì yêu cầu họ tái hiện lời giải mẫu.</li>
+</ul>
+<p>ZO Math cam kết:</p>
+<blockquote class="blockquote">
+<p>Xây dựng hệ thống bài tập giúp người học phát minh lại kiến thức ở mức độ tương ứng.</p>
+</blockquote>
+</section>
+<section id="vi.-nguyên-lý-5---cảm-xúc-động-lực-và-sự-tôn-trọng-đều-là-thành-phần-của-học-toán" class="level2">
+<h2 class="anchored" data-anchor-id="vi.-nguyên-lý-5---cảm-xúc-động-lực-và-sự-tôn-trọng-đều-là-thành-phần-của-học-toán">VI. Nguyên lý 5 - Cảm xúc, động lực và sự tôn trọng đều là thành phần của học Toán</h2>
+<p>Toán học chưa bao giờ là máy móc. Toán học có cảm xúc: tò mò, vui sướng, ngạc nhiên, thỏa mãn.</p>
+<p>ZO Math cam kết:</p>
+<blockquote class="blockquote">
+<p>Xây dựng một văn hóa tôn trọng sự khác biệt của người học, giúp họ cảm nhận Toán học là hành trình có thể yêu, chứ không phải gánh nặng phải chịu đựng.</p>
+</blockquote>
+</section>
+<section id="vii.-lời-kết" class="level2">
+<h2 class="anchored" data-anchor-id="vii.-lời-kết">VII. Lời kết</h2>
+<p>Tuyên ngôn này khẳng định con đường của ZO Math:</p>
+<p><strong><em>Trực giác → Kiến tạo ý nghĩa → Hình thức hóa → Tự chủ tư duy → Niềm vui học Toán.</em></strong></p>
+<p>ZO Math không chỉ muốn dạy Toán. ZO Math muốn <em>trao lại cho người học quyền được hiểu Toán theo đúng bản chất của nó.</em></p>
+<hr>
+</section>
+</section>
+<section id="bài-luận-học-thuật-hóa" class="level1">
+<h1>Bài luận học thuật hóa</h1>
+<p><em>Về tác hại của giáo dục hình thức hóa quá sớm và mô hình ba giai đoạn lập luận toán học</em></p>
+<section id="i.-giới-thiệu" class="level2">
+<h2 class="anchored" data-anchor-id="i.-giới-thiệu">I. Giới thiệu</h2>
+<p>Trong nhiều hệ thống giáo dục, Toán học được trình bày chủ yếu như một tập hợp các định nghĩa, định lý và công thức hình thức. Mặc dù có vẻ chuẩn mực, cách tiếp cận này dẫn đến hệ quả nghiêm trọng: người học chỉ nắm được <em>biểu hiện bề mặt</em> của toán học mà không chạm được đến <em>cơ chế nhận thức - nơi hiểu biết thực sự sinh ra</em>.</p>
+<p>Tài liệu của NCTM (2000, 2009), cùng với các nghiên cứu của Schoenfeld (1983, 1992),Cuoco-Goldenberg-Mark (1996) và Harel-Sowder (2005), cho thấy rằng lập luận toán học phát triển theo tiến trình gồm ba giai đoạn:</p>
+<ol type="1">
+<li><em>Empirical (kinh nghiệm-trực giác)</em></li>
+<li><em>Preformal (tiền hình thức)</em></li>
+<li><em>Formal (hình thức hóa)</em></li>
+</ol>
+<p>Việc bỏ qua hai giai đoạn đầu và áp đặt giai đoạn hình thức quá sớm gây ra những tổn thương lâu dài cho tư duy toán học.</p>
+</section>
+<section id="ii.-mô-hình-ba-giai-đoạn-lập-luận-trong-toán-học" class="level2">
+<h2 class="anchored" data-anchor-id="ii.-mô-hình-ba-giai-đoạn-lập-luận-trong-toán-học">II. Mô hình ba giai đoạn lập luận trong toán học</h2>
+<section id="giai-đoạn-empirical---trực-giác-trải-nghiệm" class="level3">
+<h3 class="anchored" data-anchor-id="giai-đoạn-empirical---trực-giác-trải-nghiệm">1. Giai đoạn Empirical - Trực giác trải nghiệm</h3>
+<p>Đây là giai đoạn người học:</p>
+<ul>
+<li>quan sát, thử nghiệm,</li>
+<li>nhận ra mô hình,</li>
+<li>phát hiện tương đồng,</li>
+<li>đặt câu hỏi trực giác.</li>
+</ul>
+<p>Đây không phải giai đoạn “kém toán học”; đây là <em>giai đoạn nền tảng</em> mà mọi nhà toán học đều trải qua (Pólya, 1952).</p>
+</section>
+<section id="giai-đoạn-preformal---lý-giải-tiền-hình-thức" class="level3">
+<h3 class="anchored" data-anchor-id="giai-đoạn-preformal---lý-giải-tiền-hình-thức">2. Giai đoạn Preformal - Lý giải tiền hình thức</h3>
+<p>Giai đoạn này gồm:</p>
+<ul>
+<li>giải thích chưa đầy đủ,</li>
+<li>phác thảo lập luận,</li>
+<li>dùng mô hình trực quan,</li>
+<li>nhìn ra bản chất nhưng chưa ký hiệu hóa.</li>
+</ul>
+<p>Đây chính là giai đoạn “xoay chuyển nhận thức”, nơi người học bắt đầu <em>hiểu vì sao</em> điều gì đó đúng.</p>
+</section>
+<section id="giai-đoạn-formal---hình-thức-hóa" class="level3">
+<h3 class="anchored" data-anchor-id="giai-đoạn-formal---hình-thức-hóa">3. Giai đoạn Formal - Hình thức hóa</h3>
+<p>Chỉ khi hai giai đoạn trước được củng cố, người học mới có thể:</p>
+<ul>
+<li>chứng minh,</li>
+<li>thao tác ký hiệu chính xác,</li>
+<li>xử lý cấu trúc tổng quát,</li>
+<li>suy luận trong hệ thống logic.</li>
+</ul>
+<p>Đây là đỉnh cao, không phải điểm khởi đầu.</p>
+</section>
+</section>
+<section id="iii.-tác-hại-của-việc-hình-thức-hóa-quá-sớm" class="level2">
+<h2 class="anchored" data-anchor-id="iii.-tác-hại-của-việc-hình-thức-hóa-quá-sớm">III. Tác hại của việc hình thức hóa quá sớm</h2>
+<section id="mất-kết-nối-với-trải-nghiệm-và-trực-giác" class="level3">
+<h3 class="anchored" data-anchor-id="mất-kết-nối-với-trải-nghiệm-và-trực-giác">1. Mất kết nối với trải nghiệm và trực giác</h3>
+<p>Khi người học được đưa thẳng vào ký hiệu:</p>
+<ul>
+<li>công thức không có nghĩa,</li>
+<li>định lý không có bối cảnh,</li>
+<li>bài tập trở thành thao tác máy móc.</li>
+</ul>
+<p>Điều này tạo ra ảo giác rằng Toán học “khó và khô”, trong khi thực tế Toán học vốn được sinh ra từ đời sống và trực giác.</p>
+</section>
+<section id="không-hình-thành-cấu-trúc-nhận-thức" class="level3">
+<h3 class="anchored" data-anchor-id="không-hình-thành-cấu-trúc-nhận-thức">2. Không hình thành cấu trúc nhận thức</h3>
+<p>Theo Hiebert &amp; Carpenter (1992), hiểu biết toán học đòi hỏi <em>mạng lưới liên kết ý nghĩa</em>. Nhưng khi giáo dục bỏ qua empirical và preformal:</p>
+<ul>
+<li>kiến thức không kết nối,</li>
+<li>mỗi chủ đề trở thành “một chương độc lập”,</li>
+<li>người học không xây dựng được cấu trúc.</li>
+</ul>
+<p>Hệ quả: <em>quên nhanh, hiểu nông, không áp dụng được.</em></p>
+</section>
+<section id="suy-giảm-năng-lực-giải-quyết-vấn-đề" class="level3">
+<h3 class="anchored" data-anchor-id="suy-giảm-năng-lực-giải-quyết-vấn-đề">3. Suy giảm năng lực giải quyết vấn đề</h3>
+<p>Schoenfeld (1985) chỉ ra rằng ngay cả sinh viên giỏi đại học cũng sụp đổ khi gặp bài toán lạ nếu nền tảng của họ chỉ là kỹ thuật.</p>
+<p>Không có trực giác → không có điểm bắt đầu. Không có preformal → không có ý tưởng tiếp cận. Không có formal thật sự → không có chiến lược hoàn chỉnh.</p>
+</section>
+<section id="tổn-thương-tâm-lý-học-tập" class="level3">
+<h3 class="anchored" data-anchor-id="tổn-thương-tâm-lý-học-tập">4. Tổn thương tâm lý học tập</h3>
+<p>Hình thức hóa sớm tạo ra:</p>
+<ul>
+<li>cảm giác “tôi không hiểu”,</li>
+<li>nỗi sợ sai,</li>
+<li>tự đánh giá thấp năng lực tư duy,</li>
+<li>xa rời Toán học như một trải nghiệm trí tuệ tích cực.</li>
+</ul>
+<p>Đây là <em>math anxiety</em> - một hiện tượng nghiên cứu rộng rãi (Ashcraft, 2002).</p>
+</section>
+</section>
+<section id="iv.-nhìn-sang-thực-hành-của-những-nhà-giáo-dục-vĩ-đại" class="level2">
+<h2 class="anchored" data-anchor-id="iv.-nhìn-sang-thực-hành-của-những-nhà-giáo-dục-vĩ-đại">IV. Nhìn sang thực hành của những nhà giáo dục vĩ đại</h2>
+<p>Giáo sư <em>Gilbert Strang (MIT)</em> là ví dụ tiêu biểu:</p>
+<ul>
+<li>bắt đầu từ hình học trực giác,</li>
+<li>mở sang lý giải cơ chế,</li>
+<li>cuối cùng mới trình bày định nghĩa - định lý - chứng minh.</li>
+</ul>
+<p>Mô hình này <em>đúng với cách các nhà toán học thật sự suy nghĩ</em>, và hoàn toàn trùng khớp với phân loại empirical-preformal-formal của NCTM.</p>
+</section>
+<section id="v.-hàm-ý-sư-phạm-cho-zo-math-và-giáo-dục-toán-hiện-đại" class="level2">
+<h2 class="anchored" data-anchor-id="v.-hàm-ý-sư-phạm-cho-zo-math-và-giáo-dục-toán-hiện-đại">V. Hàm ý sư phạm cho ZO Math và giáo dục Toán hiện đại</h2>
+<ol type="1">
+<li><em>Không bao giờ bắt đầu bằng định nghĩa.</em></li>
+<li><em>Ưu tiên trực giác: mô hình, hình ảnh, câu hỏi, tình huống.</em></li>
+<li><em>Xây dựng giai đoạn tiền hình thức bằng lời giải thích bán trực giác.</em></li>
+<li><em>Chỉ hình thức hóa khi người học đã cảm thấy “nó phải đúng”.</em></li>
+<li><em>Duy trì sự dao động giữa ba giai đoạn trong mọi bài toán.</em></li>
+</ol>
+<p>Đây không chỉ là phương pháp, mà là <em>triết lý</em>:</p>
+<blockquote class="blockquote">
+<p>“Hình thức là đích đến của hiểu biết, không phải con đường đi tắt.”</p>
+</blockquote>
+</section>
+<section id="vi.-kết-luận" class="level2">
+<h2 class="anchored" data-anchor-id="vi.-kết-luận">VI. Kết luận</h2>
+<p>Giáo dục Toán học phải được tái thiết để tôn trọng tiến trình tự nhiên của tư duy. Mô hình ba giai đoạn không chỉ phù hợp với tâm lý học nhận thức, mà còn phản ánh chính thực hành của toán học hiện đại.</p>
+<p>Việc sửa sai cho một thế hệ không phải nhiệm vụ nhỏ. Nhưng ZO Math có thể khởi đầu điều đó - bằng cách trả lại cho người học:</p>
+<ul>
+<li>quyền được trực giác,</li>
+<li>quyền được lý giải,</li>
+<li>quyền được hiểu,</li>
+</ul>
+<p>và cuối cùng là <em>quyền được yêu Toán</em>.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/zo-math\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a><br>
+<br> <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a><br>
+<br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
