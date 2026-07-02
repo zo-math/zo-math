@@ -720,6 +720,11 @@ ol[type="A"] li::marker {
   margin-right: 2em !important;
 }
 
+.navbar-brand img {
+  max-height: 36px;
+  width: auto;
+}
+
 /* Home and gateway pages */
 
 .quarto-title-block {
@@ -752,7 +757,47 @@ ol[type="A"] li::marker {
 }
 
 .zo-home-hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 240px;
+  gap: 96px;
+  align-items: start;
+  max-width: 1120px;
+}
+
+.zo-home-hero-copy {
+  min-width: 0;
   max-width: 760px;
+}
+
+.zo-home-hero-mark {
+  justify-self: end;
+  align-self: start;
+}
+
+.zo-home-logo {
+  width: 190px;
+  height: auto;
+  display: block;
+}
+
+.zo-home-tagline {
+  position: relative;
+  max-width: 760px;
+  margin: -8px 0 34px;
+  color: #333333;
+  font-size: 1.6rem;
+  line-height: 1.45;
+  font-weight: 400;
+}
+
+.zo-home-tagline::after {
+  content: "";
+  display: block;
+  width: 96px;
+  height: 4px;
+  margin-top: 18px;
+  background: #ffca28;
+  border-radius: 999px;
 }
 
 .zo-home-kicker,
@@ -786,7 +831,7 @@ main h3,
 }
 
 .zo-home h1 {
-  color: #222222;
+  color: #ef5350;
   font-size: clamp(2.2rem, 3.4vw, 3.8rem);
   font-weight: 400;
   line-height: 1.24;
@@ -1003,6 +1048,20 @@ main a:not(.nav-link):not(.navbar-brand):not(.dropdown-item):hover {
 }
 
 @media (max-width: 900px) {
+  .zo-home-hero-inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .zo-home-hero-mark {
+    justify-self: start;
+    order: -1;
+  }
+
+  .zo-home-logo {
+    width: 136px;
+  }
+
   .zo-home-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
