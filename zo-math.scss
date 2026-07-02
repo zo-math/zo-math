@@ -85,8 +85,16 @@ $body-color: $gray-800 !default;
 $link-color: $success !default;
 
 /* Nội dung mặc định (giữ Roboto) */
-$font-family-sans-serif: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI",
-  "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+$font-family-sans-serif:
+  "Be Vietnam Pro",
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  "Helvetica Neue",
+  Arial,
+  sans-serif,
+  "Apple Color Emoji",
+  "Segoe UI Emoji",
   "Segoe UI Symbol" !default;
 
 $headings-font-weight: 400 !default;
@@ -174,9 +182,20 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;5
 }
 
 /* UI font cho thanh điều khiển (ưu tiên Manrope; có Be Vietnam Pro fallback) */
-$ui-font-family: "Manrope", "Be Vietnam Pro", "Nunito Sans", "Inter",
-  -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial,
-  sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
+$ui-font-family:
+  "Be Vietnam Pro",
+  "Manrope",
+  "Nunito Sans",
+  "Inter",
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  "Helvetica Neue",
+  Arial,
+  sans-serif,
+  "Apple Color Emoji",
+  "Segoe UI Emoji",
+  "Segoe UI Symbol" !default;
 
 /* Kiểu chữ UI chung (nhiều component @extend .sandstone) */
 .sandstone {
@@ -457,7 +476,9 @@ input,
   width: 0.95rem; /* hoặc 0.95rem để tinh tế hơn */
   height: 0.95rem;
   vertical-align: middle;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
 /* Hiệu ứng khi rê chuột */
@@ -533,7 +554,9 @@ body {
       color: $black;
       text-decoration: none;
       border-bottom: 1px solid transparent;
-      transition: color 0.15s ease, border-color 0.15s ease;
+      transition:
+        color 0.15s ease,
+        border-color 0.15s ease;
       &:hover {
         color: $red-10;
         text-decoration: none;
@@ -722,7 +745,8 @@ body.sidebar-open .sidebar-overlay {
   box-shadow: none !important;
 
   /* Glass nhẹ + blend tốt nếu trang có image: ... trong YAML */
-  background: linear-gradient(to bottom, rgba($white, 0.65), rgba($white, 0.45)),
+  background:
+    linear-gradient(to bottom, rgba($white, 0.65), rgba($white, 0.45)),
     var(--title-block-banner-image);
   background-size: cover;
   background-position: center;
@@ -1013,61 +1037,61 @@ body.sidebar-open .quarto-toc {
 /* Áp ring cho phần tử tương tác phổ biến */
 /* Focus ring thống nhất = $teal (chỉ hiện khi dùng bàn phím, không hiện khi click chuột) */
 :where(
-    a,
-    button,
-    [role="button"],
-    [tabindex],
-    input:not([type="search"]),
-    select,
-    textarea,
-    summary,
-    .nav-link,
-    .navbar-brand,
-    .navbar-toggler,
-    .dropdown-toggle,
-    .dropdown-item,
-    .quarto-btn-toggle,
-    .quarto-navbar-tools a,
-    .quarto-navbar-tools button,
-    #quarto-sidebar a,
-    #quarto-sidebar .sidebar-link,
-    #quarto-header .quarto-secondary-nav .breadcrumb a,
-    .toc a,
-    .quarto-toc a,
-    nav#TOC a,
-    .pagination .page-link,
-    .list-group-item
-  ):focus {
+  a,
+  button,
+  [role="button"],
+  [tabindex],
+  input:not([type="search"]),
+  select,
+  textarea,
+  summary,
+  .nav-link,
+  .navbar-brand,
+  .navbar-toggler,
+  .dropdown-toggle,
+  .dropdown-item,
+  .quarto-btn-toggle,
+  .quarto-navbar-tools a,
+  .quarto-navbar-tools button,
+  #quarto-sidebar a,
+  #quarto-sidebar .sidebar-link,
+  #quarto-header .quarto-secondary-nav .breadcrumb a,
+  .toc a,
+  .quarto-toc a,
+  nav#TOC a,
+  .pagination .page-link,
+  .list-group-item
+):focus {
   outline: none !important; /* KHÔNG hiện ring khi click chuột */
   box-shadow: none !important;
 }
 
 :where(
-    a,
-    button,
-    [role="button"],
-    [tabindex],
-    input:not([type="search"]),
-    select,
-    textarea,
-    summary,
-    .nav-link,
-    .navbar-brand,
-    .navbar-toggler,
-    .dropdown-toggle,
-    .dropdown-item,
-    .quarto-btn-toggle,
-    .quarto-navbar-tools a,
-    .quarto-navbar-tools button,
-    #quarto-sidebar a,
-    #quarto-sidebar .sidebar-link,
-    #quarto-header .quarto-secondary-nav .breadcrumb a,
-    .toc a,
-    .quarto-toc a,
-    nav#TOC a,
-    .pagination .page-link,
-    .list-group-item
-  ):focus-visible {
+  a,
+  button,
+  [role="button"],
+  [tabindex],
+  input:not([type="search"]),
+  select,
+  textarea,
+  summary,
+  .nav-link,
+  .navbar-brand,
+  .navbar-toggler,
+  .dropdown-toggle,
+  .dropdown-item,
+  .quarto-btn-toggle,
+  .quarto-navbar-tools a,
+  .quarto-navbar-tools button,
+  #quarto-sidebar a,
+  #quarto-sidebar .sidebar-link,
+  #quarto-header .quarto-secondary-nav .breadcrumb a,
+  .toc a,
+  .quarto-toc a,
+  nav#TOC a,
+  .pagination .page-link,
+  .list-group-item
+):focus-visible {
   outline: var(--focus-ring-width) solid var(--focus-ring-color) !important;
   outline-offset: var(--focus-ring-offset);
   box-shadow: none !important;
@@ -1221,7 +1245,9 @@ nav#TOC,
   text-transform: none;
   color: $black;
 
-  transition: transform 0.15s ease, opacity 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    opacity 0.15s ease;
 }
 
 /* Trạng thái MỞ:
@@ -1414,7 +1440,9 @@ nav#TOC a[aria-current="true"],
 /* Icon mặc định (đen nhạt) */
 .navbar-toggler-icon {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0,0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-  transition: filter 0.2s ease, background-image 0.2s ease;
+  transition:
+    filter 0.2s ease,
+    background-image 0.2s ease;
 }
 
 /* Hover: chuyển sang đỏ $red-10 */
@@ -1552,5 +1580,3 @@ nav#TOC a .MathJax,
   fill: currentColor !important;
   opacity: 0.95;
 }
-
-
