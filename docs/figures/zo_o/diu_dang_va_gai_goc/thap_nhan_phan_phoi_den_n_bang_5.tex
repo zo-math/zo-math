@@ -1,0 +1,102 @@
+\documentclass{standalone}
+\newcommand{\FontPath}{../../../assets/fonts/} 
+\input{../../../assets/tex/tikz-preamble.tex}
+\begin{document}
+\begin{tikzpicture}%[level distance=1.5cm,sibling distance=2.5cm]    
+    % Thêm đỉnh tháp
+    \node (d00) at (0,13.5) {$1$};      
+    
+    % Dòng thứ nhất
+    \node (d11) at (-1,12) {$1$};
+    \node (d12) at (0,12) {$+$};
+    \node (d13) at (1,12) {$x$};
+    
+    % \node (sum) at (0, 12) {$a + b$};
+    % Dòng thứ hai
+    \node (d21) at (-2, 10.5) {$1$};
+    \node (d22) at (-1, 10.5) {$+$};
+    \node (d23) at (0, 10.5) {$2x$};
+    \node (d24) at (1, 10.5) {$+$};
+    \node (d25) at (2, 10.5) {$x^2$};
+
+    % Dòng thứ ba
+    \node (d31) at (-3, 9) {$1$};
+    \node (d32) at (-2, 9) {$+$};
+    \node (d33) at (-1, 9) {$3x$};
+    \node (d34) at (0, 9) {$+$};
+    \node (d35) at (1, 9) {$3x^2$};
+    \node (d36) at (2, 9) {$+$};
+    \node (d37) at (3, 9) {$x^3$};
+
+    % Dòng thứ tư
+    \node (d41) at (-4, 7.5) {$1$};
+    \node (d42) at (-3, 7.5) {$+$};
+    \node (d43) at (-2, 7.5) {$4x$};
+    \node (d44) at (-1, 7.5) {$+$};
+    \node (d45) at (0, 7.5) {$6x^2$};
+    \node (d46) at (1, 7.5) {$+$};
+    \node (d47) at (2, 7.5) {$4x^3$};
+    \node (d48) at (3, 7.5) {$+$};
+    \node (d49) at (4, 7.5) {$x^4$};
+
+    % Dòng thứ năm    
+    \node (d51) at (-5, 6) {$1$};
+    \node (d52) at (-4, 6) {$+$};
+    \node (d53) at (-3, 6) {$5x$};
+    \node (d54) at (-2, 6) {$+$};
+    \node (d55) at (-1, 6) {$10x^2$};
+    \node (d56) at (0, 6) {$+$};
+    \node (d57) at (1, 6) {$10x^3$};
+    \node (d58) at (2, 6) {$+$};
+    \node (d59) at (3, 6) {$5x^4$};
+    \node (d510) at (4, 6) {$+$};
+    \node (d511) at (5, 6) {$x^5$};
+   
+    % Các nhị thức tương ứng
+    \node (d0) at (-7,13.5) {$(1+x)^0$};
+    \node (d1) at (-7,12) {$(1+x)^1 $};
+    \node (d2) at (-7,10.5) {$(1+x)^2 $};
+    \node (d3) at (-7,9) {$(1+x)^3 $};
+    \node (d4) at (-7,7.5) {$(1+x)^4 $};
+    \node (d5) at (-7,6) {$(1+x)^5 $};
+
+    % Các đoạn thẳng
+    \begin{scope}[every path/.style={color=gray}, every node/.style={color=gray,font=\tiny}]
+    \draw [->] (d00)--(d11) node[midway, left] {$1$};
+    \draw [->] (d00)--(d13) node[midway, right] {$x$};
+
+    \draw [->] (d11)--(d21) node[midway, left] {$1$};
+    \draw [->] (d11)--(d23) node[midway, right] {$x$};
+    \draw [->] (d13)--(d23) node[midway, left] {$1$};
+    \draw [->] (d13)--(d25) node[midway, right] {$x$};
+    
+    \draw [->] (d21)--(d31) node[midway, left] {$1$};
+    \draw [->] (d21)--(d33) node[midway, right] {$x$};
+    \draw [->] (d23)--(d33) node[midway, left] {$1$};
+    \draw [->] (d23)--(d35) node[midway, right] {$x$};
+    \draw [->] (d25)--(d35) node[midway, left] {$1$};
+    \draw [->] (d25)--(d37) node[midway, right] {$x$};
+    
+    \draw [->] (d31)--(d41) node[midway, left] {$1$};
+    \draw [->] (d31)--(d43) node[midway, right] {$x$};
+    \draw [->] (d33)--(d43) node[midway, left] {$1$};
+    \draw [->] (d33)--(d45) node[midway, right] {$x$};
+    \draw [->] (d35)--(d45) node[midway, left] {$1$};
+    \draw [->] (d35)--(d47) node[midway, right] {$x$};
+    \draw [->] (d37)--(d47) node[midway, left] {$1$};
+    \draw [->] (d37)--(d49) node[midway, right] {$x$};
+    
+    \draw [->] (d41)--(d51) node[midway, left] {$1$};
+    \draw [->] (d41)--(d53) node[midway, right] {$x$};
+    \draw [->] (d43)--(d53) node[midway, left] {$1$};
+    \draw [->] (d43)--(d55) node[midway, right] {$x$};
+    \draw [->] (d45)--(d55) node[midway, left] {$1$};
+    \draw [->] (d45)--(d57) node[midway, right] {$x$};
+    \draw [->] (d47)--(d57) node[midway, left] {$1$};
+    \draw [->] (d47)--(d59) node[midway, right] {$x$};
+    \draw [->] (d49)--(d59) node[midway, left] {$1$};
+    \draw [->] (d49)--(d511) node[midway, right] {$x$};
+    \end{scope}
+    
+\end{tikzpicture}
+\end{document}

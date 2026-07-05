@@ -1,0 +1,20 @@
+\usepackage{fontspec}
+\usepackage{unicode-math}
+
+% Thiết lập phông chữ
+\setmainfont{STIX Two Text}
+\setsansfont{STIX Two Text}
+\setmonofont{STIX Two Text}
+\setmathfont{STIX Two Math}
+
+\usepackage{xcolor}
+\definecolor{quartoText}{RGB}{33, 37, 41} % Màu văn bản chính từ theme default của Quarto
+
+\usepackage{tikz}
+\usetikzlibrary{arrows, positioning, calc}
+
+% Đảm bảo mọi nội dung trong tikzpicture đều dùng màu văn bản chính
+\AtBeginEnvironment{tikzpicture}{\color{quartoText}}
+
+% Đồng bộ kích thước chữ của TikZ với Quarto (16px = 12pt)
+\AtBeginDocument{\tikzset{every picture/.style={font=\normalfont\fontsize{12}{14}\selectfont}}}

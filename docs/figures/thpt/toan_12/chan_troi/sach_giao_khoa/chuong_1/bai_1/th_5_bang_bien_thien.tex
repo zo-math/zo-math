@@ -1,0 +1,22 @@
+\documentclass[border=1mm]{standalone}
+
+\usepackage{amsmath}
+\usepackage{xcolor}
+\definecolor{den-6}{HTML}{666666}
+\usepackage{tkz-tab}
+\usetikzlibrary{arrows}
+
+\begin{document}
+
+\begin{tikzpicture}
+    \tkzTabInit[
+        lgt=2, 
+        deltacl=.5, 
+        espcl=2.5]
+        {$x$ / 1, $g'(x)$ / 1, $g(x)$ / 2.5}
+        {$-\infty$, $-3$, $-1$, $1$, $+\infty$}%
+    \tkzTabLine{ , +, $0$, -, d, -, $0$, +, }
+    \tkzTabVar{-/ $-\infty$ / , +/ $-5$ /, -D+/ $-\infty$ / $+\infty$ , -/ $3$ /, +/ $+\infty$ /}
+    \end{tikzpicture}
+
+\end{document}

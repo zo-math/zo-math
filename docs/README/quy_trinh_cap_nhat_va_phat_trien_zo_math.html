@@ -78,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-3d1903c5838503892ba651cf513ab205.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-94e3df0c0013ba71d14658ceb665986f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -213,31 +213,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../content/about.html"> 
 <span class="menu-text">Giới Thiệu</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../content/di_tim/index.html"> 
+<span class="menu-text">Đi Tìm</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Trung Học Phổ Thông</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
         <li>
-    <a class="dropdown-item" href="../content/toan-thpt/toan-11/index.qmd">
+    <a class="dropdown-item" href="../content/thpt/toan_11/index.html">
  <span class="dropdown-text">Toán 11</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../content/toan-thpt/toan-12/index.qmd">
+    <a class="dropdown-item" href="../content/thpt/toan_12/index.html">
  <span class="dropdown-text">Toán 12</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../content/toan-thpt/zo-math-100/100-ham-so-su-bien-thien-va-do-thi/index.qmd">
+    <a class="dropdown-item" href="../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/index.html">
  <span class="dropdown-text">100+ Hàm số</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="../content/zo-o/index.qmd"> 
+    <a class="nav-link" href="../content/zo_o/index.html"> 
 <span class="menu-text">ZO Ồ!</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../content/zo-lab/index.qmd"> 
+    <a class="nav-link" href="../content/zo_lab/index.html"> 
 <span class="menu-text">ZO Lab</span></a>
   </li>  
 </ul>
@@ -265,32 +269,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block"></header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Trên trang này</h2>
-   
-  <ul>
-  <li><a href="#quy-trình-cập-nhật-và-xuất-bản-zo-math" id="toc-quy-trình-cập-nhật-và-xuất-bản-zo-math" class="nav-link active" data-scroll-target="#quy-trình-cập-nhật-và-xuất-bản-zo-math">QUY TRÌNH CẬP NHẬT VÀ XUẤT BẢN ZO MATH</a>
-  <ul class="collapse">
-  <li><a href="#a.-cập-nhật-nhánh-master-phát-triển-render" id="toc-a.-cập-nhật-nhánh-master-phát-triển-render" class="nav-link" data-scroll-target="#a.-cập-nhật-nhánh-master-phát-triển-render">A. Cập nhật nhánh <code>master</code> (Phát triển &amp; Render)</a>
-  <ul class="collapse">
-  <li><a href="#mỗi-lần-cập-nhật-nội-dung-hoặc-code-mới" id="toc-mỗi-lần-cập-nhật-nội-dung-hoặc-code-mới" class="nav-link" data-scroll-target="#mỗi-lần-cập-nhật-nội-dung-hoặc-code-mới">Mỗi lần cập nhật nội dung hoặc code mới:</a></li>
-  </ul></li>
-  <li><a href="#b.-cập-nhật-nhánh-gh-pages-xuất-bản-trang-web" id="toc-b.-cập-nhật-nhánh-gh-pages-xuất-bản-trang-web" class="nav-link" data-scroll-target="#b.-cập-nhật-nhánh-gh-pages-xuất-bản-trang-web">B. Cập nhật nhánh <code>gh-pages</code> (Xuất bản trang web)</a>
-  <ul class="collapse">
-  <li><a href="#sau-khi-đã-cập-nhật-xong-master-xuất-bản-trang-web-mới" id="toc-sau-khi-đã-cập-nhật-xong-master-xuất-bản-trang-web-mới" class="nav-link" data-scroll-target="#sau-khi-đã-cập-nhật-xong-master-xuất-bản-trang-web-mới">Sau khi đã cập nhật xong <code>master</code>, xuất bản trang web mới:**</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#lưu-ý-quan-trọng" id="toc-lưu-ý-quan-trọng" class="nav-link" data-scroll-target="#lưu-ý-quan-trọng">🔥 LƯU Ý QUAN TRỌNG</a>
-  <ul class="collapse">
-  <li><a href="#xử-lý-lỗi-khi-chuyển-nhánh-gh-pages-bị-mất" id="toc-xử-lý-lỗi-khi-chuyển-nhánh-gh-pages-bị-mất" class="nav-link" data-scroll-target="#xử-lý-lỗi-khi-chuyển-nhánh-gh-pages-bị-mất">1. Xử lý lỗi khi chuyển nhánh <code>gh-pages</code> bị mất</a></li>
-  <li><a href="#làm-sạch-file-cũ-trước-khi-render" id="toc-làm-sạch-file-cũ-trước-khi-render" class="nav-link" data-scroll-target="#làm-sạch-file-cũ-trước-khi-render">2. Làm sạch file cũ trước khi render</a></li>
-  <li><a href="#kiểm-tra-lại-trước-khi-push" id="toc-kiểm-tra-lại-trước-khi-push" class="nav-link" data-scroll-target="#kiểm-tra-lại-trước-khi-push">3. Kiểm tra lại trước khi <code>push</code></a></li>
-  </ul></li>
-  <li><a href="#tóm-gọn" id="toc-tóm-gọn" class="nav-link" data-scroll-target="#tóm-gọn">Tóm gọn</a></li>
-  <li><a href="#quy-trình-được-chatgpt-hiệu-chỉnh" id="toc-quy-trình-được-chatgpt-hiệu-chỉnh" class="nav-link" data-scroll-target="#quy-trình-được-chatgpt-hiệu-chỉnh">QUY TRÌNH ĐƯỢC CHATGPT HIỆU CHỈNH</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
@@ -298,153 +278,83 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="quy-trình-cập-nhật-và-xuất-bản-zo-math" class="level1">
-<h1>QUY TRÌNH CẬP NHẬT VÀ XUẤT BẢN ZO MATH</h1>
-<section id="a.-cập-nhật-nhánh-master-phát-triển-render" class="level2">
-<h2 class="anchored" data-anchor-id="a.-cập-nhật-nhánh-master-phát-triển-render">A. Cập nhật nhánh <code>master</code> (Phát triển &amp; Render)</h2>
-<section id="mỗi-lần-cập-nhật-nội-dung-hoặc-code-mới" class="level3">
-<h3 class="anchored" data-anchor-id="mỗi-lần-cập-nhật-nội-dung-hoặc-code-mới">Mỗi lần cập nhật nội dung hoặc code mới:</h3>
-<p>1️⃣ <strong>Chuyển sang nhánh <code>master</code></strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout master</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>2️⃣ <strong>Cập nhật repository (nếu làm việc trên nhiều máy):</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin master</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>3️⃣ <strong>Chỉnh sửa, thêm nội dung, cập nhật trang web</strong><br>
-(Chỉnh sửa <code>.qmd</code>, code, tài nguyên,…)</p>
-<p>4️⃣ <strong>Render lại toàn bộ trang web bằng Quarto</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>📌 <strong>Lưu ý:</strong></p>
-<ul>
-<li><p>Quarto sẽ tạo ra nội dung mới trong thư mục <code>docs/</code></p></li>
-<li><p>Nếu muốn làm sạch các kết quả cũ trước khi render, chạy:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> clean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-</ul>
-<p>5️⃣ <strong>Commit &amp; đẩy lên GitHub (<code>master</code>)</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Cập nhật nội dung mới cho ZO Math"</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin master</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-</section>
-<section id="b.-cập-nhật-nhánh-gh-pages-xuất-bản-trang-web" class="level2">
-<h2 class="anchored" data-anchor-id="b.-cập-nhật-nhánh-gh-pages-xuất-bản-trang-web">B. Cập nhật nhánh <code>gh-pages</code> (Xuất bản trang web)</h2>
-<section id="sau-khi-đã-cập-nhật-xong-master-xuất-bản-trang-web-mới" class="level3">
-<h3 class="anchored" data-anchor-id="sau-khi-đã-cập-nhật-xong-master-xuất-bản-trang-web-mới">Sau khi đã cập nhật xong <code>master</code>, xuất bản trang web mới:**</h3>
-<p>1️⃣ Chuyển sang nhánh <code>gh-pages</code></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout gh-pages</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>2️⃣ Xóa nội dung cũ trong <code>gh-pages</code> để làm sạch</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> rm <span class="at">-rf</span> docs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>3️⃣ Lấy thư mục <code>docs/</code> từ <code>master</code></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout master <span class="at">--</span> docs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>4️⃣ Commit &amp; đẩy lên GitHub (<code>gh-pages</code>)</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Cập nhật nội dung xuất bản"</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">--force</span> origin gh-pages</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Lưu ý:</strong></p>
-<ul>
-<li><code>--force</code> đảm bảo nội dung cũ bị ghi đè hoàn toàn.</li>
-<li>Nếu bạn đã đặt <code>docs/</code> làm thư mục gốc trong <strong>GitHub Pages Settings</strong>, không cần di chuyển file nào.</li>
-</ul>
-</section>
-</section>
-</section>
-<section id="lưu-ý-quan-trọng" class="level1">
-<h1>🔥 LƯU Ý QUAN TRỌNG</h1>
-<section id="xử-lý-lỗi-khi-chuyển-nhánh-gh-pages-bị-mất" class="level2">
-<h2 class="anchored" data-anchor-id="xử-lý-lỗi-khi-chuyển-nhánh-gh-pages-bị-mất">1. Xử lý lỗi khi chuyển nhánh <code>gh-pages</code> bị mất</h2>
-<p>Nếu chạy <code>git checkout gh-pages</code> mà gặp lỗi:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">error:</span> pathspec <span class="st">'gh-pages'</span> did not match any file<span class="er">(</span><span class="ex">s</span><span class="kw">)</span> <span class="ex">known</span> to git</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>👉 Chạy lệnh tạo lại nhánh <code>gh-pages</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">--orphan</span> gh-pages</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Sau đó làm lại các bước cập nhật <code>gh-pages</code>.</p>
-</section>
-<section id="làm-sạch-file-cũ-trước-khi-render" class="level2">
-<h2 class="anchored" data-anchor-id="làm-sạch-file-cũ-trước-khi-render">2. Làm sạch file cũ trước khi render</h2>
-<p>Nếu muốn dọn dẹp các file cũ trước khi <code>quarto render</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> clean</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="kiểm-tra-lại-trước-khi-push" class="level2">
-<h2 class="anchored" data-anchor-id="kiểm-tra-lại-trước-khi-push">3. Kiểm tra lại trước khi <code>push</code></h2>
-<p>Trước khi <code>push</code>, luôn kiểm tra nội dung đã cập nhật đúng bằng cách chạy:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> diff</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Đảm bảo chỉ có các thay đổi mong muốn được đẩy lên GitHub.</p>
-</section>
-</section>
-<section id="tóm-gọn" class="level1">
-<h1>Tóm gọn</h1>
-<p><strong>Mỗi lần cập nhật nội dung:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout master</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin master</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Cập nhật nội dung mới"</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin master</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Mỗi lần xuất bản trang web:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout gh-pages</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> rm <span class="at">-rf</span> docs</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout master <span class="at">--</span> docs</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Cập nhật nội dung xuất bản"</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">--force</span> origin gh-pages</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<hr>
-</section>
-<section id="quy-trình-được-chatgpt-hiệu-chỉnh" class="level1">
-<h1>QUY TRÌNH ĐƯỢC CHATGPT HIỆU CHỈNH</h1>
-<p>Đây là <strong>quy trình chuẩn mới</strong> từ nay về sau.</p>
-<p>Lý do: nó giữ đúng mô hình đang dùng:</p>
-<pre class="text"><code>master    = nơi viết và render nội dung
-gh-pages  = nơi xuất bản bản web trong docs/</code></pre>
-<p>Quy trình nên dùng cố định:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout master</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Chuyển sang nhánh master, nơi bạn sửa nội dung gốc của website.</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin master</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Lấy phiên bản mới nhất của nhánh master từ GitHub về máy.</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Render toàn bộ website Quarto, tạo/cập nhật thư mục docs/.</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> docs/.nojekyll</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Báo cho GitHub Pages không xử lý site như Jekyll, để các file CSS/JS của Quarto được phục vụ đúng.</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add <span class="at">-A</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Đưa toàn bộ thay đổi trên master vào vùng chuẩn bị commit.</span></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Cập nhật nội dung mới"</span></span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Lưu các thay đổi nội dung và bản render docs/ thành một commit.</span></span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin master</span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Đẩy nhánh master mới nhất lên GitHub.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Rồi xuất bản:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout gh-pages</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Chuyển sang nhánh gh-pages, nơi GitHub Pages lấy website để xuất bản.</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin gh-pages</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Lấy phiên bản mới nhất của nhánh gh-pages từ GitHub về máy.</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> rm <span class="at">-rf</span> docs</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Xóa thư mục docs cũ trên nhánh gh-pages.</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout master <span class="at">--</span> docs</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Sao chép thư mục docs mới đã render từ nhánh master sang nhánh gh-pages.</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add <span class="at">-A</span> docs</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Đưa toàn bộ thư mục docs mới vào vùng chuẩn bị commit.</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Cập nhật nội dung xuất bản"</span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Lưu bản website mới trên nhánh gh-pages.</span></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin gh-pages</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Đẩy bản xuất bản mới lên GitHub Pages.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Chỉ dùng <code>--force</code> khi Git báo không push được và bạn hiểu rằng mình muốn ghi đè nhánh <code>gh-pages</code>.</p>
-<p>Với lần này, bạn cũng dùng đúng quy trình trên để sửa lỗi giao diện thô hiện tại. Sau đó vào GitHub Pages giữ:</p>
+<p>Đúng, nếu bạn <strong>đã ở <code>E:\zo_math</code> và prompt hiện <code>(master)</code></strong>, thì không cần chạy <code>git checkout master</code> nữa.</p>
+<p>Mình chốt lại quy trình đầy đủ, gọn và cố định như sau.</p>
+<p><strong>Quy ước thư mục</strong></p>
+<pre class="text"><code>E:\zo_math          = nơi viết nội dung và render, luôn ở nhánh master
+E:\zo_math_publish  = nơi xuất bản web, luôn ở nhánh gh-pages</code></pre>
+<p><strong>Thiết lập một lần</strong></p>
+<p>Trên GitHub → Settings → Pages, đặt:</p>
 <pre class="text"><code>Branch: gh-pages
-Folder: /docs</code></pre>
+Folder: / (root)</code></pre>
+<p>Nếu chưa có thư mục <code>E:\zo_math_publish</code>, tạo một lần:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /e/zo_math</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Đi vào thư mục dự án chính.</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> worktree add ../zo_math_publish gh-pages</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Tạo thư mục xuất bản riêng cho nhánh gh-pages.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Nếu thư mục <code>E:\zo_math_publish</code> đã có rồi thì bỏ qua bước thiết lập này.</p>
+<p><strong>Mỗi lần cập nhật nội dung và render</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /e/zo_math</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Đi vào thư mục dự án chính.</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch <span class="at">--show-current</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Kiểm tra nhánh hiện tại; kết quả nên là master.</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin master</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Lấy bản master mới nhất từ GitHub.</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Render website; Quarto cập nhật docs/ và site_libs/.</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add <span class="at">-A</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Đưa toàn bộ thay đổi vào vùng chuẩn bị commit.</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Cập nhật nội dung mới"</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Lưu thay đổi nội dung và bản render trên master.</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin master</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Đẩy master mới nhất lên GitHub.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Nếu <code>git branch --show-current</code> không hiện <code>master</code>, khi đó mới chạy:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout master</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Chỉ dùng khi lỡ đang ở nhánh khác trong E:\zo_math.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Nếu <code>git commit</code> báo <code>nothing to commit</code>, bỏ qua và chạy tiếp <code>git push origin master</code>.</p>
+<p><strong>Mỗi lần xuất bản web</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /e/zo_math_publish</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Đi vào thư mục xuất bản riêng.</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch <span class="at">--show-current</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Kiểm tra nhánh hiện tại; kết quả nên là gh-pages.</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin gh-pages</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Lấy bản gh-pages mới nhất từ GitHub.</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> rm <span class="at">-rf</span> .</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Xóa bản website cũ đang được Git theo dõi trên gh-pages.</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-a</span> ../zo_math/docs/. .</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Chép nội dung đã render trong docs/ ra gốc gh-pages.</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-a</span> ../zo_math/site_libs ./site_libs</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Chép thư viện giao diện Quarto ra gốc gh-pages.</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> .nojekyll</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Tạo file báo GitHub Pages không dùng Jekyll.</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add <span class="at">-A</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Đưa toàn bộ bản xuất bản mới vào vùng chuẩn bị commit.</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Cập nhật nội dung xuất bản"</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Lưu bản website mới trên gh-pages.</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin gh-pages</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Đẩy website lên GitHub Pages.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Nếu <code>git branch --show-current</code> không hiện <code>gh-pages</code>, dừng lại và báo mình, vì <code>E:\zo_math_publish</code> không nên dùng nhánh khác.</p>
+<p>Sau khi push xong, chờ 1-3 phút rồi mở:</p>
+<pre class="text"><code>https://zo-math.github.io/zo-math/</code></pre>
+<p>và nhấn <code>Ctrl + F5</code>.</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <!-- Overlay để click ra ngoài và đóng sidebar -->
@@ -899,7 +809,7 @@ Folder: /docs</code></pre>
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/");
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/zo-math\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
