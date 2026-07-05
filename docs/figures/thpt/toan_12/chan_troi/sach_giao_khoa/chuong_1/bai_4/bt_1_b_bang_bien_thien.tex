@@ -1,0 +1,25 @@
+\documentclass[border=1mm]{standalone}
+
+\usepackage{amsmath}
+\usepackage{xcolor}
+\definecolor{den-6}{HTML}{666666}
+\usepackage{tkz-tab}
+\usetikzlibrary{arrows}
+
+\begin{document}
+
+\begin{tikzpicture}
+
+  \tkzTabInit[
+    lgt=2, 
+    deltacl=.5, 
+    espcl=2.5]
+    {$x$/1, $y^\prime$/1, $y$/2.5}
+    {$-\infty$, $-\frac{1}{2}$, $\frac{1}{6}$, $+\infty$}
+  \tkzTabLine{, +, $0$, -, $0$, +, } 
+  \tkzTabVar{-/$-\infty$, +/$-\frac{11}{4}$, -/$-\frac{329}{108}$, +/$+\infty$}
+  % \tkzTabVal[draw]{2}{3}{0.5}{$-\frac{1}{2}$}{$\frac{1}{2}$}
+  
+\end{tikzpicture}
+
+\end{document}

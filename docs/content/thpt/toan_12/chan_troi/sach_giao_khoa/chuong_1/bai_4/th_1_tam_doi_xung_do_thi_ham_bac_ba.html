@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>th_1_tam_doi_xung_do_thi_ham_bac_ba – ZO Math</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../../../../">
+<link href="../../../../../../../images/favicon.ico" rel="icon">
+<script src="../../../../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../../../../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../../../../site_libs/bootstrap/bootstrap-94e3df0c0013ba71d14658ceb665986f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../../../../../assets/css/custom.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../../../../../index.html">
+    <span class="navbar-title">ZO Math</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../../../content/di_tim/index.html"> 
+<span class="menu-text">Đi Tìm</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../../../../../content/thpt/toan_11/index.html">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../../../../content/thpt/toan_12/index.html">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/index.html">
+ <span class="dropdown-text">100+ Hàm số</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../../../content/zo_o/index.html"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../../../content/zo_lab/index.html"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../../../content/shop/index.html"> 
+<span class="menu-text">ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block"></header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Trên trang này</h2>
+   
+  <ul>
+  <li><a href="#bài-tập-thực-hành" id="toc-bài-tập-thực-hành" class="nav-link active" data-scroll-target="#bài-tập-thực-hành">1. Bài tập thực hành</a></li>
+  <li><a href="#câu-hỏi-thảo-luận" id="toc-câu-hỏi-thảo-luận" class="nav-link" data-scroll-target="#câu-hỏi-thảo-luận">2. Câu hỏi thảo luận</a></li>
+  <li><a href="#lưu-ý-khi-thiết-kế-thực-hành" id="toc-lưu-ý-khi-thiết-kế-thực-hành" class="nav-link" data-scroll-target="#lưu-ý-khi-thiết-kế-thực-hành">3. Lưu ý khi thiết kế thực hành</a></li>
+  <li><a href="#kết-luận" id="toc-kết-luận" class="nav-link" data-scroll-target="#kết-luận">4. Kết luận</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>Quan sát đồ thị, nhận thấy <span class="math inline">\(I\left(-\frac{1}{2}; \frac{1}{2}\right)\)</span>, nằm giữa hai điểm cực trị <span class="math inline">\((-1; 0)\)</span> và <span class="math inline">\((0; 1)\)</span>, là một điểm đặc biệt. Điểm này dường như đóng vai trò quan trọng cả về hình dạng cong của đồ thị lẫn tính đối xứng.</p>
+<ul>
+<li>Bên trái <span class="math inline">\(I\)</span>, mọi tiếp tuyến đều nằm <em>dưới đồ thị</em> ở lân cận điểm tiếp xúc, cho thấy đồ thị cong lên trên so với tiếp tuyến - tính <em>lồi</em>.</li>
+<li>Bên phải <span class="math inline">\(I\)</span>, mọi tiếp tuyến đều nằm <em>trên đồ thị</em> ở lân cận điểm tiếp xúc, cho thấy đồ thị cong xuống dưới so với tiếp tuyến - tính <em>lõm</em>.</li>
+</ul>
+<p>Sự khác biệt này cho thấy <span class="math inline">\(I\left(-\frac{1}{2}; \frac{1}{2}\right)\)</span> là nơi đồ thị thay đổi hướng cong: từ “ngửa lên” sang “gập xuống”. Điểm mà đồ thị thay đổi hướng cong được gọi là <em>điểm uốn</em>.</p>
+<ul>
+<li>Tại <span class="math inline">\(I\)</span>, tiếp tuyến cắt ngang đồ thị. Phần tiếp tuyến bên trái <span class="math inline">\(I\)</span> nằm dưới đồ thị, và phần bên phải <span class="math inline">\(I\)</span> nằm trên đồ thị. Sự chuyển đổi này qua tiếp tuyến cho thấy điểm uốn không chỉ là nơi thay đổi hướng cong mà còn là một mốc trung gian, nơi đồ thị “trượt qua” một cách hài hòa. Tiếp tuyến tại <span class="math inline">\(I\)</span> như một đường cân bằng, minh họa rõ ràng sự thay đổi mượt mà từ lồi sang lõm, đồng thời củng cố ý tưởng rằng <span class="math inline">\(I\)</span> là trung tâm đối xứng - nơi hai phần đồ thị đối lập nhau nhưng vẫn giữ được sự cân đối khi quay 180°.</li>
+</ul>
+<p>Bên cạnh đó, đồ thị dường như đối xứng quanh <span class="math inline">\(I\)</span>. Chẳng hạn, cặp điểm <span class="math inline">\((-1; 0)\)</span> và <span class="math inline">\((0; 1)\)</span> có trung điểm chính là <span class="math inline">\(I\)</span>, và cả hai điểm đều thuộc đồ thị. Điều này gợi ý rằng <span class="math inline">\(I\)</span> có thể là tâm đối xứng - nơi mà nếu quay đồ thị 180° quanh đó, đồ thị sẽ giữ nguyên hình dạng ban đầu.</p>
+<p>Điểm uốn là nơi đồ thị thay đổi hướng cong, từ lồi sang lõm, tạo nên một sự chuyển tiếp êm dịu. Tâm đối xứng, trong trường hợp này, là điểm mà đồ thị đối xứng quay 180°, nghĩa là hai phần đồ thị hai bên <span class="math inline">\(I\)</span> có hình dạng đối lập nhưng cân bằng. Với hàm bậc ba, điểm uốn thường trùng với tâm đối xứng, vì sự thay đổi hướng cong tạo ra sự hài hòa đặc trưng, dẫn đến tính đối xứng này.</p>
+<p>Để xác định điểm uốn một cách chính xác, cần đo lường hướng cong của đồ thị. Hướng cong liên quan đến độ dốc của tiếp tuyến, được cho bởi <span class="math inline">\(y'\)</span>, và tốc độ thay đổi của độ dốc, được cho bởi <span class="math inline">\(y''\)</span>:</p>
+<ul>
+<li>Đạo hàm bậc nhất <span class="math inline">\(y'\)</span> cho biết độ dốc tại mỗi điểm.</li>
+<li>Đạo hàm bậc hai <span class="math inline">\(y''\)</span> đo lường tốc độ thay đổi của độ dốc:
+<ul>
+<li>Nếu <span class="math inline">\(y'' &gt; 0\)</span>, độ dốc tăng, đồ thị lồi, và tiếp tuyến nằm dưới đồ thị.</li>
+<li>Nếu <span class="math inline">\(y'' &lt; 0\)</span>, độ dốc giảm, đồ thị lõm, và tiếp tuyến nằm trên đồ thị.</li>
+<li>Qua điểm uốn, hướng cong thay đổi, nên <span class="math inline">\(y'' = 0\)</span>, và <span class="math inline">\(y''\)</span> đổi dấu qua điểm đó.</li>
+</ul></li>
+</ul>
+<p>Hàm số <span class="math inline">\(y=-2x^3-3x^2+1\)</span> có đạo hàm cấp hai là <span class="math inline">\(y^{\prime\prime}=-12x-6\)</span> triệt tiêu tại <span class="math inline">\(x=-\frac{1}{2}\)</span>. Hơn nữa, <span class="math inline">\(y^{\prime\prime}\)</span> đổi từ dương sang âm khi qua <span class="math inline">\(x=-\frac{1}{2}\)</span>, nên <span class="math inline">\(I\left(-\frac{1}{2}; \frac{1}{2}\right)\)</span> đúng là điểm uốn như đã quan sát trên đồ thị.</p>
+<p>Mặt khác, đồ thị cũng cho thấy <span class="math inline">\(I\left(-\frac{1}{2}; \frac{1}{2}\right)\)</span> là tâm đối xứng. Để xác nhận, cần chứng minh rằng nếu <span class="math inline">\(M^\prime(x^\prime; y^\prime)\)</span> đối xứng qua <span class="math inline">\(I\)</span> với điểm <span class="math inline">\(M(x; y)\)</span> thuộc đồ thị, thì cũng phải thuộc đồ thị. Nghĩa là cần chứng minh tọa độ của điểm <span class="math inline">\(M^\prime\)</span> thỏa công thức hàm số.</p>
+<p>Vì <span class="math inline">\(M^\prime\)</span> đối xứng với <span class="math inline">\(M\)</span> qua <span class="math inline">\(I\)</span>, nên tọa độ của <span class="math inline">\(M^\prime\)</span> là</p>
+<p><span class="math display">\[
+  (x^\prime;y^\prime)=(-1-x;1-y).
+\]</span></p>
+<p>Thay <span class="math inline">\(x^\prime = -1 - x\)</span> vào hàm số:</p>
+<p><span class="math display">\[
+  y^\prime = -2(-1 - x)^3 - 3(-1 - x)^2 + 1.
+\]</span></p>
+<p>Sau khi khai triển và rút gọn, sẽ thu được</p>
+<p><span class="math display">\[
+  y^{\prime\prime}=2x^3+3x^3.
+\]</span></p>
+<p>Tại đây, dùng một chút kỹ thuật thêm bớt để điều cần chứng minh được sáng tỏ là</p>
+<p><span class="math display">\[
+  y^{\prime\prime}
+    =1-\left(-2x^3-3x^2+1)
+    =1-y.
+\]</span></p>
+<p>Với hàm bậc ba, điểm uốn thường là duy nhất, vì đạo hàm bậc hai là một hàm tuyến tính, chỉ có một điểm mà tại đó hướng cong thay đổi. Sự thay đổi từ lồi sang lõm tại điểm uốn tạo nên sự đối xứng hình học: phần bên trái và bên phải của đồ thị trở nên đối lập nhưng cân bằng. Tiếp tuyến tại các điểm hai bên <span class="math inline">\(I\)</span> — nằm dưới đồ thị bên trái, trên đồ thị bên phải—càng làm nổi bật sự đối lập hài hòa này, dẫn đến tính đối xứng quay 180° quanh <span class="math inline">\(I\)</span>. Hơn nữa, tâm đối xứng của một hàm bậc ba là duy nhất, vì không thể tồn tại một tâm đối xứng khác mà không làm thay đổi bản chất của đồ thị.</p>
+<p>Phương pháp tìm điểm uốn bằng cách giải phương trình <span class="math inline">\(y^{\prime\prime}=0\)</span> để xác định hoành độ của nó là cách hệ thống để xác định điểm này, và vì điểm uốn trùng với tâm đối xứng, đây là cách gián tiếp hiệu quả để tìm tâm đối xứng.</p>
+<hr>
+<p>Để củng cố kiến thức về điểm uốn, tâm đối xứng, và mối liên hệ giữa chúng trong khảo sát hàm số (đặc biệt với hàm bậc ba), cần thiết kế các bài tập và câu hỏi thực hành phù hợp với trình độ học sinh lớp 12. Các bài tập nên kết hợp giữa trực giác hình học (như quan sát đồ thị), kỹ năng toán học (tính đạo hàm, xác định điểm uốn), và khám phá tính đối xứng, đồng thời tăng dần độ khó để khuyến khích tư duy. Dưới đây là các gợi ý chi tiết về bài tập và câu hỏi, được trình bày bằng ngôn ngữ khách quan, tránh đại từ nhân xưng, và phù hợp với chương trình THPT Việt Nam.</p>
+<section id="bài-tập-thực-hành" class="level3">
+<h3 class="anchored" data-anchor-id="bài-tập-thực-hành">1. Bài tập thực hành</h3>
+<section id="bài-tập-cơ-bản-kỹ-năng-tính-toán-và-quan-sát" class="level4">
+<h4 class="anchored" data-anchor-id="bài-tập-cơ-bản-kỹ-năng-tính-toán-và-quan-sát">Bài tập cơ bản (Kỹ năng tính toán và quan sát)</h4>
+<ul>
+<li><p><strong>Bài 1</strong>: Khảo sát và vẽ đồ thị hàm số <span class="math inline">\(y = x^3 - 3x + 2\)</span>.</p>
+<ul>
+<li><ol type="a">
+<li>Tìm đạo hàm bậc nhất <span class="math inline">\(y'\)</span> và xác định cực trị.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li>Tính đạo hàm bậc hai <span class="math inline">\(y''\)</span>, tìm điểm uốn (nếu có) bằng cách giải <span class="math inline">\(y'' = 0\)</span> và kiểm tra dấu của <span class="math inline">\(y''\)</span>.</li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Quan sát đồ thị (hoặc vẽ thô) để nhận xét hình dạng cong hai bên điểm uốn. Tiếp tuyến tại một điểm bên trái và một điểm bên phải điểm uốn nằm ở vị trí nào so với đồ thị (dưới hay trên)?</li>
+</ol></li>
+<li><ol start="4" type="a">
+<li>Dự đoán điểm nào có thể là tâm đối xứng, và kiểm tra bằng cách lấy một cặp điểm trên đồ thị (ví dụ cực trị) để tính trung điểm.</li>
+</ol></li>
+</ul>
+<p><strong>Mục tiêu</strong>: Luyện kỹ năng tính đạo hàm, tìm điểm uốn, và phát triển trực giác về tính lồi-lõm qua tiếp tuyến.</p></li>
+<li><p><strong>Bài 2</strong>: Với hàm số <span class="math inline">\(y = -x^3 + 2x^2 - 1\)</span>.</p>
+<ul>
+<li><ol type="a">
+<li>Tìm điểm uốn bằng cách tính <span class="math inline">\(y'' = 0\)</span> và kiểm tra dấu <span class="math inline">\(y''\)</span>.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li>Vẽ đồ thị thô và xác định khoảng nào đồ thị lồi, khoảng nào đồ thị lõm.</li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Chọn hai điểm đối xứng qua điểm uốn (dựa trên quan sát), tính tọa độ trung điểm, và so sánh với tọa độ điểm uốn.</li>
+</ol></li>
+</ul>
+<p><strong>Mục tiêu</strong>: Kết nối giữa điểm uốn và tâm đối xứng, khuyến khích học sinh nhận diện tính đối xứng qua quan sát.</p></li>
+</ul>
+</section>
+<section id="bài-tập-trung-bình-khám-phá-tính-đối-xứng" class="level4">
+<h4 class="anchored" data-anchor-id="bài-tập-trung-bình-khám-phá-tính-đối-xứng">Bài tập trung bình (Khám phá tính đối xứng)</h4>
+<ul>
+<li><p><strong>Bài 3</strong>: Khảo sát hàm số <span class="math inline">\(y = 2x^3 - 6x^2 + 3\)</span>.</p>
+<ul>
+<li><ol type="a">
+<li>Tìm điểm uốn bằng đạo hàm bậc hai.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li>Dựa vào hình dạng đồ thị (vẽ thô), nhận xét xem điểm uốn có phải là tâm đối xứng không. Lấy ít nhất hai cặp điểm trên đồ thị để kiểm tra tính đối xứng qua điểm uốn.</li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Chứng minh toán học rằng điểm uốn là tâm đối xứng bằng cách thay <span class="math inline">\(x' = 2a - x\)</span> (với <span class="math inline">\(a\)</span> là hoành độ điểm uốn) vào hàm số và kiểm tra điều kiện đối xứng.</li>
+</ol></li>
+</ul>
+<p><strong>Mục tiêu</strong>: Kết hợp quan sát và chứng minh, giúp học sinh hiểu rõ mối quan hệ giữa điểm uốn và tâm đối xứng.</p></li>
+<li><p><strong>Bài 4</strong>: Với hàm số <span class="math inline">\(y = -3x^3 + 9x\)</span>.</p>
+<ul>
+<li><ol type="a">
+<li>Tìm điểm uốn và xác định khoảng lồi/lõm.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li>Vẽ đồ thị và quan sát xem đồ thị có đối xứng qua điểm uốn không. Nếu có, giải thích tại sao.</li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Tính tọa độ điểm đối xứng của <span class="math inline">\((1; 6)\)</span> qua điểm uốn, và kiểm tra xem điểm đó có nằm trên đồ thị không.</li>
+</ol></li>
+</ul>
+<p><strong>Mục tiêu</strong>: Luyện kỹ năng vẽ đồ thị, nhận diện đối xứng, và kiểm tra toán học.</p></li>
+</ul>
+</section>
+<section id="bài-tập-nâng-cao-tư-duy-sáng-tạo" class="level4">
+<h4 class="anchored" data-anchor-id="bài-tập-nâng-cao-tư-duy-sáng-tạo">Bài tập nâng cao (Tư duy sáng tạo)</h4>
+<ul>
+<li><p><strong>Bài 5</strong>: Khảo sát hàm số <span class="math inline">\(y = x^3 - 3x^2 + 2x + 1\)</span>.</p>
+<ul>
+<li><ol type="a">
+<li>Tìm điểm uốn và xác định tính lồi-lõm.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li>Giả sử điểm uốn là tâm đối xứng, chứng minh rằng với mọi <span class="math inline">\(x\)</span>, điểm <span class="math inline">\(x' = 2a - x\)</span> (với <span class="math inline">\(a\)</span> là hoành độ điểm uốn) khi thay vào hàm số cho giá trị <span class="math inline">\(y' = 2b - y\)</span> (với <span class="math inline">\(b\)</span> là tung độ điểm uốn).</li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Dựa vào chứng minh, rút ra kết luận chung về mối quan hệ giữa điểm uốn và tâm đối xứng của hàm bậc ba.</li>
+</ol></li>
+</ul>
+<p><strong>Mục tiêu</strong>: Khuyến khích học sinh tổng quát hóa, phát triển tư duy logic và chứng minh.</p></li>
+<li><p><strong>Bài 6</strong>: So sánh hai hàm số <span class="math inline">\(y = x^3\)</span> và <span class="math inline">\(y = -x^3 + 2x\)</span>.</p>
+<ul>
+<li><ol type="a">
+<li>Tìm điểm uốn của từng hàm (nếu có).</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li>Vẽ đồ thị thô và nhận xét xem điểm uốn có phải là tâm đối xứng không. Nếu không, giải thích lý do.</li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Đưa ra giả thuyết về điều kiện để điểm uốn trở thành tâm đối xứng trong hàm bậc ba.</li>
+</ol></li>
+</ul>
+<p><strong>Mục tiêu</strong>: Khuyến khích học sinh khám phá trường hợp ngoại lệ và suy luận tổng quát.</p></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="câu-hỏi-thảo-luận" class="level3">
+<h3 class="anchored" data-anchor-id="câu-hỏi-thảo-luận">2. Câu hỏi thảo luận</h3>
+<section id="câu-hỏi-trực-quan" class="level4">
+<h4 class="anchored" data-anchor-id="câu-hỏi-trực-quan">Câu hỏi trực quan</h4>
+<ul>
+<li><p><strong>Câu 1</strong>: Quan sát đồ thị hàm số <span class="math inline">\(y = -2x^3 - 3x^2 + 1\)</span> (dựa trên hình ảnh đã cung cấp). Tại sao điểm <span class="math inline">\(I\left(-\frac{1}{2}; \frac{1}{2}\right)\)</span> được cho là nơi đồ thị thay đổi hình dạng? Vẽ tiếp tuyến tại <span class="math inline">\(x = -1\)</span> và <span class="math inline">\(x = \frac{1}{2}\)</span>, nhận xét vị trí của chúng so với đồ thị. <strong>Mục tiêu</strong>: Khuyến khích quan sát và liên hệ tính lồi-lõm với tiếp tuyến.</p></li>
+<li><p><strong>Câu 2</strong>: Nếu quay đồ thị <span class="math inline">\(y = x^3 - 3x + 2\)</span> 180° quanh một điểm, điểm nào có thể là tâm quay để đồ thị vẫn giữ nguyên hình dạng? Dựa vào điểm uốn để suy luận. <strong>Mục tiêu</strong>: Kích thích tư duy về đối xứng quay và mối liên hệ với điểm uốn.</p></li>
+</ul>
+</section>
+<section id="câu-hỏi-phân-tích" class="level4">
+<h4 class="anchored" data-anchor-id="câu-hỏi-phân-tích">Câu hỏi phân tích</h4>
+<ul>
+<li><p><strong>Câu 3</strong>: Tại sao hàm số bậc ba luôn có một điểm uốn, trong khi hàm bậc hai không? Điều này ảnh hưởng như thế nào đến tính đối xứng của đồ thị? <strong>Mục tiêu</strong>: Giúp học sinh hiểu đặc trưng của hàm bậc ba và liên hệ với tâm đối xứng.</p></li>
+<li><p><strong>Câu 4</strong>: Nếu tiếp tuyến tại một điểm trên đồ thị <span class="math inline">\(y = -x^3 + 3x^2\)</span> nằm dưới đồ thị, điều đó nói lên gì về tính lồi-lõm tại điểm đó? Sử dụng đạo hàm bậc hai để kiểm tra. <strong>Mục tiêu</strong>: Kết nối trực giác (tiếp tuyến) với toán học (<span class="math inline">\(y''\)</span>).</p></li>
+</ul>
+</section>
+<section id="câu-hỏi-mở" class="level4">
+<h4 class="anchored" data-anchor-id="câu-hỏi-mở">Câu hỏi mở</h4>
+<ul>
+<li><p><strong>Câu 5</strong>: Giả sử có một hàm bậc ba mà điểm uốn không phải là tâm đối xứng. Hãy xây dựng một ví dụ (nếu có thể) và giải thích lý do. Nếu không thể, giải thích tại sao điểm uốn luôn là tâm đối xứng. <strong>Mục tiêu</strong>: Khuyến khích tư duy sáng tạo và tổng quát hóa.</p></li>
+<li><p><strong>Câu 6</strong>: Làm thế nào để sử dụng tính chất tiếp tuyến (nằm trên hoặc dưới đồ thị) để phát hiện điểm uốn mà không cần tính <span class="math inline">\(y''\)</span>? Thử áp dụng với <span class="math inline">\(y = 2x^3 - 6x\)</span>. <strong>Mục tiêu</strong>: Phát triển kỹ năng phân tích hình học và kiểm tra thực tế.</p></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="lưu-ý-khi-thiết-kế-thực-hành" class="level3">
+<h3 class="anchored" data-anchor-id="lưu-ý-khi-thiết-kế-thực-hành">3. Lưu ý khi thiết kế thực hành</h3>
+<ul>
+<li><strong>Độ khó tăng dần</strong>: Bắt đầu với bài tập cơ bản (tính toán và quan sát), sau đó đến trung bình (khám phá đối xứng), và cuối cùng nâng cao (chứng minh và tổng quát hóa). Điều này giúp học sinh từ quen thuộc đến thử thách.</li>
+<li><strong>Sử dụng hình vẽ</strong>: Khuyến khích học sinh vẽ đồ thị thô hoặc dùng hình ảnh (như hình bạn cung cấp) để nhận diện điểm uốn và tính đối xứng, tăng tính trực quan.</li>
+<li><strong>Liên hệ thực tế</strong>: Đưa ra ví dụ về tiếp tuyến (như trong hình ảnh) để học sinh hình dung tính lồi-lõm, giúp liên kết lý thuyết với quan sát.</li>
+<li><strong>Thảo luận nhóm</strong>: Với các câu hỏi mở, khuyến khích học sinh thảo luận để tìm ra câu trả lời, ví dụ kiểm tra tính đối xứng qua nhiều cặp điểm.</li>
+<li><strong>Thời gian</strong>: Phân bổ thời gian hợp lý (ví dụ 10 phút cho bài cơ bản, 15 phút cho bài trung bình, 20 phút cho bài nâng cao) trong một tiết học 45 phút.</li>
+</ul>
+<hr>
+</section>
+<section id="kết-luận" class="level3">
+<h3 class="anchored" data-anchor-id="kết-luận">4. Kết luận</h3>
+<p>Các bài tập và câu hỏi trên giúp củng cố kiến thức về điểm uốn, tâm đối xứng, và mối quan hệ giữa chúng thông qua: - Kỹ năng tính toán (đạo hàm, tìm điểm uốn). - Trực giác hình học (quan sát đồ thị, tiếp tuyến). - Tư duy logic (chứng minh, tổng quát hóa).</p>
+<p>Học sinh lớp 12 có thể thực hành theo cấp độ, từ cơ bản đến nâng cao, với sự hỗ trợ của hình vẽ và thảo luận nhóm. Nếu cần điều chỉnh cụ thể (ví dụ thêm bài tập hoặc giải chi tiết một bài), hãy cho biết!</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/zo-math\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a><br>
+<br> <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a><br>
+<br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

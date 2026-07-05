@@ -1,0 +1,24 @@
+\documentclass[border=1mm]{standalone}
+
+\usepackage{amsmath}
+\usepackage{xcolor}
+\definecolor{den-6}{HTML}{666666}
+\usepackage{tkz-tab}
+\usetikzlibrary{arrows}
+
+\begin{document}
+
+\begin{tikzpicture}
+
+  \tkzTabInit[
+    lgt=2, 
+    deltacl=.5, 
+    espcl=2.5]
+    {$x$/1, $g^\prime (x)$/1, $g(x)$/2.5}
+    {$-1$, $0$, $2$, $3$}
+  \tkzTabLine{, -, 0, +, d, -,} 
+  \tkzTabVar{+/$\frac{1}{2}$, -/$0$, +/$2$, -/$-2$}
+  
+\end{tikzpicture}
+
+\end{document}

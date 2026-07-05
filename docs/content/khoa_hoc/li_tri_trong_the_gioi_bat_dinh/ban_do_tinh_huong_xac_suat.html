@@ -1,0 +1,1977 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="ZO Math">
+
+<title>BẢN ĐỒ CÁC TÌNH HUỐNG KINH ĐIỂN CỦA LÝ THUYẾT XÁC SUẤT – ZO Math</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-94e3df0c0013ba71d14658ceb665986f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+
+<link rel="stylesheet" href="../../../assets/css/custom.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../assets/logo/zo_math_logo_black_on_transprentt_1024.png" alt="ZO Math" class="navbar-logo light-content">
+    <img src="../../../assets/logo/zo_math_logo_black_on_transprentt_1024.png" alt="ZO Math" class="navbar-logo dark-content">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/di_tim/index.html"> 
+<span class="menu-text">Đi Tìm</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-trung-học-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Trung Học Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-trung-học-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../content/thpt/toan_11/index.html">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/thpt/toan_12/index.html">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/index.html">
+ <span class="dropdown-text">100+ Hàm số</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo_o/index.qmd"> 
+<span class="menu-text">ZO Ồ!</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/zo_lab/index.html"> 
+<span class="menu-text">ZO Lab</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/shop/index.html"> 
+<span class="menu-text">ZO Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">BẢN ĐỒ CÁC TÌNH HUỐNG KINH ĐIỂN CỦA LÝ THUYẾT XÁC SUẤT</h1>
+            <p class="subtitle lead">Ma trận nhận thức về lý thuyết xác suất và các miền gần kề</p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Tác giả</div>
+      <div class="quarto-title-meta-contents">
+               <p>ZO Math </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Ngày cập nhật</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">01-07-2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Trên trang này</h2>
+   
+  <ul>
+  <li><a href="#bản-đồ-các-tình-huống-kinh-điển-của-lý-thuyết-xác-suất" id="toc-bản-đồ-các-tình-huống-kinh-điển-của-lý-thuyết-xác-suất" class="nav-link active" data-scroll-target="#bản-đồ-các-tình-huống-kinh-điển-của-lý-thuyết-xác-suất">BẢN ĐỒ CÁC TÌNH HUỐNG KINH ĐIỂN CỦA LÝ THUYẾT XÁC SUẤT</a>
+  <ul class="collapse">
+  <li><a href="#mục-đích-của-tài-liệu" id="toc-mục-đích-của-tài-liệu" class="nav-link" data-scroll-target="#mục-đích-của-tài-liệu">1. Mục đích của tài liệu</a></li>
+  <li><a href="#bản-đồ-ba-vùng-vùng-lõi-vùng-mở-rộng-và-vùng-giao-thoa" id="toc-bản-đồ-ba-vùng-vùng-lõi-vùng-mở-rộng-và-vùng-giao-thoa" class="nav-link" data-scroll-target="#bản-đồ-ba-vùng-vùng-lõi-vùng-mở-rộng-và-vùng-giao-thoa">2. Bản đồ ba vùng: vùng lõi, vùng mở rộng và vùng giao thoa</a>
+  <ul class="collapse">
+  <li><a href="#vùng-lõi-lý-thuyết-xác-suất" id="toc-vùng-lõi-lý-thuyết-xác-suất" class="nav-link" data-scroll-target="#vùng-lõi-lý-thuyết-xác-suất">2.1. Vùng lõi: lý thuyết xác suất</a></li>
+  <li><a href="#vùng-mở-rộng" id="toc-vùng-mở-rộng" class="nav-link" data-scroll-target="#vùng-mở-rộng">2.2. Vùng mở rộng</a></li>
+  <li><a href="#vùng-giao-thoa" id="toc-vùng-giao-thoa" class="nav-link" data-scroll-target="#vùng-giao-thoa">2.3. Vùng giao thoa</a></li>
+  </ul></li>
+  <li><a href="#hệ-cột-của-ma-trận-khái-niệm" id="toc-hệ-cột-của-ma-trận-khái-niệm" class="nav-link" data-scroll-target="#hệ-cột-của-ma-trận-khái-niệm">3. Hệ cột của ma trận khái niệm</a></li>
+  <li><a href="#nguyên-tắc-lập-và-chấm-ma-trận" id="toc-nguyên-tắc-lập-và-chấm-ma-trận" class="nav-link" data-scroll-target="#nguyên-tắc-lập-và-chấm-ma-trận">4. Nguyên tắc lập và chấm ma trận</a>
+  <ul class="collapse">
+  <li><a href="#quy-chuẩn-đặt-tên-các-tình-huống" id="toc-quy-chuẩn-đặt-tên-các-tình-huống" class="nav-link" data-scroll-target="#quy-chuẩn-đặt-tên-các-tình-huống">4.1. Quy chuẩn đặt tên các tình huống</a></li>
+  <li><a href="#nguyên-tắc-chấm-ma-trận" id="toc-nguyên-tắc-chấm-ma-trận" class="nav-link" data-scroll-target="#nguyên-tắc-chấm-ma-trận">4.2. Nguyên tắc chấm ma trận</a></li>
+  </ul></li>
+  <li><a href="#ma-trận-phủ-toàn-cảnh-của-các-tình-huống-kinh-điển" id="toc-ma-trận-phủ-toàn-cảnh-của-các-tình-huống-kinh-điển" class="nav-link" data-scroll-target="#ma-trận-phủ-toàn-cảnh-của-các-tình-huống-kinh-điển">5. Ma trận phủ toàn cảnh của các tình huống kinh điển</a></li>
+  <li><a href="#cách-đọc-ma-trận" id="toc-cách-đọc-ma-trận" class="nav-link" data-scroll-target="#cách-đọc-ma-trận">6. Cách đọc ma trận</a>
+  <ul class="collapse">
+  <li><a href="#mạnh-ở-đâu" id="toc-mạnh-ở-đâu" class="nav-link" data-scroll-target="#mạnh-ở-đâu">6.1. Mạnh ở đâu?</a></li>
+  <li><a href="#yếu-ở-đâu" id="toc-yếu-ở-đâu" class="nav-link" data-scroll-target="#yếu-ở-đâu">6.2. Yếu ở đâu?</a></li>
+  <li><a href="#những-tình-huống-gần-như-khó-thay-thế" id="toc-những-tình-huống-gần-như-khó-thay-thế" class="nav-link" data-scroll-target="#những-tình-huống-gần-như-khó-thay-thế">6.3. Những tình huống gần như khó thay thế</a></li>
+  </ul></li>
+  <li><a href="#vai-trò-nhận-thức-của-từng-tình-huống" id="toc-vai-trò-nhận-thức-của-từng-tình-huống" class="nav-link" data-scroll-target="#vai-trò-nhận-thức-của-từng-tình-huống">7. Vai trò nhận thức của từng tình huống</a></li>
+  <li><a href="#bộ-tình-huống-mẹ-được-đề-nghị" id="toc-bộ-tình-huống-mẹ-được-đề-nghị" class="nav-link" data-scroll-target="#bộ-tình-huống-mẹ-được-đề-nghị">8. Bộ tình huống mẹ được đề nghị</a></li>
+  <li><a href="#những-tập-con-có-ý-nghĩa-riêng" id="toc-những-tập-con-có-ý-nghĩa-riêng" class="nav-link" data-scroll-target="#những-tập-con-có-ý-nghĩa-riêng">9. Những tập con có ý nghĩa riêng</a>
+  <ul class="collapse">
+  <li><a href="#cụm-nền-tảng-của-xác-suất-rời-rạc" id="toc-cụm-nền-tảng-của-xác-suất-rời-rạc" class="nav-link" data-scroll-target="#cụm-nền-tảng-của-xác-suất-rời-rạc">9.1. Cụm nền tảng của xác suất rời rạc</a></li>
+  <li><a href="#cụm-mô-hình-hóa-phân-phối-và-quá-trình-ngẫu-nhiên" id="toc-cụm-mô-hình-hóa-phân-phối-và-quá-trình-ngẫu-nhiên" class="nav-link" data-scroll-target="#cụm-mô-hình-hóa-phân-phối-và-quá-trình-ngẫu-nhiên">9.2. Cụm mô hình hóa, phân phối và quá trình ngẫu nhiên</a></li>
+  <li><a href="#cụm-đi-từ-xác-suất-sang-thống-kê" id="toc-cụm-đi-từ-xác-suất-sang-thống-kê" class="nav-link" data-scroll-target="#cụm-đi-từ-xác-suất-sang-thống-kê">9.3. Cụm đi từ xác suất sang thống kê</a></li>
+  <li><a href="#cụm-quyết-định-và-rủi-ro" id="toc-cụm-quyết-định-và-rủi-ro" class="nav-link" data-scroll-target="#cụm-quyết-định-và-rủi-ro">9.4. Cụm quyết định và rủi ro</a></li>
+  <li><a href="#cụm-thông-tin-học" id="toc-cụm-thông-tin-học" class="nav-link" data-scroll-target="#cụm-thông-tin-học">9.5. Cụm thông tin học</a></li>
+  </ul></li>
+  <li><a href="#kết-luận" id="toc-kết-luận" class="nav-link" data-scroll-target="#kết-luận">10. Kết luận</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="bản-đồ-các-tình-huống-kinh-điển-của-lý-thuyết-xác-suất" class="level1">
+<h1>BẢN ĐỒ CÁC TÌNH HUỐNG KINH ĐIỂN CỦA LÝ THUYẾT XÁC SUẤT</h1>
+<section id="mục-đích-của-tài-liệu" class="level2">
+<h2 class="anchored" data-anchor-id="mục-đích-của-tài-liệu">1. Mục đích của tài liệu</h2>
+<p>Tài liệu này nhằm xây dựng một hệ tình huống kinh điển có khả năng phác họa toàn cảnh nhận thức của lý thuyết xác suất, xem lý thuyết xác suất như vùng lõi, rồi từ đó xác định vùng mở rộng và vùng giao thoa của nó.</p>
+<p>Mục tiêu không chỉ là lập một danh sách các bài toán nổi tiếng, mà là tạo ra một ma trận nhận thức cho phép trả lời bốn câu hỏi:</p>
+<ol type="1">
+<li>Tình huống nào chạm tới miền khái niệm nào?</li>
+<li>Miền nào đã được phủ dày, miền nào còn mỏng?</li>
+<li>Những tình huống nào giữ vai trò gần như khó thay thế?</li>
+<li>Từ bộ tình huống mẹ ấy có thể trích ra những cụm tình huống nào để hình thành các hướng học tập riêng?</li>
+</ol>
+<p>Nói cách khác, đây là nỗ lực kiến tạo một bản đồ tình huống cho lý thuyết xác suất và các miền gần kề của nó.</p>
+</section>
+<section id="bản-đồ-ba-vùng-vùng-lõi-vùng-mở-rộng-và-vùng-giao-thoa" class="level2">
+<h2 class="anchored" data-anchor-id="bản-đồ-ba-vùng-vùng-lõi-vùng-mở-rộng-và-vùng-giao-thoa">2. Bản đồ ba vùng: vùng lõi, vùng mở rộng và vùng giao thoa</h2>
+<section id="vùng-lõi-lý-thuyết-xác-suất" class="level3">
+<h3 class="anchored" data-anchor-id="vùng-lõi-lý-thuyết-xác-suất">2.1. Vùng lõi: lý thuyết xác suất</h3>
+<p>Vùng lõi trả lời câu hỏi: <strong>Ngẫu nhiên được mô hình hóa như thế nào?</strong></p>
+<p>Các miền trọng tâm trong vùng lõi gồm:</p>
+<ol type="1">
+<li>Không gian mẫu và mô hình hóa phép thử ngẫu nhiên.</li>
+<li>Cấu trúc xác suất trên biến cố.</li>
+<li>Độc lập và xác suất có điều kiện.</li>
+<li>Biến ngẫu nhiên và phân phối xác suất.</li>
+<li>Kỳ vọng, phương sai và độ dao động.</li>
+<li>Quy luật dài hạn và quá trình ngẫu nhiên.</li>
+</ol>
+</section>
+<section id="vùng-mở-rộng" class="level3">
+<h3 class="anchored" data-anchor-id="vùng-mở-rộng">2.2. Vùng mở rộng</h3>
+<p>Vùng mở rộng trả lời câu hỏi: <strong>Từ mô hình ngẫu nhiên, làm sao đi đến dữ liệu, suy luận và hành động?</strong></p>
+<p>Các miền chính trong vùng mở rộng gồm:</p>
+<ol type="1">
+<li>Thống kê suy luận.</li>
+<li>Suy luận Bayes và cập nhật niềm tin.</li>
+<li>Quyết định dưới bất định.</li>
+<li>Dữ liệu quan sát, thiên lệch và yếu tố gây nhiễu.</li>
+<li>Thiết kế thí nghiệm và ngẫu nhiên hóa.</li>
+<li>Suy luận tuần tự.</li>
+</ol>
+</section>
+<section id="vùng-giao-thoa" class="level3">
+<h3 class="anchored" data-anchor-id="vùng-giao-thoa">2.3. Vùng giao thoa</h3>
+<p>Vùng giao thoa trả lời câu hỏi: <strong>Lý thuyết xác suất gặp gỡ những lĩnh vực khác theo những con đường nào?</strong></p>
+<p>Các miền quan trọng trong vùng giao thoa gồm:</p>
+<ol type="1">
+<li>Lý thuyết thông tin.</li>
+<li>Thống kê ứng dụng và khoa học dữ liệu.</li>
+<li>Suy luận nhân quả.</li>
+<li>Tài chính, bảo hiểm và quản trị rủi ro.</li>
+<li>Vật lý thống kê.</li>
+<li>Học máy.</li>
+</ol>
+<p>Điểm cần nhấn mạnh là: không nên mở bức tranh quá rộng ngay từ đầu đến mức ôm trọn mọi thứ liên quan đến dữ liệu và thông tin. Trục nền hợp lý hơn là:</p>
+<blockquote class="blockquote">
+<p><strong>xác suất mô hình hóa ngẫu nhiên</strong> → <strong>thống kê học từ dữ liệu</strong> → <strong>quyết định khi thông tin không đầy đủ</strong></p>
+</blockquote>
+<p>Còn lý thuyết thông tin và các miền hiện đại khác nên được đặt ở vùng giao thoa, thay vì kéo thẳng vào vùng lõi.</p>
+</section>
+</section>
+<section id="hệ-cột-của-ma-trận-khái-niệm" class="level2">
+<h2 class="anchored" data-anchor-id="hệ-cột-của-ma-trận-khái-niệm">3. Hệ cột của ma trận khái niệm</h2>
+<p>Để tránh nói mơ hồ về “bức tranh”, ta cần một hệ cột khái niệm đủ rộng để bao quát toàn cảnh, nhưng vẫn đủ cụ thể để gắn với từng tình huống.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Mã</th>
+<th>Miền khái niệm</th>
+<th>Ý nghĩa ngắn gọn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>Không gian mẫu và mô hình hóa rời rạc</td>
+<td>Mô tả phép thử ngẫu nhiên, mã hóa kết quả, đồng khả năng</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>Đếm tổ hợp, biến cố đối, phụ thuộc tổ hợp</td>
+<td>Kỹ thuật đếm và các trực giác sai do số lượng cấu hình</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td>Độc lập, điều kiện, Bayes</td>
+<td>Xác suất thay đổi khi biết thêm thông tin</td>
+</tr>
+<tr class="even">
+<td>D</td>
+<td>Cơ chế sinh thông tin, giao thức quan sát</td>
+<td>Không chỉ biết gì, mà còn biết bằng cách nào</td>
+</tr>
+<tr class="odd">
+<td>E</td>
+<td>Biến ngẫu nhiên và phân phối</td>
+<td>Chuyển từ biến cố sang đại lượng ngẫu nhiên</td>
+</tr>
+<tr class="even">
+<td>F</td>
+<td>Xác suất liên tục, hình học, “chọn ngẫu nhiên”</td>
+<td>Mô hình hóa ngẫu nhiên trong miền liên tục</td>
+</tr>
+<tr class="odd">
+<td>G</td>
+<td>Kỳ vọng, phương sai, độ thỏa dụng</td>
+<td>Tóm tắt ngẫu nhiên và giá trị đánh đổi</td>
+</tr>
+<tr class="even">
+<td>H</td>
+<td>Quy luật dài hạn, lặp lại, luật số lớn, trực giác về định lý giới hạn trung tâm</td>
+<td>Điều gì ổn định khi lặp lại nhiều lần</td>
+</tr>
+<tr class="odd">
+<td>I</td>
+<td>Quá trình ngẫu nhiên, dừng, tuần tự</td>
+<td>Ngẫu nhiên diễn ra theo thời gian</td>
+</tr>
+<tr class="even">
+<td>J</td>
+<td>Suy luận thống kê, ước lượng, kiểm định</td>
+<td>Học từ dữ liệu</td>
+</tr>
+<tr class="odd">
+<td>K</td>
+<td>Thiên lệch dữ liệu, yếu tố gây nhiễu và sai lệch khi diễn giải</td>
+<td>Dữ liệu có thể đánh lừa như thế nào</td>
+</tr>
+<tr class="even">
+<td>L</td>
+<td>Lý thuyết thông tin, entropy, mã hóa</td>
+<td>Giá trị của thông tin, nhiễu và truyền tin</td>
+</tr>
+<tr class="odd">
+<td>M</td>
+<td>Quyết định dưới bất định, rủi ro</td>
+<td>Từ xác suất đi tới hành động</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="nguyên-tắc-lập-và-chấm-ma-trận" class="level2">
+<h2 class="anchored" data-anchor-id="nguyên-tắc-lập-và-chấm-ma-trận">4. Nguyên tắc lập và chấm ma trận</h2>
+<section id="quy-chuẩn-đặt-tên-các-tình-huống" class="level3">
+<h3 class="anchored" data-anchor-id="quy-chuẩn-đặt-tên-các-tình-huống">4.1. Quy chuẩn đặt tên các tình huống</h3>
+<p>Trong tài liệu này, mỗi hàng của ma trận được đặt tên theo chính đối tượng lịch sử - khái niệm đang được học, chứ không theo mô hình, kỹ thuật hay công cụ dùng để phân tích nó. Vì vậy:</p>
+<ul>
+<li>nếu đối tượng đã có tên gọi ổn định trong truyền thống xác suất - thống kê, ta giữ đúng kiểu của nó như bài toán, nghịch lý, thí nghiệm, hiện tượng hay tiêu chuẩn;</li>
+<li>nếu không có một tên riêng ổn định, ta dùng một tên mô tả ngắn của chính tình huống trung tâm;</li>
+<li>mỗi hàng chỉ có một tên chính thức để dùng nhất quán trong toàn bộ tài liệu;</li>
+<li>chỉ khi một hàng thật sự là một cụm, chứ không phải một tình huống đơn lẻ, mới ghi rõ đó là cụm.</li>
+</ul>
+<p>Quy chuẩn này nhằm tránh việc gọi tên tình huống bằng tên của mô hình hay cách giải, đồng thời bảo đảm rằng các tên gọi có thể được dùng ổn định trong suốt quá trình trình bày, thảo luận và thiết kế khóa học.</p>
+</section>
+<section id="nguyên-tắc-chấm-ma-trận" class="level3">
+<h3 class="anchored" data-anchor-id="nguyên-tắc-chấm-ma-trận">4.2. Nguyên tắc chấm ma trận</h3>
+<p>Trong tài liệu này, mỗi hàng của ma trận được hiểu là:</p>
+<blockquote class="blockquote">
+<p><strong>tình huống + cách đọc chuẩn của tình huống đó</strong></p>
+</blockquote>
+<p>Các điểm số trong ma trận được hiểu theo <strong>ma trận tiềm năng khái niệm</strong>: chúng phản ánh những miền khái niệm mà tình huống có thể mở vào một cách tự nhiên, chứ không buộc phải trùng với cách một bài giảng hay bài luận cụ thể đang triển khai tình huống ấy.</p>
+<p>Ma trận dùng thang điểm 0-3. Điểm của một ô được xác định bởi vị trí của khái niệm cột đó trong cách đọc chuẩn của tình huống ở hàng tương ứng.</p>
+<ul>
+<li>0 điểm: khái niệm này không tham gia một cách đáng kể vào việc nêu, giải hoặc hiểu tình huống theo cách đọc chuẩn.</li>
+<li>1 điểm: khái niệm này chỉ xuất hiện như một hướng mở rộng hoặc cầu nối, không phải thành phần cần thiết của tình huống.</li>
+<li>2 điểm: khái niệm này cần thiết cho lời giải chuẩn hoặc cách giải thích chuẩn của tình huống, nhưng không phải là khái niệm mà tình huống được chọn để làm phát sinh.</li>
+<li>3 điểm: khái niệm này là đích khái niệm trung tâm mà tình huống được chọn để làm phát sinh hoặc làm sáng rõ. Nếu bỏ nó đi, tình huống mất hạt nhân nhận thức của mình.</li>
+</ul>
+<p>Khi chấm một ô của ma trận, chỉ nên cho điểm cao khi khái niệm của cột ấy nảy ra tự nhiên từ chính tình huống và giữ vai trò thật sự trong cách đọc chuẩn của tình huống đó.</p>
+</section>
+</section>
+<section id="ma-trận-phủ-toàn-cảnh-của-các-tình-huống-kinh-điển" class="level2">
+<h2 class="anchored" data-anchor-id="ma-trận-phủ-toàn-cảnh-của-các-tình-huống-kinh-điển">5. Ma trận phủ toàn cảnh của các tình huống kinh điển</h2>
+<p>Ma trận dưới đây thể hiện mức độ mà mỗi tình huống chạm tới từng miền khái niệm. Phần lớn các hàng là một tình huống đơn lẻ; chỉ một số ít hàng là một cụm vì hiện tượng đang xét khó quy về một trường hợp duy nhất.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tình huống</th>
+<th style="text-align: right;">A</th>
+<th style="text-align: right;">B</th>
+<th style="text-align: right;">C</th>
+<th style="text-align: right;">D</th>
+<th style="text-align: right;">E</th>
+<th style="text-align: right;">F</th>
+<th style="text-align: right;">G</th>
+<th style="text-align: right;">H</th>
+<th style="text-align: right;">I</th>
+<th style="text-align: right;">J</th>
+<th style="text-align: right;">K</th>
+<th style="text-align: right;">L</th>
+<th style="text-align: right;">M</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bài toán chia tiền cược</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td>Bài toán hai con</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td>Bài toán ngày sinh nhật</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td>Bài toán Monty Hall</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td>Bài toán ba tù nhân</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td>Nghịch lý Bertrand</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td>Bài toán chiếc gậy gãy</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td>Thí nghiệm bảng đinh Galton</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td>Bài toán chẩn đoán y khoa</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td>Nghịch lý Simpson</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td>Nghịch lý Saint Petersburg</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td>Bài toán phá sản của con bạc</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td>Thí nghiệm Quý bà nếm trà</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td>Bài toán bắt–đánh dấu–bắt lại</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td>Bài toán xe tăng Đức</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td>Hiện tượng hồi quy về trung bình</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td>Trò chơi 20 câu hỏi</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td>Bài toán truyền tin qua kênh nhiễu</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td>Bài toán thư ký</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td>Tiêu chuẩn Kelly</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td>Cụm bài toán rủi ro đuôi trong bảo hiểm</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cách-đọc-ma-trận" class="level2">
+<h2 class="anchored" data-anchor-id="cách-đọc-ma-trận">6. Cách đọc ma trận</h2>
+<p>Để minh họa cách đọc ma trận, ta hãy xét một bộ sáu tình huống thiên về trục <strong>thông tin - cập nhật - dữ liệu - quyết định</strong> như sau:</p>
+<ol type="1">
+<li>Bài toán hai con.</li>
+<li>Bài toán chẩn đoán y khoa.</li>
+<li>Bài toán Monty Hall.</li>
+<li>Bài toán ba tù nhân.</li>
+<li>Nghịch lý Simpson.</li>
+<li>Nghịch lý Saint Petersburg.</li>
+</ol>
+<section id="mạnh-ở-đâu" class="level3">
+<h3 class="anchored" data-anchor-id="mạnh-ở-đâu">6.1. Mạnh ở đâu?</h3>
+<p>Bộ sáu này phủ khá dày các cột sau:</p>
+<ul>
+<li><strong>C</strong> - độc lập, điều kiện, Bayes;</li>
+<li><strong>D</strong> - cơ chế sinh thông tin;</li>
+<li><strong>G</strong> - kỳ vọng và độ thỏa dụng;</li>
+<li><strong>K</strong> - yếu tố gây nhiễu và sai lệch khi diễn giải dữ liệu;</li>
+<li><strong>M</strong> - quyết định dưới bất định.</li>
+</ul>
+<p>Điều đó cho thấy bộ sáu ấy có bản sắc rất rõ ở trục:</p>
+<blockquote class="blockquote">
+<p><strong>thông tin</strong> → <strong>cập nhật niềm tin</strong> → <strong>đọc dữ liệu</strong> → <strong>ra quyết định</strong></p>
+</blockquote>
+</section>
+<section id="yếu-ở-đâu" class="level3">
+<h3 class="anchored" data-anchor-id="yếu-ở-đâu">6.2. Yếu ở đâu?</h3>
+<p>Nếu mục tiêu là phủ gần trọn toàn cảnh, bộ sáu ấy còn thiếu các miền sau ở mức đủ mạnh:</p>
+<ul>
+<li><strong>B</strong> - đếm tổ hợp, biến cố đối;</li>
+<li><strong>F</strong> - xác suất liên tục và việc mô hình hóa “chọn ngẫu nhiên”;</li>
+<li><strong>H</strong> - quy luật dài hạn, lặp lại, luật số lớn;</li>
+<li><strong>I</strong> - quá trình ngẫu nhiên và quyết định tuần tự;</li>
+<li><strong>J</strong> - suy luận thống kê theo nghĩa chặt hơn;</li>
+<li><strong>L</strong> - lý thuyết thông tin.</li>
+</ul>
+<p>Từ đó mới nảy sinh nhu cầu bổ sung các tình huống như: bài toán ngày sinh nhật, nghịch lý Bertrand hoặc bài toán chiếc gậy gãy, thí nghiệm bảng đinh Galton, bài toán phá sản của con bạc, thí nghiệm Quý bà nếm trà, bài toán bắt–đánh dấu–bắt lại và trò chơi 20 câu hỏi.</p>
+</section>
+<section id="những-tình-huống-gần-như-khó-thay-thế" class="level3">
+<h3 class="anchored" data-anchor-id="những-tình-huống-gần-như-khó-thay-thế">6.3. Những tình huống gần như khó thay thế</h3>
+<p>Trong toàn bộ tập hợp, có những tình huống giữ vai trò gần như không dễ thay thế:</p>
+<ul>
+<li>Bài toán hai con - viên gạch nền cho xác suất rời rạc, điều kiện và độc lập.</li>
+<li>Bài toán Monty Hall - bài học đẹp nhất cho xác suất có điều kiện đi kèm giao thức tiết lộ thông tin.</li>
+<li>Bài toán chẩn đoán y khoa - cầu nối tự nhiên từ Bayes sang thống kê và quyết định.</li>
+<li>Nghịch lý Simpson - cửa ngõ đi vào dữ liệu, yếu tố gây nhiễu và sự thận trọng nhân quả.</li>
+<li>Nghịch lý Saint Petersburg - tình huống kinh điển cho kỳ vọng, độ thỏa dụng và rủi ro.</li>
+<li>Bài toán ngày sinh nhật - đặc biệt mạnh cho đếm tổ hợp và biến cố đối.</li>
+<li>Nghịch lý Bertrand hoặc bài toán chiếc gậy gãy - gần như bắt buộc nếu muốn đưa miền xác suất liên tục vào bản đồ.</li>
+<li>Thí nghiệm bảng đinh Galton - gần như bắt buộc nếu muốn có trực giác về luật số lớn và phân phối.</li>
+<li>Bài toán phá sản của con bạc - điểm vào rõ ràng nhất cho quá trình ngẫu nhiên.</li>
+<li>Thí nghiệm Quý bà nếm trà - cửa ngõ chuẩn cho kiểm định và ngẫu nhiên hóa.</li>
+<li>Bài toán bắt – đánh dấu – bắt lại - một trong những tình huống trực giác nhất cho ước lượng thống kê.</li>
+<li>Trò chơi 20 câu hỏi hoặc bài toán truyền tin qua kênh nhiễu - gần như bắt buộc nếu muốn đưa lý thuyết thông tin vào vùng giao thoa.</li>
+</ul>
+</section>
+</section>
+<section id="vai-trò-nhận-thức-của-từng-tình-huống" class="level2">
+<h2 class="anchored" data-anchor-id="vai-trò-nhận-thức-của-từng-tình-huống">7. Vai trò nhận thức của từng tình huống</h2>
+<p>Bảng dưới đây không còn hỏi “tình huống nào phủ cột nào”, mà hỏi “mỗi tình huống đóng vai gì trong bản đồ”.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tình huống</th>
+<th>Hạt nhân chính</th>
+<th>Vai trò trong bản đồ</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bài toán chia tiền cược</td>
+<td>Chia phần công bằng khi ván chơi dở dang bằng cách xét các khả năng tiếp diễn trong tương lai</td>
+<td>Một trong những điểm khởi đầu lịch sử quan trọng của lý thuyết xác suất hiện đại; đồng thời là cửa ngõ cho kỳ vọng như một “giá trị công bằng”</td>
+</tr>
+<tr class="even">
+<td>Bài toán hai con</td>
+<td>Không gian mẫu, điều kiện, độc lập</td>
+<td>Viên gạch nền cho xác suất rời rạc</td>
+</tr>
+<tr class="odd">
+<td>Bài toán ngày sinh nhật</td>
+<td>Biến cố đối, số cặp, tăng trưởng tổ hợp</td>
+<td>Phá trực giác “hiếm thì chắc nhỏ”</td>
+</tr>
+<tr class="even">
+<td>Bài toán Monty Hall</td>
+<td>Điều kiện đi kèm giao thức tiết lộ thông tin</td>
+<td>Cho thấy thông tin không trung tính</td>
+</tr>
+<tr class="odd">
+<td>Bài toán ba tù nhân</td>
+<td>Điều kiện và logic của người tiết lộ</td>
+<td>Làm sâu thêm logic của bài toán Monty Hall</td>
+</tr>
+<tr class="even">
+<td>Nghịch lý Bertrand</td>
+<td>“Chọn ngẫu nhiên” trong miền liên tục thực sự có nghĩa là gì</td>
+<td>Cửa ngõ triết học cho xác suất liên tục</td>
+</tr>
+<tr class="odd">
+<td>Bài toán chiếc gậy gãy</td>
+<td>Xác suất hình học liên tục</td>
+<td>Phiên bản dễ dạy hơn nghịch lý Bertrand</td>
+</tr>
+<tr class="even">
+<td>Thí nghiệm bảng đinh Galton</td>
+<td>Phân phối nhị thức, tần suất, quy luật dài hạn</td>
+<td>Cầu nối từ xác suất sang thống kê</td>
+</tr>
+<tr class="odd">
+<td>Bài toán chẩn đoán y khoa</td>
+<td>Bayes, xác suất tiên nghiệm, dương tính giả, quyết định chẩn đoán</td>
+<td>Cầu nối đẹp nhất từ xác suất sang y học và quyết định</td>
+</tr>
+<tr class="even">
+<td>Nghịch lý Simpson</td>
+<td>Yếu tố gây nhiễu, nguy cơ gộp dữ liệu</td>
+<td>Cửa ngõ trọng yếu sang thống kê và sự thận trọng nhân quả</td>
+</tr>
+<tr class="odd">
+<td>Nghịch lý Saint Petersburg</td>
+<td>Kỳ vọng vô hạn, độ thỏa dụng, rủi ro</td>
+<td>Phá ảo tưởng “giá trị kỳ vọng là đủ”</td>
+</tr>
+<tr class="even">
+<td>Bài toán phá sản của con bạc</td>
+<td>Quá trình theo thời gian, dừng, phá sản</td>
+<td>Đưa xác suất từ trạng thái sang diễn tiến</td>
+</tr>
+<tr class="odd">
+<td>Thí nghiệm Quý bà nếm trà</td>
+<td>Ngẫu nhiên hóa, kiểm định</td>
+<td>Tình huống nhập môn rất đẹp cho thống kê suy luận</td>
+</tr>
+<tr class="even">
+<td>Bài toán bắt–đánh dấu–bắt lại</td>
+<td>Ước lượng quy mô quần thể từ các mẫu chồng lặp</td>
+<td>Tình huống trực giác cho suy luận thống kê từ dữ liệu không đầy đủ; đồng thời cho thấy ước lượng phụ thuộc vào các giả định như quần thể gần khép kín, dấu không bị mất và xác suất bị bắt không quá chênh lệch</td>
+</tr>
+<tr class="odd">
+<td>Bài toán xe tăng Đức</td>
+<td>Ước lượng từ số hiệu sê-ri của mẫu quan sát được</td>
+<td>Mẫu mực gọn và rõ cho bài toán ước lượng thống kê</td>
+</tr>
+<tr class="even">
+<td>Hiện tượng hồi quy về trung bình</td>
+<td>Các quan sát cực đoan có xu hướng bớt cực đoan ở lần đo sau; nguy cơ đọc sai sự cải thiện</td>
+<td>Dạy sự khiêm tốn khi diễn giải dữ liệu và giúp phân biệt hiện tượng thống kê với tác động nhân quả</td>
+</tr>
+<tr class="odd">
+<td>Trò chơi 20 câu hỏi</td>
+<td>Giá trị của mỗi bit thông tin</td>
+<td>Cửa ngõ tự nhiên sang entropy</td>
+</tr>
+<tr class="even">
+<td>Bài toán truyền tin qua kênh nhiễu</td>
+<td>Nhiễu, lỗi, dư thừa, độ tin cậy</td>
+<td>Cửa ngõ sang mã hóa và truyền tin</td>
+</tr>
+<tr class="odd">
+<td>Bài toán thư ký</td>
+<td>Dừng tối ưu, quyết định tuần tự</td>
+<td>Từ xác suất sang chiến lược quyết định</td>
+</tr>
+<tr class="even">
+<td>Tiêu chuẩn Kelly</td>
+<td>Tăng trưởng dài hạn, độ thỏa dụng lôgarit</td>
+<td>Nối thông tin với đặt cược và quản trị vốn</td>
+</tr>
+<tr class="odd">
+<td>Cụm bài toán rủi ro đuôi trong bảo hiểm</td>
+<td>Tổn thất hiếm nhưng nặng, quản trị rủi ro</td>
+<td>Nối xác suất với bảo hiểm và tư duy định phí</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="bộ-tình-huống-mẹ-được-đề-nghị" class="level2">
+<h2 class="anchored" data-anchor-id="bộ-tình-huống-mẹ-được-đề-nghị">8. Bộ tình huống mẹ được đề nghị</h2>
+<p>Sau khi loại bỏ các lặp lại và cập nhật các tên gọi theo quy chuẩn chung, có thể chốt một bộ tình huống mẹ khá mạnh như sau:</p>
+<ol type="1">
+<li>Bài toán chia tiền cược.</li>
+<li>Bài toán hai con.</li>
+<li>Bài toán ngày sinh nhật.</li>
+<li>Bài toán Monty Hall.</li>
+<li>Bài toán ba tù nhân.</li>
+<li>Nghịch lý Bertrand hoặc bài toán chiếc gậy gãy.</li>
+<li>Thí nghiệm bảng đinh Galton.</li>
+<li>Bài toán chẩn đoán y khoa.</li>
+<li>Nghịch lý Simpson.</li>
+<li>Nghịch lý Saint Petersburg.</li>
+<li>Bài toán phá sản của con bạc.</li>
+<li>Thí nghiệm Quý bà nếm trà.</li>
+<li>Bài toán bắt–đánh dấu–bắt lại.</li>
+<li>Trò chơi 20 câu hỏi.</li>
+<li>Bài toán truyền tin qua kênh nhiễu.</li>
+<li>Bài toán thư ký.</li>
+<li>Tiêu chuẩn Kelly hoặc cụm bài toán rủi ro đuôi trong bảo hiểm.</li>
+</ol>
+<p>Bộ này đủ mạnh để phủ tương đối tròn ba vùng:</p>
+<ul>
+<li>vùng lõi của lý thuyết xác suất;</li>
+<li>vùng mở rộng đi từ xác suất sang thống kê, suy luận và quyết định;</li>
+<li>vùng giao thoa nơi xác suất gặp lý thuyết thông tin, rủi ro và các miền hiện đại gần kề.</li>
+</ul>
+<p>Nếu muốn bộ giàu hơn nữa, có thể bổ sung thêm:</p>
+<ul>
+<li>Bài toán xe tăng Đức;</li>
+<li>Hiện tượng hồi quy về trung bình;</li>
+<li>đồng thời giữ cả tiêu chuẩn Kelly lẫn cụm bài toán rủi ro đuôi trong bảo hiểm.</li>
+</ul>
+</section>
+<section id="những-tập-con-có-ý-nghĩa-riêng" class="level2">
+<h2 class="anchored" data-anchor-id="những-tập-con-có-ý-nghĩa-riêng">9. Những tập con có ý nghĩa riêng</h2>
+<p>Một mục tiêu quan trọng của toàn bộ công việc này là: từ hệ tình huống mẹ, có thể trích ra những tập con mà mỗi tập con vẫn kể được một câu chuyện trọn vẹn.</p>
+<section id="cụm-nền-tảng-của-xác-suất-rời-rạc" class="level3">
+<h3 class="anchored" data-anchor-id="cụm-nền-tảng-của-xác-suất-rời-rạc">9.1. Cụm nền tảng của xác suất rời rạc</h3>
+<ul>
+<li>Bài toán chia tiền cược.</li>
+<li>Bài toán hai con.</li>
+<li>Bài toán ngày sinh nhật.</li>
+<li>Bài toán Monty Hall.</li>
+<li>Bài toán ba tù nhân.</li>
+</ul>
+<p>Cụm này kể câu chuyện:</p>
+<blockquote class="blockquote">
+<p><strong>không gian mẫu</strong> → <strong>đếm các khả năng</strong> → <strong>điều kiện và độc lập</strong> → <strong>thông tin làm thay đổi đánh giá như thế nào</strong></p>
+</blockquote>
+</section>
+<section id="cụm-mô-hình-hóa-phân-phối-và-quá-trình-ngẫu-nhiên" class="level3">
+<h3 class="anchored" data-anchor-id="cụm-mô-hình-hóa-phân-phối-và-quá-trình-ngẫu-nhiên">9.2. Cụm mô hình hóa, phân phối và quá trình ngẫu nhiên</h3>
+<ul>
+<li>Nghịch lý Bertrand hoặc bài toán chiếc gậy gãy.</li>
+<li>Thí nghiệm bảng đinh Galton.</li>
+<li>Bài toán phá sản của con bạc.</li>
+</ul>
+<p>Cụm này kể câu chuyện:</p>
+<blockquote class="blockquote">
+<p>“ngẫu nhiên” không hề tự nhiên; nó phụ thuộc vào mô hình, rồi mở sang phân phối, quy luật dài hạn và quá trình theo thời gian.</p>
+</blockquote>
+</section>
+<section id="cụm-đi-từ-xác-suất-sang-thống-kê" class="level3">
+<h3 class="anchored" data-anchor-id="cụm-đi-từ-xác-suất-sang-thống-kê">9.3. Cụm đi từ xác suất sang thống kê</h3>
+<ul>
+<li>Bài toán chẩn đoán y khoa.</li>
+<li>Nghịch lý Simpson.</li>
+<li>Thí nghiệm Quý bà nếm trà.</li>
+<li>Bài toán bắt–đánh dấu–bắt lại.</li>
+<li>Hiện tượng hồi quy về trung bình.</li>
+</ul>
+<p>Cụm này kể câu chuyện:</p>
+<blockquote class="blockquote">
+<p>dữ liệu không tự nói; muốn học từ dữ liệu cần biết xác suất tiên nghiệm, thiên lệch, ngẫu nhiên hóa, ước lượng và sự thận trọng khi diễn giải.</p>
+</blockquote>
+</section>
+<section id="cụm-quyết-định-và-rủi-ro" class="level3">
+<h3 class="anchored" data-anchor-id="cụm-quyết-định-và-rủi-ro">9.4. Cụm quyết định và rủi ro</h3>
+<ul>
+<li>Nghịch lý Saint Petersburg.</li>
+<li>Bài toán thư ký.</li>
+<li>Tiêu chuẩn Kelly.</li>
+<li>Cụm bài toán rủi ro đuôi trong bảo hiểm.</li>
+</ul>
+<p>Cụm này kể câu chuyện:</p>
+<blockquote class="blockquote">
+<p>xác suất không chỉ để mô tả; nó là nền cho hành động trong bất định.</p>
+</blockquote>
+</section>
+<section id="cụm-thông-tin-học" class="level3">
+<h3 class="anchored" data-anchor-id="cụm-thông-tin-học">9.5. Cụm thông tin học</h3>
+<ul>
+<li>Bài toán Monty Hall.</li>
+<li>Bài toán chẩn đoán y khoa.</li>
+<li>Trò chơi 20 câu hỏi.</li>
+<li>Bài toán truyền tin qua kênh nhiễu.</li>
+</ul>
+<p>Cụm này kể câu chuyện:</p>
+<blockquote class="blockquote">
+<p>thông tin có cấu trúc, có giá trị, có độ tin cậy, và làm thay đổi niềm tin.</p>
+</blockquote>
+</section>
+</section>
+<section id="kết-luận" class="level2">
+<h2 class="anchored" data-anchor-id="kết-luận">10. Kết luận</h2>
+<p>Từ toàn bộ ma trận và phần diễn giải đi kèm, có thể chốt lại mấy điểm sau:</p>
+<ol type="1">
+<li>Một bộ tình huống mạnh chưa chắc đã là một bộ tình huống toàn diện. Bộ sáu tình huống dùng để minh họa cách đọc ma trận rất sắc, nhưng nghiêng mạnh về trục <strong>thông tin - cập nhật - dữ liệu - quyết định</strong>.</li>
+<li>Để tiến tới một bức tranh toàn cảnh hơn, cần bổ sung các tình huống phủ các miền còn mỏng như: đếm tổ hợp, xác suất liên tục, quy luật dài hạn, quá trình ngẫu nhiên, suy luận thống kê và lý thuyết thông tin.</li>
+<li>Một bộ tình huống mẹ khoảng từ mười bảy đến hai mươi tình huống là đủ mạnh để phủ tương đối tròn bản đồ của lý thuyết xác suất, cùng vùng mở rộng và vùng giao thoa của nó.</li>
+<li>Giá trị lớn nhất của bản đồ này không nằm ở chỗ nó tạo ra một danh sách, mà ở chỗ nó cho phép trích xuất các cụm tình huống có ý nghĩa riêng, từ đó hình thành các hướng học tập hoặc các chương nghiên cứu chuyên biệt.</li>
+</ol>
+<p>Nếu cần tóm lại toàn bộ tài liệu trong một câu, thì câu ấy là:</p>
+<blockquote class="blockquote">
+<p>Ta đang đi từ những tình huống kinh điển riêng lẻ tới một hệ tình huống có khả năng phác họa gần trọn cấu trúc nhận thức của lý thuyết xác suất và các miền gần kề của nó.</p>
+</blockquote>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/zo-math\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a><br>
+<br> <a href="https://facebook.com/zo-math" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://x.com/zo-math" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a><br>
+<br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
