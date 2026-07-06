@@ -1,16 +1,45 @@
-# Bỏ qua các tệp video
+# Media
 *.mp4
 *.mov
 *.avi
 *.mkv
 *.mp3
-
-# Nếu video nằm trong thư mục "videos/", bỏ qua luôn cả thư mục
 videos/
 
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Quarto
 /.quarto/
-
-**/*.quarto_ipynb
-
-# Quarto generated files
 .quarto/
+**/*.quarto_ipynb
+*_files/
+/_freeze/
+
+# Project audit files
+_audit/
+
+# R / RStudio / knitr
+.Rhistory
+.RData
+.Rproj.user/
+*_cache/
+
+# LaTeX auxiliary files
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.bcf
+*.blg
+*.run.xml
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Python cache
+__pycache__/
+*.pyc
