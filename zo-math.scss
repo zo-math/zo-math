@@ -779,13 +779,17 @@ body.sidebar-open .sidebar-overlay {
 /* Tiêu đề: không IN HOA, dày vừa, màu trung tính; nhấn bằng “gạch màu” dưới title */
 .quarto-title-block .title {
   font-family: $ui-font-family;
-  font-weight: 800;
+  font-weight: 400;
   letter-spacing: 0.2px;
   color: $red-10;
   margin: 0;
   font-size: clamp(28px, 4.4vw, 42px);
   line-height: 1.15;
   position: relative;
+}
+
+.quarto-title-block .quarto-title .title {
+  font-weight: 400;
 }
 
 /* Thanh nhấn bên dưới tiêu đề - thay cho viền/hộp */
