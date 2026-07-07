@@ -1,6 +1,10 @@
 project:
   type: website
   output-dir: docs
+  render:
+    - "**/*.qmd"
+    - "**/*.Rmd"
+    - "!**/*.md"
   preview:
     port: 4200
     browser: true
@@ -33,9 +37,7 @@ website:
         text: "<i class='bi bi-house-door'></i>"
       - href: "content/about.qmd"
         text: "Giới Thiệu"
-      - href: "content/di_tim/index.qmd"
-        text: "Đi Tìm"
-      - text: "Trung Học Phổ Thông"
+      - text: "Phổ Thông"
         menu:
           - text: "Toán 11"
             href: "content/thpt/toan_11/index.qmd"
@@ -43,16 +45,18 @@ website:
             href: "content/thpt/toan_12/index.qmd"
           - text: "100+ Hàm số"
             href: "content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/index.qmd"
-
-      - href: "content/zo_o/index.qmd"
-        text: "ZO Ồ!"
-
-      - text: "ZO Lab"
-        href: "content/zo_lab/index.qmd"
+      - href: "content/di_tim/index.qmd"
+        text: "Đi Tìm"
+      - href: "content/khoa_hoc/index.qmd"
+        text: "Khóa Học"
+      - href: "content/kien_tao/index.qmd"
+        text: "Kiến Tạo"
+      - href: "content/cong_cu/index.qmd"
+        text: "Công Cụ"
 
     right:
       - href: "content/shop/index.qmd"
-        text: "ZO Shop"
+        text: "Shop"
       - href: "content/support/donate.qmd"
         text: "Bảo Trợ"
       - href: "content/contact.qmd"
