@@ -9,41 +9,107 @@ author: "ZO Math"
 
 page-layout: article
 toc: false
-body-classes: zo-page-gateway
+body-classes: zo-page-project
+
+format:
+  html:
+    css:
+      - ../../../../assets/css/zo_card_grid.css
+
 ---
 
-::: {.zo-gateway}
+::: {.zo-project}
 
-Dự án **100+ Hàm số: Sự biến thiên và đồ thị** được xây dựng với mục tiêu giúp người học tiếp cận hàm số theo con đường tự nhiên: đi từ trải nghiệm cụ thể đến sự khái quát.
+Dự án **100+ Hàm số: Sự biến thiên và đồ thị** được xây dựng như một bản đồ học hàm số qua nhiều trường hợp cụ thể. Mỗi hàm số là một đối tượng để quan sát: cách mô tả hoặc công thức cho ta quy tắc, sự biến thiên cho ta hành vi, và đồ thị cho ta hình dáng của hành vi ấy.
 
-Hàm số trình bày mối liên hệ giữa các đại lượng thay đổi. Sự biến thiên cho biết khi đầu vào thay đổi thì đầu ra phản ứng ra sao. Đồ thị giúp ta nhìn thấy hình dáng của sự biến thiên ấy bằng mắt.
+Điểm chính của dự án không nằm ở con số “100+” theo nghĩa số lượng bài tập. Con số ấy tạo ra một trường quan sát đủ rộng để người học thấy được điều gì lặp lại, điều gì thay đổi, và điều gì cần được giữ lại thành cấu trúc chung.
 
-## Bắt đầu từ đâu?
+## Chọn nơi bắt đầu
+
+Mục này là bản đồ trực tiếp của dự án. Thẻ sáng là nội dung đã có thể đọc; thẻ mờ là nội dung đang chờ biên soạn. Bạn có thể bắt đầu từ **Dẫn nhập**, rồi chọn một hàm số đã mở để đọc bài khảo sát cụ thể.
+
+{{< include _partials/card_grid.qmd >}}
+
+## Dự án này học hàm số như thế nào?
 
 ::: {.zo-section-list}
 
 ::: {.zo-section-item}
-### [Dẫn nhập: Hàm số, sự biến thiên và đồ thị](dan_nhap.qmd)
+### Hàm số
 
-Một bài viết nền để nhìn lại hàm số như một quy luật biến thiên, trước khi đi vào khảo sát từng trường hợp cụ thể.
+Mỗi hàm số được xem như một quy tắc gắn đầu vào với đầu ra. Trước khi khảo sát kỹ thuật, ta cần nhận diện hàm số: nó quen thuộc hay lạ, đơn giản hay nhiều mảnh, thuộc một họ hàm đã biết hay mở ra một tình huống mới.
 :::
 
 ::: {.zo-section-item}
-### [Khung khảo sát hàm số](khung_khao_sat_ham_so.qmd)
+### Sự biến thiên
 
-Khung làm việc chung để đọc một hàm số qua miền xác định, giới hạn, đạo hàm, biến thiên, cực trị và đồ thị.
+Trọng tâm của dự án là đọc cách giá trị hàm số thay đổi khi biến số thay đổi. Ta quan sát hàm tăng hay giảm, nhanh hay chậm, có cực trị hay không, có điểm đặc biệt nào làm thay đổi hành vi hay không.
 :::
 
 ::: {.zo-section-item}
-### [Các hàm số cơ bản](core/index.qmd)
+### Đồ thị
 
-Danh sách các hàm số nền tảng, thường gặp nhất trong chương trình Toán THPT.
+Đồ thị là cách biểu diễn hình học của sự biến thiên trên mặt phẳng tọa độ. Từ miền xác định, giới hạn, đạo hàm và bảng biến thiên, ta phác họa đồ thị của hàm số một cách có căn cứ, không chỉ bằng phỏng đoán trực quan.
 :::
 
 :::
 
-## Tinh thần học
+## Khung khảo sát dùng trong toàn dự án
 
-Mỗi hàm số được xem như một trường hợp cụ thể để quan sát. Qua nhiều trường hợp, người học dần nhận ra quy luật, ngoại lệ và cấu trúc chung nằm sau các công thức quen thuộc.
+Dự án sử dụng một khung khảo sát chung để đọc từng hàm số. Khung này không phải là một thủ tục máy móc; nó là một trình tự quan sát giúp người học biết mình đang tìm gì khi đứng trước một hàm số cụ thể.
+
+::: {.zo-section-list}
+
+::: {.zo-section-item}
+### Nhận diện và xác định miền
+
+Bắt đầu bằng việc nhận diện dạng hàm, miền xác định, các giá trị bị loại bỏ, tính chẵn lẻ, tuần hoàn, liên tục hoặc gián đoạn. Đây là lớp thông tin nền để mọi kết luận phía sau có chỗ đứng.
+:::
+
+::: {.zo-section-item}
+### Đọc hành vi biến thiên
+
+Tiếp theo là giới hạn, tiệm cận, đạo hàm cấp một, chiều biến thiên, cực trị, giá trị lớn nhất và nhỏ nhất. Đây là phần cho thấy hàm số phản ứng ra sao khi biến số dịch chuyển.
+:::
+
+::: {.zo-section-item}
+### Kết tinh thành đồ thị
+
+Sau cùng, bảng biến thiên và đồ thị kết nối các thông tin rời rạc thành một bức tranh thống nhất. Nếu hàm số có tham số hoặc thuộc một họ hàm, ta còn so sánh để thấy sự dịch chuyển, co giãn, lật, hoặc biến dạng của đồ thị.
+:::
+
+:::
+
+## Các tầng hàm số trong dự án
+
+Danh sách hơn 100 hàm số được tổ chức theo ba tầng. Cách phân tầng này giúp người học không bị chìm trong số lượng, mà biết đâu là phần lõi, đâu là phần mở rộng, và đâu là phần đào sâu.
+
+::: {.zo-section-list}
+
+::: {.zo-section-item}
+### [C] Lõi
+
+Những hàm số tối thiểu cần có để hình thành cấu trúc nền: hàm hằng, hàm bậc nhất, hàm bậc hai, hàm lũy thừa, hàm phân thức, trị tuyệt đối và các dạng cơ bản khác.
+:::
+
+::: {.zo-section-item}
+### [B] Mở rộng
+
+Những biến thể giúp người học thấy cùng một cấu trúc có thể thay đổi hình dáng như thế nào: tịnh tiến, co giãn, đổi dấu, thay hệ số, hoặc thay vị trí các điểm đặc biệt.
+:::
+
+::: {.zo-section-item}
+### [D] Đào sâu
+
+Những hàm số đưa dự án tiến xa hơn chương trình cơ bản, giúp người học chuẩn bị cho các ý tưởng cao hơn như dao động, tiệm cận phức tạp, hàm lai ghép, độ cong và hành vi giới hạn phức tạp.
+:::
+
+:::
+
+## Cách học đề xuất
+
+Hãy bắt đầu bằng bài **Dẫn nhập** để nắm tinh thần chung của dự án. Sau đó đọc **Khung khảo sát hàm số** như một bản đồ thao tác. Khi bước vào từng hàm cụ thể, đừng chỉ tìm kết quả cuối cùng; hãy theo dõi cách mỗi tính chất xuất hiện, rồi so sánh các hàm với nhau để nhận ra cấu trúc chung.
+
+Đi theo cách đó, mỗi hàm số không còn là một bài riêng lẻ, mà trở thành một mảnh ghép trong bức tranh lớn về sự biến thiên và đồ thị.
 
 :::
