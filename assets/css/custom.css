@@ -1321,3 +1321,100 @@ body.nav-sidebar #title-block-header .quarto-title-banner.page-columns {
     grid-template-columns: 1fr;
   }
 }
+
+/* === zo-gateway-project-action:start === */
+.zo-page-gateway .zo-gateway-project-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.zo-page-gateway .zo-gateway-project-action {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.zo-page-gateway .zo-gateway-project-action a {
+  font-weight: 600;
+  text-decoration: none;
+}
+/* === zo-gateway-project-action:end === */
+
+/* === zo-system-heading-weight:start === */
+/* System typography: headings are already larger, so keep their weight regular. */
+main h1,
+main h2,
+main h3,
+.quarto-title h1.title,
+.quarto-title-block .title {
+  font-weight: 400 !important;
+}
+/* === zo-system-heading-weight:end === */
+
+/* === zo-gateway-project-card-vertical:start === */
+.zo-page-gateway .zo-gateway-project-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+}
+
+.zo-page-gateway .zo-gateway-project-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 430px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.zo-page-gateway .zo-gateway-project-media {
+  height: 210px;
+  overflow: hidden;
+  background: #f7f7f7;
+}
+
+.zo-page-gateway .zo-gateway-project-media p {
+  height: 100%;
+  margin: 0;
+}
+
+.zo-page-gateway .zo-gateway-project-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.zo-page-gateway .zo-gateway-project-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1.55rem 1.45rem 1.3rem;
+}
+
+.zo-page-gateway .zo-gateway-project-body > h3 {
+  margin-top: 0;
+}
+
+.zo-page-gateway .zo-gateway-project-action {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.zo-page-gateway .zo-gateway-project-action a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+@media (max-width: 760px) {
+  .zo-page-gateway .zo-gateway-project-list {
+    grid-template-columns: 1fr;
+  }
+
+  .zo-page-gateway .zo-gateway-project-media {
+    height: 200px;
+  }
+}
+/* === zo-gateway-project-card-vertical:end === */
+
