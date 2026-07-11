@@ -181,6 +181,7 @@ NUM_OVERRIDES: Dict[int, Dict[str, Any]] = {
     108: {"expr": "atan(x)", "xlim": (-5, 5), "ylim": (-1.7, 1.7)},
     109: {"expr": "pi/2-atan(x)", "xlim": (-5, 5), "ylim": (-0.2, 3.3)},
     110: {"expr": "atan(1.5*x)+0.3", "xlim": (-5, 5), "ylim": (-1.5, 2.0)},
+    111: {"expr": "exp(x)", "xlim": (-3.0, 2.0), "ylim": (-0.1, 8.0)},
     114: {"expr": "log(x)", "xlim": (0.05, 6), "ylim": (-3, 2.2), "breaks": [0]},
     115: {"expr": "log(x)/log(2)", "xlim": (0.05, 6), "ylim": (-4, 3), "breaks": [0]},
     120: {"expr": "x*exp(x)", "xlim": (-3, 2), "ylim": (-0.6, 12)},
