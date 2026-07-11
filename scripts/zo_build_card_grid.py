@@ -22,8 +22,8 @@ import yaml
 
 SVG_W = 320
 SVG_H = 180
-PAD_X = 18
-PAD_Y = 18
+PAD_X = 24
+PAD_Y = 22
 STROKE = "#7E8692"
 STROKE_WIDTH = 2.3
 BG = "#F4F5F7"
@@ -159,14 +159,14 @@ NUM_OVERRIDES: Dict[int, Dict[str, Any]] = {
     84: {"expr": "(x-0.8)**1.6-0.3", "xlim": (0.8, 5), "ylim": (-0.5, 9)},
     85: {"expr": "abs(x)", "xlim": (-3, 3), "ylim": (-0.2, 3.5)},
     86: {"expr": "abs(x-1)", "xlim": (-3, 4), "ylim": (-0.2, 4)},
-    87: {"expr": "sgn(x)", "xlim": (-3, 3), "ylim": (-1.5, 1.5), "breaks": [0]},
+    87: {"expr": "sgn(x)", "xlim": (-3, 3), "ylim": (-1.3, 1.3), "breaks": [0]},
     88: {"expr": "H(x-0.5)", "xlim": (-3, 3), "ylim": (-0.3, 1.4), "breaks": [0.5]},
-    89: {"expr": "floor(x)", "xlim": (-3, 3), "ylim": (-3.2, 3.2), "breaks": [-2, -1, 0, 1, 2]},
+    89: {"expr": "floor(x)", "xlim": (-3, 3), "ylim": (-3.2, 3.2), "breaks": [-3, -2, -1, 0, 1, 2, 3]},
     90: {"expr": "ceil(x)", "xlim": (-3, 3), "ylim": (-3.2, 3.2), "breaks": [-2, -1, 0, 1, 2]},
-    91: {"expr": "x-floor(x)", "xlim": (-3, 3), "ylim": (-0.15, 1.15), "breaks": [-2, -1, 0, 1, 2]},
+    91: {"expr": "x-floor(x)", "xlim": (-3, 3), "ylim": (-0.05, 1.05), "breaks": [-3, -2, -1, 0, 1, 2, 3]},
     92: {"expr": "max(0,x)", "xlim": (-3, 3), "ylim": (-0.3, 3.2)},
     93: {"expr": "max(0.18*x,x)", "xlim": (-3, 3), "ylim": (-1, 3.2)},
-    94: {"expr": "tri(x)", "xlim": (-2, 2), "ylim": (-0.2, 1.2), "breaks": [-1, 1]},
+    94: {"expr": "tri(x)", "xlim": (-2, 2), "ylim": (-0.2, 1.2)},
     95: {"expr": "sin(x)", "xlim": (-6.283185307, 6.283185307), "ylim": (-1.25, 1.25), "samples": 1400},
     96: {"expr": "cos(x)", "xlim": (-6.283185307, 6.283185307), "ylim": (-1.25, 1.25), "samples": 1400},
     97: {"expr": "tan(x)", "xlim": (-1.45, 1.45), "ylim": (-4.5, 4.5), "breaks": [-1.57079632679, 1.57079632679], "samples": 1600},
@@ -603,6 +603,13 @@ def sample_segments(spec: PlotSpec) -> List[List[Tuple[float, float]]]:
             prev_xy = None
             continue
         if not math.isfinite(y) or abs(y) > max(abs(y0), abs(y1)) * 3 + 4:
+            if len(current) >= 2:
+                segments.append(current)
+            current = []
+            prev_xy = None
+            continue
+
+        if y < y0 or y > y1:
             if len(current) >= 2:
                 segments.append(current)
             current = []
