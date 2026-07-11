@@ -1,1018 +1,398 @@
-# Tệp dữ liệu cho lưới thẻ 100+ Hàm số.
-# Cơ chế xuất bản:
-# - status: pending   -> thẻ mờ, chưa bấm được
-# - status: published -> thẻ sáng, cần có href trỏ đến bài .qmd
-# Sau khi sửa status/href, chạy: python scripts/zo_build_card_grid.py content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi
-
 special:
-  - id: dan_nhap
-    title: "Dẫn nhập: Hàm số, sự biến thiên và đồ thị"
-    eyebrow: "Bắt đầu"
-    href: "dan_nhap.qmd"
-    status: published
-    note: "Bài viết nền để nhìn lại hàm số như một quy luật biến thiên trước khi đi vào từng trường hợp cụ thể."
-    image: "assets/img/cards/dan_nhap.svg"
-
+- id: dan_nhap
+  title: 'Dẫn nhập: Hàm số, sự biến thiên và đồ thị'
+  eyebrow: Bắt đầu
+  href: dan_nhap.qmd
+  status: published
+  note: Bài viết nền để nhìn lại hàm số như một quy luật biến thiên trước khi đi vào từng trường hợp cụ thể.
+  image: assets/img/cards/dan_nhap.svg
 groups:
-  - title: "0. Hàm hằng"
-    items:
-      - number: 1
-        formula: "$y=0$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_001.svg"
-      - number: 2
-        formula: "$y=1$"
-        labels: ["B"]
-        status: published
-        href: "core/ham_so_hang.qmd"
-        image: "assets/img/cards/the_002.svg"
-      - number: 3
-        formula: "$y=c$"
-        labels: ["C", "B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_003.svg"
-  - title: "1. Hàm đa thức bậc nhất"
-    items:
-      - number: 4
-        formula: "$y=x$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_004.svg"
-      - number: 5
-        formula: "$y=-x$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_005.svg"
-      - number: 6
-        formula: "$y=2x$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_006.svg"
-      - number: 7
-        formula: "$y=\\frac{1}{2}x$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_007.svg"
-      - number: 8
-        formula: "$y=x+1$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_008.svg"
-      - number: 9
-        formula: "$y=x-1$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_009.svg"
-      - number: 10
-        formula: "$y=2x+1$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_010.svg"
-      - number: 11
-        formula: "$y=ax+b$"
-        labels: ["C"]
-        status: published
-        href: "core/ham_so_bac_nhat.qmd"
-        image: "assets/img/cards/the_011.svg"
-  - title: "2. Hàm đa thức bậc hai"
-    items:
-      - number: 12
-        formula: "$y=x^2$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_012.svg"
-      - number: 13
-        formula: "$y=-x^2$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_013.svg"
-      - number: 14
-        formula: "$y=2x^2$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_014.svg"
-      - number: 15
-        formula: "$y=\\frac{1}{2}x^2$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_015.svg"
-      - number: 16
-        formula: "$y=(x-1)^2$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_016.svg"
-      - number: 17
-        formula: "$y=(x+1)^2$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_017.svg"
-      - number: 18
-        formula: "$y=x^2+1$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_018.svg"
-      - number: 19
-        formula: "$y=x^2-1$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_019.svg"
-      - number: 20
-        formula: "$y=x^2-2x$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_020.svg"
-      - number: 21
-        formula: "$y=(x-1)^2$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_021.svg"
-      - number: 22
-        formula: "$y=a(x-h)^2+k$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_022.svg"
-      - number: 23
-        formula: "$y=ax^2+bx+c$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_023.svg"
-  - title: "3. Hàm đa thức bậc ba"
-    items:
-      - number: 24
-        formula: "$y=x^3$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_024.svg"
-      - number: 25
-        formula: "$y=-x^3$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_025.svg"
-      - number: 26
-        formula: "$y=3x^3$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_026.svg"
-      - number: 27
-        formula: "$y=\\frac{1}{3}x^3$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_027.svg"
-      - number: 28
-        formula: "$y=x^3-3x$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_028.svg"
-      - number: 29
-        formula: "$y=(x-1)^2(x+1)$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_029.svg"
-      - number: 30
-        formula: "$y=x^3+x$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_030.svg"
-      - number: 31
-        formula: "$y=(x-1)^3$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_031.svg"
-      - number: 32
-        formula: "$y=x^3+1$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_032.svg"
-      - number: 33
-        formula: "$y=ax^3+bx^2+cx+d$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_033.svg"
-  - title: "4. Hàm đa thức bậc bốn"
-    items:
-      - number: 34
-        formula: "$y=x^4$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_034.svg"
-      - number: 35
-        formula: "$y=-x^4$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_035.svg"
-      - number: 36
-        formula: "$y=x^4-2x^2$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_036.svg"
-      - number: 37
-        formula: "$y=x^4+x^2$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_037.svg"
-      - number: 38
-        formula: "$y=(x^2-1)^2$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_038.svg"
-      - number: 39
-        formula: "$y=x^4-4x^3$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_039.svg"
-      - number: 40
-        formula: "$y=x^4+x$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_040.svg"
-      - number: 41
-        formula: "$y=(x-1)^4$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_041.svg"
-      - number: 42
-        formula: "$y=ax^4+bx^3+cx^2+dx+e$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_042.svg"
-      - number: 43
-        formula: "$y=ax^4+bx^2+c$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_043.svg"
-  - title: "5. Một số hàm đa thức bậc cao"
-    items:
-      - number: 44
-        formula: "$y=x^5$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_044.svg"
-      - number: 45
-        formula: "$y=-x^5$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_045.svg"
-      - number: 46
-        formula: "$y=x^6$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_046.svg"
-      - number: 47
-        formula: "$y=x^6-x^4$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_047.svg"
-      - number: 48
-        formula: "$y=16x^5-20x^3+5x$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_048.svg"
-      - number: 49
-        formula: "$y=x^n,\\ n\\geq 5$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_049.svg"
-  - title: "6. Hàm phân thức bậc không trên bậc nhất (0/1)"
-    items:
-      - number: 50
-        formula: "$y=\\frac{1}{x}$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_050.svg"
-      - number: 51
-        formula: "$y=-\\frac{1}{x}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_051.svg"
-      - number: 52
-        formula: "$y=\\frac{1}{x-1}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_052.svg"
-  - title: "7. Hàm phân thức bậc nhất trên bậc nhất (1/1)"
-    items:
-      - number: 53
-        formula: "$y=\\frac{x-1}{x+1}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_053.svg"
-      - number: 54
-        formula: "$y=\\frac{x+1}{x-1}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_054.svg"
-      - number: 55
-        formula: "$y=\\frac{2x+1}{x-2}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_055.svg"
-      - number: 56
-        formula: "$y=\\frac{ax+b}{cx+d}$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_056.svg"
-  - title: "8. Hàm phân thức bậc hai trên bậc nhất (2/1)"
-    items:
-      - number: 57
-        formula: "$y=\\frac{x^2-1}{x}$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_057.svg"
-      - number: 58
-        formula: "$y=-\\frac{x^2-1}{x}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_058.svg"
-      - number: 59
-        formula: "$y=\\frac{x^2+1}{x}$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_059.svg"
-      - number: 60
-        formula: "$y=-\\frac{x^2+1}{x}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_060.svg"
-      - number: 61
-        formula: "$y=\\frac{x^2-1}{x-1}=x+1$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_061.svg"
-      - number: 62
-        formula: "$y=\\frac{x^2}{x+1}$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_062.svg"
-      - number: 63
-        formula: "$y=\\frac{x^2}{x-1}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_063.svg"
-      - number: 64
-        formula: "$y=\\frac{x^2+bx+c}{x+a}$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_064.svg"
-  - title: "9. Một số hàm hữu tỉ"
-    items:
-      - number: 65
-        formula: "$y=\\frac{x^2+1}{x^2+2}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_065.svg"
-      - number: 66
-        formula: "$y=\\frac{2x-1}{x+3}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_066.svg"
-      - number: 67
-        formula: "$y=\\frac{x^2-1}{x^2-1}=1$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_067.svg"
-      - number: 69
-        formula: "$y=\\frac{x^3}{x^2+1}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_069.svg"
-      - number: 70
-        formula: "$y=\\frac{x^3}{x-1}$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_070.svg"
-      - number: 71
-        formula: "$y=\\frac{x^4}{x^2+1}$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_071.svg"
-      - number: 72
-        formula: "$y=\\frac{1}{x(x-1)}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_072.svg"
-      - number: 73
-        formula: "$y=\\frac{x-1}{x(x-1)}=\\frac{1}{x}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_073.svg"
-      - number: 74
-        formula: "$y=\\frac{(x-1)^2}{x(x-1)}=\\frac{x-1}{x}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_074.svg"
-  - title: "10. Hàm lũy thừa & Hàm căn thức"
-    items:
-      - number: 76
-        formula: "$y=x^n$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_076.svg"
-      - number: 77
-        formula: "$y=\\sqrt{x}$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_077.svg"
-      - number: 78
-        formula: "$y=\\sqrt{x-1}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_078.svg"
-      - number: 79
-        formula: "$y=\\sqrt[3]{x}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_079.svg"
-      - number: 80
-        formula: "$y=x^{2/3}$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_080.svg"
-      - number: 81
-        formula: "$y=\\frac{1}{x^2}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_081.svg"
-      - number: 82
-        formula: "$y=\\frac{1}{x^3}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_082.svg"
-      - number: 83
-        formula: "$y=x^\\alpha$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_083.svg"
-      - number: 84
-        formula: "$y=(x-h)^\\alpha+k$"
-        labels: ["B", "D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_084.svg"
-  - title: "11. Trị tuyệt đối, từng đoạn & rời rạc"
-    items:
-      - number: 85
-        formula: "$y=\\lvert x\\rvert$"
-        labels: ["C"]
-        status: published
-        href: "core/ham_so_gia_tri_tuyet_doi.qmd"
-        image: "assets/img/cards/the_085.svg"
-      - number: 86
-        formula: "$y=\\lvert x-1\\rvert$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_086.svg"
-      - number: 87
-        formula: "$y=\\operatorname{sgn}x$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_087.svg"
-      - number: 88
-        formula: "$y=H(x-a)$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_088.svg"
-      - number: 89
-        formula: "$y=\\lfloor x\\rfloor$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_089.svg"
-      - number: 90
-        formula: "$y=\\lceil x\\rceil$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_090.svg"
-      - number: 91
-        formula: "$y=\\{x\\}$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_091.svg"
-      - number: 92
-        formula: "$y=\\max(0,x)$ (ReLU)"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_092.svg"
-      - number: 93
-        formula: "$y=\\max(\\alpha x,x)$ (Leaky ReLU)"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_093.svg"
-      - number: 94
-        formula: "$y=\\begin{cases}1-\\lvert x\\rvert,&\\lvert x\\rvert\\le1\\\\0,&\\text{khác}\\end{cases}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_094.svg"
-  - title: "12. Lượng giác"
-    items:
-      - number: 95
-        formula: "$y=\\sin x$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_095.svg"
-      - number: 96
-        formula: "$y=\\cos x$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_096.svg"
-      - number: 97
-        formula: "$y=\\tan x$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_097.svg"
-      - number: 98
-        formula: "$y=\\cot x$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_098.svg"
-      - number: 99
-        formula: "$y=\\sin(2x)$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_099.svg"
-      - number: 100
-        formula: "$y=\\cos(x-\\frac{\\pi}{3})$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_100.svg"
-      - number: 101
-        formula: "$y=a\\sin(\\omega x+\\varphi)$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_101.svg"
-      - number: 102
-        formula: "$y=\\lvert \\sin x \\rvert$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_102.svg"
-      - number: 103
-        formula: "$y=\\sin x+\\cos x$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_103.svg"
-      - number: 104
-        formula: "$y=\\sec x$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_104.svg"
-      - number: 105
-        formula: "$y=\\csc x$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_105.svg"
-  - title: "13. Hàm lượng giác ngược"
-    items:
-      - number: 106
-        formula: "$y=\\arcsin x$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_106.svg"
-      - number: 107
-        formula: "$y=\\arccos x$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_107.svg"
-      - number: 108
-        formula: "$y=\\arctan x$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_108.svg"
-      - number: 109
-        formula: "$y=\\operatorname{arccot}x$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_109.svg"
-      - number: 110
-        formula: "$y=\\arctan(ax)+b$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_110.svg"
-  - title: "14. Hàm mũ & Hàm lô-ga"
-    items:
-      - number: 111
-        formula: "$y=e^x$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_111.svg"
-      - number: 112
-        formula: "$y=e^{-x}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_112.svg"
-      - number: 113
-        formula: "$y=a^x$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_113.svg"
-      - number: 114
-        formula: "$y=\\ln x$"
-        labels: ["C"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_114.svg"
-      - number: 115
-        formula: "$y=\\log_a x$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_115.svg"
-      - number: 116
-        formula: "$y=\\ln(x+1)$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_116.svg"
-      - number: 117
-        formula: "$y=\\ln(x-1)$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_117.svg"
-      - number: 118
-        formula: "$y=e^x+1$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_118.svg"
-      - number: 119
-        formula: "$y=e^{x-h}+k$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_119.svg"
-      - number: 120
-        formula: "$y=xe^x$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_120.svg"
-      - number: 121
-        formula: "$y=x\\ln x$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_121.svg"
-  - title: "15. Hàm hai-pơ (hyperbolic) & Hàm hai-pơ ngược"
-    items:
-      - number: 122
-        formula: "$y=\\sinh x$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_122.svg"
-      - number: 123
-        formula: "$y=\\cosh x$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_123.svg"
-      - number: 124
-        formula: "$y=\\tanh x$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_124.svg"
-      - number: 125
-        formula: "$y=\\operatorname{arsinh}x$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_125.svg"
-      - number: 126
-        formula: "$y=\\operatorname{arcosh}x$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_126.svg"
-      - number: 127
-        formula: "$y=\\operatorname{artanh}x$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_127.svg"
-  - title: "16. Hàm lai ghép"
-    items:
-      - number: 128
-        formula: "$y=e^{-x}\\sin x$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_128.svg"
-      - number: 129
-        formula: "$y=x\\sin x$"
-        labels: ["B", "D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_129.svg"
-      - number: 130
-        formula: "$y=\\frac{\\sin x}{x}$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_130.svg"
-      - number: 131
-        formula: "$y=\\sin\\left(\\frac{1}{x}\\right)$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_131.svg"
-      - number: 132
-        formula: "$y=x+\\sin x$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_132.svg"
-      - number: 133
-        formula: "$y=\\ln(\\sin x)$ ($x\\in(0,\\pi)$)"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_133.svg"
-      - number: 134
-        formula: "$y=\\sqrt{1-x^2}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_134.svg"
-      - number: 135
-        formula: "$y=\\sqrt{x(1-x)}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_135.svg"
-      - number: 136
-        formula: "$y=\\frac{x}{1+x^2}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_136.svg"
-      - number: 137
-        formula: "$y=\\frac{x^2}{1+x^2}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_137.svg"
-  - title: "17. Hàm xuất hiện trong lĩnh vực xác suất và thống kê"
-    items:
-      - number: 138
-        formula: "$y=e^{-\\frac{1}{2}x^2}$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_138.svg"
-      - number: 139
-        formula: "$y=e^{-\\lvert x\\rvert}$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_139.svg"
-      - number: 140
-        formula: "$y=\\frac{1}{1+x^2}$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_140.svg"
-      - number: 141
-        formula: "$y=\\frac{e^{-x}}{(1+e^{-x})^2}$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_141.svg"
-      - number: 142
-        formula: "$y=\\frac{1}{x}e^{-\\frac{1}{2}(\\ln x)^2}$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_142.svg"
-  - title: "18. Hàm xuất hiện trong lĩnh vực Logistic & tăng trưởng"
-    items:
-      - number: 143
-        formula: "$y=\\frac{1}{1+e^{-x}}$"
-        labels: ["B", "D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_143.svg"
-      - number: 144
-        formula: "$y=\\frac{1}{1+e^{-k(x-x_0)}}$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_144.svg"
-      - number: 145
-        formula: "$y=e^{-e^{-x}}$ (Gompertz)"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_145.svg"
-      - number: 146
-        formula: "$y=\\frac{V_{\\max}x}{K_M+x}$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_146.svg"
-      - number: 147
-        formula: "$y=\\frac{x^n}{K^n+x^n}$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_147.svg"
-      - number: 148
-        formula: "$y=1-e^{-x}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_148.svg"
-      - number: 149
-        formula: "$y=\\frac{x}{1+x}$"
-        labels: ["B"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_149.svg"
-  - title: "19. Activation (AI/ML)"
-    items:
-      - number: 150
-        formula: "$y=\\mathrm{ELU}(x)$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_150.svg"
-      - number: 151
-        formula: "$y=\\ln(1+e^x)$ (Softplus)"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_151.svg"
-      - number: 152
-        formula: "$y=\\frac{x}{1+e^{-x}}$ (Swish)"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_152.svg"
-      - number: 153
-        formula: "$y=\\mathrm{GELU}(x)$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_153.svg"
-      - number: 154
-        formula: "$y=\\mathrm{Mish}(x)$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_154.svg"
-  - title: "20. Phụ lục học thuật"
-    items:
-      - number: 155
-        formula: "$y=\\Gamma(x)$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_155.svg"
-      - number: 156
-        formula: "$y=\\operatorname{erf}(x)$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_156.svg"
-      - number: 157
-        formula: "$y=J_0(x)$"
-        labels: ["D"]
-        status: pending
-        href: ""
-        image: "assets/img/cards/the_157.svg"
-  - title: "0. Hàm hằng"
-    items:
-  - title: "1. Hàm đa thức bậc nhất"
-    items:
-  - title: "2. Hàm đa thức bậc hai"
-    items:
-  - title: "3. Hàm đa thức bậc ba"
-    items:
-  - title: "4. Hàm đa thức bậc bốn"
-    items:
-  - title: "5. Hàm đa thức bậc cao"
-    items:
-  - title: "6. Hàm phân thức bậc không trên bậc nhất (0/1)"
-    items:
-  - title: "7. Hàm phân thức bậc nhất trên bậc nhất (1/1)"
-    items:
-  - title: "8. Hàm phân thức bậc hai trên bậc nhất (2/1)"
-    items:
-  - title: "9. Một số hàm hữu tỉ"
-    items:
-  - title: "10. Hàm lũy thừa & căn thức"
-    items:
-  - title: "11. Trị tuyệt đối"
-    items:
-  - title: "12. Lượng giác"
-    items:
-  - title: "13. Hàm lượng giác ngược"
-    items:
-  - title: "14. Hàm mũ & lô-ga"
-    items:
+- title: 0. Hàm hằng và lũy thừa nguyên không âm
+  items:
+  - number: 1
+    formula: $y=1$
+    labels:
+    - C
+    status: published
+    href: core/ham_so_hang.qmd
+    image: assets/img/cards/the_001.svg
+  - number: 4
+    formula: $y=x$
+    labels:
+    - C
+    status: published
+    href: core/ham_so_bac_nhat.qmd
+    image: assets/img/cards/the_004.svg
+  - number: 12
+    formula: $y=x^2$
+    labels:
+    - C
+    status: pending
+    href: ''
+    image: assets/img/cards/the_012.svg
+  - number: 24
+    formula: $y=x^3$
+    labels:
+    - C
+    status: pending
+    href: ''
+    image: assets/img/cards/the_024.svg
+  - number: 34
+    formula: $y=x^4$
+    labels:
+    - C
+    status: pending
+    href: ''
+    image: assets/img/cards/the_034.svg
+  - number: 44
+    formula: $y=x^5$
+    labels:
+    - C
+    status: pending
+    href: ''
+    image: assets/img/cards/the_044.svg
+  - number: 76
+    formula: $y=x^n$
+    labels:
+    - C
+    status: pending
+    href: ''
+    image: assets/img/cards/the_076.svg
+- title: 1. Hàm lũy thừa hữu tỉ dương
+  items:
+  - number: 77
+    formula: $y=\sqrt{x}$
+    labels:
+    - C
+    status: pending
+    href: ''
+    image: assets/img/cards/the_077.svg
+  - number: 79
+    formula: $y=\sqrt[3]{x}$
+    labels:
+    - B
+    status: pending
+    href: ''
+    image: assets/img/cards/the_079.svg
+  - number: 80
+    formula: $y=x^{2/3}$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_080.svg
+- title: 2. Hàm lũy thừa nguyên âm
+  items:
+  - number: 50
+    formula: $y=\frac{1}{x}$
+    labels:
+    - C
+    status: pending
+    href: ''
+    image: assets/img/cards/the_050.svg
+  - number: 81
+    formula: $y=\frac{1}{x^2}$
+    labels:
+    - B
+    status: pending
+    href: ''
+    image: assets/img/cards/the_081.svg
+  - number: 82
+    formula: $y=\frac{1}{x^3}$
+    labels:
+    - B
+    status: pending
+    href: ''
+    image: assets/img/cards/the_082.svg
+- title: 3. Hàm lũy thừa tổng quát
+  items:
+  - number: 83
+    formula: $y=x^\alpha$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_083.svg
+- title: 4. Hàm hữu tỉ
+  items:
+  - number: 53
+    formula: $y=\frac{x-1}{x+1}$
+    labels:
+    - B
+    status: pending
+    href: ''
+    image: assets/img/cards/the_053.svg
+  - number: 57
+    formula: $y=\frac{x^2-1}{x}$
+    labels:
+    - C
+    status: pending
+    href: ''
+    image: assets/img/cards/the_057.svg
+- title: 5. Trị tuyệt đối, từng đoạn và rời rạc
+  items:
+  - number: 85
+    formula: $y=\lvert x\rvert$
+    labels:
+    - C
+    status: published
+    href: core/ham_so_gia_tri_tuyet_doi.qmd
+    image: assets/img/cards/the_085.svg
+  - number: 87
+    formula: $y=\operatorname{sgn}x$
+    labels:
+    - B
+    status: pending
+    href: ''
+    image: assets/img/cards/the_087.svg
+  - number: 89
+    formula: $y=\lfloor x\rfloor$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_089.svg
+  - number: 91
+    formula: $y=\{x\}$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_091.svg
+  - number: 92
+    formula: $y=\max(0,x)$ (ReLU)
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_092.svg
+  - number: 94
+    formula: $y=\begin{cases}1-\lvert x\rvert,&\lvert x\rvert\le1\\0,&\text{khác}\end{cases}$
+    labels:
+    - B
+    status: pending
+    href: ''
+    image: assets/img/cards/the_094.svg
+- title: 6. Lượng giác
+  items:
+  - number: 95
+    formula: $y=\sin x$
+    labels:
+    - C
+    status: pending
+    href: ''
+    image: assets/img/cards/the_095.svg
+  - number: 97
+    formula: $y=\tan x$
+    labels:
+    - C
+    status: pending
+    href: ''
+    image: assets/img/cards/the_097.svg
+  - number: 104
+    formula: $y=\sec x$
+    labels:
+    - B
+    status: pending
+    href: ''
+    image: assets/img/cards/the_104.svg
+- title: 7. Hàm lượng giác ngược
+  items:
+  - number: 106
+    formula: $y=\arcsin x$
+    labels:
+    - B
+    status: pending
+    href: ''
+    image: assets/img/cards/the_106.svg
+  - number: 108
+    formula: $y=\arctan x$
+    labels:
+    - B
+    status: pending
+    href: ''
+    image: assets/img/cards/the_108.svg
+- title: 8. Hàm mũ và hàm lô-ga
+  items:
+  - number: 111
+    formula: $y=e^x$
+    labels:
+    - C
+    status: pending
+    href: ''
+    image: assets/img/cards/the_111.svg
+  - number: 114
+    formula: $y=\ln x$
+    labels:
+    - C
+    status: pending
+    href: ''
+    image: assets/img/cards/the_114.svg
+  - number: 120
+    formula: $y=xe^x$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_120.svg
+  - number: 121
+    formula: $y=x\ln x$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_121.svg
+- title: 9. Hàm hai-pơ
+  items:
+  - number: 122
+    formula: $y=\sinh x$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_122.svg
+  - number: 123
+    formula: $y=\cosh x$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_123.svg
+  - number: 124
+    formula: $y=\tanh x$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_124.svg
+- title: 10. Hàm lai ghép
+  items:
+  - number: 129
+    formula: $y=x\sin x$
+    labels:
+    - B
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_129.svg
+  - number: 130
+    formula: $y=\frac{\sin x}{x}$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_130.svg
+  - number: 131
+    formula: $y=\sin\left(\frac{1}{x}\right)$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_131.svg
+  - number: 132
+    formula: $y=x+\sin x$
+    labels:
+    - B
+    status: pending
+    href: ''
+    image: assets/img/cards/the_132.svg
+  - number: 133
+    formula: $y=\ln(\sin x)$ ($x\in(0,\pi)$)
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_133.svg
+  - number: 134
+    formula: $y=\sqrt{1-x^2}$
+    labels:
+    - B
+    status: pending
+    href: ''
+    image: assets/img/cards/the_134.svg
+  - number: 136
+    formula: $y=\frac{x}{1+x^2}$
+    labels:
+    - B
+    status: pending
+    href: ''
+    image: assets/img/cards/the_136.svg
+- title: 11. Hàm trong xác suất và thống kê
+  items:
+  - number: 138
+    formula: $y=e^{-\frac{1}{2}x^2}$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_138.svg
+  - number: 139
+    formula: $y=e^{-\lvert x\rvert}$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_139.svg
+  - number: 140
+    formula: $y=\frac{1}{1+x^2}$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_140.svg
+  - number: 142
+    formula: $y=\frac{1}{x}e^{-\frac{1}{2}(\ln x)^2}$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_142.svg
+- title: 12. Hàm logistic và tăng trưởng
+  items:
+  - number: 143
+    formula: $y=\frac{1}{1+e^{-x}}$
+    labels:
+    - B
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_143.svg
+  - number: 145
+    formula: $y=e^{-e^{-x}}$ (Gompertz)
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_145.svg
+  - number: 149
+    formula: $y=\frac{x}{1+x}$
+    labels:
+    - B
+    status: pending
+    href: ''
+    image: assets/img/cards/the_149.svg
+- title: 13. Hàm kích hoạt trong AI/ML
+  items:
+  - number: 151
+    formula: $y=\ln(1+e^x)$ (Softplus)
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_151.svg
+- title: 14. Phụ lục học thuật
+  items:
+  - number: 155
+    formula: $y=\Gamma(x)$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_155.svg
+  - number: 157
+    formula: $y=J_0(x)$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_157.svg
