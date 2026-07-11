@@ -638,6 +638,12 @@ def polyline_path(points: List[Tuple[float, float]], spec: PlotSpec) -> str:
 
 
 def render_formula_svg(item: dict) -> str:
+    if item.get("plot") is False:
+        return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {SVG_W} {SVG_H}" width="{SVG_W}" height="{SVG_H}">
+  <rect width="{SVG_W}" height="{SVG_H}" fill="{BG}"/>
+</svg>
+'''
+
     spec = infer_plot_spec(item)
     segments = sample_segments(spec)
     paths = []
@@ -737,9 +743,20 @@ def write_audits(project_dir: Path, special: List[dict], groups: List[dict]):
         if item.get("number") is None:
             lines.append(f"SPECIAL | {display_title(item, special=True)}")
             continue
+
+        if item.get("plot") is False:
+            lines.append(
+                f"#{int(item['number']):03d} | "
+                f"{normalize_formula(item.get('formula', ''))} | plot=disabled"
+            )
+            continue
+
         spec = infer_plot_spec(item)
         lines.append(
-            f"#{int(item['number']):03d} | {normalize_formula(item.get('formula',''))} | expr={spec.expr} | xlim={spec.xlim} | ylim={spec.ylim} | breaks={spec.breaks} | samples={spec.samples}"
+            f"#{int(item['number']):03d} | "
+            f"{normalize_formula(item.get('formula', ''))} | "
+            f"expr={spec.expr} | xlim={spec.xlim} | ylim={spec.ylim} | "
+            f"breaks={spec.breaks} | samples={spec.samples}"
         )
     spec_path.write_bytes("\n".join(lines).encode("utf-8"))
 
