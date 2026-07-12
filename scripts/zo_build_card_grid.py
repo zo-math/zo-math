@@ -24,9 +24,9 @@ SVG_W = 320
 SVG_H = 180
 PAD_X = 24
 PAD_Y = 22
-STROKE = "#7E8692"
-STROKE_WIDTH = 2.3
-BG = "#F4F5F7"
+STROKE = "#5F6B7A"
+STROKE_WIDTH = 2.5
+BG = "none"
 SPECIAL_STROKE = "#1F2937"
 
 
@@ -221,7 +221,7 @@ NUM_OVERRIDES: Dict[int, Dict[str, Any]] = {
 }
 
 SPECIAL_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" width="320" height="180">
-  <rect width="320" height="180" fill="#F4F5F7"/>
+  <rect width="320" height="180" fill="none"/>
   <g fill="#BFC7D2" stroke="none">
     <circle cx="84" cy="90" r="12"/>
     <circle cx="160" cy="90" r="12"/>
@@ -286,15 +286,6 @@ def display_title(item: dict, special: bool = False) -> str:
     if special:
         return strip_display_title(item.get("title", ""))
     return str(item.get("formula", ""))
-
-
-def meta_code(item: dict, special: bool = False) -> str:
-    if special:
-        return str(item.get("eyebrow", "MỞ ĐẦU")).upper()
-    number = int(item.get("number", 0))
-    labels = "".join(item.get("labels") or [])
-    return f"#{number:03d}{labels}"
-
 
 def ensure_dir(path: Path):
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -697,8 +688,7 @@ def card_markdown(item: dict, project_dir: Path, special: bool = False) -> str:
         make_svg(project_dir / image, item, special=special)
     title = display_title(item, special=special)
     alt = html.escape(title)
-    meta = meta_code(item, special=special)
-    action_label = "Vào bài" if published(item) else "Đang chờ"
+    action_label = "Đọc bài" if published(item) else "Đang chờ"
     state = "is-published" if published(item) else "is-pending"
 
     if published(item):
@@ -721,7 +711,6 @@ def card_markdown(item: dict, project_dir: Path, special: bool = False) -> str:
 :::
 
 ::: {{.zo-card-actions}}
-<span class="zo-card-pill zo-card-pill--meta">{meta}</span>
 {action_html}
 :::
 :::

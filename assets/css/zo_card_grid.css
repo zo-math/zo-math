@@ -15,7 +15,11 @@
   border: 1px solid var(--bs-border-color);
   border-radius: 1rem;
   background: var(--bs-body-bg);
-  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease, opacity 160ms ease;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease,
+    opacity 160ms ease;
 }
 
 .zo-card.is-published:hover {
@@ -24,16 +28,24 @@
   box-shadow: 0 0.75rem 1.45rem rgba(216, 106, 106, 0.12);
 }
 
-.zo-card.is-pending {
+.zo-card.is-pending .zo-card-body {
   opacity: 0.62;
-  filter: grayscale(0.12);
 }
 
 .zo-card-figure {
   display: block;
   flex: 0 0 8rem;
+  height: 8rem;
+  min-height: 8rem;
+  max-height: 8rem;
+  box-sizing: border-box;
+  overflow: hidden;
   width: 100%;
-  background: #f8fafc;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--bs-primary-rgb), 0.34),
+    rgba(var(--bs-secondary-rgb), 0.46)
+  );
   border-bottom: 1px solid var(--bs-border-color);
   text-decoration: none;
 }
@@ -43,6 +55,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: drop-shadow(0 1px 1px rgba(255, 255, 255, 0.72))
+    drop-shadow(0 2px 3px rgba(74, 55, 38, 0.24));
 }
 
 .zo-card-body {
@@ -93,10 +107,6 @@
   text-decoration: none;
   white-space: nowrap;
   background: var(--bs-body-bg);
-}
-
-.zo-card-pill--meta {
-  color: var(--bs-secondary-color);
 }
 
 .zo-card-pill--action {
