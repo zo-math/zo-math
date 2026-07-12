@@ -198,6 +198,8 @@ NUM_OVERRIDES: Dict[int, Dict[str, Any]] = {
     131: {"expr": "sin(1/x)", "xlim": (-0.6, 0.6), "ylim": (-1.1, 1.1), "breaks": [0], "samples": 2600},
     132: {"expr": "x+sin(x)", "xlim": (-5, 5), "ylim": (-6, 6), "samples": 1400},
     133: {"expr": "log(sin(x))", "xlim": (0.08, 3.061592654), "ylim": (-2.4, 0.12), "breaks": [0.0, 3.141592654], "samples": 2200},
+    134: {"expr": "sqrt(1-x**2)", "xlim": (-1.15, 1.15), "ylim": (-0.1, 1.15), "samples": 1400},
+    136: {"expr": "x/(1+x**2)", "xlim": (-4.0, 4.0), "ylim": (-0.7, 0.7), "samples": 1400},
     139: {"expr": "exp(-abs(x))", "xlim": (-4, 4), "ylim": (-0.1, 1.1)},
     142: {"expr": "(1/x)*exp(-0.5*(log(x))**2)", "xlim": (0.05, 5), "ylim": (-0.05, 0.9), "breaks": [0], "samples": 1200},
     144: {"expr": "1/(1+exp(-1.6*(x-0.3)))", "xlim": (-5, 5), "ylim": (-0.1, 1.1)},
