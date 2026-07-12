@@ -209,6 +209,7 @@ NUM_OVERRIDES: Dict[int, Dict[str, Any]] = {
     145: {"expr": "exp(-exp(-x))", "xlim": (-4.5, 4.5), "ylim": (-0.05, 1.05), "samples": 1400},
     146: {"expr": "3*x/(1+x)", "xlim": (0, 6), "ylim": (-0.1, 3.2)},
     147: {"expr": "x**3/(1+x**3)", "xlim": (0, 5), "ylim": (-0.1, 1.1)},
+    149: {"expr": "x/(1+x)", "xlim": (-5.0, 3.0), "ylim": (-3.0, 5.0), "breaks": [-1.0], "samples": 1600},
     150: {"expr": "elu(x)", "xlim": (-4, 4), "ylim": (-1.2, 4.2)},
     151: {"expr": "softplus(x)", "xlim": (-5, 5), "ylim": (-0.2, 5.2)},
     152: {"expr": "x/(1+exp(-x))", "xlim": (-5, 5), "ylim": (-0.5, 5.2)},
