@@ -9,20 +9,19 @@ $theme: "sandstone" !default;
    A. COLOR SYSTEM & TOKENS
    ====================================================== */
 
+/* ZO Math color system - single source of truth */
+
 $white: #ffffff !default;
-$gray-100: #f8f9fa !default;
+$gray-100: #fbfaf8 !default;
 $gray-200: #f8f5f0 !default;
 $gray-300: #dfd7ca !default;
-$gray-400: #ced4da !default;
-$gray-500: #98978b !default;
-$gray-600: #8e8c84 !default;
-$gray-700: #495057 !default;
-$gray-800: #3e3f3a !default;
-$gray-900: #212529 !default;
+$gray-400: #c7beb2 !default;
+$gray-500: #9f968b !default;
+$gray-600: #766f66 !default;
+$gray-700: #554f48 !default;
+$gray-800: #3e3a35 !default;
+$gray-900: #25221f !default;
 $black: #000000 !default;
-
-$blue: #42a5f5 !default;
-$indigo: #7986cb !default;
 
 $red-01: #fdeded !default;
 $red-02: #fbdcdc !default;
@@ -33,7 +32,7 @@ $red-06: #f59796 !default;
 $red-07: #f38684 !default;
 $red-08: #f27572 !default;
 $red-09: #f06461 !default;
-$red-10: #ef5350 !default; /* chính */
+$red-10: #ef5350 !default;
 $red-11: #d74a48 !default;
 $red-12: #bf4240 !default;
 $red-13: #a73a38 !default;
@@ -53,7 +52,7 @@ $yellow-06: #ffdf73 !default;
 $yellow-07: #ffd968 !default;
 $yellow-08: #ffd452 !default;
 $yellow-09: #ffcf3d !default;
-$yellow-10: #ffca28 !default; /* chính */
+$yellow-10: #ffca28 !default;
 $yellow-11: #e5b524 !default;
 $yellow-12: #cca120 !default;
 $yellow-13: #b28d1c !default;
@@ -65,6 +64,10 @@ $yellow-18: #332808 !default;
 $yellow-19: #191404 !default;
 
 $teal: #1de8b5 !default;
+
+/* Legacy Bootstrap/Quarto compatibility colors */
+$blue: #42a5f5 !default;
+$indigo: #7986cb !default;
 
 $primary: $red-10 !default;
 $secondary: $yellow-10 !default;
@@ -172,6 +175,7 @@ $btn-close-hover-opacity: 1 !default;
 
 /*-- scss:rules --*/
 
+@import "assets/css/zo_content_blocks";
 /* ======================================================
    D. BASE IMPORTS / HELPERS
    ====================================================== */

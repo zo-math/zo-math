@@ -1,0 +1,133 @@
+/* ZO Math content blocks — final three-color system
+   Independent from legacy highlight-box-* and Quarto callouts.
+*/
+
+.zo-block {
+  --zo-block-background: #{$gray-100};
+  --zo-block-border: #{$gray-300};
+  --zo-block-hover: #{rgba($gray-300, 0.38)};
+
+  margin: 1.4rem 0;
+  padding: 1rem 1.1rem 1.05rem;
+  border: 1px solid var(--zo-block-border);
+  border-radius: 0.55rem;
+  background: var(--zo-block-background);
+  color: inherit;
+}
+
+.zo-block > :first-child {
+  margin-top: 0;
+}
+
+.zo-block > :last-child {
+  margin-bottom: 0;
+}
+
+.zo-block-title {
+  margin: 0 0 0.65rem;
+  color: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.zo-block-title > :first-child {
+  margin-top: 0;
+}
+
+.zo-block-title > :last-child {
+  margin-bottom: 0;
+}
+
+.zo-block-red {
+  --zo-block-background: #{$red-01};
+  --zo-block-border: #{$red-04};
+  --zo-block-hover: #{$red-02};
+}
+
+.zo-block-yellow {
+  --zo-block-background: #{$yellow-01};
+  --zo-block-border: #{$yellow-05};
+  --zo-block-hover: #{$yellow-02};
+}
+
+.zo-block-gray {
+  --zo-block-background: #{$gray-200};
+  --zo-block-border: #{$gray-300};
+  --zo-block-hover: #{rgba($gray-300, 0.38)};
+}
+
+details.zo-block {
+  padding: 0;
+  overflow: hidden;
+}
+
+details.zo-block > summary {
+  display: block;
+  margin: 0;
+  padding: 1rem 1.1rem;
+  color: inherit;
+  cursor: pointer;
+  list-style: none;
+  transition: background-color 0.18s ease;
+}
+
+details.zo-block > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.zo-block > summary::marker {
+  content: "";
+}
+
+details.zo-block > summary:hover,
+details.zo-block > summary:focus-visible {
+  background: var(--zo-block-hover);
+}
+
+details.zo-block > summary:focus-visible {
+  outline: 2px solid var(--zo-block-border);
+  outline-offset: -2px;
+}
+
+details.zo-block[open] > summary {
+  border-bottom: 1px solid var(--zo-block-border);
+}
+
+details.zo-block > .zo-block-body {
+  padding: 1rem 1.1rem 1.05rem;
+}
+
+details.zo-block > .zo-block-body > :first-child {
+  margin-top: 0;
+}
+
+details.zo-block > .zo-block-body > :last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 575.98px) {
+  .zo-block {
+    margin: 1.2rem 0;
+    padding: 0.9rem 0.95rem 0.95rem;
+    border-radius: 0.45rem;
+  }
+
+  details.zo-block {
+    padding: 0;
+  }
+
+  details.zo-block > summary {
+    padding: 0.9rem 0.95rem;
+  }
+
+  details.zo-block > .zo-block-body {
+    padding: 0.9rem 0.95rem 0.95rem;
+  }
+}
+
+@media print {
+  .zo-block {
+    break-inside: avoid;
+  }
+}
