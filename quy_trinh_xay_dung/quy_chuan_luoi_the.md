@@ -88,6 +88,14 @@ Nếu đầu ra thay đổi ngoài dự kiến, chỉ điều tra và sửa tạ
 
 Script hiện ghi hai báo cáo vào `_audit/`: báo cáo tổng số thẻ theo trạng thái và báo cáo cấu hình renderer SVG. Không coi các báo cáo này là bằng chứng cho những kiểm tra mà chúng không thực hiện.
 
+Kiểm tra chỉ đọc theo phạm vi lưới thẻ bằng lệnh:
+
+```text
+python scripts/zo_python.py scripts/zo_check_repo.py scope content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi
+```
+
+Lệnh kiểm định không thay thế việc tái sinh bằng `zo_build_card_grid.py` hoặc phép so sánh hàm băm trước và sau khi tái sinh.
+
 ## 9. Kiểm tra bắt buộc theo phạm vi
 
 Chọn các kiểm tra phù hợp với thay đổi, tối thiểu gồm:

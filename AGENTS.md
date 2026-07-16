@@ -24,6 +24,8 @@ python scripts/zo_python.py ...
 
 Trình khởi chạy bảo đảm tiến trình Python con dùng chế độ UTF-8 mà không yêu cầu thay đổi biến môi trường global.
 
+Codex dùng `scripts/zo_check_repo.py` làm điểm vào mặc định cho kiểm tra kỹ thuật và luôn gọi qua `scripts/zo_python.py`. Chọn chế độ `quick`, `scope` hoặc `render` theo phạm vi nhiệm vụ. Công cụ này không thay thế kiểm tra trực quan, xuất bản hoặc kiểm tra chuyên biệt chưa được tích hợp.
+
 Khi nhiệm vụ liên quan đến lưới thẻ, phải đọc và tuân thủ thêm:
 
 - `quy_trinh_xay_dung/quy_chuan_luoi_the.md`

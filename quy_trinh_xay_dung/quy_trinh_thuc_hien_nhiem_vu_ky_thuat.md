@@ -84,6 +84,26 @@ python scripts/zo_python.py -m module [tham số...]
 
 Khi đã dùng trình khởi chạy, không thêm thủ công `PYTHONUTF8=1` vào từng lệnh. Trình khởi chạy chỉ bảo đảm chế độ UTF-8 cho tiến trình Python con; nó không thay đổi logic hoặc dữ liệu của script đích. Báo cáo kết quả phải ghi đúng lệnh thực tế đã dùng.
 
+### Kiểm định kỹ thuật thống nhất
+
+Dùng điểm vào `scripts/zo_check_repo.py` theo nguyên tắc:
+
+- `quick` kiểm tra nhanh các tệp đang thay đổi hoặc phạm vi nhỏ được chỉ định, không render;
+- `scope` kiểm tra một hoặc nhiều tệp, thư mục tường minh bằng validator phù hợp;
+- `render` chỉ dùng khi nhiệm vụ cần render các trang `.qmd` tường minh;
+- `--staged` chỉ dùng khi cần kiểm tra vùng staged;
+- `--report` chỉ dùng khi báo cáo JSON máy đọc được trong `_audit/` thực sự hữu ích.
+
+Ví dụ lệnh:
+
+```text
+python scripts/zo_python.py scripts/zo_check_repo.py quick
+python scripts/zo_python.py scripts/zo_check_repo.py scope scripts/zo_python.py
+python scripts/zo_python.py scripts/zo_check_repo.py render content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/index.qmd
+```
+
+Công cụ kiểm định không tự sửa lỗi, stage hoặc commit. Trước commit, agent vẫn phải đọc diff, xác nhận phạm vi Git và thực hiện các kiểm tra staged phù hợp.
+
 Agent chịu trách nhiệm tự chạy các lệnh kỹ thuật cần thiết. Không chuyển việc vận hành Terminal cho người dùng chỉ vì thao tác đó có thể được thực hiện bằng lệnh.
 
 ## 6. Xử lý lỗi trong quá trình làm việc
