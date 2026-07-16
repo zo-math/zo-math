@@ -84,6 +84,17 @@ python scripts/zo_python.py -m module [tham số...]
 
 Khi đã dùng trình khởi chạy, không thêm thủ công `PYTHONUTF8=1` vào từng lệnh. Trình khởi chạy chỉ bảo đảm chế độ UTF-8 cho tiến trình Python con; nó không thay đổi logic hoặc dữ liệu của script đích. Báo cáo kết quả phải ghi đúng lệnh thực tế đã dùng.
 
+### Chạy lệnh Quarto
+
+Lệnh Quarto phải đi qua trình khởi chạy repository-local theo cú pháp:
+
+```text
+python scripts/zo_python.py scripts/zo_quarto.py <quarto-command> [tham số...]
+python scripts/zo_python.py scripts/zo_quarto.py render PAGE
+```
+
+Chế độ `render` của `scripts/zo_check_repo.py` dùng cùng cơ chế chuẩn bị môi trường. Không đặt thủ công `QUARTO_PYTHON` hoặc `RETICULATE_PYTHON` trong từng lệnh và không ghi đường dẫn Python cá nhân vào metadata QMD. Trình khởi chạy chọn Python hiện hành cho Jupyter và reticulate, đồng thời giữ nguyên giá trị mà người gọi đã chủ động cung cấp. Báo cáo cuối phải ghi đúng lệnh thực tế đã chạy.
+
 ### Kiểm định kỹ thuật thống nhất
 
 Dùng điểm vào `scripts/zo_check_repo.py` theo nguyên tắc:

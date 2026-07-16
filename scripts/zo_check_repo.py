@@ -14,9 +14,11 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from html import unescape
 from pathlib import Path
-from typing import Any, Sequence
+from typing import Any, Mapping, Sequence
 from urllib.parse import unquote, urlsplit
 from xml.etree import ElementTree
+
+from zo_quarto import prepare_quarto
 
 try:
     import yaml
@@ -74,10 +76,12 @@ class Checker:
         return any(item.status == "fail" for item in self.checks)
 
 
-def run(command: Sequence[str], root: Path) -> subprocess.CompletedProcess[str]:
+def run(
+    command: Sequence[str], root: Path, env: Mapping[str, str] | None = None
+) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         list(command), cwd=root, capture_output=True, text=True, encoding="utf-8",
-        errors="replace", check=False,
+        errors="replace", check=False, env=env,
     )
 
 
@@ -469,7 +473,9 @@ def output_dir(root: Path) -> Path:
 
 
 def render_pages(paths: Sequence[Path], checker: Checker) -> int | None:
-    if shutil.which("quarto") is None:
+    try:
+        base_command, quarto_env = prepare_quarto([])
+    except FileNotFoundError:
         return EXIT_MISSING_TOOL
     out_dir = output_dir(checker.root)
     for relative in paths:
@@ -483,7 +489,7 @@ def render_pages(paths: Sequence[Path], checker: Checker) -> int | None:
         if failures_after > failures_before:
             checker.add("render", False, "Bỏ qua render vì scope của trang thất bại.", relative)
             continue
-        result = run(["quarto", "render", relative.as_posix()], checker.root)
+        result = run([*base_command, "render", relative.as_posix()], checker.root, quarto_env)
         combined = "\n".join(part for part in (result.stdout, result.stderr) if part).strip()
         warnings = [line.strip() for line in combined.splitlines() if re.search(r"\bwarn(?:ing)?\b|cảnh báo", line, re.IGNORECASE)]
         errors = [line.strip() for line in combined.splitlines() if re.search(r"\berror\b|lỗi", line, re.IGNORECASE)]
