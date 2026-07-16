@@ -40,6 +40,12 @@ Khi nhiệm vụ liên quan đến lưới thẻ, phải đọc và tuân thủ 
 
 Tài liệu này chỉ điều hành các nhiệm vụ liên quan đến dữ liệu, mã sinh, giao diện, đầu ra và kiểm tra lưới thẻ.
 
+Khi nhiệm vụ liên quan đến xuất bản website, phải đọc và tuân thủ thêm:
+
+- `quy_trinh_xay_dung/quy_trinh_xuat_ban_website.md`
+
+Dùng `scripts/zo_publish.py` cho quy trình xuất bản mới. Hiện chỉ chế độ `check` được chính thức hỗ trợ; không chạy `scripts/publish_public.sh` nếu yêu cầu hiện tại không chỉ định rõ việc khảo sát script cũ.
+
 Các tài liệu khác trong `README/`, `content/`, `assets/`, `_audit/` hoặc những vị trí khác không tự động được xem là quy chuẩn hiện hành, trừ khi:
 
 - yêu cầu hiện tại của người dùng dẫn chiếu rõ đến tài liệu đó;

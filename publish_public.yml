@@ -1,0 +1,72 @@
+version: 1
+source_branch: master
+target_branch: gh-pages
+output_dir: docs
+
+allowlist:
+  files:
+    - index.html
+    - search.json
+    - sitemap.xml
+    - robots.txt
+    - .nojekyll
+    - images/favicon.ico
+    - assets/logo/zo_math_logo_black_on_transprentt_1024.png
+    - assets/html/sidebar-layer.html
+    - content/thpt/index.html
+    - content/shop/index.html
+    - content/support/donate.html
+  globs:
+    - "site_libs/**"
+    - "assets/css/*.css"
+    - "assets/js/*.js"
+    - "content/about.html"
+    - "content/contact.html"
+    - "content/shop/**/*.html"
+    - "content/support/**/*.html"
+    - "content/thpt/**/*.html"
+    - "content/thpt/**/assets/img/**/*.svg"
+    - "figures/thpt/**/*.svg"
+
+denylist:
+  paths:
+    - content/di_tim/di_tim_xac_suat
+    - content/di_tim/di_tim_ly_luan_toan_hoc
+    - content/di_tim/di_tim_toan_hoc
+    - _audit
+    - README
+    - quy_trinh_xay_dung
+    - scripts
+  globs:
+    - "**/.env"
+    - "**/.env.*"
+    - "**/.ipynb_checkpoints/**"
+    - "**/__pycache__/**"
+    - "**/*_cache/**"
+    - "**/*.qmd"
+    - "**/*.Rmd"
+    - "**/*.md"
+    - "**/*.tex"
+    - "**/*.aux"
+    - "**/*.log"
+    - "**/*.fls"
+    - "**/*.fdb_latexmk"
+    - "**/*.synctex.gz"
+    - "**/*.py"
+    - "**/*.R"
+    - "**/*.sh"
+    - "**/*.ps1"
+    - "**/*.RData"
+    - "**/*.sqlite"
+    - "**/*.db"
+    - "**/*.pem"
+    - "**/*.key"
+
+default_max_file_size: 10485760
+size_exceptions: {}
+
+required_files:
+  - index.html
+  - .nojekyll
+  - images/favicon.ico
+  - assets/logo/zo_math_logo_black_on_transprentt_1024.png
