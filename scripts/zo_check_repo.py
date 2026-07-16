@@ -287,14 +287,62 @@ def reference_target(raw: str, source: Path, root: Path) -> Path | None:
     return (root / clean.lstrip("/") if clean.startswith("/") else source.parent / clean).resolve()
 
 
-def validate_local_refs(refs: Sequence[str], source: Path, checker: Checker, label: str) -> None:
+def normalize_image_extension(value: Any, label: str) -> str | None:
+    if value is None:
+        return None
+    if not isinstance(value, str) or not re.fullmatch(r"\.?[A-Za-z0-9]+", value.strip()):
+        raise ValueError(f"{label} phải là phần mở rộng hợp lệ, ví dụ svg hoặc .png.")
+    return "." + value.strip().lstrip(".").lower()
+
+
+def nested_default_image_extension(metadata: Any) -> Any:
+    if not isinstance(metadata, dict):
+        return None
+    if "default-image-extension" in metadata:
+        return metadata["default-image-extension"]
+    html = metadata.get("format")
+    if isinstance(html, dict):
+        html = html.get("html")
+        if isinstance(html, dict) and "default-image-extension" in html:
+            return html["default-image-extension"]
+    return None
+
+
+def project_default_image_extension(root: Path) -> str | None:
+    path = root / "_quarto.yml"
+    try:
+        config = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    except (OSError, UnicodeDecodeError, yaml.YAMLError) as exc:
+        raise ValueError(f"Không đọc được _quarto.yml: {exc}") from exc
+    return normalize_image_extension(
+        nested_default_image_extension(config), "format.html.default-image-extension trong _quarto.yml"
+    )
+
+
+def validate_local_refs(
+    refs: Sequence[str], source: Path, checker: Checker, label: str,
+    default_image_extension: str | None = None,
+) -> None:
     missing: list[str] = []
     for raw in refs:
         target = reference_target(raw, source, checker.root)
         if target is None:
             continue
-        if not inside(target, checker.root) or not target.exists():
-            missing.append(raw)
+        tried = [target]
+        if (default_image_extension and not target.suffix and not target.exists()
+                and inside(target, checker.root)):
+            tried.append(target.with_name(target.name + default_image_extension))
+        valid = next((candidate for candidate in tried
+                      if inside(candidate, checker.root) and candidate.exists()
+                      and not (candidate.is_symlink() and not inside(candidate.resolve(), checker.root))), None)
+        if valid is None:
+            shown = []
+            for candidate in tried:
+                try:
+                    shown.append(candidate.relative_to(checker.root).as_posix())
+                except ValueError:
+                    shown.append(f"ngoài-repository:{candidate.name}")
+            missing.append(f"{raw} (đã thử: {', '.join(shown)})")
     checker.add(label, not missing, "Các tài nguyên cục bộ tồn tại." if not missing else "Thiếu: " + ", ".join(sorted(set(missing))), source)
 
 
@@ -338,8 +386,12 @@ def strip_code(text: str) -> str:
 
 def validate_markdown(path: Path, text: str, checker: Checker) -> None:
     body = strip_code(text)
-    refs = re.findall(r"!?\[[^\]]*\]\(([^\s)]+)(?:\s+[^)]*)?\)", body)
-    refs.extend(re.findall(r"\b(?:src|href)=[\"']([^\"']+)[\"']", body, flags=re.IGNORECASE))
+    image_refs = re.findall(r"!\[[^\]\n]*\]\(([^\s)]+)(?:\s+[^)]*)?\)", body)
+    refs = re.findall(r"(?<!!)\[[^\]\n]*\]\(([^\s)]+)(?:\s+[^)]*)?\)", body)
+    image_refs.extend(re.findall(r"<img\b[^>]*\bsrc=[\"']([^\"']+)[\"']", body, flags=re.IGNORECASE))
+    refs.extend(re.findall(r"\bhref=[\"']([^\"']+)[\"']", body, flags=re.IGNORECASE))
+    refs.extend(re.findall(r"<(?!img\b)[^>]*\bsrc=[\"']([^\"']+)[\"']", body, flags=re.IGNORECASE))
+    metadata: Any = {}
     if body.startswith("---"):
         parts = body.split("---", 2)
         if len(parts) == 3:
@@ -348,9 +400,18 @@ def validate_markdown(path: Path, text: str, checker: Checker) -> None:
                 for key in ("bibliography", "csl", "include-in-header", "include-before-body", "include-after-body"):
                     value = metadata.get(key) if isinstance(metadata, dict) else None
                     refs.extend(value if isinstance(value, list) else [value] if isinstance(value, str) else [])
-            except yaml.YAMLError:
-                pass
+            except yaml.YAMLError as exc:
+                checker.add("markdown-metadata", False, f"YAML metadata không hợp lệ: {exc}", path)
+                return
+    try:
+        page_value = nested_default_image_extension(metadata)
+        extension = (normalize_image_extension(page_value, "default-image-extension trong metadata")
+                     if page_value is not None else project_default_image_extension(checker.root))
+    except ValueError as exc:
+        checker.add("markdown-resources-config", False, str(exc), path)
+        return
     validate_local_refs(refs, path, checker, "markdown-resources")
+    validate_local_refs(image_refs, path, checker, "markdown-image-resources", extension)
 
 
 def validate_file(relative: Path, checker: Checker) -> None:
