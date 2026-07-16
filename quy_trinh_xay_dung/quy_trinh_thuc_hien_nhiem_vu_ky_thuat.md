@@ -73,6 +73,17 @@ Trong quá trình thực hiện, agent phải:
 8. Ưu tiên đường dẫn tương đối và cấu hình có thể dùng trên máy khác.
 9. Không tự động commit, push, restore, xóa hoặc di chuyển tệp nếu chưa được người dùng yêu cầu rõ.
 
+### Chạy lệnh Python
+
+Lệnh Python trong quy trình kỹ thuật phải đi qua trình khởi chạy repository-local. Cú pháp chuẩn là:
+
+```text
+python scripts/zo_python.py script.py [tham số...]
+python scripts/zo_python.py -m module [tham số...]
+```
+
+Khi đã dùng trình khởi chạy, không thêm thủ công `PYTHONUTF8=1` vào từng lệnh. Trình khởi chạy chỉ bảo đảm chế độ UTF-8 cho tiến trình Python con; nó không thay đổi logic hoặc dữ liệu của script đích. Báo cáo kết quả phải ghi đúng lệnh thực tế đã dùng.
+
 Agent chịu trách nhiệm tự chạy các lệnh kỹ thuật cần thiết. Không chuyển việc vận hành Terminal cho người dùng chỉ vì thao tác đó có thể được thực hiện bằng lệnh.
 
 ## 6. Xử lý lỗi trong quá trình làm việc
