@@ -1,0 +1,158 @@
+---
+title: "Biến thiên"
+subtitle: "Từ bảng giá trị đến quy luật tăng, giảm và dao động"
+
+summary: "Quan sát cách giá trị hàm số thay đổi khi biến độc lập dịch chuyển, từ đó nhận diện những quy luật tăng, giảm, đối xứng và dao động."
+
+description: "Bài viết dẫn dắt việc tìm hiểu sự biến thiên của hàm số qua bảng giá trị, tính chẵn lẻ, giới hạn của phương pháp thăm dò và nhu cầu chứng minh toán học."
+
+abstract: |
+  Biến thiên mô tả cách giá trị của hàm số phản ứng khi biến độc lập thay đổi. Bảng giá trị giúp ta quan sát ban đầu những biểu hiện như tăng, giảm, đối xứng hoặc dao động.
+
+  Tuy nhiên, quan sát hữu hạn chỉ mang tính thăm dò. Muốn hiểu toàn diện quy luật của hàm số, ta cần kết hợp trực giác với công cụ toán học và biểu diễn đồ thị.
+
+keywords:
+  - sự biến thiên
+  - bảng giá trị
+  - hàm chẵn
+  - hàm lẻ
+  - tăng giảm
+  - dao động
+
+author: "ZO Math"
+date: last-modified
+date-format: "DD-MM-YYYY"
+
+page-layout: article
+toc: true
+toc-title: "Nội dung"
+toc-location: right
+toc-depth: 3
+body-classes: "zo-page-article zo-meta-hidden"
+---
+
+
+Công thức của một hàm số giống như bản nhạc viết trên giấy: để thực sự thưởng thức, bạn phải nghe giai điệu mà các nốt nhạc tạo ra. Với hàm số cũng vậy: không chỉ dừng lại ở sự mô tả hay công thức, điều quan trọng là cảm nhận được *nhịp điệu* mà nó thể hiện khi biến độc lập dịch chuyển.
+
+:::: {.zo-block .zo-block-red}
+::: {.zo-block-title}
+Sự biến thiên
+:::
+
+Nói đến sự biến thiên của hàm số là nói đến quy luật tăng-giảm của giá trị $y$ khi $x$ thay đổi. Khảo sát sự biến thiên là để trả lời câu hỏi: khi dịch chuyển $x$, thì $y$ phản ứng thế nào? Đây chính là chìa khóa để hiểu mối quan hệ giữa biến độc lập $x$ và biến phụ thuộc $y$.
+::::
+
+Để nhìn thấy $y$ thay đổi theo $x$ ra sao, ta *thăm dò* bằng cách lập *bảng giá trị*. Chẳng hạn, xét hàm số $y=x^2$ với một số giá trị quanh $x=0$:
+
+|  $x$ |  $y=x^2$ |
+|:-------:|:-------------:|
+|   $-2,0$   |      $4,00$       |
+|   $-1,0$   |      $1,00$       |
+|  $-0,9$  |     $0,81$     |
+|  $-0,7$  |     $0,49$     |
+|  $-0,5$  |     $0,25$     |
+|  $-0,3$  |     $0,09$     |
+|  $-0,1$  |     $0,01$     |
+|    $0$   |      $0$       |
+|   $0,1$  |     $0,01$     |
+|   $0,3$  |     $0,09$     |
+|   $0,5$  |     $0,25$     |
+|   $0,7$  |     $0,49$     |
+|   $0,9$  |     $0,81$     |
+|    $1,0$   |      $1,00$       |
+|    $2,0$   |      $4,00$       |
+: Một số giá trị quanh $x=0$ của hàm $y=x^2$. Các giá trị $y$ được làm tròn đến hai chữ số thập phân.
+
+Khi $x$ tăng dần từ $-2$ đến $0$, $y$ giảm dần về $0$. Tại $x=0$, hàm số đạt giá trị nhỏ nhất $y=0$ trên toàn miền xác định. Khi $x$ tiếp tục tăng vượt qua $0$, $y$ bắt đầu tăng lên. Ngoài ra, ta nhận ra tính chất: hai điểm đối xứng qua $x=0$ sẽ cho cùng một giá trị, chẳng hạn $x=-2$ và $x=2$ đều cho $y=4$.
+
+:::: {.zo-block .zo-block-red}
+::: {.zo-block-title}
+Hàm chẵn
+:::
+
+Hàm số có tính chất $f(-x)=f(x)$ với mọi $x$ thuộc tập xác định được gọi là *hàm chẵn*.
+::::
+
+Với hàm số $y=\frac{1}{x}$, ta cũng thử quan sát một số giá trị quanh $x=0$:
+
+|   $x$ | $y=\frac{1}{x}$ |
+| :------: | :----------------: |
+| $-0,25$|       $-4,00$|
+|  $-0,21$|        $-4,76$      |
+| $-0,17$|       $-5,88$      |
+|  $-0,13$|       $-7,69$      |
+|  $-0,09$|       $-11,11$      |
+|  $-0,05$|       $-20,00$      |
+| $-0,01$|       $-100,00$     |
+|   $0$ | không xác định   |
+|  $0,01$|       $100,00$      |
+|  $0,05$|       $20,00$      |
+|  $0,09$|       $11,11$      |
+|  $0,13$|       $7,69$      |
+| $0,17$|       $5,88$      |
+|  $0,21$|        $4,76$      |
+| $0,25$|       $4,00$|
+: Một số giá trị quanh $x=0$ của hàm $y=\frac{1}{x}$. Các giá trị $y$ được làm tròn đến hai chữ số thập phân.
+
+Khi $x$ tiến về $0$ từ phía âm, $y$ rơi xuống những giá trị âm cực lớn so với $x$; còn khi $x$ tiến về $0$ từ phía dương, $y$ lại vọt lên những giá trị dương cực lớn so với $x$. Trái và phải của $0$ trở thành hai miền tách biệt, giống như hai thế giới không thể nối liền, vì $x=0$ không thuộc tập xác định của hàm số. Với hàm này, ta nhận ra tính chất: hai điểm đối xứng qua $x=0$ sẽ cho hai giá trị có độ lớn bằng nhau nhưng trái dấu, chẳng hạn $x=-0{,}01$ và $x=0{,}01$ lần lượt cho $y=-100$ và $y=100$.
+
+:::: {.zo-block .zo-block-red}
+::: {.zo-block-title}
+Hàm lẻ
+:::
+
+Hàm số có tính chất $f(-x)=-f(x)$ với mọi $x$ thuộc tập xác định được gọi là *hàm lẻ*.
+::::
+
+Còn với hàm $y=\sin\left(\frac{1}{x}\right)$, ta sẽ thấy một tiết tấu hoàn toàn khác. Để quan sát điều thú vị, ta chọn những $x$ đặc biệt sao cho $\frac{1}{x}$ rơi đúng vào những bội số quen thuộc của $\pi$ (nơi giá trị của hàm bằng $0$, $1$ hoặc $-1$). Hơn nữa, ta còn có thể chọn được vô số $x$ như thế, chẳng hạn: $x=\frac{2}{k\pi}$ ($k$ là số nguyên khác $0$). Ta quan sát một số giá trị ứng với $k$ không âm:
+
+| $x$ | $y=\sin\left(\frac{1}{x}\right)$ |
+|:-----:|:--------------:|
+| $\frac{2}{\pi}$ | $1$ |
+| $\frac{1}{\pi}$ | $0$ |
+| $\frac{2}{3\pi}$ | $-1$ |
+| $\frac{1}{2\pi}$ | $0$ |
+| $\frac{2}{5\pi}$ | $1$ |
+| $\frac{1}{3\pi}$ | $0$ |
+| $\frac{2}{7\pi}$ | $-1$ |
+| $\frac{1}{4\pi}$ | $0$ |
+| ... | ... |
+| $0$ | không xác định |
+: Một số giá trị "chọn lọc" quanh $x=0$ của hàm $y=\sin\left(\frac{1}{x}\right)$.
+
+Từ bảng giá trị trên, ta nhận ra khi $x$ tiến về $0$, ta không thu được một giá trị giới hạn cố định nào cho $y$. Thay vào đó, hàm số liên tục nhảy giữa các giá trị quen thuộc $1$, $0$, $-1$. Nói cách khác, khi $x$ càng nhỏ thì $\frac{1}{x}$ càng lớn, nên $\sin\left(\frac{1}{x}\right)$ lặp đi lặp lại nhịp điệu $1\to 0\to -1\to 0\to 1\to 0\to -1\to 0\to\dots$ mãi không ngừng. Chính sự "dao động vĩnh viễn" này làm hàm số trở nên đặc biệt: càng tiến sát về $0$, ta càng thấy nó rung lắc nhanh hơn và dồn dập hơn.
+
+> Bạn có để ý rằng ở trên, mình chỉ xét $x>0$ mà chưa nói gì đến $x<0$? Theo bạn, khi $x$ từ phía âm tiến về $0$, chuyện gì sẽ xảy ra?
+
+Hãy lưu ý rằng, trong hầu hết các trường hợp, việc lập bảng giá trị chỉ cho ta một bức tranh *cục bộ* và mang tính *thăm dò*. Dù có liệt kê bao nhiêu giá trị đi nữa, ta vẫn không thể kết luận chắc chắn về quy luật biến thiên của hàm số. Chẳng hạn, với $y=x^2$, tập xác định là toàn bộ $\mathbb{R}$ và tập giá trị là $[0; +\infty)$ - cả hai đều vô hạn và không thể liệt kê hết. Nhìn vào vài giá trị trong đoạn $[-2;2]$, ta có cảm giác rằng hàm số giảm xuống khi $x<0$ và tăng lên khi $x>0$. Nhưng đó mới chỉ là một phỏng đoán; để biến cảm giác thành khẳng định, ta cần đến chứng minh toán học.
+
+Để thấy bức tranh toàn diện về sự biến thiên, ta cần đến các công cụ toán học và một cách biểu diễn trực quan để hình dung nhịp điệu của hàm số. Chúng ta sẽ khám phá cách này trong phần tiếp theo.
+
+### Bài tập
+
+1. *Lập bảng giá trị* cho các hàm $y=2x$, $y=\lvert x\rvert$, $y=x^2$, $y=\sqrt{x}$, $y=x^3$ với $x$ từ $-2$ đến $2$, bước nhảy $0{,}5$. Ngoại trừ $y=\sqrt{x}$ có tập xác định là $[0,\infty)$, các hàm còn lại đều có tập xác định là $\mathbb{R}$ (Đúng/Sai)? Vì sao không tính giá trị của hàm $y=\sqrt{x}$ khi $x<0$?
+
+2. Dựa vào bảng giá trị, mô tả *sự biến thiên của từng hàm* bằng cách trả lời các câu hỏi:
+   * Hàm tăng hay giảm khi $x$ tăng?
+   * Bản thân sự tăng/giảm ấy lại biến thiên thế nào?
+
+3. Dựa vào bảng giá trị, *so sánh giá trị của các hàm* bằng cách trả lời các câu hỏi dưới đây.
+   a. Giữa $y=2x$ và $y=\lvert x\rvert$: Trên $(0, 2)$, hàm nào có giá trị lớn hơn? Tại sao?
+   b. Giữa $y=\lvert x\rvert$ và $y=x^2$: Trên $(-1, 1)$, hàm nào lớn hơn tại $x$=$0{,}5$? Trên $(1, 2)$, hàm nào lớn hơn?
+   c. Giữa $y=x^2$ và $y=\sqrt{x}$ trên $(0, 2)$: Trên $(0, 1)$, hàm nào lớn hơn? Trên $(1, 2)$, hàm nào lớn hơn? Khi $x$ qua $1$, có sự kiện gì xảy ra với giá trị $y$ của hai hàm?
+   d. Giữa $y=x^2$ và $y=x^3$: Trên $(0, 1)$, hàm nào lớn hơn? Trên $(1, 2)$, hàm nào lớn hơn? Khi $x$ qua $1$, có sự kiện gì xảy ra với giá trị $y$ của hai hàm? Khi $x$ qua $0$, giá trị $y$ của mỗi hàm biến đổi khác nhau thế nào?
+
+4. Dựa vào bảng giá trị, *so sánh sự biến thiên của các hàm* bằng cách trả lời những câu hỏi dưới đây.
+   a. Giữa $y=2x$ và $y=\lvert x\rvert$: Trên $[0, 2]$, hàm nào tăng đều? Tốc độ tăng của hàm nào nhanh hơn?
+   b. Giữa $y=x^2$ và $y=\lvert x\rvert$: Trên $[0, 2]$, hàm nào tăng nhanh hơn?
+   c. Giữa $y=x^2$ và $y=x^3$: Trên $[0, 2]$, hàm nào tăng nhanh hơn?
+   d. Giữa $y=x^2$ và $y=\sqrt{x}$: Hàm nào tăng nhanh dần? Hàm nào tăng chậm dần? Trên $(0, 1)$, hàm $y=\sqrt{x}$ luôn tăng nhanh hơn hàm $y=x^2$ ?
+
+5. Hàm số $y=\sin\left(\frac{1}{x}\right)$ có hành vi đặc biệt khi $x$ tiến gần $0$. Hãy khám phá qua các bước sau:
+   a. Với $x>0$, lập bảng giá trị khi $x$ lần lượt là $1{,}00; 0{,}09; 0{,}08; 0{,}07; 0{,}06; 0{,}05; 0{,}04; 0{,}03; 0{,}02; 0{,}01$. Từ bảng này, bạn có thể phỏng đoán $y$ sẽ tăng, giảm, dao động, hay tiến về một giá trị cố định khi $x \to 0$ không? Hành vi ấy có lặp lại theo một quy luật rõ ràng không?
+
+      **Ghi chú:** Ở đây ta chỉ xét phía $x>0$ để bảng số liệu gọn gàng; thực ra với $x<0$, hàm số cũng dao động tương tự do tính chất $\sin(-x)=-\sin(x)$.
+
+   b. Lập một bảng giá trị khác với $x$ lần lượt là $\frac{2}{\pi}$, $\frac{1}{\pi}$, $\frac{2}{3\pi}$,$\frac{1}{2\pi}$, $\frac{2}{5\pi}$, $\frac{1}{3\pi}$, $\frac{2}{7\pi}$, $\frac{1}{4\pi}$. Lúc này, $y$ biến đổi ra sao? Có xuất hiện sự lặp lại theo chu kỳ nào không?
+   c. So sánh hai bảng trên: một bảng gợi cảm giác "hỗn loạn", một bảng lại cho thấy sự "có trật tự". Từ đó, bạn hãy giải thích tại sao chỉ dựa vào bảng giá trị thì chưa thể kết luận chắc chắn về sự biến thiên của hàm khi $x \to 0$.
+   d. Hãy chỉ ra ba dãy số khác nhau cùng hội tụ về $0$ nhưng cho ba dãy giá trị $y$ lần lượt tiến tới $1$, $0$ và $-1$. Từ đó kết luận: hàm số này có giới hạn tại $x=0$ hay không? (Lưu ý, một hàm có thể không xác định tại một điểm nhưng vẫn có giới hạn ở đó. Ví dụ, hàm $\frac{\sin(x)}{x}$ không xác định tại $x=0$, nhưng vẫn có giới hạn tại đây là $1$. Đây chính là sự khác nhau giữa *giá trị của hàm* và *giới hạn của hàm*.)

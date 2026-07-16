@@ -1,0 +1,144 @@
+---
+title: "Đồ thị"
+subtitle: "Từ các cặp giá trị đến hình ảnh của quy luật hàm số"
+
+summary: "Tìm hiểu cách biểu diễn mỗi cặp giá trị của hàm số bằng một điểm trên mặt phẳng tọa độ và cách đồ thị làm hiện rõ quy luật biến thiên."
+
+description: "Bài viết trình bày quá trình hình thành khái niệm đồ thị hàm số từ bảng giá trị, các điểm tọa độ và vai trò của đồ thị trong việc quan sát hành vi của hàm số."
+
+abstract: |
+  Đồ thị biến các cặp giá trị của hàm số thành những điểm trên mặt phẳng tọa độ. Nhờ đó, những quy luật vốn ẩn trong công thức hoặc bảng số liệu trở thành một hình ảnh có thể quan sát.
+
+  Từ đồ thị, ta có thể nhận ra nghiệm, dấu, sự tăng giảm, đối xứng, cực trị và nhiều đặc điểm khác của hàm số; còn việc chứng minh các nhận xét ấy cần đến những công cụ toán học chặt chẽ hơn.
+
+keywords:
+  - đồ thị hàm số
+  - mặt phẳng tọa độ
+  - bảng giá trị
+  - điểm tọa độ
+  - sự biến thiên
+  - biểu diễn hàm số
+
+author: "ZO Math"
+date: last-modified
+date-format: "DD-MM-YYYY"
+
+page-layout: article
+toc: true
+toc-title: "Nội dung"
+toc-location: right
+toc-depth: 3
+body-classes: "zo-page-article zo-meta-hidden"
+---
+
+
+Bạn thích ngắm bầu trời đầy sao, hay chỉ muốn nghe người khác kể về nó? Bảng giá trị giống như một lời kể: từng cặp $(x, f(x))$ hé lộ một lát cắt nhỏ của câu chuyện. Muốn thấy toàn cảnh, ta cần một cách nhìn trực quan hơn.
+
+Hãy bắt đầu bằng trực giác: trải tập xác định lên một đường thẳng nằm ngang có chiều dương hướng từ trái sang phải, và đặt một điểm đặc biệt $O$ chỉ vị trí số $0$. Tại mỗi điểm được chọn trong số những điểm thuộc tập xác định, dựng một đoạn thẳng *vuông góc* có độ dài đúng bằng giá trị của hàm tại điểm đó. Nói chính xác hơn: đoạn có độ dài $\lvert f(x)\rvert$, hướng lên nếu $f(x)>0$, hướng xuống nếu $f(x)<0$. Những "đoạn" cao thấp nối tiếp nhau cho ta cảm giác về nhịp điệu biến thiên.
+
+Trong đa số trường hợp, ta không thể dựng được toàn bộ các đoạn thẳng như vậy, vì tập xác định có thể có *quá nhiều* phần tử, đặc biệt là trường hợp *vô hạn*, thậm chí *không đếm được*. Nhưng với một số đoạn thẳng tiêu biểu sẽ mang lại cảm giác về nhịp điệu biến thiên: cao thấp, lên xuống, dương âm.
+
+![Một số giá trị của hàm $y=x^2$ trên đoạn $[-2;2]$](/figures/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/mot_so_doan_thang_gia_tri_ham_y_bang_x_binh_phuong){fig-align="center" width=500px}
+
+Rồi một phát hiện đơn giản nhưng quan trọng xuất hiện: ta không cần giữ cả đoạn, chỉ cần đầu mút của nó để biết "tại $x$ này, $f(x)$ bằng bao nhiêu". Để so sánh vị trí các đầu mút theo phương thẳng đứng, ta cần thêm một chuẩn chung cho $y$. Vì thế, dựng thêm một đường thẳng vuông góc với đường ngang ban đầu, chiều dương hướng lên và cũng đi qua $O$.
+
+![Một số giá trị của hàm $y=x^2$ trên đoạn $[-2;2]$](/figures/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/mot_so_mut_gia_tri_ham_y_bang_x_binh_phuong){fig-align="center" width=500px}
+
+![Một số giá trị của hàm $y=x^2$ trên đoạn $[-2;2]$](/figures/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/mot_so_diem_ham_y_bang_x_binh_phuong){fig-align="center" width=500px}
+
+Giờ ta có hai đường thẳng vuông góc cắt nhau tại $O$: đường ngang để ghi $x$, và đường dọc để ghi $f(x)$. Cả hai mở ra một mặt phẳng, trong đó mỗi giá trị $x$ được gắn với đúng một điểm $(x,f(x))$. Đường ngang ấy gọi là *trục hoành $Ox$*,  đường dọc gọi là *trục tung $Oy$*, và không gian do chúng tạo thành gọi là *mặt phẳng tọa độ $Oxy$*.
+
+:::: {.zo-block .zo-block-red}
+::: {.zo-block-title}
+Đồ thị hàm số
+:::
+
+Đồ thị của hàm số $y=f(x)$ là tập hợp tất cả các điểm $(x, f(x))$ trên mặt phẳng tọa độ, khi $x$ chạy qua tập xác định của hàm số.
+::::
+
+Khi một hàm số có đồ thị là một đường cong, ta phải dựng nó từ một số điểm chọn lọc được nối lại theo quy luật của hàm số. Cái "nối" ấy không phải tùy tiện, mà dựa trên kiến thức toán học: tính liên tục, giới hạn, đạo hàm. Chính những công cụ ấy cho phép ta biến một số ít điểm tiêu biểu thành bức tranh toàn cục của hàm số.
+
+Đồ thị đem lại cho ta một bức tranh liền mạch: những chỗ hàm bằng $0$ (giao trục hoành), những vùng hàm dương hay âm (nằm trên hay dưới trục hoành), những đỉnh, đáy hay các đoạn cong mượt mà, cũng như những chỗ đường cong bị gãy hoặc không xác định. Nếu hàm số liên tục trên một khoảng, đồ thị trên khoảng đó là một đường cong liên tục; nếu hàm số có biến thiên mạnh, đồ thị sẽ dốc đứng, nhấp nhô hay dao động.
+
+![Đồ thị hàm $y=x^2$ trên đoạn $[-2;2]$](/figures/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/do_thi_ham_y_bang_x_binh_phuong){fig-align="center" width=500px}
+
+Hãy thử so sánh: nếu vẫn giữ cách vẽ bằng những đoạn thẳng, hai hàm $y=x^2$ và $y=2x$ sẽ chồng chéo rối rắm. Nhưng khi thay bằng các điểm $(x,f(x))$ trong mặt phẳng tọa độ, dáng hình của chúng hiện ra rõ ràng: một đường cong trơn, đối xứng qua trục tung và có điểm thấp nhất tại gốc; một đường thẳng đi qua gốc và *nghiêng đều*, *tốc độ* thay đổi là không đổi. Chúng tách biệt, dễ quan sát, dễ so sánh.
+
+Vì vậy đồ thị không chỉ là minh họa - nó là bản đồ hành vi của hàm số: chỉ nhìn vào nó, ta có thể thấy nhanh nơi hàm tăng, nơi hàm giảm, những điểm dừng hay ngoặt, hoặc vùng dao động. Nhưng để biến những quan sát trực quan ấy thành lập luận chặt chẽ, ta sẽ cần đến giải tích. Ở đó, chỉ với một số điểm then chốt, cùng giới hạn và đạo hàm, ta có thể khẳng định chính xác những gì đồ thị đang hé lộ.
+
+## Bài tập
+
+::: {.tieu-de-chu-thich}
+Từ đoạn thẳng đến điểm
+:::
+
+1. Với hàm số $y=x^2$, trên đoạn $[-2;2]$, hãy chọn ra 5 giá trị $x$ nguyên.
+   a. Vẽ các đoạn thẳng vuông góc từ trục hoành có độ dài $\lvert f(x)\rvert$, hướng lên hoặc xuống tùy theo dấu của $f(x)$.
+   b. Sau đó chỉ giữ lại các đầu mút của các đoạn. So sánh hai cách biểu diễn này: điểm nào giống nhau, điểm nào khác?
+
+::: {.tieu-de-chu-thich}
+Tập xác định và vô hạn
+:::
+
+2. Giải thích tại sao ta không thể vẽ hết các đoạn thẳng ứng với tất cả giá trị của hàm số $y=\sin x$ trên đoạn $[0;2\pi]$. Thay vào đó, hãy chọn ra 8 giá trị đặc biệt của $x$ (ví dụ: bội số của $\frac{\pi}{4}$) và biểu diễn chúng trên mặt phẳng tọa độ.
+
+::: {.tieu-de-chu-thich}
+Vẽ đồ thị từ điểm chọn lọc
+:::
+
+3. Dùng bảng giá trị sau, hãy dựng đồ thị gần đúng của hàm số $y=2x$:
+
+   +:---:+:----:+:----:+:---:+:---:+:---:+
+   | $x$ | $-2$ | $-1$ | $0$ | $1$ | $2$ |
+   +-----+------+------+-----+-----+-----+
+   | $y$ | $-4$ | $-2$ | $0$ | $2$ | $4$ |
+   +-----+------+------+-----+-----+-----+
+
+   Điều gì thúc đẩy bạn nối các điểm thành một đường thẳng thay vì một đường cong ngẫu nhiên?
+
+::: {.tieu-de-chu-thich}
+Đồ thị và tính chất hàm số
+:::
+
+4. Xét hai hàm số $y=x^2$ và $y=2x$.
+   a. Hãy vẽ đồ thị cả hai hàm trên cùng một mặt phẳng tọa độ.
+   b. Dựa vào hình, nêu nhận xét về: vị trí giao điểm, sự đối xứng, tốc độ thay đổi (dốc đứng hay thoải), điểm đặc biệt (đỉnh, đáy, hay gốc).
+
+::: {.tieu-de-chu-thich}
+Quan sát để dự đoán
+:::
+
+5. Cho biết đồ thị của hàm số $y=\frac{1}{x}$.
+   a. Dựa vào hình vẽ, bạn có nhận xét gì về tập xác định của hàm số?
+   b. Khi $x$ tiến lại gần $0$, bạn thấy đồ thị có biểu hiện gì?
+   c. Theo bạn, có thể dùng đồ thị để đoán được tính chất của giới hạn hay không?
+
+::: {.tieu-de-chu-thich}
+Từ bảng giá trị đến đồ thị
+:::
+
+6. Cho hàm số $y=f(x)=x^2 - 2x$.
+   a. Lập bảng giá trị của hàm số với $x$ lần lượt là: $-1$; $0$; $0{,}5$; $1$; $1{,}5$; $2$; $3$.
+   b. Trên mặt phẳng tọa độ $Oxy$, hãy biểu diễn các điểm $(x, f(x))$ tương ứng từ bảng giá trị trên.
+   c. Dựa vào vị trí các điểm vừa vẽ, bạn hãy *phác họa dự đoán* đường cong đồ thị của hàm số. Đồ thị nên là đường cong trơn hay thực sự là các đoạn được nối lại với nhau? Vì sao? Có đối xứng không? Nếu có thì mô tả sự đối xứng đó.
+   d. So sánh bức tranh toàn cảnh từ đồ thị dự đoán với danh sách các con số trong bảng giá trị. Cách nào giúp bạn hình dung rõ hơn về sự biến thiên của hàm số?
+   e. Tìm giá trị nhỏ nhất của hàm số.
+
+::: {.tieu-de-chu-thich}
+Phân tích sâu - Từ trực quan đến chứng minh
+:::
+
+7. Xét hàm số $y=f(x)=x^3 - 3x$.
+   a. Lập bảng giá trị với $x$ từ $-2$ đến $2$, bước nhảy $0{,}5$.
+   b. Biểu diễn các điểm lên mặt phẳng tọa độ và phác họa đồ thị của nó.
+   c. Dựa vào đồ thị đã phác họa, bạn hãy dự đoán:
+      * Số điểm mà đồ thị cắt trục hoành.
+      * Các khoảng trên trục hoành mà đồ thị nằm phía trên hoặc phía dưới.
+      * Các khoảng mà hàm số đồng biến hoặc nghịch biến.
+   d. Mình có các dự đoán sau:
+      * Điểm $(-1;2)$ là điểm *cao nhất* trong một vùng lân cận của đường cong đồ thị. Và đây là điểm duy nhất có tính chất này.
+      * Điểm $(1;-2)$ là điểm *thấp nhất* trong một vùng lân cận của đường cong đồ thị. Và đây là điểm duy nhất có tính chất này.
+      * Đồ thị của hàm số này có tâm đối xứng là gốc tọa độ.
+   e. Hãy chứng minh tất cả các dự đoán của bạn và mình về sự biến thiên của hàm số $y=x^3-3x$ chặt chẽ bằng lập luận toán học.
+
+---
