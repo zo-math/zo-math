@@ -220,7 +220,8 @@ NUM_OVERRIDES: Dict[int, Dict[str, Any]] = {
     157: {"expr": "j0(x)", "xlim": (0, 18), "ylim": (-0.5, 1.1), "samples": 1800},
 }
 
-SPECIAL_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" width="320" height="180">
+SPECIAL_SVGS = {
+    "dan_nhap": """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" width="320" height="180">
   <rect width="320" height="180" fill="none"/>
   <g fill="#BFC7D2" stroke="none">
     <circle cx="84" cy="90" r="12"/>
@@ -236,7 +237,62 @@ SPECIAL_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" w
     <path d="M 213 84 L 225 90 L 213 96 Z"/>
   </g>
 </svg>
-"""
+""",
+    "ham_so": """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" width="320" height="180">
+  <rect width="320" height="180" fill="none"/>
+  <circle cx="65" cy="90" r="23" fill="#BFC7D2"/>
+  <rect x="128" y="61" width="64" height="58" rx="13" fill="#BFC7D2"/>
+  <circle cx="255" cy="90" r="23" fill="#BFC7D2"/>
+  <g stroke="#1F2937" stroke-width="3" stroke-linecap="round" fill="none">
+    <path d="M 90 90 L 124 90"/>
+    <path d="M 196 90 L 230 90"/>
+  </g>
+  <g fill="#1F2937">
+    <path d="M 117 84 L 129 90 L 117 96 Z"/>
+    <path d="M 223 84 L 235 90 L 223 96 Z"/>
+  </g>
+  <g fill="#1F2937" font-family="sans-serif" font-size="24" text-anchor="middle">
+    <text x="65" y="98">x</text>
+    <text x="160" y="99">f</text>
+    <text x="255" y="98">y</text>
+  </g>
+</svg>
+""",
+    "bien_thien": """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" width="320" height="180">
+  <rect width="320" height="180" fill="none"/>
+  <g stroke="#BFC7D2" stroke-width="5" stroke-linecap="round">
+    <path d="M 70 132 L 70 112"/>
+    <path d="M 160 132 L 160 62"/>
+    <path d="M 250 132 L 250 91"/>
+  </g>
+  <g stroke="#1F2937" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M 70 112 L 160 62 L 250 91"/>
+    <path d="M 55 132 L 265 132"/>
+  </g>
+  <g fill="#1F2937">
+    <circle cx="70" cy="112" r="7"/>
+    <circle cx="160" cy="62" r="7"/>
+    <circle cx="250" cy="91" r="7"/>
+  </g>
+</svg>
+""",
+    "do_thi": """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" width="320" height="180">
+  <rect width="320" height="180" fill="none"/>
+  <g stroke="#1F2937" stroke-width="3" stroke-linecap="round" fill="none">
+    <path d="M 45 138 L 278 138"/>
+    <path d="M 78 153 L 78 28"/>
+    <path d="M 270 132 L 282 138 L 270 144"/>
+    <path d="M 72 36 L 78 24 L 84 36"/>
+    <path d="M 102 125 C 126 99 145 64 170 57 C 198 49 218 75 252 112"/>
+  </g>
+  <g fill="#BFC7D2" stroke="#1F2937" stroke-width="2">
+    <circle cx="115" cy="109" r="6"/>
+    <circle cx="170" cy="57" r="6"/>
+    <circle cx="232" cy="91" r="6"/>
+  </g>
+</svg>
+""",
+}
 
 
 @dataclass
@@ -672,7 +728,16 @@ def render_formula_svg(item: dict) -> str:
 
 def make_svg(path: Path, item: dict, special: bool = False):
     ensure_dir(path)
-    svg = SPECIAL_SVG if special else render_formula_svg(item)
+    if special:
+        illustration = str(
+            item.get("illustration") or item.get("id") or "dan_nhap"
+        )
+        svg = SPECIAL_SVGS.get(
+            illustration,
+            SPECIAL_SVGS["dan_nhap"],
+        )
+    else:
+        svg = render_formula_svg(item)
     path.write_bytes(svg.encode("utf-8"))
 
 
