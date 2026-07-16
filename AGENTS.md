@@ -44,7 +44,7 @@ Khi nhiệm vụ liên quan đến xuất bản website, phải đọc và tuân
 
 - `quy_trinh_xay_dung/quy_trinh_xuat_ban_website.md`
 
-Dùng `scripts/zo_publish.py` cho quy trình xuất bản mới. Hiện chỉ chế độ `check` được chính thức hỗ trợ; không chạy `scripts/publish_public.sh` nếu yêu cầu hiện tại không chỉ định rõ việc khảo sát script cũ.
+Dùng `scripts/zo_publish.py` cho quy trình xuất bản mới. Các chế độ `check` và `prepare` được chính thức hỗ trợ; `prepare` chỉ được chạy khi người dùng yêu cầu rõ. Chế độ `publish` chưa được phép. Không chạy `scripts/publish_public.sh` nếu yêu cầu hiện tại không chỉ định rõ việc khảo sát script cũ.
 
 Các tài liệu khác trong `README/`, `content/`, `assets/`, `_audit/` hoặc những vị trí khác không tự động được xem là quy chuẩn hiện hành, trừ khi:
 

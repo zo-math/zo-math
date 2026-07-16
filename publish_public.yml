@@ -3,6 +3,15 @@ source_branch: master
 target_branch: gh-pages
 output_dir: docs
 
+prepare:
+  staging_dir: _audit/zo_publish_prepare
+  report_file: _audit/zo_publish_prepare_report.json
+  generated_target: true
+  special_files:
+    - .nojekyll
+  allowed_target_files:
+    - .nojekyll
+
 allowlist:
   files:
     - index.html
@@ -16,17 +25,47 @@ allowlist:
     - content/thpt/index.html
     - content/shop/index.html
     - content/support/donate.html
+    - content/support/thanks.html
   globs:
     - "site_libs/**"
     - "assets/css/*.css"
     - "assets/js/*.js"
+    - "assets/**/*.css"
+    - "assets/**/*.js"
+    - "assets/**/*.html"
+    - "assets/**/*.svg"
+    - "assets/**/*.png"
+    - "assets/**/*.jpg"
+    - "assets/**/*.jpeg"
+    - "assets/**/*.woff"
+    - "assets/**/*.woff2"
+    - "images/**"
     - "content/about.html"
     - "content/contact.html"
     - "content/shop/**/*.html"
     - "content/support/**/*.html"
     - "content/thpt/**/*.html"
+    - "content/di_tim/**/*.html"
+    - "content/di_tim/*.html"
+    - "content/khoa_hoc/**/*.html"
+    - "content/khoa_hoc/*.html"
+    - "content/kien_tao/**/*.html"
+    - "content/kien_tao/*.html"
+    - "content/cong_cu/**/*.html"
+    - "content/cong_cu/*.html"
+    - "content/vi_sao/**/*.html"
+    - "content/vi_sao/*.html"
+    - "content/**/*.svg"
+    - "content/**/*.png"
+    - "content/**/*.jpg"
+    - "content/**/*.jpeg"
+    - "content/**/*.pdf"
     - "content/thpt/**/assets/img/**/*.svg"
     - "figures/thpt/**/*.svg"
+    - "figures/**/*.svg"
+    - "figures/**/*.png"
+    - "figures/**/*.jpg"
+    - "figures/**/*.jpeg"
 
 denylist:
   paths:
