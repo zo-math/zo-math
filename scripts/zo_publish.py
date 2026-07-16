@@ -1,4 +1,4 @@
-"""Read-only safety checks for publishing the ZO Math website."""
+"""Safely check and prepare the public ZO Math website tree."""
 
 from __future__ import annotations
 
@@ -8,13 +8,16 @@ import hashlib
 import json
 import mimetypes
 import os
+import posixpath
 import re
 import shutil
 import subprocess
 import sys
 from collections import Counter
 from datetime import datetime, timezone
+from html.parser import HTMLParser
 from pathlib import Path, PurePosixPath
+from urllib.parse import unquote, urlsplit
 from typing import Any, Mapping, Sequence
 
 try:
@@ -27,6 +30,7 @@ EXIT_OK = 0
 EXIT_UNSAFE = 1
 EXIT_USAGE = 2
 EXIT_MISSING = 3
+EXIT_RESTORE = 4
 SUPPORTED_VERSION = 1
 TEXT_SUFFIXES = {".css", ".html", ".js", ".json", ".txt", ".xml"}
 SOURCE_SUFFIXES = {
@@ -53,6 +57,10 @@ class ConfigError(ValueError):
 
 class MissingToolError(RuntimeError):
     """Required tool, dependency, or worktree is missing."""
+
+
+class RestoreError(RuntimeError):
+    """The publication worktree could not be restored safely."""
 
 
 def run(command: Sequence[str], cwd: Path) -> subprocess.CompletedProcess[str]:
@@ -115,6 +123,8 @@ def load_config(root: Path, raw_path: str) -> tuple[Path, dict[str, Any]]:
         raise ConfigError("Tệp cấu hình phải nằm trong repository.") from exc
     if not path.is_file():
         raise ConfigError(f"Không tìm thấy cấu hình: {raw_path}")
+    if path.is_symlink():
+        raise ConfigError("Tệp cấu hình không được là symlink.")
     try:
         data = yaml.safe_load(path.read_text(encoding="utf-8"))
     except (OSError, UnicodeError, yaml.YAMLError) as exc:
@@ -149,6 +159,19 @@ def load_config(root: Path, raw_path: str) -> tuple[Path, dict[str, Any]]:
         normalized[path_name] = size
     data["size_exceptions"] = normalized
     data["required_files"] = string_list(data.get("required_files", []), "required_files")
+    prepare = data.get("prepare")
+    if not isinstance(prepare, dict):
+        raise ConfigError("Thiếu cấu hình prepare.")
+    prepare["staging_dir"] = safe_relative(prepare.get("staging_dir"), "prepare.staging_dir")
+    prepare["report_file"] = safe_relative(prepare.get("report_file"), "prepare.report_file")
+    if not prepare["staging_dir"].startswith("_audit/") or not prepare["report_file"].startswith("_audit/"):
+        raise ConfigError("Staging và báo cáo prepare phải nằm trong _audit/.")
+    if prepare.get("generated_target") is not True:
+        raise ConfigError("prepare.generated_target phải xác nhận bằng true.")
+    prepare["special_files"] = string_list(prepare.get("special_files", []), "prepare.special_files")
+    prepare["allowed_target_files"] = string_list(
+        prepare.get("allowed_target_files", []), "prepare.allowed_target_files"
+    )
     denied = data["denylist"]["paths"]
     denied_globs = data["denylist"]["globs"]
     for required in data["required_files"]:
@@ -206,12 +229,17 @@ def find_publish_worktree(root: Path, branch: str) -> Path:
 def merge_in_progress(root: Path, safe: Path | None = None) -> bool:
     git_dir_raw = git_text(root, "rev-parse", "--git-dir", safe=safe)
     git_dir = (root / git_dir_raw).resolve() if not Path(git_dir_raw).is_absolute() else Path(git_dir_raw).resolve()
-    return any((git_dir / name).exists() for name in ("MERGE_HEAD", "rebase-merge", "rebase-apply"))
+    return any((git_dir / name).exists() for name in (
+        "MERGE_HEAD", "rebase-merge", "rebase-apply", "CHERRY_PICK_HEAD"
+    ))
 
 
 def git_state(root: Path, branch: str, remote_ref: str | None, safe: Path | None = None) -> dict[str, Any]:
     current = git_text(root, "branch", "--show-current", safe=safe)
-    status = git_text(root, "status", "--porcelain=v1", "--untracked-files=all", safe=safe)
+    status_result = git(root, "status", "--porcelain=v1", "--untracked-files=all", safe=safe)
+    if status_result.returncode != 0:
+        raise RuntimeError(status_result.stderr.strip() or "Không đọc được Git status.")
+    status = status_result.stdout.rstrip("\r\n")
     staged = git_text(root, "diff", "--cached", "--name-only", safe=safe)
     commit = git_text(root, "rev-parse", "HEAD", safe=safe)
     issues: list[str] = []
@@ -328,6 +356,143 @@ def build_manifest(output: Path, config: Mapping[str, Any]) -> dict[str, Any]:
             "excluded": dict(excluded), "missing_required": missing, "issues": issues}
 
 
+def tree_manifest(root: Path, skip_git: bool = False) -> dict[str, Any]:
+    files: dict[str, dict[str, Any]] = {}
+    for current, dirs, names in os.walk(root, followlinks=False):
+        base = Path(current)
+        if skip_git and base == root and ".git" in dirs:
+            dirs.remove(".git")
+        for name in names:
+            if skip_git and base == root and name == ".git":
+                continue
+            path = base / name
+            relative = path.relative_to(root).as_posix()
+            files[relative] = {"size": path.stat().st_size, "sha256": sha256(path)}
+    return {"files": files, "count": len(files), "bytes": sum(v["size"] for v in files.values())}
+
+
+def safe_remove_tree(path: Path, audit: Path) -> None:
+    resolved = path.resolve()
+    try:
+        resolved.relative_to(audit.resolve())
+    except ValueError as exc:
+        raise ConfigError(f"Từ chối xóa ngoài _audit/: {path}") from exc
+    if resolved.is_symlink():
+        raise ConfigError(f"Từ chối staging symlink: {path}")
+    if resolved.exists():
+        shutil.rmtree(resolved)
+
+
+def copy_manifest(source: Path, target: Path, manifest: Mapping[str, Any]) -> None:
+    for relative in manifest["files"]:
+        src = source / relative
+        dst = target / relative
+        if src.is_symlink():
+            raise ConfigError(f"Từ chối symlink: {relative}")
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, dst)
+
+
+class LinkCollector(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.links: list[tuple[str, str]] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        for key, value in attrs:
+            if value and key in {"src", "href"}:
+                self.links.append((key, value))
+            elif value and key == "srcset":
+                self.links.extend((key, item.strip().split()[0]) for item in value.split(",") if item.strip())
+
+
+def validate_public(public: Path, manifest: Mapping[str, Any], config: Mapping[str, Any]) -> dict[str, Any]:
+    issues: list[dict[str, Any]] = []
+    files = set(manifest["files"])
+    private_fragments = tuple(config["denylist"]["paths"][:3])
+    html_count = link_count = 0
+    for relative in sorted(name for name in files if name.lower().endswith(".html")):
+        html_count += 1
+        text = (public / relative).read_text(encoding="utf-8", errors="replace")
+        parser = LinkCollector()
+        try:
+            parser.feed(text)
+            parser.close()
+        except Exception as exc:
+            issues.append({"type": "html-parse", "path": relative, "message": str(exc)})
+            continue
+        for kind, raw in parser.links:
+            link_count += 1
+            parsed = urlsplit(raw.strip())
+            if parsed.scheme.lower() in {"http", "https", "mailto", "tel", "data", "javascript"} or raw.startswith("//"):
+                continue
+            decoded = unquote(parsed.path).replace("\\", "/")
+            if not decoded:
+                continue
+            if re.match(r"^[A-Za-z]:", decoded):
+                issues.append({"type": "unsafe-link", "path": relative, "value": raw})
+                continue
+            candidate = decoded.lstrip("/") if decoded.startswith("/") else posixpath.normpath(
+                str(PurePosixPath(relative).parent / decoded)
+            )
+            if candidate == ".." or candidate.startswith("../"):
+                issues.append({"type": "unsafe-link", "path": relative, "value": raw})
+                continue
+            if candidate not in files and not candidate.endswith("/"):
+                issues.append({"type": "missing-resource", "path": relative, "value": raw})
+            if any(fragment in candidate for fragment in private_fragments):
+                issues.append({"type": "private-link", "path": relative, "value": raw})
+    return {"html_files": html_count, "local_links": link_count, "issues": issues}
+
+
+def render_to_staging(root: Path, render_dir: Path) -> dict[str, Any]:
+    command = [sys.executable, str(root / "scripts/zo_quarto.py"), "render", "--output-dir", str(render_dir)]
+    result = run(command, root)
+    matches = re.findall(r"\[\s*\d+/(\d+)\]", result.stdout + result.stderr)
+    return {"command": command, "exit_code": result.returncode,
+            "source_count": int(matches[-1]) if matches else None,
+            "stdout": result.stdout, "stderr": result.stderr}
+
+
+def exact_diff(target_manifest: Mapping[str, Any], desired: Mapping[str, Any]) -> dict[str, Any]:
+    old, new = target_manifest["files"], desired["files"]
+    added = sorted(set(new) - set(old))
+    updated = sorted(name for name in set(new) & set(old) if new[name]["sha256"] != old[name]["sha256"])
+    deleted = sorted(set(old) - set(new))
+    return {
+        "add": added,
+        "update": updated,
+        "delete": deleted,
+        "unchanged": sorted(name for name in set(new) & set(old) if new[name]["sha256"] == old[name]["sha256"]),
+        "change_bytes": (sum(new[name]["size"] for name in [*added, *updated])
+                         + sum(old[name]["size"] for name in deleted)),
+    }
+
+
+def sync_exact(source: Path, target: Path, desired: Mapping[str, Any], diff: Mapping[str, Any]) -> None:
+    for relative in [*diff["delete"], *diff["update"]]:
+        path = target / relative
+        if path.exists() and not path.is_dir():
+            path.unlink()
+    copy_manifest(source, target, {"files": {name: desired["files"][name] for name in [*diff["add"], *diff["update"]]}})
+    for current, dirs, files in os.walk(target, topdown=False):
+        base = Path(current)
+        if base == target:
+            continue
+        if base.name == ".git" or ".git" in base.relative_to(target).parts:
+            continue
+        if not any(base.iterdir()):
+            base.rmdir()
+
+
+def restore_from_backup(target: Path, backup: Path, backup_manifest: Mapping[str, Any]) -> None:
+    current = tree_manifest(target, True)
+    diff = exact_diff(current, backup_manifest)
+    sync_exact(backup, target, backup_manifest, diff)
+    if tree_manifest(target, True) != backup_manifest:
+        raise RestoreError("Không thể hoàn nguyên worktree đúng manifest backup.")
+
+
 def publish_diff(worktree: Path, manifest: Mapping[str, Any], config: Mapping[str, Any]) -> dict[str, Any]:
     allow = config["allowlist"]
     desired = manifest["files"]
@@ -368,12 +533,13 @@ def print_summary(payload: Mapping[str, Any], code: int) -> None:
     manifest = payload.get("manifest", {})
     diff = payload.get("diff", {})
     issues = payload.get("issues", [])
-    print("MODE: check | READ-ONLY")
+    print(f"MODE: {payload.get('mode', 'check')}" + (" | READ-ONLY" if payload.get('mode', 'check') == "check" else ""))
     print(f"SOURCE: {payload.get('source', {}).get('branch')} {payload.get('source', {}).get('commit')}")
     print(f"TARGET: {payload.get('target', {}).get('branch')} {payload.get('target', {}).get('commit')}")
     print(f"MANIFEST: {manifest.get('count', 0)} files | {manifest.get('bytes', 0)} bytes")
     print(f"EXCLUDED: {manifest.get('excluded', {})}")
-    print(f"DIFF: add={len(diff.get('add', []))} update={len(diff.get('update', []))} delete-managed={len(diff.get('delete_managed', []))} unmanaged={len(diff.get('unmanaged_existing', []))}")
+    deleted = diff.get("delete", diff.get("delete_managed", []))
+    print(f"DIFF: add={len(diff.get('add', []))} update={len(diff.get('update', []))} delete={len(deleted)} unchanged={len(diff.get('unchanged', []))} unmanaged={len(diff.get('unmanaged_existing', []))}")
     print(f"ISSUES: {len(issues)}")
     for item in issues[:20]:
         print(f"  - {item.get('type')}: {item.get('path', item.get('message', ''))}")
@@ -384,7 +550,7 @@ def print_summary(payload: Mapping[str, Any], code: int) -> None:
 
 def parser() -> argparse.ArgumentParser:
     value = argparse.ArgumentParser(description=__doc__)
-    value.add_argument("command", nargs="?", help="Chỉ hỗ trợ: check")
+    value.add_argument("command", nargs="?", help="Hỗ trợ: check, prepare")
     value.add_argument("--config", default="publish_public.yml")
     value.add_argument("--report")
     return value
@@ -392,8 +558,8 @@ def parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = parser().parse_args(argv)
-    if args.command != "check":
-        print("ERROR: hiện chỉ hỗ trợ lệnh 'check'; prepare/publish chưa được triển khai.", file=sys.stderr)
+    if args.command not in {"check", "prepare"}:
+        print("ERROR: chỉ hỗ trợ lệnh 'check' và 'prepare'; publish chưa được triển khai.", file=sys.stderr)
         return EXIT_USAGE
     if yaml is None:
         print("ERROR: thiếu dependency PyYAML.", file=sys.stderr)
@@ -404,7 +570,11 @@ def main(argv: Sequence[str] | None = None) -> int:
             raise MissingToolError("Không tìm thấy Quarto trong PATH.")
         config_path, config = load_config(root, args.config)
         target = find_publish_worktree(root, config["target_branch"])
-        source_state = git_state(root, config["source_branch"], None)
+        if args.command == "prepare":
+            fetch = git(root, "fetch", "--prune", "origin")
+            if fetch.returncode != 0:
+                raise RuntimeError(fetch.stderr.strip() or "git fetch thất bại.")
+        source_state = git_state(root, config["source_branch"], f"origin/{config['source_branch']}")
         target_state = git_state(target, config["target_branch"], f"origin/{config['target_branch']}", target)
         issues: list[dict[str, Any]] = []
         issues.extend({"type": "source-git", "message": item} for item in source_state["issues"])
@@ -414,6 +584,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         issues.extend(manifest["issues"])
         diff = publish_diff(target, manifest, config)
         payload: dict[str, Any] = {
+            "mode": args.command,
+            "config_version": config["version"],
             "timestamp_utc": datetime.now(timezone.utc).isoformat(),
             "repo_root": str(root), "publish_worktree": str(target),
             "config": str(config_path.relative_to(root).as_posix()),
@@ -422,9 +594,80 @@ def main(argv: Sequence[str] | None = None) -> int:
             "diff": diff, "issues": issues,
         }
         code = EXIT_UNSAFE if issues else EXIT_OK
+        if args.command == "prepare":
+            # Preflight must pass before rendering or touching the target worktree.
+            allowed_changes = {
+                "AGENTS.md", "publish_public.yml", "scripts/zo_publish.py",
+                "quy_trinh_xay_dung/quy_trinh_xuat_ban_website.md",
+            }
+            source_status = {line[3:] for line in source_state["status"] if len(line) > 3}
+            source_git_messages = [item for item in source_state["issues"] if item != "Working tree không sạch."]
+            if source_status - allowed_changes:
+                source_git_messages.append("Working tree có thay đổi ngoài phạm vi triển khai prepare.")
+            preflight = [item for item in issues if item["type"] in {"target-git", "target-symlink"}]
+            preflight.extend({"type": "source-git", "message": item} for item in source_git_messages)
+            if preflight:
+                code = EXIT_UNSAFE
+            else:
+                issues = []
+                payload["issues"] = issues
+                prepare = config["prepare"]
+                audit = root / "_audit"
+                stage = root / prepare["staging_dir"]
+                render_dir, public_dir, backup_dir = stage / "render", stage / "public", stage / "backup"
+                safe_remove_tree(stage, audit)
+                stage.mkdir(parents=True)
+                target_before = tree_manifest(target, True)
+                copy_manifest(target, backup_dir, target_before)
+                if tree_manifest(backup_dir) != target_before:
+                    raise RestoreError("Backup worktree không khớp manifest ban đầu.")
+                render = render_to_staging(root, render_dir)
+                payload["render"] = render
+                if render["exit_code"] != 0:
+                    safe_remove_tree(stage, audit)
+                    issues.append({"type": "render", "message": "Quarto render thất bại."})
+                    code = EXIT_UNSAFE
+                else:
+                    render_manifest = tree_manifest(render_dir)
+                    for special in prepare["special_files"]:
+                        path = render_dir / special
+                        path.parent.mkdir(parents=True, exist_ok=True)
+                        path.touch()
+                    selected_manifest = build_manifest(render_dir, config)
+                    public_dir.mkdir(parents=True, exist_ok=True)
+                    copy_manifest(render_dir, public_dir, selected_manifest)
+                    public_manifest = tree_manifest(public_dir)
+                    validation = validate_public(public_dir, public_manifest, config)
+                    blocking_manifest_issues = [item for item in selected_manifest.get("issues", [])
+                                                if item.get("type") != "forbidden-output"]
+                    issues.extend(blocking_manifest_issues)
+                    issues.extend(validation["issues"])
+                    missing = [name for name in config["required_files"] if name not in public_manifest["files"]]
+                    issues.extend({"type": "missing-required", "path": name} for name in missing)
+                    target_diff = exact_diff(target_before, public_manifest)
+                    payload.update({"render_manifest": render_manifest,
+                                    "manifest": {**public_manifest, "excluded": selected_manifest["excluded"]},
+                                    "validation": validation, "diff": target_diff,
+                                    "target_before_manifest": target_before})
+                    if issues:
+                        code = EXIT_UNSAFE
+                    else:
+                        try:
+                            sync_exact(public_dir, target, public_manifest, target_diff)
+                            after = tree_manifest(target, True)
+                            if after != public_manifest:
+                                raise RestoreError("Cây đích sau đồng bộ không khớp cây công khai.")
+                            if git_text(target, "diff", "--cached", "--name-only", safe=target):
+                                raise RestoreError("Prepare đã tác động Git index.")
+                            payload["target_after_manifest"] = after
+                            code = EXIT_OK
+                        except Exception:
+                            restore_from_backup(target, backup_dir, target_before)
+                            raise
         payload["exit_code"] = code
-        if args.report:
-            report = report_target(root, args.report)
+        report_raw = args.report or (config["prepare"]["report_file"] if args.command == "prepare" else None)
+        if report_raw:
+            report = report_target(root, report_raw)
             report.parent.mkdir(parents=True, exist_ok=True)
             report.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print_summary(payload, code)
@@ -435,6 +678,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     except (MissingToolError, FileNotFoundError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return EXIT_MISSING
+    except RestoreError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return EXIT_RESTORE
     except RuntimeError as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return EXIT_UNSAFE
