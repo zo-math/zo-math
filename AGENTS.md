@@ -24,6 +24,14 @@ python scripts/zo_python.py ...
 
 Trình khởi chạy bảo đảm tiến trình Python con dùng chế độ UTF-8 mà không yêu cầu thay đổi biến môi trường global.
 
+Mọi lệnh Quarto do Codex chạy trong repository này phải đi qua trình khởi chạy Quarto repository-local, và trình này phải được gọi qua `scripts/zo_python.py`:
+
+```text
+python scripts/zo_python.py scripts/zo_quarto.py <quarto-command> [tham số...]
+```
+
+Không ghi đường dẫn tuyệt đối tới executable Python vào metadata QMD. Cơ chế trên bảo đảm Jupyter và reticulate dùng nhất quán môi trường Python hiện hành theo cách portable.
+
 Codex dùng `scripts/zo_check_repo.py` làm điểm vào mặc định cho kiểm tra kỹ thuật và luôn gọi qua `scripts/zo_python.py`. Chọn chế độ `quick`, `scope` hoặc `render` theo phạm vi nhiệm vụ. Công cụ này không thay thế kiểm tra trực quan, xuất bản hoặc kiểm tra chuyên biệt chưa được tích hợp.
 
 Khi nhiệm vụ liên quan đến lưới thẻ, phải đọc và tuân thủ thêm:

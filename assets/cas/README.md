@@ -5,8 +5,8 @@
 
 ### Cài đặt SymPy
 
-"C:/Users/DELL/AppData/Local/Programs/Python/Python312/python.exe" -m pip install sympy
+python -m pip install sympy
 
 ### Chạy script CAS
 
-"C:/Users/DELL/AppData/Local/Programs/Python/Python312/python.exe" cas/ten_file.py
+python scripts/zo_python.py assets/cas/ten_file.py
