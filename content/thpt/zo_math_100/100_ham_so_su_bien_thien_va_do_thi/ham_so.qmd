@@ -1,0 +1,151 @@
+---
+title: "Hàm số"
+subtitle: "Từ quy tắc tương ứng đến ngôn ngữ mô tả sự thay đổi"
+
+summary: "Tìm hiểu hàm số như một quy tắc gắn mỗi giá trị đầu vào với đúng một giá trị đầu ra, từ đó chuẩn bị cho việc khảo sát sự biến thiên và đồ thị."
+
+description: "Bài viết trình bày khái niệm hàm số, tập xác định, tập giá trị, tính duy nhất và ý nghĩa của hàm số như một công cụ mô tả sự phụ thuộc và sự thay đổi giữa các đại lượng."
+
+abstract: |
+  Hàm số không chỉ là một công thức đại số. Về bản chất, đó là một quy tắc xác định duy nhất giá trị đầu ra từ mỗi giá trị đầu vào. Từ cách nhìn này, ta có thể hiểu rõ hơn tập xác định, tập giá trị, tính duy nhất và vai trò của hàm số trong việc mô tả sự thay đổi.
+
+  Bài viết đặt nền tảng cho hai bước tiếp theo của dự án: quan sát sự biến thiên và biểu diễn quy luật ấy bằng đồ thị.
+
+keywords:
+  - hàm số
+  - tập xác định
+  - tập giá trị
+  - tính duy nhất
+  - sự biến thiên
+  - đồ thị hàm số
+
+author: "ZO Math"
+date: last-modified
+date-format: "DD-MM-YYYY"
+
+page-layout: article
+toc: true
+toc-title: "Nội dung"
+toc-location: right
+toc-depth: 3
+body-classes: "zo-page-article zo-meta-hidden"
+---
+
+Viết $y=x^2$, và hiểu theo nghĩa: hễ $x$ được chọn thì $y$ cũng lập tức được xác định. Nói cách khác, $x$ là đại lượng được tự do lựa chọn, gọi là *biến độc lập*; còn $y$ thì luôn phải tuân theo $x$, gọi là *biến phụ thuộc*. Tập hợp những giá trị mà $x$ có thể nhận gọi là *tập xác định*, và những giá trị mà $y$ có thể đạt tới gọi là *tập giá trị*. Với ví dụ này, $x$ có thể là bất kỳ số thực nào, nhưng $y$ thì chỉ nhận các giá trị không âm.
+
+<details class="zo-block zo-block-gray">
+<summary class="zo-block-title">Biến số và biến</summary>
+<div class="zo-block-body">
+
+Kí hiệu $x$ được gọi là một *biến số* khi nó đại diện cho một giá trị có thể thay đổi trong một *tập số* nhất định. Nếu tập đang xét không phải là tập số thì chỉ gọi là *biến*. Trong cách dùng thường ngày, “biến” đôi khi cũng được dùng thay thế cho “biến số” khi ngữ cảnh đã rõ.
+
+</div>
+</details>
+
+
+## Khái niệm hàm số
+
+Hệ thức $y=x^2$ là một *hàm số*. Ta cũng nói: $y$ là hàm của $x$. Chính thức hơn, ở mức phổ thông, một hàm số được hiểu theo định nghĩa dưới đây.
+
+:::: {.zo-block .zo-block-red}
+::: {.zo-block-title}
+Hàm số
+:::
+::: {.zo-block-body}
+Cho $D$ là một tập con của tập số thực $\mathbb{R}$, tức là $D\subset \mathbb{R}$. Một *hàm số* trên tập $D$ là một quy tắc $f$ gắn cho mỗi $x\in D$ đúng một số thực *duy nhất* $y$, thường viết
+
+$$
+y=f(x).
+$$
+
+Tập $D$ được gọi là *tập xác định* của hàm số. Tập tất cả các giá trị $f(x)$ khi $x$ chạy trong $D$ được gọi là *tập giá trị* của hàm số.
+:::
+::::
+
+### Cách nhìn bằng ánh xạ
+
+<details class="zo-block zo-block-gray">
+<summary class="zo-block-title">Cách hiểu trong Toán học bậc cao</summary>
+<div class="zo-block-body">
+
+Trong Toán học bậc cao, một hàm số được hiểu như một *ánh xạ* $f$ từ $D$ vào $\mathbb{R}$, được kí hiệu như sau:
+
+$$
+\begin{alignedat}{2}
+ f\colon & D &\;\longrightarrow\;& \mathbb{R} \\
+         & x &\;\longmapsto\;    & y=f(x).
+\end{alignedat}
+$$
+
+</div>
+</details>
+
+
+## Tính duy nhất
+
+Điểm mấu chốt ở đây là tính *duy nhất*: với mỗi $x$, chỉ có đúng một $y$ đi kèm. Chẳng hạn, khi $x=2$ thì $y=4$, khi $x=-2$ thì $y$ cũng bằng $4$. Dù hai giá trị khác nhau của $x$ có thể cùng dẫn đến một $y$, điều quan trọng là không bao giờ tồn tại một $x$ cụ thể mà lại đi kèm hai giá trị $y$ khác nhau.
+
+## Hàm số không nhất thiết có công thức
+
+Thoạt nhìn, dễ lầm tưởng rằng hàm số luôn phải có một công thức đại số. Nhưng thực ra không phải vậy. Chẳng hạn, với tập xác định $\{1,2,3,5\}$, việc quy định $f(1)=2$, $f(2)=2$, $f(3)=-1$ và $f(5)=3$ cũng xác định nên một hàm số. Một ví dụ sâu sắc hơn là hàm số $\pi(n)$, đếm số lượng số nguyên tố nhỏ hơn số nguyên dương $n$. Khi $n=6$, ta có $\pi(6)=3$ vì ba số nguyên tố $2, 3, 5$ đều nhỏ hơn $6$. Ở đây, giá trị của $\pi(n)$ luôn được xác định duy nhất với mỗi $n$, mặc dù cho đến nay chưa hề có một công thức đại số nào để viết trực tiếp $\pi(n)$.
+
+## Từ công thức đến sự biến thiên
+
+Ngay cả khi có công thức, không phải hàm số nào cũng “hiền lành”. Hàm $y=x^2$ thì trơn tru, có điểm thấp nhất ở $x=0$ và sau đó tăng dần về hai phía. Nhưng hàm $y=\frac{1}{x}$ lại cư xử rất khác khi $x$ tiến gần đến $0$: đi từ phía âm, giá trị $y$ lao xuống âm vô cực; đi từ phía dương, giá trị $y$ vọt lên dương vô cực. Dù $0$ không thuộc tập xác định, chính sự “trái tính” này khiến hàm số trở nên đặc biệt. Có những hàm số còn rắc rối theo kiểu khác, chẳng hạn $y=\sqrt{x}$ không chấp nhận $x$ âm, hoặc $y=\sin\left(\frac{1}{x}\right)$ dao động dữ dội khi $x$ tiến gần $0$.
+
+Từ những ví dụ trên, ta thấy hàm số có thể hiền lành như $y=x^2$, tinh vi như $\pi(n)$, hoặc khó lường như $\sin\left(\frac{1}{x}\right)$. Hàm số là một trong những khái niệm nền tảng và có nội hàm phong phú bậc nhất của toán học: nó là ngôn ngữ phổ quát và hiệu quả để mô tả sự thay đổi, từ giản dị đến phức tạp.
+
+Chính vì thế, khi học hàm số không nên dừng lại ở việc nhận biết công thức. Điều cốt yếu là phải nắm bắt được dáng điệu của biến phụ thuộc mà công thức ẩn chứa trong nó: khi $x$ thay đổi, $y$ biểu hiện thế nào — tăng ở đâu, giảm ở chỗ nào, nhanh hay chậm, dừng lại tại đâu, hay dao động ra sao? Vì vậy, hiểu một hàm số tức là hiểu quy luật biến thiên của nó.
+
+## Bài tập
+
+<details class="zo-block zo-block-yellow">
+<summary class="zo-block-title">Thí nghiệm trên mặt phẳng nghiêng</summary>
+
+<div class="zo-block-body">
+Galileo Galilei (1564–1642) là một trong những nhà khoa học tiên phong. Ông muốn tìm hiểu quy luật chuyển động, trong khi nhiều người cùng thời vẫn tin rằng vật nặng rơi nhanh hơn vật nhẹ.
+
+Trực tiếp nghiên cứu rơi tự do thì quá khó, vì vật rơi nhanh khiến việc đo đạc gần như bất khả thi với công cụ thời bấy giờ. Galileo đã nghĩ ra cách thay thế thông minh: cho một quả bóng lăn trên mặt phẳng nghiêng. Nhờ đó:
+
+* Làm chậm chuyển động: Góc nghiêng giảm gia tốc của quả bóng, giúp Galileo dễ dàng đo thời gian và quãng đường chính xác hơn bằng các công cụ thô sơ (như đồng hồ nước hoặc nhịp tim).
+
+* Tái hiện rơi tự do: Chuyển động trên mặt phẳng nghiêng cũng chịu ảnh hưởng của trọng lực tương tự rơi tự do nhưng với gia tốc nhỏ hơn.
+
+* Khám phá quy luật toán học: Qua thí nghiệm, Galileo phát hiện quãng đường $y$ tỉ lệ với bình phương thời gian $x$ (tức $y=kx^2$), một phát hiện mang tính cách mạng, đặt nền móng cho cơ học hiện đại.
+
+Sự sắc sảo của Galileo không chỉ nằm ở việc thiết kế thí nghiệm mà còn ở cách ông dùng dữ liệu để rút ra quy luật. Ông không chỉ đo lường mà còn tìm cách biểu diễn mối quan hệ giữa thời gian và quãng đường bằng một quy tắc toán học — chính là khái niệm *hàm số* mà chúng ta đang tìm hiểu.
+</div>
+
+</details>
+
+1. Galileo Galilei (1564–1642) muốn khám phá quy luật rơi tự do. Nếu thả một vật từ trên cao, nó di chuyển quá nhanh, khiến việc đo chính xác thời gian và quãng đường rất khó. Galileo đã nghĩ ra cách: để một quả bóng lăn xuống một mặt phẳng nghiêng với góc nhỏ. Điều này làm chậm chuyển động, giúp ông đo lường dễ dàng hơn, đồng thời vẫn cho phép khám phá quy luật tương tự như rơi tự do: *quãng đường tỉ lệ với bình phương thời gian*.
+
+   Dựa trên thí nghiệm của Galileo, ta xét dữ liệu giả định sau:
+
+   | Thời gian $x$ (giây) | Quãng đường $y$ (mét) |
+   | :--------------: | :---------------: |
+   | $1$ | $0{,}5$ |
+   | $2$ | $2{,}0$ |
+   | $3$ | $4{,}5$ |
+   | $4$ | $8{,}0$ |
+
+   a. Hãy tính tỉ số $\frac{y}{x^2}$ cho mỗi hàng số liệu. Các tỉ số này có gì giống nhau? Dựa vào kết quả, bạn đoán quy tắc $f$ nào liên kết thời gian $x$ với quãng đường $y$? Dùng quy tắc vừa tìm được, hãy tính quãng đường khi $x=5$ (giây).
+
+   b. Trong thí nghiệm, mỗi thời điểm $x$ chỉ tương ứng với một quãng đường $y$. Nếu tại $x=2$, ta đo được hai quãng đường khác nhau (như $2$ mét và $3$ mét), điều đó có hợp lý không? Tại sao?
+
+   c. Trong thí nghiệm, thời gian $x$ có thể nhận giá trị nào? Có thể là số âm không? Tại sao? Quãng đường $y$ có thể âm không? Giá trị nhỏ nhất của $y$ là bao nhiêu?
+
+   d. Khi thời gian $x$ tăng từ $1$ giây đến $4$ giây, quãng đường $y$ thay đổi thế nào? Ví dụ: từ $1$ giây đến $2$ giây, $y$ tăng bao nhiêu? Từ $2$ giây đến $3$ giây thì sao? Bạn có nhận thấy $y$ tăng nhanh hơn khi $x$ lớn hơn không?
+
+   e. Vì sao Galileo không trực tiếp nghiên cứu rơi tự do mà lại chọn chuyển động trên mặt phẳng nghiêng? Tại sao chuyển động trên mặt phẳng nghiêng có thể xem là một thay thế hợp lý cho rơi tự do? Theo bạn, cách làm này đã giúp ông khám phá quy tắc $y=kx^2$ như thế nào? (Gợi ý: Hãy nghĩ đến tốc độ chuyển động và khả năng đo lường chính xác của thời gian và quãng đường).
+
+2. Trong các quy tắc sau, quy tắc nào xác định một hàm số? Giải thích.
+   a. $y=\pm \sqrt{x}$.
+   b. $y=\sqrt{x}$.
+   c. Với mỗi số nguyên $n$, gán cho $n$ số chữ số của nó trong hệ thập phân.
+   d. Với mỗi số thực $x$, gán cho $x$ số lượng nghiệm của phương trình $t^2=x$.
+
+3. Cho hàm số $f(x)$ thỏa mãn $f(x+1)=x^2+2x+1$ với mọi $x\in\mathbb{R}$.
+   a. Tính $f(2)$ và $f(3)$.
+   b. Tìm công thức $f(x)$.
+   c. Dùng công thức vừa tìm được để tính lại $f(2)$ và $f(3)$.
