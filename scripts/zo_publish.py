@@ -32,6 +32,7 @@ EXIT_USAGE = 2
 EXIT_MISSING = 3
 EXIT_RESTORE = 4
 SUPPORTED_VERSION = 1
+REPORT_SCHEMA_VERSION = 1
 TEXT_SUFFIXES = {".css", ".html", ".js", ".json", ".txt", ".xml"}
 SOURCE_SUFFIXES = {
     ".aux", ".db", ".fdb_latexmk", ".fls", ".key", ".log", ".md",
@@ -172,6 +173,13 @@ def load_config(root: Path, raw_path: str) -> tuple[Path, dict[str, Any]]:
     prepare["allowed_target_files"] = string_list(
         prepare.get("allowed_target_files", []), "prepare.allowed_target_files"
     )
+    publish = data.get("publish")
+    if not isinstance(publish, dict):
+        raise ConfigError("Thiếu cấu hình publish.")
+    if publish.get("report_schema_version") != REPORT_SCHEMA_VERSION:
+        raise ConfigError(f"publish.report_schema_version phải bằng {REPORT_SCHEMA_VERSION}.")
+    if publish.get("require_remote_source") is not True or publish.get("cleanup_after_success") is not True:
+        raise ConfigError("Publish phải yêu cầu nguồn remote và dọn dữ liệu sau thành công.")
     denied = data["denylist"]["paths"]
     denied_globs = data["denylist"]["globs"]
     for required in data["required_files"]:
@@ -268,7 +276,9 @@ def git_state(root: Path, branch: str, remote_ref: str | None, safe: Path | None
             behind, ahead = (int(value) for value in result.stdout.split())
             if behind:
                 issues.append(f"Nhánh local behind {compare}: {behind} commit.")
+    remote_commit = git_text(root, "rev-parse", compare, safe=safe) if compare else None
     return {"path": str(root), "branch": current, "commit": commit, "remote_ref": compare,
+            "remote_commit": remote_commit,
             "ahead": ahead, "behind": behind, "status": status.splitlines(), "issues": issues}
 
 
@@ -308,7 +318,7 @@ def sensitive_text(path: Path) -> list[dict[str, Any]]:
     return hits
 
 
-def build_manifest(output: Path, config: Mapping[str, Any]) -> dict[str, Any]:
+def build_manifest(output: Path, config: Mapping[str, Any], skip_git: bool = False) -> dict[str, Any]:
     if not output.is_dir():
         raise MissingToolError(f"Không tìm thấy thư mục đầu ra: {output}")
     symlinks = scan_symlinks(output)
@@ -319,8 +329,12 @@ def build_manifest(output: Path, config: Mapping[str, Any]) -> dict[str, Any]:
     issues: list[dict[str, Any]] = [{"type": "symlink", "path": item} for item in symlinks]
     for current, dirs, files in os.walk(output, followlinks=False):
         base = Path(current)
+        if skip_git and base == output and ".git" in dirs:
+            dirs.remove(".git")
         dirs[:] = [name for name in dirs if not (base / name).is_symlink()]
         for name in files:
+            if skip_git and base == output and name == ".git":
+                continue
             path = base / name
             relative = path.relative_to(output).as_posix()
             parts = PurePosixPath(relative).parts
@@ -369,6 +383,11 @@ def tree_manifest(root: Path, skip_git: bool = False) -> dict[str, Any]:
             relative = path.relative_to(root).as_posix()
             files[relative] = {"size": path.stat().st_size, "sha256": sha256(path)}
     return {"files": files, "count": len(files), "bytes": sum(v["size"] for v in files.values())}
+
+
+def manifest_digest(manifest: Mapping[str, Any]) -> str:
+    payload = json.dumps(manifest["files"], sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
 
 
 def safe_remove_tree(path: Path, audit: Path) -> None:
@@ -493,6 +512,327 @@ def restore_from_backup(target: Path, backup: Path, backup_manifest: Mapping[str
         raise RestoreError("Không thể hoàn nguyên worktree đúng manifest backup.")
 
 
+def status_porcelain(root: Path, safe: Path | None = None) -> dict[str, str]:
+    result = git(root, "status", "--porcelain=v1", "-z", "--untracked-files=all", safe=safe)
+    if result.returncode != 0:
+        raise RuntimeError(result.stderr.strip() or "Không đọc được Git status.")
+    entries = [item for item in result.stdout.split("\0") if item]
+    parsed: dict[str, str] = {}
+    index = 0
+    while index < len(entries):
+        entry = entries[index]
+        if len(entry) < 4:
+            raise RuntimeError("Git status không đúng định dạng.")
+        code, path = entry[:2], entry[3:]
+        if "R" in code or "C" in code:
+            raise RuntimeError("Không chấp nhận rename/copy trong cây đã prepare.")
+        parsed[path.replace("\\", "/")] = code
+        index += 1
+    return parsed
+
+
+def expected_worktree_status(diff: Mapping[str, Any]) -> dict[str, str]:
+    expected = {path: "??" for path in diff["add"]}
+    expected.update({path: " M" for path in diff["update"]})
+    expected.update({path: " D" for path in diff["delete"]})
+    return expected
+
+
+def path_batches(paths: Sequence[str], limit: int = 100, char_limit: int = 24000) -> list[list[str]]:
+    batches: list[list[str]] = []
+    current: list[str] = []
+    length = 0
+    for path in paths:
+        if current and (len(current) >= limit or length + len(path) + 1 > char_limit):
+            batches.append(current)
+            current, length = [], 0
+        current.append(path)
+        length += len(path) + 1
+    if current:
+        batches.append(current)
+    return batches
+
+
+def stage_paths(target: Path, paths: Sequence[str]) -> None:
+    for batch in path_batches(paths):
+        result = git(target, "add", "--", *batch, safe=target)
+        if result.returncode != 0:
+            raise RuntimeError(result.stderr.strip() or "Stage đường dẫn xuất bản thất bại.")
+
+
+def unstage_paths(target: Path, paths: Sequence[str]) -> None:
+    for batch in path_batches(paths):
+        result = git(target, "restore", "--staged", "--", *batch, safe=target)
+        if result.returncode != 0:
+            raise RestoreError(result.stderr.strip() or "Không thể hoàn nguyên index xuất bản.")
+    if git_text(target, "diff", "--cached", "--name-only", safe=target):
+        raise RestoreError("Index xuất bản không trở lại trạng thái trống.")
+
+
+def staged_name_status(target: Path) -> dict[str, str]:
+    result = git(target, "diff", "--cached", "--name-status", "-z", "--no-renames", safe=target)
+    if result.returncode != 0:
+        raise RuntimeError(result.stderr.strip() or "Không đọc được staged diff.")
+    items = [item for item in result.stdout.split("\0") if item]
+    if len(items) % 2:
+        raise RuntimeError("Staged diff không đúng định dạng.")
+    return {items[index + 1].replace("\\", "/"): items[index]
+            for index in range(0, len(items), 2)}
+
+
+def expected_staged_status(diff: Mapping[str, Any]) -> dict[str, str]:
+    expected = {path: "A" for path in diff["add"]}
+    expected.update({path: "M" for path in diff["update"]})
+    expected.update({path: "D" for path in diff["delete"]})
+    return expected
+
+
+def validate_report_manifest(raw: Any) -> dict[str, Any]:
+    if not isinstance(raw, dict) or not isinstance(raw.get("files"), dict):
+        raise RuntimeError("Báo cáo thiếu manifest công khai hợp lệ.")
+    files: dict[str, dict[str, Any]] = {}
+    for name, metadata in raw["files"].items():
+        safe_name = safe_relative(name, "manifest")
+        if safe_name != name or not isinstance(metadata, dict):
+            raise RuntimeError(f"Manifest không hợp lệ: {name}")
+        size, digest = metadata.get("size"), metadata.get("sha256")
+        if not isinstance(size, int) or size < 0 or not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest):
+            raise RuntimeError(f"Metadata manifest không hợp lệ: {name}")
+        files[name] = {"size": size, "sha256": digest}
+    manifest = {"files": files, "count": len(files),
+                "bytes": sum(item["size"] for item in files.values())}
+    if raw.get("count") != manifest["count"] or raw.get("bytes") != manifest["bytes"]:
+        raise RuntimeError("Số lượng hoặc dung lượng manifest không nhất quán.")
+    return manifest
+
+
+def load_prepare_report(root: Path, config_path: Path, config: Mapping[str, Any]) -> tuple[Path, dict[str, Any]]:
+    report = report_target(root, config["prepare"]["report_file"])
+    if not report.is_file() or report.is_symlink():
+        raise RuntimeError("Thiếu báo cáo prepare hợp lệ; hãy chạy lại prepare.")
+    try:
+        payload = json.loads(report.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise RuntimeError(f"Báo cáo prepare không đọc được: {exc}") from exc
+    if not isinstance(payload, dict) or payload.get("schema_version") != config["publish"]["report_schema_version"]:
+        raise RuntimeError("Schema báo cáo prepare không được hỗ trợ.")
+    if payload.get("mode") != "prepare" or payload.get("exit_code") != EXIT_OK or payload.get("issues"):
+        raise RuntimeError("Báo cáo không thuộc một lần prepare thành công.")
+    if payload.get("config_version") != config["version"] or payload.get("config_sha256") != sha256(config_path):
+        raise RuntimeError("Cấu hình xuất bản đã thay đổi sau prepare.")
+    manifest = validate_report_manifest(payload.get("manifest"))
+    if payload.get("manifest_sha256") != manifest_digest(manifest):
+        raise RuntimeError("Hash tổng hợp manifest không khớp.")
+    paths = payload.get("prepare_paths")
+    stage = config["prepare"]["staging_dir"]
+    expected_paths = {
+        "staging_dir": stage,
+        "render_dir": f"{stage}/render",
+        "public_dir": f"{stage}/public",
+        "backup_dir": f"{stage}/backup",
+        "report_file": config["prepare"]["report_file"],
+    }
+    if paths != expected_paths:
+        raise RuntimeError("Đường dẫn prepare trong báo cáo không khớp cấu hình.")
+    for value in paths.values():
+        if not safe_relative(value, "prepare_paths").startswith("_audit/"):
+            raise RuntimeError("Báo cáo chứa đường dẫn prepare ngoài _audit/.")
+    source, target = payload.get("source"), payload.get("target")
+    if not isinstance(source, dict) or not isinstance(target, dict):
+        raise RuntimeError("Báo cáo thiếu trạng thái Git nguồn hoặc đích.")
+    for state in (source, target):
+        if not re.fullmatch(r"[0-9a-f]{40}", str(state.get("commit", ""))):
+            raise RuntimeError("Báo cáo chứa SHA Git không hợp lệ.")
+        if not re.fullmatch(r"[0-9a-f]{40}", str(state.get("remote_commit", ""))):
+            raise RuntimeError("Báo cáo thiếu SHA remote hợp lệ.")
+    before = validate_report_manifest(payload.get("target_before_manifest"))
+    diff = payload.get("diff")
+    if not isinstance(diff, dict) or exact_diff(before, manifest) != diff:
+        raise RuntimeError("Kế hoạch diff trong báo cáo không nhất quán.")
+    validation = payload.get("validation")
+    if not isinstance(validation, dict) or validation.get("issues"):
+        raise RuntimeError("Validator trong báo cáo prepare chưa đạt.")
+    payload["manifest"] = manifest
+    payload["target_before_manifest"] = before
+    return report, payload
+
+
+def committed_manifest(target: Path, commit: str) -> dict[str, Any]:
+    names = git_text(target, "ls-tree", "-r", "--name-only", commit, safe=target).splitlines()
+    files: dict[str, dict[str, Any]] = {}
+    for name in names:
+        command = ["git", "-c", f"safe.directory={target.as_posix()}", "-C", str(target),
+                   "show", f"{commit}:{name}"]
+        result = subprocess.run(command, cwd=target, capture_output=True, check=False)
+        if result.returncode != 0:
+            raise RuntimeError(f"Không đọc được blob commit: {name}")
+        files[name] = {"size": len(result.stdout), "sha256": hashlib.sha256(result.stdout).hexdigest()}
+    return {"files": files, "count": len(files), "bytes": sum(item["size"] for item in files.values())}
+
+
+def cleanup_prepare(root: Path, report: Path, config: Mapping[str, Any]) -> list[str]:
+    warnings: list[str] = []
+    stage = root / config["prepare"]["staging_dir"]
+    try:
+        safe_remove_tree(stage, root / "_audit")
+    except (OSError, ConfigError) as exc:
+        warnings.append(f"Không dọn được staging prepare: {exc}")
+    try:
+        if report.exists():
+            report.unlink()
+    except OSError as exc:
+        warnings.append(f"Không xóa được báo cáo prepare: {exc}")
+    return warnings
+
+
+def validate_prepared_tree(root: Path, target: Path, config: Mapping[str, Any],
+                           payload: Mapping[str, Any]) -> None:
+    manifest = payload["manifest"]
+    paths = payload["prepare_paths"]
+    public = root / paths["public_dir"]
+    backup = root / paths["backup_dir"]
+    render = root / paths["render_dir"]
+    if not public.is_dir() or not backup.is_dir() or not render.is_dir():
+        raise RuntimeError("Thiếu staging, public tree hoặc backup của lần prepare.")
+    if scan_symlinks(target, True) or scan_symlinks(public) or scan_symlinks(backup):
+        raise RuntimeError("Phát hiện symlink trong cây prepare hoặc worktree xuất bản.")
+    if tree_manifest(public) != manifest:
+        raise RuntimeError("Public tree không khớp manifest trong báo cáo.")
+    if tree_manifest(backup) != payload["target_before_manifest"]:
+        raise RuntimeError("Backup prepare không khớp manifest đích ban đầu.")
+    current = tree_manifest(target, True)
+    if current != manifest or manifest_digest(current) != payload["manifest_sha256"]:
+        raise RuntimeError("Worktree gh-pages không khớp manifest đã prepare.")
+    selected = build_manifest(target, config, True)
+    if selected["issues"]:
+        raise RuntimeError("Worktree đã prepare chứa tệp cấm, quá lớn hoặc nhạy cảm.")
+    selected_files = {name: {"size": item["size"], "sha256": item["sha256"]}
+                      for name, item in selected["files"].items()}
+    if selected_files != manifest["files"]:
+        raise RuntimeError("Allowlist không tái tạo đúng manifest đã prepare.")
+    validation = validate_public(target, manifest, config)
+    if validation["issues"]:
+        raise RuntimeError("Validator HTML hoặc tài nguyên không đạt trên worktree đã prepare.")
+    missing = [name for name in config["required_files"] if name not in manifest["files"]]
+    if missing or ".nojekyll" not in manifest["files"]:
+        raise RuntimeError("Cây đã prepare thiếu tệp bắt buộc hoặc .nojekyll.")
+
+
+def publish_site(root: Path, config_path: Path, config: Mapping[str, Any]) -> int:
+    try:
+        report, payload = load_prepare_report(root, config_path, config)
+    except (RuntimeError, ConfigError) as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return EXIT_UNSAFE
+    fetch = git(root, "fetch", "--prune", "origin")
+    if fetch.returncode != 0:
+        print(f"ERROR: {fetch.stderr.strip() or 'git fetch thất bại.'}", file=sys.stderr)
+        return EXIT_UNSAFE
+    try:
+        target = find_publish_worktree(root, config["target_branch"])
+        source = git_state(root, config["source_branch"], f"origin/{config['source_branch']}")
+        if source["issues"] or source["ahead"] != 0 or source["behind"] != 0:
+            raise RuntimeError("Repository nguồn không sạch hoặc chưa đồng bộ remote.")
+        expected_source = payload["source"]["commit"]
+        if source["commit"] != expected_source or source["remote_commit"] != expected_source:
+            raise RuntimeError("master hoặc origin/master đã thay đổi sau prepare.")
+        if git_text(target, "branch", "--show-current", safe=target) != config["target_branch"]:
+            raise RuntimeError("Worktree xuất bản không ở đúng nhánh gh-pages.")
+        target_head = git_text(target, "rev-parse", "HEAD", safe=target)
+        remote_target = git_text(root, "rev-parse", f"origin/{config['target_branch']}")
+        expected_target = payload["target"]["commit"]
+        if target_head != expected_target or remote_target != expected_target:
+            raise RuntimeError("gh-pages hoặc origin/gh-pages đã thay đổi sau prepare.")
+        if merge_in_progress(target, target):
+            raise RuntimeError("Worktree xuất bản có thao tác Git dang dở.")
+        if git_text(target, "diff", "--cached", "--name-only", safe=target):
+            raise RuntimeError("Worktree xuất bản đã có staged diff.")
+        expected_status = expected_worktree_status(payload["diff"])
+        if status_porcelain(target, target) != expected_status:
+            raise RuntimeError("Git status của worktree không khớp kế hoạch prepare.")
+        validate_prepared_tree(root, target, config, payload)
+        changed = [*payload["diff"]["add"], *payload["diff"]["update"], *payload["diff"]["delete"]]
+        if not changed:
+            warnings = cleanup_prepare(root, report, config)
+            print("Website đã đồng bộ; không cần tạo commit hoặc push.")
+            for warning in warnings:
+                print(f"WARN: {warning}", file=sys.stderr)
+            return EXIT_OK
+        for variable in ("GIT_AUTHOR_IDENT", "GIT_COMMITTER_IDENT"):
+            identity = git(target, "var", variable, safe=target)
+            if identity.returncode != 0 or not identity.stdout.strip():
+                raise MissingToolError("Thiếu danh tính Git hợp lệ để commit xuất bản.")
+        try:
+            stage_paths(target, changed)
+            if staged_name_status(target) != expected_staged_status(payload["diff"]):
+                raise RuntimeError("Staged diff không khớp kế hoạch prepare.")
+            unstaged = git_text(target, "diff", "--name-only", safe=target)
+            if unstaged:
+                raise RuntimeError("Còn thay đổi unstaged sau khi stage kế hoạch xuất bản.")
+            check = git(target, "diff", "--cached", "--check", safe=target)
+            if check.returncode != 0:
+                raise RuntimeError(check.stdout.strip() or check.stderr.strip() or "Staged whitespace không đạt.")
+            indexed = set(git_text(target, "ls-files", safe=target).splitlines())
+            if indexed != set(payload["manifest"]["files"]):
+                raise RuntimeError("Index chứa tệp ngoài manifest công khai.")
+        except Exception:
+            unstage_paths(target, changed)
+            raise
+        short = expected_source[:12]
+        subject = f"Publish website from master {short}"
+        body = (f"Source-Master: {expected_source}\n\n"
+                f"Previous-GH-Pages: {expected_target}\n\n"
+                f"Publish-Config-SHA256: {payload['config_sha256']}")
+        commit = git(target, "commit", "-m", subject, "-m", body, safe=target)
+        if commit.returncode != 0:
+            if git_text(target, "rev-parse", "HEAD", safe=target) == expected_target:
+                unstage_paths(target, changed)
+            else:
+                raise RestoreError("Commit thất bại sau khi HEAD đã thay đổi.")
+            raise RuntimeError(commit.stderr.strip() or "Không tạo được commit xuất bản.")
+        new_commit = git_text(target, "rev-parse", "HEAD", safe=target)
+        parents = git_text(target, "show", "-s", "--format=%P", new_commit, safe=target).split()
+        if parents != [expected_target]:
+            raise RestoreError("Commit xuất bản không có đúng parent dự kiến.")
+        if git_text(target, "branch", "--show-current", safe=target) != config["target_branch"]:
+            raise RestoreError("Commit xuất bản nằm sai nhánh.")
+        if committed_manifest(target, new_commit) != payload["manifest"]:
+            raise RestoreError("Cây commit không khớp manifest công khai.")
+        if status_porcelain(target, target) or git_text(target, "diff", "--cached", "--name-only", safe=target):
+            raise RestoreError("Worktree không sạch sau commit xuất bản.")
+        push = git(target, "push", "origin", config["target_branch"], safe=target)
+        if push.returncode != 0:
+            print(f"ERROR: push bị từ chối; giữ commit local {new_commit}: {push.stderr.strip()}", file=sys.stderr)
+            return EXIT_UNSAFE
+        fetched = git(root, "fetch", "--prune", "origin")
+        if fetched.returncode != 0:
+            print(f"ERROR: push thành công nhưng fetch xác minh thất bại: {fetched.stderr.strip()}", file=sys.stderr)
+            return EXIT_UNSAFE
+        if git_text(root, "rev-parse", f"origin/{config['target_branch']}") != new_commit:
+            raise RestoreError("origin/gh-pages không trỏ tới commit vừa push.")
+        ahead_behind = git_text(target, "rev-list", "--left-right", "--count",
+                                f"origin/{config['target_branch']}...HEAD", safe=target)
+        if ahead_behind.split() != ["0", "0"]:
+            raise RestoreError("gh-pages chưa đồng bộ 0/0 sau push.")
+        if git_text(root, "rev-parse", config["source_branch"]) != expected_source or \
+                git_text(root, "rev-parse", f"origin/{config['source_branch']}") != expected_source:
+            raise RestoreError("master thay đổi trong quá trình publish.")
+        warnings = cleanup_prepare(root, report, config)
+        print(f"Đã xuất bản commit {new_commit} từ master {expected_source}.")
+        for warning in warnings:
+            print(f"WARN: {warning}", file=sys.stderr)
+        return EXIT_OK
+    except MissingToolError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return EXIT_MISSING
+    except RestoreError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return EXIT_RESTORE
+    except (RuntimeError, ConfigError) as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return EXIT_UNSAFE
+
+
 def publish_diff(worktree: Path, manifest: Mapping[str, Any], config: Mapping[str, Any]) -> dict[str, Any]:
     allow = config["allowlist"]
     desired = manifest["files"]
@@ -550,7 +890,7 @@ def print_summary(payload: Mapping[str, Any], code: int) -> None:
 
 def parser() -> argparse.ArgumentParser:
     value = argparse.ArgumentParser(description=__doc__)
-    value.add_argument("command", nargs="?", help="Hỗ trợ: check, prepare")
+    value.add_argument("command", nargs="?", help="Hỗ trợ: check, prepare, publish")
     value.add_argument("--config", default="publish_public.yml")
     value.add_argument("--report")
     return value
@@ -558,17 +898,19 @@ def parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = parser().parse_args(argv)
-    if args.command not in {"check", "prepare"}:
-        print("ERROR: chỉ hỗ trợ lệnh 'check' và 'prepare'; publish chưa được triển khai.", file=sys.stderr)
+    if args.command not in {"check", "prepare", "publish"}:
+        print("ERROR: chỉ hỗ trợ lệnh 'check', 'prepare' và 'publish'.", file=sys.stderr)
         return EXIT_USAGE
     if yaml is None:
         print("ERROR: thiếu dependency PyYAML.", file=sys.stderr)
         return EXIT_MISSING
     try:
         root = repo_root()
-        if shutil.which("quarto") is None:
-            raise MissingToolError("Không tìm thấy Quarto trong PATH.")
         config_path, config = load_config(root, args.config)
+        if args.command == "publish":
+            return publish_site(root, config_path, config)
+        if args.command == "prepare" and shutil.which("quarto") is None:
+            raise MissingToolError("Không tìm thấy Quarto trong PATH.")
         target = find_publish_worktree(root, config["target_branch"])
         if args.command == "prepare":
             fetch = git(root, "fetch", "--prune", "origin")
@@ -584,8 +926,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         issues.extend(manifest["issues"])
         diff = publish_diff(target, manifest, config)
         payload: dict[str, Any] = {
+            "schema_version": REPORT_SCHEMA_VERSION,
             "mode": args.command,
             "config_version": config["version"],
+            "config_sha256": sha256(config_path),
             "timestamp_utc": datetime.now(timezone.utc).isoformat(),
             "repo_root": str(root), "publish_worktree": str(target),
             "config": str(config_path.relative_to(root).as_posix()),
@@ -615,6 +959,13 @@ def main(argv: Sequence[str] | None = None) -> int:
                 audit = root / "_audit"
                 stage = root / prepare["staging_dir"]
                 render_dir, public_dir, backup_dir = stage / "render", stage / "public", stage / "backup"
+                payload["prepare_paths"] = {
+                    "staging_dir": prepare["staging_dir"],
+                    "render_dir": f"{prepare['staging_dir']}/render",
+                    "public_dir": f"{prepare['staging_dir']}/public",
+                    "backup_dir": f"{prepare['staging_dir']}/backup",
+                    "report_file": prepare["report_file"],
+                }
                 safe_remove_tree(stage, audit)
                 stage.mkdir(parents=True)
                 target_before = tree_manifest(target, True)
@@ -647,6 +998,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                     target_diff = exact_diff(target_before, public_manifest)
                     payload.update({"render_manifest": render_manifest,
                                     "manifest": {**public_manifest, "excluded": selected_manifest["excluded"]},
+                                    "manifest_sha256": manifest_digest(public_manifest),
                                     "validation": validation, "diff": target_diff,
                                     "target_before_manifest": target_before})
                     if issues:

@@ -12,6 +12,11 @@ prepare:
   allowed_target_files:
     - .nojekyll
 
+publish:
+  report_schema_version: 1
+  require_remote_source: true
+  cleanup_after_success: true
+
 allowlist:
   files:
     - index.html
