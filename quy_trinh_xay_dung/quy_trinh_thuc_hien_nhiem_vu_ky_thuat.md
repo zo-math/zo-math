@@ -106,6 +106,21 @@ Công cụ kiểm định không tự sửa lỗi, stage hoặc commit. Trước
 
 Agent chịu trách nhiệm tự chạy các lệnh kỹ thuật cần thiết. Không chuyển việc vận hành Terminal cho người dùng chỉ vì thao tác đó có thể được thực hiện bằng lệnh.
 
+### Vòng đời thư mục `_audit/`
+
+`_audit/` dùng để chứa đầu ra kiểm tra, báo cáo, bản chụp, log, preview và mẫu thử tạm thời; đây không phải nơi chứa nguồn thực thi chính thức. Script hoặc công cụ cần sử dụng lâu dài phải được đặt trong `scripts/`, được kiểm định và được Git theo dõi. Không dùng tệp trong `_audit/` làm nguồn duy nhất cho build, render, sinh dữ liệu hoặc vận hành repository.
+
+Agent được tạo tệp tạm trong `_audit/` khi nhiệm vụ cần. Trước khi kết thúc nhiệm vụ, agent phải:
+
+1. xóa mẫu thử, log và preview không còn cần thiết;
+2. xóa đầu ra có thể tái tạo khi chúng không còn phục vụ đối chiếu;
+3. xác nhận không còn thư mục tạm hoặc cache do nhiệm vụ tạo ra;
+4. chỉ giữ báo cáo hiện hành do công cụ kỹ thuật trực tiếp tạo hoặc báo cáo mà nhiệm vụ vẫn cần đối chiếu.
+
+Hồ sơ lịch sử, bản nháp, script patch dùng một lần và phiên bản cũ cần bảo toàn phải được chuyển ra vùng lưu trữ ngoài repository, không tích lũy lâu dài trong `_audit/`. Khi chuyển tệp cần bảo toàn, phải chép và xác minh SHA-256 của bản đích trước khi xóa nguồn.
+
+Không stage hoặc commit nội dung `_audit/` khi thư mục này vẫn được `.gitignore` loại trừ. Nếu nhiệm vụ đã tạo hoặc sử dụng tệp trong `_audit/`, báo cáo cuối phải xác nhận tình trạng các tệp tạm liên quan.
+
 ## 6. Xử lý lỗi trong quá trình làm việc
 
 Khi lệnh hoặc kiểm tra thất bại, agent phải:
