@@ -2,24 +2,156 @@
 
 ## 1. Mục đích
 
-Hệ khối nội dung ZO Math dùng để tạo những vùng nội dung có trọng tâm trong bài viết toán học.
+Hệ khối nội dung ZO Math dùng để tách những đơn vị nội dung có chức năng rõ ràng trong bài viết toán học.
 
-Hệ này không phân loại cứng theo chức năng như “định nghĩa”, “ví dụ” hay “bài tập”. Người viết chỉ chọn một trong ba màu và tự đặt tiêu đề phù hợp với nội dung thực tế.
+Khối nội dung không phải là yếu tố trang trí và không thay thế cấu trúc lập luận. Một đoạn văn chỉ được đưa vào khối khi việc tách nó ra giúp người đọc nhận biết đúng vai trò của nó trong bài.
 
-## 2. Nguyên tắc thiết kế
+Mỗi khối được xác định bởi hai thuộc tính độc lập:
 
-- Tối giản nhưng không lạnh lẽo.
-- Không dùng dải nhấn bên trái.
-- Không dùng biểu tượng trang trí.
-- Không dùng bóng đổ rõ.
-- Dùng viền mảnh bao quanh toàn khối.
-- Dùng nền rất nhạt.
-- Tiêu đề cùng màu chữ với nội dung.
-- Chỉ sử dụng bảng màu đã định nghĩa trong `zo-math.scss`.
-- Đỏ và vàng là hai màu nhận diện chính của ZO Math.
-- Không dùng khối chỉ để trang trí một đoạn văn không có trọng tâm rõ ràng.
+- **trạng thái hiển thị:** mở cố định hoặc thu gọn;
+- **màu sắc:** đỏ, vàng hoặc xám.
 
-## 3. Kiến trúc kỹ thuật
+Phải xác định trạng thái trước, sau đó mới xác định màu.
+
+## 2. Trình tự quyết định
+
+Khi cân nhắc đưa một nội dung vào khối, thực hiện đúng thứ tự sau:
+
+1. **Nội dung có thực sự cần tách thành khối không?**
+   - Nếu văn bản thông thường và hệ tiêu đề đã diễn đạt rõ vai trò của nội dung, không tạo khối.
+   - Chỉ tạo khối khi nội dung là một đơn vị tương đối trọn vẹn và việc tách khối có ý nghĩa đối với mạch đọc.
+2. **Nội dung có tham gia trực tiếp vào mạch chính của bài không?**
+   - Có: dùng **khối mở cố định**.
+   - Không: dùng **khối thu gọn**.
+3. **Bản chất của nội dung là gì?**
+   - Lí thuyết chung, có khả năng tái sử dụng: **đỏ**.
+   - Bài viết nhỏ tương đối độc lập, có chức năng khám phá hoặc mở rộng: **vàng**.
+   - Nội dung hỗ trợ, phụ thuộc vào ngữ cảnh đang trình bày: **xám**.
+
+Không bắt đầu bằng câu hỏi “nên dùng màu gì?”. Cách làm đó dễ biến màu sắc thành phương tiện trang trí hoặc nhấn mạnh tùy ý.
+
+## 3. Xác định trạng thái hiển thị
+
+### 3.1. Khối mở cố định
+
+Dùng khối mở cố định khi nội dung tham gia trực tiếp vào mạch lập luận tổng thể. Người đọc cần đọc nội dung ấy để hiểu đầy đủ phần đang trình bày hoặc phần tiếp theo.
+
+Nếu bỏ qua khối mở cố định, mạch chính của bài sẽ thiếu một mắt xích cần thiết.
+
+### 3.2. Khối thu gọn
+
+Dùng khối thu gọn khi nội dung không tham gia trực tiếp vào mạch lập luận tổng thể. Người đọc có thể bỏ qua toàn bộ khối mà vẫn hiểu đầy đủ bài chính.
+
+Khối thu gọn thường phù hợp với:
+
+- một hướng khám phá hoặc mở rộng ngoài mạch chính;
+- một bài viết nhỏ dành cho người muốn đọc sâu hơn;
+- chú giải chuyên môn chỉ cần cho một nhóm người đọc;
+- chứng minh, chi tiết kĩ thuật, gợi ý, lời giải hoặc đáp án không bắt buộc;
+- nội dung có thể làm gián đoạn mạch đọc nếu luôn hiển thị.
+
+Độ dài không phải là tiêu chí quyết định. Một nội dung dài nhưng bắt buộc đối với mạch chính không được thu gọn chỉ để làm trang ngắn hơn.
+
+### 3.3. Thuộc tính `open`
+
+Có thể thêm thuộc tính `open` để một khối thu gọn được mở sẵn khi tải trang.
+
+Thuộc tính này chỉ thay đổi trạng thái ban đầu trên giao diện. Khối vẫn là khối thu gọn, người đọc vẫn có thể đóng lại, và nội dung của nó vẫn không được xem là mắt xích bắt buộc của mạch chính.
+
+## 4. Xác định màu
+
+Chỉ xác định màu sau khi đã quyết định nội dung cần tạo khối và chọn trạng thái hiển thị.
+
+### 4.1. Khối đỏ — lí thuyết chung
+
+Lớp:
+
+```text
+zo-block-red
+```
+
+Dùng khối đỏ cho nội dung lí thuyết có tính khái quát và khả năng tái sử dụng ngoài đối tượng đang khảo sát, chẳng hạn:
+
+- định nghĩa một khái niệm;
+- định lí, mệnh đề, hệ quả;
+- tính chất hoặc kết quả toán học khái quát;
+- một điều kiện chung cần thiết để áp dụng lí thuyết.
+
+Một kết luận quan trọng nhưng chỉ đúng cho hàm số, hình hoặc bài toán đang xét không mặc nhiên thuộc khối đỏ.
+
+Ví dụ tiêu đề:
+
+```text
+Hàm số
+Hàm số lẻ
+Định lí giá trị trung gian
+Điều kiện để hàm số liên tục
+```
+
+### 4.2. Khối vàng — bài viết nhỏ độc lập
+
+Lớp:
+
+```text
+zo-block-yellow
+```
+
+Dùng khối vàng cho một bài viết nhỏ tương đối độc lập, có thể tách khỏi bài lớn mà vẫn tạo thành một đơn vị đọc có ý nghĩa. Khi xuất hiện trong bài chính, nội dung ấy giữ vai trò:
+
+- giải thích bằng một hướng nhìn giàu trực giác;
+- mở rộng vấn đề;
+- tạo liên tưởng hoặc kết nối;
+- khơi gợi trí tưởng tượng và mong muốn khám phá.
+
+Một ví dụ, hoạt động hoặc bài tập không mặc nhiên thuộc khối vàng. Chúng chỉ dùng màu vàng khi được phát triển thành một đơn vị nội dung tương đối độc lập và đảm nhiệm đúng vai trò trên.
+
+Ví dụ tiêu đề:
+
+```text
+Thí nghiệm trên mặt phẳng nghiêng
+Khi đồ thị rung nhanh đến vô hạn
+Một cách nhìn từ chuyển động
+```
+
+### 4.3. Khối xám — nội dung hỗ trợ theo ngữ cảnh
+
+Lớp:
+
+```text
+zo-block-gray
+```
+
+Dùng khối xám cho nội dung hỗ trợ việc hiểu hoặc xử lí vấn đề đang trình bày và phụ thuộc vào ngữ cảnh của bài, chẳng hạn:
+
+- giải thích hoặc chú giải;
+- chứng minh;
+- chi tiết kĩ thuật;
+- cách hiểu ở bậc học cao hơn;
+- gợi ý, lời giải hoặc đáp án.
+
+Khác với khối vàng, nội dung xám không cần có khả năng đứng riêng như một bài viết nhỏ; khi tách khỏi ngữ cảnh, nó có thể mất một phần ý nghĩa.
+
+Ví dụ tiêu đề:
+
+```text
+Vì sao cần tính duy nhất?
+Cách hiểu trong Toán học bậc cao
+Chứng minh
+Gợi ý
+```
+
+## 5. Những trường hợp dễ phân loại sai
+
+- Không dùng khối đỏ chỉ vì một kết luận quan trọng hoặc cần nổi bật.
+- Không dùng khối vàng chỉ vì nội dung là ví dụ, hoạt động hay bài tập.
+- Không dùng khối xám như nơi chứa mọi đoạn văn phụ.
+- Không chọn màu theo vẻ đẹp, mức độ nổi bật hoặc cảm giác chủ quan.
+- Không buộc một bài phải có khối nội dung hoặc phải có đủ ba màu.
+- Không đặt nhiều khối liên tiếp nếu văn bản thông thường và hệ tiêu đề đã đủ rõ.
+- Không dùng màu để thay thế quan hệ lập luận giữa các phần.
+- Không thu gọn nội dung mà người đọc bắt buộc phải biết để hiểu phần tiếp theo.
+
+## 6. Kiến trúc kỹ thuật
 
 CSS của hệ khối được đặt tại:
 
@@ -59,70 +191,9 @@ Nội dung của khối thu gọn dùng lớp:
 zo-block-body
 ```
 
-## 4. Ba loại khối
+## 7. Cú pháp khối mở cố định
 
-### 4.1. Khối đỏ
-
-Lớp:
-
-```text
-zo-block-red
-```
-
-Dùng khi cần nhấn mạnh nội dung cốt lõi, giới hạn, điều kiện, cảnh báo hoặc một ý cần được nhận diện rõ.
-
-Ví dụ tiêu đề:
-
-```text
-Hàm số
-Điều kiện xác định
-Điều cần tránh
-Định lý Pythagoras
-```
-
-### 4.2. Khối vàng
-
-Lớp:
-
-```text
-zo-block-yellow
-```
-
-Dùng cho nội dung dẫn dắt, quan sát, khám phá, ví dụ, hoạt động hoặc bài tập.
-
-Ví dụ tiêu đề:
-
-```text
-Quan sát đồ thị
-Một ví dụ mở đầu
-Khám phá
-Bài tập 3
-```
-
-### 4.3. Khối xám
-
-Lớp:
-
-```text
-zo-block-gray
-```
-
-Dùng cho phần giải thích, ghi chú, chứng minh, gợi ý, lời giải hoặc nội dung hỗ trợ.
-
-Ví dụ tiêu đề:
-
-```text
-Vì sao cần tính duy nhất?
-Ghi chú
-Gợi ý
-Lời giải
-```
-
-Các cách dùng trên là định hướng, không phải luật cứng. Màu được chọn theo mức độ nhấn mạnh và vai trò của khối trong mạch đọc.
-
-## 5. Khối mở cố định
-
-### Khối đỏ
+Ví dụ khối đỏ:
 
 ```markdown
 :::: {.zo-block .zo-block-red}
@@ -135,19 +206,19 @@ $x\in D$ đúng một giá trị $y=f(x)$.
 ::::
 ```
 
-### Khối vàng
+Ví dụ khối vàng:
 
 ```markdown
 :::: {.zo-block .zo-block-yellow}
 ::: {.zo-block-title}
-Quan sát đồ thị
+Một cách nhìn từ chuyển động
 :::
 
-Thay đổi tham số $a$ trong hàm số $y=ax^2$ và quan sát đồ thị.
+Nội dung bài viết nhỏ tham gia trực tiếp vào mạch chính.
 ::::
 ```
 
-### Khối xám
+Ví dụ khối xám:
 
 ```markdown
 :::: {.zo-block .zo-block-gray}
@@ -159,144 +230,111 @@ Tính duy nhất bảo đảm rằng mỗi đầu vào xác định rõ một đ
 ::::
 ```
 
-## 6. Khối thu gọn
+## 8. Cú pháp khối thu gọn
 
 Khối thu gọn dùng thẻ HTML gốc `<details>`. Người đọc nhấp vào tiêu đề để mở hoặc đóng nội dung.
 
-### Khối đỏ thu gọn
+Ví dụ khối đỏ thu gọn:
 
 ```html
 <details class="zo-block zo-block-red">
-<summary class="zo-block-title">Điều cần tránh</summary>
-<div class="zo-block-body">
-
-Không gắn cùng một giá trị $x$ với hai giá trị $y$ khác nhau.
-
-</div>
+  <summary class="zo-block-title">Một mệnh đề mở rộng</summary>
+  <div class="zo-block-body">
+    Nội dung lí thuyết chung không bắt buộc đối với mạch chính.
+  </div>
 </details>
 ```
 
-### Khối vàng thu gọn
+Ví dụ khối vàng thu gọn:
 
 ```html
 <details class="zo-block zo-block-yellow">
-<summary class="zo-block-title">Một ví dụ mở đầu</summary>
-<div class="zo-block-body">
-
-Với $f(x)=x^2$, hai giá trị $x=2$ và $x=-2$ cùng cho $f(x)=4$.
-
-</div>
+  <summary class="zo-block-title">Khi đồ thị rung nhanh đến vô hạn</summary>
+  <div class="zo-block-body">
+    Nội dung một bài viết nhỏ dành cho người muốn khám phá thêm.
+  </div>
 </details>
 ```
 
-### Khối xám thu gọn
+Ví dụ khối xám thu gọn:
 
 ```html
 <details class="zo-block zo-block-gray">
-<summary class="zo-block-title">Gợi ý</summary>
-<div class="zo-block-body">
-
-Hãy bắt đầu từ điều kiện để biểu thức dưới dấu căn không âm.
-
-</div>
+  <summary class="zo-block-title">Gợi ý</summary>
+  <div class="zo-block-body">
+    Hãy bắt đầu từ điều kiện để biểu thức dưới dấu căn không âm.
+  </div>
 </details>
 ```
 
-## 7. Mở sẵn khối thu gọn
+## 9. Cú pháp mở sẵn khối thu gọn
 
 Thêm thuộc tính `open` nếu muốn nội dung xuất hiện ngay khi tải trang nhưng vẫn cho phép người đọc đóng lại:
 
 ```html
 <details class="zo-block zo-block-gray" open>
-<summary class="zo-block-title">Lời giải</summary>
-<div class="zo-block-body">
-
-Nội dung lời giải.
-
-</div>
+  <summary class="zo-block-title">Lời giải</summary>
+  <div class="zo-block-body">Nội dung lời giải.</div>
 </details>
 ```
 
-## 8. Quy tắc đặt tiêu đề
+## 10. Quy tắc đặt tiêu đề
 
-Tiêu đề được đặt tự do theo nội dung.
+Tiêu đề phải gọi đúng nội dung cụ thể hoặc vai trò thực tế của khối.
 
-Có thể dùng tên chức năng:
+Ưu tiên tên nội dung khi tên đó rõ nghĩa:
 
 ```text
-Định nghĩa
-Ví dụ
+Hàm số
+Định lí Pythagoras
+Khi đồ thị rung nhanh đến vô hạn
+```
+
+Có thể dùng tên chức năng khi phù hợp:
+
+```text
+Chứng minh
 Gợi ý
 Lời giải
 ```
 
-Có thể dùng trực tiếp tên nội dung:
+Không bắt buộc ghi “Định nghĩa”, “Ví dụ” hoặc “Bài tập” nếu tên nội dung cụ thể rõ hơn. Không viết hoa toàn bộ tiêu đề.
 
-```text
-Hàm số
-Định lý Pythagoras
-Điều kiện xác định
-Quan sát đồ thị
-```
+## 11. Nguyên tắc thiết kế giao diện
 
-Không bắt buộc phải ghi “Định nghĩa”, “Ví dụ” hoặc “Bài tập” nếu tên nội dung cụ thể rõ hơn.
+- Tối giản nhưng không lạnh lẽo.
+- Không dùng dải nhấn bên trái.
+- Không dùng biểu tượng trang trí.
+- Không dùng bóng đổ rõ.
+- Dùng viền mảnh bao quanh toàn khối.
+- Dùng nền rất nhạt.
+- Tiêu đề cùng màu chữ với nội dung.
+- Chỉ sử dụng bảng màu đã định nghĩa trong `zo-math.scss`.
+- Đỏ và vàng là hai màu nhận diện chính của ZO Math.
+- Không tạo thêm lớp màu riêng cho từng trang.
 
-Không viết hoa toàn bộ tiêu đề.
-
-## 9. Khi nào dùng dạng thu gọn
-
-Dùng dạng thu gọn khi nội dung:
-
-- không cần đọc ngay để hiểu mạch chính;
-- là gợi ý, lời giải hoặc đáp án;
-- khá dài;
-- chỉ phục vụ một nhóm người đọc;
-- có thể làm gián đoạn mạch đọc nếu luôn mở.
-
-Không thu gọn nội dung bắt buộc phải đọc để hiểu phần tiếp theo.
-
-## 10. Những điều không nên làm
-
-Không tạo thêm lớp màu mới theo từng trang.
-
-Không dùng lại các lớp cũ như:
+Không dùng lại các lớp cũ sau cho nội dung mới:
 
 ```text
 highlight-box-soft-red
 highlight-box-honey-gold
 ```
 
-cho nội dung mới.
-
-Không dùng nhiều khối liên tiếp khi văn bản thông thường và tiêu đề mục đã đủ rõ.
-
-Không dùng màu để thay thế cho cấu trúc lập luận.
-
-## 11. Chuyển đổi nội dung cũ
+## 12. Chuyển đổi nội dung cũ
 
 Các lớp cũ vẫn được giữ trong giai đoạn chuyển tiếp.
 
 Khi chuyển một khối cũ:
 
-1. đọc chức năng thật của nội dung;
-2. chọn đỏ, vàng hoặc xám;
-3. đặt lại tiêu đề phù hợp;
-4. quyết định dạng mở cố định hay thu gọn;
-5. render và kiểm tra trực quan;
-6. chỉ xóa CSS cũ khi không còn trang nào sử dụng.
+1. đọc toàn bộ nội dung và xác định chức năng thật;
+2. quyết định nội dung có cần tiếp tục được tách thành khối không;
+3. xác định nội dung thuộc mạch chính hay phần đọc thêm để chọn trạng thái;
+4. xác định bản chất nội dung để chọn đỏ, vàng hoặc xám;
+5. đặt lại tiêu đề nếu cần;
+6. render và kiểm tra trực quan;
+7. chỉ xóa CSS cũ khi không còn trang nào sử dụng.
 
-## 12. Trạng thái triển khai
-
-Hệ ba khối đã được kiểm tra đầy đủ:
-
-- đỏ dạng thường;
-- đỏ dạng thu gọn;
-- vàng dạng thường;
-- vàng dạng thu gọn;
-- xám dạng thường;
-- xám dạng thu gọn.
-]633;E;{ printf '\\n'\x3b printf '%s' 'IyMgMTMuIFF1eSB04bqvYyBz4butIGThu6VuZyBtw6B1IGNobyBu4buZaSBkdW5nIG3hu5tpCgpOZ3Xhu5NuIMSR4buLbmggbmdoxKlhIG3DoHUgdHJ1bmcgdMOibSBj4bunYSBaTyBNYXRoIGzDoDoKCmBgYHRleHQKem8tbWF0aC5zY3NzCmBgYAoKQ8OhYyB0aMOgbmggcGjhuqduIGdpYW8gZGnhu4duIG3hu5tpIGNo4buJIHPhu60gZOG7pW5nIG5o4buvbmcgbmjDs20gbcOgdSBjaMOtbmggdGjhu6ljIHNhdToKCmBgYHRleHQKJHJlZC0wMSDEkeG6v24gJHJlZC0xOQokeWVsbG93LTAxIMSR4bq/biAkeWVsbG93LTE5CiRncmF5LTEwMCDEkeG6v24gJGdyYXktOTAwCiR0ZWFsCiR3aGl0ZQokYmxhY2sKYGBgCgpLaMO0bmcgZ2hpIHRy4buxYyB0aeG6v3AgbcOjIG3DoHUgbeG7m2kgdHJvbmcgdOG7q25nIHRow6BuaCBwaOG6p24gbuG6v3UgbcOgdSDEkcOzIMSRw6MgY8OzIHRyb25nIGB6by1tYXRoLnNjc3NgLgoKS2jDtG5nIHThuqFvIHRow6ptIG3hu5l0IHThuqduZyBiaeG6v24gbcOgdSB0b8OgbiBj4bulYyBjaOG7iSDEkeG7gyDEkeG7lWkgdMOqbiBjw6FjIG3DoHUgxJHDoyBjw7MuCgpDw6FjIGJp4bq/biBj4bulYyBi4buZIGLDqm4gdHJvbmcgbeG7mXQgdGjDoG5oIHBo4bqnbiwgY2jhurNuZyBo4bqhbjoKCmBgYHRleHQKLS16by1ibG9jay1iYWNrZ3JvdW5kCi0tem8tYmxvY2stYm9yZGVyCi0tem8tYmxvY2staG92ZXIKYGBgCgrEkcaw4bujYyBwaMOpcCBz4butIGThu6VuZyBraGkgY2jDum5nIGdpw7pwIG5oaeG7gXUgYmnhur9uIHRo4buDIGPhu6dhIGPDuW5nIG3hu5l0IHRow6BuaCBwaOG6p24gZMO5bmcgY2h1bmcgY+G6pXUgdHLDumMgQ1NTLgoKQ8OhYyBiaeG6v24gYCRibHVlYCB2w6AgYCRpbmRpZ29gIGNo4buJIMSRxrDhu6NjIGdp4buvIMSR4buDIHTGsMahbmcgdGjDrWNoIHbhu5tpIEJvb3RzdHJhcCwgUXVhcnRvIHbDoCBjw6FjIHRyYW5nIGPFqS4gS2jDtG5nIGTDuW5nIGNow7puZyDEkeG7gyB0aGnhur90IGvhur8gdGjDoG5oIHBo4bqnbiBaTyBNYXRoIG3hu5tpLgoKVmnhu4djIGNodeG6qW4gaMOzYSBtw6B1IGtow7RuZyB04buxIMSR4buZbmcgw6FwIGThu6VuZyBuZ8aw4bujYyBjaG8gdG/DoG4gYuG7mSBu4buZaSBkdW5nIGPFqS4gQ2jhu4kgY2h1eeG7g24gxJHhu5VpIHThu6tuZyB0cmFuZyBob+G6t2MgdOG7q25nIHRow6BuaCBwaOG6p24gY8WpIGtoaSBjw7MgecOqdSBj4bqndSB2w6Agc2F1IGtoaSDEkcOjIGtp4buDbSB0cmEgdHLhu7FjIHF1YW4uCg==' | base64 -d\x3b } >> README/huong_dan_su_dung_khoi_noi_dung.md;77ee8c29-fa45-4be2-9801-3eeee6643bbf]633;C
-## 13. Quy tắc sử dụng màu cho nội dung mới
+## 13. Quy tắc sử dụng màu cho giao diện
 
 Nguồn định nghĩa màu trung tâm của ZO Math là:
 
@@ -332,3 +370,12 @@ Các biến cục bộ bên trong một thành phần, chẳng hạn:
 Các biến `$blue` và `$indigo` chỉ được giữ để tương thích với Bootstrap, Quarto và các trang cũ. Không dùng chúng để thiết kế thành phần ZO Math mới.
 
 Việc chuẩn hóa màu không tự động áp dụng ngược cho toàn bộ nội dung cũ. Chỉ chuyển đổi từng trang hoặc từng thành phần cũ khi có yêu cầu và sau khi đã kiểm tra trực quan.
+
+## 14. Trạng thái triển khai
+
+Hệ khối hiện hỗ trợ đầy đủ:
+
+- đỏ mở cố định và đỏ thu gọn;
+- vàng mở cố định và vàng thu gọn;
+- xám mở cố định và xám thu gọn;
+- khối thu gọn mở sẵn bằng thuộc tính `open`.

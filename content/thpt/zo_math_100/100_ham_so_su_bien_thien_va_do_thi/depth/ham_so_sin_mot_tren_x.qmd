@@ -1,0 +1,366 @@
+---
+title: 'Hàm số $y=\sin\left(\frac{1}{x}\right)$'
+subtitle: "Từ lặng sóng ở vô cực đến dao động dồn dập gần gốc tọa độ"
+pagetitle: "Hàm sin nghịch đảo"
+
+summary: 'Khảo sát hàm số $y=\sin\left(\frac{1}{x}\right)$ qua hai dáng điệu đối lập: tiến gần $1/x$ khi $x$ ra vô cực và dao động vô hạn khi $x$ tiến về $0$.'
+
+description: 'Bài viết khảo sát tập xác định, tập giá trị, tính đối xứng, sự biến thiên, giới hạn và đồ thị của hàm số $y=\sin\left(\frac{1}{x}\right)$, với trọng tâm là hiện tượng dao động dồn gần $x=0$.'
+
+image: /content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/assets/img/cards/the_131.svg
+listing-order: 131
+
+abstract: |
+  Hàm số $y=\sin(1/x)$ kết hợp một dao động lượng giác quen thuộc với phép nghịch đảo. Khi $x$ ra xa gốc tọa độ, đồ thị tiến gần đồ thị $y=1/x$ và dần áp sát trục hoành. Trái lại, khi $x$ tiến về $0$, các dao động bị nén vào những khoảng ngày càng nhỏ.
+
+  Sự đối lập ấy làm hiện rõ mối quan hệ giữa phép hợp hàm, giới hạn, đạo hàm và hình dáng đồ thị.
+
+keywords:
+  - hàm số sin một trên x
+  - hàm hợp
+  - dao động
+  - giới hạn
+  - tiệm cận ngang
+  - đồ thị hàm số
+
+author: "ZO Math"
+date: last-modified
+date-format: "DD-MM-YYYY"
+
+page-layout: article
+toc: true
+toc-title: "Nội dung"
+toc-location: right
+toc-depth: 3
+body-classes: "zo-page-article zo-meta-hidden"
+---
+
+Viết
+
+$$
+y=\sin\left(\frac{1}{x}\right).
+$$
+
+Khi một giá trị khác $0$ của $x$ được chọn, phép nghịch đảo đưa $x$ đến $1/x$, rồi hàm sin xác định giá trị $y$. Hàm số này vì thế là hợp của hai hàm quen thuộc:
+
+$$
+x\longmapsto \frac{1}{x}
+\qquad\text{và}\qquad
+u\longmapsto \sin u.
+$$
+
+Phép hợp ấy tạo ra hai dáng điệu trái ngược. Những giá trị $x$ có độ lớn rất lớn được đưa về những đối số gần $0$, nơi $\sin u$ gần bằng $u$. Ngược lại, khi $x$ tiến gần $0$, đối số $1/x$ đi qua vô hạn chu kỳ của hàm sin. Bởi vậy, cùng một đồ thị vừa trở nên lặng sóng ở xa, vừa dao động dồn dập gần gốc tọa độ.
+
+## Tập xác định và tập giá trị
+
+Biểu thức $1/x$ chỉ không xác định tại $x=0$. Do đó, tập xác định của hàm số là
+
+$$
+D=\mathbb{R}\setminus\{0\}.
+$$
+
+Từ bất đẳng thức $-1\leq \sin u\leq 1$, suy ra
+
+$$
+-1\leq \sin\left(\frac{1}{x}\right)\leq 1.
+$$
+
+Ngược lại, với mỗi $y\in[-1,1]$, phương trình $\sin u=y$ có một nghiệm $u\ne 0$. Chọn $x=1/u$, ta được $x\ne 0$ và $\sin(1/x)=y$. Vì vậy, hàm số nhận được mọi giá trị trong đoạn $[-1,1]$.
+
+Hàm $x\mapsto 1/x$ liên tục trên $D$, còn hàm sin liên tục trên $\mathbb{R}$. Do đó, hàm hợp $f$ liên tục tại mọi điểm thuộc tập xác định. Câu hỏi còn lại là liệu có thể bổ sung một giá trị tại $x=0$ để mở rộng tính liên tục hay không.
+
+## Tính đối xứng và tính tuần hoàn
+
+Với mọi $x\ne 0$,
+
+$$
+f(-x)
+=\sin\left(-\frac{1}{x}\right)
+=-\sin\left(\frac{1}{x}\right)
+=-f(x).
+$$
+
+Vậy $f$ là hàm lẻ. Đồ thị nhận gốc tọa độ làm tâm đối xứng, dù điểm $(0,0)$ không thuộc đồ thị. Vì thế, sau khi khảo sát trên nửa trục dương, ta có thể lấy đối xứng qua gốc tọa độ để thu được phần đồ thị trên nửa trục âm.
+
+Hàm sin có chu kỳ $2\pi$, nhưng phép thay $x$ bằng $1/x$ không bảo toàn tính tuần hoàn. Giả sử $f$ có một chu kỳ $T>0$. Chọn $x$ đủ lớn để
+
+$$
+0<\frac{1}{x+T}<\frac{1}{x}<\frac{\pi}{2}.
+$$
+
+Hàm sin đồng biến trên $(0,\pi/2)$ nên
+
+$$
+\sin\left(\frac{1}{x+T}\right)
+<\sin\left(\frac{1}{x}\right),
+$$
+
+trái với $f(x+T)=f(x)$. Do đó, hàm số không tuần hoàn.
+
+## Lặng sóng ở vô cực
+
+Khi $x\to\pm\infty$, ta có $1/x\to 0$. Tính liên tục của hàm sin tại $0$ cho
+
+$$
+\lim_{x\to\pm\infty}\sin\left(\frac{1}{x}\right)=0.
+$$
+
+Vì vậy, đường thẳng $y=0$ là tiệm cận ngang của đồ thị ở cả hai phía vô cực.
+
+Ta còn có thể mô tả chính xác hơn sự tiến gần ấy. Từ giới hạn cơ bản
+
+$$
+\lim_{u\to 0}\frac{\sin u}{u}=1,
+$$
+
+suy ra
+
+$$
+\lim_{x\to\pm\infty}
+\frac{\sin(1/x)}{1/x}=1.
+$$
+
+Do đó,
+
+$$
+\sin\left(\frac{1}{x}\right)\sim\frac{1}{x}
+\qquad (x\to\pm\infty).
+$$
+
+Hệ thức này không chỉ nói rằng hai hàm cùng tiến về $0$. Nó còn cho biết tỉ số giữa hai giá trị tương ứng tiến về $1$; ở xa gốc tọa độ, đồ thị $y=\sin(1/x)$ ngày càng gần đồ thị $y=1/x$.
+
+<details class="zo-block zo-block-gray">
+<summary class="zo-block-title">“Lặng sóng” có phải là dao động với biên độ nhỏ dần?</summary>
+<div class="zo-block-body">
+
+Không. Chẳng hạn, khi $x>2/\pi$, ta có $0<1/x<\pi/2$. Trong khoảng này, đối số $1/x$ chưa đi hết một nửa chu kỳ của hàm sin. Khi $x$ tiếp tục tăng, đối số chỉ dịch chuyển trong một lân cận ngày càng nhỏ của $0$.
+
+Vì thế, đồ thị ở vô cực không phải là một chuỗi dao động có biên độ co dần. Nó là một nhánh đơn điệu tiến về $0$ và ngày càng gần nhánh tương ứng của $y=1/x$.
+
+</div>
+</details>
+
+## Dao động dồn dập gần $0$
+
+Khi $x\to 0^+$, đối số $1/x\to+\infty$ và đi qua vô hạn chu kỳ của hàm sin. Các điểm không trên nửa trục dương là
+
+$$
+x_n=\frac{1}{n\pi},
+\qquad n\in\mathbb{Z}_{>0}.
+$$
+
+Ta có $x_n\to 0^+$ khi $n\to\infty$. Xen giữa những điểm không ấy là hai dãy
+
+$$
+a_n=\frac{2}{(4n+1)\pi},
+\qquad
+b_n=\frac{2}{(4n+3)\pi},
+\qquad n\in\mathbb{Z}_{\geq 0},
+$$
+
+thỏa mãn
+
+$$
+f(a_n)=1,
+\qquad
+f(b_n)=-1.
+$$
+
+Cả $a_n$ và $b_n$ đều tiến về $0^+$. Như vậy, trong mọi khoảng $(0,\delta)$, dù $\delta>0$ nhỏ đến đâu, hàm số vẫn nhận cả hai giá trị $1$ và $-1$, đồng thời có vô hạn nghiệm.
+
+Do $a_n\to 0^+$ và $b_n\to 0^+$ nhưng
+
+$$
+f(a_n)=1,
+\qquad
+f(b_n)=-1,
+$$
+
+nên giới hạn bên phải của $f$ tại $0$ không tồn tại. Từ tính lẻ, giới hạn bên trái cũng không tồn tại. Bởi vậy,
+
+$$
+\lim_{x\to 0}\sin\left(\frac{1}{x}\right)
+$$
+
+không tồn tại.
+
+Không thể bổ sung một giá trị $f(0)$ để hàm số liên tục tại $0$. Tuy nhiên, $|f(x)|\leq 1$ với mọi $x\ne 0$, nên $x=0$ không phải là tiệm cận đứng. Gần điểm này, các dao động giữ nguyên biên độ và chỉ bị nén vào những khoảng ngày càng ngắn.
+
+<details class="zo-block zo-block-gray">
+<summary class="zo-block-title">Mọi mức trong đoạn $[-1,1]$ đều xuất hiện khi tiến về $0$</summary>
+<div class="zo-block-body">
+
+Chọn một số $L\in[-1,1]$ và một số thực $\alpha$ sao cho $\sin\alpha=L$. Với $n$ đủ lớn để $\alpha+2n\pi\ne 0$, đặt
+
+$$
+x_n=\frac{1}{\alpha+2n\pi}.
+$$
+
+Khi $n\to\infty$, ta có $x_n\to 0^+$ và
+
+$$
+f(x_n)=\sin(\alpha+2n\pi)=L.
+$$
+
+Vì vậy, không chỉ hai mức $1$ và $-1$, mà mọi mức trong đoạn $[-1,1]$ đều là giá trị giới hạn của hàm số dọc theo một dãy tiến về $0$.
+
+</div>
+</details>
+
+## Sự biến thiên
+
+Với $x\ne 0$, đạo hàm của hàm số là
+
+$$
+f'(x)
+=-\frac{1}{x^2}\cos\left(\frac{1}{x}\right).
+$$
+
+Vì $1/x^2>0$, dấu của $f'(x)$ ngược với dấu của $\cos(1/x)$. Các điểm tới hạn thỏa mãn
+
+$$
+\cos\left(\frac{1}{x}\right)=0,
+$$
+
+hay
+
+$$
+x=\frac{2}{(2k+1)\pi},
+\qquad k\in\mathbb{Z}.
+$$
+
+Trên nửa trục dương, đặt
+
+$$
+c_n=\frac{2}{(2n+1)\pi},
+\qquad n\in\mathbb{Z}_{\geq 0}.
+$$
+
+Khi ấy, $c_n\to 0^+$ và
+
+$$
+f(c_n)=(-1)^n.
+$$
+
+Vì dấu của đạo hàm đổi luân phiên qua các điểm này, $c_{2m}$ là điểm cực đại với giá trị $1$, còn $c_{2m+1}$ là điểm cực tiểu với giá trị $-1$, trong đó $m\in\mathbb{Z}_{\geq 0}$. Các khoảng tăng và giảm xen kẽ, ngày càng bị nén khi tiến về $0^+$.
+
+Ở xa gốc tọa độ, dáng biến thiên trở nên đơn giản. Nếu $|x|>2/\pi$ thì $|1/x|<\pi/2$, nên $\cos(1/x)>0$ và $f'(x)<0$. Do đó, hàm số nghịch biến trên
+
+$$
+\left(-\infty,-\frac{2}{\pi}\right)
+\qquad\text{và}\qquad
+\left(\frac{2}{\pi},+\infty\right).
+$$
+
+Một bảng biến thiên vẫn có thể được mô tả bằng các họ điểm $c_n$, nhưng sẽ chứa vô hạn khoảng. Cấu trúc vô hạn ấy chính là đặc điểm của hàm số, không phải một chi tiết có thể thu gọn vào một bảng hữu hạn.
+
+## Từ sự biến thiên đến đồ thị
+
+Các kết quả vừa thu được xác định những nét chính của đồ thị:
+
+- Đồ thị nằm hoàn toàn trong dải $-1\leq y\leq 1$.
+- Đồ thị nhận gốc tọa độ làm tâm đối xứng, dù điểm $(0,0)$ không thuộc đồ thị.
+- Gần $x=0$, đồ thị cắt trục hoành và đạt các mức $1$, $-1$ vô hạn lần; những điểm ấy dồn về phía trục tung.
+- Ở hai phía vô cực, đồ thị ngày càng gần $y=1/x$ và nhận $y=0$ làm tiệm cận ngang.
+- Trục tung không phải là tiệm cận đứng, bởi hàm số luôn bị chặn.
+
+Không một hình vẽ có độ phân giải hữu hạn nào biểu diễn được toàn bộ các dao động gần $0$. Đồ thị trên màn hình chỉ là một ảnh lấy mẫu: khi phóng to vùng gần trục tung, ta sẽ thấy thêm những dao động trước đó bị gộp lại.
+
+<details class="zo-block zo-block-yellow">
+<summary class="zo-block-title">Một hàm gần gũi</summary>
+<div class="zo-block-body">
+
+Xét hàm số
+
+$$
+g(x)=x\sin\left(\frac{1}{x}\right),
+\qquad x\ne 0.
+$$
+
+Hàm $\sin(1/x)$ vẫn dao động với biên độ $1$ khi $x\to 0$, nhưng phép nhân thêm $x$ tạo ra hai đường bao $y=|x|$ và $y=-|x|$. Thật vậy,
+
+$$
+\left|x\sin\left(\frac{1}{x}\right)\right|\leq |x|.
+$$
+
+Theo định lý kẹp,
+
+$$
+\lim_{x\to 0}x\sin\left(\frac{1}{x}\right)=0.
+$$
+
+Vì vậy, nếu đặt thêm $g(0)=0$, ta thu được một hàm liên tục trên toàn bộ $\mathbb{R}$. So sánh này cho thấy: các dao động có thể tiếp tục diễn ra vô hạn lần, nhưng nếu biên độ của chúng co về $0$, giới hạn vẫn có thể tồn tại.
+
+</div>
+</details>
+
+## Kết tinh
+
+Hàm số $y=\sin(1/x)$ cho thấy phép hợp có thể thay đổi sâu sắc nhịp điệu của một hàm quen thuộc. Phép nghịch đảo không làm mất tính dao động của hàm sin; nó phân bố lại các dao động, làm chúng thưa dần khi đi ra xa và nén vô hạn lần khi tiến về $0$.
+
+Ở vô cực, giới hạn và phép tương đương cho thấy đồ thị ngày càng gần $y=1/x$. Gần $0$, hai dãy điểm đặc biệt đủ để chứng minh rằng hàm số không có giới hạn, dù vẫn bị chặn. Đạo hàm tiếp tục làm rõ hình ảnh ấy bằng vô hạn điểm cực trị hội tụ về gốc tọa độ.
+
+Như vậy, một công thức ngắn đã liên kết nhiều ý tưởng: hàm hợp, tính liên tục, giới hạn, tiệm cận, đạo hàm và hình dáng đồ thị. Mỗi ý tưởng không đứng riêng lẻ; chúng cùng mô tả một đối tượng từ những góc nhìn khác nhau.
+
+## Bài tập
+
+Các bài tập được sắp theo một đường đi chung: quan sát giá trị ở xa, nhận ra phép tương đương với $1/x$, xác định các dãy điểm đặc biệt gần $0$, rồi dùng đạo hàm để mô tả sự biến thiên. Khi giải, nên giữ lại mối liên hệ giữa công thức và hình dáng đồ thị, thay vì xem mỗi giới hạn hoặc phương trình như một phép tính tách rời.
+
+1. Tính $f(x)=\sin(1/x)$ tại $x=5$, $10$, $20$, $50$. So sánh các giá trị thu được với $1/x$ và nhận xét.
+
+2. Chứng minh rằng
+
+   $$
+   \lim_{x\to\pm\infty}
+   \frac{\sin(1/x)}{1/x}=1.
+   $$
+
+   Từ đó giải thích ý nghĩa hình học của hệ thức $\sin(1/x)\sim 1/x$.
+
+3. Chứng minh bất đẳng thức
+
+   $$
+   |\sin u|\leq |u|
+   \qquad (u\in\mathbb{R}).
+   $$
+
+   Suy ra
+
+   $$
+   \left|\sin\left(\frac{1}{x}\right)\right|
+   \leq \frac{1}{|x|}
+   \qquad (x\ne 0),
+   $$
+
+   rồi tính giới hạn của $\sin(1/x)$ khi $x\to\pm\infty$.
+
+4. Tìm tất cả các nghiệm của phương trình
+
+   $$
+   \sin\left(\frac{1}{x}\right)=0.
+   $$
+
+   Chứng minh rằng các nghiệm này có một điểm tụ duy nhất là $0$.
+
+5. Dùng hai dãy
+
+   $$
+   a_n=\frac{2}{(4n+1)\pi},
+   \qquad
+   b_n=\frac{2}{(4n+3)\pi}
+   $$
+
+   để chứng minh rằng $\lim_{x\to 0^+}\sin(1/x)$ không tồn tại.
+
+6. Tính đạo hàm $f'(x)$ và chứng minh rằng
+
+   $$
+   |f'(x)|\leq \frac{1}{x^2}
+   \qquad (x\ne 0).
+   $$
+
+   Giải thích vì sao ước lượng này phù hợp với dáng điệu ngày càng phẳng của đồ thị ở vô cực.
+
+7. Xác định các điểm cực đại và cực tiểu của $f$ trên $(0,+\infty)$. Từ đó mô tả thứ tự các khoảng tăng, giảm khi đi từ $+\infty$ về $0$.
+
+8. Chứng minh rằng tập các giá trị giới hạn của $\sin(1/x)$ khi $x\to 0$ là toàn bộ đoạn $[-1,1]$; nghĩa là với mỗi $L\in[-1,1]$, tồn tại một dãy $(x_n)$ sao cho $x_n\to 0$ và $\sin(1/x_n)\to L$.
