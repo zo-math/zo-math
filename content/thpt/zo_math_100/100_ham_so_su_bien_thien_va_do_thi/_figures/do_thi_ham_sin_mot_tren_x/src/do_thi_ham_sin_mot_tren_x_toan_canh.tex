@@ -1,0 +1,149 @@
+\documentclass[tikz,border=3pt,10pt]{standalone}
+
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\setmainfont{STIXTwoText-Regular.otf}[
+  Path=../../../../../../../assets/fonts/,
+  BoldFont=STIXTwoText-Bold.otf,
+  ItalicFont=STIXTwoText-Italic.otf,
+  BoldItalicFont=STIXTwoText-BoldItalic.otf
+]
+\setmathfont{STIXTwoMath.otf}[
+  Path=../../../../../../../assets/fonts/
+]
+
+\usetikzlibrary{backgrounds}
+\input{../../../../../../../assets/tex/zo-graph-styles.tex}
+
+% SỬA 1: khôi phục các chú thích tiếng Việt bị lỗi mã hóa.
+% Phiên bản 2 — 2026-07-22.
+% Nhãn số trên hai trục được đặt thủ công bằng từng \node độc lập.
+% xtick/ytick bên dưới chỉ sinh vạch chia, tuyệt đối không sinh nhãn số.
+
+\pgfmathsetmacro{\zoUMax}{5*pi}
+
+\begin{document}
+\begin{tikzpicture}[zo graph field]
+  \begin{axis}[
+    zo axis,
+    width=12cm,
+    height=7.5cm,
+    xmin=-8.35,
+    xmax=8.35,
+    ymin=-1.18,
+    ymax=1.18,
+    xtick={-8,-4,4,8},
+    ytick={-1,1},
+    xticklabels={},
+    yticklabels={},
+    xlabel={$x$},
+    ylabel={$y$},
+    xlabel style={
+      at={(axis description cs:1.025,0.5)},
+      anchor=west,
+      text=zoText,
+      font=\normalsize
+    },
+    ylabel style={
+      at={(axis description cs:0.5,1.045)},
+      anchor=south,
+      text=zoText,
+      font=\normalsize,
+      rotate=0
+    }
+  ]
+    \addplot[
+      zo graph main,
+      domain=-8:-1/pi,
+      samples=180
+    ] {sin(deg(1/x))};
+
+    \addplot[
+      zo graph main,
+      domain=1/pi:8,
+      samples=180
+    ] {sin(deg(1/x))};
+
+    % SỬA 2:
+    % Bỏ line width=0.8pt để các đoạn gần 0 giữ đúng độ dày
+    % 1.2pt của zo graph main, thống nhất với hai phần đuôi.
+    \addplot[
+      zo graph main,
+      parametric,
+      variable=\u,
+      domain=pi:\zoUMax,
+      samples=180
+    ] ({1/\u},{sin(deg(\u))});
+
+    \addplot[
+      zo graph main,
+      parametric,
+      variable=\u,
+      domain=pi:\zoUMax,
+      samples=180
+    ] ({-1/\u},{-sin(deg(\u))});
+
+    % SỬA 3: dùng style riêng để nhãn O có cỡ \normalsize.
+    \node[
+      zo origin label,
+      anchor=north east,
+      xshift=-4pt,
+      yshift=-2pt
+    ] at (axis cs:0,0) {$O$};
+
+    % SỬA 4: khôi phục các chú thích tiếng Việt bị lỗi mã hóa.
+    % Sáu nhãn dưới đây hoàn toàn độc lập; sửa anchor/xshift/yshift
+    % của một node không làm thay đổi vị trí của bất kỳ nhãn nào khác.
+    \node[
+      text=zoText,
+      font=\small,
+      anchor=south,
+      xshift=0pt,
+      yshift=2pt
+    ] at (axis cs:-8,0) {$-8$};
+
+    \node[
+      text=zoText,
+      font=\small,
+      anchor=south,
+      xshift=0pt,
+      yshift=2pt
+    ] at (axis cs:-4,0) {$-4$};
+
+    \node[
+      text=zoText,
+      font=\small,
+      anchor=north,
+      xshift=0pt,
+      yshift=-2pt
+    ] at (axis cs:4,0) {$4$};
+
+    \node[
+      text=zoText,
+      font=\small,
+      anchor=north,
+      xshift=0pt,
+      yshift=-2pt
+    ] at (axis cs:8,0) {$8$};
+
+    \node[
+      text=zoText,
+      font=\small,
+      anchor=east,
+      xshift=0pt,
+      yshift=-4pt
+    ] at (axis cs:0,-1) {$-1$};
+
+    \node[
+      text=zoText,
+      font=\small,
+      anchor=west,
+      xshift=0pt,
+      yshift=4pt
+    ] at (axis cs:0,1) {$1$};
+  \end{axis}
+\end{tikzpicture}
+\end{document}
