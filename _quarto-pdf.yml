@@ -1,0 +1,29 @@
+format:
+  pdf:
+    documentclass: article
+    pdf-engine: lualatex
+    papersize: a4
+    fontsize: 11pt
+    geometry:
+      - top=24mm
+      - bottom=24mm
+      - left=25mm
+      - right=25mm
+    toc: true
+    number-sections: false
+    mainfont: "STIX Two Text"
+    sansfont: "STIX Two Text"
+    monofont: "STIX Two Text"
+    mathfont: "STIX Two Math"
+    colorlinks: true
+    include-in-header:
+      - "assets/tex/zo-pdf.tex"
+    include-before-body:
+      - "assets/tex/zo-pdf-rights.tex"
+    include-after-body:
+      - "assets/tex/zo-pdf-support.tex"
+
+filters:
+  - "assets/lua/custom.lua"
+  - "assets/lua/zo_pdf_branding.lua"
+  - "assets/lua/zo_pdf_content.lua"

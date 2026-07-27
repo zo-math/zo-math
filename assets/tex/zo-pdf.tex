@@ -1,0 +1,101 @@
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{hyperxmp}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{lastpage}
+\usepackage{qrcode}
+
+\definecolor{zomathgray}{HTML}{5F6368}
+\definecolor{zomathred}{HTML}{EF5350}
+
+\providecommand{\zoPdfTitle}{ZO Math}
+\providecommand{\zoPdfSubtitle}{}
+\providecommand{\zoPdfShortTitle}{ZO Math}
+\providecommand{\zoPdfCollection}{Tài liệu học toán của ZO Math}
+\providecommand{\zoPdfDate}{}
+\providecommand{\zoPdfCanonicalUrl}{https://zo-math.github.io/zo-math/}
+\providecommand{\zoPdfDisplayUrl}{zo-math.github.io/zo-math}
+\providecommand{\zoPdfSubject}{Tài liệu học toán của ZO Math}
+\providecommand{\zoPdfKeywords}{ZO Math, toán học}
+
+\newcommand{\zoPdfFooterLeft}{%
+  \fontsize{7.5}{9}\selectfont\color{zomathgray}%
+  \textcopyright{} \the\year{} ZO Math%
+}
+\newcommand{\zoPdfFooterCenter}{%
+  \fontsize{7.5}{9}\selectfont\color{zomathgray}%
+  \href{\zoPdfCanonicalUrl}{\zoPdfDisplayUrl}%
+}
+\newcommand{\zoPdfFooterRight}{%
+  \fontsize{7.5}{9}\selectfont\color{zomathgray}%
+  \thepage\,/\,\pageref*{LastPage}%
+}
+\newcommand{\zoPdfApplyFooter}{%
+  \fancyfoot[L]{\zoPdfFooterLeft}%
+  \fancyfoot[C]{\zoPdfFooterCenter}%
+  \fancyfoot[R]{\zoPdfFooterRight}%
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{zomathgray}ZO Math}
+\fancyhead[R]{\small\color{zomathgray}\zoPdfShortTitle}
+\zoPdfApplyFooter
+\renewcommand{\headrulewidth}{0.7pt}
+\renewcommand{\headrule}{%
+  \hbox to\headwidth{\color{zomathred}\leaders\hrule height \headrulewidth\hfill}%
+}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{27pt}
+\setlist{topsep=0.4em, itemsep=0.25em, parsep=0pt, partopsep=0pt}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \zoPdfApplyFooter
+  \renewcommand{\headrulewidth}{0pt}%
+}
+
+\makeatletter
+\renewcommand{\maketitle}{%
+  \thispagestyle{plain}%
+  \begin{center}
+    \vspace*{-1.5em}
+    \includegraphics[width=27mm]{zo_math_logo_black_on_transprentt_1024.pdf}\par
+    \vspace{0.9em}
+    \begin{tabular}{c}
+      {\small\color{zomathgray}\zoPdfCollection}\\[0.65em]
+      {\color{zomathred}\rule{46mm}{1.2pt}}
+    \end{tabular}\par
+    \vspace{1.35em}
+    {\LARGE\bfseries\zoPdfTitle\par}
+    \ifx\zoPdfSubtitle\@empty\else
+      \vspace{0.55em}
+      {\large\color{zomathgray}\zoPdfSubtitle\par}
+    \fi
+    \ifx\zoPdfDate\@empty\else
+      \vspace{1.1em}
+      {\small\color{zomathgray}Cập nhật \zoPdfDate\par}
+    \fi
+  \end{center}
+  \vspace{0.8em}
+}
+\makeatother
+
+\AtBeginDocument{%
+  \hypersetup{
+    pdftitle={\zoPdfTitle},
+    pdfauthor={ZO Math},
+    pdfsubject={\zoPdfSubject},
+    pdfkeywords={\zoPdfKeywords},
+    pdfcopyright={\textcopyright{} \the\year{} ZO Math. Bảo lưu mọi quyền.},
+    pdfmetalang={vi},
+    pdfpublisher={ZO Math},
+    pdfsource={\zoPdfCanonicalUrl},
+    pdfborder={0 0 0},
+    linkcolor=black,
+    urlcolor=zomathred
+  }%
+}
