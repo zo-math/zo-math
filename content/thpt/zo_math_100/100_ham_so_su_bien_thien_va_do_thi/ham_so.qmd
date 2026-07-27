@@ -29,15 +29,23 @@ toc-title: "Nội dung"
 toc-location: right
 toc-depth: 3
 body-classes: "zo-page-article zo-meta-hidden"
+
+zo-pdf-download:
+  href: "ham_so.pdf"
+  label: "Tải PDF"
 ---
 
-Viết $y=x^2$, và hiểu theo nghĩa: hễ $x$ được chọn thì $y$ cũng lập tức được xác định. Nói cách khác, $x$ là đại lượng được tự do lựa chọn, gọi là *biến độc lập*; còn $y$ thì luôn phải tuân theo $x$, gọi là *biến phụ thuộc*. Tập hợp những giá trị mà $x$ có thể nhận gọi là *tập xác định*, và những giá trị mà $y$ có thể đạt tới gọi là *tập giá trị*. Với ví dụ này, $x$ có thể là bất kỳ số thực nào, nhưng $y$ thì chỉ nhận các giá trị không âm.
+Viết $y=x^2$. Khi một giá trị của $x$ được chọn, giá trị của $y$ cũng được xác định theo lựa chọn ấy. Trong mối quan hệ này, $x$ được gọi là *biến độc lập*, còn $y$, vì phụ thuộc vào $x$, được gọi là *biến phụ thuộc*.
+
+Việc lựa chọn $x$ luôn diễn ra trong một phạm vi nhất định. Tập hợp những giá trị được phép chọn cho $x$ được gọi là *tập xác định*; những giá trị tương ứng mà $y$ nhận được hợp thành *tập giá trị*. Với $y=x^2$, $x$ có thể là bất kỳ số thực nào, trong khi $y$ chỉ nhận các giá trị không âm.
 
 <details class="zo-block zo-block-gray">
-<summary class="zo-block-title">Biến số và biến</summary>
+<summary class="zo-block-title">Về cách dùng “biến số” và “biến”</summary>
 <div class="zo-block-body">
 
-Kí hiệu $x$ được gọi là một *biến số* khi nó đại diện cho một giá trị có thể thay đổi trong một *tập số* nhất định. Nếu tập đang xét không phải là tập số thì chỉ gọi là *biến*. Trong cách dùng thường ngày, “biến” đôi khi cũng được dùng thay thế cho “biến số” khi ngữ cảnh đã rõ.
+Trong bài này, $x$ và $y$ nhận các giá trị số nên được gọi là những *biến số*. Từ *biến* có nghĩa rộng hơn: tùy theo ngữ cảnh, nó có thể đại diện cho một số, một đối tượng hoặc một giá trị thuộc một tập hợp nào đó.
+
+Trong nhiều tài liệu, *biến* cũng được dùng như cách gọi ngắn của *biến số* khi ngữ cảnh đã rõ. Vì vậy, hai cách gọi này không phải lúc nào cũng được phân biệt tuyệt đối; điều quan trọng là xác định kí hiệu đang được phép nhận những giá trị nào.
 
 </div>
 </details>
@@ -45,14 +53,14 @@ Kí hiệu $x$ được gọi là một *biến số* khi nó đại diện cho 
 
 ## Khái niệm hàm số
 
-Hệ thức $y=x^2$ là một *hàm số*. Ta cũng nói: $y$ là hàm của $x$. Chính thức hơn, ở mức phổ thông, một hàm số được hiểu theo định nghĩa dưới đây.
+Quy tắc $y=x^2$ xác định một *hàm số*; ta cũng nói $y$ là hàm của $x$. Từ ví dụ này, ở mức phổ thông, ta có thể phát biểu định nghĩa chính thức như sau.
 
 :::: {.zo-block .zo-block-red}
 ::: {.zo-block-title}
 Hàm số
 :::
 ::: {.zo-block-body}
-Cho $D$ là một tập con của tập số thực $\mathbb{R}$, tức là $D\subset \mathbb{R}$. Một *hàm số* trên tập $D$ là một quy tắc $f$ gắn cho mỗi $x\in D$ đúng một số thực *duy nhất* $y$, thường viết
+Cho $D$ là một tập con của tập số thực $\mathbb{R}$, tức là $D\subset \mathbb{R}$. Một *hàm số* trên tập $D$ là một quy tắc $f$ gán cho mỗi $x\in D$ đúng một số thực *duy nhất* $y$, thường viết
 
 $$
 y=f(x).
@@ -62,10 +70,8 @@ Tập $D$ được gọi là *tập xác định* của hàm số. Tập tất c
 :::
 ::::
 
-### Cách nhìn bằng ánh xạ
-
 <details class="zo-block zo-block-gray">
-<summary class="zo-block-title">Cách hiểu trong Toán học bậc cao</summary>
+<summary class="zo-block-title">Ánh xạ: Cách hiểu trong Toán học bậc cao</summary>
 <div class="zo-block-body">
 
 Trong Toán học bậc cao, một hàm số được hiểu như một *ánh xạ* $f$ từ $D$ vào $\mathbb{R}$, được kí hiệu như sau:
@@ -87,15 +93,21 @@ $$
 
 ## Hàm số không nhất thiết có công thức
 
-Thoạt nhìn, dễ lầm tưởng rằng hàm số luôn phải có một công thức đại số. Nhưng thực ra không phải vậy. Chẳng hạn, với tập xác định $\{1,2,3,5\}$, việc quy định $f(1)=2$, $f(2)=2$, $f(3)=-1$ và $f(5)=3$ cũng xác định nên một hàm số. Một ví dụ sâu sắc hơn là hàm số $\pi(n)$, đếm số lượng số nguyên tố nhỏ hơn số nguyên dương $n$. Khi $n=6$, ta có $\pi(6)=3$ vì ba số nguyên tố $2, 3, 5$ đều nhỏ hơn $6$. Ở đây, giá trị của $\pi(n)$ luôn được xác định duy nhất với mỗi $n$, mặc dù cho đến nay chưa hề có một công thức đại số nào để viết trực tiếp $\pi(n)$.
+Thoạt nhìn, dễ lầm tưởng rằng một hàm số luôn phải được cho bằng công thức đại số. Tuy nhiên, điều cốt yếu không nằm ở hình thức của công thức, mà ở quy tắc xác định duy nhất một giá trị đầu ra cho mỗi giá trị đầu vào. Chẳng hạn, trên tập xác định $\{1,2,3,5\}$, các quy định $f(1)=2$, $f(2)=2$, $f(3)=-1$ và $f(5)=3$ đã xác định một hàm số.
+
+Một ví dụ khác là hàm đếm số nguyên tố $\pi(n)$. Với mỗi số nguyên dương $n$, giá trị $\pi(n)$ là số lượng số nguyên tố không vượt quá $n$. Chẳng hạn, $\pi(6)=3$ vì các số nguyên tố không vượt quá $6$ là $2,3,5$. Hàm số này được xác định bằng một quy tắc đếm, thay vì bằng một biểu thức đại số quen thuộc.
 
 ## Từ công thức đến sự biến thiên
 
-Ngay cả khi có công thức, không phải hàm số nào cũng “hiền lành”. Hàm $y=x^2$ thì trơn tru, có điểm thấp nhất ở $x=0$ và sau đó tăng dần về hai phía. Nhưng hàm $y=\frac{1}{x}$ lại cư xử rất khác khi $x$ tiến gần đến $0$: đi từ phía âm, giá trị $y$ lao xuống âm vô cực; đi từ phía dương, giá trị $y$ vọt lên dương vô cực. Dù $0$ không thuộc tập xác định, chính sự “trái tính” này khiến hàm số trở nên đặc biệt. Có những hàm số còn rắc rối theo kiểu khác, chẳng hạn $y=\sqrt{x}$ không chấp nhận $x$ âm, hoặc $y=\sin\left(\frac{1}{x}\right)$ dao động dữ dội khi $x$ tiến gần $0$.
+Ngay cả khi được cho bằng công thức, mỗi hàm số vẫn có một dáng biến thiên riêng. Với $y=x^2$, khi $x$ tiến dần đến $0$ từ phía âm, giá trị của hàm số giảm xuống; tại $x=0$, hàm số đạt giá trị nhỏ nhất; rồi khi $x$ đi về phía dương, giá trị ấy lại tăng lên.
 
-Từ những ví dụ trên, ta thấy hàm số có thể hiền lành như $y=x^2$, tinh vi như $\pi(n)$, hoặc khó lường như $\sin\left(\frac{1}{x}\right)$. Hàm số là một trong những khái niệm nền tảng và có nội hàm phong phú bậc nhất của toán học: nó là ngôn ngữ phổ quát và hiệu quả để mô tả sự thay đổi, từ giản dị đến phức tạp.
+Với hàm số $y=\frac{1}{x}$, một dáng biến thiên khác hiện ra gần $0$. Khi $x$ tiến đến $0$ từ phía âm, giá trị của hàm số tiến đến âm vô cực; khi $x$ tiến đến $0$ từ phía dương, giá trị ấy tiến đến dương vô cực. Mặc dù $0$ không thuộc tập xác định, hành vi của hàm số ở hai phía của điểm này vẫn là một đặc điểm cần được quan sát.
 
-Chính vì thế, khi học hàm số không nên dừng lại ở việc nhận biết công thức. Điều cốt yếu là phải nắm bắt được dáng điệu của biến phụ thuộc mà công thức ẩn chứa trong nó: khi $x$ thay đổi, $y$ biểu hiện thế nào — tăng ở đâu, giảm ở chỗ nào, nhanh hay chậm, dừng lại tại đâu, hay dao động ra sao? Vì vậy, hiểu một hàm số tức là hiểu quy luật biến thiên của nó.
+Những khác biệt còn có thể xuất hiện ở tập xác định hoặc trong cách hàm số dao động. Trên tập số thực, hàm số $y=\sqrt{x}$ chỉ xác định khi $x\geq 0$, còn $y=\sin\left(\frac{1}{x}\right)$ dao động ngày càng dồn dập khi $x$ tiến gần đến $0$.
+
+Những ví dụ trên cho thấy công thức của một hàm số có thể ẩn chứa nhiều dạng biến thiên khác nhau. Có hàm giảm rồi tăng như $y=x^2$; có hàm mang những hành vi khác biệt ở hai phía của một điểm như $y=\frac{1}{x}$; cũng có hàm dao động ngày càng dồn dập gần điểm ấy như $y=\sin\left(\frac{1}{x}\right)$. Bởi vậy, công thức không chỉ cho biết cách tính $y$ từ $x$, mà còn mở ra câu hỏi về cách giá trị của hàm số thay đổi.
+
+Vì vậy, nhận biết công thức mới chỉ là bước đầu. Ta còn cần quan sát khi $x$ thay đổi thì giá trị của hàm số thay đổi như thế nào: hàm số tăng hay giảm trên những khoảng nào, có nơi nào chuyển từ giảm sang tăng hoặc từ tăng sang giảm hay không, và có dao động theo một quy luật nào không. Những câu hỏi ấy dẫn ta từ công thức đến việc khảo sát sự biến thiên của hàm số.
 
 ## Bài tập
 
@@ -103,24 +115,34 @@ Chính vì thế, khi học hàm số không nên dừng lại ở việc nhận
 <summary class="zo-block-title">Thí nghiệm trên mặt phẳng nghiêng</summary>
 
 <div class="zo-block-body">
-Galileo Galilei (1564–1642) là một trong những nhà khoa học tiên phong. Ông muốn tìm hiểu quy luật chuyển động, trong khi nhiều người cùng thời vẫn tin rằng vật nặng rơi nhanh hơn vật nhẹ.
+Nghiên cứu sự rơi của một vật thoạt nhìn có vẻ là một công việc trực tiếp: thả vật xuống và quan sát. Tuy nhiên, cách làm này gặp một khó khăn. Vật rơi quá nhanh, trong khi việc đo những khoảng thời gian ngắn bằng các phương tiện đương thời không hề dễ dàng. Nếu chỉ lặp lại việc thả vật từ trên cao, Galileo Galilei (1564–1642) vẫn phải đối diện với cùng một trở ngại.
 
-Trực tiếp nghiên cứu rơi tự do thì quá khó, vì vật rơi nhanh khiến việc đo đạc gần như bất khả thi với công cụ thời bấy giờ. Galileo đã nghĩ ra cách thay thế thông minh: cho một quả bóng lăn trên mặt phẳng nghiêng. Nhờ đó:
+Thay vì cố đo một chuyển động quá nhanh, Galileo thay đổi cách đặt vấn đề. Ông cho một quả cầu lăn trên mặt phẳng có độ nghiêng nhỏ. Chuyển động khi ấy diễn ra chậm hơn so với rơi thẳng đứng, nên thời gian và quãng đường có thể được quan sát rõ hơn. Bài toán ban đầu không bị loại bỏ; nó được đưa về một tình huống dễ nghiên cứu hơn.
 
-* Làm chậm chuyển động: Góc nghiêng giảm gia tốc của quả bóng, giúp Galileo dễ dàng đo thời gian và quãng đường chính xác hơn bằng các công cụ thô sơ (như đồng hồ nước hoặc nhịp tim).
+Sự thay đổi này cần được thực hiện một cách có chủ đích. Mặt phẳng nghiêng phải làm chuyển động chậm lại, nhưng vẫn giữ được đặc điểm mà Galileo muốn tìm hiểu: vật bắt đầu từ trạng thái nghỉ và chuyển động nhanh dần dưới tác dụng của trọng lực. Trong mô hình lý tưởng, khi độ nghiêng không đổi, quả cầu lăn không trượt và lực cản không đáng kể, gia tốc của quả cầu không đổi.
 
-* Tái hiện rơi tự do: Chuyển động trên mặt phẳng nghiêng cũng chịu ảnh hưởng của trọng lực tương tự rơi tự do nhưng với gia tốc nhỏ hơn.
+Khi ấy, Galileo có thể so sánh quãng đường quả cầu đi được sau những khoảng thời gian khác nhau. Từ các phép đo, một quy luật hiện ra: quãng đường tỉ lệ với bình phương thời gian. Nếu $x$ biểu thị thời gian và $y$ biểu thị quãng đường, quy luật ấy có dạng
 
-* Khám phá quy luật toán học: Qua thí nghiệm, Galileo phát hiện quãng đường $y$ tỉ lệ với bình phương thời gian $x$ (tức $y=kx^2$), một phát hiện mang tính cách mạng, đặt nền móng cho cơ học hiện đại.
+$$
+y=kx^2,
+$$
 
-Sự sắc sảo của Galileo không chỉ nằm ở việc thiết kế thí nghiệm mà còn ở cách ông dùng dữ liệu để rút ra quy luật. Ông không chỉ đo lường mà còn tìm cách biểu diễn mối quan hệ giữa thời gian và quãng đường bằng một quy tắc toán học — chính là khái niệm *hàm số* mà chúng ta đang tìm hiểu.
+với $k>0$. Trong mô hình này, $k$ là một hằng số đặc trưng cho điều kiện thí nghiệm; nếu gia tốc của quả cầu là $a$, thì $k=\frac{a}{2}$. Vì vậy, khi thời gian tăng gấp đôi, quãng đường tăng gấp bốn; khi thời gian tăng gấp ba, quãng đường tăng gấp chín.
+
+Câu chuyện về mặt phẳng nghiêng cho thấy một cách giải quyết vấn đề đáng chú ý. Khi một hiện tượng quá khó quan sát ở dạng ban đầu, ta có thể tìm một tình huống đơn giản hơn: thay đổi những điều gây trở ngại, giữ lại đặc điểm cốt yếu, rồi lựa chọn các đại lượng có thể đo được. Từ những dữ liệu ấy, ta tìm kiếm một quy luật.
+
+Ngày nay, quá trình như vậy thường được gọi là *mô hình hóa toán học*. Ta bắt đầu từ một hiện tượng thực tế, lựa chọn những yếu tố quan trọng, đặt ra các giả thiết đơn giản hóa và biểu diễn mối quan hệ giữa các đại lượng bằng ngôn ngữ toán học. Mô hình không giữ lại mọi chi tiết của hiện tượng; nó chỉ giữ những đặc điểm cần thiết cho câu hỏi đang được nghiên cứu.
+
+Trong mô hình đơn giản này, ảnh hưởng của lực cản được xem là không đáng kể. Những sai lệch do dụng cụ, trái lại, thuộc về quá trình đo và cần được xem xét khi đối chiếu dữ liệu với mô hình. Thời gian và quãng đường được chọn làm hai đại lượng chính, còn quan hệ giữa chúng được biểu diễn bởi hàm số $y=kx^2$.
+
+Sau khi có mô hình, ta còn phải đối chiếu nó với quan sát: các giá trị đo được có gần với quy luật dự đoán hay không, và những sai khác có thể đến từ đâu? Vì thế, mô hình hóa không chỉ là tìm một công thức. Đó là một quá trình đi từ hiện tượng đến toán học, rồi dùng toán học để trở lại hiểu hiện tượng.
+
+Nhìn từ quan niệm ngày nay, cách chuyển một hiện tượng khó quan sát thành một thí nghiệm có thể đo đạc, rồi biểu diễn kết quả bằng một quan hệ toán học, cho thấy những yếu tố cơ bản của tư duy mô hình hóa. Trong quá trình ấy, hàm số biểu diễn mối quan hệ được nhận ra giữa thời gian và quãng đường.
 </div>
 
 </details>
 
-1. Galileo Galilei (1564–1642) muốn khám phá quy luật rơi tự do. Nếu thả một vật từ trên cao, nó di chuyển quá nhanh, khiến việc đo chính xác thời gian và quãng đường rất khó. Galileo đã nghĩ ra cách: để một quả bóng lăn xuống một mặt phẳng nghiêng với góc nhỏ. Điều này làm chậm chuyển động, giúp ông đo lường dễ dàng hơn, đồng thời vẫn cho phép khám phá quy luật tương tự như rơi tự do: *quãng đường tỉ lệ với bình phương thời gian*.
-
-   Dựa trên thí nghiệm của Galileo, ta xét dữ liệu giả định sau:
+1. Để nghiên cứu quy luật của chuyển động rơi trong điều kiện dễ quan sát hơn, Galileo Galilei sử dụng một quả cầu lăn trên mặt phẳng nghiêng. Dựa trên ý tưởng thí nghiệm ấy, ta xét một mô hình trong đó $x$ là thời gian tính từ lúc quả cầu bắt đầu chuyển động và $y$ là quãng đường quả cầu đi được. Bộ dữ liệu giả định như sau:
 
    | Thời gian $x$ (giây) | Quãng đường $y$ (mét) |
    | :--------------: | :---------------: |
@@ -129,23 +151,36 @@ Sự sắc sảo của Galileo không chỉ nằm ở việc thiết kế thí n
    | $3$ | $4{,}5$ |
    | $4$ | $8{,}0$ |
 
-   a. Hãy tính tỉ số $\frac{y}{x^2}$ cho mỗi hàng số liệu. Các tỉ số này có gì giống nhau? Dựa vào kết quả, bạn đoán quy tắc $f$ nào liên kết thời gian $x$ với quãng đường $y$? Dùng quy tắc vừa tìm được, hãy tính quãng đường khi $x=5$ (giây).
+   a. **Nhận ra quy luật.** Tính tỉ số $\dfrac{y}{x^2}$ ở mỗi hàng. Từ kết quả đó, hãy dự đoán một công thức liên hệ $y$ với $x$, rồi dùng công thức vừa tìm được để tính quãng đường khi $x=5$ giây.
 
-   b. Trong thí nghiệm, mỗi thời điểm $x$ chỉ tương ứng với một quãng đường $y$. Nếu tại $x=2$, ta đo được hai quãng đường khác nhau (như $2$ mét và $3$ mét), điều đó có hợp lý không? Tại sao?
+   b. **Phân biệt mô hình và phép đo.** Theo công thức vừa tìm được, tại $x=2$ mô hình dự đoán một giá trị $y$ duy nhất. Tuy nhiên, nếu thực hiện phép đo nhiều lần, ta có thể thu được những kết quả hơi khác nhau. Điều này có mâu thuẫn với tính duy nhất của hàm số không? Hãy giải thích sự khác nhau giữa giá trị do mô hình xác định và giá trị thu được từ phép đo.
 
-   c. Trong thí nghiệm, thời gian $x$ có thể nhận giá trị nào? Có thể là số âm không? Tại sao? Quãng đường $y$ có thể âm không? Giá trị nhỏ nhất của $y$ là bao nhiêu?
+   c. **Xác định phạm vi của các đại lượng.** Trong mô hình lý tưởng, vì $x$ là thời gian tính từ lúc quả cầu bắt đầu chuyển động, $x$ có thể nhận những giá trị nào? Trong một thí nghiệm thực tế, vì sao thời gian quan sát chỉ nằm trong một khoảng hữu hạn? Quãng đường $y$ có thể âm không? Nếu kể cả thời điểm bắt đầu, giá trị nhỏ nhất của $y$ là bao nhiêu?
 
-   d. Khi thời gian $x$ tăng từ $1$ giây đến $4$ giây, quãng đường $y$ thay đổi thế nào? Ví dụ: từ $1$ giây đến $2$ giây, $y$ tăng bao nhiêu? Từ $2$ giây đến $3$ giây thì sao? Bạn có nhận thấy $y$ tăng nhanh hơn khi $x$ lớn hơn không?
+   d. **Quan sát sự biến thiên.** Tính độ tăng của quãng đường trong từng khoảng thời gian từ $1$ đến $2$ giây, từ $2$ đến $3$ giây và từ $3$ đến $4$ giây. Các kết quả cho biết điều gì về cách $y$ tăng khi $x$ lớn dần?
 
-   e. Vì sao Galileo không trực tiếp nghiên cứu rơi tự do mà lại chọn chuyển động trên mặt phẳng nghiêng? Tại sao chuyển động trên mặt phẳng nghiêng có thể xem là một thay thế hợp lý cho rơi tự do? Theo bạn, cách làm này đã giúp ông khám phá quy tắc $y=kx^2$ như thế nào? (Gợi ý: Hãy nghĩ đến tốc độ chuyển động và khả năng đo lường chính xác của thời gian và quãng đường).
+   e. **Nhìn lại quá trình mô hình hóa.** Trong cách thiết kế thí nghiệm trên, trở ngại mà Galileo muốn vượt qua là gì? Mặt phẳng nghiêng đã làm cho tình huống dễ nghiên cứu hơn như thế nào? Đặc điểm nào của chuyển động được giữ lại, và những yếu tố nào được tạm thời bỏ qua? Sau khi tìm được công thức, vì sao vẫn cần đối chiếu dự đoán của mô hình với kết quả đo?
 
-2. Trong các quy tắc sau, quy tắc nào xác định một hàm số? Giải thích.
-   a. $y=\pm \sqrt{x}$.
-   b. $y=\sqrt{x}$.
-   c. Với mỗi số nguyên $n$, gán cho $n$ số chữ số của nó trong hệ thập phân.
-   d. Với mỗi số thực $x$, gán cho $x$ số lượng nghiệm của phương trình $t^2=x$.
+2. Trong các quy tắc sau, quy tắc nào xác định một hàm số? Hãy giải thích dựa trên yêu cầu: mỗi giá trị đầu vào phải xác định đúng một giá trị đầu ra.
 
-3. Cho hàm số $f(x)$ thỏa mãn $f(x+1)=x^2+2x+1$ với mọi $x\in\mathbb{R}$.
+   a. Với mỗi số thực $x\geq 0$, gán cho $x$ cả hai giá trị $\sqrt{x}$ và $-\sqrt{x}$.
+
+   b. Với mỗi số thực $x\geq 0$, gán cho $x$ giá trị $\sqrt{x}$.
+
+   c. Với mỗi số nguyên $n$, gán cho $n$ số chữ số của $|n|$ trong hệ thập phân; quy ước $0$ có một chữ số.
+
+   d. Với mỗi số thực $x$, gán cho $x$ số lượng nghiệm thực của phương trình $t^2=x$.
+
+3. Cho hàm số $f\colon\mathbb{R}\to\mathbb{R}$ thỏa mãn
+
+   $$
+   f(x+1)=x^2+2x+1
+   $$
+
+   với mọi $x\in\mathbb{R}$.
+
    a. Tính $f(2)$ và $f(3)$.
+
    b. Tìm công thức $f(x)$.
+
    c. Dùng công thức vừa tìm được để tính lại $f(2)$ và $f(3)$.
