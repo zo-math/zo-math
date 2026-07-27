@@ -1,0 +1,262 @@
+\documentclass[tikz,border=3pt,10pt]{standalone}
+
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\setmainfont{STIXTwoText-Regular.otf}[
+  Path=../../../../../../../assets/fonts/,
+  BoldFont=STIXTwoText-Bold.otf,
+  ItalicFont=STIXTwoText-Italic.otf,
+  BoldItalicFont=STIXTwoText-BoldItalic.otf
+]
+\setmathfont{STIXTwoMath.otf}[
+  Path=../../../../../../../assets/fonts/
+]
+
+\usetikzlibrary{backgrounds,matrix}
+
+% ZO Math semantic colors used in this figure.
+\definecolor{zoPlotBackground}{HTML}{FFF9E9}
+\definecolor{zoPlotBorder}{HTML}{DFD7CA}
+\definecolor{zoAxis}{HTML}{554F48}
+\definecolor{zoText}{HTML}{3E3A35}
+\definecolor{zoGraphMain}{HTML}{EF5350}
+% \definecolor{zoGraphStrong}{HTML}{BF4240}
+\definecolor{zoGraphStrong}{HTML}{997918}
+% \definecolor{zoReference}{HTML}{997918}
+\definecolor{zoReference}{HTML}{997918}
+\definecolor{zoWhite}{HTML}{FFFFFF}
+
+% All visual styles required by this source are declared locally.
+\pgfplotsset{
+  zo axis/.style={
+    width=24cm,
+    height=7.5cm,
+    scale only axis,
+    axis equal image=false,
+    enlargelimits=false,
+    clip=true,
+    clip mode=individual,
+    axis lines=middle,
+    grid=none,
+    axis line style={draw=zoAxis,line width=0.8pt,<->},
+    tick align=center,
+    tickwidth=0.4mm,
+    tick style={draw=zoAxis,line width=0.32pt},
+    every axis plot/.append style={line cap=round,line join=round}
+  },
+  zo graph main/.style={
+    draw=zoGraphMain,
+    line width=1.2pt,
+    solid,
+    no marks
+  },
+  zo graph secondary/.style={
+    draw=zoGraphStrong,
+    line width=0.9pt,
+    % densely dashdotted,
+    no marks
+  },
+  zo reference/.style={
+    draw=zoReference,
+    line width=0.6pt,
+    dashed,
+    no marks
+  }
+}
+
+\tikzset{
+  zo graph field/.style={
+    show background rectangle,
+    inner frame sep=4mm,
+    background rectangle/.style={
+      fill=zoPlotBackground,
+      draw=zoPlotBorder,
+      line width=0.45pt,
+      rounded corners=2mm
+    }
+  }
+}
+
+% The tails are shown up to x=-3 and x=3; near 0, only finitely many
+% oscillations are displayed on each side of the origin.
+\pgfmathsetmacro{\zoUMin}{1/3}
+\pgfmathsetmacro{\zoUMax}{10*pi}
+
+\begin{document}
+\begin{tikzpicture}[zo graph field]
+  \begin{axis}[
+    zo axis,
+    xmin=-1.2,
+    xmax=1.2,
+    ymin=-1.18,
+    ymax=1.18,
+    xtick={-0.31831,-0.15915,0.15915,0.31831},
+    ytick={-1,1},
+    xticklabel=\empty,
+    yticklabel=\empty,
+    xlabel={$x$},
+    ylabel={$y$},
+    xlabel style={
+      at={(axis description cs:1.025,0.5)},
+      anchor=west,
+      text=zoText,
+      font=\normalsize
+    },
+    ylabel style={
+      at={(axis description cs:0.5,1.045)},
+      anchor=south,
+      text=zoText,
+      font=\normalsize,
+      rotate=0
+    }
+  ]
+    % Reference envelope for x sin(1/x).
+    \addplot[zo reference,domain=-1.2:1.2,samples=2] {x};
+    \addplot[zo reference,domain=-1.2:1.2,samples=2] {-x};
+
+    % Secondary graph: g(x)=x sin(1/x), parameterized by u=1/x.
+    \addplot[
+      zo graph secondary,
+      parametric,
+      variable=\u,
+      domain=\zoUMin:\zoUMax,
+      samples=801
+    ] ({1/\u},{sin(deg(\u))/\u});
+    \addplot[
+      zo graph secondary,
+      parametric,
+      variable=\u,
+      domain=\zoUMin:\zoUMax,
+      samples=801
+    ] ({-1/\u},{sin(deg(\u))/\u});
+
+    % Main graph: f(x)=sin(1/x), split at x=0 and parameterized by u.
+    \addplot[
+      zo graph main,
+      parametric,
+      variable=\u,
+      domain=\zoUMin:\zoUMax,
+      samples=801
+    ] ({1/\u},{sin(deg(\u))});
+    \addplot[
+      zo graph main,
+      parametric,
+      variable=\u,
+      domain=\zoUMin:\zoUMax,
+      samples=801
+    ] ({-1/\u},{-sin(deg(\u))});
+
+    % Axis labels: every displayed value is an independent node.
+    \node[
+      text=zoText,
+      font=\normalsize,
+      anchor=north east,
+      xshift=-2pt,
+      yshift=-1pt
+    ] at (axis cs:0,0) {$O$};
+
+    \node[
+      text=zoText,
+      font=\small,
+      anchor=north,
+      xshift=0pt,
+      yshift=-1pt
+    ] at (axis cs:{-1/pi},0) {$-\frac{1}{\pi}$};
+    \node[
+      text=zoText,
+      font=\small,
+      anchor=north,
+      xshift=-8pt,
+      yshift=-1pt
+    ] at (axis cs:{-1/(2*pi)},0) {$-\frac{1}{2\pi}$};
+    \node[
+      text=zoText,
+      font=\small,
+      anchor=south,
+      xshift=5pt,
+      yshift=1pt
+    ] at (axis cs:{1/(2*pi)},0) {$\frac{1}{2\pi}$};
+    \node[
+      text=zoText,
+      font=\small,
+      anchor=south,
+      xshift=0pt,
+      yshift=1pt
+    ] at (axis cs:{1/pi},0) {$\frac{1}{\pi}$};
+
+    \node[
+      text=zoText,
+      font=\small,
+      anchor=east,
+      xshift=-2pt,
+      yshift=0pt
+    ] at (axis cs:0,-1.05) {$-1$};
+    \node[
+      text=zoText,
+      font=\small,
+      anchor=east,
+      xshift=-2pt,
+      yshift=0pt
+    ] at (axis cs:0,1.05) {$1$};
+
+    \node[
+      rotate=16,
+      text=zoText,
+      font=\small,
+      anchor=south west,
+      xshift=2pt,
+      yshift=1pt
+    ] at (axis cs:0.25,0.25) {$y=x$};
+
+    \node[
+      rotate=-16,
+      text=zoText,
+      font=\small,
+      anchor=north west,
+      xshift=2pt,
+      yshift=-1pt
+    ] at (axis cs:0.25,-0.25) {$y=-x$};
+
+    % Legend for the two functions under comparison.
+    \matrix[
+      anchor=south east,
+      at={(rel axis cs:1,0)},
+      fill=zoWhite,
+      draw=zoPlotBorder,
+      line width=0.45pt,
+      rounded corners=1mm,
+      inner sep=5pt,
+      row sep=3pt,
+      column sep=5pt,
+      ampersand replacement=\&,
+      nodes={
+        anchor=west,
+        inner sep=0pt,
+        outer sep=0pt
+      }
+    ] {
+      \node[
+        draw=zoGraphMain,
+        fill=zoGraphMain,
+        line width=0.4pt,
+        minimum width=5.5pt,
+        minimum height=5.5pt
+      ] {}; \&
+      \node[text=zoText,font=\small]
+        {$y=\sin\!\left(\dfrac{1}{x}\right)$}; \\
+      \node[
+        draw=zoGraphStrong,
+        fill=zoGraphStrong,
+        line width=0.4pt,
+        minimum width=5.5pt,
+        minimum height=5.5pt
+      ] {}; \&
+      \node[text=zoText,font=\small]
+        {$y=x\sin\!\left(\dfrac{1}{x}\right)$}; \\
+    };
+  \end{axis}
+\end{tikzpicture}
+\end{document}
