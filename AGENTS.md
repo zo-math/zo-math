@@ -34,6 +34,17 @@ Không ghi đường dẫn tuyệt đối tới executable Python vào metadata 
 
 Codex dùng `scripts/zo_check_repo.py` làm điểm vào mặc định cho kiểm tra kỹ thuật và luôn gọi qua `scripts/zo_python.py`. Chọn chế độ `quick`, `scope` hoặc `render` theo phạm vi nhiệm vụ. Công cụ này không thay thế kiểm tra trực quan, xuất bản hoặc kiểm tra chuyên biệt chưa được tích hợp.
 
+## Hệ thống phong cách viết
+
+ZO Math sử dụng nhiều phong cách viết khác nhau. Chỉ áp dụng một phong cách khi người dùng chỉ định rõ cho bài viết hoặc nhiệm vụ hiện tại.
+
+Khi một phong cách được chỉ định, phải đọc:
+
+- `quy_trinh_xay_dung/phong_cach_viet/index.md`;
+- tài liệu chuyên biệt của phong cách được liệt kê trong tệp chỉ mục.
+
+Chỉ áp dụng phong cách trong phạm vi người dùng chỉ định. Không tự suy rộng phong cách sang bài hoặc nhiệm vụ khác, không coi một phong cách là mặc định của toàn bộ ZO Math và không suy diễn quy chuẩn chỉ từ bài mẫu. Khi thực tiễn biên tập cho thấy cần thay đổi quy chuẩn, phải đề xuất cập nhật tài liệu chuyên biệt và chỉ thực hiện sau khi người dùng chấp thuận. Không ghi toàn bộ nội dung chi tiết của từng phong cách vào `AGENTS.md`.
+
 Khi nhiệm vụ liên quan đến lưới thẻ, phải đọc và tuân thủ thêm:
 
 - `quy_trinh_xay_dung/quy_chuan_luoi_the.md`
