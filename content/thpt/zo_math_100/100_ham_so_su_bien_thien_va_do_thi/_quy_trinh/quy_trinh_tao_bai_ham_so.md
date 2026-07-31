@@ -13,7 +13,15 @@ Quy trình biến một phiếu giao việc ngắn thành một chuỗi sản ph
 5. bài `.qmd` và tài nguyên đi kèm;
 6. hồ sơ nghiệm thu.
 
-Tài liệu này không thay thế `quy_chuan_khao_sat_ham_so.md`. Quy chuẩn quyết định bài phải được khảo sát, tổ chức và kiểm định như thế nào; quy trình này quyết định agent phải đọc gì, tạo gì, dừng ở đâu và bàn giao ra sao trong repository.
+Tài liệu này không thay thế
+`quy_chuan_khao_sat_ham_so.md` hoặc
+`quy_chuan_ki_thuat_bai_ham_so_qmd.md`.
+
+Ba tài liệu có vai trò phân biệt:
+
+- quy chuẩn khảo sát quyết định nội dung toán học, trục nhận thức, kiến trúc bài và cách kiểm định về nội dung;
+- quy chuẩn kĩ thuật quyết định hợp đồng đầu ra của QMD, tài nguyên, HTML, PDF và các cổng kiểm định kĩ thuật;
+- quy trình này quyết định agent phải đọc gì, tạo gì, dừng ở đâu và bàn giao ra sao trong repository.
 
 ## 2. Phạm vi tệp và đường dẫn chuẩn
 
@@ -35,6 +43,7 @@ content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/
 ├── _quy_trinh/
 │   ├── quy_trinh_tao_bai_ham_so.md
 │   ├── quy_chuan_khao_sat_ham_so.md
+│   ├── quy_chuan_ki_thuat_bai_ham_so_qmd.md
 │   ├── ho_so_san_xuat_mac_dinh.yml
 │   ├── mau_ki_thuat_qmd.qmd
 │   ├── nguon_li_thuyet/
@@ -48,6 +57,7 @@ Các quy chuẩn dùng chung:
 
 ```text
 quy_trinh_xay_dung/
+├── huong_dan_su_dung_khoi_noi_dung.md
 ├── quy_chuan_do_thi_sinh_ma_nguon_tikz_pgfplots.md
 └── phong_cach_viet/
     ├── index.md
@@ -98,19 +108,27 @@ Chỉ hỏi lại khi thiếu thông tin tạo ra nhiều đơn vị khảo sát
 
 ### 4.2. Đầu vào agent tự đọc
 
-Trước khi viết hoặc sửa, agent phải tự đọc:
+Trước khi viết, sửa hoặc kiểm định, agent phải tự đọc:
 
 1. `AGENTS.md` ở gốc repository và các chỉ dẫn cấp trung gian;
 2. `AGENTS.md` của dự án này;
 3. `quy_chuan_khao_sat_ham_so.md`;
-4. hồ sơ sản xuất của bài, nếu đã tồn tại;
-5. `ho_so_san_xuat_mac_dinh.yml` khi cần khởi tạo hồ sơ;
-6. `mau_ki_thuat_qmd.qmd` khi tạo tệp QMD mới;
-7. mục tương ứng trong `_data/cards.yml`;
-8. tệp đích và toàn bộ tài nguyên mà tệp đích dẫn tới, nếu bài đã tồn tại;
-9. quy chuẩn đồ thị khi bài cần tạo hoặc sửa hình TikZ/PGFPlots;
-10. chỉ mục phong cách và tài liệu phong cách được chỉ định;
-11. cấu hình Quarto, Lua filter, CSS hoặc script liên quan trực tiếp khi cần kiểm tra kĩ thuật hay render.
+4. `quy_chuan_ki_thuat_bai_ham_so_qmd.md`;
+5. hồ sơ sản xuất của bài, nếu đã tồn tại;
+6. `ho_so_san_xuat_mac_dinh.yml` khi cần khởi tạo hồ sơ;
+7. `mau_ki_thuat_qmd.qmd` khi tạo tệp QMD mới;
+8. mục tương ứng trong `_data/cards.yml`;
+9. tệp đích và toàn bộ tài nguyên mà tệp đích dẫn tới, nếu bài đã tồn tại;
+10. `quy_trinh_xay_dung/huong_dan_su_dung_khoi_noi_dung.md` khi bài có hoặc dự kiến có khối nội dung;
+11. quy chuẩn đồ thị khi bài cần tạo, sửa hoặc kiểm định hình TikZ/PGFPlots;
+12. chỉ mục phong cách và tài liệu phong cách được chỉ định;
+13. cấu hình Quarto, Lua filter, CSS, TeX hoặc script liên quan trực tiếp khi cần kiểm tra kĩ thuật hay render.
+
+Quy chuẩn khảo sát phải được đọc để xác định bài cần nói điều gì và được tổ chức theo mạch nào.
+
+Quy chuẩn kĩ thuật phải được đọc để xác định QMD, tài nguyên, HTML và PDF phải đạt những điều kiện nào.
+
+`mau_ki_thuat_qmd.qmd` chỉ hiện thực hóa phần khung ban đầu của quy chuẩn kĩ thuật. Khi mẫu và quy chuẩn kĩ thuật không thống nhất, phải báo sai lệch; không âm thầm lấy mẫu làm nguồn có thẩm quyền cao hơn.
 
 `depth/ham_sin_mot_tren_x.qmd` chỉ là ca kiểm nghiệm và tham chiếu kĩ thuật. Không dùng kiến trúc nội dung của bài này làm mục lục mặc định cho bài khác.
 
@@ -120,10 +138,15 @@ Khi có nhiều chỉ dẫn cùng áp dụng:
 
 1. yêu cầu hiện tại của người dùng;
 2. `AGENTS.md` và quy ước tại đúng phạm vi repository;
-3. `quy_chuan_khao_sat_ham_so.md`;
-4. quy chuẩn chuyên trách được kích hoạt;
-5. nguồn lí thuyết đầy đủ dùng để giải thích phần chưa được nén;
-6. bài mẫu chỉ trong vai trò tham chiếu đã được xác định.
+3. `quy_chuan_khao_sat_ham_so.md` đối với nội dung toán học, trục nhận thức và kiến trúc bài;
+4. `quy_chuan_ki_thuat_bai_ham_so_qmd.md` đối với QMD, tài nguyên, HTML, PDF và kiểm định đầu ra;
+5. quy chuẩn chuyên trách được kích hoạt;
+6. nguồn lí thuyết đầy đủ dùng để giải thích phần chưa được nén;
+7. mẫu kĩ thuật và bài tham chiếu trong đúng vai trò đã được xác định.
+
+`mau_ki_thuat_qmd.qmd` không được dùng để ghi đè quy chuẩn kĩ thuật.
+
+Một bài đã xuất bản không được dùng để ghi đè quy chuẩn khảo sát hoặc quy chuẩn kĩ thuật chỉ vì nó đang tồn tại và render được.
 
 Nếu hai chỉ dẫn cùng cấp mâu thuẫn trực tiếp và làm thay đổi đầu ra, phải dừng và hỏi người dùng. Không tự hòa giải bằng một thay đổi âm thầm.
 
@@ -225,15 +248,35 @@ Không dùng một mục lục cố định. Các chức năng khơi mở, nhậ
 2. Chỉ kích hoạt quy chuẩn đồ thị khi cần tạo hoặc sửa hình TikZ/PGFPlots.
 3. Mỗi tệp `.tex` mới phải tự chứa toàn bộ màu và style cần dùng; không phụ thuộc `zo-graph-styles.tex`.
 4. Xác định đường dẫn nguồn `.tex`, PDF, SVG và đường dẫn chèn vào bài.
-5. Khi tạo QMD mới, sao chép cấu trúc kĩ thuật từ `mau_ki_thuat_qmd.qmd`.
-6. Thay toàn bộ giá trị giữ chỗ bằng metadata thật.
-7. Xóa các chú thích hướng dẫn không thuộc bài cuối.
+5. Đối chiếu các quyết định về YAML, hệ tiêu đề, mã thực thi, khối nội dung, tài nguyên, bài tập, PDF và cấu trúc bị cấm với `quy_chuan_ki_thuat_bai_ham_so_qmd.md`.
+6. Khi tạo QMD mới, sao chép phần khung ban đầu từ `mau_ki_thuat_qmd.qmd`, rồi hoàn thiện theo quy chuẩn kĩ thuật và hồ sơ của chính bài.
+7. Với mỗi nội dung dự kiến đặt trong khối, ghi rõ:
+   - lí do cần tách thành khối thay vì dùng văn bản hoặc tiêu đề thông thường;
+   - nội dung thuộc mạch chính hay phần đọc thêm;
+   - trạng thái mở cố định hoặc thu gọn;
+   - màu đỏ, vàng hoặc xám theo đúng chức năng;
+   - tiêu đề cụ thể của khối;
+   - cú pháp lớp hiện hành sẽ sử dụng.
+8. Không đưa một nội dung vào khối chỉ để trang trí hoặc nhấn mạnh. Không thu gọn mắt xích bắt buộc của mạch chính.
+9. Xác định hệ bài tập có được kích hoạt hay không. Nếu không kích hoạt, ghi lí do trong hồ sơ. Nếu có, xác định cấu trúc H2–H3–H4, mục tiêu, quan hệ phụ thuộc và trạng thái của gợi ý, đáp án hoặc lời giải.
+10. Với bài dự kiến chuyển sang `published`, xác định tên PDF, `zo-pdf-download`, `zo-pdf-branding`, URL chính tắc và quy trình build PDF.
+11. Thay toàn bộ giá trị giữ chỗ bằng metadata thật.
+12. Xóa các chú thích hướng dẫn không thuộc bài cuối.
 
-`mau_ki_thuat_qmd.qmd` chỉ cung cấp YAML, vị trí kĩ thuật và mẫu chèn tài nguyên. Không dùng các vị trí giữ chỗ của mẫu để áp đặt đề mục nội dung.
+`mau_ki_thuat_qmd.qmd` chỉ cung cấp khung YAML, các vị trí kĩ thuật và mẫu cú pháp. Nó không áp đặt đề mục nội dung và không thay thế `quy_chuan_ki_thuat_bai_ham_so_qmd.md`.
 
-Điểm kiểm soát G4 đạt khi mọi biểu diễn có mục đích, phạm vi đọc và giới hạn rõ; tệp QMD có cấu trúc kĩ thuật phù hợp với đầu ra dự kiến.
+Điểm kiểm soát G4 đạt khi:
+
+- mọi biểu diễn có mục đích, phạm vi đọc và giới hạn rõ;
+- QMD đã được chuẩn bị theo hợp đồng đầu ra kĩ thuật;
+- các tiêu chí kích hoạt theo điều kiện đã được quyết định;
+- mọi khối dự kiến có chức năng, trạng thái, màu và cú pháp rõ;
+- bài dự kiến `published` đã có kế hoạch PDF đầy đủ;
+- không còn quyết định kĩ thuật quan trọng ở trạng thái chưa xác định.
 
 ### Giai đoạn 5 — Viết bài và tạo tài nguyên
+
+Trong toàn bộ giai đoạn này, đề cương đã qua G3 điều khiển mạch nội dung; `quy_chuan_ki_thuat_bai_ham_so_qmd.md` điều khiển cách hiện thực mạch ấy thành QMD và các đầu ra xuất bản. Không dùng mẫu kĩ thuật để thay đổi kiến trúc nhận thức đã chốt.
 
 1. Viết theo đề cương đã qua G3.
 2. Giữ mắt xích bắt buộc trong mạch chính.
@@ -243,6 +286,8 @@ Không dùng một mục lục cố định. Các chức năng khơi mở, nhậ
 6. Áp dụng tài liệu phong cách chỉ sau khi kiến trúc toán học ổn định.
 7. Tạo và kiểm tra các tệp nguồn hình theo quy chuẩn chuyên trách.
 8. Không cập nhật `cards.yml` chỉ để đánh dấu bài đã xuất bản khi bài chưa qua nghiệm thu.
+9. Dùng hệ lớp `zo-block` hiện hành theo `huong_dan_su_dung_khoi_noi_dung.md`. Không dùng các lớp cũ cho nội dung mới chỉ vì chúng vẫn còn được CSS hỗ trợ để tương thích.
+10. Nội dung bắt buộc đối với mạch chính không được đặt trong khối thu gọn. Khi văn bản thường và hệ tiêu đề đã đủ rõ, không tạo thêm khối.
 
 Trong chế độ `hoan_thien`, sửa tại nguồn gần nhất tạo ra lỗi. Không viết lại phần đã đạt nếu việc đó không cần cho mục tiêu hoặc mạch bài.
 
@@ -256,8 +301,9 @@ Thực hiện đúng giao thức của Mục 12 trong quy chuẩn:
 2. kiểm định mạch giải thích;
 3. kiểm định giá trị nhận thức;
 4. kiểm định hệ thống bài tập khi bài có bài tập;
-5. sửa lỗi tại nguồn gần nhất;
-6. chạy lại các lượt bị ảnh hưởng.
+5. kiểm định hệ khối nội dung: sự cần thiết của từng khối, trạng thái hiển thị, màu theo chức năng, tiêu đề, cú pháp lớp và việc bảo toàn mạch chính;
+6. sửa lỗi tại nguồn gần nhất;
+7. chạy lại các lượt bị ảnh hưởng.
 
 Mỗi tiêu chí phải có trạng thái và căn cứ cụ thể. Trong nghiệm thu cuối, không được còn tiêu chí bắt buộc ở trạng thái `dat_mot_phan` hoặc `chua_kiem_chung`.
 
@@ -275,8 +321,10 @@ Trong phạm vi môi trường cho phép:
 6. render HTML của bài;
 7. build PDF tải xuống khi bài yêu cầu;
 8. xem bản render thật ở kích thước sử dụng;
-9. kiểm tra nút tải PDF, metadata, URL chính tắc và tài nguyên;
-10. chạy lại kiểm định nội dung nếu sửa kĩ thuật làm thay đổi cách đọc.
+9. kiểm tra trực quan các khối mở cố định và thu gọn: viền, nền, tiêu đề, khoảng cách, khả năng mở–đóng, nội dung bên trong và sự liên tục của mạch đọc;
+10. kiểm tra bài mới không dùng lớp khối cũ; với bài hiện có, phải báo rõ lớp cũ nào còn tồn tại và đó là tương thích lịch sử hay sai lệch cần chuyển đổi;
+11. kiểm tra nút tải PDF, metadata, URL chính tắc và tài nguyên;
+12. chạy lại kiểm định nội dung nếu sửa kĩ thuật làm thay đổi cách đọc.
 
 Không tuyên bố một kiểm tra đã đạt chỉ vì lệnh trả về mã thoát `0` nếu tiêu chí cần quan sát bản render.
 

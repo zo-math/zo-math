@@ -1,4 +1,4 @@
-phien_ban_ho_so: 1
+phien_ban_ho_so: 3
 
 nhan_dien:
   slug: null
@@ -37,7 +37,9 @@ don_vi_khao_sat:
 
 duong_dan:
   qmd_dich: null
+  html_dich: null
   pdf_tai_xuong: null
+  canonical_url: null
   anh_the: null
   thu_muc_hinh: null
   the_trong_cards_yml: null
@@ -56,6 +58,9 @@ tai_lieu_dieu_khien:
   quy_chuan_khao_sat:
     duong_dan: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/quy_chuan_khao_sat_ham_so.md
     da_doc: false
+  quy_chuan_ki_thuat:
+    duong_dan: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/quy_chuan_ki_thuat_bai_ham_so_qmd.md
+    da_doc: false
   nguon_li_thuyet_day_du:
     duong_dan: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/nguon_li_thuyet/khung_khao_sat_ham_so_hoan_chinh_04.qmd
     sha256_ki_vong: c9a6ff3040a38658c9e55068395672da1fdb04d58bdd21c4ec027b85ac0d48aa
@@ -63,6 +68,10 @@ tai_lieu_dieu_khien:
     vi_tri_da_dung: []
   mau_qmd:
     duong_dan: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/mau_ki_thuat_qmd.qmd
+    da_doc: false
+  huong_dan_khoi_noi_dung:
+    duong_dan: quy_trinh_xay_dung/huong_dan_su_dung_khoi_noi_dung.md
+    kich_hoat: true
     da_doc: false
   cards:
     duong_dan: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_data/cards.yml
@@ -289,8 +298,76 @@ de_cuong_van_hanh:
 
 ho_so_bieu_dien: []
 
+tai_nguyen_hinh:
+  co_su_dung: null
+  ap_dung_cau_truc_mac_dinh: null
+  duong_dan_slug: null
+  thu_muc_can_tao: []
+  li_do_ngoai_le: null
+
+he_thong_bai_tap:
+  kich_hoat: null
+  li_do_khong_kich_hoat: null
+  trang_thai_thiet_ke: chua_thuc_hien
+  muc_tieu: []
+  nhom_bai: []
+  co_goi_y: null
+  co_dap_an: null
+  co_loi_giai: null
+
+dau_ra_ki_thuat:
+  qmd:
+    bat_buoc: true
+    duong_dan: null
+    trang_thai: chua_thuc_hien
+  html:
+    bat_buoc: true
+    duong_dan: null
+    render: chua_thuc_hien
+    desktop: chua_thuc_hien
+    mobile: chua_thuc_hien
+  pdf:
+    bat_buoc_khi_published: true
+    duong_dan: null
+    build: chua_thuc_hien
+    metadata: chua_thuc_hien
+    truc_quan: chua_thuc_hien
+  nut_tai_pdf:
+    bat_buoc_khi_published: true
+    href: null
+    hien_thi: chua_thuc_hien
+    hoat_dong: chua_thuc_hien
+  the_du_an:
+    listing_order_khop_number: chua_thuc_hien
+    image_khop_the: chua_thuc_hien
+
+he_khoi_noi_dung:
+  co_su_dung: null
+  li_do_khong_su_dung: null
+  cac_khoi: []
+  lop_cu_phat_hien: []
+  quyet_dinh_chuyen_doi: null
+
 kiem_dinh:
   che_do_xac_nhan: tuan_thu_quy_trinh
+  tu_dong:
+    trang_thai: NOT_RUN
+    cong_cu: []
+    pham_vi_da_chay: []
+    loi_chan: []
+    canh_bao_can_xet: []
+    thong_tin: []
+    bang_chung: []
+    da_chay_lai_sau_sua_cuoi: false
+  co_nguoi_quan_sat:
+    trang_thai: chua_thuc_hien
+    qmd_nguon: chua_thuc_hien
+    html_desktop: chua_thuc_hien
+    html_mobile: chua_thuc_hien
+    pdf: chua_thuc_hien
+    nut_tai_pdf: chua_thuc_hien
+    lien_ket_va_ma_qr: chua_thuc_hien
+    bang_chung: []
   toan_hoc:
     trang_thai: chua_thuc_hien
     tieu_chi:
@@ -436,7 +513,8 @@ kiem_dinh:
         can_cu: []
         hanh_dong_sua: null
   he_thong_bai_tap:
-    kich_hoat: null
+    ap_dung_theo_ho_so: null
+    li_do_khong_ap_dung: null
     trang_thai: chua_thuc_hien
     tieu_chi:
       - id: BT01
@@ -469,21 +547,80 @@ kiem_dinh:
         trang_thai: chua_thuc_hien
         can_cu: []
         hanh_dong_sua: null
+  he_khoi_noi_dung:
+    kich_hoat: true
+    trang_thai: chua_thuc_hien
+    tieu_chi:
+      - id: KH01
+        noi_dung: moi_khoi_thuc_su_can_thiet
+        trang_thai: chua_thuc_hien
+        can_cu: []
+        hanh_dong_sua: null
+      - id: KH02
+        noi_dung: trang_thai_hien_thi_phu_hop_voi_mach_chinh
+        trang_thai: chua_thuc_hien
+        can_cu: []
+        hanh_dong_sua: null
+      - id: KH03
+        noi_dung: mau_theo_dung_chuc_nang_noi_dung
+        trang_thai: chua_thuc_hien
+        can_cu: []
+        hanh_dong_sua: null
+      - id: KH04
+        noi_dung: tieu_de_goi_dung_noi_dung_hoac_vai_tro
+        trang_thai: chua_thuc_hien
+        can_cu: []
+        hanh_dong_sua: null
+      - id: KH05
+        noi_dung: cu_phap_lop_hien_hanh_va_day_du
+        trang_thai: chua_thuc_hien
+        can_cu: []
+        hanh_dong_sua: null
+      - id: KH06
+        noi_dung: khong_thu_gon_mat_xich_bat_buoc
+        trang_thai: chua_thuc_hien
+        can_cu: []
+        hanh_dong_sua: null
+      - id: KH07
+        noi_dung: lop_cu_duoc_nhan_dien_va_xu_li_dung_pham_vi
+        trang_thai: chua_thuc_hien
+        can_cu: []
+        hanh_dong_sua: null
   ki_thuat:
+    hop_dong_qmd: chua_thuc_hien
     yaml_qmd: chua_thuc_hien
+    metadata_va_the: chua_thuc_hien
+    listing_order_va_number: chua_thuc_hien
     markdown_quarto: chua_thuc_hien
+    cau_truc_tieu_de: chua_thuc_hien
+    ma_va_phu_thuoc: chua_thuc_hien
+    he_khoi_cu_phap: chua_thuc_hien
+    he_khoi_truc_quan: chua_thuc_hien
+    he_khoi_tuong_tac: chua_thuc_hien
     cong_thuc: chua_thuc_hien
     dan_chieu_va_duong_dan: chua_thuc_hien
+    tai_nguyen: chua_thuc_hien
+    he_thong_bai_tap: chua_thuc_hien
+    cau_truc_bi_cam: chua_thuc_hien
     tex: chua_thuc_hien
     pdf_hinh: chua_thuc_hien
     svg_hinh: chua_thuc_hien
     html: chua_thuc_hien
+    html_desktop: chua_thuc_hien
+    html_mobile: chua_thuc_hien
     pdf_bai: chua_thuc_hien
+    pdf_metadata: chua_thuc_hien
+    pdf_truc_quan: chua_thuc_hien
+    nut_tai_pdf: chua_thuc_hien
     duyet_truc_quan: chua_thuc_hien
     git_diff_check: chua_thuc_hien
 
 nghiem_thu:
   ket_luan: chua_thuc_hien
+  gia_tri_ket_luan_hop_le:
+    - "ĐẠT"
+    - "KHÔNG ĐẠT"
+    - "CHƯA ĐỦ BẰNG CHỨNG"
   dieu_kien_dung:
     - id: DK01
       noi_dung: cau_hoi_dan_duong_da_duoc_giai_quyet
@@ -521,6 +658,38 @@ nghiem_thu:
       noi_dung: tep_va_tai_nguyen_ban_giao_day_du
       trang_thai: chua_thuc_hien
       can_cu: []
+    - id: DK10
+      noi_dung: he_khoi_noi_dung_dat_hoac_khong_ap_dung_co_li_do
+      trang_thai: chua_thuc_hien
+      can_cu: []
+    - id: DK11
+      noi_dung: quy_chuan_ki_thuat_da_duoc_ap_dung
+      trang_thai: chua_thuc_hien
+      can_cu: []
+    - id: DK12
+      noi_dung: he_thong_bai_tap_dat_hoac_khong_ap_dung_co_li_do
+      trang_thai: chua_thuc_hien
+      can_cu: []
+    - id: DK13
+      noi_dung: listing_order_khop_number_cua_the
+      trang_thai: chua_thuc_hien
+      can_cu: []
+    - id: DK14
+      noi_dung: html_desktop_va_mobile_da_duoc_quan_sat
+      trang_thai: chua_thuc_hien
+      can_cu: []
+    - id: DK15
+      noi_dung: pdf_va_nut_tai_dat_khi_bai_published
+      trang_thai: chua_thuc_hien
+      can_cu: []
+    - id: DK16
+      noi_dung: hai_tang_kiem_dinh_da_hoan_tat
+      trang_thai: chua_thuc_hien
+      can_cu: []
+    - id: DK17
+      noi_dung: kiem_dinh_tu_dong_da_chay_lai_sau_sua_cuoi
+      trang_thai: chua_thuc_hien
+      can_cu: []
   can_cu: []
   tieu_chi_khong_ap_dung: []
   kiem_tra_chua_thuc_hien_duoc: []
@@ -532,6 +701,9 @@ van_de_he_thong: []
 
 ban_giao:
   bao_cao_ngan: null
+  ket_qua_kiem_dinh_tu_dong: null
+  ket_qua_kiem_dinh_co_nguoi_quan_sat: null
+  ket_luan_nghiem_thu: null
   lenh_kiem_tra_da_chay: []
   ket_qua_render: []
   tep_da_tao: []

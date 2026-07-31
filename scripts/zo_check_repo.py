@@ -1,4 +1,7 @@
-"""Unified, scope-aware technical checks for the ZO Math repository."""
+"""Unified, scope-aware technical checks for the ZO Math repository.
+
+Includes the technical output contract for function-article QMD files.
+"""
 
 from __future__ import annotations
 
@@ -26,6 +29,8 @@ except ImportError:  # Reported as missing dependency with exit code 3 in main()
     yaml = None
 
 
+CHECKER_VERSION = "2.0.1"
+
 EXIT_OK = 0
 EXIT_FAILED = 1
 EXIT_USAGE = 2
@@ -47,6 +52,25 @@ CARD_COMPONENTS = {
 }
 CARD_IMAGE_DIR = CARD_PROJECT / "assets/img/cards"
 
+FUNCTION_ARTICLE_DIRS = (CARD_PROJECT / "core", CARD_PROJECT / "depth")
+FUNCTION_REQUIRED_METADATA = {
+    "title", "subtitle", "pagetitle", "summary", "description", "image",
+    "listing-order", "abstract", "keywords", "author", "date", "date-format",
+    "page-layout", "toc", "toc-title", "toc-location", "toc-depth",
+    "body-classes", "zo-pdf-download", "zo-pdf-branding",
+}
+FUNCTION_PLACEHOLDERS = (
+    "CHƯA XÁC ĐỊNH", "CHUA_XAC_DINH", "CHON_MAU", "CHỌN MÀU",
+    "TIÊU ĐỀ KHỐI", "TÊN_TỆP", "TEN_TEP", "TÊN NGẮN CỦA BÀI",
+    "URL_HTML_CHÍNH_TẮC", "DUONG_DAN_DEN_TEP_QMD",
+    "DUONG_DAN_DEN_TEP_PDF",
+)
+FUNCTION_LEGACY_CLASSES = (
+    ".tieu-de-chu-thich", "collapsible-box-", "highlight-box-",
+)
+FUNCTION_BLOCK_COLORS = ("zo-block-red", "zo-block-yellow", "zo-block-gray")
+FUNCTION_CANONICAL_BASE = "https://zo-math.github.io/zo-math/"
+
 
 @dataclass
 class Check:
@@ -64,9 +88,19 @@ class Checker:
         self.checks: list[Check] = []
         self.warnings: list[str] = []
 
+    def _path_text(self, path: Path | None) -> str | None:
+        if path is None:
+            return None
+        return path.relative_to(self.root).as_posix() if path.is_absolute() else path.as_posix()
+
     def add(self, name: str, passed: bool, message: str, path: Path | None = None) -> None:
-        rel = path.relative_to(self.root).as_posix() if path and path.is_absolute() else (path.as_posix() if path else None)
-        self.checks.append(Check(name, "pass" if passed else "fail", message, rel))
+        self.checks.append(Check(name, "pass" if passed else "fail", message, self._path_text(path)))
+
+    def add_warning(self, name: str, message: str, path: Path | None = None) -> None:
+        self.checks.append(Check(name, "warn", message, self._path_text(path)))
+
+    def add_info(self, name: str, message: str, path: Path | None = None) -> None:
+        self.checks.append(Check(name, "info", message, self._path_text(path)))
 
     def warn(self, message: str) -> None:
         self.warnings.append(message)
@@ -74,6 +108,10 @@ class Checker:
     @property
     def failed(self) -> bool:
         return any(item.status == "fail" for item in self.checks)
+
+    @property
+    def has_warnings(self) -> bool:
+        return bool(self.warnings) or any(item.status == "warn" for item in self.checks)
 
 
 def run(
@@ -256,9 +294,34 @@ def validate_python(path: Path, text: str, checker: Checker) -> None:
         checker.add("python-syntax", True, "Cú pháp Python hợp lệ.", path)
 
 
+def load_yaml_unique(text: str) -> Any:
+    class UniqueKeyLoader(yaml.SafeLoader):
+        pass
+
+    def construct_mapping(loader: Any, node: Any, deep: bool = False) -> dict[Any, Any]:
+        mapping: dict[Any, Any] = {}
+        for key_node, value_node in node.value:
+            key = loader.construct_object(key_node, deep=deep)
+            if key in mapping:
+                raise yaml.constructor.ConstructorError(
+                    "while constructing a mapping",
+                    node.start_mark,
+                    f"found duplicate key {key!r}",
+                    key_node.start_mark,
+                )
+            mapping[key] = loader.construct_object(value_node, deep=deep)
+        return mapping
+
+    UniqueKeyLoader.add_constructor(
+        yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
+        construct_mapping,
+    )
+    return yaml.load(text, Loader=UniqueKeyLoader)
+
+
 def validate_yaml(path: Path, text: str, checker: Checker) -> Any:
     try:
-        value = yaml.safe_load(text)
+        value = load_yaml_unique(text)
     except yaml.YAMLError as exc:
         mark = getattr(exc, "problem_mark", None)
         where = f"dòng {mark.line + 1}, cột {mark.column + 1}: " if mark else ""
@@ -311,7 +374,7 @@ def nested_default_image_extension(metadata: Any) -> Any:
 def project_default_image_extension(root: Path) -> str | None:
     path = root / "_quarto.yml"
     try:
-        config = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        config = load_yaml_unique(path.read_text(encoding="utf-8")) or {}
     except (OSError, UnicodeDecodeError, yaml.YAMLError) as exc:
         raise ValueError(f"Không đọc được _quarto.yml: {exc}") from exc
     return normalize_image_extension(
@@ -384,6 +447,687 @@ def strip_code(text: str) -> str:
     return re.sub(r"`[^`\n]*`", "", text)
 
 
+
+def split_qmd_front_matter(text: str) -> tuple[dict[str, Any] | None, str, str | None]:
+    match = re.match(r"\A---[ \t]*\r?\n(.*?)\r?\n---[ \t]*(?:\r?\n|$)", text, flags=re.DOTALL)
+    if not match:
+        return None, text, "Thiếu YAML front matter ở đầu tệp."
+    raw = match.group(1)
+    try:
+        value = load_yaml_unique(raw) or {}
+    except yaml.YAMLError as exc:
+        mark = getattr(exc, "problem_mark", None)
+        where = f"dòng {mark.line + 2}, cột {mark.column + 1}: " if mark else ""
+        return None, text[match.end():], where + str(exc).splitlines()[0]
+    if not isinstance(value, dict):
+        return None, text[match.end():], "YAML front matter phải là mapping."
+    return value, text[match.end():], None
+
+
+def strip_fences_comments_and_inline_code(text: str) -> str:
+    lines = text.splitlines(keepends=True)
+    output: list[str] = []
+    fence: tuple[str, int] | None = None
+    in_comment = False
+    for line in lines:
+        working = line
+        if in_comment:
+            if "-->" in working:
+                _, working = working.split("-->", 1)
+                in_comment = False
+            else:
+                output.append("\n" if line.endswith(("\n", "\r")) else "")
+                continue
+        while "<!--" in working:
+            before, rest = working.split("<!--", 1)
+            if "-->" in rest:
+                _, after = rest.split("-->", 1)
+                working = before + after
+            else:
+                working = before
+                in_comment = True
+                break
+        stripped = working.lstrip()
+        marker = re.match(r"(`{3,}|~{3,})", stripped)
+        if fence is None and marker:
+            token = marker.group(1)
+            fence = (token[0], len(token))
+            output.append("\n" if line.endswith(("\n", "\r")) else "")
+            continue
+        if fence is not None:
+            close = re.match(rf"{re.escape(fence[0])}{{{fence[1]},}}[ \t]*$", stripped.rstrip("\r\n"))
+            if close:
+                fence = None
+            output.append("\n" if line.endswith(("\n", "\r")) else "")
+            continue
+        working = re.sub(r"`[^`\r\n]*`", "", working)
+        output.append(working)
+    return "".join(output)
+
+
+def line_list(text: str, pattern: str, flags: int = 0) -> list[int]:
+    expression = re.compile(pattern, flags)
+    return [
+        number for number, line in enumerate(text.splitlines(), start=1)
+        if expression.search(line)
+    ]
+
+
+def is_function_article(relative: Path) -> bool:
+    if relative.suffix.lower() != ".qmd":
+        return False
+    return any(directory == relative.parent or directory in relative.parents for directory in FUNCTION_ARTICLE_DIRS)
+
+
+def flatten_card_items(data: Any) -> list[dict[str, Any]]:
+    if not isinstance(data, dict):
+        return []
+    items: list[dict[str, Any]] = []
+    special = data.get("special")
+    if isinstance(special, list):
+        items.extend(item for item in special if isinstance(item, dict))
+    groups = data.get("groups")
+    if isinstance(groups, list):
+        for group in groups:
+            if isinstance(group, dict) and isinstance(group.get("items"), list):
+                items.extend(item for item in group["items"] if isinstance(item, dict))
+    return items
+
+
+def normalize_href_path(value: str) -> str:
+    parsed = urlsplit(value)
+    return unquote(parsed.path).replace("\\", "/").lstrip("/")
+
+
+def function_card(
+    relative: Path, metadata: Mapping[str, Any], checker: Checker
+) -> tuple[dict[str, Any] | None, str | None]:
+    data_path = checker.root / CARD_PROJECT / "_data/cards.yml"
+    try:
+        data = load_yaml_unique(data_path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, yaml.YAMLError) as exc:
+        return None, f"Không đọc được cards.yml: {exc}"
+    items = flatten_card_items(data)
+    expected = relative.relative_to(CARD_PROJECT).with_suffix(".html").as_posix()
+    by_href = [
+        item for item in items
+        if isinstance(item.get("href"), str)
+        and normalize_href_path(item["href"]).endswith(expected)
+    ]
+    if len(by_href) == 1:
+        return by_href[0], None
+    listing = metadata.get("listing-order")
+    by_number = [
+        item for item in items
+        if isinstance(listing, int) and item.get("number") == listing
+    ]
+    if len(by_number) == 1:
+        return by_number[0], None
+    if len(by_href) > 1 or len(by_number) > 1:
+        return None, "Có nhiều thẻ cùng khớp bài hoặc listing-order."
+    return None, "Không tìm thấy thẻ tương ứng bằng href hoặc listing-order."
+
+
+def metadata_nonempty(value: Any) -> bool:
+    if isinstance(value, str):
+        return bool(value.strip())
+    if isinstance(value, list):
+        return bool(value) and all(metadata_nonempty(item) for item in value)
+    return value is not None
+
+
+def qmd_image_records(body: str) -> list[tuple[int, str, str | None, str]]:
+    records: list[tuple[int, str, str | None, str]] = []
+    expression = re.compile(
+        r"!\[(?P<alt>[^\]\r\n]*)\]\((?P<target>[^)\r\n]+)\)"
+        r"(?:\{(?P<attrs>[^}\r\n]*)\})?"
+    )
+    for match in expression.finditer(body):
+        line = body.count("\n", 0, match.start()) + 1
+        records.append((line, match.group("target").strip(), match.group("attrs"), match.group("alt")))
+    return records
+
+
+def validate_function_metadata(
+    path: Path, relative: Path, metadata: dict[str, Any], checker: Checker
+) -> tuple[dict[str, Any] | None, str | None]:
+    missing = sorted(key for key in FUNCTION_REQUIRED_METADATA if key not in metadata)
+    checker.add(
+        "function-yaml-required", not missing,
+        "Đủ trường YAML bắt buộc." if not missing else "Thiếu: " + ", ".join(missing),
+        path,
+    )
+    empty = sorted(
+        key for key in FUNCTION_REQUIRED_METADATA
+        if key in metadata and not metadata_nonempty(metadata[key])
+    )
+    checker.add(
+        "function-yaml-values", not empty,
+        "Các trường bắt buộc có giá trị." if not empty else "Rỗng: " + ", ".join(empty),
+        path,
+    )
+    expected_values = {
+        "author": "ZO Math",
+        "date": "last-modified",
+        "date-format": "DD-MM-YYYY",
+        "page-layout": "article",
+        "toc": True,
+        "toc-title": "Nội dung",
+        "toc-location": "right",
+        "toc-depth": 3,
+    }
+    wrong = [
+        f"{key}={metadata.get(key)!r}"
+        for key, expected in expected_values.items()
+        if metadata.get(key) != expected
+    ]
+    checker.add(
+        "function-yaml-fixed-values", not wrong,
+        "Các giá trị cố định đúng chuẩn." if not wrong else "Sai: " + ", ".join(wrong),
+        path,
+    )
+    classes = str(metadata.get("body-classes", "")).split()
+    required_classes = {"zo-page-article", "zo-meta-hidden"}
+    checker.add(
+        "function-body-classes", required_classes.issubset(classes),
+        "Có đủ zo-page-article và zo-meta-hidden."
+        if required_classes.issubset(classes)
+        else "body-classes thiếu: " + ", ".join(sorted(required_classes - set(classes))),
+        path,
+    )
+    listing = metadata.get("listing-order")
+    checker.add(
+        "function-listing-order-type", isinstance(listing, int) and listing > 0,
+        f"listing-order={listing!r}." if isinstance(listing, int) and listing > 0
+        else "listing-order phải là số nguyên dương.",
+        path,
+    )
+    image = metadata.get("image")
+    image_ok = isinstance(image, str) and image.startswith("/") and (checker.root / image.lstrip("/")).exists()
+    checker.add(
+        "function-card-image", image_ok,
+        f"Ảnh thẻ tồn tại: {image}" if image_ok else f"Ảnh thẻ không hợp lệ hoặc không tồn tại: {image!r}",
+        path,
+    )
+
+    card, card_error = function_card(relative, metadata, checker)
+    if card is None:
+        checker.add_warning("function-card-match", card_error or "Không xác định được thẻ.", path)
+        status = None
+    else:
+        checker.add("function-card-match", True, f"Khớp thẻ {card.get('id', card.get('number'))}.", path)
+        expected_href = relative.relative_to(CARD_PROJECT).as_posix()
+        card_href = card.get("href")
+        href_matches = isinstance(card_href, str) and normalize_href_path(card_href).endswith(expected_href)
+        checker.add(
+            "function-card-href", href_matches,
+            "href của thẻ khớp bài." if href_matches
+            else f"Kì vọng href kết thúc bằng {expected_href!r}, nhận {card_href!r}.",
+            path,
+        )
+        card_status = card.get("status")
+        checker.add(
+            "function-card-status", card_status in {"published", "pending"},
+            f"status={card_status!r}." if card_status in {"published", "pending"}
+            else f"Trạng thái thẻ không hỗ trợ: {card_status!r}.",
+            path,
+        )
+        number_ok = card.get("number") == listing
+        checker.add(
+            "function-listing-order-card", number_ok,
+            f"listing-order={listing!r}, card.number={card.get('number')!r}.",
+            path,
+        )
+        card_image = card.get("image")
+        normalized_metadata_image = str(image).lstrip("/") if isinstance(image, str) else ""
+        normalized_card_image = (
+            (CARD_PROJECT / str(card_image)).as_posix()
+            if isinstance(card_image, str) and not str(card_image).startswith("/")
+            else str(card_image).lstrip("/")
+        )
+        image_matches = normalized_metadata_image == normalized_card_image
+        checker.add(
+            "function-image-card", image_matches,
+            "image khớp thẻ." if image_matches
+            else f"YAML={image!r}, thẻ={card_image!r}.",
+            path,
+        )
+        status = str(card.get("status")) if card.get("status") is not None else None
+
+    pdf_download = metadata.get("zo-pdf-download")
+    pdf_branding = metadata.get("zo-pdf-branding")
+    download_ok = isinstance(pdf_download, dict)
+    branding_ok = isinstance(pdf_branding, dict)
+    checker.add("function-pdf-download-yaml", download_ok, "zo-pdf-download hợp lệ." if download_ok else "zo-pdf-download phải là mapping.", path)
+    checker.add("function-pdf-branding-yaml", branding_ok, "zo-pdf-branding hợp lệ." if branding_ok else "zo-pdf-branding phải là mapping.", path)
+
+    label = pdf_download.get("label") if download_ok else None
+    checker.add(
+        "function-pdf-label", label == "Tải PDF",
+        "Nhãn tải PDF đúng chuẩn." if label == "Tải PDF"
+        else f"Kì vọng 'Tải PDF', nhận {label!r}.",
+        path,
+    )
+    href = pdf_download.get("href") if download_ok else None
+    expected_pdf = relative.with_suffix(".pdf").name
+    href_shape = isinstance(href, str) and not urlsplit(href).scheme and Path(href).name == href and href.lower().endswith(".pdf")
+    checker.add(
+        "function-pdf-href", href_shape,
+        f"href={href!r}." if href_shape else "href phải là tên PDF tương đối nằm cạnh bài.",
+        path,
+    )
+    if href_shape and href != expected_pdf:
+        checker.add_warning(
+            "function-pdf-basename",
+            f"href={href!r} khác tên mặc định {expected_pdf!r}; cần lí do trong hồ sơ.",
+            path,
+        )
+
+    expected_url = FUNCTION_CANONICAL_BASE + relative.with_suffix(".html").as_posix()
+    canonical = pdf_branding.get("canonical-url") if branding_ok else None
+    checker.add(
+        "function-canonical-url", canonical == expected_url,
+        "canonical-url khớp đường dẫn bài." if canonical == expected_url
+        else f"Kì vọng {expected_url!r}, nhận {canonical!r}.",
+        path,
+    )
+    short_title = pdf_branding.get("short-title") if branding_ok else None
+    display_url = pdf_branding.get("display-url") if branding_ok else None
+    collection = pdf_branding.get("collection") if branding_ok else None
+    branding_values_ok = (
+        isinstance(short_title, str) and bool(short_title.strip())
+        and display_url == "zo-math.github.io/zo-math"
+        and collection == "100+ Hàm số: Sự biến thiên và đồ thị"
+    )
+    checker.add(
+        "function-pdf-branding-values", branding_values_ok,
+        "Các trường branding cốt lõi đúng chuẩn." if branding_values_ok
+        else "short-title phải có giá trị; display-url và collection phải đúng chuẩn dự án.",
+        path,
+    )
+
+    if status == "published":
+        pdf_path = path.parent / str(href) if href_shape else path.with_suffix(".pdf")
+        exists = pdf_path.exists() and pdf_path.stat().st_size > 0
+        pdf_header = False
+        if exists:
+            try:
+                pdf_header = pdf_path.read_bytes()[:5] == b"%PDF-"
+            except OSError:
+                pdf_header = False
+        checker.add(
+            "function-published-pdf", exists and pdf_header,
+            f"PDF published tồn tại và có header PDF: {pdf_path.name}."
+            if exists and pdf_header else f"Bài published thiếu PDF đọc được cơ bản: {pdf_path.name}.",
+            path,
+        )
+        if exists:
+            current = pdf_path.stat().st_mtime >= path.stat().st_mtime
+            checker.add(
+                "function-pdf-freshness", current,
+                "PDF không cũ hơn QMD." if current else "PDF cũ hơn QMD; phải build lại.",
+                path,
+            )
+            pdfinfo = shutil.which("pdfinfo")
+            if pdfinfo:
+                result = run([pdfinfo, str(pdf_path)], checker.root)
+                pages_match = re.search(r"(?m)^Pages:\s*(\d+)\s*$", result.stdout)
+                pages = int(pages_match.group(1)) if pages_match else 0
+                checker.add(
+                    "function-pdf-readable", result.returncode == 0 and pages > 0,
+                    f"pdfinfo đọc được PDF, pages={pages}."
+                    if result.returncode == 0 and pages > 0
+                    else result.stderr.strip() or "pdfinfo không xác nhận được số trang hợp lệ.",
+                    path,
+                )
+            else:
+                checker.add_warning(
+                    "function-pdf-readable",
+                    "Không tìm thấy pdfinfo; mới chỉ kiểm tra header và kích thước PDF.",
+                    path,
+                )
+    else:
+        checker.add_info(
+            "function-published-pdf",
+            f"Trạng thái thẻ={status!r}; không chặn vì PDF vật lí ở tầng này.",
+            path,
+        )
+    return card, status
+
+
+def validate_function_body(path: Path, body: str, checker: Checker) -> None:
+    active = strip_fences_comments_and_inline_code(body)
+    headings: list[tuple[int, int, str]] = []
+    for number, line in enumerate(active.splitlines(), start=1):
+        match = re.match(r"^(#{1,6})[ \t]+(.+?)\s*$", line)
+        if match:
+            headings.append((number, len(match.group(1)), match.group(2).strip()))
+
+    h1 = [number for number, level, _ in headings if level == 1]
+    checker.add(
+        "function-heading-h1", not h1,
+        "Không có H1 trong thân bài." if not h1 else "H1 tại dòng thân bài: " + ", ".join(map(str, h1)),
+        path,
+    )
+    duplicates = [
+        f"H{level} {title!r}"
+        for (level, title), count in Counter(
+            (level, re.sub(r"\s+\{[^}]*\}\s*$", "", title).casefold())
+            for _, level, title in headings
+        ).items()
+        if count > 1
+    ]
+    if duplicates:
+        checker.add_warning(
+            "function-heading-duplicates",
+            "Tiêu đề trùng cần xét ngữ cảnh: " + ", ".join(duplicates),
+            path,
+        )
+    else:
+        checker.add("function-heading-duplicates", True, "Không có tiêu đề trùng hoàn toàn.", path)
+
+    deep = [number for number, level, _ in headings if level > 4]
+    if deep:
+        checker.add_warning("function-heading-depth", "H5/H6 cần lí do và kiểm tra trực quan tại dòng thân bài: " + ", ".join(map(str, deep)), path)
+    else:
+        checker.add("function-heading-depth", True, "Không dùng cấp sâu hơn H4.", path)
+    jumps: list[str] = []
+    previous = 1
+    for number, level, _ in headings:
+        if level > previous + 1:
+            jumps.append(f"{previous}->H{level} tại dòng {number}")
+        previous = level
+    checker.add(
+        "function-heading-order", not jumps,
+        "Không nhảy cấp tiêu đề." if not jumps else "; ".join(jumps),
+        path,
+    )
+    empty = [number for number, line in enumerate(active.splitlines(), 1) if re.match(r"^#{1,6}[ \t]*$", line)]
+    checker.add(
+        "function-heading-empty", not empty,
+        "Không có tiêu đề rỗng." if not empty else "Tiêu đề rỗng tại dòng: " + ", ".join(map(str, empty)),
+        path,
+    )
+
+    legacy = [token for token in FUNCTION_LEGACY_CLASSES if token in active]
+    checker.add(
+        "function-legacy-classes", not legacy,
+        "Không có lớp cũ." if not legacy else "Phát hiện: " + ", ".join(legacy),
+        path,
+    )
+    forbidden_latex = [
+        token for token in (r"\(", r"\)", r"\[", r"\]", r"\boxed")
+        if token in active
+    ]
+    checker.add(
+        "function-latex-forbidden", not forbidden_latex,
+        "Không có cấu trúc LaTeX bị cấm." if not forbidden_latex
+        else "Phát hiện: " + ", ".join(forbidden_latex),
+        path,
+    )
+    forbidden_paths = []
+    path_patterns = {
+        "đường dẫn ổ đĩa": r"(?i)(?<![A-Za-z0-9_])[A-Z]:[\\/]",
+        "đường dẫn Unix cục bộ": r"(?m)(?:^|[\"'(= \t])/(?:home|Users|tmp|var/tmp)/",
+        "localhost": r"(?i)https?://(?:localhost|127\.0\.0\.1)(?::\d+)?",
+        "docs/": r"(?i)(?:^|[\"'(= \t])docs/",
+        "_audit/": r"(?i)(?:^|[\"'(= \t])_audit/",
+    }
+    for label, pattern in path_patterns.items():
+        if re.search(pattern, active, flags=re.MULTILINE):
+            forbidden_paths.append(label)
+    checker.add(
+        "function-forbidden-paths", not forbidden_paths,
+        "Không có đường dẫn bị cấm trong thân bài." if not forbidden_paths
+        else "Phát hiện: " + ", ".join(forbidden_paths),
+        path,
+    )
+
+    images = qmd_image_records(active)
+    missing_alt = [
+        line for line, _, attrs, _ in images
+        if not attrs or (
+            not re.search(r"(?:^|\s)fig-alt\s*=\s*[\"'][^\"']+[\"']", attrs)
+            and not re.search(r"(?:^|\s)(?:role\s*=\s*[\"']presentation[\"']|aria-hidden\s*=\s*[\"']true[\"'])", attrs, flags=re.IGNORECASE)
+        )
+    ]
+    non_relative_images = [
+        line for line, target, _, _ in images
+        if target.startswith("/") or re.match(r"(?i)^[A-Z]:[\\/]", target)
+    ]
+    checker.add(
+        "function-image-relative-paths", not non_relative_images,
+        "Hình trong thân bài dùng đường dẫn tương đối."
+        if not non_relative_images else "Hình dùng đường dẫn không tương đối tại dòng thân bài: "
+        + ", ".join(map(str, sorted(set(non_relative_images)))),
+        path,
+    )
+    html_images = list(re.finditer(r"<img\b[^>]*>", active, flags=re.IGNORECASE))
+    missing_html_alt = [
+        active.count("\n", 0, match.start()) + 1
+        for match in html_images
+        if (
+            not re.search(r"\balt=[\"'][^\"']+[\"']", match.group(0), flags=re.IGNORECASE)
+            and not re.search(r"\b(?:role=[\"']presentation[\"']|aria-hidden=[\"']true[\"'])", match.group(0), flags=re.IGNORECASE)
+        )
+    ]
+    missing_alt.extend(missing_html_alt)
+    checker.add(
+        "function-fig-alt", not missing_alt,
+        "Mọi hình mang thông tin có văn bản thay thế."
+        if not missing_alt else "Thiếu fig-alt/alt tại dòng thân bài: " + ", ".join(map(str, sorted(set(missing_alt)))),
+        path,
+    )
+    fixed_width = [
+        line for line, _, attrs, _ in images
+        if attrs and re.search(r"\bwidth\s*=\s*[\"']?\d+(?:px)?[\"']?(?=\s|$)", attrs, flags=re.IGNORECASE)
+    ]
+    if fixed_width:
+        checker.add_warning(
+            "function-fixed-pixel-width",
+            "Chiều rộng pixel cố định cần lí do và kiểm tra đa đầu ra tại dòng thân bài: "
+            + ", ".join(map(str, fixed_width)),
+            path,
+        )
+    else:
+        checker.add("function-fixed-pixel-width", True, "Không có width pixel cố định.", path)
+
+    active_lines = active.splitlines()
+    block_errors: list[str] = []
+    fenced_blocks = 0
+    for index, line in enumerate(active_lines):
+        opening = re.match(r"^(:{3,})\s+\{([^}\n]*\.zo-block(?:\s|[}.])[^}\n]*)\}\s*$", line)
+        if not opening:
+            continue
+        fenced_blocks += 1
+        marker_length = len(opening.group(1))
+        classes_text = opening.group(2)
+        colors = [color for color in FUNCTION_BLOCK_COLORS if f".{color}" in classes_text]
+        if len(colors) != 1:
+            block_errors.append(f"dòng thân bài {index + 1}: khối cần đúng một lớp màu")
+        closing_index = None
+        for candidate in range(index + 1, len(active_lines)):
+            close = re.match(r"^(:{3,})\s*$", active_lines[candidate])
+            if close and len(close.group(1)) >= marker_length:
+                closing_index = candidate
+                break
+        if closing_index is None:
+            block_errors.append(f"dòng thân bài {index + 1}: khối fenced chưa đóng")
+            segment = "\n".join(active_lines[index + 1:])
+        else:
+            segment = "\n".join(active_lines[index + 1:closing_index])
+        if ".zo-block-title" not in segment:
+            block_errors.append(f"dòng thân bài {index + 1}: thiếu zo-block-title")
+
+    detail_openings = list(re.finditer(
+        r"<details\b[^>]*class=[\"'][^\"']*\bzo-block\b[^\"']*[\"'][^>]*>",
+        active, flags=re.IGNORECASE,
+    ))
+    details_blocks = re.findall(
+        r"<details\b[^>]*class=[\"'][^\"']*\bzo-block\b[^\"']*[\"'][^>]*>(.*?)</details>",
+        active, flags=re.IGNORECASE | re.DOTALL,
+    )
+    if len(detail_openings) != len(details_blocks):
+        block_errors.append("Có details.zo-block chưa đóng đúng")
+    for index, (opening_match, block) in enumerate(zip(detail_openings, details_blocks), start=1):
+        colors = [color for color in FUNCTION_BLOCK_COLORS if color in opening_match.group(0)]
+        if len(colors) != 1:
+            block_errors.append(f"details zo-block #{index} cần đúng một lớp màu")
+        if not re.search(r"<summary\b[^>]*class=[\"'][^\"']*\bzo-block-title\b", block, flags=re.IGNORECASE):
+            block_errors.append(f"details zo-block #{index} thiếu summary.zo-block-title")
+        if not re.search(r"<div\b[^>]*class=[\"'][^\"']*\bzo-block-body\b", block, flags=re.IGNORECASE):
+            block_errors.append(f"details zo-block #{index} thiếu div.zo-block-body")
+    checker.add(
+        "function-block-structure", not block_errors,
+        f"{fenced_blocks + len(details_blocks)} khối có cấu trúc cơ bản hợp lệ."
+        if not block_errors else "; ".join(block_errors),
+        path,
+    )
+
+    exercise_index = next(
+        (index for index, (_, level, title) in enumerate(headings)
+         if level == 2 and re.fullmatch(
+             r"Bài tập", re.sub(r"\s+\{[^}]*\}\s*$", "", title), flags=re.IGNORECASE
+         )),
+        None,
+    )
+    if exercise_index is None:
+        checker.add_info("function-exercises", "Hệ bài tập không xuất hiện; cần khớp quyết định trong hồ sơ.", path)
+    else:
+        section = headings[exercise_index + 1:]
+        end = next((index for index, (_, level, _) in enumerate(section) if level <= 2), len(section))
+        section = section[:end]
+        has_h3 = any(level == 3 for _, level, _ in section)
+        has_h4 = any(level == 4 for _, level, _ in section)
+        checker.add(
+            "function-exercise-structure", has_h3 and has_h4,
+            "Phần bài tập có nhóm H3 và bài H4."
+            if has_h3 and has_h4 else "Phần bài tập phải có ít nhất một nhóm H3 và một bài H4.",
+            path,
+        )
+
+    executable_chunks = re.findall(r"(?m)^(```|~~~)\{(?:r|python|julia|bash|sh)\b", body, flags=re.IGNORECASE)
+    if executable_chunks:
+        checker.add_warning(
+            "function-executable-code",
+            f"Phát hiện {len(executable_chunks)} code chunk thực thi; cần xác nhận mục đích, phụ thuộc và đầu ra.",
+            path,
+        )
+    dangerous_code = []
+    for label, pattern in {
+        "cài thư viện": r"(?i)\b(?:install\.packages|pip\s+install|conda\s+install)\b",
+        "setwd": r"(?i)\bsetwd\s*\(",
+    }.items():
+        if re.search(pattern, body):
+            dangerous_code.append(label)
+    checker.add(
+        "function-code-forbidden", not dangerous_code,
+        "Không có thao tác mã bị cấm rõ ràng." if not dangerous_code
+        else "Phát hiện: " + ", ".join(dangerous_code),
+        path,
+    )
+
+
+def validate_function_article(path: Path, text: str, checker: Checker) -> None:
+    relative = path.relative_to(checker.root)
+    metadata, body, error = split_qmd_front_matter(text)
+    if error or metadata is None:
+        checker.add("function-front-matter", False, error or "Không đọc được YAML.", path)
+        return
+    checker.add("function-front-matter", True, "YAML front matter hợp lệ.", path)
+    placeholders = [token for token in FUNCTION_PLACEHOLDERS if token.casefold() in text.casefold()]
+    checker.add(
+        "function-placeholders", not placeholders,
+        "Không còn giá trị giữ chỗ." if not placeholders
+        else "Phát hiện: " + ", ".join(sorted(set(placeholders))),
+        path,
+    )
+    validate_function_metadata(path, relative, metadata, checker)
+    validate_function_body(path, body, checker)
+    checker.add_warning(
+        "function-human-review-required",
+        "Kiểm định tự động không thay thế việc đọc mạch, kiểm tra màu/trạng thái khối, "
+        "HTML desktop/mobile, hình, bài tập và PDF thật.",
+        path,
+    )
+
+
+def validate_rendered_function_page(
+    relative: Path, html: Path, checker: Checker
+) -> None:
+    source = checker.root / relative
+    try:
+        source_text = source.read_text(encoding="utf-8")
+        html_text = html.read_text(encoding="utf-8")
+    except (OSError, UnicodeDecodeError) as exc:
+        checker.add("function-rendered-html-read", False, str(exc), relative)
+        return
+    metadata, _, error = split_qmd_front_matter(source_text)
+    if error or metadata is None:
+        checker.add("function-rendered-html-metadata", False, error or "Không đọc được YAML.", relative)
+        return
+    body_match = re.search(r"<body\b[^>]*class=[\"']([^\"']*)[\"']", html_text, flags=re.IGNORECASE)
+    body_classes = set(body_match.group(1).split()) if body_match else set()
+    required_body_classes = {"zo-page-article", "zo-meta-hidden"}
+    classes_ok = required_body_classes.issubset(body_classes)
+    checker.add(
+        "function-rendered-body-classes", classes_ok,
+        "Thẻ body chứa hai lớp trang bắt buộc." if classes_ok
+        else "Thẻ body thiếu: " + ", ".join(sorted(required_body_classes - body_classes)),
+        relative,
+    )
+    h1_count = len(re.findall(r"<h1\b", html_text, flags=re.IGNORECASE))
+    if h1_count > 1:
+        checker.add_warning(
+            "function-rendered-h1-count",
+            f"HTML có {h1_count} thẻ H1; cần kiểm tra tiêu đề lặp.",
+            relative,
+        )
+    else:
+        checker.add("function-rendered-h1-count", True, f"HTML có {h1_count} thẻ H1.", relative)
+    pdf_download = metadata.get("zo-pdf-download")
+    href = pdf_download.get("href") if isinstance(pdf_download, dict) else None
+    if isinstance(href, str) and href:
+        href_present = bool(re.search(
+            rf"""href=["'][^"']*{re.escape(Path(href).name)}(?:[?#][^"']*)?["']""",
+            html_text,
+            flags=re.IGNORECASE,
+        ))
+        checker.add(
+            "function-rendered-pdf-link", href_present,
+            f"HTML có liên kết tới {Path(href).name}."
+            if href_present else f"HTML không có liên kết tới {Path(href).name}.",
+            relative,
+        )
+        published_pdf = html.parent / Path(href).name
+        card, _ = function_card(relative, metadata, checker)
+        status = card.get("status") if isinstance(card, dict) else None
+        if status == "published":
+            checker.add(
+                "function-rendered-pdf-resource", published_pdf.exists(),
+                f"Đầu ra published có {published_pdf.name}."
+                if published_pdf.exists() else f"Đầu ra published thiếu {published_pdf.name}.",
+                relative,
+            )
+        elif published_pdf.exists():
+            checker.add_info(
+                "function-rendered-pdf-resource",
+                f"Đầu ra có {published_pdf.name}; trạng thái thẻ={status!r}.",
+                relative,
+            )
+        else:
+            checker.add_info(
+                "function-rendered-pdf-resource",
+                f"Đầu ra chưa có {published_pdf.name}; trạng thái thẻ={status!r}.",
+                relative,
+            )
+    checker.add_warning(
+        "function-rendered-visual-review",
+        "Cần mở HTML ở desktop/mobile và PDF thật; kiểm tra tự động chỉ xác nhận cấu trúc có thể mã hóa.",
+        relative,
+    )
+
+
 def validate_markdown(path: Path, text: str, checker: Checker) -> None:
     body = strip_code(text)
     image_refs = re.findall(r"!\[[^\]\n]*\]\(([^\s)]+)(?:\s+[^)]*)?\)", body)
@@ -396,7 +1140,7 @@ def validate_markdown(path: Path, text: str, checker: Checker) -> None:
         parts = body.split("---", 2)
         if len(parts) == 3:
             try:
-                metadata = yaml.safe_load(parts[1]) or {}
+                metadata = load_yaml_unique(parts[1]) or {}
                 for key in ("bibliography", "csl", "include-in-header", "include-before-body", "include-after-body"):
                     value = metadata.get(key) if isinstance(metadata, dict) else None
                     refs.extend(value if isinstance(value, list) else [value] if isinstance(value, str) else [])
@@ -435,6 +1179,8 @@ def validate_file(relative: Path, checker: Checker) -> None:
         validate_svg(path, text, checker)
     elif suffix in {".md", ".qmd"}:
         validate_markdown(path, text, checker)
+        if is_function_article(relative):
+            validate_function_article(path, text, checker)
 
 
 def card_scope(paths: Sequence[Path]) -> bool:
@@ -448,7 +1194,7 @@ def check_card_grid(checker: Checker) -> None:
     data_path = checker.root / CARD_PROJECT / "_data/cards.yml"
     partial_path = checker.root / CARD_PROJECT / "_partials/card_grid.qmd"
     try:
-        data = yaml.safe_load(data_path.read_text(encoding="utf-8"))
+        data = load_yaml_unique(data_path.read_text(encoding="utf-8"))
     except (OSError, UnicodeDecodeError, yaml.YAMLError) as exc:
         checker.add("card-grid-data", False, str(exc), data_path)
         return
@@ -528,7 +1274,7 @@ def run_scope(paths: Sequence[Path], checker: Checker, include_git: bool = True)
 
 
 def output_dir(root: Path) -> Path:
-    config = yaml.safe_load((root / "_quarto.yml").read_text(encoding="utf-8")) or {}
+    config = load_yaml_unique((root / "_quarto.yml").read_text(encoding="utf-8")) or {}
     value = (config.get("project") or {}).get("output-dir", "_site")
     return root / str(value)
 
@@ -560,19 +1306,23 @@ def render_pages(paths: Sequence[Path], checker: Checker) -> int | None:
         checker.add("quarto-render", result.returncode == 0, f"Mã thoát {result.returncode}; lỗi={len(errors)}, cảnh báo={len(warnings)}, thông tin={len(information)}{detail}.", relative)
         html = out_dir / relative.with_suffix(".html")
         checker.add("render-html", html.exists(), f"HTML: {html.relative_to(checker.root).as_posix()}", relative)
+        if html.exists() and is_function_article(relative):
+            validate_rendered_function_page(relative, html, checker)
     return None
 
 
 def print_results(checker: Checker, scope: Sequence[Path]) -> None:
+    print(f"CHECKER VERSION: {CHECKER_VERSION}")
     print(f"MODE: {checker.mode} | {'STAGED' if checker.staged else 'WORKTREE'}")
     print(f"ROOT: {checker.root}")
     print(f"SCOPE ({len(scope)}):")
     for path in scope:
         print(f"  - {path.as_posix()}")
     print("CHECKS:")
+    labels = {"pass": "PASS", "fail": "FAIL", "warn": "WARN", "info": "INFO"}
     for item in checker.checks:
         location = f" [{item.path}]" if item.path else ""
-        print(f"  {'PASS' if item.status == 'pass' else 'FAIL'} {item.name}{location}: {item.message}")
+        print(f"  {labels.get(item.status, item.status.upper())} {item.name}{location}: {item.message}")
     for warning in checker.warnings:
         print(f"  WARN render-log: {warning}")
 
@@ -584,9 +1334,13 @@ def report_path(root: Path, raw: str) -> Path | None:
 
 
 def write_report(path: Path, checker: Checker, scope: Sequence[Path], exit_code: int) -> None:
+    automated_result = "FAIL" if checker.failed else ("PASS_WITH_WARNINGS" if checker.has_warnings else "PASS")
     payload = {
+        "checker_version": CHECKER_VERSION,
         "mode": checker.mode,
         "timestamp": datetime.now(timezone.utc).isoformat(),
+        "automated_result": automated_result,
+        "final_acceptance": "NOT_RUN",
         "repo_root": str(checker.root),
         "scope": [item.as_posix() for item in scope],
         "staged": checker.staged,
@@ -657,7 +1411,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             checker.add("report", False, str(exc))
             exit_code = EXIT_FAILED
     print_results(checker, paths)
-    print(f"RESULT: {'PASS' if exit_code == 0 else 'FAIL'} | EXIT={exit_code}")
+    result_label = "FAIL" if checker.failed else ("PASS_WITH_WARNINGS" if checker.has_warnings else "PASS")
+    print(f"AUTOMATED RESULT: {result_label} | EXIT={exit_code}")
+    if any(is_function_article(path) for path in paths):
+        print("FINAL ACCEPTANCE: NOT_RUN — cần kiểm định có người quan sát theo quy chuẩn.")
     return exit_code
 
 
