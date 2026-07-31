@@ -44,11 +44,14 @@ Bản nguồn ấy giải thích sâu các khái niệm, điều kiện và gi�
 
 Hai tài liệu phối hợp có ranh giới riêng:
 
-| Tài liệu                                          | Thẩm quyền trực tiếp                                                                                          |
-| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `quy_chuan_khao_sat_ham_so.md`                    | Đối tượng khảo sát, hồ sơ toán học, hiện tượng trung tâm, mạch lập luận, kiến trúc bài và nghiệm thu toàn bài |
-| `quy_chuan_do_thi_sinh_ma_nguon_tikz_pgfplots.md` | Phân tích và sinh tệp `.tex`, miền quan sát, lấy mẫu, hệ trục, ngôn ngữ thị giác, render và nghiệm thu hình   |
-| Tài liệu phong cách được chỉ định                 | Giọng, nhịp, ngôn ngữ và thẩm mỹ của văn xuôi                                                                 |
+| Tài liệu                                          | Thẩm quyền trực tiếp                                                                                                    |
+| ------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `quy_chuan_khao_sat_ham_so.md`                    | Đối tượng khảo sát, hồ sơ toán học, hiện tượng trung tâm, mạch lập luận, kiến trúc bài và nghiệm thu toàn bài           |
+| `huong_dan_su_dung_khoi_noi_dung.md`              | Quyết định có dùng khối hay không; trạng thái mở cố định hoặc thu gọn; màu theo chức năng; cú pháp và kiểm định hệ khối |
+| `quy_chuan_do_thi_sinh_ma_nguon_tikz_pgfplots.md` | Phân tích và sinh tệp `.tex`, miền quan sát, lấy mẫu, hệ trục, ngôn ngữ thị giác, render và nghiệm thu hình             |
+| Tài liệu phong cách được chỉ định                 | Giọng, nhịp, ngôn ngữ và thẩm mỹ của văn xuôi                                                                           |
+
+Quy chuẩn khảo sát xác định vị trí và mức hiển thị của nội dung trong mạch bài. `huong_dan_su_dung_khoi_noi_dung.md` quyết định nội dung ấy có cần tách thành khối hay không và, nếu có, khối được triển khai bằng trạng thái, màu và cú pháp nào.
 
 Quy chuẩn khảo sát xác định **hình phải biểu diễn điều gì**. Quy chuẩn đồ thị quyết định **dựng hình ấy như thế nào**.
 
@@ -636,6 +639,21 @@ Mỗi nội dung thuộc một mức:
 4. ngoài bài.
 
 Mắt xích bắt buộc phải nằm trong mạch đọc chính. Khối mở rộng không được chứa điều kiện mà kết luận chính phụ thuộc vào.
+
+### 9.2.1. Chuyển giao sang hướng dẫn khối nội dung
+
+Việc một nội dung thuộc mạch chính hoặc phần mở rộng chưa tự động quyết định rằng nội dung ấy phải được đặt trong khối.
+
+Với mỗi nội dung dự kiến tách thành khối, phải thực hiện đúng thứ tự:
+
+1. xác định văn bản thông thường và hệ tiêu đề đã đủ biểu đạt vai trò của nội dung hay chưa;
+2. nếu thực sự cần khối, xác định nội dung thuộc mạch chính hay phần đọc thêm để chọn khối mở cố định hoặc khối thu gọn;
+3. chỉ sau đó mới chọn màu đỏ, vàng hoặc xám theo chức năng nội dung;
+4. triển khai và kiểm định cú pháp theo `quy_trinh_xay_dung/huong_dan_su_dung_khoi_noi_dung.md`.
+
+Không bắt buộc một bài phải có khối nội dung. Không dùng khối để trang trí hoặc thay thế cấu trúc lập luận. Không đặt mắt xích bắt buộc trong khối thu gọn.
+
+Khi tạo nội dung mới, chỉ dùng hệ lớp hiện hành được tài liệu chuyên trách quy định. Khi kiểm định bài cũ, phải phân biệt lớp được giữ để tương thích lịch sử với lớp phù hợp cho nội dung mới; sự tồn tại của CSS tương thích không chứng minh rằng khối cũ đạt chuẩn hiện hành.
 
 ### 9.3. Khơi mở
 

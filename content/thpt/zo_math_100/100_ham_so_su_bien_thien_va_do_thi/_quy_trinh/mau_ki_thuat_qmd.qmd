@@ -4,7 +4,6 @@ subtitle: "CHƯA XÁC ĐỊNH"
 pagetitle: "CHƯA XÁC ĐỊNH"
 
 summary: "CHƯA XÁC ĐỊNH"
-
 description: "CHƯA XÁC ĐỊNH"
 
 image: /content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/assets/img/cards/CHUA_XAC_DINH.svg
@@ -42,47 +41,117 @@ zo-pdf-branding:
 MẪU KĨ THUẬT — KHÔNG PHẢI MẪU NỘI DUNG
 
 Trước khi viết:
-1. Tạo hồ sơ sản xuất và hoàn thành đề cương vận hành.
-2. Thay toàn bộ giá trị CHƯA XÁC ĐỊNH và CHUA_XAC_DINH trong YAML.
-3. Kiểm tra image, listing-order, href PDF, short-title và canonical-url với cards.yml.
-4. Xóa toàn bộ chú thích hướng dẫn không thuộc bài cuối.
+1. Đọc AGENTS.md, quy_trinh_tao_bai_ham_so.md,
+   quy_chuan_khao_sat_ham_so.md và
+   quy_chuan_ki_thuat_bai_ham_so_qmd.md.
+2. Tạo hoặc cập nhật hồ sơ sản xuất; hoàn thành hồ sơ khảo sát,
+   bản đồ hiện tượng và đề cương vận hành trước khi viết thân bài.
+3. Thay toàn bộ giá trị CHƯA XÁC ĐỊNH, CHUA_XAC_DINH và
+   listing-order: 0 bằng dữ kiện thật.
+4. Đối chiếu image và listing-order với mục tương ứng trong
+   _data/cards.yml; listing-order phải khớp number của thẻ.
+5. Đối chiếu href PDF, short-title và canonical-url với đường dẫn
+   QMD của chính bài.
+6. Quyết định trong hồ sơ:
+   - bài có dùng hình hay không;
+   - bài có hệ thống bài tập hay không;
+   - bài có khối nội dung hay không;
+   - bài có dự kiến chuyển sang published hay không.
+7. Xóa toàn bộ chú thích hướng dẫn và mẫu không được sử dụng trước
+   khi bàn giao.
 
-Các đề mục của bài phải phát sinh từ hiện tượng trung tâm, mạch lập luận và
-trật tự nhận thức. Không điền lần lượt một mục lục khảo sát cố định vào đây.
+Sau YAML, thân bài bắt đầu bằng văn xuôi hoặc H2. Không đặt H1 trong
+thân bài. Các đề mục phải phát sinh từ hiện tượng trung tâm, mạch lập
+luận và trật tự nhận thức; không điền một mục lục khảo sát cố định.
 -->
 
 <!-- MỞ BÀI THEO ĐỀ CƯƠNG VẬN HÀNH -->
 
 <!--
-MẪU TÙY CHỌN: KHỐI NỘI DUNG
+MÃ THỰC THI — CHỈ DÙNG KHI HỒ SƠ XÁC ĐỊNH LÀ CẦN
 
-<details class="zo-block zo-block-red">
-<summary class="zo-block-title">TIÊU ĐỀ KHỐI</summary>
-<div class="zo-block-body">
+Mỗi code chunk phải có mục đích, đầu vào, đầu ra, phụ thuộc, cách tái
+tạo và lí do ẩn hoặc hiện mã. Không giữ setup rỗng, thư viện không
+dùng, lệnh cài thư viện, setwd(), đường dẫn tuyệt đối, mã thử nghiệm,
+log, warning hoặc đầu ra chẩn đoán ngoài ý muốn.
 
-NỘI DUNG
-
-</div>
-</details>
+Không thêm code chunk chỉ để chuẩn bị cho khả năng sử dụng về sau.
 -->
 
 <!--
-MẪU TÙY CHỌN: CÙNG MỘT HÌNH CHO HTML VÀ PDF
+KHỐI NỘI DUNG — CHỈ DÙNG KHI HỒ SƠ XÁC ĐỊNH LÀ CẦN
 
-:::: {#fig-CHUA_XAC_DINH}
-`![](../_figures/CHUA_XAC_DINH/svg/CHUA_XAC_DINH.svg){fig-alt="CHƯA XÁC ĐỊNH" width="85%" fig-align="center"}`
+Quyết định theo thứ tự:
+1. Có thực sự cần khối hay văn bản và tiêu đề thường đã đủ?
+2. Khối thuộc mạch chính hay phần đọc thêm?
+3. Khối mở cố định hay thu gọn?
+4. Khối đỏ, vàng hay xám theo chức năng?
+5. Tiêu đề cụ thể và cú pháp nào được dùng?
 
-CHÚ THÍCH HÌNH
+Đọc và tuân thủ:
+quy_trinh_xay_dung/huong_dan_su_dung_khoi_noi_dung.md
+
+Không dùng khối để trang trí, giả lập tiêu đề hoặc thu gọn mắt xích
+bắt buộc. Không giữ cả hai mẫu dưới đây trong bài cuối.
+-->
+
+<!--
+MẪU KĨ THUẬT: KHỐI MỞ CỐ ĐỊNH
+
+Thay CHON_MAU bằng red, yellow hoặc gray.
+
+:::: {.zo-block .zo-block-CHON_MAU}
+::: {.zo-block-title}
+TIÊU ĐỀ KHỐI
+:::
+
+NỘI DUNG
 ::::
 -->
 
 <!--
-MẪU TÙY CHỌN: HAI ĐỊNH DẠNG HÌNH RIÊNG CHO HTML VÀ PDF
+MẪU KĨ THUẬT: KHỐI THU GỌN
+
+Thay CHON_MAU bằng red, yellow hoặc gray.
+Chỉ thêm thuộc tính open khi hồ sơ ghi rõ lí do mở sẵn.
+
+<details class="zo-block zo-block-CHON_MAU">
+  <summary class="zo-block-title">TIÊU ĐỀ KHỐI</summary>
+  <div class="zo-block-body">
+
+NỘI DUNG
+
+  </div>
+</details>
+-->
+
+<!--
+HÌNH VÀ TÀI NGUYÊN — CHỈ DÙNG SAU KHI ĐÃ HOÀN THÀNH ĐẶC TẢ
+
+Cấu trúc mặc định:
+
+_figures/<slug>/
+├── src/
+├── pdf/
+└── svg/
+
+Chỉ tạo các thư mục thực sự cần. Ngoại lệ phải được ghi trong hồ sơ.
+Trong thân bài dùng đường dẫn tương đối tính từ QMD. Mọi hình mang
+thông tin phải có fig-alt. Sau hình hoặc bảng quan trọng phải có phần
+đọc ngược trong văn xuôi.
+-->
+
+<!--
+MẪU KĨ THUẬT MẶC ĐỊNH:
+SVG CHO HTML, PDF CHO BẢN PDF
+
+Thay toàn bộ CHUA_XAC_DINH bằng tên thật. Hai nhánh phải biểu diễn
+cùng một nội dung và dùng cùng fig-alt.
 
 ::::: {.content-visible when-format="html"}
 
 :::: {.column-screen-inset-shaded #fig-CHUA_XAC_DINH}
-`![](../_figures/CHUA_XAC_DINH/svg/CHUA_XAC_DINH.svg){fig-alt="CHƯA XÁC ĐỊNH" width="100%" fig-align="center"}`
+![](../_figures/CHUA_XAC_DINH/svg/CHUA_XAC_DINH.svg){fig-alt="CHƯA XÁC ĐỊNH" width="100%" fig-align="center"}
 
 CHÚ THÍCH HÌNH
 ::::
@@ -92,7 +161,7 @@ CHÚ THÍCH HÌNH
 ::::: {.content-visible when-format="pdf"}
 
 :::: {#fig-CHUA_XAC_DINH}
-`![](../_figures/CHUA_XAC_DINH/pdf/CHUA_XAC_DINH.pdf){fig-alt="CHƯA XÁC ĐỊNH" width="85%" fig-align="center"}`
+![](../_figures/CHUA_XAC_DINH/pdf/CHUA_XAC_DINH.pdf){fig-alt="CHƯA XÁC ĐỊNH" width="85%" fig-align="center"}
 
 CHÚ THÍCH HÌNH
 ::::
@@ -101,6 +170,61 @@ CHÚ THÍCH HÌNH
 -->
 
 <!--
-PHẦN CÒN LẠI CỦA BÀI ĐƯỢC VIẾT THEO ĐỀ CƯƠNG ĐÃ KIỂM TRA.
-MỌI BẢNG VÀ HÌNH PHẢI CÓ PHẦN ĐỌC NGƯỢC TRONG VĂN XUÔI.
+MẪU TÙY CHỌN:
+MỘT TÀI NGUYÊN DÙNG CHUNG CHO HTML VÀ PDF
+
+Chỉ dùng khi định dạng đã được kiểm tra trên cả hai đầu ra.
+
+:::: {#fig-CHUA_XAC_DINH}
+![](../_figures/CHUA_XAC_DINH/svg/CHUA_XAC_DINH.svg){fig-alt="CHƯA XÁC ĐỊNH" width="100%" fig-align="center"}
+
+CHÚ THÍCH HÌNH
+::::
+-->
+
+<!--
+HỆ THỐNG BÀI TẬP — THÀNH PHẦN KÍCH HOẠT THEO HỒ SƠ
+
+Chỉ giữ cấu trúc này khi hồ sơ và quy chuẩn khảo sát đã kích hoạt hệ
+bài tập. Tên nhóm và tên bài phải phát sinh từ mục tiêu nhận thức;
+không dùng các tên giữ chỗ trong bài cuối.
+
+## Bài tập
+
+### TÊN NHÓM THEO MỤC TIÊU
+
+#### TÊN BÀI TẬP CỤ THỂ
+
+NỘI DUNG BÀI TẬP
+
+Đề bài, giả thiết, dữ kiện và yêu cầu phải hiện trong mạch chính.
+Gợi ý, đáp án hoặc lời giải chỉ được thêm khi nhiệm vụ kích hoạt và
+có thể dùng khối xám thu gọn nếu không phải mắt xích bắt buộc.
+-->
+
+<!--
+PDF VÀ TRẠNG THÁI PUBLISHED
+
+Bài dự kiến chuyển sang published phải:
+1. build PDF từ chính QMD;
+2. đặt PDF cạnh QMD với cùng tên cơ sở;
+3. render lại HTML sau khi PDF đã tồn tại;
+4. kiểm tra nút Tải PDF trên desktop và mobile;
+5. kiểm tra PDF thật, metadata, URL, mã QR và nhận diện hiện hành.
+
+Không dùng sự tồn tại của YAML hoặc mã thoát 0 làm bằng chứng nghiệm
+thu cuối.
+-->
+
+<!--
+PHẦN CÒN LẠI CỦA BÀI ĐƯỢC VIẾT THEO ĐỀ CƯƠNG ĐÃ KIỂ TRA.
+
+Trước bàn giao:
+- không còn H1 trong thân bài;
+- không còn giá trị giữ chỗ;
+- không còn lớp cũ hoặc cấu trúc bị cấm;
+- mọi đường dẫn và tài nguyên đều đúng;
+- các thành phần được kích hoạt đã được kiểm định;
+- HTML desktop, HTML mobile và PDF bắt buộc đã được quan sát;
+- kiểm định tự động đã chạy lại sau lần sửa cuối.
 -->
