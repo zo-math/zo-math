@@ -1,0 +1,109 @@
+schema_version: 1
+
+project:
+  id: real_world_100
+  name: "100+ Bài toán thực tế"
+  root: content/thpt/zo_math_100/100_bai_toan_thuc_te
+
+discovery:
+  article_types:
+    - id: real_world_problem
+      include:
+        - core/*.qmd
+        - core/**/*.qmd
+      exclude:
+        - core/*_luu_kho.qmd
+        - core/**/*_luu_kho.qmd
+
+profiles:
+  directory: _quy_trinh/ho_so
+  naming: by_article_stem
+  required: true
+
+modules:
+  required:
+    - qmd-core
+    - zo-html-pdf
+    - content-blocks
+    - real-world-problem
+  optional:
+    - figure-layout
+
+metadata:
+  core_required:
+    - title
+    - title-meta
+    - subtitle
+    - pagetitle
+    - summary
+    - description
+    - image
+    - abstract
+    - keywords
+    - author
+    - date
+    - date-format
+    - page-layout
+    - toc
+    - toc-title
+    - toc-location
+    - toc-depth
+    - body-classes
+    - zo-pdf-download
+    - zo-pdf-branding
+  project_required: []
+  body_classes_required:
+    - zo-page-article
+    - zo-meta-hidden
+  placeholders:
+    - CHƯA XÁC ĐỊNH
+    - CHUA_XAC_DINH
+    - TIÊU ĐỀ KHỐI
+    - TÊN_TỆP
+    - TEN_TEP
+    - URL_HTML_CHÍNH_TẮC
+    - DUONG_DAN_DEN_TEP_QMD
+    - DUONG_DAN_DEN_TEP_PDF
+
+publication:
+  production_states:
+    - draft
+    - in_production
+    - validated
+    - accepted
+  publication_states:
+    - pending
+    - published
+  user_confirmation_required: true
+
+references:
+  controlling_documents:
+    - AGENTS.md
+    - _quy_trinh/quy_chuan_noi_dung_bai_toan_thuc_te.md
+  templates:
+    - _quy_trinh/ho_so_san_xuat_mac_dinh.yml
+  theory_sources: []
+
+regression:
+  articles:
+    - core/chi_phi_di_taxi.qmd
+  expected_checker_version: "2.5.0"
+  preserve_cli: true
+
+compatibility:
+  mode: native
+  legacy_validator: null
+
+extensions:
+  real_world_problem:
+    required_sections:
+      - Bối cảnh và dữ kiện
+      - Mô hình hóa
+      - Giải quyết
+      - Kiểm tra và diễn giải
+    forbidden_metadata:
+      - listing-order
+    collection: "100+ Bài toán thực tế"
+    canonical_base: "https://zo-math.github.io/zo-math/"
+    display_url: "zo-math.github.io/zo-math"
+    profile_version: 1
