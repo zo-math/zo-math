@@ -70,8 +70,6 @@ class ProjectConfig:
     project_required_metadata: tuple[str, ...]
     required_body_classes: tuple[str, ...]
     placeholders: tuple[str, ...]
-    compatibility_mode: str
-    legacy_validator: str | None
     raw: Mapping[str, Any]
 
     def article_type_for(self, repository_relative: Path) -> ArticleTypeConfig | None:
@@ -228,7 +226,6 @@ def load_project_config(repository_root: Path, config_path: Path) -> ProjectConf
         "catalog",
         "references",
         "regression",
-        "compatibility",
         "extensions",
     }
     top_required = {
@@ -241,7 +238,6 @@ def load_project_config(repository_root: Path, config_path: Path) -> ProjectConf
         "publication",
         "references",
         "regression",
-        "compatibility",
         "extensions",
     }
     _known_keys(data, "cấu hình gốc", top_allowed, top_required)
@@ -418,30 +414,6 @@ def load_project_config(repository_root: Path, config_path: Path) -> ProjectConf
         )
     _bool(regression["preserve_cli"], "regression.preserve_cli")
 
-    compatibility = _mapping(data["compatibility"], "compatibility")
-    _known_keys(
-        compatibility,
-        "compatibility",
-        {"mode", "legacy_validator"},
-        {"mode", "legacy_validator"},
-    )
-    mode = _nonempty_string(compatibility["mode"], "compatibility.mode")
-    if mode not in {"legacy", "native"}:
-        raise ProjectConfigError("compatibility.mode phải là 'legacy' hoặc 'native'.")
-    legacy_validator = compatibility["legacy_validator"]
-    if mode == "legacy":
-        legacy_name = _nonempty_string(
-            legacy_validator, "compatibility.legacy_validator"
-        )
-        if legacy_name not in REGISTERED_MODULES:
-            raise ProjectConfigError(
-                f"legacy validator chưa đăng kí: {legacy_name!r}."
-            )
-    elif legacy_validator is not None:
-        raise ProjectConfigError(
-            "compatibility.legacy_validator phải là null khi mode='native'."
-        )
-
     extensions = data["extensions"]
     _mapping(extensions, "extensions")
 
@@ -503,10 +475,6 @@ def load_project_config(repository_root: Path, config_path: Path) -> ProjectConf
         project_required_metadata=project_required_metadata,
         required_body_classes=required_body_classes,
         placeholders=placeholders,
-        compatibility_mode=mode,
-        legacy_validator=(
-            str(legacy_validator).strip() if legacy_validator is not None else None
-        ),
         raw=data,
     )
 
@@ -548,7 +516,7 @@ def _summary(config: ProjectConfig, article: Path | None = None) -> dict[str, An
         "project_required_metadata": list(config.project_required_metadata),
         "required_body_classes": list(config.required_body_classes),
         "placeholder_count": len(config.placeholders),
-        "compatibility_mode": config.compatibility_mode,
+        "compatibility_mode": "native",
     }
     if article is not None:
         article_type = config.article_type_for(article)
@@ -615,9 +583,6 @@ regression:
     - core/demo.qmd
   expected_checker_version: null
   preserve_cli: true
-compatibility:
-  mode: native
-  legacy_validator: null
 extensions: {}
 """,
             encoding="utf-8",
@@ -629,8 +594,6 @@ extensions: {}
         assert loaded.project_required_metadata == ()
         assert loaded.required_body_classes == ()
         assert loaded.placeholders == ()
-        assert loaded.compatibility_mode == "native"
-        assert loaded.legacy_validator is None
         assert loaded.article_type_for(Path("content/demo/core/demo.qmd")).id == "demo_article"
         assert loaded.profile_path_for(
             Path("content/demo/core/demo.qmd")
