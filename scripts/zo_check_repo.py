@@ -22,6 +22,18 @@ from urllib.parse import unquote, urlsplit
 from xml.etree import ElementTree
 
 from zo_qmd_config import ProjectConfig, ProjectConfigError, discover_project_config
+from zo_qmd_core import (
+    split_qmd_front_matter,
+    strip_fences_comments_and_inline_code,
+    validate_executable_code,
+    validate_forbidden_paths,
+    validate_headings,
+    validate_images,
+    validate_placeholders,
+    validate_qmd_front_matter,
+    validate_required_body_classes,
+    validate_required_metadata,
+)
 from zo_quarto import prepare_quarto
 
 try:
@@ -30,7 +42,7 @@ except ImportError:  # Reported as missing dependency with exit code 3 in main()
     yaml = None
 
 
-CHECKER_VERSION = "2.2.0"
+CHECKER_VERSION = "2.3.0"
 
 EXIT_OK = 0
 EXIT_FAILED = 1
@@ -438,63 +450,6 @@ def strip_code(text: str) -> str:
 
 
 
-def split_qmd_front_matter(text: str) -> tuple[dict[str, Any] | None, str, str | None]:
-    match = re.match(r"\A---[ \t]*\r?\n(.*?)\r?\n---[ \t]*(?:\r?\n|$)", text, flags=re.DOTALL)
-    if not match:
-        return None, text, "Thiếu YAML front matter ở đầu tệp."
-    raw = match.group(1)
-    try:
-        value = load_yaml_unique(raw) or {}
-    except yaml.YAMLError as exc:
-        mark = getattr(exc, "problem_mark", None)
-        where = f"dòng {mark.line + 2}, cột {mark.column + 1}: " if mark else ""
-        return None, text[match.end():], where + str(exc).splitlines()[0]
-    if not isinstance(value, dict):
-        return None, text[match.end():], "YAML front matter phải là mapping."
-    return value, text[match.end():], None
-
-
-def strip_fences_comments_and_inline_code(text: str) -> str:
-    lines = text.splitlines(keepends=True)
-    output: list[str] = []
-    fence: tuple[str, int] | None = None
-    in_comment = False
-    for line in lines:
-        working = line
-        if in_comment:
-            if "-->" in working:
-                _, working = working.split("-->", 1)
-                in_comment = False
-            else:
-                output.append("\n" if line.endswith(("\n", "\r")) else "")
-                continue
-        while "<!--" in working:
-            before, rest = working.split("<!--", 1)
-            if "-->" in rest:
-                _, after = rest.split("-->", 1)
-                working = before + after
-            else:
-                working = before
-                in_comment = True
-                break
-        stripped = working.lstrip()
-        marker = re.match(r"(`{3,}|~{3,})", stripped)
-        if fence is None and marker:
-            token = marker.group(1)
-            fence = (token[0], len(token))
-            output.append("\n" if line.endswith(("\n", "\r")) else "")
-            continue
-        if fence is not None:
-            close = re.match(rf"{re.escape(fence[0])}{{{fence[1]},}}[ \t]*$", stripped.rstrip("\r\n"))
-            if close:
-                fence = None
-            output.append("\n" if line.endswith(("\n", "\r")) else "")
-            continue
-        working = re.sub(r"`[^`\r\n]*`", "", working)
-        output.append(working)
-    return "".join(output)
-
-
 def line_list(text: str, pattern: str, flags: int = 0) -> list[int]:
     expression = re.compile(pattern, flags)
     return [
@@ -644,26 +599,6 @@ def function_card(
     return None, "Không tìm thấy thẻ tương ứng bằng href hoặc listing-order."
 
 
-def metadata_nonempty(value: Any) -> bool:
-    if isinstance(value, str):
-        return bool(value.strip())
-    if isinstance(value, list):
-        return bool(value) and all(metadata_nonempty(item) for item in value)
-    return value is not None
-
-
-def qmd_image_records(body: str) -> list[tuple[int, str, str | None, str]]:
-    records: list[tuple[int, str, str | None, str]] = []
-    expression = re.compile(
-        r"!\[(?P<alt>[^\]\r\n]*)\]\((?P<target>[^)\r\n]+)\)"
-        r"(?:\{(?P<attrs>[^}\r\n]*)\})?"
-    )
-    for match in expression.finditer(body):
-        line = body.count("\n", 0, match.start()) + 1
-        records.append((line, match.group("target").strip(), match.group("attrs"), match.group("alt")))
-    return records
-
-
 def validate_function_metadata(
     path: Path,
     relative: Path,
@@ -671,23 +606,16 @@ def validate_function_metadata(
     checker: Checker,
     config: ProjectConfig,
 ) -> tuple[dict[str, Any] | None, str | None]:
-    required_metadata = set(config.core_required_metadata) | set(
-        config.project_required_metadata
+    required_metadata = (
+        *config.core_required_metadata,
+        *config.project_required_metadata,
     )
-    missing = sorted(key for key in required_metadata if key not in metadata)
-    checker.add(
-        "function-yaml-required", not missing,
-        "Đủ trường YAML bắt buộc." if not missing else "Thiếu: " + ", ".join(missing),
+    validate_required_metadata(
         path,
-    )
-    empty = sorted(
-        key for key in required_metadata
-        if key in metadata and not metadata_nonempty(metadata[key])
-    )
-    checker.add(
-        "function-yaml-values", not empty,
-        "Các trường bắt buộc có giá trị." if not empty else "Rỗng: " + ", ".join(empty),
-        path,
+        metadata,
+        checker,
+        prefix="function",
+        required=required_metadata,
     )
     expected_values = {
         "author": "ZO Math",
@@ -731,14 +659,12 @@ def validate_function_metadata(
         else "Không được chứa TeX: " + ", ".join(tex_in_plain),
         path,
     )
-    classes = str(metadata.get("body-classes", "")).split()
-    required_classes = set(config.required_body_classes)
-    checker.add(
-        "function-body-classes", required_classes.issubset(classes),
-        "Có đủ zo-page-article và zo-meta-hidden."
-        if required_classes.issubset(classes)
-        else "body-classes thiếu: " + ", ".join(sorted(required_classes - set(classes))),
+    validate_required_body_classes(
         path,
+        metadata,
+        checker,
+        prefix="function",
+        required=config.required_body_classes,
     )
     listing = metadata.get("listing-order")
     checker.add(
@@ -1148,56 +1074,13 @@ def validate_function_body(
     path: Path, body: str, checker: Checker, config: ProjectConfig
 ) -> None:
     active = strip_fences_comments_and_inline_code(body)
-    headings: list[tuple[int, int, str]] = []
-    for number, line in enumerate(active.splitlines(), start=1):
-        match = re.match(r"^(#{1,6})[ \t]+(.+?)\s*$", line)
-        if match:
-            headings.append((number, len(match.group(1)), match.group(2).strip()))
-
-    h1 = [number for number, level, _ in headings if level == 1]
-    checker.add(
-        "function-heading-h1", not h1,
-        "Không có H1 trong thân bài." if not h1 else "H1 tại dòng thân bài: " + ", ".join(map(str, h1)),
+    headings = validate_headings(
         path,
-    )
-    duplicates = [
-        f"H{level} {title!r}"
-        for (level, title), count in Counter(
-            (level, re.sub(r"\s+\{[^}]*\}\s*$", "", title).casefold())
-            for _, level, title in headings
-        ).items()
-        if count > 1
-    ]
-    if duplicates:
-        checker.add_warning(
-            "function-heading-duplicates",
-            "Tiêu đề trùng cần xét ngữ cảnh: " + ", ".join(duplicates),
-            path,
-        )
-    else:
-        checker.add("function-heading-duplicates", True, "Không có tiêu đề trùng hoàn toàn.", path)
-
-    deep = [number for number, level, _ in headings if level > 4]
-    if deep:
-        checker.add_warning("function-heading-depth", "H5/H6 cần lí do và kiểm tra trực quan tại dòng thân bài: " + ", ".join(map(str, deep)), path)
-    else:
-        checker.add("function-heading-depth", True, "Không dùng cấp sâu hơn H4.", path)
-    jumps: list[str] = []
-    previous = 1
-    for number, level, _ in headings:
-        if level > previous + 1:
-            jumps.append(f"{previous}->H{level} tại dòng {number}")
-        previous = level
-    checker.add(
-        "function-heading-order", not jumps,
-        "Không nhảy cấp tiêu đề." if not jumps else "; ".join(jumps),
-        path,
-    )
-    empty = [number for number, line in enumerate(active.splitlines(), 1) if re.match(r"^#{1,6}[ \t]*$", line)]
-    checker.add(
-        "function-heading-empty", not empty,
-        "Không có tiêu đề rỗng." if not empty else "Tiêu đề rỗng tại dòng: " + ", ".join(map(str, empty)),
-        path,
+        active,
+        checker,
+        prefix="function",
+        max_depth=4,
+        allow_h1=False,
     )
 
     legacy = [token for token in FUNCTION_LEGACY_CLASSES if token in active]
@@ -1216,72 +1099,19 @@ def validate_function_body(
         else "Phát hiện: " + ", ".join(forbidden_latex),
         path,
     )
-    forbidden_paths = []
-    path_patterns = {
-        "đường dẫn ổ đĩa": r"(?i)(?<![A-Za-z0-9_])[A-Z]:[\\/]",
-        "đường dẫn Unix cục bộ": r"(?m)(?:^|[\"'(= \t])/(?:home|Users|tmp|var/tmp)/",
-        "localhost": r"(?i)https?://(?:localhost|127\.0\.0\.1)(?::\d+)?",
-        "docs/": r"(?i)(?:^|[\"'(= \t])docs/",
-        "_audit/": r"(?i)(?:^|[\"'(= \t])_audit/",
-    }
-    for label, pattern in path_patterns.items():
-        if re.search(pattern, active, flags=re.MULTILINE):
-            forbidden_paths.append(label)
-    checker.add(
-        "function-forbidden-paths", not forbidden_paths,
-        "Không có đường dẫn bị cấm trong thân bài." if not forbidden_paths
-        else "Phát hiện: " + ", ".join(forbidden_paths),
+    validate_forbidden_paths(
         path,
+        active,
+        checker,
+        prefix="function",
     )
 
-    images = qmd_image_records(active)
-    missing_alt = [
-        line for line, _, attrs, _ in images
-        if not attrs or (
-            not re.search(r"(?:^|\s)fig-alt\s*=\s*[\"'][^\"']+[\"']", attrs)
-            and not re.search(r"(?:^|\s)(?:role\s*=\s*[\"']presentation[\"']|aria-hidden\s*=\s*[\"']true[\"'])", attrs, flags=re.IGNORECASE)
-        )
-    ]
-    non_relative_images = [
-        line for line, target, _, _ in images
-        if target.startswith("/") or re.match(r"(?i)^[A-Z]:[\\/]", target)
-    ]
-    checker.add(
-        "function-image-relative-paths", not non_relative_images,
-        "Hình trong thân bài dùng đường dẫn tương đối."
-        if not non_relative_images else "Hình dùng đường dẫn không tương đối tại dòng thân bài: "
-        + ", ".join(map(str, sorted(set(non_relative_images)))),
+    validate_images(
         path,
+        active,
+        checker,
+        prefix="function",
     )
-    html_images = list(re.finditer(r"<img\b[^>]*>", active, flags=re.IGNORECASE))
-    missing_html_alt = [
-        active.count("\n", 0, match.start()) + 1
-        for match in html_images
-        if (
-            not re.search(r"\balt=[\"'][^\"']+[\"']", match.group(0), flags=re.IGNORECASE)
-            and not re.search(r"\b(?:role=[\"']presentation[\"']|aria-hidden=[\"']true[\"'])", match.group(0), flags=re.IGNORECASE)
-        )
-    ]
-    missing_alt.extend(missing_html_alt)
-    checker.add(
-        "function-fig-alt", not missing_alt,
-        "Mọi hình mang thông tin có văn bản thay thế."
-        if not missing_alt else "Thiếu fig-alt/alt tại dòng thân bài: " + ", ".join(map(str, sorted(set(missing_alt)))),
-        path,
-    )
-    fixed_width = [
-        line for line, _, attrs, _ in images
-        if attrs and re.search(r"\bwidth\s*=\s*[\"']?\d+(?:px)?[\"']?(?=\s|$)", attrs, flags=re.IGNORECASE)
-    ]
-    if fixed_width:
-        checker.add_warning(
-            "function-fixed-pixel-width",
-            "Chiều rộng pixel cố định cần lí do và kiểm tra đa đầu ra tại dòng thân bài: "
-            + ", ".join(map(str, fixed_width)),
-            path,
-        )
-    else:
-        checker.add("function-fixed-pixel-width", True, "Không có width pixel cố định.", path)
 
     relative = path.relative_to(checker.root)
     validate_function_figure_layout(path, relative, body, checker, config)
@@ -1360,25 +1190,11 @@ def validate_function_body(
             path,
         )
 
-    executable_chunks = re.findall(r"(?m)^(```|~~~)\{(?:r|python|julia|bash|sh)\b", body, flags=re.IGNORECASE)
-    if executable_chunks:
-        checker.add_warning(
-            "function-executable-code",
-            f"Phát hiện {len(executable_chunks)} code chunk thực thi; cần xác nhận mục đích, phụ thuộc và đầu ra.",
-            path,
-        )
-    dangerous_code = []
-    for label, pattern in {
-        "cài thư viện": r"(?i)\b(?:install\.packages|pip\s+install|conda\s+install)\b",
-        "setwd": r"(?i)\bsetwd\s*\(",
-    }.items():
-        if re.search(pattern, body):
-            dangerous_code.append(label)
-    checker.add(
-        "function-code-forbidden", not dangerous_code,
-        "Không có thao tác mã bị cấm rõ ràng." if not dangerous_code
-        else "Phát hiện: " + ", ".join(dangerous_code),
+    validate_executable_code(
         path,
+        body,
+        checker,
+        prefix="function",
     )
 
 
@@ -1387,22 +1203,29 @@ def validate_function_article(path: Path, text: str, checker: Checker) -> None:
     config = function_project_config(relative, checker)
     if config is None:
         return
-    metadata, body, error = split_qmd_front_matter(text)
-    if error or metadata is None:
-        checker.add("function-front-matter", False, error or "Không đọc được YAML.", path)
+    document = validate_qmd_front_matter(
+        path,
+        text,
+        checker,
+        prefix="function",
+    )
+    if document is None:
         return
-    checker.add("function-front-matter", True, "YAML front matter hợp lệ.", path)
-    placeholders = [
-        token
-        for token in config.placeholders
-        if token.casefold() in text.casefold()
-    ]
+    validate_placeholders(
+        path,
+        text,
+        checker,
+        prefix="function",
+        placeholders=config.placeholders,
+    )
     checker.add(
-        "function-placeholders", not placeholders,
-        "Không còn giá trị giữ chỗ." if not placeholders
-        else "Phát hiện: " + ", ".join(sorted(set(placeholders))),
+        "qmd-core-validator",
+        True,
+        "Đã áp dụng validator lõi dùng chung cho function_article.",
         path,
     )
+    metadata = document.metadata
+    body = document.body
     validate_function_metadata(path, relative, metadata, checker, config)
     validate_function_body(path, body, checker, config)
     checker.add_warning(
