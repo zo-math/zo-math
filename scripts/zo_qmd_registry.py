@@ -25,8 +25,6 @@ class ProjectModuleConfig(Protocol):
 
     required_modules: tuple[str, ...]
     optional_modules: tuple[str, ...]
-    compatibility_mode: str
-    legacy_validator: str | None
 
 
 @dataclass(frozen=True)
@@ -103,7 +101,7 @@ def module_spec(module_id: str) -> ModuleSpec:
 def build_validation_plan(
     config: ProjectModuleConfig, article_type: str
 ) -> ValidationPlan:
-    """Resolve safe adapters from project modules and compatibility settings."""
+    """Resolve safe adapters from the project's declared modules."""
 
     declared = _unique((*config.required_modules, *config.optional_modules))
     unknown = sorted(set(declared) - REGISTERED_MODULES)
@@ -112,26 +110,7 @@ def build_validation_plan(
             "Mô-đun chưa đăng kí: " + ", ".join(unknown) + "."
         )
 
-    if config.compatibility_mode not in {"legacy", "native"}:
-        raise ModuleRegistryError(
-            f"Chế độ tương thích không hỗ trợ: {config.compatibility_mode!r}."
-        )
-
-    active = list(config.required_modules)
-    if config.compatibility_mode == "legacy":
-        legacy = config.legacy_validator
-        if not legacy:
-            raise ModuleRegistryError(
-                "Chế độ legacy phải khai báo compatibility.legacy_validator."
-            )
-        if legacy not in declared:
-            raise ModuleRegistryError(
-                "Legacy validator phải xuất hiện trong modules.required hoặc modules.optional."
-            )
-        if legacy not in active:
-            active.append(legacy)
-
-    active_modules = _unique(active)
+    active_modules = _unique(config.required_modules)
     applicable = [
         module_spec(module_id)
         for module_id in active_modules
@@ -155,55 +134,19 @@ def build_validation_plan(
         spec.requires_human_acceptance for spec in applicable
     )
 
-    if config.compatibility_mode == "legacy":
-        legacy_spec = module_spec(config.legacy_validator or "")
-        if not legacy_spec.applies_to(article_type):
-            raise ModuleRegistryError(
-                f"Legacy validator {legacy_spec.id!r} không áp dụng cho "
-                f"article_type={article_type!r}."
-            )
-        if legacy_spec.source_adapter is None:
-            raise ModuleRegistryError(
-                f"Legacy validator {legacy_spec.id!r} không có source adapter."
-            )
-
     return ValidationPlan(
         article_type=article_type,
         active_modules=active_modules,
         source_adapters=source_adapters,
         render_adapters=render_adapters,
         requires_human_acceptance=requires_human_acceptance,
-        compatibility_mode=config.compatibility_mode,
+        compatibility_mode="native",
     )
 
-
-def legacy_validation_plan(
-    article_type: str, legacy_validator: str
-) -> ValidationPlan:
-    """Build the temporary fallback plan used when legacy paths lack config."""
-
-    spec = module_spec(legacy_validator)
-    if not spec.applies_to(article_type):
-        raise ModuleRegistryError(
-            f"Legacy validator {legacy_validator!r} không áp dụng cho "
-            f"article_type={article_type!r}."
-        )
-    if spec.source_adapter is None:
-        raise ModuleRegistryError(
-            f"Legacy validator {legacy_validator!r} không có source adapter."
-        )
-    return ValidationPlan(
-        article_type=article_type,
-        active_modules=(legacy_validator,),
-        source_adapters=(spec.source_adapter,),
-        render_adapters=(spec.render_adapter,) if spec.render_adapter else (),
-        requires_human_acceptance=spec.requires_human_acceptance,
-        compatibility_mode="legacy-fallback",
-    )
 
 
 def _self_test() -> None:
-    class DemoConfig:
+    class FunctionConfig:
         required_modules = (
             "qmd-core",
             "zo-html-pdf",
@@ -211,18 +154,13 @@ def _self_test() -> None:
             "functions-article",
         )
         optional_modules = ("figure-layout", "card-grid")
-        compatibility_mode = "legacy"
-        legacy_validator = "functions-article"
 
-    plan = build_validation_plan(DemoConfig(), "function_article")
-    assert plan.active_modules == DemoConfig.required_modules
-    assert plan.source_adapters == ("functions-article",)
-    assert plan.render_adapters == ("functions-article",)
-    assert plan.requires_human_acceptance is True
-
-    fallback = legacy_validation_plan("function_article", "functions-article")
-    assert fallback.compatibility_mode == "legacy-fallback"
-    assert fallback.source_adapters == ("functions-article",)
+    function_plan = build_validation_plan(FunctionConfig(), "function_article")
+    assert function_plan.active_modules == FunctionConfig.required_modules
+    assert function_plan.source_adapters == ("functions-article",)
+    assert function_plan.render_adapters == ("functions-article",)
+    assert function_plan.requires_human_acceptance is True
+    assert function_plan.compatibility_mode == "native"
 
     class RealWorldConfig:
         required_modules = (
@@ -232,8 +170,6 @@ def _self_test() -> None:
             "real-world-problem",
         )
         optional_modules = ("figure-layout",)
-        compatibility_mode = "native"
-        legacy_validator = None
 
     real_world = build_validation_plan(RealWorldConfig(), "real_world_problem")
     assert real_world.compatibility_mode == "native"

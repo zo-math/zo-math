@@ -26,7 +26,6 @@ from zo_qmd_registry import (
     ModuleRegistryError,
     ValidationPlan,
     build_validation_plan,
-    legacy_validation_plan,
 )
 from zo_qmd_core import (
     split_qmd_front_matter,
@@ -52,7 +51,7 @@ except ImportError:  # Reported as missing dependency with exit code 3 in main()
     yaml = None
 
 
-CHECKER_VERSION = "2.5.0"
+CHECKER_VERSION = "2.6.0"
 
 EXIT_OK = 0
 EXIT_FAILED = 1
@@ -75,7 +74,6 @@ CARD_COMPONENTS = {
 }
 CARD_IMAGE_DIR = CARD_PROJECT / "assets/img/cards"
 
-FUNCTION_ARTICLE_DIRS = (CARD_PROJECT / "core", CARD_PROJECT / "depth")
 FUNCTION_LEGACY_CLASSES = (
     ".tieu-de-chu-thich", "collapsible-box-", "highlight-box-",
 )
@@ -470,10 +468,9 @@ def line_list(text: str, pattern: str, flags: int = 0) -> list[int]:
 
 @dataclass(frozen=True)
 class ArticleValidationContext:
-    config: ProjectConfig | None
+    config: ProjectConfig
     article_type: str
     plan: ValidationPlan
-    legacy_fallback: bool = False
 
 
 def article_validation_context(
@@ -545,30 +542,6 @@ def article_validation_context(
             )
         return context
 
-    if any(
-        directory == relative.parent or directory in relative.parents
-        for directory in FUNCTION_ARTICLE_DIRS
-    ):
-        try:
-            plan = legacy_validation_plan(
-                "function_article", "functions-article"
-            )
-        except ModuleRegistryError as exc:
-            if checker is not None and report:
-                checker.add("qmd-validator-plan", False, str(exc), relative)
-            return None
-        if checker is not None and report:
-            checker.add_info(
-                "qmd-validator-plan",
-                "D\u00f9ng legacy fallback cho function_article ch\u01b0a c\u00f3 c\u1ea5u h\u00ecnh.",
-                relative,
-            )
-        return ArticleValidationContext(
-            config=None,
-            article_type="function_article",
-            plan=plan,
-            legacy_fallback=True,
-        )
     return None
 
 
