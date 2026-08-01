@@ -1,0 +1,88 @@
+schema_version: 1
+
+project:
+  id: functions_100
+  name: "100+ Hàm số: Sự biến thiên và đồ thị"
+  root: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi
+
+discovery:
+  article_types:
+    - id: function_article
+      include:
+        - core/*.qmd
+        - core/**/*.qmd
+        - depth/*.qmd
+        - depth/**/*.qmd
+      exclude:
+        - core/*_luu_kho.qmd
+        - core/**/*_luu_kho.qmd
+        - depth/*_luu_kho.qmd
+        - depth/**/*_luu_kho.qmd
+
+profiles:
+  directory: _quy_trinh/ho_so
+  naming: by_article_stem
+  required: true
+
+modules:
+  required:
+    - qmd-core
+    - zo-html-pdf
+    - content-blocks
+    - functions-article
+  optional:
+    - figure-layout
+    - card-grid
+
+metadata:
+  core_required: []
+  project_required:
+    - listing-order
+  body_classes_required:
+    - zo-page-article
+    - zo-meta-hidden
+  placeholders: []
+
+publication:
+  production_states:
+    - draft
+    - in_production
+    - validated
+    - accepted
+  publication_states:
+    - pending
+    - published
+  user_confirmation_required: true
+
+catalog:
+  module: card-grid
+  data: _data/cards.yml
+  key:
+    article_metadata: listing-order
+    item_field: number
+  status_field: status
+  href_field: href
+
+references:
+  controlling_documents:
+    - AGENTS.md
+    - _quy_trinh/quy_trinh_tao_bai_ham_so.md
+    - _quy_trinh/quy_chuan_khao_sat_ham_so.md
+    - _quy_trinh/quy_chuan_ki_thuat_bai_ham_so_qmd.md
+  templates:
+    - _quy_trinh/mau_ki_thuat_qmd.qmd
+    - _quy_trinh/ho_so_san_xuat_mac_dinh.yml
+  theory_sources:
+    - _quy_trinh/nguon_li_thuyet/khung_khao_sat_ham_so_hoan_chinh_04.qmd
+
+regression:
+  articles:
+    - core/ham_ln_x.qmd
+  expected_checker_version: "2.0.4"
+  preserve_cli: true
+
+compatibility:
+  mode: legacy
+  legacy_validator: functions-article
+
+extensions: {}
