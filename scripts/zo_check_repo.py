@@ -21,6 +21,7 @@ from typing import Any, Mapping, Sequence
 from urllib.parse import unquote, urlsplit
 from xml.etree import ElementTree
 
+from zo_qmd_config import ProjectConfigError, discover_project_config
 from zo_quarto import prepare_quarto
 
 try:
@@ -29,7 +30,7 @@ except ImportError:  # Reported as missing dependency with exit code 3 in main()
     yaml = None
 
 
-CHECKER_VERSION = "2.0.4"
+CHECKER_VERSION = "2.1.0"
 
 EXIT_OK = 0
 EXIT_FAILED = 1
@@ -515,10 +516,59 @@ def line_list(text: str, pattern: str, flags: int = 0) -> list[int]:
     ]
 
 
-def is_function_article(relative: Path) -> bool:
+def configured_article_type(
+    relative: Path, checker: Checker, *, report: bool = True
+) -> tuple[bool, str | None]:
+    # Return whether a project config was found and its matching article type.
+    if relative.suffix.lower() != ".qmd":
+        return False, None
+    try:
+        config = discover_project_config(checker.root, relative)
+        if config is None:
+            return False, None
+        article_type = config.article_type_for(relative)
+    except ProjectConfigError as exc:
+        if report:
+            checker.add("qmd-project-discovery", False, str(exc), relative)
+        return True, None
+
+    if report:
+        if article_type is None:
+            checker.add_info(
+                "qmd-project-discovery",
+                f"Thu\u1ed9c project={config.project_id!r} nh\u01b0ng kh\u00f4ng kh\u1edbp lo\u1ea1i b\u00e0i \u0111\u00e3 \u0111\u0103ng k\u00ed.",
+                relative,
+            )
+        else:
+            checker.add(
+                "qmd-project-discovery",
+                True,
+                (
+                    f"project={config.project_id!r}; "
+                    f"article_type={article_type.id!r}; "
+                    f"config={config.config_path.as_posix()}."
+                ),
+                relative,
+            )
+    return True, article_type.id if article_type is not None else None
+
+
+def is_function_article(
+    relative: Path, checker: Checker | None = None, *, report: bool = True
+) -> bool:
+    # Identify a function article through config, with a legacy fallback.
+    if checker is not None:
+        configured, article_type = configured_article_type(
+            relative, checker, report=report
+        )
+        if configured:
+            return article_type == "function_article"
     if relative.suffix.lower() != ".qmd":
         return False
-    return any(directory == relative.parent or directory in relative.parents for directory in FUNCTION_ARTICLE_DIRS)
+    return any(
+        directory == relative.parent or directory in relative.parents
+        for directory in FUNCTION_ARTICLE_DIRS
+    )
 
 
 def flatten_card_items(data: Any) -> list[dict[str, Any]]:
@@ -1444,7 +1494,7 @@ def validate_file(relative: Path, checker: Checker) -> None:
         validate_svg(path, text, checker)
     elif suffix in {".md", ".qmd"}:
         validate_markdown(path, text, checker)
-        if is_function_article(relative):
+        if is_function_article(relative, checker):
             validate_function_article(path, text, checker)
 
 
@@ -1571,7 +1621,7 @@ def render_pages(paths: Sequence[Path], checker: Checker) -> int | None:
         checker.add("quarto-render", result.returncode == 0, f"Mã thoát {result.returncode}; lỗi={len(errors)}, cảnh báo={len(warnings)}, thông tin={len(information)}{detail}.", relative)
         html = out_dir / relative.with_suffix(".html")
         checker.add("render-html", html.exists(), f"HTML: {html.relative_to(checker.root).as_posix()}", relative)
-        if html.exists() and is_function_article(relative):
+        if html.exists() and is_function_article(relative, checker, report=False):
             validate_rendered_function_page(relative, html, checker)
     return None
 
