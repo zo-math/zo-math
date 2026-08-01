@@ -248,26 +248,33 @@ Không dùng một mục lục cố định. Các chức năng khơi mở, nhậ
 2. Chỉ kích hoạt quy chuẩn đồ thị khi cần tạo hoặc sửa hình TikZ/PGFPlots.
 3. Mỗi tệp `.tex` mới phải tự chứa toàn bộ màu và style cần dùng; không phụ thuộc `zo-graph-styles.tex`.
 4. Xác định đường dẫn nguồn `.tex`, PDF, SVG và đường dẫn chèn vào bài.
-5. Đối chiếu các quyết định về YAML, hệ tiêu đề, mã thực thi, khối nội dung, tài nguyên, bài tập, PDF và cấu trúc bị cấm với `quy_chuan_ki_thuat_bai_ham_so_qmd.md`.
-6. Khi tạo QMD mới, sao chép phần khung ban đầu từ `mau_ki_thuat_qmd.qmd`, rồi hoàn thiện theo quy chuẩn kĩ thuật và hồ sơ của chính bài.
-7. Với mỗi nội dung dự kiến đặt trong khối, ghi rõ:
+5. Phân loại bố cục QMD của từng hình và ghi quyết định vào hồ sơ:
+   - `thuong`: mặc định cho cả HTML và PDF; hình nằm trong bề ngang nội dung và không dùng `.column-screen-inset-shaded`;
+   - `mo_rong_html`: chỉ dùng khi bề ngang thông thường không đủ để đọc chi tiết thiết yếu;
+   - hình `mo_rong_html` phải có nhãn `fig-*`, lí do mở rộng và lớp `.column-screen-inset-shaded` chỉ được xuất hiện trong nhánh `when-format="html"`.
+6. Đối chiếu các quyết định về YAML, hệ tiêu đề, mã thực thi, khối nội dung, tài nguyên, bài tập, PDF và cấu trúc bị cấm với `quy_chuan_ki_thuat_bai_ham_so_qmd.md`.
+7. Khi tạo QMD mới, sao chép phần khung ban đầu từ `mau_ki_thuat_qmd.qmd`, rồi hoàn thiện theo quy chuẩn kĩ thuật và hồ sơ của chính bài.
+8. Với mỗi nội dung dự kiến đặt trong khối, ghi rõ:
    - lí do cần tách thành khối thay vì dùng văn bản hoặc tiêu đề thông thường;
    - nội dung thuộc mạch chính hay phần đọc thêm;
    - trạng thái mở cố định hoặc thu gọn;
    - màu đỏ, vàng hoặc xám theo đúng chức năng;
    - tiêu đề cụ thể của khối;
    - cú pháp lớp hiện hành sẽ sử dụng.
-8. Không đưa một nội dung vào khối chỉ để trang trí hoặc nhấn mạnh. Không thu gọn mắt xích bắt buộc của mạch chính.
-9. Xác định hệ bài tập có được kích hoạt hay không. Nếu không kích hoạt, ghi lí do trong hồ sơ. Nếu có, xác định cấu trúc H2–H3–H4, mục tiêu, quan hệ phụ thuộc và trạng thái của gợi ý, đáp án hoặc lời giải.
-10. Với bài dự kiến chuyển sang `published`, xác định tên PDF, `zo-pdf-download`, `zo-pdf-branding`, URL chính tắc và quy trình build PDF.
-11. Thay toàn bộ giá trị giữ chỗ bằng metadata thật.
-12. Xóa các chú thích hướng dẫn không thuộc bài cuối.
+9. Không đưa một nội dung vào khối chỉ để trang trí hoặc nhấn mạnh. Không thu gọn mắt xích bắt buộc của mạch chính.
+10. Xác định hệ bài tập có được kích hoạt hay không. Nếu không kích hoạt, ghi lí do trong hồ sơ. Nếu có, xác định cấu trúc H2–H3–H4, mục tiêu, quan hệ phụ thuộc và trạng thái của gợi ý, đáp án hoặc lời giải.
+11. Với bài dự kiến chuyển sang `published`, xác định tên PDF, `zo-pdf-download`, `zo-pdf-branding`, URL chính tắc và quy trình build PDF.
+12. Thay toàn bộ giá trị giữ chỗ bằng metadata thật.
+13. Xóa các chú thích hướng dẫn không thuộc bài cuối.
 
 `mau_ki_thuat_qmd.qmd` chỉ cung cấp khung YAML, các vị trí kĩ thuật và mẫu cú pháp. Nó không áp đặt đề mục nội dung và không thay thế `quy_chuan_ki_thuat_bai_ham_so_qmd.md`.
+
+Không sao chép tự động lớp bố cục hình từ bài tham chiếu. Trong nhánh PDF, không dùng `.column-screen-inset-shaded` trong bất kì trường hợp nào.
 
 Điểm kiểm soát G4 đạt khi:
 
 - mọi biểu diễn có mục đích, phạm vi đọc và giới hạn rõ;
+- từng hình đã được phân loại là `thuong` hoặc `mo_rong_html` và hồ sơ không còn khai báo bố cục chưa xác định;
 - QMD đã được chuẩn bị theo hợp đồng đầu ra kĩ thuật;
 - các tiêu chí kích hoạt theo điều kiện đã được quyết định;
 - mọi khối dự kiến có chức năng, trạng thái, màu và cú pháp rõ;
@@ -318,13 +325,15 @@ Trong phạm vi môi trường cho phép:
 3. kiểm tra mã hóa và khoảng trắng theo quy ước dự án;
 4. biên dịch từng hình nguồn;
 5. kiểm tra PDF và SVG của hình;
-6. render HTML của bài;
-7. build PDF tải xuống khi bài yêu cầu;
-8. xem bản render thật ở kích thước sử dụng;
-9. kiểm tra trực quan các khối mở cố định và thu gọn: viền, nền, tiêu đề, khoảng cách, khả năng mở–đóng, nội dung bên trong và sự liên tục của mạch đọc;
-10. kiểm tra bài mới không dùng lớp khối cũ; với bài hiện có, phải báo rõ lớp cũ nào còn tồn tại và đó là tương thích lịch sử hay sai lệch cần chuyển đổi;
-11. kiểm tra nút tải PDF, metadata, URL chính tắc và tài nguyên;
-12. chạy lại kiểm định nội dung nếu sửa kĩ thuật làm thay đổi cách đọc.
+6. trước khi kiểm tra giao diện HTML, xác nhận bài đã được đăng kí vào đúng nhóm sidebar trong `_quarto.yml` khi dự án yêu cầu sidebar;
+7. render HTML của bài;
+8. xem HTML thật ở desktop và mobile; kiểm tra navbar, sidebar, mục lục, hình thường và hình mở rộng;
+9. build PDF tải xuống khi bài yêu cầu;
+10. xem PDF thật; kiểm tra hình nằm trong bề ngang nội dung, công thức, ngắt trang và kí tự lỗi;
+11. kiểm tra trực quan các khối mở cố định và thu gọn: viền, nền, tiêu đề, khoảng cách, khả năng mở–đóng, nội dung bên trong và sự liên tục của mạch đọc;
+12. kiểm tra bài mới không dùng lớp khối cũ; với bài hiện có, phải báo rõ lớp cũ nào còn tồn tại và đó là tương thích lịch sử hay sai lệch cần chuyển đổi;
+13. kiểm tra nút tải PDF, metadata, URL chính tắc và tài nguyên;
+14. chạy lại kiểm định nội dung nếu sửa kĩ thuật làm thay đổi cách đọc.
 
 Không tuyên bố một kiểm tra đã đạt chỉ vì lệnh trả về mã thoát `0` nếu tiêu chí cần quan sát bản render.
 
