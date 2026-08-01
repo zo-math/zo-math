@@ -75,6 +75,12 @@ class ProjectConfig:
     profile_required: bool
     required_modules: tuple[str, ...]
     optional_modules: tuple[str, ...]
+    core_required_metadata: tuple[str, ...]
+    project_required_metadata: tuple[str, ...]
+    required_body_classes: tuple[str, ...]
+    placeholders: tuple[str, ...]
+    compatibility_mode: str
+    legacy_validator: str | None
     raw: Mapping[str, Any]
 
     def article_type_for(self, repository_relative: Path) -> ArticleTypeConfig | None:
@@ -340,13 +346,18 @@ def load_project_config(repository_root: Path, config_path: Path) -> ProjectConf
             "placeholders",
         },
     )
-    for key in (
-        "core_required",
-        "project_required",
-        "body_classes_required",
-        "placeholders",
-    ):
-        _string_list(metadata[key], f"metadata.{key}")
+    core_required_metadata = _string_list(
+        metadata["core_required"], "metadata.core_required"
+    )
+    project_required_metadata = _string_list(
+        metadata["project_required"], "metadata.project_required"
+    )
+    required_body_classes = _string_list(
+        metadata["body_classes_required"], "metadata.body_classes_required"
+    )
+    placeholders = _string_list(
+        metadata["placeholders"], "metadata.placeholders"
+    )
 
     publication = _mapping(data["publication"], "publication")
     _known_keys(
@@ -497,6 +508,14 @@ def load_project_config(repository_root: Path, config_path: Path) -> ProjectConf
         profile_required=profile_required,
         required_modules=required_modules,
         optional_modules=optional_modules,
+        core_required_metadata=core_required_metadata,
+        project_required_metadata=project_required_metadata,
+        required_body_classes=required_body_classes,
+        placeholders=placeholders,
+        compatibility_mode=mode,
+        legacy_validator=(
+            str(legacy_validator).strip() if legacy_validator is not None else None
+        ),
         raw=data,
     )
 
@@ -534,6 +553,11 @@ def _summary(config: ProjectConfig, article: Path | None = None) -> dict[str, An
         "article_types": [item.id for item in config.article_types],
         "required_modules": list(config.required_modules),
         "optional_modules": list(config.optional_modules),
+        "core_required_metadata": list(config.core_required_metadata),
+        "project_required_metadata": list(config.project_required_metadata),
+        "required_body_classes": list(config.required_body_classes),
+        "placeholder_count": len(config.placeholders),
+        "compatibility_mode": config.compatibility_mode,
     }
     if article is not None:
         article_type = config.article_type_for(article)
@@ -610,6 +634,12 @@ extensions: {}
 
         loaded = load_project_config(root, config_path)
         assert loaded.project_id == "demo"
+        assert loaded.core_required_metadata == ()
+        assert loaded.project_required_metadata == ()
+        assert loaded.required_body_classes == ()
+        assert loaded.placeholders == ()
+        assert loaded.compatibility_mode == "native"
+        assert loaded.legacy_validator is None
         assert loaded.article_type_for(Path("content/demo/core/demo.qmd")).id == "demo_article"
         assert loaded.profile_path_for(
             Path("content/demo/core/demo.qmd")
