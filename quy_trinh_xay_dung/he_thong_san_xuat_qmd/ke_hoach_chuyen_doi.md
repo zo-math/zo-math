@@ -1,229 +1,276 @@
 # Kế hoạch chuyển đổi sang cỗ máy QMD
 
-> **Trạng thái:** Bản thiết kế v1.0 — Giai đoạn 1.
+> **Trạng thái:** Hồ sơ chuyển đổi đã hoàn tất M0–M9A; M9B khóa tài liệu phiên bản 1.0.
+>
+> Tài liệu này ghi lại đường chuyển đổi đã thực hiện. Các mô tả legacy chỉ có giá trị lịch sử và không phải hướng dẫn vận hành hiện tại.
 
-## 1. Nguyên tắc
+## 1. Nguyên tắc đã giữ
 
 - chuyển đổi tăng dần;
-- không viết lại checker;
+- không viết lại checker từ đầu;
 - mỗi bước có hồi quy;
-- giữ hành vi trước khi đổi tên hoặc tách mã;
-- không sửa bài `ham_ln_x.qmd` để chiều theo hệ thống mới;
-- không xuất bản;
-- mỗi commit chỉ chứa một lớp thay đổi rõ.
+- giữ hành vi trước khi tách trách nhiệm;
+- không sửa `ham_ln_x.qmd` để chiều theo hệ thống mới;
+- không tự xuất bản;
+- mỗi commit chỉ chứa một lớp thay đổi rõ;
+- không stage các thay đổi ngoài phạm vi;
+- chỉ loại bỏ nhánh cũ sau khi hai đường chạy tương đương.
 
-## 2. Bước M0 — Khóa tài liệu thiết kế
+## 2. M0 — Khóa tài liệu thiết kế
+
+**Trạng thái:** Hoàn tất.
+
+Commit:
+
+```text
+b8740b0  docs(qmd-system): define architecture and baseline
+```
 
 Đầu ra:
 
-- kiến trúc;
-- hợp đồng;
+- kiểm kê hiện trạng;
+- bản đồ kiến trúc;
+- phân loại chung–riêng;
+- kiến trúc và hợp đồng;
 - schema cấu hình;
 - vòng đời bài;
+- đường cơ sở `ham_ln_x`;
 - kế hoạch chuyển đổi;
 - tiêu chí nghiệm thu.
 
-Chưa sửa mã.
+## 3. M1–M2 — Nền cấu hình dự án
 
-## 3. Bước M1 — Thêm bộ đọc cấu hình
+**Trạng thái:** Hoàn tất.
 
-Tạo khả năng:
+Commit:
 
-- tìm `_quy_trinh/cau_hinh_san_xuat_qmd.yml`;
+```text
+48ae4f3  feat(qmd-system): add project configuration foundation
+```
+
+Kết quả:
+
+- tạo `scripts/zo_qmd_config.py`;
 - nạp YAML an toàn;
-- kiểm tra schema tối thiểu;
-- trả về đối tượng cấu hình.
+- từ chối khóa trùng;
+- kiểm tra schema;
+- tìm cấu hình gần nhất;
+- xác định loại bài và hồ sơ;
+- tạo cấu hình đầu tiên cho 100+ Hàm số;
+- giữ đường chạy cũ trong giai đoạn chuyển tiếp.
 
-Chưa thay nhánh `is_function_article()`.
+## 4. M3 — Khám phá dự án thay nhận diện gắn cứng
 
-Kiểm tra:
+**Trạng thái:** Hoàn tất.
 
-- unit test hoặc script kiểm tra cấu hình;
-- checker cũ vẫn cho kết quả như trước.
-
-## 4. Bước M2 — Tạo cấu hình 100+ Hàm số ở chế độ tương thích
-
-Tạo:
-
-```text
-content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/cau_hinh_san_xuat_qmd.yml
-```
-
-Khai báo dữ liệu hiện hành:
-
-- project root;
-- `core/`, `depth/`;
-- thư mục hồ sơ;
-- `cards.yml`;
-- `listing-order`;
-- lớp trang;
-- bài hồi quy;
-- `compatibility.mode: legacy`.
-
-Checker đọc được cấu hình nhưng vẫn gọi validator cũ.
-
-## 5. Bước M3 — Thay nhận diện gắn cứng bằng khám phá dự án
-
-Thay:
+Commit:
 
 ```text
-is_function_article()
+9c92cd2  refactor(checker): discover configured qmd projects
 ```
 
-bằng:
+Kết quả:
+
+- checker nhận diện bài qua cấu hình dự án;
+- báo `project_id`, `article_type` và đường dẫn cấu hình;
+- giữ hồi quy bài `ham_ln_x.qmd`.
+
+## 5. M4 — Chuyển dữ liệu dự án ra cấu hình
+
+**Trạng thái:** Hoàn tất.
+
+Commit:
 
 ```text
-discover_project()
-identify_article_type()
+d386588  refactor(qmd-system): move function rules into project config
 ```
 
-Trong chế độ `legacy`, kết quả cuối vẫn gọi:
+Kết quả:
+
+- metadata bắt buộc lấy từ cấu hình;
+- lớp `body` lấy từ cấu hình;
+- placeholder dự án lấy từ cấu hình;
+- hồ sơ và dữ liệu thẻ được tham chiếu qua cấu hình;
+- logic validator vẫn nằm trong Python.
+
+## 6. M5 — Tách validator lõi
+
+**Trạng thái:** Hoàn tất.
+
+Commit:
 
 ```text
-validate_function_article()
+2ae9661  refactor(qmd-system): extract shared qmd core validator
 ```
 
-Hồi quy:
+Kết quả:
 
-- `scope ham_ln_x.qmd`;
-- kết quả không có `FAIL` mới;
-- bài vẫn được nhận diện đúng.
+- tạo `scripts/zo_qmd_core.py`;
+- tách front matter, metadata, placeholder, tiêu đề, hình, đường dẫn và mã thực thi dùng chung;
+- validator hàm số giữ nghiệp vụ riêng;
+- hồi quy nguồn và render được bảo toàn.
 
-## 6. Bước M4 — Chuyển hằng dữ liệu sang cấu hình
+## 7. M6 — Registry và dispatch adapter
 
-Chuyển dần:
+**Trạng thái:** Hoàn tất.
 
-- `FUNCTION_ARTICLE_DIRS`;
-- `FUNCTION_PROFILE_DIR`;
-- `FUNCTION_CANONICAL_BASE`;
-- lớp `body`;
-- placeholder dự án;
-- đường dẫn dữ liệu thẻ.
+Commit:
 
-Không chuyển logic validator sang YAML.
-
-Sau mỗi nhóm:
-
-- chạy scope;
-- so sánh tên và số kiểm tra quan trọng;
-- kiểm tra trạng thái thẻ vẫn `pending`.
-
-## 7. Bước M5 — Tách validator lõi
-
-Trích từ validator hàm số:
-
-- front matter;
-- placeholder chung;
-- metadata lõi;
-- tài nguyên;
-- HTML/PDF chung;
-- cảnh báo quan sát.
-
-Giữ validator hàm số cho:
-
-- thẻ;
-- `listing-order`;
-- profile hàm số;
-- hình mở rộng theo quy tắc dự án;
-- nghiệp vụ riêng.
-
-Hồi quy `scope` và `render` khi nhánh sau render thay đổi.
-
-## 8. Bước M6 — Tách hồ sơ lõi và phần mở rộng
-
-Thiết kế:
-
-```yaml
-loi: ...
-mo_rong:
-  ham_so: ...
+```text
+e6371d6  refactor(qmd-system): add validator registry and dispatch
 ```
 
-Tạo mẫu mới nhưng chưa buộc hồ sơ cũ chuyển ngay.
+Kết quả:
 
-Thêm adapter đọc hồ sơ phiên bản cũ.
+- tạo `scripts/zo_qmd_registry.py`;
+- registry mô-đun cố định trong Python;
+- tạo kế hoạch validator;
+- thêm source adapter và render adapter;
+- YAML không được gọi hàm tùy ý.
 
-Chỉ chuyển `ham_ln_x.yml` trong một nhiệm vụ di trú riêng sau khi adapter đã được kiểm nghiệm.
+## 8. M7 — Chuyển 100+ Hàm số sang native
 
-## 9. Bước M7 — Chuyển sang chế độ native
+**Trạng thái:** Hoàn tất.
 
-Khi:
+Commit:
 
-- cấu hình dự án đủ;
-- validator lõi đã tách;
-- validator hàm số vẫn đạt;
-- hồ sơ tương thích;
-- `ham_ln_x` hồi quy đạt;
-
-thì đổi:
-
-```yaml
-compatibility:
-  mode: native
+```text
+b577787  refactor(qmd-system): switch functions project to native mode
 ```
 
-Giữ nhánh legacy thêm một chu kì ngắn để đối chiếu, sau đó loại bỏ trong commit riêng.
+Kết quả:
 
-## 10. Bước M8 — Khởi tạo 100+ Bài toán thực tế
+- dự án 100+ Hàm số chạy qua registry và adapter;
+- không thay đổi nội dung `ham_ln_x.qmd`;
+- thẻ 114 tiếp tục `pending`;
+- PDF 15 trang và metadata được bảo toàn.
 
-Tạo tối thiểu:
+## 9. M8 — Khởi tạo 100+ Bài toán thực tế
+
+**Trạng thái:** Hoàn tất.
+
+Commit:
+
+```text
+31a1916  feat(real-world): add initial qmd project configuration
+```
+
+Đầu ra:
 
 - `AGENTS.md` cục bộ;
-- `_quy_trinh/cau_hinh_san_xuat_qmd.yml`;
+- cấu hình dự án;
 - quy chuẩn nội dung tối thiểu;
-- mẫu hồ sơ mở rộng;
-- một bài thử;
-- validator dự án tối thiểu.
+- hồ sơ sản xuất mặc định;
+- hồ sơ bài thử;
+- bài `chi_phi_di_taxi.qmd`;
+- SVG đại diện;
+- PDF 4 trang;
+- `scripts/zo_real_world_problem.py`;
+- source adapter và render adapter `real-world-problem`.
 
-Dùng cùng:
+Kết quả kiểm nghiệm:
 
-- lõi QMD;
-- HTML/PDF;
-- báo cáo;
-- vòng đời;
-- cổng xuất bản.
+- dùng cùng loader, registry, checker và validator lõi;
+- không mang `listing-order`;
+- đủ cấu trúc mô hình hóa riêng;
+- HTML/PDF hoạt động;
+- trạng thái vẫn `pending`.
 
-## 11. Bước M9 — Đánh giá lần hai
+## 10. M9A — Đánh giá lần hai và loại bỏ legacy
 
-Sau hai dự án:
+**Trạng thái:** Hoàn tất.
 
-- xem lại quy tắc nhóm C;
-- chỉ thăng cấp quy tắc đã có bằng chứng ở hai dự án;
-- thu gọn trường hoặc mô-đun không cần;
-- khóa phiên bản 1.0 của hệ thống.
-
-## 12. Chiến lược commit
-
-Dự kiến:
+Commit:
 
 ```text
-docs(qmd-system): define architecture and contracts
-feat(checker): add project configuration loader
-feat(functions): add qmd production configuration
-refactor(checker): discover project article types
-refactor(checker): load function project constants from config
-refactor(checker): split qmd core validators
-refactor(profiles): support core and project extensions
-test(qmd-system): preserve ln x regression baseline
-feat(real-world): add initial qmd project configuration
-test(qmd-system): validate two-project workflow
+ab7581a  refactor(qmd-system): remove legacy compatibility path
 ```
 
-## 13. Điều kiện dừng khẩn cấp
+Kết quả:
 
-Dừng khi:
+- hai cấu hình đều native;
+- loại bỏ `legacy_validation_plan`;
+- loại bỏ `legacy_validator`;
+- loại bỏ fallback cho bài hàm số thiếu cấu hình;
+- loại bỏ khối `compatibility` khỏi schema đang hoạt động;
+- checker nâng lên 2.6.0;
+- hồi quy nguồn và render của hai dự án đều đạt;
+- diff thu gọn 149 dòng.
+
+Tên kiểm tra `function-legacy-classes` vẫn được giữ vì nó phát hiện lớp CSS cũ trong QMD; nó không phải đường chạy tương thích legacy.
+
+## 11. M9B — Khóa tài liệu phiên bản 1.0
+
+**Trạng thái:** Hoàn tất khi commit gói tài liệu M9B.
+
+Phạm vi:
+
+- cập nhật `README.md` thành điểm vào vận hành;
+- cập nhật kiến trúc và hợp đồng theo mã đang chạy;
+- khóa schema cấu hình không còn `compatibility`;
+- khóa vòng đời hai trục;
+- ghi đường cơ sở hồi quy hai dự án;
+- thêm hướng dẫn tạo dự án và validator;
+- ghi kết quả đánh giá phiên bản 1.0;
+- giữ tài liệu Giai đoạn 0 như hồ sơ lịch sử.
+
+M9B không sửa checker, cấu hình dự án, QMD, PDF hoặc trạng thái xuất bản.
+
+## 12. Chuỗi commit nền phiên bản 1.0
+
+```text
+b8740b0  docs(qmd-system): define architecture and baseline
+48ae4f3  feat(qmd-system): add project configuration foundation
+9c92cd2  refactor(checker): discover configured qmd projects
+d386588  refactor(qmd-system): move function rules into project config
+2ae9661  refactor(qmd-system): extract shared qmd core validator
+e6371d6  refactor(qmd-system): add validator registry and dispatch
+b577787  refactor(qmd-system): switch functions project to native mode
+31a1916  feat(real-world): add initial qmd project configuration
+ab7581a  refactor(qmd-system): remove legacy compatibility path
+```
+
+## 13. Điều kiện dừng đã áp dụng
+
+Quá trình phải dừng khi:
 
 - bài hồi quy không còn được nhận diện;
-- validator cũ bị mất trước khi validator mới tương đương;
+- validator mới không tương đương đường cơ sở;
 - QMD phải sửa chỉ để checker mới vượt qua;
 - PDF hoặc metadata đầu ra thay đổi ngoài dự kiến;
 - trạng thái `pending` bị đổi;
 - diff lan sang tệp ngoài phạm vi;
 - YAML được dùng để thực thi mã tùy ý;
-- cấu hình tạo nhiều nguồn có thẩm quyền cạnh tranh.
+- cấu hình tạo nguồn có thẩm quyền cạnh tranh;
+- một dự án phải mang metadata chuyên biệt của dự án khác.
 
-## 14. Kết luận
+Không điều kiện dừng nào bị kích hoạt trong chuỗi M0–M9A.
 
-Chuyển đổi được thực hiện bằng lớp tương thích, không bằng thay thế toàn bộ.
+## 14. Những quyết định chưa tổng quát hóa
 
-Mỗi bước chỉ thay một điểm nối và luôn giữ một đường quay lại an toàn.
+Phiên bản 1.0 chưa coi các điểm sau là lõi chung bắt buộc:
+
+- schema hồ sơ vật lí duy nhất cho mọi dự án;
+- dispatch độc lập cho mọi mô-đun tùy chọn;
+- cấu trúc danh mục dùng chung cho mọi dự án;
+- quy chuẩn bảng biến thiên;
+- quy chuẩn nội dung đầy đủ của 100+ Bài toán thực tế;
+- tự động hóa xuất bản.
+
+Chỉ thăng cấp các điểm này sau khi có thêm bằng chứng vận hành và nhiệm vụ riêng.
+
+## 15. Kết luận
+
+Chuyển đổi đã hoàn thành theo nguyên tắc thay từng điểm nối, hồi quy sau mỗi bước và loại bỏ nhánh cũ chỉ sau khi hai dự án chạy native.
+
+Phiên bản 1.0 được khóa bởi:
+
+```text
+một checker
++ một loader cấu hình
++ một validator lõi
++ một registry an toàn
++ hai adapter dự án
++ hai đường cơ sở hồi quy
++ quyền nghiệm thu và xuất bản thuộc người dùng
+```
