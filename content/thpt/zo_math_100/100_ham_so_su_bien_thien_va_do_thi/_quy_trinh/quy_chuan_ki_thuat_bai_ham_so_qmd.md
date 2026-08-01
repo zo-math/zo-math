@@ -110,6 +110,7 @@ Mọi bài khảo sát một hàm số phải có các trường sau trước kh
 **Nhận diện và mô tả**
 
 - `title`;
+- `title-meta`;
 - `subtitle`;
 - `pagetitle`;
 - `summary`;
@@ -158,7 +159,19 @@ Phải bảo đảm:
 - `zo-pdf-branding.canonical-url` được suy ra từ đường dẫn QMD sau khi đổi `.qmd` thành `.html`;
 - `zo-pdf-branding.display-url` dùng giá trị hiện hành của dự án.
 
-#### 3.1.4. Giá trị giữ chỗ
+#### 3.1.4. Tiêu đề theo từng đầu ra
+
+Các trường tiêu đề có vai trò riêng và không được dùng thay thế lẫn nhau:
+
+- `title`: tiêu đề hiển thị của bài; được phép chứa công thức TeX;
+- `subtitle`: phụ đề hiển thị; được phép chứa công thức TeX khi cần;
+- `pagetitle`: tiêu đề tab trình duyệt; dùng văn bản thuần, không chứa TeX;
+- `title-meta`: tiêu đề metadata của PDF; dùng văn bản thuần, không chứa TeX;
+- `zo-pdf-branding.short-title`: tiêu đề chạy ở đầu trang PDF; được phép chứa công thức TeX.
+
+Khi `title` chứa lệnh toán học như `\ln`, không được dùng trực tiếp trường này làm metadata PDF. Phải khai báo `title-meta` riêng để tránh mất lệnh toán học khi Hyperref chuyển tiêu đề sang chuỗi metadata.
+
+#### 3.1.5. Giá trị giữ chỗ
 
 Không được còn giá trị giữ chỗ trong bài bàn giao, gồm các biến thể của:
 
@@ -372,9 +385,19 @@ Chú thích không thay thế phần giải thích toán học hoặc phần đ�
 
 #### 3.5.6. Kích thước và bố cục
 
-Ưu tiên kích thước theo vùng nội dung, chẳng hạn `width="100%"` và `fig-align="center"`.
+Bố cục mặc định của hình trên cả HTML và PDF là nằm trong bề ngang nội dung. Với hình thường, không dùng `.column-screen-inset-shaded`.
+
+Chỉ phân loại một hình là `mo_rong_html` khi bề ngang nội dung thông thường không đủ để đọc chi tiết toán học thiết yếu. Quyết định này phải được ghi trong hồ sơ sản xuất bằng nhãn `fig-*` của hình và một lí do cụ thể.
+
+`.column-screen-inset-shaded` chỉ được dùng cho hình `mo_rong_html` và chỉ được đặt trong nhánh `.content-visible` có `when-format="html"`. Không dùng lớp này trong nhánh PDF hoặc trong phần dùng chung cho nhiều đầu ra.
+
+Nhánh PDF luôn giữ hình trong bề ngang nội dung. Kích thước PDF được điều chỉnh bằng thuộc tính của ảnh, thường không vượt quá `width="100%"`.
+
+Không suy ra nhu cầu mở rộng chỉ từ kích thước tệp nguồn, từ cách chèn hình trong bài tham chiếu hoặc từ việc hình là đồ thị. Mỗi hình phải được phân loại lại theo nhu cầu đọc của chính bài.
 
 Không dùng chiều rộng pixel cố định làm mặc định. Không nén hình đến mức mất chi tiết toán học. Khi một hình không thể đồng thời cho thấy các hành vi thiết yếu, dùng nhiều cửa sổ có chức năng phân biệt.
+
+Cả hình thường và hình mở rộng phải được kiểm tra trên HTML desktop, HTML mobile và PDF thật.
 
 #### 3.5.7. Bảng
 
@@ -514,12 +537,13 @@ Sau khi build hoặc thay PDF, phải render lại HTML trước nghiệm thu cu
 
 Hệ hiện hành đọc các dữ liệu chính từ:
 
-- `title`;
+- `title` cho tiêu đề hiển thị trên bìa PDF;
+- `title-meta` cho trường `Title` trong metadata PDF;
 - `subtitle`;
 - `date`;
 - `summary` hoặc `description`;
 - `keywords`;
-- `zo-pdf-branding.short-title`;
+- `zo-pdf-branding.short-title` cho tiêu đề chạy ở đầu trang PDF;
 - `zo-pdf-branding.collection`;
 - `zo-pdf-branding.canonical-url`;
 - `zo-pdf-branding.display-url`.
@@ -560,7 +584,7 @@ Trong bài QMD mới hoặc phần nội dung mới, không được có:
 | Tiêu đề         | H1 thật trong thân bài                                             | Lỗi chặn                                 |
 | Tiêu đề giả     | `.tieu-de-chu-thich`                                               | Lỗi chặn                                 |
 | Khối cũ         | `collapsible-box-*`, `highlight-box-*`                             | Lỗi chặn đối với nội dung mới            |
-| Giá trị giữ chỗ | Các giá trị tại Mục 3.1.4                                          | Lỗi chặn                                 |
+| Giá trị giữ chỗ | Các giá trị tại Mục 3.1.5                                          | Lỗi chặn                                 |
 | LaTeX           | `\(`, `\)`, `\[`, `\]`, `\boxed` trong nội dung xuất bản           | Lỗi chặn                                 |
 | Mã              | lệnh cài thư viện, `setwd()`, mã tạm, thư viện không dùng          | Lỗi chặn hoặc cảnh báo theo độ chắc chắn |
 | Đường dẫn       | tuyệt đối, localhost, `docs/`, `_audit/`, cache                    | Lỗi chặn                                 |
@@ -663,6 +687,9 @@ Cho đến khi các kiểm tra chuyên biệt được tích hợp, báo cáo ph
 - không trỏ tới `docs/`, `_audit`, cache hoặc tệp tạm;
 - hình mang thông tin có `fig-alt`;
 - nhãn không trùng và dẫn chiếu có đích;
+- `.column-screen-inset-shaded` chỉ xuất hiện trong nhánh HTML;
+- mọi hình mở rộng HTML có nhãn `fig-*` và được khai báo cùng lí do trong hồ sơ phiên bản hiện hành;
+- nhánh PDF và phần dùng chung không chứa `.column-screen-inset-shaded`;
 - tài nguyên HTML/PDF cần thiết tồn tại;
 - tên tệp không mang dấu vết tạm;
 - tài nguyên không còn thuộc bài mẫu.

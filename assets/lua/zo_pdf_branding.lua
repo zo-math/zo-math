@@ -84,6 +84,7 @@ end
 function Meta(meta)
   local branding = meta["zo-pdf-branding"] or {}
   local title = latex_from_meta(meta.title)
+  local meta_title = latex_from_meta(meta["title-meta"] or meta.title)
   local subtitle = latex_from_meta(meta.subtitle)
   local short_title = latex_from_meta(branding["short-title"] or meta.title)
   local collection = latex_from_meta(
@@ -105,6 +106,7 @@ function Meta(meta)
 
   local definitions = table.concat({
     "\\providecommand{\\zoPdfTitle}{}",
+    "\\providecommand{\\zoPdfMetaTitle}{}",
     "\\providecommand{\\zoPdfSubtitle}{}",
     "\\providecommand{\\zoPdfShortTitle}{}",
     "\\providecommand{\\zoPdfCollection}{}",
@@ -112,6 +114,7 @@ function Meta(meta)
     "\\providecommand{\\zoPdfSubject}{}",
     "\\providecommand{\\zoPdfKeywords}{}",
     "\\renewcommand{\\zoPdfTitle}{" .. title .. "}",
+    "\\renewcommand{\\zoPdfMetaTitle}{" .. meta_title .. "}",
     "\\renewcommand{\\zoPdfSubtitle}{" .. subtitle .. "}",
     "\\renewcommand{\\zoPdfShortTitle}{" .. short_title .. "}",
     "\\renewcommand{\\zoPdfCollection}{" .. collection .. "}",

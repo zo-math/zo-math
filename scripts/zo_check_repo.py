@@ -29,7 +29,7 @@ except ImportError:  # Reported as missing dependency with exit code 3 in main()
     yaml = None
 
 
-CHECKER_VERSION = "2.0.1"
+CHECKER_VERSION = "2.0.4"
 
 EXIT_OK = 0
 EXIT_FAILED = 1
@@ -54,7 +54,7 @@ CARD_IMAGE_DIR = CARD_PROJECT / "assets/img/cards"
 
 FUNCTION_ARTICLE_DIRS = (CARD_PROJECT / "core", CARD_PROJECT / "depth")
 FUNCTION_REQUIRED_METADATA = {
-    "title", "subtitle", "pagetitle", "summary", "description", "image",
+    "title", "title-meta", "subtitle", "pagetitle", "summary", "description", "image",
     "listing-order", "abstract", "keywords", "author", "date", "date-format",
     "page-layout", "toc", "toc-title", "toc-location", "toc-depth",
     "body-classes", "zo-pdf-download", "zo-pdf-branding",
@@ -70,6 +70,8 @@ FUNCTION_LEGACY_CLASSES = (
 )
 FUNCTION_BLOCK_COLORS = ("zo-block-red", "zo-block-yellow", "zo-block-gray")
 FUNCTION_CANONICAL_BASE = "https://zo-math.github.io/zo-math/"
+FUNCTION_PROFILE_DIR = CARD_PROJECT / "_quy_trinh/ho_so"
+FUNCTION_EXPANDED_FIGURE_CLASS = "column-screen-inset-shaded"
 
 
 @dataclass
@@ -626,6 +628,28 @@ def validate_function_metadata(
         "Các giá trị cố định đúng chuẩn." if not wrong else "Sai: " + ", ".join(wrong),
         path,
     )
+
+    def contains_tex_markup(value: Any) -> bool:
+        if not isinstance(value, str):
+            return False
+        return bool(re.search(r"\$|\\[A-Za-z]+|\\\(|\\\[", value))
+
+    plain_title_fields = {
+        "title-meta": metadata.get("title-meta"),
+        "pagetitle": metadata.get("pagetitle"),
+    }
+    tex_in_plain = [
+        f"{key}={value!r}"
+        for key, value in plain_title_fields.items()
+        if contains_tex_markup(value)
+    ]
+    checker.add(
+        "function-title-plain-metadata", not tex_in_plain,
+        "title-meta và pagetitle dùng văn bản thuần."
+        if not tex_in_plain
+        else "Không được chứa TeX: " + ", ".join(tex_in_plain),
+        path,
+    )
     classes = str(metadata.get("body-classes", "")).split()
     required_classes = {"zo-page-article", "zo-meta-hidden"}
     checker.add(
@@ -656,15 +680,6 @@ def validate_function_metadata(
         status = None
     else:
         checker.add("function-card-match", True, f"Khớp thẻ {card.get('id', card.get('number'))}.", path)
-        expected_href = relative.relative_to(CARD_PROJECT).as_posix()
-        card_href = card.get("href")
-        href_matches = isinstance(card_href, str) and normalize_href_path(card_href).endswith(expected_href)
-        checker.add(
-            "function-card-href", href_matches,
-            "href của thẻ khớp bài." if href_matches
-            else f"Kì vọng href kết thúc bằng {expected_href!r}, nhận {card_href!r}.",
-            path,
-        )
         card_status = card.get("status")
         checker.add(
             "function-card-status", card_status in {"published", "pending"},
@@ -672,6 +687,25 @@ def validate_function_metadata(
             else f"Trạng thái thẻ không hỗ trợ: {card_status!r}.",
             path,
         )
+        expected_href = relative.relative_to(CARD_PROJECT).as_posix()
+        card_href = card.get("href")
+        if card_status == "pending" and card_href in {None, ""}:
+            checker.add_info(
+                "function-card-href",
+                "Thẻ pending chưa cần href; sẽ kiểm tra khi chuyển sang published.",
+                path,
+            )
+        else:
+            href_matches = (
+                isinstance(card_href, str)
+                and normalize_href_path(card_href).endswith(expected_href)
+            )
+            checker.add(
+                "function-card-href", href_matches,
+                "href của thẻ khớp bài." if href_matches
+                else f"Kì vọng href kết thúc bằng {expected_href!r}, nhận {card_href!r}.",
+                path,
+            )
         number_ok = card.get("number") == listing
         checker.add(
             "function-listing-order-card", number_ok,
@@ -746,53 +780,281 @@ def validate_function_metadata(
         path,
     )
 
+    pdf_path = path.parent / str(href) if href_shape else path.with_suffix(".pdf")
+    exists = pdf_path.exists() and pdf_path.stat().st_size > 0
+    pdf_header = False
+    if exists:
+        try:
+            pdf_header = pdf_path.read_bytes()[:5] == b"%PDF-"
+        except OSError:
+            pdf_header = False
+
     if status == "published":
-        pdf_path = path.parent / str(href) if href_shape else path.with_suffix(".pdf")
-        exists = pdf_path.exists() and pdf_path.stat().st_size > 0
-        pdf_header = False
-        if exists:
-            try:
-                pdf_header = pdf_path.read_bytes()[:5] == b"%PDF-"
-            except OSError:
-                pdf_header = False
         checker.add(
             "function-published-pdf", exists and pdf_header,
             f"PDF published tồn tại và có header PDF: {pdf_path.name}."
             if exists and pdf_header else f"Bài published thiếu PDF đọc được cơ bản: {pdf_path.name}.",
             path,
         )
-        if exists:
-            current = pdf_path.stat().st_mtime >= path.stat().st_mtime
-            checker.add(
-                "function-pdf-freshness", current,
-                "PDF không cũ hơn QMD." if current else "PDF cũ hơn QMD; phải build lại.",
-                path,
-            )
-            pdfinfo = shutil.which("pdfinfo")
-            if pdfinfo:
-                result = run([pdfinfo, str(pdf_path)], checker.root)
-                pages_match = re.search(r"(?m)^Pages:\s*(\d+)\s*$", result.stdout)
-                pages = int(pages_match.group(1)) if pages_match else 0
-                checker.add(
-                    "function-pdf-readable", result.returncode == 0 and pages > 0,
-                    f"pdfinfo đọc được PDF, pages={pages}."
-                    if result.returncode == 0 and pages > 0
-                    else result.stderr.strip() or "pdfinfo không xác nhận được số trang hợp lệ.",
-                    path,
-                )
-            else:
-                checker.add_warning(
-                    "function-pdf-readable",
-                    "Không tìm thấy pdfinfo; mới chỉ kiểm tra header và kích thước PDF.",
-                    path,
-                )
     else:
         checker.add_info(
             "function-published-pdf",
             f"Trạng thái thẻ={status!r}; không chặn vì PDF vật lí ở tầng này.",
             path,
         )
+
+    if exists:
+        current = pdf_path.stat().st_mtime >= path.stat().st_mtime
+        checker.add(
+            "function-pdf-freshness", current,
+            "PDF không cũ hơn QMD." if current else "PDF cũ hơn QMD; phải build lại.",
+            path,
+        )
+        pdfinfo = shutil.which("pdfinfo")
+        if pdfinfo:
+            result = run([pdfinfo, str(pdf_path)], checker.root)
+            pages_match = re.search(r"(?m)^Pages:\s*(\d+)\s*$", result.stdout)
+            pages = int(pages_match.group(1)) if pages_match else 0
+            checker.add(
+                "function-pdf-readable", result.returncode == 0 and pages > 0,
+                f"pdfinfo đọc được PDF, pages={pages}."
+                if result.returncode == 0 and pages > 0
+                else result.stderr.strip() or "pdfinfo không xác nhận được số trang hợp lệ.",
+                path,
+            )
+            title_match = re.search(r"(?m)^Title:\s*(.*?)\s*$", result.stdout)
+            actual_pdf_title = title_match.group(1).strip() if title_match else ""
+            expected_pdf_title = str(metadata.get("title-meta", "")).strip()
+            title_ok = (
+                result.returncode == 0
+                and bool(expected_pdf_title)
+                and actual_pdf_title == expected_pdf_title
+            )
+            checker.add(
+                "function-pdf-metadata-title", title_ok,
+                f"PDF Title khớp title-meta: {actual_pdf_title!r}."
+                if title_ok
+                else f"Kì vọng PDF Title={expected_pdf_title!r}, nhận {actual_pdf_title!r}.",
+                path,
+            )
+        else:
+            checker.add_warning(
+                "function-pdf-readable",
+                "Không tìm thấy pdfinfo; mới chỉ kiểm tra header và kích thước PDF.",
+                path,
+            )
+            checker.add_warning(
+                "function-pdf-metadata-title",
+                "Không tìm thấy pdfinfo; chưa đối chiếu được PDF Title với title-meta.",
+                path,
+            )
+    else:
+        checker.add_info(
+            "function-pdf-metadata-title",
+            "Chưa có PDF vật lí để đối chiếu Title với title-meta.",
+            path,
+        )
     return card, status
+
+
+def function_profile_path(relative: Path) -> Path:
+    return FUNCTION_PROFILE_DIR / f"{relative.stem}.yml"
+
+
+def parse_expanded_figure_profile(
+    relative: Path, checker: Checker
+) -> tuple[dict[str, str], bool]:
+    profile_relative = function_profile_path(relative)
+    profile_path = checker.root / profile_relative
+    if not profile_path.exists():
+        checker.add_warning(
+            "function-figure-layout-profile",
+            f"Không tìm thấy hồ sơ {profile_relative.as_posix()}; chỉ kiểm tra được vị trí cú pháp của lớp mở rộng.",
+            checker.root / relative,
+        )
+        return {}, False
+    try:
+        profile = load_yaml_unique(profile_path.read_text(encoding="utf-8")) or {}
+    except (OSError, UnicodeDecodeError, yaml.YAMLError) as exc:
+        checker.add(
+            "function-figure-layout-profile", False,
+            f"Không đọc được hồ sơ bố cục hình: {exc}",
+            checker.root / relative,
+        )
+        return {}, False
+    if not isinstance(profile, dict):
+        checker.add(
+            "function-figure-layout-profile", False,
+            "Hồ sơ sản xuất phải là một mapping YAML.",
+            checker.root / relative,
+        )
+        return {}, False
+
+    version = profile.get("phien_ban_ho_so")
+    resources = profile.get("tai_nguyen_hinh")
+    layout = resources.get("bo_cuc_qmd") if isinstance(resources, dict) else None
+    structural_errors: list[str] = []
+    if not isinstance(version, int) or version < 4:
+        structural_errors.append(f"phien_ban_ho_so={version!r}, cần từ 4 trở lên")
+    if not isinstance(layout, dict):
+        structural_errors.append("thiếu tai_nguyen_hinh.bo_cuc_qmd")
+        declared_raw: Any = []
+    else:
+        expected = {
+            "mac_dinh_html": "trong_be_ngang_noi_dung",
+            "mac_dinh_pdf": "trong_be_ngang_noi_dung",
+            "lop_mo_rong_html": FUNCTION_EXPANDED_FIGURE_CLASS,
+            "cam_lop_mo_rong_trong_pdf": True,
+        }
+        for key, value in expected.items():
+            if layout.get(key) != value:
+                structural_errors.append(
+                    f"tai_nguyen_hinh.bo_cuc_qmd.{key}={layout.get(key)!r}, cần {value!r}"
+                )
+        declared_raw = layout.get("hinh_mo_rong_html", [])
+        if not isinstance(declared_raw, list):
+            structural_errors.append("hinh_mo_rong_html phải là list")
+            declared_raw = []
+
+    declared: dict[str, str] = {}
+    entry_errors: list[str] = []
+    for index, entry in enumerate(declared_raw, start=1):
+        if not isinstance(entry, dict):
+            entry_errors.append(
+                f"mục {index} phải là mapping có id và li_do, nhận {type(entry).__name__}"
+            )
+            continue
+        figure_id = entry.get("id")
+        reason = entry.get("li_do")
+        if isinstance(figure_id, str):
+            figure_id = figure_id.strip().lstrip("#")
+        if not isinstance(figure_id, str) or not re.fullmatch(r"fig-[A-Za-z0-9_-]+", figure_id):
+            entry_errors.append(f"mục {index} có id không hợp lệ: {entry.get('id')!r}")
+            continue
+        if not isinstance(reason, str) or not reason.strip():
+            entry_errors.append(f"mục {index} ({figure_id}) thiếu li_do cụ thể")
+            continue
+        if figure_id in declared:
+            entry_errors.append(f"nhãn khai báo trùng: {figure_id}")
+            continue
+        declared[figure_id] = reason.strip()
+
+    errors = structural_errors + entry_errors
+    checker.add(
+        "function-figure-layout-profile", not errors,
+        (
+            f"Hồ sơ phiên bản {version} khai báo {len(declared)} hình mở rộng HTML hợp lệ."
+            if not errors else "; ".join(errors)
+        ),
+        checker.root / relative,
+    )
+    return declared, not errors
+
+
+def expanded_figure_records(body: str) -> list[tuple[int, str | None, str | None]]:
+    records: list[tuple[int, str | None, str | None]] = []
+    stack: list[tuple[int, str]] = []
+    opening_pattern = re.compile(r"^(:{3,})\s*\{([^}\n]*)\}\s*$")
+    closing_pattern = re.compile(r"^(:{3,})\s*$")
+
+    for number, line in enumerate(body.splitlines(), start=1):
+        closing = closing_pattern.match(line)
+        if closing:
+            marker_length = len(closing.group(1))
+            for index in range(len(stack) - 1, -1, -1):
+                if stack[index][0] == marker_length:
+                    del stack[index:]
+                    break
+            continue
+
+        opening = opening_pattern.match(line)
+        if not opening:
+            continue
+        marker_length = len(opening.group(1))
+        attrs = opening.group(2)
+        context = stack + [(marker_length, attrs)]
+        classes = set(re.findall(r"\.([A-Za-z0-9_-]+)", attrs))
+        if FUNCTION_EXPANDED_FIGURE_CLASS in classes:
+            id_match = re.search(r"#(fig-[A-Za-z0-9_-]+)\b", attrs)
+            branch_format: str | None = None
+            for _, parent_attrs in reversed(context):
+                parent_classes = set(re.findall(r"\.([A-Za-z0-9_-]+)", parent_attrs))
+                if "content-visible" not in parent_classes:
+                    continue
+                format_match = re.search(
+                    r"\bwhen-format\s*=\s*[\"']([^\"']+)[\"']", parent_attrs
+                )
+                if format_match:
+                    branch_format = format_match.group(1).strip().casefold()
+                    break
+            records.append((number, id_match.group(1) if id_match else None, branch_format))
+        stack.append((marker_length, attrs))
+    return records
+
+
+def validate_function_figure_layout(
+    path: Path, relative: Path, body: str, checker: Checker
+) -> None:
+    active = strip_fences_comments_and_inline_code(body)
+    records = expanded_figure_records(active)
+    declared, profile_ok = parse_expanded_figure_profile(relative, checker)
+
+    wrong_branch = [
+        f"dòng thân bài {line} ({branch or 'dùng chung'})"
+        for line, _, branch in records if branch != "html"
+    ]
+    checker.add(
+        "function-figure-layout-output", not wrong_branch,
+        (
+            "Lớp mở rộng chỉ xuất hiện trong nhánh HTML."
+            if not wrong_branch else
+            "Lớp mở rộng xuất hiện ngoài nhánh HTML: " + ", ".join(wrong_branch)
+        ),
+        path,
+    )
+
+    missing_id = [line for line, figure_id, _ in records if figure_id is None]
+    checker.add(
+        "function-figure-layout-id", not missing_id,
+        (
+            "Mọi hình mở rộng có nhãn fig-* hợp lệ."
+            if not missing_id else
+            "Hình mở rộng thiếu nhãn fig-* tại dòng thân bài: "
+            + ", ".join(map(str, missing_id))
+        ),
+        path,
+    )
+
+    actual_ids = {figure_id for _, figure_id, _ in records if figure_id is not None}
+    declared_ids = set(declared)
+    if profile_ok:
+        undeclared = sorted(actual_ids - declared_ids)
+        unused = sorted(declared_ids - actual_ids)
+        checker.add(
+            "function-figure-layout-profile-match", not undeclared and not unused,
+            (
+                "Khai báo hồ sơ khớp các hình mở rộng HTML."
+                if not undeclared and not unused else
+                "; ".join(filter(None, [
+                    "Chưa khai báo trong hồ sơ: " + ", ".join(undeclared) if undeclared else "",
+                    "Khai báo thừa trong hồ sơ: " + ", ".join(unused) if unused else "",
+                ]))
+            ),
+            path,
+        )
+
+    if not records and not declared_ids:
+        checker.add(
+            "function-figure-layout-default", True,
+            "Không có hình dùng lớp mở rộng; áp dụng bố cục hình thường.",
+            path,
+        )
+    elif records:
+        checker.add(
+            "function-figure-layout-default", True,
+            f"Phát hiện {len(records)} lần dùng lớp mở rộng; đã kiểm tra nhánh đầu ra và hồ sơ.",
+            path,
+        )
 
 
 def validate_function_body(path: Path, body: str, checker: Checker) -> None:
@@ -931,6 +1193,9 @@ def validate_function_body(path: Path, body: str, checker: Checker) -> None:
         )
     else:
         checker.add("function-fixed-pixel-width", True, "Không có width pixel cố định.", path)
+
+    relative = path.relative_to(checker.root)
+    validate_function_figure_layout(path, relative, body, checker)
 
     active_lines = active.splitlines()
     block_errors: list[str] = []
