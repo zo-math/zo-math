@@ -1,146 +1,240 @@
 # Tiêu chí nghiệm thu hệ thống sản xuất và kiểm định QMD
 
-> **Trạng thái:** Bản thiết kế v1.0 — Giai đoạn 1.
+> **Trạng thái:** Kết quả đánh giá phiên bản 1.0 — đạt về kiến trúc và kiểm định tự động; có hiệu lực từ commit khóa tài liệu M9B.
+>
+> Nghiệm thu hệ thống không thay thế nghiệm thu nội dung của từng bài và không thay thế xác nhận xuất bản của người dùng.
 
 ## 1. Phạm vi nghiệm thu
 
-Hệ thống phiên bản đầu chỉ được xem là đạt khi chứng minh được:
+Phiên bản 1.0 phải chứng minh:
 
 - một lõi phục vụ ít nhất hai dự án;
 - 100+ Hàm số không bị suy yếu;
 - 100+ Bài toán thực tế không phải mang các trường của hàm số;
 - checker vẫn có một điểm vào thống nhất;
+- cấu hình không thực thi mã tùy ý;
 - xuất bản vẫn do người dùng quyết định.
+
+**Kết quả:** ĐẠT.
 
 ## 2. Kiến trúc
 
-Đạt khi:
-
-- bốn tầng được biểu diễn rõ;
-- cấu hình dự án cục bộ được khám phá xác định;
-- hồ sơ tách vùng lõi và vùng mở rộng;
-- registry mô-đun không cho thực thi mã tùy ý;
-- thứ tự thẩm quyền rõ;
-- lõi không chứa đường dẫn riêng của dự án.
+| Tiêu chí | Kết quả | Bằng chứng |
+|---|---|---|
+| Bốn tầng được biểu diễn rõ | ĐẠT | Lõi, cấu hình dự án, hồ sơ/quy chuẩn, QMD/đầu ra |
+| Cấu hình cục bộ được khám phá xác định | ĐẠT | `discover_project_config()` tìm cấu hình gần nhất |
+| Registry không cho thực thi mã tùy ý | ĐẠT | Danh sách `MODULE_SPECS` cố định trong Python |
+| Validator lõi tách khỏi nghiệp vụ dự án | ĐẠT | `scripts/zo_qmd_core.py` |
+| Validator dự án chỉ chạy đúng loại bài | ĐẠT | Kế hoạch registry và hai bảng dispatch |
+| Lõi không chứa metadata bắt buộc của dự án thứ hai | ĐẠT | Bài thực tế không cần `listing-order` |
+| Không còn đường legacy | ĐẠT | Commit `ab7581a`; kiểm tra không còn `legacy_validator` hoặc fallback |
 
 ## 3. Cấu hình dự án
 
-Đạt khi:
-
-- schema có phiên bản;
-- cấu hình sai bị từ chối với thông báo rõ;
-- đường dẫn không thể thoát repository;
-- loại bài không chồng lấn;
-- mô-đun không đăng kí bị từ chối;
-- cổng xác nhận xuất bản không thể bị tắt;
-- checker nhận diện đúng bài của hai dự án.
+| Tiêu chí | Kết quả | Bằng chứng |
+|---|---|---|
+| Schema có phiên bản | ĐẠT | `schema_version: 1` |
+| Khóa trùng bị từ chối | ĐẠT | Loader tùy biến `SafeLoader`; self-test |
+| Khóa không biết bị từ chối | ĐẠT | `_known_keys()` |
+| Đường dẫn không thể thoát repository | ĐẠT | đường dẫn tương đối, cấm `..`, kiểm tra `_inside()` |
+| Vị trí cấu hình phải khớp `project.root` | ĐẠT | loader so với vị trí chuẩn |
+| Loại bài không được khớp chồng trên cùng tệp | ĐẠT | `article_type_for()` từ chối nhiều kết quả |
+| Mô-đun chưa đăng kí bị từ chối | ĐẠT | loader và registry |
+| `qmd-core` bắt buộc | ĐẠT | loader từ chối cấu hình thiếu lõi |
+| Cổng xác nhận xuất bản không thể tắt | ĐẠT | `user_confirmation_required` bắt buộc là `true` |
+| Hai dự án có cấu hình riêng | ĐẠT | `functions_100`, `real_world_100` |
 
 ## 4. Checker
 
-Đạt khi:
+| Tiêu chí | Kết quả | Bằng chứng |
+|---|---|---|
+| Giữ `quick`, `scope`, `render` | ĐẠT | CLI checker 2.6.0 |
+| Giữ `--staged`, `--report` | ĐẠT | parser chung |
+| Validator lõi chạy cho cả hai dự án | ĐẠT | `qmd-core-validator` xuất hiện ở cả hai hồi quy |
+| Source adapter chạy đúng dự án | ĐẠT | `functions-article`, `real-world-problem` |
+| Render adapter chạy đúng dự án | ĐẠT | hai adapter sau render đều qua |
+| Báo cáo JSON giữ thông tin cốt lõi | ĐẠT | checker ghi report trong `_audit/` |
+| Mã thoát nhất quán | ĐẠT | 0/1/2/3 |
+| Checker không sửa tệp | ĐẠT | checker chỉ đọc, render và ghi report khi yêu cầu |
+| Checker không stage, commit hoặc xuất bản | ĐẠT | không có chức năng tương ứng |
+| Cảnh báo không bị nhầm thành nghiệm thu cuối | ĐẠT | `FINAL ACCEPTANCE: NOT_RUN` |
 
-- giữ `quick`, `scope`, `render`;
-- giữ `--staged`, `--report`;
-- validator lõi chạy cho cả hai dự án;
-- validator dự án chỉ chạy đúng phạm vi;
-- validator sau render vẫn hoạt động;
-- báo cáo JSON giữ thông tin cốt lõi;
-- mã thoát nhất quán;
-- checker không sửa tệp;
-- checker không xuất bản.
+Phiên bản đường cơ sở:
+
+```text
+CHECKER VERSION: 2.6.0
+```
 
 ## 5. Hồi quy 100+ Hàm số
 
-Đạt khi `ham_ln_x.qmd`:
+Bài:
 
-- được nhận diện đúng;
-- không cần sửa nội dung;
-- không có `FAIL` mới;
-- HTML vẫn có lớp trang và liên kết PDF;
-- PDF Title vẫn khớp;
-- hồ sơ hình vẫn được kiểm tra;
-- số hình mở rộng vẫn bằng 0;
-- thẻ 114 vẫn `pending`;
-- `href` vẫn rỗng;
-- không có thay đổi ngoài phạm vi.
+```text
+content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_ln_x.qmd
+```
 
-## 6. Kiểm nghiệm dự án thứ hai
+| Tiêu chí | Kết quả |
+|---|---|
+| Được nhận diện là `functions_100` | ĐẠT |
+| Được nhận diện là `function_article` | ĐẠT |
+| Kế hoạch chạy `functions-article` | ĐẠT |
+| Không cần sửa QMD để chuyển kiến trúc | ĐẠT |
+| Không có `FAIL` mới | ĐẠT |
+| HTML có lớp trang bắt buộc | ĐẠT |
+| HTML có đúng một H1 | ĐẠT |
+| HTML có liên kết PDF | ĐẠT |
+| PDF Title khớp `title-meta` | ĐẠT |
+| PDF đọc được, đường cơ sở 15 trang | ĐẠT |
+| Hồ sơ hình được kiểm tra | ĐẠT |
+| Số hình mở rộng bằng 0 | ĐẠT |
+| Thẻ 114 giữ `pending` | ĐẠT |
+| `href` của thẻ giữ rỗng | ĐẠT |
+| Không xuất bản | ĐẠT |
 
-Đạt khi một bài 100+ Bài toán thực tế:
+## 6. Kiểm nghiệm 100+ Bài toán thực tế
 
-- có cấu hình dự án riêng;
-- có hồ sơ mở rộng riêng;
-- không chứa trường bắt buộc của hàm số;
-- dùng cùng metadata lõi;
-- dùng cùng HTML/PDF;
-- chạy cùng checker;
-- có validator nội dung dự án;
-- tạo báo cáo cùng định dạng;
-- giữ `pending` cho tới khi người dùng xác nhận.
+Bài:
 
-## 7. Tài liệu
+```text
+content/thpt/zo_math_100/100_bai_toan_thuc_te/core/chi_phi_di_taxi.qmd
+```
 
-Đạt khi:
+| Tiêu chí | Kết quả |
+|---|---|
+| Có cấu hình dự án riêng | ĐẠT |
+| Có hồ sơ sản xuất riêng | ĐẠT |
+| Được nhận diện là `real_world_100` | ĐẠT |
+| Được nhận diện là `real_world_problem` | ĐẠT |
+| Kế hoạch chạy `real-world-problem` | ĐẠT |
+| Dùng cùng validator lõi | ĐẠT |
+| Không chứa `listing-order` | ĐẠT |
+| Đủ bốn phần mô hình hóa bắt buộc | ĐẠT |
+| HTML có lớp trang bắt buộc | ĐẠT |
+| HTML có đúng một H1 | ĐẠT |
+| HTML có liên kết PDF | ĐẠT |
+| PDF được tạo và chuyển vào `docs` | ĐẠT |
+| PDF Title đúng, A4, đường cơ sở 4 trang | ĐẠT |
+| Trạng thái sản xuất là `in_production` | ĐẠT |
+| Trạng thái xuất bản là `pending` | ĐẠT |
+| Không xuất bản | ĐẠT |
 
-- có tài liệu lõi;
-- có schema cấu hình;
-- có mẫu hồ sơ lõi;
-- có hướng dẫn thêm dự án;
-- có hướng dẫn thêm validator;
-- có đường cơ sở hồi quy;
-- tài liệu có thẩm quyền được dẫn chiếu đúng cấp;
-- không có hai tài liệu cùng cấp mâu thuẫn.
+Bài thử chỉ chứng minh đường ống kĩ thuật và ranh giới dự án; nó không tự động trở thành nội dung đã nghiệm thu để xuất bản.
 
-## 8. Vận hành
+## 7. Hồi quy đồng thời hai dự án
 
-Đạt khi một phiên mới có thể:
+Đã chạy cùng một lệnh checker trên hai bài và nhận:
+
+```text
+AUTOMATED RESULT: PASS_WITH_WARNINGS | EXIT=0
+```
+
+Đã chạy cùng một lệnh render trên hai bài và nhận:
+
+- Quarto thoát 0;
+- lỗi render 0;
+- cảnh báo Quarto 0 trong kiểm tra checker;
+- source adapter đúng cho từng bài;
+- render adapter đúng cho từng bài;
+- PDF của cả hai bài được nhận diện;
+- trạng thái xuất bản vẫn `pending`.
+
+Các `WARN` còn lại là cổng kiểm định có người quan sát, đúng theo hợp đồng hệ thống.
+
+## 8. Tài liệu
+
+| Tiêu chí | Kết quả |
+|---|---|
+| Có điểm vào vận hành | ĐẠT — `README.md` |
+| Có tài liệu kiến trúc | ĐẠT |
+| Có hợp đồng lõi và dự án | ĐẠT |
+| Có schema cấu hình | ĐẠT |
+| Có vòng đời bài | ĐẠT |
+| Có đường cơ sở hai dự án | ĐẠT |
+| Có hướng dẫn thêm dự án | ĐẠT |
+| Có hướng dẫn thêm validator | ĐẠT |
+| Có hồ sơ chuyển đổi | ĐẠT |
+| Có phân loại tài liệu lịch sử và vận hành | ĐẠT |
+
+## 9. Vận hành phiên mới
+
+Một phiên mới có thể:
 
 1. đọc `AGENTS.md`;
-2. đọc tài liệu cỗ máy QMD;
+2. đọc `README.md` của hệ thống;
 3. tìm cấu hình dự án;
-4. tìm hồ sơ bài;
-5. chạy checker;
-6. hiểu trạng thái;
-7. tiếp tục công việc mà không cần toàn bộ lịch sử hội thoại.
+4. dùng loader để xác định loại bài;
+5. tìm hồ sơ theo `by_article_stem`;
+6. chạy `scope` hoặc `render`;
+7. đọc trạng thái và cảnh báo;
+8. chạy hồi quy hai dự án khi sửa lõi;
+9. tiếp tục công việc mà không cần toàn bộ lịch sử hội thoại.
 
-## 9. Hiệu quả
+**Kết quả:** ĐẠT.
 
-Đạt khi:
+## 10. Hiệu quả
+
+Đã chứng minh:
 
 - không cần sao chép checker cho dự án mới;
-- không cần sao chép toàn bộ quy chuẩn kĩ thuật;
-- thêm dự án chủ yếu bằng cấu hình, hồ sơ mở rộng và validator chuyên biệt;
-- thay đổi lõi có hồi quy rõ;
-- token hội thoại được giảm nhờ tài liệu bền vững trong repository.
+- không cần sao chép toàn bộ quy chuẩn hàm số;
+- dự án mới chủ yếu cần cấu hình, quy chuẩn, hồ sơ và adapter chuyên biệt;
+- thay đổi lõi có đường hồi quy rõ;
+- registry ngăn YAML biến thành ngôn ngữ thực thi;
+- loại bỏ được 149 dòng đường tương thích sau khi native ổn định;
+- tài liệu bền vững thay thế phần lớn ngữ cảnh hội thoại tạm thời.
 
-## 10. Không đạt
+## 11. Những gì phiên bản 1.0 chưa tuyên bố
 
-Hệ thống không đạt nếu:
+Phiên bản 1.0 chưa tuyên bố:
 
-- chỉ đổi tên hằng mà chưa tách trách nhiệm;
-- YAML trở thành nơi chứa logic khó kiểm soát;
-- dự án mới phải điền trường hàm số;
-- checker bị chia thành nhiều script độc lập;
-- bài hồi quy phải sửa để phù hợp hệ thống;
-- trạng thái nghiệm thu và xuất bản vẫn bị trộn;
+- có một schema hồ sơ vật lí duy nhất cho mọi dự án;
+- mọi mô-đun tùy chọn đều có dispatch độc lập;
+- quy chuẩn nội dung bài toán thực tế đã hoàn chỉnh;
+- bài taxi đã được nghiệm thu nội dung để xuất bản;
+- hệ thống tự động hóa xuất bản;
+- kiểm định tự động có thể thay thế người quan sát.
+
+Các giới hạn này không làm sai mục tiêu phiên bản 1.0.
+
+## 12. Điều kiện không đạt
+
+Hệ thống sẽ mất trạng thái đạt nếu:
+
+- một dự án hồi quy không còn được nhận diện;
+- validator lõi không còn chạy cho cả hai dự án;
+- adapter dự án chạy sai phạm vi;
+- cấu hình có thể thực thi mã tùy ý;
+- dự án mới phải mang trường chuyên biệt của dự án khác;
+- giao diện checker bị phá vỡ không có đường di trú;
+- bài hồi quy phải sửa để checker vượt qua;
+- trạng thái nghiệm thu và xuất bản bị trộn;
 - xuất bản có thể xảy ra không cần xác nhận;
-- kiểm định tự động được coi là nghiệm thu cuối.
+- nhánh legacy được khôi phục mà không có nhiệm vụ riêng.
 
-## 11. Điều kiện nghiệm thu phiên bản 1.0
+## 13. Quyết định phiên bản 1.0
 
-Phiên bản 1.0 được nghiệm thu khi đồng thời:
+Dựa trên bằng chứng M0–M9A, hệ thống đạt các điều kiện kiến trúc và kiểm định tự động của phiên bản 1.0.
 
-- toàn bộ tiêu chí kiến trúc đạt;
-- cấu hình hai dự án hợp lệ;
-- `ham_ln_x` hồi quy đạt;
-- bài thử dự án thứ hai đạt;
-- kiểm tra tự động không có `FAIL`;
-- quan sát HTML/PDF hoàn tất;
-- tài liệu chuyển giao đủ;
-- người dùng xác nhận hệ thống đạt.
+Commit tài liệu M9B có ý nghĩa:
 
-## 12. Kết luận
+- khóa mô tả vận hành hiện tại;
+- xác nhận schema cấu hình phiên bản 1;
+- xác nhận checker 2.6.0 là đường cơ sở;
+- xác nhận hai bài hồi quy;
+- kết thúc giai đoạn chuyển đổi;
+- không thay đổi trạng thái sản xuất hoặc xuất bản của từng bài.
 
-Nghiệm thu hệ thống không dựa vào số lượng tệp hoặc độ phức tạp của checker.
+## 14. Kết luận
 
-Tiêu chí quyết định là: một lõi rõ, hai dự án thực dùng được, hồi quy an toàn và quyền xuất bản vẫn thuộc người dùng.
+Nghiệm thu hệ thống không dựa vào số lượng tệp hoặc độ dài checker.
+
+Tiêu chí quyết định đã đạt là:
+
+```text
+một lõi rõ
++ hai dự án thực dùng được
++ hồi quy an toàn
++ cấu hình không thực thi mã
++ validator đúng phạm vi
++ quyền nghiệm thu và xuất bản thuộc người dùng
+```

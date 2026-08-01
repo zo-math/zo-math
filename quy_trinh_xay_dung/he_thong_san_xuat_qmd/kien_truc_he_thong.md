@@ -1,12 +1,12 @@
 # Kiến trúc hệ thống sản xuất và kiểm định QMD cho ZO Math
 
-> **Trạng thái:** Bản thiết kế v1.0 — Giai đoạn 1.
+> **Trạng thái:** Kiến trúc vận hành — phiên bản 1.0.
 >
-> Tài liệu này đề xuất kiến trúc đích. Nó chỉ trở thành tài liệu có thẩm quyền sau khi người dùng duyệt và hệ thống chỉ dẫn của repository dẫn chiếu phù hợp.
+> Tài liệu này mô tả hệ thống đã được triển khai và kiểm nghiệm trên hai dự án. Hiệu lực của nó vẫn tuân theo thứ tự thẩm quyền của repository và yêu cầu hiện tại của người dùng.
 
 ## 1. Mục tiêu kiến trúc
 
-Hệ thống phải cho phép nhiều dự án nội dung của ZO Math cùng sử dụng một lõi sản xuất và kiểm định QMD, trong khi mỗi dự án vẫn giữ:
+Hệ thống cho phép nhiều dự án nội dung của ZO Math cùng sử dụng một lõi sản xuất và kiểm định QMD, trong khi mỗi dự án vẫn giữ:
 
 - quy chuẩn nội dung chuyên biệt;
 - cấu trúc thư mục riêng;
@@ -15,56 +15,67 @@ Hệ thống phải cho phép nhiều dự án nội dung của ZO Math cùng s�
 - tiêu chí kiểm định riêng;
 - quyền quyết định xuất bản riêng.
 
-Kiến trúc phải bảo toàn hành vi đã nghiệm thu của dự án **100+ Hàm số: Sự biến thiên và đồ thị**, đồng thời đủ mở để tiếp nhận **100+ Bài toán thực tế** mà không sao chép toàn bộ quy trình và checker.
+Phiên bản 1.0 đã được kiểm nghiệm trên:
+
+- **100+ Hàm số: Sự biến thiên và đồ thị**;
+- **100+ Bài toán thực tế**.
 
 ## 2. Quyết định kiến trúc trung tâm
 
-Hệ thống gồm bốn tầng chính:
+Hệ thống gồm bốn tầng:
 
 ```text
 lõi ZO Math
     ↓
 cấu hình dự án
     ↓
-hồ sơ sản xuất của bài
+hồ sơ sản xuất và quy chuẩn chuyên biệt
     ↓
 QMD, tài nguyên và đầu ra
 ```
 
-Checker tạo **hợp đồng hiệu lực** cho mỗi bài bằng cách kết hợp ba nguồn đầu, rồi dùng hợp đồng ấy để kiểm tra nguồn và đầu ra.
+Checker tạo **hợp đồng hiệu lực** cho mỗi bài bằng cách kết hợp:
+
+```text
+bất biến lõi
++ yêu cầu cấu hình dự án
++ mô-đun bắt buộc đã đăng kí
++ dữ liệu hồ sơ mà adapter dự án hiểu
+= kế hoạch kiểm định của bài
+```
 
 ## 3. Tầng 1 — Lõi dùng chung
 
 Lõi chứa các quy tắc không phụ thuộc chủ đề:
 
 - vòng đời kĩ thuật của bài;
-- hợp đồng QMD cơ bản;
-- metadata dùng chung;
-- quản lí tài nguyên;
-- HTML và PDF;
-- kiểm định tự động;
-- kiểm định có người quan sát;
-- nghiệm thu;
-- bàn giao;
-- cổng xuất bản;
-- định dạng báo cáo;
-- giao diện lệnh checker.
+- metadata nền;
+- kiểm tra front matter;
+- kiểm tra placeholder;
+- kiểm tra tiêu đề và cấu trúc QMD;
+- kiểm tra hình, tài nguyên và đường dẫn;
+- kiểm tra mã thực thi bị cấm;
+- kiểm tra HTML/PDF dùng chung;
+- định dạng kết quả và báo cáo;
+- cổng kiểm định có người quan sát;
+- cổng xuất bản.
 
-Vị trí thiết kế và tài liệu lõi:
+Thành phần triển khai chính:
 
 ```text
-quy_trinh_xay_dung/he_thong_san_xuat_qmd/
+scripts/zo_qmd_core.py
+scripts/zo_check_repo.py
 ```
 
 Lõi không chứa:
 
 - tên dự án;
-- đường dẫn `core/` hoặc `depth/`;
+- đường dẫn bài riêng của một dự án;
 - `cards.yml`;
 - `listing-order`;
 - quy chuẩn khảo sát hàm số;
 - quy chuẩn mô hình hóa bài toán thực tế;
-- tên hàm validator có thể được gọi tùy ý từ YAML.
+- tên hàm Python do YAML cung cấp.
 
 ## 4. Tầng 2 — Cấu hình dự án
 
@@ -74,69 +85,68 @@ Mỗi dự án có một tệp cấu hình cục bộ:
 <goc_du_an>/_quy_trinh/cau_hinh_san_xuat_qmd.yml
 ```
 
-Checker tìm cấu hình bằng cách đi từ đường dẫn bài lên các thư mục cha; tại mỗi gốc dự án tiềm năng, checker kiểm tra tệp:
+Bộ đọc cấu hình:
 
 ```text
-_quy_trinh/cau_hinh_san_xuat_qmd.yml
+scripts/zo_qmd_config.py
 ```
+
+Checker tìm cấu hình gần nhất bằng cách đi từ đường dẫn bài lên các thư mục cha. Cấu hình phải nằm đúng dưới `project.root`; cấu hình ở vị trí khác bị từ chối.
 
 Cấu hình dự án khai báo:
 
 - định danh và tên dự án;
 - gốc dự án;
-- mẫu đường dẫn bài;
-- loại bài;
+- loại bài và mẫu đường dẫn;
 - thư mục hồ sơ;
-- metadata bắt buộc bổ sung;
-- mô-đun kiểm định được kích hoạt;
-- dữ liệu danh mục hoặc lưới thẻ khi áp dụng;
-- quy tắc trạng thái xuất bản;
-- đường dẫn tài liệu chuyên biệt;
-- đường cơ sở hồi quy của dự án.
+- mô-đun bắt buộc và mô-đun tùy chọn;
+- metadata lõi và metadata bổ sung;
+- lớp trang bắt buộc;
+- placeholder cần chặn;
+- trạng thái sản xuất và xuất bản;
+- dữ liệu danh mục khi áp dụng;
+- tài liệu điều khiển;
+- đường cơ sở hồi quy;
+- phần mở rộng dự án.
 
 Cấu hình chỉ dùng dữ liệu khai báo. Nó không được phép chỉ định đường dẫn Python tùy ý hoặc thực thi mã.
 
-## 5. Tầng 3 — Hồ sơ sản xuất của bài
+## 5. Tầng 3 — Hồ sơ sản xuất và quy chuẩn chuyên biệt
 
-Mỗi bài có một hồ sơ cục bộ, do cấu hình dự án xác định vị trí.
+Cấu hình xác định vị trí hồ sơ theo quy tắc:
 
-Hồ sơ gồm hai vùng:
-
-```yaml
-loi:
-  ...
-
-mo_rong:
-  <ma_du_an>:
-    ...
+```text
+profiles.naming: by_article_stem
 ```
 
-Vùng `loi` ghi:
+Với bài `core/ten_bai.qmd`, hồ sơ được giải tại:
 
-- nhận diện;
-- nhiệm vụ;
-- đường dẫn;
-- phạm vi thay đổi;
+```text
+<goc_du_an>/<profiles.directory>/ten_bai.yml
+```
+
+Phiên bản 1.0 khóa vòng đời và trách nhiệm của hồ sơ, nhưng chưa bắt buộc mọi dự án dùng một schema hồ sơ vật lí hoàn toàn giống nhau. Adapter dự án chịu trách nhiệm đọc và kiểm tra schema hồ sơ mà dự án đã chấp nhận.
+
+Hồ sơ phải ghi được tối thiểu:
+
+- nhận diện bài;
+- phạm vi;
 - tài liệu điều khiển;
-- đầu ra;
+- quyết định chuyên môn;
 - tài nguyên;
-- kiểm định;
-- nghiệm thu;
-- bàn giao;
+- bằng chứng kiểm định;
 - trạng thái sản xuất;
-- trạng thái xuất bản.
+- trạng thái xuất bản;
+- kết quả nghiệm thu;
+- vấn đề còn lại.
 
-Vùng `mo_rong` ghi nghiệp vụ chuyên biệt, ví dụ:
+Quy chuẩn chuyên biệt quy định phần mà lõi không thể suy ra, ví dụ:
 
-```yaml
-mo_rong:
-  ham_so:
-    ban_do_mien: ...
-    menh_de_chung_cu: ...
-    truc_nhan_thuc: ...
-```
-
-Dự án khác không phải khai báo các trường của hàm số.
+- khảo sát hàm số;
+- mô hình hóa bài toán thực tế;
+- cấu trúc nhận thức;
+- tiêu chuẩn lập luận;
+- đơn vị và kiểm tra tính hợp lí trong bối cảnh.
 
 ## 6. Tầng 4 — QMD, tài nguyên và đầu ra
 
@@ -148,43 +158,37 @@ Dự án khác không phải khai báo các trường của hàm số.
 - PDF;
 - metadata đầu ra;
 - dữ liệu danh mục;
-- bằng chứng kiểm định.
+- báo cáo kiểm định.
 
-QMD không phải nơi quyết định quy tắc. QMD phải thỏa hợp đồng hiệu lực được tạo từ lõi, cấu hình dự án và hồ sơ bài.
+QMD không phải nơi quyết định quy tắc. QMD phải thỏa hợp đồng hiệu lực được tạo từ các tầng điều khiển.
 
 ## 7. Thành phần checker
 
-Checker được tổ chức theo các lớp chức năng:
+Luồng vận hành:
 
 ```text
 điểm vào lệnh
     ↓
 mở rộng phạm vi
     ↓
-khám phá dự án
-    ↓
-nạp cấu hình
+khám phá cấu hình gần nhất
     ↓
 xác định loại bài
     ↓
-tạo hợp đồng hiệu lực
+tạo kế hoạch validator từ registry
     ↓
-validator lõi
+kiểm tra dùng chung của repository
     ↓
-validator mô-đun
-    ↓
-validator dự án
+source adapter của dự án
     ↓
 render khi được yêu cầu
     ↓
-validator sau render
+render adapter của dự án
     ↓
-báo cáo
+báo cáo và mã thoát
 ```
 
 ### 7.1. Điểm vào lệnh
-
-Giữ nguyên:
 
 ```text
 quick
@@ -194,18 +198,34 @@ render
 --report
 ```
 
+Checker phiên bản đường cơ sở:
+
+```text
+2.6.0
+```
+
 ### 7.2. Bộ khám phá dự án
 
 Trách nhiệm:
 
-- nhận đường dẫn tương đối;
-- tìm cấu hình gần nhất có hiệu lực;
-- xác nhận đường dẫn nằm trong gốc dự án;
-- trả về `project_id`, `article_type` và danh sách mô-đun.
+- nhận đường dẫn tương đối hoặc tuyệt đối bên trong repository;
+- tìm cấu hình gần nhất;
+- xác nhận đường dẫn nằm trong `project.root`;
+- xác định duy nhất một `article_type`;
+- báo `INFO` khi tệp nằm trong dự án nhưng không thuộc loại bài đã đăng kí;
+- từ chối cấu hình không hợp lệ.
+
+Không còn fallback legacy cho bài hàm số thiếu cấu hình.
 
 ### 7.3. Registry mô-đun an toàn
 
-Checker có registry cố định trong Python:
+Registry cố định tại:
+
+```text
+scripts/zo_qmd_registry.py
+```
+
+Các mã mô-đun của phiên bản 1.0:
 
 ```text
 qmd-core
@@ -217,39 +237,73 @@ functions-article
 real-world-problem
 ```
 
-Cấu hình chỉ được khai báo các mã mô-đun đã đăng kí. Mã không tồn tại là lỗi cấu hình.
+`modules.required` tạo danh sách mô-đun hoạt động của bài. `modules.optional` chỉ khai báo khả năng dự án có thể dùng; phiên bản 1.0 không tự động kích hoạt adapter từ danh sách tùy chọn.
 
-Không cho YAML ghi tên hàm Python hoặc import module tùy ý.
+Chỉ mô-đun có adapter đã đăng kí mới tạo dispatch nguồn hoặc sau render. Hiện tại:
+
+```text
+functions-article   → source + render adapter
+real-world-problem → source + render adapter
+```
 
 ### 7.4. Validator lõi
 
-Chạy cho mọi bài QMD đã được một dự án đăng kí:
+`qmd-core` phải nằm trong `modules.required` của mọi dự án.
 
-- front matter;
-- placeholder;
-- metadata lõi;
-- tài nguyên;
-- cấu trúc Markdown/QMD;
-- mã thực thi;
-- HTML/PDF chung;
-- bằng chứng và báo cáo.
+Các hàm dùng chung được tách trong `scripts/zo_qmd_core.py`, nhưng checker vẫn điều phối thứ tự và ghi kết quả thống nhất.
 
-### 7.5. Validator mô-đun
+### 7.5. Source adapter
 
-Chỉ chạy khi cấu hình kích hoạt, ví dụ:
+Bảng dispatch nguồn nằm trong checker:
 
-- `content-blocks`;
-- `figure-layout`;
-- `card-grid`;
-- `zo-html-pdf`.
+```text
+SOURCE_VALIDATOR_ADAPTERS
+```
 
-### 7.6. Validator dự án
+Adapter nhận:
 
-Kiểm tra nghiệp vụ riêng:
+- đường dẫn bài;
+- nội dung QMD;
+- checker;
+- ngữ cảnh gồm cấu hình, loại bài và kế hoạch validator.
 
-- `functions-article`;
-- `real-world-problem`;
-- các loại bài khác về sau.
+### 7.6. Render adapter
+
+Bảng dispatch sau render nằm trong checker:
+
+```text
+RENDER_VALIDATOR_ADAPTERS
+```
+
+Adapter chỉ chạy sau khi Quarto render thành công và HTML đầu ra tồn tại.
+
+### 7.7. Báo cáo và nghiệm thu
+
+Kết quả tự động phân biệt:
+
+```text
+PASS
+WARN
+FAIL
+INFO
+```
+
+Mã thoát:
+
+```text
+0: không có FAIL
+1: có FAIL
+2: lỗi sử dụng lệnh
+3: thiếu công cụ bắt buộc
+```
+
+Khi kế hoạch validator yêu cầu nghiệm thu của con người, checker luôn ghi:
+
+```text
+FINAL ACCEPTANCE: NOT_RUN
+```
+
+Checker không được tự tuyên bố nghiệm thu cuối.
 
 ## 8. Thứ tự thẩm quyền và khả năng ghi đè
 
@@ -257,25 +311,24 @@ Thứ tự thẩm quyền:
 
 1. yêu cầu hiện tại của người dùng;
 2. `AGENTS.md` và tài liệu được dẫn chiếu;
-3. hợp đồng lõi đã được phê duyệt;
+3. hợp đồng lõi có hiệu lực;
 4. cấu hình dự án;
 5. quy chuẩn chuyên biệt của dự án;
 6. hồ sơ bài;
 7. QMD và dữ liệu đầu ra.
 
-Quy tắc ghi đè:
+Quy tắc:
 
-- cấu hình dự án được **bổ sung** yêu cầu vào lõi;
-- cấu hình không được vô hiệu hóa bất biến an toàn của lõi;
-- hồ sơ bài chỉ chọn trong những phương án cấu hình cho phép;
-- `không áp dụng` phải có lí do và chỉ dùng cho trường được cho phép;
-- metadata QMD không được dùng để tự bỏ qua validator.
+- cấu hình dự án bổ sung yêu cầu vào lõi;
+- cấu hình không được vô hiệu hóa bất biến an toàn;
+- hồ sơ bài chỉ chọn trong phương án dự án cho phép;
+- `không áp dụng` cần lí do và cơ chế được phép;
+- metadata QMD không được dùng để tắt validator;
+- khi xung đột không giải được bằng thứ tự thẩm quyền, phải dừng và yêu cầu quyết định của người dùng.
 
 ## 9. Hai trục trạng thái độc lập
 
-Không dùng một trường duy nhất cho cả sản xuất và xuất bản.
-
-### 9.1. Trạng thái sản xuất
+Trạng thái sản xuất:
 
 ```text
 draft
@@ -284,59 +337,89 @@ validated
 accepted
 ```
 
-### 9.2. Trạng thái xuất bản
+Trạng thái xuất bản:
 
 ```text
 pending
 published
 ```
 
-Quan hệ:
+Bất biến:
 
+- `validated` không đồng nghĩa `accepted`;
+- `accepted` không đồng nghĩa `published`;
 - bài chưa `accepted` không được `published`;
-- bài `accepted` vẫn có thể giữ `pending`;
 - chuyển sang `published` luôn cần xác nhận của người dùng;
-- trạng thái thẻ của dự án phải ánh xạ với trạng thái xuất bản, không thay thế trạng thái sản xuất.
+- dữ liệu thẻ chỉ ánh xạ trạng thái xuất bản, không thay thế trạng thái sản xuất.
 
 ## 10. Kiến trúc tài liệu
-
-Sau khi Giai đoạn 1 được duyệt, thư mục dự kiến gồm:
 
 ```text
 he_thong_san_xuat_qmd/
 ├── README.md
-├── kiem_ke_he_thong_hien_tai.md
-├── ban_do_kien_truc_hien_trang.md
-├── phan_loai_quy_tac_chung_rieng.md
-├── duong_co_so_hoi_quy_ham_ln_x.md
 ├── kien_truc_he_thong.md
 ├── hop_dong_loi_va_du_an.md
 ├── cau_truc_cau_hinh_du_an.md
 ├── vong_doi_bai_qmd.md
+├── duong_co_so_hoi_quy_hai_du_an.md
+├── huong_dan_them_du_an_va_validator.md
+├── tieu_chi_nghiem_thu_he_thong.md
 ├── ke_hoach_chuyen_doi.md
-└── tieu_chi_nghiem_thu_he_thong.md
+├── duong_co_so_hoi_quy_ham_ln_x.md
+├── kiem_ke_he_thong_hien_tai.md
+├── ban_do_kien_truc_hien_trang.md
+└── phan_loai_quy_tac_chung_rieng.md
 ```
 
-## 11. Bất biến không được phá vỡ
+Tài liệu vận hành và tài liệu lịch sử được phân loại trong `README.md`.
 
-- không viết lại checker từ đầu;
+## 11. Hai dự án kiểm nghiệm
+
+### 11.1. 100+ Hàm số
+
+```text
+project_id: functions_100
+article_type: function_article
+source adapter: functions-article
+render adapter: functions-article
+```
+
+### 11.2. 100+ Bài toán thực tế
+
+```text
+project_id: real_world_100
+article_type: real_world_problem
+source adapter: real-world-problem
+render adapter: real-world-problem
+```
+
+Hai dự án dùng chung loader, registry, checker, validator lõi, định dạng báo cáo và cổng xuất bản, nhưng không mang metadata chuyên biệt của nhau.
+
+## 12. Bất biến không được phá vỡ
+
+- không viết lại checker từ đầu khi có thể mở rộng qua cấu hình và adapter;
 - không đổi giao diện lệnh nếu không có lí do bắt buộc;
-- không buộc bài cũ sửa nội dung để thích nghi với kiến trúc mới;
+- không buộc bài hồi quy sửa nội dung để thích nghi với checker;
 - không tự xuất bản;
-- không đưa nghiệp vụ hàm số vào lõi;
+- không đưa nghiệp vụ của một dự án vào lõi;
 - không cho cấu hình thực thi mã tùy ý;
 - không tạo nhiều nguồn có thẩm quyền cạnh tranh;
 - không làm mất kiểm định có người quan sát;
-- không làm mất khả năng báo cáo JSON;
-- không làm suy yếu đường cơ sở `ham_ln_x`.
+- không làm mất báo cáo JSON;
+- không làm suy yếu một trong hai đường cơ sở hồi quy;
+- không khôi phục nhánh legacy nếu chưa có nhiệm vụ di trú riêng và bằng chứng bắt buộc.
 
-## 12. Kết luận
+## 13. Kết luận
 
-Kiến trúc đích là một hệ thống **lõi ổn định + cấu hình dự án + hồ sơ mở rộng + registry validator an toàn**.
+Kiến trúc phiên bản 1.0 là:
 
-Đây là kiến trúc tối thiểu đủ để:
+```text
+lõi ổn định
++ cấu hình dự án cục bộ
++ hồ sơ và quy chuẩn chuyên biệt
++ registry an toàn
++ adapter nguồn và sau render
++ nghiệm thu của con người
+```
 
-- tách phần dùng chung khỏi 100+ Hàm số;
-- bảo toàn checker hiện hành;
-- thêm dự án thứ hai;
-- tiếp tục mạnh lên theo mô-đun mà không phình thành một khối đơn khó kiểm soát.
+Kiến trúc này đã chứng minh một lõi có thể phục vụ hai dự án khác nhau mà không làm dự án thứ hai mang các trường riêng của hàm số và không làm suy yếu bài hồi quy của dự án thứ nhất.

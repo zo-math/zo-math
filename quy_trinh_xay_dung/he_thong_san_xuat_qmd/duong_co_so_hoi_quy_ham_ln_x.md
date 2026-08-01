@@ -1,8 +1,8 @@
 # Đường cơ sở hồi quy cho bài Hàm số y = ln x
 
-> **Trạng thái:** Hồ sơ đường cơ sở của Giai đoạn 0.
+> **Trạng thái:** Hồ sơ lịch sử của đường cơ sở ban đầu.
 >
-> Tài liệu này ghi các điều kiện phải được bảo toàn khi tách lõi và cấu hình hóa hệ thống. Không dùng tài liệu này để xuất bản bài.
+> Tài liệu này ghi các điều kiện đã dùng khi tách lõi và cấu hình hóa hệ thống. Đường cơ sở vận hành phiên bản 1.0 đã được hợp nhất tại `duong_co_so_hoi_quy_hai_du_an.md`. Không dùng tài liệu này để khôi phục nhánh legacy hoặc để xuất bản bài.
 
 ## 1. Đối tượng hồi quy
 
