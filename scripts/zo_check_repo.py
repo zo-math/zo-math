@@ -40,6 +40,10 @@ from zo_qmd_core import (
     validate_required_body_classes,
     validate_required_metadata,
 )
+from zo_real_world_problem import (
+    validate_real_world_problem_article,
+    validate_rendered_real_world_problem_page,
+)
 from zo_quarto import prepare_quarto
 
 try:
@@ -48,7 +52,7 @@ except ImportError:  # Reported as missing dependency with exit code 3 in main()
     yaml = None
 
 
-CHECKER_VERSION = "2.4.0"
+CHECKER_VERSION = "2.5.0"
 
 EXIT_OK = 0
 EXIT_FAILED = 1
@@ -1390,9 +1394,11 @@ RenderValidatorAdapter = Callable[
 
 SOURCE_VALIDATOR_ADAPTERS: dict[str, SourceValidatorAdapter] = {
     "functions-article": validate_function_article,
+    "real-world-problem": validate_real_world_problem_article,
 }
 RENDER_VALIDATOR_ADAPTERS: dict[str, RenderValidatorAdapter] = {
     "functions-article": validate_rendered_function_page,
+    "real-world-problem": validate_rendered_real_world_problem_page,
 }
 
 

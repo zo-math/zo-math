@@ -1,0 +1,28 @@
+phien_ban_ho_so: 1
+
+loi:
+  loai_bai: real_world_problem
+  tep_qmd: core/chi_phi_di_taxi.qmd
+  trang_thai_san_xuat: in_production
+  trang_thai_xuat_ban: pending
+  xac_nhan_xuat_ban_cua_nguoi_dung: false
+
+mo_rong:
+  bai_toan_thuc_te:
+    boi_canh: Biểu phí giả định của một hãng taxi được chia theo các chặng quãng đường.
+    dai_luong:
+      - ten: Quãng đường chuyến đi
+        ki_hieu: x
+        don_vi: km
+      - ten: Chi phí chuyến đi
+        ki_hieu: C(x)
+        don_vi: đồng
+    gia_dinh:
+      - Biểu phí đã bao gồm toàn bộ khoản cần tính trong bài.
+      - Quãng đường được xem là một số thực không âm.
+      - Không xét thời gian chờ, phụ phí hoặc làm tròn đồng hồ tính cước.
+    mo_hinh: Hàm số từng phần theo quãng đường.
+    kiem_tra_thuc_te:
+      - Kiểm tra đơn vị của từng hạng tử trong công thức.
+      - Kiểm tra tính liên tục của tiền cước tại các mốc 0,5 km và 30 km.
+      - Đối chiếu độ lớn kết quả với biểu phí ban đầu.

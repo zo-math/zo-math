@@ -224,6 +224,23 @@ def _self_test() -> None:
     assert fallback.compatibility_mode == "legacy-fallback"
     assert fallback.source_adapters == ("functions-article",)
 
+    class RealWorldConfig:
+        required_modules = (
+            "qmd-core",
+            "zo-html-pdf",
+            "content-blocks",
+            "real-world-problem",
+        )
+        optional_modules = ("figure-layout",)
+        compatibility_mode = "native"
+        legacy_validator = None
+
+    real_world = build_validation_plan(RealWorldConfig(), "real_world_problem")
+    assert real_world.compatibility_mode == "native"
+    assert real_world.source_adapters == ("real-world-problem",)
+    assert real_world.render_adapters == ("real-world-problem",)
+    assert real_world.requires_human_acceptance is True
+
     try:
         module_spec("unknown")
     except ModuleRegistryError:

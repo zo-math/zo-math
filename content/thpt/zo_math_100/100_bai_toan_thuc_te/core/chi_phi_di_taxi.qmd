@@ -1,0 +1,93 @@
+---
+title: "Chi phí một chuyến taxi"
+title-meta: "Chi phí một chuyến taxi"
+subtitle: "Từ biểu phí theo chặng đến hàm số từng phần"
+pagetitle: "Chi phí một chuyến taxi"
+summary: "Xây dựng và sử dụng một hàm số từng phần để tính chi phí của chuyến taxi theo quãng đường."
+description: "Bài toán mô hình hóa biểu phí taxi giả định bằng hàm số từng phần, kèm kiểm tra đơn vị và tính hợp lí của kết quả."
+image: "/content/thpt/zo_math_100/100_bai_toan_thuc_te/assets/img/chi_phi_di_taxi.svg"
+abstract: "Từ một biểu phí giả định gồm giá mở cửa và hai mức cước theo quãng đường, bài viết xác định biến, xây dựng hàm chi phí, tính tiền cho một chuyến đi và kiểm tra kết quả trong bối cảnh."
+keywords:
+  - mô hình hóa toán học
+  - hàm số từng phần
+  - bài toán thực tế
+  - đơn vị đo
+author: "ZO Math"
+date: last-modified
+date-format: "DD-MM-YYYY"
+page-layout: article
+toc: true
+toc-title: "Nội dung"
+toc-location: right
+toc-depth: 3
+body-classes: "zo-page-article zo-meta-hidden"
+zo-pdf-download:
+  label: "Tải PDF"
+  href: "chi_phi_di_taxi.pdf"
+zo-pdf-branding:
+  short-title: "Chi phí một chuyến taxi"
+  display-url: "zo-math.github.io/zo-math"
+  collection: "100+ Bài toán thực tế"
+  canonical-url: "https://zo-math.github.io/zo-math/content/thpt/zo_math_100/100_bai_toan_thuc_te/core/chi_phi_di_taxi.html"
+---
+
+## Bối cảnh và dữ kiện
+
+Một hãng taxi giả định áp dụng biểu phí sau:
+
+- chuyến đi dài không quá $0{,}5$ km có giá mở cửa là $15\,000$ đồng;
+- từ sau $0{,}5$ km đến hết $30$ km, mỗi kilômét tiếp theo có giá $13\,000$ đồng;
+- phần quãng đường vượt quá $30$ km có giá $11\,000$ đồng cho mỗi kilômét.
+
+Bài toán đặt ra là xác định chi phí của một chuyến đi dài $12{,}5$ km. Các mức giá trên chỉ là dữ kiện giả định để xây dựng mô hình; chúng không đại diện cho biểu phí của một hãng taxi cụ thể.
+
+Gọi $x$ là quãng đường của chuyến đi, tính bằng kilômét, và gọi $C(x)$ là chi phí, tính bằng đồng.
+
+## Mô hình hóa
+
+Khi $x=0$, chưa có chuyến đi nên đặt $C(0)=0$. Với một chuyến đi có quãng đường dương không quá $0{,}5$ km, chi phí bằng giá mở cửa.
+
+Nếu $0{,}5<x\le 30$, ngoài $15\,000$ đồng đầu tiên còn có $x-0{,}5$ kilômét được tính theo mức $13\,000$ đồng mỗi kilômét. Nếu $x>30$, toàn bộ $29{,}5$ kilômét từ sau mốc $0{,}5$ km đến mốc $30$ km được tính theo mức này; phần còn lại là $x-30$ kilômét và được tính theo mức $11\,000$ đồng.
+
+Do đó,
+
+$$
+C(x)=
+\begin{cases}
+0, & \text{với } x=0,\\
+15\,000, & \text{với } 0<x\le 0{,}5,\\
+15\,000+13\,000(x-0{,}5), & \text{với } 0{,}5<x\le 30,\\
+15\,000+13\,000\cdot 29{,}5+11\,000(x-30), & \text{với } x>30.
+\end{cases}
+$$
+
+Mô hình này giả định rằng không có thời gian chờ, phụ phí hoặc quy tắc làm tròn khác.
+
+## Giải quyết
+
+Vì $12{,}5$ thuộc khoảng từ $0{,}5$ đến $30$, ta dùng nhánh thứ ba:
+
+$$
+\begin{aligned}
+C(12{,}5)
+&=15\,000+13\,000(12{,}5-0{,}5)\\
+&=15\,000+13\,000\cdot 12\\
+&=171\,000.
+\end{aligned}
+$$
+
+Theo mô hình, chi phí của chuyến đi dài $12{,}5$ km là $171\,000$ đồng.
+
+## Kiểm tra và diễn giải
+
+Trong biểu thức $13\,000(12{,}5-0{,}5)$, đơn vị đồng trên kilômét được nhân với kilômét, nên kết quả có đơn vị đồng. Khi cộng với giá mở cửa, đơn vị vẫn nhất quán.
+
+Tại mốc $x=30$, nhánh thứ ba cho
+
+$$
+15\,000+13\,000\cdot 29{,}5=398\,500.
+$$
+
+Nhánh thứ tư cũng bắt đầu từ $398\,500$ đồng khi $x=30$, vì phần $11\,000(x-30)$ bằng $0$. Hai công thức vì thế nối với nhau đúng tại mốc đổi mức cước.
+
+Kết quả $171\,000$ đồng cũng phù hợp với dữ kiện: ngoài $15\,000$ đồng mở cửa, chuyến đi có thêm đúng $12$ km ở mức $13\,000$ đồng mỗi kilômét. Kết luận chỉ có giá trị trong những giả định đã nêu; khi xuất hiện thời gian chờ, phụ phí hoặc cách làm tròn khác, mô hình phải được điều chỉnh.
