@@ -21,7 +21,7 @@ from typing import Any, Mapping, Sequence
 from urllib.parse import unquote, urlsplit
 from xml.etree import ElementTree
 
-from zo_qmd_config import ProjectConfigError, discover_project_config
+from zo_qmd_config import ProjectConfig, ProjectConfigError, discover_project_config
 from zo_quarto import prepare_quarto
 
 try:
@@ -30,7 +30,7 @@ except ImportError:  # Reported as missing dependency with exit code 3 in main()
     yaml = None
 
 
-CHECKER_VERSION = "2.1.0"
+CHECKER_VERSION = "2.2.0"
 
 EXIT_OK = 0
 EXIT_FAILED = 1
@@ -54,24 +54,11 @@ CARD_COMPONENTS = {
 CARD_IMAGE_DIR = CARD_PROJECT / "assets/img/cards"
 
 FUNCTION_ARTICLE_DIRS = (CARD_PROJECT / "core", CARD_PROJECT / "depth")
-FUNCTION_REQUIRED_METADATA = {
-    "title", "title-meta", "subtitle", "pagetitle", "summary", "description", "image",
-    "listing-order", "abstract", "keywords", "author", "date", "date-format",
-    "page-layout", "toc", "toc-title", "toc-location", "toc-depth",
-    "body-classes", "zo-pdf-download", "zo-pdf-branding",
-}
-FUNCTION_PLACEHOLDERS = (
-    "CHƯA XÁC ĐỊNH", "CHUA_XAC_DINH", "CHON_MAU", "CHỌN MÀU",
-    "TIÊU ĐỀ KHỐI", "TÊN_TỆP", "TEN_TEP", "TÊN NGẮN CỦA BÀI",
-    "URL_HTML_CHÍNH_TẮC", "DUONG_DAN_DEN_TEP_QMD",
-    "DUONG_DAN_DEN_TEP_PDF",
-)
 FUNCTION_LEGACY_CLASSES = (
     ".tieu-de-chu-thich", "collapsible-box-", "highlight-box-",
 )
 FUNCTION_BLOCK_COLORS = ("zo-block-red", "zo-block-yellow", "zo-block-gray")
 FUNCTION_CANONICAL_BASE = "https://zo-math.github.io/zo-math/"
-FUNCTION_PROFILE_DIR = CARD_PROJECT / "_quy_trinh/ho_so"
 FUNCTION_EXPANDED_FIGURE_CLASS = "column-screen-inset-shaded"
 
 
@@ -553,6 +540,43 @@ def configured_article_type(
     return True, article_type.id if article_type is not None else None
 
 
+def function_project_config(
+    relative: Path, checker: Checker
+) -> ProjectConfig | None:
+    try:
+        config = discover_project_config(checker.root, relative)
+    except ProjectConfigError as exc:
+        checker.add("function-project-config", False, str(exc), relative)
+        return None
+    if config is None:
+        checker.add(
+            "function-project-config",
+            False,
+            "Bài hàm số chưa có cấu hình dự án điều khiển.",
+            relative,
+        )
+        return None
+    article_type = config.article_type_for(relative)
+    if article_type is None or article_type.id != "function_article":
+        checker.add(
+            "function-project-config",
+            False,
+            "Cấu hình dự án không đăng kí bài này là function_article.",
+            relative,
+        )
+        return None
+    checker.add(
+        "function-project-config",
+        True,
+        (
+            f"Đã nạp metadata, body classes, placeholders và hồ sơ từ "
+            f"{config.config_path.as_posix()}."
+        ),
+        relative,
+    )
+    return config
+
+
 def is_function_article(
     relative: Path, checker: Checker | None = None, *, report: bool = True
 ) -> bool:
@@ -641,16 +665,23 @@ def qmd_image_records(body: str) -> list[tuple[int, str, str | None, str]]:
 
 
 def validate_function_metadata(
-    path: Path, relative: Path, metadata: dict[str, Any], checker: Checker
+    path: Path,
+    relative: Path,
+    metadata: dict[str, Any],
+    checker: Checker,
+    config: ProjectConfig,
 ) -> tuple[dict[str, Any] | None, str | None]:
-    missing = sorted(key for key in FUNCTION_REQUIRED_METADATA if key not in metadata)
+    required_metadata = set(config.core_required_metadata) | set(
+        config.project_required_metadata
+    )
+    missing = sorted(key for key in required_metadata if key not in metadata)
     checker.add(
         "function-yaml-required", not missing,
         "Đủ trường YAML bắt buộc." if not missing else "Thiếu: " + ", ".join(missing),
         path,
     )
     empty = sorted(
-        key for key in FUNCTION_REQUIRED_METADATA
+        key for key in required_metadata
         if key in metadata and not metadata_nonempty(metadata[key])
     )
     checker.add(
@@ -701,7 +732,7 @@ def validate_function_metadata(
         path,
     )
     classes = str(metadata.get("body-classes", "")).split()
-    required_classes = {"zo-page-article", "zo-meta-hidden"}
+    required_classes = set(config.required_body_classes)
     checker.add(
         "function-body-classes", required_classes.issubset(classes),
         "Có đủ zo-page-article và zo-meta-hidden."
@@ -907,14 +938,14 @@ def validate_function_metadata(
     return card, status
 
 
-def function_profile_path(relative: Path) -> Path:
-    return FUNCTION_PROFILE_DIR / f"{relative.stem}.yml"
+def function_profile_path(relative: Path, config: ProjectConfig) -> Path:
+    return config.profile_path_for(relative)
 
 
 def parse_expanded_figure_profile(
-    relative: Path, checker: Checker
+    relative: Path, checker: Checker, config: ProjectConfig
 ) -> tuple[dict[str, str], bool]:
-    profile_relative = function_profile_path(relative)
+    profile_relative = function_profile_path(relative, config)
     profile_path = checker.root / profile_relative
     if not profile_path.exists():
         checker.add_warning(
@@ -1043,11 +1074,17 @@ def expanded_figure_records(body: str) -> list[tuple[int, str | None, str | None
 
 
 def validate_function_figure_layout(
-    path: Path, relative: Path, body: str, checker: Checker
+    path: Path,
+    relative: Path,
+    body: str,
+    checker: Checker,
+    config: ProjectConfig,
 ) -> None:
     active = strip_fences_comments_and_inline_code(body)
     records = expanded_figure_records(active)
-    declared, profile_ok = parse_expanded_figure_profile(relative, checker)
+    declared, profile_ok = parse_expanded_figure_profile(
+        relative, checker, config
+    )
 
     wrong_branch = [
         f"dòng thân bài {line} ({branch or 'dùng chung'})"
@@ -1107,7 +1144,9 @@ def validate_function_figure_layout(
         )
 
 
-def validate_function_body(path: Path, body: str, checker: Checker) -> None:
+def validate_function_body(
+    path: Path, body: str, checker: Checker, config: ProjectConfig
+) -> None:
     active = strip_fences_comments_and_inline_code(body)
     headings: list[tuple[int, int, str]] = []
     for number, line in enumerate(active.splitlines(), start=1):
@@ -1245,7 +1284,7 @@ def validate_function_body(path: Path, body: str, checker: Checker) -> None:
         checker.add("function-fixed-pixel-width", True, "Không có width pixel cố định.", path)
 
     relative = path.relative_to(checker.root)
-    validate_function_figure_layout(path, relative, body, checker)
+    validate_function_figure_layout(path, relative, body, checker, config)
 
     active_lines = active.splitlines()
     block_errors: list[str] = []
@@ -1345,20 +1384,27 @@ def validate_function_body(path: Path, body: str, checker: Checker) -> None:
 
 def validate_function_article(path: Path, text: str, checker: Checker) -> None:
     relative = path.relative_to(checker.root)
+    config = function_project_config(relative, checker)
+    if config is None:
+        return
     metadata, body, error = split_qmd_front_matter(text)
     if error or metadata is None:
         checker.add("function-front-matter", False, error or "Không đọc được YAML.", path)
         return
     checker.add("function-front-matter", True, "YAML front matter hợp lệ.", path)
-    placeholders = [token for token in FUNCTION_PLACEHOLDERS if token.casefold() in text.casefold()]
+    placeholders = [
+        token
+        for token in config.placeholders
+        if token.casefold() in text.casefold()
+    ]
     checker.add(
         "function-placeholders", not placeholders,
         "Không còn giá trị giữ chỗ." if not placeholders
         else "Phát hiện: " + ", ".join(sorted(set(placeholders))),
         path,
     )
-    validate_function_metadata(path, relative, metadata, checker)
-    validate_function_body(path, body, checker)
+    validate_function_metadata(path, relative, metadata, checker, config)
+    validate_function_body(path, body, checker, config)
     checker.add_warning(
         "function-human-review-required",
         "Kiểm định tự động không thay thế việc đọc mạch, kiểm tra màu/trạng thái khối, "
@@ -1381,9 +1427,12 @@ def validate_rendered_function_page(
     if error or metadata is None:
         checker.add("function-rendered-html-metadata", False, error or "Không đọc được YAML.", relative)
         return
+    config = function_project_config(relative, checker)
+    if config is None:
+        return
     body_match = re.search(r"<body\b[^>]*class=[\"']([^\"']*)[\"']", html_text, flags=re.IGNORECASE)
     body_classes = set(body_match.group(1).split()) if body_match else set()
-    required_body_classes = {"zo-page-article", "zo-meta-hidden"}
+    required_body_classes = set(config.required_body_classes)
     classes_ok = required_body_classes.issubset(body_classes)
     checker.add(
         "function-rendered-body-classes", classes_ok,

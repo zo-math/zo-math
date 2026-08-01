@@ -35,13 +35,44 @@ modules:
     - card-grid
 
 metadata:
-  core_required: []
+  core_required:
+    - title
+    - title-meta
+    - subtitle
+    - pagetitle
+    - summary
+    - description
+    - image
+    - abstract
+    - keywords
+    - author
+    - date
+    - date-format
+    - page-layout
+    - toc
+    - toc-title
+    - toc-location
+    - toc-depth
+    - body-classes
+    - zo-pdf-download
+    - zo-pdf-branding
   project_required:
     - listing-order
   body_classes_required:
     - zo-page-article
     - zo-meta-hidden
-  placeholders: []
+  placeholders:
+    - CHƯA XÁC ĐỊNH
+    - CHUA_XAC_DINH
+    - CHON_MAU
+    - CHỌN MÀU
+    - TIÊU ĐỀ KHỐI
+    - TÊN_TỆP
+    - TEN_TEP
+    - TÊN NGẮN CỦA BÀI
+    - URL_HTML_CHÍNH_TẮC
+    - DUONG_DAN_DEN_TEP_QMD
+    - DUONG_DAN_DEN_TEP_PDF
 
 publication:
   production_states:
@@ -78,7 +109,7 @@ references:
 regression:
   articles:
     - core/ham_ln_x.qmd
-  expected_checker_version: "2.0.4"
+  expected_checker_version: "2.2.0"
   preserve_cli: true
 
 compatibility:
