@@ -17,11 +17,17 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from html import unescape
 from pathlib import Path
-from typing import Any, Mapping, Sequence
+from typing import Any, Callable, Mapping, Sequence
 from urllib.parse import unquote, urlsplit
 from xml.etree import ElementTree
 
 from zo_qmd_config import ProjectConfig, ProjectConfigError, discover_project_config
+from zo_qmd_registry import (
+    ModuleRegistryError,
+    ValidationPlan,
+    build_validation_plan,
+    legacy_validation_plan,
+)
 from zo_qmd_core import (
     split_qmd_front_matter,
     strip_fences_comments_and_inline_code,
@@ -42,7 +48,7 @@ except ImportError:  # Reported as missing dependency with exit code 3 in main()
     yaml = None
 
 
-CHECKER_VERSION = "2.3.0"
+CHECKER_VERSION = "2.4.0"
 
 EXIT_OK = 0
 EXIT_FAILED = 1
@@ -458,30 +464,60 @@ def line_list(text: str, pattern: str, flags: int = 0) -> list[int]:
     ]
 
 
-def configured_article_type(
-    relative: Path, checker: Checker, *, report: bool = True
-) -> tuple[bool, str | None]:
-    # Return whether a project config was found and its matching article type.
-    if relative.suffix.lower() != ".qmd":
-        return False, None
-    try:
-        config = discover_project_config(checker.root, relative)
-        if config is None:
-            return False, None
-        article_type = config.article_type_for(relative)
-    except ProjectConfigError as exc:
-        if report:
-            checker.add("qmd-project-discovery", False, str(exc), relative)
-        return True, None
+@dataclass(frozen=True)
+class ArticleValidationContext:
+    config: ProjectConfig | None
+    article_type: str
+    plan: ValidationPlan
+    legacy_fallback: bool = False
 
-    if report:
+
+def article_validation_context(
+    relative: Path,
+    root: Path,
+    checker: Checker | None = None,
+    *,
+    report: bool = True,
+) -> ArticleValidationContext | None:
+    # Resolve project, article type, modules, and symbolic validator adapters.
+    if relative.suffix.lower() != ".qmd":
+        return None
+    try:
+        config = discover_project_config(root, relative)
+    except ProjectConfigError as exc:
+        if checker is not None and report:
+            checker.add("qmd-project-discovery", False, str(exc), relative)
+        return None
+
+    if config is not None:
+        try:
+            article_type = config.article_type_for(relative)
+        except ProjectConfigError as exc:
+            if checker is not None and report:
+                checker.add("qmd-project-discovery", False, str(exc), relative)
+            return None
         if article_type is None:
-            checker.add_info(
-                "qmd-project-discovery",
-                f"Thu\u1ed9c project={config.project_id!r} nh\u01b0ng kh\u00f4ng kh\u1edbp lo\u1ea1i b\u00e0i \u0111\u00e3 \u0111\u0103ng k\u00ed.",
-                relative,
-            )
-        else:
+            if checker is not None and report:
+                checker.add_info(
+                    "qmd-project-discovery",
+                    f"Thu\u1ed9c project={config.project_id!r} "
+                    "nh\u01b0ng kh\u00f4ng kh\u1edbp lo\u1ea1i "
+                    "b\u00e0i \u0111\u00e3 \u0111\u0103ng k\u00ed.",
+                    relative,
+                )
+            return None
+        try:
+            plan = build_validation_plan(config, article_type.id)
+        except ModuleRegistryError as exc:
+            if checker is not None and report:
+                checker.add("qmd-validator-plan", False, str(exc), relative)
+            return None
+        context = ArticleValidationContext(
+            config=config,
+            article_type=article_type.id,
+            plan=plan,
+        )
+        if checker is not None and report:
             checker.add(
                 "qmd-project-discovery",
                 True,
@@ -492,17 +528,57 @@ def configured_article_type(
                 ),
                 relative,
             )
-    return True, article_type.id if article_type is not None else None
+            checker.add(
+                "qmd-validator-plan",
+                True,
+                (
+                    f"mode={plan.compatibility_mode!r}; "
+                    f"modules={list(plan.active_modules)!r}; "
+                    f"source={list(plan.source_adapters)!r}; "
+                    f"render={list(plan.render_adapters)!r}."
+                ),
+                relative,
+            )
+        return context
+
+    if any(
+        directory == relative.parent or directory in relative.parents
+        for directory in FUNCTION_ARTICLE_DIRS
+    ):
+        try:
+            plan = legacy_validation_plan(
+                "function_article", "functions-article"
+            )
+        except ModuleRegistryError as exc:
+            if checker is not None and report:
+                checker.add("qmd-validator-plan", False, str(exc), relative)
+            return None
+        if checker is not None and report:
+            checker.add_info(
+                "qmd-validator-plan",
+                "D\u00f9ng legacy fallback cho function_article ch\u01b0a c\u00f3 c\u1ea5u h\u00ecnh.",
+                relative,
+            )
+        return ArticleValidationContext(
+            config=None,
+            article_type="function_article",
+            plan=plan,
+            legacy_fallback=True,
+        )
+    return None
 
 
 def function_project_config(
-    relative: Path, checker: Checker
+    relative: Path,
+    checker: Checker,
+    config: ProjectConfig | None = None,
 ) -> ProjectConfig | None:
-    try:
-        config = discover_project_config(checker.root, relative)
-    except ProjectConfigError as exc:
-        checker.add("function-project-config", False, str(exc), relative)
-        return None
+    if config is None:
+        try:
+            config = discover_project_config(checker.root, relative)
+        except ProjectConfigError as exc:
+            checker.add("function-project-config", False, str(exc), relative)
+            return None
     if config is None:
         checker.add(
             "function-project-config",
@@ -530,24 +606,6 @@ def function_project_config(
         relative,
     )
     return config
-
-
-def is_function_article(
-    relative: Path, checker: Checker | None = None, *, report: bool = True
-) -> bool:
-    # Identify a function article through config, with a legacy fallback.
-    if checker is not None:
-        configured, article_type = configured_article_type(
-            relative, checker, report=report
-        )
-        if configured:
-            return article_type == "function_article"
-    if relative.suffix.lower() != ".qmd":
-        return False
-    return any(
-        directory == relative.parent or directory in relative.parents
-        for directory in FUNCTION_ARTICLE_DIRS
-    )
 
 
 def flatten_card_items(data: Any) -> list[dict[str, Any]]:
@@ -1198,9 +1256,14 @@ def validate_function_body(
     )
 
 
-def validate_function_article(path: Path, text: str, checker: Checker) -> None:
+def validate_function_article(
+    path: Path,
+    text: str,
+    checker: Checker,
+    context: ArticleValidationContext,
+) -> None:
     relative = path.relative_to(checker.root)
-    config = function_project_config(relative, checker)
+    config = function_project_config(relative, checker, context.config)
     if config is None:
         return
     document = validate_qmd_front_matter(
@@ -1237,7 +1300,10 @@ def validate_function_article(path: Path, text: str, checker: Checker) -> None:
 
 
 def validate_rendered_function_page(
-    relative: Path, html: Path, checker: Checker
+    relative: Path,
+    html: Path,
+    checker: Checker,
+    context: ArticleValidationContext,
 ) -> None:
     source = checker.root / relative
     try:
@@ -1250,7 +1316,7 @@ def validate_rendered_function_page(
     if error or metadata is None:
         checker.add("function-rendered-html-metadata", False, error or "Không đọc được YAML.", relative)
         return
-    config = function_project_config(relative, checker)
+    config = function_project_config(relative, checker, context.config)
     if config is None:
         return
     body_match = re.search(r"<body\b[^>]*class=[\"']([^\"']*)[\"']", html_text, flags=re.IGNORECASE)
@@ -1315,6 +1381,81 @@ def validate_rendered_function_page(
     )
 
 
+SourceValidatorAdapter = Callable[
+    [Path, str, Checker, ArticleValidationContext], None
+]
+RenderValidatorAdapter = Callable[
+    [Path, Path, Checker, ArticleValidationContext], None
+]
+
+SOURCE_VALIDATOR_ADAPTERS: dict[str, SourceValidatorAdapter] = {
+    "functions-article": validate_function_article,
+}
+RENDER_VALIDATOR_ADAPTERS: dict[str, RenderValidatorAdapter] = {
+    "functions-article": validate_rendered_function_page,
+}
+
+
+def dispatch_article_source_validators(
+    relative: Path, text: str, checker: Checker
+) -> ArticleValidationContext | None:
+    context = article_validation_context(relative, checker.root, checker)
+    if context is None:
+        return None
+    path = checker.root / relative
+    for adapter_id in context.plan.source_adapters:
+        adapter = SOURCE_VALIDATOR_ADAPTERS.get(adapter_id)
+        if adapter is None:
+            checker.add(
+                "qmd-source-adapter",
+                False,
+                f"Source adapter ch\u01b0a \u0111\u01b0\u1ee3c c\u00e0i \u0111\u1eb7t: {adapter_id!r}.",
+                relative,
+            )
+            continue
+        checker.add(
+            "qmd-source-adapter",
+            True,
+            f"Áp dụng source adapter {adapter_id!r}.",
+            relative,
+        )
+        adapter(path, text, checker, context)
+    return context
+
+
+def dispatch_article_render_validators(
+    relative: Path, html: Path, checker: Checker
+) -> ArticleValidationContext | None:
+    context = article_validation_context(
+        relative, checker.root, checker, report=False
+    )
+    if context is None:
+        return None
+    for adapter_id in context.plan.render_adapters:
+        adapter = RENDER_VALIDATOR_ADAPTERS.get(adapter_id)
+        if adapter is None:
+            checker.add(
+                "qmd-render-adapter",
+                False,
+                f"Render adapter ch\u01b0a \u0111\u01b0\u1ee3c c\u00e0i \u0111\u1eb7t: {adapter_id!r}.",
+                relative,
+            )
+            continue
+        checker.add(
+            "qmd-render-adapter",
+            True,
+            f"Áp dụng render adapter {adapter_id!r}.",
+            relative,
+        )
+        adapter(relative, html, checker, context)
+    return context
+
+
+def article_requires_human_acceptance(relative: Path, root: Path) -> bool:
+    context = article_validation_context(relative, root, report=False)
+    return bool(context and context.plan.requires_human_acceptance)
+
+
 def validate_markdown(path: Path, text: str, checker: Checker) -> None:
     body = strip_code(text)
     image_refs = re.findall(r"!\[[^\]\n]*\]\(([^\s)]+)(?:\s+[^)]*)?\)", body)
@@ -1366,8 +1507,8 @@ def validate_file(relative: Path, checker: Checker) -> None:
         validate_svg(path, text, checker)
     elif suffix in {".md", ".qmd"}:
         validate_markdown(path, text, checker)
-        if is_function_article(relative, checker):
-            validate_function_article(path, text, checker)
+        if suffix == ".qmd":
+            dispatch_article_source_validators(relative, text, checker)
 
 
 def card_scope(paths: Sequence[Path]) -> bool:
@@ -1493,8 +1634,8 @@ def render_pages(paths: Sequence[Path], checker: Checker) -> int | None:
         checker.add("quarto-render", result.returncode == 0, f"Mã thoát {result.returncode}; lỗi={len(errors)}, cảnh báo={len(warnings)}, thông tin={len(information)}{detail}.", relative)
         html = out_dir / relative.with_suffix(".html")
         checker.add("render-html", html.exists(), f"HTML: {html.relative_to(checker.root).as_posix()}", relative)
-        if html.exists() and is_function_article(relative, checker, report=False):
-            validate_rendered_function_page(relative, html, checker)
+        if html.exists():
+            dispatch_article_render_validators(relative, html, checker)
     return None
 
 
@@ -1600,7 +1741,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     print_results(checker, paths)
     result_label = "FAIL" if checker.failed else ("PASS_WITH_WARNINGS" if checker.has_warnings else "PASS")
     print(f"AUTOMATED RESULT: {result_label} | EXIT={exit_code}")
-    if any(is_function_article(path) for path in paths):
+    if any(article_requires_human_acceptance(path, root) for path in paths):
         print("FINAL ACCEPTANCE: NOT_RUN — cần kiểm định có người quan sát theo quy chuẩn.")
     return exit_code
 

@@ -15,6 +15,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
+from zo_qmd_registry import REGISTERED_MODULES
+
 try:
     import yaml
 except ImportError:  # Reported by the CLI with a stable exit code.
@@ -23,17 +25,6 @@ except ImportError:  # Reported by the CLI with a stable exit code.
 
 CONFIG_RELATIVE_PATH = Path("_quy_trinh/cau_hinh_san_xuat_qmd.yml")
 SUPPORTED_SCHEMA_VERSIONS = {1}
-REGISTERED_MODULES = frozenset(
-    {
-        "qmd-core",
-        "zo-html-pdf",
-        "content-blocks",
-        "figure-layout",
-        "card-grid",
-        "functions-article",
-        "real-world-problem",
-    }
-)
 
 EXIT_OK = 0
 EXIT_INVALID = 1
