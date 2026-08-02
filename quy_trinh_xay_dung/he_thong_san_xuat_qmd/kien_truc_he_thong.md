@@ -1,6 +1,6 @@
 # Kiến trúc hệ thống sản xuất và kiểm định QMD cho ZO Math
 
-> **Trạng thái:** Kiến trúc vận hành — phiên bản 1.0.
+> **Trạng thái:** Kiến trúc lõi kĩ thuật — phiên bản 1.0.
 >
 > Tài liệu này mô tả hệ thống đã được triển khai và kiểm nghiệm trên hai dự án. Hiệu lực của nó vẫn tuân theo thứ tự thẩm quyền của repository và yêu cầu hiện tại của người dùng.
 
@@ -43,6 +43,14 @@ bất biến lõi
 + dữ liệu hồ sơ mà adapter dự án hiểu
 = kế hoạch kiểm định của bài
 ```
+
+### 2.1. Ranh giới với lớp vận hành
+
+Bốn tầng trên là lõi kĩ thuật của cỗ máy QMD. Lớp vận hành được xác định riêng tại `kien_truc_van_hanh_co_may_qmd.md` và bao quanh lõi để cung cấp điểm vào, giao thức phiên, đóng gói, phát hành và báo cáo trước xuất bản.
+
+Lớp vận hành không tham gia tạo hợp đồng hiệu lực của bài và không được ghi đè loader, registry, validator, trạng thái nghiệm thu hoặc cổng xuất bản.
+
+Tài liệu toàn hệ thống nằm trong `quy_trinh_xay_dung/he_thong_san_xuat_qmd/`. Cấu hình, hồ sơ, mẫu và quy chuẩn chuyên biệt của từng dự án nằm trong `_quy_trinh/` của dự án ấy. Hai vùng không được dùng thay thế cho nhau.
 
 ## 3. Tầng 1 — Lõi dùng chung
 
@@ -352,7 +360,7 @@ Bất biến:
 - chuyển sang `published` luôn cần xác nhận của người dùng;
 - dữ liệu thẻ chỉ ánh xạ trạng thái xuất bản, không thay thế trạng thái sản xuất.
 
-## 10. Kiến trúc tài liệu
+## 10. Kiến trúc tài liệu lõi
 
 ```text
 he_thong_san_xuat_qmd/
@@ -364,6 +372,10 @@ he_thong_san_xuat_qmd/
 ├── duong_co_so_hoi_quy_hai_du_an.md
 ├── huong_dan_them_du_an_va_validator.md
 ├── tieu_chi_nghiem_thu_he_thong.md
+├── kien_truc_van_hanh_co_may_qmd.md
+├── giao_thuc_agent_chat_box_va_goi_ngu_canh.md
+├── tieu_chi_nghiem_thu_lop_van_hanh.md
+├── mau_manifest_goi_qmd.yml
 ├── ke_hoach_chuyen_doi.md
 ├── duong_co_so_hoi_quy_ham_ln_x.md
 ├── kiem_ke_he_thong_hien_tai.md

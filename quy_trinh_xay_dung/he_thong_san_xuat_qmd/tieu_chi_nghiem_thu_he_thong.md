@@ -1,8 +1,8 @@
-# Tiêu chí nghiệm thu hệ thống sản xuất và kiểm định QMD
+# Tiêu chí nghiệm thu lõi kĩ thuật của hệ thống QMD
 
-> **Trạng thái:** Kết quả đánh giá phiên bản 1.0 — đạt về kiến trúc và kiểm định tự động; có hiệu lực từ commit khóa tài liệu M9B.
+> **Trạng thái:** Kết quả đánh giá lõi kĩ thuật phiên bản 1.0 — đạt về kiến trúc và kiểm định tự động; có hiệu lực từ commit khóa tài liệu M9B.
 >
-> Nghiệm thu hệ thống không thay thế nghiệm thu nội dung của từng bài và không thay thế xác nhận xuất bản của người dùng.
+> Tài liệu này không tuyên bố lớp vận hành của cỗ máy QMD đã hoàn thành. Nghiệm thu lớp vận hành được quy định riêng tại `tieu_chi_nghiem_thu_lop_van_hanh.md`. Nghiệm thu lõi cũng không thay thế nghiệm thu nội dung của từng bài hoặc xác nhận xuất bản của người dùng.
 
 ## 1. Phạm vi nghiệm thu
 
@@ -144,7 +144,7 @@ Các `WARN` còn lại là cổng kiểm định có người quan sát, đúng 
 
 | Tiêu chí | Kết quả |
 |---|---|
-| Có điểm vào vận hành | ĐẠT — `README.md` |
+| Có điểm vào tài liệu cho lõi 1.0 | ĐẠT — `README.md`; chưa phải CLI vận hành thống nhất |
 | Có tài liệu kiến trúc | ĐẠT |
 | Có hợp đồng lõi và dự án | ĐẠT |
 | Có schema cấu hình | ĐẠT |
@@ -155,7 +155,7 @@ Các `WARN` còn lại là cổng kiểm định có người quan sát, đúng 
 | Có hồ sơ chuyển đổi | ĐẠT |
 | Có phân loại tài liệu lịch sử và vận hành | ĐẠT |
 
-## 9. Vận hành phiên mới
+## 9. Khả năng tiếp tục phiên ở mức lõi 1.0
 
 Một phiên mới có thể:
 
@@ -169,7 +169,7 @@ Một phiên mới có thể:
 8. chạy hồi quy hai dự án khi sửa lõi;
 9. tiếp tục công việc mà không cần toàn bộ lịch sử hội thoại.
 
-**Kết quả:** ĐẠT.
+**Kết quả:** ĐẠT theo phép thử của lõi 1.0. Kết quả này chưa đủ cho bảy mục tiêu của lớp vận hành mới.
 
 ## 10. Hiệu quả
 
@@ -187,6 +187,10 @@ Một phiên mới có thể:
 
 Phiên bản 1.0 chưa tuyên bố:
 
+- có CLI vận hành `scripts/zo_qmd.py`;
+- có gói ngữ cảnh chuẩn và manifest được xác minh;
+- có gói phát hành, quy trình nâng phiên bản và khôi phục;
+- có phiên trình diễn đầu-cuối đến báo cáo trước xuất bản;
 - có một schema hồ sơ vật lí duy nhất cho mọi dự án;
 - mọi mô-đun tùy chọn đều có dispatch độc lập;
 - quy chuẩn nội dung bài toán thực tế đã hoàn chỉnh;

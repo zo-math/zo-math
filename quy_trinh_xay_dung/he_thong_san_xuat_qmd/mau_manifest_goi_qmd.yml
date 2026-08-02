@@ -1,0 +1,65 @@
+# Mẫu manifest cho gói ngữ cảnh hoặc gói phát hành QMD.
+# Các giá trị "unknown" phải được thay bằng dữ liệu đã xác nhận khi có thể.
+
+manifest_version: 1
+
+package:
+  id: qmd-context-YYYYMMDD-HHMMSS
+  kind: context
+  purpose: "Mô tả ngắn mục đích gói"
+  created_at: "YYYY-MM-DDTHH:MM:SS+07:00"
+  created_by: unknown
+
+system:
+  qmd_core_version: "1.0"
+  checker_version: "2.6.0"
+  project_config_schema: 1
+  operations_contract_version: "0.1"
+  manifest_schema: 1
+
+repository:
+  name: zo_math
+  source: exported_snapshot
+  branch: master
+  commit: unknown
+  dirty: unknown
+  ahead_of_origin: unknown
+
+scope:
+  mode: documentation
+  roots:
+    - quy_trinh_xay_dung/he_thong_san_xuat_qmd
+  excluded: []
+
+# Công cụ tạo gói phải nhận đường dẫn này tường minh.
+# Không mặc định đặt gói ở gốc repository hoặc thư mục dự án.
+output:
+  path: unknown
+  inside_repository: false
+  reason: null
+
+entrypoints:
+  current:
+    checker: scripts/zo_check_repo.py
+  target:
+    operations_cli: scripts/zo_qmd.py
+
+sources:
+  required:
+    - path: AGENTS.md
+      role: repository_instructions
+    - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/README.md
+      role: system_entry
+  conditional: []
+  historical: []
+
+evidence:
+  commands: []
+  reports: []
+  outputs: []
+
+integrity:
+  algorithm: sha256
+  file: FILES.sha256
+
+limitations: []

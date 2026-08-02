@@ -42,6 +42,19 @@ Không dùng `\boxed{...}` hoặc khung viền trực tiếp quanh công thức 
 
 ## Chỉ dẫn theo loại nhiệm vụ
 
+### Hệ thống sản xuất và kiểm định QMD
+
+Khi nhiệm vụ liên quan đến sản xuất, chỉnh sửa, kiểm định, đóng gói hoặc bàn giao một bài QMD thuộc hệ thống có cấu hình, trước hết phải đọc:
+
+- `quy_trinh_xay_dung/he_thong_san_xuat_qmd/README.md`.
+
+Tài liệu trên là điểm vào bằng văn bản của hệ thống. Khi phạm vi nằm trong một dự án con, phải tiếp tục đọc `AGENTS.md` cục bộ của dự án rồi mới nạp cấu hình, hồ sơ và quy chuẩn trong `_quy_trinh/`. Ví dụ hiện hành:
+
+- `content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/AGENTS.md`;
+- `content/thpt/zo_math_100/100_bai_toan_thuc_te/AGENTS.md`.
+
+Lõi kĩ thuật QMD phiên bản 1.0 đã được khóa. Lớp vận hành hóa đang được xây theo các tài liệu trong `quy_trinh_xay_dung/he_thong_san_xuat_qmd/`; chức năng được mô tả là đích kiến trúc không được coi là đã có nếu chưa tồn tại mã và bằng chứng kiểm nghiệm. Điểm vào kiểm định hiện hành vẫn là `scripts/zo_check_repo.py`.
+
 ### Phong cách viết
 
 ZO Math sử dụng nhiều phong cách viết khác nhau. Chỉ áp dụng một phong cách khi người dùng chỉ định rõ cho bài viết hoặc nhiệm vụ hiện tại, hoặc khi chỉ dẫn có thẩm quyền của dự án con đã được người dùng phê duyệt chọn phong cách ấy cho một phạm vi xác định.
