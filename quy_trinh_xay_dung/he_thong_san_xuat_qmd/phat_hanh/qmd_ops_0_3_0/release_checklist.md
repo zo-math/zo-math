@@ -24,12 +24,19 @@
 - [x] `tag_created` vẫn là `false`.
 - [x] Không push và không publish.
 
-## Bước hậu commit
+## Bước hậu commit — đã hoàn tất
 
-Sau khi hồ sơ này được commit, release candidate phải được tạo từ một worktree sạch tại commit chứa hồ sơ, đặt ngoài repository, rồi được kiểm tra bằng:
+- [x] Release candidate được tạo từ worktree sạch.
+- [x] Candidate commit: `99a7c04c69eb0a54d381f5afd0d3e79fe26e9cab`.
+- [x] Package ID: `qmd-release-0-3-0-20260802-223550`.
+- [x] SHA-256 của ZIP: `cc6b28627ff365ee4a1a83e3a1529fe8a43047507c4b8bf9768bfae4a4a7547c`.
+- [x] `verify` bằng CLI ngoài repository đạt, mã thoát `0`.
+- [x] `verify` bằng CLI tự chứa trong payload đạt, mã thoát `0`.
+- [x] Không tạo Git tag thật.
+- [x] Không push và không publish.
 
-```bash
-python scripts/zo_python.py scripts/zo_qmd.py verify <release-candidate>
-```
+Bằng chứng hậu đóng gói:
 
-Việc tạo ZIP và kết quả `verify` không được tuyên bố hoàn tất trước khi lệnh thực sự chạy.
+- `release_verification.md`;
+- `release_verify_external.txt`;
+- `release_verify_self.txt`.
