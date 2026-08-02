@@ -1,6 +1,6 @@
 # Kiến trúc vận hành cỗ máy QMD
 
-> **Trạng thái:** Release hiện hành của lớp vận hành là `0.2.0`; mã ứng viên O3 `0.3.0` đã triển khai gói release và self-test, nhưng release candidate thật cùng rollback drill chưa hoàn tất; O4 chưa triển khai.
+> **Trạng thái:** Release hiện hành của lớp vận hành là `0.2.0`; mã ứng viên O3 `0.3.0`, hồi quy trước–sau và rollback drill đã đạt; release candidate thật vẫn chưa được tạo và tự xác minh; O4 chưa triển khai.
 >
 > Tài liệu này bao quanh lõi kĩ thuật của Hệ thống sản xuất và kiểm định QMD phiên bản 1.0. Nó không thay thế `kien_truc_he_thong.md`, `hop_dong_loi_va_du_an.md` hoặc các quy chuẩn chuyên biệt của từng dự án.
 
@@ -98,7 +98,7 @@ verify
 python scripts/zo_python.py scripts/zo_check_repo.py ...
 ```
 
-`zo_qmd.py` điều phối các thành phần hiện có, không sao chép validator và không thay đổi hợp đồng của `zo_check_repo.py`. `pack --kind context|release` và `verify` được triển khai qua `scripts/zo_qmd_package.py`; `context` là mặc định tương thích ngược và `--release-file` bắt buộc cho gói release. Việc mã tồn tại chưa tự chứng minh release candidate thật hoặc rollback drill đã đạt. Các lệnh `start` và `prepublish` vẫn là đích của các mốc sau.
+`zo_qmd.py` điều phối các thành phần hiện có, không sao chép validator và không thay đổi hợp đồng của `zo_check_repo.py`. `pack --kind context|release` và `verify` được triển khai qua `scripts/zo_qmd_package.py`; `context` là mặc định tương thích ngược và `--release-file` bắt buộc cho gói release. Hồi quy trước–sau và rollback drill đã có bằng chứng, nhưng việc mã và hồ sơ tồn tại chưa tự chứng minh release candidate thật cho đến khi gói được tạo từ commit sạch và tự xác minh. Các lệnh `start` và `prepublish` vẫn là đích của các mốc sau.
 
 ### 3.1. Bộ lệnh đích
 
@@ -399,12 +399,13 @@ Phiên trình diễn phải kết thúc trước cổng xuất bản. Báo cáo 
 - gói đã tự xác minh bằng CLI trong `payload/` từ thư mục sạch;
 - trình khởi chạy Python khóa việc sinh bytecode để không làm thay đổi gói sau khi chạy.
 
-### O3 — Phát hành, bảo trì và khôi phục — mã ứng viên đã triển khai
+### O3 — Phát hành, bảo trì và khôi phục — mã và bằng chứng rollback đã triển khai
 
 - đã khóa ma trận phiên bản, changelog, giao diện `pack --kind`, hồ sơ release và quy trình rollback;
 - đã triển khai tạo và xác minh gói release cùng self-test;
-- chưa có release candidate thật, hồi quy trước–sau hoặc rollback drill;
-- chỉ khi các bằng chứng ấy tồn tại mới được chuyển O3 sang trạng thái đã triển khai.
+- hồi quy trước–sau và rollback drill đã đạt, với hồ sơ lưu tại `phat_hanh/qmd_ops_0_3_0/`;
+- chưa tạo và tự xác minh release candidate thật từ commit sạch;
+- chỉ sau khi bước đóng gói và xác minh ấy đạt mới chuyển O3 sang trạng thái hoàn tất.
 
 ### O4 — Trình diễn và nghiệm thu
 

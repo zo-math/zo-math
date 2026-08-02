@@ -1,6 +1,6 @@
 # Tiêu chí nghiệm thu lớp vận hành cỗ máy QMD
 
-> **Trạng thái:** Ma trận nghiệm thu hiện hành `0.2`; hợp đồng kiểm nghiệm O3 cho đích `0.3` đã được khóa, nhưng release candidate và rollback drill chưa có bằng chứng kĩ thuật.
+> **Trạng thái:** Ma trận nghiệm thu hiện hành `0.2`; hợp đồng kiểm nghiệm O3 cho đích `0.3` đã được khóa; hồi quy trước–sau và rollback drill đã có bằng chứng kĩ thuật, còn release candidate thật chưa được tạo và tự xác minh.
 >
 > Tài liệu này đánh giá lớp vận hành bao quanh lõi QMD 1.0. Nó không thay thế `tieu_chi_nghiem_thu_he_thong.md`, vốn ghi nhận nghiệm thu của lõi kĩ thuật phiên bản 1.0.
 
@@ -277,7 +277,7 @@ Bỏ qua cổng có người quan sát, checker tự tuyên bố nghiệm thu, h
 | O0 | Kiến trúc, giao thức, manifest, ma trận nghiệm thu | Markdown, liên kết, nhất quán thuật ngữ | Không sửa mã; không mô tả chức năng đích như đã có |
 | O1 | CLI vận hành cơ bản | Self-test, hồi quy hai dự án, `--help` | Không phá checker 2.6.0 |
 | O2 — đã triển khai kĩ thuật | `pack`, `verify`, gói ngữ cảnh | Gói thư mục/ZIP, thư mục sạch, checksum, thiếu/thừa/sai băm | Chat-box dùng được không cần lịch sử; không sửa bài hồi quy; không để lại gói thử trong repository |
-| O3 — mã ứng viên đã triển khai, bằng chứng đang chờ | Release, versioning, rollback | Release candidate và rollback drill | Có changelog, commit quay lại và bằng chứng bất biến |
+| O3 — mã ứng viên và rollback drill đã đạt, release candidate đang chờ | Release, versioning, rollback | Release candidate và rollback drill | Có changelog, commit quay lại và bằng chứng bất biến |
 | O4 | Trình diễn đầu-cuối | Toàn bộ bảy mục tiêu | Không xuất bản; bằng chứng đầy đủ |
 
 ## 11. Nghiệm thu riêng của O0
@@ -344,7 +344,7 @@ O3 chỉ được chuyển sang trạng thái đã triển khai khi:
 - `publication: pending` được bảo toàn;
 - không tạo tag thật, không push và không publish.
 
-Việc mã tạo gói release và self-test tồn tại chưa phải bằng chứng rằng release candidate thật, hồi quy trước–sau và rollback drill đã đạt.
+Mã tạo gói release, self-test, hồi quy trước–sau và rollback drill đã có bằng chứng. O3 vẫn chưa đạt hoàn toàn cho đến khi release candidate thật được tạo từ commit sạch và tự xác minh trong thư mục sạch.
 
 ## 15. Điều kiện khóa lớp vận hành 1.0
 
