@@ -1,6 +1,6 @@
 # Ma trận phiên bản của cỗ máy QMD
 
-> **Trạng thái:** Mã ứng viên O3 đã ở `0.3.0`; release hiện hành vẫn là `0.2.0` cho đến khi hồi quy, release candidate và rollback drill của O3 cùng đạt.
+> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`; hồi quy, release candidate và rollback drill của O3 đều đã đạt. Git tag thật chưa được tạo.
 >
 > Tài liệu này ghi quan hệ giữa các phiên bản được quản lí độc lập. Nó không thay thế hằng số phiên bản trong mã đang chạy và không tự tạo release hoặc Git tag.
 
@@ -21,16 +21,16 @@ Cỗ máy QMD gồm nhiều thành phần có vòng đời khác nhau. Một tha
 - Tài liệu này là hồ sơ phối hợp phát hành: tại thời điểm tạo release candidate, các giá trị của nó phải khớp mã, manifest, changelog và bằng chứng kiểm nghiệm.
 - Khi mã và ma trận khác nhau, không được tự chọn một phía rồi tiếp tục phát hành; phải dừng và xử lí sai lệch.
 
-## 3. Ma trận hiện hành và đích O3
+## 3. Ma trận release trước và hiện hành `0.3.0`
 
-Snapshot hiện hành được khóa tại:
+Release trước được khóa tại:
 
 ```text
 version: 0.2.0
 commit: c1b26b9a0536b17e0885d8158fddbd20413767c2
 ```
 
-| Thành phần | Hiện hành sau O2 | Đích release candidate O3 | Quyết định |
+| Thành phần | Release trước `0.2.0` | Hiện hành `0.3.0` | Quyết định |
 |---|---:|---:|---|
 | Lõi kĩ thuật QMD | `1.0` | `1.0` | Giữ nguyên |
 | Checker | `2.6.0` | `2.6.0` | Giữ nguyên |
@@ -41,7 +41,7 @@ commit: c1b26b9a0536b17e0885d8158fddbd20413767c2
 | `scripts/zo_qmd.py` | `0.2.0` | `0.3.0` | Nâng `MINOR` |
 | `scripts/zo_qmd_package.py` | `0.2.0` | `0.3.0` | Nâng `MINOR` |
 
-O3 bổ sung khả năng tạo và xác minh release candidate nhưng giữ tương thích ngược với gói context và giao diện đã có ở O2. Vì vậy, mức thay đổi đúng là `MINOR`, không phải `MAJOR`.
+Release `0.3.0` bổ sung khả năng tạo và xác minh release candidate nhưng giữ tương thích ngược với gói context và giao diện đã có ở O2. Vì vậy, mức thay đổi đúng là `MINOR`, không phải `MAJOR`.
 
 ## 4. Danh tính release candidate O3
 
@@ -107,4 +107,4 @@ Không nâng lõi QMD khi thay đổi chỉ thuộc lớp vận hành. Hai bài 
 7. changelog, checklist và rollback log phản ánh đúng bằng chứng;
 8. tài liệu hiện hành không còn mô tả O3 như chức năng chưa triển khai.
 
-Trước thời điểm đó, `0.3.0` là phiên bản của mã ứng viên O3, không phải release hiện hành đã được khóa.
+Tám điều kiện trên đã đạt. Vì vậy, `0.3.0` là release hiện hành của lớp vận hành. Release candidate được tạo từ commit `99a7c04c69eb0a54d381f5afd0d3e79fe26e9cab`, có package ID `qmd-release-0-3-0-20260802-223550` và được xác minh bằng hai đường độc lập. Git tag thật vẫn chưa được tạo.

@@ -2,9 +2,9 @@
 
 Tài liệu này ghi những thay đổi quan sát được của lớp vận hành cỗ máy QMD. Nó không thay thế lịch sử Git và không tự chứng minh một release đã được tạo.
 
-## Chưa phát hành — đích `0.3.0`
+## `0.3.0` — 2026-08-02
 
-### Đã triển khai trong mã ứng viên
+### Thêm và thay đổi
 
 - Dùng `pack --kind context|release`; `context` tiếp tục là mặc định tương thích ngược.
 - Gói release nhận một hồ sơ tường minh qua `--release-file`.
@@ -13,7 +13,7 @@ Tài liệu này ghi những thay đổi quan sát được của lớp vận h�
 - Release candidate phải mang changelog, ma trận phiên bản, checklist, hướng dẫn nâng cấp–khôi phục và bằng chứng hồi quy.
 - O3 không tạo tag thật, không push và không publish.
 
-### Mã ứng viên `0.3.0`
+### Thành phần `0.3.0`
 
 - Nâng `scripts/zo_qmd.py` và `scripts/zo_qmd_package.py` lên `0.3.0`.
 - Thêm `pack --kind release --release-file ...` nhưng giữ `context` là mặc định.
@@ -22,17 +22,17 @@ Tài liệu này ghi những thay đổi quan sát được của lớp vận h�
 - Mở rộng `verify` để kiểm tra quan hệ phiên bản–tag–commit, vai trò nguồn, payload bắt buộc và runtime dependency closure.
 - Bổ sung self-test cho release hợp lệ, manifest release sai và worktree bẩn.
 
-### Bằng chứng O3 đã hoàn tất trước đóng gói
+### Bằng chứng phát hành
 
 - Hồi quy nguồn và render trước–sau đều đạt trên hai worktree riêng.
 - Rollback drill về commit `c1b26b9a0536b17e0885d8158fddbd20413767c2` đạt.
 - Hai QMD hồi quy giữ nguyên SHA-256 và trạng thái xuất bản vẫn `pending`.
 - Hồ sơ, checklist, rollback log và hai log hồi quy đã được ghi tại `phat_hanh/qmd_ops_0_3_0/`.
 
-### Chưa hoàn tất O3
+### Ranh giới phát hành
 
-- Chưa tạo và tự xác minh release candidate `0.3.0` từ commit sạch.
-- O3 không tạo Git tag thật, không push và không publish.
+- Release candidate `0.3.0` đã được tạo từ commit sạch và đạt hai phép `verify`; danh tính cùng log được lưu tại `phat_hanh/qmd_ops_0_3_0/`.
+- Git tag thật chưa được tạo; không push và không publish.
 
 ### Di trú từ `0.2.0`
 

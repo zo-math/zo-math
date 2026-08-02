@@ -1,6 +1,6 @@
 # Quy trình phát hành và khôi phục lớp vận hành QMD
 
-> **Trạng thái:** Giao diện tạo và xác minh gói release đã được triển khai trong mã ứng viên `0.3.0`; release candidate thật, hồi quy trước–sau và rollback drill vẫn phải được tạo bằng bằng chứng riêng.
+> **Trạng thái:** Quy trình O3 đã được thực thi đầy đủ cho release `0.3.0`: hồi quy trước–sau, rollback drill, tạo release candidate và hai phép xác minh đều đạt. Git tag thật chưa được tạo.
 >
 > Quy trình này chỉ điều hành lớp vận hành QMD. Nó không tự stage, commit, tag, push, publish hoặc thay đổi trạng thái bài.
 
@@ -54,7 +54,7 @@ Quy tắc:
 - `verify` tiếp tục dùng chung cho gói context và release;
 - mọi đầu ra vẫn phải được khai báo tường minh.
 
-Giao diện trên đã có trong mã ứng viên O3. Nó không tự tạo bằng chứng hồi quy, không tự đổi hồ sơ từ `pending` sang `pass` và không tự tuyên bố rollback đã đạt.
+Giao diện trên đã có trong release `0.3.0`. Nó không tự tạo bằng chứng hồi quy, không tự đổi hồ sơ từ `pending` sang `pass` và không tự tuyên bố rollback đã đạt; các bằng chứng O3 đã được tạo riêng và lưu trong hồ sơ phát hành.
 
 ## 5. Hồ sơ phát hành
 
@@ -180,16 +180,15 @@ python scripts/zo_python.py scripts/zo_qmd.py verify <release_candidate>
 
 Release candidate chỉ đạt khi manifest, checksum, payload và bằng chứng đều đạt.
 
-### 7.8. Kết thúc O3
+### 7.8. Kết thúc O3 — đã hoàn tất
 
-Ghi rõ:
-
-- release candidate đã tạo ở đâu;
-- phiên bản và tag dự kiến;
-- tag thật chưa được tạo;
-- không push, không publish;
-- hai bài hồi quy không đổi;
-- trạng thái xuất bản vẫn `pending`.
+- Release candidate được tạo ngoài repository với tên `qmd-ops-v0.3.0-rc.zip`; package ID, candidate commit và SHA-256 được khóa trong hồ sơ `phat_hanh/qmd_ops_0_3_0/release_verification.md`.
+- Phiên bản là `0.3.0`; tag dự kiến là `qmd-ops-v0.3.0`.
+- Candidate commit là `99a7c04c69eb0a54d381f5afd0d3e79fe26e9cab`.
+- Package ID là `qmd-release-0-3-0-20260802-223550`.
+- Hai phép `verify` đều đạt với mã thoát `0`.
+- Tag thật chưa được tạo; không push và không publish.
+- Hai bài hồi quy không đổi; trạng thái xuất bản vẫn `pending`.
 
 ## 8. Cấu trúc hồ sơ theo phiên bản
 
@@ -203,6 +202,9 @@ quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/
     rollback_log.md
     regression_before.txt
     regression_after.txt
+    release_verification.md
+    release_verify_external.txt
+    release_verify_self.txt
 ```
 
 Đây là hồ sơ phát hành có chủ đích, không phải tệp tạm. ZIP release candidate vẫn được tạo ngoài repository.
