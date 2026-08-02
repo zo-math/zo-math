@@ -1,0 +1,513 @@
+# Giao thức cho agent, chat-box và gói ngữ cảnh QMD
+
+> **Trạng thái:** Dự thảo quy chuẩn vận hành 0.1 — mốc O0, chờ duyệt; chưa có công cụ đóng gói tự động.
+>
+> Tài liệu này quy định cách một agent trong VS Code hoặc một chat-box tiếp nhận và bàn giao nhiệm vụ QMD. Nó không thay thế chỉ dẫn cấp repository hoặc quy chuẩn chuyên biệt của dự án.
+
+## 1. Mục đích
+
+Một nhiệm vụ phải có thể được tiếp tục trong phiên mới mà không cần toàn bộ lịch sử hội thoại. Để đạt điều đó, thông tin phải được chuyển thành:
+
+- một prompt bàn giao rõ;
+- một manifest có cấu trúc;
+- một tập tệp đủ dùng và giữ nguyên đường dẫn tương đối;
+- một danh sách checksum;
+- bằng chứng phân biệt rõ điều đã chạy với điều chỉ được mô tả.
+
+## 2. Nguyên tắc chung
+
+- Nguồn có thẩm quyền phải được ghi tường minh.
+- Tệp thiếu không được âm thầm thay bằng kiến thức chung.
+- Tài liệu lịch sử không được dùng để ghi đè tài liệu hiện hành.
+- Tài liệu chuyên trách chỉ được kích hoạt khi điều kiện áp dụng xuất hiện.
+- Agent và chat-box phải dùng cùng thuật ngữ về phạm vi, trạng thái và cổng nghiệm thu.
+- Mọi tuyên bố về Git, lệnh, render hoặc kiểm định phải gắn với bằng chứng có thật.
+- Gói ngữ cảnh không trao quyền stage, commit hoặc xuất bản.
+
+## 3. Giao thức của agent trong VS Code
+
+### 3.1. Bước 1 — Xác nhận môi trường
+
+Agent phải xác định:
+
+- repository và thư mục làm việc;
+- branch hiện tại;
+- commit hiện tại;
+- trạng thái worktree;
+- thay đổi ngoài phạm vi;
+- công cụ repository-local cần dùng.
+
+Nếu không thể xác nhận một mục, phải ghi `unknown`; không dùng dữ liệu từ prompt như bằng chứng thay cho lệnh vừa chạy.
+
+### 3.2. Bước 2 — Nạp thẩm quyền
+
+Agent đọc theo thứ tự:
+
+1. yêu cầu hiện tại của người dùng;
+2. `AGENTS.md` ở gốc;
+3. các `AGENTS.md` trên đường đến phạm vi;
+4. tài liệu được các `AGENTS.md` dẫn chiếu;
+5. cấu hình dự án trong `_quy_trinh/`;
+6. quy chuẩn chuyên biệt được kích hoạt;
+7. hồ sơ bài;
+8. QMD và đầu ra.
+
+Hai chuỗi cục bộ hiện hành kết thúc tại:
+
+- `content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/AGENTS.md`;
+- `content/thpt/zo_math_100/100_bai_toan_thuc_te/AGENTS.md`.
+
+Phải giữ ranh giới:
+
+```text
+quy_trinh_xay_dung/he_thong_san_xuat_qmd/
+    → tài liệu toàn hệ thống
+
+content/.../<du_an>/_quy_trinh/
+    → tài liệu và dữ liệu điều khiển riêng của dự án
+```
+
+Agent phải lập danh sách:
+
+- nguồn bắt buộc đã đọc;
+- nguồn chuyên trách đã kích hoạt;
+- nguồn lịch sử chỉ dùng tham khảo;
+- nguồn được dẫn chiếu nhưng còn thiếu.
+
+### 3.3. Bước 3 — Khóa nhiệm vụ
+
+Trước khi sửa, agent phải ghi:
+
+- mục tiêu;
+- phạm vi tệp;
+- tệp không được tác động;
+- trạng thái không được thay đổi;
+- kiểm định dự kiến;
+- điểm cần quyết định của người dùng.
+
+### 3.4. Bước 4 — Thực hiện
+
+- Chỉ dùng tệp trong phạm vi.
+- Không chạy lệnh phá hủy hoặc mở rộng phạm vi mà không có căn cứ.
+- Không dùng `git add .`.
+- Không tự commit.
+- Không sửa bài hồi quy để chữa checker.
+- Không tự tạo nguồn có thẩm quyền mới trong một nhiệm vụ sản xuất bài.
+- Không mặc định ghi gói ZIP, báo cáo phiên hoặc tệp tạm vào gốc repository hay thư mục dự án; phải dùng vị trí đầu ra đã được khóa trong phạm vi.
+
+### 3.5. Bước 5 — Kiểm định và báo cáo
+
+Agent phải phân biệt:
+
+- lệnh đã chạy;
+- kết quả từ công cụ;
+- quan sát trực quan;
+- suy luận;
+- việc chưa thể xác nhận.
+
+Báo cáo kết thúc tối thiểu gồm:
+
+```text
+SNAPSHOT
+SCOPE
+AUTHORITIES
+FILES CHANGED
+COMMANDS RUN
+AUTOMATED RESULT
+HUMAN REVIEW
+PRODUCTION STATUS
+PUBLICATION STATUS
+OPEN ISSUES
+NEXT GATE
+```
+
+## 4. Giao thức của chat-box
+
+### 4.1. Bước 1 — Đọc gói theo thứ tự
+
+Chat-box đọc:
+
+1. `PROMPT.md`;
+2. `MANIFEST.yml`;
+3. `FILES.sha256`;
+4. các tệp bắt buộc trong `payload/`;
+5. nguồn chuyên trách theo điều kiện của nhiệm vụ;
+6. bằng chứng và đầu ra nếu có.
+
+Không bắt đầu bằng việc đọc ngẫu nhiên toàn bộ ZIP rồi tự suy ra thẩm quyền.
+
+### 4.2. Bước 2 — Kiểm tra tính đủ dùng
+
+Chat-box phải xác định:
+
+- manifest có đúng schema không;
+- tệp bắt buộc có đủ không;
+- checksum có thể đối chiếu không;
+- snapshot là repository sống hay bản xuất;
+- trạng thái Git có được xác nhận hay chỉ được khai báo;
+- công cụ cần chạy có đủ phụ thuộc không;
+- tài liệu dẫn chiếu có bị thiếu không.
+
+Nếu gói không đủ để chạy độc lập, chat-box vẫn có thể khảo sát và đề xuất, nhưng phải gọi đúng tên là **gói đọc hoặc gói khảo sát**, không gọi là gói tái tạo.
+
+### 4.3. Bước 3 — Xác nhận ranh giới
+
+Chat-box phải báo:
+
+- điều được xác nhận trực tiếp từ gói;
+- điều chỉ đến từ prompt;
+- điều là suy luận;
+- điều chưa thể kiểm chứng.
+
+Chat-box không được:
+
+- claim đã kiểm tra worktree sống;
+- claim đã render nếu không có log hoặc đầu ra tương ứng;
+- điền tệp thiếu bằng một bản giả định;
+- thay đổi trạng thái xuất bản trong bản đề xuất;
+- dùng lịch sử hội thoại làm nguồn có thẩm quyền cao hơn tài liệu hiện hành.
+
+### 4.4. Bước 4 — Sản phẩm bàn giao
+
+Tùy nhiệm vụ, chat-box bàn giao một trong các dạng:
+
+- bản đồ hiện trạng;
+- kiến trúc hoặc kế hoạch;
+- bản vá thống nhất;
+- các tệp mới có thể tải xuống;
+- prompt bàn giao cho agent trong VS Code;
+- báo cáo kiểm định dựa trên bằng chứng trong gói.
+
+Mọi tệp tạo ra phải ghi rõ được xây trên snapshot nào.
+
+## 5. Cấu trúc gói chuẩn
+
+```text
+<package-root>/
+├── PROMPT.md
+├── MANIFEST.yml
+├── FILES.sha256
+└── payload/
+    ├── AGENTS.md
+    ├── scripts/
+    ├── quy_trinh_xay_dung/
+    └── content/
+```
+
+Nguyên tắc:
+
+- `payload/` giữ nguyên đường dẫn tương đối từ gốc repository;
+- không đổi tên tệp để làm gói dễ đọc hơn;
+- không chép cùng một tệp vào nhiều vị trí;
+- tệp sinh tạm không nằm trong `payload/` trừ khi được khai báo là bằng chứng;
+- mọi tệp trong `payload/` phải xuất hiện trong `FILES.sha256`;
+- công cụ tạo gói phải yêu cầu đường dẫn đầu ra tường minh;
+- vị trí mặc định không được là gốc repository hoặc thư mục dự án;
+- nếu đầu ra được đặt trong repository theo yêu cầu riêng, manifest phải khai báo đường dẫn và lí do.
+
+## 6. `PROMPT.md`
+
+Prompt bàn giao phải ngắn hơn tài liệu hệ thống và gồm:
+
+1. repository, branch và commit khai báo;
+2. mục tiêu phiên;
+3. trạng thái đã chốt;
+4. phạm vi được phép tác động;
+5. điều cấm;
+6. tệp bắt buộc cần đọc;
+7. sản phẩm đầu ra;
+8. tiêu chí nghiệm thu;
+9. nhiệm vụ đầu tiên.
+
+Prompt không được:
+
+- sao chép toàn bộ quy chuẩn;
+- mô tả một chức năng chưa có như đã hoạt động;
+- thay manifest;
+- dùng lịch sử chat làm bằng chứng chính.
+
+## 7. Schema `MANIFEST.yml` phiên bản 1
+
+Mẫu có thể sao chép nằm tại `mau_manifest_goi_qmd.yml`. Khung chuẩn:
+
+```yaml
+manifest_version: 1
+
+package:
+  id: qmd-context-YYYYMMDD-HHMMSS
+  kind: context
+  purpose: "Mô tả ngắn mục đích gói"
+  created_at: "YYYY-MM-DDTHH:MM:SS+07:00"
+  created_by: human-or-tool
+
+system:
+  qmd_core_version: "1.0"
+  checker_version: "2.6.0"
+  project_config_schema: 1
+  operations_contract_version: "0.1"
+  manifest_schema: 1
+
+repository:
+  name: zo_math
+  source: exported_snapshot
+  branch: master
+  commit: full-40-character-sha
+  dirty: unknown
+  ahead_of_origin: unknown
+
+scope:
+  mode: documentation
+  roots:
+    - quy_trinh_xay_dung/he_thong_san_xuat_qmd
+  excluded:
+    - docs
+    - changes-outside-scope
+
+output:
+  path: unknown
+  inside_repository: false
+  reason: null
+
+entrypoints:
+  current:
+    checker: scripts/zo_check_repo.py
+  target:
+    operations_cli: scripts/zo_qmd.py
+
+sources:
+  required:
+    - path: AGENTS.md
+      role: repository_instructions
+    - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/README.md
+      role: system_entry
+  conditional: []
+  historical: []
+
+evidence:
+  commands: []
+  reports: []
+  outputs: []
+
+integrity:
+  algorithm: sha256
+  file: FILES.sha256
+
+limitations:
+  - "Không chứa .git; không xác nhận được worktree sống."
+```
+
+### 7.1. Trường bắt buộc
+
+- `manifest_version`;
+- `package.id`, `package.kind`, `package.purpose`, `package.created_at`;
+- toàn bộ nhóm `system`;
+- `repository.source`, `repository.branch`, `repository.commit`, `repository.dirty`;
+- `scope.roots` và `scope.excluded`;
+- `output.path`, `output.inside_repository`;
+- `sources.required`;
+- `integrity.algorithm` và `integrity.file`;
+- `limitations`.
+
+### 7.2. Giá trị `package.kind`
+
+Phiên bản 1 cho phép:
+
+```text
+context
+release
+```
+
+- `context`: bàn giao một nhiệm vụ hoặc snapshot để khảo sát.
+- `release`: đóng băng một phiên bản lớp vận hành đã qua điều kiện phát hành.
+
+### 7.3. Giá trị `repository.source`
+
+```text
+live_repository
+exported_snapshot
+```
+
+Nếu là `exported_snapshot`, manifest không được ngầm coi `dirty`, `ahead_of_origin` hoặc trạng thái index là đã kiểm chứng, trừ khi gói chứa bằng chứng Git được tạo tại thời điểm đóng gói.
+
+### 7.4. Kiểu dữ liệu trạng thái repository
+
+- `repository.commit`: SHA đầy đủ 40 kí tự hoặc `unknown`;
+- `repository.dirty`: `true`, `false` hoặc `unknown`;
+- `repository.ahead_of_origin`: số nguyên không âm hoặc `unknown`;
+- các giá trị lấy từ prompt nhưng chưa có bằng chứng Git phải được ghi là `unknown` trong manifest, rồi mô tả riêng trong `limitations`.
+
+### 7.5. Nguồn có thẩm quyền
+
+Mỗi mục trong `sources` có:
+
+```yaml
+- path: path/inside/payload
+  role: stable_identifier
+  condition: optional-human-readable-condition
+```
+
+Ba nhóm:
+
+- `required`: luôn phải đọc;
+- `conditional`: chỉ đọc khi điều kiện áp dụng xuất hiện;
+- `historical`: bằng chứng lịch sử, không ghi đè nguồn hiện hành.
+
+## 8. `FILES.sha256`
+
+Định dạng:
+
+```text
+<sha256><hai khoảng trắng>payload/<duong_dan_tuong_doi>
+```
+
+Ví dụ:
+
+```text
+0123456789abcdef...  payload/AGENTS.md
+```
+
+Quy tắc:
+
+- dùng SHA-256;
+- sắp xếp theo đường dẫn;
+- chứa `PROMPT.md`, `MANIFEST.yml` và toàn bộ tệp trong `payload/`;
+- không chứa chính `FILES.sha256` vì tệp không thể tự băm ổn định;
+- `verify` phải báo tệp thiếu, tệp thừa và checksum sai;
+- gói release không được phát hành khi có sai lệch.
+
+## 9. Chọn tệp cho gói ngữ cảnh
+
+### 9.1. Lõi bắt buộc
+
+Tùy nhiệm vụ, tối thiểu gồm:
+
+- `AGENTS.md` cấp gốc;
+- hai tài liệu bắt buộc mà `AGENTS.md` dẫn chiếu;
+- README hệ thống QMD;
+- tài liệu kiến trúc và hợp đồng liên quan;
+- script điểm vào và mọi phụ thuộc import cần thiết nếu gói tuyên bố có thể chạy;
+- cấu hình dự án;
+- `AGENTS.md` cục bộ;
+- hồ sơ và QMD trong phạm vi.
+
+### 9.2. Nguồn chuyên trách theo điều kiện
+
+Chỉ thêm khi nhiệm vụ kích hoạt, ví dụ:
+
+- quy chuẩn khảo sát hàm số;
+- quy chuẩn kĩ thuật bài hàm số;
+- quy chuẩn đồ thị TikZ/PGFPlots;
+- hướng dẫn khối nội dung;
+- phong cách viết đã được chỉ định;
+- dữ liệu danh mục;
+- tài nguyên hình liên quan.
+
+### 9.3. Bằng chứng
+
+Khi gói dùng để kiểm định hoặc bàn giao kết quả, thêm:
+
+- báo cáo JSON;
+- log lệnh;
+- HTML/PDF/SVG cần quan sát;
+- ảnh chụp khi có giá trị;
+- diff hoặc patch;
+- kết quả Git cần xác nhận.
+
+Bằng chứng phải được ghi trong manifest; không trộn với nguồn điều khiển.
+
+### 9.4. Loại trừ
+
+Mặc định loại trừ:
+
+- `.git/`;
+- cache;
+- tệp tạm;
+- build ngoài phạm vi;
+- bí mật và thông tin máy cá nhân;
+- thay đổi ngoài phạm vi;
+- tệp lịch sử không cần thiết cho nhiệm vụ;
+- các ZIP, báo cáo và tệp thử đã nằm ở gốc repository nhưng không thuộc phạm vi.
+
+Việc một tệp đang tồn tại trong worktree không làm nó trở thành thành phần của gói.
+
+## 10. Gói phát hành
+
+Ngoài cấu trúc chung, gói release phải có trong `payload/`:
+
+- mã CLI vận hành;
+- checker và phụ thuộc cần thiết;
+- tài liệu hiện hành;
+- schema manifest;
+- đường cơ sở hồi quy;
+- changelog;
+- hướng dẫn nâng cấp và khôi phục;
+- bằng chứng kiểm tra release candidate.
+
+Manifest release phải thêm:
+
+```yaml
+release:
+  version: "X.Y.Z"
+  tag: qmd-ops-vX.Y.Z
+  previous_version: "X.Y.Z"
+  regression_status: pass
+  rollback_tested: true
+```
+
+## 11. Quy tắc xác minh
+
+Một gói được gọi là **đủ để đọc** khi:
+
+- có prompt, manifest và checksum;
+- mọi nguồn bắt buộc cho việc hiểu nhiệm vụ có mặt;
+- hạn chế được ghi rõ.
+
+Một gói được gọi là **đủ để chạy** khi:
+
+- mọi import và script phụ thuộc có mặt;
+- công cụ ngoài repository được khai báo;
+- đường dẫn tương đối còn hợp lệ;
+- lệnh kiểm tra khởi động được trong thư mục sạch.
+
+Một gói được gọi là **đủ để tái tạo** khi:
+
+- đủ để chạy;
+- snapshot, phiên bản và đầu ra mong đợi được khóa;
+- cùng một gói cho kết quả kiểm tra tương đương trong môi trường được hỗ trợ.
+
+Không được dùng ba mức này thay thế cho nhau.
+
+## 12. Báo cáo thiếu gói
+
+Khi gói thiếu, báo theo mẫu:
+
+```text
+MISSING REQUIRED FILES
+MISSING RUNTIME DEPENDENCIES
+UNVERIFIED REPOSITORY STATE
+BROKEN REFERENCES
+SAFE WORK STILL POSSIBLE
+WORK THAT MUST STOP
+```
+
+Chat-box có thể tiếp tục phân tích tài liệu khi an toàn, nhưng phải dừng mọi kết luận phụ thuộc vào tệp hoặc bằng chứng bị thiếu.
+
+## 13. Bàn giao ngược về repository
+
+Chat-box không sửa repository sống. Khi không có kết nối trực tiếp, người dùng có thể đóng vai trò **người vận hành trung gian**: nhận đúng một lệnh hoặc một nhóm lệnh có kiểm soát, chạy trong repository, rồi chuyển nguyên kết quả trở lại. Chat-box phải luôn phân biệt repository thật với bản sao trong môi trường của mình và không tuyên bố đã sửa repository trước khi có bằng chứng từ người vận hành.
+
+Sản phẩm trả lại phải gồm:
+
+- snapshot nguồn;
+- danh sách tệp mới hoặc sửa;
+- patch hoặc gói tệp;
+- kiểm tra đã thực hiện trên bản sao;
+- kiểm tra cần agent chạy lại trong repository sống;
+- tệp ngoài phạm vi phải được giữ nguyên;
+- không kèm lệnh `git add .`.
+
+Khi cần người vận hành trung gian thực thi, chỉ dẫn phải nêu rõ: thư mục chạy, lệnh duy nhất hoặc nhóm lệnh cùng mục đích, điều lệnh được phép làm, và kết quả cần gửi lại. Không gộp thao tác đọc, sửa, staging và commit trong cùng một bước.
+
+## 14. Kết luận
+
+Giao thức này biến việc “gửi một ZIP và một prompt” thành một hợp đồng có thể kiểm tra. Manifest nói gói là gì; checksum nói gói có toàn vẹn không; payload giữ ngữ cảnh đường dẫn; prompt nói nhiệm vụ hiện tại; agent và chat-box cùng dùng một cách báo cáo.

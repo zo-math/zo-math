@@ -1,12 +1,49 @@
 # Hệ thống sản xuất và kiểm định QMD cho ZO Math
 
-> **Trạng thái:** Phiên bản 1.0 — có hiệu lực từ commit khóa tài liệu M9B.
+> **Trạng thái:** Lõi kĩ thuật phiên bản 1.0 đã khóa; lớp vận hành đang được thiết kế ở mốc O0.
 >
 > Đây là tài liệu vận hành nội bộ. Nó chỉ có thẩm quyền trong phạm vi mà `AGENTS.md`, cấu hình dự án hoặc yêu cầu hiện tại của người dùng dẫn chiếu. Các hồ sơ kiểm kê và thiết kế ban đầu được giữ lại như bằng chứng lịch sử, không tự động ghi đè quy trình đang có hiệu lực ở nơi khác.
 
+## 0. Trạng thái hiện tại
+
+Đã hoàn thành và khóa:
+
+- lõi kĩ thuật QMD phiên bản `1.0`;
+- checker phiên bản `2.6.0`;
+- schema cấu hình dự án phiên bản `1`;
+- chế độ native và đường hồi quy hai dự án.
+
+Chưa hoàn thành:
+
+- CLI vận hành thống nhất;
+- giao thức thực thi đã được công cụ hóa cho agent và chat-box;
+- gói ngữ cảnh và manifest được sinh tự động;
+- gói phát hành, bảo trì và khôi phục;
+- phiên trình diễn đầu-cuối.
+
+Ba tài liệu điều khiển giai đoạn vận hành hóa:
+
+- `kien_truc_van_hanh_co_may_qmd.md`;
+- `giao_thuc_agent_chat_box_va_goi_ngu_canh.md`;
+- `tieu_chi_nghiem_thu_lop_van_hanh.md`.
+
+Mọi lệnh thuộc giao diện đích `scripts/zo_qmd.py` chỉ là hợp đồng kiến trúc cho đến khi tệp và bằng chứng triển khai tồn tại. Điểm vào kiểm định hiện hành vẫn là `scripts/zo_check_repo.py`.
+
+Ranh giới lưu trữ hiện hành:
+
+```text
+quy_trinh_xay_dung/he_thong_san_xuat_qmd/
+    → hợp đồng và tài liệu toàn hệ thống
+
+content/.../<du_an>/_quy_trinh/
+    → cấu hình, hồ sơ, mẫu và quy chuẩn riêng của dự án
+```
+
+Gói ZIP, báo cáo phiên và tệp sinh tạm không được mặc định ghi vào gốc repository hoặc thư mục dự án. Công cụ tạo các sản phẩm ấy phải nhận vị trí đầu ra tường minh; báo cáo checker nằm trong repository vẫn tuân theo quy tắc `_audit/` hiện hành.
+
 ## 1. Mục đích
 
-Hệ thống cung cấp một điểm vào thống nhất để sản xuất và kiểm định nhiều loại bài QMD của ZO Math:
+Tài liệu này là điểm vào bằng văn bản của cỗ máy QMD. Lõi kĩ thuật cung cấp một hợp đồng thống nhất để sản xuất và kiểm định nhiều loại bài QMD của ZO Math. Lớp vận hành đang được xây để biến hợp đồng này thành một điểm vào có thể dùng lặp lại:
 
 ```text
 tiếp nhận nhiệm vụ
@@ -24,6 +61,14 @@ tiếp nhận nhiệm vụ
 ```
 
 Hệ thống không tự viết thay quy chuẩn chuyên môn, không tự nghiệm thu nội dung và không tự xuất bản.
+
+Ba cổng phải được phân biệt:
+
+- **V — Validation:** checker kiểm định phần có thể mã hóa; không còn `FAIL` mới đủ điều kiện xem xét trạng thái `validated`;
+- **A — Acceptance:** con người kiểm tra nội dung, hình thức và đầu ra thực tế trước khi chấp nhận;
+- **P — Publication:** chỉ người dùng mới quyết định chuyển sang xuất bản.
+
+Vượt cổng trước không tự động vượt cổng sau.
 
 ## 2. Kiến trúc đang vận hành
 
@@ -198,7 +243,7 @@ Bất biến quan trọng:
 
 Đường cơ sở hợp nhất được ghi tại `duong_co_so_hoi_quy_hai_du_an.md`.
 
-## 5. Quy trình vận hành ngắn
+## 5. Quy trình kiểm định ngắn hiện hành
 
 ### 5.1. Kiểm tra cấu hình
 
@@ -264,7 +309,7 @@ Các bất biến:
 
 ## 7. Phân loại tài liệu trong thư mục
 
-### 7.1. Tài liệu vận hành phiên bản 1.0
+### 7.1. Tài liệu lõi kĩ thuật phiên bản 1.0
 
 - `README.md`;
 - `kien_truc_he_thong.md`;
@@ -275,14 +320,23 @@ Các bất biến:
 - `huong_dan_them_du_an_va_validator.md`;
 - `tieu_chi_nghiem_thu_he_thong.md`.
 
-### 7.2. Hồ sơ chuyển đổi
+### 7.2. Tài liệu lớp vận hành 0.1
+
+- `kien_truc_van_hanh_co_may_qmd.md`;
+- `giao_thuc_agent_chat_box_va_goi_ngu_canh.md`;
+- `tieu_chi_nghiem_thu_lop_van_hanh.md`;
+- `mau_manifest_goi_qmd.yml`.
+
+Các tài liệu và mẫu này là dự thảo O0 chờ duyệt; chúng chưa chứng minh CLI, đóng gói, phát hành hoặc trình diễn đã được triển khai.
+
+### 7.3. Hồ sơ chuyển đổi
 
 - `ke_hoach_chuyen_doi.md`;
 - `duong_co_so_hoi_quy_ham_ln_x.md`.
 
 Hai tài liệu này ghi lại đường chuyển đổi và đường cơ sở ban đầu; không dùng chúng để khôi phục nhánh legacy đã loại bỏ.
 
-### 7.3. Hồ sơ lịch sử Giai đoạn 0
+### 7.4. Hồ sơ lịch sử Giai đoạn 0
 
 - `kiem_ke_he_thong_hien_tai.md`;
 - `ban_do_kien_truc_hien_trang.md`;
@@ -319,3 +373,7 @@ ab7581a  refactor(qmd-system): remove legacy compatibility path
 ```
 
 Commit khóa tài liệu M9B hoàn tất phiên bản 1.0 mà không thay đổi QMD hồi quy hoặc trạng thái xuất bản.
+
+## 10. Mốc tiếp theo
+
+Sau mốc O0, việc triển khai bắt đầu từ O1: tạo `scripts/zo_qmd.py` như mặt tiền vận hành cho `doctor`, `inspect`, `check`, `render` và `regression`. Không bắt đầu O1 trước khi tài liệu O0 được duyệt và kiểm tra nhất quán trong repository sống.
