@@ -80,13 +80,23 @@ Không cổng nào tự động mở cổng tiếp theo.
 python scripts/zo_python.py scripts/zo_qmd.py <command> [tham số...]
 ```
 
-Tại bản dự thảo O0, `scripts/zo_qmd.py` là giao diện được đề xuất để khóa về kiến trúc; tệp này chưa được triển khai. Điểm vào kiểm định hiện hành vẫn là:
+Từ mốc O1, `scripts/zo_qmd.py` phiên bản `0.1.0` là điểm vào vận hành hiện hành cho:
+
+```text
+doctor
+inspect
+check
+render
+regression
+```
+
+Điểm vào kiểm định lõi vẫn là:
 
 ```bash
 python scripts/zo_python.py scripts/zo_check_repo.py ...
 ```
 
-Khi được triển khai, `zo_qmd.py` phải điều phối các thành phần hiện có, không sao chép lại validator và không thay đổi hợp đồng của `zo_check_repo.py` nếu chưa có nhiệm vụ di trú riêng.
+`zo_qmd.py` điều phối các thành phần hiện có, không sao chép validator và không thay đổi hợp đồng của `zo_check_repo.py`. Các lệnh `start`, `pack`, `verify` và `prepublish` vẫn là đích của các mốc sau, chưa được mô tả như chức năng hiện hành.
 
 ### 3.1. Bộ lệnh đích
 
@@ -361,11 +371,12 @@ Phiên trình diễn phải kết thúc trước cổng xuất bản. Báo cáo 
 - tiêu chí nghiệm thu;
 - không sửa mã.
 
-### O1 — Điểm vào CLI thống nhất
+### O1 — Điểm vào CLI thống nhất — đã triển khai
 
-- triển khai `zo_qmd.py`;
-- ưu tiên `doctor`, `inspect`, `check`, `render`, `regression`;
-- giữ checker hiện hành làm lõi.
+- `zo_qmd.py` phiên bản `0.1.0`;
+- đã có `doctor`, `inspect`, `check`, `render`, `regression`;
+- checker `2.6.0` vẫn là lõi kiểm định;
+- self-test, hồi quy nguồn và hồi quy render hai dự án đã đạt.
 
 ### O2 — Gói ngữ cảnh chuẩn
 
