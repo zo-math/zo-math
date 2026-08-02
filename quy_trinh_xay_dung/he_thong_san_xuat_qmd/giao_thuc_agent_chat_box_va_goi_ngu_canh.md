@@ -1,6 +1,6 @@
 # Giao thức cho agent, chat-box và gói ngữ cảnh QMD
 
-> **Trạng thái:** Dự thảo quy chuẩn vận hành 0.1 — mốc O0, chờ duyệt; chưa có công cụ đóng gói tự động.
+> **Trạng thái:** Quy chuẩn vận hành 0.2 — `pack` và `verify` đã được triển khai, kiểm nghiệm ở O2.
 >
 > Tài liệu này quy định cách một agent trong VS Code hoặc một chat-box tiếp nhận và bàn giao nhiệm vụ QMD. Nó không thay thế chỉ dẫn cấp repository hoặc quy chuẩn chuyên biệt của dự án.
 
@@ -205,6 +205,40 @@ Nguyên tắc:
 - vị trí mặc định không được là gốc repository hoặc thư mục dự án;
 - nếu đầu ra được đặt trong repository theo yêu cầu riêng, manifest phải khai báo đường dẫn và lí do.
 
+### 5.1. Giao diện O2 hiện hành
+
+Gói ngữ cảnh được tạo qua:
+
+```bash
+python scripts/zo_python.py scripts/zo_qmd.py pack \
+  --output <thu-muc-hoac-tep.zip> \
+  --prompt <tep-markdown> \
+  --purpose "<muc-dich>" \
+  [--scope-mode <nhan>] \
+  [--include <duong-dan>]... \
+  [--inside-repository-reason "<li-do>"] \
+  [--json] \
+  <pham-vi>...
+```
+
+Gói được xác minh qua:
+
+```bash
+python scripts/zo_python.py scripts/zo_qmd.py verify \
+  <thu-muc-hoac-tep.zip> \
+  [--json]
+```
+
+Hợp đồng O2:
+
+- `--output`, `--prompt`, `--purpose` và ít nhất một phạm vi là bắt buộc;
+- `pack` không ghi đè đầu ra đã tồn tại;
+- đầu ra trong repository bị từ chối nếu thiếu `--inside-repository-reason`;
+- `pack` O2 chỉ tạo `package.kind: context`; gói `release` thuộc O3;
+- `verify` có thể chạy ngoài repository Git bằng CLI nằm trong `payload/`;
+- chế độ `--json` chỉ xuất JSON trên stdout;
+- trình khởi chạy `zo_python.py` đặt `PYTHONDONTWRITEBYTECODE=1` để việc chạy mã không sinh `__pycache__` hoặc `.pyc` trong gói.
+
 ## 6. `PROMPT.md`
 
 Prompt bàn giao phải ngắn hơn tài liệu hệ thống và gồm:
@@ -244,7 +278,7 @@ system:
   qmd_core_version: "1.0"
   checker_version: "2.6.0"
   project_config_schema: 1
-  operations_contract_version: "0.1"
+  operations_contract_version: "0.2"
   manifest_schema: 1
 
 repository:
@@ -271,8 +305,8 @@ output:
 entrypoints:
   current:
     checker: scripts/zo_check_repo.py
-  target:
     operations_cli: scripts/zo_qmd.py
+  target: {}
 
 sources:
   required:

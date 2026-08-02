@@ -1,6 +1,6 @@
 # Tiêu chí nghiệm thu lớp vận hành cỗ máy QMD
 
-> **Trạng thái:** Dự thảo ma trận nghiệm thu 0.1 — mốc O0, chờ duyệt.
+> **Trạng thái:** Ma trận nghiệm thu 0.2 — O0–O2 đã có bằng chứng kĩ thuật; O3–O4 chưa triển khai.
 >
 > Tài liệu này đánh giá lớp vận hành bao quanh lõi QMD 1.0. Nó không thay thế `tieu_chi_nghiem_thu_he_thong.md`, vốn ghi nhận nghiệm thu của lõi kĩ thuật phiên bản 1.0.
 
@@ -265,7 +265,7 @@ Bỏ qua cổng có người quan sát, checker tự tuyên bố nghiệm thu, h
 |---|---|---|---|
 | O0 | Kiến trúc, giao thức, manifest, ma trận nghiệm thu | Markdown, liên kết, nhất quán thuật ngữ | Không sửa mã; không mô tả chức năng đích như đã có |
 | O1 | CLI vận hành cơ bản | Self-test, hồi quy hai dự án, `--help` | Không phá checker 2.6.0 |
-| O2 | `pack`, `verify`, gói ngữ cảnh | Gói trong thư mục sạch, checksum, thiếu/thừa | Chat-box dùng được không cần lịch sử |
+| O2 — đã triển khai kĩ thuật | `pack`, `verify`, gói ngữ cảnh | Gói thư mục/ZIP, thư mục sạch, checksum, thiếu/thừa/sai băm | Chat-box dùng được không cần lịch sử; không sửa bài hồi quy; không để lại gói thử trong repository |
 | O3 | Release, versioning, rollback | Release candidate và rollback drill | Có changelog và điểm quay lại |
 | O4 | Trình diễn đầu-cuối | Toàn bộ bảy mục tiêu | Không xuất bản; bằng chứng đầy đủ |
 
