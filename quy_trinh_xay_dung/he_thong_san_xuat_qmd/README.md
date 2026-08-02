@@ -1,6 +1,6 @@
 # Hệ thống sản xuất và kiểm định QMD cho ZO Math
 
-> **Trạng thái:** Lõi kĩ thuật phiên bản 1.0 đã khóa; lớp vận hành đang được thiết kế ở mốc O0.
+> **Trạng thái:** Lõi kĩ thuật phiên bản 1.0 và kiến trúc O0 đã khóa; CLI vận hành cơ bản O1 đã được triển khai.
 >
 > Đây là tài liệu vận hành nội bộ. Nó chỉ có thẩm quyền trong phạm vi mà `AGENTS.md`, cấu hình dự án hoặc yêu cầu hiện tại của người dùng dẫn chiếu. Các hồ sơ kiểm kê và thiết kế ban đầu được giữ lại như bằng chứng lịch sử, không tự động ghi đè quy trình đang có hiệu lực ở nơi khác.
 
@@ -13,11 +13,17 @@
 - schema cấu hình dự án phiên bản `1`;
 - chế độ native và đường hồi quy hai dự án.
 
+Đã triển khai ở mốc O1:
+
+- `scripts/zo_qmd.py` phiên bản `0.1.0`;
+- năm lệnh `doctor`, `inspect`, `check`, `render`, `regression`;
+- điều phối qua loader, registry, checker và các self-test hiện hành;
+- hồi quy nguồn và render trên hai dự án đường cơ sở.
+
 Chưa hoàn thành:
 
-- CLI vận hành thống nhất;
-- giao thức thực thi đã được công cụ hóa cho agent và chat-box;
-- gói ngữ cảnh và manifest được sinh tự động;
+- `start`, `pack`, `verify` và `prepublish`;
+- giao thức thực thi đầy đủ cho chat-box qua gói được sinh tự động;
 - gói phát hành, bảo trì và khôi phục;
 - phiên trình diễn đầu-cuối.
 
@@ -27,7 +33,7 @@ Ba tài liệu điều khiển giai đoạn vận hành hóa:
 - `giao_thuc_agent_chat_box_va_goi_ngu_canh.md`;
 - `tieu_chi_nghiem_thu_lop_van_hanh.md`.
 
-Mọi lệnh thuộc giao diện đích `scripts/zo_qmd.py` chỉ là hợp đồng kiến trúc cho đến khi tệp và bằng chứng triển khai tồn tại. Điểm vào kiểm định hiện hành vẫn là `scripts/zo_check_repo.py`.
+`scripts/zo_qmd.py` là điểm vào vận hành hiện hành cho năm lệnh O1. `scripts/zo_check_repo.py` vẫn là checker lõi; CLI vận hành chỉ điều phối và bảo toàn mã thoát, báo cáo cùng các cổng kiểm định hiện có.
 
 Ranh giới lưu trữ hiện hành:
 
@@ -107,7 +113,37 @@ Checker tạo hợp đồng hiệu lực từ lõi, cấu hình dự án và mô
 
 ## 3. Thành phần triển khai
 
-### 3.1. Điểm vào kiểm định
+### 3.1. Điểm vào vận hành
+
+```text
+scripts/zo_qmd.py
+```
+
+Phiên bản O1:
+
+```text
+QMD OPERATIONS CLI: 0.1.0
+```
+
+Các lệnh đã triển khai:
+
+```text
+doctor
+inspect
+check
+render
+regression
+```
+
+Cách gọi chuẩn:
+
+```bash
+python scripts/zo_python.py scripts/zo_qmd.py <command> [tham số...]
+```
+
+Các lệnh `check` và `render` chuyển trách nhiệm kiểm định cho checker hiện hành. `regression` đọc bài hồi quy từ cấu hình dự án, chạy bốn self-test bắt buộc rồi điều phối hồi quy nguồn và, khi được yêu cầu, hồi quy render.
+
+### 3.2. Điểm vào kiểm định
 
 ```text
 scripts/zo_check_repo.py
@@ -129,7 +165,7 @@ render
 --report
 ```
 
-### 3.2. Bộ đọc cấu hình
+### 3.3. Bộ đọc cấu hình
 
 ```text
 scripts/zo_qmd_config.py
@@ -144,7 +180,7 @@ Trách nhiệm:
 - xác định đường dẫn hồ sơ;
 - từ chối mô-đun chưa đăng kí và đường dẫn không an toàn.
 
-### 3.3. Validator lõi
+### 3.4. Validator lõi
 
 ```text
 scripts/zo_qmd_core.py
@@ -152,7 +188,7 @@ scripts/zo_qmd_core.py
 
 Chứa các kiểm tra dùng chung như front matter, metadata, placeholder, tiêu đề, hình, tài nguyên, đường dẫn bị cấm và mã thực thi.
 
-### 3.4. Registry mô-đun
+### 3.5. Registry mô-đun
 
 ```text
 scripts/zo_qmd_registry.py
@@ -172,7 +208,7 @@ functions-article
 real-world-problem
 ```
 
-### 3.5. Validator dự án
+### 3.6. Validator dự án
 
 - `functions-article`: được cài trong checker hiện hành;
 - `real-world-problem`: được cài tại `scripts/zo_real_world_problem.py`.
@@ -376,4 +412,4 @@ Commit khóa tài liệu M9B hoàn tất phiên bản 1.0 mà không thay đổi
 
 ## 10. Mốc tiếp theo
 
-Sau mốc O0, việc triển khai bắt đầu từ O1: tạo `scripts/zo_qmd.py` như mặt tiền vận hành cho `doctor`, `inspect`, `check`, `render` và `regression`. Không bắt đầu O1 trước khi tài liệu O0 được duyệt và kiểm tra nhất quán trong repository sống.
+O1 đã triển khai và kiểm nghiệm `scripts/zo_qmd.py` với `doctor`, `inspect`, `check`, `render` và `regression`. Mốc tiếp theo là O2: triển khai `pack` và `verify`, sinh manifest cùng checksum, rồi kiểm nghiệm một gói trong thư mục sạch.

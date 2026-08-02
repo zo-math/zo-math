@@ -291,7 +291,23 @@ O0 chưa chứng minh:
 - có release candidate;
 - đã chạy phiên trình diễn.
 
-## 12. Điều kiện khóa lớp vận hành 1.0
+## 12. Nghiệm thu riêng của O1
+
+O1 đạt khi:
+
+- `scripts/zo_qmd.py --help` và trợ giúp của năm lệnh hoạt động;
+- `doctor` xác nhận môi trường, tệp hệ thống, cấu hình và bài hồi quy;
+- `inspect` nhận diện đúng hai dự án, loại bài, hồ sơ, adapter và chuỗi `AGENTS.md`;
+- `check` và `render` bảo toàn checker `2.6.0`, mã thoát và cảnh báo nghiệm thu có người quan sát;
+- `regression` chạy bốn self-test, hồi quy nguồn và hồi quy render hai dự án;
+- hai QMD cùng hồ sơ hồi quy không bị sửa;
+- CLI không stage, commit, nghiệm thu hoặc xuất bản;
+- mọi subprocess Python của CLI đi qua `scripts/zo_python.py`;
+- khám phá cấu hình không bị đóng cứng vào một dự án hay một nhánh nội dung cụ thể.
+
+O1 không chứng minh rằng `start`, `pack`, `verify` hoặc `prepublish` đã tồn tại.
+
+## 13. Điều kiện khóa lớp vận hành 1.0
 
 Chỉ khóa lớp vận hành 1.0 khi:
 
@@ -303,6 +319,6 @@ Chỉ khóa lớp vận hành 1.0 khi:
 - phiên trình diễn kết thúc ở báo cáo trước xuất bản;
 - người dùng chấp thuận khóa phiên bản.
 
-## 13. Kết luận
+## 14. Kết luận
 
 Lõi QMD 1.0 chứng minh hệ thống kiểm định có thể phục vụ hai dự án. Lớp vận hành chỉ đạt khi khả năng ấy được biến thành một quy trình có thể học nhanh, bàn giao, chạy, kiểm tra, phát hành và khôi phục bằng bằng chứng lặp lại được.
