@@ -1,6 +1,6 @@
 # Tiêu chí nghiệm thu lớp vận hành cỗ máy QMD
 
-> **Trạng thái:** Ma trận nghiệm thu 0.2 — O0–O2 đã có bằng chứng kĩ thuật; O3–O4 chưa triển khai.
+> **Trạng thái:** Ma trận nghiệm thu hiện hành `0.2`; hợp đồng kiểm nghiệm O3 cho đích `0.3` đã được khóa, nhưng release candidate và rollback drill chưa có bằng chứng kĩ thuật.
 >
 > Tài liệu này đánh giá lớp vận hành bao quanh lõi QMD 1.0. Nó không thay thế `tieu_chi_nghiem_thu_he_thong.md`, vốn ghi nhận nghiệm thu của lõi kĩ thuật phiên bản 1.0.
 
@@ -174,22 +174,30 @@ Tạo một release candidate từ commit sạch, sau đó mở gói trong thư 
 
 - `MANIFEST.yml`;
 - `FILES.sha256`;
+- hồ sơ `--release-file`;
+- ma trận phiên bản;
 - changelog;
+- release checklist;
 - log `verify`;
-- phiên bản và tag;
-- bằng chứng hồi quy.
+- phiên bản và tag dự kiến;
+- hồi quy trước và sau;
+- rollback log.
 
 ### Đạt khi
 
+- release candidate được tạo từ commit sạch;
+- `repository.commit` và `release.candidate_commit` là cùng một SHA đầy đủ;
+- `release.tag` khớp `qmd-ops-v<release.version>` và `tag_created: false`;
+- `regression_status: pass` và `rollback_tested: true`;
 - không có tệp thiếu, thừa hoặc checksum sai;
-- snapshot và phiên bản xác định;
+- snapshot, phiên bản và điểm quay lại xác định;
 - mọi phụ thuộc cần thiết được khai báo;
-- gói đủ mức mà manifest tuyên bố;
+- gói đạt mức đủ để tái tạo;
 - gói được tạo tại đường dẫn đầu ra đã chỉ định, không để lại ZIP hoặc tệp tạm ở gốc repository.
 
 ### Không đạt khi
 
-Chỉ có tên ZIP hoặc comment commit, hoặc gói tuyên bố chạy độc lập nhưng thiếu import và công cụ bắt buộc.
+Chỉ có tên ZIP hoặc comment commit; worktree phát hành bẩn; tag, phiên bản hoặc commit không khớp; gói tuyên bố chạy độc lập nhưng thiếu import, công cụ hoặc bằng chứng bắt buộc.
 
 ## 8. Mục tiêu 6 — Bảo trì, nâng phiên bản và khôi phục
 
@@ -199,20 +207,23 @@ Thực hiện một thay đổi nhỏ có phân loại, tạo release candidate 
 
 ### Bằng chứng
 
-- version matrix;
+- ma trận phiên bản;
 - changelog;
 - migration note nếu có;
 - release checklist;
 - rollback log;
-- hồi quy trước và sau.
+- hồi quy trước và sau;
+- `previous_version` và `previous_commit`;
+- SHA-256 hai QMD hồi quy trước và sau;
+- bằng chứng trạng thái `publication: pending`.
 
 ### Đạt khi
 
-Có thể giải thích vì sao phiên bản thay đổi, tái lập release trước và bảo toàn hai bài hồi quy cùng trạng thái xuất bản.
+Có thể giải thích vì sao phiên bản thay đổi, dựng release trước trực tiếp từ commit đã ghi trong worktree riêng, chạy lại kiểm tra bắt buộc và bảo toàn hai bài hồi quy cùng trạng thái xuất bản.
 
 ### Không đạt khi
 
-Khôi phục dựa vào thao tác phá hủy worktree, thiếu điểm quay lại hoặc cần sửa bài hồi quy.
+Khôi phục dựa vào thao tác phá hủy worktree sống, thiếu điểm quay lại, dùng một commit không xác định, cần sửa bài hồi quy hoặc không chứng minh được trạng thái `pending`.
 
 ## 9. Mục tiêu 7 — Phiên trình diễn đầu-cuối
 
@@ -266,7 +277,7 @@ Bỏ qua cổng có người quan sát, checker tự tuyên bố nghiệm thu, h
 | O0 | Kiến trúc, giao thức, manifest, ma trận nghiệm thu | Markdown, liên kết, nhất quán thuật ngữ | Không sửa mã; không mô tả chức năng đích như đã có |
 | O1 | CLI vận hành cơ bản | Self-test, hồi quy hai dự án, `--help` | Không phá checker 2.6.0 |
 | O2 — đã triển khai kĩ thuật | `pack`, `verify`, gói ngữ cảnh | Gói thư mục/ZIP, thư mục sạch, checksum, thiếu/thừa/sai băm | Chat-box dùng được không cần lịch sử; không sửa bài hồi quy; không để lại gói thử trong repository |
-| O3 | Release, versioning, rollback | Release candidate và rollback drill | Có changelog và điểm quay lại |
+| O3 — hợp đồng đã khóa, triển khai đang chờ | Release, versioning, rollback | Release candidate và rollback drill | Có changelog, commit quay lại và bằng chứng bất biến |
 | O4 | Trình diễn đầu-cuối | Toàn bộ bảy mục tiêu | Không xuất bản; bằng chứng đầy đủ |
 
 ## 11. Nghiệm thu riêng của O0
@@ -307,7 +318,35 @@ O1 đạt khi:
 
 O1 không chứng minh rằng `start`, `pack`, `verify` hoặc `prepublish` đã tồn tại.
 
-## 13. Điều kiện khóa lớp vận hành 1.0
+## 13. Nghiệm thu riêng của O2
+
+O2 đã có bằng chứng kĩ thuật khi:
+
+- `pack` tạo gói context dạng thư mục và ZIP tại đầu ra tường minh;
+- `verify` phát hiện manifest sai, checksum sai, tệp thiếu, tệp thừa, checksum chưa sắp xếp, symlink và đường dẫn nguy hiểm;
+- gói tự xác minh được bằng CLI trong `payload/` từ thư mục sạch;
+- không sinh `__pycache__` hoặc `.pyc`;
+- hai QMD hồi quy không bị sửa và trạng thái xuất bản không đổi.
+
+O2 không chứng minh rằng gói release có thể được tạo hoặc khôi phục.
+
+## 14. Hợp đồng nghiệm thu riêng của O3
+
+O3 chỉ được chuyển sang trạng thái đã triển khai khi:
+
+- ma trận phiên bản, changelog, quy trình phát hành–khôi phục và mẫu hồ sơ release nhất quán;
+- `pack --kind release --release-file ...` hoạt động mà không phá giao diện context;
+- `verify` kiểm tra kiểu dữ liệu, quan hệ phiên bản–tag–commit và các bằng chứng release;
+- self-test bao phủ cả release hợp lệ và release bị từ chối;
+- release candidate `0.3.0` được tạo từ commit sạch và tự xác minh trong thư mục sạch;
+- rollback drill từ commit ứng viên về `c1b26b9a0536b17e0885d8158fddbd20413767c2` đạt;
+- SHA-256 hai QMD hồi quy không đổi;
+- `publication: pending` được bảo toàn;
+- không tạo tag thật, không push và không publish.
+
+Việc tài liệu mô tả giao diện O3 không phải bằng chứng rằng các điều kiện trên đã đạt.
+
+## 15. Điều kiện khóa lớp vận hành 1.0
 
 Chỉ khóa lớp vận hành 1.0 khi:
 
@@ -319,6 +358,6 @@ Chỉ khóa lớp vận hành 1.0 khi:
 - phiên trình diễn kết thúc ở báo cáo trước xuất bản;
 - người dùng chấp thuận khóa phiên bản.
 
-## 14. Kết luận
+## 16. Kết luận
 
 Lõi QMD 1.0 chứng minh hệ thống kiểm định có thể phục vụ hai dự án. Lớp vận hành chỉ đạt khi khả năng ấy được biến thành một quy trình có thể học nhanh, bàn giao, chạy, kiểm tra, phát hành và khôi phục bằng bằng chứng lặp lại được.
