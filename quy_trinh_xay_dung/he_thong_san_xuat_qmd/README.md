@@ -1,6 +1,6 @@
 # Hệ thống sản xuất và kiểm định QMD cho ZO Math
 
-> **Trạng thái:** Lõi kĩ thuật phiên bản 1.0 đã khóa; mã ứng viên O3 của lớp vận hành đã ở `0.3.0`; hồi quy trước–sau và rollback drill đã đạt; release hiện hành vẫn là `0.2.0` cho đến khi release candidate thật được tạo và tự xác minh.
+> **Trạng thái:** Lõi kĩ thuật phiên bản 1.0 đã khóa; release hiện hành của lớp vận hành là `0.3.0`; O3 đã hoàn tất bằng release candidate được tạo từ commit sạch, tự xác minh và có rollback drill đạt; O4 chưa triển khai.
 >
 > Đây là tài liệu vận hành nội bộ. Nó chỉ có thẩm quyền trong phạm vi mà `AGENTS.md`, cấu hình dự án hoặc yêu cầu hiện tại của người dùng dẫn chiếu. Các hồ sơ kiểm kê và thiết kế ban đầu được giữ lại như bằng chứng lịch sử, không tự động ghi đè quy trình đang có hiệu lực ở nơi khác.
 
@@ -13,7 +13,7 @@
 - schema cấu hình dự án phiên bản `1`;
 - chế độ native và đường hồi quy hai dự án.
 
-Đã triển khai trong mã ứng viên O3:
+Release O3 hiện hành:
 
 - `scripts/zo_qmd.py` phiên bản `0.3.0`;
 - `scripts/zo_qmd_package.py` phiên bản `0.3.0`;
@@ -31,7 +31,6 @@ O3 đã triển khai trong mã:
 
 Chưa hoàn thành:
 
-- tạo và tự xác minh release candidate thật `0.3.0` từ commit sạch;
 - `start` và `prepublish`;
 - phiên kiểm nghiệm một chat-box mới chỉ dùng gói, không dùng lịch sử hội thoại;
 - phiên trình diễn đầu-cuối.
@@ -42,7 +41,7 @@ Ba tài liệu điều khiển giai đoạn vận hành hóa:
 - `giao_thuc_agent_chat_box_va_goi_ngu_canh.md`;
 - `tieu_chi_nghiem_thu_lop_van_hanh.md`.
 
-`scripts/zo_qmd.py` là điểm vào vận hành hiện hành cho bảy lệnh; mã ứng viên O3 giữ nguyên tập lệnh và mở rộng `pack`. `scripts/zo_check_repo.py` vẫn là checker lõi; CLI vận hành chỉ điều phối và bảo toàn mã thoát, báo cáo cùng các cổng kiểm định hiện có. Logic tạo và xác minh gói nằm trong `scripts/zo_qmd_package.py`, không được trộn vào checker.
+`scripts/zo_qmd.py` là điểm vào vận hành hiện hành cho bảy lệnh; release O3 giữ nguyên tập lệnh và mở rộng `pack`. `scripts/zo_check_repo.py` vẫn là checker lõi; CLI vận hành chỉ điều phối và bảo toàn mã thoát, báo cáo cùng các cổng kiểm định hiện có. Logic tạo và xác minh gói nằm trong `scripts/zo_qmd_package.py`, không được trộn vào checker.
 
 Ranh giới lưu trữ hiện hành:
 
@@ -129,7 +128,7 @@ scripts/zo_qmd.py
 scripts/zo_qmd_package.py
 ```
 
-Phiên bản mã ứng viên O3:
+Phiên bản vận hành hiện hành:
 
 ```text
 QMD OPERATIONS CLI: 0.3.0
@@ -387,7 +386,7 @@ Hợp đồng phát hành O3:
 - `quy_trinh_phat_hanh_va_khoi_phuc_qmd.md`;
 - `mau_ho_so_phat_hanh_qmd.yml`.
 
-CLI cơ bản và gói context đã có bằng chứng O2. Mã ứng viên O3 đã triển khai tạo và xác minh gói release cùng self-test liên quan. Hồi quy trước–sau và rollback drill đã có bằng chứng tại `phat_hanh/qmd_ops_0_3_0/`; release candidate thật vẫn chưa được tạo và tự xác minh. Phiên trình diễn đầu-cuối thuộc O4.
+CLI cơ bản và gói context đã có bằng chứng O2. O3 đã có release candidate `0.3.0` được tạo từ commit sạch, đạt xác minh bằng CLI ngoài repository và CLI tự chứa trong payload; hồi quy trước–sau, rollback drill và bằng chứng hậu đóng gói được lưu tại `phat_hanh/qmd_ops_0_3_0/`. Phiên trình diễn đầu-cuối thuộc O4.
 
 ### 7.3. Hồ sơ chuyển đổi
 
@@ -438,4 +437,4 @@ Commit khóa tài liệu M9B hoàn tất phiên bản 1.0 mà không thay đổi
 
 O2 đã triển khai và kiểm nghiệm `pack` cùng `verify` trên gói context dạng thư mục và ZIP, bao gồm các trường hợp tệp thiếu, tệp thừa, checksum sai, danh sách checksum chưa sắp xếp và việc chạy CLI trong thư mục sạch.
 
-Mã ứng viên O3 đã triển khai `pack --kind release`, xác minh nghiêm ngặt manifest và payload release, đồng thời bổ sung self-test tương thích context và các trường hợp release bị từ chối. Hồi quy trước–sau, hồ sơ bằng chứng và rollback drill đã đạt trên hai worktree riêng; hai QMD hồi quy giữ nguyên SHA-256 và trạng thái xuất bản vẫn `pending`. Bước tiếp theo là tạo release candidate `0.3.0` từ commit sạch chứa hồ sơ, rồi xác minh bằng CLI ngoài repository và CLI tự chứa trong payload. Release hiện hành vẫn là `0.2.0` cho đến khi bước này đạt.
+Release `0.3.0` đã hoàn tất O3: `pack --kind release` và `verify` đã được kiểm nghiệm; release candidate được tạo từ commit sạch; hai lớp xác minh đều đạt; rollback drill đạt; hai QMD hồi quy giữ nguyên SHA-256 và trạng thái xuất bản vẫn `pending`. Git tag thật chưa được tạo, không push và không publish. Mốc tiếp theo là O4 — phiên trình diễn đầu-cuối và nghiệm thu lớp vận hành.
