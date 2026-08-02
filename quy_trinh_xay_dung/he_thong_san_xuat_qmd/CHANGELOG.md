@@ -4,7 +4,7 @@ Tài liệu này ghi những thay đổi quan sát được của lớp vận h�
 
 ## Chưa phát hành — đích `0.3.0`
 
-### Hợp đồng đã khóa
+### Đã triển khai trong mã ứng viên
 
 - Dùng `pack --kind context|release`; `context` tiếp tục là mặc định tương thích ngược.
 - Gói release nhận một hồ sơ tường minh qua `--release-file`.
@@ -13,14 +13,22 @@ Tài liệu này ghi những thay đổi quan sát được của lớp vận h�
 - Release candidate phải mang changelog, ma trận phiên bản, checklist, hướng dẫn nâng cấp–khôi phục và bằng chứng hồi quy.
 - O3 không tạo tag thật, không push và không publish.
 
-### Chưa triển khai tại thời điểm khóa hợp đồng
+### Mã ứng viên `0.3.0`
 
-- `scripts/zo_qmd.py` và `scripts/zo_qmd_package.py` vẫn ở `0.2.0`.
-- `pack` hiện chỉ tạo gói context.
-- `verify` mới kiểm tra hình thức sơ bộ của nhóm `release`, chưa kiểm tra đầy đủ hợp đồng O3.
-- Chưa có release candidate và rollback drill của `0.3.0`.
+- Nâng `scripts/zo_qmd.py` và `scripts/zo_qmd_package.py` lên `0.3.0`.
+- Thêm `pack --kind release --release-file ...` nhưng giữ `context` là mặc định.
+- Từ chối release từ worktree bẩn, đầu ra trong repository, hồ sơ sai SemVer, tag, commit, trạng thái hồi quy hoặc rollback.
+- Đưa tài liệu, runtime dependency, hai QMD hồi quy và toàn bộ bằng chứng khai báo vào payload.
+- Mở rộng `verify` để kiểm tra quan hệ phiên bản–tag–commit, vai trò nguồn, payload bắt buộc và runtime dependency closure.
+- Bổ sung self-test cho release hợp lệ, manifest release sai và worktree bẩn.
 
-### Di trú dự kiến từ `0.2.0`
+### Chưa hoàn tất O3
+
+- Chưa có hồi quy trước–sau được ghi vào hồ sơ phát hành thật.
+- Chưa diễn tập rollback trong worktree riêng.
+- Chưa tạo release candidate `0.3.0`, Git tag thật, push hoặc publish.
+
+### Di trú từ `0.2.0`
 
 Không cần đổi lệnh tạo gói context hiện hành. Lệnh không khai báo `--kind` tiếp tục được hiểu là `context`. Chỉ quy trình tạo release candidate mới phải cung cấp `--kind release` và `--release-file`.
 

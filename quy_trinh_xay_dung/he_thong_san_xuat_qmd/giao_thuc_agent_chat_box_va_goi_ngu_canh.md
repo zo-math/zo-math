@@ -1,6 +1,6 @@
 # Giao thức cho agent, chat-box và gói ngữ cảnh QMD
 
-> **Trạng thái:** Quy chuẩn vận hành hiện hành `0.2`; hợp đồng gói release của O3 đã được khóa cho đích `0.3`, nhưng mã tạo release candidate và kiểm nghiệm rollback chưa được coi là đã triển khai.
+> **Trạng thái:** Quy chuẩn release hiện hành vẫn neo tại `0.2.0`; mã ứng viên O3 `0.3.0` đã triển khai tạo và xác minh gói release, nhưng release candidate thật và kiểm nghiệm rollback chưa hoàn tất.
 >
 > Tài liệu này quy định cách một agent trong VS Code hoặc một chat-box tiếp nhận và bàn giao nhiệm vụ QMD. Nó không thay thế chỉ dẫn cấp repository hoặc quy chuẩn chuyên biệt của dự án.
 
@@ -234,7 +234,7 @@ Hợp đồng O2:
 - `--output`, `--prompt`, `--purpose` và ít nhất một phạm vi là bắt buộc;
 - `pack` không ghi đè đầu ra đã tồn tại;
 - đầu ra trong repository bị từ chối nếu thiếu `--inside-repository-reason`;
-- `pack` O2 chỉ tạo `package.kind: context`; gói `release` thuộc O3;
+- `pack` mặc định tạo `package.kind: context`; mã ứng viên O3 cho phép `release` khi hồ sơ và các cổng bắt buộc đạt;
 - `verify` có thể chạy ngoài repository Git bằng CLI nằm trong `payload/`;
 - chế độ `--json` chỉ xuất JSON trên stdout;
 - trình khởi chạy `zo_python.py` đặt `PYTHONDONTWRITEBYTECODE=1` để việc chạy mã không sinh `__pycache__` hoặc `.pyc` trong gói.
@@ -387,7 +387,7 @@ Ba nhóm:
 - `historical`: bằng chứng lịch sử, không ghi đè nguồn hiện hành.
 
 
-### 7.6. Giao diện tạo gói đích của O3
+### 7.6. Giao diện tạo gói của O3
 
 O3 giữ một lệnh `pack` và khóa hai tham số:
 
@@ -398,7 +398,7 @@ O3 giữ một lệnh `pack` và khóa hai tham số:
 
 `context` là mặc định tương thích ngược. `--release-file` chỉ hợp lệ và bắt buộc khi `--kind release`. Hồ sơ phát hành tuân theo `mau_ho_so_phat_hanh_qmd.yml`.
 
-Đây là giao diện đích đã khóa. Trước khi `scripts/zo_qmd.py` và `scripts/zo_qmd_package.py` triển khai, self-test và hồi quy đạt, không được mô tả giao diện này như chức năng hiện hành.
+Giao diện này đã được triển khai trong mã ứng viên `0.3.0`. Chỉ sau khi hồi quy, release candidate và rollback drill cùng đạt mới được gọi `0.3.0` là release hiện hành.
 
 ## 8. `FILES.sha256`
 
@@ -527,6 +527,14 @@ release:
   candidate_commit: full-40-character-sha
   regression_status: pass
   rollback_tested: true
+change:
+  semver: minor
+  classifications:
+    - operations_contract
+    - cli
+    - package_module
+  migration_required: false
+  migration_summary: "Mô tả đường di trú hoặc lí do không cần di trú."
 ```
 
 Quy tắc:
@@ -538,7 +546,8 @@ Quy tắc:
 - `candidate_commit` phải khớp `repository.commit`;
 - `regression_status` chỉ chấp nhận `pass`;
 - `rollback_tested` chỉ chấp nhận `true`;
-- mọi trường phải có đúng kiểu dữ liệu, không chỉ tồn tại theo tên.
+- mọi trường phải có đúng kiểu dữ liệu, không chỉ tồn tại theo tên;
+- nhóm `change` phải khớp mức tăng phiên bản và có phân loại thay đổi hợp lệ.
 
 ### 10.4. Hồ sơ phát hành đầu vào
 

@@ -1,6 +1,6 @@
 # Quy trình phát hành và khôi phục lớp vận hành QMD
 
-> **Trạng thái:** Hợp đồng O3 đã được khóa; giao diện tạo release candidate chưa được coi là đã triển khai cho đến khi mã và bằng chứng kiểm nghiệm tương ứng tồn tại.
+> **Trạng thái:** Giao diện tạo và xác minh gói release đã được triển khai trong mã ứng viên `0.3.0`; release candidate thật, hồi quy trước–sau và rollback drill vẫn phải được tạo bằng bằng chứng riêng.
 >
 > Quy trình này chỉ điều hành lớp vận hành QMD. Nó không tự stage, commit, tag, push, publish hoặc thay đổi trạng thái bài.
 
@@ -54,7 +54,7 @@ Quy tắc:
 - `verify` tiếp tục dùng chung cho gói context và release;
 - mọi đầu ra vẫn phải được khai báo tường minh.
 
-Giao diện trên là hợp đồng đích. Trước khi mã O3 được commit và self-test đạt, không mô tả nó như chức năng hiện hành.
+Giao diện trên đã có trong mã ứng viên O3. Nó không tự tạo bằng chứng hồi quy, không tự đổi hồ sơ từ `pending` sang `pass` và không tự tuyên bố rollback đã đạt.
 
 ## 5. Hồ sơ phát hành
 

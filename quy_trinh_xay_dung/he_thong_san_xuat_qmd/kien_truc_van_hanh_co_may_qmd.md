@@ -1,6 +1,6 @@
 # Kiến trúc vận hành cỗ máy QMD
 
-> **Trạng thái:** Lớp vận hành `0.2` đang có hiệu lực; hợp đồng đích O3 cho `0.3` đã được khóa nhưng mã release, release candidate và rollback drill chưa triển khai; O4 chưa triển khai.
+> **Trạng thái:** Release hiện hành của lớp vận hành là `0.2.0`; mã ứng viên O3 `0.3.0` đã triển khai gói release và self-test, nhưng release candidate thật cùng rollback drill chưa hoàn tất; O4 chưa triển khai.
 >
 > Tài liệu này bao quanh lõi kĩ thuật của Hệ thống sản xuất và kiểm định QMD phiên bản 1.0. Nó không thay thế `kien_truc_he_thong.md`, `hop_dong_loi_va_du_an.md` hoặc các quy chuẩn chuyên biệt của từng dự án.
 
@@ -80,7 +80,7 @@ Không cổng nào tự động mở cổng tiếp theo.
 python scripts/zo_python.py scripts/zo_qmd.py <command> [tham số...]
 ```
 
-Từ mốc O2, `scripts/zo_qmd.py` phiên bản `0.2.0` là điểm vào vận hành hiện hành cho:
+Trong mã ứng viên O3, `scripts/zo_qmd.py` phiên bản `0.3.0` là điểm vào vận hành cho:
 
 ```text
 doctor
@@ -98,7 +98,7 @@ verify
 python scripts/zo_python.py scripts/zo_check_repo.py ...
 ```
 
-`zo_qmd.py` điều phối các thành phần hiện có, không sao chép validator và không thay đổi hợp đồng của `zo_check_repo.py`. Các lệnh `pack` và `verify` đã được triển khai ở O2 qua `scripts/zo_qmd_package.py`. `pack` hiện chỉ tạo gói ngữ cảnh. O3 khóa giao diện đích `pack --kind context|release` với `context` là mặc định tương thích ngược và `--release-file` bắt buộc cho gói release; giao diện này chưa được coi là chức năng hiện hành trước khi mã và self-test tương ứng tồn tại. Các lệnh `start` và `prepublish` vẫn là đích của các mốc sau.
+`zo_qmd.py` điều phối các thành phần hiện có, không sao chép validator và không thay đổi hợp đồng của `zo_check_repo.py`. `pack --kind context|release` và `verify` được triển khai qua `scripts/zo_qmd_package.py`; `context` là mặc định tương thích ngược và `--release-file` bắt buộc cho gói release. Việc mã tồn tại chưa tự chứng minh release candidate thật hoặc rollback drill đã đạt. Các lệnh `start` và `prepublish` vẫn là đích của các mốc sau.
 
 ### 3.1. Bộ lệnh đích
 
@@ -399,10 +399,11 @@ Phiên trình diễn phải kết thúc trước cổng xuất bản. Báo cáo 
 - gói đã tự xác minh bằng CLI trong `payload/` từ thư mục sạch;
 - trình khởi chạy Python khóa việc sinh bytecode để không làm thay đổi gói sau khi chạy.
 
-### O3 — Phát hành, bảo trì và khôi phục — hợp đồng đã khóa, triển khai đang chờ
+### O3 — Phát hành, bảo trì và khôi phục — mã ứng viên đã triển khai
 
 - đã khóa ma trận phiên bản, changelog, giao diện `pack --kind`, hồ sơ release và quy trình rollback;
-- chưa có mã tạo release candidate, self-test release hoặc rollback drill;
+- đã triển khai tạo và xác minh gói release cùng self-test;
+- chưa có release candidate thật, hồi quy trước–sau hoặc rollback drill;
 - chỉ khi các bằng chứng ấy tồn tại mới được chuyển O3 sang trạng thái đã triển khai.
 
 ### O4 — Trình diễn và nghiệm thu
