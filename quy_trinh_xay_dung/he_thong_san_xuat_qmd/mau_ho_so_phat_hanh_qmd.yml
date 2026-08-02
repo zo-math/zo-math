@@ -1,0 +1,32 @@
+# Mẫu đầu vào cho `pack --kind release --release-file ...`.
+# Đây là hồ sơ khai báo; không đặt `pass` hoặc `true` trước khi có bằng chứng thật.
+
+release_record_version: 1
+
+release:
+  stage: candidate
+  version: "0.3.0"
+  tag: qmd-ops-v0.3.0
+  tag_created: false
+  previous_version: "0.2.0"
+  previous_commit: c1b26b9a0536b17e0885d8158fddbd20413767c2
+  regression_status: pending
+  rollback_tested: false
+
+change:
+  semver: minor
+  classifications:
+    - operations_contract
+    - cli
+    - package_module
+  migration_required: false
+  migration_summary: "Gói context giữ giao diện tương thích; chỉ release candidate cần --kind release và --release-file."
+
+evidence:
+  version_matrix: quy_trinh_xay_dung/he_thong_san_xuat_qmd/ma_tran_phien_ban_qmd.md
+  changelog: quy_trinh_xay_dung/he_thong_san_xuat_qmd/CHANGELOG.md
+  release_checklist: quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_3_0/release_checklist.md
+  rollback_log: quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_3_0/rollback_log.md
+  regression_before: quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_3_0/regression_before.txt
+  regression_after: quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_3_0/regression_after.txt
+  upgrade_and_rollback_guide: quy_trinh_xay_dung/he_thong_san_xuat_qmd/quy_trinh_phat_hanh_va_khoi_phuc_qmd.md

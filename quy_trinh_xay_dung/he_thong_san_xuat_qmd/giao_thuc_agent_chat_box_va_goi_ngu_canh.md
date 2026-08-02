@@ -1,6 +1,6 @@
 # Giao thức cho agent, chat-box và gói ngữ cảnh QMD
 
-> **Trạng thái:** Quy chuẩn vận hành 0.2 — `pack` và `verify` đã được triển khai, kiểm nghiệm ở O2.
+> **Trạng thái:** Quy chuẩn vận hành hiện hành `0.2`; hợp đồng gói release của O3 đã được khóa cho đích `0.3`, nhưng mã tạo release candidate và kiểm nghiệm rollback chưa được coi là đã triển khai.
 >
 > Tài liệu này quy định cách một agent trong VS Code hoặc một chat-box tiếp nhận và bàn giao nhiệm vụ QMD. Nó không thay thế chỉ dẫn cấp repository hoặc quy chuẩn chuyên biệt của dự án.
 
@@ -352,7 +352,7 @@ release
 ```
 
 - `context`: bàn giao một nhiệm vụ hoặc snapshot để khảo sát.
-- `release`: đóng băng một phiên bản lớp vận hành đã qua điều kiện phát hành.
+- `release`: đóng băng một release candidate của lớp vận hành đã qua điều kiện phát hành và rollback drill. Gói context không được đổi `kind` bằng cách sửa tay manifest rồi gọi là release.
 
 ### 7.3. Giá trị `repository.source`
 
@@ -385,6 +385,20 @@ Ba nhóm:
 - `required`: luôn phải đọc;
 - `conditional`: chỉ đọc khi điều kiện áp dụng xuất hiện;
 - `historical`: bằng chứng lịch sử, không ghi đè nguồn hiện hành.
+
+
+### 7.6. Giao diện tạo gói đích của O3
+
+O3 giữ một lệnh `pack` và khóa hai tham số:
+
+```text
+--kind context|release
+--release-file <duong_dan_yaml>
+```
+
+`context` là mặc định tương thích ngược. `--release-file` chỉ hợp lệ và bắt buộc khi `--kind release`. Hồ sơ phát hành tuân theo `mau_ho_so_phat_hanh_qmd.yml`.
+
+Đây là giao diện đích đã khóa. Trước khi `scripts/zo_qmd.py` và `scripts/zo_qmd_package.py` triển khai, self-test và hồi quy đạt, không được mô tả giao diện này như chức năng hiện hành.
 
 ## 8. `FILES.sha256`
 
@@ -466,27 +480,75 @@ Việc một tệp đang tồn tại trong worktree không làm nó trở thành
 
 ## 10. Gói phát hành
 
+### 10.1. Điều kiện nguồn
+
+Release candidate phải được tạo từ repository Git và commit xác định, với worktree phát hành sạch và đầu ra ngoài repository. Nếu worktree bẩn, công cụ phải dừng; việc ghi sai lệch trong prompt hoặc limitation không biến một snapshot bẩn thành release candidate.
+
+Gói release phải ghi:
+
+```yaml
+repository:
+  source: exported_snapshot
+  commit: full-40-character-sha
+  dirty: false
+```
+
+### 10.2. Thành phần bắt buộc trong payload
+
 Ngoài cấu trúc chung, gói release phải có trong `payload/`:
 
-- mã CLI vận hành;
-- checker và phụ thuộc cần thiết;
-- tài liệu hiện hành;
-- schema manifest;
-- đường cơ sở hồi quy;
+- mã CLI vận hành và mô-đun đóng gói;
+- checker cùng toàn bộ phụ thuộc runtime cần thiết;
+- tài liệu hiện hành của lõi và lớp vận hành;
+- schema manifest và mẫu hồ sơ phát hành;
+- đường cơ sở hồi quy hai dự án;
+- ma trận phiên bản;
 - changelog;
+- release checklist;
 - hướng dẫn nâng cấp và khôi phục;
+- rollback log;
+- hồi quy trước và sau;
 - bằng chứng kiểm tra release candidate.
+
+Các đường dẫn bằng chứng được khai báo trong hồ sơ `--release-file`; công cụ không được suy đoán bằng tên gần giống.
+
+### 10.3. Nhóm `release` trong manifest
 
 Manifest release phải thêm:
 
 ```yaml
 release:
+  stage: candidate
   version: "X.Y.Z"
   tag: qmd-ops-vX.Y.Z
+  tag_created: false
   previous_version: "X.Y.Z"
+  previous_commit: full-40-character-sha
+  candidate_commit: full-40-character-sha
   regression_status: pass
   rollback_tested: true
 ```
+
+Quy tắc:
+
+- `version` và `previous_version` theo `MAJOR.MINOR.PATCH`;
+- `tag` phải khớp chính xác `qmd-ops-v<version>`;
+- `tag_created` phải là `false` trong O3;
+- `previous_commit` và `candidate_commit` là SHA đầy đủ 40 kí tự;
+- `candidate_commit` phải khớp `repository.commit`;
+- `regression_status` chỉ chấp nhận `pass`;
+- `rollback_tested` chỉ chấp nhận `true`;
+- mọi trường phải có đúng kiểu dữ liệu, không chỉ tồn tại theo tên.
+
+### 10.4. Hồ sơ phát hành đầu vào
+
+`mau_ho_so_phat_hanh_qmd.yml` định nghĩa hồ sơ máy đọc được cho `--release-file`. Hồ sơ phải ghi danh tính release trước, phân loại thay đổi, quyết định SemVer và đường dẫn từng bằng chứng. Hồ sơ không ghi `candidate_commit`; công cụ phải lấy SHA của `HEAD` từ worktree sạch rồi ghi vào manifest để tránh tự tham chiếu tới commit chứa chính hồ sơ.
+
+Tệp mẫu có thể dùng `pending`, `false` hoặc `unknown` để ngăn việc claim sớm. `pack --kind release` phải từ chối các giá trị ấy; chỉ hồ sơ đã được cập nhật bằng bằng chứng thật mới đủ điều kiện tạo release candidate.
+
+### 10.5. Mức đầy đủ
+
+Gói release phải đạt mức **đủ để tái tạo**. Gói chỉ đủ để đọc hoặc đủ để chạy không được gọi là release candidate.
 
 ## 11. Quy tắc xác minh
 

@@ -1,6 +1,6 @@
 # Hệ thống sản xuất và kiểm định QMD cho ZO Math
 
-> **Trạng thái:** Lõi kĩ thuật phiên bản 1.0 đã khóa; lớp vận hành O2 với CLI và gói ngữ cảnh chuẩn đã được triển khai.
+> **Trạng thái:** Lõi kĩ thuật phiên bản 1.0 đã khóa; lớp vận hành `0.2` của O2 đang có hiệu lực; hợp đồng O3 cho đích `0.3` đã được khóa nhưng mã release, release candidate và rollback drill chưa triển khai.
 >
 > Đây là tài liệu vận hành nội bộ. Nó chỉ có thẩm quyền trong phạm vi mà `AGENTS.md`, cấu hình dự án hoặc yêu cầu hiện tại của người dùng dẫn chiếu. Các hồ sơ kiểm kê và thiết kế ban đầu được giữ lại như bằng chứng lịch sử, không tự động ghi đè quy trình đang có hiệu lực ở nơi khác.
 
@@ -21,11 +21,20 @@
 - điều phối qua loader, registry, checker và các self-test hiện hành;
 - hồi quy nguồn và render trên hai dự án đường cơ sở.
 
+Hợp đồng O3 đã được khóa cho:
+
+- ma trận phiên bản;
+- changelog;
+- giao diện đích `pack --kind context|release`;
+- hồ sơ release qua `--release-file`;
+- release checklist và rollback drill.
+
 Chưa hoàn thành:
 
-- `start`, `prepublish` và quy trình phát hành, bảo trì, khôi phục của O3;
+- mã tạo và xác minh release candidate;
+- self-test release và rollback drill;
+- `start` và `prepublish`;
 - phiên kiểm nghiệm một chat-box mới chỉ dùng gói, không dùng lịch sử hội thoại;
-- gói phát hành, bảo trì và khôi phục;
 - phiên trình diễn đầu-cuối.
 
 Ba tài liệu điều khiển giai đoạn vận hành hóa:
@@ -363,14 +372,23 @@ Các bất biến:
 - `huong_dan_them_du_an_va_validator.md`;
 - `tieu_chi_nghiem_thu_he_thong.md`.
 
-### 7.2. Tài liệu lớp vận hành 0.2
+### 7.2. Tài liệu lớp vận hành
+
+Hợp đồng nền và nghiệm thu:
 
 - `kien_truc_van_hanh_co_may_qmd.md`;
 - `giao_thuc_agent_chat_box_va_goi_ngu_canh.md`;
 - `tieu_chi_nghiem_thu_lop_van_hanh.md`;
 - `mau_manifest_goi_qmd.yml`.
 
-Các tài liệu và mẫu này mô tả hợp đồng lớp vận hành hiện hành đến O2. CLI cơ bản, đóng gói ngữ cảnh và xác minh gói đã có bằng chứng kĩ thuật; phát hành, khôi phục và trình diễn đầu-cuối vẫn thuộc O3–O4.
+Hợp đồng phát hành O3:
+
+- `ma_tran_phien_ban_qmd.md`;
+- `CHANGELOG.md`;
+- `quy_trinh_phat_hanh_va_khoi_phuc_qmd.md`;
+- `mau_ho_so_phat_hanh_qmd.yml`.
+
+CLI cơ bản, đóng gói context và xác minh gói đã có bằng chứng kĩ thuật ở O2. Các tài liệu O3 khóa giao diện và điều kiện phát hành nhưng không chứng minh mã release đã tồn tại. Phiên trình diễn đầu-cuối vẫn thuộc O4.
 
 ### 7.3. Hồ sơ chuyển đổi
 
@@ -419,4 +437,6 @@ Commit khóa tài liệu M9B hoàn tất phiên bản 1.0 mà không thay đổi
 
 ## 10. Mốc tiếp theo
 
-O2 đã triển khai và kiểm nghiệm `pack` cùng `verify` trên gói thư mục và ZIP, bao gồm các trường hợp tệp thiếu, tệp thừa, checksum sai, danh sách checksum chưa sắp xếp và việc chạy CLI trong thư mục sạch. Mốc tiếp theo là O3: phát hành, bảo trì và khôi phục.
+O2 đã triển khai và kiểm nghiệm `pack` cùng `verify` trên gói context dạng thư mục và ZIP, bao gồm các trường hợp tệp thiếu, tệp thừa, checksum sai, danh sách checksum chưa sắp xếp và việc chạy CLI trong thư mục sạch.
+
+Phần hợp đồng đầu tiên của O3 đã khóa ma trận phiên bản, changelog, giao diện release, hồ sơ phát hành và quy trình rollback. Bước tiếp theo là triển khai `pack --kind release`, xác minh nghiêm ngặt manifest release, bổ sung self-test, rồi mới tạo release candidate `0.3.0` và diễn tập khôi phục. Phiên bản hiện hành vẫn là `0.2.0` cho đến khi toàn bộ bằng chứng O3 đạt.

@@ -1,5 +1,6 @@
-# Mẫu manifest cho gói ngữ cảnh hoặc gói phát hành QMD.
-# Các giá trị "unknown" phải được thay bằng dữ liệu đã xác nhận khi có thể.
+# Mẫu manifest cho gói context hoặc release QMD.
+# Dùng đúng phiên bản đã triển khai trong mã; không điền phiên bản đích như thể đã có hiệu lực.
+# Các giá trị "unknown" phải được thay bằng dữ liệu đã xác nhận khi hợp đồng yêu cầu.
 
 manifest_version: 1
 
@@ -63,3 +64,16 @@ integrity:
   file: FILES.sha256
 
 limitations: []
+
+# Chỉ dùng nhóm dưới đây khi package.kind: release.
+# Gói release O3 phải được tạo từ worktree sạch và hồ sơ --release-file đã đạt.
+# release:
+#   stage: candidate
+#   version: "0.3.0"
+#   tag: qmd-ops-v0.3.0
+#   tag_created: false
+#   previous_version: "0.2.0"
+#   previous_commit: c1b26b9a0536b17e0885d8158fddbd20413767c2
+#   candidate_commit: full-40-character-sha
+#   regression_status: pass
+#   rollback_tested: true

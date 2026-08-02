@@ -1,6 +1,6 @@
 # Kiến trúc vận hành cỗ máy QMD
 
-> **Trạng thái:** Hợp đồng kiến trúc vận hành 0.2 — O0–O2 đã triển khai; O3–O4 chưa triển khai.
+> **Trạng thái:** Lớp vận hành `0.2` đang có hiệu lực; hợp đồng đích O3 cho `0.3` đã được khóa nhưng mã release, release candidate và rollback drill chưa triển khai; O4 chưa triển khai.
 >
 > Tài liệu này bao quanh lõi kĩ thuật của Hệ thống sản xuất và kiểm định QMD phiên bản 1.0. Nó không thay thế `kien_truc_he_thong.md`, `hop_dong_loi_va_du_an.md` hoặc các quy chuẩn chuyên biệt của từng dự án.
 
@@ -98,7 +98,7 @@ verify
 python scripts/zo_python.py scripts/zo_check_repo.py ...
 ```
 
-`zo_qmd.py` điều phối các thành phần hiện có, không sao chép validator và không thay đổi hợp đồng của `zo_check_repo.py`. Các lệnh `pack` và `verify` đã được triển khai ở O2 qua `scripts/zo_qmd_package.py`. `pack` hiện tạo gói ngữ cảnh; gói phát hành thuộc O3. Các lệnh `start` và `prepublish` vẫn là đích của các mốc sau, chưa được mô tả như chức năng hiện hành.
+`zo_qmd.py` điều phối các thành phần hiện có, không sao chép validator và không thay đổi hợp đồng của `zo_check_repo.py`. Các lệnh `pack` và `verify` đã được triển khai ở O2 qua `scripts/zo_qmd_package.py`. `pack` hiện chỉ tạo gói ngữ cảnh. O3 khóa giao diện đích `pack --kind context|release` với `context` là mặc định tương thích ngược và `--release-file` bắt buộc cho gói release; giao diện này chưa được coi là chức năng hiện hành trước khi mã và self-test tương ứng tồn tại. Các lệnh `start` và `prepublish` vẫn là đích của các mốc sau.
 
 ### 3.1. Bộ lệnh đích
 
@@ -285,21 +285,26 @@ Không được coi một ZIP chỉ có danh sách tệp và commit trong commen
 
 Các phiên bản được quản lí độc lập:
 
-| Thành phần | Đường cơ sở hiện tại |
-|---|---:|
-| Lõi kĩ thuật QMD | `1.0` |
-| Checker | `2.6.0` |
-| Schema cấu hình dự án | `1` |
-| Hợp đồng lớp vận hành | `0.2` |
-| Schema manifest | `1` |
+| Thành phần | Hiện hành sau O2 | Đích O3 |
+|---|---:|---:|
+| Lõi kĩ thuật QMD | `1.0` | `1.0` |
+| Checker | `2.6.0` | `2.6.0` |
+| Schema cấu hình dự án | `1` | `1` |
+| Hợp đồng lớp vận hành | `0.2` | `0.3` |
+| Schema manifest | `1` | `1` |
+| Schema hồ sơ phát hành | Chưa có | `1` |
+| CLI vận hành | `0.2.0` | `0.3.0` |
+| Mô-đun đóng gói | `0.2.0` | `0.3.0` |
 
-Lớp vận hành dùng phiên bản `MAJOR.MINOR.PATCH` sau khi được triển khai:
+Lớp vận hành dùng phiên bản `MAJOR.MINOR.PATCH`:
 
 - `MAJOR`: thay đổi không tương thích về CLI, manifest hoặc giao thức;
 - `MINOR`: thêm khả năng tương thích ngược;
 - `PATCH`: sửa lỗi hoặc làm rõ tài liệu không phá hợp đồng.
 
-Mốc O2 triển khai hợp đồng `0.2`; lớp vận hành vẫn chưa được gọi là phiên bản 1.0 trước khi hoàn thành O3–O4.
+O3 thêm khả năng tạo và xác minh release candidate nhưng giữ nguyên giao diện context của O2, nên mức đích là `MINOR`. Schema manifest vẫn là `1` vì `package.kind: release` và nhóm `release` đã thuộc hợp đồng schema hiện hành.
+
+Ma trận đầy đủ, điểm quay lại và điều kiện có hiệu lực được khóa tại `ma_tran_phien_ban_qmd.md`. Mốc O2 vẫn là phiên bản hiện hành cho đến khi toàn bộ điều kiện O3 đạt; lớp vận hành chưa được gọi là phiên bản 1.0 trước khi hoàn thành O3–O4.
 
 ## 8. Bảo trì, phát hành và khôi phục
 
@@ -321,27 +326,33 @@ Loại thay đổi quyết định phạm vi self-test, hồi quy và mức phi�
 
 ### 8.2. Điều kiện phát hành
 
-Một gói phát hành chỉ được tạo khi:
+Một release candidate chỉ được tạo khi:
 
-- worktree phát hành sạch hoặc mọi sai lệch được ghi rõ;
+- worktree phát hành sạch; worktree bẩn chỉ có thể dùng để khảo sát, không được gọi là release candidate;
 - self-test bắt buộc đạt;
 - hồi quy nguồn và render của hai dự án đạt;
 - manifest và checksum được xác minh;
 - tài liệu hiện hành nhất quán;
 - changelog nêu rõ thay đổi và đường di trú;
+- ma trận phiên bản, release checklist và rollback log có mặt;
 - không có thay đổi trạng thái xuất bản ngoài phạm vi.
+
+Giao thức chi tiết, hồ sơ đầu vào và đường dẫn bằng chứng được quy định tại `quy_trinh_phat_hanh_va_khoi_phuc_qmd.md` và `mau_ho_so_phat_hanh_qmd.yml`.
 
 ### 8.3. Khôi phục
 
-Khôi phục phải dựa trên release hoặc commit đã biết, ưu tiên worktree hoặc nhánh riêng. Không dùng thao tác phá hủy worktree đang chứa thay đổi ngoài phạm vi.
+Khôi phục phải dựa trên phiên bản và commit đã biết, ưu tiên worktree hoặc nhánh riêng bên ngoài repository sống. Không dùng thao tác phá hủy worktree đang chứa thay đổi ngoài phạm vi.
 
 Một diễn tập khôi phục đạt khi:
 
-- có thể xác định release trước;
-- dựng lại được môi trường từ manifest;
+- xác định được `previous_version` và `previous_commit`;
+- dựng lại được worktree previous trực tiếp từ commit ấy;
 - chạy lại được kiểm tra bắt buộc;
-- hai bài hồi quy không bị sửa để thích nghi;
-- trạng thái `pending` được bảo toàn.
+- hai bài hồi quy giữ nguyên SHA-256 và không bị sửa để thích nghi;
+- trạng thái `pending` được bảo toàn;
+- log ghi đủ lệnh, mã thoát và kết quả.
+
+Điểm quay lại của O3 là lớp vận hành `0.2.0` tại commit `c1b26b9a0536b17e0885d8158fddbd20413767c2`.
 
 ## 9. Phiên trình diễn đầu-cuối
 
@@ -388,10 +399,11 @@ Phiên trình diễn phải kết thúc trước cổng xuất bản. Báo cáo 
 - gói đã tự xác minh bằng CLI trong `payload/` từ thư mục sạch;
 - trình khởi chạy Python khóa việc sinh bytecode để không làm thay đổi gói sau khi chạy.
 
-### O3 — Phát hành, bảo trì và khôi phục
+### O3 — Phát hành, bảo trì và khôi phục — hợp đồng đã khóa, triển khai đang chờ
 
-- khóa version matrix, changelog, release checklist và rollback drill;
-- tạo release candidate có thể xác minh.
+- đã khóa ma trận phiên bản, changelog, giao diện `pack --kind`, hồ sơ release và quy trình rollback;
+- chưa có mã tạo release candidate, self-test release hoặc rollback drill;
+- chỉ khi các bằng chứng ấy tồn tại mới được chuyển O3 sang trạng thái đã triển khai.
 
 ### O4 — Trình diễn và nghiệm thu
 

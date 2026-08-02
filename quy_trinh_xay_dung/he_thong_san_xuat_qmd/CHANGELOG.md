@@ -1,0 +1,72 @@
+# Changelog lớp vận hành QMD
+
+Tài liệu này ghi những thay đổi quan sát được của lớp vận hành cỗ máy QMD. Nó không thay thế lịch sử Git và không tự chứng minh một release đã được tạo.
+
+## Chưa phát hành — đích `0.3.0`
+
+### Hợp đồng đã khóa
+
+- Dùng `pack --kind context|release`; `context` tiếp tục là mặc định tương thích ngược.
+- Gói release nhận một hồ sơ tường minh qua `--release-file`.
+- Release candidate phải được tạo từ commit sạch và đầu ra tường minh ngoài repository.
+- Manifest release phải ghi phiên bản, tag dự kiến, phiên bản và commit trước, trạng thái hồi quy và kết quả rollback drill.
+- Release candidate phải mang changelog, ma trận phiên bản, checklist, hướng dẫn nâng cấp–khôi phục và bằng chứng hồi quy.
+- O3 không tạo tag thật, không push và không publish.
+
+### Chưa triển khai tại thời điểm khóa hợp đồng
+
+- `scripts/zo_qmd.py` và `scripts/zo_qmd_package.py` vẫn ở `0.2.0`.
+- `pack` hiện chỉ tạo gói context.
+- `verify` mới kiểm tra hình thức sơ bộ của nhóm `release`, chưa kiểm tra đầy đủ hợp đồng O3.
+- Chưa có release candidate và rollback drill của `0.3.0`.
+
+### Di trú dự kiến từ `0.2.0`
+
+Không cần đổi lệnh tạo gói context hiện hành. Lệnh không khai báo `--kind` tiếp tục được hiểu là `context`. Chỉ quy trình tạo release candidate mới phải cung cấp `--kind release` và `--release-file`.
+
+## `0.2.0` — 2026-08-02
+
+Commit khóa:
+
+```text
+c1b26b9 feat(qmd-ops): add context package verification
+```
+
+### Thêm
+
+- `scripts/zo_qmd_package.py`;
+- `pack` tạo gói context dạng thư mục hoặc ZIP;
+- `verify` kiểm tra manifest, checksum, tệp thiếu, tệp thừa, symlink và đường dẫn nguy hiểm;
+- `PROMPT.md`, `MANIFEST.yml`, `FILES.sha256` và `payload/` giữ đường dẫn tương đối từ repository;
+- khả năng tự xác minh gói ngoài repository Git;
+- chặn sinh `__pycache__` và `.pyc` qua trình khởi chạy Python.
+
+### Giữ nguyên
+
+- checker `2.6.0`;
+- lõi QMD `1.0`;
+- hai bài hồi quy và trạng thái xuất bản `pending`.
+
+## `0.1.0` — 2026-08-02
+
+Commit khóa:
+
+```text
+53dba71 feat(qmd-ops): add unified operations cli
+```
+
+### Thêm
+
+- điểm vào `scripts/zo_qmd.py`;
+- các lệnh `doctor`, `inspect`, `check`, `render`, `regression`;
+- điều phối checker và các self-test hiện hành mà không sao chép validator.
+
+## Hợp đồng kiến trúc ban đầu
+
+Commit:
+
+```text
+53e0cdd docs(qmd-ops): lock operations architecture
+```
+
+Mốc này chỉ khóa kiến trúc O0; chưa phải một release runtime độc lập.
