@@ -14,7 +14,7 @@ system:
   qmd_core_version: "1.0"
   checker_version: "2.6.0"
   project_config_schema: 1
-  operations_contract_version: "0.1"
+  operations_contract_version: "0.2"
   manifest_schema: 1
 
 repository:
@@ -41,8 +41,8 @@ output:
 entrypoints:
   current:
     checker: scripts/zo_check_repo.py
-  target:
     operations_cli: scripts/zo_qmd.py
+  target: {}
 
 sources:
   required:

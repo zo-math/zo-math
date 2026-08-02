@@ -1,6 +1,6 @@
 # Hệ thống sản xuất và kiểm định QMD cho ZO Math
 
-> **Trạng thái:** Lõi kĩ thuật phiên bản 1.0 và kiến trúc O0 đã khóa; CLI vận hành cơ bản O1 đã được triển khai.
+> **Trạng thái:** Lõi kĩ thuật phiên bản 1.0 đã khóa; lớp vận hành O2 với CLI và gói ngữ cảnh chuẩn đã được triển khai.
 >
 > Đây là tài liệu vận hành nội bộ. Nó chỉ có thẩm quyền trong phạm vi mà `AGENTS.md`, cấu hình dự án hoặc yêu cầu hiện tại của người dùng dẫn chiếu. Các hồ sơ kiểm kê và thiết kế ban đầu được giữ lại như bằng chứng lịch sử, không tự động ghi đè quy trình đang có hiệu lực ở nơi khác.
 
@@ -13,17 +13,18 @@
 - schema cấu hình dự án phiên bản `1`;
 - chế độ native và đường hồi quy hai dự án.
 
-Đã triển khai ở mốc O1:
+Đã triển khai đến hết mốc O2:
 
-- `scripts/zo_qmd.py` phiên bản `0.1.0`;
-- năm lệnh `doctor`, `inspect`, `check`, `render`, `regression`;
+- `scripts/zo_qmd.py` phiên bản `0.2.0`;
+- `scripts/zo_qmd_package.py` phiên bản `0.2.0`;
+- bảy lệnh `doctor`, `inspect`, `check`, `render`, `regression`, `pack`, `verify`;
 - điều phối qua loader, registry, checker và các self-test hiện hành;
 - hồi quy nguồn và render trên hai dự án đường cơ sở.
 
 Chưa hoàn thành:
 
-- `start`, `pack`, `verify` và `prepublish`;
-- giao thức thực thi đầy đủ cho chat-box qua gói được sinh tự động;
+- `start`, `prepublish` và quy trình phát hành, bảo trì, khôi phục của O3;
+- phiên kiểm nghiệm một chat-box mới chỉ dùng gói, không dùng lịch sử hội thoại;
 - gói phát hành, bảo trì và khôi phục;
 - phiên trình diễn đầu-cuối.
 
@@ -33,7 +34,7 @@ Ba tài liệu điều khiển giai đoạn vận hành hóa:
 - `giao_thuc_agent_chat_box_va_goi_ngu_canh.md`;
 - `tieu_chi_nghiem_thu_lop_van_hanh.md`.
 
-`scripts/zo_qmd.py` là điểm vào vận hành hiện hành cho năm lệnh O1. `scripts/zo_check_repo.py` vẫn là checker lõi; CLI vận hành chỉ điều phối và bảo toàn mã thoát, báo cáo cùng các cổng kiểm định hiện có.
+`scripts/zo_qmd.py` là điểm vào vận hành hiện hành cho bảy lệnh đã triển khai đến O2. `scripts/zo_check_repo.py` vẫn là checker lõi; CLI vận hành chỉ điều phối và bảo toàn mã thoát, báo cáo cùng các cổng kiểm định hiện có. Logic tạo và xác minh gói nằm trong `scripts/zo_qmd_package.py`, không được trộn vào checker.
 
 Ranh giới lưu trữ hiện hành:
 
@@ -117,12 +118,14 @@ Checker tạo hợp đồng hiệu lực từ lõi, cấu hình dự án và mô
 
 ```text
 scripts/zo_qmd.py
+scripts/zo_qmd_package.py
 ```
 
-Phiên bản O1:
+Phiên bản O2:
 
 ```text
-QMD OPERATIONS CLI: 0.1.0
+QMD OPERATIONS CLI: 0.2.0
+PACKAGE MODULE: 0.2.0
 ```
 
 Các lệnh đã triển khai:
@@ -133,6 +136,8 @@ inspect
 check
 render
 regression
+pack
+verify
 ```
 
 Cách gọi chuẩn:
@@ -141,7 +146,9 @@ Cách gọi chuẩn:
 python scripts/zo_python.py scripts/zo_qmd.py <command> [tham số...]
 ```
 
-Các lệnh `check` và `render` chuyển trách nhiệm kiểm định cho checker hiện hành. `regression` đọc bài hồi quy từ cấu hình dự án, chạy bốn self-test bắt buộc rồi điều phối hồi quy nguồn và, khi được yêu cầu, hồi quy render.
+Các lệnh `check` và `render` chuyển trách nhiệm kiểm định cho checker hiện hành. `regression` đọc bài hồi quy từ cấu hình dự án, chạy các self-test bắt buộc rồi điều phối hồi quy nguồn và, khi được yêu cầu, hồi quy render.
+
+`pack` tạo gói ngữ cảnh dạng thư mục hoặc ZIP tại đường dẫn đầu ra bắt buộc, sinh `PROMPT.md`, `MANIFEST.yml`, `FILES.sha256` và `payload/`. `verify` xác minh thư mục hoặc ZIP, kể cả khi chạy bằng CLI nằm trong chính gói và không có repository Git bao quanh.
 
 ### 3.2. Điểm vào kiểm định
 
@@ -356,14 +363,14 @@ Các bất biến:
 - `huong_dan_them_du_an_va_validator.md`;
 - `tieu_chi_nghiem_thu_he_thong.md`.
 
-### 7.2. Tài liệu lớp vận hành 0.1
+### 7.2. Tài liệu lớp vận hành 0.2
 
 - `kien_truc_van_hanh_co_may_qmd.md`;
 - `giao_thuc_agent_chat_box_va_goi_ngu_canh.md`;
 - `tieu_chi_nghiem_thu_lop_van_hanh.md`;
 - `mau_manifest_goi_qmd.yml`.
 
-Các tài liệu và mẫu này là dự thảo O0 chờ duyệt; chúng chưa chứng minh CLI, đóng gói, phát hành hoặc trình diễn đã được triển khai.
+Các tài liệu và mẫu này mô tả hợp đồng lớp vận hành hiện hành đến O2. CLI cơ bản, đóng gói ngữ cảnh và xác minh gói đã có bằng chứng kĩ thuật; phát hành, khôi phục và trình diễn đầu-cuối vẫn thuộc O3–O4.
 
 ### 7.3. Hồ sơ chuyển đổi
 
@@ -412,4 +419,4 @@ Commit khóa tài liệu M9B hoàn tất phiên bản 1.0 mà không thay đổi
 
 ## 10. Mốc tiếp theo
 
-O1 đã triển khai và kiểm nghiệm `scripts/zo_qmd.py` với `doctor`, `inspect`, `check`, `render` và `regression`. Mốc tiếp theo là O2: triển khai `pack` và `verify`, sinh manifest cùng checksum, rồi kiểm nghiệm một gói trong thư mục sạch.
+O2 đã triển khai và kiểm nghiệm `pack` cùng `verify` trên gói thư mục và ZIP, bao gồm các trường hợp tệp thiếu, tệp thừa, checksum sai, danh sách checksum chưa sắp xếp và việc chạy CLI trong thư mục sạch. Mốc tiếp theo là O3: phát hành, bảo trì và khôi phục.

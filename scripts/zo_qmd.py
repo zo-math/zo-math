@@ -1,8 +1,8 @@
 """Unified operations front end for the ZO Math QMD system.
 
 This command coordinates the existing configuration loader, registry, checker,
-Quarto wrapper, and regression baseline. It does not duplicate validators and
-does not accept, publish, stage, or commit content.
+Quarto wrapper, regression baseline, and package module. It does not duplicate
+validators and does not accept, publish, stage, or commit content.
 """
 
 from __future__ import annotations
@@ -28,7 +28,7 @@ from zo_qmd_config import (
 from zo_qmd_registry import ModuleRegistryError, build_validation_plan
 
 
-OPERATIONS_CLI_VERSION = "0.1.0"
+OPERATIONS_CLI_VERSION = "0.2.0"
 
 EXIT_OK = 0
 EXIT_FAILED = 1
@@ -56,6 +56,7 @@ SYSTEM_SCRIPTS = (
     Path("scripts/zo_python.py"),
     Path("scripts/zo_quarto.py"),
     Path("scripts/zo_qmd.py"),
+    Path("scripts/zo_qmd_package.py"),
     Path("scripts/zo_check_repo.py"),
     Path("scripts/zo_qmd_config.py"),
     Path("scripts/zo_qmd_registry.py"),
@@ -68,6 +69,7 @@ SELF_TEST_SCRIPTS = (
     Path("scripts/zo_qmd_registry.py"),
     Path("scripts/zo_qmd_core.py"),
     Path("scripts/zo_real_world_problem.py"),
+    Path("scripts/zo_qmd_package.py"),
 )
 
 
@@ -497,6 +499,68 @@ def command_regression(root: Path, args: argparse.Namespace) -> int:
     return EXIT_OK
 
 
+
+def command_pack(root: Path, args: argparse.Namespace) -> int:
+    package_args = [
+        "pack",
+        "--repo-root",
+        str(root),
+        "--output",
+        args.output,
+        "--prompt",
+        args.prompt,
+        "--purpose",
+        args.purpose,
+    ]
+    if args.scope_mode:
+        package_args.extend(["--scope-mode", args.scope_mode])
+    for path in args.include:
+        package_args.extend(["--include", path])
+    if args.inside_repository_reason:
+        package_args.extend(
+            ["--inside-repository-reason", args.inside_repository_reason]
+        )
+    if args.json:
+        package_args.append("--json")
+    package_args.extend(args.paths)
+
+    command = _script_command(
+        root,
+        Path("scripts/zo_qmd_package.py"),
+        *package_args,
+    )
+    if args.json:
+        return _run(command, root).returncode
+    return _run_step(root, "QMD PACK", command)
+
+
+def command_verify(args: argparse.Namespace) -> int:
+    runtime_root = Path(__file__).resolve().parent.parent
+    package_script = runtime_root / "scripts/zo_qmd_package.py"
+    python_launcher = runtime_root / "scripts/zo_python.py"
+
+    if not package_script.is_file():
+        print(f"ERROR: Thiếu {package_script}.", file=sys.stderr)
+        return EXIT_FAILED
+    if not python_launcher.is_file():
+        print(f"ERROR: Thiếu {python_launcher}.", file=sys.stderr)
+        return EXIT_FAILED
+
+    command = [
+        sys.executable,
+        str(python_launcher),
+        str(package_script),
+        "verify",
+        args.package,
+    ]
+    if args.json:
+        command.append("--json")
+
+    cwd = Path.cwd()
+    if not args.json:
+        _print_step("QMD VERIFY", command)
+    return _run(command, cwd).returncode
+
 def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(description=__doc__)
     result.add_argument(
@@ -560,11 +624,71 @@ def parser() -> argparse.ArgumentParser:
         help="Báo cáo JSON bên trong _audit/ cho bước checker cuối.",
     )
 
+
+    pack = subparsers.add_parser(
+        "pack",
+        help="Tạo gói ngữ cảnh chuẩn tại đầu ra tường minh.",
+    )
+    pack.add_argument(
+        "--output",
+        required=True,
+        help="Thư mục gói hoặc tệp .zip đầu ra; không có giá trị mặc định.",
+    )
+    pack.add_argument(
+        "--prompt",
+        required=True,
+        help="Tệp Markdown dùng làm PROMPT.md.",
+    )
+    pack.add_argument(
+        "--purpose",
+        required=True,
+        help="Mục đích ngắn của gói.",
+    )
+    pack.add_argument(
+        "--scope-mode",
+        help="Nhãn chế độ phạm vi; mặc định được suy ra.",
+    )
+    pack.add_argument(
+        "--include",
+        action="append",
+        default=[],
+        help="Đường dẫn hỗ trợ cần thêm; có thể lặp lại.",
+    )
+    pack.add_argument(
+        "--inside-repository-reason",
+        help="Lí do bắt buộc nếu đầu ra nằm trong repository.",
+    )
+    pack.add_argument(
+        "--json",
+        action="store_true",
+        help="Xuất kết quả dạng JSON.",
+    )
+    pack.add_argument(
+        "paths",
+        nargs="+",
+        help="Các gốc phạm vi tường minh trong repository.",
+    )
+
+    verify = subparsers.add_parser(
+        "verify",
+        help="Xác minh thư mục gói hoặc tệp .zip chuẩn.",
+    )
+    verify.add_argument("package", help="Đường dẫn thư mục gói hoặc tệp .zip.")
+    verify.add_argument(
+        "--json",
+        action="store_true",
+        help="Xuất kết quả dạng JSON.",
+    )
+
     return result
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = parser().parse_args(argv)
+
+    if args.command == "verify":
+        return command_verify(args)
+
     root, exit_code, message = _repo_root(args.repo_root)
     if root is None:
         print(f"ERROR: {message}", file=sys.stderr)
@@ -582,6 +706,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return command_checker(root, "render", args)
     if args.command == "regression":
         return command_regression(root, args)
+    if args.command == "pack":
+        return command_pack(root, args)
 
     print(f"ERROR: Lệnh chưa được hỗ trợ: {args.command}", file=sys.stderr)
     return EXIT_USAGE

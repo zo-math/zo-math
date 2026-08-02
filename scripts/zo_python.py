@@ -1,4 +1,4 @@
-"""Run repository Python commands with UTF-8 mode enabled."""
+"""Run repository Python commands in UTF-8 mode without writing bytecode."""
 
 from __future__ import annotations
 
@@ -19,6 +19,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     env = os.environ.copy()
     env["PYTHONUTF8"] = "1"
+    env["PYTHONDONTWRITEBYTECODE"] = "1"
     return subprocess.run([sys.executable, *args], env=env, check=False).returncode
 
 

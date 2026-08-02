@@ -1,6 +1,6 @@
 # Kiến trúc vận hành cỗ máy QMD
 
-> **Trạng thái:** Dự thảo hợp đồng kiến trúc vận hành 0.1 — mốc O0, chờ duyệt; chưa phải bản triển khai hoàn chỉnh.
+> **Trạng thái:** Hợp đồng kiến trúc vận hành 0.2 — O0–O2 đã triển khai; O3–O4 chưa triển khai.
 >
 > Tài liệu này bao quanh lõi kĩ thuật của Hệ thống sản xuất và kiểm định QMD phiên bản 1.0. Nó không thay thế `kien_truc_he_thong.md`, `hop_dong_loi_va_du_an.md` hoặc các quy chuẩn chuyên biệt của từng dự án.
 
@@ -80,7 +80,7 @@ Không cổng nào tự động mở cổng tiếp theo.
 python scripts/zo_python.py scripts/zo_qmd.py <command> [tham số...]
 ```
 
-Từ mốc O1, `scripts/zo_qmd.py` phiên bản `0.1.0` là điểm vào vận hành hiện hành cho:
+Từ mốc O2, `scripts/zo_qmd.py` phiên bản `0.2.0` là điểm vào vận hành hiện hành cho:
 
 ```text
 doctor
@@ -88,6 +88,8 @@ inspect
 check
 render
 regression
+pack
+verify
 ```
 
 Điểm vào kiểm định lõi vẫn là:
@@ -96,7 +98,7 @@ regression
 python scripts/zo_python.py scripts/zo_check_repo.py ...
 ```
 
-`zo_qmd.py` điều phối các thành phần hiện có, không sao chép validator và không thay đổi hợp đồng của `zo_check_repo.py`. Các lệnh `start`, `pack`, `verify` và `prepublish` vẫn là đích của các mốc sau, chưa được mô tả như chức năng hiện hành.
+`zo_qmd.py` điều phối các thành phần hiện có, không sao chép validator và không thay đổi hợp đồng của `zo_check_repo.py`. Các lệnh `pack` và `verify` đã được triển khai ở O2 qua `scripts/zo_qmd_package.py`. `pack` hiện tạo gói ngữ cảnh; gói phát hành thuộc O3. Các lệnh `start` và `prepublish` vẫn là đích của các mốc sau, chưa được mô tả như chức năng hiện hành.
 
 ### 3.1. Bộ lệnh đích
 
@@ -288,7 +290,7 @@ Các phiên bản được quản lí độc lập:
 | Lõi kĩ thuật QMD | `1.0` |
 | Checker | `2.6.0` |
 | Schema cấu hình dự án | `1` |
-| Hợp đồng lớp vận hành | `0.1` |
+| Hợp đồng lớp vận hành | `0.2` |
 | Schema manifest | `1` |
 
 Lớp vận hành dùng phiên bản `MAJOR.MINOR.PATCH` sau khi được triển khai:
@@ -297,7 +299,7 @@ Lớp vận hành dùng phiên bản `MAJOR.MINOR.PATCH` sau khi được triể
 - `MINOR`: thêm khả năng tương thích ngược;
 - `PATCH`: sửa lỗi hoặc làm rõ tài liệu không phá hợp đồng.
 
-Mốc O0 chỉ khóa hợp đồng `0.1`; chưa được gọi là lớp vận hành 1.0.
+Mốc O2 triển khai hợp đồng `0.2`; lớp vận hành vẫn chưa được gọi là phiên bản 1.0 trước khi hoàn thành O3–O4.
 
 ## 8. Bảo trì, phát hành và khôi phục
 
@@ -378,11 +380,13 @@ Phiên trình diễn phải kết thúc trước cổng xuất bản. Báo cáo 
 - checker `2.6.0` vẫn là lõi kiểm định;
 - self-test, hồi quy nguồn và hồi quy render hai dự án đã đạt.
 
-### O2 — Gói ngữ cảnh chuẩn
+### O2 — Gói ngữ cảnh chuẩn — đã triển khai
 
-- triển khai `pack` và `verify`;
-- sinh manifest và checksum;
-- kiểm nghiệm bằng một gói mở trong thư mục sạch.
+- `zo_qmd.py` và `zo_qmd_package.py` phiên bản `0.2.0`;
+- `pack` tạo gói ngữ cảnh dạng thư mục hoặc ZIP tại đầu ra tường minh;
+- `verify` kiểm tra schema manifest, tệp bắt buộc, symlink, tệp thiếu, tệp thừa, checksum sai và thứ tự `FILES.sha256`;
+- gói đã tự xác minh bằng CLI trong `payload/` từ thư mục sạch;
+- trình khởi chạy Python khóa việc sinh bytecode để không làm thay đổi gói sau khi chạy.
 
 ### O3 — Phát hành, bảo trì và khôi phục
 
