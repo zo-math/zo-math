@@ -22,11 +22,17 @@ Tài liệu này ghi những thay đổi quan sát được của lớp vận h�
 - Mở rộng `verify` để kiểm tra quan hệ phiên bản–tag–commit, vai trò nguồn, payload bắt buộc và runtime dependency closure.
 - Bổ sung self-test cho release hợp lệ, manifest release sai và worktree bẩn.
 
+### Bằng chứng O3 đã hoàn tất trước đóng gói
+
+- Hồi quy nguồn và render trước–sau đều đạt trên hai worktree riêng.
+- Rollback drill về commit `c1b26b9a0536b17e0885d8158fddbd20413767c2` đạt.
+- Hai QMD hồi quy giữ nguyên SHA-256 và trạng thái xuất bản vẫn `pending`.
+- Hồ sơ, checklist, rollback log và hai log hồi quy đã được ghi tại `phat_hanh/qmd_ops_0_3_0/`.
+
 ### Chưa hoàn tất O3
 
-- Chưa có hồi quy trước–sau được ghi vào hồ sơ phát hành thật.
-- Chưa diễn tập rollback trong worktree riêng.
-- Chưa tạo release candidate `0.3.0`, Git tag thật, push hoặc publish.
+- Chưa tạo và tự xác minh release candidate `0.3.0` từ commit sạch.
+- O3 không tạo Git tag thật, không push và không publish.
 
 ### Di trú từ `0.2.0`
 

@@ -1,6 +1,6 @@
 # Hệ thống sản xuất và kiểm định QMD cho ZO Math
 
-> **Trạng thái:** Lõi kĩ thuật phiên bản 1.0 đã khóa; mã ứng viên O3 của lớp vận hành đã ở `0.3.0` và hỗ trợ gói release; release hiện hành vẫn là `0.2.0` cho đến khi release candidate thật cùng rollback drill đạt.
+> **Trạng thái:** Lõi kĩ thuật phiên bản 1.0 đã khóa; mã ứng viên O3 của lớp vận hành đã ở `0.3.0`; hồi quy trước–sau và rollback drill đã đạt; release hiện hành vẫn là `0.2.0` cho đến khi release candidate thật được tạo và tự xác minh.
 >
 > Đây là tài liệu vận hành nội bộ. Nó chỉ có thẩm quyền trong phạm vi mà `AGENTS.md`, cấu hình dự án hoặc yêu cầu hiện tại của người dùng dẫn chiếu. Các hồ sơ kiểm kê và thiết kế ban đầu được giữ lại như bằng chứng lịch sử, không tự động ghi đè quy trình đang có hiệu lực ở nơi khác.
 
@@ -31,8 +31,7 @@ O3 đã triển khai trong mã:
 
 Chưa hoàn thành:
 
-- release candidate thật `0.3.0`;
-- hồi quy trước–sau và rollback drill;
+- tạo và tự xác minh release candidate thật `0.3.0` từ commit sạch;
 - `start` và `prepublish`;
 - phiên kiểm nghiệm một chat-box mới chỉ dùng gói, không dùng lịch sử hội thoại;
 - phiên trình diễn đầu-cuối.
@@ -388,7 +387,7 @@ Hợp đồng phát hành O3:
 - `quy_trinh_phat_hanh_va_khoi_phuc_qmd.md`;
 - `mau_ho_so_phat_hanh_qmd.yml`.
 
-CLI cơ bản và gói context đã có bằng chứng O2. Mã ứng viên O3 đã triển khai tạo và xác minh gói release cùng self-test liên quan; release candidate thật, hồi quy trước–sau và rollback drill vẫn chưa có bằng chứng. Phiên trình diễn đầu-cuối thuộc O4.
+CLI cơ bản và gói context đã có bằng chứng O2. Mã ứng viên O3 đã triển khai tạo và xác minh gói release cùng self-test liên quan. Hồi quy trước–sau và rollback drill đã có bằng chứng tại `phat_hanh/qmd_ops_0_3_0/`; release candidate thật vẫn chưa được tạo và tự xác minh. Phiên trình diễn đầu-cuối thuộc O4.
 
 ### 7.3. Hồ sơ chuyển đổi
 
@@ -439,4 +438,4 @@ Commit khóa tài liệu M9B hoàn tất phiên bản 1.0 mà không thay đổi
 
 O2 đã triển khai và kiểm nghiệm `pack` cùng `verify` trên gói context dạng thư mục và ZIP, bao gồm các trường hợp tệp thiếu, tệp thừa, checksum sai, danh sách checksum chưa sắp xếp và việc chạy CLI trong thư mục sạch.
 
-Mã ứng viên O3 đã triển khai `pack --kind release`, xác minh nghiêm ngặt manifest và payload release, đồng thời bổ sung self-test tương thích context và các trường hợp release bị từ chối. Bước tiếp theo là chạy toàn bộ hồi quy trên repository sống, commit mã ứng viên, tạo hồ sơ bằng chứng, diễn tập rollback trong worktree riêng và chỉ sau đó mới tạo release candidate `0.3.0`. Release hiện hành vẫn là `0.2.0` cho đến khi toàn bộ bằng chứng O3 đạt.
+Mã ứng viên O3 đã triển khai `pack --kind release`, xác minh nghiêm ngặt manifest và payload release, đồng thời bổ sung self-test tương thích context và các trường hợp release bị từ chối. Hồi quy trước–sau, hồ sơ bằng chứng và rollback drill đã đạt trên hai worktree riêng; hai QMD hồi quy giữ nguyên SHA-256 và trạng thái xuất bản vẫn `pending`. Bước tiếp theo là tạo release candidate `0.3.0` từ commit sạch chứa hồ sơ, rồi xác minh bằng CLI ngoài repository và CLI tự chứa trong payload. Release hiện hành vẫn là `0.2.0` cho đến khi bước này đạt.
