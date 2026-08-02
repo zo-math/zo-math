@@ -1,4 +1,4 @@
-"""Create and verify standard ZO Math QMD context packages.
+"""Create and verify standard ZO Math QMD context and release packages.
 
 A standard package contains PROMPT.md, MANIFEST.yml, FILES.sha256, and payload/.
 The payload preserves repository-relative paths. This module is an operations
@@ -31,9 +31,9 @@ from zo_check_repo import CHECKER_VERSION
 from zo_qmd_config import ProjectConfigError, discover_project_config
 
 
-PACKAGE_MODULE_VERSION = "0.2.0"
+PACKAGE_MODULE_VERSION = "0.3.0"
 MANIFEST_VERSION = 1
-OPERATIONS_CONTRACT_VERSION = "0.2"
+OPERATIONS_CONTRACT_VERSION = "0.3"
 QMD_CORE_VERSION = "1.0"
 PROJECT_CONFIG_SCHEMA = 1
 
@@ -116,6 +116,52 @@ CHECKSUM_LINE_PATTERN = re.compile(
     r"^([0-9a-f]{64})  ([^\r\n]+)$"
 )
 FULL_SHA_PATTERN = re.compile(r"^[0-9a-f]{40}$")
+SEMVER_PATTERN = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
+RELEASE_RECORD_VERSION = 1
+RELEASE_EVIDENCE_FIELDS = (
+    "version_matrix",
+    "changelog",
+    "release_checklist",
+    "rollback_log",
+    "regression_before",
+    "regression_after",
+    "upgrade_and_rollback_guide",
+)
+RELEASE_CLASSIFICATIONS = {
+    "operations_contract",
+    "operations_documentation",
+    "cli",
+    "checker",
+    "loader_or_registry",
+    "project_config_schema",
+    "manifest_schema",
+    "package_module",
+    "project_adapter",
+    "render_output",
+    "regression_baseline",
+}
+RELEASE_DOCUMENTS = (
+    Path("quy_trinh_xay_dung/he_thong_san_xuat_qmd/CHANGELOG.md"),
+    Path("quy_trinh_xay_dung/he_thong_san_xuat_qmd/ma_tran_phien_ban_qmd.md"),
+    Path(
+        "quy_trinh_xay_dung/he_thong_san_xuat_qmd/"
+        "quy_trinh_phat_hanh_va_khoi_phuc_qmd.md"
+    ),
+    Path(
+        "quy_trinh_xay_dung/he_thong_san_xuat_qmd/"
+        "mau_ho_so_phat_hanh_qmd.yml"
+    ),
+)
+RELEASE_REGRESSION_FILES = (
+    Path(
+        "content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/"
+        "core/ham_ln_x.qmd"
+    ),
+    Path(
+        "content/thpt/zo_math_100/100_bai_toan_thuc_te/"
+        "core/chi_phi_di_taxi.qmd"
+    ),
+)
 MAX_ZIP_FILES = 100_000
 MAX_ZIP_UNCOMPRESSED_BYTES = 2 * 1024 * 1024 * 1024
 
@@ -177,6 +223,238 @@ def _repository_state(root: Path) -> dict[str, Any]:
         "commit": commit if commit and FULL_SHA_PATTERN.fullmatch(commit) else "unknown",
         "dirty": "unknown",
         "ahead_of_origin": "unknown",
+    }
+
+
+def _release_repository_state(root: Path) -> dict[str, Any]:
+    git = shutil.which("git")
+    if git is None:
+        raise PackageError("Không tìm thấy git trong PATH.")
+
+    inside = _run([git, "rev-parse", "--is-inside-work-tree"], root)
+    if inside.returncode != 0 or inside.stdout.strip() != "true":
+        raise PackageError("Gói release phải được tạo từ một Git worktree.")
+
+    status = _run(
+        [git, "status", "--porcelain=v1", "--untracked-files=all"],
+        root,
+    )
+    if status.returncode != 0:
+        raise PackageError(status.stderr.strip() or "Không đọc được Git status.")
+    if status.stdout.strip():
+        raise PackageError("Gói release chỉ được tạo từ worktree sạch.")
+
+    branch = _git_value(root, "branch", "--show-current") or "detached"
+    commit = _git_value(root, "rev-parse", "HEAD")
+    if not commit or not FULL_SHA_PATTERN.fullmatch(commit):
+        raise PackageError("Không xác định được commit đầy đủ của release candidate.")
+
+    ahead: int | str = "unknown"
+    ahead_raw = _git_value(root, "rev-list", "--count", "@{upstream}..HEAD")
+    if ahead_raw is not None and ahead_raw.isdigit():
+        ahead = int(ahead_raw)
+
+    return {
+        "name": root.name,
+        "source": "exported_snapshot",
+        "branch": branch,
+        "commit": commit,
+        "dirty": False,
+        "ahead_of_origin": ahead,
+    }
+
+
+def _semver_tuple(value: str) -> tuple[int, int, int] | None:
+    match = SEMVER_PATTERN.fullmatch(value)
+    if match is None:
+        return None
+    return tuple(int(part) for part in match.groups())
+
+
+def _semver_change(previous: str, current: str) -> str | None:
+    previous_tuple = _semver_tuple(previous)
+    current_tuple = _semver_tuple(current)
+    if previous_tuple is None or current_tuple is None or current_tuple <= previous_tuple:
+        return None
+    if current_tuple[0] > previous_tuple[0]:
+        return "major"
+    if current_tuple[1] > previous_tuple[1]:
+        return "minor"
+    return "patch"
+
+
+def _release_record_issues(record: Any) -> list[str]:
+    issues: list[str] = []
+    if not isinstance(record, dict):
+        return ["Hồ sơ phát hành phải là mapping."]
+    if record.get("release_record_version") != RELEASE_RECORD_VERSION:
+        issues.append("release_record_version phải bằng 1.")
+
+    release = record.get("release")
+    if not isinstance(release, dict):
+        issues.append("release phải là mapping.")
+    else:
+        required_release = (
+            "stage",
+            "version",
+            "tag",
+            "tag_created",
+            "previous_version",
+            "previous_commit",
+            "regression_status",
+            "rollback_tested",
+        )
+        for key in required_release:
+            if key not in release:
+                issues.append(f"release thiếu trường: {key}.")
+        if "candidate_commit" in release:
+            issues.append("candidate_commit do công cụ lấy từ HEAD; không ghi trong hồ sơ.")
+        if release.get("stage") != "candidate":
+            issues.append("release.stage phải bằng candidate.")
+        version = release.get("version")
+        previous_version = release.get("previous_version")
+        if not isinstance(version, str) or _semver_tuple(version) is None:
+            issues.append("release.version phải theo MAJOR.MINOR.PATCH.")
+        elif version != PACKAGE_MODULE_VERSION:
+            issues.append(
+                f"release.version phải khớp phiên bản mô-đun {PACKAGE_MODULE_VERSION}."
+            )
+        if not isinstance(previous_version, str) or _semver_tuple(previous_version) is None:
+            issues.append("release.previous_version phải theo MAJOR.MINOR.PATCH.")
+        if isinstance(version, str) and release.get("tag") != f"qmd-ops-v{version}":
+            issues.append("release.tag phải bằng qmd-ops-v<version>.")
+        if release.get("tag_created") is not False:
+            issues.append("release.tag_created phải bằng false trong O3.")
+        previous_commit = release.get("previous_commit")
+        if not isinstance(previous_commit, str) or not FULL_SHA_PATTERN.fullmatch(
+            previous_commit
+        ):
+            issues.append("release.previous_commit phải là SHA đầy đủ 40 kí tự.")
+        if release.get("regression_status") != "pass":
+            issues.append("release.regression_status phải bằng pass.")
+        if release.get("rollback_tested") is not True:
+            issues.append("release.rollback_tested phải bằng true.")
+
+    change = record.get("change")
+    if not isinstance(change, dict):
+        issues.append("change phải là mapping.")
+    else:
+        semver = change.get("semver")
+        if semver not in {"major", "minor", "patch"}:
+            issues.append("change.semver phải là major, minor hoặc patch.")
+        classifications = change.get("classifications")
+        if not isinstance(classifications, list) or not classifications:
+            issues.append("change.classifications phải là danh sách không rỗng.")
+        else:
+            invalid = [
+                value
+                for value in classifications
+                if not isinstance(value, str) or value not in RELEASE_CLASSIFICATIONS
+            ]
+            if invalid:
+                issues.append(
+                    "change.classifications chứa giá trị không hợp lệ: "
+                    + ", ".join(repr(value) for value in invalid)
+                    + "."
+                )
+        if not isinstance(change.get("migration_required"), bool):
+            issues.append("change.migration_required phải là boolean.")
+        if not isinstance(change.get("migration_summary"), str) or not change.get(
+            "migration_summary", ""
+        ).strip():
+            issues.append("change.migration_summary phải là chuỗi không rỗng.")
+
+    if isinstance(release, dict) and isinstance(change, dict):
+        version = release.get("version")
+        previous_version = release.get("previous_version")
+        if isinstance(version, str) and isinstance(previous_version, str):
+            actual_change = _semver_change(previous_version, version)
+            if actual_change is None:
+                issues.append("release.version phải lớn hơn release.previous_version.")
+            elif change.get("semver") != actual_change:
+                issues.append(
+                    f"change.semver phải bằng {actual_change} theo hai phiên bản đã khai báo."
+                )
+
+    evidence = record.get("evidence")
+    if not isinstance(evidence, dict):
+        issues.append("evidence phải là mapping.")
+    else:
+        for key in RELEASE_EVIDENCE_FIELDS:
+            value = evidence.get(key)
+            if not isinstance(value, str) or not value.strip():
+                issues.append(f"evidence.{key} phải là chuỗi không rỗng.")
+            else:
+                try:
+                    _safe_relative_path(value)
+                except PackageError as exc:
+                    issues.append(f"evidence.{key} không hợp lệ: {exc}")
+    return issues
+
+
+def _load_release_record(
+    root: Path,
+    release_file: Path,
+    candidate_commit: str,
+) -> tuple[dict[str, Any], Path, dict[str, Path]]:
+    relative = _relative_to_root(root, release_file)
+    absolute = root / relative
+    if not absolute.is_file() or absolute.is_symlink():
+        raise PackageError("--release-file phải trỏ đến tệp thường trong repository.")
+    try:
+        record = yaml.safe_load(absolute.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, yaml.YAMLError) as exc:
+        raise PackageError(f"Không đọc được hồ sơ phát hành: {exc}.") from exc
+
+    issues = _release_record_issues(record)
+    if issues:
+        raise PackageError("Hồ sơ phát hành không hợp lệ: " + "; ".join(issues))
+    assert isinstance(record, dict)
+    release = record["release"]
+    if release["previous_commit"] == candidate_commit:
+        raise PackageError("previous_commit không được trùng candidate commit.")
+
+    git = shutil.which("git")
+    if git is None:
+        raise PackageError("Không tìm thấy git trong PATH.")
+    previous = _run(
+        [git, "cat-file", "-e", f"{release['previous_commit']}^{{commit}}"],
+        root,
+    )
+    if previous.returncode != 0:
+        raise PackageError("previous_commit không tồn tại trong repository hiện tại.")
+
+    evidence_paths: dict[str, Path] = {}
+    for key in RELEASE_EVIDENCE_FIELDS:
+        evidence_relative = Path(_safe_relative_path(record["evidence"][key]))
+        evidence_absolute = root / evidence_relative
+        if not evidence_absolute.is_file() or evidence_absolute.is_symlink():
+            raise PackageError(
+                f"Thiếu tệp bằng chứng bắt buộc: {evidence_relative.as_posix()}."
+            )
+        evidence_paths[key] = evidence_relative
+    return record, relative, evidence_paths
+
+
+def _tracked_files(root: Path) -> set[Path]:
+    git = shutil.which("git")
+    if git is None:
+        raise PackageError("Không tìm thấy git trong PATH.")
+    result = subprocess.run(
+        [git, "ls-files", "-z"],
+        cwd=root,
+        check=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        env=os.environ.copy(),
+    )
+    if result.returncode != 0:
+        message = result.stderr.decode("utf-8", errors="replace").strip()
+        raise PackageError(message or "Không đọc được danh sách tệp được Git theo dõi.")
+    return {
+        Path(raw.decode("utf-8", errors="strict"))
+        for raw in result.stdout.split(b"\0")
+        if raw
     }
 
 
@@ -542,20 +820,18 @@ def _write_zip(package_root: Path, output: Path) -> None:
 
 def _manifest_sources(
     root: Path,
-    scope_files: set[Path],
-    explicit_includes: set[Path],
+    scope_files: Iterable[Path],
+    explicit_includes: Iterable[Path],
+    additional_required: Sequence[PackageSource] = (),
 ) -> tuple[dict[str, list[dict[str, str]]], set[Path]]:
     required: dict[Path, PackageSource] = {}
     conditional: dict[Path, PackageSource] = {}
 
     for path in CORE_DOCUMENTS:
         if not (root / path).is_file():
-            raise PackageError(f"Thiếu tài liệu hệ thống bắt buộc: {path.as_posix()}.")
-        role = "repository_instructions" if path == Path("AGENTS.md") else "system_contract"
-        required[path] = PackageSource(path, role)
-
-    for agents in [path for path in required if path.name == "AGENTS.md"]:
-        for reference in _agent_references(root, agents):
+            raise PackageError(f"Thiếu tài liệu lõi bắt buộc: {path.as_posix()}.")
+        required.setdefault(path, PackageSource(path, "system_document"))
+        for reference in _agent_references(root, path) if path.name == "AGENTS.md" else []:
             required.setdefault(
                 reference,
                 PackageSource(reference, "repository_instruction_dependency"),
@@ -567,7 +843,12 @@ def _manifest_sources(
     project = _project_sources(root, scope_files)
     for source in project["required"]:
         required.setdefault(source.path, source)
-        for reference in _agent_references(root, source.path) if source.path.name == "AGENTS.md" else []:
+        references = (
+            _agent_references(root, source.path)
+            if source.path.name == "AGENTS.md"
+            else []
+        )
+        for reference in references:
             required.setdefault(
                 reference,
                 PackageSource(reference, "project_instruction_dependency"),
@@ -582,6 +863,10 @@ def _manifest_sources(
     for path in sorted(explicit_includes):
         required[path] = PackageSource(path, "explicit_include")
         conditional.pop(path, None)
+
+    for source in additional_required:
+        required[source.path] = source
+        conditional.pop(source.path, None)
 
     all_files = set(required) | set(conditional)
     sources = {
@@ -608,11 +893,19 @@ def create_package(
     include_paths: Sequence[str],
     scope_mode: str | None,
     inside_repository_reason: str | None,
+    kind: str = "context",
+    release_file: Path | None = None,
 ) -> dict[str, Any]:
     root = root.resolve()
     output = output.expanduser().resolve()
     prompt_file = prompt_file.expanduser().resolve()
 
+    if kind not in {"context", "release"}:
+        raise PackageError("--kind phải là context hoặc release.")
+    if kind == "context" and release_file is not None:
+        raise PackageError("--release-file chỉ hợp lệ khi --kind release.")
+    if kind == "release" and release_file is None:
+        raise PackageError("--release-file bắt buộc khi --kind release.")
     if not purpose.strip():
         raise PackageError("Mục đích gói không được để trống.")
     if not scope_paths:
@@ -630,10 +923,31 @@ def create_package(
         raise PackageError("PROMPT.md không được để trống.")
 
     output_inside = _is_inside(root, output)
+    if kind == "release" and output_inside:
+        raise PackageError("Đầu ra release candidate phải nằm ngoài repository.")
     if output_inside and not (inside_repository_reason or "").strip():
         raise PackageError(
             "Đầu ra nằm trong repository; phải khai báo "
             "--inside-repository-reason."
+        )
+
+    repository = (
+        _release_repository_state(root)
+        if kind == "release"
+        else _repository_state(root)
+    )
+    if repository["commit"] == "unknown":
+        raise PackageError("Không xác định được commit Git hiện tại.")
+
+    release_record: dict[str, Any] | None = None
+    release_relative: Path | None = None
+    release_evidence: dict[str, Path] = {}
+    if kind == "release":
+        assert release_file is not None
+        release_record, release_relative, release_evidence = _load_release_record(
+            root,
+            release_file.expanduser().resolve(),
+            repository["commit"],
         )
 
     normalized_scope = [_relative_to_root(root, raw) for raw in scope_paths]
@@ -647,10 +961,43 @@ def create_package(
     for relative in normalized_include:
         explicit_files.update(_expand_repository_path(root, relative))
 
+    additional_required: list[PackageSource] = []
+    selection_scope_files = set(scope_files)
+    if kind == "release":
+        assert release_relative is not None
+        additional_required.append(PackageSource(release_relative, "release_record"))
+        for path in RELEASE_DOCUMENTS:
+            _expand_repository_path(root, path)
+            role = {
+                "CHANGELOG.md": "changelog",
+                "ma_tran_phien_ban_qmd.md": "version_matrix",
+                "quy_trinh_phat_hanh_va_khoi_phuc_qmd.md": "upgrade_and_rollback_guide",
+                "mau_ho_so_phat_hanh_qmd.yml": "release_record_template",
+            }[path.name]
+            additional_required.append(PackageSource(path, role))
+        for path in RELEASE_REGRESSION_FILES:
+            _expand_repository_path(root, path)
+            selection_scope_files.add(path)
+            additional_required.append(PackageSource(path, "regression_qmd"))
+        evidence_roles = {
+            "version_matrix": "version_matrix",
+            "changelog": "changelog",
+            "release_checklist": "release_checklist",
+            "rollback_log": "rollback_log",
+            "regression_before": "regression_before",
+            "regression_after": "regression_after",
+            "upgrade_and_rollback_guide": "upgrade_and_rollback_guide",
+        }
+        for key, path in release_evidence.items():
+            additional_required.append(PackageSource(path, evidence_roles[key]))
+
     prompt_relative: Path | None = None
     if _is_inside(root, prompt_file):
         prompt_relative = prompt_file.relative_to(root)
-        if prompt_relative in scope_files or prompt_relative in explicit_files:
+        selected_candidates = selection_scope_files | explicit_files | {
+            source.path for source in additional_required
+        }
+        if prompt_relative in selected_candidates:
             raise PackageError(
                 "Tệp nguồn của PROMPT.md đồng thời nằm trong payload; "
                 "hãy đặt prompt ngoài phạm vi hoặc bỏ đường dẫn ấy khỏi phạm vi."
@@ -658,8 +1005,9 @@ def create_package(
 
     sources, selected_files = _manifest_sources(
         root,
-        scope_files,
+        selection_scope_files,
         explicit_files,
+        additional_required,
     )
 
     output_relative: Path | None = None
@@ -668,15 +1016,32 @@ def create_package(
         selected_files = {
             path
             for path in selected_files
-            if path != output_relative
-            and output_relative not in path.parents
+            if path != output_relative and output_relative not in path.parents
         }
 
+    if kind == "release":
+        tracked = _tracked_files(root)
+        untracked_selected = sorted(
+            selected_files - tracked,
+            key=lambda item: item.as_posix(),
+        )
+        if untracked_selected:
+            raise PackageError(
+                "Release payload chứa tệp không được Git theo dõi: "
+                + ", ".join(path.as_posix() for path in untracked_selected)
+                + "."
+            )
+
     now = datetime.now().astimezone()
-    package_id = f"qmd-context-{now.strftime('%Y%m%d-%H%M%S')}"
-    repository = _repository_state(root)
-    if repository["commit"] == "unknown":
-        raise PackageError("Không xác định được commit Git hiện tại.")
+    if kind == "release":
+        assert release_record is not None
+        version = release_record["release"]["version"]
+        package_id = (
+            f"qmd-release-{version.replace('.', '-')}-"
+            f"{now.strftime('%Y%m%d-%H%M%S')}"
+        )
+    else:
+        package_id = f"qmd-context-{now.strftime('%Y%m%d-%H%M%S')}"
 
     excluded = [
         ".git",
@@ -696,14 +1061,29 @@ def create_package(
     if output_relative is not None:
         excluded.append(output_relative.as_posix())
 
+    evidence_reports = [
+        path.as_posix()
+        for path in release_evidence.values()
+    ] if kind == "release" else []
+    evidence_commands = [
+        "git branch --show-current",
+        "git rev-parse HEAD",
+    ]
+    if kind == "release":
+        evidence_commands.append("git status --porcelain=v1 --untracked-files=all")
+
     manifest: dict[str, Any] = {
         "manifest_version": MANIFEST_VERSION,
         "package": {
             "id": package_id,
-            "kind": "context",
+            "kind": kind,
             "purpose": purpose.strip(),
             "created_at": now.isoformat(timespec="seconds"),
-            "created_by": "zo_qmd.py pack",
+            "created_by": (
+                "zo_qmd.py pack --kind release"
+                if kind == "release"
+                else "zo_qmd.py pack"
+            ),
         },
         "system": {
             "qmd_core_version": QMD_CORE_VERSION,
@@ -714,7 +1094,9 @@ def create_package(
         },
         "repository": repository,
         "scope": {
-            "mode": scope_mode or _infer_scope_mode(normalized_scope),
+            "mode": scope_mode or (
+                "release" if kind == "release" else _infer_scope_mode(normalized_scope)
+            ),
             "roots": [path.as_posix() or "." for path in normalized_scope],
             "excluded": excluded,
         },
@@ -734,11 +1116,8 @@ def create_package(
         },
         "sources": sources,
         "evidence": {
-            "commands": [
-                "git branch --show-current",
-                "git rev-parse HEAD",
-            ],
-            "reports": [],
+            "commands": evidence_commands,
+            "reports": evidence_reports,
             "outputs": [],
         },
         "integrity": {
@@ -747,10 +1126,30 @@ def create_package(
         },
         "limitations": [
             "Không chứa .git; gói không phản ánh thay đổi của repository sau thời điểm đóng gói.",
-            "repository.dirty và repository.ahead_of_origin được ghi unknown vì gói không chứa bằng chứng Git đủ để tái kiểm chứng hai trạng thái này.",
             "Cần Python và PyYAML để chạy lệnh verify đi kèm.",
         ],
     }
+    if kind == "context":
+        manifest["limitations"].insert(
+            1,
+            "repository.dirty và repository.ahead_of_origin được ghi unknown "
+            "vì gói không chứa bằng chứng Git đủ để tái kiểm chứng hai trạng thái này.",
+        )
+    else:
+        assert release_record is not None
+        release = release_record["release"]
+        manifest["release"] = {
+            "stage": release["stage"],
+            "version": release["version"],
+            "tag": release["tag"],
+            "tag_created": release["tag_created"],
+            "previous_version": release["previous_version"],
+            "previous_commit": release["previous_commit"],
+            "candidate_commit": repository["commit"],
+            "regression_status": release["regression_status"],
+            "rollback_tested": release["rollback_tested"],
+        }
+        manifest["change"] = release_record["change"]
 
     with tempfile.TemporaryDirectory(prefix="zo-qmd-pack-") as temporary_raw:
         temporary = Path(temporary_raw)
@@ -792,13 +1191,14 @@ def create_package(
         "package_module_version": PACKAGE_MODULE_VERSION,
         "manifest_version": MANIFEST_VERSION,
         "package_id": package_id,
-        "kind": "context",
+        "kind": kind,
         "output": str(output),
         "format": "zip" if output.suffix.lower() == ".zip" else "directory",
         "inside_repository": output_inside,
         "scope_roots": manifest["scope"]["roots"],
         "payload_files": len(selected_files),
         "repository": repository,
+        "release": manifest.get("release"),
         "automated_result": "PASS",
         "exit_code": EXIT_OK,
     }
@@ -889,6 +1289,152 @@ def _parse_checksums(path: Path) -> tuple[dict[PurePosixPath, str], list[str]]:
     if listed_order != expected_order:
         issues.append("FILES.sha256 phải được sắp xếp theo đường dẫn.")
     return checksums, issues
+
+
+def _release_manifest_issues(manifest: Mapping[str, Any]) -> list[str]:
+    issues: list[str] = []
+    release = manifest.get("release")
+    if not isinstance(release, dict):
+        return ["Gói release phải có nhóm release."]
+
+    required = (
+        "stage",
+        "version",
+        "tag",
+        "tag_created",
+        "previous_version",
+        "previous_commit",
+        "candidate_commit",
+        "regression_status",
+        "rollback_tested",
+    )
+    for key in required:
+        if key not in release:
+            issues.append(f"release thiếu trường: {key}.")
+
+    version = release.get("version")
+    previous_version = release.get("previous_version")
+    if release.get("stage") != "candidate":
+        issues.append("release.stage phải bằng candidate.")
+    if not isinstance(version, str) or _semver_tuple(version) is None:
+        issues.append("release.version phải theo MAJOR.MINOR.PATCH.")
+    if not isinstance(previous_version, str) or _semver_tuple(previous_version) is None:
+        issues.append("release.previous_version phải theo MAJOR.MINOR.PATCH.")
+    if isinstance(version, str) and release.get("tag") != f"qmd-ops-v{version}":
+        issues.append("release.tag phải bằng qmd-ops-v<version>.")
+    if release.get("tag_created") is not False:
+        issues.append("release.tag_created phải bằng false.")
+    for key in ("previous_commit", "candidate_commit"):
+        value = release.get(key)
+        if not isinstance(value, str) or not FULL_SHA_PATTERN.fullmatch(value):
+            issues.append(f"release.{key} phải là SHA đầy đủ 40 kí tự.")
+    if release.get("previous_commit") == release.get("candidate_commit"):
+        issues.append("previous_commit không được trùng candidate_commit.")
+    if release.get("regression_status") != "pass":
+        issues.append("release.regression_status phải bằng pass.")
+    if release.get("rollback_tested") is not True:
+        issues.append("release.rollback_tested phải bằng true.")
+
+    repository = manifest.get("repository")
+    if isinstance(repository, dict):
+        if repository.get("dirty") is not False:
+            issues.append("repository.dirty phải bằng false đối với gói release.")
+        if repository.get("commit") != release.get("candidate_commit"):
+            issues.append("repository.commit phải khớp release.candidate_commit.")
+    output = manifest.get("output")
+    if isinstance(output, dict) and output.get("inside_repository") is not False:
+        issues.append("output.inside_repository phải bằng false đối với gói release.")
+
+    system = manifest.get("system")
+    if isinstance(system, dict) and isinstance(version, str) and _semver_tuple(version):
+        expected_contract = ".".join(version.split(".")[:2])
+        if system.get("operations_contract_version") != expected_contract:
+            issues.append(
+                "system.operations_contract_version phải khớp MAJOR.MINOR của release."
+            )
+
+    change = manifest.get("change")
+    if not isinstance(change, dict):
+        issues.append("Gói release phải có nhóm change.")
+    else:
+        semver = change.get("semver")
+        actual_change = (
+            _semver_change(previous_version, version)
+            if isinstance(previous_version, str) and isinstance(version, str)
+            else None
+        )
+        if actual_change is None:
+            issues.append("release.version phải lớn hơn release.previous_version.")
+        elif semver != actual_change:
+            issues.append(f"change.semver phải bằng {actual_change}.")
+        classifications = change.get("classifications")
+        if not isinstance(classifications, list) or not classifications:
+            issues.append("change.classifications phải là danh sách không rỗng.")
+        elif any(
+            not isinstance(value, str) or value not in RELEASE_CLASSIFICATIONS
+            for value in classifications
+        ):
+            issues.append("change.classifications chứa giá trị không hợp lệ.")
+        if not isinstance(change.get("migration_required"), bool):
+            issues.append("change.migration_required phải là boolean.")
+        if not isinstance(change.get("migration_summary"), str) or not change.get(
+            "migration_summary", ""
+        ).strip():
+            issues.append("change.migration_summary phải là chuỗi không rỗng.")
+
+    sources = manifest.get("sources")
+    required_sources = sources.get("required") if isinstance(sources, dict) else None
+    if isinstance(required_sources, list):
+        roles: dict[str, list[str]] = {}
+        for item in required_sources:
+            if not isinstance(item, dict):
+                continue
+            role = item.get("role")
+            path = item.get("path")
+            if isinstance(role, str) and isinstance(path, str):
+                roles.setdefault(role, []).append(path)
+        for role in (
+            "release_record",
+            "release_record_template",
+            "version_matrix",
+            "changelog",
+            "release_checklist",
+            "rollback_log",
+            "regression_before",
+            "regression_after",
+            "upgrade_and_rollback_guide",
+        ):
+            if role not in roles:
+                issues.append(f"Gói release thiếu nguồn có vai trò {role}.")
+        regression_paths = set(roles.get("regression_qmd", []))
+        expected_regressions = {path.as_posix() for path in RELEASE_REGRESSION_FILES}
+        if not expected_regressions.issubset(regression_paths):
+            issues.append("Gói release thiếu một hoặc hai QMD hồi quy bất biến.")
+
+        evidence = manifest.get("evidence")
+        reports = evidence.get("reports") if isinstance(evidence, dict) else None
+        if not isinstance(reports, list) or not all(
+            isinstance(value, str) for value in reports
+        ):
+            issues.append("evidence.reports phải là danh sách đường dẫn.")
+        else:
+            required_report_roles = (
+                "version_matrix",
+                "changelog",
+                "release_checklist",
+                "rollback_log",
+                "regression_before",
+                "regression_after",
+                "upgrade_and_rollback_guide",
+            )
+            expected_reports = {
+                path
+                for role in required_report_roles
+                for path in roles.get(role, [])
+            }
+            if not expected_reports.issubset(set(reports)):
+                issues.append("evidence.reports chưa liệt kê đủ bằng chứng release.")
+    return issues
 
 
 def _manifest_issues(manifest: Any) -> list[str]:
@@ -1025,19 +1571,7 @@ def _manifest_issues(manifest: Any) -> list[str]:
         issues.append("limitations phải là danh sách.")
 
     if isinstance(package, dict) and package.get("kind") == "release":
-        release = manifest.get("release")
-        if not isinstance(release, dict):
-            issues.append("Gói release phải có nhóm release.")
-        else:
-            for key in (
-                "version",
-                "tag",
-                "previous_version",
-                "regression_status",
-                "rollback_tested",
-            ):
-                if key not in release:
-                    issues.append(f"release thiếu trường: {key}.")
+        issues.extend(_release_manifest_issues(manifest))
 
     return issues
 
@@ -1264,6 +1798,62 @@ def verify_directory(package_root: Path) -> dict[str, Any]:
                 "Các nguồn khai báo đều có trong payload.",
             )
 
+    if (
+        isinstance(manifest, dict)
+        and isinstance(manifest.get("package"), dict)
+        and manifest["package"].get("kind") == "release"
+        and payload_root.is_dir()
+    ):
+        mandatory_paths = set(CORE_DOCUMENTS) | set(RELEASE_DOCUMENTS) | set(
+            RELEASE_REGRESSION_FILES
+        )
+        missing_mandatory = sorted(
+            (
+                path.as_posix()
+                for path in mandatory_paths
+                if not (payload_root / path).is_file()
+                or (payload_root / path).is_symlink()
+            )
+        )
+        if missing_mandatory:
+            add(
+                "release-payload",
+                "FAIL",
+                "Release payload thiếu tệp bắt buộc: "
+                + ", ".join(missing_mandatory)
+                + ".",
+            )
+        else:
+            add(
+                "release-payload",
+                "PASS",
+                "Release payload có đủ tài liệu và hai QMD hồi quy bắt buộc.",
+            )
+
+        try:
+            runtime_files = _runtime_dependency_closure(payload_root)
+            missing_runtime = sorted(
+                path.as_posix()
+                for path in runtime_files
+                if not (payload_root / path).is_file()
+            )
+            if missing_runtime:
+                add(
+                    "release-runtime",
+                    "FAIL",
+                    "Release payload thiếu runtime dependency: "
+                    + ", ".join(missing_runtime)
+                    + ".",
+                )
+            else:
+                add(
+                    "release-runtime",
+                    "PASS",
+                    "Runtime dependency closure của release payload đầy đủ.",
+                )
+        except PackageError as exc:
+            add("release-runtime", "FAIL", str(exc))
+
     result = {
         "package_module_version": PACKAGE_MODULE_VERSION,
         "manifest_version": manifest.get("manifest_version")
@@ -1325,6 +1915,9 @@ def _print_pack_result(result: Mapping[str, Any], *, json_output: bool) -> None:
     print(f"OUTPUT: {result['output']}")
     print(f"FORMAT: {result['format']}")
     print(f"PAYLOAD FILES: {result['payload_files']}")
+    if result.get("release"):
+        print(f"RELEASE VERSION: {result['release']['version']}")
+        print(f"CANDIDATE COMMIT: {result['release']['candidate_commit']}")
     print(
         f"AUTOMATED RESULT: {result['automated_result']} "
         f"| EXIT={result['exit_code']}"
@@ -1347,6 +1940,185 @@ def _print_verify_result(result: Mapping[str, Any], *, json_output: bool) -> Non
         f"AUTOMATED RESULT: {result['automated_result']} "
         f"| EXIT={result['exit_code']}"
     )
+
+
+def _self_test_git(root: Path, *args: str) -> str:
+    git = shutil.which("git")
+    if git is None:
+        raise PackageError("Self-test release cần git trong PATH.")
+    result = _run([git, *args], root)
+    if result.returncode != 0:
+        raise PackageError(
+            result.stderr.strip()
+            or result.stdout.strip()
+            or f"Lệnh git self-test thất bại: {' '.join(args)}."
+        )
+    return result.stdout.strip()
+
+
+def _self_test_write(root: Path, relative: Path, content: str) -> None:
+    target = root / relative
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(content, encoding="utf-8", newline="\n")
+
+
+def _self_test_release_creation(base: Path) -> None:
+    root = base / "release-repo"
+    root.mkdir()
+
+    for relative in set(CORE_DOCUMENTS) | set(RELEASE_DOCUMENTS):
+        _self_test_write(root, relative, f"# {relative.name}\n")
+    for relative in RELEASE_REGRESSION_FILES:
+        _self_test_write(root, relative, "---\npublication: pending\n---\n")
+
+    _self_test_write(root, Path("scripts/zo_python.py"), "# launcher\n")
+    _self_test_write(
+        root,
+        Path("scripts/zo_qmd.py"),
+        "from zo_check_repo import CHECKER_VERSION\n",
+    )
+    _self_test_write(
+        root,
+        Path("scripts/zo_qmd_package.py"),
+        "from zo_check_repo import CHECKER_VERSION\n",
+    )
+    _self_test_write(
+        root,
+        Path("scripts/zo_check_repo.py"),
+        'CHECKER_VERSION = "2.6.0"\n',
+    )
+
+    release_dir = Path(
+        "quy_trinh_xay_dung/he_thong_san_xuat_qmd/"
+        "phat_hanh/qmd_ops_0_3_0"
+    )
+    evidence_paths = {
+        "version_matrix": RELEASE_DOCUMENTS[1],
+        "changelog": RELEASE_DOCUMENTS[0],
+        "release_checklist": release_dir / "release_checklist.md",
+        "rollback_log": release_dir / "rollback_log.md",
+        "regression_before": release_dir / "regression_before.txt",
+        "regression_after": release_dir / "regression_after.txt",
+        "upgrade_and_rollback_guide": RELEASE_DOCUMENTS[2],
+    }
+    for key, relative in evidence_paths.items():
+        if not (root / relative).exists():
+            _self_test_write(root, relative, f"PASS: {key}\n")
+
+    _self_test_git(root, "init", "-q")
+    _self_test_git(root, "config", "user.name", "ZO QMD Self Test")
+    _self_test_git(root, "config", "user.email", "qmd-self-test@example.invalid")
+    _self_test_git(root, "add", "--all")
+    _self_test_git(root, "commit", "-q", "-m", "baseline")
+    previous_commit = _self_test_git(root, "rev-parse", "HEAD")
+
+    release_record_path = release_dir / "ho_so_release_candidate.yml"
+    release_record = {
+        "release_record_version": 1,
+        "release": {
+            "stage": "candidate",
+            "version": PACKAGE_MODULE_VERSION,
+            "tag": f"qmd-ops-v{PACKAGE_MODULE_VERSION}",
+            "tag_created": False,
+            "previous_version": "0.2.0",
+            "previous_commit": previous_commit,
+            "regression_status": "pass",
+            "rollback_tested": True,
+        },
+        "change": {
+            "semver": "minor",
+            "classifications": [
+                "operations_contract",
+                "cli",
+                "package_module",
+            ],
+            "migration_required": False,
+            "migration_summary": "Context package remains backward compatible.",
+        },
+        "evidence": {
+            key: path.as_posix()
+            for key, path in evidence_paths.items()
+        },
+    }
+    release_target = root / release_record_path
+    release_target.parent.mkdir(parents=True, exist_ok=True)
+    release_target.write_text(
+        yaml.safe_dump(release_record, allow_unicode=True, sort_keys=False),
+        encoding="utf-8",
+        newline="\n",
+    )
+    with (root / RELEASE_DOCUMENTS[0]).open("a", encoding="utf-8", newline="\n") as stream:
+        stream.write("Candidate 0.3.0\n")
+    _self_test_git(root, "add", "--all")
+    _self_test_git(root, "commit", "-q", "-m", "candidate")
+    candidate_commit = _self_test_git(root, "rev-parse", "HEAD")
+
+    prompt = base / "release-prompt.md"
+    prompt.write_text("# Release self-test\n", encoding="utf-8", newline="\n")
+    output = base / "release-candidate.zip"
+    result = create_package(
+        root,
+        output=output,
+        prompt_file=prompt,
+        purpose="Release self-test",
+        scope_paths=["AGENTS.md"],
+        include_paths=[],
+        scope_mode=None,
+        inside_repository_reason=None,
+        kind="release",
+        release_file=release_target,
+    )
+    if result["exit_code"] != EXIT_OK or result["kind"] != "release":
+        raise PackageError("Self-test không tạo được release candidate.")
+    if result.get("release", {}).get("candidate_commit") != candidate_commit:
+        raise PackageError("Self-test ghi sai candidate commit.")
+
+    verification = verify_package(output)
+    if verification["exit_code"] != EXIT_OK:
+        raise PackageError(
+            "Self-test release verify thất bại: "
+            + "; ".join(verification["issues"])
+        )
+
+    tampered_parent = base / "tampered-release"
+    tampered_parent.mkdir()
+    _extract_zip_safely(output, tampered_parent)
+    tampered_root = _locate_package_root(tampered_parent)
+    tampered_manifest_path = tampered_root / "MANIFEST.yml"
+    tampered_manifest = yaml.safe_load(
+        tampered_manifest_path.read_text(encoding="utf-8")
+    )
+    tampered_manifest["release"]["rollback_tested"] = False
+    tampered_manifest_path.write_text(
+        yaml.safe_dump(tampered_manifest, allow_unicode=True, sort_keys=False),
+        encoding="utf-8",
+        newline="\n",
+    )
+    _write_checksums(tampered_root)
+    tampered_result = verify_directory(tampered_root)
+    if tampered_result["exit_code"] == EXIT_OK:
+        raise PackageError("Self-test không từ chối manifest release sai.")
+
+    dirty = root / "dirty.txt"
+    dirty.write_text("dirty\n", encoding="utf-8", newline="\n")
+    try:
+        create_package(
+            root,
+            output=base / "dirty-release.zip",
+            prompt_file=prompt,
+            purpose="Dirty release self-test",
+            scope_paths=["AGENTS.md"],
+            include_paths=[],
+            scope_mode=None,
+            inside_repository_reason=None,
+            kind="release",
+            release_file=release_target,
+        )
+    except PackageError as exc:
+        if "worktree sạch" not in str(exc):
+            raise
+    else:
+        raise PackageError("Self-test không từ chối release từ worktree bẩn.")
 
 
 def self_test() -> int:
@@ -1487,6 +2259,13 @@ def self_test() -> int:
             print("Self-test không loại thư mục docs ở gốc.", file=sys.stderr)
             return EXIT_FAILED
 
+    try:
+        with tempfile.TemporaryDirectory(prefix="zo-qmd-release-self-test-") as raw:
+            _self_test_release_creation(Path(raw))
+    except PackageError as exc:
+        print(f"Release self-test thất bại: {exc}", file=sys.stderr)
+        return EXIT_FAILED
+
     print("PASS: zo_qmd_package self-test")
     return EXIT_OK
 
@@ -1495,11 +2274,17 @@ def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(description=__doc__)
     subparsers = result.add_subparsers(dest="command", required=True)
 
-    pack = subparsers.add_parser("pack", help="Tạo gói ngữ cảnh chuẩn.")
+    pack = subparsers.add_parser("pack", help="Tạo gói context hoặc release chuẩn.")
     pack.add_argument("--repo-root", required=True)
     pack.add_argument("--output", required=True)
     pack.add_argument("--prompt", required=True)
     pack.add_argument("--purpose", required=True)
+    pack.add_argument(
+        "--kind",
+        choices=("context", "release"),
+        default="context",
+    )
+    pack.add_argument("--release-file")
     pack.add_argument("--scope-mode")
     pack.add_argument("--include", action="append", default=[])
     pack.add_argument("--inside-repository-reason")
@@ -1528,6 +2313,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 include_paths=args.include,
                 scope_mode=args.scope_mode,
                 inside_repository_reason=args.inside_repository_reason,
+                kind=args.kind,
+                release_file=Path(args.release_file) if args.release_file else None,
             )
             _print_pack_result(result, json_output=args.json)
             return int(result["exit_code"])

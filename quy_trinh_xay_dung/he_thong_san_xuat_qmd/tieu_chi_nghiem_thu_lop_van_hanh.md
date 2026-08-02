@@ -277,7 +277,7 @@ Bỏ qua cổng có người quan sát, checker tự tuyên bố nghiệm thu, h
 | O0 | Kiến trúc, giao thức, manifest, ma trận nghiệm thu | Markdown, liên kết, nhất quán thuật ngữ | Không sửa mã; không mô tả chức năng đích như đã có |
 | O1 | CLI vận hành cơ bản | Self-test, hồi quy hai dự án, `--help` | Không phá checker 2.6.0 |
 | O2 — đã triển khai kĩ thuật | `pack`, `verify`, gói ngữ cảnh | Gói thư mục/ZIP, thư mục sạch, checksum, thiếu/thừa/sai băm | Chat-box dùng được không cần lịch sử; không sửa bài hồi quy; không để lại gói thử trong repository |
-| O3 — hợp đồng đã khóa, triển khai đang chờ | Release, versioning, rollback | Release candidate và rollback drill | Có changelog, commit quay lại và bằng chứng bất biến |
+| O3 — mã ứng viên đã triển khai, bằng chứng đang chờ | Release, versioning, rollback | Release candidate và rollback drill | Có changelog, commit quay lại và bằng chứng bất biến |
 | O4 | Trình diễn đầu-cuối | Toàn bộ bảy mục tiêu | Không xuất bản; bằng chứng đầy đủ |
 
 ## 11. Nghiệm thu riêng của O0
@@ -344,7 +344,7 @@ O3 chỉ được chuyển sang trạng thái đã triển khai khi:
 - `publication: pending` được bảo toàn;
 - không tạo tag thật, không push và không publish.
 
-Việc tài liệu mô tả giao diện O3 không phải bằng chứng rằng các điều kiện trên đã đạt.
+Việc mã tạo gói release và self-test tồn tại chưa phải bằng chứng rằng release candidate thật, hồi quy trước–sau và rollback drill đã đạt.
 
 ## 15. Điều kiện khóa lớp vận hành 1.0
 

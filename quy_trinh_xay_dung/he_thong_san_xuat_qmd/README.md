@@ -1,6 +1,6 @@
 # Hệ thống sản xuất và kiểm định QMD cho ZO Math
 
-> **Trạng thái:** Lõi kĩ thuật phiên bản 1.0 đã khóa; lớp vận hành `0.2` của O2 đang có hiệu lực; hợp đồng O3 cho đích `0.3` đã được khóa nhưng mã release, release candidate và rollback drill chưa triển khai.
+> **Trạng thái:** Lõi kĩ thuật phiên bản 1.0 đã khóa; mã ứng viên O3 của lớp vận hành đã ở `0.3.0` và hỗ trợ gói release; release hiện hành vẫn là `0.2.0` cho đến khi release candidate thật cùng rollback drill đạt.
 >
 > Đây là tài liệu vận hành nội bộ. Nó chỉ có thẩm quyền trong phạm vi mà `AGENTS.md`, cấu hình dự án hoặc yêu cầu hiện tại của người dùng dẫn chiếu. Các hồ sơ kiểm kê và thiết kế ban đầu được giữ lại như bằng chứng lịch sử, không tự động ghi đè quy trình đang có hiệu lực ở nơi khác.
 
@@ -13,26 +13,26 @@
 - schema cấu hình dự án phiên bản `1`;
 - chế độ native và đường hồi quy hai dự án.
 
-Đã triển khai đến hết mốc O2:
+Đã triển khai trong mã ứng viên O3:
 
-- `scripts/zo_qmd.py` phiên bản `0.2.0`;
-- `scripts/zo_qmd_package.py` phiên bản `0.2.0`;
+- `scripts/zo_qmd.py` phiên bản `0.3.0`;
+- `scripts/zo_qmd_package.py` phiên bản `0.3.0`;
 - bảy lệnh `doctor`, `inspect`, `check`, `render`, `regression`, `pack`, `verify`;
 - điều phối qua loader, registry, checker và các self-test hiện hành;
 - hồi quy nguồn và render trên hai dự án đường cơ sở.
 
-Hợp đồng O3 đã được khóa cho:
+O3 đã triển khai trong mã:
 
-- ma trận phiên bản;
-- changelog;
-- giao diện đích `pack --kind context|release`;
+- ma trận phiên bản và changelog;
+- `pack --kind context|release`, với `context` là mặc định tương thích;
 - hồ sơ release qua `--release-file`;
-- release checklist và rollback drill.
+- kiểm tra worktree sạch, SemVer, tag, commit, bằng chứng và payload release;
+- self-test cho release hợp lệ, manifest release sai và worktree bẩn.
 
 Chưa hoàn thành:
 
-- mã tạo và xác minh release candidate;
-- self-test release và rollback drill;
+- release candidate thật `0.3.0`;
+- hồi quy trước–sau và rollback drill;
 - `start` và `prepublish`;
 - phiên kiểm nghiệm một chat-box mới chỉ dùng gói, không dùng lịch sử hội thoại;
 - phiên trình diễn đầu-cuối.
@@ -43,7 +43,7 @@ Ba tài liệu điều khiển giai đoạn vận hành hóa:
 - `giao_thuc_agent_chat_box_va_goi_ngu_canh.md`;
 - `tieu_chi_nghiem_thu_lop_van_hanh.md`.
 
-`scripts/zo_qmd.py` là điểm vào vận hành hiện hành cho bảy lệnh đã triển khai đến O2. `scripts/zo_check_repo.py` vẫn là checker lõi; CLI vận hành chỉ điều phối và bảo toàn mã thoát, báo cáo cùng các cổng kiểm định hiện có. Logic tạo và xác minh gói nằm trong `scripts/zo_qmd_package.py`, không được trộn vào checker.
+`scripts/zo_qmd.py` là điểm vào vận hành hiện hành cho bảy lệnh; mã ứng viên O3 giữ nguyên tập lệnh và mở rộng `pack`. `scripts/zo_check_repo.py` vẫn là checker lõi; CLI vận hành chỉ điều phối và bảo toàn mã thoát, báo cáo cùng các cổng kiểm định hiện có. Logic tạo và xác minh gói nằm trong `scripts/zo_qmd_package.py`, không được trộn vào checker.
 
 Ranh giới lưu trữ hiện hành:
 
@@ -130,11 +130,11 @@ scripts/zo_qmd.py
 scripts/zo_qmd_package.py
 ```
 
-Phiên bản O2:
+Phiên bản mã ứng viên O3:
 
 ```text
-QMD OPERATIONS CLI: 0.2.0
-PACKAGE MODULE: 0.2.0
+QMD OPERATIONS CLI: 0.3.0
+PACKAGE MODULE: 0.3.0
 ```
 
 Các lệnh đã triển khai:
@@ -157,7 +157,7 @@ python scripts/zo_python.py scripts/zo_qmd.py <command> [tham số...]
 
 Các lệnh `check` và `render` chuyển trách nhiệm kiểm định cho checker hiện hành. `regression` đọc bài hồi quy từ cấu hình dự án, chạy các self-test bắt buộc rồi điều phối hồi quy nguồn và, khi được yêu cầu, hồi quy render.
 
-`pack` tạo gói ngữ cảnh dạng thư mục hoặc ZIP tại đường dẫn đầu ra bắt buộc, sinh `PROMPT.md`, `MANIFEST.yml`, `FILES.sha256` và `payload/`. `verify` xác minh thư mục hoặc ZIP, kể cả khi chạy bằng CLI nằm trong chính gói và không có repository Git bao quanh.
+`pack` tạo gói context hoặc release dạng thư mục hay ZIP tại đường dẫn đầu ra bắt buộc, sinh `PROMPT.md`, `MANIFEST.yml`, `FILES.sha256` và `payload/`. Gói release chỉ được tạo từ worktree sạch, dùng hồ sơ `--release-file` và đầu ra ngoài repository. `verify` xác minh cả hai loại gói, kể cả khi chạy bằng CLI nằm trong chính gói và không có repository Git bao quanh.
 
 ### 3.2. Điểm vào kiểm định
 
@@ -388,7 +388,7 @@ Hợp đồng phát hành O3:
 - `quy_trinh_phat_hanh_va_khoi_phuc_qmd.md`;
 - `mau_ho_so_phat_hanh_qmd.yml`.
 
-CLI cơ bản, đóng gói context và xác minh gói đã có bằng chứng kĩ thuật ở O2. Các tài liệu O3 khóa giao diện và điều kiện phát hành nhưng không chứng minh mã release đã tồn tại. Phiên trình diễn đầu-cuối vẫn thuộc O4.
+CLI cơ bản và gói context đã có bằng chứng O2. Mã ứng viên O3 đã triển khai tạo và xác minh gói release cùng self-test liên quan; release candidate thật, hồi quy trước–sau và rollback drill vẫn chưa có bằng chứng. Phiên trình diễn đầu-cuối thuộc O4.
 
 ### 7.3. Hồ sơ chuyển đổi
 
@@ -439,4 +439,4 @@ Commit khóa tài liệu M9B hoàn tất phiên bản 1.0 mà không thay đổi
 
 O2 đã triển khai và kiểm nghiệm `pack` cùng `verify` trên gói context dạng thư mục và ZIP, bao gồm các trường hợp tệp thiếu, tệp thừa, checksum sai, danh sách checksum chưa sắp xếp và việc chạy CLI trong thư mục sạch.
 
-Phần hợp đồng đầu tiên của O3 đã khóa ma trận phiên bản, changelog, giao diện release, hồ sơ phát hành và quy trình rollback. Bước tiếp theo là triển khai `pack --kind release`, xác minh nghiêm ngặt manifest release, bổ sung self-test, rồi mới tạo release candidate `0.3.0` và diễn tập khôi phục. Phiên bản hiện hành vẫn là `0.2.0` cho đến khi toàn bộ bằng chứng O3 đạt.
+Mã ứng viên O3 đã triển khai `pack --kind release`, xác minh nghiêm ngặt manifest và payload release, đồng thời bổ sung self-test tương thích context và các trường hợp release bị từ chối. Bước tiếp theo là chạy toàn bộ hồi quy trên repository sống, commit mã ứng viên, tạo hồ sơ bằng chứng, diễn tập rollback trong worktree riêng và chỉ sau đó mới tạo release candidate `0.3.0`. Release hiện hành vẫn là `0.2.0` cho đến khi toàn bộ bằng chứng O3 đạt.

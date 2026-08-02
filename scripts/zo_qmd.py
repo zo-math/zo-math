@@ -28,7 +28,7 @@ from zo_qmd_config import (
 from zo_qmd_registry import ModuleRegistryError, build_validation_plan
 
 
-OPERATIONS_CLI_VERSION = "0.2.0"
+OPERATIONS_CLI_VERSION = "0.3.0"
 
 EXIT_OK = 0
 EXIT_FAILED = 1
@@ -49,6 +49,19 @@ SYSTEM_DOCUMENTS = (
     Path(
         "quy_trinh_xay_dung/he_thong_san_xuat_qmd/"
         "tieu_chi_nghiem_thu_lop_van_hanh.md"
+    ),
+    Path("quy_trinh_xay_dung/he_thong_san_xuat_qmd/CHANGELOG.md"),
+    Path(
+        "quy_trinh_xay_dung/he_thong_san_xuat_qmd/"
+        "ma_tran_phien_ban_qmd.md"
+    ),
+    Path(
+        "quy_trinh_xay_dung/he_thong_san_xuat_qmd/"
+        "quy_trinh_phat_hanh_va_khoi_phuc_qmd.md"
+    ),
+    Path(
+        "quy_trinh_xay_dung/he_thong_san_xuat_qmd/"
+        "mau_ho_so_phat_hanh_qmd.yml"
     ),
 )
 
@@ -511,7 +524,11 @@ def command_pack(root: Path, args: argparse.Namespace) -> int:
         args.prompt,
         "--purpose",
         args.purpose,
+        "--kind",
+        args.kind,
     ]
+    if args.release_file:
+        package_args.extend(["--release-file", args.release_file])
     if args.scope_mode:
         package_args.extend(["--scope-mode", args.scope_mode])
     for path in args.include:
@@ -627,7 +644,7 @@ def parser() -> argparse.ArgumentParser:
 
     pack = subparsers.add_parser(
         "pack",
-        help="Tạo gói ngữ cảnh chuẩn tại đầu ra tường minh.",
+        help="Tạo gói context hoặc release tại đầu ra tường minh.",
     )
     pack.add_argument(
         "--output",
@@ -643,6 +660,16 @@ def parser() -> argparse.ArgumentParser:
         "--purpose",
         required=True,
         help="Mục đích ngắn của gói.",
+    )
+    pack.add_argument(
+        "--kind",
+        choices=("context", "release"),
+        default="context",
+        help="Loại gói; mặc định là context để giữ tương thích O2.",
+    )
+    pack.add_argument(
+        "--release-file",
+        help="Hồ sơ YAML bắt buộc khi --kind release.",
     )
     pack.add_argument(
         "--scope-mode",

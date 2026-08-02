@@ -1,6 +1,6 @@
 # Ma trận phiên bản của cỗ máy QMD
 
-> **Trạng thái:** Hợp đồng phiên bản cho O3 đã được khóa; phiên bản hiện hành vẫn là lớp vận hành `0.2` cho đến khi mã, self-test, release candidate và rollback drill của O3 cùng đạt.
+> **Trạng thái:** Mã ứng viên O3 đã ở `0.3.0`; release hiện hành vẫn là `0.2.0` cho đến khi hồi quy, release candidate và rollback drill của O3 cùng đạt.
 >
 > Tài liệu này ghi quan hệ giữa các phiên bản được quản lí độc lập. Nó không thay thế hằng số phiên bản trong mã đang chạy và không tự tạo release hoặc Git tag.
 
@@ -107,4 +107,4 @@ Không nâng lõi QMD khi thay đổi chỉ thuộc lớp vận hành. Hai bài 
 7. changelog, checklist và rollback log phản ánh đúng bằng chứng;
 8. tài liệu hiện hành không còn mô tả O3 như chức năng chưa triển khai.
 
-Trước thời điểm đó, `0.3.0` chỉ là phiên bản đích của O3, không phải release hiện hành.
+Trước thời điểm đó, `0.3.0` là phiên bản của mã ứng viên O3, không phải release hiện hành đã được khóa.
