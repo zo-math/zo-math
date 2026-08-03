@@ -73,6 +73,7 @@ SYSTEM_SCRIPTS = (
     Path("scripts/zo_qmd.py"),
     Path("scripts/zo_qmd_package.py"),
     Path("scripts/zo_qmd_prepublish.py"),
+    Path("scripts/zo_artifact_freshness.py"),
     Path("scripts/zo_check_repo.py"),
     Path("scripts/zo_qmd_config.py"),
     Path("scripts/zo_qmd_registry.py"),
@@ -81,6 +82,7 @@ SYSTEM_SCRIPTS = (
 )
 
 SELF_TEST_SCRIPTS = (
+    Path("scripts/zo_artifact_freshness.py"),
     Path("scripts/zo_qmd_config.py"),
     Path("scripts/zo_qmd_registry.py"),
     Path("scripts/zo_qmd_core.py"),

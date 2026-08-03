@@ -8,6 +8,8 @@ import sys
 import tempfile
 from pathlib import Path
 
+from zo_artifact_freshness import FreshnessError, evaluate_artifact_freshness
+
 
 ROOT = Path(__file__).resolve().parents[1]
 AUDIT_DIR = ROOT / "_audit"
@@ -93,11 +95,17 @@ def status(source: Path) -> int:
     if not destination.is_file():
         print(f"MISSING: {relative_to_root(destination)}")
         return 1
-    if destination.stat().st_mtime < source.stat().st_mtime:
-        print(f"STALE: {relative_to_root(destination)}")
-        return 2
-    print(f"CURRENT: {relative_to_root(destination)}")
-    return 0
+    try:
+        freshness = evaluate_artifact_freshness(ROOT, source, destination)
+    except (FreshnessError, OSError) as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
+    label = "CURRENT" if freshness.current else "STALE"
+    print(
+        f"{label}: {relative_to_root(destination)} | "
+        f"{freshness.message} Cơ sở={freshness.basis}."
+    )
+    return 0 if freshness.current else 2
 
 
 def parser() -> argparse.ArgumentParser:
