@@ -21,6 +21,7 @@ from typing import Any, Callable, Mapping, Sequence
 from urllib.parse import unquote, urlsplit
 from xml.etree import ElementTree
 
+from zo_artifact_freshness import FreshnessError, evaluate_artifact_freshness
 from zo_qmd_config import ProjectConfig, ProjectConfigError, discover_project_config
 from zo_qmd_registry import (
     ModuleRegistryError,
@@ -846,12 +847,26 @@ def validate_function_metadata(
         )
 
     if exists:
-        current = pdf_path.stat().st_mtime >= path.stat().st_mtime
-        checker.add(
-            "function-pdf-freshness", current,
-            "PDF không cũ hơn QMD." if current else "PDF cũ hơn QMD; phải build lại.",
-            path,
-        )
+        try:
+            freshness = evaluate_artifact_freshness(
+                checker.root,
+                path,
+                pdf_path,
+                staged=checker.staged,
+            )
+            checker.add(
+                "function-pdf-freshness",
+                freshness.current,
+                f"{freshness.message} Cơ sở={freshness.basis}.",
+                path,
+            )
+        except (FreshnessError, OSError) as exc:
+            checker.add(
+                "function-pdf-freshness",
+                False,
+                f"Không xác định được độ mới của PDF: {exc}",
+                path,
+            )
         pdfinfo = shutil.which("pdfinfo")
         if pdfinfo:
             result = run([pdfinfo, str(pdf_path)], checker.root)
