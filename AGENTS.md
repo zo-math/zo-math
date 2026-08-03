@@ -34,7 +34,7 @@ python scripts/zo_python.py scripts/zo_quarto.py <quarto-command> [tham số...]
 
 Không ghi đường dẫn tuyệt đối tới executable Python vào metadata QMD. Cơ chế trên bảo đảm Jupyter và reticulate dùng nhất quán môi trường Python hiện hành theo cách portable.
 
-Codex dùng `scripts/zo_check_repo.py` làm điểm vào mặc định cho kiểm tra kỹ thuật và luôn gọi qua `scripts/zo_python.py`. Chọn chế độ `quick`, `scope` hoặc `render` theo phạm vi nhiệm vụ. Công cụ này không thay thế kiểm tra trực quan, xuất bản hoặc kiểm tra chuyên biệt chưa được tích hợp.
+Đối với bài QMD thuộc hệ thống có cấu hình, Codex dùng `scripts/zo_qmd.py` làm điểm vào vận hành và luôn gọi qua `scripts/zo_python.py`: dùng `check` cho kiểm định nguồn và `render` khi cần dựng đầu ra. `scripts/zo_check_repo.py` là checker lõi phía sau, chỉ được gọi trực tiếp khi bảo trì hoặc chẩn đoán checker, hoặc khi kiểm tra kĩ thuật ngoài vòng đời bài QMD có cấu hình. Cả hai công cụ đều không thay thế kiểm tra trực quan, nghiệm thu hoặc xuất bản.
 
 ## Quy ước trình bày chung
 
@@ -53,7 +53,7 @@ Tài liệu trên là điểm vào bằng văn bản của hệ thống. Khi ph�
 - `content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/AGENTS.md`;
 - `content/thpt/zo_math_100/100_bai_toan_thuc_te/AGENTS.md`.
 
-Lõi kĩ thuật QMD phiên bản 1.0 đã được khóa. Lớp vận hành hóa đang được xây theo các tài liệu trong `quy_trinh_xay_dung/he_thong_san_xuat_qmd/`; chức năng được mô tả là đích kiến trúc không được coi là đã có nếu chưa tồn tại mã và bằng chứng kiểm nghiệm. Điểm vào kiểm định hiện hành vẫn là `scripts/zo_check_repo.py`.
+Lõi kĩ thuật QMD phiên bản 1.0 đã được khóa. Lớp vận hành hóa đang được xây theo các tài liệu trong `quy_trinh_xay_dung/he_thong_san_xuat_qmd/`; chức năng được mô tả là đích kiến trúc không được coi là đã có nếu chưa tồn tại mã và bằng chứng kiểm nghiệm. Với vòng đời một bài QMD có cấu hình, điểm vào hiện hành là `scripts/zo_qmd.py`; checker lõi `scripts/zo_check_repo.py` được CLI này điều phối và không phải lệnh mặc định mà agent phải tự chọn.
 
 ### Phong cách viết
 

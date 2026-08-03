@@ -93,25 +93,23 @@ python scripts/zo_python.py scripts/zo_quarto.py <quarto-command> [tham số...]
 python scripts/zo_python.py scripts/zo_quarto.py render PAGE
 ```
 
-Chế độ `render` của `scripts/zo_check_repo.py` dùng cùng cơ chế chuẩn bị môi trường. Không đặt thủ công `QUARTO_PYTHON` hoặc `RETICULATE_PYTHON` trong từng lệnh và không ghi đường dẫn Python cá nhân vào metadata QMD. Trình khởi chạy chọn Python hiện hành cho Jupyter và reticulate, đồng thời giữ nguyên giá trị mà người gọi đã chủ động cung cấp. Báo cáo cuối phải ghi đúng lệnh thực tế đã chạy.
+Lệnh `render` của lớp vận hành QMD điều phối checker lõi, và checker dùng cùng cơ chế chuẩn bị môi trường. Không đặt thủ công `QUARTO_PYTHON` hoặc `RETICULATE_PYTHON` trong từng lệnh và không ghi đường dẫn Python cá nhân vào metadata QMD. Trình khởi chạy chọn Python hiện hành cho Jupyter và reticulate, đồng thời giữ nguyên giá trị mà người gọi đã chủ động cung cấp. Báo cáo cuối phải ghi đúng lệnh thực tế đã chạy.
 
-### Kiểm định kỹ thuật thống nhất
+### Kiểm định kĩ thuật thống nhất
 
-Dùng điểm vào `scripts/zo_check_repo.py` theo nguyên tắc:
+Với bài QMD thuộc hệ thống có cấu hình, dùng điểm vào vận hành:
 
-- `quick` kiểm tra nhanh các tệp đang thay đổi hoặc phạm vi nhỏ được chỉ định, không render;
-- `scope` kiểm tra một hoặc nhiều tệp, thư mục tường minh bằng validator phù hợp;
-- `render` chỉ dùng khi nhiệm vụ cần render các trang `.qmd` tường minh;
+```text
+python scripts/zo_python.py scripts/zo_qmd.py check <pham-vi-qmd>...
+python scripts/zo_python.py scripts/zo_qmd.py render <pham-vi-qmd>...
+```
+
+- `check` điều phối kiểm định nguồn cho một hoặc nhiều phạm vi tường minh;
+- `render` chỉ dùng khi nhiệm vụ cần dựng và kiểm định đầu ra;
 - `--staged` chỉ dùng khi cần kiểm tra vùng staged;
 - `--report` chỉ dùng khi báo cáo JSON máy đọc được trong `_audit/` thực sự hữu ích.
 
-Ví dụ lệnh:
-
-```text
-python scripts/zo_python.py scripts/zo_check_repo.py quick
-python scripts/zo_python.py scripts/zo_check_repo.py scope scripts/zo_python.py
-python scripts/zo_python.py scripts/zo_check_repo.py render content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/index.qmd
-```
+`scripts/zo_check_repo.py` là checker lõi được lớp vận hành gọi phía sau. Chỉ gọi trực tiếp `quick`, `scope` hoặc `render` khi nhiệm vụ là bảo trì, chẩn đoán checker, hoặc kiểm tra kĩ thuật ngoài vòng đời một bài QMD có cấu hình; phải nêu rõ lí do trong báo cáo.
 
 Công cụ kiểm định không tự sửa lỗi, stage hoặc commit. Trước commit, agent vẫn phải đọc diff, xác nhận phạm vi Git và thực hiện các kiểm tra staged phù hợp.
 
