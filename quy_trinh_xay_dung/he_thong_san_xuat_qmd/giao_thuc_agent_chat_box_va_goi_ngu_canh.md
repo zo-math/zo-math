@@ -97,6 +97,15 @@ Trước khi sửa, agent phải ghi:
 
 ### 3.5. Bước 5 — Kiểm định và báo cáo
 
+Với bài QMD thuộc hệ thống có cấu hình, agent dùng điểm vào vận hành thống nhất:
+
+```bash
+python scripts/zo_python.py scripts/zo_qmd.py check <pham-vi-qmd>...
+python scripts/zo_python.py scripts/zo_qmd.py render <pham-vi-qmd>...
+```
+
+Không thay lệnh này bằng việc gọi trực tiếp `scripts/zo_check_repo.py`, trừ khi nhiệm vụ hiện tại là bảo trì hoặc chẩn đoán checker và báo cáo đã nêu rõ lí do. Checker lõi vẫn là nơi thực thi validator; CLI vận hành chỉ điều phối, giữ mã thoát và báo cáo.
+
 Agent phải phân biệt:
 
 - lệnh đã chạy;

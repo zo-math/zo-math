@@ -169,11 +169,13 @@ Các lệnh `check` và `render` chuyển trách nhiệm kiểm định cho chec
 
 `pack` tạo gói context hoặc release dạng thư mục hay ZIP tại đường dẫn đầu ra bắt buộc, sinh `PROMPT.md`, `MANIFEST.yml`, `FILES.sha256` và `payload/`. Gói release chỉ được tạo từ worktree sạch, dùng hồ sơ `--release-file` và đầu ra ngoài repository. `verify` xác minh cả hai loại gói, kể cả khi chạy bằng CLI nằm trong chính gói và không có repository Git bao quanh.
 
-### 3.2. Điểm vào kiểm định
+### 3.2. Checker lõi
 
 ```text
 scripts/zo_check_repo.py
 ```
+
+Checker lõi giữ giao diện ổn định để lớp vận hành điều phối và để bảo trì, chẩn đoán chuyên sâu. Với vòng đời thông thường của một bài QMD có cấu hình, agent không gọi trực tiếp checker mà dùng `scripts/zo_qmd.py check` hoặc `scripts/zo_qmd.py render`.
 
 Phiên bản đường cơ sở của hệ thống 1.0:
 
@@ -307,38 +309,37 @@ Bất biến quan trọng:
 
 ## 5. Quy trình kiểm định ngắn hiện hành
 
-### 5.1. Kiểm tra cấu hình
+### 5.1. Kiểm tra môi trường
 
 ```bash
-python scripts/zo_python.py scripts/zo_qmd_config.py check \
-  <duong_dan_den_cau_hinh>
+python scripts/zo_python.py scripts/zo_qmd.py doctor
 ```
 
 ### 5.2. Xác định dự án và loại bài
 
 ```bash
-python scripts/zo_python.py scripts/zo_qmd_config.py inspect \
+python scripts/zo_python.py scripts/zo_qmd.py inspect \
   <duong_dan_den_bai_qmd>
 ```
 
 ### 5.3. Kiểm tra nguồn
 
 ```bash
-python scripts/zo_python.py scripts/zo_check_repo.py scope \
+python scripts/zo_python.py scripts/zo_qmd.py check \
   <duong_dan_den_bai_qmd>
 ```
 
 ### 5.4. Kiểm tra và render
 
 ```bash
-python scripts/zo_python.py scripts/zo_check_repo.py render \
+python scripts/zo_python.py scripts/zo_qmd.py render \
   <duong_dan_den_bai_qmd>
 ```
 
 ### 5.5. Kiểm tra index trước commit
 
 ```bash
-python scripts/zo_python.py scripts/zo_check_repo.py scope --staged \
+python scripts/zo_python.py scripts/zo_qmd.py check --staged \
   <cac_duong_dan_da_stage>
 
 git diff --cached --check
@@ -347,9 +348,9 @@ git diff --cached --check
 Báo cáo JSON chỉ được ghi bên trong `_audit/`:
 
 ```bash
-python scripts/zo_python.py scripts/zo_check_repo.py scope \
-  <duong_dan> \
-  --report _audit/bao_cao.json
+python scripts/zo_python.py scripts/zo_qmd.py check \
+  --report _audit/bao_cao.json \
+  <duong_dan>
 ```
 
 ## 6. Trạng thái và quyền xuất bản
