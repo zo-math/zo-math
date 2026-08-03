@@ -1,6 +1,6 @@
 # Giao thức cho agent, chat-box và gói ngữ cảnh QMD
 
-> **Trạng thái:** Quy chuẩn release hiện hành vẫn neo tại `0.2.0`; mã ứng viên O3 `0.3.0` đã triển khai tạo và xác minh gói release, nhưng release candidate thật và kiểm nghiệm rollback chưa hoàn tất.
+> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`; release candidate và rollback drill của O3 đã đạt. O4 đang triển khai với CLI ứng viên `0.4.0`; `start` và `prepublish` đã có mã, còn phép thử chat-box chỉ dùng gói O4 và phiên trình diễn đầu-cuối chưa hoàn tất.
 >
 > Tài liệu này quy định cách một agent trong VS Code hoặc một chat-box tiếp nhận và bàn giao nhiệm vụ QMD. Nó không thay thế chỉ dẫn cấp repository hoặc quy chuẩn chuyên biệt của dự án.
 
@@ -398,7 +398,22 @@ O3 giữ một lệnh `pack` và khóa hai tham số:
 
 `context` là mặc định tương thích ngược. `--release-file` chỉ hợp lệ và bắt buộc khi `--kind release`. Hồ sơ phát hành tuân theo `mau_ho_so_phat_hanh_qmd.yml`.
 
-Giao diện này đã được triển khai trong mã ứng viên `0.3.0`. Chỉ sau khi hồi quy, release candidate và rollback drill cùng đạt mới được gọi `0.3.0` là release hiện hành.
+Giao diện này đã được triển khai, kiểm nghiệm và dùng để tạo release candidate `0.3.0`. Hồi quy, hai phép xác minh và rollback drill đều đã đạt; vì vậy `0.3.0` là release hiện hành, dù Git tag thật chưa được tạo.
+
+### 7.7. Giao diện lập hồ sơ phiên và báo cáo trước xuất bản của O4
+
+CLI ứng viên `0.4.0` bổ sung hai lệnh tương thích ngược:
+
+```text
+start --output <session.json> (--request <text> | --request-file <file>) [--allow <path>] [--exclude <path>] <target>
+prepublish --output <report.json> --session <session.json> --check-report <check.json> --render-report <render.json> --human-review <review.json> <target>
+```
+
+`start` phải ghi đầu ra tường minh ngoài repository hoặc dưới `_audit/`, giữ nguyên yêu cầu ban đầu, kết quả `inspect`, nguồn có thẩm quyền, phạm vi được phép tác động, phạm vi loại trừ, kế hoạch và các cổng người dùng. Phạm vi được phép và phạm vi loại trừ không được chồng lấn. Với một QMD dự kiến tạo mới, hồ sơ bài có thể chưa tồn tại nhưng phải được ghi là sản phẩm cần tạo; với QMD đã tồn tại, hồ sơ bắt buộc bị thiếu phải chặn kế hoạch.
+
+`prepublish` chỉ tổng hợp manifest phiên, báo cáo `check`, báo cáo `render` và bảng kiểm có người quan sát. Lệnh không chạy lại checker, không sửa hồ sơ sản xuất và không tự đặt `accepted`; báo cáo chỉ phản ánh `production_status: accepted` khi bảng kiểm hợp lệ đã ghi nhận trạng thái ấy. Lệnh không chuyển sang `published` và luôn ghi `publication: pending`. Báo cáo chỉ ở trạng thái `ready_for_user_decision` khi bằng chứng tự động cùng kiểm định có người quan sát đều đạt; mọi trường hợp thiếu hoặc mâu thuẫn phải bị chặn.
+
+Hai lệnh này chưa tự chứng minh O4 hoàn tất. Gói context từ trạng thái O4, phép thử chat-box mới và phiên trình diễn đầu-cuối vẫn là bằng chứng bắt buộc.
 
 ## 8. `FILES.sha256`
 

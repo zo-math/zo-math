@@ -1,6 +1,6 @@
 # Tiêu chí nghiệm thu lớp vận hành cỗ máy QMD
 
-> **Trạng thái:** Ma trận nghiệm thu hiện hành `0.3`; O3 đã đạt với release candidate được tạo từ commit sạch, hai phép xác minh đạt và rollback drill đạt; O4 chưa triển khai.
+> **Trạng thái:** Ma trận nghiệm thu hiện hành `0.3`; O3 đã đạt. O4 đang triển khai với CLI ứng viên `0.4.0`; `start` và `prepublish` đã vượt phép thử cấu trúc, nhưng phiên trình diễn đầu-cuối và bằng chứng đủ bảy mục tiêu chưa hoàn tất.
 >
 > Tài liệu này đánh giá lớp vận hành bao quanh lõi QMD 1.0. Nó không thay thế `tieu_chi_nghiem_thu_he_thong.md`, vốn ghi nhận nghiệm thu của lõi kĩ thuật phiên bản 1.0.
 
@@ -278,7 +278,7 @@ Bỏ qua cổng có người quan sát, checker tự tuyên bố nghiệm thu, h
 | O1 | CLI vận hành cơ bản | Self-test, hồi quy hai dự án, `--help` | Không phá checker 2.6.0 |
 | O2 — đã triển khai kĩ thuật | `pack`, `verify`, gói ngữ cảnh | Gói thư mục/ZIP, thư mục sạch, checksum, thiếu/thừa/sai băm | Chat-box dùng được không cần lịch sử; không sửa bài hồi quy; không để lại gói thử trong repository |
 | O3 — đã đạt | Release, versioning, rollback | Release candidate và rollback drill | Có changelog, commit quay lại, bằng chứng bất biến và hai log xác minh |
-| O4 | Trình diễn đầu-cuối | Toàn bộ bảy mục tiêu | Không xuất bản; bằng chứng đầy đủ |
+| O4 — đang triển khai | `start`, `prepublish`, gói O4 và trình diễn đầu-cuối | Toàn bộ bảy mục tiêu | Không xuất bản; bằng chứng đầy đủ |
 
 ## 11. Nghiệm thu riêng của O0
 
@@ -346,7 +346,30 @@ O3 chỉ được chuyển sang trạng thái đã triển khai khi:
 
 Các điều kiện O3 đã được chứng minh: mã tạo gói release và self-test đạt; hồi quy trước–sau cùng rollback drill đạt; release candidate được tạo từ commit sạch và xác minh thành công bằng CLI ngoài repository lẫn CLI tự chứa trong payload. Bằng chứng được lưu tại `phat_hanh/qmd_ops_0_3_0/`.
 
-## 15. Điều kiện khóa lớp vận hành 1.0
+## 15. Trạng thái nghiệm thu riêng của O4
+
+O4 đã có bằng chứng triển khai ban đầu khi:
+
+- `start --help` hoạt động và tạo manifest phiên JSON tại đầu ra tường minh;
+- `start` nhận diện được QMD dự kiến tạo mới, ghi đúng nguồn điều khiển, phạm vi, kế hoạch và `publication: pending`;
+- phạm vi được phép tác động chồng lấn phạm vi loại trừ bị từ chối;
+- QMD hiện hữu thiếu hồ sơ bắt buộc bị chặn;
+- `scripts/zo_qmd_prepublish.py self-test` đạt;
+- `prepublish` tạo được báo cáo sẵn sàng khi bằng chứng tổng hợp hợp lệ;
+- `prepublish` chặn trường hợp chưa có kiểm định có người quan sát hoặc khai báo xuất bản sai;
+- cả hai lệnh từ chối đầu ra tùy tiện ở gốc repository;
+- hồi quy nguồn hai dự án đạt và SHA-256 hai QMD đường cơ sở không đổi.
+
+Các bằng chứng trên chỉ chứng minh hai giao diện O4 đã được triển khai đúng ranh giới ban đầu. O4 vẫn chưa đạt cho đến khi:
+
+- tài liệu hiện hành phản ánh đúng CLI ứng viên;
+- gói context được tạo từ commit sạch chứa trạng thái O4 và vượt hai đường `verify`;
+- một chat-box mới chỉ dùng gói ấy mà tái hiện đúng nhiệm vụ;
+- một yêu cầu mới đi hết chuỗi `inspect → start → sản xuất → check → render → human review → prepublish`;
+- bảy mục tiêu đều có bằng chứng lưu lại;
+- trạng thái xuất bản vẫn `pending` và người dùng quyết định riêng việc khóa lớp vận hành 1.0.
+
+## 16. Điều kiện khóa lớp vận hành 1.0
 
 Chỉ khóa lớp vận hành 1.0 khi:
 
@@ -358,6 +381,6 @@ Chỉ khóa lớp vận hành 1.0 khi:
 - phiên trình diễn kết thúc ở báo cáo trước xuất bản;
 - người dùng chấp thuận khóa phiên bản.
 
-## 16. Kết luận
+## 17. Kết luận
 
 Lõi QMD 1.0 chứng minh hệ thống kiểm định có thể phục vụ hai dự án. Lớp vận hành chỉ đạt khi khả năng ấy được biến thành một quy trình có thể học nhanh, bàn giao, chạy, kiểm tra, phát hành và khôi phục bằng bằng chứng lặp lại được.
