@@ -7,9 +7,62 @@
 \usepackage{graphicx}
 \usepackage{lastpage}
 \usepackage{qrcode}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
 
 \definecolor{zomathgray}{HTML}{5F6368}
 \definecolor{zomathred}{HTML}{EF5350}
+\definecolor{zomathblocktext}{HTML}{25221F}
+\definecolor{zomathblockredbg}{HTML}{FFF4F3}
+\definecolor{zomathblockredborder}{HTML}{F2B1AF}
+\definecolor{zomathblockyellowbg}{HTML}{FFF9E9}
+\definecolor{zomathblockyellowborder}{HTML}{E3C970}
+\definecolor{zomathblockgraybg}{HTML}{F3F1EE}
+\definecolor{zomathblockgrayborder}{HTML}{DFD7CA}
+
+\tcbset{
+  zo block base/.style={
+    breakable,
+    boxrule=0.55pt,
+    arc=2mm,
+    outer arc=2mm,
+    left=3mm,
+    right=3mm,
+    top=2.5mm,
+    bottom=2.7mm,
+    before skip=1.1em,
+    after skip=1.1em,
+    coltitle=zomathblocktext,
+    fonttitle=\bfseries,
+    toptitle=2.5mm,
+    bottomtitle=1.4mm,
+    titlerule=0pt
+  }
+}
+
+\newtcolorbox{zoBlockRed}[1]{
+  zo block base,
+  colback=zomathblockredbg,
+  colframe=zomathblockredborder,
+  colbacktitle=zomathblockredbg,
+  title={#1}
+}
+
+\newtcolorbox{zoBlockYellow}[1]{
+  zo block base,
+  colback=zomathblockyellowbg,
+  colframe=zomathblockyellowborder,
+  colbacktitle=zomathblockyellowbg,
+  title={#1}
+}
+
+\newtcolorbox{zoBlockGray}[1]{
+  zo block base,
+  colback=zomathblockgraybg,
+  colframe=zomathblockgrayborder,
+  colbacktitle=zomathblockgraybg,
+  title={#1}
+}
 
 \providecommand{\zoPdfTitle}{ZO Math}
 \providecommand{\zoPdfMetaTitle}{ZO Math}
