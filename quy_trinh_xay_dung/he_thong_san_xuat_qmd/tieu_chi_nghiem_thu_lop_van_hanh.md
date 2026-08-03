@@ -1,6 +1,6 @@
 # Tiêu chí nghiệm thu lớp vận hành cỗ máy QMD
 
-> **Trạng thái:** Ma trận nghiệm thu hiện hành `0.3`; O3 đã đạt. O4 đang triển khai với CLI ứng viên `0.4.0`; `start` và `prepublish` đã vượt phép thử cấu trúc, nhưng phiên trình diễn đầu-cuối và bằng chứng đủ bảy mục tiêu chưa hoàn tất.
+> **Trạng thái:** Ma trận nghiệm thu hiện hành `0.3`; O3 đã đạt. O4 đang triển khai với CLI ứng viên `0.4.0`; agent mới và phiên trình diễn đầu-cuối đã có bằng chứng; phép thử context cùng chat-box đã đạt trên một snapshot O4 trước đó; hợp đồng người dùng đã được đồng bộ; còn phép thử lại Mục tiêu 1, gói context cuối cùng, phép thử chat-box tương ứng, hồ sơ tổng hợp đủ bảy mục tiêu và release candidate O4 chưa hoàn tất.
 >
 > Tài liệu này đánh giá lớp vận hành bao quanh lõi QMD 1.0. Nó không thay thế `tieu_chi_nghiem_thu_he_thong.md`, vốn ghi nhận nghiệm thu của lõi kĩ thuật phiên bản 1.0.
 
@@ -11,12 +11,12 @@ Lớp vận hành chỉ được gọi là hoàn thành khi có bằng chứng c
 1. người dùng mô tả được cỗ máy;
 2. agent mới trong VS Code sử dụng được;
 3. chat-box làm việc được qua gói chuẩn;
-4. có một điểm vào vận hành thống nhất;
+4. agent có một giao diện kĩ thuật vận hành thống nhất;
 5. có gói phát hành và manifest;
 6. có quy trình bảo trì, nâng phiên bản và khôi phục;
 7. có phiên trình diễn đầu-cuối đến báo cáo trước xuất bản.
 
-Không mục tiêu nào được suy ra chỉ từ việc checker chạy thành công.
+Không mục tiêu nào được suy ra chỉ từ việc checker chạy thành công. O4 nghiệm thu khả năng làm việc trong các dự án đã được tích hợp; khả năng khởi tạo một dự án con hoàn toàn mới được hoãn sang mốc sau O4.
 
 ## 2. Nguyên tắc bằng chứng
 
@@ -39,28 +39,30 @@ Bằng chứng phải phân biệt:
 
 ### Phép thử
 
-Một người dùng đọc điểm vào tài liệu trong vài phút và trả lời đúng:
+Một người dùng đọc phần giới thiệu trong vài phút rồi trả lời bằng ngôn ngữ thông thường:
 
-- cỗ máy giải quyết vấn đề gì;
-- lõi kĩ thuật và lớp vận hành khác nhau thế nào;
-- đầu vào và đầu ra chính;
-- ba cổng V, A, P;
-- lệnh khởi đầu;
-- vì sao checker không tự nghiệm thu hoặc xuất bản.
+- người dùng có thể giao nhiệm vụ theo cách nào;
+- cỗ máy hiện hỗ trợ phạm vi nào và khi nào cần tích hợp dự án mới;
+- người dùng giao gì, agent làm gì và bộ kiểm tra tự động kiểm tra gì;
+- sản phẩm và báo cáo chính có thể nhận được;
+- phần nào máy kiểm định được, phần nào cần con người chấp nhận;
+- ai quyết định xuất bản.
+
+Không hỏi người dùng tên script, cú pháp Terminal hoặc các chi tiết chỉ agent vận hành cần biết.
 
 ### Bằng chứng
 
 - bản README hiện hành;
 - bảng câu hỏi và câu trả lời;
-- ghi nhận các điểm gây hiểu sai.
+- ghi nhận các điểm gây hiểu sai, kể cả phép thử không kết luận được vì câu hỏi dùng thuật ngữ kĩ thuật.
 
 ### Đạt khi
 
-Không cần lịch sử chat và không cần đọc toàn bộ thư mục tài liệu để trả lời chính xác.
+Không cần lịch sử chat, không cần đọc toàn bộ thư mục tài liệu và không cần biết CLI để mô tả đúng cách giao việc, phạm vi hiện hành, đầu ra cùng ba quyền kiểm định–chấp nhận–xuất bản.
 
 ### Không đạt khi
 
-Người dùng phải tự ghép nhiều lệnh rời hoặc hiểu nhầm `PASS` là `accepted` hay `published`.
+Người dùng tưởng phải tự chạy Terminal, tưởng checker có thể tự chấp nhận hoặc xuất bản, hoặc tưởng dự án chưa được tích hợp đã tự động được hỗ trợ.
 
 ## 4. Mục tiêu 2 — Agent mới trong VS Code sử dụng được
 
@@ -123,7 +125,7 @@ Một chat-box mới tái hiện đúng bản đồ nhiệm vụ và không cầ
 
 Gói thiếu manifest, đường dẫn bị mất, hoặc chat-box trộn thông tin khai báo với bằng chứng đã xác minh.
 
-## 6. Mục tiêu 4 — Một điểm vào vận hành thống nhất
+## 6. Mục tiêu 4 — Một giao diện kĩ thuật thống nhất cho agent
 
 ### Phép thử
 
@@ -229,7 +231,7 @@ Khôi phục dựa vào thao tác phá hủy worktree sống, thiếu điểm qu
 
 ### Phép thử
 
-Dùng một yêu cầu mới trong dự án đã có, thực hiện từ tiếp nhận đến báo cáo trước xuất bản trong môi trường dùng một lần.
+Dùng một yêu cầu mới bằng ngôn ngữ tự nhiên trong dự án đã được tích hợp, thực hiện từ tiếp nhận đến báo cáo trước xuất bản trong môi trường dùng một lần.
 
 Chuỗi bắt buộc:
 

@@ -1,6 +1,6 @@
 # Hệ thống sản xuất và kiểm định QMD cho ZO Math
 
-> **Trạng thái:** Lõi kĩ thuật phiên bản 1.0 đã khóa; release hiện hành của lớp vận hành là `0.3.0`; O3 đã hoàn tất. O4 đang triển khai trên nhánh riêng với CLI ứng viên `0.4.0`; `start` và `prepublish` đã có mã cùng phép thử cấu trúc, nhưng phiên trình diễn đầu-cuối và nghiệm thu đủ bảy mục tiêu chưa hoàn tất.
+> **Trạng thái:** Lõi kĩ thuật phiên bản 1.0 đã khóa; release hiện hành của lớp vận hành là `0.3.0`; O3 đã hoàn tất. O4 đang triển khai trên nhánh riêng với CLI ứng viên `0.4.0`; phép thử agent mới và phiên trình diễn đầu-cuối đã có bằng chứng, còn gói context cùng phép thử chat-box đã đạt trên một snapshot O4 trước đó. Hợp đồng người dùng bằng ngôn ngữ tự nhiên đã được đồng bộ trong ứng viên O4. O4 còn phải thử lại Mục tiêu 1, tạo lại và xác minh gói context từ commit sạch hiện hành, thử một chat-box mới trên gói ấy, tổng hợp đủ bảy mục tiêu và tạo release candidate trước khi có quyết định khóa lớp vận hành 1.0.
 >
 > Đây là tài liệu vận hành nội bộ. Nó chỉ có thẩm quyền trong phạm vi mà `AGENTS.md`, cấu hình dự án hoặc yêu cầu hiện tại của người dùng dẫn chiếu. Các hồ sơ kiểm kê và thiết kế ban đầu được giữ lại như bằng chứng lịch sử, không tự động ghi đè quy trình đang có hiệu lực ở nơi khác.
 
@@ -35,12 +35,20 @@ O3 đã triển khai trong mã:
 - kiểm tra worktree sạch, SemVer, tag, commit, bằng chứng và payload release;
 - self-test cho release hợp lệ, manifest release sai và worktree bẩn.
 
+Đã có bằng chứng trong O4:
+
+- một gói context từ snapshot O4 trước đó đã vượt xác minh ngoài gói và tự xác minh;
+- một chat-box mới chỉ dùng gói ấy đã tái hiện đúng nhiệm vụ;
+- một agent mới trong VS Code đã dùng đúng giao diện vận hành và không sửa bài đường cơ sở;
+- phiên trình diễn đầu-cuối đã đi đến `prepublish`, bị chặn đúng khi kiểm định có người quan sát chưa chấp nhận sản phẩm và giữ `publication: pending`.
+
 Chưa hoàn thành trong O4:
 
-- tạo và xác minh gói context từ trạng thái O4 sau khi tài liệu được đồng bộ;
-- phép thử một chat-box mới chỉ dùng gói, không dùng lịch sử hội thoại;
-- phiên trình diễn đầu-cuối với yêu cầu mới;
-- đối chiếu đủ bằng chứng cho bảy mục tiêu và quyết định có khóa lớp vận hành 1.0 hay không.
+- thử lại Mục tiêu 1 theo hợp đồng người dùng đã được sửa;
+- tạo lại và xác minh gói context từ commit sạch sau khi tài liệu được khóa, rồi thử một chat-box mới chỉ dùng gói ấy;
+- đối chiếu, lưu trữ và tổng hợp đủ bằng chứng cho bảy mục tiêu;
+- tạo và xác minh release candidate `0.4.0`;
+- quyết định có khóa lớp vận hành 1.0 hay không.
 
 Ba tài liệu điều khiển giai đoạn vận hành hóa:
 
@@ -61,6 +69,33 @@ content/.../<du_an>/_quy_trinh/
 ```
 
 Gói ZIP, báo cáo phiên và tệp sinh tạm không được mặc định ghi vào gốc repository hoặc thư mục dự án. Công cụ tạo các sản phẩm ấy phải nhận vị trí đầu ra tường minh; báo cáo checker nằm trong repository vẫn tuân theo quy tắc `_audit/` hiện hành.
+
+## Cách người dùng sử dụng cỗ máy
+
+Người dùng giao nhiệm vụ bằng ngôn ngữ tự nhiên. Ví dụ:
+
+> Hãy viết về hàm $y=e^x$.
+
+Với một dự án đã được tích hợp, người dùng không phải biết tên script, cú pháp Terminal, vị trí cấu hình hoặc cách gọi checker. Agent chịu trách nhiệm chuyển yêu cầu thành chuỗi thao tác kĩ thuật: nhận diện dự án, đọc quy chuẩn và hồ sơ, khóa phạm vi, tạo hoặc sửa QMD cùng tài nguyên, kiểm định, render khi cần và trình sản phẩm để người dùng duyệt.
+
+Người dùng giữ ba trách nhiệm không được chuyển cho máy:
+
+- xác nhận mục tiêu nội dung và các quyết định còn mở;
+- kiểm tra ý nghĩa toán học, sư phạm, hình thức và đầu ra thực tế;
+- quyết định chấp nhận và xuất bản.
+
+Phạm vi triển khai hiện hành gồm đúng hai dự án đã được tích hợp và kiểm nghiệm:
+
+- `functions_100` — 100+ Hàm số: Sự biến thiên và đồ thị;
+- `real_world_100` — 100+ Bài toán thực tế.
+
+Lõi được thiết kế để bổ sung dự án khác, nhưng một khóa học Xác suất, Đại số tuyến tính hoặc dự án mới chưa có cấu hình không tự động được hỗ trợ chỉ vì lõi có tính mở rộng. Tích hợp dự án mới là một nhiệm vụ riêng sau O4.
+
+Ba giao diện phải được phân biệt:
+
+1. **Giao diện người dùng:** yêu cầu bằng ngôn ngữ tự nhiên.
+2. **Giao diện agent:** `scripts/zo_qmd.py` và các lệnh vận hành repository-local.
+3. **Checker lõi:** `scripts/zo_check_repo.py`, được lớp vận hành gọi phía sau.
 
 ## 1. Mục đích
 
@@ -128,7 +163,7 @@ Checker tạo hợp đồng hiệu lực từ lõi, cấu hình dự án và mô
 
 ## 3. Thành phần triển khai
 
-### 3.1. Điểm vào vận hành
+### 3.1. Giao diện kĩ thuật của agent
 
 ```text
 scripts/zo_qmd.py
@@ -157,7 +192,7 @@ pack
 verify
 ```
 
-Cách gọi chuẩn:
+Cách agent gọi chuẩn trong repository:
 
 ```bash
 python scripts/zo_python.py scripts/zo_qmd.py <command> [tham số...]
@@ -452,4 +487,4 @@ O2 đã triển khai và kiểm nghiệm `pack` cùng `verify` trên gói contex
 
 Release `0.3.0` đã hoàn tất O3: `pack --kind release` và `verify` đã được kiểm nghiệm; release candidate được tạo từ commit sạch; hai lớp xác minh đều đạt; rollback drill đạt; hai QMD hồi quy giữ nguyên SHA-256 và trạng thái xuất bản vẫn `pending`. Git tag thật chưa được tạo, không push và không publish.
 
-O4 đang triển khai. Hai commit `278b1d9` và `c966bcb` đã bổ sung `start` cùng `prepublish`, nâng CLI ứng viên lên `0.4.0`, chạy self-test và hồi quy nguồn mà không đổi SHA-256 của hai QMD đường cơ sở. O4 chưa đạt cho đến khi gói context mới được kiểm nghiệm, chat-box mới vượt phép thử chỉ dùng gói, phiên trình diễn đầu-cuối hoàn tất và đủ bảy mục tiêu có bằng chứng.
+O4 đang triển khai. `start` và `prepublish` đã được bổ sung; phép thử agent mới và phiên trình diễn đầu-cuối đã có bằng chứng; phép thử context cùng chat-box đã đạt trên một snapshot O4 trước đó; hai QMD đường cơ sở giữ nguyên SHA-256 và trạng thái xuất bản vẫn `pending`. O4 chưa đạt cho đến khi Mục tiêu 1 được thử lại theo hợp đồng người dùng đã đồng bộ, gói context cuối được tạo và xác minh từ commit sạch cùng một phép thử chat-box mới, đủ bảy mục tiêu có hồ sơ tổng hợp, release candidate `0.4.0` được xác minh và người dùng quyết định riêng việc khóa lớp vận hành 1.0.

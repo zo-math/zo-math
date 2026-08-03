@@ -1,6 +1,6 @@
 # Ma trận phiên bản của cỗ máy QMD
 
-> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`; O3 đã đạt. CLI ứng viên O4 là `0.4.0` với `start` và `prepublish`, nhưng chưa có release candidate O4, chưa tạo Git tag thật, chưa push và chưa publish.
+> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`; O3 đã đạt. CLI ứng viên O4 là `0.4.0` với `start` và `prepublish`; phép thử agent mới và trình diễn đầu-cuối đã có bằng chứng; phép thử context cùng chat-box đã đạt trên một snapshot O4 trước đó; nhưng chưa có gói context cuối, release candidate O4, Git tag thật, push hoặc publish.
 >
 > Tài liệu này ghi quan hệ giữa các phiên bản được quản lí độc lập. Nó không thay thế hằng số phiên bản trong mã đang chạy và không tự tạo release hoặc Git tag.
 
@@ -61,7 +61,7 @@ Release `0.3.0` bổ sung khả năng tạo và xác minh release candidate như
 
 Ứng viên `0.4.0` bổ sung hai khả năng tương thích ngược: `start` lập manifest phiên và khóa kế hoạch; `prepublish` tổng hợp bằng chứng trước xuất bản. Hai commit triển khai ban đầu là `278b1d9` và `c966bcb`. Checker, lõi QMD, mô-đun đóng gói và các schema đã có không thay đổi.
 
-`0.4.0` chưa phải release hiện hành. Chưa có release candidate O4, package ID O4, tag thật hoặc quyết định phát hành. Việc đồng bộ tài liệu, tạo gói context O4, phép thử chat-box mới, phiên trình diễn đầu-cuối và nghiệm thu đủ bảy mục tiêu vẫn còn bắt buộc.
+`0.4.0` chưa phải release hiện hành. Phép thử agent mới và phiên trình diễn đầu-cuối đã có bằng chứng; phép thử context cùng chat-box đã đạt trên một snapshot O4 trước đó. Chưa có gói context cuối, release candidate O4, package ID release O4, tag thật hoặc quyết định phát hành. Việc thử lại Mục tiêu 1 theo hợp đồng người dùng đã đồng bộ, tạo và xác minh gói context cuối cùng, thử chat-box trên gói ấy, lưu hồ sơ đủ bảy mục tiêu và xác minh release candidate vẫn còn bắt buộc. Việc làm rõ giao diện người dùng bằng ngôn ngữ tự nhiên không đổi phiên bản CLI hoặc schema; nó là phần đồng bộ hợp đồng của ứng viên `0.4.0`.
 
 ## 4. Danh tính release candidate O3
 

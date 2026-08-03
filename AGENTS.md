@@ -44,6 +44,8 @@ Không dùng `\boxed{...}` hoặc khung viền trực tiếp quanh công thức 
 
 ### Hệ thống sản xuất và kiểm định QMD
 
+Khi người dùng giao một nhiệm vụ QMD bằng ngôn ngữ tự nhiên, chẳng hạn "Hãy viết về hàm $y=e^x$", đó đã là yêu cầu hợp lệ nếu dự án đích đã được tích hợp. Agent phải tự chuyển yêu cầu ấy thành việc nhận diện dự án, nạp nguồn có thẩm quyền, lập kế hoạch, sản xuất, kiểm định và bàn giao; không yêu cầu người dùng biết tên script, cú pháp Terminal hoặc tự vận hành CLI. Nếu chưa có cấu hình và hợp đồng cho dự án đích, agent phải nói rõ đây là nhiệm vụ tích hợp dự án mới, không giả định cỗ máy đã hỗ trợ.
+
 Khi nhiệm vụ liên quan đến sản xuất, chỉnh sửa, kiểm định, đóng gói hoặc bàn giao một bài QMD thuộc hệ thống có cấu hình, trước hết phải đọc:
 
 - `quy_trinh_xay_dung/he_thong_san_xuat_qmd/README.md`.

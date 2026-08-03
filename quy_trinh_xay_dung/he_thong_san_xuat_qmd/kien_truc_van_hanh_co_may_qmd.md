@@ -1,6 +1,6 @@
 # Kiến trúc vận hành cỗ máy QMD
 
-> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`; O3 đã hoàn tất. O4 đang triển khai với CLI ứng viên `0.4.0`; `start` và `prepublish` đã được bổ sung, còn phiên trình diễn đầu-cuối và nghiệm thu đủ bảy mục tiêu chưa hoàn tất.
+> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`; O3 đã hoàn tất. O4 đang triển khai với CLI ứng viên `0.4.0`; phép thử agent mới và trình diễn đầu-cuối đã có bằng chứng; phép thử context cùng chat-box đã đạt trên một snapshot O4 trước đó; hợp đồng người dùng đã được đồng bộ; còn phép thử lại Mục tiêu 1, gói context cuối cùng, phép thử chat-box tương ứng, hồ sơ đủ bảy mục tiêu và release candidate `0.4.0` chưa hoàn tất.
 >
 > Tài liệu này bao quanh lõi kĩ thuật của Hệ thống sản xuất và kiểm định QMD phiên bản 1.0. Nó không thay thế `kien_truc_he_thong.md`, `hop_dong_loi_va_du_an.md` hoặc các quy chuẩn chuyên biệt của từng dự án.
 
@@ -17,11 +17,15 @@ Lớp vận hành phải trả lời rõ bốn câu hỏi:
 
 ## 2. Quan hệ với lõi kĩ thuật 1.0
 
-Kiến trúc tổng thể gồm hai miền:
+Kiến trúc tổng thể gồm chuỗi trách nhiệm:
 
 ```text
+người dùng
+    ↓ yêu cầu bằng ngôn ngữ tự nhiên và quyết định
+agent
+    ↓ diễn giải yêu cầu, đọc thẩm quyền, sản xuất và điều phối
 lớp vận hành
-    ↓ điều phối, đóng gói, báo cáo
+    ↓ CLI, đóng gói, báo cáo và cổng kiểm soát
 lõi kĩ thuật QMD 1.0
     ↓ kiểm định phần có thể mã hóa
 cấu hình dự án
@@ -72,7 +76,17 @@ Không đưa giao thức toàn hệ thống vào `_quy_trinh` của một dự �
 
 Không cổng nào tự động mở cổng tiếp theo.
 
-## 3. Điểm vào vận hành thống nhất
+### 2.3. Ba giao diện và phạm vi hỗ trợ
+
+Cỗ máy có ba giao diện khác nhau:
+
+1. **Người dùng → agent:** người dùng mô tả nhiệm vụ bằng ngôn ngữ tự nhiên, chẳng hạn "Hãy viết về hàm $y=e^x$". Đây là điểm khởi đầu thông thường.
+2. **Agent → lớp vận hành:** agent dùng `scripts/zo_qmd.py` để nhận diện, lập kế hoạch, kiểm định, render, đóng gói và báo cáo. Người dùng không phải nhớ giao diện này.
+3. **Lớp vận hành → checker lõi:** `scripts/zo_check_repo.py` thực thi validator phía sau; không phải giao diện thông thường của người dùng hoặc agent sản xuất bài.
+
+Phạm vi O4 chỉ gồm các dự án đã được tích hợp, hiện có `functions_100` và `real_world_100`. Kiến trúc cho phép bổ sung dự án khác, nhưng việc khởi tạo cấu hình, loại bài, quy chuẩn và đường hồi quy cho một dự án mới là một mốc riêng, không phải khả năng tự động đã được O4 chứng minh.
+
+## 3. Giao diện kĩ thuật thống nhất của agent
 
 Điểm vào đích của lớp vận hành là:
 
@@ -230,13 +244,15 @@ Xuất bản nằm ngoài phạm vi tự động của cỗ máy QMD. Chỉ th�
 
 ### 5.1. Người dùng
 
-Người dùng phải có thể mô tả trong vài phút:
+Người dùng phải có thể:
 
-- cỗ máy nhận đầu vào gì;
-- lõi và lớp vận hành khác nhau thế nào;
-- ba cổng V, A, P;
-- lệnh đầu tiên cần dùng;
-- vì sao kiểm định tự động không đồng nghĩa nghiệm thu hoặc xuất bản.
+- giao một nhiệm vụ bằng ngôn ngữ tự nhiên trong dự án đã được tích hợp;
+- hiểu agent chịu trách nhiệm vận hành repository, còn checker chỉ kiểm tra phần có thể mã hóa;
+- nhận biết đầu ra gồm QMD, tài nguyên, HTML/PDF và báo cáo khi áp dụng;
+- phân biệt kiểm định tự động, chấp nhận của con người và quyết định xuất bản;
+- biết rằng dự án chưa được tích hợp cần một nhiệm vụ khởi tạo riêng.
+
+Người dùng không phải nhớ tên script hoặc cú pháp Terminal để sử dụng cỗ máy trong vòng đời thông thường.
 
 ### 5.2. Agent trong VS Code
 
@@ -362,7 +378,7 @@ Một diễn tập khôi phục đạt khi:
 
 ## 9. Phiên trình diễn đầu-cuối
 
-Phiên trình diễn dùng một yêu cầu mới trong dự án đã có, nhưng không sửa hai bài hồi quy và không tạo dự án mới chỉ để biểu diễn.
+Phiên trình diễn bắt đầu từ một yêu cầu bằng ngôn ngữ tự nhiên trong dự án đã được tích hợp, nhưng không sửa hai bài hồi quy và không tạo dự án mới chỉ để biểu diễn.
 
 Chuỗi bằng chứng bắt buộc:
 

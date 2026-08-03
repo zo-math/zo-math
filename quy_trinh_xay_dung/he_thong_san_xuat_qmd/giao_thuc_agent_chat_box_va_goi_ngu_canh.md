@@ -1,6 +1,6 @@
 # Giao thức cho agent, chat-box và gói ngữ cảnh QMD
 
-> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`; release candidate và rollback drill của O3 đã đạt. O4 đang triển khai với CLI ứng viên `0.4.0`; `start` và `prepublish` đã có mã, còn phép thử chat-box chỉ dùng gói O4 và phiên trình diễn đầu-cuối chưa hoàn tất.
+> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`; release candidate và rollback drill của O3 đã đạt. O4 đang triển khai với CLI ứng viên `0.4.0`; phép thử agent mới và phiên trình diễn đầu-cuối đã có bằng chứng; phép thử context cùng chat-box đã đạt trên một snapshot O4 trước đó; còn gói context cuối, phép thử chat-box tương ứng, hồ sơ đủ bảy mục tiêu và release candidate O4 chưa hoàn tất.
 >
 > Tài liệu này quy định cách một agent trong VS Code hoặc một chat-box tiếp nhận và bàn giao nhiệm vụ QMD. Nó không thay thế chỉ dẫn cấp repository hoặc quy chuẩn chuyên biệt của dự án.
 
@@ -23,12 +23,17 @@ Một nhiệm vụ phải có thể được tiếp tục trong phiên mới mà
 - Agent và chat-box phải dùng cùng thuật ngữ về phạm vi, trạng thái và cổng nghiệm thu.
 - Mọi tuyên bố về Git, lệnh, render hoặc kiểm định phải gắn với bằng chứng có thật.
 - Gói ngữ cảnh không trao quyền stage, commit hoặc xuất bản.
+- Yêu cầu bằng ngôn ngữ tự nhiên của người dùng là đầu vào hợp lệ; agent chịu trách nhiệm chuyển nó thành phạm vi, nguồn có thẩm quyền và thao tác kĩ thuật.
+- Không yêu cầu người dùng biết hoặc chọn script trong vòng đời thông thường của một dự án đã được tích hợp.
+- Nếu dự án chưa có cấu hình hoặc loại bài đã đăng kí, phải phân loại đây là nhiệm vụ tích hợp dự án mới, không giả định khả năng chưa được triển khai.
 
 ## 3. Giao thức của agent trong VS Code
 
-### 3.1. Bước 1 — Xác nhận môi trường
+### 3.1. Bước 1 — Diễn giải yêu cầu và xác nhận môi trường
 
-Agent phải xác định:
+Agent trước hết phải giữ nguyên mục tiêu bằng ngôn ngữ tự nhiên của người dùng, xác định dự án đích và kiểm tra dự án ấy đã được tích hợp hay chưa. Với dự án đã được tích hợp, agent tự chọn giao diện kĩ thuật phù hợp; với dự án chưa được tích hợp, agent dừng trước sản xuất và báo nhu cầu khởi tạo dự án.
+
+Sau đó agent phải xác định:
 
 - repository và thư mục làm việc;
 - branch hiện tại;
@@ -52,7 +57,7 @@ Agent đọc theo thứ tự:
 7. hồ sơ bài;
 8. QMD và đầu ra.
 
-Hai chuỗi cục bộ hiện hành kết thúc tại:
+Hai chuỗi cục bộ đã được tích hợp và kiểm nghiệm trong O4 kết thúc tại:
 
 - `content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/AGENTS.md`;
 - `content/thpt/zo_math_100/100_bai_toan_thuc_te/AGENTS.md`.
@@ -92,7 +97,7 @@ Trước khi sửa, agent phải ghi:
 - Không dùng `git add .`.
 - Không tự commit.
 - Không sửa bài hồi quy để chữa checker.
-- Không tự tạo nguồn có thẩm quyền mới trong một nhiệm vụ sản xuất bài.
+- Không tự tạo nguồn có thẩm quyền mới trong một nhiệm vụ sản xuất bài. Nếu thiếu cấu hình cho dự án mới, phải tách thành nhiệm vụ tích hợp riêng.
 - Không mặc định ghi gói ZIP, báo cáo phiên hoặc tệp tạm vào gốc repository hay thư mục dự án; phải dùng vị trí đầu ra đã được khóa trong phạm vi.
 
 ### 3.5. Bước 5 — Kiểm định và báo cáo
