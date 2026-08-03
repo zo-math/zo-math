@@ -27,6 +27,7 @@ from zo_qmd_config import (
     load_project_config,
 )
 from zo_qmd_registry import ModuleRegistryError, build_validation_plan
+from zo_qmd_prepublish import PrepublishError, build_report
 
 
 OPERATIONS_CLI_VERSION = "0.4.0"
@@ -71,6 +72,7 @@ SYSTEM_SCRIPTS = (
     Path("scripts/zo_quarto.py"),
     Path("scripts/zo_qmd.py"),
     Path("scripts/zo_qmd_package.py"),
+    Path("scripts/zo_qmd_prepublish.py"),
     Path("scripts/zo_check_repo.py"),
     Path("scripts/zo_qmd_config.py"),
     Path("scripts/zo_qmd_registry.py"),
@@ -84,6 +86,7 @@ SELF_TEST_SCRIPTS = (
     Path("scripts/zo_qmd_core.py"),
     Path("scripts/zo_real_world_problem.py"),
     Path("scripts/zo_qmd_package.py"),
+    Path("scripts/zo_qmd_prepublish.py"),
 )
 
 
@@ -688,6 +691,50 @@ def command_start(root: Path, args: argparse.Namespace) -> int:
         return EXIT_FAILED
 
 
+def command_prepublish(root: Path, args: argparse.Namespace) -> int:
+    try:
+        output = _explicit_output_path(root, args.output)
+        if output.suffix.lower() != ".json":
+            raise ValueError("Báo cáo prepublish phải là tệp .json.")
+        if output.exists():
+            raise ValueError(f"Đầu ra đã tồn tại: {output}")
+
+        target = _relative_to_root(root, args.path).as_posix()
+        summary, inspect_exit = _project_summary(root, target)
+        payload, exit_code = build_report(
+            root=root,
+            target=target,
+            operations_cli_version=OPERATIONS_CLI_VERSION,
+            project_summary=summary,
+            inspect_exit=inspect_exit,
+            session_raw=args.session,
+            check_report_raw=args.check_report,
+            render_report_raw=args.render_report,
+            human_review_raw=args.human_review,
+        )
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(
+            json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        print(f"PREPUBLISH REPORT: {output}")
+        print(
+            f"AUTOMATED RESULT: {payload['automated_result']} "
+            f"| EXIT={exit_code}"
+        )
+        print("PUBLICATION: pending | changed=no")
+        return exit_code
+    except (
+        ProjectConfigError,
+        ModuleRegistryError,
+        PrepublishError,
+        ValueError,
+        OSError,
+    ) as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return EXIT_FAILED
+
+
 def _checker_arguments(args: argparse.Namespace) -> list[str]:
     result: list[str] = []
     if args.staged:
@@ -894,6 +941,43 @@ def parser() -> argparse.ArgumentParser:
         help="Đường dẫn phải loại trừ; có thể lặp lại.",
     )
 
+    prepublish = subparsers.add_parser(
+        "prepublish",
+        help="Tổng hợp bằng chứng và tạo báo cáo trước xuất bản.",
+    )
+    prepublish.add_argument(
+        "--output",
+        required=True,
+        help=(
+            "Tệp .json đầu ra tường minh; nếu nằm trong repository thì phải "
+            "ở dưới _audit/."
+        ),
+    )
+    prepublish.add_argument(
+        "--session",
+        required=True,
+        help="Manifest JSON do lệnh start tạo.",
+    )
+    prepublish.add_argument(
+        "--check-report",
+        required=True,
+        help="Báo cáo JSON của checker ở mode scope.",
+    )
+    prepublish.add_argument(
+        "--render-report",
+        required=True,
+        help="Báo cáo JSON của checker ở mode render.",
+    )
+    prepublish.add_argument(
+        "--human-review",
+        required=True,
+        help="Bảng kiểm JSON do người quan sát ghi nhận.",
+    )
+    prepublish.add_argument(
+        "path",
+        help="Đường dẫn bài QMD trong repository.",
+    )
+
     common = argparse.ArgumentParser(add_help=False)
     common.add_argument("--staged", action="store_true", help="Kiểm tra vùng staged.")
     common.add_argument("--report", help="Báo cáo JSON bên trong _audit/.")
@@ -1012,6 +1096,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return command_inspect(root, args)
     if args.command == "start":
         return command_start(root, args)
+    if args.command == "prepublish":
+        return command_prepublish(root, args)
     if args.command == "check":
         return command_checker(root, "scope", args)
     if args.command == "render":
