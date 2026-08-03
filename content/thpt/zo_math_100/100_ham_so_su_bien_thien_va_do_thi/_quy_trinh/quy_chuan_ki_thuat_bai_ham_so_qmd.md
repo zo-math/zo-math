@@ -302,7 +302,10 @@ Quy chuẩn này chỉ khóa các điều kiện kĩ thuật dành cho bài hàm
 - Nội dung bắt buộc đối với mạch chính không được đặt trong khối thu gọn.
 - Khối hiện hành dùng lớp chung `zo-block`, đúng một lớp màu và `zo-block-title`.
 - Khối thu gọn dùng `<details>`, `<summary class="zo-block-title">` và `.zo-block-body` theo tài liệu chuyên trách.
+- Mỗi khối phải đứng tại nơi gần nhất với câu hỏi, mệnh đề hoặc hiện tượng mà nó soi sáng; không gom các khối đọc thêm vào một cụm chỉ vì chúng cùng màu hoặc cùng trạng thái thu gọn.
+- Chỉ đặt nhiều khối liên tiếp khi cụm ấy có một chủ đề và quan hệ nội tại rõ ràng.
 - Không dùng khối để thay tiêu đề Markdown hoặc để trang trí.
+- Trên PDF, toàn bộ nội dung của khối mở và khối thu gọn phải xuất hiện; nền, viền và tiêu đề phải được bảo toàn ở mức tương đương với HTML.
 
 #### 3.4.3. Lớp cũ
 
@@ -703,6 +706,13 @@ Cho đến khi các kiểm tra chuyên biệt được tích hợp, báo cáo ph
 - khối gợi ý, đáp án hoặc lời giải dùng cấu trúc hiện hành;
 - tài nguyên và dẫn chiếu hợp lệ.
 
+#### Điều hướng và mục lục
+
+- khi dự án dùng sidebar tường minh, trang phải được đăng kí vào đúng nhóm trước lần render dùng để nghiệm thu;
+- HTML phải chứa phần tử sidebar thật, không chỉ chứa mã JavaScript hoặc CSS có nhắc đến sidebar;
+- khi `toc: true`, HTML phải chứa mục lục thật và các mục phải khớp hệ tiêu đề;
+- ở desktop và mobile, việc đóng–mở sidebar hoặc mục lục không được làm lệch lề trái giữa khối tựa đề và thân bài.
+
 #### PDF
 
 - PDF được khai báo;
@@ -737,7 +747,8 @@ Trên HTML phải xác nhận tối thiểu:
 - metadata bị ẩn đúng;
 - không tràn ngang ngoài ý muốn;
 - công thức, hình và bảng đọc được;
-- khối đúng kiểu và tương tác được;
+- khối đúng kiểu, tương tác được và được phân bố tại nơi phục vụ mạch đọc;
+- sidebar và mục lục xuất hiện đúng; tựa đề và thân bài giữ cùng lề trái khi thay đổi chiều rộng;
 - phần bài tập có cấu trúc rõ;
 - nút PDF tải đúng tệp;
 - liên kết và tài nguyên không trả `404`.
@@ -746,7 +757,8 @@ Trên PDF phải xác nhận tối thiểu:
 
 - đúng bài và đủ nội dung;
 - metadata và nhận diện đúng;
-- font, công thức, hình, bảng và khối đúng;
+- font, công thức, hình và bảng đúng;
+- mọi khối còn đủ nền, viền, tiêu đề và nội dung; nội dung từ khối thu gọn trên HTML không bị mất trên PDF;
 - mục lục, liên kết, đầu trang, chân trang và số trang đúng;
 - URL và mã QR đúng;
 - không có lỗi cắt, chồng, tràn hoặc ngắt trang ngoài ý muốn.
@@ -901,6 +913,7 @@ Một bài chỉ được kết luận `ĐẠT` khi:
 - HTML và PDF bắt buộc tồn tại;
 - đầu ra thật đã được quan sát;
 - desktop và mobile đã được kiểm tra;
+- sidebar và mục lục đã được xác nhận bằng đầu ra thật khi trang thuộc hệ điều hướng của dự án;
 - nút tải PDF đã được kích hoạt thử;
 - PDF đúng bài và đúng phiên bản;
 - kiểm định tự động đã chạy lại sau lần sửa cuối;

@@ -30,6 +30,18 @@ Khi cân nhắc đưa một nội dung vào khối, thực hiện đúng thứ t
 
 Không bắt đầu bằng câu hỏi “nên dùng màu gì?”. Cách làm đó dễ biến màu sắc thành phương tiện trang trí hoặc nhấn mạnh tùy ý.
 
+### 2.1. Vị trí của khối trong mạch đọc
+
+Sau khi quyết định một nội dung cần được tách thành khối, phải đặt khối tại vị trí gần nhất với câu hỏi, mệnh đề hoặc hiện tượng mà nó soi sáng. Vị trí của khối là một quyết định nhận thức, không phải một quyết định trang trí.
+
+- Khối giải thích một ý phải xuất hiện ngay sau ý ấy hoặc ngay trước bước cần ý ấy.
+- Khối so sánh phải nằm tại nơi việc đối chiếu giúp phân biệt hai cấu trúc đang được học.
+- Khối ứng dụng, lịch sử hoặc mở rộng phải nối rõ với một kết quả vừa được xác lập; không đặt chỉ vì bài “cần có phần đọc thêm”.
+- Không gom nhiều khối thu gọn vào một mục chung chỉ vì chúng có cùng trạng thái hiển thị hoặc cùng màu.
+- Chỉ đặt nhiều khối liên tiếp khi chính cụm khối tạo thành một đơn vị đọc có chủ đề và quan hệ nội tại rõ ràng.
+
+Trong hồ sơ hoặc đề cương, mỗi khối phải trả lời được hai câu hỏi: *khối này soi sáng điều gì?* và *vì sao nó đứng ở vị trí này?*
+
 ## 3. Xác định trạng thái hiển thị
 
 ### 3.1. Khối mở cố định
@@ -190,6 +202,20 @@ Nội dung của khối thu gọn dùng lớp:
 ```text
 zo-block-body
 ```
+
+### 6.1. Quan hệ giữa HTML và PDF
+
+Trên HTML, khối mở cố định và khối thu gọn giữ đúng trạng thái tương tác đã khai báo. Trên PDF, không có thao tác mở–đóng; toàn bộ nội dung của cả hai loại khối phải xuất hiện.
+
+Bộ lọc PDF dùng chung chuyển:
+
+- khối fenced `.zo-block` thành hộp PDF tương ứng;
+- `<details class="zo-block ...">` thành hộp PDF mở đầy đủ;
+- `zo-block-red`, `zo-block-yellow`, `zo-block-gray` thành ba môi trường màu tương ứng.
+
+PDF phải bảo toàn ít nhất bốn dấu hiệu: ranh giới khối, nền, tiêu đề và nội dung. Không chấp nhận trường hợp nội dung còn nhưng cấu trúc khối biến mất hoàn toàn, hoặc nội dung trong `<details>` bị loại khỏi PDF.
+
+Sau khi thay đổi cú pháp khối, Lua filter, tệp TeX hoặc bảng màu dùng chung, phải build và quan sát PDF thật; render HTML thành công không chứng minh đầu ra PDF đã đúng.
 
 ## 7. Cú pháp khối mở cố định
 
@@ -378,4 +404,5 @@ Hệ khối hiện hỗ trợ đầy đủ:
 - đỏ mở cố định và đỏ thu gọn;
 - vàng mở cố định và vàng thu gọn;
 - xám mở cố định và xám thu gọn;
-- khối thu gọn mở sẵn bằng thuộc tính `open`.
+- khối thu gọn mở sẵn bằng thuộc tính `open`;
+- bảo toàn nền, viền, tiêu đề và nội dung của cả khối mở lẫn khối thu gọn trên PDF.

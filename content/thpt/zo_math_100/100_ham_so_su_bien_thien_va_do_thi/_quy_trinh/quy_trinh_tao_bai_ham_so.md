@@ -262,10 +262,11 @@ Không dùng một mục lục cố định. Các chức năng khơi mở, nhậ
    - tiêu đề cụ thể của khối;
    - cú pháp lớp hiện hành sẽ sử dụng.
 9. Không đưa một nội dung vào khối chỉ để trang trí hoặc nhấn mạnh. Không thu gọn mắt xích bắt buộc của mạch chính.
-10. Xác định hệ bài tập có được kích hoạt hay không. Nếu không kích hoạt, ghi lí do trong hồ sơ. Nếu có, xác định cấu trúc H2–H3–H4, mục tiêu, quan hệ phụ thuộc và trạng thái của gợi ý, đáp án hoặc lời giải.
-11. Với bài dự kiến chuyển sang `published`, xác định tên PDF, `zo-pdf-download`, `zo-pdf-branding`, URL chính tắc và quy trình build PDF.
-12. Thay toàn bộ giá trị giữ chỗ bằng metadata thật.
-13. Xóa các chú thích hướng dẫn không thuộc bài cuối.
+10. Ghi vị trí dự kiến của từng khối trong mạch bài và lí do đặt ở đó. Không gom các khối ứng dụng, lịch sử, so sánh hoặc khám phá vào một mục cuối chỉ vì chúng đều là phần đọc thêm; phân bố chúng tại nơi chúng làm sáng tỏ kết quả vừa được xác lập.
+11. Xác định hệ bài tập có được kích hoạt hay không. Nếu không kích hoạt, ghi lí do trong hồ sơ. Nếu có, xác định cấu trúc H2–H3–H4, mục tiêu, quan hệ phụ thuộc và trạng thái của gợi ý, đáp án hoặc lời giải.
+12. Với bài dự kiến chuyển sang `published`, xác định tên PDF, `zo-pdf-download`, `zo-pdf-branding`, URL chính tắc và quy trình build PDF.
+13. Thay toàn bộ giá trị giữ chỗ bằng metadata thật.
+14. Xóa các chú thích hướng dẫn không thuộc bài cuối.
 
 `mau_ki_thuat_qmd.qmd` chỉ cung cấp khung YAML, các vị trí kĩ thuật và mẫu cú pháp. Nó không áp đặt đề mục nội dung và không thay thế `quy_chuan_ki_thuat_bai_ham_so_qmd.md`.
 
@@ -327,10 +328,10 @@ Trong phạm vi môi trường cho phép:
 5. kiểm tra PDF và SVG của hình;
 6. trước khi kiểm tra giao diện HTML, xác nhận bài đã được đăng kí vào đúng nhóm sidebar trong `_quarto.yml` khi dự án yêu cầu sidebar;
 7. render HTML của bài;
-8. xem HTML thật ở desktop và mobile; kiểm tra navbar, sidebar, mục lục, hình thường và hình mở rộng;
+8. xem HTML thật ở desktop và mobile; xác nhận phần tử sidebar và mục lục thật sự xuất hiện, rồi kiểm tra navbar, căn lề giữa tựa đề và thân bài, hình thường và hình mở rộng;
 9. build PDF tải xuống khi bài yêu cầu;
 10. xem PDF thật; kiểm tra hình nằm trong bề ngang nội dung, công thức, ngắt trang và kí tự lỗi;
-11. kiểm tra trực quan các khối mở cố định và thu gọn: viền, nền, tiêu đề, khoảng cách, khả năng mở–đóng, nội dung bên trong và sự liên tục của mạch đọc;
+11. kiểm tra trực quan các khối mở cố định và thu gọn trên cả HTML lẫn PDF: viền, nền, tiêu đề, khoảng cách, khả năng mở–đóng trên HTML, nội dung đầy đủ trên PDF và sự liên tục của mạch đọc;
 12. kiểm tra bài mới không dùng lớp khối cũ; với bài hiện có, phải báo rõ lớp cũ nào còn tồn tại và đó là tương thích lịch sử hay sai lệch cần chuyển đổi;
 13. kiểm tra nút tải PDF, metadata, URL chính tắc và tài nguyên;
 14. chạy lại kiểm định nội dung nếu sửa kĩ thuật làm thay đổi cách đọc.
@@ -358,6 +359,8 @@ Trước bàn giao:
 5. liệt kê tệp tạo, tệp sửa, phép kiểm tra và giới hạn còn lại.
 
 Không staging và không commit nếu người dùng chưa yêu cầu rõ.
+
+Trong một phiên trình diễn hoặc kiểm thử cỗ máy, bài thử không mặc nhiên trở thành sản phẩm xuất bản. Nếu kiểm định có người quan sát còn `FAIL`, phải giữ `production_status: in_production`, `publication_status: pending`, để `prepublish` chặn đúng hợp đồng và lưu bằng chứng. Sau khi bằng chứng đã được bảo toàn, phải loại đối tượng thử khỏi phạm vi phát hành của lớp vận hành, trừ khi người dùng giao một nhiệm vụ sản xuất thật riêng.
 
 ## 8. Quy tắc riêng cho chế độ kiểm định
 
@@ -403,6 +406,8 @@ Một bài ở chế độ `tao_moi` hoặc `hoan_thien` chỉ được tuyên b
 - mọi tệp bàn giao tồn tại;
 - không có thay đổi ngoài phạm vi;
 - các giới hạn còn lại đã được công bố.
+
+Một phiên kiểm thử có thể kết thúc hợp lệ ở trạng thái `in_production/pending` với `prepublish=blocked` khi mục tiêu là chứng minh cổng kiểm định và không phải nghiệm thu bài. Trạng thái ấy không được diễn đạt thành bài đã hoàn tất hoặc sẵn sàng xuất bản.
 
 ## 11. Mẫu lệnh giao việc hằng ngày
 
