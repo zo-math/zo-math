@@ -14,6 +14,7 @@ import os
 import shutil
 import subprocess
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Sequence
 
@@ -28,7 +29,7 @@ from zo_qmd_config import (
 from zo_qmd_registry import ModuleRegistryError, build_validation_plan
 
 
-OPERATIONS_CLI_VERSION = "0.3.0"
+OPERATIONS_CLI_VERSION = "0.4.0"
 
 EXIT_OK = 0
 EXIT_FAILED = 1
@@ -130,6 +131,85 @@ def _relative_to_root(root: Path, raw: str) -> Path:
         return resolved.relative_to(root)
     except ValueError as exc:
         raise ValueError(f"Đường dẫn nằm ngoài repository: {raw}") from exc
+
+
+def _explicit_output_path(root: Path, raw: str) -> Path:
+    candidate = Path(raw).expanduser()
+    resolved = (
+        candidate.resolve()
+        if candidate.is_absolute()
+        else (root / candidate).resolve()
+    )
+
+    try:
+        relative = resolved.relative_to(root)
+    except ValueError:
+        return resolved
+
+    if not relative.parts or relative.parts[0] != "_audit":
+        raise ValueError(
+            "Đầu ra nằm trong repository phải ở dưới _audit/: "
+            f"{relative.as_posix()}"
+        )
+    return resolved
+
+
+def _read_request(args: argparse.Namespace) -> str:
+    if args.request is not None:
+        request = args.request.strip()
+    else:
+        request_path = Path(args.request_file).expanduser().resolve()
+        request = request_path.read_text(encoding="utf-8").strip()
+
+    if not request:
+        raise ValueError("Yêu cầu ban đầu không được rỗng.")
+    return request
+
+
+def _git_snapshot(root: Path) -> dict[str, Any]:
+    git = shutil.which("git")
+    if git is None:
+        raise OSError("Không tìm thấy git trong PATH.")
+
+    def read(*arguments: str) -> str:
+        result = _run([git, "-C", str(root), *arguments], root, capture=True)
+        if result.returncode != 0:
+            message = result.stderr.strip() or result.stdout.strip()
+            raise OSError(message or f"Git thất bại: {' '.join(arguments)}")
+        return result.stdout.strip()
+
+    status = read("status", "--short")
+    return {
+        "branch": read("branch", "--show-current") or None,
+        "commit": read("rev-parse", "HEAD"),
+        "clean": not bool(status),
+        "status": status.splitlines(),
+    }
+
+
+def _unique_paths(paths: Sequence[Path]) -> list[str]:
+    seen: set[Path] = set()
+    result: list[str] = []
+    for path in paths:
+        if path in seen:
+            continue
+        seen.add(path)
+        result.append(path.as_posix())
+    return result
+
+
+def _paths_overlap(left: Path, right: Path) -> bool:
+    try:
+        left.relative_to(right)
+        return True
+    except ValueError:
+        pass
+
+    try:
+        right.relative_to(left)
+        return True
+    except ValueError:
+        return False
 
 
 def _script_command(root: Path, script: Path, *args: str) -> list[str]:
@@ -266,8 +346,13 @@ def _project_summary(root: Path, raw_path: str) -> tuple[dict[str, Any], int]:
         payload["error"] = "Tệp QMD không khớp loại bài nào trong cấu hình dự án."
         exit_code = EXIT_FAILED
     elif profile and profile["required"] and not profile["exists"]:
-        payload["error"] = "Thiếu hồ sơ bắt buộc của bài."
-        exit_code = EXIT_FAILED
+        if (root / relative).exists():
+            payload["error"] = "Thiếu hồ sơ bắt buộc của bài."
+            exit_code = EXIT_FAILED
+        else:
+            payload["warning"] = (
+                "Hồ sơ bắt buộc chưa tồn tại; phải được tạo trong pha sản xuất."
+            )
 
     return payload, exit_code
 
@@ -443,6 +528,166 @@ def command_inspect(root: Path, args: argparse.Namespace) -> int:
         return EXIT_FAILED
 
 
+def command_start(root: Path, args: argparse.Namespace) -> int:
+    try:
+        request = _read_request(args)
+        output = _explicit_output_path(root, args.output)
+        if output.suffix.lower() != ".json":
+            raise ValueError("Hồ sơ phiên của start phải là tệp .json.")
+        if output.exists():
+            raise ValueError(f"Đầu ra đã tồn tại: {output}")
+
+        summary, inspect_exit = _project_summary(root, args.path)
+        snapshot = _git_snapshot(root)
+
+        reference_groups = summary.get("references", {})
+        missing_references: list[str] = []
+        for records in reference_groups.values():
+            for record in records:
+                if not record.get("exists", False):
+                    missing_references.append(str(record.get("path")))
+
+        blocked_reasons: list[str] = []
+        if inspect_exit != EXIT_OK:
+            blocked_reasons.append(
+                str(summary.get("error", "Inspect không đạt."))
+            )
+        if missing_references:
+            blocked_reasons.append(
+                "Thiếu nguồn điều khiển: " + ", ".join(missing_references)
+            )
+
+        target = str(summary["target"])
+        project_root = str(summary["project"]["root"])
+        allowed_paths = [_relative_to_root(root, target)]
+        profile = summary.get("profile")
+        if isinstance(profile, dict) and profile.get("path"):
+            allowed_paths.append(_relative_to_root(root, str(profile["path"])))
+        allowed_paths.extend(_relative_to_root(root, raw) for raw in args.allow)
+        excluded_paths = [
+            _relative_to_root(root, raw) for raw in args.exclude
+        ]
+        conflicts = sorted(
+            {
+                allowed_path.as_posix()
+                for allowed_path in allowed_paths
+                for excluded_path in excluded_paths
+                if _paths_overlap(allowed_path, excluded_path)
+            }
+        )
+        if conflicts:
+            raise ValueError(
+                "Phạm vi được phép tác động chồng lấn phạm vi loại trừ: "
+                + ", ".join(conflicts)
+            )
+
+        allowed = _unique_paths(allowed_paths)
+        excluded = _unique_paths(excluded_paths)
+
+        payload: dict[str, Any] = {
+            "session_manifest_version": 1,
+            "created_at": datetime.now(timezone.utc).isoformat().replace(
+                "+00:00", "Z"
+            ),
+            "operations_cli_version": OPERATIONS_CLI_VERSION,
+            "checker_version": CHECKER_VERSION,
+            "request": {
+                "text": request,
+                "source": (
+                    {"kind": "inline"}
+                    if args.request is not None
+                    else {
+                        "kind": "file",
+                        "path": str(
+                            Path(args.request_file).expanduser().resolve()
+                        ),
+                    }
+                ),
+            },
+            "repository": snapshot,
+            "inspect": summary,
+            "authority_sources": {
+                "agents_chain": list(summary.get("agents_chain", [])),
+                "project_config": summary["project"]["config_path"],
+                "references": reference_groups,
+            },
+            "scope": {
+                "target": target,
+                "project_root": project_root,
+                "allowed": allowed,
+                "excluded": excluded,
+            },
+            "plan": {
+                "objective": request,
+                "expected_files": allowed,
+                "phases": [
+                    "lock_authority_sources",
+                    "create_or_edit_qmd_and_resources",
+                    "check_source",
+                    "render",
+                    "human_review",
+                    "prepublish_report",
+                ],
+                "expected_commands": {
+                    "inspect": (
+                        "python scripts/zo_python.py scripts/zo_qmd.py "
+                        f"inspect {target}"
+                    ),
+                    "check": (
+                        "python scripts/zo_python.py scripts/zo_qmd.py "
+                        f"check {target}"
+                    ),
+                    "render": (
+                        "python scripts/zo_python.py scripts/zo_qmd.py "
+                        f"render {target}"
+                    ),
+                },
+                "user_gates": [
+                    "human_review",
+                    "publication_confirmation",
+                ],
+                "stop_conditions": [
+                    "missing_authority_source",
+                    "automated_check_failure",
+                    "render_failure",
+                    "human_review_not_recorded",
+                ],
+                "states_not_changed": {
+                    "final_acceptance": "not_automated",
+                    "publication": "pending",
+                },
+            },
+            "status": {
+                "planning": "blocked" if blocked_reasons else "ready",
+                "production": "blocked" if blocked_reasons else "planned",
+                "publication": "pending",
+            },
+            "blocked_reasons": blocked_reasons,
+            "automated_result": "FAIL" if blocked_reasons else "PASS",
+            "exit_code": EXIT_FAILED if blocked_reasons else EXIT_OK,
+        }
+
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(
+            json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        print(f"START MANIFEST: {output}")
+        print(
+            f"AUTOMATED RESULT: {payload['automated_result']} "
+            f"| EXIT={payload['exit_code']}"
+        )
+        return int(payload["exit_code"])
+    except (
+        ProjectConfigError,
+        ModuleRegistryError,
+        ValueError,
+        OSError,
+    ) as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return EXIT_FAILED
+
+
 def _checker_arguments(args: argparse.Namespace) -> list[str]:
     result: list[str] = []
     if args.staged:
@@ -611,6 +856,44 @@ def parser() -> argparse.ArgumentParser:
     )
     inspect.add_argument("path", help="Đường dẫn bài hoặc thư mục trong repository.")
 
+    start = subparsers.add_parser(
+        "start",
+        help="Tạo hồ sơ phiên và kế hoạch sản xuất từ yêu cầu ban đầu.",
+    )
+    start.add_argument(
+        "--output",
+        required=True,
+        help=(
+            "Tệp .json đầu ra tường minh; nếu nằm trong repository thì phải "
+            "ở dưới _audit/."
+        ),
+    )
+    request_source = start.add_mutually_exclusive_group(required=True)
+    request_source.add_argument(
+        "--request",
+        help="Yêu cầu ban đầu được truyền trực tiếp.",
+    )
+    request_source.add_argument(
+        "--request-file",
+        help="Tệp UTF-8 chứa nguyên văn yêu cầu ban đầu.",
+    )
+    start.add_argument(
+        "path",
+        help="Đường dẫn bài dự kiến hoặc phạm vi dự án trong repository.",
+    )
+    start.add_argument(
+        "--allow",
+        action="append",
+        default=[],
+        help="Đường dẫn được phép tác động thêm; có thể lặp lại.",
+    )
+    start.add_argument(
+        "--exclude",
+        action="append",
+        default=[],
+        help="Đường dẫn phải loại trừ; có thể lặp lại.",
+    )
+
     common = argparse.ArgumentParser(add_help=False)
     common.add_argument("--staged", action="store_true", help="Kiểm tra vùng staged.")
     common.add_argument("--report", help="Báo cáo JSON bên trong _audit/.")
@@ -727,6 +1010,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return command_doctor(root, args)
     if args.command == "inspect":
         return command_inspect(root, args)
+    if args.command == "start":
+        return command_start(root, args)
     if args.command == "check":
         return command_checker(root, "scope", args)
     if args.command == "render":
