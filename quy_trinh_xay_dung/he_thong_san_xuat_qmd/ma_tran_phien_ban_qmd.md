@@ -1,6 +1,6 @@
 # Ma trận phiên bản của cỗ máy QMD
 
-> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`; hồi quy, release candidate và rollback drill của O3 đều đã đạt. Git tag thật chưa được tạo.
+> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`; O3 đã đạt. CLI ứng viên O4 là `0.4.0` với `start` và `prepublish`, nhưng chưa có release candidate O4, chưa tạo Git tag thật, chưa push và chưa publish.
 >
 > Tài liệu này ghi quan hệ giữa các phiên bản được quản lí độc lập. Nó không thay thế hằng số phiên bản trong mã đang chạy và không tự tạo release hoặc Git tag.
 
@@ -42,6 +42,26 @@ commit: c1b26b9a0536b17e0885d8158fddbd20413767c2
 | `scripts/zo_qmd_package.py` | `0.2.0` | `0.3.0` | Nâng `MINOR` |
 
 Release `0.3.0` bổ sung khả năng tạo và xác minh release candidate nhưng giữ tương thích ngược với gói context và giao diện đã có ở O2. Vì vậy, mức thay đổi đúng là `MINOR`, không phải `MAJOR`.
+
+### 3.1. Ma trận ứng viên O4 `0.4.0`
+
+| Thành phần | Hiện hành `0.3.0` | Ứng viên O4 | Quyết định |
+|---|---:|---:|---|
+| Lõi kĩ thuật QMD | `1.0` | `1.0` | Giữ nguyên |
+| Checker | `2.6.0` | `2.6.0` | Giữ nguyên |
+| Schema cấu hình dự án | `1` | `1` | Giữ nguyên |
+| Schema manifest gói | `1` | `1` | Giữ nguyên |
+| Schema hồ sơ phát hành | `1` | `1` | Giữ nguyên |
+| Hợp đồng lớp vận hành | `0.3` | `0.4` | Nâng `MINOR` ứng viên |
+| Schema manifest phiên `start` | Chưa có | `1` | Thêm mới |
+| Schema báo cáo `prepublish` | Chưa có | `1` | Thêm mới |
+| `scripts/zo_qmd.py` | `0.3.0` | `0.4.0` | Nâng `MINOR` ứng viên |
+| `scripts/zo_qmd_package.py` | `0.3.0` | `0.3.0` | Giữ nguyên |
+| `scripts/zo_qmd_prepublish.py` | Chưa có | report version `1` | Thêm mới |
+
+Ứng viên `0.4.0` bổ sung hai khả năng tương thích ngược: `start` lập manifest phiên và khóa kế hoạch; `prepublish` tổng hợp bằng chứng trước xuất bản. Hai commit triển khai ban đầu là `278b1d9` và `c966bcb`. Checker, lõi QMD, mô-đun đóng gói và các schema đã có không thay đổi.
+
+`0.4.0` chưa phải release hiện hành. Chưa có release candidate O4, package ID O4, tag thật hoặc quyết định phát hành. Việc đồng bộ tài liệu, tạo gói context O4, phép thử chat-box mới, phiên trình diễn đầu-cuối và nghiệm thu đủ bảy mục tiêu vẫn còn bắt buộc.
 
 ## 4. Danh tính release candidate O3
 

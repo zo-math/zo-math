@@ -1,6 +1,6 @@
 # Hệ thống sản xuất và kiểm định QMD cho ZO Math
 
-> **Trạng thái:** Lõi kĩ thuật phiên bản 1.0 đã khóa; release hiện hành của lớp vận hành là `0.3.0`; O3 đã hoàn tất bằng release candidate được tạo từ commit sạch, tự xác minh và có rollback drill đạt; O4 chưa triển khai.
+> **Trạng thái:** Lõi kĩ thuật phiên bản 1.0 đã khóa; release hiện hành của lớp vận hành là `0.3.0`; O3 đã hoàn tất. O4 đang triển khai trên nhánh riêng với CLI ứng viên `0.4.0`; `start` và `prepublish` đã có mã cùng phép thử cấu trúc, nhưng phiên trình diễn đầu-cuối và nghiệm thu đủ bảy mục tiêu chưa hoàn tất.
 >
 > Đây là tài liệu vận hành nội bộ. Nó chỉ có thẩm quyền trong phạm vi mà `AGENTS.md`, cấu hình dự án hoặc yêu cầu hiện tại của người dùng dẫn chiếu. Các hồ sơ kiểm kê và thiết kế ban đầu được giữ lại như bằng chứng lịch sử, không tự động ghi đè quy trình đang có hiệu lực ở nơi khác.
 
@@ -13,13 +13,19 @@
 - schema cấu hình dự án phiên bản `1`;
 - chế độ native và đường hồi quy hai dự án.
 
-Release O3 hiện hành:
+Release hiện hành `0.3.0` giữ:
 
-- `scripts/zo_qmd.py` phiên bản `0.3.0`;
+- bản CLI phát hành `0.3.0` với bảy lệnh của O3;
 - `scripts/zo_qmd_package.py` phiên bản `0.3.0`;
-- bảy lệnh `doctor`, `inspect`, `check`, `render`, `regression`, `pack`, `verify`;
-- điều phối qua loader, registry, checker và các self-test hiện hành;
-- hồi quy nguồn và render trên hai dự án đường cơ sở.
+- khả năng tạo và xác minh gói context hoặc release;
+- bằng chứng hồi quy, release candidate và rollback drill của O3.
+
+Ứng viên O4 đang triển khai:
+
+- `scripts/zo_qmd.py` phiên bản `0.4.0`;
+- chín lệnh `doctor`, `inspect`, `start`, `prepublish`, `check`, `render`, `regression`, `pack`, `verify`;
+- `start` tạo manifest phiên và kế hoạch tại đầu ra tường minh;
+- `prepublish` tổng hợp bằng chứng đã có, không tự nghiệm thu hoặc xuất bản.
 
 O3 đã triển khai trong mã:
 
@@ -29,11 +35,12 @@ O3 đã triển khai trong mã:
 - kiểm tra worktree sạch, SemVer, tag, commit, bằng chứng và payload release;
 - self-test cho release hợp lệ, manifest release sai và worktree bẩn.
 
-Chưa hoàn thành:
+Chưa hoàn thành trong O4:
 
-- `start` và `prepublish`;
-- phiên kiểm nghiệm một chat-box mới chỉ dùng gói, không dùng lịch sử hội thoại;
-- phiên trình diễn đầu-cuối.
+- tạo và xác minh gói context từ trạng thái O4 sau khi tài liệu được đồng bộ;
+- phép thử một chat-box mới chỉ dùng gói, không dùng lịch sử hội thoại;
+- phiên trình diễn đầu-cuối với yêu cầu mới;
+- đối chiếu đủ bằng chứng cho bảy mục tiêu và quyết định có khóa lớp vận hành 1.0 hay không.
 
 Ba tài liệu điều khiển giai đoạn vận hành hóa:
 
@@ -41,7 +48,7 @@ Ba tài liệu điều khiển giai đoạn vận hành hóa:
 - `giao_thuc_agent_chat_box_va_goi_ngu_canh.md`;
 - `tieu_chi_nghiem_thu_lop_van_hanh.md`.
 
-`scripts/zo_qmd.py` là điểm vào vận hành hiện hành cho bảy lệnh; release O3 giữ nguyên tập lệnh và mở rộng `pack`. `scripts/zo_check_repo.py` vẫn là checker lõi; CLI vận hành chỉ điều phối và bảo toàn mã thoát, báo cáo cùng các cổng kiểm định hiện có. Logic tạo và xác minh gói nằm trong `scripts/zo_qmd_package.py`, không được trộn vào checker.
+`scripts/zo_qmd.py` là điểm vào vận hành ứng viên O4 cho chín lệnh. `scripts/zo_check_repo.py` vẫn là checker lõi; CLI vận hành chỉ điều phối và bảo toàn mã thoát, báo cáo cùng các cổng kiểm định hiện có. Logic tạo và xác minh gói nằm trong `scripts/zo_qmd_package.py`; logic tổng hợp bằng chứng trước xuất bản nằm trong `scripts/zo_qmd_prepublish.py`; cả hai không được trộn vào checker.
 
 Ranh giới lưu trữ hiện hành:
 
@@ -128,10 +135,11 @@ scripts/zo_qmd.py
 scripts/zo_qmd_package.py
 ```
 
-Phiên bản vận hành hiện hành:
+Trạng thái phiên bản:
 
 ```text
-QMD OPERATIONS CLI: 0.3.0
+CURRENT OPERATIONS RELEASE: 0.3.0
+QMD OPERATIONS CLI CANDIDATE: 0.4.0
 PACKAGE MODULE: 0.3.0
 ```
 
@@ -140,6 +148,8 @@ Các lệnh đã triển khai:
 ```text
 doctor
 inspect
+start
+prepublish
 check
 render
 regression
@@ -152,6 +162,8 @@ Cách gọi chuẩn:
 ```bash
 python scripts/zo_python.py scripts/zo_qmd.py <command> [tham số...]
 ```
+
+`start` nhận yêu cầu cùng phạm vi, tái sử dụng kết quả nhận diện của `inspect`, rồi tạo manifest phiên JSON tại đầu ra tường minh. `prepublish` đọc manifest phiên, báo cáo `check`, báo cáo `render` và bảng kiểm có người quan sát để tạo báo cáo tổng hợp; lệnh này không chạy lại checker, không tự đặt trạng thái `accepted`, không sửa hồ sơ sản xuất và luôn giữ `publication: pending`. Khi bảng kiểm hợp lệ đã ghi `production_status: accepted`, báo cáo chỉ phản ánh bằng chứng ấy để chờ quyết định xuất bản riêng của người dùng.
 
 Các lệnh `check` và `render` chuyển trách nhiệm kiểm định cho checker hiện hành. `regression` đọc bài hồi quy từ cấu hình dự án, chạy các self-test bắt buộc rồi điều phối hồi quy nguồn và, khi được yêu cầu, hồi quy render.
 
@@ -437,4 +449,6 @@ Commit khóa tài liệu M9B hoàn tất phiên bản 1.0 mà không thay đổi
 
 O2 đã triển khai và kiểm nghiệm `pack` cùng `verify` trên gói context dạng thư mục và ZIP, bao gồm các trường hợp tệp thiếu, tệp thừa, checksum sai, danh sách checksum chưa sắp xếp và việc chạy CLI trong thư mục sạch.
 
-Release `0.3.0` đã hoàn tất O3: `pack --kind release` và `verify` đã được kiểm nghiệm; release candidate được tạo từ commit sạch; hai lớp xác minh đều đạt; rollback drill đạt; hai QMD hồi quy giữ nguyên SHA-256 và trạng thái xuất bản vẫn `pending`. Git tag thật chưa được tạo, không push và không publish. Mốc tiếp theo là O4 — phiên trình diễn đầu-cuối và nghiệm thu lớp vận hành.
+Release `0.3.0` đã hoàn tất O3: `pack --kind release` và `verify` đã được kiểm nghiệm; release candidate được tạo từ commit sạch; hai lớp xác minh đều đạt; rollback drill đạt; hai QMD hồi quy giữ nguyên SHA-256 và trạng thái xuất bản vẫn `pending`. Git tag thật chưa được tạo, không push và không publish.
+
+O4 đang triển khai. Hai commit `278b1d9` và `c966bcb` đã bổ sung `start` cùng `prepublish`, nâng CLI ứng viên lên `0.4.0`, chạy self-test và hồi quy nguồn mà không đổi SHA-256 của hai QMD đường cơ sở. O4 chưa đạt cho đến khi gói context mới được kiểm nghiệm, chat-box mới vượt phép thử chỉ dùng gói, phiên trình diễn đầu-cuối hoàn tất và đủ bảy mục tiêu có bằng chứng.

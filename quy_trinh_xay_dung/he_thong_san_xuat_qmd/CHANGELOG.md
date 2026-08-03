@@ -2,6 +2,37 @@
 
 Tài liệu này ghi những thay đổi quan sát được của lớp vận hành cỗ máy QMD. Nó không thay thế lịch sử Git và không tự chứng minh một release đã được tạo.
 
+## `0.4.0` — chưa phát hành — O4 đang triển khai
+
+### Thêm và thay đổi
+
+- Nâng `scripts/zo_qmd.py` lên phiên bản ứng viên `0.4.0`; giữ checker `2.6.0`, lõi QMD `1.0` và `scripts/zo_qmd_package.py` `0.3.0`.
+- Thêm `start` để tạo manifest phiên JSON từ yêu cầu ban đầu, kết quả `inspect`, nguồn có thẩm quyền, phạm vi, kế hoạch và các cổng người dùng.
+- `start` yêu cầu đầu ra tường minh, chặn phạm vi được phép–loại trừ chồng lấn và chặn QMD hiện hữu thiếu hồ sơ bắt buộc.
+- Thêm `scripts/zo_qmd_prepublish.py` và lệnh `prepublish` để tổng hợp manifest phiên, báo cáo `check`, báo cáo `render` cùng bảng kiểm có người quan sát.
+- `prepublish` không chạy lại checker, không tự nghiệm thu, không sửa trạng thái xuất bản và luôn giữ `publication: pending`.
+- Thêm self-test cùng phép thử trường hợp sẵn sàng, bị chặn và đầu ra không hợp lệ.
+
+### Bằng chứng hiện có
+
+- Commit `278b1d9` bổ sung `start`.
+- Commit `c966bcb` bổ sung `prepublish`.
+- Hồi quy nguồn hai dự án đạt sau từng thay đổi.
+- Hai QMD đường cơ sở giữ nguyên SHA-256.
+- Worktree O4 sạch sau hai commit mã.
+
+### Chưa hoàn tất
+
+- Chưa tạo release candidate `0.4.0` hoặc Git tag thật.
+- Chưa tạo và xác minh gói context từ trạng thái O4 sau khi tài liệu được đồng bộ.
+- Chưa chạy phép thử chat-box mới chỉ dùng gói O4.
+- Chưa chạy phiên trình diễn đầu-cuối và chưa đủ bằng chứng cho bảy mục tiêu.
+- Không push và không publish.
+
+### Di trú từ `0.3.0`
+
+Các lệnh hiện có giữ nguyên. `start` và `prepublish` là hai lệnh mới, đều yêu cầu đầu ra JSON tường minh. `prepublish` cần manifest do `start` tạo, báo cáo `check`, báo cáo `render` và bảng kiểm có người quan sát; nó không thay thế các bước tạo bằng chứng ấy.
+
 ## `0.3.0` — 2026-08-02
 
 ### Thêm và thay đổi
