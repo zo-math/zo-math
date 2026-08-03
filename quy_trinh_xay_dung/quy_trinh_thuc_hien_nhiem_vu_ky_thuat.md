@@ -20,7 +20,7 @@ Khi nhận nhiệm vụ, agent phải:
 5. Xác định nguồn chính thức, tệp đầu ra tự động, quan hệ phụ thuộc và phạm vi ảnh hưởng.
 6. Không tự mở rộng nhiệm vụ sang các lỗi hoặc khu vực lân cận.
 
-Nếu yêu cầu đã rõ mục tiêu, phạm vi và cho phép thực hiện, agent phải bắt đầu công việc mà không hỏi lại một cách không cần thiết.
+Nếu yêu cầu đã rõ mục tiêu, phạm vi và cho phép thực hiện, agent phải bắt đầu công việc mà không hỏi lại một cách không cần thiết. Một yêu cầu bằng ngôn ngữ tự nhiên đã đủ để khởi động nhiệm vụ trong dự án đã được tích hợp; agent tự xác định lệnh và tài liệu cần dùng, không yêu cầu người dùng dịch yêu cầu thành cú pháp kĩ thuật. Nếu không tìm thấy cấu hình dự án hoặc loại bài phù hợp, phải dừng ở bước khảo sát và báo đây là nhiệm vụ tích hợp dự án mới.
 
 Agent chỉ dừng để hỏi khi:
 

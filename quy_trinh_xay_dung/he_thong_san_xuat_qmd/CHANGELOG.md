@@ -12,6 +12,10 @@ Tài liệu này ghi những thay đổi quan sát được của lớp vận h�
 - Thêm `scripts/zo_qmd_prepublish.py` và lệnh `prepublish` để tổng hợp manifest phiên, báo cáo `check`, báo cáo `render` cùng bảng kiểm có người quan sát.
 - `prepublish` không chạy lại checker, không tự nghiệm thu, không sửa trạng thái xuất bản và luôn giữ `publication: pending`.
 - Thêm self-test cùng phép thử trường hợp sẵn sàng, bị chặn và đầu ra không hợp lệ.
+- Sửa kiểm tra freshness của QMD/PDF theo trạng thái Git để worktree mới không bị `FAIL` giả do sai lệch `mtime` khi checkout.
+- Thống nhất `scripts/zo_qmd.py` là giao diện kĩ thuật của agent đối với bài QMD đã được cấu hình; giữ `scripts/zo_check_repo.py` là checker lõi phía sau.
+- Bảo toàn khối nội dung ZO Math trong PDF và khái quát hóa các bài học từ kiểm định trực quan.
+- Làm rõ giao diện người dùng là yêu cầu bằng ngôn ngữ tự nhiên, còn CLI thuộc agent; khóa phạm vi O4 ở các dự án đã được tích hợp.
 
 ### Bằng chứng hiện có
 
@@ -19,14 +23,18 @@ Tài liệu này ghi những thay đổi quan sát được của lớp vận h�
 - Commit `c966bcb` bổ sung `prepublish`.
 - Hồi quy nguồn hai dự án đạt sau từng thay đổi.
 - Hai QMD đường cơ sở giữ nguyên SHA-256.
-- Worktree O4 sạch sau hai commit mã.
+- Worktree O4 sạch sau các commit triển khai và sửa lỗi.
+- Một gói context từ snapshot O4 trước đó đã vượt hai đường `verify`; chat-box mới chỉ dùng gói ấy đã tái hiện đúng nhiệm vụ.
+- Agent mới trong VS Code dùng đúng giao diện vận hành, kiểm định bài đường cơ sở và không sửa repository.
+- Phiên trình diễn đầu-cuối đi đến `prepublish`; lệnh chặn đúng khi kiểm định có người quan sát còn `FAIL` và giữ `publication: pending`.
 
 ### Chưa hoàn tất
 
+- Chưa tạo lại và xác minh gói context từ commit sạch sau khi khóa tài liệu, rồi thử một chat-box mới chỉ dùng gói ấy.
 - Chưa tạo release candidate `0.4.0` hoặc Git tag thật.
-- Chưa tạo và xác minh gói context từ trạng thái O4 sau khi tài liệu được đồng bộ.
-- Chưa chạy phép thử chat-box mới chỉ dùng gói O4.
-- Chưa chạy phiên trình diễn đầu-cuối và chưa đủ bằng chứng cho bảy mục tiêu.
+- Chưa lưu hồ sơ tổng hợp đủ bảy mục tiêu trong repository.
+- Mục tiêu 1 cần được thử lại sau khi sửa hợp đồng người dùng bằng ngôn ngữ tự nhiên.
+- Chưa có quyết định khóa lớp vận hành 1.0.
 - Không push và không publish.
 
 ### Di trú từ `0.3.0`
