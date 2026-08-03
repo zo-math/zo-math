@@ -326,7 +326,7 @@ Chỉ vẽ tiệm cận phục vụ mục đích của hình. Nếu nhãn cần 
 
 Mọi điểm đặc biệt phải được đặt bằng tọa độ toán học chính xác, không ước lượng bằng mắt. Nếu điểm nằm trên một đường cong đã lấy mẫu, vẫn nên vẽ điểm ở lớp riêng để kích thước và thứ tự lớp ổn định.
 
-Nhãn tọa độ chỉ xuất hiện khi cần cho việc đọc. Ưu tiên đặt lệch khỏi đường cong, không dùng đường dẫn dài nếu một vị trí gần đã đủ rõ.
+Nhãn tọa độ chỉ xuất hiện khi cần cho việc đọc. Ưu tiên đặt lệch khỏi đường cong, không dùng đường dẫn dài nếu một vị trí gần đã đủ rõ. Vị trí do AI sinh là vị trí ban đầu; người kiểm định được phép tinh chỉnh `anchor`, `xshift`, `yshift` ở mức vài `pt` sau khi xem ảnh thật. Đây là một phần bình thường của nghiệm thu quang học, không phải lí do để thay đổi tọa độ toán học của điểm hoặc tạo một style vị trí dùng chung.
 
 Đường chiếu tọa độ chỉ chạy từ điểm đến đúng trục cần đọc, không kéo xuyên toàn trường đồ thị và không có mũi tên. Nó nằm dưới trục, đường cong và điểm; đi tới tâm điểm để dấu điểm vẽ sau che đầu đường chiếu. Nếu chỉ một tọa độ có ý nghĩa, chỉ vẽ một đường chiếu. Tại chân đường chiếu, dùng vạch chia chuẩn và không lặp lại một nhãn đã có.
 
@@ -365,6 +365,10 @@ Nhãn phải:
 - không làm bounding box mất cân đối.
 
 Nhãn đường cong phải được đặt trong vùng trống gần chính đường mà nó gọi tên, cùng màu với các nhãn khác tức màu chữ chung `zoText`. Nhãn của đường cong thông thường ưu tiên nằm ngang. Riêng nhãn của đường thẳng, tiếp tuyến, tiệm cận xiên hoặc đường tham chiếu có hướng rõ ràng nên nghiêng theo chính hướng hiển thị của đường.
+
+Khi một nhánh đường cong rời cửa sổ quan sát ở vùng thoáng, ưu tiên đặt nhãn công thức gần phần cuối nhìn thấy của nhánh ấy, theo cách tương tự nhãn trục gọi tên đối tượng ở nơi nó tiếp tục. Không đặt nhãn đúng tại điểm bị cắt bởi biên, vì đó chỉ là đầu mút của miền quan sát chứ không phải đầu mút toán học. Vị trí khoảng `94%–97%` chiều dài đường vẽ có thể dùng làm điểm bắt đầu để thử, sau đó phải điều chỉnh theo bản render; đây không phải tỉ lệ bắt buộc.
+
+Có thể gắn node trực tiếp vào `\addplot` bằng `node[pos=...]` để nhãn đi cùng đường cong. Chỉ dùng cách này khi node không bị cắt, không làm thay đổi bounding box ngoài ý muốn và vẫn tách khỏi nét cong bằng `anchor`, `xshift`, `yshift`. Với nhiều nhánh hoặc vùng cuối bị chật, chọn một vùng trống khác có quan hệ trực tiếp và không nhập nhằng với đường.
 
 Khi nhãn cần nghiêng theo đường, phải dùng một `\path` trùng hướng với đường và đặt node bằng `sloped`; không ấn định góc bằng `rotate` nếu hai trục có thể có tỉ lệ hiển thị khác nhau. Góc nhìn của đường phụ thuộc đồng thời vào hệ số góc và tỉ lệ vật lý giữa hai trục.
 
@@ -693,6 +697,7 @@ AI phải kiểm tra cả PDF độc lập, SVG sau chuyển đổi và SVG tron
 - các kiểu nét còn phân biệt khi thu nhỏ;
 - điểm rỗng còn nhìn thấy lõi;
 - nhãn không đè nhau, không đè đường và không bị cắt;
+- nhãn công thức có quan hệ thị giác rõ với đúng đường cong, không lơ lửng ở vùng không xác định và không nằm đúng điểm cắt giả tạo của cửa sổ quan sát;
 - đặc điểm quan trọng không quá sát mép;
 - không có khoảng trống vô nghĩa quá lớn;
 - tỉ lệ khung không làm sai cảm nhận về hình dạng cần truyền đạt;
