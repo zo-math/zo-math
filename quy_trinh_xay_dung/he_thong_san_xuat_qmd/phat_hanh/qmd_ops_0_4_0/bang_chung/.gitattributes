@@ -1,0 +1,9 @@
+# Giữ nguyên byte và không sinh textual diff cho bằng chứng thô.
+*.txt -text -diff
+*.md -text -diff
+*.json -text -diff
+*.yml -text -diff
+*.sha256 -text -diff
+
+# Chỉ mục checksum do repository tạo được quản lí như văn bản LF.
+SHA256SUMS.txt text eol=lf diff

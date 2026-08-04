@@ -1,0 +1,28 @@
+usage: zo_qmd.py [-h] [--repo-root REPO_ROOT] [--version]
+                 {doctor,inspect,start,prepublish,check,render,regression,pack,verify}
+                 ...
+
+Unified operations front end for the ZO Math QMD system. This command
+coordinates the existing configuration loader, registry, checker, Quarto
+wrapper, regression baseline, and package module. It does not duplicate
+validators and does not accept, publish, stage, or commit content.
+
+positional arguments:
+  {doctor,inspect,start,prepublish,check,render,regression,pack,verify}
+    doctor              Kiểm tra môi trường, tệp hệ thống và đường hồi quy.
+    inspect             Nhận diện dự án, loại bài, hồ sơ và nguồn điều khiển.
+    start               Tạo hồ sơ phiên và kế hoạch sản xuất từ yêu cầu ban
+                        đầu.
+    prepublish          Tổng hợp bằng chứng và tạo báo cáo trước xuất bản.
+    check               Điều phối kiểm định nguồn qua checker hiện hành.
+    render              Điều phối kiểm định nguồn, render và kiểm định đầu ra.
+    regression          Chạy self-test và đường cơ sở các dự án đã cấu hình.
+    pack                Tạo gói context hoặc release tại đầu ra tường minh.
+    verify              Xác minh thư mục gói hoặc tệp .zip chuẩn.
+
+options:
+  -h, --help            show this help message and exit
+  --repo-root REPO_ROOT
+                        Đường dẫn nằm trong repository; mặc định là thư mục
+                        hiện tại.
+  --version             show program's version number and exit
