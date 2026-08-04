@@ -49,4 +49,4 @@ Rollback drill O4 đạt:
 - trạng thái xuất bản `pending` được bảo toàn;
 - các worktree tạm và worktree sống không bị thay đổi nội dung.
 
-Release candidate `0.4.0` chưa được tạo hoặc xác minh.
+Sau diễn tập, release candidate `0.4.0` đã được tạo từ commit `6425dec241cc27cad76bf55f8385531e56fb1a86` và vượt hai phép xác minh.

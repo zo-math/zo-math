@@ -5,7 +5,7 @@
 - Commit kiểm tra: `335fbbeb1b631eecc642fbeb05bd6644025cd87e`
 - Nhánh hiện tại: `o4-qmd-operations`
 - Trạng thái Git trước khi lập hồ sơ: nhánh `o4-qmd-operations` ở commit `335fbbeb1b631eecc642fbeb05bd6644025cd87e` và worktree sạch.
-- Trạng thái tổng quát: bảy mục tiêu có bằng chứng; hồ sơ tổng hợp O4 đã được lập trong thư mục `qmd_ops_0_4_0`; release candidate `0.4.0` chưa được tạo hoặc xác minh; chưa tag, push hoặc publish; việc khóa lớp vận hành `1.0` vẫn cần release candidate được xác minh và quyết định riêng của người dùng.
+- Trạng thái tổng quát: bảy mục tiêu đã có bằng chứng; release candidate `0.4.0` đã được tạo và xác minh; chưa tag, push hoặc publish; việc khóa lớp vận hành `1.0` còn chờ quyết định riêng của người dùng.
 
 ## Quy ước lưu bằng chứng
 
@@ -55,22 +55,22 @@
 
 ## Mục tiêu 5 — Gói phát hành và manifest
 
-- Điều kiện trước: O3 đã có release candidate, hồ sơ phát hành và bằng chứng verify; O4 chưa tạo release candidate `0.4.0`.
+- Điều kiện trước: hồ sơ phát hành, hồi quy, rollback drill và commit sạch cuối đã sẵn sàng.
 - Phép thử: tạo release candidate từ worktree sạch, mở gói trong thư mục sạch và chạy verify; lưu manifest, checksum, checklist, changelog, rollback log và bằng chứng hồi quy.
-- Bằng chứng: hồ sơ O3 tại `quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_3_0/release_verification.md` ghi package ID `qmd-release-0-3-0-20260802-223550`, candidate commit `99a7c04c69eb0a54d381f5afd0d3e79fe26e9cab`, `tag_created: false`, và hai phép verify đều PASS; `ho_so_release_candidate.yml` và `release_checklist.md` cùng xác nhận release candidate được tạo ngoài repository với checksum và manifest đầy đủ.
+- Bằng chứng: `release_verification.md`, `release_checklist.md`, `release_verify_external.txt` và `release_verify_self.txt` ghi package ID `qmd-release-0-4-0-20260804-142216`, candidate commit `6425dec241cc27cad76bf55f8385531e56fb1a86`, SHA-256 của ZIP và hai kết quả verify đều PASS.
 - Commit hoặc phiên bản liên quan: release candidate O3 `0.3.0`, commit `99a7c04c69eb0a54d381f5afd0d3e79fe26e9cab`.
-- Kết quả: PASS, với lưu ý rằng đây là bằng chứng O3; O4 vẫn chưa tạo release candidate `0.4.0`.
-- Giới hạn: O4 chưa có release candidate `0.4.0` được tạo hoặc xác minh; hồ sơ này chỉ khẳng định lớp vận hành có quy trình release/verify đã được chứng minh ở O3.
+- Kết quả: PASS.
+- Giới hạn: chưa tạo Git tag thật, chưa push hoặc publish.
 - Kết luận: PASS.
 
 ## Mục tiêu 6 — Bảo trì, nâng phiên bản và khôi phục
 
 - Điều kiện trước: có bằng chứng rollback drill O3 và hai bài hồi quy không đổi.
 - Phép thử: tạo thay đổi nhỏ có phân loại, đóng gói release candidate mới, dựng worktree trước và ứng viên riêng, chạy hồi quy bắt buộc và diễn tập khôi phục về release trước mà không phá hủy worktree sống.
-- Bằng chứng: `quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_3_0/rollback_log.md` ghi `previous_version: 0.2.0`, `previous_commit: c1b26b9a0536b17e0885d8158fddbd20413767c2`, worktree previous/candidate đã được dựng riêng, hồi quy trước và sau đều PASS, hai checksum bài hồi quy không đổi, và trạng thái `pending` được bảo toàn.
+- Bằng chứng: `rollback_log.md`, `regression_before.txt` và `regression_after.txt` ghi hồi quy nguồn cùng render đều PASS, hai QMD đường cơ sở giữ nguyên SHA-256 và trạng thái xuất bản vẫn `pending`.
 - Commit hoặc phiên bản liên quan: release trước `0.2.0` ở commit `c1b26b9a0536b17e0885d8158fddbd20413767c2`; rollback drill O3.
 - Kết quả: PASS.
-- Giới hạn: đây là bằng chứng rollback O3; O4 chưa có release candidate `0.4.0` để quy trình khôi phục phiên bản mới được lặp lại.
+- Giới hạn: Git tag, push, publish và quyết định khóa lớp vận hành `1.0` không thuộc rollback drill.
 - Kết luận: PASS.
 
 ## Mục tiêu 7 — Phiên trình diễn đầu-cuối
@@ -87,6 +87,6 @@
 
 - Bảy mục tiêu đều có bằng chứng và được ghi nhận ở mức PASS.
 - Hồ sơ tổng hợp O4 đã được lập trong repository tại `quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_4_0/ho_so_nghiem_thu_o4.md`.
-- Release candidate `0.4.0` chưa được tạo hoặc xác minh.
+- Release candidate `0.4.0` đã được tạo và xác minh bằng hai đường độc lập.
 - Chưa tag, push hoặc publish.
 - Việc khóa lớp vận hành `1.0` vẫn cần một release candidate được xác minh và quyết định riêng của người dùng.

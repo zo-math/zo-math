@@ -1,0 +1,21 @@
+QMD PACKAGE MODULE: 0.3.1
+INPUT: D:\Downloads\qmd-ops-v0.4.0-rc.zip
+FORMAT: zip
+PACKAGE ID: qmd-release-0-4-0-20260804-142216
+KIND: release
+CHECKS:
+  PASS top-level-symlinks: Cấp gốc không chứa symlink.
+  PASS top-level-required: Đủ bốn thành phần bắt buộc.
+  PASS top-level-extra: Không có mục cấp gốc thừa.
+  PASS prompt: PROMPT.md là UTF-8 và không rỗng.
+  PASS manifest: MANIFEST.yml đạt schema phiên bản 1.
+  PASS payload-symlinks: Payload không chứa symlink.
+  PASS payload-forbidden: Payload không chứa đường dẫn hệ thống, cache hoặc tệp nhạy cảm theo tên.
+  PASS checksums-format: FILES.sha256 đúng định dạng.
+  PASS checksums-missing: Không có tệp bị thiếu.
+  PASS checksums-extra: Không có tệp thừa.
+  PASS checksums-values: Các checksum khớp.
+  PASS manifest-sources: Các nguồn khai báo đều có trong payload.
+  PASS release-payload: Release payload có đủ tài liệu và hai QMD hồi quy bắt buộc.
+  PASS release-runtime: Runtime dependency closure của release payload đầy đủ.
+AUTOMATED RESULT: PASS | EXIT=0

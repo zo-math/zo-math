@@ -1,6 +1,6 @@
 # Tiêu chí nghiệm thu lớp vận hành cỗ máy QMD
 
-> **Trạng thái:** Ma trận nghiệm thu hiện hành `0.3`; O3 đã đạt. O4 đã có bằng chứng cho cả bảy mục tiêu trong hồ sơ tổng hợp mới tại `phat_hanh/qmd_ops_0_4_0/ho_so_nghiem_thu_o4.md`; CLI ứng viên `0.4.0` và các phép thử agent/chat-box/đầu-cuối đã được ghi nhận. Thư mục `qmd_ops_0_4_0` hiện chỉ chứa hồ sơ nghiệm thu trước release; release candidate `0.4.0` chưa được tạo hoặc xác minh; chưa tag, push hoặc publish; việc khóa lớp vận hành `1.0` vẫn cần release candidate được xác minh và quyết định riêng của người dùng.
+> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`. Release candidate O4 `0.4.0` tại commit `6425dec241cc27cad76bf55f8385531e56fb1a86` đã được tạo và xác minh bằng hai đường độc lập; package ID `qmd-release-0-4-0-20260804-142216`. Chưa tạo Git tag thật, chưa push hoặc publish; việc khóa lớp vận hành `1.0` còn chờ quyết định riêng của người dùng.
 >
 > Tài liệu này đánh giá lớp vận hành bao quanh lõi QMD 1.0. Nó không thay thế `tieu_chi_nghiem_thu_he_thong.md`, vốn ghi nhận nghiệm thu của lõi kĩ thuật phiên bản 1.0.
 

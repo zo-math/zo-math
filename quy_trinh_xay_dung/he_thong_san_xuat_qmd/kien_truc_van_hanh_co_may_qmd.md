@@ -1,6 +1,6 @@
 # Kiến trúc vận hành cỗ máy QMD
 
-> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`; O3 đã hoàn tất. O4 đang triển khai với CLI ứng viên `0.4.0`; bảy mục tiêu, gói context cuối, hồi quy có render và rollback drill O4 đều đã có bằng chứng. Release candidate `0.4.0` chưa được tạo hoặc xác minh; việc khóa lớp vận hành `1.0` vẫn cần quyết định riêng của người dùng sau khi RC đạt.
+> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`. Release candidate O4 `0.4.0` tại commit `6425dec241cc27cad76bf55f8385531e56fb1a86` đã được tạo và xác minh bằng hai đường độc lập; package ID `qmd-release-0-4-0-20260804-142216`. Chưa tạo Git tag thật, chưa push hoặc publish; việc khóa lớp vận hành `1.0` còn chờ quyết định riêng của người dùng.
 >
 > Tài liệu này bao quanh lõi kĩ thuật của Hệ thống sản xuất và kiểm định QMD phiên bản 1.0. Nó không thay thế `kien_truc_he_thong.md`, `hop_dong_loi_va_du_an.md` hoặc các quy chuẩn chuyên biệt của từng dự án.
 

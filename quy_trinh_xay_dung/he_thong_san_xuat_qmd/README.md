@@ -1,6 +1,6 @@
 # Hệ thống sản xuất và kiểm định QMD cho ZO Math
 
-> **Trạng thái:** Lõi kĩ thuật phiên bản 1.0 đã khóa; release hiện hành của lớp vận hành là `0.3.0`; O3 đã hoàn tất. O4 đang triển khai trên nhánh `o4-qmd-operations` với CLI ứng viên `0.4.0`; bảy mục tiêu đã có bằng chứng trong hồ sơ tổng hợp O4, gồm mục tiêu 1–4 từ commit `335fbbeb1b631eecc642fbeb05bd6644025cd87e`, mục tiêu 5–6 dựa trên bằng chứng phát hành và rollback O3, và mục tiêu 7 về phiên trình diễn đầu-cuối với prepublish bị chặn đúng. Thư mục `qmd_ops_0_4_0` hiện chỉ chứa hồ sơ nghiệm thu trước release; release candidate `0.4.0` chưa được tạo hoặc xác minh; chưa tag, push hoặc publish; việc khóa lớp vận hành `1.0` vẫn cần một release candidate được xác minh và quyết định riêng của người dùng.
+> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`. Release candidate O4 `0.4.0` tại commit `6425dec241cc27cad76bf55f8385531e56fb1a86` đã được tạo và xác minh bằng hai đường độc lập; package ID `qmd-release-0-4-0-20260804-142216`. Chưa tạo Git tag thật, chưa push hoặc publish; việc khóa lớp vận hành `1.0` còn chờ quyết định riêng của người dùng.
 >
 > Đây là tài liệu vận hành nội bộ. Nó chỉ có thẩm quyền trong phạm vi mà `AGENTS.md`, cấu hình dự án hoặc yêu cầu hiện tại của người dùng dẫn chiếu. Các hồ sơ kiểm kê và thiết kế ban đầu được giữ lại như bằng chứng lịch sử, không tự động ghi đè quy trình đang có hiệu lực ở nơi khác.
 
@@ -44,10 +44,6 @@ O3 đã triển khai trong mã:
 
 Chưa hoàn thành trong O4:
 
-- thử lại Mục tiêu 1 theo hợp đồng người dùng đã được sửa;
-- tạo lại và xác minh gói context từ commit sạch sau khi tài liệu được khóa, rồi thử một chat-box mới chỉ dùng gói ấy;
-- đối chiếu, lưu trữ và tổng hợp đủ bằng chứng cho bảy mục tiêu;
-- tạo và xác minh release candidate `0.4.0`;
 - quyết định có khóa lớp vận hành 1.0 hay không.
 
 Ba tài liệu điều khiển giai đoạn vận hành hóa:
@@ -487,4 +483,4 @@ O2 đã triển khai và kiểm nghiệm `pack` cùng `verify` trên gói contex
 
 Release `0.3.0` đã hoàn tất O3: `pack --kind release` và `verify` đã được kiểm nghiệm; release candidate được tạo từ commit sạch; hai lớp xác minh đều đạt; rollback drill đạt; hai QMD hồi quy giữ nguyên SHA-256 và trạng thái xuất bản vẫn `pending`. Git tag thật chưa được tạo, không push và không publish.
 
-O4 đang triển khai. `start` và `prepublish` đã được bổ sung; bảy mục tiêu đã có bằng chứng trong hồ sơ tổng hợp; gói context cuối đã được xác minh và một chat-box mới chỉ dùng gói ấy đã tái hiện đúng nhiệm vụ; hồi quy nguồn cùng render của release `0.3.0` và ứng viên `0.4.0` đều đạt; rollback drill O4 đã đạt; hai QMD đường cơ sở giữ nguyên SHA-256 và trạng thái xuất bản vẫn `pending`. O4 còn phải lập hồ sơ phát hành, tạo và xác minh release candidate `0.4.0`, sau đó người dùng quyết định riêng việc khóa lớp vận hành `1.0`.
+O4 đã hoàn tất các phép thử, hồ sơ nghiệm thu, gói context cuối, hồi quy có render, rollback drill và release candidate `0.4.0` được xác minh. Release hiện hành vẫn là `0.3.0` cho đến khi người dùng quyết định riêng việc khóa lớp vận hành `1.0`; chưa tag, push hoặc publish.
