@@ -1,6 +1,6 @@
 # Giao thức cho agent, chat-box và gói ngữ cảnh QMD
 
-> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`; release candidate và rollback drill của O3 đã đạt. O4 đang triển khai với CLI ứng viên `0.4.0`; phép thử agent mới và phiên trình diễn đầu-cuối đã có bằng chứng; phép thử context cùng chat-box đã đạt trên một snapshot O4 trước đó; còn gói context cuối, phép thử chat-box tương ứng, hồ sơ đủ bảy mục tiêu và release candidate O4 chưa hoàn tất.
+> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`; release candidate và rollback drill của O3 đã đạt. O4 đang triển khai với CLI ứng viên `0.4.0`; bảy mục tiêu, gói context cuối, hồi quy có render và rollback drill O4 đều đã có bằng chứng. Release candidate `0.4.0` chưa được tạo hoặc xác minh.
 >
 > Tài liệu này quy định cách một agent trong VS Code hoặc một chat-box tiếp nhận và bàn giao nhiệm vụ QMD. Nó không thay thế chỉ dẫn cấp repository hoặc quy chuẩn chuyên biệt của dự án.
 
