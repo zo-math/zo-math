@@ -1,0 +1,213 @@
+manifest_version: 1
+package:
+  id: qmd-context-20260804-031754
+  kind: context
+  purpose: Gói context cuối để nghiệm thu chat-box trong O4
+  created_at: '2026-08-04T03:17:54+07:00'
+  created_by: zo_qmd.py pack
+system:
+  qmd_core_version: '1.0'
+  checker_version: 2.6.0
+  project_config_schema: 1
+  operations_contract_version: '0.3'
+  manifest_schema: 1
+repository:
+  name: zo_math_o4
+  source: exported_snapshot
+  branch: o4-qmd-operations
+  commit: 335fbbeb1b631eecc642fbeb05bd6644025cd87e
+  dirty: unknown
+  ahead_of_origin: unknown
+scope:
+  mode: o4-final-acceptance
+  roots:
+  - AGENTS.md
+  - quy_trinh_xay_dung/quy_tac_lam_viec_voi_agent.md
+  - quy_trinh_xay_dung/quy_trinh_thuc_hien_nhiem_vu_ky_thuat.md
+  - quy_trinh_xay_dung/he_thong_san_xuat_qmd
+  - scripts/zo_python.py
+  - scripts/zo_qmd.py
+  - scripts/zo_qmd_package.py
+  - scripts/zo_qmd_prepublish.py
+  - scripts/zo_artifact_freshness.py
+  - scripts/zo_check_repo.py
+  - scripts/zo_qmd_config.py
+  - scripts/zo_qmd_registry.py
+  - scripts/zo_qmd_core.py
+  - scripts/zo_real_world_problem.py
+  - content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/AGENTS.md
+  - content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/cau_hinh_san_xuat_qmd.yml
+  - content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/ho_so/ham_ln_x.yml
+  - content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_ln_x.qmd
+  - content/thpt/zo_math_100/100_bai_toan_thuc_te/AGENTS.md
+  - content/thpt/zo_math_100/100_bai_toan_thuc_te/_quy_trinh/cau_hinh_san_xuat_qmd.yml
+  - content/thpt/zo_math_100/100_bai_toan_thuc_te/_quy_trinh/ho_so/chi_phi_di_taxi.yml
+  - content/thpt/zo_math_100/100_bai_toan_thuc_te/core/chi_phi_di_taxi.qmd
+  excluded:
+  - .git
+  - .quarto
+  - .continue
+  - __pycache__
+  - _freeze
+  - docs
+  - node_modules
+  - .venv
+  - venv
+  - '*.pyc'
+  - secrets-and-machine-local-files
+output:
+  path: D:\Downloads\o4_final_context_20260804_031748.zip
+  inside_repository: false
+  reason: null
+entrypoints:
+  current:
+    checker: scripts/zo_check_repo.py
+    operations_cli: scripts/zo_qmd.py
+  target: {}
+sources:
+  required:
+  - path: AGENTS.md
+    role: system_document
+  - path: content/thpt/zo_math_100/100_bai_toan_thuc_te/AGENTS.md
+    role: repository_instruction_dependency
+  - path: content/thpt/zo_math_100/100_bai_toan_thuc_te/_quy_trinh/cau_hinh_san_xuat_qmd.yml
+    role: project_config
+  - path: content/thpt/zo_math_100/100_bai_toan_thuc_te/_quy_trinh/ho_so/chi_phi_di_taxi.yml
+    role: production_profile
+  - path: content/thpt/zo_math_100/100_bai_toan_thuc_te/_quy_trinh/ho_so_san_xuat_mac_dinh.yml
+    role: template
+  - path: content/thpt/zo_math_100/100_bai_toan_thuc_te/_quy_trinh/quy_chuan_noi_dung_bai_toan_thuc_te.md
+    role: controlling_document
+  - path: content/thpt/zo_math_100/100_bai_toan_thuc_te/core/chi_phi_di_taxi.qmd
+    role: scope_file
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/AGENTS.md
+    role: repository_instruction_dependency
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/cau_hinh_san_xuat_qmd.yml
+    role: project_config
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/ho_so/ham_ln_x.yml
+    role: production_profile
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/ho_so_san_xuat_mac_dinh.yml
+    role: template
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/mau_ki_thuat_qmd.qmd
+    role: template
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/quy_chuan_khao_sat_ham_so.md
+    role: controlling_document
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/quy_chuan_ki_thuat_bai_ham_so_qmd.md
+    role: controlling_document
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/quy_trinh_tao_bai_ham_so.md
+    role: controlling_document
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_ln_x.qmd
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/CHANGELOG.md
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/README.md
+    role: repository_instruction_dependency
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/ban_do_kien_truc_hien_trang.md
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/cau_truc_cau_hinh_du_an.md
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/duong_co_so_hoi_quy_hai_du_an.md
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/duong_co_so_hoi_quy_ham_ln_x.md
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/giao_thuc_agent_chat_box_va_goi_ngu_canh.md
+    role: system_document
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/hop_dong_loi_va_du_an.md
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/huong_dan_them_du_an_va_validator.md
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/ke_hoach_chuyen_doi.md
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/kiem_ke_he_thong_hien_tai.md
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/kien_truc_he_thong.md
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/kien_truc_van_hanh_co_may_qmd.md
+    role: system_document
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/ma_tran_phien_ban_qmd.md
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/mau_ho_so_phat_hanh_qmd.yml
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/mau_manifest_goi_qmd.yml
+    role: system_document
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/phan_loai_quy_tac_chung_rieng.md
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_3_0/ho_so_release_candidate.yml
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_3_0/regression_after.txt
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_3_0/regression_before.txt
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_3_0/release_checklist.md
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_3_0/release_verification.md
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_3_0/release_verify_external.txt
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_3_0/release_verify_self.txt
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_3_0/rollback_log.md
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/quy_trinh_phat_hanh_va_khoi_phuc_qmd.md
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/tieu_chi_nghiem_thu_he_thong.md
+    role: scope_file
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/tieu_chi_nghiem_thu_lop_van_hanh.md
+    role: system_document
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/vong_doi_bai_qmd.md
+    role: scope_file
+  - path: quy_trinh_xay_dung/huong_dan_su_dung_khoi_noi_dung.md
+    role: repository_instruction_dependency
+  - path: quy_trinh_xay_dung/phong_cach_viet/index.md
+    role: repository_instruction_dependency
+  - path: quy_trinh_xay_dung/quy_chuan_luoi_the.md
+    role: repository_instruction_dependency
+  - path: quy_trinh_xay_dung/quy_tac_lam_viec_voi_agent.md
+    role: repository_instruction_dependency
+  - path: quy_trinh_xay_dung/quy_trinh_thuc_hien_nhiem_vu_ky_thuat.md
+    role: repository_instruction_dependency
+  - path: quy_trinh_xay_dung/quy_trinh_xuat_ban_website.md
+    role: repository_instruction_dependency
+  - path: scripts/zo_artifact_freshness.py
+    role: runtime_dependency
+  - path: scripts/zo_check_repo.py
+    role: repository_instruction_dependency
+  - path: scripts/zo_publish.py
+    role: repository_instruction_dependency
+  - path: scripts/zo_python.py
+    role: repository_instruction_dependency
+  - path: scripts/zo_qmd.py
+    role: repository_instruction_dependency
+  - path: scripts/zo_qmd_config.py
+    role: runtime_dependency
+  - path: scripts/zo_qmd_core.py
+    role: runtime_dependency
+  - path: scripts/zo_qmd_package.py
+    role: runtime_dependency
+  - path: scripts/zo_qmd_prepublish.py
+    role: runtime_dependency
+  - path: scripts/zo_qmd_registry.py
+    role: runtime_dependency
+  - path: scripts/zo_quarto.py
+    role: runtime_dependency
+  - path: scripts/zo_real_world_problem.py
+    role: runtime_dependency
+  conditional:
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/nguon_li_thuyet/khung_khao_sat_ham_so_hoan_chinh_04.qmd
+    role: theory_source
+    condition: Đọc khi quy chuẩn nén chưa đủ cho trường hợp đang xét.
+  historical: []
+evidence:
+  commands:
+  - git branch --show-current
+  - git rev-parse HEAD
+  reports: []
+  outputs: []
+integrity:
+  algorithm: sha256
+  file: FILES.sha256
+limitations:
+- Không chứa .git; gói không phản ánh thay đổi của repository sau thời điểm đóng gói.
+- repository.dirty và repository.ahead_of_origin được ghi unknown vì gói không chứa
+  bằng chứng Git đủ để tái kiểm chứng hai trạng thái này.
+- Cần Python và PyYAML để chạy lệnh verify đi kèm.

@@ -1,6 +1,6 @@
 # Ma trận phiên bản của cỗ máy QMD
 
-> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`; O3 đã đạt. CLI ứng viên O4 là `0.4.0` với `start` và `prepublish`; phép thử agent mới và trình diễn đầu-cuối đã có bằng chứng; phép thử context cùng chat-box đã đạt trên một snapshot O4 trước đó; nhưng chưa có gói context cuối, release candidate O4, Git tag thật, push hoặc publish.
+> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`; O3 đã đạt. CLI ứng viên O4 là `0.4.0` với `start` và `prepublish`; phép thử agent mới, chat-box và trình diễn đầu-cuối đã có bằng chứng trong hồ sơ tổng hợp O4; gói context cuối đã được tạo và xác minh theo package `qmd-context-20260804-031754`; tuy nhiên thư mục `qmd_ops_0_4_0` hiện chỉ chứa hồ sơ nghiệm thu trước release, release candidate O4 chưa được tạo hoặc xác minh, Git tag thật chưa tồn tại, chưa push hoặc publish, và việc khóa lớp vận hành `1.0` vẫn cần release candidate được xác minh và quyết định riêng của người dùng.
 >
 > Tài liệu này ghi quan hệ giữa các phiên bản được quản lí độc lập. Nó không thay thế hằng số phiên bản trong mã đang chạy và không tự tạo release hoặc Git tag.
 
