@@ -1,7 +1,7 @@
 # Quy chuẩn sinh đồ thị hàm số TikZ/PGFPlots dành cho AI
 
-**Phiên bản:** 01 — 2026-07-22\
-**Trạng thái:** Bản quy chuẩn tự đầy đủ đang được kiểm nghiệm bằng đồ thị đại diện\
+**Phiên bản:** 02 — 2026-07-30\
+**Trạng thái:** Bản quy chuẩn tự đầy đủ; khối style chuẩn được quản lí trực tiếp trong tài liệu này và đang được kiểm nghiệm bằng đồ thị đại diện\
 **Phạm vi:** Sinh một tệp nguồn `.tex` độc lập cho đồ thị hàm số trong ZO Math\
 **Đối tượng sử dụng:** AI, Codex hoặc agent có quyền đọc và ghi trong repository
 
@@ -19,6 +19,8 @@ Tệp được sinh phải đồng thời:
 - đủ rõ về cấu trúc để một người hoặc một AI khác có thể kiểm tra, sửa đổi và tái sử dụng.
 
 Đây không phải là quy chuẩn viết bài, dàn trang bài học hay thiết kế toàn bộ trang web. Mọi quy tắc trong tài liệu chỉ phục vụ trực tiếp cho việc tạo tệp `.tex` của một hình đồ thị.
+
+Tài liệu này là nguồn chuẩn duy nhất của style đồ thị ZO Math. Mỗi tệp `.tex` được sinh phải tự chứa nguyên khối style chuẩn ở Mục 15; không nạp style từ một tệp bên ngoài. Khi khối chuẩn được nâng phiên bản, các tệp `.tex` đã hoàn thành vẫn giữ nguyên khối style đã nhúng để có thể tái tạo đúng diện mạo tại thời điểm bàn giao.
 
 Ngôn ngữ thị giác cốt lõi của một đồ thị ZO Math gồm bốn dấu hiệu phải được nhận ra nhất quán: trường minh họa có nền vàng ZO Math rất nhạt và khung bo góc nhẹ; hệ trục tối giản có mũi tên ở cả hai đầu khi trục kéo dài theo hai hướng; đường cong chính mang màu đỏ ZO Math; mọi vạch chia, nhãn và đường phụ chỉ xuất hiện khi chúng giúp đọc một thông tin toán học. Hình phải thanh, thoáng và chính xác, không mô phỏng giấy kẻ ô hay giao diện phần mềm vẽ đồ thị.
 
@@ -217,15 +219,15 @@ Nếu cần một vai trò chưa có trong bảng ánh xạ mặc định, AI ph
 
 Đồ thị Descartes thông thường ưu tiên hai trục đi qua gốc khi gốc tọa độ nằm trong miền quan sát và việc đó giúp đọc hình. Nếu gốc tọa độ không liên quan hoặc nằm ngoài miền quan sát, có thể đặt một hoặc cả hai trục gần biên của trường hình. Trục phải vẫn được thể hiện như một đối tượng riêng, không trùng hoàn toàn với đường biên và không khiến người đọc hiểu nhầm rằng biên trường hình là một đường có ý nghĩa toán học.
 
-Trục phải có màu `zoAxis`, dày `0.8pt` trong bộ giá trị thử nghiệm và mảnh hơn đường cong chính. Khi một trục tọa độ tiếp tục theo cả hai hướng trong miền đang biểu diễn, trục phải có mũi tên ở cả hai đầu. Hai mũi tên biểu thị sự tiếp tục của trục số, không thay đổi quy ước chiều dương. Chỉ bỏ mũi tên ở một đầu khi hình chỉ biểu diễn một nửa trục, hoặc khi đầu ấy tương ứng với biên toán học thật của miền đang xét. Không bỏ mũi tên chỉ vì trục chạm biên của cửa sổ quan sát.
+Trục phải có màu `zoAxis`, dày `0.8pt` theo khối style chuẩn và mảnh hơn đường cong chính. Khi một trục tọa độ tiếp tục theo cả hai hướng trong miền đang biểu diễn, trục phải có mũi tên ở cả hai đầu. Hai mũi tên biểu thị sự tiếp tục của trục số, không thay đổi quy ước chiều dương. Chỉ bỏ mũi tên ở một đầu khi hình chỉ biểu diễn một nửa trục, hoặc khi đầu ấy tương ứng với biên toán học thật của miền đang xét. Không bỏ mũi tên chỉ vì trục chạm biên của cửa sổ quan sát.
 
-Trong giai đoạn kiểm nghiệm hiện tại, hai đầu trục dùng cú pháp mũi tên mặc định, tương thích ổn định với PGFPlots:
+Trong phiên bản này, hai đầu trục dùng cú pháp mũi tên mặc định, tương thích ổn định với PGFPlots:
 
 ```tex
 <->
 ```
 
-Không dùng lại `Stealth[...]` hoặc `>=stealth` trước khi một bản thử riêng đã biên dịch sạch trên đúng môi trường LuaLaTeX của repository. Hình học đầu mũi tên hiện tại được đánh giá trực tiếp trên các đồ thị đại diện rồi mới khóa phiên bản.
+Không dùng lại `Stealth[...]` hoặc `>=stealth` trước khi một bản thử riêng đã biên dịch sạch trên đúng môi trường LuaLaTeX của repository. Hình học đầu mũi tên hiện tại tiếp tục được đánh giá trực tiếp trên các đồ thị đại diện.
 
 Hai trục dùng cùng kiểu và cùng kích thước đầu mũi tên. Chỉ đầu dương mang nhãn trục:
 
@@ -236,7 +238,7 @@ Hai trục dùng cùng kiểu và cùng kích thước đầu mũi tên. Chỉ �
 - vị trí, điểm neo và độ dịch chuyển cụ thể của mỗi nhãn được khai báo trực tiếp trong tệp nguồn của từng đồ thị;
 - nhãn trục dùng `\normalsize` và màu `zoText`.
 
-Hai vị trí trên là điểm xuất phát, không phải tọa độ cứng bắt buộc. Vị trí của $x$, $y$, $O$, các số trên trục và mọi nhãn khác phải được khai báo trực tiếp trong tệp nguồn của từng hình. Sau mỗi lần render, AI phải kiểm tra vùng an toàn quanh nhãn và tự điều chỉnh `at`, `anchor`, `xshift`, `yshift` hoặc cách tạo nhãn số cho đúng hoàn cảnh. Không đưa các quyết định vị trí này vào style dùng chung.
+Hai vị trí trên là điểm xuất phát, không phải tọa độ cứng bắt buộc. Vị trí của $x$, $y$, $O$, các số trên trục và mọi nhãn khác phải được khai báo trực tiếp trong tệp nguồn của từng hình. Sau mỗi lần render, AI phải kiểm tra vùng an toàn quanh nhãn và tự điều chỉnh `at`, `anchor`, `xshift`, `yshift` hoặc cách tạo nhãn số cho đúng hoàn cảnh. Không đưa các quyết định vị trí này vào khối style chuẩn.
 
 Khi đường cong, tiệm cận, điểm đặc biệt hoặc chú thích chiếm vùng neo thông thường, nhãn được dời đến vùng trống gần đầu trục nhất mà vẫn giữ rõ quan hệ với trục. Với $y=1/x$, nhánh ở góc phần tư I tiến sát trục hoành nên nhãn $x$ phải dời xuống dưới đầu dương của trục hoành; nhãn $y$ có thể giữ phía trái đầu dương của trục tung. Đây là quyết định cục bộ của hình, không phải một style mới.
 
@@ -251,7 +253,7 @@ Không dùng lưới theo mặc định. Chỉ bật lưới khi nó giúp đọ
 Nếu dùng lưới:
 
 - lưới phụ dùng `zoGridMinor` và nét mảnh hơn lưới chính;
-- lưới chính dùng `zoGridMajor`, dày `0.35pt` trong bộ giá trị thử nghiệm và vẫn phải nhạt hơn trục;
+- lưới chính dùng `zoGridMajor`, dày `0.35pt` theo khối style chuẩn và vẫn phải nhạt hơn trục;
 - mật độ lưới phải phù hợp với vạch chia;
 - không tạo một nền ô vuông dày làm chìm đường cong.
 
@@ -294,13 +296,13 @@ Các nhãn giá trị dùng `\footnotesize` và màu chữ chung `zoText`. Khôn
 
 Với hàm lượng giác, nhãn phải dùng biểu thức chính xác như $-\pi$, $-\pi/2$, $\pi/2$, $\pi$, không thay bằng số thập phân nếu không có lý do riêng.
 
-Danh sách vạch chia, nội dung hiển thị, tọa độ, điểm neo và độ dịch chuyển của từng nhãn phải được khai báo trực tiếp trong tệp nguồn của hình. Tệp style dùng chung không được quyết định vị trí của các nhãn giá trị.
+Danh sách vạch chia, nội dung hiển thị, tọa độ, điểm neo và độ dịch chuyển của từng nhãn phải được khai báo trực tiếp trong tệp nguồn của hình. Khối style chuẩn không được quyết định vị trí của các nhãn giá trị.
 
 ## 9. Đường cong, đường tham chiếu và tiệm cận
 
 ### 9.1. Đường cong chính
 
-Đường cong chính dùng `zoGraphMain`, nét liền, dày `1.2pt` trong bộ giá trị thử nghiệm, đầu nét và chỗ nối tròn. Độ dày phải đủ rõ khi hình được thu về chiều rộng một cột nội dung, nhưng không được che mất độ cong nhỏ, giao điểm hoặc khoảng hở.
+Đường cong chính dùng `zoGraphMain`, nét liền, dày `1.2pt` theo khối style chuẩn, đầu nét và chỗ nối tròn. Độ dày phải đủ rõ khi hình được thu về chiều rộng một cột nội dung, nhưng không được che mất độ cong nhỏ, giao điểm hoặc khoảng hở.
 
 Không dùng marker tại mọi điểm lấy mẫu. Không dùng hiệu ứng phát sáng, bóng đổ, gradient hoặc trang trí không mang thông tin toán học.
 
@@ -322,7 +324,7 @@ Chỉ vẽ tiệm cận phục vụ mục đích của hình. Nếu nhãn cần 
 
 ## 10. Điểm đặc biệt, đầu mút và khoảng trên trục
 
-Điểm đặc dùng lõi đặc với màu tương ứng của đối tượng. Điểm rỗng dùng lõi trùng hoàn toàn với `zoPlotBackground`, viền cùng màu với đối tượng và đủ dày để vẫn nhận ra khi thu nhỏ; không để lõi trong suốt vì nét phía dưới sẽ xuyên qua. Bộ giá trị thử nghiệm dùng `mark size=2.2pt` cho điểm đặc biệt thông thường, `2.8pt` cho điểm là trọng tâm trực tiếp của hình và `1.7pt` cho điểm phụ trợ. Điểm đặc và điểm rỗng cùng vai trò phải có cùng kích thước.
+Điểm đặc dùng lõi đặc với màu tương ứng của đối tượng. Điểm rỗng dùng lõi trùng hoàn toàn với `zoPlotBackground`, viền cùng màu với đối tượng và đủ dày để vẫn nhận ra khi thu nhỏ; không để lõi trong suốt vì nét phía dưới sẽ xuyên qua. Khối style chuẩn dùng `mark size=2.2pt` cho điểm đặc biệt thông thường, `2.8pt` cho điểm là trọng tâm trực tiếp của hình và `1.7pt` cho điểm phụ trợ. Điểm đặc và điểm rỗng cùng vai trò phải có cùng kích thước.
 
 Mọi điểm đặc biệt phải được đặt bằng tọa độ toán học chính xác, không ước lượng bằng mắt. Nếu điểm nằm trên một đường cong đã lấy mẫu, vẫn nên vẽ điểm ở lớp riêng để kích thước và thứ tự lớp ổn định.
 
@@ -377,8 +379,6 @@ Khi nhãn cần nghiêng theo đường, phải dùng một `\path` trùng hư�
 Nhãn điểm và nhãn đường cong dùng `\small`; số trên vạch chia và chú thích phụ rất ngắn dùng `\footnotesize`. Không dùng `\scriptsize` làm mặc định.
 
 Không dùng một chú giải lớn nếu có thể gắn nhãn trực tiếp một cách rõ ràng.
-
-Trong cùng một hình, các nhãn có cùng vai trò ngữ nghĩa phải dùng cùng một cỡ chữ. Các ký hiệu dùng để gọi tên nghiệm, hoành độ cực trị, giao điểm hoặc những mốc đặc biệt trên trục — chẳng hạn $a_n$, $b_n$ — được xem là nhãn điểm và dùng \small; chúng không được xem là số trên vạch chia chỉ vì được đặt sát trục. Nội dung công thức trong chú giải dùng \small. \footnotesize dành cho giá trị số trên trục và chú thích phụ rất ngắn. Chỉ dùng \scriptsize cho một ngoại lệ cá biệt đã được kiểm tra ở kích thước xuất bản, không dùng cho cả một dãy nhãn.
 
 ### 12.1. Hộp chú thích
 
@@ -472,7 +472,7 @@ Tệp phải là tài liệu độc lập và có cấu trúc dễ kiểm tra th
 3. khai báo STIX Two Text và STIX Two Math từ `assets/fonts/`;
 4. đặt phiên bản tương thích PGFPlots;
 5. nạp đúng các thư viện TikZ/PGFPlots thực sự dùng;
-6. khai báo trực tiếp bảng màu và các style thị giác cần dùng trong hình;
+6. chép nguyên khối style chuẩn ở Mục 15.1 vào tệp;
 7. khai báo vị trí nhãn, macro hoặc dữ liệu riêng của hình;
 8. bắt đầu tài liệu;
 9. tạo `tikzpicture` và `axis`;
@@ -481,9 +481,186 @@ Tệp phải là tài liệu độc lập và có cấu trúc dễ kiểm tra th
 
 Không nạp gói hoặc thư viện không dùng. Tệp được biên dịch ngay tại thư mục chứa tệp nguồn theo cấu hình LuaLaTeX của VS Code, để `.aux`, `.log`, `.pdf` và các sản phẩm liên quan nằm cùng hệ thư mục của hình, không rơi vào gốc repository. Mọi tệp phông và dữ liệu ngoài phải được dẫn chiếu bằng đường dẫn tương đối tính từ thư mục chứa tệp `.tex`; không dùng đường dẫn tuyệt đối hoặc cấu hình riêng của một máy tính.
 
-Tệp phải tự chứa các khai báo màu và style cần thiết để có thể biên dịch mà không cần `zo-graph-styles.tex`. Nếu repository có tệp style dùng chung, AI có thể tham khảo nó để giảm sai lệch khi soạn mã, nhưng bản bàn giao theo quy chuẩn này không được phụ thuộc vào tệp ấy. Việc tái sử dụng style chung là một tối ưu triển khai riêng, không phải điều kiện để hiểu hoặc áp dụng quy chuẩn.
+Khối style chuẩn phải được chép nguyên vẹn, kể cả khi một hình không dùng hết mọi style đã khai báo. Không rút gọn khối chuẩn theo từng hình, vì việc đó tạo ra nhiều biến thể khó kiểm soát. Các style hoặc màu thật sự riêng của một hình được khai báo sau khối chuẩn và không được đổi nghĩa những tên đã có.
 
-Khung cơ sở:
+### 15.1. Khối style chuẩn
+
+Khối dưới đây là nguồn chuẩn duy nhất của bảng màu và style đồ thị ZO Math trong phiên bản này. Khi sinh tệp mới, chép nguyên văn từ dòng `BEGIN` đến dòng `END`, không nạp từ tệp bên ngoài và không chỉnh các giá trị ngay trong khối.
+
+```tex
+% BEGIN ZO MATH GRAPH STYLE — VERSION 05 — 2026-07-30
+% Copy this block verbatim into every graph source.
+
+\definecolor{zoWhite}{HTML}{FFFFFF}
+\definecolor{zoPlotBackground}{HTML}{FFF9E9}
+\definecolor{zoPlotBorder}{HTML}{DFD7CA}
+\definecolor{zoBackground}{HTML}{FBFAF8}
+\definecolor{zoGridMinor}{HTML}{F8F5F0}
+\definecolor{zoGridMajor}{HTML}{DFD7CA}
+\definecolor{zoAxis}{HTML}{554F48}
+\definecolor{zoText}{HTML}{3E3A35}
+\definecolor{zoTextStrong}{HTML}{25221F}
+\definecolor{zoGraphMain}{HTML}{EF5350}
+\definecolor{zoGraphStrong}{HTML}{BF4240}
+\definecolor{zoGraphSecondary}{HTML}{997918}
+\definecolor{zoReference}{HTML}{997918}
+\definecolor{zoHighlight}{HTML}{FFCA28}
+\definecolor{zoHighlightLight}{HTML}{FFF4D4}
+\definecolor{zoSuccess}{HTML}{1DE8B5}
+
+\pgfplotsset{
+  zo axis/.style={
+    width=12cm,
+    height=7.5cm,
+    scale only axis,
+    axis equal image=false,
+    enlargelimits=false,
+    clip=true,
+    clip mode=individual,
+    axis lines=middle,
+    grid=none,
+    axis line style={draw=zoAxis,line width=0.8pt,<->},
+    tick align=center,
+    tickwidth=0.4mm,
+    tick style={draw=zoAxis,line width=0.32pt},
+    every axis x label/.append style={
+      text=zoText,
+      font=\normalsize
+    },
+    every axis y label/.append style={
+      text=zoText,
+      font=\normalsize
+    },
+    every tick label/.append style={
+      text=zoText,
+      font=\footnotesize
+    },
+    every axis plot/.append style={line cap=round,line join=round}
+  },
+  zo grid/.style={
+    major grid style={draw=zoGridMajor,line width=0.35pt},
+    minor grid style={draw=zoGridMinor,line width=0.25pt}
+  },
+  zo graph main/.style={
+    draw=zoGraphMain,
+    line width=1.2pt,
+    solid,
+    no marks
+  },
+  zo graph secondary/.style={
+    draw=zoGraphSecondary,
+    line width=0.9pt,
+    solid,
+    no marks
+  },
+  zo graph strong/.style={
+    draw=zoGraphStrong,
+    line width=1.2pt,
+    solid,
+    no marks
+  },
+  zo reference/.style={
+    draw=zoReference,
+    line width=0.6pt,
+    dashed,
+    no marks
+  },
+  zo asymptote/.style={
+    draw=zoReference,
+    line width=0.8pt,
+    dashed,
+    no marks
+  },
+  zo auxiliary line/.style={
+    draw=zoAxis,
+    line width=0.6pt,
+    densely dashed,
+    no marks
+  },
+  zo point closed/.style={
+    only marks,
+    mark=*,
+    mark size=2.2pt,
+    draw=zoGraphMain,
+    fill=zoGraphMain
+  },
+  zo point open/.style={
+    only marks,
+    mark=*,
+    mark size=2.2pt,
+    draw=zoGraphMain,
+    fill=zoPlotBackground,
+    line width=0.8pt
+  },
+  zo point emphasized/.style={
+    only marks,
+    mark=*,
+    mark size=2.8pt,
+    draw=zoGraphStrong,
+    fill=zoGraphStrong
+  },
+  zo point auxiliary/.style={
+    only marks,
+    mark=*,
+    mark size=1.7pt,
+    draw=zoReference,
+    fill=zoReference
+  }
+}
+
+\tikzset{
+  zo graph field/.style={
+    show background rectangle,
+    inner frame sep=4mm,
+    background rectangle/.style={
+      fill=zoPlotBackground,
+      draw=zoPlotBorder,
+      line width=0.45pt,
+      rounded corners=2mm
+    }
+  },
+  zo axis label/.style={
+    text=zoText,
+    font=\normalsize
+  },
+  zo origin label/.style={
+    text=zoText,
+    font=\normalsize
+  },
+  zo graph label/.style={
+    text=zoText,
+    font=\small
+  },
+  zo point label/.style={
+    text=zoText,
+    font=\small
+  },
+  zo tick label/.style={
+    text=zoText,
+    font=\footnotesize
+  },
+  zo reference label/.style={
+    text=zoText,
+    font=\small
+  },
+  zo legend label/.style={
+    text=zoText,
+    font=\small
+  },
+  zo auxiliary label/.style={
+    text=zoText,
+    font=\small
+  }
+}
+
+% END ZO MATH GRAPH STYLE
+```
+
+`zoGraphStrong` là đỏ đậm dành cho điểm hoặc đoạn của đối tượng chính cần nhấn mạnh. `zoGraphSecondary` là vàng nâu dành cho đường cong phụ. `zoReference` dùng cùng mã màu với đường phụ nhưng mang kiểu nét và độ dày riêng cho đường tham chiếu; không dùng ba tên này thay thế lẫn nhau.
+
+### 15.2. Khung tệp hoàn chỉnh
+
+Khung dưới đây cho thấy đúng vị trí của khối style chuẩn trong một tệp tự đầy đủ. Phải tính lại đường dẫn `assets/fonts/` từ thư mục chứa tệp nguồn trước khi biên dịch.
 
 ```tex
 \documentclass[tikz,border=3pt,10pt]{standalone}
@@ -505,50 +682,9 @@ Khung cơ sở:
 % \usepgfplotslibrary{fillbetween}
 \usetikzlibrary{backgrounds}
 
-% Tệp phải tự khai báo những màu và style thực sự dùng.
-\definecolor{zoPlotBackground}{HTML}{FFF9E9}
-\definecolor{zoPlotBorder}{HTML}{DFD7CA}
-\definecolor{zoAxis}{HTML}{554F48}
-\definecolor{zoText}{HTML}{3E3A35}
-\definecolor{zoGraphMain}{HTML}{EF5350}
+% Chép nguyên khối style chuẩn ở Mục 15.1 vào đây.
 
-\pgfplotsset{
-  zo axis/.style={
-    width=12cm,
-    height=7.5cm,
-    scale only axis,
-    axis equal image=false,
-    enlargelimits=false,
-    clip=true,
-    clip mode=individual,
-    axis lines=middle,
-    grid=none,
-    axis line style={draw=zoAxis,line width=0.8pt,<->},
-    tick align=center,
-    tickwidth=0.4mm,
-    tick style={draw=zoAxis,line width=0.32pt},
-    every axis plot/.append style={line cap=round,line join=round}
-  },
-  zo graph main/.style={
-    draw=zoGraphMain,
-    line width=1.2pt,
-    solid,
-    no marks
-  }
-}
-
-\tikzset{
-  zo graph field/.style={
-    show background rectangle,
-    inner frame sep=4mm,
-    background rectangle/.style={
-      fill=zoPlotBackground,
-      draw=zoPlotBorder,
-      line width=0.45pt,
-      rounded corners=2mm
-    }
-  }
-}
+% Khai báo macro, dữ liệu và style riêng của hình ở đây.
 
 \begin{document}
 \begin{tikzpicture}[zo graph field]
@@ -570,29 +706,29 @@ Khung cơ sở:
 \end{document}
 ```
 
-Khung trên là mã tự chứa tối thiểu để minh họa cấu trúc, không phải tệp để thay công thức một cách máy móc. AI phải bổ sung các màu và vai trò còn cần, trục, vạch chia, vị trí nhãn, thư viện và phương pháp dựng phù hợp với từng hình. Nếu thiếu một trong năm tệp phông đã khai báo, AI phải dừng và báo lỗi; không được âm thầm thay bằng phông khác.
+Khung trên không phải tệp để thay công thức một cách máy móc. AI phải xác định trục, vạch chia, vị trí nhãn, thư viện, phương pháp dựng và các khai báo riêng phù hợp với từng hình. Nếu thiếu một trong năm tệp phông đã khai báo, AI phải dừng và báo lỗi; không được âm thầm thay bằng phông khác.
 
 ## 16. Style trong tệp nguồn, macro và cách đặt tên
 
-Mỗi tệp đồ thị phải tự khai báo các màu, thông số và vai trò thị giác mà nó sử dụng. Có thể nhóm chúng bằng `\pgfplotsset` và `\tikzset` ngay trong phần đầu tệp để mã vẽ phía dưới dễ đọc. Không được đặt vị trí của $x$, $y$, $O$, nhãn số, nhãn điểm hoặc nhãn đường cong vào một style dùng chung: các vị trí ấy phụ thuộc miền quan sát và phải chỉnh trong chính tệp nguồn sau khi xem bản render.
+Mỗi tệp đồ thị phải chứa nguyên khối style chuẩn của Mục 15.1. Không được đặt vị trí của $x$, $y$, $O$, nhãn số, nhãn điểm hoặc nhãn đường cong vào khối chuẩn: các vị trí ấy phụ thuộc miền quan sát và phải chỉnh trong chính tệp nguồn sau khi xem bản render.
 
-Tên style trong tệp phải mô tả vai trò, không mô tả hình thức tức thời; dùng `zo asymptote`, không dùng `gray dashed line`. Nếu repository đồng thời duy trì một tệp style dùng chung để hỗ trợ sản xuất hàng loạt, việc cập nhật hay sử dụng tệp đó thuộc quy trình triển khai riêng và không làm thay đổi yêu cầu tự đầy đủ của tệp nguồn theo quy chuẩn này.
+Tên style riêng của hình phải mô tả vai trò, không mô tả hình thức tức thời; dùng `zo tangent segment`, không dùng `gray dashed line`. Style riêng được khai báo sau khối chuẩn, không được định nghĩa lại tên đã có và không được làm thay đổi ý nghĩa ngữ nghĩa của màu chuẩn.
 
-Các giá trị thử nghiệm sau phải xuất hiện trong style tương ứng của tệp nguồn khi vai trò đó được dùng:
+Các giá trị chuẩn của phiên bản này đã được mã hóa trực tiếp trong khối style:
 
-| Vai trò                    | Giá trị thử nghiệm |
-| -------------------------- | -----------------: |
-| Đường cong chính           |            `1.2pt` |
-| Đường cong phụ             |            `0.9pt` |
-| Trục                       |            `0.8pt` |
-| Tiệm cận                   |            `0.8pt` |
-| Đường phụ trợ, đường chiếu |            `0.6pt` |
-| Lưới chính                 |           `0.35pt` |
-| Điểm đặc biệt thông thường |  `mark size=2.2pt` |
-| Điểm cần nhấn mạnh         |  `mark size=2.8pt` |
-| Điểm phụ trợ               |  `mark size=1.7pt` |
+| Vai trò                    |     Giá trị chuẩn |
+| -------------------------- | ----------------: |
+| Đường cong chính           |           `1.2pt` |
+| Đường cong phụ             |           `0.9pt` |
+| Trục                       |           `0.8pt` |
+| Tiệm cận                   |           `0.8pt` |
+| Đường phụ trợ, đường chiếu |           `0.6pt` |
+| Lưới chính                 |          `0.35pt` |
+| Điểm đặc biệt thông thường | `mark size=2.2pt` |
+| Điểm cần nhấn mạnh         | `mark size=2.8pt` |
+| Điểm phụ trợ               | `mark size=1.7pt` |
 
-Đây là bộ mặc định để tạo ảnh kiểm tra, chưa phải các giá trị đã khóa vĩnh viễn. Chỉ điều chỉnh sau khi duyệt năm đồ thị đại diện ở PDF, SVG và trang Quarto. Trong từng hình, chỉ thay đổi giá trị khi cấu trúc toán học hoặc điều kiện hiển thị thực sự yêu cầu và phải ghi rõ lý do.
+Trong từng hình, không sửa trực tiếp các giá trị bên trong khối chuẩn. Nếu cấu trúc toán học hoặc điều kiện hiển thị thật sự đòi hỏi một ngoại lệ, khai báo một style riêng có tên ngữ nghĩa sau khối chuẩn và ghi ngắn gọn lý do ngay trong mã. Nếu cùng một ngoại lệ xuất hiện có hệ thống ở nhiều hình, ghi nhận để xem xét trong lần nâng phiên bản quy chuẩn; không âm thầm tạo một bản khối chuẩn khác.
 
 Một giá trị toán học được dùng nhiều lần hoặc cần thay đổi đồng bộ có thể đặt thành macro, chẳng hạn tham số, tọa độ đặc biệt hoặc ngưỡng chia miền.
 
@@ -602,9 +738,9 @@ Tên phải viết bằng tiếng Anh không dấu trong mã, ngắn nhưng bi�
 
 Các khoảng lấy mẫu và lý do chia nhánh đặc biệt phải có chú thích ngắn ngay tại mã khi ý nghĩa không hiển nhiên.
 
-Không được gọi một tên style chỉ vì tên đó xuất hiện trong quy chuẩn hoặc được dự kiến sẽ có. Trước khi dùng, AI phải kiểm tra style đã thực sự được định nghĩa trong `zo-graph-styles.tex` hoặc trong chính tệp nguồn.
+Không được gọi một tên style chỉ vì tên đó xuất hiện trong văn xuôi của quy chuẩn hoặc được dự kiến sẽ có. Trước khi dùng, AI phải kiểm tra style đã thực sự được định nghĩa trong khối chuẩn đã nhúng hoặc trong phần khai báo riêng của chính tệp nguồn.
 
-Nếu một vai trò lặp lại như đường chiếu chưa có style toàn cục, phải bổ sung style đó vào nguồn chuẩn trước khi tái sử dụng. Không để PGF/TikZ âm thầm bỏ qua một style không tồn tại rồi vẫn coi PDF được tạo là kết quả đạt.
+Nếu một vai trò chưa có trong khối chuẩn, phải khai báo rõ style riêng trong tệp nguồn trước khi dùng. Không tự sửa tài liệu quy chuẩn trong phạm vi nhiệm vụ tạo một hình, và không để PGF/TikZ âm thầm bỏ qua một style không tồn tại rồi vẫn coi PDF được tạo là kết quả đạt.
 
 ## 17. Phông chữ và khả năng tương thích
 
@@ -745,25 +881,25 @@ Không cần thuật lại toàn bộ quá trình suy luận. Nếu còn một g
 
 ## 23. Chỉ dẫn rút gọn có thể giao trực tiếp cho AI
 
-> Hãy tạo tệp `.tex` tự đầy đủ bằng TikZ/PGFPlots cho đồ thị được yêu cầu. Trước khi viết mã, hãy phân tích tập xác định, các nhánh liên tục, giới hạn, gián đoạn, tiệm cận, nghiệm, cực trị, đối xứng, tuần hoàn và hành vi lấy mẫu có liên quan. Chỉ đưa vào hình những thành phần phục vụ mục đích toán học. Dùng LuaLaTeX, `fontspec`, `unicode-math` và nạp trực tiếp STIX Two Text, STIX Two Math từ `assets/fonts/`; không dùng phông dự phòng. Khai báo trực tiếp trong tệp mọi màu và style cần dùng; không phụ thuộc vào `zo-graph-styles.tex`. Đồ thị chuẩn phải nằm trong trường nền vàng rất nhạt `FFF9E9`, có viền ấm `DFD7CA` mảnh và bo góc nhẹ; đường cong chính dùng `EF5350`; trục dùng `554F48`, có mũi tên ở cả hai đầu khi tiếp tục theo hai hướng; chỉ đầu dương mang nhãn $x$, $y$. Mọi vị trí nhãn trục, nhãn số và nhãn đồ thị phải được thiết lập trong chính tệp nguồn rồi điều chỉnh sau khi xem bản render để tránh va chạm; không bật lưới nếu lưới không giúp đọc một thông tin toán học cụ thể. Dùng kích thước mặc định `12cm × 7.5cm`, khai báo tường minh miền quan sát, phân biệt tập xác định–miền lấy mẫu–miền quan sát, chia nhánh tại mọi điểm không xác định và không lấy mẫu xuyên qua tiệm cận. Tệp dùng `standalone` với `border=3pt`, cỡ chữ nền `10pt`, `scale only axis`, `enlargelimits=false`, `clip=true` và `clip mode=individual`, trừ khi bản chất hình đòi hỏi một ngoại lệ đã được giải thích. Sau khi tạo, đưa hình qua đầy đủ chuỗi `.tex → PDF → SVG → Quarto HTML`, kiểm tra ở kích thước sử dụng thực tế trên desktop và mobile, rồi tự sửa cho đến khi đạt mới bàn giao.
+> Hãy tạo tệp `.tex` tự đầy đủ bằng TikZ/PGFPlots cho đồ thị được yêu cầu. Trước khi viết mã, hãy phân tích tập xác định, các nhánh liên tục, giới hạn, gián đoạn, tiệm cận, nghiệm, cực trị, đối xứng, tuần hoàn và hành vi lấy mẫu có liên quan. Chỉ đưa vào hình những thành phần phục vụ mục đích toán học. Dùng LuaLaTeX, `fontspec`, `unicode-math` và nạp trực tiếp STIX Two Text, STIX Two Math từ `assets/fonts/`; không dùng phông dự phòng. Chép nguyên khối style chuẩn ở Mục 15.1 vào tệp, không nạp style từ tệp bên ngoài và không sửa giá trị bên trong khối. Đồ thị chuẩn phải nằm trong trường nền vàng rất nhạt `FFF9E9`, có viền ấm `DFD7CA` mảnh và bo góc nhẹ; đường cong chính dùng `EF5350`; trục dùng `554F48`, có mũi tên ở cả hai đầu khi tiếp tục theo hai hướng; chỉ đầu dương mang nhãn $x$, $y$. Mọi vị trí nhãn trục, nhãn số và nhãn đồ thị phải được thiết lập trong chính tệp nguồn rồi điều chỉnh sau khi xem bản render để tránh va chạm; không bật lưới nếu lưới không giúp đọc một thông tin toán học cụ thể. Dùng kích thước mặc định `12cm × 7.5cm`, khai báo tường minh miền quan sát, phân biệt tập xác định–miền lấy mẫu–miền quan sát, chia nhánh tại mọi điểm không xác định và không lấy mẫu xuyên qua tiệm cận. Tệp dùng `standalone` với `border=3pt`, cỡ chữ nền `10pt`, `scale only axis`, `enlargelimits=false`, `clip=true` và `clip mode=individual`, trừ khi bản chất hình đòi hỏi một ngoại lệ đã được giải thích. Sau khi tạo, đưa hình qua đầy đủ chuỗi `.tex → PDF → SVG → Quarto HTML`, kiểm tra ở kích thước sử dụng thực tế trên desktop và mobile, rồi tự sửa cho đến khi đạt mới bàn giao.
 
 ## 24. Kế hoạch kiểm nghiệm và điều kiện khóa phiên bản
 
-Phiên bản 01 xác lập quy chuẩn như một tài liệu độc lập với tệp style của repository: mỗi tệp đồ thị phải tự chứa bảng màu và style cần dùng; mọi vị trí nhãn được quyết định trong chính tệp nguồn. Bản này vẫn đang kiểm nghiệm các thông số thị giác, chuỗi render và nhóm hàm đại diện; chưa khóa thành bản chính thức trước khi hoàn thành vòng kiểm nghiệm dưới đây.
+Phiên bản 02 xác lập tài liệu này là nguồn chuẩn duy nhất của style đồ thị: mỗi tệp `.tex` phải nhúng nguyên khối style ở Mục 15.1; mọi vị trí nhãn được quyết định trong chính tệp nguồn. Bản này vẫn đang kiểm nghiệm chuỗi render và nhóm hàm đại diện; chưa khóa thành bản chính thức trước khi hoàn thành vòng kiểm nghiệm dưới đây.
 
 ### 24.1. Nhóm hàm đại diện bắt buộc
 
-| Hàm số        | Năng lực cần kiểm tra                                                              |
-| ------------- | ---------------------------------------------------------------------------------- | --- | ------------------------------------- |
-| $y=x^2$       | Trục, tỉ lệ, nhãn, điểm đặc biệt và đường cong trơn cơ bản                         |
-| $y=1/x$       | Hai nhánh, điểm gián đoạn, tiệm cận và miền lấy mẫu tách rời                       |
-| $y=           | x                                                                                  | $   | Điểm gãy, sự nối nét và tính đối xứng |
-| $y=\sin x$    | Vạch chia theo $\pi$, nhãn toán học và tính tuần hoàn                              |
-| $y=\sin(1/x)$ | Loại $0$ khỏi tập xác định, dao động dày, chiến lược lấy mẫu và giới hạn biểu diễn |
+| Hàm số             | Năng lực cần kiểm tra                                                              |
+| ------------------ | ---------------------------------------------------------------------------------- |
+| $y=x^2$            | Trục, tỉ lệ, nhãn, điểm đặc biệt và đường cong trơn cơ bản                         |
+| $y=1/x$            | Hai nhánh, điểm gián đoạn, tiệm cận và miền lấy mẫu tách rời                       |
+| $y=\lvert x\rvert$ | Điểm gãy, sự nối nét và tính đối xứng                                              |
+| $y=\sin x$         | Vạch chia theo $\pi$, nhãn toán học và tính tuần hoàn                              |
+| $y=\sin(1/x)$      | Loại $0$ khỏi tập xác định, dao động dày, chiến lược lấy mẫu và giới hạn biểu diễn |
 
 ### 24.2. Trình tự kiểm nghiệm
 
-1. Tạo năm tệp `.tex` tự đầy đủ theo các màu, style và giá trị thử nghiệm của bản quy chuẩn này; không nạp tệp style dùng chung.
+1. Tạo năm tệp `.tex` tự đầy đủ, mỗi tệp nhúng nguyên khối style chuẩn ở Mục 15.1 và không nạp style từ tệp bên ngoài.
 2. Trong từng tệp, đặt trực tiếp nhãn trục, nhãn số và các nhãn khác theo miền quan sát của chính hình đó.
 3. Đưa từng tệp qua đầy đủ chuỗi `.tex → PDF → SVG → Quarto HTML`.
 4. Duyệt PDF và SVG độc lập; sau đó duyệt trang Quarto ở kích thước xuất bản thực tế trên desktop và mobile.
@@ -777,7 +913,7 @@ Phiên bản 01 xác lập quy chuẩn như một tài liệu độc lập với
 - các kích thước điểm `2.2pt`, `2.8pt`, `1.7pt` có còn rõ khi thu nhỏ hay không;
 - đầu mũi tên mặc định do `<->` tạo ra có cân với trục hay không;
 - hệ cỡ chữ `10pt`, `\normalsize`, `\small`, `\footnotesize` có đọc tốt trên desktop và mobile hay không;
-- mã tự chứa có đủ rõ để một AI khác tạo hình mà không cần biết hay có sẵn tệp style của repository hay không;
+- mã tự chứa có đủ rõ để một AI khác tạo hình chỉ từ quy chuẩn này hay không;
 - SVG có bảo toàn STIX, màu, nét, nhãn, bounding box và hình học của PDF hay không;
 - quy chuẩn có hướng dẫn đủ rõ cho trường hợp nhiều nhánh, điểm gãy, tuần hoàn và dao động dày hay không.
 
