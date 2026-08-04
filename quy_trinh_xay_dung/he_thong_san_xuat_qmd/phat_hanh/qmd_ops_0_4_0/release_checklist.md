@@ -12,7 +12,7 @@
 - [x] Tài liệu hiện hành đã được đồng bộ với trạng thái O4.
 - [x] Hồ sơ `ho_so_release_candidate.yml` đã được lập.
 
-## Bước hậu commit — đã hoàn tất, trừ quyết định khóa lớp vận hành `1.0`
+## Bước hậu commit — đã hoàn tất
 
 - [x] Commit hồ sơ phát hành O4 từ worktree sạch.
 - [x] Chạy lại doctor và regression tại commit cuối.
@@ -22,4 +22,4 @@
 - [x] Ghi candidate commit, package ID và SHA-256 của ZIP.
 - [x] Xác nhận không tạo Git tag thật.
 - [x] Xác nhận không push hoặc publish.
-- [ ] Người dùng quyết định riêng việc khóa lớp vận hành `1.0`.
+- [x] Người dùng chấp thuận khóa lớp vận hành ở mốc nghiệm thu `1.0`.

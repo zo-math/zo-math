@@ -1,6 +1,6 @@
 # Tiêu chí nghiệm thu lớp vận hành cỗ máy QMD
 
-> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`. Release candidate O4 `0.4.0` tại commit `6425dec241cc27cad76bf55f8385531e56fb1a86` đã được tạo và xác minh bằng hai đường độc lập; package ID `qmd-release-0-4-0-20260804-142216`. Chưa tạo Git tag thật, chưa push hoặc publish; việc khóa lớp vận hành `1.0` còn chờ quyết định riêng của người dùng.
+> **Trạng thái:** Release `0.4.0` đã được người dùng chấp thuận làm release hiện hành; lớp vận hành đã khóa ở mốc nghiệm thu `1.0`. Hằng số máy đọc được `OPERATIONS_CONTRACT_VERSION` vẫn là `0.4` để khớp `MAJOR.MINOR` của release `0.4.0`. Git tag thật chưa được tạo; chưa push hoặc publish.
 >
 > Tài liệu này đánh giá lớp vận hành bao quanh lõi QMD 1.0. Nó không thay thế `tieu_chi_nghiem_thu_he_thong.md`, vốn ghi nhận nghiệm thu của lõi kĩ thuật phiên bản 1.0.
 
@@ -382,6 +382,8 @@ Chỉ khóa lớp vận hành 1.0 khi:
 - release candidate có thể xác minh và khôi phục;
 - phiên trình diễn kết thúc ở báo cáo trước xuất bản;
 - người dùng chấp thuận khóa phiên bản.
+
+Tất cả các điều kiện trên đã đạt. Ngày 2026-08-04, người dùng chấp thuận RC `0.4.0` làm release hiện hành và khóa lớp vận hành ở mốc nghiệm thu `1.0`.
 
 ## 17. Kết luận
 

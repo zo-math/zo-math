@@ -22,4 +22,4 @@
 - Git tag thật chưa được tạo.
 - Chưa push.
 - Chưa publish.
-- Việc khóa lớp vận hành `1.0` cần quyết định riêng của người dùng.
+- Tại thời điểm xác minh, quyết định khóa chưa được đưa ra. Người dùng đã chấp thuận sau đó; quyết định được ghi tại `quyet_dinh_khoa_lop_van_hanh_1_0.md`.
