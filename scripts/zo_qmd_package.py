@@ -29,11 +29,14 @@ import yaml
 
 from zo_check_repo import CHECKER_VERSION
 from zo_qmd_config import ProjectConfigError, discover_project_config
+from zo_qmd_version import (
+    OPERATIONS_CONTRACT_VERSION,
+    OPERATIONS_RELEASE_VERSION,
+)
 
 
-PACKAGE_MODULE_VERSION = "0.3.0"
+PACKAGE_MODULE_VERSION = "0.3.1"
 MANIFEST_VERSION = 1
-OPERATIONS_CONTRACT_VERSION = "0.3"
 QMD_CORE_VERSION = "1.0"
 PROJECT_CONFIG_SCHEMA = 1
 
@@ -71,6 +74,7 @@ RUNTIME_ENTRYPOINTS = (
     Path("scripts/zo_python.py"),
     Path("scripts/zo_qmd.py"),
     Path("scripts/zo_qmd_package.py"),
+    Path("scripts/zo_qmd_version.py"),
 )
 
 EXCLUDED_DIR_NAMES = {
@@ -315,9 +319,10 @@ def _release_record_issues(record: Any) -> list[str]:
         previous_version = release.get("previous_version")
         if not isinstance(version, str) or _semver_tuple(version) is None:
             issues.append("release.version phải theo MAJOR.MINOR.PATCH.")
-        elif version != PACKAGE_MODULE_VERSION:
+        elif version != OPERATIONS_RELEASE_VERSION:
             issues.append(
-                f"release.version phải khớp phiên bản mô-đun {PACKAGE_MODULE_VERSION}."
+                "release.version phải khớp phiên bản lớp vận hành "
+                f"{OPERATIONS_RELEASE_VERSION}."
             )
         if not isinstance(previous_version, str) or _semver_tuple(previous_version) is None:
             issues.append("release.previous_version phải theo MAJOR.MINOR.PATCH.")
@@ -1984,6 +1989,13 @@ def _self_test_release_creation(base: Path) -> None:
     )
     _self_test_write(
         root,
+        Path("scripts/zo_qmd_version.py"),
+        'OPERATIONS_RELEASE_VERSION = "0.4.0"\n'
+        'OPERATIONS_CLI_VERSION = "0.4.0"\n'
+        'OPERATIONS_CONTRACT_VERSION = "0.4"\n',
+    )
+    _self_test_write(
+        root,
         Path("scripts/zo_check_repo.py"),
         'CHECKER_VERSION = "2.6.0"\n',
     )
@@ -2017,10 +2029,10 @@ def _self_test_release_creation(base: Path) -> None:
         "release_record_version": 1,
         "release": {
             "stage": "candidate",
-            "version": PACKAGE_MODULE_VERSION,
-            "tag": f"qmd-ops-v{PACKAGE_MODULE_VERSION}",
+            "version": OPERATIONS_RELEASE_VERSION,
+            "tag": f"qmd-ops-v{OPERATIONS_RELEASE_VERSION}",
             "tag_created": False,
-            "previous_version": "0.2.0",
+            "previous_version": "0.3.0",
             "previous_commit": previous_commit,
             "regression_status": "pass",
             "rollback_tested": True,
@@ -2048,7 +2060,7 @@ def _self_test_release_creation(base: Path) -> None:
         newline="\n",
     )
     with (root / RELEASE_DOCUMENTS[0]).open("a", encoding="utf-8", newline="\n") as stream:
-        stream.write("Candidate 0.3.0\n")
+        stream.write(f"Candidate {OPERATIONS_RELEASE_VERSION}\n")
     _self_test_git(root, "add", "--all")
     _self_test_git(root, "commit", "-q", "-m", "candidate")
     candidate_commit = _self_test_git(root, "rev-parse", "HEAD")

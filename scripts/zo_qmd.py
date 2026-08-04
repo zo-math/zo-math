@@ -28,9 +28,7 @@ from zo_qmd_config import (
 )
 from zo_qmd_registry import ModuleRegistryError, build_validation_plan
 from zo_qmd_prepublish import PrepublishError, build_report
-
-
-OPERATIONS_CLI_VERSION = "0.4.0"
+from zo_qmd_version import OPERATIONS_CLI_VERSION
 
 EXIT_OK = 0
 EXIT_FAILED = 1
@@ -72,6 +70,7 @@ SYSTEM_SCRIPTS = (
     Path("scripts/zo_quarto.py"),
     Path("scripts/zo_qmd.py"),
     Path("scripts/zo_qmd_package.py"),
+    Path("scripts/zo_qmd_version.py"),
     Path("scripts/zo_qmd_prepublish.py"),
     Path("scripts/zo_artifact_freshness.py"),
     Path("scripts/zo_check_repo.py"),
@@ -88,6 +87,7 @@ SELF_TEST_SCRIPTS = (
     Path("scripts/zo_qmd_core.py"),
     Path("scripts/zo_real_world_problem.py"),
     Path("scripts/zo_qmd_package.py"),
+    Path("scripts/zo_qmd_version.py"),
     Path("scripts/zo_qmd_prepublish.py"),
 )
 
