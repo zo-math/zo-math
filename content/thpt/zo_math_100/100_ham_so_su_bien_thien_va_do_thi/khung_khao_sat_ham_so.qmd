@@ -1,619 +1,610 @@
 ---
 title: "Khung khảo sát hàm số"
-
 date: last-modified
 date-format: "DD-MM-YYYY"
 author: "ZO Math"
 ---
 
-```{r setup, include=FALSE}
-library(knitr)
-library(kableExtra)
-library(dplyr)
-library(MASS)
-# library(ggplot2)
-```
+# Khảo sát là kiến tạo một cách hiểu
 
-# Khung khảo sát hàm số
+Một hàm số có thể được cho bởi một công thức ngắn, nhưng công thức ấy thường chứa nhiều hành vi chưa hiện ra ngay. Có hàm đổi chiều tại một điểm; có hàm tách thành nhiều nhánh; có hàm tiến gần một đường thẳng mà không bao giờ trùng với đường thẳng ấy; cũng có hàm dao động mãi khi biến số tiến đến một điểm.
 
-Khảo sát hàm số là quá trình nghiên cứu một cách hệ thống các tính chất cơ bản và quan trọng của hàm số, từ miền xác định, sự liên tục, đối xứng, tiệm cận, đến sự biến thiên, cực trị, độ cong và đồ thị. Đây là công việc cốt lõi trong giải tích sơ cấp, giúp hình thành cái nhìn toàn diện về một hàm số cụ thể.
+Khảo sát hàm số là làm cho những hành vi ấy trở nên có thể nhận biết, giải thích và kiểm chứng. Kết quả của một cuộc khảo sát không chỉ là tập xác định, đạo hàm, bảng biến thiên hay một hình vẽ. Kết quả sâu hơn là một cách hiểu thống nhất:
 
-Khung khảo sát dưới đây được xây dựng với mục đích bao quát hầu hết các dạng hàm số thường gặp trong chương trình trung học phổ thông và một phần các hàm nâng cao. Khi áp dụng cho từng hàm cụ thể, có thể có những bước không cần thiết. Trong trường hợp đó, người khảo sát chỉ cần ghi nhận là không áp dụng hoặc hàm số không có tính chất tương ứng.
+> Cấu trúc nào của hàm số tạo ra hành vi nào, hành vi ấy được xác lập bằng chứng cứ nào, và nó hiện lên trên đồ thị ra sao?
 
-### 0. Nhận diện hàm số
+Vì mỗi hàm số có cấu trúc riêng, không có một danh sách phép tính hữu hạn nào thích hợp như nhau cho mọi trường hợp. Khung dưới đây không phải một thuật toán. Nó là bản đồ giúp lựa chọn câu hỏi, công cụ và cách biểu diễn phù hợp với đối tượng đang xét.
 
-Trước khi đi vào các thao tác kỹ thuật, ta cần một bước "làm quen" với hàm số đã cho. Bước này gọi là *nhận diện hàm số*.
+## Ba câu hỏi nền tảng
 
-Nhìn vào công thức hoặc cách mô tả, ta thử trả lời: hàm số này mang dáng vẻ gì? Nó có quen thuộc như một hàm bậc nhất hay bậc hai, hay nó gây bất ngờ vì không thấy bóng dáng của biến số, như hàm hằng (y=1)? Nó có mượt mà theo một công thức duy nhất, hay lại là một hàm “lai ghép” với nhiều mảnh định nghĩa khác nhau? Có khi, nó không hiện ra bằng công thức, mà chỉ qua một lời mô tả về hiện tượng, buộc ta phải hình dung quy tắc gán giá trị.
+Một cuộc khảo sát luôn phải trả lời ba câu hỏi.
 
-Bước nhận diện không nhằm khảo sát chi tiết, mà để nắm được “diện mạo ban đầu” của hàm số:
+1. **Ta đang xét đối tượng nào?**
 
-* Nếu là hàm quen thuộc, ta biết sẽ đi theo những bước thông thường nào trong khung khảo sát này.
-* Nếu là hàm đặc biệt, ta biết cần cẩn trọng và linh hoạt ở đâu.
-* Nếu hàm thuộc một họ, ta nhận ra ngay bức tranh chung của cả họ.
+   Cần xác định hàm số, tập xác định, miền đang xét, cách cho hàm và các tham số nếu có.
 
-Nói cách khác, *nhận diện hàm số* chính là bước đặt tên và vẽ phác họa cho nhân vật trước khi theo dõi hành vi của nó. Nhờ thế, toàn bộ quá trình khảo sát sau đó sẽ có định hướng rõ ràng và ý nghĩa hơn.
+2. **Hàm số biểu hiện những hành vi nào?**
 
-### 1. Miền xác định
+   Đó có thể là dấu, tập giá trị, tính liên tục, biến thiên, độ cong, đối xứng, tuần hoàn, hành vi tại biên miền, tiệm cận, dao động hoặc một cấu trúc đặc biệt khác.
 
-Miền xác định của hàm số $y=f(x)$ là tập hợp tất cả các giá trị $x$ mà tại đó biểu thức $f(x)$ có nghĩa. Việc xác định miền là bước đầu tiên và bắt buộc, bởi nếu không biết rõ miền xác định, ta không thể nói đến sự liên tục, tính đơn điệu hay vẽ đồ thị chính xác.
+3. **Ta dựa vào đâu để khẳng định những hành vi ấy?**
 
-Công việc tìm miền xác định có thể được tiến hành theo hai cách:
+   Căn cứ có thể đến từ biến đổi đại số, bất đẳng thức, giới hạn, đạo hàm, dãy điểm, định lí hoặc tính toán số được kiểm soát. Đồ thị giúp nhìn thấy kết quả, nhưng tự nó không thay thế lập luận.
 
-* Cách thứ nhất là viết ra tất cả những điều kiện cần thiết để $f(x)$ có nghĩa, rồi lấy giao các điều kiện ấy.
-* Cách thứ hai là xuất phát từ tập số thực và loại bỏ dần những giá trị làm cho $f(x)$ trở nên vô nghĩa.
+Ba câu hỏi này không tách rời nhau. Tập xác định quyết định những cách mà biến số có thể tiến đến một điểm. Những cách tiếp cận ấy chi phối giới hạn và tính liên tục. Giới hạn, liên tục và biến thiên cùng tham gia xác định tập giá trị. Cuối cùng, các kết quả gặp nhau trên đồ thị.
 
-Các nguyên tắc cụ thể bao gồm: mẫu số không được bằng không trong trường hợp phân thức, biểu thức trong căn bậc chẵn phải không âm, đối số của $\log$ phải dương, góc của các hàm lượng giác như $\tan$ hoặc $\cot$ không được làm mẫu số bằng không, và trong hàm hợp thì giá trị của hàm trong phải nằm trong miền xác định của hàm ngoài.
+## Thuộc tính, công cụ và biểu diễn
 
-### 2. Các tính cơ bản: chẵn/lẻ, tuần hoàn, liên tục/gián đoạn
+Trong một bài khảo sát, ba lớp nội dung thường xuất hiện gần nhau nhưng không được đồng nhất.
 
-Trước hết, cần xét *tính chẵn/lẻ* của hàm số. Trên miền đối xứng qua $0$, một hàm được gọi là *chẵn* nếu giá trị của hàm tại $-x$ luôn bằng giá trị của hàm tại $x$, nghĩa là
+| Lớp nội dung | Vai trò | Ví dụ |
+|---|---|---|
+| Thuộc tính của hàm số | Nói điều đúng về chính hàm số | tập xác định, tập giá trị, tính đơn điệu, đối xứng |
+| Công cụ khảo sát | Giúp xác lập hoặc giải thích một thuộc tính | bất đẳng thức, giới hạn, đạo hàm, dãy điểm |
+| Phương tiện biểu diễn | Nén hoặc làm hiện rõ thông tin | công thức, bảng, bảng biến thiên, đồ thị |
 
-$$
-  f(-x)=f(x).
-$$
+Đạo hàm là một công cụ quan trọng để khảo sát biến thiên, nhưng biến thiên là thuộc tính của hàm số chứ không phải của riêng công thức đạo hàm. Tương tự, một đường cong trên màn hình là phương tiện biểu diễn đồ thị; nó không tự bảo đảm rằng mọi chi tiết được vẽ đều đúng.
 
-Khi đó, *đồ thị đối xứng qua trục tung*.
+# Bắt đầu từ đối tượng và miền
 
-Và một hàm số được gọi là *lẻ* nếu giá trị của hàm tại $-x$ luôn bằng số đối của giá trị tại $x$, tức là
+## Hàm số không chỉ là một biểu thức
+
+Khi viết
 
 $$
-f(-x)=-f(x).
+f\colon D\to\mathbb R,
 $$
 
-Khi đó, *đồ thị đối xứng qua gốc tọa độ*.
+tập $D$ là một phần của hàm số. Cùng một biểu thức có thể tạo nên những hàm khác nhau khi được xét trên những tập xác định khác nhau.
 
-Các phép tịnh tiến còn tạo ra đối xứng qua một đường thẳng hoặc một điểm khác, nếu xuất phát từ hàm chẵn hoặc lẻ. Nếu một hàm gốc là *chẵn* thì khi tịnh tiến theo dạng $f(x)=g(x-h)+k$, đồ thị sẽ có trục đối xứng là đường thẳng $x=h$. Nếu hàm gốc là *lẻ* thì đồ thị của hàm tịnh tiến sẽ có tâm đối xứng tại điểm $(h,k)$.
+Chẳng hạn, biểu thức $x^2$ trên $\mathbb R$ không đơn điệu trên toàn miền, nhưng cũng biểu thức ấy trên $[0,+\infty)$ lại đồng biến. Tập giá trị, khả năng có hàm ngược và hình dạng đồ thị đều có thể thay đổi khi miền thay đổi.
 
-Bên cạnh đó, cần xét *tính tuần hoàn*. Một hàm số được gọi là tuần hoàn nếu tồn tại một số dương $T$ sao cho giá trị của hàm tại $x+T$ luôn bằng giá trị của hàm tại $x$ với mọi $x$ trong miền xác định, nghĩa là
+Vì vậy, tập xác định không phải một thủ tục mở đầu rồi được bỏ quên. Mọi kết luận về sau đều phải được đọc trên đúng miền:
+
+- giới hạn phụ thuộc vào những cách tiếp cận mà miền cho phép;
+- tính liên tục và biến thiên được xét trên những khoảng hoặc thành phần thích hợp;
+- nghiệm, dấu, cực trị và tập giá trị thay đổi theo miền;
+- đồ thị phải tách nhánh tại những khoảng trống của tập xác định.
+
+## Đọc cấu trúc trước khi tính toán
+
+Trước khi lấy đạo hàm, nên đọc biểu thức như một cấu trúc.
+
+Với một tổng, cần hỏi các thành phần hỗ trợ hay cạnh tranh với nhau. Với một tích, cần xem một nhân tử có làm suy giảm hoặc khuếch đại nhân tử kia hay không. Với một thương, cần nhận ra cả điểm làm mẫu số bằng $0$ lẫn quan hệ giữa tử và mẫu khi biến số trở nên lớn. Với một hàm hợp, cần theo dõi cách hàm bên trong đưa đầu vào vào miền hoạt động của hàm bên ngoài.
+
+Một vài phép biến đổi đại số có thể làm lộ cấu trúc:
+
+- phân tích thành nhân tử để nhận ra nghiệm và dấu;
+- hoàn thành bình phương để thấy cận hoặc tâm đối xứng;
+- tách phần chính và phần sai lệch để thấy tiệm cận;
+- viết thành hàm hợp để theo dõi sự truyền miền và sự truyền hành vi;
+- viết từng phần để thấy các chế độ khác nhau của cùng một quy tắc.
+
+Phép biến đổi chỉ có giá trị khi miền được bảo toàn. Chẳng hạn,
 
 $$
-f(x+T)=f(x).
+\frac{x^2-1}{x-1}=x+1
 $$
 
-Khi đó $T$ được gọi là *chu kỳ* của hàm. Nếu tồn tại nhiều chu kỳ thì số dương nhỏ nhất trong đó được gọi là chu kỳ cơ bản. Khi khảo sát một hàm tuần hoàn, ta chỉ cần khảo sát đồ thị trên một khoảng có độ dài bằng chu kỳ cơ bản, sau đó dùng phép tịnh tiến để xác định đồ thị trên toàn trục số.
+đúng với $x\ne 1$, nhưng phép rút gọn không làm cho biểu thức ban đầu được xác định tại $x=1$. Điểm bị loại vẫn phải được giữ trong toàn bộ cuộc khảo sát.
 
-*Liên tục* là một trong những tính chất nền tảng của hàm số. Trên mỗi khoảng con của miền xác định, cần kiểm tra xem hàm có liên tục hay không. Nếu hàm số liên tục trên toàn miền xác định, đồ thị của nó sẽ liền mạch, không bị đứt gãy - nhờ đó, việc phác thảo đồ thị trở nên thuận lợi, ta chỉ cần lần theo sự biến thiên để dựng đường cong. Ngược lại, khi tồn tại điểm gián đoạn, phải chỉ rõ dạng gián đoạn: gián đoạn *có thể khử*, gián đoạn *bước nhảy* hoặc gián đoạn *vô cực*. Việc nhận diện đúng loại gián đoạn giúp ta biết chính xác đồ thị cần bị "ngắt" tại đâu, có cần chèn lỗ trống, bước nhảy hay đường tiệm cận đứng, từ đó hình vẽ mới phản ánh trung thực bản chất của hàm số.
+## Miền tổ chức cuộc khảo sát
 
-### 3. Giới hạn và tiệm cận
+Sau khi xác định tập xác định, cần nhìn cấu trúc của nó.
 
-Ở rìa miền xác định - tức là khi $x$ tiến gần đến các *điểm bị loại bỏ* hoặc ra *vô cực* - có thể xuất hiện những tình huống khác nhau: giá trị tiến về một số hữu hạn, tiến ra vô hạn, dao động không ngừng. Để diễn tả hàm số trong những hoàn cảnh như vậy, ta dùng *giới hạn*.
+- Một khoảng cho phép khảo sát biến thiên và liên tục theo một mạch.
+- Nhiều khoảng rời nhau buộc phải khảo sát từng nhánh rồi mới tổng hợp.
+- Một đầu mút thuộc miền và một đầu mút không thuộc miền dẫn đến những câu hỏi khác nhau về giá trị và giới hạn.
+- Một điểm bị loại nằm giữa miền có thể tạo lỗ hổng, bước nhảy, tiệm cận đứng hoặc dao động.
+- Một tập rời rạc không cho phép áp dụng máy móc các kết luận vốn cần cả một khoảng.
 
-Khái niệm *giới hạn* cho phép trả lời một cách chính xác: khi $x$ tiến tới một điểm đặc biệt hoặc ra vô cực, thì $f(x)$ có xu hướng về đâu. Nhờ giới hạn, ta có thể khép kín bức tranh mô tả hành vi của hàm số: không chỉ biết nó thế nào "ở bên trong miền", mà còn biết nó ra sao ở những nơi công thức không còn cho giá trị trực tiếp.
+Các biên của miền, kể cả $+\infty$ và $-\infty$ khi thích hợp, là những nơi tự nhiên để đặt câu hỏi về xu hướng. Một cuộc khảo sát tốt vì thế không chỉ biết hàm được xác định ở đâu; nó còn biết miền cho phép ta đi đến đâu và theo những hướng nào.
 
-Từ kết quả giới hạn, một hiện tượng quan trọng hiện ra: nhiều hàm số có đồ thị có xu hướng tiến lại gần một đường thẳng, gọi là *đường tiệm cận*. Có ba loại đường tiệm cận là đường thẳng:
+# Nhận ra hành vi của hàm số
 
-* *Tiệm cận đứng*: $x=a$ nếu $\lim_{x\to a} f(x)=\pm\infty$.
-* *Tiệm cận ngang*: $y=a$ nếu $\lim_{x\to \pm\infty} f(x)=a$.
-* *Tiệm cận xiên*: $y=ax+b$ nếu $\lim_{x\to \pm\infty}[f(x)-(ax+b)]=0$.
+Không phải mọi phương diện dưới đây đều cần xuất hiện thành đề mục trong một bài cụ thể. Chúng tạo nên một trường câu hỏi để lựa chọn. Một phương diện được giữ lại khi nó giúp xác lập hoặc giải thích hiện tượng quan trọng của hàm.
 
-Các đường tiệm cận chính là những nét khung định hình cho đồ thị: chúng chỉ ra xu hướng dài hạn mà đồ thị bám theo.
+## Giá trị, tập mức và dấu
 
-> Hàm tiến về một số hữu hạn khi $x$ tiến về một số hữu hạn, và hàm tiến về một số hữu hạn khi $x$ tiến ra vô cực khi so sánh với nhau có đặc trưng gì đáng để mô tả không?
->
-> Hàm tăng vô hạn khi $x$ tiến về một số hữu hạn, và hàm tăng vô hạn khi $x$ tiến ra vô cực khi so sánh với nhau có đặc trưng gì đáng để mô tả không?
->
-> Hàm dao động không ngừng khi $x$ tiến về một số hữu hạn, và hàm dao động không ngừng khi $x$ tiến ra vô cực khi so sánh với nhau có đặc trưng gì đáng để mô tả không?
+Nghiệm của phương trình
 
-### 4. Đạo hàm cấp một: chiều biến thiên và cực trị  
+$$
+f(x)=0
+$$
 
-*Đạo hàm* là công cụ chính để khảo sát sự biến thiên của hàm số. Sau khi tính $f^\prime(x)$, ta tìm các *điểm tới hạn*, tức là những nghiệm của phương trình $f^\prime(x)=0$ hoặc những điểm mà đạo hàm không xác định nhưng hàm số vẫn có nghĩa. Đây là những vị trí mà chiều biến thiên của hàm số có thể thay đổi.  
+là những điểm của tập mức $0$. Tổng quát hơn, nghiệm của
 
-Trên mỗi khoảng xác định bởi các điểm tới hạn và các biên của miền xác định, ta xét dấu của $f^\prime(x)$: 
+$$
+f(x)=c
+$$
 
-* Nếu $f^\prime(x)>0$ thì hàm số *đồng biến* trên khoảng đó.  
-* Nếu $f^\prime(x)<0$ thì hàm số *nghịch biến*.  
+cho biết đồ thị cắt đường thẳng $y=c$ ở đâu. Khi $c$ thay đổi, các tập mức góp phần làm lộ tập giá trị và số lần một giá trị được nhận.
 
-Từ sự thay đổi dấu của $f^\prime(x)$ khi đi qua điểm tới hạn, ta nhận biết các điểm cực trị:  
+Tập giá trị không chỉ là khoảng nhìn thấy trong một hình. Muốn xác định nó, có thể cần:
 
-* Nếu $f^\prime(x)$ chuyển từ *dương sang âm*, điểm đó là *cực đại*.  
-* Nếu $f^\prime(x)$ chuyển từ *âm sang dương*, điểm đó là *cực tiểu*.  
-* Nếu $f^\prime(x)$ không đổi dấu, điểm tới hạn ấy không phải cực trị. 
+- giải phương trình $f(x)=y$ và tìm điều kiện để phương trình có nghiệm;
+- kết hợp tính liên tục với biến thiên trên từng khoảng;
+- dùng bất đẳng thức để tìm cận và xét cận có đạt được hay không;
+- khai thác đối xứng, tuần hoàn hoặc quan hệ với một hàm chuẩn;
+- xét hành vi tại các biên miền.
 
-### 5. Giá trị lớn nhất và nhỏ nhất trên đoạn
+Dấu của hàm nối đại số với hình học. Trên khoảng mà $f(x)>0$, đồ thị nằm phía trên trục hoành; khi $f(x)<0$, đồ thị nằm phía dưới. Tuy nhiên, việc đồ thị cắt hay chỉ tiếp xúc trục hoành còn phụ thuộc vào cách dấu thay đổi quanh nghiệm.
 
-Nếu bài toán yêu cầu khảo sát trên một đoạn kín, ta cần so sánh giá trị hàm số tại hai đầu mút và tại các điểm tới hạn nằm trong đoạn để xác định *giá trị lớn nhất* và *giá trị nhỏ nhất*.
+## Hành vi tại biên miền
 
-### 6. Đạo hàm cấp hai: độ cong và điểm uốn  
+Giới hạn mô tả giá trị của hàm khi biến số tiến đến một vị trí, không nhất thiết là giá trị của hàm ngay tại vị trí ấy. Sự phân biệt này đặc biệt quan trọng tại:
 
-Khái niệm *độ cong* cho biết dáng điệu hình học của đồ thị và tính chất đại số tương ứng của hàm số.  
+- đầu mút của một khoảng;
+- điểm bị loại khỏi tập xác định;
+- điểm ghép của một hàm từng phần;
+- $+\infty$ và $-\infty$;
+- điểm mà hàm dao động hoặc tăng không bị chặn.
 
-* Về mặt lý thuyết, ta nói *hàm số lồi* trên một khoảng nếu với mọi $x_1, x_2$ trong khoảng và mọi $0\leq \lambda \leq 1$, ta có 
+Tại một điểm nằm giữa miền, giới hạn trái và giới hạn phải có thể khác nhau. Khi đó, một kí hiệu giới hạn hai phía không được dùng để che khuất hai hành vi riêng biệt.
 
-  $$
-  f(\lambda x_1 + (1-\lambda)x_2) \leq \lambda f(x_1) + (1-\lambda)f(x_2).
-  $$  
+Giới hạn tại biên miền thường quyết định cách một nhánh đồ thị bắt đầu, kết thúc hoặc kéo dài. Nó cũng giúp phân biệt một lỗ hổng có thể lấp, một bước nhảy, một nhánh đi ra vô cực và một vùng dao động không ổn định.
 
-  Khi đó, đồ thị của hàm nằm dưới hoặc trùng với mọi dây cung nối hai điểm bất kỳ trên đồ thị.  
+## Liên tục và gián đoạn
 
-* Ngược lại, nếu bất đẳng thức đảo chiều thì hàm số được gọi là **hàm số lõm**, và đồ thị nằm trên hoặc trùng với mọi dây cung.  
+Tính liên tục cho biết giá trị tại một điểm có phù hợp với hành vi của hàm quanh điểm ấy hay không. Trên một khoảng liên tục, hàm không bỏ qua các giá trị trung gian giữa hai giá trị đã nhận. Nhờ đó, tính liên tục trở thành cầu nối giữa thông tin địa phương và kết luận về tập giá trị.
 
-Trong thực hành, khi hàm số có đạo hàm cấp hai, dấu của $f^{\prime\prime}(x)$ cho ta một tiêu chuẩn nhanh: 
+Khi gặp một điểm bất thường, cần tách ba câu hỏi:
 
-* Nếu $f^{\prime\prime}(x)>0$ trên một khoảng thì hàm số *lồi* trên khoảng đó; đồ thị *cong lên*, mở miệng hướng lên trên.  
-* Nếu $f^{\prime\prime}(x)<0$ trên một khoảng thì hàm số *lõm* trên khoảng đó; đồ thị *cong xuống*, mở miệng hướng xuống dưới.  
+1. Điểm ấy có thuộc tập xác định không?
+2. Hàm tiến đến đâu từ mỗi phía mà miền cho phép?
+3. Nếu hàm có giá trị tại điểm ấy, giá trị đó có khớp với giới hạn không?
 
-Một điểm $x=a$ được gọi là *điểm uốn* nếu tại đó đồ thị chuyển từ *lồi sang lõm* hoặc từ *lõm sang lồi*. Thông thường, điểm uốn xuất hiện ở nghiệm của phương trình $f^{\prime\prime}(x)=0$ hoặc ở những điểm mà $f^{\prime\prime}(x)$ không xác định nhưng hàm số vẫn có nghĩa. Để khẳng định, cần kiểm tra dấu của $f^{\prime\prime}(x)$ ở hai phía: chỉ khi có sự đổi dấu mới thực sự là điểm uốn.  
+Ba câu hỏi giúp tránh gọi mọi khoảng trống trên hình bằng cùng một tên. Một điểm bị loại có giới hạn hữu hạn, một bước nhảy và một tiệm cận đứng là những hiện tượng khác nhau, dù cả ba đều làm đường cong bị ngắt.
 
-Biết hàm số lồi hay lõm giúp ta hiểu rõ hơn hình dạng đồ thị:  
+## Cận và các giá trị cực biên
 
-* Xác định dáng điệu cong, hỗ trợ việc vẽ chính xác hơn.  
-* Liên hệ với cực trị: cực tiểu thường nằm trong miền lồi, cực đại trong miền lõm.  
-* Nhận diện điểm uốn, nơi đồ thị thay đổi dáng điệu.  
+Một hàm bị chặn trên khi các giá trị của nó không vượt quá một mức nào đó; hàm bị chặn dưới khi các giá trị không thấp hơn một mức nào đó. Nhưng một cận không nhất thiết là giá trị mà hàm đạt được.
 
-Như vậy, đạo hàm cấp hai bổ sung cho đạo hàm cấp một một lớp thông tin mới: không chỉ biết đồ thị đi lên hay đi xuống, mà còn biết nó cong thế nào và ở đâu xảy ra sự đổi góc độ cong. Hơn nữa, đạo hàm cấp hai không chỉ cung cấp một bức tranh hình học (lồi, lõm, điểm uốn), mà còn mang ý nghĩa đại số: nó cho biết đạo hàm cấp một đang tăng hay giảm, tức là tốc độ thay đổi của hàm số đang lớn dần hay nhỏ dần. Nói cách khác, đạo hàm cấp hai cho ta biết "cái tăng đang nhanh dần hay chậm lại", và "cái giảm đang dịu đi hay gấp gáp hơn". Đây là thông tin quan trọng để hiểu sâu hơn hành vi của hàm số, vượt ra ngoài việc chỉ xác định cực trị.
+Chẳng hạn, hàm
 
-### 7. Bảng biến thiên  
+$$
+f(x)=\frac{1}{x},
+\qquad x>0,
+$$
 
-Bảng biến thiên là công cụ tổng hợp và sắp xếp có hệ thống những thông tin quan trọng về hàm số. Trong bảng thường thể hiện:  
+có cận dưới là $0$ theo nghĩa $f(x)>0$ với mọi $x>0$ và các giá trị của hàm có thể tiến gần $0$ tùy ý. Tuy nhiên, không có $x>0$ nào để $f(x)=0$. Vì vậy, $0$ không phải giá trị nhỏ nhất.
 
-* Miền xác định và các điểm bị loại bỏ.  
-* Giới hạn của hàm số tại vô cực và tại các điểm đặc biệt.  
-* Dấu của $f^\prime(x)$ và $f^{\prime\prime}(x)$.  
-* Các khoảng đồng biến, nghịch biến, lồi, lõm.  
-* Giá trị của hàm số tại các điểm đặc biệt như cực trị, điểm uốn, v.v..  
+Khi nói đến giá trị lớn nhất hoặc giá trị nhỏ nhất, cần chỉ ra:
 
-Nhờ bảng biến thiên, ta nhìn thấy toàn bộ hành vi của hàm số trên một trang: ở đâu tăng hay giảm, cong lên hay cong xuống, đạt cực trị hoặc có điểm uốn. Nó không chỉ là "bản đồ dẫn đường" mà còn là nền tảng chắc chắn để dựng đồ thị một cách chính xác.  
+- miền đang xét;
+- giá trị ấy có thực sự được đạt hay không;
+- điểm nào làm hàm nhận giá trị ấy;
+- kết luận mang tính toàn cục hay chỉ mang tính địa phương.
 
-### 8. Đồ thị
+Một cực đại địa phương không nhất thiết là giá trị lớn nhất trên toàn miền; một cực tiểu địa phương cũng không nhất thiết là giá trị nhỏ nhất. Sự phân biệt này đặc biệt quan trọng khi miền có nhiều nhánh hoặc khi hàm không bị chặn ở xa.
 
-Từ bảng biến thiên và các tính chất đã xác định, ta vẽ đồ thị của hàm số. Các điểm mốc cần chú ý: giao với trục tọa độ, cực trị, điểm uốn, tiệm cận. Đồ thị được dựng từ trái sang phải, tôn trọng tính đối xứng, tuần hoàn và hình dáng tổng quát dự kiến.
+## Biến thiên
 
-### 9. Ảnh hưởng của tham số và so sánh  
+Tính đồng biến hoặc nghịch biến nói về thứ tự của các giá trị hàm khi đầu vào thay đổi. Đây là thuộc tính trên một tập, không chỉ là dấu của đạo hàm.
 
-Trong nhiều hàm số, công thức có chứa các tham số. Khi khảo sát, ta thường cố định tham số để xem xét từng hàm cụ thể. Tuy nhiên, việc thay đổi tham số sẽ dẫn đến sự dịch chuyển, co giãn hoặc lật của đồ thị. Toàn bộ các hàm ứng với những giá trị tham số khác nhau hợp lại thành một *họ hàm số*. Khảo sát ảnh hưởng của tham số giúp ta hiểu mối quan hệ giữa các đồ thị trong cùng một họ, từ đó rèn luyện trực giác hình học.  
+Đạo hàm thường giúp xác lập biến thiên trên các khoảng:
 
-Ngoài ra, việc đặt các đồ thị cần khảo sát bên cạnh những đồ thị quen thuộc cũng giúp nhận diện đặc điểm riêng biệt và hiểu rõ hơn vai trò của từng thành phần trong công thức.  
+$$
+f^\prime(x)>0
+\quad\Longrightarrow\quad
+f \text{ đồng biến},
+$$
 
-### 10. Ứng dụng và ý nghĩa toán học  
+$$
+f^\prime(x)<0
+\quad\Longrightarrow\quad
+f \text{ nghịch biến},
+$$
 
-Khảo sát một hàm số không chỉ là một bài tập kỹ thuật, mà còn mở ra nhiều ý nghĩa.  
+khi các điều kiện của định lí được thỏa mãn. Nhưng không phải mọi hàm cần khảo sát đều khả vi, và một hàm vẫn có thể đơn điệu dù đạo hàm không tồn tại tại một số điểm.
 
-*Về thực tế:* các dạng hàm quen thuộc thường gắn liền với hiện tượng đời sống. Chẳng hạn, hàm bậc hai mô tả quỹ đạo chuyển động ném xiên; hàm mũ và lô-ga xuất hiện trong tăng trưởng dân số, lãi kép hay sự phóng xạ; hàm lượng giác mô tả dao động sóng. Việc hiểu rõ đặc điểm biến thiên của hàm số giúp ta dự đoán, tối ưu và kiểm soát các quá trình trong thực tế.  
+Biến thiên có sức giải thích lớn khi nó được nối với:
 
-*Về toán học:* mỗi hàm số tiêu biểu thường là đại diện cho một lớp khái niệm. Việc khảo sát toàn diện làm nổi bật mối liên hệ giữa các công cụ: giới hạn, đạo hàm, cực trị, độ cong, đồ thị. Đồng thời, nó chuẩn bị cho những chủ đề cao hơn như tích phân, bất đẳng thức, chuỗi hay phương trình vi phân.  
+- số nghiệm của phương trình $f(x)=c$;
+- sự hình thành cực đại và cực tiểu;
+- cận và tập giá trị;
+- hướng đi của từng nhánh đồ thị;
+- sự khác nhau giữa hành vi địa phương và hành vi trên toàn miền.
 
-*Về giáo dục:* khảo sát hàm số rèn cho người học khả năng quan sát, mô hình hóa và tư duy lô-gic. Từ một công thức cụ thể, ta có thể dựng nên "bức tranh toàn cảnh" vừa chính xác vừa trực quan, qua đó thấy được giá trị của toán học trong việc mô tả và giải thích thế giới. 
+Bảng biến thiên chỉ nên xuất hiện khi nó thực sự nén được các quan hệ ấy. Một bảng hoàn chỉnh về hình thức nhưng không giúp đọc hàm số thì chưa phải một kết tinh có giá trị.
 
-### 11. Bài tập và mở rộng
-
-Phần bài tập giúp củng cố kiến thức và rèn luyện kỹ năng khảo sát hàm số.  
-
-* *Bài tập cơ bản:* tính miền xác định, đạo hàm, lập bảng biến thiên, tìm cực trị và điểm uốn, vẽ đồ thị.  
-* *Bài tập nâng cao:* khảo sát hàm có tham số; tìm điều kiện tham số để hàm có số cực trị nhất định; phân tích tiệm cận và tốc độ tăng trưởng.  
-* *Mở rộng:* so sánh với những hàm quen thuộc; đặt trong bối cảnh ứng dụng thực tế; xem xét biến đổi đồ thị; liên hệ tới các chủ đề cao hơn như bất đẳng thức và tích phân.  
+## Độ cong và sự thay đổi của độ dốc
 
-Những bài tập này không chỉ giúp người học nắm vững kỹ thuật, mà còn khơi gợi tư duy sáng tạo và khả năng kết nối kiến thức.  
-
-## Danh sách kiểm tra (checklist) khung khảo sát hàm số
-
-0. Nhận thức hàm số là dạng quen thuộc hay xa lạ, từ đó hình dung sơ bộ quy trình khảo sát.
-1. Hãy xác định miền xác định của hàm số, nêu rõ những giá trị nào của biến số bị loại bỏ và giải thích vì sao.
-2. Hãy kiểm tra xem hàm số có tính chẵn, tính lẻ hoặc tính đối xứng đặc biệt nào khác hay không.
-3. Nếu hàm số có khả năng tuần hoàn, hãy xác định chu kỳ cơ bản và giới hạn khoảng cần khảo sát.
-4. Hãy xét tính liên tục trên miền xác định, chỉ rõ các điểm gián đoạn và phân loại chúng (có thể khử, bước nhảy hay vô cực).
-5. Tính các giới hạn tại vô cực và tại những điểm biên của miền xác định để xác định ứng xử của hàm số ở rìa miền.
-6. Từ các giới hạn, hãy tìm và mô tả các đường tiệm cận đứng, ngang hoặc xiên nếu có.
-7. Tính đạo hàm cấp một, tìm các điểm tới hạn và xác định trên mỗi khoảng hàm số đồng biến hay nghịch biến.
-8. Dựa vào sự thay đổi dấu của đạo hàm, hãy kết luận về các điểm cực trị và giá trị cực trị.
-9. Nếu khảo sát trên một đoạn kín, hãy so sánh giá trị tại các đầu mút và các điểm tới hạn để xác định giá trị lớn nhất và nhỏ nhất trên đoạn.
-10. Tính đạo hàm cấp hai, xét dấu của nó để xác định khoảng lồi, lõm và các điểm uốn của đồ thị.
-11. Lập bảng biến thiên, ghi rõ miền xác định, giới hạn, dấu của các đạo hàm, các khoảng biến thiên, cực trị và điểm uốn.
-12. Từ bảng biến thiên và các tính chất đã biết, hãy vẽ đồ thị một cách chính xác, thể hiện các điểm đặc biệt, tiệm cận và tính đối xứng nếu có.
-13. Nếu hàm số có tham số, hãy phân tích ảnh hưởng của tham số đối với hình dạng đồ thị và so sánh với những đồ thị quen thuộc.
-14. Cuối cùng, hãy nêu rõ các ứng dụng thực tế hoặc ý nghĩa toán học của hàm số, và làm thêm các bài tập để củng cố cũng như mở rộng kiến thức.
-
-## Danh sách kiểm tra khung khảo sát hàm số (bản rút gọn)
-
-0. Nhận diện hàm số và hình dung quy trình khảo sát.
-1. Xác định miền xác định, chỉ rõ các giá trị bị loại bỏ và nguyên nhân.
-2. Kiểm tra tính chẵn, lẻ, tuần hoàn và liên tục của hàm số.
-3. Tính giới hạn ở các điểm biên và vô cực để tìm các đường tiệm cận.
-4. Tính đạo hàm cấp một để xét chiều biến thiên và cực trị.
-5. Nếu cần, so sánh giá trị tại các đầu mút và điểm tới hạn để tìm giá trị lớn nhất và nhỏ nhất.
-6. Tính đạo hàm cấp hai để xác định khoảng lồi, lõm và điểm uốn.
-7. Lập bảng biến thiên, sau đó vẽ đồ thị và nhận xét ý nghĩa hoặc ứng dụng nếu có.
-
----
-
-# Danh sách hàm số
-
-## Nguyên tắc phân nhóm
-
-1. **Theo cấu trúc đại số/giải tích** (đa thức, hữu tỉ, lũy thừa, mũ/ló, lượng giác,...).
-
-2. **Hàm ngược**: tách riêng khi việc chọn *miền/cành* làm thay đổi bản chất (ví dụ lượng giác ngược). Với **mũ/ló**: gộp trong *một nhóm “cặp ngược”* nhưng tách *tiểu nhóm* mũ/ló để dạy song hành.
-
-3. **Hàm từng đoạn & rời rạc** tách hẳn: đây không phải “đặc biệt” mơ hồ mà là một *kiểu định nghĩa*.
-
-4. **Hàm lai ghép** (tổ hợp/composition hoặc cộng-nhân giữa các họ khác) gom thành *một nhóm chuyên đề*, có các **mô-típ** (dao động tắt dần, khuếch đại dao động, sinc, dao động vô hạn gần $0$,...).
-
-## Nhãn
-
-* [C] (CORE): hàm tối thiểu mà dự án phải có.
-* [B] (BREADTH): hàm được thêm vào để mở rộng dự án theo chiều ngang, biến thể của hàm [C].
-* [D] (DEPTH): hàm được thêm vào để thúc đẩy dự án tiến vào chiều sâu, hướng tới các cấp học cao hơn.
-
-## 0. Hàm hằng
-
-1. $y=0$ [C]
-2. $y=1$ [B]
-3. $y=c$ [C] [B]
-
-## 1. Hàm đa thức bậc nhất
-
-4. $y=x$ [C]
-5. $y=-x$ [B]
-6. $y=2x$ [B]
-7. $y=\frac{1}{2}x$ [B]
-8. $y=x+1$ [B]
-9. $y=x-1$ [B]
-10. $y=2x+1$ [B]
-11. $y=ax+b$ [C]
-
-## 2. Hàm đa thức bậc hai
-
-12. $y=x^2$ [C]
-13. $y=-x^2$ [C]
-14. $y=2x^2$ [B]
-15. $y=\frac{1}{2}x^2$ [B]
-16. $y=(x-1)^2$ [B]
-17. $y=(x+1)^2$ [B]
-18. $y=x^2+1$ [B]
-19. $y=x^2-1$ [B]
-20. $y=x^2-2x$ [B]
-21. $y=(x-1)^2$ [C]
-22. $y=a(x-h)^2+k$ [C]
-23. $y=ax^2+bx+c$ [C]
-
-## 3. Hàm đa thức bậc ba
-
-24. $y=x^3$ [C]
-25. $y=-x^3$ [B]
-26. $y=3x^3$ [B]
-27. $y=\frac{1}{3}x^3$ [B]
-28. $y=x^3-3x$ [C]
-29. $y=(x-1)^2(x+1)$ [B]
-30. $y=x^3+x$ [B]
-31. $y=(x-1)^3$ [B]
-32. $y=x^3+1$ [B]
-33. $y=ax^3+bx^2+cx+d$ [C]
-
-## 4. Hàm đa thức bậc bốn
-
-34. $y=x^4$ [C]
-35. $y=-x^4$ [B]
-36. $y=x^4-2x^2$ [C]
-37. $y=x^4+x^2$ [B]
-38. $y=(x^2-1)^2$ [B]
-39. $y=x^4-4x^3$ [D]
-40. $y=x^4+x$ [D]
-41. $y=(x-1)^4$ [B]
-42. $y=ax^4+bx^3+cx^2+dx+e$ [C]
-43. $y=ax^4+bx^2+c$ [C]
-
-## 5. Một số hàm đa thức bậc cao
-
-44. $y=x^5$ [C]
-45. $y=-x^5$ [B]
-46. $y=x^6$ [C]
-47. $y=x^6-x^4$ [B]
-48. $y=16x^5-20x^3+5x$ [D]
-49. $y=x^n,\ n\geq 5$ [C]
-
-## 6. Hàm phân thức bậc không trên bậc nhất (0/1)
-
-50. $y=\frac{1}{x}$ [C]
-51. $y=-\frac{1}{x}$ [B]
-52. $y=\frac{1}{x-1}$ [B]
-
-## 7. Hàm phân thức bậc nhất trên bậc nhất (1/1)
-
-53. $y=\frac{x-1}{x+1}$ [B]
-54. $y=\frac{x+1}{x-1}$ [B]
-55. $y=\frac{2x+1}{x-2}$ [B]
-56. $y=\frac{ax+b}{cx+d}$ [C]
-
-## 8. Hàm phân thức bậc hai trên bậc nhất (2/1)
-
-57. $y=\frac{x^2-1}{x}$ [C]
-58. $y=-\frac{x^2-1}{x}$ [B]
-59. $y=\frac{x^2+1}{x}$ [C]
-60. $y=-\frac{x^2+1}{x}$ [B]
-61. $y=\frac{x^2-1}{x-1}=x+1$ [B]
-62. $y=\frac{x^2}{x+1}$ [C]
-63. $y=\frac{x^2}{x-1}$ [B]
-64. $y=\frac{x^2+bx+c}{x+a}$ [C]
-
-## 9. Một số hàm hữu tỉ
-
-65. $y=\frac{x^2+1}{x^2+2}$ [B]
-66. $y=\frac{2x-1}{x+3}$ [B]
-67. $y=\frac{x^2-1}{x^2-1}=1$ [B]
-69. $y=\frac{x^3}{x^2+1}$ [B]
-70. $y=\frac{x^3}{x-1}$ [D]
-71. $y=\frac{x^4}{x^2+1}$ [D]
-72. $y=\frac{1}{x(x-1)}$ [B]
-73. $y=\frac{x-1}{x(x-1)}=\frac{1}{x}$ [B]
-74. $y=\frac{(x-1)^2}{x(x-1)}=\frac{x-1}{x}$ [B]
-
-## 10. Hàm lũy thừa & Hàm căn thức
-
-76. $y=x^n$ [C]
-77. $y=\sqrt{x}$ [C]
-78. $y=\sqrt{x-1}$ [B]
-79. $y=\sqrt[3]{x}$ [B]
-80. $y=x^{2/3}$ [D]
-81. $y=\frac{1}{x^2}$ [B]
-82. $y=\frac{1}{x^3}$ [B]
-83. $y=x^\alpha$ [D]
-84. $y=(x-h)^\alpha+k$ [B] [D]
-
-## 11. Trị tuyệt đối, từng đoạn & rời rạc
-
-85. $y=\lvert x\rvert$ [C]
-86. $y=\lvert x-1\rvert$ [B]
-87. $y=\operatorname{sgn}x$ [B]
-88. $y=H(x-a)$ [D]
-89. $y=\lfloor x\rfloor$ [D]
-90. $y=\lceil x\rceil$ [D]
-91. $y=\{x\}$ [D]
-92. $y=\max(0,x)$ (ReLU) [D]
-93. $y=\max(\alpha x,x)$ (Leaky ReLU) [D]
-94. $y=\begin{cases}1-\lvert x\rvert,&\lvert x\rvert\le1\\0,&\text{khác}\end{cases}$ [B]
-
-## 12. Lượng giác
-
-95. $y=\sin x$ [C]
-96. $y=\cos x$ [C]
-97. $y=\tan x$ [C]
-98. $y=\cot x$ [B]
-99. $y=\sin(2x)$ [B]
-100. $y=\cos(x-\frac{\pi}{3})$ [B]
-101. $y=a\sin(\omega x+\varphi)$ [C]
-102. $y=\lvert \sin x \rvert$ [B]
-103. $y=\sin x+\cos x$ [B]
-104. $y=\sec x$ [B]
-105. $y=\csc x$ [B]
-
-## 13. Hàm lượng giác ngược
-
-Tách riêng khỏi nhóm lượng giác vì vấn đề *cành/miền* cốt lỗi.
-
-106. $y=\arcsin x$ [B]
-107. $y=\arccos x$ [B]
-108. $y=\arctan x$ [B]
-109. $y=\operatorname{arccot}x$ [D]
-110. $y=\arctan(ax)+b$ [B]
-
-## 14. Hàm mũ & Hàm lô-ga
-
-111. $y=e^x$ [C]
-112. $y=e^{-x}$ [B]
-113. $y=a^x$ [C]
-114. $y=\ln x$ [C]
-115. $y=\log_a x$ [B]
-116. $y=\ln(x+1)$ [B]
-117. $y=\ln(x-1)$ [B]
-118. $y=e^x+1$ [B]
-119. $y=e^{x-h}+k$ [B]
-120. $y=xe^x$ [D]
-121. $y=x\ln x$ [D]
-
-## 15. Hàm hai-pơ (hyperbolic) & Hàm hai-pơ ngược
-
-122. $y=\sinh x$ [D]
-123. $y=\cosh x$ [D]
-124. $y=\tanh x$ [D]
-125. $y=\operatorname{arsinh}x$ [D]
-126. $y=\operatorname{arcosh}x$ [D]
-127. $y=\operatorname{artanh}x$ [D]
-
-## 16. Hàm lai ghép
-
-128. $y=e^{-x}\sin x$ [D]
-129. $y=x\sin x$ [B] [D]
-130. $y=\frac{\sin x}{x}$ [D]
-131. $y=\sin\left(\frac{1}{x}\right)$ [D]
-132. $y=x+\sin x$ [B]
-133. $y=\ln(\sin x)$ ($x\in(0,\pi)$) [D]
-134. $y=\sqrt{1-x^2}$ [B]
-135. $y=\sqrt{x(1-x)}$ [B]
-136. $y=\frac{x}{1+x^2}$ [B]
-137. $y=\frac{x^2}{1+x^2}$ [B]
-
-## 17. Hàm xuất hiện trong lĩnh vực xác suất và thống kê
-
-138. $y=e^{-\frac{1}{2}x^2}$ [D]
-139. $y=e^{-\lvert x\rvert}$ [D]
-140. $y=\frac{1}{1+x^2}$ [D]
-141. $y=\frac{e^{-x}}{(1+e^{-x})^2}$ [D]
-142. $y=\frac{1}{x}e^{-\frac{1}{2}(\ln x)^2}$ [D]
-
-## 18. Hàm xuất hiện trong lĩnh vực Logistic & tăng trưởng
-
-143. $y=\frac{1}{1+e^{-x}}$ [B] [D]
-144. $y=\frac{1}{1+e^{-k(x-x_0)}}$ [D]
-145. $y=e^{-e^{-x}}$ (Gompertz) [D]
-146. $y=\frac{V_{\max}x}{K_M+x}$ [D]
-147. $y=\frac{x^n}{K^n+x^n}$ [D]
-148. $y=1-e^{-x}$ [B]
-149. $y=\frac{x}{1+x}$ [B]
-
-## 19. Activation (AI/ML)
-
-150. $y=\mathrm{ELU}(x)$ [D]
-151. $y=\ln(1+e^x)$ (Softplus) [D]
-152. $y=\frac{x}{1+e^{-x}}$ (Swish) [D]
-153. $y=\mathrm{GELU}(x)$ [D]
-154. $y=\mathrm{Mish}(x)$ [D]
-
-## 20. Phụ lục học thuật
-
-155. $y=\Gamma(x)$ [D]
-156. $y=\operatorname{erf}(x)$ [D]
-157. $y=J_0(x)$ [D]
-
----
-
-# Danh sách hàm số THPT
-
-## 0. Hàm hằng
-1. $y=0$  
-2. $y=1$  
-3. $y=c$
-
-## 1. Hàm đa thức bậc nhất
-4. $y=x$  
-5. $y=-x$  
-6. $y=2x$  
-7. $y=\frac{1}{2}x$  
-8. $y=x+1$  
-9. $y=x-1$  
-10. $y=2x+1$  
-11. $y=ax+b$
-
-## 2. Hàm đa thức bậc hai
-12. $y=x^2$  
-13. $y=-x^2$  
-14. $y=2x^2$  
-15. $y=\frac{1}{2}x^2$  
-16. $y=(x-1)^2$  
-17. $y=(x+1)^2$  
-18. $y=x^2+1$  
-19. $y=x^2-1$  
-20. $y=x^2-2x$  
-21. $y=(x-1)^2$  
-22. $y=a(x-h)^2+k$  
-23. $y=ax^2+bx+c$
-
-## 3. Hàm đa thức bậc ba
-24. $y=x^3$  
-25. $y=-x^3$  
-26. $y=3x^3$  
-27. $y=\frac{1}{3}x^3$  
-28. $y=x^3-3x$  
-29. $y=(x-1)^2(x+1)$  
-30. $y=x^3+x$  
-31. $y=(x-1)^3$  
-32. $y=x^3+1$  
-33. $y=ax^3+bx^2+cx+d$
-
-## 4. Hàm đa thức bậc bốn
-34. $y=x^4$  
-35. $y=-x^4$  
-36. $y=x^4-2x^2$  
-37. $y=x^4+x^2$  
-38. $y=(x^2-1)^2$  
-41. $y=(x-1)^4$  
-42. $y=ax^4+bx^3+cx^2+dx+e$  
-43. $y=ax^4+bx^2+c$
-
-## 5. Hàm đa thức bậc cao
-44. $y=x^5$  
-45. $y=-x^5$  
-46. $y=x^6$  
-49. $y=x^n,\ n\geq 5$
-
-## 6. Hàm phân thức bậc không trên bậc nhất (0/1)
-50. $y=\frac{1}{x}$  
-51. $y=-\frac{1}{x}$  
-52. $y=\frac{1}{x-1}$
-
-## 7. Hàm phân thức bậc nhất trên bậc nhất (1/1)
-53. $y=\frac{x-1}{x+1}$  
-54. $y=\frac{x+1}{x-1}$  
-55. $y=\frac{2x+1}{x-2}$  
-56. $y=\frac{ax+b}{cx+d}$
-
-## 8. Hàm phân thức bậc hai trên bậc nhất (2/1)
-57. $y=\frac{x^2-1}{x}$  
-58. $y=-\frac{x^2-1}{x}$  
-59. $y=\frac{x^2+1}{x}$  
-60. $y=-\frac{x^2+1}{x}$  
-62. $y=\frac{x^2}{x+1}$  
-63. $y=\frac{x^2}{x-1}$  
-64. $y=\frac{x^2+bx+c}{x+a}$
-
-## 9. Một số hàm hữu tỉ
-65. $y=\frac{x^2+1}{x^2+2}$  
-66. $y=\frac{2x-1}{x+3}$  
-69. $y=\frac{x^3}{x^2+1}$  
-72. $y=\frac{1}{x(x-1)}$  
-74. $y=\frac{x-1}{x}$
-
-## 10. Hàm lũy thừa & căn thức
-76. $y=x^n$  
-77. $y=\sqrt{x}$  
-78. $y=\sqrt{x-1}$  
-79. $y=\sqrt[3]{x}$  
-81. $y=\frac{1}{x^2}$  
-82. $y=\frac{1}{x^3}$  
-83. $y=x^\alpha$
-
-## 11. Trị tuyệt đối
-85. $y=\lvert x\rvert$  
-86. $y=\lvert x-1\rvert$
-
-## 12. Lượng giác
-95. $y=\sin x$  
-96. $y=\cos x$  
-97. $y=\tan x$  
-98. $y=\cot x$  
-99. $y=\sin(2x)$  
-100. $y=\cos(x-\frac{\pi}{3})$  
-101. $y=a\sin(\omega x+\varphi)$  
-102. $y=\lvert \sin x \rvert$  
-103. $y=\sin x+\cos x$  
-104. $y=\sec x$  
-105. $y=\csc x$
-
-## 13. Hàm lượng giác ngược
-106. $y=\arcsin x$  
-107. $y=\arccos x$  
-108. $y=\arctan x$
-
-## 14. Hàm mũ & lô-ga
-111. $y=e^x$  
-112. $y=e^{-x}$  
-113. $y=a^x$  
-114. $y=\ln x$  
-115. $y=\log_a x$  
-116. $y=\ln(x+1)$  
-117. $y=\ln(x-1)$  
-118. $y=e^x+1$  
-119. $y=e^{x-h}+k$
-
----
-
-# Quy trình làm việc 
-
-Mình không muốn chỉ có một bản tóm tắt khô khan, liệt kê từng gạch đầu dòng như “bản ghi chú nhanh”. Thứ mình cần cho *ZO Math* phải là những *bài luận mạch lạc*, trong đó các ý không tách rời mà gắn kết với nhau thành một dòng chảy tự nhiên. Ở đó, mỗi kết quả khảo sát vừa được nêu ra vừa có lời giải thích vì sao lại như vậy, giống như đang dẫn dắt học sinh/độc giả đi qua cả quá trình khám phá.
-
-Chúng ta có thể làm theo quy trình như sau:
-
-1. Chọn một hàm số cụ thể.
-2. Bạn sẽ soạn *bản ghi chú nhanh* để liệt kê đủ ý theo khung khảo sát.
-3. Từ đó, bạn viết lại thành *bài luận hoàn chỉnh*, trong đó:
-
-  * Các phần được kết nối bằng lời văn mượt mà.
-  * Có giải thích ngắn gọn cho từng nhận định.
-  * Giữ phong cách nghiêm trang ở phần cốt lõi, đúng định hướng bạn đặt ra.
-
-4. Mình sẽ phản hồi để tinh chỉnh văn phong và độ dài.
-
-Như vậy, chúng ta vừa không bỏ sót ý nhờ “bản ghi chú nhanh”, vừa có thành phẩm chính thức là “bài luận hoàn chỉnh” để đăng trên ZO Math.
+Đạo hàm bậc nhất mô tả xu hướng của hàm; đạo hàm bậc hai có thể giúp theo dõi sự thay đổi của độ dốc. Hai đoạn đều đồng biến nhưng vẫn có thể có hình dạng khác nhau: trên một đoạn, độ dốc tăng dần; trên đoạn kia, độ dốc giảm dần.
 
+Khi $f^{\prime\prime}$ được dùng để khảo sát độ cong, cần phân biệt:
 
+- nơi $f^{\prime\prime}$ đổi dấu;
+- nơi đồ thị thực sự đổi kiểu cong;
+- nơi $f^{\prime\prime}=0$ nhưng không có sự đổi kiểu cong;
+- nơi hàm không xác định hoặc không liên tục, nên không thể gọi là điểm uốn của đồ thị.
 
+Độ cong được dùng khi nó làm rõ hình dạng hoặc một hiện tượng trung tâm. Nó không phải bước bắt buộc chỉ vì đạo hàm bậc hai có thể tính được.
 
+## Đối xứng, tuần hoàn và cấu trúc lặp lại
 
+Đối xứng và tuần hoàn giúp nén thông tin.
 
+Nếu
 
+$$
+f(-x)=f(x),
+$$
 
+đồ thị đối xứng qua trục tung. Nếu
 
+$$
+f(-x)=-f(x),
+$$
 
+đồ thị đối xứng qua gốc tọa độ. Những kết luận này chỉ có nghĩa trên một miền phù hợp với phép đổi $x$ thành $-x$.
 
+Nếu tồn tại $T>0$ sao cho
 
+$$
+f(x+T)=f(x)
+$$
 
+với mọi $x$ thích hợp, hàm có chu kì $T$. Một hình dạng có vẻ lặp lại trên vài đoạn chưa đủ để xác lập tính tuần hoàn; cần một quan hệ đúng trên toàn miền.
 
+Ngoài hai cấu trúc quen thuộc ấy, một hàm còn có thể thừa hưởng hành vi từ hàm hợp, hàm ngược, phép tịnh tiến, phép co giãn hoặc một họ hàm có tham số. Khi đó, khảo sát không chỉ hỏi từng đồ thị trông ra sao mà còn hỏi cấu trúc nào được bảo toàn và cấu trúc nào thay đổi.
+
+## Hợp hàm, hàm ngược, phép biến đổi và tham số
+
+Với hợp hàm
+
+$$
+(g\circ f)(x)=g(f(x)),
+$$
+
+đầu ra của $f$ trở thành đầu vào của $g$. Vì vậy, tập xác định không chỉ phụ thuộc vào nơi $f(x)$ có nghĩa mà còn phụ thuộc vào điều kiện $f(x)$ thuộc tập xác định của $g$. Dấu, tính đơn điệu và tập giá trị cũng có thể được truyền qua hai lớp theo những điều kiện riêng.
+
+Khi một hàm là một-một trên miền đang xét, nghĩa là mỗi giá trị trong tập giá trị chỉ đến từ một đầu vào, hàm ngược đảo chiều quan hệ giữa đầu vào và đầu ra. Đồ thị của hàm và đồ thị của hàm ngược đối xứng qua đường thẳng $y=x$. Tuy nhiên, trước khi viết công thức hàm ngược, phải xác định miền mà trên đó phép đảo này thực sự cho đúng một giá trị.
+
+Các phép biến đổi như
+
+$$
+y=a\,f\bigl(b(x-h)\bigr)+k
+$$
+
+có thể làm lộ quan hệ giữa cả một họ đồ thị: tịnh tiến, co giãn, phản xạ hoặc thay đổi biên độ. Cách đọc theo cấu trúc thường sáng rõ hơn việc khảo sát lại từng hàm từ đầu.
+
+Với một họ hàm có tham số, câu hỏi quan trọng không chỉ là “đồ thị ứng với một giá trị tham số trông ra sao”. Cần tìm những giá trị ngưỡng làm thay đổi số nghiệm, số nhánh, cực trị, miền xác định hoặc một cấu trúc định tính khác. Các khoảng tham số nằm giữa những ngưỡng ấy tạo nên những chế độ hành vi khác nhau.
+
+## Tiệm cận, tốc độ và sai lệch
+
+Nói rằng $f(x)$ và $g(x)$ cùng tiến ra vô cực chưa cho biết chúng gần nhau. Muốn xem $g$ có phải mô hình tiệm cận của $f$ hay không, cần khảo sát sai lệch
+
+$$
+f(x)-g(x).
+$$
+
+Nếu
+
+$$
+\lim_{x\to+\infty}\bigl(f(x)-g(x)\bigr)=0,
+$$
+
+đồ thị của $f$ tiến gần đồ thị của $g$ theo phương thẳng đứng khi $x\to+\infty$. Với $g(x)=a$, ta nhận được tiệm cận ngang; với $g(x)=mx+n$, ta có thể nhận được tiệm cận xiên.
+
+Trong những bài sâu hơn, chỉ biết sai lệch tiến về $0$ vẫn chưa đủ. Ta còn có thể hỏi nó tiến về $0$ nhanh đến mức nào, giữ một dấu hay đổi dấu, và sự gần nhau có được nhìn thấy trong cửa sổ đồ thị đang dùng hay không.
+
+## Dao động và dãy điểm đặc biệt
+
+Một hàm có thể dao động vô hạn khi biến số tiến đến một điểm. Khi ấy, vài giá trị mẫu hoặc một cửa sổ hình hữu hạn không thể mô tả trọn vẹn hành vi.
+
+Dãy điểm là một công cụ tự nhiên. Nếu có hai dãy $(x_n)$ và $(y_n)$ thuộc tập xác định, cùng tiến đến $a$ nhưng
+
+$$
+f(x_n)\to L_1,
+\qquad
+f(y_n)\to L_2,
+\qquad
+L_1\ne L_2,
+$$
+
+thì giới hạn của $f(x)$ khi $x\to a$ không tồn tại.
+
+Các dãy nghiệm, dãy cực trị hoặc dãy giao điểm còn giúp mô tả cách những đặc điểm của đồ thị tích tụ. Đây là trường hợp cho thấy rõ giới hạn của thủ tục khảo sát quen thuộc: một hàm có thể có vô hạn khoảng biến thiên, nên không thể nén trung thực vào một bảng hữu hạn theo cách thông thường.
+
+# Chọn chứng cứ phù hợp
+
+## Từ dự đoán đến mệnh đề
+
+Đọc cấu trúc hoặc quan sát hình có thể gợi ra một dự đoán. Dự đoán có giá trị định hướng, nhưng phải được chuyển thành một phát biểu đủ rõ để kiểm tra.
+
+Thay vì nói “đồ thị dường như áp sát một đường thẳng”, cần xác định:
+
+- đường thẳng nào;
+- khi biến số tiến về biên nào;
+- khoảng cách hoặc sai lệch nào đang tiến về $0$;
+- kết luận được chứng minh bằng quan hệ nào.
+
+Một mệnh đề khảo sát tốt luôn cho biết đối tượng, miền và mức độ khẳng định. Những từ như “luôn”, “duy nhất”, “trên toàn miền” hoặc “tiến gần” đều phải có căn cứ tương xứng.
+
+## Chuỗi chứng cứ
+
+Một kết luận quan trọng thường đi qua bốn mắt xích:
+
+1. **Vấn đề:** cần xác định điều gì?
+2. **Căn cứ:** công thức, định lí hoặc dữ liệu nào được dùng?
+3. **Kết luận:** phát biểu chính xác thu được là gì?
+4. **Ý nghĩa:** kết luận ấy cho biết điều gì về hành vi hoặc đồ thị?
+
+Chẳng hạn, việc giải $f^\prime(x)=0$ mới chỉ cho những điểm cần tiếp tục xem xét. Muốn kết luận về cực trị, còn phải xét dấu của $f^\prime$, sự thay đổi của hàm hoặc dùng một căn cứ thích hợp khác. Sau đó, cần diễn giải cực trị ấy đóng vai trò gì trong hình dạng tổng thể.
+
+## Vai trò đúng của đồ thị
+
+Đồ thị có ba công việc chính:
+
+- kết tinh nhiều kết quả trong một hình;
+- làm lộ quan hệ khó nhận ra khi đọc riêng từng công thức;
+- gợi ra câu hỏi mới để tiếp tục khảo sát.
+
+Đồ thị không được dùng thay cho chứng minh một giới hạn, khẳng định một nghiệm duy nhất hay xác lập một tính chất trên toàn miền. Mỗi hình chỉ cho thấy một miền quan sát hữu hạn và có độ phân giải hữu hạn.
+
+Điều này dẫn đến ba miền cần phân biệt:
+
+| Miền | Ý nghĩa |
+|---|---|
+| Tập xác định | Những đầu vào mà hàm số chấp nhận |
+| Miền lấy mẫu | Những giá trị mà công cụ thực sự dùng để dựng đường |
+| Miền quan sát | Phần mặt phẳng được hiển thị trong hình |
+
+Một đường cong có thể bị vẽ sai nếu miền lấy mẫu nối qua điểm không xác định. Một hành vi có thể bị che khuất nếu miền quan sát quá rộng hoặc quá hẹp. Với một số hàm, cần nhiều cửa sổ: một hình cho cấu trúc toàn cục và một hình phóng đại cho hành vi địa phương.
+
+## Tính toán số và sự kiểm soát
+
+Tính toán số có thể hỗ trợ khảo sát khi công thức chính xác khó xử lí, khi cần tìm gần đúng nghiệm hoặc khi muốn thử một phỏng đoán. Tuy nhiên, kết quả số luôn đi cùng sai số, miền tính và độ phân giải.
+
+Một giá trị rất nhỏ không tự động bằng $0$. Một hình trông như hai đường đã trùng nhau không chứng minh sai lệch bằng $0$. Một danh sách dài giá trị phù hợp với phỏng đoán vẫn không thay thế một lập luận tổng quát.
+
+Tính toán số đáng tin cậy khi người đọc biết:
+
+- đại lượng nào được tính;
+- trên miền nào;
+- với độ chính xác nào;
+- kết quả được dùng để minh họa, dự đoán hay xác lập điều gì;
+- giới hạn nào của phép tính có thể ảnh hưởng đến cách hiểu.
+
+# Từ dữ kiện đến một chân dung thống nhất
+
+## Hiện tượng trung tâm
+
+Sau lượt khảo sát ban đầu, cần nhận ra điều gì làm nên giá trị nhận thức riêng của hàm số. Đó là *hiện tượng trung tâm*.
+
+Hiện tượng trung tâm có thể là:
+
+- sự cạnh tranh giữa hai thành phần của công thức;
+- hai chế độ hành vi ở hai vùng khác nhau;
+- một gián đoạn làm thay đổi cấu trúc đồ thị;
+- sự hình thành một cận không đạt được;
+- một họ cực trị dồn về một điểm;
+- một mô hình tiệm cận giải thích phần xa của đồ thị.
+
+Không phải tính chất nổi bật nào cũng đủ làm hiện tượng trung tâm. Một hiện tượng tốt phải kết nối được nhiều dữ kiện thành một mạch giải thích. Nó cũng có thể được điều chỉnh nếu kết quả khảo sát cho thấy một trọng tâm khác có sức giải thích lớn hơn.
+
+## Lựa chọn thay vì kê khai
+
+Mỗi dữ kiện được đưa vào bài cần thực hiện ít nhất một chức năng:
+
+- nhận diện cấu trúc;
+- xác lập một hành vi;
+- giải thích nguyên nhân của hành vi;
+- nối công thức với biến thiên hoặc đồ thị;
+- bác bỏ một trực giác dễ nhầm;
+- mở rộng nhận thức mà không làm đứt mạch chính.
+
+Một kết quả đúng nhưng không thực hiện chức năng rõ ràng không nhất thiết phải xuất hiện. Ngược lại, một kết quả rất quen thuộc vẫn cần được giải thích nếu nó là mắt xích thiết yếu của mạch lập luận.
+
+Vì vậy, hai bài khảo sát tốt không nhất thiết có cùng mục lục. Sự thống nhất nằm ở độ chính xác, quan hệ giữa các kết quả và sức giải thích, không nằm ở việc mọi bài đều phải có đủ tập xác định, đạo hàm, bảng biến thiên, độ cong và tiệm cận theo cùng một thứ tự.
+
+## Từ công thức đến đồ thị
+
+Một đồ thị có căn cứ được kiến tạo từ các ràng buộc đã xác lập:
+
+- miền cho biết đường cong tồn tại ở đâu và phải tách thành bao nhiêu nhánh;
+- nghiệm và dấu cho biết vị trí đối với trục hoành;
+- giới hạn cho biết hành vi tại đầu mút, điểm bị loại và vô cực;
+- biến thiên cho biết hướng đi của từng nhánh;
+- cực trị và độ cong định hình những chuyển đổi địa phương;
+- đối xứng và tuần hoàn giúp suy ra phần còn lại;
+- tiệm cận và tốc độ tăng trưởng định hướng phần xa;
+- các dãy điểm đặc biệt mô tả cấu trúc mà hình hữu hạn không thể vẽ hết.
+
+Sau khi dựng hình, cần đọc ngược: mỗi đặc điểm quan trọng trên đồ thị bắt nguồn từ kết quả nào? Nếu một nét vẽ không có căn cứ, hoặc một kết quả quan trọng không hiện lên trong hình, cuộc tổng hợp chưa hoàn tất.
+
+# Một ví dụ: $f(x)=x+\frac{1}{x}$
+
+Hàm số
+
+$$
+f(x)=x+\frac{1}{x}
+$$
+
+cho thấy các phương diện của khung có thể liên kết với nhau như thế nào.
+
+## Miền và cấu trúc
+
+Vì mẫu số phải khác $0$, tập xác định là
+
+$$
+D=\mathbb R\setminus\{0\}.
+$$
+
+Miền tách thành hai khoảng $(-\infty,0)$ và $(0,+\infty)$. Do đó, đồ thị phải có hai nhánh; không một phép rút gọn hay thao tác vẽ nào được nối qua $x=0$.
+
+Mặt khác,
+
+$$
+f(-x)
+=-x-\frac{1}{x}
+=-f(x),
+$$
+
+nên hàm số lẻ. Hai nhánh đồ thị đối xứng qua gốc tọa độ. Kết quả này cho phép hiểu toàn bộ hàm bằng cách khảo sát kĩ một nhánh rồi đối chiếu sang nhánh kia.
+
+## Tập giá trị và khoảng trống
+
+Ta có
+
+$$
+\left(x+\frac{1}{x}\right)^2
+=x^2+2+\frac{1}{x^2}
+\ge 4.
+$$
+
+Suy ra
+
+$$
+\lvert f(x)\rvert\ge 2.
+$$
+
+Vì thế, hàm không nhận bất cứ giá trị nào trong khoảng $(-2,2)$. Để thấy mọi giá trị còn lại đều được nhận, xét phương trình
+
+$$
+x+\frac{1}{x}=y.
+$$
+
+Phương trình tương đương với
+
+$$
+x^2-yx+1=0.
+$$
+
+Nó có nghiệm thực khi và chỉ khi
+
+$$
+y^2-4\ge 0,
+$$
+
+tức là $\lvert y\rvert\ge 2$. Mọi nghiệm của phương trình bậc hai này đều khác $0$, nên đều thuộc $D$. Do đó,
+
+$$
+f(D)=(-\infty,-2]\cup[2,+\infty).
+$$
+
+Khoảng trống giữa hai nhánh của đồ thị không phải hiệu ứng của cửa sổ quan sát. Nó được tạo ra bởi một bất đẳng thức chính xác.
+
+## Biến thiên và cực trị
+
+Đạo hàm trên từng khoảng của tập xác định là
+
+$$
+f^\prime(x)
+=1-\frac{1}{x^2}
+=\frac{x^2-1}{x^2}.
+$$
+
+Vì $x^2>0$ trên $D$, dấu của $f^\prime(x)$ do $x^2-1$ quyết định. Hàm số:
+
+- đồng biến trên $(-\infty,-1)$ và $(1,+\infty)$;
+- nghịch biến trên $(-1,0)$ và $(0,1)$.
+
+Tại $x=-1$, hàm đạt cực đại địa phương với giá trị $-2$. Tại $x=1$, hàm đạt cực tiểu địa phương với giá trị $2$.
+
+Hai giá trị cực trị chính là hai đầu mút của tập giá trị. Biến thiên vì thế không đứng riêng: nó giải thích cách hai giá trị biên ấy được đạt và vì sao không có giá trị nào nằm giữa chúng.
+
+## Hành vi tại biên và tiệm cận
+
+Khi $x$ tiến đến $0$, thành phần $\frac{1}{x}$ chi phối:
+
+$$
+\lim_{x\to 0^-}f(x)=-\infty,
+\qquad
+\lim_{x\to 0^+}f(x)=+\infty.
+$$
+
+Đường thẳng $x=0$ là tiệm cận đứng.
+
+Khi $\lvert x\rvert$ trở nên lớn, thành phần $\frac{1}{x}$ tiến về $0$. Sai lệch giữa $f(x)$ và $x$ là
+
+$$
+f(x)-x=\frac{1}{x},
+$$
+
+nên
+
+$$
+\lim_{x\to\pm\infty}\bigl(f(x)-x\bigr)=0.
+$$
+
+Đường thẳng $y=x$ là tiệm cận xiên. Công thức ban đầu chứa đồng thời hai cơ chế: $\frac{1}{x}$ chi phối gần $0$, còn $x$ chi phối ở xa gốc tọa độ.
+
+## Kết tinh
+
+Từ những kết quả trên, chân dung của hàm số đã rõ:
+
+- miền bị tách tại $0$, nên đồ thị có hai nhánh;
+- tính lẻ buộc hai nhánh đối xứng qua gốc tọa độ;
+- các giới hạn một phía tạo nên tiệm cận đứng $x=0$;
+- biến thiên tạo cực đại $(-1,-2)$ và cực tiểu $(1,2)$;
+- tập giá trị để lại khoảng trống $(-2,2)$;
+- ở xa, hai nhánh lần lượt áp sát đường thẳng $y=x$.
+
+Không kết quả nào trong danh sách này chỉ đứng cạnh các kết quả khác. Chúng cùng giải thích một hiện tượng: hai thành phần $x$ và $\frac{1}{x}$ thay nhau chi phối trên những vùng khác nhau của miền, từ đó tạo nên toàn bộ hình dạng của đồ thị.
+
+# Khi khung quen thuộc cần được điều chỉnh
+
+Một thủ tục phổ thông thường hoạt động tốt với hàm liên tục và khả vi trên một số hữu hạn khoảng. Nhưng nhiều hàm đòi hỏi cách tổ chức khác.
+
+| Đặc trưng của hàm | Điều cần điều chỉnh |
+|---|---|
+| Miền gồm nhiều phần rời nhau | Khảo sát từng nhánh và từng cách tiếp cận biên |
+| Hàm từng phần | Kiểm tra điểm ghép, giới hạn một phía và giá trị tại điểm ghép |
+| Hàm không khả vi | Dùng định nghĩa đơn điệu, bất đẳng thức hoặc công cụ khác thay vì ép dùng đạo hàm |
+| Hàm có tham số | Phân chia miền tham số theo những chỗ cấu trúc thay đổi |
+| Hàm dao động vô hạn | Dùng dãy điểm, mô tả quy luật và nhiều cửa sổ quan sát |
+| Hàm có hành vi địa phương rất khác hành vi toàn cục | Tách hình toàn cảnh và hình phóng đại |
+| Hàm chỉ được biết qua dữ liệu hoặc thuật toán | Nêu rõ miền tính, sai số và giới hạn của kết luận số |
+
+Sự điều chỉnh không làm cuộc khảo sát kém thống nhất. Trái lại, nó giữ cho phương pháp trung thành với hàm số thay vì buộc hàm số phục vụ một khuôn có sẵn.
+
+# Bản đồ thực hành
+
+Khi tự khảo sát một hàm số, có thể lần lượt trở lại bảy câu hỏi sau.
+
+## 1. Đối tượng là gì?
+
+Hàm được cho bằng công thức, nhiều công thức, bảng, thuật toán hay một quan hệ? Tập xác định tự nhiên là gì? Bài toán có giới hạn miền hoặc tham số không?
+
+## 2. Cấu trúc gợi ra điều gì?
+
+Thành phần nào có thể tạo nghiệm, điểm bị loại, cận, đối xứng, dao động hoặc hành vi tiệm cận? Có dạng biểu diễn tương đương nào làm những quan hệ ấy sáng rõ hơn không?
+
+## 3. Hiện tượng nào cần được giải thích?
+
+Điều gì làm hàm số này khác một ví dụ quen thuộc? Có sự chuyển đổi giữa các vùng, một khoảng trống của tập giá trị, một kiểu gián đoạn, một cấu trúc lặp lại hay một cạnh tranh giữa các thành phần không?
+
+## 4. Cần những mệnh đề nào?
+
+Muốn giải thích hiện tượng ấy, cần biết chính xác điều gì về miền, giới hạn, liên tục, dấu, biến thiên, độ cong, đối xứng, tiệm cận hoặc dao động?
+
+## 5. Chứng cứ nào thích hợp?
+
+Có thể dùng biến đổi đại số, bất đẳng thức, định lí, đạo hàm, dãy điểm hay tính toán số? Điều kiện áp dụng đã được kiểm tra chưa? Kết luận có mạnh hơn chứng cứ không?
+
+## 6. Biểu diễn nào giúp nhìn thấy quan hệ?
+
+Công thức nào cần giữ, bảng nào thực sự nén thông tin, và đồ thị cần miền quan sát nào? Có cần nhiều cửa sổ hoặc một hình phóng đại không?
+
+## 7. Ta đã hiểu được điều gì?
+
+Có thể nối cấu trúc, cơ chế, chứng cứ và hình dạng thành một lời giải thích ngắn không? Mỗi đặc điểm chính trên đồ thị có thể được đọc ngược về một kết quả đã xác lập không?
+
+Bảy câu hỏi này không quy định bảy đề mục và cũng không buộc phải được trả lời theo đúng thứ tự. Chúng là những điểm tựa để cuộc khảo sát không bỏ quên đối tượng, không tích lũy dữ kiện rời rạc và không để hình vẽ đi xa hơn chứng cứ.
+
+# Khi nào một cuộc khảo sát có thể dừng?
+
+Một cuộc khảo sát không cần nói hết mọi điều có thể nói về hàm số. Nó có thể dừng khi:
+
+- đối tượng và miền đã được xác lập nhất quán;
+- hiện tượng trung tâm đã được gọi tên và giải thích;
+- các kết luận cần thiết đều có chứng cứ phù hợp;
+- công thức, biến thiên và đồ thị tạo thành một mạch có thể theo dõi;
+- những giới hạn của hình vẽ hoặc tính toán số đã được nhận diện;
+- người đọc có thể nói được điều cốt yếu của hàm, không chỉ nhắc lại một danh sách kết quả.
+
+Điểm kết thúc vì thế không phải là lúc mọi phép tính quen thuộc đã được thực hiện. Nó là lúc các kết quả đã cùng tạo nên một chân dung toán học có căn cứ.
+
+Khảo sát hàm số, theo nghĩa ấy, là học cách đi qua lại giữa nhiều dạng biểu hiện của cùng một đối tượng: từ miền đến công thức, từ công thức đến hành vi, từ hành vi đến đồ thị, rồi từ đồ thị trở về cơ chế đã tạo ra nó. Đồ thị cuối cùng không chỉ là hình được vẽ sau khi tính toán; nó là nơi toàn bộ cuộc khảo sát được nhìn thấy trong một cấu trúc thống nhất.
