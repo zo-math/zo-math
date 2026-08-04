@@ -4,7 +4,7 @@
 
 - Phiên bản trước: `0.3.0`
 - Commit trước: `99a7c04c69eb0a54d381f5afd0d3e79fe26e9cab`
-- Snapshot ứng viên: `18be79cc7769cfa13103db997f93006c5b872bb8`
+- Snapshot ứng viên: `9d10683b6b4b1a1db6d2bbd776b67ab468396f0d`
 - Worktree previous: `E:\zo_math_o4_rc_previous`
 - Worktree candidate: `E:\zo_math_o4_rc_candidate`
 - Worktree sống: `E:\zo_math_o4`, không bị sửa bởi diễn tập.
