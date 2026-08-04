@@ -412,11 +412,11 @@ O3 giữ một lệnh `pack` và khóa hai tham số:
 
 `context` là mặc định tương thích ngược. `--release-file` chỉ hợp lệ và bắt buộc khi `--kind release`. Hồ sơ phát hành tuân theo `mau_ho_so_phat_hanh_qmd.yml`.
 
-Giao diện này đã được triển khai, kiểm nghiệm và dùng để tạo release candidate `0.3.0`. Hồi quy, hai phép xác minh và rollback drill đều đã đạt; vì vậy `0.3.0` là release hiện hành, dù Git tag thật chưa được tạo.
+Giao diện này đã được triển khai, kiểm nghiệm và dùng để tạo release candidate `0.3.0`. Hồi quy, hai phép xác minh và rollback drill đều đã đạt; `0.3.0` từng là release hiện hành của O3 và hiện được giữ làm mốc lịch sử sau khi `0.4.0` được chấp thuận. Git tag thật chưa được tạo.
 
 ### 7.7. Giao diện lập hồ sơ phiên và báo cáo trước xuất bản của O4
 
-CLI ứng viên `0.4.0` bổ sung hai lệnh tương thích ngược:
+CLI hiện hành `0.4.0` bổ sung hai lệnh tương thích ngược:
 
 ```text
 start --output <session.json> (--request <text> | --request-file <file>) [--allow <path>] [--exclude <path>] <target>
@@ -427,7 +427,7 @@ prepublish --output <report.json> --session <session.json> --check-report <check
 
 `prepublish` chỉ tổng hợp manifest phiên, báo cáo `check`, báo cáo `render` và bảng kiểm có người quan sát. Lệnh không chạy lại checker, không sửa hồ sơ sản xuất và không tự đặt `accepted`; báo cáo chỉ phản ánh `production_status: accepted` khi bảng kiểm hợp lệ đã ghi nhận trạng thái ấy. Lệnh không chuyển sang `published` và luôn ghi `publication: pending`. Báo cáo chỉ ở trạng thái `ready_for_user_decision` khi bằng chứng tự động cùng kiểm định có người quan sát đều đạt; mọi trường hợp thiếu hoặc mâu thuẫn phải bị chặn.
 
-Hai lệnh này chưa tự chứng minh O4 hoàn tất. Gói context từ trạng thái O4, phép thử chat-box mới và phiên trình diễn đầu-cuối vẫn là bằng chứng bắt buộc.
+Trong O4, hai lệnh này chỉ là một phần của bằng chứng nghiệm thu. Gói context từ trạng thái O4 đã được tạo và xác minh; phép thử chat-box mới cùng phiên trình diễn đầu-cuối đã hoàn tất. Kết quả được khóa trong hồ sơ phát hành `0.4.0` và quyết định nghiệm thu lớp vận hành `1.0`.
 
 ## 8. `FILES.sha256`
 

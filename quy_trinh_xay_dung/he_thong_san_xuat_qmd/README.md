@@ -13,19 +13,15 @@
 - schema cấu hình dự án phiên bản `1`;
 - chế độ native và đường hồi quy hai dự án.
 
-Release hiện hành `0.3.0` giữ:
-
-- bản CLI phát hành `0.3.0` với bảy lệnh của O3;
-- `scripts/zo_qmd_package.py` phiên bản `0.3.0`;
-- khả năng tạo và xác minh gói context hoặc release;
-- bằng chứng hồi quy, release candidate và rollback drill của O3.
-
-Ứng viên O4 đang triển khai:
+Release hiện hành `0.4.0` bao gồm:
 
 - `scripts/zo_qmd.py` phiên bản `0.4.0`;
+- `scripts/zo_qmd_package.py` phiên bản `0.3.1`;
 - chín lệnh `doctor`, `inspect`, `start`, `prepublish`, `check`, `render`, `regression`, `pack`, `verify`;
-- `start` tạo manifest phiên và kế hoạch tại đầu ra tường minh;
-- `prepublish` tổng hợp bằng chứng đã có, không tự nghiệm thu hoặc xuất bản.
+- khả năng lập manifest phiên, khóa kế hoạch, tạo và xác minh gói context hoặc release, tổng hợp bằng chứng trước xuất bản;
+- bằng chứng hồi quy, trình diễn đầu-cuối, release candidate và rollback drill của O4.
+
+Release `0.3.0` cùng hồ sơ O3 được giữ làm bằng chứng lịch sử của giai đoạn phát hành và khôi phục.
 
 O3 đã triển khai trong mã:
 
@@ -50,7 +46,7 @@ Ba tài liệu điều khiển giai đoạn vận hành hóa:
 - `giao_thuc_agent_chat_box_va_goi_ngu_canh.md`;
 - `tieu_chi_nghiem_thu_lop_van_hanh.md`.
 
-`scripts/zo_qmd.py` là điểm vào vận hành ứng viên O4 cho chín lệnh. `scripts/zo_check_repo.py` vẫn là checker lõi; CLI vận hành chỉ điều phối và bảo toàn mã thoát, báo cáo cùng các cổng kiểm định hiện có. Logic tạo và xác minh gói nằm trong `scripts/zo_qmd_package.py`; logic tổng hợp bằng chứng trước xuất bản nằm trong `scripts/zo_qmd_prepublish.py`; cả hai không được trộn vào checker.
+`scripts/zo_qmd.py` là điểm vào vận hành hiện hành cho chín lệnh. `scripts/zo_check_repo.py` vẫn là checker lõi; CLI vận hành chỉ điều phối và bảo toàn mã thoát, báo cáo cùng các cổng kiểm định hiện có. Logic tạo và xác minh gói nằm trong `scripts/zo_qmd_package.py`; logic tổng hợp bằng chứng trước xuất bản nằm trong `scripts/zo_qmd_prepublish.py`; cả hai không được trộn vào checker.
 
 Ranh giới lưu trữ hiện hành:
 
@@ -167,9 +163,9 @@ scripts/zo_qmd_package.py
 Trạng thái phiên bản:
 
 ```text
-CURRENT OPERATIONS RELEASE: 0.3.0
-QMD OPERATIONS CLI CANDIDATE: 0.4.0
-PACKAGE MODULE: 0.3.0
+CURRENT OPERATIONS RELEASE: 0.4.0
+QMD OPERATIONS CLI: 0.4.0
+PACKAGE MODULE: 0.3.1
 ```
 
 Các lệnh đã triển khai:
@@ -475,7 +471,7 @@ ab7581a  refactor(qmd-system): remove legacy compatibility path
 
 Commit khóa tài liệu M9B hoàn tất phiên bản 1.0 mà không thay đổi QMD hồi quy hoặc trạng thái xuất bản.
 
-## 10. Mốc tiếp theo
+## 10. Trạng thái hoàn tất O2–O4
 
 O2 đã triển khai và kiểm nghiệm `pack` cùng `verify` trên gói context dạng thư mục và ZIP, bao gồm các trường hợp tệp thiếu, tệp thừa, checksum sai, danh sách checksum chưa sắp xếp và việc chạy CLI trong thư mục sạch.
 

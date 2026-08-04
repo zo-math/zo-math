@@ -94,7 +94,7 @@ Phạm vi O4 chỉ gồm các dự án đã được tích hợp, hiện có `fu
 python scripts/zo_python.py scripts/zo_qmd.py <command> [tham số...]
 ```
 
-Trong nhánh ứng viên O4, `scripts/zo_qmd.py` phiên bản `0.4.0` là điểm vào vận hành cho:
+Trong release hiện hành, `scripts/zo_qmd.py` phiên bản `0.4.0` là điểm vào vận hành cho:
 
 ```text
 doctor
@@ -114,7 +114,7 @@ verify
 python scripts/zo_python.py scripts/zo_check_repo.py ...
 ```
 
-`zo_qmd.py` điều phối các thành phần hiện có, không sao chép validator và không thay đổi hợp đồng của `zo_check_repo.py`. `pack --kind context|release` và `verify` được triển khai qua `scripts/zo_qmd_package.py`; `context` là mặc định tương thích ngược và `--release-file` bắt buộc cho gói release. `start` tạo manifest phiên và kế hoạch từ yêu cầu ban đầu; `prepublish` gọi `scripts/zo_qmd_prepublish.py` để tổng hợp bằng chứng đã có, chỉ phản ánh trạng thái `accepted` khi bảng kiểm có người quan sát đã ghi nhận trạng thái ấy, không sửa hồ sơ và không xuất bản. Release hiện hành vẫn là `0.3.0` cho đến khi O4 hoàn tất và một quyết định phát hành riêng được thực hiện.
+`zo_qmd.py` điều phối các thành phần hiện có, không sao chép validator và không thay đổi hợp đồng của `zo_check_repo.py`. `pack --kind context|release` và `verify` được triển khai qua `scripts/zo_qmd_package.py`; `context` là mặc định tương thích ngược và `--release-file` bắt buộc cho gói release. `start` tạo manifest phiên và kế hoạch từ yêu cầu ban đầu; `prepublish` gọi `scripts/zo_qmd_prepublish.py` để tổng hợp bằng chứng đã có, chỉ phản ánh trạng thái `accepted` khi bảng kiểm có người quan sát đã ghi nhận trạng thái ấy, không sửa hồ sơ và không xuất bản. Release hiện hành là `0.4.0`, sau khi O4 hoàn tất và người dùng chấp thuận release candidate.
 
 ### 3.1. Bộ lệnh đích
 
@@ -303,7 +303,7 @@ Không được coi một ZIP chỉ có danh sách tệp và commit trong commen
 
 Các phiên bản được quản lí độc lập:
 
-| Thành phần | Release trước `0.2.0` | Hiện hành `0.3.0` | Ứng viên O4 |
+| Thành phần | Release `0.2.0` | Release `0.3.0` | Hiện hành `0.4.0` |
 |---|---:|---:|---:|
 | Lõi kĩ thuật QMD | `1.0` | `1.0` | `1.0` |
 | Checker | `2.6.0` | `2.6.0` | `2.6.0` |
@@ -314,7 +314,7 @@ Các phiên bản được quản lí độc lập:
 | Schema manifest phiên `start` | Chưa có | Chưa có | `1` |
 | Schema báo cáo `prepublish` | Chưa có | Chưa có | `1` |
 | CLI vận hành | `0.2.0` | `0.3.0` | `0.4.0` |
-| Mô-đun đóng gói | `0.2.0` | `0.3.0` | `0.3.0` |
+| Mô-đun đóng gói | `0.2.0` | `0.3.0` | `0.3.1` |
 
 Lớp vận hành dùng phiên bản `MAJOR.MINOR.PATCH`:
 
@@ -326,7 +326,7 @@ Release `0.3.0` thêm khả năng tạo và xác minh release candidate nhưng g
 
 Release `0.4.0` bổ sung hai lệnh tương thích ngược `start` và `prepublish`, đồng thời thêm schema manifest phiên cùng schema báo cáo trước xuất bản ở phiên bản `1`. Checker, lõi, schema cấu hình và schema manifest gói không đổi; mô-đun đóng gói tăng `PATCH` lên `0.3.1` để tách phiên bản release khỏi phiên bản riêng của mô-đun. Đây là mã của release hiện hành sau khi RC đã được xác minh và người dùng chấp thuận.
 
-Ma trận đầy đủ, điểm quay lại và điều kiện có hiệu lực được khóa tại `ma_tran_phien_ban_qmd.md`. Toàn bộ điều kiện O3 đã đạt nên `0.3.0` vẫn là phiên bản hiện hành; lớp vận hành chưa được gọi là phiên bản 1.0 trước khi hoàn thành O4.
+Ma trận đầy đủ, điểm quay lại và điều kiện có hiệu lực được khóa tại `ma_tran_phien_ban_qmd.md`. Release `0.3.0` là mốc hoàn tất O3; release hiện hành là `0.4.0`, và lớp vận hành đã được người dùng khóa ở mốc nghiệm thu `1.0` sau khi O4 hoàn tất.
 
 ## 8. Bảo trì, phát hành và khôi phục
 
@@ -429,21 +429,18 @@ Phiên trình diễn phải kết thúc trước cổng xuất bản. Báo cáo 
 - release candidate `0.3.0` đã được tạo từ commit sạch và đạt xác minh ngoài repository lẫn bằng CLI tự chứa trong payload;
 - Git tag thật chưa được tạo, không push và không publish.
 
-### O4 — Trình diễn và nghiệm thu — đang triển khai
-
-Đã hoàn thành trong mã ứng viên:
+### O4 — Trình diễn và nghiệm thu — đã hoàn tất
 
 - `start` tạo manifest phiên, khóa phạm vi và kế hoạch tại đầu ra tường minh;
 - `prepublish` tổng hợp bằng chứng, chặn trường hợp thiếu kiểm định có người quan sát và giữ `publication: pending`;
-- self-test, phép thử cấu trúc và hồi quy nguồn đã đạt; hai QMD đường cơ sở giữ nguyên SHA-256.
-
-Còn phải hoàn thành:
-
-- tạo và xác minh gói context từ trạng thái O4;
-- phép thử chat-box mới chỉ dùng gói;
-- chạy phiên đầu-cuối với yêu cầu mới;
-- thu bằng chứng cho bảy mục tiêu;
-- chỉ khi đạt mới cân nhắc khóa lớp vận hành 1.0.
+- self-test, phép thử cấu trúc, hồi quy nguồn và hồi quy render đã đạt; hai QMD đường cơ sở giữ nguyên SHA-256;
+- gói context O4 đã vượt xác minh ngoài gói và tự xác minh;
+- chat-box mới và agent mới đã vượt phép thử bàn giao;
+- phiên trình diễn đầu-cuối đã hoàn tất đến cổng báo cáo trước xuất bản;
+- bảy mục tiêu O4 đã có bằng chứng;
+- release candidate `0.4.0` đã được tạo, xác minh và được người dùng chấp thuận làm release hiện hành;
+- lớp vận hành đã được khóa ở mốc nghiệm thu `1.0`;
+- chưa tạo Git tag thật, chưa push và chưa publish.
 
 ## 11. Bất biến của lớp vận hành
 

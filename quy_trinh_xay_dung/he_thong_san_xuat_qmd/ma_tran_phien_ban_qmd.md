@@ -21,7 +21,7 @@ Cỗ máy QMD gồm nhiều thành phần có vòng đời khác nhau. Một tha
 - Tài liệu này là hồ sơ phối hợp phát hành: tại thời điểm tạo release candidate, các giá trị của nó phải khớp mã, manifest, changelog và bằng chứng kiểm nghiệm.
 - Khi mã và ma trận khác nhau, không được tự chọn một phía rồi tiếp tục phát hành; phải dừng và xử lí sai lệch.
 
-## 3. Ma trận release trước và hiện hành `0.3.0`
+## 3. Ma trận các release `0.3.0` và `0.4.0`
 
 Release trước được khóa tại:
 
@@ -30,7 +30,7 @@ version: 0.2.0
 commit: c1b26b9a0536b17e0885d8158fddbd20413767c2
 ```
 
-| Thành phần | Release trước `0.2.0` | Hiện hành `0.3.0` | Quyết định |
+| Thành phần | Release trước `0.2.0` | Release O3 `0.3.0` | Quyết định |
 |---|---:|---:|---|
 | Lõi kĩ thuật QMD | `1.0` | `1.0` | Giữ nguyên |
 | Checker | `2.6.0` | `2.6.0` | Giữ nguyên |
@@ -116,9 +116,9 @@ Chỉ nâng schema khi cấu trúc cũ không còn đủ để biểu diễn h�
 
 Không nâng lõi QMD khi thay đổi chỉ thuộc lớp vận hành. Hai bài hồi quy phải tiếp tục chạy trên lõi `1.0` mà không bị sửa để thích nghi.
 
-## 7. Điều kiện có hiệu lực
+## 7. Điều kiện có hiệu lực của release O3
 
-Đích `0.3.0` chỉ trở thành phiên bản hiện hành khi đồng thời:
+Trong O3, đích `0.3.0` chỉ trở thành phiên bản hiện hành khi đồng thời:
 
 1. mã CLI và mô-đun đóng gói đã ghi `0.3.0`;
 2. self-test bắt buộc đạt;
@@ -129,4 +129,4 @@ Không nâng lõi QMD khi thay đổi chỉ thuộc lớp vận hành. Hai bài 
 7. changelog, checklist và rollback log phản ánh đúng bằng chứng;
 8. tài liệu hiện hành không còn mô tả O3 như chức năng chưa triển khai.
 
-Tám điều kiện trên đã đạt. Vì vậy, `0.3.0` là release hiện hành của lớp vận hành. Release candidate được tạo từ commit `99a7c04c69eb0a54d381f5afd0d3e79fe26e9cab`, có package ID `qmd-release-0-3-0-20260802-223550` và được xác minh bằng hai đường độc lập. Git tag thật vẫn chưa được tạo.
+Tám điều kiện trên đã đạt. Vì vậy, `0.3.0` đã trở thành release hiện hành tại thời điểm hoàn tất O3. Release candidate được tạo từ commit `99a7c04c69eb0a54d381f5afd0d3e79fe26e9cab`, có package ID `qmd-release-0-3-0-20260802-223550` và được xác minh bằng hai đường độc lập. Release này sau đó được thay thế bởi `0.4.0`; Git tag thật cho `0.3.0` không được tạo.
