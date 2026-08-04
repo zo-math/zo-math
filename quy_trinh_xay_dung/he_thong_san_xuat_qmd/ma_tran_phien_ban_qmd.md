@@ -1,6 +1,6 @@
 # Ma trận phiên bản của cỗ máy QMD
 
-> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`; O3 đã đạt. CLI ứng viên O4 là `0.4.0` với `start` và `prepublish`; phép thử agent mới, chat-box và trình diễn đầu-cuối đã có bằng chứng trong hồ sơ tổng hợp O4; gói context cuối đã được tạo và xác minh theo package `qmd-context-20260804-031754`; tuy nhiên thư mục `qmd_ops_0_4_0` hiện chỉ chứa hồ sơ nghiệm thu trước release, release candidate O4 chưa được tạo hoặc xác minh, Git tag thật chưa tồn tại, chưa push hoặc publish, và việc khóa lớp vận hành `1.0` vẫn cần release candidate được xác minh và quyết định riêng của người dùng.
+> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`; O3 đã đạt. CLI ứng viên O4 là `0.4.0` với `start` và `prepublish`; bảy mục tiêu O4, gói context cuối, hồi quy có render và rollback drill giữa release `0.3.0` với ứng viên `0.4.0` đều đã có bằng chứng. Release candidate O4 chưa được tạo hoặc xác minh, Git tag thật chưa tồn tại, chưa push hoặc publish, và việc khóa lớp vận hành `1.0` vẫn cần release candidate được xác minh cùng quyết định riêng của người dùng.
 >
 > Tài liệu này ghi quan hệ giữa các phiên bản được quản lí độc lập. Nó không thay thế hằng số phiên bản trong mã đang chạy và không tự tạo release hoặc Git tag.
 
@@ -61,7 +61,7 @@ Release `0.3.0` bổ sung khả năng tạo và xác minh release candidate như
 
 Ứng viên `0.4.0` bổ sung hai khả năng tương thích ngược: `start` lập manifest phiên và khóa kế hoạch; `prepublish` tổng hợp bằng chứng trước xuất bản. Hai commit triển khai ban đầu là `278b1d9` và `c966bcb`. Checker, lõi QMD, mô-đun đóng gói và các schema đã có không thay đổi.
 
-`0.4.0` chưa phải release hiện hành. Phép thử agent mới và phiên trình diễn đầu-cuối đã có bằng chứng; phép thử context cùng chat-box đã đạt trên một snapshot O4 trước đó. Chưa có gói context cuối, release candidate O4, package ID release O4, tag thật hoặc quyết định phát hành. Việc thử lại Mục tiêu 1 theo hợp đồng người dùng đã đồng bộ, tạo và xác minh gói context cuối cùng, thử chat-box trên gói ấy, lưu hồ sơ đủ bảy mục tiêu và xác minh release candidate vẫn còn bắt buộc. Việc làm rõ giao diện người dùng bằng ngôn ngữ tự nhiên không đổi phiên bản CLI hoặc schema; nó là phần đồng bộ hợp đồng của ứng viên `0.4.0`.
+`0.4.0` chưa phải release hiện hành. Bảy mục tiêu O4 đã có bằng chứng trong hồ sơ tổng hợp; gói context cuối `qmd-context-20260804-031754` đã được xác minh ngoài gói và tự thân; hồi quy nguồn cùng render của release `0.3.0` và ứng viên `0.4.0` đều đạt; hai QMD đường cơ sở giữ nguyên SHA-256 và trạng thái xuất bản `pending`; rollback drill O4 đã đạt. Còn bắt buộc: lập hồ sơ phát hành O4, tạo và xác minh release candidate `0.4.0`, rồi để người dùng quyết định riêng việc khóa lớp vận hành `1.0`. Việc làm rõ giao diện người dùng bằng ngôn ngữ tự nhiên không đổi phiên bản CLI hoặc schema; nó là phần đồng bộ hợp đồng của ứng viên `0.4.0`.
 
 ## 4. Danh tính release candidate O3
 

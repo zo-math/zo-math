@@ -1,0 +1,26 @@
+release_record_version: 1
+release:
+  stage: candidate
+  version: 0.4.0
+  tag: qmd-ops-v0.4.0
+  tag_created: false
+  previous_version: 0.3.0
+  previous_commit: 99a7c04c69eb0a54d381f5afd0d3e79fe26e9cab
+  regression_status: pass
+  rollback_tested: true
+change:
+  semver: minor
+  classifications:
+  - operations_contract
+  - cli
+  migration_required: false
+  migration_summary: Bổ sung start và prepublish theo hướng tương thích ngược; không
+    yêu cầu di trú cho các lệnh và gói context hiện hành.
+evidence:
+  version_matrix: quy_trinh_xay_dung/he_thong_san_xuat_qmd/ma_tran_phien_ban_qmd.md
+  changelog: quy_trinh_xay_dung/he_thong_san_xuat_qmd/CHANGELOG.md
+  release_checklist: quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_4_0/release_checklist.md
+  rollback_log: quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_4_0/rollback_log.md
+  regression_before: quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_4_0/regression_before.txt
+  regression_after: quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_4_0/regression_after.txt
+  upgrade_and_rollback_guide: quy_trinh_xay_dung/he_thong_san_xuat_qmd/quy_trinh_phat_hanh_va_khoi_phuc_qmd.md

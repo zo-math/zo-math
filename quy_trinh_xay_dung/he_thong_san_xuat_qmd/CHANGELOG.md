@@ -24,17 +24,15 @@ Tài liệu này ghi những thay đổi quan sát được của lớp vận h�
 - Hồi quy nguồn hai dự án đạt sau từng thay đổi.
 - Hai QMD đường cơ sở giữ nguyên SHA-256.
 - Worktree O4 sạch sau các commit triển khai và sửa lỗi.
-- Một gói context từ snapshot O4 trước đó đã vượt hai đường `verify`; chat-box mới chỉ dùng gói ấy đã tái hiện đúng nhiệm vụ.
+- Gói context cuối `qmd-context-20260804-031754` đã vượt hai đường `verify`; chat-box mới chỉ dùng gói ấy đã tái hiện đúng nhiệm vụ.
 - Agent mới trong VS Code dùng đúng giao diện vận hành, kiểm định bài đường cơ sở và không sửa repository.
 - Phiên trình diễn đầu-cuối đi đến `prepublish`; lệnh chặn đúng khi kiểm định có người quan sát còn `FAIL` và giữ `publication: pending`.
 - Thư mục `qmd_ops_0_4_0` hiện chỉ chứa hồ sơ nghiệm thu trước release; hồ sơ tổng hợp O4 đã được lập tại `phat_hanh/qmd_ops_0_4_0/ho_so_nghiem_thu_o4.md`, nhưng release candidate `0.4.0` vẫn chưa được tạo hoặc xác minh.
+- Hồi quy nguồn cùng render của release `0.3.0` và ứng viên `0.4.0` đều đạt; hai QMD đường cơ sở không đổi, trạng thái xuất bản vẫn `pending`, và rollback drill O4 đã đạt.
 
 ### Chưa hoàn tất
 
-- Chưa tạo lại và xác minh gói context từ commit sạch sau khi khóa tài liệu, rồi thử một chat-box mới chỉ dùng gói ấy.
 - Chưa tạo release candidate `0.4.0` hoặc Git tag thật.
-- Chưa lưu hồ sơ tổng hợp đủ bảy mục tiêu trong repository.
-- Mục tiêu 1 cần được thử lại sau khi sửa hợp đồng người dùng bằng ngôn ngữ tự nhiên.
 - Chưa có quyết định khóa lớp vận hành 1.0.
 - Không push và không publish.
 

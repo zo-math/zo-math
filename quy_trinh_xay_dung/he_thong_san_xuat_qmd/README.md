@@ -37,7 +37,7 @@ O3 đã triển khai trong mã:
 
 Đã có bằng chứng trong O4:
 
-- một gói context từ snapshot O4 trước đó đã vượt xác minh ngoài gói và tự xác minh;
+- gói context cuối `qmd-context-20260804-031754`, được tạo từ commit sạch, đã vượt xác minh ngoài gói và tự xác minh;
 - một chat-box mới chỉ dùng gói ấy đã tái hiện đúng nhiệm vụ;
 - một agent mới trong VS Code đã dùng đúng giao diện vận hành và không sửa bài đường cơ sở;
 - phiên trình diễn đầu-cuối đã đi đến `prepublish`, bị chặn đúng khi kiểm định có người quan sát chưa chấp nhận sản phẩm và giữ `publication: pending`.
@@ -487,4 +487,4 @@ O2 đã triển khai và kiểm nghiệm `pack` cùng `verify` trên gói contex
 
 Release `0.3.0` đã hoàn tất O3: `pack --kind release` và `verify` đã được kiểm nghiệm; release candidate được tạo từ commit sạch; hai lớp xác minh đều đạt; rollback drill đạt; hai QMD hồi quy giữ nguyên SHA-256 và trạng thái xuất bản vẫn `pending`. Git tag thật chưa được tạo, không push và không publish.
 
-O4 đang triển khai. `start` và `prepublish` đã được bổ sung; phép thử agent mới và phiên trình diễn đầu-cuối đã có bằng chứng; phép thử context cùng chat-box đã đạt trên một snapshot O4 trước đó; hai QMD đường cơ sở giữ nguyên SHA-256 và trạng thái xuất bản vẫn `pending`. O4 chưa đạt cho đến khi Mục tiêu 1 được thử lại theo hợp đồng người dùng đã đồng bộ, gói context cuối được tạo và xác minh từ commit sạch cùng một phép thử chat-box mới, đủ bảy mục tiêu có hồ sơ tổng hợp, release candidate `0.4.0` được xác minh và người dùng quyết định riêng việc khóa lớp vận hành 1.0.
+O4 đang triển khai. `start` và `prepublish` đã được bổ sung; bảy mục tiêu đã có bằng chứng trong hồ sơ tổng hợp; gói context cuối đã được xác minh và một chat-box mới chỉ dùng gói ấy đã tái hiện đúng nhiệm vụ; hồi quy nguồn cùng render của release `0.3.0` và ứng viên `0.4.0` đều đạt; rollback drill O4 đã đạt; hai QMD đường cơ sở giữ nguyên SHA-256 và trạng thái xuất bản vẫn `pending`. O4 còn phải lập hồ sơ phát hành, tạo và xác minh release candidate `0.4.0`, sau đó người dùng quyết định riêng việc khóa lớp vận hành `1.0`.
