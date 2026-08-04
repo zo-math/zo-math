@@ -280,7 +280,7 @@ Bỏ qua cổng có người quan sát, checker tự tuyên bố nghiệm thu, h
 | O1 | CLI vận hành cơ bản | Self-test, hồi quy hai dự án, `--help` | Không phá checker 2.6.0 |
 | O2 — đã triển khai kĩ thuật | `pack`, `verify`, gói ngữ cảnh | Gói thư mục/ZIP, thư mục sạch, checksum, thiếu/thừa/sai băm | Chat-box dùng được không cần lịch sử; không sửa bài hồi quy; không để lại gói thử trong repository |
 | O3 — đã đạt | Release, versioning, rollback | Release candidate và rollback drill | Có changelog, commit quay lại, bằng chứng bất biến và hai log xác minh |
-| O4 — đang triển khai | `start`, `prepublish`, gói O4 và trình diễn đầu-cuối | Toàn bộ bảy mục tiêu | Không xuất bản; bằng chứng đầy đủ |
+| O4 — đã đạt | `start`, `prepublish`, gói O4 và trình diễn đầu-cuối | Toàn bộ bảy mục tiêu | Không xuất bản; bằng chứng đầy đủ |
 
 ## 11. Nghiệm thu riêng của O0
 
@@ -362,9 +362,9 @@ O4 đã có bằng chứng triển khai ban đầu khi:
 - cả hai lệnh từ chối đầu ra tùy tiện ở gốc repository;
 - hồi quy nguồn hai dự án đạt và SHA-256 hai QMD đường cơ sở không đổi.
 
-Các bằng chứng trên chỉ chứng minh hai giao diện O4 đã được triển khai đúng ranh giới ban đầu. O4 vẫn chưa đạt cho đến khi:
+Các bằng chứng trên chỉ chứng minh hai giao diện O4 đã được triển khai đúng ranh giới ban đầu. O4 chỉ được xem là đạt khi:
 
-- tài liệu hiện hành phản ánh đúng CLI ứng viên;
+- tài liệu hiện hành phản ánh đúng CLI `0.4.0`;
 - gói context được tạo từ commit sạch chứa trạng thái O4 và vượt hai đường `verify`;
 - một chat-box mới chỉ dùng gói ấy mà tái hiện đúng nhiệm vụ;
 - một yêu cầu mới đi hết chuỗi `inspect → start → sản xuất → check → render → human review → prepublish`;

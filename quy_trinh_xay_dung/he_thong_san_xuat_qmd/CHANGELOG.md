@@ -2,11 +2,11 @@
 
 Tài liệu này ghi những thay đổi quan sát được của lớp vận hành cỗ máy QMD. Nó không thay thế lịch sử Git và không tự chứng minh một release đã được tạo.
 
-## `0.4.0` — chưa phát hành — O4 đang triển khai
+## `0.4.0` — 2026-08-04
 
 ### Thêm và thay đổi
 
-- Nâng `scripts/zo_qmd.py` lên phiên bản ứng viên `0.4.0`; nâng `scripts/zo_qmd_package.py` lên `0.3.1`; giữ checker `2.6.0` và lõi QMD `1.0`.
+- Nâng `scripts/zo_qmd.py` lên phiên bản `0.4.0`; nâng `scripts/zo_qmd_package.py` lên `0.3.1`; giữ checker `2.6.0` và lõi QMD `1.0`.
 - Thêm `start` để tạo manifest phiên JSON từ yêu cầu ban đầu, kết quả `inspect`, nguồn có thẩm quyền, phạm vi, kế hoạch và các cổng người dùng.
 - `start` yêu cầu đầu ra tường minh, chặn phạm vi được phép–loại trừ chồng lấn và chặn QMD hiện hữu thiếu hồ sơ bắt buộc.
 - Thêm `scripts/zo_qmd_prepublish.py` và lệnh `prepublish` để tổng hợp manifest phiên, báo cáo `check`, báo cáo `render` cùng bảng kiểm có người quan sát.
@@ -28,7 +28,7 @@ Tài liệu này ghi những thay đổi quan sát được của lớp vận h�
 - Agent mới trong VS Code dùng đúng giao diện vận hành, kiểm định bài đường cơ sở và không sửa repository.
 - Phiên trình diễn đầu-cuối đi đến `prepublish`; lệnh chặn đúng khi kiểm định có người quan sát còn `FAIL` và giữ `publication: pending`.
 - Release candidate `0.4.0` đã được tạo từ commit sạch `6425dec241cc27cad76bf55f8385531e56fb1a86` và vượt xác minh ngoài gói lẫn tự thân; package ID `qmd-release-0-4-0-20260804-142216`.
-- Hồi quy nguồn cùng render của release `0.3.0` và ứng viên `0.4.0` đều đạt; hai QMD đường cơ sở không đổi, trạng thái xuất bản vẫn `pending`, và rollback drill O4 đã đạt.
+- Hồi quy nguồn cùng render của release `0.3.0` và release `0.4.0` đều đạt; hai QMD đường cơ sở không đổi, trạng thái xuất bản vẫn `pending`, và rollback drill O4 đã đạt.
 
 ### Quyết định nghiệm thu
 
