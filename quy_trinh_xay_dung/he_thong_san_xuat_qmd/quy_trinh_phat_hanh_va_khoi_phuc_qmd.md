@@ -1,6 +1,6 @@
 # Quy trình phát hành và khôi phục lớp vận hành QMD
 
-> **Trạng thái:** Quy trình O3 đã được thực thi đầy đủ cho release `0.3.0`: hồi quy trước–sau, rollback drill, tạo release candidate và hai phép xác minh đều đạt. Git tag thật chưa được tạo. O4 đã có hồ sơ tổng hợp bằng chứng, nhưng thư mục `qmd_ops_0_4_0` hiện chỉ chứa hồ sơ nghiệm thu trước release; release candidate `0.4.0` chưa được tạo hoặc xác minh; chưa tag, push hoặc publish; việc khóa lớp vận hành `1.0` vẫn cần quyết định riêng của người dùng sau khi release candidate được xác minh.
+> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`. Release candidate O4 `0.4.0` tại commit `6425dec241cc27cad76bf55f8385531e56fb1a86` đã được tạo và xác minh bằng hai đường độc lập; package ID `qmd-release-0-4-0-20260804-142216`. Chưa tạo Git tag thật, chưa push hoặc publish; việc khóa lớp vận hành `1.0` còn chờ quyết định riêng của người dùng.
 >
 > Quy trình này chỉ điều hành lớp vận hành QMD. Nó không tự stage, commit, tag, push, publish hoặc thay đổi trạng thái bài.
 

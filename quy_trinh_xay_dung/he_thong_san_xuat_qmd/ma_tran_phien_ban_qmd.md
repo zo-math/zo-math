@@ -1,6 +1,6 @@
 # Ma trận phiên bản của cỗ máy QMD
 
-> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`; O3 đã đạt. CLI ứng viên O4 là `0.4.0` với `start` và `prepublish`; bảy mục tiêu O4, gói context cuối, hồi quy có render và rollback drill giữa release `0.3.0` với ứng viên `0.4.0` đều đã có bằng chứng. Release candidate O4 chưa được tạo hoặc xác minh, Git tag thật chưa tồn tại, chưa push hoặc publish, và việc khóa lớp vận hành `1.0` vẫn cần release candidate được xác minh cùng quyết định riêng của người dùng.
+> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`. Release candidate O4 `0.4.0` tại commit `6425dec241cc27cad76bf55f8385531e56fb1a86` đã được tạo và xác minh bằng hai đường độc lập; package ID `qmd-release-0-4-0-20260804-142216`. Chưa tạo Git tag thật, chưa push hoặc publish; việc khóa lớp vận hành `1.0` còn chờ quyết định riêng của người dùng.
 >
 > Tài liệu này ghi quan hệ giữa các phiên bản được quản lí độc lập. Nó không thay thế hằng số phiên bản trong mã đang chạy và không tự tạo release hoặc Git tag.
 
@@ -61,7 +61,7 @@ Release `0.3.0` bổ sung khả năng tạo và xác minh release candidate như
 
 Ứng viên `0.4.0` bổ sung hai khả năng tương thích ngược: `start` lập manifest phiên và khóa kế hoạch; `prepublish` tổng hợp bằng chứng trước xuất bản. Hai commit triển khai ban đầu là `278b1d9` và `c966bcb`. Checker, lõi QMD, mô-đun đóng gói và các schema đã có không thay đổi.
 
-`0.4.0` chưa phải release hiện hành. Bảy mục tiêu O4 đã có bằng chứng trong hồ sơ tổng hợp; gói context cuối `qmd-context-20260804-031754` đã được xác minh ngoài gói và tự thân; hồi quy nguồn cùng render của release `0.3.0` và ứng viên `0.4.0` đều đạt; hai QMD đường cơ sở giữ nguyên SHA-256 và trạng thái xuất bản `pending`; rollback drill O4 đã đạt. Còn bắt buộc: lập hồ sơ phát hành O4, tạo và xác minh release candidate `0.4.0`, rồi để người dùng quyết định riêng việc khóa lớp vận hành `1.0`. Việc làm rõ giao diện người dùng bằng ngôn ngữ tự nhiên không đổi phiên bản CLI hoặc schema; nó là phần đồng bộ hợp đồng của ứng viên `0.4.0`.
+`0.4.0` chưa phải release hiện hành nhưng release candidate đã được tạo từ commit `6425dec241cc27cad76bf55f8385531e56fb1a86` và vượt hai phép xác minh. Package ID là `qmd-release-0-4-0-20260804-142216`; chưa tạo Git tag thật, chưa push hoặc publish. Việc khóa lớp vận hành `1.0` còn chờ quyết định riêng của người dùng.
 
 ## 4. Danh tính release candidate O3
 
