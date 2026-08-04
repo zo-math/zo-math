@@ -1,0 +1,128 @@
+% ZO Math graph styles — VERSION 04 — 2026-07-27. % SỬA: cập nhật phiên bản.
+% Global visual styles only; label positions belong to each graph source.
+% Load \usetikzlibrary{backgrounds} before inputting this file.
+
+\definecolor{zoWhite}{HTML}{FFFFFF}
+\definecolor{zoPlotBackground}{HTML}{FFF9E9}
+\definecolor{zoPlotBorder}{HTML}{DFD7CA}
+\definecolor{zoBackground}{HTML}{FBFAF8}
+\definecolor{zoGridMinor}{HTML}{F8F5F0}
+\definecolor{zoGridMajor}{HTML}{DFD7CA}
+\definecolor{zoAxis}{HTML}{554F48}
+\definecolor{zoText}{HTML}{3E3A35}
+\definecolor{zoTextStrong}{HTML}{25221F}
+\definecolor{zoGraphMain}{HTML}{EF5350}
+\definecolor{zoGraphStrong}{HTML}{997918} % SỬA: đồng bộ màu đường phụ với hình tham chiếu.
+\definecolor{zoReference}{HTML}{997918}
+\definecolor{zoHighlight}{HTML}{FFCA28}
+\definecolor{zoHighlightLight}{HTML}{FFF4D4}
+\definecolor{zoSuccess}{HTML}{1DE8B5}
+
+\pgfplotsset{
+  zo axis/.style={
+    width=12cm,height=7.5cm,scale only axis, % SỬA: đồng bộ kích thước khung tham chiếu.
+    axis equal image=false,enlargelimits=false,
+    clip=true,clip mode=individual,
+    axis lines=middle,grid=none,
+    axis line style={draw=zoAxis,line width=0.8pt,<->},
+    tick align=center,tickwidth=0.4mm,
+    tick style={draw=zoAxis,line width=0.32pt},
+    every axis x label/.append style={text=zoText,font=\normalsize}, % SỬA: chuẩn hóa nhãn trục x.
+    every axis y label/.append style={text=zoText,font=\normalsize}, % SỬA: chuẩn hóa nhãn trục y.
+    every tick label/.append style={text=zoText,font=\small}, % SỬA: chuẩn hóa chữ và số trên trục.
+    every axis plot/.append style={line cap=round,line join=round}
+  },
+  zo grid/.style={
+    major grid style={draw=zoGridMajor,line width=0.35pt},
+    minor grid style={draw=zoGridMinor,line width=0.25pt}
+  },
+  zo graph main/.style={
+    draw=zoGraphMain,line width=1.2pt,solid,no marks
+  },
+  zo graph secondary/.style={
+    draw=zoGraphStrong,line width=0.9pt,solid,no marks
+  },
+  zo reference/.style={
+    draw=zoReference,line width=0.6pt,dashed,no marks
+  },
+  zo asymptote/.style={
+    draw=zoReference,line width=0.8pt,dashed,no marks
+  },
+  zo auxiliary line/.style={
+    draw=zoAxis,line width=0.6pt,densely dashed,no marks
+  },
+  zo point closed/.style={
+    only marks,
+    mark=*,
+    mark size=2.2pt,
+    draw=zoGraphMain,
+    fill=zoGraphMain
+  },
+  zo point open/.style={
+    only marks,
+    mark=*,
+    mark size=2.2pt,
+    draw=zoGraphMain,
+    fill=zoPlotBackground,
+    line width=0.8pt
+  },
+  zo point emphasized/.style={
+    only marks,
+    mark=*,
+    mark size=2.8pt,
+    draw=zoGraphStrong,
+    fill=zoGraphStrong
+  },
+  zo point auxiliary/.style={
+    only marks,
+    mark=*,
+    mark size=1.7pt,
+    draw=zoReference,
+    fill=zoReference
+  }
+}
+
+\tikzset{
+  zo graph field/.style={
+    show background rectangle,
+    inner frame sep=4mm,
+    background rectangle/.style={
+      fill=zoPlotBackground,
+      draw=zoPlotBorder,
+      line width=0.45pt,
+      rounded corners=2mm
+    }
+  },
+  zo axis label/.style={
+    text=zoText,
+    font=\normalsize
+  }, % SỬA: thêm style chung cho nhãn trục.
+  zo origin label/.style={
+    text=zoText,
+    font=\normalsize
+  }, % SỬA: thêm style riêng cho nhãn gốc tọa độ O.
+  zo graph label/.style={
+    text=zoText,
+    font=\small
+  },
+  zo point label/.style={
+    text=zoText,
+    font=\small
+  },
+  zo tick label/.style={
+    text=zoText,
+    font=\small
+  }, % SỬA: thêm style cho các giá trị và ký hiệu đặt trên trục.
+  zo reference label/.style={
+    text=zoText,
+    font=\small
+  }, % SỬA: thêm style cho nhãn đường tham chiếu như y=x và y=-x.
+  zo legend label/.style={
+    text=zoText,
+    font=\small
+  }, % SỬA: thêm style cho công thức trong chú giải.
+  zo auxiliary label/.style={
+    text=zoText,
+    font=\small
+  } % SỬA: đổi từ \footnotesize sang \small.
+}
