@@ -6,7 +6,7 @@ Tài liệu này ghi những thay đổi quan sát được của lớp vận h�
 
 ### Thêm và thay đổi
 
-- Nâng `scripts/zo_qmd.py` lên phiên bản ứng viên `0.4.0`; giữ checker `2.6.0`, lõi QMD `1.0` và `scripts/zo_qmd_package.py` `0.3.0`.
+- Nâng `scripts/zo_qmd.py` lên phiên bản ứng viên `0.4.0`; nâng `scripts/zo_qmd_package.py` lên `0.3.1`; giữ checker `2.6.0` và lõi QMD `1.0`.
 - Thêm `start` để tạo manifest phiên JSON từ yêu cầu ban đầu, kết quả `inspect`, nguồn có thẩm quyền, phạm vi, kế hoạch và các cổng người dùng.
 - `start` yêu cầu đầu ra tường minh, chặn phạm vi được phép–loại trừ chồng lấn và chặn QMD hiện hữu thiếu hồ sơ bắt buộc.
 - Thêm `scripts/zo_qmd_prepublish.py` và lệnh `prepublish` để tổng hợp manifest phiên, báo cáo `check`, báo cáo `render` cùng bảng kiểm có người quan sát.

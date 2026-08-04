@@ -56,7 +56,7 @@ Release `0.3.0` bổ sung khả năng tạo và xác minh release candidate như
 | Schema manifest phiên `start` | Chưa có | `1` | Thêm mới |
 | Schema báo cáo `prepublish` | Chưa có | `1` | Thêm mới |
 | `scripts/zo_qmd.py` | `0.3.0` | `0.4.0` | Nâng `MINOR` ứng viên |
-| `scripts/zo_qmd_package.py` | `0.3.0` | `0.3.0` | Giữ nguyên |
+| `scripts/zo_qmd_package.py` | `0.3.0` | `0.3.1` | Nâng `PATCH`; tách phiên bản release khỏi phiên bản mô-đun |
 | `scripts/zo_qmd_prepublish.py` | Chưa có | report version `1` | Thêm mới |
 
 Ứng viên `0.4.0` bổ sung hai khả năng tương thích ngược: `start` lập manifest phiên và khóa kế hoạch; `prepublish` tổng hợp bằng chứng trước xuất bản. Hai commit triển khai ban đầu là `278b1d9` và `c966bcb`. Checker, lõi QMD, mô-đun đóng gói và các schema đã có không thay đổi.

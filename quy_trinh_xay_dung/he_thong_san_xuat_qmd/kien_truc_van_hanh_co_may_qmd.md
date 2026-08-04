@@ -324,7 +324,7 @@ Lớp vận hành dùng phiên bản `MAJOR.MINOR.PATCH`:
 
 Release `0.3.0` thêm khả năng tạo và xác minh release candidate nhưng giữ nguyên giao diện context của O2, nên mức tăng là `MINOR`. Schema manifest gói vẫn là `1` vì `package.kind: release` và nhóm `release` đã thuộc hợp đồng schema hiện hành.
 
-Ứng viên `0.4.0` bổ sung hai lệnh tương thích ngược `start` và `prepublish`, đồng thời thêm schema manifest phiên cùng schema báo cáo trước xuất bản ở phiên bản `1`. Checker, lõi, schema cấu hình, schema manifest gói và mô-đun đóng gói không đổi. Đây mới là mã ứng viên O4, chưa phải release hiện hành.
+Ứng viên `0.4.0` bổ sung hai lệnh tương thích ngược `start` và `prepublish`, đồng thời thêm schema manifest phiên cùng schema báo cáo trước xuất bản ở phiên bản `1`. Checker, lõi, schema cấu hình và schema manifest gói không đổi; mô-đun đóng gói tăng `PATCH` lên `0.3.1` để tách phiên bản release khỏi phiên bản riêng của mô-đun. Đây mới là mã ứng viên O4, chưa phải release hiện hành.
 
 Ma trận đầy đủ, điểm quay lại và điều kiện có hiệu lực được khóa tại `ma_tran_phien_ban_qmd.md`. Toàn bộ điều kiện O3 đã đạt nên `0.3.0` vẫn là phiên bản hiện hành; lớp vận hành chưa được gọi là phiên bản 1.0 trước khi hoàn thành O4.
 
