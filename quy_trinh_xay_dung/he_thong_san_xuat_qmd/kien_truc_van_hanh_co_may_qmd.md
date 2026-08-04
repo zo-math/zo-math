@@ -1,6 +1,6 @@
 # Kiến trúc vận hành cỗ máy QMD
 
-> **Trạng thái:** Release hiện hành của lớp vận hành là `0.3.0`. Release candidate O4 `0.4.0` tại commit `6425dec241cc27cad76bf55f8385531e56fb1a86` đã được tạo và xác minh bằng hai đường độc lập; package ID `qmd-release-0-4-0-20260804-142216`. Chưa tạo Git tag thật, chưa push hoặc publish; việc khóa lớp vận hành `1.0` còn chờ quyết định riêng của người dùng.
+> **Trạng thái:** Release `0.4.0` đã được người dùng chấp thuận làm release hiện hành; lớp vận hành đã khóa ở mốc nghiệm thu `1.0`. Hằng số máy đọc được `OPERATIONS_CONTRACT_VERSION` vẫn là `0.4` để khớp `MAJOR.MINOR` của release `0.4.0`. Git tag thật chưa được tạo; chưa push hoặc publish.
 >
 > Tài liệu này bao quanh lõi kĩ thuật của Hệ thống sản xuất và kiểm định QMD phiên bản 1.0. Nó không thay thế `kien_truc_he_thong.md`, `hop_dong_loi_va_du_an.md` hoặc các quy chuẩn chuyên biệt của từng dự án.
 
@@ -324,7 +324,7 @@ Lớp vận hành dùng phiên bản `MAJOR.MINOR.PATCH`:
 
 Release `0.3.0` thêm khả năng tạo và xác minh release candidate nhưng giữ nguyên giao diện context của O2, nên mức tăng là `MINOR`. Schema manifest gói vẫn là `1` vì `package.kind: release` và nhóm `release` đã thuộc hợp đồng schema hiện hành.
 
-Ứng viên `0.4.0` bổ sung hai lệnh tương thích ngược `start` và `prepublish`, đồng thời thêm schema manifest phiên cùng schema báo cáo trước xuất bản ở phiên bản `1`. Checker, lõi, schema cấu hình và schema manifest gói không đổi; mô-đun đóng gói tăng `PATCH` lên `0.3.1` để tách phiên bản release khỏi phiên bản riêng của mô-đun. Đây mới là mã ứng viên O4, chưa phải release hiện hành.
+Release `0.4.0` bổ sung hai lệnh tương thích ngược `start` và `prepublish`, đồng thời thêm schema manifest phiên cùng schema báo cáo trước xuất bản ở phiên bản `1`. Checker, lõi, schema cấu hình và schema manifest gói không đổi; mô-đun đóng gói tăng `PATCH` lên `0.3.1` để tách phiên bản release khỏi phiên bản riêng của mô-đun. Đây là mã của release hiện hành sau khi RC đã được xác minh và người dùng chấp thuận.
 
 Ma trận đầy đủ, điểm quay lại và điều kiện có hiệu lực được khóa tại `ma_tran_phien_ban_qmd.md`. Toàn bộ điều kiện O3 đã đạt nên `0.3.0` vẫn là phiên bản hiện hành; lớp vận hành chưa được gọi là phiên bản 1.0 trước khi hoàn thành O4.
 

@@ -30,10 +30,10 @@ Tài liệu này ghi những thay đổi quan sát được của lớp vận h�
 - Release candidate `0.4.0` đã được tạo từ commit sạch `6425dec241cc27cad76bf55f8385531e56fb1a86` và vượt xác minh ngoài gói lẫn tự thân; package ID `qmd-release-0-4-0-20260804-142216`.
 - Hồi quy nguồn cùng render của release `0.3.0` và ứng viên `0.4.0` đều đạt; hai QMD đường cơ sở không đổi, trạng thái xuất bản vẫn `pending`, và rollback drill O4 đã đạt.
 
-### Chưa hoàn tất
+### Quyết định nghiệm thu
 
-- Chưa có quyết định khóa lớp vận hành 1.0.
-- Không push và không publish.
+- Người dùng đã chấp thuận RC `0.4.0` làm release hiện hành và khóa lớp vận hành ở mốc nghiệm thu `1.0`.
+- Chưa tạo Git tag thật, chưa push và chưa publish.
 
 ### Di trú từ `0.3.0`
 

@@ -5,7 +5,7 @@
 - Commit kiểm tra: `335fbbeb1b631eecc642fbeb05bd6644025cd87e`
 - Nhánh hiện tại: `o4-qmd-operations`
 - Trạng thái Git trước khi lập hồ sơ: nhánh `o4-qmd-operations` ở commit `335fbbeb1b631eecc642fbeb05bd6644025cd87e` và worktree sạch.
-- Trạng thái tổng quát: bảy mục tiêu đã có bằng chứng; release candidate `0.4.0` đã được tạo và xác minh; chưa tag, push hoặc publish; việc khóa lớp vận hành `1.0` còn chờ quyết định riêng của người dùng.
+- Trạng thái tổng quát: bảy mục tiêu đã có bằng chứng; release candidate `0.4.0` đã được tạo và xác minh; người dùng đã chấp thuận làm release hiện hành và khóa lớp vận hành ở mốc nghiệm thu `1.0`; chưa tag, push hoặc publish.
 
 ## Quy ước lưu bằng chứng
 
@@ -89,4 +89,4 @@
 - Hồ sơ tổng hợp O4 đã được lập trong repository tại `quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_4_0/ho_so_nghiem_thu_o4.md`.
 - Release candidate `0.4.0` đã được tạo và xác minh bằng hai đường độc lập.
 - Chưa tag, push hoặc publish.
-- Việc khóa lớp vận hành `1.0` vẫn cần một release candidate được xác minh và quyết định riêng của người dùng.
+- Người dùng đã chấp thuận release candidate được xác minh và khóa lớp vận hành ở mốc nghiệm thu `1.0`.
