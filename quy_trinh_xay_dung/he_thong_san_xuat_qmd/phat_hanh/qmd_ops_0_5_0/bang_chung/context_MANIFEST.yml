@@ -1,0 +1,140 @@
+manifest_version: 1
+package:
+  id: qmd-context-20260805-230836
+  kind: context
+  purpose: Verify quality exemplars in QMD Operations 0.5.0
+  created_at: '2026-08-05T23:08:36+07:00'
+  created_by: zo_qmd.py pack
+system:
+  qmd_core_version: '1.0'
+  checker_version: 2.6.0
+  project_config_schema: 1
+  operations_contract_version: '0.5'
+  manifest_schema: 1
+repository:
+  name: candidate
+  source: exported_snapshot
+  branch: detached
+  commit: 4d8fe92c11d3b6da4267cadfd77463a3dcb24744
+  dirty: unknown
+  ahead_of_origin: unknown
+scope:
+  mode: article
+  roots:
+  - content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_ln_x.qmd
+  excluded:
+  - .git
+  - .quarto
+  - .continue
+  - __pycache__
+  - _freeze
+  - docs
+  - node_modules
+  - .venv
+  - venv
+  - '*.pyc'
+  - secrets-and-machine-local-files
+output:
+  path: E:\zo_math_ca_nhan\qmd_release_0_5_0\context-quality-exemplar
+  inside_repository: false
+  reason: null
+entrypoints:
+  current:
+    checker: scripts/zo_check_repo.py
+    operations_cli: scripts/zo_qmd.py
+  target: {}
+sources:
+  required:
+  - path: AGENTS.md
+    role: system_document
+  - path: content/thpt/zo_math_100/100_bai_toan_thuc_te/AGENTS.md
+    role: repository_instruction_dependency
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/AGENTS.md
+    role: repository_instruction_dependency
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/cau_hinh_san_xuat_qmd.yml
+    role: project_config
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/ho_so/ham_ln_x.yml
+    role: production_profile
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/ho_so_san_xuat_mac_dinh.yml
+    role: template
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/mau_ki_thuat_qmd.qmd
+    role: template
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/quy_chuan_khao_sat_ham_so.md
+    role: controlling_document
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/quy_chuan_ki_thuat_bai_ham_so_qmd.md
+    role: controlling_document
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/quy_trinh_tao_bai_ham_so.md
+    role: controlling_document
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_ln_x.qmd
+    role: scope_file
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/depth/ham_sin_mot_tren_x.pdf
+    role: quality_exemplar
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/depth/ham_sin_mot_tren_x.qmd
+    role: quality_exemplar
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/README.md
+    role: repository_instruction_dependency
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/giao_thuc_agent_chat_box_va_goi_ngu_canh.md
+    role: system_document
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/kien_truc_van_hanh_co_may_qmd.md
+    role: system_document
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/mau_manifest_goi_qmd.yml
+    role: system_document
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/tieu_chi_nghiem_thu_lop_van_hanh.md
+    role: system_document
+  - path: quy_trinh_xay_dung/huong_dan_su_dung_khoi_noi_dung.md
+    role: repository_instruction_dependency
+  - path: quy_trinh_xay_dung/phong_cach_viet/index.md
+    role: repository_instruction_dependency
+  - path: quy_trinh_xay_dung/quy_chuan_luoi_the.md
+    role: repository_instruction_dependency
+  - path: quy_trinh_xay_dung/quy_tac_lam_viec_voi_agent.md
+    role: repository_instruction_dependency
+  - path: quy_trinh_xay_dung/quy_trinh_thuc_hien_nhiem_vu_ky_thuat.md
+    role: repository_instruction_dependency
+  - path: quy_trinh_xay_dung/quy_trinh_xuat_ban_website.md
+    role: repository_instruction_dependency
+  - path: scripts/zo_artifact_freshness.py
+    role: runtime_dependency
+  - path: scripts/zo_check_repo.py
+    role: repository_instruction_dependency
+  - path: scripts/zo_publish.py
+    role: repository_instruction_dependency
+  - path: scripts/zo_python.py
+    role: repository_instruction_dependency
+  - path: scripts/zo_qmd.py
+    role: repository_instruction_dependency
+  - path: scripts/zo_qmd_config.py
+    role: runtime_dependency
+  - path: scripts/zo_qmd_core.py
+    role: runtime_dependency
+  - path: scripts/zo_qmd_package.py
+    role: runtime_dependency
+  - path: scripts/zo_qmd_prepublish.py
+    role: runtime_dependency
+  - path: scripts/zo_qmd_registry.py
+    role: runtime_dependency
+  - path: scripts/zo_qmd_version.py
+    role: runtime_dependency
+  - path: scripts/zo_quarto.py
+    role: runtime_dependency
+  - path: scripts/zo_real_world_problem.py
+    role: runtime_dependency
+  conditional:
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/nguon_li_thuyet/khung_khao_sat_ham_so_hoan_chinh_04.qmd
+    role: theory_source
+    condition: Đọc khi quy chuẩn nén chưa đủ cho trường hợp đang xét.
+  historical: []
+evidence:
+  commands:
+  - git branch --show-current
+  - git rev-parse HEAD
+  reports: []
+  outputs: []
+integrity:
+  algorithm: sha256
+  file: FILES.sha256
+limitations:
+- Không chứa .git; gói không phản ánh thay đổi của repository sau thời điểm đóng gói.
+- repository.dirty và repository.ahead_of_origin được ghi unknown vì gói không chứa
+  bằng chứng Git đủ để tái kiểm chứng hai trạng thái này.
+- Cần Python và PyYAML để chạy lệnh verify đi kèm.
