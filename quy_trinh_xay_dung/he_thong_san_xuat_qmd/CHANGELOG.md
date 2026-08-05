@@ -13,6 +13,12 @@ Tài liệu này ghi những thay đổi quan sát được của lớp vận h�
 - Giữ tương thích ngược với cấu hình `schema_version: 1`: khóa mới là tùy chọn đối với loader và được chuẩn hóa thành danh sách rỗng khi vắng mặt.
 - Giữ checker `2.6.0`, lõi QMD `1.0`, schema cấu hình dự án `1`, schema manifest package `1` và schema manifest phiên `start` là `1`.
 
+### Trạng thái phát hành
+
+- Annotated tag cục bộ `qmd-ops-v0.5.0` đã được tạo và trỏ đến product commit `ba85e35db84e092fbb2c1786ceb9fff707dfc438`.
+- Release package có package ID `qmd-release-0-5-0-20260805-234913`; SHA-256 của ZIP là `018bfd0ec562f618efc3e1bf0c236a10cc87ec74b28f4805e33369686190ce24`.
+- Tag chưa được push; release chưa được phát hành chính thức.
+
 ## `0.4.0` — 2026-08-04
 
 ### Thêm và thay đổi

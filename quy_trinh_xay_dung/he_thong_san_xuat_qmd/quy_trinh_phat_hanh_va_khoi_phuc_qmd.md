@@ -1,6 +1,6 @@
 # Quy trình phát hành và khôi phục lớp vận hành QMD
 
-> **Trạng thái:** Release hiện hành là `0.5.0`; lớp vận hành giữ mốc nghiệm thu `1.0`. Hằng số máy đọc được `OPERATIONS_CONTRACT_VERSION` là `0.5` để khớp `MAJOR.MINOR` của release `0.5.0`. Git tag thật chưa được tạo; chưa push hoặc publish.
+> **Trạng thái:** Release hiện hành là `0.5.0`; lớp vận hành giữ mốc nghiệm thu `1.0`. Hằng số máy đọc được `OPERATIONS_CONTRACT_VERSION` là `0.5` để khớp `MAJOR.MINOR` của release `0.5.0`. Annotated tag `qmd-ops-v0.5.0` đã được tạo cục bộ và trỏ đến product commit `ba85e35db84e092fbb2c1786ceb9fff707dfc438`; bằng chứng hậu đóng gói được khóa tại commit `9dd5d082f78cced6ae136f6e836c65196af55300`. Tag chưa được push; release chưa được phát hành chính thức và chưa publish.
 >
 > Quy trình này chỉ điều hành lớp vận hành QMD. Nó không tự stage, commit, tag, push, publish hoặc thay đổi trạng thái bài.
 
@@ -189,6 +189,13 @@ Release candidate chỉ đạt khi manifest, checksum, payload và bằng chứn
 - Hai phép `verify` đều đạt với mã thoát `0`.
 - Tag thật chưa được tạo; không push và không publish.
 - Hai bài hồi quy không đổi; trạng thái xuất bản vẫn `pending`.
+
+### 7.9. Trạng thái release hiện hành `0.5.0`
+
+- Annotated tag `qmd-ops-v0.5.0` đã được tạo cục bộ.
+- Tag trỏ đến product commit `ba85e35db84e092fbb2c1786ceb9fff707dfc438`, không trỏ đến HEAD hậu đóng gói.
+- Bằng chứng hậu đóng gói được khóa tại commit `9dd5d082f78cced6ae136f6e836c65196af55300`.
+- Tag chưa được push lên origin; release chưa được phát hành chính thức và chưa publish.
 
 ## 8. Cấu trúc hồ sơ theo phiên bản
 

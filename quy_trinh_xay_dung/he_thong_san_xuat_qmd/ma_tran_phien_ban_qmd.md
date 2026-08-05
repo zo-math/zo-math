@@ -1,6 +1,6 @@
 # Ma trận phiên bản của cỗ máy QMD
 
-> **Trạng thái:** Release hiện hành là `0.5.0`; lớp vận hành giữ mốc nghiệm thu `1.0`. Hằng số máy đọc được `OPERATIONS_CONTRACT_VERSION` là `0.5` để khớp `MAJOR.MINOR` của release `0.5.0`. Git tag thật chưa được tạo; chưa push hoặc publish.
+> **Trạng thái:** Release hiện hành là `0.5.0`; lớp vận hành giữ mốc nghiệm thu `1.0`. Hằng số máy đọc được `OPERATIONS_CONTRACT_VERSION` là `0.5` để khớp `MAJOR.MINOR` của release `0.5.0`. Annotated tag `qmd-ops-v0.5.0` đã được tạo cục bộ và trỏ đến product commit `ba85e35db84e092fbb2c1786ceb9fff707dfc438`; bằng chứng hậu đóng gói được khóa tại commit `9dd5d082f78cced6ae136f6e836c65196af55300`. Tag chưa được push; release chưa được phát hành chính thức và chưa publish.
 >
 > Tài liệu này ghi quan hệ giữa các phiên bản được quản lí độc lập. Nó không thay thế hằng số phiên bản trong mã đang chạy và không tự tạo release hoặc Git tag.
 
@@ -84,6 +84,12 @@ rỗng; `inspect`, `doctor`, `start` và context package cùng nhận diện bà
 giao thức agent quy định cách đọc hoặc quan sát chúng. Checker, lõi QMD và các
 schema giữ nguyên vì thay đổi không tác động validator và cấu trúc phiên bản 1
 vẫn biểu diễn đầy đủ hợp đồng mới.
+
+Annotated tag cục bộ `qmd-ops-v0.5.0` của release này trỏ đến product commit
+`ba85e35db84e092fbb2c1786ceb9fff707dfc438`. Bằng chứng hậu đóng gói được
+khóa tại commit `9dd5d082f78cced6ae136f6e836c65196af55300`; tag không trỏ đến commit
+hậu đóng gói này. Tag chưa được push lên origin; release chưa được phát hành
+chính thức và chưa publish.
 
 ## 4. Danh tính release candidate O3
 

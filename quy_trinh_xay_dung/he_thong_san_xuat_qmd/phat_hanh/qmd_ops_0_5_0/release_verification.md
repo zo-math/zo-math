@@ -13,7 +13,7 @@
 - Số tệp payload: `52`
 - SHA-256: `018bfd0ec562f618efc3e1bf0c236a10cc87ec74b28f4805e33369686190ce24`
 - Tag dự kiến: `qmd-ops-v0.5.0`
-- Git tag thật đã tạo: không
+- Tại thời điểm tạo ZIP, Git tag thật đã tạo: không
 
 ZIP được tạo từ detached worktree sạch tại candidate commit `ba85e35db84e092fbb2c1786ceb9fff707dfc438`.
 
@@ -51,6 +51,16 @@ SHA-256 của ZIP giữ nguyên trước và sau cả hai phép xác minh: `018b
 
 Hai log verify được tạo sau ZIP nên không thuộc payload của gói.
 
+## Trạng thái hậu xác minh
+
+- Annotated tag `qmd-ops-v0.5.0` được tạo cục bộ sau hai phép verify.
+- Tag trỏ đến candidate/product commit `ba85e35db84e092fbb2c1786ceb9fff707dfc438`.
+- Post-package evidence commit là `9dd5d082f78cced6ae136f6e836c65196af55300`; tag không trỏ đến commit này.
+- Tag message khóa package ID `qmd-release-0-5-0-20260805-234913` và SHA-256 `018bfd0ec562f618efc3e1bf0c236a10cc87ec74b28f4805e33369686190ce24`.
+- Tag chưa tồn tại trên origin.
+- Việc tạo tag không sửa ZIP và không thay đổi SHA-256 của ZIP.
+- Tag và nhánh chưa được push; release chưa được phát hành chính thức.
+
 ## Kết luận
 
-Release candidate `0.5.0` đã được đóng gói và vượt cả xác minh bằng CLI ngoài gói lẫn CLI tự chứa. Git tag thật chưa được tạo; chưa push và chưa phát hành chính thức.
+Release candidate `0.5.0` đã được đóng gói và vượt cả xác minh bằng CLI ngoài gói lẫn CLI tự chứa. Git tag đã được tạo cục bộ nhưng chưa được push; release chưa được phát hành chính thức.
