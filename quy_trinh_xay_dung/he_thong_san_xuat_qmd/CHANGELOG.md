@@ -15,9 +15,10 @@ Tài liệu này ghi những thay đổi quan sát được của lớp vận h�
 
 ### Trạng thái phát hành
 
-- Annotated tag cục bộ `qmd-ops-v0.5.0` đã được tạo và trỏ đến product commit `ba85e35db84e092fbb2c1786ceb9fff707dfc438`.
+- Chuỗi thay đổi release trên `master` đến commit `5c1dddaae51c4e76f72628c8206d54d9ff7e1aff` đã được push lên `origin/master` trước khi hồ sơ hậu push này được ghi.
+- Annotated tag `qmd-ops-v0.5.0` đã được push lên origin; tag object `7d45d37ae0ccf6e4933d3342dfc5de6f9c3abd4a` trỏ đến product commit `ba85e35db84e092fbb2c1786ceb9fff707dfc438`.
 - Release package có package ID `qmd-release-0-5-0-20260805-234913`; SHA-256 của ZIP là `018bfd0ec562f618efc3e1bf0c236a10cc87ec74b28f4805e33369686190ce24`.
-- Tag chưa được push; release chưa được phát hành chính thức.
+- Release chính thức chưa được tạo hoặc công bố; website chưa được publish.
 
 ## `0.4.0` — 2026-08-04
 

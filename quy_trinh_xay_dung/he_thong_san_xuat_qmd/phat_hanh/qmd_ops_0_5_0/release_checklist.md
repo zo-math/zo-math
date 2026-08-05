@@ -21,10 +21,10 @@ Snapshot triển khai dùng để thu thập bằng chứng: `4d8fe92c11d3b6da42
 - [x] Verify release ZIP bằng CLI bên ngoài gói đạt.
 - [x] Verify release ZIP bằng CLI tự chứa trong payload đạt.
 - [x] Đã ghi SHA-256 của release ZIP: `018bfd0ec562f618efc3e1bf0c236a10cc87ec74b28f4805e33369686190ce24`.
-- [x] Đã tạo annotated tag `qmd-ops-v0.5.0` trỏ đến target `ba85e35db84e092fbb2c1786ceb9fff707dfc438`; tag chỉ tồn tại cục bộ.
+- [x] Đã tạo annotated tag `qmd-ops-v0.5.0` trỏ đến target `ba85e35db84e092fbb2c1786ceb9fff707dfc438`.
+- [x] Đã push chuỗi thay đổi release trên `master` đến commit `5c1dddaae51c4e76f72628c8206d54d9ff7e1aff` lên `origin/master`.
+- [x] Đã push tag `qmd-ops-v0.5.0` lên origin; remote tag object là `7d45d37ae0ccf6e4933d3342dfc5de6f9c3abd4a`.
 
 ## Chưa thực hiện
 
-- [ ] Push nhánh `master`.
-- [ ] Push tag `qmd-ops-v0.5.0`.
-- [ ] Phát hành chính thức.
+- [ ] Tạo hoặc công bố release chính thức.
