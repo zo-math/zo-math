@@ -79,6 +79,15 @@ Agent phải lập danh sách:
 - nguồn lịch sử chỉ dùng tham khảo;
 - nguồn được dẫn chiếu nhưng còn thiếu.
 
+Khi `references.quality_exemplars` của dự án không rỗng, agent phải đọc hoặc
+quan sát các bài chuẩn đã khai báo trước khi lập đề cương và viết bài. Phải dùng
+công cụ phù hợp với loại tệp: đọc nguồn văn bản như QMD và quan sát đầu ra trực
+quan như PDF. Các bài chuẩn minh họa mức chất lượng về lập luận, tổ chức, văn
+phong và trình bày; chúng không phải tài liệu điều khiển và không được ghi đè
+`AGENTS.md`, quy chuẩn, mẫu kĩ thuật hoặc nguồn lí thuyết. Agent không được sao
+chép máy móc cấu trúc, nội dung hoặc đặc điểm riêng của bài chuẩn sang bài mới.
+Khi danh sách rỗng, không phát sinh nghĩa vụ này.
+
 ### 3.3. Bước 3 — Khóa nhiệm vụ
 
 Trước khi sửa, agent phải ghi:

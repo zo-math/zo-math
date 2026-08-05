@@ -110,6 +110,7 @@ references:
   templates:
     - _quy_trinh/ho_so_san_xuat_mac_dinh.yml
   theory_sources: []
+  quality_exemplars: []
 
 regression:
   articles:
@@ -305,11 +306,24 @@ references:
   templates:
     - _quy_trinh/ho_so_san_xuat_mac_dinh.yml
   theory_sources: []
+  quality_exemplars:
+    - depth/bai_mau_chat_luong.qmd
+    - depth/bai_mau_chat_luong.pdf
 ```
 
-Ba danh sách đều bắt buộc tồn tại.
+Bốn danh sách là thành phần chuẩn của cấu hình dự án mới. Ba khóa
+`controlling_documents`, `templates` và `theory_sources` bắt buộc tồn tại trong
+schema phiên bản 1. Khóa `quality_exemplars` là tùy chọn để giữ tương thích với
+cấu hình schema 1 đã có; khi vắng mặt, loader chuẩn hóa khóa này thành danh sách
+rỗng. Các cấu hình mới nên luôn khai báo tường minh, kể cả dưới dạng
+`quality_exemplars: []`.
 
-Loader phiên bản 1 kiểm tra chúng là danh sách chuỗi không trùng. Việc xác nhận tệp có tồn tại và có thẩm quyền thuộc quy trình dự án và nhiệm vụ cụ thể.
+Loader phiên bản 1 kiểm tra bốn giá trị là danh sách chuỗi không trùng. Mỗi
+`quality_exemplars` phải là đường dẫn tương đối an toàn bên trong
+`project.root`. `inspect` luôn xuất danh sách này, `doctor` kiểm tra sự tồn tại
+của các tệp đã khai báo, và gói context đưa chúng vào payload với role
+`quality_exemplar`. Việc xác định thẩm quyền của các tài liệu tham chiếu khác
+vẫn thuộc quy trình dự án và nhiệm vụ cụ thể.
 
 ### 4.9. `catalog`
 

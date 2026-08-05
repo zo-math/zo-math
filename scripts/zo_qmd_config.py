@@ -388,11 +388,28 @@ def load_project_config(repository_root: Path, config_path: Path) -> ProjectConf
     _known_keys(
         references,
         "references",
-        {"controlling_documents", "templates", "theory_sources"},
+        {
+            "controlling_documents",
+            "templates",
+            "theory_sources",
+            "quality_exemplars",
+        },
         {"controlling_documents", "templates", "theory_sources"},
     )
     for key in ("controlling_documents", "templates", "theory_sources"):
         _string_list(references[key], f"references.{key}")
+    references.setdefault("quality_exemplars", [])
+    quality_exemplars = _string_list(
+        references["quality_exemplars"],
+        "references.quality_exemplars",
+    )
+    for item in quality_exemplars:
+        exemplar = _relative_path(item, "references.quality_exemplars[]")
+        absolute = (project_root_absolute / exemplar).resolve()
+        if not _inside(absolute, project_root_absolute):
+            raise ProjectConfigError(
+                "references.quality_exemplars chứa đường dẫn ngoài dự án."
+            )
 
     regression = _mapping(data["regression"], "regression")
     _known_keys(
@@ -594,6 +611,7 @@ extensions: {}
         assert loaded.project_required_metadata == ()
         assert loaded.required_body_classes == ()
         assert loaded.placeholders == ()
+        assert loaded.raw["references"]["quality_exemplars"] == []
         assert loaded.article_type_for(Path("content/demo/core/demo.qmd")).id == "demo_article"
         assert loaded.profile_path_for(
             Path("content/demo/core/demo.qmd")
@@ -609,6 +627,30 @@ extensions: {}
             pass
         else:
             raise AssertionError("Cấu hình có khóa trùng phải bị từ chối.")
+
+        normalized = duplicate.rsplit("\nschema_version: 1\n", 1)[0]
+        normalized = normalized.replace(
+            "  theory_sources: []\n",
+            "  theory_sources: []\n"
+            "  quality_exemplars:\n"
+            "    - depth/demo.qmd\n"
+            "    - depth/demo.pdf\n",
+        )
+        config_path.write_text(normalized, encoding="utf-8")
+        loaded = load_project_config(root, config_path)
+        assert loaded.raw["references"]["quality_exemplars"] == [
+            "depth/demo.qmd",
+            "depth/demo.pdf",
+        ]
+
+        unsafe = normalized.replace("    - depth/demo.qmd\n", "    - ../escape.qmd\n")
+        config_path.write_text(unsafe, encoding="utf-8")
+        try:
+            load_project_config(root, config_path)
+        except ProjectConfigError:
+            pass
+        else:
+            raise AssertionError("Quality exemplar ngoài dự án phải bị từ chối.")
 
 
 def parser() -> argparse.ArgumentParser:

@@ -342,6 +342,9 @@ def _project_summary(root: Path, raw_path: str) -> tuple[dict[str, Any], int]:
             ),
             "templates": _reference_records(root, config, "templates"),
             "theory_sources": _reference_records(root, config, "theory_sources"),
+            "quality_exemplars": _reference_records(
+                root, config, "quality_exemplars"
+            ),
         },
         "publication": config.raw.get("publication", {}),
     }
@@ -476,6 +479,24 @@ def command_doctor(root: Path, args: argparse.Namespace) -> int:
             )
         else:
             add("project-configs", "FAIL", "Không tìm thấy cấu hình dự án.")
+        for config in configs:
+            exemplars = _reference_records(root, config, "quality_exemplars")
+            missing = [record["path"] for record in exemplars if not record["exists"]]
+            if missing:
+                add(
+                    f"quality-exemplars:{config.project_id}",
+                    "FAIL",
+                    "Thiếu: " + ", ".join(missing) + ".",
+                )
+            else:
+                paths = [record["path"] for record in exemplars]
+                add(
+                    f"quality-exemplars:{config.project_id}",
+                    "PASS",
+                    "Đã nhận diện: " + ", ".join(paths) + "."
+                    if paths
+                    else "Danh sách rỗng.",
+                )
         articles = _regression_articles(root)
         add(
             "regression-articles",
