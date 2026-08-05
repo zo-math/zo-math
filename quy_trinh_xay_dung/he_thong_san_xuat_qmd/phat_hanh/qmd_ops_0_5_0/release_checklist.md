@@ -16,13 +16,14 @@ Snapshot triển khai dùng để thu thập bằng chứng: `4d8fe92c11d3b6da42
 - [x] Manifest chứa hai record `quality_exemplar`, và cả hai tệp tồn tại trong payload theo đúng đường dẫn repository.
 - [x] Hai detached worktree dùng cho rollback drill đều sạch.
 - [x] Rollback drill từ `0.5.0` về `0.4.0` đạt mà không reset hoặc clean worktree sống.
+- [x] Đã tạo commit sạch chứa hồ sơ tiền đóng gói: `ba85e35db84e092fbb2c1786ceb9fff707dfc438`.
+- [x] Đã tạo release ZIP `qmd-ops-v0.5.0-rc.zip`.
+- [x] Verify release ZIP bằng CLI bên ngoài gói đạt.
+- [x] Verify release ZIP bằng CLI tự chứa trong payload đạt.
+- [x] Đã ghi SHA-256 của release ZIP: `018bfd0ec562f618efc3e1bf0c236a10cc87ec74b28f4805e33369686190ce24`.
 
 ## Chưa thực hiện
 
-- [ ] Tạo commit sạch chứa hồ sơ tiền đóng gói.
-- [ ] Tạo release ZIP.
-- [ ] Verify release ZIP bằng CLI bên ngoài gói.
-- [ ] Verify release ZIP bằng CLI tự chứa trong gói.
-- [ ] Ghi SHA-256 của release ZIP.
 - [ ] Tạo tag `qmd-ops-v0.5.0`.
-- [ ] Push hoặc phát hành chính thức.
+- [ ] Push.
+- [ ] Phát hành chính thức.
