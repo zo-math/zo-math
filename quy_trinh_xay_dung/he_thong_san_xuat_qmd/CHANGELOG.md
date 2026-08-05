@@ -2,6 +2,17 @@
 
 Tài liệu này ghi những thay đổi quan sát được của lớp vận hành cỗ máy QMD. Nó không thay thế lịch sử Git và không tự chứng minh một release đã được tạo.
 
+## `0.5.0` — 2026-08-05
+
+### Thêm và thay đổi
+
+- Nâng `scripts/zo_qmd.py` lên phiên bản `0.5.0`, hợp đồng lớp vận hành lên `0.5` và `scripts/zo_qmd_package.py` lên `0.4.0`.
+- Bổ sung hợp đồng dùng chung `references.quality_exemplars` để mỗi dự án khai báo các bài chuẩn chất lượng bằng đường dẫn tương đối bên trong dự án.
+- `inspect`, `doctor`, hồ sơ phiên của `start` và context package cùng nhận diện danh sách bài chuẩn; gói context ghi các tệp này trong nguồn bắt buộc với role `quality_exemplar`.
+- Giao thức agent yêu cầu đọc nguồn văn bản và quan sát đầu ra trực quan đã khai báo trước khi lập đề cương và viết bài, đồng thời cấm dùng bài chuẩn để ghi đè nguồn có thẩm quyền hoặc sao chép máy móc.
+- Giữ tương thích ngược với cấu hình `schema_version: 1`: khóa mới là tùy chọn đối với loader và được chuẩn hóa thành danh sách rỗng khi vắng mặt.
+- Giữ checker `2.6.0`, lõi QMD `1.0`, schema cấu hình dự án `1`, schema manifest package `1` và schema manifest phiên `start` là `1`.
+
 ## `0.4.0` — 2026-08-04
 
 ### Thêm và thay đổi

@@ -35,7 +35,7 @@ from zo_qmd_version import (
 )
 
 
-PACKAGE_MODULE_VERSION = "0.3.1"
+PACKAGE_MODULE_VERSION = "0.4.0"
 MANIFEST_VERSION = 1
 QMD_CORE_VERSION = "1.0"
 PROJECT_CONFIG_SCHEMA = 1
@@ -2004,9 +2004,9 @@ def _self_test_release_creation(base: Path) -> None:
     _self_test_write(
         root,
         Path("scripts/zo_qmd_version.py"),
-        'OPERATIONS_RELEASE_VERSION = "0.4.0"\n'
-        'OPERATIONS_CLI_VERSION = "0.4.0"\n'
-        'OPERATIONS_CONTRACT_VERSION = "0.4"\n',
+        'OPERATIONS_RELEASE_VERSION = "0.5.0"\n'
+        'OPERATIONS_CLI_VERSION = "0.5.0"\n'
+        'OPERATIONS_CONTRACT_VERSION = "0.5"\n',
     )
     _self_test_write(
         root,

@@ -1,6 +1,6 @@
 # Kiến trúc vận hành cỗ máy QMD
 
-> **Trạng thái:** Release `0.4.0` đã được người dùng chấp thuận làm release hiện hành; lớp vận hành đã khóa ở mốc nghiệm thu `1.0`. Hằng số máy đọc được `OPERATIONS_CONTRACT_VERSION` vẫn là `0.4` để khớp `MAJOR.MINOR` của release `0.4.0`. Git tag thật chưa được tạo; chưa push hoặc publish.
+> **Trạng thái:** Release hiện hành là `0.5.0`; lớp vận hành giữ mốc nghiệm thu `1.0`. Hằng số máy đọc được `OPERATIONS_CONTRACT_VERSION` là `0.5` để khớp `MAJOR.MINOR` của release `0.5.0`. Git tag thật chưa được tạo; chưa push hoặc publish.
 >
 > Tài liệu này bao quanh lõi kĩ thuật của Hệ thống sản xuất và kiểm định QMD phiên bản 1.0. Nó không thay thế `kien_truc_he_thong.md`, `hop_dong_loi_va_du_an.md` hoặc các quy chuẩn chuyên biệt của từng dự án.
 
@@ -94,7 +94,7 @@ Phạm vi O4 chỉ gồm các dự án đã được tích hợp, hiện có `fu
 python scripts/zo_python.py scripts/zo_qmd.py <command> [tham số...]
 ```
 
-Trong release hiện hành, `scripts/zo_qmd.py` phiên bản `0.4.0` là điểm vào vận hành cho:
+Trong release hiện hành, `scripts/zo_qmd.py` phiên bản `0.5.0` là điểm vào vận hành cho:
 
 ```text
 doctor
@@ -114,7 +114,7 @@ verify
 python scripts/zo_python.py scripts/zo_check_repo.py ...
 ```
 
-`zo_qmd.py` điều phối các thành phần hiện có, không sao chép validator và không thay đổi hợp đồng của `zo_check_repo.py`. `pack --kind context|release` và `verify` được triển khai qua `scripts/zo_qmd_package.py`; `context` là mặc định tương thích ngược và `--release-file` bắt buộc cho gói release. `start` tạo manifest phiên và kế hoạch từ yêu cầu ban đầu; `prepublish` gọi `scripts/zo_qmd_prepublish.py` để tổng hợp bằng chứng đã có, chỉ phản ánh trạng thái `accepted` khi bảng kiểm có người quan sát đã ghi nhận trạng thái ấy, không sửa hồ sơ và không xuất bản. Release hiện hành là `0.4.0`, sau khi O4 hoàn tất và người dùng chấp thuận release candidate.
+`zo_qmd.py` điều phối các thành phần hiện có, không sao chép validator và không thay đổi hợp đồng của `zo_check_repo.py`. `pack --kind context|release` và `verify` được triển khai qua `scripts/zo_qmd_package.py`; `context` là mặc định tương thích ngược và `--release-file` bắt buộc cho gói release. `start` tạo manifest phiên và kế hoạch từ yêu cầu ban đầu; `prepublish` gọi `scripts/zo_qmd_prepublish.py` để tổng hợp bằng chứng đã có, chỉ phản ánh trạng thái `accepted` khi bảng kiểm có người quan sát đã ghi nhận trạng thái ấy, không sửa hồ sơ và không xuất bản. Release hiện hành là `0.5.0`; mốc O4 `0.4.0` vẫn được giữ trong hồ sơ lịch sử.
 
 ### 3.1. Bộ lệnh đích
 
@@ -303,18 +303,18 @@ Không được coi một ZIP chỉ có danh sách tệp và commit trong commen
 
 Các phiên bản được quản lí độc lập:
 
-| Thành phần | Release `0.2.0` | Release `0.3.0` | Hiện hành `0.4.0` |
-|---|---:|---:|---:|
-| Lõi kĩ thuật QMD | `1.0` | `1.0` | `1.0` |
-| Checker | `2.6.0` | `2.6.0` | `2.6.0` |
-| Schema cấu hình dự án | `1` | `1` | `1` |
-| Hợp đồng lớp vận hành | `0.2` | `0.3` | `0.4` |
-| Schema manifest gói | `1` | `1` | `1` |
-| Schema hồ sơ phát hành | Chưa có | `1` | `1` |
-| Schema manifest phiên `start` | Chưa có | Chưa có | `1` |
-| Schema báo cáo `prepublish` | Chưa có | Chưa có | `1` |
-| CLI vận hành | `0.2.0` | `0.3.0` | `0.4.0` |
-| Mô-đun đóng gói | `0.2.0` | `0.3.0` | `0.3.1` |
+| Thành phần | Release `0.2.0` | Release `0.3.0` | Release `0.4.0` | Hiện hành `0.5.0` |
+|---|---:|---:|---:|---:|
+| Lõi kĩ thuật QMD | `1.0` | `1.0` | `1.0` | `1.0` |
+| Checker | `2.6.0` | `2.6.0` | `2.6.0` | `2.6.0` |
+| Schema cấu hình dự án | `1` | `1` | `1` | `1` |
+| Hợp đồng lớp vận hành | `0.2` | `0.3` | `0.4` | `0.5` |
+| Schema manifest gói | `1` | `1` | `1` | `1` |
+| Schema hồ sơ phát hành | Chưa có | `1` | `1` | `1` |
+| Schema manifest phiên `start` | Chưa có | Chưa có | `1` | `1` |
+| Schema báo cáo `prepublish` | Chưa có | Chưa có | `1` | `1` |
+| CLI vận hành | `0.2.0` | `0.3.0` | `0.4.0` | `0.5.0` |
+| Mô-đun đóng gói | `0.2.0` | `0.3.0` | `0.3.1` | `0.4.0` |
 
 Lớp vận hành dùng phiên bản `MAJOR.MINOR.PATCH`:
 
@@ -324,9 +324,9 @@ Lớp vận hành dùng phiên bản `MAJOR.MINOR.PATCH`:
 
 Release `0.3.0` thêm khả năng tạo và xác minh release candidate nhưng giữ nguyên giao diện context của O2, nên mức tăng là `MINOR`. Schema manifest gói vẫn là `1` vì `package.kind: release` và nhóm `release` đã thuộc hợp đồng schema hiện hành.
 
-Release `0.4.0` bổ sung hai lệnh tương thích ngược `start` và `prepublish`, đồng thời thêm schema manifest phiên cùng schema báo cáo trước xuất bản ở phiên bản `1`. Checker, lõi, schema cấu hình và schema manifest gói không đổi; mô-đun đóng gói tăng `PATCH` lên `0.3.1` để tách phiên bản release khỏi phiên bản riêng của mô-đun. Đây là mã của release hiện hành sau khi RC đã được xác minh và người dùng chấp thuận.
+Release `0.4.0` bổ sung hai lệnh tương thích ngược `start` và `prepublish`, đồng thời thêm schema manifest phiên cùng schema báo cáo trước xuất bản ở phiên bản `1`. Checker, lõi, schema cấu hình và schema manifest gói không đổi; mô-đun đóng gói tăng `PATCH` lên `0.3.1` để tách phiên bản release khỏi phiên bản riêng của mô-đun. Đây là mã tại mốc O4 sau khi RC đã được xác minh và người dùng chấp thuận.
 
-Ma trận đầy đủ, điểm quay lại và điều kiện có hiệu lực được khóa tại `ma_tran_phien_ban_qmd.md`. Release `0.3.0` là mốc hoàn tất O3; release hiện hành là `0.4.0`, và lớp vận hành đã được người dùng khóa ở mốc nghiệm thu `1.0` sau khi O4 hoàn tất.
+Ma trận đầy đủ, điểm quay lại và điều kiện có hiệu lực được khóa tại `ma_tran_phien_ban_qmd.md`. Release `0.3.0` là mốc hoàn tất O3, `0.4.0` là mốc hoàn tất O4, release hiện hành là `0.5.0`, và lớp vận hành giữ mốc nghiệm thu `1.0`.
 
 ## 8. Bảo trì, phát hành và khôi phục
 
