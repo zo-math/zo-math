@@ -1,6 +1,6 @@
 # Ma trận phiên bản của cỗ máy QMD
 
-> **Trạng thái:** Release hiện hành là `0.5.0`; lớp vận hành giữ mốc nghiệm thu `1.0`. Hằng số máy đọc được `OPERATIONS_CONTRACT_VERSION` là `0.5` để khớp `MAJOR.MINOR` của release `0.5.0`. Annotated tag `qmd-ops-v0.5.0` đã được tạo cục bộ và trỏ đến product commit `ba85e35db84e092fbb2c1786ceb9fff707dfc438`; bằng chứng hậu đóng gói được khóa tại commit `9dd5d082f78cced6ae136f6e836c65196af55300`. Tag chưa được push; release chưa được phát hành chính thức và chưa publish.
+> **Trạng thái:** Release hiện hành là `0.5.0`; lớp vận hành giữ mốc nghiệm thu `1.0`. Hằng số máy đọc được `OPERATIONS_CONTRACT_VERSION` là `0.5` để khớp `MAJOR.MINOR` của release `0.5.0`. Tại thời điểm push tag, nhánh `master` và `origin/master` đã được xác minh đồng bộ tại commit `5c1dddaae51c4e76f72628c8206d54d9ff7e1aff`. Annotated tag `qmd-ops-v0.5.0` đã được push lên origin; tag object là `7d45d37ae0ccf6e4933d3342dfc5de6f9c3abd4a` và trỏ đến product commit `ba85e35db84e092fbb2c1786ceb9fff707dfc438`. Release chính thức chưa được tạo hoặc công bố; website chưa được publish.
 >
 > Tài liệu này ghi quan hệ giữa các phiên bản được quản lí độc lập. Nó không thay thế hằng số phiên bản trong mã đang chạy và không tự tạo release hoặc Git tag.
 
@@ -85,11 +85,12 @@ giao thức agent quy định cách đọc hoặc quan sát chúng. Checker, lõ
 schema giữ nguyên vì thay đổi không tác động validator và cấu trúc phiên bản 1
 vẫn biểu diễn đầy đủ hợp đồng mới.
 
-Annotated tag cục bộ `qmd-ops-v0.5.0` của release này trỏ đến product commit
-`ba85e35db84e092fbb2c1786ceb9fff707dfc438`. Bằng chứng hậu đóng gói được
-khóa tại commit `9dd5d082f78cced6ae136f6e836c65196af55300`; tag không trỏ đến commit
-hậu đóng gói này. Tag chưa được push lên origin; release chưa được phát hành
-chính thức và chưa publish.
+Tại thời điểm push tag, nhánh `master` và `origin/master` đã được xác minh
+đồng bộ tại commit `5c1dddaae51c4e76f72628c8206d54d9ff7e1aff`. Annotated tag
+`qmd-ops-v0.5.0` đã được push lên origin; tag object là
+`7d45d37ae0ccf6e4933d3342dfc5de6f9c3abd4a` và trỏ đến product commit
+`ba85e35db84e092fbb2c1786ceb9fff707dfc438`, không trỏ đến `master` hiện
+tại. Release chính thức chưa được tạo hoặc công bố; website chưa được publish.
 
 ## 4. Danh tính release candidate O3
 

@@ -57,10 +57,14 @@ Hai log verify được tạo sau ZIP nên không thuộc payload của gói.
 - Tag trỏ đến candidate/product commit `ba85e35db84e092fbb2c1786ceb9fff707dfc438`.
 - Post-package evidence commit là `9dd5d082f78cced6ae136f6e836c65196af55300`; tag không trỏ đến commit này.
 - Tag message khóa package ID `qmd-release-0-5-0-20260805-234913` và SHA-256 `018bfd0ec562f618efc3e1bf0c236a10cc87ec74b28f4805e33369686190ce24`.
-- Tag chưa tồn tại trên origin.
 - Việc tạo tag không sửa ZIP và không thay đổi SHA-256 của ZIP.
-- Tag và nhánh chưa được push; release chưa được phát hành chính thức.
+- Tại thời điểm push tag, nhánh `master` và `origin/master` đã được xác minh đồng bộ tại commit `5c1dddaae51c4e76f72628c8206d54d9ff7e1aff`.
+- Tag được push lên origin sau khi ZIP và hai phép verify đã hoàn tất.
+- Remote tag object `7d45d37ae0ccf6e4933d3342dfc5de6f9c3abd4a` khớp local tag object.
+- Remote peeled target khớp product commit `ba85e35db84e092fbb2c1786ceb9fff707dfc438`; tag không trỏ đến `master` hiện tại.
+- Việc push tag không sửa ZIP và không thay đổi SHA-256 `018bfd0ec562f618efc3e1bf0c236a10cc87ec74b28f4805e33369686190ce24`.
+- Release chính thức chưa được tạo hoặc công bố; website chưa được publish.
 
 ## Kết luận
 
-Release candidate `0.5.0` đã được đóng gói và vượt cả xác minh bằng CLI ngoài gói lẫn CLI tự chứa. Git tag đã được tạo cục bộ nhưng chưa được push; release chưa được phát hành chính thức.
+Release candidate `0.5.0` đã được đóng gói và vượt cả xác minh bằng CLI ngoài gói lẫn CLI tự chứa. Annotated tag đã được push lên origin; release chính thức chưa được tạo hoặc công bố và website chưa được publish.
