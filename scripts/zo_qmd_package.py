@@ -673,6 +673,15 @@ def _reference_paths(config: Any, key: str) -> list[Path]:
     return result
 
 
+def _quality_exemplar_sources(root: Path, config: Any) -> list[PackageSource]:
+    sources: list[PackageSource] = []
+    for path in _reference_paths(config, "quality_exemplars"):
+        if not (root / path).is_file():
+            raise PackageError(f"Thiếu quality exemplar: {path.as_posix()}.")
+        sources.append(PackageSource(path, "quality_exemplar"))
+    return sources
+
+
 def _project_sources(root: Path, scope_files: Iterable[Path]) -> dict[str, list[PackageSource]]:
     required: dict[Path, PackageSource] = {}
     conditional: dict[Path, PackageSource] = {}
@@ -736,6 +745,11 @@ def _project_sources(root: Path, scope_files: Iterable[Path]) -> dict[str, list[
                         "Đọc khi quy chuẩn nén chưa đủ cho trường hợp đang xét.",
                     ),
                 )
+        for source in _quality_exemplar_sources(root, config):
+            required.setdefault(
+                source.path,
+                source,
+            )
 
     return {
         "required": list(required.values()),
@@ -2133,7 +2147,150 @@ def _self_test_release_creation(base: Path) -> None:
         raise PackageError("Self-test không từ chối release từ worktree bẩn.")
 
 
+def _self_test_context_quality_exemplars(base: Path) -> None:
+    root = base / "context-repo"
+    root.mkdir()
+
+    for relative in CORE_DOCUMENTS:
+        _self_test_write(root, relative, f"# {relative.name}\n")
+    for relative in RUNTIME_ENTRYPOINTS:
+        _self_test_write(root, relative, "# runtime self-test\n")
+
+    project_root = Path("content/demo")
+    article = project_root / "core/demo.qmd"
+    exemplar_qmd = project_root / "depth/exemplar.qmd"
+    exemplar_pdf = project_root / "depth/exemplar.pdf"
+    config_path = project_root / "_quy_trinh/cau_hinh_san_xuat_qmd.yml"
+    _self_test_write(root, article, "---\ntitle: Demo\n---\n")
+    _self_test_write(root, exemplar_qmd, "---\ntitle: Exemplar\n---\n")
+    _self_test_write(root, exemplar_pdf, "%PDF-1.4\n% self-test\n")
+    _self_test_write(
+        root,
+        config_path,
+        """schema_version: 1
+project:
+  id: demo
+  name: Demo
+  root: content/demo
+discovery:
+  article_types:
+    - id: demo_article
+      include:
+        - core/*.qmd
+      exclude: []
+profiles:
+  directory: _quy_trinh/ho_so
+  naming: by_article_stem
+  required: false
+modules:
+  required:
+    - qmd-core
+  optional: []
+metadata:
+  core_required: []
+  project_required: []
+  body_classes_required: []
+  placeholders: []
+publication:
+  production_states:
+    - draft
+    - in_production
+    - validated
+    - accepted
+  publication_states:
+    - pending
+    - published
+  user_confirmation_required: true
+references:
+  controlling_documents: []
+  templates: []
+  theory_sources: []
+  quality_exemplars:
+    - depth/exemplar.qmd
+    - depth/exemplar.pdf
+regression:
+  articles: []
+  expected_checker_version: null
+  preserve_cli: true
+extensions: {}
+""",
+    )
+
+    _self_test_git(root, "init", "-q")
+    _self_test_git(root, "config", "user.name", "ZO QMD Self Test")
+    _self_test_git(root, "config", "user.email", "qmd-self-test@example.invalid")
+    _self_test_git(root, "add", "--all")
+    _self_test_git(root, "commit", "-q", "-m", "context baseline")
+
+    prompt = base / "PROMPT-context.md"
+    prompt.write_text("# Context self-test\n", encoding="utf-8", newline="\n")
+    output = base / "context-package"
+    create_package(
+        root,
+        output=output,
+        prompt_file=prompt,
+        purpose="Quality exemplar context self-test",
+        scope_paths=[article.as_posix()],
+        include_paths=[],
+        scope_mode=None,
+        inside_repository_reason=None,
+        kind="context",
+    )
+
+    manifest = yaml.safe_load((output / "MANIFEST.yml").read_text(encoding="utf-8"))
+    required = manifest["sources"]["required"]
+    exemplar_records = {
+        item["path"]: item["role"]
+        for item in required
+        if item.get("role") == "quality_exemplar"
+    }
+    expected = {
+        exemplar_qmd.as_posix(): "quality_exemplar",
+        exemplar_pdf.as_posix(): "quality_exemplar",
+    }
+    if exemplar_records != expected:
+        raise PackageError("Self-test ghi sai quality exemplars trong manifest.")
+    for relative in expected:
+        if not (output / "payload" / relative).is_file():
+            raise PackageError(
+                f"Self-test thiếu quality exemplar trong payload: {relative}."
+            )
+
+    verified = verify_directory(output)
+    if verified["exit_code"] != EXIT_OK:
+        raise PackageError(
+            "Self-test verify context exemplar thất bại: "
+            + json.dumps(verified, ensure_ascii=False)
+        )
+
+    (root / exemplar_pdf).unlink()
+    try:
+        create_package(
+            root,
+            output=base / "missing-exemplar-package",
+            prompt_file=prompt,
+            purpose="Missing exemplar context self-test",
+            scope_paths=[article.as_posix()],
+            include_paths=[],
+            scope_mode=None,
+            inside_repository_reason=None,
+            kind="context",
+        )
+    except PackageError as exc:
+        if "Thiếu quality exemplar" not in str(exc):
+            raise
+    else:
+        raise PackageError("Self-test không từ chối quality exemplar bị thiếu.")
+
+
 def self_test() -> int:
+    try:
+        with tempfile.TemporaryDirectory(prefix="zo-qmd-context-self-test-") as raw:
+            _self_test_context_quality_exemplars(Path(raw))
+    except PackageError as exc:
+        print(f"Context exemplar self-test thất bại: {exc}", file=sys.stderr)
+        return EXIT_FAILED
+
     with tempfile.TemporaryDirectory(prefix="zo-qmd-package-self-test-") as raw:
         root = Path(raw) / "sample"
         payload = root / "payload"
