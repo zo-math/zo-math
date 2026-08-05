@@ -1,6 +1,6 @@
 # Ma trận phiên bản của cỗ máy QMD
 
-> **Trạng thái:** Release `0.4.0` đã được người dùng chấp thuận làm release hiện hành; lớp vận hành đã khóa ở mốc nghiệm thu `1.0`. Hằng số máy đọc được `OPERATIONS_CONTRACT_VERSION` vẫn là `0.4` để khớp `MAJOR.MINOR` của release `0.4.0`. Git tag thật chưa được tạo; chưa push hoặc publish.
+> **Trạng thái:** Release hiện hành là `0.5.0`; lớp vận hành giữ mốc nghiệm thu `1.0`. Hằng số máy đọc được `OPERATIONS_CONTRACT_VERSION` là `0.5` để khớp `MAJOR.MINOR` của release `0.5.0`. Git tag thật chưa được tạo; chưa push hoặc publish.
 >
 > Tài liệu này ghi quan hệ giữa các phiên bản được quản lí độc lập. Nó không thay thế hằng số phiên bản trong mã đang chạy và không tự tạo release hoặc Git tag.
 
@@ -21,7 +21,7 @@ Cỗ máy QMD gồm nhiều thành phần có vòng đời khác nhau. Một tha
 - Tài liệu này là hồ sơ phối hợp phát hành: tại thời điểm tạo release candidate, các giá trị của nó phải khớp mã, manifest, changelog và bằng chứng kiểm nghiệm.
 - Khi mã và ma trận khác nhau, không được tự chọn một phía rồi tiếp tục phát hành; phải dừng và xử lí sai lệch.
 
-## 3. Ma trận các release `0.3.0` và `0.4.0`
+## 3. Ma trận các release `0.3.0`, `0.4.0` và `0.5.0`
 
 Release trước được khóa tại:
 
@@ -43,9 +43,9 @@ commit: c1b26b9a0536b17e0885d8158fddbd20413767c2
 
 Release `0.3.0` bổ sung khả năng tạo và xác minh release candidate nhưng giữ tương thích ngược với gói context và giao diện đã có ở O2. Vì vậy, mức thay đổi đúng là `MINOR`, không phải `MAJOR`.
 
-### 3.1. Ma trận release hiện hành `0.4.0`
+### 3.1. Ma trận release `0.4.0` tại mốc O4
 
-| Thành phần | Release trước `0.3.0` | Release hiện hành `0.4.0` | Quyết định |
+| Thành phần | Release trước `0.3.0` | Release O4 `0.4.0` | Quyết định |
 |---|---:|---:|---|
 | Lõi kĩ thuật QMD | `1.0` | `1.0` | Giữ nguyên |
 | Checker | `2.6.0` | `2.6.0` | Giữ nguyên |
@@ -64,6 +64,26 @@ Release `0.4.0` bổ sung hai khả năng tương thích ngược: `start` lập
 `0.4.0` là release hiện hành sau khi người dùng chấp thuận release candidate tại commit `6425dec241cc27cad76bf55f8385531e56fb1a86`. Package ID là `qmd-release-0-4-0-20260804-142216`; chưa tạo Git tag thật, chưa push hoặc publish.
 
 Mốc nghiệm thu **lớp vận hành `1.0`** ghi mức trưởng thành của toàn hệ thống vận hành. Nó không thay thế phiên bản hợp đồng máy đọc được `0.4`, vốn phải khớp `MAJOR.MINOR` của release `0.4.0`.
+
+### 3.2. Ma trận release hiện hành `0.5.0`
+
+| Thành phần | Release trước `0.4.0` | Release hiện hành `0.5.0` | Quyết định |
+|---|---:|---:|---|
+| Lõi kĩ thuật QMD | `1.0` | `1.0` | Giữ nguyên |
+| Checker | `2.6.0` | `2.6.0` | Giữ nguyên |
+| Schema cấu hình dự án | `1` | `1` | Giữ nguyên; khóa mới tương thích ngược |
+| Schema manifest gói | `1` | `1` | Giữ nguyên |
+| Schema manifest phiên `start` | `1` | `1` | Giữ nguyên |
+| Hợp đồng lớp vận hành | `0.4` | `0.5` | Nâng `MINOR` |
+| `scripts/zo_qmd.py` | `0.4.0` | `0.5.0` | Nâng `MINOR` |
+| `scripts/zo_qmd_package.py` | `0.3.1` | `0.4.0` | Nâng `MINOR` |
+
+Release `0.5.0` bổ sung khả năng tương thích ngược
+`references.quality_exemplars`: loader chuẩn hóa khóa vắng mặt thành danh sách
+rỗng; `inspect`, `doctor`, `start` và context package cùng nhận diện bài chuẩn;
+giao thức agent quy định cách đọc hoặc quan sát chúng. Checker, lõi QMD và các
+schema giữ nguyên vì thay đổi không tác động validator và cấu trúc phiên bản 1
+vẫn biểu diễn đầy đủ hợp đồng mới.
 
 ## 4. Danh tính release candidate O3
 

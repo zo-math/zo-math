@@ -1,6 +1,6 @@
 # Hệ thống sản xuất và kiểm định QMD cho ZO Math
 
-> **Trạng thái:** Release `0.4.0` đã được người dùng chấp thuận làm release hiện hành; lớp vận hành đã khóa ở mốc nghiệm thu `1.0`. Hằng số máy đọc được `OPERATIONS_CONTRACT_VERSION` vẫn là `0.4` để khớp `MAJOR.MINOR` của release `0.4.0`. Git tag thật chưa được tạo; chưa push hoặc publish.
+> **Trạng thái:** Release hiện hành là `0.5.0`; lớp vận hành giữ mốc nghiệm thu `1.0`. Hằng số máy đọc được `OPERATIONS_CONTRACT_VERSION` là `0.5` để khớp `MAJOR.MINOR` của release `0.5.0`. Git tag thật chưa được tạo; chưa push hoặc publish.
 >
 > Đây là tài liệu vận hành nội bộ. Nó chỉ có thẩm quyền trong phạm vi mà `AGENTS.md`, cấu hình dự án hoặc yêu cầu hiện tại của người dùng dẫn chiếu. Các hồ sơ kiểm kê và thiết kế ban đầu được giữ lại như bằng chứng lịch sử, không tự động ghi đè quy trình đang có hiệu lực ở nơi khác.
 
@@ -13,12 +13,13 @@
 - schema cấu hình dự án phiên bản `1`;
 - chế độ native và đường hồi quy hai dự án.
 
-Release hiện hành `0.4.0` bao gồm:
+Release hiện hành `0.5.0` bao gồm:
 
-- `scripts/zo_qmd.py` phiên bản `0.4.0`;
-- `scripts/zo_qmd_package.py` phiên bản `0.3.1`;
+- `scripts/zo_qmd.py` phiên bản `0.5.0`;
+- `scripts/zo_qmd_package.py` phiên bản `0.4.0`;
 - chín lệnh `doctor`, `inspect`, `start`, `prepublish`, `check`, `render`, `regression`, `pack`, `verify`;
 - khả năng lập manifest phiên, khóa kế hoạch, tạo và xác minh gói context hoặc release, tổng hợp bằng chứng trước xuất bản;
+- khả năng dùng chung `references.quality_exemplars` trong `inspect`, `doctor`, `start`, giao thức agent và gói context;
 - bằng chứng hồi quy, trình diễn đầu-cuối, release candidate và rollback drill của O4.
 
 Release `0.3.0` cùng hồ sơ O3 được giữ làm bằng chứng lịch sử của giai đoạn phát hành và khôi phục.
@@ -163,9 +164,9 @@ scripts/zo_qmd_package.py
 Trạng thái phiên bản:
 
 ```text
-CURRENT OPERATIONS RELEASE: 0.4.0
-QMD OPERATIONS CLI: 0.4.0
-PACKAGE MODULE: 0.3.1
+CURRENT OPERATIONS RELEASE: 0.5.0
+QMD OPERATIONS CLI: 0.5.0
+PACKAGE MODULE: 0.4.0
 ```
 
 Các lệnh đã triển khai:

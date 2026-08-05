@@ -1,6 +1,6 @@
 # Giao thức cho agent, chat-box và gói ngữ cảnh QMD
 
-> **Trạng thái:** Release `0.4.0` đã được người dùng chấp thuận làm release hiện hành; lớp vận hành đã khóa ở mốc nghiệm thu `1.0`. Hằng số máy đọc được `OPERATIONS_CONTRACT_VERSION` vẫn là `0.4` để khớp `MAJOR.MINOR` của release `0.4.0`. Git tag thật chưa được tạo; chưa push hoặc publish.
+> **Trạng thái:** Release hiện hành là `0.5.0`; lớp vận hành giữ mốc nghiệm thu `1.0`. Hằng số máy đọc được `OPERATIONS_CONTRACT_VERSION` là `0.5` để khớp `MAJOR.MINOR` của release `0.5.0`. Git tag thật chưa được tạo; chưa push hoặc publish.
 >
 > Tài liệu này quy định cách một agent trong VS Code hoặc một chat-box tiếp nhận và bàn giao nhiệm vụ QMD. Nó không thay thế chỉ dẫn cấp repository hoặc quy chuẩn chuyên biệt của dự án.
 
@@ -425,7 +425,7 @@ Giao diện này đã được triển khai, kiểm nghiệm và dùng để t�
 
 ### 7.7. Giao diện lập hồ sơ phiên và báo cáo trước xuất bản của O4
 
-CLI hiện hành `0.4.0` bổ sung hai lệnh tương thích ngược:
+CLI `0.4.0` tại mốc O4 đã bổ sung hai lệnh tương thích ngược:
 
 ```text
 start --output <session.json> (--request <text> | --request-file <file>) [--allow <path>] [--exclude <path>] <target>
