@@ -115,7 +115,7 @@ references:
 regression:
   articles:
     - core/bai_hoi_quy.qmd
-  expected_checker_version: "2.6.0"
+  expected_checker_version: "2.7.0"
   preserve_cli: true
 
 extensions: {}
@@ -356,7 +356,7 @@ Logic khớp bài với danh mục thuộc validator dự án.
 regression:
   articles:
     - core/bai_hoi_quy.qmd
-  expected_checker_version: "2.6.0"
+  expected_checker_version: "2.7.0"
   preserve_cli: true
 ```
 

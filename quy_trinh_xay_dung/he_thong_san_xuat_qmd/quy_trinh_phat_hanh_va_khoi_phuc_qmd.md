@@ -1,6 +1,6 @@
 # Quy trình phát hành và khôi phục lớp vận hành QMD
 
-> **Trạng thái:** Release hiện hành là `0.5.0`; lớp vận hành giữ mốc nghiệm thu `1.0`. Hằng số máy đọc được `OPERATIONS_CONTRACT_VERSION` là `0.5` để khớp `MAJOR.MINOR` của release `0.5.0`. Tại thời điểm push tag, nhánh `master` và `origin/master` đã được xác minh đồng bộ tại commit `5c1dddaae51c4e76f72628c8206d54d9ff7e1aff`. Annotated tag `qmd-ops-v0.5.0` đã được push lên origin; tag object là `7d45d37ae0ccf6e4933d3342dfc5de6f9c3abd4a` và trỏ đến product commit `ba85e35db84e092fbb2c1786ceb9fff707dfc438`. Release chính thức chưa được tạo hoặc công bố; website chưa được publish.
+> **Trạng thái:** Release/tag hiện hành là `0.5.0`; tag đã push vẫn trỏ đến product commit lịch sử của `0.5.0`. Ứng viên đang nghiệm thu là `0.6.0`, với CLI `0.6.0`, contract `0.6`, package module `0.5.0` và checker `2.7.0`. Chưa tag, push, tạo release package hoặc publish `0.6.0`.
 >
 > Quy trình này chỉ điều hành lớp vận hành QMD. Nó không tự stage, commit, tag, push, publish hoặc thay đổi trạng thái bài.
 
@@ -197,6 +197,12 @@ Release candidate chỉ đạt khi manifest, checksum, payload và bằng chứn
 - Tag trỏ đến product commit `ba85e35db84e092fbb2c1786ceb9fff707dfc438`, không trỏ đến `master` hiện tại.
 - Bằng chứng hậu đóng gói được khóa tại commit `9dd5d082f78cced6ae136f6e836c65196af55300`.
 - Release chính thức chưa được tạo hoặc công bố; website chưa được publish.
+
+### 7.10. Trạng thái ứng viên `0.6.0`
+
+- Danh tính máy đọc được: release/CLI `0.6.0`, contract `0.6`, package module `0.5.0`, checker `2.7.0`.
+- Các schema phiên, evidence, human review và prepublish giữ lần lượt `2`, `1`, `2`, `2`.
+- `0.6.0` chưa được tag, push, đóng gói release hoặc publish; chỉ trở thành release sau quy trình nghiệm thu và phát hành riêng.
 
 ## 8. Cấu trúc hồ sơ theo phiên bản
 

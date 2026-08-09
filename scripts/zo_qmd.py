@@ -14,9 +14,10 @@ import os
 import shutil
 import subprocess
 import sys
+import uuid
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Sequence
+from typing import Any, Callable, Sequence
 
 from zo_check_repo import CHECKER_VERSION
 from zo_qmd_config import (
@@ -28,6 +29,11 @@ from zo_qmd_config import (
 )
 from zo_qmd_registry import ModuleRegistryError, build_validation_plan
 from zo_qmd_prepublish import PrepublishError, build_report
+from zo_qmd_sources import (
+    AuthoritySourceError,
+    authority_manifest,
+    provenance_manifest,
+)
 from zo_qmd_version import OPERATIONS_CLI_VERSION
 
 EXIT_OK = 0
@@ -70,6 +76,7 @@ SYSTEM_SCRIPTS = (
     Path("scripts/zo_quarto.py"),
     Path("scripts/zo_qmd.py"),
     Path("scripts/zo_qmd_package.py"),
+    Path("scripts/zo_qmd_sources.py"),
     Path("scripts/zo_qmd_version.py"),
     Path("scripts/zo_qmd_prepublish.py"),
     Path("scripts/zo_artifact_freshness.py"),
@@ -87,9 +94,79 @@ SELF_TEST_SCRIPTS = (
     Path("scripts/zo_qmd_core.py"),
     Path("scripts/zo_real_world_problem.py"),
     Path("scripts/zo_qmd_package.py"),
+    Path("scripts/zo_qmd_sources.py"),
     Path("scripts/zo_qmd_version.py"),
     Path("scripts/zo_qmd_prepublish.py"),
 )
+
+REGRESSION_ALLOWED_ROOTS = {"_audit", ".quarto", "_freeze", "docs"}
+REGRESSION_ALLOWED_CACHE_DIRS = {
+    "__pycache__",
+    ".pytest_cache",
+    ".mypy_cache",
+}
+
+
+def _filesystem_inventory(root: Path) -> set[Path]:
+    inventory: set[Path] = set()
+    for path in root.rglob("*"):
+        relative = path.relative_to(root)
+        if relative.parts and relative.parts[0] == ".git":
+            continue
+        inventory.add(relative)
+    return inventory
+
+
+def _regression_hygiene_violations(
+    before: set[Path],
+    after: set[Path],
+    *,
+    exact_outputs: Sequence[Path] = (),
+    allowed_trees: Sequence[Path] = (),
+) -> list[Path]:
+    exact = {Path(path) for path in exact_outputs}
+    trees = tuple(Path(path) for path in allowed_trees)
+    violations: list[Path] = []
+    for relative in sorted(after - before, key=lambda item: item.as_posix()):
+        if not relative.parts:
+            continue
+        if relative in exact:
+            continue
+        if any(output in relative.parents for output in exact):
+            violations.append(relative)
+            continue
+        if relative.parts[0] in REGRESSION_ALLOWED_ROOTS:
+            continue
+        if any(part in REGRESSION_ALLOWED_CACHE_DIRS for part in relative.parts):
+            continue
+        if any(relative == tree or tree in relative.parents for tree in trees):
+            continue
+        violations.append(relative)
+    return violations
+
+
+def _regression_declared_outputs(
+    root: Path,
+    articles: Sequence[Path],
+    report: str | None,
+) -> tuple[list[Path], list[Path]]:
+    exact_outputs: list[Path] = []
+    allowed_trees: list[Path] = []
+    for article in articles:
+        exact_outputs.extend(
+            (
+                article.with_suffix(".html"),
+                article.with_suffix(".pdf"),
+            )
+        )
+        allowed_trees.append(article.parent / f"{article.stem}_files")
+    if report:
+        report_path = _explicit_output_path(root, report)
+        try:
+            exact_outputs.append(report_path.relative_to(root))
+        except ValueError:
+            pass
+    return exact_outputs, allowed_trees
 
 
 def _run(
@@ -319,6 +396,17 @@ def _project_summary(root: Path, raw_path: str) -> tuple[dict[str, Any], int]:
             "compatibility_mode": validation_plan.compatibility_mode,
         }
 
+    authority_sources = authority_manifest(
+        root,
+        relative,
+        config=config,
+    )
+    provenance = (
+        provenance_manifest(root, config.profile_path_for(relative))
+        if article_type is not None
+        else None
+    )
+
     payload: dict[str, Any] = {
         "operations_cli_version": OPERATIONS_CLI_VERSION,
         "checker_version": CHECKER_VERSION,
@@ -346,6 +434,8 @@ def _project_summary(root: Path, raw_path: str) -> tuple[dict[str, Any], int]:
                 root, config, "quality_exemplars"
             ),
         },
+        "authority_sources": authority_sources,
+        "provenance": provenance,
         "publication": config.raw.get("publication", {}),
     }
 
@@ -361,6 +451,18 @@ def _project_summary(root: Path, raw_path: str) -> tuple[dict[str, Any], int]:
             payload["warning"] = (
                 "Hồ sơ bắt buộc chưa tồn tại; phải được tạo trong pha sản xuất."
             )
+
+    missing_authority = authority_sources.get("missing_required", [])
+    if missing_authority:
+        payload["error"] = (
+            "Thiếu nguồn có thẩm quyền bắt buộc: "
+            + ", ".join(str(item) for item in missing_authority)
+        )
+        exit_code = EXIT_FAILED
+
+    if isinstance(provenance, dict) and provenance.get("blocked"):
+        payload["error"] = "Provenance của nguồn đã dùng bị mismatch hoặc missing."
+        exit_code = EXIT_FAILED
 
     return payload, exit_code
 
@@ -549,7 +651,13 @@ def command_inspect(root: Path, args: argparse.Namespace) -> int:
         payload, exit_code = _project_summary(root, args.path)
         print(json.dumps(payload, ensure_ascii=False, indent=2))
         return exit_code
-    except (ProjectConfigError, ModuleRegistryError, ValueError, OSError) as exc:
+    except (
+        AuthoritySourceError,
+        ProjectConfigError,
+        ModuleRegistryError,
+        ValueError,
+        OSError,
+    ) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return EXIT_FAILED
 
@@ -567,20 +675,31 @@ def command_start(root: Path, args: argparse.Namespace) -> int:
         snapshot = _git_snapshot(root)
 
         reference_groups = summary.get("references", {})
-        missing_references: list[str] = []
-        for records in reference_groups.values():
-            for record in records:
-                if not record.get("exists", False):
-                    missing_references.append(str(record.get("path")))
+        authority_sources = summary.get("authority_sources", {})
+        expected_authority_fingerprint = str(
+            authority_sources.get("fingerprint", "")
+        )
+        provided_authority_fingerprint = (
+            args.authority_ack.strip()
+            if isinstance(args.authority_ack, str)
+            else ""
+        )
 
         blocked_reasons: list[str] = []
         if inspect_exit != EXIT_OK:
             blocked_reasons.append(
                 str(summary.get("error", "Inspect không đạt."))
             )
-        if missing_references:
+
+        if not provided_authority_fingerprint:
             blocked_reasons.append(
-                "Thiếu nguồn điều khiển: " + ", ".join(missing_references)
+                "Chưa có xác nhận của agent rằng đã hoàn tất các hành động "
+                "read/observe cho tập nguồn có thẩm quyền bắt buộc."
+            )
+        elif provided_authority_fingerprint != expected_authority_fingerprint:
+            blocked_reasons.append(
+                "Fingerprint xác nhận nguồn có thẩm quyền không khớp "
+                "fingerprint hiện hành từ inspect."
             )
 
         target = str(summary["target"])
@@ -611,7 +730,8 @@ def command_start(root: Path, args: argparse.Namespace) -> int:
         excluded = _unique_paths(excluded_paths)
 
         payload: dict[str, Any] = {
-            "session_manifest_version": 1,
+            "session_manifest_version": 2,
+            "session_id": str(uuid.uuid4()),
             "created_at": datetime.now(timezone.utc).isoformat().replace(
                 "+00:00", "Z"
             ),
@@ -636,6 +756,27 @@ def command_start(root: Path, args: argparse.Namespace) -> int:
                 "agents_chain": list(summary.get("agents_chain", [])),
                 "project_config": summary["project"]["config_path"],
                 "references": reference_groups,
+                "discovered": authority_sources,
+                "acknowledgement": {
+                    "required_fingerprint": expected_authority_fingerprint,
+                    "provided_fingerprint": (
+                        provided_authority_fingerprint or None
+                    ),
+                    "matches_current": (
+                        bool(provided_authority_fingerprint)
+                        and provided_authority_fingerprint
+                        == expected_authority_fingerprint
+                    ),
+                    "status": (
+                        "locked"
+                        if (
+                            provided_authority_fingerprint
+                            and provided_authority_fingerprint
+                            == expected_authority_fingerprint
+                        )
+                        else "blocked"
+                    ),
+                },
             },
             "scope": {
                 "target": target,
@@ -661,11 +802,11 @@ def command_start(root: Path, args: argparse.Namespace) -> int:
                     ),
                     "check": (
                         "python scripts/zo_python.py scripts/zo_qmd.py "
-                        f"check {target}"
+                        f"check --session {output} {target}"
                     ),
                     "render": (
                         "python scripts/zo_python.py scripts/zo_qmd.py "
-                        f"render {target}"
+                        f"render --session {output} {target}"
                     ),
                 },
                 "user_gates": [
@@ -674,6 +815,7 @@ def command_start(root: Path, args: argparse.Namespace) -> int:
                 ],
                 "stop_conditions": [
                     "missing_authority_source",
+                    "authority_sources_not_acknowledged",
                     "automated_check_failure",
                     "render_failure",
                     "human_review_not_recorded",
@@ -705,6 +847,7 @@ def command_start(root: Path, args: argparse.Namespace) -> int:
         )
         return int(payload["exit_code"])
     except (
+        AuthoritySourceError,
         ProjectConfigError,
         ModuleRegistryError,
         ValueError,
@@ -758,53 +901,79 @@ def command_prepublish(root: Path, args: argparse.Namespace) -> int:
         return EXIT_FAILED
 
 
-def _checker_arguments(args: argparse.Namespace) -> list[str]:
+def _checker_arguments(root: Path, args: argparse.Namespace) -> list[str]:
     result: list[str] = []
     if args.staged:
         result.append("--staged")
     if args.report:
         result.extend(["--report", args.report])
+    if args.session:
+        session_path = Path(args.session).expanduser()
+        if not session_path.is_absolute():
+            session_path = root / session_path
+        session = json.loads(session_path.read_text(encoding="utf-8"))
+        if not isinstance(session, dict):
+            raise ValueError("Manifest phiên phải là JSON object.")
+        if session.get("session_manifest_version") != 2:
+            raise ValueError("Evidence production yêu cầu session_manifest_version=2.")
+        session_id = session.get("session_id")
+        if not isinstance(session_id, str) or not session_id.strip():
+            raise ValueError("Manifest phiên thiếu session_id.")
+        session_target = session.get("scope", {}).get("target")
+        targets = [_relative_to_root(root, raw).as_posix() for raw in args.paths]
+        if len(targets) != 1 or session_target != targets[0]:
+            raise ValueError("Manifest phiên không khớp đúng một target check/render.")
+        result.extend(["--session-id", session_id.strip()])
     result.extend(args.paths)
     return result
 
 
 def command_checker(root: Path, mode: str, args: argparse.Namespace) -> int:
-    command = _script_command(
-        root,
-        Path("scripts/zo_check_repo.py"),
-        mode,
-        *_checker_arguments(args),
-    )
-    return _run_step(root, f"QMD {mode.upper()}", command)
+    try:
+        command = _script_command(
+            root,
+            Path("scripts/zo_check_repo.py"),
+            mode,
+            *_checker_arguments(root, args),
+        )
+        return _run_step(root, f"QMD {mode.upper()}", command)
+    except (OSError, UnicodeError, json.JSONDecodeError, ValueError) as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return EXIT_FAILED
 
 
-def command_regression(root: Path, args: argparse.Namespace) -> int:
+def _run_regression_steps(
+    root: Path,
+    args: argparse.Namespace,
+) -> tuple[int, list[Path]]:
     try:
         articles = _regression_articles(root)
     except (ProjectConfigError, OSError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
-        return EXIT_FAILED
+        return EXIT_FAILED, []
 
-    for script in SELF_TEST_SCRIPTS:
-        command = _script_command(root, script, "self-test")
-        exit_code = _run_step(root, f"SELF-TEST {script.name}", command)
-        if exit_code != EXIT_OK:
-            return exit_code
+    exit_code = _self_test_regression_hygiene()
+
+    if exit_code == EXIT_OK:
+        for script in SELF_TEST_SCRIPTS:
+            command = _script_command(root, script, "self-test")
+            exit_code = _run_step(root, f"SELF-TEST {script.name}", command)
+            if exit_code != EXIT_OK:
+                break
 
     raw_articles = [item.as_posix() for item in articles]
-    scope_args = ["scope", *raw_articles]
-    if args.report and not args.render:
-        scope_args.extend(["--report", args.report])
-    scope_command = _script_command(
-        root,
-        Path("scripts/zo_check_repo.py"),
-        *scope_args,
-    )
-    exit_code = _run_step(root, "REGRESSION SOURCE", scope_command)
-    if exit_code != EXIT_OK:
-        return exit_code
+    if exit_code == EXIT_OK:
+        scope_args = ["scope", *raw_articles]
+        if args.report and not args.render:
+            scope_args.extend(["--report", args.report])
+        scope_command = _script_command(
+            root,
+            Path("scripts/zo_check_repo.py"),
+            *scope_args,
+        )
+        exit_code = _run_step(root, "REGRESSION SOURCE", scope_command)
 
-    if args.render:
+    if exit_code == EXIT_OK and args.render:
         render_args = ["render", *raw_articles]
         if args.report:
             render_args.extend(["--report", args.report])
@@ -814,8 +983,82 @@ def command_regression(root: Path, args: argparse.Namespace) -> int:
             *render_args,
         )
         exit_code = _run_step(root, "REGRESSION RENDER", render_command)
+
+    return exit_code, articles
+
+
+def command_regression(
+    root: Path,
+    args: argparse.Namespace,
+    *,
+    step_runner: Callable[
+        [Path, argparse.Namespace], tuple[int, list[Path]]
+    ] = _run_regression_steps,
+) -> int:
+    before = _filesystem_inventory(root)
+    articles: list[Path] = []
+    exit_code = EXIT_OK
+    violations: list[Path] = []
+    failure: dict[str, Any] | None = None
+    hygiene_error: str | None = None
+    try:
+        exit_code, articles = step_runner(root, args)
         if exit_code != EXIT_OK:
-            return exit_code
+            failure = {
+                "type": "step_exit",
+                "exit_code": exit_code,
+            }
+    except Exception as exc:
+        failure = {
+            "type": type(exc).__name__,
+            "message": str(exc),
+        }
+        print(f"ERROR: {type(exc).__name__}: {exc}", file=sys.stderr)
+        exit_code = EXIT_FAILED
+    finally:
+        try:
+            exact_outputs, allowed_trees = _regression_declared_outputs(
+                root,
+                articles,
+                args.report,
+            )
+            violations = _regression_hygiene_violations(
+                before,
+                _filesystem_inventory(root),
+                exact_outputs=exact_outputs,
+                allowed_trees=allowed_trees,
+            )
+        except (OSError, ValueError) as exc:
+            hygiene_error = str(exc)
+            print(f"ERROR: Hygiene classification: {exc}", file=sys.stderr)
+            exit_code = EXIT_FAILED
+
+    if violations:
+        exit_code = EXIT_FAILED
+    hygiene_status = "ERROR" if hygiene_error else ("FAIL" if violations else "PASS")
+    print()
+    print(
+        json.dumps(
+            {
+                "automated_result": (
+                    "FAIL" if exit_code != EXIT_OK else "PASS"
+                ),
+                "regression_failure": failure,
+                "hygiene": {
+                    "status": hygiene_status,
+                    "unexpected_new_paths": [
+                        path.as_posix() for path in violations
+                    ],
+                    "error": hygiene_error,
+                },
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+    )
+
+    if exit_code != EXIT_OK:
+        return exit_code
 
     print()
     print(
@@ -824,6 +1067,149 @@ def command_regression(root: Path, args: argparse.Namespace) -> int:
         f"| articles={len(articles)} "
         f"| render={'yes' if args.render else 'no'}"
     )
+    return EXIT_OK
+
+
+def _self_test_regression_hygiene() -> int:
+    import contextlib
+    import io
+    import tempfile
+
+    with tempfile.TemporaryDirectory(prefix="zo-qmd-hygiene-self-test-") as raw:
+        root = Path(raw)
+        (root / "content/existing").mkdir(parents=True)
+        (root / "content/existing/article.qmd").write_text(
+            "existing\n", encoding="utf-8"
+        )
+        (root / "content/demo").mkdir()
+        (root / "pre-existing-root.tmp").write_text(
+            "existing\n", encoding="utf-8"
+        )
+        before = _filesystem_inventory(root)
+
+        (root / "_audit").mkdir()
+        (root / "_audit/evidence.json").write_text("{}\n", encoding="utf-8")
+        (root / "docs").mkdir()
+        (root / "docs/article.html").write_text("output\n", encoding="utf-8")
+        (root / ".quarto/cache").mkdir(parents=True)
+        (root / ".quarto/cache/state").write_text("cache\n", encoding="utf-8")
+        (root / "_freeze/article").mkdir(parents=True)
+        (root / "_freeze/article/output.json").write_text(
+            "{}\n", encoding="utf-8"
+        )
+        (root / "content/demo/__pycache__").mkdir(parents=True)
+        (root / "content/demo/__pycache__/module.pyc").write_bytes(b"cache")
+        allowed = _regression_hygiene_violations(
+            before,
+            _filesystem_inventory(root),
+        )
+        if allowed:
+            print(
+                "Regression hygiene self-test quy lỗi path hợp lệ: "
+                + ", ".join(path.as_posix() for path in allowed),
+                file=sys.stderr,
+            )
+            return EXIT_FAILED
+
+        exact_outputs = (
+            Path("_audit/regression-report.json"),
+            Path("content/demo/article.html"),
+            Path("content/demo/article.pdf"),
+        )
+        allowed_trees = (Path("content/demo/article_files"),)
+        declared_after = {
+            *exact_outputs,
+            Path("_audit/regression-report.json/child.tmp"),
+            Path("content/demo/article.html/child.tmp"),
+            Path("content/demo/article.pdf/child.tmp"),
+            Path("content/demo/article_files"),
+            Path("content/demo/article_files/figure.png"),
+        }
+        declared_violations = _regression_hygiene_violations(
+            set(),
+            declared_after,
+            exact_outputs=exact_outputs,
+            allowed_trees=allowed_trees,
+        )
+        declared_actual = [path.as_posix() for path in declared_violations]
+        declared_expected = [
+            "_audit/regression-report.json/child.tmp",
+            "content/demo/article.html/child.tmp",
+            "content/demo/article.pdf/child.tmp",
+        ]
+        if declared_actual != declared_expected:
+            print(
+                "Regression hygiene self-test phân loại sai exact/tree: "
+                + json.dumps(declared_actual, ensure_ascii=False),
+                file=sys.stderr,
+            )
+            return EXIT_FAILED
+
+        (root / "probe.tmp").write_text("helper\n", encoding="utf-8")
+        (root / "empty-root-helper").mkdir()
+        (root / "content/scratch").mkdir(parents=True)
+        (root / "content/scratch/helper.tmp").write_text(
+            "helper\n", encoding="utf-8"
+        )
+        violations = _regression_hygiene_violations(
+            before,
+            _filesystem_inventory(root),
+        )
+        actual = [path.as_posix() for path in violations]
+        expected = [
+            "content/scratch",
+            "content/scratch/helper.tmp",
+            "empty-root-helper",
+            "probe.tmp",
+        ]
+        if actual != expected:
+            print(
+                "Regression hygiene self-test báo sai path: "
+                + json.dumps(actual, ensure_ascii=False),
+                file=sys.stderr,
+            )
+            return EXIT_FAILED
+
+        failure_root = root / "failure-fixture"
+        failure_root.mkdir()
+
+        def injected_failure(
+            injected_root: Path,
+            _args: argparse.Namespace,
+        ) -> tuple[int, list[Path]]:
+            (injected_root / "unexpected-helper.tmp").write_text(
+                "helper\n", encoding="utf-8"
+            )
+            raise RuntimeError("injected regression failure")
+
+        captured_stdout = io.StringIO()
+        captured_stderr = io.StringIO()
+        failure_args = argparse.Namespace(report=None, render=False)
+        with contextlib.redirect_stdout(captured_stdout), contextlib.redirect_stderr(
+            captured_stderr
+        ):
+            failure_exit = command_regression(
+                failure_root,
+                failure_args,
+                step_runner=injected_failure,
+            )
+        failure_payload = json.loads(captured_stdout.getvalue())
+        if (
+            failure_exit != EXIT_FAILED
+            or failure_payload.get("regression_failure", {}).get("type")
+            != "RuntimeError"
+            or failure_payload.get("hygiene", {}).get("unexpected_new_paths")
+            != ["unexpected-helper.tmp"]
+            or "injected regression failure" not in captured_stderr.getvalue()
+            or not (failure_root / "unexpected-helper.tmp").is_file()
+        ):
+            print(
+                "Regression hygiene self-test không giữ đủ failure/evidence.",
+                file=sys.stderr,
+            )
+            return EXIT_FAILED
+
+    print("PASS: zo_qmd regression hygiene self-test")
     return EXIT_OK
 
 
@@ -948,6 +1334,14 @@ def parser() -> argparse.ArgumentParser:
         help="Tệp UTF-8 chứa nguyên văn yêu cầu ban đầu.",
     )
     start.add_argument(
+        "--authority-ack",
+        help=(
+            "Fingerprint authority_sources từ inspect. Truyền giá trị này là "
+            "xác nhận tường minh của agent rằng đã hoàn tất các hành động "
+            "read/observe cho toàn bộ nguồn bắt buộc của fingerprint đó."
+        ),
+    )
+    start.add_argument(
         "path",
         help="Đường dẫn bài dự kiến hoặc phạm vi dự án trong repository.",
     )
@@ -1004,6 +1398,13 @@ def parser() -> argparse.ArgumentParser:
     common = argparse.ArgumentParser(add_help=False)
     common.add_argument("--staged", action="store_true", help="Kiểm tra vùng staged.")
     common.add_argument("--report", help="Báo cáo JSON bên trong _audit/.")
+    common.add_argument(
+        "--session",
+        help=(
+            "Manifest session version 2 do start tạo. Không bắt buộc cho kiểm tra "
+            "độc lập; bắt buộc nếu report sẽ dùng cho prepublish."
+        ),
+    )
     common.add_argument("paths", nargs="+", help="Phạm vi tường minh.")
 
     subparsers.add_parser(
@@ -1029,6 +1430,11 @@ def parser() -> argparse.ArgumentParser:
     regression.add_argument(
         "--report",
         help="Báo cáo JSON bên trong _audit/ cho bước checker cuối.",
+    )
+
+    subparsers.add_parser(
+        "self-test",
+        help="Chạy self-test thuần của lớp vận hành.",
     )
 
 
@@ -1127,6 +1533,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return command_checker(root, "render", args)
     if args.command == "regression":
         return command_regression(root, args)
+    if args.command == "self-test":
+        return _self_test_regression_hygiene()
     if args.command == "pack":
         return command_pack(root, args)
 

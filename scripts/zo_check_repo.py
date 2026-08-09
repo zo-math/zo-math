@@ -6,6 +6,7 @@ Includes the technical output contract for function-article QMD files.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -52,7 +53,7 @@ except ImportError:  # Reported as missing dependency with exit code 3 in main()
     yaml = None
 
 
-CHECKER_VERSION = "2.6.0"
+CHECKER_VERSION = "2.7.0"
 
 EXIT_OK = 0
 EXIT_FAILED = 1
@@ -98,6 +99,7 @@ class Checker:
         self.staged = staged
         self.checks: list[Check] = []
         self.warnings: list[str] = []
+        self.outputs: list[dict[str, str]] = []
 
     def _path_text(self, path: Path | None) -> str | None:
         if path is None:
@@ -1601,6 +1603,23 @@ def output_dir(root: Path) -> Path:
     return root / str(value)
 
 
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def record_observation_output(checker: Checker, path: Path, kind: str) -> None:
+    relative = path.resolve().relative_to(checker.root.resolve()).as_posix()
+    if any(item["path"] == relative for item in checker.outputs):
+        return
+    checker.outputs.append(
+        {"path": relative, "sha256": sha256_file(path), "kind": kind}
+    )
+
+
 def render_pages(paths: Sequence[Path], checker: Checker) -> int | None:
     try:
         base_command, quarto_env = prepare_quarto([])
@@ -1629,7 +1648,11 @@ def render_pages(paths: Sequence[Path], checker: Checker) -> int | None:
         html = out_dir / relative.with_suffix(".html")
         checker.add("render-html", html.exists(), f"HTML: {html.relative_to(checker.root).as_posix()}", relative)
         if html.exists():
+            record_observation_output(checker, html, "html")
             dispatch_article_render_validators(relative, html, checker)
+        pdf = page.with_suffix(".pdf")
+        if pdf.is_file():
+            record_observation_output(checker, pdf, "pdf")
     return None
 
 
@@ -1655,9 +1678,19 @@ def report_path(root: Path, raw: str) -> Path | None:
     return target if inside(target, audit) and target.suffix.lower() == ".json" else None
 
 
-def write_report(path: Path, checker: Checker, scope: Sequence[Path], exit_code: int) -> None:
+def write_report(
+    path: Path,
+    checker: Checker,
+    scope: Sequence[Path],
+    exit_code: int,
+    session_id: str | None,
+) -> None:
     automated_result = "FAIL" if checker.failed else ("PASS_WITH_WARNINGS" if checker.has_warnings else "PASS")
+    target = scope[0] if len(scope) == 1 else None
+    target_path = checker.root / target if target is not None else None
     payload = {
+        "evidence_report_version": 1,
+        "session_id": session_id,
         "checker_version": CHECKER_VERSION,
         "mode": checker.mode,
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -1665,6 +1698,13 @@ def write_report(path: Path, checker: Checker, scope: Sequence[Path], exit_code:
         "final_acceptance": "NOT_RUN",
         "repo_root": str(checker.root),
         "scope": [item.as_posix() for item in scope],
+        "target": target.as_posix() if target is not None else None,
+        "target_sha256": (
+            sha256_file(target_path)
+            if target_path is not None and target_path.is_file()
+            else None
+        ),
+        "outputs": checker.outputs if checker.mode == "render" else [],
         "staged": checker.staged,
         "checks": [asdict(item) for item in checker.checks],
         "warnings": checker.warnings,
@@ -1678,6 +1718,10 @@ def parser() -> argparse.ArgumentParser:
     common = argparse.ArgumentParser(add_help=False)
     common.add_argument("--staged", action="store_true", help="Kiểm tra vùng staged.")
     common.add_argument("--report", help="Ghi báo cáo JSON bên trong _audit/.")
+    common.add_argument(
+        "--session-id",
+        help="Identity production session do lớp vận hành truyền vào report.",
+    )
     result = argparse.ArgumentParser(description=__doc__)
     subparsers = result.add_subparsers(dest="mode", required=True)
     quick = subparsers.add_parser("quick", parents=[common], help="Kiểm tra nhanh, không render.")
@@ -1727,7 +1771,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.report:
         target = report_path(root, args.report)
         try:
-            write_report(target, checker, paths, exit_code)
+            write_report(target, checker, paths, exit_code, args.session_id)
             checker.add("report", True, f"Đã ghi {target.relative_to(root).as_posix()}.")
         except OSError as exc:
             checker.add("report", False, str(exc))
