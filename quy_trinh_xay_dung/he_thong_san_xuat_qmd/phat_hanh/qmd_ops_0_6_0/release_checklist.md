@@ -28,7 +28,7 @@ Release package đã được tạo từ commit metadata tiền đóng gói `Cme
 - [x] Verify release ZIP bằng CLI tự chứa trong payload.
 - [x] Khóa package ID `qmd-release-0-6-0-20260809-220845` và SHA-256 `9e16f0124bcf44bb5ddc54ac6a771981075ecf00f5b0af7b0b2a0d6f4b78521e` của release ZIP.
 - [x] Human acceptance cho release candidate.
-- [ ] Tạo annotated tag `qmd-ops-v0.6.0` trỏ đến `Cmeta`.
+- [x] Tạo annotated tag `qmd-ops-v0.6.0` trỏ đến `Cmeta`.
 - [ ] Push chuỗi commit release.
 - [ ] Push annotated tag.
 - [ ] Tạo hoặc công bố release chính thức.
