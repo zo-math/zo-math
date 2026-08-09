@@ -2,6 +2,22 @@
 
 Tài liệu này ghi những thay đổi quan sát được của lớp vận hành cỗ máy QMD. Nó không thay thế lịch sử Git và không tự chứng minh một release đã được tạo.
 
+## `0.6.0` — candidate, chưa phát hành
+
+### Thêm và thay đổi
+
+- Nâng CLI ứng viên lên `0.6.0`, hợp đồng lớp vận hành lên `0.6`, package module lên `0.5.0` và checker lên `2.7.0`.
+- Dùng shared authority-source discovery, fingerprint và acknowledgement bắt buộc trước khi bắt đầu production session.
+- Thêm provenance checksum gate; nguồn đã dùng bị missing hoặc mismatch sẽ BLOCK và giữ vị trí quyết định chịu ảnh hưởng trong evidence.
+- Bổ sung identity/freshness cho session, checker evidence, render outputs và human review; prepublish khóa chuỗi static, observed output và final human acceptance.
+- Khóa context package trong repository dưới `_audit/` và thêm filesystem hygiene cho regression dựa trên delta trước–sau.
+- Giữ `session_manifest_version=2`, `evidence_report_version=1`, `review_manifest_version=2` và `prepublish_report_version=2`.
+
+### Trạng thái
+
+- Đây là candidate đang nghiệm thu; chưa tag, push, tạo release package hoặc publish `0.6.0`.
+- Release/tag hiện hành vẫn là `0.5.0`.
+
 ## `0.5.0` — 2026-08-05
 
 ### Thêm và thay đổi

@@ -1,6 +1,6 @@
 # Hệ thống sản xuất và kiểm định QMD cho ZO Math
 
-> **Trạng thái:** Release hiện hành là `0.5.0`; lớp vận hành giữ mốc nghiệm thu `1.0`. Hằng số máy đọc được `OPERATIONS_CONTRACT_VERSION` là `0.5` để khớp `MAJOR.MINOR` của release `0.5.0`. Tại thời điểm push tag, nhánh `master` và `origin/master` đã được xác minh đồng bộ tại commit `5c1dddaae51c4e76f72628c8206d54d9ff7e1aff`. Annotated tag `qmd-ops-v0.5.0` đã được push lên origin; tag object là `7d45d37ae0ccf6e4933d3342dfc5de6f9c3abd4a` và trỏ đến product commit `ba85e35db84e092fbb2c1786ceb9fff707dfc438`. Release chính thức chưa được tạo hoặc công bố; website chưa được publish.
+> **Trạng thái:** Release/tag hiện hành là `0.5.0`. Ứng viên đang nghiệm thu là `0.6.0`, với CLI `0.6.0`, hợp đồng máy đọc được `0.6`, package module `0.5.0` và checker `2.7.0`. Chưa tag, push, tạo release package hoặc publish `0.6.0`.
 >
 > Đây là tài liệu vận hành nội bộ. Nó chỉ có thẩm quyền trong phạm vi mà `AGENTS.md`, cấu hình dự án hoặc yêu cầu hiện tại của người dùng dẫn chiếu. Các hồ sơ kiểm kê và thiết kế ban đầu được giữ lại như bằng chứng lịch sử, không tự động ghi đè quy trình đang có hiệu lực ở nơi khác.
 
@@ -9,7 +9,7 @@
 Đã hoàn thành và khóa:
 
 - lõi kĩ thuật QMD phiên bản `1.0`;
-- checker phiên bản `2.6.0`;
+- checker ứng viên phiên bản `2.7.0`;
 - schema cấu hình dự án phiên bản `1`;
 - chế độ native và đường hồi quy hai dự án.
 
@@ -21,6 +21,12 @@ Release hiện hành `0.5.0` bao gồm:
 - khả năng lập manifest phiên, khóa kế hoạch, tạo và xác minh gói context hoặc release, tổng hợp bằng chứng trước xuất bản;
 - khả năng dùng chung `references.quality_exemplars` trong `inspect`, `doctor`, `start`, giao thức agent và gói context;
 - bằng chứng hồi quy, trình diễn đầu-cuối, release candidate và rollback drill của O4.
+
+Ứng viên `0.6.0` đang nghiệm thu nâng CLI lên `0.6.0`, hợp đồng vận hành
+lên `0.6`, package module lên `0.5.0` và checker lên `2.7.0`. Các schema
+manifest phiên, evidence, human review và prepublish lần lượt giữ phiên bản
+`2`, `1`, `2` và `2`. Ứng viên này chưa được tag, push, đóng gói release
+hoặc publish.
 
 Trạng thái phát hành của `0.5.0`: tại thời điểm push tag, nhánh `master` và
 `origin/master` đã được xác minh đồng bộ tại commit
@@ -172,9 +178,12 @@ scripts/zo_qmd_package.py
 Trạng thái phiên bản:
 
 ```text
-CURRENT OPERATIONS RELEASE: 0.5.0
-QMD OPERATIONS CLI: 0.5.0
-PACKAGE MODULE: 0.4.0
+PUBLISHED/TAGGED OPERATIONS RELEASE: 0.5.0
+CANDIDATE OPERATIONS RELEASE: 0.6.0
+QMD OPERATIONS CLI CANDIDATE: 0.6.0
+OPERATIONS CONTRACT CANDIDATE: 0.6
+PACKAGE MODULE CANDIDATE: 0.5.0
+CHECKER CANDIDATE: 2.7.0
 ```
 
 Các lệnh đã triển khai:

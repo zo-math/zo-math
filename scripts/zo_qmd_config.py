@@ -131,6 +131,12 @@ def _load_yaml_unique(text: str) -> Any:
     return yaml.load(text, Loader=UniqueKeyLoader)
 
 
+def load_yaml_document(path: Path) -> Any:
+    """Load one UTF-8 YAML document with the repository duplicate-key guard."""
+
+    return _load_yaml_unique(path.read_text(encoding="utf-8"))
+
+
 def _mapping(value: Any, label: str) -> dict[str, Any]:
     if not isinstance(value, dict) or not all(isinstance(key, str) for key in value):
         raise ProjectConfigError(f"{label} phải là mapping có khóa chuỗi.")

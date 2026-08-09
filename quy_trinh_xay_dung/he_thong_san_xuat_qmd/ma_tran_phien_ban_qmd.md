@@ -1,6 +1,6 @@
 # Ma trận phiên bản của cỗ máy QMD
 
-> **Trạng thái:** Release hiện hành là `0.5.0`; lớp vận hành giữ mốc nghiệm thu `1.0`. Hằng số máy đọc được `OPERATIONS_CONTRACT_VERSION` là `0.5` để khớp `MAJOR.MINOR` của release `0.5.0`. Tại thời điểm push tag, nhánh `master` và `origin/master` đã được xác minh đồng bộ tại commit `5c1dddaae51c4e76f72628c8206d54d9ff7e1aff`. Annotated tag `qmd-ops-v0.5.0` đã được push lên origin; tag object là `7d45d37ae0ccf6e4933d3342dfc5de6f9c3abd4a` và trỏ đến product commit `ba85e35db84e092fbb2c1786ceb9fff707dfc438`. Release chính thức chưa được tạo hoặc công bố; website chưa được publish.
+> **Trạng thái:** Release/tag hiện hành là `0.5.0`. Candidate đang nghiệm thu là `0.6.0`: CLI `0.6.0`, contract `0.6`, package module `0.5.0`, checker `2.7.0`. Chưa tag, push, tạo release package hoặc publish `0.6.0`.
 >
 > Tài liệu này ghi quan hệ giữa các phiên bản được quản lí độc lập. Nó không thay thế hằng số phiên bản trong mã đang chạy và không tự tạo release hoặc Git tag.
 
@@ -21,7 +21,7 @@ Cỗ máy QMD gồm nhiều thành phần có vòng đời khác nhau. Một tha
 - Tài liệu này là hồ sơ phối hợp phát hành: tại thời điểm tạo release candidate, các giá trị của nó phải khớp mã, manifest, changelog và bằng chứng kiểm nghiệm.
 - Khi mã và ma trận khác nhau, không được tự chọn một phía rồi tiếp tục phát hành; phải dừng và xử lí sai lệch.
 
-## 3. Ma trận các release `0.3.0`, `0.4.0` và `0.5.0`
+## 3. Ma trận các release `0.3.0`, `0.4.0`, `0.5.0` và candidate `0.6.0`
 
 Release trước được khóa tại:
 
@@ -91,6 +91,26 @@ Tại thời điểm push tag, nhánh `master` và `origin/master` đã được
 `7d45d37ae0ccf6e4933d3342dfc5de6f9c3abd4a` và trỏ đến product commit
 `ba85e35db84e092fbb2c1786ceb9fff707dfc438`, không trỏ đến `master` hiện
 tại. Release chính thức chưa được tạo hoặc công bố; website chưa được publish.
+
+### 3.3. Ma trận candidate `0.6.0`
+
+| Thành phần | Release/tag hiện hành `0.5.0` | Candidate `0.6.0` | Quyết định |
+|---|---:|---:|---|
+| Lõi kĩ thuật QMD | `1.0` | `1.0` | Giữ nguyên |
+| Checker | `2.6.0` | `2.7.0` | Nâng vì giao diện evidence quan sát được thay đổi |
+| Schema cấu hình dự án | `1` | `1` | Giữ nguyên |
+| Schema manifest gói | `1` | `1` | Giữ nguyên |
+| Schema manifest phiên `start` | `1` | `2` | Giữ identity/session contract đã triển khai |
+| Schema evidence checker | Chưa có | `1` | Ghi evidence có identity máy đọc được |
+| Schema human review | `1` | `2` | Khóa observation và final human acceptance |
+| Schema báo cáo `prepublish` | `1` | `2` | Khóa chuỗi nghiệm thu ba lớp |
+| Hợp đồng lớp vận hành | `0.5` | `0.6` | Nâng `MINOR` |
+| `scripts/zo_qmd.py` | `0.5.0` | `0.6.0` | Nâng `MINOR` |
+| `scripts/zo_qmd_package.py` | `0.4.0` | `0.5.0` | Nâng `MINOR` tương thích ngược |
+
+Candidate `0.6.0` bổ sung authority acknowledgement, provenance gate, evidence
+identity/freshness, chuỗi nghiệm thu ba lớp và repository hygiene. Candidate
+chưa được tag, push, tạo release package hoặc publish.
 
 ## 4. Danh tính release candidate O3
 

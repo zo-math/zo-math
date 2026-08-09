@@ -1,6 +1,6 @@
 # Tiêu chí nghiệm thu lớp vận hành cỗ máy QMD
 
-> **Trạng thái:** Release hiện hành là `0.5.0`; lớp vận hành giữ mốc nghiệm thu `1.0`. Hằng số máy đọc được `OPERATIONS_CONTRACT_VERSION` là `0.5` để khớp `MAJOR.MINOR` của release `0.5.0`. Git tag thật chưa được tạo; chưa push hoặc publish.
+> **Trạng thái:** Release/tag hiện hành là `0.5.0`; lớp vận hành giữ mốc nghiệm thu `1.0`. Ứng viên `0.6.0` đang được nghiệm thu với CLI `0.6.0`, contract `0.6`, package module `0.5.0` và checker `2.7.0`; chưa tag, push hoặc publish `0.6.0`.
 >
 > Tài liệu này đánh giá lớp vận hành bao quanh lõi QMD 1.0. Nó không thay thế `tieu_chi_nghiem_thu_he_thong.md`, vốn ghi nhận nghiệm thu của lõi kĩ thuật phiên bản 1.0.
 

@@ -29,13 +29,19 @@ import yaml
 
 from zo_check_repo import CHECKER_VERSION
 from zo_qmd_config import ProjectConfigError, discover_project_config
+from zo_qmd_sources import (
+    AuthoritySource,
+    AuthoritySourceError,
+    SYSTEM_AUTHORITY_DOCUMENTS,
+    discover_authority_sources,
+)
 from zo_qmd_version import (
     OPERATIONS_CONTRACT_VERSION,
     OPERATIONS_RELEASE_VERSION,
 )
 
 
-PACKAGE_MODULE_VERSION = "0.4.0"
+PACKAGE_MODULE_VERSION = "0.5.0"
 MANIFEST_VERSION = 1
 QMD_CORE_VERSION = "1.0"
 PROJECT_CONFIG_SCHEMA = 1
@@ -74,6 +80,7 @@ RUNTIME_ENTRYPOINTS = (
     Path("scripts/zo_python.py"),
     Path("scripts/zo_qmd.py"),
     Path("scripts/zo_qmd_package.py"),
+    Path("scripts/zo_qmd_sources.py"),
     Path("scripts/zo_qmd_version.py"),
 )
 
@@ -112,10 +119,6 @@ FORBIDDEN_SUFFIXES = {
     ".pyc",
 }
 
-AGENT_PATH_PATTERN = re.compile(
-    r"`([^`\n]+?\.(?:md|qmd|ya?ml|py))`",
-    flags=re.IGNORECASE,
-)
 CHECKSUM_LINE_PATTERN = re.compile(
     r"^([0-9a-f]{64})  ([^\r\n]+)$"
 )
@@ -625,131 +628,66 @@ def _runtime_dependency_closure(root: Path) -> set[Path]:
     return resolved
 
 
-def _agent_chain(root: Path, relative: Path) -> list[Path]:
-    target = root / relative
-    start = target if target.is_dir() else target.parent
-    try:
-        start_relative = start.resolve().relative_to(root.resolve())
-    except ValueError as exc:
-        raise PackageError(f"Đường dẫn nằm ngoài repository: {relative}") from exc
-
-    chain: list[Path] = []
-    current = Path()
-    root_agents = Path("AGENTS.md")
-    if (root / root_agents).is_file():
-        chain.append(root_agents)
-
-    for part in start_relative.parts:
-        current /= part
-        candidate = current / "AGENTS.md"
-        if candidate != root_agents and (root / candidate).is_file():
-            chain.append(candidate)
-    return chain
-
-
-def _agent_references(root: Path, agents_path: Path) -> set[Path]:
-    absolute = root / agents_path
-    if not absolute.is_file():
-        return set()
-    text = absolute.read_text(encoding="utf-8", errors="replace")
-    found: set[Path] = set()
-    for raw in AGENT_PATH_PATTERN.findall(text):
-        candidate = Path(raw)
-        if candidate.is_absolute():
-            continue
-        normalized = Path(PurePosixPath(raw.replace("\\", "/")))
-        if (root / normalized).is_file():
-            found.add(normalized)
-    return found
-
-
-def _reference_paths(config: Any, key: str) -> list[Path]:
-    references = config.raw.get("references", {})
-    values = references.get(key, []) if isinstance(references, dict) else []
-    result: list[Path] = []
-    for value in values if isinstance(values, list) else []:
-        if isinstance(value, str) and value.strip():
-            result.append(config.project_root / Path(value))
-    return result
-
-
-def _quality_exemplar_sources(root: Path, config: Any) -> list[PackageSource]:
-    sources: list[PackageSource] = []
-    for path in _reference_paths(config, "quality_exemplars"):
-        if not (root / path).is_file():
-            raise PackageError(f"Thiếu quality exemplar: {path.as_posix()}.")
-        sources.append(PackageSource(path, "quality_exemplar"))
-    return sources
+def _package_role(source: AuthoritySource) -> str:
+    if source.role == "system_instruction":
+        return "repository_instruction_dependency"
+    if source.role == "project_instruction":
+        return "project_instructions"
+    return source.role
 
 
 def _project_sources(root: Path, scope_files: Iterable[Path]) -> dict[str, list[PackageSource]]:
     required: dict[Path, PackageSource] = {}
     conditional: dict[Path, PackageSource] = {}
 
-    candidates: set[Path] = set()
-    for relative in scope_files:
-        candidates.add(relative)
-        candidates.update(_agent_chain(root, relative))
-
-    for relative in sorted(candidates):
-        for agents in _agent_chain(root, relative):
-            required.setdefault(
-                agents,
-                PackageSource(agents, "project_instructions"),
-            )
-
+    for relative in sorted(set(scope_files)):
         try:
-            config = discover_project_config(root, relative)
-        except ProjectConfigError as exc:
+            discovered = discover_authority_sources(
+                root,
+                relative,
+                require_project=False,
+            )
+        except AuthoritySourceError as exc:
             raise PackageError(str(exc)) from exc
-        if config is None:
-            continue
 
-        required.setdefault(
-            config.config_path,
-            PackageSource(config.config_path, "project_config"),
-        )
-
-        article_type = config.article_type_for(relative)
-        if article_type is not None:
-            profile = config.profile_path_for(relative)
-            if config.profile_required and not (root / profile).is_file():
+        for source in discovered["required"]:
+            if not (root / source.path).is_file():
+                if source.role == "production_profile":
+                    raise PackageError(
+                        "Thiếu hồ sơ bắt buộc: "
+                        + source.path.as_posix()
+                        + "."
+                    )
+                if source.role == "quality_exemplar":
+                    raise PackageError(
+                        "Thiếu quality exemplar: "
+                        + source.path.as_posix()
+                        + "."
+                    )
                 raise PackageError(
-                    f"Thiếu hồ sơ bắt buộc: {profile.as_posix()}."
+                    "Thiếu nguồn có thẩm quyền bắt buộc: "
+                    + source.path.as_posix()
+                    + "."
                 )
-            if (root / profile).is_file():
-                required.setdefault(
-                    profile,
-                    PackageSource(profile, "production_profile"),
-                )
-
-        for path in _reference_paths(config, "controlling_documents"):
-            if (root / path).is_file():
-                required.setdefault(
-                    path,
-                    PackageSource(path, "controlling_document"),
-                )
-        for path in _reference_paths(config, "templates"):
-            if (root / path).is_file():
-                required.setdefault(
-                    path,
-                    PackageSource(path, "template"),
-                )
-        for path in _reference_paths(config, "theory_sources"):
-            if (root / path).is_file() and path not in required:
-                conditional.setdefault(
-                    path,
-                    PackageSource(
-                        path,
-                        "theory_source",
-                        "Đọc khi quy chuẩn nén chưa đủ cho trường hợp đang xét.",
-                    ),
-                )
-        for source in _quality_exemplar_sources(root, config):
             required.setdefault(
                 source.path,
-                source,
+                PackageSource(
+                    source.path,
+                    _package_role(source),
+                    source.condition,
+                ),
             )
+
+        for source in discovered["conditional"]:
+            if (root / source.path).is_file() and source.path not in required:
+                conditional.setdefault(
+                    source.path,
+                    PackageSource(
+                        source.path,
+                        _package_role(source),
+                        source.condition,
+                    ),
+                )
 
     return {
         "required": list(required.values()),
@@ -850,11 +788,6 @@ def _manifest_sources(
         if not (root / path).is_file():
             raise PackageError(f"Thiếu tài liệu lõi bắt buộc: {path.as_posix()}.")
         required.setdefault(path, PackageSource(path, "system_document"))
-        for reference in _agent_references(root, path) if path.name == "AGENTS.md" else []:
-            required.setdefault(
-                reference,
-                PackageSource(reference, "repository_instruction_dependency"),
-            )
 
     for path in _runtime_dependency_closure(root):
         required.setdefault(path, PackageSource(path, "runtime_dependency"))
@@ -862,16 +795,6 @@ def _manifest_sources(
     project = _project_sources(root, scope_files)
     for source in project["required"]:
         required.setdefault(source.path, source)
-        references = (
-            _agent_references(root, source.path)
-            if source.path.name == "AGENTS.md"
-            else []
-        )
-        for reference in references:
-            required.setdefault(
-                reference,
-                PackageSource(reference, "project_instruction_dependency"),
-            )
     for source in project["conditional"]:
         if source.path not in required:
             conditional.setdefault(source.path, source)
@@ -900,6 +823,35 @@ def _manifest_sources(
         "historical": [],
     }
     return sources, all_files
+
+
+def _validate_package_output_location(
+    root: Path,
+    output: Path,
+    *,
+    kind: str,
+    inside_repository_reason: str | None,
+) -> bool:
+    root = root.resolve()
+    output = output.resolve()
+    output_inside = _is_inside(root, output)
+    if not output_inside:
+        return False
+    if kind == "release":
+        raise PackageError("Đầu ra release candidate phải nằm ngoài repository.")
+
+    relative = output.relative_to(root)
+    if len(relative.parts) < 2 or relative.parts[0] != "_audit":
+        raise PackageError(
+            "Đầu ra context nằm trong repository phải ở dưới _audit/: "
+            f"{relative.as_posix() or '.'}"
+        )
+    if not (inside_repository_reason or "").strip():
+        raise PackageError(
+            "Đầu ra nằm trong repository; phải khai báo "
+            "--inside-repository-reason."
+        )
+    return True
 
 
 def create_package(
@@ -941,14 +893,12 @@ def create_package(
     if not prompt_text.strip():
         raise PackageError("PROMPT.md không được để trống.")
 
-    output_inside = _is_inside(root, output)
-    if kind == "release" and output_inside:
-        raise PackageError("Đầu ra release candidate phải nằm ngoài repository.")
-    if output_inside and not (inside_repository_reason or "").strip():
-        raise PackageError(
-            "Đầu ra nằm trong repository; phải khai báo "
-            "--inside-repository-reason."
-        )
+    output_inside = _validate_package_output_location(
+        root,
+        output,
+        kind=kind,
+        inside_repository_reason=inside_repository_reason,
+    )
 
     repository = (
         _release_repository_state(root)
@@ -1985,7 +1935,15 @@ def _self_test_release_creation(base: Path) -> None:
     root = base / "release-repo"
     root.mkdir()
 
-    for relative in set(CORE_DOCUMENTS) | set(RELEASE_DOCUMENTS):
+    release_fixture_documents = (
+        set(CORE_DOCUMENTS)
+        | set(RELEASE_DOCUMENTS)
+        | set(SYSTEM_AUTHORITY_DOCUMENTS)
+    )
+    for relative in sorted(
+        release_fixture_documents,
+        key=lambda item: item.as_posix(),
+    ):
         _self_test_write(root, relative, f"# {relative.name}\n")
     for relative in RELEASE_REGRESSION_FILES:
         _self_test_write(root, relative, "---\npublication: pending\n---\n")
@@ -2003,15 +1961,20 @@ def _self_test_release_creation(base: Path) -> None:
     )
     _self_test_write(
         root,
+        Path("scripts/zo_qmd_sources.py"),
+        "# authority source discovery runtime\n",
+    )
+    _self_test_write(
+        root,
         Path("scripts/zo_qmd_version.py"),
-        'OPERATIONS_RELEASE_VERSION = "0.5.0"\n'
-        'OPERATIONS_CLI_VERSION = "0.5.0"\n'
-        'OPERATIONS_CONTRACT_VERSION = "0.5"\n',
+        'OPERATIONS_RELEASE_VERSION = "0.6.0"\n'
+        'OPERATIONS_CLI_VERSION = "0.6.0"\n'
+        'OPERATIONS_CONTRACT_VERSION = "0.6"\n',
     )
     _self_test_write(
         root,
         Path("scripts/zo_check_repo.py"),
-        'CHECKER_VERSION = "2.6.0"\n',
+        'CHECKER_VERSION = "2.7.0"\n',
     )
 
     release_dir = Path(
@@ -2151,7 +2114,13 @@ def _self_test_context_quality_exemplars(base: Path) -> None:
     root = base / "context-repo"
     root.mkdir()
 
-    for relative in CORE_DOCUMENTS:
+    authority_fixture_documents = (
+        set(CORE_DOCUMENTS) | set(SYSTEM_AUTHORITY_DOCUMENTS)
+    )
+    for relative in sorted(
+        authority_fixture_documents,
+        key=lambda item: item.as_posix(),
+    ):
         _self_test_write(root, relative, f"# {relative.name}\n")
     for relative in RUNTIME_ENTRYPOINTS:
         _self_test_write(root, relative, "# runtime self-test\n")
@@ -2160,10 +2129,12 @@ def _self_test_context_quality_exemplars(base: Path) -> None:
     article = project_root / "core/demo.qmd"
     exemplar_qmd = project_root / "depth/exemplar.qmd"
     exemplar_pdf = project_root / "depth/exemplar.pdf"
+    profile_path = project_root / "_quy_trinh/ho_so/demo.yml"
     config_path = project_root / "_quy_trinh/cau_hinh_san_xuat_qmd.yml"
     _self_test_write(root, article, "---\ntitle: Demo\n---\n")
     _self_test_write(root, exemplar_qmd, "---\ntitle: Exemplar\n---\n")
     _self_test_write(root, exemplar_pdf, "%PDF-1.4\n% self-test\n")
+    _self_test_write(root, profile_path, "production: in_production\n")
     _self_test_write(
         root,
         config_path,
@@ -2181,7 +2152,7 @@ discovery:
 profiles:
   directory: _quy_trinh/ho_so
   naming: by_article_stem
-  required: false
+  required: true
 modules:
   required:
     - qmd-core
@@ -2263,6 +2234,36 @@ extensions: {}
             + json.dumps(verified, ensure_ascii=False)
         )
 
+    external_zip = base / "context-package.zip"
+    create_package(
+        root,
+        output=external_zip,
+        prompt_file=prompt,
+        purpose="External ZIP location self-test",
+        scope_paths=[article.as_posix()],
+        include_paths=[],
+        scope_mode=None,
+        inside_repository_reason=None,
+        kind="context",
+    )
+    if verify_package(external_zip)["exit_code"] != EXIT_OK:
+        raise PackageError("Self-test không xác minh được context ZIP ngoài repo.")
+
+    audit_output = root / "_audit/context-package"
+    create_package(
+        root,
+        output=audit_output,
+        prompt_file=prompt,
+        purpose="In-repository audit location self-test",
+        scope_paths=[article.as_posix()],
+        include_paths=[],
+        scope_mode=None,
+        inside_repository_reason="self-test fixture",
+        kind="context",
+    )
+    if verify_directory(audit_output)["exit_code"] != EXIT_OK:
+        raise PackageError("Self-test không xác minh được context package dưới _audit/.")
+
     (root / exemplar_pdf).unlink()
     try:
         create_package(
@@ -2282,8 +2283,78 @@ extensions: {}
     else:
         raise PackageError("Self-test không từ chối quality exemplar bị thiếu.")
 
+    _self_test_write(root, exemplar_pdf, "%PDF-1.4\n% restored self-test\n")
+    (root / profile_path).unlink()
+
+    try:
+        create_package(
+            root,
+            output=base / "missing-profile-package",
+            prompt_file=prompt,
+            purpose="Missing required profile context self-test",
+            scope_paths=[article.as_posix()],
+            include_paths=[],
+            scope_mode=None,
+            inside_repository_reason=None,
+            kind="context",
+        )
+    except PackageError as exc:
+        if "Thiếu hồ sơ bắt buộc" not in str(exc):
+            raise
+    else:
+        raise PackageError(
+            "Self-test không từ chối production profile bắt buộc bị thiếu."
+        )
+
+
+def _self_test_output_locations(base: Path) -> None:
+    root = (base / "repository").resolve()
+    root.mkdir()
+    outside = (base / "outside").resolve()
+
+    cases = (
+        (outside / "context-dir", "context", None, False),
+        (outside / "context.zip", "context", None, False),
+        (root / "_audit", "context", "fixture", True),
+        (root / "_audit/../foo.zip", "context", "fixture", True),
+        (root / "context-dir", "context", "fixture", True),
+        (root / "packages/context.zip", "context", "fixture", True),
+        (root / "_audit/context-dir", "context", None, True),
+        (root / "_audit/context-dir", "context", "fixture", False),
+        (root / "_audit/release.zip", "release", "fixture", True),
+    )
+    for output, kind, reason, should_block in cases:
+        try:
+            inside = _validate_package_output_location(
+                root,
+                output,
+                kind=kind,
+                inside_repository_reason=reason,
+            )
+        except PackageError:
+            if not should_block:
+                raise
+        else:
+            if should_block:
+                raise PackageError(
+                    "Self-test không từ chối output package sai vị trí: "
+                    f"{output}."
+                )
+            if inside != _is_inside(root, output):
+                raise PackageError(
+                    "Self-test phân loại sai vị trí output package: "
+                    f"{output}."
+                )
+
 
 def self_test() -> int:
+    try:
+        with tempfile.TemporaryDirectory(prefix="zo-qmd-location-self-test-") as raw:
+            _self_test_output_locations(Path(raw))
+    except PackageError as exc:
+        print(f"Package location self-test thất bại: {exc}", file=sys.stderr)
+        return EXIT_FAILED
+
     try:
         with tempfile.TemporaryDirectory(prefix="zo-qmd-context-self-test-") as raw:
             _self_test_context_quality_exemplars(Path(raw))
