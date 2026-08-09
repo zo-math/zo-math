@@ -3,8 +3,9 @@
 Product commit dùng làm nền cho hồ sơ release:
 `1a2926926c4347a6830557f8b9ca69a46016bdfc`.
 
-Release package và annotated tag sẽ trỏ đến commit metadata tiền đóng gói
-`Cmeta`, chưa tồn tại tại thời điểm lập checklist này.
+Release package đã được tạo từ commit metadata tiền đóng gói `Cmeta`
+`0441bbd5c20cdd884b7a318e637274da4987f163`. Annotated tag dự kiến sẽ trỏ
+đến chính commit này nhưng chưa được tạo.
 
 ## Đã hoàn tất trước package
 
@@ -18,14 +19,14 @@ Release package và annotated tag sẽ trỏ đến commit metadata tiền đón
 - [x] Rollback drill bằng hai detached worktree ngoài repository sống đạt; hai worktree được tháo sau khi xác nhận sạch.
 - [x] Năm tệp hồ sơ/evidence tiền đóng gói đã được chuẩn bị trong `qmd_ops_0_6_0/`.
 
-## Chưa thực hiện
+## Trạng thái các bước hậu metadata
 
 - [x] Review và staging tường minh năm tệp tiền đóng gói.
-- [ ] Tạo commit metadata tiền đóng gói `Cmeta`.
-- [ ] Tạo release ZIP từ detached worktree sạch tại `Cmeta`.
-- [ ] Verify release ZIP bằng CLI ngoài gói.
-- [ ] Verify release ZIP bằng CLI tự chứa trong payload.
-- [ ] Khóa package ID và SHA-256 của release ZIP.
+- [x] Tạo commit metadata tiền đóng gói `Cmeta` `0441bbd5c20cdd884b7a318e637274da4987f163`.
+- [x] Tạo release ZIP từ detached worktree sạch tại `Cmeta`.
+- [x] Verify release ZIP bằng CLI ngoài gói.
+- [x] Verify release ZIP bằng CLI tự chứa trong payload.
+- [x] Khóa package ID `qmd-release-0-6-0-20260809-220845` và SHA-256 `9e16f0124bcf44bb5ddc54ac6a771981075ecf00f5b0af7b0b2a0d6f4b78521e` của release ZIP.
 - [ ] Human acceptance cho release candidate.
 - [ ] Tạo annotated tag `qmd-ops-v0.6.0` trỏ đến `Cmeta`.
 - [ ] Push chuỗi commit release.
