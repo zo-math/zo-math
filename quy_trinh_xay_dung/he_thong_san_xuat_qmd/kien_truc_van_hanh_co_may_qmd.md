@@ -1,6 +1,6 @@
 # Kiến trúc vận hành cỗ máy QMD
 
-> **Trạng thái:** Release/tag hiện hành là `0.5.0`. Ứng viên đang nghiệm thu là `0.6.0`: CLI `0.6.0`, contract `0.6`, package module `0.5.0`, checker `2.7.0`. Chưa tag, push hoặc publish `0.6.0`.
+> **Trạng thái:** Release/tag hiện hành là `0.6.0`: CLI `0.6.0`, contract `0.6`, package module `0.5.0`, checker `2.7.0`. Annotated tag `qmd-ops-v0.6.0` đã được push; GitHub Release chưa được tạo và website chưa được publish.
 >
 > Tài liệu này bao quanh lõi kĩ thuật của Hệ thống sản xuất và kiểm định QMD phiên bản 1.0. Nó không thay thế `kien_truc_he_thong.md`, `hop_dong_loi_va_du_an.md` hoặc các quy chuẩn chuyên biệt của từng dự án.
 
@@ -94,7 +94,7 @@ Phạm vi O4 chỉ gồm các dự án đã được tích hợp, hiện có `fu
 python scripts/zo_python.py scripts/zo_qmd.py <command> [tham số...]
 ```
 
-Trong ứng viên `0.6.0`, `scripts/zo_qmd.py` phiên bản `0.6.0` là điểm vào vận hành cho:
+Trong release hiện hành `0.6.0`, `scripts/zo_qmd.py` phiên bản `0.6.0` là điểm vào vận hành cho:
 
 ```text
 doctor
@@ -114,7 +114,7 @@ verify
 python scripts/zo_python.py scripts/zo_check_repo.py ...
 ```
 
-`zo_qmd.py` điều phối các thành phần hiện có, không sao chép validator. `pack --kind context|release` và `verify` được triển khai qua `scripts/zo_qmd_package.py`; `context` là mặc định tương thích ngược và `--release-file` bắt buộc cho gói release. `start` tạo manifest phiên và kế hoạch từ yêu cầu ban đầu; `prepublish` tổng hợp bằng chứng đã có mà không tự nghiệm thu hoặc xuất bản. Release/tag hiện hành vẫn là `0.5.0`; `0.6.0` mới là candidate chưa tag, push hoặc publish.
+`zo_qmd.py` điều phối các thành phần hiện có, không sao chép validator. `pack --kind context|release` và `verify` được triển khai qua `scripts/zo_qmd_package.py`; `context` là mặc định tương thích ngược và `--release-file` bắt buộc cho gói release. `start` tạo manifest phiên và kế hoạch từ yêu cầu ban đầu; `prepublish` tổng hợp bằng chứng đã có mà không tự nghiệm thu hoặc xuất bản. Release/tag hiện hành là `0.6.0`; release trước là `0.5.0`.
 
 ### 3.1. Bộ lệnh đích
 
@@ -303,7 +303,7 @@ Không được coi một ZIP chỉ có danh sách tệp và commit trong commen
 
 Các phiên bản được quản lí độc lập:
 
-| Thành phần | Release `0.2.0` | Release `0.3.0` | Release `0.4.0` | Release/tag `0.5.0` | Candidate `0.6.0` |
+| Thành phần | Release `0.2.0` | Release `0.3.0` | Release `0.4.0` | Release `0.5.0` | Release/tag `0.6.0` |
 |---|---:|---:|---:|---:|---:|
 | Lõi kĩ thuật QMD | `1.0` | `1.0` | `1.0` | `1.0` | `1.0` |
 | Checker | `2.6.0` | `2.6.0` | `2.6.0` | `2.6.0` | `2.7.0` |
@@ -328,7 +328,7 @@ Release `0.3.0` thêm khả năng tạo và xác minh release candidate nhưng g
 
 Release `0.4.0` bổ sung hai lệnh tương thích ngược `start` và `prepublish`, đồng thời thêm schema manifest phiên cùng schema báo cáo trước xuất bản ở phiên bản `1`. Checker, lõi, schema cấu hình và schema manifest gói không đổi; mô-đun đóng gói tăng `PATCH` lên `0.3.1` để tách phiên bản release khỏi phiên bản riêng của mô-đun. Đây là mã tại mốc O4 sau khi RC đã được xác minh và người dùng chấp thuận.
 
-Ma trận đầy đủ, điểm quay lại và điều kiện có hiệu lực được khóa tại `ma_tran_phien_ban_qmd.md`. Release/tag hiện hành là `0.5.0`; candidate `0.6.0` chưa được tag, push hoặc publish.
+Ma trận đầy đủ, điểm quay lại và điều kiện có hiệu lực được khóa tại `ma_tran_phien_ban_qmd.md`. Release/tag hiện hành là `0.6.0`; release trước là `0.5.0`. GitHub Release chưa được tạo và website chưa được publish.
 
 ## 8. Bảo trì, phát hành và khôi phục
 

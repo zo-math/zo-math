@@ -1,6 +1,6 @@
 # Giao thức cho agent, chat-box và gói ngữ cảnh QMD
 
-> **Trạng thái:** Release/tag hiện hành là `0.5.0`. Ứng viên đang nghiệm thu là `0.6.0`: CLI `0.6.0`, contract `0.6`, package module `0.5.0`, checker `2.7.0`. Chưa tag, push hoặc publish `0.6.0`.
+> **Trạng thái:** Release/tag hiện hành là `0.6.0`: CLI `0.6.0`, contract `0.6`, package module `0.5.0`, checker `2.7.0`. Annotated tag `qmd-ops-v0.6.0` đã được push; GitHub Release chưa được tạo và website chưa được publish.
 >
 > Tài liệu này quy định cách một agent trong VS Code hoặc một chat-box tiếp nhận và bàn giao nhiệm vụ QMD. Nó không thay thế chỉ dẫn cấp repository hoặc quy chuẩn chuyên biệt của dự án.
 

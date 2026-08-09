@@ -1,6 +1,6 @@
 # Ma trận phiên bản của cỗ máy QMD
 
-> **Trạng thái:** Release/tag hiện hành là `0.5.0`. Candidate đang nghiệm thu là `0.6.0`: CLI `0.6.0`, contract `0.6`, package module `0.5.0`, checker `2.7.0`. Chưa tag, push, tạo release package hoặc publish `0.6.0`.
+> **Trạng thái:** Release/tag hiện hành là `0.6.0`: CLI `0.6.0`, contract `0.6`, package module `0.5.0`, checker `2.7.0`. Annotated tag `qmd-ops-v0.6.0` đã được push; GitHub Release chưa được tạo và website chưa được publish.
 >
 > Tài liệu này ghi quan hệ giữa các phiên bản được quản lí độc lập. Nó không thay thế hằng số phiên bản trong mã đang chạy và không tự tạo release hoặc Git tag.
 
@@ -21,7 +21,7 @@ Cỗ máy QMD gồm nhiều thành phần có vòng đời khác nhau. Một tha
 - Tài liệu này là hồ sơ phối hợp phát hành: tại thời điểm tạo release candidate, các giá trị của nó phải khớp mã, manifest, changelog và bằng chứng kiểm nghiệm.
 - Khi mã và ma trận khác nhau, không được tự chọn một phía rồi tiếp tục phát hành; phải dừng và xử lí sai lệch.
 
-## 3. Ma trận các release `0.3.0`, `0.4.0`, `0.5.0` và candidate `0.6.0`
+## 3. Ma trận các release `0.3.0`, `0.4.0`, `0.5.0` và `0.6.0`
 
 Release trước được khóa tại:
 
@@ -65,9 +65,9 @@ Release `0.4.0` bổ sung hai khả năng tương thích ngược: `start` lập
 
 Mốc nghiệm thu **lớp vận hành `1.0`** ghi mức trưởng thành của toàn hệ thống vận hành. Nó không thay thế phiên bản hợp đồng máy đọc được `0.4`, vốn phải khớp `MAJOR.MINOR` của release `0.4.0`.
 
-### 3.2. Ma trận release hiện hành `0.5.0`
+### 3.2. Ma trận release `0.5.0`
 
-| Thành phần | Release trước `0.4.0` | Release hiện hành `0.5.0` | Quyết định |
+| Thành phần | Release trước `0.4.0` | Release `0.5.0` | Quyết định |
 |---|---:|---:|---|
 | Lõi kĩ thuật QMD | `1.0` | `1.0` | Giữ nguyên |
 | Checker | `2.6.0` | `2.6.0` | Giữ nguyên |
@@ -92,9 +92,9 @@ Tại thời điểm push tag, nhánh `master` và `origin/master` đã được
 `ba85e35db84e092fbb2c1786ceb9fff707dfc438`, không trỏ đến `master` hiện
 tại. Release chính thức chưa được tạo hoặc công bố; website chưa được publish.
 
-### 3.3. Ma trận candidate `0.6.0`
+### 3.3. Ma trận release/tag hiện hành `0.6.0`
 
-| Thành phần | Release/tag hiện hành `0.5.0` | Candidate `0.6.0` | Quyết định |
+| Thành phần | Release trước `0.5.0` | Release/tag hiện hành `0.6.0` | Quyết định |
 |---|---:|---:|---|
 | Lõi kĩ thuật QMD | `1.0` | `1.0` | Giữ nguyên |
 | Checker | `2.6.0` | `2.7.0` | Nâng vì giao diện evidence quan sát được thay đổi |
@@ -108,9 +108,12 @@ tại. Release chính thức chưa được tạo hoặc công bố; website ch�
 | `scripts/zo_qmd.py` | `0.5.0` | `0.6.0` | Nâng `MINOR` |
 | `scripts/zo_qmd_package.py` | `0.4.0` | `0.5.0` | Nâng `MINOR` tương thích ngược |
 
-Candidate `0.6.0` bổ sung authority acknowledgement, provenance gate, evidence
-identity/freshness, chuỗi nghiệm thu ba lớp và repository hygiene. Candidate
-chưa được tag, push, tạo release package hoặc publish.
+Release `0.6.0` bổ sung authority acknowledgement, provenance gate, evidence
+identity/freshness, chuỗi nghiệm thu ba lớp và repository hygiene. Human
+acceptance đã đạt; annotated tag `qmd-ops-v0.6.0` đã được push với tag object
+`03f5870fd225cf47edf4ad1e376fb919d045646c`, trỏ đến Cmeta/package identity
+commit `0441bbd5c20cdd884b7a318e637274da4987f163`. GitHub Release chưa được tạo
+và website chưa được publish.
 
 ## 4. Danh tính release candidate O3
 
