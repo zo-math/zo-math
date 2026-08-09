@@ -47,7 +47,7 @@ SHA-256 của ZIP giữ ổn định trước và sau hai phép xác minh:
 ## Trạng thái sau xác minh
 
 - Human acceptance: `PASS`.
-- Annotated tag: `NOT_CREATED`.
+- Annotated tag: `CREATED` — `qmd-ops-v0.6.0`, tag object `03f5870fd225cf47edf4ad1e376fb919d045646c`, trỏ đến Cmeta `0441bbd5c20cdd884b7a318e637274da4987f163`.
 - Push commit: `NOT_DONE`.
 - Push tag: `NOT_DONE`.
 - Release chính thức: `NOT_DONE`.
