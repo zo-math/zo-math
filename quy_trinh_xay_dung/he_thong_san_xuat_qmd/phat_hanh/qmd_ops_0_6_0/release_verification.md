@@ -46,7 +46,7 @@ SHA-256 của ZIP giữ ổn định trước và sau hai phép xác minh:
 
 ## Trạng thái sau xác minh
 
-- Human acceptance: `PENDING`.
+- Human acceptance: `PASS`.
 - Annotated tag: `NOT_CREATED`.
 - Push commit: `NOT_DONE`.
 - Push tag: `NOT_DONE`.
