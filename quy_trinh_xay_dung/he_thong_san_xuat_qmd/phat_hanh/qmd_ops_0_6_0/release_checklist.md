@@ -4,8 +4,8 @@ Product commit dùng làm nền cho hồ sơ release:
 `1a2926926c4347a6830557f8b9ca69a46016bdfc`.
 
 Release package đã được tạo từ commit metadata tiền đóng gói `Cmeta`
-`0441bbd5c20cdd884b7a318e637274da4987f163`. Annotated tag dự kiến sẽ trỏ
-đến chính commit này nhưng chưa được tạo.
+`0441bbd5c20cdd884b7a318e637274da4987f163`. Annotated tag
+`qmd-ops-v0.6.0` đã được tạo và push, trỏ đến chính commit này.
 
 ## Đã hoàn tất trước package
 
@@ -29,7 +29,7 @@ Release package đã được tạo từ commit metadata tiền đóng gói `Cme
 - [x] Khóa package ID `qmd-release-0-6-0-20260809-220845` và SHA-256 `9e16f0124bcf44bb5ddc54ac6a771981075ecf00f5b0af7b0b2a0d6f4b78521e` của release ZIP.
 - [x] Human acceptance cho release candidate.
 - [x] Tạo annotated tag `qmd-ops-v0.6.0` trỏ đến `Cmeta`.
-- [ ] Push chuỗi commit release.
-- [ ] Push annotated tag.
+- [x] Push chuỗi commit release đến `3c4389606e03020b583d98bb95bc397b7f7b16c9` trên `master`/`origin/master`.
+- [x] Push annotated tag `qmd-ops-v0.6.0`; tag object `03f5870fd225cf47edf4ad1e376fb919d045646c`.
 - [ ] Tạo hoặc công bố release chính thức.
 - [ ] Publish website.

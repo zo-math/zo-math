@@ -2,21 +2,25 @@
 
 Tài liệu này ghi những thay đổi quan sát được của lớp vận hành cỗ máy QMD. Nó không thay thế lịch sử Git và không tự chứng minh một release đã được tạo.
 
-## `0.6.0` — candidate, chưa phát hành
+## `0.6.0` — 2026-08-09
 
 ### Thêm và thay đổi
 
-- Nâng CLI ứng viên lên `0.6.0`, hợp đồng lớp vận hành lên `0.6`, package module lên `0.5.0` và checker lên `2.7.0`.
+- Nâng CLI lên `0.6.0`, hợp đồng lớp vận hành lên `0.6`, package module lên `0.5.0` và checker lên `2.7.0`.
 - Dùng shared authority-source discovery, fingerprint và acknowledgement bắt buộc trước khi bắt đầu production session.
 - Thêm provenance checksum gate; nguồn đã dùng bị missing hoặc mismatch sẽ BLOCK và giữ vị trí quyết định chịu ảnh hưởng trong evidence.
 - Bổ sung identity/freshness cho session, checker evidence, render outputs và human review; prepublish khóa chuỗi static, observed output và final human acceptance.
 - Khóa context package trong repository dưới `_audit/` và thêm filesystem hygiene cho regression dựa trên delta trước–sau.
 - Giữ `session_manifest_version=2`, `evidence_report_version=1`, `review_manifest_version=2` và `prepublish_report_version=2`.
 
-### Trạng thái
+### Trạng thái phát hành
 
-- Đây là candidate đang nghiệm thu; chưa tag, push, tạo release package hoặc publish `0.6.0`.
-- Release/tag hiện hành vẫn là `0.5.0`.
+- Human acceptance: `PASS`.
+- Chuỗi thay đổi release trên `master` đến commit `3c4389606e03020b583d98bb95bc397b7f7b16c9` đã được push lên `origin/master`.
+- Annotated tag `qmd-ops-v0.6.0` đã được push lên origin; tag object `03f5870fd225cf47edf4ad1e376fb919d045646c` trỏ đến Cmeta/package identity commit `0441bbd5c20cdd884b7a318e637274da4987f163`.
+- Release candidate package có package ID `qmd-release-0-6-0-20260809-220845`; SHA-256 của ZIP là `9e16f0124bcf44bb5ddc54ac6a771981075ecf00f5b0af7b0b2a0d6f4b78521e`.
+- Release/tag hiện hành là `0.6.0`; release trước là `0.5.0`.
+- GitHub Release chưa được tạo; website chưa được publish.
 
 ## `0.5.0` — 2026-08-05
 

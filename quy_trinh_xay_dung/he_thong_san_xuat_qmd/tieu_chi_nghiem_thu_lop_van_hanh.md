@@ -1,6 +1,6 @@
 # Tiêu chí nghiệm thu lớp vận hành cỗ máy QMD
 
-> **Trạng thái:** Release/tag hiện hành là `0.5.0`; lớp vận hành giữ mốc nghiệm thu `1.0`. Ứng viên `0.6.0` đang được nghiệm thu với CLI `0.6.0`, contract `0.6`, package module `0.5.0` và checker `2.7.0`; chưa tag, push hoặc publish `0.6.0`.
+> **Trạng thái:** Release/tag hiện hành là `0.6.0`; lớp vận hành giữ mốc nghiệm thu `1.0`. CLI là `0.6.0`, contract `0.6`, package module `0.5.0` và checker `2.7.0`. Human acceptance đã đạt và annotated tag `qmd-ops-v0.6.0` đã được push; GitHub Release chưa được tạo và website chưa được publish.
 >
 > Tài liệu này đánh giá lớp vận hành bao quanh lõi QMD 1.0. Nó không thay thế `tieu_chi_nghiem_thu_he_thong.md`, vốn ghi nhận nghiệm thu của lõi kĩ thuật phiên bản 1.0.
 

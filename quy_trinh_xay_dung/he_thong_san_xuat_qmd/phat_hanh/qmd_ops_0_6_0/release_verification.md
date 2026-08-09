@@ -11,7 +11,7 @@
 - Phiên bản mô-đun đóng gói: `0.5.0`.
 - Số tệp payload: `48`.
 - SHA-256: `9e16f0124bcf44bb5ddc54ac6a771981075ecf00f5b0af7b0b2a0d6f4b78521e`.
-- Tag dự kiến: `qmd-ops-v0.6.0`, trỏ đến Cmeta `0441bbd5c20cdd884b7a318e637274da4987f163`.
+- Annotated tag: `qmd-ops-v0.6.0`, tag object `03f5870fd225cf47edf4ad1e376fb919d045646c`, trỏ đến Cmeta `0441bbd5c20cdd884b7a318e637274da4987f163`.
 
 ZIP được tạo từ detached worktree sạch tại candidate commit/Cmeta
 `0441bbd5c20cdd884b7a318e637274da4987f163`. Product base của candidate là
@@ -48,11 +48,12 @@ SHA-256 của ZIP giữ ổn định trước và sau hai phép xác minh:
 
 - Human acceptance: `PASS`.
 - Annotated tag: `CREATED` — `qmd-ops-v0.6.0`, tag object `03f5870fd225cf47edf4ad1e376fb919d045646c`, trỏ đến Cmeta `0441bbd5c20cdd884b7a318e637274da4987f163`.
-- Push commit: `NOT_DONE`.
-- Push tag: `NOT_DONE`.
+- Push commit: `DONE` — `master` và `origin/master` tại `3c4389606e03020b583d98bb95bc397b7f7b16c9` khi push chuỗi release.
+- Push tag: `DONE` — annotated tag `qmd-ops-v0.6.0` đã được push lên origin.
 - Release chính thức: `NOT_DONE`.
 - Publish website: `NOT_DONE`.
 
-Release candidate `0.6.0` đã được đóng gói và vượt hai phép xác minh tự động.
-Kết quả này không phải human acceptance và không có nghĩa `0.6.0` đã được phát
-hành, tag, push hoặc publish.
+Release candidate package `0.6.0` đã được đóng gói và vượt hai phép xác minh
+tự động; các phép xác minh tự động không tự tạo human acceptance. Sau đó người
+dùng đã quyết định human acceptance `PASS`, và annotated tag `qmd-ops-v0.6.0`
+đã được tạo rồi push. GitHub Release và publish website vẫn chưa được thực hiện.

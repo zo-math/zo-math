@@ -1,6 +1,6 @@
 # Hệ thống sản xuất và kiểm định QMD cho ZO Math
 
-> **Trạng thái:** Release/tag hiện hành là `0.5.0`. Ứng viên đang nghiệm thu là `0.6.0`, với CLI `0.6.0`, hợp đồng máy đọc được `0.6`, package module `0.5.0` và checker `2.7.0`. Chưa tag, push, tạo release package hoặc publish `0.6.0`.
+> **Trạng thái:** Release/tag hiện hành là `0.6.0`, với CLI `0.6.0`, hợp đồng máy đọc được `0.6`, package module `0.5.0` và checker `2.7.0`. Annotated tag `qmd-ops-v0.6.0` đã được push; GitHub Release chưa được tạo và website chưa được publish.
 >
 > Đây là tài liệu vận hành nội bộ. Nó chỉ có thẩm quyền trong phạm vi mà `AGENTS.md`, cấu hình dự án hoặc yêu cầu hiện tại của người dùng dẫn chiếu. Các hồ sơ kiểm kê và thiết kế ban đầu được giữ lại như bằng chứng lịch sử, không tự động ghi đè quy trình đang có hiệu lực ở nơi khác.
 
@@ -9,32 +9,34 @@
 Đã hoàn thành và khóa:
 
 - lõi kĩ thuật QMD phiên bản `1.0`;
-- checker ứng viên phiên bản `2.7.0`;
+- checker phiên bản `2.7.0`;
 - schema cấu hình dự án phiên bản `1`;
 - chế độ native và đường hồi quy hai dự án.
 
-Release hiện hành `0.5.0` bao gồm:
+Release/tag hiện hành `0.6.0` bao gồm:
 
-- `scripts/zo_qmd.py` phiên bản `0.5.0`;
-- `scripts/zo_qmd_package.py` phiên bản `0.4.0`;
+- `scripts/zo_qmd.py` phiên bản `0.6.0`;
+- `scripts/zo_qmd_package.py` phiên bản `0.5.0`;
 - chín lệnh `doctor`, `inspect`, `start`, `prepublish`, `check`, `render`, `regression`, `pack`, `verify`;
 - khả năng lập manifest phiên, khóa kế hoạch, tạo và xác minh gói context hoặc release, tổng hợp bằng chứng trước xuất bản;
-- khả năng dùng chung `references.quality_exemplars` trong `inspect`, `doctor`, `start`, giao thức agent và gói context;
-- bằng chứng hồi quy, trình diễn đầu-cuối, release candidate và rollback drill của O4.
+- shared authority-source discovery và provenance checksum gate;
+- identity/freshness cho session, checker evidence, render outputs và human review;
+- chuỗi nghiệm thu ba lớp cùng filesystem hygiene cho regression.
 
-Ứng viên `0.6.0` đang nghiệm thu nâng CLI lên `0.6.0`, hợp đồng vận hành
-lên `0.6`, package module lên `0.5.0` và checker lên `2.7.0`. Các schema
+Release `0.6.0` nâng CLI lên `0.6.0`, hợp đồng vận hành lên `0.6`, package
+module lên `0.5.0` và checker lên `2.7.0`. Các schema
 manifest phiên, evidence, human review và prepublish lần lượt giữ phiên bản
-`2`, `1`, `2` và `2`. Ứng viên này chưa được tag, push, đóng gói release
-hoặc publish.
+`2`, `1`, `2` và `2`.
 
-Trạng thái phát hành của `0.5.0`: tại thời điểm push tag, nhánh `master` và
-`origin/master` đã được xác minh đồng bộ tại commit
-`5c1dddaae51c4e76f72628c8206d54d9ff7e1aff`.
-Annotated tag `qmd-ops-v0.5.0` đã được push lên origin; tag object là
-`7d45d37ae0ccf6e4933d3342dfc5de6f9c3abd4a` và trỏ đến product commit
-`ba85e35db84e092fbb2c1786ceb9fff707dfc438`, không trỏ đến `master` hiện
-tại. Release chính thức chưa được tạo hoặc công bố; website chưa được publish.
+Human acceptance của `0.6.0` đã đạt. Tại thời điểm push chuỗi release,
+`master` và `origin/master` cùng ở commit
+`3c4389606e03020b583d98bb95bc397b7f7b16c9`. Annotated tag
+`qmd-ops-v0.6.0` đã được push; tag object
+`03f5870fd225cf47edf4ad1e376fb919d045646c` trỏ đến Cmeta/package identity
+commit `0441bbd5c20cdd884b7a318e637274da4987f163`. Release candidate package có
+package ID `qmd-release-0-6-0-20260809-220845` và ZIP SHA-256
+`9e16f0124bcf44bb5ddc54ac6a771981075ecf00f5b0af7b0b2a0d6f4b78521e`.
+Release trước là `0.5.0`. GitHub Release chưa được tạo; website chưa được publish.
 
 Release `0.3.0` cùng hồ sơ O3 được giữ làm bằng chứng lịch sử của giai đoạn phát hành và khôi phục.
 
@@ -178,12 +180,12 @@ scripts/zo_qmd_package.py
 Trạng thái phiên bản:
 
 ```text
-PUBLISHED/TAGGED OPERATIONS RELEASE: 0.5.0
-CANDIDATE OPERATIONS RELEASE: 0.6.0
-QMD OPERATIONS CLI CANDIDATE: 0.6.0
-OPERATIONS CONTRACT CANDIDATE: 0.6
-PACKAGE MODULE CANDIDATE: 0.5.0
-CHECKER CANDIDATE: 2.7.0
+PUBLISHED/TAGGED OPERATIONS RELEASE: 0.6.0
+PREVIOUS OPERATIONS RELEASE: 0.5.0
+QMD OPERATIONS CLI: 0.6.0
+OPERATIONS CONTRACT: 0.6
+PACKAGE MODULE: 0.5.0
+CHECKER: 2.7.0
 ```
 
 Các lệnh đã triển khai:
