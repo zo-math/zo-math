@@ -1,0 +1,33 @@
+release_record_version: 1
+
+release:
+  stage: candidate
+  version: "0.6.0"
+  tag: qmd-ops-v0.6.0
+  tag_created: false
+  previous_version: "0.5.0"
+  previous_commit: ba85e35db84e092fbb2c1786ceb9fff707dfc438
+  regression_status: pass
+  rollback_tested: true
+
+change:
+  semver: minor
+  classifications:
+    - operations_contract
+    - operations_documentation
+    - cli
+    - checker
+    - loader_or_registry
+    - manifest_schema
+    - package_module
+  migration_required: true
+  migration_summary: "Production session yêu cầu authority acknowledgement; session, checker evidence, human review và prepublish evidence phải được tạo lại theo schema của 0.6.0."
+
+evidence:
+  version_matrix: quy_trinh_xay_dung/he_thong_san_xuat_qmd/ma_tran_phien_ban_qmd.md
+  changelog: quy_trinh_xay_dung/he_thong_san_xuat_qmd/CHANGELOG.md
+  release_checklist: quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_6_0/release_checklist.md
+  rollback_log: quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_6_0/rollback_log.md
+  regression_before: quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_6_0/regression_before.txt
+  regression_after: quy_trinh_xay_dung/he_thong_san_xuat_qmd/phat_hanh/qmd_ops_0_6_0/regression_after.txt
+  upgrade_and_rollback_guide: quy_trinh_xay_dung/he_thong_san_xuat_qmd/quy_trinh_phat_hanh_va_khoi_phuc_qmd.md
