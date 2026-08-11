@@ -902,6 +902,35 @@ def _manifest_sources(
     return sources, all_files
 
 
+def _validate_package_output_location(
+    root: Path,
+    output: Path,
+    *,
+    kind: str,
+    inside_repository_reason: str | None,
+) -> bool:
+    root = root.resolve()
+    output = output.resolve()
+    output_inside = _is_inside(root, output)
+    if not output_inside:
+        return False
+    if kind == "release":
+        raise PackageError("Đầu ra release candidate phải nằm ngoài repository.")
+
+    relative = output.relative_to(root)
+    if len(relative.parts) < 2 or relative.parts[0] != "_audit":
+        raise PackageError(
+            "Đầu ra context nằm trong repository phải ở dưới _audit/: "
+            f"{relative.as_posix() or '.'}"
+        )
+    if not (inside_repository_reason or "").strip():
+        raise PackageError(
+            "Đầu ra nằm trong repository; phải khai báo "
+            "--inside-repository-reason."
+        )
+    return True
+
+
 def create_package(
     root: Path,
     *,
@@ -941,14 +970,12 @@ def create_package(
     if not prompt_text.strip():
         raise PackageError("PROMPT.md không được để trống.")
 
-    output_inside = _is_inside(root, output)
-    if kind == "release" and output_inside:
-        raise PackageError("Đầu ra release candidate phải nằm ngoài repository.")
-    if output_inside and not (inside_repository_reason or "").strip():
-        raise PackageError(
-            "Đầu ra nằm trong repository; phải khai báo "
-            "--inside-repository-reason."
-        )
+    output_inside = _validate_package_output_location(
+        root,
+        output,
+        kind=kind,
+        inside_repository_reason=inside_repository_reason,
+    )
 
     repository = (
         _release_repository_state(root)
@@ -2283,7 +2310,54 @@ extensions: {}
         raise PackageError("Self-test không từ chối quality exemplar bị thiếu.")
 
 
+def _self_test_output_locations(base: Path) -> None:
+    root = (base / "repository").resolve()
+    root.mkdir()
+    outside = (base / "outside").resolve()
+
+    cases = (
+        (outside / "context-dir", "context", None, False),
+        (outside / "context.zip", "context", None, False),
+        (root / "_audit", "context", "fixture", True),
+        (root / "_audit/../foo.zip", "context", "fixture", True),
+        (root / "context-dir", "context", "fixture", True),
+        (root / "packages/context.zip", "context", "fixture", True),
+        (root / "_audit/context-dir", "context", None, True),
+        (root / "_audit/context-dir", "context", "fixture", False),
+        (root / "_audit/release.zip", "release", "fixture", True),
+    )
+    for output, kind, reason, should_block in cases:
+        try:
+            inside = _validate_package_output_location(
+                root,
+                output,
+                kind=kind,
+                inside_repository_reason=reason,
+            )
+        except PackageError:
+            if not should_block:
+                raise
+        else:
+            if should_block:
+                raise PackageError(
+                    "Self-test không từ chối output package sai vị trí: "
+                    f"{output}."
+                )
+            if inside != _is_inside(root, output):
+                raise PackageError(
+                    "Self-test phân loại sai vị trí output package: "
+                    f"{output}."
+                )
+
+
 def self_test() -> int:
+    try:
+        with tempfile.TemporaryDirectory(prefix="zo-qmd-location-self-test-") as raw:
+            _self_test_output_locations(Path(raw))
+    except PackageError as exc:
+        print(f"Package location self-test thất bại: {exc}", file=sys.stderr)
+        return EXIT_FAILED
+
     try:
         with tempfile.TemporaryDirectory(prefix="zo-qmd-context-self-test-") as raw:
             _self_test_context_quality_exemplars(Path(raw))
