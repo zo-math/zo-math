@@ -45,12 +45,12 @@ Khi nhiệm vụ có đồ thị TikZ/PGFPlots, phải đọc và tuân thủ:
 
 - `../../../../quy_trinh_xay_dung/quy_chuan_do_thi_sinh_ma_nguon_tikz_pgfplots.md`.
 
-Khi người dùng hoặc hồ sơ sản xuất chỉ định một phong cách viết, phải đọc:
+Trong dự án **100+ Hàm số: Sự biến thiên và đồ thị**, phong cách **Học thuật tĩnh tại** là phong cách viết mặc định bắt buộc đối với các bài khảo sát một hàm số cụ thể. Khi tạo mới, hoàn thiện hoặc kiểm định một bài như vậy, phải đọc:
 
 - `../../../../quy_trinh_xay_dung/phong_cach_viet/index.md`;
-- tài liệu chuyên biệt của phong cách được chỉ định.
+- `../../../../quy_trinh_xay_dung/phong_cach_viet/hoc_thuat_tinh_tai.md`.
 
-Phong cách **Học thuật tĩnh tại** chỉ được áp dụng khi đã được chỉ định rõ. Không mặc định áp dụng phong cách này cho toàn dự án.
+Yêu cầu trực tiếp hiện tại của người dùng có thể chỉ định một phong cách khác hoặc một phạm vi khác; khi đó yêu cầu trực tiếp có ưu tiên. Mặc định Học thuật tĩnh tại ở đây chỉ thuộc phạm vi dự án này, không được suy rộng sang dự án hoặc nội dung khác trong repository.
 
 ## Vai trò của Khung khảo sát hàm số
 
