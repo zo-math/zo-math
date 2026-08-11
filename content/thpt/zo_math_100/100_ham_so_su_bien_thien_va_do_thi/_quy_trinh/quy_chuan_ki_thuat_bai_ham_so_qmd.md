@@ -148,9 +148,11 @@ Phải bảo đảm:
 
 - `title` gọi đúng hàm và có thể chứa công thức;
 - `pagetitle` là tiêu đề văn bản gọn, không phụ thuộc khả năng hiển thị LaTeX;
-- `subtitle` gọi đúng trục nhận thức hoặc hiện tượng trung tâm, không dùng khẩu hiệu quảng bá;
-- `summary`, `description` và `abstract` đúng chức năng, không lặp nguyên văn và không mô tả nội dung không có trong bài;
-- `keywords` chỉ chứa các khái niệm thực sự có vai trò;
+- `subtitle` gọi đúng trục nhận thức hoặc hiện tượng trung tâm, đủ đặc trưng cho chính bài, không dùng khẩu hiệu quảng bá hoặc một ẩn dụ chung chung có thể gắn cho nhiều bài; không chứa một quan hệ chưa được xác lập;
+- `summary` nén cách nhìn hoặc kết luận trung tâm của bài, không biến thành danh sách thuật ngữ và không lặp nguyên văn `description`;
+- `description` là lời giới thiệu bằng văn xuôi, nói được nội dung đáng đọc hoặc cách nhìn mà bài đem lại; không dùng như mục lục hay danh sách từ khóa; công thức toán trong trường này phải dùng cú pháp LaTeX phù hợp;
+- `abstract` phát triển lời giới thiệu ở mức dài hơn khi cần, không lặp máy móc `summary` hoặc `description` và không mô tả nội dung không có trong bài;
+- `keywords` là nơi chứa các khái niệm hoặc thuật ngữ tìm kiếm thực sự có vai trò;
 - `listing-order` khớp `number` của thẻ tương ứng;
 - `image` trong QMD khớp tài nguyên `image` của thẻ sau khi chuẩn hóa tiền tố đường dẫn `/content/.../`;
 - `author`, `date` và `abstract` vẫn được giữ làm metadata nhưng không hiện ngoài ý muốn trên HTML;
@@ -380,7 +382,7 @@ Không tạo một hệ trục, màu, lấy mẫu hoặc cấu trúc `.tex` cạ
 
 Mọi hình mang thông tin phải có `fig-alt` hoặc cơ chế tương đương.
 
-`fig-alt` phải mô tả đối tượng và quan hệ thị giác chính; không dùng các mô tả chung như “Hình đồ thị” hoặc “Ảnh minh họa”.
+`fig-alt` phải mô tả đối tượng và quan hệ thị giác chính; không dùng các mô tả chung như “Hình đồ thị” hoặc “Ảnh minh họa”. Văn bản thay thế phải khớp artifact đã render: không mô tả một marker, điểm, đường chiếu, nhãn hoặc đối tượng như thể nó được thể hiện trên hình nếu artifact thực tế không biểu diễn nó.
 
 Khi hình hoặc bảng cần được gọi lại, dùng nhãn duy nhất và dẫn chiếu Quarto. Không ghi cứng số thứ tự nếu Quarto có thể sinh tự động.
 
@@ -412,31 +414,31 @@ Không dùng bảng hữu hạn để chứng minh kết luận vô hạn hoặc
 
 #### 3.6.1. Điều kiện kích hoạt
 
-Việc bài có hệ thống bài tập hay không do hồ sơ sản xuất và `quy_chuan_khao_sat_ham_so.md` quyết định.
+Đối với bài production chuẩn về một hàm số cụ thể trong dự án này, `quy_chuan_khao_sat_ham_so.md` xem hệ thống bài tập là thành phần tiếp tục của bài học. Yêu cầu trực tiếp của người dùng có thể loại bỏ bài tập hoặc một loại nhiệm vụ có thể không cần hệ bài tập; ngoại lệ phải được ghi rõ trong hồ sơ.
 
-Quy chuẩn kĩ thuật này **không tự biến bài tập thành đầu ra bắt buộc cho mọi bài**. Khi hệ bài tập được kích hoạt, toàn bộ mục này trở thành bắt buộc.
+Quy chuẩn kĩ thuật này điều khiển cách hiện thực hệ bài tập khi áp dụng; nó không tạo một cơ chế tự khai để agent tùy ý tắt thành phần mặc định.
 
 #### 3.6.2. Cấu trúc tiêu đề
 
-Cấu trúc mặc định:
+Cấu trúc hiện hành:
 
 ```markdown
 ## Bài tập
 
-### Tên nhóm theo mục tiêu
+### Tên nhóm toán học tự nhiên
 
-#### Tên bài tập cụ thể
+#### Bài 1. Tên bài tập cụ thể
 
 Nội dung bài tập
 ```
 
 - H2 dành cho toàn hệ bài tập;
-- H3 dành cho một nhóm có mục tiêu chung;
-- H4 dành cho từng bài tập;
+- H3 dành cho một nhóm toán học tự nhiên có nhiều bài cần được đọc cùng nhau;
+- H4 dành cho từng bài tập trong contract kĩ thuật hiện hành;
 - không dùng H1;
-- không dùng chữ đậm, lớp trình bày hoặc khối nội dung để giả lập cấp tiêu đề.
+- không công khai các nhãn thiết kế nội bộ như “Mục tiêu A/B”.
 
-Tên nhóm và tên bài phải gọi đúng chức năng hoặc câu hỏi; số thứ tự không thay thế tên.
+Tên nhóm phải gọi đúng nội dung toán học. Tên bài và số thứ tự phải giúp định vị bài tập mà không biến metadata thiết kế nội bộ thành cấu trúc công khai. Việc thay đổi container H4 chỉ được thực hiện đồng bộ với checker và các bài production đang tuân contract hiện hành.
 
 #### 3.6.3. Đề bài và thành phần thu gọn
 
@@ -448,7 +450,7 @@ Nếu nhiệm vụ không yêu cầu gợi ý, đáp án hoặc lời giải, kh
 
 #### 3.6.4. Kí hiệu và tài nguyên
 
-Kí hiệu phải nhất quán với thân bài. Tài nguyên trong bài tập phải tuân thủ Mục 3.5. Cú pháp LaTeX phải tuân thủ `AGENTS.md` và quy ước hiện hành của dự án.
+Kí hiệu phải nhất quán với thân bài. Tài nguyên trong bài tập phải tuân thủ Mục 3.5. Cú pháp LaTeX phải tuân thủ `AGENTS.md` và quy ước hiện hành của dự án. Trong nội dung mới của dự án, dùng `\quad` cho khoảng cách công thức theo quy ước hiện hành, `\lvert...\rvert` cho trị tuyệt đối và `f^\prime`, `f^{\prime\prime}` cho đạo hàm; không dùng `\qquad`, dạng `|...|` để biểu diễn trị tuyệt đối hoặc `f'`, `f''` như biến thể trình bày.
 
 Các yêu cầu về mục tiêu, quan hệ phụ thuộc, độ khó, tính tự chứa, trùng lặp và giá trị nhận thức thuộc `quy_chuan_khao_sat_ham_so.md`, không lặp lại trong tài liệu này.
 
@@ -457,6 +459,8 @@ Các yêu cầu về mục tiêu, quan hệ phụ thuộc, độ khó, tính t�
 #### 3.7.1. Phạm vi bắt buộc
 
 Mọi bài khảo sát một hàm số ở trạng thái `published` phải có PDF tải xuống của chính bài và nút tải hoạt động trên HTML.
+
+Ngoài cổng xuất bản, còn có yêu cầu toàn vẹn của output dùng cho Human Review: nếu bản HTML được đưa cho người kiểm định có hiển thị nút tải PDF, tệp PDF mà nút ấy trỏ tới phải tồn tại và mở được. Nếu PDF chưa được build, không được coi HTML có nút tải chưa hoạt động là output review hoàn chỉnh.
 
 YAML phải có:
 
@@ -588,7 +592,7 @@ Trong bài QMD mới hoặc phần nội dung mới, không được có:
 | Tiêu đề giả     | `.tieu-de-chu-thich`                                               | Lỗi chặn                                 |
 | Khối cũ         | `collapsible-box-*`, `highlight-box-*`                             | Lỗi chặn đối với nội dung mới            |
 | Giá trị giữ chỗ | Các giá trị tại Mục 3.1.5                                          | Lỗi chặn                                 |
-| LaTeX           | `\(`, `\)`, `\[`, `\]`, `\boxed` trong nội dung xuất bản           | Lỗi chặn                                 |
+| LaTeX           | `\(`, `\)`, `\[`, `\]`, `\boxed`; trong nội dung mới còn phải tuân `\quad`, `\lvert...\rvert`, `f^\prime`, `f^{\prime\prime}` theo quy ước dự án | Lỗi chặn đối với mẫu xác định chắc chắn |
 | Mã              | lệnh cài thư viện, `setwd()`, mã tạm, thư viện không dùng          | Lỗi chặn hoặc cảnh báo theo độ chắc chắn |
 | Đường dẫn       | tuyệt đối, localhost, `docs/`, `_audit/`, cache                    | Lỗi chặn                                 |
 | Tài nguyên      | tên tạm, tệp thiếu, thiếu `fig-alt`, sai bài                       | Lỗi chặn hoặc cảnh báo theo trường hợp   |
@@ -697,10 +701,11 @@ Cho đến khi các kiểm tra chuyên biệt được tích hợp, báo cáo ph
 - tên tệp không mang dấu vết tạm;
 - tài nguyên không còn thuộc bài mẫu.
 
-#### Bài tập khi được kích hoạt
+#### Bài tập
 
-- có `## Bài tập`;
-- có H3 cho nhóm và H4 cho từng bài;
+- có `## Bài tập` đối với bài production chuẩn, trừ ngoại lệ đã được thẩm quyền cho phép;
+- có H3 cho nhóm toán học tự nhiên và H4 cho từng bài theo contract kĩ thuật hiện hành;
+- không có nhãn công khai “Mục tiêu A/B”;
 - bài có nội dung;
 - đề bài không bị giấu hoàn toàn trong khối thu gọn;
 - khối gợi ý, đáp án hoặc lời giải dùng cấu trúc hiện hành;
@@ -721,8 +726,9 @@ Cho đến khi các kiểm tra chuyên biệt được tích hợp, báo cáo ph
 - số trang hợp lệ;
 - metadata có thể trích xuất;
 - URL không chứa localhost hoặc giá trị giữ chỗ;
-- HTML sau render có nút tải;
-- liên kết tải trỏ tới tệp tồn tại trong đầu ra xuất bản.
+- HTML sau render có nút tải khi workflow yêu cầu hiển thị chức năng ấy;
+- nếu HTML dùng cho Human Review có nút tải PDF, liên kết tải trỏ tới tệp tồn tại và mở được;
+- liên kết tải trong đầu ra xuất bản trỏ tới đúng tệp tồn tại.
 
 ### 4.4. Kiểm định có người quan sát tối thiểu
 

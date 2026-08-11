@@ -2,9 +2,9 @@
 
 ## 1. Mục đích, phạm vi và thẩm quyền
 
-Tài liệu này là quy chuẩn gốc để nhận diện, áp dụng và kiểm định phong cách **Học thuật tĩnh tại** trong những nhiệm vụ viết hoặc biên tập được người dùng chỉ định.
+Tài liệu này là quy chuẩn gốc để nhận diện, áp dụng và kiểm định phong cách **Học thuật tĩnh tại** trong những nhiệm vụ viết hoặc biên tập mà yêu cầu trực tiếp, nhiệm vụ hoặc authority cục bộ của dự án đã chỉ định phong cách này.
 
-Học thuật tĩnh tại là một phong cách độc lập trong hệ thống nhiều phong cách viết của ZO Math. Chỉ áp dụng phong cách này khi người dùng gọi đúng tên hoặc xác nhận rõ việc sử dụng nó cho bài viết, phần nội dung hay nhiệm vụ hiện tại. Không mặc định áp dụng cho toàn repository, một nhóm chủ đề hoặc mọi bài toán học; không suy rộng từ một bài mẫu sang bài khác.
+Học thuật tĩnh tại là một phong cách độc lập trong hệ thống nhiều phong cách viết của ZO Math. Phong cách chỉ có hiệu lực trong phạm vi đã được chỉ định; một dự án con có thể chọn Học thuật tĩnh tại làm mặc định cho chính dự án ấy. Không vì thế mặc định áp dụng cho toàn repository hoặc suy rộng từ một bài, một nhóm nội dung hay một dự án sang phạm vi khác.
 
 Yêu cầu trực tiếp của người dùng, mục tiêu nhận thức, đối tượng người đọc và chức năng của bài có ưu tiên cao hơn quy chuẩn phong cách. Tài liệu này phải được dùng cùng `AGENTS.md`, `index.md` của hệ thống phong cách viết và các quy chuẩn biên tập, ngôn ngữ, kỹ thuật đang có hiệu lực. Khi các nguồn có thẩm quyền cùng cấp mâu thuẫn mà yêu cầu hiện tại chưa giải quyết, phải dừng và hỏi người dùng.
 
@@ -64,6 +64,9 @@ Nhịp văn không được đều đều do câu bị chia vụn, cũng không 
 - Chỉ dùng hình ảnh khi nó làm sáng tỏ ý toán học.
 - Không lạm dụng những từ như “sâu sắc”, “kì diệu”, “bất ngờ”, “đầy mê hoặc”.
 - Không làm giảm mức độ chính xác của phát biểu để đổi lấy câu văn giàu cảm xúc.
+- Khi hai vế được đặt song song, giữ chúng ở mức khái niệm tương xứng; không đặt một thuật ngữ hình thức ngang với một hình ảnh trực giác như thể chúng cùng loại khi quan hệ ấy chưa được xác lập.
+- Phân biệt chính xác các quan hệ như *phụ thuộc vào*, *bảo toàn*, *làm mất*, *xác định được từ* và *có thể khôi phục từ*; không đổi động từ chỉ để câu văn thuận tai nếu điều đó làm thay đổi mệnh đề.
+- Một hình ảnh trực giác có thể mở đường cho khái niệm, nhưng sau khi thuật ngữ chính thức đã được xác lập, hình ảnh ấy không được thay thế thuật ngữ trên toàn mạch.
 
 ### 3.4. Thẩm mỹ
 
@@ -99,6 +102,8 @@ Mở ra một thao tác mới: vận dụng, biến đổi, đặt câu hỏi ti
 
 Mở đầu đưa ra một điểm tựa có thật: đối tượng, ví dụ tối giản, hiện tượng, quan hệ, khó khăn hoặc câu hỏi học thuật liên quan trực tiếp đến trục chính. Không kéo dài động cơ khi có thể đi thẳng vào vấn đề; không mở bằng giai thoại rồi bỏ quên nó; không quảng bá tầm quan trọng của chủ đề thay cho việc xác lập nhu cầu.
 
+Tiêu đề phụ và phần mô tả cũng thuộc lớp mở đầu của văn bản. Tiêu đề phụ phải gọi một quan hệ, hiện tượng hoặc góc nhìn đủ đặc trưng cho bài, không chỉ là một ẩn dụ nghe hợp nghĩa nhưng có thể gắn cho nhiều bài khác. Phần mô tả phải làm lời giới thiệu bằng văn xuôi, nói được điều gì đáng đọc hoặc cách nhìn mà bài đem lại; không dùng phần mô tả như một danh sách từ khóa hay mục lục trá hình.
+
 ### 5.2. Hình thành và giải thích khái niệm
 
 Khái niệm cần xuất hiện đúng lúc, nhưng không bắt buộc mọi thuật ngữ đều trải qua một màn tự vấn. Một định nghĩa có thể được nêu trực tiếp khi bối cảnh đã đủ.
@@ -110,6 +115,8 @@ Khi cần chuẩn bị khái niệm, trước hết làm rõ đối tượng ho�
 Lập luận phải cho thấy tiền đề, bước chuyển và kết luận. Mỗi bước cần làm rõ nó dựa vào đâu, giải quyết điều gì hoặc mở đường cho kết quả nào. Không bỏ mắt xích vì người viết thấy hiển nhiên; cũng không diễn giải nhiều lần một suy luận đã đủ sáng.
 
 Khi có giả thiết, điều kiện hoặc ngoại lệ, nêu chúng ở nơi cần dùng. Kết luận phải tương xứng với căn cứ đã trình bày.
+
+Khi một chuỗi ý có thể phát triển tự nhiên thành văn xuôi liên tục, ưu tiên văn xuôi. Chỉ chuyển sang danh sách khi bản thân cấu trúc thông tin thực sự cần liệt kê, chẳng hạn các trường hợp độc lập, checklist, dữ liệu, chuỗi bước hoặc những mục mà người đọc cần quét riêng. Không dùng bullet để chặt vụn một lập luận vốn cần được đọc như một mạch.
 
 ### 5.4. Chuyển đoạn và kết đoạn
 
@@ -150,11 +157,11 @@ Người viết tổ chức một con đường hiểu, không đứng trên ng�
 
 ### 8.1. Chữ đậm
 
-Chỉ dùng để nhận diện cấu trúc hoặc một điểm thật sự cần định vị nhanh. Không dùng liên tục để nhấn cảm xúc và không dùng thay cho tổ chức lập luận.
+Chỉ dùng để nhận diện cấu trúc, nhãn hoặc một điểm thật sự cần định vị nhanh. Không dùng chữ đậm để nhấn một câu hỏi, một mệnh đề hay một câu văn nằm trong dòng; không dùng liên tục để tăng cường độ giọng nói và không dùng thay cho tổ chức lập luận.
 
 ### 8.2. Chữ nghiêng
 
-Chỉ dùng khi có chức năng rõ: thuật ngữ đang được xét, tên tác phẩm, đối chiếu ngôn ngữ hoặc một mức nhấn nhẹ thực sự cần thiết. Không nghiêng hàng loạt các từ quan trọng và không dùng để tạo vẻ suy tưởng.
+Chỉ dùng khi có chức năng rõ: thuật ngữ đang được xét, tên tác phẩm, đối chiếu ngôn ngữ hoặc một mức nhấn nhẹ thực sự cần thiết. Khi văn xuôi cần một mức nhấn nhẹ, chữ nghiêng là lựa chọn ưu tiên hơn chữ đậm. Không nghiêng hàng loạt các từ quan trọng và không dùng để tạo vẻ suy tưởng.
 
 ### 8.3. Khối định nghĩa
 
@@ -219,8 +226,12 @@ Phong cách này có thể dùng một số phương tiện của các lối vi�
 - Biến Đánh thức – Tìm hiểu – Phản tỉnh – Sáng tạo thành khuôn.
 - Sao chép các câu hoặc cấu trúc trong phần ví dụ như mẫu bắt buộc.
 - Lạm dụng chữ đậm, chữ nghiêng, callout hoặc khối ẩn.
+- Dùng chữ đậm để nhấn một câu văn hoặc câu hỏi trong mạch văn.
+- Biến một lập luận có thể viết thành văn xuôi thành danh sách rời chỉ để tạo cảm giác rõ ràng.
+- Dùng phần mô tả như danh sách thuật ngữ thay vì lời giới thiệu.
+- Kéo dài một ẩn dụ đến mức nó thay thế thuật ngữ toán học đã được xác lập.
 - Đặt nội dung bắt buộc trong phần tùy chọn.
-- Coi phong cách này là mặc định hoặc suy rộng khỏi phạm vi người dùng chỉ định.
+- Coi phong cách này là mặc định ngoài phạm vi đã được người dùng, nhiệm vụ hoặc authority cục bộ chỉ định.
 
 ## 11. Ví dụ đối chiếu
 
@@ -300,7 +311,7 @@ Lý do: kết đoạn nêu chính xác vai trò của giả thiết trong một 
 
 ### 12.1. Quy trình áp dụng cho một bài
 
-1. Xác định phạm vi người dùng yêu cầu áp dụng phong cách.
+1. Xác định nguồn chỉ định phong cách và phạm vi áp dụng: yêu cầu trực tiếp, nhiệm vụ hoặc authority cục bộ của dự án.
 2. Xác định mục tiêu, đối tượng đọc và chức năng của bài.
 3. Kiểm tra độ chính xác toán học trước.
 4. Nhận diện cấu trúc nhận thức tự nhiên của nội dung.
@@ -312,7 +323,7 @@ Lý do: kết đoạn nêu chính xác vai trò của giả thiết trong một 
 
 ### 12.2. Checklist trước khi hoàn tất
 
-- [ ] Phong cách và phạm vi áp dụng đã được người dùng chỉ định.
+- [ ] Nguồn chỉ định phong cách và phạm vi áp dụng đã được xác định đúng.
 - [ ] Yêu cầu nhiệm vụ, mục tiêu và đối tượng đọc được giữ đúng.
 - [ ] Điều kiện, ký hiệu, thuật ngữ, lập luận và kết luận chính xác.
 - [ ] Mỗi phần có chức năng nhận thức rõ và mạch bài tiến lên.
@@ -322,7 +333,7 @@ Lý do: kết đoạn nêu chính xác vai trò của giả thiết trong một 
 - [ ] Nhấn mạnh, khối nội dung, công thức, ví dụ và hình đều có chức năng.
 - [ ] Nội dung cốt lõi không bị che bởi phần mở rộng.
 - [ ] Không biến bốn chức năng nhận thức hoặc các ví dụ thành khuôn viết.
-- [ ] Không suy rộng phong cách khỏi phạm vi được chỉ định.
+- [ ] Không suy rộng phong cách khỏi phạm vi đã được chỉ định bởi người dùng, nhiệm vụ hoặc authority cục bộ.
 
 ## 13. Thử nghiệm và cập nhật quy chuẩn
 

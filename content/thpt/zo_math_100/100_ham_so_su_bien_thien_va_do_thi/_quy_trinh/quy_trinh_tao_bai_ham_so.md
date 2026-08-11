@@ -121,7 +121,7 @@ Trước khi viết, sửa hoặc kiểm định, agent phải tự đọc:
 9. tệp đích và toàn bộ tài nguyên mà tệp đích dẫn tới, nếu bài đã tồn tại;
 10. `quy_trinh_xay_dung/huong_dan_su_dung_khoi_noi_dung.md` khi bài có hoặc dự kiến có khối nội dung;
 11. quy chuẩn đồ thị khi bài cần tạo, sửa hoặc kiểm định hình TikZ/PGFPlots;
-12. chỉ mục phong cách và tài liệu phong cách được chỉ định;
+12. chỉ mục phong cách và tài liệu phong cách có hiệu lực; đối với bài khảo sát hàm số cụ thể trong dự án này, mặc định phải đọc `hoc_thuat_tinh_tai.md` theo `AGENTS.md`;
 13. cấu hình Quarto, Lua filter, CSS, TeX hoặc script liên quan trực tiếp khi cần kiểm tra kĩ thuật hay render.
 
 Quy chuẩn khảo sát phải được đọc để xác định bài cần nói điều gì và được tổ chức theo mạch nào.
@@ -195,7 +195,7 @@ Kết quả của giai đoạn này được ghi vào các nhóm `nhiem_vu`, `ph
 
 1. Tìm thẻ của hàm trong `_data/cards.yml`.
 2. Xác định `slug`, số thẻ, nhãn, đường dẫn QMD, ảnh thẻ và trạng thái xuất bản.
-3. Sao chép cấu trúc của `ho_so_san_xuat_mac_dinh.yml` thành `_quy_trinh/ho_so/<slug>.yml`.
+3. Sao chép cấu trúc của `ho_so_san_xuat_mac_dinh.yml` thành `_quy_trinh/ho_so/<slug>.yml`; giữ Học thuật tĩnh tại là phong cách mặc định cục bộ, trừ khi yêu cầu trực tiếp của người dùng chỉ định khác.
 4. Điền phiếu giao việc và các thông tin có thể truy trực tiếp.
 5. Ghi rõ mọi suy định.
 6. Chỉ hỏi lại những trường hợp đạt điều kiện phải hỏi của quy chuẩn.
@@ -218,7 +218,9 @@ Thực hiện theo Mục 4 và Mục 5 của `quy_chuan_khao_sat_ham_so.md`:
 
 Không viết văn xuôi dài của bài trong giai đoạn này.
 
-Nếu quy chuẩn chưa đủ để xử lí một khái niệm hoặc trường hợp, tra đúng chương liên quan trong `_quy_trinh/nguon_li_thuyet/khung_khao_sat_ham_so_hoan_chinh_04.qmd`, rồi ghi vị trí hoặc nội dung đã dùng vào hồ sơ.
+Sau vòng rà, phải truy đúng phần liên quan trong `_quy_trinh/nguon_li_thuyet/khung_khao_sat_ham_so_hoan_chinh_04.qmd` đối với những phương diện sẽ đi vào mạch chính hoặc làm căn cứ cho hiện tượng trung tâm, đặc biệt khi phần nguồn chứa định nghĩa, điều kiện, giới hạn phương pháp hoặc một phân biệt dễ gây nhầm. Việc này vẫn cần thực hiện khi quy chuẩn nén có vẻ đã đủ để tính toán kết quả.
+
+Trong `vi_tri_da_dung`, ghi chương/mục hoặc vị trí nội dung cụ thể đã dùng; không dùng một mô tả chung như “khung hồ sơ” hay “trục nhận thức”. Trường `da_dung` và danh sách vị trí chỉ tạo khả năng truy xuất, không thay thế việc kiểm tra sản phẩm cuối.
 
 Điểm kiểm soát G2 đạt khi không còn lỗi toán học thiết yếu và các kết luận quan trọng đều truy được về chứng cứ.
 
@@ -227,8 +229,8 @@ Nếu quy chuẩn chưa đủ để xử lí một khái niệm hoặc trường
 Thực hiện theo Mục 6–9 của quy chuẩn:
 
 1. đề xuất hiện tượng trung tâm từ hồ sơ;
-2. kiểm tra hiện tượng ấy bằng chứng cứ;
-3. viết câu hỏi dẫn đường và câu trả lời dự kiến;
+2. kiểm tra hiện tượng ấy bằng chứng cứ, đồng thời tách phát biểu toán học chính xác khỏi ẩn dụ hoặc trực giác; loại bỏ trục nhận thức dựa trên một quan hệ mơ hồ hoặc sai;
+3. viết câu hỏi dẫn đường và câu trả lời dự kiến; câu hỏi phải đủ ngắn và không chứa một kết luận chưa được hồ sơ nâng đỡ;
 4. lập bản đồ hiện tượng đủ năm thành phần;
 5. chọn nội dung theo chức năng;
 6. tạo các mạch lập luận;
@@ -263,10 +265,11 @@ Không dùng một mục lục cố định. Các chức năng khơi mở, nhậ
    - cú pháp lớp hiện hành sẽ sử dụng.
 9. Không đưa một nội dung vào khối chỉ để trang trí hoặc nhấn mạnh. Không thu gọn mắt xích bắt buộc của mạch chính.
 10. Ghi vị trí dự kiến của từng khối trong mạch bài và lí do đặt ở đó. Không gom các khối ứng dụng, lịch sử, so sánh hoặc khám phá vào một mục cuối chỉ vì chúng đều là phần đọc thêm; phân bố chúng tại nơi chúng làm sáng tỏ kết quả vừa được xác lập.
-11. Xác định hệ bài tập có được kích hoạt hay không. Nếu không kích hoạt, ghi lí do trong hồ sơ. Nếu có, xác định cấu trúc H2–H3–H4, mục tiêu, quan hệ phụ thuộc và trạng thái của gợi ý, đáp án hoặc lời giải.
+11. Đối với bài production chuẩn, thiết kế hệ bài tập như phần tiếp tục của bài học: một mạch giúp tái dựng nội dung cốt lõi và một mạch mở rộng–đào sâu. Hai chức năng này chỉ là mục tiêu nội bộ. Theo contract kĩ thuật hiện hành, H3 dùng cho nhóm toán học tự nhiên và H4 cho từng bài; không dùng chính tên hai mục tiêu nội bộ làm heading công khai. Chỉ bỏ hệ bài tập khi yêu cầu trực tiếp của người dùng hoặc loại nhiệm vụ thực sự cho phép, và phải ghi rõ ngoại lệ trong hồ sơ.
 12. Với bài dự kiến chuyển sang `published`, xác định tên PDF, `zo-pdf-download`, `zo-pdf-branding`, URL chính tắc và quy trình build PDF.
-13. Thay toàn bộ giá trị giữ chỗ bằng metadata thật.
-14. Xóa các chú thích hướng dẫn không thuộc bài cuối.
+13. Thay toàn bộ giá trị giữ chỗ bằng metadata thật. Trước G4, đối chiếu chức năng riêng của `subtitle`, `summary`, `description`, `abstract` và `keywords`; phần mô tả phải là lời giới thiệu bằng văn xuôi, không phải danh sách từ khóa.
+14. Trong đặc tả hình, ghi rõ những điểm/mốc nào là neo nhận thức, đường chiếu nào thực sự cần để đọc tọa độ và `fig-alt` dự kiến mô tả những gì sẽ hiện trên artifact.
+15. Xóa các chú thích hướng dẫn không thuộc bài cuối.
 
 `mau_ki_thuat_qmd.qmd` chỉ cung cấp khung YAML, các vị trí kĩ thuật và mẫu cú pháp. Nó không áp đặt đề mục nội dung và không thay thế `quy_chuan_ki_thuat_bai_ham_so_qmd.md`.
 
@@ -291,7 +294,7 @@ Trong toàn bộ giai đoạn này, đề cương đã qua G3 điều khiển m�
 3. Phân biệt rõ quan sát, dự đoán, kết luận, xấp xỉ và gợi mở.
 4. Sau mỗi chuỗi công thức, giải nghĩa kết quả đối với hàm.
 5. Sau mỗi biểu diễn, viết phần đọc ngược về mệnh đề và giới hạn của biểu diễn.
-6. Áp dụng tài liệu phong cách chỉ sau khi kiến trúc toán học ổn định.
+6. Áp dụng tài liệu phong cách có hiệu lực chỉ sau khi kiến trúc toán học ổn định; với bài khảo sát hàm số cụ thể trong dự án này, Học thuật tĩnh tại là mặc định cục bộ. Ưu tiên văn xuôi khi lập luận có thể chảy liên tục, không dùng bold để nhấn câu văn thông thường và giữ đúng quy ước LaTeX của dự án.
 7. Tạo và kiểm tra các tệp nguồn hình theo quy chuẩn chuyên trách.
 8. Không cập nhật `cards.yml` chỉ để đánh dấu bài đã xuất bản khi bài chưa qua nghiệm thu.
 9. Dùng hệ lớp `zo-block` hiện hành theo `huong_dan_su_dung_khoi_noi_dung.md`. Không dùng các lớp cũ cho nội dung mới chỉ vì chúng vẫn còn được CSS hỗ trợ để tương thích.
@@ -329,11 +332,11 @@ Trong phạm vi môi trường cho phép:
 6. trước khi kiểm tra giao diện HTML, xác nhận bài đã được đăng kí vào đúng nhóm sidebar trong `_quarto.yml` khi dự án yêu cầu sidebar;
 7. render HTML của bài;
 8. xem HTML thật ở desktop và mobile; xác nhận phần tử sidebar và mục lục thật sự xuất hiện, rồi kiểm tra navbar, căn lề giữa tựa đề và thân bài, hình thường và hình mở rộng;
-9. build PDF tải xuống khi bài yêu cầu;
+9. build PDF tải xuống khi bài yêu cầu; trước khi đưa một HTML có nút “Tải PDF” vào Human Review, phải bảo đảm PDF đích đã tồn tại và mở được;
 10. xem PDF thật; kiểm tra hình nằm trong bề ngang nội dung, công thức, ngắt trang và kí tự lỗi;
 11. kiểm tra trực quan các khối mở cố định và thu gọn trên cả HTML lẫn PDF: viền, nền, tiêu đề, khoảng cách, khả năng mở–đóng trên HTML, nội dung đầy đủ trên PDF và sự liên tục của mạch đọc;
 12. kiểm tra bài mới không dùng lớp khối cũ; với bài hiện có, phải báo rõ lớp cũ nào còn tồn tại và đó là tương thích lịch sử hay sai lệch cần chuyển đổi;
-13. kiểm tra nút tải PDF, metadata, URL chính tắc và tài nguyên;
+13. kiểm tra nút tải PDF, metadata, URL chính tắc và tài nguyên; đối chiếu `fig-alt`, caption, các điểm/mốc và đường chiếu với artifact đã render thay vì chỉ với ý định trong source;
 14. chạy lại kiểm định nội dung nếu sửa kĩ thuật làm thay đổi cách đọc.
 
 Không tuyên bố một kiểm tra đã đạt chỉ vì lệnh trả về mã thoát `0` nếu tiêu chí cần quan sát bản render.

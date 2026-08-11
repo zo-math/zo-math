@@ -55,7 +55,7 @@ Quy chuẩn khảo sát xác định vị trí và mức hiển thị của nộ
 
 Quy chuẩn khảo sát xác định **hình phải biểu diễn điều gì**. Quy chuẩn đồ thị quyết định **dựng hình ấy như thế nào**.
 
-`hoc_thuat_tinh_tai.md` chỉ được áp dụng khi người dùng hoặc nhiệm vụ chỉ định phong cách **Học thuật tĩnh tại**. Không mặc định phong cách này cho mọi bài của ZO Math.
+Trong dự án **100+ Hàm số: Sự biến thiên và đồ thị**, `AGENTS.md` cục bộ chỉ định **Học thuật tĩnh tại** là phong cách mặc định cho bài khảo sát một hàm số cụ thể. Yêu cầu trực tiếp của người dùng có thể thay đổi lựa chọn này. Phạm vi mặc định ấy không được suy rộng ra ngoài dự án.
 
 ### 1.4. Thứ tự ưu tiên
 
@@ -247,6 +247,8 @@ Phải tách rõ:
 
 Đạo hàm là công cụ; đồng biến là thuộc tính. Hình vẽ là biểu diễn; đồ thị toán học là một tập hợp các cặp có thứ tự. Không dùng tên công cụ thay cho kết luận.
 
+Không mặc định chọn công cụ mạnh hơn chỉ vì nó sẵn có. Khi so sánh trực tiếp, biến đổi đại số, bất đẳng thức, sai phân hoặc một công cụ sơ cấp khác làm lộ cơ chế rõ hơn, phải cân nhắc cách ấy trước khi chuyển sang đạo hàm. Khi hai phương pháp tự nhiên cho hai cách nhìn bổ sung, có thể đặt chúng cạnh nhau để người đọc thấy sự khác nhau giữa thuộc tính và công cụ xác lập thuộc tính.
+
 ### 4.4. Hình không thay chứng minh
 
 Hình và dữ liệu hữu hạn có thể:
@@ -297,7 +299,11 @@ Khi mạch văn hấp dẫn xung đột với độ chính xác, phải sửa m�
 - nói “tiệm cận” khi mới quan sát thấy đường cong gần một đường;
 - nói “cực trị” khi chưa phân biệt địa phương và toàn cục;
 - nói “chu kì” khi mới thấy sự lặp hình;
-- nói “xấp xỉ” mà không nêu miền hoặc mức bảo đảm cần thiết.
+- nói “xấp xỉ” mà không nêu miền hoặc mức bảo đảm cần thiết;
+- nói một phép biến đổi “giữ” hoặc “bảo toàn” một đại lượng khi chứng cứ mới chỉ cho thấy giá trị đầu ra *phụ thuộc vào* đại lượng ấy;
+- để một ẩn dụ trực giác làm thay đổi hoặc thay thế phát biểu toán học chính xác.
+
+Với những quan hệ như *phụ thuộc vào*, *bảo toàn*, *làm mất*, *xác định được từ* và *có thể khôi phục từ*, phải dùng đúng động từ tương ứng với mệnh đề đã chứng minh.
 
 ### 4.9. Điều kiện dừng phụ thuộc vào phạm vi
 
@@ -311,13 +317,13 @@ Tất cả các mục dưới đây đều phải được rà. Chỉ đưa vào
 
 | Phương diện              | Câu hỏi bắt buộc                                                                                                    |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------- |
-| Đối tượng                | Hàm được cho bằng cách nào? Có phải phân biệt hàm với biểu thức không?                                              |
+| Đối tượng                | Hàm được cho bằng cách nào? Có phải phân biệt hàm với biểu thức không? Miền và tập đích nào thuộc cách công bố hàm? |
 | Tập xác định             | Điều kiện xác định là gì? Miền có những thành phần, đầu mút, điểm biên, điểm bị loại, điểm cô lập hoặc điểm tụ nào? |
-| Tập giá trị và tập mức   | Giá trị nào đạt được, chỉ được tiến gần hoặc không thể đạt? Các mức quan trọng có nghịch ảnh nào?                   |
+| Tập giá trị và tập mức   | Tập dự kiến đã được chứng minh đủ hai phía: không có giá trị nào vượt ra ngoài và mọi giá trị được nêu đều thực sự đạt được chưa? Các mức quan trọng có nghịch ảnh nào? |
 | Nghiệm, dấu và giao trục | Nghiệm có đầy đủ không? Dấu thay đổi ở đâu? Giao trục nào thực sự tồn tại?                                          |
 | Hành vi tại biên miền    | Có giới hạn hữu hạn, vô hạn, một phía, tại vô cực hoặc không tồn tại không? Cơ chế nào tạo ra hành vi ấy?           |
 | Liên tục và gián đoạn    | Liên tục ở đâu? Gián đoạn theo cơ chế nào? Có thể mở rộng liên tục không?                                           |
-| Biến thiên               | Có thể so sánh giá trị trực tiếp hay cần đạo hàm? Phát biểu trên miền nào? Có vô hạn khoảng biến thiên không?       |
+| Biến thiên               | Có thể so sánh trực tiếp, dùng đại số/bất đẳng thức/sai phân hay thực sự cần đạo hàm? Phát biểu trên miền nào? Có vô hạn khoảng biến thiên không? |
 | Điểm đặc biệt            | Điểm tới hạn, cực trị, điểm góc, điểm nhọn, tiếp tuyến đứng, điểm uốn hoặc mức đặc biệt nào có chức năng?           |
 | Ràng buộc đồ thị         | Những mệnh đề nào quyết định hình dạng, nhánh, điểm, giới hạn và miền quan sát?                                     |
 
@@ -334,7 +340,7 @@ Các phương diện sau chỉ được triển khai khi cấu trúc của hàm 
 | Đối xứng                 | Miền và công thức được bảo toàn qua phản xạ hoặc có trục, tâm đối xứng                        |
 | Tuần hoàn                | Có độ dời bảo toàn giá trị; cần phân biệt với lặp lại không tuần hoàn                         |
 | Hợp hàm                  | Cơ chế phụ thuộc vào cách hàm trong biến đổi đầu vào và hàm ngoài biến đổi giá trị trung gian |
-| Hàm ngược                | Cần đảo chiều quan hệ, hạn chế miền hoặc phân tích nhánh ngược                                |
+| Hàm ngược                | Cần đảo chiều quan hệ hoặc hạn chế miền; phải phân biệt miền của hàm bị hạn chế, tập giá trị của nó và miền của hàm ngược |
 | Phép biến đổi            | Hàm được đọc từ một hàm chuẩn qua tịnh tiến, co giãn, phản xạ hoặc phối hợp                   |
 | Tham số                  | Tham số làm đổi miền, số nghiệm, cực trị, hình dạng hoặc chế độ                               |
 | Tiệm cận và sai lệch     | Cần mô tả mô hình gần biên và phần sai lệch khỏi mô hình                                      |
@@ -417,7 +423,7 @@ Hiện tượng trung tâm phải:
 - giúp người đọc thay đổi hoặc làm sâu cách đọc hàm số;
 - đủ cụ thể để dẫn đường, nhưng không hẹp đến mức chỉ còn một phép tính.
 
-Hiện tượng trung tâm ban đầu là một giả thuyết tổ chức. Phải sửa hoặc thay nó nếu hồ sơ không nâng đỡ được.
+Hiện tượng trung tâm ban đầu là một giả thuyết tổ chức. Phải sửa hoặc thay nó nếu hồ sơ không nâng đỡ được. Phát biểu trung tâm phải tách rõ quan hệ toán học đã chứng minh với hình ảnh trực giác dùng để giải thích; không giữ một trục nhận thức dựa trên một từ quan hệ mơ hồ hoặc sai.
 
 ### 6.2. Viết câu hỏi dẫn đường
 
@@ -428,6 +434,7 @@ Câu hỏi dẫn đường phải:
 - gọi đúng đối tượng và phạm vi;
 - hướng tới một quan hệ cần giải thích;
 - không chứa sẵn kết luận chưa được kiểm tra;
+- ngắn vừa đủ để gọi đúng vấn đề, không dồn cả bản tóm tắt của bài vào một câu hỏi;
 - có thể được trả lời bằng một chuỗi chứng cứ hữu hạn trong phạm vi bài.
 
 Câu hỏi yếu:
@@ -528,7 +535,7 @@ Chỉ kích hoạt khi liên hệ:
 - quay lại làm sáng rõ hàm số đang xét;
 - phân biệt kết quả đã chứng minh với hướng mới được gợi ra.
 
-Phải dừng hoặc tách bài khi vấn đề mới cần một hệ khái niệm, chứng cứ và câu hỏi dẫn đường độc lập.
+Phải dừng hoặc tách bài khi vấn đề mới cần một hệ khái niệm, chứng cứ và câu hỏi dẫn đường độc lập. Khi một tên lớp toán học hoặc hình học đóng vai trò quan trọng trong cách đọc đối tượng, một định nghĩa hoặc tiêu chuẩn nhận diện đủ dùng có thể là liên hệ mở rộng tự nhiên; không dùng dáng hình thay cho căn cứ của tên gọi.
 
 ### 7.5. Kiểm soát độ dài và độ sâu
 
@@ -541,6 +548,8 @@ Rút gọn theo thứ tự:
 5. tách nhánh độc lập thành bài khác.
 
 Không rút gọn bằng cách bỏ điều kiện, ngoại lệ, bước suy luận thiết yếu hoặc phần đọc ngược sau biểu diễn.
+
+Độ sâu không được đo bằng số đề mục hoặc số phép tính. Một bài đạt chiều sâu khi làm rõ được cơ chế, quan hệ giữa các kết quả, lựa chọn hoặc đối sánh công cụ, giới hạn của kết luận và ít nhất một cách nhìn có thể chuyển sang đối tượng khác. Không thêm nội dung chỉ để làm bài dài; cũng không cắt bỏ những lớp giải thích khiến bài chỉ còn một bản tóm tắt kiến thức.
 
 ## 8. Tạo mạch lập luận và mạng phụ thuộc
 
@@ -850,6 +859,8 @@ Khái niệm mới phải xuất hiện đúng lúc và ở mức cần thiết:
 - không mở một nhánh lí thuyết dài nếu chỉ cần một công cụ nhỏ;
 - dùng ví dụ hoặc phản ví dụ khi nó kiểm soát một nhầm lẫn có khả năng xảy ra.
 
+Khi một khái niệm chính thức hoặc một lớp đối tượng có tên trở thành mắt xích quyết định của mạch, phải đưa định nghĩa, điều kiện hoặc tiêu chuẩn nhận diện ở mức đủ dùng trước khi dựa vào tên gọi ấy. Với hàm ngược, phải nói rõ miền của hàm gốc sau hạn chế, tập giá trị tương ứng và miền của hàm ngược; không để một câu văn làm nhập nhằng các tập này.
+
 ### 11.6. Quy ước dự án và metadata
 
 Phải tuân theo tệp mẫu và quy ước hiện hành của dự án về:
@@ -868,7 +879,7 @@ Không tự sao chép metadata từ một trang khác khi chưa kiểm tra tên,
 
 ### 11.7. Phong cách viết
 
-Nếu nhiệm vụ chỉ định một phong cách, đọc và áp dụng tài liệu của phong cách ấy sau khi kiến trúc toán học đã ổn định.
+Đọc và áp dụng tài liệu phong cách có hiệu lực trong phạm vi nhiệm vụ sau khi kiến trúc toán học đã ổn định. Đối với bài khảo sát hàm số cụ thể trong dự án này, Học thuật tĩnh tại là mặc định cục bộ theo `AGENTS.md`, trừ khi yêu cầu trực tiếp của người dùng chỉ định khác.
 
 Phong cách không được:
 
@@ -878,7 +889,7 @@ Phong cách không được:
 - đảo trật tự phụ thuộc;
 - thêm một kết luận không có trong hồ sơ.
 
-Nếu phong cách **Học thuật tĩnh tại** được chỉ định, dùng `hoc_thuat_tinh_tai.md`; nếu không, không tự kích hoạt.
+Khi Học thuật tĩnh tại có hiệu lực, dùng `hoc_thuat_tinh_tai.md`. Không suy rộng mặc định cục bộ của dự án này sang phạm vi khác.
 
 ### 11.8. Kiểm tra tệp
 
@@ -933,6 +944,10 @@ Kiểm tra:
 - điều kiện của định nghĩa và định lí đã được kiểm tra chưa;
 - các trường hợp biên, suy biến và ngoại lệ đã được xử lí chưa;
 - tồn tại, duy nhất và tính đầy đủ đã được phân biệt chưa;
+- khi xác định một tập giá trị, hai chiều logic “không vượt ra ngoài” và “mọi giá trị được nêu đều đạt” đã đủ chưa;
+- khi dùng tính chẵn, tính lẻ hoặc một tính chất đối xứng, điều kiện miền và định nghĩa đã được xử lí chưa;
+- khi gọi một lớp toán học hoặc hình học bằng tên riêng, căn cứ cho tên gọi đã đủ chưa;
+- khi dùng hàm ngược sau hạn chế miền, các miền và tập giá trị liên quan có được tách đúng không;
 - kết luận có vượt quá chứng cứ không;
 - kết quả số có đúng mức bảo đảm không;
 - công thức, bảng, hình và văn xuôi có mâu thuẫn không;
@@ -944,6 +959,7 @@ Không sang lượt hai khi còn lỗi có thể thay đổi kết luận trung 
 
 Kiểm tra:
 
+- hiện tượng trung tâm và câu hỏi dẫn đường có đủ đặc trưng cho chính đơn vị khảo sát, dùng đúng quan hệ toán học và đủ ngắn để dẫn đường không;
 - câu hỏi dẫn đường có thật sự điều khiển việc chọn nội dung không;
 - hiện tượng, cơ chế, dấu hiệu, chứng cứ và biểu diễn có nối đủ không;
 - mỗi mạch có vấn đề, tiền đề, chứng cứ, kết luận, giải nghĩa và điểm nối không;
@@ -960,6 +976,8 @@ Kiểm tra:
 
 - hiện tượng trung tâm có đủ đặc trưng cho đơn vị khảo sát không;
 - bài có làm rõ cơ chế hay chỉ liệt kê tính chất;
+- bài có mặc định dùng một công cụ mạnh hơn khi một cách sơ cấp làm lộ cấu trúc tốt hơn không;
+- khi có hai phương pháp tự nhiên với giá trị nhận thức khác nhau, bài đã cân nhắc việc đối sánh chúng chưa;
 - khái niệm mới có xuất hiện đúng lúc không;
 - chi tiết kĩ thuật có che khuất quan hệ chính không;
 - phần mở rộng có cắt mạch chính không;
@@ -968,18 +986,22 @@ Kiểm tra:
 - bài có để lại một cách nhìn có thể chuyển sang đối tượng khác không;
 - cách nhìn ấy có giữ yêu cầu kiểm tra lại điều kiện ở đối tượng mới không.
 
-### 12.5. Kiểm định có điều kiện cho hệ thống bài tập
+### 12.5. Kiểm định hệ thống bài tập
 
-Khi bài có bài tập, phải kiểm định thêm:
+Bài production chuẩn về một hàm số cụ thể trong dự án này có hệ thống bài tập như một phần tiếp tục của bài học. Chỉ coi mục này là _không áp dụng_ khi yêu cầu trực tiếp của người dùng loại bỏ bài tập hoặc loại nhiệm vụ thực sự không phải một bài học hoàn chỉnh; ngoại lệ phải được ghi rõ trong hồ sơ. Không dùng một quyết định tự khai của agent để bỏ hệ bài tập mặc định.
+
+Phải kiểm định:
 
 - giả thiết và dữ liệu của từng bài có đủ và nhất quán không;
 - yêu cầu có xác định, phù hợp với dữ liệu và giải được không;
 - kết quả mong đợi hoặc lời giải tham chiếu có đúng không;
 - thứ tự các bài có tôn trọng quan hệ phụ thuộc không;
-- hệ bài tập có tiếp tục mục tiêu nhận thức của bài không;
+- hệ bài tập có giúp người học từng bước tái dựng mạch cốt lõi của bài không;
+- hệ bài tập có mở ra ít nhất một hệ quả, biến thể hoặc lớp sâu chưa tiện triển khai trong thân bài không;
+- hai chức năng thiết kế trên có được giữ ở mức nội bộ, không biến thành nhãn công khai như “Mục tiêu A/B” không;
 - bài tập vượt khỏi phạm vi chính có được gọi đúng là mở rộng không.
 
-Kết quả kiểm định này có thể được trình bày cùng ba lượt chính, nhưng phải có căn cứ riêng cho hệ thống bài tập. Nếu bài không có bài tập, ghi _không áp dụng_ kèm lí do.
+Kết quả kiểm định này có thể được trình bày cùng ba lượt chính, nhưng phải có căn cứ riêng cho hệ thống bài tập.
 
 ### 12.6. Kiểm định lại sau chỉnh sửa
 
