@@ -660,7 +660,7 @@ Khối dưới đây là nguồn chuẩn duy nhất của bảng màu và style 
 
 ### 15.2. Khung tệp hoàn chỉnh
 
-Khung dưới đây cho thấy đúng vị trí của khối style chuẩn trong một tệp tự đầy đủ. Phải tính lại đường dẫn `assets/fonts/` từ thư mục chứa tệp nguồn trước khi biên dịch.
+Khung dưới đây cho thấy đúng vị trí của khối style chuẩn trong một tệp tự đầy đủ. Khung giả định vị trí nguồn chuẩn hiện hành là `content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_figures/<ten_hinh>/src/`; từ đây, đường dẫn tới `assets/fonts/` có bảy cấp `../`. Đây là quan hệ bên trong cây repository: việc cây ấy nằm tại repository chính hay một Git worktree không làm thay đổi số cấp. Nếu tệp `.tex` nằm ở vị trí khác, phải tính lại đường dẫn từ chính thư mục chứa tệp và xác minh đường dẫn sau chuẩn hóa trỏ tới `assets/fonts/` của Git root hiện hành trước khi biên dịch.
 
 ```tex
 \documentclass[tikz,border=3pt,10pt]{standalone}
@@ -671,12 +671,12 @@ Khung dưới đây cho thấy đúng vị trí của khối style chuẩn trong
 \pgfplotsset{compat=1.18}
 
 \setmainfont{STIXTwoText-Regular.otf}[
-  Path=../../../../../../assets/fonts/,
+  Path=../../../../../../../assets/fonts/,
   BoldFont=STIXTwoText-Bold.otf,
   ItalicFont=STIXTwoText-Italic.otf,
   BoldItalicFont=STIXTwoText-BoldItalic.otf
 ]
-\setmathfont{STIXTwoMath.otf}[Path=../../../../../../assets/fonts/]
+\setmathfont{STIXTwoMath.otf}[Path=../../../../../../../assets/fonts/]
 
 % Chỉ nạp các thư viện thực sự cần.
 % \usepgfplotslibrary{fillbetween}
@@ -752,7 +752,13 @@ Mọi tệp đồ thị độc lập phải dùng LuaLaTeX, `fontspec` và `unic
 - chữ đậm nghiêng: `assets/fonts/STIXTwoText-BoldItalic.otf`;
 - công thức toán: `assets/fonts/STIXTwoMath.otf`.
 
-Không dùng các tệp `.woff2` cho LuaLaTeX, không phụ thuộc vào phông đã cài trên hệ điều hành và không thay STIX bằng Computer Modern, Latin Modern hoặc một phông gần giống. Đường dẫn tới `assets/fonts/` phải được tính từ thư mục chứa tệp nguồn. Với vị trí chuẩn hiện tại `content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_figures/tikz/`, tiền tố là `../../../../../../`. Nếu vị trí nguồn thay đổi, AI phải tính lại tiền tố trước khi bàn giao; không đổi quy trình biên dịch quen thuộc của repository chỉ để làm cho một đường dẫn sai trở nên chạy được.
+Không dùng các tệp `.woff2` cho LuaLaTeX, không phụ thuộc vào phông đã cài trên hệ điều hành và không thay STIX bằng Computer Modern, Latin Modern hoặc một phông gần giống.
+
+Đường dẫn tới `assets/fonts/` phải được tính từ thư mục chứa chính tệp `.tex` tới `assets/fonts/` thuộc cùng Git root với tệp đó. Không được suy ra số cấp `../` từ đường dẫn tuyệt đối của repository hoặc worktree: Git worktree chỉ thay đổi vị trí của root trên hệ thống tệp, không thay đổi quan hệ đường dẫn tương đối bên trong cùng một cây nguồn.
+
+Với cấu trúc nguồn chuẩn hiện hành `content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_figures/<ten_hinh>/src/`, tiền tố là `../../../../../../../`. Nếu một tệp thực sự nằm trực tiếp tại `_figures/tikz/`, tiền tố tương ứng là `../../../../../../`; hai trường hợp khác nhau vì độ sâu nội bộ khác nhau, không phải vì repository chính và worktree khác nhau.
+
+Trước khi biên dịch, phải xác minh đường dẫn font theo bất biến: sau khi chuẩn hóa, thư mục font được tham chiếu phải trùng với `<git-root>/assets/fonts` của chính cây nguồn hiện hành. Đồng thời phải xác nhận đủ năm tệp `STIXTwoText-Regular.otf`, `STIXTwoText-Bold.otf`, `STIXTwoText-Italic.otf`, `STIXTwoText-BoldItalic.otf` và `STIXTwoMath.otf`. Nếu một trong hai kiểm tra thất bại, phải dừng thay vì đổi thư mục chạy LuaLaTeX hoặc dùng phông dự phòng.
 
 Cỡ chữ nền là `10pt`; nhãn trục dùng `\normalsize`, nhãn điểm và nhãn đường cong dùng `\small`, số trên vạch chia và chú thích phụ rất ngắn dùng `\footnotesize`. Chữ phải còn đọc được sau khi hình được co về chiều rộng xuất bản. Không dùng `\scriptsize` làm mặc định.
 
