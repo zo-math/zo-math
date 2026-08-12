@@ -224,6 +224,9 @@ Trong `vi_tri_da_dung`, ghi chương/mục hoặc vị trí nội dung cụ th�
 
 Điểm kiểm soát G2 đạt khi không còn lỗi toán học thiết yếu và các kết luận quan trọng đều truy được về chứng cứ.
 
+Trước khi qua G2, thực hiện thêm **kiểm tra quan hệ trung tâm**: với mỗi động từ như *bảo toàn*, *phụ thuộc vào*, *làm mất*, *xác định được từ*, *khôi phục được từ*, ghi mệnh đề kiểm được hoặc phản ví dụ thử nhanh. Nếu động từ không vượt phép thử, sửa chính phát biểu trong hồ sơ; không để lỗi quan hệ đi tiếp sang trục nhận thức.
+
+
 ### Giai đoạn 3 — Chọn trục nhận thức và lập đề cương
 
 Thực hiện theo Mục 6–9 của quy chuẩn:
@@ -243,6 +246,15 @@ Thực hiện theo Mục 6–9 của quy chuẩn:
 Không dùng một mục lục cố định. Các chức năng khơi mở, nhận diện, triển khai, kết tinh, soi chiếu và khép lại phải được thực hiện, nhưng không bắt buộc trở thành sáu tiêu đề.
 
 Điểm kiểm soát G3 đạt khi đề cương có thể giải thích vì sao từng phần tồn tại, phần nào cần đứng trước và toàn bài sẽ trả lời câu hỏi trung tâm bằng chứng cứ nào.
+
+G3 chưa đạt nếu còn một trong các tình trạng sau:
+
+- giữ hai phương pháp cho cùng một tính chất nhưng chưa nói mỗi phương pháp đem lại góc nhìn nào khác;
+- dùng một tên lớp toán học trong heading/caption/kết luận mà chưa có kế hoạch đưa định nghĩa hoặc tiêu chuẩn nhận diện thích hợp;
+- dự kiến dựng hình từ một số điểm nhưng chưa xác định các ràng buộc toàn cục làm cho hình dạng có căn cứ;
+- bỏ qua tính liên tục khi chính nó là mắt xích cần để nối công thức, biến thiên và cách đọc đồ thị;
+- `subtitle` hoặc `description` mới chỉ trôi chảy về câu chữ nhưng chưa vượt phép thử đặc trưng/tinh túy.
+
 
 ### Giai đoạn 4 — Đặc tả tài nguyên và chuẩn bị QMD
 
@@ -316,7 +328,10 @@ Thực hiện đúng giao thức của Mục 12 trong quy chuẩn:
 6. sửa lỗi tại nguồn gần nhất;
 7. chạy lại các lượt bị ảnh hưởng.
 
-Mỗi tiêu chí phải có trạng thái và căn cứ cụ thể. Trong nghiệm thu cuối, không được còn tiêu chí bắt buộc ở trạng thái `dat_mot_phan` hoặc `chua_kiem_chung`.
+Mỗi tiêu chí phải có trạng thái và căn cứ cụ thể.
+
+Trong lượt kiểm định mạch giải thích và giá trị nhận thức, phải rà riêng: động từ quan hệ trung tâm; đối sánh các phương pháp cùng giải một tính chất; căn cứ của tên lớp toán học; vai trò của liên tục trong việc đọc/dựng đồ thị; chức năng của các điểm neo; và tính đặc trưng của `subtitle`/`description`. Không gộp các mục này vào một nhận xét chung kiểu “mạch hợp lí”.
+Trong nghiệm thu cuối, không được còn tiêu chí bắt buộc ở trạng thái `dat_mot_phan` hoặc `chua_kiem_chung`.
 
 Điểm kiểm soát G6 đạt khi các tiêu chí bắt buộc đã quy về `dat`, `khong_dat` hoặc `khong_ap_dung`, và không còn tiêu chí `khong_dat`.
 

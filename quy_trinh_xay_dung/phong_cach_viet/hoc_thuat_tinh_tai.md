@@ -66,6 +66,16 @@ Nhịp văn không được đều đều do câu bị chia vụn, cũng không 
 - Không làm giảm mức độ chính xác của phát biểu để đổi lấy câu văn giàu cảm xúc.
 - Khi hai vế được đặt song song, giữ chúng ở mức khái niệm tương xứng; không đặt một thuật ngữ hình thức ngang với một hình ảnh trực giác như thể chúng cùng loại khi quan hệ ấy chưa được xác lập.
 - Phân biệt chính xác các quan hệ như *phụ thuộc vào*, *bảo toàn*, *làm mất*, *xác định được từ* và *có thể khôi phục từ*; không đổi động từ chỉ để câu văn thuận tai nếu điều đó làm thay đổi mệnh đề.
+
+Trước khi giữ một động từ quan hệ làm trục giải thích, phải thử chính mệnh đề mà động từ ấy khẳng định. Với một phép biến đổi \(T\) và đại lượng \(A\):
+
+- chỉ nói *bảo toàn* một đại lượng hay quan hệ khi đã kiểm được mệnh đề bất biến tương ứng trên miền đang xét; chẳng hạn \(A(T(x))=A(x)\) với đại lượng một biến, hoặc đẳng thức tương ứng giữa hai đầu vào khi đối tượng được bảo toàn là khoảng cách hay một quan hệ hai ngôi;
+- nói đầu ra *chỉ phụ thuộc vào \(A\)* khi các đầu vào có cùng \(A\) luôn cho cùng đầu ra theo quan hệ đang xét;
+- nói *có thể khôi phục \(A\) từ đầu ra* khi đã nêu được quy tắc hoặc chứng cứ xác định \(A\) từ đầu ra;
+- nếu một phản ví dụ đơn giản bác bỏ động từ đang dùng, phải sửa động từ trước khi tiếp tục viết.
+
+Ba quan hệ trên không được dùng thay cho nhau chỉ vì chúng cùng tạo cảm giác rằng “một phần thông tin vẫn còn”.
+
 - Một hình ảnh trực giác có thể mở đường cho khái niệm, nhưng sau khi thuật ngữ chính thức đã được xác lập, hình ảnh ấy không được thay thế thuật ngữ trên toàn mạch.
 
 ### 3.4. Thẩm mỹ
@@ -103,6 +113,9 @@ Mở ra một thao tác mới: vận dụng, biến đổi, đặt câu hỏi ti
 Mở đầu đưa ra một điểm tựa có thật: đối tượng, ví dụ tối giản, hiện tượng, quan hệ, khó khăn hoặc câu hỏi học thuật liên quan trực tiếp đến trục chính. Không kéo dài động cơ khi có thể đi thẳng vào vấn đề; không mở bằng giai thoại rồi bỏ quên nó; không quảng bá tầm quan trọng của chủ đề thay cho việc xác lập nhu cầu.
 
 Tiêu đề phụ và phần mô tả cũng thuộc lớp mở đầu của văn bản. Tiêu đề phụ phải gọi một quan hệ, hiện tượng hoặc góc nhìn đủ đặc trưng cho bài, không chỉ là một ẩn dụ nghe hợp nghĩa nhưng có thể gắn cho nhiều bài khác. Phần mô tả phải làm lời giới thiệu bằng văn xuôi, nói được điều gì đáng đọc hoặc cách nhìn mà bài đem lại; không dùng phần mô tả như một danh sách từ khóa hay mục lục trá hình.
+
+Trước khi chốt hai trường này, thực hiện hai phép thử. *Phép thử thay thế* đối với `subtitle`: nếu bỏ tên hàm mà câu vẫn có thể gắn gần như nguyên vẹn cho nhiều hàm cơ bản khác, tiêu đề phụ chưa đủ đặc trưng. *Phép thử tinh túy* đối với `description`: sau khi bỏ các câu kiểu “bài sẽ xét…”, phần còn lại phải nói được cơ chế hoặc quan hệ nào khiến bài đáng đọc và cơ chế ấy tổ chức các kết quả chính ra sao. Danh sách công cụ như đạo hàm, bảng biến thiên và đồ thị không tự tạo thành tinh túy của bài.
+
 
 ### 5.2. Hình thành và giải thích khái niệm
 
