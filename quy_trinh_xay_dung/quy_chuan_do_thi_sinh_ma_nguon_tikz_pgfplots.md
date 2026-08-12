@@ -324,13 +324,13 @@ Chỉ vẽ tiệm cận phục vụ mục đích của hình. Nếu nhãn cần 
 
 ## 10. Điểm đặc biệt, đầu mút và khoảng trên trục
 
-Điểm đặc dùng lõi đặc với màu tương ứng của đối tượng. Điểm rỗng dùng lõi trùng hoàn toàn với `zoPlotBackground`, viền cùng màu với đối tượng và đủ dày để vẫn nhận ra khi thu nhỏ; không để lõi trong suốt vì nét phía dưới sẽ xuyên qua. Khối style chuẩn dùng `mark size=2.2pt` cho điểm đặc biệt thông thường, `2.8pt` cho điểm là trọng tâm trực tiếp của hình và `1.7pt` cho điểm phụ trợ. Điểm đặc và điểm rỗng cùng vai trò phải có cùng kích thước.
+Điểm đặc dùng lõi đặc với màu tương ứng của đối tượng. Điểm neo nằm trên **đường cong chính** và được dùng để đọc tọa độ hoặc thang đo mặc định dùng chính màu `zoGraphMain` (`EF5350`); không đổi sang màu tham chiếu/vàng chỉ vì điểm đang đóng vai trò “mốc”. Màu khác chỉ dùng khi điểm thuộc một đối tượng ngữ nghĩa khác đã được xác định rõ. Điểm rỗng dùng lõi trùng hoàn toàn với `zoPlotBackground`, viền cùng màu với đối tượng và đủ dày để vẫn nhận ra khi thu nhỏ; không để lõi trong suốt vì nét phía dưới sẽ xuyên qua. Khối style chuẩn dùng `mark size=2.2pt` cho điểm đặc biệt thông thường, `2.8pt` cho điểm là trọng tâm trực tiếp của hình và `1.7pt` cho điểm phụ trợ. Điểm đặc và điểm rỗng cùng vai trò phải có cùng kích thước.
 
 Mọi điểm đặc biệt phải được đặt bằng tọa độ toán học chính xác, không ước lượng bằng mắt. Nếu điểm nằm trên một đường cong đã lấy mẫu, vẫn nên vẽ điểm ở lớp riêng để kích thước và thứ tự lớp ổn định.
 
 Nhãn tọa độ chỉ xuất hiện khi cần cho việc đọc. Ưu tiên đặt lệch khỏi đường cong, không dùng đường dẫn dài nếu một vị trí gần đã đủ rõ. Vị trí do AI sinh là vị trí ban đầu; người kiểm định được phép tinh chỉnh `anchor`, `xshift`, `yshift` ở mức vài `pt` sau khi xem ảnh thật. Đây là một phần bình thường của nghiệm thu quang học, không phải lí do để thay đổi tọa độ toán học của điểm hoặc tạo một style vị trí dùng chung.
 
-Đường chiếu tọa độ chỉ chạy từ điểm đến đúng trục cần đọc, không kéo xuyên toàn trường đồ thị và không có mũi tên. Nó nằm dưới trục, đường cong và điểm; đi tới tâm điểm để dấu điểm vẽ sau che đầu đường chiếu. Nếu chỉ một tọa độ có ý nghĩa, chỉ vẽ một đường chiếu. Tại chân đường chiếu, dùng vạch chia chuẩn và không lặp lại một nhãn đã có.
+Đường chiếu tọa độ chỉ chạy từ điểm đến đúng trục cần đọc, không kéo xuyên toàn trường đồ thị và không có mũi tên. Nó nằm dưới trục, đường cong và điểm; đi tới tâm điểm để dấu điểm vẽ sau che đầu đường chiếu. Nếu chỉ một tọa độ có ý nghĩa, chỉ vẽ một đường chiếu. Phân biệt **điểm làm mốc thang** với **điểm neo dùng để đọc cặp tọa độ**. Nếu một điểm được đưa vào để người đọc thấy trực tiếp quan hệ giữa hoành độ và tung độ, phải vẽ đường chiếu nét đứt tới các trục tương ứng; không viện việc đã có tick/nhãn để bỏ cả hai đường chiếu. Chỉ bỏ một đường chiếu khi tọa độ tương ứng bằng \(0\), điểm đã nằm trên chính trục ấy, hoặc văn bản chỉ yêu cầu đọc một tọa độ. Nếu điểm chỉ làm mốc thang mà không cần đọc cặp tọa độ, không bắt buộc biến nó thành điểm neo có đường chiếu. Tại chân đường chiếu, dùng vạch chia chuẩn và không lặp lại một nhãn đã có.
 
 Đường chiếu phải được vẽ trước marker của điểm đặc biệt. Đường chiếu kết thúc tại tâm điểm; marker được vẽ sau sẽ che đầu nét đứt, nhờ đó đường chiếu không xuyên qua hoặc làm biến dạng dấu điểm.
 
@@ -366,7 +366,7 @@ Nhãn phải:
 - giữ được khả năng đọc khi hình được thu nhỏ;
 - không làm bounding box mất cân đối.
 
-Nhãn đường cong phải được đặt trong vùng trống gần chính đường mà nó gọi tên, cùng màu với các nhãn khác tức màu chữ chung `zoText`. Nhãn của đường cong thông thường ưu tiên nằm ngang. Riêng nhãn của đường thẳng, tiếp tuyến, tiệm cận xiên hoặc đường tham chiếu có hướng rõ ràng nên nghiêng theo chính hướng hiển thị của đường.
+Nhãn đường cong phải được đặt trong vùng trống gần chính đường mà nó gọi tên, cùng màu với các nhãn khác tức màu chữ chung `zoText`. Với một đường cong đơn, không nhập nhằng và còn tiếp tục tới biên cửa sổ, ưu tiên đặt nhãn gần **một đầu nhìn thấy của đường cong**, lệch khỏi nét một khoảng thị giác nhỏ; `2pt` là giá trị khởi đầu để thử, rồi phải chỉnh sau khi xem render. Không đặt nhãn sâu vào giữa vùng đồ thị chỉ vì còn khoảng trống nếu vị trí gần đầu đường cong đọc tự nhiên hơn. Nhãn của đường cong thông thường ưu tiên nằm ngang. Riêng nhãn của đường thẳng, tiếp tuyến, tiệm cận xiên hoặc đường tham chiếu có hướng rõ ràng nên nghiêng theo chính hướng hiển thị của đường.
 
 Khi một nhánh đường cong rời cửa sổ quan sát ở vùng thoáng, ưu tiên đặt nhãn công thức gần phần cuối nhìn thấy của nhánh ấy, theo cách tương tự nhãn trục gọi tên đối tượng ở nơi nó tiếp tục. Không đặt nhãn đúng tại điểm bị cắt bởi biên, vì đó chỉ là đầu mút của miền quan sát chứ không phải đầu mút toán học. Vị trí khoảng `94%–97%` chiều dài đường vẽ có thể dùng làm điểm bắt đầu để thử, sau đó phải điều chỉnh theo bản render; đây không phải tỉ lệ bắt buộc.
 

@@ -249,7 +249,23 @@ Phải tách rõ:
 
 Không mặc định chọn công cụ mạnh hơn chỉ vì nó sẵn có. Khi so sánh trực tiếp, biến đổi đại số, bất đẳng thức, sai phân hoặc một công cụ sơ cấp khác làm lộ cơ chế rõ hơn, phải cân nhắc cách ấy trước khi chuyển sang đạo hàm. Khi hai phương pháp tự nhiên cho hai cách nhìn bổ sung, có thể đặt chúng cạnh nhau để người đọc thấy sự khác nhau giữa thuộc tính và công cụ xác lập thuộc tính.
 
+Khi giữ **hai phương pháp cho cùng một tính chất**, không dùng phương pháp thứ hai chỉ để “xác nhận” kết quả đã có. Đề cương phải nêu rõ:
+
+- tính chất chung mà cả hai phương pháp đang xác lập;
+- đối tượng mà mỗi phương pháp thao tác trực tiếp;
+- cơ chế hoặc thông tin mà phương pháp thứ nhất làm lộ;
+- mức khái quát, tính cục bộ/toàn cục hoặc khả năng chuyển giao mà phương pháp thứ hai bổ sung;
+- lí do sư phạm để giữ cả hai trong bài.
+
+Với biến thiên, một so sánh trực tiếp, biến đổi đại số hoặc bất đẳng thức có thể làm lộ quan hệ giữa \(f(x_1)\) và \(f(x_2)\), trong khi \(f^\prime\) mã hóa chiều thay đổi qua dấu của tốc độ biến thiên cục bộ. Với tính lồi/lõm hoặc độ cong, một bất đẳng thức dây cung/trung điểm hay biến đổi đại số có thể cho cách nhìn không vi phân, còn \(f^{\prime\prime}\), khi áp dụng được, cho một tiêu chuẩn vi phân. Chỉ giữ cả hai khi sự đối sánh này đem lại giá trị nhận thức thật.
+
+
 ### 4.4. Hình không thay chứng minh
+
+Một số hữu hạn điểm không xác định duy nhất đồ thị của một hàm: qua cùng một tập điểm có thể có vô số đường cong. Khi các điểm neo được dùng để dựng hoặc đọc đồ thị, bài phải chỉ rõ chúng hoạt động cùng những ràng buộc nào đã được chứng minh, chẳng hạn công thức, tính liên tục, đối xứng, biến thiên, cực trị, độ cong và hành vi tại biên. Tính liên tục, khi có vai trò trong mạch, bảo đảm rằng giá trị hàm tại các đầu vào đủ gần một điểm cũng gần giá trị tại điểm ấy; vì vậy nó loại trừ các đứt gãy cục bộ tại điểm liên tục. Tuy nhiên, tính liên tục tự nó vẫn không làm hữu hạn điểm xác định duy nhất một đường cong.
+
+Với hàm đơn giản mà tính liên tục có thể làm lộ trực tiếp bằng một ước lượng hoặc phân tích hiệu, phải cân nhắc cách chứng minh ấy nếu nó nối tự nhiên đại số với việc đọc đồ thị; không mặc định viện dẫn một định lí mạnh hơn chỉ để rút ngắn.
+
 
 Hình và dữ liệu hữu hạn có thể:
 
@@ -304,6 +320,9 @@ Khi mạch văn hấp dẫn xung đột với độ chính xác, phải sửa m�
 - để một ẩn dụ trực giác làm thay đổi hoặc thay thế phát biểu toán học chính xác.
 
 Với những quan hệ như *phụ thuộc vào*, *bảo toàn*, *làm mất*, *xác định được từ* và *có thể khôi phục từ*, phải dùng đúng động từ tương ứng với mệnh đề đã chứng minh.
+
+Nếu một quan hệ trở thành hiện tượng trung tâm, phải ghi được một phép thử ngắn cho chính quan hệ ấy trong hồ sơ. Đặc biệt, “bảo toàn” phải chịu phép thử bằng đúng mệnh đề bất biến mà từ ấy khẳng định; đẳng thức của đại lượng trước–sau chỉ là trường hợp một biến. “Phụ thuộc vào” và “khôi phục được từ” phải có chứng cứ riêng. Không chấp nhận một ẩn dụ hoặc một ví dụ đơn lẻ làm phép thử cho động từ quan hệ.
+
 
 ### 4.9. Điều kiện dừng phụ thuộc vào phạm vi
 
@@ -860,6 +879,9 @@ Khái niệm mới phải xuất hiện đúng lúc và ở mức cần thiết:
 - dùng ví dụ hoặc phản ví dụ khi nó kiểm soát một nhầm lẫn có khả năng xảy ra.
 
 Khi một khái niệm chính thức hoặc một lớp đối tượng có tên trở thành mắt xích quyết định của mạch, phải đưa định nghĩa, điều kiện hoặc tiêu chuẩn nhận diện ở mức đủ dùng trước khi dựa vào tên gọi ấy. Với hàm ngược, phải nói rõ miền của hàm gốc sau hạn chế, tập giá trị tương ứng và miền của hàm ngược; không để một câu văn làm nhập nhằng các tập này.
+
+Tên lớp toán học xuất hiện trong **heading, caption, kết luận hoặc bài tập mở rộng** được xem là một tín hiệu kích hoạt kiểm tra này. Nếu tên gọi có vai trò tổ chức cách hiểu của bài và không thuộc kiến thức đã được khai báo của người đọc, phải đưa căn cứ nhận diện trước lần dùng mang tính kết luận; hình dáng nhìn thấy hoặc thói quen gọi tên không thay thế tiêu chuẩn.
+
 
 ### 11.6. Quy ước dự án và metadata
 

@@ -147,7 +147,7 @@ Có thể bổ sung trường khác khi dự án hoặc nhiệm vụ yêu cầu,
 Phải bảo đảm:
 
 - `title` gọi đúng hàm và có thể chứa công thức;
-- `pagetitle` là tiêu đề văn bản gọn, không phụ thuộc khả năng hiển thị LaTeX;
+- `pagetitle` là tiêu đề văn bản thuần gọn cho tab/trình duyệt, không phụ thuộc khả năng hiển thị LaTeX; biểu thức phải được chuyển sang dạng văn bản đọc đúng về toán học, ưu tiên Unicode chuẩn khi có biểu diễn trực tiếp (ví dụ `x²` thay cho chuỗi nguồn `x^2`); không tự thêm hậu tố `ZO Math` nếu cấu hình site đã thêm hậu tố;
 - `subtitle` gọi đúng trục nhận thức hoặc hiện tượng trung tâm, đủ đặc trưng cho chính bài, không dùng khẩu hiệu quảng bá hoặc một ẩn dụ chung chung có thể gắn cho nhiều bài; không chứa một quan hệ chưa được xác lập;
 - `summary` nén cách nhìn hoặc kết luận trung tâm của bài, không biến thành danh sách thuật ngữ và không lặp nguyên văn `description`;
 - `description` là lời giới thiệu bằng văn xuôi, nói được nội dung đáng đọc hoặc cách nhìn mà bài đem lại; không dùng như mục lục hay danh sách từ khóa; công thức toán trong trường này phải dùng cú pháp LaTeX phù hợp;
@@ -461,6 +461,9 @@ Các yêu cầu về mục tiêu, quan hệ phụ thuộc, độ khó, tính t�
 Mọi bài khảo sát một hàm số ở trạng thái `published` phải có PDF tải xuống của chính bài và nút tải hoạt động trên HTML.
 
 Ngoài cổng xuất bản, còn có yêu cầu toàn vẹn của output dùng cho Human Review: nếu bản HTML được đưa cho người kiểm định có hiển thị nút tải PDF, tệp PDF mà nút ấy trỏ tới phải tồn tại và mở được. Nếu PDF chưa được build, không được coi HTML có nút tải chưa hoạt động là output review hoàn chỉnh.
+
+Output review cũng không được tự tuyên bố trạng thái xuất bản chưa đạt. PDF tạo ở trạng thái `draft`, `in_production`, `validated` hoặc khi publication còn `pending` không được chứa câu khẳng định rằng đó là “ấn bản chính thức đã phát hành”. Nếu hạ tầng PDF dùng một câu chung cho mọi trạng thái, câu ấy phải trung tính về xuất bản; nhãn “chính thức/đã phát hành” chỉ được sinh ở bước xuất bản có thẩm quyền.
+
 
 YAML phải có:
 
