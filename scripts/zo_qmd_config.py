@@ -227,6 +227,7 @@ def load_project_config(repository_root: Path, config_path: Path) -> ProjectConf
         "references",
         "regression",
         "extensions",
+        "authority_registry",
     }
     top_required = {
         "schema_version",
@@ -410,6 +411,87 @@ def load_project_config(repository_root: Path, config_path: Path) -> ProjectConf
             raise ProjectConfigError(
                 "references.quality_exemplars chứa đường dẫn ngoài dự án."
             )
+
+    if "authority_registry" in data and data["authority_registry"] is not None:
+        authority_registry = _mapping(
+            data["authority_registry"], "authority_registry"
+        )
+        _known_keys(
+            authority_registry,
+            "authority_registry",
+            {
+                "schema_version",
+                "governing_required",
+                "conditional_required",
+                "provenance_required",
+                "reference_only",
+            },
+            {
+                "schema_version",
+                "governing_required",
+                "conditional_required",
+                "provenance_required",
+                "reference_only",
+            },
+        )
+
+        authority_schema_version = authority_registry["schema_version"]
+        if authority_schema_version != 1:
+            raise ProjectConfigError(
+                "authority_registry.schema_version hiện chỉ hỗ trợ giá trị 1."
+            )
+
+        seen_authority_paths: set[str] = set()
+        seen_conditional_ids: set[str] = set()
+
+        for role in (
+            "governing_required",
+            "conditional_required",
+            "provenance_required",
+            "reference_only",
+        ):
+            items = authority_registry[role]
+            if not isinstance(items, list):
+                raise ProjectConfigError(
+                    f"authority_registry.{role} phải là danh sách."
+                )
+
+            for index, raw_item in enumerate(items):
+                label = f"authority_registry.{role}[{index}]"
+                item = _mapping(raw_item, label)
+
+                if role == "conditional_required":
+                    allowed = {"id", "when", "path", "reason"}
+                    required = allowed
+                else:
+                    allowed = {"path", "reason"}
+                    required = allowed
+
+                _known_keys(item, label, allowed, required)
+
+                authority_path = _relative_path(
+                    item["path"], f"{label}.path"
+                ).as_posix()
+                _nonempty_string(item["reason"], f"{label}.reason")
+
+                if authority_path in seen_authority_paths:
+                    raise ProjectConfigError(
+                        "authority_registry không được khai cùng một path "
+                        f"ở nhiều vai trò: {authority_path!r}."
+                    )
+                seen_authority_paths.add(authority_path)
+
+                if role == "conditional_required":
+                    condition_id = _nonempty_string(
+                        item["id"], f"{label}.id"
+                    )
+                    _nonempty_string(item["when"], f"{label}.when")
+                    if condition_id in seen_conditional_ids:
+                        raise ProjectConfigError(
+                            "authority_registry.conditional_required có id trùng: "
+                            f"{condition_id!r}."
+                        )
+                    seen_conditional_ids.add(condition_id)
 
     regression = _mapping(data["regression"], "regression")
     _known_keys(
