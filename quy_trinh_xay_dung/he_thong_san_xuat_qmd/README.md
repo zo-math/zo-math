@@ -17,7 +17,7 @@ Release hiện hành `0.5.0` bao gồm:
 
 - `scripts/zo_qmd.py` phiên bản `0.5.0`;
 - `scripts/zo_qmd_package.py` phiên bản `0.4.0`;
-- chín lệnh `doctor`, `inspect`, `start`, `prepublish`, `check`, `render`, `regression`, `pack`, `verify`;
+- mười lệnh `doctor`, `inspect`, `start`, `review-ready`, `prepublish`, `check`, `render`, `regression`, `pack`, `verify`;
 - khả năng lập manifest phiên, khóa kế hoạch, tạo và xác minh gói context hoặc release, tổng hợp bằng chứng trước xuất bản;
 - khả năng dùng chung `references.quality_exemplars` trong `inspect`, `doctor`, `start`, giao thức agent và gói context;
 - bằng chứng hồi quy, trình diễn đầu-cuối, release candidate và rollback drill của O4.
@@ -47,7 +47,9 @@ Ba tài liệu điều khiển giai đoạn vận hành hóa:
 - `giao_thuc_agent_chat_box_va_goi_ngu_canh.md`;
 - `tieu_chi_nghiem_thu_lop_van_hanh.md`.
 
-`scripts/zo_qmd.py` là điểm vào vận hành hiện hành cho chín lệnh. `scripts/zo_check_repo.py` vẫn là checker lõi; CLI vận hành chỉ điều phối và bảo toàn mã thoát, báo cáo cùng các cổng kiểm định hiện có. Logic tạo và xác minh gói nằm trong `scripts/zo_qmd_package.py`; logic tổng hợp bằng chứng trước xuất bản nằm trong `scripts/zo_qmd_prepublish.py`; cả hai không được trộn vào checker.
+`scripts/zo_qmd.py` là điểm vào vận hành hiện hành cho mười lệnh. `scripts/zo_check_repo.py` vẫn là checker lõi; CLI vận hành chỉ điều phối và bảo toàn mã thoát, báo cáo cùng các cổng kiểm định hiện có. Logic tạo và xác minh gói nằm trong `scripts/zo_qmd_package.py`; logic tổng hợp bằng chứng trước xuất bản nằm trong `scripts/zo_qmd_prepublish.py`; cả hai không được trộn vào checker.
+
+Cổng `review-ready` của `functions_100` khóa ba lớp ổn định hóa trước Human Review: (1) lifecycle phải bắt đầu bằng session `start` có scope canonical và authority snapshot bất biến; (2) lõi tự chứa của nguồn TikZ/PGFPlots phải thực sự mang STIX, màu vai trò và trường nền–khung theo quy chuẩn thay vì chỉ có chuỗi `.tex→PDF→SVG`, đồng thời đồ thị phải nằm dưới `_figures/<slug>/`; (3) các cụm ngữ nghĩa mơ hồ kiểu *giữ/bảo toàn độ lớn* bị chặn để buộc tác giả phân biệt bảo toàn một đại lượng với khả năng xác định/khôi phục đại lượng từ đầu ra. Đây là guard cấu trúc; Human Review vẫn quyết định chân trị và chất lượng diễn đạt.
 
 Ranh giới lưu trữ hiện hành:
 
@@ -175,6 +177,7 @@ Các lệnh đã triển khai:
 doctor
 inspect
 start
+review-ready
 prepublish
 check
 render
@@ -189,9 +192,9 @@ Cách agent gọi chuẩn trong repository:
 python scripts/zo_python.py scripts/zo_qmd.py <command> [tham số...]
 ```
 
-`start` nhận yêu cầu cùng phạm vi, tái sử dụng kết quả nhận diện của `inspect`, rồi tạo manifest phiên JSON tại đầu ra tường minh. `prepublish` đọc manifest phiên, báo cáo `check`, báo cáo `render` và bảng kiểm có người quan sát để tạo báo cáo tổng hợp; lệnh này không chạy lại checker, không tự đặt trạng thái `accepted`, không sửa hồ sơ sản xuất và luôn giữ `publication: pending`. Khi bảng kiểm hợp lệ đã ghi `production_status: accepted`, báo cáo chỉ phản ánh bằng chứng ấy để chờ quyết định xuất bản riêng của người dùng.
+`start` nhận yêu cầu, tái sử dụng kết quả nhận diện của `inspect`, rồi tạo manifest phiên JSON; nếu không truyền `--output`, tên chuẩn là `_audit/<slug>_session.json`. Với dự án bật lifecycle canonical như `functions_100`, `start` phải chạy trước khi sửa candidate, tự suy ra phạm vi production thay vì bắt agent tự đoán `--allow`, chụp fingerprint của các thay đổi đã tồn tại và khóa authority set bằng SHA-256. Manifest đặt `review-ready` sau `render` và trước `human_review`. `review-ready` đọc policy trong `extensions.human_review_gate`, bắt buộc session hợp lệ, đối chiếu HEAD/target/project, kiểm authority drift và so phần thay đổi kể từ `start` với scope canonical trước khi kiểm tiếp navigation, đồ thị, hồ sơ và artifact. Lệnh này không thay checker lõi, không tự sửa candidate, không nghiệm thu và luôn giữ `final_acceptance: NOT_RUN`, `publication: pending`. `prepublish` đọc manifest phiên, báo cáo `check`, báo cáo `render` và bảng kiểm có người quan sát để tạo báo cáo tổng hợp; lệnh này không chạy lại checker, không tự đặt trạng thái `accepted`, không sửa hồ sơ sản xuất và luôn giữ `publication: pending`. Khi bảng kiểm hợp lệ đã ghi `production_status: accepted`, báo cáo chỉ phản ánh bằng chứng ấy để chờ quyết định xuất bản riêng của người dùng.
 
-Các lệnh `check` và `render` chuyển trách nhiệm kiểm định cho checker hiện hành. `regression` đọc bài hồi quy từ cấu hình dự án, chạy các self-test bắt buộc rồi điều phối hồi quy nguồn và, khi được yêu cầu, hồi quy render.
+Các lệnh `check` và `render` chuyển trách nhiệm kiểm định cho checker hiện hành. `review-ready` là lớp enforcement riêng ở cổng lifecycle, dùng khi dự án đã khai báo policy; tách lớp này giúp giữ checker `2.6.0` ổn định trong khi vẫn khóa các invariant production đã được chứng minh qua kiểm thử. `regression` đọc bài hồi quy từ cấu hình dự án, chạy các self-test bắt buộc rồi điều phối hồi quy nguồn và, khi được yêu cầu, hồi quy render.
 
 `pack` tạo gói context hoặc release dạng thư mục hay ZIP tại đường dẫn đầu ra bắt buộc, sinh `PROMPT.md`, `MANIFEST.yml`, `FILES.sha256` và `payload/`. Gói release chỉ được tạo từ worktree sạch, dùng hồ sơ `--release-file` và đầu ra ngoài repository. `verify` xác minh cả hai loại gói, kể cả khi chạy bằng CLI nằm trong chính gói và không có repository Git bao quanh.
 
@@ -362,7 +365,19 @@ python scripts/zo_python.py scripts/zo_qmd.py render \
   <duong_dan_den_bai_qmd>
 ```
 
-### 5.5. Kiểm tra index trước commit
+### 5.5. Kiểm tra readiness trước Human Review
+
+Với dự án đã bật `extensions.human_review_gate`, sau `check` và `render` cuối chạy:
+
+```bash
+python scripts/zo_python.py scripts/zo_qmd.py review-ready \
+  --report _audit/<slug>_review_ready.json \
+  <duong_dan_den_bai_qmd>
+```
+
+`PASS` của cổng này chỉ cho phép chuyển candidate sang Human Review; không thay thế đánh giá của con người.
+
+### 5.6. Kiểm tra index trước commit
 
 ```bash
 python scripts/zo_python.py scripts/zo_qmd.py check --staged \
@@ -479,3 +494,9 @@ O2 đã triển khai và kiểm nghiệm `pack` cùng `verify` trên gói contex
 Release `0.3.0` đã hoàn tất O3: `pack --kind release` và `verify` đã được kiểm nghiệm; release candidate được tạo từ commit sạch; hai lớp xác minh đều đạt; rollback drill đạt; hai QMD hồi quy giữ nguyên SHA-256 và trạng thái xuất bản vẫn `pending`. Git tag thật chưa được tạo, không push và không publish.
 
 O4 đã hoàn tất các phép thử, hồ sơ nghiệm thu, gói context cuối, hồi quy có render, rollback drill và release candidate `0.4.0` được xác minh. Người dùng đã chấp thuận `0.4.0` làm release hiện hành và khóa lớp vận hành ở mốc nghiệm thu `1.0`; chưa tag, push hoặc publish.
+
+## Q1-R5 — authority closure và ownership của trạng thái
+
+Đối với dự án đã bật `human_review_gate`, `start` không chỉ chụp một danh sách `references` phẳng. Cấu hình dự án khai `authority_registry` theo vai trò `governing_required`, `conditional_required`, `provenance_required` và `reference_only`; Cỗ máy hợp nhất registry với chuỗi `AGENTS.md` thực tế và project config để tạo **effective authority closure**. Session manifest ghi path, role, activation reason, SHA-256 và trạng thái lock. Nguồn `reference_only` được inventory nhưng chỉ trở thành provenance bắt buộc khi hồ sơ khai đã dùng.
+
+Hồ sơ production từ schema version 5 là **agent-owned profile**. Check/render/freshness/Git/authority và trạng thái đầu ra HTML/PDF thuộc machine-owned audit; profile không có nhóm `dau_ra_ki_thuat`. `tu_xem` là agent self-view riêng; Human Review và nghiệm thu nằm ngoài profile. `review-ready` kiểm schema/ownership, yêu cầu hồ sơ giữ cấu trúc template cùng các ID checklist tự kiểm, và đọc trực tiếp các bằng chứng machine-owned thay vì yêu cầu agent chép trạng thái kiểm định vào YAML. Mục tiêu của phân tách này là giảm trạng thái lặp, stale SHA và khác biệt giữa các fresh run.

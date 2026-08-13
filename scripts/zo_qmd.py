@@ -8,6 +8,7 @@ validators and does not accept, publish, stage, or commit content.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import importlib.util
 import json
 import os
@@ -28,12 +29,14 @@ from zo_qmd_config import (
 )
 from zo_qmd_registry import ModuleRegistryError, build_validation_plan
 from zo_qmd_prepublish import PrepublishError, build_report
+from zo_qmd_review import REVIEW_READY_VERSION
 from zo_qmd_version import OPERATIONS_CLI_VERSION
 
 EXIT_OK = 0
 EXIT_FAILED = 1
 EXIT_USAGE = 2
 EXIT_MISSING_TOOL = 3
+SESSION_MANIFEST_VERSION = 3
 
 SYSTEM_DOCUMENTS = (
     Path("AGENTS.md"),
@@ -72,6 +75,7 @@ SYSTEM_SCRIPTS = (
     Path("scripts/zo_qmd_package.py"),
     Path("scripts/zo_qmd_version.py"),
     Path("scripts/zo_qmd_prepublish.py"),
+    Path("scripts/zo_qmd_review.py"),
     Path("scripts/zo_artifact_freshness.py"),
     Path("scripts/zo_check_repo.py"),
     Path("scripts/zo_qmd_config.py"),
@@ -89,6 +93,7 @@ SELF_TEST_SCRIPTS = (
     Path("scripts/zo_qmd_package.py"),
     Path("scripts/zo_qmd_version.py"),
     Path("scripts/zo_qmd_prepublish.py"),
+    Path("scripts/zo_qmd_review.py"),
 )
 
 
@@ -190,6 +195,213 @@ def _git_snapshot(root: Path) -> dict[str, Any]:
         "clean": not bool(status),
         "status": status.splitlines(),
     }
+
+
+
+
+def _sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _path_fingerprint(root: Path, relative: Path) -> str:
+    path = root / relative
+    if path.is_symlink():
+        return "symlink:" + str(path.readlink())
+    if path.is_file():
+        return "sha256:" + _sha256_file(path)
+    if path.exists():
+        return "directory"
+    return "missing"
+
+
+def _git_dirty_paths(root: Path) -> list[Path]:
+    git = shutil.which("git")
+    if git is None:
+        raise OSError("Không tìm thấy git trong PATH.")
+
+    changed = _run(
+        [git, "-C", str(root), "diff", "--name-only", "HEAD", "--"],
+        root,
+        capture=True,
+    )
+    if changed.returncode != 0:
+        raise OSError(changed.stderr.strip() or "Không đọc được Git diff.")
+    untracked = _run(
+        [git, "-C", str(root), "ls-files", "--others", "--exclude-standard"],
+        root,
+        capture=True,
+    )
+    if untracked.returncode != 0:
+        raise OSError(untracked.stderr.strip() or "Không đọc được tệp untracked.")
+
+    values = {line.strip() for line in changed.stdout.splitlines() if line.strip()}
+    values.update(line.strip() for line in untracked.stdout.splitlines() if line.strip())
+    return [Path(value) for value in sorted(values)]
+
+
+def _dirty_fingerprints(root: Path) -> dict[str, str]:
+    return {
+        path.as_posix(): _path_fingerprint(root, path)
+        for path in _git_dirty_paths(root)
+    }
+
+
+def _human_review_policy(config: ProjectConfig, article_type: str) -> dict[str, Any]:
+    extensions = config.raw.get("extensions", {})
+    if not isinstance(extensions, dict):
+        return {}
+    gate = extensions.get("human_review_gate", {})
+    if not isinstance(gate, dict) or gate.get("enabled") is not True:
+        return {}
+    article_types = gate.get("article_types", {})
+    if not isinstance(article_types, dict):
+        return {}
+    policy = article_types.get(article_type, {})
+    return policy if isinstance(policy, dict) else {}
+
+
+def _canonical_production_scope(
+    root: Path, summary: dict[str, Any], config: ProjectConfig
+) -> list[Path]:
+    target = Path(str(summary["target"]))
+    article_type = str(summary.get("article_type") or "")
+    policy = _human_review_policy(config, article_type)
+    lifecycle = policy.get("lifecycle", {})
+    if not isinstance(lifecycle, dict) or lifecycle.get("auto_scope") is not True:
+        return []
+
+    paths: list[Path] = [target]
+    profile = summary.get("profile")
+    if isinstance(profile, dict) and profile.get("path"):
+        paths.append(Path(str(profile["path"])))
+
+    if article_type == "function_article":
+        paths.append(target.with_suffix(".pdf"))
+        paths.append(config.project_root / "_figures" / target.stem)
+
+    navigation = policy.get("navigation", {})
+    if isinstance(navigation, dict) and navigation.get("explicit_sidebar_required") is True:
+        raw_quarto = navigation.get("quarto_config", "_quarto.yml")
+        if isinstance(raw_quarto, str) and raw_quarto.strip():
+            paths.append(_relative_to_root(root, raw_quarto.strip()))
+
+    return [Path(value) for value in _unique_paths(paths)]
+
+
+def _authority_records(
+    root: Path,
+    summary: dict[str, Any],
+    config: ProjectConfig,
+    article_type: str,
+) -> tuple[list[dict[str, Any]], list[str]]:
+    """Build the effective authority closure plus reference inventory.
+
+    Q1-R5 deliberately separates governing/provenance inputs, which are locked
+    for the whole production session, from optional references.  The AGENTS
+    chain and project config are always included dynamically so a deeper
+    AGENTS.md cannot be missed by a static registry.
+    """
+
+    records: list[dict[str, Any]] = []
+    missing_required: list[str] = []
+    seen: set[Path] = set()
+
+    def add(raw: str | Path, role: str, reason: str, *, lock: bool) -> None:
+        relative = _relative_to_root(root, str(raw))
+        if relative in seen:
+            return
+        seen.add(relative)
+        absolute = root / relative
+        if not absolute.is_file():
+            if lock:
+                missing_required.append(relative.as_posix())
+            return
+        records.append(
+            {
+                "path": relative.as_posix(),
+                "sha256": _sha256_file(absolute),
+                "size": absolute.stat().st_size,
+                "role": role,
+                "reason": reason,
+                "lock": lock,
+            }
+        )
+
+    for raw in summary.get("agents_chain", []):
+        add(str(raw), "governing_required", "agents_chain", lock=True)
+    add(config.config_path, "governing_required", "project_config", lock=True)
+
+    registry = config.raw.get("authority_registry", {})
+    if not isinstance(registry, dict):
+        registry = {}
+
+    for item in registry.get("governing_required", []):
+        if isinstance(item, dict) and item.get("path"):
+            add(
+                str(item["path"]),
+                "governing_required",
+                str(item.get("reason") or "configured_governing_authority"),
+                lock=True,
+            )
+
+    for item in registry.get("provenance_required", []):
+        if isinstance(item, dict) and item.get("path"):
+            add(
+                str(item["path"]),
+                "provenance_required",
+                str(item.get("reason") or "configured_provenance"),
+                lock=True,
+            )
+
+    policy = _human_review_policy(config, article_type)
+    graph_required = (
+        isinstance(policy.get("function_graph"), dict)
+        and policy["function_graph"].get("required") is True
+    )
+    for item in registry.get("conditional_required", []):
+        if not isinstance(item, dict) or not item.get("path"):
+            continue
+        condition = str(item.get("when") or "")
+        active = condition == "function_graph_required" and graph_required
+        if active:
+            add(
+                str(item["path"]),
+                "conditional_required",
+                str(item.get("reason") or condition or "configured_condition"),
+                lock=True,
+            )
+
+    for item in registry.get("reference_only", []):
+        if isinstance(item, dict) and item.get("path"):
+            add(
+                str(item["path"]),
+                "reference_only",
+                str(item.get("reason") or "optional_reference"),
+                lock=False,
+            )
+
+    # Backward-compatible fallback for projects not yet migrated to the registry.
+    if not registry:
+        raw_paths: list[str] = []
+        raw_paths.extend(str(value) for value in summary.get("agents_chain", []))
+        project = summary.get("project", {})
+        if isinstance(project, dict) and project.get("config_path"):
+            raw_paths.append(str(project["config_path"]))
+        references = summary.get("references", {})
+        if isinstance(references, dict):
+            for values in references.values():
+                if isinstance(values, list):
+                    for record in values:
+                        if isinstance(record, dict) and record.get("exists") is True and record.get("path"):
+                            raw_paths.append(str(record["path"]))
+        for raw in raw_paths:
+            add(raw, "governing_required", "legacy_reference_set", lock=True)
+
+    return records, missing_required
 
 
 def _unique_paths(paths: Sequence[Path]) -> list[str]:
@@ -322,6 +534,7 @@ def _project_summary(root: Path, raw_path: str) -> tuple[dict[str, Any], int]:
     payload: dict[str, Any] = {
         "operations_cli_version": OPERATIONS_CLI_VERSION,
         "checker_version": CHECKER_VERSION,
+        "review_ready_version": REVIEW_READY_VERSION,
         "repo_root": str(root),
         "target": relative.as_posix(),
         "target_exists": (root / relative).exists(),
@@ -557,14 +770,28 @@ def command_inspect(root: Path, args: argparse.Namespace) -> int:
 def command_start(root: Path, args: argparse.Namespace) -> int:
     try:
         request = _read_request(args)
-        output = _explicit_output_path(root, args.output)
+        summary, inspect_exit = _project_summary(root, args.path)
+        target = str(summary["target"])
+        target_path = Path(target)
+
+        if args.output:
+            output = _explicit_output_path(root, args.output)
+        else:
+            output = root / "_audit" / f"{target_path.stem}_session.json"
         if output.suffix.lower() != ".json":
             raise ValueError("Hồ sơ phiên của start phải là tệp .json.")
         if output.exists():
             raise ValueError(f"Đầu ra đã tồn tại: {output}")
 
-        summary, inspect_exit = _project_summary(root, args.path)
-        snapshot = _git_snapshot(root)
+        config = discover_project_config(root, target_path)
+        if config is None:
+            raise ProjectConfigError(
+                f"Không tìm thấy cấu hình dự án cho {target}."
+            )
+        article_type = str(summary.get("article_type") or "")
+        policy = _human_review_policy(config, article_type)
+        lifecycle = policy.get("lifecycle", {})
+        lifecycle = lifecycle if isinstance(lifecycle, dict) else {}
 
         reference_groups = summary.get("references", {})
         missing_references: list[str] = []
@@ -578,21 +805,37 @@ def command_start(root: Path, args: argparse.Namespace) -> int:
             blocked_reasons.append(
                 str(summary.get("error", "Inspect không đạt."))
             )
-        if missing_references:
+        registry_configured = isinstance(config.raw.get("authority_registry"), dict)
+        if missing_references and not registry_configured:
             blocked_reasons.append(
                 "Thiếu nguồn điều khiển: " + ", ".join(missing_references)
             )
 
-        target = str(summary["target"])
         project_root = str(summary["project"]["root"])
-        allowed_paths = [_relative_to_root(root, target)]
-        profile = summary.get("profile")
-        if isinstance(profile, dict) and profile.get("path"):
-            allowed_paths.append(_relative_to_root(root, str(profile["path"])))
-        allowed_paths.extend(_relative_to_root(root, raw) for raw in args.allow)
-        excluded_paths = [
-            _relative_to_root(root, raw) for raw in args.exclude
-        ]
+        canonical = _canonical_production_scope(root, summary, config)
+        auto_scope = lifecycle.get("auto_scope") is True and bool(canonical)
+        manual_scope = lifecycle.get("manual_scope_extensions") is True
+
+        if auto_scope and not manual_scope and (args.allow or args.exclude):
+            raise ValueError(
+                "Dự án đã khóa phạm vi production tự động; không dùng --allow/--exclude "
+                "để tự mở rộng hoặc thu hẹp phạm vi."
+            )
+
+        if auto_scope:
+            allowed_paths = list(canonical)
+        else:
+            allowed_paths = [_relative_to_root(root, target)]
+            profile = summary.get("profile")
+            if isinstance(profile, dict) and profile.get("path"):
+                allowed_paths.append(_relative_to_root(root, str(profile["path"])))
+            allowed_paths.extend(_relative_to_root(root, raw) for raw in args.allow)
+
+        excluded_paths = (
+            []
+            if auto_scope and not manual_scope
+            else [_relative_to_root(root, raw) for raw in args.exclude]
+        )
         conflicts = sorted(
             {
                 allowed_path.as_posix()
@@ -609,14 +852,41 @@ def command_start(root: Path, args: argparse.Namespace) -> int:
 
         allowed = _unique_paths(allowed_paths)
         excluded = _unique_paths(excluded_paths)
+        dirty_at_start = _dirty_fingerprints(root)
+        initial_scope_dirty = sorted(
+            path
+            for path in dirty_at_start
+            if any(
+                _paths_overlap(Path(path), Path(allowed_path))
+                for allowed_path in allowed
+            )
+        )
+        if lifecycle.get("require_clean_candidate_scope_at_start") is True and initial_scope_dirty:
+            blocked_reasons.append(
+                "Phạm vi candidate đã có thay đổi trước lệnh start: "
+                + ", ".join(initial_scope_dirty)
+                + ". Hãy start trước khi sản xuất hoặc dùng một workflow tiếp tục được thẩm quyền định nghĩa riêng."
+            )
+
+        snapshot = _git_snapshot(root)
+        snapshot["dirty_fingerprints"] = dirty_at_start
+        authority, missing_authority = _authority_records(root, summary, config, article_type)
+        if missing_authority:
+            blocked_reasons.append(
+                "Thiếu authority bắt buộc: " + ", ".join(missing_authority)
+            )
+        effective_authority = [item for item in authority if item.get("lock") is True]
+        reference_inventory = [item for item in authority if item.get("lock") is not True]
 
         payload: dict[str, Any] = {
-            "session_manifest_version": 1,
+            "session_manifest_version": SESSION_MANIFEST_VERSION,
             "created_at": datetime.now(timezone.utc).isoformat().replace(
                 "+00:00", "Z"
             ),
             "operations_cli_version": OPERATIONS_CLI_VERSION,
             "checker_version": CHECKER_VERSION,
+            "review_ready_version": REVIEW_READY_VERSION,
+            "manifest_path": output.relative_to(root).as_posix() if output.is_relative_to(root) else str(output),
             "request": {
                 "text": request,
                 "source": (
@@ -633,24 +903,35 @@ def command_start(root: Path, args: argparse.Namespace) -> int:
             "repository": snapshot,
             "inspect": summary,
             "authority_sources": {
+                "registry_schema_version": 1,
                 "agents_chain": list(summary.get("agents_chain", [])),
                 "project_config": summary["project"]["config_path"],
                 "references": reference_groups,
+                "effective": effective_authority,
+                "reference_inventory": reference_inventory,
+                "snapshot": authority,
             },
             "scope": {
                 "target": target,
                 "project_root": project_root,
+                "strategy": "canonical" if auto_scope else "explicit",
                 "allowed": allowed,
                 "excluded": excluded,
+                "evidence_roots": ["_audit"],
+                "initial_scope_dirty": initial_scope_dirty,
             },
             "plan": {
                 "objective": request,
                 "expected_files": allowed,
+                "authority_snapshot_count": len(authority),
+                "effective_authority_count": len(effective_authority),
+                "reference_inventory_count": len(reference_inventory),
                 "phases": [
                     "lock_authority_sources",
                     "create_or_edit_qmd_and_resources",
                     "check_source",
                     "render",
+                    "review_ready",
                     "human_review",
                     "prepublish_report",
                 ],
@@ -661,11 +942,15 @@ def command_start(root: Path, args: argparse.Namespace) -> int:
                     ),
                     "check": (
                         "python scripts/zo_python.py scripts/zo_qmd.py "
-                        f"check {target}"
+                        f"check --report _audit/{Path(target).stem}_check.json {target}"
                     ),
                     "render": (
                         "python scripts/zo_python.py scripts/zo_qmd.py "
-                        f"render {target}"
+                        f"render --report _audit/{Path(target).stem}_render.json {target}"
+                    ),
+                    "review_ready": (
+                        "python scripts/zo_python.py scripts/zo_qmd.py "
+                        f"review-ready --report _audit/{Path(target).stem}_review_ready.json {target}"
                     ),
                 },
                 "user_gates": [
@@ -674,8 +959,12 @@ def command_start(root: Path, args: argparse.Namespace) -> int:
                 ],
                 "stop_conditions": [
                     "missing_authority_source",
+                    "candidate_scope_dirty_before_start",
+                    "scope_drift",
+                    "authority_drift",
                     "automated_check_failure",
                     "render_failure",
+                    "review_readiness_failure",
                     "human_review_not_recorded",
                 ],
                 "states_not_changed": {
@@ -699,6 +988,15 @@ def command_start(root: Path, args: argparse.Namespace) -> int:
             encoding="utf-8",
         )
         print(f"START MANIFEST: {output}")
+        print(f"SCOPE STRATEGY: {payload['scope']['strategy']}")
+        print("ALLOWED:")
+        for item in allowed:
+            print(f"  - {item}")
+        print(
+            f"AUTHORITY SNAPSHOT: {len(authority)} files "
+            f"| EFFECTIVE={len(effective_authority)} "
+            f"| REFERENCE={len(reference_inventory)}"
+        )
         print(
             f"AUTOMATED RESULT: {payload['automated_result']} "
             f"| EXIT={payload['exit_code']}"
@@ -712,6 +1010,20 @@ def command_start(root: Path, args: argparse.Namespace) -> int:
     ) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return EXIT_FAILED
+
+
+def command_review_ready(root: Path, args: argparse.Namespace) -> int:
+    review_args = ["check", args.path]
+    if args.report:
+        review_args.extend(["--report", args.report])
+    if args.session:
+        review_args.extend(["--session", args.session])
+    command = _script_command(
+        root,
+        Path("scripts/zo_qmd_review.py"),
+        *review_args,
+    )
+    return _run_step(root, "QMD REVIEW-READY", command)
 
 
 def command_prepublish(root: Path, args: argparse.Namespace) -> int:
@@ -932,10 +1244,9 @@ def parser() -> argparse.ArgumentParser:
     )
     start.add_argument(
         "--output",
-        required=True,
         help=(
-            "Tệp .json đầu ra tường minh; nếu nằm trong repository thì phải "
-            "ở dưới _audit/."
+            "Tệp .json đầu ra; mặc định _audit/<slug>_session.json. Nếu nằm "
+            "trong repository thì phải ở dưới _audit/."
         ),
     )
     request_source = start.add_mutually_exclusive_group(required=True)
@@ -962,6 +1273,20 @@ def parser() -> argparse.ArgumentParser:
         action="append",
         default=[],
         help="Đường dẫn phải loại trừ; có thể lặp lại.",
+    )
+
+    review_ready = subparsers.add_parser(
+        "review-ready",
+        help="Kiểm tra invariant bắt buộc trước khi đưa bài vào Human Review.",
+    )
+    review_ready.add_argument("path", help="Đường dẫn bài QMD trong repository.")
+    review_ready.add_argument(
+        "--report",
+        help="Báo cáo JSON bên trong _audit/.",
+    )
+    review_ready.add_argument(
+        "--session",
+        help="Session manifest do start tạo; mặc định _audit/<slug>_session.json.",
     )
 
     prepublish = subparsers.add_parser(
@@ -1119,6 +1444,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return command_inspect(root, args)
     if args.command == "start":
         return command_start(root, args)
+    if args.command == "review-ready":
+        return command_review_ready(root, args)
     if args.command == "prepublish":
         return command_prepublish(root, args)
     if args.command == "check":

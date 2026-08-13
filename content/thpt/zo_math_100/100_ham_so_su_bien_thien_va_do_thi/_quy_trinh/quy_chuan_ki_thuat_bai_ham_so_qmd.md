@@ -327,7 +327,7 @@ Khi kiểm định bài cũ, phải phân loại từng trường hợp: giữ t
 
 Chức năng nhận thức, mệnh đề trọng tâm, miền, giới hạn biểu diễn và phần đọc ngược được xác định theo `quy_chuan_khao_sat_ham_so.md`.
 
-Tài nguyên không được chèn chỉ vì bài khảo sát hàm số “thường có” thành phần ấy.
+Tài nguyên không được chèn chỉ vì bài khảo sát hàm số “thường có” thành phần ấy. Riêng **đồ thị của chính hàm** là đầu ra production tối thiểu của `function_article` trước Human Review theo cấu hình dự án; đây là hợp đồng đầu ra, không phải một biểu diễn phụ được thêm vì thói quen. Các bảng, hình soi chiếu và biểu diễn bổ sung khác vẫn phải được quyết định theo chức năng nhận thức.
 
 #### 3.5.2. Đường dẫn và vị trí
 
@@ -350,7 +350,7 @@ _figures/<slug>/
 └── svg/
 ```
 
-Chỉ tạo các thư mục thực sự cần. Ngoại lệ phải có lí do và không được làm mất khả năng truy nguồn hoặc tái tạo.
+Chỉ tạo các thư mục thực sự cần. Với đồ thị bắt buộc của `function_article`, trước Human Review phải có đủ chuỗi `src/*.tex → pdf/*.pdf → svg/*.svg` tương ứng. Candidate không được tự khai ngoại lệ để thay chuỗi này bằng SVG-only hoặc để bỏ hẳn đồ thị; ngoại lệ, nếu thực sự cần, phải được quyết định ở cấp yêu cầu người dùng hoặc cấu hình dự án trước khi chạy cổng review.
 
 #### 3.5.3. Tên và định dạng
 
@@ -377,6 +377,8 @@ Khi tạo hoặc sửa đồ thị TikZ/PGFPlots, phải hoàn thành đặc t�
 `quy_trinh_xay_dung/quy_chuan_do_thi_sinh_ma_nguon_tikz_pgfplots.md`
 
 Không tạo một hệ trục, màu, lấy mẫu hoặc cấu trúc `.tex` cạnh tranh trong QMD.
+
+Trước Human Review, cổng `review-ready` kiểm tra một **lõi tự chứa không được phép trôi** của nguồn đồ thị: `fontspec`/`unicode-math` và STIX Two từ repository; các màu vai trò cốt lõi `zoPlotBackground=FFF9E9`, `zoPlotBorder=DFD7CA`, `zoAxis=554F48`, `zoText=3E3A35`, `zoGraphMain=EF5350`; trường nền–khung chuẩn; trục giữa có phân cấp nét chuẩn; và đường cong chính dùng đúng vai trò `zoGraphMain`. Các quyết định cục bộ như miền quan sát, vị trí nhãn và số vạch chia vẫn thuộc từng hình.
 
 #### 3.5.5. Văn bản thay thế, nhãn và chú thích
 
@@ -658,7 +660,9 @@ Kết quả `PASS` của công cụ này **không mặc nhiên xác nhận**:
 - nút PDF hoạt động;
 - bố cục desktop, mobile và PDF đạt.
 
-Cho đến khi các kiểm tra chuyên biệt được tích hợp, báo cáo phải ghi rõ phần nào do công cụ xác nhận và phần nào do người kiểm định xác nhận.
+`scripts/zo_qmd.py review-ready` là cổng chuyên biệt trước Human Review của dự án này. Nó không thay checker lõi và không nghiệm thu nội dung; nó chặn những sai lệch production đã có thể mã hóa nhưng nằm ngoài phạm vi `check`/`render`, gồm lifecycle `start`, phạm vi thay đổi, authority snapshot, navigation, đồ thị bắt buộc, chuỗi nguồn–render, tính nhất quán hồ sơ–artifact–bằng chứng và một số guard ngữ nghĩa có thể kiểm tra cấu trúc. Với `function_article`, thiếu `_audit/<slug>_session.json`, start muộn sau khi candidate scope đã bẩn, thay đổi ngoài scope hoặc authority drift đều chặn Human Review.
+
+Báo cáo phải ghi rõ phần nào do `check`/`render`, phần nào do `review-ready` xác nhận và phần nào vẫn cần người quan sát.
 
 ### 4.3. Danh mục kiểm định tự động tối thiểu
 
@@ -733,6 +737,33 @@ Cho đến khi các kiểm tra chuyên biệt được tích hợp, báo cáo ph
 - nếu HTML dùng cho Human Review có nút tải PDF, liên kết tải trỏ tới tệp tồn tại và mở được;
 - liên kết tải trong đầu ra xuất bản trỏ tới đúng tệp tồn tại.
 
+#### Cổng bắt buộc trước Human Review
+
+Sau lần `check` và `render` cuối, chạy:
+
+```text
+python scripts/zo_python.py scripts/zo_qmd.py review-ready --report _audit/<slug>_review_ready.json <duong_dan_qmd>
+```
+
+Cổng chỉ đạt khi đồng thời:
+
+- QMD đã được đăng kí trong sidebar tường minh và HTML render chứa sidebar thật;
+- PDF tải xuống tồn tại, là PDF hợp lệ ở mức chữ kí tệp và không cũ hơn QMD;
+- hồ sơ không tự bỏ đồ thị hoặc tự miễn chuỗi hình bắt buộc;
+- tồn tại session manifest version hiện hành do `start` tạo trước khi candidate thay đổi; HEAD, project/article type và candidate target vẫn khớp session;
+- session dùng đúng phạm vi canonical do Cỗ máy suy ra; effective authority closure có đủ role/reason và các authority/provenance bắt buộc giữ nguyên SHA-256; mọi thay đổi phát sinh kể từ `start` nằm trong scope đã khóa; `_audit/` chỉ là vùng bằng chứng, không mở rộng phạm vi production;
+- QMD tham chiếu SVG đồ thị dưới đúng `_figures/<slug>/svg/` và tồn tại `.tex` trong `src/` cùng PDF tương ứng trong `pdf/`;
+- nguồn TikZ/PGFPlots không vi phạm các invariant máy kiểm được đã khóa của quy chuẩn đồ thị; khi quy chuẩn đồ thị được kích hoạt, nguồn còn phải mang đủ lõi tự chứa bắt buộc về LuaLaTeX/STIX, màu ngữ nghĩa, trường nền–khung, trục và phân cấp nét;
+- hồ sơ dùng đúng schema version hiện hành và chỉ chứa trạng thái agent-owned; không có nhóm Human Review/nghiệm thu do agent tự điền;
+- `_audit/<slug>_check.json` và `_audit/<slug>_render.json` là bằng chứng machine-owned thật, đạt `PASS` hoặc `PASS_WITH_WARNINGS` và bao phủ đúng candidate;
+- `tu_xem` có bằng chứng thật dưới `_audit/<slug>_visual/`, tối thiểu cho HTML desktop, HTML mobile và PDF; self-view có thể ghi `canh_bao` nhưng không được giả làm Human Review;
+- các phát biểu trung tâm dùng quan hệ như *bảo toàn*, *giữ nguyên*, *phụ thuộc vào*, *làm mất*, *xác định được từ*, *khôi phục được từ* có bản ghi phép thử `dat` trong hồ sơ;
+- QMD và hồ sơ không dùng các cụm quan hệ mơ hồ đã cấu hình cấm như *giữ độ lớn*, *giữ nguyên độ lớn*, *bảo toàn độ lớn*, *không xóa độ lớn*; thay bằng phát biểu định lượng chính xác như một đẳng thức bảo toàn cụ thể, *phụ thuộc vào*, hoặc *xác định/khôi phục được từ*;
+- không có token nguồn bị cấu hình cấm, hiện gồm `\longmapsto`;
+- nội dung mới không dùng cú pháp đạo hàm apostrophe như `f'(x)` hoặc `f''(x)`; dùng `f^\prime(x)` và `f^{\prime\prime}(x)`.
+
+`review-ready: PASS` chỉ có nghĩa candidate đủ điều kiện **được đưa cho người quan sát**; `final_acceptance` vẫn `NOT_RUN` và publication vẫn `pending`. Hồ sơ sản xuất không phải nơi lưu Human Review hay nghiệm thu; các record đó thuộc lớp kiểm định bên ngoài candidate profile.
+
 ### 4.4. Kiểm định có người quan sát tối thiểu
 
 Phải quan sát, khi áp dụng:
@@ -776,7 +807,7 @@ Trên PDF phải xác nhận tối thiểu:
 
 Thứ tự mặc định:
 
-1. khóa phạm vi;
+1. chạy `start` trước mọi sửa đổi candidate để Cỗ máy khóa session, authority snapshot và phạm vi canonical;
 2. kiểm tra QMD, YAML và tài nguyên;
 3. chạy kiểm định tĩnh;
 4. sửa lỗi chặn;
@@ -784,13 +815,14 @@ Thứ tự mặc định:
 6. build PDF khi bắt buộc;
 7. render lại HTML sau khi PDF đã tồn tại;
 8. kiểm tra đầu ra bằng công cụ;
-9. xét cảnh báo;
-10. quan sát HTML desktop và mobile;
-11. quan sát PDF;
-12. kiểm tra liên kết và nút tải;
-13. sửa lỗi;
-14. chạy lại các kiểm tra bị ảnh hưởng;
-15. lập báo cáo nghiệm thu.
+9. cập nhật hồ sơ bằng bằng chứng cuối và chạy `review-ready`; nếu cổng này `FAIL`, sửa tại nguồn rồi chạy lại các bước bị ảnh hưởng;
+10. xét cảnh báo còn lại;
+11. quan sát HTML desktop và mobile;
+12. quan sát PDF;
+13. kiểm tra liên kết và nút tải;
+14. sửa lỗi;
+15. chạy lại các kiểm tra bị ảnh hưởng;
+16. lập báo cáo nghiệm thu.
 
 Không dùng kết quả kiểm tra cũ sau khi nguồn hoặc phụ thuộc liên quan đã thay đổi.
 
@@ -843,7 +875,8 @@ Không được kết luận `ĐẠT` khi còn một trong các trường hợp:
 - nút PDF tải sai tệp;
 - HTML desktop hoặc mobile chưa được quan sát;
 - PDF bắt buộc chưa được quan sát;
-- kiểm định tự động chưa chạy lại sau lần sửa cuối.
+- kiểm định tự động chưa chạy lại sau lần sửa cuối;
+- cổng `review-ready` chưa `PASS` đối với bài production đi vào Human Review.
 
 ### 5.3. Tiêu chí không áp dụng
 

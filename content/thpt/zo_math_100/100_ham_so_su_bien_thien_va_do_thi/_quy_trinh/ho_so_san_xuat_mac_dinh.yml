@@ -1,4 +1,4 @@
-phien_ban_ho_so: 4
+phien_ban_ho_so: 5
 
 nhan_dien:
   slug: null
@@ -62,8 +62,8 @@ tai_lieu_dieu_khien:
     duong_dan: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/quy_chuan_ki_thuat_bai_ham_so_qmd.md
     da_doc: false
   nguon_li_thuyet_day_du:
+    che_do: chi_khi_can
     duong_dan: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/nguon_li_thuyet/khung_khao_sat_ham_so_hoan_chinh_04.qmd
-    sha256_ki_vong: c9a6ff3040a38658c9e55068395672da1fdb04d58bdd21c4ec027b85ac0d48aa
     da_dung: false
     vi_tri_da_dung: []
   mau_qmd:
@@ -78,7 +78,7 @@ tai_lieu_dieu_khien:
     da_doc: false
   quy_chuan_do_thi:
     duong_dan: quy_trinh_xay_dung/quy_chuan_do_thi_sinh_ma_nguon_tikz_pgfplots.md
-    kich_hoat: false
+    kich_hoat: true
     da_doc: false
   chi_muc_phong_cach:
     duong_dan: quy_trinh_xay_dung/phong_cach_viet/index.md
@@ -255,6 +255,13 @@ vong_ra:
 
 menh_de_chung_cu: []
 
+# Bắt buộc ghi khi phát biểu trung tâm dùng các quan hệ như bảo toàn, giữ nguyên,
+# phụ thuộc, làm mất, xác định được từ hoặc khôi phục được từ.
+# Tránh các cụm mơ hồ như “giữ độ lớn”, “bảo toàn độ lớn”, “không xóa độ lớn”.
+# Nếu một đại lượng thật sự được bảo toàn, nêu đúng đại lượng và đẳng thức kiểm chứng;
+# nếu đầu ra chỉ cho phép khôi phục một đại lượng, dùng “xác định được từ/khôi phục được từ”.
+kiem_tra_quan_he_trung_tam: []
+
 truc_nhan_thuc:
   hien_tuong_trung_tam:
     phat_bieu: null
@@ -323,34 +330,6 @@ he_thong_bai_tap:
   co_dap_an: null
   co_loi_giai: null
 
-dau_ra_ki_thuat:
-  qmd:
-    bat_buoc: true
-    duong_dan: null
-    trang_thai: chua_thuc_hien
-  html:
-    bat_buoc: true
-    duong_dan: null
-    render: chua_thuc_hien
-    desktop: chua_thuc_hien
-    mobile: chua_thuc_hien
-    sidebar: chua_thuc_hien
-    muc_luc: chua_thuc_hien
-  pdf:
-    bat_buoc_khi_published: true
-    duong_dan: null
-    build: chua_thuc_hien
-    metadata: chua_thuc_hien
-    truc_quan: chua_thuc_hien
-  nut_tai_pdf:
-    bat_buoc_khi_published: true
-    href: null
-    hien_thi: chua_thuc_hien
-    hoat_dong: chua_thuc_hien
-  the_du_an:
-    listing_order_khop_number: chua_thuc_hien
-    image_khop_the: chua_thuc_hien
-
 he_khoi_noi_dung:
   co_su_dung: null
   li_do_khong_su_dung: null
@@ -358,26 +337,7 @@ he_khoi_noi_dung:
   lop_cu_phat_hien: []
   quyet_dinh_chuyen_doi: null
 
-kiem_dinh:
-  che_do_xac_nhan: tuan_thu_quy_trinh
-  tu_dong:
-    trang_thai: NOT_RUN
-    cong_cu: []
-    pham_vi_da_chay: []
-    loi_chan: []
-    canh_bao_can_xet: []
-    thong_tin: []
-    bang_chung: []
-    da_chay_lai_sau_sua_cuoi: false
-  co_nguoi_quan_sat:
-    trang_thai: chua_thuc_hien
-    qmd_nguon: chua_thuc_hien
-    html_desktop: chua_thuc_hien
-    html_mobile: chua_thuc_hien
-    pdf: chua_thuc_hien
-    nut_tai_pdf: chua_thuc_hien
-    lien_ket_va_ma_qr: chua_thuc_hien
-    bang_chung: []
+tu_kiem_noi_dung:
   toan_hoc:
     trang_thai: chua_thuc_hien
     tieu_chi:
@@ -596,128 +556,12 @@ kiem_dinh:
         trang_thai: chua_thuc_hien
         can_cu: []
         hanh_dong_sua: null
-  ki_thuat:
-    hop_dong_qmd: chua_thuc_hien
-    yaml_qmd: chua_thuc_hien
-    metadata_va_the: chua_thuc_hien
-    listing_order_va_number: chua_thuc_hien
-    markdown_quarto: chua_thuc_hien
-    cau_truc_tieu_de: chua_thuc_hien
-    ma_va_phu_thuoc: chua_thuc_hien
-    he_khoi_cu_phap: chua_thuc_hien
-    he_khoi_truc_quan: chua_thuc_hien
-    he_khoi_tuong_tac: chua_thuc_hien
-    cong_thuc: chua_thuc_hien
-    dan_chieu_va_duong_dan: chua_thuc_hien
-    tai_nguyen: chua_thuc_hien
-    he_thong_bai_tap: chua_thuc_hien
-    cau_truc_bi_cam: chua_thuc_hien
-    tex: chua_thuc_hien
-    pdf_hinh: chua_thuc_hien
-    svg_hinh: chua_thuc_hien
-    html: chua_thuc_hien
-    html_desktop: chua_thuc_hien
-    html_mobile: chua_thuc_hien
-    pdf_bai: chua_thuc_hien
-    pdf_metadata: chua_thuc_hien
-    pdf_truc_quan: chua_thuc_hien
-    nut_tai_pdf: chua_thuc_hien
-    duyet_truc_quan: chua_thuc_hien
-    git_diff_check: chua_thuc_hien
-
-nghiem_thu:
-  ket_luan: chua_thuc_hien
-  gia_tri_ket_luan_hop_le:
-    - "ĐẠT"
-    - "KHÔNG ĐẠT"
-    - "CHƯA ĐỦ BẰNG CHỨNG"
-  dieu_kien_dung:
-    - id: DK01
-      noi_dung: cau_hoi_dan_duong_da_duoc_giai_quyet
-      trang_thai: chua_thuc_hien
-      can_cu: []
-    - id: DK02
-      noi_dung: moi_ket_luan_thiet_yeu_co_chung_cu
-      trang_thai: chua_thuc_hien
-      can_cu: []
-    - id: DK03
-      noi_dung: khong_con_ngoai_le_lam_doi_ket_luan
-      trang_thai: chua_thuc_hien
-      can_cu: []
-    - id: DK04
-      noi_dung: cac_mach_tao_thanh_con_duong_lien_tuc
-      trang_thai: chua_thuc_hien
-      can_cu: []
-    - id: DK05
-      noi_dung: nguoi_doc_khong_phai_tu_bo_sung_mat_xich_quan_trong
-      trang_thai: chua_thuc_hien
-      can_cu: []
-    - id: DK06
-      noi_dung: phan_con_mo_duoc_goi_dung_la_mo_rong
-      trang_thai: chua_thuc_hien
-      can_cu: []
-    - id: DK07
-      noi_dung: cu_phap_dan_chieu_va_duong_dan_dat
-      trang_thai: chua_thuc_hien
-      can_cu: []
-    - id: DK08
-      noi_dung: render_bat_buoc_dat
-      trang_thai: chua_thuc_hien
-      can_cu: []
-    - id: DK09
-      noi_dung: tep_va_tai_nguyen_ban_giao_day_du
-      trang_thai: chua_thuc_hien
-      can_cu: []
-    - id: DK10
-      noi_dung: he_khoi_noi_dung_dat_hoac_khong_ap_dung_co_li_do
-      trang_thai: chua_thuc_hien
-      can_cu: []
-    - id: DK11
-      noi_dung: quy_chuan_ki_thuat_da_duoc_ap_dung
-      trang_thai: chua_thuc_hien
-      can_cu: []
-    - id: DK12
-      noi_dung: he_thong_bai_tap_dat_hoac_khong_ap_dung_co_li_do
-      trang_thai: chua_thuc_hien
-      can_cu: []
-    - id: DK13
-      noi_dung: listing_order_khop_number_cua_the
-      trang_thai: chua_thuc_hien
-      can_cu: []
-    - id: DK14
-      noi_dung: html_desktop_va_mobile_da_duoc_quan_sat
-      trang_thai: chua_thuc_hien
-      can_cu: []
-    - id: DK15
-      noi_dung: pdf_va_nut_tai_dat_khi_bai_published
-      trang_thai: chua_thuc_hien
-      can_cu: []
-    - id: DK16
-      noi_dung: hai_tang_kiem_dinh_da_hoan_tat
-      trang_thai: chua_thuc_hien
-      can_cu: []
-    - id: DK17
-      noi_dung: kiem_dinh_tu_dong_da_chay_lai_sau_sua_cuoi
-      trang_thai: chua_thuc_hien
-      can_cu: []
-  can_cu: []
-  tieu_chi_khong_ap_dung: []
-  kiem_tra_chua_thuc_hien_duoc: []
-  gioi_han_da_cong_bo: []
-  loi_con_lai: []
-  tep_ban_giao: []
+tu_xem:
+  trang_thai: chua_thuc_hien
+  html_desktop: chua_thuc_hien
+  html_mobile: chua_thuc_hien
+  pdf: chua_thuc_hien
+  bang_chung: []
+  canh_bao: []
 
 van_de_he_thong: []
-
-ban_giao:
-  bao_cao_ngan: null
-  ket_qua_kiem_dinh_tu_dong: null
-  ket_qua_kiem_dinh_co_nguoi_quan_sat: null
-  ket_luan_nghiem_thu: null
-  lenh_kiem_tra_da_chay: []
-  ket_qua_render: []
-  tep_da_tao: []
-  tep_da_sua: []
-  tep_lien_quan_khong_sua: []
-  staging_da_thuc_hien: false
-  commit_da_thuc_hien: false

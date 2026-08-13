@@ -160,7 +160,7 @@ _quy_trinh/ho_so/<slug>.yml
 
 Hồ sơ được khởi tạo từ `ho_so_san_xuat_mac_dinh.yml`, sau đó điền bằng dữ kiện thực. Không sửa tệp mặc định cho riêng một bài.
 
-Hồ sơ là nơi lưu:
+Hồ sơ là **agent-owned profile**. Hồ sơ chỉ lưu những quyết định cần agent lập và tự kiểm về nội dung:
 
 - đơn vị khảo sát;
 - phạm vi và người đọc;
@@ -171,9 +171,14 @@ Hồ sơ là nơi lưu:
 - hiện tượng trung tâm và bản đồ hiện tượng;
 - đề cương vận hành;
 - đặc tả biểu diễn;
-- trạng thái tài nguyên;
-- kết quả kiểm định và nghiệm thu;
-- những tiêu chí không áp dụng cùng lí do.
+- trạng thái tài nguyên theo nghĩa thiết kế;
+- `tu_kiem_noi_dung`;
+- `tu_xem`;
+- những tiêu chí không áp dụng cùng lí do và các `van_de_he_thong` phát hiện được.
+
+Các trạng thái có thể xác định bằng máy — scope, SHA authority, Git delta, check, render, freshness, HTML/PDF và readiness — thuộc `_audit/` và session manifest; không chép lại vào hồ sơ. Human Review, nghiệm thu và kết luận xuất bản cũng không thuộc hồ sơ do agent điền.
+
+Hồ sơ schema v5 **không có nhóm `dau_ra_ki_thuat`**. Khi khởi tạo hồ sơ, phải giữ nguyên cấu trúc các nhóm và bộ ID trong `tu_kiem_noi_dung`; agent chỉ cập nhật trạng thái, căn cứ và hành động sửa của từng tiêu chí, không được rút gọn checklist thành một bản tóm tắt tự do.
 
 Các trường chưa làm phải giữ trạng thái `chua_thuc_hien` hoặc giá trị `null`. Không điền `dat` trước khi có căn cứ.
 
@@ -183,13 +188,23 @@ Trong chế độ `kiem_dinh`, nếu không có hồ sơ cũ, được tạo m�
 
 ### Giai đoạn 0 — Khóa phạm vi
 
+Với một `function_article` production, **`start` là cổng bắt buộc đầu tiên và phải chạy trước mọi sửa đổi candidate**:
+
+```text
+python scripts/zo_python.py scripts/zo_qmd.py start --request "<yeu_cau>" <duong_dan_qmd>
+```
+
+Nếu không truyền `--output`, Cỗ máy tạo `_audit/<slug>_session.json`. Trong dự án này, `start` tự suy ra phạm vi production canonical gồm QMD, hồ sơ, PDF của bài, `_figures/<slug>/` và `_quarto.yml`; agent không tự dùng `--allow`/`--exclude` để thay đổi phạm vi đó. Manifest đồng thời tính **effective authority closure** theo registry hiện hành, ghi vai trò và lí do kích hoạt của từng nguồn, chụp SHA-256 của các authority/provenance bắt buộc, lập inventory cho nguồn tham khảo tùy chọn và fingerprint các thay đổi Git đã tồn tại. Nếu candidate scope đã bẩn trước `start`, phiên bị chặn thay vì hợp thức hóa một lifecycle khởi động muộn.
+
+Sau khi `start: PASS`:
+
 1. Xác định chế độ vận hành.
-2. Đọc trạng thái Git và nhận diện các thay đổi đã có.
-3. Xác định chính xác những tệp được phép đọc, tạo và sửa.
+2. Đọc session manifest, trạng thái Git ban đầu và authority snapshot mà Cỗ máy đã khóa.
+3. Dùng đúng `scope.allowed` do Cỗ máy suy ra; không tự mở rộng hoặc thu hẹp phạm vi production.
 4. Ghi các thay đổi ngoài phạm vi là tài sản hiện có của người dùng; không sửa, xóa, phục hồi, staging hoặc gộp chúng.
 5. Xác định điều kiện dừng và thành phần bàn giao của nhiệm vụ.
 
-Kết quả của giai đoạn này được ghi vào các nhóm `nhiem_vu`, `pham_vi_thay_doi` và `ban_giao` trong hồ sơ.
+Kết quả machine-owned của giai đoạn này nằm trong session manifest; hồ sơ chỉ giữ `nhiem_vu`, `pham_vi_thay_doi` và các quyết định nội dung cần agent sở hữu. `review-ready` sẽ đối chiếu lại session manifest, effective authority closure và phần thay đổi phát sinh kể từ `start`; vì vậy khóa phạm vi không còn là một lời tự khai của agent.
 
 ### Giai đoạn 1 — Khởi tạo hồ sơ sản xuất
 
@@ -218,13 +233,17 @@ Thực hiện theo Mục 4 và Mục 5 của `quy_chuan_khao_sat_ham_so.md`:
 
 Không viết văn xuôi dài của bài trong giai đoạn này.
 
-Sau vòng rà, phải truy đúng phần liên quan trong `_quy_trinh/nguon_li_thuyet/khung_khao_sat_ham_so_hoan_chinh_04.qmd` đối với những phương diện sẽ đi vào mạch chính hoặc làm căn cứ cho hiện tượng trung tâm, đặc biệt khi phần nguồn chứa định nghĩa, điều kiện, giới hạn phương pháp hoặc một phân biệt dễ gây nhầm. Việc này vẫn cần thực hiện khi quy chuẩn nén có vẻ đã đủ để tính toán kết quả.
+Quy chuẩn nén là nguồn mặc định. Chỉ truy `_quy_trinh/nguon_li_thuyet/khung_khao_sat_ham_so_hoan_chinh_04.qmd` khi cần làm rõ một điểm quy chuẩn chưa nén đủ, điều kiện, giới hạn phương pháp hoặc một phân biệt dễ gây nhầm. Không bắt agent đọc nguồn đầy đủ chỉ để lặp lại một kết quả mà quy chuẩn nén đã xác định đủ an toàn.
 
-Trong `vi_tri_da_dung`, ghi chương/mục hoặc vị trí nội dung cụ thể đã dùng; không dùng một mô tả chung như “khung hồ sơ” hay “trục nhận thức”. Trường `da_dung` và danh sách vị trí chỉ tạo khả năng truy xuất, không thay thế việc kiểm tra sản phẩm cuối.
+Nếu nguồn đầy đủ được dùng, đặt `da_dung: true` và ghi chương/mục hoặc vị trí cụ thể trong `vi_tri_da_dung`; không tự ghi hay duy trì SHA kỳ vọng. Provenance và SHA của nguồn được Cỗ máy lấy từ reference inventory của session và `review-ready` đối chiếu lại.
 
 Điểm kiểm soát G2 đạt khi không còn lỗi toán học thiết yếu và các kết luận quan trọng đều truy được về chứng cứ.
 
-Trước khi qua G2, thực hiện thêm **kiểm tra quan hệ trung tâm**: với mỗi động từ như *bảo toàn*, *phụ thuộc vào*, *làm mất*, *xác định được từ*, *khôi phục được từ*, ghi mệnh đề kiểm được hoặc phản ví dụ thử nhanh. Nếu động từ không vượt phép thử, sửa chính phát biểu trong hồ sơ; không để lỗi quan hệ đi tiếp sang trục nhận thức.
+Trước khi qua G2, thực hiện thêm **kiểm tra quan hệ trung tâm**: với mỗi cách nói như *bảo toàn*, *giữ nguyên*, *phụ thuộc vào*, *làm mất*, *xác định được từ*, *khôi phục được từ*, ghi mệnh đề kiểm được hoặc phản ví dụ thử nhanh. Nếu động từ không vượt phép thử, sửa chính phát biểu trong hồ sơ; không để lỗi quan hệ đi tiếp sang trục nhận thức.
+
+Không dùng các cụm mơ hồ *giữ độ lớn*, *giữ nguyên độ lớn*, *bảo toàn độ lớn* hoặc *không xóa độ lớn* trong QMD/hồ sơ. Nếu một đại lượng thật sự được bảo toàn, hãy gọi đúng đại lượng và viết đẳng thức hoặc điều kiện bảo toàn; nếu đầu ra chỉ cho phép suy ra lại một đại lượng, dùng *xác định được từ* hoặc *khôi phục được từ*. Quy tắc này ngăn việc lẫn lộn giữa **giá trị của đại lượng không đổi qua phép biến đổi** và **thông tin về đại lượng vẫn có thể suy ra từ đầu ra**.
+
+Mỗi phép thử đã kích hoạt phải được ghi vào `kiem_tra_quan_he_trung_tam` của hồ sơ với bốn trường `phat_bieu`, `phep_thu`, `ket_luan`, `trang_thai`. Chỉ dùng `trang_thai: dat` khi phép thử thực sự nâng đỡ phát biểu. Bản ghi này là bằng chứng đầu vào cho cổng `review-ready`; một nhận xét chung trong phần tự kiểm không thay thế nó.
 
 
 ### Giai đoạn 3 — Chọn trục nhận thức và lập đề cương
@@ -260,7 +279,7 @@ G3 chưa đạt nếu còn một trong các tình trạng sau:
 
 1. Với mỗi bảng hoặc hình, hoàn thành đặc tả tại Mục 10.2 của quy chuẩn khảo sát.
 2. Chỉ kích hoạt quy chuẩn đồ thị khi cần tạo hoặc sửa hình TikZ/PGFPlots.
-3. Mỗi tệp `.tex` mới phải tự chứa toàn bộ màu và style cần dùng; không phụ thuộc `zo-graph-styles.tex`.
+3. Mỗi tệp `.tex` mới phải tự chứa toàn bộ màu và style cần dùng; không phụ thuộc `zo-graph-styles.tex`. Không viết một nguồn “tối giản tương đương” bỏ STIX, nền–khung, màu vai trò hoặc phân cấp trục/nét của quy chuẩn; `review-ready` sẽ kiểm tra lõi này.
 4. Xác định đường dẫn nguồn `.tex`, PDF, SVG và đường dẫn chèn vào bài.
 5. Phân loại bố cục QMD của từng hình và ghi quyết định vào hồ sơ:
    - `thuong`: mặc định cho cả HTML và PDF; hình nằm trong bề ngang nội dung và không dùng `.column-screen-inset-shaded`;
@@ -286,6 +305,8 @@ G3 chưa đạt nếu còn một trong các tình trạng sau:
 `mau_ki_thuat_qmd.qmd` chỉ cung cấp khung YAML, các vị trí kĩ thuật và mẫu cú pháp. Nó không áp đặt đề mục nội dung và không thay thế `quy_chuan_ki_thuat_bai_ham_so_qmd.md`.
 
 Không sao chép tự động lớp bố cục hình từ bài tham chiếu. Trong nhánh PDF, không dùng `.column-screen-inset-shaded` trong bất kì trường hợp nào.
+
+Đối với `function_article` ở chế độ `tao_moi` hoặc `hoan_thien`, đồ thị của chính hàm là **đầu ra production tối thiểu** trước Human Review. Quy tắc này không biến mọi bảng/hình phụ thành bắt buộc: các biểu diễn bổ sung vẫn chỉ được tạo khi có chức năng nhận thức. Đồ thị bắt buộc phải đi theo chuỗi nguồn–render mà cấu hình dự án khóa; agent không được tự bỏ đồ thị hoặc tự khai ngoại lệ trong hồ sơ để né quy chuẩn đồ thị.
 
 Điểm kiểm soát G4 đạt khi:
 
@@ -352,7 +373,20 @@ Trong phạm vi môi trường cho phép:
 11. kiểm tra trực quan các khối mở cố định và thu gọn trên cả HTML lẫn PDF: viền, nền, tiêu đề, khoảng cách, khả năng mở–đóng trên HTML, nội dung đầy đủ trên PDF và sự liên tục của mạch đọc;
 12. kiểm tra bài mới không dùng lớp khối cũ; với bài hiện có, phải báo rõ lớp cũ nào còn tồn tại và đó là tương thích lịch sử hay sai lệch cần chuyển đổi;
 13. kiểm tra nút tải PDF, metadata, URL chính tắc và tài nguyên; đối chiếu `fig-alt`, caption, các điểm/mốc và đường chiếu với artifact đã render thay vì chỉ với ý định trong source;
-14. chạy lại kiểm định nội dung nếu sửa kĩ thuật làm thay đổi cách đọc.
+14. chạy lại kiểm định nội dung nếu sửa kĩ thuật làm thay đổi cách đọc;
+15. sau khi nội dung và tài nguyên cuối đã ổn định, chạy `check` và `render` với đường dẫn bằng chứng canonical do session manifest chỉ ra, hoàn tất `tu_xem`, rồi chạy cổng bắt buộc:
+
+```text
+python scripts/zo_python.py scripts/zo_qmd.py check --report _audit/<slug>_check.json <duong_dan_qmd>
+python scripts/zo_python.py scripts/zo_qmd.py render --report _audit/<slug>_render.json <duong_dan_qmd>
+python scripts/zo_python.py scripts/zo_qmd.py review-ready --report _audit/<slug>_review_ready.json <duong_dan_qmd>
+```
+
+Ba báo cáo trên là machine-owned evidence; agent không chép trạng thái PASS/PASS_WITH_WARNINGS của chúng vào hồ sơ.
+
+Chỉ đưa candidate sang Human Review khi `review-ready` trả `PASS`. Cổng này kiểm tra các invariant production mà `check`/`render` không đủ để chứng minh: lifecycle/session, effective authority closure, canonical scope, đăng kí sidebar và sidebar render thật, chuỗi đồ thị bắt buộc, schema/ownership của hồ sơ, bằng chứng check–render machine-owned, self-view canonical và bản ghi kiểm tra quan hệ trung tâm. Human Review và nghiệm thu không được agent tự điền vào hồ sơ. Không được bỏ một thành phần bắt buộc chỉ để tránh rule chi tiết áp dụng lên thành phần ấy.
+
+Trước `review-ready`, agent phải ghi `tu_xem` riêng với trạng thái `dat` hoặc `canh_bao` và lưu bằng chứng thật dưới `_audit/<slug>_visual/`: tối thiểu một ảnh HTML desktop, một ảnh HTML mobile và một ảnh/trang PDF. Đây là **agent self-view**, không phải kiểm định có người quan sát. Nếu phát hiện overflow có dấu hiệu thuộc layout toàn site, ghi cảnh báo/system defect thay vì sửa CSS ngoài scope để né cổng.
 
 Không tuyên bố một kiểm tra đã đạt chỉ vì lệnh trả về mã thoát `0` nếu tiêu chí cần quan sát bản render.
 
