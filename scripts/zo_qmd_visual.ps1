@@ -16,7 +16,7 @@ Set-StrictMode -Version Latest
 # viewports through the same MathJax-ready path, captures screenshots, and records
 # runtime dimensions + SHA-256.
 
-$VisualMeasurementVersion = 2
+$VisualMeasurementVersion = 3
 $RequiredMobileWidths = @(390, 430)
 $RequiredDesktopWidths = @(1440)
 $RequiredWidths = @($RequiredMobileWidths + $RequiredDesktopWidths)
@@ -40,6 +40,12 @@ if (-not (Test-Path -LiteralPath $HtmlPath -PathType Leaf)) {
     throw "Rendered HTML missing; run QMD render first: $HtmlPath"
 }
 
+$TargetRelativePdf = [System.IO.Path]::ChangeExtension($TargetRelative, '.pdf')
+$PdfPath = Join-Path $Root ($TargetRelativePdf -replace '/', '\')
+if (-not (Test-Path -LiteralPath $PdfPath -PathType Leaf)) {
+    throw "Rendered PDF missing; run QMD render first: $PdfPath"
+}
+
 $Slug = [System.IO.Path]::GetFileNameWithoutExtension($TargetPath)
 $VisualDir = Join-Path $Root (Join-Path '_audit' "${Slug}_visual")
 New-Item -ItemType Directory -Path $VisualDir -Force | Out-Null
@@ -48,6 +54,17 @@ $ReportPath = Join-Path $VisualDir 'html_mobile_measurements.json'
 function Get-Sha256Lower {
     param([Parameter(Mandatory = $true)][string]$Path)
     return (Get-FileHash -Algorithm SHA256 -LiteralPath $Path).Hash.ToLowerInvariant()
+}
+
+function Find-ToolCommand {
+    param([Parameter(Mandatory = $true)][string[]]$Names)
+    foreach ($name in $Names) {
+        $command = Get-Command $name -ErrorAction SilentlyContinue | Select-Object -First 1
+        if ($command -and $command.Source) {
+            return $command.Source
+        }
+    }
+    throw "Required tool not found: $($Names -join ' / ')"
 }
 
 function Find-ChromiumBrowser {
@@ -242,6 +259,7 @@ $Socket = $null
 $Profile = Join-Path ([System.IO.Path]::GetTempPath()) ("zo-qmd-visual-" + [guid]::NewGuid().ToString('N'))
 $Port = Get-Random -Minimum 12000 -Maximum 19000
 $Records = New-Object System.Collections.Generic.List[object]
+$PdfRecords = New-Object System.Collections.Generic.List[object]
 $HadFailure = $false
 
 try {
@@ -359,6 +377,43 @@ finally {
     }
 }
 
+$PdfInfo = Find-ToolCommand -Names @('pdfinfo.exe', 'pdfinfo')
+$PdfToPpm = Find-ToolCommand -Names @('pdftoppm.exe', 'pdftoppm')
+$PdfInfoOutput = & $PdfInfo $PdfPath 2>&1
+if ($LASTEXITCODE -ne 0) {
+    throw "pdfinfo failed for $PdfPath"
+}
+$PageCount = $null
+foreach ($line in $PdfInfoOutput) {
+    if ([string]$line -match '^Pages:\s*(\d+)\s*$') {
+        $PageCount = [int]$Matches[1]
+        break
+    }
+}
+if (-not $PageCount -or $PageCount -lt 1) {
+    throw "Could not determine PDF page count: $PdfPath"
+}
+
+Get-ChildItem -LiteralPath $VisualDir -Filter 'pdf_page_*.png' -File -ErrorAction SilentlyContinue |
+    Remove-Item -Force
+
+for ($PageNumber = 1; $PageNumber -le $PageCount; $PageNumber++) {
+    $Prefix = Join-Path $VisualDir ("pdf_page_{0}" -f $PageNumber)
+    & $PdfToPpm -f $PageNumber -l $PageNumber -singlefile -png -r 120 $PdfPath $Prefix | Out-Null
+    if ($LASTEXITCODE -ne 0) {
+        throw "pdftoppm failed for PDF page $PageNumber."
+    }
+    $ScreenshotPath = "${Prefix}.png"
+    if (-not (Test-Path -LiteralPath $ScreenshotPath -PathType Leaf)) {
+        throw "pdftoppm did not create $ScreenshotPath"
+    }
+    $PdfRecords.Add([ordered]@{
+        page = [int]$PageNumber
+        screenshot = $ScreenshotPath.Substring($RootPrefix.Length).Replace('\', '/')
+        screenshot_sha256 = Get-Sha256Lower -Path $ScreenshotPath
+    })
+}
+
 $Payload = [ordered]@{
     visual_measurement_version = $VisualMeasurementVersion
     generator = 'scripts/zo_qmd_visual.ps1'
@@ -368,6 +423,10 @@ $Payload = [ordered]@{
     required_mobile_viewports = @($RequiredMobileWidths)
     required_desktop_viewports = @($RequiredDesktopWidths)
     measurements = $Records.ToArray()
+    rendered_pdf = $TargetRelativePdf
+    rendered_pdf_sha256 = Get-Sha256Lower -Path $PdfPath
+    pdf_page_count = [int]$PageCount
+    pdf_pages = $PdfRecords.ToArray()
     automated_result = $(if ($HadFailure) { 'FAIL' } else { 'PASS' })
     exit_code = $(if ($HadFailure) { 1 } else { 0 })
 }
@@ -385,5 +444,6 @@ foreach ($Record in $Records) {
     $Line = 'viewport={0}px inner={1} client={2} scroll={3} overflow={4}px result={5}' -f $Record.requested_width, $Record.window_inner_width, $Record.document_client_width, $Record.document_scroll_width, $Record.overflow_px, $Status
     Write-Host $Line
 }
+Write-Host "PDF_PAGES_CAPTURED=$PageCount"
 Write-Host "AUTOMATED RESULT: $($Payload.automated_result) | EXIT=$($Payload.exit_code)"
 exit [int]$Payload.exit_code

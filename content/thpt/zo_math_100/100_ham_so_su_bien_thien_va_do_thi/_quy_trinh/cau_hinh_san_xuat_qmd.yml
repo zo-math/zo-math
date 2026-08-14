@@ -217,12 +217,14 @@ extensions:
           require_template_shape: true
           require_check_and_render_evidence: true
           require_self_view_evidence: true
+          require_pdf_page_coverage: true
         semantic:
           require_relation_records_when_triggered: true
           require_exercises_last_h2: true
           forbidden_source_tokens:
             - "\\longmapsto"
             - "\\Longleftrightarrow"
+            - "\\iff"
           forbidden_ambiguous_phrases:
             - "giữ độ lớn"
             - "giữ nguyên độ lớn"

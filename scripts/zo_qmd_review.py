@@ -34,7 +34,7 @@ from zo_qmd_core import qmd_image_records, split_qmd_front_matter
 
 REVIEW_READY_VERSION = 3
 SESSION_MANIFEST_VERSION = 3
-VISUAL_MEASUREMENT_VERSION = 2
+VISUAL_MEASUREMENT_VERSION = 3
 EXIT_OK = 0
 EXIT_FAILED = 1
 EXIT_USAGE = 2
@@ -486,6 +486,30 @@ def _strict_int(value: Any) -> int | None:
     return value if isinstance(value, int) and not isinstance(value, bool) else None
 
 
+def _pdf_page_count(root: Path, target: Path) -> tuple[int | None, str | None]:
+    """Read the canonical article PDF page count with pdfinfo."""
+
+    pdf_rel = target.with_suffix(".pdf")
+    pdf_path = root / pdf_rel
+    if not pdf_path.is_file():
+        return None, f"Thiếu PDF để xác minh visual evidence: {pdf_rel.as_posix()}."
+    pdfinfo = shutil.which("pdfinfo")
+    if pdfinfo is None:
+        return None, "Không tìm thấy pdfinfo để xác minh số trang PDF."
+    result = _run([pdfinfo, str(pdf_path)], root)
+    if result.returncode != 0:
+        detail = (result.stderr or result.stdout).strip()
+        suffix = f" ({detail})" if detail else ""
+        return None, f"pdfinfo không đọc được {pdf_rel.as_posix()}{suffix}."
+    match = re.search(r"(?mi)^Pages:\s*(\d+)\s*$", result.stdout)
+    if match is None:
+        return None, f"pdfinfo không trả về số trang hợp lệ cho {pdf_rel.as_posix()}."
+    pages = int(match.group(1))
+    if pages <= 0:
+        return None, f"PDF phải có ít nhất một trang: {pdf_rel.as_posix()}."
+    return pages, None
+
+
 def _machine_visual_errors(
     root: Path,
     target: Path,
@@ -613,6 +637,62 @@ def _machine_visual_errors(
             if requested_height is None or dimensions[1] != requested_height:
                 errors.append(f"Viewport {width}px: chiều cao screenshot {dimensions[1]}px không khớp requested_height={requested_height}.")
 
+    pdf_rel = target.with_suffix(".pdf")
+    pdf_path = root / pdf_rel
+    if payload.get("rendered_pdf") != pdf_rel.as_posix():
+        errors.append("Visual evidence không trỏ tới PDF canonical: " + pdf_rel.as_posix() + ".")
+    if not pdf_path.is_file():
+        errors.append(f"Thiếu PDF để xác minh visual evidence: {pdf_rel.as_posix()}.")
+    elif payload.get("rendered_pdf_sha256") != _sha256_file(pdf_path):
+        errors.append("Visual evidence stale: SHA-256 của PDF đã thay đổi.")
+
+    page_count, page_error = _pdf_page_count(root, target)
+    if page_error is not None:
+        errors.append(page_error)
+    elif page_count is not None:
+        if payload.get("pdf_page_count") != page_count:
+            errors.append(f"Visual evidence.pdf_page_count phải bằng {page_count}.")
+        pdf_pages = payload.get("pdf_pages")
+        if not isinstance(pdf_pages, list):
+            errors.append("Visual evidence.pdf_pages phải là list.")
+        else:
+            by_page: dict[int, dict[str, Any]] = {}
+            for raw in pdf_pages:
+                if not isinstance(raw, dict):
+                    errors.append("Visual evidence.pdf_pages chứa phần tử không phải mapping.")
+                    continue
+                page = _strict_int(raw.get("page"))
+                if page is None or page <= 0:
+                    errors.append("Visual PDF page record thiếu số trang nguyên dương.")
+                    continue
+                if page in by_page:
+                    errors.append(f"Visual PDF page record lặp trang {page}.")
+                    continue
+                by_page[page] = raw
+            expected_pages = set(range(1, page_count + 1))
+            if set(by_page) != expected_pages:
+                missing_pages = sorted(expected_pages - set(by_page))
+                extra_pages = sorted(set(by_page) - expected_pages)
+                if missing_pages:
+                    errors.append("Thiếu machine-owned PDF screenshot cho trang: " + ", ".join(map(str, missing_pages)) + ".")
+                if extra_pages:
+                    errors.append("Có machine-owned PDF screenshot ngoài số trang hiện tại: " + ", ".join(map(str, extra_pages)) + ".")
+            canonical_root = Path("_audit") / f"{target.stem}_visual"
+            for page in sorted(expected_pages):
+                raw = by_page.get(page)
+                if raw is None:
+                    continue
+                expected = canonical_root / f"pdf_page_{page}.png"
+                if raw.get("screenshot") != expected.as_posix():
+                    errors.append(f"PDF trang {page}: screenshot phải là {expected.as_posix()}.")
+                    continue
+                screenshot_path = root / expected
+                if not screenshot_path.is_file():
+                    errors.append(f"Thiếu machine-owned PDF screenshot: {expected.as_posix()}.")
+                    continue
+                if raw.get("screenshot_sha256") != _sha256_file(screenshot_path):
+                    errors.append(f"PDF trang {page}: SHA-256 screenshot không khớp.")
+
     if payload.get("automated_result") != "PASS" or payload.get("exit_code") != 0:
         errors.append("Machine-owned visual report không có automated_result=PASS, exit_code=0.")
     return errors
@@ -623,6 +703,7 @@ def _self_view_errors(
     profile: Mapping[str, Any],
     target: Path,
     required_mobile_viewports: Sequence[int] = (),
+    require_pdf_page_coverage: bool = False,
 ) -> list[str]:
     self_view = _mapping(profile.get("tu_xem"))
     errors: list[str] = []
@@ -636,6 +717,7 @@ def _self_view_errors(
     canonical_root = Path("_audit") / f"{target.stem}_visual"
     kinds = {"desktop": False, "mobile": False, "pdf": False}
     evidence_paths: set[Path] = set()
+    pdf_pages: set[int] = set()
     for raw in evidence:
         if not isinstance(raw, str) or not raw.strip():
             errors.append("tu_xem.bang_chung chứa đường dẫn không hợp lệ.")
@@ -661,6 +743,9 @@ def _self_view_errors(
             kinds["mobile"] = True
         if "pdf" in name or "page" in name:
             kinds["pdf"] = True
+        page_match = re.fullmatch(r"pdf[-_]page[-_](\d+)\.png", name)
+        if page_match is not None:
+            pdf_pages.add(int(page_match.group(1)))
     missing = [name for name, present in kinds.items() if not present]
     if missing:
         errors.append("Thiếu nhóm bằng chứng self-view: " + ", ".join(missing) + ".")
@@ -670,6 +755,26 @@ def _self_view_errors(
             errors.append(
                 f"tu_xem.bang_chung phải tham chiếu screenshot mobile machine-owned {expected.as_posix()}."
             )
+    if require_pdf_page_coverage:
+        page_count, page_error = _pdf_page_count(root, target)
+        if page_error is not None:
+            errors.append(page_error)
+        elif page_count is not None:
+            expected_pages = set(range(1, page_count + 1))
+            missing_pages = sorted(expected_pages - pdf_pages)
+            extra_pages = sorted(pdf_pages - expected_pages)
+            if missing_pages:
+                errors.append(
+                    "tu_xem.bang_chung chưa tham chiếu đủ mọi trang PDF; thiếu trang: "
+                    + ", ".join(map(str, missing_pages))
+                    + "."
+                )
+            if extra_pages:
+                errors.append(
+                    "tu_xem.bang_chung có số trang ngoài PDF hiện tại: "
+                    + ", ".join(map(str, extra_pages))
+                    + "."
+                )
     return errors
 
 
@@ -1415,11 +1520,12 @@ def evaluate_review_ready(
             profile,
             target,
             required_mobile_viewports=required_mobile_viewports,
+            require_pdf_page_coverage=_truthy(profile_policy.get("require_pdf_page_coverage")),
         )
         add(
             "profile-agent-self-view-evidence",
             not self_view_errors,
-            "Agent self-view có bằng chứng canonical cho desktop, mobile và PDF."
+            "Agent self-view có bằng chứng canonical cho desktop, mobile và toàn bộ các trang PDF."
             if not self_view_errors
             else "; ".join(self_view_errors),
             profile_rel,
@@ -1666,11 +1772,12 @@ def _self_test() -> None:
                                 "forbidden_top_level": ["nghiem_thu", "ban_giao"],
                                 "require_check_and_render_evidence": True,
                                 "require_self_view_evidence": True,
+                                "require_pdf_page_coverage": True,
                             },
                             "semantic": {
                                 "require_relation_records_when_triggered": True,
                                 "require_exercises_last_h2": True,
-                                "forbidden_source_tokens": ["\\longmapsto", "\\Longleftrightarrow"],
+                                "forbidden_source_tokens": ["\\longmapsto", "\\Longleftrightarrow", "\\iff"],
                                 "forbidden_ambiguous_phrases": [
                                     "giữ độ lớn",
                                     "giữ nguyên độ lớn",
@@ -1755,7 +1862,33 @@ def _self_test() -> None:
         (root / graph_pdf).write_bytes(b"%PDF-1.4\ngraph\n")
         (root / graph_svg).write_text("<svg xmlns='http://www.w3.org/2000/svg'></svg>\n", encoding="utf-8")
         article_pdf = root / target.with_suffix(".pdf")
-        article_pdf.write_bytes(b"%PDF-1.4\narticle\n")
+
+        def write_blank_pdf(path: Path, page_count: int) -> None:
+            objects: list[bytes] = []
+            page_ids = list(range(3, 3 + page_count))
+            content_id = 3 + page_count
+            objects.append(b"<< /Type /Catalog /Pages 2 0 R >>")
+            kids = b" ".join(f"{page_id} 0 R".encode("ascii") for page_id in page_ids)
+            objects.append(b"<< /Type /Pages /Count " + str(page_count).encode("ascii") + b" /Kids [" + kids + b"] >>")
+            for _page_id in page_ids:
+                objects.append(b"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents " + str(content_id).encode("ascii") + b" 0 R >>")
+            objects.append(b"<< /Length 0 >>\nstream\n\nendstream")
+            data = bytearray(b"%PDF-1.4\n")
+            offsets = [0]
+            for object_id, obj in enumerate(objects, start=1):
+                offsets.append(len(data))
+                data.extend(f"{object_id} 0 obj\n".encode("ascii"))
+                data.extend(obj)
+                data.extend(b"\nendobj\n")
+            xref = len(data)
+            data.extend(f"xref\n0 {len(objects) + 1}\n".encode("ascii"))
+            data.extend(b"0000000000 65535 f \n")
+            for offset in offsets[1:]:
+                data.extend(f"{offset:010d} 00000 n \n".encode("ascii"))
+            data.extend((f"trailer\n<< /Size {len(objects) + 1} /Root 1 0 R >>\nstartxref\n{xref}\n%%EOF\n").encode("ascii"))
+            path.write_bytes(bytes(data))
+
+        write_blank_pdf(article_pdf, 2)
         html = root / "docs" / target.with_suffix(".html")
         html.parent.mkdir(parents=True, exist_ok=True)
         html.write_text('<html><nav id="quarto-sidebar"></nav></html>\n', encoding="utf-8")
@@ -1777,7 +1910,8 @@ def _self_test() -> None:
         visual = audit / "test_visual"
         visual.mkdir()
         (visual / "html-desktop.png").write_bytes(b"visual-evidence\n")
-        (visual / "pdf-page-1.png").write_bytes(b"visual-evidence\n")
+        (visual / "pdf_page_1.png").write_bytes(b"visual-evidence\n")
+        (visual / "pdf_page_2.png").write_bytes(b"visual-evidence\n")
 
         def write_png_stub(path: Path, width: int, height: int) -> None:
             path.write_bytes(
@@ -1822,6 +1956,13 @@ def _self_test() -> None:
                     "required_mobile_viewports": [390, 430],
                     "required_desktop_viewports": [1440],
                     "measurements": visual_records,
+                    "rendered_pdf": target.with_suffix(".pdf").as_posix(),
+                    "rendered_pdf_sha256": _sha256_file(article_pdf),
+                    "pdf_page_count": 2,
+                    "pdf_pages": [
+                        {"page": 1, "screenshot": "_audit/test_visual/pdf_page_1.png", "screenshot_sha256": _sha256_file(visual / "pdf_page_1.png")},
+                        {"page": 2, "screenshot": "_audit/test_visual/pdf_page_2.png", "screenshot_sha256": _sha256_file(visual / "pdf_page_2.png")},
+                    ],
                     "automated_result": "PASS",
                     "exit_code": 0,
                 },
@@ -1851,7 +1992,8 @@ def _self_test() -> None:
                     "_audit/test_visual/html-desktop.png",
                     "_audit/test_visual/html_mobile_390.png",
                     "_audit/test_visual/html_mobile_430.png",
-                    "_audit/test_visual/pdf-page-1.png",
+                    "_audit/test_visual/pdf_page_1.png",
+                    "_audit/test_visual/pdf_page_2.png",
                 ],
                 "canh_bao": [],
             },
@@ -2096,6 +2238,27 @@ def _self_test() -> None:
         assert any(item.name == "machine-visual-viewport-evidence" and not item.passed for item in checks)
         visual_report.write_bytes(visual_report_backup)
 
+        # Missing one PDF page from agent self-view evidence must block.
+        full_evidence = list(profile["tu_xem"]["bang_chung"])
+        profile["tu_xem"]["bang_chung"] = [item for item in full_evidence if not item.endswith("pdf_page_2.png")]
+        _write_yaml(root / profile_rel, profile)
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(item.name == "profile-agent-self-view-evidence" and not item.passed for item in checks)
+        profile["tu_xem"]["bang_chung"] = full_evidence
+        _write_yaml(root / profile_rel, profile)
+
+        # Missing one machine-owned PDF page record must also block.
+        visual_payload = json.loads(visual_report.read_text(encoding="utf-8"))
+        full_pdf_pages = list(visual_payload["pdf_pages"])
+        visual_payload["pdf_pages"] = full_pdf_pages[:1]
+        visual_report.write_text(json.dumps(visual_payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(item.name == "machine-visual-viewport-evidence" and not item.passed for item in checks)
+        visual_payload["pdf_pages"] = full_pdf_pages
+        visual_report.write_text(json.dumps(visual_payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
         # A real H2 after Bài tập must block; a fenced fake H2 must not.
         safe_qmd_text = qmd.read_text(encoding="utf-8")
         qmd.write_text(safe_qmd_text + "\n## Bài tập\n\n1. Bài 1.\n\n## Ghi chú thêm\n\nKhông hợp lệ.\n", encoding="utf-8")
@@ -2109,6 +2272,16 @@ def _self_test() -> None:
 
         # Long decorative equivalence arrow must block; short Leftrightarrow remains allowed.
         qmd.write_text(safe_qmd_text + "\n$A \\Longleftrightarrow B$.\n", encoding="utf-8")
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(item.name == "semantic-forbidden-source-tokens" and not item.passed for item in checks)
+        qmd.write_text(safe_qmd_text + "\n$A \\Leftrightarrow B$.\n", encoding="utf-8")
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert any(item.name == "semantic-forbidden-source-tokens" and item.passed for item in checks)
+        qmd.write_text(safe_qmd_text, encoding="utf-8")
+
+        # \iff renders the same long equivalence arrow and must block.
+        qmd.write_text(safe_qmd_text + "\n$A \\iff B$.\n", encoding="utf-8")
         checks, payload = evaluate_review_ready(root, target, root / session_rel)
         assert payload["exit_code"] == 1
         assert any(item.name == "semantic-forbidden-source-tokens" and not item.passed for item in checks)
