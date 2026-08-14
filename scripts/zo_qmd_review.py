@@ -34,7 +34,7 @@ from zo_qmd_core import qmd_image_records, split_qmd_front_matter
 
 REVIEW_READY_VERSION = 3
 SESSION_MANIFEST_VERSION = 3
-VISUAL_MEASUREMENT_VERSION = 1
+VISUAL_MEASUREMENT_VERSION = 2
 EXIT_OK = 0
 EXIT_FAILED = 1
 EXIT_USAGE = 2
@@ -122,6 +122,32 @@ def _mapping(value: Any) -> dict[str, Any]:
 
 def _truthy(value: Any) -> bool:
     return value is True
+
+
+def _markdown_h2_titles(body: str) -> list[str]:
+    """Return real Markdown H2 titles while ignoring fenced code blocks."""
+
+    titles: list[str] = []
+    fence_char: str | None = None
+    fence_len = 0
+    for line in body.splitlines():
+        stripped = line.lstrip()
+        fence = re.match(r"^(`{3,}|~{3,})", stripped)
+        if fence_char is not None:
+            if fence and fence.group(1)[0] == fence_char and len(fence.group(1)) >= fence_len:
+                fence_char = None
+                fence_len = 0
+            continue
+        if fence:
+            fence_char = fence.group(1)[0]
+            fence_len = len(fence.group(1))
+            continue
+        heading = re.match(r"^\s*##(?!#)\s+(.+?)\s*$", line)
+        if not heading:
+            continue
+        title = re.sub(r"\s+\{[^{}]*\}\s*$", "", heading.group(1)).strip().casefold()
+        titles.append(title)
+    return titles
 
 
 def _empty(value: Any) -> bool:
@@ -464,13 +490,23 @@ def _machine_visual_errors(
     root: Path,
     target: Path,
     required_mobile_viewports: Sequence[int],
+    required_desktop_viewports: Sequence[int],
 ) -> list[str]:
     """Validate machine-owned runtime viewport/overflow evidence."""
 
-    required = tuple(int(width) for width in required_mobile_viewports)
+    mobile = tuple(int(width) for width in required_mobile_viewports)
+    desktop = tuple(int(width) for width in required_desktop_viewports)
+    required = mobile + desktop
     errors: list[str] = []
-    if not required:
-        return ["visual.required_mobile_viewports phải khai báo ít nhất một viewport nguyên dương."]
+    if not mobile:
+        errors.append("visual.required_mobile_viewports phải khai báo ít nhất một viewport nguyên dương.")
+    if not desktop:
+        errors.append("visual.required_desktop_viewports phải khai báo ít nhất một viewport nguyên dương.")
+    if len(set(required)) != len(required):
+        errors.append("Mobile và desktop viewport canonical không được trùng nhau.")
+    if errors:
+        return errors
+
     canonical_root = Path("_audit") / f"{target.stem}_visual"
     report_rel = canonical_root / "html_mobile_measurements.json"
     report_path = root / report_rel
@@ -481,9 +517,7 @@ def _machine_visual_errors(
     if payload is None:
         return [f"Visual evidence không phải JSON object hợp lệ: {report_rel.as_posix()}."]
     if payload.get("visual_measurement_version") != VISUAL_MEASUREMENT_VERSION:
-        errors.append(
-            f"Visual evidence phải có version={VISUAL_MEASUREMENT_VERSION}."
-        )
+        errors.append(f"Visual evidence phải có version={VISUAL_MEASUREMENT_VERSION}.")
     if payload.get("generator") != "scripts/zo_qmd_visual.ps1":
         errors.append("Visual evidence không do scripts/zo_qmd_visual.ps1 tạo.")
     if payload.get("target") != target.as_posix():
@@ -491,26 +525,17 @@ def _machine_visual_errors(
 
     expected_html = Path("docs") / target.with_suffix(".html")
     if payload.get("rendered_html") != expected_html.as_posix():
-        errors.append(
-            "Visual evidence không trỏ tới rendered HTML canonical: "
-            f"{expected_html.as_posix()}."
-        )
+        errors.append("Visual evidence không trỏ tới rendered HTML canonical: " + expected_html.as_posix() + ".")
     html_path = root / expected_html
     if not html_path.is_file():
         errors.append(f"Thiếu rendered HTML để xác minh visual evidence: {expected_html.as_posix()}.")
-    else:
-        recorded_html_hash = payload.get("rendered_html_sha256")
-        actual_html_hash = _sha256_file(html_path)
-        if recorded_html_hash != actual_html_hash:
-            errors.append("Visual evidence stale: SHA-256 của rendered HTML đã thay đổi.")
+    elif payload.get("rendered_html_sha256") != _sha256_file(html_path):
+        errors.append("Visual evidence stale: SHA-256 của rendered HTML đã thay đổi.")
 
-    declared = payload.get("required_mobile_viewports")
-    if declared != list(required):
-        errors.append(
-            "Visual evidence phải khóa đúng mobile viewports: "
-            + ", ".join(str(width) for width in required)
-            + "."
-        )
+    if payload.get("required_mobile_viewports") != list(mobile):
+        errors.append("Visual evidence phải khóa đúng mobile viewports: " + ", ".join(map(str, mobile)) + ".")
+    if payload.get("required_desktop_viewports") != list(desktop):
+        errors.append("Visual evidence phải khóa đúng desktop viewports: " + ", ".join(map(str, desktop)) + ".")
 
     measurements = payload.get("measurements")
     if not isinstance(measurements, list):
@@ -542,6 +567,9 @@ def _machine_visual_errors(
         raw = by_width.get(width)
         if raw is None:
             continue
+        viewport_class = "mobile" if width in mobile else "desktop"
+        if raw.get("viewport_class") != viewport_class:
+            errors.append(f"Viewport {width}px: viewport_class phải là {viewport_class}.")
         inner = _strict_int(raw.get("window_inner_width"))
         client = _strict_int(raw.get("document_client_width"))
         scroll = _strict_int(raw.get("document_scroll_width"))
@@ -554,10 +582,7 @@ def _machine_visual_errors(
         if client is None or scroll is None:
             errors.append(f"Viewport {width}px: thiếu clientWidth/scrollWidth nguyên hợp lệ.")
         elif scroll > client:
-            errors.append(
-                f"Viewport {width}px: horizontal overflow {scroll - client}px "
-                f"(scrollWidth={scroll} > clientWidth={client})."
-            )
+            errors.append(f"Viewport {width}px: horizontal overflow {scroll - client}px (scrollWidth={scroll} > clientWidth={client}).")
         if isinstance(horizontal, bool):
             if horizontal:
                 errors.append(f"Viewport {width}px: horizontal_overflow=true.")
@@ -568,33 +593,25 @@ def _machine_visual_errors(
         if raw.get("passed") is not True:
             errors.append(f"Viewport {width}px: machine visual measurement không PASS.")
 
-        screenshot = raw.get("screenshot")
-        expected_screenshot = canonical_root / f"html_mobile_{width}.png"
-        if screenshot != expected_screenshot.as_posix():
-            errors.append(
-                f"Viewport {width}px: screenshot phải là {expected_screenshot.as_posix()}."
-            )
+        expected_screenshot = canonical_root / f"html_{viewport_class}_{width}.png"
+        if raw.get("screenshot") != expected_screenshot.as_posix():
+            errors.append(f"Viewport {width}px: screenshot phải là {expected_screenshot.as_posix()}.")
             continue
         screenshot_path = root / expected_screenshot
         if not screenshot_path.is_file():
             errors.append(f"Thiếu screenshot machine-owned: {expected_screenshot.as_posix()}.")
             continue
-        recorded_hash = raw.get("screenshot_sha256")
-        if recorded_hash != _sha256_file(screenshot_path):
+        if raw.get("screenshot_sha256") != _sha256_file(screenshot_path):
             errors.append(f"Viewport {width}px: SHA-256 screenshot không khớp.")
         dimensions = _png_dimensions(screenshot_path)
         if dimensions is None:
             errors.append(f"Viewport {width}px: screenshot không phải PNG hợp lệ có IHDR.")
         else:
             if dimensions[0] != width:
-                errors.append(
-                    f"Viewport {width}px: screenshot rộng {dimensions[0]}px, phải bằng {width}px."
-                )
+                errors.append(f"Viewport {width}px: screenshot rộng {dimensions[0]}px, phải bằng {width}px.")
             requested_height = _strict_int(raw.get("requested_height"))
             if requested_height is None or dimensions[1] != requested_height:
-                errors.append(
-                    f"Viewport {width}px: chiều cao screenshot {dimensions[1]}px không khớp requested_height={requested_height}."
-                )
+                errors.append(f"Viewport {width}px: chiều cao screenshot {dimensions[1]}px không khớp requested_height={requested_height}.")
 
     if payload.get("automated_result") != "PASS" or payload.get("exit_code") != 0:
         errors.append("Machine-owned visual report không có automated_result=PASS, exit_code=0.")
@@ -1367,15 +1384,22 @@ def evaluate_review_ready(
         )
 
     visual_policy = _mapping(policy.get("visual"))
-    raw_viewports = visual_policy.get("required_mobile_viewports", [])
+    raw_mobile_viewports = visual_policy.get("required_mobile_viewports", [])
     required_mobile_viewports = (
-        tuple(int(width) for width in raw_viewports)
-        if isinstance(raw_viewports, list)
-        and all(isinstance(width, int) and not isinstance(width, bool) and width > 0 for width in raw_viewports)
+        tuple(int(width) for width in raw_mobile_viewports)
+        if isinstance(raw_mobile_viewports, list)
+        and all(isinstance(width, int) and not isinstance(width, bool) and width > 0 for width in raw_mobile_viewports)
+        else ()
+    )
+    raw_desktop_viewports = visual_policy.get("required_desktop_viewports", [])
+    required_desktop_viewports = (
+        tuple(int(width) for width in raw_desktop_viewports)
+        if isinstance(raw_desktop_viewports, list)
+        and all(isinstance(width, int) and not isinstance(width, bool) and width > 0 for width in raw_desktop_viewports)
         else ()
     )
     if _truthy(visual_policy.get("require_machine_measurements")):
-        machine_visual_errors = _machine_visual_errors(root, target, required_mobile_viewports)
+        machine_visual_errors = _machine_visual_errors(root, target, required_mobile_viewports, required_desktop_viewports)
         add(
             "machine-visual-viewport-evidence",
             not machine_visual_errors,
@@ -1402,6 +1426,17 @@ def evaluate_review_ready(
         )
 
     semantic = _mapping(policy.get("semantic"))
+    if _truthy(semantic.get("require_exercises_last_h2")):
+        h2_titles = _markdown_h2_titles(body)
+        exercise_positions = [index for index, title in enumerate(h2_titles) if title == "bài tập"]
+        exercises_last = not exercise_positions or exercise_positions[-1] == len(h2_titles) - 1
+        add(
+            "semantic-exercises-last-h2",
+            exercises_last,
+            "Nếu có H2 Bài tập thì đó là H2 học thuật cuối của thân bài." if exercises_last
+            else "Sau H2 Bài tập còn có H2 học thuật khác; Bài tập phải là H2 cuối.",
+            target,
+        )
     forbidden_tokens = semantic.get("forbidden_source_tokens", [])
     if isinstance(forbidden_tokens, list):
         found_tokens = [token for token in forbidden_tokens if isinstance(token, str) and token and token in text]
@@ -1616,6 +1651,7 @@ def _self_test() -> None:
                             "visual": {
                                 "require_machine_measurements": True,
                                 "required_mobile_viewports": [390, 430],
+                                "required_desktop_viewports": [1440],
                             },
                             "profile": {
                                 "required_version": 5,
@@ -1633,7 +1669,8 @@ def _self_test() -> None:
                             },
                             "semantic": {
                                 "require_relation_records_when_triggered": True,
-                                "forbidden_source_tokens": ["\\longmapsto"],
+                                "require_exercises_last_h2": True,
+                                "forbidden_source_tokens": ["\\longmapsto", "\\Longleftrightarrow"],
                                 "forbidden_ambiguous_phrases": [
                                     "giữ độ lớn",
                                     "giữ nguyên độ lớn",
@@ -1752,12 +1789,13 @@ def _self_test() -> None:
                 + b"\x08\x06\x00\x00\x00"
             )
 
-        mobile_records: list[dict[str, Any]] = []
-        for width in (390, 430):
-            screenshot = visual / f"html_mobile_{width}.png"
+        visual_records: list[dict[str, Any]] = []
+        for viewport_class, width in (("mobile", 390), ("mobile", 430), ("desktop", 1440)):
+            screenshot = visual / f"html_{viewport_class}_{width}.png"
             write_png_stub(screenshot, width, 1000)
-            mobile_records.append(
+            visual_records.append(
                 {
+                    "viewport_class": viewport_class,
                     "requested_width": width,
                     "requested_height": 1000,
                     "window_inner_width": width,
@@ -1767,7 +1805,7 @@ def _self_test() -> None:
                     "overflow_px": 0,
                     "offender_count": 0,
                     "offenders": [],
-                    "screenshot": f"_audit/test_visual/html_mobile_{width}.png",
+                    "screenshot": f"_audit/test_visual/html_{viewport_class}_{width}.png",
                     "screenshot_sha256": _sha256_file(screenshot),
                     "passed": True,
                 }
@@ -1782,7 +1820,8 @@ def _self_test() -> None:
                     "rendered_html": (Path("docs") / target.with_suffix(".html")).as_posix(),
                     "rendered_html_sha256": _sha256_file(html),
                     "required_mobile_viewports": [390, 430],
-                    "measurements": mobile_records,
+                    "required_desktop_viewports": [1440],
+                    "measurements": visual_records,
                     "automated_result": "PASS",
                     "exit_code": 0,
                 },
@@ -2023,6 +2062,15 @@ def _self_test() -> None:
         assert any(item.name == "machine-visual-viewport-evidence" and not item.passed for item in checks)
         visual_report.write_bytes(visual_report_backup)
 
+        # Missing machine-owned desktop screenshot must block.
+        desktop_evidence = visual / "html_desktop_1440.png"
+        desktop_backup = desktop_evidence.read_bytes()
+        desktop_evidence.unlink()
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(item.name == "machine-visual-viewport-evidence" and not item.passed for item in checks)
+        desktop_evidence.write_bytes(desktop_backup)
+
         # A viewport mismatch must block; a 390-named screenshot cannot prove a
         # 390px runtime viewport if inner/client width says 500px.
         broken_visual = json.loads(visual_report.read_text(encoding="utf-8"))
@@ -2047,6 +2095,27 @@ def _self_test() -> None:
         assert payload["exit_code"] == 1
         assert any(item.name == "machine-visual-viewport-evidence" and not item.passed for item in checks)
         visual_report.write_bytes(visual_report_backup)
+
+        # A real H2 after Bài tập must block; a fenced fake H2 must not.
+        safe_qmd_text = qmd.read_text(encoding="utf-8")
+        qmd.write_text(safe_qmd_text + "\n## Bài tập\n\n1. Bài 1.\n\n## Ghi chú thêm\n\nKhông hợp lệ.\n", encoding="utf-8")
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(item.name == "semantic-exercises-last-h2" and not item.passed for item in checks)
+        qmd.write_text(safe_qmd_text + "\n## Bài tập\n\n1. Bài 1.\n\n```markdown\n## H2 giả trong code\n```\n", encoding="utf-8")
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert any(item.name == "semantic-exercises-last-h2" and item.passed for item in checks)
+        qmd.write_text(safe_qmd_text, encoding="utf-8")
+
+        # Long decorative equivalence arrow must block; short Leftrightarrow remains allowed.
+        qmd.write_text(safe_qmd_text + "\n$A \\Longleftrightarrow B$.\n", encoding="utf-8")
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(item.name == "semantic-forbidden-source-tokens" and not item.passed for item in checks)
+        qmd.write_text(safe_qmd_text + "\n$A \\Leftrightarrow B$.\n", encoding="utf-8")
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert any(item.name == "semantic-forbidden-source-tokens" and item.passed for item in checks)
+        qmd.write_text(safe_qmd_text, encoding="utf-8")
 
         # Raw apostrophe derivative notation must block.
         safe_qmd_text = qmd.read_text(encoding="utf-8")
