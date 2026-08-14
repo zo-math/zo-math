@@ -11,12 +11,15 @@ param(
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 
-# Machine-owned mobile visual evidence for QMD review-ready.
-# The script measures the already-rendered HTML at canonical 390 px and 430 px
-# viewports, captures screenshots, and records runtime dimensions + SHA-256.
+# Machine-owned viewport evidence for QMD review-ready.
+# The script measures the already-rendered HTML at canonical mobile and desktop
+# viewports through the same MathJax-ready path, captures screenshots, and records
+# runtime dimensions + SHA-256.
 
-$VisualMeasurementVersion = 1
-$RequiredWidths = @(390, 430)
+$VisualMeasurementVersion = 2
+$RequiredMobileWidths = @(390, 430)
+$RequiredDesktopWidths = @(1440)
+$RequiredWidths = @($RequiredMobileWidths + $RequiredDesktopWidths)
 $Root = (Resolve-Path -LiteralPath $RepoRoot).Path.TrimEnd('\', '/')
 $RootPrefix = $Root + [System.IO.Path]::DirectorySeparatorChar
 $TargetPath = [System.IO.Path]::GetFullPath((Join-Path $Root $Target))
@@ -297,7 +300,8 @@ try {
         Start-Sleep -Milliseconds 250
         $measurement = Invoke-RuntimeValue -Socket $Socket -Expression $MeasureScript -AwaitPromise $true
 
-        $ScreenshotName = "html_mobile_${Width}.png"
+        $ViewportClass = $(if ($RequiredDesktopWidths -contains [int]$Width) { 'desktop' } else { 'mobile' })
+        $ScreenshotName = "html_${ViewportClass}_${Width}.png"
         $ScreenshotPath = Join-Path $VisualDir $ScreenshotName
         Invoke-RuntimeValue -Socket $Socket -Expression 'window.scrollTo(0, 0); true' | Out-Null
         $shot = Invoke-Cdp -Socket $Socket -Method 'Page.captureScreenshot' -Params @{
@@ -319,6 +323,7 @@ try {
         if (-not $Passed) { $HadFailure = $true }
 
         $Records.Add([ordered]@{
+            viewport_class = $ViewportClass
             requested_width = [int]$Width
             requested_height = [int]$Height
             window_inner_width = [int]$measurement.windowInnerWidth
@@ -360,7 +365,8 @@ $Payload = [ordered]@{
     target = $TargetRelative
     rendered_html = $HtmlPath.Substring($RootPrefix.Length).Replace('\', '/')
     rendered_html_sha256 = Get-Sha256Lower -Path $HtmlPath
-    required_mobile_viewports = @($RequiredWidths)
+    required_mobile_viewports = @($RequiredMobileWidths)
+    required_desktop_viewports = @($RequiredDesktopWidths)
     measurements = $Records.ToArray()
     automated_result = $(if ($HadFailure) { 'FAIL' } else { 'PASS' })
     exit_code = $(if ($HadFailure) { 1 } else { 0 })
