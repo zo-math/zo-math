@@ -739,9 +739,10 @@ Báo cáo phải ghi rõ phần nào do `check`/`render`, phần nào do `review
 
 #### Cổng bắt buộc trước Human Review
 
-Sau lần `check` và `render` cuối, chạy:
+Sau lần `check` và `render` cuối, tạo bằng chứng visual runtime rồi mới chạy `review-ready`:
 
 ```text
+python scripts/zo_python.py scripts/zo_qmd.py visual-check <duong_dan_qmd>
 python scripts/zo_python.py scripts/zo_qmd.py review-ready --report _audit/<slug>_review_ready.json <duong_dan_qmd>
 ```
 
@@ -756,7 +757,8 @@ Cổng chỉ đạt khi đồng thời:
 - nguồn TikZ/PGFPlots không vi phạm các invariant máy kiểm được đã khóa của quy chuẩn đồ thị; khi quy chuẩn đồ thị được kích hoạt, nguồn còn phải mang đủ lõi tự chứa bắt buộc về LuaLaTeX/STIX, màu ngữ nghĩa, trường nền–khung, trục và phân cấp nét;
 - hồ sơ dùng đúng schema version hiện hành và chỉ chứa trạng thái agent-owned; không có nhóm Human Review/nghiệm thu do agent tự điền;
 - `_audit/<slug>_check.json` và `_audit/<slug>_render.json` là bằng chứng machine-owned thật, đạt `PASS` hoặc `PASS_WITH_WARNINGS` và bao phủ đúng candidate;
-- `tu_xem` có bằng chứng thật dưới `_audit/<slug>_visual/`, tối thiểu cho HTML desktop, HTML mobile và PDF; self-view có thể ghi `canh_bao` nhưng không được giả làm Human Review;
+- `_audit/<slug>_visual/html_mobile_measurements.json` là bằng chứng machine-owned do `visual-check` tạo, khóa đúng viewport 390 px và 430 px, khớp SHA-256 của rendered HTML/screenshot và xác nhận `document.scrollWidth <= document.clientWidth` ở cả hai viewport;
+- `tu_xem` có bằng chứng thật dưới `_audit/<slug>_visual/`, tối thiểu cho HTML desktop, hai screenshot mobile machine-owned `html_mobile_390.png`, `html_mobile_430.png` và PDF; self-view có thể ghi `canh_bao` nhưng không được giả làm Human Review;
 - các phát biểu trung tâm dùng quan hệ như *bảo toàn*, *giữ nguyên*, *phụ thuộc vào*, *làm mất*, *xác định được từ*, *khôi phục được từ* có bản ghi phép thử `dat` trong hồ sơ;
 - QMD và hồ sơ không dùng các cụm quan hệ mơ hồ đã cấu hình cấm như *giữ độ lớn*, *giữ nguyên độ lớn*, *bảo toàn độ lớn*, *không xóa độ lớn*; thay bằng phát biểu định lượng chính xác như một đẳng thức bảo toàn cụ thể, *phụ thuộc vào*, hoặc *xác định/khôi phục được từ*;
 - không có token nguồn bị cấu hình cấm, hiện gồm `\longmapsto`;

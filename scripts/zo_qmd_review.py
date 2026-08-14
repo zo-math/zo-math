@@ -34,6 +34,7 @@ from zo_qmd_core import qmd_image_records, split_qmd_front_matter
 
 REVIEW_READY_VERSION = 3
 SESSION_MANIFEST_VERSION = 3
+VISUAL_MEASUREMENT_VERSION = 1
 EXIT_OK = 0
 EXIT_FAILED = 1
 EXIT_USAGE = 2
@@ -438,7 +439,174 @@ def _evidence_modes(root: Path, target: Path) -> tuple[set[str], list[str]]:
     return modes, errors
 
 
-def _self_view_errors(root: Path, profile: Mapping[str, Any], target: Path) -> list[str]:
+def _png_dimensions(path: Path) -> tuple[int, int] | None:
+    """Read PNG dimensions without adding an image-library dependency."""
+
+    try:
+        with path.open("rb") as handle:
+            header = handle.read(24)
+    except OSError:
+        return None
+    if len(header) < 24 or header[:8] != b"\x89PNG\r\n\x1a\n" or header[12:16] != b"IHDR":
+        return None
+    width = int.from_bytes(header[16:20], "big")
+    height = int.from_bytes(header[20:24], "big")
+    if width <= 0 or height <= 0:
+        return None
+    return width, height
+
+
+def _strict_int(value: Any) -> int | None:
+    return value if isinstance(value, int) and not isinstance(value, bool) else None
+
+
+def _machine_visual_errors(
+    root: Path,
+    target: Path,
+    required_mobile_viewports: Sequence[int],
+) -> list[str]:
+    """Validate machine-owned runtime viewport/overflow evidence."""
+
+    required = tuple(int(width) for width in required_mobile_viewports)
+    errors: list[str] = []
+    if not required:
+        return ["visual.required_mobile_viewports phải khai báo ít nhất một viewport nguyên dương."]
+    canonical_root = Path("_audit") / f"{target.stem}_visual"
+    report_rel = canonical_root / "html_mobile_measurements.json"
+    report_path = root / report_rel
+    if not report_path.is_file():
+        return [f"Thiếu machine-owned visual evidence: {report_rel.as_posix()}."]
+
+    payload = _json_report(report_path)
+    if payload is None:
+        return [f"Visual evidence không phải JSON object hợp lệ: {report_rel.as_posix()}."]
+    if payload.get("visual_measurement_version") != VISUAL_MEASUREMENT_VERSION:
+        errors.append(
+            f"Visual evidence phải có version={VISUAL_MEASUREMENT_VERSION}."
+        )
+    if payload.get("generator") != "scripts/zo_qmd_visual.ps1":
+        errors.append("Visual evidence không do scripts/zo_qmd_visual.ps1 tạo.")
+    if payload.get("target") != target.as_posix():
+        errors.append("Visual evidence không thuộc đúng candidate hiện tại.")
+
+    expected_html = Path("docs") / target.with_suffix(".html")
+    if payload.get("rendered_html") != expected_html.as_posix():
+        errors.append(
+            "Visual evidence không trỏ tới rendered HTML canonical: "
+            f"{expected_html.as_posix()}."
+        )
+    html_path = root / expected_html
+    if not html_path.is_file():
+        errors.append(f"Thiếu rendered HTML để xác minh visual evidence: {expected_html.as_posix()}.")
+    else:
+        recorded_html_hash = payload.get("rendered_html_sha256")
+        actual_html_hash = _sha256_file(html_path)
+        if recorded_html_hash != actual_html_hash:
+            errors.append("Visual evidence stale: SHA-256 của rendered HTML đã thay đổi.")
+
+    declared = payload.get("required_mobile_viewports")
+    if declared != list(required):
+        errors.append(
+            "Visual evidence phải khóa đúng mobile viewports: "
+            + ", ".join(str(width) for width in required)
+            + "."
+        )
+
+    measurements = payload.get("measurements")
+    if not isinstance(measurements, list):
+        return errors + ["Visual evidence.measurements phải là list."]
+
+    by_width: dict[int, dict[str, Any]] = {}
+    for raw in measurements:
+        if not isinstance(raw, dict):
+            errors.append("Visual evidence.measurements chứa phần tử không phải mapping.")
+            continue
+        width = _strict_int(raw.get("requested_width"))
+        if width is None:
+            errors.append("Visual measurement thiếu requested_width nguyên hợp lệ.")
+            continue
+        if width in by_width:
+            errors.append(f"Visual measurement lặp viewport {width}px.")
+            continue
+        by_width[width] = raw
+
+    if set(by_width) != set(required):
+        missing = sorted(set(required) - set(by_width))
+        extra = sorted(set(by_width) - set(required))
+        if missing:
+            errors.append("Thiếu visual measurement cho viewport: " + ", ".join(map(str, missing)) + ".")
+        if extra:
+            errors.append("Có visual measurement ngoài viewport canonical: " + ", ".join(map(str, extra)) + ".")
+
+    for width in required:
+        raw = by_width.get(width)
+        if raw is None:
+            continue
+        inner = _strict_int(raw.get("window_inner_width"))
+        client = _strict_int(raw.get("document_client_width"))
+        scroll = _strict_int(raw.get("document_scroll_width"))
+        overflow_px = _strict_int(raw.get("overflow_px"))
+        horizontal = raw.get("horizontal_overflow")
+        if inner != width:
+            errors.append(f"Viewport {width}px: window.innerWidth={inner}, phải bằng {width}.")
+        if client != width:
+            errors.append(f"Viewport {width}px: document.clientWidth={client}, phải bằng {width}.")
+        if client is None or scroll is None:
+            errors.append(f"Viewport {width}px: thiếu clientWidth/scrollWidth nguyên hợp lệ.")
+        elif scroll > client:
+            errors.append(
+                f"Viewport {width}px: horizontal overflow {scroll - client}px "
+                f"(scrollWidth={scroll} > clientWidth={client})."
+            )
+        if isinstance(horizontal, bool):
+            if horizontal:
+                errors.append(f"Viewport {width}px: horizontal_overflow=true.")
+        else:
+            errors.append(f"Viewport {width}px: horizontal_overflow phải là boolean.")
+        if client is not None and scroll is not None and overflow_px != scroll - client:
+            errors.append(f"Viewport {width}px: overflow_px không khớp scrollWidth-clientWidth.")
+        if raw.get("passed") is not True:
+            errors.append(f"Viewport {width}px: machine visual measurement không PASS.")
+
+        screenshot = raw.get("screenshot")
+        expected_screenshot = canonical_root / f"html_mobile_{width}.png"
+        if screenshot != expected_screenshot.as_posix():
+            errors.append(
+                f"Viewport {width}px: screenshot phải là {expected_screenshot.as_posix()}."
+            )
+            continue
+        screenshot_path = root / expected_screenshot
+        if not screenshot_path.is_file():
+            errors.append(f"Thiếu screenshot machine-owned: {expected_screenshot.as_posix()}.")
+            continue
+        recorded_hash = raw.get("screenshot_sha256")
+        if recorded_hash != _sha256_file(screenshot_path):
+            errors.append(f"Viewport {width}px: SHA-256 screenshot không khớp.")
+        dimensions = _png_dimensions(screenshot_path)
+        if dimensions is None:
+            errors.append(f"Viewport {width}px: screenshot không phải PNG hợp lệ có IHDR.")
+        else:
+            if dimensions[0] != width:
+                errors.append(
+                    f"Viewport {width}px: screenshot rộng {dimensions[0]}px, phải bằng {width}px."
+                )
+            requested_height = _strict_int(raw.get("requested_height"))
+            if requested_height is None or dimensions[1] != requested_height:
+                errors.append(
+                    f"Viewport {width}px: chiều cao screenshot {dimensions[1]}px không khớp requested_height={requested_height}."
+                )
+
+    if payload.get("automated_result") != "PASS" or payload.get("exit_code") != 0:
+        errors.append("Machine-owned visual report không có automated_result=PASS, exit_code=0.")
+    return errors
+
+
+def _self_view_errors(
+    root: Path,
+    profile: Mapping[str, Any],
+    target: Path,
+    required_mobile_viewports: Sequence[int] = (),
+) -> list[str]:
     self_view = _mapping(profile.get("tu_xem"))
     errors: list[str] = []
     status = self_view.get("trang_thai")
@@ -450,6 +618,7 @@ def _self_view_errors(root: Path, profile: Mapping[str, Any], target: Path) -> l
 
     canonical_root = Path("_audit") / f"{target.stem}_visual"
     kinds = {"desktop": False, "mobile": False, "pdf": False}
+    evidence_paths: set[Path] = set()
     for raw in evidence:
         if not isinstance(raw, str) or not raw.strip():
             errors.append("tu_xem.bang_chung chứa đường dẫn không hợp lệ.")
@@ -467,6 +636,7 @@ def _self_view_errors(root: Path, profile: Mapping[str, Any], target: Path) -> l
         if not (root / relative).is_file():
             errors.append(f"Thiếu bằng chứng self-view: {relative.as_posix()}.")
             continue
+        evidence_paths.add(relative)
         name = relative.name.casefold()
         if "desktop" in name:
             kinds["desktop"] = True
@@ -477,6 +647,12 @@ def _self_view_errors(root: Path, profile: Mapping[str, Any], target: Path) -> l
     missing = [name for name, present in kinds.items() if not present]
     if missing:
         errors.append("Thiếu nhóm bằng chứng self-view: " + ", ".join(missing) + ".")
+    for width in required_mobile_viewports:
+        expected = canonical_root / f"html_mobile_{int(width)}.png"
+        if expected not in evidence_paths:
+            errors.append(
+                f"tu_xem.bang_chung phải tham chiếu screenshot mobile machine-owned {expected.as_posix()}."
+            )
     return errors
 
 
@@ -1190,8 +1366,32 @@ def evaluate_review_ready(
             Path("_audit"),
         )
 
+    visual_policy = _mapping(policy.get("visual"))
+    raw_viewports = visual_policy.get("required_mobile_viewports", [])
+    required_mobile_viewports = (
+        tuple(int(width) for width in raw_viewports)
+        if isinstance(raw_viewports, list)
+        and all(isinstance(width, int) and not isinstance(width, bool) and width > 0 for width in raw_viewports)
+        else ()
+    )
+    if _truthy(visual_policy.get("require_machine_measurements")):
+        machine_visual_errors = _machine_visual_errors(root, target, required_mobile_viewports)
+        add(
+            "machine-visual-viewport-evidence",
+            not machine_visual_errors,
+            "Machine-owned visual evidence xác nhận viewport canonical và không có horizontal overflow."
+            if not machine_visual_errors
+            else "; ".join(machine_visual_errors),
+            Path("_audit") / f"{target.stem}_visual" / "html_mobile_measurements.json",
+        )
+
     if _truthy(profile_policy.get("require_self_view_evidence")):
-        self_view_errors = _self_view_errors(root, profile, target)
+        self_view_errors = _self_view_errors(
+            root,
+            profile,
+            target,
+            required_mobile_viewports=required_mobile_viewports,
+        )
         add(
             "profile-agent-self-view-evidence",
             not self_view_errors,
@@ -1413,6 +1613,10 @@ def _self_test() -> None:
                                 "require_graph_core_style": True,
                                 "canonical_root_required": True,
                             },
+                            "visual": {
+                                "require_machine_measurements": True,
+                                "required_mobile_viewports": [390, 430],
+                            },
                             "profile": {
                                 "required_version": 5,
                                 "required_top_level": [
@@ -1535,8 +1739,59 @@ def _self_test() -> None:
             )
         visual = audit / "test_visual"
         visual.mkdir()
-        for name in ("html-desktop.png", "html-mobile.png", "pdf-page-1.png"):
-            (visual / name).write_bytes(b"visual-evidence\n")
+        (visual / "html-desktop.png").write_bytes(b"visual-evidence\n")
+        (visual / "pdf-page-1.png").write_bytes(b"visual-evidence\n")
+
+        def write_png_stub(path: Path, width: int, height: int) -> None:
+            path.write_bytes(
+                b"\x89PNG\r\n\x1a\n"
+                + (13).to_bytes(4, "big")
+                + b"IHDR"
+                + width.to_bytes(4, "big")
+                + height.to_bytes(4, "big")
+                + b"\x08\x06\x00\x00\x00"
+            )
+
+        mobile_records: list[dict[str, Any]] = []
+        for width in (390, 430):
+            screenshot = visual / f"html_mobile_{width}.png"
+            write_png_stub(screenshot, width, 1000)
+            mobile_records.append(
+                {
+                    "requested_width": width,
+                    "requested_height": 1000,
+                    "window_inner_width": width,
+                    "document_client_width": width,
+                    "document_scroll_width": width,
+                    "horizontal_overflow": False,
+                    "overflow_px": 0,
+                    "offender_count": 0,
+                    "offenders": [],
+                    "screenshot": f"_audit/test_visual/html_mobile_{width}.png",
+                    "screenshot_sha256": _sha256_file(screenshot),
+                    "passed": True,
+                }
+            )
+        visual_report = visual / "html_mobile_measurements.json"
+        visual_report.write_text(
+            json.dumps(
+                {
+                    "visual_measurement_version": VISUAL_MEASUREMENT_VERSION,
+                    "generator": "scripts/zo_qmd_visual.ps1",
+                    "target": target.as_posix(),
+                    "rendered_html": (Path("docs") / target.with_suffix(".html")).as_posix(),
+                    "rendered_html_sha256": _sha256_file(html),
+                    "required_mobile_viewports": [390, 430],
+                    "measurements": mobile_records,
+                    "automated_result": "PASS",
+                    "exit_code": 0,
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
         profile = {
             "phien_ban_ho_so": 5,
             "tai_lieu_dieu_khien": {
@@ -1555,7 +1810,8 @@ def _self_test() -> None:
                 "pdf": "dat",
                 "bang_chung": [
                     "_audit/test_visual/html-desktop.png",
-                    "_audit/test_visual/html-mobile.png",
+                    "_audit/test_visual/html_mobile_390.png",
+                    "_audit/test_visual/html_mobile_430.png",
                     "_audit/test_visual/pdf-page-1.png",
                 ],
                 "canh_bao": [],
@@ -1750,13 +2006,47 @@ def _self_test() -> None:
         render_report.write_bytes(render_backup)
 
         # Missing canonical self-view evidence must block.
-        mobile_evidence = visual / "html-mobile.png"
+        mobile_evidence = visual / "html_mobile_390.png"
         mobile_backup = mobile_evidence.read_bytes()
         mobile_evidence.unlink()
         checks, payload = evaluate_review_ready(root, target, root / session_rel)
         assert payload["exit_code"] == 1
         assert any(item.name == "profile-agent-self-view-evidence" and not item.passed for item in checks)
         mobile_evidence.write_bytes(mobile_backup)
+
+        # Missing machine-owned visual measurement report must block even when
+        # the agent-owned profile still claims html_mobile=dat.
+        visual_report_backup = visual_report.read_bytes()
+        visual_report.unlink()
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(item.name == "machine-visual-viewport-evidence" and not item.passed for item in checks)
+        visual_report.write_bytes(visual_report_backup)
+
+        # A viewport mismatch must block; a 390-named screenshot cannot prove a
+        # 390px runtime viewport if inner/client width says 500px.
+        broken_visual = json.loads(visual_report.read_text(encoding="utf-8"))
+        broken_visual["measurements"][0]["window_inner_width"] = 500
+        broken_visual["measurements"][0]["document_client_width"] = 500
+        visual_report.write_text(json.dumps(broken_visual, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(item.name == "machine-visual-viewport-evidence" and not item.passed for item in checks)
+        visual_report.write_bytes(visual_report_backup)
+
+        # Objective horizontal overflow must block regardless of self-view status.
+        broken_visual = json.loads(visual_report.read_text(encoding="utf-8"))
+        broken_visual["measurements"][0]["document_scroll_width"] = 410
+        broken_visual["measurements"][0]["horizontal_overflow"] = True
+        broken_visual["measurements"][0]["overflow_px"] = 20
+        broken_visual["measurements"][0]["passed"] = False
+        broken_visual["automated_result"] = "FAIL"
+        broken_visual["exit_code"] = 1
+        visual_report.write_text(json.dumps(broken_visual, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(item.name == "machine-visual-viewport-evidence" and not item.passed for item in checks)
+        visual_report.write_bytes(visual_report_backup)
 
         # Raw apostrophe derivative notation must block.
         safe_qmd_text = qmd.read_text(encoding="utf-8")

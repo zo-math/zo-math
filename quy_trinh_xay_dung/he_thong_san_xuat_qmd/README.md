@@ -17,7 +17,7 @@ Release hiện hành `0.5.0` bao gồm:
 
 - `scripts/zo_qmd.py` phiên bản `0.5.0`;
 - `scripts/zo_qmd_package.py` phiên bản `0.4.0`;
-- mười lệnh `doctor`, `inspect`, `start`, `review-ready`, `prepublish`, `check`, `render`, `regression`, `pack`, `verify`;
+- mười một lệnh `doctor`, `inspect`, `start`, `visual-check`, `review-ready`, `prepublish`, `check`, `render`, `regression`, `pack`, `verify`;
 - khả năng lập manifest phiên, khóa kế hoạch, tạo và xác minh gói context hoặc release, tổng hợp bằng chứng trước xuất bản;
 - khả năng dùng chung `references.quality_exemplars` trong `inspect`, `doctor`, `start`, giao thức agent và gói context;
 - bằng chứng hồi quy, trình diễn đầu-cuối, release candidate và rollback drill của O4.
@@ -47,7 +47,7 @@ Ba tài liệu điều khiển giai đoạn vận hành hóa:
 - `giao_thuc_agent_chat_box_va_goi_ngu_canh.md`;
 - `tieu_chi_nghiem_thu_lop_van_hanh.md`.
 
-`scripts/zo_qmd.py` là điểm vào vận hành hiện hành cho mười lệnh. `scripts/zo_check_repo.py` vẫn là checker lõi; CLI vận hành chỉ điều phối và bảo toàn mã thoát, báo cáo cùng các cổng kiểm định hiện có. Logic tạo và xác minh gói nằm trong `scripts/zo_qmd_package.py`; logic tổng hợp bằng chứng trước xuất bản nằm trong `scripts/zo_qmd_prepublish.py`; cả hai không được trộn vào checker.
+`scripts/zo_qmd.py` là điểm vào vận hành hiện hành cho mười một lệnh. `scripts/zo_check_repo.py` vẫn là checker lõi; CLI vận hành chỉ điều phối và bảo toàn mã thoát, báo cáo cùng các cổng kiểm định hiện có. Logic tạo và xác minh gói nằm trong `scripts/zo_qmd_package.py`; logic tổng hợp bằng chứng trước xuất bản nằm trong `scripts/zo_qmd_prepublish.py`; cả hai không được trộn vào checker.
 
 Cổng `review-ready` của `functions_100` khóa ba lớp ổn định hóa trước Human Review: (1) lifecycle phải bắt đầu bằng session `start` có scope canonical và authority snapshot bất biến; (2) lõi tự chứa của nguồn TikZ/PGFPlots phải thực sự mang STIX, màu vai trò và trường nền–khung theo quy chuẩn thay vì chỉ có chuỗi `.tex→PDF→SVG`, đồng thời đồ thị phải nằm dưới `_figures/<slug>/`; (3) các cụm ngữ nghĩa mơ hồ kiểu *giữ/bảo toàn độ lớn* bị chặn để buộc tác giả phân biệt bảo toàn một đại lượng với khả năng xác định/khôi phục đại lượng từ đầu ra. Đây là guard cấu trúc; Human Review vẫn quyết định chân trị và chất lượng diễn đạt.
 
@@ -177,6 +177,7 @@ Các lệnh đã triển khai:
 doctor
 inspect
 start
+visual-check
 review-ready
 prepublish
 check
@@ -192,9 +193,9 @@ Cách agent gọi chuẩn trong repository:
 python scripts/zo_python.py scripts/zo_qmd.py <command> [tham số...]
 ```
 
-`start` nhận yêu cầu, tái sử dụng kết quả nhận diện của `inspect`, rồi tạo manifest phiên JSON; nếu không truyền `--output`, tên chuẩn là `_audit/<slug>_session.json`. Với dự án bật lifecycle canonical như `functions_100`, `start` phải chạy trước khi sửa candidate, tự suy ra phạm vi production thay vì bắt agent tự đoán `--allow`, chụp fingerprint của các thay đổi đã tồn tại và khóa authority set bằng SHA-256. Manifest đặt `review-ready` sau `render` và trước `human_review`. `review-ready` đọc policy trong `extensions.human_review_gate`, bắt buộc session hợp lệ, đối chiếu HEAD/target/project, kiểm authority drift và so phần thay đổi kể từ `start` với scope canonical trước khi kiểm tiếp navigation, đồ thị, hồ sơ và artifact. Lệnh này không thay checker lõi, không tự sửa candidate, không nghiệm thu và luôn giữ `final_acceptance: NOT_RUN`, `publication: pending`. `prepublish` đọc manifest phiên, báo cáo `check`, báo cáo `render` và bảng kiểm có người quan sát để tạo báo cáo tổng hợp; lệnh này không chạy lại checker, không tự đặt trạng thái `accepted`, không sửa hồ sơ sản xuất và luôn giữ `publication: pending`. Khi bảng kiểm hợp lệ đã ghi `production_status: accepted`, báo cáo chỉ phản ánh bằng chứng ấy để chờ quyết định xuất bản riêng của người dùng.
+`start` nhận yêu cầu, tái sử dụng kết quả nhận diện của `inspect`, rồi tạo manifest phiên JSON; nếu không truyền `--output`, tên chuẩn là `_audit/<slug>_session.json`. Với dự án bật lifecycle canonical như `functions_100`, `start` phải chạy trước khi sửa candidate, tự suy ra phạm vi production thay vì bắt agent tự đoán `--allow`, chụp fingerprint của các thay đổi đã tồn tại và khóa authority set bằng SHA-256. Manifest đặt `visual-check` sau `render`, rồi `review-ready` trước `human_review`. `visual-check` dùng Chromium DevTools để ép hai viewport mobile canonical 390 px và 430 px, chụp ảnh và ghi runtime `innerWidth/clientWidth/scrollWidth` cùng SHA-256 của HTML/screenshot vào `_audit/<slug>_visual/html_mobile_measurements.json`. `review-ready` đọc policy trong `extensions.human_review_gate`, bắt buộc session hợp lệ, đối chiếu HEAD/target/project, kiểm authority drift và so phần thay đổi kể từ `start` với scope canonical trước khi kiểm tiếp navigation, đồ thị, hồ sơ và artifact. Lệnh này không thay checker lõi, không tự sửa candidate, không nghiệm thu và luôn giữ `final_acceptance: NOT_RUN`, `publication: pending`. `prepublish` đọc manifest phiên, báo cáo `check`, báo cáo `render` và bảng kiểm có người quan sát để tạo báo cáo tổng hợp; lệnh này không chạy lại checker, không tự đặt trạng thái `accepted`, không sửa hồ sơ sản xuất và luôn giữ `publication: pending`. Khi bảng kiểm hợp lệ đã ghi `production_status: accepted`, báo cáo chỉ phản ánh bằng chứng ấy để chờ quyết định xuất bản riêng của người dùng.
 
-Các lệnh `check` và `render` chuyển trách nhiệm kiểm định cho checker hiện hành. `review-ready` là lớp enforcement riêng ở cổng lifecycle, dùng khi dự án đã khai báo policy; tách lớp này giúp giữ checker `2.6.0` ổn định trong khi vẫn khóa các invariant production đã được chứng minh qua kiểm thử. `regression` đọc bài hồi quy từ cấu hình dự án, chạy các self-test bắt buộc rồi điều phối hồi quy nguồn và, khi được yêu cầu, hồi quy render.
+Các lệnh `check` và `render` chuyển trách nhiệm kiểm định cho checker hiện hành. `visual-check` là lớp bằng chứng runtime machine-owned, không thay đánh giá trực quan của agent. `review-ready` là lớp enforcement riêng ở cổng lifecycle, dùng khi dự án đã khai báo policy; tách lớp này giúp giữ checker `2.6.0` ổn định trong khi vẫn khóa các invariant production đã được chứng minh qua kiểm thử. `regression` đọc bài hồi quy từ cấu hình dự án, chạy các self-test bắt buộc rồi điều phối hồi quy nguồn và, khi được yêu cầu, hồi quy render.
 
 `pack` tạo gói context hoặc release dạng thư mục hay ZIP tại đường dẫn đầu ra bắt buộc, sinh `PROMPT.md`, `MANIFEST.yml`, `FILES.sha256` và `payload/`. Gói release chỉ được tạo từ worktree sạch, dùng hồ sơ `--release-file` và đầu ra ngoài repository. `verify` xác minh cả hai loại gói, kể cả khi chạy bằng CLI nằm trong chính gói và không có repository Git bao quanh.
 
@@ -365,9 +366,18 @@ python scripts/zo_python.py scripts/zo_qmd.py render \
   <duong_dan_den_bai_qmd>
 ```
 
-### 5.5. Kiểm tra readiness trước Human Review
+### 5.5. Kiểm tra visual runtime và readiness trước Human Review
 
-Với dự án đã bật `extensions.human_review_gate`, sau `check` và `render` cuối chạy:
+Với dự án đã bật `extensions.human_review_gate`, sau `check` và `render` cuối chạy `visual-check` trước:
+
+```bash
+python scripts/zo_python.py scripts/zo_qmd.py visual-check \
+  <duong_dan_den_bai_qmd>
+```
+
+Lệnh này tạo hai screenshot canonical `html_mobile_390.png`, `html_mobile_430.png` và báo cáo `html_mobile_measurements.json` dưới `_audit/<slug>_visual/`. Báo cáo chỉ PASS khi viewport thực tế đúng 390/430 px và `document.scrollWidth <= document.clientWidth` ở cả hai viewport. SHA-256 của rendered HTML và screenshot được ghi để `review-ready` từ chối bằng chứng stale hoặc bị thay thế.
+
+Sau đó chạy:
 
 ```bash
 python scripts/zo_python.py scripts/zo_qmd.py review-ready \
