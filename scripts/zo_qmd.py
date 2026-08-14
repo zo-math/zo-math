@@ -76,6 +76,7 @@ SYSTEM_SCRIPTS = (
     Path("scripts/zo_qmd_version.py"),
     Path("scripts/zo_qmd_prepublish.py"),
     Path("scripts/zo_qmd_review.py"),
+    Path("scripts/zo_qmd_visual.ps1"),
     Path("scripts/zo_artifact_freshness.py"),
     Path("scripts/zo_check_repo.py"),
     Path("scripts/zo_qmd_config.py"),
@@ -931,6 +932,7 @@ def command_start(root: Path, args: argparse.Namespace) -> int:
                     "create_or_edit_qmd_and_resources",
                     "check_source",
                     "render",
+                    "visual_check",
                     "review_ready",
                     "human_review",
                     "prepublish_report",
@@ -948,6 +950,10 @@ def command_start(root: Path, args: argparse.Namespace) -> int:
                         "python scripts/zo_python.py scripts/zo_qmd.py "
                         f"render --report _audit/{Path(target).stem}_render.json {target}"
                     ),
+                    "visual_check": (
+                        "python scripts/zo_python.py scripts/zo_qmd.py "
+                        f"visual-check {target}"
+                    ),
                     "review_ready": (
                         "python scripts/zo_python.py scripts/zo_qmd.py "
                         f"review-ready --report _audit/{Path(target).stem}_review_ready.json {target}"
@@ -964,6 +970,7 @@ def command_start(root: Path, args: argparse.Namespace) -> int:
                     "authority_drift",
                     "automated_check_failure",
                     "render_failure",
+                    "visual_verification_failure",
                     "review_readiness_failure",
                     "human_review_not_recorded",
                 ],
@@ -1010,6 +1017,33 @@ def command_start(root: Path, args: argparse.Namespace) -> int:
     ) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return EXIT_FAILED
+
+
+def command_visual_check(root: Path, args: argparse.Namespace) -> int:
+    powershell = (
+        shutil.which("pwsh")
+        or shutil.which("powershell")
+        or shutil.which("powershell.exe")
+    )
+    if powershell is None:
+        print("ERROR: Không tìm thấy PowerShell để chạy visual-check.", file=sys.stderr)
+        return EXIT_MISSING_TOOL
+    command = [powershell, "-NoProfile"]
+    if Path(powershell).name.casefold().startswith("powershell"):
+        command.extend(["-ExecutionPolicy", "Bypass"])
+    command.extend(
+        [
+            "-File",
+            str(root / "scripts/zo_qmd_visual.ps1"),
+            "-RepoRoot",
+            str(root),
+            "-Target",
+            args.path,
+            "-Height",
+            str(args.height),
+        ]
+    )
+    return _run_step(root, "QMD VISUAL-CHECK", command)
 
 
 def command_review_ready(root: Path, args: argparse.Namespace) -> int:
@@ -1275,6 +1309,18 @@ def parser() -> argparse.ArgumentParser:
         help="Đường dẫn phải loại trừ; có thể lặp lại.",
     )
 
+    visual_check = subparsers.add_parser(
+        "visual-check",
+        help="Tạo machine-owned mobile viewport/overflow evidence sau render.",
+    )
+    visual_check.add_argument("path", help="Đường dẫn bài QMD trong repository.")
+    visual_check.add_argument(
+        "--height",
+        type=int,
+        default=1000,
+        help="Chiều cao viewport chụp ảnh; mặc định 1000 px.",
+    )
+
     review_ready = subparsers.add_parser(
         "review-ready",
         help="Kiểm tra invariant bắt buộc trước khi đưa bài vào Human Review.",
@@ -1444,6 +1490,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return command_inspect(root, args)
     if args.command == "start":
         return command_start(root, args)
+    if args.command == "visual-check":
+        return command_visual_check(root, args)
     if args.command == "review-ready":
         return command_review_ready(root, args)
     if args.command == "prepublish":

@@ -379,14 +379,15 @@ Trong phạm vi môi trường cho phép:
 ```text
 python scripts/zo_python.py scripts/zo_qmd.py check --report _audit/<slug>_check.json <duong_dan_qmd>
 python scripts/zo_python.py scripts/zo_qmd.py render --report _audit/<slug>_render.json <duong_dan_qmd>
+python scripts/zo_python.py scripts/zo_qmd.py visual-check <duong_dan_qmd>
 python scripts/zo_python.py scripts/zo_qmd.py review-ready --report _audit/<slug>_review_ready.json <duong_dan_qmd>
 ```
 
-Ba báo cáo trên là machine-owned evidence; agent không chép trạng thái PASS/PASS_WITH_WARNINGS của chúng vào hồ sơ.
+Check, render, `visual-check` và `review-ready` tạo machine-owned evidence; agent không chép trạng thái PASS/PASS_WITH_WARNINGS của chúng vào hồ sơ. `visual-check` ép viewport mobile 390 px và 430 px, ghi `window.innerWidth`, `document.clientWidth`, `document.scrollWidth`, SHA-256 của rendered HTML và hai screenshot canonical dưới `_audit/<slug>_visual/`.
 
-Chỉ đưa candidate sang Human Review khi `review-ready` trả `PASS`. Cổng này kiểm tra các invariant production mà `check`/`render` không đủ để chứng minh: lifecycle/session, effective authority closure, canonical scope, đăng kí sidebar và sidebar render thật, chuỗi đồ thị bắt buộc, schema/ownership của hồ sơ, bằng chứng check–render machine-owned, self-view canonical và bản ghi kiểm tra quan hệ trung tâm. Human Review và nghiệm thu không được agent tự điền vào hồ sơ. Không được bỏ một thành phần bắt buộc chỉ để tránh rule chi tiết áp dụng lên thành phần ấy.
+Chỉ đưa candidate sang Human Review khi `review-ready` trả `PASS`. Cổng này kiểm tra các invariant production mà `check`/`render` không đủ để chứng minh: lifecycle/session, effective authority closure, canonical scope, đăng kí sidebar và sidebar render thật, chuỗi đồ thị bắt buộc, schema/ownership của hồ sơ, bằng chứng check–render machine-owned, machine-owned viewport/overflow evidence, self-view canonical và bản ghi kiểm tra quan hệ trung tâm. Human Review và nghiệm thu không được agent tự điền vào hồ sơ. Không được bỏ một thành phần bắt buộc chỉ để tránh rule chi tiết áp dụng lên thành phần ấy.
 
-Trước `review-ready`, agent phải ghi `tu_xem` riêng với trạng thái `dat` hoặc `canh_bao` và lưu bằng chứng thật dưới `_audit/<slug>_visual/`: tối thiểu một ảnh HTML desktop, một ảnh HTML mobile và một ảnh/trang PDF. Đây là **agent self-view**, không phải kiểm định có người quan sát. Nếu phát hiện overflow có dấu hiệu thuộc layout toàn site, ghi cảnh báo/system defect thay vì sửa CSS ngoài scope để né cổng.
+Trước `review-ready`, agent phải ghi `tu_xem` riêng với trạng thái `dat` hoặc `canh_bao` và lưu bằng chứng thật dưới `_audit/<slug>_visual/`: tối thiểu một ảnh HTML desktop, **hai ảnh mobile machine-owned `html_mobile_390.png` và `html_mobile_430.png`**, và một ảnh/trang PDF. Hai ảnh mobile phải do `visual-check` tạo và phải được `tu_xem.bang_chung` tham chiếu. Đây là **agent self-view**, không phải kiểm định có người quan sát. Nếu phép đo runtime phát hiện overflow, `review-ready` phải chặn; nếu nguyên nhân thuộc layout toàn site, ghi cảnh báo/system defect thay vì sửa CSS ngoài scope để né cổng.
 
 Không tuyên bố một kiểm tra đã đạt chỉ vì lệnh trả về mã thoát `0` nếu tiêu chí cần quan sát bản render.
 
