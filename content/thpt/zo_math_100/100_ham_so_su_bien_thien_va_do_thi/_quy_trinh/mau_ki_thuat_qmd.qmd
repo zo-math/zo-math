@@ -64,7 +64,7 @@ Trước khi viết:
    QMD của chính bài.
 6. Quyết định trong hồ sơ:
    - bài có dùng hình hay không;
-   - với bài production chuẩn, thiết kế hệ bài tập theo hai chức năng nội bộ: tái dựng cốt lõi và mở rộng–đào sâu; chỉ ghi ngoại lệ khi yêu cầu trực tiếp hoặc loại nhiệm vụ cho phép bỏ bài tập;
+   - với bài production chuẩn, thiết kế hệ bài tập theo hai chức năng nội bộ của `quy_chuan_he_bai_tap.md`: tái dựng mạch cốt lõi và phát triển từ mạch cốt lõi; lập bản đồ phụ thuộc và đồng bộ lại sau mọi thay đổi nội dung học thuật; chỉ ghi ngoại lệ khi yêu cầu trực tiếp hoặc loại nhiệm vụ cho phép bỏ bài tập;
    - bài có khối nội dung hay không;
    - bài có dự kiến chuyển sang published hay không.
 7. Xóa toàn bộ chú thích hướng dẫn và mẫu không được sử dụng trước
@@ -229,10 +229,12 @@ CHÚ THÍCH HÌNH
 HỆ THỐNG BÀI TẬP — THÀNH PHẦN TIẾP TỤC CỦA BÀI PRODUCTION
 
 Với bài production chuẩn, hệ bài tập giúp người học tái dựng mạch cốt
-lõi và mở ra hệ quả, biến thể hoặc lớp sâu chưa tiện triển khai trong
-thân bài. Hai chức năng này là logic thiết kế nội bộ, không dùng làm
-nhãn công khai. Theo contract kĩ thuật hiện hành, H3 dùng cho nhóm toán
-học tự nhiên và H4 dùng cho từng bài.
+lõi và phát triển từ chính mạch cốt lõi ấy. Mở rộng và đào sâu chỉ là
+những hướng của chức năng phát triển. Các chức năng này là logic thiết
+kế nội bộ, không dùng làm nhãn công khai. Theo contract kĩ thuật hiện
+hành, H3 dùng cho nhóm toán học tự nhiên và H4 dùng cho từng bài. Hồ sơ
+phải khai báo mạch cốt lõi, bản đồ phụ thuộc từng bài và hai fingerprint
+của nội dung học thuật cùng hệ bài tập tại lần xác nhận đồng bộ gần nhất.
 
 ## Bài tập
 

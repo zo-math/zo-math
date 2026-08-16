@@ -416,7 +416,7 @@ Không dùng bảng hữu hạn để chứng minh kết luận vô hạn hoặc
 
 #### 3.6.1. Điều kiện kích hoạt
 
-Đối với bài production chuẩn về một hàm số cụ thể trong dự án này, `quy_chuan_khao_sat_ham_so.md` xem hệ thống bài tập là thành phần tiếp tục của bài học. Yêu cầu trực tiếp của người dùng có thể loại bỏ bài tập hoặc một loại nhiệm vụ có thể không cần hệ bài tập; ngoại lệ phải được ghi rõ trong hồ sơ.
+Đối với bài production chuẩn về một hàm số cụ thể trong dự án này, hệ thống bài tập là thành phần tiếp tục của bài học và phải tuân `quy_trinh_xay_dung/quy_chuan_he_bai_tap.md`. Yêu cầu trực tiếp của người dùng có thể loại bỏ bài tập hoặc một loại nhiệm vụ có thể không cần hệ bài tập; ngoại lệ phải được ghi rõ trong hồ sơ.
 
 Quy chuẩn kĩ thuật này điều khiển cách hiện thực hệ bài tập khi áp dụng; nó không tạo một cơ chế tự khai để agent tùy ý tắt thành phần mặc định.
 
@@ -438,7 +438,7 @@ Nội dung bài tập
 - H3 dành cho một nhóm toán học tự nhiên có nhiều bài cần được đọc cùng nhau;
 - H4 dành cho từng bài tập trong contract kĩ thuật hiện hành;
 - không dùng H1;
-- không công khai các nhãn thiết kế nội bộ như “Mục tiêu A/B”.
+- không công khai các nhãn thiết kế nội bộ như “Mục tiêu A/B”, “Tái dựng mạch cốt lõi” hoặc “Phần phát triển”.
 
 Tên nhóm phải gọi đúng nội dung toán học. Tên bài và số thứ tự phải giúp định vị bài tập mà không biến metadata thiết kế nội bộ thành cấu trúc công khai. Việc thay đổi container H4 chỉ được thực hiện đồng bộ với checker và các bài production đang tuân contract hiện hành.
 
@@ -454,7 +454,29 @@ Nếu nhiệm vụ không yêu cầu gợi ý, đáp án hoặc lời giải, kh
 
 Kí hiệu phải nhất quán với thân bài. Tài nguyên trong bài tập phải tuân thủ Mục 3.5. Cú pháp LaTeX phải tuân thủ `AGENTS.md` và quy ước hiện hành của dự án. Trong nội dung mới của dự án, dùng `\quad` cho khoảng cách công thức theo quy ước hiện hành, `\lvert...\rvert` cho trị tuyệt đối và `f^\prime`, `f^{\prime\prime}` cho đạo hàm; không dùng `\qquad`, dạng `|...|` để biểu diễn trị tuyệt đối hoặc `f'`, `f''` như biến thể trình bày.
 
-Các yêu cầu về mục tiêu, quan hệ phụ thuộc, độ khó, tính tự chứa, trùng lặp và giá trị nhận thức thuộc `quy_chuan_khao_sat_ham_so.md`, không lặp lại trong tài liệu này.
+Các yêu cầu về mục tiêu, quan hệ phụ thuộc, độ khó, tính tự chứa, trùng lặp và giá trị nhận thức của hệ bài tập thuộc `quy_trinh_xay_dung/quy_chuan_he_bai_tap.md`, phối hợp với `quy_chuan_khao_sat_ham_so.md`; không lặp lại toàn bộ trong tài liệu này.
+
+#### 3.6.5. Exercise Contract trước Human Review
+
+Hồ sơ phiên bản hiện hành phải khai báo `he_thong_bai_tap.hop_dong` gồm mạch cốt lõi, inventory từng bài tập, chức năng `tai_dung`/`phat_trien`, các mắt xích được tái dựng hoặc làm tiền đề phát triển, xác nhận của agent và hai fingerprint tại lần đồng bộ gần nhất: nội dung học thuật và chính hệ bài tập.
+
+Fingerprint nội dung học thuật được tính từ phần thân QMD trước H2 `Bài tập`; fingerprint hệ bài tập được tính từ H2 `Bài tập` đến hết thân QMD. Cả hai đều không tính YAML front matter. Dùng:
+
+```bash
+python scripts/zo_python.py scripts/zo_qmd.py exercise-hash DUONG_DAN_DEN_BAI.qmd
+```
+
+Khi nội dung học thuật hoặc chính nội dung hệ bài tập thay đổi sau lần đồng bộ, fingerprint tương ứng đổi và `EXERCISE_CONTENT_SYNC` phải trở về FAIL cho tới khi agent tái đánh giá. Trong bước đồng bộ, không được sửa ngầm nội dung học thuật chỉ để làm cho hệ bài tập vượt cổng.
+
+Cổng chuẩn bị Human Review chỉ mở khi đồng thời có:
+
+```text
+CORE_RECONSTRUCTION=PASS
+CORE_DEVELOPMENT=PASS
+EXERCISE_CONTENT_SYNC=PASS
+```
+
+Checker máy xác minh cấu trúc, inventory, tham chiếu, coverage khai báo, fingerprint và rò rỉ nhãn nội bộ; agent vẫn phải tự xác nhận chất lượng thực của tái dựng, phát triển và đồng bộ. Human Review giữ quyền quyết định học thuật cuối.
 
 ### 3.7. PDF tải xuống
 
@@ -712,7 +734,12 @@ Báo cáo phải ghi rõ phần nào do `check`/`render`, phần nào do `review
 
 - có `## Bài tập` đối với bài production chuẩn, trừ ngoại lệ đã được thẩm quyền cho phép;
 - có H3 cho nhóm toán học tự nhiên và H4 cho từng bài theo contract kĩ thuật hiện hành;
-- không có nhãn công khai “Mục tiêu A/B”;
+- không có nhãn công khai “Mục tiêu A/B”, “Tái dựng mạch cốt lõi”, “Phần phát triển” hoặc các heading vận hành tương đương;
+- hồ sơ có mạch cốt lõi và bản đồ phụ thuộc khớp đúng inventory bài tập trong QMD;
+- mọi mắt xích cốt lõi được khai báo có ít nhất một bài tái dựng phụ trách;
+- có ít nhất một bài phát triển truy nguyên được về mắt xích cốt lõi;
+- hai fingerprint đồng bộ khớp nội dung học thuật và hệ bài tập hiện hành;
+- `CORE_RECONSTRUCTION`, `CORE_DEVELOPMENT`, `EXERCISE_CONTENT_SYNC` đều PASS trước Human Review;
 - bài có nội dung;
 - đề bài không bị giấu hoàn toàn trong khối thu gọn;
 - khối gợi ý, đáp án hoặc lời giải dùng cấu trúc hiện hành;

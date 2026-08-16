@@ -1060,6 +1060,16 @@ def command_review_ready(root: Path, args: argparse.Namespace) -> int:
     return _run_step(root, "QMD REVIEW-READY", command)
 
 
+def command_exercise_hash(root: Path, args: argparse.Namespace) -> int:
+    command = _script_command(
+        root,
+        Path("scripts/zo_qmd_review.py"),
+        "exercise-hash",
+        args.path,
+    )
+    return _run_step(root, "QMD EXERCISE-HASH", command)
+
+
 def command_prepublish(root: Path, args: argparse.Namespace) -> int:
     try:
         output = _explicit_output_path(root, args.output)
@@ -1335,6 +1345,12 @@ def parser() -> argparse.ArgumentParser:
         help="Session manifest do start tạo; mặc định _audit/<slug>_session.json.",
     )
 
+    exercise_hash = subparsers.add_parser(
+        "exercise-hash",
+        help="Tính fingerprint nội dung học thuật để xác nhận đồng bộ hệ bài tập.",
+    )
+    exercise_hash.add_argument("path", help="Đường dẫn bài QMD trong repository.")
+
     prepublish = subparsers.add_parser(
         "prepublish",
         help="Tổng hợp bằng chứng và tạo báo cáo trước xuất bản.",
@@ -1494,6 +1510,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return command_visual_check(root, args)
     if args.command == "review-ready":
         return command_review_ready(root, args)
+    if args.command == "exercise-hash":
+        return command_exercise_hash(root, args)
     if args.command == "prepublish":
         return command_prepublish(root, args)
     if args.command == "check":
