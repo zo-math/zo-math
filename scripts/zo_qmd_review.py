@@ -934,6 +934,481 @@ def _graph_core_style_errors(raw: str, tex: Path) -> list[str]:
     return errors
 
 
+def _academic_body_before_exercises(body: str) -> str:
+    """Return learner-facing academic body before the real H2 Bài tập."""
+
+    kept: list[str] = []
+    fence_char: str | None = None
+    fence_len = 0
+    for line in body.replace("\r\n", "\n").replace("\r", "\n").split("\n"):
+        stripped = line.lstrip()
+        fence = re.match(r"^(`{3,}|~{3,})", stripped)
+        if fence_char is not None:
+            kept.append(line)
+            if fence and fence.group(1)[0] == fence_char and len(fence.group(1)) >= fence_len:
+                fence_char = None
+                fence_len = 0
+            continue
+        if fence:
+            fence_char = fence.group(1)[0]
+            fence_len = len(fence.group(1))
+            kept.append(line)
+            continue
+        heading = re.match(r"^\s*##(?!#)\s+(.+?)\s*$", line)
+        if heading:
+            title = re.sub(r"\s+\{[^{}]*\}\s*$", "", heading.group(1)).strip().casefold()
+            if title == "bài tập":
+                break
+        kept.append(line)
+    return "\n".join(kept).rstrip() + "\n"
+
+
+def _academic_content_sha256(body: str) -> str:
+    return hashlib.sha256(_academic_body_before_exercises(body).encode("utf-8")).hexdigest()
+
+
+def _exercise_body_from_heading(body: str) -> str:
+    """Return the real H2 Bài tập section, including its heading."""
+
+    normalized = body.replace("\r\n", "\n").replace("\r", "\n")
+    kept: list[str] = []
+    in_exercises = False
+    fence_char: str | None = None
+    fence_len = 0
+    for line in normalized.split("\n"):
+        stripped = line.lstrip()
+        fence = re.match(r"^(`{3,}|~{3,})", stripped)
+        if fence_char is not None:
+            if in_exercises:
+                kept.append(line)
+            if fence and fence.group(1)[0] == fence_char and len(fence.group(1)) >= fence_len:
+                fence_char = None
+                fence_len = 0
+            continue
+        if fence:
+            fence_char = fence.group(1)[0]
+            fence_len = len(fence.group(1))
+            if in_exercises:
+                kept.append(line)
+            continue
+        if not in_exercises:
+            heading = re.match(r"^\s*##(?!#)\s+(.+?)\s*$", line)
+            if heading:
+                title = re.sub(r"\s+\{[^{}]*\}\s*$", "", heading.group(1)).strip().casefold()
+                if title == "bài tập":
+                    in_exercises = True
+                    kept.append(line)
+            continue
+        kept.append(line)
+    if not in_exercises:
+        return ""
+    return "\n".join(kept).rstrip() + "\n"
+
+
+def _exercise_content_sha256(body: str) -> str:
+    return hashlib.sha256(_exercise_body_from_heading(body).encode("utf-8")).hexdigest()
+
+
+def _exercise_section_headings(body: str) -> tuple[bool, list[tuple[str, list[int]]], list[tuple[int, str]], list[str]]:
+    """Return exercise-section presence, H3 groups, numbered H4 exercises, invalid H4 titles."""
+
+    in_exercises = False
+    fence_char: str | None = None
+    fence_len = 0
+    groups: list[tuple[str, list[int]]] = []
+    exercises: list[tuple[int, str]] = []
+    invalid_h4: list[str] = []
+    current_group: int | None = None
+
+    for line in body.splitlines():
+        stripped = line.lstrip()
+        fence = re.match(r"^(`{3,}|~{3,})", stripped)
+        if fence_char is not None:
+            if fence and fence.group(1)[0] == fence_char and len(fence.group(1)) >= fence_len:
+                fence_char = None
+                fence_len = 0
+            continue
+        if fence:
+            fence_char = fence.group(1)[0]
+            fence_len = len(fence.group(1))
+            continue
+
+        h2 = re.match(r"^\s*##(?!#)\s+(.+?)\s*$", line)
+        if h2:
+            title = re.sub(r"\s+\{[^{}]*\}\s*$", "", h2.group(1)).strip()
+            if title.casefold() == "bài tập":
+                in_exercises = True
+                continue
+            if in_exercises:
+                break
+            continue
+        if not in_exercises:
+            continue
+
+        h3 = re.match(r"^\s*###(?!#)\s+(.+?)\s*$", line)
+        if h3:
+            groups.append((re.sub(r"\s+\{[^{}]*\}\s*$", "", h3.group(1)).strip(), []))
+            current_group = len(groups) - 1
+            continue
+        h4 = re.match(r"^\s*####(?!#)\s+(.+?)\s*$", line)
+        if h4:
+            title = re.sub(r"\s+\{[^{}]*\}\s*$", "", h4.group(1)).strip()
+            match = re.match(r"^Bài\s+([1-9][0-9]*)\.\s+\S", title, flags=re.IGNORECASE)
+            if match:
+                number = int(match.group(1))
+                exercises.append((number, title))
+                if current_group is None:
+                    invalid_h4.append(title + " [không thuộc H3 nhóm]")
+                else:
+                    groups[current_group][1].append(number)
+            else:
+                invalid_h4.append(title)
+
+    return in_exercises, groups, exercises, invalid_h4
+
+
+def _exercise_contract_evaluation(
+    body: str,
+    profile: Mapping[str, Any],
+    policy: Mapping[str, Any],
+) -> tuple[list[tuple[str, bool, str]], dict[str, str]]:
+    """Evaluate machine-checkable parts of the Exercise Contract.
+
+    Academic quality remains an agent/Human judgment. The machine verifies
+    declarations, traceability, synchronization, and public-label boundaries.
+    """
+
+    findings: list[tuple[str, bool, str]] = []
+    gate_status = {
+        "CORE_RECONSTRUCTION": "FAIL",
+        "CORE_DEVELOPMENT": "FAIL",
+        "EXERCISE_CONTENT_SYNC": "FAIL",
+    }
+
+    authority_key = str(policy.get("authority_profile_key") or "quy_chuan_he_bai_tap")
+    expected_authority_path = str(
+        policy.get("authority_path") or "quy_trinh_xay_dung/quy_chuan_he_bai_tap.md"
+    )
+    controls = _mapping(profile.get("tai_lieu_dieu_khien"))
+    authority = _mapping(controls.get(authority_key))
+    authority_ok = (
+        authority.get("duong_dan") == expected_authority_path
+        and authority.get("da_doc") is True
+    )
+    findings.append(
+        (
+            "exercise-authority-profile",
+            authority_ok,
+            "Quy chuẩn hệ bài tập đã được khai báo và đọc."
+            if authority_ok
+            else (
+                "Hồ sơ phải khai báo tai_lieu_dieu_khien."
+                + authority_key
+                + f" với duong_dan={expected_authority_path!r} và da_doc=true."
+            ),
+        )
+    )
+
+    system = _mapping(profile.get(str(policy.get("profile_key") or "he_thong_bai_tap")))
+    enabled_ok = system.get("kich_hoat") is True
+    findings.append(
+        (
+            "exercise-contract-enabled",
+            enabled_ok,
+            "Hệ bài tập được kích hoạt trong hồ sơ."
+            if enabled_ok
+            else "Exercise Contract yêu cầu he_thong_bai_tap.kich_hoat=true trước Human Review.",
+        )
+    )
+    design_ok = system.get("trang_thai_thiet_ke") == "dat"
+    findings.append(
+        (
+            "exercise-design-state",
+            design_ok,
+            "Hệ bài tập đã được agent đánh dấu trang_thai_thiet_ke=dat."
+            if design_ok
+            else "he_thong_bai_tap.trang_thai_thiet_ke phải bằng 'dat' trước Human Review.",
+        )
+    )
+
+    has_section, groups, qmd_exercises, invalid_h4 = _exercise_section_headings(body)
+    actual_numbers = [number for number, _ in qmd_exercises]
+    qmd_structure_ok = (
+        has_section
+        and bool(qmd_exercises)
+        and not invalid_h4
+        and len(actual_numbers) == len(set(actual_numbers))
+    )
+    findings.append(
+        (
+            "exercise-qmd-inventory",
+            qmd_structure_ok,
+            f"QMD có {len(qmd_exercises)} bài tập đánh số hợp lệ dưới H2 Bài tập."
+            if qmd_structure_ok
+            else (
+                "QMD phải có H2 Bài tập và các H4 dạng 'Bài N. ...'; "
+                + (
+                    "H4 không hợp lệ: " + ", ".join(invalid_h4) + "."
+                    if invalid_h4
+                    else "không xác định được inventory bài tập hợp lệ."
+                )
+            ),
+        )
+    )
+
+    raw_profile_groups = system.get("nhom_bai", [])
+    profile_groups = raw_profile_groups if isinstance(raw_profile_groups, list) else []
+    profile_group_map: list[tuple[str, list[int]]] = []
+    group_errors: list[str] = []
+    for index, item in enumerate(profile_groups, start=1):
+        if not isinstance(item, dict):
+            group_errors.append(f"nhom_bai[{index}] không phải mapping")
+            continue
+        name = item.get("ten")
+        numbers = item.get("bai_so", [])
+        if not isinstance(name, str) or not name.strip():
+            group_errors.append(f"nhom_bai[{index}].ten rỗng")
+            continue
+        if not isinstance(numbers, list) or not all(
+            isinstance(value, int) and not isinstance(value, bool) and value > 0
+            for value in numbers
+        ):
+            group_errors.append(f"nhom_bai[{index}].bai_so phải là danh sách số nguyên dương")
+            continue
+        profile_group_map.append((name.strip(), list(numbers)))
+
+    qmd_group_map = [(name, list(numbers)) for name, numbers in groups]
+    group_match = not group_errors and profile_group_map == qmd_group_map
+    findings.append(
+        (
+            "exercise-group-inventory",
+            group_match,
+            f"{len(qmd_group_map)} nhóm bài trong hồ sơ khớp tiêu đề H3 và inventory QMD."
+            if group_match
+            else (
+                "Nhóm bài hồ sơ không khớp QMD: "
+                f"QMD={qmd_group_map!r}; hồ sơ={profile_group_map!r}; "
+                + ("; ".join(group_errors) if group_errors else "")
+            ),
+        )
+    )
+
+    contract = _mapping(system.get("hop_dong"))
+    raw_core = contract.get("mach_cot_loi", [])
+    core_items = raw_core if isinstance(raw_core, list) else []
+    core_ids: list[str] = []
+    core_errors: list[str] = []
+    for index, item in enumerate(core_items, start=1):
+        if not isinstance(item, dict):
+            core_errors.append(f"mach_cot_loi[{index}] không phải mapping")
+            continue
+        core_id = item.get("id")
+        content = item.get("noi_dung")
+        if not isinstance(core_id, str) or not core_id.strip():
+            core_errors.append(f"mach_cot_loi[{index}].id rỗng")
+            continue
+        core_id = core_id.strip()
+        if core_id in core_ids:
+            core_errors.append(f"id trùng {core_id}")
+        core_ids.append(core_id)
+        if not isinstance(content, str) or not content.strip():
+            core_errors.append(f"{core_id}.noi_dung rỗng")
+    core_ok = bool(core_ids) and not core_errors
+    findings.append(
+        (
+            "exercise-core-map",
+            core_ok,
+            f"Đã khai báo {len(core_ids)} mắt xích cốt lõi có ID duy nhất."
+            if core_ok
+            else "Mạch cốt lõi chưa hợp lệ: " + ("; ".join(core_errors) if core_errors else "danh sách rỗng."),
+        )
+    )
+
+    raw_entries = contract.get("bai_tap", [])
+    entries = raw_entries if isinstance(raw_entries, list) else []
+    declared_numbers: list[int] = []
+    entry_errors: list[str] = []
+    reconstruction_refs: dict[str, set[int]] = {core_id: set() for core_id in core_ids}
+    development_count = 0
+
+    for index, item in enumerate(entries, start=1):
+        if not isinstance(item, dict):
+            entry_errors.append(f"bai_tap[{index}] không phải mapping")
+            continue
+        number = item.get("so")
+        if not isinstance(number, int) or isinstance(number, bool) or number <= 0:
+            entry_errors.append(f"bai_tap[{index}].so không phải số nguyên dương")
+            continue
+        if number in declared_numbers:
+            entry_errors.append(f"bài {number} được khai báo lặp")
+        declared_numbers.append(number)
+
+        functions = item.get("chuc_nang", [])
+        if not isinstance(functions, list) or not functions:
+            entry_errors.append(f"bài {number} thiếu chuc_nang")
+            functions = []
+        function_set = {str(value).strip() for value in functions if isinstance(value, str) and str(value).strip()}
+        unexpected_functions = sorted(function_set - {"tai_dung", "phat_trien"})
+        if unexpected_functions:
+            entry_errors.append(f"bài {number} có chuc_nang lạ: {', '.join(unexpected_functions)}")
+
+        reconstruct = item.get("tai_dung_mat_xich", [])
+        develop = item.get("phat_trien_tu_mat_xich", [])
+        if not isinstance(reconstruct, list):
+            entry_errors.append(f"bài {number}.tai_dung_mat_xich phải là danh sách")
+            reconstruct = []
+        if not isinstance(develop, list):
+            entry_errors.append(f"bài {number}.phat_trien_tu_mat_xich phải là danh sách")
+            develop = []
+
+        reconstruct_ids = [str(value).strip() for value in reconstruct if isinstance(value, str) and str(value).strip()]
+        develop_ids = [str(value).strip() for value in develop if isinstance(value, str) and str(value).strip()]
+        invalid_refs = sorted((set(reconstruct_ids) | set(develop_ids)) - set(core_ids))
+        if invalid_refs:
+            entry_errors.append(f"bài {number} tham chiếu mắt xích không tồn tại: {', '.join(invalid_refs)}")
+
+        if "tai_dung" in function_set:
+            if not reconstruct_ids:
+                entry_errors.append(f"bài {number} khai báo tai_dung nhưng không chỉ ra mắt xích")
+            for core_id in reconstruct_ids:
+                if core_id in reconstruction_refs:
+                    reconstruction_refs[core_id].add(number)
+
+        if "phat_trien" in function_set:
+            development_count += 1
+            if not develop_ids:
+                entry_errors.append(f"bài {number} khai báo phat_trien nhưng không chỉ ra mắt xích xuất phát")
+
+    inventory_match = (
+        qmd_structure_ok
+        and len(declared_numbers) == len(set(declared_numbers))
+        and set(declared_numbers) == set(actual_numbers)
+    )
+    if not inventory_match:
+        entry_errors.append(
+            "inventory hồ sơ không khớp QMD: "
+            f"QMD={sorted(set(actual_numbers))}, hồ sơ={sorted(set(declared_numbers))}"
+        )
+
+    dependency_ok = bool(entries) and not entry_errors and core_ok and inventory_match and group_match
+    findings.append(
+        (
+            "exercise-dependency-map",
+            dependency_ok,
+            f"Bản đồ phụ thuộc khớp {len(qmd_exercises)} bài trong QMD."
+            if dependency_ok
+            else "Bản đồ phụ thuộc chưa hợp lệ: " + ("; ".join(entry_errors) if entry_errors else "danh sách rỗng."),
+        )
+    )
+
+    confirmations = _mapping(contract.get("xac_nhan_agent"))
+    required_agent_status = str(policy.get("required_agent_status") or "dat")
+    reconstruction_covered = core_ok and dependency_ok and all(reconstruction_refs.get(core_id) for core_id in core_ids)
+    reconstruction_agent = confirmations.get("tai_dung") == required_agent_status
+    reconstruction_ok = authority_ok and enabled_ok and design_ok and reconstruction_covered and reconstruction_agent
+    gate_status["CORE_RECONSTRUCTION"] = "PASS" if reconstruction_ok else "FAIL"
+    missing_core = [core_id for core_id in core_ids if not reconstruction_refs.get(core_id)]
+    findings.append(
+        (
+            "exercise-core-reconstruction",
+            reconstruction_ok,
+            (
+                "CORE_RECONSTRUCTION=PASS — mọi mắt xích cốt lõi có bài tái dựng và agent đã xác nhận chất lượng."
+                if reconstruction_ok
+                else "CORE_RECONSTRUCTION=FAIL — "
+                + (
+                    "thiếu coverage: " + ", ".join(missing_core) + "; "
+                    if missing_core
+                    else ""
+                )
+                + f"xac_nhan_agent.tai_dung={confirmations.get('tai_dung')!r}, cần {required_agent_status!r}."
+            ),
+        )
+    )
+
+    development_agent = confirmations.get("phat_trien") == required_agent_status
+    development_ok = authority_ok and enabled_ok and design_ok and dependency_ok and development_count > 0 and development_agent
+    gate_status["CORE_DEVELOPMENT"] = "PASS" if development_ok else "FAIL"
+    findings.append(
+        (
+            "exercise-core-development",
+            development_ok,
+            (
+                f"CORE_DEVELOPMENT=PASS — có {development_count} bài phát triển truy nguyên về mạch cốt lõi và agent đã xác nhận chất lượng."
+                if development_ok
+                else "CORE_DEVELOPMENT=FAIL — "
+                + f"development_count={development_count}; "
+                + f"xac_nhan_agent.phat_trien={confirmations.get('phat_trien')!r}, cần {required_agent_status!r}."
+            ),
+        )
+    )
+
+    sync = _mapping(contract.get("dong_bo"))
+    current_academic_hash = _academic_content_sha256(body)
+    current_exercise_hash = _exercise_content_sha256(body)
+    stored_academic_hash = sync.get("noi_dung_hoc_thuat_sha256")
+    stored_exercise_hash = sync.get("noi_dung_bai_tap_sha256")
+    academic_hash_ok = (
+        isinstance(stored_academic_hash, str)
+        and bool(re.fullmatch(r"[0-9a-fA-F]{64}", stored_academic_hash.strip()))
+        and stored_academic_hash.strip().lower() == current_academic_hash
+    )
+    exercise_hash_ok = (
+        isinstance(stored_exercise_hash, str)
+        and bool(re.fullmatch(r"[0-9a-fA-F]{64}", stored_exercise_hash.strip()))
+        and stored_exercise_hash.strip().lower() == current_exercise_hash
+    )
+    hash_ok = academic_hash_ok and exercise_hash_ok
+    sync_agent = confirmations.get("dong_bo") == required_agent_status
+    sync_ok = authority_ok and enabled_ok and design_ok and dependency_ok and hash_ok and sync_agent
+    gate_status["EXERCISE_CONTENT_SYNC"] = "PASS" if sync_ok else "FAIL"
+    findings.append(
+        (
+            "exercise-content-sync",
+            sync_ok,
+            (
+                "EXERCISE_CONTENT_SYNC=PASS — hồ sơ khớp fingerprint nội dung học thuật và hệ bài tập hiện hành; agent đã xác nhận đồng bộ."
+                if sync_ok
+                else "EXERCISE_CONTENT_SYNC=FAIL — "
+                + f"academic(stored={stored_academic_hash!r}, current={current_academic_hash}); "
+                + f"exercises(stored={stored_exercise_hash!r}, current={current_exercise_hash}); "
+                + f"xac_nhan_agent.dong_bo={confirmations.get('dong_bo')!r}, cần {required_agent_status!r}."
+            ),
+        )
+    )
+
+    exact_terms = {
+        str(value).strip().casefold()
+        for value in policy.get("forbidden_public_heading_exact", [])
+        if isinstance(value, str) and value.strip()
+    }
+    prefix_terms = [
+        str(value).strip().casefold()
+        for value in policy.get("forbidden_public_heading_prefixes", [])
+        if isinstance(value, str) and value.strip()
+    ]
+    leaked: list[str] = []
+    learner_headings = [name for name, _ in groups] + [title for _, title in qmd_exercises] + invalid_h4
+    for heading in learner_headings:
+        visible_title = re.sub(r"^Bài\s+[1-9][0-9]*\.\s+", "", heading.strip(), flags=re.IGNORECASE)
+        normalized = visible_title.casefold()
+        if normalized in exact_terms or any(
+            normalized == prefix or normalized.startswith(prefix + " ")
+            for prefix in prefix_terms
+        ):
+            leaked.append(heading)
+    findings.append(
+        (
+            "exercise-internal-label-leak",
+            not leaked,
+            "Không phát hiện nhãn thiết kế nội bộ trong tiêu đề dành cho người học."
+            if not leaked
+            else "Tiêu đề đang lộ nhãn thiết kế nội bộ: " + ", ".join(leaked) + ".",
+        )
+    )
+
+    return findings, gate_status
+
 def _relation_records_valid(profile: Mapping[str, Any]) -> tuple[bool, str]:
     records = profile.get("kiem_tra_quan_he_trung_tam", [])
     if not isinstance(records, list) or not records:
@@ -1531,6 +2006,22 @@ def evaluate_review_ready(
             profile_rel,
         )
 
+    exercise_gate_status: dict[str, str] = {}
+    exercise_policy = _mapping(policy.get("exercise_contract"))
+    if _truthy(exercise_policy.get("required")):
+        exercise_findings, exercise_gate_status = _exercise_contract_evaluation(
+            body, profile, exercise_policy
+        )
+        for name, passed, message in exercise_findings:
+            add(
+                name,
+                passed,
+                message,
+                target
+                if name in {"exercise-qmd-inventory", "exercise-internal-label-leak"}
+                else profile_rel,
+            )
+
     semantic = _mapping(policy.get("semantic"))
     if _truthy(semantic.get("require_exercises_last_h2")):
         h2_titles = _markdown_h2_titles(body)
@@ -1628,6 +2119,7 @@ def evaluate_review_ready(
         "target": target.as_posix(),
         "profile": profile_rel.as_posix(),
         "checks": [item.__dict__ for item in checks],
+        "exercise_contract": exercise_gate_status,
         "automated_result": "FAIL" if failed else "PASS",
         "human_review": "BLOCKED" if failed else "READY",
         "final_acceptance": "NOT_RUN",
@@ -1689,6 +2181,23 @@ def _write_yaml(path: Path, value: Mapping[str, Any]) -> None:
     path.write_text(yaml.safe_dump(dict(value), allow_unicode=True, sort_keys=False), encoding="utf-8")
 
 
+def command_exercise_hash(root: Path, raw_path: str) -> int:
+    target = _relative_to_root(root, raw_path)
+    qmd = root / target
+    if not qmd.is_file():
+        raise ReviewReadyError(f"Không tìm thấy bài QMD: {target.as_posix()}.")
+    text = qmd.read_text(encoding="utf-8")
+    metadata, body, error = split_qmd_front_matter(text)
+    if error or metadata is None:
+        raise ReviewReadyError(error or "Không đọc được YAML front matter.")
+    academic_digest = _academic_content_sha256(body)
+    exercise_digest = _exercise_content_sha256(body)
+    print(f"TARGET={target.as_posix()}")
+    print(f"EXERCISE_ACADEMIC_CONTENT_SHA256={academic_digest}")
+    print(f"EXERCISE_SECTION_SHA256={exercise_digest}")
+    return EXIT_OK
+
+
 def _self_test() -> None:
     if yaml is None:
         raise RuntimeError("Thiếu PyYAML.")
@@ -1701,6 +2210,9 @@ def _self_test() -> None:
         _git(root, "config", "user.name", "ZO Math Self Test")
         _git(root, "config", "user.email", "self-test@example.invalid")
         (root / "AGENTS.md").write_text("Self-test authority.\n", encoding="utf-8")
+        exercise_authority = root / "quy_trinh_xay_dung/quy_chuan_he_bai_tap.md"
+        exercise_authority.parent.mkdir(parents=True, exist_ok=True)
+        exercise_authority.write_text("# Exercise Contract self-test\n", encoding="utf-8")
 
         project = Path("content/functions")
         target = project / "core/test.qmd"
@@ -1721,7 +2233,12 @@ def _self_test() -> None:
             "references": {"controlling_documents": [], "templates": [], "theory_sources": [], "quality_exemplars": []},
             "authority_registry": {
                 "schema_version": 1,
-                "governing_required": [],
+                "governing_required": [
+                    {
+                        "path": "quy_trinh_xay_dung/quy_chuan_he_bai_tap.md",
+                        "reason": "exercise_system_contract",
+                    }
+                ],
                 "conditional_required": [],
                 "provenance_required": [],
                 "reference_only": [
@@ -1760,10 +2277,11 @@ def _self_test() -> None:
                                 "required_desktop_viewports": [1440],
                             },
                             "profile": {
-                                "required_version": 5,
+                                "required_version": 6,
                                 "required_top_level": [
                                     "tai_lieu_dieu_khien",
                                     "tai_nguyen_hinh",
+                                    "he_thong_bai_tap",
                                     "kiem_tra_quan_he_trung_tam",
                                     "tu_kiem_noi_dung",
                                     "tu_xem",
@@ -1773,6 +2291,24 @@ def _self_test() -> None:
                                 "require_check_and_render_evidence": True,
                                 "require_self_view_evidence": True,
                                 "require_pdf_page_coverage": True,
+                            },
+                            "exercise_contract": {
+                                "required": True,
+                                "profile_key": "he_thong_bai_tap",
+                                "authority_profile_key": "quy_chuan_he_bai_tap",
+                                "authority_path": "quy_trinh_xay_dung/quy_chuan_he_bai_tap.md",
+                                "required_agent_status": "dat",
+                                "forbidden_public_heading_exact": [
+                                    "tái dựng",
+                                    "phát triển",
+                                    "mạch cốt lõi",
+                                    "mắt xích cốt lõi",
+                                    "đồng bộ hệ bài tập",
+                                ],
+                                "forbidden_public_heading_prefixes": [
+                                    "tái dựng mạch cốt lõi",
+                                    "phần phát triển",
+                                ],
                             },
                             "semantic": {
                                 "require_relation_records_when_triggered": True,
@@ -1806,7 +2342,12 @@ def _self_test() -> None:
         qmd.write_text(
             "---\ntitle: Test\nsubtitle: \"Đầu ra xác định được từ quan hệ này\"\nzo-pdf-download:\n  href: test.pdf\n---\n\n"
             "Quan hệ này xác định được từ đầu ra.\n\n"
-            "![](%s){fig-alt=\"Đồ thị thử\"}\n" % ("../_figures/test/svg/do_thi_test.svg"),
+            "![](%s){fig-alt=\"Đồ thị thử\"}\n\n"
+            "## Bài tập\n\n"
+            "### Quan hệ và đồ thị\n\n"
+            "#### Bài 1. Dựng lại quan hệ và đi tiếp\n\n"
+            "Tái lập quan hệ trung tâm rồi nêu một hệ quả mới.\n"
+            % ("../_figures/test/svg/do_thi_test.svg"),
             encoding="utf-8",
         )
         (root / graph_src).parent.mkdir(parents=True, exist_ok=True)
@@ -1973,12 +2514,49 @@ def _self_test() -> None:
             encoding="utf-8",
         )
         profile = {
-            "phien_ban_ho_so": 5,
+            "phien_ban_ho_so": 6,
             "tai_lieu_dieu_khien": {
                 "quy_chuan_do_thi": {"kich_hoat": True, "da_doc": True},
+                "quy_chuan_he_bai_tap": {
+                    "duong_dan": "quy_trinh_xay_dung/quy_chuan_he_bai_tap.md",
+                    "da_doc": True,
+                },
                 "nguon_li_thuyet_day_du": {"duong_dan": "content/functions/_quy_trinh/theory.qmd", "da_dung": False, "vi_tri_da_dung": []},
             },
             "tai_nguyen_hinh": {"co_su_dung": True, "ap_dung_cau_truc_mac_dinh": True, "li_do_ngoai_le": None},
+            "he_thong_bai_tap": {
+                "kich_hoat": True,
+                "trang_thai_thiet_ke": "dat",
+                "nhom_bai": [
+                    {
+                        "ten": "Quan hệ và đồ thị",
+                        "bai_so": [1],
+                        "muc_tieu": "Tái dựng rồi phát triển từ quan hệ trung tâm.",
+                    }
+                ],
+                "hop_dong": {
+                    "mach_cot_loi": [
+                        {"id": "MX01", "noi_dung": "Quan hệ trung tâm của bài."}
+                    ],
+                    "bai_tap": [
+                        {
+                            "so": 1,
+                            "chuc_nang": ["tai_dung", "phat_trien"],
+                            "tai_dung_mat_xich": ["MX01"],
+                            "phat_trien_tu_mat_xich": ["MX01"],
+                        }
+                    ],
+                    "xac_nhan_agent": {
+                        "tai_dung": "dat",
+                        "phat_trien": "dat",
+                        "dong_bo": "dat",
+                    },
+                    "dong_bo": {
+                        "noi_dung_hoc_thuat_sha256": None,
+                        "noi_dung_bai_tap_sha256": None,
+                    },
+                },
+            },
             "kiem_tra_quan_he_trung_tam": [
                 {"phat_bieu": "Đầu ra xác định được đại lượng.", "phep_thu": "Dựng công thức khôi phục.", "ket_luan": "Có công thức khôi phục.", "trang_thai": "dat"}
             ],
@@ -1999,6 +2577,16 @@ def _self_test() -> None:
             },
             "van_de_he_thong": [],
         }
+        _metadata, academic_body, academic_error = split_qmd_front_matter(
+            qmd.read_text(encoding="utf-8")
+        )
+        assert not academic_error and _metadata is not None
+        profile["he_thong_bai_tap"]["hop_dong"]["dong_bo"][
+            "noi_dung_hoc_thuat_sha256"
+        ] = _academic_content_sha256(academic_body)
+        profile["he_thong_bai_tap"]["hop_dong"]["dong_bo"][
+            "noi_dung_bai_tap_sha256"
+        ] = _exercise_content_sha256(academic_body)
         _write_yaml(root / profile_rel, profile)
 
         # Commit source + generated artifacts together so freshness is Git-stable.
@@ -2051,6 +2639,60 @@ def _self_test() -> None:
 
         checks, payload = evaluate_review_ready(root, target, root / session_rel)
         assert payload["exit_code"] == 0, [item for item in checks if not item.passed]
+        assert payload["exercise_contract"] == {
+            "CORE_RECONSTRUCTION": "PASS",
+            "CORE_DEVELOPMENT": "PASS",
+            "EXERCISE_CONTENT_SYNC": "PASS",
+        }
+
+        # Exercise Contract: structural checks do not replace agent judgment.
+        broken = _load_yaml(root / profile_rel, "profile")
+        broken["he_thong_bai_tap"]["hop_dong"]["xac_nhan_agent"]["tai_dung"] = "chua_thuc_hien"
+        _write_yaml(root / profile_rel, broken)
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(item.name == "exercise-core-reconstruction" and not item.passed for item in checks)
+        _write_yaml(root / profile_rel, profile)
+
+        # Academic-body drift before H2 Bài tập invalidates synchronization.
+        safe_qmd_text = qmd.read_text(encoding="utf-8")
+        qmd.write_text(
+            safe_qmd_text.replace(
+                "Quan hệ này xác định được từ đầu ra.",
+                "Quan hệ này xác định được từ đầu ra và có thêm một mệnh đề học thuật.",
+            ),
+            encoding="utf-8",
+        )
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(item.name == "exercise-content-sync" and not item.passed for item in checks)
+        qmd.write_text(safe_qmd_text, encoding="utf-8")
+
+        # Exercise-text drift with unchanged H2/H3/H4 inventory also invalidates sync.
+        qmd.write_text(
+            safe_qmd_text.replace(
+                "Tái lập quan hệ trung tâm rồi nêu một hệ quả mới.",
+                "Tái lập đầy đủ quan hệ trung tâm rồi nêu một hệ quả mới.",
+            ),
+            encoding="utf-8",
+        )
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(item.name == "exercise-content-sync" and not item.passed for item in checks)
+        qmd.write_text(safe_qmd_text, encoding="utf-8")
+
+        # Internal design labels must not leak into learner-facing headings.
+        qmd.write_text(
+            safe_qmd_text.replace(
+                "### Quan hệ và đồ thị",
+                "### Tái dựng mạch cốt lõi",
+            ),
+            encoding="utf-8",
+        )
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(item.name == "exercise-internal-label-leak" and not item.passed for item in checks)
+        qmd.write_text(safe_qmd_text, encoding="utf-8")
 
         # Profile schema ownership is strict: missing agent-owned groups or
         # agent-authored acceptance state must block.
@@ -2321,6 +2963,11 @@ def parser() -> argparse.ArgumentParser:
         "--session",
         help="Session manifest do start tạo; mặc định _audit/<slug>_session.json.",
     )
+    exercise_hash = subparsers.add_parser(
+        "exercise-hash",
+        help="Tính fingerprint phần nội dung học thuật trước H2 Bài tập để đồng bộ Exercise Contract.",
+    )
+    exercise_hash.add_argument("path", help="Đường dẫn bài QMD.")
     subparsers.add_parser("self-test", help="Chạy self-test nhắm các regression Q1-R2.")
     return result
 
@@ -2337,6 +2984,8 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     try:
         root = _repo_root(args.repo_root)
+        if args.command == "exercise-hash":
+            return command_exercise_hash(root, args.path)
         return command_check(root, args.path, args.report, args.session)
     except (ProjectConfigError, ReviewReadyError, OSError, RuntimeError) as exc:
         print(f"ERROR: {exc}")

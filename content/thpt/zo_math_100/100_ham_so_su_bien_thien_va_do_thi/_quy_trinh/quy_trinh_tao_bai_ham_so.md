@@ -296,7 +296,7 @@ G3 chưa đạt nếu còn một trong các tình trạng sau:
    - cú pháp lớp hiện hành sẽ sử dụng.
 9. Không đưa một nội dung vào khối chỉ để trang trí hoặc nhấn mạnh. Không thu gọn mắt xích bắt buộc của mạch chính.
 10. Ghi vị trí dự kiến của từng khối trong mạch bài và lí do đặt ở đó. Không gom các khối ứng dụng, lịch sử, so sánh hoặc khám phá vào một mục cuối chỉ vì chúng đều là phần đọc thêm; phân bố chúng tại nơi chúng làm sáng tỏ kết quả vừa được xác lập.
-11. Đối với bài production chuẩn, thiết kế hệ bài tập như phần tiếp tục của bài học: một mạch giúp tái dựng nội dung cốt lõi và một mạch mở rộng–đào sâu. Hai chức năng này chỉ là mục tiêu nội bộ. Theo contract kĩ thuật hiện hành, H3 dùng cho nhóm toán học tự nhiên và H4 cho từng bài; không dùng chính tên hai mục tiêu nội bộ làm heading công khai. Chỉ bỏ hệ bài tập khi yêu cầu trực tiếp của người dùng hoặc loại nhiệm vụ thực sự cho phép, và phải ghi rõ ngoại lệ trong hồ sơ.
+11. Đối với bài production chuẩn, thiết kế hệ bài tập theo `quy_trinh_xay_dung/quy_chuan_he_bai_tap.md`: hệ bài tập phải giúp người học tái dựng mạch cốt lõi và phát triển từ chính mạch cốt lõi ấy. “Tái dựng” và “phát triển” là chức năng thiết kế nội bộ; H3 dùng cho nhóm toán học tự nhiên và H4 cho từng bài, không dùng các nhãn nội bộ làm heading công khai. Hồ sơ phải có bản đồ mắt xích–bài tập và trạng thái đồng bộ với nội dung học thuật hiện hành. Chỉ bỏ hệ bài tập khi yêu cầu trực tiếp của người dùng hoặc loại nhiệm vụ thực sự cho phép, và phải ghi rõ ngoại lệ trong hồ sơ.
 12. Với bài dự kiến chuyển sang `published`, xác định tên PDF, `zo-pdf-download`, `zo-pdf-branding`, URL chính tắc và quy trình build PDF.
 13. Thay toàn bộ giá trị giữ chỗ bằng metadata thật. Trước G4, đối chiếu chức năng riêng của `subtitle`, `summary`, `description`, `abstract` và `keywords`; phần mô tả phải là lời giới thiệu bằng văn xuôi, không phải danh sách từ khóa.
 14. Trong đặc tả hình, ghi rõ những điểm/mốc nào là neo nhận thức, đường chiếu nào thực sự cần để đọc tọa độ và `fig-alt` dự kiến mô tả những gì sẽ hiện trên artifact.
@@ -344,7 +344,7 @@ Thực hiện đúng giao thức của Mục 12 trong quy chuẩn:
 1. kiểm định toán học;
 2. kiểm định mạch giải thích;
 3. kiểm định giá trị nhận thức;
-4. kiểm định hệ thống bài tập khi bài có bài tập;
+4. kiểm định hệ thống bài tập theo `quy_trinh_xay_dung/quy_chuan_he_bai_tap.md`: xác nhận mạch cốt lõi, bản đồ phụ thuộc, chức năng tái dựng, chức năng phát triển và việc đồng bộ với nội dung học thuật hiện hành;
 5. kiểm định hệ khối nội dung: sự cần thiết của từng khối, trạng thái hiển thị, màu theo chức năng, tiêu đề, cú pháp lớp và việc bảo toàn mạch chính;
 6. sửa lỗi tại nguồn gần nhất;
 7. chạy lại các lượt bị ảnh hưởng.
@@ -354,7 +354,7 @@ Mỗi tiêu chí phải có trạng thái và căn cứ cụ thể.
 Trong lượt kiểm định mạch giải thích và giá trị nhận thức, phải rà riêng: động từ quan hệ trung tâm; đối sánh các phương pháp cùng giải một tính chất; căn cứ của tên lớp toán học; vai trò của liên tục trong việc đọc/dựng đồ thị; chức năng của các điểm neo; và tính đặc trưng của `subtitle`/`description`. Không gộp các mục này vào một nhận xét chung kiểu “mạch hợp lí”.
 Trong nghiệm thu cuối, không được còn tiêu chí bắt buộc ở trạng thái `dat_mot_phan` hoặc `chua_kiem_chung`.
 
-Điểm kiểm soát G6 đạt khi các tiêu chí bắt buộc đã quy về `dat`, `khong_dat` hoặc `khong_ap_dung`, và không còn tiêu chí `khong_dat`.
+Điểm kiểm soát G6 đạt khi các tiêu chí bắt buộc đã quy về `dat`, `khong_dat` hoặc `khong_ap_dung`, không còn tiêu chí `khong_dat`, và với bài có hệ bài tập cả ba trạng thái vận hành đều đạt: `CORE_RECONSTRUCTION=PASS`, `CORE_DEVELOPMENT=PASS`, `EXERCISE_CONTENT_SYNC=PASS`. Sau khi nội dung học thuật và hệ bài tập ổn định, dùng `python scripts/zo_python.py scripts/zo_qmd.py exercise-hash <bai.qmd>` để lấy hai fingerprint: phần nội dung trước H2 `Bài tập` và toàn bộ phần bắt đầu từ H2 `Bài tập`; ghi đúng cả hai giá trị vào hồ sơ trước khi xác nhận đồng bộ.
 
 ### Giai đoạn 7 — Kiểm tra kĩ thuật và bản render
 

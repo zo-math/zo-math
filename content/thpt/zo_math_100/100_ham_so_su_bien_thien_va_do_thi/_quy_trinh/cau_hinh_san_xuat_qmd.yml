@@ -124,6 +124,8 @@ authority_registry:
       reason: function_article_math_contract
     - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/quy_chuan_ki_thuat_bai_ham_so_qmd.md
       reason: function_article_technical_contract
+    - path: quy_trinh_xay_dung/quy_chuan_he_bai_tap.md
+      reason: exercise_system_contract
     - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/ho_so_san_xuat_mac_dinh.yml
       reason: profile_template
     - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/mau_ki_thuat_qmd.qmd
@@ -188,7 +190,7 @@ extensions:
           required_desktop_viewports:
             - 1440
         profile:
-          required_version: 5
+          required_version: 6
           required_top_level:
             - nhan_dien
             - nhiem_vu
@@ -218,6 +220,21 @@ extensions:
           require_check_and_render_evidence: true
           require_self_view_evidence: true
           require_pdf_page_coverage: true
+        exercise_contract:
+          required: true
+          profile_key: he_thong_bai_tap
+          authority_profile_key: quy_chuan_he_bai_tap
+          authority_path: quy_trinh_xay_dung/quy_chuan_he_bai_tap.md
+          required_agent_status: dat
+          forbidden_public_heading_exact:
+            - tái dựng
+            - phát triển
+            - mạch cốt lõi
+            - mắt xích cốt lõi
+            - đồng bộ hệ bài tập
+          forbidden_public_heading_prefixes:
+            - tái dựng mạch cốt lõi
+            - phần phát triển
         semantic:
           require_relation_records_when_triggered: true
           require_exercises_last_h2: true
