@@ -149,8 +149,8 @@ Phải bảo đảm:
 - `title` gọi đúng hàm và có thể chứa công thức;
 - `pagetitle` là tiêu đề văn bản thuần gọn cho tab/trình duyệt, không phụ thuộc khả năng hiển thị LaTeX; biểu thức phải được chuyển sang dạng văn bản đọc đúng về toán học, ưu tiên Unicode chuẩn khi có biểu diễn trực tiếp (ví dụ `x²` thay cho chuỗi nguồn `x^2`); không tự thêm hậu tố `ZO Math` nếu cấu hình site đã thêm hậu tố;
 - `subtitle` gọi đúng trục nhận thức hoặc hiện tượng trung tâm, đủ đặc trưng cho chính bài, không dùng khẩu hiệu quảng bá hoặc một ẩn dụ chung chung có thể gắn cho nhiều bài; không chứa một quan hệ chưa được xác lập;
-- `summary` nén cách nhìn hoặc kết luận trung tâm của bài, không biến thành danh sách thuật ngữ và không lặp nguyên văn `description`;
-- `description` là lời giới thiệu bằng văn xuôi, nói được nội dung đáng đọc hoặc cách nhìn mà bài đem lại; không dùng như mục lục hay danh sách từ khóa; công thức toán trong trường này phải dùng cú pháp LaTeX phù hợp;
+- `summary` nén cách nhìn hoặc kết luận trung tâm của bài, không biến thành danh sách thuật ngữ và không lặp nguyên văn `description`; trường này phải là văn bản thuần, không chứa TeX;
+- `description` là lời giới thiệu bằng văn xuôi, nói được nội dung đáng đọc hoặc cách nhìn mà bài đem lại; không dùng như mục lục hay danh sách từ khóa; trường này phải là văn bản thuần, không chứa TeX;
 - `abstract` phát triển lời giới thiệu ở mức dài hơn khi cần, không lặp máy móc `summary` hoặc `description` và không mô tả nội dung không có trong bài;
 - `keywords` là nơi chứa các khái niệm hoặc thuật ngữ tìm kiếm thực sự có vai trò;
 - `listing-order` khớp `number` của thẻ tương ứng;
@@ -169,6 +169,7 @@ Các trường tiêu đề có vai trò riêng và không được dùng thay th
 - `subtitle`: phụ đề hiển thị; được phép chứa công thức TeX khi cần;
 - `pagetitle`: tiêu đề tab trình duyệt; dùng văn bản thuần, không chứa TeX;
 - `title-meta`: tiêu đề metadata của PDF; dùng văn bản thuần, không chứa TeX;
+- `summary` và `description`: đi qua chuỗi metadata PDF-string; dùng văn bản thuần, không chứa TeX;
 - `zo-pdf-branding.short-title`: tiêu đề chạy ở đầu trang PDF; được phép chứa công thức TeX.
 
 Khi `title` chứa lệnh toán học như `\ln`, không được dùng trực tiếp trường này làm metadata PDF. Phải khai báo `title-meta` riêng để tránh mất lệnh toán học khi Hyperref chuyển tiêu đề sang chuỗi metadata.
@@ -478,6 +479,35 @@ EXERCISE_CONTENT_SYNC=PASS
 
 Checker máy xác minh cấu trúc, inventory, tham chiếu, coverage khai báo, fingerprint và rò rỉ nhãn nội bộ; agent vẫn phải tự xác nhận chất lượng thực của tái dựng, phát triển và đồng bộ. Human Review giữ quyền quyết định học thuật cuối.
 
+#### 3.6.6. Đồng bộ metadata sau nội dung
+
+Các trường mô tả `subtitle`, `summary`, `description`, `abstract`, `keywords` phải được chốt **sau khi mạch học thuật đã ổn định**, không được coi metadata viết sớm là đương nhiên còn đúng sau các vòng sửa nội dung.
+
+Hồ sơ schema hiện hành có nhóm `dong_bo_metadata` với ba trường:
+
+```yaml
+dong_bo_metadata:
+  trang_thai: dat
+  noi_dung_hoc_thuat_sha256: "<sha256>"
+  metadata_mo_ta_sha256: "<sha256>"
+```
+
+Dùng lệnh:
+
+```bash
+python scripts/zo_python.py scripts/zo_qmd.py metadata-hash DUONG_DAN_DEN_BAI.qmd
+```
+
+Lệnh trả fingerprint phần nội dung học thuật trước H2 `Bài tập` và fingerprint chuẩn hóa của năm trường metadata mô tả. `review-ready` chỉ mở cổng khi cả hai fingerprint khớp candidate hiện hành và agent xác nhận `trang_thai: dat`. Bất kì sửa đổi tiếp theo ở nội dung học thuật hoặc metadata mô tả đều làm đồng bộ stale và buộc tái duyệt.
+
+#### 3.6.7. Kí hiệu nguồn và tiểu mục bài tập
+
+Trong math source `$...$`/`$$...$$`, dùng lệnh LaTeX chuẩn thay cho Unicode operator có hình thức tương đương, chẳng hạn `\infty` thay `∞`, `\le` thay `≤`, `\to` thay `→`. Quy tắc này áp dụng cho **source toán học**, không cấm Unicode văn bản thuần ở `pagetitle` hoặc văn xuôi khi phù hợp.
+
+Phân số toán học dùng `\frac{...}{...}`. Không dùng dấu `/`, `\dfrac`, `\tfrac` hoặc cú pháp `\over` như cách viết mặc định trong công thức của bài.
+
+Trong phần Bài tập, các tiểu mục learner-facing dùng dạng `a.`, `b.`, `c.`; không dùng `a)`, `b)`, `c)`.
+
 ### 3.7. PDF tải xuống
 
 #### 3.7.1. Phạm vi bắt buộc
@@ -517,6 +547,7 @@ assets/tex/zo-pdf.tex
 assets/tex/zo-pdf-rights.tex
 assets/tex/zo-pdf-support.tex
 scripts/zo_pdf.py
+scripts/zo_pdf_contract.py
 scripts/zo_python.py
 scripts/zo_quarto.py
 ```
@@ -553,7 +584,7 @@ STALE
 CURRENT
 ```
 
-`CURRENT` chỉ so sánh thời gian sửa của QMD với PDF. Nó không chứng minh PDF hiện hành sau khi cấu hình, Lua filter, tệp TeX, font, logo hoặc tài nguyên dùng chung thay đổi.
+Từ Quality Generalization R1, `CURRENT` chỉ được trả khi **cả** freshness của QMD/PDF **và** PDF build receipt canonical còn hợp lệ. `scripts/zo_pdf.py build` ghi `_audit/<slug>_pdf_build.json` chứa hash QMD, PDF và các pipeline input canonical (`_quarto-pdf.yml`, Lua filter, TeX branding/support, `zo_pdf.py`, `zo_quarto.py`). Nếu một đầu vào pipeline thay đổi, receipt stale và phải build lại PDF trước Human Review.
 
 #### 3.7.4. Quan hệ QMD — PDF — HTML
 
@@ -607,6 +638,24 @@ Phải kiểm tra ít nhất:
 
 Khối thu gọn trên HTML không được làm nội dung biến mất khỏi PDF.
 
+Bản PDF dùng cho Human Review phải là chính PDF canonical cạnh QMD và có build receipt hợp lệ. Bản sao phục vụ người kiểm định, gói review hoặc ảnh bằng chứng phải nằm ngoài vùng production của candidate (thông thường dưới `D:\Downloads` hoặc trong `_audit/` theo đúng loại evidence), không tạo `*_human_review.*`, `*_owner_review.*`, `*_review_copy.*` cạnh QMD hay dưới `_figures/<slug>/`.
+
+`pdftotext` và các phép trích xuất chữ chỉ là **supporting evidence** để tìm marker, lỗi font hoặc chữ bị mất. Việc không trích được một marker **không đủ** để kết luận một block bị cắt/chia trang; kết luận layout phải dựa trên ảnh/trang PDF thật hoặc evidence layout-aware.
+
+#### 3.7.7. Self-view có cấu trúc và bao phủ toàn bài
+
+`visual-check` phải tạo bằng chứng machine-owned đủ để agent xem **toàn bộ** HTML ở các viewport canonical, không chỉ vùng đầu trang. Với mỗi viewport desktop/mobile, report visual phải chứa chuỗi ảnh theo đoạn từ đầu đến cuối tài liệu; các đoạn phải phủ liên tục chiều cao render hiện hành. PDF tiếp tục phải có ảnh cho **mọi trang**.
+
+Trước `review-ready`, agent hoàn tất `tu_xem` theo schema hiện hành:
+
+- `html_desktop` và `html_mobile` phải có bản ghi đúng các viewport canonical, trạng thái `dat`, xác nhận đã xem đến cuối tài liệu và dẫn chiếu report/ảnh machine-owned;
+- `pdf.trang` phải có đúng một bản ghi cho mỗi trang PDF, trạng thái `dat` và dẫn chiếu đúng `pdf_page_<n>.png`;
+- mọi tiêu chí self-view bắt buộc phải `dat`, có `can_cu` cụ thể và không còn `hanh_dong_sua`.
+
+Các tiêu chí visual bắt buộc bao gồm: cân đối của block/bảng/hình/công thức; khả năng đọc khi thu hẹp; tính tiết chế của nhãn đồ thị; block không bị cắt hoặc vỡ; ngắt trang không tách một đơn vị nhận thức một cách bất hợp lí; bài tập/tựa mục không bị vỡ cụm; không có trang học thuật gần rỗng do layout; và không dùng text extraction như bằng chứng duy nhất cho kết luận thị giác.
+
+Machine chỉ kiểm **tính đầy đủ, freshness và cấu trúc của bằng chứng/tự kiểm** cùng các invariant khách quan như overflow. Việc một ngắt trang có thật sự hợp lí về nhận thức, một nhãn đồ thị có thừa hay một trang có chất lượng thị giác đạt hay không vẫn là phán đoán của agent/Human Review.
+
 ### 3.8. Cấu trúc cũ và giá trị bị cấm
 
 #### 3.8.1. Danh mục tối thiểu
@@ -655,6 +704,37 @@ Khi kiểm định bài cũ, phân loại cấu trúc lịch sử thành:
 
 Không mở rộng nhiệm vụ thành chuyển đổi toàn repository nếu chưa được giao. Báo cáo phải ghi cấu trúc, vị trí, phân loại, lí do và quyết định.
 
+### 3.9. Tự kiểm chất lượng biên tập trước Human Review
+
+Checker không thể tự kết luận một mạch nhận thức hay một cách nhấn mạnh đã “hay”. Tuy nhiên, trước Human Review, agent phải hoàn tất việc tự kiểm học thuật–biên tập đã được template hồ sơ khóa.
+
+Với schema hiện hành, `tu_kiem_noi_dung` phải giữ nguyên các section và ID của `ho_so_san_xuat_mac_dinh.yml`. Mỗi section bắt buộc phải có `trang_thai: dat`; mỗi tiêu chí bắt buộc phải có:
+
+```yaml
+trang_thai: dat
+can_cu:
+  - "mô tả vị trí hoặc phép kiểm cụ thể"
+hanh_dong_sua: null
+```
+
+`can_cu` không được là nhận xét chung như “đã kiểm tra”. Nó phải chỉ được vị trí, quan hệ, bảng, hình, đoạn văn hoặc phép thử đã dùng để tự kiểm. Machine chỉ xác minh việc tự kiểm đã được thực hiện và có bằng chứng; Human Review vẫn quyết định bằng chứng ấy có thuyết phục hay không.
+
+Các tiêu chí bổ sung từ quality generalization gồm:
+
+- `TH10`: phân biệt tính chất với đại lượng trong thuật ngữ; không biến “tính lõm” thành một “độ lõm” chưa được định nghĩa, không gọi hệ số góc bằng một tên mơ hồ;
+- `TH11`: bảng đạo hàm/bảng biến thiên xử lí đầu mút theo miền của đạo hàm mà không làm người đọc tưởng hàm không xác định;
+- `TH12`: phân biệt điểm, đoạn, độ dài và đại lượng vô hướng khi kí hiệu có thể gây nhập nhằng;
+- `MG10`: chỉ tạo hàm phụ, biến phụ hoặc tên phụ khi chúng giảm tải nhận thức hay làm lộ cấu trúc;
+- `MG11`: mức nhấn mạnh phải theo chức năng nhận thức, không thay cấu trúc lập luận bằng màu, khối hoặc trang trí;
+- `MG12`: ưu tiên ngôn ngữ hàm số tự nhiên trước ngôn ngữ/kí hiệu ánh xạ khi tầng hình thức ấy chưa cần thiết;
+- `MG13`: kí hiệu tương đương không thay thế lập luận giải thích và điều kiện áp dụng;
+- `MG14`: không dùng “Kết tinh” làm heading công khai mặc định; phần khép lại dùng một heading tự nhiên như “Nhìn lại” hoặc heading toán học cụ thể;
+- `NT10`: điểm kết tinh nội bộ phải nén một cách nhìn hoặc cơ chế, không chỉ tóm tắt kết quả;
+- `NT11`: bài phải được rà về chiều sâu và ít nhất một hướng phát triển tự nhiên khi đối tượng thực sự có tiềm năng phát triển trong phạm vi người đọc;
+- `KH08`: không dùng khối chỉ để tạo nhấn mạnh thị giác.
+
+Cổng `review-ready` kiểm cấu trúc, trạng thái và sự hiện diện của `can_cu`; nó không tự chấm đúng–sai về mặt thẩm mĩ hay học thuật cho các tiêu chí này.
+
 ## 4. Mô hình kiểm định
 
 ### 4.1. Hai tầng bắt buộc
@@ -668,7 +748,7 @@ Hai tầng không thay thế nhau.
 
 ### 4.2. Giới hạn của công cụ hiện hành
 
-`scripts/zo_check_repo.py` hiện kiểm tra những thành phần cơ bản như mã hóa, khoảng trắng, YAML, tham chiếu tài nguyên, một số cấu trúc repository và khả năng render HTML.
+`scripts/zo_check_repo.py` hiện kiểm tra những thành phần cơ bản như mã hóa, khoảng trắng, YAML, tham chiếu tài nguyên, một số cấu trúc repository và khả năng render HTML. Lớp điều phối `scripts/zo_qmd.py check` bổ sung một preflight sớm cho các trường metadata PDF-string phải là văn bản thuần, để lỗi TeX trong `title-meta`, `pagetitle`, `summary` hoặc `description` bị chặn trước khi đi tới build PDF.
 
 Kết quả `PASS` của công cụ này **không mặc nhiên xác nhận**:
 

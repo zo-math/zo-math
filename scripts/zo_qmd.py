@@ -29,7 +29,12 @@ from zo_qmd_config import (
 )
 from zo_qmd_registry import ModuleRegistryError, build_validation_plan
 from zo_qmd_prepublish import PrepublishError, build_report
-from zo_qmd_review import REVIEW_READY_VERSION
+from zo_qmd_review import (
+    REVIEW_READY_VERSION,
+    ReviewReadyError,
+    pdf_plain_metadata_preflight_applies,
+    pdf_plain_metadata_violations,
+)
 from zo_qmd_version import OPERATIONS_CLI_VERSION
 
 EXIT_OK = 0
@@ -71,6 +76,8 @@ SYSTEM_DOCUMENTS = (
 SYSTEM_SCRIPTS = (
     Path("scripts/zo_python.py"),
     Path("scripts/zo_quarto.py"),
+    Path("scripts/zo_pdf.py"),
+    Path("scripts/zo_pdf_contract.py"),
     Path("scripts/zo_qmd.py"),
     Path("scripts/zo_qmd_package.py"),
     Path("scripts/zo_qmd_version.py"),
@@ -92,6 +99,7 @@ SELF_TEST_SCRIPTS = (
     Path("scripts/zo_qmd_core.py"),
     Path("scripts/zo_real_world_problem.py"),
     Path("scripts/zo_qmd_package.py"),
+    Path("scripts/zo_pdf.py"),
     Path("scripts/zo_qmd_version.py"),
     Path("scripts/zo_qmd_prepublish.py"),
     Path("scripts/zo_qmd_review.py"),
@@ -580,7 +588,7 @@ def _project_summary(root: Path, raw_path: str) -> tuple[dict[str, Any], int]:
 
 
 def _discover_configs(root: Path) -> list[ProjectConfig]:
-    ignored = {".git", ".quarto", "docs", "_freeze", "__pycache__"}
+    ignored = {".git", ".quarto", "docs", "_freeze", "_audit", "__pycache__"}
     configs: list[ProjectConfig] = []
     pattern = f"**/{CONFIG_RELATIVE_PATH.as_posix()}"
     for path in sorted(root.glob(pattern)):
@@ -1070,6 +1078,16 @@ def command_exercise_hash(root: Path, args: argparse.Namespace) -> int:
     return _run_step(root, "QMD EXERCISE-HASH", command)
 
 
+def command_metadata_hash(root: Path, args: argparse.Namespace) -> int:
+    command = _script_command(
+        root,
+        Path("scripts/zo_qmd_review.py"),
+        "metadata-hash",
+        args.path,
+    )
+    return _run_step(root, "QMD METADATA-HASH", command)
+
+
 def command_prepublish(root: Path, args: argparse.Namespace) -> int:
     try:
         output = _explicit_output_path(root, args.output)
@@ -1124,7 +1142,53 @@ def _checker_arguments(args: argparse.Namespace) -> list[str]:
     return result
 
 
+def _early_source_policy_check(root: Path, args: argparse.Namespace) -> int:
+    qmd_paths: list[Path] = []
+    for raw in args.paths:
+        path = Path(raw)
+        if path.suffix.casefold() != ".qmd":
+            continue
+        if path.is_absolute():
+            try:
+                path = path.resolve().relative_to(root.resolve())
+            except ValueError:
+                print(f"ERROR: Bài QMD nằm ngoài repository: {path}.", file=sys.stderr)
+                return EXIT_FAILED
+        qmd_paths.append(path)
+    enforced = 0
+    legacy_skipped = 0
+    for target in qmd_paths:
+        try:
+            if not pdf_plain_metadata_preflight_applies(root, target):
+                legacy_skipped += 1
+                continue
+            enforced += 1
+            incompatible = pdf_plain_metadata_violations(root, target)
+        except (ProjectConfigError, ReviewReadyError, OSError, UnicodeError) as exc:
+            print(f"ERROR: {exc}", file=sys.stderr)
+            return EXIT_FAILED
+        if incompatible:
+            print("=== QMD EARLY SOURCE POLICY ===")
+            print("FAIL pdf-metadata-latex-compatibility " f"[{target.as_posix()}]: Không được chứa TeX trong metadata PDF-string: " + ", ".join(incompatible))
+            return EXIT_FAILED
+    if qmd_paths:
+        print("=== QMD EARLY SOURCE POLICY ===")
+        if enforced:
+            print("PASS pdf-metadata-latex-compatibility: metadata PDF-string dùng văn bản thuần.")
+        if legacy_skipped:
+            print(
+                "INFO pdf-metadata-latex-compatibility-legacy: "
+                f"bỏ qua preflight mới cho {legacy_skipped} bài dùng profile schema cũ; "
+                "checker/regression hiện hành vẫn tiếp tục kiểm định."
+            )
+    return EXIT_OK
+
+
 def command_checker(root: Path, mode: str, args: argparse.Namespace) -> int:
+    if mode == "scope":
+        preflight = _early_source_policy_check(root, args)
+        if preflight != EXIT_OK:
+            return preflight
     command = _script_command(
         root,
         Path("scripts/zo_check_repo.py"),
@@ -1351,6 +1415,12 @@ def parser() -> argparse.ArgumentParser:
     )
     exercise_hash.add_argument("path", help="Đường dẫn bài QMD trong repository.")
 
+    metadata_hash = subparsers.add_parser(
+        "metadata-hash",
+        help="Tính fingerprint nội dung học thuật và metadata mô tả để xác nhận đồng bộ.",
+    )
+    metadata_hash.add_argument("path", help="Đường dẫn bài QMD trong repository.")
+
     prepublish = subparsers.add_parser(
         "prepublish",
         help="Tổng hợp bằng chứng và tạo báo cáo trước xuất bản.",
@@ -1512,6 +1582,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return command_review_ready(root, args)
     if args.command == "exercise-hash":
         return command_exercise_hash(root, args)
+    if args.command == "metadata-hash":
+        return command_metadata_hash(root, args)
     if args.command == "prepublish":
         return command_prepublish(root, args)
     if args.command == "check":

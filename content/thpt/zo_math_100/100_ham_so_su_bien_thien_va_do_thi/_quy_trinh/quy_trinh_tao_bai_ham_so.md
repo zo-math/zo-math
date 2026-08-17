@@ -260,7 +260,10 @@ Thực hiện theo Mục 6–9 của quy chuẩn:
 8. chọn trật tự nhận thức;
 9. xác định mức hiển thị của từng nội dung;
 10. xác định điểm kết tinh và kiến trúc bài;
-11. xác lập điều kiện dừng riêng.
+11. rà việc đặt tên hàm phụ, biến phụ và kí hiệu trung gian: chỉ giữ những tên thực sự làm lộ cấu trúc hoặc giảm tải nhận thức;
+12. quyết định mức hình thức của ngôn ngữ: ưu tiên ngôn ngữ hàm số tự nhiên; chỉ đưa ngôn ngữ/kí hiệu ánh xạ vào nơi nó thật sự làm sáng cấu trúc; dự kiến chỗ nào cần giải thích bằng lời thay vì dựa vào chuỗi `\Leftrightarrow`;
+13. rà chiều sâu: từ cơ chế trung tâm có hướng phát triển tự nhiên nào đáng đưa vào bài mà vẫn phù hợp người đọc hay không;
+14. xác lập điều kiện dừng riêng.
 
 Không dùng một mục lục cố định. Các chức năng khơi mở, nhận diện, triển khai, kết tinh, soi chiếu và khép lại phải được thực hiện, nhưng không bắt buộc trở thành sáu tiêu đề.
 
@@ -285,7 +288,7 @@ G3 chưa đạt nếu còn một trong các tình trạng sau:
    - `thuong`: mặc định cho cả HTML và PDF; hình nằm trong bề ngang nội dung và không dùng `.column-screen-inset-shaded`;
    - `mo_rong_html`: chỉ dùng khi bề ngang thông thường không đủ để đọc chi tiết thiết yếu;
    - hình `mo_rong_html` phải có nhãn `fig-*`, lí do mở rộng và lớp `.column-screen-inset-shaded` chỉ được xuất hiện trong nhánh `when-format="html"`.
-6. Đối chiếu các quyết định về YAML, hệ tiêu đề, mã thực thi, khối nội dung, tài nguyên, bài tập, PDF và cấu trúc bị cấm với `quy_chuan_ki_thuat_bai_ham_so_qmd.md`.
+6. Đối chiếu các quyết định về YAML, hệ tiêu đề, mã thực thi, khối nội dung, tài nguyên, bài tập, PDF và cấu trúc bị cấm với `quy_chuan_ki_thuat_bai_ham_so_qmd.md`. Trong math source dùng lệnh LaTeX chuẩn thay Unicode operator; phân số dùng `\frac`; tiểu mục bài tập dùng `a.`, `b.`, `c.`.
 7. Khi tạo QMD mới, sao chép phần khung ban đầu từ `mau_ki_thuat_qmd.qmd`, rồi hoàn thiện theo quy chuẩn kĩ thuật và hồ sơ của chính bài.
 8. Với mỗi nội dung dự kiến đặt trong khối, ghi rõ:
    - lí do cần tách thành khối thay vì dùng văn bản hoặc tiêu đề thông thường;
@@ -298,7 +301,7 @@ G3 chưa đạt nếu còn một trong các tình trạng sau:
 10. Ghi vị trí dự kiến của từng khối trong mạch bài và lí do đặt ở đó. Không gom các khối ứng dụng, lịch sử, so sánh hoặc khám phá vào một mục cuối chỉ vì chúng đều là phần đọc thêm; phân bố chúng tại nơi chúng làm sáng tỏ kết quả vừa được xác lập.
 11. Đối với bài production chuẩn, thiết kế hệ bài tập theo `quy_trinh_xay_dung/quy_chuan_he_bai_tap.md`: hệ bài tập phải giúp người học tái dựng mạch cốt lõi và phát triển từ chính mạch cốt lõi ấy. “Tái dựng” và “phát triển” là chức năng thiết kế nội bộ; H3 dùng cho nhóm toán học tự nhiên và H4 cho từng bài, không dùng các nhãn nội bộ làm heading công khai. Hồ sơ phải có bản đồ mắt xích–bài tập và trạng thái đồng bộ với nội dung học thuật hiện hành. Chỉ bỏ hệ bài tập khi yêu cầu trực tiếp của người dùng hoặc loại nhiệm vụ thực sự cho phép, và phải ghi rõ ngoại lệ trong hồ sơ.
 12. Với bài dự kiến chuyển sang `published`, xác định tên PDF, `zo-pdf-download`, `zo-pdf-branding`, URL chính tắc và quy trình build PDF.
-13. Thay toàn bộ giá trị giữ chỗ bằng metadata thật. Trước G4, đối chiếu chức năng riêng của `subtitle`, `summary`, `description`, `abstract` và `keywords`; phần mô tả phải là lời giới thiệu bằng văn xuôi, không phải danh sách từ khóa.
+13. Thay toàn bộ giá trị giữ chỗ bằng metadata thật. Trước G4, đối chiếu chức năng riêng của `subtitle`, `summary`, `description`, `abstract` và `keywords`; phần mô tả phải là lời giới thiệu bằng văn xuôi, không phải danh sách từ khóa. `summary` và `description` phải là văn bản thuần, không chứa TeX, vì chúng đi qua chuỗi metadata PDF-string; công thức chi tiết chuyển sang `title`, `subtitle`, `abstract` hoặc thân bài.
 14. Trong đặc tả hình, ghi rõ những điểm/mốc nào là neo nhận thức, đường chiếu nào thực sự cần để đọc tọa độ và `fig-alt` dự kiến mô tả những gì sẽ hiện trên artifact.
 15. Xóa các chú thích hướng dẫn không thuộc bài cuối.
 
@@ -332,6 +335,16 @@ Trong toàn bộ giai đoạn này, đề cương đã qua G3 điều khiển m�
 8. Không cập nhật `cards.yml` chỉ để đánh dấu bài đã xuất bản khi bài chưa qua nghiệm thu.
 9. Dùng hệ lớp `zo-block` hiện hành theo `huong_dan_su_dung_khoi_noi_dung.md`. Không dùng các lớp cũ cho nội dung mới chỉ vì chúng vẫn còn được CSS hỗ trợ để tương thích.
 10. Nội dung bắt buộc đối với mạch chính không được đặt trong khối thu gọn. Khi văn bản thường và hệ tiêu đề đã đủ rõ, không tạo thêm khối.
+11. Không tạo hàm phụ hoặc tên phụ ngắn hạn chỉ để thay một biểu thức nếu quan hệ trực tiếp rõ hơn; khi đã tạo tên trung gian, phải nói rõ vai trò và quay lại đối tượng chính sau khi dùng xong.
+12. Rà thuật ngữ để phân biệt tính chất với đại lượng, đặc biệt các cách nói về lồi/lõm, tiếp tuyến và hệ số góc; không dùng một từ gợi “độ đo” khi chưa có đại lượng được định nghĩa.
+13. Với bảng có đầu mút thuộc miền của hàm nhưng không thuộc miền đạo hàm, giữ hàng giá trị của hàm và hàng đạo hàm tách biệt; không dùng kí hiệu làm đầu mút trông như điểm bị loại khỏi miền của hàm.
+14. Trong lập luận hình học, phân biệt điểm, đoạn, độ dài và đại lượng vô hướng khi sự nhập nhằng ảnh hưởng phép biến đổi.
+15. Rà mức nhấn mạnh: heading, block, màu và câu kết chỉ được tăng trọng lượng thị giác khi chức năng nhận thức tương ứng đã rõ; không bọc khối chỉ để làm một ý “nổi hơn”.
+16. Điểm kết tinh/khép lại phải nén được cách nhìn hoặc cơ chế có thể chuyển giao, không chỉ lặp danh sách kết quả vừa có.
+17. Rà mật độ ngôn ngữ ánh xạ: không dùng “ánh xạ”, `\mapsto` hoặc lớp kí hiệu hình thức dày ngay từ đầu nếu ngôn ngữ hàm số tự nhiên đã đủ để người đọc hiểu cơ chế.
+18. Rà các chuỗi `\Leftrightarrow`: với mắt xích quan trọng, phải có lời giải thích về điều kiện và lí do tương đương; kí hiệu không được thay vai trò của lập luận.
+19. Không dùng “Kết tinh” làm heading công khai mặc định. Nếu cần một mục cuối mang chức năng hồi cố, dùng “Nhìn lại” hoặc một heading toán học cụ thể phát sinh từ nội dung.
+20. Sau khi mạch cốt lõi đã đủ, rà ít nhất một hướng phát triển tự nhiên của chính đối tượng; chỉ thêm khi nó tạo thêm cách nhìn có giá trị và vẫn nằm trong phạm vi người đọc.
 
 Trong chế độ `hoan_thien`, sửa tại nguồn gần nhất tạo ra lỗi. Không viết lại phần đã đạt nếu việc đó không cần cho mục tiêu hoặc mạch bài.
 
@@ -346,15 +359,18 @@ Thực hiện đúng giao thức của Mục 12 trong quy chuẩn:
 3. kiểm định giá trị nhận thức;
 4. kiểm định hệ thống bài tập theo `quy_trinh_xay_dung/quy_chuan_he_bai_tap.md`: xác nhận mạch cốt lõi, bản đồ phụ thuộc, chức năng tái dựng, chức năng phát triển và việc đồng bộ với nội dung học thuật hiện hành;
 5. kiểm định hệ khối nội dung: sự cần thiết của từng khối, trạng thái hiển thị, màu theo chức năng, tiêu đề, cú pháp lớp và việc bảo toàn mạch chính;
-6. sửa lỗi tại nguồn gần nhất;
-7. chạy lại các lượt bị ảnh hưởng.
+6. hoàn tất toàn bộ `tu_kiem_noi_dung` trong hồ sơ theo schema hiện hành: mỗi section và mỗi tiêu chí bắt buộc phải `dat`, mỗi tiêu chí phải có `can_cu` cụ thể và không còn `hanh_dong_sua`;
+7. sửa lỗi tại nguồn gần nhất;
+8. chạy lại các lượt bị ảnh hưởng.
 
-Mỗi tiêu chí phải có trạng thái và căn cứ cụ thể.
+Mỗi tiêu chí phải có trạng thái và căn cứ cụ thể. Căn cứ phải chỉ được vị trí, quan hệ, bảng, hình hoặc phép thử đã kiểm; không dùng một câu chung “đã rà”.
 
-Trong lượt kiểm định mạch giải thích và giá trị nhận thức, phải rà riêng: động từ quan hệ trung tâm; đối sánh các phương pháp cùng giải một tính chất; căn cứ của tên lớp toán học; vai trò của liên tục trong việc đọc/dựng đồ thị; chức năng của các điểm neo; và tính đặc trưng của `subtitle`/`description`. Không gộp các mục này vào một nhận xét chung kiểu “mạch hợp lí”.
+Trong lượt kiểm định mạch giải thích và giá trị nhận thức, phải rà riêng: động từ quan hệ trung tâm; đối sánh các phương pháp cùng giải một tính chất; căn cứ của tên lớp toán học; vai trò của liên tục trong việc đọc/dựng đồ thị; chức năng của các điểm neo; tính đặc trưng của `subtitle`/`description`; mật độ ngôn ngữ ánh xạ; việc `\Leftrightarrow` có đang thay thế lời giải thích; heading khép lại; và chiều sâu/hướng phát triển tự nhiên của bài. Không gộp các mục này vào một nhận xét chung kiểu “mạch hợp lí”.
 Trong nghiệm thu cuối, không được còn tiêu chí bắt buộc ở trạng thái `dat_mot_phan` hoặc `chua_kiem_chung`.
 
-Điểm kiểm soát G6 đạt khi các tiêu chí bắt buộc đã quy về `dat`, `khong_dat` hoặc `khong_ap_dung`, không còn tiêu chí `khong_dat`, và với bài có hệ bài tập cả ba trạng thái vận hành đều đạt: `CORE_RECONSTRUCTION=PASS`, `CORE_DEVELOPMENT=PASS`, `EXERCISE_CONTENT_SYNC=PASS`. Sau khi nội dung học thuật và hệ bài tập ổn định, dùng `python scripts/zo_python.py scripts/zo_qmd.py exercise-hash <bai.qmd>` để lấy hai fingerprint: phần nội dung trước H2 `Bài tập` và toàn bộ phần bắt đầu từ H2 `Bài tập`; ghi đúng cả hai giá trị vào hồ sơ trước khi xác nhận đồng bộ.
+Điểm kiểm soát G6 đạt khi toàn bộ các tiêu chí tự kiểm bắt buộc trong template hiện hành đã ở `dat` và có `can_cu` cụ thể; không dùng `khong_ap_dung` để né một tiêu chí chất lượng chung. Với bài có hệ bài tập, cả ba trạng thái vận hành đồng thời phải đạt: `CORE_RECONSTRUCTION=PASS`, `CORE_DEVELOPMENT=PASS`, `EXERCISE_CONTENT_SYNC=PASS`. Sau khi nội dung học thuật và hệ bài tập ổn định, dùng `python scripts/zo_python.py scripts/zo_qmd.py exercise-hash <bai.qmd>` để lấy hai fingerprint: phần nội dung trước H2 `Bài tập` và toàn bộ phần bắt đầu từ H2 `Bài tập`; ghi đúng cả hai giá trị vào hồ sơ trước khi xác nhận đồng bộ.
+
+Sau khi **mạch học thuật đã ổn định**, mới chốt lại `subtitle`, `summary`, `description`, `abstract`, `keywords`. Dùng `python scripts/zo_python.py scripts/zo_qmd.py metadata-hash <bai.qmd>` để lấy fingerprint nội dung học thuật và metadata mô tả, ghi vào `dong_bo_metadata`, rồi đặt `trang_thai: dat`. Nếu nội dung học thuật hoặc một trong năm trường mô tả thay đổi sau đó, phải tái duyệt metadata và cập nhật fingerprint trước `review-ready`.
 
 ### Giai đoạn 7 — Kiểm tra kĩ thuật và bản render
 
@@ -368,8 +384,8 @@ Trong phạm vi môi trường cho phép:
 6. trước khi kiểm tra giao diện HTML, xác nhận bài đã được đăng kí vào đúng nhóm sidebar trong `_quarto.yml` khi dự án yêu cầu sidebar;
 7. render HTML của bài;
 8. xem HTML thật ở desktop và mobile; xác nhận phần tử sidebar và mục lục thật sự xuất hiện, rồi kiểm tra navbar, căn lề giữa tựa đề và thân bài, hình thường và hình mở rộng;
-9. build PDF tải xuống khi bài yêu cầu; trước khi đưa một HTML có nút “Tải PDF” vào Human Review, phải bảo đảm PDF đích đã tồn tại và mở được;
-10. xem PDF thật; kiểm tra hình nằm trong bề ngang nội dung, công thức, ngắt trang và kí tự lỗi;
+9. build PDF tải xuống khi bài yêu cầu **chỉ bằng** `python scripts/zo_python.py scripts/zo_pdf.py build <bai.qmd>`; trước khi đưa một HTML có nút “Tải PDF” vào Human Review, phải bảo đảm PDF đích tồn tại, mở được và `_audit/<slug>_pdf_build.json` khớp QMD/PDF cùng pipeline canonical hiện hành;
+10. xem PDF thật; kiểm tra hình nằm trong bề ngang nội dung, công thức, ngắt trang và kí tự lỗi; `pdftotext` chỉ là supporting evidence, không được dùng riêng để kết luận block bị cắt hoặc chia trang;
 11. kiểm tra trực quan các khối mở cố định và thu gọn trên cả HTML lẫn PDF: viền, nền, tiêu đề, khoảng cách, khả năng mở–đóng trên HTML, nội dung đầy đủ trên PDF và sự liên tục của mạch đọc;
 12. kiểm tra bài mới không dùng lớp khối cũ; với bài hiện có, phải báo rõ lớp cũ nào còn tồn tại và đó là tương thích lịch sử hay sai lệch cần chuyển đổi;
 13. kiểm tra nút tải PDF, metadata, URL chính tắc và tài nguyên; đối chiếu `fig-alt`, caption, các điểm/mốc và đường chiếu với artifact đã render thay vì chỉ với ý định trong source;
@@ -385,9 +401,13 @@ python scripts/zo_python.py scripts/zo_qmd.py review-ready --report _audit/<slug
 
 Check, render, `visual-check` và `review-ready` tạo machine-owned evidence; agent không chép trạng thái PASS/PASS_WITH_WARNINGS của chúng vào hồ sơ. `visual-check` ép viewport mobile 390 px và 430 px, ghi `window.innerWidth`, `document.clientWidth`, `document.scrollWidth`, SHA-256 của rendered HTML và hai screenshot canonical dưới `_audit/<slug>_visual/`.
 
-Chỉ đưa candidate sang Human Review khi `review-ready` trả `PASS`. Cổng này kiểm tra các invariant production mà `check`/`render` không đủ để chứng minh: lifecycle/session, effective authority closure, canonical scope, đăng kí sidebar và sidebar render thật, chuỗi đồ thị bắt buộc, schema/ownership của hồ sơ, bằng chứng check–render machine-owned, machine-owned viewport/overflow evidence, self-view canonical và bản ghi kiểm tra quan hệ trung tâm. Human Review và nghiệm thu không được agent tự điền vào hồ sơ. Không được bỏ một thành phần bắt buộc chỉ để tránh rule chi tiết áp dụng lên thành phần ấy.
+Chỉ đưa candidate sang Human Review khi `review-ready` trả `PASS`. Cổng này kiểm tra các invariant production mà `check`/`render` không đủ để chứng minh: lifecycle/session, effective authority closure, canonical scope, đăng kí sidebar và sidebar render thật, PDF canonical provenance, chuỗi đồ thị bắt buộc, schema/ownership của hồ sơ, đồng bộ metadata sau nội dung, bằng chứng check–render machine-owned, machine-owned viewport/overflow evidence, self-view canonical và bản ghi kiểm tra quan hệ trung tâm. Human Review và nghiệm thu không được agent tự điền vào hồ sơ. Không được bỏ một thành phần bắt buộc chỉ để tránh rule chi tiết áp dụng lên thành phần ấy.
 
-Trước `review-ready`, agent phải ghi `tu_xem` riêng với trạng thái `dat` hoặc `canh_bao` và lưu bằng chứng thật dưới `_audit/<slug>_visual/`: tối thiểu một ảnh HTML desktop, **hai ảnh mobile machine-owned `html_mobile_390.png` và `html_mobile_430.png`**, và một ảnh/trang PDF. Hai ảnh mobile phải do `visual-check` tạo và phải được `tu_xem.bang_chung` tham chiếu. Đây là **agent self-view**, không phải kiểm định có người quan sát. Nếu phép đo runtime phát hiện overflow, `review-ready` phải chặn; nếu nguyên nhân thuộc layout toàn site, ghi cảnh báo/system defect thay vì sửa CSS ngoài scope để né cổng.
+Bản sao gửi Human Review hoặc gói owner review phải nằm ngoài vùng production candidate; không tạo các tệp có marker `human_review`, `owner_review`, `review_copy` cạnh QMD hay dưới `_figures/<slug>/`. Production giữ duy nhất artifact canonical; `_audit/` giữ machine evidence; gói bàn giao ngoài repository giữ bản sao review.
+
+Trước `review-ready`, agent phải hoàn tất `tu_xem` có cấu trúc. `visual-check` tạo machine-owned evidence dưới `_audit/<slug>_visual/`, gồm viewport canonical và chuỗi ảnh phủ từ đầu đến cuối HTML ở desktop/mobile, đồng thời tạo một ảnh cho mọi trang PDF. Agent phải xem hết các bằng chứng ấy, ghi đúng từng viewport/trang PDF vào hồ sơ, hoàn tất toàn bộ tiêu chí visual với `trang_thai: dat`, `can_cu` cụ thể và không còn `hanh_dong_sua`. Đây là **agent self-view**, không phải kiểm định có người quan sát.
+
+Machine được phép chặn các invariant khách quan như thiếu viewport, thiếu đoạn ảnh, thiếu trang PDF, bằng chứng stale hoặc horizontal overflow. Machine không được tự kết luận chất lượng ngắt trang, block integrity hay sự tiết chế của nhãn đồ thị chỉ từ `pdftotext`/heuristic. Những điểm đó phải được agent tự xem và sau đó vẫn thuộc quyền phán đoán cuối của Human Review. Nếu nguyên nhân thuộc layout toàn site, ghi system defect thay vì sửa CSS ngoài scope để né cổng.
 
 Không tuyên bố một kiểm tra đã đạt chỉ vì lệnh trả về mã thoát `0` nếu tiêu chí cần quan sát bản render.
 

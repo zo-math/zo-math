@@ -328,6 +328,25 @@ Nếu một quan hệ trở thành hiện tượng trung tâm, phải ghi đư�
 
 Một bài hoàn chỉnh không cần nói hết mọi điều đúng về hàm. Nó phải giải quyết trọn vẹn câu hỏi đã công bố, bảo toàn các mắt xích thiết yếu và gọi đúng tên phần còn mở.
 
+### 4.10. Tiết chế hàm phụ, biến phụ và tên gọi trung gian
+
+Một kí hiệu trung gian chỉ nên được tạo khi nó thực sự làm giảm tải nhận thức hoặc làm lộ một cấu trúc sẽ được dùng lại. Không đặt tên một hàm phụ chỉ để thay một biểu thức trong vài dòng nếu việc viết trực tiếp quan hệ ban đầu ngắn hơn và rõ hơn.
+
+Khi cần một hàm phụ, biến phụ hoặc tên gọi trung gian:
+
+- phải nói rõ nó đại diện cho đối tượng nào và phục vụ bước nào;
+- tên phải được dùng đủ để bù lại chi phí ghi nhớ;
+- không đổi tên cùng một đại lượng nhiều lần nếu không có lí do cấu trúc;
+- khi kết thúc vai trò của kí hiệu phụ, mạch phải quay lại đối tượng đang khảo sát.
+
+Tiết chế kí hiệu không có nghĩa tránh trừu tượng. Mục tiêu là chỉ đưa thêm tên khi tên mới giúp người đọc nhìn thấy quan hệ tốt hơn.
+
+### 4.11. Phân biệt tính chất với đại lượng
+
+Thuật ngữ phải phản ánh đúng loại đối tượng đang nói tới. Các tính chất như *tăng*, *giảm*, *lồi*, *lõm* không tự động là những đại lượng có thể đo bằng một con số. Các đại lượng như hệ số góc của tiếp tuyến phải được gọi đúng là đại lượng.
+
+Không dùng các cách nói như *độ lõm* hoặc *độ dốc* như thể đó là một đại lượng đã được xác định nếu bài chưa định nghĩa đại lượng ấy. Khi ý cần nói là tính chất hình học, gọi đúng tính chất; khi ý cần nói là một số, chỉ ra công thức hoặc đối tượng tạo ra số đó.
+
 ## 5. Lập hồ sơ khảo sát
 
 ### 5.1. Vòng rà nền tảng
@@ -570,6 +589,8 @@ Không rút gọn bằng cách bỏ điều kiện, ngoại lệ, bước suy lu
 
 Độ sâu không được đo bằng số đề mục hoặc số phép tính. Một bài đạt chiều sâu khi làm rõ được cơ chế, quan hệ giữa các kết quả, lựa chọn hoặc đối sánh công cụ, giới hạn của kết luận và ít nhất một cách nhìn có thể chuyển sang đối tượng khác. Không thêm nội dung chỉ để làm bài dài; cũng không cắt bỏ những lớp giải thích khiến bài chỉ còn một bản tóm tắt kiến thức.
 
+Trước khi xác nhận bài đã đủ sâu, phải hỏi riêng: từ cơ chế trung tâm của chính đối tượng này còn một hướng phát triển tự nhiên nào đáng theo tiếp không — chẳng hạn một hệ quả, liên hệ hình học, quan hệ hàm ngược, bất đẳng thức, hành vi tiệm cận, câu hỏi tham số hoặc một bài tập phát triển có khả năng mở thêm cách nhìn. Nếu có một hướng như vậy, nằm trong tầm kiến thức của người đọc và nối trực tiếp với mạch cốt lõi, nên triển khai ít nhất một lớp phát triển đủ ý nghĩa. Nếu không có, không ép thêm một mục “mở rộng” chỉ để tăng độ dài.
+
 ## 8. Tạo mạch lập luận và mạng phụ thuộc
 
 ### 8.1. Cấu trúc một mạch
@@ -584,6 +605,12 @@ Mỗi mạch lập luận phải thực hiện sáu chức năng:
 6. nối về câu hỏi trung tâm hoặc mạch tiếp theo.
 
 Không nhất thiết mỗi chức năng là một đoạn riêng, nhưng không được thiếu chức năng.
+
+### 8.1.1. Văn xuôi, ngôn ngữ hàm số và kí hiệu hình thức
+
+Ngôn ngữ hàm số tự nhiên và lời giải thích bằng văn xuôi là tầng mặc định. Ngôn ngữ ánh xạ, kí hiệu `x \mapsto f(x)` hoặc cách viết hình thức tương tự chỉ nên xuất hiện khi chúng làm lộ một cấu trúc mà văn xuôi thông thường khó diễn đạt gọn và chính xác. Không mở đầu một bài bằng mật độ lớn thuật ngữ “ánh xạ” và kí hiệu ánh xạ chỉ vì chúng đúng về hình thức; trước hết phải cho người đọc biết đối tượng đang làm gì và vì sao cấu trúc hình thức ấy cần thiết.
+
+Kí hiệu `\Leftrightarrow` được phép dùng cho một tương đương đã có căn cứ, nhưng không phải là thay thế cho lập luận. Khi một phép biến đổi là mắt xích nhận thức quan trọng, phải nói rõ điều kiện áp dụng và lí do hai phát biểu tương đương; tránh chuỗi kí hiệu khiến người đọc phải tự suy ra quan hệ logic mà bài lẽ ra phải giải thích.
 
 ### 8.2. Chứng cứ quyết định và chứng cứ hỗ trợ
 
@@ -655,7 +682,7 @@ Bài hoàn chỉnh phải thực hiện các chức năng:
 5. **Soi chiếu:** đối chiếu khi nó làm rõ cơ chế.
 6. **Khép lại:** trả lời câu hỏi và nêu nhận thức có thể chuyển giao.
 
-Đây là sáu chức năng, không phải sáu tiêu đề bắt buộc. Tên và số đề mục phải phát sinh từ mạch của chính bài.
+Đây là sáu chức năng, không phải sáu tiêu đề bắt buộc. Tên và số đề mục phải phát sinh từ mạch của chính bài. Đặc biệt, “Kết tinh” là tên của một chức năng vận hành nội bộ, không phải heading công khai mặc định. Nếu bài cần một mục cuối để người đọc nhìn lại toàn mạch, ưu tiên “Nhìn lại” hoặc một heading toán học cụ thể phù hợp với nội dung.
 
 ### 9.2. Bốn mức hiển thị
 
@@ -706,6 +733,8 @@ Phần nhận diện chỉ giữ những dữ kiện cần để bắt đầu đ
 - một công thức tổng hợp;
 - một bản đồ chế độ theo tham số;
 - một mô tả cơ chế thống nhất.
+
+Điểm kết tinh không chỉ lặp lại danh sách kết quả. Nó phải nén được ít nhất một quan hệ, cơ chế hoặc cách nhìn mà người đọc có thể dùng để đọc lại phần trước và chuyển sang đối tượng khác.
 
 Bảng biến thiên không phải thành phần mặc định.
 
@@ -769,6 +798,8 @@ Chỉ dùng khi chúng nén được một cấu trúc đã xác lập. Phải:
 - không ngầm gộp các thành phần không liên thông;
 - phân biệt giá trị đạt được với giới hạn;
 - không dùng mũi tên để khẳng định điều chưa được chứng minh.
+
+Nếu một đầu mút thuộc tập xác định của hàm nhưng không thuộc miền của đạo hàm, bảng phải giữ hai thông tin ấy tách biệt: hàng của hàm vẫn biểu diễn giá trị hoặc hành vi của hàm tại đầu mút; hàng đạo hàm không được dùng kí hiệu khiến người đọc tưởng chính hàm không xác định ở đó. Khi cần, để ô đạo hàm trống hoặc ghi rõ đạo hàm không được xét tại đầu mút rồi giải thích miền của đạo hàm trong văn xuôi.
 
 ### 10.5. Đồ thị và nhiều cửa sổ
 
@@ -843,6 +874,8 @@ Giữ nhất quán:
 - mức chính xác của số.
 
 Khi thay kí hiệu hoặc quy ước, phải sửa toàn bộ các nơi phụ thuộc.
+
+Trong lập luận hình học, phân biệt đối tượng và số đo khi sự phân biệt ảnh hưởng ý nghĩa: `A`, `B` dùng cho điểm; `AB` cho đoạn hoặc cặp điểm theo quy ước đã nêu; `\lvert AB\rvert` cho độ dài; một đại lượng vô hướng riêng như `r` dùng khi cần thao tác đại số với số đo. Không dùng cùng một kí hiệu vừa như điểm vừa như độ dài nếu điều đó làm mơ hồ phép biến đổi.
 
 ### 11.3. Mức độ khẳng định
 
@@ -1324,6 +1357,9 @@ Khi dùng phiếu để quyết định nghiệm thu cuối, mỗi dòng phải 
 | Kết quả số có mức bảo đảm đúng                                    |            |        |               |
 | Công thức, bảng, hình và văn xuôi không mâu thuẫn                 |            |        |               |
 | Không có vòng tròn chứng cứ                                       |            |        |               |
+| Phân biệt tính chất với đại lượng trong thuật ngữ                  |            |        |               |
+| Bảng đạo hàm xử lí đầu mút theo đúng miền đạo hàm                  |            |        |               |
+| Phân biệt điểm, đoạn, độ dài và đại lượng vô hướng                 |            |        |               |
 
 ## E.2. Kiểm định mạch giải thích
 
@@ -1338,6 +1374,8 @@ Khi dùng phiếu để quyết định nghiệm thu cuối, mỗi dòng phải 
 | Bảng và hình tổng hợp kết quả đã xác lập        |            |        |               |
 | Có phần đọc ngược sau biểu diễn                 |            |        |               |
 | Kết luận trả lời câu hỏi mở đầu                 |            |        |               |
+| Hàm phụ và tên phụ chỉ dùng khi giảm tải nhận thức |            |        |               |
+| Mức nhấn mạnh theo chức năng, không thay cấu trúc  |            |        |               |
 
 ## E.3. Kiểm định giá trị nhận thức
 
@@ -1352,6 +1390,7 @@ Khi dùng phiếu để quyết định nghiệm thu cuối, mỗi dòng phải 
 | Điểm kết tinh làm hiện quan hệ                   |            |        |               |
 | Bài để lại một cách nhìn có thể chuyển giao      |            |        |               |
 | Cách nhìn mới vẫn giữ yêu cầu kiểm tra điều kiện |            |        |               |
+| Điểm kết tinh nén cách nhìn, không chỉ tóm tắt      |            |        |               |
 
 ## E.4. Kiểm định có điều kiện cho hệ thống bài tập
 

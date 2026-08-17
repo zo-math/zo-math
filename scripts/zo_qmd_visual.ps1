@@ -16,7 +16,7 @@ Set-StrictMode -Version Latest
 # viewports through the same MathJax-ready path, captures screenshots, and records
 # runtime dimensions + SHA-256.
 
-$VisualMeasurementVersion = 3
+$VisualMeasurementVersion = 4
 $RequiredMobileWidths = @(390, 430)
 $RequiredDesktopWidths = @(1440)
 $RequiredWidths = @($RequiredMobileWidths + $RequiredDesktopWidths)
@@ -259,8 +259,12 @@ $Socket = $null
 $Profile = Join-Path ([System.IO.Path]::GetTempPath()) ("zo-qmd-visual-" + [guid]::NewGuid().ToString('N'))
 $Port = Get-Random -Minimum 12000 -Maximum 19000
 $Records = New-Object System.Collections.Generic.List[object]
+$HtmlSegmentRecords = New-Object System.Collections.Generic.List[object]
 $PdfRecords = New-Object System.Collections.Generic.List[object]
 $HadFailure = $false
+
+Get-ChildItem -LiteralPath $VisualDir -Filter 'html_*_part_*.png' -File -ErrorAction SilentlyContinue |
+    Remove-Item -Force
 
 try {
     New-Item -ItemType Directory -Path $Profile -Force | Out-Null
@@ -317,8 +321,59 @@ try {
         Wait-DocumentReady -Socket $Socket
         Start-Sleep -Milliseconds 250
         $measurement = Invoke-RuntimeValue -Socket $Socket -Expression $MeasureScript -AwaitPromise $true
+        $DocumentScrollHeight = [int](Invoke-RuntimeValue -Socket $Socket -Expression 'Math.max(document.documentElement.scrollHeight, document.body ? document.body.scrollHeight : 0)')
+        if ($DocumentScrollHeight -lt 1) {
+            throw "Invalid document scroll height for viewport $Width."
+        }
 
         $ViewportClass = $(if ($RequiredDesktopWidths -contains [int]$Width) { 'desktop' } else { 'mobile' })
+
+        # Full-document visual evidence is captured as fixed-height viewport
+        # segments. This avoids relying on Chromium single-image height limits.
+        $MaxScrollTop = [Math]::Max(0, $DocumentScrollHeight - [int]$Height)
+        $RequestedTops = New-Object System.Collections.Generic.List[int]
+        $Top = 0
+        while ($Top -lt $MaxScrollTop) {
+            $RequestedTops.Add([int]$Top)
+            $Top += [int]$Height
+        }
+        $RequestedTops.Add([int]$MaxScrollTop)
+
+        $SeenActualTops = @{}
+        $SegmentIndex = 0
+        foreach ($RequestedTop in $RequestedTops) {
+            Invoke-RuntimeValue -Socket $Socket -Expression ("window.scrollTo(0, {0}); true" -f [int]$RequestedTop) | Out-Null
+            Start-Sleep -Milliseconds 80
+            $ActualTop = [int](Invoke-RuntimeValue -Socket $Socket -Expression 'Math.round(window.scrollY)')
+            if ($SeenActualTops.ContainsKey($ActualTop)) {
+                continue
+            }
+            $SeenActualTops[$ActualTop] = $true
+            $SegmentIndex += 1
+            $SegmentName = "html_${ViewportClass}_${Width}_part_{0:D3}.png" -f $SegmentIndex
+            $SegmentPath = Join-Path $VisualDir $SegmentName
+            $segmentShot = Invoke-Cdp -Socket $Socket -Method 'Page.captureScreenshot' -Params @{
+                format = 'png'
+                fromSurface = $true
+                captureBeyondViewport = $false
+            }
+            [System.IO.File]::WriteAllBytes(
+                $SegmentPath,
+                [Convert]::FromBase64String($segmentShot.result.data)
+            )
+            $HtmlSegmentRecords.Add([ordered]@{
+                viewport_class = $ViewportClass
+                requested_width = [int]$Width
+                segment_index = [int]$SegmentIndex
+                requested_top = [int]$RequestedTop
+                actual_top = [int]$ActualTop
+                requested_height = [int]$Height
+                document_scroll_height = [int]$DocumentScrollHeight
+                screenshot = $SegmentPath.Substring($RootPrefix.Length).Replace('\', '/')
+                screenshot_sha256 = Get-Sha256Lower -Path $SegmentPath
+            })
+        }
+
         $ScreenshotName = "html_${ViewportClass}_${Width}.png"
         $ScreenshotPath = Join-Path $VisualDir $ScreenshotName
         Invoke-RuntimeValue -Socket $Socket -Expression 'window.scrollTo(0, 0); true' | Out-Null
@@ -347,6 +402,7 @@ try {
             window_inner_width = [int]$measurement.windowInnerWidth
             document_client_width = [int]$measurement.documentClientWidth
             document_scroll_width = [int]$measurement.documentScrollWidth
+            document_scroll_height = [int]$DocumentScrollHeight
             horizontal_overflow = [bool]$measurement.horizontalOverflow
             overflow_px = [int]$measurement.overflowPx
             offender_count = [int]$measurement.offenderCount
@@ -423,6 +479,7 @@ $Payload = [ordered]@{
     required_mobile_viewports = @($RequiredMobileWidths)
     required_desktop_viewports = @($RequiredDesktopWidths)
     measurements = $Records.ToArray()
+    html_segments = $HtmlSegmentRecords.ToArray()
     rendered_pdf = $TargetRelativePdf
     rendered_pdf_sha256 = Get-Sha256Lower -Path $PdfPath
     pdf_page_count = [int]$PageCount
@@ -444,6 +501,7 @@ foreach ($Record in $Records) {
     $Line = 'viewport={0}px inner={1} client={2} scroll={3} overflow={4}px result={5}' -f $Record.requested_width, $Record.window_inner_width, $Record.document_client_width, $Record.document_scroll_width, $Record.overflow_px, $Status
     Write-Host $Line
 }
+Write-Host "HTML_SEGMENTS_CAPTURED=$($HtmlSegmentRecords.Count)"
 Write-Host "PDF_PAGES_CAPTURED=$PageCount"
 Write-Host "AUTOMATED RESULT: $($Payload.automated_result) | EXIT=$($Payload.exit_code)"
 exit [int]$Payload.exit_code
