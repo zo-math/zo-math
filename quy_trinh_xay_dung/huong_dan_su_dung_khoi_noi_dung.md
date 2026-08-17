@@ -30,6 +30,8 @@ Khi cân nhắc đưa một nội dung vào khối, thực hiện đúng thứ t
 
 Không bắt đầu bằng câu hỏi “nên dùng màu gì?”. Cách làm đó dễ biến màu sắc thành phương tiện trang trí hoặc nhấn mạnh tùy ý.
 
+Tương tự, không bắt đầu từ nhu cầu “làm nổi bật” một đoạn rồi mới tìm loại khối phù hợp. Mức nhấn mạnh phải đi sau chức năng nhận thức. Nếu một câu hoặc kết luận đã được đặt đúng vị trí, có tiêu đề và văn xuôi đủ rõ, việc bọc thêm khối chỉ để tăng trọng lượng thị giác là sai mục đích của hệ khối.
+
 ### 2.1. Vị trí của khối trong mạch đọc
 
 Sau khi quyết định một nội dung cần được tách thành khối, phải đặt khối tại vị trí gần nhất với câu hỏi, mệnh đề hoặc hiện tượng mà nó soi sáng. Vị trí của khối là một quyết định nhận thức, không phải một quyết định trang trí.
@@ -161,6 +163,7 @@ Gợi ý
 - Không buộc một bài phải có khối nội dung hoặc phải có đủ ba màu.
 - Không đặt nhiều khối liên tiếp nếu văn bản thông thường và hệ tiêu đề đã đủ rõ.
 - Không dùng màu để thay thế quan hệ lập luận giữa các phần.
+- Không dùng khối chỉ để tạo cảm giác “đây là ý quan trọng”; ý quan trọng phải quan trọng trước hết vì vị trí và quan hệ của nó trong mạch.
 - Không thu gọn nội dung mà người đọc bắt buộc phải biết để hiểu phần tiếp theo.
 
 ## 6. Kiến trúc kỹ thuật
@@ -406,3 +409,7 @@ Hệ khối hiện hỗ trợ đầy đủ:
 - xám mở cố định và xám thu gọn;
 - khối thu gọn mở sẵn bằng thuộc tính `open`;
 - bảo toàn nền, viền, tiêu đề và nội dung của cả khối mở lẫn khối thu gọn trên PDF.
+
+### Kiểm tra block trên PDF
+
+Tính toàn vẹn của block trên PDF là một kết luận **thị giác**. `pdftotext` có thể giúp tìm chữ bị mất hoặc marker, nhưng việc không trích được tiêu đề/caption không chứng minh block đã bị cắt hay chia trang. Khi self-view, phải xem ảnh của mọi trang PDF và kiểm tra nền, viền, tiêu đề, nội dung cùng sự liên tục của mạch đọc. Nếu một block bị ngắt qua trang, chỉ chấp nhận khi ngắt ấy không làm vỡ một đơn vị nhận thức hoặc làm mất quan hệ giữa tiêu đề và nội dung.

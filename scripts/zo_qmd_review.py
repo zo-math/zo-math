@@ -30,11 +30,17 @@ except ImportError:  # Reported with a stable exit code.
 from zo_artifact_freshness import FreshnessError, evaluate_artifact_freshness
 from zo_qmd_config import ProjectConfigError, discover_project_config
 from zo_qmd_core import qmd_image_records, split_qmd_front_matter
+from zo_pdf_contract import (
+    CANONICAL_PDF_PIPELINE_INPUTS,
+    pdf_build_receipt_path,
+    validate_pdf_build_receipt,
+    write_pdf_build_receipt,
+)
 
 
-REVIEW_READY_VERSION = 3
+REVIEW_READY_VERSION = 5
 SESSION_MANIFEST_VERSION = 3
-VISUAL_MEASUREMENT_VERSION = 3
+VISUAL_MEASUREMENT_VERSION = 4
 EXIT_OK = 0
 EXIT_FAILED = 1
 EXIT_USAGE = 2
@@ -122,6 +128,29 @@ def _mapping(value: Any) -> dict[str, Any]:
 
 def _truthy(value: Any) -> bool:
     return value is True
+
+
+def _markdown_heading_titles(body: str) -> list[str]:
+    """Return real Markdown H1-H6 titles while ignoring fenced code blocks."""
+    titles: list[str] = []
+    fence_char: str | None = None
+    fence_len = 0
+    for line in body.splitlines():
+        stripped = line.lstrip()
+        fence = re.match(r"^(`{3,}|~{3,})", stripped)
+        if fence_char is not None:
+            if fence and fence.group(1)[0] == fence_char and len(fence.group(1)) >= fence_len:
+                fence_char = None
+                fence_len = 0
+            continue
+        if fence:
+            fence_char = fence.group(1)[0]
+            fence_len = len(fence.group(1))
+            continue
+        heading = re.match(r"^\s{0,3}#{1,6}(?!#)\s+(.+?)\s*$", line)
+        if heading:
+            titles.append(re.sub(r"\s+\{[^{}]*\}\s*$", "", heading.group(1)).strip().casefold())
+    return titles
 
 
 def _markdown_h2_titles(body: str) -> list[str]:
@@ -515,6 +544,7 @@ def _machine_visual_errors(
     target: Path,
     required_mobile_viewports: Sequence[int],
     required_desktop_viewports: Sequence[int],
+    require_full_html_capture: bool = False,
 ) -> list[str]:
     """Validate machine-owned runtime viewport/overflow evidence."""
 
@@ -637,6 +667,100 @@ def _machine_visual_errors(
             if requested_height is None or dimensions[1] != requested_height:
                 errors.append(f"Viewport {width}px: chiều cao screenshot {dimensions[1]}px không khớp requested_height={requested_height}.")
 
+    if require_full_html_capture:
+        segments = payload.get("html_segments")
+        if not isinstance(segments, list) or not segments:
+            errors.append("Visual evidence.html_segments phải là list không rỗng khi yêu cầu full HTML capture.")
+        else:
+            segments_by_width: dict[int, list[dict[str, Any]]] = {}
+            for raw in segments:
+                if not isinstance(raw, dict):
+                    errors.append("Visual evidence.html_segments chứa phần tử không phải mapping.")
+                    continue
+                width = _strict_int(raw.get("requested_width"))
+                if width is None or width not in required:
+                    errors.append("HTML segment có requested_width ngoài viewport canonical.")
+                    continue
+                segments_by_width.setdefault(width, []).append(raw)
+
+            if set(segments_by_width) != set(required):
+                missing = sorted(set(required) - set(segments_by_width))
+                extra = sorted(set(segments_by_width) - set(required))
+                if missing:
+                    errors.append("Thiếu full HTML segments cho viewport: " + ", ".join(map(str, missing)) + ".")
+                if extra:
+                    errors.append("Có full HTML segments ngoài viewport canonical: " + ", ".join(map(str, extra)) + ".")
+
+            for width in required:
+                rows = segments_by_width.get(width, [])
+                if not rows:
+                    continue
+                viewport_class = "mobile" if width in mobile else "desktop"
+                rows = sorted(rows, key=lambda item: _strict_int(item.get("segment_index")) or 0)
+                indices = [_strict_int(item.get("segment_index")) for item in rows]
+                if indices != list(range(1, len(rows) + 1)):
+                    errors.append(f"Viewport {width}px: segment_index phải liên tục từ 1.")
+
+                measurement = by_width.get(width, {})
+                scroll_height = _strict_int(measurement.get("document_scroll_height"))
+                if scroll_height is None or scroll_height <= 0:
+                    errors.append(f"Viewport {width}px: thiếu document_scroll_height nguyên dương.")
+                    continue
+
+                previous_top: int | None = None
+                previous_height: int | None = None
+                for position, raw in enumerate(rows, start=1):
+                    if raw.get("viewport_class") != viewport_class:
+                        errors.append(f"Viewport {width}px segment {position}: viewport_class sai.")
+                    segment_height = _strict_int(raw.get("requested_height"))
+                    actual_top = _strict_int(raw.get("actual_top"))
+                    raw_scroll_height = _strict_int(raw.get("document_scroll_height"))
+                    if segment_height is None or segment_height <= 0:
+                        errors.append(f"Viewport {width}px segment {position}: requested_height không hợp lệ.")
+                        continue
+                    if actual_top is None or actual_top < 0:
+                        errors.append(f"Viewport {width}px segment {position}: actual_top không hợp lệ.")
+                        continue
+                    if raw_scroll_height != scroll_height:
+                        errors.append(f"Viewport {width}px segment {position}: document_scroll_height không khớp measurement.")
+
+                    if previous_top is None:
+                        if actual_top != 0:
+                            errors.append(f"Viewport {width}px: full HTML capture phải bắt đầu tại top=0.")
+                    else:
+                        if actual_top <= previous_top:
+                            errors.append(f"Viewport {width}px: actual_top của các segment phải tăng nghiêm ngặt.")
+                        elif previous_height is not None and actual_top > previous_top + previous_height:
+                            errors.append(f"Viewport {width}px: full HTML segments có khoảng hở trước top={actual_top}.")
+
+                    expected = canonical_root / f"html_{viewport_class}_{width}_part_{position:03d}.png"
+                    if raw.get("screenshot") != expected.as_posix():
+                        errors.append(f"Viewport {width}px segment {position}: screenshot phải là {expected.as_posix()}.")
+                    else:
+                        screenshot_path = root / expected
+                        if not screenshot_path.is_file():
+                            errors.append(f"Thiếu full HTML screenshot: {expected.as_posix()}.")
+                        else:
+                            if raw.get("screenshot_sha256") != _sha256_file(screenshot_path):
+                                errors.append(f"Viewport {width}px segment {position}: SHA-256 screenshot không khớp.")
+                            dimensions = _png_dimensions(screenshot_path)
+                            if dimensions is None:
+                                errors.append(f"Viewport {width}px segment {position}: PNG không hợp lệ.")
+                            elif dimensions != (width, segment_height):
+                                errors.append(
+                                    f"Viewport {width}px segment {position}: kích thước PNG {dimensions} "
+                                    f"không khớp {(width, segment_height)}."
+                                )
+                    previous_top = actual_top
+                    previous_height = segment_height
+
+                if previous_top is not None and previous_height is not None:
+                    if previous_top + previous_height < scroll_height:
+                        errors.append(
+                            f"Viewport {width}px: full HTML capture chưa phủ tới cuối tài liệu "
+                            f"({previous_top + previous_height} < {scroll_height})."
+                        )
+
     pdf_rel = target.with_suffix(".pdf")
     pdf_path = root / pdf_rel
     if payload.get("rendered_pdf") != pdf_rel.as_posix():
@@ -692,6 +816,8 @@ def _machine_visual_errors(
                     continue
                 if raw.get("screenshot_sha256") != _sha256_file(screenshot_path):
                     errors.append(f"PDF trang {page}: SHA-256 screenshot không khớp.")
+                if _png_dimensions(screenshot_path) is None:
+                    errors.append(f"PDF trang {page}: screenshot không phải PNG hợp lệ có IHDR.")
 
     if payload.get("automated_result") != "PASS" or payload.get("exit_code") != 0:
         errors.append("Machine-owned visual report không có automated_result=PASS, exit_code=0.")
@@ -703,21 +829,34 @@ def _self_view_errors(
     profile: Mapping[str, Any],
     target: Path,
     required_mobile_viewports: Sequence[int] = (),
+    required_desktop_viewports: Sequence[int] = (),
     require_pdf_page_coverage: bool = False,
+    require_structured_self_review: bool = False,
+    required_self_review_criteria: Mapping[str, Any] | None = None,
 ) -> list[str]:
+    """Validate agent-owned visual self-review against machine-owned evidence."""
+
     self_view = _mapping(profile.get("tu_xem"))
     errors: list[str] = []
-    status = self_view.get("trang_thai")
-    if status not in {"dat", "canh_bao"}:
-        errors.append("tu_xem.trang_thai phải là dat hoặc canh_bao trước Human Review.")
-    evidence = self_view.get("bang_chung", [])
-    if not isinstance(evidence, list) or not evidence:
-        return errors + ["tu_xem.bang_chung phải có bằng chứng trực quan thật."]
+    if self_view.get("trang_thai") != "dat":
+        errors.append("tu_xem.trang_thai phải là dat trước Human Review.")
+    warnings = self_view.get("canh_bao", [])
+    if warnings not in ([], None):
+        errors.append("tu_xem.canh_bao phải rỗng trước Human Review; cảnh báo chưa xử lí phải chặn readiness.")
 
     canonical_root = Path("_audit") / f"{target.stem}_visual"
-    kinds = {"desktop": False, "mobile": False, "pdf": False}
+    report_rel = canonical_root / "html_mobile_measurements.json"
+    report_path = root / report_rel
+    payload = _json_report(report_path) if report_path.is_file() else None
+    if payload is None:
+        errors.append(f"Thiếu/không đọc được visual report để đối chiếu self-view: {report_rel.as_posix()}.")
+        return errors
+
+    evidence = self_view.get("bang_chung", [])
+    if not isinstance(evidence, list):
+        errors.append("tu_xem.bang_chung phải là list.")
+        evidence = []
     evidence_paths: set[Path] = set()
-    pdf_pages: set[int] = set()
     for raw in evidence:
         if not isinstance(raw, str) or not raw.strip():
             errors.append("tu_xem.bang_chung chứa đường dẫn không hợp lệ.")
@@ -736,47 +875,181 @@ def _self_view_errors(
             errors.append(f"Thiếu bằng chứng self-view: {relative.as_posix()}.")
             continue
         evidence_paths.add(relative)
-        name = relative.name.casefold()
-        if "desktop" in name:
-            kinds["desktop"] = True
-        if "mobile" in name:
-            kinds["mobile"] = True
-        if "pdf" in name or "page" in name:
-            kinds["pdf"] = True
-        page_match = re.fullmatch(r"pdf[-_]page[-_](\d+)\.png", name)
-        if page_match is not None:
-            pdf_pages.add(int(page_match.group(1)))
-    missing = [name for name, present in kinds.items() if not present]
-    if missing:
-        errors.append("Thiếu nhóm bằng chứng self-view: " + ", ".join(missing) + ".")
+
+    required_base = [report_rel]
+    for width in required_desktop_viewports:
+        required_base.append(canonical_root / f"html_desktop_{int(width)}.png")
     for width in required_mobile_viewports:
-        expected = canonical_root / f"html_mobile_{int(width)}.png"
+        required_base.append(canonical_root / f"html_mobile_{int(width)}.png")
+    for expected in required_base:
         if expected not in evidence_paths:
+            errors.append(f"tu_xem.bang_chung phải tham chiếu {expected.as_posix()}.")
+
+    if not require_structured_self_review:
+        if require_pdf_page_coverage:
+            page_count, page_error = _pdf_page_count(root, target)
+            if page_error is not None:
+                errors.append(page_error)
+            elif page_count is not None:
+                for page in range(1, page_count + 1):
+                    expected = canonical_root / f"pdf_page_{page}.png"
+                    if expected not in evidence_paths:
+                        errors.append(f"tu_xem.bang_chung thiếu {expected.as_posix()}.")
+        return errors
+
+    criteria_policy = _mapping(required_self_review_criteria or {})
+
+    def validate_criteria(section: Mapping[str, Any], label: str, required_ids: Sequence[str]) -> None:
+        if section.get("trang_thai") != "dat":
+            errors.append(f"tu_xem.{label}.trang_thai phải là dat.")
+        raw_items = section.get("tieu_chi")
+        if not isinstance(raw_items, list):
+            errors.append(f"tu_xem.{label}.tieu_chi phải là list.")
+            return
+        by_id: dict[str, dict[str, Any]] = {}
+        for raw in raw_items:
+            if not isinstance(raw, dict):
+                errors.append(f"tu_xem.{label}.tieu_chi chứa phần tử không phải mapping.")
+                continue
+            cid = raw.get("id")
+            if not isinstance(cid, str) or not cid:
+                errors.append(f"tu_xem.{label}.tieu_chi có id không hợp lệ.")
+                continue
+            if cid in by_id:
+                errors.append(f"tu_xem.{label}.tieu_chi lặp id {cid}.")
+                continue
+            by_id[cid] = raw
+        expected = list(required_ids)
+        if list(by_id) != expected:
             errors.append(
-                f"tu_xem.bang_chung phải tham chiếu screenshot mobile machine-owned {expected.as_posix()}."
+                f"tu_xem.{label}.tieu_chi phải có đúng thứ tự ID: " + ", ".join(expected) + "."
             )
+        for cid in expected:
+            raw = by_id.get(cid)
+            if raw is None:
+                continue
+            if raw.get("trang_thai") != "dat":
+                errors.append(f"tu_xem.{label}.{cid}.trang_thai phải là dat.")
+            basis = raw.get("can_cu")
+            if not isinstance(basis, list) or not any(isinstance(x, str) and x.strip() for x in basis):
+                errors.append(f"tu_xem.{label}.{cid}.can_cu phải có bằng chứng cụ thể.")
+            action = raw.get("hanh_dong_sua")
+            if action not in (None, "", []):
+                errors.append(f"tu_xem.{label}.{cid}.hanh_dong_sua phải rỗng trước Human Review.")
+
+    desktop_section = _mapping(self_view.get("html_desktop"))
+    mobile_section = _mapping(self_view.get("html_mobile"))
+    pdf_section = _mapping(self_view.get("pdf"))
+
+    validate_criteria(
+        desktop_section,
+        "html_desktop",
+        [str(x) for x in criteria_policy.get("html_desktop", []) if isinstance(x, str)],
+    )
+    validate_criteria(
+        mobile_section,
+        "html_mobile",
+        [str(x) for x in criteria_policy.get("html_mobile", []) if isinstance(x, str)],
+    )
+    validate_criteria(
+        pdf_section,
+        "pdf",
+        [str(x) for x in criteria_policy.get("pdf", []) if isinstance(x, str)],
+    )
+
+    segments = payload.get("html_segments")
+    segments_by_width: dict[int, list[str]] = {}
+    if isinstance(segments, list):
+        for raw in segments:
+            if not isinstance(raw, dict):
+                continue
+            width = _strict_int(raw.get("requested_width"))
+            screenshot = raw.get("screenshot")
+            if width is not None and isinstance(screenshot, str):
+                segments_by_width.setdefault(width, []).append(screenshot)
+
+    def validate_viewport_records(
+        section: Mapping[str, Any],
+        label: str,
+        widths: Sequence[int],
+    ) -> None:
+        rows = section.get("viewports")
+        if not isinstance(rows, list):
+            errors.append(f"tu_xem.{label}.viewports phải là list.")
+            return
+        by_width: dict[int, dict[str, Any]] = {}
+        for raw in rows:
+            if not isinstance(raw, dict):
+                errors.append(f"tu_xem.{label}.viewports chứa phần tử không phải mapping.")
+                continue
+            width = _strict_int(raw.get("width"))
+            if width is None:
+                errors.append(f"tu_xem.{label}.viewports có width không hợp lệ.")
+                continue
+            if width in by_width:
+                errors.append(f"tu_xem.{label}.viewports lặp width={width}.")
+                continue
+            by_width[width] = raw
+        if set(by_width) != set(int(x) for x in widths):
+            errors.append(
+                f"tu_xem.{label}.viewports phải khớp đúng viewport canonical: "
+                + ", ".join(map(str, widths))
+                + "."
+            )
+        for width in widths:
+            raw = by_width.get(int(width))
+            if raw is None:
+                continue
+            if raw.get("trang_thai") != "dat":
+                errors.append(f"tu_xem.{label}.viewports[{width}].trang_thai phải là dat.")
+            if raw.get("da_xem_den_cuoi") is not True:
+                errors.append(f"tu_xem.{label}.viewports[{width}].da_xem_den_cuoi phải là true.")
+            basis = raw.get("can_cu")
+            expected_segments = segments_by_width.get(int(width), [])
+            if not isinstance(basis, list) or basis != expected_segments:
+                errors.append(
+                    f"tu_xem.{label}.viewports[{width}].can_cu phải liệt kê đúng toàn bộ HTML segment "
+                    "machine-owned theo thứ tự report."
+                )
+
+    validate_viewport_records(desktop_section, "html_desktop", required_desktop_viewports)
+    validate_viewport_records(mobile_section, "html_mobile", required_mobile_viewports)
+
     if require_pdf_page_coverage:
         page_count, page_error = _pdf_page_count(root, target)
         if page_error is not None:
             errors.append(page_error)
         elif page_count is not None:
-            expected_pages = set(range(1, page_count + 1))
-            missing_pages = sorted(expected_pages - pdf_pages)
-            extra_pages = sorted(pdf_pages - expected_pages)
-            if missing_pages:
-                errors.append(
-                    "tu_xem.bang_chung chưa tham chiếu đủ mọi trang PDF; thiếu trang: "
-                    + ", ".join(map(str, missing_pages))
-                    + "."
-                )
-            if extra_pages:
-                errors.append(
-                    "tu_xem.bang_chung có số trang ngoài PDF hiện tại: "
-                    + ", ".join(map(str, extra_pages))
-                    + "."
-                )
+            rows = pdf_section.get("trang")
+            if not isinstance(rows, list):
+                errors.append("tu_xem.pdf.trang phải là list.")
+            else:
+                by_page: dict[int, dict[str, Any]] = {}
+                for raw in rows:
+                    if not isinstance(raw, dict):
+                        errors.append("tu_xem.pdf.trang chứa phần tử không phải mapping.")
+                        continue
+                    page = _strict_int(raw.get("so"))
+                    if page is None or page <= 0:
+                        errors.append("tu_xem.pdf.trang có số trang không hợp lệ.")
+                        continue
+                    if page in by_page:
+                        errors.append(f"tu_xem.pdf.trang lặp trang {page}.")
+                        continue
+                    by_page[page] = raw
+                expected_pages = set(range(1, page_count + 1))
+                if set(by_page) != expected_pages:
+                    errors.append("tu_xem.pdf.trang phải có đúng một bản ghi cho mọi trang PDF.")
+                for page in sorted(expected_pages):
+                    raw = by_page.get(page)
+                    if raw is None:
+                        continue
+                    if raw.get("trang_thai") != "dat":
+                        errors.append(f"tu_xem.pdf.trang[{page}].trang_thai phải là dat.")
+                    expected = (canonical_root / f"pdf_page_{page}.png").as_posix()
+                    if raw.get("can_cu") != expected:
+                        errors.append(f"tu_xem.pdf.trang[{page}].can_cu phải là {expected}.")
     return errors
-
 
 
 def _profile_template_shape_errors(
@@ -1007,6 +1280,203 @@ def _exercise_body_from_heading(body: str) -> str:
 
 def _exercise_content_sha256(body: str) -> str:
     return hashlib.sha256(_exercise_body_from_heading(body).encode("utf-8")).hexdigest()
+
+
+
+
+def _metadata_description_sha256(
+    metadata: Mapping[str, Any], fields: Sequence[str]
+) -> str:
+    payload = {
+        field: metadata.get(field)
+        for field in fields
+    }
+    normalized = json.dumps(
+        payload,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+    return hashlib.sha256(normalized.encode("utf-8")).hexdigest()
+
+
+def _source_without_fenced_or_inline_code(body: str) -> str:
+    """Remove fenced and inline-code regions before learner-source linting."""
+
+    kept: list[str] = []
+    fence_char: str | None = None
+    fence_len = 0
+    for line in body.replace("\r\n", "\n").replace("\r", "\n").split("\n"):
+        stripped = line.lstrip()
+        fence = re.match(r"^(`{3,}|~{3,})", stripped)
+        if fence_char is not None:
+            if fence and fence.group(1)[0] == fence_char and len(fence.group(1)) >= fence_len:
+                fence_char = None
+                fence_len = 0
+            kept.append("")
+            continue
+        if fence:
+            fence_char = fence.group(1)[0]
+            fence_len = len(fence.group(1))
+            kept.append("")
+            continue
+        # Inline code is not learner-facing math source and may legitimately show
+        # literal slash/Unicode examples.
+        kept.append(re.sub(r"`[^`\n]*`", "", line))
+    source = "\n".join(kept)
+    return re.sub(r"<!--.*?-->", "", source, flags=re.DOTALL)
+
+
+def _math_segments(body: str) -> list[str]:
+    """Return $...$ and $$...$$ payloads outside code regions."""
+
+    source = _source_without_fenced_or_inline_code(body)
+    pattern = re.compile(
+        r"(?<!\\)\$\$(.*?)(?<!\\)\$\$|(?<!\\)\$(.*?)(?<!\\)\$",
+        flags=re.DOTALL,
+    )
+    result: list[str] = []
+    for match in pattern.finditer(source):
+        result.append(match.group(1) if match.group(1) is not None else match.group(2))
+    return result
+
+
+def _unicode_math_violations(body: str, symbols: Sequence[str]) -> list[str]:
+    violations: set[str] = set()
+    for segment in _math_segments(body):
+        for symbol in symbols:
+            if symbol and symbol in segment:
+                violations.add(symbol)
+    return sorted(violations)
+
+
+def _fraction_source_violations(body: str) -> list[str]:
+    violations: set[str] = set()
+    for segment in _math_segments(body):
+        if "/" in segment:
+            violations.add("literal /")
+        if "\\dfrac" in segment:
+            violations.add("\\dfrac")
+        if "\\tfrac" in segment:
+            violations.add("\\tfrac")
+        if re.search(r"\\over\b", segment):
+            violations.add("\\over")
+    return sorted(violations)
+
+
+def _exercise_subitem_style_violations(body: str) -> list[str]:
+    exercise = _exercise_body_from_heading(body)
+    if not exercise:
+        return []
+    source = _source_without_fenced_or_inline_code(exercise)
+    return sorted(
+        set(
+            match.group(0).strip()
+            for match in re.finditer(r"(?m)^\s*[a-z]\)\s+", source)
+        )
+    )
+
+
+def _review_copy_paths(
+    root: Path, target: Path, project_root: Path, markers: Sequence[str]
+) -> list[str]:
+    normalized = [marker.casefold() for marker in markers if marker]
+    if not normalized:
+        return []
+    article_root = root / target.parent
+    figure_root = root / project_root / "_figures" / target.stem
+    found: set[str] = set()
+    for base in (article_root, figure_root):
+        if not base.exists():
+            continue
+        for path in base.rglob("*"):
+            if not path.is_file():
+                continue
+            try:
+                relative = path.relative_to(root)
+            except ValueError:
+                continue
+            name = path.name.casefold()
+            if base == article_root and not name.startswith(target.stem.casefold()):
+                continue
+            if any(marker in name for marker in normalized):
+                found.add(relative.as_posix())
+    return sorted(found)
+
+
+def _contains_tex_markup(value: Any) -> bool:
+    if not isinstance(value, str):
+        return False
+    return bool(re.search(r"\$|\\[A-Za-z]+|\\\(|\\\[", value))
+
+
+def _plain_metadata_incompatible_fields(metadata: Mapping[str, Any], plain_fields: Any) -> list[str]:
+    if not isinstance(plain_fields, list):
+        return []
+    return [field for field in plain_fields if isinstance(field, str) and field and _contains_tex_markup(metadata.get(field))]
+
+
+def pdf_plain_metadata_preflight_applies(root: Path, target: Path) -> bool:
+    """Return whether the new early PDF-string rule applies to this article.
+
+    Current/future production profiles use the new rule. Legacy profiles retain
+    their established checker/regression contract until they are migrated.
+    """
+    root = root.resolve()
+    target = Path(target)
+    if target.is_absolute():
+        try:
+            target = target.resolve().relative_to(root)
+        except ValueError as exc:
+            raise ReviewReadyError(f"Bài QMD nằm ngoài repository: {target.as_posix()}.") from exc
+
+    config = discover_project_config(root, target)
+    if config is None:
+        raise ReviewReadyError(f"Không tìm thấy cấu hình dự án cho {target.as_posix()}.")
+    article_type = config.article_type_for(target)
+    if article_type is None:
+        raise ReviewReadyError(f"Bài không khớp loại bài đã cấu hình: {target.as_posix()}.")
+
+    policy = _extension_policy(config.raw, article_type.id)
+    profile_policy = _mapping(policy.get("profile"))
+    required_version = profile_policy.get("required_version")
+    if not isinstance(required_version, int):
+        return True
+
+    profile_abs = root / config.profile_path_for(target)
+    if not profile_abs.is_file():
+        return False
+
+    profile = _load_yaml(profile_abs, "hồ sơ sản xuất")
+    version = profile.get("phien_ban_ho_so")
+    return isinstance(version, int) and version >= required_version
+
+
+def pdf_plain_metadata_violations(root: Path, target: Path) -> list[str]:
+    """Return configured PDF-string metadata fields that contain TeX."""
+    root = root.resolve()
+    target = Path(target)
+    if target.is_absolute():
+        try:
+            target = target.resolve().relative_to(root)
+        except ValueError as exc:
+            raise ReviewReadyError(f"Bài QMD nằm ngoài repository: {target.as_posix()}.") from exc
+    qmd = root / target
+    if not qmd.is_file():
+        raise ReviewReadyError(f"Không tìm thấy bài QMD: {target.as_posix()}.")
+    config = discover_project_config(root, target)
+    if config is None:
+        raise ReviewReadyError(f"Không tìm thấy cấu hình dự án cho {target.as_posix()}.")
+    article_type = config.article_type_for(target)
+    if article_type is None:
+        raise ReviewReadyError(f"Bài không khớp loại bài đã cấu hình: {target.as_posix()}.")
+    policy = _extension_policy(config.raw, article_type.id)
+    pdf_policy = _mapping(policy.get("pdf"))
+    text = qmd.read_text(encoding="utf-8")
+    metadata, _body, error = split_qmd_front_matter(text)
+    if error or metadata is None:
+        raise ReviewReadyError(error or "Không đọc được YAML front matter.")
+    return _plain_metadata_incompatible_fields(metadata, pdf_policy.get("plain_metadata_fields", []))
 
 
 def _exercise_section_headings(body: str) -> tuple[bool, list[tuple[str, list[int]]], list[tuple[int, str]], list[str]]:
@@ -1409,6 +1879,92 @@ def _exercise_contract_evaluation(
 
     return findings, gate_status
 
+def _authoring_quality_self_review_errors(
+    profile: Mapping[str, Any],
+    policy: Mapping[str, Any],
+) -> list[str]:
+    """Validate completion/evidence of agent-owned authoring-quality self-review."""
+
+    errors: list[str] = []
+    profile_key = str(policy.get("profile_key") or "tu_kiem_noi_dung")
+    review = _mapping(profile.get(profile_key))
+    required_sections = _mapping(policy.get("required_criteria"))
+    section_status = str(policy.get("required_section_status") or "dat")
+    criterion_status = str(policy.get("required_criterion_status") or "dat")
+    require_evidence = _truthy(policy.get("require_criterion_evidence"))
+
+    if not required_sections:
+        return [f"{profile_key}: authoring_quality.required_criteria rỗng hoặc không hợp lệ."]
+
+    for section_name, raw_ids in required_sections.items():
+        if not isinstance(section_name, str) or not section_name:
+            errors.append(f"{profile_key}: tên section tự kiểm không hợp lệ.")
+            continue
+        if not isinstance(raw_ids, list) or not raw_ids or not all(
+            isinstance(value, str) and value for value in raw_ids
+        ):
+            errors.append(
+                f"{profile_key}.{section_name}: danh sách required_criteria không hợp lệ."
+            )
+            continue
+
+        section = _mapping(review.get(section_name))
+        if not section:
+            errors.append(f"{profile_key}.{section_name}: thiếu section tự kiểm.")
+            continue
+        if section.get("trang_thai") != section_status:
+            errors.append(
+                f"{profile_key}.{section_name}.trang_thai phải bằng {section_status!r}."
+            )
+
+        criteria = section.get("tieu_chi", [])
+        if not isinstance(criteria, list):
+            errors.append(f"{profile_key}.{section_name}.tieu_chi phải là danh sách.")
+            continue
+        by_id: dict[str, Mapping[str, Any]] = {}
+        for item in criteria:
+            item_map = _mapping(item)
+            item_id = item_map.get("id")
+            if isinstance(item_id, str) and item_id:
+                by_id[item_id] = item_map
+
+        for criterion_id in raw_ids:
+            item = by_id.get(criterion_id)
+            if item is None:
+                errors.append(
+                    f"{profile_key}.{section_name}: thiếu tiêu chí {criterion_id}."
+                )
+                continue
+            if item.get("trang_thai") != criterion_status:
+                errors.append(
+                    f"{profile_key}.{section_name}.{criterion_id}.trang_thai "
+                    f"phải bằng {criterion_status!r}."
+                )
+            if require_evidence:
+                evidence = item.get("can_cu", [])
+                evidence_ok = (
+                    isinstance(evidence, list)
+                    and bool(evidence)
+                    and all(
+                        isinstance(value, str) and bool(value.strip())
+                        for value in evidence
+                    )
+                )
+                if not evidence_ok:
+                    errors.append(
+                        f"{profile_key}.{section_name}.{criterion_id}.can_cu "
+                        "phải có ít nhất một căn cứ cụ thể."
+                    )
+            action = item.get("hanh_dong_sua")
+            if action not in (None, ""):
+                errors.append(
+                    f"{profile_key}.{section_name}.{criterion_id}.hanh_dong_sua "
+                    "phải rỗng trước Human Review."
+                )
+
+    return errors
+
+
 def _relation_records_valid(profile: Mapping[str, Any]) -> tuple[bool, str]:
     records = profile.get("kiem_tra_quan_he_trung_tam", [])
     if not isinstance(records, list) or not records:
@@ -1627,6 +2183,24 @@ def evaluate_review_ready(
                     session_rel,
                 )
 
+    review_copy_markers = lifecycle.get("forbidden_review_copy_markers", [])
+    if isinstance(review_copy_markers, list):
+        copy_paths = _review_copy_paths(
+            root,
+            target,
+            config.project_root,
+            [str(value) for value in review_copy_markers if isinstance(value, str)],
+        )
+        add(
+            "human-review-copy-storage",
+            not copy_paths,
+            "Không có bản sao Human Review trong vùng production của candidate."
+            if not copy_paths
+            else "Bản sao Human Review phải nằm ngoài production worktree; phát hiện: "
+            + ", ".join(copy_paths),
+            target.parent,
+        )
+
     try:
         text = qmd.read_text(encoding="utf-8")
     except (OSError, UnicodeError) as exc:
@@ -1814,6 +2388,34 @@ def evaluate_review_ready(
                 except FreshnessError as exc:
                     add("pdf-download-freshness", False, str(exc), pdf_rel)
 
+                if _truthy(pdf_policy.get("require_canonical_build_receipt")):
+                    receipt = pdf_build_receipt_path(root, qmd)
+                    receipt_errors = validate_pdf_build_receipt(
+                        root,
+                        qmd,
+                        pdf_abs,
+                        receipt,
+                    )
+                    add(
+                        "pdf-canonical-build-receipt",
+                        not receipt_errors,
+                        "PDF có build receipt canonical khớp QMD, PDF và toàn bộ pipeline inputs."
+                        if not receipt_errors
+                        else "; ".join(receipt_errors),
+                        receipt.relative_to(root),
+                    )
+
+        plain_fields = pdf_policy.get("plain_metadata_fields", [])
+        incompatible = _plain_metadata_incompatible_fields(metadata, plain_fields)
+        add(
+            "pdf-metadata-latex-compatibility",
+            not incompatible,
+            "Các trường metadata PDF-string dùng văn bản thuần."
+            if not incompatible
+            else "Không được chứa TeX trong metadata PDF-string: " + ", ".join(incompatible),
+            target,
+        )
+
     graph_policy = _mapping(policy.get("function_graph"))
     if _truthy(graph_policy.get("required")):
         resources = _mapping(profile.get("tai_nguyen_hinh"))
@@ -1979,7 +2581,13 @@ def evaluate_review_ready(
         else ()
     )
     if _truthy(visual_policy.get("require_machine_measurements")):
-        machine_visual_errors = _machine_visual_errors(root, target, required_mobile_viewports, required_desktop_viewports)
+        machine_visual_errors = _machine_visual_errors(
+            root,
+            target,
+            required_mobile_viewports,
+            required_desktop_viewports,
+            require_full_html_capture=_truthy(visual_policy.get("require_full_html_capture")),
+        )
         add(
             "machine-visual-viewport-evidence",
             not machine_visual_errors,
@@ -1989,20 +2597,87 @@ def evaluate_review_ready(
             Path("_audit") / f"{target.stem}_visual" / "html_mobile_measurements.json",
         )
 
+    visual_quality_status = "NOT_REQUIRED"
     if _truthy(profile_policy.get("require_self_view_evidence")):
         self_view_errors = _self_view_errors(
             root,
             profile,
             target,
             required_mobile_viewports=required_mobile_viewports,
+            required_desktop_viewports=required_desktop_viewports,
             require_pdf_page_coverage=_truthy(profile_policy.get("require_pdf_page_coverage")),
+            require_structured_self_review=_truthy(visual_policy.get("require_structured_self_review")),
+            required_self_review_criteria=_mapping(visual_policy.get("required_self_review_criteria")),
         )
+        visual_quality_status = "PASS" if not self_view_errors else "FAIL"
         add(
             "profile-agent-self-view-evidence",
             not self_view_errors,
-            "Agent self-view có bằng chứng canonical cho desktop, mobile và toàn bộ các trang PDF."
+            "Agent self-view có cấu trúc, bao phủ toàn bộ HTML canonical và mọi trang PDF."
             if not self_view_errors
             else "; ".join(self_view_errors),
+            profile_rel,
+        )
+
+    authoring_quality_status = "NOT_REQUIRED"
+    authoring_quality_policy = _mapping(policy.get("authoring_quality"))
+    if _truthy(authoring_quality_policy.get("required")):
+        authoring_quality_errors = _authoring_quality_self_review_errors(
+            profile, authoring_quality_policy
+        )
+        authoring_quality_ok = not authoring_quality_errors
+        authoring_quality_status = "PASS" if authoring_quality_ok else "FAIL"
+        add(
+            "authoring-quality-self-review",
+            authoring_quality_ok,
+            "Agent đã hoàn tất toàn bộ tự kiểm chất lượng biên tập bắt buộc và ghi căn cứ cụ thể."
+            if authoring_quality_ok
+            else "; ".join(authoring_quality_errors),
+            profile_rel,
+        )
+
+    metadata_sync_status = "NOT_REQUIRED"
+    metadata_sync_policy = _mapping(policy.get("metadata_sync"))
+    if _truthy(metadata_sync_policy.get("required")):
+        profile_key = metadata_sync_policy.get("profile_key", "dong_bo_metadata")
+        sync_record = _mapping(profile.get(str(profile_key)))
+        fields = metadata_sync_policy.get("descriptive_fields", [])
+        descriptive_fields = (
+            [str(value) for value in fields if isinstance(value, str) and value]
+            if isinstance(fields, list)
+            else []
+        )
+        required_status = metadata_sync_policy.get("required_agent_status", "dat")
+        current_academic_hash = _academic_content_sha256(body)
+        current_metadata_hash = _metadata_description_sha256(metadata, descriptive_fields)
+        stored_academic = sync_record.get("noi_dung_hoc_thuat_sha256")
+        stored_metadata = sync_record.get("metadata_mo_ta_sha256")
+        status_ok = sync_record.get("trang_thai") == required_status
+        academic_ok = (
+            isinstance(stored_academic, str)
+            and bool(re.fullmatch(r"[0-9a-fA-F]{64}", stored_academic.strip()))
+            and stored_academic.strip().lower() == current_academic_hash
+        )
+        metadata_ok = (
+            isinstance(stored_metadata, str)
+            and bool(re.fullmatch(r"[0-9a-fA-F]{64}", stored_metadata.strip()))
+            and stored_metadata.strip().lower() == current_metadata_hash
+        )
+        metadata_sync_ok = status_ok and academic_ok and metadata_ok
+        metadata_sync_status = "PASS" if metadata_sync_ok else "FAIL"
+        detail: list[str] = []
+        if not status_ok:
+            detail.append(f"{profile_key}.trang_thai phải bằng {required_status!r}")
+        if not academic_ok:
+            detail.append("fingerprint nội dung học thuật đã stale hoặc thiếu")
+        if not metadata_ok:
+            detail.append("fingerprint metadata mô tả đã stale hoặc thiếu")
+        add(
+            "post-content-metadata-sync",
+            metadata_sync_ok,
+            "Metadata mô tả đã được agent tái duyệt trên đúng nội dung học thuật hiện hành."
+            if metadata_sync_ok
+            else "; ".join(detail),
             profile_rel,
         )
 
@@ -2034,6 +2709,17 @@ def evaluate_review_ready(
             else "Sau H2 Bài tập còn có H2 học thuật khác; Bài tập phải là H2 cuối.",
             target,
         )
+    forbidden_public_headings = semantic.get("forbidden_public_heading_exact", [])
+    if isinstance(forbidden_public_headings, list):
+        forbidden_heading_set = {value.casefold().strip() for value in forbidden_public_headings if isinstance(value, str) and value.strip()}
+        found_headings = sorted({title for title in _markdown_heading_titles(body) if title in forbidden_heading_set})
+        add(
+            "semantic-forbidden-public-heading",
+            not found_headings,
+            "Không dùng nhãn vận hành nội bộ làm heading công khai." if not found_headings else "Heading công khai không được dùng nhãn vận hành nội bộ: " + ", ".join(found_headings) + ".",
+            target,
+        )
+
     forbidden_tokens = semantic.get("forbidden_source_tokens", [])
     if isinstance(forbidden_tokens, list):
         found_tokens = [token for token in forbidden_tokens if isinstance(token, str) and token and token in text]
@@ -2045,6 +2731,48 @@ def evaluate_review_ready(
             else "Phát hiện token bị cấm: " + ", ".join(found_tokens) + ".",
             target,
         )
+
+    raw_unicode_symbols = semantic.get("forbidden_unicode_math_symbols", [])
+    if isinstance(raw_unicode_symbols, list):
+        unicode_symbols = [
+            str(value) for value in raw_unicode_symbols
+            if isinstance(value, str) and value
+        ]
+        unicode_violations = _unicode_math_violations(body, unicode_symbols)
+        add(
+            "latex-symbol-source",
+            not unicode_violations,
+            "Math source dùng lệnh LaTeX thay cho Unicode operator."
+            if not unicode_violations
+            else "Phát hiện Unicode operator trong math source: "
+            + ", ".join(unicode_violations),
+            target,
+        )
+
+    if _truthy(semantic.get("require_frac_command")):
+        fraction_violations = _fraction_source_violations(body)
+        add(
+            "latex-fraction-contract",
+            not fraction_violations,
+            "Phân số trong math source dùng \\frac{...}{...}."
+            if not fraction_violations
+            else "Phát hiện cú pháp phân số ngoài contract: "
+            + ", ".join(fraction_violations),
+            target,
+        )
+
+    if _truthy(semantic.get("require_exercise_subitem_dot_style")):
+        subitem_violations = _exercise_subitem_style_violations(body)
+        add(
+            "exercise-subitem-style",
+            not subitem_violations,
+            "Tiểu mục bài tập dùng a., b., c. thay cho a), b), c)."
+            if not subitem_violations
+            else "Phát hiện tiểu mục dùng dấu ngoặc: "
+            + ", ".join(subitem_violations),
+            target,
+        )
+
     prime_violations = sorted(set(re.findall(r"(?<!\\)\b[A-Za-z][A-Za-z0-9_]*'{1,2}\s*\(", body)))
     add(
         "latex-prime-notation",
@@ -2118,6 +2846,9 @@ def evaluate_review_ready(
         "article_type": article_type.id,
         "target": target.as_posix(),
         "profile": profile_rel.as_posix(),
+        "metadata_sync": metadata_sync_status,
+        "authoring_quality": authoring_quality_status,
+        "visual_quality": visual_quality_status,
         "checks": [item.__dict__ for item in checks],
         "exercise_contract": exercise_gate_status,
         "automated_result": "FAIL" if failed else "PASS",
@@ -2198,6 +2929,39 @@ def command_exercise_hash(root: Path, raw_path: str) -> int:
     return EXIT_OK
 
 
+def command_metadata_hash(root: Path, raw_path: str) -> int:
+    target = _relative_to_root(root, raw_path)
+    qmd = root / target
+    if not qmd.is_file():
+        raise ReviewReadyError(f"Không tìm thấy bài QMD: {target.as_posix()}.")
+    config = discover_project_config(root, target)
+    if config is None:
+        raise ReviewReadyError(f"Không tìm thấy cấu hình dự án cho {target.as_posix()}.")
+    article_type = config.article_type_for(target)
+    if article_type is None:
+        raise ReviewReadyError(f"Bài không khớp loại bài đã cấu hình: {target.as_posix()}.")
+    policy = _extension_policy(config.raw, article_type.id)
+    sync_policy = _mapping(policy.get("metadata_sync"))
+    fields = sync_policy.get("descriptive_fields", [])
+    descriptive_fields = (
+        [str(value) for value in fields if isinstance(value, str) and value]
+        if isinstance(fields, list)
+        else []
+    )
+    text = qmd.read_text(encoding="utf-8")
+    metadata, body, error = split_qmd_front_matter(text)
+    if error or metadata is None:
+        raise ReviewReadyError(error or "Không đọc được YAML front matter.")
+    print(f"TARGET={target.as_posix()}")
+    print(f"METADATA_ACADEMIC_CONTENT_SHA256={_academic_content_sha256(body)}")
+    print(
+        "METADATA_DESCRIPTION_SHA256="
+        + _metadata_description_sha256(metadata, descriptive_fields)
+    )
+    print("METADATA_DESCRIPTION_FIELDS=" + ",".join(descriptive_fields))
+    return EXIT_OK
+
+
 def _self_test() -> None:
     if yaml is None:
         raise RuntimeError("Thiếu PyYAML.")
@@ -2255,7 +3019,11 @@ def _self_test() -> None:
                     "article_types": {
                         "function_article": {
                             "navigation": {"explicit_sidebar_required": True, "quarto_config": "_quarto.yml"},
-                            "pdf": {"download_required": True},
+                            "pdf": {
+                                "download_required": True,
+                                "require_canonical_build_receipt": True,
+                                "plain_metadata_fields": ["title-meta", "pagetitle", "summary", "description"],
+                            },
                             "lifecycle": {
                                 "require_session_manifest": True,
                                 "auto_scope": True,
@@ -2263,6 +3031,11 @@ def _self_test() -> None:
                                 "require_clean_candidate_scope_at_start": True,
                                 "enforce_scope_delta": True,
                                 "require_authority_snapshot": True,
+                                "forbidden_review_copy_markers": [
+                                    "human_review",
+                                    "owner_review",
+                                    "review_copy",
+                                ],
                             },
                             "function_graph": {
                                 "required": True,
@@ -2273,17 +3046,25 @@ def _self_test() -> None:
                             },
                             "visual": {
                                 "require_machine_measurements": True,
+                                "require_full_html_capture": True,
+                                "require_structured_self_review": True,
                                 "required_mobile_viewports": [390, 430],
                                 "required_desktop_viewports": [1440],
+                                "required_self_review_criteria": {
+                                    "html_desktop": ["VD01"],
+                                    "html_mobile": ["VM01"],
+                                    "pdf": ["VP01", "VP02"],
+                                },
                             },
                             "profile": {
-                                "required_version": 6,
+                                "required_version": 10,
                                 "required_top_level": [
                                     "tai_lieu_dieu_khien",
                                     "tai_nguyen_hinh",
                                     "he_thong_bai_tap",
                                     "kiem_tra_quan_he_trung_tam",
                                     "tu_kiem_noi_dung",
+                                    "dong_bo_metadata",
                                     "tu_xem",
                                     "van_de_he_thong",
                                 ],
@@ -2291,6 +3072,28 @@ def _self_test() -> None:
                                 "require_check_and_render_evidence": True,
                                 "require_self_view_evidence": True,
                                 "require_pdf_page_coverage": True,
+                            },
+                            "metadata_sync": {
+                                "required": True,
+                                "profile_key": "dong_bo_metadata",
+                                "required_agent_status": "dat",
+                                "descriptive_fields": [
+                                    "subtitle",
+                                    "summary",
+                                    "description",
+                                    "abstract",
+                                    "keywords",
+                                ],
+                            },
+                            "authoring_quality": {
+                                "required": True,
+                                "profile_key": "tu_kiem_noi_dung",
+                                "required_section_status": "dat",
+                                "required_criterion_status": "dat",
+                                "require_criterion_evidence": True,
+                                "required_criteria": {
+                                    "mach_giai_thich": ["MG10"],
+                                },
                             },
                             "exercise_contract": {
                                 "required": True,
@@ -2313,6 +3116,7 @@ def _self_test() -> None:
                             "semantic": {
                                 "require_relation_records_when_triggered": True,
                                 "require_exercises_last_h2": True,
+                                "forbidden_public_heading_exact": ["kết tinh"],
                                 "forbidden_source_tokens": ["\\longmapsto", "\\Longleftrightarrow", "\\iff"],
                                 "forbidden_ambiguous_phrases": [
                                     "giữ độ lớn",
@@ -2320,6 +3124,12 @@ def _self_test() -> None:
                                     "bảo toàn độ lớn",
                                     "không xóa độ lớn",
                                 ],
+                                "forbidden_unicode_math_symbols": [
+                                    "∞", "≤", "≥", "≠", "→", "↦", "⇔",
+                                    "∈", "∉", "∅", "∪", "∩", "√", "±", "×", "·",
+                                ],
+                                "require_frac_command": True,
+                                "require_exercise_subitem_dot_style": True,
                             },
                         }
                     },
@@ -2340,7 +3150,7 @@ def _self_test() -> None:
         qmd = root / target
         qmd.parent.mkdir(parents=True, exist_ok=True)
         qmd.write_text(
-            "---\ntitle: Test\nsubtitle: \"Đầu ra xác định được từ quan hệ này\"\nzo-pdf-download:\n  href: test.pdf\n---\n\n"
+            "---\ntitle: Test\ntitle-meta: \"Test\"\npagetitle: \"Test\"\nsubtitle: \"Đầu ra xác định được từ quan hệ này\"\nsummary: \"Quan hệ trung tâm của bài.\"\ndescription: \"Bài làm rõ quan hệ trung tâm và hệ quả.\"\nabstract: \"Quan hệ trung tâm được khảo sát theo mạch lập luận.\"\nkeywords:\n  - quan hệ\nzo-pdf-download:\n  href: test.pdf\n---\n\n"
             "Quan hệ này xác định được từ đầu ra.\n\n"
             "![](%s){fig-alt=\"Đồ thị thử\"}\n\n"
             "## Bài tập\n\n"
@@ -2402,6 +3212,13 @@ def _self_test() -> None:
         (root / graph_src).write_text(graph_source_text, encoding="utf-8")
         (root / graph_pdf).write_bytes(b"%PDF-1.4\ngraph\n")
         (root / graph_svg).write_text("<svg xmlns='http://www.w3.org/2000/svg'></svg>\n", encoding="utf-8")
+        for pipeline_input in CANONICAL_PDF_PIPELINE_INPUTS:
+            pipeline_file = root / pipeline_input
+            pipeline_file.parent.mkdir(parents=True, exist_ok=True)
+            pipeline_file.write_text(
+                f"self-test pipeline input: {pipeline_input.as_posix()}\n",
+                encoding="utf-8",
+            )
         article_pdf = root / target.with_suffix(".pdf")
 
         def write_blank_pdf(path: Path, page_count: int) -> None:
@@ -2430,12 +3247,13 @@ def _self_test() -> None:
             path.write_bytes(bytes(data))
 
         write_blank_pdf(article_pdf, 2)
+        pdf_receipt = write_pdf_build_receipt(root, qmd, article_pdf)
         html = root / "docs" / target.with_suffix(".html")
         html.parent.mkdir(parents=True, exist_ok=True)
         html.write_text('<html><nav id="quarto-sidebar"></nav></html>\n', encoding="utf-8")
 
         audit = root / "_audit"
-        audit.mkdir()
+        audit.mkdir(exist_ok=True)
         for mode, name in (("scope", "test_check.json"), ("render", "test_render.json")):
             (audit / name).write_text(
                 json.dumps(
@@ -2450,9 +3268,6 @@ def _self_test() -> None:
             )
         visual = audit / "test_visual"
         visual.mkdir()
-        (visual / "html-desktop.png").write_bytes(b"visual-evidence\n")
-        (visual / "pdf_page_1.png").write_bytes(b"visual-evidence\n")
-        (visual / "pdf_page_2.png").write_bytes(b"visual-evidence\n")
 
         def write_png_stub(path: Path, width: int, height: int) -> None:
             path.write_bytes(
@@ -2464,10 +3279,16 @@ def _self_test() -> None:
                 + b"\x08\x06\x00\x00\x00"
             )
 
+        write_png_stub(visual / "pdf_page_1.png", 612, 792)
+        write_png_stub(visual / "pdf_page_2.png", 612, 792)
+
         visual_records: list[dict[str, Any]] = []
+        html_segments: list[dict[str, Any]] = []
         for viewport_class, width in (("mobile", 390), ("mobile", 430), ("desktop", 1440)):
             screenshot = visual / f"html_{viewport_class}_{width}.png"
+            segment = visual / f"html_{viewport_class}_{width}_part_001.png"
             write_png_stub(screenshot, width, 1000)
+            write_png_stub(segment, width, 1000)
             visual_records.append(
                 {
                     "viewport_class": viewport_class,
@@ -2476,6 +3297,7 @@ def _self_test() -> None:
                     "window_inner_width": width,
                     "document_client_width": width,
                     "document_scroll_width": width,
+                    "document_scroll_height": 1000,
                     "horizontal_overflow": False,
                     "overflow_px": 0,
                     "offender_count": 0,
@@ -2483,6 +3305,19 @@ def _self_test() -> None:
                     "screenshot": f"_audit/test_visual/html_{viewport_class}_{width}.png",
                     "screenshot_sha256": _sha256_file(screenshot),
                     "passed": True,
+                }
+            )
+            html_segments.append(
+                {
+                    "viewport_class": viewport_class,
+                    "requested_width": width,
+                    "segment_index": 1,
+                    "requested_top": 0,
+                    "actual_top": 0,
+                    "requested_height": 1000,
+                    "document_scroll_height": 1000,
+                    "screenshot": f"_audit/test_visual/html_{viewport_class}_{width}_part_001.png",
+                    "screenshot_sha256": _sha256_file(segment),
                 }
             )
         visual_report = visual / "html_mobile_measurements.json"
@@ -2497,6 +3332,7 @@ def _self_test() -> None:
                     "required_mobile_viewports": [390, 430],
                     "required_desktop_viewports": [1440],
                     "measurements": visual_records,
+                    "html_segments": html_segments,
                     "rendered_pdf": target.with_suffix(".pdf").as_posix(),
                     "rendered_pdf_sha256": _sha256_file(article_pdf),
                     "pdf_page_count": 2,
@@ -2514,7 +3350,7 @@ def _self_test() -> None:
             encoding="utf-8",
         )
         profile = {
-            "phien_ban_ho_so": 6,
+            "phien_ban_ho_so": 10,
             "tai_lieu_dieu_khien": {
                 "quy_chuan_do_thi": {"kich_hoat": True, "da_doc": True},
                 "quy_chuan_he_bai_tap": {
@@ -2560,18 +3396,104 @@ def _self_test() -> None:
             "kiem_tra_quan_he_trung_tam": [
                 {"phat_bieu": "Đầu ra xác định được đại lượng.", "phep_thu": "Dựng công thức khôi phục.", "ket_luan": "Có công thức khôi phục.", "trang_thai": "dat"}
             ],
-            "tu_kiem_noi_dung": {},
+            "tu_kiem_noi_dung": {
+                "mach_giai_thich": {
+                    "trang_thai": "dat",
+                    "tieu_chi": [
+                        {
+                            "id": "MG10",
+                            "noi_dung": "ham_phu_va_ten_phu_chi_dung_khi_giam_tai_nhan_thuc",
+                            "trang_thai": "dat",
+                            "can_cu": ["Không dùng tên phụ trong bài self-test; quan hệ được viết trực tiếp."],
+                            "hanh_dong_sua": None,
+                        }
+                    ],
+                }
+            },
+            "dong_bo_metadata": {
+                "trang_thai": "dat",
+                "noi_dung_hoc_thuat_sha256": None,
+                "metadata_mo_ta_sha256": None,
+            },
             "tu_xem": {
                 "trang_thai": "dat",
-                "html_desktop": "dat",
-                "html_mobile": "dat",
-                "pdf": "dat",
+                "html_desktop": {
+                    "trang_thai": "dat",
+                    "viewports": [
+                        {
+                            "width": 1440,
+                            "trang_thai": "dat",
+                            "da_xem_den_cuoi": True,
+                            "can_cu": ["_audit/test_visual/html_desktop_1440_part_001.png"],
+                        }
+                    ],
+                    "tieu_chi": [
+                        {
+                            "id": "VD01",
+                            "noi_dung": "da_xem_toan_bai_theo_bang_chung_machine_owned",
+                            "trang_thai": "dat",
+                            "can_cu": ["_audit/test_visual/html_desktop_1440_part_001.png"],
+                            "hanh_dong_sua": None,
+                        }
+                    ],
+                },
+                "html_mobile": {
+                    "trang_thai": "dat",
+                    "viewports": [
+                        {
+                            "width": 390,
+                            "trang_thai": "dat",
+                            "da_xem_den_cuoi": True,
+                            "can_cu": ["_audit/test_visual/html_mobile_390_part_001.png"],
+                        },
+                        {
+                            "width": 430,
+                            "trang_thai": "dat",
+                            "da_xem_den_cuoi": True,
+                            "can_cu": ["_audit/test_visual/html_mobile_430_part_001.png"],
+                        },
+                    ],
+                    "tieu_chi": [
+                        {
+                            "id": "VM01",
+                            "noi_dung": "da_xem_toan_bai_o_cac_viewport_mobile_canonical",
+                            "trang_thai": "dat",
+                            "can_cu": [
+                                "_audit/test_visual/html_mobile_390_part_001.png",
+                                "_audit/test_visual/html_mobile_430_part_001.png",
+                            ],
+                            "hanh_dong_sua": None,
+                        }
+                    ],
+                },
+                "pdf": {
+                    "trang_thai": "dat",
+                    "trang": [
+                        {"so": 1, "trang_thai": "dat", "can_cu": "_audit/test_visual/pdf_page_1.png"},
+                        {"so": 2, "trang_thai": "dat", "can_cu": "_audit/test_visual/pdf_page_2.png"},
+                    ],
+                    "tieu_chi": [
+                        {
+                            "id": "VP01",
+                            "noi_dung": "da_xem_du_tat_ca_trang_pdf",
+                            "trang_thai": "dat",
+                            "can_cu": ["_audit/test_visual/pdf_page_1.png", "_audit/test_visual/pdf_page_2.png"],
+                            "hanh_dong_sua": None,
+                        },
+                        {
+                            "id": "VP02",
+                            "noi_dung": "khoi_noi_dung_khong_bi_cat_hoac_vo_bat_hop_li",
+                            "trang_thai": "dat",
+                            "can_cu": ["_audit/test_visual/pdf_page_1.png", "_audit/test_visual/pdf_page_2.png"],
+                            "hanh_dong_sua": None,
+                        },
+                    ],
+                },
                 "bang_chung": [
-                    "_audit/test_visual/html-desktop.png",
+                    "_audit/test_visual/html_mobile_measurements.json",
+                    "_audit/test_visual/html_desktop_1440.png",
                     "_audit/test_visual/html_mobile_390.png",
                     "_audit/test_visual/html_mobile_430.png",
-                    "_audit/test_visual/pdf_page_1.png",
-                    "_audit/test_visual/pdf_page_2.png",
                 ],
                 "canh_bao": [],
             },
@@ -2587,6 +3509,18 @@ def _self_test() -> None:
         profile["he_thong_bai_tap"]["hop_dong"]["dong_bo"][
             "noi_dung_bai_tap_sha256"
         ] = _exercise_content_sha256(academic_body)
+        metadata_policy = config["extensions"]["human_review_gate"]["article_types"][
+            "function_article"
+        ]["metadata_sync"]
+        profile["dong_bo_metadata"]["noi_dung_hoc_thuat_sha256"] = (
+            _academic_content_sha256(academic_body)
+        )
+        profile["dong_bo_metadata"]["metadata_mo_ta_sha256"] = (
+            _metadata_description_sha256(
+                _metadata,
+                metadata_policy["descriptive_fields"],
+            )
+        )
         _write_yaml(root / profile_rel, profile)
 
         # Commit source + generated artifacts together so freshness is Git-stable.
@@ -2639,11 +3573,156 @@ def _self_test() -> None:
 
         checks, payload = evaluate_review_ready(root, target, root / session_rel)
         assert payload["exit_code"] == 0, [item for item in checks if not item.passed]
+        assert payload["metadata_sync"] == "PASS"
+        assert payload["authoring_quality"] == "PASS"
+        assert any(
+            item.name == "authoring-quality-self-review" and item.passed
+            for item in checks
+        )
         assert payload["exercise_contract"] == {
             "CORE_RECONSTRUCTION": "PASS",
             "CORE_DEVELOPMENT": "PASS",
             "EXERCISE_CONTENT_SYNC": "PASS",
         }
+        assert any(
+            item.name == "pdf-canonical-build-receipt" and item.passed
+            for item in checks
+        )
+        assert any(
+            item.name == "pdf-metadata-latex-compatibility" and item.passed
+            for item in checks
+        )
+        assert any(item.name == "latex-symbol-source" and item.passed for item in checks)
+        assert any(item.name == "latex-fraction-contract" and item.passed for item in checks)
+        assert any(item.name == "exercise-subitem-style" and item.passed for item in checks)
+        assert any(item.name == "human-review-copy-storage" and item.passed for item in checks)
+
+        # Authoring-quality self-review without concrete evidence must block.
+        quality_evidence = profile["tu_kiem_noi_dung"]["mach_giai_thich"]["tieu_chi"][0]["can_cu"]
+        profile["tu_kiem_noi_dung"]["mach_giai_thich"]["tieu_chi"][0]["can_cu"] = []
+        _write_yaml(root / profile_rel, profile)
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert payload["authoring_quality"] == "FAIL"
+        assert any(
+            item.name == "authoring-quality-self-review" and not item.passed
+            for item in checks
+        )
+        profile["tu_kiem_noi_dung"]["mach_giai_thich"]["tieu_chi"][0]["can_cu"] = quality_evidence
+        _write_yaml(root / profile_rel, profile)
+
+        # Canonical PDF provenance is mandatory. A missing receipt must block.
+        receipt_backup = pdf_receipt.read_bytes()
+        pdf_receipt.unlink()
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(
+            item.name == "pdf-canonical-build-receipt" and not item.passed
+            for item in checks
+        )
+        pdf_receipt.write_bytes(receipt_backup)
+
+        # Drift in any canonical PDF pipeline input invalidates the receipt.
+        pipeline_probe = root / CANONICAL_PDF_PIPELINE_INPUTS[0]
+        pipeline_backup = pipeline_probe.read_bytes()
+        pipeline_probe.write_bytes(pipeline_backup + b"drift\n")
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(
+            item.name == "pdf-canonical-build-receipt" and not item.passed
+            for item in checks
+        )
+        pipeline_probe.write_bytes(pipeline_backup)
+
+        # Human Review copies belong outside production candidate directories.
+        review_copy = qmd.parent / "test_human_review.pdf"
+        review_copy.write_bytes(b"%PDF-1.4\nreview-copy\n")
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(
+            item.name == "human-review-copy-storage" and not item.passed
+            for item in checks
+        )
+        review_copy.unlink()
+
+        baseline_qmd_text = qmd.read_text(encoding="utf-8")
+
+        # Metadata-only drift must invalidate post-content metadata synchronization.
+        qmd.write_text(
+            baseline_qmd_text.replace(
+                'summary: "Quan hệ trung tâm của bài."',
+                'summary: "Quan hệ trung tâm của bài đã được diễn đạt lại."',
+            ),
+            encoding="utf-8",
+        )
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(
+            item.name == "post-content-metadata-sync" and not item.passed
+            for item in checks
+        )
+        qmd.write_text(baseline_qmd_text, encoding="utf-8")
+
+        # Plain PDF metadata must not carry raw TeX.
+        qmd.write_text(
+            baseline_qmd_text.replace(
+                'title-meta: "Test"',
+                'title-meta: "$x$"',
+            ),
+            encoding="utf-8",
+        )
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(
+            item.name == "pdf-metadata-latex-compatibility" and not item.passed
+            for item in checks
+        )
+        assert "title-meta" in pdf_plain_metadata_violations(root, target)
+        qmd.write_text(
+            baseline_qmd_text.replace(
+                'summary: "Quan hệ trung tâm của bài."',
+                'summary: "Quan hệ $x$ của bài."',
+            ),
+            encoding="utf-8",
+        )
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(item.name == "pdf-metadata-latex-compatibility" and not item.passed for item in checks)
+        assert "summary" in pdf_plain_metadata_violations(root, target)
+        qmd.write_text(baseline_qmd_text, encoding="utf-8")
+
+        # Unicode operators inside math source must use LaTeX commands instead.
+        qmd.write_text(baseline_qmd_text + "\n$x → ∞$.\n", encoding="utf-8")
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(item.name == "latex-symbol-source" and not item.passed for item in checks)
+        qmd.write_text(baseline_qmd_text, encoding="utf-8")
+
+        # Inline quotient source must use \frac rather than slash/dfrac/tfrac.
+        qmd.write_text(baseline_qmd_text + "\n$x/2$.\n", encoding="utf-8")
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(
+            item.name == "latex-fraction-contract" and not item.passed
+            for item in checks
+        )
+        qmd.write_text(baseline_qmd_text, encoding="utf-8")
+
+        # Exercise subitems use a., b., c.; parenthesized markers are rejected.
+        qmd.write_text(
+            baseline_qmd_text.replace(
+                "Tái lập quan hệ trung tâm rồi nêu một hệ quả mới.",
+                "a) Tái lập quan hệ trung tâm.\n\nb) Nêu một hệ quả mới.",
+            ),
+            encoding="utf-8",
+        )
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(
+            item.name == "exercise-subitem-style" and not item.passed
+            for item in checks
+        )
+        qmd.write_text(baseline_qmd_text, encoding="utf-8")
 
         # Exercise Contract: structural checks do not replace agent judgment.
         broken = _load_yaml(root / profile_rel, "profile")
@@ -2880,15 +3959,35 @@ def _self_test() -> None:
         assert any(item.name == "machine-visual-viewport-evidence" and not item.passed for item in checks)
         visual_report.write_bytes(visual_report_backup)
 
-        # Missing one PDF page from agent self-view evidence must block.
-        full_evidence = list(profile["tu_xem"]["bang_chung"])
-        profile["tu_xem"]["bang_chung"] = [item for item in full_evidence if not item.endswith("pdf_page_2.png")]
+        # Missing one PDF page from structured agent self-view must block.
+        full_pdf_review = list(profile["tu_xem"]["pdf"]["trang"])
+        profile["tu_xem"]["pdf"]["trang"] = full_pdf_review[:1]
+        _write_yaml(root / profile_rel, profile)
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert payload["visual_quality"] == "FAIL"
+        assert any(item.name == "profile-agent-self-view-evidence" and not item.passed for item in checks)
+        profile["tu_xem"]["pdf"]["trang"] = full_pdf_review
+        _write_yaml(root / profile_rel, profile)
+
+        # Claiming full HTML self-view without every machine-owned segment must block.
+        full_mobile_basis = list(profile["tu_xem"]["html_mobile"]["viewports"][0]["can_cu"])
+        profile["tu_xem"]["html_mobile"]["viewports"][0]["can_cu"] = []
         _write_yaml(root / profile_rel, profile)
         checks, payload = evaluate_review_ready(root, target, root / session_rel)
         assert payload["exit_code"] == 1
         assert any(item.name == "profile-agent-self-view-evidence" and not item.passed for item in checks)
-        profile["tu_xem"]["bang_chung"] = full_evidence
+        profile["tu_xem"]["html_mobile"]["viewports"][0]["can_cu"] = full_mobile_basis
         _write_yaml(root / profile_rel, profile)
+
+        # Missing one machine-owned full HTML segment must block.
+        segment_path = visual / "html_mobile_390_part_001.png"
+        segment_backup = segment_path.read_bytes()
+        segment_path.unlink()
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(item.name == "machine-visual-viewport-evidence" and not item.passed for item in checks)
+        segment_path.write_bytes(segment_backup)
 
         # Missing one machine-owned PDF page record must also block.
         visual_payload = json.loads(visual_report.read_text(encoding="utf-8"))
@@ -2910,6 +4009,17 @@ def _self_test() -> None:
         qmd.write_text(safe_qmd_text + "\n## Bài tập\n\n1. Bài 1.\n\n```markdown\n## H2 giả trong code\n```\n", encoding="utf-8")
         checks, payload = evaluate_review_ready(root, target, root / session_rel)
         assert any(item.name == "semantic-exercises-last-h2" and item.passed for item in checks)
+        qmd.write_text(safe_qmd_text, encoding="utf-8")
+
+        # Internal architecture labels must not leak as public headings.
+        safe_qmd_text = qmd.read_text(encoding="utf-8")
+        qmd.write_text(safe_qmd_text.replace("## Bài tập", "## Kết tinh\n\nTổng hợp thử.\n\n## Bài tập"), encoding="utf-8")
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert payload["exit_code"] == 1
+        assert any(item.name == "semantic-forbidden-public-heading" and not item.passed for item in checks)
+        qmd.write_text(safe_qmd_text.replace("## Bài tập", "## Nhìn lại\n\nTổng hợp thử.\n\n## Bài tập"), encoding="utf-8")
+        checks, payload = evaluate_review_ready(root, target, root / session_rel)
+        assert any(item.name == "semantic-forbidden-public-heading" and item.passed for item in checks)
         qmd.write_text(safe_qmd_text, encoding="utf-8")
 
         # Long decorative equivalence arrow must block; short Leftrightarrow remains allowed.
@@ -2968,6 +4078,11 @@ def parser() -> argparse.ArgumentParser:
         help="Tính fingerprint phần nội dung học thuật trước H2 Bài tập để đồng bộ Exercise Contract.",
     )
     exercise_hash.add_argument("path", help="Đường dẫn bài QMD.")
+    metadata_hash = subparsers.add_parser(
+        "metadata-hash",
+        help="Tính fingerprint nội dung học thuật và metadata mô tả.",
+    )
+    metadata_hash.add_argument("path", help="Đường dẫn bài QMD.")
     subparsers.add_parser("self-test", help="Chạy self-test nhắm các regression Q1-R2.")
     return result
 
@@ -2986,6 +4101,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         root = _repo_root(args.repo_root)
         if args.command == "exercise-hash":
             return command_exercise_hash(root, args.path)
+        if args.command == "metadata-hash":
+            return command_metadata_hash(root, args.path)
         return command_check(root, args.path, args.report, args.session)
     except (ProjectConfigError, ReviewReadyError, OSError, RuntimeError) as exc:
         print(f"ERROR: {exc}")

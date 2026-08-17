@@ -171,11 +171,21 @@ extensions:
           require_clean_candidate_scope_at_start: true
           enforce_scope_delta: true
           require_authority_snapshot: true
+          forbidden_review_copy_markers:
+            - human_review
+            - owner_review
+            - review_copy
         navigation:
           explicit_sidebar_required: true
           quarto_config: _quarto.yml
         pdf:
           download_required: true
+          require_canonical_build_receipt: true
+          plain_metadata_fields:
+            - title-meta
+            - pagetitle
+            - summary
+            - description
         function_graph:
           required: true
           require_default_chain: true
@@ -184,13 +194,31 @@ extensions:
           canonical_root_required: true
         visual:
           require_machine_measurements: true
+          require_full_html_capture: true
+          require_structured_self_review: true
           required_mobile_viewports:
             - 390
             - 430
           required_desktop_viewports:
             - 1440
+          required_self_review_criteria:
+            html_desktop:
+              - VD01
+              - VD02
+              - VD03
+            html_mobile:
+              - VM01
+              - VM02
+              - VM03
+            pdf:
+              - VP01
+              - VP02
+              - VP03
+              - VP04
+              - VP05
+              - VP06
         profile:
-          required_version: 6
+          required_version: 10
           required_top_level:
             - nhan_dien
             - nhiem_vu
@@ -210,6 +238,7 @@ extensions:
             - he_thong_bai_tap
             - he_khoi_noi_dung
             - tu_kiem_noi_dung
+            - dong_bo_metadata
             - tu_xem
             - van_de_he_thong
           forbidden_top_level:
@@ -220,6 +249,79 @@ extensions:
           require_check_and_render_evidence: true
           require_self_view_evidence: true
           require_pdf_page_coverage: true
+        metadata_sync:
+          required: true
+          profile_key: dong_bo_metadata
+          required_agent_status: dat
+          descriptive_fields:
+            - subtitle
+            - summary
+            - description
+            - abstract
+            - keywords
+        authoring_quality:
+          required: true
+          profile_key: tu_kiem_noi_dung
+          required_section_status: dat
+          required_criterion_status: dat
+          require_criterion_evidence: true
+          required_criteria:
+            toan_hoc:
+              - TH01
+              - TH02
+              - TH03
+              - TH04
+              - TH05
+              - TH06
+              - TH07
+              - TH08
+              - TH09
+              - TH10
+              - TH11
+              - TH12
+            mach_giai_thich:
+              - MG01
+              - MG02
+              - MG03
+              - MG04
+              - MG05
+              - MG06
+              - MG07
+              - MG08
+              - MG09
+              - MG10
+              - MG11
+              - MG12
+              - MG13
+              - MG14
+            gia_tri_nhan_thuc:
+              - NT01
+              - NT02
+              - NT03
+              - NT04
+              - NT05
+              - NT06
+              - NT07
+              - NT08
+              - NT09
+              - NT10
+              - NT11
+            he_thong_bai_tap:
+              - BT01
+              - BT02
+              - BT03
+              - BT04
+              - BT05
+              - BT06
+            he_khoi_noi_dung:
+              - KH01
+              - KH02
+              - KH03
+              - KH04
+              - KH05
+              - KH06
+              - KH07
+              - KH08
         exercise_contract:
           required: true
           profile_key: he_thong_bai_tap
@@ -238,6 +340,8 @@ extensions:
         semantic:
           require_relation_records_when_triggered: true
           require_exercises_last_h2: true
+          forbidden_public_heading_exact:
+            - "kết tinh"
           forbidden_source_tokens:
             - "\\longmapsto"
             - "\\Longleftrightarrow"
@@ -247,3 +351,22 @@ extensions:
             - "giữ nguyên độ lớn"
             - "bảo toàn độ lớn"
             - "không xóa độ lớn"
+          forbidden_unicode_math_symbols:
+            - "∞"
+            - "≤"
+            - "≥"
+            - "≠"
+            - "→"
+            - "↦"
+            - "⇔"
+            - "∈"
+            - "∉"
+            - "∅"
+            - "∪"
+            - "∩"
+            - "√"
+            - "±"
+            - "×"
+            - "·"
+          require_frac_command: true
+          require_exercise_subitem_dot_style: true

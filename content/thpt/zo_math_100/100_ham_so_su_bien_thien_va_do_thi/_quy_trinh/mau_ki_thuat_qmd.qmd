@@ -12,7 +12,12 @@ pagetitle: "Hàm số CHƯA XÁC ĐỊNH"
 # Trước khi chốt: subtitle phải vượt phép thử thay thế (không thể gắn gần nguyên vẹn cho nhiều
 # hàm khác); description phải vượt phép thử tinh túy (nêu cơ chế/quan hệ tổ chức bài, không kể mục lục).
 
-# Không dùng hai trường này như danh sách từ khóa; công thức toán dùng LaTeX phù hợp.
+# Không dùng hai trường này như danh sách từ khóa. `summary` và `description` là
+# metadata PDF-string nên phải dùng văn bản thuần, không chứa `$...$` hay lệnh TeX.
+# Nếu cần công thức, chuyển chi tiết toán học sang `title`, `subtitle`, `abstract` hoặc thân bài.
+# Chỉ chốt subtitle/summary/description/abstract/keywords sau khi mạch học thuật ổn định.
+# Trước review-ready, chạy `zo_qmd.py metadata-hash` và ghi hai fingerprint vào
+# `dong_bo_metadata` của hồ sơ; sửa nội dung hoặc metadata sau đó sẽ làm đồng bộ stale.
 summary: "CHƯA XÁC ĐỊNH"
 description: "CHƯA XÁC ĐỊNH"
 
@@ -61,13 +66,17 @@ Trước khi viết:
 4. Đối chiếu image và listing-order với mục tương ứng trong
    _data/cards.yml; listing-order phải khớp number của thẻ.
 5. Đối chiếu href PDF, short-title và canonical-url với đường dẫn
-   QMD của chính bài.
+   QMD của chính bài. PDF đưa vào Human Review phải được build bằng
+   `scripts/zo_pdf.py build` và có `_audit/<slug>_pdf_build.json` hợp lệ.
 6. Quyết định trong hồ sơ:
    - bài có dùng hình hay không;
    - với bài production chuẩn, thiết kế hệ bài tập theo hai chức năng nội bộ của `quy_chuan_he_bai_tap.md`: tái dựng mạch cốt lõi và phát triển từ mạch cốt lõi; lập bản đồ phụ thuộc và đồng bộ lại sau mọi thay đổi nội dung học thuật; chỉ ghi ngoại lệ khi yêu cầu trực tiếp hoặc loại nhiệm vụ cho phép bỏ bài tập;
    - bài có khối nội dung hay không;
    - bài có dự kiến chuyển sang published hay không.
-7. Xóa toàn bộ chú thích hướng dẫn và mẫu không được sử dụng trước
+7. Trước `review-ready`, hoàn tất toàn bộ `tu_kiem_noi_dung` trong
+   hồ sơ: mỗi section và tiêu chí bắt buộc phải `dat`, có `can_cu` cụ
+   thể và không còn `hanh_dong_sua`.
+8. Xóa toàn bộ chú thích hướng dẫn và mẫu không được sử dụng trước
    khi bàn giao.
 
 Sau YAML, thân bài bắt đầu bằng văn xuôi hoặc H2. Không đặt H1 trong
@@ -77,7 +86,26 @@ luận và trật tự nhận thức; không điền một mục lục khảo s�
 Văn xuôi là hình thức mặc định của lập luận; chỉ dùng danh sách khi cấu
 trúc thông tin thực sự cần liệt kê. Không dùng chữ đậm để nhấn một câu
 văn hoặc câu hỏi trong dòng. Tuân các quy ước LaTeX hiện hành của dự án,
-gồm `\quad`, `\lvert...\rvert`, `f^\prime` và `f^{\prime\prime}`.
+gồm `\quad`, `\lvert...\rvert`, `\frac{...}{...}`, `f^\prime` và
+`f^{\prime\prime}`. Trong `$...$`/`$$...$$`, dùng lệnh LaTeX như
+`\infty`, `\le`, `\to` thay cho Unicode operator tương đương. Không
+dùng dấu `/`, `\dfrac`, `\tfrac` hoặc `\over` cho phân số learner-facing.
+
+Không tạo hàm phụ, biến phụ hoặc tên trung gian chỉ để thay một biểu
+thức ngắn nếu quan hệ trực tiếp rõ hơn. Phân biệt tính chất với đại
+lượng trong thuật ngữ; khi có lập luận hình học, phân biệt điểm, đoạn
+và độ dài nếu sự nhập nhằng ảnh hưởng phép biến đổi. Điểm kết tinh nội bộ phải
+nén được một cách nhìn hoặc cơ chế, không chỉ nhắc lại các kết quả.
+
+Ngôn ngữ hàm số tự nhiên và lập luận bằng lời là mặc định. Chỉ đưa ngôn
+ngữ ánh xạ hoặc kí hiệu `\mapsto` khi chúng thực sự làm rõ cấu trúc; không
+dồn lớp hình thức này vào đầu bài nếu người đọc chưa cần nó. `\Leftrightarrow`
+được phép dùng khi thích hợp nhưng không thay thế lời giải thích về điều
+kiện và lí do tương đương. “Kết tinh” là nhãn vận hành nội bộ, không dùng
+làm heading công khai; nếu cần mục khép lại mang tính hồi cố, ưu tiên
+“Nhìn lại” hoặc một heading toán học cụ thể. Sau mạch cốt lõi, phải rà xem
+đối tượng còn một hướng phát triển tự nhiên nào giúp bài có thêm chiều sâu
+mà vẫn nối trực tiếp với cơ chế trung tâm hay không.
 -->
 
 <!-- MỞ BÀI THEO ĐỀ CƯƠNG VẬN HÀNH -->
@@ -107,7 +135,8 @@ Quyết định theo thứ tự:
 quy_trinh_xay_dung/huong_dan_su_dung_khoi_noi_dung.md
 
 Không dùng khối để trang trí, giả lập tiêu đề hoặc thu gọn mắt xích
-bắt buộc. Không giữ cả hai mẫu dưới đây trong bài cuối.
+bắt buộc. Không tạo khối chỉ để làm một ý nổi bật hơn; mức nhấn mạnh
+phải theo chức năng nhận thức. Không giữ cả hai mẫu dưới đây trong bài cuối.
 -->
 
 <!--
@@ -232,8 +261,9 @@ Với bài production chuẩn, hệ bài tập giúp người học tái dựng 
 lõi và phát triển từ chính mạch cốt lõi ấy. Mở rộng và đào sâu chỉ là
 những hướng của chức năng phát triển. Các chức năng này là logic thiết
 kế nội bộ, không dùng làm nhãn công khai. Theo contract kĩ thuật hiện
-hành, H3 dùng cho nhóm toán học tự nhiên và H4 dùng cho từng bài. Hồ sơ
-phải khai báo mạch cốt lõi, bản đồ phụ thuộc từng bài và hai fingerprint
+hành, H3 dùng cho nhóm toán học tự nhiên và H4 dùng cho từng bài. Các
+tiểu mục learner-facing dùng `a.`, `b.`, `c.`, không dùng `a)`, `b)`, `c)`.
+Hồ sơ phải khai báo mạch cốt lõi, bản đồ phụ thuộc từng bài và hai fingerprint
 của nội dung học thuật cùng hệ bài tập tại lần xác nhận đồng bộ gần nhất.
 
 ## Bài tập

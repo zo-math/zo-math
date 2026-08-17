@@ -9,6 +9,11 @@ import tempfile
 from pathlib import Path
 
 from zo_artifact_freshness import FreshnessError, evaluate_artifact_freshness
+from zo_pdf_contract import (
+    pdf_build_receipt_path,
+    validate_pdf_build_receipt,
+    write_pdf_build_receipt,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -84,7 +89,9 @@ def build(source: Path) -> int:
 
         destination = output_path(source)
         shutil.copy2(expected, destination)
+        receipt = write_pdf_build_receipt(ROOT, source, destination)
         print(f"PDF created: {relative_to_root(destination)}")
+        print(f"PDF build receipt: {relative_to_root(receipt)}")
         return 0
     finally:
         shutil.rmtree(temp_dir, ignore_errors=True)
@@ -100,12 +107,41 @@ def status(source: Path) -> int:
     except (FreshnessError, OSError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1
-    label = "CURRENT" if freshness.current else "STALE"
-    print(
-        f"{label}: {relative_to_root(destination)} | "
-        f"{freshness.message} Cơ sở={freshness.basis}."
-    )
-    return 0 if freshness.current else 2
+    receipt_errors = validate_pdf_build_receipt(ROOT, source, destination)
+    current = freshness.current and not receipt_errors
+    label = "CURRENT" if current else "STALE"
+    detail = f"{freshness.message} Cơ sở={freshness.basis}."
+    if receipt_errors:
+        detail += " PDF provenance: " + "; ".join(receipt_errors) + "."
+    print(f"{label}: {relative_to_root(destination)} | {detail}")
+    return 0 if current else 2
+
+
+def self_test() -> int:
+    AUDIT_DIR.mkdir(parents=True, exist_ok=True)
+    temp_dir = Path(tempfile.mkdtemp(prefix="zo_pdf_contract_self_test_", dir=AUDIT_DIR))
+    try:
+        source = temp_dir / "test.qmd"
+        output = temp_dir / "test.pdf"
+        source.write_text("---\ntitle: Test\n---\n\nTest.\n", encoding="utf-8")
+        output.write_bytes(b"%PDF-1.4\nself-test\n")
+        receipt = write_pdf_build_receipt(
+            ROOT,
+            source,
+            output,
+            temp_dir / "receipt.json",
+        )
+        errors = validate_pdf_build_receipt(ROOT, source, output, receipt)
+        if errors:
+            raise RuntimeError("receipt baseline failed: " + "; ".join(errors))
+        output.write_bytes(b"%PDF-1.4\nself-test-drift\n")
+        drift = validate_pdf_build_receipt(ROOT, source, output, receipt)
+        if not any("output.sha256" in item for item in drift):
+            raise RuntimeError("PDF drift was not detected")
+        print("SELF-TEST PASS: zo_pdf")
+        return 0
+    finally:
+        shutil.rmtree(temp_dir, ignore_errors=True)
 
 
 def parser() -> argparse.ArgumentParser:
@@ -116,11 +152,14 @@ def parser() -> argparse.ArgumentParser:
     for name in ("build", "status"):
         command = subparsers.add_parser(name)
         command.add_argument("source", type=source_path)
+    subparsers.add_parser("self-test")
     return result
 
 
 def main() -> int:
     args = parser().parse_args()
+    if args.command == "self-test":
+        return self_test()
     if args.command == "build":
         return build(args.source)
     return status(args.source)
