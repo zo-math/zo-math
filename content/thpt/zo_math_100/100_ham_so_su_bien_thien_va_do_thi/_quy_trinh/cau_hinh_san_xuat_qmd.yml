@@ -1,90 +1,83 @@
 schema_version: 1
-
 project:
   id: functions_100
-  name: "100+ Hàm số: Sự biến thiên và đồ thị"
+  name: '100+ Hàm số: Sự biến thiên và đồ thị'
   root: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi
-
 discovery:
   article_types:
-    - id: function_article
-      include:
-        - core/*.qmd
-        - core/**/*.qmd
-        - depth/*.qmd
-        - depth/**/*.qmd
-      exclude:
-        - core/*_luu_kho.qmd
-        - core/**/*_luu_kho.qmd
-        - depth/*_luu_kho.qmd
-        - depth/**/*_luu_kho.qmd
-
+  - id: function_article
+    include:
+    - core/*.qmd
+    - core/**/*.qmd
+    - depth/*.qmd
+    - depth/**/*.qmd
+    exclude:
+    - core/*_luu_kho.qmd
+    - core/**/*_luu_kho.qmd
+    - depth/*_luu_kho.qmd
+    - depth/**/*_luu_kho.qmd
 profiles:
   directory: _quy_trinh/ho_so
   naming: by_article_stem
   required: true
-
 modules:
   required:
-    - qmd-core
-    - zo-html-pdf
-    - content-blocks
-    - functions-article
+  - qmd-core
+  - zo-html-pdf
+  - content-blocks
+  - functions-article
   optional:
-    - figure-layout
-    - card-grid
-
+  - figure-layout
+  - card-grid
 metadata:
   core_required:
-    - title
-    - title-meta
-    - subtitle
-    - pagetitle
-    - summary
-    - description
-    - image
-    - abstract
-    - keywords
-    - author
-    - date
-    - date-format
-    - page-layout
-    - toc
-    - toc-title
-    - toc-location
-    - toc-depth
-    - body-classes
-    - zo-pdf-download
-    - zo-pdf-branding
+  - title
+  - title-meta
+  - subtitle
+  - pagetitle
+  - summary
+  - description
+  - image
+  - abstract
+  - keywords
+  - author
+  - date
+  - date-format
+  - page-layout
+  - toc
+  - toc-title
+  - toc-location
+  - toc-depth
+  - body-classes
+  - zo-pdf-download
+  - zo-pdf-branding
   project_required:
-    - listing-order
+  - listing-order
   body_classes_required:
-    - zo-page-article
-    - zo-meta-hidden
+  - zo-page-article
+  - zo-meta-hidden
   placeholders:
-    - CHƯA XÁC ĐỊNH
-    - CHUA_XAC_DINH
-    - CHON_MAU
-    - CHỌN MÀU
-    - TIÊU ĐỀ KHỐI
-    - TÊN_TỆP
-    - TEN_TEP
-    - TÊN NGẮN CỦA BÀI
-    - URL_HTML_CHÍNH_TẮC
-    - DUONG_DAN_DEN_TEP_QMD
-    - DUONG_DAN_DEN_TEP_PDF
-
+  - CHƯA XÁC ĐỊNH
+  - CHUA_XAC_DINH
+  - CHON_MAU
+  - CHỌN MÀU
+  - TIÊU ĐỀ KHỐI
+  - TÊN_TỆP
+  - TEN_TEP
+  - TÊN NGẮN CỦA BÀI
+  - URL_HTML_CHÍNH_TẮC
+  - DUONG_DAN_DEN_TEP_QMD
+  - DUONG_DAN_DEN_TEP_PDF
 publication:
   production_states:
-    - draft
-    - in_production
-    - validated
-    - accepted
+  - draft
+  - in_production
+  - validated
+  - accepted
   publication_states:
-    - pending
-    - published
+  - pending
+  - published
   user_confirmation_required: true
-
 catalog:
   module: card-grid
   data: _data/cards.yml
@@ -93,72 +86,67 @@ catalog:
     item_field: number
   status_field: status
   href_field: href
-
 references:
   controlling_documents:
-    - AGENTS.md
-    - _quy_trinh/quy_trinh_tao_bai_ham_so.md
-    - _quy_trinh/quy_chuan_khao_sat_ham_so.md
-    - _quy_trinh/quy_chuan_ki_thuat_bai_ham_so_qmd.md
+  - AGENTS.md
+  - _quy_trinh/quy_trinh_tao_bai_ham_so.md
+  - _quy_trinh/quy_chuan_khao_sat_ham_so.md
+  - _quy_trinh/quy_chuan_ki_thuat_bai_ham_so_qmd.md
   templates:
-    - _quy_trinh/mau_ki_thuat_qmd.qmd
-    - _quy_trinh/ho_so_san_xuat_mac_dinh.yml
+  - _quy_trinh/mau_ki_thuat_qmd.qmd
+  - _quy_trinh/ho_so_san_xuat_mac_dinh.yml
   theory_sources:
-    - _quy_trinh/nguon_li_thuyet/khung_khao_sat_ham_so_hoan_chinh_04.qmd
+  - _quy_trinh/nguon_li_thuyet/khung_khao_sat_ham_so_hoan_chinh_04.qmd
   quality_exemplars:
-    - depth/ham_sin_mot_tren_x.qmd
-    - depth/ham_sin_mot_tren_x.pdf
-
+  - depth/ham_sin_mot_tren_x.qmd
+  - depth/ham_sin_mot_tren_x.pdf
 authority_registry:
   schema_version: 1
   governing_required:
-    - path: quy_trinh_xay_dung/quy_tac_lam_viec_voi_agent.md
-      reason: root_agents_required_document
-    - path: quy_trinh_xay_dung/quy_trinh_thuc_hien_nhiem_vu_ky_thuat.md
-      reason: root_agents_required_document
-    - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/README.md
-      reason: qmd_system_entrypoint
-    - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/quy_trinh_tao_bai_ham_so.md
-      reason: function_article_process
-    - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/quy_chuan_khao_sat_ham_so.md
-      reason: function_article_math_contract
-    - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/quy_chuan_ki_thuat_bai_ham_so_qmd.md
-      reason: function_article_technical_contract
-    - path: quy_trinh_xay_dung/quy_chuan_he_bai_tap.md
-      reason: exercise_system_contract
-    - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/ho_so_san_xuat_mac_dinh.yml
-      reason: profile_template
-    - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/mau_ki_thuat_qmd.qmd
-      reason: qmd_template
-    - path: quy_trinh_xay_dung/huong_dan_su_dung_khoi_noi_dung.md
-      reason: project_agents_content_block_policy
-    - path: quy_trinh_xay_dung/phong_cach_viet/index.md
-      reason: project_default_writing_style
-    - path: quy_trinh_xay_dung/phong_cach_viet/hoc_thuat_tinh_tai.md
-      reason: project_default_writing_style
+  - path: quy_trinh_xay_dung/quy_tac_lam_viec_voi_agent.md
+    reason: root_agents_required_document
+  - path: quy_trinh_xay_dung/quy_trinh_thuc_hien_nhiem_vu_ky_thuat.md
+    reason: root_agents_required_document
+  - path: quy_trinh_xay_dung/he_thong_san_xuat_qmd/README.md
+    reason: qmd_system_entrypoint
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/quy_trinh_tao_bai_ham_so.md
+    reason: function_article_process
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/quy_chuan_khao_sat_ham_so.md
+    reason: function_article_math_contract
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/quy_chuan_ki_thuat_bai_ham_so_qmd.md
+    reason: function_article_technical_contract
+  - path: quy_trinh_xay_dung/quy_chuan_he_bai_tap.md
+    reason: exercise_system_contract
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/ho_so_san_xuat_mac_dinh.yml
+    reason: profile_template
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/mau_ki_thuat_qmd.qmd
+    reason: qmd_template
+  - path: quy_trinh_xay_dung/huong_dan_su_dung_khoi_noi_dung.md
+    reason: project_agents_content_block_policy
+  - path: quy_trinh_xay_dung/phong_cach_viet/index.md
+    reason: project_default_writing_style
+  - path: quy_trinh_xay_dung/phong_cach_viet/hoc_thuat_tinh_tai.md
+    reason: project_default_writing_style
   conditional_required:
-    - id: function_graph_standard
-      when: function_graph_required
-      path: quy_trinh_xay_dung/quy_chuan_do_thi_sinh_ma_nguon_tikz_pgfplots.md
-      reason: function_graph_required
+  - id: function_graph_standard
+    when: function_graph_required
+    path: quy_trinh_xay_dung/quy_chuan_do_thi_sinh_ma_nguon_tikz_pgfplots.md
+    reason: function_graph_required
   provenance_required:
-    - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_data/cards.yml
-      reason: card_identity_and_metadata
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_data/cards.yml
+    reason: card_identity_and_metadata
   reference_only:
-    - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/nguon_li_thuyet/khung_khao_sat_ham_so_hoan_chinh_04.qmd
-      reason: full_theory_fallback
-    - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/depth/ham_sin_mot_tren_x.qmd
-      reason: technical_quality_exemplar
-    - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/depth/ham_sin_mot_tren_x.pdf
-      reason: rendered_quality_exemplar
-
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/_quy_trinh/nguon_li_thuyet/khung_khao_sat_ham_so_hoan_chinh_04.qmd
+    reason: full_theory_fallback
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/depth/ham_sin_mot_tren_x.qmd
+    reason: technical_quality_exemplar
+  - path: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/depth/ham_sin_mot_tren_x.pdf
+    reason: rendered_quality_exemplar
 regression:
   articles:
-    - core/ham_ln_x.qmd
-  expected_checker_version: "2.6.0"
+  - core/ham_ln_x.qmd
+  expected_checker_version: 2.6.0
   preserve_cli: true
-
-
 extensions:
   human_review_gate:
     enabled: true
@@ -172,9 +160,9 @@ extensions:
           enforce_scope_delta: true
           require_authority_snapshot: true
           forbidden_review_copy_markers:
-            - human_review
-            - owner_review
-            - review_copy
+          - human_review
+          - owner_review
+          - review_copy
         navigation:
           explicit_sidebar_required: true
           quarto_config: _quarto.yml
@@ -182,10 +170,8 @@ extensions:
           download_required: true
           require_canonical_build_receipt: true
           plain_metadata_fields:
-            - title-meta
-            - pagetitle
-            - summary
-            - description
+          - title-meta
+          - pagetitle
         function_graph:
           required: true
           require_default_chain: true
@@ -197,54 +183,54 @@ extensions:
           require_full_html_capture: true
           require_structured_self_review: true
           required_mobile_viewports:
-            - 390
-            - 430
+          - 390
+          - 430
           required_desktop_viewports:
-            - 1440
+          - 1440
           required_self_review_criteria:
             html_desktop:
-              - VD01
-              - VD02
-              - VD03
+            - VD01
+            - VD02
+            - VD03
             html_mobile:
-              - VM01
-              - VM02
-              - VM03
+            - VM01
+            - VM02
+            - VM03
             pdf:
-              - VP01
-              - VP02
-              - VP03
-              - VP04
-              - VP05
-              - VP06
+            - VP01
+            - VP02
+            - VP03
+            - VP04
+            - VP05
+            - VP06
         profile:
           required_version: 10
           required_top_level:
-            - nhan_dien
-            - nhiem_vu
-            - don_vi_khao_sat
-            - duong_dan
-            - pham_vi_thay_doi
-            - tai_lieu_dieu_khien
-            - ban_do_mien
-            - vong_ra
-            - menh_de_chung_cu
-            - kiem_tra_quan_he_trung_tam
-            - truc_nhan_thuc
-            - ban_do_hien_tuong
-            - de_cuong_van_hanh
-            - ho_so_bieu_dien
-            - tai_nguyen_hinh
-            - he_thong_bai_tap
-            - he_khoi_noi_dung
-            - tu_kiem_noi_dung
-            - dong_bo_metadata
-            - tu_xem
-            - van_de_he_thong
+          - nhan_dien
+          - nhiem_vu
+          - don_vi_khao_sat
+          - duong_dan
+          - pham_vi_thay_doi
+          - tai_lieu_dieu_khien
+          - ban_do_mien
+          - vong_ra
+          - menh_de_chung_cu
+          - kiem_tra_quan_he_trung_tam
+          - truc_nhan_thuc
+          - ban_do_hien_tuong
+          - de_cuong_van_hanh
+          - ho_so_bieu_dien
+          - tai_nguyen_hinh
+          - he_thong_bai_tap
+          - he_khoi_noi_dung
+          - tu_kiem_noi_dung
+          - dong_bo_metadata
+          - tu_xem
+          - van_de_he_thong
           forbidden_top_level:
-            - dau_ra_ki_thuat
-            - nghiem_thu
-            - ban_giao
+          - dau_ra_ki_thuat
+          - nghiem_thu
+          - ban_giao
           require_template_shape: true
           require_check_and_render_evidence: true
           require_self_view_evidence: true
@@ -254,11 +240,11 @@ extensions:
           profile_key: dong_bo_metadata
           required_agent_status: dat
           descriptive_fields:
-            - subtitle
-            - summary
-            - description
-            - abstract
-            - keywords
+          - subtitle
+          - summary
+          - description
+          - abstract
+          - keywords
         authoring_quality:
           required: true
           profile_key: tu_kiem_noi_dung
@@ -267,61 +253,61 @@ extensions:
           require_criterion_evidence: true
           required_criteria:
             toan_hoc:
-              - TH01
-              - TH02
-              - TH03
-              - TH04
-              - TH05
-              - TH06
-              - TH07
-              - TH08
-              - TH09
-              - TH10
-              - TH11
-              - TH12
+            - TH01
+            - TH02
+            - TH03
+            - TH04
+            - TH05
+            - TH06
+            - TH07
+            - TH08
+            - TH09
+            - TH10
+            - TH11
+            - TH12
             mach_giai_thich:
-              - MG01
-              - MG02
-              - MG03
-              - MG04
-              - MG05
-              - MG06
-              - MG07
-              - MG08
-              - MG09
-              - MG10
-              - MG11
-              - MG12
-              - MG13
-              - MG14
+            - MG01
+            - MG02
+            - MG03
+            - MG04
+            - MG05
+            - MG06
+            - MG07
+            - MG08
+            - MG09
+            - MG10
+            - MG11
+            - MG12
+            - MG13
+            - MG14
             gia_tri_nhan_thuc:
-              - NT01
-              - NT02
-              - NT03
-              - NT04
-              - NT05
-              - NT06
-              - NT07
-              - NT08
-              - NT09
-              - NT10
-              - NT11
+            - NT01
+            - NT02
+            - NT03
+            - NT04
+            - NT05
+            - NT06
+            - NT07
+            - NT08
+            - NT09
+            - NT10
+            - NT11
             he_thong_bai_tap:
-              - BT01
-              - BT02
-              - BT03
-              - BT04
-              - BT05
-              - BT06
+            - BT01
+            - BT02
+            - BT03
+            - BT04
+            - BT05
+            - BT06
             he_khoi_noi_dung:
-              - KH01
-              - KH02
-              - KH03
-              - KH04
-              - KH05
-              - KH06
-              - KH07
-              - KH08
+            - KH01
+            - KH02
+            - KH03
+            - KH04
+            - KH05
+            - KH06
+            - KH07
+            - KH08
         exercise_contract:
           required: true
           profile_key: he_thong_bai_tap
@@ -329,44 +315,44 @@ extensions:
           authority_path: quy_trinh_xay_dung/quy_chuan_he_bai_tap.md
           required_agent_status: dat
           forbidden_public_heading_exact:
-            - tái dựng
-            - phát triển
-            - mạch cốt lõi
-            - mắt xích cốt lõi
-            - đồng bộ hệ bài tập
+          - tái dựng
+          - phát triển
+          - mạch cốt lõi
+          - mắt xích cốt lõi
+          - đồng bộ hệ bài tập
           forbidden_public_heading_prefixes:
-            - tái dựng mạch cốt lõi
-            - phần phát triển
+          - tái dựng mạch cốt lõi
+          - phần phát triển
         semantic:
           require_relation_records_when_triggered: true
           require_exercises_last_h2: true
           forbidden_public_heading_exact:
-            - "kết tinh"
+          - kết tinh
           forbidden_source_tokens:
-            - "\\longmapsto"
-            - "\\Longleftrightarrow"
-            - "\\iff"
+          - \longmapsto
+          - \Longleftrightarrow
+          - \iff
           forbidden_ambiguous_phrases:
-            - "giữ độ lớn"
-            - "giữ nguyên độ lớn"
-            - "bảo toàn độ lớn"
-            - "không xóa độ lớn"
+          - giữ độ lớn
+          - giữ nguyên độ lớn
+          - bảo toàn độ lớn
+          - không xóa độ lớn
           forbidden_unicode_math_symbols:
-            - "∞"
-            - "≤"
-            - "≥"
-            - "≠"
-            - "→"
-            - "↦"
-            - "⇔"
-            - "∈"
-            - "∉"
-            - "∅"
-            - "∪"
-            - "∩"
-            - "√"
-            - "±"
-            - "×"
-            - "·"
+          - ∞
+          - ≤
+          - ≥
+          - ≠
+          - →
+          - ↦
+          - ⇔
+          - ∈
+          - ∉
+          - ∅
+          - ∪
+          - ∩
+          - √
+          - ±
+          - ×
+          - ·
           require_frac_command: true
           require_exercise_subitem_dot_style: true

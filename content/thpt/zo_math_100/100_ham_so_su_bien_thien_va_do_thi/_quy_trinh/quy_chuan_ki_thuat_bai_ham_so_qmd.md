@@ -149,7 +149,7 @@ Phải bảo đảm:
 - `title` gọi đúng hàm và có thể chứa công thức;
 - `pagetitle` là tiêu đề văn bản thuần gọn cho tab/trình duyệt, không phụ thuộc khả năng hiển thị LaTeX; biểu thức phải được chuyển sang dạng văn bản đọc đúng về toán học, ưu tiên Unicode chuẩn khi có biểu diễn trực tiếp (ví dụ `x²` thay cho chuỗi nguồn `x^2`); không tự thêm hậu tố `ZO Math` nếu cấu hình site đã thêm hậu tố;
 - `subtitle` gọi đúng trục nhận thức hoặc hiện tượng trung tâm, đủ đặc trưng cho chính bài, không dùng khẩu hiệu quảng bá hoặc một ẩn dụ chung chung có thể gắn cho nhiều bài; không chứa một quan hệ chưa được xác lập;
-- `summary` nén cách nhìn hoặc kết luận trung tâm của bài, không biến thành danh sách thuật ngữ và không lặp nguyên văn `description`; trường này phải là văn bản thuần, không chứa TeX;
+- `summary` nén cách nhìn hoặc kết luận trung tâm của bài, không biến thành danh sách thuật ngữ và không lặp nguyên văn `description`; có thể dùng LaTeX cho biểu thức toán khi cần;
 - `description` là lời giới thiệu bằng văn xuôi, nói được nội dung đáng đọc hoặc cách nhìn mà bài đem lại; không dùng như mục lục hay danh sách từ khóa; trường này phải là văn bản thuần, không chứa TeX;
 - `abstract` phát triển lời giới thiệu ở mức dài hơn khi cần, không lặp máy móc `summary` hoặc `description` và không mô tả nội dung không có trong bài;
 - `keywords` là nơi chứa các khái niệm hoặc thuật ngữ tìm kiếm thực sự có vai trò;
@@ -169,7 +169,7 @@ Các trường tiêu đề có vai trò riêng và không được dùng thay th
 - `subtitle`: phụ đề hiển thị; được phép chứa công thức TeX khi cần;
 - `pagetitle`: tiêu đề tab trình duyệt; dùng văn bản thuần, không chứa TeX;
 - `title-meta`: tiêu đề metadata của PDF; dùng văn bản thuần, không chứa TeX;
-- `summary` và `description`: đi qua chuỗi metadata PDF-string; dùng văn bản thuần, không chứa TeX;
+- `summary` và `description`: là văn xuôi hướng người học; có thể chứa LaTeX cho biểu thức toán. Ràng buộc PDF-string văn bản thuần chỉ áp dụng cho các trường thực sự đi vào chuỗi PDF-string như `title-meta` và `pagetitle`;
 - `zo-pdf-branding.short-title`: tiêu đề chạy ở đầu trang PDF; được phép chứa công thức TeX.
 
 Khi `title` chứa lệnh toán học như `\ln`, không được dùng trực tiếp trường này làm metadata PDF. Phải khai báo `title-meta` riêng để tránh mất lệnh toán học khi Hyperref chuyển tiêu đề sang chuỗi metadata.
@@ -748,7 +748,7 @@ Hai tầng không thay thế nhau.
 
 ### 4.2. Giới hạn của công cụ hiện hành
 
-`scripts/zo_check_repo.py` hiện kiểm tra những thành phần cơ bản như mã hóa, khoảng trắng, YAML, tham chiếu tài nguyên, một số cấu trúc repository và khả năng render HTML. Lớp điều phối `scripts/zo_qmd.py check` bổ sung một preflight sớm cho các trường metadata PDF-string phải là văn bản thuần, để lỗi TeX trong `title-meta`, `pagetitle`, `summary` hoặc `description` bị chặn trước khi đi tới build PDF.
+`scripts/zo_check_repo.py` hiện kiểm tra những thành phần cơ bản như mã hóa, khoảng trắng, YAML, tham chiếu tài nguyên, một số cấu trúc repository và khả năng render HTML. Lớp điều phối `scripts/zo_qmd.py check` bổ sung một preflight sớm cho các trường metadata PDF-string thực sự phải là văn bản thuần, hiện gồm `title-meta` và `pagetitle`. `summary` và `description` vẫn có thể dùng LaTeX cho biểu thức toán; canonical PDF build là bằng chứng quyết định về khả năng tương thích đầu ra.
 
 Kết quả `PASS` của công cụ này **không mặc nhiên xác nhận**:
 

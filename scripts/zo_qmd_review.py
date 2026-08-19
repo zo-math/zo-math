@@ -3022,7 +3022,7 @@ def _self_test() -> None:
                             "pdf": {
                                 "download_required": True,
                                 "require_canonical_build_receipt": True,
-                                "plain_metadata_fields": ["title-meta", "pagetitle", "summary", "description"],
+                                "plain_metadata_fields": ["title-meta", "pagetitle"],
                             },
                             "lifecycle": {
                                 "require_session_manifest": True,
@@ -3678,6 +3678,9 @@ def _self_test() -> None:
             for item in checks
         )
         assert "title-meta" in pdf_plain_metadata_violations(root, target)
+        # summary/description are learner-facing prose and may contain
+        # ordinary LaTeX math. Only actual PDF-string metadata fields
+        # such as title-meta/pagetitle remain plain-text constrained.
         qmd.write_text(
             baseline_qmd_text.replace(
                 'summary: "Quan hệ trung tâm của bài."',
@@ -3685,10 +3688,16 @@ def _self_test() -> None:
             ),
             encoding="utf-8",
         )
-        checks, payload = evaluate_review_ready(root, target, root / session_rel)
-        assert payload["exit_code"] == 1
-        assert any(item.name == "pdf-metadata-latex-compatibility" and not item.passed for item in checks)
-        assert "summary" in pdf_plain_metadata_violations(root, target)
+        assert "summary" not in pdf_plain_metadata_violations(root, target)
+
+        qmd.write_text(
+            baseline_qmd_text.replace(
+                'description: "Bài làm rõ quan hệ trung tâm và hệ quả."',
+                'description: "Bài khảo sát hàm $y=x^3$ và hệ quả."',
+            ),
+            encoding="utf-8",
+        )
+        assert "description" not in pdf_plain_metadata_violations(root, target)
         qmd.write_text(baseline_qmd_text, encoding="utf-8")
 
         # Unicode operators inside math source must use LaTeX commands instead.
