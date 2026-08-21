@@ -1,0 +1,1993 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="ZO Math">
+<meta name="keywords" content="hàm sin một trên x, hàm hợp, dao động, giới hạn, biến thiên, đồ thị">
+<meta name="description" content="Bài viết giải thích cấu trúc hợp hàm, giới hạn, biến thiên và hình dạng đồ thị của y=\sin\left(\frac{1}{x}\right), với trọng tâm là sự dồn sít của các dao động gần x=0.">
+
+<title>Hàm số sin một trên x – ZO Math</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../../">
+<link href="../../../../../images/favicon.ico" rel="icon">
+<script src="../../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../../site_libs/bootstrap/bootstrap-f61255698acf0ab77f9c69302430f227.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../../../assets/css/custom.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed zo-page-article zo-meta-hidden quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../../../assets/logo/zo_math_logo_black_on_transprentt_1024.png" alt="ZO Math" class="navbar-logo light-content">
+    <img src="../../../../../assets/logo/zo_math_logo_black_on_transprentt_1024.png" alt="ZO Math" class="navbar-logo dark-content">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../../../content/thpt/toan_11/index.html">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../../content/thpt/toan_12/index.html">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../../content/thpt/zo_math_100/index.html">
+ <span class="dropdown-text">ZO Math 100+</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/di_tim/index.html"> 
+<span class="menu-text">Đi Tìm</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/khoa_hoc/index.html"> 
+<span class="menu-text">Khóa Học</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/kien_tao/index.html"> 
+<span class="menu-text">Kiến Tạo</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/cong_cu/index.html"> 
+<span class="menu-text">Công Cụ</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/shop/index.html"> 
+<span class="menu-text">Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/depth/ham_sin_mot_tren_x.html">Danh sách hàm đào sâu</a></li><li class="breadcrumb-item"><a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/depth/ham_sin_mot_tren_x.html">Hàm số sin một trên x</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/depth/ham_sin_mot_tren_x.html">Danh sách hàm đào sâu</a></li><li class="breadcrumb-item"><a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/depth/ham_sin_mot_tren_x.html">Hàm số sin một trên x</a></li></ol></nav>
+      <h1 class="title">Hàm số <span class="math inline">\(y=\sin\left(\frac{1}{x}\right)\)</span></h1>
+            <p class="subtitle lead">Một nhịp điệu bị phép nghịch đảo sắp xếp lại</p>
+                  <div>
+        <div class="description">
+          Bài viết giải thích cấu trúc hợp hàm, giới hạn, biến thiên và hình dạng đồ thị của <span class="math inline">\(y=\sin\left(\frac{1}{x}\right)\)</span>, với trọng tâm là sự dồn sít của các dao động gần <span class="math inline">\(x=0\)</span>.
+        </div>
+      </div>
+                </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Tác giả</div>
+      <div class="quarto-title-meta-contents">
+               <p>ZO Math </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Ngày cập nhật</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">14-08-2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  <div>
+    <div class="abstract">
+      <div class="block-title">Tóm tắt</div>
+      <p>Với hàm <span class="math inline">\(f(x)=\sin\left(\frac{1}{x}\right)\)</span>, <span class="math inline">\(x\)</span> là đầu vào của hàm <span class="math inline">\(f\)</span>, còn <span class="math inline">\(\frac{1}{x}\)</span> là đầu vào được đưa vào hàm sin. Khi <span class="math inline">\(x\)</span> ra xa gốc tọa độ, đầu vào của hàm sin trở về <span class="math inline">\(0\)</span> và đồ thị của <span class="math inline">\(f\)</span> lặng dần. Khi <span class="math inline">\(x\)</span> tiến gần <span class="math inline">\(0\)</span>, đầu vào ấy đi qua vô hạn chu kì của hàm sin: các nhịp sóng bị nén theo phương ngang nhưng không co lại theo phương đứng.</p>
+      <p>Từ cơ chế này, bài viết lần theo tập xác định, tập giá trị, các giới hạn, dãy nghiệm, dãy cực đại, dãy cực tiểu, khả năng bổ sung giá trị tại <span class="math inline">\(x=0\)</span>, đạo hàm và đồ thị để làm rõ cách phép nghịch đảo sắp xếp lại hình dạng sóng của hàm sin.</p>
+    </div>
+  </div>
+
+  <div>
+    <div class="keywords">
+      <div class="block-title">Từ khóa</div>
+      <p>hàm sin một trên x, hàm hợp, dao động, giới hạn, biến thiên, đồ thị</p>
+    </div>
+  </div>
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ZO Math 100+</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">100+ Hàm số: sự biến thiên và đồ thị</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/dan_nhap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dẫn nhập</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/ham_so.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm số</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/bien_thien.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Biến thiên</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/do_thi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Đồ thị</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Danh sách hàm cơ bản</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_so_hang.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm số hằng</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_so_bac_nhat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm số bậc nhất</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_ln_x.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm lô-ga-rit tự nhiên</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_can_x.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm √x</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_x_binh.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm số y = x²</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_x_mu_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm số y = x³</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_arcsin_x.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm số arcsin</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_x_tru_mot_tren_x.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm số x trừ một trên x</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_sgn_x.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm dấu</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Danh sách hàm mở rộng</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Danh sách hàm đào sâu</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/depth/ham_sin_mot_tren_x.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Hàm số sin một trên x</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nội dung</h2>
+   
+  <ul>
+  <li><a href="#hai-nhịp-điệu-trong-một-công-thức" id="toc-hai-nhịp-điệu-trong-một-công-thức" class="nav-link active" data-scroll-target="#hai-nhịp-điệu-trong-một-công-thức">Hai nhịp điệu trong một công thức</a></li>
+  <li><a href="#những-điều-đầu-tiên-hiện-ra-từ-công-thức" id="toc-những-điều-đầu-tiên-hiện-ra-từ-công-thức" class="nav-link" data-scroll-target="#những-điều-đầu-tiên-hiện-ra-từ-công-thức">Những điều đầu tiên hiện ra từ công thức</a>
+  <ul class="collapse">
+  <li><a href="#hàm-f-có-nghĩa-ở-đâu-và-nhận-những-giá-trị-nào" id="toc-hàm-f-có-nghĩa-ở-đâu-và-nhận-những-giá-trị-nào" class="nav-link" data-scroll-target="#hàm-f-có-nghĩa-ở-đâu-và-nhận-những-giá-trị-nào">Hàm <span class="math inline">\(f\)</span> có nghĩa ở đâu và nhận những giá trị nào?</a></li>
+  <li><a href="#một-nửa-đồ-thị-soi-chiếu-nửa-còn-lại" id="toc-một-nửa-đồ-thị-soi-chiếu-nửa-còn-lại" class="nav-link" data-scroll-target="#một-nửa-đồ-thị-soi-chiếu-nửa-còn-lại">Một nửa đồ thị soi chiếu nửa còn lại</a></li>
+  <li><a href="#vì-sao-hàm-f-không-tuần-hoàn" id="toc-vì-sao-hàm-f-không-tuần-hoàn" class="nav-link" data-scroll-target="#vì-sao-hàm-f-không-tuần-hoàn">Vì sao hàm <span class="math inline">\(f\)</span> không tuần hoàn?</a></li>
+  </ul></li>
+  <li><a href="#phép-nghịch-đảo-tạo-nên-hai-hành-vi-đối-nghịch" id="toc-phép-nghịch-đảo-tạo-nên-hai-hành-vi-đối-nghịch" class="nav-link" data-scroll-target="#phép-nghịch-đảo-tạo-nên-hai-hành-vi-đối-nghịch">Phép nghịch đảo tạo nên hai hành vi đối nghịch</a>
+  <ul class="collapse">
+  <li><a href="#dịu-êm" id="toc-dịu-êm" class="nav-link" data-scroll-target="#dịu-êm">Dịu êm</a></li>
+  <li><a href="#dữ-dội" id="toc-dữ-dội" class="nav-link" data-scroll-target="#dữ-dội">Dữ dội</a></li>
+  </ul></li>
+  <li><a href="#từ-biến-thiên-đến-toàn-cảnh-đồ-thị" id="toc-từ-biến-thiên-đến-toàn-cảnh-đồ-thị" class="nav-link" data-scroll-target="#từ-biến-thiên-đến-toàn-cảnh-đồ-thị">Từ biến thiên đến toàn cảnh đồ thị</a>
+  <ul class="collapse">
+  <li><a href="#các-nhịp-đi-lên-và-đi-xuống" id="toc-các-nhịp-đi-lên-và-đi-xuống" class="nav-link" data-scroll-target="#các-nhịp-đi-lên-và-đi-xuống">Các nhịp đi lên và đi xuống</a></li>
+  <li><a href="#toàn-cảnh-và-giới-hạn-của-hình-vẽ" id="toc-toàn-cảnh-và-giới-hạn-của-hình-vẽ" class="nav-link" data-scroll-target="#toàn-cảnh-và-giới-hạn-của-hình-vẽ">Toàn cảnh và giới hạn của hình vẽ</a></li>
+  </ul></li>
+  <li><a href="#dao-động-vô-hạn-với-biên-độ-co-về-0" id="toc-dao-động-vô-hạn-với-biên-độ-co-về-0" class="nav-link" data-scroll-target="#dao-động-vô-hạn-với-biên-độ-co-về-0">Dao động vô hạn với biên độ co về <span class="math inline">\(0\)</span></a></li>
+  <li><a href="#kết-tinh" id="toc-kết-tinh" class="nav-link" data-scroll-target="#kết-tinh">Kết tinh</a></li>
+  <li><a href="#bài-tập" id="toc-bài-tập" class="nav-link" data-scroll-target="#bài-tập">Bài tập</a>
+  <ul class="collapse">
+  <li><a href="#tái-dựng-toàn-bộ-hàm-f" id="toc-tái-dựng-toàn-bộ-hàm-f" class="nav-link" data-scroll-target="#tái-dựng-toàn-bộ-hàm-f">Tái dựng toàn bộ hàm <span class="math inline">\(f\)</span></a></li>
+  <li><a href="#khép-kín-những-điều-còn-để-mở" id="toc-khép-kín-những-điều-còn-để-mở" class="nav-link" data-scroll-target="#khép-kín-những-điều-còn-để-mở">Khép kín những điều còn để mở</a></li>
+  <li><a href="#mở-rộng-và-đào-sâu" id="toc-mở-rộng-và-đào-sâu" class="nav-link" data-scroll-target="#mở-rộng-và-đào-sâu">Mở rộng và đào sâu</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
+
+
+
+
+
+<section id="hai-nhịp-điệu-trong-một-công-thức" class="level2">
+<h2 class="anchored" data-anchor-id="hai-nhịp-điệu-trong-một-công-thức">Hai nhịp điệu trong một công thức</h2>
+<p>Xét hàm</p>
+<p><span class="math display">\[
+f(x)=\sin\left(\frac{1}{x}\right).
+\]</span></p>
+<p>Trong bài viết này, <strong>hàm sin</strong> chỉ hàm quen thuộc thường được viết là <span class="math inline">\(y=\sin x\)</span>, còn <strong>hàm <span class="math inline">\(f\)</span></strong> chỉ hàm đang được khảo sát ở trên, <span class="math inline">\(y=\sin\left(\frac{1}{x}\right)\)</span>. Khi cần tách rõ hai tầng của công thức, đặt</p>
+<p><span class="math display">\[
+u=\frac{1}{x}.
+\]</span></p>
+<p>Khi đó, <span class="math inline">\(x\)</span> là đầu vào của hàm <span class="math inline">\(f\)</span>, còn <span class="math inline">\(u\)</span> là đầu vào được đưa vào hàm sin; giá trị cuối cùng là <span class="math inline">\(f(x)=\sin u\)</span>.</p>
+<p>Sự xuất hiện của hàm sin gợi nhớ một nhịp điệu quen thuộc: những dao động đều đặn, lặp lại sau mỗi chu kì. Tuy nhiên, trong hàm <span class="math inline">\(f\)</span>, đầu vào <span class="math inline">\(x\)</span> không được đưa thẳng vào hàm sin. Phép nghịch đảo biến <span class="math inline">\(x\)</span> thành <span class="math inline">\(u=\frac{1}{x}\)</span> trước. Sự thay đổi nhỏ trong công thức ấy tạo nên hai cảnh tượng trái ngược trên cùng một đồ thị.</p>
+<p>Khi đầu vào <span class="math inline">\(x\)</span> của hàm <span class="math inline">\(f\)</span> nằm rất xa <span class="math inline">\(0\)</span>, dù về phía dương hay phía âm, <span class="math inline">\(u=\frac{1}{x}\)</span> lại ở rất gần <span class="math inline">\(0\)</span>. Trong vùng này, giá trị <span class="math inline">\(\sin u\)</span> gần với <span class="math inline">\(u\)</span>. Vì vậy, giá trị của hàm <span class="math inline">\(f\)</span> ngày càng gần <span class="math inline">\(0\)</span>, khiến hai phần đồ thị ở xa trục tung dần áp sát trục hoành.</p>
+<p>Khi <span class="math inline">\(x\)</span> tiến sát <span class="math inline">\(0\)</span> từ một trong hai phía, tình hình đảo ngược: độ lớn của <span class="math inline">\(u=\frac{1}{x}\)</span> tăng lên không giới hạn. Đầu vào <span class="math inline">\(u\)</span> đi qua ngày càng nhiều chu kì của hàm sin. Đồ thị của <span class="math inline">\(f\)</span> vẫn vươn tới hai mức <span class="math inline">\(1\)</span> và <span class="math inline">\(-1\)</span>, nhưng những dao động ấy không còn trải đều trên trục <span class="math inline">\(x\)</span>. Càng gần <span class="math inline">\(0\)</span>, chúng càng nằm trong những khoảng hẹp hơn và dồn sít quanh trục tung. Phép nghịch đảo không làm mất cái vô hạn của sóng sin; nó chỉ đổi cách cái vô hạn ấy hiện diện: từ vô số chu kì trải dài về vô cực trên trục <span class="math inline">\(u\)</span> thành vô số dao động dồn tụ về phía <span class="math inline">\(x=0\)</span> trên trục <span class="math inline">\(x\)</span>. Trong mỗi khoảng quanh <span class="math inline">\(0\)</span>, dù hẹp đến đâu, phần đồ thị ở hai phía vẫn chứa vô hạn dao động.</p>
+<p>Hàm <span class="math inline">\(f\)</span> vì thế không tuần hoàn theo <span class="math inline">\(x\)</span>, dù vẫn mang nhịp dao động quen thuộc của hàm sin. Phần còn lại của bài sẽ làm rõ vì sao phép nghịch đảo khiến đồ thị áp sát trục hoành ở xa nhưng dồn sít vô hạn gần <span class="math inline">\(0\)</span>.</p>
+</section>
+<section id="những-điều-đầu-tiên-hiện-ra-từ-công-thức" class="level2">
+<h2 class="anchored" data-anchor-id="những-điều-đầu-tiên-hiện-ra-từ-công-thức">Những điều đầu tiên hiện ra từ công thức</h2>
+<p>Công thức <span class="math inline">\(f(x)=\sin\left(\frac{1}{x}\right)\)</span> có thể được đọc từ trong ra ngoài. Phép nghịch đảo được thực hiện trước, rồi giá trị <span class="math inline">\(u=\frac{1}{x}\)</span> được đưa vào hàm sin. Mỗi thành phần vì thế đặt lên hàm <span class="math inline">\(f\)</span> một ràng buộc riêng: phép nghịch đảo quyết định những đầu vào <span class="math inline">\(x\)</span> nào có thể được sử dụng, còn hàm sin giới hạn những giá trị mà <span class="math inline">\(f\)</span> có thể nhận.</p>
+<section id="hàm-f-có-nghĩa-ở-đâu-và-nhận-những-giá-trị-nào" class="level3">
+<h3 class="anchored" data-anchor-id="hàm-f-có-nghĩa-ở-đâu-và-nhận-những-giá-trị-nào">Hàm <span class="math inline">\(f\)</span> có nghĩa ở đâu và nhận những giá trị nào?</h3>
+<p>Tại <span class="math inline">\(x=0\)</span>, nghịch đảo của <span class="math inline">\(x\)</span> không tồn tại. Với mọi số thực khác <span class="math inline">\(0\)</span>, giá trị <span class="math inline">\(u=\frac{1}{x}\)</span> được xác định và có thể được đưa vào hàm sin. Vì vậy, tập xác định của hàm <span class="math inline">\(f\)</span> gồm tất cả các số thực khác <span class="math inline">\(0\)</span>:</p>
+<p><span class="math display">\[
+D=(-\infty,0)\cup(0,+\infty).
+\]</span></p>
+<p>Việc loại <span class="math inline">\(0\)</span> khỏi tập xác định để lại một dấu vết rõ ràng trên đồ thị: đồ thị không có điểm nào nằm trên trục tung và được chia thành hai phần ở hai phía của trục này.</p>
+<p>Trên mỗi khoảng <span class="math inline">\((-\infty,0)\)</span> và <span class="math inline">\((0,+\infty)\)</span>, giá trị <span class="math inline">\(u=\frac{1}{x}\)</span> thay đổi liên tục theo <span class="math inline">\(x\)</span>, còn hàm sin liên tục theo đầu vào <span class="math inline">\(u\)</span>. Vì vậy, hàm <span class="math inline">\(f\)</span> liên tục tại mọi điểm thuộc tập xác định của nó.</p>
+<p>Khi đầu vào <span class="math inline">\(x\)</span> thay đổi trên tập xác định của <span class="math inline">\(f\)</span>, <span class="math inline">\(u=\frac{1}{x}\)</span> nhận mọi giá trị thực khác <span class="math inline">\(0\)</span>. Dù <span class="math inline">\(u=0\)</span> không xuất hiện, hàm sin vẫn nhận mọi giá trị từ <span class="math inline">\(-1\)</span> đến <span class="math inline">\(1\)</span> tại những đầu vào khác <span class="math inline">\(0\)</span>. Bởi vậy, tập giá trị của hàm <span class="math inline">\(f\)</span> là</p>
+<p><span class="math display">\[
+[-1,1].
+\]</span></p>
+<p>Toàn bộ đồ thị nằm trong dải giới hạn bởi hai đường thẳng <span class="math inline">\(y=-1\)</span> và <span class="math inline">\(y=1\)</span>, đồng thời thực sự chạm tới cả hai đường biên ấy.</p>
+</section>
+<section id="một-nửa-đồ-thị-soi-chiếu-nửa-còn-lại" class="level3">
+<h3 class="anchored" data-anchor-id="một-nửa-đồ-thị-soi-chiếu-nửa-còn-lại">Một nửa đồ thị soi chiếu nửa còn lại</h3>
+<p>Tập xác định đối xứng qua <span class="math inline">\(0\)</span>: cùng với mỗi <span class="math inline">\(x\ne0\)</span>, số <span class="math inline">\(-x\)</span> cũng thuộc tập xác định. Thay <span class="math inline">\(x\)</span> bằng <span class="math inline">\(-x\)</span> trong công thức, ta có</p>
+<p><span class="math display">\[
+\begin{aligned}
+f(-x)
+&amp;=\sin\left(\frac{1}{-x}\right)\\
+&amp;=\sin\left(-\frac{1}{x}\right)\\
+&amp;=-\sin\left(\frac{1}{x}\right)\\
+&amp;=-f(x).
+\end{aligned}
+\]</span></p>
+<p>Hàm <span class="math inline">\(f\)</span> vì thế là hàm lẻ, có đồ thị nhận gốc tọa độ làm tâm đối xứng. Bản thân gốc tọa độ không thuộc đồ thị, nhưng vẫn là tâm của phép đối xứng ấy.</p>
+<p>Mỗi điểm có hoành độ dương tương ứng với một điểm có hoành độ âm, trong đó cả hoành độ và tung độ đều đổi dấu. Do đó, khi đã hiểu đồ thị trên nửa trục dương, có thể dựng phần còn lại bằng phép đối xứng qua gốc tọa độ.</p>
+</section>
+<section id="vì-sao-hàm-f-không-tuần-hoàn" class="level3">
+<h3 class="anchored" data-anchor-id="vì-sao-hàm-f-không-tuần-hoàn">Vì sao hàm <span class="math inline">\(f\)</span> không tuần hoàn?</h3>
+<p>Sự xuất hiện của hàm sin trong công thức có thể gợi cảm giác rằng hàm <span class="math inline">\(f\)</span> sẽ tuần hoàn theo một chu kì nào đó, cho dù không phải là <span class="math inline">\(2\pi\)</span> như hàm sin. Nhưng sự thật thì không phải thế. Muốn tuần hoàn, toàn bộ đồ thị phải lặp lại sau một độ dời ngang cố định.</p>
+<details class="zo-block zo-block-red">
+<summary class="zo-block-title">
+Định nghĩa hàm tuần hoàn
+</summary>
+<div class="zo-block-body">
+<p>Hàm <span class="math inline">\(f\)</span> có tập xác định <span class="math inline">\(D\)</span> được gọi là tuần hoàn nếu tồn tại một số <span class="math inline">\(T\ne 0\)</span> sao cho với mọi <span class="math inline">\(x\in D\)</span>, hai điều kiện:</p>
+<p><span class="math display">\[
+x+T\in D,\ x-T\in D
+\]</span></p>
+<p>và</p>
+<p><span class="math display">\[
+f(x+T)=f(x)
+\]</span></p>
+<p>đồng thời thỏa mãn.</p>
+<p>Mỗi số <span class="math inline">\(T\)</span> thỏa mãn các điều kiện trên được gọi là một chu kì của hàm <span class="math inline">\(f\)</span>.</p>
+<p>Nếu tồn tại <span class="math inline">\(T_0&gt;0\)</span> nhỏ nhất trong tất cả các chu kì dương, thì <span class="math inline">\(T_0\)</span> được gọi là <em>chu kì cơ sở</em>.</p>
+</div>
+</details>
+<p>Xét một độ dời ngang bất kì <span class="math inline">\(T\ne 0\)</span>. Vì <span class="math inline">\(-T\ne0\)</span>, hàm <span class="math inline">\(f\)</span> xác định tại <span class="math inline">\(x=-T\)</span>, nên đồ thị có một điểm mang hoành độ <span class="math inline">\(-T\)</span>. Nếu toàn bộ đồ thị lặp lại sau độ dời <span class="math inline">\(T\)</span>, điểm ấy khi được tịnh tiến theo phương ngang một lượng <span class="math inline">\(T\)</span> phải trùng với một điểm khác của đồ thị có hoành độ</p>
+<p><span class="math display">\[
+-T+T=0.
+\]</span></p>
+<p>Nhưng hàm <span class="math inline">\(f\)</span> không xác định tại <span class="math inline">\(x=0\)</span>, nên đồ thị không có bất kì điểm nào mang hoành độ <span class="math inline">\(0\)</span>. Vì thế, sau độ dời <span class="math inline">\(T\)</span>, đồ thị không thể trùng với chính nó.</p>
+<p>Lập luận này đúng với mọi <span class="math inline">\(T\ne 0\)</span>. Do đó, không có một độ dời ngang khác <span class="math inline">\(0\)</span> nào làm toàn bộ đồ thị lặp lại. Hàm <span class="math inline">\(f\)</span> không tuần hoàn.</p>
+</section>
+</section>
+<section id="phép-nghịch-đảo-tạo-nên-hai-hành-vi-đối-nghịch" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="phép-nghịch-đảo-tạo-nên-hai-hành-vi-đối-nghịch">Phép nghịch đảo tạo nên hai hành vi đối nghịch</h2>
+<p>Những kết quả trên cho phép thu gọn việc khảo sát về nửa trục dương. Nhánh nằm trên nửa trục âm được suy ra từ tính lẻ và phép đối xứng qua gốc tọa độ.</p>
+<p>Trên nửa trục dương, khi đầu vào <span class="math inline">\(x\)</span> của hàm <span class="math inline">\(f\)</span> thay đổi, đầu vào <span class="math inline">\(u=\frac{1}{x}\)</span> của hàm sin chuyển động theo hai hướng trái ngược. Khi <span class="math inline">\(x\)</span> tiến ra vô cực, <span class="math inline">\(u\)</span> trở về <span class="math inline">\(0\)</span>. Khi <span class="math inline">\(x\)</span> tiến về <span class="math inline">\(0\)</span>, <span class="math inline">\(u\)</span> tăng không bị chặn và đi qua vô hạn chu kì. Đây là các chu kì của hàm sin khi đầu vào <span class="math inline">\(u\)</span> thay đổi, không phải các chu kì của hàm <span class="math inline">\(f\)</span> theo đầu vào <span class="math inline">\(x\)</span>.</p>
+<section id="dịu-êm" class="level3">
+<h3 class="anchored" data-anchor-id="dịu-êm">Dịu êm</h3>
+<p>Nếu <span class="math inline">\(x\to +\infty\)</span> thì <span class="math inline">\(u=\frac{1}{x}\to 0\)</span>. Tính liên tục của hàm sin tại <span class="math inline">\(0\)</span> cho phép kết luận</p>
+<p><span class="math display">\[
+\lim_{x\to+\infty}\sin\left(\frac{1}{x}\right)=0.
+\]</span></p>
+<p>Từ tính lẻ của hàm <span class="math inline">\(f\)</span>, giới hạn ở phía bên trái cũng bằng <span class="math inline">\(0\)</span>. Vì vậy, đường thẳng <span class="math inline">\(y=0\)</span> là tiệm cận ngang của đồ thị của hàm <span class="math inline">\(f\)</span> ở cả bên trái lẫn bên phải.</p>
+<p>Giới hạn cơ bản</p>
+<p><span class="math display">\[
+\lim_{u\to 0}\frac{\sin u}{u}=1
+\]</span></p>
+<p>còn cho một mô tả chính xác hơn:</p>
+<p><span class="math display">\[
+\lim_{x\to\pm\infty}
+\frac{\sin\left(\frac{1}{x}\right)}{\frac{1}{x}}
+=1.
+\]</span></p>
+<p>Nó nói rằng tỉ số giữa <span class="math inline">\(\sin\left(\frac{1}{x}\right)\)</span> và <span class="math inline">\(\frac{1}{x}\)</span> tiến về <span class="math inline">\(1\)</span>. Vì vậy, khi độ lớn của <span class="math inline">\(x\)</span> tăng, giá trị của hàm <span class="math inline">\(f\)</span> ngày càng gần <span class="math inline">\(\frac{1}{x}\)</span>.</p>
+<p>Ở xa gốc tọa độ, đồ thị của <span class="math inline">\(f\)</span> không chỉ tiến về trục hoành mà còn bám sát đồ thị <span class="math inline">\(y=\frac{1}{x}\)</span>.</p>
+<p>Trên nửa trục dương, nếu <span class="math inline">\(x&gt;\frac{2}{\pi}\)</span> thì</p>
+<p><span class="math display">\[
+0&lt;\frac{1}{x}&lt;\frac{\pi}{2}.
+\]</span></p>
+<p>Đầu vào <span class="math inline">\(u=\frac{1}{x}\)</span> lúc này chỉ nằm trong phần đầu của một chu kì của hàm sin. Khi <span class="math inline">\(x\)</span> tăng, <span class="math inline">\(u\)</span> giảm trong khoảng <span class="math inline">\(\left(0,\frac{\pi}{2}\right)\)</span>, còn hàm sin đồng biến khi đầu vào <span class="math inline">\(u\)</span> tăng trên khoảng ấy. Vì <span class="math inline">\(u\)</span> chuyển động theo chiều ngược lại, hàm <span class="math inline">\(f\)</span> nghịch biến trên <span class="math inline">\(\left(\frac{2}{\pi},+\infty\right)\)</span> và tiến dần về <span class="math inline">\(0\)</span>.</p>
+<p>Sự “lặng dần” ở vô cực không phải là một chuỗi dao động vẫn tiếp diễn với biên độ nhỏ dần. Ở phần đuôi này, đầu vào <span class="math inline">\(u=\frac{1}{x}\)</span> không còn đi qua thêm bất kì chu kì nào của hàm sin; đồ thị của <span class="math inline">\(f\)</span> chỉ còn một nhánh đơn điệu tiến về tiệm cận ngang.</p>
+</section>
+<section id="dữ-dội" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="dữ-dội">Dữ dội</h3>
+<p>Nếu <span class="math inline">\(x\to 0^+\)</span> thì <span class="math inline">\(u=\frac{1}{x}\to +\infty\)</span>. Đầu vào <span class="math inline">\(u\)</span> vì thế đi qua hết chu kì này đến chu kì khác của hàm sin. Những mốc cách đều nhau trên trục <span class="math inline">\(u\)</span> xuất hiện ngày càng gần nhau khi được đưa trở lại trục <span class="math inline">\(x\)</span>.</p>
+<section id="nghiệm-và-cực-trị-xen-kẽ" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="nghiệm-và-cực-trị-xen-kẽ">Nghiệm và cực trị xen kẽ</h4>
+<p>Các nghiệm dương của hàm <span class="math inline">\(f\)</span> được xác định bởi</p>
+<p><span class="math display">\[
+\frac{1}{x}=n\pi,
+\quad n=1,2,3,\ldots
+\]</span></p>
+<p>Do đó, đặt</p>
+<p><span class="math display">\[
+z_n=\frac{1}{n\pi},
+\quad n=1,2,3,\ldots
+\]</span></p>
+<p>thì <span class="math inline">\(f(z_n)=0\)</span> và <span class="math inline">\(z_n\to 0^+\)</span>.</p>
+<p>Giữa hai nghiệm dương liên tiếp bất kì có đúng một mốc tại đó hàm <span class="math inline">\(f\)</span> đạt một trong hai giá trị biên <span class="math inline">\(1\)</span> hoặc <span class="math inline">\(-1\)</span>. Quy luật này bắt đầu bằng một mốc nằm bên phải nghiệm <span class="math inline">\(z_1\)</span>. Đặt</p>
+<p><span class="math display">\[
+c_n=\frac{2}{(2n+1)\pi},
+\quad n=0,1,2,\ldots
+\]</span></p>
+<p>thì <span class="math inline">\(f(c_n)=(-1)^n\)</span> và <span class="math inline">\(c_n\to 0^+\)</span>.</p>
+<p>Vì tập giá trị của <span class="math inline">\(f\)</span> là <span class="math inline">\([-1,1]\)</span>, với <span class="math inline">\(m=0,1,2,\ldots\)</span>, các điểm <span class="math inline">\(\left(c_{2m},1\right)\)</span> là điểm cực đại, còn các điểm <span class="math inline">\(\left(c_{2m+1},-1\right)\)</span> là điểm cực tiểu. Các nghiệm và hoành độ cực trị sắp xếp theo thứ tự</p>
+<p><span class="math display">\[
+0&lt;\cdots&lt;c_2&lt;z_2&lt;c_1&lt;z_1&lt;c_0&lt;+\infty.
+\]</span></p>
+<p>Như vậy, khi đi từ phải sang trái về phía <span class="math inline">\(0\)</span>, đồ thị đi qua điểm cực đại thứ nhất là</p>
+<p><span class="math display">\[
+(c_0,1)=\left(\frac{2}{\pi},1\right),
+\]</span></p>
+<p>tiếp theo là điểm giao trục hoành thứ nhất</p>
+<p><span class="math display">\[
+(z_1,0)=\left(\frac{1}{\pi},0\right),
+\]</span></p>
+<p>rồi đến điểm cực tiểu thứ nhất</p>
+<p><span class="math display">\[
+(c_1,-1)=\left(\frac{2}{3\pi},-1\right).
+\]</span></p>
+<p>Sau đó, đồ thị lần lượt đi qua <span class="math inline">\((z_2,0)\)</span>, <span class="math inline">\((c_2,1)\)</span>, <span class="math inline">\((z_3,0)\)</span>, <span class="math inline">\((c_3,-1)\)</span>, và tiếp tục theo cùng quy luật.</p>
+<p>Các nghiệm luôn xen giữa hai cực trị liên tiếp, còn cực đại và cực tiểu luân phiên nhau. Những mốc này tạo thành một dãy vô hạn cùng hội tụ về <span class="math inline">\(0\)</span> từ phía bên phải, nhưng không mốc nào chạm trục tung.</p>
+<div id="fig-sin-mot-tren-x-phong-dai" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" alt="Nhánh dương của đồ thị hàm sin một trên x gần $0$, với các nghiệm và cực trị xen kẽ, cùng dồn về $0$; hình chỉ biểu diễn một số hữu hạn dao động." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-sin-mot-tren-x-phong-dai-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="../_figures/do_thi_ham_sin_mot_tren_x/svg/do_thi_ham_sin_mot_tren_x_phong_dai_02.svg" class="img-fluid quarto-figure quarto-figure-center figure-img column-screen-inset-shaded" style="width:100.0%" alt="Nhánh dương của đồ thị hàm sin một trên x gần $0$, với các nghiệm và cực trị xen kẽ, cùng dồn về $0$; hình chỉ biểu diễn một số hữu hạn dao động.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sin-mot-tren-x-phong-dai-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Hình&nbsp;1: Các nghiệm <span class="math inline">\(z_n\)</span> và hoành độ cực trị <span class="math inline">\(c_n\)</span> xen kẽ, cùng dồn về <span class="math inline">\(0\)</span> trên nửa trục dương.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="phương-ngang-co-lại-phương-dọc-giữ-nguyên" class="level4">
+<h4 class="anchored" data-anchor-id="phương-ngang-co-lại-phương-dọc-giữ-nguyên">Phương ngang co lại, phương dọc giữ nguyên</h4>
+<p>Khoảng cách giữa hai nghiệm dương liên tiếp là</p>
+<p><span class="math display">\[
+\begin{aligned}
+z_n-z_{n+1}
+&amp;=\frac{1}{n\pi}-\frac{1}{(n+1)\pi}\\
+&amp;=\frac{1}{\pi n(n+1)}.
+\end{aligned}
+\]</span></p>
+<p>Do đó,</p>
+<p><span class="math display">\[
+z_n-z_{n+1}\to0.
+\]</span></p>
+<p>Hai nghiệm liên tiếp của hàm sin cách nhau <span class="math inline">\(\pi\)</span> trên trục <span class="math inline">\(u\)</span>. Trong hàm <span class="math inline">\(f\)</span>, đầu vào của hàm sin là <span class="math inline">\(u=\frac{1}{x}\)</span>, nên bề rộng tương ứng trên trục <span class="math inline">\(x\)</span> co dần về <span class="math inline">\(0\)</span>. Đây là dấu vết định lượng của sự dồn sít theo phương ngang.</p>
+<p>Sự co lại ấy không diễn ra theo phương đứng. Với mọi <span class="math inline">\(m=0,1,2,\ldots\)</span>,</p>
+<p><span class="math display">\[
+f(c_{2m})=1,
+\quad
+f(c_{2m+1})=-1.
+\]</span></p>
+<p>Các nhịp sóng ngày càng hẹp nhưng vẫn chạm cả hai mức biên. Biên độ vẫn bằng <span class="math inline">\(1\)</span>, và khoảng cách từ đáy đến đỉnh vẫn bằng <span class="math inline">\(2\)</span>.</p>
+</section>
+<section id="giới-hạn-tại-0-không-tồn-tại" class="level4">
+<h4 class="anchored" data-anchor-id="giới-hạn-tại-0-không-tồn-tại">Giới hạn tại <span class="math inline">\(0\)</span> không tồn tại</h4>
+<p>Với <span class="math inline">\(n=0,1,2,\ldots\)</span>, hai dãy <span class="math inline">\(\left(c_{2n}\right)\)</span> và <span class="math inline">\(\left(c_{2n+1}\right)\)</span> cùng thỏa mãn</p>
+<p><span class="math display">\[
+c_{2n}\to 0^+,
+\quad
+c_{2n+1}\to 0^+,
+\]</span></p>
+<p>nhưng</p>
+<p><span class="math display">\[
+f(c_{2n})=1,
+\quad
+f(c_{2n+1})=-1.
+\]</span></p>
+<p>Nếu giới hạn bên phải của hàm <span class="math inline">\(f\)</span> tại <span class="math inline">\(0\)</span> tồn tại, giá trị của <span class="math inline">\(f\)</span> dọc theo mọi dãy tiến về <span class="math inline">\(0^+\)</span> phải tiến đến cùng một số. Hai dãy trên cho hai giá trị khác nhau, nên</p>
+<p><span class="math display">\[
+\lim_{x\to 0^+}\sin\left(\frac{1}{x}\right)
+\]</span></p>
+<p><em>không tồn tại</em>. Vì vậy, không thể bổ sung bất kì giá trị nào tại <span class="math inline">\(x=0\)</span> để làm cho hàm <span class="math inline">\(f\)</span> liên tục ở đó.</p>
+<p>Dù vậy,</p>
+<p><span class="math display">\[
+\left\lvert\sin\left(\frac{1}{x}\right)\right\rvert\leq1.
+\]</span></p>
+<p>Đường thẳng <span class="math inline">\(x=0\)</span> không phải là tiệm cận đứng. Khi tiến gần điểm bị loại này, đồ thị không vọt ra vô cực mà dao động vô hạn lần trong dải <span class="math inline">\(-1\leq y\leq 1\)</span>.</p>
+<details class="zo-block zo-block-gray">
+<summary class="zo-block-title">
+Không chỉ hai mức <span class="math inline">\(-1\)</span> và <span class="math inline">\(1\)</span>
+</summary>
+<div class="zo-block-body">
+<p>Hai dãy cực trị cho thấy hàm <span class="math inline">\(f\)</span> vẫn đạt hai giá trị <span class="math inline">\(1\)</span> và <span class="math inline">\(-1\)</span> tại những điểm ngày càng gần <span class="math inline">\(0\)</span>. Nhưng hiện tượng này không chỉ xảy ra với hai mức biên ấy.</p>
+<p>Chọn một mức bất kì <span class="math inline">\(L\in[-1,1]\)</span>. Vì tập giá trị của hàm sin là <span class="math inline">\([-1,1]\)</span>, tồn tại một số</p>
+<p><span class="math display">\[
+t\in\left[-\frac{\pi}{2},\frac{\pi}{2}\right]
+\]</span></p>
+<p>sao cho <span class="math inline">\(\sin t=L\)</span>.</p>
+<p>Do hàm sin có chu kì <span class="math inline">\(2\pi\)</span>, ta có</p>
+<p><span class="math display">\[
+\sin(t+2n\pi)=\sin t=L,
+\quad n=1,2,3,\ldots
+\]</span></p>
+<p>Trong khi đó, <span class="math inline">\(t+2n\pi\to+\infty\)</span>. Đặt</p>
+<p><span class="math display">\[
+x_n=\frac{1}{t+2n\pi}.
+\]</span></p>
+<p>Khi ấy, <span class="math inline">\(x_n\to0^+\)</span> và</p>
+<p><span class="math display">\[
+f(x_n)
+=\sin\left(\frac{1}{x_n}\right)
+=\sin(t+2n\pi)
+=L.
+\]</span></p>
+<p>Như vậy, với mỗi mức <span class="math inline">\(L\in[-1,1]\)</span>, luôn có một dãy đầu vào tiến về <span class="math inline">\(0^+\)</span> mà trên đó giá trị của <span class="math inline">\(f\)</span> luôn bằng đúng <span class="math inline">\(L\)</span>. Nói theo hình học, mỗi đường thẳng <span class="math inline">\(y=L\)</span> với <span class="math inline">\(-1\leq L\leq1\)</span> đều cắt đồ thị tại vô hạn điểm dồn về phía trục tung.</p>
+<p>Sự thất bại của giới hạn tại <span class="math inline">\(0\)</span> vì thế không chỉ được thể hiện qua hai mức <span class="math inline">\(-1\)</span> và <span class="math inline">\(1\)</span>. Tùy theo dãy đầu vào được chọn, giá trị của hàm có thể trở lại vô hạn lần tại bất kì mức nào trong dải <span class="math inline">\([-1,1]\)</span>.</p>
+</div>
+</details>
+</section>
+</section>
+</section>
+<section id="từ-biến-thiên-đến-toàn-cảnh-đồ-thị" class="level2">
+<h2 class="anchored" data-anchor-id="từ-biến-thiên-đến-toàn-cảnh-đồ-thị">Từ biến thiên đến toàn cảnh đồ thị</h2>
+<p>Các dãy <span class="math inline">\(z_n\)</span> và <span class="math inline">\(c_n\)</span> đã xác định những mốc quan trọng của mỗi nhịp sóng. Đạo hàm sẽ nối các mốc ấy thành quy luật biến thiên, rồi toàn bộ kết quả được kết tinh trong hình dạng của đồ thị.</p>
+<section id="các-nhịp-đi-lên-và-đi-xuống" class="level3">
+<h3 class="anchored" data-anchor-id="các-nhịp-đi-lên-và-đi-xuống">Các nhịp đi lên và đi xuống</h3>
+<p>Với <span class="math inline">\(x\ne 0\)</span>,</p>
+<p><span class="math display">\[
+f^\prime(x)
+=-\frac{1}{x^2}\cos\left(\frac{1}{x}\right).
+\]</span></p>
+<p>Thừa số <span class="math inline">\(\frac{1}{x^2}\)</span> luôn dương, nên dấu của <span class="math inline">\(f^\prime(x)\)</span> ngược với dấu của <span class="math inline">\(\cos\left(\frac{1}{x}\right)\)</span>. Với <span class="math inline">\(n=0,1,2,\ldots\)</span>, trên khoảng <span class="math inline">\((c_{n+1},c_n)\)</span>,</p>
+<p><span class="math display">\[
+\frac{(2n+1)\pi}{2}
+&lt;
+\frac{1}{x}
+&lt;
+\frac{(2n+3)\pi}{2}.
+\]</span></p>
+<p>Do đó, dấu của <span class="math inline">\(f^\prime(x)\)</span> trên <span class="math inline">\((c_{n+1},c_n)\)</span> là <span class="math inline">\((-1)^n\)</span>. Vì thế, với <span class="math inline">\(n\)</span> chẵn, hàm <span class="math inline">\(f\)</span> đồng biến trên khoảng này; với <span class="math inline">\(n\)</span> lẻ, hàm <span class="math inline">\(f\)</span> nghịch biến. Trên phần đuôi <span class="math inline">\(\left(c_0,+\infty\right)\)</span>, hàm <span class="math inline">\(f\)</span> nghịch biến.</p>
+<p>Dấu đạo hàm cho thấy các số <span class="math inline">\(c_n\)</span> không chỉ là những đầu vào tại đó hàm <span class="math inline">\(f\)</span> đạt hai giá trị biên. Chúng còn là những đầu vào tại đó đồ thị đổi chiều: <span class="math inline">\(c_{2m}\)</span> là hoành độ của một cực đại, còn <span class="math inline">\(c_{2m+1}\)</span> là hoành độ của một cực tiểu.</p>
+<p>Trên nửa trục âm, công thức đạo hàm cho <span class="math inline">\(f'(-x)=f^\prime(x)\)</span>. Vì vậy, các khoảng đơn điệu trên nửa trục dương được phản chiếu qua gốc tọa độ thành những khoảng đơn điệu tương ứng trên nửa trục âm. Hàm <span class="math inline">\(f\)</span> có vô hạn khoảng đồng biến, vô hạn khoảng nghịch biến và vô hạn điểm cực trị ở cả hai phía của <span class="math inline">\(0\)</span>; tất cả các điểm cực trị cùng dồn về <span class="math inline">\(0\)</span>.</p>
+<p>Một bảng biến thiên hữu hạn không thể liệt kê hết cấu trúc này. Dãy <span class="math inline">\(c_n\)</span> cùng quy luật chẵn–lẻ cho một cách biểu đạt trung thực hơn: không thu gọn vô hạn nhịp thành một số hữu hạn ô, nhưng vẫn xác định được toàn bộ cách đồ thị đi lên và đi xuống.</p>
+</section>
+<section id="toàn-cảnh-và-giới-hạn-của-hình-vẽ" class="level3">
+<h3 class="anchored" data-anchor-id="toàn-cảnh-và-giới-hạn-của-hình-vẽ">Toàn cảnh và giới hạn của hình vẽ</h3>
+<p>Những kết quả đã chứng minh đặt ra các ràng buộc quyết định hình dạng đồ thị:</p>
+<ul>
+<li>đồ thị nằm trong dải <span class="math inline">\(-1\leq y\leq 1\)</span>;</li>
+<li>đồ thị nhận gốc tọa độ làm tâm đối xứng nhưng không đi qua gốc tọa độ;</li>
+<li>đồ thị cắt trục hoành tại <span class="math inline">\(x=\pm z_n=\pm\frac{1}{n\pi}\)</span>, với <span class="math inline">\(n=1,2,3,\ldots\)</span>;</li>
+<li>đồ thị chạm hai đường biên <span class="math inline">\(y=1\)</span> và <span class="math inline">\(y=-1\)</span> tại các điểm có hoành độ <span class="math inline">\(x=\pm c_n=\pm\frac{2}{(2n+1)\pi}\)</span>, với <span class="math inline">\(n=0,1,2,3,\ldots\)</span>;</li>
+<li>các nghiệm, điểm cực trị và khoảng đơn điệu dồn vô hạn về hai phía của trục tung;</li>
+<li>khi <span class="math inline">\(\lvert x\rvert\to \infty\)</span>, đồ thị bám sát <span class="math inline">\(y=\frac{1}{x}\)</span> và tiến về tiệm cận ngang <span class="math inline">\(y=0\)</span>.</li>
+</ul>
+<div id="fig-sin-mot-tren-x-toan-canh" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Đồ thị toàn cảnh của hàm sin một trên x, thể hiện các dao động dồn về 0 và hai nhánh tiến về trục hoành khi trị tuyệt đối của x tăng.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sin-mot-tren-x-toan-canh-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../_figures/do_thi_ham_sin_mot_tren_x/svg/do_thi_ham_sin_mot_tren_x_toan_canh.svg" class="img-fluid figure-img" style="width:85.0%" alt="Đồ thị toàn cảnh của hàm sin một trên x, thể hiện các dao động dồn về 0 và hai nhánh tiến về trục hoành khi trị tuyệt đối của x tăng.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sin-mot-tren-x-toan-canh-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Hình&nbsp;2: Đồ thị toàn cảnh của <span class="math inline">\(y=\sin\left(\frac{1}{x}\right)\)</span>: các dao động dồn về <span class="math inline">\(0\)</span>, còn hai nhánh tiến về trục hoành khi <span class="math inline">\(\lvert x\rvert\)</span> tăng.
+</figcaption>
+</figure>
+</div>
+<p>Hình toàn cảnh và hình phóng đại đảm nhiệm hai thang quan sát khác nhau. Hình toàn cảnh cho thấy đồng thời tính đối xứng, dải giá trị và hành vi ở vô cực; hình phóng đại làm lộ trật tự xen kẽ của nghiệm và cực trị gần <span class="math inline">\(0\)</span>. Không hình nào có thể thay thế hình còn lại.</p>
+<p>Ngay cả khi tiếp tục phóng đại, một hình vẫn chỉ biểu diễn được hữu hạn dao động. Kết quả <span class="math inline">\(z_n-z_{n+1}\to0\)</span> mới chứng minh rằng sau mọi nhịp đang nhìn thấy vẫn còn vô hạn nhịp khác nằm gần <span class="math inline">\(0\)</span> hơn.</p>
+<p>Giới hạn ấy của hình vẽ cũng đặt ra một yêu cầu kĩ thuật. Nếu lấy các điểm cách đều trên trục <span class="math inline">\(x\)</span>, hai điểm mẫu gần <span class="math inline">\(0\)</span> có thể nằm cách nhau qua nhiều nhịp sóng. Việc nối chúng bằng đoạn thẳng sẽ tạo ra đường gấp khúc giả hoặc bỏ qua nhiều lần đổi dấu. Cách dựng phù hợp là lấy mẫu theo đầu vào <span class="math inline">\(u\)</span> của hàm sin:</p>
+<p><span class="math display">\[
+u=\frac{1}{x},
+\quad
+(x,y)=\left(\frac{1}{u},\sin u\right),
+\]</span></p>
+<p>trên từng nhánh của đồ thị. Khi các điểm mẫu được phân bố theo <span class="math inline">\(u\)</span>, mỗi chu kì của hàm sin được theo dõi trực tiếp. Việc dừng ở một giá trị hữu hạn của <span class="math inline">\(u\)</span> đồng thời làm rõ rằng hình chỉ biểu diễn một phần của vô hạn dao động.</p>
+</section>
+</section>
+<section id="dao-động-vô-hạn-với-biên-độ-co-về-0" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="dao-động-vô-hạn-với-biên-độ-co-về-0">Dao động vô hạn với biên độ co về <span class="math inline">\(0\)</span></h2>
+<p>Việc hàm <span class="math inline">\(f\)</span> dao động vô hạn lần khi <span class="math inline">\(x\to 0\)</span> dễ gợi ra một câu hỏi: phải chăng cứ dao động vô hạn thì giới hạn không tồn tại? Để phân biệt vai trò của biên độ và số lần dao động đối với sự tồn tại của giới hạn, xét hàm</p>
+<p><span class="math display">\[
+g(x)=x\sin\left(\frac{1}{x}\right),
+\quad x\ne0.
+\]</span></p>
+<p>Trong hàm <span class="math inline">\(g\)</span>, đầu vào <span class="math inline">\(u=\frac{1}{x}\)</span> của hàm sin vẫn đi qua vô hạn chu kì khi <span class="math inline">\(x\to 0\)</span>. Trong mọi khoảng quanh <span class="math inline">\(0\)</span>, dù nhỏ đến đâu, hàm <span class="math inline">\(g\)</span> vẫn đổi dấu vô hạn lần. Tuy nhiên,</p>
+<p><span class="math display">\[
+\left\lvert x\sin\left(\frac{1}{x}\right)\right\rvert
+\leq\lvert x\rvert.
+\]</span></p>
+<p>Vì thế, các dao động của <span class="math inline">\(g\)</span> bị giữ trong một dải co dần về trục hoành.</p>
+<div id="fig-sin-mot-tren-x-soi-chieu" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" alt="Đồ thị so sánh hàm sin một trên x với hàm x nhân sin một trên x và hai đường thẳng y bằng x, y bằng âm x." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-sin-mot-tren-x-soi-chieu-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="../_figures/do_thi_ham_sin_mot_tren_x/svg/do_thi_ham_sin_mot_tren_x_soi_chieu_02.svg" class="img-fluid quarto-figure quarto-figure-center figure-img column-screen-inset-shaded" style="width:100.0%" alt="Đồ thị so sánh hàm sin một trên x với hàm x nhân sin một trên x và hai đường thẳng y bằng x, y bằng âm x.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sin-mot-tren-x-soi-chieu-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Hình&nbsp;3: Soi chiếu hàm <span class="math inline">\(f\)</span> và hàm <span class="math inline">\(g\)</span>: các dao động của <span class="math inline">\(g\)</span> nằm giữa hai đường thẳng <span class="math inline">\(y=x\)</span> và <span class="math inline">\(y=-x\)</span>, rồi co dần về trục hoành.
+</figcaption>
+</figure>
+</div>
+<p>Ta có</p>
+<p><span class="math display">\[
+-\lvert x\rvert
+\leq
+x\sin\left(\frac{1}{x}\right)
+\leq
+\lvert x\rvert
+\]</span></p>
+<p>và cả hai biểu thức ở hai đầu đều tiến về <span class="math inline">\(0\)</span> khi <span class="math inline">\(x\to 0\)</span>. Giá trị ở giữa vì thế cũng phải tiến về <span class="math inline">\(0\)</span>. Lập luận này được gọi là định lí kẹp. Do đó,</p>
+<p><span class="math display">\[
+\lim_{x\to 0}x\sin\left(\frac{1}{x}\right)=0.
+\]</span></p>
+<p>Bổ sung <span class="math inline">\(g(0)=0\)</span> thì hàm <span class="math inline">\(g\)</span> liên tục trên <span class="math inline">\(\mathbb{R}\)</span>. Sự hiện diện của vô hạn dao động vì thế chưa đủ để kết luận rằng giới hạn không tồn tại. Đối với hàm <span class="math inline">\(f\)</span>, giới hạn thất bại vì các dao động dồn sít vẫn giữ nguyên biên độ; đối với hàm <span class="math inline">\(g\)</span>, biên độ co về <span class="math inline">\(0\)</span> nên mọi dao động cùng bị ép về một giá trị.</p>
+</section>
+<section id="kết-tinh" class="level2">
+<h2 class="anchored" data-anchor-id="kết-tinh">Kết tinh</h2>
+<p>Trong hàm <span class="math inline">\(f\)</span>, đầu vào của hàm sin không còn là <span class="math inline">\(x\)</span> trực tiếp mà là <span class="math inline">\(u=\frac{1}{x}\)</span>. Sự thay đổi này phân bố lại các gợn sóng khác nhau, nhưng vẫn giữ nguyên biên độ dao động của hàm sin trên trục <span class="math inline">\(x\)</span>. Khi <span class="math inline">\(\lvert x\rvert\)</span> lớn, <span class="math inline">\(u\)</span> nằm trong một khoảng nhỏ quanh <span class="math inline">\(0\)</span>, nên đồ thị của <span class="math inline">\(f\)</span> chỉ còn những nhánh đơn điệu bám sát <span class="math inline">\(y=\frac{1}{x}\)</span> và tiến về tiệm cận ngang. Khi <span class="math inline">\(x\)</span> tiến về <span class="math inline">\(0\)</span>, <span class="math inline">\(u\)</span> đi qua vô hạn chu kì; vô số nghiệm, điểm cực trị và khoảng đơn điệu vì thế dồn vào mọi khoảng quanh trục tung. Trên đoạn <span class="math inline">\(\left[-\frac{2}{\pi},\frac{2}{\pi}\right]\)</span>, có thể quan sát các cực trị ngoài cùng cùng sự dồn sít của các dao động về <span class="math inline">\(0\)</span>; để thấy hai nhánh tiến về tiệm cận ngang, vẫn cần một cửa sổ rộng hơn.</p>
+<p>Phép nghịch đảo quyết định mật độ dao động theo phương ngang, nhưng không làm thay đổi biên độ của hàm sin. Các mức <span class="math inline">\(1\)</span> và <span class="math inline">\(-1\)</span> vẫn xuất hiện dọc theo những dãy cùng tiến về <span class="math inline">\(0\)</span>, nên giới hạn tại đó không tồn tại. Đạo hàm và đồ thị biểu hiện cùng một cơ chế: vô hạn lần đổi chiều được nén vào một khoảng ngày càng hẹp.</p>
+<p>Phép soi chiếu với hàm <span class="math inline">\(y=x\sin\left(\frac{1}{x}\right)\)</span> làm rõ yếu tố còn lại. Một hàm có thể dao động vô hạn lần mà vẫn có giới hạn nếu biên độ của các dao động co về <span class="math inline">\(0\)</span>. Vì vậy, khi khảo sát một hàm dao động gần một điểm, cần phân biệt hai câu hỏi: các nhịp dao động dồn sít đến mức nào, và độ lớn của chúng có đồng thời suy giảm hay không.</p>
+</section>
+<section id="bài-tập" class="level2">
+<h2 class="anchored" data-anchor-id="bài-tập">Bài tập</h2>
+<p>Hệ thống bài tập tiếp tục mạch của bài viết qua ba chặng. Chặng đầu giúp tự dựng lại toàn bộ hàm <span class="math inline">\(f\)</span>. Chặng thứ hai hoàn tất những chi tiết mà bài viết chỉ mới nêu hoặc giải thích bằng trực giác. Chặng cuối chuyển các kết quả đã có sang những hàm gần gũi, rồi đi đến hai cơ chế tổng quát: đầu vào của hàm sin quyết định mật độ dao động, còn nhân tử bên ngoài quyết định độ lớn của dao động.</p>
+<p>Mười bốn bài được sắp xếp theo quan hệ phụ thuộc. Vì vậy, nên thực hiện theo thứ tự thay vì chọn riêng những câu có vẻ quen thuộc.</p>
+<section id="tái-dựng-toàn-bộ-hàm-f" class="level3">
+<h3 class="anchored" data-anchor-id="tái-dựng-toàn-bộ-hàm-f">Tái dựng toàn bộ hàm <span class="math inline">\(f\)</span></h3>
+<section id="bài-1.-những-ràng-buộc-đầu-tiên-từ-công-thức" class="level4">
+<h4 class="anchored" data-anchor-id="bài-1.-những-ràng-buộc-đầu-tiên-từ-công-thức">Bài 1. Những ràng buộc đầu tiên từ công thức</h4>
+<p>Xét</p>
+<p><span class="math display">\[
+f(x)=\sin\left(\frac{1}{x}\right).
+\]</span></p>
+<ol type="a">
+<li><p>Xác định tập xác định của hàm <span class="math inline">\(f\)</span>. Giải thích vì sao <span class="math inline">\(f\)</span> liên tục trên từng khoảng <span class="math inline">\((-\infty,0)\)</span> và <span class="math inline">\((0,+\infty)\)</span>.</p></li>
+<li><p>Chứng minh tập giá trị của <span class="math inline">\(f\)</span> là <span class="math inline">\([-1,1]\)</span>. Trong chứng minh, cần chỉ ra cả hai điều: <span class="math inline">\(f\)</span> không thể nhận giá trị nằm ngoài đoạn này và mọi giá trị trong đoạn này đều thực sự được nhận.</p></li>
+<li><p>Chứng minh <span class="math inline">\(f\)</span> là hàm lẻ và nêu phép đối xứng tương ứng của đồ thị.</p></li>
+<li><p>Giả sử <span class="math inline">\(T\ne0\)</span> là một chu kì của <span class="math inline">\(f\)</span>. Xét đầu vào <span class="math inline">\(x=-T\)</span> để chỉ ra mâu thuẫn với tập xác định. Từ đó, chứng minh <span class="math inline">\(f\)</span> không tuần hoàn.</p></li>
+<li><p>Giải thích vì sao kết luận ở câu d không mâu thuẫn với việc đầu vào <span class="math inline">\(\frac{1}{x}\)</span> đi qua vô hạn chu kì của hàm sin khi <span class="math inline">\(x\to0\)</span>.</p></li>
+</ol>
+</section>
+<section id="bài-2.-phần-đuôi-của-đồ-thị" class="level4">
+<h4 class="anchored" data-anchor-id="bài-2.-phần-đuôi-của-đồ-thị">Bài 2. Phần đuôi của đồ thị</h4>
+<ol type="a">
+<li>Tính</li>
+</ol>
+<p><span class="math display">\[
+\lim_{x\to+\infty}f(x)
+\quad\text{và}\quad
+\lim_{x\to-\infty}f(x).
+\]</span></p>
+<p>Từ đó, xác định tiệm cận ngang của đồ thị.</p>
+<ol start="2" type="a">
+<li>Dùng giới hạn</li>
+</ol>
+<p><span class="math display">\[
+\lim_{u\to0}\frac{\sin u}{u}=1
+\]</span></p>
+<p>để chứng minh</p>
+<p><span class="math display">\[
+\lim_{x\to\pm\infty}
+\frac{\sin\left(\frac{1}{x}\right)}{\frac{1}{x}}
+=1.
+\]</span></p>
+<ol start="3" type="a">
+<li>Chứng minh thêm</li>
+</ol>
+<p><span class="math display">\[
+\lim_{x\to\pm\infty}
+\left[
+\sin\left(\frac{1}{x}\right)-\frac{1}{x}
+\right]
+=0.
+\]</span></p>
+<p>Hai kết quả ở câu b và câu c cùng mô tả sự gần nhau của đồ thị hàm <span class="math inline">\(f\)</span> và đồ thị <span class="math inline">\(y=\frac{1}{x}\)</span>, nhưng không nói đúng cùng một điều. Hãy giải thích sự khác nhau.</p>
+<ol start="4" type="a">
+<li>Không dùng đạo hàm, hãy chứng minh <span class="math inline">\(f\)</span> nghịch biến trên <span class="math inline">\(\left(\frac{2}{\pi},+\infty\right)\)</span>. Có thể theo dõi lần lượt sự thay đổi của <span class="math inline">\(\frac{1}{x}\)</span> và của hàm sin trên <span class="math inline">\(\left(0,\frac{\pi}{2}\right)\)</span>.</li>
+</ol>
+</section>
+<section id="bài-3.-các-mốc-của-những-nhịp-sóng" class="level4">
+<h4 class="anchored" data-anchor-id="bài-3.-các-mốc-của-những-nhịp-sóng">Bài 3. Các mốc của những nhịp sóng</h4>
+<ol type="a">
+<li>Tìm tất cả nghiệm của phương trình</li>
+</ol>
+<p><span class="math display">\[
+\sin\left(\frac{1}{x}\right)=0.
+\]</span></p>
+<p>Viết nghiệm dưới dạng <span class="math inline">\(x=\frac{1}{k\pi}\)</span>, trong đó <span class="math inline">\(k\)</span> là số nguyên khác <span class="math inline">\(0\)</span>.</p>
+<ol start="2" type="a">
+<li>Trên nửa trục dương, đặt</li>
+</ol>
+<p><span class="math display">\[
+z_n=\frac{1}{n\pi},
+\quad n=1,2,3,\ldots
+\]</span></p>
+<p>và</p>
+<p><span class="math display">\[
+c_n=\frac{2}{(2n+1)\pi},
+\quad n=0,1,2,\ldots
+\]</span></p>
+<p>Chứng minh</p>
+<p><span class="math display">\[
+c_{n-1}&gt;z_n&gt;c_n
+\quad
+\text{với }n=1,2,3,\ldots
+\]</span></p>
+<p>Từ đó, viết thứ tự xen kẽ của toàn bộ các số <span class="math inline">\(z_n,c_n\)</span> trên nửa trục dương.</p>
+<ol start="3" type="a">
+<li><p>Tính <span class="math inline">\(f(c_n)\)</span>. Xác định những số <span class="math inline">\(c_n\)</span> là hoành độ của điểm cực đại và những số <span class="math inline">\(c_n\)</span> là hoành độ của điểm cực tiểu.</p></li>
+<li><p>Tính khoảng cách <span class="math inline">\(z_n-z_{n+1}\)</span> và chứng minh khoảng cách này tiến về <span class="math inline">\(0\)</span>. Giải thích ý nghĩa hình học của kết quả.</p></li>
+</ol>
+</section>
+<section id="bài-4.-nối-các-mốc-bằng-quy-luật-biến-thiên" class="level4">
+<h4 class="anchored" data-anchor-id="bài-4.-nối-các-mốc-bằng-quy-luật-biến-thiên">Bài 4. Nối các mốc bằng quy luật biến thiên</h4>
+<ol type="a">
+<li><p>Tính đạo hàm <span class="math inline">\(f^\prime(x)\)</span> với <span class="math inline">\(x\ne 0\)</span>.</p></li>
+<li><p>Với <span class="math inline">\(n=0,1,2,\ldots\)</span>, xác định dấu của <span class="math inline">\(f^\prime(x)\)</span> trên khoảng <span class="math inline">\((c_{n+1},c_n)\)</span>. Từ đó, viết quy luật các khoảng đồng biến và nghịch biến của <span class="math inline">\(f\)</span> trên <span class="math inline">\((0,+\infty)\)</span> theo tính chẵn–lẻ của <span class="math inline">\(n\)</span>.</p></li>
+<li><p>Xác định chiều biến thiên trên <span class="math inline">\(\left(c_0,+\infty\right)\)</span>.</p></li>
+<li><p>Chứng minh <span class="math inline">\(f^\prime(-x)=f^\prime(x)\)</span>. Dùng kết quả này để viết các khoảng đồng biến và nghịch biến tương ứng trên <span class="math inline">\((-\infty,0)\)</span>.</p></li>
+<li><p>Xác định đầy đủ các điểm cực đại và cực tiểu của <span class="math inline">\(f\)</span> trên cả tập xác định.</p></li>
+</ol>
+</section>
+<section id="bài-5.-điều-gì-xảy-ra-khi-tiến-về-0" class="level4">
+<h4 class="anchored" data-anchor-id="bài-5.-điều-gì-xảy-ra-khi-tiến-về-0">Bài 5. Điều gì xảy ra khi tiến về <span class="math inline">\(0\)</span>?</h4>
+<ol type="a">
+<li><p>Dùng hai dãy <span class="math inline">\(\left(c_{2n}\right)\)</span> và <span class="math inline">\(\left(c_{2n+1}\right)\)</span> để chứng minh giới hạn bên phải của <span class="math inline">\(f\)</span> tại <span class="math inline">\(0\)</span> không tồn tại.</p></li>
+<li><p>Dùng hai dãy <span class="math inline">\(\left(-c_{2n}\right)\)</span> và <span class="math inline">\(\left(-c_{2n+1}\right)\)</span> để chứng minh giới hạn bên trái của <span class="math inline">\(f\)</span> tại <span class="math inline">\(0\)</span> cũng không tồn tại.</p></li>
+<li><p>Giải thích vì sao không thể bổ sung bất kì giá trị nào cho <span class="math inline">\(f(0)\)</span> để thu được một hàm liên tục tại <span class="math inline">\(0\)</span>.</p></li>
+<li><p>Chứng minh đường thẳng <span class="math inline">\(x=0\)</span> không phải là tiệm cận đứng của đồ thị, dù các dao động dồn vô hạn về đường thẳng này.</p></li>
+</ol>
+</section>
+<section id="bài-6.-dựng-lại-toàn-cảnh-đồ-thị" class="level4">
+<h4 class="anchored" data-anchor-id="bài-6.-dựng-lại-toàn-cảnh-đồ-thị">Bài 6. Dựng lại toàn cảnh đồ thị</h4>
+<p>Không nhìn lại hình trong bài, hãy thực hiện các công việc sau:</p>
+<ol type="a">
+<li><p>Lập một bản tóm tắt gồm tập xác định, tập giá trị, đối xứng, nghiệm, cực trị, chiều biến thiên, hành vi khi <span class="math inline">\(x\to0^\pm\)</span>, hành vi khi <span class="math inline">\(x\to\pm\infty\)</span> và tiệm cận.</p></li>
+<li><p>Từ bản tóm tắt, phác họa đồ thị trên một cửa sổ đủ rộng để thấy hai nhánh tiến về trục hoành.</p></li>
+<li><p>Phác họa riêng nhánh dương trong một khoảng nhỏ gần <span class="math inline">\(0\)</span> để thể hiện trật tự xen kẽ của các nghiệm và cực trị.</p></li>
+<li><p>Giải thích vì sao cần hai thang quan sát và vì sao không một hình hữu hạn nào có thể biểu diễn trọn vẹn vô hạn dao động gần <span class="math inline">\(0\)</span>.</p></li>
+</ol>
+</section>
+</section>
+<section id="khép-kín-những-điều-còn-để-mở" class="level3">
+<h3 class="anchored" data-anchor-id="khép-kín-những-điều-còn-để-mở">Khép kín những điều còn để mở</h3>
+<section id="bài-7.-dấu-của-hàm-giữa-hai-nghiệm-liên-tiếp" class="level4">
+<h4 class="anchored" data-anchor-id="bài-7.-dấu-của-hàm-giữa-hai-nghiệm-liên-tiếp">Bài 7. Dấu của hàm giữa hai nghiệm liên tiếp</h4>
+<p>Với <span class="math inline">\(n=1,2,3,\ldots\)</span>, xét khoảng <span class="math inline">\((z_{n+1},z_n)\)</span>.</p>
+<ol type="a">
+<li>Chứng minh rằng khi <span class="math inline">\(x\)</span> chạy trên khoảng này thì</li>
+</ol>
+<p><span class="math display">\[
+n\pi&lt;\frac{1}{x}&lt;(n+1)\pi.
+\]</span></p>
+<ol start="2" type="a">
+<li><p>Suy ra <span class="math inline">\(f(x)&gt;0\)</span> trên <span class="math inline">\((z_{n+1},z_n)\)</span> khi <span class="math inline">\(n\)</span> chẵn và <span class="math inline">\(f(x)&lt;0\)</span> trên khoảng ấy khi <span class="math inline">\(n\)</span> lẻ.</p></li>
+<li><p>Chứng minh <span class="math inline">\(c_n\)</span> là hoành độ cực trị duy nhất nằm giữa hai nghiệm <span class="math inline">\(z_{n+1}\)</span> và <span class="math inline">\(z_n\)</span>.</p></li>
+<li><p>Dùng tính lẻ để suy ra dấu và vị trí cực trị trên các khoảng tương ứng ở nửa trục âm.</p></li>
+</ol>
+</section>
+<section id="bài-8.-không-chỉ-hai-mức--1-và-1" class="level4">
+<h4 class="anchored" data-anchor-id="bài-8.-không-chỉ-hai-mức--1-và-1">Bài 8. Không chỉ hai mức <span class="math inline">\(-1\)</span> và <span class="math inline">\(1\)</span></h4>
+<p>Cho trước một số <span class="math inline">\(L\in[-1,1]\)</span>.</p>
+<ol type="a">
+<li>Chọn <span class="math inline">\(t\in\left[-\frac{\pi}{2},\frac{\pi}{2}\right]\)</span> sao cho <span class="math inline">\(\sin t=L\)</span> và đặt</li>
+</ol>
+<p><span class="math display">\[
+x_n=\frac{1}{t+2n\pi},
+\quad n=1,2,3,\ldots
+\]</span></p>
+<p>Chứng minh <span class="math inline">\(x_n\to0^+\)</span> và <span class="math inline">\(f(x_n)=L\)</span> với mọi <span class="math inline">\(n\)</span>.</p>
+<ol start="2" type="a">
+<li>Đặt</li>
+</ol>
+<p><span class="math display">\[
+y_n=\frac{1}{t-2n\pi},
+\quad n=1,2,3,\ldots
+\]</span></p>
+<p>Chứng minh <span class="math inline">\(y_n\to0^-\)</span> và <span class="math inline">\(f(y_n)=L\)</span> với mọi <span class="math inline">\(n\)</span>.</p>
+<ol start="3" type="a">
+<li>Từ hai kết quả trên, mô tả đầy đủ những mức giá trị còn tiếp tục xuất hiện khi đầu vào tiến về <span class="math inline">\(0\)</span> từ mỗi phía.</li>
+</ol>
+</section>
+<section id="bài-9.-điều-hình-vẽ-có-thể-và-không-thể-chứng-minh" class="level4">
+<h4 class="anchored" data-anchor-id="bài-9.-điều-hình-vẽ-có-thể-và-không-thể-chứng-minh">Bài 9. Điều hình vẽ có thể và không thể chứng minh</h4>
+<ol type="a">
+<li><p>Dùng <span class="math inline">\(z_n\to0^+\)</span> và <span class="math inline">\(c_n\to0^+\)</span> để chứng minh rằng trong mọi khoảng <span class="math inline">\((0,\delta)\)</span>, với <span class="math inline">\(\delta&gt;0\)</span>, đều có vô hạn nghiệm và vô hạn điểm cực trị của <span class="math inline">\(f\)</span>.</p></li>
+<li><p>Với một số nguyên dương <span class="math inline">\(N\)</span>, xét các đầu vào của hàm sin</p></li>
+</ol>
+<p><span class="math display">\[
+u_j=\frac{j\pi}{2},
+\quad j=1,2,\ldots,2N+1,
+\]</span></p>
+<p>rồi chuyển chúng về trục <span class="math inline">\(x\)</span> bằng</p>
+<p><span class="math display">\[
+x_j=\frac{1}{u_j}=\frac{2}{j\pi}.
+\]</span></p>
+<p>Tính <span class="math inline">\(f(x_j)\)</span> và chỉ ra vì sao các điểm thu được lần lượt đánh dấu nghiệm và cực trị.</p>
+<ol start="3" type="a">
+<li><p>Giải thích vì sao lấy điểm cách đều theo <span class="math inline">\(u\)</span> theo dõi được từng nhịp của hàm sin, còn lấy điểm cách đều theo <span class="math inline">\(x\)</span> có thể bỏ qua nhiều nhịp gần <span class="math inline">\(0\)</span>.</p></li>
+<li><p>Phân biệt hai vai trò: hình vẽ biểu hiện một số dao động hữu hạn; công thức của các dãy chứng minh sự tồn tại của vô hạn dao động.</p></li>
+</ol>
+</section>
+</section>
+<section id="mở-rộng-và-đào-sâu" class="level3">
+<h3 class="anchored" data-anchor-id="mở-rộng-và-đào-sâu">Mở rộng và đào sâu</h3>
+<section id="bài-10.-dao-động-còn-lại-nhưng-biên-độ-co-về-0" class="level4">
+<h4 class="anchored" data-anchor-id="bài-10.-dao-động-còn-lại-nhưng-biên-độ-co-về-0">Bài 10. Dao động còn lại nhưng biên độ co về <span class="math inline">\(0\)</span></h4>
+<p>Xét</p>
+<p><span class="math display">\[
+g(x)=x\sin\left(\frac{1}{x}\right),
+\quad x\ne0.
+\]</span></p>
+<ol type="a">
+<li><p>Chứng minh <span class="math inline">\(g\)</span> có vô hạn nghiệm và đổi dấu vô hạn lần trong mọi khoảng quanh <span class="math inline">\(0\)</span>.</p></li>
+<li><p>Dùng bất đẳng thức</p></li>
+</ol>
+<p><span class="math display">\[
+\left\lvert g(x)\right\rvert\leq\lvert x\rvert
+\]</span></p>
+<p>để tính <span class="math inline">\(\lim_{x\to0}g(x)\)</span>. Đặt thêm <span class="math inline">\(g(0)=0\)</span> và chứng minh hàm <span class="math inline">\(g\)</span> mới liên tục trên <span class="math inline">\(\mathbb{R}\)</span>.</p>
+<ol start="3" type="a">
+<li>Xét giới hạn</li>
+</ol>
+<p><span class="math display">\[
+\lim_{x\to0}\frac{g(x)-g(0)}{x}.
+\]</span></p>
+<p>Chứng minh hàm <span class="math inline">\(g\)</span> không có đạo hàm tại <span class="math inline">\(0\)</span>.</p>
+<ol start="4" type="a">
+<li>Giải thích vì sao kết quả này đồng thời cho thấy: vô hạn dao động không ngăn cản tính liên tục, nhưng vẫn có thể ngăn cản tính khả vi.</li>
+</ol>
+</section>
+<section id="bài-11.-khi-biên-độ-co-nhanh-hơn" class="level4">
+<h4 class="anchored" data-anchor-id="bài-11.-khi-biên-độ-co-nhanh-hơn">Bài 11. Khi biên độ co nhanh hơn</h4>
+<p>Xét hàm</p>
+<p><span class="math display">\[
+h(x)=
+\begin{cases}
+x^2\sin\left(\frac{1}{x}\right),&amp;x\ne0,\\
+0,&amp;x=0.
+\end{cases}
+\]</span></p>
+<ol type="a">
+<li><p>Chứng minh <span class="math inline">\(h\)</span> liên tục tại <span class="math inline">\(0\)</span>.</p></li>
+<li><p>Dùng định nghĩa đạo hàm để chứng minh <span class="math inline">\(h'(0)=0\)</span>.</p></li>
+<li><p>Với <span class="math inline">\(x\ne0\)</span>, chứng minh</p></li>
+</ol>
+<p><span class="math display">\[
+h'(x)
+=2x\sin\left(\frac{1}{x}\right)
+-\cos\left(\frac{1}{x}\right).
+\]</span></p>
+<ol start="4" type="a">
+<li><p>Xét đạo hàm tại các điểm <span class="math inline">\(z_n=\frac{1}{n\pi}\)</span>. Chứng minh <span class="math inline">\(h^\prime(x)\)</span> không tiến về <span class="math inline">\(0\)</span> khi <span class="math inline">\(x\to0\)</span>, nên đạo hàm của <span class="math inline">\(h\)</span> không liên tục tại <span class="math inline">\(0\)</span>.</p></li>
+<li><p>Phân biệt ba kết luận: liên tục tại <span class="math inline">\(0\)</span>, có đạo hàm tại <span class="math inline">\(0\)</span> và đạo hàm liên tục tại <span class="math inline">\(0\)</span>.</p></li>
+</ol>
+</section>
+<section id="bài-12.-một-họ-hàm-có-biên-độ-là-lũy-thừa-của-x" class="level4">
+<h4 class="anchored" data-anchor-id="bài-12.-một-họ-hàm-có-biên-độ-là-lũy-thừa-của-x">Bài 12. Một họ hàm có biên độ là lũy thừa của <span class="math inline">\(x\)</span></h4>
+<p>Với <span class="math inline">\(m\)</span> là số nguyên không âm, xét</p>
+<p><span class="math display">\[
+f_m(x)=x^m\sin\left(\frac{1}{x}\right),
+\quad x\ne0.
+\]</span></p>
+<p>Khi có thể, đặt thêm <span class="math inline">\(f_m(0)=0\)</span>.</p>
+<ol type="a">
+<li><p>Chứng minh có thể mở rộng <span class="math inline">\(f_m\)</span> thành một hàm liên tục tại <span class="math inline">\(0\)</span> khi và chỉ khi <span class="math inline">\(m\geq 1\)</span>.</p></li>
+<li><p>Trong các trường hợp đã mở rộng liên tục, chứng minh <span class="math inline">\(f_m\)</span> có đạo hàm tại <span class="math inline">\(0\)</span> khi và chỉ khi <span class="math inline">\(m\geq2\)</span>. Tính <span class="math inline">\(f_m^\prime(0)\)</span> khi đạo hàm tồn tại.</p></li>
+<li><p>Với <span class="math inline">\(x\ne 0\)</span>, tính <span class="math inline">\(f_m^\prime(x)\)</span>. Chứng minh đạo hàm của hàm mở rộng liên tục tại <span class="math inline">\(0\)</span> khi và chỉ khi <span class="math inline">\(m\geq3\)</span>.</p></li>
+<li><p>Lập một bảng cho bốn trường hợp <span class="math inline">\(m=0\)</span>, <span class="math inline">\(m=1\)</span>, <span class="math inline">\(m=2\)</span> và <span class="math inline">\(m\geq 3\)</span>, trong đó ghi rõ: khả năng mở rộng liên tục, sự tồn tại của đạo hàm tại <span class="math inline">\(0\)</span> và tính liên tục của đạo hàm tại <span class="math inline">\(0\)</span>.</p></li>
+</ol>
+</section>
+<section id="bài-13.-thay-đổi-tốc-độ-của-đầu-vào" class="level4">
+<h4 class="anchored" data-anchor-id="bài-13.-thay-đổi-tốc-độ-của-đầu-vào">Bài 13. Thay đổi tốc độ của đầu vào</h4>
+<p>Với <span class="math inline">\(r\)</span> là số nguyên dương, xét</p>
+<p><span class="math display">\[
+q_r(x)=\sin\left(\frac{1}{x^r}\right),
+\quad x\ne0.
+\]</span></p>
+<ol type="a">
+<li><p>Xác định tập xác định và tập giá trị của <span class="math inline">\(q_r\)</span>.</p></li>
+<li><p>Chứng minh <span class="math inline">\(q_r\)</span> là hàm lẻ khi <span class="math inline">\(r\)</span> lẻ và là hàm chẵn khi <span class="math inline">\(r\)</span> chẵn.</p></li>
+<li><p>Tìm các nghiệm dương của <span class="math inline">\(q_r\)</span>. Chứng minh chúng có dạng</p></li>
+</ol>
+<p><span class="math display">\[
+p_n=\sqrt[r]{\frac{1}{n\pi}},
+\quad n=1,2,3,\ldots
+\]</span></p>
+<p>và cùng tiến về <span class="math inline">\(0\)</span>.</p>
+<ol start="4" type="a">
+<li><p>Xây dựng hai dãy đầu vào dương cùng tiến về <span class="math inline">\(0\)</span>, trong đó <span class="math inline">\(q_r\)</span> luôn nhận giá trị <span class="math inline">\(1\)</span> trên một dãy và luôn nhận giá trị <span class="math inline">\(-1\)</span> trên dãy còn lại. Từ đó, chứng minh giới hạn của <span class="math inline">\(q_r\)</span> tại <span class="math inline">\(0\)</span> không tồn tại.</p></li>
+<li><p>Trên khoảng <span class="math inline">\(0&lt;x&lt;1\)</span>, so sánh <span class="math inline">\(\frac{1}{x^r}\)</span> với <span class="math inline">\(\frac{1}{x}\)</span> khi <span class="math inline">\(r&gt;1\)</span>. Giải thích vì sao việc tăng <span class="math inline">\(r\)</span> làm các chu kì của hàm sin được đi qua nhanh hơn khi <span class="math inline">\(x\)</span> tiến về <span class="math inline">\(0\)</span>, nhưng không làm thay đổi biên độ dao động.</p></li>
+</ol>
+</section>
+<section id="bài-14.-cơ-chế-chung-của-nhân-tử-biên-độ" class="level4">
+<h4 class="anchored" data-anchor-id="bài-14.-cơ-chế-chung-của-nhân-tử-biên-độ">Bài 14. Cơ chế chung của nhân tử biên độ</h4>
+<p>Cho hàm <span class="math inline">\(a\)</span> xác định với mọi <span class="math inline">\(x\ne0\)</span> trong một khoảng quanh <span class="math inline">\(0\)</span> và thỏa mãn</p>
+<p><span class="math display">\[
+\lim_{x\to0}a(x)=0.
+\]</span></p>
+<ol type="a">
+<li>Dùng bất đẳng thức</li>
+</ol>
+<p><span class="math display">\[
+\left\lvert
+a(x)\sin\left(\frac{1}{x}\right)
+\right\rvert
+\leq\lvert a(x)\rvert
+\]</span></p>
+<p>để chứng minh</p>
+<p><span class="math display">\[
+\lim_{x\to0}
+a(x)\sin\left(\frac{1}{x}\right)
+=0.
+\]</span></p>
+<ol start="2" type="a">
+<li>Nếu có thêm một hàm <span class="math inline">\(b\)</span> thỏa mãn <span class="math inline">\(\lim_{x\to0}b(x)=B\)</span>, hãy chứng minh</li>
+</ol>
+<p><span class="math display">\[
+\lim_{x\to0}
+\left[
+b(x)+a(x)\sin\left(\frac{1}{x}\right)
+\right]
+=B.
+\]</span></p>
+<ol start="3" type="a">
+<li>Áp dụng kết quả trên để tính</li>
+</ol>
+<p><span class="math display">\[
+\lim_{x\to0}
+\left[
+2+x+\sqrt{\lvert x\rvert}
+\sin\left(\frac{1}{x}\right)
+\right].
+\]</span></p>
+<ol start="4" type="a">
+<li>Từ Bài 13 và bài này, phát biểu bằng lời vai trò riêng của đầu vào <span class="math inline">\(\frac{1}{x^r}\)</span> và nhân tử <span class="math inline">\(a(x)\)</span> đối với hình dạng dao động gần <span class="math inline">\(0\)</span>.</li>
+</ol>
+
+
+<div class="zo-pdf-download">
+<p><a href="ham_sin_mot_tren_x.pdf" class="zo-pdf-download__link" download="" aria-label="Tải PDF" title="Tải bản PDF"><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> Tải PDF</a></p>
+</div>
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // Nếu trang không có TOC thật thì không tạo nút TOC.
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (!rawToc) {
+
+      tocBtn?.closest(".toc-toggle-holder")?.remove();
+
+      return;
+
+    }
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Hiện các cấp mục lục đã được Quarto sinh ra theo toc-depth.
+
+      // Quarto/Bootstrap có thể gắn class "collapse" cho mục con, khiến ### bị ẩn.
+
+      tocEl.querySelectorAll("ul.collapse").forEach((ul) => {
+
+        ul.classList.remove("collapse");
+
+      });
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/zo-math\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a> <br> <a href="https://www.facebook.com/profile.php?id=61591689772259" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://www.tiktok.com/@zo.math" title="TikTok"><i class="bi bi-tiktok"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a> <br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="ZO Math">
+<meta name="keywords" content="Hàm bậc ba, y=x^3, Chiều biến thiên, Tính cong, Điểm uốn, Tiếp tuyến nằm ngang, Nghiệm bội, Hàm ngược">
+<meta name="description" content="Độ dốc của đồ thị y=x^3 giảm dần về 0 khi tiến đến gốc rồi tăng trở lại, nhưng đồ thị vẫn đi lên và không quay đầu. Điều gì phân biệt một điểm dừng với một điểm cực trị? Bài viết lần theo dấu của y^\prime, sự biến thiên của y^\prime và dấu của y^{\prime\prime} để làm rõ điểm uốn tại gốc, rồi nhìn lại những quan hệ ấy qua hàm ngược y=\sqrt[3]{x}.">
+
+<title>Hàm số y = x³ – ZO Math</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../../">
+<link href="../../../../../images/favicon.ico" rel="icon">
+<script src="../../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../../site_libs/bootstrap/bootstrap-f61255698acf0ab77f9c69302430f227.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../../../assets/css/custom.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed zo-page-article zo-meta-hidden quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../../../assets/logo/zo_math_logo_black_on_transprentt_1024.png" alt="ZO Math" class="navbar-logo light-content">
+    <img src="../../../../../assets/logo/zo_math_logo_black_on_transprentt_1024.png" alt="ZO Math" class="navbar-logo dark-content">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../../../content/thpt/toan_11/index.html">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../../content/thpt/toan_12/index.html">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../../content/thpt/zo_math_100/index.html">
+ <span class="dropdown-text">ZO Math 100+</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/di_tim/index.html"> 
+<span class="menu-text">Đi Tìm</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/khoa_hoc/index.html"> 
+<span class="menu-text">Khóa Học</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/kien_tao/index.html"> 
+<span class="menu-text">Kiến Tạo</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/cong_cu/index.html"> 
+<span class="menu-text">Công Cụ</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/shop/index.html"> 
+<span class="menu-text">Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/index.html">Danh sách hàm cơ bản</a></li><li class="breadcrumb-item"><a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_x_mu_3.html">Hàm số y = x³</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/index.html">Danh sách hàm cơ bản</a></li><li class="breadcrumb-item"><a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_x_mu_3.html">Hàm số y = x³</a></li></ol></nav>
+      <h1 class="title">Hàm số <span class="math inline">\(y=x^3\)</span></h1>
+            <p class="subtitle lead">Đi qua điểm dừng tại gốc mà không đổi chiều biến thiên</p>
+                  <div>
+        <div class="description">
+          Độ dốc của đồ thị <span class="math inline">\(y=x^3\)</span> giảm dần về <span class="math inline">\(0\)</span> khi tiến đến gốc rồi tăng trở lại, nhưng đồ thị vẫn đi lên và không quay đầu. Điều gì phân biệt một điểm dừng với một điểm cực trị? Bài viết lần theo dấu của <span class="math inline">\(y^\prime\)</span>, sự biến thiên của <span class="math inline">\(y^\prime\)</span> và dấu của <span class="math inline">\(y^{\prime\prime}\)</span> để làm rõ điểm uốn tại gốc, rồi nhìn lại những quan hệ ấy qua hàm ngược <span class="math inline">\(y=\sqrt[3]{x}\)</span>.
+        </div>
+      </div>
+                </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Tác giả</div>
+      <div class="quarto-title-meta-contents">
+               <p>ZO Math </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Ngày cập nhật</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">21-08-2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  <div>
+    <div class="abstract">
+      <div class="block-title">Tóm tắt</div>
+      <p>Hàm số <span class="math inline">\(y=x^3\)</span> cho thấy một điểm có đạo hàm bằng <span class="math inline">\(0\)</span> không nhất thiết là nơi hàm số đổi chiều biến thiên. Bài viết bắt đầu từ cấu trúc đại số của <span class="math inline">\(x^3\)</span>, dấu và độ lớn của giá trị hàm số, rồi chứng minh trực tiếp tính đồng biến nghiêm ngặt trước khi dùng đạo hàm để khảo sát sâu hơn. Tại gốc tọa độ, <span class="math inline">\(y^\prime(0)=0\)</span> tạo ra một tiếp tuyến nằm ngang, nhưng <span class="math inline">\(y^\prime\)</span> không đổi dấu nên hàm số vẫn tiếp tục đồng biến. Trong khi đó, <span class="math inline">\(y^\prime\)</span> giảm về <span class="math inline">\(0\)</span> rồi tăng trở lại; tương ứng, <span class="math inline">\(y^{\prime\prime}\)</span> đổi dấu qua <span class="math inline">\(0\)</span> và đồ thị chuyển từ cong xuống sang cong lên. Sự phân biệt giữa chiều biến thiên và tính cong làm rõ vì sao <span class="math inline">\(O\)</span> là điểm uốn nhưng không phải điểm cực trị. Cuối cùng, các quan hệ ấy được soi lại qua hàm ngược <span class="math inline">\(y=\sqrt[3]{x}\)</span>.</p>
+    </div>
+  </div>
+
+  <div>
+    <div class="keywords">
+      <div class="block-title">Từ khóa</div>
+      <p>Hàm bậc ba, y=x^3, Chiều biến thiên, Tính cong, Điểm uốn, Tiếp tuyến nằm ngang, Nghiệm bội, Hàm ngược</p>
+    </div>
+  </div>
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ZO Math 100+</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">100+ Hàm số: sự biến thiên và đồ thị</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/dan_nhap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dẫn nhập</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/ham_so.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm số</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/bien_thien.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Biến thiên</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/do_thi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Đồ thị</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Danh sách hàm cơ bản</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_so_hang.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm số hằng</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_so_bac_nhat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm số bậc nhất</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_ln_x.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm lô-ga-rit tự nhiên</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_can_x.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm √x</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_x_binh.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm số y = x²</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_x_mu_3.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Hàm số y = x³</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_arcsin_x.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm số arcsin</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_x_tru_mot_tren_x.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm số x trừ một trên x</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_sgn_x.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm dấu</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Danh sách hàm mở rộng</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Danh sách hàm đào sâu</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/depth/ham_sin_mot_tren_x.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm số sin một trên x</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nội dung</h2>
+   
+  <ul>
+  <li><a href="#nhận-diện-và-tính-đối-xứng" id="toc-nhận-diện-và-tính-đối-xứng" class="nav-link active" data-scroll-target="#nhận-diện-và-tính-đối-xứng">Nhận diện và tính đối xứng</a></li>
+  <li><a href="#đồng-biến-nghiêm-ngặt-dù-tồn-tại-điểm-mà-đạo-hàm-triệt-tiêu" id="toc-đồng-biến-nghiêm-ngặt-dù-tồn-tại-điểm-mà-đạo-hàm-triệt-tiêu" class="nav-link" data-scroll-target="#đồng-biến-nghiêm-ngặt-dù-tồn-tại-điểm-mà-đạo-hàm-triệt-tiêu">Đồng biến nghiêm ngặt dù tồn tại điểm mà đạo hàm triệt tiêu</a></li>
+  <li><a href="#độ-dốc-thay-đổi-và-điểm-uốn" id="toc-độ-dốc-thay-đổi-và-điểm-uốn" class="nav-link" data-scroll-target="#độ-dốc-thay-đổi-và-điểm-uốn">Độ dốc thay đổi và điểm uốn</a></li>
+  <li><a href="#bảng-biến-thiên-và-đồ-thị-tổng-hợp" id="toc-bảng-biến-thiên-và-đồ-thị-tổng-hợp" class="nav-link" data-scroll-target="#bảng-biến-thiên-và-đồ-thị-tổng-hợp">Bảng biến thiên và đồ thị tổng hợp</a></li>
+  <li><a href="#vì-sao-yx2-quay-đầu-còn-yx3-đi-qua-gốc" id="toc-vì-sao-yx2-quay-đầu-còn-yx3-đi-qua-gốc" class="nav-link" data-scroll-target="#vì-sao-yx2-quay-đầu-còn-yx3-đi-qua-gốc">Vì sao <span class="math inline">\(y=x^2\)</span> quay đầu còn <span class="math inline">\(y=x^3\)</span> đi qua gốc?</a></li>
+  <li><a href="#từ-tính-đồng-biến-đến-hàm-ngược" id="toc-từ-tính-đồng-biến-đến-hàm-ngược" class="nav-link" data-scroll-target="#từ-tính-đồng-biến-đến-hàm-ngược">Từ tính đồng biến đến hàm ngược</a></li>
+  <li><a href="#nhìn-lại-điểm-dừng-tại-gốc" id="toc-nhìn-lại-điểm-dừng-tại-gốc" class="nav-link" data-scroll-target="#nhìn-lại-điểm-dừng-tại-gốc">Nhìn lại điểm dừng tại gốc</a></li>
+  <li><a href="#bài-tập" id="toc-bài-tập" class="nav-link" data-scroll-target="#bài-tập">Bài tập</a>
+  <ul class="collapse">
+  <li><a href="#tính-lẻ-đồng-biến-và-điểm-uốn-tại-gốc-tọa-độ" id="toc-tính-lẻ-đồng-biến-và-điểm-uốn-tại-gốc-tọa-độ" class="nav-link" data-scroll-target="#tính-lẻ-đồng-biến-và-điểm-uốn-tại-gốc-tọa-độ">Tính lẻ, đồng biến và điểm uốn tại gốc tọa độ</a></li>
+  <li><a href="#từ-yx3-đến-các-hàm-bậc-ba-khác" id="toc-từ-yx3-đến-các-hàm-bậc-ba-khác" class="nav-link" data-scroll-target="#từ-yx3-đến-các-hàm-bậc-ba-khác">Từ <span class="math inline">\(y=x^3\)</span> đến các hàm bậc ba khác</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p>Hàm số <span class="math inline">\(y=x^3\)</span> có một đặc điểm đáng chú ý. Nó đồng biến trên toàn bộ <span class="math inline">\(\mathbb{R}\)</span> như hàm số <span class="math inline">\(y=x\)</span>, nhưng khác với đường thẳng ở chỗ độ dốc không giữ nguyên: khi tiến đến gốc tọa độ, độ dốc giảm dần về <span class="math inline">\(0\)</span> rồi tăng trở lại. Ở điểm này, <span class="math inline">\(y=x^3\)</span> cũng khác với <span class="math inline">\(y=x^2\)</span>. Cả hai đều có tiếp tuyến nằm ngang tại <span class="math inline">\(O\)</span>, nhưng đồ thị <span class="math inline">\(y=x^2\)</span> quay đầu tại đó, còn đồ thị <span class="math inline">\(y=x^3\)</span> vẫn tiếp tục đi lên. Vì sao cùng có đạo hàm bằng <span class="math inline">\(0\)</span> mà một hàm đổi chiều biến thiên, còn hàm kia thì không? Câu trả lời nằm ở dấu của đạo hàm bậc nhất và cách độ dốc biến thiên qua <span class="math inline">\(0\)</span>: <span class="math inline">\(y=x^3\)</span> vẫn giữ chiều đồng biến, đồng thời đồ thị chuyển từ cong xuống sang cong lên.</p>
+<section id="nhận-diện-và-tính-đối-xứng" class="level2">
+<h2 class="anchored" data-anchor-id="nhận-diện-và-tính-đối-xứng">Nhận diện và tính đối xứng</h2>
+<p>Hàm số <span class="math inline">\(y=x^3\)</span> được xác định trên toàn <span class="math inline">\(\mathbb{R}\)</span>.</p>
+<p>Với <span class="math inline">\(f(x)=x^3\)</span>, <span class="math display">\[
+f(-x)=(-x)^3=-x^3=-f(x),
+\]</span> nên <span class="math inline">\(y=x^3\)</span> là hàm số lẻ và đồ thị đối xứng qua gốc tọa độ <span class="math inline">\(O(0,0)\)</span>. Đối xứng này giúp ta khôi phục nửa đồ thị bên trái từ nửa bên phải. Tuy nhiên, những kết luận toàn cục đối với hàm số lẻ vẫn cần được kiểm tra trên toàn miền, chứ không chỉ dựa vào hình đối xứng.</p>
+<details class="zo-block zo-block-red">
+<summary class="zo-block-title">
+Hàm số lẻ
+</summary>
+<div class="zo-block-body">
+<p>Cho hàm số <span class="math inline">\(f\)</span> có tập xác định <span class="math inline">\(D\)</span> đối xứng qua <span class="math inline">\(0\)</span>, nghĩa là nếu <span class="math inline">\(x\in D\)</span> thì <span class="math inline">\(-x\in D\)</span>. Hàm số <span class="math inline">\(f\)</span> được gọi là <em>hàm lẻ</em> nếu, với mọi <span class="math inline">\(x\in D\)</span>, ta có <span class="math display">\[
+f(-x)=-f(x).
+\]</span> Khi đó đồ thị của <span class="math inline">\(f\)</span> nhận gốc tọa độ làm tâm đối xứng. Nếu <span class="math inline">\(0\in D\)</span> thì từ <span class="math inline">\(f(0)=-f(0)\)</span> suy ra <span class="math inline">\(f(0)=0\)</span>.</p>
+</div>
+</details>
+<p>Phương trình</p>
+<p><span class="math display">\[
+x^3=0
+\]</span></p>
+<p>chỉ có nghiệm <span class="math inline">\(x=0\)</span>, nên đồ thị của hàm số <span class="math inline">\(y=x^3\)</span> giao với cả hai trục tọa độ tại cùng một điểm <span class="math inline">\(O(0,0)\)</span>.</p>
+<p>Đẳng thức</p>
+<p><span class="math display">\[
+x^3=x\cdot x^2
+\]</span></p>
+<p>cho phép nhìn thấy hai vai trò khác nhau trong cùng một biểu thức. Nhân tử <span class="math inline">\(x\)</span> giữ lại dấu của giá trị: khi <span class="math inline">\(x&lt;0\)</span> thì <span class="math inline">\(x^3&lt;0\)</span>, còn khi <span class="math inline">\(x&gt;0\)</span> thì <span class="math inline">\(x^3&gt;0\)</span>, bởi <span class="math inline">\(x^2\)</span> luôn dương với <span class="math inline">\(x\ne0\)</span>. Vì thế, phần đồ thị bên trái gốc tọa độ nằm dưới trục hoành, còn phần bên phải nằm trên trục hoành.</p>
+<p>Nhưng <span class="math inline">\(x^2\)</span> không chỉ đứng đó mà không làm đổi dấu. Nó còn quyết định giá trị của <span class="math inline">\(x\)</span> được thu nhỏ hay khuếch đại khi tạo thành <span class="math inline">\(x^3\)</span>. Nếu <span class="math inline">\(\lvert x\rvert&lt;1\)</span> thì <span class="math inline">\(x^2&lt;1\)</span>, nên phép nhân với <span class="math inline">\(x^2\)</span> làm cho</p>
+<p><span class="math display">\[
+\lvert x^3\rvert&lt;\lvert x\rvert.
+\]</span></p>
+<p>Bởi vậy, trong khoảng từ <span class="math inline">\(-1\)</span> đến <span class="math inline">\(1\)</span>, đồ thị <span class="math inline">\(y=x^3\)</span> nằm gần trục hoành hơn đường thẳng <span class="math inline">\(y=x\)</span>. Ngược lại, nếu <span class="math inline">\(\lvert x\rvert&gt;1\)</span> thì <span class="math inline">\(x^2&gt;1\)</span>, nên</p>
+<p><span class="math display">\[
+\lvert x^3\rvert&gt;\lvert x\rvert;
+\]</span></p>
+<p>ra ngoài khoảng ấy, đồ thị <span class="math inline">\(y=x^3\)</span> nằm xa trục hoành hơn <span class="math inline">\(y=x\)</span>. Tại <span class="math inline">\(x=-1\)</span>, <span class="math inline">\(0\)</span> và <span class="math inline">\(1\)</span>, hai đồ thị gặp nhau.</p>
+<p>Như vậy, cấu trúc <span class="math inline">\(x^3=x\cdot x^2\)</span> đã cho ta một hình dung khá rõ trước cả khi dùng đạo hàm: nhân tử <span class="math inline">\(x\)</span> quyết định đồ thị nằm về phía nào của trục hoành, còn nhân tử <span class="math inline">\(x^2\)</span> làm nó ép sát về trục hoành khi ở gần gốc và tách xa dần khi <span class="math inline">\(\lvert x\rvert\)</span> lớn hơn <span class="math inline">\(1\)</span>. Chính sự kết hợp hai vai trò ấy tạo nên một phần hình dạng đặc trưng của đồ thị <span class="math inline">\(y=x^3\)</span>.</p>
+</section>
+<section id="đồng-biến-nghiêm-ngặt-dù-tồn-tại-điểm-mà-đạo-hàm-triệt-tiêu" class="level2">
+<h2 class="anchored" data-anchor-id="đồng-biến-nghiêm-ngặt-dù-tồn-tại-điểm-mà-đạo-hàm-triệt-tiêu">Đồng biến nghiêm ngặt dù tồn tại điểm mà đạo hàm triệt tiêu</h2>
+<p>Có thể thấy tính đồng biến của <span class="math inline">\(x^3\)</span> ngay từ đại số. Với hai số thực <span class="math inline">\(a&lt;b\)</span>, <span class="math display">\[
+b^3-a^3=(b-a)(a^2+ab+b^2).
+\]</span> Ta có <span class="math inline">\(b-a&gt;0\)</span> và <span class="math display">\[
+a^2+ab+b^2=\left(a+\frac{b}{2}\right)^2+\frac{3b^2}{4}&gt;0,
+\]</span> vì đẳng thức chỉ có thể xảy ra khi <span class="math inline">\(a=b=0\)</span>, trái với <span class="math inline">\(a&lt;b\)</span>. Do đó <span class="math display">\[
+b^3-a^3&gt;0.
+\]</span> Vì thế <span class="math inline">\(y=x^3\)</span> đồng biến nghiêm ngặt trên toàn <span class="math inline">\(\mathbb{R}\)</span>. Lập luận này cho thấy rõ thứ tự logic: tính đồng biến là một thuộc tính của hàm số, không phải một khái niệm được định nghĩa bằng đạo hàm. Đạo hàm là một công cụ mạnh để nhận diện, kiểm tra và giải thích thuộc tính ấy khi các điều kiện áp dụng đã được thỏa mãn.</p>
+<p>Hai giới hạn ở vô cực phù hợp với chiều biến thiên vừa xác lập: <span class="math display">\[
+\lim_{x\to-\infty}x^3=-\infty
+\]</span> và <span class="math display">\[
+\lim_{x\to+\infty}x^3=+\infty.
+\]</span> Do hàm liên tục và đồng biến nghiêm ngặt từ <span class="math inline">\(-\infty\)</span> đến <span class="math inline">\(+\infty\)</span>, tập giá trị của hàm số là toàn bộ <span class="math inline">\(\mathbb{R}\)</span>. Tương đương, với mỗi <span class="math inline">\(m\in\mathbb{R}\)</span>, phương trình <span class="math inline">\(x^3=m\)</span> có đúng một nghiệm thực.</p>
+<p>Đạo hàm bậc nhất cho biết độ dốc của tiếp tuyến với đồ thị:</p>
+<p><span class="math display">\[
+y^\prime=3x^2.
+\]</span></p>
+<p>Với <span class="math inline">\(x\ne0\)</span>, ta có <span class="math inline">\(y^\prime&gt;0\)</span>, còn tại <span class="math inline">\(x=0\)</span>,</p>
+<p><span class="math display">\[
+y^\prime(0)=0.
+\]</span></p>
+<p>Vì vậy, tại gốc tọa độ, đồ thị có một tiếp tuyến nằm ngang. Tuy nhiên, đạo hàm bằng <span class="math inline">\(0\)</span> tại một điểm chưa đủ để kết luận rằng hàm số đạt cực trị ở đó; điều quan trọng là dấu của đạo hàm thay đổi thế nào khi đi qua điểm ấy.</p>
+<p>Ở đây,</p>
+<p><span class="math display">\[
+y^\prime=3(x-0)^2.
+\]</span></p>
+<p>Nghiệm <span class="math inline">\(x=0\)</span> của phương trình <span class="math inline">\(y^\prime=0\)</span> có bội <span class="math inline">\(2\)</span>. Số mũ chẵn làm cho <span class="math inline">\((x-0)^2\)</span> dương ở cả hai phía của <span class="math inline">\(0\)</span>: đạo hàm giảm về <span class="math inline">\(0\)</span> khi <span class="math inline">\(x\)</span> tiến đến <span class="math inline">\(0\)</span> từ bên trái, rồi tăng trở lại từ <span class="math inline">\(0\)</span> khi <span class="math inline">\(x\)</span> đi sang bên phải, nhưng không đổi sang giá trị âm.</p>
+<p>Bởi vậy, độ dốc của đồ thị có lúc bằng <span class="math inline">\(0\)</span> nhưng không đổi dấu. Hàm số vẫn tiếp tục đồng biến qua <span class="math inline">\(0\)</span>, nên <span class="math inline">\(O(0,0)\)</span> không phải là điểm cực trị. Tiếp tuyến của đồ thị tại đây là</p>
+<p><span class="math display">\[
+y=0.
+\]</span></p>
+<details class="zo-block zo-block-red">
+<summary class="zo-block-title">
+Nghiệm bội và sự đổi dấu
+</summary>
+<div class="zo-block-body">
+<p>Giả sử gần <span class="math inline">\(x=a\)</span> một biểu thức liên tục <span class="math inline">\(g\)</span> có dạng <span class="math display">\[
+g(x)=(x-a)^m h(x),
+\]</span> trong đó <span class="math inline">\(h(a)\ne0\)</span>. Khi đó <span class="math inline">\(a\)</span> là một nghiệm bội <span class="math inline">\(m\)</span> của <span class="math inline">\(g\)</span>. Vì <span class="math inline">\(h\)</span> giữ nguyên dấu trong một lân cận đủ nhỏ của <span class="math inline">\(a\)</span>, sự đổi dấu của <span class="math inline">\(g\)</span> được quyết định bởi <span class="math inline">\((x-a)^m\)</span>. Khi <span class="math inline">\(m\)</span> lẻ, <span class="math inline">\((x-a)^m\)</span> đổi dấu khi đi qua <span class="math inline">\(a\)</span>, còn khi <span class="math inline">\(m\)</span> chẵn, <span class="math inline">\((x-a)^m\)</span> không đổi dấu khi đi qua <span class="math inline">\(a\)</span>.</p>
+<p>Vì vậy, đối với đạo hàm, một nghiệm bội chẵn thường làm <span class="math inline">\(y^\prime\)</span> giữ nguyên dấu ở hai phía, còn một nghiệm bội lẻ làm <span class="math inline">\(y^\prime\)</span> đổi dấu, miễn là phần còn lại của phép phân tích không triệt tiêu tại điểm đang xét.</p>
+</div>
+</details>
+</section>
+<section id="độ-dốc-thay-đổi-và-điểm-uốn" class="level2">
+<h2 class="anchored" data-anchor-id="độ-dốc-thay-đổi-và-điểm-uốn">Độ dốc thay đổi và điểm uốn</h2>
+<p>Trước khi dùng đạo hàm bậc hai, chính công thức <span class="math inline">\(y^\prime=3x^2\)</span> đã cho thấy độ dốc biến đổi như thế nào. Nếu <span class="math inline">\(x_1&lt;x_2\le0\)</span> thì <span class="math inline">\(|x_1|&gt;|x_2|\)</span>, nên <span class="math display">\[
+3x_1^2&gt;3x_2^2.
+\]</span> Vì vậy, khi đi từ trái sang phải trên <span class="math inline">\((-\infty,0]\)</span>, độ dốc giảm dần về <span class="math inline">\(0\)</span>. Ngược lại, nếu <span class="math inline">\(0\le x_1&lt;x_2\)</span> thì <span class="math display">\[
+3x_1^2&lt;3x_2^2,
+\]</span> nên độ dốc tăng dần khi rời gốc về phía phải. Các bất đẳng thức này đã mô tả được chuyển động “phẳng dần rồi dốc dần” mà chưa cần lấy đạo hàm lần thứ hai.</p>
+<p>Đạo hàm bậc hai nén đúng xu hướng vừa chứng minh vào một công thức: <span class="math display">\[
+y^{\prime\prime}=6x.
+\]</span> Khi <span class="math inline">\(x&lt;0\)</span>, ta có <span class="math inline">\(y^{\prime\prime}&lt;0\)</span>, nên <span class="math inline">\(y^\prime\)</span> giảm; khi <span class="math inline">\(x&gt;0\)</span>, ta có <span class="math inline">\(y^{\prime\prime}&gt;0\)</span>, nên <span class="math inline">\(y^\prime\)</span> tăng. Đạo hàm bậc hai vì thế cho phép nhận biết nhanh sự thay đổi của độ dốc mà trước đó ta đã thấy trực tiếp từ bất đẳng thức. Khi tiến đến gốc từ bên trái, đồ thị vẫn đi lên nhưng ngày càng phẳng; sau khi đi qua gốc, nó tiếp tục đi lên và ngày càng dốc hơn. Nói theo tính cong, đồ thị chuyển từ cong xuống sang cong lên tại <span class="math inline">\(O\)</span>; đây chính là cơ chế hình học của điểm uốn tại gốc.</p>
+<details class="zo-block zo-block-red">
+<summary class="zo-block-title">
+Điểm uốn của đồ thị
+</summary>
+<div class="zo-block-body">
+<p>Một điểm <span class="math inline">\(A(a,f(a))\)</span> được gọi là <em>điểm uốn</em> khi đồ thị đổi tính cong khi đi qua <span class="math inline">\(A\)</span>. Nếu <span class="math inline">\(f^{\prime\prime}\)</span> tồn tại ở hai phía của <span class="math inline">\(a\)</span> và đổi dấu khi qua <span class="math inline">\(a\)</span>, thì <span class="math inline">\(A\)</span> là một điểm uốn.</p>
+<p>Điều kiện <span class="math inline">\(f^{\prime\prime}(a)=0\)</span> tự nó chưa đủ để kết luận có điểm uốn; điều quyết định là sự đổi tính cong của đồ thị.</p>
+</div>
+</details>
+<p>Với <span class="math inline">\(y=x^3\)</span>, <span class="math inline">\(y^{\prime\prime}=6x\)</span> đổi dấu từ âm sang dương khi đi qua <span class="math inline">\(0\)</span>, nên <span class="math inline">\(O(0,0)\)</span> là điểm uốn. Đồng thời, vì <span class="math inline">\(x^3&lt;0\)</span> khi <span class="math inline">\(x&lt;0\)</span> và <span class="math inline">\(x^3&gt;0\)</span> khi <span class="math inline">\(x&gt;0\)</span>, đường cong nằm ở hai phía khác nhau của tiếp tuyến <span class="math inline">\(y=0\)</span> và đi xuyên qua tiếp tuyến ấy tại gốc. Việc đi xuyên qua tiếp tuyến là một hệ quả hình học trong trường hợp này; tiêu chuẩn nhận diện điểm uốn vẫn là sự đổi tính cong.</p>
+</section>
+<section id="bảng-biến-thiên-và-đồ-thị-tổng-hợp" class="level2">
+<h2 class="anchored" data-anchor-id="bảng-biến-thiên-và-đồ-thị-tổng-hợp">Bảng biến thiên và đồ thị tổng hợp</h2>
+<p>Những kết quả trên có thể nén vào bảng biến thiên sau. Hai dấu <span class="math inline">\(+\)</span> nằm ở các cột biểu diễn hai khoảng <span class="math inline">\((-\infty,0)\)</span> và <span class="math inline">\((0,+\infty)\)</span>; chúng không phải là giá trị của đạo hàm tại <span class="math inline">\(\pm\infty\)</span>.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(x\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(-\infty\)</span></th>
+<th style="text-align: center;"></th>
+<th style="text-align: center;"><span class="math inline">\(0\)</span></th>
+<th style="text-align: center;"></th>
+<th style="text-align: center;"><span class="math inline">\(+\infty\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(y^\prime\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><span class="math inline">\(+\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(+\)</span></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(y\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(-\infty\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\nearrow\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\nearrow\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(+\infty\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Bảng cho thấy một điểm dừng duy nhất tại <span class="math inline">\(x=0\)</span> nhưng không có sự đổi chiều tăng. Khi đọc cùng dấu của <span class="math inline">\(y^{\prime\prime}\)</span>, ta còn thấy rõ hơn cấu trúc địa phương: nhánh bên trái vẫn tăng nhưng phẳng dần khi tiến đến gốc; nhánh bên phải tiếp tục tăng và dốc dần khi rời gốc.</p>
+<div id="fig-ham_x_mu_3" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Đồ thị hàm số y=x^3 đối xứng qua gốc tọa độ, đi qua O, âm một âm một và một một; đường cong tăng trên toàn trục số và đổi tính cong tại gốc" data-fig-align="center" data-fig-pos="H">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ham_x_mu_3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../_figures/ham_x_mu_3/svg/ham_x_mu_3.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Đồ thị hàm số y=x^3 đối xứng qua gốc tọa độ, đi qua O, âm một âm một và một một; đường cong tăng trên toàn trục số và đổi tính cong tại gốc">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ham_x_mu_3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Hình&nbsp;1: Đồ thị hàm số <span class="math inline">\(y=x^3\)</span>
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="vì-sao-yx2-quay-đầu-còn-yx3-đi-qua-gốc" class="level2">
+<h2 class="anchored" data-anchor-id="vì-sao-yx2-quay-đầu-còn-yx3-đi-qua-gốc">Vì sao <span class="math inline">\(y=x^2\)</span> quay đầu còn <span class="math inline">\(y=x^3\)</span> đi qua gốc?</h2>
+<p>Hai hàm <span class="math inline">\(y=x^2\)</span> và <span class="math inline">\(y=x^3\)</span> đều có tiếp tuyến nằm ngang tại gốc, nhưng cơ chế tại đó khác nhau.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Quan hệ tại <span class="math inline">\(x=0\)</span></th>
+<th><span class="math inline">\(y=x^2\)</span></th>
+<th><span class="math inline">\(y=x^3\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Đạo hàm</td>
+<td><span class="math inline">\(y^\prime=2x\)</span></td>
+<td><span class="math inline">\(y^\prime=3x^2\)</span></td>
+</tr>
+<tr class="even">
+<td>Bội của nghiệm <span class="math inline">\(y^\prime=0\)</span></td>
+<td><span class="math inline">\(1\)</span> — bội lẻ</td>
+<td><span class="math inline">\(2\)</span> — bội chẵn</td>
+</tr>
+<tr class="odd">
+<td>Dấu của <span class="math inline">\(y^\prime\)</span> qua <span class="math inline">\(0\)</span></td>
+<td><span class="math inline">\(-\to+\)</span></td>
+<td><span class="math inline">\(+\to+\)</span></td>
+</tr>
+<tr class="even">
+<td>Hệ quả về biến thiên</td>
+<td>giảm rồi tăng</td>
+<td>tăng ở cả hai phía</td>
+</tr>
+<tr class="odd">
+<td>Cực trị tại gốc</td>
+<td>cực tiểu</td>
+<td>không có cực trị</td>
+</tr>
+<tr class="even">
+<td>Đạo hàm bậc hai</td>
+<td><span class="math inline">\(y^{\prime\prime}=2&gt;0\)</span></td>
+<td><span class="math inline">\(y^{\prime\prime}=6x\)</span> đổi dấu</td>
+</tr>
+<tr class="odd">
+<td>Quan hệ với tiếp tuyến <span class="math inline">\(y=0\)</span></td>
+<td><span class="math inline">\(x^2\)</span> có bội <span class="math inline">\(2\)</span>, đồ thị ở cùng một phía</td>
+<td><span class="math inline">\(x^3\)</span> có bội <span class="math inline">\(3\)</span>, đồ thị đi qua tiếp tuyến</td>
+</tr>
+</tbody>
+</table>
+<p>Bảng này làm rõ hai vai trò khác nhau của tính chẵn lẻ của số bội. Bội của nghiệm của <span class="math inline">\(y^\prime\)</span> kiểm soát khả năng đổi dấu của đạo hàm và do đó liên quan trực tiếp đến cực trị. Bội của nghiệm của <span class="math inline">\(f(x)-T(x)\)</span>, với <span class="math inline">\(T\)</span> là tiếp tuyến tại điểm đang xét, mô tả cách đường cong tiếp xúc với tiếp tuyến: bội chẵn giữ đường cong về một phía, còn bội lẻ cho phép đường cong đi qua tiếp tuyến.</p>
+<p>Với <span class="math inline">\(y=x^3\)</span>, hai thông tin ấy kết hợp với nhau: <span class="math inline">\(y^\prime\)</span> có nghiệm bội chẵn nên không xuất hiện cực trị, trong khi <span class="math inline">\(y^{\prime\prime}\)</span> đổi dấu và <span class="math inline">\(y-T=x^3\)</span> có nghiệm bội lẻ nên gốc tọa độ là một điểm uốn nơi đường cong đi qua tiếp tuyến ngang.</p>
+</section>
+<section id="từ-tính-đồng-biến-đến-hàm-ngược" class="level2">
+<h2 class="anchored" data-anchor-id="từ-tính-đồng-biến-đến-hàm-ngược">Từ tính đồng biến đến hàm ngược</h2>
+<p>Tính đồng biến nghiêm ngặt cùng tập giá trị <span class="math inline">\(\mathbb{R}\)</span> còn cho một hệ quả tự nhiên. Hàm <span class="math display">\[
+f\colon \mathbb{R}\to\mathbb{R}
+\]</span> được cho bởi <span class="math inline">\(f(x)=x^3\)</span> là một-một và phủ hết <span class="math inline">\(\mathbb{R}\)</span>, nên có hàm ngược trên toàn trục số: <span class="math display">\[
+f^{-1}(x)=\sqrt[3]{x}.
+\]</span> Đồ thị của <span class="math inline">\(y=x^3\)</span> và <span class="math inline">\(y=\sqrt[3]{x}\)</span> đối xứng qua đường thẳng <span class="math inline">\(y=x\)</span>. Phép đối xứng này biến tiếp tuyến ngang <span class="math inline">\(y=0\)</span> của đồ thị <span class="math inline">\(y=x^3\)</span> tại gốc thành tiếp tuyến đứng <span class="math inline">\(x=0\)</span> của đồ thị hàm ngược. Vì vậy, hiện tượng “phẳng lại” của <span class="math inline">\(x^3\)</span> tại gốc được nhìn từ hàm ngược thành một tiếp tuyến đứng.</p>
+<div id="fig-ham_x_mu_3_va_ham_nguoc" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Đồ thị y=x^3 và y=căn bậc ba của x đối xứng qua y=x; tại gốc, tiếp tuyến ngang của y=x^3 phản xạ thành tiếp tuyến đứng của hàm ngược" data-fig-align="center" data-fig-pos="H">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ham_x_mu_3_va_ham_nguoc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../_figures/ham_x_mu_3/svg/ham_x_mu_3_va_ham_nguoc.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Đồ thị y=x^3 và y=căn bậc ba của x đối xứng qua y=x; tại gốc, tiếp tuyến ngang của y=x^3 phản xạ thành tiếp tuyến đứng của hàm ngược">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ham_x_mu_3_va_ham_nguoc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Hình&nbsp;2: Đồ thị <span class="math inline">\(y=x^3\)</span> và hàm ngược <span class="math inline">\(y=\sqrt[3]{x}\)</span>
+</figcaption>
+</figure>
+</div>
+<p>Trên hình, gốc tọa độ nằm trên trục đối xứng <span class="math inline">\(y=x\)</span>, nên được giữ cố định qua phép phản xạ. Điểm uốn tại gốc của <span class="math inline">\(y=x^3\)</span> tương ứng với điểm uốn có tiếp tuyến đứng của <span class="math inline">\(y=\sqrt[3]{x}\)</span>. Cả hai hàm đều đồng biến và không có cực trị, vì vậy trong cặp đồ thị này không có điểm cực trị nào để phản chiếu. Hai đoạn tiếp tuyến được nhấn tại gốc cho thấy trực tiếp quan hệ ngang–đứng dưới phép đối xứng.</p>
+<p>Mối liên hệ này không phải một tính chất riêng của công thức lũy thừa bậc ba. Khi một hàm một-một có hàm ngược, việc phản xạ đồ thị qua <span class="math inline">\(y=x\)</span> chuyển các quan hệ hình học của hàm sang những quan hệ tương ứng của hàm ngược. Tuy nhiên, mỗi kết luận vi phân vẫn phải được kiểm tra với các điều kiện thích hợp tại điểm đang xét.</p>
+</section>
+<section id="nhìn-lại-điểm-dừng-tại-gốc" class="level2">
+<h2 class="anchored" data-anchor-id="nhìn-lại-điểm-dừng-tại-gốc">Nhìn lại điểm dừng tại gốc</h2>
+<p>Tại <span class="math inline">\(O(0,0)\)</span>, ba hiện tượng xảy ra đồng thời nhưng cần được phân biệt.</p>
+<p>Trước hết,</p>
+<p><span class="math display">\[
+y^\prime(0)=0
+\]</span></p>
+<p>cho biết độ dốc của tiếp tuyến bằng <span class="math inline">\(0\)</span>, nên đồ thị có tiếp tuyến nằm ngang tại <span class="math inline">\(O\)</span>. Riêng điều kiện này chưa cho biết hàm số có đạt cực trị hay không.</p>
+<p>Muốn biết điều gì xảy ra với chiều biến thiên, cần xét dấu của đạo hàm bậc nhất. Với <span class="math inline">\(y=x^3\)</span>, ta có <span class="math inline">\(y^\prime=3x^2&gt;0\)</span> ở cả hai phía của <span class="math inline">\(0\)</span>. Đạo hàm chỉ bằng <span class="math inline">\(0\)</span> tại chính điểm ấy mà không đổi dấu khi đi qua nó. Vì vậy, hàm số không đổi chiều biến thiên: trước và sau <span class="math inline">\(0\)</span>, nó vẫn đồng biến. Điểm <span class="math inline">\(O\)</span> do đó không phải là điểm cực trị.</p>
+<p>Đạo hàm bậc hai cho một thông tin khác. Dấu của <span class="math inline">\(y^\prime\)</span> cho biết chiều biến thiên của <span class="math inline">\(y\)</span>; còn dấu của <span class="math inline">\(y^{\prime\prime}\)</span> cho biết chiều biến thiên của chính <span class="math inline">\(y^\prime\)</span>. Ở đây,</p>
+<p><span class="math display">\[
+y^{\prime\prime}=6x.
+\]</span></p>
+<p>Khi <span class="math inline">\(x&lt;0\)</span>, đạo hàm <span class="math inline">\(y^\prime\)</span> giảm; khi <span class="math inline">\(x&gt;0\)</span>, đạo hàm <span class="math inline">\(y^\prime\)</span> tăng. Trên đồ thị, điều đó có nghĩa là độ dốc giảm dần về <span class="math inline">\(0\)</span> khi tiến đến gốc từ bên trái, rồi tăng dần từ <span class="math inline">\(0\)</span> khi đi sang bên phải. Đồ thị vì thế chuyển từ cong xuống sang cong lên tại <span class="math inline">\(O\)</span>. Nói cách khác, đồ thị đổi tính cong và <span class="math inline">\(O\)</span> là một điểm uốn.</p>
+<p>Như vậy, đạo hàm bậc nhất và đạo hàm bậc hai đang mô tả hai tầng biến thiên khác nhau. Dấu của <span class="math inline">\(y^\prime\)</span> cho biết <span class="math inline">\(y\)</span> đang tăng hay giảm; dấu của <span class="math inline">\(y^{\prime\prime}\)</span> cho biết <span class="math inline">\(y^\prime\)</span> đang tăng hay giảm. Trên đồ thị, tầng thứ nhất biểu hiện thành việc đường cong đi lên hay đi xuống, còn tầng thứ hai biểu hiện thành việc đường cong cong lên hay cong xuống.</p>
+<p>Vì thế, phương trình <span class="math inline">\(y^\prime=0\)</span> chỉ xác định những điểm cần tiếp tục khảo sát. Muốn kết luận về cực trị, phải xét xem đạo hàm bậc nhất có đổi dấu và hàm số có đổi chiều biến thiên hay không. Muốn kết luận về điểm uốn, phải xác nhận đồ thị có đổi tính cong hay không. Số bội của một nghiệm có thể giúp nhận ra cơ chế đổi dấu của đạo hàm, nhưng không thay thế việc kiểm tra điều kiện của kết luận đang xét.</p>
+</section>
+<section id="bài-tập" class="level2">
+<h2 class="anchored" data-anchor-id="bài-tập">Bài tập</h2>
+<section id="tính-lẻ-đồng-biến-và-điểm-uốn-tại-gốc-tọa-độ" class="level3">
+<h3 class="anchored" data-anchor-id="tính-lẻ-đồng-biến-và-điểm-uốn-tại-gốc-tọa-độ">Tính lẻ, đồng biến và điểm uốn tại gốc tọa độ</h3>
+<section id="bài-1.-từ-công-thức-đến-tính-đồng-biến" class="level4">
+<h4 class="anchored" data-anchor-id="bài-1.-từ-công-thức-đến-tính-đồng-biến">Bài 1. Từ công thức đến tính đồng biến</h4>
+<p>Cho hàm số <span class="math inline">\(y=x^3\)</span>.</p>
+<ol type="a">
+<li>Chứng minh hàm số là hàm lẻ và nêu ý nghĩa hình học của tính chất này.</li>
+<li>Với <span class="math inline">\(a&lt;b\)</span>, phân tích <span class="math inline">\(b^3-a^3\)</span> thành nhân tử và chứng minh trực tiếp rằng <span class="math inline">\(a^3&lt;b^3\)</span>. Từ đó kết luận hàm số đồng biến nghiêm ngặt trên <span class="math inline">\(\mathbb{R}\)</span> mà chưa dùng đạo hàm.</li>
+<li>Tính <span class="math inline">\(y^\prime\)</span>. Xác định bội của nghiệm <span class="math inline">\(x=0\)</span> của phương trình <span class="math inline">\(y^\prime=0\)</span> và dùng tính chẵn lẻ của số bội để giải thích vì sao đạo hàm không đổi dấu qua <span class="math inline">\(0\)</span>.</li>
+</ol>
+</section>
+<section id="bài-2.-tiếp-tuyến-điểm-uốn-và-hàm-ngược" class="level4">
+<h4 class="anchored" data-anchor-id="bài-2.-tiếp-tuyến-điểm-uốn-và-hàm-ngược">Bài 2. Tiếp tuyến, điểm uốn và hàm ngược</h4>
+<p>Cho hàm số <span class="math inline">\(y=x^3\)</span>.</p>
+<ol type="a">
+<li>Từ <span class="math inline">\(y^\prime=3x^2\)</span>, dùng bất đẳng thức để chứng minh độ dốc giảm dần khi <span class="math inline">\(x\)</span> tiến đến <span class="math inline">\(0\)</span> từ bên trái và tăng dần khi <span class="math inline">\(x\)</span> rời <span class="math inline">\(0\)</span> về bên phải. Sau đó tính <span class="math inline">\(y^{\prime\prime}\)</span> để kiểm tra lại xu hướng ấy, chứng minh <span class="math inline">\(O(0,0)\)</span> là điểm uốn và viết phương trình tiếp tuyến của đồ thị tại <span class="math inline">\(O\)</span>.</li>
+<li>Chứng minh tập giá trị của hàm số là <span class="math inline">\(\mathbb{R}\)</span> và suy ra hàm số có hàm ngược trên <span class="math inline">\(\mathbb{R}\)</span>.</li>
+<li>Tìm công thức của hàm ngược. Dựa vào phép đối xứng qua <span class="math inline">\(y=x\)</span> và hình minh họa trong bài, giải thích vì sao tiếp tuyến ngang của <span class="math inline">\(y=x^3\)</span> tại gốc tương ứng với một tiếp tuyến đứng của đồ thị hàm ngược, đồng thời nêu điều gì xảy ra với điểm uốn và vì sao không có cực trị nào cần phản chiếu.</li>
+</ol>
+</section>
+</section>
+<section id="từ-yx3-đến-các-hàm-bậc-ba-khác" class="level3">
+<h3 class="anchored" data-anchor-id="từ-yx3-đến-các-hàm-bậc-ba-khác">Từ <span class="math inline">\(y=x^3\)</span> đến các hàm bậc ba khác</h3>
+<section id="bài-3.-điểm-uốn-được-tịnh-tiến" class="level4">
+<h4 class="anchored" data-anchor-id="bài-3.-điểm-uốn-được-tịnh-tiến">Bài 3. Điểm uốn được tịnh tiến</h4>
+<p>Cho hàm số <span class="math display">\[
+y=x^3-3x^2+3x.
+\]</span></p>
+<ol type="a">
+<li>Viết hàm số dưới dạng một phép tịnh tiến của <span class="math inline">\(y=x^3\)</span>.</li>
+<li>Phân tích đạo hàm để giải thích vì sao hàm số vẫn đồng biến trên <span class="math inline">\(\mathbb{R}\)</span> và không có cực trị.</li>
+<li>Xác định điểm uốn và tiếp tuyến tại điểm uốn. So sánh vai trò của điểm này với gốc tọa độ của <span class="math inline">\(y=x^3\)</span>.</li>
+</ol>
+</section>
+<section id="bài-4.-khi-nghiệm-của-đạo-hàm-tạo-cực-trị" class="level4">
+<h4 class="anchored" data-anchor-id="bài-4.-khi-nghiệm-của-đạo-hàm-tạo-cực-trị">Bài 4. Khi nghiệm của đạo hàm tạo cực trị</h4>
+<p>Cho hàm số <span class="math inline">\(y=x^3-3x\)</span>.</p>
+<ol type="a">
+<li>Tính <span class="math inline">\(y^\prime\)</span> và tìm các nghiệm của phương trình <span class="math inline">\(y^\prime=0\)</span>.</li>
+<li>Xét dấu của <span class="math inline">\(y^\prime\)</span> ở hai phía của từng nghiệm và kết luận về các điểm cực trị.</li>
+<li>So sánh với nghiệm <span class="math inline">\(x=0\)</span> của đạo hàm của <span class="math inline">\(y=x^3\)</span>, rồi phát biểu tiêu chí nhận diện cực trị dựa trên sự đổi dấu của <span class="math inline">\(y^\prime\)</span>. Nêu rõ vì sao điều kiện <span class="math inline">\(y^\prime(a)=0\)</span> riêng lẻ chưa đủ.</li>
+</ol>
+
+
+<div class="zo-pdf-download">
+<p><a href="ham_x_mu_3.pdf" class="zo-pdf-download__link" download="" aria-label="Tải PDF" title="Tải bản PDF"><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> Tải PDF</a></p>
+</div>
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // Nếu trang không có TOC thật thì không tạo nút TOC.
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (!rawToc) {
+
+      tocBtn?.closest(".toc-toggle-holder")?.remove();
+
+      return;
+
+    }
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Hiện các cấp mục lục đã được Quarto sinh ra theo toc-depth.
+
+      // Quarto/Bootstrap có thể gắn class "collapse" cho mục con, khiến ### bị ẩn.
+
+      tocEl.querySelectorAll("ul.collapse").forEach((ul) => {
+
+        ul.classList.remove("collapse");
+
+      });
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/zo-math\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a> <br> <a href="https://www.facebook.com/profile.php?id=61591689772259" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://www.tiktok.com/@zo.math" title="TikTok"><i class="bi bi-tiktok"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a> <br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

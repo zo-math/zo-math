@@ -1,0 +1,74 @@
+.tooltip-zomath {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  color: #007bff;
+}
+
+/* Nội dung Tooltip */
+.tooltip-zomath .tooltiptext {
+  position: absolute;
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  font-size: 0.75em;
+  text-align: center;
+  border-radius: 5px;
+  padding: 8px 12px;
+  z-index: 100;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.95);
+
+  /* Kích thước hộp tooltip */
+  width: 80%;
+  max-width: calc(50vw - 40px);
+  min-width: 200px;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+/* Mũi tên nhỏ */
+.tooltip-zomath .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.85) transparent transparent transparent;
+}
+
+/* Hiển thị tooltip khi hover */
+.tooltip-zomath:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Điều chỉnh khi gần lề trái */
+.tooltip-zomath.near-left .tooltiptext {
+  left: 0;
+  transform: none;
+}
+
+.tooltip-zomath.near-left .tooltiptext::after {
+  left: 10px;
+  margin-left: 0;
+}
+
+/* Điều chỉnh khi gần lề phải */
+.tooltip-zomath.near-right .tooltiptext {
+  left: auto;
+  right: 0;
+  transform: none;
+}
+
+.tooltip-zomath.near-right .tooltiptext::after {
+  left: auto;
+  right: 10px;
+  margin-left: 0;
+}
