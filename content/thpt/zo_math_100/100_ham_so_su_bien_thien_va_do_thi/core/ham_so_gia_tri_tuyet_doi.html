@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="ZO Math">
+<meta name="keywords" content="giá trị tuyệt đối, hàm chẵn, hàm từng phần, khoảng cách, tính đơn điệu, góc nhọn, hàm dấu">
+<meta name="description" content="Từ cách hiểu \lvert x\rvert là khoảng cách từ x đến 0, bài viết giải thích vì sao hai đầu vào đối nhau có cùng ảnh, vì sao hàm giảm rồi tăng, liên tục nhưng không khả vi tại gốc, và vì sao đồ thị có thể được xem như kết quả gấp phần âm của đường thẳng y=x lên phía trên trục hoành.">
 
-<title>Hàm số giá trị tuyệt đối – ZO Math</title>
+<title>Hàm số y = |x| – ZO Math</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -182,7 +185,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../../../../../assets/css/custom.css">
 </head>
 
-<body class="docked nav-fixed quarto-light">
+<body class="nav-fixed zo-page-article zo-meta-hidden quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -265,36 +268,80 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Hàm số giá trị tuyệt đối</h1>
-                      </div>
+      <h1 class="title">Hàm số <span class="math inline">\(y=\lvert x\rvert\)</span></h1>
+            <p class="subtitle lead">Một phép gấp biến dấu thành khoảng cách</p>
+                  <div>
+        <div class="description">
+          Từ cách hiểu <span class="math inline">\(\lvert x\rvert\)</span> là khoảng cách từ <span class="math inline">\(x\)</span> đến <span class="math inline">\(0\)</span>, bài viết giải thích vì sao hai đầu vào đối nhau có cùng ảnh, vì sao hàm giảm rồi tăng, liên tục nhưng không khả vi tại gốc, và vì sao đồ thị có thể được xem như kết quả gấp phần âm của đường thẳng <span class="math inline">\(y=x\)</span> lên phía trên trục hoành.
+        </div>
+      </div>
+                </div>
   </div>
     
   
   <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Tác giả</div>
+      <div class="quarto-title-meta-contents">
+               <p>ZO Math </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Ngày cập nhật</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">22-08-2026</p>
+      </div>
+    </div>
     
       
     </div>
     
+  <div>
+    <div class="abstract">
+      <div class="block-title">Tóm tắt</div>
+      <p>Giá trị tuyệt đối không ghi lại đầu vào nằm bên trái hay bên phải gốc tọa độ; nó chỉ ghi lại đầu vào cách <span class="math inline">\(0\)</span> bao xa. Vì thế, <span class="math inline">\(x\)</span> và <span class="math inline">\(-x\)</span> luôn có cùng ảnh, tập giá trị chỉ gồm các số không âm, và đồ thị nhận trục tung làm trục đối xứng.</p>
+      <p>Khi đọc công thức theo từng dấu của <span class="math inline">\(x\)</span>, hàm số trở thành hai đường thẳng <span class="math inline">\(y=-x\)</span> và <span class="math inline">\(y=x\)</span> ghép tại gốc. Hai nhánh gặp nhau liên tục nhưng có độ dốc trái bằng <span class="math inline">\(-1\)</span> và độ dốc phải bằng <span class="math inline">\(1\)</span>, nên tại <span class="math inline">\(0\)</span> xuất hiện một góc nhọn thay vì một tiếp tuyến duy nhất. Cùng một cấu trúc này còn giải thích các phương trình, bất đẳng thức giá trị tuyệt đối và quan hệ với hàm dấu.</p>
+    </div>
+  </div>
+
+  <div>
+    <div class="keywords">
+      <div class="block-title">Từ khóa</div>
+      <p>giá trị tuyệt đối, hàm chẵn, hàm từng phần, khoảng cách, tính đơn điệu, góc nhọn, hàm dấu</p>
+    </div>
+  </div>
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Trên trang này</h2>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nội dung</h2>
    
   <ul>
-  <li><a href="#khảo-sát-sự-biến-thiên-của-hàm-số-ylvert-xrvert" id="toc-khảo-sát-sự-biến-thiên-của-hàm-số-ylvert-xrvert" class="nav-link active" data-scroll-target="#khảo-sát-sự-biến-thiên-của-hàm-số-ylvert-xrvert">Khảo sát sự biến thiên của hàm số <span class="math inline">\(y=\lvert x\rvert\)</span></a></li>
+  <li><a href="#từ-dấu-của-x-đến-một-công-thức-từng-phần" id="toc-từ-dấu-của-x-đến-một-công-thức-từng-phần" class="nav-link active" data-scroll-target="#từ-dấu-của-x-đến-một-công-thức-từng-phần">Từ dấu của <span class="math inline">\(x\)</span> đến một công thức từng phần</a></li>
+  <li><a href="#hai-đầu-vào-đối-nhau-cho-cùng-một-khoảng-cách" id="toc-hai-đầu-vào-đối-nhau-cho-cùng-một-khoảng-cách" class="nav-link" data-scroll-target="#hai-đầu-vào-đối-nhau-cho-cùng-một-khoảng-cách">Hai đầu vào đối nhau cho cùng một khoảng cách</a></li>
+  <li><a href="#giảm-về-gốc-rồi-tăng-khi-rời-gốc" id="toc-giảm-về-gốc-rồi-tăng-khi-rời-gốc" class="nav-link" data-scroll-target="#giảm-về-gốc-rồi-tăng-khi-rời-gốc">Giảm về gốc rồi tăng khi rời gốc</a></li>
+  <li><a href="#liên-tục-tại-gốc-nhưng-không-có-một-độ-dốc-duy-nhất" id="toc-liên-tục-tại-gốc-nhưng-không-có-một-độ-dốc-duy-nhất" class="nav-link" data-scroll-target="#liên-tục-tại-gốc-nhưng-không-có-một-độ-dốc-duy-nhất">Liên tục tại gốc nhưng không có một độ dốc duy nhất</a></li>
+  <li><a href="#đồ-thị-như-kết-quả-của-một-phép-gấp" id="toc-đồ-thị-như-kết-quả-của-một-phép-gấp" class="nav-link" data-scroll-target="#đồ-thị-như-kết-quả-của-một-phép-gấp">Đồ thị như kết quả của một phép gấp</a></li>
+  <li><a href="#quan-hệ-với-hàm-dấu" id="toc-quan-hệ-với-hàm-dấu" class="nav-link" data-scroll-target="#quan-hệ-với-hàm-dấu">Quan hệ với hàm dấu</a></li>
+  <li><a href="#từ-khoảng-cách-đến-phương-trình-và-bất-đẳng-thức" id="toc-từ-khoảng-cách-đến-phương-trình-và-bất-đẳng-thức" class="nav-link" data-scroll-target="#từ-khoảng-cách-đến-phương-trình-và-bất-đẳng-thức">Từ khoảng cách đến phương trình và bất đẳng thức</a>
+  <ul class="collapse">
+  <li><a href="#dời-tâm-của-khoảng-cách" id="toc-dời-tâm-của-khoảng-cách" class="nav-link" data-scroll-target="#dời-tâm-của-khoảng-cách">Dời tâm của khoảng cách</a></li>
+  </ul></li>
+  <li><a href="#nhìn-lại-phép-gấp" id="toc-nhìn-lại-phép-gấp" class="nav-link" data-scroll-target="#nhìn-lại-phép-gấp">Nhìn lại phép gấp</a></li>
+  <li><a href="#bài-tập" id="toc-bài-tập" class="nav-link" data-scroll-target="#bài-tập">Bài tập</a>
+  <ul class="collapse">
+  <li><a href="#công-thức-từng-phần-đối-xứng-và-biến-thiên" id="toc-công-thức-từng-phần-đối-xứng-và-biến-thiên" class="nav-link" data-scroll-target="#công-thức-từng-phần-đối-xứng-và-biến-thiên">Công thức từng phần, đối xứng và biến thiên</a></li>
+  <li><a href="#khoảng-cách-hàm-dấu-và-biến-thể" id="toc-khoảng-cách-hàm-dấu-và-biến-thể" class="nav-link" data-scroll-target="#khoảng-cách-hàm-dấu-và-biến-thể">Khoảng cách, hàm dấu và biến thể</a></li>
+  </ul></li>
   </ul>
 </nav>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
@@ -303,40 +350,309 @@ window.Quarto = {
 
 
 
-<section id="khảo-sát-sự-biến-thiên-của-hàm-số-ylvert-xrvert" class="level1">
-<h1>Khảo sát sự biến thiên của hàm số <span class="math inline">\(y=\lvert x\rvert\)</span></h1>
-<details class="collapsible-box-primary" open="">
-<summary>
-Bất biến có điều kiện: Theo giá trị và theo quy luật
-</summary>
-<div class="content">
-<ol start="2" type="1">
-<li><p>Xét hai hàm số <span class="math display">\[
-  y = f(x) = \lvert x\rvert
-  \quad \text{và} \quad
-  y = g(x) =
+<p>Một số thực có thể nằm bên trái hoặc bên phải <span class="math inline">\(0\)</span>, nhưng giá trị tuyệt đối không giữ lại thông tin ấy. Nó chỉ giữ lại <em>khoảng cách đến <span class="math inline">\(0\)</span></em>. Vì vậy, <span class="math inline">\(-3\)</span> và <span class="math inline">\(3\)</span> khác dấu nhưng đều cách <span class="math inline">\(0\)</span> ba đơn vị:</p>
+<p><span class="math display">\[
+\lvert-3\rvert=\lvert3\rvert=3.
+\]</span></p>
+<p>Sự mất dấu và bảo toàn khoảng cách là hiện tượng trung tâm của hàm số <span class="math inline">\(y=\lvert x\rvert\)</span>. Từ đó có thể đọc gần như toàn bộ bài: tính chẵn, tập giá trị, chiều biến thiên, điểm cực tiểu, hình chữ V của đồ thị và cả việc hàm liên tục nhưng không có đạo hàm tại gốc.</p>
+<section id="từ-dấu-của-x-đến-một-công-thức-từng-phần" class="level2">
+<h2 class="anchored" data-anchor-id="từ-dấu-của-x-đến-một-công-thức-từng-phần">Từ dấu của <span class="math inline">\(x\)</span> đến một công thức từng phần</h2>
+<p>Giá trị tuyệt đối của một số thực <span class="math inline">\(x\)</span> được xác định bởi</p>
+<p><span class="math display">\[
+\lvert x\rvert=
 \begin{cases}
-   1 &amp; \text{khi } x \geq 0,\\
-   -1 &amp; \text{khi } x &lt; 0.
+-x,&amp;x&lt;0,\\
+x,&amp;x\geq0.
 \end{cases}
-  \]</span></p>
-<ol type="a">
-<li>Khi <span class="math inline">\(x\)</span> thay đổi, trong mỗi hàm trên có phần nào (khoảng giá trị của <span class="math inline">\(x\)</span>) mà giá trị của hàm <em>không thay đổi</em>? Hãy nêu rõ khoảng đó và giá trị mà hàm giữ nguyên.</li>
-<li>Với hàm <span class="math inline">\(y=\lvert x\rvert\)</span>, trong phần nào của miền xác định, hàm có quy luật giống với hàm <span class="math inline">\(y=x\)</span>?</li>
-<li>Từ hai quan sát trên, bạn có thể nói rằng:</li>
-</ol>
-<ul>
-<li><span class="math inline">\(y=f(x)\)</span> là bất biến theo giá trị có điều kiện, vì …</li>
-<li><span class="math inline">\(y=g(x)\)</span> là bất biến theo quy luật có điều kiện, vì …</li>
-</ul>
-<ol start="4" type="a">
-<li>Theo bạn, trong các trường hợp trên, điều gì làm cho từ “có điều kiện” trở nên cần thiết?</li>
-</ol></li>
-</ol>
+\]</span></p>
+<p>Nếu <span class="math inline">\(x&lt;0\)</span> thì <span class="math inline">\(-x&gt;0\)</span>, nên nhánh <span class="math inline">\(-x\)</span> đổi một giá trị âm thành khoảng cách dương của nó đến <span class="math inline">\(0\)</span>. Nếu <span class="math inline">\(x\geq0\)</span> thì khoảng cách ấy chính là <span class="math inline">\(x\)</span>. Cả hai trường hợp vì thế cùng cho một đại lượng không âm.</p>
+<p>Mọi số thực đều có giá trị tuyệt đối, nên tập xác định là</p>
+<p><span class="math display">\[
+D=\mathbb{R}.
+\]</span></p>
+<p>Với mọi <span class="math inline">\(x\in\mathbb{R}\)</span>,</p>
+<p><span class="math display">\[
+\lvert x\rvert\geq0,
+\]</span></p>
+<p>và dấu bằng xảy ra đúng khi <span class="math inline">\(x=0\)</span>. Ngược lại, với mỗi <span class="math inline">\(y\geq0\)</span>, chọn <span class="math inline">\(x=y\)</span> thì <span class="math inline">\(\lvert x\rvert=y\)</span>. Do đó tập giá trị là</p>
+<p><span class="math display">\[
+[0,+\infty).
+\]</span></p>
+<p>Kết quả này có hai vế cần phân biệt: hàm không nhận giá trị âm, và mọi giá trị không âm đều thực sự được nhận.</p>
+</section>
+<section id="hai-đầu-vào-đối-nhau-cho-cùng-một-khoảng-cách" class="level2">
+<h2 class="anchored" data-anchor-id="hai-đầu-vào-đối-nhau-cho-cùng-một-khoảng-cách">Hai đầu vào đối nhau cho cùng một khoảng cách</h2>
+<p>Với mọi <span class="math inline">\(x\in\mathbb{R}\)</span>,</p>
+<p><span class="math display">\[
+\lvert-x\rvert=\lvert x\rvert.
+\]</span></p>
+<p>Vì thế hàm số <span class="math inline">\(f(x)=\lvert x\rvert\)</span> là hàm chẵn; đồ thị nhận trục tung làm trục đối xứng.</p>
+<p>Đối xứng này không chỉ là một đặc điểm hình học. Nó diễn tả trực tiếp việc giá trị tuyệt đối xóa dấu của đầu vào: nếu <span class="math inline">\(x\ne0\)</span> thì hai số khác nhau <span class="math inline">\(x\)</span> và <span class="math inline">\(-x\)</span> có cùng ảnh. Do đó hàm không đơn ánh trên toàn bộ <span class="math inline">\(\mathbb{R}\)</span> và không có hàm ngược trên toàn miền ấy.</p>
+<p>Tuy nhiên, đầu ra vẫn xác định được độ lớn của đầu vào. Nếu</p>
+<p><span class="math display">\[
+\lvert x\rvert=a,
+\]</span></p>
+<p>thì với <span class="math inline">\(a&gt;0\)</span> có đúng hai khả năng</p>
+<p><span class="math display">\[
+x=-a
+\quad\text{hoặc}\quad
+x=a.
+\]</span></p>
+<p>Khi <span class="math inline">\(a=0\)</span> chỉ có nghiệm <span class="math inline">\(x=0\)</span>, còn khi <span class="math inline">\(a&lt;0\)</span> phương trình vô nghiệm. Số nghiệm thay đổi chính tại giá trị nhỏ nhất của hàm.</p>
+</section>
+<section id="giảm-về-gốc-rồi-tăng-khi-rời-gốc" class="level2">
+<h2 class="anchored" data-anchor-id="giảm-về-gốc-rồi-tăng-khi-rời-gốc">Giảm về gốc rồi tăng khi rời gốc</h2>
+<p>Công thức từng phần cho thấy ngay hai chế độ biến thiên.</p>
+<p>Trên <span class="math inline">\((-\infty,0]\)</span>,</p>
+<p><span class="math display">\[
+\lvert x\rvert=-x.
+\]</span></p>
+<p>Khi <span class="math inline">\(x\)</span> tăng về phía <span class="math inline">\(0\)</span>, giá trị <span class="math inline">\(-x\)</span> giảm. Vì thế hàm nghịch biến nghiêm ngặt trên <span class="math inline">\((-\infty,0]\)</span>.</p>
+<p>Trên <span class="math inline">\([0,+\infty)\)</span>,</p>
+<p><span class="math display">\[
+\lvert x\rvert=x,
+\]</span></p>
+<p>nên hàm đồng biến nghiêm ngặt trên <span class="math inline">\([0,+\infty)\)</span>.</p>
+<p>Hai nhánh gặp nhau tại</p>
+<p><span class="math display">\[
+f(0)=0.
+\]</span></p>
+<p>Đó là giá trị nhỏ nhất của hàm số. Hàm không có giá trị lớn nhất vì</p>
+<p><span class="math display">\[
+\lim_{x\to-\infty}\lvert x\rvert=+\infty
+\quad\text{và}\quad
+\lim_{x\to+\infty}\lvert x\rvert=+\infty.
+\]</span></p>
+<p>Bảng biến thiên nén các kết quả ấy thành một hình thức ngắn:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(x\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(-\infty\)</span></th>
+<th style="text-align: center;"></th>
+<th style="text-align: center;"><span class="math inline">\(0\)</span></th>
+<th style="text-align: center;"></th>
+<th style="text-align: center;"><span class="math inline">\(+\infty\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(y\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(+\infty\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\searrow\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\nearrow\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(+\infty\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Điều đáng chú ý là hai phía của gốc có cùng độ lớn nhưng ngược chiều biến thiên. Tính chẵn tạo đối xứng về giá trị; còn thứ tự của trục số làm nhánh trái đi xuống và nhánh phải đi lên.</p>
+</section>
+<section id="liên-tục-tại-gốc-nhưng-không-có-một-độ-dốc-duy-nhất" class="level2">
+<h2 class="anchored" data-anchor-id="liên-tục-tại-gốc-nhưng-không-có-một-độ-dốc-duy-nhất">Liên tục tại gốc nhưng không có một độ dốc duy nhất</h2>
+<p>Trên mỗi nửa trục, hàm số là một hàm bậc nhất nên liên tục. Tại <span class="math inline">\(0\)</span>,</p>
+<p><span class="math display">\[
+\lim_{x\to0}\lvert x\rvert=0=\lvert0\rvert,
+\]</span></p>
+<p>nên hàm cũng liên tục tại gốc. Vì vậy <span class="math inline">\(y=\lvert x\rvert\)</span> liên tục trên toàn bộ <span class="math inline">\(\mathbb{R}\)</span>.</p>
+<p>Tính khả vi lại cho một câu chuyện khác. Với <span class="math inline">\(x&lt;0\)</span>,</p>
+<p><span class="math display">\[
+y^\prime=-1,
+\]</span></p>
+<p>còn với <span class="math inline">\(x&gt;0\)</span>,</p>
+<p><span class="math display">\[
+y^\prime=1.
+\]</span></p>
+<p>Tại <span class="math inline">\(x=0\)</span>, xét thương sai phân:</p>
+<p><span class="math display">\[
+\frac{\lvert h\rvert-\lvert0\rvert}{h}
+=
+\frac{\lvert h\rvert}{h}.
+\]</span></p>
+<p>Khi <span class="math inline">\(h&lt;0\)</span>, thương này bằng <span class="math inline">\(-1\)</span>; khi <span class="math inline">\(h&gt;0\)</span>, nó bằng <span class="math inline">\(1\)</span>. Do đó</p>
+<p><span class="math display">\[
+\lim_{h\to0^-}\frac{\lvert h\rvert}{h}=-1,
+\quad
+\lim_{h\to0^+}\frac{\lvert h\rvert}{h}=1.
+\]</span></p>
+<p>Hai giới hạn một phía khác nhau, nên <span class="math inline">\(f^\prime(0)\)</span> không tồn tại.</p>
+<p>Như vậy, gốc tọa độ là nơi hàm số <em>liên tục nhưng không khả vi</em>. Hai nhánh không bị đứt; chúng gặp nhau tại cùng một điểm. Nhưng độ dốc từ bên trái và bên phải không khớp nhau, tạo nên một góc nhọn.</p>
+<details class="zo-block zo-block-red">
+<summary class="zo-block-title">
+Liên tục không kéo theo khả vi
+</summary>
+<div class="zo-block-body">
+<p>Nếu một hàm khả vi tại một điểm thì nó liên tục tại điểm đó. Chiều ngược lại không đúng.</p>
+<p>Hàm số <span class="math inline">\(y=\lvert x\rvert\)</span> là một ví dụ cơ bản: nó liên tục tại <span class="math inline">\(0\)</span>, nhưng đạo hàm trái bằng <span class="math inline">\(-1\)</span> và đạo hàm phải bằng <span class="math inline">\(1\)</span>, nên không có đạo hàm tại <span class="math inline">\(0\)</span>.</p>
 </div>
 </details>
+</section>
+<section id="đồ-thị-như-kết-quả-của-một-phép-gấp" class="level2">
+<h2 class="anchored" data-anchor-id="đồ-thị-như-kết-quả-của-một-phép-gấp">Đồ thị như kết quả của một phép gấp</h2>
+<p>Trên nửa trục dương, đồ thị <span class="math inline">\(y=\lvert x\rvert\)</span> trùng với đường thẳng <span class="math inline">\(y=x\)</span>. Trên nửa trục âm, nó trùng với đường thẳng <span class="math inline">\(y=-x\)</span>.</p>
+<p>Có thể nhìn quá trình này theo một cách khác. Bắt đầu từ đường thẳng <span class="math inline">\(y=x\)</span>. Phần ứng với <span class="math inline">\(x\geq0\)</span> đã nằm phía trên trục hoành nên được giữ nguyên. Phần ứng với <span class="math inline">\(x&lt;0\)</span> nằm dưới trục hoành; lấy giá trị tuyệt đối của tung độ phản xạ phần này qua trục hoành. Sau phép phản xạ, hai nhánh gặp nhau tại <span class="math inline">\(O(0,0)\)</span> và tạo thành hình chữ V.</p>
+<div id="fig-ham-so-gia-tri-tuyet-doi" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Đồ thị y bằng giá trị tuyệt đối của x gồm hai tia thẳng y bằng âm x ở bên trái và y bằng x ở bên phải, gặp nhau tại gốc tọa độ; hai đường y bằng x và y bằng âm x được thể hiện như các đường tham chiếu.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ham-so-gia-tri-tuyet-doi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../_figures/ham_so_gia_tri_tuyet_doi/svg/do_thi_ham_so_gia_tri_tuyet_doi.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Đồ thị y bằng giá trị tuyệt đối của x gồm hai tia thẳng y bằng âm x ở bên trái và y bằng x ở bên phải, gặp nhau tại gốc tọa độ; hai đường y bằng x và y bằng âm x được thể hiện như các đường tham chiếu.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ham-so-gia-tri-tuyet-doi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Hình&nbsp;1: Đồ thị <span class="math inline">\(y=\lvert x\rvert\)</span>: hai nhánh thẳng gặp nhau tại gốc và tạo một góc nhọn.
+</figcaption>
+</figure>
+</div>
+<p>Hình vẽ kết tinh ba kết quả đã có từ công thức. Trục tung là trục đối xứng vì hai đầu vào đối nhau có cùng ảnh. Điểm <span class="math inline">\(O\)</span> là điểm thấp nhất vì mọi giá trị tuyệt đối đều không âm. Góc nhọn tại <span class="math inline">\(O\)</span> biểu hiện việc hai độ dốc <span class="math inline">\(-1\)</span> và <span class="math inline">\(1\)</span> gặp nhau mà không tạo được một tiếp tuyến duy nhất.</p>
+</section>
+<section id="quan-hệ-với-hàm-dấu" class="level2">
+<h2 class="anchored" data-anchor-id="quan-hệ-với-hàm-dấu">Quan hệ với hàm dấu</h2>
+<p>Hàm dấu giữ lại <em>dấu</em> của một số nhưng bỏ qua độ lớn; giá trị tuyệt đối giữ lại <em>độ lớn</em> nhưng bỏ qua dấu. Hai hàm bổ sung đúng hai phần thông tin ấy.</p>
+<p>Với mọi <span class="math inline">\(x\in\mathbb{R}\)</span>,</p>
+<p><span class="math display">\[
+x=\lvert x\rvert\operatorname{sgn}x.
+\]</span></p>
+<p>Khi <span class="math inline">\(x\ne0\)</span>,</p>
+<p><span class="math display">\[
+\operatorname{sgn}x=\frac{x}{\lvert x\rvert}.
+\]</span></p>
+<p>Quan hệ này còn xuất hiện ở đạo hàm. Với <span class="math inline">\(x\ne0\)</span>,</p>
+<p><span class="math display">\[
+\frac{d}{dx}\lvert x\rvert
+=
+\begin{cases}
+-1,&amp;x&lt;0,\\
+1,&amp;x&gt;0,
+\end{cases}
+=
+\operatorname{sgn}x.
+\]</span></p>
+<p>Không được kéo công thức ấy qua <span class="math inline">\(x=0\)</span>: <span class="math inline">\(\operatorname{sgn}0\)</span> được định nghĩa bằng <span class="math inline">\(0\)</span>, nhưng <span class="math inline">\(\lvert x\rvert\)</span> không có đạo hàm tại <span class="math inline">\(0\)</span>. Chính điểm bị loại này ghi lại góc nhọn của đồ thị.</p>
+</section>
+<section id="từ-khoảng-cách-đến-phương-trình-và-bất-đẳng-thức" class="level2">
+<h2 class="anchored" data-anchor-id="từ-khoảng-cách-đến-phương-trình-và-bất-đẳng-thức">Từ khoảng cách đến phương trình và bất đẳng thức</h2>
+<p>Cách hiểu <span class="math inline">\(\lvert x\rvert\)</span> là khoảng cách từ <span class="math inline">\(x\)</span> đến <span class="math inline">\(0\)</span> giúp đọc trực tiếp nhiều quan hệ.</p>
+<p>Với <span class="math inline">\(a\geq0\)</span>,</p>
+<p><span class="math display">\[
+\lvert x\rvert\leq a
+\]</span></p>
+<p>có nghĩa là khoảng cách từ <span class="math inline">\(x\)</span> đến <span class="math inline">\(0\)</span> không vượt quá <span class="math inline">\(a\)</span>. Do đó</p>
+<p><span class="math display">\[
+-a\leq x\leq a.
+\]</span></p>
+<p>Tương tự,</p>
+<p><span class="math display">\[
+\lvert x\rvert&lt;a
+\]</span></p>
+<p>tương đương với</p>
+<p><span class="math display">\[
+-a&lt;x&lt;a
+\]</span></p>
+<p>khi <span class="math inline">\(a&gt;0\)</span>.</p>
+<p>Ở chiều ngược lại,</p>
+<p><span class="math display">\[
+\lvert x\rvert\geq a
+\]</span></p>
+<p>với <span class="math inline">\(a\geq0\)</span> có nghĩa là <span class="math inline">\(x\)</span> nằm ngoài hoặc trên biên của đoạn <span class="math inline">\([-a,a]\)</span>:</p>
+<p><span class="math display">\[
+x\leq-a
+\quad\text{hoặc}\quad
+x\geq a.
+\]</span></p>
+<p>Các kết quả này không phải những quy tắc rời rạc cần học thuộc. Chúng cùng xuất phát từ một mô hình: giá trị tuyệt đối đo khoảng cách tới gốc.</p>
+<section id="dời-tâm-của-khoảng-cách" class="level3">
+<h3 class="anchored" data-anchor-id="dời-tâm-của-khoảng-cách">Dời tâm của khoảng cách</h3>
+<p>Nếu thay <span class="math inline">\(x\)</span> bằng <span class="math inline">\(x-a\)</span>, ta được</p>
+<p><span class="math display">\[
+y=\lvert x-a\rvert.
+\]</span></p>
+<p>Giá trị này là khoảng cách từ <span class="math inline">\(x\)</span> đến <span class="math inline">\(a\)</span>, không còn là khoảng cách đến <span class="math inline">\(0\)</span>. Vì thế đồ thị chữ V được tịnh tiến ngang: đỉnh chuyển từ <span class="math inline">\((0,0)\)</span> đến <span class="math inline">\((a,0)\)</span>, còn hai độ dốc của hai nhánh vẫn là <span class="math inline">\(-1\)</span> và <span class="math inline">\(1\)</span>.</p>
+<p>Cách nhìn này cho thấy phép tịnh tiến không tạo ra một cơ chế mới. Nó chỉ đổi <em>tâm của phép đo khoảng cách</em>.</p>
+</section>
+</section>
+<section id="nhìn-lại-phép-gấp" class="level2">
+<h2 class="anchored" data-anchor-id="nhìn-lại-phép-gấp">Nhìn lại phép gấp</h2>
+<p>Hàm số <span class="math inline">\(y=\lvert x\rvert\)</span> có thể được đọc từ ba góc nhìn tương thích với nhau.</p>
+<p>Từ đại số, công thức từng phần ghép <span class="math inline">\(y=-x\)</span> và <span class="math inline">\(y=x\)</span> tại <span class="math inline">\(0\)</span>.</p>
+<p>Từ thứ tự, nhánh trái nghịch biến về giá trị nhỏ nhất <span class="math inline">\(0\)</span>, còn nhánh phải đồng biến rời khỏi giá trị ấy.</p>
+<p>Từ hình học, giá trị tuyệt đối là khoảng cách đến gốc, nên hai điểm đối xứng qua <span class="math inline">\(0\)</span> cho cùng một đầu ra. Đồ thị vì thế là kết quả của việc gấp hai nửa trục theo khoảng cách rồi biểu diễn khoảng cách ấy bằng tung độ.</p>
+<p>Ba cách nhìn đều dẫn đến cùng một đặc điểm tại gốc: hàm liên tục, đạt cực tiểu, nhưng không khả vi. Chính sự gặp nhau của hai quy luật tuyến tính khác độ dốc tạo nên góc nhọn đặc trưng của đồ thị.</p>
+</section>
+<section id="bài-tập" class="level2">
+<h2 class="anchored" data-anchor-id="bài-tập">Bài tập</h2>
+<section id="công-thức-từng-phần-đối-xứng-và-biến-thiên" class="level3">
+<h3 class="anchored" data-anchor-id="công-thức-từng-phần-đối-xứng-và-biến-thiên">Công thức từng phần, đối xứng và biến thiên</h3>
+<section id="bài-1.-đọc-hàm-từ-định-nghĩa" class="level4">
+<h4 class="anchored" data-anchor-id="bài-1.-đọc-hàm-từ-định-nghĩa">Bài 1. Đọc hàm từ định nghĩa</h4>
+<p>Viết <span class="math inline">\(\lvert x\rvert\)</span> dưới dạng hàm từng phần. Từ đó:</p>
+<ol type="a">
+<li><p>xác định tập xác định và tập giá trị;</p></li>
+<li><p>chứng minh hàm số là hàm chẵn;</p></li>
+<li><p>xác định các khoảng nghịch biến và đồng biến;</p></li>
+<li><p>nêu giá trị nhỏ nhất và điểm đạt giá trị nhỏ nhất.</p></li>
+</ol>
+</section>
+<section id="bài-2.-liên-tục-và-góc-nhọn-tại-gốc" class="level4">
+<h4 class="anchored" data-anchor-id="bài-2.-liên-tục-và-góc-nhọn-tại-gốc">Bài 2. Liên tục và góc nhọn tại gốc</h4>
+<p>Cho <span class="math inline">\(f(x)=\lvert x\rvert\)</span>.</p>
+<ol type="a">
+<li><p>Chứng minh <span class="math inline">\(\lim_{x\to0}f(x)=f(0)\)</span>.</p></li>
+<li><p>Tính đạo hàm trái và đạo hàm phải tại <span class="math inline">\(0\)</span> bằng định nghĩa.</p></li>
+<li><p>Giải thích vì sao đồ thị liên tục tại gốc nhưng không có tiếp tuyến với một hệ số góc hữu hạn duy nhất tại đó.</p></li>
+</ol>
+</section>
+<section id="bài-3.-từ-đồ-thị-đến-phương-trình" class="level4">
+<h4 class="anchored" data-anchor-id="bài-3.-từ-đồ-thị-đến-phương-trình">Bài 3. Từ đồ thị đến phương trình</h4>
+<p>Dùng đồ thị hoặc cách hiểu khoảng cách để giải theo tham số thực <span class="math inline">\(a\)</span> phương trình</p>
+<p><span class="math display">\[
+\lvert x\rvert=a.
+\]</span></p>
+<p>Phân loại số nghiệm theo <span class="math inline">\(a&lt;0\)</span>, <span class="math inline">\(a=0\)</span> và <span class="math inline">\(a&gt;0\)</span>, rồi liên hệ sự thay đổi số nghiệm với tập giá trị của hàm số.</p>
+</section>
+</section>
+<section id="khoảng-cách-hàm-dấu-và-biến-thể" class="level3">
+<h3 class="anchored" data-anchor-id="khoảng-cách-hàm-dấu-và-biến-thể">Khoảng cách, hàm dấu và biến thể</h3>
+<section id="bài-4.-bất-đẳng-thức-như-một-bài-toán-khoảng-cách" class="level4">
+<h4 class="anchored" data-anchor-id="bài-4.-bất-đẳng-thức-như-một-bài-toán-khoảng-cách">Bài 4. Bất đẳng thức như một bài toán khoảng cách</h4>
+<p>Với <span class="math inline">\(a&gt;0\)</span>, chứng minh bằng ngôn ngữ khoảng cách rằng</p>
+<p><span class="math display">\[
+\lvert x\rvert\leq a
+\]</span></p>
+<p>tương đương với</p>
+<p><span class="math display">\[
+-a\leq x\leq a.
+\]</span></p>
+<p>Sau đó mô tả tập nghiệm của <span class="math inline">\(\lvert x\rvert&gt;a\)</span> trên trục số.</p>
+</section>
+<section id="bài-5.-tách-độ-lớn-khỏi-dấu" class="level4">
+<h4 class="anchored" data-anchor-id="bài-5.-tách-độ-lớn-khỏi-dấu">Bài 5. Tách độ lớn khỏi dấu</h4>
+<p>Chứng minh</p>
+<p><span class="math display">\[
+x=\lvert x\rvert\operatorname{sgn}x
+\]</span></p>
+<p>với mọi <span class="math inline">\(x\in\mathbb{R}\)</span>. Với <span class="math inline">\(x\ne0\)</span>, giải thích vì sao</p>
+<p><span class="math display">\[
+\frac{d}{dx}\lvert x\rvert=\operatorname{sgn}x,
+\]</span></p>
+<p>nhưng đẳng thức này không thể mở rộng đến <span class="math inline">\(x=0\)</span>.</p>
+</section>
+<section id="bài-6.-dời-tâm-của-chữ-v" class="level4">
+<h4 class="anchored" data-anchor-id="bài-6.-dời-tâm-của-chữ-v">Bài 6. Dời tâm của chữ V</h4>
+<p>Với <span class="math inline">\(a\in\mathbb{R}\)</span>, xét</p>
+<p><span class="math display">\[
+g(x)=\lvert x-a\rvert.
+\]</span></p>
+<ol type="a">
+<li><p>Giải thích ý nghĩa của <span class="math inline">\(g(x)\)</span> như một khoảng cách.</p></li>
+<li><p>Xác định tập giá trị và giá trị nhỏ nhất.</p></li>
+<li><p>Xác định các khoảng nghịch biến, đồng biến.</p></li>
+<li><p>Mô tả cách nhận đồ thị của <span class="math inline">\(g\)</span> từ đồ thị <span class="math inline">\(y=\lvert x\rvert\)</span>.</p></li>
+</ol>
 
 
+<div class="zo-pdf-download">
+<p><a href="ham_so_gia_tri_tuyet_doi.pdf" class="zo-pdf-download__link" download="" aria-label="Tải PDF" title="Tải bản PDF"><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> Tải PDF</a></p>
+</div>
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
