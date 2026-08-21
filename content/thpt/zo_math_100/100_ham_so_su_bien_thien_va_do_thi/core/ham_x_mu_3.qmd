@@ -1,24 +1,25 @@
 ---
 title: 'Hàm số $y=x^3$'
 title-meta: "Hàm số y = x³"
-subtitle: 'Đạo hàm bằng $0$ tại gốc nhưng hàm vẫn đồng biến'
-pagetitle: "Hàm số x³"
+subtitle: 'Đi qua điểm dừng tại gốc mà không đổi chiều biến thiên'
+pagetitle: "Hàm số y = x³"
 
-summary: 'Hàm số $y=x^3$ đồng biến nghiêm ngặt trên $\mathbb{R}$ dù $y^\prime(0)=0$; từ số bội của nghiệm đạo hàm đến sự đổi độ cong và hàm ngược, bài viết làm rõ cơ chế của điểm uốn tại gốc.'
-description: 'Hàm số $y=x^3$ đồng biến trên $\mathbb{R}$; nghiệm bội chẵn $x=0$ của $y^\prime=3x^2$ không làm đạo hàm đổi dấu, còn $y^{\prime\prime}=6x$ đổi dấu qua $0$. Bài viết liên hệ cơ chế này với điểm uốn và hàm ngược $y=\sqrt[3]{x}$.'
+summary: 'Ở hàm số $y=x^3$, đạo hàm bằng $0$ tại gốc nhưng hàm vẫn đồng biến nghiêm ngặt. Từ dấu của $y^\prime$ đến sự biến thiên của chính $y^\prime$, bài viết làm rõ vì sao đồ thị không quay đầu mà đổi tính cong tại $O$, rồi soi lại cấu trúc ấy qua hàm ngược $y=\sqrt[3]{x}$.'
+description: 'Độ dốc của đồ thị $y=x^3$ giảm dần về $0$ khi tiến đến gốc rồi tăng trở lại, nhưng đồ thị vẫn đi lên và không quay đầu. Điều gì phân biệt một điểm dừng với một điểm cực trị? Bài viết lần theo dấu của $y^\prime$, sự biến thiên của $y^\prime$ và dấu của $y^{\prime\prime}$ để làm rõ điểm uốn tại gốc, rồi nhìn lại những quan hệ ấy qua hàm ngược $y=\sqrt[3]{x}$.'
 
 image: /content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/assets/img/cards/the_024.svg
 listing-order: 24
 
 abstract: |
-  Hàm số $y=x^3$ cho một trường hợp cơ bản trong đó đạo hàm triệt tiêu tại một điểm nhưng tính đồng biến nghiêm ngặt không bị phá vỡ. Bài viết đi từ một chứng minh đại số của tính đồng biến đến số bội của nghiệm $y^\prime=0$, sự thay đổi của độ dốc và điểm uốn, rồi soi lại các quan hệ ấy qua hàm ngược $y=\sqrt[3]{x}$.
+  Hàm số $y=x^3$ cho thấy một điểm có đạo hàm bằng $0$ không nhất thiết là nơi hàm số đổi chiều biến thiên. Bài viết bắt đầu từ cấu trúc đại số của $x^3$, dấu và độ lớn của giá trị hàm số, rồi chứng minh trực tiếp tính đồng biến nghiêm ngặt trước khi dùng đạo hàm để khảo sát sâu hơn. Tại gốc tọa độ, $y^\prime(0)=0$ tạo ra một tiếp tuyến nằm ngang, nhưng $y^\prime$ không đổi dấu nên hàm số vẫn tiếp tục đồng biến. Trong khi đó, $y^\prime$ giảm về $0$ rồi tăng trở lại; tương ứng, $y^{\prime\prime}$ đổi dấu qua $0$ và đồ thị chuyển từ cong xuống sang cong lên. Sự phân biệt giữa chiều biến thiên và tính cong làm rõ vì sao $O$ là điểm uốn nhưng không phải điểm cực trị. Cuối cùng, các quan hệ ấy được soi lại qua hàm ngược $y=\sqrt[3]{x}$.
 
 keywords:
   - Hàm bậc ba
   - y=x^3
+  - Chiều biến thiên
+  - Tính cong
   - Điểm uốn
   - Tiếp tuyến nằm ngang
-  - Hàm số lẻ
   - Nghiệm bội
   - Hàm ngược
 
@@ -44,11 +45,17 @@ zo-pdf-branding:
   display-url: "zo-math.github.io/zo-math"
 ---
 
-Lũy thừa bậc ba $y=x^3$ biểu hiện một hành vi khác biệt so với bậc nhất hay bậc hai. Nó duy trì sự đồng biến trên toàn miền như $y=x$, nhưng tại một điểm duy nhất, tốc độ thay đổi tức thời của nó bằng $0$. Điều cần giải thích là vì sao sự triệt tiêu ấy không làm hàm số quay đầu: dấu của đạo hàm bậc nhất không đổi, trong khi độ cong của đồ thị lại đổi khi đi qua gốc tọa độ.
+Hàm số $y=x^3$ có một đặc điểm đáng chú ý. Nó đồng biến trên toàn bộ $\mathbb{R}$ như hàm số $y=x$, nhưng khác với đường thẳng ở chỗ độ dốc không giữ nguyên: khi tiến đến gốc tọa độ, độ dốc giảm dần về $0$ rồi tăng trở lại. Ở điểm này, $y=x^3$ cũng khác với $y=x^2$. Cả hai đều có tiếp tuyến nằm ngang tại $O$, nhưng đồ thị $y=x^2$ quay đầu tại đó, còn đồ thị $y=x^3$ vẫn tiếp tục đi lên. Vì sao cùng có đạo hàm bằng $0$ mà một hàm đổi chiều biến thiên, còn hàm kia thì không? Câu trả lời nằm ở dấu của đạo hàm bậc nhất và cách độ dốc biến thiên qua $0$: $y=x^3$ vẫn giữ chiều đồng biến, đồng thời đồ thị chuyển từ cong xuống sang cong lên.
 
 ## Nhận diện và tính đối xứng
 
 Hàm số $y=x^3$ được xác định trên toàn $\mathbb{R}$.
+
+Với $f(x)=x^3$,
+$$
+f(-x)=(-x)^3=-x^3=-f(x),
+$$
+nên $y=x^3$ là hàm số lẻ và đồ thị đối xứng qua gốc tọa độ $O(0,0)$. Đối xứng này giúp ta khôi phục nửa đồ thị bên trái từ nửa bên phải. Tuy nhiên, những kết luận toàn cục đối với hàm số lẻ vẫn cần được kiểm tra trên toàn miền, chứ không chỉ dựa vào hình đối xứng.
 
 <details class="zo-block zo-block-red">
   <summary class="zo-block-title">Hàm số lẻ</summary>
@@ -63,23 +70,40 @@ Khi đó đồ thị của $f$ nhận gốc tọa độ làm tâm đối xứng.
   </div>
 </details>
 
-Với $f(x)=x^3$,
-$$
-f(-x)=(-x)^3=-x^3=-f(x),
-$$
-nên $y=x^3$ là hàm số lẻ và đồ thị đối xứng qua gốc tọa độ $O(0,0)$. Đối xứng này giúp ta khôi phục nửa đồ thị bên trái từ nửa bên phải. Tuy nhiên, những kết luận toàn cục như tính đồng biến trên cả $\mathbb{R}$ vẫn cần được kiểm tra trên toàn miền, chứ không chỉ dựa vào hình đối xứng.
-
 Phương trình
+
 $$
 x^3=0
 $$
-chỉ có nghiệm $x=0$, nên đồ thị cắt cả hai trục tọa độ tại đúng một điểm là $O(0,0)$. Hơn nữa,
-$$
-x^3=x\cdot x^2,
-$$
-và $x^2>0$ khi $x\ne 0$, vì vậy $x^3$ luôn cùng dấu với $x$. Gốc tọa độ vừa là nghiệm duy nhất vừa là điểm phân chia hai miền dấu của hàm số.
 
-## Đồng biến nghiêm ngặt dù đạo hàm bằng $0$ tại gốc
+chỉ có nghiệm $x=0$, nên đồ thị của hàm số $y=x^3$ giao với cả hai trục tọa độ tại cùng một điểm $O(0,0)$.
+
+Đẳng thức
+
+$$
+x^3=x\cdot x^2
+$$
+
+cho phép nhìn thấy hai vai trò khác nhau trong cùng một biểu thức. Nhân tử $x$ giữ lại dấu của giá trị: khi $x<0$ thì $x^3<0$, còn khi $x>0$ thì $x^3>0$, bởi $x^2$ luôn dương với $x\ne0$. Vì thế, phần đồ thị bên trái gốc tọa độ nằm dưới trục hoành, còn phần bên phải nằm trên trục hoành.
+
+Nhưng $x^2$ không chỉ đứng đó mà không làm đổi dấu. Nó còn quyết định giá trị của $x$ được thu nhỏ hay khuếch đại khi tạo thành $x^3$. Nếu $\lvert x\rvert<1$ thì $x^2<1$, nên phép nhân với $x^2$ làm cho
+
+$$
+\lvert x^3\rvert<\lvert x\rvert.
+$$
+
+Bởi vậy, trong khoảng từ $-1$ đến $1$, đồ thị $y=x^3$ nằm gần trục hoành hơn đường thẳng $y=x$. Ngược lại, nếu $\lvert x\rvert>1$ thì $x^2>1$, nên
+
+$$
+\lvert x^3\rvert>\lvert x\rvert;
+$$
+
+ra ngoài khoảng ấy, đồ thị $y=x^3$ nằm xa trục hoành hơn $y=x$. Tại $x=-1$, $0$ và $1$, hai đồ thị gặp nhau.
+
+Như vậy, cấu trúc $x^3=x\cdot x^2$ đã cho ta một hình dung khá rõ trước cả khi dùng đạo hàm: nhân tử $x$ quyết định đồ thị nằm về phía nào của trục hoành, còn nhân tử $x^2$ làm nó ép sát về trục hoành khi ở gần gốc và tách xa dần khi $\lvert x\rvert$ lớn hơn $1$. Chính sự kết hợp hai vai trò ấy tạo nên một phần hình dạng đặc trưng của đồ thị $y=x^3$.
+
+
+## Đồng biến nghiêm ngặt dù tồn tại điểm mà đạo hàm triệt tiêu
 
 Có thể thấy tính đồng biến của $x^3$ ngay từ đại số. Với hai số thực $a<b$,
 $$
@@ -98,20 +122,40 @@ Vì thế $y=x^3$ đồng biến nghiêm ngặt trên toàn $\mathbb{R}$. Lập 
 Hai giới hạn ở vô cực phù hợp với chiều biến thiên vừa xác lập:
 $$
 \lim_{x\to-\infty}x^3=-\infty
-\quad\text{và}\quad
+$$
+và
+$$
 \lim_{x\to+\infty}x^3=+\infty.
 $$
 Do hàm liên tục và đồng biến nghiêm ngặt từ $-\infty$ đến $+\infty$, tập giá trị của hàm số là toàn bộ $\mathbb{R}$. Tương đương, với mỗi $m\in\mathbb{R}$, phương trình $x^3=m$ có đúng một nghiệm thực.
 
-Đạo hàm bậc nhất cho biết độ dốc của đồ thị:
+Đạo hàm bậc nhất cho biết độ dốc của tiếp tuyến với đồ thị:
+
 $$
 y^\prime=3x^2.
 $$
-Với $x\ne0$, ta có $y^\prime>0$; tại $x=0$,
+
+Với $x\ne0$, ta có $y^\prime>0$, còn tại $x=0$,
+
 $$
 y^\prime(0)=0.
 $$
-Như vậy gốc tọa độ là một điểm có tiếp tuyến nằm ngang, nhưng điều đó chưa đủ để kết luận có cực trị.
+
+Vì vậy, tại gốc tọa độ, đồ thị có một tiếp tuyến nằm ngang. Tuy nhiên, đạo hàm bằng $0$ tại một điểm chưa đủ để kết luận rằng hàm số đạt cực trị ở đó; điều quan trọng là dấu của đạo hàm thay đổi thế nào khi đi qua điểm ấy.
+
+Ở đây,
+
+$$
+y^\prime=3(x-0)^2.
+$$
+
+Nghiệm $x=0$ của phương trình $y^\prime=0$ có bội $2$. Số mũ chẵn làm cho $(x-0)^2$ dương ở cả hai phía của $0$: đạo hàm giảm về $0$ khi $x$ tiến đến $0$ từ bên trái, rồi tăng trở lại từ $0$ khi $x$ đi sang bên phải, nhưng không đổi sang giá trị âm.
+
+Bởi vậy, độ dốc của đồ thị có lúc bằng $0$ nhưng không đổi dấu. Hàm số vẫn tiếp tục đồng biến qua $0$, nên $O(0,0)$ không phải là điểm cực trị. Tiếp tuyến của đồ thị tại đây là
+
+$$
+y=0.
+$$
 
 <details class="zo-block zo-block-red">
   <summary class="zo-block-title">Nghiệm bội và sự đổi dấu</summary>
@@ -127,15 +171,6 @@ Vì vậy, đối với đạo hàm, một nghiệm bội chẵn thường làm 
 
   </div>
 </details>
-
-Ở đây
-$$
-y^\prime=3x^2=3(x-0)^2,
-$$
-nên $x=0$ là nghiệm bội $2$, tức bội chẵn, của $y^\prime=0$. Đạo hàm dương ở cả hai phía của $0$, vì thế hàm số không đổi chiều biến thiên và $O(0,0)$ không phải là điểm cực trị. Tiếp tuyến tại gốc là
-$$
-y=0.
-$$
 
 ## Độ dốc thay đổi và điểm uốn
 
@@ -153,7 +188,7 @@ nên độ dốc tăng dần khi rời gốc về phía phải. Các bất đẳ
 $$
 y^{\prime\prime}=6x.
 $$
-Khi $x<0$, $y^{\prime\prime}<0$, nên $y^\prime$ giảm; khi $x>0$, $y^{\prime\prime}>0$, nên $y^\prime$ tăng. Vì thế đạo hàm bậc hai không tạo ra hiện tượng mới, mà cung cấp một công cụ vi phân để nhận diện nhanh sự thay đổi của độ dốc đã thấy từ bất đẳng thức. Đồ thị luôn đi lên nhưng trước gốc thì phẳng dần, còn sau gốc thì dốc dần; đó là cơ chế tạo nên sự đổi hướng cong tại $O$.
+Khi $x<0$, ta có $y^{\prime\prime}<0$, nên $y^\prime$ giảm; khi $x>0$, ta có $y^{\prime\prime}>0$, nên $y^\prime$ tăng. Đạo hàm bậc hai vì thế cho phép nhận biết nhanh sự thay đổi của độ dốc mà trước đó ta đã thấy trực tiếp từ bất đẳng thức. Khi tiến đến gốc từ bên trái, đồ thị vẫn đi lên nhưng ngày càng phẳng; sau khi đi qua gốc, nó tiếp tục đi lên và ngày càng dốc hơn. Nói theo tính cong, đồ thị chuyển từ cong xuống sang cong lên tại $O$; đây chính là cơ chế hình học của điểm uốn tại gốc.
 
 <details class="zo-block zo-block-red">
   <summary class="zo-block-title">Điểm uốn của đồ thị</summary>
@@ -255,9 +290,29 @@ Mối liên hệ này không phải một tính chất riêng của công thức
 
 ## Nhìn lại điểm dừng tại gốc
 
-Tại $O(0,0)$, ba thông tin phải được phân biệt. Điều kiện $y^\prime(0)=0$ cho biết tiếp tuyến nằm ngang. Việc $y^\prime$ không đổi dấu qua $0$ cho biết hàm số không đổi chiều biến thiên, nên không có cực trị. Việc $y^{\prime\prime}$ đổi dấu qua $0$ cho biết đồ thị đổi tính cong, nên $O$ là điểm uốn.
+Tại $O(0,0)$, ba hiện tượng xảy ra đồng thời nhưng cần được phân biệt.
 
-Vì thế, phương trình $y^\prime=0$ chỉ tạo ra các điểm cần tiếp tục khảo sát. Muốn kết luận cực trị phải kiểm tra sự thay đổi của biến thiên; muốn kết luận điểm uốn phải kiểm tra sự thay đổi của tính cong. Số bội của nghiệm có thể làm lộ cơ chế đổi dấu, nhưng không thay thế việc kiểm tra các điều kiện của kết luận đang dùng.
+Trước hết,
+
+$$
+y^\prime(0)=0
+$$
+
+cho biết độ dốc của tiếp tuyến bằng $0$, nên đồ thị có tiếp tuyến nằm ngang tại $O$. Riêng điều kiện này chưa cho biết hàm số có đạt cực trị hay không.
+
+Muốn biết điều gì xảy ra với chiều biến thiên, cần xét dấu của đạo hàm bậc nhất. Với $y=x^3$, ta có $y^\prime=3x^2>0$ ở cả hai phía của $0$. Đạo hàm chỉ bằng $0$ tại chính điểm ấy mà không đổi dấu khi đi qua nó. Vì vậy, hàm số không đổi chiều biến thiên: trước và sau $0$, nó vẫn đồng biến. Điểm $O$ do đó không phải là điểm cực trị.
+
+Đạo hàm bậc hai cho một thông tin khác. Dấu của $y^\prime$ cho biết chiều biến thiên của $y$; còn dấu của $y^{\prime\prime}$ cho biết chiều biến thiên của chính $y^\prime$. Ở đây,
+
+$$
+y^{\prime\prime}=6x.
+$$
+
+Khi $x<0$, đạo hàm $y^\prime$ giảm; khi $x>0$, đạo hàm $y^\prime$ tăng. Trên đồ thị, điều đó có nghĩa là độ dốc giảm dần về $0$ khi tiến đến gốc từ bên trái, rồi tăng dần từ $0$ khi đi sang bên phải. Đồ thị vì thế chuyển từ cong xuống sang cong lên tại $O$. Nói cách khác, đồ thị đổi tính cong và $O$ là một điểm uốn.
+
+Như vậy, đạo hàm bậc nhất và đạo hàm bậc hai đang mô tả hai tầng biến thiên khác nhau. Dấu của $y^\prime$ cho biết $y$ đang tăng hay giảm; dấu của $y^{\prime\prime}$ cho biết $y^\prime$ đang tăng hay giảm. Trên đồ thị, tầng thứ nhất biểu hiện thành việc đường cong đi lên hay đi xuống, còn tầng thứ hai biểu hiện thành việc đường cong cong lên hay cong xuống.
+
+Vì thế, phương trình $y^\prime=0$ chỉ xác định những điểm cần tiếp tục khảo sát. Muốn kết luận về cực trị, phải xét xem đạo hàm bậc nhất có đổi dấu và hàm số có đổi chiều biến thiên hay không. Muốn kết luận về điểm uốn, phải xác nhận đồ thị có đổi tính cong hay không. Số bội của một nghiệm có thể giúp nhận ra cơ chế đổi dấu của đạo hàm, nhưng không thay thế việc kiểm tra điều kiện của kết luận đang xét.
 
 ## Bài tập
 
