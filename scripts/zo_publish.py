@@ -138,6 +138,28 @@ def load_config(root: Path, raw_path: str) -> tuple[Path, dict[str, Any]]:
     if data["source_branch"] == data["target_branch"]:
         raise ConfigError("Nhánh nguồn và đích phải khác nhau.")
     data["output_dir"] = safe_relative(data["output_dir"], "output_dir")
+    custom_domain = data.get("custom_domain")
+    if not isinstance(custom_domain, dict):
+        raise ConfigError("Thiếu custom_domain.")
+    cname = custom_domain.get("cname")
+    if not isinstance(cname, str) or not cname:
+        raise ConfigError("custom_domain.cname phải là hostname có giá trị.")
+    labels = cname.split(".")
+    valid_hostname = (
+        len(cname) <= 253
+        and not any(character.isspace() for character in cname)
+        and all(
+            1 <= len(label) <= 63
+            and re.fullmatch(r"[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?", label)
+            for label in labels
+        )
+    )
+    if not valid_hostname:
+        raise ConfigError(
+            "custom_domain.cname phải là hostname hợp lệ, không có scheme, "
+            "port, path, query, fragment hoặc whitespace."
+        )
+    custom_domain["cname"] = cname
     for section in ("allowlist", "denylist"):
         if not isinstance(data.get(section), dict):
             raise ConfigError(f"Thiếu {section}.")
@@ -428,6 +450,25 @@ class LinkCollector(HTMLParser):
 def validate_public(public: Path, manifest: Mapping[str, Any], config: Mapping[str, Any]) -> dict[str, Any]:
     issues: list[dict[str, Any]] = []
     files = set(manifest["files"])
+    expected_cname = config["custom_domain"]["cname"]
+    cname_path = public / "CNAME"
+    if "CNAME" not in files:
+        issues.append({"type": "missing-cname", "path": "CNAME"})
+    elif not cname_path.is_file() or cname_path.is_symlink():
+        issues.append({"type": "invalid-cname-file", "path": "CNAME"})
+    else:
+        try:
+            cname_value = cname_path.read_text(encoding="utf-8").strip()
+        except (OSError, UnicodeError) as exc:
+            issues.append({"type": "invalid-cname-file", "path": "CNAME", "message": str(exc)})
+        else:
+            if cname_value != expected_cname:
+                issues.append({
+                    "type": "invalid-cname-value",
+                    "path": "CNAME",
+                    "expected": expected_cname,
+                    "actual": cname_value,
+                })
     private_fragments = tuple(config["denylist"]["paths"][:3])
     html_count = link_count = 0
     for relative in sorted(name for name in files if name.lower().endswith(".html")):
