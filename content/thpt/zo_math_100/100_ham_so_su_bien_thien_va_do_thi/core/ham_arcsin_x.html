@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="ZO Math">
+<meta name="keywords" content="hàm arcsin, hàm lượng giác ngược, hàm ngược, đạo hàm, đồ thị, tính đơn điệu">
+<meta name="description" content="Bài viết xây dựng hàm arcsin từ nhánh sin chính, theo dõi phép đổi vai giữa đầu vào và đầu ra để làm rõ hai đẳng thức hàm ngược, tính đơn điệu, đối xứng, đồ thị và sự dựng đứng của đường cong ở hai đầu mút.">
+
+<title>Hàm số y = arcsin x – ZO Math</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../../">
+<link href="../../../../../images/favicon.ico" rel="icon">
+<script src="../../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../../site_libs/bootstrap/bootstrap-f61255698acf0ab77f9c69302430f227.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../../../assets/css/custom.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed zo-page-article zo-meta-hidden quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../../../assets/logo/zo_math_logo_black_on_transprentt_1024.png" alt="ZO Math" class="navbar-logo light-content">
+    <img src="../../../../../assets/logo/zo_math_logo_black_on_transprentt_1024.png" alt="ZO Math" class="navbar-logo dark-content">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/about.html"> 
+<span class="menu-text">Giới Thiệu</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../../../content/thpt/toan_11/index.html">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../../content/thpt/toan_12/index.html">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../../content/thpt/zo_math_100/index.html">
+ <span class="dropdown-text">ZO Math 100+</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/di_tim/index.html"> 
+<span class="menu-text">Đi Tìm</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/khoa_hoc/index.html"> 
+<span class="menu-text">Khóa Học</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/kien_tao/index.html"> 
+<span class="menu-text">Kiến Tạo</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/cong_cu/index.html"> 
+<span class="menu-text">Công Cụ</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/shop/index.html"> 
+<span class="menu-text">Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/index.html">Danh sách hàm cơ bản</a></li><li class="breadcrumb-item"><a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_arcsin_x.html">Hàm số arcsin</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/index.html">Danh sách hàm cơ bản</a></li><li class="breadcrumb-item"><a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_arcsin_x.html">Hàm số arcsin</a></li></ol></nav>
+      <h1 class="title">Hàm số <span class="math inline">\(y=\arcsin x\)</span></h1>
+            <p class="subtitle lead">Đảo ngược một nhánh sin bằng cách đổi vai đầu vào và đầu ra</p>
+                  <div>
+        <div class="description">
+          Bài viết xây dựng hàm arcsin từ nhánh sin chính, theo dõi phép đổi vai giữa đầu vào và đầu ra để làm rõ hai đẳng thức hàm ngược, tính đơn điệu, đối xứng, đồ thị và sự dựng đứng của đường cong ở hai đầu mút.
+        </div>
+      </div>
+                </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Tác giả</div>
+      <div class="quarto-title-meta-contents">
+               <p>ZO Math </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Ngày cập nhật</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">17-08-2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  <div>
+    <div class="abstract">
+      <div class="block-title">Tóm tắt</div>
+      <p>Hàm sin trên toàn bộ <span class="math inline">\(\mathbb{R}\)</span> không có hàm ngược vì cùng một giá trị được lặp lại ở vô số đầu vào. Khi chỉ xét nhánh <span class="math inline">\(\left[-\frac{\pi}{2},\frac{\pi}{2}\right]\)</span>, hàm sin liên tục, tăng nghiêm ngặt và nhận đúng đoạn <span class="math inline">\([-1,1]\)</span>; nhánh này vì thế có thể đảo ngược.</p>
+      <p>Bài viết dùng chính phép đảo ấy làm trục tổ chức. Từ định nghĩa <span class="math inline">\(y=\arcsin x\)</span>, ta lần lượt xác định miền xác định và tập giá trị, phân biệt hai công thức hợp hàm thường bị nhầm, dựng đồ thị bằng phép đối xứng qua <span class="math inline">\(y=x\)</span>, rồi suy ra đạo hàm <span class="math inline">\(\frac{1}{\sqrt{1-x^2}}\)</span> trên <span class="math inline">\((-1,1)\)</span>. Hệ bài tập tiếp tục cơ chế này đến công thức <span class="math inline">\(\arcsin(\sin t)\)</span> ngoài nhánh chính, độ cong và công thức đạo hàm của hàm ngược.</p>
+    </div>
+  </div>
+
+  <div>
+    <div class="keywords">
+      <div class="block-title">Từ khóa</div>
+      <p>hàm arcsin, hàm lượng giác ngược, hàm ngược, đạo hàm, đồ thị, tính đơn điệu</p>
+    </div>
+  </div>
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ZO Math 100+</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">100+ Hàm số: sự biến thiên và đồ thị</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/dan_nhap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dẫn nhập</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/ham_so.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm số</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/bien_thien.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Biến thiên</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/do_thi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Đồ thị</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Danh sách hàm cơ bản</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_so_hang.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm số hằng</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_so_bac_nhat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm số bậc nhất</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_ln_x.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm lô-ga-rit tự nhiên</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_can_x.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm √x</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_x_binh.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm số y = x²</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_x_mu_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm số y = x³</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_arcsin_x.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Hàm số arcsin</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_x_tru_mot_tren_x.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm số x trừ một trên x</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_sgn_x.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm dấu</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Danh sách hàm mở rộng</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Danh sách hàm đào sâu</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/depth/ham_sin_mot_tren_x.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hàm số sin một trên x</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nội dung</h2>
+   
+  <ul>
+  <li><a href="#một-nhánh-của-sin-có-thể-đảo-ngược" id="toc-một-nhánh-của-sin-có-thể-đảo-ngược" class="nav-link active" data-scroll-target="#một-nhánh-của-sin-có-thể-đảo-ngược">Một nhánh của sin có thể đảo ngược</a></li>
+  <li><a href="#khi-đầu-vào-và-đầu-ra-đổi-vai" id="toc-khi-đầu-vào-và-đầu-ra-đổi-vai" class="nav-link" data-scroll-target="#khi-đầu-vào-và-đầu-ra-đổi-vai">Khi đầu vào và đầu ra đổi vai</a></li>
+  <li><a href="#đạo-hàm-ghi-lại-phép-đảo" id="toc-đạo-hàm-ghi-lại-phép-đảo" class="nav-link" data-scroll-target="#đạo-hàm-ghi-lại-phép-đảo">Đạo hàm ghi lại phép đảo</a></li>
+  <li><a href="#kết-tinh" id="toc-kết-tinh" class="nav-link" data-scroll-target="#kết-tinh">Kết tinh</a></li>
+  <li><a href="#bài-tập" id="toc-bài-tập" class="nav-link" data-scroll-target="#bài-tập">Bài tập</a>
+  <ul class="collapse">
+  <li><a href="#nhánh-sin-và-phép-đảo" id="toc-nhánh-sin-và-phép-đảo" class="nav-link" data-scroll-target="#nhánh-sin-và-phép-đảo">Nhánh sin và phép đảo</a></li>
+  <li><a href="#từ-cơ-chế-hàm-ngược-đến-những-hệ-quả-mới" id="toc-từ-cơ-chế-hàm-ngược-đến-những-hệ-quả-mới" class="nav-link" data-scroll-target="#từ-cơ-chế-hàm-ngược-đến-những-hệ-quả-mới">Từ cơ chế hàm ngược đến những hệ quả mới</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="một-nhánh-của-sin-có-thể-đảo-ngược" class="level2">
+<h2 class="anchored" data-anchor-id="một-nhánh-của-sin-có-thể-đảo-ngược">Một nhánh của sin có thể đảo ngược</h2>
+<p>Hàm sin trên toàn bộ <span class="math inline">\(\mathbb{R}\)</span> không thể có hàm ngược: chẳng hạn <span class="math inline">\(\sin 0=\sin 2\pi=0\)</span>, nên một đầu ra không xác định duy nhất đầu vào đã sinh ra nó. Muốn đảo ngược hàm sin, trước hết phải chọn một miền mà trên đó mỗi giá trị chỉ xuất hiện một lần.</p>
+<p>Đoạn</p>
+<p><span class="math display">\[
+I=\left[-\frac{\pi}{2},\frac{\pi}{2}\right]
+\]</span></p>
+<p>là miền chuẩn cho mục đích ấy. Trên <span class="math inline">\(I\)</span>, hàm sin liên tục, tăng nghiêm ngặt và đi từ <span class="math inline">\(-1\)</span> đến <span class="math inline">\(1\)</span>. Vì vậy,</p>
+<p><span class="math display">\[
+\sin:I\longrightarrow[-1,1]
+\]</span></p>
+<p>là một song ánh. Với mỗi <span class="math inline">\(x\in[-1,1]\)</span>, có đúng một <span class="math inline">\(y\in I\)</span> sao cho <span class="math inline">\(\sin y=x\)</span>. Số <span class="math inline">\(y\)</span> duy nhất đó được gọi là <span class="math inline">\(\arcsin x\)</span>:</p>
+<p><span class="math display">\[
+y=\arcsin x
+\quad\Leftrightarrow\quad
+\begin{cases}
+\sin y=x,\\
+-\frac{\pi}{2}\le y\le\frac{\pi}{2}.
+\end{cases}
+\]</span></p>
+<p>Từ định nghĩa, hai công thức hàm ngược cần được đọc cùng điều kiện của chúng:</p>
+<p><span class="math display">\[
+\sin(\arcsin x)=x,
+\quad x\in[-1,1],
+\]</span></p>
+<p>và</p>
+<p><span class="math display">\[
+\arcsin(\sin y)=y,
+\quad y\in\left[-\frac{\pi}{2},\frac{\pi}{2}\right].
+\]</span></p>
+<p>Công thức thứ hai không đúng với mọi số thực. Chẳng hạn,</p>
+<p><span class="math display">\[
+\arcsin\left(\sin\frac{3\pi}{4}\right)
+=\arcsin\frac{\sqrt{2}}{2}
+=\frac{\pi}{4}
+\ne\frac{3\pi}{4}.
+\]</span></p>
+<p>Điểm quyết định không nằm ở kí hiệu <span class="math inline">\(\arcsin\)</span> mà ở miền đã dùng để làm cho nhánh sin trở thành song ánh. Hàm <span class="math inline">\(\arcsin\)</span> đảo đúng nhánh sin trên <span class="math inline">\(I\)</span>, không đảo hàm sin trên toàn bộ <span class="math inline">\(\mathbb{R}\)</span>.</p>
+</section>
+<section id="khi-đầu-vào-và-đầu-ra-đổi-vai" class="level2">
+<h2 class="anchored" data-anchor-id="khi-đầu-vào-và-đầu-ra-đổi-vai">Khi đầu vào và đầu ra đổi vai</h2>
+<p>Phép đảo ngược biến ánh xạ</p>
+<p><span class="math display">\[
+y\mapsto \sin y,
+\quad y\in I,
+\]</span></p>
+<p>thành ánh xạ theo chiều ngược lại</p>
+<p><span class="math display">\[
+x\mapsto \arcsin x,
+\quad x\in[-1,1].
+\]</span></p>
+<p>Bởi vậy, tập giá trị của nhánh sin trở thành tập xác định của <span class="math inline">\(\arcsin\)</span>, còn miền của nhánh sin trở thành tập giá trị của <span class="math inline">\(\arcsin\)</span>:</p>
+<p><span class="math display">\[
+D_{\arcsin}=[-1,1],
+\quad
+\operatorname{Im}(\arcsin)
+=\left[-\frac{\pi}{2},\frac{\pi}{2}\right].
+\]</span></p>
+<p>Nhánh sin tăng nghiêm ngặt nên thứ tự cũng được đọc theo chiều ngược của ánh xạ: nếu <span class="math inline">\(-1\le x_1&lt;x_2\le1\)</span> thì</p>
+<p><span class="math display">\[
+\arcsin x_1&lt;\arcsin x_2.
+\]</span></p>
+<p>Do đó, <span class="math inline">\(\arcsin\)</span> tăng nghiêm ngặt trên toàn bộ tập xác định. Hàm đạt giá trị nhỏ nhất <span class="math inline">\(-\frac{\pi}{2}\)</span> tại <span class="math inline">\(x=-1\)</span> và giá trị lớn nhất <span class="math inline">\(\frac{\pi}{2}\)</span> tại <span class="math inline">\(x=1\)</span>. Nghiệm duy nhất là <span class="math inline">\(x=0\)</span>; hơn nữa <span class="math inline">\(\arcsin x\)</span> cùng dấu với <span class="math inline">\(x\)</span>.</p>
+<p>Tính lẻ cũng đi qua phép đảo. Với <span class="math inline">\(x\in[-1,1]\)</span>, đặt <span class="math inline">\(y=\arcsin x\)</span>. Khi đó <span class="math inline">\(y\in I\)</span> và <span class="math inline">\(\sin y=x\)</span>. Vì <span class="math inline">\(I\)</span> đối xứng qua <span class="math inline">\(0\)</span> và hàm sin lẻ,</p>
+<p><span class="math display">\[
+\sin(-y)=-x.
+\]</span></p>
+<p>Tính duy nhất trong định nghĩa của <span class="math inline">\(\arcsin\)</span> cho</p>
+<p><span class="math display">\[
+\arcsin(-x)=-\arcsin x.
+\]</span></p>
+<p>Vì vậy, đồ thị của <span class="math inline">\(y=\arcsin x\)</span> nhận gốc tọa độ làm tâm đối xứng. Hàm cũng liên tục trên <span class="math inline">\([-1,1]\)</span> vì nó là hàm ngược của một hàm liên tục, tăng nghiêm ngặt trên một đoạn.</p>
+<p>Về hình học, nếu <span class="math inline">\((y,\sin y)\)</span> nằm trên nhánh sin với <span class="math inline">\(y\in I\)</span> thì</p>
+<p><span class="math display">\[
+(\sin y,y)
+\]</span></p>
+<p>nằm trên đồ thị <span class="math inline">\(y=\arcsin x\)</span>. Hai điểm này đối xứng nhau qua đường thẳng <span class="math inline">\(y=x\)</span>. Vì vậy, toàn bộ đồ thị <span class="math inline">\(y=\arcsin x\)</span> là ảnh đối xứng của nhánh <span class="math inline">\(y=\sin x\)</span>, <span class="math inline">\(x\in I\)</span>, qua đường thẳng <span class="math inline">\(y=x\)</span>.</p>
+<div id="fig-ham-arcsin-x" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Đồ thị hàm arcsin màu đỏ, nhánh hàm sin trên đoạn từ âm pi trên hai đến pi trên hai màu vàng nâu và đường tham chiếu y bằng x nét đứt; hai đường cong đối xứng nhau qua y bằng x." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ham-arcsin-x-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../_figures/ham_arcsin_x/svg/do_thi_ham_arcsin_x.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Đồ thị hàm arcsin màu đỏ, nhánh hàm sin trên đoạn từ âm pi trên hai đến pi trên hai màu vàng nâu và đường tham chiếu y bằng x nét đứt; hai đường cong đối xứng nhau qua y bằng x.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ham-arcsin-x-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Hình&nbsp;1: Đồ thị <span class="math inline">\(y=\arcsin x\)</span> và nhánh <span class="math inline">\(y=\sin x\)</span> trên <span class="math inline">\(\left[-\frac{\pi}{2},\frac{\pi}{2}\right]\)</span> đối xứng qua đường thẳng <span class="math inline">\(y=x\)</span>.
+</figcaption>
+</figure>
+</div>
+<p>Hình vẽ cần được đọc từ quan hệ đã chứng minh, không phải ngược lại. Hai đầu mút <span class="math inline">\(\left(-1,-\frac{\pi}{2}\right)\)</span> và <span class="math inline">\(\left(1,\frac{\pi}{2}\right)\)</span> đến từ việc đổi thứ tự tọa độ của <span class="math inline">\(\left(-\frac{\pi}{2},-1\right)\)</span> và <span class="math inline">\(\left(\frac{\pi}{2},1\right)\)</span> trên nhánh sin. Tính tăng, tâm đối xứng và toàn bộ hình dạng đường cong cũng phù hợp với phép đối xứng qua <span class="math inline">\(y=x\)</span>; không cần nội suy từ một số hữu hạn điểm rời rạc.</p>
+</section>
+<section id="đạo-hàm-ghi-lại-phép-đảo" class="level2">
+<h2 class="anchored" data-anchor-id="đạo-hàm-ghi-lại-phép-đảo">Đạo hàm ghi lại phép đảo</h2>
+<p>Xét <span class="math inline">\(x\in(-1,1)\)</span> và đặt</p>
+<p><span class="math display">\[
+y=\arcsin x.
+\]</span></p>
+<p>Khi đó <span class="math inline">\(y\in\left(-\frac{\pi}{2},\frac{\pi}{2}\right)\)</span> và</p>
+<p><span class="math display">\[
+\sin y=x.
+\]</span></p>
+<p>Lấy đạo hàm hai vế theo <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[
+\cos y\,y^\prime=1.
+\]</span></p>
+<p>Trên khoảng <span class="math inline">\(\left(-\frac{\pi}{2},\frac{\pi}{2}\right)\)</span>, ta có <span class="math inline">\(\cos y&gt;0\)</span>. Đồng thời,</p>
+<p><span class="math display">\[
+\cos y
+=\sqrt{1-\sin^2y}
+=\sqrt{1-x^2}.
+\]</span></p>
+<p>Do đó,</p>
+<p><span class="math display">\[
+(\arcsin x)^\prime
+=\frac{1}{\sqrt{1-x^2}},
+\quad -1&lt;x&lt;1.
+\]</span></p>
+<p>Đạo hàm dương cho một cách kiểm tra khác đối với tính tăng của hàm trên miền trong. Công thức cũng cho thấy một dấu vết trực tiếp của phép đảo: nơi nhánh sin có độ dốc tiến về <span class="math inline">\(0\)</span> ở <span class="math inline">\(y=\pm\frac{\pi}{2}\)</span> thì độ dốc của hàm ngược tăng không bị chặn. Cụ thể,</p>
+<p><span class="math display">\[
+\lim_{x\to1^-}(\arcsin x)^\prime=+\infty,
+\quad
+\lim_{x\to(-1)^+}(\arcsin x)^\prime=+\infty.
+\]</span></p>
+<p>Hai đầu mút <span class="math inline">\(x=-1\)</span> và <span class="math inline">\(x=1\)</span> vẫn thuộc tập xác định của <span class="math inline">\(\arcsin\)</span>, nhưng công thức đạo hàm trên chỉ áp dụng cho <span class="math inline">\((-1,1)\)</span>. Trên đồ thị, sự khác biệt ấy xuất hiện dưới dạng đường cong tiến đến phương thẳng đứng tại hai đầu mút, chứ không phải một giá trị đạo hàm hữu hạn tại đó.</p>
+</section>
+<section id="kết-tinh" class="level2">
+<h2 class="anchored" data-anchor-id="kết-tinh">Kết tinh</h2>
+<p>Hàm <span class="math inline">\(\arcsin\)</span> không phải là thao tác “xóa sin” một cách vô điều kiện. Nó là hàm ngược của đúng nhánh sin trên <span class="math inline">\(\left[-\frac{\pi}{2},\frac{\pi}{2}\right]\)</span>. Sau khi miền này được cố định, hàng loạt tính chất nối với nhau bằng cùng một cơ chế: miền và tập giá trị đổi vai, đồ thị được phản chiếu qua <span class="math inline">\(y=x\)</span>, tính tăng đi theo tính tăng của nhánh gốc, còn đạo hàm xuất hiện từ việc giải ngược phương trình <span class="math inline">\(\sin y=x\)</span>.</p>
+<p>Cách nhìn có thể chuyển sang những hàm ngược khác là: trước khi dùng kí hiệu hàm ngược hay công thức hợp, phải xác định miền làm cho hàm gốc một-một và theo dõi chính xác miền ấy khi đầu vào và đầu ra đổi vai.</p>
+</section>
+<section id="bài-tập" class="level2">
+<h2 class="anchored" data-anchor-id="bài-tập">Bài tập</h2>
+<p>Các bài dưới đây được sắp theo quan hệ phụ thuộc. Bốn bài đầu dựng lại các mắt xích của bài; ba bài sau đi tiếp từ chính cơ chế hàm ngược để khảo sát phép hợp ngoài nhánh chính, độ cong và công thức đạo hàm tổng quát.</p>
+<section id="nhánh-sin-và-phép-đảo" class="level3">
+<h3 class="anchored" data-anchor-id="nhánh-sin-và-phép-đảo">Nhánh sin và phép đảo</h3>
+<section id="bài-1.-miền-nào-làm-cho-sin-đảo-được" class="level4">
+<h4 class="anchored" data-anchor-id="bài-1.-miền-nào-làm-cho-sin-đảo-được">Bài 1. Miền nào làm cho sin đảo được?</h4>
+<p>Xét hàm sin trên</p>
+<p><span class="math display">\[
+I=\left[-\frac{\pi}{2},\frac{\pi}{2}\right].
+\]</span></p>
+<ol type="a">
+<li><p>Giải thích vì sao hàm sin tăng nghiêm ngặt trên <span class="math inline">\(I\)</span> và nhận đúng mọi giá trị trong <span class="math inline">\([-1,1]\)</span>.</p></li>
+<li><p>Từ đó, phát biểu định nghĩa <span class="math inline">\(y=\arcsin x\)</span> với đầy đủ điều kiện của <span class="math inline">\(x\)</span> và <span class="math inline">\(y\)</span>.</p></li>
+<li><p>Viết đúng miền áp dụng của hai đẳng thức <span class="math inline">\(\sin(\arcsin x)=x\)</span> và <span class="math inline">\(\arcsin(\sin y)=y\)</span>.</p></li>
+<li><p>Tính <span class="math inline">\(\arcsin\left(\sin\frac{5\pi}{6}\right)\)</span> và giải thích vì sao kết quả không bằng <span class="math inline">\(\frac{5\pi}{6}\)</span>.</p></li>
+</ol>
+</section>
+<section id="bài-2.-những-tính-chất-đi-ra-từ-phép-đảo" class="level4">
+<h4 class="anchored" data-anchor-id="bài-2.-những-tính-chất-đi-ra-từ-phép-đảo">Bài 2. Những tính chất đi ra từ phép đảo</h4>
+<p>Không dùng đạo hàm của <span class="math inline">\(\arcsin\)</span>.</p>
+<ol type="a">
+<li><p>Chứng minh <span class="math inline">\(\arcsin\)</span> tăng nghiêm ngặt trên <span class="math inline">\([-1,1]\)</span>.</p></li>
+<li><p>Chứng minh <span class="math inline">\(\arcsin(-x)=-\arcsin x\)</span> với mọi <span class="math inline">\(x\in[-1,1]\)</span>.</p></li>
+<li><p>Xác định nghiệm, dấu, giá trị nhỏ nhất và giá trị lớn nhất của <span class="math inline">\(\arcsin x\)</span>.</p></li>
+<li><p>Nêu tập xác định và tập giá trị, rồi giải thích vì sao hai tập này xuất hiện theo thứ tự ngược với nhánh sin chính.</p></li>
+</ol>
+</section>
+<section id="bài-3.-dựng-đồ-thị-không-bằng-cách-nối-điểm" class="level4">
+<h4 class="anchored" data-anchor-id="bài-3.-dựng-đồ-thị-không-bằng-cách-nối-điểm">Bài 3. Dựng đồ thị không bằng cách nối điểm</h4>
+<ol type="a">
+<li><p>Phác họa nhánh <span class="math inline">\(y=\sin x\)</span> trên <span class="math inline">\(\left[-\frac{\pi}{2},\frac{\pi}{2}\right]\)</span>.</p></li>
+<li><p>Dùng phép đối xứng qua <span class="math inline">\(y=x\)</span> để dựng đồ thị <span class="math inline">\(y=\arcsin x\)</span>. Đánh dấu hai đầu mút và gốc tọa độ.</p></li>
+<li><p>Từ phép dựng, giải thích vì sao đồ thị <span class="math inline">\(y=\arcsin x\)</span> tăng và có tâm đối xứng là gốc tọa độ.</p></li>
+<li><p>Giải thích vì sao ba điểm <span class="math inline">\(\left(-1,-\frac{\pi}{2}\right)\)</span>, <span class="math inline">\((0,0)\)</span>, <span class="math inline">\(\left(1,\frac{\pi}{2}\right)\)</span> riêng lẻ chưa đủ để xác định hình dạng đồ thị, còn quan hệ hàm ngược thì đủ để dựng toàn bộ đường cong từ nhánh sin đã biết.</p></li>
+</ol>
+</section>
+<section id="bài-4.-đạo-hàm-và-hai-đầu-mút" class="level4">
+<h4 class="anchored" data-anchor-id="bài-4.-đạo-hàm-và-hai-đầu-mút">Bài 4. Đạo hàm và hai đầu mút</h4>
+<p>Với <span class="math inline">\(x\in(-1,1)\)</span>, đặt <span class="math inline">\(y=\arcsin x\)</span>.</p>
+<ol type="a">
+<li>Từ <span class="math inline">\(\sin y=x\)</span>, chứng minh</li>
+</ol>
+<p><span class="math display">\[
+(\arcsin x)^\prime=\frac{1}{\sqrt{1-x^2}}.
+\]</span></p>
+<ol start="2" type="a">
+<li><p>Dùng đạo hàm để kiểm tra lại chiều biến thiên của <span class="math inline">\(\arcsin\)</span> trên <span class="math inline">\((-1,1)\)</span>.</p></li>
+<li><p>Tính giới hạn của <span class="math inline">\((\arcsin x)^\prime\)</span> khi <span class="math inline">\(x\to1^-\)</span> và khi <span class="math inline">\(x\to(-1)^+\)</span>.</p></li>
+<li><p>Phân biệt hai phát biểu: “<span class="math inline">\(x=\pm1\)</span> thuộc tập xác định của <span class="math inline">\(\arcsin\)</span>” và “đạo hàm của <span class="math inline">\(\arcsin\)</span> được cho bởi công thức trên tại <span class="math inline">\(x=\pm1\)</span>”.</p></li>
+</ol>
+</section>
+</section>
+<section id="từ-cơ-chế-hàm-ngược-đến-những-hệ-quả-mới" class="level3">
+<h3 class="anchored" data-anchor-id="từ-cơ-chế-hàm-ngược-đến-những-hệ-quả-mới">Từ cơ chế hàm ngược đến những hệ quả mới</h3>
+<section id="bài-5.-khi-đầu-vào-rời-nhánh-chính" class="level4">
+<h4 class="anchored" data-anchor-id="bài-5.-khi-đầu-vào-rời-nhánh-chính">Bài 5. Khi đầu vào rời nhánh chính</h4>
+<p>Đặt</p>
+<p><span class="math display">\[
+F(t)=\arcsin(\sin t).
+\]</span></p>
+<ol type="a">
+<li><p>Chứng minh <span class="math inline">\(F(t)=t\)</span> với <span class="math inline">\(t\in\left[-\frac{\pi}{2},\frac{\pi}{2}\right]\)</span>.</p></li>
+<li><p>Với <span class="math inline">\(t\in\left[\frac{\pi}{2},\frac{3\pi}{2}\right]\)</span>, chứng minh</p></li>
+</ol>
+<p><span class="math display">\[
+F(t)=\pi-t.
+\]</span></p>
+<ol start="3" type="a">
+<li>Với <span class="math inline">\(t\in\left[\frac{3\pi}{2},\frac{5\pi}{2}\right]\)</span>, chứng minh</li>
+</ol>
+<p><span class="math display">\[
+F(t)=t-2\pi.
+\]</span></p>
+<ol start="4" type="a">
+<li>Từ ba khoảng trên, giải thích vì sao <span class="math inline">\(F\)</span> không phải là hàm đồng nhất trên <span class="math inline">\(\mathbb{R}\)</span> dù <span class="math inline">\(\arcsin\)</span> là hàm ngược của một nhánh sin.</li>
+</ol>
+</section>
+<section id="bài-6.-độ-cong-của-đồ-thị" class="level4">
+<h4 class="anchored" data-anchor-id="bài-6.-độ-cong-của-đồ-thị">Bài 6. Độ cong của đồ thị</h4>
+<p>Với <span class="math inline">\(-1&lt;x&lt;1\)</span>, xuất phát từ</p>
+<p><span class="math display">\[
+f^\prime(x)=\frac{1}{\sqrt{1-x^2}}
+\]</span></p>
+<p>cho <span class="math inline">\(f(x)=\arcsin x\)</span>.</p>
+<ol type="a">
+<li>Chứng minh</li>
+</ol>
+<p><span class="math display">\[
+f^{\prime\prime}(x)
+=\frac{x}{(1-x^2)^{\frac{3}{2}}}.
+\]</span></p>
+<ol start="2" type="a">
+<li><p>Xác định dấu của <span class="math inline">\(f^{\prime\prime}(x)\)</span> trên <span class="math inline">\((-1,0)\)</span> và <span class="math inline">\((0,1)\)</span>.</p></li>
+<li><p>Suy ra dạng cong của đồ thị ở hai phía của gốc tọa độ và kiểm tra kết quả ấy với tính lẻ của hàm.</p></li>
+<li><p>Xác định điểm uốn của đồ thị.</p></li>
+</ol>
+</section>
+<section id="bài-7.-công-thức-đạo-hàm-của-một-hàm-ngược" class="level4">
+<h4 class="anchored" data-anchor-id="bài-7.-công-thức-đạo-hàm-của-một-hàm-ngược">Bài 7. Công thức đạo hàm của một hàm ngược</h4>
+<p>Cho <span class="math inline">\(g\)</span> khả vi và tăng nghiêm ngặt trên một khoảng, với <span class="math inline">\(g^\prime(t)&gt;0\)</span> tại các điểm đang xét. Gọi <span class="math inline">\(h=g^{-1}\)</span> trên tập giá trị tương ứng và giả sử <span class="math inline">\(h\)</span> khả vi tại điểm đang xét.</p>
+<ol type="a">
+<li><p>Từ đẳng thức <span class="math inline">\(g(h(x))=x\)</span>, chứng minh <span class="math inline">\(h^\prime(x)=\frac{1}{g^\prime(h(x))}\)</span>.</p></li>
+<li><p>Áp dụng công thức cho <span class="math inline">\(g(t)=\sin t\)</span> trên <span class="math inline">\(\left(-\frac{\pi}{2},\frac{\pi}{2}\right)\)</span> để thu lại đạo hàm của <span class="math inline">\(\arcsin x\)</span>.</p></li>
+<li><p>Giải thích bằng công thức tổng quát vì sao độ dốc của hàm ngược trở nên rất lớn khi độ dốc của hàm gốc tiến gần <span class="math inline">\(0\)</span> nhưng vẫn dương.</p></li>
+</ol>
+
+
+<div class="zo-pdf-download">
+<p><a href="ham_arcsin_x.pdf" class="zo-pdf-download__link" download="" aria-label="Tải PDF" title="Tải bản PDF"><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> Tải PDF</a></p>
+</div>
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // Nếu trang không có TOC thật thì không tạo nút TOC.
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (!rawToc) {
+
+      tocBtn?.closest(".toc-toggle-holder")?.remove();
+
+      return;
+
+    }
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Hiện các cấp mục lục đã được Quarto sinh ra theo toc-depth.
+
+      // Quarto/Bootstrap có thể gắn class "collapse" cho mục con, khiến ### bị ẩn.
+
+      tocEl.querySelectorAll("ul.collapse").forEach((ul) => {
+
+        ul.classList.remove("collapse");
+
+      });
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zo-math\.github\.io\/zo-math\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="#">Blog</a> | <a href="#">Help</a> | <a href="#">Credits</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a> <br> <a href="https://www.facebook.com/profile.php?id=61591689772259" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://www.tiktok.com/@zo.math" title="TikTok"><i class="bi bi-tiktok"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a> <br> © 2025 <strong>ZO Math</strong></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

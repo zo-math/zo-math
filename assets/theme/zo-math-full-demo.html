@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>ZO Math Full Demo</title>
+  <style>
+    body {
+      margin:0; font-family: Arial, sans-serif;
+      background: #f8f5f0; color:#000;
+      display: flex; flex-direction: column; min-height: 100vh;
+    }
+    /* Navbar trong suốt */
+    .navbar {
+      position: fixed; top:0; left:0; right:0;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(6px);
+      border-bottom: 3px solid #000;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+    .navbar a {
+      color: #000; margin: 0 1rem; text-decoration: none; font-weight: bold;
+    }
+    .navbar a:hover { color: #ef5350; }
+
+    /* Layout chính với sidebar */
+    .main-layout {
+      display: flex; margin-top: 70px; /* để tránh che bởi navbar */
+      flex: 1;
+    }
+    .sidebar {
+      background: #fff4d4; /* yellow-02 */
+      border-right: 3px solid #000;
+      padding: 1rem;
+      width: 220px;
+    }
+    .sidebar h3 { margin-top:0; }
+    .sidebar a {
+      display: block; margin: 0.5rem 0;
+      text-decoration: none; color: #000; font-weight: bold;
+    }
+    .sidebar a:hover { color: #ef5350; }
+
+    .content {
+      flex:1; padding: 1rem 2rem;
+    }
+
+    /* Banner */
+    .banner {
+      background: #facbca; /* red-03 */
+      border: 3px solid #000;
+      margin-bottom: 1.5rem;
+      text-align: center; padding: 3rem 1rem;
+    }
+    .banner h1 { margin:0; color:#ef5350; font-size: 2.5rem; }
+    .banner p { margin-top:1rem; font-size:1.2rem; }
+
+    /* Table of contents */
+    .toc {
+      background: #fff; border: 2px solid #000; padding:1rem; margin-bottom:1.5rem;
+    }
+    .toc h3 { margin-top:0; }
+    .toc ul { list-style-type: none; padding-left:0; }
+    .toc li { margin: 0.5rem 0; }
+
+    /* Cards Grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      gap:1rem;
+    }
+    .card {
+      background:#fff; border:2px solid #000;
+      padding:1rem; border-radius:6px;
+      text-align:center;
+    }
+    .card h4 { margin-top:0; color:#e5b524; }
+    .card p { font-size:0.9rem; }
+
+    /* Carousel */
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      border: 2px solid #000;
+      margin: 2rem 0;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    .carousel-item {
+      min-width: 250px;
+      margin: 1rem;
+      background:#fff; border:2px solid #000; border-radius:6px;
+      text-align:center; padding:1rem;
+    }
+    .carousel-buttons {
+      position: absolute; top:50%; transform: translateY(-50%);
+      width:100%; display: flex; justify-content: space-between;
+    }
+    .carousel-buttons button {
+      background:#ef5350; border:none; color:#fff; padding:0.5rem 1rem;
+      font-weight:bold; cursor:pointer; border-radius:4px;
+    }
+
+    /* Footer */
+    .footer {
+      background:#fff9e9; border-top:3px solid #000;
+      text-align:center; padding:1rem; margin-top:auto;
+    }
+    .footer a { color:#ef5350; text-decoration:none; margin:0 0.5rem; font-weight:bold; }
+    .footer a:hover { color:#d74a48; }
+  </style>
+</head>
+<body>
+
+<div class="navbar">
+  <div><strong>ZO Math</strong></div>
+  <div>
+    <a href="#">Trang chủ</a>
+    <a href="#">Bài học</a>
+    <a href="#">Ứng dụng</a>
+    <a href="#">Liên hệ</a>
+  </div>
+</div>
+
+<div class="main-layout">
+  <div class="sidebar">
+    <h3>Mục lục</h3>
+    <a href="#">Giới thiệu</a>
+    <a href="#">Chương 1</a>
+    <a href="#">Chương 2</a>
+    <a href="#">Chương 3</a>
+  </div>
+
+  <div class="content">
+    <div class="banner">
+      <h1>100+ Hàm số</h1>
+      <p>Sự biến thiên và Đồ thị - Học toán theo phong cách ZO</p>
+    </div>
+
+    <div class="toc">
+      <h3>Nội dung trang</h3>
+      <ul>
+        <li><a href="#">1. Hàm số bậc nhất</a></li>
+        <li><a href="#">2. Hàm số bậc hai</a></li>
+        <li><a href="#">3. Hàm phân thức</a></li>
+      </ul>
+    </div>
+
+    <h2>Bài học nổi bật</h2>
+    <div class="card-grid">
+      <div class="card"><h4>Hàm số bậc nhất</h4><p>Khảo sát và đồ thị đường thẳng.</p></div>
+      <div class="card"><h4>Hàm số bậc hai</h4><p>Khảo sát và đồ thị parabol.</p></div>
+      <div class="card"><h4>Hàm phân thức</h4><p>Khảo sát hyperbol và tiệm cận.</p></div>
+      <div class="card"><h4>Hàm mũ</h4><p>Ứng dụng trong thực tiễn và toán học.</p></div>
+    </div>
+
+    <h2>Chuyên đề</h2>
+    <div class="carousel">
+      <div class="carousel-track">
+        <div class="carousel-item"><h4>Ứng dụng thực tế</h4><p>Toán học trong đời sống.</p></div>
+        <div class="carousel-item"><h4>Thi quốc tế</h4><p>Luyện đề PISA, SAT, A-level.</p></div>
+        <div class="carousel-item"><h4>Lý thuyết nâng cao</h4><p>Chuẩn bị cho đại học.</p></div>
+        <div class="carousel-item"><h4>Lập trình toán</h4><p>Dùng Python để mô phỏng.</p></div>
+      </div>
+      <div class="carousel-buttons">
+        <button onclick="moveCarousel(-1)">‹</button>
+        <button onclick="moveCarousel(1)">›</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 ZO Math | <a href="#">Facebook</a> | <a href="#">YouTube</a>
+</div>
+
+<script>
+  let track = null;
+  let index = 0;
+  window.onload = function(){
+    track = document.querySelector('.carousel-track');
+  };
+  function moveCarousel(direction){
+    const items = document.querySelectorAll('.carousel-item');
+    index += direction;
+    if(index < 0) index = 0;
+    if(index > items.length-1) index = items.length-1;
+    track.style.transform = 'translateX(' + (-index*270) + 'px)';
+  }
+</script>
+
+</body>
+</html>
