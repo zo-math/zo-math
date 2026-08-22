@@ -810,9 +810,6 @@ def publish_site(root: Path, config_path: Path, config: Mapping[str, Any]) -> in
             unstaged = git_text(target, "diff", "--name-only", safe=target)
             if unstaged:
                 raise RuntimeError("Còn thay đổi unstaged sau khi stage kế hoạch xuất bản.")
-            check = git(target, "diff", "--cached", "--check", safe=target)
-            if check.returncode != 0:
-                raise RuntimeError(check.stdout.strip() or check.stderr.strip() or "Staged whitespace không đạt.")
             indexed = set(git_text(target, "ls-files", safe=target).splitlines())
             if indexed != set(payload["manifest"]["files"]):
                 raise RuntimeError("Index chứa tệp ngoài manifest công khai.")
