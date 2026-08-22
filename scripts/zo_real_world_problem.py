@@ -748,8 +748,8 @@ class _SelfTestConfig:
                 ],
                 "forbidden_metadata": ["listing-order"],
                 "collection": "100+ Bài toán thực tế",
-                "canonical_base": "https://zo-math.github.io/zo-math/",
-                "display_url": "zo-math.github.io/zo-math",
+                "canonical_base": "https://zomath.vn/",
+                "display_url": "zomath.vn",
                 "profile_version": 1,
             }
         },
@@ -803,9 +803,9 @@ zo-pdf-download:
   href: demo.pdf
 zo-pdf-branding:
   short-title: Demo
-  display-url: zo-math.github.io/zo-math
+  display-url: zomath.vn
   collection: 100+ Bài toán thực tế
-  canonical-url: https://zo-math.github.io/zo-math/content/demo/core/demo.html
+  canonical-url: https://zomath.vn/content/demo/core/demo.html
 ---
 ## Bối cảnh và dữ kiện
 

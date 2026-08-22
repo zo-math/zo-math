@@ -79,7 +79,7 @@ FUNCTION_LEGACY_CLASSES = (
     ".tieu-de-chu-thich", "collapsible-box-", "highlight-box-",
 )
 FUNCTION_BLOCK_COLORS = ("zo-block-red", "zo-block-yellow", "zo-block-gray")
-FUNCTION_CANONICAL_BASE = "https://zo-math.github.io/zo-math/"
+FUNCTION_CANONICAL_BASE = "https://zomath.vn/"
 FUNCTION_EXPANDED_FIGURE_CLASS = "column-screen-inset-shaded"
 
 
@@ -813,7 +813,7 @@ def validate_function_metadata(
     collection = pdf_branding.get("collection") if branding_ok else None
     branding_values_ok = (
         isinstance(short_title, str) and bool(short_title.strip())
-        and display_url == "zo-math.github.io/zo-math"
+        and display_url == "zomath.vn"
         and collection == "100+ Hàm số: Sự biến thiên và đồ thị"
     )
     checker.add(
