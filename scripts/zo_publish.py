@@ -492,7 +492,7 @@ def validate_public(public: Path, manifest: Mapping[str, Any], config: Mapping[s
             if re.match(r"^[A-Za-z]:", decoded):
                 issues.append({"type": "unsafe-link", "path": relative, "value": raw})
                 continue
-            candidate = decoded.lstrip("/") if decoded.startswith("/") else posixpath.normpath(
+            candidate = posixpath.normpath(decoded.lstrip("/")) if decoded.startswith("/") else posixpath.normpath(
                 str(PurePosixPath(relative).parent / decoded)
             )
             if candidate == ".." or candidate.startswith("../"):
