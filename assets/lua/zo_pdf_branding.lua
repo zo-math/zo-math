@@ -97,11 +97,11 @@ function Meta(meta)
   local keywords = escape_latex(comma_list(meta.keywords))
   local canonical_url = raw_url(
     branding["canonical-url"],
-    "https://zo-math.github.io/zo-math/"
+    "https://zomath.vn/"
   )
   local display_url = raw_url(
     branding["display-url"],
-    "zo-math.github.io/zo-math"
+    "zomath.vn"
   )
 
   local definitions = table.concat({

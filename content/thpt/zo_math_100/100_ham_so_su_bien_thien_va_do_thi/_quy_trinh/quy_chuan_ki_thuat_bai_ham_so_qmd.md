@@ -529,8 +529,8 @@ zo-pdf-download:
 zo-pdf-branding:
   collection: "100+ Hàm số: Sự biến thiên và đồ thị"
   short-title: "..."
-  canonical-url: "https://zo-math.github.io/zo-math/content/.../<ten_qmd>.html"
-  display-url: "zo-math.github.io/zo-math"
+  canonical-url: "https://zomath.vn/content/.../<ten_qmd>.html"
+  display-url: "zomath.vn"
 ```
 
 Tên PDF mặc định cùng tên cơ sở với QMD và nằm cạnh QMD.
