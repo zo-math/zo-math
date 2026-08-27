@@ -15,7 +15,7 @@
 \pgfmathsetmacro{\W}{\nPeriod*\P}  % bề rộng = nPeriod * P
 
 \def\A{1.65}         % biên độ
-\def\lw{20pt}        % độ dày ribbon
+\def\lw{27pt}        % độ dày ribbon
 \def\eps{0.38}       % nửa bề rộng đoạn tô đè tại mỗi giao
 
 \colorlet{ribbonLight}{black!35}
@@ -68,14 +68,15 @@
 % =========================================================
 % E) NHÃN “Informal” và “Formal”
 % =========================================================
-\node[rotate=90, font=\bfseries\LARGE] at (-0.7,0) {Phi hình thức};
-\node[rotate=90, font=\bfseries\LARGE] at (\W+0.7,0) {Hình thức};
+\node[rotate=90, font=\bfseries\LARGE] at (-0.8,0) {Phi hình thức};
+\node[rotate=90, font=\bfseries\LARGE] at (\W+0.8,0) {Hình thức};
 
 % =========================================================
 % F) CHỮ TRÊN DẢI (bạn chỉnh lại vị trí/rotate theo mắt)
 % =========================================================
-\node[rotate=295, font=\bfseries, text=white] at (3,0.05) {LUẬN};
-\node[rotate=295, font=\bfseries, text=white] at (4.95,0.05) {HIỂU};
+\node[rotate=295, font=\bfseries, text=white] at (3,0.05) {SUY LÍ};
+\node[rotate=295, font=\bfseries, text=white, align=center]
+  at (4.975,0.05) {KIẾN TẠO Ý NGHĨA};
 
 \end{tikzpicture}
 \end{document}
