@@ -153,7 +153,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="../../assets/css/custom.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -175,10 +175,21 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="../../index.html"> 
 <span class="menu-text"><i class="bi bi-house-door"></i></span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../content/about.html"> 
-<span class="menu-text">Giới Thiệu</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-giới-thiệu" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Giới Thiệu</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-giới-thiệu">    
+        <li>
+    <a class="dropdown-item" href="../../content/about.html">
+ <span class="dropdown-text">Giới thiệu về ZO Math</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/triet_li_va_dinh_huong.html">
+ <span class="dropdown-text">Triết lí và định hướng</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Phổ Thông</span>
@@ -234,6 +245,19 @@ ul.task-list li input[type="checkbox"] {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../content/support/donate.html">Bảo trợ</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
@@ -254,10 +278,46 @@ ul.task-list li input[type="checkbox"] {
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Giới thiệu về ZO Math</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/triet_li_va_dinh_huong.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Triết lí và định hướng</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/support/donate.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Bảo trợ</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/contact.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Liên hệ</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Trên trang này</h2>
+    <h2 id="toc-title">Nội dung</h2>
    
   <ul>
   <li><a href="#bảo-trợ-trực-tiếp" id="toc-bảo-trợ-trực-tiếp" class="nav-link active" data-scroll-target="#bảo-trợ-trực-tiếp">Bảo trợ trực tiếp</a></li>
@@ -1158,7 +1218,7 @@ ul.task-list li input[type="checkbox"] {
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p><a href="../../content/about.html">Giới thiệu</a> | <a href="../../content/contact.html">Liên hệ</a> <br> <a href="https://www.facebook.com/profile.php?id=61591689772259" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://www.tiktok.com/@zo.math" title="TikTok"><i class="bi bi-tiktok"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a> <br> © 2026 ZO Math</p>
+<p><a href="../../content/about.html">Giới thiệu</a> | <a href="../../content/triet_li_va_dinh_huong.html">Triết lí và định hướng</a> | <a href="../../content/contact.html">Liên hệ</a> <br> <a href="https://www.facebook.com/profile.php?id=61591689772259" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://www.tiktok.com/@zo.math" title="TikTok"><i class="bi bi-tiktok"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a> <br> © 2026 ZO Math</p>
 </div>
     <div class="nav-footer-right">
       &nbsp;
