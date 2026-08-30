@@ -120,6 +120,9 @@
 \newcommand{\TOCPage}{%
   \clearpage
   \gdef\CurrentRunningHead{Mục lục}%
+  \bookmarksetup{startatroot}%
+  \phantomsection
+  \pdfbookmark[0]{Mục lục}{toc-root}%
   {\centering\normalfont\bfseries\Huge Mục lục\par}
   \vspace{1.5\baselineskip}
   \@starttoc{toc}%
@@ -135,6 +138,9 @@
 \newcommand{\LOEPage}{%
   \clearpage
   \gdef\CurrentRunningHead{Danh sách ví dụ}%
+  \bookmarksetup{startatroot}%
+  \phantomsection
+  \addcontentsline{toc}{chapter}{Danh sách ví dụ}%
   {\centering\normalfont\bfseries\Huge Danh sách ví dụ\par}
   \vspace{1.5\baselineskip}
   \@starttoc{loe}%
@@ -250,9 +256,9 @@
 \newcommand{\ParallelChapterStar}[3]{%
   \gdef\CurrentRunningHead{#2}%
   \refstepcounter{parallelstarchapter}%
+  \bookmarksetup{startatroot}%
   \phantomsection
   \addcontentsline{toc}{chapter}{#2}%
-  \pdfbookmark[0]{#2}{parallelstar-\arabic{parallelstarchapter}}%
   {\noindent\normalfont\bfseries\Large #1\par}
   \switchcolumn
   {\noindent\normalfont\bfseries\Large #2\par}
@@ -263,9 +269,9 @@
 % ------
 \newcommand{\BackMatterChapterStar}[1]{%
   \refstepcounter{parallelstarchapter}%
+  \bookmarksetup{startatroot}%
   \phantomsection
   \addcontentsline{toc}{chapter}{#1}%
-  \pdfbookmark[0]{#1}{parallelstar-\arabic{parallelstarchapter}}%
   \gdef\CurrentRunningHead{#1}%
   {\noindent\normalfont\bfseries\Large #1\par}
   \vspace{1.0\baselineskip}
@@ -501,10 +507,11 @@
   #1\par
 }
 
-% \includeonly{tieu_luan_dan_nhap_fhsm_ban_chuyen_ngu}
+% \includeonly{tieu_luan_dan_nhap}
 % \includeonly{dan_nhap}
 % \includeonly{chuong_01}
 % \includeonly{chuong_02}
+% \includeonly{khao_luan_suy_li_va_kien_tao_y_nghia}
 % \includeonly{chuong_03}
 % \includeonly{chuong_04}
 % \includeonly{chuong_05}
@@ -552,7 +559,7 @@
 \LOEPage
 
 % TIỂU LUẬN DẪN NHẬP CỦA BẢN CHUYỂN NGỮ
-\OddInclude{tieu_luan_dan_nhap_fhsm_ban_chuyen_ngu}
+\OddInclude{tieu_luan_dan_nhap}
 
 %  DẪN NHẬP
 \OddInclude{dan_nhap}
@@ -565,6 +572,9 @@
 
 \OddInclude{chuong_01}
 \OddInclude{chuong_02}
+
+% KHẢO LUẬN CỦA BẢN CHUYỂN NGỮ
+\OddInclude{khao_luan_suy_li_va_kien_tao_y_nghia}
 
 %  PHẦN 2
 \PartPage
