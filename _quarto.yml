@@ -38,8 +38,12 @@ website:
     left:
       - href: "index.qmd"
         text: "<i class='bi bi-house-door'></i>"
-      - href: "content/about.qmd"
-        text: "Giới Thiệu"
+      - text: "Giới Thiệu"
+        menu:
+          - text: "Giới thiệu về ZO Math"
+            href: "content/about.qmd"
+          - text: "Triết lí và định hướng"
+            href: "content/triet_li_va_dinh_huong.qmd"
       - text: "Phổ Thông"
         menu:
           - text: "Toán 11"
@@ -66,6 +70,20 @@ website:
         text: "Liên Hệ"
 
   sidebar:
+    - id: gioithieu
+      title: "Về ZO Math"
+      style: docked
+      search: true
+      contents:
+        - text: "Giới thiệu về ZO Math"
+          href: content/about.qmd
+        - text: "Triết lí và định hướng"
+          href: content/triet_li_va_dinh_huong.qmd
+        - text: "Bảo trợ"
+          href: content/support/donate.qmd
+        - text: "Liên hệ"
+          href: content/contact.qmd
+
     - id: hamso100
       title: "100+ Hàm số"
       style: docked
@@ -112,7 +130,7 @@ website:
 
   page-footer:
     center: |
-      [Giới thiệu](/content/about.qmd) | [Liên hệ](/content/contact.qmd)
+      [Giới thiệu](/content/about.qmd) | [Triết lí và định hướng](/content/triet_li_va_dinh_huong.qmd) | [Liên hệ](/content/contact.qmd)
       <br>
       <a href="https://www.facebook.com/profile.php?id=61591689772259" title="Facebook"><i class="bi bi-facebook"></i></a>
       <a href="https://www.tiktok.com/@zo.math" title="TikTok"><i class="bi bi-tiktok"></i></a>
