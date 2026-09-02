@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="ZO Math">
+<meta name="description" content="Bài viết phân tích chứng minh của Cauchy cho bất đẳng thức trung bình số học–trung bình hình học và hình thức hóa phương pháp quy nạp tiến–thoái.">
 
-<title>Luận và Hiểu trong dạy học Hàm số – ZO Math</title>
+<title>Tiến thoái nhịp nhàng – ZO Math</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,7 +25,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -43,7 +64,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-f61255698acf0ab77f9c69302430f227.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-41f17726f51f5637d4bd82a943e59ec8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -149,11 +170,40 @@ ul.task-list li input[type="checkbox"] {
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../../assets/css/custom.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed zo-page-article zo-page-kien-tao-article quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -218,7 +268,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Khóa Học</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../content/kien_tao/index.html"> 
+    <a class="nav-link active" href="../../../content/kien_tao/index.html" aria-current="page"> 
 <span class="menu-text">Kiến Tạo</span></a>
   </li>  
   <li class="nav-item">
@@ -245,56 +295,103 @@ ul.task-list li input[type="checkbox"] {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../content/kien_tao/tien_thoai_nhip_nhang/tien_thoai_nhip_nhang.html">Tiến thoái nhịp nhàng</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Luận và Hiểu trong dạy học Hàm số</h1>
-                      </div>
+      <h1 class="title">Tiến thoái nhịp nhàng</h1>
+            <p class="subtitle lead">Phương pháp quy nạp tiến–thoái</p>
+                  <div>
+        <div class="description">
+          Bài viết phân tích chứng minh của Cauchy cho bất đẳng thức trung bình số học–trung bình hình học và hình thức hóa phương pháp quy nạp tiến–thoái.
+        </div>
+      </div>
+                </div>
   </div>
     
   
   <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Tác giả</div>
+      <div class="quarto-title-meta-contents">
+               <p>ZO Math </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Ngày cập nhật</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">03-09-2026</p>
+      </div>
+    </div>
     
       
     </div>
     
+  <div>
+    <div class="abstract">
+      <div class="block-title">Tóm tắt</div>
+      <p>Quy nạp thông thường đôi khi chỉ thuận lợi trên một dãy trường hợp thưa. Trong phương pháp được gọi là quy nạp tiến–thoái, chiều tiến tạo ra các mốc ngày càng lớn, còn chiều thoái đi từ một mốc đã biết về các trường hợp nhỏ hơn; nhờ phối hợp hai chiều, những khoảng trống giữa các mốc có thể được lấp. Bài viết dùng chứng minh bất đẳng thức AM-GM của Cauchy để minh họa và hình thức hóa phương pháp này.</p>
+    </div>
+  </div>
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../content/kien_tao/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kiến tạo</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../content/kien_tao/diu_dang_va_gai_goc/diu_dang_va_gai_goc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dịu dàng và gai góc</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../content/kien_tao/tien_thoai_nhip_nhang/tien_thoai_nhip_nhang.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Tiến thoái nhịp nhàng</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Trên trang này</h2>
+    <h2 id="toc-title">Nội dung</h2>
    
   <ul>
-  <li><a href="#chương-1.-luận-và-hiểu---hai-trụ-cột-của-việc-dạy-và-học-toán" id="toc-chương-1.-luận-và-hiểu---hai-trụ-cột-của-việc-dạy-và-học-toán" class="nav-link active" data-scroll-target="#chương-1.-luận-và-hiểu---hai-trụ-cột-của-việc-dạy-và-học-toán"><span class="header-section-number">1</span> Chương 1. Luận và hiểu - Hai trụ cột của việc dạy và học toán</a>
-  <ul class="collapse">
-  <li><a href="#vì-sao-cần-định-nghĩa-lại-luận-và-hiểu" id="toc-vì-sao-cần-định-nghĩa-lại-luận-và-hiểu" class="nav-link" data-scroll-target="#vì-sao-cần-định-nghĩa-lại-luận-và-hiểu"><span class="header-section-number">1.1</span> 1. Vì sao cần định nghĩa lại “luận” và “hiểu”?</a></li>
-  <li><a href="#hiểu-曉-từ-biết-đến-làm-cho-nghĩa-sáng-ra" id="toc-hiểu-曉-từ-biết-đến-làm-cho-nghĩa-sáng-ra" class="nav-link" data-scroll-target="#hiểu-曉-từ-biết-đến-làm-cho-nghĩa-sáng-ra"><span class="header-section-number">1.2</span> 2. “Hiểu” (曉): từ “biết” đến “làm cho nghĩa sáng ra”</a>
-  <ul class="collapse">
-  <li><a href="#hiểu-trong-tiếng-việt-không-phải-là-biết" id="toc-hiểu-trong-tiếng-việt-không-phải-là-biết" class="nav-link" data-scroll-target="#hiểu-trong-tiếng-việt-không-phải-là-biết"><span class="header-section-number">1.2.1</span> 2.1. “Hiểu” trong tiếng Việt không phải là “biết”</a></li>
-  <li><a href="#chữ-曉-và-trường-nghĩa-của-hiểu" id="toc-chữ-曉-và-trường-nghĩa-của-hiểu" class="nav-link" data-scroll-target="#chữ-曉-và-trường-nghĩa-của-hiểu"><span class="header-section-number">1.2.2</span> 2.2. Chữ 曉 và trường nghĩa của “hiểu”</a></li>
-  <li><a href="#hiểu-trong-sense-making" id="toc-hiểu-trong-sense-making" class="nav-link" data-scroll-target="#hiểu-trong-sense-making"><span class="header-section-number">1.2.3</span> 2.3. “Hiểu” trong sense making</a></li>
-  </ul></li>
-  <li><a href="#luận-論-reasoning-không-chỉ-là-chứng-minh" id="toc-luận-論-reasoning-không-chỉ-là-chứng-minh" class="nav-link" data-scroll-target="#luận-論-reasoning-không-chỉ-là-chứng-minh"><span class="header-section-number">1.3</span> 3. “Luận” (論): reasoning không chỉ là chứng minh</a>
-  <ul class="collapse">
-  <li><a href="#hiểu-sai-phổ-biến-về-luận" id="toc-hiểu-sai-phổ-biến-về-luận" class="nav-link" data-scroll-target="#hiểu-sai-phổ-biến-về-luận"><span class="header-section-number">1.3.1</span> 3.1. Hiểu sai phổ biến về “luận”</a></li>
-  <li><a href="#chữ-論-và-trường-nghĩa-của-luận" id="toc-chữ-論-và-trường-nghĩa-của-luận" class="nav-link" data-scroll-target="#chữ-論-và-trường-nghĩa-của-luận"><span class="header-section-number">1.3.2</span> 3.2. Chữ 論 và trường nghĩa của “luận”</a></li>
-  <li><a href="#luận-trong-reasoning-của-fhsm" id="toc-luận-trong-reasoning-của-fhsm" class="nav-link" data-scroll-target="#luận-trong-reasoning-của-fhsm"><span class="header-section-number">1.3.3</span> 3.3. “Luận” trong reasoning của FHSM</a></li>
-  </ul></li>
-  <li><a href="#mối-quan-hệ-giữa-luận-và-hiểu" id="toc-mối-quan-hệ-giữa-luận-và-hiểu" class="nav-link" data-scroll-target="#mối-quan-hệ-giữa-luận-và-hiểu"><span class="header-section-number">1.4</span> 4. Mối quan hệ giữa Luận và Hiểu</a>
-  <ul class="collapse">
-  <li><a href="#luận-là-con-đường-để-hiểu-được-hình-thành" id="toc-luận-là-con-đường-để-hiểu-được-hình-thành" class="nav-link" data-scroll-target="#luận-là-con-đường-để-hiểu-được-hình-thành"><span class="header-section-number">1.4.1</span> 4.1. Luận là con đường để hiểu được hình thành</a></li>
-  <li><a href="#hiểu-phản-hồi-trở-lại-luận" id="toc-hiểu-phản-hồi-trở-lại-luận" class="nav-link" data-scroll-target="#hiểu-phản-hồi-trở-lại-luận"><span class="header-section-number">1.4.2</span> 4.2. Hiểu phản hồi trở lại luận</a></li>
-  </ul></li>
-  <li><a href="#luận-và-hiểu-trong-dạy-và-học-toán" id="toc-luận-và-hiểu-trong-dạy-và-học-toán" class="nav-link" data-scroll-target="#luận-và-hiểu-trong-dạy-và-học-toán"><span class="header-section-number">1.5</span> 5. Luận và Hiểu trong dạy <em>và</em> học toán</a></li>
-  <li><a href="#một-ví-dụ-minh-họa-ngắn" id="toc-một-ví-dụ-minh-họa-ngắn" class="nav-link" data-scroll-target="#một-ví-dụ-minh-họa-ngắn"><span class="header-section-number">1.6</span> 6. Một ví dụ minh họa ngắn</a></li>
-  <li><a href="#kết-luận-của-chương" id="toc-kết-luận-của-chương" class="nav-link" data-scroll-target="#kết-luận-của-chương"><span class="header-section-number">1.7</span> 7. Kết luận của chương</a></li>
-  </ul></li>
+  <li><a href="#sec-dan-nhap" id="toc-sec-dan-nhap" class="nav-link active" data-scroll-target="#sec-dan-nhap">Dẫn nhập</a></li>
+  <li><a href="#sec-chung-minh-cua-co-si" id="toc-sec-chung-minh-cua-co-si" class="nav-link" data-scroll-target="#sec-chung-minh-cua-co-si">Chứng minh của Cauchy</a></li>
+  <li><a href="#sec-tien-thoai-cauchy" id="toc-sec-tien-thoai-cauchy" class="nav-link" data-scroll-target="#sec-tien-thoai-cauchy">Tiến và thoái trong chứng minh của Cauchy</a></li>
+  <li><a href="#bài-tập" id="toc-bài-tập" class="nav-link" data-scroll-target="#bài-tập">Bài tập</a></li>
   </ul>
 </nav>
     </div>
@@ -305,219 +402,240 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="chương-1.-luận-và-hiểu---hai-trụ-cột-của-việc-dạy-và-học-toán" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Chương 1. Luận và hiểu - Hai trụ cột của việc dạy và học toán</h1>
-<section id="vì-sao-cần-định-nghĩa-lại-luận-và-hiểu" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="vì-sao-cần-định-nghĩa-lại-luận-và-hiểu"><span class="header-section-number">1.1</span> 1. Vì sao cần định nghĩa lại “luận” và “hiểu”?</h2>
-<p>Trong đời sống thường ngày, <em>hiểu</em> thường được dùng để chỉ một trạng thái mơ hồ: “hiểu bài”, “nghe hiểu”, “hiểu rồi”. <em>Luận</em> thì hoặc bị thu hẹp thành “tranh luận”, hoặc bị đẩy sang phạm vi hàn lâm: “lập luận logic”, “chứng minh hình thức”. Cách dùng này <strong>không sai trong giao tiếp</strong>, nhưng <strong>không đủ</strong> để làm nền tảng cho việc dạy và học toán một cách thực chất.</p>
-<p>Trong toán học, vấn đề không phải là <em>có hiểu hay không</em>, mà là:</p>
+<section id="sec-dan-nhap" class="level2">
+<h2 class="anchored" data-anchor-id="sec-dan-nhap">Dẫn nhập</h2>
+<p>Tổng các số tự nhiên liên tiếp <span class="math inline">\(1,2,\dots,n\)</span> thường được tính nhanh bởi công thức</p>
+<p><span class="math display">\[
+1+2+\cdots+n=\frac{n(n+1)}{2}.
+\]</span></p>
+<p>Công thức nổi tiếng này có thể được chứng minh bằng lập luận quy nạp. Lập luận ấy như sau. Dễ thấy rằng nếu <span class="math inline">\(n=1\)</span>, công thức hiển nhiên đúng. Bây giờ giả sử rằng công thức đúng với một số nguyên dương <span class="math inline">\(n\)</span>. Khi đó,</p>
+<p><span class="math display">\[
+\begin{aligned}
+1+2+\cdots+n+(n+1)&amp;=\frac{n(n+1)}{2}+(n+1)\\
+&amp;=\frac{(n+1)(n+2)}{2}.
+\end{aligned}
+\]</span></p>
+<p>Điều này nói lên rằng nếu công thức đúng với <span class="math inline">\(n\)</span> thì cũng đúng với <span class="math inline">\(n+1\)</span>. Như vậy, công thức đã đúng với <span class="math inline">\(n=1\)</span> nên nó đúng với <span class="math inline">\(n=2\)</span>, nó đã đúng với <span class="math inline">\(n=2\)</span> nên nó đúng với <span class="math inline">\(n=3\)</span>, và cứ tiếp tục mãi. Vậy từ bây giờ ta đã có thể dùng công thức đó để tính tổng của bao nhiêu số tự nhiên liên tiếp tùy thích.</p>
+<p>Qua phép chứng minh trên, phương pháp quy nạp cho phép ta nối một số hữu hạn bước suy luận thành kết luận bao quát vô hạn trường hợp. Chính khả năng đi từ hữu hạn đến vô hạn ấy làm nên sức mạnh đặc biệt của nó.</p>
+<p>Trung bình số học của <span class="math inline">\(n\)</span> số thực không âm <span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span>, <span class="math inline">\(\dots\)</span>, <span class="math inline">\(x_n\)</span> được định nghĩa là</p>
+<p><span class="math display">\[
+\frac{x_1+x_2+\cdots+x_n}{n}
+\]</span></p>
+<p>và trung bình hình học của chúng là</p>
+<p><span class="math display">\[
+\sqrt[n]{x_1\cdot x_2\cdot\cdots\cdot x_n}.
+\]</span></p>
+<div class="zo-block zo-block-red">
+<div class="zo-block-title">
+<p>Định lí 1</p>
+</div>
+<div class="zo-block-body">
+<p>Trung bình hình học của <span class="math inline">\(n\)</span> số thực không âm <span class="math inline">\(x_1,x_2,\dots,x_n\)</span> không vượt quá trung bình số học của chúng, nghĩa là</p>
+<p><span id="eq-am-gm"><span class="math display">\[
+\sqrt[n]{x_1\cdot x_2\cdot\cdots\cdot x_n}\leq\frac{x_1+x_2+\cdots+x_n}{n}.
+\tag{1}\]</span></span></p>
+</div>
+</div>
+<p>Bất đẳng thức này được gọi là bất đẳng thức trung bình số học–trung bình hình học (tiếng Anh: <em>arithmetic mean–geometric mean inequality</em>, viết tắt AM-GM). Phép chứng minh trình bày dưới đây gắn với Augustin-Louis Cauchy (Cô-si) và có thể được tìm thấy trong <em>Cours d’Analyse de l’École Royale Polytechnique</em> (trang 457).</p>
+<p>Tên gọi quy nạp tiến–thoái mô tả hai chiều vận động của lập luận. Cách quy nạp này cũng gắn với tên Cauchy vì ông đã sử dụng nó trong phép chứng minh bất đẳng thức trung bình số học–trung bình hình học theo cách riêng của mình.</p>
+</section>
+<section id="sec-chung-minh-cua-co-si" class="level2">
+<h2 class="anchored" data-anchor-id="sec-chung-minh-cua-co-si">Chứng minh của Cauchy</h2>
+<p>Trước tiên, viết lại trung bình hình học dưới dạng lũy thừa, bất đẳng thức (<a href="#eq-am-gm" class="quarto-xref">1</a>) trở thành</p>
+<p><span class="math display">\[
+(x_1\cdot x_2\cdot\cdots\cdot x_n)^\frac{1}{n}\leq\frac{x_1+x_2+\cdots+x_n}{n},
+\]</span></p>
+<p>và tương đương với</p>
+<p><span id="eq-am-gm-dang-luy-thua"><span class="math display">\[
+x_1\cdot x_2\cdot\cdots\cdot x_n\leq\left(\frac{x_1+x_2+\cdots+x_n}{n}\right)^n.
+\tag{2}\]</span></span></p>
+<p>Chứng minh của Cauchy được chia thành hai phân đoạn. Ở phân đoạn đầu, chứng minh cho các giá trị <span class="math inline">\(n\)</span> là lũy thừa của <span class="math inline">\(2\)</span>, cụ thể là <span class="math inline">\(2,4,8,16,32\)</span>, v.v. Ở phân đoạn cuối, chứng minh cho các giá trị <span class="math inline">\(n\)</span> còn lại, không là lũy thừa của <span class="math inline">\(2\)</span>. Như vậy, sau hai phân đoạn, bất đẳng thức đã được xác nhận với toàn bộ số tự nhiên. Lưu ý, <span class="math inline">\(n=1\)</span> là trường hợp tầm thường và nếu các số hạng bằng nhau thì có đẳng thức.</p>
+<p>Trường hợp đơn giản nhất mà không tầm thường là <span class="math inline">\(n=2\)</span>, khi đó</p>
+<p><span class="math display">\[
+x_1\cdot x_2\leq\left(\frac{x_1+x_2}{2}\right)^2.
+\]</span></p>
+<p>Nó được rút ra từ</p>
+<p><span class="math display">\[
+\begin{aligned}
+x_1\cdot x_2&amp;=\left(\frac{x_1+x_2}{2}\right)^2-\left(\frac{x_1-x_2}{2}\right)^2\\
+&amp;\leq\left(\frac{x_1+x_2}{2}\right)^2.
+\end{aligned}
+\]</span></p>
+<p>Từ mỗi trường hợp đã chứng minh, ta suy ra trường hợp kế tiếp, lần lượt tại các mốc <span class="math inline">\(n=4\)</span>, <span class="math inline">\(n=8\)</span>, <span class="math inline">\(\dots\)</span>, <span class="math inline">\(n=2^k\)</span>, trong đó <span class="math inline">\(k\)</span> là số nguyên dương và lớn hơn <span class="math inline">\(3\)</span>. Khi đó,</p>
+<p><span class="math display">\[
+\begin{aligned}
+x_1x_2x_3x_4&amp;=(x_1x_2)(x_3x_4)\\
+&amp;\leq\left(\frac{x_1+x_2}{2}\right)^2\left(\frac{x_3+x_4}{2}\right)^2\\
+&amp;=\left(\frac{x_1+x_2}{2}\cdot\frac{x_3+x_4}{2}\right)^2\\
+&amp;\leq\left(\left(\frac{\frac{x_1+x_2}{2}+\frac{x_3+x_4}{2}}{2}\right)^2\right)^2\\
+&amp;=\left(\frac{x_1+x_2+x_3+x_4}{4}\right)^4,
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+x_1x_2x_3x_4x_5x_6x_7x_8&amp;=(x_1x_2x_3x_4)(x_5x_6x_7x_8)\\
+&amp;\leq\left(\frac{x_1+x_2+x_3+x_4}{4}\right)^4\left(\frac{x_5+x_6+x_7+x_8}{4}\right)^4\\
+&amp;=\left(\frac{x_1+x_2+x_3+x_4}{4}\cdot\frac{x_5+x_6+x_7+x_8}{4}\right)^4\\
+&amp;\leq\left(\left(\frac{\frac{x_1+x_2+x_3+x_4}{4}+\frac{x_5+x_6+x_7+x_8}{4}}{2}\right)^2\right)^4\\
+&amp;=\left(\frac{x_1+x_2+x_3+x_4+x_5+x_6+x_7+x_8}{8}\right)^8,\dots,
+\end{aligned}
+\]</span></p>
+<p><span id="eq-am-gm-2-mu-m"><span class="math display">\[
+x_1x_2\cdots x_{2^k}\leq\left(\frac{x_1+x_2+\cdots+x_{2^k}}{2^k}\right)^{2^k}.
+\tag{3}\]</span></span></p>
+<div id="fig-cac-moc-luy-thua-cua-2" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Dãy các ô được đánh số từ 1 đến 20; các ô 1, 2, 4, 8 và 16 được tô đen để biểu thị các lũy thừa của 2 đã được xác nhận." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cac-moc-luy-thua-cua-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/cac_moc_luy_thua_cua_2/cac_moc_luy_thua_cua_2.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Dãy các ô được đánh số từ 1 đến 20; các ô 1, 2, 4, 8 và 16 được tô đen để biểu thị các lũy thừa của 2 đã được xác nhận.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cac-moc-luy-thua-cua-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Hình&nbsp;1: Ô đen đại diện cho các số tự nhiên đã được xác nhận tới thời điểm này. Việc tiếp theo là tìm cách tô đen các ô còn lại.
+</figcaption>
+</figure>
+</div>
+<p>Ta bắt đầu với trường hợp gần nhất. Với ba số dương <span class="math inline">\(x_1,x_2,x_3\)</span>, đặt</p>
+<p><span class="math display">\[
+A=\frac{x_1+x_2+x_3}{3}.
+\]</span></p>
+<p>Bổ sung một số hạng bằng <span class="math inline">\(A\)</span> để có bốn số. Từ <span class="math inline">\(P(4)\)</span>,</p>
+<p><span class="math display">\[
+\left(x_1x_2x_3A\right)^{\frac14}
+\leq\frac{x_1+x_2+x_3+A}{4}
+=A.
+\]</span></p>
+<p>Suy ra</p>
+<p><span class="math display">\[
+x_1x_2x_3\leq A^3
+=\left(\frac{x_1+x_2+x_3}{3}\right)^3.
+\]</span></p>
+<p>Vậy <span class="math inline">\(P(4)\)</span> kéo theo <span class="math inline">\(P(3)\)</span>. Cách bổ sung ở đây không tùy ý: số hạng mới được chọn bằng chính trung bình của những số đang xét, nên trung bình sau khi bổ sung vẫn là <span class="math inline">\(A\)</span>.</p>
+<p>Cơ chế ấy không buộc ta phải thoái từng bậc. Chẳng hạn, từ <span class="math inline">\(P(8)\)</span> có thể đi thẳng đến <span class="math inline">\(P(5)\)</span>. Với năm số dương <span class="math inline">\(x_1,x_2,\dots,x_5\)</span>, đặt</p>
+<p><span class="math display">\[
+A=\frac{x_1+x_2+\cdots+x_5}{5}.
+\]</span></p>
+<p>Bổ sung ba số hạng đều bằng <span class="math inline">\(A\)</span> để có tám số. Từ <span class="math inline">\(P(8)\)</span>,</p>
+<p><span class="math display">\[
+\left(x_1x_2x_3x_4x_5A^3\right)^{\frac18}
+\leq\frac{x_1+x_2+x_3+x_4+x_5+3A}{8}
+=A.
+\]</span></p>
+<p>Suy ra</p>
+<p><span class="math display">\[
+x_1x_2x_3x_4x_5\leq A^5
+=\left(\frac{x_1+x_2+x_3+x_4+x_5}{5}\right)^5.
+\]</span></p>
+<p>Vậy <span class="math inline">\(P(8)\)</span> kéo theo trực tiếp <span class="math inline">\(P(5)\)</span>; pha thoái không cần diễn ra từng đơn vị.</p>
+<p>Hai trường hợp trên cho thấy cùng một cách làm. Nếu đã biết <span class="math inline">\(P(2^k)\)</span> và muốn chứng minh <span class="math inline">\(P(m)\)</span> với <span class="math inline">\(m&lt;2^k\)</span>, ta đặt</p>
+<p><span class="math display">\[
+A=\frac{x_1+x_2+\cdots+x_m}{m}
+\]</span></p>
+<p>và bổ sung <span class="math inline">\(2^k-m\)</span> số hạng đều bằng <span class="math inline">\(A\)</span>. Áp dụng (<a href="#eq-am-gm-2-mu-m" class="quarto-xref">3</a>) cho <span class="math inline">\(2^k\)</span> số hạng ấy, ta được</p>
+<p><span class="math display">\[
+\begin{aligned}
+x_1x_2&amp;\cdots x_m\left(\frac{x_1+x_2+\cdots+x_m}{m}\right)^{2^k-m}\\
+&amp;\leq\left(\frac{x_1+x_2+\cdots+x_m+(2^k-m)\frac{x_1+x_2+\cdots+x_m}{m}}{2^k}\right)^{2^k}\\
+&amp;=\left(\frac{x_1+x_2+\cdots+x_m}{m}\right)^{2^k}.
+\end{aligned}
+\]</span></p>
+<p>Từ đây, suy ra</p>
+<p><span class="math display">\[
+x_1x_2\cdots x_m\leq\left(\frac{x_1+x_2+\cdots+x_m}{m}\right)^m.
+\]</span></p>
+<p>Điều này khẳng định rằng bất đẳng thức đúng với <span class="math inline">\(2^k\)</span> thì cũng đúng với tất cả các giá trị nguyên dương bé hơn. Vì thế, các mốc <span class="math inline">\(P(2),P(4),P(8),\dots\)</span> được thiết lập từ cơ sở ban đầu và pha tiến đều có thể làm cơ sở cho pha thoái.</p>
+</section>
+<section id="sec-tien-thoai-cauchy" class="level2">
+<h2 class="anchored" data-anchor-id="sec-tien-thoai-cauchy">Tiến và thoái trong chứng minh của Cauchy</h2>
+<p>Kí hiệu mệnh đề AM-GM với <span class="math inline">\(n\)</span> biến là <span class="math inline">\(P(n)\)</span>. Nhìn lại chứng minh của Cauchy ở <a href="#sec-chung-minh-cua-co-si" class="quarto-xref">Mục&nbsp;2</a>, ta có thể tách cấu trúc lập luận thành ba bước:</p>
 <ul>
-<li><strong>hiểu theo nghĩa nào</strong>,</li>
-<li><strong>hiểu được tạo ra bằng cách nào</strong>,</li>
-<li>và <strong>vai trò của việc luận trong quá trình đó ra sao</strong>.</li>
+<li><em>Cơ sở:</em> chứng minh <span class="math inline">\(P(2)\)</span>.</li>
+<li><em>Bước tiến:</em> chứng minh <span class="math inline">\(P(2^k)\)</span> kéo theo <span class="math inline">\(P(2^{k+1})\)</span>.</li>
+<li><em>Bước thoái:</em> chứng minh <span class="math inline">\(P(2^k)\)</span> kéo theo <span class="math inline">\(P(m)\)</span>, với mọi <span class="math inline">\(m&lt;2^k\)</span>.</li>
 </ul>
-<p>Cuốn sách <em>Focus on High School Mathematics: Reasoning and Sense Making</em> (sau đây viết tắt là <strong>FHSM</strong>) của Hội đồng Giáo viên Toán Hoa Kỳ đặt thẳng câu hỏi này ở trung tâm của giáo dục toán học hiện đại. Tuy được viết cho giáo viên, FHSM không bàn trước hết về <em>kỹ thuật dạy</em>, mà về <strong>bản chất của hoạt động làm toán</strong>: con người <em>luận</em> như thế nào và <em>hiểu</em> được kiến tạo ra sao trong quá trình ấy.</p>
-<p>Cuốn sách này chọn cách <strong>Việt hóa có chủ đích</strong> hai khái niệm trung tâm đó:</p>
-<ul>
-<li><em>reasoning</em> → <strong>luận</strong></li>
-<li><em>sense making</em> → <strong>hiểu</strong></li>
-</ul>
-<p>Việc chọn hai từ này <strong>không phải ngẫu nhiên</strong>, cũng không chỉ là vấn đề dịch thuật. Chúng được xác định đồng thời theo <strong>hai trục</strong>:</p>
+<p>Bước tiến tạo ra một dãy vô hạn các mốc đã biết đúng,</p>
+<p><span class="math display">\[
+P(2), P(4), P(8), P(16),\ldots
+\]</span></p>
+<p>còn bước thoái dùng từng mốc làm điểm tựa để lấp các trường hợp nằm phía dưới. Bước thoái của Cauchy đặc biệt mạnh: từ <span class="math inline">\(P(2^k)\)</span> có thể suy ra trực tiếp <span class="math inline">\(P(m)\)</span> với mọi <span class="math inline">\(m&lt;2^k\)</span>, chứ không cần thoái từng đơn vị.</p>
+<p>Từ trường hợp cụ thể này, ta nhận ra rằng các lũy thừa của <span class="math inline">\(2\)</span> chỉ là một cách tạo ra những mốc như thế. Ở mức tổng quát, điều cốt yếu là <span class="math inline">\(P\)</span> đúng tại một tập vô hạn các số nguyên dương. Bước thoái cũng không cần suy trực tiếp mọi trường hợp nhỏ hơn: chỉ cần từ <span class="math inline">\(P(n)\)</span> suy ra <span class="math inline">\(P(n-1)\)</span> là đủ. Những nhận xét ấy dẫn đến nguyên lí sau.</p>
+<div class="zo-block zo-block-red">
+<div class="zo-block-title">
+<p>Nguyên lí quy nạp tiến–thoái</p>
+</div>
+<div class="zo-block-body">
+<p>Cho <span class="math inline">\(P(n)\)</span> là một mệnh đề xác định với mọi số nguyên dương <span class="math inline">\(n\)</span>. Giả sử:</p>
 <ol type="1">
-<li><strong>Nội hàm học thuật</strong> của reasoning và sense making trong FHSM.</li>
-<li><strong>Từ nguyên và nghĩa ổn định</strong> của tiếng Việt, dựa trên các từ điển uy tín.</li>
+<li><span class="math inline">\(\mathcal B\subset\mathbb N^+\)</span> là một tập vô hạn và <span class="math inline">\(P(b)\)</span> đúng với mọi <span class="math inline">\(b\in\mathcal B\)</span>;</li>
+<li>với mọi <span class="math inline">\(n\ge 2\)</span>, nếu <span class="math inline">\(P(n)\)</span> đúng thì <span class="math inline">\(P(n-1)\)</span> đúng.</li>
 </ol>
-<p>Chương này có nhiệm vụ <strong>đặt nền móng khái niệm</strong> cho toàn bộ cuốn sách.</p>
+<p>Khi đó <span class="math inline">\(P(n)\)</span> đúng với mọi số nguyên dương <span class="math inline">\(n\)</span>.</p>
+</div>
+</div>
+<p>Thật vậy, vì <span class="math inline">\(\mathcal B\)</span> là một tập con vô hạn của <span class="math inline">\(\mathbb N^+\)</span> nên <span class="math inline">\(\mathcal B\)</span> không bị chặn trên. Lấy <span class="math inline">\(m\in\mathbb N^+\)</span> tùy ý. Ta có thể chọn <span class="math inline">\(b\in\mathcal B\)</span> sao cho <span class="math inline">\(b\ge m\)</span>; theo giả thiết, <span class="math inline">\(P(b)\)</span> đúng. Áp dụng <span class="math inline">\(b-m\)</span> lần bước thoái</p>
+<p><span class="math display">\[
+P(n)\Rightarrow P(n-1),
+\]</span></p>
+<p>ta đi từ <span class="math inline">\(P(b)\)</span> xuống <span class="math inline">\(P(m)\)</span>; nếu <span class="math inline">\(b=m\)</span> thì không cần áp dụng bước thoái lần nào. Vì <span class="math inline">\(m\)</span> được chọn tùy ý, <span class="math inline">\(P(n)\)</span> đúng với mọi <span class="math inline">\(n\in\mathbb N^+\)</span>.</p>
+<p>Theo cách nhìn này, <span class="math inline">\(\mathcal B\)</span> là một họ vô hạn các mốc cơ sở cho pha thoái: mỗi <span class="math inline">\(b\in\mathcal B\)</span> là một mốc tại đó <span class="math inline">\(P(b)\)</span> đã biết đúng và có thể làm cơ sở để đi xuống. Vì <span class="math inline">\(\mathcal B\)</span> không bị chặn trên, với mọi <span class="math inline">\(m\in\mathbb N^+\)</span> luôn có thể chọn một cơ sở <span class="math inline">\(b\ge m\)</span>, rồi dùng bước thoái để đi từ <span class="math inline">\(P(b)\)</span> đến <span class="math inline">\(P(m)\)</span>. Có thể xem <span class="math inline">\(\mathcal B\)</span> như một tập cơ sở vô hạn của pha thoái.</p>
+<p>Trong chứng minh của Cauchy, tập các mốc là</p>
+<p><span class="math display">\[
+\mathcal B=\{2,4,8,16,\ldots\}.
+\]</span></p>
+<p>Từ cơ sở ban đầu <span class="math inline">\(P(2)\)</span>, bước tiến tạo ra một họ vô hạn các mốc cơ sở cho pha thoái; bước thoái lấp những khoảng trống còn lại. Hơn nữa, bước thoái của Cauchy mạnh hơn điều kiện tối thiểu trong nguyên lí: từ <span class="math inline">\(P(2^k)\)</span> ông suy ra được trực tiếp <span class="math inline">\(P(m)\)</span> với mọi <span class="math inline">\(m&lt;2^k\)</span>. Chính sự phối hợp ấy làm nên nhịp điệu <em>tiến–thoái</em> của phương pháp.</p>
 </section>
-<section id="hiểu-曉-từ-biết-đến-làm-cho-nghĩa-sáng-ra" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="hiểu-曉-từ-biết-đến-làm-cho-nghĩa-sáng-ra"><span class="header-section-number">1.2</span> 2. “Hiểu” (曉): từ “biết” đến “làm cho nghĩa sáng ra”</h2>
-<section id="hiểu-trong-tiếng-việt-không-phải-là-biết" class="level3" data-number="1.2.1">
-<h3 data-number="1.2.1" class="anchored" data-anchor-id="hiểu-trong-tiếng-việt-không-phải-là-biết"><span class="header-section-number">1.2.1</span> 2.1. “Hiểu” trong tiếng Việt không phải là “biết”</h3>
-<p>Theo các từ điển tiếng Việt hiện đại, <em>hiểu</em> được định nghĩa là <em>nhận thức được ý nghĩa, bản chất, mối quan hệ của sự vật</em>. Điều này đã cho thấy một khác biệt quan trọng:</p>
+<section id="bài-tập" class="level2">
+<h2 class="anchored" data-anchor-id="bài-tập">Bài tập</h2>
+<div id="exr-1" class="theorem exercise">
+<p><span class="theorem-title"><strong>Bài tập 1</strong></span> Hãy biện luận theo quy trình bên dưới để chứng minh bất đẳng thức AM-GM.</p>
 <ul>
-<li><strong>Biết</strong>: có thông tin.</li>
-<li><strong>Hiểu</strong>: nắm được <em>nghĩa</em>.</li>
+<li>Chứng minh <span class="math inline">\(P(2)\)</span>.</li>
+<li>Chứng minh <span class="math inline">\(P(n)\)</span> kéo theo <span class="math inline">\(P(2n)\)</span>.</li>
+<li>Chứng minh <span class="math inline">\(P(n)\)</span> kéo theo <span class="math inline">\(P(n-1)\)</span>.</li>
 </ul>
-<p>Sự phân biệt này càng rõ khi xét từ nguyên Hán-Việt.</p>
-</section>
-<section id="chữ-曉-và-trường-nghĩa-của-hiểu" class="level3" data-number="1.2.2">
-<h3 data-number="1.2.2" class="anchored" data-anchor-id="chữ-曉-và-trường-nghĩa-của-hiểu"><span class="header-section-number">1.2.2</span> 2.2. Chữ 曉 và trường nghĩa của “hiểu”</h3>
-<p>Trong cuốn sách này, <em>hiểu</em> được neo nghĩa theo chữ Hán <strong>曉</strong>.</p>
-<p>Theo <em>Hán-Việt Từ điển</em> của Đào Duy Anh (nguồn chính), cũng như <em>Hán-Việt Tự điển</em> của Thiều Chửu, chữ <strong>曉</strong> mang các nét nghĩa cốt lõi:</p>
-<ul>
-<li><strong>sáng</strong>, <strong>trời sáng</strong></li>
-<li><strong>làm cho sáng</strong></li>
-<li><strong>làm cho biết</strong>, <strong>làm cho rõ</strong></li>
-</ul>
-<p>Điều này rất quan trọng:</p>
-<blockquote class="blockquote">
-<p>曉 không chỉ chỉ trạng thái “đã sáng”, mà còn chỉ <em>hành động làm cho sáng ra</em>.</p>
-</blockquote>
-<p>Vì vậy, <em>hiểu</em> theo nghĩa này <em>không phải một trạng thái thụ động</em>, mà là <em>kết quả của một quá trình làm sáng nghĩa</em>.</p>
-</section>
-<section id="hiểu-trong-sense-making" class="level3" data-number="1.2.3">
-<h3 data-number="1.2.3" class="anchored" data-anchor-id="hiểu-trong-sense-making"><span class="header-section-number">1.2.3</span> 2.3. “Hiểu” trong sense making</h3>
-<p>Trong FHSM, <em>sense making</em> không được hiểu là “hiểu bài” theo nghĩa làm được bài tập. Nó là:</p>
-<ul>
-<li>tạo ra nghĩa cho một khái niệm,</li>
-<li>nối các biểu thức với ý nghĩa của chúng,</li>
-<li>nhận ra cấu trúc, mối quan hệ và giới hạn,</li>
-<li>có khả năng giải thích <em>vì sao</em> một điều là như vậy.</li>
-</ul>
-<p>Điều này tương thích trực tiếp với trường nghĩa của 曉:</p>
-<blockquote class="blockquote">
-<p>Hiểu là quá trình làm cho nghĩa của đối tượng toán học trở nên sáng rõ đối với người học.</p>
-</blockquote>
-<p>Do đó, trong cuốn sách này:</p>
-<blockquote class="blockquote">
-<p>Hiểu (曉) được dùng để chỉ <em>quá trình và trạng thái kiến tạo nghĩa</em>, chứ không đồng nhất với nhớ định nghĩa hay làm được bài mẫu.</p>
-</blockquote>
-</section>
-</section>
-<section id="luận-論-reasoning-không-chỉ-là-chứng-minh" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="luận-論-reasoning-không-chỉ-là-chứng-minh"><span class="header-section-number">1.3</span> 3. “Luận” (論): reasoning không chỉ là chứng minh</h2>
-<section id="hiểu-sai-phổ-biến-về-luận" class="level3" data-number="1.3.1">
-<h3 data-number="1.3.1" class="anchored" data-anchor-id="hiểu-sai-phổ-biến-về-luận"><span class="header-section-number">1.3.1</span> 3.1. Hiểu sai phổ biến về “luận”</h3>
-<p>Trong dạy học toán phổ thông, <em>lập luận</em> thường bị thu hẹp thành:</p>
-<ul>
-<li>viết lời giải đầy đủ,</li>
-<li>trình bày chứng minh hình thức,</li>
-<li>suy diễn logic theo mẫu.</li>
-</ul>
-<p>Hệ quả là:</p>
-<ul>
-<li>học sinh chỉ <em>bắt chước hình thức</em>,</li>
-<li>còn hoạt động trí tuệ thật sự phía sau bị che khuất.</li>
-</ul>
-<p>FHSM phản biện mạnh mẽ cách hiểu này.</p>
-</section>
-<section id="chữ-論-và-trường-nghĩa-của-luận" class="level3" data-number="1.3.2">
-<h3 data-number="1.3.2" class="anchored" data-anchor-id="chữ-論-và-trường-nghĩa-của-luận"><span class="header-section-number">1.3.2</span> 3.2. Chữ 論 và trường nghĩa của “luận”</h3>
-<p>Trong cuốn sách này, <em>luận</em> được neo nghĩa theo chữ Hán 論.</p>
-<p>Theo các từ điển Hán-Việt uy tín (Đào Duy Anh, Thiều Chửu):</p>
-<ul>
-<li><p><strong>論</strong> có nghĩa là:</p>
-<ul>
-<li>bàn xét,</li>
-<li>phân tích,</li>
-<li>biện giải,</li>
-<li>suy xét để xác lập hoặc bác bỏ một ý kiến.</li>
-</ul></li>
-</ul>
-<p>Điểm then chốt ở đây là:</p>
-<blockquote class="blockquote">
-<p>Luận không chỉ là kết luận, mà là toàn bộ quá trình xét đoán để đi tới kết luận.</p>
-</blockquote>
-</section>
-<section id="luận-trong-reasoning-của-fhsm" class="level3" data-number="1.3.3">
-<h3 data-number="1.3.3" class="anchored" data-anchor-id="luận-trong-reasoning-của-fhsm"><span class="header-section-number">1.3.3</span> 3.3. “Luận” trong reasoning của FHSM</h3>
-<p>Trong FHSM, <em>reasoning</em> bao gồm một phổ rất rộng các hoạt động:</p>
-<ul>
-<li>đặt giả thuyết,</li>
-<li>thử trường hợp,</li>
-<li>tìm phản ví dụ,</li>
-<li>so sánh các cách biểu diễn,</li>
-<li>biện minh vì sao một kết quả hợp lý,</li>
-<li>điều chỉnh suy nghĩ khi gặp mâu thuẫn.</li>
-</ul>
-<p>Nhiều hoạt động trong số này <strong>không hề xuất hiện</strong> trong lời giải cuối cùng, nhưng <strong>quyết định chất lượng của sự hiểu</strong>.</p>
-<p>Do đó, trong cuốn sách này:</p>
-<blockquote class="blockquote">
-<p>Luận (論) được dùng để chỉ toàn bộ hoạt động trí tuệ nhằm tạo lập, kiểm tra và kiểm soát các khẳng định toán học, không đồng nhất với suy luận hình thức hay chứng minh hoàn chỉnh.</p>
-</blockquote>
-</section>
-</section>
-<section id="mối-quan-hệ-giữa-luận-và-hiểu" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="mối-quan-hệ-giữa-luận-và-hiểu"><span class="header-section-number">1.4</span> 4. Mối quan hệ giữa Luận và Hiểu</h2>
-<p>Một ngộ nhận phổ biến là:</p>
-<blockquote class="blockquote">
-<p><em>Hiểu trước rồi mới luận.</em></p>
-</blockquote>
-<p>Thực tế trong toán học diễn ra ngược lại và tinh tế hơn.</p>
-<section id="luận-là-con-đường-để-hiểu-được-hình-thành" class="level3" data-number="1.4.1">
-<h3 data-number="1.4.1" class="anchored" data-anchor-id="luận-là-con-đường-để-hiểu-được-hình-thành"><span class="header-section-number">1.4.1</span> 4.1. Luận là con đường để hiểu được hình thành</h3>
-<p>Khi người học:</p>
-<ul>
-<li>thử một ví dụ,</li>
-<li>đặt câu hỏi “nếu thay đổi điều này thì sao?”,</li>
-<li>phát hiện một phản ví dụ,</li>
-<li>hoặc so sánh hai biểu thức tương đương,</li>
-</ul>
-<p>thì họ đang <strong>luận</strong>. Chính quá trình đó làm cho:</p>
-<ul>
-<li>nghĩa của khái niệm trở nên sáng hơn,</li>
-<li>mối quan hệ được lộ diện,</li>
-<li>và <em>hiểu</em> dần được kiến tạo.</li>
-</ul>
-<p>Nói cách khác:</p>
-<blockquote class="blockquote">
-<p><strong>Không có hiểu sâu nếu không có luận.</strong></p>
-</blockquote>
-</section>
-<section id="hiểu-phản-hồi-trở-lại-luận" class="level3" data-number="1.4.2">
-<h3 data-number="1.4.2" class="anchored" data-anchor-id="hiểu-phản-hồi-trở-lại-luận"><span class="header-section-number">1.4.2</span> 4.2. Hiểu phản hồi trở lại luận</h3>
-<p>Ngược lại, khi đã có một mức hiểu nhất định:</p>
-<ul>
-<li>người học biết đặt câu hỏi tốt hơn,</li>
-<li>biết hướng lập luận vào điều cốt lõi,</li>
-<li>tránh được các suy diễn vô nghĩa.</li>
-</ul>
-<p>Do đó, <em>luận và hiểu tạo thành một vòng phản hồi</em>, không phải một chuỗi tuyến tính.</p>
-</section>
-</section>
-<section id="luận-và-hiểu-trong-dạy-và-học-toán" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="luận-và-hiểu-trong-dạy-và-học-toán"><span class="header-section-number">1.5</span> 5. Luận và Hiểu trong dạy <em>và</em> học toán</h2>
-<p>Cuốn sách này không chỉ dành cho giáo viên, cũng không chỉ dành cho người tự học. Nó dựa trên một quan điểm thống nhất:</p>
-<blockquote class="blockquote">
-<p>Dạy toán và học toán là hai vai khác nhau của cùng một hoạt động: hoạt động luận để hiểu.</p>
-</blockquote>
-<ul>
-<li>Giáo viên: tổ chức môi trường, nhiệm vụ và câu hỏi để người học <em>luận</em>.</li>
-<li>Người học: trực tiếp tham gia vào quá trình <em>luận</em> để <em>hiểu</em>.</li>
-</ul>
-<p>Trong bối cảnh AI có thể giải bài nhanh hơn con người, giá trị của việc học toán <strong>không còn nằm ở đáp án</strong>, mà ở:</p>
-<ul>
-<li>khả năng đặt vấn đề,</li>
-<li>khả năng kiểm soát lập luận,</li>
-<li>và khả năng tạo nghĩa cho các biểu thức hình thức.</li>
-</ul>
-</section>
-<section id="một-ví-dụ-minh-họa-ngắn" class="level2" data-number="1.6">
-<h2 data-number="1.6" class="anchored" data-anchor-id="một-ví-dụ-minh-họa-ngắn"><span class="header-section-number">1.6</span> 6. Một ví dụ minh họa ngắn</h2>
-<p>Xét mệnh đề quen thuộc:</p>
-<blockquote class="blockquote">
-<p>Tổng hai số lẻ là một số chẵn.</p>
-</blockquote>
-<ul>
-<li><em>Biết</em>: nhớ kết quả này.</li>
-<li><em>Hiểu</em>: nhận ra vì sao mọi số lẻ đều có dạng (2k+1), và tổng của hai biểu thức như vậy luôn chia hết cho 2.</li>
-<li><em>Luận</em>: thử với ví dụ, biểu diễn đại số, phản biện khả năng phản ví dụ, và khái quát hóa.</li>
-</ul>
-<p>Nếu người học chỉ ghi nhớ kết luận, <em>không có hiểu</em>. Nếu người học đi qua quá trình xét đoán, biện minh, và khái quát, thì <em>hiểu được tạo ra trong chính quá trình luận</em>.</p>
-</section>
-<section id="kết-luận-của-chương" class="level2" data-number="1.7">
-<h2 data-number="1.7" class="anchored" data-anchor-id="kết-luận-của-chương"><span class="header-section-number">1.7</span> 7. Kết luận của chương</h2>
-<p>Chương này đã xác lập hai khái niệm trung tâm của cuốn sách:</p>
-<ul>
-<li>Hiểu (曉): quá trình và trạng thái làm cho nghĩa của đối tượng toán học trở nên sáng rõ.</li>
-<li>Luận (論): toàn bộ hoạt động trí tuệ nhằm tạo lập và kiểm soát các khẳng định toán học.</li>
-</ul>
-<p>Và mối quan hệ cốt lõi giữa chúng:</p>
-<blockquote class="blockquote">
-<p>Luận là con đường chủ đạo để hiểu được hình thành; hiểu phản hồi trở lại để làm cho luận trở nên sâu sắc hơn.</p>
-</blockquote>
-<p>Từ chương tiếp theo, cuốn sách sẽ đi vào việc triển khai cụ thể cặp khái niệm này trong các chủ đề toán phổ thông, nhằm xây dựng một cách dạy và học toán hiệu quả và thực chất, phù hợp với thời đại.</p>
-<hr>
-<ul>
-<li><strong>Chương 2</strong>: <em>Luận và Hiểu trong cấu trúc tri thức toán học phổ thông</em>, hoặc</li>
-<li>tinh chỉnh lại <strong>giọng văn</strong> (nghiêm hơn / nhẹ hơn) trước khi sang chương tiếp theo.</li>
-</ul>
+</div>
+<div id="exr-2" class="theorem exercise">
+<p><span class="theorem-title"><strong>Bài tập 2</strong></span> Cho <span class="math inline">\(n\)</span> là một số nguyên dương và <span class="math inline">\(x_1,x_2,\dots,x_n\)</span> là các số thuộc khoảng <span class="math inline">\(\left(0,\frac{1}{2}\right)\)</span>. Theo Ky Fan (Chí Phán),</p>
+<p><span class="math display">\[
+\frac{x_1x_2\cdots x_n}{(x_1+x_2+\cdots+x_n)^n}\leq\frac{(1-x_1)(1-x_2)\cdots(1-x_n)}{\left((1-x_1)+(1-x_2)+\cdots+(1-x_n)\right)^n}.
+\]</span></p>
+<p>Hãy dùng quy nạp tiến–thoái chứng minh bất đẳng thức Ky Fan.</p>
+<p>Gợi ý. Khi <span class="math inline">\(n=2\)</span>, bất đẳng thức suy ra từ điều hiển nhiên <span class="math inline">\(x_1+x_2\leq 1\)</span> theo giả thiết. Nhằm dễ quy nạp hơn, hãy đưa về dạng tương đương</p>
+<p><span class="math display">\[
+\left(\frac{n}{x_1+x_2+\cdots+x_n}-1\right)^n
+\leq\left(\frac{1}{x_1}-1\right)\left(\frac{1}{x_2}-1\right)\cdots\left(\frac{1}{x_n}-1\right).
+\]</span></p>
+</div>
+<p><span class="citation" data-cites="BradleySandifer2009">(<a href="#ref-BradleySandifer2009" role="doc-biblioref">Bradley và Sandifer 2009</a>)</span></p>
 
 
-</section>
+<div class="zo-pdf-download">
+<p><a href="tien_thoai_nhip_nhang.pdf" class="zo-pdf-download__link" download="" aria-label="Tải PDF" title="Tải bản PDF"><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> Tải PDF</a></p>
+</div>
+
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Tài liệu tham khảo</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-BradleySandifer2009" class="csl-entry" role="listitem">
+Bradley, Robert E., và C. Edward Sandifer. 2009. <em>Cauchy’s Cours d’analyse: An Annotated Translation</em>. Biên tập bởi J. Z. Buchwald. Sources and Studies in The History of Mathematics and Physical Sciences. Springer. <a href="https://doi.org/10.1007/978-1-4419-0549-9">https://doi.org/10.1007/978-1-4419-0549-9</a>.
+</div>
+</div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Trích dẫn</h2><div><div class="quarto-appendix-secondary-label">Trích dẫn BibTeX:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{zo_math2026,
+  author = {{ZO Math}},
+  publisher = {ZO Math},
+  title = {Tiến thoái nhịp nhàng},
+  date = {2026-09-03},
+  url = {https://zomath.vn/content/kien_tao/tien_thoai_nhip_nhang/tien_thoai_nhip_nhang.html},
+  langid = {vi},
+  abstract = {Quy nạp thông thường đôi khi chỉ thuận lợi trên một dãy
+    trường hợp thưa. Trong phương pháp được gọi là quy nạp tiến–thoái,
+    chiều tiến tạo ra các mốc ngày càng lớn, còn chiều thoái đi từ một
+    mốc đã biết về các trường hợp nhỏ hơn; nhờ phối hợp hai chiều, những
+    khoảng trống giữa các mốc có thể được lấp. Bài viết dùng chứng minh
+    bất đẳng thức AM-GM của Cauchy để minh họa và hình thức hóa phương
+    pháp này.}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">Để ghi rõ nguồn, vui lòng trích dẫn ấn phẩm này như sau:</div><div id="ref-zo_math2026" class="csl-entry quarto-appendix-citeas" role="listitem">
+ZO Math. 2026. <span>“Tiến thoái nhịp nhàng.”</span> ZO Math, September
+3. <a href="https://zomath.vn/content/kien_tao/tien_thoai_nhip_nhang/tien_thoai_nhip_nhang.html">https://zomath.vn/content/kien_tao/tien_thoai_nhip_nhang/tien_thoai_nhip_nhang.html</a>.
+</div></div></section></div></main> <!-- /main -->
 <!-- Overlay để click ra ngoài và đóng sidebar -->
 
 <div class="sidebar-overlay" aria-hidden="true"></div>
