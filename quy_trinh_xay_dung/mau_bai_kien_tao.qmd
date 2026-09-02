@@ -1,0 +1,264 @@
+---
+title: "__NHAN_DE_BAI__"
+# subtitle: "__PHU_DE__"  # Xóa nếu không cần.
+summary: "__MOT_CAU_TOM_TAT_CHO_LISTING__"
+description: "__MO_TA_CHINH_XAC_NOI_DUNG_VA_GIA_TRI_TRANG__"
+# abstract: |
+#   __TOM_TAT_DAY_DU_HON_NEU_BAI_CAN__
+
+date: last-modified
+date-format: "DD-MM-YYYY"
+author: "ZO Math"
+
+page-layout: article
+toc: true
+toc-title: "Nội dung"
+toc-location: right
+toc-depth: 3
+body-classes: "zo-page-article zo-page-kien-tao-article"
+
+# Chỉ bật khi bài dùng nguồn ngoài.
+# bibliography: references.bib
+# nocite: |
+#   @citation_key_neu_can
+
+citation:
+  type: webpage
+  title: "__NHAN_DE_BAI__"
+  publisher: "ZO Math"
+  url: "https://zomath.vn/content/kien_tao/__SLUG__/__SLUG__.html"
+
+appendix-style: default
+
+# Bài Kiến tạo dài mặc định nên có PDF canonical.
+# Nếu bài không có PDF, xóa toàn bộ hai block zo-pdf-* bên dưới.
+zo-pdf-download:
+  href: "__SLUG__.pdf"
+  label: "Tải PDF"
+
+zo-pdf-branding:
+  collection: "Kiến tạo"
+  short-title: "__TEN_NGAN__"
+  canonical-url: "https://zomath.vn/content/kien_tao/__SLUG__/__SLUG__.html"
+  display-url: "zomath.vn"
+---
+
+<!--
+HƯỚNG DẪN KHỞI TẠO
+
+1. Sao chép tệp này vào:
+   content/kien_tao/__SLUG__/__SLUG__.qmd
+
+2. Thay mọi placeholder __...__.
+
+3. Xóa mọi component không dùng. Không giữ một mục chỉ vì template có mẫu.
+
+4. Không bắt buộc bài phải có:
+   - subtitle;
+   - abstract;
+   - bibliography;
+   - đủ ba màu block;
+   - hình;
+   - mục "Kết tinh";
+   - bài tập.
+
+5. Nội dung chính phải ở reading flow. Chỉ dùng block/collapsible khi chức năng nội dung đòi hỏi.
+
+6. Tra quy chuẩn:
+   quy_trinh_xay_dung/quy_chuan_bai_kien_tao.md
+-->
+
+<!-- ============================================================
+COMPONENT A — DẪN NHẬP / BỐI CẢNH
+Đổi heading hoặc bỏ heading tùy kiến trúc bài.
+============================================================ -->
+
+## Dẫn nhập {#sec-dan-nhap}
+
+__DAT_VAN_DE_NHU_CAU_CAU_HOI_HOAC_SAN_PHAM_VA_GIA_TRI_CUA_NO__
+
+<!-- ============================================================
+COMPONENT B — READING FLOW
+Thêm, đổi tên, chia hoặc gộp các heading theo mạch thật của bài.
+============================================================ -->
+
+## __TEN_CHANG_NOI_DUNG__ {#sec-chang-noi-dung}
+
+__NOI_DUNG_CHINH_KHONG_BOX_NEU_KHONG_CAN__
+
+<!-- ============================================================
+COMPONENT C — KHỐI ĐỎ TÙY CHỌN
+Chỉ dùng cho định nghĩa/kết quả/lí thuyết chung có khả năng tái sử dụng.
+Mặc định mở cố định.
+============================================================ -->
+
+:::: {.zo-block .zo-block-red}
+::: {.zo-block-title}
+__TEN_KET_QUA_CHUNG__
+:::
+::: {.zo-block-body}
+
+__NOI_DUNG_KET_QUA_CHUNG__
+
+:::
+::::
+
+<!-- ============================================================
+COMPONENT D — KHỐI VÀNG TÙY CHỌN
+Khám phá, mở rộng, liên tưởng hoặc kết nối tương đối độc lập.
+Nội dung trong đây phải có thể bỏ qua mà vẫn hiểu mạch bắt buộc.
+============================================================ -->
+
+<details class="zo-block zo-block-yellow">
+<summary class="zo-block-title">__TEN_PHAN_KHAM_PHA_HOAC_MO_RONG__</summary>
+<div class="zo-block-body">
+
+__NOI_DUNG_PHU__
+
+</div>
+</details>
+
+<!-- ============================================================
+COMPONENT E — KHỐI XÁM TÙY CHỌN
+Giải thích bổ trợ, chứng minh phụ, chi tiết kĩ thuật, gợi ý, lời giải...
+Chứng minh bắt buộc cho lập luận phải ở reading flow, không đặt vào đây.
+============================================================ -->
+
+<details class="zo-block zo-block-gray">
+<summary class="zo-block-title">__TEN_NOI_DUNG_HO_TRO__</summary>
+<div class="zo-block-body">
+
+__NOI_DUNG_HO_TRO__
+
+</div>
+</details>
+
+<!-- ============================================================
+COMPONENT F — HÌNH HTML/PDF TÙY CHỌN
+
+- Sửa geometry ở source TikZ/PGFPlots/nguồn sinh.
+- HTML ưu tiên SVG.
+- PDF dùng asset PDF khi có canonical branch.
+- Width chỉ điều chỉnh placement sau khi geometry đã đúng.
+- Hai nhánh dùng cùng figure ID, caption và ý nghĩa.
+============================================================ -->
+
+__CAU_DAN_DEN_HINH__ @fig-hinh-mau.
+
+:::: {.content-visible when-format="html"}
+::: {#fig-hinh-mau}
+![](__DUONG_DAN_HINH__.svg){fig-alt="__MO_TA_NOI_DUNG_THIET_YEU_CUA_HINH__" fig-align="center" width="100%"}
+
+__CHU_THICH_HINH__
+:::
+::::
+
+:::: {.content-visible when-format="pdf"}
+::: {#fig-hinh-mau}
+![](__DUONG_DAN_HINH__.pdf){fig-alt="__MO_TA_NOI_DUNG_THIET_YEU_CUA_HINH__" fig-align="center" width="85%"}
+
+__CHU_THICH_HINH__
+:::
+::::
+
+<!--
+FIGURE NẰM TRONG BLOCK/COLLAPSIBLE
+
+Nếu HTML figure cần nằm trong <details>/zo-block nhưng PDF figure gây lỗi
+float/tcolorbox như "Not in outer par mode":
+
+- giữ nhánh HTML trong block nếu phù hợp;
+- đặt nhánh PDF ngay SAU block;
+- giữ cùng #fig-id, caption và ý nghĩa;
+- không ép hai nhánh đối xứng source bằng mọi giá.
+
+Mẫu ý tưởng:
+
+<details class="zo-block zo-block-gray">
+...
+:::: {.content-visible when-format="html"}
+::: {#fig-hinh-trong-block}
+![](__HINH__.svg){...}
+__CHU_THICH__
+:::
+::::
+...
+</details>
+
+:::: {.content-visible when-format="pdf"}
+::: {#fig-hinh-trong-block}
+![](__HINH__.pdf){...}
+__CHU_THICH__
+:::
+::::
+-->
+
+<!-- ============================================================
+COMPONENT G — CHÚ ÂM
+
+Tra trước:
+- quy_trinh_xay_dung/tu_dien_chu_am_zo_math.yml
+- quy_trinh_xay_dung/quy_chuan_chu_am_zo_math.md
+
+Lần xuất hiện có ý nghĩa đầu tiên:
+Dạng viết (chú âm Việt đã được phép dùng)
+
+Các lần sau:
+Dạng viết
+
+Không tự duyệt chú âm mới.
+============================================================ -->
+
+<!-- ============================================================
+COMPONENT H — CITATION / BIBLIOGRAPHY TÙY CHỌN
+
+Chỉ dùng nếu bài có nguồn ngoài:
+1. bỏ comment `bibliography: references.bib` trong YAML;
+2. tạo references.bib cạnh QMD;
+3. trích dẫn bằng [@citation_key].
+
+Không viết thủ công mục "Tài liệu tham khảo".
+Không xóa abstract/metadata chỉ để xử lí BibTeX hiển thị.
+============================================================ -->
+
+__MENH_DE_CAN_DAN_NGUON__ [@citation_key].
+
+<!-- ============================================================
+COMPONENT I — PHẦN TỔNG HỢP TÙY CHỌN
+Không bắt buộc tên "Kết tinh"; đổi hoặc xóa theo kiến trúc bài.
+============================================================ -->
+
+## Kết tinh {#sec-ket-tinh}
+
+__TONG_HOP_SAN_PHAM_KET_QUA_CO_CHE_GIA_TRI_HOAC_GIOI_HAN__
+
+<!-- ============================================================
+COMPONENT J — BÀI TẬP TÙY CHỌN
+
+Chỉ giữ nếu bài có chức năng bài tập.
+Nếu có, gom toàn bộ dưới đúng một `## Bài tập` ở cuối phần nội dung chính.
+============================================================ -->
+
+## Bài tập
+
+__LOI_DAN_NGAN_NEU_CAN__
+
+::: {#exr-1}
+__BAI_TAP_THU_NHAT__
+:::
+
+::: {#exr-2}
+__BAI_TAP_THU_HAI_NEU_CO__
+:::
+
+<!--
+QUY TẮC CUỐI
+
+- Quarto sinh bibliography/citation appendix từ metadata; không dựng thủ công.
+- Nếu bài có PDF:
+  python scripts/zo_python.py scripts/zo_pdf.py build content/kien_tao/__SLUG__/__SLUG__.qmd
+  python scripts/zo_python.py scripts/zo_pdf.py status content/kien_tao/__SLUG__/__SLUG__.qmd
+
+- Luôn kiểm tra trực quan HTML desktop/mobile và toàn bộ PDF.
+- Không commit hoặc publish nếu chưa được yêu cầu.
+-->
