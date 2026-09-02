@@ -1,4 +1,4 @@
-# RQ-002 — AI và chủ thể học toán
+# RQ-002: AI và chủ thể học toán
 
 ## Câu hỏi
 
@@ -15,8 +15,12 @@
 - quyền phán xét;
 - mức độ nên hoặc không nên ủy thác cho AI.
 
-Note này chưa đưa ra kết luận.
+Ghi chú này chưa đưa ra kết luận.
 
 ## Trạng thái
 
 `long-term`
+
+## Nguồn liên quan
+
+- [SRC-001 — Knowing What Students Know](../20_sources/SRC-001_knowing-what-students-know.md) — cung cấp nền tảng về việc suy luận từ sản phẩm quan sát được đến năng lực của học sinh; không trực tiếp bàn về AI.

@@ -22,3 +22,7 @@ Câu hỏi này có thể trở thành cầu nối trực tiếp giữa nghiên 
 ## Trạng thái
 
 `active-through-practice`
+
+## Nguồn liên quan
+
+- [SRC-001 — Knowing What Students Know](../20_sources/SRC-001_knowing-what-students-know.md) — cung cấp nền tảng về việc suy luận từ sản phẩm quan sát được đến năng lực của học sinh; không trực tiếp bàn về AI.
