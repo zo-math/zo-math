@@ -1,0 +1,309 @@
+---
+title: "Tiến thoái nhịp nhàng"
+subtitle: "Phương pháp quy nạp tiến–thoái"
+summary: "Phối hợp bước tiến và bước thoái để chứng minh bất đẳng thức AM-GM cho mọi số nguyên dương."
+description: "Bài viết phân tích chứng minh của Cauchy cho bất đẳng thức trung bình số học–trung bình hình học và hình thức hóa phương pháp quy nạp tiến–thoái."
+abstract: |
+  Quy nạp thông thường đôi khi chỉ thuận lợi trên một dãy trường hợp thưa. Trong phương pháp được gọi là quy nạp tiến–thoái, chiều tiến tạo ra các mốc ngày càng lớn, còn chiều thoái đi từ một mốc đã biết về các trường hợp nhỏ hơn; nhờ phối hợp hai chiều, những khoảng trống giữa các mốc có thể được lấp. Bài viết dùng chứng minh bất đẳng thức AM-GM của Cauchy để minh họa và hình thức hóa phương pháp này.
+date: last-modified
+date-format: "DD-MM-YYYY"
+author: "ZO Math"
+page-layout: article
+toc: true
+toc-title: "Nội dung"
+toc-location: right
+toc-depth: 3
+body-classes: "zo-page-article zo-page-kien-tao-article"
+bibliography: references.bib
+citation:
+  type: webpage
+  title: "Tiến thoái nhịp nhàng"
+  author:
+    - name:
+        literal: "ZO Math"
+  publisher: "ZO Math"
+  url: "https://zomath.vn/content/kien_tao/tien_thoai_nhip_nhang/tien_thoai_nhip_nhang.html"
+appendix-style: default
+zo-pdf-download:
+  href: "tien_thoai_nhip_nhang.pdf"
+  label: "Tải PDF"
+zo-pdf-branding:
+  collection: "Kiến tạo"
+  short-title: "Tiến thoái nhịp nhàng"
+  canonical-url: "https://zomath.vn/content/kien_tao/tien_thoai_nhip_nhang/tien_thoai_nhip_nhang.html"
+  display-url: "zomath.vn"
+---
+
+## Dẫn nhập {#sec-dan-nhap}
+
+Tổng các số tự nhiên liên tiếp $1,2,\dots,n$ thường được tính nhanh bởi công thức
+
+$$
+1+2+\cdots+n=\frac{n(n+1)}{2}.
+$$
+
+Công thức nổi tiếng này có thể được chứng minh bằng lập luận quy nạp. Lập luận ấy như sau. Dễ thấy rằng nếu $n=1$, công thức hiển nhiên đúng. Bây giờ giả sử rằng công thức đúng với một số nguyên dương $n$. Khi đó,
+
+$$
+\begin{aligned}
+1+2+\cdots+n+(n+1)&=\frac{n(n+1)}{2}+(n+1)\\
+&=\frac{(n+1)(n+2)}{2}.
+\end{aligned}
+$$
+
+Điều này nói lên rằng nếu công thức đúng với $n$ thì cũng đúng với $n+1$. Như vậy, công thức đã đúng với $n=1$ nên nó đúng với $n=2$, nó đã đúng với $n=2$ nên nó đúng với $n=3$, và cứ tiếp tục mãi. Vậy từ bây giờ ta đã có thể dùng công thức đó để tính tổng của bao nhiêu số tự nhiên liên tiếp tùy thích.
+
+Qua phép chứng minh trên, phương pháp quy nạp cho phép ta nối một số hữu hạn bước suy luận thành kết luận bao quát vô hạn trường hợp. Chính khả năng đi từ hữu hạn đến vô hạn ấy làm nên sức mạnh đặc biệt của nó.
+
+Trung bình số học của $n$ số thực không âm $x_1$, $x_2$, $\dots$, $x_n$ được định nghĩa là
+
+$$
+\frac{x_1+x_2+\cdots+x_n}{n}
+$$
+
+và trung bình hình học của chúng là
+
+$$
+\sqrt[n]{x_1\cdot x_2\cdot\cdots\cdot x_n}.
+$$
+
+:::: {.zo-block .zo-block-red}
+::: {.zo-block-title}
+Định lí 1
+:::
+::: {.zo-block-body}
+Trung bình hình học của $n$ số thực không âm $x_1,x_2,\dots,x_n$ không vượt quá trung bình số học của chúng, nghĩa là
+
+$$
+\sqrt[n]{x_1\cdot x_2\cdot\cdots\cdot x_n}\leq\frac{x_1+x_2+\cdots+x_n}{n}.
+$$ {#eq-am-gm}
+:::
+::::
+
+Bất đẳng thức này được gọi là bất đẳng thức trung bình số học–trung bình hình học (tiếng Anh: *arithmetic mean–geometric mean inequality*, viết tắt AM-GM). Phép chứng minh trình bày dưới đây gắn với Augustin-Louis Cauchy (Cô-si) và có thể được tìm thấy trong *Cours d'Analyse de l'École Royale Polytechnique* (trang 457).
+
+Tên gọi quy nạp tiến–thoái mô tả hai chiều vận động của lập luận. Cách quy nạp này cũng gắn với tên Cauchy vì ông đã sử dụng nó trong phép chứng minh bất đẳng thức trung bình số học–trung bình hình học theo cách riêng của mình.
+
+## Chứng minh của Cauchy {#sec-chung-minh-cua-co-si}
+
+Trước tiên, viết lại trung bình hình học dưới dạng lũy thừa, bất đẳng thức ([-@eq-am-gm]) trở thành
+
+$$
+(x_1\cdot x_2\cdot\cdots\cdot x_n)^\frac{1}{n}\leq\frac{x_1+x_2+\cdots+x_n}{n},
+$$
+
+và tương đương với
+
+$$
+x_1\cdot x_2\cdot\cdots\cdot x_n\leq\left(\frac{x_1+x_2+\cdots+x_n}{n}\right)^n.
+$$ {#eq-am-gm-dang-luy-thua}
+
+Chứng minh của Cauchy được chia thành hai phân đoạn. Ở phân đoạn đầu, chứng minh cho các giá trị $n$ là lũy thừa của $2$, cụ thể là $2,4,8,16,32$, v.v. Ở phân đoạn cuối, chứng minh cho các giá trị $n$ còn lại, không là lũy thừa của $2$. Như vậy, sau hai phân đoạn, bất đẳng thức đã được xác nhận với toàn bộ số tự nhiên. Lưu ý, $n=1$ là trường hợp tầm thường và nếu các số hạng bằng nhau thì có đẳng thức.
+
+Trường hợp đơn giản nhất mà không tầm thường là $n=2$, khi đó
+
+$$
+x_1\cdot x_2\leq\left(\frac{x_1+x_2}{2}\right)^2.
+$$
+
+Nó được rút ra từ
+
+$$
+\begin{aligned}
+x_1\cdot x_2&=\left(\frac{x_1+x_2}{2}\right)^2-\left(\frac{x_1-x_2}{2}\right)^2\\
+&\leq\left(\frac{x_1+x_2}{2}\right)^2.
+\end{aligned}
+$$
+
+Từ mỗi trường hợp đã chứng minh, ta suy ra trường hợp kế tiếp, lần lượt tại các mốc $n=4$, $n=8$, $\dots$, $n=2^k$, trong đó $k$ là số nguyên dương và lớn hơn $3$. Khi đó,
+
+$$
+\begin{aligned}
+x_1x_2x_3x_4&=(x_1x_2)(x_3x_4)\\
+&\leq\left(\frac{x_1+x_2}{2}\right)^2\left(\frac{x_3+x_4}{2}\right)^2\\
+&=\left(\frac{x_1+x_2}{2}\cdot\frac{x_3+x_4}{2}\right)^2\\
+&\leq\left(\left(\frac{\frac{x_1+x_2}{2}+\frac{x_3+x_4}{2}}{2}\right)^2\right)^2\\
+&=\left(\frac{x_1+x_2+x_3+x_4}{4}\right)^4,
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+x_1x_2x_3x_4x_5x_6x_7x_8&=(x_1x_2x_3x_4)(x_5x_6x_7x_8)\\
+&\leq\left(\frac{x_1+x_2+x_3+x_4}{4}\right)^4\left(\frac{x_5+x_6+x_7+x_8}{4}\right)^4\\
+&=\left(\frac{x_1+x_2+x_3+x_4}{4}\cdot\frac{x_5+x_6+x_7+x_8}{4}\right)^4\\
+&\leq\left(\left(\frac{\frac{x_1+x_2+x_3+x_4}{4}+\frac{x_5+x_6+x_7+x_8}{4}}{2}\right)^2\right)^4\\
+&=\left(\frac{x_1+x_2+x_3+x_4+x_5+x_6+x_7+x_8}{8}\right)^8,\dots,
+\end{aligned}
+$$
+
+$$
+x_1x_2\cdots x_{2^k}\leq\left(\frac{x_1+x_2+\cdots+x_{2^k}}{2^k}\right)^{2^k}.
+$$ {#eq-am-gm-2-mu-m}
+
+:::: {.content-visible when-format="html"}
+::: {#fig-cac-moc-luy-thua-cua-2}
+![](figures/cac_moc_luy_thua_cua_2/cac_moc_luy_thua_cua_2.svg){fig-alt="Dãy các ô được đánh số từ 1 đến 20; các ô 1, 2, 4, 8 và 16 được tô đen để biểu thị các lũy thừa của 2 đã được xác nhận." fig-align="center" width="100%"}
+
+Ô đen đại diện cho các số tự nhiên đã được xác nhận tới thời điểm này. Việc tiếp theo là tìm cách tô đen các ô còn lại.
+:::
+::::
+
+:::: {.content-visible when-format="pdf"}
+::: {#fig-cac-moc-luy-thua-cua-2}
+![](figures/cac_moc_luy_thua_cua_2/cac_moc_luy_thua_cua_2.pdf){fig-alt="Dãy các ô được đánh số từ 1 đến 20; các ô 1, 2, 4, 8 và 16 được tô đen để biểu thị các lũy thừa của 2 đã được xác nhận." fig-align="center" width="100%"}
+
+Ô đen đại diện cho các số tự nhiên đã được xác nhận tới thời điểm này. Việc tiếp theo là tìm cách tô đen các ô còn lại.
+:::
+::::
+
+Ta bắt đầu với trường hợp gần nhất. Với ba số dương $x_1,x_2,x_3$, đặt
+
+$$
+A=\frac{x_1+x_2+x_3}{3}.
+$$
+
+Bổ sung một số hạng bằng $A$ để có bốn số. Từ $P(4)$,
+
+$$
+\left(x_1x_2x_3A\right)^{\frac14}
+\leq\frac{x_1+x_2+x_3+A}{4}
+=A.
+$$
+
+Suy ra
+
+$$
+x_1x_2x_3\leq A^3
+=\left(\frac{x_1+x_2+x_3}{3}\right)^3.
+$$
+
+Vậy $P(4)$ kéo theo $P(3)$. Cách bổ sung ở đây không tùy ý: số hạng mới được chọn bằng chính trung bình của những số đang xét, nên trung bình sau khi bổ sung vẫn là $A$.
+
+Cơ chế ấy không buộc ta phải thoái từng bậc. Chẳng hạn, từ $P(8)$ có thể đi thẳng đến $P(5)$. Với năm số dương $x_1,x_2,\dots,x_5$, đặt
+
+$$
+A=\frac{x_1+x_2+\cdots+x_5}{5}.
+$$
+
+Bổ sung ba số hạng đều bằng $A$ để có tám số. Từ $P(8)$,
+
+$$
+\left(x_1x_2x_3x_4x_5A^3\right)^{\frac18}
+\leq\frac{x_1+x_2+x_3+x_4+x_5+3A}{8}
+=A.
+$$
+
+Suy ra
+
+$$
+x_1x_2x_3x_4x_5\leq A^5
+=\left(\frac{x_1+x_2+x_3+x_4+x_5}{5}\right)^5.
+$$
+
+Vậy $P(8)$ kéo theo trực tiếp $P(5)$; pha thoái không cần diễn ra từng đơn vị.
+
+Hai trường hợp trên cho thấy cùng một cách làm. Nếu đã biết $P(2^k)$ và muốn chứng minh $P(m)$ với $m<2^k$, ta đặt
+
+$$
+A=\frac{x_1+x_2+\cdots+x_m}{m}
+$$
+
+và bổ sung $2^k-m$ số hạng đều bằng $A$. Áp dụng ([-@eq-am-gm-2-mu-m]) cho $2^k$ số hạng ấy, ta được
+
+$$
+\begin{aligned}
+x_1x_2&\cdots x_m\left(\frac{x_1+x_2+\cdots+x_m}{m}\right)^{2^k-m}\\
+&\leq\left(\frac{x_1+x_2+\cdots+x_m+(2^k-m)\frac{x_1+x_2+\cdots+x_m}{m}}{2^k}\right)^{2^k}\\
+&=\left(\frac{x_1+x_2+\cdots+x_m}{m}\right)^{2^k}.
+\end{aligned}
+$$
+
+Từ đây, suy ra
+
+$$
+x_1x_2\cdots x_m\leq\left(\frac{x_1+x_2+\cdots+x_m}{m}\right)^m.
+$$
+
+Điều này khẳng định rằng bất đẳng thức đúng với $2^k$ thì cũng đúng với tất cả các giá trị nguyên dương bé hơn. Vì thế, các mốc $P(2),P(4),P(8),\dots$ được thiết lập từ cơ sở ban đầu và pha tiến đều có thể làm cơ sở cho pha thoái.
+
+## Tiến và thoái trong chứng minh của Cauchy {#sec-tien-thoai-cauchy}
+
+Kí hiệu mệnh đề AM-GM với $n$ biến là $P(n)$. Nhìn lại chứng minh của Cauchy ở @sec-chung-minh-cua-co-si, ta có thể tách cấu trúc lập luận thành ba bước:
+
+- *Cơ sở:* chứng minh $P(2)$.
+- *Bước tiến:* chứng minh $P(2^k)$ kéo theo $P(2^{k+1})$.
+- *Bước thoái:* chứng minh $P(2^k)$ kéo theo $P(m)$, với mọi $m<2^k$.
+
+Bước tiến tạo ra một dãy vô hạn các mốc đã biết đúng,
+
+$$
+P(2), P(4), P(8), P(16),\ldots
+$$
+
+còn bước thoái dùng từng mốc làm điểm tựa để lấp các trường hợp nằm phía dưới. Bước thoái của Cauchy đặc biệt mạnh: từ $P(2^k)$ có thể suy ra trực tiếp $P(m)$ với mọi $m<2^k$, chứ không cần thoái từng đơn vị.
+
+Từ trường hợp cụ thể này, ta nhận ra rằng các lũy thừa của $2$ chỉ là một cách tạo ra những mốc như thế. Ở mức tổng quát, điều cốt yếu là $P$ đúng tại một tập vô hạn các số nguyên dương. Bước thoái cũng không cần suy trực tiếp mọi trường hợp nhỏ hơn: chỉ cần từ $P(n)$ suy ra $P(n-1)$ là đủ. Những nhận xét ấy dẫn đến nguyên lí sau.
+
+:::: {.zo-block .zo-block-red}
+::: {.zo-block-title}
+Nguyên lí quy nạp tiến–thoái
+:::
+::: {.zo-block-body}
+
+Cho $P(n)$ là một mệnh đề xác định với mọi số nguyên dương $n$. Giả sử:
+
+1. $\mathcal B\subset\mathbb N^+$ là một tập vô hạn và $P(b)$ đúng với mọi $b\in\mathcal B$;
+2. với mọi $n\ge 2$, nếu $P(n)$ đúng thì $P(n-1)$ đúng.
+
+Khi đó $P(n)$ đúng với mọi số nguyên dương $n$.
+
+:::
+::::
+
+Thật vậy, vì $\mathcal B$ là một tập con vô hạn của $\mathbb N^+$ nên $\mathcal B$ không bị chặn trên. Lấy $m\in\mathbb N^+$ tùy ý. Ta có thể chọn $b\in\mathcal B$ sao cho $b\ge m$; theo giả thiết, $P(b)$ đúng. Áp dụng $b-m$ lần bước thoái
+
+$$
+P(n)\Rightarrow P(n-1),
+$$
+
+ta đi từ $P(b)$ xuống $P(m)$; nếu $b=m$ thì không cần áp dụng bước thoái lần nào. Vì $m$ được chọn tùy ý, $P(n)$ đúng với mọi $n\in\mathbb N^+$.
+
+Theo cách nhìn này, $\mathcal B$ là một họ vô hạn các mốc cơ sở cho pha thoái: mỗi $b\in\mathcal B$ là một mốc tại đó $P(b)$ đã biết đúng và có thể làm cơ sở để đi xuống. Vì $\mathcal B$ không bị chặn trên, với mọi $m\in\mathbb N^+$ luôn có thể chọn một cơ sở $b\ge m$, rồi dùng bước thoái để đi từ $P(b)$ đến $P(m)$. Có thể xem $\mathcal B$ như một tập cơ sở vô hạn của pha thoái.
+
+Trong chứng minh của Cauchy, tập các mốc là
+
+$$
+\mathcal B=\{2,4,8,16,\ldots\}.
+$$
+
+Từ cơ sở ban đầu $P(2)$, bước tiến tạo ra một họ vô hạn các mốc cơ sở cho pha thoái; bước thoái lấp những khoảng trống còn lại. Hơn nữa, bước thoái của Cauchy mạnh hơn điều kiện tối thiểu trong nguyên lí: từ $P(2^k)$ ông suy ra được trực tiếp $P(m)$ với mọi $m<2^k$. Chính sự phối hợp ấy làm nên nhịp điệu *tiến–thoái* của phương pháp.
+
+## Bài tập
+
+::: {#exr-1}
+Hãy biện luận theo quy trình bên dưới để chứng minh bất đẳng thức AM-GM.
+
+- Chứng minh $P(2)$.
+- Chứng minh $P(n)$ kéo theo $P(2n)$.
+- Chứng minh $P(n)$ kéo theo $P(n-1)$.
+:::
+
+::: {#exr-2}
+Cho $n$ là một số nguyên dương và $x_1,x_2,\dots,x_n$ là các số thuộc khoảng $\left(0,\frac{1}{2}\right)$. Theo Ky Fan (Chí Phán),
+
+$$
+\frac{x_1x_2\cdots x_n}{(x_1+x_2+\cdots+x_n)^n}\leq\frac{(1-x_1)(1-x_2)\cdots(1-x_n)}{\left((1-x_1)+(1-x_2)+\cdots+(1-x_n)\right)^n}.
+$$
+
+Hãy dùng quy nạp tiến–thoái chứng minh bất đẳng thức Ky Fan.
+
+Gợi ý. Khi $n=2$, bất đẳng thức suy ra từ điều hiển nhiên $x_1+x_2\leq 1$ theo giả thiết. Nhằm dễ quy nạp hơn, hãy đưa về dạng tương đương
+
+$$
+\left(\frac{n}{x_1+x_2+\cdots+x_n}-1\right)^n
+\leq\left(\frac{1}{x_1}-1\right)\left(\frac{1}{x_2}-1\right)\cdots\left(\frac{1}{x_n}-1\right).
+$$
+:::
+
+[@BradleySandifer2009]
