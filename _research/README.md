@@ -51,6 +51,14 @@ Một ý tưởng từ inbox có thể phát triển thành question, source not
 
 Synthesis (bản tổng hợp) không phải cấp cao hơn principle, mà là hoạt động định kỳ để nhìn lại mạng lưới tri thức, nhận ra thay đổi, mối liên hệ và những điều đang nổi lên. Không phải note nào cũng phải phát triển sang loại khác.
 
+inbox
+↓
+question / source / concept / design case
+↓
+principle
+↓
+synthesis
+
 ## Truy xuất bằng AI
 
 Sau này có thể yêu cầu ChatGPT, Codex hoặc Copilot:
@@ -59,6 +67,7 @@ Sau này có thể yêu cầu ChatGPT, Codex hoặc Copilot:
 - truy lịch sử thay đổi của một quan niệm;
 - tìm nguồn hỗ trợ hoặc phản bác một nguyên lí;
 - tổng hợp các pattern đang nổi lên.
+- Quy trình giao việc cho Codex: [`CODEX_WORKFLOW.md`](CODEX_WORKFLOW.md).
 
 Vì vậy, mỗi file cần có tiêu đề rõ và liên kết tới các ID liên quan khi có thể. Khi bổ sung hoặc sửa note, giữ nguyên ranh giới giữa lời của nguồn, diễn giải của ZO Math và giả thuyết của ZO Math để kết quả truy xuất không làm sai cấp độ bằng chứng.
 
