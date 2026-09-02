@@ -1,0 +1,319 @@
+dictionary:
+  name: "Từ điển chú âm ZO Math"
+  authority: "ZO Math"
+  status: "canonical"
+  maintenance: "continuous"
+  history: "git"
+  policy_file: "quy_trinh_xay_dung/quy_chuan_chu_am_zo_math.md"
+  purpose: "Lưu các quyết định chú âm Việt cho tên riêng, thuật ngữ và biểu thức không phải tiếng Việt trong ZO Math."
+
+display_policy:
+  first_meaningful_occurrence: "{written} ({vi_annotation})"
+  later_occurrences: "{written}"
+  annotation_brackets: "round"
+  syllable_separator: "-"
+  title_subtitle_metadata_count_as_first_occurrence: false
+  bibliography_and_citation_annotation: false
+
+status_contract:
+  approved:
+    meaning: "Đã được ZO Math duyệt; được dùng tự động trong phạm vi của mục từ."
+    ai_may_apply: true
+    ai_may_promote_to_status: false
+  trial:
+    meaning: "Ứng viên đã được chọn để thử trong nội dung thật; chưa áp dụng tự động trên toàn ZO Math."
+    ai_may_apply: "only_within_trial_scope"
+    ai_may_promote_to_status: false
+  needs_review:
+    meaning: "Đã có dữ liệu hoặc ứng viên nhưng còn quyết định cần người duyệt."
+    ai_may_apply: false
+    ai_may_promote_to_status: false
+  research:
+    meaning: "Đang thu thập nguồn; chưa đủ cơ sở chọn chú âm."
+    ai_may_apply: false
+    ai_may_promote_to_status: false
+
+machine_contract:
+  id_must_be_stable: true
+  status_values:
+    - approved
+    - trial
+    - needs_review
+    - research
+  required_for_all:
+    - id
+    - written
+    - kind
+    - source_language
+    - status
+  additionally_required_for_trial_and_approved:
+    - entity_or_meaning
+    - source_pronunciation
+    - sources
+    - vi_annotation
+    - decision_notes
+    - review
+  derived_fields_should_not_be_stored:
+    - display_first
+    - display_later
+  approved_entries_must_not_be_silently_rewritten_by_ai: true
+
+entries:
+  - id: "person-blaise-pascal-surname"
+    written: "Pascal"
+    kind: "person_name"
+    entity_or_meaning: "Họ của Blaise Pascal (1623–1662), nhà toán học, vật lý học và triết gia người Pháp."
+    source_language: "fr"
+    status: "approved"
+
+    source_pronunciation:
+      ipa_broad: "/pas.kal/"
+      syllabification:
+        - "pas"
+        - "kal"
+      notes:
+        - "Hai âm tiết trong phát âm tiếng Pháp."
+        - "/s/ ở cuối âm tiết thứ nhất và /l/ ở cuối âm tiết thứ hai không thể giữ nguyên như coda thông thường trong âm tiết tiếng Việt."
+
+    sources:
+      - authority: "Wiktionnaire (French)"
+        title: "Pascal"
+        evidence: "Ghi phát âm tiếng Pháp \\pas.kal\\ và có nhiều mẫu âm thanh vùng Pháp."
+        source_type: "pronunciation_dictionary"
+      - authority: "Huynh Trang Nguyen & Hemanga Dutta"
+        title: "The Adaptation of French Consonant Clusters in Vietnamese Phonology: An OT Account"
+        publication: "Journal of Universal Language 18(1), 2017, 69–103"
+        evidence: "Mô tả giới hạn coda và cụm phụ âm tiếng Việt; ghi nhận các chiến lược lược âm, chèn âm và biến đổi đoạn âm trong từ vay Pháp–Việt, trong đó có trường hợp /kalk/ thích nghi thành [kan]."
+        source_type: "research_article"
+
+    vi_annotation: "Pát-can"
+
+    decision_notes:
+      - "Đã thử nghiệm trong bài Dịu dàng và gai góc và được duyệt làm chú âm canonical của ZO Math."
+      - "Giữ hai âm tiết của /pas.kal/."
+      - "Pát và can đều là các âm tiết người đọc tiếng Việt có thể đọc trực tiếp bằng cơ chế chữ Quốc ngữ."
+      - "Pát thích nghi phần cuối /s/ bằng một âm tiết tắc cuối -t; vì -t là coda tắc nên hình thức chính tả phải dùng thanh phù hợp với âm tiết tiếng Việt."
+      - "can thử thích nghi /l/ cuối bằng /n/; đây là một chiến lược cần được đánh giá bằng đọc thành tiếng và ngữ cảnh thật, không được suy rộng thành quy tắc /l/ → /n/."
+      - "Mục từ đã hoàn tất thử nghiệm trong bài thật và được phê duyệt."
+
+    candidates:
+      - form: "Pát-can"
+        disposition: "approved"
+        notes:
+          - "Giữ hai âm tiết."
+          - "Đọc trực tiếp được bằng tiếng Việt."
+          - "Cần kiểm định cảm giác âm thanh sau khi đặt trong bài thật."
+      - form: "Pát-ca"
+        disposition: "alternative"
+        notes:
+          - "Giữ hai âm tiết và phụ âm đầu /k/ của âm tiết hai."
+          - "Lược /l/ cuối."
+      - form: "Pa-can"
+        disposition: "alternative"
+        notes:
+          - "Giữ hai âm tiết."
+          - "Lược /s/ cuối âm tiết đầu."
+      - form: "Pa-xcan"
+        disposition: "rejected"
+        reason: "xcan không vận hành như một âm tiết có thể đọc trực tiếp theo cơ chế chữ Quốc ngữ."
+      - form: "Pát-si-cao"
+        disposition: "rejected"
+        reason: "Tăng số âm tiết đáng kể và xa cấu trúc phát âm tiếng Pháp /pas.kal/."
+
+    review:
+      source_pronunciation_verified: true
+      vietnamese_phonotactic_review: true
+      human_read_aloud: true
+      article_trial_completed: true
+      approved_by: "ZO Math"
+      approved_date: "2026-09-02"
+
+  - id: "person-james-stirling-surname"
+    written: "Stirling"
+    kind: "person_name"
+    entity_or_meaning: "Họ của James Stirling (1692–1770), nhà toán học Scotland."
+    source_language: "en-GB"
+    status: "approved"
+
+    source_pronunciation:
+      ipa_broad: "/ˈstɜː.lɪŋ/"
+      syllabification:
+        - "stɜː"
+        - "lɪŋ"
+      notes:
+        - "Phát âm UK gồm hai âm tiết."
+
+    sources:
+      - authority: "Cambridge Dictionary"
+        title: "Stirling"
+        evidence: "Ghi phát âm UK /ˈstɜː.lɪŋ/."
+        source_type: "pronunciation_dictionary"
+      - authority: "Collins Dictionary"
+        title: "Stirling"
+        evidence: "Ghi phát âm /ˈstɜːlɪŋ/."
+        source_type: "pronunciation_dictionary"
+      - authority: "MacTutor History of Mathematics Archive"
+        title: "James Stirling"
+        evidence: "Xác nhận James Stirling là nhà toán học Scotland."
+        source_type: "biographical_reference"
+
+    vi_annotation: "Sơ-linh"
+
+    decision_notes:
+      - "Tiếng Việt không có onset /st/."
+      - "Sơ giữ /s/ và gần /ɜː/, đồng thời lược /t/."
+      - "linh gần /lɪŋ/."
+      - "Giữ hai âm tiết."
+      - "Không suy rộng thành quy tắc mọi /st/ đều lược /t/."
+
+    candidates:
+      - form: "Sơ-linh"
+        disposition: "approved"
+
+    review:
+      source_pronunciation_verified: true
+      vietnamese_phonotactic_review: true
+      human_read_aloud: true
+      article_trial_completed: true
+      approved_by: "ZO Math"
+      approved_date: "2026-09-02"
+
+  - id: "term-sigma-greek-letter-mathematics"
+    written: "sigma"
+    kind: "term"
+    entity_or_meaning: "Tên chữ cái Hy Lạp Σ, σ trong ngữ cảnh toán học."
+    source_language: "en"
+    status: "approved"
+
+    source_pronunciation:
+      ipa_broad: "/ˈsɪɡ.mə/"
+      syllabification:
+        - "sɪɡ"
+        - "mə"
+      notes:
+        - "Nguồn gốc từ là Hy Lạp; pronunciation basis của mục từ là cách dùng toán học tiếng Anh."
+
+    sources:
+      - authority: "Cambridge Dictionary"
+        title: "sigma"
+        evidence: "Ghi phát âm tiếng Anh /ˈsɪɡ.mə/."
+        source_type: "pronunciation_dictionary"
+      - authority: "Oxford Advanced Learner's Dictionary"
+        title: "sigma"
+        evidence: "Xác nhận phát âm tiếng Anh của sigma."
+        source_type: "pronunciation_dictionary"
+      - authority: "Collins English Dictionary"
+        title: "sigma"
+        evidence: "Xác nhận phát âm tiếng Anh của sigma."
+        source_type: "pronunciation_dictionary"
+
+    vi_annotation: "xích-mơ"
+
+    decision_notes:
+      - "xích thích nghi /sɪɡ/ sang một âm tiết Việt đọc được, với /g/ cuối → /k/."
+      - "mơ gần /mə/ và dùng thanh ngang."
+      - "Nguồn gốc từ là Hy Lạp, nhưng phát âm được chọn ở đây là cách dùng toán học tiếng Anh."
+      - "Không suy rộng các thích nghi này thành quy tắc máy móc cho mọi từ."
+
+    candidates:
+      - form: "xích-mơ"
+        disposition: "approved"
+
+    review:
+      source_pronunciation_verified: true
+      vietnamese_phonotactic_review: true
+      human_read_aloud: true
+      article_trial_completed: true
+      approved_by: "ZO Math"
+      approved_date: "2026-09-02"
+
+  - id: "person-augustin-louis-cauchy-surname"
+    written: "Cauchy"
+    kind: "person_name"
+    entity_or_meaning: "Họ của Augustin-Louis Cauchy (1789–1857), nhà toán học Pháp."
+    source_language: "fr"
+    status: "approved"
+
+    source_pronunciation:
+      ipa_broad: "/ko.ʃi/"
+      notes:
+        - "Tên đầy đủ Augustin-Louis Cauchy có phát âm tiếng Pháp gần /o.ɡys.tɛ̃ lwi ko.ʃi/."
+
+    sources:
+      - authority: "Wiktionnaire (French)"
+        title: "Cauchy"
+        evidence: "Ghi phát âm tiếng Pháp /ko.ʃi/."
+        source_type: "pronunciation_dictionary"
+
+    vi_annotation: "Cô-si"
+
+    decision_notes:
+      - "Cô gần /ko/."
+      - "si là dạng thích nghi đọc được bằng chữ Quốc ngữ cho /ʃi/."
+      - "Không giữ dạng cũ Cố-xì."
+      - "Chú âm này áp dụng cho họ Cauchy của Augustin-Louis Cauchy."
+
+    candidates:
+      - form: "Cô-si"
+        disposition: "approved"
+      - form: "Cố-xì"
+        disposition: "rejected"
+        reason: "Không phù hợp với quyết định chú âm chính thức hiện hành."
+
+    review:
+      source_pronunciation_verified: true
+      vietnamese_phonotactic_review: true
+      human_read_aloud: true
+      article_trial_completed: true
+      approved_by: "ZO Math"
+      approved_date: "2026-09-02"
+
+  - id: "person-ky-fan"
+    written: "Ky Fan"
+    kind: "person_name"
+    entity_or_meaning: "Ky Fan / 樊𰋀 (1914–2010), nhà toán học gốc Trung Quốc."
+    source_language: "zh"
+    status: "approved"
+
+    source_pronunciation:
+      pinyin_lexical_order: "Fán Qí"
+      displayed_name_order: "Qí Fán"
+      notes:
+        - "Dạng quốc tế Ky Fan dùng thứ tự tên–họ tương ứng với Qí Fán."
+
+    sources:
+      - authority: "ZO Math"
+        title: "Quyết định chú âm Ky Fan"
+        evidence: "Xác nhận tên Hán 樊𰋀, cơ sở Hán ngữ bính âm Fán Qí và thứ tự hiển thị Qí Fán."
+        source_type: "editorial_pronunciation_decision"
+
+    vi_annotation: "Chí Phán"
+
+    decision_notes:
+      - "Chí thích nghi Mandarin Qí, giữ âm đầu gần nhóm ch, nguyên âm /i/ và dùng thanh sắc gần chuyển động lên của thanh 2."
+      - "Phán thích nghi Fán, giữ /f/, vần /an/ và dùng thanh sắc gần thanh 2."
+      - "Chú âm đi theo thứ tự của dạng viết quốc tế Ky Fan, không theo thứ tự Hán Fán Qí."
+      - "Không đọc máy móc Ky theo chính tả tiếng Anh."
+
+    candidates:
+      - form: "Chí Phán"
+        disposition: "approved"
+
+    review:
+      source_pronunciation_verified: true
+      vietnamese_phonotactic_review: true
+      human_read_aloud: true
+      article_trial_completed: true
+      approved_by: "ZO Math"
+      approved_date: "2026-09-02"
+
+global_rejections:
+  - id: "unreadable_consonant_cluster"
+    rule: "Không dùng một chuỗi phụ âm nếu người đọc phải biết trước quy tắc ngoại ngữ mới có thể đọc."
+    example: "xcan"
+
+  - id: "orthography_first_transcription"
+    rule: "Không dựng chú âm bằng cách phiên từng chữ cái nếu kết quả xa phát âm nguồn."
+
+  - id: "ai_self_approval"
+    rule: "AI không được tự chuyển mục từ sang approved nếu không có quyết định duyệt của quy trình ZO Math."
