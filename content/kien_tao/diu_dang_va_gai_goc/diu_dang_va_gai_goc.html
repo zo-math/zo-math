@@ -64,10 +64,7 @@ div.csl-indent {
 <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-f61255698acf0ab77f9c69302430f227.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-41f17726f51f5637d4bd82a943e59ec8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -206,7 +203,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../../../assets/css/custom.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed zo-page-article zo-page-kien-tao-article quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -271,7 +268,7 @@ window.Quarto = {
 <span class="menu-text">Khóa Học</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../content/kien_tao/index.html"> 
+    <a class="nav-link active" href="../../../content/kien_tao/index.html" aria-current="page"> 
 <span class="menu-text">Kiến Tạo</span></a>
   </li>  
   <li class="nav-item">
@@ -298,6 +295,19 @@ window.Quarto = {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../content/kien_tao/diu_dang_va_gai_goc/diu_dang_va_gai_goc.html">Dịu dàng và gai góc</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
@@ -310,10 +320,7 @@ window.Quarto = {
           Bài viết giải thích cách khai triển biểu thức <span class="math inline">\((1+x)^n\)</span> bằng quy tắc nhân phân phối, minh họa sự xuất hiện tự nhiên của tam giác Pascal trong định lý nhị thức.
         </div>
       </div>
-                          <div class="quarto-categories">
-                <div class="quarto-category">Toán tái hiện</div>
-              </div>
-                  </div>
+                </div>
   </div>
     
   
@@ -329,7 +336,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Ngày cập nhật</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">06-07-2026</p>
+        <p class="date">03-09-2026</p>
       </div>
     </div>
     
@@ -339,22 +346,53 @@ window.Quarto = {
   <div>
     <div class="abstract">
       <div class="block-title">Tóm tắt</div>
-      <p>Bài viết đi sâu vào từng chi tiết của quá trình khai triển biểu thức <span class="math inline">\((1+x)^n\)</span> thành đa thức <span class="math display">\[1+nx+\frac{(n-1)n}{2}x^2+\frac{(n-2)(n-1)n}{6}x^3+\cdots+x^n\]</span> bằng quy tắc nhân phân phối. Quy tắc này được áp dụng khéo léo vào các trường hợp đơn giản, kèm theo sơ đồ minh họa phù hợp, làm xuất hiện các hình mẫu cần thiết để diễn giải định lý nhị thức. Sự xuất hiện tự nhiên của tam giác <span data-bs-toggle="tooltip" title="Pascal">Pát-si-cao</span>, nổi tiếng là một hình mẫu để tính các hệ số nhị thức, đã minh chứng cho sự khéo léo này. Bài viết không chỉ truyền đạt kiến thức kỹ thuật, mà còn thúc đẩy khả năng tư duy hợp lý và sáng tạo trong nghiên cứu, từ khi phát hiện đến khi hoàn thiện một vấn đề toán học.</p>
+      <p>Bài viết đi sâu vào từng chi tiết của quá trình khai triển biểu thức <span class="math inline">\((1+x)^n\)</span> thành đa thức <span class="math display">\[1+nx+\frac{(n-1)n}{2}x^2+\frac{(n-2)(n-1)n}{6}x^3+\cdots+x^n\]</span> bằng quy tắc nhân phân phối. Quy tắc này được áp dụng khéo léo vào các trường hợp đơn giản, kèm theo sơ đồ minh họa phù hợp, làm xuất hiện các hình mẫu cần thiết để diễn giải định lý nhị thức. Sự xuất hiện tự nhiên của tam giác Pascal, nổi tiếng là một hình mẫu để tính các hệ số nhị thức, đã minh chứng cho sự khéo léo này. Bài viết không chỉ truyền đạt kiến thức kỹ thuật, mà còn thúc đẩy khả năng tư duy hợp lý và sáng tạo trong nghiên cứu, từ khi phát hiện đến khi hoàn thiện một vấn đề toán học.</p>
     </div>
   </div>
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../content/kien_tao/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kiến tạo</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../content/kien_tao/diu_dang_va_gai_goc/diu_dang_va_gai_goc.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Dịu dàng và gai góc</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../content/kien_tao/tien_thoai_nhip_nhang/tien_thoai_nhip_nhang.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tiến thoái nhịp nhàng</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Trên trang này</h2>
+    <h2 id="toc-title">Nội dung</h2>
    
   <ul>
   <li><a href="#sec-dan-nhap" id="toc-sec-dan-nhap" class="nav-link active" data-scroll-target="#sec-dan-nhap">Dẫn nhập</a></li>
   <li><a href="#sec-dang-dieu-pn" id="toc-sec-dang-dieu-pn" class="nav-link" data-scroll-target="#sec-dang-dieu-pn">Dáng điệu <span class="math inline">\(p_n\)</span></a></li>
   <li><a href="#sec-dang-dieu-hsnt" id="toc-sec-dang-dieu-hsnt" class="nav-link" data-scroll-target="#sec-dang-dieu-hsnt">Dáng điệu <span class="math inline">\(\binom{n}{j}\)</span></a></li>
   <li><a href="#sec-dinh-ly-nhi-thuc" id="toc-sec-dinh-ly-nhi-thuc" class="nav-link" data-scroll-target="#sec-dinh-ly-nhi-thuc">Định lý nhị thức</a></li>
+  <li><a href="#bài-tập" id="toc-bài-tập" class="nav-link" data-scroll-target="#bài-tập">Bài tập</a></li>
   </ul>
 </nav>
     </div>
@@ -365,7 +403,7 @@ window.Quarto = {
 
 
 
-<section id="sec-dan-nhap" class="level2 page-columns page-full">
+<section id="sec-dan-nhap" class="level2">
 <h2 class="anchored" data-anchor-id="sec-dan-nhap">Dẫn nhập</h2>
 <p>Hai biểu thức này,</p>
 <p><span class="math display">\[
@@ -381,12 +419,7 @@ window.Quarto = {
         = 1+nx+\frac{(n-1)n}{2}x^2+\frac{(n-2)(n-1)n}{6}x^3+\cdots+x^n.
 \]</span></p>
 <p>Đây chính là công thức <span data-bs-toggle="tooltip" title="Còn gọi là định lý nhị thức">khai triển nhị thức</span>, được trình bày đầy đủ hơn trong mục <a href="#sec-dinh-ly-nhi-thuc" class="quarto-xref">Mục&nbsp;4</a>, cho thấy hai biểu thức tưởng chừng quá khác biệt nhưng hóa ra chỉ là hai biểu hiện của cùng một giá trị.</p>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<div id="exr-1" class="theorem exercise">
-<p><span class="theorem-title"><strong>Bài tập 1</strong></span> Bạn có thể viết tiếp số hạng chứa <span class="math inline">\(x^4\)</span> của vế phải không?</p>
-</div>
-</div></div><p>Ngược lại, mình nói “tuy một mà hai” là vì mỗi biểu thức lại có vị trí và vai trò riêng trong những ngữ cảnh khác nhau. Chẳng hạn, nếu bạn thay <span class="math inline">\(x=1\)</span> vào cả hai vế để tính toán, sự khác biệt sẽ bộc lộ rõ ràng. Nhìn vào vế phải, bạn đối mặt với một phép tính dài dòng và phức tạp:</p>
+<p>Ngược lại, mình nói “tuy một mà hai” là vì mỗi biểu thức lại có vị trí và vai trò riêng trong những ngữ cảnh khác nhau. Chẳng hạn, nếu bạn thay <span class="math inline">\(x=1\)</span> vào cả hai vế để tính toán, sự khác biệt sẽ bộc lộ rõ ràng. Nhìn vào vế phải, bạn đối mặt với một phép tính dài dòng và phức tạp:</p>
 <p><span class="math display">\[
     1+n\cdot 1+\frac{(n-1)n}{2}\cdot 1^2+\frac{(n-2)(n-1)n}{6}\cdot 1^3+\cdots+1^n.
 \]</span></p>
@@ -401,25 +434,15 @@ window.Quarto = {
 \]</span></p>
 <p>Nếu bạn dừng lại ở số hạng thứ hai của vế phải, bạn có <span class="math inline">\(1,01^5\approx 1,05\)</span>. Nếu bạn dừng lại ở số hạng thứ ba của vế phải, bạn có <span class="math inline">\(1,01^5\approx 1,051\)</span>. Nếu bạn dừng lại ở số hạng thứ tư của vế phải, bạn có <span class="math inline">\(1,01^5\approx 1,05101\)</span>. Các kết quả này rất gần với giá trị thật <span class="math inline">\(1,0510100501\)</span>, nhưng tính toán đơn giản hơn nhiều. Điều này cho thấy vế phải phát huy vai trò vượt trội trong việc tính toán gián tiếp. Chính thức hơn mà nói, vế phải cho phép bạn thấy rõ đóng góp của từng lũy thừa của <span class="math inline">\(x\)</span>, hữu ích trong việc nghiên cứu các hệ số hoặc mức độ ảnh hưởng của <span class="math inline">\(x\)</span>.</p>
 <p>Tóm lại, trong khi khi <span class="math inline">\((1+x)^n\)</span> lý tưởng cho việc tính toán chính xác và nhanh gọn khi có sự hỗ trợ của công cụ tính toán hoặc khi <span class="math inline">\(x\)</span> lớn, thì vế phải tỏ ra vượt trội khi bạn cần phân tích, ước lượng, hoặc làm việc với các giá trị nhỏ mà không cần độ chính xác tuyệt đối. Vì vậy, dù hai biểu thức này thực chất là một về mặt giá trị, cách chúng được sử dụng lại tạo nên sự khác biệt rõ rệt, giống như hai mặt của cùng một đồng xu.</p>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<div class="callout callout-style-default callout-note no-icon callout-titled" title="Dịu dàng và gai góc">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Dịu dàng và gai góc
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
+<details class="zo-block zo-block-yellow">
+<summary class="zo-block-title">
+Liên tưởng
+</summary>
+<div class="zo-block-body">
 <p>Vậy nên, dịu dàng ẩn chứa gai góc, mà gai góc lại ôm trọn dịu dàng. Gặp một người dịu dàng, hãy thử tìm hiểu nét sắc sảo ẩn sâu trong họ. Lại gần một người gai góc, đừng ngại khám phá sự mềm mại họ giấu kín. Dịu dàng hay gai góc, mỗi thứ đều có nét duyên riêng, chỉ là bạn có đủ tinh tế để nhận ra hay không.</p>
 </div>
-</div>
-</div>
-</div></div><p>Biểu thức <span class="math inline">\((1+x)^2\)</span> là một trường hợp riêng của biểu thức <span class="math inline">\((x+y)^2\)</span> với <span class="math inline">\(y=1\)</span>, nhưng khi biết dạng khai triển của biểu thức trước vẫn có thể suy ra dạng khai triển của biểu thức sau. Để nhìn thấy điều này, với <span class="math inline">\(x\ne 0\)</span>, mình đã quan sát</p>
+</details>
+<p>Biểu thức <span class="math inline">\((1+x)^2\)</span> là một trường hợp riêng của biểu thức <span class="math inline">\((x+y)^2\)</span> với <span class="math inline">\(y=1\)</span>, nhưng khi biết dạng khai triển của biểu thức trước vẫn có thể suy ra dạng khai triển của biểu thức sau. Để nhìn thấy điều này, với <span class="math inline">\(x\ne 0\)</span>, mình đã quan sát</p>
 <p><span class="math display">\[
 \begin{aligned}
     (x+y)^2
@@ -438,7 +461,7 @@ window.Quarto = {
 <p>Để bài toán được hoàn thiện về mặt phát biểu, mình xác định hai trường hợp đặc biệt, <span class="math inline">\((1+x)^0=1\)</span> theo qui ước và <span class="math inline">\((1+x)^1=1+x\)</span> là tầm thường. Kể từ đây, mình hiểu <span class="math inline">\(n\)</span> là một số nguyên không âm, <span class="math inline">\(p_0=1\)</span> và <span class="math inline">\(p_1=1+x\)</span>.</p>
 <p>Bạn và mình có thể gọi việc khai triển biểu thức <span class="math inline">\((1+x)^n\)</span> hay <span class="math inline">\((x+y)^n\)</span> là <em>khai triển nhị thức</em> vì biểu thức <span class="math inline">\(1+x\)</span> hay <span class="math inline">\(x+y\)</span> có dạng nhị thức. Mục tiêu là xác định <span class="math inline">\(p_n\)</span> và kết quả này được gọi là <em>định lý nhị thức</em>.</p>
 </section>
-<section id="sec-dang-dieu-pn" class="level2">
+<section id="sec-dang-dieu-pn" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="sec-dang-dieu-pn">Dáng điệu <span class="math inline">\(p_n\)</span></h2>
 <p>Có một sự thật mà đôi khi bạn và mình đã lãng quên, biểu thức <span class="math inline">\((1+x)^n\)</span> là cách viết ngắn gọn của tích</p>
 <p><span class="math display">\[
@@ -458,10 +481,10 @@ window.Quarto = {
 <div id="fig-so-do-nhan-phan-phoi-hai-nhi-thuc" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Sơ đồ nhân phân phối hai nhị thức bậc nhất để thu được một tam thức bậc hai.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-so-do-nhan-phan-phoi-hai-nhi-thuc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="../../..\figures/zo_o/diu_dang_va_gai_goc/so_do_nhan_phan_phoi_hai_nhi_thuc.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Hình&nbsp;1: Sơ đồ nhân phân phối \(1+x\) với \(p_1\) thu được \(p_2\)."><img src="../../..\figures/zo_o/diu_dang_va_gai_goc/so_do_nhan_phan_phoi_hai_nhi_thuc.svg" class="img-fluid figure-img" alt="Sơ đồ nhân phân phối hai nhị thức bậc nhất để thu được một tam thức bậc hai."></a>
+<img src="figures/so_do_nhan_phan_phoi_hai_nhi_thuc/so_do_nhan_phan_phoi_hai_nhi_thuc.svg" class="img-fluid figure-img" alt="Sơ đồ nhân phân phối hai nhị thức bậc nhất để thu được một tam thức bậc hai.">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-so-do-nhan-phan-phoi-hai-nhi-thuc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Hình&nbsp;1: Sơ đồ nhân phân phối <span class="math">\(1+x\)</span> với <span class="math">\(p_1\)</span> thu được <span class="math">\(p_2\)</span>.
+Hình&nbsp;1: Sơ đồ nhân phân phối <span class="math inline">\((1+x)\)</span> với <span class="math inline">\((1+x)\)</span> thu được <span class="math inline">\(p_2\)</span>.
 </figcaption>
 </figure>
 </div>
@@ -480,27 +503,29 @@ Hình&nbsp;1: Sơ đồ nhân phân phối <span class="math">\(1+x\)</span> v�
 <div id="fig-so-do-nhan-phan-phoi-nhi-thuc-voi-tam-thuc" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-so-do-nhan-phan-phoi-nhi-thuc-voi-tam-thuc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="../../..\figures/zo_o/diu_dang_va_gai_goc/so_do_nhan_phan_phoi_nhi_thuc_voi_tam_thuc.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Hình&nbsp;2: Sơ đồ nhân phân phối \(1+x\) với \(p_2\) thu được \(p_3\)."><img src="../../..\figures/zo_o/diu_dang_va_gai_goc/so_do_nhan_phan_phoi_nhi_thuc_voi_tam_thuc.svg" class="img-fluid figure-img"></a>
+<img src="figures/so_do_nhan_phan_phoi_nhi_thuc_voi_tam_thuc/so_do_nhan_phan_phoi_nhi_thuc_voi_tam_thuc.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-so-do-nhan-phan-phoi-nhi-thuc-voi-tam-thuc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Hình&nbsp;2: Sơ đồ nhân phân phối <span class="math">\(1+x\)</span> với <span class="math">\(p_2\)</span> thu được <span class="math">\(p_3\)</span>.
+Hình&nbsp;2: Sơ đồ nhân phân phối <span class="math inline">\((1+x)\)</span> với <span class="math inline">\(p_2\)</span> thu được <span class="math inline">\(p_3\)</span>.
 </figcaption>
 </figure>
 </div>
 <p>Nói chung, để tìm <span class="math inline">\(p_n\)</span>, mình áp dụng qui tắc nhân phân phối cho biểu thức <span class="math inline">\((1+x)p_{n-1}\)</span> tương tự như đã làm ở trên. Minh họa chi tiết cho thủ thuật này được thể hiện qua sơ đồ tìm <span class="math inline">\(p_5\)</span> tại <a href="#fig-thap-nhan-phan-phoi-den-n-bang-5" class="quarto-xref">Hình&nbsp;3</a>. Rồi bạn sẽ thấy, nó chứa các hình mẫu xác định <span class="math inline">\(p_n\)</span>.</p>
-<div id="fig-thap-nhan-phan-phoi-den-n-bang-5" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-thap-nhan-phan-phoi-den-n-bang-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="../../..\figures/zo_o/diu_dang_va_gai_goc/thap_nhan_phan_phoi_den_n_bang_5.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Hình&nbsp;3: Sơ đồ nhân phân phối \(1+x\) với \(p_0\), \(p_1\), \(p_2\), \(p_3\), \(p_4\) thu được \(p_5\)."><img src="../../..\figures/zo_o/diu_dang_va_gai_goc/thap_nhan_phan_phoi_den_n_bang_5.svg" class="img-fluid figure-img"></a>
+<div id="fig-thap-nhan-phan-phoi-den-n-bang-5" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-thap-nhan-phan-phoi-den-n-bang-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="figures/thap_nhan_phan_phoi_den_n_bang_5/thap_nhan_phan_phoi_den_n_bang_5.svg" class="img-fluid quarto-figure quarto-figure-center figure-img column-screen-inset-shaded" style="width:100.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-thap-nhan-phan-phoi-den-n-bang-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Hình&nbsp;3: Sơ đồ nhân phân phối <span class="math">\(1+x\)</span> với <span class="math">\(p_0\)</span>, <span class="math">\(p_1\)</span>, <span class="math">\(p_2\)</span>, <span class="math">\(p_3\)</span>, <span class="math">\(p_4\)</span> thu được <span class="math">\(p_5\)</span>.
+Hình&nbsp;3: Sơ đồ nhân phân phối <span class="math inline">\(1+x\)</span> với <span class="math inline">\(p_0, p_1, p_2, p_3, p_4\)</span> thu được <span class="math inline">\(p_5\)</span>.
 </figcaption>
 </figure>
 </div>
 <p>Để chuẩn bị cho việc viết ra các hình mẫu đó, mình cần một số kí hiệu phù hợp. Gọi <span class="math inline">\(\binom{n}{j}\)</span>, với <span class="math inline">\(0\leq j\leq n\)</span>, là hệ số của <span class="math inline">\(x^j\)</span> trong <span class="math inline">\(p_n\)</span>. Định nghĩa <span class="math inline">\(\binom{n}{0}=\binom{n}{n}=1\)</span> <em>với mọi <span class="math inline">\(n\)</span></em>. Định nghĩa này hợp lý vì, với mọi <span class="math inline">\(n\)</span>, <span class="math inline">\(p_n\)</span> có duy nhất số hạng <span class="math inline">\(x^0\)</span> theo qui ước chính là <span class="math inline">\(1\)</span> và có duy nhất số hạng <span class="math inline">\(x^n\)</span>. Như vậy, <span class="math inline">\(\binom{n}{0}\)</span> là hệ số của <span class="math inline">\(x^0\)</span> và <span class="math inline">\(\binom{n}{n}\)</span> là hệ số của <span class="math inline">\(x^n\)</span>.</p>
 <p>Các hệ số <span class="math inline">\(\binom{n}{j}\)</span> sẽ được gọi là các <em>hệ số nhị thức</em>. Đây là cách gọi ngắn gọn, nếu mô tả đầy đủ hơn, nó nên được gọi là các hệ số có trong đa thức khai triển của lũy thừa nhị thức mũ <span class="math inline">\(n\)</span>. Mà tốt hơn, bạn và mình nên quên cách gọi dài dòng này đi.</p>
 <p>Ví dụ, <span class="math inline">\(p_2\)</span> và <span class="math inline">\(p_3\)</span> được viết lại theo các kí hiệu của hệ số nhị thức là <span class="math inline">\(p_2=\binom{2}{0}+\binom{2}{1}x+\binom{2}{2}x^2\)</span> và <span class="math inline">\(p_3=\binom{3}{0}+\binom{3}{1}x+\binom{3}{2}x^2+\binom{3}{3}x^3\)</span>.</p>
+<div class="zo-block zo-block-red">
+<div class="zo-block-body">
 <p>Sơ đồ tại <a href="#fig-thap-nhan-phan-phoi-den-n-bang-5" class="quarto-xref">Hình&nbsp;3</a> gợi ý rằng, với mọi số nguyên không âm <span class="math inline">\(n\)</span>, mình có thể viết <span class="math inline">\(p_n\)</span> là</p>
 <p><span id="eq-dang-khai-trien"><span class="math display">\[
     p_n=\binom{n}{0}+\binom{n}{1}x+\cdots+\binom{n}{n-1}x^{n-1}+\binom{n}{n}x^n.
@@ -513,6 +538,8 @@ Hình&nbsp;3: Sơ đồ nhân phân phối <span class="math">\(1+x\)</span> v�
 <p><span id="eq-tinh-doi-xung"><span class="math display">\[
     \binom{n}{j}=\binom{n}{n-j}.
 \tag{3}\]</span></span></p>
+</div>
+</div>
 <p>Để chứng minh các công thức trên, mình sử dụng phương pháp qui nạp.</p>
 <p>Lấy <span class="math inline">\(p_2=1+2x+x^2\)</span> và <span class="math inline">\(p_3=1+3x+3x^2+x^3\)</span> làm cơ sở qui nạp, vì dễ dàng kiểm chứng chúng thỏa mãn các Công thức <a href="#eq-dang-khai-trien" class="quarto-xref">Phương trình&nbsp;1</a>, <a href="#eq-tinh-he-so-nhi-thuc-theo-chieu-doc" class="quarto-xref">Phương trình&nbsp;2</a> và <a href="#eq-tinh-doi-xung" class="quarto-xref">Phương trình&nbsp;3</a>.</p>
 <p>Xem Công thức <a href="#eq-dang-khai-trien" class="quarto-xref">Phương trình&nbsp;1</a> và <a href="#eq-tinh-he-so-nhi-thuc-theo-chieu-doc" class="quarto-xref">Phương trình&nbsp;2</a> là các giả thiết qui nạp, áp dụng chúng để có phép biến đổi</p>
@@ -538,7 +565,7 @@ Hình&nbsp;3: Sơ đồ nhân phân phối <span class="math">\(1+x\)</span> v�
     \binom{n+1}{j}=\binom{n+1}{n+1-j}.
 \]</span></p>
 <p>Đây chính là kết luận qui nạp dành cho công thức <a href="#eq-tinh-doi-xung" class="quarto-xref">Phương trình&nbsp;3</a>. <span class="math inline">\(\square\)</span></p>
-<p>Kết thúc mục này tại đây, mình tạm kết luận rằng, khi viết dưới dạng tổng <span data-bs-toggle="tooltip" title="sigma">xích-mờ</span>, <span class="math inline">\(p_n\)</span> có dạng</p>
+<p>Kết thúc mục này tại đây, mình tạm kết luận rằng, khi viết dưới dạng tổng sigma (xích-mơ), <span class="math inline">\(p_n\)</span> có dạng</p>
 <p><span class="math display">\[
     p_n=\sum_{j=0}^n\binom{n}{j}x^j.
 \]</span></p>
@@ -547,30 +574,32 @@ Hình&nbsp;3: Sơ đồ nhân phân phối <span class="math">\(1+x\)</span> v�
 <section id="sec-dang-dieu-hsnt" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="sec-dang-dieu-hsnt">Dáng điệu <span class="math inline">\(\binom{n}{j}\)</span></h2>
 <p>Nhờ vào công thức <a href="#eq-tinh-he-so-nhi-thuc-theo-chieu-doc" class="quarto-xref">Phương trình&nbsp;2</a>, mình có thể tiếp tục mở rộng chân tháp tại <a href="#fig-thap-nhan-phan-phoi-den-n-bang-5" class="quarto-xref">Hình&nbsp;3</a>. Ví dụ, mình có thể lần lượt viết thêm các <span class="math inline">\(p_6\)</span>, <span class="math inline">\(p_7\)</span>, <span class="math inline">\(p_8\)</span> và <span class="math inline">\(p_9\)</span>. Để đơn giản, lần này mình chỉ viết các hệ số, kết quả được hiển thị tại <a href="#fig-thap-he-so-nhi-thuc-den-n-bang-9" class="quarto-xref">Hình&nbsp;4</a>. Thay thế các con số cụ thể bằng các kí hiệu, mình có được <a href="#fig-thap-he-so-nhi-thuc-dang-ki-hieu-den-n-bang-9" class="quarto-xref">Hình&nbsp;5</a>, trong đó các kí hiệu giúp dễ dàng theo dõi các qui luật hình thành tháp mà đôi khi các con số cụ thể chưa thể hiện được.</p>
+<div class="column-screen-inset-shaded">
 <div class="quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-thap-he-so-nhi-thuc-den-n-bang-9" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-thap-he-so-nhi-thuc-den-n-bang-9" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-thap-he-so-nhi-thuc-den-n-bang-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="../../..\figures/zo_o/diu_dang_va_gai_goc/thap_he_so_nhi_thuc_den_n_bang_9.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Hình&nbsp;4: Trong các văn bản toán học, tháp này thường được gọi là tam giác Pát-si-cao [@edwards2019pascal]."><img src="../../..\figures/zo_o/diu_dang_va_gai_goc/thap_he_so_nhi_thuc_den_n_bang_9.svg" class="img-fluid figure-img"></a>
+<img src="figures/thap_he_so_nhi_thuc_den_n_bang_9/thap_he_so_nhi_thuc_den_n_bang_9.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-thap-he-so-nhi-thuc-den-n-bang-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Hình&nbsp;4: Trong các văn bản toán học, tháp này thường được gọi là tam giác <span data-bs-toggle="tooltip" title="Pascal">Pát-si-cao</span> <span class="citation" data-cites="edwards2019pascal">(<a href="#ref-edwards2019pascal" role="doc-biblioref">Edwards 2019</a>)</span>.
+Hình&nbsp;4: Trong các văn bản toán học, tháp này thường được gọi là tam giác Pascal (Pát-can) <span class="citation" data-cites="edwards2019pascal">(<a href="#ref-edwards2019pascal" role="doc-biblioref">Edwards 2019</a>)</span>.
 </figcaption>
 </figure>
 </div>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-thap-he-so-nhi-thuc-dang-ki-hieu-den-n-bang-9" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-thap-he-so-nhi-thuc-dang-ki-hieu-den-n-bang-9" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-thap-he-so-nhi-thuc-dang-ki-hieu-den-n-bang-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="../../..\figures/zo_o/diu_dang_va_gai_goc/thap_he_so_nhi_thuc_dang_ki_hieu_den_n_bang_9.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Hình&nbsp;5: Tháp hệ số nhị thức dạng kí hiệu."><img src="../../..\figures/zo_o/diu_dang_va_gai_goc/thap_he_so_nhi_thuc_dang_ki_hieu_den_n_bang_9.svg" class="img-fluid figure-img"></a>
+<img src="figures/thap_he_so_nhi_thuc_dang_ki_hieu_den_n_bang_9/thap_he_so_nhi_thuc_dang_ki_hieu_den_n_bang_9.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-thap-he-so-nhi-thuc-dang-ki-hieu-den-n-bang-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Hình&nbsp;5: Tháp hệ số nhị thức dạng kí hiệu.
 </figcaption>
 </figure>
+</div>
 </div>
 </div>
 </div>
@@ -599,16 +628,11 @@ Hình&nbsp;5: Tháp hệ số nhị thức dạng kí hiệu.
 \end{aligned}
 \]</span></p>
 <p>Từ quan sát như vậy, mình đưa ra giả thiết qui nạp là, với <span class="math inline">\(1\leq j \leq n\)</span>,</p>
-<div class="callout callout-style-simple callout-important no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
+<div class="zo-block zo-block-red">
+<div class="zo-block-body">
 <p><span id="eq-tinh-he-so-nhi-thuc-theo-chieu-ngang"><span class="math display">\[
     j\binom{n}{j}=(n-j+1)\binom{n}{j-1}.
 \tag{4}\]</span></span></p>
-</div>
 </div>
 </div>
 <p>Cơ sở qui nạp là bất kì trường hợp nào được liệt kê trong tháp hệ số ở <a href="#fig-thap-he-so-nhi-thuc-den-n-bang-9" class="quarto-xref">Hình&nbsp;4</a>, cũng như trường hợp vừa xét qua ở trên, các hệ số của <span class="math inline">\(p_5\)</span>.</p>
@@ -654,12 +678,8 @@ Hình&nbsp;5: Tháp hệ số nhị thức dạng kí hiệu.
 \end{aligned}
 \]</span></p>
 <p>Chúng ta kết luận, với <span class="math inline">\(1\leq j \leq n-1\)</span>,</p>
-<div class="callout callout-style-simple callout-important no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
+<div class="zo-block zo-block-red">
+<div class="zo-block-body">
 <p><span id="eq-tinh-he-so-nhi-thuc-theo-duong-cheo-trai"><span class="math display">\[
     \binom{n}{j}=\frac{n}{j}\binom{n-1}{j-1}
 \tag{5}\]</span></span></p>
@@ -669,19 +689,32 @@ Hình&nbsp;5: Tháp hệ số nhị thức dạng kí hiệu.
 \tag{6}\]</span></span></p>
 </div>
 </div>
+<details class="zo-block zo-block-yellow">
+<summary class="zo-block-title">
+Mở rộng
+</summary>
+<div class="zo-block-body">
+<p>Quan sát các bước biến đổi dẫn đến hai đẳng thức trên, mình thấy rằng phép dựng tháp hệ số nhị thức theo đường chéo là sự kết hợp của hai phép dựng theo chiều dọc và chiều ngang. Với các số Stirling (Sơ-linh) loại hai, mình có thể thấy những tính chất tương tự như với các hệ số nhị thức hay không? Việc áp dụng và mở rộng ý tưởng này liệu có mang lại những kết quả thú vị khác trong toán học hay không?</p>
 </div>
-<p>Quan sát các bước biến đổi dẫn đến hai đẳng thức trên, mình thấy rằng phép dựng tháp hệ số nhị thức theo đường chéo là sự kết hợp của hai phép dựng theo chiều dọc và chiều ngang. Với các số <span data-bs-toggle="tooltip" title="Stirling">Sì-tớ-liềng</span> loại hai, mình có thể thấy những tính chất tương tự như với các hệ số nhị thức hay không? Việc áp dụng và mở rộng ý tưởng này liệu có mang lại những kết quả thú vị khác trong toán học hay không?</p>
-<p>Bạn và mình phải cùng lưu ý điểm này. Cách nói chiều dọc, chiều ngang, đường chéo trái và đường chéo phải chỉ là tương đối, vì tam giác <span data-bs-toggle="tooltip" title="Pascal">Pát-si-cao</span> tại <a href="#fig-thap-he-so-nhi-thuc-den-n-bang-9" class="quarto-xref">Hình&nbsp;4</a> không phải là cách trình bày duy nhất, xem <a href="#fig-thap-he-so-nhi-thuc-dang-tam-giac-vuong-den-n-bang-9" class="quarto-xref">Hình&nbsp;6</a>, thậm chí ngay cả <span data-bs-toggle="tooltip" title="Pascal">Pát-si-cao</span> cũng không viết như thế <span class="citation" data-cites="edwards2019pascal">(<a href="#ref-edwards2019pascal" role="doc-biblioref">Edwards 2019</a>)</span>. Do đó, mấy chữ mở rộng ý tưởng ở đoạn trước là quan trọng, nó được hiểu là cần có sự linh hoạt trong cách trình bày và sự tương đồng giữa các hình thức diễn đạt, tương tự như cách chúng ta xem xét điểm trong không gian nhiều chiều dựa trên khái niệm điểm trong không gian ba chiều và điểm trên mặt phẳng hai chiều.</p>
-<div id="fig-thap-he-so-nhi-thuc-dang-tam-giac-vuong-den-n-bang-9" class="quarto-float quarto-figure quarto-figure-center anchored">
+</details>
+<details class="zo-block zo-block-gray">
+<summary class="zo-block-title">
+Lưu ý
+</summary>
+<div class="zo-block-body">
+<p>Bạn và mình phải cùng lưu ý điểm này. Cách nói chiều dọc, chiều ngang, đường chéo trái và đường chéo phải chỉ là tương đối, vì tam giác Pascal tại <a href="#fig-thap-he-so-nhi-thuc-den-n-bang-9" class="quarto-xref">Hình&nbsp;4</a> không phải là cách trình bày duy nhất, xem <a href="#fig-thap-he-so-nhi-thuc-dang-tam-giac-vuong-den-n-bang-9" class="quarto-xref">Hình&nbsp;6</a>, thậm chí ngay cả Pascal cũng không viết như thế <span class="citation" data-cites="edwards2019pascal">(<a href="#ref-edwards2019pascal" role="doc-biblioref">Edwards 2019</a>)</span>. Do đó, mấy chữ mở rộng ý tưởng ở đoạn trước là quan trọng, nó được hiểu là cần có sự linh hoạt trong cách trình bày và sự tương đồng giữa các hình thức diễn đạt, tương tự như cách chúng ta xem xét điểm trong không gian nhiều chiều dựa trên khái niệm điểm trong không gian ba chiều và điểm trên mặt phẳng hai chiều.</p>
+<div id="fig-thap-he-so-nhi-thuc-dang-tam-giac-vuong-den-n-bang-9" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-thap-he-so-nhi-thuc-dang-tam-giac-vuong-den-n-bang-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="../../..\figures/zo_o/diu_dang_va_gai_goc/thap_he_so_nhi_thuc_dang_tam_giac_vuong_den_n_bang_9.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Hình&nbsp;6: Một cách viết khác của tam giác Pát-si-cao."><img src="../../..\figures/zo_o/diu_dang_va_gai_goc/thap_he_so_nhi_thuc_dang_tam_giac_vuong_den_n_bang_9.svg" class="img-fluid figure-img"></a>
+<img src="figures/thap_he_so_nhi_thuc_dang_tam_giac_vuong_den_n_bang_9/thap_he_so_nhi_thuc_dang_tam_giac_vuong_den_n_bang_9.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-thap-he-so-nhi-thuc-dang-tam-giac-vuong-den-n-bang-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Hình&nbsp;6: Một cách viết khác của tam giác <span data-bs-toggle="tooltip" title="Pascal">Pát-si-cao</span>.
+Hình&nbsp;6: Một cách viết khác của tam giác Pascal.
 </figcaption>
 </figure>
 </div>
+</div>
+</details>
 <p>Quay trở lại với vấn đề đang cần giải quyết, mình tiếp tục đặt ra câu hỏi sâu hơn, có một công thức tổng quát để tính <span class="math inline">\(\binom{n}{j}\)</span> chỉ phụ thuộc vào <span class="math inline">\(n\)</span> và <span class="math inline">\(j\)</span> mà không cần dựa vào các hệ số khác hay không?</p>
 <p>Câu hỏi này quan trọng bởi nếu có một công thức tổng quát như vậy, mình có thể tính trực tiếp các hệ số nhị thức mà không cần sử dụng các hệ số nhị thức khác làm trung gian. Điều này sẽ giúp tiết kiệm thời gian và công sức, đặc biệt là khi làm việc với các hệ số nhị thức lớn. Hơn nữa, điều quan trọng là một công thức như vậy sẽ cung cấp một cái nhìn sâu sắc hơn về bản chất của các hệ số nhị thức và mối quan hệ giữa chúng với <span class="math inline">\(n\)</span> và <span class="math inline">\(j\)</span>.</p>
 <p>Căn cứ vào công <a href="#eq-tinh-he-so-nhi-thuc-theo-duong-cheo-trai" class="quarto-xref">Phương trình&nbsp;5</a>, xét phép biến đổi</p>
@@ -701,17 +734,12 @@ Hình&nbsp;6: Một cách viết khác của tam giác <span data-bs-toggle="too
 \]</span></p>
 <p>Hãy đối chiếu kết quả này với con số tại vị trí thứ bảy thuộc dòng thứ mười trong tháp ở <a href="#fig-thap-he-so-nhi-thuc-den-n-bang-9" class="quarto-xref">Hình&nbsp;4</a> để xác nhận kết quả.</p>
 <p>Định nghĩa <span class="math inline">\(0!=1\)</span> và <span class="math inline">\(n!=n\cdot (n-1)\cdots 1\)</span>. Gọi vế trái của mỗi đẳng thức lần lượt là <em><span class="math inline">\(0\)</span> giai thừa </em> và <em><span class="math inline">\(n\)</span> giai thừa</em>. Công thức tính hệ số nhị thức vừa tìm được ở trên viết theo định nghĩa này có dạng</p>
-<div class="callout callout-style-simple callout-important no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
+<div class="zo-block zo-block-red">
+<div class="zo-block-body">
 <p><span id="eq-tinh-he-so-nhi-thuc"><span class="math display">\[
     \binom{n}{j}
         = \frac{n!}{j!(n-j)!}.
 \tag{7}\]</span></span></p>
-</div>
 </div>
 </div>
 <p>Định nghĩa <span class="math inline">\(0!=1\)</span> là hợp lý, vì nó biểu diễn được hai trường hợp đặc biệt là <span class="math inline">\(\binom{n}{0}=\frac{n!}{0!(n-0)!}=\frac{n!}{0!n!}=1\)</span> và <span class="math inline">\(\binom{n}{n}=\frac{n!}{n!(n-n)!}=\frac{n!}{n!0!}=1\)</span>.</p>
@@ -727,31 +755,21 @@ Hình&nbsp;6: Một cách viết khác của tam giác <span data-bs-toggle="too
 <p><span class="math display">\[
 \underbrace{(1+x)(1+x)\cdots(1+x)}_{\text{có $n$ thừa số}}.
 \]</span></p>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<div id="exr-2" class="theorem exercise">
-<p><span class="theorem-title"><strong>Bài tập 2</strong></span> Một tập hợp có <span class="math inline">\(n\)</span> phần tử thì có bao nhiêu tập con, kể cả tập rỗng và chính nó?</p>
-</div>
-</div></div></section>
-<section id="sec-dinh-ly-nhi-thuc" class="level2 page-columns page-full">
+</section>
+<section id="sec-dinh-ly-nhi-thuc" class="level2">
 <h2 class="anchored" data-anchor-id="sec-dinh-ly-nhi-thuc">Định lý nhị thức</h2>
 <p>Giờ đây bạn và mình đã có đủ chất liệu để phát biểu định lý nhị thức, tổng hợp lại những kiến thức đã phát hiện được trong quá trình khai triển lũy thừa <span class="math inline">\((1+x)^n\)</span> đã tiến hành.</p>
-<div class="callout callout-style-default callout-important no-icon callout-titled" title="Định lý nhị thức">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
+<div class="zo-block zo-block-red">
+<div class="zo-block-title">
+<p>Định lý nhị thức</p>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Quan trọng</span>Định lý nhị thức
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<div class="zo-block-body">
 <p>Lũy thừa nguyên không âm <span class="math inline">\(n\)</span> của nhị thức <span class="math inline">\(1+x\)</span> được khai triển thành tổng có dạng</p>
 <p><span class="math display">\[
     (1+x)^n
         =\binom{n}{0}+\binom{n}{1}x+\cdots+\binom{n}{n-1}x^{n-1}+\binom{n}{n}x^n
 \]</span></p>
-<p>hoặc viết dưới dạng tổng xích-mờ là</p>
+<p>hoặc viết dưới dạng tổng sigma là</p>
 <p><span class="math display">\[
     (1+x)^n
         =\sum_{j=0}^n\binom{n}{j}x^n.
@@ -771,7 +789,8 @@ Hình&nbsp;6: Một cách viết khác của tam giác <span data-bs-toggle="too
     \binom{n}{j}&amp;=\frac{n}{n-j}\binom{n-1}{j}.
 \end{aligned}
 \]</span></p>
-
+</div>
+</div>
 <p>Như đã đề cập ở <a href="#sec-dan-nhap" class="quarto-xref">Mục&nbsp;1</a>, nếu <span class="math inline">\(x\ne 0\)</span>, mình có thể khai triển lũy thừa <span class="math inline">\((x+y)^n\)</span> bằng cách áp dụng dạng khai triển của <span class="math inline">\((1+x)^n\)</span> như sau</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -781,19 +800,27 @@ Hình&nbsp;6: Một cách viết khác của tam giác <span data-bs-toggle="too
         &amp;=\sum_{j=0}^n\binom{n}{j}x^{n-j}y^j.
 \end{aligned}
 \]</span></p>
+<div class="zo-block zo-block-red">
+<div class="zo-block-body">
 <p>Mặt khác, do <span class="math inline">\(x\)</span> và <span class="math inline">\(y\)</span> có vai trò như nhau trong biểu thức <span class="math inline">\((x+y)^n\)</span> nên có thể viết</p>
 <p><span class="math display">\[
     (x+y)^n=\sum_{j=1}^n\binom{n}{j}x^jy^{n-j}.
 \]</span></p>
 <p>Đây là phiên bản quen thuộc và thường được sử dụng khi trình bày định lý nhị thức.</p>
-
-
 </div>
-</div><div class="no-row-height column-margin column-container"><div class="callout-margin-content">
+</div>
+</section>
+<section id="bài-tập" class="level2">
+<h2 class="anchored" data-anchor-id="bài-tập">Bài tập</h2>
+<div id="exr-1" class="theorem exercise">
+<p><span class="theorem-title"><strong>Bài tập 1</strong></span> Bạn có thể viết tiếp số hạng chứa <span class="math inline">\(x^4\)</span> của vế phải không?</p>
+</div>
+<div id="exr-2" class="theorem exercise">
+<p><span class="theorem-title"><strong>Bài tập 2</strong></span> Một tập hợp có <span class="math inline">\(n\)</span> phần tử thì có bao nhiêu tập con, kể cả tập rỗng và chính nó?</p>
+</div>
 <div id="exr-3" class="theorem exercise">
 <p><span class="theorem-title"><strong>Bài tập 3</strong></span> Bạn hãy chứng minh lại các đẳng thức trên bằng công thức tính hệ số nhị thức mới tìm được.</p>
 </div>
-</div><div class="callout-margin-content">
 <div id="exr-4" class="theorem exercise">
 <p><span class="theorem-title"><strong>Bài tập 4</strong></span> Chứng minh</p>
 <p><span class="math display">\[
@@ -801,13 +828,14 @@ Hình&nbsp;6: Một cách viết khác của tam giác <span data-bs-toggle="too
 \]</span></p>
 <p>Sự hiện diện của <span class="math inline">\(\cos{\frac{n\pi}{2}}\)</span> trong đẳng thức này gợi lên trong bạn những suy nghĩ gì?</p>
 </div>
-</div><div class="callout-margin-content">
 <div id="exr-5" class="theorem exercise">
 <p><span class="theorem-title"><strong>Bài tập 5</strong></span> Cho <span class="math inline">\(n\)</span> là số nguyên không âm, chứng minh rằng khi <span class="math inline">\(n\)</span> tăng vô hạn, <span class="math inline">\(\sum_{j=0}^n\frac{1}{j!}\)</span> và <span class="math inline">\(\left(1+\frac{1}{n}\right)^n\)</span> cùng hội tụ về một giới hạn. Được biết giới hạn đó chính là số <span class="math inline">\(\operatorname{e}=2,718\ldots\)</span>.</p>
 </div>
-</div></div>
 
 
+<div class="zo-pdf-download">
+<p><a href="diu_dang_va_gai_goc.pdf" class="zo-pdf-download__link" download="" aria-label="Tải PDF" title="Tải bản PDF"><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> Tải PDF</a></p>
+</div>
 
 </section>
 
@@ -815,26 +843,29 @@ Hình&nbsp;6: Một cách viết khác của tam giác <span data-bs-toggle="too
 <div id="ref-edwards2019pascal" class="csl-entry" role="listitem">
 Edwards, A. W. F. 2019. <em>Pascal’s Arithmetical Triangle: The Story of a Mathematical Idea</em>. Dover edition. Dover Publications, Inc.
 </div>
-</div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Trích dẫn</h2><div><div class="quarto-appendix-secondary-label">Trích dẫn BibTeX:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@article{math2026,
-  author = {Math, ZO},
-  title = {Khai triển lũy thừa nhị thức thành đa thức},
-  date = {2026-07-06},
+</div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Trích dẫn</h2><div><div class="quarto-appendix-secondary-label">Trích dẫn BibTeX:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{zo_math2026,
+  author = {{ZO Math}},
+  publisher = {ZO Math},
+  title = {Dịu dàng và gai góc},
+  date = {2026-09-03},
   url = {https://zomath.vn/content/kien_tao/diu_dang_va_gai_goc/diu_dang_va_gai_goc.html},
   langid = {vi},
   abstract = {Bài viết đi sâu vào từng chi tiết của quá trình khai triển
-    lũy thừa nhị thức thành đa thức bằng quy tắc nhân phân phối. Quy tắc
-    này được áp dụng khéo léo vào các trường hợp đơn giản, kèm theo sơ
-    đồ minh họa phù hợp, làm xuất hiện các hình mẫu cần thiết để diễn
-    giải định lý nhị thức. Sự xuất hiện tự nhiên của tam giác Pascal,
-    nổi tiếng là một hình mẫu để tính các hệ số nhị thức, đã minh chứng
-    cho sự khéo léo này. Bài viết không chỉ truyền đạt kiến thức kỹ
-    thuật, mà còn thúc đẩy khả năng tư duy hợp lý và sáng tạo trong
-    nghiên cứu, từ khi phát hiện đến khi hoàn thiện một vấn đề toán
-    học.}
+    biểu thức \$(1+x)\^{}n\$ thành đa thức \$\$1+nx+\textbackslash
+    frac\{(n-1)n\}\{2\}x\^{}2+\textbackslash
+    frac\{(n-2)(n-1)n\}\{6\}x\^{}3+\textbackslash cdots+x\^{}n\$\$ bằng
+    quy tắc nhân phân phối. Quy tắc này được áp dụng khéo léo vào các
+    trường hợp đơn giản, kèm theo sơ đồ minh họa phù hợp, làm xuất hiện
+    các hình mẫu cần thiết để diễn giải định lý nhị thức. Sự xuất hiện
+    tự nhiên của tam giác Pascal, nổi tiếng là một hình mẫu để tính các
+    hệ số nhị thức, đã minh chứng cho sự khéo léo này. Bài viết không
+    chỉ truyền đạt kiến thức kỹ thuật, mà còn thúc đẩy khả năng tư duy
+    hợp lý và sáng tạo trong nghiên cứu, từ khi phát hiện đến khi hoàn
+    thiện một vấn đề toán học.}
 }
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">Để ghi rõ nguồn, vui lòng trích dẫn ấn phẩm này như sau:</div><div id="ref-math2026" class="csl-entry quarto-appendix-citeas" role="listitem">
-Math, ZO. 2026. <em>Khai triển lũy thừa nhị thức thành đa thức</em>.
-accepted, July 6. <a href="https://zomath.vn/content/kien_tao/diu_dang_va_gai_goc/diu_dang_va_gai_goc.html">https://zomath.vn/content/kien_tao/diu_dang_va_gai_goc/diu_dang_va_gai_goc.html</a>.
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">Để ghi rõ nguồn, vui lòng trích dẫn ấn phẩm này như sau:</div><div id="ref-zo_math2026" class="csl-entry quarto-appendix-citeas" role="listitem">
+ZO Math. 2026. <span>“Dịu dàng và gai góc.”</span> ZO Math, September 3.
+<a href="https://zomath.vn/content/kien_tao/diu_dang_va_gai_goc/diu_dang_va_gai_goc.html">https://zomath.vn/content/kien_tao/diu_dang_va_gai_goc/diu_dang_va_gai_goc.html</a>.
 </div></div></section></div></main> <!-- /main -->
 <!-- Overlay để click ra ngoài và đóng sidebar -->
 
@@ -1653,38 +1684,6 @@ accepted, July 6. <a href="https://zomath.vn/content/kien_tao/diu_dang_va_gai_go
     </div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"closeEffect":"fade","descPosition":"right","loop":false,"openEffect":"fade","selector":".lightbox"});
-(function() {
-  let previousOnload = window.onload;
-  window.onload = () => {
-    if (previousOnload) {
-      previousOnload();
-    }
-    lightboxQuarto.on('slide_before_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      const href = trigger.getAttribute('href');
-      if (href !== null) {
-        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-        if (imgEl !== null) {
-          const srcAttr = imgEl.getAttribute("src");
-          if (srcAttr && srcAttr.startsWith("data:")) {
-            slideConfig.href = srcAttr;
-          }
-        }
-      } 
-    });
-  
-    lightboxQuarto.on('slide_after_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(slideNode);
-      }
-    });
-  
-  };
-  
-})();
-          </script>
 
 
 
