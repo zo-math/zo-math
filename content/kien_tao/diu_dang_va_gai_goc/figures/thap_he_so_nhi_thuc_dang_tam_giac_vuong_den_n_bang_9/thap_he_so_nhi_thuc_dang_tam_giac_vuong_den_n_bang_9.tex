@@ -2,7 +2,7 @@
 \newcommand{\FontPath}{../../../assets/fonts/} 
 \input{../../../assets/tex/tikz-preamble.tex}
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[y=0.78cm]
     %\tikzset{every node/.style={inner sep=0, minimum size=1.2em}}
 
     % Các giá trị của tam giác Pascal được viết trực tiếp
@@ -75,5 +75,7 @@
     \node at (-6, -\n) {$n=\n$};
     }
 
+    \pgfresetboundingbox
+    \path[use as bounding box] (-6.9,-9.7) rectangle (5.1,0.6);
 \end{tikzpicture}
 \end{document}

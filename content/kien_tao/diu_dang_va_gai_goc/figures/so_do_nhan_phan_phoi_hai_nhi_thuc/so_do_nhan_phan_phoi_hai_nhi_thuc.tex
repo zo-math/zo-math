@@ -2,7 +2,7 @@
 \newcommand{\FontPath}{../../../assets/fonts/} 
 \input{../../../assets/tex/tikz-preamble.tex}
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[every node/.style={font=\large}]
     % Dòng thứ nhất
     \node (d11) at (-1,12) {$1$};
     \node (d12) at (0,12) {$+$};
@@ -22,7 +22,14 @@
     \node (d2r) at (4,10.5) {$p_2$};
     
     % Các đoạn thẳng
-    \begin{scope}[every path/.style={color=gray}, every node/.style={color=gray,font=\tiny}]  
+    \begin{scope}[
+    every path/.style={
+        color=gray,
+        shorten <=1.5pt,
+        shorten >=1.5pt
+    },
+    every node/.style={color=gray,font=\footnotesize}
+]
     \draw [->] (d11)--(d21) node[midway, left] {$1$};
     \draw [->] (d11)--(d23) node[midway, right] {$x$};
     \draw [->] (d13)--(d23) node[midway, left] {$1$};

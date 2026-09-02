@@ -2,7 +2,7 @@
 \newcommand{\FontPath}{../../../assets/fonts/} 
 \input{../../../assets/tex/tikz-preamble.tex}
 \begin{document}
-\begin{tikzpicture}%[level distance=1.5cm,sibling distance=2.5cm]    
+\begin{tikzpicture}[x=1.35cm,y=0.75cm]
     % Thêm đỉnh tháp
     \node (d00) at (0,13.5) {$1$};      
     
@@ -53,15 +53,22 @@
     \node (d511) at (5, 6) {$x^5$};
    
     % Các nhị thức tương ứng
-    \node (d0) at (-7,13.5) {$(1+x)^0$};
-    \node (d1) at (-7,12) {$(1+x)^1 $};
-    \node (d2) at (-7,10.5) {$(1+x)^2 $};
-    \node (d3) at (-7,9) {$(1+x)^3 $};
-    \node (d4) at (-7,7.5) {$(1+x)^4 $};
-    \node (d5) at (-7,6) {$(1+x)^5 $};
+    \node (d0) at (-6,13.5) {$(1+x)^0$};
+    \node (d1) at (-6,12) {$(1+x)^1 $};
+    \node (d2) at (-6,10.5) {$(1+x)^2 $};
+    \node (d3) at (-6,9) {$(1+x)^3 $};
+    \node (d4) at (-6,7.5) {$(1+x)^4 $};
+    \node (d5) at (-6,6) {$(1+x)^5 $};
 
     % Các đoạn thẳng
-    \begin{scope}[every path/.style={color=gray}, every node/.style={color=gray,font=\tiny}]
+    \begin{scope}[
+    every path/.style={
+        color=gray,
+        shorten <=1.5pt,
+        shorten >=1.5pt
+    },
+    every node/.style={color=gray,font=\tiny}
+]
     \draw [->] (d00)--(d11) node[midway, left] {$1$};
     \draw [->] (d00)--(d13) node[midway, right] {$x$};
 
@@ -97,6 +104,9 @@
     \draw [->] (d49)--(d59) node[midway, left] {$1$};
     \draw [->] (d49)--(d511) node[midway, right] {$x$};
     \end{scope}
+
+    \pgfresetboundingbox
+    \path[use as bounding box] (-6.7,5.5) rectangle (5.7,14);
     
 \end{tikzpicture}
 \end{document}

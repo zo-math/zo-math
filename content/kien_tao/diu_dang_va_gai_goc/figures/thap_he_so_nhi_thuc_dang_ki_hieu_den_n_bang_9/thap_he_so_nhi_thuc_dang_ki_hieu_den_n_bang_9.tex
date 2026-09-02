@@ -2,7 +2,7 @@
 \newcommand{\FontPath}{../../../assets/fonts/} 
 \input{../../../assets/tex/tikz-preamble.tex}
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[y=0.78cm]
     \def\rowcount{9}
     \foreach \n in {0,...,\rowcount} {
     \node at (-6, -\n) {$n=\n$};
@@ -11,6 +11,10 @@
             \node at (\k-\n/2, -\n) {$\binom{\n}{\k}$};
         }
     }
+
+    \pgfresetboundingbox
+    \path[use as bounding box] (-6.9,-9.7) rectangle (5.1,0.6);
+
 \end{tikzpicture}
 
 \end{document}
