@@ -296,7 +296,7 @@ window.Quarto = {
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/index.html">Danh sách hàm cơ bản</a></li><li class="breadcrumb-item"><a href="../../../../../content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_x_mu_3.html">Hàm số y = x³</a></li></ol></nav>
       <h1 class="title">Hàm số <span class="math inline">\(y=x^3\)</span></h1>
-            <p class="subtitle lead">Đi qua điểm dừng tại gốc mà không đổi chiều biến thiên</p>
+            <p class="subtitle lead">Đi qua điểm dừng mà không đổi chiều biến thiên</p>
                   <div>
         <div class="description">
           Độ dốc của đồ thị <span class="math inline">\(y=x^3\)</span> giảm dần về <span class="math inline">\(0\)</span> khi tiến đến gốc rồi tăng trở lại, nhưng đồ thị vẫn đi lên và không quay đầu. Điều gì phân biệt một điểm dừng với một điểm cực trị? Bài viết lần theo dấu của <span class="math inline">\(y^\prime\)</span>, sự biến thiên của <span class="math inline">\(y^\prime\)</span> và dấu của <span class="math inline">\(y^{\prime\prime}\)</span> để làm rõ điểm uốn tại gốc, rồi nhìn lại những quan hệ ấy qua hàm ngược <span class="math inline">\(y=\sqrt[3]{x}\)</span>.
@@ -318,7 +318,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Ngày cập nhật</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">22-08-2026</p>
+        <p class="date">04-09-2026</p>
       </div>
     </div>
     
@@ -482,10 +482,9 @@ window.Quarto = {
    
   <ul>
   <li><a href="#nhận-diện-và-tính-đối-xứng" id="toc-nhận-diện-và-tính-đối-xứng" class="nav-link active" data-scroll-target="#nhận-diện-và-tính-đối-xứng">Nhận diện và tính đối xứng</a></li>
-  <li><a href="#đồng-biến-nghiêm-ngặt-dù-tồn-tại-điểm-mà-đạo-hàm-triệt-tiêu" id="toc-đồng-biến-nghiêm-ngặt-dù-tồn-tại-điểm-mà-đạo-hàm-triệt-tiêu" class="nav-link" data-scroll-target="#đồng-biến-nghiêm-ngặt-dù-tồn-tại-điểm-mà-đạo-hàm-triệt-tiêu">Đồng biến nghiêm ngặt dù tồn tại điểm mà đạo hàm triệt tiêu</a></li>
+  <li><a href="#đồng-biến-nghiêm-ngặt" id="toc-đồng-biến-nghiêm-ngặt" class="nav-link" data-scroll-target="#đồng-biến-nghiêm-ngặt">Đồng biến nghiêm ngặt</a></li>
   <li><a href="#độ-dốc-thay-đổi-và-điểm-uốn" id="toc-độ-dốc-thay-đổi-và-điểm-uốn" class="nav-link" data-scroll-target="#độ-dốc-thay-đổi-và-điểm-uốn">Độ dốc thay đổi và điểm uốn</a></li>
-  <li><a href="#bảng-biến-thiên-và-đồ-thị-tổng-hợp" id="toc-bảng-biến-thiên-và-đồ-thị-tổng-hợp" class="nav-link" data-scroll-target="#bảng-biến-thiên-và-đồ-thị-tổng-hợp">Bảng biến thiên và đồ thị tổng hợp</a></li>
-  <li><a href="#vì-sao-yx2-quay-đầu-còn-yx3-đi-qua-gốc" id="toc-vì-sao-yx2-quay-đầu-còn-yx3-đi-qua-gốc" class="nav-link" data-scroll-target="#vì-sao-yx2-quay-đầu-còn-yx3-đi-qua-gốc">Vì sao <span class="math inline">\(y=x^2\)</span> quay đầu còn <span class="math inline">\(y=x^3\)</span> đi qua gốc?</a></li>
+  <li><a href="#bảng-biến-thiên-và-đồ-thị" id="toc-bảng-biến-thiên-và-đồ-thị" class="nav-link" data-scroll-target="#bảng-biến-thiên-và-đồ-thị">Bảng biến thiên và đồ thị</a></li>
   <li><a href="#từ-tính-đồng-biến-đến-hàm-ngược" id="toc-từ-tính-đồng-biến-đến-hàm-ngược" class="nav-link" data-scroll-target="#từ-tính-đồng-biến-đến-hàm-ngược">Từ tính đồng biến đến hàm ngược</a></li>
   <li><a href="#nhìn-lại-điểm-dừng-tại-gốc" id="toc-nhìn-lại-điểm-dừng-tại-gốc" class="nav-link" data-scroll-target="#nhìn-lại-điểm-dừng-tại-gốc">Nhìn lại điểm dừng tại gốc</a></li>
   <li><a href="#bài-tập" id="toc-bài-tập" class="nav-link" data-scroll-target="#bài-tập">Bài tập</a>
@@ -509,15 +508,25 @@ window.Quarto = {
 <p>Hàm số <span class="math inline">\(y=x^3\)</span> được xác định trên toàn <span class="math inline">\(\mathbb{R}\)</span>.</p>
 <p>Với <span class="math inline">\(f(x)=x^3\)</span>, <span class="math display">\[
 f(-x)=(-x)^3=-x^3=-f(x),
-\]</span> nên <span class="math inline">\(y=x^3\)</span> là hàm số lẻ và đồ thị đối xứng qua gốc tọa độ <span class="math inline">\(O(0,0)\)</span>. Đối xứng này giúp ta khôi phục nửa đồ thị bên trái từ nửa bên phải. Tuy nhiên, những kết luận toàn cục đối với hàm số lẻ vẫn cần được kiểm tra trên toàn miền, chứ không chỉ dựa vào hình đối xứng.</p>
+\]</span> nên <span class="math inline">\(y=x^3\)</span> là hàm số lẻ và đồ thị đối xứng qua gốc tọa độ <span class="math inline">\(O(0,0)\)</span>. Phép đối xứng này giúp ta hoàn thiện nửa đồ thị bên trái từ nửa bên phải. Tuy nhiên, những kết luận toàn cục đối với hàm số lẻ vẫn cần được kiểm tra trên toàn miền, chứ không chỉ dựa vào hình đối xứng.</p>
 <details class="zo-block zo-block-red">
 <summary class="zo-block-title">
 Hàm số lẻ
 </summary>
 <div class="zo-block-body">
-<p>Cho hàm số <span class="math inline">\(f\)</span> có tập xác định <span class="math inline">\(D\)</span> đối xứng qua <span class="math inline">\(0\)</span>, nghĩa là nếu <span class="math inline">\(x\in D\)</span> thì <span class="math inline">\(-x\in D\)</span>. Hàm số <span class="math inline">\(f\)</span> được gọi là <em>hàm lẻ</em> nếu, với mọi <span class="math inline">\(x\in D\)</span>, ta có <span class="math display">\[
+<p>Cho hàm số <span class="math inline">\(f\)</span> có tập xác định <span class="math inline">\(D\)</span> đối xứng qua <span class="math inline">\(0\)</span>, nghĩa là nếu <span class="math inline">\(x\in D\)</span> thì <span class="math inline">\(-x\in D\)</span>. Hàm số <span class="math inline">\(f\)</span> được gọi là <em>hàm lẻ</em> nếu, với mọi <span class="math inline">\(x\in D\)</span>, <span class="math display">\[
 f(-x)=-f(x).
-\]</span> Khi đó đồ thị của <span class="math inline">\(f\)</span> nhận gốc tọa độ làm tâm đối xứng. Nếu <span class="math inline">\(0\in D\)</span> thì từ <span class="math inline">\(f(0)=-f(0)\)</span> suy ra <span class="math inline">\(f(0)=0\)</span>.</p>
+\]</span></p>
+<p>Điều kiện này có một ý nghĩa hình học trực tiếp. Lấy một điểm bất kì <span class="math display">\[
+(x,f(x))
+\]</span> của đồ thị. Điểm đối xứng của nó qua gốc tọa độ <span class="math inline">\(O\)</span> có tọa độ <span class="math inline">\((-x,-f(x))\)</span>.</p>
+<p>Vì <span class="math inline">\(f\)</span> là hàm lẻ nên <span class="math display">\[
+-f(x)=f(-x).
+\]</span> Do đó điểm đối xứng ấy có thể viết thành <span class="math display">\[
+(-x,f(-x)),
+\]</span> và đây cũng là một điểm của đồ thị ứng với hoành độ <span class="math inline">\(-x\)</span>.</p>
+<p>Như vậy, mỗi điểm của đồ thị đều có điểm đối xứng qua <span class="math inline">\(O\)</span> cũng nằm trên đồ thị. Vì thế, đồ thị của hàm lẻ nhận gốc tọa độ <span class="math inline">\(O\)</span> làm tâm đối xứng.</p>
+<strong>Lưu ý:</strong> Với hàm lẻ, nếu <span class="math inline">\(0\in D\)</span> thì <span class="math inline">\(f(0)=0\)</span>. Vì sao?
 </div>
 </details>
 <p>Phương trình</p>
@@ -530,7 +539,7 @@ x^3=0
 x^3=x\cdot x^2
 \]</span></p>
 <p>cho phép nhìn thấy hai vai trò khác nhau trong cùng một biểu thức. Nhân tử <span class="math inline">\(x\)</span> giữ lại dấu của giá trị: khi <span class="math inline">\(x&lt;0\)</span> thì <span class="math inline">\(x^3&lt;0\)</span>, còn khi <span class="math inline">\(x&gt;0\)</span> thì <span class="math inline">\(x^3&gt;0\)</span>, bởi <span class="math inline">\(x^2\)</span> luôn dương với <span class="math inline">\(x\ne0\)</span>. Vì thế, phần đồ thị bên trái gốc tọa độ nằm dưới trục hoành, còn phần bên phải nằm trên trục hoành.</p>
-<p>Nhưng <span class="math inline">\(x^2\)</span> không chỉ đứng đó mà không làm đổi dấu. Nó còn quyết định giá trị của <span class="math inline">\(x\)</span> được thu nhỏ hay khuếch đại khi tạo thành <span class="math inline">\(x^3\)</span>. Nếu <span class="math inline">\(\lvert x\rvert&lt;1\)</span> thì <span class="math inline">\(x^2&lt;1\)</span>, nên phép nhân với <span class="math inline">\(x^2\)</span> làm cho</p>
+<p>Nhưng <span class="math inline">\(x^2\)</span> không chỉ đứng đó để không làm đổi dấu. Nó còn quyết định giá trị của <span class="math inline">\(x\)</span> được thu nhỏ hay khuếch đại khi tạo thành <span class="math inline">\(x^3\)</span>. Nếu <span class="math inline">\(\lvert x\rvert&lt;1\)</span> thì <span class="math inline">\(x^2&lt;1\)</span>, nên phép nhân với <span class="math inline">\(x^2\)</span> làm cho</p>
 <p><span class="math display">\[
 \lvert x^3\rvert&lt;\lvert x\rvert.
 \]</span></p>
@@ -541,60 +550,78 @@ x^3=x\cdot x^2
 <p>ra ngoài khoảng ấy, đồ thị <span class="math inline">\(y=x^3\)</span> nằm xa trục hoành hơn <span class="math inline">\(y=x\)</span>. Tại <span class="math inline">\(x=-1\)</span>, <span class="math inline">\(0\)</span> và <span class="math inline">\(1\)</span>, hai đồ thị gặp nhau.</p>
 <p>Như vậy, cấu trúc <span class="math inline">\(x^3=x\cdot x^2\)</span> đã cho ta một hình dung khá rõ trước cả khi dùng đạo hàm: nhân tử <span class="math inline">\(x\)</span> quyết định đồ thị nằm về phía nào của trục hoành, còn nhân tử <span class="math inline">\(x^2\)</span> làm nó ép sát về trục hoành khi ở gần gốc và tách xa dần khi <span class="math inline">\(\lvert x\rvert\)</span> lớn hơn <span class="math inline">\(1\)</span>. Chính sự kết hợp hai vai trò ấy tạo nên một phần hình dạng đặc trưng của đồ thị <span class="math inline">\(y=x^3\)</span>.</p>
 </section>
-<section id="đồng-biến-nghiêm-ngặt-dù-tồn-tại-điểm-mà-đạo-hàm-triệt-tiêu" class="level2">
-<h2 class="anchored" data-anchor-id="đồng-biến-nghiêm-ngặt-dù-tồn-tại-điểm-mà-đạo-hàm-triệt-tiêu">Đồng biến nghiêm ngặt dù tồn tại điểm mà đạo hàm triệt tiêu</h2>
-<p>Có thể thấy tính đồng biến của <span class="math inline">\(x^3\)</span> ngay từ đại số. Với hai số thực <span class="math inline">\(a&lt;b\)</span>, <span class="math display">\[
-b^3-a^3=(b-a)(a^2+ab+b^2).
-\]</span> Ta có <span class="math inline">\(b-a&gt;0\)</span> và <span class="math display">\[
-a^2+ab+b^2=\left(a+\frac{b}{2}\right)^2+\frac{3b^2}{4}&gt;0,
-\]</span> vì đẳng thức chỉ có thể xảy ra khi <span class="math inline">\(a=b=0\)</span>, trái với <span class="math inline">\(a&lt;b\)</span>. Do đó <span class="math display">\[
-b^3-a^3&gt;0.
-\]</span> Vì thế <span class="math inline">\(y=x^3\)</span> đồng biến nghiêm ngặt trên toàn <span class="math inline">\(\mathbb{R}\)</span>. Lập luận này cho thấy rõ thứ tự logic: tính đồng biến là một thuộc tính của hàm số, không phải một khái niệm được định nghĩa bằng đạo hàm. Đạo hàm là một công cụ mạnh để nhận diện, kiểm tra và giải thích thuộc tính ấy khi các điều kiện áp dụng đã được thỏa mãn.</p>
-<p>Hai giới hạn ở vô cực phù hợp với chiều biến thiên vừa xác lập: <span class="math display">\[
+<section id="đồng-biến-nghiêm-ngặt" class="level2">
+<h2 class="anchored" data-anchor-id="đồng-biến-nghiêm-ngặt">Đồng biến nghiêm ngặt</h2>
+<p>Có thể nhận thấy tính đồng biến của <span class="math inline">\(x^3\)</span> ngay từ đại số. Với hai số thực <span class="math inline">\(a&lt;b\)</span>, có thể khẳng định <span class="math display">\[
+b^3-a^3=(b-a)(a^2+ab+b^2)&gt;0.
+\]</span> Vì <span class="math inline">\(b-a&gt;0\)</span> và <span class="math display">\[
+a^2+ab+b^2=\left(a+\frac{b}{2}\right)^2+\frac{3b^2}{4}&gt;0.
+\]</span> Do đó, <span class="math inline">\(y=x^3\)</span> đồng biến nghiêm ngặt trên toàn <span class="math inline">\(\mathbb{R}\)</span>. Lập luận này cho thấy: tính đồng biến là một thuộc tính của hàm số, không phải một khái niệm được định nghĩa bằng đạo hàm. Đạo hàm là một công cụ mạnh để nhận diện, kiểm tra và giải thích thuộc tính ấy khi các điều kiện áp dụng đã được thỏa mãn.</p>
+<p>Khi <span class="math inline">\(x\)</span> có độ lớn ngày càng lớn, <span class="math inline">\(x^3\)</span> cũng có độ lớn ngày càng lớn và giữ cùng dấu với <span class="math inline">\(x\)</span>. Vì thế, <span class="math display">\[
 \lim_{x\to-\infty}x^3=-\infty
 \]</span> và <span class="math display">\[
 \lim_{x\to+\infty}x^3=+\infty.
-\]</span> Do hàm liên tục và đồng biến nghiêm ngặt từ <span class="math inline">\(-\infty\)</span> đến <span class="math inline">\(+\infty\)</span>, tập giá trị của hàm số là toàn bộ <span class="math inline">\(\mathbb{R}\)</span>. Tương đương, với mỗi <span class="math inline">\(m\in\mathbb{R}\)</span>, phương trình <span class="math inline">\(x^3=m\)</span> có đúng một nghiệm thực.</p>
-<p>Đạo hàm bậc nhất cho biết độ dốc của tiếp tuyến với đồ thị:</p>
-<p><span class="math display">\[
-y^\prime=3x^2.
 \]</span></p>
-<p>Với <span class="math inline">\(x\ne0\)</span>, ta có <span class="math inline">\(y^\prime&gt;0\)</span>, còn tại <span class="math inline">\(x=0\)</span>,</p>
+<p>Hàm số <span class="math inline">\(y=x^3\)</span> là một hàm đa thức nên liên tục trên toàn bộ <span class="math inline">\(\mathbb{R}\)</span>. Kết hợp tính liên tục với hai giới hạn trên, hàm số nhận mọi giá trị thực; do đó tập giá trị là <span class="math inline">\(\mathbb{R}\)</span>.</p>
+<p>Hơn nữa, vì hàm số đồng biến nghiêm ngặt, nên với mỗi <span class="math inline">\(m\in\mathbb{R}\)</span>, phương trình <span class="math display">\[
+x^3=m
+\]</span> có đúng một nghiệm thực.</p>
+<p>Đạo hàm bậc nhất của hàm số là</p>
 <p><span class="math display">\[
-y^\prime(0)=0.
+y'=3x^2\ge 0
 \]</span></p>
-<p>Vì vậy, tại gốc tọa độ, đồ thị có một tiếp tuyến nằm ngang. Tuy nhiên, đạo hàm bằng <span class="math inline">\(0\)</span> tại một điểm chưa đủ để kết luận rằng hàm số đạt cực trị ở đó; điều quan trọng là dấu của đạo hàm thay đổi thế nào khi đi qua điểm ấy.</p>
-<p>Ở đây,</p>
+<p>với mọi <span class="math inline">\(x\in\mathbb R\)</span>. Kết quả này phù hợp với tính đồng biến nghiêm ngặt đã được chứng minh ở trên. Tuy nhiên, tại <span class="math inline">\(x=0\)</span>,</p>
 <p><span class="math display">\[
-y^\prime=3(x-0)^2.
+y'(0)=0.
 \]</span></p>
-<p>Nghiệm <span class="math inline">\(x=0\)</span> của phương trình <span class="math inline">\(y^\prime=0\)</span> có bội <span class="math inline">\(2\)</span>. Số mũ chẵn làm cho <span class="math inline">\((x-0)^2\)</span> dương ở cả hai phía của <span class="math inline">\(0\)</span>: đạo hàm giảm về <span class="math inline">\(0\)</span> khi <span class="math inline">\(x\)</span> tiến đến <span class="math inline">\(0\)</span> từ bên trái, rồi tăng trở lại từ <span class="math inline">\(0\)</span> khi <span class="math inline">\(x\)</span> đi sang bên phải, nhưng không đổi sang giá trị âm.</p>
-<p>Bởi vậy, độ dốc của đồ thị có lúc bằng <span class="math inline">\(0\)</span> nhưng không đổi dấu. Hàm số vẫn tiếp tục đồng biến qua <span class="math inline">\(0\)</span>, nên <span class="math inline">\(O(0,0)\)</span> không phải là điểm cực trị. Tiếp tuyến của đồ thị tại đây là</p>
+<p>Điều gì xảy ra với đồ thị tại điểm này?</p>
+<details class="zo-block zo-block-red">
+<summary class="zo-block-title">
+Tiếp tuyến của đồ thị hàm số
+</summary>
+<div class="zo-block-body">
+<p>Giả sử hàm số <span class="math inline">\(f\)</span> được xác định trên một khoảng mở chứa <span class="math inline">\(a\)</span>. Nếu giới hạn</p>
+<p><span class="math display">\[
+\lim_{x\to a}\frac{f(x)-f(a)}{x-a}
+\]</span></p>
+<p>tồn tại, thì tiếp tuyến của đồ thị <span class="math inline">\(y=f(x)\)</span> tại điểm <span class="math inline">\((a,f(a))\)</span> là đường thẳng đi qua điểm đó và có hệ số góc bằng giới hạn trên.</p>
+<p>Khi <span class="math inline">\(f^\prime(a)\)</span> tồn tại, hệ số góc của tiếp tuyến chính là <span class="math inline">\(f^\prime(a)\)</span>.</p>
+</div>
+</details>
+<p>Vì <span class="math inline">\(y'(0)=0\)</span>, tiếp tuyến của đồ thị <span class="math inline">\(y=x^3\)</span> tại <span class="math inline">\(O(0,0)\)</span> có hệ số góc bằng <span class="math inline">\(0\)</span>. Đó là đường thẳng nằm ngang</p>
 <p><span class="math display">\[
 y=0.
 \]</span></p>
-<details class="zo-block zo-block-red">
-<summary class="zo-block-title">
-Nghiệm bội và sự đổi dấu
-</summary>
-<div class="zo-block-body">
-<p>Giả sử gần <span class="math inline">\(x=a\)</span> một biểu thức liên tục <span class="math inline">\(g\)</span> có dạng <span class="math display">\[
+<p>Một đạo hàm bằng <span class="math inline">\(0\)</span> tại một điểm chưa đủ để kết luận hàm số đạt cực trị tại điểm đó. Khi dùng dấu của đạo hàm để nhận biết cực trị, điều quyết định là đạo hàm có đổi dấu khi đi qua điểm đang xét hay không: sự đổi dấu từ dương sang âm cho thấy hàm chuyển từ tăng sang giảm, còn sự đổi dấu từ âm sang dương cho thấy hàm chuyển từ giảm sang tăng.</p>
+<p>Ở đây, <span class="math inline">\(3x^2\)</span> không âm ở cả hai phía của <span class="math inline">\(0\)</span> và không đổi dấu khi đi qua <span class="math inline">\(0\)</span>. Hàm số vì thế vẫn tiếp tục đồng biến qua điểm này. Nhìn trên đồ thị, đường cong đi lên, dần trở nên nằm ngang khi đến <span class="math inline">\(O\)</span>, rồi tiếp tục đi lên sau khi vượt qua <span class="math inline">\(O\)</span>. Tiếp tuyến nằm ngang không đồng nghĩa với việc đồ thị phải quay đầu.</p>
+<p>Điểm <span class="math inline">\(O\)</span> còn cho thấy một đặc điểm dễ bị che khuất bởi hình dung quen thuộc về tiếp tuyến. Khi <span class="math inline">\(x&lt;0\)</span>, ta có <span class="math inline">\(x^3&lt;0\)</span>, nên đồ thị nằm dưới đường thẳng <span class="math inline">\(y=0\)</span>; khi <span class="math inline">\(x&gt;0\)</span>, ta có <span class="math inline">\(x^3&gt;0\)</span>, nên đồ thị nằm trên đường thẳng ấy. Như vậy, đồ thị cắt tiếp tuyến tại chính tiếp điểm <span class="math inline">\(O\)</span>.</p>
+<p>Tiếp tuyến vì thế không nên được hiểu là đường thẳng chỉ ``chạm mà không cắt’’ đường cong. Điều xác định tiếp tuyến là hướng của đường cong tại tiếp điểm, được biểu thị bằng giới hạn của các hệ số góc cát tuyến, hay bằng đạo hàm khi đạo hàm tồn tại.</p>
+<!-- <details class="zo-block zo-block-red">
+  <summary class="zo-block-title">Nghiệm bội và sự đổi dấu</summary>
+  <div class="zo-block-body">
+
+Giả sử gần $x=a$, một biểu thức $g$ có dạng
+$$
 g(x)=(x-a)^m h(x),
-\]</span> trong đó <span class="math inline">\(h(a)\ne0\)</span>. Khi đó <span class="math inline">\(a\)</span> là một nghiệm bội <span class="math inline">\(m\)</span> của <span class="math inline">\(g\)</span>. Vì <span class="math inline">\(h\)</span> giữ nguyên dấu trong một lân cận đủ nhỏ của <span class="math inline">\(a\)</span>, sự đổi dấu của <span class="math inline">\(g\)</span> được quyết định bởi <span class="math inline">\((x-a)^m\)</span>. Khi <span class="math inline">\(m\)</span> lẻ, <span class="math inline">\((x-a)^m\)</span> đổi dấu khi đi qua <span class="math inline">\(a\)</span>, còn khi <span class="math inline">\(m\)</span> chẵn, <span class="math inline">\((x-a)^m\)</span> không đổi dấu khi đi qua <span class="math inline">\(a\)</span>.</p>
-<p>Vì vậy, đối với đạo hàm, một nghiệm bội chẵn thường làm <span class="math inline">\(y^\prime\)</span> giữ nguyên dấu ở hai phía, còn một nghiệm bội lẻ làm <span class="math inline">\(y^\prime\)</span> đổi dấu, miễn là phần còn lại của phép phân tích không triệt tiêu tại điểm đang xét.</p>
-</div>
-</details>
+$$
+trong đó $h$ liên tục tại $a$ và $h(a)\ne 0$. Khi đó $h$ giữ nguyên dấu trong một lân cận đủ nhỏ của $a$, nên sự đổi dấu của $g$ được quyết định bởi $(x-a)^m$. Nếu $m$ lẻ, $(x-a)^m$ đổi dấu khi đi qua $a$; nếu $m$ chẵn, $(x-a)^m$ không đổi dấu.
+
+Vì vậy, đối với đạo hàm, một nghiệm bội chẵn thường làm $y^\prime$ giữ nguyên dấu ở hai phía, còn một nghiệm bội lẻ làm $y^\prime$ đổi dấu, miễn là phần còn lại của phép phân tích không triệt tiêu tại điểm đang xét.
+
+  </div>
+</details> -->
 </section>
 <section id="độ-dốc-thay-đổi-và-điểm-uốn" class="level2">
 <h2 class="anchored" data-anchor-id="độ-dốc-thay-đổi-và-điểm-uốn">Độ dốc thay đổi và điểm uốn</h2>
-<p>Trước khi dùng đạo hàm bậc hai, chính công thức <span class="math inline">\(y^\prime=3x^2\)</span> đã cho thấy độ dốc biến đổi như thế nào. Nếu <span class="math inline">\(x_1&lt;x_2\le0\)</span> thì <span class="math inline">\(|x_1|&gt;|x_2|\)</span>, nên <span class="math display">\[
+<p>Trước khi dùng đạo hàm bậc hai, chính công thức <span class="math inline">\(y^\prime=3x^2\)</span> đã cho thấy độ dốc biến đổi như thế nào. Nếu <span class="math inline">\(x_1&lt;x_2\le0\)</span> thì <span class="math inline">\(\lvert x_1\rvert&gt;\lvert x_2\rvert\)</span>, nên <span class="math display">\[
 3x_1^2&gt;3x_2^2.
 \]</span> Vì vậy, khi đi từ trái sang phải trên <span class="math inline">\((-\infty,0]\)</span>, độ dốc giảm dần về <span class="math inline">\(0\)</span>. Ngược lại, nếu <span class="math inline">\(0\le x_1&lt;x_2\)</span> thì <span class="math display">\[
 3x_1^2&lt;3x_2^2,
-\]</span> nên độ dốc tăng dần khi rời gốc về phía phải. Các bất đẳng thức này đã mô tả được chuyển động “phẳng dần rồi dốc dần” mà chưa cần lấy đạo hàm lần thứ hai.</p>
-<p>Đạo hàm bậc hai nén đúng xu hướng vừa chứng minh vào một công thức: <span class="math display">\[
+\]</span> nên độ dốc tăng dần khi rời gốc về phía phải.</p>
+<p>Các bất đẳng thức này đã mô tả được chuyển động “phẳng dần rồi dốc dần” mà chưa cần lấy đạo hàm lần thứ hai.</p>
+<p>Đạo hàm bậc hai nén đúng xu hướng vừa vừa biểu hiện thông qua các bất đẳng thức vào một công thức: <span class="math display">\[
 y^{\prime\prime}=6x.
-\]</span> Khi <span class="math inline">\(x&lt;0\)</span>, ta có <span class="math inline">\(y^{\prime\prime}&lt;0\)</span>, nên <span class="math inline">\(y^\prime\)</span> giảm; khi <span class="math inline">\(x&gt;0\)</span>, ta có <span class="math inline">\(y^{\prime\prime}&gt;0\)</span>, nên <span class="math inline">\(y^\prime\)</span> tăng. Đạo hàm bậc hai vì thế cho phép nhận biết nhanh sự thay đổi của độ dốc mà trước đó ta đã thấy trực tiếp từ bất đẳng thức. Khi tiến đến gốc từ bên trái, đồ thị vẫn đi lên nhưng ngày càng phẳng; sau khi đi qua gốc, nó tiếp tục đi lên và ngày càng dốc hơn. Nói theo tính cong, đồ thị chuyển từ cong xuống sang cong lên tại <span class="math inline">\(O\)</span>; đây chính là cơ chế hình học của điểm uốn tại gốc.</p>
+\]</span> Khi <span class="math inline">\(x&lt;0\)</span>, ta có <span class="math inline">\(y^{\prime\prime}&lt;0\)</span>, nên <span class="math inline">\(y^\prime\)</span> giảm; khi <span class="math inline">\(x&gt;0\)</span>, ta có <span class="math inline">\(y^{\prime\prime}&gt;0\)</span>, nên <span class="math inline">\(y^\prime\)</span> tăng. Đạo hàm bậc hai vì thế cho phép nhận biết nhanh sự thay đổi của độ dốc. Khi tiến đến gốc từ bên trái, đồ thị vẫn đi lên nhưng ngày càng phẳng; sau khi đi qua gốc, nó tiếp tục đi lên và ngày càng dốc hơn. Nói theo tính cong, đồ thị chuyển từ cong xuống sang cong lên tại <span class="math inline">\(O\)</span>; đây chính là cơ chế hình học của điểm uốn.</p>
 <details class="zo-block zo-block-red">
 <summary class="zo-block-title">
 Điểm uốn của đồ thị
@@ -604,11 +631,11 @@ y^{\prime\prime}=6x.
 <p>Điều kiện <span class="math inline">\(f^{\prime\prime}(a)=0\)</span> tự nó chưa đủ để kết luận có điểm uốn; điều quyết định là sự đổi tính cong của đồ thị.</p>
 </div>
 </details>
-<p>Với <span class="math inline">\(y=x^3\)</span>, <span class="math inline">\(y^{\prime\prime}=6x\)</span> đổi dấu từ âm sang dương khi đi qua <span class="math inline">\(0\)</span>, nên <span class="math inline">\(O(0,0)\)</span> là điểm uốn. Đồng thời, vì <span class="math inline">\(x^3&lt;0\)</span> khi <span class="math inline">\(x&lt;0\)</span> và <span class="math inline">\(x^3&gt;0\)</span> khi <span class="math inline">\(x&gt;0\)</span>, đường cong nằm ở hai phía khác nhau của tiếp tuyến <span class="math inline">\(y=0\)</span> và đi xuyên qua tiếp tuyến ấy tại gốc. Việc đi xuyên qua tiếp tuyến là một hệ quả hình học trong trường hợp này; tiêu chuẩn nhận diện điểm uốn vẫn là sự đổi tính cong.</p>
+<p>Với <span class="math inline">\(y=x^3\)</span>, vì <span class="math inline">\(y^{\prime\prime}=6x\)</span> đổi dấu từ âm sang dương khi đi qua <span class="math inline">\(0\)</span>, nên <span class="math inline">\(O(0,0)\)</span> là điểm uốn. Đồng thời, vì <span class="math inline">\(x^3&lt;0\)</span> khi <span class="math inline">\(x&lt;0\)</span> và <span class="math inline">\(x^3&gt;0\)</span> khi <span class="math inline">\(x&gt;0\)</span>, đường cong nằm ở hai phía khác nhau của tiếp tuyến <span class="math inline">\(y=0\)</span> và đi xuyên qua tiếp tuyến ấy tại gốc. Việc đi xuyên qua tiếp tuyến là một hệ quả hình học trong trường hợp này; tiêu chuẩn nhận diện điểm uốn vẫn là sự đổi tính cong.</p>
 </section>
-<section id="bảng-biến-thiên-và-đồ-thị-tổng-hợp" class="level2">
-<h2 class="anchored" data-anchor-id="bảng-biến-thiên-và-đồ-thị-tổng-hợp">Bảng biến thiên và đồ thị tổng hợp</h2>
-<p>Những kết quả trên có thể nén vào bảng biến thiên sau. Hai dấu <span class="math inline">\(+\)</span> nằm ở các cột biểu diễn hai khoảng <span class="math inline">\((-\infty,0)\)</span> và <span class="math inline">\((0,+\infty)\)</span>; chúng không phải là giá trị của đạo hàm tại <span class="math inline">\(\pm\infty\)</span>.</p>
+<section id="bảng-biến-thiên-và-đồ-thị" class="level2">
+<h2 class="anchored" data-anchor-id="bảng-biến-thiên-và-đồ-thị">Bảng biến thiên và đồ thị</h2>
+<p>Những kết quả đã nghiên cứu qua được tổng hợp lại trong bảng biến thiên sau.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -630,6 +657,14 @@ y^{\prime\prime}=6x.
 <td style="text-align: center;"></td>
 </tr>
 <tr class="even">
+<td><span class="math inline">\(y^{\prime\prime}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><span class="math inline">\(-\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(+\)</span></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
 <td><span class="math inline">\(y\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(-\infty\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(\nearrow\)</span></td>
@@ -640,7 +675,7 @@ y^{\prime\prime}=6x.
 </tbody>
 </table>
 <p>Bảng cho thấy một điểm dừng duy nhất tại <span class="math inline">\(x=0\)</span> nhưng không có sự đổi chiều tăng. Khi đọc cùng dấu của <span class="math inline">\(y^{\prime\prime}\)</span>, ta còn thấy rõ hơn cấu trúc địa phương: nhánh bên trái vẫn tăng nhưng phẳng dần khi tiến đến gốc; nhánh bên phải tiếp tục tăng và dốc dần khi rời gốc.</p>
-<div id="fig-ham_x_mu_3" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Đồ thị hàm số y=x^3 đối xứng qua gốc tọa độ, đi qua O, âm một âm một và một một; đường cong tăng trên toàn trục số và đổi tính cong tại gốc" data-fig-pos="H" data-fig-align="center">
+<div id="fig-ham_x_mu_3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center" alt="Đồ thị hàm số y=x^3 đối xứng qua gốc tọa độ, đi qua O, âm một âm một và một một; đường cong tăng trên toàn trục số và đổi tính cong tại gốc">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ham_x_mu_3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../_figures/ham_x_mu_3/svg/ham_x_mu_3.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Đồ thị hàm số y=x^3 đối xứng qua gốc tọa độ, đi qua O, âm một âm một và một một; đường cong tăng trên toàn trục số và đổi tính cong tại gốc">
@@ -651,71 +686,14 @@ Hình&nbsp;1: Đồ thị hàm số <span class="math inline">\(y=x^3\)</span>
 </figure>
 </div>
 </section>
-<section id="vì-sao-yx2-quay-đầu-còn-yx3-đi-qua-gốc" class="level2">
-<h2 class="anchored" data-anchor-id="vì-sao-yx2-quay-đầu-còn-yx3-đi-qua-gốc">Vì sao <span class="math inline">\(y=x^2\)</span> quay đầu còn <span class="math inline">\(y=x^3\)</span> đi qua gốc?</h2>
-<p>Hai hàm <span class="math inline">\(y=x^2\)</span> và <span class="math inline">\(y=x^3\)</span> đều có tiếp tuyến nằm ngang tại gốc, nhưng cơ chế tại đó khác nhau.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Quan hệ tại <span class="math inline">\(x=0\)</span></th>
-<th><span class="math inline">\(y=x^2\)</span></th>
-<th><span class="math inline">\(y=x^3\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Đạo hàm</td>
-<td><span class="math inline">\(y^\prime=2x\)</span></td>
-<td><span class="math inline">\(y^\prime=3x^2\)</span></td>
-</tr>
-<tr class="even">
-<td>Bội của nghiệm <span class="math inline">\(y^\prime=0\)</span></td>
-<td><span class="math inline">\(1\)</span> — bội lẻ</td>
-<td><span class="math inline">\(2\)</span> — bội chẵn</td>
-</tr>
-<tr class="odd">
-<td>Dấu của <span class="math inline">\(y^\prime\)</span> qua <span class="math inline">\(0\)</span></td>
-<td><span class="math inline">\(-\to+\)</span></td>
-<td><span class="math inline">\(+\to+\)</span></td>
-</tr>
-<tr class="even">
-<td>Hệ quả về biến thiên</td>
-<td>giảm rồi tăng</td>
-<td>tăng ở cả hai phía</td>
-</tr>
-<tr class="odd">
-<td>Cực trị tại gốc</td>
-<td>cực tiểu</td>
-<td>không có cực trị</td>
-</tr>
-<tr class="even">
-<td>Đạo hàm bậc hai</td>
-<td><span class="math inline">\(y^{\prime\prime}=2&gt;0\)</span></td>
-<td><span class="math inline">\(y^{\prime\prime}=6x\)</span> đổi dấu</td>
-</tr>
-<tr class="odd">
-<td>Quan hệ với tiếp tuyến <span class="math inline">\(y=0\)</span></td>
-<td><span class="math inline">\(x^2\)</span> có bội <span class="math inline">\(2\)</span>, đồ thị ở cùng một phía</td>
-<td><span class="math inline">\(x^3\)</span> có bội <span class="math inline">\(3\)</span>, đồ thị đi qua tiếp tuyến</td>
-</tr>
-</tbody>
-</table>
-<p>Bảng này làm rõ hai vai trò khác nhau của tính chẵn lẻ của số bội. Bội của nghiệm của <span class="math inline">\(y^\prime\)</span> kiểm soát khả năng đổi dấu của đạo hàm và do đó liên quan trực tiếp đến cực trị. Bội của nghiệm của <span class="math inline">\(f(x)-T(x)\)</span>, với <span class="math inline">\(T\)</span> là tiếp tuyến tại điểm đang xét, mô tả cách đường cong tiếp xúc với tiếp tuyến: bội chẵn giữ đường cong về một phía, còn bội lẻ cho phép đường cong đi qua tiếp tuyến.</p>
-<p>Với <span class="math inline">\(y=x^3\)</span>, hai thông tin ấy kết hợp với nhau: <span class="math inline">\(y^\prime\)</span> có nghiệm bội chẵn nên không xuất hiện cực trị, trong khi <span class="math inline">\(y^{\prime\prime}\)</span> đổi dấu và <span class="math inline">\(y-T=x^3\)</span> có nghiệm bội lẻ nên gốc tọa độ là một điểm uốn nơi đường cong đi qua tiếp tuyến ngang.</p>
-</section>
 <section id="từ-tính-đồng-biến-đến-hàm-ngược" class="level2">
 <h2 class="anchored" data-anchor-id="từ-tính-đồng-biến-đến-hàm-ngược">Từ tính đồng biến đến hàm ngược</h2>
 <p>Tính đồng biến nghiêm ngặt cùng tập giá trị <span class="math inline">\(\mathbb{R}\)</span> còn cho một hệ quả tự nhiên. Hàm <span class="math display">\[
 f\colon \mathbb{R}\to\mathbb{R}
 \]</span> được cho bởi <span class="math inline">\(f(x)=x^3\)</span> là một-một và phủ hết <span class="math inline">\(\mathbb{R}\)</span>, nên có hàm ngược trên toàn trục số: <span class="math display">\[
 f^{-1}(x)=\sqrt[3]{x}.
-\]</span> Đồ thị của <span class="math inline">\(y=x^3\)</span> và <span class="math inline">\(y=\sqrt[3]{x}\)</span> đối xứng qua đường thẳng <span class="math inline">\(y=x\)</span>. Phép đối xứng này biến tiếp tuyến ngang <span class="math inline">\(y=0\)</span> của đồ thị <span class="math inline">\(y=x^3\)</span> tại gốc thành tiếp tuyến đứng <span class="math inline">\(x=0\)</span> của đồ thị hàm ngược. Vì vậy, hiện tượng “phẳng lại” của <span class="math inline">\(x^3\)</span> tại gốc được nhìn từ hàm ngược thành một tiếp tuyến đứng.</p>
-<div id="fig-ham_x_mu_3_va_ham_nguoc" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Đồ thị y=x^3 và y=căn bậc ba của x đối xứng qua y=x; tại gốc, tiếp tuyến ngang của y=x^3 phản xạ thành tiếp tuyến đứng của hàm ngược" data-fig-pos="H" data-fig-align="center">
+\]</span> Đồ thị của <span class="math inline">\(y=x^3\)</span> và <span class="math inline">\(y=\sqrt[3]{x}\)</span> đối xứng qua đường thẳng <span class="math inline">\(y=x\)</span>. Phép đối xứng này biến tiếp tuyến ngang <span class="math inline">\(y=0\)</span> của đồ thị <span class="math inline">\(y=x^3\)</span> tại gốc thành tiếp tuyến đứng <span class="math inline">\(x=0\)</span> của đồ thị hàm ngược. Vì vậy, hiện tượng đồ thị “bằng phẳng” tại gốc của <span class="math inline">\(x^3\)</span> lại trở thành “dựng đứng” với <span class="math inline">\(\sqrt[3]{x}\)</span>.</p>
+<div id="fig-ham_x_mu_3_va_ham_nguoc" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center" alt="Đồ thị y=x^3 và y=căn bậc ba của x đối xứng qua y=x; tại gốc, tiếp tuyến ngang của y=x^3 phản xạ thành tiếp tuyến đứng của hàm ngược">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ham_x_mu_3_va_ham_nguoc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../_figures/ham_x_mu_3/svg/ham_x_mu_3_va_ham_nguoc.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Đồ thị y=x^3 và y=căn bậc ba của x đối xứng qua y=x; tại gốc, tiếp tuyến ngang của y=x^3 phản xạ thành tiếp tuyến đứng của hàm ngược">
@@ -725,25 +703,31 @@ Hình&nbsp;2: Đồ thị <span class="math inline">\(y=x^3\)</span> và hàm ng
 </figcaption>
 </figure>
 </div>
-<p>Trên hình, gốc tọa độ nằm trên trục đối xứng <span class="math inline">\(y=x\)</span>, nên được giữ cố định qua phép phản xạ. Điểm uốn tại gốc của <span class="math inline">\(y=x^3\)</span> tương ứng với điểm uốn có tiếp tuyến đứng của <span class="math inline">\(y=\sqrt[3]{x}\)</span>. Cả hai hàm đều đồng biến và không có cực trị, vì vậy trong cặp đồ thị này không có điểm cực trị nào để phản chiếu. Hai đoạn tiếp tuyến được nhấn tại gốc cho thấy trực tiếp quan hệ ngang–đứng dưới phép đối xứng.</p>
-<p>Mối liên hệ này không phải một tính chất riêng của công thức lũy thừa bậc ba. Khi một hàm một-một có hàm ngược, việc phản xạ đồ thị qua <span class="math inline">\(y=x\)</span> chuyển các quan hệ hình học của hàm sang những quan hệ tương ứng của hàm ngược. Tuy nhiên, mỗi kết luận vi phân vẫn phải được kiểm tra với các điều kiện thích hợp tại điểm đang xét.</p>
+<p>Trên hình, gốc tọa độ nằm trên trục đối xứng <span class="math inline">\(y=x\)</span>, nên được giữ cố định qua phép phản xạ. Điểm uốn tại gốc nơi có tiếp tuyến ngang của <span class="math inline">\(y=x^3\)</span> tương ứng với điểm uốn có tiếp tuyến đứng của <span class="math inline">\(y=\sqrt[3]{x}\)</span>. Cả hai hàm đều đồng biến và không có cực trị, vì vậy trong cặp đồ thị này không có điểm cực trị nào để phản chiếu. Hai đoạn tiếp tuyến được nhấn tại gốc cho thấy trực tiếp quan hệ ngang–đứng dưới phép đối xứng.</p>
+<p>Mối liên hệ này không phải một tính chất riêng của công thức lũy thừa bậc ba. Khi một hàm số một-một có hàm ngược, đồ thị của hàm ngược là ảnh của đồ thị hàm ban đầu qua phép đối xứng qua đường thẳng <span class="math inline">\(y=x\)</span>. Phép đối xứng ấy hoán đổi vai trò của hai tọa độ: điểm <span class="math inline">\((a,b)\)</span> chuyển thành <span class="math inline">\((b,a)\)</span>, và một tiếp tuyến ngang có thể chuyển thành một tiếp tuyến đứng. Tuy nhiên, các đặc điểm hình học không nhất thiết được giữ nguyên cùng một dạng; chẳng hạn, tính cong lên có thể chuyển thành tính cong xuống. Vì vậy, phép đối xứng cho ta một cách nhìn hình học để liên hệ hai đồ thị, nhưng những kết luận về đạo hàm, tiếp tuyến hay tính cong của hàm ngược vẫn phải được thiết lập với các điều kiện thích hợp tại điểm đang xét.</p>
 </section>
 <section id="nhìn-lại-điểm-dừng-tại-gốc" class="level2">
 <h2 class="anchored" data-anchor-id="nhìn-lại-điểm-dừng-tại-gốc">Nhìn lại điểm dừng tại gốc</h2>
-<p>Tại <span class="math inline">\(O(0,0)\)</span>, ba hiện tượng xảy ra đồng thời nhưng cần được phân biệt.</p>
-<p>Trước hết,</p>
+<p>Tại <span class="math inline">\(O(0,0)\)</span>, ba hiện tượng cùng xuất hiện nhưng mang những ý nghĩa khác nhau và cần được phân biệt.</p>
+<p><em>Thứ nhất, đồ thị có tiếp tuyến nằm ngang tại <span class="math inline">\(O\)</span>.</em> Ta có</p>
 <p><span class="math display">\[
-y^\prime(0)=0
+y^\prime(0)=0.
 \]</span></p>
-<p>cho biết độ dốc của tiếp tuyến bằng <span class="math inline">\(0\)</span>, nên đồ thị có tiếp tuyến nằm ngang tại <span class="math inline">\(O\)</span>. Riêng điều kiện này chưa cho biết hàm số có đạt cực trị hay không.</p>
-<p>Muốn biết điều gì xảy ra với chiều biến thiên, cần xét dấu của đạo hàm bậc nhất. Với <span class="math inline">\(y=x^3\)</span>, ta có <span class="math inline">\(y^\prime=3x^2&gt;0\)</span> ở cả hai phía của <span class="math inline">\(0\)</span>. Đạo hàm chỉ bằng <span class="math inline">\(0\)</span> tại chính điểm ấy mà không đổi dấu khi đi qua nó. Vì vậy, hàm số không đổi chiều biến thiên: trước và sau <span class="math inline">\(0\)</span>, nó vẫn đồng biến. Điểm <span class="math inline">\(O\)</span> do đó không phải là điểm cực trị.</p>
-<p>Đạo hàm bậc hai cho một thông tin khác. Dấu của <span class="math inline">\(y^\prime\)</span> cho biết chiều biến thiên của <span class="math inline">\(y\)</span>; còn dấu của <span class="math inline">\(y^{\prime\prime}\)</span> cho biết chiều biến thiên của chính <span class="math inline">\(y^\prime\)</span>. Ở đây,</p>
+<p>Đạo hàm tại <span class="math inline">\(0\)</span> chính là hệ số góc của tiếp tuyến tại <span class="math inline">\(O\)</span>, nên tiếp tuyến ở đây có hệ số góc bằng <span class="math inline">\(0\)</span>. Tuy nhiên, một tiếp tuyến nằm ngang chưa đủ để kết luận hàm số đạt cực trị.</p>
+<p><em>Thứ hai, hàm số không đổi chiều biến thiên khi đi qua <span class="math inline">\(0\)</span>.</em> Với</p>
+<p><span class="math display">\[
+y^\prime=3x^2,
+\]</span></p>
+<p>ta có <span class="math inline">\(y^\prime&gt;0\)</span> khi <span class="math inline">\(x\ne 0\)</span> và <span class="math inline">\(y^\prime(0)=0\)</span>. Như vậy, đạo hàm dương ở cả hai phía của <span class="math inline">\(0\)</span> và không đổi dấu khi đi qua điểm này. Hàm số vẫn đồng biến trước và sau <span class="math inline">\(0\)</span>; nó không chuyển từ tăng sang giảm hoặc từ giảm sang tăng. Vì thế, <span class="math inline">\(x=0\)</span> không phải là điểm cực trị của hàm số.</p>
+<p>Điều này cho thấy <span class="math inline">\(y^\prime(a)=0\)</span> chỉ cho biết <span class="math inline">\(a\)</span> là một điểm cần được khảo sát thêm. Muốn kết luận về cực trị bằng dấu của đạo hàm, cần xét xem <span class="math inline">\(y^\prime\)</span> có đổi dấu khi đi qua <span class="math inline">\(a\)</span> hay không.</p>
+<p><em>Thứ ba, đồ thị lại đổi tính cong tại <span class="math inline">\(O\)</span>.</em> Đạo hàm bậc hai là</p>
 <p><span class="math display">\[
 y^{\prime\prime}=6x.
 \]</span></p>
-<p>Khi <span class="math inline">\(x&lt;0\)</span>, đạo hàm <span class="math inline">\(y^\prime\)</span> giảm; khi <span class="math inline">\(x&gt;0\)</span>, đạo hàm <span class="math inline">\(y^\prime\)</span> tăng. Trên đồ thị, điều đó có nghĩa là độ dốc giảm dần về <span class="math inline">\(0\)</span> khi tiến đến gốc từ bên trái, rồi tăng dần từ <span class="math inline">\(0\)</span> khi đi sang bên phải. Đồ thị vì thế chuyển từ cong xuống sang cong lên tại <span class="math inline">\(O\)</span>. Nói cách khác, đồ thị đổi tính cong và <span class="math inline">\(O\)</span> là một điểm uốn.</p>
-<p>Như vậy, đạo hàm bậc nhất và đạo hàm bậc hai đang mô tả hai tầng biến thiên khác nhau. Dấu của <span class="math inline">\(y^\prime\)</span> cho biết <span class="math inline">\(y\)</span> đang tăng hay giảm; dấu của <span class="math inline">\(y^{\prime\prime}\)</span> cho biết <span class="math inline">\(y^\prime\)</span> đang tăng hay giảm. Trên đồ thị, tầng thứ nhất biểu hiện thành việc đường cong đi lên hay đi xuống, còn tầng thứ hai biểu hiện thành việc đường cong cong lên hay cong xuống.</p>
-<p>Vì thế, phương trình <span class="math inline">\(y^\prime=0\)</span> chỉ xác định những điểm cần tiếp tục khảo sát. Muốn kết luận về cực trị, phải xét xem đạo hàm bậc nhất có đổi dấu và hàm số có đổi chiều biến thiên hay không. Muốn kết luận về điểm uốn, phải xác nhận đồ thị có đổi tính cong hay không. Số bội của một nghiệm có thể giúp nhận ra cơ chế đổi dấu của đạo hàm, nhưng không thay thế việc kiểm tra điều kiện của kết luận đang xét.</p>
+<p>Khi <span class="math inline">\(x&lt;0\)</span>, ta có <span class="math inline">\(y^{\prime\prime}&lt;0\)</span>, nên <span class="math inline">\(y^\prime\)</span> giảm; khi <span class="math inline">\(x&gt;0\)</span>, ta có <span class="math inline">\(y^{\prime\prime}&gt;0\)</span>, nên <span class="math inline">\(y^\prime\)</span> tăng. Vì thế, khi tiến đến <span class="math inline">\(O\)</span> từ bên trái, độ dốc của đồ thị giảm dần về <span class="math inline">\(0\)</span>; sau khi đi qua <span class="math inline">\(O\)</span>, độ dốc lại tăng dần từ <span class="math inline">\(0\)</span>.</p>
+<p>Trên đồ thị, sự thay đổi ấy biểu hiện thành việc đường cong chuyển từ cong xuống sang cong lên tại <span class="math inline">\(O\)</span>. Đồ thị đổi tính cong khi đi qua điểm này, nên <span class="math inline">\(O\)</span> là một điểm uốn.</p>
+<p>Hai đạo hàm vì thế mô tả hai tầng biến thiên khác nhau. Dấu của <span class="math inline">\(y^\prime\)</span> cho biết giá trị của hàm số đang tăng hay giảm; dấu của <span class="math inline">\(y^{\prime\prime}\)</span> cho biết độ dốc ấy đang tăng hay giảm. Trên đồ thị, tầng thứ nhất liên quan đến việc đường cong đi lên hay đi xuống, còn tầng thứ hai liên quan đến việc đường cong cong lên hay cong xuống.</p>
+<p>Điểm <span class="math inline">\(O\)</span> cho thấy rõ sự khác biệt giữa các hiện tượng này: đồ thị có tiếp tuyến nằm ngang, nhưng hàm số không đạt cực trị; đồng thời, chính tại đó đồ thị đổi tính cong và có một điểm uốn.</p>
 </section>
 <section id="bài-tập" class="level2">
 <h2 class="anchored" data-anchor-id="bài-tập">Bài tập</h2>
@@ -754,8 +738,7 @@ y^{\prime\prime}=6x.
 <p>Cho hàm số <span class="math inline">\(y=x^3\)</span>.</p>
 <ol type="a">
 <li>Chứng minh hàm số là hàm lẻ và nêu ý nghĩa hình học của tính chất này.</li>
-<li>Với <span class="math inline">\(a&lt;b\)</span>, phân tích <span class="math inline">\(b^3-a^3\)</span> thành nhân tử và chứng minh trực tiếp rằng <span class="math inline">\(a^3&lt;b^3\)</span>. Từ đó kết luận hàm số đồng biến nghiêm ngặt trên <span class="math inline">\(\mathbb{R}\)</span> mà chưa dùng đạo hàm.</li>
-<li>Tính <span class="math inline">\(y^\prime\)</span>. Xác định bội của nghiệm <span class="math inline">\(x=0\)</span> của phương trình <span class="math inline">\(y^\prime=0\)</span> và dùng tính chẵn lẻ của số bội để giải thích vì sao đạo hàm không đổi dấu qua <span class="math inline">\(0\)</span>.</li>
+<li>Với <span class="math inline">\(a&lt;b\)</span>, phân tích <span class="math inline">\(b^3-a^3\)</span> thành nhân tử và chứng minh trực tiếp rằng <span class="math inline">\(a^3&lt;b^3\)</span>. Từ đó kết luận hàm số đồng biến nghiêm ngặt trên <span class="math inline">\(\mathbb{R}\)</span> mà chưa dùng đạo hàm. <!-- c. Tính $y^\prime$. Xác định bội của nghiệm $x=0$ của phương trình $y^\prime=0$ và dùng tính chẵn lẻ của số bội để giải thích vì sao đạo hàm không đổi dấu qua $0$. --></li>
 </ol>
 </section>
 <section id="bài-2.-tiếp-tuyến-điểm-uốn-và-hàm-ngược" class="level4">
@@ -765,6 +748,7 @@ y^{\prime\prime}=6x.
 <li>Từ <span class="math inline">\(y^\prime=3x^2\)</span>, dùng bất đẳng thức để chứng minh độ dốc giảm dần khi <span class="math inline">\(x\)</span> tiến đến <span class="math inline">\(0\)</span> từ bên trái và tăng dần khi <span class="math inline">\(x\)</span> rời <span class="math inline">\(0\)</span> về bên phải. Sau đó tính <span class="math inline">\(y^{\prime\prime}\)</span> để kiểm tra lại xu hướng ấy, chứng minh <span class="math inline">\(O(0,0)\)</span> là điểm uốn và viết phương trình tiếp tuyến của đồ thị tại <span class="math inline">\(O\)</span>.</li>
 <li>Chứng minh tập giá trị của hàm số là <span class="math inline">\(\mathbb{R}\)</span> và suy ra hàm số có hàm ngược trên <span class="math inline">\(\mathbb{R}\)</span>.</li>
 <li>Tìm công thức của hàm ngược. Dựa vào phép đối xứng qua <span class="math inline">\(y=x\)</span> và hình minh họa trong bài, giải thích vì sao tiếp tuyến ngang của <span class="math inline">\(y=x^3\)</span> tại gốc tương ứng với một tiếp tuyến đứng của đồ thị hàm ngược, đồng thời nêu điều gì xảy ra với điểm uốn và vì sao không có cực trị nào cần phản chiếu.</li>
+<li>Có phải mọi tính chất hình học của hàm ngược đều bảo toàn so với hàm ban đầu?</li>
 </ol>
 </section>
 </section>
