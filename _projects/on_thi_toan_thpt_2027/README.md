@@ -13,26 +13,33 @@ Tài liệu nội bộ không được render hoặc publish. Ranh giới này p
 
 ## 2. Danh mục tài liệu canonical
 
-Các đường dẫn dưới đây tính từ gốc quản trị nội bộ. Kế hoạch điều hành 0.6 đã nhập và đối chiếu bằng tệp trong repo; bốn tài sản còn lại chưa nhập và chưa nhận tệp để đối chiếu. Chỉ tài liệu đã tồn tại mới có liên kết; xác nhận của chủ dự án được ghi riêng với kết quả đối chiếu tệp.
+Các đường dẫn dưới đây tính từ gốc quản trị nội bộ. Kế hoạch điều hành 0.6 và bộ tài sản D0 v1.0 đã nhập và đối chiếu bằng tệp trong repo; ba tài sản còn lại chưa nhập và chưa nhận tệp để đối chiếu. Chỉ tài liệu đã tồn tại mới có liên kết; xác nhận của chủ dự án được ghi riêng với kết quả đối chiếu tệp.
 
 SHA-256 của Kế hoạch 0.6 đã đối chiếu khớp mã chủ dự án cung cấp: `ec5221120abde5a43bb8ed10d849970b63d46652177f8270d43b60d164471c86`. Tệp ghi đúng tên dự án, ấn bản ôn thi 2027 và phiên bản 0.6; nội dung Kế hoạch được giữ nguyên.
 
 | Tài sản | Vai trò | Đường dẫn đích đã phê duyệt | Trạng thái đối chiếu | Chủ dự án xác nhận |
 |---|---|---|---|---|
 | Kế hoạch điều hành 0.6 | Điều hành | [Kế hoạch điều hành](dieu_hanh/ke_hoach_dieu_hanh.md) | đã nhập và đối chiếu | Bản canonical là 0.6; số phiên bản lưu trong tài liệu |
-| D0 v1.0 | Hồ sơ gói nền tảng | `goi/D0/D0.md` nếu là một tài liệu; `goi/D0/` nếu là bộ tài sản | chưa nhận tệp để đối chiếu | Đã hoàn tất v1.0; nếu là bộ tài sản, phải đối chiếu thành phần trước khi chốt từng đường dẫn |
+| D0 v1.0 | Bộ tài sản khảo sát và định vị đầu vào | [Điểm vào canonical D0](goi/D0/README.md) | đã nhập và đối chiếu; chi tiết kiểm chứng bên dưới | Chủ dự án xác nhận D0 đã hoàn tất v1.0 |
 | R1-G01/NB01 | Nghiên cứu đã khóa | `goi/R1-G01/nghien_cuu/NB01_dao_ham_va_don_dieu.md` | chưa nhận tệp để đối chiếu | Đạo hàm và Đơn điệu — đã khóa |
 | R1-G01/NB02 | Nghiên cứu đã khóa | `goi/R1-G01/nghien_cuu/NB02_dao_ham_va_cuc_tri.md` | chưa nhận tệp để đối chiếu | Đạo hàm và Cực trị — đã khóa |
 | R1-G01/Khung sản phẩm sống | Tài liệu sống | `goi/R1-G01/khung_san_pham_song.md` | chưa nhận tệp để đối chiếu | Đã có bản đầu |
 
+Kiểm chứng bộ D0 v1.0:
+
+- 23/23 tệp thuộc [manifest gốc](goi/D0/MANIFEST_SHA256.txt) đã khớp SHA-256; không thiếu tệp được liệt kê.
+- `MANIFEST_SHA256.txt` không tự liệt kê chính nó.
+- [HUONG_DAN_SU_DUNG.md](goi/D0/HUONG_DAN_SU_DUNG.md) là tài liệu bổ sung ngoài manifest, được chủ dự án xác nhận hợp lệ và thêm sau khi manifest gốc được lập. SHA-256 đã đối chiếu: `7853f36db073b2cac392f7fa029e67c732976c704dab2c3dd02d59d087e670f1`.
+- Tổng cộng 25 tệp: 23 tệp thuộc manifest, manifest và tài liệu bổ sung. Giữ nguyên manifest và toàn bộ tệp D0; kiểm chứng tính nguyên vẹn không thay thế nghiệm thu nội dung.
+
 ## 3. Trạng thái các gói
 
-Kế hoạch 0.6 đã được đối chiếu bằng tệp trong repo. Các trạng thái gói còn lại giữ theo xác nhận của chủ dự án; chưa đối chiếu bằng tệp tài sản tương ứng.
+Kế hoạch 0.6 và bộ tài sản D0 v1.0 đã được đối chiếu bằng tệp trong repo. Các trạng thái R1-G01 giữ theo xác nhận của chủ dự án; chưa đối chiếu bằng tệp tài sản tương ứng.
 
 | Phạm vi | Trạng thái |
 |---|---|
 | Điều hành | Kế hoạch canonical 0.6; tệp đã nhập và đối chiếu |
-| D0 | Hoàn tất v1.0; tệp hoặc bộ tài sản chưa được nhập và đối chiếu |
+| D0 | Chủ dự án xác nhận đã hoàn tất v1.0; bộ tài sản đã nhập và đối chiếu |
 | R1-G01 | Đang triển khai |
 | R1-G01/NB01 và NB02 | Đã khóa; chưa có tệp canonical trong repo |
 | R1-G01/Khung sản phẩm sống | Đã có bản đầu; chưa được nhập |
@@ -45,12 +52,12 @@ Chưa đăng ký nguồn canonical. Danh mục sẽ được đăng ký sau khi 
 
 ## 5. Việc tiếp theo duy nhất
 
-Tiếp nhận và xác minh D0 v1.0 để nhập vào `_projects/on_thi_toan_thpt_2027/goi/D0/`.
+Tiếp nhận và xác minh R1-G01/NB01 — Đạo hàm và Đơn điệu để nhập vào `_projects/on_thi_toan_thpt_2027/goi/R1-G01/nghien_cuu/NB01_dao_ham_va_don_dieu.md`.
 
 Điều kiện hoàn tất:
 
-- Nhận được tệp hoặc bộ tài sản thực tế.
-- Chủ dự án xác nhận đúng D0 đã hoàn tất v1.0.
-- Kiểm tra tên dự án, phiên bản, nội dung, phụ lục và tính đầy đủ của bộ tài sản; chốt từng đường dẫn đích trước khi nhập.
-- Tính SHA-256 của từng tệp đầu vào.
+- Nhận được tệp thực tế.
+- Chủ dự án xác nhận đúng bản R1-G01/NB01 đã khóa.
+- Kiểm tra tên dự án, mã gói và Notebook, phiên bản hoặc mốc khóa, nội dung, nguồn và phụ lục.
+- Tính SHA-256 của bản đầu vào.
 - Chưa biên tập nội dung trong bước tiếp nhận.
