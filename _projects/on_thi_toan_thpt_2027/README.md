@@ -55,15 +55,24 @@ Toàn bộ năm tài sản ban đầu đã được đối chiếu bằng tệp 
 
 ## 4. Danh mục nguồn đang dùng
 
-Chưa đăng ký nguồn canonical. Danh mục sẽ được đăng ký sau khi đối chiếu nguồn hiện có trong repo và bộ nguồn chính thức của dự án, ghi tên nguồn, xuất xứ, vị trí canonical hoặc địa chỉ chính thức và SHA-256 khi có bản tệp xác định. Tái sử dụng nguồn bằng liên kết; không tự sao chép PDF có giới hạn phân phối. Chưa sao chép PDF hoặc tạo thư mục nguồn trong giai đoạn này.
+Kho nguồn cá nhân chỉ đọc: `E:\zo_math_ca_nhan\zo_math_on_thi_toan_thpt\nguon\`. Đây là vị trí truy cập cục bộ hiện hành, không phải thành phần của repo `E:\zo_math`. Tên tệp trong bảng được tính từ kho này; không sao chép PDF vào repo.
+
+| ID | Tên chính thức | Cơ quan / nhà xuất bản | Tên tệp hiện tại | SHA-256 |
+|---|---|---|---|---|
+| SRC-CTGDPT-TOAN-2018 | Chương trình giáo dục phổ thông môn Toán | Bộ Giáo dục và Đào tạo; ban hành kèm Thông tư 32/2018/TT-BGDĐT ngày 26/12/2018 | `Chuong trinh giao duc pho thong mon Toan 2018.pdf` | `f35d34ff84da2ca3f9ab72d5d67482ada414684b611deea98c4b329801b661ab` |
+| SRC-SGK12-KNTT-T1 | Toán 12 — Tập Một, Kết nối tri thức với cuộc sống | Nhà xuất bản Giáo dục Việt Nam | `Toan 12. Tap 1. Ket noi tri thuc voi cuoc song.pdf` | `faeb554bea9cf81189c5e790b1b1edb42f50b3648694acc80dc99682ada3f1fd` |
+| SRC-SGK12-KNTT-T2 | Toán 12 — Tập Hai, Kết nối tri thức với cuộc sống | Nhà xuất bản Giáo dục Việt Nam | `Toan 12. Tap 2. Ket noi tri thuc voi cuoc song.pdf` | `3c642f2e80d86d699ea62bbcabd0c3074fd5118def96e4b3b8ce1f9ead7f97bb` |
+
+Đã đối chiếu ngày 2026-09-13: chương trình là bản đầy đủ 123 trang được chủ dự án chọn; không đăng ký bản rút gọn 38 trang. Hai SGK được nhận diện trực quan qua bìa, trang tên sách và trang thông tin xuất bản: đúng bộ, lớp và tập; tổng chủ biên Hà Huy Khoái; bìa và trang tên sách ghi “Bản mẫu — Tháng 1-2024”, trang xuất bản ghi bản quyền 2024, một số trường in/ISBN còn để trống. Tập Một có 104 trang PDF, Tập Hai có 99 trang PDF; không coi đây là bản in thương mại đã xác minh ISBN đầy đủ.
+
+Ba tệp với SHA-256 trên là các bản tham chiếu hiện hành cho công việc từ NB03 trở đi. Đối với NB01–NB02, các tài liệu chính thức tương ứng đã được dùng theo xác nhận của chủ dự án; chưa có bằng chứng rằng các SHA-256 hiện tại chính là các bản tệp đã nạp trước đây.
 
 ## 5. Việc tiếp theo duy nhất
 
-Đăng ký ba nguồn đang dùng cho R1-G01: Chương trình môn Toán 2018, SGK Toán 12 Tập 1 và SGK Toán 12 Tập 2.
+Chuẩn bị R1-G01/NB03 trong một phiên chat và một Notebook mới, dựa trên Khung sản phẩm sống current.
 
 Điều kiện hoàn tất:
 
-- Xác minh đúng ba nguồn và bản đang dùng, gồm xuất xứ, bộ sách và ấn bản khi có.
-- Ghi tại mục 4 tên nguồn, xuất xứ, vị trí canonical hoặc địa chỉ chính thức; dùng liên kết tới vị trí đã xác minh.
-- Tính và ghi SHA-256 khi có bản tệp xác định.
-- Không tự sao chép hoặc di chuyển tệp nguồn; không đưa tài liệu có giới hạn phân phối vào repo công khai.
+- Chuẩn bị câu hỏi và mục tiêu NB03 theo Khung sản phẩm sống current.
+- Xác định phạm vi đọc từ ba bản tham chiếu hiện hành tại mục 4 để dùng trong phiên chat và Notebook mới.
+- Giữ nguyên các bản kết tinh NB01–NB02 đã khóa; chưa chuyển sang sản xuất học liệu.
