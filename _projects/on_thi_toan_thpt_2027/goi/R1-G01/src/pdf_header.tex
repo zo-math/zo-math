@@ -1,0 +1,28 @@
+\usepackage{unicode-math}
+\setmainfont{STIXTwoText-Regular.ttf}[Path=src/fonts/,BoldFont=STIXTwoText-Bold.ttf,ItalicFont=STIXTwoText-Regular.ttf,ItalicFeatures={FakeSlant=0.18},BoldItalicFont=STIXTwoText-Bold.ttf,BoldItalicFeatures={FakeSlant=0.18}]
+\setmathfont{STIXTwoMath.ttf}[Path=src/fonts/]
+\definecolor{zoRed}{HTML}{BF4240}
+\definecolor{zoInk}{HTML}{3E3A35}
+\definecolor{zoLine}{HTML}{DFD7CA}
+\color{zoInk}
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries\color{zoRed}}{}{0pt}{}
+\titleformat{\subsection}{\large\bfseries}{}{0pt}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{}{0pt}{}
+\newcommand{\sectionbreak}{\clearpage}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small ZO Math}
+\fancyhead[R]{\small R1-G01 · v1.1}
+\fancyfoot[L]{\footnotesize Kết nối hàm số, bảng biến thiên và đồ thị}
+\fancyfoot[R]{\footnotesize\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\setlength{\headheight}{15pt}
+\setlength{\emergencystretch}{3em}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.18}
+\AtBeginDocument{\hypersetup{colorlinks=true,linkcolor=zoRed,urlcolor=zoRed,pdftitle={Kết nối hàm số, bảng biến thiên và đồ thị},pdfauthor={ZO Math},pdfsubject={Dấu đạo hàm, tính đơn điệu và cực trị — R1-G01 v1.1}}}
+
+\usepackage{caption}
+\captionsetup[table]{labelformat=empty,font=small}

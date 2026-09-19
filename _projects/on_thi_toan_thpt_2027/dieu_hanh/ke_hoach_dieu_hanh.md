@@ -8,13 +8,13 @@
 - **Mục tiêu điều phối:** giúp học sinh ôn thi theo các mạch kiến thức liên kết, nhận diện thiếu hụt, ôn lại, luyện tổng hợp, luyện đề và sửa lỗi.
 - **Quy mô thiết kế:** CT → CD01–CD15 → B01–B42; tám mạch R1–R8 và nền N; 36 tuần × khoảng 6 giờ/tuần là lộ trình tham chiếu đầy đủ. Lịch cá nhân tính từ mốc thi, ngày gia nhập, D0, tiến độ trường và quỹ giờ thực.
 - **Căn cứ:** chương trình môn Toán, sáu SGK Kết nối tri thức đã cung cấp, quy chế hợp nhất 2026 và các nguồn đề thi đã đối chiếu. Chấp nhận các bản sách ghi “Bản mẫu”.
-- **Cách tạo học liệu:** người chủ trì nghiên cứu từ nguồn với Notebook, thực hành và trao đổi; kết tinh nội dung; sản xuất, kiểm định, đóng gói và công bố theo phạm vi được giao.
+- **Cách tạo học liệu:** người chủ trì nghiên cứu từ nguồn bằng công cụ phù hợp, thực hành và trao đổi; kết tinh nội dung ở cấp gói; sản xuất, kiểm định, đóng gói và công bố theo phạm vi được giao.
 - **Trạng thái:** D0 — khảo sát đầu vào — đã hoàn tất v1.0 và có trong Nguồn.
 - **Việc triển khai kế tiếp duy nhất sau khi khóa 0.6:** chuẩn bị bộ nguồn và ma trận mục tiêu cho phiên nghiên cứu đầu tiên của R1-G01 — kết nối đạo hàm, bảng biến thiên và đồ thị (15.5).
 
 **Bản 0.6 thay thế đầy đủ bản 0.5 trong điều hành dự án; 0.5 là bản nền canonical đã dùng để audit và kế thừa.** Mọi quyết định đang áp dụng, bảng lộ trình, chỉ mục kiến thức, quy trình, biểu mẫu và kết quả đánh giá nguồn cần dùng đã nằm trong tệp này. Không cần đọc kèm bản cũ hay báo cáo đánh giá tám tài liệu. Các bản nguồn và thành phẩm đã kiểm định vẫn được giữ để tra cứu và truy nguyên.
 
-Kế hoạch đã hoàn thành ở mức thiết kế và điều phối; các gói học liệu, notebook và trang công bố sẽ được tạo theo thứ tự trong kế hoạch. Thời lượng ôn của học sinh không phải định mức lao động của người chủ trì. Các giả thiết thiết kế và các thông tin kỳ thi cần cập nhật được tập trung tại mục 12 và 15, thay vì biến thành điều kiện chờ ở mọi chặng.
+Kế hoạch đã hoàn thành ở mức thiết kế và điều phối; các gói học liệu và trang công bố sẽ được tạo theo thứ tự trong kế hoạch. Công cụ hoặc phiên nghiên cứu không phải đơn vị quản lí chính thức. Thời lượng ôn của học sinh không phải định mức lao động của người chủ trì. Các giả thiết thiết kế và các thông tin kỳ thi cần cập nhật được tập trung tại mục 12 và 15, thay vì biến thành điều kiện chờ ở mọi chặng.
 
 ## 0. Cách dùng kế hoạch
 
@@ -37,7 +37,7 @@ Mỗi tuần vận hành: mở lịch cá nhân hiện hành (12.10–12.13), đ
 
 Mỗi lần hiệu chỉnh giữ mọi nội dung còn đúng và có ích; sửa chỗ sai hoặc lỗi thời; tích hợp quyết định mới ngay tại nơi áp dụng; rà các tham chiếu, mã và trạng thái. Chỉ rút gọn khi vẫn giữ đầy đủ ý nghĩa và khả năng làm theo. Nhật ký tại mục 15 và phụ lục F giúp tra việc sửa, không thay cho nội dung hiện hành.
 
-Kế hoạch này tổ chức chương trình ôn thi. Quá trình học sâu của người chủ trì là cách tạo học liệu tốt cho chương trình ấy. Một phiên Notebook có thể nghiên cứu một ý rất nhỏ; đơn vị giao cho học sinh vẫn phải gắn với nhiệm vụ ôn và vị trí trong lộ trình.
+Kế hoạch này tổ chức chương trình ôn thi. Quá trình học sâu của người chủ trì là cách tạo học liệu tốt cho chương trình ấy. Một hoạt động nghiên cứu có thể làm rõ một ý rất nhỏ; kết quả cần giữ phải được hòa nhập vào hồ sơ gói, và đơn vị giao cho học sinh vẫn phải gắn với nhiệm vụ ôn cùng vị trí trong lộ trình.
 
 ### 0.2. Mục lục toàn tài liệu
 
@@ -48,7 +48,7 @@ Kế hoạch này tổ chức chương trình ôn thi. Quá trình học sâu c�
 | 3 | Nguồn, phạm vi kiểm chứng và căn cứ đề thi |
 | 4 | Tám mạch ôn, bản đồ R–B và các nhóm kiến thức |
 | 5 | Ma trận yêu cầu, câu hỏi, đầu vào và quyết định tiến tiếp |
-| 6 | Notebook theo gói ôn, thử đọc nguồn và quản lý thay đổi |
+| 6 | Nghiên cứu theo gói ôn, thử đọc nguồn và quản lí thay đổi |
 | 7 | Nghiên cứu, kết tinh, ghi hình và tiếp tục sau gián đoạn |
 | 8 | Hệ học liệu, Studio và trải nghiệm học sinh |
 | 9 | Kiểm định, phản hồi, sửa lỗi và điều kiện đóng gói |
@@ -117,7 +117,7 @@ Kho lâu dài giữ khái niệm, lập luận, hình, bài tập, lời giải,
 | Sản phẩm | Bài đọc, phiếu, lời giải, sơ đồ, slide, âm thanh, video, thẻ nhớ hoặc bài kiểm tra |
 | Phiên tự học của học sinh | Một phần của lộ trình phù hợp kiến thức hiện có của em |
 
-Một chương không nhất thiết bằng một bộ; một bộ không bằng một notebook hay một video. Nếu một cụm quá rộng, chia thành bài nhỏ có mục tiêu và kiểm tra độc lập trước khi quyết định cách đóng gói.
+Một chương không nhất thiết bằng một gói; một gói không bằng một phiên làm việc, một công cụ nghiên cứu hay một video. Nếu một cụm quá rộng, chia thành bài nhỏ có mục tiêu và kiểm tra độc lập trước khi quyết định cách đóng gói.
 
 ### 2.2. Phân công
 
@@ -133,7 +133,7 @@ ChatGPT làm những việc đọc, tổng hợp và biên tập có thể tự 
 
 ### 2.3. Điều phối và đầu ra của từng bên
 
-Kế hoạch và hồ sơ Markdown bên ngoài Notebook giữ quyết định chính thức của dự án. Sổ ghi chú hỗ trợ học và tạo sản phẩm; trạng thái trong sổ phải được chuyển vào hồ sơ khi kết thúc việc. ChatGPT chuẩn bị và cập nhật hồ sơ, người chủ trì xem các quyết định ảnh hưởng nội dung và cách công bố.
+Kế hoạch và hồ sơ Markdown của gói giữ quyết định chính thức của dự án. Sổ ghi chú hoặc công cụ khác chỉ hỗ trợ nghiên cứu và tạo sản phẩm; kết quả còn giá trị phải được hòa nhập vào hồ sơ gói, không trở thành một tầng quản lí hoặc trạng thái sản xuất. ChatGPT chuẩn bị và cập nhật hồ sơ, người chủ trì xem các quyết định ảnh hưởng nội dung và cách công bố.
 
 | Công việc | Người hoặc công cụ thực hiện | Đầu ra để xem lại |
 | --- | --- | --- |
@@ -272,7 +272,7 @@ Các dòng sau là danh mục điều phối trong kế hoạch, chưa phải c�
 | CDHT | Sách Chuyên đề học tập | Đã có danh mục từ CT ở phụ lục C, chưa đọc ba sách | Mở khi đã xác định mục tiêu riêng của chuyên đề |
 | THI | Quy định, đề và hướng dẫn kỳ thi | Có kiểm kê từng phần của tám tệp tại E.6; đã tách gói nguồn ở E.7 | Chọn câu theo mục tiêu; tự giải và kiểm chứng trước khi chấm; cập nhật hướng dẫn 2027 |
 | ZM | Nội dung ZO Math dùng lại | Có danh sách ứng viên, chưa kiểm kê repo trong phiên này | Đọc đúng bản QMD, hình, PDF và hồ sơ liên quan trước khi dùng |
-| NB | Hướng dẫn Notebook và Studio | Đã đọc các trang trợ giúp ghi ở phụ lục E | Thử nguồn, tính năng và cách xuất trên tài khoản thực tế khi triển khai |
+| TOOL | Hướng dẫn công cụ nghiên cứu và Studio | Đã đọc các trang trợ giúp ghi ở phụ lục E | Thử nguồn, tính năng và cách xuất trên tài khoản thực tế khi triển khai |
 | QT | Lịch sử năm ghi chú quy trình | Các quyết định đã chọn nằm trong mục 7–10 | Không nạp ghi chú thứ sinh vào nguồn chuẩn; dùng quy trình hiện hành trong kế hoạch |
 | NC | Nghiên cứu giáo dục và toán mở rộng | Chưa mở đợt nghiên cứu mới theo kế hoạch này | Khi thật sự cần, đọc công trình gốc và ghi đúng phạm vi kết luận |
 
@@ -611,15 +611,15 @@ Hằng tuần ghi bài mới làm độc lập, thời gian thực, lỗi tái d
 
 Không ấn định cỡ mẫu “đủ chứng minh” khi chưa có thiết kế nghiên cứu. Với dữ liệu ban đầu, báo số học sinh, phần đã học, số nhiệm vụ, ngày, mức hỗ trợ và giới hạn; không suy một lớp nhỏ thành bằng chứng hiệu quả toàn chương trình.
 
-## 6. Tổ chức Notebook
+## 6. Tổ chức nghiên cứu theo gói
 
 ### 6.1. Bắt đầu theo công việc thực tế
 
 D0 v1.0 đã được chuẩn bị và kiểm tra; bộ khảo sát này không đòi tạo một notebook riêng. Giữ thành phẩm hiện hành theo 11.6; phần sửa sau này được đọc và tự giải kiểm tra trước khi dùng. Khi cần nghiên cứu một điểm toán trong D0, chọn đúng phần nguồn và áp dụng quy trình nghiên cứu ở mục 7.
 
-Notebook nội dung đầu tiên phục vụ **R1-G01 — Kết nối đạo hàm, bảng biến thiên và đồ thị**. Tên dự kiến: `ZO Math · Ôn thi 2027 · R1-G01 · Đạo hàm và đồ thị`. Sổ có thể chứa nhiều phiên nghiên cứu và các phần nguồn ở nhiều lớp. Kế hoạch này giữ quyết định điều phối; không cần tạo hàng loạt sổ trống.
+Hoạt động nghiên cứu nội dung đầu tiên phục vụ **R1-G01 — Kết nối đạo hàm, bảng biến thiên và đồ thị**. Có thể dùng sổ ghi chú hoặc công cụ phù hợp để làm việc với nguồn, nhưng mọi kết quả cần giữ phải được kết tinh vào hồ sơ R1-G01. Kế hoạch và hồ sơ gói giữ quyết định điều phối; không tạo hệ mã, trạng thái hoặc cấu trúc thư mục theo phiên nghiên cứu.
 
-### 6.2. Đầu vào của notebook R1-G01
+### 6.2. Đầu vào nghiên cứu R1-G01
 
 1. Phiếu mục tiêu gói, vị trí tuần 2–4 trong lộ trình và những thiếu hụt quan sát từ D0 nếu đã có học sinh làm.
 2. CT tr.95–96, 105–107; phần nền tr.80–81, 92–93 khi câu hỏi nghiên cứu cần.
@@ -654,7 +654,7 @@ Google có chức năng lưu phản hồi thành ghi chú và chuyển ghi chú 
 
 ### 6.5. Gói đầu vào và quản lý thay đổi giữa các sổ
 
-Ngoài phần chương trình và SGK, mỗi notebook có hồ sơ mục tiêu, kiến thức cần trước, chỉ dẫn viết, câu hỏi đang nghiên cứu và sản phẩm được chọn. Nội dung ZO Math dùng lại chỉ thêm sau khi kiểm tra. Bản kết tinh mới nhất trở thành nguồn cho sản xuất sau bước học, không được mặc định đã có ngay khi mở sổ.
+Ngoài phần chương trình và SGK, mỗi hoạt động nghiên cứu có mục tiêu, kiến thức cần trước, chỉ dẫn viết, câu hỏi đang nghiên cứu và sản phẩm được chọn. Nội dung ZO Math dùng lại chỉ thêm sau khi kiểm tra. Kết quả được chấp nhận phải nhập vào hồ sơ gói trước khi trở thành nguồn cho sản xuất; không giữ trạng thái chính thức riêng trong công cụ.
 
 Khi sửa một nguồn làm việc, ghi mã, bản cũ–mới và đoạn thay đổi; xác định các sổ và sản phẩm đã dùng đoạn đó. Nạp hoặc cập nhật theo khả năng thực tế của công cụ rồi thử đọc lại đúng phần thay đổi. Với sản phẩm đã tạo, ghi cần sửa, đã sửa và đã kiểm tra lại riêng biệt. Không coi sửa tệp ngoài sổ là mọi đầu ra đã tự cập nhật.
 
@@ -1389,7 +1389,7 @@ Kho lâu dài lưu khái niệm, lập luận, hình, câu hỏi, lời giải v
 | Nội dung | B04, phiên bản 1.0 | Khái niệm, ví dụ, bài tập, lời giải và lịch sử sửa toán |
 | Hồ sơ mùa | 2027-R1-G01, dùng các mã B liên quan | Vị trí trong lộ trình, nguồn thi áp dụng, các sản phẩm được chọn |
 | Thành phẩm | 2027_R1-G01_tu_luyen_v1.1.pdf | Bản nội dung nguồn, phiên bản câu hỏi, ngày tạo |
-| Notebook | ZO Math · Ôn thi 2027 · R1-G01 · Đạo hàm và đồ thị | Nguồn thực dùng, trạng thái thử đọc và liên kết thật |
+| Công cụ nghiên cứu | Công cụ thực dùng cho R1-G01 | Nguồn thực dùng, kết quả thử đọc và bằng chứng cần hòa nhập vào hồ sơ gói |
 
 Các tên là ví dụ quản lý, không phải tệp đã tạo. Khi thay đổi chỉ cách trình bày, ghi đúng thay đổi ở sản phẩm; khi sửa ý nghĩa toán, cập nhật bản nội dung và rà mọi sản phẩm liên quan. Quy tắc này giúp sửa lỗi một lần ở nguồn rồi kiểm tra các bản sử dụng, đồng thời bảo toàn dấu vết của từng mùa.
 
@@ -1764,7 +1764,7 @@ Không tự xác nhận tôi đã duyệt hoặc báo đã xuất bản.
 - Các sản phẩm, phiên bản, trạng thái kiểm định:
 - Giờ dự kiến / thực tế theo từng khâu:
 - Thời gian tự học dự kiến / thực tế nếu có:
-- Notebook, nguồn đã nạp và kết quả thử đọc:
+- Công cụ nghiên cứu, nguồn đã nạp và kết quả thử đọc:
 - Người chủ trì đã xem/duyệt bản nào: chưa xác định
 - URL thật hoặc “chưa xuất bản”:
 - Việc tiếp theo:
@@ -1832,7 +1832,7 @@ Tiếp tục đúng việc kế tiếp, cập nhật tệp và cho tôi một b�
 - Trạng thái theo phần: T0/T1/T2/T3; thử Notebook T4 ghi riêng
 - Đã đọc/đối chiếu cụ thể, bằng cách nào:
 - Điểm chưa đọc rõ hoặc còn mâu thuẫn:
-- Notebook đã nạp bản nào, ngày nào:
+- Công cụ đã nạp bản nào, ngày nào; kết quả nào đã nhập vào hồ sơ gói:
 - Câu thử nguồn và kết quả:
 - Nội dung là trích nguyên văn / diễn giải / ví dụ mới:
 - Lưu ý sử dụng và trích dẫn:
