@@ -7,6 +7,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from zo_qmd_config import discover_project_config
+
 PDF_BUILD_RECEIPT_VERSION = 1
 PDF_BUILD_GENERATOR = "scripts/zo_pdf.py"
 PDF_BUILD_COMMAND = "build"
@@ -36,13 +38,45 @@ def _relative(root: Path, path: Path) -> Path:
     return path.resolve().relative_to(root.resolve())
 
 
+def qmd_artifact_key(root: Path, source: Path) -> str:
+    """Opt-in path identity; existing projects retain their historical filenames."""
+    relative = _relative(root, root / source)
+    config = discover_project_config(root, relative)
+    if config and config.raw.get("extensions", {}).get("artifact_identity") == "path":
+        digest = hashlib.sha256(relative.as_posix().encode("utf-8")).hexdigest()[:16]
+        return f"{relative.stem}_{digest}"
+    return source.stem
+
+
 def pdf_build_receipt_path(root: Path, source: Path) -> Path:
-    return root / "_audit" / f"{source.stem}_pdf_build.json"
+    return root / "_audit" / f"{qmd_artifact_key(root, source)}_pdf_build.json"
 
 
-def _pipeline_records(root: Path) -> list[dict[str, Any]]:
+def pipeline_input_paths(root: Path, source: Path | None = None) -> tuple[Path, ...]:
+    paths = list(CANONICAL_PDF_PIPELINE_INPUTS)
+    if source is None:
+        return tuple(paths)
+    config = discover_project_config(root, _relative(root, root / source))
+    if config is None:
+        return tuple(paths)
+    declared = config.raw.get("extensions", {}).get("artifact_inputs", [])
+    if not isinstance(declared, list) or not all(isinstance(p, str) for p in declared):
+        raise ValueError("extensions.artifact_inputs must be a list of project-relative paths")
+    if declared:
+        paths.append(config.config_path)
+    for raw in declared:
+        relative = Path(raw)
+        if relative.is_absolute() or ".." in relative.parts:
+            raise ValueError(f"Unsafe artifact input: {raw}")
+        absolute = (root / config.project_root / relative).resolve()
+        absolute.relative_to((root / config.project_root).resolve())
+        paths.append(absolute.relative_to(root.resolve()))
+    return tuple(dict.fromkeys(paths))
+
+
+def _pipeline_records(root: Path, source: Path | None = None) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
-    for relative in CANONICAL_PDF_PIPELINE_INPUTS:
+    for relative in pipeline_input_paths(root, source):
         absolute = root / relative
         if not absolute.is_file():
             raise FileNotFoundError(f"Thiếu đầu vào PDF canonical: {relative.as_posix()}")
@@ -78,7 +112,7 @@ def build_pdf_receipt_payload(root: Path, source: Path, output: Path) -> dict[st
             "path": output_rel.as_posix(),
             "sha256": sha256_file(output),
         },
-        "pipeline_inputs": _pipeline_records(root),
+        "pipeline_inputs": _pipeline_records(root, source),
     }
 
 
@@ -155,7 +189,11 @@ def validate_pdf_build_receipt(
         if not output.is_file() or output_record.get("sha256") != sha256_file(output):
             errors.append("output.sha256 không khớp PDF hiện hành")
 
-    expected_paths = [path.as_posix() for path in CANONICAL_PDF_PIPELINE_INPUTS]
+    try:
+        inputs = pipeline_input_paths(root, source)
+    except (ValueError, OSError) as exc:
+        return [f"invalid artifact inputs: {exc}"]
+    expected_paths = [path.as_posix() for path in inputs]
     raw_pipeline = payload.get("pipeline_inputs")
     if not isinstance(raw_pipeline, list):
         errors.append("thiếu pipeline_inputs")
@@ -173,7 +211,7 @@ def validate_pdf_build_receipt(
         if extra:
             errors.append("pipeline_inputs thừa: " + ", ".join(extra))
 
-    for relative in CANONICAL_PDF_PIPELINE_INPUTS:
+    for relative in inputs:
         absolute = root / relative
         if not absolute.is_file():
             errors.append(f"đầu vào PDF canonical đã mất: {relative.as_posix()}")

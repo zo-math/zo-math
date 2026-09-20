@@ -36,6 +36,7 @@ from zo_qmd_review import (
     pdf_plain_metadata_violations,
 )
 from zo_qmd_version import OPERATIONS_CLI_VERSION
+from zo_pdf_contract import qmd_artifact_key
 
 EXIT_OK = 0
 EXIT_FAILED = 1
@@ -786,7 +787,7 @@ def command_start(root: Path, args: argparse.Namespace) -> int:
         if args.output:
             output = _explicit_output_path(root, args.output)
         else:
-            output = root / "_audit" / f"{target_path.stem}_session.json"
+            output = root / "_audit" / f"{qmd_artifact_key(root, target_path)}_session.json"
         if output.suffix.lower() != ".json":
             raise ValueError("Hồ sơ phiên của start phải là tệp .json.")
         if output.exists():
@@ -952,11 +953,11 @@ def command_start(root: Path, args: argparse.Namespace) -> int:
                     ),
                     "check": (
                         "python scripts/zo_python.py scripts/zo_qmd.py "
-                        f"check --report _audit/{Path(target).stem}_check.json {target}"
+                        f"check --report _audit/{qmd_artifact_key(root, Path(target))}_check.json {target}"
                     ),
                     "render": (
                         "python scripts/zo_python.py scripts/zo_qmd.py "
-                        f"render --report _audit/{Path(target).stem}_render.json {target}"
+                        f"render --report _audit/{qmd_artifact_key(root, Path(target))}_render.json {target}"
                     ),
                     "visual_check": (
                         "python scripts/zo_python.py scripts/zo_qmd.py "
@@ -964,7 +965,7 @@ def command_start(root: Path, args: argparse.Namespace) -> int:
                     ),
                     "review_ready": (
                         "python scripts/zo_python.py scripts/zo_qmd.py "
-                        f"review-ready --report _audit/{Path(target).stem}_review_ready.json {target}"
+                        f"review-ready --report _audit/{qmd_artifact_key(root, Path(target))}_review_ready.json {target}"
                     ),
                 },
                 "user_gates": [
