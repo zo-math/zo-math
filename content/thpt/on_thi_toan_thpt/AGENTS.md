@@ -8,11 +8,12 @@ Tuân thủ `AGENTS.md` ở gốc repository và các tài liệu bắt buộc �
 
 Kiến trúc đã được phê duyệt đặt chuyên mục tại `content/thpt/on_thi_toan_thpt`: học liệu dùng lại thuộc `hoc_lieu/<ma_goi>/`, điều hành khóa theo năm thuộc `tot_nghiep_thpt/<nam>/_quy_trinh/`. Không tạo một lớp điều hành song song bên ngoài chuyên mục sau khi hoàn tất chuyển đổi.
 
-## Giới hạn hiện hành — Pha 1
+## Giới hạn tích hợp và đầu mối điều hành
 
-- Chỉ có khung chuyên mục và hai cửa ngõ bản nháp, chưa tích hợp loại gói vào cỗ máy QMD.
+- Hai cửa ngõ vẫn là bản nháp; chưa tích hợp loại gói vào cỗ máy QMD.
 - Không xem mẫu hồ sơ là cấu hình CLI đang hoạt động; chưa tạo cấu hình sản xuất cho gói.
-- Chưa chuyển Kế hoạch 0.6, D0, R1-G01 hoặc thành phẩm lịch sử. Nguồn đang hoạt động tại `_projects/on_thi_toan_thpt_2027` không thay đổi trong pha này.
+- Với khóa 2027, phải đọc `tot_nghiep_thpt/2027/_quy_trinh/README.md`: đây là đầu mối điều hành canonical duy nhất, ghi trạng thái chuyển đổi và việc tiếp theo. README cũ trong `_projects/on_thi_toan_thpt_2027` chỉ dùng để chuyển tiếp.
+- Tài liệu đã khóa và thành phẩm lịch sử chỉ được chuyển hoặc sửa trong phạm vi chủ dự án giao; không suy từ việc chuyển quản trị thành quyền chuyển đổi học liệu.
 - Không tạo trước thư mục gói tương lai hoặc tài nguyên chưa dùng.
 - Không tự thay nội dung toán học, nhiệm vụ, thuật ngữ hoặc thiết kế đã chốt.
 
