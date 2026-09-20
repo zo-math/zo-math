@@ -15,10 +15,12 @@ import subprocess
 import sys
 from collections import Counter
 from datetime import datetime, timezone
+from html import unescape
 from html.parser import HTMLParser
 from pathlib import Path, PurePosixPath
 from urllib.parse import unquote, urlsplit
 from typing import Any, Mapping, Sequence
+from xml.etree import ElementTree
 
 try:
     import yaml
@@ -216,9 +218,42 @@ def glob_match(path: str, pattern: str) -> bool:
 
 
 def path_denied(path: str, prefixes: Sequence[str], globs: Sequence[str]) -> bool:
-    return any(path == item or path.startswith(item + "/") for item in prefixes) or any(
-        glob_match(path, pattern) for pattern in globs
+    path = normalized_public_path(path).casefold()
+    normalized_prefixes = [normalized_public_path(item).casefold() for item in prefixes]
+    return any(path == item or path.startswith(item + "/") for item in normalized_prefixes) or any(
+        glob_match(path, pattern.replace("\\", "/").casefold()) for pattern in globs
     )
+
+
+def decoded_reference(value: str) -> str:
+    """Decode escaped/percent-encoded paths before policy and dot-segment checks."""
+    previous = None
+    while value != previous:
+        previous = value
+        value = unquote(unescape(value))
+    return value.strip().replace("\\", "/")
+
+
+def normalized_public_path(value: str) -> str:
+    value = decoded_reference(value)
+    try:
+        value = urlsplit(value).path
+    except ValueError:
+        # Malformed URLs still must not bypass the private-path policy.
+        value = value.split("?", 1)[0].split("#", 1)[0]
+    return posixpath.normpath(value.lstrip("/")).lstrip("/")
+
+
+def require_public_profile(root: Path) -> None:
+    """Fail before fetch, render, worktree mutation or publication in preview mode."""
+    profiles = re.split(r"[,\s]+", os.environ.get("QUARTO_PROFILE", ""))
+    project_path = root / "_quarto.yml"
+    if project_path.is_file():
+        project = yaml.safe_load(project_path.read_text(encoding="utf-8")) or {}
+        defaults = (project.get("profile") or {}).get("default", [])
+        profiles.extend([defaults] if isinstance(defaults, str) else defaults)
+    if any(str(profile).strip().casefold() == "on-thi-preview" for profile in profiles):
+        raise ConfigError("Profile on-thi-preview chỉ dùng cục bộ; không được dùng với zo_publish.py.")
 
 
 def path_allowed(path: str, files: Sequence[str], globs: Sequence[str]) -> bool:
@@ -447,9 +482,43 @@ class LinkCollector(HTMLParser):
                 self.links.extend((key, item.strip().split()[0]) for item in value.split(",") if item.strip())
 
 
+def private_references(text: str, relative: str, config: Mapping[str, Any]) -> list[str]:
+    """Inspect literal paths too, not only clickable href/src attributes."""
+    deny = config["denylist"]
+    found: set[str] = set()
+    # JSON strings are decoded separately below. This also handles escaped slashes
+    # in inline HTML scripts and character references in text/attributes.
+    tokens = re.findall(r'''[^\s"'<>`{}\[\](),;=]+''', unescape(text).replace("\\/", "/"))
+    for token in tokens:
+        decoded = decoded_reference(token)
+        if "/" not in decoded and decoded not in deny["paths"]:
+            continue
+        candidate = normalized_public_path(decoded)
+        local = normalized_public_path(str(PurePosixPath(relative).parent / candidate))
+        if any(path_denied(item, deny["paths"], deny["globs"]) for item in (candidate, local)):
+            found.add(token)
+    return sorted(found)
+
+
+def index_strings(value: Any):
+    if isinstance(value, str):
+        yield value
+    elif isinstance(value, list):
+        for item in value:
+            yield from index_strings(item)
+    elif isinstance(value, dict):
+        for key, item in value.items():
+            yield key
+            yield from index_strings(item)
+
+
 def validate_public(public: Path, manifest: Mapping[str, Any], config: Mapping[str, Any]) -> dict[str, Any]:
     issues: list[dict[str, Any]] = []
     files = set(manifest["files"])
+    deny = config["denylist"]
+    for relative in sorted(files):
+        if path_denied(relative, deny["paths"], deny["globs"]):
+            issues.append({"type": "forbidden-manifest", "path": relative})
     expected_cname = config["custom_domain"]["cname"]
     cname_path = public / "CNAME"
     if "CNAME" not in files:
@@ -469,11 +538,12 @@ def validate_public(public: Path, manifest: Mapping[str, Any], config: Mapping[s
                     "expected": expected_cname,
                     "actual": cname_value,
                 })
-    private_fragments = tuple(config["denylist"]["paths"][:3])
     html_count = link_count = 0
     for relative in sorted(name for name in files if name.lower().endswith(".html")):
         html_count += 1
         text = (public / relative).read_text(encoding="utf-8", errors="replace")
+        issues.extend({"type": "private-reference", "path": relative, "value": value}
+                      for value in private_references(text, relative, config))
         parser = LinkCollector()
         try:
             parser.feed(text)
@@ -483,10 +553,14 @@ def validate_public(public: Path, manifest: Mapping[str, Any], config: Mapping[s
             continue
         for kind, raw in parser.links:
             link_count += 1
-            parsed = urlsplit(raw.strip())
+            try:
+                parsed = urlsplit(decoded_reference(raw))
+            except ValueError:
+                issues.append({"type": "unsafe-link", "path": relative, "value": raw})
+                continue
             if parsed.scheme.lower() in {"http", "https", "mailto", "tel", "data", "javascript"} or raw.startswith("//"):
                 continue
-            decoded = unquote(parsed.path).replace("\\", "/")
+            decoded = parsed.path
             if not decoded:
                 continue
             if re.match(r"^[A-Za-z]:", decoded):
@@ -500,12 +574,34 @@ def validate_public(public: Path, manifest: Mapping[str, Any], config: Mapping[s
                 continue
             if candidate not in files and not candidate.endswith("/"):
                 issues.append({"type": "missing-resource", "path": relative, "value": raw})
-            if any(fragment in candidate for fragment in private_fragments):
+            if path_denied(candidate, deny["paths"], deny["globs"]):
                 issues.append({"type": "private-link", "path": relative, "value": raw})
-    return {"html_files": html_count, "local_links": link_count, "issues": issues}
+    index_count = 0
+    for relative in sorted(files):
+        name = PurePosixPath(relative).name.lower()
+        if name != "search.json" and not (name.startswith("sitemap") and name.endswith(".xml")):
+            continue
+        index_count += 1
+        try:
+            text = (public / relative).read_text(encoding="utf-8")
+            if name == "search.json":
+                strings = list(index_strings(json.loads(text)))
+            else:
+                tree = ElementTree.fromstring(text)
+                strings = [value for node in tree.iter()
+                           for value in [node.text or "", *node.attrib.values()]]
+        except (OSError, UnicodeError, ValueError, ElementTree.ParseError) as exc:
+            issues.append({"type": "invalid-public-index", "path": relative, "message": str(exc)})
+            continue
+        for value in sorted({hit for string in strings
+                             for hit in private_references(string, relative, config)}):
+            issues.append({"type": "private-reference", "path": relative, "value": value})
+    return {"html_files": html_count, "local_links": link_count,
+            "index_files": index_count, "issues": issues}
 
 
 def render_to_staging(root: Path, render_dir: Path) -> dict[str, Any]:
+    require_public_profile(root)
     command = [sys.executable, str(root / "scripts/zo_quarto.py"), "render", "--output-dir", str(render_dir)]
     result = run(command, root)
     matches = re.findall(r"\[\s*\d+/(\d+)\]", result.stdout + result.stderr)
@@ -760,6 +856,7 @@ def validate_prepared_tree(root: Path, target: Path, config: Mapping[str, Any],
 
 
 def publish_site(root: Path, config_path: Path, config: Mapping[str, Any]) -> int:
+    require_public_profile(root)
     try:
         report, payload = load_prepare_report(root, config_path, config)
     except (RuntimeError, ConfigError) as exc:
@@ -945,6 +1042,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     try:
         root = repo_root()
         config_path, config = load_config(root, args.config)
+        require_public_profile(root)
         if args.command == "publish":
             return publish_site(root, config_path, config)
         if args.command == "prepare" and shutil.which("quarto") is None:
@@ -962,6 +1060,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         issues.extend({"type": "target-symlink", "path": item} for item in scan_symlinks(target, True))
         manifest = build_manifest((root / config["output_dir"]).resolve(), config)
         issues.extend(manifest["issues"])
+        validation = validate_public((root / config["output_dir"]).resolve(), manifest, config)
+        issues.extend(validation["issues"])
         diff = publish_diff(target, manifest, config)
         payload: dict[str, Any] = {
             "schema_version": REPORT_SCHEMA_VERSION,
@@ -974,6 +1074,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             "source": source_state, "target": target_state,
             "manifest": {key: value for key, value in manifest.items() if key != "issues"},
             "diff": diff, "issues": issues,
+            "validation": validation,
         }
         code = EXIT_UNSAFE if issues else EXIT_OK
         if args.command == "prepare":

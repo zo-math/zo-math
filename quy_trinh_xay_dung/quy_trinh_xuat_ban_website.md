@@ -48,3 +48,19 @@ Không dùng `scripts/publish_public.sh` cho quy trình mới, trừ khi yêu c�
 1. Chạy `check` và xử lý mọi điểm chặn.
 2. Khi người dùng yêu cầu rõ, chạy `prepare` để tạo cây công khai cho con người hoặc agent đối chiếu.
 3. Chỉ khi người dùng cho phép xuất bản, chạy `publish` để kiểm định lại remote, manifest và diff, sau đó commit riêng trên `gh-pages` và push thường.
+
+## 6. Bản nháp và ranh giới nội bộ
+
+`draft: true` trong Quarto không thay thế chính sách public. Chuyên mục `content/thpt/on_thi_toan_thpt` hiện bị chặn toàn bộ trong `publish_public.yml`; `_quy_trinh` tiếp tục bị chặn ngay cả khi sau này chuyên mục được mở công khai. Chỉ thay đổi ranh giới này khi người dùng phê duyệt riêng.
+
+Profile `on-thi-preview` chỉ phục vụ preview trên `127.0.0.1`. Công cụ xuất bản từ chối profile này khi có trong `QUARTO_PROFILE` hoặc profile mặc định của dự án, trước khi fetch, render hoặc tác động worktree public. Không dùng `prepare` như một lệnh preview.
+
+`check` và validator của quy trình hiện hành kiểm tra đường dẫn bị cấm sau giải mã và chuẩn hóa trong manifest, HTML (kể cả chuỗi đường dẫn không phải liên kết), `search.json` và sitemap. Chỉ loại tệp khỏi manifest là chưa đủ nếu chỉ mục hoặc HTML vẫn tham chiếu tới vùng bị cấm. Chỉ mục JSON/XML không đọc được phải làm kiểm tra thất bại.
+
+Kiểm thử mục tiêu của hàng rào:
+
+```text
+python scripts/zo_python.py scripts/zo_publish_selftest.py
+```
+
+Fixture của bộ kiểm thử nằm trong `_audit/` và được tự dọn. Khi mở rộng validator, phải phân biệt phát hiện mới trên đầu ra cũ với hồi quy do thay đổi nguồn; không tự dọn các vấn đề ngoài nhiệm vụ.

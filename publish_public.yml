@@ -82,12 +82,18 @@ denylist:
     - content/di_tim/di_tim_xac_suat
     - content/di_tim/di_tim_ly_luan_toan_hoc
     - content/di_tim/di_tim_toan_hoc
+    # Chặn toàn chuyên mục trong giai đoạn preview; không gỡ cùng draft một cách tự động.
+    - content/thpt/on_thi_toan_thpt
+    # Giữ vùng điều hành nội bộ bị chặn ngay cả khi chuyên mục được mở công khai.
+    - _quy_trinh
     - _audit
     - README
     - quy_trinh_xay_dung
     - scripts
   globs:
     - "**/.env"
+    - "**/_quy_trinh"
+    - "**/_quy_trinh/**"
     - "**/.env.*"
     - "**/.ipynb_checkpoints/**"
     - "**/__pycache__/**"
