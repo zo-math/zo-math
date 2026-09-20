@@ -31,6 +31,7 @@ from zo_artifact_freshness import FreshnessError, evaluate_artifact_freshness
 from zo_qmd_config import ProjectConfigError, discover_project_config
 from zo_qmd_core import qmd_image_records, split_qmd_front_matter
 from zo_pdf_contract import (
+    qmd_artifact_key,
     CANONICAL_PDF_PIPELINE_INPUTS,
     pdf_build_receipt_path,
     validate_pdf_build_receipt,
@@ -344,7 +345,7 @@ def _canonical_scope(root: Path, target: Path, config: Any, policy: Mapping[str,
 
 def _session_path(root: Path, target: Path, raw: str | None) -> Path:
     if raw is None:
-        resolved = root / "_audit" / f"{target.stem}_session.json"
+        resolved = root / "_audit" / f"{qmd_artifact_key(root, target)}_session.json"
     else:
         candidate = Path(raw).expanduser()
         resolved = candidate.resolve() if candidate.is_absolute() else (root / candidate).resolve()
@@ -466,8 +467,8 @@ def _evidence_modes(root: Path, target: Path) -> tuple[set[str], list[str]]:
     """Read machine-owned check/render evidence from canonical audit paths."""
 
     expected = {
-        "scope": Path("_audit") / f"{target.stem}_check.json",
-        "render": Path("_audit") / f"{target.stem}_render.json",
+        "scope": Path("_audit") / f"{qmd_artifact_key(root, target)}_check.json",
+        "render": Path("_audit") / f"{qmd_artifact_key(root, target)}_render.json",
     }
     modes: set[str] = set()
     errors: list[str] = []
@@ -2020,7 +2021,7 @@ def evaluate_review_ready(
     session: dict[str, Any] = {}
     lifecycle = _mapping(policy.get("lifecycle"))
     if _truthy(lifecycle.get("require_session_manifest")):
-        canonical_session = session_path or (root / "_audit" / f"{target.stem}_session.json")
+        canonical_session = session_path or (root / "_audit" / f"{qmd_artifact_key(root, target)}_session.json")
         session_rel = canonical_session.resolve().relative_to(root.resolve())
         if not canonical_session.is_file():
             add(

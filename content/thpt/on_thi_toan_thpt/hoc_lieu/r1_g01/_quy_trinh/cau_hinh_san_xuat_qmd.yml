@@ -1,0 +1,68 @@
+schema_version: 1
+project:
+  id: on_thi_r1_g01
+  name: "R1-G01 — ứng viên Quarto v1.2"
+  root: content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01
+discovery:
+  article_types:
+    - id: on_thi_package
+      include: [index.qmd]
+      exclude: []
+profiles:
+  directory: _quy_trinh/ho_so
+  naming: by_article_stem
+  required: true
+modules:
+  required: [qmd-core, zo-html-pdf]
+  optional: []
+metadata:
+  core_required: [title, draft]
+  project_required: []
+  body_classes_required: [zo-page-article, zo-meta-hidden]
+  placeholders: []
+publication:
+  production_states: [draft, in_production, validated, accepted]
+  publication_states: [pending, published]
+  user_confirmation_required: true
+references:
+  controlling_documents: [_quy_trinh/README.md]
+  templates: []
+  theory_sources: []
+  quality_exemplars: []
+regression:
+  articles: [index.qmd]
+  expected_checker_version: "2.6.0"
+  preserve_cli: true
+extensions:
+  artifact_identity: path
+  artifact_inputs:
+    - du_lieu/bang_bien_thien.json
+    - cong_cu/r1_g01.lua
+    - cong_cu/zo_bieu_dien.py
+    - giao_dien/r1_g01.css
+    - giao_dien/r1_g01_script.html
+    - hinh/fonts/OFL.txt
+    - hinh/fonts/STIXTwoMath.ttf
+    - hinh/fonts/STIXTwoText.ttf
+    - hinh/fonts/STIXTwoText-Bold.ttf
+    - hinh/fonts/STIXTwoText-Regular.ttf
+    - hinh/do_thi_01.svg
+    - hinh/do_thi_01.png
+    - hinh/do_thi_02.svg
+    - hinh/do_thi_02.png
+    - hinh/do_thi_03.svg
+    - hinh/do_thi_03.png
+    - hinh/do_thi_04.svg
+    - hinh/do_thi_04.png
+    - hinh/do_thi_05.svg
+    - hinh/do_thi_05.png
+    - hinh/do_thi_06.svg
+    - hinh/do_thi_06.png
+    - hinh/do_thi_07.svg
+    - hinh/do_thi_07.png
+    - hinh/do_thi_08.svg
+    - hinh/do_thi_08.png
+    - hinh/do_thi_09.svg
+    - hinh/do_thi_09.png
+    - hinh/do_thi_10.svg
+    - hinh/do_thi_10.png
