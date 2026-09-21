@@ -1,0 +1,132 @@
+% ZO Math graph style v0.2 - canonical implementation for new graph products.
+% Load after fontspec, unicode-math, pgfplots and TikZ libraries.
+
+\setmainfont{STIXTwoText-Regular.otf}[
+  BoldFont=STIXTwoText-Bold.otf,
+  ItalicFont=STIXTwoText-Italic.otf,
+  BoldItalicFont=STIXTwoText-BoldItalic.otf
+]
+\setmathfont{STIXTwoMath.otf}
+
+\definecolor{zoGraphVTwoWhite}{HTML}{FFFFFF}
+\definecolor{zoGraphVTwoPlotBackground}{HTML}{FFF9E9}
+\definecolor{zoGraphVTwoPlotBorder}{HTML}{DFD7CA}
+\definecolor{zoGraphVTwoBackground}{HTML}{FBFAF8}
+\definecolor{zoGraphVTwoGridMinor}{HTML}{F8F5F0}
+\definecolor{zoGraphVTwoGridMajor}{HTML}{DFD7CA}
+\definecolor{zoGraphVTwoAxis}{HTML}{554F48}
+\definecolor{zoGraphVTwoText}{HTML}{3E3A35}
+\definecolor{zoGraphVTwoTextStrong}{HTML}{25221F}
+\definecolor{zoGraphVTwoMain}{HTML}{EF5350}
+\definecolor{zoGraphVTwoStrong}{HTML}{BF4240}
+\definecolor{zoGraphVTwoHighlight}{HTML}{FFCA28}
+\definecolor{zoGraphVTwoHighlightLight}{HTML}{FFF4D4}
+
+\pgfdeclarelayer{zoGraphVTwoGridLayer}
+\pgfdeclarelayer{zoGraphVTwoAxisLayer}
+\pgfdeclarelayer{zoGraphVTwoAuxLayer}
+\pgfdeclarelayer{zoGraphVTwoCurveLayer}
+\pgfdeclarelayer{zoGraphVTwoMarkerLayer}
+\pgfdeclarelayer{zoGraphVTwoLabelBackgroundLayer}
+\pgfdeclarelayer{zoGraphVTwoTextLayer}
+\pgfdeclarelayer{zoGraphVTwoAnnotationLayer}
+\pgfdeclarelayer{zoGraphVTwoForegroundLayer}
+
+\pgfplotsset{
+  zo graph v02 axis/.style={
+    width=12cm,
+    height=7.5cm,
+    scale only axis,
+    axis equal image=false,
+    enlargelimits=false,
+    clip=true,
+    clip mode=individual,
+    axis lines=middle,
+    grid=none,
+    axis line style={draw=zoGraphVTwoAxis,line width=0.8pt,<->},
+    tick align=center,
+    tickwidth=0.75mm,
+    tick style={draw=zoGraphVTwoAxis,line width=0.45pt},
+    tick label style={font=\fontsize{8}{9.6}\selectfont,text=zoGraphVTwoText},
+    every axis x label/.append style={font=\fontsize{10}{12}\selectfont,text=zoGraphVTwoText},
+    every axis y label/.append style={font=\fontsize{10}{12}\selectfont,text=zoGraphVTwoText},
+    every axis plot/.append style={line cap=round,line join=round},
+    legend cell align=left,
+    legend style={
+      draw=zoGraphVTwoPlotBorder,
+      line width=0.35pt,
+      fill=zoGraphVTwoPlotBackground,
+      rounded corners=1mm,
+      font=\fontsize{9}{10.8}\selectfont,
+      text=zoGraphVTwoText,
+      inner xsep=5pt,
+      inner ysep=4pt,
+      row sep=2pt
+    }
+  },
+  zo graph v02 grid/.style={
+    major grid style={draw=zoGraphVTwoGridMajor,line width=0.35pt},
+    minor grid style={draw=zoGraphVTwoGridMinor,line width=0.25pt}
+  },
+  zo graph v02 curve solid/.style={
+    draw=zoGraphVTwoMain,line width=1.1pt,solid,no marks,on layer=zoGraphVTwoCurveLayer
+  },
+  zo graph v02 curve dashed/.style={
+    draw=zoGraphVTwoMain,line width=1.1pt,dashed,no marks,on layer=zoGraphVTwoCurveLayer
+  },
+  zo graph v02 curve dashdot/.style={
+    draw=zoGraphVTwoMain,line width=1.1pt,dash dot,no marks,on layer=zoGraphVTwoCurveLayer
+  },
+  zo graph v02 tangent/.style={
+    draw=zoGraphVTwoAxis,line width=0.6pt,dashed,no marks,on layer=zoGraphVTwoAuxLayer
+  },
+  zo graph v02 asymptote/.style={
+    draw=zoGraphVTwoAxis,line width=0.8pt,dash pattern=on 5pt off 2.5pt,no marks,on layer=zoGraphVTwoAuxLayer
+  },
+  zo graph v02 auxiliary/.style={
+    draw=zoGraphVTwoAxis,line width=0.6pt,densely dashed,no marks,on layer=zoGraphVTwoAuxLayer
+  },
+  zo graph v02 point/.style={
+    only marks,mark=*,mark size=2.2pt,
+    draw=zoGraphVTwoMain,fill=zoGraphVTwoMain,on layer=zoGraphVTwoMarkerLayer
+  },
+  zo graph v02 point emphasized/.style={
+    only marks,mark=*,mark size=2.8pt,
+    draw=zoGraphVTwoStrong,fill=zoGraphVTwoStrong,on layer=zoGraphVTwoMarkerLayer
+  },
+  zo graph v02 point open/.style={
+    only marks,mark=*,mark size=2.2pt,line width=0.8pt,
+    draw=zoGraphVTwoMain,fill=zoGraphVTwoPlotBackground,on layer=zoGraphVTwoMarkerLayer
+  }
+}
+
+\tikzset{
+  zo graph v02 field/.style={
+    show background rectangle,
+    inner frame sep=4mm,
+    background rectangle/.style={
+      fill=zoGraphVTwoPlotBackground,
+      draw=zoGraphVTwoPlotBorder,
+      line width=0.45pt,
+      rounded corners=2mm
+    }
+  },
+  zo graph v02 protected label/.style={
+    font=\fontsize{9}{10.8}\selectfont,
+    text=zoGraphVTwoText,
+    fill=zoGraphVTwoPlotBackground,
+    fill opacity=1,
+    text opacity=1,
+    draw=none,
+    inner xsep=1.8pt,
+    inner ysep=1.2pt,
+    outer sep=0pt
+  },
+  zo graph v02 tick label/.style={font=\fontsize{8}{9.6}\selectfont,text=zoGraphVTwoText},
+  zo graph v02 axis label/.style={font=\fontsize{10}{12}\selectfont,text=zoGraphVTwoText},
+  zo graph v02 font sentinel/.style={font=\fontsize{1}{1}\selectfont,opacity=0,inner sep=0pt}
+}
+
+\newcommand{\zoGraphVTwoLayers}{%
+  \pgfsetlayers{background,zoGraphVTwoGridLayer,zoGraphVTwoAxisLayer,zoGraphVTwoAuxLayer,main,zoGraphVTwoCurveLayer,zoGraphVTwoMarkerLayer,zoGraphVTwoLabelBackgroundLayer,zoGraphVTwoTextLayer,zoGraphVTwoAnnotationLayer,zoGraphVTwoForegroundLayer}%
+}
