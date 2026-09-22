@@ -35,6 +35,23 @@ regression:
   preserve_cli: true
 extensions:
   artifact_identity: path
+  pdf_variants:
+    full:
+      output: index.pdf
+      metadata:
+        toc: false
+        subtitle: "Dấu đạo hàm, tính đơn điệu và cực trị — Bản đầy đủ, có lời giải — R1-G01 · Bản xem trước · Chưa xuất bản"
+        zo-pdf-branding:
+          collection: "ZO Math · Ôn thi Toán THPT 2027"
+          short-title: "R1-G01 · Bản đầy đủ"
+    student:
+      output: index_hoc_sinh.pdf
+      metadata:
+        toc: false
+        subtitle: "Dấu đạo hàm, tính đơn điệu và cực trị — Bản học và bài tập, không lời giải — R1-G01 · Bản xem trước · Chưa xuất bản"
+        zo-pdf-branding:
+          collection: "ZO Math · Ôn thi Toán THPT 2027"
+          short-title: "R1-G01 · Học và bài tập"
   artifact_inputs:
     - du_lieu/bang_bien_thien.json
     - hinh/bbt01.tex

@@ -2,29 +2,22 @@
 (() => {
   const root = document.querySelector('.r1-g01');
   if (!root) return;
-  let savedOpen = null;
-  const tools = document.createElement('div');
-  tools.className = 'tools';
-  for (const [label, student] of [['In toàn bộ', false], ['In phần học và bài tập', true]]) {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.textContent = label;
-    button.addEventListener('click', () => {
-      root.classList.toggle('print-student', student);
-      window.print();
-    });
-    tools.append(button);
+  // The shared panel moves the native TOC and assigns role="region".
+  // Preserve its document-TOC semantics before Quarto initializes ScrollSpy;
+  // keep using the shared panel and Quarto's own active-section tracking.
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('nav#TOC.toc-active')?.setAttribute('role', 'doc-toc');
+  });
+  // Quarto adds a separate draft alert after Pandoc. Reuse that actual status
+  // element at the package's approved label, rather than hiding a blank band.
+  // The draft metadata and publication policy remain untouched.
+  const draft = document.getElementById('quarto-draft-alert');
+  const status = root.querySelector('.r1-status');
+  if (draft && status) {
+    draft.textContent = status.textContent.trim();
+    draft.className = '';
+    status.replaceChildren(draft);
   }
-  root.querySelector('h1').after(tools);
-  window.addEventListener('beforeprint', () => {
-    if (savedOpen === null) savedOpen = [...root.querySelectorAll('details')].map(d => [d, d.open]);
-    savedOpen.forEach(([d]) => { d.open = true; });
-  });
-  window.addEventListener('afterprint', () => {
-    (savedOpen || []).forEach(([d, open]) => { d.open = open; });
-    savedOpen = null;
-    root.classList.remove('print-student');
-  });
   function reveal(hash) {
     let id;
     try { id = decodeURIComponent(hash.slice(1)); } catch { return; }
@@ -38,8 +31,11 @@
   window.addEventListener('hashchange', () => reveal(location.hash));
   window.addEventListener('load', () => reveal(location.hash));
   root.addEventListener('click', event => {
-    const link = event.target.closest('a[href^="#"]');
-    if (link && root.contains(link)) reveal(link.hash);
+    const link = event.target.closest('a[href]');
+    if (link && root.contains(link) && link.hash &&
+        link.origin === location.origin && link.pathname === location.pathname) {
+      reveal(link.hash);
+    }
   });
 })();
 </script>
