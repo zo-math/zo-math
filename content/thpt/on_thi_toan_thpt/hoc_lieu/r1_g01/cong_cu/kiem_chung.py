@@ -78,7 +78,17 @@ def check(html):
     checks['details_summary_order'] = [norm(x.summary.get_text()) for x in original.select('details')] == [norm(x.summary.get_text()) for x in target.select('details')]
     checks['text_sequence_whitespace_normalized'] = visible_text(original) == visible_text(target)
     checks['json_byte_identity'] = sha(source/'src/bang_bien_thien.json') == sha(PACKAGE/'du_lieu/bang_bien_thien.json')
-    checks['images_20_byte_identity'] = all(sha(source/'src/hinh'/f'do_thi_{i:02d}.{ext}') == sha(PACKAGE/'hinh'/f'do_thi_{i:02d}.{ext}') for i in range(1, 11) for ext in ['svg', 'png'])
+    graph_names = [f'do_thi_{i:02d}' for i in range(1, 11)]
+    checks['graph_vector_triplets_exist'] = all(
+        (PACKAGE/'hinh'/f'{name}.{ext}').is_file()
+        for name in graph_names for ext in ('tex', 'pdf', 'svg')
+    )
+    checks['canonical_graph_png_absent'] = not any(
+        (PACKAGE/'hinh'/f'{name}.png').exists() for name in graph_names
+    )
+    checks['html_graphs_use_svg'] = [
+        img.get('src') for img in target.select('figure img')
+    ] == [f'hinh/{name}.svg' for name in graph_names]
     # Compare literal JSON rows with display cells, respecting the original excluded-column rule.
     data = {x['id']: x for x in json.loads((PACKAGE/'du_lieu/bang_bien_thien.json').read_text(encoding='utf-8'))}
     for record in table_records(target):

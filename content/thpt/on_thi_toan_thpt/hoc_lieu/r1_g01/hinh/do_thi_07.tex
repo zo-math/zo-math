@@ -1,0 +1,51 @@
+% R1-G01 - mau thu Nhip 2 chuyen do_thi_07 bang bo cong cu tai commit 354fb22.
+% Muc dich: doc dau h' de suy bien thien cua h.
+% Bat bien: h'(x)=(x+2)(x-1)^2; cua so [-3,2.8] x [-12,13].
+% Nghiem don -2 doi dau; nghiem kep 1 tiep xuc truc hoanh va khong doi dau.
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{backgrounds,arrows.meta}
+\input{zo_graph_v02.tex}
+
+\begin{document}
+\begin{tikzpicture}[zo graph v02 field]
+\zoGraphVTwoLayers
+\begin{axis}[
+  zo graph v02 axis,
+  xmin=-3,xmax=2.8,ymin=-12,ymax=13,
+  restrict y to domain=-12:13,
+  xtick={-2,-1,1,2},ytick={-10,-5,5,10},
+  xlabel={$x$},ylabel={$y$},
+  every axis x label/.append style={at={(axis description cs:0.985,0.495)},anchor=south east},
+  every axis y label/.append style={at={(axis description cs:0.535,0.985)},anchor=north west}
+]
+  \node[zo graph v02 font sentinel] at (axis cs:0,0) {x};
+
+  % Tach mien tai hai nghiem de moi nghiem nam chinh xac trong day mau.
+  \addplot[zo graph v02 curve solid,domain=-3:-2,samples=101,forget plot]
+    {(x+2)*(x-1)^2};
+  \addplot[zo graph v02 curve solid,domain=-2:1,samples=201,forget plot]
+    {(x+2)*(x-1)^2};
+  \addplot[zo graph v02 curve solid,domain=1:2.8,samples=141,forget plot]
+    {(x+2)*(x-1)^2};
+
+  \addplot[zo graph v02 point emphasized,forget plot]
+    coordinates {(-2,0) (1,0)};
+
+  \begin{pgfonlayer}{zoGraphVTwoTextLayer}
+    \node[zo graph v02 protected label,anchor=south east]
+      at (axis cs:-2.10,0.78) {$(-2;0)$};
+    \node[zo graph v02 protected label,anchor=north west]
+      at (axis cs:1.10,-1.35) {$(1;0)$};
+    % Dau phai: duong cong cham canh duoi-phai cua nen nhan roi di ra bien tren.
+    \node[zo graph v02 protected label,anchor=south east]
+      at (axis cs:2.52,10.44) {$y=h^\prime(x)=(x+2)(x-1)^2$};
+    \node[zo graph v02 tick label,anchor=north east,xshift=-2pt,yshift=-2pt]
+      at (axis cs:0,0) {$O$};
+  \end{pgfonlayer}
+\end{axis}
+\end{tikzpicture}
+\end{document}
