@@ -1,37 +1,47 @@
-/* Only the legacy learning-material components; typography/theme are inherited. */
+/* Package-only layout; title, panels, type and content blocks use ZO Math. */
+body.r1-g01-page #title-block-header.quarto-title-block { display: block; }
+/* Quarto hides a column TOC on small screens. This native TOC lives in the
+   shared ZO panel instead; its existing opacity/pointer-events control toggling. */
+@media screen {
+  body.r1-g01-page #quarto-header #TOC.q-toc { display: block; }
+}
+
+.r1-g01 { min-width: 0; }
+.r1-g01 [id] { scroll-margin-top: calc(var(--navbar-h, 56px) + 4rem); }
+.r1-g01 .r1-status { color: #766f66; font-size: .9em; margin-bottom: 1.25rem; }
+.r1-g01 h2 { margin-top: 3rem; }
+.r1-g01 h3 { margin-top: 2rem; }
+.r1-g01 h4 { margin-top: 1.5rem; font-weight: 600; }
 .r1-g01 .table-scroll { overflow-x: auto; margin: 1rem 0; }
 .r1-g01 table { width: 100%; border-collapse: collapse; }
-.r1-g01 th, .r1-g01 td { border: 1px solid #dfd7ca; padding: .5rem .65rem; vertical-align: top; }
+.r1-g01 th, .r1-g01 td { border: 0; border-bottom: 1px solid #dfd7ca; padding: .55rem .65rem; vertical-align: top; }
 .r1-g01 th { background: #f8f5f0; }
 .r1-g01 table.variation { min-width: 400px; table-layout: fixed; text-align: center; font-family: "STIX Two Math", serif; font-size: 21px; }
-.r1-g01 .variation th, .r1-g01 .variation td { text-align: center; vertical-align: middle; }
+.r1-g01 .variation th, .r1-g01 .variation td { border: 1px solid #dfd7ca; text-align: center; vertical-align: middle; }
 .r1-g01 .variation th:first-child { width: 90px; }
 .r1-g01 .variation caption { caption-side: top; text-align: left; font: inherit; }
 .r1-g01 .variation .excluded { font-size: 1.5em; }
-.r1-g01 details { margin: 1.3rem 0; border-block: 1px solid #dfd7ca; padding: .8rem 0; }
-.r1-g01 summary { cursor: pointer; font-weight: 600; color: #bf4240; }
-.r1-g01 details.extension { background: #fff9e9; padding: .8rem; }
+.r1-g01 details.zo-block { margin-block: 1.5rem; }
 .r1-g01 .answer-link { font-size: .85em; }
 .r1-g01 figure { margin: 1.5rem 0; }
 .r1-g01 figure img { max-width: 100%; height: auto; }
 .r1-g01 figcaption { color: #766f66; font-size: .9em; }
-.r1-g01 .tools { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1rem 0; }
+.r1-g01 .r1-downloads { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1rem 0 1.5rem; }
+.r1-g01 .r1-downloads a { white-space: normal; }
 .r1-g01 .lesson-toc { columns: 2; }
 .r1-g01 .r1-footer { border-top: 1px solid #dfd7ca; margin-top: 2rem; color: #766f66; }
 @media (max-width: 640px) {
   .r1-g01 .lesson-toc { columns: 1; }
   .r1-g01 th, .r1-g01 td { padding: .35rem; }
+  .r1-g01 table:not(.variation) { overflow-wrap: anywhere; font-size: .95em; }
+  .r1-g01 table:not(.variation) math { font-size: .875em; }
+  .r1-g01 table:not(.variation) th,
+  .r1-g01 table:not(.variation) td { padding: .2rem; }
+  .r1-g01 details .zo-block-body { padding-inline: .35rem; }
 }
-@media print {
-  .r1-g01 .tools, .r1-g01 .answer-link { display: none !important; }
-  .r1-g01 h1 { break-before: page; }
-  .r1-g01 h1:first-child { break-before: auto; }
-  .r1-g01 .table-scroll { overflow: visible; }
-  .r1-g01 table { font-size: 9.5pt; }
-  .r1-g01 table.variation { font-size: 13pt; }
-  .r1-g01 figure img { max-height: 85mm; width: auto; }
-  .r1-g01 details { border: 0; }
-  .r1-g01.print-student .solution,
-  .r1-g01.print-student #loi-giai,
-  .r1-g01.print-student .solution-guidance { display: none !important; }
+@media (max-width: 400px) {
+  .r1-g01 .r1-solution table:not(.variation) math { font-size: .8em; }
+  .r1-g01 .r1-solution table:not(.variation) th:last-child { min-width: 3.2em; }
+  .r1-g01 .r1-solution table:not(.variation) th,
+  .r1-g01 .r1-solution table:not(.variation) td { padding-inline: .05rem; }
 }

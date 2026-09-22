@@ -32,7 +32,7 @@ def visible_text(root):
     for node in soup.select('math'):
         annotation = node.find('annotation', encoding='application/x-tex')
         node.replace_with(' ZOMATH '+norm(annotation.get_text())+' END ')
-    for node in soup.select('.tools, .zo-variation-caption, a.anchorjs-link'):
+    for node in soup.select('.tools, .r1-downloads, .zo-variation-caption, a.anchorjs-link'):
         node.decompose()
     return norm(soup.get_text(' ', strip=True))
 
@@ -60,13 +60,21 @@ def check(html):
     actual_source = {p.relative_to(source).as_posix(): sha(p) for p in source.rglob('*') if p.is_file()}
     checks['source_40_hashes'] = actual_source == history['sha256'] and len(actual_source) == 40
     counts = {}
-    for selector, expected in [('h1', 8), ('math', 985), ('annotation', 985), ('[id]', 107),
+    for selector, expected in [('math', 985), ('annotation', 985), ('[id]', 107),
                                ('a[href^="#"]', 51), ('.answer-link', 42), ('details', 16),
                                ('table', 30), ('table.variation', 13), ('figure', 10)]:
         counts[selector] = [len(original.select(selector)), len(target.select(selector))]
         checks['count:'+selector] = counts[selector] == [expected, expected]
     counts['img'] = [len(original.select('img')), len(target.select('img'))]
     checks['count:img'] = counts['img'] == [10, 23]
+    headings = original.select('h1,h2,h3')
+    mapped = [(2 if h.name == 'h1' or h.get('id') == 'cách-học-với-tài-liệu-này' else int(h.name[1])+1,
+               norm(h.get_text())) for h in headings[1:]]
+    checks['heading_mapping_D08'] = mapped == [(int(h.name[1]), norm(h.get_text())) for h in target.select('h1,h2,h3,h4')]
+    checks['single_page_title'] = len(page.select('main h1')) == 1 and norm(page.select_one('h1.title').get_text()) == norm(headings[0].get_text())
+    checks['subtitle_preserved'] = norm(page.select_one('#title-block-header .subtitle').get_text()) == 'Dấu đạo hàm, tính đơn điệu và cực trị'
+    counts['logical_regions'] = [len(original.select('h1')), 1 + len([h for h in target.select('h2') if h.get('id', h.parent.get('id')) != 'cách-học-với-tài-liệu-này'])]
+    checks['eight_logical_regions'] = counts['logical_regions'] == [8, 8]
     maths = lambda root: [(x.get('display', 'inline'), norm(x.find('annotation', encoding='application/x-tex').get_text())) for x in root.select('math')]
     checks['math_sequence_and_tex'] = maths(original) == maths(target)
     ids = lambda root: [x['id'] for x in root.select('[id]')]
@@ -78,7 +86,18 @@ def check(html):
     figures = lambda root: [(x.img['alt'], norm(x.figcaption.get_text())) for x in root.select('figure')]
     checks['figure_alt_caption_order'] = figures(original) == figures(target)
     checks['details_summary_order'] = [norm(x.summary.get_text()) for x in original.select('details')] == [norm(x.summary.get_text()) for x in target.select('details')]
-    checks['text_sequence_whitespace_normalized'] = visible_text(original) == visible_text(target)
+    original_text = visible_text(original)
+    old_intro = norm(headings[0].get_text()) + ' Dấu đạo hàm, tính đơn điệu và cực trị ZO Math · Ôn thi Toán THPT 2027 · R1-G01 · Phiên bản 1.1'
+    old_guidance = 'Lời giải nằm ở cuối tài liệu, trong các mục có thể mở khi cần. Nút In toàn bộ in cả lời giải; nút In phần học và bài tập ẩn lời giải. Khi học trên màn hình, nhấn vào tên câu hoặc bài để đi đến lời giải tương ứng.'
+    new_guidance = 'Tải bản học và bài tập để tự làm; dùng bản đầy đủ khi cần đối chiếu lời giải. Trên màn hình, các liên kết lời giải mở đúng phần tương ứng.'
+    assert original_text.count(old_intro) == 1 and original_text.count(old_guidance) == 1, 'Authority V1/V2 text changed'
+    projected_text = original_text.replace(old_intro, 'R1-G01 · Bản xem trước · Chưa xuất bản', 1).replace(old_guidance, new_guidance, 1)
+    checks['text_sequence_only_approved_V1_V2'] = projected_text == visible_text(target)
+    checks['downloads_exact'] = [(x['href'], x.get('download')) for x in target.select('.r1-downloads a')] == [
+        ('index_hoc_sinh.pdf', 'R1-G01_hoc_va_bai_tap_v1.2.pdf'),
+        ('index.pdf', 'R1-G01_hoc_lieu_day_du_v1.2.pdf')]
+    all_ids = [x['id'] for x in page.select('[id]')]
+    checks['whole_dom_unique_ids'] = len(all_ids) == len(set(all_ids))
     legacy_data = json.loads((source/'src/bang_bien_thien.json').read_text(encoding='utf-8'))
     current_data = json.loads((PACKAGE/'du_lieu/bang_bien_thien.json').read_text(encoding='utf-8'))
     content_projection = [
