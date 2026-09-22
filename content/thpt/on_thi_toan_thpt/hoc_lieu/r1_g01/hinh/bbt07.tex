@@ -1,0 +1,33 @@
+\documentclass[border=2mm]{standalone}
+\input{zo_variation_v01.tex}
+\begin{document}
+\pagecolor{zoVarBackground}
+\begin{tikzpicture}
+\matrix (bbt) [zo variation matrix] {
+\zoVarCell{$x$} & \zoVarCell{$-\infty$} & \zoVarInterval{} & \zoVarCell{$-3$} & \zoVarInterval{} & \zoVarCell{$1$} & \zoVarInterval{} & \zoVarCell{$+\infty$} \\
+\zoVarCell{$r^{\prime}(x)$} & \zoVarCell{} & \zoVarInterval{$+$} & \zoVarCell{$0$} & \zoVarInterval{$-$} & \zoVarCell{$0$} & \zoVarInterval{$-$} & \zoVarCell{} \\
+};
+\begin{scope}[on background layer]
+\clip[rounded corners=2mm] (bbt.north west) rectangle (bbt.south east);
+\fill[zoVarBackground] (bbt.north west) rectangle (bbt.south east);
+\coordinate (bbt-v-1) at ($(bbt-1-1.center)!0.5!(bbt-1-2.center)$);
+\draw[zo variation rule] (bbt-v-1 |- bbt.north) -- (bbt-v-1 |- bbt.south);
+\coordinate (bbt-v-2) at ($(bbt-1-2.center)!0.5!(bbt-1-3.center)$);
+\draw[zo variation rule] (bbt-v-2 |- bbt.north) -- (bbt-v-2 |- bbt.south);
+\coordinate (bbt-v-3) at ($(bbt-1-3.center)!0.5!(bbt-1-4.center)$);
+\draw[zo variation rule] (bbt-v-3 |- bbt.north) -- (bbt-v-3 |- bbt.south);
+\coordinate (bbt-v-4) at ($(bbt-1-4.center)!0.5!(bbt-1-5.center)$);
+\draw[zo variation rule] (bbt-v-4 |- bbt.north) -- (bbt-v-4 |- bbt.south);
+\coordinate (bbt-v-5) at ($(bbt-1-5.center)!0.5!(bbt-1-6.center)$);
+\draw[zo variation rule] (bbt-v-5 |- bbt.north) -- (bbt-v-5 |- bbt.south);
+\coordinate (bbt-v-6) at ($(bbt-1-6.center)!0.5!(bbt-1-7.center)$);
+\draw[zo variation rule] (bbt-v-6 |- bbt.north) -- (bbt-v-6 |- bbt.south);
+\coordinate (bbt-v-7) at ($(bbt-1-7.center)!0.5!(bbt-1-8.center)$);
+\draw[zo variation rule] (bbt-v-7 |- bbt.north) -- (bbt-v-7 |- bbt.south);
+\coordinate (bbt-h-1) at ($(bbt-1-1.center)!0.5!(bbt-2-1.center)$);
+\draw[zo variation rule] (bbt.west |- bbt-h-1) -- (bbt.east |- bbt-h-1);
+\end{scope}
+\draw[zo variation frame] (bbt.north west) rectangle (bbt.south east);
+\node[zo graph v02 font sentinel] at (bbt.center) {ZO};
+\end{tikzpicture}
+\end{document}

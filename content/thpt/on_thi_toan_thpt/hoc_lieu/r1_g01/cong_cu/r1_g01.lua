@@ -1,78 +1,22 @@
 -- Candidate-only adapter. BBT values are literal data, never inferred.
 local html = FORMAT:match('html') ~= nil
 local latex = FORMAT:match('latex') ~= nil
-local tables
+local script_dir = pandoc.path.directory(PANDOC_SCRIPT_FILE)
+local variation_module_path = pandoc.path.join({script_dir, '../../../../../../assets/lua/zo_variation_qmd.lua'})
+local variation_css_path = pandoc.path.join({script_dir, '../../../../../../assets/css/zo_variation.css'})
+local variation_module = assert(loadfile(variation_module_path))()
+local variation = variation_module.new({
+  data_path=pandoc.path.join({script_dir, '../du_lieu/bang_bien_thien.json'}),
+  asset_dir='hinh',
+  css_path=variation_css_path
+})
 
 local function esc(s)
   return s:gsub('&', '&amp;'):gsub('<', '&lt;'):gsub('>', '&gt;'):gsub('"', '&quot;')
 end
 
-local function tex(s)
-  local value = pandoc.write(pandoc.Pandoc({pandoc.Plain({pandoc.Str(s)})}), 'latex'):gsub('%s+$', '')
-  -- Literal glyph translation only: use the project's math font, not text glyphs.
-  for glyph, command in pairs({['∞']='infty', ['↗']='nearrow', ['↘']='searrow', ['∥']='parallel'}) do
-    value = value:gsub(glyph, function() return '\\ensuremath{\\'..command..'}' end)
-  end
-  return value
-end
-
-local function load_tables()
-  if tables then return end
-  local path = pandoc.path.join({pandoc.path.directory(PANDOC_SCRIPT_FILE), '../du_lieu/bang_bien_thien.json'})
-  local file = assert(io.open(path, 'r'))
-  local data = pandoc.json.decode(file:read('*a'))
-  file:close()
-  tables = {}
-  for _, item in ipairs(data) do
-    assert(not tables[item.id], 'Duplicate BBT ID')
-    tables[item.id] = item
-  end
-end
-
-local function variation(div)
-  load_tables()
-  local id = div.attributes.bbt
-  local data = assert(tables[id], 'Missing BBT: '..tostring(id))
-  local title = div.attributes.caption or data.title or 'Bảng biến thiên'
-  local excluded = {}
-  for _, column in ipairs(data.excluded_columns or {}) do excluded[column + 1] = true end
-  local rows = {}
-  for i, row in ipairs(data.rows) do
-    rows[i] = {}
-    for j, value in ipairs(row) do rows[i][j] = i > 1 and excluded[j] and '∥' or value end
-  end
-  if html then
-    local output = {'<table class="variation" data-bbt="'..esc(id)..'"><caption>'..esc(title)..'</caption><thead>'}
-    for i, row in ipairs(rows) do
-      output[#output+1] = '<tr>'
-      for j, value in ipairs(row) do
-        local tag = (i == 1 or j == 1) and 'th' or 'td'
-        local scope = j == 1 and ' scope="row"' or (i == 1 and ' scope="col"' or '')
-        local class = i > 1 and excluded[j] and ' class="excluded"' or ''
-        output[#output+1] = '<'..tag..scope..class..'>'..esc(value)..'</'..tag..'>'
-      end
-      output[#output+1] = '</tr>'
-      if i == 1 then output[#output+1] = '</thead><tbody>' end
-    end
-    output[#output+1] = '</tbody></table>'
-    return pandoc.RawBlock('html', table.concat(output))
-  elseif latex then
-    local count = #rows[1]
-    local output = {'\\begin{center}\\small', tex(title)..'\\par\\medskip',
-      '\\begin{tabular}{|'..string.rep('c|', count)..'}\\hline'}
-    for _, row in ipairs(rows) do
-      local cells = {}
-      for _, value in ipairs(row) do cells[#cells+1] = tex(value) end
-      output[#output+1] = table.concat(cells, ' & ')..' \\\\ \\hline'
-    end
-    output[#output+1] = '\\end{tabular}\\end{center}'
-    return pandoc.RawBlock('latex', table.concat(output, '\n'))
-  end
-  error('R1-G01 supports HTML/PDF only')
-end
-
 function Div(div)
-  if div.classes:includes('r1-bbt') then return variation(div) end
+  if div.classes:includes('r1-bbt') then return variation.render(div) end
   if div.classes:includes('r1-summary') then
     if html then
       local inlines = div.content[1].content
@@ -130,5 +74,6 @@ function Pandoc(doc)
   assert(maths == 985, 'R1-G01 migration invariant: expected 985 math nodes')
   assert(images == 10, 'R1-G01 migration invariant: expected 10 graph images')
   io.stderr:write('R1-G01 render invariants: math=985; images=10\n')
+  doc = variation.inject(doc)
   return doc
 end
