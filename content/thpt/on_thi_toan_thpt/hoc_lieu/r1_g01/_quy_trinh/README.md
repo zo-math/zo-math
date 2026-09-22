@@ -19,8 +19,14 @@ Checker chung nhận diện cấu hình và kiểm tra tài nguyên; kiểm ch�
 được chạy bằng `cong_cu/kiem_chung.py`. Chưa đăng ký adapter nội dung chung mới.
 Không suy diễn một module có tên trong cấu hình thành kiểm định sư phạm đã thực hiện.
 
-Bảng biến thiên dùng một JSON cho cả HTML và PDF qua `cong_cu/r1_g01.lua`.
-Chú thích bảng trong QMD giữ đúng HTML (có chỗ khác title trong JSON).
+Bảng biến thiên dùng một JSON canonical cho cả HTML và PDF. Công cụ bảng biến thiên
+ZO Math sinh 13 bộ TEX/PDF/SVG. Lớp tích hợp QMD dùng chung trong thư mục công cụ
+tra mã `BBT01`–`BBT13`, dùng SVG cho HTML và PDF vector cho LuaLaTeX; adapter
+`cong_cu/r1_g01.lua` chỉ khai báo JSON và thư mục tài sản của gói. HTML giữ bảng
+ngữ nghĩa trợ năng từ cùng JSON. Chú thích bảng trong QMD giữ đúng HTML (có chỗ
+khác title trong JSON). CSS trình bày BBT thuộc công cụ dùng chung, không nằm trong
+CSS riêng R1-G01. JSON và 39 tài sản TEX/PDF/SVG vẫn là cấu hình riêng của gói qua
+`extensions.artifact_inputs`.
 PDF mở toàn bộ lời giải; tùy chọn in bản học sinh thuộc chức năng in HTML.
 Hình HTML dùng SVG gốc. Cả mười hình `do_thi_01` đến `do_thi_10` dùng trực tiếp
 PDF vector khi dựng PDF học liệu; mỗi PDF và SVG được dựng từ TEX cùng tên bằng bộ

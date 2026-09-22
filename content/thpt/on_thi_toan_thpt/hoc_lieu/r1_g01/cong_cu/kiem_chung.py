@@ -32,7 +32,7 @@ def visible_text(root):
     for node in soup.select('math'):
         annotation = node.find('annotation', encoding='application/x-tex')
         node.replace_with(' ZOMATH '+norm(annotation.get_text())+' END ')
-    for node in soup.select('.tools, a.anchorjs-link'):
+    for node in soup.select('.tools, .zo-variation-caption, a.anchorjs-link'):
         node.decompose()
     return norm(soup.get_text(' ', strip=True))
 
@@ -62,9 +62,11 @@ def check(html):
     counts = {}
     for selector, expected in [('h1', 8), ('math', 985), ('annotation', 985), ('[id]', 107),
                                ('a[href^="#"]', 51), ('.answer-link', 42), ('details', 16),
-                               ('table', 30), ('table.variation', 13), ('figure', 10), ('img', 10)]:
+                               ('table', 30), ('table.variation', 13), ('figure', 10)]:
         counts[selector] = [len(original.select(selector)), len(target.select(selector))]
         checks['count:'+selector] = counts[selector] == [expected, expected]
+    counts['img'] = [len(original.select('img')), len(target.select('img'))]
+    checks['count:img'] = counts['img'] == [10, 23]
     maths = lambda root: [(x.get('display', 'inline'), norm(x.find('annotation', encoding='application/x-tex').get_text())) for x in root.select('math')]
     checks['math_sequence_and_tex'] = maths(original) == maths(target)
     ids = lambda root: [x['id'] for x in root.select('[id]')]
@@ -77,7 +79,20 @@ def check(html):
     checks['figure_alt_caption_order'] = figures(original) == figures(target)
     checks['details_summary_order'] = [norm(x.summary.get_text()) for x in original.select('details')] == [norm(x.summary.get_text()) for x in target.select('details')]
     checks['text_sequence_whitespace_normalized'] = visible_text(original) == visible_text(target)
-    checks['json_byte_identity'] = sha(source/'src/bang_bien_thien.json') == sha(PACKAGE/'du_lieu/bang_bien_thien.json')
+    legacy_data = json.loads((source/'src/bang_bien_thien.json').read_text(encoding='utf-8'))
+    current_data = json.loads((PACKAGE/'du_lieu/bang_bien_thien.json').read_text(encoding='utf-8'))
+    content_projection = [
+        {key: value for key, value in item.items() if key != 'column_min_widths_mm'}
+        for item in current_data
+    ]
+    checks['json_content_identity'] = content_projection == legacy_data
+    checks['variation_layout_contract'] = all(
+        isinstance(item.get('column_min_widths_mm', {}), dict)
+        and all(str(col).isdigit() and isinstance(value, (int, float)) and not isinstance(value, bool)
+                and 8 <= value <= 60
+                for col, value in item.get('column_min_widths_mm', {}).items())
+        for item in current_data
+    )
     graph_names = [f'do_thi_{i:02d}' for i in range(1, 11)]
     checks['graph_vector_triplets_exist'] = all(
         (PACKAGE/'hinh'/f'{name}.{ext}').is_file()
@@ -89,8 +104,18 @@ def check(html):
     checks['html_graphs_use_svg'] = [
         img.get('src') for img in target.select('figure img')
     ] == [f'hinh/{name}.svg' for name in graph_names]
+    variation_names = [f'bbt{i:02d}' for i in range(1, 14)]
+    checks['variation_vector_triplets_exist'] = all(
+        (PACKAGE/'hinh'/f'{name}.{ext}').is_file()
+        for name in variation_names for ext in ('tex', 'pdf', 'svg')
+    )
+    variation_order = ['bbt01', 'bbt02', 'bbt12', 'bbt13', 'bbt03', 'bbt04',
+                       'bbt05', 'bbt06', 'bbt07', 'bbt08', 'bbt09', 'bbt10', 'bbt11']
+    checks['html_variations_use_svg'] = [
+        img.get('src') for img in target.select('.zo-variation-image')
+    ] == [f'hinh/{name}.svg' for name in variation_order]
     # Compare literal JSON rows with display cells, respecting the original excluded-column rule.
-    data = {x['id']: x for x in json.loads((PACKAGE/'du_lieu/bang_bien_thien.json').read_text(encoding='utf-8'))}
+    data = {x['id']: x for x in current_data}
     for record in table_records(target):
         if not record['bbt']:
             continue
