@@ -1,0 +1,55 @@
+% R1-G01 - mau thu Nhip 2 chuyen do_thi_08 bang bo cong cu tai commit 354fb22.
+% Muc dich: doc dau k' tren K=(-4;3) de suy bien thien cua k.
+% Bat bien: k'(x)=0.05(x+3)(x+1)(x-2)^2; cua so [-4.25,3.25] x [-2.5,7].
+% Nghiem don -3, -1 doi dau; nghiem kep 2 tiep xuc truc hoanh va khong doi dau.
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{backgrounds,arrows.meta}
+\input{zo_graph_v02.tex}
+
+\begin{document}
+\begin{tikzpicture}[zo graph v02 field]
+\zoGraphVTwoLayers
+\begin{axis}[
+  zo graph v02 axis,
+  xmin=-4.25,xmax=3.25,ymin=-2.5,ymax=7,
+  restrict y to domain=-2.5:7,
+  xtick={-4,-3,-2,-1,1,2,3},ytick={-2,2,4,6},
+  xlabel={$x$},ylabel={$y$},
+  every axis x label/.append style={at={(axis description cs:0.985,0.278)},anchor=south east},
+  every axis y label/.append style={at={(axis description cs:0.585,0.985)},anchor=north west}
+]
+  \node[zo graph v02 font sentinel] at (axis cs:0,0) {x};
+
+  % Lay mau chi trong K va tach tai moi nghiem de bao toan giao/cam truc.
+  \addplot[zo graph v02 curve solid,domain=-3.999:-3,samples=101,forget plot]
+    {0.05*(x+3)*(x+1)*(x-2)^2};
+  \addplot[zo graph v02 curve solid,domain=-3:-1,samples=161,forget plot]
+    {0.05*(x+3)*(x+1)*(x-2)^2};
+  \addplot[zo graph v02 curve solid,domain=-1:2,samples=241,forget plot]
+    {0.05*(x+3)*(x+1)*(x-2)^2};
+  \addplot[zo graph v02 curve solid,domain=2:2.999,samples=101,forget plot]
+    {0.05*(x+3)*(x+1)*(x-2)^2};
+
+  \addplot[zo graph v02 point emphasized,forget plot]
+    coordinates {(-3,0) (-1,0) (2,0)};
+
+  \begin{pgfonlayer}{zoGraphVTwoTextLayer}
+    \node[zo graph v02 protected label,anchor=north east]
+      at (axis cs:-3.10,-0.62) {$(-3;0)$};
+    \node[zo graph v02 protected label,anchor=north west]
+      at (axis cs:-0.90,-0.62) {$(-1;0)$};
+    \node[zo graph v02 protected label,anchor=north]
+      at (axis cs:2.00,-0.72) {$(2;0)$};
+    % Dau trai: duong cong cham canh duoi-trai cua nen nhan va ha xuong ve nghiem -3.
+    \node[zo graph v02 protected label,anchor=south west]
+      at (axis cs:-3.92,4.71) {$y=k^\prime(x)=0{,}05(x+3)(x+1)(x-2)^2$};
+    \node[zo graph v02 tick label,anchor=north east,xshift=-2pt,yshift=-2pt]
+      at (axis cs:0,0) {$O$};
+  \end{pgfonlayer}
+\end{axis}
+\end{tikzpicture}
+\end{document}

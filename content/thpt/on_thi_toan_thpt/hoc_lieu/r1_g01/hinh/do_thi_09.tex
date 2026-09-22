@@ -1,0 +1,56 @@
+% R1-G01 - do_thi_09: cung do thi |x+1|-2, khac mien tai x=-1.
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{groupplots}
+\usetikzlibrary{backgrounds,arrows.meta}
+\input{zo_graph_v02.tex}
+
+\begin{document}
+\begin{tikzpicture}[zo graph v02 field]
+\zoGraphVTwoLayers
+\begin{groupplot}[
+  group style={group size=1 by 2,vertical sep=10mm},
+  zo graph v02 axis,
+  width=12cm,height=5.2cm,
+  xmin=-3.5,xmax=2.5,ymin=-3,ymax=4,
+  restrict y to domain=-3:4,
+  xtick={-3,-2,-1,1,2},ytick={-2,-1,1,2,3},
+  xlabel={$x$},ylabel={$y$},
+  every axis x label/.append style={at={(axis description cs:0.985,0.44)},anchor=south east},
+  every axis y label/.append style={at={(axis description cs:0.595,0.985)},anchor=north west},
+  title style={font=\fontsize{10}{12}\selectfont,text=zoGraphVTwoText,anchor=south west,
+    at={(axis description cs:0,1.025)}}
+]
+\nextgroupplot[title={Giữ điểm tại $x=-1$}]
+  \node[zo graph v02 font sentinel] at (axis cs:0,0) {x};
+  \addplot[zo graph v02 curve solid,domain=-3.5:-1,samples=168,forget plot] {-x-3};
+  \addplot[zo graph v02 curve solid,domain=-1:2.5,samples=234,forget plot] {x-1};
+  \addplot[zo graph v02 point emphasized,forget plot] coordinates {(-1,-2)};
+  \begin{pgfonlayer}{zoGraphVTwoTextLayer}
+    \node[zo graph v02 protected label,anchor=south east]
+      at (axis cs:2.20,1.15) {$y=u(x)=|x+1|-2$};
+    \node[zo graph v02 protected label,anchor=north east]
+      at (axis cs:-1.08,-2.12) {$(-1;-2)$};
+    \node[zo graph v02 tick label,anchor=north east,xshift=-2pt,yshift=-2pt]
+      at (axis cs:0,0) {$O$};
+  \end{pgfonlayer}
+
+\nextgroupplot[title={Loại điểm tại $x=-1$}]
+  \node[zo graph v02 font sentinel] at (axis cs:0,0) {x};
+  \addplot[zo graph v02 curve solid,domain=-3.5:-1,samples=168,forget plot] {-x-3};
+  \addplot[zo graph v02 curve solid,domain=-1:2.5,samples=234,forget plot] {x-1};
+  \addplot[zo graph v02 point open,mark size=2.6pt,forget plot] coordinates {(-1,-2)};
+  \begin{pgfonlayer}{zoGraphVTwoTextLayer}
+    \node[zo graph v02 protected label,anchor=south east]
+      at (axis cs:2.20,1.15) {$y=v(x)=|x+1|-2,\ x\ne-1$};
+    \node[zo graph v02 protected label,anchor=north east]
+      at (axis cs:-1.08,-2.12) {$(-1;-2)$};
+    \node[zo graph v02 tick label,anchor=north east,xshift=-2pt,yshift=-2pt]
+      at (axis cs:0,0) {$O$};
+  \end{pgfonlayer}
+\end{groupplot}
+\end{tikzpicture}
+\end{document}

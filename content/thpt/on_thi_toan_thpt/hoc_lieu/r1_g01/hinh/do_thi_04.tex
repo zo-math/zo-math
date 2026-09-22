@@ -1,0 +1,54 @@
+% R1-G01 - do_thi_04: so sanh s va s' tren cung thang do, nhan manh 0<x<1.
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{groupplots}
+\usetikzlibrary{backgrounds,arrows.meta}
+\input{zo_graph_v02.tex}
+
+\begin{document}
+\begin{tikzpicture}[zo graph v02 field]
+\zoGraphVTwoLayers
+\begin{groupplot}[
+  group style={group size=1 by 2,vertical sep=10mm},
+  zo graph v02 axis,
+  width=12cm,height=5.2cm,
+  xmin=-0.6,xmax=2.6,ymin=-3,ymax=4,
+  restrict y to domain=-3:4,
+  xtick={1,2},ytick={-2,-1,1,2,3},
+  xlabel={$x$},ylabel={$y$},
+  every axis x label/.append style={at={(axis description cs:0.985,0.44)},anchor=south east},
+  every axis y label/.append style={at={(axis description cs:0.205,0.985)},anchor=north west},
+  title style={font=\fontsize{10}{12}\selectfont,text=zoGraphVTwoText,anchor=south west,
+    at={(axis description cs:0,1.025)}}
+]
+\nextgroupplot[title={Hàm quãng đường}]
+  \node[zo graph v02 font sentinel] at (axis cs:0,0) {x};
+  \begin{pgfonlayer}{zoGraphVTwoAuxLayer}
+    \path[fill=zoGraphVTwoHighlightLight] (axis cs:0,-3) rectangle (axis cs:1,4);
+  \end{pgfonlayer}
+  \addplot[zo graph v02 curve solid,domain=-0.6:2.6,samples=401,forget plot] {x^2-2*x};
+  \begin{pgfonlayer}{zoGraphVTwoTextLayer}
+    \node[zo graph v02 protected label,anchor=south east]
+      at (axis cs:2.35,0.76) {$s(x)=x^2-2x$};
+    \node[zo graph v02 tick label,anchor=north east,xshift=-2pt,yshift=-2pt]
+      at (axis cs:0,0) {$O$};
+  \end{pgfonlayer}
+
+\nextgroupplot[title={Hàm vận tốc}]
+  \node[zo graph v02 font sentinel] at (axis cs:0,0) {x};
+  \begin{pgfonlayer}{zoGraphVTwoAuxLayer}
+    \path[fill=zoGraphVTwoHighlightLight] (axis cs:0,-3) rectangle (axis cs:1,4);
+  \end{pgfonlayer}
+  \addplot[zo graph v02 curve solid,domain=-0.5:2.6,samples=401,forget plot] {2*x-2};
+  \begin{pgfonlayer}{zoGraphVTwoTextLayer}
+    \node[zo graph v02 protected label,anchor=south east]
+      at (axis cs:2.35,2.66) {$s'(x)=2x-2$};
+    \node[zo graph v02 tick label,anchor=north east,xshift=-2pt,yshift=-2pt]
+      at (axis cs:0,0) {$O$};
+  \end{pgfonlayer}
+\end{groupplot}
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,51 @@
+% R1-G01 - do_thi_01, chuyen sang bo cong cu do thi ZO Math tai commit 354fb22.
+% Muc dich: cho thay tiep tuyen nam ngang tai A(1;2), nhung ham so van dong bien
+% o hai phia va A khong phai diem cuc tri.
+% Dac ta toan hoc duoc bao toan tu nguon R1-G01:
+%   y=(x-1)^3+2; cua so [-1.4,3.4] x [-3,8]; tiep tuyen y=2;
+%   diem A(1;2); cac vach x=-1,1,2,3 va y=-2,2,4,6.
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{backgrounds,arrows.meta}
+\input{zo_graph_v02.tex}
+
+\begin{document}
+\begin{tikzpicture}[zo graph v02 field]
+\zoGraphVTwoLayers
+\begin{axis}[
+  zo graph v02 axis,
+  xmin=-1.4,xmax=3.4,ymin=-3,ymax=8,
+  restrict y to domain=-3:8,
+  xtick={-1,1,2,3},ytick={-2,2,4,6},
+  xlabel={$x$},ylabel={$y$},
+  every axis x label/.append style={at={(axis description cs:0.985,0.31)},anchor=south east},
+  every axis y label/.append style={at={(axis description cs:0.31,0.985)},anchor=north west}
+]
+  % Buoc kiem tra font can ca STIX Two Text va STIX Two Math.
+  \node[zo graph v02 font sentinel] at (axis cs:0,0) {x};
+
+  % Duong tham chieu nam duoi duong cong va marker.
+  \addplot[zo graph v02 tangent,domain=-0.2:2.5,samples=2,forget plot] {2};
+
+  % Duong cong chinh: 401 mau theo bo cong cu canonical.
+  \addplot[zo graph v02 curve solid,domain=-1.4:3.4,samples=401,forget plot]
+    {(x-1)^3+2};
+
+  \addplot[zo graph v02 point emphasized,forget plot] coordinates {(1,2)};
+
+  \begin{pgfonlayer}{zoGraphVTwoTextLayer}
+    \node[zo graph v02 protected label,anchor=north west]
+      at (axis cs:1.14,1.72) {$A(1;2)$};
+    \node[zo graph v02 protected label,anchor=east]
+      at (axis cs:2.78,7.62) {$y=(x-1)^3+2$};
+    \node[zo graph v02 protected label,anchor=south east]
+      at (axis cs:2.44,2.18) {Tiếp tuyến $y=2$};
+    \node[zo graph v02 tick label,anchor=north east,xshift=-2pt,yshift=-2pt]
+      at (axis cs:0,0) {$O$};
+  \end{pgfonlayer}
+\end{axis}
+\end{tikzpicture}
+\end{document}

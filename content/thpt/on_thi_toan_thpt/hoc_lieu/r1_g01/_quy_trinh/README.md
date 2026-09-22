@@ -22,7 +22,10 @@ Không suy diễn một module có tên trong cấu hình thành kiểm định 
 Bảng biến thiên dùng một JSON cho cả HTML và PDF qua `cong_cu/r1_g01.lua`.
 Chú thích bảng trong QMD giữ đúng HTML (có chỗ khác title trong JSON).
 PDF mở toàn bộ lời giải; tùy chọn in bản học sinh thuộc chức năng in HTML.
-Hình HTML dùng SVG gốc, PDF dùng PNG gốc. Không chạy lại bộ sinh hình trong Pha 3.
+Hình HTML dùng SVG gốc. Cả mười hình `do_thi_01` đến `do_thi_10` dùng trực tiếp
+PDF vector khi dựng PDF học liệu; mỗi PDF và SVG được dựng từ TEX cùng tên bằng bộ
+công cụ đồ thị ZO Math tại commit `354fb22`. Không còn tài sản PNG canonical hoặc
+pipeline Matplotlib riêng cho bộ mười đồ thị này.
 
 Nghiệm thu trực quan toàn bộ PDF, HTML desktop/mobile và quyết định chuyển canonical
 thuộc Pha 4/quyết định riêng, không được suy từ PASS kỹ thuật.

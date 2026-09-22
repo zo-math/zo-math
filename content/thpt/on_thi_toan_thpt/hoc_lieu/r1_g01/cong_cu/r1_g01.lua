@@ -107,8 +107,10 @@ function Div(div)
 end
 
 function Image(image)
-  if latex and image.src:match('hinh/do_thi_%d+%.svg$') then
-    image.src = image.src:gsub('%.svg$', '.png')
+  local graph_number = image.src:match('^hinh/do_thi_(%d%d)%.svg$')
+  graph_number = tonumber(graph_number)
+  if latex and graph_number and graph_number >= 1 and graph_number <= 10 then
+    image.src = image.src:gsub('%.svg$', '.pdf')
     image.attributes.width = '95%'
   end
   return image
