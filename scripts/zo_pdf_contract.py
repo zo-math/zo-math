@@ -48,8 +48,41 @@ def qmd_artifact_key(root: Path, source: Path) -> str:
     return source.stem
 
 
-def pdf_build_receipt_path(root: Path, source: Path) -> Path:
-    return root / "_audit" / f"{qmd_artifact_key(root, source)}_pdf_build.json"
+def pdf_variant(root: Path, source: Path, variant: str = "full") -> dict[str, Any] | None:
+    """Explicit project opt-in; legacy articles retain the full-only contract."""
+    config = discover_project_config(root, _relative(root, root / source))
+    variants = config.raw.get("extensions", {}).get("pdf_variants") if config else None
+    if variants is None:
+        if variant != "full":
+            raise ValueError("This project has not enabled PDF variants")
+        return None
+    if not isinstance(variants, dict) or set(variants) != {"full", "student"}:
+        raise ValueError("pdf_variants must declare full and student")
+    outputs = []
+    for name, definition in variants.items():
+        if not isinstance(definition, dict):
+            raise ValueError(f"Invalid PDF variant: {name}")
+        output = definition.get("output", "")
+        if not isinstance(output, str) or not output or Path(output).name != output or "\\" in output or "/" in output or Path(output).suffix != ".pdf":
+            raise ValueError(f"Unsafe PDF output: {output}")
+        if not isinstance(definition.get("metadata", {}), dict):
+            raise ValueError(f"Invalid PDF variant metadata: {name}")
+        outputs.append(output.casefold())
+    if len(set(outputs)) != len(outputs):
+        raise ValueError("PDF variants must not share an output")
+    if variant not in variants:
+        raise ValueError(f"Unknown PDF variant: {variant}")
+    return variants[variant]
+
+
+def pdf_output_path(root: Path, source: Path, variant: str = "full") -> Path:
+    definition = pdf_variant(root, source, variant)
+    return source.with_name(definition["output"]) if definition else source.with_suffix(".pdf")
+
+
+def pdf_build_receipt_path(root: Path, source: Path, variant: str = "full") -> Path:
+    suffix = f"_{variant}" if pdf_variant(root, source, variant) else ""
+    return root / "_audit" / f"{qmd_artifact_key(root, source)}{suffix}_pdf_build.json"
 
 
 def pipeline_input_paths(root: Path, source: Path | None = None) -> tuple[Path, ...]:
@@ -59,6 +92,8 @@ def pipeline_input_paths(root: Path, source: Path | None = None) -> tuple[Path, 
     config = discover_project_config(root, _relative(root, root / source))
     if config is None:
         return tuple(paths)
+    if config.raw.get("extensions", {}).get("pdf_variants") is not None:
+        paths.extend([config.config_path, Path("scripts/zo_pdf_contract.py")])
     declared = config.raw.get("extensions", {}).get("artifact_inputs", [])
     if not isinstance(declared, list) or not all(isinstance(p, str) for p in declared):
         raise ValueError("extensions.artifact_inputs must be a list of project-relative paths")
@@ -89,7 +124,7 @@ def _pipeline_records(root: Path, source: Path | None = None) -> list[dict[str, 
     return records
 
 
-def build_pdf_receipt_payload(root: Path, source: Path, output: Path) -> dict[str, Any]:
+def build_pdf_receipt_payload(root: Path, source: Path, output: Path, variant: str = "full") -> dict[str, Any]:
     root = root.resolve()
     source = source.resolve()
     output = output.resolve()
@@ -99,7 +134,10 @@ def build_pdf_receipt_payload(root: Path, source: Path, output: Path) -> dict[st
         raise FileNotFoundError(f"Thiếu QMD nguồn: {source_rel.as_posix()}")
     if not output.is_file():
         raise FileNotFoundError(f"Thiếu PDF đầu ra: {output_rel.as_posix()}")
-    return {
+    definition = pdf_variant(root, source, variant)
+    if definition and output != pdf_output_path(root, source, variant):
+        raise ValueError("PDF output does not match its variant")
+    payload = {
         "pdf_build_receipt_version": PDF_BUILD_RECEIPT_VERSION,
         "generator": PDF_BUILD_GENERATOR,
         "command": PDF_BUILD_COMMAND,
@@ -114,6 +152,10 @@ def build_pdf_receipt_payload(root: Path, source: Path, output: Path) -> dict[st
         },
         "pipeline_inputs": _pipeline_records(root, source),
     }
+    if definition:
+        payload["variant"] = variant
+        payload["variant_definition"] = definition
+    return payload
 
 
 def write_pdf_build_receipt(
@@ -121,10 +163,11 @@ def write_pdf_build_receipt(
     source: Path,
     output: Path,
     receipt_path: Path | None = None,
+    *, variant: str = "full",
 ) -> Path:
-    receipt = receipt_path or pdf_build_receipt_path(root, source)
+    receipt = receipt_path or pdf_build_receipt_path(root, source, variant)
     receipt.parent.mkdir(parents=True, exist_ok=True)
-    payload = build_pdf_receipt_payload(root, source, output)
+    payload = build_pdf_receipt_payload(root, source, output, variant)
     receipt.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
@@ -137,11 +180,13 @@ def validate_pdf_build_receipt(
     source: Path,
     output: Path,
     receipt_path: Path | None = None,
+    *, variant: str = "full",
 ) -> list[str]:
     root = root.resolve()
     source = source.resolve()
     output = output.resolve()
-    receipt = receipt_path or pdf_build_receipt_path(root, source)
+    definition = pdf_variant(root, source, variant)
+    receipt = receipt_path or pdf_build_receipt_path(root, source, variant)
     errors: list[str] = []
 
     if not receipt.is_file():
@@ -153,6 +198,13 @@ def validate_pdf_build_receipt(
         return [f"không đọc được PDF build receipt: {exc}"]
     if not isinstance(payload, dict):
         return ["PDF build receipt phải là JSON object"]
+    if definition:
+        if payload.get("variant") != variant or payload.get("variant_definition") != definition:
+            errors.append("PDF variant/definition mismatch")
+        if output != pdf_output_path(root, source, variant):
+            errors.append("PDF output does not match variant")
+    elif payload.get("variant", "full") != "full":
+        errors.append("Legacy PDF must use full variant")
 
     if payload.get("pdf_build_receipt_version") != PDF_BUILD_RECEIPT_VERSION:
         errors.append(

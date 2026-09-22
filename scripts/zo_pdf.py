@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import shutil
 import subprocess
@@ -9,8 +10,11 @@ import tempfile
 from pathlib import Path
 
 from zo_artifact_freshness import FreshnessError, evaluate_artifact_freshness
+from zo_qmd_config import discover_project_config
 from zo_pdf_contract import (
     pdf_build_receipt_path,
+    pdf_output_path,
+    pdf_variant,
     validate_pdf_build_receipt,
     write_pdf_build_receipt,
 )
@@ -38,11 +42,40 @@ def relative_to_root(path: Path) -> str:
     return path.relative_to(ROOT).as_posix()
 
 
-def output_path(source: Path) -> Path:
-    return source.with_suffix(".pdf")
+def output_path(source: Path, variant: str = "full") -> Path:
+    return pdf_output_path(ROOT, source, variant)
 
 
-def build(source: Path) -> int:
+def isolated_project(source: Path, directory: Path) -> Path:
+    """Variant builds must never let Quarto's intermediate PDF touch production."""
+    config = discover_project_config(ROOT, source.relative_to(ROOT))
+    if config is None:
+        raise ValueError("Isolated variant build requires project configuration")
+    mirror = directory / "project"
+    mirror.mkdir()
+    # Keep root configuration/theme and shared assets byte-identical. No .git,
+    # docs, caches or audit trees are copied into the disposable build context.
+    for path in ROOT.iterdir():
+        if path.is_file():
+            shutil.copy2(path, mirror / path.name)
+    for relative in (Path("assets"), Path("scripts"), config.project_root):
+        shutil.copytree(ROOT / relative, mirror / relative, dirs_exist_ok=True,
+                        ignore=shutil.ignore_patterns("__pycache__", ".quarto", "*_files"))
+    for parent in source.parent.parents:
+        if parent == ROOT:
+            break
+        for name in ("_metadata.yml", "_metadata.yaml"):
+            path = parent / name
+            if path.is_file():
+                target = mirror / path.relative_to(ROOT)
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(path, target)
+    return mirror
+
+
+def build(source: Path, variant: str = "full") -> int:
+    definition = pdf_variant(ROOT, source, variant)
+    destination = output_path(source, variant)
     AUDIT_DIR.mkdir(parents=True, exist_ok=True)
     temp_dir = Path(tempfile.mkdtemp(prefix="zo_pdf_", dir=AUDIT_DIR))
     temp_relative = relative_to_root(temp_dir)
@@ -60,6 +93,17 @@ def build(source: Path) -> int:
     ]
 
     try:
+        build_root = ROOT
+        if definition:
+            build_root = isolated_project(source, temp_dir)
+            command[1] = str(build_root / "scripts" / "zo_quarto.py")
+            command[-1] = "_audit/pdf_output"
+        if definition:
+            metadata = dict(definition.get("metadata", {}))
+            metadata["zo-pdf-variant"] = variant
+            metadata_file = temp_dir / "variant.json"
+            metadata_file.write_text(json.dumps(metadata, ensure_ascii=False), encoding="utf-8")
+            command.extend(["--metadata-file", str(metadata_file)])
         environment = os.environ.copy()
         tex_resource_dirs = [
             str((ROOT / "assets" / "logo").resolve()),
@@ -72,24 +116,24 @@ def build(source: Path) -> int:
 
         completed = subprocess.run(
             command,
-            cwd=ROOT,
+            cwd=build_root,
             check=False,
             env=environment,
         )
         if completed.returncode != 0:
             return completed.returncode
 
-        expected = temp_dir / source.relative_to(ROOT).with_suffix(".pdf")
+        output_root = build_root / "_audit/pdf_output" if definition else temp_dir
+        expected = output_root / source.relative_to(ROOT).with_suffix(".pdf")
         if not expected.is_file():
-            matches = list(temp_dir.rglob(f"{source.stem}.pdf"))
+            matches = list(output_root.rglob(f"{source.stem}.pdf"))
             if len(matches) != 1:
                 print("Không xác định được duy nhất tệp PDF vừa render.", file=sys.stderr)
                 return 1
             expected = matches[0]
 
-        destination = output_path(source)
         shutil.copy2(expected, destination)
-        receipt = write_pdf_build_receipt(ROOT, source, destination)
+        receipt = write_pdf_build_receipt(ROOT, source, destination, variant=variant)
         print(f"PDF created: {relative_to_root(destination)}")
         print(f"PDF build receipt: {relative_to_root(receipt)}")
         return 0
@@ -97,8 +141,8 @@ def build(source: Path) -> int:
         shutil.rmtree(temp_dir, ignore_errors=True)
 
 
-def status(source: Path) -> int:
-    destination = output_path(source)
+def status(source: Path, variant: str = "full") -> int:
+    destination = output_path(source, variant)
     if not destination.is_file():
         print(f"MISSING: {relative_to_root(destination)}")
         return 1
@@ -107,7 +151,7 @@ def status(source: Path) -> int:
     except (FreshnessError, OSError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1
-    receipt_errors = validate_pdf_build_receipt(ROOT, source, destination)
+    receipt_errors = validate_pdf_build_receipt(ROOT, source, destination, variant=variant)
     current = freshness.current and not receipt_errors
     label = "CURRENT" if current else "STALE"
     detail = f"{freshness.message} Cơ sở={freshness.basis}."
@@ -152,6 +196,7 @@ def parser() -> argparse.ArgumentParser:
     for name in ("build", "status"):
         command = subparsers.add_parser(name)
         command.add_argument("source", type=source_path)
+        command.add_argument("--variant", choices=("full", "student"), default="full")
     subparsers.add_parser("self-test")
     return result
 
@@ -160,9 +205,13 @@ def main() -> int:
     args = parser().parse_args()
     if args.command == "self-test":
         return self_test()
-    if args.command == "build":
-        return build(args.source)
-    return status(args.source)
+    try:
+        if args.command == "build":
+            return build(args.source, args.variant)
+        return status(args.source, args.variant)
+    except (ValueError, OSError) as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
 
 
 if __name__ == "__main__":

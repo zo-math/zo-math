@@ -5,12 +5,14 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 import yaml
 
 from zo_pdf_contract import (
     pdf_build_receipt_path, qmd_artifact_key, validate_pdf_build_receipt,
     write_pdf_build_receipt,
+    pdf_output_path,
 )
 from zo_qmd_config import discover_project_config
 
@@ -86,6 +88,65 @@ class IdentityTests(unittest.TestCase):
         config_path.write_text(yaml.safe_dump(config), encoding='utf-8')
         with self.assertRaises(ValueError):
             write_pdf_build_receipt(ROOT, source, source.with_suffix('.pdf'), self.base/'receipt.json')
+
+    def test_variant_outputs_receipts_and_cross_use(self):
+        source = self.pages[0]
+        full = pdf_output_path(ROOT, source)
+        student = pdf_output_path(ROOT, source, 'student')
+        self.assertNotEqual(full, student)
+        self.assertNotEqual(pdf_build_receipt_path(ROOT, source), pdf_build_receipt_path(ROOT, source, 'student'))
+        student.write_bytes(b'%PDF-student')
+        rf, rs = self.base/'full.json', self.base/'student.json'
+        write_pdf_build_receipt(ROOT, source, full, rf)
+        write_pdf_build_receipt(ROOT, source, student, rs, variant='student')
+        self.assertEqual(validate_pdf_build_receipt(ROOT, source, full, rf), [])
+        self.assertEqual(validate_pdf_build_receipt(ROOT, source, student, rs, variant='student'), [])
+        self.assertTrue(validate_pdf_build_receipt(ROOT, source, full, rs))
+        self.assertTrue(validate_pdf_build_receipt(ROOT, source, student, rf, variant='student'))
+        for filename in ['index.qmd', 'table.json', 'figure.png', 'filter.lua']:
+            p = source.parent/filename
+            old = p.read_bytes()
+            p.write_bytes(old+b'drift')
+            self.assertTrue(validate_pdf_build_receipt(ROOT, source, full, rf))
+            self.assertTrue(validate_pdf_build_receipt(ROOT, source, student, rs, variant='student'))
+            p.write_bytes(old)
+
+    def test_variant_config_drift_and_output_collision(self):
+        source = self.pages[0]
+        receipt = self.base/'full.json'
+        write_pdf_build_receipt(ROOT, source, source.with_suffix('.pdf'), receipt)
+        path = source.parent/'_quy_trinh/cau_hinh_san_xuat_qmd.yml'
+        cfg = yaml.safe_load(path.read_text(encoding='utf-8'))
+        cfg['extensions']['pdf_variants']['student']['metadata']['subtitle'] = 'changed'
+        path.write_text(yaml.safe_dump(cfg), encoding='utf-8')
+        self.assertTrue(validate_pdf_build_receipt(ROOT, source, source.with_suffix('.pdf'), receipt))
+        cfg['extensions']['pdf_variants']['student']['output'] = 'index.pdf'
+        path.write_text(yaml.safe_dump(cfg), encoding='utf-8')
+        with self.assertRaises(ValueError):
+            pdf_output_path(ROOT, source, 'student')
+
+    def test_legacy_default_output_and_student_rejected(self):
+        source = ROOT/'content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_ln_x.qmd'
+        self.assertEqual(pdf_output_path(ROOT, source), source.with_suffix('.pdf'))
+        with self.assertRaises(ValueError):
+            pdf_output_path(ROOT, source, 'student')
+
+    def test_failed_isolated_build_preserves_existing_outputs(self):
+        import zo_pdf
+        source = self.pages[0]
+        full = source.with_suffix('.pdf')
+        student = pdf_output_path(ROOT, source, 'student')
+        student.write_bytes(b'old-student')
+        before = [full.read_bytes(), student.read_bytes()]
+        def fake_run(command, **kwargs):
+            mirror = kwargs['cwd']
+            self.assertNotEqual(mirror, ROOT)
+            # Simulate Quarto deleting its intermediate, then failing.
+            (mirror/source.relative_to(ROOT)).with_suffix('.pdf').unlink()
+            return type('Result', (), {'returncode': 1})()
+        with patch.object(zo_pdf.subprocess, 'run', side_effect=fake_run):
+            self.assertEqual(zo_pdf.build(source, 'student'), 1)
+        self.assertEqual([full.read_bytes(), student.read_bytes()], before)
 
 
 if __name__ == '__main__':
