@@ -90,8 +90,10 @@ def check(html):
     old_intro = norm(headings[0].get_text()) + ' Dấu đạo hàm, tính đơn điệu và cực trị ZO Math · Ôn thi Toán THPT 2027 · R1-G01 · Phiên bản 1.1'
     old_guidance = 'Lời giải nằm ở cuối tài liệu, trong các mục có thể mở khi cần. Nút In toàn bộ in cả lời giải; nút In phần học và bài tập ẩn lời giải. Khi học trên màn hình, nhấn vào tên câu hoặc bài để đi đến lời giải tương ứng.'
     new_guidance = 'Tải bản học và bài tập để tự làm; dùng bản đầy đủ khi cần đối chiếu lời giải. Trên màn hình, các liên kết lời giải mở đúng phần tương ứng.'
-    assert original_text.count(old_intro) == 1 and original_text.count(old_guidance) == 1, 'Authority V1/V2 text changed'
-    projected_text = original_text.replace(old_intro, 'R1-G01 · Bản xem trước · Chưa xuất bản', 1).replace(old_guidance, new_guidance, 1)
+    old_positioning = 'Học liệu giúp em đọc đúng công thức, bảng biến thiên và đồ thị; dùng dấu đạo hàm để giải thích kết luận về tính đơn điệu và cực trị. Em cần biết tính đạo hàm đa thức, xét dấu biểu thức và nhận biết tính liên tục tại một điểm. Bốn câu hỏi khởi động sẽ giúp em xác định phần cần ôn.'
+    new_positioning = 'R1-G01 là gói củng cố kiến thức nền và chẩn đoán lỗi thuộc chương trình Ôn thi Toán THPT 2027. Học liệu giúp em đọc đúng công thức, bảng biến thiên và đồ thị; dùng dấu đạo hàm để giải thích kết luận về tính đơn điệu và cực trị. Em cần biết tính đạo hàm đa thức, xét dấu biểu thức và nhận biết tính liên tục tại một điểm. Bốn câu hỏi khởi động sẽ giúp em xác định phần cần ôn. Bài kiểm tra cuối gói nhằm xác định mức độ em làm chủ những nội dung này; đây không phải là đề mô phỏng cấu trúc đề thi tốt nghiệp THPT.'
+    assert original_text.count(old_intro) == 1 and original_text.count(old_guidance) == 1 and original_text.count(old_positioning) == 1, 'Authority V1/V2 text changed'
+    projected_text = original_text.replace(old_intro, 'R1-G01 · Bản xem trước · Chưa xuất bản', 1).replace(old_guidance, new_guidance, 1).replace(old_positioning, new_positioning, 1)
     checks['text_sequence_only_approved_V1_V2'] = projected_text == visible_text(target)
     checks['downloads_exact'] = [(x['href'], x.get('download')) for x in target.select('.r1-downloads a')] == [
         ('index_hoc_sinh.pdf', 'R1-G01_hoc_va_bai_tap_v1.2.pdf'),
