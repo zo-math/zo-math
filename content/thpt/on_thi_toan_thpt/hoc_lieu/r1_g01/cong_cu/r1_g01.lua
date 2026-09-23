@@ -203,7 +203,7 @@ local function assert_inventory(doc, expected, label)
 end
 
 local function prepare(doc)
-  assert_inventory(doc, {math=985, images=10, tables=17, bbt=13, details=16, answers=42}, 'source')
+  assert_inventory(doc, {math=989, images=10, tables=17, bbt=13, details=16, answers=42}, 'source')
   if latex then
     variant = pandoc.utils.stringify(doc.meta['zo-pdf-variant'] or 'full')
     assert(variant == 'full' or variant == 'student', 'Unknown R1-G01 PDF variant')
@@ -224,10 +224,10 @@ local function prepare(doc)
         return d
       end})
       assert(removed, 'Student projection did not find #loi-giai')
-      -- V3 is authoritative; measured #loi-giai removes 399 math / 4 ordinary tables.
-      assert_inventory(doc, {math=586, images=8, tables=13, bbt=11, details=1, answers=0}, 'student')
+      -- Approved R1-G01 editorial projection; #loi-giai removes 399 math / 4 ordinary tables.
+      assert_inventory(doc, {math=590, images=8, tables=13, bbt=11, details=1, answers=0}, 'student')
     else
-      assert_inventory(doc, {math=985, images=10, tables=17, bbt=13, details=16, answers=42}, 'full')
+      assert_inventory(doc, {math=989, images=10, tables=17, bbt=13, details=16, answers=42}, 'full')
     end
   end
   return doc
