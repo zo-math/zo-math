@@ -60,11 +60,12 @@ def check(html):
     actual_source = {p.relative_to(source).as_posix(): sha(p) for p in source.rglob('*') if p.is_file()}
     checks['source_40_hashes'] = actual_source == history['sha256'] and len(actual_source) == 40
     counts = {}
-    for selector, expected in [('math', 985), ('annotation', 985), ('[id]', 107),
+    for selector, expected in [('math', (985, 989)), ('annotation', (985, 989)), ('[id]', 107),
                                ('a[href^="#"]', 51), ('.answer-link', 42), ('details', 16),
                                ('table', 30), ('table.variation', 13), ('figure', 10)]:
         counts[selector] = [len(original.select(selector)), len(target.select(selector))]
-        checks['count:'+selector] = counts[selector] == [expected, expected]
+        expected_counts = list(expected) if isinstance(expected, tuple) else [expected, expected]
+        checks['count:'+selector] = counts[selector] == expected_counts
     counts['img'] = [len(original.select('img')), len(target.select('img'))]
     checks['count:img'] = counts['img'] == [10, 23]
     headings = original.select('h1,h2,h3')
@@ -76,7 +77,12 @@ def check(html):
     counts['logical_regions'] = [len(original.select('h1')), 1 + len([h for h in target.select('h2') if h.get('id', h.parent.get('id')) != 'cách-học-với-tài-liệu-này'])]
     checks['eight_logical_regions'] = counts['logical_regions'] == [8, 8]
     maths = lambda root: [(x.get('display', 'inline'), norm(x.find('annotation', encoding='application/x-tex').get_text())) for x in root.select('math')]
-    checks['math_sequence_and_tex'] = maths(original) == maths(target)
+    projected_maths = maths(original)
+    assert projected_maths[310] == ('inline', 'f^\\prime(x)>0'), 'Approved Mục 6 math anchor changed'
+    assert projected_maths[409] == ('inline', '2'), 'Approved Mục 7 math anchor changed'
+    projected_maths[409:409] = [('inline', 'g'), ('inline', 'g^\\prime')]
+    projected_maths[310:310] = [('inline', 'f'), ('inline', 'f^\\prime')]
+    checks['math_sequence_and_tex'] = projected_maths == maths(target)
     ids = lambda root: [x['id'] for x in root.select('[id]')]
     checks['ordered_ids_unique'] = ids(original) == ids(target) and len(set(ids(target))) == 107
     links = lambda root: [(unquote(x['href']), norm(x.get_text())) for x in root.select('a[href^="#"]')]
@@ -94,6 +100,47 @@ def check(html):
     new_positioning = 'R1-G01 là gói củng cố kiến thức nền và chẩn đoán lỗi thuộc chương trình Ôn thi Toán THPT 2027. Học liệu giúp em đọc đúng công thức, bảng biến thiên và đồ thị; dùng dấu đạo hàm để giải thích kết luận về tính đơn điệu và cực trị. Em cần biết tính đạo hàm đa thức, xét dấu biểu thức và nhận biết tính liên tục tại một điểm. Bốn câu hỏi khởi động sẽ giúp em xác định phần cần ôn. Bài kiểm tra cuối gói nhằm xác định mức độ em làm chủ những nội dung này; đây không phải là đề mô phỏng cấu trúc đề thi tốt nghiệp THPT.'
     assert original_text.count(old_intro) == 1 and original_text.count(old_guidance) == 1 and original_text.count(old_positioning) == 1, 'Authority V1/V2 text changed'
     projected_text = original_text.replace(old_intro, 'R1-G01 · Bản xem trước · Chưa xuất bản', 1).replace(old_guidance, new_guidance, 1).replace(old_positioning, new_positioning, 1)
+    approved_editorial_edits = [
+        (
+            '6. Có thể đọc ngược đến đâu? Cách thực hiện.',
+            '6. Có thể đọc ngược đến đâu? Ở Mục 5, em đã tập gọi đúng đối tượng cực trị. Bây giờ cần kiểm tra thêm một việc: từ bảng, hình hoặc đạo hàm đã cho, ta thực sự biết được bao nhiêu về những đối tượng ấy? Cách thực hiện.',
+        ),
+        (
+            'Hai câu hỏi này buộc ta tách chiều biến thiên khỏi dấu của giá trị, đồng thời đọc đúng đối tượng được biểu diễn. 6.1.',
+            'Hai câu hỏi này buộc ta tách chiều biến thiên khỏi dấu của giá trị, đồng thời đọc đúng đối tượng được biểu diễn. Trong cả Mục 6, mỗi lần đọc ngược, hãy dừng ở ba câu hỏi: Dữ kiện đang nói về ZOMATH f END , ZOMATH f^\\prime END hay chỉ về chiều biến thiên? Kết luận nào theo trực tiếp từ dữ kiện ấy? Muốn kết luận thêm thì còn thiếu giả thiết hoặc giá trị nào? 6.1.',
+        ),
+        (
+            '6.3. Cùng bảng tóm tắt không có nghĩa cùng công thức Xét hai hàm số trong Ví dụ 06:',
+            '6.3. Cùng bảng tóm tắt không có nghĩa cùng công thức Cùng bảng tóm tắt. Xét hai hàm số trong Ví dụ 06:',
+        ),
+        (
+            'Cũng cần phân biệt “biết dấu của đạo hàm” với “biết chính xác hàm đạo hàm”.',
+            'Biết chính xác đạo hàm vẫn chưa đủ biết mọi giá trị của hàm số. Cũng cần phân biệt “biết dấu của đạo hàm” với “biết chính xác hàm đạo hàm”.',
+        ),
+        (
+            'Kí hiệu hợp không tự làm mọi phát biểu sai. Ví dụ,',
+            'Đừng thay lỗi “luôn gộp được” bằng một quy tắc sai khác là “hợp các khoảng luôn sai”. Kí hiệu hợp không tự làm mọi phát biểu sai. Ví dụ,',
+        ),
+        (
+            'Mục này hướng dẫn cách sửa lỗi đầy đủ, không chỉ đổi nhãn “sai” thành “đúng”. 7.1.',
+            'Mục này hướng dẫn cách sửa lỗi đầy đủ, không chỉ đổi nhãn “sai” thành “đúng”. Mục 6 giúp em kiểm tra một kết luận có vượt quá dữ kiện hay không. Mục 7 dùng chính cách kiểm tra ấy để tách từng vế của một phát biểu, giữ phần đúng và sửa đúng chỗ sai. 7.1.',
+        ),
+        (
+            'Chưa cho giá trị nào của ZOMATH g END . Hãy tự làm bốn việc: Lập bảng dấu',
+            'Chưa cho giá trị nào của ZOMATH g END . Hãy tự làm bốn việc: Lượt 1 — Xét dấu và cực trị Lập bảng dấu',
+        ),
+        (
+            'Xác định mốc nào là điểm cực trị, mốc nào không; nêu lí do. Cho biết có tính được giá trị cực trị chỉ từ những dữ kiện trên không.',
+            'Xác định mốc nào là điểm cực trị, mốc nào không; nêu lí do. Lượt 2 — Kiểm tra giới hạn của dữ kiện Chưa cho giá trị nào của ZOMATH g END . Có tính được giá trị cực trị chỉ từ công thức ZOMATH g^\\prime END hay không?',
+        ),
+        (
+            'Luyện tập Làm Bài luyện tập 01–08 theo thứ tự trong lượt đầu. Ghi tập xác định, khoảng và lí do trước khi kết luận.',
+            'Luyện tập Ở lượt đầu, làm các bài theo ba chặng: Bài 01–04 củng cố chuỗi công thức–dấu–biến thiên–cực trị; Bài 05–06 luyện đọc ngược mà không thêm dữ kiện; Bài 07–08 luyện đánh giá và sửa lỗi. Sau mỗi chặng, ghi lại lỗi còn lặp rồi mới chuyển tiếp. Ghi tập xác định, khoảng và lí do trước khi kết luận.',
+        ),
+    ]
+    for before, after in approved_editorial_edits:
+        assert projected_text.count(before) == 1, f'Approved editorial baseline changed: {before}'
+        projected_text = projected_text.replace(before, after, 1)
     checks['text_sequence_only_approved_V1_V2'] = projected_text == visible_text(target)
     checks['downloads_exact'] = [(x['href'], x.get('download')) for x in target.select('.r1-downloads a')] == [
         ('index_hoc_sinh.pdf', 'R1-G01_hoc_va_bai_tap_v1.2.pdf'),
