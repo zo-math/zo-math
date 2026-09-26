@@ -4,13 +4,13 @@
 
 - Gốc điều hành canonical của khóa 2027: `content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/` (tính từ gốc repository).
 - Nguồn QMD của các gói nằm trong `content/thpt/on_thi_toan_thpt/hoc_lieu/<ma_goi>/`, dùng lại độc lập với năm thi; hiện có R1-G01.
-- Khóa 2027 đang ở trạng thái chưa xuất bản.
+- Khóa 2027 đang ở trạng thái chưa xuất bản; các đầu ra đã duyệt đã được mở trong ranh giới ứng viên phát hành.
 - `README.md` này là bảng điều khiển canonical duy nhất, xác định tài liệu current, trạng thái gói và việc tiếp theo.
 - Đơn vị quản lí chính thức là các gói học liệu ngang cấp: D0, R1-G01, R1-G02, R1-G03 và các gói tiếp theo.
 
 Mỗi tài liệu chỉ có một bản current; Git lưu lịch sử phiên bản. Không tạo thư mục `current/`, `published/`, `archive/`; không lưu toàn bộ hội thoại hoặc bản xuất trung gian.
 
-Tài liệu nội bộ không được render hoặc publish. Pha 1 đã hoàn tất tại commit `1720df62f76213c88d482222f7e1c8c345c3f665`: cấu hình Quarto loại `_quy_trinh` khỏi render; `publish_public.yml` chặn toàn chuyên mục và tiếp tục chặn `_quy_trinh` khi các trang học được mở công khai trong tương lai. Không liên kết hồ sơ nội bộ từ trang người học.
+Tài liệu nội bộ không được render hoặc publish. Pha 1 đã hoàn tất tại commit `1720df62f76213c88d482222f7e1c8c345c3f665`: cấu hình Quarto loại `_quy_trinh` khỏi render. Ranh giới ứng viên hiện chỉ chọn các trang và tài sản đã duyệt qua allowlist; `publish_public.yml` tiếp tục chặn `_quy_trinh`. Không liên kết hồ sơ nội bộ từ trang người học.
 
 ## 2. Danh mục tài liệu canonical
 
@@ -68,7 +68,7 @@ Ba tệp với SHA-256 trên là các bản tham chiếu hiện hành cho việc
 - README này là đầu mối điều hành canonical duy nhất. [README tại vị trí cũ](../../../../../../_projects/on_thi_toan_thpt_2027/README.md) chỉ là chỉ dẫn chuyển tiếp, không duy trì bảng trạng thái song song.
 - R1-G01 v1.2 đã hoàn tất nội dung/kỹ thuật trong `hoc_lieu/r1_g01/`; nhãn giao diện “Có thể học” không thay đổi `publication: pending`.
 - Chưa bắt đầu R1-G02; không tạo trước thư mục gói.
-- Việc tiếp theo: nghiệm thu ứng viên ra mắt cục bộ và chỉ mở hàng rào public theo chỉ thị xuất bản riêng.
+- Việc tiếp theo: kiểm chứng ứng viên phát hành trong workspace cô lập; chỉ prepare hoặc publish theo chỉ thị riêng.
 
 Trạng thái vận hành mới chỉ được ghi tại README này, không viết lại quyết định, nội dung toán học hoặc trạng thái sư phạm trong Kế hoạch 0.6 và D0. D0 giữ nguyên cấu trúc, hồ sơ, manifest, kiểm chứng và thành phẩm; không chuyển sang QMD và không tái sinh PDF trong pha này.
 
