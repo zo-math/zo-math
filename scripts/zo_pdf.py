@@ -46,6 +46,18 @@ def output_path(source: Path, variant: str = "full") -> Path:
     return pdf_output_path(ROOT, source, variant)
 
 
+def validate_rendered_pdf(path: Path) -> None:
+    """Reject an incomplete renderer output before it can replace a canonical PDF."""
+    if not path.is_file() or path.stat().st_size < 1024:
+        raise ValueError("PDF vừa render bị thiếu hoặc có kích thước không hợp lệ")
+    with path.open("rb") as stream:
+        if stream.read(5) != b"%PDF-":
+            raise ValueError("Đầu ra vừa render không có PDF header hợp lệ")
+        stream.seek(max(0, path.stat().st_size - 2048))
+        if b"%%EOF" not in stream.read():
+            raise ValueError("Đầu ra vừa render không có PDF EOF marker")
+
+
 def isolated_project(source: Path, directory: Path) -> Path:
     """Variant builds must never let Quarto's intermediate PDF touch production."""
     config = discover_project_config(ROOT, source.relative_to(ROOT))
@@ -98,9 +110,16 @@ def build(source: Path, variant: str = "full") -> int:
             build_root = isolated_project(source, temp_dir)
             command[1] = str(build_root / "scripts" / "zo_quarto.py")
             command[-1] = "_audit/pdf_output"
+            if definition.get("include_support", True) is False:
+                support = build_root / "assets" / "tex" / "zo-pdf-support.tex"
+                support.write_text(
+                    "% Intentionally omitted for this isolated PDF variant.\n",
+                    encoding="utf-8",
+                )
         if definition:
             metadata = dict(definition.get("metadata", {}))
             metadata["zo-pdf-variant"] = variant
+            metadata["zo-pdf-output"] = definition["output"]
             metadata_file = temp_dir / "variant.json"
             metadata_file.write_text(json.dumps(metadata, ensure_ascii=False), encoding="utf-8")
             command.extend(["--metadata-file", str(metadata_file)])
@@ -132,12 +151,19 @@ def build(source: Path, variant: str = "full") -> int:
                 return 1
             expected = matches[0]
 
-        shutil.copy2(expected, destination)
+        validate_rendered_pdf(expected)
+        replacement = destination.with_name(f".{destination.name}.zo-pdf-replacement")
+        shutil.copy2(expected, replacement)
+        validate_rendered_pdf(replacement)
+        replacement.replace(destination)
         receipt = write_pdf_build_receipt(ROOT, source, destination, variant=variant)
         print(f"PDF created: {relative_to_root(destination)}")
         print(f"PDF build receipt: {relative_to_root(receipt)}")
         return 0
     finally:
+        replacement = destination.with_name(f".{destination.name}.zo-pdf-replacement")
+        if replacement.is_file():
+            replacement.unlink()
         shutil.rmtree(temp_dir, ignore_errors=True)
 
 
@@ -196,7 +222,7 @@ def parser() -> argparse.ArgumentParser:
     for name in ("build", "status"):
         command = subparsers.add_parser(name)
         command.add_argument("source", type=source_path)
-        command.add_argument("--variant", choices=("full", "student"), default="full")
+        command.add_argument("--variant", default="full")
     subparsers.add_parser("self-test")
     return result
 
