@@ -20,6 +20,6 @@ Khi chuyển đổi được giao ở pha sau, phải bảo toàn nội dung, nh
 
 ## Hàng rào bắt buộc
 
-Toàn chuyên mục giữ `draft: true` và bị deny trong `publish_public.yml` cho tới khi có quyết định xuất bản riêng. `_quy_trinh` luôn bị chặn kể cả khi mở các trang học. Không đưa liên kết, dữ liệu chỉ mục hay resources chứa đường dẫn nội bộ vào cây public.
+Các trang và tài sản đã duyệt của chuyên mục chỉ được chọn qua allowlist trong `publish_public.yml`. `_quy_trinh` luôn bị chặn kể cả khi mở các trang học. Không đưa liên kết, dữ liệu chỉ mục hay resources chứa đường dẫn nội bộ vào cây public.
 
 Preview dùng profile `on-thi-preview`, chỉ ở `127.0.0.1`; không phải pipeline xuất bản. `zo_publish.py` phải từ chối profile này và kiểm tra đường dẫn bị cấm sau chuẩn hóa trong manifest, HTML, `search.json` và sitemap.

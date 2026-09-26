@@ -51,7 +51,7 @@ Không dùng `scripts/publish_public.sh` cho quy trình mới, trừ khi yêu c�
 
 ## 6. Bản nháp và ranh giới nội bộ
 
-`draft: true` trong Quarto không thay thế chính sách public. Chuyên mục `content/thpt/on_thi_toan_thpt` hiện bị chặn toàn bộ trong `publish_public.yml`; `_quy_trinh` tiếp tục bị chặn ngay cả khi sau này chuyên mục được mở công khai. Chỉ thay đổi ranh giới này khi người dùng phê duyệt riêng.
+`draft: true` trong Quarto không thay thế chính sách public. Các trang và tài sản đã duyệt của chuyên mục `content/thpt/on_thi_toan_thpt` chỉ được chọn qua allowlist trong `publish_public.yml`; `_quy_trinh` tiếp tục bị chặn. Mọi mở rộng ngoài phạm vi đã duyệt vẫn cần người dùng phê duyệt riêng.
 
 Profile `on-thi-preview` chỉ phục vụ preview trên `127.0.0.1`. Công cụ xuất bản từ chối profile này khi có trong `QUARTO_PROFILE` hoặc profile mặc định của dự án, trước khi fetch, render hoặc tác động worktree public. Không dùng `prepare` như một lệnh preview.
 

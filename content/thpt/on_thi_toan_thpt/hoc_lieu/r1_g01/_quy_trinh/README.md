@@ -103,9 +103,9 @@ QMD chỉ khai định dạng HTML; PDF được chọn tường minh qua pipeli
 không để preview HTML tự động sinh PDF cạnh nguồn.
 
 Sidebar chuyên mục nằm trong cấu hình nguồn dùng chung, gồm cổng Ôn thi, ấn bản
-2027 và học liệu này; profile preview chỉ cấu hình máy chủ cục bộ. Hàng rào public
-vẫn giữ nguyên, vì vậy trạng thái “Có thể học” không thay thế `publication: pending`
-và không phải tuyên bố đã xuất bản.
+2027 và học liệu này; profile preview chỉ cấu hình máy chủ cục bộ. Ranh giới public
+đã duyệt chỉ chọn đầu ra qua allowlist và tiếp tục chặn hồ sơ nội bộ; trạng thái
+“Có thể học” không thay thế `publication: pending` và không phải tuyên bố đã xuất bản.
 
 Nghiệm thu trực quan HTML/hai PDF, chấp thuận thiết kế và chuyển canonical là các
 quyết định riêng của chủ dự án, không được suy từ PASS kỹ thuật. Cảnh báo hyphenation

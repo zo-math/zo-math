@@ -10,7 +10,7 @@ Kiến trúc đã được phê duyệt đặt chuyên mục tại `content/thpt
 
 ## Giới hạn tích hợp và đầu mối điều hành
 
-- Hai cửa ngõ và R1-G01 có ứng viên ra mắt cục bộ để nghiệm thu; R1-G01 đã hoàn tất nội dung/kỹ thuật và có thể học, nhưng `publication: pending` và chưa xuất bản công khai.
+- Hai cửa ngõ và R1-G01 đã được duyệt vào ranh giới ứng viên phát hành; R1-G01 đã hoàn tất nội dung/kỹ thuật và có thể học, nhưng `publication: pending` và chưa xuất bản công khai.
 - Không xem mẫu hồ sơ thiết kế của chuyên mục là schema CLI. Ứng viên R1-G01 có cấu hình và hồ sơ riêng trong `_quy_trinh/`; phải đọc README tại đó trước khi làm việc.
 - Với khóa 2027, phải đọc `tot_nghiep_thpt/2027/_quy_trinh/README.md`: đây là đầu mối điều hành canonical duy nhất, ghi trạng thái chuyển đổi và việc tiếp theo. README cũ trong `_projects/on_thi_toan_thpt_2027` chỉ dùng để chuyển tiếp.
 - Tài liệu đã khóa và thành phẩm lịch sử chỉ được chuyển hoặc sửa trong phạm vi chủ dự án giao; không suy từ việc chuyển quản trị thành quyền chuyển đổi học liệu.
@@ -26,8 +26,8 @@ python scripts/zo_python.py scripts/zo_quarto.py render content/thpt/on_thi_toan
 python scripts/zo_python.py scripts/zo_quarto.py preview content/thpt/on_thi_toan_thpt/index.qmd --profile on-thi-preview
 ```
 
-Preview chỉ lắng nghe tại `127.0.0.1`. Navbar/sidebar nguồn dùng chung có đường vào ứng viên để kiểm tra đường đi; hàng rào publish vẫn chặn chuyên mục cho tới quyết định mở public riêng. Khi cần bảo toàn đầu ra hiện có trong một nhiệm vụ kiểm thử, dùng bản sao dự án cô lập dưới `_audit/`, giữ nguyên cấu hình dự án và profile.
+Preview chỉ lắng nghe tại `127.0.0.1`. Navbar/sidebar nguồn dùng chung có đường vào ứng viên để kiểm tra đường đi; các trang và tài sản đã duyệt của chuyên mục chỉ được chọn qua allowlist publish. Khi cần bảo toàn đầu ra hiện có trong một nhiệm vụ kiểm thử, dùng bản sao dự án cô lập dưới `_audit/`, giữ nguyên cấu hình dự án và profile.
 
-Metadata `draft: true` không thay thế hàng rào xuất bản. `publish_public.yml` chặn toàn chuyên mục trong giai đoạn này và chặn `_quy_trinh` lâu dài. Không liên kết tài liệu điều hành từ trang dành cho người đọc, không khai báo resources quét cả cây chuyên mục.
+Metadata `draft: true` không thay thế hàng rào xuất bản. `publish_public.yml` chỉ cho phép đầu ra công khai đã duyệt và tiếp tục chặn `_quy_trinh` lâu dài. Không liên kết tài liệu điều hành từ trang dành cho người đọc, không khai báo resources quét cả cây chuyên mục.
 
 Tuân thủ `quy_trinh_xay_dung/quy_trinh_xuat_ban_website.md`. Chỉ dùng `zo_publish.py check` khi kiểm tra; `prepare`/`publish`, staging, commit và push cần yêu cầu riêng. Không dùng `_publish_exclude.md` hoặc `.gitignore` làm hàng rào public.
