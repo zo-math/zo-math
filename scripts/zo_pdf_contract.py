@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -13,6 +14,7 @@ PDF_BUILD_RECEIPT_VERSION = 1
 PDF_BUILD_GENERATOR = "scripts/zo_pdf.py"
 PDF_BUILD_COMMAND = "build"
 PDF_BUILD_PROFILE = "pdf"
+PDF_VARIANT_NAME = re.compile(r"^[a-z][a-z0-9_]*$")
 
 CANONICAL_PDF_PIPELINE_INPUTS = (
     Path("_quarto-pdf.yml"),
@@ -56,10 +58,12 @@ def pdf_variant(root: Path, source: Path, variant: str = "full") -> dict[str, An
         if variant != "full":
             raise ValueError("This project has not enabled PDF variants")
         return None
-    if not isinstance(variants, dict) or set(variants) != {"full", "student"}:
-        raise ValueError("pdf_variants must declare full and student")
+    if not isinstance(variants, dict) or not {"full", "student"}.issubset(variants):
+        raise ValueError("pdf_variants must declare at least full and student")
     outputs = []
     for name, definition in variants.items():
+        if not isinstance(name, str) or not PDF_VARIANT_NAME.fullmatch(name):
+            raise ValueError(f"Invalid PDF variant name: {name}")
         if not isinstance(definition, dict):
             raise ValueError(f"Invalid PDF variant: {name}")
         output = definition.get("output", "")
@@ -67,6 +71,8 @@ def pdf_variant(root: Path, source: Path, variant: str = "full") -> dict[str, An
             raise ValueError(f"Unsafe PDF output: {output}")
         if not isinstance(definition.get("metadata", {}), dict):
             raise ValueError(f"Invalid PDF variant metadata: {name}")
+        if "include_support" in definition and not isinstance(definition["include_support"], bool):
+            raise ValueError(f"Invalid include_support flag: {name}")
         outputs.append(output.casefold())
     if len(set(outputs)) != len(outputs):
         raise ValueError("PDF variants must not share an output")

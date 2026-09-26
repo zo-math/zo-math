@@ -12,7 +12,7 @@ import yaml
 from zo_pdf_contract import (
     pdf_build_receipt_path, qmd_artifact_key, validate_pdf_build_receipt,
     write_pdf_build_receipt,
-    pdf_output_path,
+    pdf_output_path, pdf_variant,
 )
 from zo_qmd_config import discover_project_config
 
@@ -124,6 +124,56 @@ class IdentityTests(unittest.TestCase):
         path.write_text(yaml.safe_dump(cfg), encoding='utf-8')
         with self.assertRaises(ValueError):
             pdf_output_path(ROOT, source, 'student')
+
+    def test_additional_variant_and_registry_validation(self):
+        source = self.pages[0]
+        path = source.parent/'_quy_trinh/cau_hinh_san_xuat_qmd.yml'
+        original = yaml.safe_load(path.read_text(encoding='utf-8'))
+        cfg = yaml.safe_load(path.read_text(encoding='utf-8'))
+        cfg['extensions']['pdf_variants']['part_one'] = {
+            'output': 'index_part_one.pdf',
+            'include_support': False,
+            'metadata': {'subtitle': 'Part one'},
+        }
+        path.write_text(yaml.safe_dump(cfg), encoding='utf-8')
+        self.assertEqual(pdf_output_path(ROOT, source, 'part_one'), source.with_name('index_part_one.pdf'))
+        self.assertEqual(pdf_variant(ROOT, source, 'part_one')['metadata']['subtitle'], 'Part one')
+        self.assertFalse(pdf_variant(ROOT, source, 'part_one')['include_support'])
+        with self.assertRaises(ValueError):
+            pdf_output_path(ROOT, source, 'missing')
+
+        for invalid_name in ('BadName', 'two-parts', '../escape'):
+            cfg = yaml.safe_load(yaml.safe_dump(original))
+            cfg['extensions']['pdf_variants'][invalid_name] = {
+                'output': 'safe.pdf', 'metadata': {},
+            }
+            path.write_text(yaml.safe_dump(cfg), encoding='utf-8')
+            with self.assertRaises(ValueError):
+                pdf_variant(ROOT, source)
+
+        for unsafe_output in ('../escape.pdf', 'nested/escape.pdf', r'nested\\escape.pdf'):
+            cfg = yaml.safe_load(yaml.safe_dump(original))
+            cfg['extensions']['pdf_variants']['extra'] = {
+                'output': unsafe_output, 'metadata': {},
+            }
+            path.write_text(yaml.safe_dump(cfg), encoding='utf-8')
+            with self.assertRaises(ValueError):
+                pdf_variant(ROOT, source)
+
+        cfg = yaml.safe_load(yaml.safe_dump(original))
+        cfg['extensions']['pdf_variants']['extra'] = {
+            'output': cfg['extensions']['pdf_variants']['full']['output'],
+            'metadata': {},
+        }
+        path.write_text(yaml.safe_dump(cfg), encoding='utf-8')
+        with self.assertRaises(ValueError):
+            pdf_variant(ROOT, source)
+
+        cfg = yaml.safe_load(yaml.safe_dump(original))
+        cfg['extensions']['pdf_variants']['full']['include_support'] = 'no'
+        path.write_text(yaml.safe_dump(cfg), encoding='utf-8')
+        with self.assertRaises(ValueError):
+            pdf_variant(ROOT, source)
 
     def test_legacy_default_output_and_student_rejected(self):
         source = ROOT/'content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_ln_x.qmd'
