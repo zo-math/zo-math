@@ -29,6 +29,43 @@ const link=async(hash,scope='document')=>ev(`[...${scope}.querySelectorAll('a')]
 const targetState=()=>ev(`(() => {const p=document.querySelector('.r1-view-panel'),t=document.getElementById(decodeURIComponent(location.hash.slice(1))),n=document.querySelector('.r1-section-nav'),h=document.querySelector('#quarto-header');return {view:p.dataset.r1View,hash:decodeURIComponent(location.hash),targetTop:t?.getBoundingClientRect().top,cover:Math.max(0,n.getBoundingClientRect().bottom,h.getBoundingClientRect().bottom),focus:document.activeElement.id,visible:[...p.children].filter(e=>!e.hidden).map(e=>e.id)};})()`);
 const stripState=()=>ev(`(() => {const l=document.querySelector('.r1-tablist'),t=l.querySelector('[aria-selected=true]'),r=l.getBoundingClientRect(),s=t.getBoundingClientRect();return {left:l.scrollLeft,selected:t.id,tabLeft:s.left,tabRight:s.right,stripLeft:r.left,stripRight:r.right,visible:s.left>=r.left-1&&s.right<=r.right+1};})()`);
 const tabVisualState=()=>ev(`(() => {const style=(e,pseudo=null)=>{const c=getComputedStyle(e,pseudo);return {background:c.backgroundColor,borderTop:c.borderTop,borderRight:c.borderRight,borderBottom:c.borderBottom,borderLeft:c.borderLeft,boxShadow:c.boxShadow,color:c.color,fontWeight:c.fontWeight,outline:c.outline,outlineOffset:c.outlineOffset,textDecoration:c.textDecorationLine,content:c.content,width:c.width,height:c.height,padding:c.padding}};const list=document.querySelector('.r1-tablist'),selected=list.querySelector('[aria-selected=true]'),regular=document.querySelector('#r1-tab-cach-hoc'),nav=document.querySelector('.r1-section-nav'),header=document.querySelector('#quarto-header');return {selected:{id:selected.id,focusVisible:selected.matches(':focus-visible'),hover:selected.matches(':hover'),style:style(selected),before:style(selected,'::before'),after:style(selected,'::after')},regular:{id:regular.id,focusVisible:regular.matches(':focus-visible'),hover:regular.matches(':hover'),style:style(regular),before:style(regular,'::before'),after:style(regular,'::after')},list:style(list),nav:style(nav),docked:header.classList.contains('r1-nav-docked'),navParent:nav.parentElement.id};})()`);
+const focusVisualState=()=>ev(`(() => {
+  const focused=document.activeElement, style=getComputedStyle(focused), rect=focused.getBoundingClientRect();
+  const parseColor=value=>{if(/^#[0-9a-f]{6}$/i.test(value))return {r:parseInt(value.slice(1,3),16),g:parseInt(value.slice(3,5),16),b:parseInt(value.slice(5,7),16),a:1};const match=value.match(/rgba?\\(([^)]+)\\)/);if(!match)return null;const parts=match[1].split(',').map(Number);return {r:parts[0],g:parts[1],b:parts[2],a:parts[3]??1};};
+  const luminance=color=>[color.r,color.g,color.b].map(value=>{value/=255;return value<=.04045?value/12.92:((value+.055)/1.055)**2.4;}).reduce((sum,value,index)=>sum+value*[.2126,.7152,.0722][index],0);
+  const contrast=(first,second)=>{const values=[luminance(first),luminance(second)].sort((a,b)=>b-a);return (values[0]+.05)/(values[1]+.05);};
+  const outlineColor=parseColor(style.outlineColor), elementBackground=parseColor(style.backgroundColor);
+  let parent=focused.parentElement, parentBackground=null, parentBackgroundNode=null;
+  while(parent&&!parentBackground){const candidate=parseColor(getComputedStyle(parent).backgroundColor);if(candidate&&candidate.a===1){parentBackground=candidate;parentBackgroundNode=parent;}parent=parent.parentElement;}
+  const backgrounds=[['element',elementBackground],['ancestor',parentBackground]].filter(([,color])=>color&&color.a===1);
+  const contrasts=Object.fromEntries(backgrounds.map(([name,color])=>[name,contrast(outlineColor,color)]));
+  const width=parseFloat(style.outlineWidth), offset=parseFloat(style.outlineOffset);
+  const extent=Math.max(0,width+offset), outlineRect={left:rect.left-extent,right:rect.right+extent,top:rect.top-extent,bottom:rect.bottom+extent};
+  const clippedBy=[];
+  for(let node=focused.parentElement;node&&node!==document.documentElement;node=node.parentElement){
+    const nodeStyle=getComputedStyle(node), nodeRect=node.getBoundingClientRect();
+    const clipsX=/^(hidden|clip|auto|scroll)$/.test(nodeStyle.overflowX), clipsY=/^(hidden|clip|auto|scroll)$/.test(nodeStyle.overflowY);
+    if((clipsX&&(outlineRect.left<nodeRect.left-.5||outlineRect.right>nodeRect.right+.5))||(clipsY&&(outlineRect.top<nodeRect.top-.5||outlineRect.bottom>nodeRect.bottom+.5))){
+      clippedBy.push({tag:node.tagName,id:node.id,classes:node.className,overflowX:nodeStyle.overflowX,overflowY:nodeStyle.overflowY,rect:{left:nodeRect.left,right:nodeRect.right,top:nodeRect.top,bottom:nodeRect.bottom}});
+    }
+  }
+  const expectedColor='#554f48', expectedColorValue=parseColor(expectedColor);
+  const colorMatches=outlineColor&&expectedColorValue&&outlineColor.r===expectedColorValue.r&&outlineColor.g===expectedColorValue.g&&outlineColor.b===expectedColorValue.b&&outlineColor.a===expectedColorValue.a;
+  const viewportClipped=outlineRect.left<-.5||outlineRect.right>innerWidth+.5||outlineRect.top<-.5||outlineRect.bottom>innerHeight+.5;
+  if(viewportClipped)clippedBy.push({tag:'VIEWPORT',id:'',classes:'',overflowX:'clip',overflowY:'clip',rect:{left:0,right:innerWidth,top:0,bottom:innerHeight}});
+  const header=document.querySelector('#quarto-header'), nav=document.querySelector('.r1-section-nav'), tablist=document.querySelector('.r1-tablist'), slot=document.querySelector('.r1-nav-slot');
+  const box=node=>{const value=node.getBoundingClientRect();return {left:value.left,right:value.right,top:value.top,bottom:value.bottom,width:value.width,height:value.height};};
+  return {tag:focused.tagName,id:focused.id,classes:typeof focused.className==='string'?focused.className:'',focusVisible:focused.matches(':focus-visible'),outlineStyle:style.outlineStyle,outlineWidth:style.outlineWidth,outlineColor:style.outlineColor,outlineOffset:style.outlineOffset,expectedColor,colorMatches,backgrounds:{element:style.backgroundColor,ancestor:parentBackgroundNode?getComputedStyle(parentBackgroundNode).backgroundColor:null},contrasts,minContrast:Math.min(...Object.values(contrasts)),clippedBy,outlineRect,rect:box(focused),layout:{nav:box(nav),tablist:box(tablist),slot:box(slot)},docked:header.classList.contains('r1-nav-docked'),navParent:nav.parentElement.id,documentOverflow:document.documentElement.scrollWidth-document.documentElement.clientWidth};
+})()`);
+const keyboardFocusState=()=>ev(`(() => {const e=document.activeElement,c=getComputedStyle(e),all=[...document.querySelectorAll('*')];return {domIndex:all.indexOf(e),tag:e.tagName,id:e.id,classes:typeof e.className==='string'?e.className:'',role:e.getAttribute('role'),href:e.getAttribute('href'),tabindex:e.getAttribute('tabindex'),text:(e.textContent||e.getAttribute('aria-label')||'').trim().replace(/\\s+/g,' ').slice(0,100),focusVisible:e.matches(':focus-visible'),outlineStyle:c.outlineStyle,outlineWidth:c.outlineWidth,outlineColor:c.outlineColor,outlineOffset:c.outlineOffset};})()`);
+const keyboardFocusInventory=async()=>{await go('?r1-view=toan-van');await ev("document.body.setAttribute('tabindex','-1');document.body.focus({preventScroll:true})");const items=[];for(let i=0;i<240;i++){await key('Tab',9);const item=await keyboardFocusState();if(item.tag==='BODY'||items.some(old=>old.domIndex===item.domIndex))break;items.push(item);}await ev("document.body.removeAttribute('tabindex')");return items;};
+const uniformFocusPass=state=>state.focusVisible&&state.outlineStyle==='solid'&&state.outlineWidth==='2px'&&state.outlineColor==='rgb(85, 79, 72)'&&state.outlineOffset==='2px';
+const focusPass=(state,expectedId=null)=>uniformFocusPass(state)&&(!expectedId||state.id===expectedId)&&state.clippedBy.length===0&&state.documentOverflow<=1;
+const focusCase=async(selector,file,setup='')=>{
+  await key('Tab',9);
+  await ev(`(() => {${setup}const element=document.querySelector(${JSON.stringify(selector)});if(!element)throw Error('Missing focus target: '+${JSON.stringify(selector)});element.scrollIntoView({block:'center',inline:'nearest',behavior:'instant'});element.focus({preventScroll:true});return true;})()`);
+  await sleep(180);const state=await focusVisualState();await shot(file);return state;
+};
 const accountVisualState=()=>ev(`(() => {const e=document.querySelector('.r1-download-support'),qr=e.querySelector('.r1-support-qr'),link=e.querySelector('.r1-support-link'),c=getComputedStyle(e),r=e.getBoundingClientRect(),q=qr.getBoundingClientRect(),l=link.getBoundingClientRect();return {background:c.backgroundColor,border:c.border,padding:c.padding,boxShadow:c.boxShadow,fontWeight:c.fontWeight,rect:{left:r.left,right:r.right,width:r.width},qr:{left:q.left,right:q.right,width:q.width},link:{left:l.left,right:l.right,width:l.width},clientWidth:e.clientWidth,scrollWidth:e.scrollWidth,viewport:innerWidth,inside:q.left>=r.left&&q.right<=r.right&&l.left>=r.left&&l.right<=r.right,notClipped:e.scrollWidth<=e.clientWidth+1};})()`);
 const sectionDownloadsState=()=>ev(`(() => {const list=document.querySelector('.r1-section-download-list'),r=list.getBoundingClientRect(),items=[...list.children].map(item=>{const x=item.getBoundingClientRect(),a=item.querySelector('a'),s=getComputedStyle(item);return {title:item.querySelector('.r1-section-download-title')?.textContent.trim(),href:a?.getAttribute('href'),download:a?.getAttribute('download'),left:x.left,right:x.right,width:x.width,display:s.display,overflow:item.scrollWidth-item.clientWidth}});return {count:items.length,items,clientWidth:list.clientWidth,scrollWidth:list.scrollWidth,inside:items.every(x=>x.left>=r.left-1&&x.right<=r.right+1),cards:list.querySelectorAll('.r1-download-card').length};})()`);
 const wheel=async(delta,label,width)=>{await ev(`window.__r1phase=${JSON.stringify(label)}`);await call('Input.dispatchMouseEvent',{type:'mouseWheel',x:width/2,y:700,deltaX:0,deltaY:delta});for(let i=0;i<4;i++){await sleep(i===0?25:85);await shot(`${width}_${label}_${i}`);}await sleep(250);};
@@ -47,6 +84,34 @@ try {
     await go('');await ev("scrollTo({top:0,behavior:'instant'});document.querySelector('#r1-tab-bai-hoc').focus({preventScroll:true})");await key('Enter',13);await sleep(450);
     const dockingFocus=await ev("({active:document.activeElement.id,parent:document.querySelector('.r1-section-nav').parentElement.id,y:scrollY})");
     check(`${width}: keyboard focus survives first docking`,dockingFocus.active==='r1-tab-bai-hoc',dockingFocus);
+    await go('?r1-view=bai-hoc');await ev("scrollTo({top:0,behavior:'instant'});document.querySelector('#r1-tab-cach-hoc').focus({preventScroll:true})");await key('ArrowRight',39);await sleep(150);
+    const focusAudit={undocked:await focusVisualState()};await shot(`${width}_focus_before_docking`);
+    await ev("scrollTo({top:1800,behavior:'instant'})");await sleep(500);focusAudit.docked=await focusVisualState();await shot(`${width}_focus_docked`);
+    await ev("scrollTo({top:0,behavior:'instant'})");await sleep(500);focusAudit.undockedAgain=await focusVisualState();await shot(`${width}_focus_after_undocking`);
+    check(`${width}: exact keyboard focus before docking`,focusPass(focusAudit.undocked,'r1-tab-bai-hoc')&&!focusAudit.undocked.docked,focusAudit.undocked);
+    check(`${width}: exact keyboard focus while docked`,focusPass(focusAudit.docked,'r1-tab-bai-hoc')&&focusAudit.docked.docked&&focusAudit.docked.navParent==='quarto-header',focusAudit.docked);
+    check(`${width}: exact keyboard focus after undocking`,focusPass(focusAudit.undockedAgain,'r1-tab-bai-hoc')&&!focusAudit.undockedAgain.docked,focusAudit.undockedAgain);
+    const focusInventory=await keyboardFocusInventory();
+    check(`${width}: all keyboard focus rings are uniform`,focusInventory.length>0&&focusInventory.every(uniformFocusPass),focusInventory.filter(item=>!uniformFocusPass(item)));
+    await go('?r1-view=toan-van');
+    const summaryFocus={
+      closedFirst:await focusCase('#cach-thuc-hien-su-dung-tai-lieu > summary',`${width}_summary_closed_first`,"document.querySelectorAll('.r1-g01 details').forEach(item=>item.open=false);"),
+      openMiddle:await focusCase('#cach-thuc-hien-luyen-tap > summary',`${width}_summary_open_middle`,"document.querySelectorAll('.r1-g01 details').forEach(item=>item.open=false);document.querySelector('#cach-thuc-hien-luyen-tap').open=true;"),
+      closedLast:await focusCase('#cach-thuc-hien-dung-loi-giai > summary',`${width}_summary_closed_last`,"document.querySelectorAll('.r1-g01 details').forEach(item=>item.open=false);"),
+      inner:await focusCase('#loi-giai-2 a[href]',`${width}_details_inner_focus`,"document.querySelectorAll('.r1-g01 details').forEach(item=>item.open=false);document.querySelector('#loi-giai-2').open=true;")
+    };
+    check(`${width}: summary focus is unclipped when closed and open`,Object.values(summaryFocus).every(state=>focusPass(state)),summaryFocus);
+    const summaryGeometry=await ev(`(() => {const details=[...document.querySelectorAll('.r1-g01 details.zo-block')];details.forEach(item=>item.open=true);const summaries=details.map(item=>item.querySelector(':scope > summary'));return {detailsOverflow:details.map(item=>({id:item.id,open:item.open,overflowX:getComputedStyle(item).overflowX,overflowY:getComputedStyle(item).overflowY,clientWidth:item.clientWidth,scrollWidth:item.scrollWidth})),summaryHeights:[...new Set(summaries.map(item=>item.getBoundingClientRect().height))],summaryMinHeights:[...new Set(summaries.map(item=>getComputedStyle(item).minHeight))],icons:summaries.map(item=>{const s=getComputedStyle(item,'::after'),r=item.getBoundingClientRect();return {id:item.parentElement.id,right:s.right,top:s.top,summaryHeight:r.height}})}})()`);
+    check(`${width}: details content and summary geometry remain contained`,summaryGeometry.detailsOverflow.every(item=>item.scrollWidth<=item.clientWidth+1)&&summaryGeometry.summaryMinHeights.every(value=>parseFloat(value)>=44),summaryGeometry);
+    await go('?r1-view=toan-van');
+    const tabFocus={};
+    tabFocus.first=await focusCase('#r1-tab-cach-hoc',`${width}_tab_first_start`,"const list=document.querySelector('.r1-tablist');list.scrollLeft=0;");
+    tabFocus.middle=await focusCase('#r1-tab-sua-loi',`${width}_tab_middle`,"const list=document.querySelector('.r1-tablist');list.scrollLeft=(list.scrollWidth-list.clientWidth)/2;");
+    tabFocus.last=await focusCase('#r1-tab-toan-van',`${width}_tab_last_end`,"const list=document.querySelector('.r1-tablist');list.scrollLeft=list.scrollWidth;");
+    tabFocus.scroll=await ev(`(() => {const list=document.querySelector('.r1-tablist'),nav=document.querySelector('.r1-section-nav'),first=document.querySelector('#r1-tab-cach-hoc'),last=document.querySelector('#r1-tab-toan-van'),box=e=>{const r=e.getBoundingClientRect();return {left:r.left,right:r.right,width:r.width,height:r.height}};return {scrollLeft:list.scrollLeft,maxScroll:list.scrollWidth-list.clientWidth,list:box(list),nav:box(nav),first:box(first),last:box(last),pageOverflow:document.documentElement.scrollWidth-document.documentElement.clientWidth};})()`);
+    check(`${width}: first, middle and last tab focus is unclipped`,focusPass(tabFocus.first,'r1-tab-cach-hoc')&&focusPass(tabFocus.middle,'r1-tab-sua-loi')&&focusPass(tabFocus.last,'r1-tab-toan-van'),tabFocus);
+    check(`${width}: focus gutter preserves tab alignment and page width`,Math.abs(tabFocus.first.rect.left-tabFocus.first.layout.nav.left)<=1&&(tabFocus.scroll.maxScroll<=1||Math.abs(tabFocus.last.rect.right-tabFocus.last.layout.nav.right)<=1)&&tabFocus.scroll.pageOverflow<=1,tabFocus.scroll);
+    results.viewports[width]={focusAudit,focusInventory,summaryFocus,summaryGeometry,tabFocus};
     if(args['--focus-only']==='yes')continue;
     await go('?r1-view=toan-van');await ev("scrollTo({top:0,behavior:'instant'})");await sleep(350);
     const tabVisual={undocked:await tabVisualState()};
@@ -86,7 +151,7 @@ try {
       f.time-deep[i-5].time>=60);
     check(`${width}: no orphan after navbar hides`,settledHidden.length>0&&settledHidden.every(f=>f.nav.bottom<=1),{frames:settledHidden.length,maxNavBottom:Math.max(...settledHidden.map(f=>f.nav.bottom))});
     check(`${width}: no page overflow`,frames.every(f=>f.overflow<=1),Math.max(...frames.map(f=>f.overflow)));
-    results.viewports[width]={top,frames,tabVisual};
+    results.viewports[width]={...results.viewports[width],top,frames,tabVisual};
     // A tab selected while reading deeply must reveal its heading without an intermediate jump to title.
     await ev("document.querySelector('#r1-tab-bai-hoc').click()");await sleep(700);
     const destination=await ev(`({...${rectScript},target:document.querySelector('#bai-hoc > h2').getBoundingClientRect().top,navCount:document.querySelectorAll('.r1-section-nav').length})`);
