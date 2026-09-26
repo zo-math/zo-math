@@ -41,6 +41,20 @@ class PublicBoundaryTests(unittest.TestCase):
         manifest = publish.build_manifest(self.public, self.config)
         return publish.validate_public(self.public, manifest, self.config)["issues"]
 
+    def candidate_dirs(self) -> tuple[Path, Path, Path]:
+        raw = self.public / "raw"
+        target = self.public / "target"
+        candidate = self.public / "candidate"
+        raw.mkdir()
+        target.mkdir()
+        return raw, target, candidate
+
+    @staticmethod
+    def write_at(root: Path, relative: str, text: str) -> None:
+        path = root / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(text, encoding="utf-8")
+
     def test_private_governance_denies_all_asset_types(self) -> None:
         paths = [f"{GOVERNANCE}/sample{suffix}" for suffix in
                  (".html", ".pdf", ".svg", ".png", ".jpg", ".css", ".js", ".json", ".woff2")]
@@ -211,7 +225,7 @@ class PublicBoundaryTests(unittest.TestCase):
             self.assertEqual(publish.main(["check"]), publish.EXIT_USAGE)
             worktree.assert_not_called()
 
-    def test_check_invokes_content_validator(self) -> None:
+    def test_check_normalizes_indexes_before_validation(self) -> None:
         self.write("search.json", json.dumps([{"href": f"{GOVERNANCE}/index.html"}]))
         self.config["output_dir"] = self.public.relative_to(ROOT).as_posix()
         state = {"issues": [], "branch": "test", "commit": "test", "status": []}
@@ -220,9 +234,137 @@ class PublicBoundaryTests(unittest.TestCase):
                 patch.object(publish, "load_config", return_value=(ROOT / "publish_public.yml", self.config)), \
                 patch.object(publish, "find_publish_worktree", return_value=self.public), \
                 patch.object(publish, "git_state", return_value=state), \
-                patch.object(publish, "publish_diff", return_value={}), redirect_stdout(io.StringIO()) as output:
-            self.assertEqual(publish.main(["check"]), publish.EXIT_UNSAFE)
-            self.assertIn("private-reference", output.getvalue())
+                redirect_stdout(io.StringIO()) as output:
+            self.assertEqual(publish.main(["check"]), publish.EXIT_OK)
+            self.assertNotIn("private-reference", output.getvalue())
+
+    def test_candidate_filters_raw_private_files_and_normalizes_indexes(self) -> None:
+        raw, target, candidate = self.candidate_dirs()
+        config = copy.deepcopy(self.config)
+        config["required_files"] = ["CNAME", ".nojekyll"]
+        self.write_at(raw, "CNAME", config["custom_domain"]["cname"])
+        self.write_at(raw, "index.html", '<a href="index.html">public</a>')
+        self.write_at(raw, f"{GOVERNANCE}/secret.html", "private")
+        self.write_at(raw, "search.json", json.dumps([
+            {"href": "index.html"}, {"href": f"{GOVERNANCE}/secret.html"},
+        ]))
+        self.write_at(raw, "sitemap.xml", '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+                      '<url><loc>https://zomath.vn/index.html</loc></url>'
+                      f'<url><loc>https://zomath.vn/{GOVERNANCE}/secret.html</loc></url></urlset>')
+        before = publish.tree_manifest(raw)
+        result = publish.build_public_candidate(raw, candidate, target, config)
+        self.assertEqual(result["issues"], [])
+        self.assertNotIn(f"{GOVERNANCE}/secret.html", result["manifest"]["files"])
+        self.assertEqual(len(json.loads((candidate / "search.json").read_text(encoding="utf-8"))), 1)
+        sitemap = publish.ElementTree.parse(candidate / "sitemap.xml").getroot()
+        self.assertEqual(len(list(sitemap)), 1)
+        self.assertTrue((candidate / ".nojekyll").is_file())
+        self.assertFalse((raw / ".nojekyll").exists())
+        self.assertEqual(publish.tree_manifest(raw), before)
+
+    def test_candidate_still_rejects_private_html_and_missing_resource(self) -> None:
+        for html, issue_type in (
+            (f'<p>{GOVERNANCE}/secret.pdf</p>', "private-reference"),
+            ('<img src="missing.png">', "missing-resource"),
+        ):
+            with self.subTest(issue=issue_type):
+                raw = self.public / f"raw-{issue_type}"
+                target = self.public / f"target-{issue_type}"
+                candidate = self.public / f"candidate-{issue_type}"
+                raw.mkdir()
+                target.mkdir()
+                self.write_at(raw, "CNAME", self.config["custom_domain"]["cname"])
+                self.write_at(raw, "index.html", html)
+                result = publish.build_public_candidate(raw, candidate, target, self.config)
+                self.assertTrue(any(item["type"] == issue_type for item in result["issues"]))
+
+    def test_candidate_requires_non_generated_required_files(self) -> None:
+        raw, target, candidate = self.candidate_dirs()
+        config = copy.deepcopy(self.config)
+        config["required_files"] = ["CNAME", "index.html", ".nojekyll"]
+        self.write_at(raw, "CNAME", config["custom_domain"]["cname"])
+        result = publish.build_public_candidate(raw, candidate, target, config)
+        self.assertTrue((candidate / ".nojekyll").is_file())
+        self.assertFalse(any(item.get("path") == ".nojekyll" for item in result["issues"]))
+        self.assertTrue(any(item["type"] == "missing-required" and item["path"] == "index.html"
+                            for item in result["issues"]))
+
+    def test_candidate_keeps_symlink_sensitive_and_size_guards(self) -> None:
+        for issue_type in ("symlink", "sensitive-content", "oversize"):
+            with self.subTest(issue=issue_type):
+                raw = self.public / f"guard-raw-{issue_type}"
+                target = self.public / f"guard-target-{issue_type}"
+                candidate = self.public / f"guard-candidate-{issue_type}"
+                raw.mkdir()
+                target.mkdir()
+                config = copy.deepcopy(self.config)
+                self.write_at(raw, "CNAME", config["custom_domain"]["cname"])
+                if issue_type == "sensitive-content":
+                    self.write_at(raw, "index.html", "C:/Users/example/private")
+                elif issue_type == "oversize":
+                    config["default_max_file_size"] = 3
+                    self.write_at(raw, "index.html", "public")
+                scanner = patch.object(publish, "scan_symlinks", return_value=["link"])
+                context = scanner if issue_type == "symlink" else patch.object(
+                    publish, "scan_symlinks", wraps=publish.scan_symlinks)
+                with context:
+                    result = publish.build_public_candidate(raw, candidate, target, config)
+                self.assertTrue(any(item["type"] == issue_type for item in result["issues"]))
+
+    def test_candidate_builder_is_deterministic_and_preserves_inputs(self) -> None:
+        raw, target, first = self.candidate_dirs()
+        second = self.public / "candidate-second"
+        self.write_at(raw, "CNAME", self.config["custom_domain"]["cname"])
+        self.write_at(raw, "index.html", "public")
+        raw_before = publish.tree_manifest(raw)
+        target_before = publish.tree_manifest(target, True)
+        one = publish.build_public_candidate(raw, first, target, self.config)
+        two = publish.build_public_candidate(raw, second, target, self.config)
+        for key in ("manifest", "manifest_sha256", "diff", "validation"):
+            self.assertEqual(one[key], two[key])
+        self.assertEqual(publish.tree_manifest(raw), raw_before)
+        self.assertEqual(publish.tree_manifest(target, True), target_before)
+
+    def test_candidate_builder_refuses_existing_directory_without_deleting_it(self) -> None:
+        raw, target, candidate = self.candidate_dirs()
+        self.write_at(raw, "CNAME", self.config["custom_domain"]["cname"])
+        candidate.mkdir()
+        marker = candidate / "keep.txt"
+        marker.write_text("keep", encoding="utf-8")
+        with self.assertRaises(publish.ConfigError):
+            publish.build_public_candidate(raw, candidate, target, self.config)
+        self.assertEqual(marker.read_text(encoding="utf-8"), "keep")
+
+    def test_check_temporary_candidate_is_cleaned_on_pass_and_failure(self) -> None:
+        state = {"issues": [], "branch": "test", "commit": "test", "status": []}
+        real_temporary = tempfile.TemporaryDirectory
+        created: list[Path] = []
+
+        class RecordingTemporaryDirectory(real_temporary):
+            def __enter__(self):
+                name = super().__enter__()
+                created.append(Path(name))
+                return name
+
+        self.config["output_dir"] = self.public.relative_to(ROOT).as_posix()
+        for mode in ("pass", "validation", "exception"):
+            created.clear()
+            if mode == "validation":
+                self.write("index.html", f"<p>{GOVERNANCE}/secret.pdf</p>")
+            side_effect = RuntimeError("fixture failure") if mode == "exception" else None
+            builder = patch.object(publish, "build_public_candidate", side_effect=side_effect) if mode == "exception" else patch.object(
+                publish, "build_public_candidate", wraps=publish.build_public_candidate)
+            with patch.dict(os.environ, {"QUARTO_PROFILE": ""}), \
+                    patch.object(publish, "repo_root", return_value=ROOT), \
+                    patch.object(publish, "load_config", return_value=(ROOT / "publish_public.yml", self.config)), \
+                    patch.object(publish, "find_publish_worktree", return_value=self.public), \
+                    patch.object(publish, "git_state", return_value=state), \
+                    patch.object(publish.tempfile, "TemporaryDirectory", RecordingTemporaryDirectory), \
+                    builder, redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
+                result = publish.main(["check"])
+            self.assertEqual(result, publish.EXIT_OK if mode == "pass" else publish.EXIT_UNSAFE)
+            self.assertTrue(created)
+            self.assertTrue(all(not path.exists() for path in created))
 
 
 if __name__ == "__main__":

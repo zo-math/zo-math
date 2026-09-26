@@ -22,9 +22,9 @@ python scripts/zo_python.py scripts/zo_publish.py prepare
 python scripts/zo_python.py scripts/zo_publish.py publish
 ```
 
-`check` chỉ đọc: kiểm tra Git, worktree, cấu hình, cây đầu ra hiện có, nội dung bị cấm và diff xuất bản dự kiến.
+`check` chỉ đọc: kiểm tra Git, worktree, cấu hình và cây đầu ra hiện có; từ đó dựng một candidate công khai trong thư mục hệ thống tạm nằm ngoài repository và worktree xuất bản. Candidate được lọc, bổ sung tệp đặc biệt, chuẩn hóa chỉ mục và kiểm định bằng cùng builder với `prepare`; diff dự kiến được tính từ byte cuối của candidate. Thư mục tạm luôn được dọn, còn repository, `docs`, Git index và worktree `gh-pages` không bị thay đổi.
 
-`prepare` render toàn website qua `scripts/zo_quarto.py` vào staging sạch trong `_audit/`, dựng và kiểm định cây công khai, tạo báo cáo chuẩn bị rồi đồng bộ có kiểm soát sang worktree `gh-pages`. Lệnh này không stage, commit hoặc push. Chỉ chạy khi người dùng yêu cầu rõ và worktree đích hoàn toàn sạch; báo cáo chuẩn bị là căn cứ cho bước xuất bản tiếp theo.
+`prepare` render toàn website qua `scripts/zo_quarto.py` vào staging sạch trong `_audit/`, dùng lại đúng candidate builder của `check`, tạo báo cáo chuẩn bị rồi đồng bộ có kiểm soát sang worktree `gh-pages`. `prepare` không tái sử dụng candidate tạm của lần `check`: mỗi lần chạy đều render, dựng và xác thực lại candidate từ trạng thái hiện hành. Lệnh này không stage, commit hoặc push. Chỉ chạy khi người dùng yêu cầu rõ và worktree đích hoàn toàn sạch; báo cáo chuẩn bị là căn cứ cho bước xuất bản tiếp theo.
 
 `publish` không render và không tự chạy `prepare`. Lệnh chỉ dùng báo cáo cùng cây công khai do một lần `prepare` thành công tạo ra; kiểm tra lại SHA nguồn, remote, manifest, validator và diff trước khi stage từng đường dẫn tường minh, commit riêng trên `gh-pages` rồi push không force. Nguồn phải được push lên `origin/master` trước, `origin/gh-pages` không được thay đổi sau `prepare`, và người dùng phải yêu cầu rõ việc xuất bản.
 
@@ -45,9 +45,12 @@ Không dùng `scripts/publish_public.sh` cho quy trình mới, trừ khi yêu c�
 
 ## 5. Trình tự dự kiến
 
-1. Chạy `check` và xử lý mọi điểm chặn.
-2. Khi người dùng yêu cầu rõ, chạy `prepare` để tạo cây công khai cho con người hoặc agent đối chiếu.
-3. Chỉ khi người dùng cho phép xuất bản, chạy `publish` để kiểm định lại remote, manifest và diff, sau đó commit riêng trên `gh-pages` và push thường.
+1. Render toàn website từ nguồn hiện hành qua `scripts/zo_quarto.py`.
+2. Chạy `check`: công cụ dựng candidate tạm, lọc, chuẩn hóa, kiểm định và tính diff; xử lý mọi điểm chặn.
+3. Chủ dự án duyệt kết quả kiểm tra. `check` đạt không tự động cho phép `prepare` hoặc `publish`.
+4. Khi người dùng yêu cầu rõ, chạy `prepare`; công cụ render sạch và dựng, xác thực lại một candidate mới trước khi đồng bộ sang worktree xuất bản.
+5. Chủ dự án duyệt candidate và diff do `prepare` tạo.
+6. Chỉ khi người dùng cho phép xuất bản, chạy `publish` để kiểm định lại remote, manifest và diff, sau đó commit riêng trên `gh-pages` và push thường.
 
 ## 6. Bản nháp và ranh giới nội bộ
 
