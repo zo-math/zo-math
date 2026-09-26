@@ -1,0 +1,490 @@
+#!/usr/bin/env python3
+"""Sinh ứng viên cục bộ Ôn thi Toán THPT từ dữ liệu và hồ sơ canonical."""
+
+from __future__ import annotations
+
+import argparse
+import base64
+import copy
+import html
+import re
+import sys
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any
+
+import yaml
+from fontTools.ttLib import TTFont
+
+
+ROOT = Path(__file__).resolve().parents[1]
+PROGRAM_ROOT = ROOT / "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027"
+DATA_PATH = PROGRAM_ROOT / "_data/chuong_trinh.yml"
+PARTIAL_ROOT = PROGRAM_ROOT / "_partials"
+HOME_PARTIAL = ROOT / "_on_thi_2027_trang_chu.md"
+COVER_ROOT = PROGRAM_ROOT / "assets/bia"
+TEMPLATE_PATH = ROOT / "content/thpt/on_thi_toan_thpt/_templates/bia.svg"
+PACKAGE_ROOT = ROOT / "content/thpt/on_thi_toan_thpt/hoc_lieu"
+LOGO_PATH = ROOT / "assets/logo/zo_math_logo_black_on_transprentt_master.svg"
+FONT_PATH = ROOT / "assets/fonts/STIXTwoText-Regular.woff2"
+FONT_METRICS_PATH = ROOT / "assets/fonts/STIXTwoText-Regular.otf"
+THEME_PATH = ROOT / "zo-math.scss"
+# Bootstrap exports these theme variables. This is a name adapter, not a palette.
+CSS_COLOR_TOKENS = {f"--bs-{name}": name for name in (
+    "white", "primary", "gray-100", "gray-200", "gray-300",
+    "gray-700", "gray-800", "gray-900",
+)}
+COLOR_TOKEN_NAMES = (*CSS_COLOR_TOKENS.values(), "red-10")
+# These two Bootstrap exports are overridden by the existing global stylesheet.
+# Emit local component bindings from SCSS, without modifying that stylesheet.
+LOCAL_COLOR_TOKENS = ("gray-300", "gray-800")
+PROFILE_NAME = "_quy_trinh/ho_so/index.yml"
+GENERATED = "<!-- Sinh tự động bởi scripts/zo_build_on_thi.py; không sửa tay. -->"
+
+
+class BuildError(ValueError):
+    """Dữ liệu không thỏa hợp đồng dựng ứng viên."""
+
+
+def theme_colors(path: Path = THEME_PATH) -> dict[str, str]:
+    """Read only the named hex/alias declarations used here, not arbitrary Sass."""
+    text = re.sub(r"/\*.*?\*/|(?m:^\s*//[^\n]*)", "", path.read_text(encoding="utf-8"), flags=re.S)
+    values = {}
+    for name in COLOR_TOKEN_NAMES:
+        found = re.findall(r"(?m)^\s*\$" + re.escape(name) + r"\s*:\s*([^;]+);", text)
+        if len(found) != 1:
+            raise BuildError(f"Token ${name}: cần đúng một khai báo trong {path}, gặp {len(found)}")
+        values[name] = re.sub(r"\s*!default\s*$", "", found[0]).strip()
+
+    def resolve(name: str, seen: tuple[str, ...] = ()) -> str:
+        if name not in values or name in seen:
+            raise BuildError(f"Không phân giải được token ${name}: alias thiếu hoặc vòng lặp")
+        value = values[name]
+        if re.fullmatch(r"#[0-9a-fA-F]{6}", value):
+            return value.lower()
+        if re.fullmatch(r"\$[\w-]+", value):
+            return resolve(value[1:], (*seen, name))
+        raise BuildError(f"Token ${name}: chỉ hỗ trợ hex 6 chữ số hoặc alias đã định danh; nhận {value!r}")
+
+    return {name: resolve(name) for name in values}
+
+
+@dataclass(frozen=True)
+class Package:
+    ref_id: str
+    code: str
+    title: str
+    version: str
+    production: str
+    publication: str
+    display_status: str
+    summary: str
+    qmd: Path
+    pdfs: tuple[str, ...]
+
+    @property
+    def html_url(self) -> str:
+        return f"/content/thpt/on_thi_toan_thpt/hoc_lieu/{self.ref_id}/index.html"
+
+
+def load_yaml(path: Path) -> dict[str, Any]:
+    try:
+        value = yaml.safe_load(path.read_text(encoding="utf-8"))
+    except (OSError, yaml.YAMLError) as exc:
+        raise BuildError(f"Không đọc được YAML {path}: {exc}") from exc
+    if not isinstance(value, dict):
+        raise BuildError(f"YAML phải là mapping: {path}")
+    return value
+
+
+def qmd_metadata(path: Path) -> dict[str, Any]:
+    text = path.read_text(encoding="utf-8")
+    match = re.match(r"\ufeff?---\s*\n(.*?)\n---\s*(?:\n|$)", text, re.S)
+    if not match:
+        raise BuildError(f"Thiếu front matter hợp lệ: {path}")
+    value = yaml.safe_load(match.group(1))
+    if not isinstance(value, dict):
+        raise BuildError(f"Front matter phải là mapping: {path}")
+    return value
+
+
+def validate_data(data: dict[str, Any]) -> None:
+    if data.get("schema_version") != 1:
+        raise BuildError("schema_version chương trình phải bằng 1")
+    program = data.get("program")
+    refs = data.get("packages")
+    if not isinstance(program, dict) or not isinstance(refs, list) or not refs:
+        raise BuildError("Thiếu program hoặc packages")
+    required = {
+        "id", "title", "year", "status", "tagline", "introduction", "audience",
+        "purpose", "learning_steps", "roadmap", "roadmap_note", "strands",
+        "foundations_note", "r8_note", "strands_note", "start", "d0", "deployment",
+    }
+    missing = sorted(required - set(program))
+    if missing:
+        raise BuildError(f"Thiếu trường chương trình: {', '.join(missing)}")
+    ids = [item.get("id") for item in refs if isinstance(item, dict)]
+    if len(ids) != len(refs) or any(not re.fullmatch(r"[a-z0-9_]+", str(x or "")) for x in ids):
+        raise BuildError("Mỗi tham chiếu gói phải có ID an toàn")
+    if len(ids) != len(set(ids)):
+        raise BuildError("ID gói bị trùng")
+    if data.get("latest_package") not in ids:
+        raise BuildError("latest_package không thuộc danh sách packages")
+    strands = program["strands"]
+    if not isinstance(strands, list) or [x.get("id") for x in strands] != [f"R{i}" for i in range(1, 9)]:
+        raise BuildError("Danh sách mạch phải gồm đúng R1–R8 theo thứ tự")
+
+
+def package_from_ref(ref: dict[str, Any], package_root: Path = PACKAGE_ROOT) -> Package:
+    ref_id = ref["id"]
+    package_dir = package_root / ref_id
+    qmd = package_dir / "index.qmd"
+    profile_path = package_dir / PROFILE_NAME
+    if not qmd.is_file() or not profile_path.is_file():
+        raise BuildError(f"Tham chiếu gói không tồn tại: {ref_id}")
+    metadata = qmd_metadata(qmd)
+    profile = load_yaml(profile_path)
+    package_meta = profile.get("package", {})
+    workflow = profile.get("workflow", {})
+    code = str(package_meta.get("id", ""))
+    title = str(metadata.get("title", "")).strip()
+    version = str(package_meta.get("candidate_version", "")).strip()
+    production = str(workflow.get("production", ""))
+    publication = str(workflow.get("publication", ""))
+    if not code or not title or not version or not production or not publication:
+        raise BuildError(f"Hồ sơ hoặc metadata gói chưa đủ: {ref_id}")
+    if production != "accepted" or publication != "pending":
+        raise BuildError(f"Gói {code} chưa ở trạng thái ứng viên có thể học")
+    if len(title) > 96:
+        raise BuildError(f"Tên gói quá dài cho bìa: {code}")
+    downloads = metadata.get("r1-download-files", [])
+    sections = metadata.get("r1-section-download-files", [])
+    pdfs = tuple(str(x.get("href", "")) for x in [*downloads, *sections] if isinstance(x, dict))
+    if len(pdfs) != 8 or len(set(pdfs)) != 8 or any(not name.endswith(".pdf") for name in pdfs):
+        raise BuildError(f"Danh sách PDF canonical của {code} không gồm đúng tám tệp duy nhất")
+    missing_pdfs = [name for name in pdfs if not (package_dir / name).is_file()]
+    if missing_pdfs:
+        raise BuildError(f"Thiếu PDF của {code}: {', '.join(missing_pdfs)}")
+    return Package(
+        ref_id=ref_id,
+        code=code,
+        title=title,
+        version=version,
+        production=production,
+        publication=publication,
+        display_status="Có thể học",
+        summary=str(ref.get("summary", "")).strip(),
+        qmd=qmd,
+        pdfs=pdfs,
+    )
+
+
+def load_model(data: dict[str, Any] | None = None, *, package_root: Path = PACKAGE_ROOT) -> tuple[dict[str, Any], list[Package], Package]:
+    model = copy.deepcopy(data if data is not None else load_yaml(DATA_PATH))
+    validate_data(model)
+    packages = [package_from_ref(ref, package_root) for ref in model["packages"]]
+    by_id = {package.ref_id: package for package in packages}
+    return model["program"], packages, by_id[model["latest_package"]]
+
+
+def ordered_list(items: list[str], class_name: str) -> str:
+    body = "\n".join(f"{i}. {item}" for i, item in enumerate(items, 1))
+    return f"::: {{.{class_name}}}\n\n{body}\n\n:::"
+
+
+def component_color_attributes(colors: dict[str, str]) -> str:
+    declarations = '; '.join(f'--zo-on-thi-{name}: {colors[name]}' for name in LOCAL_COLOR_TOKENS)
+    return f'data-on-thi-colors="canonical" style="{declarations}"'
+
+
+def render_home(program: dict[str, Any], latest: Package, colors: dict[str, str]) -> str:
+    return f"""{GENERATED}
+::: {{.zo-on-thi .zo-on-thi-program-feature data-on-thi-home-feature=\"true\" {component_color_attributes(colors)}}}
+
+::: {{.zo-on-thi-program-feature__cover}}
+![](content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/assets/bia/chuong_trinh.svg){{alt=\"Bìa {program['title']}\"}}
+:::
+
+::: {{.zo-on-thi-program-feature__copy}}
+
+::: {{.zo-on-thi-kicker}}
+Chương trình trọng điểm · {program['status']}
+:::
+
+## {program['title']}
+
+::: {{.zo-on-thi-program-feature__tagline}}
+{program['tagline']}
+:::
+
+::: {{.zo-on-thi-program-feature__latest}}
+Gói mới nhất: {latest.code}
+
+{latest.title}
+:::
+
+[Khám phá chương trình →](content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.qmd){{.zo-on-thi-link}}
+
+:::
+
+:::
+"""
+
+
+def render_editions(program: dict[str, Any], colors: dict[str, str]) -> str:
+    return f"""{GENERATED}
+::: {{.zo-on-thi-gateway__edition {component_color_attributes(colors)}}}
+
+### [{program['title']}](tot_nghiep_thpt/2027/index.qmd)
+
+{program['tagline']}
+
+:::
+"""
+
+
+def render_program(program: dict[str, Any], packages: list[Package], colors: dict[str, str]) -> str:
+    strands = "\n".join(
+        f"::: {{.zo-on-thi-strand}}\n**{item['id']}** {item['title']}\n:::"
+        for item in program["strands"]
+    )
+    cards = []
+    for package in packages:
+        cards.append(f"""::: {{.zo-on-thi-package data-package-id=\"{package.ref_id}\"}}
+::: {{.zo-on-thi-package__layout}}
+::: {{.zo-on-thi-package__cover}}
+![](assets/bia/{package.ref_id}.svg){{.zo-on-thi-cover alt=\"Bìa {package.code}: {package.title}\"}}
+:::
+::: {{.zo-on-thi-package__copy}}
+::: {{.zo-on-thi-package__meta}}
+{package.code} · Phiên bản {package.version} · {package.display_status}
+:::
+
+### {package.title}
+
+{package.summary}
+
+[Học HTML →]({package.html_url}?r1-view=cach-hoc){{.zo-on-thi-link}}
+:::
+:::
+:::""")
+    return f"""{GENERATED}
+::: {{.zo-on-thi .zo-on-thi-program {component_color_attributes(colors)}}}
+
+::: {{.zo-on-thi-hero}}
+::: {{.zo-on-thi-hero__layout}}
+::: {{.zo-on-thi-hero__copy}}
+::: {{.zo-on-thi-status}}
+{program['status']}
+:::
+
+::: {{.zo-on-thi-hero__tagline}}
+{program['tagline']}
+:::
+
+[Xem gói học liệu hiện có ↓](#hoc-lieu-hien-co){{.zo-on-thi-link}}
+:::
+::: {{.zo-on-thi-hero__cover}}
+![](assets/bia/chuong_trinh.svg){{.zo-on-thi-cover alt=\"Bìa {program['title']}\"}}
+:::
+:::
+:::
+
+## Giới thiệu
+
+{program['introduction']}
+
+## Dành cho ai?
+
+{program['audience']}
+
+## Chương trình giúp em làm gì?
+
+{program['purpose']}
+
+## Học theo cách nào?
+
+{ordered_list(program['learning_steps'], 'zo-on-thi-steps')}
+
+## Lộ trình
+
+{ordered_list(program['roadmap'], 'zo-on-thi-roadmap')}
+
+{program['roadmap_note']}
+
+## Tám mạch
+
+::: {{.zo-on-thi-strands}}
+{strands}
+:::
+
+{program['foundations_note']} {program['r8_note']} {program['strands_note']}
+
+## Học liệu hiện có {{#hoc-lieu-hien-co}}
+
+{''.join(cards)}
+
+## Bắt đầu từ đâu?
+
+{program['start']}
+
+{program['d0']}
+
+## Trạng thái triển khai
+
+{program['deployment']}
+
+:::
+"""
+
+
+class FontMetrics:
+    def __init__(self, path: Path) -> None:
+        font = TTFont(str(path))
+        self.units = font["head"].unitsPerEm
+        self.cmap = font.getBestCmap()
+        self.widths = font["hmtx"].metrics
+
+    def width(self, text: str, size: float) -> float:
+        total = 0
+        for character in text:
+            glyph = self.cmap.get(ord(character), ".notdef")
+            total += self.widths.get(glyph, self.widths[".notdef"])[0]
+        return total * size / self.units
+
+    def wrap(self, text: str, size: float, max_width: float, max_lines: int, *, field: str = "text") -> list[str]:
+        words = text.split()
+        lines: list[str] = []
+        current = ""
+        for word in words:
+            word_width = self.width(word, size)
+            if word_width > max_width:
+                raise BuildError(f"{field}: từ {word!r} rộng {word_width:.3f}, vượt giới hạn {max_width}; hãy sửa dữ liệu tên, không cắt chữ")
+            candidate = f"{current} {word}".strip()
+            if self.width(candidate, size) <= max_width:
+                current = candidate
+            elif current:
+                lines.append(current)
+                current = word
+            else:
+                raise BuildError(f"{field}: một từ vượt vùng bìa: {word}")
+        if current:
+            lines.append(current)
+        if len(lines) > max_lines:
+            raise BuildError(f"{field}: tên quá dài, cần {len(lines)} dòng nhưng bìa chỉ cho phép {max_lines}")
+        if any(self.width(line, size) > max_width for line in lines):
+            raise BuildError(f"{field}: dòng sau xuống dòng vượt giới hạn {max_width}")
+        return lines
+
+
+def svg_text(lines: list[str], x: int, y: int, size: int, fill: str, line_height: float = 1.16) -> str:
+    tspans = []
+    for index, line in enumerate(lines):
+        dy = "0" if index == 0 else f"{size * line_height:.1f}"
+        tspans.append(f'<tspan x="{x}" dy="{dy}">{html.escape(line)}</tspan>')
+    return f'    <text x="{x}" y="{y}" font-size="{size}" fill="{fill}">\n      ' + "\n      ".join(tspans) + "\n    </text>"
+
+
+def cover_svg(title: str, description: str, blocks: list[tuple[str, int, int, int, str, int]], colors: dict[str, str]) -> str:
+    template = TEMPLATE_PATH.read_text(encoding="utf-8")
+    metrics = FontMetrics(FONT_METRICS_PATH)
+    content: list[str] = []
+    for index, (text, x, y, size, fill, max_lines) in enumerate(blocks):
+        lines = metrics.wrap(text, size, 1056 - (x - 72), max_lines,
+                             field=f"bìa {title!r}, khối văn bản {index + 1}")
+        last_baseline = y + (len(lines) - 1) * size * 1.16
+        if x < 72 or y - size < 72 or last_baseline + size * .3 > 828:
+            raise BuildError(f"Chữ vượt lề an toàn của bìa: {text}")
+        content.append(svg_text(lines, x, y, size, fill))
+    replacements = {
+        "{{TITLE}}": html.escape(title),
+        "{{DESCRIPTION}}": html.escape(description),
+        "{{FONT_DATA}}": base64.b64encode(FONT_PATH.read_bytes()).decode("ascii"),
+        "{{LOGO_DATA}}": base64.b64encode(LOGO_PATH.read_bytes()).decode("ascii"),
+        "{{CONTENT}}": "\n".join(content),
+        "{{WHITE}}": colors["white"],
+    }
+    for marker, value in replacements.items():
+        template = template.replace(marker, value)
+    if "{{" in template or re.search(r'(?:href|src)="https?://', template):
+        raise BuildError("Bìa còn placeholder hoặc tài nguyên mạng")
+    if not all(fragment in template for fragment in ("Ôn thi Toán THPT", "viewBox=\"0 0 1200 900\"", "STIX Two Text")):
+        raise BuildError("Bìa không giữ đủ văn bản tiếng Việt hoặc hợp đồng hình học")
+    return template
+
+
+def render_covers(program: dict[str, Any], packages: list[Package], *, theme_path: Path = THEME_PATH) -> dict[Path, str]:
+    colors = theme_colors(theme_path)
+    program_svg = cover_svg(
+        program["title"],
+        "Bìa chương trình ôn thi Toán THPT 2027",
+        [
+            ("Ôn thi Toán THPT", 72, 355, 76, colors["gray-900"], 2),
+            (str(program["year"]), 72, 515, 136, colors["primary"], 1),
+            ("Lộ trình và các gói học liệu", 72, 690, 48, colors["gray-700"], 2),
+        ],
+        colors,
+    )
+    result = {COVER_ROOT / "chuong_trinh.svg": program_svg}
+    for package in packages:
+        result[COVER_ROOT / f"{package.ref_id}.svg"] = cover_svg(
+            f"{package.code}: {package.title}",
+            f"Bìa gói {package.code} thuộc {program['title']}",
+            [
+                (package.code, 72, 300, 44, colors["gray-700"], 1),
+                (program["title"], 72, 375, 44, colors["gray-700"], 2),
+                (package.title, 72, 520, 68, colors["primary"], 3),
+                ("Gói củng cố nền tảng và chẩn đoán lỗi", 72, 760, 40, colors["gray-700"], 2),
+            ], colors,
+        )
+    return result
+
+
+def outputs(data: dict[str, Any] | None = None, *, package_root: Path = PACKAGE_ROOT,
+            theme_path: Path = THEME_PATH) -> dict[Path, str]:
+    program, packages, latest = load_model(data, package_root=package_root)
+    colors = theme_colors(theme_path)
+    result = {
+        HOME_PARTIAL: render_home(program, latest, colors),
+        PARTIAL_ROOT / "chuong_trinh.qmd": render_program(program, packages, colors),
+        PARTIAL_ROOT / "an_ban.qmd": render_editions(program, colors),
+    }
+    result.update(render_covers(program, packages, theme_path=theme_path))
+    return result
+
+
+def build(check: bool = False, data: dict[str, Any] | None = None, *,
+          package_root: Path = PACKAGE_ROOT, theme_path: Path = THEME_PATH,
+          output_root: Path = ROOT) -> list[Path]:
+    expected = outputs(data, package_root=package_root, theme_path=theme_path)
+    changed = []
+    for path, content in expected.items():
+        path = output_root / path.relative_to(ROOT)
+        normalized = content.rstrip() + "\n"
+        current = path.read_text(encoding="utf-8") if path.is_file() else None
+        if current != normalized:
+            changed.append(path)
+            if not check:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(normalized, encoding="utf-8", newline="\n")
+    if check and changed:
+        raise BuildError("Đầu ra sinh chưa đồng bộ: " + ", ".join(str(x.relative_to(output_root)) for x in changed))
+    return changed
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--check", action="store_true", help="Chỉ kiểm tra đầu ra deterministic")
+    args = parser.parse_args()
+    try:
+        changed = build(check=args.check)
+    except (BuildError, OSError, KeyError, TypeError) as exc:
+        print(f"FAIL: {exc}", file=sys.stderr)
+        return 1
+    mode = "CURRENT" if args.check else (f"UPDATED {len(changed)}" if changed else "UNCHANGED")
+    print(f"PASS: on-thi launch outputs {mode}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

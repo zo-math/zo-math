@@ -68,6 +68,69 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def verify_historical_source():
+    """Verify the immutable v1.1 record while treating its one log as local evidence."""
+    verification_path = PACKAGE / '_quy_trinh/lich_su/v1_1_verification_v2.json'
+    verification = json.loads(verification_path.read_text(encoding='utf-8'))
+    source_manifest = verification.get('source_manifest', {})
+    expected_manifest_path = (
+        'content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/'
+        '_quy_trinh/lich_su/v1_1.json'
+    )
+    manifest_path = ROOT / source_manifest.get('path', '')
+    manifest_immutable = (
+        verification.get('verification_schema_version') == 2
+        and source_manifest.get('path') == expected_manifest_path
+        and source_manifest.get('sha256') == 'd521e90aa72797b36712dbdd19239f2ab9f6868b09e937e98426a0a371bee2d3'
+        and manifest_path.is_file()
+        and sha(manifest_path) == source_manifest.get('sha256')
+    )
+    history = json.loads(manifest_path.read_text(encoding='utf-8')) if manifest_immutable else {}
+    optional = verification.get('local_evidence_optional')
+    expected_optional_repository_path = (
+        '_projects/on_thi_toan_thpt_2027/goi/R1-G01/'
+        'kiem_chung/pdf_build.log'
+    )
+    optional_contract_valid = (
+        isinstance(optional, list)
+        and len(optional) == 1
+        and optional[0] == {
+            'repository_path': expected_optional_repository_path,
+            'source_manifest_path': 'kiem_chung/pdf_build.log',
+            'sha256': 'f8b6343da78ba11b65e7f950a4966ea47e567efcf8d721a382c683ae88c1fd8b',
+            'role': 'local_build_diagnostic_log',
+        }
+        and history.get('sha256', {}).get('kiem_chung/pdf_build.log') == optional[0]['sha256']
+    )
+    release = verification.get('release_required', {})
+    declared = history.get('sha256', {})
+    required = {
+        path: digest for path, digest in declared.items()
+        if optional_contract_valid and path != optional[0]['source_manifest_path']
+    }
+    contract_valid = (
+        manifest_immutable
+        and history.get('file_count') == 40
+        and source_manifest.get('declared_file_count') == 40
+        and optional_contract_valid
+        and release.get('derivation') == 'source_manifest.sha256 minus local_evidence_optional'
+        and release.get('file_count') == 39
+        and len(required) == 39
+    )
+    source = ROOT / history.get('source_root', '_invalid_history_source_')
+    actual = {
+        path.relative_to(source).as_posix(): sha(path)
+        for path in source.rglob('*') if path.is_file()
+    } if source.is_dir() else {}
+    if optional_contract_valid:
+        actual.pop(optional[0]['source_manifest_path'], None)
+    return history, source, {
+        'history_v1_1_manifest_immutable': manifest_immutable,
+        'history_v1_1_verification_contract': contract_valid,
+        'source_39_required_hashes': contract_valid and actual == required,
+    }
+
+
 def norm(text):
     return ' '.join(text.split())
 
@@ -111,8 +174,7 @@ def derive_projection_boundaries(items):
 
 
 def check(html):
-    history = json.loads((PACKAGE/'_quy_trinh/lich_su/v1_1.json').read_text(encoding='utf-8'))
-    source = ROOT/history['source_root']
+    history, source, history_checks = verify_historical_source()
     original = BeautifulSoup((ROOT/history['authority']).read_text(encoding='utf-8'), 'html.parser')
     page = BeautifulSoup(html.read_text(encoding='utf-8'), 'html.parser')
     target = page.select_one('.r1-g01')
@@ -132,7 +194,7 @@ def check(html):
             line_block.append(line)
         runtime_toc.append(line_block)
     original = original.main
-    checks = {}
+    checks = dict(history_checks)
     qmd = (PACKAGE/'index.qmd').read_text(encoding='utf-8')
     front_matter = yaml.safe_load(qmd.split('---', 2)[1])
     registry = yaml.safe_load(
@@ -168,8 +230,6 @@ def check(html):
         fixture_before == ['fixture-first', 'fixture-second', 'nguon']
         and fixture_after == ['fixture-renamed', 'fixture-second', 'nguon']
     )
-    actual_source = {p.relative_to(source).as_posix(): sha(p) for p in source.rglob('*') if p.is_file()}
-    checks['source_40_hashes'] = actual_source == history['sha256'] and len(actual_source) == 40
     counts = {}
     for selector, expected in [('math', (985, 989)), ('annotation', (985, 989)), ('[id]', (107, 151)),
                                ('a[href^="#"]', 51), ('.answer-link', 42), ('details', (16, 31)),
@@ -208,9 +268,12 @@ def check(html):
     checks['single_page_title'] = len(page.select('main h1')) == 1 and norm(page.select_one('h1.title').get_text()) == norm(headings[0].get_text())
     checks['subtitle_preserved'] = norm(page.select_one('#title-block-header .subtitle').get_text()) == 'Dấu đạo hàm, tính đơn điệu và cực trị'
     checks['official_display_identity_exact'] = (
-        norm(target.select_one('.r1-status').get_text()) == 'Bản xem trước · Chưa xuất bản'
+        norm(target.select_one('.r1-status').get_text()) == 'Có thể học'
         and norm(target.select_one(':scope > p').get_text()).startswith(
             'Học liệu “Kết nối hàm số, bảng biến thiên và đồ thị” là gói củng cố kiến thức nền'
+        )
+        and target.select_one(':scope > p a').get('href').endswith(
+            '/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html'
         )
         and norm(target.select_one('.r1-footer').get_text())
         == 'ZO Math · Kết nối hàm số, bảng biến thiên và đồ thị · Phiên bản 1.2'
@@ -527,9 +590,9 @@ def check(html):
     old_guidance = 'Lời giải nằm ở cuối tài liệu, trong các mục có thể mở khi cần. Nút In toàn bộ in cả lời giải; nút In phần học và bài tập ẩn lời giải. Khi học trên màn hình, nhấn vào tên câu hoặc bài để đi đến lời giải tương ứng.'
     new_guidance = 'Tải bản học và bài tập để tự làm. Dùng bản đầy đủ khi cần đối chiếu lời giải. Trên màn hình, dùng các liên kết lời giải để mở đúng phần tương ứng.'
     old_positioning = 'Học liệu giúp em đọc đúng công thức, bảng biến thiên và đồ thị; dùng dấu đạo hàm để giải thích kết luận về tính đơn điệu và cực trị. Em cần biết tính đạo hàm đa thức, xét dấu biểu thức và nhận biết tính liên tục tại một điểm. Bốn câu hỏi khởi động sẽ giúp em xác định phần cần ôn.'
-    new_positioning = 'Học liệu “Kết nối hàm số, bảng biến thiên và đồ thị” là gói củng cố kiến thức nền và chẩn đoán lỗi thuộc chương trình Ôn thi Toán THPT 2027. Học liệu giúp em đọc đúng công thức, bảng biến thiên và đồ thị; dùng dấu đạo hàm để giải thích kết luận về tính đơn điệu và cực trị. Em cần biết tính đạo hàm đa thức, xét dấu biểu thức và nhận biết tính liên tục tại một điểm. Bốn câu hỏi khởi động sẽ giúp em xác định phần cần ôn. Bài kiểm tra cuối gói nhằm xác định mức độ em làm chủ những nội dung này; đây không phải là đề mô phỏng cấu trúc đề thi tốt nghiệp THPT.'
+    new_positioning = 'Học liệu “Kết nối hàm số, bảng biến thiên và đồ thị” là gói củng cố kiến thức nền và chẩn đoán lỗi thuộc chương trình Ôn thi Toán THPT 2027 . Học liệu giúp em đọc đúng công thức, bảng biến thiên và đồ thị; dùng dấu đạo hàm để giải thích kết luận về tính đơn điệu và cực trị. Em cần biết tính đạo hàm đa thức, xét dấu biểu thức và nhận biết tính liên tục tại một điểm. Bốn câu hỏi khởi động sẽ giúp em xác định phần cần ôn. Bài kiểm tra cuối gói nhằm xác định mức độ em làm chủ những nội dung này; đây không phải là đề mô phỏng cấu trúc đề thi tốt nghiệp THPT.'
     assert original_text.count(old_intro) == 1 and original_text.count(old_guidance) == 1 and original_text.count(old_positioning) == 1, 'Authority V1/V2 text changed'
-    projected_text = original_text.replace(old_intro, 'Bản xem trước · Chưa xuất bản', 1).replace(old_guidance, new_guidance, 1).replace(old_positioning, new_positioning, 1)
+    projected_text = original_text.replace(old_intro, 'Có thể học', 1).replace(old_guidance, new_guidance, 1).replace(old_positioning, new_positioning, 1)
     approved_editorial_edits = [
         (
             '6. Có thể đọc ngược đến đâu? Cách thực hiện.',
