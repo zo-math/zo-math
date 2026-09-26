@@ -13,6 +13,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 from collections import Counter
 from datetime import datetime, timezone
 from html import unescape
@@ -792,6 +793,55 @@ def exact_diff(target_manifest: Mapping[str, Any], desired: Mapping[str, Any]) -
     }
 
 
+def build_public_candidate(raw_output: Path, candidate: Path, target: Path,
+                           config: Mapping[str, Any]) -> dict[str, Any]:
+    """Build and validate the exact public tree without modifying either input tree."""
+    if candidate.exists():
+        raise ConfigError(f"Thư mục candidate phải chưa tồn tại: {candidate}")
+
+    selected = build_manifest(raw_output, config)
+    special_files = set(config["prepare"]["special_files"])
+    blocking = [
+        item for item in selected["issues"]
+        if item.get("type") not in {"forbidden-output", "missing-required"}
+    ]
+
+    candidate.mkdir(parents=True)
+    copy_manifest(raw_output, candidate, selected)
+    for relative in sorted(special_files):
+        path = candidate / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.touch()
+
+    copied_manifest = tree_manifest(candidate)
+    normalization = normalize_public_indexes(candidate, copied_manifest, config)
+    public_manifest = tree_manifest(candidate)
+    policy_manifest = build_manifest(candidate, config)
+    policy_files = {
+        name: {"size": metadata["size"], "sha256": metadata["sha256"]}
+        for name, metadata in policy_manifest["files"].items()
+    }
+    if policy_files != public_manifest["files"]:
+        blocking.append({"type": "candidate-manifest-mismatch", "path": str(candidate)})
+    blocking.extend(policy_manifest["issues"])
+    blocking.extend(normalization["issues"])
+    validation = validate_public(candidate, public_manifest, config)
+    blocking.extend(validation["issues"])
+
+    target_manifest = tree_manifest(target, True)
+    return {
+        "selected_manifest": selected,
+        "public_manifest": public_manifest,
+        "manifest": {**public_manifest, "excluded": selected["excluded"]},
+        "manifest_sha256": manifest_digest(public_manifest),
+        "index_normalization": normalization,
+        "validation": validation,
+        "issues": blocking,
+        "diff": exact_diff(target_manifest, public_manifest),
+        "target_before_manifest": target_manifest,
+    }
+
+
 def sync_exact(source: Path, target: Path, desired: Mapping[str, Any], diff: Mapping[str, Any]) -> None:
     for relative in [*diff["delete"], *diff["update"]]:
         path = target / relative
@@ -1181,7 +1231,8 @@ def print_summary(payload: Mapping[str, Any], code: int) -> None:
     print(f"MANIFEST: {manifest.get('count', 0)} files | {manifest.get('bytes', 0)} bytes")
     print(f"EXCLUDED: {manifest.get('excluded', {})}")
     deleted = diff.get("delete", diff.get("delete_managed", []))
-    print(f"DIFF: add={len(diff.get('add', []))} update={len(diff.get('update', []))} delete={len(deleted)} unchanged={len(diff.get('unchanged', []))} unmanaged={len(diff.get('unmanaged_existing', []))}")
+    print(f"DIFF: added={len(diff.get('add', []))} modified={len(diff.get('update', []))} "
+          f"deleted={len(deleted)} unchanged={len(diff.get('unchanged', []))}")
     print(f"ISSUES: {len(issues)}")
     for item in issues[:20]:
         print(f"  - {item.get('type')}: {item.get('path', item.get('message', ''))}")
@@ -1225,11 +1276,6 @@ def main(argv: Sequence[str] | None = None) -> int:
         issues.extend({"type": "source-git", "message": item} for item in source_state["issues"])
         issues.extend({"type": "target-git", "message": item} for item in target_state["issues"])
         issues.extend({"type": "target-symlink", "path": item} for item in scan_symlinks(target, True))
-        manifest = build_manifest((root / config["output_dir"]).resolve(), config)
-        issues.extend(manifest["issues"])
-        validation = validate_public((root / config["output_dir"]).resolve(), manifest, config)
-        issues.extend(validation["issues"])
-        diff = publish_diff(target, manifest, config)
         payload: dict[str, Any] = {
             "schema_version": REPORT_SCHEMA_VERSION,
             "mode": args.command,
@@ -1239,12 +1285,27 @@ def main(argv: Sequence[str] | None = None) -> int:
             "repo_root": str(root), "publish_worktree": str(target),
             "config": str(config_path.relative_to(root).as_posix()),
             "source": source_state, "target": target_state,
-            "manifest": {key: value for key, value in manifest.items() if key != "issues"},
-            "diff": diff, "issues": issues,
-            "validation": validation,
+            "manifest": {}, "diff": {}, "issues": issues,
+            "validation": {},
         }
-        code = EXIT_UNSAFE if issues else EXIT_OK
-        if args.command == "prepare":
+        if args.command == "check":
+            raw_output = (root / config["output_dir"]).resolve()
+            with tempfile.TemporaryDirectory(prefix="zo_publish_check_") as temporary:
+                temporary_root = Path(temporary).resolve()
+                for protected in (root.resolve(), target.resolve()):
+                    try:
+                        temporary_root.relative_to(protected)
+                    except ValueError:
+                        continue
+                    raise ConfigError("Thư mục tạm của check phải nằm ngoài repository và worktree xuất bản.")
+                candidate = temporary_root / "public"
+                candidate_result = build_public_candidate(raw_output, candidate, target, config)
+                issues.extend(candidate_result["issues"])
+                payload.update({key: value for key, value in candidate_result.items()
+                                if key not in {"issues", "selected_manifest", "public_manifest",
+                                               "target_before_manifest"}})
+            code = EXIT_UNSAFE if issues else EXIT_OK
+        else:
             # Preflight must pass before rendering or touching the target worktree.
             allowed_changes = {
                 "AGENTS.md", "publish_public.yml", "scripts/zo_publish.py",
@@ -1285,35 +1346,20 @@ def main(argv: Sequence[str] | None = None) -> int:
                     issues.append({"type": "render", "message": "Quarto render thất bại."})
                     code = EXIT_UNSAFE
                 else:
-                    render_manifest = tree_manifest(render_dir)
-                    for special in prepare["special_files"]:
-                        path = render_dir / special
-                        path.parent.mkdir(parents=True, exist_ok=True)
-                        path.touch()
-                    selected_manifest = build_manifest(render_dir, config)
-                    public_dir.mkdir(parents=True, exist_ok=True)
-                    copy_manifest(render_dir, public_dir, selected_manifest)
-                    index_normalization = normalize_public_indexes(public_dir, selected_manifest, config)
-                    public_manifest = tree_manifest(public_dir)
-                    validation = validate_public(public_dir, public_manifest, config)
-                    blocking_manifest_issues = [item for item in selected_manifest.get("issues", [])
-                                                if item.get("type") != "forbidden-output"]
-                    issues.extend(blocking_manifest_issues)
-                    issues.extend(index_normalization["issues"])
-                    issues.extend(validation["issues"])
-                    missing = [name for name in config["required_files"] if name not in public_manifest["files"]]
-                    issues.extend({"type": "missing-required", "path": name} for name in missing)
-                    target_diff = exact_diff(target_before, public_manifest)
-                    payload.update({"render_manifest": render_manifest,
-                                    "manifest": {**public_manifest, "excluded": selected_manifest["excluded"]},
-                                    "manifest_sha256": manifest_digest(public_manifest),
-                                    "index_normalization": index_normalization,
-                                    "validation": validation, "diff": target_diff,
-                                    "target_before_manifest": target_before})
+                    payload["render_manifest"] = tree_manifest(render_dir)
+                    candidate_result = build_public_candidate(render_dir, public_dir, target, config)
+                    issues.extend(candidate_result["issues"])
+                    if candidate_result["target_before_manifest"] != target_before:
+                        issues.append({"type": "target-drift",
+                                       "message": "Worktree xuất bản thay đổi trong khi prepare."})
+                    payload.update({key: value for key, value in candidate_result.items()
+                                    if key not in {"issues", "selected_manifest", "public_manifest"}})
                     if issues:
                         code = EXIT_UNSAFE
                     else:
                         try:
+                            public_manifest = candidate_result["public_manifest"]
+                            target_diff = candidate_result["diff"]
                             sync_exact(public_dir, target, public_manifest, target_diff)
                             after = tree_manifest(target, True)
                             if after != public_manifest:
