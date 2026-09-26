@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="ZO Math">
-<meta name="keywords" content="sự biến thiên, bảng giá trị, hàm chẵn, hàm lẻ, tăng giảm, dao động">
-<meta name="description" content="Bài viết dẫn dắt việc tìm hiểu sự biến thiên của hàm số qua bảng giá trị, tính chẵn lẻ, giới hạn của phương pháp thăm dò và nhu cầu chứng minh toán học.">
+<meta name="keywords" content="hành vi của hàm số, bảng giá trị, tăng giảm, miền xác định, đối xứng, dao động">
+<meta name="description" content="Một hàm số không chỉ tăng hay giảm. Qua các quan hệ giữa hàm hằng, hàm lũy thừa, căn bậc hai, giá trị tuyệt đối, hàm sin và phép lấy nghịch đảo, những hành vi quen thuộc được giữ lại, biến dạng hoặc kết hợp thành hành vi mới.">
 
-<title>Biến thiên – ZO Math</title>
+<title>Hành vi của hàm số – ZO Math</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,7 +26,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -239,6 +258,10 @@ window.Quarto = {
     <a class="dropdown-item" href="../../../../content/thpt/zo_math_100/index.html">
  <span class="dropdown-text">ZO Math 100+</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../content/thpt/on_thi_toan_thpt/index.html">
+ <span class="dropdown-text">Ôn thi Toán THPT</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
@@ -295,11 +318,11 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Biến thiên</h1>
-            <p class="subtitle lead">Từ bảng giá trị đến quy luật tăng, giảm và dao động</p>
+      <h1 class="title">Hành vi của hàm số</h1>
+            <p class="subtitle lead">Từ bất biến và thay đổi đến một mạng lưới các quan hệ</p>
                   <div>
         <div class="description">
-          Bài viết dẫn dắt việc tìm hiểu sự biến thiên của hàm số qua bảng giá trị, tính chẵn lẻ, giới hạn của phương pháp thăm dò và nhu cầu chứng minh toán học.
+          Một hàm số không chỉ tăng hay giảm. Qua các quan hệ giữa hàm hằng, hàm lũy thừa, căn bậc hai, giá trị tuyệt đối, hàm sin và phép lấy nghịch đảo, những hành vi quen thuộc được giữ lại, biến dạng hoặc kết hợp thành hành vi mới.
         </div>
       </div>
                 </div>
@@ -318,7 +341,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Ngày cập nhật</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">16-07-2026</p>
+        <p class="date">06-09-2026</p>
       </div>
     </div>
     
@@ -328,15 +351,15 @@ window.Quarto = {
   <div>
     <div class="abstract">
       <div class="block-title">Tóm tắt</div>
-      <p>Biến thiên mô tả cách giá trị của hàm số phản ứng khi biến độc lập thay đổi. Bảng giá trị giúp ta quan sát ban đầu những biểu hiện như tăng, giảm, đối xứng hoặc dao động.</p>
-      <p>Tuy nhiên, quan sát hữu hạn chỉ mang tính thăm dò. Muốn hiểu toàn diện quy luật của hàm số, ta cần kết hợp trực giác với công cụ toán học và biểu diễn đồ thị.</p>
+      <p>Trong bài này, “hành vi của hàm số” là một cách nhìn để tổ chức việc quan sát, không phải một thuật ngữ có định nghĩa đóng hay một danh sách tính chất cố định. Cách giá trị thay đổi, miền xác định, cấu trúc đối xứng, nhịp lặp lại và phản ứng ở gần những điểm đặc biệt là những phương diện có thể cần chú ý tùy theo hàm đang xét.</p>
+      <p>Mười hàm số trong bài tạo thành một mạng quan hệ. Qua phép hạn chế miền, đảo quan hệ, lấy giá trị tuyệt đối, lấy nghịch đảo và ghép hàm, một hành vi có thể được giữ lại hoặc tái tổ chức.</p>
     </div>
   </div>
 
   <div>
     <div class="keywords">
       <div class="block-title">Từ khóa</div>
-      <p>sự biến thiên, bảng giá trị, hàm chẵn, hàm lẻ, tăng giảm, dao động</p>
+      <p>hành vi của hàm số, bảng giá trị, tăng giảm, miền xác định, đối xứng, dao động</p>
     </div>
   </div>
   
@@ -482,7 +505,19 @@ window.Quarto = {
     <h2 id="toc-title">Nội dung</h2>
    
   <ul>
-  <li><a href="#bài-tập" id="toc-bài-tập" class="nav-link active" data-scroll-target="#bài-tập">Bài tập</a></li>
+  <li><a href="#từ-đứng-yên-đến-thay-đổi-đều" id="toc-từ-đứng-yên-đến-thay-đổi-đều" class="nav-link active" data-scroll-target="#từ-đứng-yên-đến-thay-đổi-đều">Từ đứng yên đến thay đổi đều</a></li>
+  <li><a href="#những-khác-biệt-trong-các-lũy-thừa-quen-thuộc" id="toc-những-khác-biệt-trong-các-lũy-thừa-quen-thuộc" class="nav-link" data-scroll-target="#những-khác-biệt-trong-các-lũy-thừa-quen-thuộc">Những khác biệt trong các lũy thừa quen thuộc</a></li>
+  <li><a href="#miền-xác-định-và-phép-biến-đổi" id="toc-miền-xác-định-và-phép-biến-đổi" class="nav-link" data-scroll-target="#miền-xác-định-và-phép-biến-đổi">Miền xác định và phép biến đổi</a></li>
+  <li><a href="#hai-cơ-chế-lặp-lại-và-lấy-nghịch-đảo" id="toc-hai-cơ-chế-lặp-lại-và-lấy-nghịch-đảo" class="nav-link" data-scroll-target="#hai-cơ-chế-lặp-lại-và-lấy-nghịch-đảo">Hai cơ chế: lặp lại và lấy nghịch đảo</a></li>
+  <li><a href="#khi-các-cơ-chế-kết-hợp" id="toc-khi-các-cơ-chế-kết-hợp" class="nav-link" data-scroll-target="#khi-các-cơ-chế-kết-hợp">Khi các cơ chế kết hợp</a></li>
+  <li><a href="#một-mạng-lưới-không-phải-mười-trường-hợp" id="toc-một-mạng-lưới-không-phải-mười-trường-hợp" class="nav-link" data-scroll-target="#một-mạng-lưới-không-phải-mười-trường-hợp">Một mạng lưới, không phải mười trường hợp</a></li>
+  <li><a href="#bài-tập" id="toc-bài-tập" class="nav-link" data-scroll-target="#bài-tập">Bài tập</a>
+  <ul class="collapse">
+  <li><a href="#tái-kiến-tạo" id="toc-tái-kiến-tạo" class="nav-link" data-scroll-target="#tái-kiến-tạo">Tái kiến tạo</a></li>
+  <li><a href="#soi-sáng" id="toc-soi-sáng" class="nav-link" data-scroll-target="#soi-sáng">Soi sáng</a></li>
+  <li><a href="#mở-rộng-và-đào-sâu" id="toc-mở-rộng-và-đào-sâu" class="nav-link" data-scroll-target="#mở-rộng-và-đào-sâu">Mở rộng và đào sâu</a></li>
+  <li><a href="#đưa-tri-thức-trở-lại-thế-giới" id="toc-đưa-tri-thức-trở-lại-thế-giới" class="nav-link" data-scroll-target="#đưa-tri-thức-trở-lại-thế-giới">Đưa tri thức trở lại thế giới</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -493,16 +528,20 @@ window.Quarto = {
 
 
 
-<p>Công thức của một hàm số giống như bản nhạc viết trên giấy: để thực sự thưởng thức, bạn phải nghe giai điệu mà các nốt nhạc tạo ra. Với hàm số cũng vậy: không chỉ dừng lại ở sự mô tả hay công thức, điều quan trọng là cảm nhận được <em>nhịp điệu</em> mà nó thể hiện khi biến độc lập dịch chuyển.</p>
-<div class="zo-block zo-block-red">
-<div class="zo-block-title">
-<p>Sự biến thiên</p>
-</div>
-<p>Nói đến sự biến thiên của hàm số là nói đến quy luật tăng-giảm của giá trị <span class="math inline">\(y\)</span> khi <span class="math inline">\(x\)</span> thay đổi. Khảo sát sự biến thiên là để trả lời câu hỏi: khi dịch chuyển <span class="math inline">\(x\)</span>, thì <span class="math inline">\(y\)</span> phản ứng thế nào? Đây chính là chìa khóa để hiểu mối quan hệ giữa biến độc lập <span class="math inline">\(x\)</span> và biến phụ thuộc <span class="math inline">\(y\)</span>.</p>
-</div>
-<p>Để nhìn thấy <span class="math inline">\(y\)</span> thay đổi theo <span class="math inline">\(x\)</span> ra sao, ta <em>thăm dò</em> bằng cách lập <em>bảng giá trị</em>. Chẳng hạn, xét hàm số <span class="math inline">\(y=x^2\)</span> với một số giá trị quanh <span class="math inline">\(x=0\)</span>:</p>
+<p>“Hành vi của hàm số” là tên gọi cho một cách nhìn: tùy đối tượng, ta chú ý đến những phương diện và quan hệ giúp hiểu hàm đó. Cách nhìn này không ấn định trước một danh sách tính chất mà mọi hàm đều phải có.</p>
+<p>Các thuật ngữ chuyên biệt xuất hiện trong bài trước hết giúp nhận diện hiện tượng; định nghĩa và cách dùng chặt chẽ của mỗi thuật ngữ sẽ được phát triển trong bài về hàm số cụ thể nơi nó trở thành nội dung trung tâm.</p>
+<p>Mười hàm số dưới đây không đứng thành mười trường hợp cô lập. Chúng có thể được so sánh, đảo quan hệ và ghép với nhau. Qua đó, một hành vi có thể được giữ lại, biến dạng hoặc xuất hiện dưới hình thức mới.</p>
+<section id="từ-đứng-yên-đến-thay-đổi-đều" class="level2">
+<h2 class="anchored" data-anchor-id="từ-đứng-yên-đến-thay-đổi-đều">Từ đứng yên đến thay đổi đều</h2>
+<p>Với <span class="math inline">\(y=1\)</span>, mọi đầu vào đều cho cùng một đầu ra. Khi <span class="math inline">\(x\)</span> thay đổi, <span class="math inline">\(y\)</span> không đổi. Sự bất biến ấy chính là hành vi đặc trưng của hàm hằng.</p>
+<p>Với <span class="math inline">\(y=x\)</span>, nếu <span class="math inline">\(x\)</span> tăng thêm <span class="math inline">\(h\)</span> thì <span class="math inline">\(y\)</span> cũng tăng thêm <span class="math inline">\(h\)</span>, bất kể điểm bắt đầu. Đây là sự thay đơn giản nhất, thay đổi đều: lượng thay đổi không đổi.</p>
+<p>Đặt hai hàm cạnh nhau, ta có hai nhịp nền: một hàm giữ nguyên giá trị, hàm kia thay đổi đều cùng biến độc lập.</p>
+</section>
+<section id="những-khác-biệt-trong-các-lũy-thừa-quen-thuộc" class="level2">
+<h2 class="anchored" data-anchor-id="những-khác-biệt-trong-các-lũy-thừa-quen-thuộc">Những khác biệt trong các lũy thừa quen thuộc</h2>
+<p>Xét <span class="math inline">\(y=x\)</span>, <span class="math inline">\(y=x^2\)</span> và <span class="math inline">\(y=x^3\)</span>. Cả ba nhận mọi số thực làm đầu vào, nhưng phản ứng khác nhau khi <span class="math inline">\(x\)</span> đổi dấu.</p>
 <table class="caption-top table">
-<caption>Một số giá trị quanh <span class="math inline">\(x=0\)</span> của hàm <span class="math inline">\(y=x^2\)</span>. Các giá trị <span class="math inline">\(y\)</span> được làm tròn đến hai chữ số thập phân.</caption>
+<caption>Một số giá trị quanh <span class="math inline">\(x=0\)</span> của hàm <span class="math inline">\(y=x^2\)</span>.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: center;"><span class="math inline">\(x\)</span></th>
@@ -519,48 +558,24 @@ window.Quarto = {
 <td style="text-align: center;"><span class="math inline">\(1,00\)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(-0,9\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0,81\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(-0,7\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0,49\)</span></td>
-</tr>
-<tr class="odd">
 <td style="text-align: center;"><span class="math inline">\(-0,5\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(0,25\)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><span class="math inline">\(-0,3\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0,09\)</span></td>
-</tr>
-<tr class="odd">
 <td style="text-align: center;"><span class="math inline">\(-0,1\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(0,01\)</span></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: center;"><span class="math inline">\(0\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(0\)</span></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: center;"><span class="math inline">\(0,1\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(0,01\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(0,3\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0,09\)</span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;"><span class="math inline">\(0,5\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(0,25\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(0,7\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0,49\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(0,9\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0,81\)</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><span class="math inline">\(1,0\)</span></td>
@@ -572,20 +587,35 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>Khi <span class="math inline">\(x\)</span> tăng dần từ <span class="math inline">\(-2\)</span> đến <span class="math inline">\(0\)</span>, <span class="math inline">\(y\)</span> giảm dần về <span class="math inline">\(0\)</span>. Tại <span class="math inline">\(x=0\)</span>, hàm số đạt giá trị nhỏ nhất <span class="math inline">\(y=0\)</span> trên toàn miền xác định. Khi <span class="math inline">\(x\)</span> tiếp tục tăng vượt qua <span class="math inline">\(0\)</span>, <span class="math inline">\(y\)</span> bắt đầu tăng lên. Ngoài ra, ta nhận ra tính chất: hai điểm đối xứng qua <span class="math inline">\(x=0\)</span> sẽ cho cùng một giá trị, chẳng hạn <span class="math inline">\(x=-2\)</span> và <span class="math inline">\(x=2\)</span> đều cho <span class="math inline">\(y=4\)</span>.</p>
-<div class="zo-block zo-block-red">
-<div class="zo-block-title">
-<p>Hàm chẵn</p>
-</div>
-<p>Hàm số có tính chất <span class="math inline">\(f(-x)=f(x)\)</span> với mọi <span class="math inline">\(x\)</span> thuộc tập xác định được gọi là <em>hàm chẵn</em>.</p>
-</div>
-<p>Với hàm số <span class="math inline">\(y=\frac{1}{x}\)</span>, ta cũng thử quan sát một số giá trị quanh <span class="math inline">\(x=0\)</span>:</p>
+<p>Khi <span class="math inline">\(x\)</span> tăng từ phía âm đến <span class="math inline">\(0\)</span>, <span class="math inline">\(x^2\)</span> giảm về <span class="math inline">\(0\)</span>; sau đó nó tăng lên. Hàm số đạt giá trị nhỏ nhất bằng <span class="math inline">\(0\)</span> tại <span class="math inline">\(x=0\)</span>, nên <span class="math inline">\((0,0)\)</span> là điểm thấp nhất của đồ thị. Vì <span class="math inline">\((-x)^2=x^2\)</span>, hai đầu vào đối nhau cho cùng đầu ra và đồ thị đối xứng qua trục tung.</p>
+<p>Với <span class="math inline">\(y=x^3\)</span>, nếu <span class="math inline">\(x_1&lt;x_2\)</span> thì <span class="math inline">\(x_1^3&lt;x_2^3\)</span>. Hàm đồng biến nghiêm ngặt trên <span class="math inline">\(\mathbb R\)</span> và đi xuyên qua gốc tọa độ. Đẳng thức <span class="math inline">\((-x)^3=-x^3\)</span> biểu hiện thành đối xứng tâm qua gốc. Tại đó, đường cong đổi tính cong nên <span class="math inline">\(O(0,0)\)</span> là một điểm uốn.</p>
+<p>Hai hàm <span class="math inline">\(y=x\)</span> và <span class="math inline">\(y=x^3\)</span> cùng đồng biến nghiêm ngặt, nhưng <em>lượng tăng</em> trên các khoảng có cùng độ dài không tuân theo cùng một kiểu. Với <span class="math inline">\(y=x\)</span>, các khoảng có cùng độ dài luôn cho cùng một lượng tăng. Với <span class="math inline">\(y=x^3\)</span>, lượng tăng còn phụ thuộc vào vị trí của khoảng: trên <span class="math inline">\([0;1]\)</span> nó bằng <span class="math inline">\(1\)</span>, còn trên <span class="math inline">\([2;3]\)</span> nó bằng <span class="math inline">\(19\)</span>. Nhãn “đồng biến” chưa mô tả được khác biệt này; để mô tả được điều này, ta cần chính thức hóa phép so sánh bằng tốc độ biến thiên trung bình.</p>
+<p>So sánh <span class="math inline">\(x^2\)</span> và <span class="math inline">\(x^3\)</span> cho thấy phép bình phương làm mất dấu đầu vào, còn phép lập phương giữ dấu ấy trong đầu ra. Đối xứng trục và đối xứng tâm là dấu vết của khác biệt này.</p>
+</section>
+<section id="miền-xác-định-và-phép-biến-đổi" class="level2">
+<h2 class="anchored" data-anchor-id="miền-xác-định-và-phép-biến-đổi">Miền xác định và phép biến đổi</h2>
+<p>Hàm <span class="math inline">\(y=\sqrt{x}\)</span> chỉ xác định khi <span class="math inline">\(x\ge0\)</span>. Trên <span class="math inline">\([0,+\infty)\)</span>, bình phương và lấy căn bậc hai đảo ngược nhau:</p>
+<p><span class="math display">\[
+\sqrt{x^2}=x \quad \text{và} \quad (\sqrt{x})^2=x \quad (x\ge0).
+\]</span></p>
+<p>Nếu không hạn chế miền của <span class="math inline">\(y=x^2\)</span>, một giá trị dương ứng với hai đầu vào đối nhau; quan hệ đảo không xác định một hàm. Chỉ giữ nửa đồ thị <span class="math inline">\(x\ge0\)</span> làm mỗi đầu ra không âm ứng với đúng một đầu vào. Đổi vai trò hai tọa độ khi ấy cho đồ thị <span class="math inline">\(y=\sqrt{x}\)</span>. Đây là một quan hệ đảo trên miền thích hợp, chưa phải một lí thuyết tổng quát về hàm ngược.</p>
+<p>Trên toàn bộ <span class="math inline">\(\mathbb R\)</span>,</p>
+<p><span class="math display">\[
+\sqrt{x^2}=|x|.
+\]</span></p>
+<p>Bình phương đưa <span class="math inline">\(x\)</span> và <span class="math inline">\(-x\)</span> tới cùng giá trị; căn bậc hai trả về nghiệm không âm. Dấu ban đầu không thể được khôi phục và kết quả là độ lớn <span class="math inline">\(|x|\)</span>.</p>
+<p>Đồ thị <span class="math inline">\(y=|x|\)</span> giảm về <span class="math inline">\(0\)</span> từ phía âm rồi tăng ở phía dương. Nó có những điểm tương đồng với đồ thị <span class="math inline">\(y=x^2\)</span> về chiều biến thiên và đối xứng, nhưng có góc nhọn tại điểm thấp nhất, trong khi đồ thị <span class="math inline">\(y=x^2\)</span> không có góc nhọn tại đó. Như vậy, <span class="math inline">\(x^2\)</span>, <span class="math inline">\(\sqrt{x}\)</span> và <span class="math inline">\(|x|\)</span> tạo thành một cụm: hạn chế miền cho phép đảo quan hệ; ghép bình phương với căn bậc hai tạo giá trị tuyệt đối.</p>
+</section>
+<section id="hai-cơ-chế-lặp-lại-và-lấy-nghịch-đảo" class="level2">
+<h2 class="anchored" data-anchor-id="hai-cơ-chế-lặp-lại-và-lấy-nghịch-đảo">Hai cơ chế: lặp lại và lấy nghịch đảo</h2>
+<p>Với <span class="math inline">\(y=\sin x\)</span>, khi đầu vào tăng thêm <span class="math inline">\(2\pi\)</span>, đầu ra trở về giá trị cũ. Đồ thị dao động giữa <span class="math inline">\(-1\)</span> và <span class="math inline">\(1\)</span>, lặp cùng một dạng trên những khoảng liên tiếp dài <span class="math inline">\(2\pi\)</span>. Tính tuần hoàn sẽ được định nghĩa đầy đủ trong bài về hàm sin; ở đây ta chỉ ghi nhận cơ chế lặp lại theo những khoảng đều.</p>
+<p>Phép lấy nghịch đảo tạo cơ chế khác. Với <span class="math inline">\(y=\frac1x\)</span>, đầu vào <span class="math inline">\(0\)</span> bị loại khỏi miền xác định.</p>
 <table class="caption-top table">
-<caption>Một số giá trị quanh <span class="math inline">\(x=0\)</span> của hàm <span class="math inline">\(y=\frac{1}{x}\)</span>. Các giá trị <span class="math inline">\(y\)</span> được làm tròn đến hai chữ số thập phân.</caption>
+<caption>Một số giá trị quanh <span class="math inline">\(x=0\)</span> của hàm <span class="math inline">\(y=\frac1x\)</span>.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: center;"><span class="math inline">\(x\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(y=\frac{1}{x}\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(y=\frac1x\)</span></th>
 </tr>
 </thead>
 <tbody>
@@ -594,56 +624,32 @@ window.Quarto = {
 <td style="text-align: center;"><span class="math inline">\(-4,00\)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><span class="math inline">\(-0,21\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(-4,76\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(-0,17\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(-5,88\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(-0,13\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(-7,69\)</span></td>
-</tr>
-<tr class="odd">
 <td style="text-align: center;"><span class="math inline">\(-0,09\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(-11,11\)</span></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: center;"><span class="math inline">\(-0,05\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(-20,00\)</span></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: center;"><span class="math inline">\(-0,01\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(-100,00\)</span></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: center;"><span class="math inline">\(0\)</span></td>
 <td style="text-align: center;">không xác định</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: center;"><span class="math inline">\(0,01\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(100,00\)</span></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: center;"><span class="math inline">\(0,05\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(20,00\)</span></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: center;"><span class="math inline">\(0,09\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(11,11\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(0,13\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(7,69\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(0,17\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(5,88\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(0,21\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(4,76\)</span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;"><span class="math inline">\(0,25\)</span></td>
@@ -651,53 +657,56 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>Khi <span class="math inline">\(x\)</span> tiến về <span class="math inline">\(0\)</span> từ phía âm, <span class="math inline">\(y\)</span> rơi xuống những giá trị âm cực lớn so với <span class="math inline">\(x\)</span>; còn khi <span class="math inline">\(x\)</span> tiến về <span class="math inline">\(0\)</span> từ phía dương, <span class="math inline">\(y\)</span> lại vọt lên những giá trị dương cực lớn so với <span class="math inline">\(x\)</span>. Trái và phải của <span class="math inline">\(0\)</span> trở thành hai miền tách biệt, giống như hai thế giới không thể nối liền, vì <span class="math inline">\(x=0\)</span> không thuộc tập xác định của hàm số. Với hàm này, ta nhận ra tính chất: hai điểm đối xứng qua <span class="math inline">\(x=0\)</span> sẽ cho hai giá trị có độ lớn bằng nhau nhưng trái dấu, chẳng hạn <span class="math inline">\(x=-0{,}01\)</span> và <span class="math inline">\(x=0{,}01\)</span> lần lượt cho <span class="math inline">\(y=-100\)</span> và <span class="math inline">\(y=100\)</span>.</p>
-<div class="zo-block zo-block-red">
-<div class="zo-block-title">
-<p>Hàm lẻ</p>
-</div>
-<p>Hàm số có tính chất <span class="math inline">\(f(-x)=-f(x)\)</span> với mọi <span class="math inline">\(x\)</span> thuộc tập xác định được gọi là <em>hàm lẻ</em>.</p>
-</div>
-<p>Còn với hàm <span class="math inline">\(y=\sin\left(\frac{1}{x}\right)\)</span>, ta sẽ thấy một tiết tấu hoàn toàn khác. Để quan sát điều thú vị, ta chọn những <span class="math inline">\(x\)</span> đặc biệt sao cho <span class="math inline">\(\frac{1}{x}\)</span> rơi đúng vào những bội số quen thuộc của <span class="math inline">\(\pi\)</span> (nơi giá trị của hàm bằng <span class="math inline">\(0\)</span>, <span class="math inline">\(1\)</span> hoặc <span class="math inline">\(-1\)</span>). Hơn nữa, ta còn có thể chọn được vô số <span class="math inline">\(x\)</span> như thế, chẳng hạn: <span class="math inline">\(x=\frac{2}{k\pi}\)</span> (<span class="math inline">\(k\)</span> là số nguyên khác <span class="math inline">\(0\)</span>). Ta quan sát một số giá trị ứng với <span class="math inline">\(k\)</span> không âm:</p>
+<p>Khi <span class="math inline">\(x\)</span> tiến về <span class="math inline">\(0\)</span> từ phía âm, giá trị hàm âm với độ lớn ngày càng lớn; từ phía dương, nó dương với độ lớn ngày càng lớn. <span class="math inline">\(x=0\)</span> là tiệm cận đứng. Khi <span class="math inline">\(|x|\)</span> tăng không giới hạn, <span class="math inline">\(\frac1x\)</span> tiến gần <span class="math inline">\(0\)</span>, nên <span class="math inline">\(y=0\)</span> là tiệm cận ngang. Phép lấy nghịch đảo đổi vai trò của “rất lớn” và “rất gần <span class="math inline">\(0\)</span>”; thuật ngữ này không đồng nghĩa với hàm ngược.</p>
+<p>Vì <span class="math inline">\(\frac1{-x}=-\frac1x\)</span>, đồ thị có tâm đối xứng tại gốc như <span class="math inline">\(y=x^3\)</span>. Tuy nhiên, miền bị ngắt và hai tiệm cận khiến hành vi toàn cục của chúng khác hẳn nhau.</p>
+</section>
+<section id="khi-các-cơ-chế-kết-hợp" class="level2">
+<h2 class="anchored" data-anchor-id="khi-các-cơ-chế-kết-hợp">Khi các cơ chế kết hợp</h2>
+<p>Từ bình phương rồi lấy nghịch đảo, ta có <span class="math inline">\(y=\frac1{x^2}\)</span>. Hàm chỉ xác định khi <span class="math inline">\(x\ne0\)</span>, luôn dương và nhận cùng giá trị tại <span class="math inline">\(x\)</span> và <span class="math inline">\(-x\)</span>. Nó có hai tiệm cận <span class="math inline">\(x=0\)</span> và <span class="math inline">\(y=0\)</span>. Từ phía âm tiến về <span class="math inline">\(0\)</span>, hàm tăng lên chứ không đi xuống các giá trị âm như <span class="math inline">\(\frac1x\)</span>: hành vi mới mang dấu vết của hai hàm nguồn nhưng không là bản sao của chúng.</p>
+<p>Với</p>
+<p><span class="math display">\[
+x\longmapsto \frac1x\longmapsto \sin\left(\frac1x\right),
+\]</span></p>
+<p>hàm sin vẫn chỉ nhận giá trị từ <span class="math inline">\(-1\)</span> đến <span class="math inline">\(1\)</span>, nhưng nhịp lặp đều bị phép lấy nghịch đảo phân bố lại.</p>
 <table class="caption-top table">
-<caption>Một số giá trị “chọn lọc” quanh <span class="math inline">\(x=0\)</span> của hàm <span class="math inline">\(y=\sin\left(\frac{1}{x}\right)\)</span>.</caption>
+<caption>Một số giá trị chọn lọc quanh <span class="math inline">\(x=0\)</span> của hàm <span class="math inline">\(y=\sin\left(\frac1x\right)\)</span>.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: center;"><span class="math inline">\(x\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(y=\sin\left(\frac{1}{x}\right)\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(y=\sin\left(\frac1x\right)\)</span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(\frac{2}{\pi}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac2\pi\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(1\)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><span class="math inline">\(\frac{1}{\pi}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac1\pi\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(0\)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(\frac{2}{3\pi}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac2{3\pi}\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(-1\)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><span class="math inline">\(\frac{1}{2\pi}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac1{2\pi}\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(0\)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(\frac{2}{5\pi}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac2{5\pi}\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(1\)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><span class="math inline">\(\frac{1}{3\pi}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac1{3\pi}\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(0\)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(\frac{2}{7\pi}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac2{7\pi}\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(-1\)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><span class="math inline">\(\frac{1}{4\pi}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac1{4\pi}\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(0\)</span></td>
 </tr>
 <tr class="odd">
@@ -710,49 +719,109 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>Từ bảng giá trị trên, ta nhận ra khi <span class="math inline">\(x\)</span> tiến về <span class="math inline">\(0\)</span>, ta không thu được một giá trị giới hạn cố định nào cho <span class="math inline">\(y\)</span>. Thay vào đó, hàm số liên tục nhảy giữa các giá trị quen thuộc <span class="math inline">\(1\)</span>, <span class="math inline">\(0\)</span>, <span class="math inline">\(-1\)</span>. Nói cách khác, khi <span class="math inline">\(x\)</span> càng nhỏ thì <span class="math inline">\(\frac{1}{x}\)</span> càng lớn, nên <span class="math inline">\(\sin\left(\frac{1}{x}\right)\)</span> lặp đi lặp lại nhịp điệu <span class="math inline">\(1\to 0\to -1\to 0\to 1\to 0\to -1\to 0\to\dots\)</span> mãi không ngừng. Chính sự “dao động vĩnh viễn” này làm hàm số trở nên đặc biệt: càng tiến sát về <span class="math inline">\(0\)</span>, ta càng thấy nó rung lắc nhanh hơn và dồn dập hơn.</p>
-<blockquote class="blockquote">
-<p>Bạn có để ý rằng ở trên, mình chỉ xét <span class="math inline">\(x&gt;0\)</span> mà chưa nói gì đến <span class="math inline">\(x&lt;0\)</span>? Theo bạn, khi <span class="math inline">\(x\)</span> từ phía âm tiến về <span class="math inline">\(0\)</span>, chuyện gì sẽ xảy ra?</p>
-</blockquote>
-<p>Hãy lưu ý rằng, trong hầu hết các trường hợp, việc lập bảng giá trị chỉ cho ta một bức tranh <em>cục bộ</em> và mang tính <em>thăm dò</em>. Dù có liệt kê bao nhiêu giá trị đi nữa, ta vẫn không thể kết luận chắc chắn về quy luật biến thiên của hàm số. Chẳng hạn, với <span class="math inline">\(y=x^2\)</span>, tập xác định là toàn bộ <span class="math inline">\(\mathbb{R}\)</span> và tập giá trị là <span class="math inline">\([0; +\infty)\)</span> - cả hai đều vô hạn và không thể liệt kê hết. Nhìn vào vài giá trị trong đoạn <span class="math inline">\([-2;2]\)</span>, ta có cảm giác rằng hàm số giảm xuống khi <span class="math inline">\(x&lt;0\)</span> và tăng lên khi <span class="math inline">\(x&gt;0\)</span>. Nhưng đó mới chỉ là một phỏng đoán; để biến cảm giác thành khẳng định, ta cần đến chứng minh toán học.</p>
-<p>Để thấy bức tranh toàn diện về sự biến thiên, ta cần đến các công cụ toán học và một cách biểu diễn trực quan để hình dung nhịp điệu của hàm số. Chúng ta sẽ khám phá cách này trong phần tiếp theo.</p>
-<section id="bài-tập" class="level3">
-<h3 class="anchored" data-anchor-id="bài-tập">Bài tập</h3>
+<p>Các đầu vào tiến về <span class="math inline">\(0\)</span>, còn đầu ra lần lượt đi qua <span class="math inline">\(1,0,-1,0\)</span> rồi lặp lại. Những khoảng dài <span class="math inline">\(2\pi\)</span> trên trục của hàm sin được phép lấy nghịch đảo đưa về các khoảng ngày càng ngắn gần <span class="math inline">\(0\)</span>. Vì thế, <span class="math inline">\(\sin(1/x)\)</span> dao động ngày càng dồn sít. Ở phía âm, hiện tượng tương tự xảy ra với dấu đảo lại.</p>
+<p>Bảng cho thấy dù đầu vào tiến dần về <span class="math inline">\(0\)</span>, đầu ra vẫn trở lại <span class="math inline">\(1\)</span>, <span class="math inline">\(0\)</span> và <span class="math inline">\(-1\)</span>. Hiện tượng này gợi rằng hàm không tiến tới một giá trị cố định tại <span class="math inline">\(0\)</span>; Bài 6 sẽ xây dựng các dãy đầu vào cụ thể để làm rõ nhận xét ấy. Phép lấy nghịch đảo không tạo độ lớn không giới hạn ở đây; nó tái tổ chức nhịp lặp của hàm sin thành vô số dao động bị nén quanh điểm không thuộc miền xác định.</p>
+</section>
+<section id="một-mạng-lưới-không-phải-mười-trường-hợp" class="level2">
+<h2 class="anchored" data-anchor-id="một-mạng-lưới-không-phải-mười-trường-hợp">Một mạng lưới, không phải mười trường hợp</h2>
+<table class="caption-top table">
+<caption>Những quan hệ tiêu biểu giữa mười hàm số.</caption>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Quan hệ</th>
+<th style="text-align: left;">Điều trở nên rõ hơn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(1\)</span> và <span class="math inline">\(x\)</span></td>
+<td style="text-align: left;">Bất biến và thay đổi đều là hai hành vi nền.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(x\)</span> và <span class="math inline">\(x^3\)</span></td>
+<td style="text-align: left;">Cùng đồng biến nhưng có tốc độ biến thiên khác nhau.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(x^2\)</span> và <span class="math inline">\(x^3\)</span></td>
+<td style="text-align: left;">Số mũ chẵn và lẻ xử lí dấu đầu vào khác nhau.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(x^2\)</span>, <span class="math inline">\(\sqrt{x}\)</span>, <span class="math inline">\(|x|\)</span></td>
+<td style="text-align: left;">Hạn chế miền cho phép đảo quan hệ; phép ghép tạo giá trị tuyệt đối.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(x^2\)</span>, <span class="math inline">\(\frac1x\)</span>, <span class="math inline">\(\frac1{x^2}\)</span></td>
+<td style="text-align: left;">Bình phương góp phần tạo dấu và đối xứng; phép lấy nghịch đảo tạo điểm loại và các tiệm cận.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\sin x\)</span>, <span class="math inline">\(\frac1x\)</span>, <span class="math inline">\(\sin(1/x)\)</span></td>
+<td style="text-align: left;">Nghịch đảo tái tổ chức nhịp lặp thành dao động dồn sít.</td>
+</tr>
+</tbody>
+</table>
+<p>Bảng giá trị hữu hạn giúp quan sát và hình thành phỏng đoán, nhưng không thể bảo đảm một quy luật đúng tại mọi điểm của miền vô hạn. Muốn chuyển từ quan sát sang khẳng định, cần lập luận hoặc chứng minh; muốn nhìn toàn cục rõ hơn, có thể kết hợp đồ thị và các công cụ khảo sát thích hợp.</p>
+</section>
+<section id="bài-tập" class="level2">
+<h2 class="anchored" data-anchor-id="bài-tập">Bài tập</h2>
+<section id="tái-kiến-tạo" class="level3">
+<h3 class="anchored" data-anchor-id="tái-kiến-tạo">Tái kiến tạo</h3>
 <ol type="1">
-<li><p><em>Lập bảng giá trị</em> cho các hàm <span class="math inline">\(y=2x\)</span>, <span class="math inline">\(y=\lvert x\rvert\)</span>, <span class="math inline">\(y=x^2\)</span>, <span class="math inline">\(y=\sqrt{x}\)</span>, <span class="math inline">\(y=x^3\)</span> với <span class="math inline">\(x\)</span> từ <span class="math inline">\(-2\)</span> đến <span class="math inline">\(2\)</span>, bước nhảy <span class="math inline">\(0{,}5\)</span>. Ngoại trừ <span class="math inline">\(y=\sqrt{x}\)</span> có tập xác định là <span class="math inline">\([0,\infty)\)</span>, các hàm còn lại đều có tập xác định là <span class="math inline">\(\mathbb{R}\)</span> (Đúng/Sai)? Vì sao không tính giá trị của hàm <span class="math inline">\(y=\sqrt{x}\)</span> khi <span class="math inline">\(x&lt;0\)</span>?</p></li>
-<li><p>Dựa vào bảng giá trị, mô tả <em>sự biến thiên của từng hàm</em> bằng cách trả lời các câu hỏi:</p>
-<ul>
-<li>Hàm tăng hay giảm khi <span class="math inline">\(x\)</span> tăng?</li>
-<li>Bản thân sự tăng/giảm ấy lại biến thiên thế nào?</li>
-</ul></li>
-<li><p>Dựa vào bảng giá trị, <em>so sánh giá trị của các hàm</em> bằng cách trả lời các câu hỏi dưới đây.</p>
+<li><p>Lập bảng tại <span class="math inline">\(x=-2,-1,0,1,2\)</span> cho <span class="math inline">\(y=1\)</span> và <span class="math inline">\(y=x\)</span>. Mô tả điều xảy ra với <span class="math inline">\(y\)</span> khi <span class="math inline">\(x\)</span> tăng thêm <span class="math inline">\(1\)</span>. Vì sao “không đổi” vẫn là một hành vi?</p></li>
+<li><p>Lập bảng cho <span class="math inline">\(y=x\)</span>, <span class="math inline">\(y=x^2\)</span>, <span class="math inline">\(y=x^3\)</span> tại <span class="math inline">\(x=-2,-1,-0{,}5,0,0{,}5,1,2\)</span>. Xác định chiều biến thiên; đối chiếu giá trị tại <span class="math inline">\(x\)</span> và <span class="math inline">\(-x\)</span>; giải thích vì sao “đồng biến” chưa phân biệt hết <span class="math inline">\(x\)</span> và <span class="math inline">\(x^3\)</span>.</p></li>
+<li><p>Với <span class="math inline">\(y=x^2\)</span>, <span class="math inline">\(y=\sqrt{x}\)</span> và <span class="math inline">\(y=|x|\)</span>, nêu tập xác định, kiểm tra <span class="math inline">\(\sqrt{x^2}=|x|\)</span> và <span class="math inline">\((\sqrt{x})^2=x\)</span> trên miền thích hợp, rồi giải thích vai trò của việc hạn chế <span class="math inline">\(x\ge0\)</span> khi đảo quan hệ bình phương.</p></li>
+<li><p>Mô tả cơ chế lặp lại của <span class="math inline">\(\sin x\)</span> và cơ chế đổi chỗ “rất lớn” với “rất gần <span class="math inline">\(0\)</span>” của <span class="math inline">\(1/x\)</span>. Hai cơ chế cùng xuất hiện thế nào trong <span class="math inline">\(\sin(1/x)\)</span>?</p></li>
+<li><p>Xây dựng <span class="math inline">\(1/x^2\)</span> từ bình phương và lấy nghịch đảo. Dự đoán miền xác định, dấu, đối xứng, hai tiệm cận rồi kiểm tra bằng công thức.</p></li>
+<li><p>Với <span class="math inline">\(n\)</span> nguyên dương, xét</p>
+<p><span class="math display">\[
+a_n=\frac2{(4n+1)\pi},\quad b_n=\frac1{n\pi},\quad c_n=\frac2{(4n+3)\pi}.
+\]</span></p>
+<p>Kiểm tra rằng ba dãy tiến về <span class="math inline">\(0\)</span> nhưng các giá trị của <span class="math inline">\(\sin(1/x)\)</span> tương ứng bằng <span class="math inline">\(1\)</span>, <span class="math inline">\(0\)</span>, <span class="math inline">\(-1\)</span>. Vì các đầu vào có thể cùng tiến về <span class="math inline">\(0\)</span> trong khi đầu ra không tiến về một giá trị chung, hãy giải thích vì sao hiện tượng này bác bỏ phỏng đoán rằng hàm có giới hạn tại <span class="math inline">\(0\)</span>. Ở bước sâu hơn, nếu đã biết tiêu chuẩn dãy của giới hạn hàm số, hãy dùng tiêu chuẩn đó để viết một chứng minh chính thức.</p></li>
+</ol>
+</section>
+<section id="soi-sáng" class="level3">
+<h3 class="anchored" data-anchor-id="soi-sáng">Soi sáng</h3>
+<ol start="7" type="1">
+<li><p>So sánh tốc độ biến thiên trung bình <span class="math inline">\(\frac{f(b)-f(a)}{b-a}\)</span> của <span class="math inline">\(f(x)=x\)</span> và <span class="math inline">\(g(x)=x^3\)</span> trên <span class="math inline">\([0;1]\)</span>, <span class="math inline">\([1;2]\)</span>, <span class="math inline">\([2;3]\)</span>. Kết quả làm rõ điều gì ngoài tính đồng biến?</p></li>
+<li><p>Một bảng gồm <span class="math inline">\(1000\)</span> điểm trong <span class="math inline">\([-10;10]\)</span> cho các giá trị tăng dần. Vì sao chưa thể kết luận hàm đồng biến trên toàn đoạn? Hãy mô tả cách sửa hàm giữa hai điểm lấy mẫu để tạo phản ví dụ.</p></li>
+<li><p>So sánh <span class="math inline">\(\sqrt{x^2}\)</span> và <span class="math inline">\((\sqrt{x})^2\)</span> về miền xác định và giá trị. Hai biểu thức bằng nhau ở đâu? Vì sao thứ tự phép toán làm thay đổi câu trả lời trên toàn trục số?</p></li>
+</ol>
+</section>
+<section id="mở-rộng-và-đào-sâu" class="level3">
+<h3 class="anchored" data-anchor-id="mở-rộng-và-đào-sâu">Mở rộng và đào sâu</h3>
+<ol start="10" type="1">
+<li><p>Với <span class="math inline">\(h(x)=x\sin(1/x)\)</span> khi <span class="math inline">\(x\ne0\)</span>, chứng minh <span class="math inline">\(|h(x)|\le|x|\)</span>. Nếu đã biết định lí kẹp, hãy dùng định lí ấy để suy ra giới hạn của <span class="math inline">\(h(x)\)</span> tại <span class="math inline">\(0\)</span>, rồi xét điều gì thay đổi nếu đặt <span class="math inline">\(h(0)=0\)</span>.</p></li>
+<li><p>Với số nguyên dương <span class="math inline">\(m\)</span>, xét <span class="math inline">\(f_m(x)=1/x^m\)</span>. Phân loại hành vi gần <span class="math inline">\(0\)</span>, dấu và đối xứng theo tính chẵn lẻ của <span class="math inline">\(m\)</span>. Hai trường hợp <span class="math inline">\(m=1,2\)</span> mở ra quy luật nào?</p></li>
+</ol>
+</section>
+<section id="đưa-tri-thức-trở-lại-thế-giới" class="level3">
+<h3 class="anchored" data-anchor-id="đưa-tri-thức-trở-lại-thế-giới">Đưa tri thức trở lại thế giới</h3>
+<ol start="12" type="1">
+<li><p>Một cảm biến ghi dữ liệu tại những thời điểm cách đều. Phân biệt: dữ liệu quan sát đang tăng; mô hình nội suy là đồng biến; đại lượng thực luôn tăng. Cần thêm bằng chứng gì để chuyển từ kết luận đầu sang hai kết luận sau?</p></li>
+<li><p>Trong mô hình hai vật điểm, định luật hấp dẫn Newton cho lực hấp dẫn có độ lớn tỉ lệ nghịch với bình phương khoảng cách giữa hai vật <span class="citation" data-cites="openstax-newton-gravitation">(<a href="#ref-openstax-newton-gravitation" role="doc-biblioref">OpenStax, không ngày</a>)</span>. Trong một mô hình lí tưởng khác, cường độ bức xạ từ một nguồn điểm phát đều theo mọi hướng cũng giảm theo bình phương khoảng cách. Cả hai dẫn đến dạng <span class="math inline">\(C/r^2\)</span>, với <span class="math inline">\(r&gt;0\)</span> và <span class="math inline">\(C&gt;0\)</span>. Dạng này còn là điểm khởi đầu khi ước lượng công suất bức xạ Mặt Trời mà một thiết bị hoặc tàu không gian có thể nhận được, như trong trường hợp tàu Juno <span class="citation" data-cites="nasa-jpl-solar-power-space">(<a href="#ref-nasa-jpl-solar-power-space" role="doc-biblioref">NASA Jet Propulsion Laboratory 2024</a>)</span>.</p>
 <ol type="a">
-<li>Giữa <span class="math inline">\(y=2x\)</span> và <span class="math inline">\(y=\lvert x\rvert\)</span>: Trên <span class="math inline">\((0, 2)\)</span>, hàm nào có giá trị lớn hơn? Tại sao?</li>
-<li>Giữa <span class="math inline">\(y=\lvert x\rvert\)</span> và <span class="math inline">\(y=x^2\)</span>: Trên <span class="math inline">\((-1, 1)\)</span>, hàm nào lớn hơn tại <span class="math inline">\(x\)</span>=<span class="math inline">\(0{,}5\)</span>? Trên <span class="math inline">\((1, 2)\)</span>, hàm nào lớn hơn?</li>
-<li>Giữa <span class="math inline">\(y=x^2\)</span> và <span class="math inline">\(y=\sqrt{x}\)</span> trên <span class="math inline">\((0, 2)\)</span>: Trên <span class="math inline">\((0, 1)\)</span>, hàm nào lớn hơn? Trên <span class="math inline">\((1, 2)\)</span>, hàm nào lớn hơn? Khi <span class="math inline">\(x\)</span> qua <span class="math inline">\(1\)</span>, có sự kiện gì xảy ra với giá trị <span class="math inline">\(y\)</span> của hai hàm?</li>
-<li>Giữa <span class="math inline">\(y=x^2\)</span> và <span class="math inline">\(y=x^3\)</span>: Trên <span class="math inline">\((0, 1)\)</span>, hàm nào lớn hơn? Trên <span class="math inline">\((1, 2)\)</span>, hàm nào lớn hơn? Khi <span class="math inline">\(x\)</span> qua <span class="math inline">\(1\)</span>, có sự kiện gì xảy ra với giá trị <span class="math inline">\(y\)</span> của hai hàm? Khi <span class="math inline">\(x\)</span> qua <span class="math inline">\(0\)</span>, giá trị <span class="math inline">\(y\)</span> của mỗi hàm biến đổi khác nhau thế nào?</li>
-</ol></li>
-<li><p>Dựa vào bảng giá trị, <em>so sánh sự biến thiên của các hàm</em> bằng cách trả lời những câu hỏi dưới đây.</p>
-<ol type="a">
-<li>Giữa <span class="math inline">\(y=2x\)</span> và <span class="math inline">\(y=\lvert x\rvert\)</span>: Trên <span class="math inline">\([0, 2]\)</span>, hàm nào tăng đều? Tốc độ tăng của hàm nào nhanh hơn?</li>
-<li>Giữa <span class="math inline">\(y=x^2\)</span> và <span class="math inline">\(y=\lvert x\rvert\)</span>: Trên <span class="math inline">\([0, 2]\)</span>, hàm nào tăng nhanh hơn?</li>
-<li>Giữa <span class="math inline">\(y=x^2\)</span> và <span class="math inline">\(y=x^3\)</span>: Trên <span class="math inline">\([0, 2]\)</span>, hàm nào tăng nhanh hơn?</li>
-<li>Giữa <span class="math inline">\(y=x^2\)</span> và <span class="math inline">\(y=\sqrt{x}\)</span>: Hàm nào tăng nhanh dần? Hàm nào tăng chậm dần? Trên <span class="math inline">\((0, 1)\)</span>, hàm <span class="math inline">\(y=\sqrt{x}\)</span> luôn tăng nhanh hơn hàm <span class="math inline">\(y=x^2\)</span> ?</li>
-</ol></li>
-<li><p>Hàm số <span class="math inline">\(y=\sin\left(\frac{1}{x}\right)\)</span> có hành vi đặc biệt khi <span class="math inline">\(x\)</span> tiến gần <span class="math inline">\(0\)</span>. Hãy khám phá qua các bước sau:</p>
-<ol type="a">
-<li><p>Với <span class="math inline">\(x&gt;0\)</span>, lập bảng giá trị khi <span class="math inline">\(x\)</span> lần lượt là <span class="math inline">\(1{,}00; 0{,}09; 0{,}08; 0{,}07; 0{,}06; 0{,}05; 0{,}04; 0{,}03; 0{,}02; 0{,}01\)</span>. Từ bảng này, bạn có thể phỏng đoán <span class="math inline">\(y\)</span> sẽ tăng, giảm, dao động, hay tiến về một giá trị cố định khi <span class="math inline">\(x \to 0\)</span> không? Hành vi ấy có lặp lại theo một quy luật rõ ràng không?</p>
-<p><strong>Ghi chú:</strong> Ở đây ta chỉ xét phía <span class="math inline">\(x&gt;0\)</span> để bảng số liệu gọn gàng; thực ra với <span class="math inline">\(x&lt;0\)</span>, hàm số cũng dao động tương tự do tính chất <span class="math inline">\(\sin(-x)=-\sin(x)\)</span>.</p></li>
-<li><p>Lập một bảng giá trị khác với <span class="math inline">\(x\)</span> lần lượt là <span class="math inline">\(\frac{2}{\pi}\)</span>, <span class="math inline">\(\frac{1}{\pi}\)</span>, <span class="math inline">\(\frac{2}{3\pi}\)</span>,<span class="math inline">\(\frac{1}{2\pi}\)</span>, <span class="math inline">\(\frac{2}{5\pi}\)</span>, <span class="math inline">\(\frac{1}{3\pi}\)</span>, <span class="math inline">\(\frac{2}{7\pi}\)</span>, <span class="math inline">\(\frac{1}{4\pi}\)</span>. Lúc này, <span class="math inline">\(y\)</span> biến đổi ra sao? Có xuất hiện sự lặp lại theo chu kỳ nào không?</p></li>
-<li><p>So sánh hai bảng trên: một bảng gợi cảm giác “hỗn loạn”, một bảng lại cho thấy sự “có trật tự”. Từ đó, bạn hãy giải thích tại sao chỉ dựa vào bảng giá trị thì chưa thể kết luận chắc chắn về sự biến thiên của hàm khi <span class="math inline">\(x \to 0\)</span>.</p></li>
-<li><p>Hãy chỉ ra ba dãy số khác nhau cùng hội tụ về <span class="math inline">\(0\)</span> nhưng cho ba dãy giá trị <span class="math inline">\(y\)</span> lần lượt tiến tới <span class="math inline">\(1\)</span>, <span class="math inline">\(0\)</span> và <span class="math inline">\(-1\)</span>. Từ đó kết luận: hàm số này có giới hạn tại <span class="math inline">\(x=0\)</span> hay không? (Lưu ý, một hàm có thể không xác định tại một điểm nhưng vẫn có giới hạn ở đó. Ví dụ, hàm <span class="math inline">\(\frac{\sin(x)}{x}\)</span> không xác định tại <span class="math inline">\(x=0\)</span>, nhưng vẫn có giới hạn tại đây là <span class="math inline">\(1\)</span>. Đây chính là sự khác nhau giữa <em>giá trị của hàm</em> và <em>giới hạn của hàm</em>.)</p></li>
+<li><p>Mô tả hành vi của <span class="math inline">\(C/r^2\)</span> khi <span class="math inline">\(r\)</span> tăng và khi <span class="math inline">\(r\)</span> tiến gần <span class="math inline">\(0\)</span>. Nêu rõ vì sao mô hình không tự bảo đảm còn phù hợp ở khoảng cách tùy ý gần <span class="math inline">\(0\)</span>.</p></li>
+<li><p>Giả sử dữ liệu thực nghiệm gợi ý mô hình <span class="math inline">\(C/r^m\)</span> nhưng chưa biết số m. Hãy đề xuất cách dùng nhiều phép đo để ước lượng <span class="math inline">\(m\)</span> và kiểm tra xem <span class="math inline">\(m=2\)</span> có phù hợp hay không.</p></li>
+<li><p>Nếu mô hình khớp dữ liệu trong một khoảng khoảng cách đã đo, cần xem xét thêm điều gì trước khi ngoại suy nó tới những khoảng cách rất lớn hoặc rất nhỏ?</p></li>
 </ol></li>
 </ol>
 
 
+
+</section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Tài liệu tham khảo</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-nasa-jpl-solar-power-space" class="csl-entry" role="listitem">
+NASA Jet Propulsion Laboratory. 2024. <span>“Calculating Solar Power in Space”</span>. Tháng Mười 21. <a href="https://www.jpl.nasa.gov/edu/resources/lesson-plan/calculating-solar-power-in-space/">https://www.jpl.nasa.gov/edu/resources/lesson-plan/calculating-solar-power-in-space/</a>.
+</div>
+<div id="ref-openstax-newton-gravitation" class="csl-entry" role="listitem">
+OpenStax. không ngày. <span>“Newton’s Law of Universal Gravitation”</span>. Truy cập 6 Tháng Chín 2026. <a href="https://openstax.org/books/university-physics-volume-1/pages/13-1-newtons-law-of-universal-gravitation">https://openstax.org/books/university-physics-volume-1/pages/13-1-newtons-law-of-universal-gravitation</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <!-- Overlay để click ra ngoài và đóng sidebar -->
 
 <div class="sidebar-overlay" aria-hidden="true"></div>
