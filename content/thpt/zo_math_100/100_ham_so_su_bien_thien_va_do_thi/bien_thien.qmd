@@ -1,158 +1,202 @@
 ---
-title: "Biến thiên"
-subtitle: "Từ bảng giá trị đến quy luật tăng, giảm và dao động"
-
-summary: "Quan sát cách giá trị hàm số thay đổi khi biến độc lập dịch chuyển, từ đó nhận diện những quy luật tăng, giảm, đối xứng và dao động."
-
-description: "Bài viết dẫn dắt việc tìm hiểu sự biến thiên của hàm số qua bảng giá trị, tính chẵn lẻ, giới hạn của phương pháp thăm dò và nhu cầu chứng minh toán học."
-
+title: "Hành vi của hàm số"
+subtitle: "Từ bất biến và thay đổi đến một mạng lưới các quan hệ"
+summary: "Dùng hành vi của hàm số như một cách tổ chức việc quan sát mười hàm quen thuộc và các quan hệ giữa chúng."
+description: "Một hàm số không chỉ tăng hay giảm. Qua các quan hệ giữa hàm hằng, hàm lũy thừa, căn bậc hai, giá trị tuyệt đối, hàm sin và phép lấy nghịch đảo, những hành vi quen thuộc được giữ lại, biến dạng hoặc kết hợp thành hành vi mới."
 abstract: |
-  Biến thiên mô tả cách giá trị của hàm số phản ứng khi biến độc lập thay đổi. Bảng giá trị giúp ta quan sát ban đầu những biểu hiện như tăng, giảm, đối xứng hoặc dao động.
+  Trong bài này, “hành vi của hàm số” là một cách nhìn để tổ chức việc quan sát, không phải một thuật ngữ có định nghĩa đóng hay một danh sách tính chất cố định. Cách giá trị thay đổi, miền xác định, cấu trúc đối xứng, nhịp lặp lại và phản ứng ở gần những điểm đặc biệt là những phương diện có thể cần chú ý tùy theo hàm đang xét.
 
-  Tuy nhiên, quan sát hữu hạn chỉ mang tính thăm dò. Muốn hiểu toàn diện quy luật của hàm số, ta cần kết hợp trực giác với công cụ toán học và biểu diễn đồ thị.
-
+  Mười hàm số trong bài tạo thành một mạng quan hệ. Qua phép hạn chế miền, đảo quan hệ, lấy giá trị tuyệt đối, lấy nghịch đảo và ghép hàm, một hành vi có thể được giữ lại hoặc tái tổ chức.
 keywords:
-  - sự biến thiên
+  - hành vi của hàm số
   - bảng giá trị
-  - hàm chẵn
-  - hàm lẻ
   - tăng giảm
+  - miền xác định
+  - đối xứng
   - dao động
-
 author: "ZO Math"
 date: last-modified
 date-format: "DD-MM-YYYY"
-
 page-layout: article
 toc: true
 toc-title: "Nội dung"
 toc-location: right
 toc-depth: 3
 body-classes: "zo-page-article zo-meta-hidden"
+bibliography: references.bib
 ---
 
+“Hành vi của hàm số” là tên gọi cho một cách nhìn: tùy đối tượng, ta chú ý đến những phương diện và quan hệ giúp hiểu hàm đó. Cách nhìn này không ấn định trước một danh sách tính chất mà mọi hàm đều phải có.
 
-Công thức của một hàm số giống như bản nhạc viết trên giấy: để thực sự thưởng thức, bạn phải nghe giai điệu mà các nốt nhạc tạo ra. Với hàm số cũng vậy: không chỉ dừng lại ở sự mô tả hay công thức, điều quan trọng là cảm nhận được *nhịp điệu* mà nó thể hiện khi biến độc lập dịch chuyển.
+Các thuật ngữ chuyên biệt xuất hiện trong bài trước hết giúp nhận diện hiện tượng; định nghĩa và cách dùng chặt chẽ của mỗi thuật ngữ sẽ được phát triển trong bài về hàm số cụ thể nơi nó trở thành nội dung trung tâm.
 
-:::: {.zo-block .zo-block-red}
-::: {.zo-block-title}
-Sự biến thiên
-:::
+Mười hàm số dưới đây không đứng thành mười trường hợp cô lập. Chúng có thể được so sánh, đảo quan hệ và ghép với nhau. Qua đó, một hành vi có thể được giữ lại, biến dạng hoặc xuất hiện dưới hình thức mới.
 
-Nói đến sự biến thiên của hàm số là nói đến quy luật tăng-giảm của giá trị $y$ khi $x$ thay đổi. Khảo sát sự biến thiên là để trả lời câu hỏi: khi dịch chuyển $x$, thì $y$ phản ứng thế nào? Đây chính là chìa khóa để hiểu mối quan hệ giữa biến độc lập $x$ và biến phụ thuộc $y$.
-::::
+## Từ đứng yên đến thay đổi đều
 
-Để nhìn thấy $y$ thay đổi theo $x$ ra sao, ta *thăm dò* bằng cách lập *bảng giá trị*. Chẳng hạn, xét hàm số $y=x^2$ với một số giá trị quanh $x=0$:
+Với $y=1$, mọi đầu vào đều cho cùng một đầu ra. Khi $x$ thay đổi, $y$ không đổi. Sự bất biến ấy chính là hành vi đặc trưng của hàm hằng.
 
-|  $x$ |  $y=x^2$ |
-|:-------:|:-------------:|
-|   $-2,0$   |      $4,00$       |
-|   $-1,0$   |      $1,00$       |
-|  $-0,9$  |     $0,81$     |
-|  $-0,7$  |     $0,49$     |
-|  $-0,5$  |     $0,25$     |
-|  $-0,3$  |     $0,09$     |
-|  $-0,1$  |     $0,01$     |
-|    $0$   |      $0$       |
-|   $0,1$  |     $0,01$     |
-|   $0,3$  |     $0,09$     |
-|   $0,5$  |     $0,25$     |
-|   $0,7$  |     $0,49$     |
-|   $0,9$  |     $0,81$     |
-|    $1,0$   |      $1,00$       |
-|    $2,0$   |      $4,00$       |
-: Một số giá trị quanh $x=0$ của hàm $y=x^2$. Các giá trị $y$ được làm tròn đến hai chữ số thập phân.
+Với $y=x$, nếu $x$ tăng thêm $h$ thì $y$ cũng tăng thêm $h$, bất kể điểm bắt đầu. Đây là sự thay đơn giản nhất, thay đổi đều: lượng thay đổi không đổi.
 
-Khi $x$ tăng dần từ $-2$ đến $0$, $y$ giảm dần về $0$. Tại $x=0$, hàm số đạt giá trị nhỏ nhất $y=0$ trên toàn miền xác định. Khi $x$ tiếp tục tăng vượt qua $0$, $y$ bắt đầu tăng lên. Ngoài ra, ta nhận ra tính chất: hai điểm đối xứng qua $x=0$ sẽ cho cùng một giá trị, chẳng hạn $x=-2$ và $x=2$ đều cho $y=4$.
+Đặt hai hàm cạnh nhau, ta có hai nhịp nền: một hàm giữ nguyên giá trị, hàm kia thay đổi đều cùng biến độc lập.
 
-:::: {.zo-block .zo-block-red}
-::: {.zo-block-title}
-Hàm chẵn
-:::
+## Những khác biệt trong các lũy thừa quen thuộc
 
-Hàm số có tính chất $f(-x)=f(x)$ với mọi $x$ thuộc tập xác định được gọi là *hàm chẵn*.
-::::
+Xét $y=x$, $y=x^2$ và $y=x^3$. Cả ba nhận mọi số thực làm đầu vào, nhưng phản ứng khác nhau khi $x$ đổi dấu.
 
-Với hàm số $y=\frac{1}{x}$, ta cũng thử quan sát một số giá trị quanh $x=0$:
+| $x$ | $y=x^2$ |
+|:--:|:--:|
+| $-2,0$ | $4,00$ |
+| $-1,0$ | $1,00$ |
+| $-0,5$ | $0,25$ |
+| $-0,1$ | $0,01$ |
+| $0$ | $0$ |
+| $0,1$ | $0,01$ |
+| $0,5$ | $0,25$ |
+| $1,0$ | $1,00$ |
+| $2,0$ | $4,00$ |
+: Một số giá trị quanh $x=0$ của hàm $y=x^2$.
 
-|   $x$ | $y=\frac{1}{x}$ |
-| :------: | :----------------: |
-| $-0,25$|       $-4,00$|
-|  $-0,21$|        $-4,76$      |
-| $-0,17$|       $-5,88$      |
-|  $-0,13$|       $-7,69$      |
-|  $-0,09$|       $-11,11$      |
-|  $-0,05$|       $-20,00$      |
-| $-0,01$|       $-100,00$     |
-|   $0$ | không xác định   |
-|  $0,01$|       $100,00$      |
-|  $0,05$|       $20,00$      |
-|  $0,09$|       $11,11$      |
-|  $0,13$|       $7,69$      |
-| $0,17$|       $5,88$      |
-|  $0,21$|        $4,76$      |
-| $0,25$|       $4,00$|
-: Một số giá trị quanh $x=0$ của hàm $y=\frac{1}{x}$. Các giá trị $y$ được làm tròn đến hai chữ số thập phân.
+Khi $x$ tăng từ phía âm đến $0$, $x^2$ giảm về $0$; sau đó nó tăng lên. Hàm số đạt giá trị nhỏ nhất bằng $0$ tại $x=0$, nên $(0,0)$ là điểm thấp nhất của đồ thị. Vì $(-x)^2=x^2$, hai đầu vào đối nhau cho cùng đầu ra và đồ thị đối xứng qua trục tung.
 
-Khi $x$ tiến về $0$ từ phía âm, $y$ rơi xuống những giá trị âm cực lớn so với $x$; còn khi $x$ tiến về $0$ từ phía dương, $y$ lại vọt lên những giá trị dương cực lớn so với $x$. Trái và phải của $0$ trở thành hai miền tách biệt, giống như hai thế giới không thể nối liền, vì $x=0$ không thuộc tập xác định của hàm số. Với hàm này, ta nhận ra tính chất: hai điểm đối xứng qua $x=0$ sẽ cho hai giá trị có độ lớn bằng nhau nhưng trái dấu, chẳng hạn $x=-0{,}01$ và $x=0{,}01$ lần lượt cho $y=-100$ và $y=100$.
+Với $y=x^3$, nếu $x_1<x_2$ thì $x_1^3<x_2^3$. Hàm đồng biến nghiêm ngặt trên $\mathbb R$ và đi xuyên qua gốc tọa độ. Đẳng thức $(-x)^3=-x^3$ biểu hiện thành đối xứng tâm qua gốc. Tại đó, đường cong đổi tính cong nên $O(0,0)$ là một điểm uốn.
 
-:::: {.zo-block .zo-block-red}
-::: {.zo-block-title}
-Hàm lẻ
-:::
+Hai hàm $y=x$ và $y=x^3$ cùng đồng biến nghiêm ngặt, nhưng *lượng tăng* trên các khoảng có cùng độ dài không tuân theo cùng một kiểu. Với $y=x$, các khoảng có cùng độ dài luôn cho cùng một lượng tăng. Với $y=x^3$, lượng tăng còn phụ thuộc vào vị trí của khoảng: trên $[0;1]$ nó bằng $1$, còn trên $[2;3]$ nó bằng $19$. Nhãn “đồng biến” chưa mô tả được khác biệt này; để mô tả được điều này, ta cần chính thức hóa phép so sánh bằng tốc độ biến thiên trung bình.
 
-Hàm số có tính chất $f(-x)=-f(x)$ với mọi $x$ thuộc tập xác định được gọi là *hàm lẻ*.
-::::
+So sánh $x^2$ và $x^3$ cho thấy phép bình phương làm mất dấu đầu vào, còn phép lập phương giữ dấu ấy trong đầu ra. Đối xứng trục và đối xứng tâm là dấu vết của khác biệt này.
 
-Còn với hàm $y=\sin\left(\frac{1}{x}\right)$, ta sẽ thấy một tiết tấu hoàn toàn khác. Để quan sát điều thú vị, ta chọn những $x$ đặc biệt sao cho $\frac{1}{x}$ rơi đúng vào những bội số quen thuộc của $\pi$ (nơi giá trị của hàm bằng $0$, $1$ hoặc $-1$). Hơn nữa, ta còn có thể chọn được vô số $x$ như thế, chẳng hạn: $x=\frac{2}{k\pi}$ ($k$ là số nguyên khác $0$). Ta quan sát một số giá trị ứng với $k$ không âm:
+## Miền xác định và phép biến đổi
 
-| $x$ | $y=\sin\left(\frac{1}{x}\right)$ |
-|:-----:|:--------------:|
-| $\frac{2}{\pi}$ | $1$ |
-| $\frac{1}{\pi}$ | $0$ |
-| $\frac{2}{3\pi}$ | $-1$ |
-| $\frac{1}{2\pi}$ | $0$ |
-| $\frac{2}{5\pi}$ | $1$ |
-| $\frac{1}{3\pi}$ | $0$ |
-| $\frac{2}{7\pi}$ | $-1$ |
-| $\frac{1}{4\pi}$ | $0$ |
+Hàm $y=\sqrt{x}$ chỉ xác định khi $x\ge0$. Trên $[0,+\infty)$, bình phương và lấy căn bậc hai đảo ngược nhau:
+
+$$
+\sqrt{x^2}=x \quad \text{và} \quad (\sqrt{x})^2=x \quad (x\ge0).
+$$
+
+Nếu không hạn chế miền của $y=x^2$, một giá trị dương ứng với hai đầu vào đối nhau; quan hệ đảo không xác định một hàm. Chỉ giữ nửa đồ thị $x\ge0$ làm mỗi đầu ra không âm ứng với đúng một đầu vào. Đổi vai trò hai tọa độ khi ấy cho đồ thị $y=\sqrt{x}$. Đây là một quan hệ đảo trên miền thích hợp, chưa phải một lí thuyết tổng quát về hàm ngược.
+
+Trên toàn bộ $\mathbb R$,
+
+$$
+\sqrt{x^2}=|x|.
+$$
+
+Bình phương đưa $x$ và $-x$ tới cùng giá trị; căn bậc hai trả về nghiệm không âm. Dấu ban đầu không thể được khôi phục và kết quả là độ lớn $|x|$.
+
+Đồ thị $y=|x|$ giảm về $0$ từ phía âm rồi tăng ở phía dương. Nó có những điểm tương đồng với đồ thị $y=x^2$ về chiều biến thiên và đối xứng, nhưng có góc nhọn tại điểm thấp nhất, trong khi đồ thị $y=x^2$ không có góc nhọn tại đó. Như vậy, $x^2$, $\sqrt{x}$ và $|x|$ tạo thành một cụm: hạn chế miền cho phép đảo quan hệ; ghép bình phương với căn bậc hai tạo giá trị tuyệt đối.
+
+## Hai cơ chế: lặp lại và lấy nghịch đảo
+
+Với $y=\sin x$, khi đầu vào tăng thêm $2\pi$, đầu ra trở về giá trị cũ. Đồ thị dao động giữa $-1$ và $1$, lặp cùng một dạng trên những khoảng liên tiếp dài $2\pi$. Tính tuần hoàn sẽ được định nghĩa đầy đủ trong bài về hàm sin; ở đây ta chỉ ghi nhận cơ chế lặp lại theo những khoảng đều.
+
+Phép lấy nghịch đảo tạo cơ chế khác. Với $y=\frac1x$, đầu vào $0$ bị loại khỏi miền xác định.
+
+| $x$ | $y=\frac1x$ |
+|:--:|:--:|
+| $-0,25$ | $-4,00$ |
+| $-0,09$ | $-11,11$ |
+| $-0,05$ | $-20,00$ |
+| $-0,01$ | $-100,00$ |
+| $0$ | không xác định |
+| $0,01$ | $100,00$ |
+| $0,05$ | $20,00$ |
+| $0,09$ | $11,11$ |
+| $0,25$ | $4,00$ |
+: Một số giá trị quanh $x=0$ của hàm $y=\frac1x$.
+
+Khi $x$ tiến về $0$ từ phía âm, giá trị hàm âm với độ lớn ngày càng lớn; từ phía dương, nó dương với độ lớn ngày càng lớn. $x=0$ là tiệm cận đứng. Khi $|x|$ tăng không giới hạn, $\frac1x$ tiến gần $0$, nên $y=0$ là tiệm cận ngang. Phép lấy nghịch đảo đổi vai trò của “rất lớn” và “rất gần $0$”; thuật ngữ này không đồng nghĩa với hàm ngược.
+
+Vì $\frac1{-x}=-\frac1x$, đồ thị có tâm đối xứng tại gốc như $y=x^3$. Tuy nhiên, miền bị ngắt và hai tiệm cận khiến hành vi toàn cục của chúng khác hẳn nhau.
+
+## Khi các cơ chế kết hợp
+
+Từ bình phương rồi lấy nghịch đảo, ta có $y=\frac1{x^2}$. Hàm chỉ xác định khi $x\ne0$, luôn dương và nhận cùng giá trị tại $x$ và $-x$. Nó có hai tiệm cận $x=0$ và $y=0$. Từ phía âm tiến về $0$, hàm tăng lên chứ không đi xuống các giá trị âm như $\frac1x$: hành vi mới mang dấu vết của hai hàm nguồn nhưng không là bản sao của chúng.
+
+Với
+
+
+$$
+x\longmapsto \frac1x\longmapsto \sin\left(\frac1x\right),
+$$
+
+hàm sin vẫn chỉ nhận giá trị từ $-1$ đến $1$, nhưng nhịp lặp đều bị phép lấy nghịch đảo phân bố lại.
+
+| $x$ | $y=\sin\left(\frac1x\right)$ |
+|:--:|:--:|
+| $\frac2\pi$ | $1$ |
+| $\frac1\pi$ | $0$ |
+| $\frac2{3\pi}$ | $-1$ |
+| $\frac1{2\pi}$ | $0$ |
+| $\frac2{5\pi}$ | $1$ |
+| $\frac1{3\pi}$ | $0$ |
+| $\frac2{7\pi}$ | $-1$ |
+| $\frac1{4\pi}$ | $0$ |
 | ... | ... |
 | $0$ | không xác định |
-: Một số giá trị "chọn lọc" quanh $x=0$ của hàm $y=\sin\left(\frac{1}{x}\right)$.
+: Một số giá trị chọn lọc quanh $x=0$ của hàm $y=\sin\left(\frac1x\right)$.
 
-Từ bảng giá trị trên, ta nhận ra khi $x$ tiến về $0$, ta không thu được một giá trị giới hạn cố định nào cho $y$. Thay vào đó, hàm số liên tục nhảy giữa các giá trị quen thuộc $1$, $0$, $-1$. Nói cách khác, khi $x$ càng nhỏ thì $\frac{1}{x}$ càng lớn, nên $\sin\left(\frac{1}{x}\right)$ lặp đi lặp lại nhịp điệu $1\to 0\to -1\to 0\to 1\to 0\to -1\to 0\to\dots$ mãi không ngừng. Chính sự "dao động vĩnh viễn" này làm hàm số trở nên đặc biệt: càng tiến sát về $0$, ta càng thấy nó rung lắc nhanh hơn và dồn dập hơn.
+Các đầu vào tiến về $0$, còn đầu ra lần lượt đi qua $1,0,-1,0$ rồi lặp lại. Những khoảng dài $2\pi$ trên trục của hàm sin được phép lấy nghịch đảo đưa về các khoảng ngày càng ngắn gần $0$. Vì thế, $\sin(1/x)$ dao động ngày càng dồn sít. Ở phía âm, hiện tượng tương tự xảy ra với dấu đảo lại.
 
-> Bạn có để ý rằng ở trên, mình chỉ xét $x>0$ mà chưa nói gì đến $x<0$? Theo bạn, khi $x$ từ phía âm tiến về $0$, chuyện gì sẽ xảy ra?
+Bảng cho thấy dù đầu vào tiến dần về $0$, đầu ra vẫn trở lại $1$, $0$ và $-1$. Hiện tượng này gợi rằng hàm không tiến tới một giá trị cố định tại $0$; Bài 6 sẽ xây dựng các dãy đầu vào cụ thể để làm rõ nhận xét ấy. Phép lấy nghịch đảo không tạo độ lớn không giới hạn ở đây; nó tái tổ chức nhịp lặp của hàm sin thành vô số dao động bị nén quanh điểm không thuộc miền xác định.
 
-Hãy lưu ý rằng, trong hầu hết các trường hợp, việc lập bảng giá trị chỉ cho ta một bức tranh *cục bộ* và mang tính *thăm dò*. Dù có liệt kê bao nhiêu giá trị đi nữa, ta vẫn không thể kết luận chắc chắn về quy luật biến thiên của hàm số. Chẳng hạn, với $y=x^2$, tập xác định là toàn bộ $\mathbb{R}$ và tập giá trị là $[0; +\infty)$ - cả hai đều vô hạn và không thể liệt kê hết. Nhìn vào vài giá trị trong đoạn $[-2;2]$, ta có cảm giác rằng hàm số giảm xuống khi $x<0$ và tăng lên khi $x>0$. Nhưng đó mới chỉ là một phỏng đoán; để biến cảm giác thành khẳng định, ta cần đến chứng minh toán học.
+## Một mạng lưới, không phải mười trường hợp
 
-Để thấy bức tranh toàn diện về sự biến thiên, ta cần đến các công cụ toán học và một cách biểu diễn trực quan để hình dung nhịp điệu của hàm số. Chúng ta sẽ khám phá cách này trong phần tiếp theo.
+| Quan hệ | Điều trở nên rõ hơn |
+|:--|:--|
+| $1$ và $x$ | Bất biến và thay đổi đều là hai hành vi nền. |
+| $x$ và $x^3$ | Cùng đồng biến nhưng có tốc độ biến thiên khác nhau. |
+| $x^2$ và $x^3$ | Số mũ chẵn và lẻ xử lí dấu đầu vào khác nhau. |
+| $x^2$, $\sqrt{x}$, $|x|$ | Hạn chế miền cho phép đảo quan hệ; phép ghép tạo giá trị tuyệt đối. |
+| $x^2$, $\frac1x$, $\frac1{x^2}$ | Bình phương góp phần tạo dấu và đối xứng; phép lấy nghịch đảo tạo điểm loại và các tiệm cận. |
+| $\sin x$, $\frac1x$, $\sin(1/x)$ | Nghịch đảo tái tổ chức nhịp lặp thành dao động dồn sít. |
+: Những quan hệ tiêu biểu giữa mười hàm số.
 
-### Bài tập
+Bảng giá trị hữu hạn giúp quan sát và hình thành phỏng đoán, nhưng không thể bảo đảm một quy luật đúng tại mọi điểm của miền vô hạn. Muốn chuyển từ quan sát sang khẳng định, cần lập luận hoặc chứng minh; muốn nhìn toàn cục rõ hơn, có thể kết hợp đồ thị và các công cụ khảo sát thích hợp.
 
-1. *Lập bảng giá trị* cho các hàm $y=2x$, $y=\lvert x\rvert$, $y=x^2$, $y=\sqrt{x}$, $y=x^3$ với $x$ từ $-2$ đến $2$, bước nhảy $0{,}5$. Ngoại trừ $y=\sqrt{x}$ có tập xác định là $[0,\infty)$, các hàm còn lại đều có tập xác định là $\mathbb{R}$ (Đúng/Sai)? Vì sao không tính giá trị của hàm $y=\sqrt{x}$ khi $x<0$?
+## Bài tập
 
-2. Dựa vào bảng giá trị, mô tả *sự biến thiên của từng hàm* bằng cách trả lời các câu hỏi:
-   * Hàm tăng hay giảm khi $x$ tăng?
-   * Bản thân sự tăng/giảm ấy lại biến thiên thế nào?
+### Tái kiến tạo
 
-3. Dựa vào bảng giá trị, *so sánh giá trị của các hàm* bằng cách trả lời các câu hỏi dưới đây.
-   a. Giữa $y=2x$ và $y=\lvert x\rvert$: Trên $(0, 2)$, hàm nào có giá trị lớn hơn? Tại sao?
-   b. Giữa $y=\lvert x\rvert$ và $y=x^2$: Trên $(-1, 1)$, hàm nào lớn hơn tại $x$=$0{,}5$? Trên $(1, 2)$, hàm nào lớn hơn?
-   c. Giữa $y=x^2$ và $y=\sqrt{x}$ trên $(0, 2)$: Trên $(0, 1)$, hàm nào lớn hơn? Trên $(1, 2)$, hàm nào lớn hơn? Khi $x$ qua $1$, có sự kiện gì xảy ra với giá trị $y$ của hai hàm?
-   d. Giữa $y=x^2$ và $y=x^3$: Trên $(0, 1)$, hàm nào lớn hơn? Trên $(1, 2)$, hàm nào lớn hơn? Khi $x$ qua $1$, có sự kiện gì xảy ra với giá trị $y$ của hai hàm? Khi $x$ qua $0$, giá trị $y$ của mỗi hàm biến đổi khác nhau thế nào?
+1. Lập bảng tại $x=-2,-1,0,1,2$ cho $y=1$ và $y=x$. Mô tả điều xảy ra với $y$ khi $x$ tăng thêm $1$. Vì sao “không đổi” vẫn là một hành vi?
 
-4. Dựa vào bảng giá trị, *so sánh sự biến thiên của các hàm* bằng cách trả lời những câu hỏi dưới đây.
-   a. Giữa $y=2x$ và $y=\lvert x\rvert$: Trên $[0, 2]$, hàm nào tăng đều? Tốc độ tăng của hàm nào nhanh hơn?
-   b. Giữa $y=x^2$ và $y=\lvert x\rvert$: Trên $[0, 2]$, hàm nào tăng nhanh hơn?
-   c. Giữa $y=x^2$ và $y=x^3$: Trên $[0, 2]$, hàm nào tăng nhanh hơn?
-   d. Giữa $y=x^2$ và $y=\sqrt{x}$: Hàm nào tăng nhanh dần? Hàm nào tăng chậm dần? Trên $(0, 1)$, hàm $y=\sqrt{x}$ luôn tăng nhanh hơn hàm $y=x^2$ ?
+2. Lập bảng cho $y=x$, $y=x^2$, $y=x^3$ tại $x=-2,-1,-0{,}5,0,0{,}5,1,2$. Xác định chiều biến thiên; đối chiếu giá trị tại $x$ và $-x$; giải thích vì sao “đồng biến” chưa phân biệt hết $x$ và $x^3$.
 
-5. Hàm số $y=\sin\left(\frac{1}{x}\right)$ có hành vi đặc biệt khi $x$ tiến gần $0$. Hãy khám phá qua các bước sau:
-   a. Với $x>0$, lập bảng giá trị khi $x$ lần lượt là $1{,}00; 0{,}09; 0{,}08; 0{,}07; 0{,}06; 0{,}05; 0{,}04; 0{,}03; 0{,}02; 0{,}01$. Từ bảng này, bạn có thể phỏng đoán $y$ sẽ tăng, giảm, dao động, hay tiến về một giá trị cố định khi $x \to 0$ không? Hành vi ấy có lặp lại theo một quy luật rõ ràng không?
+3. Với $y=x^2$, $y=\sqrt{x}$ và $y=|x|$, nêu tập xác định, kiểm tra $\sqrt{x^2}=|x|$ và $(\sqrt{x})^2=x$ trên miền thích hợp, rồi giải thích vai trò của việc hạn chế $x\ge0$ khi đảo quan hệ bình phương.
 
-      **Ghi chú:** Ở đây ta chỉ xét phía $x>0$ để bảng số liệu gọn gàng; thực ra với $x<0$, hàm số cũng dao động tương tự do tính chất $\sin(-x)=-\sin(x)$.
+4. Mô tả cơ chế lặp lại của $\sin x$ và cơ chế đổi chỗ “rất lớn” với “rất gần $0$” của $1/x$. Hai cơ chế cùng xuất hiện thế nào trong $\sin(1/x)$?
 
-   b. Lập một bảng giá trị khác với $x$ lần lượt là $\frac{2}{\pi}$, $\frac{1}{\pi}$, $\frac{2}{3\pi}$,$\frac{1}{2\pi}$, $\frac{2}{5\pi}$, $\frac{1}{3\pi}$, $\frac{2}{7\pi}$, $\frac{1}{4\pi}$. Lúc này, $y$ biến đổi ra sao? Có xuất hiện sự lặp lại theo chu kỳ nào không?
-   c. So sánh hai bảng trên: một bảng gợi cảm giác "hỗn loạn", một bảng lại cho thấy sự "có trật tự". Từ đó, bạn hãy giải thích tại sao chỉ dựa vào bảng giá trị thì chưa thể kết luận chắc chắn về sự biến thiên của hàm khi $x \to 0$.
-   d. Hãy chỉ ra ba dãy số khác nhau cùng hội tụ về $0$ nhưng cho ba dãy giá trị $y$ lần lượt tiến tới $1$, $0$ và $-1$. Từ đó kết luận: hàm số này có giới hạn tại $x=0$ hay không? (Lưu ý, một hàm có thể không xác định tại một điểm nhưng vẫn có giới hạn ở đó. Ví dụ, hàm $\frac{\sin(x)}{x}$ không xác định tại $x=0$, nhưng vẫn có giới hạn tại đây là $1$. Đây chính là sự khác nhau giữa *giá trị của hàm* và *giới hạn của hàm*.)
+5. Xây dựng $1/x^2$ từ bình phương và lấy nghịch đảo. Dự đoán miền xác định, dấu, đối xứng, hai tiệm cận rồi kiểm tra bằng công thức.
+
+6. Với $n$ nguyên dương, xét
+
+   $$
+   a_n=\frac2{(4n+1)\pi},\quad b_n=\frac1{n\pi},\quad c_n=\frac2{(4n+3)\pi}.
+   $$
+
+   Kiểm tra rằng ba dãy tiến về $0$ nhưng các giá trị của $\sin(1/x)$ tương ứng bằng $1$, $0$, $-1$. Vì các đầu vào có thể cùng tiến về $0$ trong khi đầu ra không tiến về một giá trị chung, hãy giải thích vì sao hiện tượng này bác bỏ phỏng đoán rằng hàm có giới hạn tại $0$. Ở bước sâu hơn, nếu đã biết tiêu chuẩn dãy của giới hạn hàm số, hãy dùng tiêu chuẩn đó để viết một chứng minh chính thức.
+
+### Soi sáng
+
+7. So sánh tốc độ biến thiên trung bình $\frac{f(b)-f(a)}{b-a}$ của $f(x)=x$ và $g(x)=x^3$ trên $[0;1]$, $[1;2]$, $[2;3]$. Kết quả làm rõ điều gì ngoài tính đồng biến?
+
+8. Một bảng gồm $1000$ điểm trong $[-10;10]$ cho các giá trị tăng dần. Vì sao chưa thể kết luận hàm đồng biến trên toàn đoạn? Hãy mô tả cách sửa hàm giữa hai điểm lấy mẫu để tạo phản ví dụ.
+
+9. So sánh $\sqrt{x^2}$ và $(\sqrt{x})^2$ về miền xác định và giá trị. Hai biểu thức bằng nhau ở đâu? Vì sao thứ tự phép toán làm thay đổi câu trả lời trên toàn trục số?
+
+### Mở rộng và đào sâu
+
+10. Với $h(x)=x\sin(1/x)$ khi $x\ne0$, chứng minh $|h(x)|\le|x|$. Nếu đã biết định lí kẹp, hãy dùng định lí ấy để suy ra giới hạn của $h(x)$ tại $0$, rồi xét điều gì thay đổi nếu đặt $h(0)=0$.
+
+11. Với số nguyên dương $m$, xét $f_m(x)=1/x^m$. Phân loại hành vi gần $0$, dấu và đối xứng theo tính chẵn lẻ của $m$. Hai trường hợp $m=1,2$ mở ra quy luật nào?
+
+### Đưa tri thức trở lại thế giới
+
+12. Một cảm biến ghi dữ liệu tại những thời điểm cách đều. Phân biệt: dữ liệu quan sát đang tăng; mô hình nội suy là đồng biến; đại lượng thực luôn tăng. Cần thêm bằng chứng gì để chuyển từ kết luận đầu sang hai kết luận sau?
+
+13. Trong mô hình hai vật điểm, định luật hấp dẫn Newton cho lực hấp dẫn có độ lớn tỉ lệ nghịch với bình phương khoảng cách giữa hai vật [@openstax-newton-gravitation]. Trong một mô hình lí tưởng khác, cường độ bức xạ từ một nguồn điểm phát đều theo mọi hướng cũng giảm theo bình phương khoảng cách. Cả hai dẫn đến dạng $C/r^2$, với $r>0$ và $C>0$. Dạng này còn là điểm khởi đầu khi ước lượng công suất bức xạ Mặt Trời mà một thiết bị hoặc tàu không gian có thể nhận được, như trong trường hợp tàu Juno [@nasa-jpl-solar-power-space].
+
+    a. Mô tả hành vi của $C/r^2$ khi $r$ tăng và khi $r$ tiến gần $0$. Nêu rõ vì sao mô hình không tự bảo đảm còn phù hợp ở khoảng cách tùy ý gần $0$.
+
+    b. Giả sử dữ liệu thực nghiệm gợi ý mô hình $C/r^m$ nhưng chưa biết số m. Hãy đề xuất cách dùng nhiều phép đo để ước lượng $m$ và kiểm tra xem $m=2$ có phù hợp hay không.
+
+    c. Nếu mô hình khớp dữ liệu trong một khoảng khoảng cách đã đo, cần xem xét thêm điều gì trước khi ngoại suy nó tới những khoảng cách rất lớn hoặc rất nhỏ?
