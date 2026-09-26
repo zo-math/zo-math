@@ -2,14 +2,18 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
 
+from pypdf import PdfWriter
 import yaml
 
 from zo_pdf_contract import (
+    canonical_pdf_provenance_path, canonical_variant_input_state,
+    update_canonical_pdf_provenance, validate_canonical_pdf_provenance,
     pdf_build_receipt_path, qmd_artifact_key, validate_pdf_build_receipt,
     write_pdf_build_receipt,
     pdf_output_path, pdf_variant,
@@ -40,6 +44,24 @@ class IdentityTests(unittest.TestCase):
             for filename in ['index.qmd', 'index.pdf', 'table.json', 'figure.png', 'filter.lua']:
                 (package/filename).write_bytes(b'fixture\n')
             self.pages.append(package/'index.qmd')
+
+    def make_pdf(self, path, pages=1):
+        writer = PdfWriter()
+        for _ in range(pages):
+            writer.add_blank_page(width=595, height=842)
+        with path.open('wb') as handle:
+            writer.write(handle)
+
+    def make_canonical_provenance(self, source):
+        cfg = yaml.safe_load((source.parent/'_quy_trinh/cau_hinh_san_xuat_qmd.yml').read_text(encoding='utf-8'))
+        for index, name in enumerate(cfg['extensions']['pdf_variants'], start=1):
+            output = pdf_output_path(ROOT, source, name)
+            self.make_pdf(output, 1 + (index % 2))
+            state = canonical_variant_input_state(ROOT, source, name)
+            update_canonical_pdf_provenance(
+                ROOT, source, output, variant=name, expected_input_state=state,
+            )
+        return canonical_pdf_provenance_path(ROOT, source)
 
     def test_index_identity_and_profile_isolation(self):
         a, b = self.pages
@@ -197,6 +219,127 @@ class IdentityTests(unittest.TestCase):
         with patch.object(zo_pdf.subprocess, 'run', side_effect=fake_run):
             self.assertEqual(zo_pdf.build(source, 'student'), 1)
         self.assertEqual([full.read_bytes(), student.read_bytes()], before)
+
+    def test_canonical_provenance_valid_and_manifest_failures(self):
+        source = self.pages[0]
+        manifest = self.make_canonical_provenance(source)
+        registry = yaml.safe_load((source.parent/'_quy_trinh/cau_hinh_san_xuat_qmd.yml').read_text(encoding='utf-8'))['extensions']['pdf_variants']
+        self.assertTrue(all(validate_canonical_pdf_provenance(ROOT, source, variant=name) == [] for name in registry))
+        original = manifest.read_bytes()
+        manifest.unlink()
+        self.assertTrue(validate_canonical_pdf_provenance(ROOT, source))
+        manifest.write_bytes(original)
+
+        payload = json.loads(original)
+        payload['pdf_provenance_schema_version'] = 999
+        manifest.write_text(json.dumps(payload), encoding='utf-8')
+        self.assertTrue(validate_canonical_pdf_provenance(ROOT, source))
+        for unsafe in ('C:/outside.pdf', '../outside.pdf'):
+            payload = json.loads(original)
+            payload['variants'][0]['output']['path'] = unsafe
+            manifest.write_text(json.dumps(payload), encoding='utf-8')
+            self.assertTrue(any('path' in error.lower() for error in validate_canonical_pdf_provenance(ROOT, source)))
+
+    def test_canonical_provenance_variant_registry_contract(self):
+        source = self.pages[0]
+        manifest = self.make_canonical_provenance(source)
+        original = manifest.read_bytes()
+        payload = json.loads(original)
+        payload['variants'].pop()
+        manifest.write_text(json.dumps(payload), encoding='utf-8')
+        self.assertTrue(any('variant' in error for error in validate_canonical_pdf_provenance(ROOT, source)))
+        payload = json.loads(original)
+        payload['variants'].append(payload['variants'][0])
+        manifest.write_text(json.dumps(payload), encoding='utf-8')
+        self.assertTrue(any('duplicate variant' in error for error in validate_canonical_pdf_provenance(ROOT, source)))
+
+        manifest.write_bytes(original)
+        config_path = source.parent/'_quy_trinh/cau_hinh_san_xuat_qmd.yml'
+        config = yaml.safe_load(config_path.read_text(encoding='utf-8'))
+        config['extensions']['pdf_variants']['student']['metadata']['subtitle'] = 'registry drift'
+        config_path.write_text(yaml.safe_dump(config), encoding='utf-8')
+        self.assertTrue(validate_canonical_pdf_provenance(ROOT, source, variant='student'))
+
+    def test_canonical_provenance_detects_every_input_and_pdf_drift(self):
+        mutations = ('index.qmd', 'filter.lua', 'figure.png')
+        for filename in mutations:
+            source = self.pages[0]
+            self.make_canonical_provenance(source)
+            path = source.parent/filename
+            original = path.read_bytes()
+            path.write_bytes(original+b'drift')
+            self.assertTrue(validate_canonical_pdf_provenance(ROOT, source), filename)
+            path.write_bytes(original)
+
+        source = self.pages[0]
+        self.make_canonical_provenance(source)
+        output = pdf_output_path(ROOT, source)
+        output.write_bytes(output.read_bytes()+b'drift')
+        self.assertTrue(any('PDF hash drift' in error for error in validate_canonical_pdf_provenance(ROOT, source)))
+
+    def test_canonical_provenance_detects_config_and_input_set_drift(self):
+        source = self.pages[0]
+        self.make_canonical_provenance(source)
+        config_path = source.parent/'_quy_trinh/cau_hinh_san_xuat_qmd.yml'
+        original = config_path.read_bytes()
+        config = yaml.safe_load(original)
+        config['extensions']['artifact_inputs'].pop()
+        config_path.write_text(yaml.safe_dump(config), encoding='utf-8')
+        self.assertTrue(validate_canonical_pdf_provenance(ROOT, source))
+        config_path.write_bytes(original)
+
+        self.make_canonical_provenance(source)
+        config = yaml.safe_load(original)
+        (source.parent/'extra.asset').write_bytes(b'extra')
+        config['extensions']['artifact_inputs'].append('extra.asset')
+        config_path.write_text(yaml.safe_dump(config), encoding='utf-8')
+        self.assertTrue(validate_canonical_pdf_provenance(ROOT, source))
+
+    def test_audit_receipt_cannot_rescue_manifest_and_mtime_is_irrelevant(self):
+        source = self.pages[0]
+        manifest = self.make_canonical_provenance(source)
+        output = pdf_output_path(ROOT, source)
+        receipt = self.base/'valid-audit-receipt.json'
+        write_pdf_build_receipt(ROOT, source, output, receipt)
+        manifest.unlink()
+        self.assertEqual(validate_pdf_build_receipt(ROOT, source, output, receipt), [])
+        self.assertTrue(validate_canonical_pdf_provenance(ROOT, source))
+
+        manifest = self.make_canonical_provenance(source)
+        os.utime(source, (1, 1))
+        os.utime(output, (2, 2))
+        self.assertEqual(validate_canonical_pdf_provenance(ROOT, source), [])
+
+    def test_single_variant_update_does_not_revalidate_other_variants(self):
+        source = self.pages[0]
+        self.make_canonical_provenance(source)
+        filter_path = source.parent/'filter.lua'
+        filter_path.write_bytes(filter_path.read_bytes()+b'new pipeline')
+        state = canonical_variant_input_state(ROOT, source, 'full')
+        update_canonical_pdf_provenance(
+            ROOT, source, pdf_output_path(ROOT, source),
+            variant='full', expected_input_state=state,
+        )
+        self.assertEqual(validate_canonical_pdf_provenance(ROOT, source, variant='full'), [])
+        self.assertTrue(any('fingerprint' in error for error in validate_canonical_pdf_provenance(ROOT, source, variant='student')))
+
+    def test_mid_build_input_drift_cannot_be_certified(self):
+        source = self.pages[0]
+        manifest = self.make_canonical_provenance(source)
+        before_manifest = manifest.read_bytes()
+        state = canonical_variant_input_state(ROOT, source, 'full')
+        filter_path = source.parent/'filter.lua'
+        filter_path.write_bytes(filter_path.read_bytes()+b'mid-build drift')
+        with self.assertRaises(RuntimeError):
+            update_canonical_pdf_provenance(
+                ROOT, source, pdf_output_path(ROOT, source),
+                variant='full', expected_input_state=state,
+            )
+        self.assertEqual(manifest.read_bytes(), before_manifest)
+
+    def test_legacy_project_does_not_opt_in_to_canonical_manifest(self):
+        source = ROOT/'content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_ln_x.qmd'
+        self.assertIsNone(canonical_pdf_provenance_path(ROOT, source))
 
 
 if __name__ == '__main__':

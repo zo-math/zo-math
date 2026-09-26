@@ -1,22 +1,26 @@
 # R1-G01 — ứng viên Quarto v1.2
 
-Ứng viên QMD/Quarto v1.2 chuyển đổi từ nội dung v1.1, đang kiểm chứng thiết kế
-theo ma trận quyết định v0.2 đã duyệt; chưa được chủ dự án nghiệm thu sản phẩm và chưa xuất bản.
-Nguồn có thẩm quyền vẫn là HTML v1.1 tại
-`_projects/on_thi_toan_thpt_2027/goi/R1-G01/src/noi_dung.html` (đường dẫn từ gốc repository).
-Chưa chuyển canonical; không phát triển song song nội dung hai bản.
+`index.qmd` là nguồn canonical duy nhất của học liệu v1.2. Nội dung và kỹ thuật đã
+hoàn tất theo các lượt nghiệm thu 3D–3F; giao diện ứng viên dùng nhãn “Có thể học”.
+Hồ sơ vẫn giữ `publication: pending`: đây là ứng viên ra mắt cục bộ, chưa được
+xuất bản công khai và chưa có URL/ngày công bố.
 
-`lich_su/v1_1.json` ghi commit đối chiếu và SHA-256 của đủ 40 tệp lịch sử.
+`lich_su/v1_1.json` là hồ sơ bất biến ghi commit đối chiếu và SHA-256 của đủ
+40 tệp lịch sử. `lich_su/v1_1_verification_v2.json` giữ nguyên hồ sơ đó và dẫn
+xuất 39 tệp bắt buộc cho snapshot release; chỉ `kiem_chung/pdf_build.log` được
+xác định đích danh là bằng chứng chẩn đoán cục bộ không bắt buộc.
 Không nhân bản HTML/Markdown cũ thành nguồn biên soạn thứ hai ở đây.
-Nội dung QMD được trích trực tiếp từ HTML. Nhãn trạng thái dành cho người học là
-“Bản xem trước · Chưa xuất bản”; tên hiển thị là “Kết nối hàm số, bảng biến thiên
+Nhãn trạng thái dành cho người học là “Có thể học”; tên hiển thị là “Kết nối hàm số, bảng biến thiên
 và đồ thị”. Mã `R1-G01` chỉ dùng cho quản lí nội bộ, đường dẫn và tên tệp kỹ thuật.
 Ngoài nhãn và chỉ dẫn tải PDF V1–V2 đã duyệt, không biên tập lại nội dung học thuật.
 
 Mỗi gói có project.id, cấu hình và `_quy_trinh/ho_so/index.yml` riêng.
 `extensions.artifact_identity: path` chọn tên receipt/phiên dựa trên đường dẫn;
 `extensions.artifact_inputs` bổ sung dữ liệu, hình và filter vào hash PDF.
-Hai dự án cũ không bật lựa chọn này nên giữ tên receipt/phiên hiện hành.
+`extensions.artifact_root_inputs` bổ sung các phụ thuộc dùng chung ở gốc
+repository. `extensions.pdf_provenance_manifest` bật manifest canonical được
+theo dõi trong Git. Hai dự án cũ không bật lựa chọn này nên giữ nguyên cách xác
+định trạng thái và tên receipt/phiên hiện hành.
 
 Checker chung nhận diện cấu hình và kiểm tra tài nguyên; kiểm chứng bảo toàn riêng
 được chạy bằng `cong_cu/kiem_chung.py`. Chưa đăng ký adapter nội dung chung mới.
@@ -81,10 +85,14 @@ dẫn thoát phạm vi. Mọi build vẫn chạy cô lập và chỉ thay canoni
 và kiểm tra cấu trúc PDF thành công.
 
 Mặc định không truyền biến thể vẫn là `full`. Cấu hình `extensions.pdf_variants`
-khai đầu ra/metadata; receipt nhận diện đường dẫn nguồn + biến thể, theo dõi nguồn,
-JSON, hình, filter, cấu hình và pipeline. Hai dự án cũ không bật hợp đồng biến thể
-nên giữ cách vận hành mặc định. Build biến thể chạy trong bản sao tạm cô lập dưới
-`_audit`, chỉ thay đúng đầu ra sau render thành công; thất bại không xóa PDF cũ.
+khai đầu ra/metadata. Manifest `_quy_trinh/ho_so/pdf_provenance.json` theo dõi
+nguồn, JSON, hình, filter, cấu hình, pipeline, hash và số trang của đủ tám PDF.
+Với gói này, `status` chỉ báo CURRENT từ manifest deterministic; không dùng mtime
+hoặc receipt `_audit`. Receipt vẫn được sinh làm bằng chứng dựng cục bộ. Builder
+chỉ cập nhật bản ghi của variant vừa dựng sau khi đầu vào sau dựng còn khớp ảnh
+chụp trước dựng. Build chạy trong bản sao tạm cô lập dưới `_audit`, chỉ thay đúng
+đầu ra sau render thành công; thất bại không xóa PDF cũ. Dự án không bật manifest
+canonical tiếp tục dùng hợp đồng hiện hành.
 
 Trước mỗi render: xác nhận không có preview nền ngoài phiên kiểm chứng được quản lí,
 ghi hash hai PDF hiện hành. Không render toàn repository thật để kiểm gói này.
@@ -94,10 +102,10 @@ Dựng PDF trước lượt HTML cuối để resources tải xuống là đúng
 QMD chỉ khai định dạng HTML; PDF được chọn tường minh qua pipeline/profile PDF,
 không để preview HTML tự động sinh PDF cạnh nguồn.
 
-Sidebar chuyên mục chỉ kích hoạt trong profile preview (host `127.0.0.1`), gồm
-ba trang hiện có; chính cấu trúc đó sẽ dùng khi có quyền công bố, không tạo bản song song.
-Metadata `draft` và hàng rào public vẫn giữ nguyên. Nhãn draft Quarto được đưa vào
-vị trí trạng thái của gói, không làm mất trạng thái bản nháp hoặc thay chính sách xuất bản.
+Sidebar chuyên mục nằm trong cấu hình nguồn dùng chung, gồm cổng Ôn thi, ấn bản
+2027 và học liệu này; profile preview chỉ cấu hình máy chủ cục bộ. Hàng rào public
+vẫn giữ nguyên, vì vậy trạng thái “Có thể học” không thay thế `publication: pending`
+và không phải tuyên bố đã xuất bản.
 
 Nghiệm thu trực quan HTML/hai PDF, chấp thuận thiết kế và chuyển canonical là các
 quyết định riêng của chủ dự án, không được suy từ PASS kỹ thuật. Cảnh báo hyphenation

@@ -10,7 +10,7 @@ Kiến trúc đã được phê duyệt đặt chuyên mục tại `content/thpt
 
 ## Giới hạn tích hợp và đầu mối điều hành
 
-- Hai cửa ngõ vẫn là bản nháp. Pha 3 chỉ tích hợp cấu hình cục bộ của ứng viên `hoc_lieu/r1_g01/`; chưa đăng ký adapter nội dung chung cho loại gói.
+- Hai cửa ngõ và R1-G01 có ứng viên ra mắt cục bộ để nghiệm thu; R1-G01 đã hoàn tất nội dung/kỹ thuật và có thể học, nhưng `publication: pending` và chưa xuất bản công khai.
 - Không xem mẫu hồ sơ thiết kế của chuyên mục là schema CLI. Ứng viên R1-G01 có cấu hình và hồ sơ riêng trong `_quy_trinh/`; phải đọc README tại đó trước khi làm việc.
 - Với khóa 2027, phải đọc `tot_nghiep_thpt/2027/_quy_trinh/README.md`: đây là đầu mối điều hành canonical duy nhất, ghi trạng thái chuyển đổi và việc tiếp theo. README cũ trong `_projects/on_thi_toan_thpt_2027` chỉ dùng để chuyển tiếp.
 - Tài liệu đã khóa và thành phẩm lịch sử chỉ được chuyển hoặc sửa trong phạm vi chủ dự án giao; không suy từ việc chuyển quản trị thành quyền chuyển đổi học liệu.
@@ -26,7 +26,7 @@ python scripts/zo_python.py scripts/zo_quarto.py render content/thpt/on_thi_toan
 python scripts/zo_python.py scripts/zo_quarto.py preview content/thpt/on_thi_toan_thpt/index.qmd --profile on-thi-preview
 ```
 
-Preview chỉ lắng nghe tại `127.0.0.1`; không thêm chuyên mục vào navbar/sidebar công khai. Khi cần bảo toàn đầu ra hiện có trong một nhiệm vụ kiểm thử, dùng bản sao dự án cô lập dưới `_audit/`, giữ nguyên cấu hình dự án và profile.
+Preview chỉ lắng nghe tại `127.0.0.1`. Navbar/sidebar nguồn dùng chung có đường vào ứng viên để kiểm tra đường đi; hàng rào publish vẫn chặn chuyên mục cho tới quyết định mở public riêng. Khi cần bảo toàn đầu ra hiện có trong một nhiệm vụ kiểm thử, dùng bản sao dự án cô lập dưới `_audit/`, giữ nguyên cấu hình dự án và profile.
 
 Metadata `draft: true` không thay thế hàng rào xuất bản. `publish_public.yml` chặn toàn chuyên mục trong giai đoạn này và chặn `_quy_trinh` lâu dài. Không liên kết tài liệu điều hành từ trang dành cho người đọc, không khai báo resources quét cả cây chuyên mục.
 
