@@ -17,6 +17,7 @@ import zo_publish as publish
 
 ROOT = Path(__file__).resolve().parents[1]
 SECTION = "content/thpt/on_thi_toan_thpt"
+GOVERNANCE = SECTION + "/_quy_trinh"
 
 
 class PublicBoundaryTests(unittest.TestCase):
@@ -40,8 +41,8 @@ class PublicBoundaryTests(unittest.TestCase):
         manifest = publish.build_manifest(self.public, self.config)
         return publish.validate_public(self.public, manifest, self.config)["issues"]
 
-    def test_section_denies_all_asset_types(self) -> None:
-        paths = [f"{SECTION}/sample{suffix}" for suffix in
+    def test_private_governance_denies_all_asset_types(self) -> None:
+        paths = [f"{GOVERNANCE}/sample{suffix}" for suffix in
                  (".html", ".pdf", ".svg", ".png", ".jpg", ".css", ".js", ".json", ".woff2")]
         for path in paths:
             self.write(path, "fixture")
@@ -52,22 +53,21 @@ class PublicBoundaryTests(unittest.TestCase):
     def test_normalized_deny_paths(self) -> None:
         deny = self.config["denylist"]
         variants = (
-            SECTION + "/a.pdf", "/" + SECTION + "/a.pdf",
-            SECTION.upper() + "/a.pdf", SECTION.replace("/", "\\") + "\\a.pdf",
-            "content/thpt/temp/../on_thi_toan_thpt/a.pdf",
-            "content//thpt/./on_thi_toan_thpt/a.pdf?download=1#page=2",
-            "content%2Fthpt%2Fon_thi_toan_thpt%2Fa.pdf",
-            "content%252Fthpt%252Fon_thi_toan_thpt%252Fa.pdf",
-            "https://zomath.vn/" + SECTION + "/a.pdf",
-            "content/thpt/&#111;n_thi_toan_thpt/a.pdf",
+            GOVERNANCE + "/a.pdf", "/" + GOVERNANCE + "/a.pdf",
+            GOVERNANCE.upper() + "/a.pdf", GOVERNANCE.replace("/", "\\") + "\\a.pdf",
+            SECTION + "/temp/../_quy_trinh/a.pdf",
+            SECTION + "//./_quy_trinh/a.pdf?download=1#page=2",
+            SECTION + "%2F_quy_trinh%2Fa.pdf",
+            SECTION + "%252F_quy_trinh%252Fa.pdf",
+            "https://zomath.vn/" + GOVERNANCE + "/a.pdf",
+            SECTION + "/&#95;quy_trinh/a.pdf",
         )
         for path in variants:
             with self.subTest(path=path):
                 self.assertTrue(publish.path_denied(path, deny["paths"], deny["globs"]))
-        self.assertFalse(publish.path_denied(SECTION + "_other/a.pdf", deny["paths"], deny["globs"]))
+        self.assertFalse(publish.path_denied(SECTION + "/index.html", deny["paths"], deny["globs"]))
 
-    def test_private_governance_survives_future_section_opening(self) -> None:
-        self.config["denylist"]["paths"].remove(SECTION)
+    def test_private_governance_survives_section_opening(self) -> None:
         deny = self.config["denylist"]
         self.assertFalse(publish.path_denied(SECTION + "/index.html", deny["paths"], deny["globs"]))
         for path in ("_quy_trinh/a.pdf", SECTION + "/_quy_trinh/a.pdf",
@@ -76,19 +76,19 @@ class PublicBoundaryTests(unittest.TestCase):
                 self.assertTrue(publish.path_denied(path, deny["paths"], deny["globs"]))
 
     def test_injected_manifest_is_rejected(self) -> None:
-        path = "content%2fthpt%2fon_thi_toan_thpt%2fsecret.pdf"
+        path = "content%2fthpt%2fon_thi_toan_thpt%2f_quy_trinh%2fsecret.pdf"
         result = publish.validate_public(self.public, {"files": {"CNAME": {}, path: {}}}, self.config)
         self.assertIn({"type": "forbidden-manifest", "path": path}, result["issues"])
 
     def test_html_links_and_literal_paths(self) -> None:
         variants = (
-            f'<a href="/{SECTION}/index.html">test</a>',
-            f'<img src="/{SECTION}/image.png">',
-            f'<img srcset="/{SECTION}/image.png 2x">',
-            f'<p>{SECTION}/secret.pdf</p>',
-            '<script>const p="content\\/thpt\\/on_thi_toan_thpt\\/secret.pdf";</script>',
-            '<a href="content%252fthpt%252fon_thi_toan_thpt%252fsecret.pdf">x</a>',
-            '<p>content/thpt/&#111;n_thi_toan_thpt/secret.pdf</p>',
+            f'<a href="/{GOVERNANCE}/index.html">test</a>',
+            f'<img src="/{GOVERNANCE}/image.png">',
+            f'<img srcset="/{GOVERNANCE}/image.png 2x">',
+            f'<p>{GOVERNANCE}/secret.pdf</p>',
+            '<script>const p="content\\/thpt\\/on_thi_toan_thpt\\/_quy_trinh\\/secret.pdf";</script>',
+            '<a href="content%252fthpt%252fon_thi_toan_thpt%252f_quy_trinh%252fsecret.pdf">x</a>',
+            '<p>content/thpt/&#111;n_thi_toan_thpt/&#95;quy_trinh/secret.pdf</p>',
             '<a href="scripts/zo_publish.py">not one of the first three denies</a>',
         )
         for html in variants:
@@ -97,27 +97,83 @@ class PublicBoundaryTests(unittest.TestCase):
                 self.assertTrue(any(i["type"] == "private-reference" for i in self.validation()))
 
     def test_relative_private_link(self) -> None:
-        self.config["denylist"]["paths"].remove(SECTION)
         self.write(f"{SECTION}/public/index.html", '<a href="../%5fquy_trinh/a.pdf">x</a>')
         self.assertTrue(any(i["type"] == "private-link" for i in self.validation()))
 
-    def test_search_url_snippet_and_escaped_json(self) -> None:
-        samples = (
-            json.dumps([{"href": f"{SECTION}/index.html#intro"}]),
-            json.dumps([{"href": "index.html", "text": f"Internal {SECTION}/secret.pdf"}]),
-            '[{"href":"content\\u002fthpt\\u002fon_thi_toan_thpt\\u002findex.html"}]',
-        )
-        for sample in samples:
+    def test_search_private_navigation_but_not_snippet_is_rejected(self) -> None:
+        self.write("index.html", "public")
+        for sample in (
+            json.dumps([{"href": f"{GOVERNANCE}/index.html#intro"}]),
+            '[{"href":"content\\u002fthpt\\u002fon_thi_toan_thpt\\u002f_quy_trinh\\u002findex.html"}]',
+        ):
             with self.subTest(sample=sample):
                 self.write("search.json", sample)
                 self.assertTrue(any(i["type"] == "private-reference" for i in self.validation()))
+        self.write("search.json", json.dumps([
+            {"href": "index.html", "text": f"Internal {GOVERNANCE}/secret.pdf"},
+        ]))
+        self.assertEqual(self.validation(), [])
+
+    def test_search_normalization_uses_manifest_targets_and_is_deterministic(self) -> None:
+        self.write("index.html", "public")
+        self.write("content/thpt/index.html", "public")
+        records = [
+            {"href": "index.html#intro", "text": f"Literal {GOVERNANCE}/secret.pdf"},
+            {"href": "https://zomath.vn/content/thpt/index.html?x=1#intro"},
+            {"href": "content/thpt/"},
+            {"href": "/content%2Fthpt%2Findex.html#encoded"},
+            {"href": f"{GOVERNANCE}/index.html"},
+            {"href": "content/thpt/missing.html"},
+        ]
+        self.write("search.json", json.dumps(records))
+        manifest = publish.build_manifest(self.public, self.config)
+        report = publish.normalize_public_indexes(self.public, manifest, self.config)
+        normalized = json.loads((self.public / "search.json").read_text(encoding="utf-8"))
+        self.assertEqual(normalized, records[:4])
+        self.assertEqual(report["indexes"]["search.json"]["before"], 6)
+        self.assertEqual(report["indexes"]["search.json"]["after"], 4)
+        self.assertEqual(report["indexes"]["search.json"]["removed_by_reason"], {
+            "denied-target": 1, "missing-target": 1,
+        })
+        first = (self.public / "search.json").read_bytes()
+        publish.normalize_public_indexes(self.public, manifest, self.config)
+        self.assertEqual((self.public / "search.json").read_bytes(), first)
+        self.assertEqual(self.validation(), [])
 
     def test_sitemap_url_and_sitemap_index(self) -> None:
-        for tag in ("urlset", "sitemapindex"):
-            with self.subTest(tag=tag):
-                self.write("sitemap.xml", f'<{tag} xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
-                           f'<url><loc>https://zomath.vn/{SECTION}/index.html?x=1&amp;y=2</loc></url></{tag}>')
+        for root_tag, entry_tag in (("urlset", "url"), ("sitemapindex", "sitemap")):
+            with self.subTest(tag=root_tag):
+                self.write("sitemap.xml", f'<{root_tag} xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+                           f'<{entry_tag}><loc>https://zomath.vn/{GOVERNANCE}/index.html?x=1&amp;y=2</loc>'
+                           f'</{entry_tag}></{root_tag}>')
                 self.assertTrue(any(i["type"] == "private-reference" for i in self.validation()))
+
+    def test_sitemap_normalization_filters_denied_and_missing_targets(self) -> None:
+        self.write("index.html", "public")
+        self.write("content/thpt/index.html", "public")
+        self.write("sitemap.xml", '''<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://zomath.vn/index.html#top</loc></url>
+  <url><loc>content/thpt/?x=1</loc></url>
+  <url><loc>https://zomath.vn/content%2Fthpt%2Findex.html</loc></url>
+  <url><loc>https://zomath.vn/''' + GOVERNANCE + '''/index.html</loc></url>
+  <url><loc>https://zomath.vn/content/thpt/missing.html</loc></url>
+</urlset>''')
+        manifest = publish.build_manifest(self.public, self.config)
+        report = publish.normalize_public_indexes(self.public, manifest, self.config)
+        root = publish.ElementTree.parse(self.public / "sitemap.xml").getroot()
+        entries = [node for node in list(root) if node.tag.rsplit("}", 1)[-1] == "url"]
+        self.assertEqual(len(entries), 3)
+        self.assertEqual(report["indexes"]["sitemap.xml"]["removed_by_reason"], {
+            "denied-target": 1, "missing-target": 1,
+        })
+        first = (self.public / "sitemap.xml").read_bytes()
+        publish.normalize_public_indexes(self.public, manifest, self.config)
+        self.assertEqual((self.public / "sitemap.xml").read_bytes(), first)
+        self.assertEqual(self.validation(), [])
+
+    def test_missing_search_target_is_rejected_before_normalization(self) -> None:
+        self.write("search.json", json.dumps([{"href": "missing.html"}]))
+        self.assertTrue(any(i["type"] == "missing-index-target" for i in self.validation()))
 
     def test_invalid_indexes_fail_closed(self) -> None:
         for name, text in (("search.json", "{"), ("sitemap.xml", "<urlset>")):
@@ -156,7 +212,7 @@ class PublicBoundaryTests(unittest.TestCase):
             worktree.assert_not_called()
 
     def test_check_invokes_content_validator(self) -> None:
-        self.write("search.json", json.dumps([{"href": f"{SECTION}/index.html"}]))
+        self.write("search.json", json.dumps([{"href": f"{GOVERNANCE}/index.html"}]))
         self.config["output_dir"] = self.public.relative_to(ROOT).as_posix()
         state = {"issues": [], "branch": "test", "commit": "test", "status": []}
         with patch.dict(os.environ, {"QUARTO_PROFILE": ""}), \

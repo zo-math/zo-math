@@ -469,6 +469,154 @@ def copy_manifest(source: Path, target: Path, manifest: Mapping[str, Any]) -> No
         shutil.copy2(src, dst)
 
 
+def public_index_target(value: Any, relative: str, files: set[str],
+                        config: Mapping[str, Any]) -> tuple[str | None, str]:
+    """Resolve a structured public-index URL against the copied public manifest."""
+    if not isinstance(value, str) or not value.strip():
+        return None, "invalid-target"
+    decoded = decoded_reference(value)
+    try:
+        parsed = urlsplit(decoded)
+        port = parsed.port
+    except ValueError:
+        return None, "invalid-target"
+    scheme = parsed.scheme.casefold()
+    if scheme and scheme not in {"http", "https"}:
+        return None, "unsupported-scheme"
+    if parsed.netloc:
+        hostname = (parsed.hostname or "").casefold()
+        if hostname != config["custom_domain"]["cname"].casefold() or port not in {None, 80, 443}:
+            return None, "external-target"
+    path = parsed.path
+    if re.match(r"^[A-Za-z]:", path):
+        return None, "unsafe-target"
+    trailing_slash = path.endswith("/")
+    if path.startswith("/"):
+        combined = path.lstrip("/")
+    else:
+        combined = str(PurePosixPath(relative).parent / path)
+    normalized = posixpath.normpath(combined).lstrip("/")
+    if normalized in {"", "."}:
+        candidates = ["index.html"]
+    elif normalized == ".." or normalized.startswith("../"):
+        return normalized, "unsafe-target"
+    elif trailing_slash:
+        candidates = [f"{normalized}/index.html"]
+    elif PurePosixPath(normalized).suffix:
+        candidates = [normalized]
+    else:
+        candidates = [normalized, f"{normalized}/index.html"]
+    deny = config["denylist"]
+    for candidate in candidates:
+        if path_denied(candidate, deny["paths"], deny["globs"]):
+            return candidate, "denied-target"
+    for candidate in candidates:
+        if candidate in files:
+            return candidate, "public-target"
+    return candidates[-1], "missing-target"
+
+
+def search_navigation_targets(record: Any) -> list[tuple[str, Any]]:
+    """Return only fields that identify a search result's navigation target."""
+    if not isinstance(record, dict):
+        return []
+    fields = [("href", record.get("href"))]
+    if "objectID" in record:
+        fields.append(("objectID", record.get("objectID")))
+    return fields
+
+
+def normalize_public_indexes(public: Path, manifest: Mapping[str, Any],
+                             config: Mapping[str, Any]) -> dict[str, Any]:
+    """Filter generated indexes using the exact file set copied into the public tree."""
+    files = set(manifest["files"])
+    report: dict[str, Any] = {"indexes": {}, "issues": []}
+    search_relative = "search.json"
+    if search_relative in files:
+        search_path = public / search_relative
+        try:
+            records = json.loads(search_path.read_text(encoding="utf-8"))
+            if not isinstance(records, list):
+                raise ValueError("search.json root must be a list")
+        except (OSError, UnicodeError, ValueError) as exc:
+            report["issues"].append({
+                "type": "invalid-public-index", "path": search_relative, "message": str(exc),
+            })
+        else:
+            kept: list[Any] = []
+            removed = Counter()
+            for record in records:
+                targets = search_navigation_targets(record)
+                if not targets or not isinstance(targets[0][1], str) or not targets[0][1].strip():
+                    removed["invalid-record"] += 1
+                    continue
+                resolved = [public_index_target(value, search_relative, files, config)
+                            for _, value in targets]
+                failure = next((reason for _, reason in resolved if reason != "public-target"), None)
+                if failure:
+                    removed[failure] += 1
+                    continue
+                if len({target for target, _ in resolved}) != 1:
+                    removed["inconsistent-navigation"] += 1
+                    continue
+                kept.append(record)
+            search_path.write_text(
+                json.dumps(kept, ensure_ascii=False, indent=2) + "\n", encoding="utf-8",
+            )
+            report["indexes"][search_relative] = {
+                "before": len(records), "after": len(kept),
+                "removed": len(records) - len(kept), "removed_by_reason": dict(sorted(removed.items())),
+            }
+
+    for relative in sorted(name for name in files
+                           if PurePosixPath(name).name.lower().startswith("sitemap")
+                           and name.lower().endswith(".xml")):
+        path = public / relative
+        try:
+            tree = ElementTree.parse(path)
+            root = tree.getroot()
+        except (OSError, UnicodeError, ElementTree.ParseError) as exc:
+            report["issues"].append({
+                "type": "invalid-public-index", "path": relative, "message": str(exc),
+            })
+            continue
+        namespace = root.tag[1:].split("}", 1)[0] if root.tag.startswith("{") else ""
+        root_name = root.tag.rsplit("}", 1)[-1]
+        entry_name = {"urlset": "url", "sitemapindex": "sitemap"}.get(root_name)
+        if entry_name is None:
+            report["issues"].append({
+                "type": "invalid-public-index", "path": relative,
+                "message": f"unsupported sitemap root: {root_name}",
+            })
+            continue
+        entries = [node for node in list(root) if node.tag.rsplit("}", 1)[-1] == entry_name]
+        removed = Counter()
+        kept_count = 0
+        for entry in entries:
+            locs = [node for node in list(entry) if node.tag.rsplit("}", 1)[-1] == "loc"]
+            if len(locs) != 1:
+                root.remove(entry)
+                removed["invalid-record"] += 1
+                continue
+            _, reason = public_index_target(locs[0].text, relative, files, config)
+            if reason != "public-target":
+                root.remove(entry)
+                removed[reason] += 1
+                continue
+            kept_count += 1
+        if namespace:
+            ElementTree.register_namespace("", namespace)
+        ElementTree.indent(tree, space="  ")
+        tree.write(path, encoding="utf-8", xml_declaration=True, short_empty_elements=True)
+        with path.open("ab") as stream:
+            stream.write(b"\n")
+        report["indexes"][relative] = {
+            "before": len(entries), "after": kept_count,
+            "removed": len(entries) - kept_count, "removed_by_reason": dict(sorted(removed.items())),
+        }
+    return report
+
+
 class LinkCollector(HTMLParser):
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
@@ -498,18 +646,6 @@ def private_references(text: str, relative: str, config: Mapping[str, Any]) -> l
         if any(path_denied(item, deny["paths"], deny["globs"]) for item in (candidate, local)):
             found.add(token)
     return sorted(found)
-
-
-def index_strings(value: Any):
-    if isinstance(value, str):
-        yield value
-    elif isinstance(value, list):
-        for item in value:
-            yield from index_strings(item)
-    elif isinstance(value, dict):
-        for key, item in value.items():
-            yield key
-            yield from index_strings(item)
 
 
 def validate_public(public: Path, manifest: Mapping[str, Any], config: Mapping[str, Any]) -> dict[str, Any]:
@@ -585,17 +721,48 @@ def validate_public(public: Path, manifest: Mapping[str, Any], config: Mapping[s
         try:
             text = (public / relative).read_text(encoding="utf-8")
             if name == "search.json":
-                strings = list(index_strings(json.loads(text)))
+                records = json.loads(text)
+                if not isinstance(records, list):
+                    raise ValueError("search.json root must be a list")
+                for position, record in enumerate(records):
+                    targets = search_navigation_targets(record)
+                    if not targets or not isinstance(targets[0][1], str) or not targets[0][1].strip():
+                        issues.append({"type": "invalid-public-index-entry", "path": relative,
+                                       "position": position})
+                        continue
+                    resolved: list[str] = []
+                    for field, value in targets:
+                        target, reason = public_index_target(value, relative, files, config)
+                        if reason == "public-target":
+                            resolved.append(target or "")
+                        else:
+                            issue_type = "private-reference" if reason == "denied-target" else "missing-index-target"
+                            issues.append({"type": issue_type, "path": relative,
+                                           "field": field, "value": value, "reason": reason})
+                    if len(resolved) == len(targets) and len(set(resolved)) != 1:
+                        issues.append({"type": "inconsistent-index-target", "path": relative,
+                                       "position": position})
             else:
-                tree = ElementTree.fromstring(text)
-                strings = [value for node in tree.iter()
-                           for value in [node.text or "", *node.attrib.values()]]
+                root = ElementTree.fromstring(text)
+                root_name = root.tag.rsplit("}", 1)[-1]
+                entry_name = {"urlset": "url", "sitemapindex": "sitemap"}.get(root_name)
+                if entry_name is None:
+                    raise ValueError(f"unsupported sitemap root: {root_name}")
+                entries = [node for node in list(root) if node.tag.rsplit("}", 1)[-1] == entry_name]
+                for position, entry in enumerate(entries):
+                    locs = [node for node in list(entry) if node.tag.rsplit("}", 1)[-1] == "loc"]
+                    if len(locs) != 1:
+                        issues.append({"type": "invalid-public-index-entry", "path": relative,
+                                       "position": position})
+                        continue
+                    value = locs[0].text
+                    _, reason = public_index_target(value, relative, files, config)
+                    if reason != "public-target":
+                        issue_type = "private-reference" if reason == "denied-target" else "missing-index-target"
+                        issues.append({"type": issue_type, "path": relative,
+                                       "value": value, "reason": reason})
         except (OSError, UnicodeError, ValueError, ElementTree.ParseError) as exc:
             issues.append({"type": "invalid-public-index", "path": relative, "message": str(exc)})
-            continue
-        for value in sorted({hit for string in strings
-                             for hit in private_references(string, relative, config)}):
-            issues.append({"type": "private-reference", "path": relative, "value": value})
     return {"html_files": html_count, "local_links": link_count,
             "index_files": index_count, "issues": issues}
 
@@ -1126,11 +1293,13 @@ def main(argv: Sequence[str] | None = None) -> int:
                     selected_manifest = build_manifest(render_dir, config)
                     public_dir.mkdir(parents=True, exist_ok=True)
                     copy_manifest(render_dir, public_dir, selected_manifest)
+                    index_normalization = normalize_public_indexes(public_dir, selected_manifest, config)
                     public_manifest = tree_manifest(public_dir)
                     validation = validate_public(public_dir, public_manifest, config)
                     blocking_manifest_issues = [item for item in selected_manifest.get("issues", [])
                                                 if item.get("type") != "forbidden-output"]
                     issues.extend(blocking_manifest_issues)
+                    issues.extend(index_normalization["issues"])
                     issues.extend(validation["issues"])
                     missing = [name for name in config["required_files"] if name not in public_manifest["files"]]
                     issues.extend({"type": "missing-required", "path": name} for name in missing)
@@ -1138,6 +1307,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                     payload.update({"render_manifest": render_manifest,
                                     "manifest": {**public_manifest, "excluded": selected_manifest["excluded"]},
                                     "manifest_sha256": manifest_digest(public_manifest),
+                                    "index_normalization": index_normalization,
                                     "validation": validation, "diff": target_diff,
                                     "target_before_manifest": target_before})
                     if issues:
