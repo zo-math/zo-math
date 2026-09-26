@@ -21,57 +21,247 @@ format:
 resources:
   - index.pdf
   - index_hoc_sinh.pdf
+  - index_bai_hoc.pdf
+  - index_luyen_tap.pdf
+  - index_kiem_tra.pdf
+  - index_sua_loi.pdf
+  - index_on_lai.pdf
+  - index_loi_giai.pdf
+  - hinh/dau_nhan_zo.svg
+  - hinh/dau_nhan_zo.png
 filters:
   - cong_cu/r1_g01.lua
+r1-download-files:
+  - href: index_hoc_sinh.pdf
+    download: R1-G01_hoc_va_bai_tap_v1.2.pdf
+    title: "Bản học và bài tập"
+    description: "Dùng để tự học và làm bài; không có phần lời giải."
+    pages: 30
+  - href: index.pdf
+    download: R1-G01_hoc_lieu_day_du_v1.2.pdf
+    title: "Bản đầy đủ"
+    description: "Có toàn bộ bài học, bài tập, lời giải và hướng dẫn chấm."
+    pages: 40
+r1-section-download-files:
+  - variant: bai_hoc
+    href: index_bai_hoc.pdf
+    download: Ket_noi_ham_so_bai_hoc_v1.2.pdf
+    title: "Bài học"
+    description: "Kiến thức nền, ví dụ và câu hỏi tự kiểm tra."
+    start: bai-hoc
+    end-before: phieu-luyen
+    view: bai-hoc
+  - variant: luyen_tap
+    href: index_luyen_tap.pdf
+    download: Ket_noi_ham_so_luyen_tap_v1.2.pdf
+    title: "Luyện tập"
+    description: "Tám bài luyện tập, không kèm lời giải."
+    start: phieu-luyen
+    end-before: tu-kiem-tra
+    view: luyen-tap
+  - variant: kiem_tra
+    href: index_kiem_tra.pdf
+    download: Ket_noi_ham_so_kiem_tra_v1.2.pdf
+    title: "Kiểm tra"
+    description: "Năm bài tự kiểm tra, không kèm đáp án hoặc thang chấm."
+    start: tu-kiem-tra
+    end-before: sua-loi
+    view: kiem-tra
+  - variant: sua_loi
+    href: index_sua_loi.pdf
+    download: Ket_noi_ham_so_sua_loi_v1.2.pdf
+    title: "Sửa lỗi"
+    description: "Bảng nhận diện lỗi và tám bài tập khắc phục."
+    start: sua-loi
+    end-before: on-lai
+    view: sua-loi
+  - variant: on_lai
+    href: index_on_lai.pdf
+    download: Ket_noi_ham_so_on_lai_v1.2.pdf
+    title: "Ôn lại"
+    description: "Quy trình ôn lại và nhật kí học tập."
+    start: on-lai
+    end-before: loi-giai
+    view: on-lai
+  - variant: loi_giai
+    href: index_loi_giai.pdf
+    download: Ket_noi_ham_so_loi_giai_va_huong_dan_cham_v1.2.pdf
+    title: "Lời giải"
+    description: "Lời giải và hướng dẫn chấm."
+    start: loi-giai
+    end-before: nguon
+    view: loi-giai
+r1-tables:
+  - id: r1-table-t01
+    label: "Cách học với tài liệu này"
+    family: R
+    mode: fit
+    widths: [16, 50, 34]
+    row_header: true
+  - id: r1-table-t02
+    label: "Học xong, em cần làm được gì?"
+    family: R
+    mode: fit
+    widths: [30, 70]
+    row_header: true
+  - id: r1-table-t03
+    label: "Chọn đúng phần cần ôn"
+    family: R
+    mode: fit
+    widths: [27, 49, 24]
+    row_header: true
+  - id: r1-table-t04
+    label: "3.2. Từ đạo hàm đến dấu và chiều biến thiên"
+    family: R
+    mode: scroll
+    widths: [25, 16, 16, 18, 25]
+    min_width: 30em
+    row_header: true
+    center: [1, 2, 3, 4]
+  - id: r1-table-t05
+    label: "4.1. Định lí cực trị dùng điều kiện nào?"
+    family: R
+    mode: scroll
+    widths: [25, 25, 28, 22]
+    min_width: 40em
+    row_header: false
+  - id: r1-table-t06
+    label: "5.2. Ba đối tượng cần tách biệt"
+    family: R
+    mode: scroll
+    widths: [30, 24, 23, 23]
+    min_width: 36em
+    row_header: true
+    center: [3, 4]
+  - id: r1-table-t07
+    label: "6.2. Đồ thị của f khác đồ thị của f′"
+    family: R
+    mode: scroll
+    widths: [30, 25, 45]
+    min_width: 40em
+    row_header: true
+  - id: r1-table-t08
+    label: "6.5. Bản đồ giới hạn suy luận"
+    family: R
+    mode: scroll
+    widths: [24, 38, 38]
+    min_width: 40em
+    row_header: true
+  - id: r1-table-t09
+    label: "7.1. Tách phát biểu thành từng vế"
+    family: R
+    mode: fit
+    widths: [24, 36, 40]
+    row_header: true
+  - id: r1-table-t10
+    label: "7.4. Một dòng ghi lỗi có ích"
+    family: R
+    mode: fit
+    widths: [25, 75]
+    row_header: true
+  - id: r1-table-t11
+    label: "7.5. Tám lỗi để tự nhận diện"
+    family: R
+    mode: fit
+    widths: [7, 43, 50]
+    row_header: true
+    center: [1]
+  - id: r1-table-t12
+    label: "Chọn bài tập khắc phục lỗi"
+    family: R
+    mode: scroll
+    widths: [39, 22, 39]
+    min_width: 40em
+    row_header: true
+  - id: r1-table-t13
+    label: "Nhật kí học tập"
+    family: J
+    mode: scroll
+    widths: [12, 19, 17, 15, 21, 16]
+    min_width: 54em
+    row_header: false
+  - id: r1-table-t14
+    label: "Bài luyện tập 07 — Lời giải và phản biện"
+    family: R
+    mode: scroll
+    widths: [6, 12, 37, 45]
+    min_width: 44em
+    row_header: true
+    center: [1, 2]
+  - id: r1-table-t15
+    label: "Bài kiểm tra 01 — Đáp án và cách chấm 5 điểm"
+    family: R
+    mode: scroll
+    widths: [6, 64, 30]
+    min_width: 42em
+    row_header: true
+    center: [1]
+  - id: r1-table-t16
+    label: "Bài kiểm tra 03 — Đáp án và cách chấm 4 điểm"
+    family: R
+    mode: fit
+    widths: [6, 14, 80]
+    row_header: true
+    center: [1, 2]
+  - id: r1-table-t17
+    label: "Đọc kết quả tự kiểm tra"
+    family: R
+    mode: scroll
+    widths: [25, 33, 42]
+    min_width: 42em
+    row_header: true
 ---
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: r1-g01
 ::: {#bat-dau .r1-status}
-R1-G01 · Bản xem trước · Chưa xuất bản
+Bản xem trước · Chưa xuất bản
 :::
 
-::: r1-downloads
-:::
-
-R1-G01 là gói củng cố kiến thức nền và chẩn đoán lỗi thuộc chương trình Ôn thi Toán THPT 2027. Học liệu giúp em đọc đúng công thức, bảng biến thiên và đồ thị; dùng dấu đạo hàm để giải thích kết luận về tính đơn điệu và cực trị. Em cần biết tính đạo hàm đa thức, xét dấu biểu thức và nhận biết tính liên tục tại một điểm. Bốn câu hỏi khởi động sẽ giúp em xác định phần cần ôn. Bài kiểm tra cuối gói nhằm xác định mức độ em làm chủ những nội dung này; đây không phải là đề mô phỏng cấu trúc đề thi tốt nghiệp THPT.
+Học liệu “Kết nối hàm số, bảng biến thiên và đồ thị” là gói củng cố kiến thức nền và chẩn đoán lỗi thuộc chương trình Ôn thi Toán THPT 2027. Học liệu giúp em đọc đúng công thức, bảng biến thiên và đồ thị; dùng dấu đạo hàm để giải thích kết luận về tính đơn điệu và cực trị. Em cần biết tính đạo hàm đa thức, xét dấu biểu thức và nhận biết tính liên tục tại một điểm. Bốn câu hỏi khởi động sẽ giúp em xác định phần cần ôn. Bài kiểm tra cuối gói nhằm xác định mức độ em làm chủ những nội dung này; đây không phải là đề mô phỏng cấu trúc đề thi tốt nghiệp THPT.
 
 ## Cách học với tài liệu này {#cách-học-với-tài-liệu-này}
 
 Chuẩn bị giấy để tự làm trước khi mở lời giải. Em có thể học qua nhiều buổi; sau mỗi buổi, ghi vị trí dừng và điều cần hỏi vào nhật kí học tập.
 
-::: table-scroll
+::: {#r1-table-t01 .table-scroll}
 | Phần | Em thực hiện | Kết quả cần giữ lại |
 |------------------------|------------------------|------------------------|
-| **Học** | Làm bốn câu hỏi khởi động; đọc các mục cần thiết; tự làm câu hỏi trong bài rồi đối chiếu lời giải. | Lập luận của em và điều kiện đã sử dụng. |
-| **Luyện tập** | Làm tám bài theo thứ tự ở lượt đầu. Đối chiếu từng bài sau khi đã tự giải. | Bài làm và chỗ còn sai hoặc chưa giải thích được. |
-| **Kiểm tra** | Làm năm bài độc lập, dự kiến 45 phút; đóng bài học và lời giải. | Bài làm ban đầu, thời gian và điểm từng ý. |
-| **Sửa lỗi** | Giữ bài làm ban đầu; nêu lỗi, sửa lập luận rồi làm bài tập khắc phục tương ứng. | Lí do sửa và kết quả tự làm câu mới. |
-| **Ôn lại** | Hẹn một buổi sau để tự nhớ lại kiến thức và kiểm tra phần từng sai. | Ngày ôn, kết quả và phần còn cần luyện. |
+| Học | Làm bốn câu hỏi khởi động; đọc các mục cần thiết; tự làm câu hỏi trong bài rồi đối chiếu lời giải. | Lập luận của em và điều kiện đã sử dụng. |
+| Luyện tập | Làm tám bài theo thứ tự ở lượt đầu. Đối chiếu từng bài sau khi đã tự giải. | Bài làm và chỗ còn sai hoặc chưa giải thích được. |
+| Kiểm tra | Làm năm bài độc lập, dự kiến 45 phút; đóng bài học và lời giải. | Bài làm ban đầu, thời gian và điểm từng ý. |
+| Sửa lỗi | Giữ bài làm ban đầu; nêu lỗi, sửa lập luận rồi làm bài tập khắc phục tương ứng. | Lí do sửa và kết quả tự làm câu mới. |
+| Ôn lại | Hẹn một buổi sau để tự nhớ lại kiến thức và kiểm tra phần từng sai. | Ngày ôn, kết quả và phần còn cần luyện. |
 :::
 
 Thời gian 45 phút là thời lượng đề xuất cho bài kiểm tra của học liệu này, có thể điều chỉnh sau khi sử dụng. Tổng điểm 20 dùng để phân tích bài làm, không mô phỏng thang điểm của kì thi THPT.
 
-::: r1-guidance
-Tải bản học và bài tập để tự làm; dùng bản đầy đủ khi cần đối chiếu lời giải. Trên màn hình, các liên kết lời giải mở đúng phần tương ứng.
+:::: {#cach-thuc-hien-su-dung-tai-lieu .r1-details .r1-guidance}
+::: r1-summary
+Cách thực hiện
 :::
+
+- Tải bản học và bài tập để tự làm.
+- Dùng bản đầy đủ khi cần đối chiếu lời giải.
+- Trên màn hình, dùng các liên kết lời giải để mở đúng phần tương ứng.
+::::
 
 ## Bài học {#bai-hoc}
 
 ::: lesson-toc
-1.  [0. Bắt đầu từ đâu?](#bắt-đầu-từ-đâu)
-2.  [1. Đơn điệu nói điều gì?](#đơn-điệu-nói-điều-gì)
-3.  [2. Dấu đạo hàm cho phép kết luận gì?](#dấu-đạo-hàm-cho-phép-kết-luận-gì)
-4.  [3. Một chuỗi biểu diễn được dựng thế nào?](#một-chuỗi-biểu-diễn-được-dựng-thế-nào)
-5.  [4. Điều gì xảy ra tại một điểm cần xét?](#điều-gì-xảy-ra-tại-một-điểm-cần-xét)
-6.  [5. Cực trị được gọi tên thế nào?](#cực-trị-được-gọi-tên-thế-nào)
-7.  [6. Có thể đọc ngược đến đâu?](#có-thể-đọc-ngược-đến-đâu)
-8.  [7. Làm sao biết mình đã sửa được lỗi?](#làm-sao-biết-mình-đã-sửa-được-lỗi)
-9.  [Khép lại bài học](#khép-lại-bài-học)
 :::
 
 ### 0. Bắt đầu từ đâu? {#bắt-đầu-từ-đâu}
 
-**Cách thực hiện.** Làm bốn câu hỏi khởi động trên giấy. Đối chiếu lời giải rồi dùng bảng chỉ dẫn để ôn đúng phần còn vướng. Đọc các mục tiêu để biết mình cần làm được gì.
+:::: {#cach-thuc-hien-bat-dau .r1-details .r1-guidance}
+::: r1-summary
+Cách thực hiện
+:::
+
+1.  Làm bốn câu hỏi khởi động trên giấy.
+2.  Đối chiếu lời giải rồi dùng bảng chỉ dẫn để ôn đúng phần còn vướng.
+
+Đọc các mục tiêu để biết mình cần làm được gì.
+::::
 
 #### Câu hỏi dẫn đường {#câu-hỏi-dẫn-đường}
 
@@ -85,7 +275,7 @@ Trong bài này, em sẽ tập trả lời ba câu hỏi trước mỗi kết lu
 
 #### Học xong, em cần làm được gì? {#học-xong-em-cần-làm-được-gì}
 
-::: table-scroll
+::: {#r1-table-t02 .table-scroll}
 | Mục tiêu | Việc em cần làm được |
 |------------------------------------|------------------------------------|
 | Kết nối các biểu diễn của hàm số | Nối công thức, dấu đạo hàm, bảng biến thiên và dáng điệu đồ thị; phát hiện hai biểu diễn không khớp |
@@ -112,7 +302,7 @@ Hãy thử trước khi đọc đáp án trong mục “Lời giải các câu h
 
 #### Chọn đúng phần cần ôn {#chọn-đúng-phần-cần-ôn}
 
-::: table-scroll
+::: {#r1-table-t03 .table-scroll}
 | Nếu còn vướng | Ôn nhanh điều này | Quay lại |
 |------------------------|------------------------|------------------------|
 | Câu hỏi khởi động 01 | Mẫu số phải khác $0$; một khoảng xét phải nằm trong tập xác định | Mục 1.1 và 6.4 |
@@ -125,11 +315,21 @@ Nếu bốn câu đã rõ, đi thẳng vào Mục 1. Nếu thiếu một kĩ thu
 
 ### 1. Đơn điệu nói điều gì? {#đơn-điệu-nói-điều-gì}
 
-**Cách thực hiện.** Trước tiên, trả lời câu hỏi mở đầu bằng lời của em. Sau đó đọc định nghĩa và Ví dụ 01, rồi tự làm Câu hỏi tự kiểm tra 01. Khi đối chiếu, kiểm tra xem lập luận đã bao quát mọi cặp điểm trên khoảng xét chưa.
+:::: {#cach-thuc-hien-don-dieu .r1-details .r1-guidance}
+::: r1-summary
+Cách thực hiện
+:::
 
-#### Thử nghĩ trước {#thử-nghĩ-trước}
+1.  Trả lời câu hỏi mở đầu bằng lời của em.
+2.  Đọc định nghĩa và Ví dụ 01, rồi tự làm Câu hỏi tự kiểm tra 01.
+3.  Khi đối chiếu, kiểm tra xem lập luận đã bao quát mọi cặp điểm trên khoảng xét chưa.
+::::
+
+:::: {#thử-nghĩ-trước .r1-task}
+[**Thử nghĩ trước**]{.r1-task-label}
 
 Em tính được $f(0)<f(1)<f(2)$. Chừng đó đã đủ để khẳng định $f$ đồng biến trên $(0;2)$ chưa?
+::::
 
 Chưa. Ba giá trị chỉ mô tả ba vị trí. Một kết luận về cả khoảng phải kiểm soát mọi cặp điểm thích hợp trong khoảng ấy.
 
@@ -143,7 +343,7 @@ Hàm số **nghịch biến trên $K$** nếu với mọi $x_1,x_2$ thuộc $K$,
 
 Hai điều phải giữ nguyên là “với mọi cặp điểm” và “trên $K$”. Khi đọc đồ thị từ trái sang phải, “đi lên” hay “đi xuống” là cách hình dung hai quan hệ ấy, không phải một cách thay thế điều kiện của định nghĩa. \[SGK Toán 12, tập một, Bài 1, tr. 6\]
 
-#### 1.2. Ví dụ 01 — Chứng minh mà chưa dùng đạo hàm {#ví-dụ-v01-chứng-minh-mà-chưa-dùng-đạo-hàm}
+#### 1.2. Ví dụ 01 — Chứng minh mà chưa dùng đạo hàm {#ví-dụ-v01-chứng-minh-mà-chưa-dùng-đạo-hàm .r1-example-heading}
 
 Xét $f(x)=2x-1$ trên $\mathbb{R}$. Lấy bất kì $x_1<x_2$. Ta có
 
@@ -159,17 +359,29 @@ Hàm số $g$ nghịch biến trên $\mathbb{R}$.
 
 Lập luận này dùng đúng định nghĩa. Đạo hàm sẽ giúp ta xử lí những công thức phức tạp hơn, nhưng không làm thay đổi ý nghĩa của đồng biến, nghịch biến.
 
-#### Câu hỏi tự kiểm tra 01 {#dừng-lại-1-d01}
+:::: {#dừng-lại-1-d01 .r1-task}
+[**Câu hỏi tự kiểm tra 01**]{.r1-task-label}
+
+Một bạn viết: “Hàm số $f$ đồng biến trên $(a;b)$ vì $f(a)<f(b)$.” Chỉ ra hai điều chưa ổn trong lập luận này, kể cả khi hai giá trị ở đầu mút tình cờ tồn tại.
 
 ::: answer-link
 [Xem lời giải trong bài học](#loi-giai-1)
 :::
-
-Một bạn viết: “Hàm số $f$ đồng biến trên $(a;b)$ vì $f(a)<f(b)$.” Chỉ ra hai điều chưa ổn trong lập luận này, kể cả khi hai giá trị ở đầu mút tình cờ tồn tại.
+::::
 
 ### 2. Dấu đạo hàm cho phép kết luận gì? {#dấu-đạo-hàm-cho-phép-kết-luận-gì}
 
-**Cách thực hiện.** Đọc giả thiết của định lí trước kết luận. Với Ví dụ 02, đối chiếu dấu đạo hàm, mũi tên trong bảng và đồ thị. Tự làm Câu hỏi tự kiểm tra 02. Phần giải thích bằng giới hạn được đặt trong mục đọc thêm.
+:::: {#cach-thuc-hien-dau-dao-ham .r1-details .r1-guidance}
+::: r1-summary
+Cách thực hiện
+:::
+
+- Đọc giả thiết của định lí trước kết luận.
+- Với Ví dụ 02, đối chiếu dấu đạo hàm, mũi tên trong bảng và đồ thị.
+- Tự làm Câu hỏi tự kiểm tra 02.
+
+Phần giải thích bằng giới hạn được đặt trong mục đọc thêm.
+::::
 
 #### Thử nghĩ trước {#thử-nghĩ-trước-1}
 
@@ -259,7 +471,15 @@ Cho $h$ có đạo hàm trên $\mathbb{R}$ và $h^\prime(x)=(x+2)^2$. Hãy kết
 
 ### 3. Một chuỗi biểu diễn được dựng thế nào? {#một-chuỗi-biểu-diễn-được-dựng-thế-nào}
 
-**Cách thực hiện.** Với Ví dụ 03, tự tính đạo hàm và xét dấu trước khi xem bảng. Sau đó tính giá trị tại các mốc, lập bảng biến thiên rồi phác đồ thị. Câu hỏi tự kiểm tra 03 giúp em kiểm tra sự phù hợp giữa bảng và hình.
+:::: {#cach-thuc-hien-chuoi-bieu-dien .r1-details .r1-guidance}
+::: r1-summary
+Cách thực hiện
+:::
+
+1.  Với Ví dụ 03, tự tính đạo hàm và xét dấu trước khi xem bảng. Tính giá trị tại các mốc.
+2.  Lập bảng biến thiên rồi phác đồ thị.
+3.  Làm Câu hỏi tự kiểm tra 03 để kiểm tra sự phù hợp giữa bảng và hình.
+::::
 
 #### Thử nghĩ trước {#thử-nghĩ-trước-2}
 
@@ -281,7 +501,7 @@ Các nghiệm của $p^\prime(x)=0$ là $-1$ và $1$. Hai mốc này chia trục
 
 #### 3.2. Từ đạo hàm đến dấu và chiều biến thiên {#từ-đạo-hàm-đến-dấu-và-chiều-biến-thiên}
 
-::: table-scroll
+::: {#r1-table-t04 .table-scroll}
 | Khoảng | Dấu $x+1$ | Dấu $x-1$ | Dấu $p^\prime(x)$ | Kết luận về $p$ |
 |----|----|----|----|----|
 | $(-\infty;-1)$ | Âm | Âm | Dương | Đồng biến |
@@ -352,7 +572,15 @@ Một bản vẽ cho Ví dụ 03 đi qua đúng $A(-1;3)$ và $B(1;-1)$, nhưng 
 
 ### 4. Điều gì xảy ra tại một điểm cần xét? {#điều-gì-xảy-ra-tại-một-điểm-cần-xét}
 
-**Cách thực hiện.** So sánh lần lượt bốn tình huống: đổi dấu, không đổi dấu, không có đạo hàm tại mốc, và mốc không thuộc tập xác định. Mỗi lần kết luận, chỉ rõ tính liên tục và dấu ở hai phía. Cuối mục, tự làm Câu hỏi tự kiểm tra 04.
+:::: {#cach-thuc-hien-diem-can-xet .r1-details .r1-guidance}
+::: r1-summary
+Cách thực hiện
+:::
+
+- So sánh lần lượt bốn tình huống: đổi dấu, không đổi dấu, không có đạo hàm tại mốc, và mốc không thuộc tập xác định.
+- Mỗi lần kết luận, chỉ rõ tính liên tục và dấu ở hai phía.
+- Cuối mục, tự làm Câu hỏi tự kiểm tra 04.
+::::
 
 #### Thử nghĩ trước {#thử-nghĩ-trước-3}
 
@@ -371,7 +599,7 @@ Giả sử $f$ liên tục trên khoảng $(a;b)$ chứa $x_0$ và có đạo h�
 
 Khi các điều kiện trên đã được bảo đảm, có thể tóm tắt hành vi như sau:
 
-::: table-scroll
+::: {#r1-table-t05 .table-scroll}
 | Dấu đạo hàm bên trái | Dấu đạo hàm bên phải | Chiều biến thiên quanh $x_0$ | Kết luận tại $x_0$ |
 |------------------|------------------|------------------|------------------|
 | Dương trên cả khoảng bên trái | Âm trên cả khoảng bên phải | Tăng rồi giảm | Cực đại |
@@ -473,7 +701,15 @@ Cho $w$ liên tục trên $(-2;2)$, có đạo hàm trên $(-2;0)$ và $(0;2)$; 
 
 ### 5. Cực trị được gọi tên thế nào? {#cực-trị-được-gọi-tên-thế-nào}
 
-**Cách thực hiện.** Đọc định nghĩa rồi trở lại Ví dụ 03. Viết riêng ba đối tượng: điểm cực trị của hàm số, giá trị cực trị và điểm cực trị của đồ thị. Hoàn thành Câu hỏi tự kiểm tra 05 để kiểm tra cách dùng thuật ngữ.
+:::: {#cach-thuc-hien-goi-ten-cuc-tri .r1-details .r1-guidance}
+::: r1-summary
+Cách thực hiện
+:::
+
+1.  Đọc định nghĩa rồi trở lại Ví dụ 03.
+2.  Viết riêng ba đối tượng: điểm cực trị của hàm số, giá trị cực trị và điểm cực trị của đồ thị.
+3.  Hoàn thành Câu hỏi tự kiểm tra 05 để kiểm tra cách dùng thuật ngữ.
+::::
 
 #### Thử nghĩ trước {#thử-nghĩ-trước-4}
 
@@ -497,7 +733,7 @@ Trong bài học này, ta dùng định nghĩa hai phía trên khoảng như tr�
 
 #### 5.2. Ba đối tượng cần tách biệt {#ba-đối-tượng-cần-tách-biệt}
 
-::: table-scroll
+::: {#r1-table-t06 .table-scroll}
 | Đối tượng | Dạng viết | Cực đại của Ví dụ 03 | Cực tiểu của Ví dụ 03 |
 |------------------|------------------|------------------|------------------|
 | Điểm cực trị của hàm số | Hoành độ $x_0$ | $x=-1$ | $x=1$ |
@@ -527,11 +763,21 @@ Sửa câu sau mà vẫn giữ các số đúng: “Đồ thị của $p(x)=x^3-
 
 Ở Mục 5, em đã tập gọi đúng đối tượng cực trị. Bây giờ cần kiểm tra thêm một việc: từ bảng, hình hoặc đạo hàm đã cho, ta thực sự biết được bao nhiêu về những đối tượng ấy?
 
-**Cách thực hiện.** Trước mỗi bảng hoặc hình, đọc nhãn và xác định dữ kiện nói về hàm số hay đạo hàm. Với mỗi kết luận, nêu dữ kiện làm căn cứ. Tự làm Câu hỏi tự kiểm tra 06; không dùng tung độ trên đồ thị đạo hàm thay cho giá trị của hàm số.
+:::: {#cach-thuc-hien-doc-nguoc .r1-details .r1-guidance}
+::: r1-summary
+Cách thực hiện
+:::
 
-#### Thử nghĩ trước {#thử-nghĩ-trước-5}
+- Trước mỗi bảng hoặc hình, đọc nhãn và xác định dữ kiện nói về hàm số hay đạo hàm.
+- Với mỗi kết luận, nêu dữ kiện làm căn cứ.
+- Tự làm Câu hỏi tự kiểm tra 06; không dùng tung độ trên đồ thị đạo hàm thay cho giá trị của hàm số.
+::::
+
+:::: {#thử-nghĩ-trước-5 .r1-task}
+[**Thử nghĩ trước**]{.r1-task-label}
 
 Một mũi tên đi lên trong bảng biến thiên có đủ để viết dấu $+$ ở mọi điểm của hàng đạo hàm không? Một đường cong đang đi xuống có luôn biểu diễn một hàm số âm không?
+::::
 
 Hai câu hỏi này buộc ta tách chiều biến thiên khỏi dấu của giá trị, đồng thời đọc đúng đối tượng được biểu diễn.
 
@@ -551,7 +797,7 @@ Khi một ô không có số, hãy xác định đó là ô không cần ghi, ch
 
 #### 6.2. Đồ thị của $f$ khác đồ thị của $f^\prime$ {#đồ-thị-của-f-khác-đồ-thị-của-fprime}
 
-::: table-scroll
+::: {#r1-table-t07 .table-scroll}
 | Điều quan sát được trên khoảng $K$ | Nếu nhãn là $y=f(x)$ | Nếu nhãn là $y=f^\prime(x)$ |
 |------------------------|------------------------|------------------------|
 | Đường biểu diễn nằm trên trục hoành | $f(x)>0$ | $f^\prime(x)>0$; từ đó kết luận $f$ đồng biến trên $K$ |
@@ -562,7 +808,8 @@ Khi một ô không có số, hãy xác định đó là ô không cần ghi, ch
 
 Các kết luận đọc hình được hiểu trên phần tập xác định và với độ chính xác mà đề bài thực sự cung cấp. Hình chỉ có tính minh họa, không ghi tọa độ chính xác thì không đủ để buộc một đáp số chính xác.
 
-**Ví dụ 05 — Đạo hàm đang tăng nhưng hàm số đang giảm.**
+:::: r1-example
+[**Ví dụ 05 — Đạo hàm đang tăng nhưng hàm số đang giảm.**]{.r1-example-label}
 
 Xét lại $s(x)=x^2-2x$. Đồ thị đạo hàm là đường thẳng $y=2x-2$, đi lên từ trái sang phải. Tuy nhiên, trên $(0;1)$ đường thẳng này nằm dưới trục hoành: $s^\prime(x)<0$. Do đó $s$ nghịch biến trên $(0;1)$.
 
@@ -575,10 +822,12 @@ Cần đọc vị trí của đồ thị $s^\prime$ so với trục hoành để
 Hình 04 — Hai nhãn khác nhau: s đang giảm trong khi s′ đang tăng và mang giá trị âm trên (0;1).
 :::
 ::::
+::::
 
 #### 6.3. Cùng bảng tóm tắt không có nghĩa cùng công thức {#cùng-bảng-tóm-tắt-không-có-nghĩa-cùng-công-thức}
 
-**Cùng bảng tóm tắt.** Xét hai hàm số trong Ví dụ 06:
+:::: r1-example
+**Cùng bảng tóm tắt.** Xét hai hàm số trong [Ví dụ 06:]{.r1-example-label}
 
 $$a(x)=x^3,\quad b(x)=2x^3.$$
 
@@ -601,10 +850,12 @@ Nhưng $a(1)=1$ còn $b(1)=2$, nên hai đồ thị không trùng nhau. Một b�
 Hình 05 — Hai hàm khác nhau có cùng bảng biến thiên tóm tắt.
 :::
 ::::
+::::
 
 #### 6.4. Vì sao không tự gộp các khoảng rời nhau? {#vì-sao-không-tự-gộp-các-khoảng-rời-nhau}
 
-Xét Ví dụ 07 với tập xác định $D=\mathbb{R}\setminus\{0\}$:
+:::: r1-example
+Xét [Ví dụ 07]{.r1-example-label} với tập xác định $D=\mathbb{R}\setminus\{0\}$:
 
 - $q(x)=x+2$ khi $x<0$;
 - $q(x)=x-2$ khi $x>0$.
@@ -620,10 +871,11 @@ Vì vậy, nếu mở rộng yêu cầu so sánh mọi cặp điểm ra toàn t�
 Trong bài làm của gói này, cách kết luận chuẩn là: “$q$ đồng biến trên từng khoảng $(-\infty;0)$ và $(0;+\infty)$.” Không gọi hợp hai khoảng ấy là “một khoảng”.
 
 Đừng thay lỗi “luôn gộp được” bằng một quy tắc sai khác là “hợp các khoảng luôn sai”. Kí hiệu hợp không tự làm mọi phát biểu sai. Ví dụ, $r(x)=x$ trên $\mathbb{R}\setminus\{0\}$ vẫn thỏa mãn so sánh đồng biến cho mọi cặp điểm thuộc tập xác định. Điểm mấu chốt là phải kiểm tra cả các cặp nằm ở hai thành phần khác nhau; không chỉ xét dấu đạo hàm riêng từng nhánh.
+::::
 
 #### 6.5. Bản đồ giới hạn suy luận {#bản-đồ-giới-hạn-suy-luận}
 
-::: table-scroll
+::: {#r1-table-t08 .table-scroll}
 | Dữ kiện xuất phát | Kết luận có căn cứ | Điều không được tự thêm |
 |------------------------|------------------------|------------------------|
 | Công thức $f$ và tập xác định | Giá trị, đạo hàm, dấu và chiều biến thiên sau khi tính, kiểm tra | Một kết luận đơn điệu hoặc cực trị chưa có lập luận |
@@ -633,19 +885,29 @@ Trong bài làm của gói này, cách kết luận chuẩn là: “$q$ đồng 
 | Đồ thị $f^\prime$ | Dấu của đạo hàm; chiều biến thiên của $f$ và xét cực trị khi đủ điều kiện | Coi tung độ của hình là giá trị $f(x)$ |
 :::
 
-#### Câu hỏi tự kiểm tra 06 {#dừng-lại-6-d06}
-
-::: answer-link
-[Xem lời giải trong bài học](#loi-giai-1)
-:::
+:::: {#dừng-lại-6-d06 .r1-task}
+[**Câu hỏi tự kiểm tra 06**]{.r1-task-label}
 
 Cho $f$ có đạo hàm trên $\mathbb{R}$. Đồ thị $y=f^\prime(x)$ nằm dưới trục hoành khi $x<2$, đi qua $(2;0)$ và nằm trên trục hoành khi $x>2$.
 
 Hãy cho biết khoảng đơn điệu và vị trí cực trị của $f$. Có đủ dữ kiện để kết luận giá trị cực trị bằng $0$ không?
 
+::: answer-link
+[Xem lời giải trong bài học](#loi-giai-1)
+:::
+::::
+
 ### 7. Làm sao biết mình đã sửa được lỗi? {#làm-sao-biết-mình-đã-sửa-được-lỗi}
 
-**Cách thực hiện.** Phân tích phát biểu sai trong Ví dụ 08 và giữ lại phần đúng. Tự làm bài tập khắc phục lỗi mẫu trước khi mở lời giải. Sau đó ghi rõ điều đã sửa và câu mới em đã tự làm vào nhật kí học tập.
+:::: {#cach-thuc-hien-sua-duoc-loi .r1-details .r1-guidance}
+::: r1-summary
+Cách thực hiện
+:::
+
+1.  Phân tích phát biểu sai trong Ví dụ 08 và giữ lại phần đúng.
+2.  Tự làm bài tập khắc phục lỗi mẫu trước khi mở lời giải.
+3.  Ghi rõ điều đã sửa và câu mới em đã tự làm vào nhật kí học tập.
+::::
 
 #### Thử nghĩ trước {#thử-nghĩ-trước-6}
 
@@ -661,7 +923,7 @@ Với một cụm phát biểu dùng chung giả thiết, xét từng ý độc 
 
 Trước khi đánh giá, viết nháp ba dòng: tập xác định và khoảng; dữ kiện đã cho; kết luận đang được hỏi. Sau đó mới chọn định nghĩa, định lí hoặc phản ví dụ phù hợp.
 
-::: table-scroll
+::: {#r1-table-t09 .table-scroll}
 | Cấu trúc phát biểu | Khi nào đúng? | Căn cứ đủ để bác bỏ |
 |------------------------|------------------------|------------------------|
 | “A và B” | Cả A và B đều đúng | Chỉ ra ít nhất một vế sai |
@@ -715,7 +977,7 @@ Chỉ mở lời giải Bài tập khắc phục lỗi mẫu trong mục “Lờ
 
 Sau khi đối chiếu, ghi ngắn gọn theo mẫu:
 
-::: table-scroll
+::: {#r1-table-t10 .table-scroll}
 | Nội dung cần ghi | Minh họa cho lỗi “coi đạo hàm bằng 0 là đủ để có cực trị” |
 |------------------------------------|------------------------------------|
 | Bước đã sai | Kết luận có hai điểm cực trị vì đạo hàm có hai nghiệm |
@@ -730,7 +992,7 @@ Chỉ ghi “đã sửa trong lượt này” khi câu mới được làm đún
 
 #### 7.5. Tám lỗi để tự nhận diện {#tám-lỗi-để-tự-nhận-diện}
 
-::: table-scroll
+::: {#r1-table-t11 .table-scroll}
 | Số | Dấu hiệu của lỗi | Câu hỏi giúp tự sửa |
 |------------------------|------------------------|------------------------|
 | 1 | Bỏ tập xác định hoặc khoảng xét | Mọi điểm đang dùng có thuộc tập xác định không? |
@@ -759,11 +1021,20 @@ Trước khi chuyển sang phần luyện tập, hãy tự nói lại năm đi�
 
 Nếu chưa giải thích được một ý, quay lại ví dụ tương ứng trước khi làm nhiệm vụ phối hợp. Các câu hỏi tự kiểm tra trong bài chỉ giúp kiểm tra ngay sau khi học; chúng không phải bằng chứng độc lập rằng em đã đạt tất cả mục tiêu của bài học.
 
-------------------------------------------------------------------------
-
 ## Luyện tập {#phieu-luyen}
 
-Ở lượt đầu, làm các bài theo ba chặng: Bài 01–04 củng cố chuỗi công thức–dấu–biến thiên–cực trị; Bài 05–06 luyện đọc ngược mà không thêm dữ kiện; Bài 07–08 luyện đánh giá và sửa lỗi. Sau mỗi chặng, ghi lại lỗi còn lặp rồi mới chuyển tiếp. Ghi tập xác định, khoảng và lí do trước khi kết luận. Các số liệu trong hình có nhãn là dữ kiện chính xác; chỉ xét phần tập xác định được đề bài chỉ rõ. Lời giải nằm ở phần Lời giải và hướng dẫn chấm, không dùng kết luận của một câu như giả thiết của câu khác.
+Dùng các số liệu trong hình có nhãn như dữ kiện chính xác; chỉ xét phần tập xác định được đề bài chỉ rõ. Không dùng kết luận của một câu như giả thiết của câu khác.
+
+:::: {#cach-thuc-hien-luyen-tap .r1-details .r1-guidance}
+::: r1-summary
+Cách thực hiện
+:::
+
+- Ở lượt đầu, làm các bài theo ba chặng: Bài 01–04 củng cố chuỗi công thức–dấu–biến thiên–cực trị; Bài 05–06 luyện đọc ngược mà không thêm dữ kiện; Bài 07–08 luyện đánh giá và sửa lỗi.
+- Sau mỗi chặng, ghi lại lỗi còn lặp rồi mới chuyển tiếp.
+- Ghi tập xác định, khoảng và lí do trước khi kết luận.
+- Chỉ mở lời giải ở phần Lời giải và hướng dẫn chấm của bản đầy đủ.
+::::
 
 ### Bài luyện tập 01. Ghép công thức, bảng và đồ thị {#lt01}
 
@@ -916,11 +1187,19 @@ Lời giải của một bạn:
 
 Chỉ ra từng lỗi, viết lại kết luận đúng và phân biệt ba đối tượng ở cực trị thực sự. Sau khi chữa, tự làm Bài tập khắc phục lỗi 02 trong phần Sửa lỗi; không xem trước lời giải Bài tập khắc phục lỗi 02.
 
-------------------------------------------------------------------------
-
 ## Kiểm tra {#tu-kiem-tra}
 
-**Thời gian đề xuất: 45 phút · Tổng điểm: 20.** Làm năm bài trên giấy, ghi cả lập luận và điều kiện áp dụng. Chỉ mở hướng dẫn chấm sau khi hoàn thành. Thang điểm này phục vụ tự đánh giá trong học liệu ZO Math.
+:::: {#cach-thuc-hien-kiem-tra .r1-details .r1-guidance}
+::: r1-summary
+Cách thực hiện
+:::
+
+**Thời gian đề xuất: 45 phút · Tổng điểm: 20.**
+
+Làm năm bài trên giấy, ghi cả lập luận và điều kiện áp dụng. Chỉ mở hướng dẫn chấm sau khi hoàn thành.
+
+Thang điểm này phục vụ tự đánh giá trong học liệu ZO Math.
+::::
 
 ### Bài kiểm tra 01. Dựng chuỗi biểu diễn — 5 điểm {#kt01}
 
@@ -1024,17 +1303,36 @@ b.  **Nếu bổ sung giả thiết $F$ liên tục tại $0$**, hãy phát bi�
 
 ### Sau khi hoàn thành bài kiểm tra {#sau-khi-nộp-bài-cho-chính-mình}
 
-Mở hướng dẫn chấm và ghi điểm từng ý. Giữ nguyên bài làm ban đầu để nhận diện chỗ sai, sau đó dùng bảng ở phần Sửa lỗi để chọn bài tập khắc phục. Việc sửa lỗi cần được thể hiện bằng bài làm mới; đọc quy trình chưa đủ để xác nhận đã sửa được lỗi.
+:::: {#cach-thuc-hien-sau-kiem-tra .r1-details .r1-guidance}
+::: r1-summary
+Cách thực hiện
+:::
 
-------------------------------------------------------------------------
+1.  Mở hướng dẫn chấm và ghi điểm từng ý.
+2.  Giữ nguyên bài làm ban đầu để nhận diện chỗ sai, sau đó dùng bảng ở phần Sửa lỗi để chọn bài tập khắc phục.
+3.  Thể hiện việc sửa lỗi bằng bài làm mới; không chỉ đọc quy trình để xác nhận đã sửa được lỗi.
+::::
 
 ## Sửa lỗi {#sua-loi}
 
-Mỗi lượt: giữ bài làm sai ban đầu; chỉ ra điều kiện hoặc bước suy luận bị bỏ; viết lại cho đúng; làm bài tập khắc phục lỗi tương ứng khi chưa mở đáp án. Nếu một bài mắc nhiều lỗi, làm các bài tập khắc phục lỗi tương ứng, không chỉ chọn lỗi dễ nhất.
+:::: {#cach-thuc-hien-sua-loi .r1-details .r1-guidance}
+::: r1-summary
+Cách thực hiện
+:::
+
+Mỗi lượt:
+
+1.  Giữ bài làm sai ban đầu.
+2.  Chỉ ra điều kiện hoặc bước suy luận bị bỏ.
+3.  Viết lại cho đúng.
+4.  Làm bài tập khắc phục lỗi tương ứng khi chưa mở đáp án.
+
+Nếu một bài mắc nhiều lỗi, làm các bài tập khắc phục lỗi tương ứng, không chỉ chọn lỗi dễ nhất.
+::::
 
 ### Chọn bài tập khắc phục lỗi {#chọn-câu-sau-chữa}
 
-::: table-scroll
+::: {#r1-table-t12 .table-scroll}
 | Lỗi đã ghi | Quay lại đọc | Câu mới cần làm |
 |------------------------|------------------------|------------------------|
 | Bỏ tập xác định hoặc khoảng xét | Mục 0 và 4.5 | Bài tập khắc phục lỗi 01 |
@@ -1130,15 +1428,27 @@ Xét A, B, “A và B”, “A hoặc B”. Sau đó sửa câu “A và B” th
 
 ## Ôn lại {#on-lai}
 
-Sau khi sửa bài, chọn ngày quay lại và ghi vào nhật kí. Ở buổi ôn, đóng tài liệu rồi tự nêu điều kiện của định lí đơn điệu, điều kiện xét cực trị và ba cách gọi đối tượng liên quan đến cực trị. Sau đó tự giải lại một bài từng sai và giải thích từng bước.
+:::: {#cach-thuc-hien-on-lai .r1-details .r1-guidance}
+::: r1-summary
+Cách thực hiện
+:::
 
-Nếu đã nhớ lời giải của bài cũ, việc làm lại chủ yếu kiểm tra khả năng nhớ và trình bày. Để kiểm tra khả năng vận dụng, hãy làm một bài chưa đọc lời giải cùng mục tiêu; có thể chọn bài còn lại trong phần luyện tập hoặc nhờ giáo viên giao thêm. Nếu còn lặp lỗi, ghi rõ lỗi và quay lại đúng mục liên quan.
+1.  Sau khi sửa bài, chọn ngày quay lại và ghi vào nhật kí.
+2.  Ở buổi ôn, đóng tài liệu rồi tự nêu điều kiện của định lí đơn điệu, điều kiện xét cực trị và ba cách gọi đối tượng liên quan đến cực trị.
+3.  Tự giải lại một bài từng sai và giải thích từng bước.
+
+Nếu đã nhớ lời giải của bài cũ, việc làm lại chủ yếu kiểm tra khả năng nhớ và trình bày.
+
+Để kiểm tra khả năng vận dụng, làm một bài chưa đọc lời giải cùng mục tiêu; có thể chọn bài còn lại trong phần luyện tập hoặc nhờ giáo viên giao thêm.
+
+Nếu còn lặp lỗi, ghi rõ lỗi và quay lại đúng mục liên quan.
+::::
 
 ### Nhật kí học tập {#nhat-ky}
 
 Sao chép bảng này ra giấy hoặc công cụ ghi chú. Không có ô nào được điền sẵn “đã đạt”.
 
-::: table-scroll
+::: {#r1-table-t13 .table-scroll}
 | Ngày / câu | Bài làm ban đầu đã sai ở đâu? | Lỗi hoặc điều kiện bị bỏ | Cách sửa | Bài tập khắc phục lỗi và kết quả | Ngày hẹn ôn lại / kết quả |
 |------------|------------|------------|------------|------------|------------|
 | … | … | … | … | … | … |
@@ -1150,7 +1460,15 @@ Nếu bài tập khắc phục lỗi còn sai, quay lại đúng phần nền v�
 
 ## Lời giải và hướng dẫn chấm {#loi-giai}
 
-Chỉ mở lời giải của câu đã tự làm. Khi đối chiếu, kiểm tra điều kiện và lí do trước khi đối chiếu đáp số. Lời giải và thang chấm sau đây do ZO Math biên soạn.
+:::: {#cach-thuc-hien-dung-loi-giai .r1-details .r1-guidance}
+::: r1-summary
+Cách thực hiện
+:::
+
+Chỉ mở lời giải của câu đã tự làm. Khi đối chiếu, kiểm tra điều kiện và lí do trước khi đối chiếu đáp số.
+
+Lời giải và thang chấm sau đây do ZO Math biên soạn.
+::::
 
 :::::: {#loi-giai-1 .r1-details .r1-solution}
 ::: r1-summary
@@ -1202,7 +1520,6 @@ ZO BBT placeholder
 
 **Tự kiểm việc sửa lỗi:** chỉ coi lượt này đã xử lí được “coi đạo hàm bằng 0 là đủ để có cực trị” nếu em không chọn $2$ là điểm cực trị và có lí do bằng dấu hai phía. Nếu chỉ đoán đúng số điểm cực trị, vẫn cần viết lại lập luận. Việc không tự gán $g(-1)=0$ là bằng chứng bổ sung cho “kết luận vượt quá dữ kiện”.
 
-------------------------------------------------------------------------
 ::::::
 
 ::::: {#loi-giai-2 .r1-details .r1-solution}
@@ -1322,7 +1639,7 @@ Bài luyện tập 07 — Lời giải và phản biện
 
 $t^\prime(x)=3(x+2)^2$, dương trừ tại $-2$, nơi bằng $0$. Vì vậy $t$ đồng biến trên $\mathbb{R}$ và không có cực trị tại $-2$.
 
-::: table-scroll
+::: {#r1-table-t14 .table-scroll}
 | Ý | Đánh giá | Lí do | Câu sửa nếu sai |
 |------------------|------------------|------------------|------------------|
 | a | Sai | Vế đồng biến đúng, vế đạo hàm dương tại $-2$ sai | $t$ đồng biến trên $\mathbb{R}$ và $t^\prime(-2)=0$ |
@@ -1361,7 +1678,7 @@ Sau khi viết lại, làm Bài tập khắc phục lỗi 02 khi chưa xem lời
 Bài kiểm tra 01 — Đáp án và cách chấm 5 điểm
 :::
 
-::: table-scroll
+::: {#r1-table-t15 .table-scroll}
 | Ý | Đáp án, căn cứ | Điểm |
 |------------------------|------------------------|------------------------|
 | a | $D=\mathbb{R}$; $f^\prime(x)=-3x^2+6x+9=-3(x+1)(x-3)$ | 1: tập xác định 0,25; đạo hàm 0,75 |
@@ -1421,7 +1738,7 @@ Bài kiểm tra 03 — Đáp án và cách chấm 4 điểm
 
 Mỗi ý 1 điểm: 0,5 cho đánh giá, 0,5 cho căn cứ hợp lệ.
 
-::: table-scroll
+::: {#r1-table-t16 .table-scroll}
 | Ý | Đánh giá | Căn cứ |
 |------------------------|------------------------|------------------------|
 | a | Đúng | Hàm giảm rồi tăng qua $-1$, liên tục và có $r(-1)=-3$ |
@@ -1485,7 +1802,7 @@ Quay lại Mục 4.1 và làm Bài tập khắc phục lỗi 03 để thực hà
 
 Tổng điểm là số liệu tóm tắt, không thay thế việc xem lỗi. Không dùng một ngưỡng điểm chung để bỏ qua một mục tiêu còn vướng.
 
-::: table-scroll
+::: {#r1-table-t17 .table-scroll}
 | Mục tiêu | Các bằng chứng cần xem | Cách ghi kết quả |
 |------------------------|------------------------|------------------------|
 | Kết nối các biểu diễn của hàm số | Bài kiểm tra 01, ý d; Bài kiểm tra 02, ý a, d; Bài kiểm tra 03, ý d | Đáp ứng trong lần làm này khi nối đúng và không tự thêm dữ kiện; nếu còn sai, ghi rõ biểu diễn nào |
@@ -1519,8 +1836,6 @@ Bài tập khắc phục lỗi 01–08 — Lời giải bài tập khắc phục
 **Bài tập khắc phục lỗi 08.** $s^\prime(x)=3x^2$, bằng $0$ tại $0$ và dương ở hai phía; $s$ không đạt cực trị tại $0$. A đúng, B sai; “A và B” sai, “A hoặc B” đúng. Câu sửa: “$s^\prime(0)=0$ và $s$ không đạt cực trị tại $0$.” Em đã sửa được lỗi trong bài này khi xử lí đúng cả hai phép nối và giữ vế A.
 ::::
 
-------------------------------------------------------------------------
-
 ## Nguồn đối chiếu {#nguon}
 
 - Bộ Giáo dục và Đào tạo, *Chương trình giáo dục phổ thông môn Toán* (2018), phần lớp 12, trang 105–106: tính đơn điệu, bảng biến thiên, điểm cực trị và giá trị cực trị.
@@ -1528,7 +1843,20 @@ Bài tập khắc phục lỗi 01–08 — Lời giải bài tập khắc phục
 
 Các định nghĩa và điều kiện áp dụng được đối chiếu với SGK. Ví dụ, câu hỏi, phản ví dụ, lời giải và thang điểm trong học liệu do ZO Math biên soạn. Bản SGK đối chiếu có ghi “Bản mẫu”; số trang nêu trên gắn với bản này.
 
+## Tải PDF {#tai-tai-lieu}
+
+Chọn bản phù hợp với cách học của bạn. Số trang dưới đây được kiểm tra trực tiếp từ tệp PDF hiện hành.
+
+::: r1-downloads
+:::
+
+::: r1-section-downloads
+:::
+
+::: r1-download-support
+:::
+
 ::: r1-footer
-ZO Math · R1-G01 · Phiên bản 1.1 · Kết nối hàm số, bảng biến thiên và đồ thị
+ZO Math · Kết nối hàm số, bảng biến thiên và đồ thị · Phiên bản 1.2
 :::
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

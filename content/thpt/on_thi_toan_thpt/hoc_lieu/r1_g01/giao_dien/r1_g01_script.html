@@ -2,15 +2,27 @@
 (() => {
   const root = document.querySelector('.r1-g01');
   if (!root) return;
-  // The shared panel moves the native TOC and assigns role="region".
-  // Preserve its document-TOC semantics before Quarto initializes ScrollSpy;
-  // keep using the shared panel and Quarto's own active-section tracking.
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelector('nav#TOC.toc-active')?.setAttribute('role', 'doc-toc');
-  });
-  // Quarto adds a separate draft alert after Pandoc. Reuse that actual status
-  // element at the package's approved label, rather than hiding a blank band.
-  // The draft metadata and publication policy remain untouched.
+
+  const TITLE = 'Kết nối hàm số, bảng biến thiên và đồ thị';
+  const VIEW_PARAM = 'r1-view';
+  const definitions = [
+    {view: 'cach-hoc', label: 'Cách học', ids: ['cách-học-với-tài-liệu-này', 'nguon']},
+    {view: 'bai-hoc', label: 'Bài học', ids: ['bai-hoc']},
+    {view: 'luyen-tap', label: 'Luyện tập', ids: ['phieu-luyen']},
+    {view: 'kiem-tra', label: 'Kiểm tra', ids: ['tu-kiem-tra']},
+    {view: 'sua-loi', label: 'Sửa lỗi', ids: ['sua-loi']},
+    {view: 'on-lai', label: 'Ôn lại', ids: ['on-lai']},
+    {view: 'loi-giai', label: 'Lời giải', ids: ['loi-giai', 'đọc-kết-quả-tự-kiểm-tra']},
+    {view: 'tai-pdf', label: 'Tải PDF', ids: ['tai-tai-lieu']},
+    {view: 'toan-van', label: 'Toàn văn', ids: []}
+  ];
+  const contentOrder = [
+    'cách-học-với-tài-liệu-này', 'bai-hoc', 'phieu-luyen', 'tu-kiem-tra',
+    'sua-loi', 'on-lai', 'loi-giai', 'đọc-kết-quả-tự-kiểm-tra', 'nguon',
+    'tai-tai-lieu'
+  ];
+  const byView = new Map(definitions.map(item => [item.view, item]));
+
   const draft = document.getElementById('quarto-draft-alert');
   const status = root.querySelector('.r1-status');
   if (draft && status) {
@@ -18,24 +30,361 @@
     draft.className = '';
     status.replaceChildren(draft);
   }
-  function reveal(hash) {
-    let id;
-    try { id = decodeURIComponent(hash.slice(1)); } catch { return; }
-    const target = document.getElementById(id);
-    if (!target || !root.contains(target)) return;
-    for (let node = target; node && node !== root; node = node.parentElement) {
-      if (node.tagName === 'DETAILS') node.open = true;
+
+  const tableWrappers = [...root.querySelectorAll('.r1-table-scroll-x')];
+  function updateTableOverflow(wrapper) {
+    const hint = document.getElementById(`${wrapper.id}-hint`);
+    if (!hint) return;
+    const overflowing = wrapper.scrollWidth > wrapper.clientWidth + 1;
+    hint.hidden = !overflowing;
+    if (overflowing) {
+      wrapper.tabIndex = 0;
+      wrapper.setAttribute('aria-describedby', hint.id);
+    } else {
+      wrapper.removeAttribute('tabindex');
+      wrapper.removeAttribute('aria-describedby');
+      wrapper.scrollLeft = 0;
     }
-    target.scrollIntoView({block: 'start'});
   }
-  window.addEventListener('hashchange', () => reveal(location.hash));
-  window.addEventListener('load', () => reveal(location.hash));
-  root.addEventListener('click', event => {
-    const link = event.target.closest('a[href]');
-    if (link && root.contains(link) && link.hash &&
-        link.origin === location.origin && link.pathname === location.pathname) {
-      reveal(link.hash);
-    }
+  function updateAllTables() {
+    tableWrappers.forEach(updateTableOverflow);
+  }
+  tableWrappers.forEach(wrapper => {
+    wrapper.addEventListener('keydown', event => {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+      if (wrapper.scrollWidth <= wrapper.clientWidth + 1) return;
+      const direction = event.key === 'ArrowRight' ? 1 : -1;
+      wrapper.scrollLeft += direction * Math.max(32, wrapper.clientWidth * .2);
+      event.preventDefault();
+    });
   });
+  if ('ResizeObserver' in window) {
+    const tableObserver = new ResizeObserver(entries => {
+      entries.forEach(entry => updateTableOverflow(entry.target));
+    });
+    tableWrappers.forEach(wrapper => tableObserver.observe(wrapper));
+  } else {
+    window.addEventListener('resize', updateAllTables);
+  }
+
+  try {
+    const sectionById = new Map();
+    contentOrder.forEach(id => {
+      const section = root.querySelector(`:scope > section#${CSS.escape(id)}`);
+      if (!section) throw new Error(`Missing canonical section #${id}`);
+      sectionById.set(id, section);
+    });
+
+    const nav = document.createElement('nav');
+    nav.className = 'r1-section-nav';
+    nav.setAttribute('aria-label', `Các phần của học liệu “${TITLE}”`);
+    const tablist = document.createElement('div');
+    tablist.className = 'r1-tablist';
+    tablist.setAttribute('role', 'tablist');
+    tablist.setAttribute('aria-label', 'Chọn phần nội dung');
+    tablist.setAttribute('aria-orientation', 'horizontal');
+    nav.append(tablist);
+
+    const viewPanel = document.createElement('div');
+    viewPanel.id = 'r1-view-panel';
+    viewPanel.className = 'r1-view-panel';
+    viewPanel.setAttribute('role', 'tabpanel');
+    viewPanel.tabIndex = 0;
+
+    const firstSection = sectionById.get(contentOrder[0]);
+    const navSlot = document.createElement('div');
+    navSlot.className = 'r1-nav-slot';
+    navSlot.append(nav);
+    firstSection.before(navSlot, viewPanel);
+    contentOrder.forEach(id => viewPanel.append(sectionById.get(id)));
+
+    const footer = root.querySelector('.r1-footer');
+    if (footer) root.append(footer);
+
+    const tabs = definitions.map((definition, index) => {
+      const tab = document.createElement('button');
+      tab.type = 'button';
+      tab.id = `r1-tab-${definition.view}`;
+      tab.className = 'r1-tab';
+      tab.textContent = definition.label;
+      tab.setAttribute('role', 'tab');
+      tab.setAttribute('aria-controls', viewPanel.id);
+      tab.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
+      tab.tabIndex = index === 0 ? 0 : -1;
+      tablist.append(tab);
+      return tab;
+    });
+
+    const lessonPanel = sectionById.get('bai-hoc');
+    const lessonToc = lessonPanel.querySelector(':scope > .lesson-toc');
+    const lessonHeadings = [...lessonPanel.querySelectorAll(':scope > section.level3 > h3')];
+    if (!lessonToc || lessonHeadings.length !== 9) {
+      throw new Error('Lesson table of contents must contain 9 headings');
+    }
+    if (!lessonToc.querySelector('a')) {
+      const lineBlock = document.createElement('div');
+      lineBlock.className = 'line-block';
+      lessonHeadings.forEach(heading => {
+        const line = document.createElement('div');
+        line.className = 'line';
+        const link = document.createElement('a');
+        link.href = `#${heading.parentElement.id}`;
+        link.textContent = heading.textContent.trim();
+        line.append(link);
+        lineBlock.append(line);
+      });
+      lessonToc.append(lineBlock);
+    }
+    const lessonDetails = document.createElement('details');
+    lessonDetails.className = 'r1-section-toc';
+    const lessonSummary = document.createElement('summary');
+    lessonSummary.textContent = 'Trong Bài học';
+    const lessonNav = document.createElement('nav');
+    lessonNav.setAttribute('aria-label', 'Mục lục bên trong Bài học');
+    lessonToc.before(lessonDetails);
+    lessonNav.append(lessonToc);
+    lessonDetails.append(lessonSummary, lessonNav);
+
+    let currentView = definitions[0].view;
+
+    const header = document.getElementById('quarto-header');
+    const navbar = header?.querySelector('.navbar');
+    let docked = false;
+    function updateDock() {
+      if (!header || !navbar) return;
+      const slotRect = navSlot.getBoundingClientRect();
+      const height = nav.getBoundingClientRect().height;
+      const headerHeight = header.getBoundingClientRect().height;
+      const menuOpen = Boolean(navbar.querySelector('.navbar-collapse.show, .navbar-collapse.collapsing'));
+      header.style.setProperty('--r1-nav-height', `${height}px`);
+      header.style.setProperty('--r1-nav-left', `${slotRect.left}px`);
+      header.style.setProperty('--r1-nav-width', `${slotRect.width}px`);
+      document.body.style.setProperty('--r1-reader-offset', `${headerHeight + height + 16}px`);
+      header.classList.toggle('r1-menu-open', menuOpen);
+      nav.inert = menuOpen;
+      // Freeze docking during menu expansion; its changing body offset is not
+      // a reader scroll. The navigation stays below (and cannot cover) the menu.
+      const shouldDock = menuOpen ? docked : slotRect.top <= headerHeight;
+      navSlot.style.height = `${height}px`;
+      if (shouldDock !== docked) {
+        const focusedTab = nav.contains(document.activeElement) ? document.activeElement : null;
+        const stripScroll = tablist.scrollLeft;
+        docked = shouldDock;
+        header.classList.toggle('r1-nav-docked', docked);
+        (docked ? header : navSlot).append(nav);
+        tablist.scrollLeft = stripScroll;
+        // Reparenting a focused element clears document.activeElement. Restore
+        // that same control without letting the browser scroll the page.
+        focusedTab?.focus({preventScroll: true});
+      }
+    }
+
+    function defaultTarget(view) {
+      if (view === 'toan-van') return contentOrder[0];
+      return byView.get(view)?.ids[0] || contentOrder[0];
+    }
+    function ownerView(target) {
+      if (!target || !root.contains(target)) return null;
+      const ownerSection = contentOrder
+        .map(id => sectionById.get(id))
+        .find(section => section === target || section.contains(target));
+      if (!ownerSection) return definitions[0].view;
+      return definitions.find(item => item.ids.includes(ownerSection.id))?.view || definitions[0].view;
+    }
+    function targetFromHash(hash) {
+      if (!hash || hash === '#') return null;
+      let id;
+      try { id = decodeURIComponent(hash.slice(1)); } catch { return null; }
+      const target = document.getElementById(id);
+      return target && root.contains(target) ? target : null;
+    }
+    function openAncestors(target) {
+      for (let node = target; node && node !== root; node = node.parentElement) {
+        if (node.tagName === 'DETAILS') node.open = true;
+      }
+    }
+    function focusTarget(target) {
+      const focusNode = target?.matches('details') ? target.querySelector(':scope > summary') : target;
+      if (!focusNode) return;
+      const hadTabindex = focusNode.hasAttribute('tabindex');
+      const oldTabindex = focusNode.getAttribute('tabindex');
+      if (!hadTabindex) focusNode.tabIndex = -1;
+      focusNode.focus({preventScroll: true});
+      if (!hadTabindex) {
+        focusNode.addEventListener('blur', () => focusNode.removeAttribute('tabindex'), {once: true});
+      } else if (oldTabindex !== null) {
+        focusNode.setAttribute('tabindex', oldTabindex);
+      }
+    }
+    function scrollToTarget(target, focus = false) {
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        updateDock();
+        target.scrollIntoView({block: 'start'});
+        if (focus) focusTarget(target);
+      }));
+    }
+    function showView(view) {
+      const definition = byView.get(view) || definitions[0];
+      currentView = definition.view;
+      const showAll = currentView === 'toan-van';
+      contentOrder.forEach(id => {
+        sectionById.get(id).hidden = !showAll && !definition.ids.includes(id);
+      });
+      tabs.forEach((tab, index) => {
+        const selected = definitions[index].view === currentView;
+        tab.setAttribute('aria-selected', selected ? 'true' : 'false');
+        tab.tabIndex = selected ? 0 : -1;
+      });
+      const selectedTab = tabs[definitions.findIndex(item => item.view === currentView)];
+      viewPanel.setAttribute('aria-labelledby', selectedTab.id);
+      viewPanel.dataset.r1View = currentView;
+      root.classList.toggle('r1-full-view', showAll);
+      // Only scroll the tab strip horizontally; scrollIntoView would also
+      // scroll the document back to the slot before the target is revealed.
+      if (selectedTab.offsetLeft < tablist.scrollLeft) tablist.scrollLeft = selectedTab.offsetLeft;
+      else if (selectedTab.offsetLeft + selectedTab.offsetWidth > tablist.scrollLeft + tablist.clientWidth) {
+        tablist.scrollLeft = selectedTab.offsetLeft + selectedTab.offsetWidth - tablist.clientWidth;
+      }
+      requestAnimationFrame(() => {
+        updateAllTables();
+        updateLessonPosition();
+      });
+    }
+    function urlFor(view, targetId) {
+      const url = new URL(location.href);
+      url.searchParams.set(VIEW_PARAM, view);
+      url.hash = targetId ? `#${encodeURIComponent(targetId)}` : '';
+      return `${url.pathname}${url.search}${url.hash}`;
+    }
+    function writeLocation(view, targetId, replace = false) {
+      const method = replace ? 'replaceState' : 'pushState';
+      history[method]({r1View: view, r1Target: targetId}, '', urlFor(view, targetId));
+    }
+    function activateTab(index) {
+      const definition = definitions[index];
+      const target = sectionById.get(defaultTarget(definition.view));
+      showView(definition.view);
+      writeLocation(definition.view, target.id);
+      openAncestors(target);
+      scrollToTarget(target);
+    }
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => activateTab(index));
+      tab.addEventListener('keydown', event => {
+        let nextIndex = null;
+        if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+        if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+        if (event.key === 'Home') nextIndex = 0;
+        if (event.key === 'End') nextIndex = tabs.length - 1;
+        if (nextIndex !== null) {
+          tabs[nextIndex].focus();
+          event.preventDefault();
+          return;
+        }
+        if (event.key === 'Enter' || event.key === ' ') {
+          activateTab(index);
+          event.preventDefault();
+        }
+      });
+    });
+
+    root.addEventListener('click', event => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey ||
+          event.ctrlKey || event.shiftKey || event.altKey) return;
+      const link = event.target.closest('a[href]');
+      if (!link || !root.contains(link) || link.origin !== location.origin ||
+          link.pathname !== location.pathname || !link.hash) return;
+      if (link.hash === '#xem-toan-bo') {
+        event.preventDefault();
+        const target = sectionById.get(defaultTarget('toan-van'));
+        showView('toan-van');
+        writeLocation('toan-van', target.id);
+        scrollToTarget(target, true);
+        return;
+      }
+      const target = targetFromHash(link.hash);
+      if (!target) return;
+      event.preventDefault();
+      const view = currentView === 'toan-van' ? 'toan-van' : ownerView(target);
+      showView(view);
+      openAncestors(target);
+      writeLocation(view, target.id);
+      scrollToTarget(target, true);
+    });
+
+    function applyLocation(options = {}) {
+      const params = new URLSearchParams(location.search);
+      const requested = params.get(VIEW_PARAM);
+      if (location.hash === '#xem-toan-bo') {
+        const target = sectionById.get(defaultTarget('toan-van'));
+        showView('toan-van');
+        openAncestors(target);
+        writeLocation('toan-van', target.id, true);
+        if (options.scroll) scrollToTarget(target, options.focus);
+        return;
+      }
+      const target = targetFromHash(location.hash);
+      let view = byView.has(requested) ? requested : definitions[0].view;
+      if (target && view !== 'toan-van') view = ownerView(target);
+      showView(view);
+      const finalTarget = target || sectionById.get(defaultTarget(view));
+      openAncestors(finalTarget);
+      const hasCanonicalState = requested === view && Boolean(target);
+      const cleanDefault = !requested && !location.hash && view === definitions[0].view;
+      if (!hasCanonicalState && !cleanDefault) writeLocation(view, finalTarget.id, true);
+      if (options.scroll && target) scrollToTarget(finalTarget, options.focus);
+    }
+
+    let lessonTicking = false;
+    function updateLessonPosition() {
+      lessonTicking = false;
+      updateDock();
+      if (lessonPanel.hidden) return;
+      const offset = Math.max(120, window.innerHeight * .24);
+      let activeId = lessonHeadings[0].parentElement.id;
+      lessonHeadings.forEach(heading => {
+        if (heading.getBoundingClientRect().top <= offset) activeId = heading.parentElement.id;
+      });
+      lessonToc.querySelectorAll('a').forEach(link => {
+        let linkId = '';
+        try { linkId = decodeURIComponent(link.hash.slice(1)); } catch { linkId = ''; }
+        if (linkId === activeId) link.setAttribute('aria-current', 'true');
+        else link.removeAttribute('aria-current');
+      });
+    }
+    function scheduleReaderPosition() {
+      if (lessonTicking) return;
+      lessonTicking = true;
+      requestAnimationFrame(updateLessonPosition);
+    }
+    window.addEventListener('scroll', scheduleReaderPosition, {passive: true});
+    window.addEventListener('resize', scheduleReaderPosition);
+    if (header && navbar) {
+      const dockObserver = new ResizeObserver(scheduleReaderPosition);
+      [header, nav, navSlot].forEach(node => dockObserver.observe(node));
+      new MutationObserver(scheduleReaderPosition).observe(navbar, {
+        subtree: true, attributes: true, attributeFilter: ['class', 'aria-expanded']
+      });
+    }
+
+    document.querySelectorAll('.quarto-secondary-nav-title, .sidebar-title, .menu-text, .breadcrumb-item a')
+      .forEach(node => {
+        if (node.textContent.trim() === 'R1-G01') node.textContent = TITLE;
+      });
+    document.querySelector('nav#TOC.toc-active')?.setAttribute('role', 'doc-toc');
+    root.classList.add('r1-tabs-ready');
+    document.body.classList.add('r1-g01-nav-ready');
+    updateDock();
+    applyLocation({scroll: Boolean(location.hash), focus: false});
+    window.addEventListener('load', () => {
+      updateAllTables();
+      if (location.hash) applyLocation({scroll: true, focus: false});
+    }, {once: true});
+    window.addEventListener('hashchange', () => applyLocation({scroll: true, focus: true}));
+    window.addEventListener('popstate', () => applyLocation({scroll: true, focus: true}));
+  } catch (error) {
+    console.error('Navigation for “Kết nối hàm số, bảng biến thiên và đồ thị” was not initialized.', error);
+  }
 })();
 </script>
