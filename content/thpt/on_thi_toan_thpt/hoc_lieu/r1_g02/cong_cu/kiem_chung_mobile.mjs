@@ -26,6 +26,11 @@ const navigate=async()=>{await call('Page.navigate',{url});for(let index=0;index
 const measure=()=>evaluate(`(() => {
   const root=document.documentElement, body=document.body;
   const viewport=root.clientWidth;
+  const componentStyles=selector=>[...document.querySelectorAll(selector)].filter(element=>element.getBoundingClientRect().width>0).map(element=>{
+    const summary=element.querySelector(':scope > summary');
+    const outerStyle=getComputedStyle(element),summaryStyle=summary&&getComputedStyle(summary);
+    return {id:element.id,backgroundColor:outerStyle.backgroundColor,borderColor:outerStyle.borderColor,borderRadius:outerStyle.borderRadius,summaryColor:summaryStyle?.color||'',summaryMinHeight:summaryStyle?.minHeight||'',summaryHeight:summary?.getBoundingClientRect().height||0};
+  });
   const offenders=[...document.querySelectorAll('body *')].map(element=>{
     const rect=element.getBoundingClientRect(),style=getComputedStyle(element);
     const intentionalOverflow=element.closest('.r1-tablist,#quarto-sidebar,nav#TOC,.quarto-toc,.toc,.r1-table-scroll-x,.table-scroll');
@@ -33,7 +38,7 @@ const measure=()=>evaluate(`(() => {
     return {tag:element.tagName,id:element.id,classes:typeof element.className==='string'?element.className:'',text:(element.textContent||'').trim().slice(0,240),sectionId:section?.id||'',left:rect.left,right:rect.right,width:rect.width,overflowX:style.overflowX,hidden:style.display==='none'||style.visibility==='hidden'||rect.width===0,intentionalOverflow:!!intentionalOverflow};
   }).filter(item=>!item.hidden&&(item.left<-.5||item.right>viewport+.5)&&!item.intentionalOverflow).slice(0,20);
   const tableScrollers=[...document.querySelectorAll('.r1-table-scroll-x')].filter(element=>element.getBoundingClientRect().width>0).map(element=>({id:element.id,clientWidth:element.clientWidth,scrollWidth:element.scrollWidth,overflowX:getComputedStyle(element).overflowX}));
-  return {viewport,innerWidth,rootClientWidth:root.clientWidth,rootScrollWidth:root.scrollWidth,bodyClientWidth:body.clientWidth,bodyScrollWidth:body.scrollWidth,pageOverflow:Math.max(root.scrollWidth-root.clientWidth,body.scrollWidth-root.clientWidth),offenders,tableScrollers};
+  return {viewport,innerWidth,rootClientWidth:root.clientWidth,rootScrollWidth:root.scrollWidth,bodyClientWidth:body.clientWidth,bodyScrollWidth:body.scrollWidth,pageOverflow:Math.max(root.scrollWidth-root.clientWidth,body.scrollWidth-root.clientWidth),offenders,tableScrollers,components:{toc:componentStyles('details.r1-section-toc'),guidance:componentStyles('details.zo-learning-guidance'),solution:componentStyles('details.zo-learning-solution')}};
 })()`);
 
 try {
@@ -46,7 +51,7 @@ try {
   await new Promise((resolve,reject)=>{ws.addEventListener('open',resolve,{once:true});ws.addEventListener('error',reject,{once:true});});
   await call('Page.enable');
   await call('Runtime.enable');
-  for(const width of [430,390]){
+  for(const width of [1440,430,390]){
     await call('Emulation.setDeviceMetricsOverride',{width,height:900,deviceScaleFactor:1,mobile:true});
     await call('Emulation.setTouchEmulationEnabled',{enabled:true,maxTouchPoints:5});
     await navigate();
@@ -60,12 +65,20 @@ try {
     const states=Object.values(views);
     check(`${width}: no page-level horizontal overflow`,states.every(state=>state.pageOverflow<=1&&state.offenders.length===0),Object.fromEntries(Object.entries(views).filter(([,state])=>state.pageOverflow>1||state.offenders.length)));
     check(`${width}: wide tables retain local scrolling`,states.flatMap(state=>state.tableScrollers).every(table=>table.overflowX==='auto'&&table.scrollWidth>=table.clientWidth),states.flatMap(state=>state.tableScrollers));
+    const lessonComponents=views['bai-hoc'].components;
+    const tocColor=lessonComponents.toc[0]?.summaryColor;
+    check(`${width}: guidance uses the canonical white surface and muted title`,
+      lessonComponents.guidance.length>0&&lessonComponents.guidance.every(item=>item.backgroundColor==='rgb(255, 255, 255)'&&item.summaryColor===tocColor&&item.summaryHeight>=44),
+      {toc:lessonComponents.toc,guidance:lessonComponents.guidance});
     await evaluate(`document.getElementById('r1-tab-bai-hoc').click();scrollTo({top:0,behavior:'instant'})`);
     await sleep(250);
     await screenshot(`${width}_bai_hoc`);
+    await evaluate(`(() => { const target=document.querySelector('details.zo-learning-guidance'); target.scrollIntoView({block:'center',behavior:'instant'}); })()`);
+    await sleep(250);
+    await screenshot(`${width}_guidance`);
     await evaluate(`document.getElementById('r1-tab-loi-giai').click()`);
     await sleep(100);
-    await evaluate(`(() => { const target=document.getElementById('loi-giai-kt04'); for(let details=target.matches('details')?target:target.closest('details');details;details=details.parentElement?.closest('details')) details.open=true; target.scrollIntoView({block:'center',behavior:'instant'}); })()`);
+    await evaluate(`(() => { const target=document.getElementById('loi-giai-kt04')||document.querySelector('details.zo-learning-solution'); if(!target)return; for(let details=target.matches('details')?target:target.closest('details');details;details=details.parentElement?.closest('details')) details.open=true; target.scrollIntoView({block:'center',behavior:'instant'}); })()`);
     await sleep(250);
     await screenshot(`${width}_loi_giai_kt04`);
   }
