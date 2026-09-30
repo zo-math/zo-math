@@ -22,6 +22,7 @@ from kiem_chung_header_pdf import inspect_pdf
 
 PACKAGE = Path(__file__).resolve().parents[1]
 ROOT = PACKAGE.parents[4]
+CANONICAL_CONTRACT = ROOT / 'content/thpt/on_thi_toan_thpt/_quy_trinh/quy_chuan_goi_qmd.md'
 
 TABLE_CONTRACT = [
     {'id': 'r1-table-t01', 'label': 'Cách học với tài liệu này', 'family': 'R', 'mode': 'fit', 'widths': [16, 50, 34], 'row_header': True},
@@ -62,6 +63,41 @@ GUIDANCE_CONTRACT = [
     {'id': 'cach-thuc-hien-sua-loi', 'blocks': [('p', 'Mỗi lượt:'), ('ol', ['Giữ bài làm sai ban đầu.', 'Chỉ ra điều kiện hoặc bước suy luận bị bỏ.', 'Viết lại cho đúng.', 'Làm bài tập khắc phục lỗi tương ứng khi chưa mở đáp án.']), ('p', 'Nếu một bài mắc nhiều lỗi, làm các bài tập khắc phục lỗi tương ứng, không chỉ chọn lỗi dễ nhất.')]},
     {'id': 'cach-thuc-hien-on-lai', 'blocks': [('ol', ['Sau khi sửa bài, chọn ngày quay lại và ghi vào nhật kí.', 'Ở buổi ôn, đóng tài liệu rồi tự nêu điều kiện của định lí đơn điệu, điều kiện xét cực trị và ba cách gọi đối tượng liên quan đến cực trị.', 'Tự giải lại một bài từng sai và giải thích từng bước.']), ('p', 'Nếu đã nhớ lời giải của bài cũ, việc làm lại chủ yếu kiểm tra khả năng nhớ và trình bày.'), ('p', 'Để kiểm tra khả năng vận dụng, làm một bài chưa đọc lời giải cùng mục tiêu; có thể chọn bài còn lại trong phần luyện tập hoặc nhờ giáo viên giao thêm.'), ('p', 'Nếu còn lặp lỗi, ghi rõ lỗi và quay lại đúng mục liên quan.')]},
     {'id': 'cach-thuc-hien-dung-loi-giai', 'blocks': [('p', 'Chỉ mở lời giải của câu đã tự làm. Khi đối chiếu, kiểm tra điều kiện và lí do trước khi đối chiếu đáp số.'), ('p', 'Lời giải và thang chấm sau đây do ZO Math biên soạn.')]},
+]
+
+THEORY_CONTRACT = [
+    ('Đơn điệu: Định nghĩa hàm số đồng biến và nghịch biến',
+     'Hàm số đồng biến trên ZOMATH K END nếu với mọi ZOMATH x_1,x_2 END thuộc ZOMATH K END , khi ZOMATH x_1<x_2 END thì ZOMATH f(x_1)<f(x_2) END . Hàm số nghịch biến trên ZOMATH K END nếu với mọi ZOMATH x_1,x_2 END thuộc ZOMATH K END , khi ZOMATH x_1<x_2 END thì ZOMATH f(x_1)>f(x_2) END .'),
+    ('Đơn điệu: Dấu đạo hàm và chiều biến thiên',
+     'Nếu ZOMATH f^\\prime(x)>0 END với mọi ZOMATH x END thuộc ZOMATH K END thì ZOMATH f END đồng biến trên ZOMATH K END . Nếu ZOMATH f^\\prime(x)<0 END với mọi ZOMATH x END thuộc ZOMATH K END thì ZOMATH f END nghịch biến trên ZOMATH K END .'),
+    ('Đơn điệu: Đạo hàm bằng ZOMATH 0 END tại một số hữu hạn điểm',
+     'ZOMATH f^\\prime(x)\\geq 0 END trên ZOMATH K END , và chỉ bằng ZOMATH 0 END tại một số hữu hạn điểm, thì ZOMATH f END đồng biến trên ZOMATH K END . ZOMATH f^\\prime(x)\\leq 0 END trên ZOMATH K END , và chỉ bằng ZOMATH 0 END tại một số hữu hạn điểm, thì ZOMATH f END nghịch biến trên ZOMATH K END .'),
+    ('Cực trị: Điều kiện đủ qua dấu đạo hàm',
+     'Nếu ZOMATH f^\\prime(x)>0 END trên ZOMATH (a;x_0) END và ZOMATH f^\\prime(x)<0 END trên ZOMATH (x_0;b) END , hàm số đạt cực đại tại ZOMATH x_0 END . Nếu ZOMATH f^\\prime(x)<0 END trên ZOMATH (a;x_0) END và ZOMATH f^\\prime(x)>0 END trên ZOMATH (x_0;b) END , hàm số đạt cực tiểu tại ZOMATH x_0 END .'),
+    ('Cực trị: Định nghĩa trong một lân cận',
+     'Hàm số đạt cực đại tại ZOMATH x_0 END nếu có số ZOMATH h>0 END sao cho ZOMATH (x_0-h;x_0+h) END nằm trong ZOMATH (a;b) END , và với mọi ZOMATH x END trong khoảng nhỏ này, khác ZOMATH x_0 END , ta có ZOMATH f(x)<f(x_0). END Hàm số đạt cực tiểu tại ZOMATH x_0 END nếu tồn tại một khoảng nhỏ như trên mà với mọi ZOMATH x\\ne x_0 END trong khoảng ấy, ta có ZOMATH f(x)>f(x_0). END'),
+]
+
+THEORY_SECTION_IDS = {
+    'từ-đi-lên-đến-định-nghĩa',
+    'định-lí-và-phạm-vi-áp-dụng',
+    'một-số-hữu-hạn-điểm-đạo-hàm-bằng-0',
+    'điều-kiện-đủ-qua-dấu-đạo-hàm',
+    'định-nghĩa-theo-so-sánh-trong-một-lân-cận',
+}
+
+ANSWER_LINK_PAIRS = [
+    ('bốn-câu-thử-nền-tn01-đến-tn04', 'lg-khoi-dong'),
+    ('dừng-lại-1-d01', 'lg-d01'),
+    ('dừng-lại-2-d02', 'lg-d02'),
+    ('dừng-lại-3-d03', 'lg-d03'),
+    ('dừng-lại-4-d04', 'lg-d04'),
+    ('dừng-lại-5-d05', 'lg-d05'),
+    ('dừng-lại-6-d06', 'lg-d06'),
+    ('câu-sau-chữa-cg01', 'lg-cg01'),
+    *[(f'lt{index:02}', f'loi-giai-{index + 1}') for index in range(1, 9)],
+    *[(f'kt{index:02}', f'loi-giai-{index + 9}') for index in range(1, 6)],
+    *[(f'sc{index:02}', f'lg-sc{index:02}') for index in range(1, 9)],
 ]
 
 def sha(path):
@@ -144,9 +180,18 @@ def visible_text(root):
         '.tools, .r1-downloads, .r1-section-download-heading, '
         '.r1-section-download-list, .r1-download-support, '
         '#tai-tai-lieu > h2, #tai-tai-lieu > p, '
-        '.zo-variation-caption, .r1-table-scroll-hint, a.anchorjs-link'
+        '.zo-variation-caption, .r1-table-scroll-hint, a.anchorjs-link, '
+        'div.zo-block-title, .r1-unboxed-label, .answer-link, table > caption'
     ):
         node.decompose()
+    return norm(soup.get_text(' ', strip=True))
+
+
+def title_text(root):
+    soup = BeautifulSoup(str(root), 'html.parser')
+    for node in soup.select('math'):
+        annotation = node.find('annotation', encoding='application/x-tex')
+        node.replace_with(' ZOMATH '+norm(annotation.get_text())+' END ')
     return norm(soup.get_text(' ', strip=True))
 
 
@@ -177,9 +222,9 @@ def check(html):
     history, source, history_checks = verify_historical_source()
     original = BeautifulSoup((ROOT/history['authority']).read_text(encoding='utf-8'), 'html.parser')
     page = BeautifulSoup(html.read_text(encoding='utf-8'), 'html.parser')
-    target = page.select_one('.r1-g01')
+    target = page.select_one('.zo-on-thi-package')
     if target is None:
-        raise ValueError('Missing .r1-g01 scope')
+        raise ValueError('Missing .zo-on-thi-package scope')
     runtime_target = deepcopy(target)
     runtime_toc = runtime_target.select_one('.lesson-toc')
     runtime_headings = runtime_target.select('#bai-hoc > section.level3 > h3')
@@ -231,9 +276,9 @@ def check(html):
         and fixture_after == ['fixture-renamed', 'fixture-second', 'nguon']
     )
     counts = {}
-    for selector, expected in [('math', (985, 989)), ('annotation', (985, 989)), ('[id]', (107, 151)),
-                               ('a[href^="#"]', 51), ('.answer-link', 42), ('details', (16, 31)),
-                               ('table', 30), ('table.variation', 13), ('figure', 10)]:
+    for selector, expected in [('math', (985, 990)), ('annotation', (985, 990)), ('[id]', (107, 167)),
+                               ('a[href^="#"]', (51, 67)), ('.answer-link', (42, 58)), ('details', (16, 31)),
+                               ('table', 30), ('table.variation', 13), ('figure', (10, 23))]:
         target_root = runtime_target if selector == 'a[href^="#"]' else target
         counts[selector] = [len(original.select(selector)), len(target_root.select(selector))]
         expected_counts = list(expected) if isinstance(expected, tuple) else [expected, expected]
@@ -246,20 +291,27 @@ def check(html):
     projected_headings = []
     section = None
     removed_functional_headings = []
-    prototype_sections = {'1. Đơn điệu nói điều gì?', '6. Có thể đọc ngược đến đâu?'}
-    prototype_labels = {'Thử nghĩ trước', 'Câu hỏi tự kiểm tra 01', 'Câu hỏi tự kiểm tra 06'}
     for level, text in mapped:
         if level == 3:
             section = text
-        if level == 4 and section in prototype_sections and text in prototype_labels:
+        if level == 4 and (text == 'Thử nghĩ trước' or text.startswith('Câu hỏi tự kiểm tra ')):
             removed_functional_headings.append((section, text))
         else:
             projected_headings.append((level, text))
     checks['prototype_functional_headings_exact'] = removed_functional_headings == [
         ('1. Đơn điệu nói điều gì?', 'Thử nghĩ trước'),
         ('1. Đơn điệu nói điều gì?', 'Câu hỏi tự kiểm tra 01'),
+        ('2. Dấu đạo hàm cho phép kết luận gì?', 'Thử nghĩ trước'),
+        ('2. Dấu đạo hàm cho phép kết luận gì?', 'Câu hỏi tự kiểm tra 02'),
+        ('3. Một chuỗi biểu diễn được dựng thế nào?', 'Thử nghĩ trước'),
+        ('3. Một chuỗi biểu diễn được dựng thế nào?', 'Câu hỏi tự kiểm tra 03'),
+        ('4. Điều gì xảy ra tại một điểm cần xét?', 'Thử nghĩ trước'),
+        ('4. Điều gì xảy ra tại một điểm cần xét?', 'Câu hỏi tự kiểm tra 04'),
+        ('5. Cực trị được gọi tên thế nào?', 'Thử nghĩ trước'),
+        ('5. Cực trị được gọi tên thế nào?', 'Câu hỏi tự kiểm tra 05'),
         ('6. Có thể đọc ngược đến đâu?', 'Thử nghĩ trước'),
         ('6. Có thể đọc ngược đến đâu?', 'Câu hỏi tự kiểm tra 06'),
+        ('7. Làm sao biết mình đã sửa được lỗi?', 'Thử nghĩ trước'),
     ]
     checks['heading_mapping_D08'] = projected_headings == [
         (int(h.name[1]), norm(h.get_text())) for h in target.select('h1,h2,h3,h4')
@@ -299,18 +351,29 @@ def check(html):
     counts['logical_regions'] = [len(original.select('h1')), 1 + len([h for h in target.select('h2') if h.get('id', h.parent.get('id')) != 'cách-học-với-tài-liệu-này'])]
     checks['static_regions_plus_download_exact'] = counts['logical_regions'] == [8, 9]
     maths = lambda root: [(x.get('display', 'inline'), norm(x.find('annotation', encoding='application/x-tex').get_text())) for x in root.select('math')]
-    projected_maths = maths(original)
-    assert projected_maths[310] == ('inline', 'f^\\prime(x)>0'), 'Approved Mục 6 math anchor changed'
-    assert projected_maths[409] == ('inline', '2'), 'Approved Mục 7 math anchor changed'
-    projected_maths[409:409] = [('inline', 'g'), ('inline', 'g^\\prime')]
-    projected_maths[310:310] = [('inline', 'f'), ('inline', 'f^\\prime')]
-    checks['math_sequence_and_tex'] = projected_maths == maths(target)
+    def maths_outside_theory(root):
+        result = []
+        for node in root.select('math'):
+            heading = node.find_previous(['h3', 'h4'])
+            heading_id = heading.get('id', heading.parent.get('id')) if heading is not None else None
+            if heading_id in THEORY_SECTION_IDS:
+                continue
+            result.append((node.get('display', 'inline'),
+                           norm(node.find('annotation', encoding='application/x-tex').get_text())))
+        return result
+    projected_maths = maths_outside_theory(original)
+    assert projected_maths[223] == ('inline', 'f^\\prime(x)>0'), 'Approved Mục 6 math anchor changed'
+    assert projected_maths[322] == ('inline', '2'), 'Approved Mục 7 math anchor changed'
+    projected_maths[322:322] = [('inline', 'g'), ('inline', 'g^\\prime')]
+    projected_maths[223:223] = [('inline', 'f'), ('inline', 'f^\\prime')]
+    checks['math_sequence_and_tex'] = projected_maths == maths_outside_theory(target)
     ids = lambda root: [x['id'] for x in root.select('[id]')]
     target_ids = ids(target)
     guidance_ids = [item['id'] for item in GUIDANCE_CONTRACT]
     navigation_ids = {'tai-tai-lieu', 'r1-support-title'}
     legacy_target_ids = [value for value in target_ids
                          if not value.startswith('r1-table-t')
+                         and not value.startswith('lg-')
                          and value not in guidance_ids and value not in navigation_ids]
     expected_table_ids = []
     for spec in TABLE_CONTRACT:
@@ -321,12 +384,52 @@ def check(html):
         ids(original) == legacy_target_ids
         and [value for value in target_ids if value.startswith('r1-table-t')] == expected_table_ids
         and [value for value in target_ids if value in guidance_ids] == guidance_ids
-        and len(set(target_ids)) == 151
+        and len(set(target_ids)) == 167
     )
     links = lambda root: [(unquote(x['href']), norm(x.get_text())) for x in root.select('a[href^="#"]')]
-    checks['ordered_links'] = links(original) == links(runtime_target)
     checks['links_resolve'] = all(href[1:] in ids(target) for href, _ in links(runtime_target))
-    checks['tables_cells_captions_order'] = table_records(original) == table_records(target)
+
+    answer_pair_records = []
+    answer_pair_contract_ok = len(ANSWER_LINK_PAIRS) == 29
+    for source_id, solution_id in ANSWER_LINK_PAIRS:
+        source_node = target.find(id=source_id)
+        solution_node = target.find(id=solution_id)
+        forward = source_node.select('.answer-link') if source_node else []
+        reverse = solution_node.select('.answer-link') if solution_node else []
+        record = (
+            source_id,
+            solution_id,
+            [(norm(item.get_text()), item.select_one('a').get('href')) for item in forward],
+            [(norm(item.get_text()), item.select_one('a').get('href')) for item in reverse],
+        )
+        answer_pair_records.append(record)
+        answer_pair_contract_ok &= (
+            len(forward) == 1
+            and len(reverse) == 1
+            and record[2] == [('Xem lời giải', '#'+solution_id)]
+            and record[3] == [('Xem đề bài', '#'+source_id)]
+        )
+    checks['ordered_links'] = answer_pair_contract_ok
+    checks['answer_link_pairs_exact'] = answer_pair_contract_ok
+
+    answer_links = target.select('.answer-link')
+    answer_links_at_end = len(answer_links) == 58
+    for link in answer_links:
+        label = norm(link.get_text())
+        if label == 'Xem lời giải':
+            container = link.find_parent(class_='zo-learning-task')
+        else:
+            container = link.find_parent(class_='r1-solution-item') or link.find_parent(class_='zo-block-body')
+        if container is None:
+            container = link.find_parent('section')
+        element_children = [child for child in container.children if getattr(child, 'name', None)]
+        answer_links_at_end &= bool(element_children and element_children[-1] is link)
+    checks['answer_links_at_block_end'] = answer_links_at_end
+    projected_table_records = table_records(original)
+    for record in projected_table_records:
+        if record['bbt'] and record['caption'] and not record['caption'].endswith('.'):
+            record['caption'] += '.'
+    checks['tables_cells_captions_order'] = projected_table_records == table_records(target)
     ordinary_tables = target.select('table.r1-data-table')
     wrappers = [table.find_parent('div', class_='r1-table') for table in ordinary_tables]
     checks['ordinary_table_inventory_exact'] = (
@@ -396,7 +499,10 @@ def check(html):
         and [x.get('id') for x in target.select('.r1-table-scroll-x')]
         == [x['id'] for x in TABLE_CONTRACT if x['mode'] == 'scroll']
     )
-    figures = lambda root: [(x.img['alt'], norm(x.figcaption.get_text())) for x in root.select('figure')]
+    figures = lambda root: [
+        (x.img['alt'], norm(x.figcaption.get_text()))
+        for x in root.select('figure:not(.zo-variation-asset)')
+    ]
     checks['figure_alt_caption_order'] = figures(original) == figures(target)
     checks['details_summary_order'] = (
         [norm(x.summary.get_text()) for x in original.select('details')]
@@ -407,8 +513,14 @@ def check(html):
         len(target.select('details.r1-details.zo-block.zo-block-gray')) == 31
         and not target.select('details.r1-details.zo-block-yellow, details.r1-details.zo-block-red')
         and len(guidance) == 15
+        and len(target.select('details.r1-details.r1-guidance.zo-learning-guidance')) == 15
+        and len(target.select('details.r1-details.r1-solution.zo-learning-solution')) == 15
+        and len(target.select(
+            'details.r1-details.zo-learning-guidance > summary.zo-block-title, '
+            'details.r1-details.zo-learning-solution > summary.zo-block-title'
+        )) == 30
         and all(norm(x.summary.get_text()) == 'Cách thực hiện' and not x.has_attr('open') for x in guidance)
-        and [norm(x.summary.get_text()) for x in target.select('details.extension')]
+        and [norm(x.summary.get_text()) for x in target.select('details.zo-learning-context-note')]
         == ['Đọc thêm — Giải thích bằng định nghĩa đạo hàm']
     )
     guidance_records = []
@@ -480,6 +592,24 @@ def check(html):
                 if action:
                     actions.append((str(action.get('/S')), unquote(str(action.get('/URI', '')))))
         pdf_links[name] = actions
+    canonical_pdf_pages = {
+        'index.pdf': 41,
+        'index_hoc_sinh.pdf': 31,
+        'index_bai_hoc.pdf': 22,
+        'index_luyen_tap.pdf': 7,
+        'index_kiem_tra.pdf': 5,
+        'index_sua_loi.pdf': 5,
+        'index_on_lai.pdf': 3,
+        'index_loi_giai.pdf': 12,
+    }
+    checks['pdf_page_counts_canonical_exact'] = pdf_pages == canonical_pdf_pages
+    checks['download_page_metadata_canonical_exact'] = {
+        item['href']: item.get('pages')
+        for item in front_matter.get('r1-download-files', [])
+    } == {
+        'index_hoc_sinh.pdf': canonical_pdf_pages['index_hoc_sinh.pdf'],
+        'index.pdf': canonical_pdf_pages['index.pdf'],
+    }
     def guidance_content_present(text, contracts):
         return all(
             all(
@@ -562,14 +692,33 @@ def check(html):
             and text.count('(mở trên trang học liệu)') >= len(externalized)
         )
     checks['section_pdf_envelope_and_scope_exact'] = bool(section_pdf_ok)
-    checks['prototype_roles_exact'] = (
-        [(x.get('id'), norm(x.select_one('.r1-task-label').get_text())) for x in target.select('.r1-task')]
+    pause_tasks = target.select('#bai-hoc .zo-learning-task.zo-learning-task--pause')
+    think_first_tasks = target.select('#bai-hoc .zo-learning-task.zo-learning-task--pause[id^="thử-nghĩ-trước"]')
+    checks['canonical_lesson_roles_exact'] = (
+        len(pause_tasks) == 15
+        and all(task.find_parent(id='bai-hoc') is not None for task in pause_tasks)
+        and len(think_first_tasks) == 7
+        and all(
+            task.select_one(':scope > p:first-child > .r1-task-label')
+            and norm(task.select_one(':scope > p:first-child > .r1-task-label').get_text()) == 'Thử nghĩ trước'
+            for task in think_first_tasks
+        )
+        and len(target.select('#bai-hoc .zo-learning-example')) == 10
+        and len(target.select('#bai-hoc .zo-block-red')) == 5
+        and not target.select('#bai-hoc div.zo-block-gray')
+        and [norm(x.get_text()) for x in target.select('#bai-hoc .r1-unboxed-label')]
         == [
-            ('thử-nghĩ-trước', 'Thử nghĩ trước'),
-            ('dừng-lại-1-d01', 'Câu hỏi tự kiểm tra 01'),
-            ('thử-nghĩ-trước-5', 'Thử nghĩ trước'),
-            ('dừng-lại-6-d06', 'Câu hỏi tự kiểm tra 06'),
+            'Không đảo định lí thành dấu nghiêm ngặt.',
+            'Điểm không thuộc tập xác định.',
+            'Trình tự xét một mốc.',
+            'Ý nghĩa của “cục bộ”.',
+            'Phân biệt dữ kiện về đạo hàm và chiều biến thiên.',
+            'Đánh giá từng kết luận từ giả thiết đã cho.',
+            'Một dòng ghi lỗi có ích.',
         ]
+        and len(target.select('#bai-hoc details.zo-learning-context-note')) == 1
+        and len(target.select('#bai-hoc details.zo-learning-guidance')) == 8
+        and len(target.select('#cách-học-với-tài-liệu-này details.zo-learning-guidance')) == 1
         and [norm(x.get_text()) for x in target.select('.r1-example-label')]
         == [
             'Ví dụ 05 — Đạo hàm đang tăng nhưng hàm số đang giảm.',
@@ -578,6 +727,75 @@ def check(html):
         ]
         and [norm(x.get_text()) for x in target.select('h4.r1-example-heading')]
         == ['1.2. Ví dụ 01 — Chứng minh mà chưa dùng đạo hàm']
+    )
+    item_tasks = target.select('section.zo-learning-task.zo-learning-task--item')
+    item_task_ids = [task.get('id') for task in item_tasks]
+    checks['canonical_assessment_task_roles_exact'] = (
+        len(item_tasks) == 21
+        and item_task_ids == (
+            [f'lt{index:02d}' for index in range(1, 9)]
+            + [f'kt{index:02d}' for index in range(1, 6)]
+            + [f'sc{index:02d}' for index in range(1, 9)]
+        )
+        and all(task.name == 'section' for task in item_tasks)
+    )
+    checks['guidance_title_color_matches_lesson_toc_exact'] = all(
+        fragment in (ROOT/'assets/css/zo_on_thi_learning_package.css').read_text(encoding='utf-8')
+        for fragment in (
+            '.zo-on-thi-package .r1-section-toc > summary,',
+            '.zo-on-thi-package details.zo-learning-guidance > summary { color: var(--r1-muted); }',
+        )
+    )
+    kickoff = target.select_one('#bốn-câu-thử-nền-tn01-đến-tn04')
+    kickoff_task = kickoff.select_one(':scope > .zo-learning-task.zo-learning-task--pause') if kickoff else None
+    kickoff_children = [child for child in kickoff.children if getattr(child, 'name', None)] if kickoff else []
+    kickoff_task_children = [child for child in kickoff_task.children if getattr(child, 'name', None)] if kickoff_task else []
+    checks['kickoff_questions_structure_exact'] = (
+        kickoff is not None
+        and [child.name for child in kickoff_children] == ['h4', 'p', 'div']
+        and norm(kickoff_children[0].get_text()) == 'Câu hỏi khởi động'
+        and norm(kickoff_children[1].get_text())
+        == 'Hãy thử trước khi đọc đáp án trong mục “Lời giải các câu hỏi và bài tập trong bài học” ở phần Lời giải cuối tài liệu. Không cần tính điểm; câu nào chưa làm được sẽ chỉ ra phần cần ôn nhanh.'
+        and [child.name for child in kickoff_task_children] == ['ul', 'div']
+        and len(kickoff_task.select(':scope > ul > li')) == 4
+        and [norm(item.select_one('strong').get_text()) for item in kickoff_task.select(':scope > ul > li')]
+        == [f'Câu hỏi khởi động {index:02}.' for index in range(1, 5)]
+        and kickoff_task_children[-1].get('class') == ['answer-link']
+        and kickoff_task_children[-1].select_one('a').get('href') == '#lg-khoi-dong'
+    )
+    self_check_tasks = [target.select_one(f'#dừng-lại-{index}-d{index:02d}') for index in range(1, 7)]
+    checks['self_check_questions_structure_exact'] = (
+        all(task is not None for task in self_check_tasks)
+        and all(
+            set(('r1-task', 'zo-learning-task', 'zo-learning-task--pause')).issubset(task.get('class', []))
+            and task.select_one(':scope > p:first-child > .r1-task-label') is not None
+            and norm(task.select_one(':scope > p:first-child > .r1-task-label').get_text())
+            == f'Câu hỏi tự kiểm tra {index:02d}'
+            and task.select_one(':scope > .answer-link:last-child a') is not None
+            and task.select_one(':scope > .answer-link:last-child a').get('href') == f'#lg-d{index:02d}'
+            for index, task in enumerate(self_check_tasks, 1)
+        )
+        and not target.select('h4[id^="dừng-lại-"]')
+    )
+    theory_blocks = target.select('#bai-hoc div.zo-block.zo-block-red')
+    checks['theory_contract_exact'] = [
+        (title_text(block.select_one(':scope > .zo-block-title')), visible_text(block))
+        for block in theory_blocks
+    ] == THEORY_CONTRACT
+    source_notes = target.select('span.zo-source-note')
+    checks['source_notes_canonical_exact'] = (
+        len(source_notes) == 10
+        and all(
+            norm(note.get_text()).startswith('Nguồn đối chiếu:')
+            and norm(note.get_text()).endswith('.')
+            and 'Sách giáo khoa Toán 12' in norm(note.get_text())
+            and 'SGK' not in norm(note.get_text())
+            and ' tr.' not in norm(note.get_text())
+            and ' Bài ' not in norm(note.get_text())
+            and note.parent is not None and note.parent.name == 'p'
+            and [child for child in note.parent.children if getattr(child, 'name', None)][-1] is note
+            for note in source_notes
+        )
     )
     checks['lesson_toc_generated_exact'] = [
         (unquote(x['href']), norm(x.get_text())) for x in runtime_target.select('.lesson-toc .line-block a')
@@ -630,14 +848,6 @@ def check(html):
             'Luyện tập Làm Bài luyện tập 01–08 theo thứ tự trong lượt đầu. Ghi tập xác định, khoảng và lí do trước khi kết luận.',
             'Luyện tập Ở lượt đầu, làm các bài theo ba chặng: Bài 01–04 củng cố chuỗi công thức–dấu–biến thiên–cực trị; Bài 05–06 luyện đọc ngược mà không thêm dữ kiện; Bài 07–08 luyện đánh giá và sửa lỗi. Sau mỗi chặng, ghi lại lỗi còn lặp rồi mới chuyển tiếp. Ghi tập xác định, khoảng và lí do trước khi kết luận.',
         ),
-        (
-            'Câu hỏi tự kiểm tra 01 Xem lời giải trong bài học Một bạn viết: “Hàm số ZOMATH f END đồng biến trên ZOMATH (a;b) END vì ZOMATH f(a)<f(b) END .” Chỉ ra hai điều chưa ổn trong lập luận này, kể cả khi hai giá trị ở đầu mút tình cờ tồn tại.',
-            'Câu hỏi tự kiểm tra 01 Một bạn viết: “Hàm số ZOMATH f END đồng biến trên ZOMATH (a;b) END vì ZOMATH f(a)<f(b) END .” Chỉ ra hai điều chưa ổn trong lập luận này, kể cả khi hai giá trị ở đầu mút tình cờ tồn tại. Xem lời giải trong bài học',
-        ),
-        (
-            'Câu hỏi tự kiểm tra 06 Xem lời giải trong bài học Cho ZOMATH f END có đạo hàm trên ZOMATH \\mathbb{R} END . Đồ thị ZOMATH y=f^\\prime(x) END nằm dưới trục hoành khi ZOMATH x<2 END , đi qua ZOMATH (2;0) END và nằm trên trục hoành khi ZOMATH x>2 END . Hãy cho biết khoảng đơn điệu và vị trí cực trị của ZOMATH f END . Có đủ dữ kiện để kết luận giá trị cực trị bằng ZOMATH 0 END không?',
-            'Câu hỏi tự kiểm tra 06 Cho ZOMATH f END có đạo hàm trên ZOMATH \\mathbb{R} END . Đồ thị ZOMATH y=f^\\prime(x) END nằm dưới trục hoành khi ZOMATH x<2 END , đi qua ZOMATH (2;0) END và nằm trên trục hoành khi ZOMATH x>2 END . Hãy cho biết khoảng đơn điệu và vị trí cực trị của ZOMATH f END . Có đủ dữ kiện để kết luận giá trị cực trị bằng ZOMATH 0 END không? Xem lời giải trong bài học',
-        ),
     ]
     for before, after in approved_editorial_edits:
         assert projected_text.count(before) == 1, f'Approved editorial baseline changed: {before}'
@@ -685,12 +895,44 @@ def check(html):
     for before, after in phase_3e_edits:
         assert projected_text.count(before) == 1, f'Phase 3E approved baseline changed: {before}'
         projected_text = projected_text.replace(before, after, 1)
+    source_note_edits = [
+        ('[SGK Toán 12, tập một, Bài 1, tr. 6]', 'Nguồn đối chiếu: Sách giáo khoa Toán 12, tập một, bài 1, trang 6.'),
+        ('[SGK Toán 12, tập một, Bài 1, tr. 7]', 'Nguồn đối chiếu: Sách giáo khoa Toán 12, tập một, bài 1, trang 7.'),
+        ('[SGK Toán 12, tập một, Bài 1, tr. 7–8; SGK Toán 12, tập một, Bài 4, tr. 26–27]', 'Nguồn đối chiếu: Sách giáo khoa Toán 12, tập một, bài 1, trang 7–8; Sách giáo khoa Toán 12, tập một, bài 4, trang 26–27.'),
+        ('[SGK Toán 12, tập một, Bài 1, tr. 10]', 'Nguồn đối chiếu: Sách giáo khoa Toán 12, tập một, bài 1, trang 10.'),
+        ('[Đối chiếu chú ý về ZOMATH x^3 END trong SGK Toán 12, tập một, Bài 1, tr. 11]', 'Nguồn đối chiếu: chú ý về ZOMATH x^3 END trong Sách giáo khoa Toán 12, tập một, bài 1, trang 11.'),
+        ('[SGK Toán 12, tập một, Bài 1, tr. 6, 14]', 'Nguồn đối chiếu: Sách giáo khoa Toán 12, tập một, bài 1, trang 6 và 14.'),
+        ('[SGK Toán 12, tập một, Bài 1, tr. 9]', 'Nguồn đối chiếu: Sách giáo khoa Toán 12, tập một, bài 1, trang 9.'),
+        ('[Đối chiếu dạng đọc đồ thị đạo hàm: SGK Toán 12, tập một, Bài 1, tr. 14, bài 1.6]', 'Nguồn đối chiếu: dạng bài đọc đồ thị đạo hàm trong Sách giáo khoa Toán 12, tập một, bài 1, trang 14, bài tập 1.6.'),
+    ]
+    for before, after in source_note_edits:
+        expected = 2 if before in (
+            '[SGK Toán 12, tập một, Bài 1, tr. 7]',
+            '[SGK Toán 12, tập một, Bài 1, tr. 9]',
+        ) else 1
+        assert projected_text.count(before) == expected, f'Source-note baseline changed: {before}'
+        projected_text = projected_text.replace(before, after)
     projected_text = projected_text.replace(
         'ZO Math · R1-G01 · Phiên bản 1.1 · Kết nối hàm số, bảng biến thiên và đồ thị',
         'ZO Math · Kết nối hàm số, bảng biến thiên và đồ thị · Phiên bản 1.2',
         1,
     )
-    checks['text_sequence_only_approved_V1_V2'] = projected_text == visible_text(runtime_target)
+    theory_spans = [
+        ('1.1. Từ “đi lên” đến định nghĩa', 'Hai điều phải giữ nguyên'),
+        ('2.1. Định lí và phạm vi áp dụng', 'Khi áp dụng, viết đủ ba ý'),
+        ('2.2. Một số hữu hạn điểm đạo hàm bằng 0', 'Không được rút gọn'),
+        ('4.1. Điều kiện đủ qua dấu đạo hàm', 'Đó là định lí điều kiện đủ đang dùng'),
+        ('5.1. Định nghĩa theo so sánh trong một lân cận', 'Từ “gần” được làm chính xác'),
+    ]
+    def mask_theory_spans(text):
+        for index, (start, end) in enumerate(theory_spans, 1):
+            first = text.index(start) + len(start)
+            last = text.index(end, first)
+            text = text[:first] + f' THEORY-{index} ' + text[last:]
+        return norm(text)
+    checks['text_sequence_only_approved_V1_V2'] = (
+        mask_theory_spans(projected_text) == mask_theory_spans(visible_text(runtime_target))
+    )
     checks['downloads_exact'] = [(x['href'], x.get('download')) for x in target.select('.r1-downloads a')] == [
         ('index_hoc_sinh.pdf', 'R1-G01_hoc_va_bai_tap_v1.2.pdf'),
         ('index.pdf', 'R1-G01_hoc_lieu_day_du_v1.2.pdf')]
@@ -756,7 +998,7 @@ def check(html):
         (PACKAGE/'hinh'/f'{name}.png').exists() for name in graph_names
     )
     checks['html_graphs_use_svg'] = [
-        img.get('src') for img in target.select('figure img')
+        img.get('src') for img in target.select('figure:not(.zo-variation-asset) img')
     ] == [f'hinh/{name}.svg' for name in graph_names]
     variation_names = [f'bbt{i:02d}' for i in range(1, 14)]
     checks['variation_vector_triplets_exist'] = all(
@@ -772,8 +1014,31 @@ def check(html):
     checks['html_variations_use_svg'] = [
         img.get('src') for img in target.select('.zo-variation-image')
     ] == [f'hinh/{name}.svg' for name in variation_order]
-    css = (PACKAGE/'giao_dien/r1_g01.css').read_text(encoding='utf-8')
-    script = (PACKAGE/'giao_dien/r1_g01_script.html').read_text(encoding='utf-8')
+    variation_figures = target.select('figure.zo-variation-asset')
+    variation_caption_contract = len(variation_figures) == 13
+    for figure in variation_figures:
+        children = [child for child in figure.children if getattr(child, 'name', None)]
+        image = figure.select_one(':scope > img.zo-variation-image')
+        caption = figure.select_one(':scope > figcaption.zo-variation-caption')
+        table_caption = figure.select_one(':scope > .visually-hidden table.variation > caption')
+        variation_caption_contract &= (
+            [child.name for child in children] == ['img', 'figcaption', 'div']
+            and image is not None and caption is not None and table_caption is not None
+            and norm(caption.get_text()) == norm(table_caption.get_text())
+            and norm(caption.get_text()).endswith('.')
+            and image.get('alt', '').startswith(norm(caption.get_text()) + ' — ')
+        )
+    checks['variation_caption_below_asset_exact'] = variation_caption_contract
+    variation_css = (ROOT/'assets/css/zo_variation.css').read_text(encoding='utf-8')
+    checks['variation_caption_style_exact'] = all(fragment in variation_css for fragment in (
+        '.zo-variation-caption {',
+        'margin: 0.4rem 0 0;',
+        'color: #766f66;',
+        'font-size: 0.9em;',
+        'font-weight: 400;',
+    ))
+    css = (ROOT/'assets/css/zo_on_thi_learning_package.css').read_text(encoding='utf-8')
+    script = (ROOT/'assets/html/zo_on_thi_learning_package_script.html').read_text(encoding='utf-8')
     lua = (PACKAGE/'cong_cu/r1_g01.lua').read_text(encoding='utf-8')
     checks['lua_manifest_boundary_chain_derived_exact'] = (
         all(fragment in lua for fragment in (
@@ -801,7 +1066,7 @@ def check(html):
         '--focus-ring-offset: 2px;',
         'outline: 2px solid #554f48 !important;',
         'outline-offset: 2px !important;',
-        'body.r1-g01-page .r1-g01 details.zo-block {',
+        'body.zo-on-thi-package-page .zo-on-thi-package details.zo-block {',
         'overflow: visible;',
         'border-radius: inherit;',
         'border-end-start-radius: 0;',
@@ -810,18 +1075,29 @@ def check(html):
         'margin: -5px -4px;',
         'scroll-padding-inline: 4px;',
         'scroll-snap-type: x proximity;',
-        'body.r1-g01-page .r1-tablist::before,',
-        'body.r1-g01-page .r1-tablist::after {',
+        'body.zo-on-thi-package-page .r1-tablist::before,',
+        'body.zo-on-thi-package-page .r1-tablist::after {',
         'flex: 0 0 4px;',
-        'body.r1-g01-page .r1-tablist > .r1-tab + .r1-tab {',
+        'body.zo-on-thi-package-page .r1-tablist > .r1-tab + .r1-tab {',
         'margin-inline-start: .2rem;',
-        'body.r1-g01-page .r1-tablist > .r1-tab:last-of-type {',
+        'body.zo-on-thi-package-page .r1-tablist > .r1-tab:last-of-type {',
         'scroll-snap-align: end;',
         '@media print',
     ))
+    checks['all_disclosure_headers_compact_exact'] = all(fragment in css for fragment in (
+        '.zo-on-thi-package details > summary {',
+        'display: flex;',
+        'align-items: center;',
+        'min-height: 44px;',
+        'box-sizing: border-box;',
+        'padding: .4rem 3rem .4rem .85rem;',
+        '.zo-on-thi-package .r1-section-toc > summary { font-weight: 600; }',
+    )) and 'padding-right: 3rem;' not in css
     checks['table_css_exact'] = (
         'min-width: var(--r1-table-min-width);' in css
         and 'padding: .45em .5em;' in css
+        and '.zo-on-thi-package .r1-data-table {\n  table-layout: fixed;\n  border: 1px solid var(--r1-border);\n}' in css
+        and '.zo-on-thi-package .r1-data-table th,\n.zo-on-thi-package .r1-data-table td {\n  border: 1px solid var(--r1-border);' in css
         and 'overflow-wrap: anywhere' not in css
         and 'font-size: .875em' not in css
         and 'font-size: .8em' not in css
@@ -829,7 +1105,7 @@ def check(html):
         and '.r1-data-table math { font-size: 1em; white-space: nowrap; }' in css
     )
     checks['native_mobile_table_pan_exact'] = all(fragment in css for fragment in (
-        '.r1-g01 .r1-table-scroll-x {',
+        '.zo-on-thi-package .r1-table-scroll-x {',
         'max-width: 100%;',
         'overscroll-behavior-x: contain;',
         'overscroll-behavior-y: auto;',
@@ -840,29 +1116,29 @@ def check(html):
         'pointerup', "addeventlistener('wheel'", 'addeventlistener("wheel"',
     ))
     checks['ordinary_table_weight_exact'] = all(fragment in css for fragment in (
-        '.r1-g01 .r1-data-table tbody th { background: #ffffff; }',
-        '.r1-g01 .r1-data-table thead th {',
+        '.zo-on-thi-package .r1-data-table tbody th { background: #ffffff; }',
+        '.zo-on-thi-package .r1-data-table thead th {',
         'background: #ffffff;',
         'font-weight: 400;',
-        '.r1-g01 .r1-data-table tbody th { font-weight: 400; }',
+        '.zo-on-thi-package .r1-data-table tbody th { font-weight: 400; }',
     )) and not target.select('#r1-table-t01 tbody strong')
     selected_tab_css = re.search(
-        r'body\.r1-g01-page \.r1-tab\[aria-selected="true"\] \{([^}]*)\}',
+        r'body\.zo-on-thi-package-page \.r1-tab\[aria-selected="true"\] \{([^}]*)\}',
         css,
         re.S,
     )
     download_support_css = re.search(
-        r'\.r1-g01 \.r1-download-support \{([^}]*)\}',
+        r'\.zo-on-thi-package \.r1-download-support \{([^}]*)\}',
         css,
         re.S,
     )
     checks['zo_color_and_surface_mapping_exact'] = all(fragment in css for fragment in (
-        'body.r1-g01-page #title-block-header .title {',
+        'body.zo-on-thi-package-page #title-block-header .title {',
         'color: var(--r1-red);',
-        '.r1-g01 section.level2 > h2 {',
+        '.zo-on-thi-package section.level2 > h2 {',
         'background: #ffffff;',
-        '.r1-g01 .r1-download-support {',
-        'body.r1-g01-page .r1-tab[aria-selected="true"] {',
+        '.zo-on-thi-package .r1-download-support {',
+        'body.zo-on-thi-package-page .r1-tab[aria-selected="true"] {',
     )) and all((
         selected_tab_css is not None,
         download_support_css is not None,
@@ -877,6 +1153,60 @@ def check(html):
         'padding: 1.35rem;' in download_support_css.group(1),
         '#f8f5f0' not in css,
     ))
+    shared_learning_css = (ROOT/'assets/css/_zo_learning_components.scss').read_text(encoding='utf-8')
+    canonical_contract = CANONICAL_CONTRACT.read_text(encoding='utf-8')
+    checks['canonical_baseline_1_0_documented_exact'] = all(
+        fragment in canonical_contract
+        for fragment in (
+            'Định danh baseline: `on-thi-learning-components/1.0`.',
+            '### Khung trang và điều hướng',
+            '### Khối thu gọn và bề mặt',
+            '### Nhiệm vụ, ví dụ và liên kết',
+            '### Bảng, bảng biến thiên và hình',
+            '### Công thức và nguồn đối chiếu',
+            '### Hàng rào kiểm định',
+            'desktop, 430 px và 390 px',
+        )
+    )
+    checks['canonical_mobile_tab_edge_contract_exact'] = (
+        'const tabEdgePadding = 12;' in script
+        and 'selectedTab.offsetLeft - tabEdgePadding' in script
+        and 'selectedTab.offsetLeft + selectedTab.offsetWidth + tabEdgePadding' in script
+    )
+    checks['canonical_package_assets_exact'] = (
+        'css: ../../../../../assets/css/zo_on_thi_learning_package.css' in qmd
+        and 'include-after-body: ../../../../../assets/html/zo_on_thi_learning_package_script.html' in qmd
+        and 'giao_dien/r1_g01.css' not in qmd
+        and 'giao_dien/r1_g01_script.html' not in qmd
+        and '.zo-on-thi-package' in css
+        and 'body.zo-on-thi-package-page' in css
+        and '.r1-g01' not in css
+        and "document.querySelector('.zo-on-thi-package')" in script
+        and "root.dataset.r1Code" in script
+        and "document.querySelector('.r1-g01')" not in script
+    )
+    checks['guidance_white_surface_exact'] = all(fragment in shared_learning_css for fragment in (
+        '.zo-learning-guidance {',
+        '--zo-block-background: #{$white};',
+        '--zo-block-border: #{$gray-300};',
+        '--zo-block-hover: #{$gray-100};',
+        '.zo-learning-solution {',
+        '--zo-block-background: #{$gray-100};',
+        '--zo-block-hover: #{$gray-200};',
+        'border-radius: 0.5rem;',
+        'details.zo-block.zo-learning-guidance > summary,\ndetails.zo-block.zo-learning-solution > summary {',
+        'min-height: 44px;',
+        'padding: 0.4rem 3rem 0.4rem 0.85rem;',
+    ))
+    checks['source_note_style_exact'] = all(fragment in shared_learning_css for fragment in (
+        '.zo-source-note {',
+        'display: block;',
+        'margin-top: 0.65rem;',
+        'color: #{$gray-600};',
+        'font-size: 0.8em;',
+        'font-weight: 400;',
+        'line-height: 1.45;',
+    ))
     checks['decorative_dividers_removed_exact'] = (
         not target.select('hr')
         and re.search(r'(?m)^-{5,}\s*$', qmd) is None
@@ -886,8 +1216,8 @@ def check(html):
         '[data-bbt="BBT01"] { --r1-bbt-clip: 6.7125% 3.2038% 6.7125% 4.5260%; --r1-bbt-radius: 3.3281% / 6.9730%; }',
         '[data-bbt="BBT02"] { --r1-bbt-clip: 6.7125% 2.4272% 6.7125% 3.4288%; --r1-bbt-radius: 2.5213% / 6.9730%; }',
         '[data-bbt="BBT03"] { --r1-bbt-clip: 6.7125% 3.1946% 6.7125% 4.5130%; --r1-bbt-radius: 3.3186% / 6.9730%; }',
-        '[data-bbt="BBT04"],\n.r1-g01 .zo-variation-asset[data-bbt="BBT05"] { --r1-bbt-clip: 6.7125% 2.5042% 6.7125% 3.5376%; --r1-bbt-radius: 2.6013% / 6.9730%; }',
-        '[data-bbt="BBT06"],\n.r1-g01 .zo-variation-asset[data-bbt="BBT08"] { --r1-bbt-clip: 9.3915% 2.7605% 9.3915% 3.8997%; --r1-bbt-radius: 2.8676% / 9.7559%; }',
+        '[data-bbt="BBT04"],\n.zo-on-thi-package .zo-variation-asset[data-bbt="BBT05"] { --r1-bbt-clip: 6.7125% 2.5042% 6.7125% 3.5376%; --r1-bbt-radius: 2.6013% / 6.9730%; }',
+        '[data-bbt="BBT06"],\n.zo-on-thi-package .zo-variation-asset[data-bbt="BBT08"] { --r1-bbt-clip: 9.3915% 2.7605% 9.3915% 3.8997%; --r1-bbt-radius: 2.8676% / 9.7559%; }',
         '[data-bbt="BBT07"] { --r1-bbt-clip: 9.3915% 2.6037% 9.3915% 3.6783%; --r1-bbt-radius: 2.7047% / 9.7559%; }',
         '[data-bbt="BBT09"] { --r1-bbt-clip: 9.3915% 2.6470% 9.3915% 3.7394%; --r1-bbt-radius: 2.7497% / 9.7559%; }',
         '[data-bbt="BBT10"] { --r1-bbt-clip: 9.3915% 2.5929% 9.3915% 3.6630%; --r1-bbt-radius: 2.6935% / 9.7559%; }',
@@ -896,11 +1226,20 @@ def check(html):
         '[data-bbt="BBT13"] { --r1-bbt-clip: 6.7125% 2.8704% 6.7125% 4.0550%; --r1-bbt-radius: 2.9818% / 6.9730%; }',
     )
     checks['html_bbt_outer_fill_clip_exact'] = (
-        '.r1-g01 .zo-variation-asset { background: transparent; padding: 0; }' in css
+        '.zo-on-thi-package figure.zo-variation-asset {' in css
+        and 'margin: .75rem 0 1rem;' in css
+        and 'padding: 0;' in css
+        and 'background: transparent;' in css
         and 'clip-path: inset(var(--r1-bbt-clip) round var(--r1-bbt-radius));' in css
         and all(rule in css for rule in bbt_clip_rules)
         and all(f'data-bbt="BBT{i:02d}"' in css for i in range(1, 14))
     )
+    checks['html_visual_assets_centered_exact'] = all(fragment in css for fragment in (
+        '.zo-on-thi-package .zo-variation-image {\n  margin-inline: auto;',
+        '.zo-on-thi-package figure img {',
+        'display: block;',
+        'margin-inline: auto;',
+    ))
     checks['pdf_bbt_outer_fill_trim_exact'] = all(fragment in lua for fragment in (
         'local function render_variation(div)',
         "local id = assert(div.attributes.bbt, 'R1-G01 BBT is missing its identifier')",
@@ -908,7 +1247,7 @@ def check(html):
         "return render_variation(div)",
     ))
     checks['permanent_link_cue_exact'] = (
-        '.r1-g01 a:not(.zo-pdf-download__link)' in css
+        '.zo-on-thi-package a:not(.zo-pdf-download__link)' in css
         and 'text-decoration-line: underline;' in css
     )
     checks['table_overflow_script_exact'] = all(fragment in script for fragment in (
@@ -955,11 +1294,12 @@ def check(html):
         "event.key === 'ArrowUp'", "event.key === 'ArrowDown'",
         'cloneNode(', 'r1-view-all-toggle',
         "root.querySelectorAll('details').forEach(details => { details.open = true; })",
-    )) and '.r1-g01.r1-tabs-ready .r1-view-panel > [hidden]' in css
+    )) and '.zo-on-thi-package.r1-tabs-ready .r1-view-panel > [hidden]' in css
     checks['local_navigation_exact'] = all(fragment in script for fragment in (
-        "lessonHeadings.length !== 9",
+        "const expectedLessonCount = Number.parseInt(root.dataset.r1LessonCount || '9', 10);",
+        'lessonHeadings.length !== expectedLessonCount',
         "lessonDetails.className = 'r1-section-toc'",
-        "lessonSummary.textContent = 'Trong Bài học'",
+        "lessonSummary.textContent = 'Mục lục'",
         "lessonNav.setAttribute('aria-label', 'Mục lục bên trong Bài học')",
         "lessonNav.append(lessonToc)",
     )) and all(fragment not in script for fragment in (
@@ -980,12 +1320,34 @@ def check(html):
         inspect_pdf(PACKAGE / name, label)['ok'] for name, label in (
             ('index.pdf', 'Bản đầy đủ'), ('index_hoc_sinh.pdf', 'Bản học và bài tập'))
     )
-    checks['pdf_gray_url_and_gray_details_exact'] = (
-        "local color = 'zo-block-gray'" in lua
-        and "div.classes:insert('zo-block-gray')" in lua
-        and 'urlcolor=zomathgray' in lua
-        and "'zo-block-yellow'" not in lua
-    )
+    pdf_content_lua = (ROOT/'assets/lua/zo_pdf_content.lua').read_text(encoding='utf-8')
+    pdf_tex = (ROOT/'assets/tex/zo-pdf.tex').read_text(encoding='utf-8')
+    variation_lua = (ROOT/'assets/lua/zo_variation_qmd.lua').read_text(encoding='utf-8')
+    checks['pdf_canonical_component_mapping_exact'] = all(fragment in lua for fragment in (
+        "and 'zo-block-white' or 'zo-block-gray'",
+        'function Table(tbl)',
+        'return render_grid_table(tbl)',
+        "replace_plain(output, '\\\\toprule\\\\noalign{}', '\\\\hline')",
+        "not pandoc.utils.stringify(following):match('^Xem đề bài')",
+        "div.classes:includes('r1-figcaption') and latex",
+        "div.classes:includes('r1-figure') and latex",
+        'urlcolor=zomathgray',
+    )) and all(fragment in pdf_content_lua for fragment in (
+        'has_class(classes, "zo-block-white")',
+        'has_class(classes, "zo-learning-guidance")',
+        'return "zoBlockWhite"',
+        'has_class(div.classes, "zo-source-note")',
+        'local function style_source_note(span)',
+        'doc = doc:walk({Span = style_source_note})',
+    )) and all(fragment in pdf_tex for fragment in (
+        '\\newtcolorbox{zoBlockWhite}[1]{',
+        'colback=zomathblockwhitebg,',
+        'coltitle=zomathgray,',
+    )) and all(fragment in variation_lua for fragment in (
+        "\\\\begin{minipage}{\\\\linewidth}\\\\centering",
+        "\\\\includegraphics{'..path..'}}\\\\par\\\\smallskip",
+        "{\\\\small\\\\color[HTML]{766F66}'..tex(title)..'}\\\\par",
+    ))
     # Compare literal JSON rows with display cells, respecting the original excluded-column rule.
     data = {x['id']: x for x in current_data}
     for record in table_records(target):

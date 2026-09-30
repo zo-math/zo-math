@@ -322,7 +322,7 @@ def render_program(program: dict[str, Any], packages: list[Package], colors: dic
 
 ## Học liệu hiện có {{#hoc-lieu-hien-co}}
 
-{''.join(cards)}
+{'\n\n'.join(cards)}
 
 ## Bắt đầu từ đâu?
 

@@ -73,7 +73,25 @@ local function has_class(classes, name)
 end
 
 
+local function style_source_note(span)
+  if not has_class(span.classes, "zo-source-note") then
+    return nil
+  end
+  local result = {
+    pandoc.RawInline("latex", "\\par\\smallskip{\\small\\color{zomathgray}")
+  }
+  for _, inline in ipairs(span.content) do table.insert(result, inline) end
+  table.insert(result, pandoc.RawInline("latex", "\\par}"))
+  return result
+end
+
+
 local function block_environment(classes)
+  if has_class(classes, "zo-block-white")
+    or has_class(classes, "zo-learning-guidance")
+  then
+    return "zoBlockWhite"
+  end
   if has_class(classes, "zo-block-red") then
     return "zoBlockRed"
   end
@@ -133,6 +151,15 @@ local transform_blocks
 
 
 local function transform_div(div)
+  if has_class(div.classes, "zo-source-note") then
+    local result = {
+      pandoc.RawBlock("latex", "\\par\\smallskip{\\small\\color{zomathgray}")
+    }
+    append_all(result, transform_blocks(div.content))
+    table.insert(result, pandoc.RawBlock("latex", "\\par}"))
+    return result
+  end
+
   if has_class(div.classes, "zo-block") then
     local title_blocks = {}
     local body_blocks = {}
@@ -261,6 +288,8 @@ function Pandoc(doc)
   if canonical_url ~= nil then
     doc = doc:walk({Link = rewrite_link})
   end
+
+  doc = doc:walk({Span = style_source_note})
 
   doc.blocks = transform_blocks(doc.blocks)
   return doc

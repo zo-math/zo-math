@@ -1,0 +1,158 @@
+schema_version: 1
+project:
+  id: on_thi_r1_g02
+  name: "R1-G02 — ứng viên Quarto"
+  root: content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02
+discovery:
+  article_types:
+    - id: on_thi_package
+      include: [index.qmd]
+      exclude: []
+profiles:
+  directory: _quy_trinh/ho_so
+  naming: by_article_stem
+  required: true
+modules:
+  required: [qmd-core, zo-html-pdf]
+  optional: []
+metadata:
+  core_required: [title, draft]
+  project_required: []
+  body_classes_required: [zo-page-article, zo-meta-hidden]
+  placeholders: []
+publication:
+  production_states: [draft, in_production, validated, accepted]
+  publication_states: [pending, published]
+  user_confirmation_required: true
+references:
+  controlling_documents: [_quy_trinh/README.md]
+  templates: []
+  theory_sources: []
+  quality_exemplars: []
+regression:
+  articles: [index.qmd]
+  expected_checker_version: "2.6.0"
+  preserve_cli: true
+extensions:
+  artifact_identity: path
+  pdf_provenance_manifest: _quy_trinh/ho_so/pdf_provenance.json
+  artifact_root_inputs:
+    - _quarto.yml
+    - content/thpt/on_thi_toan_thpt/_metadata.yml
+    - zo-math.scss
+    - assets/lua/custom.lua
+    - assets/lua/zo_pdf_download.lua
+    - assets/lua/zo_pdf_content.lua
+    - assets/lua/zo_variation_qmd.lua
+    - assets/css/_zo_learning_components.scss
+    - assets/css/zo_on_thi_learning_package.css
+    - assets/html/zo_on_thi_learning_package_script.html
+    - assets/lua/zo_learning_components.lua
+    - assets/logo/zo_math_logo_black_on_transprentt_1024.pdf
+    - assets/logo/zo_math_accent_mark.png
+    - assets/images/qr_bao_tro_zo_math_vietcombank.jpg
+  pdf_variants:
+    full:
+      output: index.pdf
+      metadata:
+        toc: false
+        subtitle: "Từ cực trị cục bộ đến so sánh trên toàn bộ tập đang xét — Bản đầy đủ, có lời giải"
+        zo-pdf-branding:
+          collection: "ZO Math · Ôn thi Toán THPT 2027"
+          short-title: "Giá trị lớn nhất và giá trị nhỏ nhất của hàm số"
+          canonical-url: "https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/index.html"
+          display-url: "zomath.vn"
+    student:
+      output: index_hoc_sinh.pdf
+      metadata:
+        toc: false
+        subtitle: "Từ cực trị cục bộ đến so sánh trên toàn bộ tập đang xét — Bản học và bài tập, không lời giải"
+        zo-pdf-branding:
+          collection: "ZO Math · Ôn thi Toán THPT 2027"
+          short-title: "Giá trị lớn nhất và giá trị nhỏ nhất của hàm số"
+          canonical-url: "https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/index.html"
+          display-url: "zomath.vn"
+    bai_hoc:
+      output: index_bai_hoc.pdf
+      include_support: false
+      metadata:
+        toc: false
+        subtitle: "Từ cực trị cục bộ đến so sánh trên toàn bộ tập đang xét — Bài học"
+        zo-pdf-branding:
+          collection: "ZO Math · Ôn thi Toán THPT 2027"
+          short-title: "Giá trị lớn nhất và giá trị nhỏ nhất của hàm số"
+          canonical-url: "https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/index.html"
+          display-url: "zomath.vn"
+    luyen_tap:
+      output: index_luyen_tap.pdf
+      include_support: false
+      metadata:
+        toc: false
+        subtitle: "Từ cực trị cục bộ đến so sánh trên toàn bộ tập đang xét — Luyện tập"
+        zo-pdf-branding:
+          collection: "ZO Math · Ôn thi Toán THPT 2027"
+          short-title: "Giá trị lớn nhất và giá trị nhỏ nhất của hàm số"
+          canonical-url: "https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/index.html"
+          display-url: "zomath.vn"
+    kiem_tra:
+      output: index_kiem_tra.pdf
+      include_support: false
+      metadata:
+        toc: false
+        subtitle: "Từ cực trị cục bộ đến so sánh trên toàn bộ tập đang xét — Kiểm tra"
+        zo-pdf-branding:
+          collection: "ZO Math · Ôn thi Toán THPT 2027"
+          short-title: "Giá trị lớn nhất và giá trị nhỏ nhất của hàm số"
+          canonical-url: "https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/index.html"
+          display-url: "zomath.vn"
+    sua_loi:
+      output: index_sua_loi.pdf
+      include_support: false
+      metadata:
+        toc: false
+        subtitle: "Từ cực trị cục bộ đến so sánh trên toàn bộ tập đang xét — Sửa lỗi"
+        zo-pdf-branding:
+          collection: "ZO Math · Ôn thi Toán THPT 2027"
+          short-title: "Giá trị lớn nhất và giá trị nhỏ nhất của hàm số"
+          canonical-url: "https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/index.html"
+          display-url: "zomath.vn"
+    on_lai:
+      output: index_on_lai.pdf
+      include_support: false
+      metadata:
+        toc: false
+        subtitle: "Từ cực trị cục bộ đến so sánh trên toàn bộ tập đang xét — Ôn lại"
+        zo-pdf-branding:
+          collection: "ZO Math · Ôn thi Toán THPT 2027"
+          short-title: "Giá trị lớn nhất và giá trị nhỏ nhất của hàm số"
+          canonical-url: "https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/index.html"
+          display-url: "zomath.vn"
+    loi_giai:
+      output: index_loi_giai.pdf
+      include_support: false
+      metadata:
+        toc: false
+        subtitle: "Từ cực trị cục bộ đến so sánh trên toàn bộ tập đang xét — Lời giải và hướng dẫn chấm"
+        zo-pdf-branding:
+          collection: "ZO Math · Ôn thi Toán THPT 2027"
+          short-title: "Giá trị lớn nhất và giá trị nhỏ nhất của hàm số"
+          canonical-url: "https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/index.html"
+          display-url: "zomath.vn"
+  artifact_inputs:
+    - du_lieu/bang_bien_thien.json
+    - hinh/bbt01.tex
+    - hinh/bbt01.pdf
+    - hinh/bbt01.svg
+    - hinh/bbt04.tex
+    - hinh/bbt04.pdf
+    - hinh/bbt04.svg
+    - hinh/do_thi_01.tex
+    - hinh/do_thi_01.pdf
+    - hinh/do_thi_01.svg
+    - hinh/do_thi_02.tex
+    - hinh/do_thi_02.pdf
+    - hinh/do_thi_02.svg
+    - cong_cu/r1_g02.lua
+    - cong_cu/kiem_chung_thanh_phan.py
+    - giao_dien/r1_g02.css
+    - giao_dien/r1_g02_script.html

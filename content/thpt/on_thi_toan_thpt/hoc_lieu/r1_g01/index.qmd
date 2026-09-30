@@ -7,7 +7,7 @@ toc-depth: 2
 sidebar: on-thi
 number-sections: false
 page-layout: article
-body-classes: zo-page-article zo-meta-hidden r1-g01-page
+body-classes: zo-page-article zo-meta-hidden zo-on-thi-package-page r1-g01-page
 format:
   html:
     subtitle: "Dấu đạo hàm, tính đơn điệu và cực trị"
@@ -16,8 +16,8 @@ format:
     html-math-method: mathml
     anchor-sections: false
     fig-responsive: false
-    css: giao_dien/r1_g01.css
-    include-after-body: giao_dien/r1_g01_script.html
+    css: ../../../../../assets/css/zo_on_thi_learning_package.css
+    include-after-body: ../../../../../assets/html/zo_on_thi_learning_package_script.html
 resources:
   - index.pdf
   - index_hoc_sinh.pdf
@@ -36,12 +36,12 @@ r1-download-files:
     download: R1-G01_hoc_va_bai_tap_v1.2.pdf
     title: "Bản học và bài tập"
     description: "Dùng để tự học và làm bài; không có phần lời giải."
-    pages: 30
+    pages: 31
   - href: index.pdf
     download: R1-G01_hoc_lieu_day_du_v1.2.pdf
     title: "Bản đầy đủ"
     description: "Có toàn bộ bài học, bài tập, lời giải và hướng dẫn chấm."
-    pages: 40
+    pages: 41
 r1-section-download-files:
   - variant: bai_hoc
     href: index_bai_hoc.pdf
@@ -212,7 +212,7 @@ r1-tables:
     row_header: true
 ---
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: r1-g01
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: {.zo-on-thi-package .r1-g01 r1-code="R1-G01" r1-title="Kết nối hàm số, bảng biến thiên và đồ thị"}
 ::: {#bat-dau .r1-status}
 Có thể học
 :::
@@ -235,8 +235,8 @@ Chuẩn bị giấy để tự làm trước khi mở lời giải. Em có thể
 
 Thời gian 45 phút là thời lượng đề xuất cho bài kiểm tra của học liệu này, có thể điều chỉnh sau khi sử dụng. Tổng điểm 20 dùng để phân tích bài làm, không mô phỏng thang điểm của kì thi THPT.
 
-:::: {#cach-thuc-hien-su-dung-tai-lieu .r1-details .r1-guidance}
-::: r1-summary
+:::: {#cach-thuc-hien-su-dung-tai-lieu .r1-details .r1-guidance .zo-learning-guidance}
+::: {.r1-summary .zo-learning-summary}
 Cách thực hiện
 :::
 
@@ -252,8 +252,8 @@ Cách thực hiện
 
 ### 0. Bắt đầu từ đâu? {#bắt-đầu-từ-đâu}
 
-:::: {#cach-thuc-hien-bat-dau .r1-details .r1-guidance}
-::: r1-summary
+:::: {#cach-thuc-hien-bat-dau .r1-details .r1-guidance .zo-learning-guidance}
+::: {.r1-summary .zo-learning-summary}
 Cách thực hiện
 :::
 
@@ -289,16 +289,19 @@ Bài này không học giá trị lớn nhất, giá trị nhỏ nhất, tiệm 
 
 #### Câu hỏi khởi động {#bốn-câu-thử-nền-tn01-đến-tn04}
 
-::: answer-link
-[Xem lời giải trong bài học](#loi-giai-1)
-:::
-
 Hãy thử trước khi đọc đáp án trong mục “Lời giải các câu hỏi và bài tập trong bài học” ở phần Lời giải cuối tài liệu. Không cần tính điểm; câu nào chưa làm được sẽ chỉ ra phần cần ôn nhanh.
+
+:::: {.zo-learning-task .zo-learning-task--pause}
 
 - **Câu hỏi khởi động 01.** Hàm số $r(x)=\frac{1}{x-2}$ có tập xác định nào? Có thể áp dụng định lí dấu đạo hàm cho $r$ trên cả khoảng $(1;3)$ không?
 - **Câu hỏi khởi động 02.** Tính đạo hàm của $s(x)=x^2-2x$ và xác định dấu của đạo hàm ở hai phía của $x=1$.
 - **Câu hỏi khởi động 03.** Một bảng biến thiên cho biết $f$ đồng biến trên $(-2;0)$, đạt giá trị $3$ tại $x=0$, rồi nghịch biến trên $(0;2)$. Khi đi từ trái sang phải, mũi tên ở hai khoảng phải hướng thế nào? Số $3$ nằm ở hàng $x$ hay hàng $f(x)$?
 - **Câu hỏi khởi động 04.** Một hình được ghi nhãn $y=f^\prime(x)$. Trên khoảng $K$, toàn bộ đường biểu diễn nằm dưới trục hoành. Dữ kiện này nói $f(x)<0$ hay $f^\prime(x)<0$?
+
+::: answer-link
+[Xem lời giải](#lg-khoi-dong)
+:::
+::::
 
 #### Chọn đúng phần cần ôn {#chọn-đúng-phần-cần-ôn}
 
@@ -315,8 +318,8 @@ Nếu bốn câu đã rõ, đi thẳng vào Mục 1. Nếu thiếu một kĩ thu
 
 ### 1. Đơn điệu nói điều gì? {#đơn-điệu-nói-điều-gì}
 
-:::: {#cach-thuc-hien-don-dieu .r1-details .r1-guidance}
-::: r1-summary
+:::: {#cach-thuc-hien-don-dieu .r1-details .r1-guidance .zo-learning-guidance}
+::: {.r1-summary .zo-learning-summary}
 Cách thực hiện
 :::
 
@@ -325,7 +328,7 @@ Cách thực hiện
 3.  Khi đối chiếu, kiểm tra xem lập luận đã bao quát mọi cặp điểm trên khoảng xét chưa.
 ::::
 
-:::: {#thử-nghĩ-trước .r1-task}
+:::: {#thử-nghĩ-trước .r1-task .zo-learning-task .zo-learning-task--pause}
 [**Thử nghĩ trước**]{.r1-task-label}
 
 Em tính được $f(0)<f(1)<f(2)$. Chừng đó đã đủ để khẳng định $f$ đồng biến trên $(0;2)$ chưa?
@@ -337,14 +340,22 @@ Chưa. Ba giá trị chỉ mô tả ba vị trí. Một kết luận về cả k
 
 Cho hàm số $y=f(x)$ có tập xác định $D$. Xét $K$ là một khoảng, một đoạn hoặc một nửa khoảng nằm trong $D$.
 
-Hàm số **đồng biến trên $K$** nếu với mọi $x_1,x_2$ thuộc $K$, khi $x_1<x_2$ thì $f(x_1)<f(x_2)$.
+::::: {.zo-block .zo-block-red}
+:::: {.zo-block-title}
+Đơn điệu: Định nghĩa hàm số đồng biến và nghịch biến
+::::
 
-Hàm số **nghịch biến trên $K$** nếu với mọi $x_1,x_2$ thuộc $K$, khi $x_1<x_2$ thì $f(x_1)>f(x_2)$.
+- Hàm số **đồng biến** trên $K$ nếu với mọi $x_1,x_2$ thuộc $K$, khi $x_1<x_2$ thì $f(x_1)<f(x_2)$.
 
-Hai điều phải giữ nguyên là “với mọi cặp điểm” và “trên $K$”. Khi đọc đồ thị từ trái sang phải, “đi lên” hay “đi xuống” là cách hình dung hai quan hệ ấy, không phải một cách thay thế điều kiện của định nghĩa. \[SGK Toán 12, tập một, Bài 1, tr. 6\]
+- Hàm số **nghịch biến** trên $K$ nếu với mọi $x_1,x_2$ thuộc $K$, khi $x_1<x_2$ thì $f(x_1)>f(x_2)$.
 
-#### 1.2. Ví dụ 01 — Chứng minh mà chưa dùng đạo hàm {#ví-dụ-v01-chứng-minh-mà-chưa-dùng-đạo-hàm .r1-example-heading}
+:::::
 
+Hai điều phải giữ nguyên là “với mọi cặp điểm” và “trên $K$”. Khi đọc đồ thị từ trái sang phải, “đi lên” hay “đi xuống” là cách hình dung hai quan hệ ấy, không phải một cách thay thế điều kiện của định nghĩa. [Nguồn đối chiếu: Sách giáo khoa Toán 12, tập một, bài 1, trang 6.]{.zo-source-note}
+
+#### 1.2. Ví dụ 01 — Chứng minh mà chưa dùng đạo hàm {#ví-dụ-v01-chứng-minh-mà-chưa-dùng-đạo-hàm .r1-example-heading .zo-learning-example-heading}
+
+:::: {.zo-learning-example}
 Xét $f(x)=2x-1$ trên $\mathbb{R}$. Lấy bất kì $x_1<x_2$. Ta có
 
 $$f(x_2)-f(x_1)=2(x_2-x_1)>0.$$
@@ -358,21 +369,22 @@ $$g(x_2)-g(x_1)=-2(x_2-x_1)<0.$$
 Hàm số $g$ nghịch biến trên $\mathbb{R}$.
 
 Lập luận này dùng đúng định nghĩa. Đạo hàm sẽ giúp ta xử lí những công thức phức tạp hơn, nhưng không làm thay đổi ý nghĩa của đồng biến, nghịch biến.
+::::
 
-:::: {#dừng-lại-1-d01 .r1-task}
+:::: {#dừng-lại-1-d01 .r1-task .zo-learning-task .zo-learning-task--pause}
 [**Câu hỏi tự kiểm tra 01**]{.r1-task-label}
 
 Một bạn viết: “Hàm số $f$ đồng biến trên $(a;b)$ vì $f(a)<f(b)$.” Chỉ ra hai điều chưa ổn trong lập luận này, kể cả khi hai giá trị ở đầu mút tình cờ tồn tại.
 
 ::: answer-link
-[Xem lời giải trong bài học](#loi-giai-1)
+[Xem lời giải](#lg-d01)
 :::
 ::::
 
 ### 2. Dấu đạo hàm cho phép kết luận gì? {#dấu-đạo-hàm-cho-phép-kết-luận-gì}
 
-:::: {#cach-thuc-hien-dau-dao-ham .r1-details .r1-guidance}
-::: r1-summary
+:::: {#cach-thuc-hien-dau-dao-ham .r1-details .r1-guidance .zo-learning-guidance}
+::: {.r1-summary .zo-learning-summary}
 Cách thực hiện
 :::
 
@@ -383,9 +395,11 @@ Cách thực hiện
 Phần giải thích bằng giới hạn được đặt trong mục đọc thêm.
 ::::
 
-#### Thử nghĩ trước {#thử-nghĩ-trước-1}
+:::: {#thử-nghĩ-trước-1 .r1-task .zo-learning-task .zo-learning-task--pause}
+[**Thử nghĩ trước**]{.r1-task-label}
 
 Nếu đạo hàm dương ở một điểm thì ta biết điều gì ở điểm đó? Nếu đạo hàm dương trên cả một khoảng thì ta được kết luận thêm điều gì?
+::::
 
 Đạo hàm tại một điểm cho biết hệ số góc của tiếp tuyến tại điểm ấy khi đạo hàm tồn tại. Định lí sau đây mới là căn cứ để đi từ dấu đạo hàm trên một khoảng đến chiều biến thiên trên khoảng đó.
 
@@ -393,10 +407,17 @@ Nếu đạo hàm dương ở một điểm thì ta biết điều gì ở đi�
 
 Cho $f$ có đạo hàm trên khoảng $K$.
 
+::::: {.zo-block .zo-block-red}
+:::: {.zo-block-title}
+Đơn điệu: Dấu đạo hàm và chiều biến thiên
+::::
+
 - Nếu $f^\prime(x)>0$ với mọi $x$ thuộc $K$ thì $f$ đồng biến trên $K$.
 - Nếu $f^\prime(x)<0$ với mọi $x$ thuộc $K$ thì $f$ nghịch biến trên $K$.
 
-Khi áp dụng, viết đủ ba ý: hàm số có đạo hàm trên khoảng đang xét; dấu của đạo hàm trên cả khoảng; kết luận chiều biến thiên trên chính khoảng đó. \[SGK Toán 12, tập một, Bài 1, tr. 7\]
+:::::
+
+Khi áp dụng, viết đủ ba ý: hàm số có đạo hàm trên khoảng đang xét; dấu của đạo hàm trên cả khoảng; kết luận chiều biến thiên trên chính khoảng đó. [Nguồn đối chiếu: Sách giáo khoa Toán 12, tập một, bài 1, trang 7.]{.zo-source-note}
 
 Chẳng hạn, với $s(x)=x^2-2x$, ta có $D=\mathbb{R}$ và $s^\prime(x)=2(x-1)$. Đạo hàm âm trên $(-\infty;1)$, dương trên $(1;+\infty)$. Do đó $s$ nghịch biến trên $(-\infty;1)$ và đồng biến trên $(1;+\infty)$.
 
@@ -404,15 +425,23 @@ Chú ý cách nói: dấu của $s^\prime$ cho biết chiều biến thiên củ
 
 #### 2.2. Một số hữu hạn điểm đạo hàm bằng 0 {#một-số-hữu-hạn-điểm-đạo-hàm-bằng-0}
 
-Vẫn giả sử $f$ có đạo hàm trên khoảng $K$. Theo chú ý của SGK, kết luận trên vẫn đúng nếu đạo hàm giữ dấu nghiêm ngặt tương ứng, chỉ bằng $0$ tại một số hữu hạn điểm trong khoảng. Cụ thể:
+Vẫn giả sử $f$ có đạo hàm trên khoảng $K$. Kết luận trên vẫn đúng nếu đạo hàm giữ dấu nghiêm ngặt tương ứng, chỉ bằng $0$ tại một số hữu hạn điểm trong khoảng. Cụ thể:
+
+::::: {.zo-block .zo-block-red}
+:::: {.zo-block-title}
+Đơn điệu: Đạo hàm bằng $0$ tại một số hữu hạn điểm
+::::
 
 - $f^\prime(x)\geq 0$ trên $K$, và chỉ bằng $0$ tại một số hữu hạn điểm, thì $f$ đồng biến trên $K$.
 - $f^\prime(x)\leq 0$ trên $K$, và chỉ bằng $0$ tại một số hữu hạn điểm, thì $f$ nghịch biến trên $K$.
 
-Không được rút gọn thành “đạo hàm có hữu hạn nghiệm thì hàm số đơn điệu”: còn phải kiểm tra dấu ở các điểm còn lại. Cũng không được bỏ điều kiện về các điểm bằng $0$ rồi khẳng định đồng biến chỉ từ $f^\prime(x)\geq 0$. Ví dụ hàm hằng $f(x)=5$ có đạo hàm bằng $0$ ở mọi điểm nhưng không đồng biến theo định nghĩa nghiêm ngặt ở Mục 1. \[SGK Toán 12, tập một, Bài 1, tr. 7\]
+:::::
+
+Không được rút gọn thành “đạo hàm có hữu hạn nghiệm thì hàm số đơn điệu”: còn phải kiểm tra dấu ở các điểm còn lại. Cũng không được bỏ điều kiện về các điểm bằng $0$ rồi khẳng định đồng biến chỉ từ $f^\prime(x)\geq 0$. Ví dụ hàm hằng $f(x)=5$ có đạo hàm bằng $0$ ở mọi điểm nhưng không đồng biến theo định nghĩa nghiêm ngặt ở Mục 1. [Nguồn đối chiếu: Sách giáo khoa Toán 12, tập một, bài 1, trang 7.]{.zo-source-note}
 
 #### 2.3. Ví dụ 02 — Đạo hàm bằng 0 nhưng không đổi chiều {#đối-chứng-v02-đạo-hàm-bằng-0-nhưng-không-đổi-chiều}
 
+:::: {.zo-learning-example}
 Xét hàm số sau:
 
 $$f(x)=(x-1)^3+2.$$
@@ -426,7 +455,7 @@ $$f^\prime(x)=3(x-1)^2.$$
 Giữ mốc $x=1$ trong bảng để thấy điều gì xảy ra ở đó:
 
 :::: table-scroll
-::: {.r1-bbt bbt="BBT01" caption="Bảng biến thiên"}
+::: {.r1-bbt bbt="BBT01" caption="Bảng biến thiên."}
 ZO BBT placeholder
 :::
 ::::
@@ -442,15 +471,18 @@ Một điểm có tiếp tuyến ngang không làm cho cả một khoảng trở
 Hình 01 — Tiếp tuyến ngang tại (1;2), hàm số vẫn tăng ở hai phía.
 :::
 ::::
+::::
 
 #### 2.4. Vì sao không được đảo thành điều kiện nghiêm ngặt? {#vì-sao-không-được-đảo-thành-điều-kiện-nghiêm-ngặt}
+
+[**Không đảo định lí thành dấu nghiêm ngặt.**]{.r1-unboxed-label}
 
 Ví dụ 02 bác bỏ phát biểu: “Nếu $f$ đồng biến và có đạo hàm trên $K$ thì $f^\prime(x)>0$ tại mọi điểm của $K$.” Hàm số trong ví dụ đồng biến trên $\mathbb{R}$ nhưng $f^\prime(1)=0$.
 
 Phát biểu đúng là: nếu $f$ đồng biến và có đạo hàm trên khoảng $K$, thì $f^\prime(x)\geq 0$ với mọi $x$ thuộc $K$. Với hàm nghịch biến và có đạo hàm, kết luận tương ứng là $f^\prime(x)\leq 0$.
 
-:::: {.r1-details .extension}
-::: r1-summary
+:::: {.r1-details .zo-learning-context-note}
+::: {.r1-summary .zo-learning-summary}
 Đọc thêm — Giải thích bằng định nghĩa đạo hàm
 :::
 
@@ -461,18 +493,20 @@ $$\frac{f(x_0+h)-f(x_0)}{h}>0.$$
 Khi $h$ tiến đến $0$, giới hạn của các số dương có thể bằng $0$. Vì vậy không thể buộc giới hạn ấy phải dương nghiêm ngặt. Đây là giải thích bổ sung của bài học, không phải phát biểu trích nguyên văn định lí ở SGK.
 ::::
 
-#### Câu hỏi tự kiểm tra 02 {#dừng-lại-2-d02}
-
-::: answer-link
-[Xem lời giải trong bài học](#loi-giai-1)
-:::
+:::: {#dừng-lại-2-d02 .r1-task .zo-learning-task .zo-learning-task--pause}
+[**Câu hỏi tự kiểm tra 02**]{.r1-task-label}
 
 Cho $h$ có đạo hàm trên $\mathbb{R}$ và $h^\prime(x)=(x+2)^2$. Hãy kết luận chiều biến thiên trên $\mathbb{R}$ và phản biện câu: “Phải tách thành hai khoảng đơn điệu vì đạo hàm bằng $0$ tại $-2$.”
 
+::: answer-link
+[Xem lời giải](#lg-d02)
+:::
+::::
+
 ### 3. Một chuỗi biểu diễn được dựng thế nào? {#một-chuỗi-biểu-diễn-được-dựng-thế-nào}
 
-:::: {#cach-thuc-hien-chuoi-bieu-dien .r1-details .r1-guidance}
-::: r1-summary
+:::: {#cach-thuc-hien-chuoi-bieu-dien .r1-details .r1-guidance .zo-learning-guidance}
+::: {.r1-summary .zo-learning-summary}
 Cách thực hiện
 :::
 
@@ -481,14 +515,17 @@ Cách thực hiện
 3.  Làm Câu hỏi tự kiểm tra 03 để kiểm tra sự phù hợp giữa bảng và hình.
 ::::
 
-#### Thử nghĩ trước {#thử-nghĩ-trước-2}
+:::: {#thử-nghĩ-trước-2 .r1-task .zo-learning-task .zo-learning-task--pause}
+[**Thử nghĩ trước**]{.r1-task-label}
 
 Nếu đã có bảng dấu đạo hàm thì còn thiếu gì để viết được giá trị hàm số tại các mốc? Nếu đã có bảng biến thiên thì đã có duy nhất một đồ thị chính xác chưa?
+::::
 
 Ta theo dõi một ví dụ xuyên suốt để thấy mỗi bước dùng và bổ sung thông tin nào.
 
 #### 3.1. Ví dụ 03 — Bắt đầu từ công thức {#ví-dụ-v03-bắt-đầu-từ-công-thức}
 
+:::: {.zo-learning-example}
 Xét
 
 $$p(x)=x^3-3x+1.$$
@@ -498,6 +535,7 @@ $$p(x)=x^3-3x+1.$$
 $$p^\prime(x)=3x^2-3=3(x-1)(x+1).$$
 
 Các nghiệm của $p^\prime(x)=0$ là $-1$ và $1$. Hai mốc này chia trục số thành ba khoảng cần xét dấu.
+::::
 
 #### 3.2. Từ đạo hàm đến dấu và chiều biến thiên {#từ-đạo-hàm-đến-dấu-và-chiều-biến-thiên}
 
@@ -526,7 +564,7 @@ Những giới hạn này được xác định từ công thức, không suy ra
 Bảng biến thiên là:
 
 :::: table-scroll
-::: {.r1-bbt bbt="BBT02" caption="Bảng biến thiên"}
+::: {.r1-bbt bbt="BBT02" caption="Bảng biến thiên."}
 ZO BBT placeholder
 :::
 ::::
@@ -552,7 +590,7 @@ Từ công thức, tính thêm $p(0)=1$. Vì vậy đồ thị đi qua $C(0;1)$,
 
 Đây là những ràng buộc để phác đúng dáng điệu, chưa phải toàn bộ quy trình khảo sát hàm số. Không tự thêm một giao điểm, tọa độ hoặc tính chất hình học chưa có căn cứ.
 
-Nếu một hình gắn nhãn $y=p(x)$ lại đi lên trên $(-1;1)$, hình ấy mâu thuẫn với bảng. Nếu một bảng đặt $p(-1)=-1$, bảng ấy mâu thuẫn với công thức. Kiểm tra chéo giúp tìm lỗi ngay tại mắt xích tạo ra nó. \[SGK Toán 12, tập một, Bài 1, tr. 7–8; SGK Toán 12, tập một, Bài 4, tr. 26–27\]
+Nếu một hình gắn nhãn $y=p(x)$ lại đi lên trên $(-1;1)$, hình ấy mâu thuẫn với bảng. Nếu một bảng đặt $p(-1)=-1$, bảng ấy mâu thuẫn với công thức. Kiểm tra chéo giúp tìm lỗi ngay tại mắt xích tạo ra nó. [Nguồn đối chiếu: Sách giáo khoa Toán 12, tập một, bài 1, trang 7–8; Sách giáo khoa Toán 12, tập một, bài 4, trang 26–27.]{.zo-source-note}
 
 :::: r1-figure
 ![Đồ thị p(x)=x³−3x+1, cực đại tại (−1;3), cực tiểu tại (1;−1), cắt trục tung tại (0;1).](hinh/do_thi_02.svg){loading="lazy"}
@@ -562,18 +600,20 @@ Hình 02 — Đồ thị khớp bảng biến thiên của p.
 :::
 ::::
 
-#### Câu hỏi tự kiểm tra 03 {#dừng-lại-3-d03}
-
-::: answer-link
-[Xem lời giải trong bài học](#loi-giai-1)
-:::
+:::: {#dừng-lại-3-d03 .r1-task .zo-learning-task .zo-learning-task--pause}
+[**Câu hỏi tự kiểm tra 03**]{.r1-task-label}
 
 Một bản vẽ cho Ví dụ 03 đi qua đúng $A(-1;3)$ và $B(1;-1)$, nhưng có một đoạn đi lên nằm bên trong $(-1;1)$. Bản vẽ có thể được chấp nhận vì đã đặt đúng hai điểm mốc không? Nêu dữ kiện quyết định.
 
+::: answer-link
+[Xem lời giải](#lg-d03)
+:::
+::::
+
 ### 4. Điều gì xảy ra tại một điểm cần xét? {#điều-gì-xảy-ra-tại-một-điểm-cần-xét}
 
-:::: {#cach-thuc-hien-diem-can-xet .r1-details .r1-guidance}
-::: r1-summary
+:::: {#cach-thuc-hien-diem-can-xet .r1-details .r1-guidance .zo-learning-guidance}
+::: {.r1-summary .zo-learning-summary}
 Cách thực hiện
 :::
 
@@ -582,9 +622,11 @@ Cách thực hiện
 - Cuối mục, tự làm Câu hỏi tự kiểm tra 04.
 ::::
 
-#### Thử nghĩ trước {#thử-nghĩ-trước-3}
+:::: {#thử-nghĩ-trước-3 .r1-task .zo-learning-task .zo-learning-task--pause}
+[**Thử nghĩ trước**]{.r1-task-label}
 
 Cùng có đạo hàm bằng $0$, tại sao có điểm làm hàm số đổi chiều còn có điểm không? Một điểm không có đạo hàm có thể vẫn là nơi hàm số đổi chiều không?
+::::
 
 Trước hết, hãy hình dung: khi hàm số đạt cực đại tại một điểm, giá trị tại đó lớn hơn các giá trị tại những điểm khác ở đủ gần hai phía. Với cực tiểu, giá trị tại điểm đang xét nhỏ hơn các giá trị ở những điểm khác đủ gần hai phía. Định nghĩa đầy đủ và cách gọi tên sẽ được viết ở Mục 5.
 
@@ -592,10 +634,17 @@ Trước hết, hãy hình dung: khi hàm số đạt cực đại tại một �
 
 Giả sử $f$ liên tục trên khoảng $(a;b)$ chứa $x_0$ và có đạo hàm trên hai khoảng $(a;x_0)$, $(x_0;b)$.
 
+::::: {.zo-block .zo-block-red}
+:::: {.zo-block-title}
+Cực trị: Điều kiện đủ qua dấu đạo hàm
+::::
+
 - Nếu $f^\prime(x)>0$ trên $(a;x_0)$ và $f^\prime(x)<0$ trên $(x_0;b)$, hàm số đạt cực đại tại $x_0$.
 - Nếu $f^\prime(x)<0$ trên $(a;x_0)$ và $f^\prime(x)>0$ trên $(x_0;b)$, hàm số đạt cực tiểu tại $x_0$.
 
-Đó là định lí điều kiện đủ đang dùng. Định lí không đòi hỏi đạo hàm phải tồn tại tại chính $x_0$. Tính liên tục tại $x_0$ phải được kiểm tra; việc có đạo hàm ở hai phía không tự bảo đảm điều đó. \[SGK Toán 12, tập một, Bài 1, tr. 10\]
+:::::
+
+Đó là định lí điều kiện đủ đang dùng. Định lí không đòi hỏi đạo hàm phải tồn tại tại chính $x_0$. Tính liên tục tại $x_0$ phải được kiểm tra; việc có đạo hàm ở hai phía không tự bảo đảm điều đó. [Nguồn đối chiếu: Sách giáo khoa Toán 12, tập một, bài 1, trang 10.]{.zo-source-note}
 
 Khi các điều kiện trên đã được bảo đảm, có thể tóm tắt hành vi như sau:
 
@@ -612,6 +661,7 @@ Hai dòng cuối là kết luận trong tình huống có dấu nghiêm ngặt �
 
 #### 4.2. Đối chứng thứ nhất — Đổi dấu và có cực trị {#đối-chứng-thứ-nhất-đổi-dấu-và-có-cực-trị}
 
+:::: {.zo-learning-example}
 Với $p(x)=x^3-3x+1$ trong Ví dụ 03, tính liên tục đã có vì $p$ là đa thức.
 
 Qua $x=-1$, đạo hàm đổi dấu từ dương sang âm. Hàm số đạt cực đại tại $x=-1$, với giá trị $p(-1)=3$.
@@ -619,17 +669,21 @@ Qua $x=-1$, đạo hàm đổi dấu từ dương sang âm. Hàm số đạt c�
 Qua $x=1$, đạo hàm đổi dấu từ âm sang dương. Hàm số đạt cực tiểu tại $x=1$, với giá trị $p(1)=-1$.
 
 Ta không kết luận có cực trị chỉ vì giải được phương trình $p^\prime(x)=0$. Bước quyết định là kiểm tra dấu hai phía trong những điều kiện phù hợp.
+::::
 
 #### 4.3. Đối chứng thứ hai — Bằng 0 nhưng không có cực trị {#đối-chứng-thứ-hai-bằng-0-nhưng-không-có-cực-trị}
 
+:::: {.zo-learning-example}
 Trở lại $f(x)=(x-1)^3+2$ trong Ví dụ 02. Hàm số liên tục tại $1$, đạo hàm dương trên cả hai phía của $1$ và bằng $0$ tại $1$.
 
 Với $x<1$, ta có $f(x)<2$. Với $x>1$, ta có $f(x)>2$. Do đó, dù xét gần $1$ đến đâu, vẫn có giá trị nhỏ hơn $f(1)$ ở bên trái và lớn hơn $f(1)$ ở bên phải. Hàm số không đạt cực đại hoặc cực tiểu tại $1$.
 
-Kết luận cần nhớ là: $f^\prime(x_0)=0$ tạo ra một điểm cần xét, không tự xác nhận một điểm cực trị. \[Đối chiếu chú ý về $x^3$ trong SGK Toán 12, tập một, Bài 1, tr. 11\]
+Kết luận cần nhớ là: $f^\prime(x_0)=0$ tạo ra một điểm cần xét, không tự xác nhận một điểm cực trị. [Nguồn đối chiếu: chú ý về $x^3$ trong Sách giáo khoa Toán 12, tập một, bài 1, trang 11.]{.zo-source-note}
+::::
 
 #### 4.4. Đối chứng thứ ba — Không có đạo hàm nhưng có cực trị {#đối-chứng-thứ-ba-không-có-đạo-hàm-nhưng-có-cực-trị}
 
+:::: {.zo-learning-example}
 Xét Ví dụ 04:
 
 $$u(x)=\lvert x\rvert.$$
@@ -645,26 +699,29 @@ $$\frac{u(h)-u(0)}{h}=\frac{\lvert h\rvert}{h}.$$
 
 Thương này bằng $-1$ khi $h<0$ và bằng $1$ khi $h>0$. Hai giới hạn một phía khác nhau nên $u^\prime(0)$ không tồn tại.
 
-Tuy nhiên, đạo hàm đổi từ âm sang dương qua $0$, và $u$ liên tục tại $0$. Theo định lí, $u$ đạt cực tiểu tại $0$. Có thể kiểm tra trực tiếp: với mọi $x\ne 0$, $u(x)=\lvert x\rvert>0=u(0)$, nên điều kiện so sánh nghiêm ngặt quanh $0$ được thỏa mãn. \[SGK Toán 12, tập một, Bài 1, tr. 6, 14\]
+Tuy nhiên, đạo hàm đổi từ âm sang dương qua $0$, và $u$ liên tục tại $0$. Theo định lí, $u$ đạt cực tiểu tại $0$. Có thể kiểm tra trực tiếp: với mọi $x\ne 0$, $u(x)=\lvert x\rvert>0=u(0)$, nên điều kiện so sánh nghiêm ngặt quanh $0$ được thỏa mãn. [Nguồn đối chiếu: Sách giáo khoa Toán 12, tập một, bài 1, trang 6 và 14.]{.zo-source-note}
 
 ::::: table-scroll
 :::: table-scroll
-::: {.r1-bbt bbt="BBT12" caption="Bảng biến thiên của u(x) = |x|"}
+::: {.r1-bbt bbt="BBT12" caption="Bảng biến thiên của u(x) = |x|."}
 ZO BBT placeholder
 :::
 ::::
 :::::
 
 Hàng đạo hàm không có giá trị tại $0$, nhưng hàng hàm số vẫn có $u(0)=0$. Không được dùng vạch ngăn tại điểm không thuộc tập xác định ở hàng hàm số để xóa mất điểm này. Đồ thị có một góc tại $(0;0)$; đó không phải một điểm bị bỏ khỏi đồ thị.
+::::
 
 #### 4.5. Tách riêng điểm không thuộc tập xác định {#tách-riêng-điểm-không-thuộc-tập-xác-định}
+
+[**Điểm không thuộc tập xác định.**]{.r1-unboxed-label}
 
 Xét $v(x)=\lvert x\rvert$ nhưng chỉ trên tập xác định $D=\mathbb{R}\setminus\{0\}$. Trên mỗi phía của $0$, công thức và dấu đạo hàm giống Ví dụ 04. Tuy nhiên, $v(0)$ không tồn tại vì $0$ đã bị loại khỏi tập xác định.
 
 Vì vậy, $0$ không thể là điểm cực trị của $v$. Dấu âm bên trái và dấu dương bên phải không tạo ra một giá trị hàm số tại vị trí không thuộc tập xác định.
 
 :::: table-scroll
-::: {.r1-bbt bbt="BBT13" caption="Bảng biến thiên khi loại 0 khỏi tập xác định"}
+::: {.r1-bbt bbt="BBT13" caption="Bảng biến thiên khi loại 0 khỏi tập xác định."}
 ZO BBT placeholder
 :::
 ::::
@@ -683,6 +740,8 @@ Hình 03 — Cùng đường nét hai phía nhưng khác việc giữ hay bỏ �
 
 #### 4.6. Trình tự xét một mốc {#trình-tự-xét-một-mốc}
 
+[**Trình tự xét một mốc.**]{.r1-unboxed-label}
+
 1.  Mốc có thuộc tập xác định không? Nếu không, loại khỏi danh sách điểm cực trị.
 2.  Có một khoảng quanh mốc đáp ứng các điều kiện của định lí không? Kiểm tra riêng tính liên tục tại mốc.
 3.  Đạo hàm mang dấu gì trên từng khoảng ở hai phía?
@@ -691,18 +750,20 @@ Hình 03 — Cùng đường nét hai phía nhưng khác việc giữ hay bỏ �
 
 Nếu thiếu giả thiết, ghi “chưa đủ điều kiện áp dụng định lí”; không chuyển câu đó thành “chắc chắn không có cực trị”.
 
-#### Câu hỏi tự kiểm tra 04 {#dừng-lại-4-d04}
-
-::: answer-link
-[Xem lời giải trong bài học](#loi-giai-1)
-:::
+:::: {#dừng-lại-4-d04 .r1-task .zo-learning-task .zo-learning-task--pause}
+[**Câu hỏi tự kiểm tra 04**]{.r1-task-label}
 
 Cho $w$ liên tục trên $(-2;2)$, có đạo hàm trên $(-2;0)$ và $(0;2)$; đạo hàm dương trên khoảng bên trái, âm trên khoảng bên phải. Biết $w(0)=5$ nhưng chưa biết $w^\prime(0)$ có tồn tại hay không. Có kết luận được cực trị tại $0$ không? Vì sao?
 
+::: answer-link
+[Xem lời giải](#lg-d04)
+:::
+::::
+
 ### 5. Cực trị được gọi tên thế nào? {#cực-trị-được-gọi-tên-thế-nào}
 
-:::: {#cach-thuc-hien-goi-ten-cuc-tri .r1-details .r1-guidance}
-::: r1-summary
+:::: {#cach-thuc-hien-goi-ten-cuc-tri .r1-details .r1-guidance .zo-learning-guidance}
+::: {.r1-summary .zo-learning-summary}
 Cách thực hiện
 :::
 
@@ -711,23 +772,32 @@ Cách thực hiện
 3.  Hoàn thành Câu hỏi tự kiểm tra 05 để kiểm tra cách dùng thuật ngữ.
 ::::
 
-#### Thử nghĩ trước {#thử-nghĩ-trước-4}
+:::: {#thử-nghĩ-trước-4 .r1-task .zo-learning-task .zo-learning-task--pause}
+[**Thử nghĩ trước**]{.r1-task-label}
 
 Với Ví dụ 03, câu “cực đại là $-1$” có đủ rõ không? Người viết đang nói về hoành độ, giá trị hàm số hay một điểm trên đồ thị?
+::::
 
 #### 5.1. Định nghĩa theo so sánh trong một lân cận {#định-nghĩa-theo-so-sánh-trong-một-lân-cận}
 
-Theo cách trình bày của SGK đang dùng, xét $f$ xác định và liên tục trên khoảng $(a;b)$, với $x_0$ thuộc khoảng đó.
+Xét $f$ xác định và liên tục trên khoảng $(a;b)$, với $x_0$ thuộc khoảng đó.
 
-Hàm số đạt **cực đại tại $x_0$** nếu có số $h>0$ sao cho $(x_0-h;x_0+h)$ nằm trong $(a;b)$, và với mọi $x$ trong khoảng nhỏ này, khác $x_0$, ta có
+::::: {.zo-block .zo-block-red}
+:::: {.zo-block-title}
+Cực trị: Định nghĩa trong một lân cận
+::::
 
-$$f(x)<f(x_0).$$
+- Hàm số đạt **cực đại tại $x_0$** nếu có số $h>0$ sao cho $(x_0-h;x_0+h)$ nằm trong $(a;b)$, và với mọi $x$ trong khoảng nhỏ này, khác $x_0$, ta có
 
-Hàm số đạt **cực tiểu tại $x_0$** nếu tồn tại một khoảng nhỏ như trên mà với mọi $x\ne x_0$ trong khoảng ấy, ta có
+  $$f(x)<f(x_0).$$
 
-$$f(x)>f(x_0).$$
+- Hàm số đạt **cực tiểu tại $x_0$** nếu tồn tại một khoảng nhỏ như trên mà với mọi $x\ne x_0$ trong khoảng ấy, ta có
 
-Từ “gần” được làm chính xác bằng việc tồn tại một khoảng nhỏ quanh $x_0$. Các bất đẳng thức là nghiêm ngặt. Không cần so sánh với mọi điểm trong toàn bộ tập xác định. \[SGK Toán 12, tập một, Bài 1, tr. 9\]
+  $$f(x)>f(x_0).$$
+
+:::::
+
+Từ “gần” được làm chính xác bằng việc tồn tại một khoảng nhỏ quanh $x_0$. Các bất đẳng thức là nghiêm ngặt. Không cần so sánh với mọi điểm trong toàn bộ tập xác định. [Nguồn đối chiếu: Sách giáo khoa Toán 12, tập một, bài 1, trang 9.]{.zo-source-note}
 
 Trong bài học này, ta dùng định nghĩa hai phía trên khoảng như trên. Một đầu mút của tập xác định không được tự động phân loại là cực trị bằng quy tắc hai phía. Những quy ước mở rộng khác không thuộc phạm vi bản học liệu này.
 
@@ -741,30 +811,34 @@ Trong bài học này, ta dùng định nghĩa hai phía trên khoảng như tr�
 | Điểm cực trị của đồ thị | Điểm có hai tọa độ | $A(-1;3)$ | $B(1;-1)$ |
 :::
 
-Cách viết rõ ràng là: “Hàm số $p$ đạt cực đại tại $x=-1$, giá trị cực đại bằng $3$; điểm cực đại của đồ thị là $A(-1;3)$.” \[SGK Toán 12, tập một, Bài 1, tr. 9\]
+Cách viết rõ ràng là: “Hàm số $p$ đạt cực đại tại $x=-1$, giá trị cực đại bằng $3$; điểm cực đại của đồ thị là $A(-1;3)$.” [Nguồn đối chiếu: Sách giáo khoa Toán 12, tập một, bài 1, trang 9.]{.zo-source-note}
 
 Trong suy luận qua dấu đạo hàm, chủ thể được kết luận đạt cực trị là hàm số $p$, không phải tự động là hàm đạo hàm $p^\prime$. Đạo hàm cũng là một hàm số, nhưng nếu muốn bàn về cực trị của nó thì đó là một câu hỏi khác.
 
 #### 5.3. “Cục bộ” có ý nghĩa gì? {#cục-bộ-có-ý-nghĩa-gì}
 
+[**Ý nghĩa của “cục bộ”.**]{.r1-unboxed-label}
+
 Trong Ví dụ 03, $p$ đạt cực đại tại $-1$ với giá trị $3$. Nhưng $p(3)=19>3$. Điều này không mâu thuẫn: cực đại ở $-1$ chỉ yêu cầu so sánh với các điểm đủ gần $-1$.
 
 Tương tự, từ việc $p$ đạt cực tiểu tại $1$, không được kết luận mọi giá trị của $p$ trên $\mathbb{R}$ đều lớn hơn hoặc bằng $p(1)$. Chúng ta dừng ở ý nghĩa cục bộ, không chuyển sang bài toán so sánh trên toàn tập xác định.
 
-#### Câu hỏi tự kiểm tra 05 {#dừng-lại-5-d05}
-
-::: answer-link
-[Xem lời giải trong bài học](#loi-giai-1)
-:::
+:::: {#dừng-lại-5-d05 .r1-task .zo-learning-task .zo-learning-task--pause}
+[**Câu hỏi tự kiểm tra 05**]{.r1-task-label}
 
 Sửa câu sau mà vẫn giữ các số đúng: “Đồ thị của $p(x)=x^3-3x+1$ có điểm cực tiểu bằng $-1$ tại giá trị $1$.” Hãy viết riêng điểm cực tiểu của hàm số, giá trị cực tiểu và điểm cực tiểu của đồ thị.
+
+::: answer-link
+[Xem lời giải](#lg-d05)
+:::
+::::
 
 ### 6. Có thể đọc ngược đến đâu? {#có-thể-đọc-ngược-đến-đâu}
 
 Ở Mục 5, em đã tập gọi đúng đối tượng cực trị. Bây giờ cần kiểm tra thêm một việc: từ bảng, hình hoặc đạo hàm đã cho, ta thực sự biết được bao nhiêu về những đối tượng ấy?
 
-:::: {#cach-thuc-hien-doc-nguoc .r1-details .r1-guidance}
-::: r1-summary
+:::: {#cach-thuc-hien-doc-nguoc .r1-details .r1-guidance .zo-learning-guidance}
+::: {.r1-summary .zo-learning-summary}
 Cách thực hiện
 :::
 
@@ -773,7 +847,7 @@ Cách thực hiện
 - Tự làm Câu hỏi tự kiểm tra 06; không dùng tung độ trên đồ thị đạo hàm thay cho giá trị của hàm số.
 ::::
 
-:::: {#thử-nghĩ-trước-5 .r1-task}
+:::: {#thử-nghĩ-trước-5 .r1-task .zo-learning-task .zo-learning-task--pause}
 [**Thử nghĩ trước**]{.r1-task-label}
 
 Một mũi tên đi lên trong bảng biến thiên có đủ để viết dấu $+$ ở mọi điểm của hàng đạo hàm không? Một đường cong đang đi xuống có luôn biểu diễn một hàm số âm không?
@@ -788,6 +862,8 @@ Trong cả Mục 6, mỗi lần đọc ngược, hãy dừng ở ba câu hỏi:
 3.  Muốn kết luận thêm thì còn thiếu giả thiết hoặc giá trị nào?
 
 #### 6.1. Bảng có hàng đạo hàm và bảng chỉ có chiều biến thiên {#bảng-có-hàng-đạo-hàm-và-bảng-chỉ-có-chiều-biến-thiên}
+
+[**Phân biệt dữ kiện về đạo hàm và chiều biến thiên.**]{.r1-unboxed-label}
 
 Nếu bảng ghi rõ $f^\prime(x)>0$ trên một khoảng, đó là dữ kiện về đạo hàm. Nếu bảng chỉ có mũi tên đi lên ở hàng $f(x)$, ta biết hàm số đồng biến trên khoảng được biểu diễn; chưa được tự thêm dấu đạo hàm nghiêm ngặt tại mọi điểm.
 
@@ -808,12 +884,12 @@ Khi một ô không có số, hãy xác định đó là ô không cần ghi, ch
 
 Các kết luận đọc hình được hiểu trên phần tập xác định và với độ chính xác mà đề bài thực sự cung cấp. Hình chỉ có tính minh họa, không ghi tọa độ chính xác thì không đủ để buộc một đáp số chính xác.
 
-:::: r1-example
+:::: {.r1-example .zo-learning-example}
 [**Ví dụ 05 — Đạo hàm đang tăng nhưng hàm số đang giảm.**]{.r1-example-label}
 
 Xét lại $s(x)=x^2-2x$. Đồ thị đạo hàm là đường thẳng $y=2x-2$, đi lên từ trái sang phải. Tuy nhiên, trên $(0;1)$ đường thẳng này nằm dưới trục hoành: $s^\prime(x)<0$. Do đó $s$ nghịch biến trên $(0;1)$.
 
-Cần đọc vị trí của đồ thị $s^\prime$ so với trục hoành để tìm dấu, không dùng việc đường thẳng ấy đang đi lên để kết luận chiều biến thiên của $s$. \[Đối chiếu dạng đọc đồ thị đạo hàm: SGK Toán 12, tập một, Bài 1, tr. 14, bài 1.6\]
+Cần đọc vị trí của đồ thị $s^\prime$ so với trục hoành để tìm dấu, không dùng việc đường thẳng ấy đang đi lên để kết luận chiều biến thiên của $s$. [Nguồn đối chiếu: dạng bài đọc đồ thị đạo hàm trong Sách giáo khoa Toán 12, tập một, bài 1, trang 14, bài tập 1.6.]{.zo-source-note}
 
 :::: r1-figure
 ![Đối chiếu s(x)=x²−2x và s′(x)=2x−2. Trên (0;1), s′ tăng nhưng âm nên s giảm.](hinh/do_thi_04.svg){loading="lazy"}
@@ -826,7 +902,7 @@ Hình 04 — Hai nhãn khác nhau: s đang giảm trong khi s′ đang tăng và
 
 #### 6.3. Cùng bảng tóm tắt không có nghĩa cùng công thức {#cùng-bảng-tóm-tắt-không-có-nghĩa-cùng-công-thức}
 
-:::: r1-example
+:::: {.r1-example .zo-learning-example}
 **Cùng bảng tóm tắt.** Xét hai hàm số trong [Ví dụ 06:]{.r1-example-label}
 
 $$a(x)=x^3,\quad b(x)=2x^3.$$
@@ -834,7 +910,7 @@ $$a(x)=x^3,\quad b(x)=2x^3.$$
 Chúng có cùng tập xác định $\mathbb{R}$, cùng dấu đạo hàm dương ở hai phía của $0$, đạo hàm bằng $0$ tại $0$, cùng giá trị bằng $0$ tại đó và cùng các giới hạn ở hai đầu. Vì vậy chúng có cùng bảng biến thiên tóm tắt sau, với $F$ lần lượt là $a$ hoặc $b$:
 
 :::: table-scroll
-::: {.r1-bbt bbt="BBT03" caption="Bảng biến thiên"}
+::: {.r1-bbt bbt="BBT03" caption="Bảng biến thiên."}
 ZO BBT placeholder
 :::
 ::::
@@ -854,7 +930,7 @@ Hình 05 — Hai hàm khác nhau có cùng bảng biến thiên tóm tắt.
 
 #### 6.4. Vì sao không tự gộp các khoảng rời nhau? {#vì-sao-không-tự-gộp-các-khoảng-rời-nhau}
 
-:::: r1-example
+:::: {.r1-example .zo-learning-example}
 Xét [Ví dụ 07]{.r1-example-label} với tập xác định $D=\mathbb{R}\setminus\{0\}$:
 
 - $q(x)=x+2$ khi $x<0$;
@@ -885,7 +961,7 @@ Trong bài làm của gói này, cách kết luận chuẩn là: “$q$ đồng 
 | Đồ thị $f^\prime$ | Dấu của đạo hàm; chiều biến thiên của $f$ và xét cực trị khi đủ điều kiện | Coi tung độ của hình là giá trị $f(x)$ |
 :::
 
-:::: {#dừng-lại-6-d06 .r1-task}
+:::: {#dừng-lại-6-d06 .r1-task .zo-learning-task .zo-learning-task--pause}
 [**Câu hỏi tự kiểm tra 06**]{.r1-task-label}
 
 Cho $f$ có đạo hàm trên $\mathbb{R}$. Đồ thị $y=f^\prime(x)$ nằm dưới trục hoành khi $x<2$, đi qua $(2;0)$ và nằm trên trục hoành khi $x>2$.
@@ -893,14 +969,14 @@ Cho $f$ có đạo hàm trên $\mathbb{R}$. Đồ thị $y=f^\prime(x)$ nằm d�
 Hãy cho biết khoảng đơn điệu và vị trí cực trị của $f$. Có đủ dữ kiện để kết luận giá trị cực trị bằng $0$ không?
 
 ::: answer-link
-[Xem lời giải trong bài học](#loi-giai-1)
+[Xem lời giải](#lg-d06)
 :::
 ::::
 
 ### 7. Làm sao biết mình đã sửa được lỗi? {#làm-sao-biết-mình-đã-sửa-được-lỗi}
 
-:::: {#cach-thuc-hien-sua-duoc-loi .r1-details .r1-guidance}
-::: r1-summary
+:::: {#cach-thuc-hien-sua-duoc-loi .r1-details .r1-guidance .zo-learning-guidance}
+::: {.r1-summary .zo-learning-summary}
 Cách thực hiện
 :::
 
@@ -909,15 +985,19 @@ Cách thực hiện
 3.  Ghi rõ điều đã sửa và câu mới em đã tự làm vào nhật kí học tập.
 ::::
 
-#### Thử nghĩ trước {#thử-nghĩ-trước-6}
+:::: {#thử-nghĩ-trước-6 .r1-task .zo-learning-task .zo-learning-task--pause}
+[**Thử nghĩ trước**]{.r1-task-label}
 
 Em đã đọc lời giải và thấy hợp lí. Điều đó có chứng minh em sẽ không mắc lại lỗi khi câu hỏi đổi từ công thức sang bảng dấu không?
+::::
 
 Chưa. Đọc hiểu lời chữa và tự làm đúng một câu mới là hai bằng chứng khác nhau. Mục này hướng dẫn cách sửa lỗi đầy đủ, không chỉ đổi nhãn “sai” thành “đúng”.
 
 Mục 6 giúp em kiểm tra một kết luận có vượt quá dữ kiện hay không. Mục 7 dùng chính cách kiểm tra ấy để tách từng vế của một phát biểu, giữ phần đúng và sửa đúng chỗ sai.
 
 #### 7.1. Đánh giá từ đúng giả thiết {#phán-quyết-từ-đúng-giả-thiết}
+
+[**Đánh giá từng kết luận từ giả thiết đã cho.**]{.r1-unboxed-label}
 
 Với một cụm phát biểu dùng chung giả thiết, xét từng ý độc lập từ giả thiết đó. Không xem kết luận của ý trước là dữ kiện cho ý sau, nhất là khi ý trước chính là điều đang cần kiểm tra.
 
@@ -935,6 +1015,7 @@ Trước khi đánh giá, viết nháp ba dòng: tập xác định và khoảng
 
 #### 7.2. Ví dụ 08 — Giữ phần đúng khi sửa {#ví-dụ-v08-giữ-phần-đúng-khi-sửa}
 
+:::: {.zo-learning-example}
 Cho $f(x)=(x-1)^3+2$ trên $\mathbb{R}$. Xét phát biểu:
 
 > Hàm số $f$ đồng biến trên $\mathbb{R}$ và đạt cực đại tại $x=1$ vì $f^\prime(1)=0$.
@@ -948,13 +1029,11 @@ Cho $f(x)=(x-1)^3+2$ trên $\mathbb{R}$. Xét phát biểu:
 **Viết lại hoàn chỉnh:** “Hàm số $f$ đồng biến trên $\mathbb{R}$ và không đạt cực trị tại $x=1$; mặc dù $f^\prime(1)=0$, đạo hàm vẫn dương ở cả hai phía của $1$.”
 
 Lời chữa cần có lí do. Chỉ viết “không có cực trị” thì chưa cho thấy em đã thay đổi cách suy luận.
+::::
 
 #### 7.3. Bài tập khắc phục lỗi mẫu {#câu-sau-chữa-cg01}
 
-::: answer-link
-[Xem lời giải trong bài học](#loi-giai-1)
-:::
-
+:::: {.zo-learning-task .zo-learning-task--pause}
 Đổi dạng dữ kiện từ công thức hàm số sang công thức đạo hàm. Cho $g$ có đạo hàm trên $\mathbb{R}$ và
 
 $$g^\prime(x)=(x-2)^2(x+1).$$
@@ -973,7 +1052,14 @@ Chưa cho giá trị nào của $g$. Hãy tự làm bốn việc:
 
 Chỉ mở lời giải Bài tập khắc phục lỗi mẫu trong mục “Lời giải các câu hỏi và bài tập trong bài học” ở phần Lời giải cuối tài liệu sau khi đã tự viết. Câu này kiểm tra lại lỗi “điểm có đạo hàm bằng 0 là điểm cực trị”, đồng thời yêu cầu không tự thêm giá trị hàm số từ dữ kiện về đạo hàm. Nó không chỉ thay số trong Ví dụ 08.
 
+::: answer-link
+[Xem lời giải](#lg-cg01)
+:::
+::::
+
 #### 7.4. Một dòng ghi lỗi có ích {#một-dòng-ghi-lỗi-có-ích}
+
+[**Một dòng ghi lỗi có ích.**]{.r1-unboxed-label}
 
 Sau khi đối chiếu, ghi ngắn gọn theo mẫu:
 
@@ -1025,8 +1111,8 @@ Nếu chưa giải thích được một ý, quay lại ví dụ tương ứng t
 
 Dùng các số liệu trong hình có nhãn như dữ kiện chính xác; chỉ xét phần tập xác định được đề bài chỉ rõ. Không dùng kết luận của một câu như giả thiết của câu khác.
 
-:::: {#cach-thuc-hien-luyen-tap .r1-details .r1-guidance}
-::: r1-summary
+:::: {#cach-thuc-hien-luyen-tap .r1-details .r1-guidance .zo-learning-guidance}
+::: {.r1-summary .zo-learning-summary}
 Cách thực hiện
 :::
 
@@ -1036,11 +1122,7 @@ Cách thực hiện
 - Chỉ mở lời giải ở phần Lời giải và hướng dẫn chấm của bản đầy đủ.
 ::::
 
-### Bài luyện tập 01. Ghép công thức, bảng và đồ thị {#lt01}
-
-::: answer-link
-[Xem lời giải bài luyện tập 01](#loi-giai-2)
-:::
+### Bài luyện tập 01. Ghép công thức, bảng và đồ thị {#lt01 .zo-learning-task .zo-learning-task--item}
 
 Cho $f(x)=x^3-6x^2+9x-1$ trên $\mathbb{R}$.
 
@@ -1052,7 +1134,7 @@ Cho $f(x)=x^3-6x^2+9x-1$ trên $\mathbb{R}$.
 **Bảng I**
 
 :::: table-scroll
-::: {.r1-bbt bbt="BBT04" caption="Bảng biến thiên"}
+::: {.r1-bbt bbt="BBT04" caption="Bảng biến thiên."}
 ZO BBT placeholder
 :::
 ::::
@@ -1060,7 +1142,7 @@ ZO BBT placeholder
 **Bảng II**
 
 :::: table-scroll
-::: {.r1-bbt bbt="BBT05" caption="Bảng biến thiên"}
+::: {.r1-bbt bbt="BBT05" caption="Bảng biến thiên."}
 ZO BBT placeholder
 :::
 ::::
@@ -1073,11 +1155,11 @@ Bài luyện tập 01 — Hai hình để chọn; các điểm được ghi tọ
 :::
 ::::
 
-### Bài luyện tập 02. Có cần ngắt khoảng ở mọi điểm có đạo hàm bằng 0? {#lt02}
-
 ::: answer-link
-[Xem lời giải bài luyện tập 02](#loi-giai-3)
+[Xem lời giải](#loi-giai-2)
 :::
+
+### Bài luyện tập 02. Có cần ngắt khoảng ở mọi điểm có đạo hàm bằng 0? {#lt02 .zo-learning-task .zo-learning-task--item}
 
 Cho $g$ có đạo hàm trên $\mathbb{R}$ và $g^\prime(x)=-(x+1)^2$.
 
@@ -1085,11 +1167,11 @@ Một bạn kết luận: “$g$ nghịch biến trên $(-\infty;-1)$ và $(-1;+
 
 Hãy giữ phần đúng, sửa phần sai và giải thích tại sao có thể hoặc không thể gộp kết luận đơn điệu qua $-1$.
 
-### Bài luyện tập 03. Đọc đồ thị đạo hàm {#lt03}
-
 ::: answer-link
-[Xem lời giải bài luyện tập 03](#loi-giai-4)
+[Xem lời giải](#loi-giai-3)
 :::
+
+### Bài luyện tập 03. Đọc đồ thị đạo hàm {#lt03 .zo-learning-task .zo-learning-task--item}
 
 Cho $h$ có đạo hàm trên $\mathbb{R}$. Hình sau biểu diễn $y=h^\prime(x)$; các nghiệm duy nhất của đạo hàm là $-2$ và $1$. Ngoài khung hình, đạo hàm tiếp tục âm khi $x<-2$ và dương khi $x>1$. Biết thêm $h(-2)=4$.
 
@@ -1106,11 +1188,11 @@ Bài luyện tập 03 — Đồ thị của đạo hàm, không phải đồ th�
 3.  Xác định tọa độ điểm cực trị của đồ thị $h$ mà dữ kiện cho phép biết.
 4.  Một bạn đọc điểm $(1;0)$ trên hình và ghi $h(1)=0$. Cách đọc đó đúng không?
 
-### Bài luyện tập 04. Một góc và một điểm bị bỏ {#lt04}
-
 ::: answer-link
-[Xem lời giải bài luyện tập 04](#loi-giai-5)
+[Xem lời giải](#loi-giai-4)
 :::
+
+### Bài luyện tập 04. Một góc và một điểm bị bỏ {#lt04 .zo-learning-task .zo-learning-task--item}
 
 Xét $u(x)=\lvert x+1\rvert-2$ trên $\mathbb{R}$. Xét thêm $v$ có cùng công thức nhưng chỉ xác định trên $\mathbb{R}\setminus\{-1\}$.
 
@@ -1118,16 +1200,16 @@ Xét $u(x)=\lvert x+1\rvert-2$ trên $\mathbb{R}$. Xét thêm $v$ có cùng côn
 2.  $-1$ có phải điểm cực trị của $v$ không?
 3.  Phác hai đồ thị, ghi rõ điểm kín hoặc điểm hở tại vị trí $(-1;-2)$; giải thích khác biệt ở hàng hàm số trong hai bảng biến thiên.
 
-### Bài luyện tập 05. Đọc bảng không có hàng đạo hàm {#lt05}
-
 ::: answer-link
-[Xem lời giải bài luyện tập 05](#loi-giai-6)
+[Xem lời giải](#loi-giai-5)
 :::
+
+### Bài luyện tập 05. Đọc bảng không có hàng đạo hàm {#lt05 .zo-learning-task .zo-learning-task--item}
 
 Cho $r$ liên tục trên $[-3;4]$, có bảng biến thiên sau. Không có giả thiết về đạo hàm.
 
 :::: table-scroll
-::: {.r1-bbt bbt="BBT06" caption="Bảng biến thiên"}
+::: {.r1-bbt bbt="BBT06" caption="Bảng biến thiên."}
 ZO BBT placeholder
 :::
 ::::
@@ -1137,11 +1219,11 @@ ZO BBT placeholder
 3.  Có được tự điền $r^\prime(x)>0$ với mọi $x\in(0;2)$ không? Nếu biết thêm $r$ có đạo hàm trên $(0;2)$ thì kết luận được gì về dấu đạo hàm?
 4.  Bảng có xác định duy nhất công thức $r$ không? Nêu lí do.
 
-### Bài luyện tập 06. Hai nhánh cùng đi lên {#lt06}
-
 ::: answer-link
-[Xem lời giải bài luyện tập 06](#loi-giai-7)
+[Xem lời giải](#loi-giai-6)
 :::
+
+### Bài luyện tập 06. Hai nhánh cùng đi lên {#lt06 .zo-learning-task .zo-learning-task--item}
 
 Cho $q$ xác định trên $D=\mathbb{R}\setminus\{1\}$ bởi $q(x)=x+3$ khi $x<1$ và $q(x)=x-3$ khi $x>1$.
 
@@ -1149,11 +1231,11 @@ Cho $q$ xác định trên $D=\mathbb{R}\setminus\{1\}$ bởi $q(x)=x+3$ khi $x<
 2.  Kiểm tra phát biểu “$q$ đồng biến trên toàn $D$” theo yêu cầu so sánh mọi cặp điểm thuộc $D$. Dùng một cặp điểm cụ thể nếu cần bác bỏ.
 3.  Điểm $1$ có thể là điểm cực trị của $q$ không? Giải thích.
 
-### Bài luyện tập 07. Đúng/sai với cùng một giả thiết {#lt07}
-
 ::: answer-link
-[Xem lời giải bài luyện tập 07](#loi-giai-8)
+[Xem lời giải](#loi-giai-7)
 :::
+
+### Bài luyện tập 07. Đúng/sai với cùng một giả thiết {#lt07 .zo-learning-task .zo-learning-task--item}
 
 Cho $t(x)=(x+2)^3-1$ trên $\mathbb{R}$. Xét từng ý độc lập; “hoặc” có nghĩa ít nhất một vế đúng.
 
@@ -1167,16 +1249,16 @@ d.  $t$ có cực trị tại $-2$ hoặc $t^\prime(-2)<0$.
 
 Với mỗi ý, ghi đúng/sai và lí do. Với ý sai, viết lại cả câu thành một phát biểu đúng, giữ những vế vốn đúng.
 
-### Bài luyện tập 08. Sửa một lời giải rồi làm câu mới {#lt08}
-
 ::: answer-link
-[Xem lời giải bài luyện tập 08](#loi-giai-9)
+[Xem lời giải](#loi-giai-8)
 :::
+
+### Bài luyện tập 08. Sửa một lời giải rồi làm câu mới {#lt08 .zo-learning-task .zo-learning-task--item}
 
 Cho $r$ liên tục trên $\mathbb{R}$, có đạo hàm trên $\mathbb{R}$ và bảng dấu sau; biết $r(-3)=5$, $r(1)=-2$.
 
 :::: table-scroll
-::: {.r1-bbt bbt="BBT07" caption="Bảng dấu đạo hàm"}
+::: {.r1-bbt bbt="BBT07" caption="Bảng dấu đạo hàm."}
 ZO BBT placeholder
 :::
 ::::
@@ -1187,10 +1269,14 @@ Lời giải của một bạn:
 
 Chỉ ra từng lỗi, viết lại kết luận đúng và phân biệt ba đối tượng ở cực trị thực sự. Sau khi chữa, tự làm Bài tập khắc phục lỗi 02 trong phần Sửa lỗi; không xem trước lời giải Bài tập khắc phục lỗi 02.
 
+::: answer-link
+[Xem lời giải](#loi-giai-9)
+:::
+
 ## Kiểm tra {#tu-kiem-tra}
 
-:::: {#cach-thuc-hien-kiem-tra .r1-details .r1-guidance}
-::: r1-summary
+:::: {#cach-thuc-hien-kiem-tra .r1-details .r1-guidance .zo-learning-guidance}
+::: {.r1-summary .zo-learning-summary}
 Cách thực hiện
 :::
 
@@ -1201,11 +1287,7 @@ Làm năm bài trên giấy, ghi cả lập luận và điều kiện áp dụng
 Thang điểm này phục vụ tự đánh giá trong học liệu ZO Math.
 ::::
 
-### Bài kiểm tra 01. Dựng chuỗi biểu diễn — 5 điểm {#kt01}
-
-::: answer-link
-[Xem lời giải bài kiểm tra 01](#loi-giai-10)
-:::
+### Bài kiểm tra 01. Dựng chuỗi biểu diễn — 5 điểm {#kt01 .zo-learning-task .zo-learning-task--item}
 
 Cho $f(x)=-x^3+3x^2+9x-4$ trên $\mathbb{R}$.
 
@@ -1219,11 +1301,11 @@ d.  Lập bảng biến thiên có giá trị ở các mốc và giới hạn �
 
 e.  Viết rõ điểm cực đại, giá trị cực đại, điểm cực tiểu và giá trị cực tiểu của hàm số.
 
-### Bài kiểm tra 02. Đọc một biểu diễn mới — 4 điểm {#kt02}
-
 ::: answer-link
-[Xem lời giải bài kiểm tra 02](#loi-giai-11)
+[Xem lời giải](#loi-giai-10)
 :::
+
+### Bài kiểm tra 02. Đọc một biểu diễn mới — 4 điểm {#kt02 .zo-learning-task .zo-learning-task--item}
 
 Cho $k$ có đạo hàm trên khoảng $K=(-4;3)$. Hình sau biểu diễn $y=k^\prime(x)$ trên $K$. Các giao điểm có nhãn là chính xác; đây là toàn bộ các nghiệm của đạo hàm trong $K$.
 
@@ -1243,18 +1325,18 @@ c.  $2$ có phải điểm cực trị không? Nêu lí do.
 
 d.  Chỉ từ hình này, có biết được các giá trị cực trị của $k$ không? Giải thích bằng lượng dữ kiện đã cho.
 
-### Bài kiểm tra 03. Kiểm từng phát biểu — 4 điểm {#kt03}
-
 ::: answer-link
-[Xem lời giải bài kiểm tra 03](#loi-giai-12)
+[Xem lời giải](#loi-giai-11)
 :::
+
+### Bài kiểm tra 03. Kiểm từng phát biểu — 4 điểm {#kt03 .zo-learning-task .zo-learning-task--item}
 
 Cho $r$ liên tục trên $[-4;5]$ và có bảng biến thiên dưới đây; không có thêm giả thiết về đạo hàm. Xét mỗi ý độc lập từ giả thiết chung.
 
 Với các ý nói về điều “có thể khẳng định từ giả thiết”, đánh giá tính có căn cứ của kết luận. Việc chưa đủ dữ kiện để khẳng định một tính chất không có nghĩa tính chất ấy chắc chắn không xảy ra.
 
 :::: table-scroll
-::: {.r1-bbt bbt="BBT08" caption="Bảng biến thiên"}
+::: {.r1-bbt bbt="BBT08" caption="Bảng biến thiên."}
 ZO BBT placeholder
 :::
 ::::
@@ -1269,11 +1351,11 @@ d.  Bảng xác định duy nhất công thức của $r$.
 
 Ghi đúng/sai và lí do cho từng ý; chỉ chọn nhãn không được trọn điểm.
 
-### Bài kiểm tra 04. Tập xác định và điểm không có đạo hàm — 4 điểm {#kt04}
-
 ::: answer-link
-[Xem lời giải bài kiểm tra 04](#loi-giai-13)
+[Xem lời giải](#loi-giai-12)
 :::
+
+### Bài kiểm tra 04. Tập xác định và điểm không có đạo hàm — 4 điểm {#kt04 .zo-learning-task .zo-learning-task--item}
 
 Cho $u(x)=\lvert x-3\rvert+2$ trên $\mathbb{R}$ và $v$ có cùng công thức trên $\mathbb{R}\setminus\{3\}$.
 
@@ -1285,11 +1367,11 @@ c.  Một hàm khác $w$ có tập xác định $\mathbb{R}\setminus\{0\}$, vớ
 
 d.  Sửa toàn bộ câu “$u^\prime(3)$ không tồn tại và $u$ không có cực trị tại $3$”, giữ vế đúng.
 
-### Bài kiểm tra 05. Một kết luận đã đủ căn cứ chưa? — 3 điểm {#kt05}
-
 ::: answer-link
-[Xem lời giải bài kiểm tra 05](#loi-giai-14)
+[Xem lời giải](#loi-giai-13)
 :::
+
+### Bài kiểm tra 05. Một kết luận đã đủ căn cứ chưa? — 3 điểm {#kt05 .zo-learning-task .zo-learning-task--item}
 
 Cho $F$ xác định trên $(-1;1)$ và có đạo hàm trên $(-1;0)$, $(0;1)$. Biết $F^\prime(x)>0$ ở khoảng bên trái và $F^\prime(x)<0$ ở khoảng bên phải. Đề không cho giá trị $F(0)$ hoặc tính liên tục tại $0$.
 
@@ -1301,10 +1383,14 @@ b.  **Nếu bổ sung giả thiết $F$ liên tục tại $0$**, hãy phát bi�
 
 Ở ý a, chỉ dùng dữ kiện ban đầu. Ở ý b, tính liên tục tại $0$ là giả thiết được bổ sung công khai cho một tình huống mới.
 
+::: answer-link
+[Xem lời giải](#loi-giai-14)
+:::
+
 ### Sau khi hoàn thành bài kiểm tra {#sau-khi-nộp-bài-cho-chính-mình}
 
-:::: {#cach-thuc-hien-sau-kiem-tra .r1-details .r1-guidance}
-::: r1-summary
+:::: {#cach-thuc-hien-sau-kiem-tra .r1-details .r1-guidance .zo-learning-guidance}
+::: {.r1-summary .zo-learning-summary}
 Cách thực hiện
 :::
 
@@ -1315,8 +1401,8 @@ Cách thực hiện
 
 ## Sửa lỗi {#sua-loi}
 
-:::: {#cach-thuc-hien-sua-loi .r1-details .r1-guidance}
-::: r1-summary
+:::: {#cach-thuc-hien-sua-loi .r1-details .r1-guidance .zo-learning-guidance}
+::: {.r1-summary .zo-learning-summary}
 Cách thực hiện
 :::
 
@@ -1346,90 +1432,90 @@ Nếu một bài mắc nhiều lỗi, làm các bài tập khắc phục lỗi t
 | Thiếu kiểm tra liên tục khi dùng định lí | Mục 4.1, ghi rõ lỗi này bằng chữ | Bài tập khắc phục lỗi 03; thêm Bài tập khắc phục lỗi 07 nếu còn tự gán giá trị |
 :::
 
-### Bài tập khắc phục lỗi 01. Mốc bị loại khỏi tập xác định {#sc01}
-
-::: answer-link
-[Xem lời giải bài tập khắc phục lỗi 01](#loi-giai-15)
-:::
+### Bài tập khắc phục lỗi 01. Mốc bị loại khỏi tập xác định {#sc01 .zo-learning-task .zo-learning-task--item}
 
 Cho $a(x)=(x-2)^2$ với tập xác định $D=\mathbb{R}\setminus\{2\}$. Xét dấu đạo hàm trên từng khoảng của tập xác định. Sửa câu “đạo hàm đổi từ âm sang dương qua $2$, nên hàm số có cực tiểu tại $2$”. Hình đồ thị cần có điểm kín hay điểm hở ở $(2;0)$?
 
-### Bài tập khắc phục lỗi 02. Điểm có đạo hàm bằng 0 có quyết định cực trị? {#sc02}
-
 ::: answer-link
-[Xem lời giải bài tập khắc phục lỗi 02](#loi-giai-15)
+[Xem lời giải](#lg-sc01)
 :::
+
+### Bài tập khắc phục lỗi 02. Điểm có đạo hàm bằng 0 có quyết định cực trị? {#sc02 .zo-learning-task .zo-learning-task--item}
 
 Cho $b$ có đạo hàm trên $\mathbb{R}$ và $b^\prime(x)=-(x-1)^4$. Hãy kết luận đơn điệu trên $\mathbb{R}$, xét cực trị tại $1$ và giải thích vì sao điểm có đạo hàm bằng 0 không đủ để kết luận cực trị.
 
-### Bài tập khắc phục lỗi 03. Hai công thức nối tại một điểm {#sc03}
-
 ::: answer-link
-[Xem lời giải bài tập khắc phục lỗi 03](#loi-giai-15)
+[Xem lời giải](#lg-sc02)
 :::
+
+### Bài tập khắc phục lỗi 03. Hai công thức nối tại một điểm {#sc03 .zo-learning-task .zo-learning-task--item}
 
 Cho $c(x)=x^2$ khi $x\leq 0$ và $c(x)=x$ khi $x>0$.
 
 Kiểm tra tính liên tục tại $0$, sự tồn tại của $c^\prime(0)$ và cực trị tại $0$. Nêu rõ điều kiện nào đã cho phép dùng dấu đạo hàm ở hai phía. Có thể kiểm tra thêm bằng định nghĩa cực trị.
 
-### Bài tập khắc phục lỗi 04. Đọc đúng ba đối tượng {#sc04}
-
 ::: answer-link
-[Xem lời giải bài tập khắc phục lỗi 04](#loi-giai-15)
+[Xem lời giải](#lg-sc03)
 :::
+
+### Bài tập khắc phục lỗi 04. Đọc đúng ba đối tượng {#sc04 .zo-learning-task .zo-learning-task--item}
 
 Cho $d$ liên tục trên $[-4;3]$ với bảng biến thiên:
 
 :::: table-scroll
-::: {.r1-bbt bbt="BBT09" caption="Bảng biến thiên"}
+::: {.r1-bbt bbt="BBT09" caption="Bảng biến thiên."}
 ZO BBT placeholder
 :::
 ::::
 
 Viết điểm cực đại của hàm số, giá trị cực đại, điểm cực đại của đồ thị và ba đối tượng tương ứng ở cực tiểu. Không phân loại các đầu mút bằng định nghĩa hai phía.
 
-### Bài tập khắc phục lỗi 05. Hợp các khoảng có phải lúc nào cũng sai? {#sc05}
-
 ::: answer-link
-[Xem lời giải bài tập khắc phục lỗi 05](#loi-giai-15)
+[Xem lời giải](#lg-sc04)
 :::
+
+### Bài tập khắc phục lỗi 05. Hợp các khoảng có phải lúc nào cũng sai? {#sc05 .zo-learning-task .zo-learning-task--item}
 
 Cho $e(x)=x$ khi $x<0$ và $e(x)=x+1$ khi $x>0$, với $D=\mathbb{R}\setminus\{0\}$.
 
 Hàm số đồng biến trên từng khoảng của tập xác định. Nếu xét yêu cầu so sánh $e(x_1)<e(x_2)$ với mọi $x_1<x_2$ thuộc cả tập $D$, yêu cầu ấy có được thỏa mãn không? Chứng minh cho các cặp cùng một khoảng và các cặp thuộc hai phần khác nhau. Không chỉ thử một cặp số.
 
-### Bài tập khắc phục lỗi 06. Đọc ngược từ đồng biến {#sc06}
-
 ::: answer-link
-[Xem lời giải bài tập khắc phục lỗi 06](#loi-giai-15)
+[Xem lời giải](#lg-sc05)
 :::
+
+### Bài tập khắc phục lỗi 06. Đọc ngược từ đồng biến {#sc06 .zo-learning-task .zo-learning-task--item}
 
 Một hàm $f$ đồng biến và có đạo hàm trên $(-2;2)$. Dữ kiện bổ sung $f^\prime(0)=0$ có mâu thuẫn không? Nêu một hàm cụ thể chứng minh câu trả lời và phát biểu đúng về dấu $f^\prime$ trên khoảng.
 
-### Bài tập khắc phục lỗi 07. Hai hàm cùng đạo hàm {#sc07}
-
 ::: answer-link
-[Xem lời giải bài tập khắc phục lỗi 07](#loi-giai-15)
+[Xem lời giải](#lg-sc06)
 :::
+
+### Bài tập khắc phục lỗi 07. Hai hàm cùng đạo hàm {#sc07 .zo-learning-task .zo-learning-task--item}
 
 Đạo hàm của một hàm số trên $\mathbb{R}$ có công thức $r^\prime(x)=2x$. Hai ứng viên là $r_1(x)=x^2$ và $r_2(x)=x^2+7$.
 
 Ứng viên nào phù hợp với dữ kiện? Chúng có cùng điểm cực tiểu và cùng giá trị cực tiểu không? Dùng kết quả để giải thích vì sao chỉ đọc một đồ thị đạo hàm chưa biết giá trị của hàm số tại mốc cực trị.
 
-### Bài tập khắc phục lỗi 08. Đổi cách nối hai vế {#sc08}
-
 ::: answer-link
-[Xem lời giải bài tập khắc phục lỗi 08](#loi-giai-15)
+[Xem lời giải](#lg-sc07)
 :::
+
+### Bài tập khắc phục lỗi 08. Đổi cách nối hai vế {#sc08 .zo-learning-task .zo-learning-task--item}
 
 Cho $s(x)=x^3+6$ trên $\mathbb{R}$. Đặt A là phát biểu “$s^\prime(0)=0$”, B là phát biểu “$s$ đạt cực trị tại $0$”.
 
 Xét A, B, “A và B”, “A hoặc B”. Sau đó sửa câu “A và B” thành một câu đúng, giữ vế A. Mỗi đánh giá phải có lí do.
 
+::: answer-link
+[Xem lời giải](#lg-sc08)
+:::
+
 ## Ôn lại {#on-lai}
 
-:::: {#cach-thuc-hien-on-lai .r1-details .r1-guidance}
-::: r1-summary
+:::: {#cach-thuc-hien-on-lai .r1-details .r1-guidance .zo-learning-guidance}
+::: {.r1-summary .zo-learning-summary}
 Cách thực hiện
 :::
 
@@ -1460,8 +1546,8 @@ Nếu bài tập khắc phục lỗi còn sai, quay lại đúng phần nền v�
 
 ## Lời giải và hướng dẫn chấm {#loi-giai}
 
-:::: {#cach-thuc-hien-dung-loi-giai .r1-details .r1-guidance}
-::: r1-summary
+:::: {#cach-thuc-hien-dung-loi-giai .r1-details .r1-guidance .zo-learning-guidance}
+::: {.r1-summary .zo-learning-summary}
 Cách thực hiện
 :::
 
@@ -1470,8 +1556,8 @@ Chỉ mở lời giải của câu đã tự làm. Khi đối chiếu, kiểm tr
 Lời giải và thang chấm sau đây do ZO Math biên soạn.
 ::::
 
-:::::: {#loi-giai-1 .r1-details .r1-solution}
-::: r1-summary
+:::::: {#loi-giai-1 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
 Lời giải các câu hỏi và bài tập trong bài học
 :::
 
@@ -1479,6 +1565,7 @@ Chỉ đọc mục tương ứng sau khi đã thử. Đây là lời giải củ
 
 ### Lời giải câu hỏi khởi động {#b.1.-câu-thử-nền}
 
+:::: {#lg-khoi-dong .r1-solution-item}
 **Câu hỏi khởi động 01.** $D=\mathbb{R}\setminus\{2\}$. Không áp dụng định lí trên cả $(1;3)$ vì khoảng này chứa $2$, tại đó hàm số không xác định. Cần xét riêng những khoảng nằm trong tập xác định. Lỗi cần phát hiện: “bỏ sót tập xác định hoặc khoảng xét”.
 
 **Câu hỏi khởi động 02.** $s^\prime(x)=2x-2=2(x-1)$. Đạo hàm âm khi $x<1$, bằng $0$ khi $x=1$, dương khi $x>1$. Nếu tính sai, ôn lại đạo hàm đa thức; nếu xét dấu sai, kiểm tra dấu của $x-1$.
@@ -1487,26 +1574,68 @@ Chỉ đọc mục tương ứng sau khi đã thử. Đây là lời giải củ
 
 **Câu hỏi khởi động 04.** Dữ kiện nói $f^\prime(x)<0$ trên $K$, không nói $f(x)<0$. Từ đó có thể kết luận $f$ nghịch biến trên $K$. Lỗi cần phát hiện: “kết luận vượt quá dữ kiện”.
 
+::: answer-link
+[Xem đề bài](#bốn-câu-thử-nền-tn01-đến-tn04)
+:::
+::::
+
 ### Lời giải câu hỏi tự kiểm tra {#b.2.-các-điểm-dừng}
 
+:::: {#lg-d01 .r1-solution-item}
 **Câu hỏi tự kiểm tra 01.** Thứ nhất, hàm số chỉ được xét trên khoảng mở $(a;b)$ nên chưa chắc có các giá trị $f(a)$, $f(b)$. Thứ hai, ngay cả khi hai giá trị ấy tồn tại, một phép so sánh hai đầu mút vẫn không kiểm soát mọi cặp điểm trong khoảng. Chẳng hạn $f(x)=x^3-3x+1$ có $f(-2)=-1<3=f(2)$ nhưng lại nghịch biến trên $(-1;1)$; nó không đồng biến trên $(-2;2)$. Lỗi: “bỏ sót tập xác định hoặc khoảng xét”, “kết luận vượt quá dữ kiện”.
 
+::: answer-link
+[Xem đề bài](#dừng-lại-1-d01)
+:::
+::::
+
+:::: {#lg-d02 .r1-solution-item}
 **Câu hỏi tự kiểm tra 02.** Vì $h$ có đạo hàm trên $\mathbb{R}$, $h^\prime(x)>0$ khi $x\ne-2$ và chỉ bằng $0$ tại $-2$, nên $h$ đồng biến trên $\mathbb{R}$. Có thể giữ mốc $-2$ trong bảng dấu để kiểm tra, nhưng không bắt buộc tách kết luận đơn điệu ở mốc ấy. Điểm có đạo hàm bằng 0 không tự làm hàm số đổi chiều. Lỗi: “suy dấu đạo hàm nghiêm ngặt từ tính đơn điệu”.
 
+::: answer-link
+[Xem đề bài](#dừng-lại-2-d02)
+:::
+::::
+
+:::: {#lg-d03 .r1-solution-item}
 **Câu hỏi tự kiểm tra 03.** Không. Ta đã có $p^\prime(x)<0$ với mọi $x$ thuộc $(-1;1)$ nên $p$ nghịch biến trên cả khoảng. Một đoạn đi lên bên trong khoảng ấy mâu thuẫn với kết luận này. Hai điểm mốc đúng không bảo đảm toàn bộ đường biểu diễn đúng. Lỗi: “kết luận vượt quá dữ kiện”.
 
+::: answer-link
+[Xem đề bài](#dừng-lại-3-d03)
+:::
+::::
+
+:::: {#lg-d04 .r1-solution-item}
 **Câu hỏi tự kiểm tra 04.** Có. $w$ liên tục trên khoảng chứa $0$, có đạo hàm ở hai phía và đạo hàm đổi từ dương sang âm. Theo định lí, $w$ đạt cực đại tại $0$, giá trị cực đại là $5$. Không cần biết $w^\prime(0)$ để áp dụng định lí này. Lỗi: “coi không có đạo hàm là không có cực trị”.
 
+::: answer-link
+[Xem đề bài](#dừng-lại-4-d04)
+:::
+::::
+
+:::: {#lg-d05 .r1-solution-item}
 **Câu hỏi tự kiểm tra 05.** Hàm số $p$ có điểm cực tiểu $x=1$, giá trị cực tiểu $p(1)=-1$; điểm cực tiểu của đồ thị là $B(1;-1)$. Lỗi: “nhầm điểm, giá trị và tọa độ cực trị”.
 
+::: answer-link
+[Xem đề bài](#dừng-lại-5-d05)
+:::
+::::
+
+:::: {#lg-d06 .r1-solution-item}
 **Câu hỏi tự kiểm tra 06.** Vì $f$ có đạo hàm trên $\mathbb{R}$ nên liên tục tại $2$. Đạo hàm âm trên $(-\infty;2)$ và dương trên $(2;+\infty)$, do đó $f$ nghịch biến trên khoảng thứ nhất, đồng biến trên khoảng thứ hai và đạt cực tiểu tại $2$. Điểm $(2;0)$ nằm trên đồ thị đạo hàm nên cho $f^\prime(2)=0$, không cho $f(2)=0$. Chưa đủ dữ kiện xác định giá trị cực tiểu. Lỗi: “kết luận vượt quá dữ kiện”.
+
+::: answer-link
+[Xem đề bài](#dừng-lại-6-d06)
+:::
+::::
 
 ### Lời giải bài tập khắc phục lỗi mẫu {#b.3.-lời-giải-câu-sau-chữa-cg01}
 
+:::: {#lg-cg01 .r1-solution-item}
 Vì $g$ có đạo hàm trên $\mathbb{R}$, nó liên tục tại cả $-1$ và $2$. Khi $x\ne 2$, thừa số $(x-2)^2$ dương nên dấu của $g^\prime(x)$ là dấu của $x+1$.
 
 :::: table-scroll
-::: {.r1-bbt bbt="BBT10" caption="Bảng dấu đạo hàm"}
+::: {.r1-bbt bbt="BBT10" caption="Bảng dấu đạo hàm."}
 ZO BBT placeholder
 :::
 ::::
@@ -1520,10 +1649,15 @@ ZO BBT placeholder
 
 **Tự kiểm việc sửa lỗi:** chỉ coi lượt này đã xử lí được “coi đạo hàm bằng 0 là đủ để có cực trị” nếu em không chọn $2$ là điểm cực trị và có lí do bằng dấu hai phía. Nếu chỉ đoán đúng số điểm cực trị, vẫn cần viết lại lập luận. Việc không tự gán $g(-1)=0$ là bằng chứng bổ sung cho “kết luận vượt quá dữ kiện”.
 
+::: answer-link
+[Xem đề bài](#câu-sau-chữa-cg01)
+:::
+::::
+
 ::::::
 
-::::: {#loi-giai-2 .r1-details .r1-solution}
-::: r1-summary
+::::: {#loi-giai-2 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
 Bài luyện tập 01 — Lời giải và phản biện
 :::
 
@@ -1538,12 +1672,12 @@ Hàm số đạt cực đại tại $1$, giá trị cực đại $3$, điểm c�
 **Nếu sai:** “nhầm điểm, giá trị và tọa độ cực trị” dẫn đến Bài tập khắc phục lỗi 04; “kết luận vượt quá dữ kiện” dẫn đến Bài tập khắc phục lỗi 07. Nếu sai dấu, xét riêng hai thừa số rồi làm lại bước xét dấu ở ý 1, không dùng một hình trông quen để đoán.
 
 ::: answer-link
-[Trở lại đề bài](#lt01)
+[Xem đề bài](#lt01)
 :::
 :::::
 
-::::: {#loi-giai-3 .r1-details .r1-solution}
-::: r1-summary
+::::: {#loi-giai-3 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
 Bài luyện tập 02 — Lời giải và phản biện
 :::
 
@@ -1554,12 +1688,12 @@ Hai kết luận nghịch biến trên hai khoảng nhỏ vốn đúng nhưng ch
 Câu đã sửa: “$g$ nghịch biến trên $\mathbb{R}$; tại $-1$, đạo hàm bằng $0$ nhưng dấu vẫn âm ở hai phía nên $g$ không đạt cực trị.” **“coi đạo hàm bằng 0 là đủ để có cực trị”:** Bài tập khắc phục lỗi 02; **“suy dấu đạo hàm nghiêm ngặt từ tính đơn điệu”:** Bài tập khắc phục lỗi 06.
 
 ::: answer-link
-[Trở lại đề bài](#lt02)
+[Xem đề bài](#lt02)
 :::
 :::::
 
-::::: {#loi-giai-4 .r1-details .r1-solution}
-::: r1-summary
+::::: {#loi-giai-4 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
 Bài luyện tập 03 — Lời giải và phản biện
 :::
 
@@ -1570,12 +1704,12 @@ $h$ nghịch biến trên $(-\infty;-2)$ và đồng biến trên $(-2;+\infty)$
 Do $h(-2)=4$, điểm cực tiểu của đồ thị $h$ là $(-2;4)$. Điểm $(1;0)$ trên hình cho $h^\prime(1)=0$, không cho $h(1)=0$. Đây là lỗi “kết luận vượt quá dữ kiện”; làm Bài tập khắc phục lỗi 07. Nếu chọn thêm cực trị tại $1$, ghi “coi đạo hàm bằng 0 là đủ để có cực trị” và làm Bài tập khắc phục lỗi 02.
 
 ::: answer-link
-[Trở lại đề bài](#lt03)
+[Xem đề bài](#lt03)
 :::
 :::::
 
-::::::: {#loi-giai-5 .r1-details .r1-solution}
-::: r1-summary
+::::::: {#loi-giai-5 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
 Bài luyện tập 04 — Lời giải và phản biện
 :::
 
@@ -1596,12 +1730,12 @@ Vì $u$ liên tục và đạo hàm đổi từ âm sang dương, $u$ đạt c�
 **“bỏ sót tập xác định hoặc khoảng xét”:** Bài tập khắc phục lỗi 01; **“coi không có đạo hàm là không có cực trị”:** Bài tập khắc phục lỗi 03.
 
 ::: answer-link
-[Trở lại đề bài](#lt04)
+[Xem đề bài](#lt04)
 :::
 :::::::
 
-::::: {#loi-giai-6 .r1-details .r1-solution}
-::: r1-summary
+::::: {#loi-giai-6 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
 Bài luyện tập 05 — Lời giải và phản biện
 :::
 
@@ -1612,12 +1746,12 @@ Không được điền dấu đạo hàm nghiêm ngặt vì đề chưa cho có
 Bảng không xác định duy nhất công thức. Trên $[0;2]$, đường thẳng $r(x)=-2+\frac32x$ và đường cong vừa nêu đều tăng qua đúng hai giá trị đầu mút nhưng khác nhau bên trong. Giữ nguyên các phần khác sẽ được hai hàm khác nhau có cùng bảng. **“suy dấu đạo hàm nghiêm ngặt từ tính đơn điệu”:** Bài tập khắc phục lỗi 06; **“kết luận vượt quá dữ kiện”:** Bài tập khắc phục lỗi 07.
 
 ::: answer-link
-[Trở lại đề bài](#lt05)
+[Xem đề bài](#lt05)
 :::
 :::::
 
-::::: {#loi-giai-7 .r1-details .r1-solution}
-::: r1-summary
+::::: {#loi-giai-7 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
 Bài luyện tập 06 — Lời giải và phản biện
 :::
 
@@ -1628,12 +1762,12 @@ Tuy nhiên, $0<2$ nhưng $q(0)=3>-1=q(2)$. Do đó không thỏa yêu cầu đ�
 Không chữa thành quy tắc “hợp các khoảng luôn sai”; vấn đề là so sánh chéo chưa được kiểm tra. **“gộp các khoảng mà chưa kiểm tra”:** Bài tập khắc phục lỗi 05; **“bỏ sót tập xác định hoặc khoảng xét”:** Bài tập khắc phục lỗi 01.
 
 ::: answer-link
-[Trở lại đề bài](#lt06)
+[Xem đề bài](#lt06)
 :::
 :::::
 
-:::::: {#loi-giai-8 .r1-details .r1-solution}
-::: r1-summary
+:::::: {#loi-giai-8 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
 Bài luyện tập 07 — Lời giải và phản biện
 :::
 
@@ -1651,12 +1785,12 @@ $t^\prime(x)=3(x+2)^2$, dương trừ tại $-2$, nơi bằng $0$. Vì vậy $t$
 Ở d, không có vế đúng ban đầu cần giữ; câu sửa được chọn có cả hai vế đúng. Một vế sai chỉ đủ bác bỏ mệnh đề “và”; không đủ bác bỏ mệnh đề “hoặc”. **“sai logic hoặc làm mất vế đúng”:** Bài tập khắc phục lỗi 08; **“suy dấu đạo hàm nghiêm ngặt từ tính đơn điệu”:** Bài tập khắc phục lỗi 06.
 
 ::: answer-link
-[Trở lại đề bài](#lt07)
+[Xem đề bài](#lt07)
 :::
 ::::::
 
-::::: {#loi-giai-9 .r1-details .r1-solution}
-::: r1-summary
+::::: {#loi-giai-9 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
 Bài luyện tập 08 — Lời giải và phản biện
 :::
 
@@ -1669,12 +1803,12 @@ Kết luận đúng: hàm số có một điểm cực trị, đó là điểm c
 Sau khi viết lại, làm Bài tập khắc phục lỗi 02 khi chưa xem lời giải; nếu còn nhầm thuật ngữ, làm thêm Bài tập khắc phục lỗi 04.
 
 ::: answer-link
-[Trở lại đề bài](#lt08)
+[Xem đề bài](#lt08)
 :::
 :::::
 
-:::::::::: {#loi-giai-10 .r1-details .r1-solution}
-::: r1-summary
+:::::::::: {#loi-giai-10 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
 Bài kiểm tra 01 — Đáp án và cách chấm 5 điểm
 :::
 
@@ -1691,7 +1825,7 @@ Bài kiểm tra 01 — Đáp án và cách chấm 5 điểm
 Vì $f$ là đa thức nên các giả thiết liên tục và có đạo hàm được bảo đảm. Ta có $f(-1)=-9$, $f(3)=23$. Hệ số bậc ba âm cho giới hạn ở $-\infty$ là $+\infty$, ở $+\infty$ là $-\infty$.
 
 :::: table-scroll
-::: {.r1-bbt bbt="BBT11" caption="Bảng biến thiên"}
+::: {.r1-bbt bbt="BBT11" caption="Bảng biến thiên."}
 ZO BBT placeholder
 :::
 ::::
@@ -1707,12 +1841,12 @@ Bài kiểm tra 01 — Dáng điệu đồ thị để đối chiếu sau khi l�
 Hình học sinh không cần trùng tỉ lệ hình mẫu, nhưng phải có đúng thứ tự tăng giảm, đúng mốc, tung độ và sự nối liền. Không đòi giao điểm với trục hoành hoặc những tính chất ngoài câu hỏi.
 
 ::: answer-link
-[Trở lại đề bài](#kt01)
+[Xem đề bài](#kt01)
 :::
 ::::::::::
 
-::::: {#loi-giai-11 .r1-details .r1-solution}
-::: r1-summary
+::::: {#loi-giai-11 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
 Bài kiểm tra 02 — Đáp án và cách chấm 4 điểm
 :::
 
@@ -1727,12 +1861,12 @@ d.  Chưa biết các giá trị cực trị. Nếu $k$ phù hợp thì $k+C$ c�
 Chỉ xét $K=(-4;3)$; không suy diễn ra ngoài phần tập xác định đề đã cho. “coi đạo hàm bằng 0 là đủ để có cực trị” dẫn đến Bài tập khắc phục lỗi 02, “kết luận vượt quá dữ kiện” dẫn đến Bài tập khắc phục lỗi 07.
 
 ::: answer-link
-[Trở lại đề bài](#kt02)
+[Xem đề bài](#kt02)
 :::
 :::::
 
-:::::: {#loi-giai-12 .r1-details .r1-solution}
-::: r1-summary
+:::::: {#loi-giai-12 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
 Bài kiểm tra 03 — Đáp án và cách chấm 4 điểm
 :::
 
@@ -1752,12 +1886,12 @@ Một phản ví dụ cụ thể cho b: trên $[-1;2]$, dùng $r(x)=\frac{28}{27
 “nhầm điểm, giá trị và tọa độ cực trị” dẫn đến Bài tập khắc phục lỗi 04; “suy dấu đạo hàm nghiêm ngặt từ tính đơn điệu” dẫn đến Bài tập khắc phục lỗi 06; “kết luận vượt quá dữ kiện” dẫn đến Bài tập khắc phục lỗi 07; “sai logic hoặc làm mất vế đúng” dẫn đến Bài tập khắc phục lỗi 08.
 
 ::: answer-link
-[Trở lại đề bài](#kt03)
+[Xem đề bài](#kt03)
 :::
 ::::::
 
-::::: {#loi-giai-13 .r1-details .r1-solution}
-::: r1-summary
+::::: {#loi-giai-13 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
 Bài kiểm tra 04 — Đáp án và cách chấm 4 điểm
 :::
 
@@ -1770,12 +1904,12 @@ c.  $w^\prime(x)=1$ trên mỗi khoảng $(-\infty;0)$ và $(0;+\infty)$ nên h�
 d.  Câu sửa: “$u^\prime(3)$ không tồn tại và $u$ đạt cực tiểu tại $3$.” Giữ vế đầu đúng, sửa vế sau sai, dẫn lại lí do ở a. **1 điểm:** câu sửa 0,5; xác định vế đúng/sai và lí do 0,5.
 
 ::: answer-link
-[Trở lại đề bài](#kt04)
+[Xem đề bài](#kt04)
 :::
 :::::
 
-::::: {#loi-giai-14 .r1-details .r1-solution}
-::: r1-summary
+::::: {#loi-giai-14 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
 Bài kiểm tra 05 — Đáp án và cách chấm 3 điểm
 :::
 
@@ -1794,7 +1928,7 @@ Vì hàm đã có đạo hàm trên hai khoảng hai phía, nó liên tục tạ
 Quay lại Mục 4.1 và làm Bài tập khắc phục lỗi 03 để thực hành kiểm tra tính liên tục; làm Bài tập khắc phục lỗi 07 nếu còn tự gán giá trị hàm số.
 
 ::: answer-link
-[Trở lại đề bài](#kt05)
+[Xem đề bài](#kt05)
 :::
 :::::
 
@@ -1814,26 +1948,74 @@ Tổng điểm là số liệu tóm tắt, không thay thế việc xem lỗi. K
 
 “Đáp ứng trong lần làm này” là ghi nhận ở thời điểm làm bài, chưa phải kết luận duy trì kiến thức lâu dài. Nếu không mắc lỗi ở cụm kiểm tra, vẫn làm chu trình sửa lời giải sai đã cho ở Bài luyện tập 08 và Bài tập khắc phục lỗi 02 để có bằng chứng thực hành sửa lỗi; ghi đây là tình huống để thực hành phân tích lỗi.
 
-:::: {#loi-giai-15 .r1-details .r1-solution}
-::: r1-summary
+:::: {#loi-giai-15 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
 Bài tập khắc phục lỗi 01–08 — Lời giải bài tập khắc phục lỗi
 :::
 
+:::: {#lg-sc01 .r1-solution-item}
 **Bài tập khắc phục lỗi 01.** Tập xác định không chứa $2$. Đạo hàm $a^\prime(x)=2(x-2)$ âm trên $(-\infty;2)$, dương trên $(2;+\infty)$. Hàm giảm trên khoảng thứ nhất, tăng trên khoảng thứ hai, nhưng không có cực trị tại $2$ vì $a(2)$ không xác định. Hình phải có điểm hở tại $(2;0)$. Em đã sửa được lỗi trong bài này khi giữ đúng tập xác định và không dùng dấu hai nhánh để tạo một điểm thuộc hàm số.
 
+::: answer-link
+[Xem đề bài](#sc01)
+:::
+::::
+
+:::: {#lg-sc02 .r1-solution-item}
 **Bài tập khắc phục lỗi 02.** Đạo hàm âm trừ một điểm $1$, nơi bằng $0$. $b$ có đạo hàm trên $\mathbb{R}$ nên nghịch biến trên $\mathbb{R}$ theo chú ý hữu hạn điểm bằng $0$. Dấu âm ở hai phía và tính liên tục cho thấy không có cực trị tại $1$. Em đã sửa được lỗi trong bài này khi lí do dùng dấu hai phía, không đếm điểm có đạo hàm bằng 0.
 
+::: answer-link
+[Xem đề bài](#sc02)
+:::
+::::
+
+:::: {#lg-sc03 .r1-solution-item}
 **Bài tập khắc phục lỗi 03.** $c(0)=0$; giới hạn bên trái của $x^2$ và bên phải của $x$ đều bằng $0$, nên $c$ liên tục tại $0$. Thương sai phân bên trái bằng $h$ và tiến đến $0$, bên phải bằng $1$; đạo hàm tại $0$ không tồn tại. Bên trái, $c^\prime(x)=2x<0$; bên phải, $c^\prime(x)=1>0$. Do đó $c$ đạt cực tiểu tại $0$, giá trị $0$. Trực tiếp, $c(x)>0$ với mọi $x\ne0$. Em đã sửa được lỗi trong bài này khi kiểm tra liên tục riêng, không nhầm không có đạo hàm với không có cực trị.
 
+::: answer-link
+[Xem đề bài](#sc03)
+:::
+::::
+
+:::: {#lg-sc04 .r1-solution-item}
 **Bài tập khắc phục lỗi 04.** Cực đại: điểm của hàm số $-2$, giá trị $6$, điểm đồ thị $(-2;6)$. Cực tiểu: điểm của hàm số $1$, giá trị $-4$, điểm đồ thị $(1;-4)$. Em đã sửa được lỗi trong bài này khi cả ba loại đối tượng được gọi đúng.
 
+::: answer-link
+[Xem đề bài](#sc04)
+:::
+::::
+
+:::: {#lg-sc05 .r1-solution-item}
 **Bài tập khắc phục lỗi 05.** Có. Trên cùng một khoảng, $e(x_2)-e(x_1)=x_2-x_1>0$. Với cặp chéo $x_1<0<x_2$, ta có $e(x_1)=x_1<0$ và $e(x_2)=x_2+1>1$, nên $e(x_1)<e(x_2)$. Hai loại cặp bao quát mọi trường hợp. Đây là kiểm tra mở rộng yêu cầu so sánh ra cả tập $D$; $D$ vẫn không phải một khoảng. Em đã sửa được lỗi trong bài này khi chứng minh mọi cặp chéo, không chỉ thử một cặp.
 
+::: answer-link
+[Xem đề bài](#sc05)
+:::
+::::
+
+:::: {#lg-sc06 .r1-solution-item}
 **Bài tập khắc phục lỗi 06.** Không mâu thuẫn. Ví dụ $f(x)=x^5$ đồng biến trên $(-2;2)$, có đạo hàm $5x^4$ dương trừ tại $0$, nơi bằng $0$. Từ đồng biến và có đạo hàm chỉ suy ra $f^\prime(x)\geq0$ trên khoảng. Em đã sửa được lỗi trong bài này khi giữ đúng dấu không nghiêm ngặt và có phản ví dụ hợp lệ cho chiều đảo nghiêm ngặt.
 
+::: answer-link
+[Xem đề bài](#sc06)
+:::
+::::
+
+:::: {#lg-sc07 .r1-solution-item}
 **Bài tập khắc phục lỗi 07.** Cả hai ứng viên phù hợp vì đều có đạo hàm $2x$. Chúng cùng có điểm cực tiểu $0$, nhưng giá trị cực tiểu lần lượt là $0$ và $7$. Vì thế tung độ của đồ thị đạo hàm không phải tung độ của đồ thị hàm số. Em đã sửa được lỗi trong bài này khi tách vị trí cực trị khỏi giá trị cực trị.
 
+::: answer-link
+[Xem đề bài](#sc07)
+:::
+::::
+
+:::: {#lg-sc08 .r1-solution-item}
 **Bài tập khắc phục lỗi 08.** $s^\prime(x)=3x^2$, bằng $0$ tại $0$ và dương ở hai phía; $s$ không đạt cực trị tại $0$. A đúng, B sai; “A và B” sai, “A hoặc B” đúng. Câu sửa: “$s^\prime(0)=0$ và $s$ không đạt cực trị tại $0$.” Em đã sửa được lỗi trong bài này khi xử lí đúng cả hai phép nối và giữ vế A.
+
+::: answer-link
+[Xem đề bài](#sc08)
+:::
+::::
 ::::
 
 ## Nguồn đối chiếu {#nguon}

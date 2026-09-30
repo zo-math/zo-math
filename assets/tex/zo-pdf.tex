@@ -1,5 +1,6 @@
 \usepackage{fancyhdr}
 \usepackage{xcolor}
+\usepackage{colortbl}
 \usepackage{microtype}
 \usepackage{hyperref}
 \usepackage{hyperxmp}
@@ -13,6 +14,8 @@
 \definecolor{zomathgray}{HTML}{5F6368}
 \definecolor{zomathred}{HTML}{EF5350}
 \definecolor{zomathblocktext}{HTML}{25221F}
+\definecolor{zomathblockwhitebg}{HTML}{FFFFFF}
+\definecolor{zomathblockwhiteborder}{HTML}{D9DEE3}
 \definecolor{zomathblockredbg}{HTML}{FFF4F3}
 \definecolor{zomathblockredborder}{HTML}{F2B1AF}
 \definecolor{zomathblockyellowbg}{HTML}{FFF9E9}
@@ -45,6 +48,15 @@
   colback=zomathblockredbg,
   colframe=zomathblockredborder,
   colbacktitle=zomathblockredbg,
+  title={#1}
+}
+
+\newtcolorbox{zoBlockWhite}[1]{
+  zo block base,
+  colback=zomathblockwhitebg,
+  colframe=zomathblockwhiteborder,
+  colbacktitle=zomathblockwhitebg,
+  coltitle=zomathgray,
   title={#1}
 }
 

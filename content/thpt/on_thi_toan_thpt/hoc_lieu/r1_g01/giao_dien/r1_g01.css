@@ -75,7 +75,10 @@ body.r1-g01-page .r1-g01 section:target::before { display: none; }
 }
 .r1-g01 th { background: #ffffff; font-weight: 400; }
 .r1-g01 .r1-table-fit { overflow-x: visible; }
-.r1-g01 .r1-data-table { table-layout: fixed; }
+.r1-g01 .r1-data-table {
+  table-layout: fixed;
+  border: 1px solid var(--r1-border);
+}
 .r1-g01 .r1-table-scroll-x {
   max-width: 100%;
   overflow-x: auto;
@@ -87,6 +90,7 @@ body.r1-g01-page .r1-g01 section:target::before { display: none; }
 .r1-g01 .r1-table-scroll-x .r1-data-table { min-width: var(--r1-table-min-width); }
 .r1-g01 .r1-data-table th,
 .r1-g01 .r1-data-table td {
+  border: 1px solid var(--r1-border);
   overflow-wrap: normal;
   word-break: normal;
   hyphens: none;
@@ -113,8 +117,13 @@ body.r1-g01-page .r1-g01 section:target::before { display: none; }
 .r1-g01 .variation th:first-child { width: 90px; }
 .r1-g01 .variation caption { caption-side: top; text-align: left; font: inherit; }
 .r1-g01 .variation .excluded { font-size: 1.5em; }
-.r1-g01 .zo-variation-asset { background: transparent; padding: 0; }
+.r1-g01 figure.zo-variation-asset {
+  margin: .75rem 0 1rem;
+  padding: 0;
+  background: transparent;
+}
 .r1-g01 .zo-variation-image {
+  margin-inline: auto;
   clip-path: inset(var(--r1-bbt-clip) round var(--r1-bbt-radius));
 }
 .r1-g01 .zo-variation-asset[data-bbt="BBT01"] { --r1-bbt-clip: 6.7125% 3.2038% 6.7125% 4.5260%; --r1-bbt-radius: 3.3281% / 6.9730%; }
@@ -151,7 +160,7 @@ body.r1-g01-page .r1-g01 details.zo-block[open] > summary {
   cursor: pointer;
   list-style: none;
   margin-left: 0;
-  padding-right: 3rem;
+  padding: .4rem 3rem .4rem .85rem;
 }
 .r1-g01 details > summary::-webkit-details-marker { display: none; }
 .r1-g01 details.zo-block > summary::marker { content: ""; }
@@ -175,6 +184,8 @@ body.r1-g01-page .r1-g01 details.zo-block[open] > summary {
 .r1-g01 details > summary:hover::after,
 .r1-g01 details > summary:focus-visible::after { background-color: var(--r1-text); }
 .r1-g01 details.r1-guidance > summary { font-size: 1em; font-weight: 600; }
+.r1-g01 .r1-section-toc > summary,
+.r1-g01 details.zo-learning-guidance > summary { color: var(--r1-muted); }
 .r1-g01 .answer-link { font-size: .85em; }
 .r1-g01 a:not(.zo-pdf-download__link) {
   text-decoration-line: underline;
@@ -182,7 +193,12 @@ body.r1-g01-page .r1-g01 details.zo-block[open] > summary {
   text-underline-offset: .14em;
 }
 .r1-g01 figure { margin: 1.5rem 0; }
-.r1-g01 figure img { max-width: 100%; height: auto; }
+.r1-g01 figure img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
 .r1-g01 figcaption { color: var(--r1-muted); font-size: .9em; }
 
 .r1-g01 .r1-nav-slot { margin: 1.25rem 0 2rem; }
@@ -261,7 +277,7 @@ body.r1-g01-page .r1-tab[aria-selected="true"] {
   border-radius: .5rem;
   background: #ffffff;
 }
-.r1-g01 .r1-section-toc > summary { padding: .4rem 3rem .4rem .85rem; font-weight: 600; }
+.r1-g01 .r1-section-toc > summary { font-weight: 600; }
 .r1-g01 .r1-section-toc nav { padding: 0 .85rem .8rem; }
 .r1-g01 .r1-section-toc .lesson-toc { columns: 2; column-gap: 2rem; }
 .r1-g01 .lesson-toc .line-block { margin: 0; }
