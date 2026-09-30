@@ -53,6 +53,39 @@ local function meta_numbers(values)
   return result
 end
 
+local function replace_plain(text, needle, replacement)
+  local result, start = {}, 1
+  while true do
+    local first, last = text:find(needle, start, true)
+    if not first then
+      result[#result + 1] = text:sub(start)
+      return table.concat(result)
+    end
+    result[#result + 1] = text:sub(start, first - 1)
+    result[#result + 1] = replacement
+    start = last + 1
+  end
+end
+
+local function render_grid_table(tbl)
+  local output = pandoc.write(pandoc.Pandoc({tbl}), 'latex')
+  output = output:gsub('\r', '')
+  output = replace_plain(output, '@{}', '|')
+  output = output:gsub('(%}%s*)\n(%s*>%{)', '%1|\n%2')
+  output = replace_plain(output, '\\toprule\\noalign{}', '\\hline')
+  output = replace_plain(output, '\\midrule\\noalign{}', '')
+  output = replace_plain(output, '\\bottomrule\\noalign{}', '')
+  output = replace_plain(output, '\\\\\n', '\\\\ \\hline\n')
+  return pandoc.RawBlock('latex', table.concat({
+    '\\begingroup',
+    '\\arrayrulecolor[HTML]{D8D2CA}',
+    '\\renewcommand{\\arraystretch}{1.18}',
+    '\\setlength{\\tabcolsep}{4pt}',
+    output,
+    '\\endgroup'
+  }, '\n'))
+end
+
 local function table_in(div)
   for _, block in ipairs(div.content) do
     if block.t == 'Table' then return block end
@@ -157,7 +190,10 @@ function Div(div)
   end
   if html and div.classes:includes('r1-g01') then
     -- Expose headings to Pandoc's native TOC while retaining the HTML scope.
-    local blocks = pandoc.List({pandoc.RawBlock('html', '<div class="r1-g01">')})
+    local title = esc(div.attributes['r1-title'] or 'Kết nối hàm số, bảng biến thiên và đồ thị')
+    local code = esc(div.attributes['r1-code'] or 'R1-G01')
+    local blocks = pandoc.List({pandoc.RawBlock('html',
+      '<div class="zo-on-thi-package r1-g01" data-r1-code="'..code..'" data-r1-title="'..title..'">')})
     blocks:extend(div.content)
     blocks:insert(pandoc.RawBlock('html', '</div>'))
     return blocks
@@ -264,7 +300,8 @@ function Div(div)
         else body:insert(block) end
       end
       assert(title, 'Details without summary')
-      local color = 'zo-block-gray'
+      local color = div.classes:includes('zo-learning-guidance')
+        and 'zo-block-white' or 'zo-block-gray'
       local box = pandoc.Div({title, pandoc.Div(body, pandoc.Attr('', {'zo-block-body'}))},
         pandoc.Attr('', {'zo-block', color}))
       -- Keep the original target; the common PDF block adapter owns the box.
@@ -279,10 +316,22 @@ function Div(div)
     result[#result+1] = pandoc.RawBlock('html', '</figcaption>')
     return result
   end
+  if div.classes:includes('r1-figcaption') and latex then
+    local result = {pandoc.RawBlock('latex', '\\par\\smallskip{\\small\\color[HTML]{766F66}')}
+    for _, block in ipairs(div.content) do result[#result+1] = block end
+    result[#result+1] = pandoc.RawBlock('latex', '\\par}')
+    return result
+  end
   if div.classes:includes('r1-figure') and html then
     local result = {pandoc.RawBlock('html', '<figure>')}
     for _, block in ipairs(div.content) do result[#result+1] = block end
     result[#result+1] = pandoc.RawBlock('html', '</figure>')
+    return result
+  end
+  if div.classes:includes('r1-figure') and latex then
+    local result = {pandoc.RawBlock('latex', '\\begin{center}')}
+    for _, block in ipairs(div.content) do result[#result+1] = block end
+    result[#result+1] = pandoc.RawBlock('latex', '\\end{center}')
     return result
   end
   if configured_table then return div end
@@ -303,6 +352,10 @@ end
 -- The explicit outer figure owns the caption; suppress Pandoc's implicit one.
 function Figure(figure)
   return figure.content
+end
+
+function Table(tbl)
+  if latex then return render_grid_table(tbl) end
 end
 
 function Header(header)
@@ -328,7 +381,8 @@ function Blocks(blocks)
       result:insert(pandoc.RawBlock('latex', '\\Needspace{'..lines..'\\baselineskip}'))
     end
     if (block.t == 'Para' or block.t == 'Plain') and following and following.t == 'Div'
-      and following.classes:includes('answer-link') then
+      and following.classes:includes('answer-link')
+      and not pandoc.utils.stringify(following):match('^Xem đề bài') then
       -- A return link closes the preceding explanation. Start that final
       -- paragraph only where a useful part of it and the link can stay together.
       result:insert(pandoc.RawBlock('latex', '\\Needspace{8\\baselineskip}'))
@@ -345,7 +399,8 @@ function Blocks(blocks)
       result:insert(pandoc.RawBlock('latex', '\\Needspace{18\\baselineskip}'))
     end
     if block.t == 'Header' and following and following.t == 'Div'
-      and following.classes:includes('answer-link') then
+      and following.classes:includes('answer-link')
+      and not pandoc.utils.stringify(following):match('^Xem đề bài') then
       -- A link is not the beginning of the task: keep some actual question text
       -- with its heading as well, without grouping the entire exercise.
       result:insert(pandoc.RawBlock('latex', '\\Needspace{10\\baselineskip}'))
@@ -719,7 +774,7 @@ local function prepare(doc)
   if html then return nil end
   if latex then doc = build_lesson_toc(doc) end
   doc = apply_table_contract(doc)
-  assert_inventory(doc, {math=989, images=10, tables=17, bbt=13, details=31, answers=42}, 'source')
+  assert_inventory(doc, {math=989, images=10, tables=17, bbt=13, details=31, answers=58}, 'source')
   if latex then
     variant = pandoc.utils.stringify(doc.meta['zo-pdf-variant'] or 'full')
     local part_spec = section_specs_by_variant[variant]
@@ -772,7 +827,7 @@ local function prepare(doc)
       -- Approved R1-G01 editorial projection; the solution section removes 399 math / 4 ordinary tables.
       assert_inventory(doc, {math=590, images=8, tables=13, bbt=11, details=15, answers=0}, 'student')
     else
-      assert_inventory(doc, {math=989, images=10, tables=17, bbt=13, details=31, answers=42}, 'full')
+      assert_inventory(doc, {math=989, images=10, tables=17, bbt=13, details=31, answers=58}, 'full')
     end
     local identifiers = identifiers_in_blocks(doc.blocks)
     doc:walk({Link=function(link)
@@ -784,4 +839,4 @@ local function prepare(doc)
   return doc
 end
 
-return {{Pandoc=prepare}, {Div=Div, Image=Image, Figure=Figure, Header=Header, Blocks=Blocks}, {Pandoc=finish}}
+return {{Pandoc=prepare}, {Div=Div, Image=Image, Figure=Figure, Table=Table, Header=Header, Blocks=Blocks}, {Pandoc=finish}}

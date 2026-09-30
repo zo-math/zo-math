@@ -3,9 +3,9 @@
   const root = document.querySelector('.r1-g01');
   if (!root) return;
 
-  const TITLE = 'Kết nối hàm số, bảng biến thiên và đồ thị';
+  const TITLE = root.dataset.r1Title || 'Kết nối hàm số, bảng biến thiên và đồ thị';
   const VIEW_PARAM = 'r1-view';
-  const definitions = [
+  const baseDefinitions = [
     {view: 'cach-hoc', label: 'Cách học', ids: ['cách-học-với-tài-liệu-này', 'nguon']},
     {view: 'bai-hoc', label: 'Bài học', ids: ['bai-hoc']},
     {view: 'luyen-tap', label: 'Luyện tập', ids: ['phieu-luyen']},
@@ -16,11 +16,18 @@
     {view: 'tai-pdf', label: 'Tải PDF', ids: ['tai-tai-lieu']},
     {view: 'toan-van', label: 'Toàn văn', ids: []}
   ];
-  const contentOrder = [
+  const baseContentOrder = [
     'cách-học-với-tài-liệu-này', 'bai-hoc', 'phieu-luyen', 'tu-kiem-tra',
     'sua-loi', 'on-lai', 'loi-giai', 'đọc-kết-quả-tự-kiểm-tra', 'nguon',
     'tai-tai-lieu'
   ];
+  const contentOrder = baseContentOrder.filter(id =>
+    root.querySelector(`:scope > section#${CSS.escape(id)}`)
+  );
+  const contentIds = new Set(contentOrder);
+  const definitions = baseDefinitions
+    .map(item => ({...item, ids: item.ids.filter(id => contentIds.has(id))}))
+    .filter(item => item.view === 'toan-van' || item.ids.length > 0);
   const byView = new Map(definitions.map(item => [item.view, item]));
 
   const draft = document.getElementById('quarto-draft-alert');
@@ -71,7 +78,6 @@
     const sectionById = new Map();
     contentOrder.forEach(id => {
       const section = root.querySelector(`:scope > section#${CSS.escape(id)}`);
-      if (!section) throw new Error(`Missing canonical section #${id}`);
       sectionById.set(id, section);
     });
 
@@ -118,8 +124,9 @@
     const lessonPanel = sectionById.get('bai-hoc');
     const lessonToc = lessonPanel.querySelector(':scope > .lesson-toc');
     const lessonHeadings = [...lessonPanel.querySelectorAll(':scope > section.level3 > h3')];
-    if (!lessonToc || lessonHeadings.length !== 9) {
-      throw new Error('Lesson table of contents must contain 9 headings');
+    const expectedLessonCount = Number.parseInt(root.dataset.r1LessonCount || '9', 10);
+    if (!lessonToc || lessonHeadings.length !== expectedLessonCount) {
+      throw new Error(`Lesson table of contents must contain ${expectedLessonCount} headings`);
     }
     if (!lessonToc.querySelector('a')) {
       const lineBlock = document.createElement('div');
@@ -138,7 +145,7 @@
     const lessonDetails = document.createElement('details');
     lessonDetails.className = 'r1-section-toc';
     const lessonSummary = document.createElement('summary');
-    lessonSummary.textContent = 'Trong Bài học';
+    lessonSummary.textContent = 'Mục lục';
     const lessonNav = document.createElement('nav');
     lessonNav.setAttribute('aria-label', 'Mục lục bên trong Bài học');
     lessonToc.before(lessonDetails);
@@ -241,9 +248,11 @@
       root.classList.toggle('r1-full-view', showAll);
       // Only scroll the tab strip horizontally; scrollIntoView would also
       // scroll the document back to the slot before the target is revealed.
-      if (selectedTab.offsetLeft < tablist.scrollLeft) tablist.scrollLeft = selectedTab.offsetLeft;
-      else if (selectedTab.offsetLeft + selectedTab.offsetWidth > tablist.scrollLeft + tablist.clientWidth) {
-        tablist.scrollLeft = selectedTab.offsetLeft + selectedTab.offsetWidth - tablist.clientWidth;
+      const tabEdgePadding = 12;
+      if (selectedTab.offsetLeft - tabEdgePadding < tablist.scrollLeft) {
+        tablist.scrollLeft = Math.max(0, selectedTab.offsetLeft - tabEdgePadding);
+      } else if (selectedTab.offsetLeft + selectedTab.offsetWidth + tabEdgePadding > tablist.scrollLeft + tablist.clientWidth) {
+        tablist.scrollLeft = selectedTab.offsetLeft + selectedTab.offsetWidth + tabEdgePadding - tablist.clientWidth;
       }
       requestAnimationFrame(() => {
         updateAllTables();
@@ -374,7 +383,7 @@
       });
     document.querySelector('nav#TOC.toc-active')?.setAttribute('role', 'doc-toc');
     root.classList.add('r1-tabs-ready');
-    document.body.classList.add('r1-g01-nav-ready');
+    document.body.classList.add('r1-g01-nav-ready', 'r1-package-nav-ready');
     updateDock();
     applyLocation({scroll: Boolean(location.hash), focus: false});
     window.addEventListener('load', () => {

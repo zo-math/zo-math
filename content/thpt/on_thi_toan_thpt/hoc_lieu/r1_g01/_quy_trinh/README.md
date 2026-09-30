@@ -43,6 +43,14 @@ Một nguồn `index.qmd` sinh tám PDF qua cùng pipeline Quarto/LuaLaTeX:
   `index_sua_loi.pdf`, `index_on_lai.pdf`, `index_loi_giai.pdf`: sáu phép chiếu
   theo phần từ AST của chính `index.qmd`, không có QMD con và không sao chép bản thảo.
 
+Baseline PDF canonical của R1-G01 được chủ dự án nghiệm thu thị giác ngày
+2026-09-30 và chốt ở Pha 5C với ma trận số trang: `full` 41, `student` 31,
+`bai_hoc` 22, `luyen_tap` 7, `kiem_tra` 5, `sua_loi` 5, `on_lai` 3 và
+`loi_giai` 12. Checker phải so sánh toàn bộ ma trận này và metadata hai thẻ tải
+phải ghi đúng 31/41 trang; không nới thành điều kiện chỉ lớn hơn 0. Thay đổi nguồn
+thuộc fingerprint PDF phải dựng lại đủ biến thể bị `STALE` và đưa manifest
+provenance về `CURRENT`; không sửa receipt hoặc manifest bằng tay.
+
 Manifest `r1-section-download-files` trong metadata là nguồn duy nhất cho ranh giới
 ID, nhãn, tên tải và `r1-view`. Registry PDF chỉ khai output, branding và thuộc tính
 pipeline. Filter từ chối ranh giới thiếu/trùng/sai thứ tự; sau phép chiếu, hash còn

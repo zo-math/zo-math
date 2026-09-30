@@ -10,7 +10,7 @@ Kiến trúc đã được phê duyệt đặt chuyên mục tại `content/thpt
 
 ## Giới hạn tích hợp và đầu mối điều hành
 
-- Hai cửa ngõ và R1-G01 đã được duyệt vào ranh giới ứng viên phát hành; R1-G01 đã hoàn tất nội dung/kỹ thuật và có thể học, nhưng `publication: pending` và chưa xuất bản công khai.
+- Hai cửa ngõ, R1-G01 và R1-G02 đã được duyệt vào ranh giới ứng viên phát hành; hai gói đã hoàn tất nội dung, HTML và hệ PDF canonical, nhưng giữ `publication: pending` cho đến khi quy trình website hoàn tất.
 - Không xem mẫu hồ sơ thiết kế của chuyên mục là schema CLI. Ứng viên R1-G01 có cấu hình và hồ sơ riêng trong `_quy_trinh/`; phải đọc README tại đó trước khi làm việc.
 - Với khóa 2027, phải đọc `tot_nghiep_thpt/2027/_quy_trinh/README.md`: đây là đầu mối điều hành canonical duy nhất, ghi trạng thái chuyển đổi và việc tiếp theo. README cũ trong `_projects/on_thi_toan_thpt_2027` chỉ dùng để chuyển tiếp.
 - Tài liệu đã khóa và thành phẩm lịch sử chỉ được chuyển hoặc sửa trong phạm vi chủ dự án giao; không suy từ việc chuyển quản trị thành quyền chuyển đổi học liệu.

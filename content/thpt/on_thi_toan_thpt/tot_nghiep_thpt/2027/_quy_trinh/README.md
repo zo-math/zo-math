@@ -25,6 +25,7 @@ SHA-256 hiện hành của Kế hoạch 0.6: `1e5001e76e43d24e29894783548b95c562
 | Kế hoạch điều hành 0.6 | Điều hành | [Kế hoạch điều hành](dieu_hanh/ke_hoach_dieu_hanh.md) | đã nhập và đối chiếu | Bản canonical là 0.6; số phiên bản lưu trong tài liệu |
 | D0 v1.0 | Bộ tài sản khảo sát và định vị đầu vào | [Điểm vào canonical D0](goi/D0/README.md) | đã nhập và đối chiếu; chi tiết kiểm chứng bên dưới | Chủ dự án xác nhận D0 đã hoàn tất v1.0 |
 | R1-G01 | Hồ sơ, nguồn sản xuất và đầu ra ứng viên của gói | [Điểm vào canonical R1-G01](../../../hoc_lieu/r1_g01/_quy_trinh/README.md) | nội dung/kỹ thuật đã hoàn tất; tám PDF canonical | Ứng viên có thể học; `publication: pending`, chưa xuất bản công khai |
+| R1-G02 | Gói học liệu về giá trị lớn nhất và giá trị nhỏ nhất của hàm số | [Điểm vào canonical R1-G02](../../../hoc_lieu/r1_g02/_quy_trinh/README.md) | nội dung, HTML và tám PDF canonical đã nghiệm thu | `production: accepted`; `publication: pending` |
 
 [Hồ sơ R1-G01](../../../hoc_lieu/r1_g01/_quy_trinh/ho_so/index.yml) giữ định danh, phiên bản và trạng thái sản xuất/xuất bản hiện hành. README của gói giữ hợp đồng vận hành và lịch sử chuyển đổi cần thiết.
 
@@ -46,6 +47,7 @@ Trạng thái được quản lí theo gói. Bản ứng viên không được c
 | R1-G01 | v1.2 đã hoàn tất nội dung/kỹ thuật; ứng viên có thể học |
 | Học liệu R1-G01 | `publication: pending`; chưa công bố website và chưa kiểm tra HTTP live |
 | Studio R1-G01 | Chưa sản xuất Studio chính thức; media thử nghiệm không thay đổi trạng thái này |
+| R1-G02 | v0.1 đã hoàn tất nội dung, HTML và hệ PDF canonical; đang thực hiện quy trình xuất bản website |
 
 ## 4. Danh mục nguồn đang dùng
 
@@ -67,8 +69,8 @@ Ba tệp với SHA-256 trên là các bản tham chiếu hiện hành cho việc
 - Pha 2 đã hoàn tất chuyển quản trị khóa 2027 và nguyên bộ D0; kết quả chuyển và bằng chứng bảo toàn nguồn đã được chủ dự án duyệt.
 - README này là đầu mối điều hành canonical duy nhất. [README tại vị trí cũ](../../../../../../_projects/on_thi_toan_thpt_2027/README.md) chỉ là chỉ dẫn chuyển tiếp, không duy trì bảng trạng thái song song.
 - R1-G01 v1.2 đã hoàn tất nội dung/kỹ thuật trong `hoc_lieu/r1_g01/`; nhãn giao diện “Có thể học” không thay đổi `publication: pending`.
-- Chưa bắt đầu R1-G02; không tạo trước thư mục gói.
-- Việc tiếp theo: kiểm chứng ứng viên phát hành trong workspace cô lập; chỉ prepare hoặc publish theo chỉ thị riêng.
+- R1-G02 đã hoàn tất chuyển đổi tại `hoc_lieu/r1_g02/`; nguồn canonical là `index.qmd`, còn HTML và tám biến thể PDF là đầu ra đã nghiệm thu.
+- Việc tiếp theo: thực hiện quy trình xuất bản website theo chỉ thị hiện hành của chủ dự án; không bỏ qua các cổng `check`, `prepare` và xác minh source-sync.
 
 Trạng thái vận hành mới chỉ được ghi tại README này, không viết lại quyết định, nội dung toán học hoặc trạng thái sư phạm trong Kế hoạch 0.6 và D0. D0 giữ nguyên cấu trúc, hồ sơ, manifest, kiểm chứng và thành phẩm; không chuyển sang QMD và không tái sinh PDF trong pha này.
 

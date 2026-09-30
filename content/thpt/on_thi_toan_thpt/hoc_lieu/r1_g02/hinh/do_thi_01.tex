@@ -1,0 +1,47 @@
+% R1-G02 - do_thi_01.
+% Muc dich: doc phan do thi cua f tren K=[-1;2), phan biet diem kin va diem ho.
+% Bat bien: diem kin (-1;1), (0;0); diem ho (2;4); khong ve ngoai K.
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{backgrounds,arrows.meta}
+\input{zo_graph_v02.tex}
+
+\begin{document}
+\begin{tikzpicture}[zo graph v02 field]
+\zoGraphVTwoLayers
+\begin{axis}[
+  zo graph v02 axis,
+  xmin=-1.45,xmax=2.45,ymin=-0.55,ymax=4.75,
+  restrict y to domain=-0.55:4.75,
+  xtick={-1,1,2},ytick={1,2,3,4},
+  xlabel={$x$},ylabel={$y$},
+  every axis x label/.append style={at={(axis description cs:0.985,0.13)},anchor=south east},
+  every axis y label/.append style={at={(axis description cs:0.43,0.985)},anchor=north west}
+]
+  \node[zo graph v02 font sentinel] at (axis cs:0,0) {x};
+
+  \addplot[zo graph v02 auxiliary,domain=-1:0,samples=2,forget plot] {1};
+  \addplot[zo graph v02 auxiliary,domain=0:2,samples=2,forget plot] {4};
+  \addplot[zo graph v02 auxiliary] coordinates {(-1,0) (-1,1)};
+  \addplot[zo graph v02 auxiliary] coordinates {(2,0) (2,4)};
+
+  \addplot[zo graph v02 curve solid,domain=-1:2,samples=301,forget plot] {x^2};
+  \addplot[zo graph v02 point emphasized,forget plot] coordinates {(-1,1) (0,0)};
+  \addplot[zo graph v02 point open,forget plot] coordinates {(2,4)};
+
+  \begin{pgfonlayer}{zoGraphVTwoTextLayer}
+    \node[zo graph v02 protected label,anchor=south east]
+      at (axis cs:-1.06,1.15) {$(-1;1)$};
+    \node[zo graph v02 protected label,anchor=south west]
+      at (axis cs:2.06,4.10) {$(2;4)$, điểm hở};
+    \node[zo graph v02 protected label,anchor=east]
+      at (axis cs:1.72,3.32) {$y=f(x)$};
+    \node[zo graph v02 tick label,anchor=north east,xshift=-2pt,yshift=-2pt]
+      at (axis cs:0,0) {$O$};
+  \end{pgfonlayer}
+\end{axis}
+\end{tikzpicture}
+\end{document}
