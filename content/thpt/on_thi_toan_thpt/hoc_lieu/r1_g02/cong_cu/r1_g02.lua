@@ -251,7 +251,7 @@ function Div(div)
     if not html then return {} end
     return pandoc.RawBlock('html', [[
 <div class="r1-download-support" aria-labelledby="r1-support-title">
-  <img class="r1-brand-mark" src="hinh/dau_nhan_zo.svg" alt="" width="198" height="8">
+  <img class="r1-brand-mark" src="/assets/logo/zo_math_accent_mark.png" alt="" width="198" height="8">
   <h3 id="r1-support-title">Ủng hộ ZO Math</h3>
   <p>Nếu học liệu hữu ích với bạn, bạn có thể ủng hộ ZO Math tiếp tục biên soạn và chia sẻ.</p>
   <div class="r1-support-details">

@@ -38,7 +38,9 @@ const measure=()=>evaluate(`(() => {
     return {tag:element.tagName,id:element.id,classes:typeof element.className==='string'?element.className:'',text:(element.textContent||'').trim().slice(0,240),sectionId:section?.id||'',left:rect.left,right:rect.right,width:rect.width,overflowX:style.overflowX,hidden:style.display==='none'||style.visibility==='hidden'||rect.width===0,intentionalOverflow:!!intentionalOverflow};
   }).filter(item=>!item.hidden&&(item.left<-.5||item.right>viewport+.5)&&!item.intentionalOverflow).slice(0,20);
   const tableScrollers=[...document.querySelectorAll('.r1-table-scroll-x')].filter(element=>element.getBoundingClientRect().width>0).map(element=>({id:element.id,clientWidth:element.clientWidth,scrollWidth:element.scrollWidth,overflowX:getComputedStyle(element).overflowX}));
-  return {viewport,innerWidth,rootClientWidth:root.clientWidth,rootScrollWidth:root.scrollWidth,bodyClientWidth:body.clientWidth,bodyScrollWidth:body.scrollWidth,pageOverflow:Math.max(root.scrollWidth-root.clientWidth,body.scrollWidth-root.clientWidth),offenders,tableScrollers,components:{toc:componentStyles('details.r1-section-toc'),guidance:componentStyles('details.zo-learning-guidance'),solution:componentStyles('details.zo-learning-solution')}};
+  const visibleCount=selector=>[...document.querySelectorAll(selector)].filter(element=>element.getBoundingClientRect().width>0).length;
+  const supportImages=[...document.querySelectorAll('.r1-download-support img')];
+  return {viewport,innerWidth,rootClientWidth:root.clientWidth,rootScrollWidth:root.scrollWidth,bodyClientWidth:body.clientWidth,bodyScrollWidth:body.scrollWidth,pageOverflow:Math.max(root.scrollWidth-root.clientWidth,body.scrollWidth-root.clientWidth),offenders,tableScrollers,components:{toc:componentStyles('details.r1-section-toc'),guidance:componentStyles('details.zo-learning-guidance'),solution:componentStyles('details.zo-learning-solution')},downloads:{cards:visibleCount('.r1-download-card'),sectionItems:visibleCount('.r1-section-download-item'),support:visibleCount('.r1-download-support'),images:supportImages.length,imagesLoaded:supportImages.every(image=>image.complete&&image.naturalWidth>0)}};
 })()`);
 
 try {
@@ -70,12 +72,19 @@ try {
     check(`${width}: guidance uses the canonical white surface and muted title`,
       lessonComponents.guidance.length>0&&lessonComponents.guidance.every(item=>item.backgroundColor==='rgb(255, 255, 255)'&&item.summaryColor===tocColor&&item.summaryHeight>=44),
       {toc:lessonComponents.toc,guidance:lessonComponents.guidance});
+    const downloadComponents=views['tai-pdf'].downloads;
+    check(`${width}: PDF view renders every canonical download component`,
+      downloadComponents.cards===2&&downloadComponents.sectionItems===6&&downloadComponents.support===1&&downloadComponents.images===2&&downloadComponents.imagesLoaded,
+      downloadComponents);
     await evaluate(`document.getElementById('r1-tab-bai-hoc').click();scrollTo({top:0,behavior:'instant'})`);
     await sleep(250);
     await screenshot(`${width}_bai_hoc`);
     await evaluate(`(() => { const target=document.querySelector('details.zo-learning-guidance'); target.scrollIntoView({block:'center',behavior:'instant'}); })()`);
     await sleep(250);
     await screenshot(`${width}_guidance`);
+    await evaluate(`document.getElementById('r1-tab-tai-pdf').click();scrollTo({top:0,behavior:'instant'})`);
+    await sleep(250);
+    await screenshot(`${width}_tai_pdf`);
     await evaluate(`document.getElementById('r1-tab-loi-giai').click()`);
     await sleep(100);
     await evaluate(`(() => { const target=document.getElementById('loi-giai-kt04')||document.querySelector('details.zo-learning-solution'); if(!target)return; for(let details=target.matches('details')?target:target.closest('details');details;details=details.parentElement?.closest('details')) details.open=true; target.scrollIntoView({block:'center',behavior:'instant'}); })()`);
