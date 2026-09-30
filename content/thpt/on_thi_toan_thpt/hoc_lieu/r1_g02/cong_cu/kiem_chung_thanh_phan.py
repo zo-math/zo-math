@@ -105,6 +105,18 @@ def main() -> int:
         and "document.querySelector('.r1-g01')" not in baseline_script,
         "R1-G02 must consume the independent canonical package assets",
     )
+    require(
+        text.count("::: r1-downloads\n:::") == 1
+        and text.count("::: r1-section-downloads\n:::") == 1
+        and text.count("::: r1-download-support\n:::") == 1
+        and text.count("::: r1-footer\n") == 1,
+        "the R1-G02 PDF download view must retain all canonical render placeholders",
+    )
+    require(
+        'src="/assets/logo/zo_math_accent_mark.png"' in filter_text
+        and 'src="hinh/dau_nhan_zo.svg"' not in filter_text,
+        "the R1-G02 download support must use the published canonical accent asset",
+    )
 
     expected = {
         "guidance summaries": (r"^Cách thực hiện$", 12),
@@ -206,7 +218,8 @@ def main() -> int:
     require(
         "for(const width of [1440,430,390])" in mobile_checker
         and "state.pageOverflow<=1" in mobile_checker
-        and "guidance uses the canonical white surface and muted title" in mobile_checker,
+        and "guidance uses the canonical white surface and muted title" in mobile_checker
+        and "PDF view renders every canonical download component" in mobile_checker,
         "the responsive audit must check overflow and canonical guidance styling at desktop, 430 px and 390 px",
     )
     require(
@@ -425,7 +438,12 @@ def main() -> int:
         PDF_ACCENT.is_file()
         and "assets/logo/zo_math_accent_mark.png" in project_config
         and "Dau_nhan_ZO_Xem_truoc.png" not in project_config
-        and filter_text.count("zo_math_accent_mark.png") == 2,
+        and filter_text.count(
+            "\\includegraphics[width=46mm]{zo_math_accent_mark.png}"
+        ) == 1
+        and filter_text.count(
+            "\\includegraphics[width=38mm]{zo_math_accent_mark.png}"
+        ) == 1,
         "the PDF cover and ending must use the cropped canonical accent asset",
     )
     require(
