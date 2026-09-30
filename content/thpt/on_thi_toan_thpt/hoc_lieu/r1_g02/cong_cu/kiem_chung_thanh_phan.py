@@ -119,6 +119,42 @@ def main() -> int:
         "forward solution links": (r"\]\(#loi-giai", 30),
         "back links": (r"\[Xem đề bài\]\(#", 30),
     }
+
+    guidance_blocks = re.findall(
+        r"^:{4,} \{[^\n]*\.r1-guidance[^\n]*\}$", text, flags=re.MULTILINE
+    )
+    solution_blocks = re.findall(
+        r"^:{4,} \{[^\n]*\.r1-solution[^\n]*\}$", text, flags=re.MULTILINE
+    )
+    task_blocks = re.findall(
+        r"^:{3,} \{[^\n]*\.r1-task[^\n]*\}$", text, flags=re.MULTILINE
+    )
+    summary_blocks = re.findall(
+        r"^::: \{[^\n]*\.r1-summary[^\n]*\}$", text, flags=re.MULTILINE
+    )
+    require(
+        len(guidance_blocks) == 16
+        and sum(".zo-learning-guidance" in line for line in guidance_blocks) == 12
+        and sum(".zo-learning-hint" in line for line in guidance_blocks) == 4,
+        "all R1-G02 guidance and hint blocks must declare their canonical learning role",
+    )
+    require(
+        len(solution_blocks) == 30
+        and all(".zo-learning-solution" in line for line in solution_blocks),
+        "all R1-G02 solution disclosures must declare the canonical solution role",
+    )
+    require(
+        len(task_blocks) == 27
+        and all(".zo-learning-task" in line for line in task_blocks)
+        and sum(".zo-learning-task--pause" in line for line in task_blocks) == 6
+        and sum(".zo-learning-task--item" in line for line in task_blocks) == 21,
+        "all R1-G02 tasks must declare exactly one canonical task variant",
+    )
+    require(
+        len(summary_blocks) == 46
+        and all(".zo-learning-summary" in line for line in summary_blocks),
+        "all R1-G02 disclosure summaries must declare the canonical summary role",
+    )
     for label, (pattern, wanted) in expected.items():
         actual = count(pattern, text)
         require(actual == wanted, f"{label}: expected {wanted}, got {actual}")
@@ -168,9 +204,10 @@ def main() -> int:
         "the Lua ordinary-table inventory must contain exactly 10 entries",
     )
     require(
-        "for(const width of [430,390])" in mobile_checker
-        and "state.pageOverflow<=1" in mobile_checker,
-        "the mobile audit must check page-level overflow at 430 px and 390 px",
+        "for(const width of [1440,430,390])" in mobile_checker
+        and "state.pageOverflow<=1" in mobile_checker
+        and "guidance uses the canonical white surface and muted title" in mobile_checker,
+        "the responsive audit must check overflow and canonical guidance styling at desktop, 430 px and 390 px",
     )
     require(
         "document.querySelectorAll('.r1-table-scroll-x')" in mobile_checker
