@@ -1,0 +1,30 @@
+/* R1-G02 kế thừa khung gói canonical và lớp component học liệu dùng chung.
+   Tệp này chỉ giữ các ngoại lệ kỹ thuật thật sự riêng của gói. */
+
+.r1-g02 .r1-figure svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.r1-g02 .math,
+.r1-g02 math { font-family: "STIX Two Math", serif; }
+.r1-g02 math[display="inline"] {
+  display: inline-block;
+  line-height: 1;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+@media (min-width: 992px) {
+  body.zo-on-thi-package-page #title-block-header .title {
+    font-size: 2.35rem;
+  }
+}
+
+@media (max-width: 430px) {
+  .r1-g02 math[display="block"] {
+    max-width: 100%;
+    font-size: .92em;
+  }
+}
