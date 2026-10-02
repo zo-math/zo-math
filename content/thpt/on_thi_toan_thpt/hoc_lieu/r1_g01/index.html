@@ -2988,34 +2988,16 @@ Bài tập khắc phục lỗi 01–08 — Lời giải bài tập khắc phục
 
     const header = document.getElementById('quarto-header');
     const navbar = header?.querySelector('.navbar');
-    let docked = false;
     function updateDock() {
       if (!header || !navbar) return;
-      const slotRect = navSlot.getBoundingClientRect();
       const height = nav.getBoundingClientRect().height;
       const headerHeight = header.getBoundingClientRect().height;
       const menuOpen = Boolean(navbar.querySelector('.navbar-collapse.show, .navbar-collapse.collapsing'));
-      header.style.setProperty('--r1-nav-height', `${height}px`);
-      header.style.setProperty('--r1-nav-left', `${slotRect.left}px`);
-      header.style.setProperty('--r1-nav-width', `${slotRect.width}px`);
+      document.body.style.setProperty('--r1-nav-height', `${height}px`);
       document.body.style.setProperty('--r1-reader-offset', `${headerHeight + height + 16}px`);
       header.classList.toggle('r1-menu-open', menuOpen);
+      document.body.classList.toggle('r1-menu-open', menuOpen);
       nav.inert = menuOpen;
-      // Freeze docking during menu expansion; its changing body offset is not
-      // a reader scroll. The navigation stays below (and cannot cover) the menu.
-      const shouldDock = menuOpen ? docked : slotRect.top <= headerHeight;
-      navSlot.style.height = `${height}px`;
-      if (shouldDock !== docked) {
-        const focusedTab = nav.contains(document.activeElement) ? document.activeElement : null;
-        const stripScroll = tablist.scrollLeft;
-        docked = shouldDock;
-        header.classList.toggle('r1-nav-docked', docked);
-        (docked ? header : navSlot).append(nav);
-        tablist.scrollLeft = stripScroll;
-        // Reparenting a focused element clears document.activeElement. Restore
-        // that same control without letting the browser scroll the page.
-        focusedTab?.focus({preventScroll: true});
-      }
     }
 
     function defaultTarget(view) {
