@@ -1,0 +1,2357 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Khảo sát đầu vào – ZO Math</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../../">
+<link href="../../../../../images/favicon.ico" rel="icon">
+<script src="../../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../../site_libs/bootstrap/bootstrap-64f807840416e55af80c4fb7553251ed.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+  MathJax = {
+    loader: { load: ['[tex]/ams'] },
+    tex: {
+      packages: { '[+]': ['ams'] }
+    },
+    chtml: {
+      scale: 1.0
+    },
+    options: {
+      renderActions: { addMenu: [] }
+    }
+  };
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      const title = tooltipTriggerEl.getAttribute('title');
+      if (!title) return null;
+
+      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+      tooltipTriggerEl.setAttribute('title', '');
+
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        html: true,
+        trigger: 'hover focus',
+        boundary: 'viewport',
+        placement: 'auto'
+      });
+    }).filter(tooltip => tooltip !== null);
+
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+        // Tìm phần tử .tooltip
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+          // Kiểm tra xem có .tooltip-arrow không
+          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+          if (tooltipArrow) {
+            tooltipArrow.style.background = 'transparent';
+          } else {
+            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+            const tooltipInner = tooltip.querySelector('.tooltip-inner');
+            if (tooltipInner) {
+              // Thử làm trong suốt pseudo-elements của .tooltip
+              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+              // Thử làm trong suốt pseudo-elements của .tooltip-inner
+              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+            }
+          }
+        }
+
+        // Xử lý MathJax trong tooltip
+        const tooltipEl = document.querySelector('.tooltip-inner');
+        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+            console.log('MathJax rendered successfully in tooltip');
+            if (tooltipInstance) {
+              tooltipInstance.update();
+            }
+          }).catch(err => {
+            console.error('MathJax render error:', err);
+          });
+        } else {
+          console.error('MathJax is not loaded. Ensure MathJax script is included.');
+        }
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+<style>
+.zo-variation-asset {
+  margin: 0.75rem 0 1rem;
+  max-width: 100%;
+  text-align: left;
+}
+
+.zo-variation-caption {
+  margin: 0.4rem 0 0;
+  color: #766f66;
+  font-size: 0.9em;
+  font-weight: 400;
+}
+
+.zo-variation-image {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 15rem;
+  margin: 0;
+}
+
+@media (max-width: 430px) {
+  .zo-variation-image {
+    width: 100%;
+    max-height: none;
+  }
+}
+
+</style>
+
+
+<link rel="stylesheet" href="../../../../../assets/css/custom.css">
+<link rel="stylesheet" href="../../../../../assets/css/zo_on_thi_learning_package.css">
+<link rel="stylesheet" href="giao_dien/d0.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed zo-page-article zo-meta-hidden zo-on-thi-package-page d0-page fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../../../assets/logo/zo_math_logo_black_on_transprentt_1024.png" alt="ZO Math" class="navbar-logo light-content">
+    <img src="../../../../../assets/logo/zo_math_logo_black_on_transprentt_1024.png" alt="ZO Math" class="navbar-logo dark-content">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../index.html"> 
+<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-giới-thiệu" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Giới Thiệu</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-giới-thiệu">    
+        <li>
+    <a class="dropdown-item" href="../../../../../content/about.html">
+ <span class="dropdown-text">Giới thiệu về ZO Math</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../../content/triet_li_va_dinh_huong.html">
+ <span class="dropdown-text">Triết lí và định hướng</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Phổ Thông</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-phổ-thông">    
+        <li>
+    <a class="dropdown-item" href="../../../../../content/thpt/toan_11/index.html">
+ <span class="dropdown-text">Toán 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../../content/thpt/toan_12/index.html">
+ <span class="dropdown-text">Toán 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../../content/thpt/zo_math_100/index.html">
+ <span class="dropdown-text">ZO Math 100+</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../../content/thpt/on_thi_toan_thpt/index.html">
+ <span class="dropdown-text">Ôn thi Toán THPT</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/di_tim/index.html"> 
+<span class="menu-text">Đi Tìm</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/khoa_hoc/index.html"> 
+<span class="menu-text">Khóa Học</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/kien_tao/index.html"> 
+<span class="menu-text">Kiến Tạo</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/cong_cu/index.html"> 
+<span class="menu-text">Công Cụ</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/shop/index.html"> 
+<span class="menu-text">Shop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/support/donate.html"> 
+<span class="menu-text">Bảo Trợ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../content/contact.html"> 
+<span class="menu-text">Liên Hệ</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Khảo sát đầu vào</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/on_thi_toan_thpt/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ôn thi Toán THPT</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ôn thi Toán THPT 2027</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kết nối hàm số, bảng biến thiên và đồ thị</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../../content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Giá trị lớn nhất và giá trị nhỏ nhất của hàm số</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Khảo sát đầu vào</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- D0_APPROVED_CONTENT: canonical text source; approval receipt is provenance, not a second editable source. -->
+<div class="zo-on-thi-package d0-package" data-d0-title="Khảo sát và định vị đầu vào">
+<section id="bat-dau" class="level2">
+<h2 data-anchor-id="bat-dau">Em muốn bắt đầu từ đâu?</h2>
+<p><strong>Em có thể bắt đầu ôn ngay mà không làm bài khảo sát này.</strong> Nếu đã muốn học một nội dung, em cứ chọn mạch ôn đó. Nếu chưa biết bắt đầu từ đâu, bài khảo sát giúp em gợi nhớ kiến thức và chọn mạch đầu tiên. Em cũng có thể thử một mạch rồi quay lại khảo sát khi cần.</p>
+<p>Bài khảo sát không phải đề thi thử và không dùng để xếp loại em. Em không cần làm hết 24 bài, đạt một số câu đúng hay điền một phiếu nào để được bắt đầu học.</p>
+<p>Nếu muốn khảo sát, em chọn vài câu khảo sát sử dụng kiến thức đã từng học ở trường hoặc tự học trước đây. Tự làm trước, đối chiếu sau, rồi chọn một hoặc hai nội dung muốn ôn. Em có thể dừng khảo sát để chuyển sang học bất cứ lúc nào.</p>
+<p><strong>“Chưa học” khác với “đã học nhưng chưa làm được”.</strong> Một nội dung em chưa từng học không được xem là điểm yếu.</p>
+<p><a href="../../../../../content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html#hoc-lieu-hien-co" class="primary-link">Vào trang ôn thi để bắt đầu học</a> · <a href="#khai-bao-pham-vi">Tôi muốn thử khảo sát</a></p>
+</section>
+<section id="khai-bao-pham-vi" class="level2">
+<h2 data-anchor-id="khai-bao-pham-vi">Chuẩn bị và chọn câu khảo sát</h2>
+<p>Chuẩn bị giấy hoặc vở, bút và máy tính cầm tay nếu cần tính số gần đúng. Ghi ngày làm khảo sát.</p>
+<p>Trong phần <strong>Làm khảo sát</strong>, mỗi mục được đánh số “Bài 01”, “Bài 02”… là một <strong>câu khảo sát</strong> để em thử làm. Khi nói đến <strong>bài học</strong>, trang này chỉ phần kiến thức trong sách giáo khoa, vở ghi hoặc học liệu ôn tập.</p>
+<section id="chọn-câu-khảo-sát" class="level3">
+<h3 data-anchor-id="chọn-câu-khảo-sát">Chọn câu khảo sát</h3>
+<p>Đọc dòng <strong>Kiến thức cần dùng</strong> bên dưới tên câu khảo sát. Dòng này nêu những kiến thức toán mà em sẽ sử dụng để giải câu đó.</p>
+<ul>
+<li>Nếu đã học những kiến thức được nêu, em có thể thử giải câu khảo sát ấy, kể cả khi đang quên cách làm.</li>
+<li>Nếu chưa học, em có thể bỏ qua câu đó. Nếu muốn ghi lại, viết “Chưa học kiến thức này”.</li>
+<li>Nếu không nhớ mình đã học hay chưa, tìm nội dung được nêu trong dòng <strong>Kiến thức cần dùng</strong> ở mục lục sách giáo khoa hoặc vở ghi. Em cũng có thể chọn một câu khảo sát khác để làm trước.</li>
+</ul>
+<p>Mỗi nhóm nội dung có ba câu khảo sát. Em có thể chọn một nhóm mình muốn thử, làm một hoặc vài câu trong nhóm đó, rồi mở phần <strong>Đối chiếu bài làm</strong>. Không cần làm hết một nhóm hoặc làm theo thứ tự các nhóm.</p>
+</section>
+<section id="ghi-bài-làm-thế-nào" class="level3">
+<h3 data-anchor-id="ghi-bài-làm-thế-nào">Ghi bài làm thế nào?</h3>
+<ul>
+<li>Ghi tên nhóm nội dung và số ghi trên câu khảo sát, chẳng hạn “Hàm số, đạo hàm, đồ thị — Bài 03”.</li>
+<li>Tự giải trên giấy trước khi mở hướng dẫn đối chiếu. Viết các bước tính hoặc lập luận chính và phần giải thích mà câu hỏi yêu cầu.</li>
+<li>Nếu viết một bước nhưng chưa giải thích được vì sao bước ấy đúng, đặt dấu hỏi bên cạnh bước đó.</li>
+<li>Nếu chưa giải xong, ghi đúng tình huống của mình: “Chưa biết bắt đầu”, “Đang vướng ở bước…” hoặc “Chưa kịp làm”. Với “Đang vướng ở bước…”, viết thêm em đang định làm gì nhưng chưa làm được.</li>
+<li>Thời gian gợi ý của từng câu khảo sát không phải giới hạn bắt buộc.</li>
+</ul>
+<p>Nếu trước đây đã giải <strong>chính câu khảo sát này</strong>, ghi “Đã làm trước đây”. Nếu đã đọc lời giải của chính câu này, ghi “Đã xem lời giải trước đây”. Chỉ thấy dạng toán quen thuộc thì không cần ghi.</p>
+<p>Nếu trong lúc giải em xem tài liệu hoặc được người khác chỉ cách làm, đánh dấu bước bắt đầu dùng sự hỗ trợ đó. Giữ lại phần đã tự làm trước bước ấy.</p>
+</section>
+<section id="vi-du-gia-lap" class="level3">
+<h3 data-anchor-id="vi-du-gia-lap">Thử hình dung một lượt khảo sát</h3>
+<p>Dưới đây là một câu minh họa thuộc mạch Hàm số, đạo hàm, đồ thị. Em có thể thử làm để biết cách dùng bài khảo sát; câu này không tính vào 24 câu chính.</p>
+<div id="cau-minh-hoa" class="zo-learning-task zo-learning-task--item d0-example-task" data-d0-id="D0-R1-00">
+<p><span class="d0-task-number">Bài 00</span> <span class="d0-task-code">Hàm số, đạo hàm, đồ thị</span></p>
+<section id="can-bac-hai-va-dau-cua-so" class="level4">
+<h4 data-anchor-id="can-bac-hai-va-dau-cua-so">Căn bậc hai và dấu của số</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Căn bậc hai số học và bình phương một số ở THCS.</p>
+<p><strong>Cách trả lời:</strong> Ghi kết quả tính và giải thích một nhận định.</p>
+<p><strong>Thời gian gợi ý:</strong> 3 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Với <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>−</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">x=-3</annotation></semantics></math></span>, tính <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><msup><mi>x</mi><mn>2</mn></msup></msqrt><annotation encoding="application/x-tex">\sqrt{x^2}</annotation></semantics></math></span>. Một bạn nói: “Vì căn bậc hai và bình phương triệt tiêu nhau nên <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><msup><mi>x</mi><mn>2</mn></msup></msqrt><mo>=</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">\sqrt{x^2}=x</annotation></semantics></math></span> với mọi số thực <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math></span>.” Em có đồng ý không? Dùng kết quả vừa tính để giải thích.</p>
+</div>
+</section>
+</div>
+<p>Giả sử Minh đã học căn bậc hai và bình phương, nhưng đang nhớ không chắc quy tắc. Minh thử làm và ghi:</p>
+<blockquote class="blockquote">
+<p><strong>Hàm số, đạo hàm, đồ thị — Bài 00</strong><br>
+<span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>−</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">x=-3</annotation></semantics></math></span>, nên <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>=</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">x^2=9</annotation></semantics></math></span>.<br>
+Em nghĩ <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><msup><mi>x</mi><mn>2</mn></msup></msqrt><mo>=</mo><mi>x</mi><mo>=</mo><mi>−</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">\sqrt{x^2}=x=-3</annotation></semantics></math></span>.<br>
+<strong>?</strong> Căn bậc hai số học của 9 có nhận giá trị âm không?<br>
+Em chưa xem hướng dẫn đối chiếu.</p>
+</blockquote>
+<p>Đây là bài làm ban đầu còn chỗ phân vân, không phải lời giải mẫu. Minh giữ nguyên phép tính đã viết và đặt dấu hỏi bên cạnh bước chưa chắc. Sau khi tự làm, Minh mở phần đối chiếu dưới đây.</p>
+<details id="doi-chieu-minh-hoa" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Đối chiếu Bài 00 sau khi tự làm
+</summary><div class="zo-block-body">
+<p>Với <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>−</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">x=-3</annotation></semantics></math></span>, ta có <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>=</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">x^2=9</annotation></semantics></math></span> và <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><msup><mi>x</mi><mn>2</mn></msup></msqrt><mo>=</mo><msqrt><mn>9</mn></msqrt><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">\sqrt{x^2}=\sqrt9=3</annotation></semantics></math></span>, không phải <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">-3</annotation></semantics></math></span>. Vì vậy, nhận định “<span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><msup><mi>x</mi><mn>2</mn></msup></msqrt><mo>=</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">\sqrt{x^2}=x</annotation></semantics></math></span> với mọi số thực <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math></span>” là sai; <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>−</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">x=-3</annotation></semantics></math></span> là một ví dụ bác bỏ nhận định đó.</p>
+<p>Căn bậc hai số học luôn không âm. Với mọi số thực <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math></span>, công thức đúng là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><msup><mi>x</mi><mn>2</mn></msup></msqrt><mo>=</mo><mo stretchy="false" form="prefix">|</mo><mi>x</mi><mo stretchy="false" form="postfix">|</mo></mrow><annotation encoding="application/x-tex">\sqrt{x^2}=\lvert x\rvert</annotation></semantics></math></span>. Khi <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x\geq0</annotation></semantics></math></span>, giá trị này bằng <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math></span>; khi <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x&lt;0</annotation></semantics></math></span>, giá trị này bằng <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">-x</annotation></semantics></math></span>.</p>
+<p><strong>Minh đối chiếu từng bước:</strong> bình phương <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">-3</annotation></semantics></math></span> được 9 là đúng; bước nhận căn bậc hai số học bằng <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">-3</annotation></semantics></math></span> là sai. Minh dùng bút màu khác ghi thêm: “Căn bậc hai số học không âm, nên kết quả là 3. Cần nhớ <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><msup><mi>x</mi><mn>2</mn></msup></msqrt><mo>=</mo><mo stretchy="false" form="prefix">|</mo><mi>x</mi><mo stretchy="false" form="postfix">|</mo></mrow><annotation encoding="application/x-tex">\sqrt{x^2}=\lvert x\rvert</annotation></semantics></math></span>.”</p>
+<p>Minh không xóa bài làm ban đầu. Nhờ đó, Minh biết mình tính được bình phương nhưng còn nhầm dấu khi lấy căn bậc hai. Nếu muốn ôn phần này, Minh có thể bắt đầu với mạch <strong>Hàm số, đạo hàm, đồ thị</strong>; không cần làm hết 24 câu trước.</p>
+</div></details>
+<p>Không xóa bài làm ban đầu. Phần em viết trước khi xem hướng dẫn giúp em biết mình đã tự làm được gì và còn vướng ở đâu.</p>
+<p><a href="#khao-sat">Chọn câu khảo sát để làm</a></p>
+</section>
+</section>
+<section id="khao-sat" class="level2">
+<h2 data-anchor-id="khao-sat">Làm khảo sát</h2>
+<div class="lesson-toc d0-survey-toc">
+<p>Mục lục</p>
+<ul>
+<li><a href="#mach-r1">R1 — Hàm số, đạo hàm, đồ thị</a></li>
+<li><a href="#mach-r2">R2 — Thống kê và đọc dữ liệu</a></li>
+<li><a href="#mach-r3">R3 — Hình học, vectơ và tọa độ</a></li>
+<li><a href="#mach-r4">R4 — Đếm và xác suất</a></li>
+<li><a href="#mach-r5">R5 — Dãy số, mũ và lôgarit</a></li>
+<li><a href="#mach-r6">R6 — Hàm số lượng giác và phương trình lượng giác</a></li>
+<li><a href="#mach-r7">R7 — Nguyên hàm, tích phân và ứng dụng</a></li>
+<li><a href="#mach-r8">R8 — Mô hình hóa, tối ưu và tổng hợp</a></li>
+</ul>
+</div>
+<section id="mach-r1" class="level3">
+<h3 data-anchor-id="mach-r1">R1 — Hàm số, đạo hàm, đồ thị</h3>
+<div id="d0-r1-01" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R1-01" data-d0-id="D0-R1-01">
+<p><span class="d0-task-number">Bài 01</span> <span class="d0-task-code">R1</span></p>
+<section id="điều-kiện-xác-định" class="level4">
+<h4 data-anchor-id="điều-kiện-xác-định">Điều kiện xác định</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 10: tập xác định; nền THCS về căn bậc hai và phân thức.</p>
+<p><strong>Cách trả lời:</strong> Chọn một đáp án và giải thích</p>
+<p><strong>Thời gian gợi ý:</strong> 3 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Cho <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><msqrt><mrow><mi>x</mi><mo>+</mo><mn>2</mn></mrow></msqrt><mrow><mi>x</mi><mo>−</mo><mn>1</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">f(x)=\frac{\sqrt{x+2}}{x-1}</annotation></semantics></math></span>. Chọn <strong>một</strong> tập xác định đúng và viết hai điều kiện mà em đã dùng.</p>
+<div class="d0-response-option">
+<div class="d0-response-option">
+<p>A. <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>2</mn><mo>;</mo><mi>+</mi><mi>∞</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[-2;+\infty)</annotation></semantics></math></span>.</p>
+</div>
+</div>
+<div class="d0-response-option">
+<div class="d0-response-option">
+<p>B. <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>2</mn><mo>;</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>∪</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>;</mo><mi>+</mi><mi>∞</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(-2;1)\cup(1;+\infty)</annotation></semantics></math></span>.</p>
+</div>
+</div>
+<div class="d0-response-option">
+<div class="d0-response-option">
+<p>C. <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>2</mn><mo>;</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>∪</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>;</mo><mi>+</mi><mi>∞</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[-2;1)\cup(1;+\infty)</annotation></semantics></math></span>.</p>
+</div>
+</div>
+<div class="d0-response-option">
+<div class="d0-response-option">
+<p>D. <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℝ</mi><mo>\</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathbb{R}\setminus\{1\}</annotation></semantics></math></span>.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r1-01">Đối chiếu bài này sau khi tự làm</a></p>
+<div id="d0-r1-02" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R1-02" data-d0-id="D0-R1-02">
+<p><span class="d0-task-number">Bài 02</span> <span class="d0-task-code">R1</span></p>
+<section id="đạo-hàm-và-tiếp-tuyến" class="level4">
+<h4 data-anchor-id="đạo-hàm-và-tiếp-tuyến">Đạo hàm và tiếp tuyến</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 11: quy tắc đạo hàm và phương trình tiếp tuyến.</p>
+<p><strong>Cách trả lời:</strong> Ghi kết quả và trình bày các bước tính</p>
+<p><strong>Thời gian gợi ý:</strong> 4 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Cho <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>x</mi><mn>3</mn></msup><mo>−</mo><mn>3</mn><mi>x</mi></mrow><annotation encoding="application/x-tex">f(x)=x^3-3x</annotation></semantics></math></span>. Tính <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>f</mi><mi>′</mi></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f^\prime(1)</annotation></semantics></math></span> và viết phương trình tiếp tuyến của đồ thị tại điểm có hoành độ 1. Ghi rõ tọa độ tiếp điểm.</p>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r1-02">Đối chiếu bài này sau khi tự làm</a></p>
+<div id="d0-r1-03" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R1-03" data-d0-id="D0-R1-03">
+<p><span class="d0-task-number">Bài 03</span> <span class="d0-task-code">R1</span></p>
+<section id="đọc-dấu-đạo-hàm" class="level4">
+<h4 data-anchor-id="đọc-dấu-đạo-hàm">Đọc dấu đạo hàm</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 12: đơn điệu và cực trị bằng dấu đạo hàm.</p>
+<p><strong>Cách trả lời:</strong> Xét đúng hoặc sai cho từng ý và giải thích</p>
+<p><strong>Thời gian gợi ý:</strong> 5 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Hàm số <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math></span> có đạo hàm trên <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℝ</mi><annotation encoding="application/x-tex">\mathbb{R}</annotation></semantics></math></span> với bảng dấu sau:</p>
+<figure class="zo-variation-asset figure" data-bbt="BBT01"><img class="zo-variation-image figure-img" src="hinh/bbt01.svg" alt="Bảng dấu đạo hàm của hàm số f. — BBT01"><figcaption class="zo-variation-caption">Bảng dấu đạo hàm của hàm số f.</figcaption><div class="visually-hidden"><table class="variation" data-bbt="BBT01"><caption>Bảng dấu đạo hàm của hàm số f.</caption><thead><tr><th scope="row">x</th><th scope="col">−∞</th><th scope="col"></th><th scope="col">−2</th><th scope="col"></th><th scope="col">1</th><th scope="col"></th><th scope="col">+∞</th></tr></thead><tbody><tr><th scope="row">f′(x)</th><td></td><td>−</td><td>0</td><td>+</td><td>0</td><td>+</td><td></td></tr></tbody></table></div></figure>
+<p>Xét đúng/sai từng khẳng định và giải thích ngắn từ bảng dấu:</p>
+<div class="d0-response-options">
+<div class="d0-response-options">
+<ol type="a">
+<li><p><span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math></span> đạt cực tiểu tại <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">x=-2</annotation></semantics></math></span>.</p></li>
+<li><p><span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math></span> đạt cực đại tại <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x=1</annotation></semantics></math></span>.</p></li>
+<li><p><span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math></span> đồng biến trên <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>2</mn><mo>;</mo><mi>+</mi><mi>∞</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(-2;+\infty)</annotation></semantics></math></span>.</p></li>
+<li><p><span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(-3)&lt;f(-2)</annotation></semantics></math></span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r1-03">Đối chiếu bài này sau khi tự làm</a></p>
+</section>
+<section id="mach-r2" class="level3">
+<h3 data-anchor-id="mach-r2">R2 — Thống kê và đọc dữ liệu</h3>
+<div id="d0-r2-01" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R2-01" data-d0-id="D0-R2-01">
+<p><span class="d0-task-number">Bài 01</span> <span class="d0-task-code">R2</span></p>
+<section id="thước-đo-phù-hợp" class="level4">
+<h4 data-anchor-id="thước-đo-phù-hợp">Thước đo phù hợp</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 10: số trung bình, trung vị của mẫu không ghép nhóm.</p>
+<p><strong>Cách trả lời:</strong> Ghi kết quả và giải thích</p>
+<p><strong>Thời gian gợi ý:</strong> 4 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Năm lần chờ xe có thời gian (phút): <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>;</mo><mn>5</mn><mo>;</mo><mn>5</mn><mo>;</mo><mn>6</mn><mo>;</mo><mn>30</mn></mrow><annotation encoding="application/x-tex">4;5;5;6;30</annotation></semantics></math></span>. Tính số trung bình và trung vị. Nếu muốn mô tả thời gian chờ điển hình của phần lớn năm lần này, em chọn số nào trong hai số ấy? Giải thích dựa vào dữ liệu.</p>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r2-01">Đối chiếu bài này sau khi tự làm</a></p>
+<div id="d0-r2-02" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R2-02" data-d0-id="D0-R2-02">
+<p><span class="d0-task-number">Bài 02</span> <span class="d0-task-code">R2</span></p>
+<section id="trung-bình-ghép-nhóm" class="level4">
+<h4 data-anchor-id="trung-bình-ghép-nhóm">Trung bình ghép nhóm</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 11: mẫu ghép nhóm và số trung bình.</p>
+<p><strong>Cách trả lời:</strong> Ghi kết quả và giải thích</p>
+<p><strong>Thời gian gợi ý:</strong> 4 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Thời gian hoàn thành một công việc được ghi như sau:</p>
+<div class="r1-table-scroll-x d0-data-table" tabindex="0" style="--r1-table-min-width: 32em" role="region" aria-label="Bảng dữ liệu — cuộn ngang nếu cần">
+<table class="r1-data-table caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;" scope="col">Thời gian (phút)</th>
+<th style="text-align: center;" scope="col"><span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>;</mo><mn>10</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0;10)</annotation></semantics></math></span></th>
+<th style="text-align: center;" scope="col"><span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>10</mn><mo>;</mo><mn>20</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[10;20)</annotation></semantics></math></span></th>
+<th style="text-align: center;" scope="col"><span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>20</mn><mo>;</mo><mn>30</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[20;30)</annotation></semantics></math></span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th style="text-align: left;" scope="row">Số người</th>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Tính số trung bình của mẫu ghép nhóm bằng giá trị đại diện là trung điểm nhóm. Có thể khẳng định đây là số trung bình chính xác của dữ liệu gốc không? Vì sao?</p>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r2-02">Đối chiếu bài này sau khi tự làm</a></p>
+<div id="d0-r2-03" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R2-03" data-d0-id="D0-R2-03">
+<p><span class="d0-task-number">Bài 03</span> <span class="d0-task-code">R2</span></p>
+<section id="cùng-trung-bình-khác-phân-tán" class="level4">
+<h4 data-anchor-id="cùng-trung-bình-khác-phân-tán">Cùng trung bình, khác phân tán</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 12: phương sai mẫu ghép nhóm; lớp 11: trung bình ghép nhóm.</p>
+<p><strong>Cách trả lời:</strong> Trình bày lời giải ngắn</p>
+<p><strong>Thời gian gợi ý:</strong> 6 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Hai nhóm có thời gian hoàn thành công việc được ghép như sau:</p>
+<div class="r1-table-scroll-x d0-data-table" tabindex="0" style="--r1-table-min-width: 32em" role="region" aria-label="Bảng dữ liệu — cuộn ngang nếu cần">
+<table class="r1-data-table caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;" scope="col">Thời gian (phút)</th>
+<th style="text-align: center;" scope="col"><span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>;</mo><mn>10</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0;10)</annotation></semantics></math></span></th>
+<th style="text-align: center;" scope="col"><span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>10</mn><mo>;</mo><mn>20</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[10;20)</annotation></semantics></math></span></th>
+<th style="text-align: center;" scope="col"><span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>20</mn><mo>;</mo><mn>30</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[20;30)</annotation></semantics></math></span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th style="text-align: left;" scope="row">Nhóm A</th>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="even">
+<th style="text-align: left;" scope="row">Nhóm B</th>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Tính trung bình và phương sai của mỗi mẫu ghép nhóm (dùng mẫu số <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math></span>). Một bạn nói: “Hai nhóm có cùng trung bình nên mức độ phân tán cũng như nhau.” Em có đồng ý không? Chỉ kết luận trong phạm vi các mẫu này.</p>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r2-03">Đối chiếu bài này sau khi tự làm</a></p>
+</section>
+<section id="mach-r3" class="level3">
+<h3 data-anchor-id="mach-r3">R3 — Hình học, vectơ và tọa độ</h3>
+<div id="d0-r3-01" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R3-01" data-d0-id="D0-R3-01">
+<p><span class="d0-task-number">Bài 01</span> <span class="d0-task-code">R3</span></p>
+<section id="cùng-phương-khi-có-tọa-độ-bằng-0" class="level4">
+<h4 data-anchor-id="cùng-phương-khi-có-tọa-độ-bằng-0">Cùng phương khi có tọa độ bằng 0</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 10: nhân vectơ với số và tọa độ vectơ.</p>
+<p><strong>Cách trả lời:</strong> Trình bày lời giải ngắn</p>
+<p><strong>Thời gian gợi ý:</strong> 3 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Cho <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>u</mi><mo accent="true">→</mo></mover><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>;</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\vec u=(0;2)</annotation></semantics></math></span> và <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>v</mi><mo accent="true">→</mo></mover><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>;</mo><mi>−</mi><mn>3</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\vec v=(0;-3)</annotation></semantics></math></span>. Hai vectơ có cùng phương không? Nếu có, tìm <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math></span> để <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>u</mi><mo accent="true">→</mo></mover><mo>=</mo><mi>k</mi><mover><mi>v</mi><mo accent="true">→</mo></mover></mrow><annotation encoding="application/x-tex">\vec u=k\vec v</annotation></semantics></math></span> và cho biết chúng cùng hướng hay ngược hướng. Có được viết <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>0</mn><mn>0</mn></mfrac><mo>=</mo><mfrac><mn>2</mn><mrow><mi>−</mi><mn>3</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{0}{0}=\frac{2}{-3}</annotation></semantics></math></span> để kiểm tra không?</p>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r3-01">Đối chiếu bài này sau khi tự làm</a></p>
+<div id="d0-r3-02" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R3-02" data-d0-id="D0-R3-02">
+<p><span class="d0-task-number">Bài 02</span> <span class="d0-task-code">R3</span></p>
+<section id="khoảng-cách-điểm-đến-mặt-phẳng" class="level4">
+<h4 data-anchor-id="khoảng-cách-điểm-đến-mặt-phẳng">Khoảng cách điểm đến mặt phẳng</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 12: tọa độ không gian, phương trình mặt phẳng và khoảng cách.</p>
+<p><strong>Cách trả lời:</strong> Ghi kết quả và trình bày các bước tính</p>
+<p><strong>Thời gian gợi ý:</strong> 4 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Trong không gian <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mi>x</mi><mi>y</mi><mi>z</mi></mrow><annotation encoding="application/x-tex">Oxyz</annotation></semantics></math></span>, cho <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>;</mo><mn>2</mn><mo>;</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">A(1;2;3)</annotation></semantics></math></span> và mặt phẳng <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><mi>x</mi><mo>+</mo><mn>2</mn><mi>y</mi><mo>+</mo><mn>2</mn><mi>z</mi><mo>−</mo><mn>5</mn><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">(P):x+2y+2z-5=0</annotation></semantics></math></span>. Nêu một vectơ pháp tuyến của <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(P)</annotation></semantics></math></span> và tính khoảng cách từ <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math></span> đến <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(P)</annotation></semantics></math></span>. Đơn vị tọa độ là mét.</p>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r3-02">Đối chiếu bài này sau khi tự làm</a></p>
+<div id="d0-r3-03" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R3-03" data-d0-id="D0-R3-03">
+<p><span class="d0-task-number">Bài 03</span> <span class="d0-task-code">R3</span></p>
+<section id="góc-của-đường-chéo" class="level4">
+<h4 data-anchor-id="góc-của-đường-chéo">Góc của đường chéo</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 11: hình hộp chữ nhật, hình chiếu, góc đường–mặt; lượng giác tam giác vuông.</p>
+<p><strong>Cách trả lời:</strong> Trình bày lời giải ngắn, kèm hình vẽ</p>
+<p><strong>Thời gian gợi ý:</strong> 5 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Cho hình hộp chữ nhật <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>B</mi><mi>C</mi><mi>D</mi><mi>.</mi><msub><mi>A</mi><mn>1</mn></msub><msub><mi>B</mi><mn>1</mn></msub><msub><mi>C</mi><mn>1</mn></msub><msub><mi>D</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">ABCD.A_1B_1C_1D_1</annotation></semantics></math></span> có <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>B</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">AB=3</annotation></semantics></math></span> m, <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>D</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">AD=4</annotation></semantics></math></span> m, <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><msub><mi>A</mi><mn>1</mn></msub><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">AA_1=2</annotation></semantics></math></span> m; các đỉnh có chỉ số 1 nằm thẳng đứng trên các đỉnh tương ứng. Xác định góc giữa <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><msub><mi>C</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">AC_1</annotation></semantics></math></span> và mặt phẳng <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mi>B</mi><mi>C</mi><mi>D</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(ABCD)</annotation></semantics></math></span>, rồi tính số đo góc đó đến <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>,</mo><msup><mn>1</mn><mo>∘</mo></msup></mrow><annotation encoding="application/x-tex">0{,}1^\circ</annotation></semantics></math></span>. Giải thích vì sao em chọn được góc ấy.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p>
+<img src="hinh/hinh_hop.svg" class="figure-img" alt="Hình biểu diễn hình hộp, không theo tỉ lệ.">
+</p>
+<figcaption>
+Hình biểu diễn hình hộp, không theo tỉ lệ.
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r3-03">Đối chiếu bài này sau khi tự làm</a></p>
+</section>
+<section id="mach-r4" class="level3">
+<h3 data-anchor-id="mach-r4">R4 — Đếm và xác suất</h3>
+<div id="d0-r4-01" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R4-01" data-d0-id="D0-R4-01">
+<p><span class="d0-task-number">Bài 01</span> <span class="d0-task-code">R4</span></p>
+<section id="độc-lập-và-xung-khắc" class="level4">
+<h4 data-anchor-id="độc-lập-và-xung-khắc">Độc lập và xung khắc</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 11: giao, hợp, độc lập, xung khắc; xác suất cổ điển lớp 10.</p>
+<p><strong>Cách trả lời:</strong> Xét đúng hoặc sai cho từng ý và giải thích</p>
+<p><strong>Thời gian gợi ý:</strong> 5 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Tung một đồng xu cân đối hai lần độc lập. Gọi <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math></span> là biến cố “lần đầu ngửa”, <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math></span> là biến cố “lần thứ hai ngửa”. Xét đúng/sai từng ý, kèm giải thích hoặc liệt kê kết quả:</p>
+<div class="d0-response-options">
+<div class="d0-response-options">
+<ol type="a">
+<li><p><span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>∩</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">P(A\cap B)=1/4</annotation></semantics></math></span>.</p></li>
+<li><p><span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math></span> và <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math></span> xung khắc.</p></li>
+<li><p><span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math></span> và <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math></span> độc lập.</p></li>
+<li><p><span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>∪</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">P(A\cup B)=1</annotation></semantics></math></span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r4-01">Đối chiếu bài này sau khi tự làm</a></p>
+<div id="d0-r4-02" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R4-02" data-d0-id="D0-R4-02">
+<p><span class="d0-task-number">Bài 02</span> <span class="d0-task-code">R4</span></p>
+<section id="chọn-hai-viên-khác-màu" class="level4">
+<h4 data-anchor-id="chọn-hai-viên-khác-màu">Chọn hai viên khác màu</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 10: tổ hợp, xác suất cổ điển.</p>
+<p><strong>Cách trả lời:</strong> Ghi kết quả và trình bày cách lập luận</p>
+<p><strong>Thời gian gợi ý:</strong> 4 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Hộp có 4 viên đỏ và 3 viên xanh, các viên cùng kích thước và khối lượng. Chọn ngẫu nhiên đồng thời 2 viên, mọi cặp viên đều có khả năng được chọn như nhau. Tính xác suất chọn được hai viên khác màu. Nêu số trường hợp có thể và thuận lợi.</p>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r4-02">Đối chiếu bài này sau khi tự làm</a></p>
+<div id="d0-r4-03" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R4-03" data-d0-id="D0-R4-03">
+<p><span class="d0-task-number">Bài 03</span> <span class="d0-task-code">R4</span></p>
+<section id="đổi-chiều-điều-kiện" class="level4">
+<h4 data-anchor-id="đổi-chiều-điều-kiện">Đổi chiều điều kiện</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 12: xác suất có điều kiện và bảng hai chiều.</p>
+<p><strong>Cách trả lời:</strong> Trình bày lời giải ngắn dựa vào bảng dữ liệu</p>
+<p><strong>Thời gian gợi ý:</strong> 5 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Một lớp có bảng tham gia câu lạc bộ như sau:</p>
+<div class="r1-table-scroll-x d0-data-table" tabindex="0" style="--r1-table-min-width: 24em" role="region" aria-label="Bảng dữ liệu — cuộn ngang nếu cần">
+<table class="r1-data-table caption-top table">
+<thead>
+<tr class="header">
+<th scope="col"></th>
+<th style="text-align: center;" scope="col">Có tham gia</th>
+<th style="text-align: center;" scope="col">Không tham gia</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th scope="row">Nữ</th>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">12</td>
+</tr>
+<tr class="even">
+<th scope="row">Nam</th>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">14</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Chọn ngẫu nhiên một học sinh, mọi học sinh có khả năng được chọn như nhau.</p>
+<div class="d0-response-options">
+<div class="d0-response-options">
+<ol type="a">
+<li><p>Biết học sinh được chọn có tham gia câu lạc bộ, tính xác suất đó là nữ.</p></li>
+<li><p>Biết học sinh được chọn là nữ, tính xác suất bạn ấy có tham gia. Giải thích vì sao hai mẫu số khác nhau.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r4-03">Đối chiếu bài này sau khi tự làm</a></p>
+</section>
+<section id="mach-r5" class="level3">
+<h3 data-anchor-id="mach-r5">R5 — Dãy số, mũ và lôgarit</h3>
+<div id="d0-r5-01" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R5-01" data-d0-id="D0-R5-01">
+<p><span class="d0-task-number">Bài 01</span> <span class="d0-task-code">R5</span></p>
+<section id="tăng-theo-lượng-hay-theo-tỉ-lệ" class="level4">
+<h4 data-anchor-id="tăng-theo-lượng-hay-theo-tỉ-lệ">Tăng theo lượng hay theo tỉ lệ</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 11: cấp số cộng, cấp số nhân.</p>
+<p><strong>Cách trả lời:</strong> Ghi kết quả và giải thích</p>
+<p><strong>Thời gian gợi ý:</strong> 3 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Với <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">n=0,1,2,\ldots</annotation></semantics></math></span>, hai dãy được cho bởi <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>=</mo><mn>100</mn><mo>+</mo><mn>20</mn><mi>n</mi></mrow><annotation encoding="application/x-tex">a_n=100+20n</annotation></semantics></math></span>, <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>n</mi></msub><mo>=</mo><mn>100</mn><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>2</mn><msup><mo stretchy="false" form="postfix">)</mo><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">b_n=100(1{,}2)^n</annotation></semantics></math></span>. Dãy nào là cấp số cộng, dãy nào là cấp số nhân? Nêu công sai hoặc công bội và giải thích dãy nào tăng 20% sau mỗi bước.</p>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r5-01">Đối chiếu bài này sau khi tự làm</a></p>
+<div id="d0-r5-02" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R5-02" data-d0-id="D0-R5-02">
+<p><span class="d0-task-number">Bài 02</span> <span class="d0-task-code">R5</span></p>
+<section id="lôgarit-và-nghiệm-ngoại-lai" class="level4">
+<h4 data-anchor-id="lôgarit-và-nghiệm-ngoại-lai">Lôgarit và nghiệm ngoại lai</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 11: tính chất lôgarit, phương trình lôgarit; phương trình bậc hai.</p>
+<p><strong>Cách trả lời:</strong> Trình bày lời giải ngắn</p>
+<p><strong>Thời gian gợi ý:</strong> 4 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Giải phương trình <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>−</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">\log_2(x-1)+\log_2(x-3)=3</annotation></semantics></math></span>. Ghi điều kiện trước khi biến đổi và kiểm tra từng nghiệm của phương trình đại số thu được.</p>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r5-02">Đối chiếu bài này sau khi tự làm</a></p>
+<div id="d0-r5-03" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R5-03" data-d0-id="D0-R5-03">
+<p><span class="d0-task-number">Bài 03</span> <span class="d0-task-code">R5</span></p>
+<section id="thời-điểm-đạt-ngưỡng" class="level4">
+<h4 data-anchor-id="thời-điểm-đạt-ngưỡng">Thời điểm đạt ngưỡng</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 11: cấp số nhân, tăng trưởng; có thể dùng bảng lũy thừa hoặc lôgarit.</p>
+<p><strong>Cách trả lời:</strong> Trình bày lời giải ngắn</p>
+<p><strong>Thời gian gợi ý:</strong> 5 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Trong một mô hình giả định, diện tích bèo ban đầu là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>100</mn><annotation encoding="application/x-tex">100</annotation></semantics></math></span> cm<span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi></mi><mn>2</mn></msup><annotation encoding="application/x-tex">^2</annotation></semantics></math></span> và sau mỗi ngày bằng <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>120</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">120\%</annotation></semantics></math></span> diện tích ngày trước. Chỉ quan sát ở cuối từng ngày, với ngày ban đầu là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">n=0</annotation></semantics></math></span>. Viết diện tích sau <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math></span> ngày và tìm số ngày nguyên nhỏ nhất để diện tích đạt ít nhất <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>200</mn><annotation encoding="application/x-tex">200</annotation></semantics></math></span> cm<span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi></mi><mn>2</mn></msup><annotation encoding="application/x-tex">^2</annotation></semantics></math></span>. Kiểm tra cả ngày đó và ngày liền trước.</p>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r5-03">Đối chiếu bài này sau khi tự làm</a></p>
+</section>
+<section id="mach-r6" class="level3">
+<h3 data-anchor-id="mach-r6">R6 — Hàm số lượng giác và phương trình lượng giác</h3>
+<div id="d0-r6-01" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R6-01" data-d0-id="D0-R6-01">
+<p><span class="d0-task-number">Bài 01</span> <span class="d0-task-code">R6</span></p>
+<section id="độ-radian-và-dấu" class="level4">
+<h4 data-anchor-id="độ-radian-và-dấu">Độ, radian và dấu</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 11: radian, đường tròn lượng giác; góc phần tư.</p>
+<p><strong>Cách trả lời:</strong> Chọn một đáp án và giải thích</p>
+<p><strong>Thời gian gợi ý:</strong> 3 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Với <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><msup><mn>150</mn><mo>∘</mo></msup></mrow><annotation encoding="application/x-tex">\alpha=150^\circ</annotation></semantics></math></span>, chọn <strong>một</strong> phương án đúng về số đo radian và dấu của <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">cos</mi><mo>⁡</mo></mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\cos\alpha</annotation></semantics></math></span>. Giải thích ngắn.</p>
+<div class="d0-response-option">
+<div class="d0-response-option">
+<p>A. <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mn>5</mn><mi>π</mi><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">\alpha=5\pi/6</annotation></semantics></math></span>; <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">cos</mi><mo>⁡</mo></mrow><mi>α</mi><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\cos\alpha&lt;0</annotation></semantics></math></span>.</p>
+</div>
+</div>
+<div class="d0-response-option">
+<div class="d0-response-option">
+<p>B. <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mn>5</mn><mi>π</mi><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">\alpha=5\pi/6</annotation></semantics></math></span>; <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">cos</mi><mo>⁡</mo></mrow><mi>α</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\cos\alpha&gt;0</annotation></semantics></math></span>.</p>
+</div>
+</div>
+<div class="d0-response-option">
+<div class="d0-response-option">
+<p>C. <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mn>5</mn><mi>π</mi><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">\alpha=5\pi/3</annotation></semantics></math></span>; <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">cos</mi><mo>⁡</mo></mrow><mi>α</mi><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\cos\alpha&lt;0</annotation></semantics></math></span>.</p>
+</div>
+</div>
+<div class="d0-response-option">
+<div class="d0-response-option">
+<p>D. <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mi>π</mi><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">\alpha=\pi/6</annotation></semantics></math></span>; <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">cos</mi><mo>⁡</mo></mrow><mi>α</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\cos\alpha&gt;0</annotation></semantics></math></span>.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r6-01">Đối chiếu bài này sau khi tự làm</a></p>
+<div id="d0-r6-02" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R6-02" data-d0-id="D0-R6-02">
+<p><span class="d0-task-number">Bài 02</span> <span class="d0-task-code">R6</span></p>
+<section id="họ-nghiệm-và-khoảng-xét" class="level4">
+<h4 data-anchor-id="họ-nghiệm-và-khoảng-xét">Họ nghiệm và khoảng xét</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 11: phương trình lượng giác cơ bản; góc tính bằng radian.</p>
+<p><strong>Cách trả lời:</strong> Viết họ nghiệm tổng quát rồi liệt kê nghiệm trong khoảng</p>
+<p><strong>Thời gian gợi ý:</strong> 5 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Giải <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">sin</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><msqrt><mn>3</mn></msqrt><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\sin(2x)=\frac{\sqrt3}{2}</annotation></semantics></math></span> với <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>;</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">x\in[0;2\pi)</annotation></semantics></math></span>. Viết họ nghiệm tổng quát trước khi liệt kê nghiệm trong khoảng. Góc tính bằng radian.</p>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r6-02">Đối chiếu bài này sau khi tự làm</a></p>
+<div id="d0-r6-03" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R6-03" data-d0-id="D0-R6-03">
+<p><span class="d0-task-number">Bài 03</span> <span class="d0-task-code">R6</span></p>
+<section id="một-mô-hình-tuần-hoàn" class="level4">
+<h4 data-anchor-id="một-mô-hình-tuần-hoàn">Một mô hình tuần hoàn</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 11: hàm sin, chu kì, phương trình sin cơ bản.</p>
+<p><strong>Cách trả lời:</strong> Trình bày lời giải ngắn</p>
+<p><strong>Thời gian gợi ý:</strong> 5 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Một mô hình mực nước cho <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn><mo>+</mo><mn>2</mn><mrow><mi mathvariant="normal">sin</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mi>t</mi><mi>/</mi><mn>6</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">h(t)=3+2\sin(\pi t/6)</annotation></semantics></math></span> mét, với <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t\geq0</annotation></semantics></math></span> tính bằng giờ; đối số của sin tính bằng radian. Tìm chu kì dương nhỏ nhất, khoảng giá trị của h và thời điểm đầu tiên mực nước đạt 5 m. Giải thích ngắn.</p>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r6-03">Đối chiếu bài này sau khi tự làm</a></p>
+</section>
+<section id="mach-r7" class="level3">
+<h3 data-anchor-id="mach-r7">R7 — Nguyên hàm, tích phân và ứng dụng</h3>
+<div id="d0-r7-01" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R7-01" data-d0-id="D0-R7-01">
+<p><span class="d0-task-number">Bài 01</span> <span class="d0-task-code">R7</span></p>
+<section id="nhận-diện-nguyên-hàm" class="level4">
+<h4 data-anchor-id="nhận-diện-nguyên-hàm">Nhận diện nguyên hàm</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 12: định nghĩa và họ nguyên hàm; đạo hàm lớp 11.</p>
+<p><strong>Cách trả lời:</strong> Chọn tất cả biểu thức đúng và giải thích</p>
+<p><strong>Thời gian gợi ý:</strong> 3 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Trong bốn hàm trên <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℝ</mi><annotation encoding="application/x-tex">\mathbb R</annotation></semantics></math></span> dưới đây, hãy chọn <strong>tất cả</strong> hàm là nguyên hàm của <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mi>x</mi></mrow><annotation encoding="application/x-tex">f(x)=2x</annotation></semantics></math></span>, rồi giải thích bằng đạo hàm:</p>
+<p><span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mn>1</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">F_1(x)=x^2+3</annotation></semantics></math></span>;</p>
+<p><span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">F_2(x)=x^2-5</annotation></semantics></math></span>;</p>
+<p><span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mn>3</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><msup><mi>x</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">F_3(x)=2x^2</annotation></semantics></math></span>;</p>
+<p><span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mn>4</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">F_4(x)=x^2+x</annotation></semantics></math></span>.</p>
+<p>Đây là câu chọn nhiều biểu thức, không phải trắc nghiệm một đáp án.</p>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r7-01">Đối chiếu bài này sau khi tự làm</a></p>
+<div id="d0-r7-02" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R7-02" data-d0-id="D0-R7-02">
+<p><span class="d0-task-number">Bài 02</span> <span class="d0-task-code">R7</span></p>
+<section id="điều-kiện-đầu" class="level4">
+<h4 data-anchor-id="điều-kiện-đầu">Điều kiện đầu</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 12: nguyên hàm đa thức và điều kiện đầu.</p>
+<p><strong>Cách trả lời:</strong> Ghi kết quả và trình bày các bước tính</p>
+<p><strong>Thời gian gợi ý:</strong> 4 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Cho <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>F</mi><mi>′</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">F^\prime(x)=3x^2-2</annotation></semantics></math></span> trên <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℝ</mi><annotation encoding="application/x-tex">\mathbb R</annotation></semantics></math></span> và <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">F(1)=4</annotation></semantics></math></span>. Tìm <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F(x)</annotation></semantics></math></span> rồi tính <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F(2)</annotation></semantics></math></span>.</p>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r7-02">Đối chiếu bài này sau khi tự làm</a></p>
+<div id="d0-r7-03" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R7-03" data-d0-id="D0-R7-03">
+<p><span class="d0-task-number">Bài 03</span> <span class="d0-task-code">R7</span></p>
+<section id="độ-dời-và-quãng-đường" class="level4">
+<h4 data-anchor-id="độ-dời-và-quãng-đường">Độ dời và quãng đường</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 12: tích phân, dấu hàm, vận tốc và quãng đường.</p>
+<p><strong>Cách trả lời:</strong> Trình bày lời giải ngắn</p>
+<p><strong>Thời gian gợi ý:</strong> 6 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Một vật chuyển động trên trục thẳng, vận tốc <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>t</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">v(t)=t-2</annotation></semantics></math></span> m/s trong <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>t</mi><mo>≤</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">0\leq t\leq5</annotation></semantics></math></span> giây. Viết biểu thức tích phân <strong>trước khi tính</strong> để tìm:</p>
+<div class="d0-response-options">
+<div class="d0-response-options">
+<ol type="a">
+<li><p>độ dời từ t=0 đến t=5;</p></li>
+<li><p>tổng quãng đường đi được. Giải thích vì sao hai kết quả khác nhau.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r7-03">Đối chiếu bài này sau khi tự làm</a></p>
+</section>
+<section id="mach-r8" class="level3">
+<h3 data-anchor-id="mach-r8">R8 — Mô hình hóa, tối ưu và tổng hợp</h3>
+<div id="d0-r8-01" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R8-01" data-d0-id="D0-R8-01">
+<p><span class="d0-task-number">Bài 01</span> <span class="d0-task-code">R8</span></p>
+<section id="biến-và-miền-hợp-lệ" class="level4">
+<h4 data-anchor-id="biến-và-miền-hợp-lệ">Biến và miền hợp lệ</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 10: hàm số bậc hai; nền chu vi và diện tích hình chữ nhật.</p>
+<p><strong>Cách trả lời:</strong> Trình bày lời giải ngắn</p>
+<p><strong>Thời gian gợi ý:</strong> 4 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Một mảnh vườn hình chữ nhật có một cạnh tựa vào bức tường thẳng đủ dài. Dùng đúng 20 m hàng rào cho <strong>ba cạnh còn lại</strong>, không chừa lối mở. Gọi x là chiều dài mỗi cạnh vuông góc với tường, y là cạnh song song với tường. Viết ràng buộc giữa x,y; miền hợp lệ của x; và diện tích A theo x để chuẩn bị tìm diện tích lớn nhất. <strong>Chưa cần giải bài toán tối ưu.</strong></p>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r8-01">Đối chiếu bài này sau khi tự làm</a></p>
+<div id="d0-r8-02" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R8-02" data-d0-id="D0-R8-02">
+<p><span class="d0-task-number">Bài 02</span> <span class="d0-task-code">R8</span></p>
+<section id="từ-giá-cước-đến-khoảng-cách" class="level4">
+<h4 data-anchor-id="từ-giá-cước-đến-khoảng-cách">Từ giá cước đến khoảng cách</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 10: mô hình hàm số và bất phương trình bậc nhất; nền đơn vị.</p>
+<p><strong>Cách trả lời:</strong> Trình bày lời giải ngắn</p>
+<p><strong>Thời gian gợi ý:</strong> 4 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Một mô hình cước xe giả định tính 18 nghìn đồng cho kilômét đầu tiên; phần vượt 1 km tính 11 nghìn đồng/km, theo đúng độ dài thực, không làm tròn số kilômét và không có phụ phí. Một chuyến đi dài <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d\geq1</annotation></semantics></math></span> km có ngân sách 73 nghìn đồng. Lập công thức chi phí rồi tìm quãng đường lớn nhất có thể đi; kiểm tra kết quả theo quy tắc tính cước.</p>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r8-02">Đối chiếu bài này sau khi tự làm</a></p>
+<div id="d0-r8-03" class="zo-learning-task zo-learning-task--item d0-primary-task" data-d0-family="HO-D0-R8-03" data-d0-id="D0-R8-03">
+<p><span class="d0-task-number">Bài 03</span> <span class="d0-task-code">R8</span></p>
+<section id="chọn-phương-án-khả-thi" class="level4">
+<h4 data-anchor-id="chọn-phương-án-khả-thi">Chọn phương án khả thi</h4>
+<div class="d0-task-meta">
+<p><strong>Kiến thức cần dùng:</strong> Lớp 10: hệ bất phương trình hai ẩn; lập bảng hữu hạn, số nguyên không âm.</p>
+<p><strong>Cách trả lời:</strong> Trình bày lời giải ngắn</p>
+<p><strong>Thời gian gợi ý:</strong> 7 phút</p>
+</div>
+<div class="d0-task-prompt">
+<p>Một nhóm làm hai loại bộ quà A và B. Dữ liệu cho một bộ:</p>
+<div class="r1-table-scroll-x d0-data-table" tabindex="0" style="--r1-table-min-width: 32em" role="region" aria-label="Bảng dữ liệu — cuộn ngang nếu cần">
+<table class="r1-data-table caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;" scope="col">Loại</th>
+<th style="text-align: center;" scope="col">Vật liệu (đơn vị)</th>
+<th style="text-align: center;" scope="col">Thời gian (giờ)</th>
+<th style="text-align: center;" scope="col">Lãi (nghìn đồng)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th style="text-align: left;" scope="row">A</th>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">30</td>
+</tr>
+<tr class="even">
+<th style="text-align: left;" scope="row">B</th>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">40</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Có tối đa 8 đơn vị vật liệu và 8 giờ. Chỉ làm số nguyên không âm các bộ; tất cả bộ làm ra đều bán được, lãi cộng theo bảng. Hãy tìm số bộ mỗi loại để tổng lãi lớn nhất. Em tự chọn cách giải, viết các ràng buộc và giải thích vì sao không bỏ sót phương án tốt hơn.</p>
+</div>
+</section>
+</div>
+<p><a href="#doi-chieu-r8-03">Đối chiếu bài này sau khi tự làm</a></p>
+</section>
+</section>
+<section id="doc-ket-qua" class="level2">
+<h2 data-anchor-id="doc-ket-qua">Đối chiếu bài làm</h2>
+<p>Chỉ mở hướng dẫn của những bài em đã thử làm. Đây là đáp án và một cách giải; cách khác vẫn đúng nếu lập luận hợp lí và đáp ứng yêu cầu của đề. Trang không tự chấm bài làm trên giấy.</p>
+<details id="doi-chieu-r1-01" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Hàm số, đạo hàm, đồ thị — Bài 01
+</summary><div class="zo-block-body">
+<p><strong>Đáp án C.</strong> Căn bậc hai cần <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>+</mo><mn>2</mn><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x+2\geq0</annotation></semantics></math></span>, còn mẫu số cần <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>−</mo><mn>1</mn><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x-1\ne0</annotation></semantics></math></span>. Kết hợp: <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>≥</mo><mi>−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">x\geq-2</annotation></semantics></math></span> và <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>≠</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x\ne1</annotation></semantics></math></span>, nên tập xác định là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>2</mn><mo>;</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>∪</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>;</mo><mi>+</mi><mi>∞</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[-2;1)\cup(1;+\infty)</annotation></semantics></math></span>.</p>
+<p><strong>Đối chiếu:</strong> Em đã viết cả hai điều kiện chưa? Điểm <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">-2</annotation></semantics></math></span> được nhận vì căn bằng 0; điểm 1 bị loại vì mẫu bằng 0. Chọn đúng nhưng không nêu được hai điều kiện thì em còn cần ôn cách xác định tập xác định.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Tập xác định; điều kiện của căn bậc hai và mẫu số.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r1-01">Quay lại đề bài</a></p>
+</div></details>
+<details id="doi-chieu-r1-02" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Hàm số, đạo hàm, đồ thị — Bài 02
+</summary><div class="zo-block-body">
+<p><span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>f</mi><mi>′</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">f^\prime(x)=3x^2-3</annotation></semantics></math></span>, nên <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>f</mi><mi>′</mi></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">f^\prime(1)=0</annotation></semantics></math></span>. Vì <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">f(1)=-2</annotation></semantics></math></span>, tiếp điểm là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>;</mo><mi>−</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(1;-2)</annotation></semantics></math></span>. Tiếp tuyến có phương trình <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><msup><mi>f</mi><mi>′</mi></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">y=f^\prime(1)(x-1)+f(1)=-2</annotation></semantics></math></span>.</p>
+<p><strong>Đối chiếu:</strong> Đạo hàm cho hệ số góc, còn giá trị hàm số cho tung độ tiếp điểm. Em cần có đủ tiếp điểm và phương trình <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">y=-2</annotation></semantics></math></span>, không chỉ ghi hệ số góc bằng 0.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Đạo hàm và phương trình tiếp tuyến.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r1-02">Quay lại đề bài</a></p>
+</div></details>
+<details id="doi-chieu-r1-03" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Hàm số, đạo hàm, đồ thị — Bài 03
+</summary><div class="zo-block-body">
+<p><strong>a đúng; b sai; c đúng; d sai.</strong> Tại <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">-2</annotation></semantics></math></span>, đạo hàm đổi dấu từ âm sang dương nên hàm số đạt cực tiểu. Tại 1, đạo hàm không đổi dấu nên không có cực trị. Trên <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>2</mn><mo>;</mo><mi>+</mi><mi>∞</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(-2;+\infty)</annotation></semantics></math></span>, đạo hàm dương trừ tại 1 nên hàm số đồng biến. Trên <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mi>∞</mi><mo>;</mo><mi>−</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(-\infty;-2)</annotation></semantics></math></span> hàm số nghịch biến; do đó <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(-3)&gt;f(-2)</annotation></semantics></math></span>.</p>
+<p><strong>Đối chiếu:</strong> Đạo hàm bằng 0 chưa đủ để kết luận có cực trị; cần kiểm tra dấu ở hai phía. Khi so sánh giá trị hàm số, em phải dùng đúng chiều biến thiên.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Dấu đạo hàm, tính đơn điệu và cực trị.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r1-03">Quay lại đề bài</a></p>
+</div></details>
+<details id="doi-chieu-r2-01" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Thống kê và đọc dữ liệu — Bài 01
+</summary><div class="zo-block-body">
+<p>Số trung bình là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mn>4</mn><mo>+</mo><mn>5</mn><mo>+</mo><mn>5</mn><mo>+</mo><mn>6</mn><mo>+</mo><mn>30</mn></mrow><mn>5</mn></mfrac><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">\frac{4+5+5+6+30}{5}=10</annotation></semantics></math></span> phút. Dữ liệu đã được sắp tăng dần, nên trung vị là số ở giữa: 5 phút. Chọn trung vị để mô tả thời gian chờ điển hình: bốn lần chỉ từ 4 đến 6 phút, còn lần 30 phút kéo số trung bình lên cao.</p>
+<p><strong>Đối chiếu:</strong> Em cần tính đúng cả hai số và giải thích lựa chọn bằng dữ liệu, không chỉ nói “trung vị tốt hơn”.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Số trung bình, trung vị và ảnh hưởng của giá trị lớn bất thường.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r2-01">Quay lại đề bài</a></p>
+</div></details>
+<details id="doi-chieu-r2-02" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Thống kê và đọc dữ liệu — Bài 02
+</summary><div class="zo-block-body">
+<p>Trung điểm ba nhóm lần lượt là 5, 15, 25 phút. Tổng số người là 10. Số trung bình ghép nhóm là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mn>2</mn><mo>⋅</mo><mn>5</mn><mo>+</mo><mn>5</mn><mo>⋅</mo><mn>15</mn><mo>+</mo><mn>3</mn><mo>⋅</mo><mn>25</mn></mrow><mn>10</mn></mfrac><mo>=</mo><mn>16</mn></mrow><annotation encoding="application/x-tex">\frac{2\cdot5+5\cdot15+3\cdot25}{10}=16</annotation></semantics></math></span> phút. Đây là giá trị tính bằng các trung điểm thay cho số liệu từng người; không thể khẳng định nó bằng số trung bình chính xác của dữ liệu gốc.</p>
+<p><strong>Đối chiếu:</strong> Em có nhân trung điểm với số người trong nhóm và chia cho tổng số người không? Phần giải thích cần nêu rằng bảng không cho các thời gian riêng lẻ.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Trung điểm nhóm và số trung bình của mẫu ghép nhóm.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r2-02">Quay lại đề bài</a></p>
+</div></details>
+<details id="doi-chieu-r2-03" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Thống kê và đọc dữ liệu — Bài 03
+</summary><div class="zo-block-body">
+<p>Dùng trung điểm 5, 15, 25. Mỗi nhóm có 10 người và đều có số trung bình 15 phút: nhóm A có tổng <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>⋅</mo><mn>5</mn><mo>+</mo><mn>6</mn><mo>⋅</mo><mn>15</mn><mo>+</mo><mn>2</mn><mo>⋅</mo><mn>25</mn><mo>=</mo><mn>150</mn></mrow><annotation encoding="application/x-tex">2\cdot5+6\cdot15+2\cdot25=150</annotation></semantics></math></span>; nhóm B có tổng <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>⋅</mo><mn>5</mn><mo>+</mo><mn>2</mn><mo>⋅</mo><mn>15</mn><mo>+</mo><mn>4</mn><mo>⋅</mo><mn>25</mn><mo>=</mo><mn>150</mn></mrow><annotation encoding="application/x-tex">4\cdot5+2\cdot15+4\cdot25=150</annotation></semantics></math></span>.</p>
+<p>Phương sai nhóm A là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mn>5</mn><mo>−</mo><mn>15</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo>+</mo><mn>6</mn><mo stretchy="false" form="prefix">(</mo><mn>15</mn><mo>−</mo><mn>15</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo>+</mo><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mn>25</mn><mo>−</mo><mn>15</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><mn>10</mn></mfrac><mo>=</mo><mn>40</mn></mrow><annotation encoding="application/x-tex">\frac{2(5-15)^2+6(15-15)^2+2(25-15)^2}{10}=40</annotation></semantics></math></span> phút bình phương. Phương sai nhóm B là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mn>4</mn><mo stretchy="false" form="prefix">(</mo><mn>5</mn><mo>−</mo><mn>15</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo>+</mo><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mn>15</mn><mo>−</mo><mn>15</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo>+</mo><mn>4</mn><mo stretchy="false" form="prefix">(</mo><mn>25</mn><mo>−</mo><mn>15</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><mn>10</mn></mfrac><mo>=</mo><mn>80</mn></mrow><annotation encoding="application/x-tex">\frac{4(5-15)^2+2(15-15)^2+4(25-15)^2}{10}=80</annotation></semantics></math></span> phút bình phương. Nhận định của bạn là sai: trong hai mẫu ghép nhóm này, nhóm B phân tán hơn theo phương sai.</p>
+<p><strong>Đối chiếu:</strong> Em cần dùng đúng tần số và mẫu số 10; cùng trung bình không có nghĩa là cùng phương sai. Không suy rộng kết luận này cho mọi lần thực hiện công việc.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Phương sai của mẫu ghép nhóm.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r2-03">Quay lại đề bài</a></p>
+</div></details>
+<details id="doi-chieu-r3-01" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Hình học, vectơ và tọa độ — Bài 01
+</summary><div class="zo-block-body">
+<p>Hai vectơ cùng phương vì <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>u</mi><mo accent="true">→</mo></mover><mo>=</mo><mi>−</mi><mfrac><mn>2</mn><mn>3</mn></mfrac><mover><mi>v</mi><mo accent="true">→</mo></mover></mrow><annotation encoding="application/x-tex">\vec u=-\frac{2}{3}\vec v</annotation></semantics></math></span>. Thật vậy, nhân từng tọa độ của <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>v</mi><mo accent="true">→</mo></mover><annotation encoding="application/x-tex">\vec v</annotation></semantics></math></span> với <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mfrac><mn>2</mn><mn>3</mn></mfrac></mrow><annotation encoding="application/x-tex">-\frac{2}{3}</annotation></semantics></math></span> cho <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>;</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0;2)</annotation></semantics></math></span>. Do hệ số âm và hai vectơ đều khác vectơ không, chúng ngược hướng. Không được viết <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mfrac><mn>0</mn><mn>0</mn></mfrac><annotation encoding="application/x-tex">\frac{0}{0}</annotation></semantics></math></span>: phép chia này không xác định.</p>
+<p><strong>Đối chiếu:</strong> Kiểm tra bằng phép nhân với một số tránh được phép chia cho 0. Em cần nêu cả hệ số và hướng.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Nhân vectơ với một số; cùng phương và cùng hướng.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r3-01">Quay lại đề bài</a></p>
+</div></details>
+<details id="doi-chieu-r3-02" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Hình học, vectơ và tọa độ — Bài 02
+</summary><div class="zo-block-body">
+<p>Một vectơ pháp tuyến là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>n</mi><mo accent="true">→</mo></mover><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>;</mo><mn>2</mn><mo>;</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\vec n=(1;2;2)</annotation></semantics></math></span>. Khoảng cách cần tìm là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mo stretchy="false" form="prefix">|</mo><mn>1</mn><mo>+</mo><mn>2</mn><mo>⋅</mo><mn>2</mn><mo>+</mo><mn>2</mn><mo>⋅</mo><mn>3</mn><mo>−</mo><mn>5</mn><mo stretchy="false" form="postfix">|</mo></mrow><msqrt><mrow><msup><mn>1</mn><mn>2</mn></msup><mo>+</mo><msup><mn>2</mn><mn>2</mn></msup><mo>+</mo><msup><mn>2</mn><mn>2</mn></msup></mrow></msqrt></mfrac><mo>=</mo><mfrac><mn>6</mn><mn>3</mn></mfrac><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\frac{\lvert1+2\cdot2+2\cdot3-5\rvert}{\sqrt{1^2+2^2+2^2}}=\frac{6}{3}=2</annotation></semantics></math></span> m.</p>
+<p><strong>Đối chiếu:</strong> Vectơ pháp tuyến lấy từ các hệ số của ba tọa độ. Tử số phải có giá trị tuyệt đối; mẫu là độ dài vectơ pháp tuyến, không phải tổng các hệ số.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Vectơ pháp tuyến và khoảng cách từ điểm đến mặt phẳng.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r3-02">Quay lại đề bài</a></p>
+</div></details>
+<details id="doi-chieu-r3-03" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Hình học, vectơ và tọa độ — Bài 03
+</summary><div class="zo-block-body">
+<p>Hình chiếu vuông góc của <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mn>1</mn></msub><annotation encoding="application/x-tex">C_1</annotation></semantics></math></span> lên đáy là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math></span>; <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math></span> nằm trên đáy nên hình chiếu của <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><msub><mi>C</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">AC_1</annotation></semantics></math></span> là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>C</mi></mrow><annotation encoding="application/x-tex">AC</annotation></semantics></math></span>. Góc cần tìm là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mrow><msub><mi>C</mi><mn>1</mn></msub><mi>A</mi><mi>C</mi></mrow><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\widehat{C_1AC}</annotation></semantics></math></span>. Ta có <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>C</mi><mo>=</mo><msqrt><mrow><msup><mn>3</mn><mn>2</mn></msup><mo>+</mo><msup><mn>4</mn><mn>2</mn></msup></mrow></msqrt><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">AC=\sqrt{3^2+4^2}=5</annotation></semantics></math></span> m và <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><msub><mi>C</mi><mn>1</mn></msub><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">CC_1=2</annotation></semantics></math></span> m. Trong tam giác vuông <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>C</mi><msub><mi>C</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">ACC_1</annotation></semantics></math></span>, <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">tan</mi><mo>⁡</mo></mrow><mover><mrow><msub><mi>C</mi><mn>1</mn></msub><mi>A</mi><mi>C</mi></mrow><mo accent="true">̂</mo></mover><mo>=</mo><mfrac><mn>2</mn><mn>5</mn></mfrac></mrow><annotation encoding="application/x-tex">\tan\widehat{C_1AC}=\frac{2}{5}</annotation></semantics></math></span>, nên góc xấp xỉ <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>21</mn><mo>,</mo><msup><mn>8</mn><mo>∘</mo></msup></mrow><annotation encoding="application/x-tex">21{,}8^\circ</annotation></semantics></math></span>.</p>
+<p><strong>Đối chiếu:</strong> Em cần xác định hình chiếu trước khi tính góc. Khi dùng máy tính cho số đo theo độ, kiểm tra chế độ DEG.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Hình chiếu và góc giữa đường thẳng với mặt phẳng.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r3-03">Quay lại đề bài</a></p>
+</div></details>
+<details id="doi-chieu-r4-01" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Đếm và xác suất — Bài 01
+</summary><div class="zo-block-body">
+<p><strong>a đúng; b sai; c đúng; d sai.</strong> Viết N là ngửa, S là sấp. Bốn kết quả đồng khả năng là NN, NS, SN, SS. Biến cố <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math></span> gồm NN, NS; <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math></span> gồm NN, SN. Vì giao gồm NN nên <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>∩</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mn>4</mn></mfrac></mrow><annotation encoding="application/x-tex">P(A\cap B)=\frac14</annotation></semantics></math></span>, không bằng 0: hai biến cố không xung khắc. Ta có <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">P(A)=P(B)=\frac12</annotation></semantics></math></span> và <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>∩</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(A\cap B)=P(A)P(B)</annotation></semantics></math></span> nên chúng độc lập. Hợp gồm ba kết quả nên <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>∪</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>3</mn><mn>4</mn></mfrac></mrow><annotation encoding="application/x-tex">P(A\cup B)=\frac34</annotation></semantics></math></span>.</p>
+<p><strong>Đối chiếu:</strong> “Độc lập” khác “xung khắc”. Liệt kê kết quả giúp em kiểm tra giao và hợp trước khi kết luận.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Giao, hợp, biến cố độc lập và xung khắc.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r4-01">Quay lại đề bài</a></p>
+</div></details>
+<details id="doi-chieu-r4-02" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Đếm và xác suất — Bài 02
+</summary><div class="zo-block-body">
+<p>Số cặp có thể chọn là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mn>7</mn><mo>⋅</mo><mn>6</mn></mrow><mn>2</mn></mfrac><mo>=</mo><mn>21</mn></mrow><annotation encoding="application/x-tex">\frac{7\cdot6}{2}=21</annotation></semantics></math></span>. Số cặp khác màu là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>⋅</mo><mn>3</mn><mo>=</mo><mn>12</mn></mrow><annotation encoding="application/x-tex">4\cdot3=12</annotation></semantics></math></span>. Xác suất là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>12</mn><mn>21</mn></mfrac><mo>=</mo><mfrac><mn>4</mn><mn>7</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{12}{21}=\frac47</annotation></semantics></math></span>.</p>
+<p><strong>Đối chiếu:</strong> Chọn đồng thời nên mỗi cặp không có thứ tự. Nếu em đếm có thứ tự, phải đếm nhất quán ở cả tử và mẫu.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Đếm cặp không có thứ tự và xác suất cổ điển.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r4-02">Quay lại đề bài</a></p>
+</div></details>
+<details id="doi-chieu-r4-03" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Đếm và xác suất — Bài 03
+</summary><div class="zo-block-body">
+<ol type="a">
+<li><p>Trong 24 học sinh có tham gia, có 18 nữ: xác suất là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>18</mn><mn>24</mn></mfrac><mo>=</mo><mfrac><mn>3</mn><mn>4</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{18}{24}=\frac34</annotation></semantics></math></span>.</p></li>
+<li><p>Trong 30 học sinh nữ, có 18 người tham gia: xác suất là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>18</mn><mn>30</mn></mfrac><mo>=</mo><mfrac><mn>3</mn><mn>5</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{18}{30}=\frac35</annotation></semantics></math></span>.</p></li>
+</ol>
+<p><strong>Đối chiếu:</strong> Mẫu số là số học sinh thỏa điều kiện đã biết. Câu a giới hạn trong nhóm tham gia; câu b giới hạn trong nhóm nữ. Đổi điều kiện làm đổi nhóm đang xét.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Xác suất có điều kiện và đọc bảng hai chiều.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r4-03">Quay lại đề bài</a></p>
+</div></details>
+<details id="doi-chieu-r5-01" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Dãy số, mũ và lôgarit — Bài 01
+</summary><div class="zo-block-body">
+<p><span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>a</mi><mi>n</mi></msub><mo>=</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">a_{n+1}-a_n=20</annotation></semantics></math></span>, nên dãy thứ nhất là cấp số cộng, công sai 20. <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msub><mi>b</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>b</mi><mi>n</mi></msub></mfrac><mo>=</mo><mn>1</mn><mo>,</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\frac{b_{n+1}}{b_n}=1{,}2</annotation></semantics></math></span>, nên dãy thứ hai là cấp số nhân, công bội <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">1{,}2</annotation></semantics></math></span>. Dãy thứ hai tăng 20% sau mỗi bước vì số mới bằng <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">1{,}2</annotation></semantics></math></span> lần số trước. Dãy thứ nhất tăng một lượng cố định 20, không phải một tỉ lệ cố định 20%.</p>
+<p><strong>Đối chiếu:</strong> Phân biệt “cộng thêm 20” với “tăng thêm 20% của giá trị trước”.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Cấp số cộng, cấp số nhân và tăng theo tỉ lệ.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r5-01">Quay lại đề bài</a></p>
+</div></details>
+<details id="doi-chieu-r5-02" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Dãy số, mũ và lôgarit — Bài 02
+</summary><div class="zo-block-body">
+<p>Điều kiện: <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>−</mo><mn>1</mn><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x-1&gt;0</annotation></semantics></math></span> và <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>−</mo><mn>3</mn><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x-3&gt;0</annotation></semantics></math></span>, tức <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>&gt;</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">x&gt;3</annotation></semantics></math></span>. Khi đó, phương trình tương đương <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>−</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">\log_2((x-1)(x-3))=3</annotation></semantics></math></span>, rồi <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>−</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">(x-1)(x-3)=8</annotation></semantics></math></span>. Suy ra <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>x</mi><mo>−</mo><mn>5</mn><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x^2-4x-5=0</annotation></semantics></math></span>, có nghiệm 5 và <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math></span>. Chỉ 5 thỏa <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>&gt;</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">x&gt;3</annotation></semantics></math></span>. Kiểm tra: <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mn>2</mn></msub><mn>4</mn><mo>+</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mn>2</mn></msub><mn>2</mn><mo>=</mo><mn>2</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">\log_2 4+\log_2 2=2+1=3</annotation></semantics></math></span>. Vậy nghiệm là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">x=5</annotation></semantics></math></span>.</p>
+<p><strong>Đối chiếu:</strong> Tích hai biểu thức dương không thay thế được điều kiện từng biểu thức trong lôgarit phải dương. Nghiệm <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math></span> phải bị loại.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Điều kiện và tính chất lôgarit; kiểm tra nghiệm.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r5-02">Quay lại đề bài</a></p>
+</div></details>
+<details id="doi-chieu-r5-03" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Dãy số, mũ và lôgarit — Bài 03
+</summary><div class="zo-block-body">
+<p>Diện tích sau <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math></span> ngày là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>n</mi></msub><mo>=</mo><mn>100</mn><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>2</mn><msup><mo stretchy="false" form="postfix">)</mo><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">S_n=100(1{,}2)^n</annotation></semantics></math></span> cm², với <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math></span> nguyên không âm. Cần <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>2</mn><msup><mo stretchy="false" form="postfix">)</mo><mi>n</mi></msup><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">(1{,}2)^n\geq2</annotation></semantics></math></span>. Ngày 3: <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mn>3</mn></msub><mo>=</mo><mn>172</mn><mo>,</mo><mn>8</mn><mo>&lt;</mo><mn>200</mn></mrow><annotation encoding="application/x-tex">S_3=172{,}8&lt;200</annotation></semantics></math></span>; ngày 4: <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mn>4</mn></msub><mo>=</mo><mn>207</mn><mo>,</mo><mn>36</mn><mo>≥</mo><mn>200</mn></mrow><annotation encoding="application/x-tex">S_4=207{,}36\geq200</annotation></semantics></math></span>. Dãy tăng vì công bội lớn hơn 1, nên ngày nguyên nhỏ nhất là 4.</p>
+<p><strong>Đối chiếu:</strong> Phải kiểm tra cả ngày đạt ngưỡng và ngày liền trước. Bài chỉ xét cuối ngày nên một thời điểm không nguyên không phải đáp án.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Mô hình cấp số nhân và ngưỡng tại thời điểm nguyên.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r5-03">Quay lại đề bài</a></p>
+</div></details>
+<details id="doi-chieu-r6-01" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Hàm số lượng giác và phương trình lượng giác — Bài 01
+</summary><div class="zo-block-body">
+<p><strong>Đáp án A.</strong> <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>150</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">150^\circ</annotation></semantics></math></span> tương ứng <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>150</mn><mo>⋅</mo><mfrac><mi>π</mi><mn>180</mn></mfrac><mo>=</mo><mfrac><mrow><mn>5</mn><mi>π</mi></mrow><mn>6</mn></mfrac></mrow><annotation encoding="application/x-tex">150\cdot\frac{\pi}{180}=\frac{5\pi}{6}</annotation></semantics></math></span> radian. Góc ở góc phần tư II nên cos âm.</p>
+<p><strong>Đối chiếu:</strong> Em cần kiểm tra cả đổi đơn vị góc và dấu của cos, không chỉ một trong hai.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Đổi độ sang radian và dấu trên đường tròn lượng giác.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r6-01">Quay lại đề bài</a></p>
+</div></details>
+<details id="doi-chieu-r6-02" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Hàm số lượng giác và phương trình lượng giác — Bài 02
+</summary><div class="zo-block-body">
+<p>Ta có <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>=</mo><mfrac><mi>π</mi><mn>3</mn></mfrac><mo>+</mo><mn>2</mn><mi>k</mi><mi>π</mi></mrow><annotation encoding="application/x-tex">2x=\frac\pi3+2k\pi</annotation></semantics></math></span> hoặc <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>=</mo><mfrac><mrow><mn>2</mn><mi>π</mi></mrow><mn>3</mn></mfrac><mo>+</mo><mn>2</mn><mi>k</mi><mi>π</mi></mrow><annotation encoding="application/x-tex">2x=\frac{2\pi}{3}+2k\pi</annotation></semantics></math></span>, với <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>∈</mo><mi>ℤ</mi></mrow><annotation encoding="application/x-tex">k\in\mathbb Z</annotation></semantics></math></span>. Vì vậy <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mfrac><mi>π</mi><mn>6</mn></mfrac><mo>+</mo><mi>k</mi><mi>π</mi></mrow><annotation encoding="application/x-tex">x=\frac\pi6+k\pi</annotation></semantics></math></span> hoặc <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mfrac><mi>π</mi><mn>3</mn></mfrac><mo>+</mo><mi>k</mi><mi>π</mi></mrow><annotation encoding="application/x-tex">x=\frac\pi3+k\pi</annotation></semantics></math></span>. Trong <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>;</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0;2\pi)</annotation></semantics></math></span>, các nghiệm là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mfrac><mi>π</mi><mn>6</mn></mfrac><annotation encoding="application/x-tex">\frac\pi6</annotation></semantics></math></span>, <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mfrac><mi>π</mi><mn>3</mn></mfrac><annotation encoding="application/x-tex">\frac\pi3</annotation></semantics></math></span>, <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mfrac><mrow><mn>7</mn><mi>π</mi></mrow><mn>6</mn></mfrac><annotation encoding="application/x-tex">\frac{7\pi}{6}</annotation></semantics></math></span>, <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mfrac><mrow><mn>4</mn><mi>π</mi></mrow><mn>3</mn></mfrac><annotation encoding="application/x-tex">\frac{4\pi}{3}</annotation></semantics></math></span>.</p>
+<p><strong>Đối chiếu:</strong> Chia cả góc và phần <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>k</mi><mi>π</mi></mrow><annotation encoding="application/x-tex">2k\pi</annotation></semantics></math></span> cho 2. Giữ đủ hai họ rồi lọc nghiệm theo khoảng đã cho.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Phương trình sin cơ bản và lọc nghiệm trong khoảng.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r6-02">Quay lại đề bài</a></p>
+</div></details>
+<details id="doi-chieu-r6-03" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Hàm số lượng giác và phương trình lượng giác — Bài 03
+</summary><div class="zo-block-body">
+<p>Chu kì dương nhỏ nhất là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><mfrac><mrow><mn>2</mn><mi>π</mi></mrow><mrow><mi>π</mi><mi>/</mi><mn>6</mn></mrow></mfrac><mo>=</mo><mn>12</mn></mrow><annotation encoding="application/x-tex">T=\frac{2\pi}{\pi/6}=12</annotation></semantics></math></span> giờ. Vì sin nhận các giá trị từ <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math></span> đến 1, mực nước nhận các giá trị từ 1 đến 5 m. Đạt 5 m khi <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">sin</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mfrac><mrow><mi>π</mi><mi>t</mi></mrow><mn>6</mn></mfrac><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\sin(\frac{\pi t}{6})=1</annotation></semantics></math></span>, tức <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>π</mi><mi>t</mi></mrow><mn>6</mn></mfrac><mo>=</mo><mfrac><mi>π</mi><mn>2</mn></mfrac><mo>+</mo><mn>2</mn><mi>k</mi><mi>π</mi></mrow><annotation encoding="application/x-tex">\frac{\pi t}{6}=\frac\pi2+2k\pi</annotation></semantics></math></span>, hay <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>3</mn><mo>+</mo><mn>12</mn><mi>k</mi></mrow><annotation encoding="application/x-tex">t=3+12k</annotation></semantics></math></span>. Với <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t\geq0</annotation></semantics></math></span>, thời điểm đầu tiên là 3 giờ.</p>
+<p><strong>Đối chiếu:</strong> Phân biệt chu kì 12 giờ với thời điểm đạt cực đại đầu tiên 3 giờ. Khoảng giá trị phải tính cả mức nền 3 m và biên độ 2 m.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Chu kì, khoảng giá trị và phương trình trong mô hình hàm sin.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r6-03">Quay lại đề bài</a></p>
+</div></details>
+<details id="doi-chieu-r7-01" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Nguyên hàm, tích phân và ứng dụng — Bài 01
+</summary><div class="zo-block-body">
+<p>Chọn <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>F</mi><mn>1</mn></msub><annotation encoding="application/x-tex">F_1</annotation></semantics></math></span> và <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>F</mi><mn>2</mn></msub><annotation encoding="application/x-tex">F_2</annotation></semantics></math></span>. Đạo hàm của hai hàm này đều là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi></mrow><annotation encoding="application/x-tex">2x</annotation></semantics></math></span>. Trong khi đó <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>F</mi><mn>3</mn><mi>′</mi></msubsup><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4</mn><mi>x</mi></mrow><annotation encoding="application/x-tex">F_3^\prime(x)=4x</annotation></semantics></math></span> và <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>F</mi><mn>4</mn><mi>′</mi></msubsup><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mi>x</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F_4^\prime(x)=2x+1</annotation></semantics></math></span>, nên không bằng <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mi>x</mi></mrow><annotation encoding="application/x-tex">f(x)=2x</annotation></semantics></math></span> trên toàn bộ <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℝ</mi><annotation encoding="application/x-tex">\mathbb R</annotation></semantics></math></span>. Họ nguyên hàm của <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi></mrow><annotation encoding="application/x-tex">2x</annotation></semantics></math></span> là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">x^2+C</annotation></semantics></math></span>.</p>
+<p><strong>Đối chiếu:</strong> Một nguyên hàm phải có đạo hàm bằng hàm đã cho. Các hằng số khác nhau không làm thay đổi đạo hàm.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Định nghĩa và họ nguyên hàm.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r7-01">Quay lại đề bài</a></p>
+</div></details>
+<details id="doi-chieu-r7-02" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Nguyên hàm, tích phân và ứng dụng — Bài 02
+</summary><div class="zo-block-body">
+<p>Lấy nguyên hàm: <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>x</mi><mn>3</mn></msup><mo>−</mo><mn>2</mn><mi>x</mi><mo>+</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">F(x)=x^3-2x+C</annotation></semantics></math></span>. Thay <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x=1</annotation></semantics></math></span>: <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mn>2</mn><mo>+</mo><mi>C</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">1-2+C=4</annotation></semantics></math></span>, nên <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">C=5</annotation></semantics></math></span>. Vậy <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>x</mi><mn>3</mn></msup><mo>−</mo><mn>2</mn><mi>x</mi><mo>+</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">F(x)=x^3-2x+5</annotation></semantics></math></span> và <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>8</mn><mo>−</mo><mn>4</mn><mo>+</mo><mn>5</mn><mo>=</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">F(2)=8-4+5=9</annotation></semantics></math></span>.</p>
+<p><strong>Đối chiếu:</strong> Đừng bỏ hằng số trước khi dùng điều kiện <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">F(1)=4</annotation></semantics></math></span>. Có thể kiểm tra lại cả đạo hàm và giá trị tại 1.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Nguyên hàm đa thức và xác định hằng số.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r7-02">Quay lại đề bài</a></p>
+</div></details>
+<details id="doi-chieu-r7-03" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Nguyên hàm, tích phân và ứng dụng — Bài 03
+</summary><div class="zo-block-body">
+<p>Độ dời là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mn>0</mn><mn>5</mn></msubsup><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mo>=</mo><mo stretchy="false" form="prefix">[</mo><mfrac><msup><mi>t</mi><mn>2</mn></msup><mn>2</mn></mfrac><mo>−</mo><mn>2</mn><mi>t</mi><msubsup><mo stretchy="false" form="postfix">]</mo><mn>0</mn><mn>5</mn></msubsup><mo>=</mo><mfrac><mn>5</mn><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\int_0^5(t-2)\,dt=[\frac{t^2}{2}-2t]_0^5=\frac52</annotation></semantics></math></span> m.</p>
+<p>Quãng đường là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mn>0</mn><mn>5</mn></msubsup><mo stretchy="false" form="prefix">|</mo><mi>t</mi><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">|</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mn>2</mn></msubsup><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>−</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mo>+</mo><msubsup><mo>∫</mo><mn>2</mn><mn>5</mn></msubsup><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mo>=</mo><mn>2</mn><mo>+</mo><mfrac><mn>9</mn><mn>2</mn></mfrac><mo>=</mo><mfrac><mn>13</mn><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\int_0^5\lvert t-2\rvert\,dt=\int_0^2(2-t)\,dt+\int_2^5(t-2)\,dt=2+\frac92=\frac{13}{2}</annotation></semantics></math></span> m. Vận tốc âm trước giây thứ 2, dương sau đó: vật đổi chiều. Độ dời tính sự thay đổi vị trí có dấu; quãng đường cộng độ dài cả hai chặng.</p>
+<p><strong>Đối chiếu:</strong> Phải viết đúng hai tích phân trước khi tính. Lấy giá trị tuyệt đối của kết quả độ dời không cho tổng quãng đường.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Tích phân vận tốc; độ dời và quãng đường.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r7-03">Quay lại đề bài</a></p>
+</div></details>
+<details id="doi-chieu-r8-01" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Mô hình hóa, tối ưu và tổng hợp — Bài 01
+</summary><div class="zo-block-body">
+<p>Ba cạnh hàng rào có tổng <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>+</mo><mi>y</mi><mo>=</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">2x+y=20</annotation></semantics></math></span>. Cả hai kích thước phải dương, nên <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mn>20</mn><mo>−</mo><mn>2</mn><mi>x</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">y=20-2x&gt;0</annotation></semantics></math></span> và <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>x</mi><mo>&lt;</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">0&lt;x&lt;10</annotation></semantics></math></span>. Diện tích là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>x</mi><mi>y</mi><mo>=</mo><mi>x</mi><mo stretchy="false" form="prefix">(</mo><mn>20</mn><mo>−</mo><mn>2</mn><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">A(x)=xy=x(20-2x)</annotation></semantics></math></span>, tính bằng m². Đề chưa yêu cầu tìm diện tích lớn nhất.</p>
+<p><strong>Đối chiếu:</strong> Có hai cạnh dài <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math></span> nhưng chỉ một cạnh dài <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math></span> cần rào. Không nhận <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x=0</annotation></semantics></math></span> hoặc <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">x=10</annotation></semantics></math></span> vì khi đó hình chữ nhật bị suy biến.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Chọn biến, ràng buộc và tập giá trị hợp lệ của biến.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r8-01">Quay lại đề bài</a></p>
+</div></details>
+<details id="doi-chieu-r8-02" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Mô hình hóa, tối ưu và tổng hợp — Bài 02
+</summary><div class="zo-block-body">
+<p>Với <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d\geq1</annotation></semantics></math></span>, chi phí tính bằng nghìn đồng là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>18</mn><mo>+</mo><mn>11</mn><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">C(d)=18+11(d-1)</annotation></semantics></math></span>. Ngân sách cho <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>18</mn><mo>+</mo><mn>11</mn><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mn>73</mn></mrow><annotation encoding="application/x-tex">18+11(d-1)\leq73</annotation></semantics></math></span>, suy ra <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≤</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">d\leq6</annotation></semantics></math></span>. Quãng đường lớn nhất là 6 km. Kiểm tra: kilômét đầu 18 nghìn, 5 km còn lại là 55 nghìn, tổng 73 nghìn. Vì cước tăng theo quãng đường, đi xa hơn sẽ vượt ngân sách.</p>
+<p><strong>Đối chiếu:</strong> Phần tính 11 nghìn đồng/km chỉ là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d-1</annotation></semantics></math></span> km; phải giữ đúng đơn vị nghìn đồng.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Lập hàm chi phí và bất phương trình theo ngân sách.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r8-02">Quay lại đề bài</a></p>
+</div></details>
+<details id="doi-chieu-r8-03" class="zo-learning-solution r1-details r1-solution zo-learning-disclosure zo-block zo-block-gray">
+<summary class="zo-block-title zo-learning-summary">
+Mô hình hóa, tối ưu và tổng hợp — Bài 03
+</summary><div class="zo-block-body">
+<p>Gọi <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">a,b</annotation></semantics></math></span> là số bộ A, B. Các ràng buộc là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>a</mi><mo>+</mo><mi>b</mi><mo>≤</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">2a+b\leq8</annotation></semantics></math></span>, <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>+</mo><mn>2</mn><mi>b</mi><mo>≤</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">a+2b\leq8</annotation></semantics></math></span>, với <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">a,b</annotation></semantics></math></span> nguyên không âm. Tổng lãi là <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mn>30</mn><mi>a</mi><mo>+</mo><mn>40</mn><mi>b</mi></mrow><annotation encoding="application/x-tex">L=30a+40b</annotation></semantics></math></span> nghìn đồng.</p>
+<p>Từ <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>+</mo><mn>2</mn><mi>b</mi><mo>≤</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">a+2b\leq8</annotation></semantics></math></span>, chỉ cần xét <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">b=0,1,2,3,4</annotation></semantics></math></span>. Với mỗi <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math></span>, vì lãi tăng khi tăng <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math></span>, chọn <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math></span> lớn nhất còn thỏa cả hai ràng buộc:</p>
+<div class="r1-table-scroll-x d0-data-table" tabindex="0" style="--r1-table-min-width: 24em" role="region" aria-label="Bảng dữ liệu — cuộn ngang nếu cần">
+<table class="r1-data-table caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;" scope="col">Số bộ B</th>
+<th style="text-align: left;" scope="col">Số bộ A lớn nhất</th>
+<th style="text-align: left;" scope="col">Lãi (nghìn đồng)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th style="text-align: left;" scope="row">0</th>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">120</td>
+</tr>
+<tr class="even">
+<th style="text-align: left;" scope="row">1</th>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">130</td>
+</tr>
+<tr class="odd">
+<th style="text-align: left;" scope="row">2</th>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">170</td>
+</tr>
+<tr class="even">
+<th style="text-align: left;" scope="row">3</th>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">180</td>
+</tr>
+<tr class="odd">
+<th style="text-align: left;" scope="row">4</th>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">160</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Vậy làm 2 bộ A và 3 bộ B, lãi lớn nhất 180 nghìn đồng. Phương án dùng 7 đơn vị vật liệu và 8 giờ. Bảng đã xét mọi giá trị có thể của <span class="d0-inline-math"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math></span>; với từng giá trị, phương án khác có ít bộ A hơn nên không thể cho lãi lớn hơn.</p>
+<p><strong>Đối chiếu:</strong> Phải kiểm tra đồng thời vật liệu, thời gian và số nguyên. Chỉ thử vài phương án tốt chưa chứng minh được không có phương án tốt hơn.</p>
+<p><strong>Nội dung cần ôn nếu còn vướng:</strong> Ràng buộc hai biến và tìm tối ưu trên các phương án nguyên.</p>
+<p>Em có thể đọc lại cách giải trên ngay tại đây, tìm bước còn vướng rồi tự giải thích bước đó. Nếu cần ôn đầy đủ hơn, dùng tên nội dung này để tìm bài học tương ứng trong sách giáo khoa hoặc chọn mạch ở phần <a href="#chon-mach">Chọn mạch ôn</a>.</p>
+<p><a href="#d0-r8-03">Quay lại đề bài</a></p>
+</div></details>
+<section id="ghi-điều-em-nhận-ra" class="level3">
+<h3 data-anchor-id="ghi-điều-em-nhận-ra">Ghi điều em nhận ra</h3>
+<p>Sau khi đối chiếu một câu khảo sát, em chỉ cần ghi một dòng trong vở:</p>
+<p><strong>Tên nhóm, số bài — Em tự làm được đến đâu? — Còn vướng ở bước nào?</strong></p>
+<p>Ví dụ: “Hàm số, đạo hàm, đồ thị — Bài 01: tìm được điều kiện của căn, nhưng quên loại giá trị làm mẫu bằng 0.”</p>
+<p>Nếu em giải đúng câu khảo sát và em giải thích được các bước, ghi “Tự làm đúng và giải thích được”. Nếu chỉ giải được một phần, ghi rõ bước còn vướng. Nếu chưa làm xong, giữ nhận xét “Chưa làm xong”; không tự xem toàn bộ kiến thức của bài là điểm yếu.</p>
+<p>Nếu đã xem lời giải trước đây hoặc dùng hỗ trợ trong lúc làm, ghi riêng điều đó. Kết quả đúng khi có hỗ trợ chưa đủ để xác nhận em tự làm được từ đầu.</p>
+<p>Không cần nhận xét các câu khảo sát chưa làm. Một vài bài không đủ để đánh giá toàn bộ một mạch hay dự báo điểm thi.</p>
+<p><a href="#chon-mach">Chọn nội dung ôn tiếp</a></p>
+</section>
+</section>
+<section id="chon-mach" class="level2">
+<h2 data-anchor-id="chon-mach">Chọn mạch ôn và bắt đầu</h2>
+<p><strong>Em muốn bắt đầu ôn mạch nào?</strong></p>
+<p>Bảng dưới đây giới thiệu tám mạch ôn của chương trình. Em hãy xem tên mạch và các nội dung trong từng mạch, rồi chọn <strong>một mạch để bắt đầu</strong>.</p>
+<p>Nếu đã làm khảo sát, em có thể chọn mạch tương ứng với nhóm câu mình còn vướng. Nếu chưa làm khảo sát, em cứ chọn mạch đang học ở trường hoặc muốn thử trước.</p>
+<p>Em không cần chắc chắn ngay rằng mình đã chọn mạch phù hợp nhất. Trong lúc học, em có thể đổi mạch.</p>
+<div class="d0-live-materials">
+<p>Học liệu hiện có</p>
+<ul>
+<li><a href="../../../../../content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.html">Kết nối hàm số, bảng biến thiên và đồ thị</a></li>
+<li><a href="../../../../../content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/index.html">Giá trị lớn nhất và giá trị nhỏ nhất của hàm số</a></li>
+</ul>
+<p>R2–R8: chưa có học liệu để mở.</p>
+</div>
+<div class="r1-table-scroll-x d0-data-table" tabindex="0" style="--r1-table-min-width: 24em" role="region" aria-label="Bảng dữ liệu — cuộn ngang nếu cần">
+<table class="r1-data-table caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;" scope="col">Mạch ôn</th>
+<th style="text-align: left;" scope="col">Những nội dung giúp em nhận ra mạch phù hợp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th style="text-align: left;" scope="row">Hàm số, đạo hàm, đồ thị</th>
+<td style="text-align: left;">Tập xác định; điều kiện của căn bậc hai và mẫu số; Đạo hàm và phương trình tiếp tuyến; Dấu đạo hàm, tính đơn điệu và cực trị</td>
+</tr>
+<tr class="even">
+<th style="text-align: left;" scope="row">Thống kê và đọc dữ liệu</th>
+<td style="text-align: left;">Số trung bình, trung vị và ảnh hưởng của giá trị lớn bất thường; Trung điểm nhóm và số trung bình của mẫu ghép nhóm; Phương sai của mẫu ghép nhóm</td>
+</tr>
+<tr class="odd">
+<th style="text-align: left;" scope="row">Hình học, vectơ và tọa độ</th>
+<td style="text-align: left;">Nhân vectơ với một số; cùng phương và cùng hướng; Vectơ pháp tuyến và khoảng cách từ điểm đến mặt phẳng; Hình chiếu và góc giữa đường thẳng với mặt phẳng</td>
+</tr>
+<tr class="even">
+<th style="text-align: left;" scope="row">Đếm và xác suất</th>
+<td style="text-align: left;">Giao, hợp, biến cố độc lập và xung khắc; Đếm cặp không có thứ tự và xác suất cổ điển; Xác suất có điều kiện và đọc bảng hai chiều</td>
+</tr>
+<tr class="odd">
+<th style="text-align: left;" scope="row">Dãy số, mũ và lôgarit</th>
+<td style="text-align: left;">Cấp số cộng, cấp số nhân và tăng theo tỉ lệ; Điều kiện và tính chất lôgarit; kiểm tra nghiệm; Mô hình cấp số nhân và ngưỡng tại thời điểm nguyên</td>
+</tr>
+<tr class="even">
+<th style="text-align: left;" scope="row">Hàm số lượng giác và phương trình lượng giác</th>
+<td style="text-align: left;">Đổi độ sang radian và dấu trên đường tròn lượng giác; Phương trình sin cơ bản và lọc nghiệm trong khoảng; Chu kì, khoảng giá trị và phương trình trong mô hình hàm sin</td>
+</tr>
+<tr class="odd">
+<th style="text-align: left;" scope="row">Nguyên hàm, tích phân và ứng dụng</th>
+<td style="text-align: left;">Định nghĩa và họ nguyên hàm; Nguyên hàm đa thức và xác định hằng số; Tích phân vận tốc; độ dời và quãng đường</td>
+</tr>
+<tr class="even">
+<th style="text-align: left;" scope="row">Mô hình hóa, tối ưu và tổng hợp</th>
+<td style="text-align: left;">Chọn biến, ràng buộc và tập giá trị hợp lệ của biến; Lập hàm chi phí và bất phương trình theo ngân sách; Ràng buộc hai biến và tìm tối ưu trên các phương án nguyên</td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="mở-mạch-đã-chọn" class="level3">
+<h3 data-anchor-id="mở-mạch-đã-chọn">Mở mạch đã chọn</h3>
+<p>Bấm liên kết dưới đây để vào trang ôn thi Toán THPT 2027, rồi tìm tên mạch em đã chọn trong bảng. Em có thể bắt đầu học ngay, không cần làm thêm câu khảo sát hoặc ghi thêm phiếu kết quả.</p>
+<p><a href="../../../../../content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html#hoc-lieu-hien-co" class="primary-link">Vào trang ôn thi Toán THPT 2027</a></p>
+</section>
+</section>
+</div>
+
+
+
+</main> <!-- /main -->
+<!-- Overlay để click ra ngoài và đóng sidebar -->
+
+<div class="sidebar-overlay" aria-hidden="true"></div>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Đảm bảo chỉ có 1 overlay trong DOM
+
+    let overlay = document.querySelector(".sidebar-overlay");
+
+    if (!overlay) {
+
+      overlay = document.createElement("div");
+
+      overlay.className = "sidebar-overlay";
+
+      body.appendChild(overlay);
+
+    } else {
+
+      // xóa overlay dư thừa nếu có
+
+      const all = document.querySelectorAll(".sidebar-overlay");
+
+      for (let i = 1; i < all.length; i++) all[i].remove();
+
+    }
+
+
+
+    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
+
+    const sidebar = document.getElementById("quarto-sidebar");
+
+    if (!sidebar) return;
+
+
+
+    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
+
+
+
+    // Gỡ data-bs-* để Bootstrap không tự toggle song song
+
+    toggles.forEach(btn => {
+
+      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
+
+      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
+
+    });
+
+
+
+    const isOpen = () => sidebar.classList.contains("show");
+
+
+
+    function openSidebar() {
+
+      sidebar.classList.add("show");
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
+
+    }
+
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove("show");
+
+      // tắt overlay ngay để không "kẹt xám"
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
+
+    }
+
+
+
+    function toggleSidebar(e) {
+
+      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+
+      if (isOpen()) closeSidebar(); else openSidebar();
+
+    }
+
+
+
+    // Bắt click toggle (capture để chạy trước handler khác)
+
+    toggles.forEach(btn => {
+
+      btn.addEventListener("click", toggleSidebar, { capture: true });
+
+    });
+
+
+
+    // Click overlay -> luôn đóng
+
+    overlay.addEventListener("click", function (e) {
+
+      e.preventDefault();
+
+      e.stopImmediatePropagation();
+
+      if (isOpen()) closeSidebar();
+
+    }, { capture: true });
+
+
+
+    // ESC -> đóng
+
+    document.addEventListener("keydown", (e) => {
+
+      if (e.key === "Escape" && isOpen()) closeSidebar();
+
+    });
+
+
+
+    // Đồng bộ ban đầu
+
+    if (isOpen()) {
+
+      overlay.classList.add("active");
+
+      overlay.style.display = "block";
+
+      body.classList.add("sidebar-open");
+
+    } else {
+
+      overlay.classList.remove("active");
+
+      overlay.style.display = "none";
+
+      body.classList.remove("sidebar-open");
+
+    }
+
+  });
+
+</script>
+
+
+
+<!-- nav#TOC -->
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const body = document.body;
+
+
+
+    // Lấy TOC Quarto (1 trong 3 biến thể)
+
+    const rawToc =
+
+      document.querySelector("nav#TOC") ||
+
+      document.querySelector(".quarto-toc") ||
+
+      document.querySelector(".toc");
+
+
+
+    // Vùng breadcrumb/secondary nav để gắn nút & panel
+
+    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
+
+    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
+
+
+
+    // Nếu trang không có TOC thật thì không tạo nút TOC.
+
+    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
+
+    if (!rawToc) {
+
+      tocBtn?.closest(".toc-toggle-holder")?.remove();
+
+      return;
+
+    }
+
+
+
+    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
+
+    if (secContainer && !tocBtn) {
+
+      tocBtn = document.createElement("button");
+
+      tocBtn.type = "button";
+
+      tocBtn.className = "toc-toggle-btn only-icon";
+
+      tocBtn.setAttribute("aria-expanded", "false");
+
+      tocBtn.setAttribute("aria-label", "Trên trang này");
+
+      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
+
+      tocBtn.innerHTML = `
+
+      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
+
+           width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
+           aria-hidden="true" focusable="false">
+
+        <path d="M10 6h10M10 12h10M10 18h10"></path>
+
+        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
+
+        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
+
+      </svg>
+
+    `;
+
+      const holder = document.createElement("div");
+
+      holder.className = "toc-toggle-holder";
+
+      holder.style.marginLeft = "auto";
+
+      holder.appendChild(tocBtn);
+
+      secContainer.appendChild(holder);
+
+    }
+
+
+
+    // ----- Chuẩn hoá panel TOC
+
+    let tocEl = null;
+
+    if (rawToc && secNav) {
+
+      tocEl = rawToc;
+
+      tocEl.classList.add("q-toc");
+
+      // GIỮ id = "TOC" để ScrollSpy bắt đúng
+
+      tocEl.id = "TOC";
+
+      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
+
+      tocEl.setAttribute("role", "region");
+
+      tocEl.setAttribute("aria-label", "Trên trang này");
+
+      tocBtn?.setAttribute("aria-controls", tocEl.id);
+
+      const t = tocEl.querySelector(".toc-title, h2, h3");
+
+      if (t) t.classList.add("toc-title");
+
+
+
+      // Hiện các cấp mục lục đã được Quarto sinh ra theo toc-depth.
+
+      // Quarto/Bootstrap có thể gắn class "collapse" cho mục con, khiến ### bị ẩn.
+
+      tocEl.querySelectorAll("ul.collapse").forEach((ul) => {
+
+        ul.classList.remove("collapse");
+
+      });
+
+
+
+      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
+
+      initScrollSpy();
+
+    }
+
+
+
+    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
+
+    function toggleTOC() {
+
+      if (!tocEl) return;
+
+      const open = tocEl.classList.toggle("is-open");
+
+      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
+
+      tocBtn?.setAttribute("aria-expanded", String(open));
+
+    }
+
+    tocBtn?.addEventListener("click", toggleTOC);
+
+
+
+    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
+
+    const mo = new MutationObserver(() => {
+
+      if (body.classList.contains("sidebar-open")) {
+
+        tocEl?.classList.remove("is-open");
+
+        tocBtn?.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+
+
+    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
+
+    function initScrollSpy() {
+
+      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
+
+
+
+      // Gắn thuộc tính cho body (nếu chưa có)
+
+      document.body.setAttribute("data-bs-spy", "scroll");
+
+      document.body.setAttribute("data-bs-target", "#TOC");
+
+
+
+      // offset = navbar + breadcrumb (đọc từ CSS vars)
+
+      const cs = getComputedStyle(document.documentElement);
+
+      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
+
+      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
+
+      const offset = nb + bc + 10;
+
+
+
+      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
+
+        target: "#TOC",
+
+        offset
+
+      });
+
+      spy.refresh();
+
+
+
+      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
+
+      window.addEventListener("load", () => spy.refresh(), { once: true });
+
+      window.addEventListener("resize", () => spy.refresh());
+
+    }
+
+  });
+
+</script>
+<script>
+(() => {
+  const root = document.querySelector('.d0-package');
+  if (!root) return;
+
+  const definitions = [
+    {view: 'bat-dau', label: 'Bắt đầu', ids: ['bat-dau']},
+    {view: 'khai-bao-pham-vi', label: 'Chuẩn bị', ids: ['khai-bao-pham-vi']},
+    {view: 'khao-sat', label: 'Làm khảo sát', ids: ['khao-sat']},
+    {view: 'doc-ket-qua', label: 'Đối chiếu bài làm', ids: ['doc-ket-qua']},
+    {view: 'chon-mach', label: 'Chọn mạch ôn', ids: ['chon-mach']}
+  ];
+  const sections = new Map();
+  definitions.flatMap(item => item.ids).forEach(id => {
+    const section = root.querySelector(`:scope > section#${CSS.escape(id)}`);
+    if (section) sections.set(id, section);
+  });
+  if (!sections.size) return;
+
+  const navSlot = document.createElement('div');
+  navSlot.className = 'd0-nav-slot';
+  const nav = document.createElement('nav');
+  nav.setAttribute('aria-label', 'Các phần của bài khảo sát');
+  const tablist = document.createElement('div');
+  tablist.className = 'd0-tablist';
+  tablist.setAttribute('role', 'tablist');
+  tablist.setAttribute('aria-label', 'Chọn phần nội dung');
+  nav.append(tablist);
+  navSlot.append(nav);
+
+  const panel = document.createElement('div');
+  panel.className = 'd0-view-panel';
+  panel.id = 'd0-view-panel';
+  panel.setAttribute('role', 'tabpanel');
+  panel.tabIndex = -1;
+  root.firstElementChild.before(navSlot, panel);
+  [...sections.values()].forEach(section => panel.append(section));
+
+  const activeDefinitions = definitions.filter(item => item.ids.some(id => sections.has(id)));
+  const tabs = activeDefinitions.map((item, index) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'd0-tab';
+    button.id = `d0-tab-${item.view}`;
+    button.textContent = item.label;
+    button.setAttribute('role', 'tab');
+    button.setAttribute('aria-controls', panel.id);
+    button.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
+    button.tabIndex = index === 0 ? 0 : -1;
+    tablist.append(button);
+    return button;
+  });
+
+  const survey = sections.get('khao-sat');
+  if (survey) {
+    const toc = survey.querySelector('.d0-survey-toc');
+    if (toc) {
+      const details = document.createElement('details');
+      details.className = 'r1-section-toc';
+      const summary = document.createElement('summary');
+      summary.textContent = 'Mục lục';
+      const navigation = document.createElement('nav');
+      navigation.setAttribute('aria-label', 'Mục lục khảo sát');
+      toc.before(details);
+      toc.querySelector(':scope > p')?.remove();
+      navigation.append(toc);
+      details.append(summary, navigation);
+    }
+  }
+
+  function ownerView(target) {
+    for (const item of activeDefinitions) {
+      if (item.ids.some(id => sections.get(id)?.contains(target) || sections.get(id) === target)) return item.view;
+    }
+    return activeDefinitions[0].view;
+  }
+
+  function show(view) {
+    const definition = activeDefinitions.find(item => item.view === view) || activeDefinitions[0];
+    sections.forEach((section, id) => { section.hidden = !definition.ids.includes(id); });
+    tabs.forEach((tab, index) => {
+      const selected = activeDefinitions[index].view === definition.view;
+      tab.setAttribute('aria-selected', selected ? 'true' : 'false');
+      tab.tabIndex = selected ? 0 : -1;
+    });
+    panel.setAttribute('aria-labelledby', `d0-tab-${definition.view}`);
+    panel.dataset.d0View = definition.view;
+    const activeTab = tabs.find(tab => tab.getAttribute('aria-selected') === 'true');
+    if (activeTab) {
+      const a = activeTab.getBoundingClientRect(), b = tablist.getBoundingClientRect();
+      if (a.left < b.left + 12) tablist.scrollLeft += a.left - b.left - 12;
+      if (a.right > b.right - 12) tablist.scrollLeft += a.right - b.right + 12;
+    }
+    return definition.view;
+  }
+
+  function writeLocation(view, hash = '') {
+    const url = new URL(location.href);
+    url.searchParams.set('d0-view', view);
+    url.hash = hash;
+    history.pushState({d0View: view}, '', `${url.pathname}${url.search}${url.hash}`);
+  }
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => {
+      const view = show(activeDefinitions[index].view);
+      writeLocation(view);
+      panel.focus({preventScroll: true});
+      panel.scrollIntoView({block: 'start'});
+    });
+    tab.addEventListener('keydown', event => {
+      let next = null;
+      if (event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
+      if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+      if (event.key === 'Home') next = 0;
+      if (event.key === 'End') next = tabs.length - 1;
+      if (next !== null) { tabs[next].focus(); event.preventDefault(); }
+    });
+  });
+
+  root.addEventListener('click', event => {
+    const link = event.target.closest('a[href]');
+    if (!link || !link.hash) return;
+    const destination = new URL(link.href, location.href);
+    if (destination.origin !== location.origin || destination.pathname !== location.pathname) return;
+    const target = document.getElementById(decodeURIComponent(link.hash.slice(1)));
+    if (!target || !root.contains(target)) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const view = ownerView(target);
+    show(view);
+    writeLocation(view, link.hash);
+    reveal(target);
+  });
+
+  function reveal(target) {
+    for (let node = target; node && node !== root; node = node.parentElement) {
+      if (node.tagName === 'DETAILS') node.open = true;
+    }
+    requestAnimationFrame(() => target.scrollIntoView({block: 'start'}));
+  }
+
+  function applyLocation() {
+    const target = location.hash ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+    const requested = new URLSearchParams(location.search).get('d0-view');
+    const view = target && root.contains(target) ? ownerView(target) : requested;
+    show(view || activeDefinitions[0].view);
+    if (target && root.contains(target)) reveal(target);
+  }
+
+  root.classList.add('d0-nav-ready');
+  applyLocation();
+  window.addEventListener('popstate', applyLocation);
+  window.addEventListener('hashchange', applyLocation);
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zomath\.vn\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="../../../../../content/about.html">Giới thiệu</a> | <a href="../../../../../content/triet_li_va_dinh_huong.html">Triết lí và định hướng</a> | <a href="../../../../../content/contact.html">Liên hệ</a> <br> <a href="https://www.facebook.com/profile.php?id=61591689772259" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://www.tiktok.com/@zo.math" title="TikTok"><i class="bi bi-tiktok"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a> <br> © 2026 ZO Math</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
