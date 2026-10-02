@@ -1,0 +1,35 @@
+% ZO Math geometry styles -- VERSION 0.1 -- 2026-10-01.
+\setmainfont{STIXTwoText-Regular.otf}[
+  BoldFont=STIXTwoText-Bold.otf,
+  ItalicFont=STIXTwoText-Italic.otf,
+  BoldItalicFont=STIXTwoText-BoldItalic.otf
+]
+\setmathfont{STIXTwoMath.otf}
+
+\definecolor{zoGeometryText}{HTML}{333333}
+\definecolor{zoGeometryStrong}{HTML}{242424}
+\definecolor{zoGeometryLine}{HTML}{3F3F3F}
+\definecolor{zoGeometryHidden}{HTML}{777777}
+\definecolor{zoGeometryMain}{HTML}{EF5350}
+\definecolor{zoGeometrySurface}{HTML}{F7F7F7}
+
+% Locked visual tokens for the v0.1 stress matrix.
+\newcommand{\zoGeometryVisibleWidth}{0.85pt}
+\newcommand{\zoGeometryHiddenWidth}{0.70pt}
+\newcommand{\zoGeometryMainWidth}{1.15pt}
+\newcommand{\zoGeometryPointSize}{1.25pt}
+\newcommand{\zoGeometryLabelPadding}{1pt}
+\newcommand{\zoGeometryMaskPadding}{1.6pt}
+
+\tikzset{
+  zo geometry visible/.style={draw=zoGeometryLine,line width=\zoGeometryVisibleWidth,line cap=round,line join=round},
+  zo geometry hidden/.style={draw=zoGeometryHidden,line width=\zoGeometryHiddenWidth,dash pattern=on 3pt off 2.2pt,line cap=round},
+  zo geometry auxiliary/.style={draw=zoGeometryHidden,line width=\zoGeometryHiddenWidth,dash pattern=on 3pt off 2.2pt,line cap=round},
+  zo geometry main/.style={draw=zoGeometryMain,line width=\zoGeometryMainWidth,line cap=round},
+  zo geometry main hidden/.style={draw=zoGeometryMain,line width=\zoGeometryMainWidth,dash pattern=on 3.4pt off 2.2pt,line cap=round},
+  zo geometry point/.style={circle,fill=zoGeometryStrong,inner sep=\zoGeometryPointSize},
+  zo geometry label/.style={text=zoGeometryText,font=\small,inner sep=\zoGeometryLabelPadding},
+  zo geometry label masked/.style={zo geometry label,fill=white,fill opacity=.94,text opacity=1,inner sep=\zoGeometryMaskPadding,rounded corners=.8pt},
+  zo geometry angle/.style={draw=zoGeometryMain,fill=none,line width=0.75pt},
+  zo geometry surface/.style={fill=zoGeometrySurface,draw=none}
+}

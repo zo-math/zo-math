@@ -49,6 +49,8 @@ Ba tài liệu điều khiển giai đoạn vận hành hóa:
 
 `scripts/zo_qmd.py` là điểm vào vận hành hiện hành cho mười một lệnh. `scripts/zo_check_repo.py` vẫn là checker lõi; CLI vận hành chỉ điều phối và bảo toàn mã thoát, báo cáo cùng các cổng kiểm định hiện có. Logic tạo và xác minh gói nằm trong `scripts/zo_qmd_package.py`; logic tổng hợp bằng chứng trước xuất bản nằm trong `scripts/zo_qmd_prepublish.py`; cả hai không được trộn vào checker.
 
+Dự án có tài sản hình học canonical có thể khai báo `extensions.geometry.assets` bằng cặp `source` và `output` tương đối với gốc dự án, cùng `dpi` tùy chọn. `zo_qmd check` từ chối tài sản thiếu hoặc lỗi thời dựa trên receipt hash và chạy checker nhãn/SVG nghiêm ngặt; `zo_qmd render` tự dựng lại tài sản lỗi thời trước khi render QMD. Dự án không khai báo phần mở rộng này giữ nguyên hành vi cũ.
+
 Cổng `review-ready` của `functions_100` khóa ba lớp ổn định hóa trước Human Review: (1) lifecycle phải bắt đầu bằng session `start` có scope canonical và authority snapshot bất biến; (2) lõi tự chứa của nguồn TikZ/PGFPlots phải thực sự mang STIX, màu vai trò và trường nền–khung theo quy chuẩn thay vì chỉ có chuỗi `.tex→PDF→SVG`, đồng thời đồ thị phải nằm dưới `_figures/<slug>/`; (3) các cụm ngữ nghĩa mơ hồ kiểu *giữ/bảo toàn độ lớn* bị chặn để buộc tác giả phân biệt bảo toàn một đại lượng với khả năng xác định/khôi phục đại lượng từ đầu ra. Đây là guard cấu trúc; Human Review vẫn quyết định chân trị và chất lượng diễn đạt.
 
 Ranh giới lưu trữ hiện hành:

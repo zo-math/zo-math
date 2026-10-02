@@ -201,31 +201,23 @@ body.zo-on-thi-package-page .zo-on-thi-package details.zo-block[open] > summary 
 }
 .zo-on-thi-package figcaption { color: var(--r1-muted); font-size: .9em; }
 
-.zo-on-thi-package .r1-nav-slot { margin: 1.25rem 0 2rem; }
+.zo-on-thi-package .r1-nav-slot {
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+  margin: 1.25rem 0 2rem;
+  padding: .25rem 0;
+  background: #ffffff;
+}
 body.zo-on-thi-package-page .r1-section-nav {
   position: relative;
-  z-index: 1020;
   margin: 0;
-  padding: .25rem 0;
   background: #ffffff;
   font-size: 17px;
   line-height: 1.6;
 }
 @media screen {
-  body.zo-on-thi-package-page #quarto-header > .r1-section-nav {
-    position: absolute;
-    top: 100%;
-    left: var(--r1-nav-left);
-    width: var(--r1-nav-width);
-    padding: .25rem 0;
-  }
-  /* One parent, one Headroom transform. Absolute docking leaves Quarto's
-     measured header/body offset unchanged, while the slot prevents reflow. */
-  body.zo-on-thi-package-page #quarto-header.r1-nav-docked.headroom--unpinned:not(:focus-within) {
-    transform: translateY(calc(-100% - var(--r1-nav-height)));
-  }
-  body.zo-on-thi-package-page #quarto-header.r1-nav-docked:focus-within { transform: translateY(0); }
-  body.zo-on-thi-package-page #quarto-header.r1-menu-open > .r1-section-nav { visibility: hidden; }
+  body.zo-on-thi-package-page.r1-menu-open .r1-nav-slot { visibility: hidden; }
 }
 body.zo-on-thi-package-page .r1-tablist {
   display: flex;

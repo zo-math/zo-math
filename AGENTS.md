@@ -86,6 +86,17 @@ Khi nhiệm vụ liên quan đến lưới thẻ, phải đọc và tuân thủ 
 
 Tài liệu này chỉ điều hành các nhiệm vụ liên quan đến dữ liệu, mã sinh, giao diện, đầu ra và kiểm tra lưới thẻ.
 
+### Hình học ZO Math
+
+Khi nhiệm vụ tạo, sửa, dựng hoặc kiểm định hình học phẳng hay hình học không gian
+bằng bộ công cụ ZO Math, phải đọc và tuân thủ thêm:
+
+- `quy_trinh_xay_dung/quy_chuan_san_xuat_hinh_hoc_zo_math_v0.1.md`.
+
+Dùng `scripts/zo_geometry.py` làm điểm vào production và luôn gọi qua
+`scripts/zo_python.py`. Nội dung trong `_audit/zo_geometry_spike/` chỉ là bằng
+chứng và fixture hồi quy, không phải phụ thuộc chạy canonical.
+
 ### Xuất bản website
 
 Khi nhiệm vụ liên quan đến xuất bản website, phải đọc và tuân thủ thêm:

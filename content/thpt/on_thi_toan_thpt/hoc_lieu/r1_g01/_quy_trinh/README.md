@@ -127,8 +127,10 @@ trong PDF thật qua `cong_cu/kiem_chung_header_pdf.py`; ưu tiên Poppler
 `pdftotext -bbox` và dùng fallback chỉ-đọc bằng `pypdf` khi binary cục bộ thiếu
 khả năng này.
 
-Thanh thẻ di chuyển nguyên node vào header khi bám dính; slot giữ chỗ trong nội
-dung. Cả cụm dùng chung transform Headroom; không đổi navbar toàn website.
+Thanh thẻ giữ nguyên node trong slot và bám ở `top: 0`; Headroom chỉ quản lí
+Navbar. Khi kéo xuống, Navbar ẩn còn thanh thẻ tiếp tục ở đầu khung nhìn; khi kéo
+lên, Navbar xuất hiện lại. Không chuyển node thanh thẻ vào header và không ghép
+thanh thẻ vào transform của Navbar.
 Kiểm thử qua HTTP local bằng Chrome profile tạm, ví dụ:
 
 ```text

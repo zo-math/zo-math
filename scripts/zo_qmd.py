@@ -27,6 +27,7 @@ from zo_qmd_config import (
     discover_project_config,
     load_project_config,
 )
+from zo_qmd_geometry import run_geometry_lifecycle
 from zo_qmd_registry import ModuleRegistryError, build_validation_plan
 from zo_qmd_prepublish import PrepublishError, build_report
 from zo_qmd_review import (
@@ -88,6 +89,7 @@ SYSTEM_SCRIPTS = (
     Path("scripts/zo_artifact_freshness.py"),
     Path("scripts/zo_check_repo.py"),
     Path("scripts/zo_qmd_config.py"),
+    Path("scripts/zo_qmd_geometry.py"),
     Path("scripts/zo_qmd_registry.py"),
     Path("scripts/zo_qmd_core.py"),
     Path("scripts/zo_real_world_problem.py"),
@@ -96,6 +98,7 @@ SYSTEM_SCRIPTS = (
 SELF_TEST_SCRIPTS = (
     Path("scripts/zo_artifact_freshness.py"),
     Path("scripts/zo_qmd_config.py"),
+    Path("scripts/zo_qmd_geometry.py"),
     Path("scripts/zo_qmd_registry.py"),
     Path("scripts/zo_qmd_core.py"),
     Path("scripts/zo_real_world_problem.py"),
@@ -1190,6 +1193,9 @@ def command_checker(root: Path, mode: str, args: argparse.Namespace) -> int:
         preflight = _early_source_policy_check(root, args)
         if preflight != EXIT_OK:
             return preflight
+    geometry = run_geometry_lifecycle(root, args.paths, build_stale=mode == "render")
+    if geometry != EXIT_OK:
+        return geometry
     command = _script_command(
         root,
         Path("scripts/zo_check_repo.py"),

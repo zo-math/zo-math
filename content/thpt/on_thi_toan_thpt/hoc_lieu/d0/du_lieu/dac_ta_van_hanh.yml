@@ -1,0 +1,87 @@
+schema_version: 1
+package: d0
+authority:
+  plan: ../../tot_nghiep_thpt/2027/_quy_trinh/dieu_hanh/ke_hoach_dieu_hanh.md
+  sections: ["4.5", "5.4", "11.1", "12.2", "12.10"]
+role:
+  primary: "Khảo sát chất lượng đầu vào, lập hồ sơ định vị và điều phối tuyến học cá nhân."
+  not_a_lesson: true
+  completion_rule: "Mỗi kết quả đủ bằng chứng phải dẫn tới một quyết định tuyến học cụ thể."
+boundaries:
+  prohibited:
+    - "Dạy bù, giảng bài hoặc tổ chức luyện tập ngay bên trong D0."
+    - "Biến câu thử lại thành một chu trình học - sửa - luyện của D0."
+    - "Dùng tổng số câu đúng để dự báo điểm thi hoặc kết luận toàn mạch."
+    - "Coi phần chưa học là làm sai."
+    - "Che, rút gọn hoặc đổi tuyến chỉ vì học liệu hạ nguồn chưa được sản xuất."
+  route_independent_of_delivery_readiness: true
+inputs:
+  learner_context:
+    - joining_date
+    - exam_date
+    - weekly_hours
+    - school_progress
+    - learned_current_unlearned_scope
+    - learner_goal
+  evidence:
+    - assigned_task_and_response
+    - reasoning
+    - elapsed_time
+    - independence
+    - prior_exposure
+    - support_received
+workflow:
+  - id: scope_declaration
+    action: "Khai báo phạm vi đã học, đang học, chưa học và bối cảnh thời gian."
+  - id: evidence_collection
+    action: "Chọn nhiệm vụ thuộc phần đã học trên R1-R8 và thu bằng chứng làm độc lập."
+  - id: objective_classification
+    action: "Phân loại từng mục tiêu có bằng chứng theo bốn trạng thái của Kế hoạch 0.6."
+  - id: supplemental_assessment
+    action: "Chỉ giao câu bổ sung khi bằng chứng thiếu, mâu thuẫn, có đoán, đã gặp hoặc có hỗ trợ."
+  - id: route_synthesis
+    action: "Lập sổ bao phủ, điểm vào, thứ tự tuyến, tối đa hai ưu tiên trước mắt và điều kiện đánh giá lại."
+states:
+  - chua_hoc
+  - da_hoc_nhung_can_bo_sung
+  - lam_duoc_doc_lap
+  - dung_duoc_trong_bai_phoi_hop
+outputs:
+  coverage_ledger: [co_bang_chung, chua_ro, chua_hoc]
+  required:
+    - objective_status_with_evidence
+    - route_entry_point
+    - ordered_route_segments
+    - prerequisite_or_parallel_branches
+    - school_progress_dependencies
+    - reassessment_trigger
+    - maximum_two_immediate_priorities
+  separate_fields:
+    route_assignment: "Tuyến đúng theo nhu cầu của học sinh."
+    delivery_readiness: "Tình trạng sẵn sàng của học liệu; không được thay đổi route_assignment."
+route_catalog:
+  - {id: B.1, strands: [R1], description: "Hàm số, đạo hàm và đồ thị; củng cố nền và sửa lỗi theo mục tiêu."}
+  - {id: B.2, strands: [R2], description: "Thống kê và đọc dữ liệu."}
+  - {id: B.3, strands: [R3], description: "Hình học, vectơ và tọa độ mặt phẳng Oxy."}
+  - {id: B.4, strands: [R4], description: "Đếm và xác suất vòng đầu."}
+  - {id: B.5, strands: [R5], description: "Dãy số, mũ và lôgarit."}
+  - {id: B.6, strands: [R6], description: "Hàm số lượng giác và phương trình lượng giác."}
+  - {id: B.7, strands: [R7], description: "Nguyên hàm, tích phân và ứng dụng."}
+  - {id: B.8, strands: [R3], description: "Tọa độ không gian Oxyz."}
+  - {id: B.9, strands: [R4], description: "Xác suất có điều kiện."}
+required_scenarios:
+  - id: not_learned
+    evidence: "Điều kiện học trước chưa được học."
+    decision: "Ghi chưa học, không chấm sai; đặt đoạn tuyến theo tiến độ trường hoặc lịch học mới."
+  - id: wrong_after_learning
+    evidence: "Đã học và có lỗi quan sát được."
+    decision: "Ghi cần bổ sung, xác định điểm vào tuyến và xét chọn vào tối đa hai ưu tiên trước mắt."
+  - id: correct_but_unconfirmed
+    evidence: "Đáp án đúng nhưng có đoán, đã gặp hoặc có hỗ trợ."
+    decision: "Chưa xác nhận độc lập; giao khảo sát bổ sung hẹp nếu quyết định tuyến cần bằng chứng ấy."
+  - id: supplemental_still_wrong
+    evidence: "Khảo sát bổ sung vẫn cho thấy cùng điểm thiếu."
+    decision: "Khóa nhu cầu tuyến học tương ứng; không dạy hoặc lặp kiểm tra vô hạn bên trong D0."
+  - id: correct_independent
+    evidence: "Làm đúng và giải thích được mà không có hỗ trợ."
+    decision: "Ghi làm được độc lập trong đúng phạm vi đã lấy mẫu; không suy rộng thành vững toàn mạch."
