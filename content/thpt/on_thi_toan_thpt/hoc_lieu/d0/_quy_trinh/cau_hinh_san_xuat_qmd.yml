@@ -1,0 +1,74 @@
+schema_version: 1
+project:
+  id: on_thi_d0
+  name: "D0 — chuyển đổi canonical"
+  root: content/thpt/on_thi_toan_thpt/hoc_lieu/d0
+discovery:
+  article_types:
+    - id: on_thi_package
+      include: [index.qmd]
+      exclude: []
+profiles:
+  directory: _quy_trinh/ho_so
+  naming: by_article_stem
+  required: true
+modules:
+  required: [qmd-core, zo-html-pdf]
+  optional: []
+metadata:
+  core_required: [title, draft]
+  project_required: []
+  body_classes_required: [zo-page-article, zo-meta-hidden]
+  placeholders: []
+publication:
+  production_states: [draft, in_production, validated, accepted]
+  publication_states: [pending, published]
+  user_confirmation_required: true
+references:
+  controlling_documents:
+    - _quy_trinh/README.md
+    - _quy_trinh/hop_dong_nguon_canonical.md
+    - _quy_trinh/manifest_chuyen_doi.yml
+    - _quy_trinh/ma_tran_phep_chieu_noi_dung.md
+    - _quy_trinh/bao_cao_sua_loi_5a.md
+    - _quy_trinh/noi_dung_da_duyet.json
+    - _quy_trinh/dieu_chinh_sau_duyet.json
+  templates: []
+  theory_sources:
+    - _quy_trinh/lich_su/v1_0/src/bien_soan.py
+    - _quy_trinh/lich_su/v1_0/2027_D0_huong_dan_phan_tich_v1.0.md
+    - _quy_trinh/lich_su/v1_0/HUONG_DAN_SU_DUNG.md
+  quality_exemplars: []
+regression:
+  articles: [index.qmd]
+  expected_checker_version: "2.6.0"
+  preserve_cli: true
+extensions:
+  geometry:
+    assets:
+      - source: _quy_trinh/pilot_hinh_hoc/d0_r3_03_hinh_hop.yml
+        output: hinh/hinh_hop
+        dpi: 180
+  artifact_identity: path
+  artifact_inputs:
+    - _quy_trinh/dieu_chinh_sau_duyet.json
+    - du_lieu/bang_bien_thien.json
+    - hinh/bbt01.tex
+    - hinh/bbt01.pdf
+    - hinh/bbt01.svg
+    - du_lieu/ngan_hang.json
+    - _quy_trinh/noi_dung_da_duyet.json
+    - cong_cu/kiem_chung.py
+    - cong_cu/kiem_chung_html.py
+    - cong_cu/tich_hop_html_da_duyet.py
+    - cong_cu/kiem_chung_da_duyet.py
+    - cong_cu/d0.lua
+    - giao_dien/d0.css
+    - giao_dien/d0_script.html
+    - hinh/hinh_hop.pdf
+    - hinh/hinh_hop.png
+    - hinh/hinh_hop.geometry.json
+    - _quy_trinh/pilot_hinh_hoc/d0_r3_03_hinh_hop.yml
+    - _quy_trinh/manifest_chuyen_doi.yml
+    - _quy_trinh/hop_dong_nguon_canonical.md
+    - _quy_trinh/ma_tran_phep_chieu_noi_dung.md

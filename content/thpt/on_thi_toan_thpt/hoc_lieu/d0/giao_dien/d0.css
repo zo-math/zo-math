@@ -1,0 +1,240 @@
+/* D0: a quiet diagnostic reader built on the approved ZO Math package language. */
+body.d0-page {
+  --d0-red: var(--r1-red, var(--zo-red, #ef5350));
+  --d0-ink: var(--r1-text, #25221f);
+  --d0-muted: var(--r1-muted, #5f6368);
+  --d0-border: var(--r1-border, var(--bs-border-color, #dee2e6));
+  --d0-paper: #fff;
+  --d0-active: #f6f2ed;
+}
+
+body.d0-page #title-block-header .title { color: var(--d0-red); }
+
+.d0-package {
+  min-width: 0;
+  max-width: 68ch;
+  margin-inline: auto;
+  color: var(--d0-ink);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.d0-package [id] { scroll-margin-top: calc(var(--navbar-h, 56px) + 5.5rem); }
+
+.d0-package section.level2 > h2 {
+  margin: 3rem 0 1.15rem;
+  padding: 0;
+  border: 0;
+  color: var(--d0-red);
+  font-size: 1.6em;
+  line-height: 1.25;
+  font-weight: 600 !important;
+}
+
+.d0-package #bat-dau > p:first-of-type {
+  margin-top: .35rem;
+  font-size: 1.08em;
+  line-height: 1.65;
+}
+
+.d0-package table { width: 100%; border-collapse: collapse; }
+
+.d0-package #bat-dau table {
+  display: block;
+  max-width: 100%;
+  margin-block: 1.25rem;
+  overflow-x: auto;
+  border-block: 1px solid var(--d0-border);
+  -webkit-overflow-scrolling: touch;
+}
+
+.d0-package table > :not(caption) > * > * {
+  padding: .62rem .68rem;
+  border: 1px solid var(--d0-border);
+  vertical-align: top;
+}
+
+.d0-package table th {
+  background: var(--d0-paper);
+  color: var(--d0-ink);
+  font-weight: 400;
+}
+
+.d0-package table strong { font-weight: inherit; }
+
+.d0-nav-slot {
+  position: sticky;
+  z-index: 1010;
+  top: 0;
+  margin: 1.2rem 0 2.25rem;
+  padding-block: .3rem;
+  background: var(--d0-paper);
+}
+
+.d0-tablist {
+  display: flex;
+  min-width: 0;
+  gap: .2rem;
+  margin: 0 -4px;
+  padding: 4px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+}
+
+.d0-tab {
+  flex: 0 0 auto;
+  min-height: 42px;
+  padding: .5rem .68rem;
+  border: 1px solid transparent;
+  border-radius: .5rem;
+  background: var(--d0-paper);
+  color: var(--d0-muted);
+  font: inherit;
+  font-size: .92em;
+  line-height: 1.35;
+  text-decoration: none !important;
+  white-space: nowrap;
+}
+
+.d0-tab:hover { color: var(--d0-ink); }
+
+.d0-tab[aria-selected="true"] {
+  background: var(--d0-active);
+  color: var(--d0-ink);
+}
+
+.d0-tab:focus-visible {
+  outline: 2px solid #554f48;
+  outline-offset: 2px;
+}
+
+.d0-view-panel { min-width: 0; }
+.d0-view-panel { scroll-margin-top: calc(var(--navbar-h, 56px) + 5.5rem); }
+.d0-package .zo-learning-summary { min-height: 44px; }
+.d0-package math { max-width: 100%; }
+.d0-package .d0-inline-math {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  vertical-align: middle;
+}
+.d0-package.d0-nav-ready .d0-view-panel > [hidden] { display: none !important; }
+
+.d0-survey-toc ul { margin: 0; padding-left: 1.25rem; }
+.d0-survey-toc li { margin-block: .45rem; break-inside: avoid; }
+.d0-survey-toc a { font-weight: 400; }
+.d0-example-task .d0-task-code { text-transform: none; letter-spacing: normal; }
+
+.d0-package section[id^="mach-r"] { margin-block: 3.5rem 4.5rem; }
+.d0-package section[id^="mach-r"] > h3 {
+  margin-bottom: .8rem;
+  color: var(--d0-red);
+  font-size: 1.35em;
+}
+
+.d0-primary-task {
+  margin: 0;
+  padding: 2rem 0 2.25rem;
+  border-top: 1px solid var(--d0-border);
+  background: transparent;
+}
+
+.d0-task-number,
+.d0-task-code {
+  color: var(--d0-muted);
+  font-size: .78em;
+  font-weight: 600;
+  letter-spacing: .055em;
+  text-transform: uppercase;
+}
+
+.d0-task-number::after {
+  content: "·";
+  margin-inline: .45rem;
+  color: var(--d0-border);
+}
+
+.d0-primary-task > section > h4 {
+  margin: .35rem 0 .8rem;
+  color: var(--d0-ink);
+  font-size: 1.28em;
+  line-height: 1.35;
+  font-weight: 600 !important;
+}
+
+.d0-task-meta {
+  margin-bottom: 1.15rem;
+  color: var(--d0-muted);
+  font-size: .9em;
+  line-height: 1.55;
+}
+
+.d0-task-meta p { margin: .12rem 0; }
+.d0-task-meta strong { color: var(--d0-muted); font-weight: 400; }
+.d0-primary-task .d0-response-option {
+  margin-block: .55rem;
+  padding-block: .2rem;
+}
+.d0-response-option > p { margin: 0; }
+.d0-response-options > ol { margin-block: .8rem; padding-left: 1.7rem; }
+.d0-response-options li { margin-block: .6rem; padding-left: .25rem; }
+.d0-data-table { margin-block: 1.25rem; }
+.d0-data-table .r1-data-table { margin-bottom: 0; }
+.d0-package .zo-variation-image {
+  width: auto;
+  max-width: 100%;
+  margin-inline: auto;
+}
+.d0-package .zo-variation-caption { text-align: center; }
+
+.d0-task-prompt { font-size: 1.03em; line-height: 1.7; }
+.d0-task-prompt > :last-child { margin-bottom: 0; }
+
+.d0-task-prompt figure {
+  margin: 1.5rem auto .5rem;
+  text-align: center;
+}
+
+.d0-task-prompt img[src$="hinh_hop.svg"] {
+  display: block;
+  /* SVG viewBox width 180.789 pt / label em 8.9664 pt = 20.163 em.
+     Scaling in em keeps figure labels at the surrounding text size. */
+  width: 20.163em;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+
+.d0-task-prompt embed[src$=".pdf"] {
+  display: block;
+  width: min(100%, 34rem) !important;
+  min-height: 23rem;
+  margin-inline: auto;
+  border: 0;
+}
+
+.d0-package #doc-ket-qua,
+.d0-package #thu-lai,
+.d0-package #tai-pdf { max-width: 62ch; }
+
+.d0-package #doc-ket-qua > h2,
+.d0-package #thu-lai > h2,
+.d0-package #tai-pdf > h2 { margin-bottom: .75rem; }
+
+@media (max-width: 640px) {
+  .d0-package { font-size: 16.5px; }
+  .d0-nav-slot { margin-inline: -.25rem; }
+  .d0-package section.level2 > h2 { font-size: 1.45em; }
+  .d0-package section[id^="mach-r"] { margin-block: 3rem 3.75rem; }
+  .d0-primary-task { padding-block: 1.6rem 1.9rem; }
+  .d0-primary-task > section > h4 { font-size: 1.18em; }
+  .d0-task-prompt embed[src$=".pdf"] { min-height: 18rem; }
+}
+
+@media print {
+  .d0-nav-slot { display: none !important; }
+  .d0-package.d0-nav-ready .d0-view-panel > [hidden] { display: block !important; }
+  .d0-primary-task { break-inside: avoid; }
+}

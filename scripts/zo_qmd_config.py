@@ -515,6 +515,24 @@ def load_project_config(repository_root: Path, config_path: Path) -> ProjectConf
 
     extensions = data["extensions"]
     _mapping(extensions, "extensions")
+    if "geometry" in extensions:
+        geometry = _mapping(extensions["geometry"], "extensions.geometry")
+        _known_keys(geometry, "extensions.geometry", {"assets"}, {"assets"})
+        geometry_assets = geometry["assets"]
+        if not isinstance(geometry_assets, list) or not geometry_assets:
+            raise ProjectConfigError("extensions.geometry.assets phải là danh sách không rỗng.")
+        for index, raw_asset in enumerate(geometry_assets):
+            label = f"extensions.geometry.assets[{index}]"
+            asset = _mapping(raw_asset, label)
+            _known_keys(asset, label, {"source", "output", "dpi"}, {"source", "output"})
+            for key in ("source", "output"):
+                relative = _relative_path(asset[key], f"{label}.{key}")
+                absolute = (project_root_absolute / relative).resolve()
+                if not _inside(absolute, project_root_absolute):
+                    raise ProjectConfigError(f"{label}.{key} chứa đường dẫn ngoài dự án.")
+            dpi = asset.get("dpi", 180)
+            if not isinstance(dpi, int) or isinstance(dpi, bool) or dpi <= 0:
+                raise ProjectConfigError(f"{label}.dpi phải là số nguyên dương.")
 
     if "catalog" in data and data["catalog"] is not None:
         catalog = _mapping(data["catalog"], "catalog")
@@ -733,6 +751,28 @@ extensions: {}
             pass
         else:
             raise AssertionError("Quality exemplar ngoài dự án phải bị từ chối.")
+
+        geometry_config = normalized.replace(
+            "extensions: {}\n",
+            "extensions:\n"
+            "  geometry:\n"
+            "    assets:\n"
+            "      - source: figures/demo.yml\n"
+            "        output: figures/demo\n"
+            "        dpi: 180\n",
+        )
+        config_path.write_text(geometry_config, encoding="utf-8")
+        loaded = load_project_config(root, config_path)
+        assert loaded.raw["extensions"]["geometry"]["assets"][0]["dpi"] == 180
+
+        invalid_geometry = geometry_config.replace("        dpi: 180\n", "        dpi: 0\n")
+        config_path.write_text(invalid_geometry, encoding="utf-8")
+        try:
+            load_project_config(root, config_path)
+        except ProjectConfigError:
+            pass
+        else:
+            raise AssertionError("Geometry dpi không dương phải bị từ chối.")
 
 
 def parser() -> argparse.ArgumentParser:

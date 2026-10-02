@@ -105,6 +105,7 @@ Baseline này được chốt từ hai gói kiểm chứng R1-G01 và R1-G02 sau
 - Một trang có phần đầu gồm tiêu đề, phụ đề nếu có, trạng thái, đoạn giới thiệu và thanh thẻ.
 - Thứ tự thẻ canonical là `Cách học`, `Bài học`, `Luyện tập`, `Kiểm tra`, `Sửa lỗi`, `Ôn lại`, `Lời giải`, `Tải PDF`, `Toàn văn`. Gói không có nội dung cho một thẻ phải khai báo quyết định riêng thay vì đổi nghĩa thẻ.
 - Thanh thẻ là vùng cuộn ngang cục bộ trên màn hình hẹp, giữ thẻ đang chọn cách mép nhìn thấy ít nhất 12 px; thanh thẻ không được gây tràn ngang cấp trang.
+- Thanh thẻ giữ nguyên trong slot `sticky` ở `top: 0`. Headroom chỉ quản lí Navbar: khi kéo xuống chỉ thanh thẻ còn ở đầu khung nhìn; khi kéo lên Navbar xuất hiện lại. Không chuyển node thanh thẻ vào header hoặc ghép nó vào transform của Navbar.
 - `Toàn văn` dùng cùng một cây DOM canonical, không sao chép nội dung sang cây thứ hai. Khi JavaScript không chạy, nội dung vẫn phải đọc được.
 
 ### Khối thu gọn và bề mặt

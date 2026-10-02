@@ -18,6 +18,10 @@ hiện trong `index.qmd` và tài sản canonical của gói. HTML/PDF là đầ
 R1-G01 là baseline trình bày và vận hành đã nghiệm thu; không sao chép nội dung,
 ID hoặc các hằng số kiểm định riêng của R1-G01 sang gói này.
 
+Thanh thẻ dùng hành vi điều hướng chung của chuyên mục: giữ nguyên trong slot
+`sticky` ở `top: 0`; Navbar ẩn khi kéo xuống và xuất hiện lại khi kéo lên. HTML
+hiện có chỉ nhận thay đổi này ở lần render và tái xuất bản kế tiếp.
+
 Kiến trúc nội dung đích đã được chủ dự án duyệt và khóa tại
 [`ma_tran_kien_truc_noi_dung.md`](ma_tran_kien_truc_noi_dung.md). Tệp này là
 căn cứ cho lượt tái cấu trúc `index.qmd`; không suy kiến trúc từ bản render tạm.

@@ -1,0 +1,53 @@
+id: D0-R3-03-FIGURE
+dimension: 3d
+backend: tikz-3dplot
+solid_type: convex_box
+camera: {elevation: 68, azimuth: 118, scale: 1.05}
+vertices:
+  - {id: A, coordinates: [0, 0, 0]}
+  - {id: B, coordinates: [3, 0, 0]}
+  - {id: C, coordinates: [3, 4, 0]}
+  - {id: D, coordinates: [0, 4, 0]}
+  - {id: A1, coordinates: [0, 0, 2]}
+  - {id: B1, coordinates: [3, 0, 2]}
+  - {id: C1, coordinates: [3, 4, 2]}
+  - {id: D1, coordinates: [0, 4, 2]}
+edges:
+  - {id: AB, endpoints: [A, B], visibility: auto}
+  - {id: BC, endpoints: [B, C], visibility: auto}
+  - {id: CD, endpoints: [C, D], visibility: auto}
+  - {id: DA, endpoints: [D, A], visibility: auto}
+  - {id: AA1, endpoints: [A, A1], visibility: auto}
+  - {id: BB1, endpoints: [B, B1], visibility: auto}
+  - {id: CC1, endpoints: [C, C1], visibility: auto}
+  - {id: DD1, endpoints: [D, D1], visibility: auto}
+  - {id: A1B1, endpoints: [A1, B1], visibility: auto}
+  - {id: B1C1, endpoints: [B1, C1], visibility: auto}
+  - {id: C1D1, endpoints: [C1, D1], visibility: auto}
+  - {id: D1A1, endpoints: [D1, A1], visibility: auto}
+faces:
+  - {id: base, points: [A, B, C, D], render: true}
+  - {id: top, points: [A1, B1, C1, D1], render: false}
+  - {id: y_min, points: [A, B, B1, A1], render: false}
+  - {id: x_max, points: [B, C, C1, B1], render: false}
+  - {id: y_max, points: [D, C, C1, D1], render: false}
+  - {id: x_min, points: [A, D, D1, A1], render: false}
+segments:
+  - {id: AC, endpoints: [A, C], visibility: hidden, emphasized: true}
+  - {id: AC1, endpoints: [A, C1], visibility: visible, emphasized: true}
+visibility_overrides: []
+labels:
+  - {target: A, text: "$A$", anchor: "below=4pt", mask: none}
+  - {target: B, text: "$B$", anchor: "below left=2pt and 1pt", mask: none}
+  - {target: C, text: "$C$", anchor: "below right=2pt and 1pt", mask: none}
+  - {target: D, text: "$D$", anchor: "right=4pt", mask: none}
+  - {target: A1, text: '$A_1$', anchor: "above left=2pt and 1pt", mask: none}
+  - {target: B1, text: '$B_1$', anchor: "left=4pt", mask: none}
+  - {target: C1, text: '$C_1$', anchor: "above left=4pt and 4pt", mask: none}
+  - {target: D1, text: '$D_1$', anchor: "above=4pt", mask: none}
+dimensions:
+  - {endpoints: [A, B], text: '$3\,\mathrm{m}$', position: .5, anchor: "anchor=center"}
+  - {endpoints: [A, D], text: '$4\,\mathrm{m}$', position: .5, anchor: "anchor=center"}
+  - {endpoints: [A, A1], text: '$2\,\mathrm{m}$', position: .5, anchor: "anchor=center"}
+angles:
+  - {points: [C, A, C1], text: '$\alpha$', radius: 8mm}

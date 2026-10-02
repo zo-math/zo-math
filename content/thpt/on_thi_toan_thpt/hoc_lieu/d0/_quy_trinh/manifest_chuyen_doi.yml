@@ -1,0 +1,349 @@
+schema_version: 1
+manifest_kind: d0_canonical_migration
+active_authority:
+  decision: owner_approved_html_only_publication_2026_10_03
+  canonical_source: index.qmd
+  approval_receipt: _quy_trinh/noi_dung_da_duyet.json
+  content_approved: true
+  voluntary: true
+  public_primary_tasks: 24
+  simulated_example: 1
+  public_comparisons: 25
+  supersedes: [editorial_contract_6b, operational_spec_6b1, historical_public_solution_prohibition, historical_qmd_generation]
+  html_acceptance: owner_accepted_desktop_mobile_2026_10_03
+  content_pdf_delivery: not_required
+  publication: pending
+package:
+  id: d0
+  name: "D0 — Khảo sát và định vị đầu vào"
+  baseline_version: "1.0"
+  target_root: content/thpt/on_thi_toan_thpt/hoc_lieu/d0
+  production: accepted
+  publication: pending
+
+scaffold:
+  status: release_candidate_html_only
+  project_config: _quy_trinh/cau_hinh_san_xuat_qmd.yml
+  production_profile: _quy_trinh/ho_so/index.yml
+  canonical_data: du_lieu/ngan_hang.json
+  migration_checker: cong_cu/kiem_chung.py
+  html_checker: cong_cu/kiem_chung_html.py
+  migration_generator: cong_cu/tich_hop_html_da_duyet.py
+  projection_matrix: _quy_trinh/ma_tran_phep_chieu_noi_dung.md
+  html_privacy_filter: cong_cu/d0.lua
+  qmd_source: index.qmd
+  content_projection: verified
+  html_render: validated_2026_10_03
+  content_pdfs: not_applicable
+
+baseline:
+  root: _quy_trinh/lich_su/v1_0
+  immutable: true
+  total_files: 25
+  manifest_entries: 23
+  manifest_sha256: 4a99567b0a20daab743586cf5d376f464a6e38fa6405d11433ad678e311f8b6c
+  supplemental_file:
+    path: HUONG_DAN_SU_DUNG.md
+    sha256: 7853f36db073b2cac392f7fa029e67c732976c704dab2c3dd02d59d087e670f1
+
+authority:
+  governing:
+    - ../../tot_nghiep_thpt/2027/_quy_trinh/dieu_hanh/ke_hoach_dieu_hanh.md
+    - ../../_quy_trinh/quy_chuan_goi_qmd.md
+    - _quy_trinh/README.md
+    - _quy_trinh/hop_dong_nguon_canonical.md
+  frozen_content_sources:
+    task_bank_authoring: _quy_trinh/lich_su/v1_0/src/bien_soan.py
+    analysis_guide: _quy_trinh/lich_su/v1_0/2027_D0_huong_dan_phan_tich_v1.0.md
+    usage_guide: _quy_trinh/lich_su/v1_0/HUONG_DAN_SU_DUNG.md
+  generated_structured_data:
+    - _quy_trinh/lich_su/v1_0/D0_ngan_hang_v1.0.json
+  generated_markdown:
+    - _quy_trinh/lich_su/v1_0/2027_D0_hoc_sinh_v1.0.md
+    - _quy_trinh/lich_su/v1_0/2027_D0_thu_lai_v1.0.md
+    - _quy_trinh/lich_su/v1_0/2027_D0_loi_giai_v1.0.md
+    - _quy_trinh/lich_su/v1_0/D0_ma_tran_va_ho_so_cau_v1.0.md
+  historical_render_outputs:
+    - _quy_trinh/lich_su/v1_0/2027_D0_hoc_sinh_v1.0.pdf
+    - _quy_trinh/lich_su/v1_0/2027_D0_thu_lai_v1.0.pdf
+    - _quy_trinh/lich_su/v1_0/2027_D0_loi_giai_v1.0.pdf
+    - _quy_trinh/lich_su/v1_0/2027_D0_huong_dan_phan_tich_v1.0.pdf
+  provenance_and_verification:
+    - _quy_trinh/lich_su/v1_0/README.md
+    - _quy_trinh/lich_su/v1_0/D0_ho_so_v1.0.md
+    - _quy_trinh/lich_su/v1_0/MANIFEST_SHA256.txt
+    - _quy_trinh/lich_su/v1_0/kiem_chung/kiem_tra_toan.py
+    - _quy_trinh/lich_su/v1_0/kiem_chung/ket_qua_tinh_toan.json
+    - _quy_trinh/lich_su/v1_0/kiem_chung/ket_qua_tinh_toan.md
+    - _quy_trinh/lich_su/v1_0/kiem_chung/kiem_tra_thanh_pham.md
+  historical_build_tools:
+    - _quy_trinh/lich_su/v1_0/src/dong_goi.py
+    - _quy_trinh/lich_su/v1_0/src/xuat_pdf.py
+    - _quy_trinh/lich_su/v1_0/src/style.tex
+    - _quy_trinh/lich_su/v1_0/src/bang_huong_dan.lua
+  historical_assets:
+    - _quy_trinh/lich_su/v1_0/src/hinh_hop.pdf
+    - _quy_trinh/lich_su/v1_0/src/hinh_hop.png
+
+inventory:
+  strands: [R1, R2, R3, R4, R5, R6, R7, R8]
+  tasks_per_strand: 3
+  primary_count: 24
+  retest_count: 24
+  family_count: 24
+  primary_ids:
+    - D0-R1-01
+    - D0-R1-02
+    - D0-R1-03
+    - D0-R2-01
+    - D0-R2-02
+    - D0-R2-03
+    - D0-R3-01
+    - D0-R3-02
+    - D0-R3-03
+    - D0-R4-01
+    - D0-R4-02
+    - D0-R4-03
+    - D0-R5-01
+    - D0-R5-02
+    - D0-R5-03
+    - D0-R6-01
+    - D0-R6-02
+    - D0-R6-03
+    - D0-R7-01
+    - D0-R7-02
+    - D0-R7-03
+    - D0-R8-01
+    - D0-R8-02
+    - D0-R8-03
+  retest_ids:
+    - D0-R1-SL01
+    - D0-R1-SL02
+    - D0-R1-SL03
+    - D0-R2-SL01
+    - D0-R2-SL02
+    - D0-R2-SL03
+    - D0-R3-SL01
+    - D0-R3-SL02
+    - D0-R3-SL03
+    - D0-R4-SL01
+    - D0-R4-SL02
+    - D0-R4-SL03
+    - D0-R5-SL01
+    - D0-R5-SL02
+    - D0-R5-SL03
+    - D0-R6-SL01
+    - D0-R6-SL02
+    - D0-R6-SL03
+    - D0-R7-SL01
+    - D0-R7-SL02
+    - D0-R7-SL03
+    - D0-R8-SL01
+    - D0-R8-SL02
+    - D0-R8-SL03
+  family_ids:
+    - HO-D0-R1-01
+    - HO-D0-R1-02
+    - HO-D0-R1-03
+    - HO-D0-R2-01
+    - HO-D0-R2-02
+    - HO-D0-R2-03
+    - HO-D0-R3-01
+    - HO-D0-R3-02
+    - HO-D0-R3-03
+    - HO-D0-R4-01
+    - HO-D0-R4-02
+    - HO-D0-R4-03
+    - HO-D0-R5-01
+    - HO-D0-R5-02
+    - HO-D0-R5-03
+    - HO-D0-R6-01
+    - HO-D0-R6-02
+    - HO-D0-R6-03
+    - HO-D0-R7-01
+    - HO-D0-R7-02
+    - HO-D0-R7-03
+    - HO-D0-R8-01
+    - HO-D0-R8-02
+    - HO-D0-R8-03
+  required_item_fields:
+    - id
+    - version
+    - r
+    - n
+    - title
+    - objective
+    - prereq
+    - clusters
+    - support
+    - ct
+    - source
+    - level
+    - capacity
+    - format
+    - minutes
+    - question
+    - answer
+    - solution
+    - criteria
+    - error
+    - repair
+    - retest_id
+    - retest
+    - reanswer
+    - resolution
+    - check
+    - family
+    - history
+    - author
+    - scope
+
+strand_contract:
+  authority: ../../tot_nghiep_thpt/2027/_quy_trinh/dieu_hanh/ke_hoach_dieu_hanh.md
+  authority_section: "4.5"
+  strands:
+    R1:
+      title: "Hàm số, đạo hàm, đồ thị"
+      allowed_clusters: [B01, B02, B04, B06, B12, B13, B14, B15, B16, B17, B18, B19, B20, B21]
+    R2:
+      title: "Thống kê và đọc dữ liệu"
+      allowed_clusters: [B01, B02, B36, B37, B38]
+    R3:
+      title: "Hình học, vectơ và tọa độ"
+      allowed_clusters: [B02, B05, B16, B17, B18, B19, B20, B21, B25, B26, B27, B28, B29, B30, B31, B32, B33, B34, B35]
+    R4:
+      title: "Đếm và xác suất"
+      allowed_clusters: [B01, B02, B10, B39, B40, B41]
+    R5:
+      title: "Dãy số, mũ và lôgarit"
+      allowed_clusters: [B02, B04, B06, B10, B11, B12, B13, B14, B15, B16, B17]
+    R6:
+      title: "Hàm số lượng giác và phương trình lượng giác"
+      allowed_clusters: [B02, B07, B08, B09, B16, B17, B22, B25]
+    R7:
+      title: "Nguyên hàm, tích phân và ứng dụng"
+      allowed_clusters: [B02, B04, B05, B06, B08, B12, B13, B14, B15, B17, B22, B23, B24, B29, B32]
+    R8:
+      title: "Mô hình hóa, tối ưu và tổng hợp"
+      allowed_clusters: [B02, B03, B04, B05, B19, B42]
+
+target_contract:
+  canonical_authoring_source: index.qmd
+  canonical_data_path: du_lieu/ngan_hang.json
+  variation_assets_6d:
+    hinh/bbt01.tex: b46803bdcb7a74da2577cb44a448c6be1c1a236b1733c2050b5d7271923f2f9a
+    hinh/bbt01.pdf: b95b5639641c90b6fe565b965d226f67d2230dc36b70d74c6b167469c126b472
+    hinh/bbt01.svg: 05258a88a4d4a453ec35d5b2e86dfe85729b346a52e73ac05651b85be958d677
+  editorial_contract:
+    stage: step_6b1
+    authorization: user_requested_step_6b1
+    human_content_review: pending
+    public_guide: du_lieu/huong_dan_cong_khai.md
+    analysis_guide: du_lieu/huong_dan_phan_tich.md
+    revision_map: _quy_trinh/bien_tap_6b1.json
+    operational_spec: du_lieu/dac_ta_van_hanh.yml
+    files:
+      du_lieu/huong_dan_cong_khai.md: e3f4159c69be22fdc1be0443df07c22e9d460d05721a83ece2d89d82ab122c0f
+      du_lieu/huong_dan_phan_tich.md: 1118a3e0789ca4f2fd510a534b1cd4a2e7c9a30ab01a4a359033d2b8b274e4b0
+      _quy_trinh/bien_tap_6b1.json: 167f358533180daf15d3c39821ecce378088faf23e14fbefb241bcea0a2e3bd5
+      du_lieu/dac_ta_van_hanh.yml: 381ed5e6e012c322b3a59725f336b8195da44852abc180cbe169f91ac1cfe103
+  html_candidate:
+    architecture_preview: rendered_6c_not_final_candidate
+    status: stale_after_editorial_revision
+    visual_review: rejected_requires_revision
+    files_role: historical_fingerprints_of_rejected_candidate
+    locked_on: "2026-10-01"
+    files:
+      content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.qmd: 21ec971653af7fcfc43f82069ec8254dd549788cfc4d7b4b4b63828421a824e1
+      content/thpt/on_thi_toan_thpt/hoc_lieu/d0/giao_dien/d0.css: 86d2870fde9673b3280a15819f8222675c44368a285fcb9133add5af466f8935
+      content/thpt/on_thi_toan_thpt/hoc_lieu/d0/giao_dien/d0_script.html: 88f420cae676e3ec147c48b54f5b8aff20a024225bd01a79393758ac19bd719b
+      assets/css/zo_on_thi_learning_package.css: 5d6b177ac9a252fe08de552c1df99c177e5f43e3c3caef84a73c41bec406ea76
+      assets/html/zo_on_thi_learning_package_script.html: c4f6cd25a81f792a61d2c5cecf851cffb479b051b83409ce3b1b33326623c301
+      docs/assets/css/zo_on_thi_learning_package.css: 5d6b177ac9a252fe08de552c1df99c177e5f43e3c3caef84a73c41bec406ea76
+      docs/content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html: db5681776d56cffc19dcc1d8174f14003b05c06269995c3d6ad679cbb809866b
+  geometry_toolchain:
+    compiler:
+      path: scripts/zo_geometry.py
+      sha256: 0c44162f4d21d0fe30cd7266ec67e249e41ad123bce0868faa473d8579aa6979
+    checker:
+      path: scripts/zo_geometry_check.py
+      sha256: 0d47e059735706defa54e1a1d689298a0974621bb0f90bb890514fe2072449ab
+    style:
+      path: assets/tex/zo-geometry-styles.tex
+      sha256: db0db51f91f608a41ed178a83c0076b0b3b5387504d17e179c72f0d739ecbab9
+  canonical_assets:
+    hinh_hop.pdf:
+      sha256: 97c9f1d5a23ec0a1d187623c63488fe9a4eee27e439eb61f53459b087ced266e
+      source: _quy_trinh/pilot_hinh_hoc/d0_r3_03_hinh_hop.yml
+      source_sha256: b656eefc96e1d3af63e71124b7621d614b0d145a7173e2fb56d42e3b0a723527
+      replaces_historical_asset: true
+    hinh_hop.png:
+      sha256: b2f0ebdaf04cbf0a2a773edae7eb3c8a0545f7ef1a945b627c32d7de91147681
+      source: _quy_trinh/pilot_hinh_hoc/d0_r3_03_hinh_hop.yml
+      source_sha256: b656eefc96e1d3af63e71124b7621d614b0d145a7173e2fb56d42e3b0a723527
+      replaces_historical_asset: true
+    hinh_hop.svg:
+      sha256: 458ec1390ee6b52047a761234f89c5b00cb3983e4a278d20c696826a1d825fb1
+      source: _quy_trinh/pilot_hinh_hoc/d0_r3_03_hinh_hop.yml
+      source_sha256: b656eefc96e1d3af63e71124b7621d614b0d145a7173e2fb56d42e3b0a723527
+      replaces_historical_asset: false
+    hinh_hop.tex:
+      sha256: cc7101ae46007c847d0131fa06e29061d8ae14985e2ef93b62ce7ef828c1ff75
+      source: _quy_trinh/pilot_hinh_hoc/d0_r3_03_hinh_hop.yml
+      source_sha256: b656eefc96e1d3af63e71124b7621d614b0d145a7173e2fb56d42e3b0a723527
+      replaces_historical_asset: false
+    hinh_hop.geometry.json:
+      sha256: e144816e921a30e53c1ab366f6ee0c3aa3f060cb5270fd49b53018bd59d10d47
+      source: _quy_trinh/pilot_hinh_hoc/d0_r3_03_hinh_hop.yml
+      source_sha256: b656eefc96e1d3af63e71124b7621d614b0d145a7173e2fb56d42e3b0a723527
+      replaces_historical_asset: false
+  planned_checker: cong_cu/kiem_chung.py
+  planned_adapter: cong_cu/d0.lua
+  package_specific_style: giao_dien/d0.css
+  shared_components_required: true
+  html_views:
+    - bat_dau
+    - khai_bao_pham_vi
+    - khao_sat
+    - doc_ket_qua
+    - chon_mach
+  delivery:
+    html:
+      required: true
+      canonical_output: index.html
+    content_pdfs:
+      required: false
+      status: not_applicable_by_owner_decision_2026_10_03
+      technical_pdf_assets_remain_canonical_assets: true
+
+invariants:
+  preserve_math_and_pedagogy: true
+  preserve_primary_ids: true
+  preserve_retest_ids: true
+  preserve_family_relations: true
+  preserve_eight_strands: true
+  no_score_prediction: true
+  no_full_bank_requirement_for_each_student: true
+  maximum_repair_priorities: 2
+  distinguish_not_learned_from_error: true
+  do_not_treat_same_family_retest_as_independent_mastery_evidence: true
+  public_html_must_not_accidentally_reveal_solutions: true
+  historical_pdf_is_not_authoring_source: true
+  generated_markdown_is_not_independent_authoring_source: true
+  no_content_edit_without_separate_approved_maintenance_scope: true
+  qmd_full_sequence_must_match_migration_projection: true
+  private_html_content_removed_at_ast_level: true
+
+acceptance_gates:
+  - baseline_hashes_match
+  - all_required_files_classified
+  - primary_ids_match_exactly
+  - retest_ids_match_exactly
+  - family_ids_match_exactly
+  - each_strand_has_three_primary_tasks
+  - each_primary_has_one_retest_and_one_family
+  - required_item_fields_present
+  - legacy_math_checker_retained
+  - qmd_projection_matches_baseline
+  - solution_exposure_boundary_verified
+  - html_role_verified
