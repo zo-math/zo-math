@@ -8,6 +8,14 @@ Tuân thủ `AGENTS.md` ở gốc repository và các tài liệu bắt buộc �
 
 Kiến trúc đã được phê duyệt đặt chuyên mục tại `content/thpt/on_thi_toan_thpt`: học liệu dùng lại thuộc `hoc_lieu/<ma_goi>/`, điều hành khóa theo năm thuộc `tot_nghiep_thpt/<nam>/_quy_trinh/`. Không tạo một lớp điều hành song song bên ngoài chuyên mục sau khi hoàn tất chuyển đổi.
 
+Kiến trúc học tập dùng chung cho R1-G01, R1-G02 và các gói R1 tiếp theo được điều hành bởi:
+
+- `_quy_trinh/05_DAC_TA_KIEN_TRUC_HOC_TAP_CHUNG_V0.2.md`;
+- `_quy_trinh/06_MA_TRAN_TRIEN_KHAI_KIEN_TRUC_HOC_TAP_R1_G01_R1_G02_V0.1.md` trong phạm vi R1-G01/R1-G02;
+- `_quy_trinh/schema_kien_truc_hoc_tap.json` và `_quy_trinh/danh_muc_kien_truc_hoc_tap.yml` cho hợp đồng máy đọc được.
+
+Manifest từng gói nằm tại `hoc_lieu/<ma_goi>/_quy_trinh/kien_truc_hoc_tap.yml`. Trước khi biên soạn nội dung theo kiến trúc này, chạy checker schema và readiness qua `scripts/zo_learning_architecture.py`; `planned` là khoảng trống nội dung thật, không được đổi thành hoàn tất chỉ để checker readiness đạt.
+
 ## Giới hạn tích hợp và đầu mối điều hành
 
 - Hai cửa ngõ, R1-G01 và R1-G02 đã được duyệt vào ranh giới ứng viên phát hành; hai gói đã hoàn tất nội dung, HTML và hệ PDF canonical, nhưng giữ `publication: pending` cho đến khi quy trình website hoàn tất.

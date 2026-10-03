@@ -1,0 +1,91 @@
+schema_version: 1
+architecture_version: "0.2"
+catalog_id: on-thi-learning-architecture-v1
+
+valid_task_roles: [H, L, S-L, S-K, S-O, K, O, P, N]
+valid_task_statuses: [current, planned]
+
+transition_path_kinds:
+  - stage
+  - checkpoint
+  - remediation
+  - foundation
+  - maintenance
+  - complete
+  - transfer
+
+no_reuse_policy:
+  id: single-evidence-role-v1
+  protected_roles: [K, O]
+  prior_exposure_roles: [H, L, S-L, S-K, S-O]
+  rule: >-
+    Mỗi content_key chỉ được dùng cho một nhiệm vụ bằng chứng. Nhiệm vụ K hoặc O
+    không được trùng content_key với nhiệm vụ đã lộ trong H, L hoặc các tầng S.
+
+foundation_catalog:
+  id: on-thi-foundation-v1
+  units:
+    - id: N-TXĐ-01
+      label: Đọc tập xác định, tập đang xét và quan hệ thuộc
+      evidence_gap: Dùng điểm ngoài tập; đồng nhất công thức với hàm số; nhầm D với K.
+      retest_requirement: Xác định D, K và kiểm tra ba điểm có được dùng hay không.
+    - id: N-ĐH-01
+      label: Tính đạo hàm đa thức và hàm hữu tỉ đơn giản
+      evidence_gap: Không thể bắt đầu xét dấu vì tính sai đạo hàm.
+      retest_requirement: Tính đạo hàm một hàm mới và kiểm tra bằng khai triển hoặc thế số.
+    - id: N-ĐH-02
+      label: Đạo hàm lượng giác và số đo radian
+      evidence_gap: Không xử lí được sin x, cos x ở nhánh chuyển giao.
+      retest_requirement: Tính đạo hàm và xét dấu một biểu thức lượng giác mới trên đoạn hẹp.
+    - id: N-ĐH-03
+      label: Đạo hàm hàm mũ và lôgarit
+      evidence_gap: Không xử lí được e^x, ln x ở nhánh chuyển giao.
+      retest_requirement: Tính đạo hàm, ghi tập xác định và tìm nghiệm đạo hàm của hai hàm mới.
+    - id: N-DẤU-01
+      label: Xét dấu tích, thương và lũy thừa chẵn
+      evidence_gap: Có đạo hàm đúng nhưng bảng dấu sai.
+      retest_requirement: Lập bảng dấu một biểu thức mới và giải thích mốc không đổi dấu.
+    - id: N-BBT-01
+      label: Đọc và dựng bảng biến thiên
+      evidence_gap: Nhầm hàng x, f'(x), f(x) hoặc sai mũi tên.
+      retest_requirement: Hoàn thành một bảng thiếu từ dữ kiện ngắn.
+    - id: N-ĐT-01
+      label: Đọc đồ thị f, f' và điểm kín, điểm hở
+      evidence_gap: Lấy tung độ trên đồ thị đạo hàm làm giá trị hàm hoặc dùng điểm hở như điểm đạt.
+      retest_requirement: Đọc nhãn hai hình mới và xác định dữ kiện được phép suy ra.
+    - id: N-LT-01
+      label: Liên tục, đạo hàm một phía và điểm ghép
+      evidence_gap: Dùng định lí đổi dấu qua điểm chưa biết liên tục hoặc bỏ điểm không có đạo hàm.
+      retest_requirement: Kiểm tra liên tục và đạo hàm tại điểm ghép của hàm từng đoạn mới.
+    - id: N-LG-01
+      label: Mệnh đề và, hoặc, điều kiện đủ, cần và phản ví dụ
+      evidence_gap: Đánh giá đúng sai theo trực giác hoặc bỏ vế đúng khi sửa.
+      retest_requirement: Đánh giá bốn mệnh đề ngắn và sửa câu sai mà giữ phần đúng.
+    - id: N-GH-01
+      label: Cận, giới hạn và sự đạt được
+      evidence_gap: Đồng nhất cận với giá trị lớn nhất hoặc nhỏ nhất.
+      retest_requirement: Cho một hàm trên khoảng hở, xác định cận và kiểm tra có điểm đạt hay không.
+    - id: N-MH-01
+      label: Doanh thu, tổng chi phí, chi phí bình quân, lợi nhuận và đơn vị
+      evidence_gap: Lập sai hàm mục tiêu hoặc bỏ đơn vị.
+      retest_requirement: Lập hàm lợi nhuận từ dữ kiện mới, chưa cần tối ưu.
+    - id: N-NGUYÊN-01
+      label: Tối ưu khi biến nhận giá trị nguyên
+      evidence_gap: Làm tròn nghiệm thực hoặc giữ nghiệm không được phép.
+      retest_requirement: So sánh các ứng viên nguyên quanh điểm tối ưu của hàm phụ.
+
+journal_required_fields:
+  - timestamp
+  - package_objective
+  - detection_source
+  - initial_work
+  - initial_support_level
+  - observed_evidence
+  - classification
+  - error_or_foundation_id
+  - action
+  - new_remediation_task
+  - post_remediation_status
+  - review_schedule
+  - delayed_result
+  - next_decision
