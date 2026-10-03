@@ -256,8 +256,8 @@ def render_program(program: dict[str, Any], packages: list[Package], colors: dic
     )
     cards = []
     for package in packages:
-        view_suffix = "" if package.html_only else "?r1-view=cach-hoc"
-        link_label = "Mở khảo sát" if package.html_only else "Học HTML"
+        view_suffix = "#bat-dau" if package.html_only else "?r1-view=cach-hoc"
+        link_label = "Bắt đầu khảo sát" if package.html_only else "Bắt đầu học"
         cards.append(f"""::: {{.zo-on-thi-package data-package-id=\"{package.ref_id}\"}}
 ::: {{.zo-on-thi-package__layout}}
 ::: {{.zo-on-thi-package__cover}}

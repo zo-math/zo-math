@@ -317,18 +317,18 @@ def check(html):
         (int(h.name[1]), norm(h.get_text())) for h in target.select('h1,h2,h3,h4')
         if h.find_parent(id='tai-tai-lieu') is None
     ]
-    checks['single_page_title'] = len(page.select('main h1')) == 1 and norm(page.select_one('h1.title').get_text()) == norm(headings[0].get_text())
+    checks['single_page_title'] = len(page.select('main h1')) == 1 and norm(page.select_one('h1.title').get_text()) == 'Đơn điệu và cực trị'
     checks['subtitle_preserved'] = norm(page.select_one('#title-block-header .subtitle').get_text()) == 'Dấu đạo hàm, tính đơn điệu và cực trị'
     checks['official_display_identity_exact'] = (
         norm(target.select_one('.r1-status').get_text()) == 'Có thể học'
         and norm(target.select_one(':scope > p').get_text()).startswith(
-            'Học liệu “Kết nối hàm số, bảng biến thiên và đồ thị” là gói củng cố kiến thức nền'
+            'Học liệu “Đơn điệu và cực trị” là gói củng cố kiến thức nền'
         )
         and target.select_one(':scope > p a').get('href').endswith(
             '/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html'
         )
         and norm(target.select_one('.r1-footer').get_text())
-        == 'ZO Math · Kết nối hàm số, bảng biến thiên và đồ thị · Phiên bản 1.2'
+        == 'ZO Math · Đơn điệu và cực trị · Phiên bản 1.3'
         and norm(target.select_one('#tai-tai-lieu > h2').get_text()) == 'Tải PDF'
         and 'R1-G01' not in target.get_text(' ', strip=True)
     )
@@ -341,7 +341,7 @@ def check(html):
         link for link in page.select('.quarto-page-breadcrumbs a[href]')
         if urlsplit(link['href']).path.replace('\\', '/').endswith(navigation_suffix)
     ]
-    official_title = 'Kết nối hàm số, bảng biến thiên và đồ thị'
+    official_title = 'Đơn điệu và cực trị'
     checks['raw_html_no_js_navigation_identity_exact'] = (
         len(sidebar_links) == 1 and len(breadcrumb_links) == 1
         and norm(sidebar_links[0].get_text()) == official_title
@@ -630,8 +630,8 @@ def check(html):
     )
     checks['pdf_package_identity_exact'] = all(
         all(marker in pdf_texts[name] for marker in (
-            'Phiên bản ứng viên v1.2', 'Kết thúc học liệu',
-            'Kết nối hàm số, bảng biến thiên và đồ thị',
+            'Phiên bản ứng viên v1.3', 'Kết thúc học liệu',
+            'Đơn điệu và cực trị',
             'Trở lại gói học liệu trực tuyến', 'Bảo trợ ZO Math',
             'Vietcombank', '0601000137768', 'Nguyễn Tấn Nhựt',
         ))
@@ -666,7 +666,7 @@ def check(html):
         and {'index.pdf', 'index_hoc_sinh.pdf'} <= set(resources)
     )
     common_markers = (
-        'Phiên bản ứng viên v1.2', 'Kết nối hàm số, bảng biến thiên và đồ thị',
+        'Phiên bản ứng viên v1.3', 'Đơn điệu và cực trị',
         'Cách học với tài liệu này', 'Nguồn đối chiếu',
         'Kết thúc học liệu', 'Trở lại gói học liệu trực tuyến',
     )
@@ -808,7 +808,7 @@ def check(html):
     old_guidance = 'Lời giải nằm ở cuối tài liệu, trong các mục có thể mở khi cần. Nút In toàn bộ in cả lời giải; nút In phần học và bài tập ẩn lời giải. Khi học trên màn hình, nhấn vào tên câu hoặc bài để đi đến lời giải tương ứng.'
     new_guidance = 'Tải bản học và bài tập để tự làm. Dùng bản đầy đủ khi cần đối chiếu lời giải. Trên màn hình, dùng các liên kết lời giải để mở đúng phần tương ứng.'
     old_positioning = 'Học liệu giúp em đọc đúng công thức, bảng biến thiên và đồ thị; dùng dấu đạo hàm để giải thích kết luận về tính đơn điệu và cực trị. Em cần biết tính đạo hàm đa thức, xét dấu biểu thức và nhận biết tính liên tục tại một điểm. Bốn câu hỏi khởi động sẽ giúp em xác định phần cần ôn.'
-    new_positioning = 'Học liệu “Kết nối hàm số, bảng biến thiên và đồ thị” là gói củng cố kiến thức nền và chẩn đoán lỗi thuộc chương trình Ôn thi Toán THPT 2027 . Học liệu giúp em đọc đúng công thức, bảng biến thiên và đồ thị; dùng dấu đạo hàm để giải thích kết luận về tính đơn điệu và cực trị. Em cần biết tính đạo hàm đa thức, xét dấu biểu thức và nhận biết tính liên tục tại một điểm. Bốn câu hỏi khởi động sẽ giúp em xác định phần cần ôn. Bài kiểm tra cuối gói nhằm xác định mức độ em làm chủ những nội dung này; đây không phải là đề mô phỏng cấu trúc đề thi tốt nghiệp THPT.'
+    new_positioning = 'Học liệu “Đơn điệu và cực trị” là gói củng cố kiến thức nền và chẩn đoán lỗi thuộc chương trình Ôn thi Toán THPT 2027 . Học liệu giúp em đọc đúng công thức, bảng biến thiên và đồ thị; dùng dấu đạo hàm để giải thích kết luận về tính đơn điệu và cực trị. Em cần biết tính đạo hàm đa thức, xét dấu biểu thức và nhận biết tính liên tục tại một điểm. Bốn câu hỏi khởi động sẽ giúp em xác định phần cần ôn. Bài kiểm tra cuối gói nhằm xác định mức độ em làm chủ những nội dung này; đây không phải là đề mô phỏng cấu trúc đề thi tốt nghiệp THPT.'
     assert original_text.count(old_intro) == 1 and original_text.count(old_guidance) == 1 and original_text.count(old_positioning) == 1, 'Authority V1/V2 text changed'
     projected_text = original_text.replace(old_intro, 'Có thể học', 1).replace(old_guidance, new_guidance, 1).replace(old_positioning, new_positioning, 1)
     approved_editorial_edits = [
@@ -914,7 +914,7 @@ def check(html):
         projected_text = projected_text.replace(before, after)
     projected_text = projected_text.replace(
         'ZO Math · R1-G01 · Phiên bản 1.1 · Kết nối hàm số, bảng biến thiên và đồ thị',
-        'ZO Math · Kết nối hàm số, bảng biến thiên và đồ thị · Phiên bản 1.2',
+        'ZO Math · Đơn điệu và cực trị · Phiên bản 1.3',
         1,
     )
     theory_spans = [
@@ -934,8 +934,8 @@ def check(html):
         mask_theory_spans(projected_text) == mask_theory_spans(visible_text(runtime_target))
     )
     checks['downloads_exact'] = [(x['href'], x.get('download')) for x in target.select('.r1-downloads a')] == [
-        ('index_hoc_sinh.pdf', 'R1-G01_hoc_va_bai_tap_v1.2.pdf'),
-        ('index.pdf', 'R1-G01_hoc_lieu_day_du_v1.2.pdf')]
+        ('index_hoc_sinh.pdf', 'R1-G01_hoc_va_bai_tap_v1.3.pdf'),
+        ('index.pdf', 'R1-G01_hoc_lieu_day_du_v1.3.pdf')]
     checks['download_cards_exact'] = [
         (norm(card.select_one('h3').get_text()),
          norm(card.select_one('.r1-download-card__meta').get_text()))

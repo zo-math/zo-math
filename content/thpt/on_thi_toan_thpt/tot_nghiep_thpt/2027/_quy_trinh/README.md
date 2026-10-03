@@ -44,10 +44,10 @@ Trạng thái được quản lí theo gói. Bản ứng viên không được c
 |---|---|
 | Điều hành | Kế hoạch canonical 0.6; tệp đã nhập và đối chiếu |
 | D0 | Chủ dự án xác nhận đã hoàn tất v1.0; bộ tài sản đã nhập và đối chiếu |
-| R1-G01 | v1.2 đã hoàn tất nội dung/kỹ thuật; ứng viên có thể học |
+| R1-G01 | v1.3 đã hoàn tất nội dung/kỹ thuật; ứng viên có thể học |
 | Học liệu R1-G01 | `publication: pending`; chưa công bố website và chưa kiểm tra HTTP live |
 | Studio R1-G01 | Chưa sản xuất Studio chính thức; media thử nghiệm không thay đổi trạng thái này |
-| R1-G02 | v0.1 đã hoàn tất nội dung, HTML và hệ PDF canonical; đang thực hiện quy trình xuất bản website |
+| R1-G02 | v0.2 đã hoàn tất nội dung, HTML và hệ PDF canonical; ứng viên có thể học |
 
 ## 4. Danh mục nguồn đang dùng
 
@@ -68,13 +68,22 @@ Ba tệp với SHA-256 trên là các bản tham chiếu hiện hành cho việc
 - Pha 1–3 và các lượt hoàn thiện R1-G01 đã hoàn tất; chuyên mục có ứng viên ra mắt cục bộ, chưa xuất bản.
 - Pha 2 đã hoàn tất chuyển quản trị khóa 2027. Bước 1 của đợt chuyển đổi D0 đã đưa nguyên bộ v1.0 sang `hoc_lieu/d0/_quy_trinh/lich_su/v1_0/`; bằng chứng bảo toàn nguồn tiếp tục được giữ bằng manifest gốc.
 - README này là đầu mối điều hành canonical duy nhất. [README tại vị trí cũ](../../../../../../_projects/on_thi_toan_thpt_2027/README.md) chỉ là chỉ dẫn chuyển tiếp, không duy trì bảng trạng thái song song.
-- R1-G01 v1.2 đã hoàn tất nội dung/kỹ thuật trong `hoc_lieu/r1_g01/`; nhãn giao diện “Có thể học” không thay đổi `publication: pending`.
+- R1-G01 v1.3 đã hoàn tất nội dung/kỹ thuật trong `hoc_lieu/r1_g01/`; nhãn giao diện “Có thể học” không thay đổi `publication: pending`.
 - R1-G02 đã hoàn tất chuyển đổi tại `hoc_lieu/r1_g02/`; nguồn canonical là `index.qmd`, còn HTML và tám biến thể PDF là đầu ra đã nghiệm thu.
 - Việc tiếp theo đối với D0: hoàn tất các cổng `check`, source-sync, `prepare` và `publish` theo quy trình website; D0 chỉ phát hành HTML cùng tài sản cần thiết, không tạo PDF nội dung.
 
 Trạng thái vận hành khóa 2027 tiếp tục được ghi tại README này. Trạng thái chuyển đổi kỹ thuật của D0 được ghi tại `hoc_lieu/d0/_quy_trinh/README.md`; không viết lại quyết định, nội dung toán học hoặc trạng thái sư phạm trong Kế hoạch 0.6 và baseline D0 v1.0.
 
-## 6. Nguồn gốc và dấu kiểm toàn vẹn
+## 6. Nhật kí bước chân
+
+### 2026-10-03 — Cụm sửa 01
+
+- Đồng bộ danh mục và đường bắt đầu học cho D0, R1-G01 và R1-G02; giữ nguyên mã gói, URL và liên kết sâu.
+- Chốt tên hiển thị `Đơn điệu và cực trị` cho R1-G01 v1.3 và `Giá trị lớn nhất và giá trị nhỏ nhất` cho R1-G02 v0.2; cả ba học liệu mang trạng thái `Có thể học`.
+- Dựng lại ảnh bìa, tám PDF của mỗi gói và website chuyên mục từ nguồn canonical; không thay đổi nội dung toán học hoặc kiến trúc học tập.
+- Trạng thái bàn giao: người chủ trì đã duyệt trực quan năm trang và cho phép commit; chưa chạy `prepare` hoặc xuất bản.
+
+## 7. Nguồn gốc và dấu kiểm toàn vẹn
 
 - Nguồn chuyển: `_projects/on_thi_toan_thpt_2027/` tại commit `1720df62f76213c88d482222f7e1c8c345c3f665`.
 - Commit gần nhất sửa Kế hoạch 0.6 tại đường dẫn cũ: `ef331d376ccbd71575c3d384c8d3ce6a10318be0`; Git blob: `52618625ac9111a22f3043c1fff6d68dcda61852`.

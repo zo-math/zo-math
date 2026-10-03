@@ -217,7 +217,7 @@ try {
   await call('Emulation.setScriptExecutionDisabled',{value:true});await call('Page.navigate',{url});await sleep(1200);
   const nojs=await ev(`(() => {const suffix='content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.html', links=selector=>[...document.querySelectorAll(selector)].filter(a=>new URL(a.href,location.href).pathname.endsWith(suffix)).map(a=>({text:a.textContent.trim().replace(/\\s+/g,' '),href:a.getAttribute('href'),path:new URL(a.href,location.href).pathname}));return {tabs:document.querySelectorAll('.r1-tab').length,sections:document.querySelectorAll('.r1-g01 > section').length,hidden:document.querySelectorAll('.r1-g01 > section[hidden]').length,packagePdfs:document.querySelectorAll('.r1-downloads a[download]').length,sectionPdfs:document.querySelectorAll('.r1-section-download-list a[download]').length,sidebar:links('#quarto-sidebar a[href]'),breadcrumb:links('.quarto-page-breadcrumbs a[href]')};})()`);
   check('no-JS linear content and downloads',nojs.tabs===0&&nojs.sections===10&&nojs.hidden===0&&nojs.packagePdfs===2&&nojs.sectionPdfs===6,nojs);
-  const officialTitle='Kết nối hàm số, bảng biến thiên và đồ thị';
+  const officialTitle='Đơn điệu và cực trị';
   check('no-JS sidebar and breadcrumb use the learning-material title',nojs.sidebar.length===1&&nojs.breadcrumb.length===1&&nojs.sidebar[0].text===officialTitle&&nojs.breadcrumb[0].text===officialTitle&&!nojs.sidebar[0].text.includes('R1-G01')&&!nojs.breadcrumb[0].text.includes('R1-G01'),{sidebar:nojs.sidebar,breadcrumb:nojs.breadcrumb});
 } catch(error){results.error=String(error);check('runtime completed',false,String(error));}
 finally {
