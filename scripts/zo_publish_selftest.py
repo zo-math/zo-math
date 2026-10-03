@@ -35,7 +35,8 @@ class PublicBoundaryTests(unittest.TestCase):
     def write(self, relative: str, text: str) -> None:
         target = self.public / relative
         target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(text, encoding="utf-8")
+        with target.open("w", encoding="utf-8", newline="\n") as stream:
+            stream.write(text)
 
     def validation(self):
         manifest = publish.build_manifest(self.public, self.config)
@@ -53,7 +54,8 @@ class PublicBoundaryTests(unittest.TestCase):
     def write_at(root: Path, relative: str, text: str) -> None:
         path = root / relative
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(text, encoding="utf-8")
+        with path.open("w", encoding="utf-8", newline="\n") as stream:
+            stream.write(text)
 
     def test_private_governance_denies_all_asset_types(self) -> None:
         paths = [f"{GOVERNANCE}/sample{suffix}" for suffix in
@@ -150,6 +152,7 @@ class PublicBoundaryTests(unittest.TestCase):
             "denied-target": 1, "missing-target": 1,
         })
         first = (self.public / "search.json").read_bytes()
+        self.assertNotIn(b"\r\n", first)
         publish.normalize_public_indexes(self.public, manifest, self.config)
         self.assertEqual((self.public / "search.json").read_bytes(), first)
         self.assertEqual(self.validation(), [])
@@ -181,6 +184,7 @@ class PublicBoundaryTests(unittest.TestCase):
             "denied-target": 1, "missing-target": 1,
         })
         first = (self.public / "sitemap.xml").read_bytes()
+        self.assertNotIn(b"\r\n", first)
         publish.normalize_public_indexes(self.public, manifest, self.config)
         self.assertEqual((self.public / "sitemap.xml").read_bytes(), first)
         self.assertEqual(self.validation(), [])
@@ -334,6 +338,84 @@ class PublicBoundaryTests(unittest.TestCase):
         with self.assertRaises(publish.ConfigError):
             publish.build_public_candidate(raw, candidate, target, self.config)
         self.assertEqual(marker.read_text(encoding="utf-8"), "keep")
+
+    def test_scoped_candidate_preserves_published_bytes_for_unchanged_source_output(self) -> None:
+        baseline = self.public / "scope-baseline"
+        rendered = self.public / "scope-rendered"
+        target = self.public / "scope-target"
+        candidate = self.public / "scope-candidate"
+        for root in (baseline, rendered, target):
+            root.mkdir()
+            self.write_at(root, "CNAME", self.config["custom_domain"]["cname"])
+        outside = "content/thpt/scope/unchanged.html"
+        inside = "content/thpt/scope/changed.html"
+        self.write_at(target, outside, "published bytes\n")
+        self.write_at(baseline, outside, "baseline render drift\n")
+        self.write_at(rendered, outside, "current render drift\n")
+        self.write_at(target, inside, "published old\n")
+        self.write_at(baseline, inside, "baseline old\n")
+        self.write_at(rendered, inside, "source-derived new\n")
+
+        result = publish.build_scoped_candidate(
+            baseline, rendered, candidate, target, self.config,
+            allowed_outputs={inside},
+        )
+
+        self.assertEqual(result["issues"], [])
+        self.assertEqual((candidate / outside).read_bytes(), (target / outside).read_bytes())
+        self.assertEqual((candidate / inside).read_bytes(), (rendered / inside).read_bytes())
+        self.assertIn(outside, result["preserved_render_drift"])
+        self.assertIn(outside, result["raw_source_output_diff"]["update"])
+        self.assertNotIn(outside, result["source_output_diff"]["update"])
+        self.assertEqual(result["diff"]["update"], [inside])
+
+    def test_candidate_normalization_passes_git_diff_check(self) -> None:
+        raw, target, candidate = self.candidate_dirs()
+        self.write_at(target, "CNAME", self.config["custom_domain"]["cname"])
+        self.write_at(target, "index.html", "<main>old</main>\n")
+        self.write_at(target, "search.json", '[{"href":"index.html"}]\n')
+        self.write_at(target, "sitemap.xml",
+                      "<urlset><url><loc>https://zomath.vn/index.html</loc></url></urlset>\n")
+        self.write_at(raw, "CNAME", self.config["custom_domain"]["cname"])
+        self.write_at(raw, "index.html",
+                      '<main>\n<div class="sidebar-item-container"> \n</main>\n')
+        (raw / "search.json").write_bytes(b'[\r\n  {"href":"index.html"}\r\n]\r\n')
+        (raw / "sitemap.xml").write_bytes(
+            b'<urlset>\r\n<url><loc>https://zomath.vn/index.html</loc></url>\r\n</urlset>\r\n'
+        )
+
+        result = publish.build_public_candidate(raw, candidate, target, self.config)
+        self.assertEqual(result["issues"], [])
+        self.assertNotIn(b"\r\n", (candidate / "search.json").read_bytes())
+        self.assertNotIn(b"\r\n", (candidate / "sitemap.xml").read_bytes())
+        self.assertNotIn(b"> \n", (candidate / "index.html").read_bytes())
+
+        repository = self.public / "diff-check-repository"
+        repository.mkdir()
+        publish.copy_manifest(target, repository, publish.tree_manifest(target))
+        self.assertEqual(publish.run(["git", "init"], repository).returncode, 0)
+        self.assertEqual(publish.run(["git", "add", "."], repository).returncode, 0)
+        committed = publish.run([
+            "git", "-c", "user.name=ZO Math Test", "-c", "user.email=test@example.invalid",
+            "commit", "-m", "baseline",
+        ], repository)
+        self.assertEqual(committed.returncode, 0, committed.stderr)
+        before = publish.tree_manifest(repository, True)
+        publish.sync_exact(candidate, repository, result["public_manifest"],
+                           publish.exact_diff(before, result["public_manifest"]))
+        checked = publish.run(["git", "diff", "--check"], repository)
+        self.assertEqual(checked.returncode, 0, checked.stdout + checked.stderr)
+
+    def test_candidate_does_not_strip_meaningful_preformatted_whitespace(self) -> None:
+        raw, target, candidate = self.candidate_dirs()
+        self.write_at(raw, "CNAME", self.config["custom_domain"]["cname"])
+        self.write_at(raw, "index.html", "<pre>\nmeaningful  \n</pre>\n")
+
+        result = publish.build_public_candidate(raw, candidate, target, self.config)
+
+        self.assertIn(b"meaningful  \n", (candidate / "index.html").read_bytes())
+        self.assertTrue(any(item["type"] == "trailing-whitespace"
+                            and item["path"] == "index.html" for item in result["issues"]))
 
     def test_check_temporary_candidate_is_cleaned_on_pass_and_failure(self) -> None:
         state = {"issues": [], "branch": "test", "commit": "test", "status": []}

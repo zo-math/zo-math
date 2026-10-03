@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import argparse
+import copy
+import difflib
 import fnmatch
 import hashlib
 import json
@@ -15,6 +17,7 @@ import subprocess
 import sys
 import tempfile
 from collections import Counter
+from contextlib import contextmanager
 from datetime import datetime, timezone
 from html import unescape
 from html.parser import HTMLParser
@@ -37,6 +40,8 @@ EXIT_RESTORE = 4
 SUPPORTED_VERSION = 1
 REPORT_SCHEMA_VERSION = 1
 TEXT_SUFFIXES = {".css", ".html", ".js", ".json", ".txt", ".xml"}
+HTML_PRESERVE_WHITESPACE_TAGS = {"pre", "script", "style", "textarea"}
+RENDER_SUPPORT_EXCLUDED_ROOTS = {"_audit", "docs", "tmp"}
 SOURCE_SUFFIXES = {
     ".aux", ".db", ".fdb_latexmk", ".fls", ".key", ".log", ".md",
     ".pem", ".ps1", ".py", ".qmd", ".r", ".rdata", ".rmd", ".sh",
@@ -470,6 +475,104 @@ def copy_manifest(source: Path, target: Path, manifest: Mapping[str, Any]) -> No
         shutil.copy2(src, dst)
 
 
+def write_text_lf(path: Path, text: str) -> None:
+    """Write generated text deterministically without platform newline translation."""
+    with path.open("w", encoding="utf-8", newline="\n") as stream:
+        stream.write(text)
+
+
+class PreserveWhitespaceTracker(HTMLParser):
+    """Track HTML elements where changing horizontal whitespace can change content."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=False)
+        self.depth = 0
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag.casefold() in HTML_PRESERVE_WHITESPACE_TAGS:
+            self.depth += 1
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag.casefold() in HTML_PRESERVE_WHITESPACE_TAGS and self.depth:
+            self.depth -= 1
+
+
+def changed_line_indexes(before: bytes, after: bytes) -> set[int]:
+    """Return zero-based line indexes added or replaced in *after*."""
+    before_lines = before.splitlines(keepends=True)
+    after_lines = after.splitlines(keepends=True)
+    indexes: set[int] = set()
+    matcher = difflib.SequenceMatcher(None, before_lines, after_lines, autojunk=False)
+    for operation, _, _, start, end in matcher.get_opcodes():
+        if operation in {"insert", "replace"}:
+            indexes.update(range(start, end))
+    return indexes
+
+
+def normalize_changed_html_whitespace(target: Path, candidate: Path,
+                                      paths: Sequence[str]) -> dict[str, Any]:
+    """Remove safe trailing spaces only from changed standalone HTML tag lines."""
+    normalized: dict[str, int] = {}
+    tag_line = re.compile(rb"^[ \t]*</?[A-Za-z][^<>\r\n]*>[ \t]+$")
+    preserve_tag = re.compile(
+        rb"</?(?:pre|script|style|textarea)(?:\s|/?>)", re.IGNORECASE,
+    )
+    for relative in sorted(set(paths)):
+        if not relative.lower().endswith(".html"):
+            continue
+        candidate_path = candidate / relative
+        if not candidate_path.is_file():
+            continue
+        before = (target / relative).read_bytes() if (target / relative).is_file() else b""
+        after = candidate_path.read_bytes()
+        changed = changed_line_indexes(before, after)
+        if not changed:
+            continue
+        lines = after.splitlines(keepends=True)
+        tracker = PreserveWhitespaceTracker()
+        count = 0
+        for index, line in enumerate(lines):
+            body = line[:-1] if line.endswith(b"\n") else line
+            ending = b"\n" if line.endswith(b"\n") else b""
+            if body.endswith(b"\r"):
+                body, ending = body[:-1], b"\r" + ending
+            if (index in changed and tracker.depth == 0 and tag_line.fullmatch(body)
+                    and not preserve_tag.search(body)):
+                stripped = body.rstrip(b" \t")
+                if stripped != body:
+                    lines[index] = stripped + ending
+                    count += 1
+            tracker.feed(line.decode("utf-8", errors="replace"))
+        tracker.close()
+        if count:
+            candidate_path.write_bytes(b"".join(lines))
+            normalized[relative] = count
+    return {"files": normalized, "lines": sum(normalized.values())}
+
+
+def changed_trailing_whitespace(target: Path, candidate: Path,
+                                manifest: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """Report Git-style trailing whitespace only on candidate-added text lines."""
+    issues: list[dict[str, Any]] = []
+    for relative in sorted(manifest["files"]):
+        if Path(relative).suffix.lower() not in TEXT_SUFFIXES:
+            continue
+        candidate_path = candidate / relative
+        before = (target / relative).read_bytes() if (target / relative).is_file() else b""
+        after = candidate_path.read_bytes()
+        if before == after:
+            continue
+        lines = after.splitlines(keepends=True)
+        for index in sorted(changed_line_indexes(before, after)):
+            line = lines[index]
+            body = line[:-1] if line.endswith(b"\n") else line
+            if body.endswith((b" ", b"\t", b"\r")):
+                issues.append({
+                    "type": "trailing-whitespace", "path": relative, "line": index + 1,
+                })
+    return issues
+
+
 def public_index_target(value: Any, relative: str, files: set[str],
                         config: Mapping[str, Any]) -> tuple[str | None, str]:
     """Resolve a structured public-index URL against the copied public manifest."""
@@ -561,9 +664,7 @@ def normalize_public_indexes(public: Path, manifest: Mapping[str, Any],
                     removed["inconsistent-navigation"] += 1
                     continue
                 kept.append(record)
-            search_path.write_text(
-                json.dumps(kept, ensure_ascii=False, indent=2) + "\n", encoding="utf-8",
-            )
+            write_text_lf(search_path, json.dumps(kept, ensure_ascii=False, indent=2) + "\n")
             report["indexes"][search_relative] = {
                 "before": len(records), "after": len(kept),
                 "removed": len(records) - len(kept), "removed_by_reason": dict(sorted(removed.items())),
@@ -608,9 +709,9 @@ def normalize_public_indexes(public: Path, manifest: Mapping[str, Any],
         if namespace:
             ElementTree.register_namespace("", namespace)
         ElementTree.indent(tree, space="  ")
-        tree.write(path, encoding="utf-8", xml_declaration=True, short_empty_elements=True)
-        with path.open("ab") as stream:
-            stream.write(b"\n")
+        xml = ElementTree.tostring(root, encoding="utf-8", xml_declaration=True,
+                                   short_empty_elements=True)
+        path.write_bytes(xml.rstrip(b"\r\n") + b"\n")
         report["indexes"][relative] = {
             "before": len(entries), "after": kept_count,
             "removed": len(entries) - kept_count, "removed_by_reason": dict(sorted(removed.items())),
@@ -768,14 +869,89 @@ def validate_public(public: Path, manifest: Mapping[str, Any], config: Mapping[s
             "index_files": index_count, "issues": issues}
 
 
-def render_to_staging(root: Path, render_dir: Path) -> dict[str, Any]:
+def render_to_staging(root: Path, render_dir: Path,
+                      tool_root: Path | None = None) -> dict[str, Any]:
     require_public_profile(root)
-    command = [sys.executable, str(root / "scripts/zo_quarto.py"), "render", "--output-dir", str(render_dir)]
+    launcher = (tool_root or root) / "scripts/zo_quarto.py"
+    command = [sys.executable, str(launcher), "render", "--output-dir", str(render_dir)]
     result = run(command, root)
     matches = re.findall(r"\[\s*\d+/(\d+)\]", result.stdout + result.stderr)
     return {"command": command, "exit_code": result.returncode,
             "source_count": int(matches[-1]) if matches else None,
             "stdout": result.stdout, "stderr": result.stderr}
+
+
+def published_source_commit(root: Path, target: Path) -> str:
+    """Read and validate the source commit recorded by the published target."""
+    message = git_text(target, "show", "-s", "--format=%B", "HEAD", safe=target)
+    matches = re.findall(r"(?im)^Source-Master:\s*([0-9a-f]{40,64})\s*$", message)
+    if len(matches) != 1:
+        raise ConfigError("Commit gh-pages phải có đúng một trailer Source-Master hợp lệ.")
+    commit = git_text(root, "rev-parse", f"{matches[0]}^{{commit}}")
+    ancestor = git(root, "merge-base", "--is-ancestor", commit, "HEAD")
+    if ancestor.returncode != 0:
+        raise ConfigError("Source-Master của gh-pages không phải tổ tiên của HEAD nguồn.")
+    return commit
+
+
+def copy_ignored_render_support(root: Path, destination: Path) -> dict[str, Any]:
+    """Copy ignored build dependencies/caches, but never prior outputs or audit data."""
+    result = git(root, "ls-files", "-z", "--others", "--ignored", "--exclude-standard")
+    if result.returncode != 0:
+        raise RuntimeError(result.stderr.strip() or "Không kiểm kê được tệp render support bị ignore.")
+    copied: list[str] = []
+    copied_bytes = 0
+    excluded = Counter()
+    for raw in result.stdout.split("\0"):
+        if not raw:
+            continue
+        relative = safe_relative(raw, "ignored render support")
+        parts = PurePosixPath(relative).parts
+        if not parts or parts[0] in RENDER_SUPPORT_EXCLUDED_ROOTS:
+            excluded["ephemeral-root"] += 1
+            continue
+        if "__pycache__" in parts or relative.lower().endswith((".pyc", ".pyo")):
+            excluded["python-cache"] += 1
+            continue
+        source = root / relative
+        if not source.is_file():
+            continue
+        if source.is_symlink():
+            raise ConfigError(f"Từ chối render support symlink: {relative}")
+        target = destination / relative
+        if target.exists():
+            if not target.is_file() or sha256(target) != sha256(source):
+                raise ConfigError(f"Render support xung đột với baseline tracked: {relative}")
+            continue
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, target)
+        copied.append(relative)
+        copied_bytes += source.stat().st_size
+    return {
+        "count": len(copied), "bytes": copied_bytes,
+        "excluded": dict(sorted(excluded.items())), "files": copied,
+    }
+
+
+@contextmanager
+def detached_source_tree(root: Path, destination: Path, commit: str, audit: Path):
+    """Create a read-only-purpose detached worktree under _audit and always remove it."""
+    resolved = destination.resolve()
+    try:
+        resolved.relative_to(audit.resolve())
+    except ValueError as exc:
+        raise ConfigError(f"Từ chối tạo baseline ngoài _audit/: {destination}") from exc
+    if resolved.exists():
+        raise ConfigError(f"Thư mục baseline phải chưa tồn tại: {destination}")
+    added = git(root, "worktree", "add", "--detach", str(resolved), commit)
+    if added.returncode != 0:
+        raise RuntimeError(added.stderr.strip() or "Không tạo được worktree baseline.")
+    try:
+        yield resolved
+    finally:
+        removed = git(root, "worktree", "remove", "--force", str(resolved))
+        if removed.returncode != 0:
+            raise RestoreError(removed.stderr.strip() or "Không dọn được worktree baseline.")
 
 
 def exact_diff(target_manifest: Mapping[str, Any], desired: Mapping[str, Any]) -> dict[str, Any]:
@@ -793,12 +969,159 @@ def exact_diff(target_manifest: Mapping[str, Any], desired: Mapping[str, Any]) -
     }
 
 
+def restricted_diff(before: Mapping[str, Any], after: Mapping[str, Any],
+                    allowed: set[str]) -> dict[str, Any]:
+    """Return exact differences only for paths justified by source provenance."""
+    raw = exact_diff(before, after)
+    added = [path for path in raw["add"] if path in allowed]
+    updated = [path for path in raw["update"] if path in allowed]
+    deleted = [path for path in raw["delete"] if path in allowed]
+    old, new = before["files"], after["files"]
+    return {
+        "add": added,
+        "update": updated,
+        "delete": deleted,
+        "unchanged": sorted((set(old) & set(new)) - set(updated)),
+        "change_bytes": (sum(new[path]["size"] for path in [*added, *updated])
+                         + sum(old[path]["size"] for path in deleted)),
+    }
+
+
+def qmd_output_path(path: str) -> str | None:
+    suffix = PurePosixPath(path).suffix.casefold()
+    if suffix not in {".qmd", ".rmd", ".md"}:
+        return None
+    return str(PurePosixPath(path).with_suffix(".html"))
+
+
+def sidebar_records(value: Any) -> dict[str, Any]:
+    records = value if isinstance(value, list) else [value]
+    result: dict[str, Any] = {}
+    for index, record in enumerate(records):
+        if not isinstance(record, dict):
+            result[f"index:{index}"] = record
+            continue
+        identity = record.get("id") or record.get("title") or f"index:{index}"
+        key = str(identity)
+        if key in result:
+            key = f"{key}#{index}"
+        result[key] = record
+    return result
+
+
+def nested_hrefs(value: Any) -> set[str]:
+    found: set[str] = set()
+    if isinstance(value, dict):
+        for key, item in value.items():
+            if key == "href" and isinstance(item, str):
+                found.add(item.replace("\\", "/"))
+            else:
+                found.update(nested_hrefs(item))
+    elif isinstance(value, list):
+        for item in value:
+            found.update(nested_hrefs(item))
+    return found
+
+
+def source_output_scope(root: Path, baseline_commit: str,
+                        baseline_manifest: Mapping[str, Any],
+                        rendered_manifest: Mapping[str, Any]) -> dict[str, Any]:
+    """Infer publishable outputs from tracked source changes and declared dependencies."""
+    changed_text = git_text(root, "diff", "--name-only", "--no-renames",
+                            f"{baseline_commit}..HEAD")
+    changed = {line.replace("\\", "/") for line in changed_text.splitlines() if line}
+    available_outputs = set(baseline_manifest["files"]) | set(rendered_manifest["files"])
+    allowed: set[str] = {path for path in changed if path in available_outputs}
+
+    source_suffixes = {".css", ".html", ".js", ".json", ".lua", ".md", ".qmd",
+                       ".r", ".rmd", ".yaml", ".yml"}
+    source_texts: dict[str, str] = {}
+    for current, dirs, files in os.walk(root):
+        base = Path(current)
+        if base == root:
+            dirs[:] = [name for name in dirs
+                       if name not in {".git", "_audit", "docs", "tmp"}]
+        for name in files:
+            path = base / name
+            relative = path.relative_to(root).as_posix()
+            if path.suffix.casefold() not in source_suffixes or path.is_symlink():
+                continue
+            try:
+                text = path.read_text(encoding="utf-8", errors="replace").replace("\\", "/")
+            except OSError:
+                continue
+            dependency_lines = [
+                line for line in text.splitlines()
+                if re.search(r"(?i)(?:\binclude(?:s|-after-body|-before-body)?\b|"
+                             r"\bmetadata-files?\b|\bfilters?\b)", line)
+            ]
+            source_texts[relative] = "\n".join(dependency_lines)
+
+    affected = set(changed)
+    while True:
+        discovered: set[str] = set()
+        for source, text in source_texts.items():
+            if source in affected:
+                continue
+            parent = str(PurePosixPath(source).parent)
+            for dependency in affected:
+                relative = posixpath.relpath(dependency, parent).replace("\\", "/")
+                if dependency in text or relative in text:
+                    discovered.add(source)
+                    break
+        if not discovered:
+            break
+        affected.update(discovered)
+
+    for source in affected:
+        output = qmd_output_path(source)
+        if output in available_outputs:
+            allowed.add(output)
+
+    config_scope: dict[str, Any] = {"sidebar_groups": [], "global": False}
+    if "_quarto.yml" in changed:
+        baseline_raw = git_text(root, "show", f"{baseline_commit}:_quarto.yml")
+        baseline_config = yaml.safe_load(baseline_raw) or {}
+        current_config = yaml.safe_load((root / "_quarto.yml").read_text(encoding="utf-8")) or {}
+        baseline_sidebars = sidebar_records((baseline_config.get("website") or {}).get("sidebar", []))
+        current_sidebars = sidebar_records((current_config.get("website") or {}).get("sidebar", []))
+        for key in sorted(set(baseline_sidebars) | set(current_sidebars)):
+            before = baseline_sidebars.get(key)
+            after = current_sidebars.get(key)
+            if before == after:
+                continue
+            config_scope["sidebar_groups"].append(key)
+            for href in nested_hrefs(before) | nested_hrefs(after):
+                output = qmd_output_path(href)
+                if output in available_outputs:
+                    allowed.add(output)
+        baseline_global = copy.deepcopy(baseline_config)
+        current_global = copy.deepcopy(current_config)
+        (baseline_global.get("website") or {}).pop("sidebar", None)
+        (current_global.get("website") or {}).pop("sidebar", None)
+        if baseline_global != current_global:
+            config_scope["global"] = True
+            allowed.update(path for path in available_outputs if path.lower().endswith(".html"))
+
+    if allowed:
+        allowed.update(path for path in ("search.json", "sitemap.xml")
+                       if path in available_outputs)
+    return {
+        "baseline_commit": baseline_commit,
+        "changed_sources": sorted(changed),
+        "affected_sources": sorted(affected),
+        "config": config_scope,
+        "allowed_outputs": sorted(allowed),
+    }
+
+
 def build_public_candidate(raw_output: Path, candidate: Path, target: Path,
                            config: Mapping[str, Any]) -> dict[str, Any]:
     """Build and validate the exact public tree without modifying either input tree."""
     if candidate.exists():
         raise ConfigError(f"Thư mục candidate phải chưa tồn tại: {candidate}")
 
+    target_manifest = tree_manifest(target, True)
     selected = build_manifest(raw_output, config)
     special_files = set(config["prepare"]["special_files"])
     blocking = [
@@ -814,6 +1137,11 @@ def build_public_candidate(raw_output: Path, candidate: Path, target: Path,
         path.touch()
 
     copied_manifest = tree_manifest(candidate)
+    raw_diff = exact_diff(target_manifest, copied_manifest)
+    html_whitespace = normalize_changed_html_whitespace(
+        target, candidate, [*raw_diff["add"], *raw_diff["update"]],
+    )
+    copied_manifest = tree_manifest(candidate)
     normalization = normalize_public_indexes(candidate, copied_manifest, config)
     public_manifest = tree_manifest(candidate)
     policy_manifest = build_manifest(candidate, config)
@@ -827,17 +1155,75 @@ def build_public_candidate(raw_output: Path, candidate: Path, target: Path,
     blocking.extend(normalization["issues"])
     validation = validate_public(candidate, public_manifest, config)
     blocking.extend(validation["issues"])
+    blocking.extend(changed_trailing_whitespace(target, candidate, public_manifest))
 
-    target_manifest = tree_manifest(target, True)
     return {
         "selected_manifest": selected,
         "public_manifest": public_manifest,
         "manifest": {**public_manifest, "excluded": selected["excluded"]},
         "manifest_sha256": manifest_digest(public_manifest),
         "index_normalization": normalization,
+        "html_whitespace_normalization": html_whitespace,
         "validation": validation,
         "issues": blocking,
         "diff": exact_diff(target_manifest, public_manifest),
+        "target_before_manifest": target_manifest,
+    }
+
+
+def build_scoped_candidate(baseline: Path, rendered: Path, candidate: Path, target: Path,
+                           config: Mapping[str, Any],
+                           excluded: Mapping[str, int] | None = None,
+                           allowed_outputs: set[str] | None = None) -> dict[str, Any]:
+    """Overlay only source-derived output changes onto the published target tree."""
+    if candidate.exists():
+        raise ConfigError(f"Thư mục candidate phải chưa tồn tại: {candidate}")
+    baseline_manifest = tree_manifest(baseline)
+    rendered_manifest = tree_manifest(rendered)
+    target_manifest = tree_manifest(target, True)
+    raw_source_diff = exact_diff(baseline_manifest, rendered_manifest)
+    source_diff = (restricted_diff(baseline_manifest, rendered_manifest, allowed_outputs)
+                   if allowed_outputs is not None else raw_source_diff)
+    render_diff = exact_diff(target_manifest, rendered_manifest)
+
+    candidate.mkdir(parents=True)
+    copy_manifest(target, candidate, target_manifest)
+    sync_exact(rendered, candidate, rendered_manifest, source_diff)
+
+    public_manifest = tree_manifest(candidate)
+    policy_manifest = build_manifest(candidate, config)
+    policy_files = {
+        name: {"size": metadata["size"], "sha256": metadata["sha256"]}
+        for name, metadata in policy_manifest["files"].items()
+    }
+    blocking: list[dict[str, Any]] = list(policy_manifest["issues"])
+    if policy_files != public_manifest["files"]:
+        blocking.append({"type": "candidate-manifest-mismatch", "path": str(candidate)})
+    validation = validate_public(candidate, public_manifest, config)
+    blocking.extend(validation["issues"])
+    blocking.extend(changed_trailing_whitespace(target, candidate, public_manifest))
+
+    source_changed = set(source_diff["add"] + source_diff["update"] + source_diff["delete"])
+    render_changed = set(render_diff["add"] + render_diff["update"] + render_diff["delete"])
+    preserved_render_drift = sorted(render_changed - source_changed)
+    final_diff = exact_diff(target_manifest, public_manifest)
+    final_changed = set(final_diff["add"] + final_diff["update"] + final_diff["delete"])
+    unexpected = sorted(final_changed - source_changed)
+    blocking.extend({"type": "output-scope", "path": path} for path in unexpected)
+
+    return {
+        "baseline_manifest": baseline_manifest,
+        "rendered_public_manifest": rendered_manifest,
+        "raw_source_output_diff": raw_source_diff,
+        "source_output_diff": source_diff,
+        "render_diff_before_scope": render_diff,
+        "preserved_render_drift": preserved_render_drift,
+        "public_manifest": public_manifest,
+        "manifest": {**public_manifest, "excluded": dict(excluded or {})},
+        "manifest_sha256": manifest_digest(public_manifest),
+        "validation": validation,
+        "issues": blocking,
+        "diff": final_diff,
         "target_before_manifest": target_manifest,
     }
 
@@ -1326,6 +1712,10 @@ def main(argv: Sequence[str] | None = None) -> int:
                 audit = root / "_audit"
                 stage = root / prepare["staging_dir"]
                 render_dir, public_dir, backup_dir = stage / "render", stage / "public", stage / "backup"
+                baseline_source_dir = audit / "_zpb"
+                baseline_render_dir = stage / "baseline_render"
+                baseline_public_dir = stage / "baseline_public"
+                rendered_public_dir = stage / "rendered_public"
                 payload["prepare_paths"] = {
                     "staging_dir": prepare["staging_dir"],
                     "render_dir": f"{prepare['staging_dir']}/render",
@@ -1339,38 +1729,79 @@ def main(argv: Sequence[str] | None = None) -> int:
                 copy_manifest(target, backup_dir, target_before)
                 if tree_manifest(backup_dir) != target_before:
                     raise RestoreError("Backup worktree không khớp manifest ban đầu.")
-                render = render_to_staging(root, render_dir)
-                payload["render"] = render
-                if render["exit_code"] != 0:
+                baseline_commit = published_source_commit(root, target)
+                payload["published_source_commit"] = baseline_commit
+                with detached_source_tree(root, baseline_source_dir, baseline_commit, audit) as baseline_source:
+                    payload["baseline_render_support"] = copy_ignored_render_support(
+                        root, baseline_source,
+                    )
+                    baseline_render = render_to_staging(
+                        baseline_source, baseline_render_dir, tool_root=root,
+                    )
+                payload["baseline_render"] = baseline_render
+                if baseline_render["exit_code"] != 0:
                     safe_remove_tree(stage, audit)
-                    issues.append({"type": "render", "message": "Quarto render thất bại."})
+                    issues.append({"type": "baseline-render",
+                                   "message": "Quarto render baseline thất bại."})
                     code = EXIT_UNSAFE
                 else:
-                    payload["render_manifest"] = tree_manifest(render_dir)
-                    candidate_result = build_public_candidate(render_dir, public_dir, target, config)
-                    issues.extend(candidate_result["issues"])
-                    if candidate_result["target_before_manifest"] != target_before:
-                        issues.append({"type": "target-drift",
-                                       "message": "Worktree xuất bản thay đổi trong khi prepare."})
-                    payload.update({key: value for key, value in candidate_result.items()
-                                    if key not in {"issues", "selected_manifest", "public_manifest"}})
-                    if issues:
+                    render = render_to_staging(root, render_dir)
+                    payload["render"] = render
+                    if render["exit_code"] != 0:
+                        safe_remove_tree(stage, audit)
+                        issues.append({"type": "render", "message": "Quarto render thất bại."})
                         code = EXIT_UNSAFE
                     else:
-                        try:
-                            public_manifest = candidate_result["public_manifest"]
-                            target_diff = candidate_result["diff"]
-                            sync_exact(public_dir, target, public_manifest, target_diff)
-                            after = tree_manifest(target, True)
-                            if after != public_manifest:
-                                raise RestoreError("Cây đích sau đồng bộ không khớp cây công khai.")
-                            if git_text(target, "diff", "--cached", "--name-only", safe=target):
-                                raise RestoreError("Prepare đã tác động Git index.")
-                            payload["target_after_manifest"] = after
-                            code = EXIT_OK
-                        except Exception:
-                            restore_from_backup(target, backup_dir, target_before)
-                            raise
+                        payload["baseline_render_manifest"] = tree_manifest(baseline_render_dir)
+                        payload["render_manifest"] = tree_manifest(render_dir)
+                        baseline_candidate = build_public_candidate(
+                            baseline_render_dir, baseline_public_dir, target, config,
+                        )
+                        rendered_candidate = build_public_candidate(
+                            render_dir, rendered_public_dir, target, config,
+                        )
+                        issues.extend(baseline_candidate["issues"])
+                        issues.extend(rendered_candidate["issues"])
+                        output_scope = source_output_scope(
+                            root, baseline_commit, baseline_candidate["public_manifest"],
+                            rendered_candidate["public_manifest"],
+                        )
+                        payload["source_output_scope"] = output_scope
+                        scoped_candidate = build_scoped_candidate(
+                            baseline_public_dir, rendered_public_dir, public_dir, target, config,
+                            rendered_candidate["manifest"].get("excluded", {}),
+                            set(output_scope["allowed_outputs"]),
+                        )
+                        issues.extend(scoped_candidate["issues"])
+                        if scoped_candidate["target_before_manifest"] != target_before:
+                            issues.append({"type": "target-drift",
+                                           "message": "Worktree xuất bản thay đổi trong khi prepare."})
+                        payload["index_normalization"] = rendered_candidate["index_normalization"]
+                        payload["html_whitespace_normalization"] = rendered_candidate[
+                            "html_whitespace_normalization"
+                        ]
+                        payload.update({key: value for key, value in scoped_candidate.items()
+                                        if key not in {"issues", "public_manifest"}})
+                        if issues:
+                            code = EXIT_UNSAFE
+                        else:
+                            safe_remove_tree(baseline_render_dir, audit)
+                            safe_remove_tree(baseline_public_dir, audit)
+                            safe_remove_tree(rendered_public_dir, audit)
+                            try:
+                                public_manifest = scoped_candidate["public_manifest"]
+                                target_diff = scoped_candidate["diff"]
+                                sync_exact(public_dir, target, public_manifest, target_diff)
+                                after = tree_manifest(target, True)
+                                if after != public_manifest:
+                                    raise RestoreError("Cây đích sau đồng bộ không khớp cây công khai.")
+                                if git_text(target, "diff", "--cached", "--name-only", safe=target):
+                                    raise RestoreError("Prepare đã tác động Git index.")
+                                payload["target_after_manifest"] = after
+                                code = EXIT_OK
+                            except Exception:
+                                restore_from_backup(target, backup_dir, target_before)
+                                raise
         payload["exit_code"] = code
         report_raw = args.report or (config["prepare"]["report_file"] if args.command == "prepare" else None)
         if report_raw:
