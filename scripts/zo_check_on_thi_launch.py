@@ -371,13 +371,16 @@ def main_checks(site: Path, run_r1: bool, audit: Path) -> tuple[dict[str, bool],
             "#hoc-lieu-hien-co", "## Dành cho ai?", "## Chương trình giúp em làm gì?",
             "## Học theo cách nào?", "## Lộ trình", "## Tám mạch",
             "## Học liệu hiện có", "## Bắt đầu từ đâu?", "## Trạng thái triển khai",
-            "Bộ D0 đã hoàn tất v1.0", "Có thể học", "?r1-view=cach-hoc",
+            "Khảo sát đầu vào D0", "Có thể học", "?r1-view=cach-hoc",
         )
     ) and all(f"**R{i}**" in program_partial for i in range(1, 9))
-    checks["no_future_packages_or_d0_download"] = (
+    checks["d0_entry_and_no_future_packages"] = (
         program_partial.count("data-package-id=") == len(packages)
-        and not re.search(r"\[[^]]*D0[^]]*\]\(", program_partial, re.I)
-        and all(code not in program_partial for code in ("R1-G02", "R2-G01", "R3-G01"))
+        and program_partial.count(
+            "[Khảo sát đầu vào D0](/content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html)"
+        ) == 1
+        and "hiện chưa được cung cấp công khai tại trang này" not in program_partial
+        and all(code not in program_partial for code in ("R2-G01", "R3-G01"))
     )
 
     root_config = yaml_file(ROOT / "_quarto.yml")
@@ -490,6 +493,7 @@ def main_checks(site: Path, run_r1: bool, audit: Path) -> tuple[dict[str, bool],
             and any("on_thi_toan_thpt/index.html" in href for href in hrefs(pages["thpt"]))
             and any("tot_nghiep_thpt/2027/index.html" in href for href in hrefs(pages["gateway"]))
             and any("r1_g01/index.html?r1-view=cach-hoc" in href for href in hrefs(pages["program"]))
+            and any("hoc_lieu/d0/index.html" in href for href in hrefs(pages["program"]))
             and any("tot_nghiep_thpt/2027/index.html" in href for href in hrefs(pages["r1"]))
         )
         checks["rendered_program_heading_shape"] = (
