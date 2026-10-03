@@ -81,6 +81,7 @@ class Package:
     summary: str
     qmd: Path
     pdfs: tuple[str, ...]
+    html_only: bool
 
     @property
     def html_url(self) -> str:
@@ -146,6 +147,7 @@ def package_from_ref(ref: dict[str, Any], package_root: Path = PACKAGE_ROOT) -> 
     profile = load_yaml(profile_path)
     package_meta = profile.get("package", {})
     workflow = profile.get("workflow", {})
+    acceptance = profile.get("acceptance", {})
     code = str(package_meta.get("id", ""))
     title = str(metadata.get("title", "")).strip()
     version = str(package_meta.get("candidate_version", "")).strip()
@@ -160,7 +162,10 @@ def package_from_ref(ref: dict[str, Any], package_root: Path = PACKAGE_ROOT) -> 
     downloads = metadata.get("r1-download-files", [])
     sections = metadata.get("r1-section-download-files", [])
     pdfs = tuple(str(x.get("href", "")) for x in [*downloads, *sections] if isinstance(x, dict))
-    if len(pdfs) != 8 or len(set(pdfs)) != 8 or any(not name.endswith(".pdf") for name in pdfs):
+    html_only = acceptance.get("pdf_canonical") == "not_applicable_html_only"
+    if html_only and pdfs:
+        raise BuildError(f"Gói HTML-only {code} không được khai báo PDF canonical")
+    if not html_only and (len(pdfs) != 8 or len(set(pdfs)) != 8 or any(not name.endswith(".pdf") for name in pdfs)):
         raise BuildError(f"Danh sách PDF canonical của {code} không gồm đúng tám tệp duy nhất")
     missing_pdfs = [name for name in pdfs if not (package_dir / name).is_file()]
     if missing_pdfs:
@@ -169,13 +174,14 @@ def package_from_ref(ref: dict[str, Any], package_root: Path = PACKAGE_ROOT) -> 
         ref_id=ref_id,
         code=code,
         title=title,
-        version=version,
+        version=version.removesuffix("-migration") if html_only else version,
         production=production,
         publication=publication,
         display_status="Có thể học",
         summary=str(ref.get("summary", "")).strip(),
         qmd=qmd,
         pdfs=pdfs,
+        html_only=html_only,
     )
 
 
@@ -250,6 +256,8 @@ def render_program(program: dict[str, Any], packages: list[Package], colors: dic
     )
     cards = []
     for package in packages:
+        view_suffix = "" if package.html_only else "?r1-view=cach-hoc"
+        link_label = "Mở khảo sát" if package.html_only else "Học HTML"
         cards.append(f"""::: {{.zo-on-thi-package data-package-id=\"{package.ref_id}\"}}
 ::: {{.zo-on-thi-package__layout}}
 ::: {{.zo-on-thi-package__cover}}
@@ -264,7 +272,7 @@ def render_program(program: dict[str, Any], packages: list[Package], colors: dic
 
 {package.summary}
 
-[Học HTML →]({package.html_url}?r1-view=cach-hoc){{.zo-on-thi-link}}
+[{link_label} →]({package.html_url}{view_suffix}){{.zo-on-thi-link}}
 :::
 :::
 :::""")
@@ -434,7 +442,7 @@ def render_covers(program: dict[str, Any], packages: list[Package], *, theme_pat
                 (package.code, 72, 300, 44, colors["gray-700"], 1),
                 (program["title"], 72, 375, 44, colors["gray-700"], 2),
                 (package.title, 72, 520, 68, colors["primary"], 3),
-                ("Gói củng cố nền tảng và chẩn đoán lỗi", 72, 760, 40, colors["gray-700"], 2),
+                (("Khảo sát và định vị đầu vào" if package.html_only else "Gói củng cố nền tảng và chẩn đoán lỗi"), 72, 760, 40, colors["gray-700"], 2),
             ], colors,
         )
     return result

@@ -371,13 +371,17 @@ def main_checks(site: Path, run_r1: bool, audit: Path) -> tuple[dict[str, bool],
             "#hoc-lieu-hien-co", "## Dành cho ai?", "## Chương trình giúp em làm gì?",
             "## Học theo cách nào?", "## Lộ trình", "## Tám mạch",
             "## Học liệu hiện có", "## Bắt đầu từ đâu?", "## Trạng thái triển khai",
-            "Khảo sát đầu vào D0", "Có thể học", "?r1-view=cach-hoc",
+            "Khảo sát đầu vào D0", "Có thể học", "?r1-view=cach-hoc", "Mở khảo sát →",
         )
     ) and all(f"**R{i}**" in program_partial for i in range(1, 9))
     checks["d0_entry_and_no_future_packages"] = (
         program_partial.count("data-package-id=") == len(packages)
+        and program_partial.count('data-package-id="d0"') == 1
         and program_partial.count(
             "[Khảo sát đầu vào D0](/content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html)"
+        ) == 1
+        and program_partial.count(
+            "[Mở khảo sát →](/content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html)"
         ) == 1
         and "hiện chưa được cung cấp công khai tại trang này" not in program_partial
         and all(code not in program_partial for code in ("R2-G01", "R3-G01"))
