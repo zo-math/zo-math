@@ -112,7 +112,7 @@ def fixture_checks(builder, data, packages, audit: Path):
     with tempfile.TemporaryDirectory(prefix='fixtures-', dir=audit) as temporary:
         temp = Path(temporary)
         refs = copy.deepcopy(data)
-        first = packages[0]
+        first = next(package for package in packages if not package.html_only)
         refs['packages'] = [{'id':first.ref_id}, {'id':'r1_g02'}]
         refs['latest_package'] = first.ref_id
         # Real temporary QMD/profile inputs traverse the normal loader and build.
@@ -377,6 +377,7 @@ def main_checks(site: Path, run_r1: bool, audit: Path) -> tuple[dict[str, bool],
     checks["d0_entry_and_no_future_packages"] = (
         program_partial.count("data-package-id=") == len(packages)
         and program_partial.count('data-package-id="d0"') == 1
+        and program_partial.index('data-package-id="d0"') < program_partial.index('data-package-id="r1_g01"')
         and program_partial.count(
             "[Khảo sát đầu vào D0](/content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html)"
         ) == 1
