@@ -340,13 +340,22 @@ def main_checks(site: Path, run_r1: bool, audit: Path) -> tuple[dict[str, bool],
     checks["data_valid"] = not expect_failure(lambda: builder.validate_data(data))
     checks["generated_outputs_current"] = not expect_failure(lambda: builder.build(check=True))
     checks["package_sources_exact"] = (
-        latest.code == "R1-G01"
-        and latest.title == "Kết nối hàm số, bảng biến thiên và đồ thị"
-        and latest.version == "1.2"
-        and latest.production == "accepted"
-        and latest.publication == "pending"
-        and len(latest.pdfs) == 8
-        and all((latest.qmd.parent / name).is_file() for name in latest.pdfs)
+        [(package.code, package.title, package.version, package.display_status)
+         for package in packages] == [
+            ("D0", "Khảo sát đầu vào", "1.0", "Có thể học"),
+            ("R1-G01", "Đơn điệu và cực trị", "1.3", "Có thể học"),
+            ("R1-G02", "Giá trị lớn nhất và giá trị nhỏ nhất", "0.2", "Có thể học"),
+        ]
+        and all(package.production == "accepted" for package in packages)
+        and all(package.publication == "pending" for package in packages)
+        and packages[0].html_only and not packages[0].pdfs
+        and all(
+            not package.html_only
+            and len(package.pdfs) == 8
+            and all((package.qmd.parent / name).is_file() for name in package.pdfs)
+            for package in packages[1:]
+        )
+        and latest is packages[-1]
     )
 
     home_source = (ROOT / "index.qmd").read_text(encoding="utf-8")
@@ -371,18 +380,22 @@ def main_checks(site: Path, run_r1: bool, audit: Path) -> tuple[dict[str, bool],
             "#hoc-lieu-hien-co", "## Dành cho ai?", "## Chương trình giúp em làm gì?",
             "## Học theo cách nào?", "## Lộ trình", "## Tám mạch",
             "## Học liệu hiện có", "## Bắt đầu từ đâu?", "## Trạng thái triển khai",
-            "Khảo sát đầu vào D0", "Có thể học", "?r1-view=cach-hoc", "Mở khảo sát →",
+            "Khảo sát đầu vào D0", "Có thể học", "?r1-view=cach-hoc", "Bắt đầu khảo sát →",
         )
     ) and all(f"**R{i}**" in program_partial for i in range(1, 9))
     checks["d0_entry_and_no_future_packages"] = (
         program_partial.count("data-package-id=") == len(packages)
         and program_partial.count('data-package-id="d0"') == 1
         and program_partial.index('data-package-id="d0"') < program_partial.index('data-package-id="r1_g01"')
+        and program_partial.index('data-package-id="r1_g01"') < program_partial.index('data-package-id="r1_g02"')
         and program_partial.count(
-            "[Khảo sát đầu vào D0](/content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html)"
+            "[Bắt đầu khảo sát →](/content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html#bat-dau)"
         ) == 1
         and program_partial.count(
-            "[Mở khảo sát →](/content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html)"
+            "[Bắt đầu học →](/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.html?r1-view=cach-hoc)"
+        ) == 1
+        and program_partial.count(
+            "[Bắt đầu học →](/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/index.html?r1-view=cach-hoc)"
         ) == 1
         and "hiện chưa được cung cấp công khai tại trang này" not in program_partial
         and all(code not in program_partial for code in ("R2-G01", "R3-G01"))
@@ -400,7 +413,9 @@ def main_checks(site: Path, run_r1: bool, audit: Path) -> tuple[dict[str, bool],
         and sidebar_hrefs == [
             "content/thpt/on_thi_toan_thpt/index.qmd",
             "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.qmd",
+            "content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.qmd",
             "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.qmd",
+            "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/index.qmd",
         ]
         and "sidebar:" not in profile_text
     )

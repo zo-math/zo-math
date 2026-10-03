@@ -3,7 +3,7 @@
   const root = document.querySelector('.r1-g01');
   if (!root) return;
 
-  const TITLE = root.dataset.r1Title || 'Kết nối hàm số, bảng biến thiên và đồ thị';
+  const TITLE = root.dataset.r1Title || 'Đơn điệu và cực trị';
   const VIEW_PARAM = 'r1-view';
   const baseDefinitions = [
     {view: 'cach-hoc', label: 'Cách học', ids: ['cách-học-với-tài-liệu-này', 'nguon']},
@@ -393,7 +393,7 @@
     window.addEventListener('hashchange', () => applyLocation({scroll: true, focus: true}));
     window.addEventListener('popstate', () => applyLocation({scroll: true, focus: true}));
   } catch (error) {
-    console.error('Navigation for “Kết nối hàm số, bảng biến thiên và đồ thị” was not initialized.', error);
+    console.error(`Navigation for “${TITLE}” was not initialized.`, error);
   }
 })();
 </script>

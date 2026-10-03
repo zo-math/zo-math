@@ -1,6 +1,6 @@
-# R1-G01 — ứng viên Quarto v1.2
+# R1-G01 — ứng viên Quarto v1.3
 
-`index.qmd` là nguồn canonical duy nhất của học liệu v1.2. Nội dung và kỹ thuật đã
+`index.qmd` là nguồn canonical duy nhất của học liệu v1.3. Nội dung và kỹ thuật đã
 hoàn tất theo các lượt nghiệm thu 3D–3F; giao diện ứng viên dùng nhãn “Có thể học”.
 Hồ sơ vẫn giữ `publication: pending`: đây là ứng viên ra mắt cục bộ, chưa được
 xuất bản công khai và chưa có URL/ngày công bố.
@@ -60,7 +60,7 @@ với đúng `r1-view` và nhãn “mở trên trang học liệu”. Mỗi bả
 hoặc khung tài khoản. Luyện tập và Kiểm tra không mang lời giải hay thang chấm.
 
 HTML tải hai tệp trên bằng tên `download` lần lượt là
-`R1-G01_hoc_lieu_day_du_v1.2.pdf` và `R1-G01_hoc_va_bai_tap_v1.2.pdf`.
+`R1-G01_hoc_lieu_day_du_v1.3.pdf` và `R1-G01_hoc_va_bai_tap_v1.3.pdf`.
 Không tạo bản sao theo tên thân thiện, không dùng in trình duyệt làm PDF chính thức.
 Không còn nút/listener in. HTML dùng chín thẻ theo thứ tự Cách học, Bài học,
 Luyện tập, Kiểm tra, Sửa lỗi, Ôn lại, Lời giải, Tải PDF, Toàn văn. Tất cả thẻ

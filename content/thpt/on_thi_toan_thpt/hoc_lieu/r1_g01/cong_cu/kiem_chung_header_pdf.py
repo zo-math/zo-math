@@ -13,7 +13,7 @@ import subprocess
 import xml.etree.ElementTree as ET
 from pypdf import PdfReader
 
-TITLE = 'Kết nối hàm số, bảng biến thiên và đồ thị'
+TITLE = 'Đơn điệu và cực trị'
 LABELS = ('Bản đầy đủ', 'Bản học và bài tập')
 
 

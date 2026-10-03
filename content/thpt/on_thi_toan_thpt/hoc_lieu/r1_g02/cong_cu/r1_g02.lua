@@ -197,7 +197,7 @@ function Div(div)
   end
   if html and div.classes:includes('r1-g01') then
     -- Expose headings to Pandoc's native TOC while retaining the HTML scope.
-    local title = esc(div.attributes['r1-title'] or 'Kết nối hàm số, bảng biến thiên và đồ thị')
+    local title = esc(div.attributes['r1-title'] or 'Giá trị lớn nhất và giá trị nhỏ nhất')
     local code = esc(div.attributes['r1-code'] or 'R1-G02')
     local lesson_count = esc(div.attributes['r1-lesson-count'] or '7')
     local blocks = pandoc.List({pandoc.RawBlock('html',
@@ -487,7 +487,7 @@ local function finish(doc)
       \vspace{0.55em}%
       {\large\color{zomathgray}\zoPdfSubtitle\par}%
       \vspace{0.8em}%
-      {\small\color{zomathgray}Phiên bản ứng viên v0.1\enspace·\enspace
+      {\small\color{zomathgray}Phiên bản ứng viên v0.2\enspace·\enspace
         \href{\zoPdfCanonicalUrl}{\zoPdfDisplayUrl}\par}%
     \end{center}%
     \vspace{0.8em}%
