@@ -1,0 +1,196 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://zomath.vn/schema/on-thi-learning-architecture-1.json",
+  "title": "ZO Math on-thi learning architecture manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "architecture_version",
+    "matrix_version",
+    "package",
+    "source",
+    "policies",
+    "objectives",
+    "stages",
+    "checkpoints",
+    "tasks",
+    "errors",
+    "foundation_routes",
+    "readiness"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "architecture_version": {"const": "0.2"},
+    "matrix_version": {"const": "0.1"},
+    "package": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "title": {"type": "string", "minLength": 1}
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["qmd"],
+      "properties": {"qmd": {"type": "string", "minLength": 1}}
+    },
+    "policies": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["no_reuse_policy", "foundation_catalog"],
+      "properties": {
+        "no_reuse_policy": {"const": "single-evidence-role-v1"},
+        "foundation_catalog": {"const": "on-thi-foundation-v1"}
+      }
+    },
+    "objectives": {"type": "array", "items": {"$ref": "#/$defs/objective"}},
+    "stages": {"type": "array", "items": {"$ref": "#/$defs/stage"}},
+    "checkpoints": {"type": "array", "items": {"$ref": "#/$defs/checkpoint"}},
+    "tasks": {"type": "array", "items": {"$ref": "#/$defs/task"}},
+    "errors": {"type": "array", "items": {"$ref": "#/$defs/error"}},
+    "foundation_routes": {"type": "array", "items": {"$ref": "#/$defs/foundation_route"}},
+    "readiness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["expected_planned_task_ids"],
+      "properties": {
+        "expected_planned_task_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "id_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "objective": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "description", "essential", "prerequisite_ids", "dependent_objective_ids"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "description": {"type": "string", "minLength": 1},
+        "essential": {"type": "boolean"},
+        "prerequisite_ids": {"$ref": "#/$defs/id_list"},
+        "dependent_objective_ids": {"$ref": "#/$defs/id_list"}
+      }
+    },
+    "stage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "description", "objective_ids", "learning_section_anchors", "practice_task_ids", "checkpoint_id"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "description": {"type": "string", "minLength": 1},
+        "objective_ids": {"$ref": "#/$defs/id_list"},
+        "learning_section_anchors": {"$ref": "#/$defs/id_list"},
+        "practice_task_ids": {"$ref": "#/$defs/id_list"},
+        "checkpoint_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "path": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "target_ids"],
+      "properties": {
+        "kind": {"enum": ["stage", "checkpoint", "remediation", "foundation", "maintenance", "complete", "transfer"]},
+        "target_ids": {"$ref": "#/$defs/id_list"}
+      }
+    },
+    "checkpoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "evidence_task_ids", "paths"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "evidence_task_ids": {"$ref": "#/$defs/id_list"},
+        "paths": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["pass", "error", "foundation"],
+          "properties": {
+            "pass": {"$ref": "#/$defs/path"},
+            "error": {"$ref": "#/$defs/path"},
+            "foundation": {"$ref": "#/$defs/path"}
+          }
+        }
+      }
+    },
+    "task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "role", "status", "objective_ids", "error_ids", "checkpoint_ids", "source_anchor", "source_locator", "answer_anchor", "content_key", "exposure_policy", "next_on_pass", "next_on_error"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "role": {"enum": ["H", "L", "S-L", "S-K", "S-O", "K", "O", "P", "N"]},
+        "subtype": {"type": ["string", "null"]},
+        "status": {"enum": ["current", "planned"]},
+        "objective_ids": {"$ref": "#/$defs/id_list"},
+        "error_ids": {"$ref": "#/$defs/id_list"},
+        "checkpoint_ids": {"$ref": "#/$defs/id_list"},
+        "source_anchor": {"type": ["string", "null"]},
+        "source_locator": {"type": ["string", "null"]},
+        "answer_anchor": {"type": ["string", "null"]},
+        "content_key": {"type": "string", "minLength": 1},
+        "exposure_policy": {"enum": ["guided", "practice", "remediation", "independent", "review-reserved", "transfer", "foundation"]},
+        "next_on_pass": {"type": "string", "minLength": 1},
+        "next_on_error": {"type": "string", "minLength": 1}
+      }
+    },
+    "error": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "symptom", "classification_rule", "objective_ids", "detection_checkpoint_ids", "review_anchor", "foundation_route_ids", "remediation", "return_anchor"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "symptom": {"type": "string", "minLength": 1},
+        "classification_rule": {"type": "string", "minLength": 1},
+        "objective_ids": {"$ref": "#/$defs/id_list"},
+        "detection_checkpoint_ids": {"$ref": "#/$defs/id_list"},
+        "review_anchor": {"type": "string", "minLength": 1},
+        "foundation_route_ids": {"$ref": "#/$defs/id_list"},
+        "remediation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["S-L", "S-K", "S-O"],
+          "properties": {
+            "S-L": {"type": ["string", "null"]},
+            "S-K": {"type": ["string", "null"]},
+            "S-O": {"type": ["string", "null"]}
+          }
+        },
+        "return_anchor": {"type": "string", "minLength": 1}
+      }
+    },
+    "foundation_route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "objective_ids", "symptom", "unit_id", "retest", "return_anchors"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "objective_ids": {"$ref": "#/$defs/id_list"},
+        "symptom": {"type": "string", "minLength": 1},
+        "unit_id": {"type": "string", "minLength": 1},
+        "retest": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "requirement"],
+          "properties": {
+            "status": {"const": "specified"},
+            "requirement": {"type": "string", "minLength": 1}
+          }
+        },
+        "return_anchors": {"$ref": "#/$defs/id_list"}
+      }
+    }
+  }
+}

@@ -1,0 +1,203 @@
+schema_version: 1
+architecture_version: "0.2"
+matrix_version: "0.1"
+
+package:
+  id: R1-G01
+  title: Đơn điệu và cực trị
+
+source:
+  qmd: ../index.qmd
+
+policies:
+  no_reuse_policy: single-evidence-role-v1
+  foundation_catalog: on-thi-foundation-v1
+
+objectives:
+  - id: G01-M1
+    description: Ghi đúng tập xác định, khoảng xét và điều kiện áp dụng định lí dấu đạo hàm.
+    essential: true
+    prerequisite_ids: []
+    dependent_objective_ids: [G01-M2, G01-M3, G01-M4]
+  - id: G01-M2
+    description: Nối công thức, đạo hàm, dấu, chiều biến thiên, bảng và dáng điệu đồ thị.
+    essential: true
+    prerequisite_ids: [G01-M1]
+    dependent_objective_ids: [G01-M3, G01-M4]
+  - id: G01-M3
+    description: Xét cực trị và phân biệt điểm cực trị, giá trị cực trị, điểm trên đồ thị.
+    essential: true
+    prerequisite_ids: [G01-M1, G01-M2]
+    dependent_objective_ids: [G01-M5]
+  - id: G01-M4
+    description: Đọc ngược từ bảng hoặc đồ thị mà không thêm dữ kiện.
+    essential: true
+    prerequisite_ids: [G01-M1, G01-M2]
+    dependent_objective_ids: [G01-M5]
+  - id: G01-M5
+    description: Đánh giá, phản biện và sửa một lập luận trong khi giữ phần đúng.
+    essential: true
+    prerequisite_ids: [G01-M3, G01-M4]
+    dependent_objective_ids: []
+
+stages:
+  - id: G01-C1
+    description: Dựng và đọc chuỗi biểu diễn.
+    objective_ids: [G01-M1, G01-M2, G01-M3]
+    learning_section_anchors:
+      - từ-đi-lên-đến-định-nghĩa
+      - dấu-đạo-hàm-cho-phép-kết-luận-gì
+      - một-chuỗi-biểu-diễn-được-dựng-thế-nào
+      - tách-riêng-điểm-không-thuộc-tập-xác-định
+      - cực-trị-được-gọi-tên-thế-nào
+    practice_task_ids: [G01-L01, G01-L02, G01-L03, G01-L04]
+    checkpoint_id: CP-LT1
+  - id: G01-C2
+    description: Giới hạn của đọc ngược.
+    objective_ids: [G01-M1, G01-M4]
+    learning_section_anchors: [có-thể-đọc-ngược-đến-đâu]
+    practice_task_ids: [G01-L05, G01-L06]
+    checkpoint_id: CP-LT2
+  - id: G01-C3
+    description: Đánh giá và sửa lập luận.
+    objective_ids: [G01-M3, G01-M4, G01-M5]
+    learning_section_anchors: [làm-sao-biết-mình-đã-sửa-được-lỗi]
+    practice_task_ids: [G01-L07, G01-L08]
+    checkpoint_id: CP-LT3
+
+checkpoints:
+  - id: CP-LT1
+    evidence_task_ids: [G01-L01, G01-L02, G01-L03, G01-L04]
+    paths:
+      pass: {kind: stage, target_ids: [G01-C2]}
+      error: {kind: remediation, target_ids: [G01-E01, G01-E02, G01-E03, G01-E04, G01-E06, G01-E07]}
+      foundation: {kind: foundation, target_ids: [G01-N01, G01-N02, G01-N03, G01-N04, G01-N05, G01-N06]}
+  - id: CP-LT2
+    evidence_task_ids: [G01-L05, G01-L06]
+    paths:
+      pass: {kind: stage, target_ids: [G01-C3]}
+      error: {kind: remediation, target_ids: [G01-E01, G01-E04, G01-E05, G01-E06, G01-E07]}
+      foundation: {kind: foundation, target_ids: [G01-N01, G01-N04, G01-N05, G01-N06]}
+  - id: CP-LT3
+    evidence_task_ids: [G01-L07, G01-L08]
+    paths:
+      pass: {kind: checkpoint, target_ids: [CP-KT]}
+      error: {kind: remediation, target_ids: [G01-E02, G01-E06, G01-E08]}
+      foundation: {kind: foundation, target_ids: [G01-N07]}
+  - id: CP-KT
+    evidence_task_ids: [G01-K01, G01-K02, G01-K03, G01-K04, G01-K05]
+    paths:
+      pass: {kind: maintenance, target_ids: []}
+      error: {kind: remediation, target_ids: [G01-E01, G01-E02, G01-E03, G01-E04, G01-E05, G01-E06, G01-E07, G01-E08, G01-E09]}
+      foundation: {kind: foundation, target_ids: [G01-N01, G01-N02, G01-N03, G01-N04, G01-N05, G01-N06, G01-N07]}
+  - id: CP-ON1
+    evidence_task_ids: [G01-O01]
+    paths:
+      pass: {kind: checkpoint, target_ids: [CP-ON2]}
+      error: {kind: remediation, target_ids: [G01-E01, G01-E02, G01-E03, G01-E04, G01-E05, G01-E06, G01-E07, G01-E08, G01-E09]}
+      foundation: {kind: foundation, target_ids: [G01-N01, G01-N02, G01-N03, G01-N04, G01-N05, G01-N06, G01-N07]}
+  - id: CP-ON2
+    evidence_task_ids: [G01-O02]
+    paths:
+      pass: {kind: checkpoint, target_ids: [CP-ON3]}
+      error: {kind: remediation, target_ids: [G01-E01, G01-E02, G01-E03, G01-E04, G01-E05, G01-E06, G01-E07, G01-E08, G01-E09]}
+      foundation: {kind: foundation, target_ids: [G01-N01, G01-N02, G01-N03, G01-N04, G01-N05, G01-N06, G01-N07]}
+  - id: CP-ON3
+    evidence_task_ids: [G01-O03]
+    paths:
+      pass: {kind: complete, target_ids: []}
+      error: {kind: remediation, target_ids: [G01-E01, G01-E02, G01-E03, G01-E04, G01-E05, G01-E06, G01-E07, G01-E08, G01-E09]}
+      foundation: {kind: foundation, target_ids: [G01-N01, G01-N02, G01-N03, G01-N04, G01-N05, G01-N06, G01-N07]}
+
+tasks:
+  - {id: G01-L01, role: L, status: current, objective_ids: [G01-M1, G01-M2, G01-M3], error_ids: [G01-E01, G01-E02, G01-E04], checkpoint_ids: [CP-LT1], source_anchor: lt01, source_locator: null, answer_anchor: loi-giai-2, content_key: G01-L01, exposure_policy: practice, next_on_pass: CP-LT1, next_on_error: CP-LT1}
+  - {id: G01-L02, role: L, status: current, objective_ids: [G01-M1, G01-M3, G01-M5], error_ids: [G01-E02, G01-E06], checkpoint_ids: [CP-LT1], source_anchor: lt02, source_locator: null, answer_anchor: loi-giai-3, content_key: G01-L02, exposure_policy: practice, next_on_pass: CP-LT1, next_on_error: CP-LT1}
+  - {id: G01-L03, role: L, status: current, objective_ids: [G01-M2, G01-M3, G01-M4], error_ids: [G01-E02, G01-E04, G01-E07], checkpoint_ids: [CP-LT1], source_anchor: lt03, source_locator: null, answer_anchor: loi-giai-4, content_key: G01-L03, exposure_policy: practice, next_on_pass: CP-LT1, next_on_error: CP-LT1}
+  - {id: G01-L04, role: L, status: current, objective_ids: [G01-M1, G01-M3, G01-M4], error_ids: [G01-E01, G01-E03], checkpoint_ids: [CP-LT1], source_anchor: lt04, source_locator: null, answer_anchor: loi-giai-5, content_key: G01-L04, exposure_policy: practice, next_on_pass: CP-LT1, next_on_error: CP-LT1}
+  - {id: G01-L05, role: L, status: current, objective_ids: [G01-M3, G01-M4], error_ids: [G01-E04, G01-E06, G01-E07], checkpoint_ids: [CP-LT2], source_anchor: lt05, source_locator: null, answer_anchor: loi-giai-6, content_key: G01-L05, exposure_policy: practice, next_on_pass: CP-LT2, next_on_error: CP-LT2}
+  - {id: G01-L06, role: L, status: current, objective_ids: [G01-M1, G01-M4], error_ids: [G01-E01, G01-E05], checkpoint_ids: [CP-LT2], source_anchor: lt06, source_locator: null, answer_anchor: loi-giai-7, content_key: G01-L06, exposure_policy: practice, next_on_pass: CP-LT2, next_on_error: CP-LT2}
+  - {id: G01-L07, role: L, status: current, objective_ids: [G01-M3, G01-M5], error_ids: [G01-E02, G01-E06, G01-E08], checkpoint_ids: [CP-LT3], source_anchor: lt07, source_locator: null, answer_anchor: loi-giai-8, content_key: G01-L07, exposure_policy: practice, next_on_pass: CP-LT3, next_on_error: CP-LT3}
+  - {id: G01-L08, role: L, status: current, objective_ids: [G01-M3, G01-M5], error_ids: [G01-E02, G01-E04, G01-E08], checkpoint_ids: [CP-LT3], source_anchor: lt08, source_locator: null, answer_anchor: loi-giai-9, content_key: G01-L08, exposure_policy: practice, next_on_pass: CP-LT3, next_on_error: CP-LT3}
+
+  - {id: G01-K01, role: K, status: current, objective_ids: [G01-M1, G01-M2, G01-M3], error_ids: [G01-E01, G01-E02, G01-E04], checkpoint_ids: [CP-KT], source_anchor: kt01, source_locator: null, answer_anchor: loi-giai-10, content_key: G01-K01, exposure_policy: independent, next_on_pass: CP-KT, next_on_error: CP-KT}
+  - {id: G01-K02, role: K, status: current, objective_ids: [G01-M1, G01-M2, G01-M3, G01-M4], error_ids: [G01-E02, G01-E06, G01-E07], checkpoint_ids: [CP-KT], source_anchor: kt02, source_locator: null, answer_anchor: loi-giai-11, content_key: G01-K02, exposure_policy: independent, next_on_pass: CP-KT, next_on_error: CP-KT}
+  - {id: G01-K03, role: K, status: current, objective_ids: [G01-M3, G01-M4, G01-M5], error_ids: [G01-E04, G01-E06, G01-E07, G01-E08], checkpoint_ids: [CP-KT], source_anchor: kt03, source_locator: null, answer_anchor: loi-giai-12, content_key: G01-K03, exposure_policy: independent, next_on_pass: CP-KT, next_on_error: CP-KT}
+  - {id: G01-K04, role: K, status: current, objective_ids: [G01-M1, G01-M3, G01-M4, G01-M5], error_ids: [G01-E01, G01-E03, G01-E05, G01-E08], checkpoint_ids: [CP-KT], source_anchor: kt04, source_locator: null, answer_anchor: loi-giai-13, content_key: G01-K04, exposure_policy: independent, next_on_pass: CP-KT, next_on_error: CP-KT}
+  - {id: G01-K05, role: K, status: current, objective_ids: [G01-M1, G01-M3, G01-M4, G01-M5], error_ids: [G01-E04, G01-E07, G01-E09], checkpoint_ids: [CP-KT], source_anchor: kt05, source_locator: null, answer_anchor: loi-giai-14, content_key: G01-K05, exposure_policy: independent, next_on_pass: CP-KT, next_on_error: CP-KT}
+
+  - {id: G01-S-L-E01, role: S-L, status: current, objective_ids: [G01-M1], error_ids: [G01-E01], checkpoint_ids: [CP-LT1, CP-LT2], source_anchor: sc01, source_locator: null, answer_anchor: lg-sc01, content_key: G01-S-L-E01, exposure_policy: remediation, next_on_pass: CP-LT1, next_on_error: CP-LT1}
+  - {id: G01-S-L-E02, role: S-L, status: current, objective_ids: [G01-M3], error_ids: [G01-E02], checkpoint_ids: [CP-LT1, CP-LT3], source_anchor: sc02, source_locator: null, answer_anchor: lg-sc02, content_key: G01-S-L-E02, exposure_policy: remediation, next_on_pass: CP-LT1, next_on_error: CP-LT1}
+  - {id: G01-S-L-E03, role: S-L, status: current, objective_ids: [G01-M3], error_ids: [G01-E03], checkpoint_ids: [CP-LT1], source_anchor: sc03, source_locator: null, answer_anchor: lg-sc03, content_key: G01-S-L-E03, exposure_policy: remediation, next_on_pass: CP-LT1, next_on_error: CP-LT1}
+  - {id: G01-S-L-E04, role: S-L, status: current, objective_ids: [G01-M3], error_ids: [G01-E04], checkpoint_ids: [CP-LT1, CP-LT2, CP-LT3], source_anchor: sc04, source_locator: null, answer_anchor: lg-sc04, content_key: G01-S-L-E04, exposure_policy: remediation, next_on_pass: CP-LT1, next_on_error: CP-LT1}
+  - {id: G01-S-L-E05, role: S-L, status: current, objective_ids: [G01-M4], error_ids: [G01-E05], checkpoint_ids: [CP-LT2], source_anchor: sc05, source_locator: null, answer_anchor: lg-sc05, content_key: G01-S-L-E05, exposure_policy: remediation, next_on_pass: CP-LT2, next_on_error: CP-LT2}
+  - {id: G01-S-L-E06, role: S-L, status: current, objective_ids: [G01-M1, G01-M4], error_ids: [G01-E06], checkpoint_ids: [CP-LT1, CP-LT2, CP-LT3], source_anchor: sc06, source_locator: null, answer_anchor: lg-sc06, content_key: G01-S-L-E06, exposure_policy: remediation, next_on_pass: CP-LT2, next_on_error: CP-LT2}
+  - {id: G01-S-L-E07, role: S-L, status: current, objective_ids: [G01-M2, G01-M4], error_ids: [G01-E07], checkpoint_ids: [CP-LT1, CP-LT2], source_anchor: sc07, source_locator: null, answer_anchor: lg-sc07, content_key: G01-S-L-E07, exposure_policy: remediation, next_on_pass: CP-LT2, next_on_error: CP-LT2}
+  - {id: G01-S-L-E08, role: S-L, status: current, objective_ids: [G01-M5], error_ids: [G01-E08], checkpoint_ids: [CP-LT3], source_anchor: sc08, source_locator: null, answer_anchor: lg-sc08, content_key: G01-S-L-E08, exposure_policy: remediation, next_on_pass: CP-LT3, next_on_error: CP-LT3}
+
+  - {id: G01-S-K-E01, role: S-K, status: planned, objective_ids: [G01-M1], error_ids: [G01-E01], checkpoint_ids: [CP-KT], source_anchor: null, source_locator: null, answer_anchor: null, content_key: G01-S-K-E01, exposure_policy: remediation, next_on_pass: CP-KT, next_on_error: CP-KT}
+  - {id: G01-S-K-E02, role: S-K, status: planned, objective_ids: [G01-M3], error_ids: [G01-E02], checkpoint_ids: [CP-KT], source_anchor: null, source_locator: null, answer_anchor: null, content_key: G01-S-K-E02, exposure_policy: remediation, next_on_pass: CP-KT, next_on_error: CP-KT}
+  - {id: G01-S-K-E03, role: S-K, status: planned, objective_ids: [G01-M3], error_ids: [G01-E03], checkpoint_ids: [CP-KT], source_anchor: null, source_locator: null, answer_anchor: null, content_key: G01-S-K-E03, exposure_policy: remediation, next_on_pass: CP-KT, next_on_error: CP-KT}
+  - {id: G01-S-K-E04, role: S-K, status: planned, objective_ids: [G01-M3], error_ids: [G01-E04], checkpoint_ids: [CP-KT], source_anchor: null, source_locator: null, answer_anchor: null, content_key: G01-S-K-E04, exposure_policy: remediation, next_on_pass: CP-KT, next_on_error: CP-KT}
+  - {id: G01-S-K-E05, role: S-K, status: planned, objective_ids: [G01-M4], error_ids: [G01-E05], checkpoint_ids: [CP-KT], source_anchor: null, source_locator: null, answer_anchor: null, content_key: G01-S-K-E05, exposure_policy: remediation, next_on_pass: CP-KT, next_on_error: CP-KT}
+  - {id: G01-S-K-E06, role: S-K, status: planned, objective_ids: [G01-M1, G01-M4], error_ids: [G01-E06], checkpoint_ids: [CP-KT], source_anchor: null, source_locator: null, answer_anchor: null, content_key: G01-S-K-E06, exposure_policy: remediation, next_on_pass: CP-KT, next_on_error: CP-KT}
+  - {id: G01-S-K-E07, role: S-K, status: planned, objective_ids: [G01-M2, G01-M4], error_ids: [G01-E07], checkpoint_ids: [CP-KT], source_anchor: null, source_locator: null, answer_anchor: null, content_key: G01-S-K-E07, exposure_policy: remediation, next_on_pass: CP-KT, next_on_error: CP-KT}
+  - {id: G01-S-K-E08, role: S-K, status: planned, objective_ids: [G01-M5], error_ids: [G01-E08], checkpoint_ids: [CP-KT], source_anchor: null, source_locator: null, answer_anchor: null, content_key: G01-S-K-E08, exposure_policy: remediation, next_on_pass: CP-KT, next_on_error: CP-KT}
+  - {id: G01-S-K-E09, role: S-K, status: planned, objective_ids: [G01-M1, G01-M3], error_ids: [G01-E09], checkpoint_ids: [CP-KT], source_anchor: null, source_locator: null, answer_anchor: null, content_key: G01-S-K-E09, exposure_policy: remediation, next_on_pass: CP-KT, next_on_error: CP-KT}
+
+  - {id: G01-S-O-E01, role: S-O, status: planned, objective_ids: [G01-M1], error_ids: [G01-E01], checkpoint_ids: [CP-ON1, CP-ON2, CP-ON3], source_anchor: null, source_locator: null, answer_anchor: null, content_key: G01-S-O-E01, exposure_policy: remediation, next_on_pass: CP-ON1, next_on_error: CP-ON1}
+  - {id: G01-S-O-E02, role: S-O, status: planned, objective_ids: [G01-M3], error_ids: [G01-E02], checkpoint_ids: [CP-ON1, CP-ON2, CP-ON3], source_anchor: null, source_locator: null, answer_anchor: null, content_key: G01-S-O-E02, exposure_policy: remediation, next_on_pass: CP-ON1, next_on_error: CP-ON1}
+  - {id: G01-S-O-E03, role: S-O, status: planned, objective_ids: [G01-M3], error_ids: [G01-E03], checkpoint_ids: [CP-ON1, CP-ON2, CP-ON3], source_anchor: null, source_locator: null, answer_anchor: null, content_key: G01-S-O-E03, exposure_policy: remediation, next_on_pass: CP-ON1, next_on_error: CP-ON1}
+  - {id: G01-S-O-E04, role: S-O, status: planned, objective_ids: [G01-M3], error_ids: [G01-E04], checkpoint_ids: [CP-ON1, CP-ON2, CP-ON3], source_anchor: null, source_locator: null, answer_anchor: null, content_key: G01-S-O-E04, exposure_policy: remediation, next_on_pass: CP-ON1, next_on_error: CP-ON1}
+  - {id: G01-S-O-E05, role: S-O, status: planned, objective_ids: [G01-M4], error_ids: [G01-E05], checkpoint_ids: [CP-ON1, CP-ON2, CP-ON3], source_anchor: null, source_locator: null, answer_anchor: null, content_key: G01-S-O-E05, exposure_policy: remediation, next_on_pass: CP-ON1, next_on_error: CP-ON1}
+  - {id: G01-S-O-E06, role: S-O, status: planned, objective_ids: [G01-M1, G01-M4], error_ids: [G01-E06], checkpoint_ids: [CP-ON1, CP-ON2, CP-ON3], source_anchor: null, source_locator: null, answer_anchor: null, content_key: G01-S-O-E06, exposure_policy: remediation, next_on_pass: CP-ON1, next_on_error: CP-ON1}
+  - {id: G01-S-O-E07, role: S-O, status: planned, objective_ids: [G01-M2, G01-M4], error_ids: [G01-E07], checkpoint_ids: [CP-ON1, CP-ON2, CP-ON3], source_anchor: null, source_locator: null, answer_anchor: null, content_key: G01-S-O-E07, exposure_policy: remediation, next_on_pass: CP-ON1, next_on_error: CP-ON1}
+  - {id: G01-S-O-E08, role: S-O, status: planned, objective_ids: [G01-M5], error_ids: [G01-E08], checkpoint_ids: [CP-ON1, CP-ON2, CP-ON3], source_anchor: null, source_locator: null, answer_anchor: null, content_key: G01-S-O-E08, exposure_policy: remediation, next_on_pass: CP-ON1, next_on_error: CP-ON1}
+  - {id: G01-S-O-E09, role: S-O, status: planned, objective_ids: [G01-M1, G01-M3], error_ids: [G01-E09], checkpoint_ids: [CP-ON1, CP-ON2, CP-ON3], source_anchor: null, source_locator: null, answer_anchor: null, content_key: G01-S-O-E09, exposure_policy: remediation, next_on_pass: CP-ON1, next_on_error: CP-ON1}
+
+  - {id: G01-O01, role: O, status: planned, objective_ids: [G01-M1, G01-M2, G01-M3], error_ids: [], checkpoint_ids: [CP-ON1], source_anchor: null, source_locator: null, answer_anchor: null, content_key: G01-O01, exposure_policy: review-reserved, next_on_pass: CP-ON1, next_on_error: CP-ON1}
+  - {id: G01-O02, role: O, status: planned, objective_ids: [G01-M1, G01-M3, G01-M4, G01-M5], error_ids: [], checkpoint_ids: [CP-ON2], source_anchor: null, source_locator: null, answer_anchor: null, content_key: G01-O02, exposure_policy: review-reserved, next_on_pass: CP-ON2, next_on_error: CP-ON2}
+  - {id: G01-O03, role: O, status: planned, objective_ids: [G01-M1, G01-M2, G01-M3, G01-M4, G01-M5], error_ids: [], checkpoint_ids: [CP-ON3], source_anchor: null, source_locator: null, answer_anchor: null, content_key: G01-O03, exposure_policy: review-reserved, next_on_pass: CP-ON3, next_on_error: CP-ON3}
+
+errors:
+  - {id: G01-E01, symptom: Bỏ tập xác định hoặc khoảng xét, hoặc dùng điểm bị loại., classification_rule: Phân biệt lỗi mục tiêu với thiếu N-TXĐ-01., objective_ids: [G01-M1], detection_checkpoint_ids: [CP-LT1, CP-LT2, CP-KT, CP-ON1, CP-ON2, CP-ON3], review_anchor: tách-riêng-điểm-không-thuộc-tập-xác-định, foundation_route_ids: [G01-N01], remediation: {S-L: G01-S-L-E01, S-K: G01-S-K-E01, S-O: G01-S-O-E01}, return_anchor: lt01}
+  - {id: G01-E02, symptom: Thấy f'(x0)=0 rồi kết luận có cực trị., classification_rule: Kiểm tra dấu hai phía trước khi phân loại là lỗi mục tiêu., objective_ids: [G01-M3], detection_checkpoint_ids: [CP-LT1, CP-LT3, CP-KT, CP-ON1, CP-ON2, CP-ON3], review_anchor: cực-trị-được-gọi-tên-thế-nào, foundation_route_ids: [G01-N03], remediation: {S-L: G01-S-L-E02, S-K: G01-S-K-E02, S-O: G01-S-O-E02}, return_anchor: lt02}
+  - {id: G01-E03, symptom: Không có đạo hàm nên kết luận không có cực trị., classification_rule: Kiểm tra liên tục và định nghĩa cực trị trước khi phân loại., objective_ids: [G01-M3], detection_checkpoint_ids: [CP-LT1, CP-KT, CP-ON1, CP-ON2, CP-ON3], review_anchor: tách-riêng-điểm-không-thuộc-tập-xác-định, foundation_route_ids: [G01-N06], remediation: {S-L: G01-S-L-E03, S-K: G01-S-K-E03, S-O: G01-S-O-E03}, return_anchor: lt04}
+  - {id: G01-E04, symptom: Nhầm điểm cực trị, giá trị cực trị và tọa độ., classification_rule: Yêu cầu gọi riêng ba đối tượng trong bài làm., objective_ids: [G01-M3], detection_checkpoint_ids: [CP-LT1, CP-LT2, CP-LT3, CP-KT, CP-ON1, CP-ON2, CP-ON3], review_anchor: ba-đối-tượng-cần-tách-biệt, foundation_route_ids: [G01-N04, G01-N05], remediation: {S-L: G01-S-L-E04, S-K: G01-S-K-E04, S-O: G01-S-O-E04}, return_anchor: lt03}
+  - {id: G01-E05, symptom: Gộp khoảng rời mà không so sánh chéo., classification_rule: Kiểm tra mọi cặp chéo giữa các thành phần của tập., objective_ids: [G01-M4], detection_checkpoint_ids: [CP-LT2, CP-KT, CP-ON1, CP-ON2, CP-ON3], review_anchor: vì-sao-không-tự-gộp-các-khoảng-rời-nhau, foundation_route_ids: [G01-N01], remediation: {S-L: G01-S-L-E05, S-K: G01-S-K-E05, S-O: G01-S-O-E05}, return_anchor: lt06}
+  - {id: G01-E06, symptom: Đảo đồng biến thành f' > 0 ở mọi điểm., classification_rule: Phân biệt điều kiện đủ với kết luận ngược không nghiêm ngặt., objective_ids: [G01-M1, G01-M4], detection_checkpoint_ids: [CP-LT1, CP-LT2, CP-LT3, CP-KT, CP-ON1, CP-ON2, CP-ON3], review_anchor: vì-sao-không-được-đảo-thành-điều-kiện-nghiêm-ngặt, foundation_route_ids: [G01-N03, G01-N07], remediation: {S-L: G01-S-L-E06, S-K: G01-S-K-E06, S-O: G01-S-O-E06}, return_anchor: lt05}
+  - {id: G01-E07, symptom: Suy quá dữ kiện của bảng hoặc đồ thị., classification_rule: Tách điều chắc chắn, điều có thể và điều chưa biết., objective_ids: [G01-M2, G01-M4], detection_checkpoint_ids: [CP-LT1, CP-LT2, CP-KT, CP-ON1, CP-ON2, CP-ON3], review_anchor: bản-đồ-giới-hạn-suy-luận, foundation_route_ids: [G01-N04, G01-N05], remediation: {S-L: G01-S-L-E07, S-K: G01-S-K-E07, S-O: G01-S-O-E07}, return_anchor: lt05}
+  - {id: G01-E08, symptom: Sai logic hoặc bỏ vế đúng khi sửa., classification_rule: Giữ phần đúng rồi sửa đúng phép nối hoặc điều kiện., objective_ids: [G01-M5], detection_checkpoint_ids: [CP-LT3, CP-KT, CP-ON1, CP-ON2, CP-ON3], review_anchor: phán-quyết-từ-đúng-giả-thiết, foundation_route_ids: [G01-N07], remediation: {S-L: G01-S-L-E08, S-K: G01-S-K-E08, S-O: G01-S-O-E08}, return_anchor: lt08}
+  - {id: G01-E09, symptom: Dùng đổi dấu đạo hàm qua điểm chưa biết liên tục., classification_rule: Kiểm tra liên tục hoặc giả thiết định lí trước khi kết luận cực trị., objective_ids: [G01-M1, G01-M3], detection_checkpoint_ids: [CP-KT, CP-ON1, CP-ON2, CP-ON3], review_anchor: tách-riêng-điểm-không-thuộc-tập-xác-định, foundation_route_ids: [G01-N06], remediation: {S-L: null, S-K: G01-S-K-E09, S-O: G01-S-O-E09}, return_anchor: kt05}
+
+foundation_routes:
+  - {id: G01-N01, objective_ids: [G01-M1, G01-M4], symptom: Sai tập xác định hoặc dùng mốc bị loại., unit_id: N-TXĐ-01, retest: {status: specified, requirement: Một câu mới về D, khoảng xét và điểm bị loại.}, return_anchors: [lt01, lt04, lt06, kt04, kt05]}
+  - {id: G01-N02, objective_ids: [G01-M2], symptom: Tính sai đạo hàm đa thức hoặc hữu tỉ., unit_id: N-ĐH-01, retest: {status: specified, requirement: Tính một đạo hàm mới.}, return_anchors: [lt01, kt01]}
+  - {id: G01-N03, objective_ids: [G01-M2, G01-M3], symptom: Không xét được dấu của đạo hàm., unit_id: N-DẤU-01, retest: {status: specified, requirement: Lập một bảng dấu mới.}, return_anchors: [lt01, lt02, kt01]}
+  - {id: G01-N04, objective_ids: [G01-M2, G01-M4], symptom: Nhầm hàng hoặc mũi tên của bảng biến thiên., unit_id: N-BBT-01, retest: {status: specified, requirement: Hoàn thành một bảng biến thiên còn thiếu.}, return_anchors: [lt01, lt05, kt02]}
+  - {id: G01-N05, objective_ids: [G01-M2, G01-M4], symptom: Nhầm đồ thị f với f' hoặc điểm hở với điểm kín., unit_id: N-ĐT-01, retest: {status: specified, requirement: Đọc hai hình mới và nêu dữ kiện được phép suy ra.}, return_anchors: [lt03, lt05, kt02]}
+  - {id: G01-N06, objective_ids: [G01-M1, G01-M3], symptom: Không kiểm tra liên tục hoặc đạo hàm tại điểm ghép., unit_id: N-LT-01, retest: {status: specified, requirement: Kiểm tra một hàm từng đoạn mới.}, return_anchors: [lt04, kt04, kt05]}
+  - {id: G01-N07, objective_ids: [G01-M5], symptom: Sai và hoặc, hoặc không biết dùng phản ví dụ., unit_id: N-LG-01, retest: {status: specified, requirement: Đánh giá bốn mệnh đề ngắn và sửa câu sai.}, return_anchors: [lt07, lt08, kt03, kt04]}
+
+readiness:
+  expected_planned_task_ids:
+    - G01-O01
+    - G01-O02
+    - G01-O03
+    - G01-S-K-E01
+    - G01-S-K-E02
+    - G01-S-K-E03
+    - G01-S-K-E04
+    - G01-S-K-E05
+    - G01-S-K-E06
+    - G01-S-K-E07
+    - G01-S-K-E08
+    - G01-S-K-E09
+    - G01-S-O-E01
+    - G01-S-O-E02
+    - G01-S-O-E03
+    - G01-S-O-E04
+    - G01-S-O-E05
+    - G01-S-O-E06
+    - G01-S-O-E07
+    - G01-S-O-E08
+    - G01-S-O-E09
