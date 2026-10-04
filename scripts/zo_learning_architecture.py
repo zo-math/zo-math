@@ -25,6 +25,17 @@ DEFAULT_MANIFESTS = (
     REPO_ROOT / "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/_quy_trinh/kien_truc_hoc_tap.yml",
 )
 
+G01_PHASE3_TASK_IDS = {
+    *(f"G01-O{index:02d}" for index in range(1, 4)),
+    *(f"G01-S-K-E{index:02d}" for index in range(1, 10)),
+    *(f"G01-S-O-E{index:02d}" for index in range(1, 10)),
+}
+G01_PHASE3_FIGURES = {
+    "G01-O01": "hinh/do_thi_11.svg",
+    "G01-S-K-E02": "hinh/do_thi_12.svg",
+    "G01-S-O-E04": "hinh/do_thi_13.svg",
+}
+
 
 class UniqueKeyLoader(yaml.SafeLoader):
     """Safe YAML loader that rejects duplicate mapping keys."""
@@ -530,6 +541,39 @@ def validate_manifest(
                 f"{package_id}: planned thực tế không khớp ma trận khai báo",
             )
         )
+
+    if package_id == "R1-G01" and not planned:
+        actual_phase3 = {task_id for task_id in tasks if task_id in G01_PHASE3_TASK_IDS}
+        if actual_phase3 != G01_PHASE3_TASK_IDS:
+            missing = sorted(G01_PHASE3_TASK_IDS - actual_phase3)
+            extra = sorted(actual_phase3 - G01_PHASE3_TASK_IDS)
+            issues.append(
+                Issue(
+                    "g01.phase3-task-set",
+                    f"R1-G01 Pha 3 sai tập mã; thiếu={missing}, thừa={extra}",
+                )
+            )
+        source_text = source_path.read_text(encoding="utf-8") if source_path else ""
+        for task_id in sorted(G01_PHASE3_TASK_IDS):
+            task = tasks.get(task_id, {})
+            if task.get("status") != "current":
+                issues.append(Issue("g01.phase3-status", f"{task_id} phải là current"))
+                continue
+            source_anchor = task.get("source_anchor")
+            answer_anchor = task.get("answer_anchor")
+            if isinstance(answer_anchor, str) and source_text.count(f"[Xem lời giải](#{answer_anchor})") != 1:
+                issues.append(Issue("g01.phase3-forward-link", f"{task_id} phải có đúng một liên kết tới {answer_anchor}"))
+            if isinstance(source_anchor, str) and source_text.count(f"[Xem đề bài](#{source_anchor})") != 1:
+                issues.append(Issue("g01.phase3-back-link", f"{task_id} phải có đúng một liên kết quay về {source_anchor}"))
+        for task_id, figure in G01_PHASE3_FIGURES.items():
+            if source_text.count(f"]({figure})") != 1:
+                issues.append(Issue("g01.phase3-figure-reference", f"{task_id} phải tham chiếu đúng một lần {figure}"))
+            if source_path is not None:
+                figure_path = source_path.parent / figure
+                for suffix in (".tex", ".pdf", ".svg"):
+                    candidate = figure_path.with_suffix(suffix)
+                    if not candidate.is_file():
+                        issues.append(Issue("g01.phase3-figure-missing", f"thiếu tài sản {candidate.name} cho {task_id}"))
 
     return issues
 
