@@ -125,6 +125,20 @@
         }
       }
     },
+    "task_transition": {
+      "oneOf": [
+        {"type": "string", "minLength": 1},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "checkpoint_ids"],
+          "properties": {
+            "kind": {"const": "activation_checkpoint"},
+            "checkpoint_ids": {"$ref": "#/$defs/id_list"}
+          }
+        }
+      ]
+    },
     "task": {
       "type": "object",
       "additionalProperties": false,
@@ -142,8 +156,8 @@
         "answer_anchor": {"type": ["string", "null"]},
         "content_key": {"type": "string", "minLength": 1},
         "exposure_policy": {"enum": ["guided", "practice", "remediation", "independent", "review-reserved", "transfer", "foundation"]},
-        "next_on_pass": {"type": "string", "minLength": 1},
-        "next_on_error": {"type": "string", "minLength": 1}
+        "next_on_pass": {"$ref": "#/$defs/task_transition"},
+        "next_on_error": {"$ref": "#/$defs/task_transition"}
       }
     },
     "error": {

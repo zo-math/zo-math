@@ -122,14 +122,14 @@ def main() -> int:
         "guidance summaries": (r"^Cách thực hiện$", 12),
         "hint summaries": (r"^Cần một gợi ý\?$", 4),
         "hint roles": (r"^:{4,} .*\.zo-learning-hint(?:[ .}])", 4),
-        "legacy task inputs": (r"^:{3,} .*\.r1-task(?:[ .}])", 27),
+        "legacy task inputs": (r"^:{3,} .*\.r1-task(?:[ .}])", 41),
         "pause task inputs": (r"^:{3,} .*\.r1-g02-pause(?:[ .}])", 6),
-        "solution inputs": (r"^:{4,} .*\.r1-solution(?:[ .}])", 30),
+        "solution inputs": (r"^:{4,} .*\.r1-solution(?:[ .}])", 44),
         "content blocks": (r"^:{4,} .*\.zo-block(?:[ .}])", 3),
         "content-block titles": (r"^::: \{\.zo-block-title\}$", 3),
         "unboxed labels": (r"^\[\*\*.*\*\*\]\{[^}\n]*\.r1-unboxed-label[^}\n]*\}$", 5),
-        "forward solution links": (r"\]\(#loi-giai", 30),
-        "back links": (r"\[Xem đề bài\]\(#", 30),
+        "forward solution links": (r"\]\(#loi-giai", 44),
+        "back links": (r"\[Xem đề bài\]\(#", 44),
     }
 
     guidance_blocks = re.findall(
@@ -151,19 +151,19 @@ def main() -> int:
         "all R1-G02 guidance and hint blocks must declare their canonical learning role",
     )
     require(
-        len(solution_blocks) == 30
+        len(solution_blocks) == 44
         and all(".zo-learning-solution" in line for line in solution_blocks),
         "all R1-G02 solution disclosures must declare the canonical solution role",
     )
     require(
-        len(task_blocks) == 27
+        len(task_blocks) == 41
         and all(".zo-learning-task" in line for line in task_blocks)
         and sum(".zo-learning-task--pause" in line for line in task_blocks) == 6
-        and sum(".zo-learning-task--item" in line for line in task_blocks) == 21,
+        and sum(".zo-learning-task--item" in line for line in task_blocks) == 35,
         "all R1-G02 tasks must declare exactly one canonical task variant",
     )
     require(
-        len(summary_blocks) == 46
+        len(summary_blocks) == 60
         and all(".zo-learning-summary" in line for line in summary_blocks),
         "all R1-G02 disclosure summaries must declare the canonical summary role",
     )
@@ -286,16 +286,31 @@ def main() -> int:
         text,
         flags=re.MULTILINE,
     )
-    require(len(answer_links) == 60, f"answer links: expected 60, got {len(answer_links)}")
+    require(len(answer_links) == 88, f"answer links: expected 88, got {len(answer_links)}")
     require(
-        [label for label, _ in answer_links].count("Xem lời giải") == 30
-        and [label for label, _ in answer_links].count("Xem đề bài") == 30,
+        [label for label, _ in answer_links].count("Xem lời giải") == 44
+        and [label for label, _ in answer_links].count("Xem đề bài") == 44,
         "answer-link labels must use the two canonical short forms",
     )
     require(
         ("Xem đề bài", "ba-câu-khởi-động") in answer_links,
         "the kickoff solution must return to the kickoff-question block",
     )
+    phase2_task_anchors = (
+        "l11",
+        "s-k-e01", "s-k-e02", "s-k-e03", "s-k-e04", "s-k-e05", "s-k-e06",
+        "s-o-e01", "s-o-e02", "s-o-e03", "s-o-e04", "s-o-e05", "s-o-e06",
+        "s-p02",
+    )
+    for task_anchor in phase2_task_anchors:
+        solution_anchor = f"loi-giai-{task_anchor}"
+        require(
+            text.count(f"{{#{task_anchor} ") == 1
+            and text.count(f"{{#{solution_anchor} ") == 1
+            and ("Xem lời giải", solution_anchor) in answer_links
+            and ("Xem đề bài", task_anchor) in answer_links,
+            f"Pha 2 task/solution pair is incomplete: {task_anchor}",
+        )
     require(
         text.index("## Sửa lỗi {#sua-loi}")
         < text.index("{#thu-lai-chuyen-giao")
@@ -471,14 +486,14 @@ def main() -> int:
     provenance = json.loads(PDF_PROVENANCE.read_text(encoding="utf-8"))
     built = {item["name"]: item for item in provenance.get("variants", [])}
     expected_pdf_pages = {
-        "full": 26,
-        "student": 17,
+        "full": 34,
+        "student": 20,
         "bai_hoc": 10,
         "luyen_tap": 6,
         "kiem_tra": 4,
-        "sua_loi": 5,
-        "on_lai": 3,
-        "loi_giai": 10,
+        "sua_loi": 7,
+        "on_lai": 4,
+        "loi_giai": 16,
     }
     require(
         all(text.count(f"  - {output}") == 1 for output in pdf_outputs.values()),
@@ -487,12 +502,12 @@ def main() -> int:
     require(
         re.search(
             r"r1-download-files:\n"
-            r"  - href: index_hoc_sinh\.pdf\n.*?    pages: 17\n"
-            r"  - href: index\.pdf\n.*?    pages: 26\n",
+            r"  - href: index_hoc_sinh\.pdf\n.*?    pages: 20\n"
+            r"  - href: index\.pdf\n.*?    pages: 34\n",
             text,
             flags=re.DOTALL,
         ) is not None,
-        "the two canonical download cards must lock the accepted 17/26 page metadata",
+        "the two canonical download cards must lock the current 20/34 page metadata",
     )
     require(
         "Baseline PDF canonical của R1-G02" in package_readme
@@ -532,9 +547,9 @@ def main() -> int:
         )
 
     print("R1-G02 canonical components: PASS")
-    print("12 guidance | 4 hints | 28 tasks (7 pause, 21 item) | 30 solutions")
-    print("3 titled theory blocks | 5 unboxed lesson labels | 30 forward links | 30 back links")
-    print("8 PDF variants built | pages: 26, 17, 10, 6, 4, 5, 3, 10")
+    print("12 guidance | 4 hints | 42 tasks (7 pause, 35 item) | 44 solutions")
+    print("3 titled theory blocks | 5 unboxed lesson labels | 44 forward links | 44 back links")
+    print("8 PDF variants built | pages: 34, 20, 10, 6, 4, 7, 4, 16")
     return 0
 
 

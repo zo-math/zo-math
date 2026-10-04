@@ -139,6 +139,54 @@ def _check_refs(
         issues.append(Issue("link.broken", f"{where} trỏ tới id không tồn tại: {', '.join(missing)}"))
 
 
+def _check_task_transition(
+    target: Any,
+    task_checkpoint_ids: Any,
+    known_checkpoint_ids: set[str],
+    role: Any,
+    status: Any,
+    where: str,
+    issues: list[Issue],
+) -> None:
+    checkpoints = task_checkpoint_ids if isinstance(task_checkpoint_ids, list) else []
+    requires_activation_checkpoint = (
+        status == "current"
+        and role == "S-O"
+        and len(checkpoints) > 1
+        and all(isinstance(checkpoint, str) and checkpoint.startswith("CP-ON") for checkpoint in checkpoints)
+    )
+
+    if isinstance(target, str):
+        if target not in known_checkpoint_ids:
+            issues.append(Issue("task.path", f"{where} không trỏ tới checkpoint tồn tại"))
+        if requires_activation_checkpoint:
+            issues.append(
+                Issue(
+                    "task.path-static-activation",
+                    f"{where} phải quay về checkpoint kích hoạt hiện tại, không được cố định {target}",
+                )
+            )
+        return
+
+    if not isinstance(target, dict):
+        issues.append(Issue("task.path", f"{where} phải là checkpoint hoặc đích quay về động"))
+        return
+    if set(target) != {"kind", "checkpoint_ids"}:
+        issues.append(Issue("task.path-activation-shape", f"{where} có cấu trúc đích quay về động không hợp lệ"))
+    if target.get("kind") != "activation_checkpoint":
+        issues.append(Issue("task.path-activation-kind", f"{where}.kind phải bằng activation_checkpoint"))
+
+    allowed = target.get("checkpoint_ids")
+    _check_refs(allowed, known_checkpoint_ids, f"{where}.checkpoint_ids", issues, allow_empty=False)
+    if isinstance(allowed, list) and set(allowed) != set(checkpoints):
+        issues.append(
+            Issue(
+                "task.path-activation-scope",
+                f"{where}.checkpoint_ids phải khớp đầy đủ checkpoint_ids của nhiệm vụ",
+            )
+        )
+
+
 def validate_manifest(
     manifest: dict[str, Any],
     manifest_path: Path,
@@ -321,9 +369,15 @@ def validate_manifest(
         _check_refs(task.get("error_ids"), error_ids, f"{task_id}.error_ids", issues)
         _check_refs(task.get("checkpoint_ids"), checkpoint_ids, f"{task_id}.checkpoint_ids", issues, allow_empty=False)
         for field in ("next_on_pass", "next_on_error"):
-            target = task.get(field)
-            if not isinstance(target, str) or target not in checkpoint_ids:
-                issues.append(Issue("task.path", f"{task_id}.{field} không trỏ tới checkpoint tồn tại"))
+            _check_task_transition(
+                task.get(field),
+                task.get("checkpoint_ids"),
+                checkpoint_ids,
+                role,
+                status,
+                f"{task_id}.{field}",
+                issues,
+            )
         source_anchor = task.get("source_anchor")
         answer_anchor = task.get("answer_anchor")
         if status == "current":
