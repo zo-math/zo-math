@@ -71,7 +71,21 @@ class LearningArchitectureCheckerTests(unittest.TestCase):
         self.assertEqual(g01_planned, set(self.g01["readiness"]["expected_planned_task_ids"]))
         self.assertEqual(g02_planned, set(self.g02["readiness"]["expected_planned_task_ids"]))
         self.assertEqual(len(g01_planned), 21)
-        self.assertEqual(len(g02_planned), 14)
+        self.assertEqual(len(g02_planned), 0)
+
+    def test_r1_g02_phase2_tasks_are_current_with_real_anchors(self):
+        expected = {
+            "G02-L11",
+            *(f"G02-S-K-E{index:02d}" for index in range(1, 7)),
+            *(f"G02-S-O-E{index:02d}" for index in range(1, 7)),
+            "G02-S-P02",
+        }
+        tasks = {task["id"]: task for task in self.g02["tasks"]}
+        self.assertEqual(len(expected), 14)
+        for task_id in expected:
+            self.assertEqual(tasks[task_id]["status"], "current")
+            self.assertIsInstance(tasks[task_id]["source_anchor"], str)
+            self.assertIsInstance(tasks[task_id]["answer_anchor"], str)
 
     def test_r1_g02_lessons_07_and_08_are_transfer_tasks(self):
         tasks = {task["id"]: task for task in self.g02["tasks"]}
@@ -80,6 +94,32 @@ class LearningArchitectureCheckerTests(unittest.TestCase):
         self.assertEqual(tasks["G02-P02"]["role"], "P")
         self.assertEqual(tasks["G02-P02"]["source_anchor"], "l08")
 
+    def test_r1_g02_review_remediation_returns_to_activation_checkpoint(self):
+        tasks = {task["id"]: task for task in self.g02["tasks"]}
+        expected = ["CP-ON1", "CP-ON2", "CP-ON3"]
+        for index in range(1, 7):
+            task = tasks[f"G02-S-O-E{index:02d}"]
+            self.assertEqual(task["checkpoint_ids"], expected)
+            for field in ("next_on_pass", "next_on_error"):
+                self.assertEqual(
+                    task[field],
+                    {"kind": "activation_checkpoint", "checkpoint_ids": expected},
+                )
+
+    def test_multi_review_checkpoint_task_rejects_static_return(self):
+        for field in ("next_on_pass", "next_on_error"):
+            with self.subTest(field=field):
+                manifest = copy.deepcopy(self.g02)
+                task = next(task for task in manifest["tasks"] if task["id"] == "G02-S-O-E01")
+                task[field] = "CP-ON1"
+                self.assertIn("task.path-static-activation", self.issue_codes(manifest, self.g02_path))
+
+    def test_activation_checkpoint_requires_full_trigger_scope(self):
+        manifest = copy.deepcopy(self.g02)
+        task = next(task for task in manifest["tasks"] if task["id"] == "G02-S-O-E01")
+        task["next_on_error"]["checkpoint_ids"] = ["CP-ON1", "CP-ON2"]
+        self.assertIn("task.path-activation-scope", self.issue_codes(manifest, self.g02_path))
+
     def test_schema_document_is_valid_json(self):
         data = json.loads(checker.SCHEMA_PATH.read_text(encoding="utf-8"))
         self.assertEqual(data["properties"]["schema_version"]["const"], 1)
@@ -87,6 +127,8 @@ class LearningArchitectureCheckerTests(unittest.TestCase):
             set(data["$defs"]["task"]["properties"]["role"]["enum"]),
             set(self.common["valid_task_roles"]),
         )
+        dynamic_target = data["$defs"]["task_transition"]["oneOf"][1]
+        self.assertEqual(dynamic_target["properties"]["kind"]["const"], "activation_checkpoint")
 
 
 if __name__ == "__main__":

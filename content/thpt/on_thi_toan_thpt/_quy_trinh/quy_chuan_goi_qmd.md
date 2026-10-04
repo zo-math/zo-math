@@ -161,6 +161,7 @@ lại bằng pipeline canonical và kiểm nghiệm hồi quy.
 ### Công thức và nguồn đối chiếu
 
 - Công thức dài được đặt trên dòng riêng khi việc đặt trong câu làm giảm khả năng đọc; việc tách dòng không tạo thêm khối nền hoặc viền.
+- Với công thức phân nhánh, mỗi nhánh viết theo mẫu `biểu thức & \text{khi } điều kiện`. Không đặt dấu phẩy giữa biểu thức và điều kiện. Dấu phẩy đặt sau điều kiện của các nhánh chưa cuối; dấu chấm đặt sau điều kiện của nhánh cuối khi công thức kết thúc câu.
 - Dòng nguồn đối chiếu dùng `.zo-source-note`, đặt sau nội dung được dẫn, viết thành câu hoàn chỉnh, không dùng ngoặc vuông, không viết tắt tên sách hoặc từ `trang`.
 
 ### Hàng rào kiểm định
