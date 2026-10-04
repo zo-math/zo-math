@@ -71,8 +71,13 @@ const sectionDownloadsState=()=>ev(`(() => {const list=document.querySelector('.
 const wheel=async(delta,label,width)=>{await ev(`window.__r1phase=${JSON.stringify(label)}`);await call('Input.dispatchMouseEvent',{type:'mouseWheel',x:width/2,y:700,deltaX:0,deltaY:delta});for(let i=0;i<4;i++){await sleep(i===0?25:85);await shot(`${width}_${label}_${i}`);}await sleep(250);};
 try {
   const active=path.join(profile,'DevToolsActivePort');
-  for(let i=0;i<100&&!fs.existsSync(active);i++)await sleep(100);
-  const port=fs.readFileSync(active,'utf8').split('\n')[0];
+  let port='';
+  for(let i=0;i<100&&!port;i++){
+    await sleep(100);
+    try{if(fs.existsSync(active))port=fs.readFileSync(active,'utf8').split('\n')[0];}
+    catch(error){if(error?.code!=='EBUSY')throw error;}
+  }
+  if(!port)throw Error('Chrome DevTools port did not become readable');
   const targets=await (await fetch(`http://127.0.0.1:${port}/json/list`)).json();
   ws=new WebSocket(targets.find(t=>t.type==='page').webSocketDebuggerUrl);
   ws.addEventListener('message',e=>{const m=JSON.parse(e.data);if(pending.has(m.id)){const p=pending.get(m.id);pending.delete(m.id);m.error?p.reject(Error(JSON.stringify(m.error))):p.resolve(m.result);}});
@@ -177,13 +182,16 @@ try {
     await ev('history.forward()');await sleep(500);const forward=await targetState();
     check(`${width}: Back/Forward`,back.hash===answer.hash&&forward.hash===backToQuestion.hash,{back,forward});
     await go('?r1-view=toan-van#lt01');await link('#loi-giai-2',"document.getElementById('lt01')");await sleep(500);
-    const allAnswer=await targetState();check(`${width}: full text answer keeps view`,allAnswer.view==='toan-van'&&allAnswer.visible.length===10,allAnswer);
+    const allAnswer=await targetState();check(`${width}: full text answer keeps view`,allAnswer.view==='toan-van'&&allAnswer.visible.length===9,allAnswer);
     await link('#lt01',"document.getElementById('loi-giai-2')");await sleep(400);
     check(`${width}: full text return keeps view`,(await targetState()).view==='toan-van');
     await go('#xem-toan-bo');check(`${width}: old full-text alias`,(await targetState()).view==='toan-van');
     const inventory=await ev(`(() => {const r=document.querySelector('.r1-g01'),ids=[...document.querySelectorAll('[id]')].map(e=>e.id),css=e=>{const c=getComputedStyle(e);return {color:c.color,background:c.backgroundColor,weight:c.fontWeight}};return {math:r.querySelectorAll('math').length,answers:r.querySelectorAll('.answer-link').length,details:r.querySelectorAll('details:not(.r1-section-toc)').length,guidance:r.querySelectorAll('.r1-guidance').length,tables:r.querySelectorAll('.r1-data-table').length,bbt:r.querySelectorAll('.zo-variation-asset').length,figures:r.querySelectorAll('figure').length,duplicates:ids.length-new Set(ids).size,tabs:[...document.querySelectorAll('.r1-tab')].map(t=>t.textContent),h1:css(document.querySelector('h1.title')),h2:css(r.querySelector('h2')),h3:css(r.querySelector('h3')),tableHeaders:[...r.querySelectorAll('.r1-data-table th')].map(css)};})()`);
-    check(`${width}: canonical inventory preserved`,inventory.math===989&&inventory.answers===42&&inventory.details===31&&inventory.guidance===15&&inventory.tables===17&&inventory.bbt===13&&inventory.figures===10&&inventory.duplicates===0,inventory);
+    check(`${width}: canonical inventory preserved`,inventory.math===1469&&inventory.answers===100&&inventory.details===52&&inventory.guidance===15&&inventory.tables===17&&inventory.bbt===13&&inventory.figures===26&&inventory.duplicates===0,inventory);
     check(`${width}: table emphasis and headings preserved`,inventory.tableHeaders.every(c=>c.weight==='400'&&c.background==='rgb(255, 255, 255)')&&inventory.h1.color==='rgb(239, 83, 80)'&&inventory.h2.color===inventory.h1.color&&inventory.h3.color!==inventory.h1.color);
+    const phase3=await ev(`(() => {const taskIds=[...Array.from({length:3},(_,i)=>'g01-o0'+(i+1)),...Array.from({length:9},(_,i)=>'g01-s-k-e'+String(i+1).padStart(2,'0')),...Array.from({length:9},(_,i)=>'g01-s-o-e'+String(i+1).padStart(2,'0'))],tableIds=['r1-table-t12','r1-table-t13','r1-table-t18'],state=id=>{const e=document.getElementById(id),r=e?.getBoundingClientRect();return {id,exists:!!e,inPackage:!!e?.closest('.r1-g01'),width:r?.width,scrollWidth:e?.scrollWidth,clientWidth:e?.clientWidth}};const tasks=taskIds.map(state),tables=tableIds.map(state);const images=['do_thi_11.svg','do_thi_12.svg','do_thi_13.svg'].map(name=>{const e=document.querySelector('img[src$="'+name+'"]'),r=e?.getBoundingClientRect(),p=e?.parentElement?.getBoundingClientRect();return {name,exists:!!e,complete:e?.complete,naturalWidth:e?.naturalWidth,width:r?.width,parentWidth:p?.width}});return {tasks,tables,images,pageOverflow:document.documentElement.scrollWidth-document.documentElement.clientWidth};})()`);
+    check(`${width}: Phase 3 regions and figures are present and contained`,phase3.tasks.every(item=>item.exists&&item.inPackage&&item.scrollWidth<=item.clientWidth+1)&&phase3.tables.every(item=>item.exists&&item.inPackage&&(width>=500||item.scrollWidth>item.clientWidth+1))&&phase3.images.every(item=>item.exists&&item.complete&&item.naturalWidth>0&&item.width<=item.parentWidth+1)&&phase3.pageOverflow<=1,phase3);
+    for(const [name,selector] of [['o01','#g01-o01'],['sk_e02','#g01-s-k-e02'],['so_e04','#g01-s-o-e04'],['journal','#r1-table-t13'],['journal_example','#r1-table-t18']])await shotElement(`${width}_phase3_${name}`,selector);
     await ev("document.querySelector('#r1-tab-tai-pdf').click()");await sleep(450);
     const cards=await ev("[...document.querySelectorAll('.r1-download-card h3')].map(e=>e.textContent)");check(`${width}: distinct PDF labels remain`,cards.includes('Bản đầy đủ')&&cards.includes('Bản học và bài tập'),cards);await shot(`${width}_downloads`);await shotElement(`${width}_downloads_full`,'#tai-tai-lieu');
     results.viewports[width].sectionDownloads=await sectionDownloadsState();
@@ -216,7 +224,7 @@ try {
   }
   await call('Emulation.setScriptExecutionDisabled',{value:true});await call('Page.navigate',{url});await sleep(1200);
   const nojs=await ev(`(() => {const suffix='content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.html', links=selector=>[...document.querySelectorAll(selector)].filter(a=>new URL(a.href,location.href).pathname.endsWith(suffix)).map(a=>({text:a.textContent.trim().replace(/\\s+/g,' '),href:a.getAttribute('href'),path:new URL(a.href,location.href).pathname}));return {tabs:document.querySelectorAll('.r1-tab').length,sections:document.querySelectorAll('.r1-g01 > section').length,hidden:document.querySelectorAll('.r1-g01 > section[hidden]').length,packagePdfs:document.querySelectorAll('.r1-downloads a[download]').length,sectionPdfs:document.querySelectorAll('.r1-section-download-list a[download]').length,sidebar:links('#quarto-sidebar a[href]'),breadcrumb:links('.quarto-page-breadcrumbs a[href]')};})()`);
-  check('no-JS linear content and downloads',nojs.tabs===0&&nojs.sections===10&&nojs.hidden===0&&nojs.packagePdfs===2&&nojs.sectionPdfs===6,nojs);
+  check('no-JS linear content and downloads',nojs.tabs===0&&nojs.sections===9&&nojs.hidden===0&&nojs.packagePdfs===2&&nojs.sectionPdfs===6,nojs);
   const officialTitle='Đơn điệu và cực trị';
   check('no-JS sidebar and breadcrumb use the learning-material title',nojs.sidebar.length===1&&nojs.breadcrumb.length===1&&nojs.sidebar[0].text===officialTitle&&nojs.breadcrumb[0].text===officialTitle&&!nojs.sidebar[0].text.includes('R1-G01')&&!nojs.breadcrumb[0].text.includes('R1-G01'),{sidebar:nojs.sidebar,breadcrumb:nojs.breadcrumb});
 } catch(error){results.error=String(error);check('runtime completed',false,String(error));}

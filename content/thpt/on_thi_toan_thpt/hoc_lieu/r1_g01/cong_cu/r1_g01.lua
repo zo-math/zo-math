@@ -7,6 +7,7 @@ local section_download_specs = nil
 local section_specs_by_variant = {}
 local table_specs = nil
 local table_specs_by_id = {}
+local linked_table_ids = {}
 local COMMON_LEARNING_ID = 'cách-học-với-tài-liệu-này'
 local COMMON_SOURCES_ID = 'nguon'
 local DOWNLOADS_ID = 'tai-tai-lieu'
@@ -153,9 +154,53 @@ local function configure_table(block, tbl, spec, seen_ids)
   end
 end
 
+local function table_contains_link(tbl)
+  return pandoc.write(pandoc.Pandoc({tbl}), 'json'):find('"t":"Link"', 1, true) ~= nil
+end
+
+local function render_linked_html_table(div)
+  -- Quarto reconstructs link-bearing pipe tables after this filter and can drop
+  -- Table attributes while retaining the wrapper. Keep the ordinary writer for
+  -- the table content, and make its contracted minimum width explicit through
+  -- the preserved wrapper so horizontal scrolling remains available.
+  div.attributes['data-r1-linked-table'] = 'true'
+  local style = pandoc.RawBlock('html', [[
+<style>
+.r1-table[data-r1-linked-table="true"] > table {
+  min-width: var(--r1-table-min-width);
+}
+</style>]])
+  local hint = pandoc.Div(
+    {pandoc.Plain({pandoc.Str('Bảng có thể cuộn ngang. Kéo sang bên hoặc dùng phím mũi tên khi bảng đang được chọn.')})},
+    pandoc.Attr(div.identifier..'-hint', {'r1-table-scroll-hint'}, {hidden='hidden'}))
+  return {style, hint, div}
+end
+
+local function collect_linked_table_ids(doc, contract)
+  local index = 0
+  local function collect(blocks)
+    for _, block in ipairs(blocks) do
+      if block.t == 'Div' then
+        local tbl = table_in(block)
+        if tbl then
+          index = index + 1
+          local spec = assert(contract[index], 'R1-G01 ordinary table is missing a contract entry')
+          if table_contains_link(tbl) then linked_table_ids[meta_text(spec.id)] = true end
+        else
+          collect(block.content)
+        end
+      elseif block.t == 'BlockQuote' then
+        collect(block.content)
+      end
+    end
+  end
+  collect(doc.blocks)
+  assert(index == #contract, 'R1-G01 ordinary table inventory changed while collecting linked tables')
+end
+
 local function apply_table_contract(doc)
   local contract = doc.meta['r1-tables']
-  assert(contract and #contract == 17, 'R1-G01 table contract must contain 17 entries')
+  assert(contract and #contract == 18, 'R1-G01 table contract must contain 18 entries')
   local index, seen_ids = 0, {}
   local function configure(blocks)
     for _, block in ipairs(blocks) do
@@ -174,7 +219,7 @@ local function apply_table_contract(doc)
     end
   end
   configure(doc.blocks)
-  assert(index == 17, 'R1-G01 ordinary table inventory expected 17, got '..index)
+  assert(index == 18, 'R1-G01 ordinary table inventory expected 18, got '..index)
   return doc
 end
 
@@ -258,6 +303,9 @@ function Div(div)
   <p class="r1-support-link"><a href="/content/support/donate.html">Xem thông tin bảo trợ ZO Math</a></p>
 </div>]])
   end
+  if html and configured_table and linked_table_ids[div.identifier] then
+    return render_linked_html_table(div)
+  end
   if html and div.classes:includes('r1-table-scroll-x') then
     local hint = pandoc.Div(
       {pandoc.Plain({pandoc.Str('Bảng có thể cuộn ngang. Kéo sang bên hoặc dùng phím mũi tên khi bảng đang được chọn.')})},
@@ -340,7 +388,7 @@ end
 function Image(image)
   local graph_number = image.src:match('^hinh/do_thi_(%d%d)%.svg$')
   graph_number = tonumber(graph_number)
-  if latex and graph_number and graph_number >= 1 and graph_number <= 10 then
+  if latex and graph_number and graph_number >= 1 and graph_number <= 13 then
     image.src = image.src:gsub('%.svg$', '.pdf')
     -- Preserve the asset's canonical physical size. Pandoc's \maxwidth policy
     -- still shrinks an oversized asset, but must never enlarge a narrow one.
@@ -516,10 +564,10 @@ end
 
 local function assert_inventory(doc, expected, label)
   local found = inventory(doc)
+  io.stderr:write('R1-G01 '..label..' inventory: '..pandoc.json.encode(found)..'\n')
   for key, value in pairs(expected) do
     assert(found[key] == value, 'R1-G01 '..label..': '..key..' expected '..value..', got '..found[key])
   end
-  io.stderr:write('R1-G01 '..label..' inventory: '..pandoc.json.encode(found)..'\n')
 end
 
 local function blocks_slice(blocks, first, last)
@@ -764,17 +812,18 @@ local function prepare(doc)
   end
   verify_projection_boundary_fixture()
   table_specs = doc.meta['r1-tables']
-  assert(table_specs and #table_specs == 17, 'R1-G01 table contract must contain 17 entries')
+  assert(table_specs and #table_specs == 18, 'R1-G01 table contract must contain 18 entries')
   table_specs_by_id = {}
   for _, spec in ipairs(table_specs) do
     local id = meta_text(spec.id)
     assert(not table_specs_by_id[id], 'Duplicate R1-G01 table contract id: '..id)
     table_specs_by_id[id] = spec
   end
+  if html then collect_linked_table_ids(doc, table_specs) end
   if html then return nil end
   if latex then doc = build_lesson_toc(doc) end
   doc = apply_table_contract(doc)
-  assert_inventory(doc, {math=989, images=10, tables=17, bbt=13, details=31, answers=58}, 'source')
+  assert_inventory(doc, {math=1468, images=13, tables=18, bbt=13, details=52, answers=100}, 'source')
   if latex then
     variant = pandoc.utils.stringify(doc.meta['zo-pdf-variant'] or 'full')
     local part_spec = section_specs_by_variant[variant]
@@ -824,10 +873,11 @@ local function prepare(doc)
         return d
       end})
       assert(removed, 'Student projection did not find #'..solution_start)
-      -- Approved R1-G01 editorial projection; the solution section removes 399 math / 4 ordinary tables.
-      assert_inventory(doc, {math=590, images=8, tables=13, bbt=11, details=15, answers=0}, 'student')
+      -- Approved R1-G01 editorial projection; the solution section removes 669 math,
+      -- 2 images, 4 ordinary tables, 2 BBT blocks, 37 details blocks and 100 answer links.
+      assert_inventory(doc, {math=799, images=11, tables=14, bbt=11, details=15, answers=0}, 'student')
     else
-      assert_inventory(doc, {math=989, images=10, tables=17, bbt=13, details=31, answers=58}, 'full')
+      assert_inventory(doc, {math=1468, images=13, tables=18, bbt=13, details=52, answers=100}, 'full')
     end
     local identifiers = identifiers_in_blocks(doc.blocks)
     doc:walk({Link=function(link)

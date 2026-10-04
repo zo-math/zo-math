@@ -36,12 +36,12 @@ r1-download-files:
     download: R1-G01_hoc_va_bai_tap_v1.3.pdf
     title: "Bản học và bài tập"
     description: "Dùng để tự học và làm bài; không có phần lời giải."
-    pages: 31
+    pages: 42
   - href: index.pdf
     download: R1-G01_hoc_lieu_day_du_v1.3.pdf
     title: "Bản đầy đủ"
     description: "Có toàn bộ bài học, bài tập, lời giải và hướng dẫn chấm."
-    pages: 41
+    pages: 57
 r1-section-download-files:
   - variant: bai_hoc
     href: index_bai_hoc.pdf
@@ -170,16 +170,23 @@ r1-tables:
     label: "Chọn bài tập khắc phục lỗi"
     family: R
     mode: scroll
-    widths: [39, 22, 39]
-    min_width: 40em
+    widths: [22, 26, 26, 26]
+    min_width: 52em
     row_header: true
   - id: r1-table-t13
     label: "Nhật kí học tập"
     family: J
     mode: scroll
-    widths: [12, 19, 17, 15, 21, 16]
-    min_width: 54em
-    row_header: false
+    widths: [31, 69]
+    min_width: 38em
+    row_header: true
+  - id: r1-table-t18
+    label: "Ví dụ giả lập Nhật kí học tập"
+    family: J
+    mode: scroll
+    widths: [31, 69]
+    min_width: 42em
+    row_header: true
   - id: r1-table-t14
     label: "Bài luyện tập 07 — Lời giải và phản biện"
     family: R
@@ -1204,6 +1211,16 @@ Xét $u(x)=\lvert x+1\rvert-2$ trên $\mathbb{R}$. Xét thêm $v$ có cùng côn
 [Xem lời giải](#loi-giai-5)
 :::
 
+### Điểm kiểm soát sau chặng 1 {#cp-lt1}
+
+Tại `CP-LT1`, tự kiểm các mục tiêu `G01-M1`, `G01-M2`, `G01-M3`: đã ghi đúng tập xác định và khoảng xét; nối đúng công thức–đạo hàm–dấu–chiều biến thiên–bảng–đồ thị; xét cực trị bằng dấu hai phía và gọi đúng đối tượng.
+
+- Nếu gặp `G01-E01`, `G01-E02`, `G01-E03`, `G01-E04`, `G01-E06` hoặc `G01-E07`, làm đúng bài `S-L` tương ứng trong [Sửa lỗi sau Luyện tập](#sua-loi-sau-luyen-tap), rồi dùng một nhiệm vụ mới để xác nhận.
+- Nếu chưa đủ nền, đi đúng tuyến `N-TXĐ-01`, `N-ĐH-01`, `N-DẤU-01`, `N-BBT-01`, `N-ĐT-01` hoặc `N-LT-01`; làm câu kiểm tra lại mới rồi quay về nhiệm vụ đang dừng.
+- Chỉ chuyển sang chặng `G01-C2` khi các điều kiện thiết yếu của chuỗi biểu diễn đã có bằng chứng; nếu chưa đủ bằng chứng, làm thêm một nhiệm vụ hẹp trước khi quyết định.
+
+[Ghi kết quả tại Nhật kí học tập.](#nhat-ky)
+
 ### Bài luyện tập 05. Đọc bảng không có hàng đạo hàm {#lt05 .zo-learning-task .zo-learning-task--item}
 
 Cho $r$ liên tục trên $[-3;4]$, có bảng biến thiên sau. Không có giả thiết về đạo hàm.
@@ -1234,6 +1251,16 @@ Cho $q$ xác định trên $D=\mathbb{R}\setminus\{1\}$ bởi $q(x)=x+3$ khi $x<
 ::: answer-link
 [Xem lời giải](#loi-giai-7)
 :::
+
+### Điểm kiểm soát sau chặng 2 {#cp-lt2}
+
+Tại `CP-LT2`, tự kiểm `G01-M1` và `G01-M4`: không tự gán dấu đạo hàm nghiêm ngặt, công thức hàm hoặc kết luận xuyên các khoảng rời; mọi kết luận phải nêu đúng dữ kiện cho phép suy ra.
+
+- Nếu gặp `G01-E01`, `G01-E04`, `G01-E05`, `G01-E06` hoặc `G01-E07`, làm đúng bài `S-L` tương ứng trong [Sửa lỗi sau Luyện tập](#sua-loi-sau-luyen-tap).
+- Nếu thiếu nền, đi `N-TXĐ-01`, `N-BBT-01`, `N-ĐT-01` hoặc `N-LT-01`; làm câu kiểm tra lại mới rồi quay về bài đang dừng.
+- Chỉ chuyển sang chặng `G01-C3` khi đã đọc ngược mà không thêm dữ kiện và đã xử lí mọi lỗi thiết yếu vừa quan sát.
+
+[Ghi kết quả tại Nhật kí học tập.](#nhat-ky)
 
 ### Bài luyện tập 07. Đúng/sai với cùng một giả thiết {#lt07 .zo-learning-task .zo-learning-task--item}
 
@@ -1272,6 +1299,16 @@ Chỉ ra từng lỗi, viết lại kết luận đúng và phân biệt ba đ�
 ::: answer-link
 [Xem lời giải](#loi-giai-9)
 :::
+
+### Điểm kiểm soát sau chặng 3 {#cp-lt3}
+
+Tại `CP-LT3`, tự kiểm `G01-M3`, `G01-M4`, `G01-M5`: đánh giá riêng từng mệnh đề có căn cứ, giữ phần đúng khi sửa và gọi đúng điểm cực trị, giá trị cực trị, điểm cực trị của đồ thị.
+
+- Nếu gặp `G01-E02`, `G01-E06` hoặc `G01-E08`, làm đúng bài `S-L` tương ứng trong [Sửa lỗi sau Luyện tập](#sua-loi-sau-luyen-tap).
+- Nếu thiếu nền logic, đi `N-LG-01`, làm bốn mệnh đề mới rồi quay về ý đang dừng.
+- Chỉ chuyển sang `CP-KT` khi các lỗi chặn đã được xác nhận bằng bài mới; đúng do nhớ lời giải cũ không phải bằng chứng đi tiếp.
+
+[Ghi kết quả tại Nhật kí học tập.](#nhat-ky)
 
 ## Kiểm tra {#tu-kiem-tra}
 
@@ -1399,6 +1436,12 @@ Cách thực hiện
 3.  Thể hiện việc sửa lỗi bằng bài làm mới; không chỉ đọc quy trình để xác nhận đã sửa được lỗi.
 ::::
 
+### Điểm kiểm soát sau Kiểm tra {#cp-kt}
+
+Tại `CP-KT`, đọc kết quả theo từng mục tiêu `G01-M1`–`G01-M5`, không dùng tổng điểm để che một lỗi thiết yếu. Nếu gặp `G01-E01`–`G01-E09`, làm đúng nhiệm vụ trong [Sửa lỗi sau Kiểm tra](#sua-loi-sau-kiem-tra); nếu biểu hiện là thiếu tiên quyết, đi tuyến Nền tương ứng trước rồi làm một câu kiểm tra lại mới. Chỉ lên lịch Ôn lại khi các mục tiêu thiết yếu có bằng chứng độc lập và lỗi chặn đã được xử lí.
+
+[Ghi kết quả tại Nhật kí học tập.](#nhat-ky)
+
 ## Sửa lỗi {#sua-loi}
 
 :::: {#cach-thuc-hien-sua-loi .r1-details .r1-guidance .zo-learning-guidance}
@@ -1418,19 +1461,239 @@ Nếu một bài mắc nhiều lỗi, làm các bài tập khắc phục lỗi t
 
 ### Chọn bài tập khắc phục lỗi {#chọn-câu-sau-chữa}
 
+**Tra theo nơi phát hiện:** [sau Luyện tập](#sua-loi-sau-luyen-tap) · [sau Kiểm tra](#sua-loi-sau-kiem-tra) · [sau Ôn lại](#sua-loi-sau-on-lai).
+
 ::: {#r1-table-t12 .table-scroll}
-| Lỗi đã ghi | Quay lại đọc | Câu mới cần làm |
-|------------------------|------------------------|------------------------|
-| Bỏ tập xác định hoặc khoảng xét | Mục 0 và 4.5 | Bài tập khắc phục lỗi 01 |
-| Có điểm có đạo hàm bằng 0 nên có cực trị | Mục 2.3 và 4.3 | Bài tập khắc phục lỗi 02 |
-| Không có đạo hàm nên không có cực trị | Mục 4.4 | Bài tập khắc phục lỗi 03 |
-| Nhầm điểm, giá trị và tọa độ | Mục 5.2 | Bài tập khắc phục lỗi 04 |
-| Gộp khoảng rời mà không so sánh chéo | Mục 6.4 | Bài tập khắc phục lỗi 05 |
-| Đảo thành dấu đạo hàm nghiêm ngặt | Mục 2.4 | Bài tập khắc phục lỗi 06 |
-| Suy quá dữ kiện của bảng hoặc hình | Mục 6 | Bài tập khắc phục lỗi 07 |
-| Sai logic hoặc bỏ vế đúng khi chữa | Mục 7.1–7.2 | Bài tập khắc phục lỗi 08 |
-| Thiếu kiểm tra liên tục khi dùng định lí | Mục 4.1, ghi rõ lỗi này bằng chữ | Bài tập khắc phục lỗi 03; thêm Bài tập khắc phục lỗi 07 nếu còn tự gán giá trị |
+| Họ lỗi | Sau Luyện tập | Sau Kiểm tra | Sau Ôn lại |
+|---|---|---|---|
+| `G01-E01` | [S-L-E01](#sc01) | [S-K-E01](#g01-s-k-e01) | [S-O-E01](#g01-s-o-e01) |
+| `G01-E02` | [S-L-E02](#sc02) | [S-K-E02](#g01-s-k-e02) | [S-O-E02](#g01-s-o-e02) |
+| `G01-E03` | [S-L-E03](#sc03) | [S-K-E03](#g01-s-k-e03) | [S-O-E03](#g01-s-o-e03) |
+| `G01-E04` | [S-L-E04](#sc04) | [S-K-E04](#g01-s-k-e04) | [S-O-E04](#g01-s-o-e04) |
+| `G01-E05` | [S-L-E05](#sc05) | [S-K-E05](#g01-s-k-e05) | [S-O-E05](#g01-s-o-e05) |
+| `G01-E06` | [S-L-E06](#sc06) | [S-K-E06](#g01-s-k-e06) | [S-O-E06](#g01-s-o-e06) |
+| `G01-E07` | [S-L-E07](#sc07) | [S-K-E07](#g01-s-k-e07) | [S-O-E07](#g01-s-o-e07) |
+| `G01-E08` | [S-L-E08](#sc08) | [S-K-E08](#g01-s-k-e08) | [S-O-E08](#g01-s-o-e08) |
+| `G01-E09` | Không có tầng S-L | [S-K-E09](#g01-s-k-e09) | [S-O-E09](#g01-s-o-e09) |
 :::
+
+### Sửa lỗi sau Kiểm tra {#sua-loi-sau-kiem-tra}
+
+Sau `CP-KT`, chọn nhiệm vụ đúng họ lỗi đã quan sát. Làm độc lập trước khi mở lời giải. Đạt thì quay về `CP-KT`; nếu còn lỗi, đi đúng tuyến Nền hoặc mục bài học rồi làm một nhiệm vụ mới, không làm lại chính câu vừa xem lời giải làm bằng chứng.
+
+### G01-S-K-E01 — Một mốc bị loại khác {#g01-s-k-e01 .zo-learning-task .zo-learning-task--item}
+
+**Kích hoạt khi:** học sinh dùng điểm ngoài tập xác định hoặc bỏ khoảng xét trong Kiểm tra.
+
+Cho $p(x)=(x+2)^2+1$ trên tập xác định $D=\mathbb{R}\setminus\{-2\}$.
+
+1. Xét dấu $p^\prime(x)$ trên từng khoảng của $D$.
+2. Một bạn kết luận: “Đạo hàm đổi từ âm sang dương qua $-2$, nên $p$ đạt cực tiểu tại $-2$ với giá trị $1$.” Hãy sửa toàn bộ câu.
+3. Nêu điểm kín hoặc điểm hở cần dùng tại vị trí $(-2;1)$ nếu phác đồ thị.
+
+**Tiêu chí xác nhận lỗi đã sửa:** ghi đúng $D$ trước khi dùng dấu đạo hàm; không gọi $1$ là giá trị cực tiểu của hàm đã cho; chọn điểm hở và nêu đúng lí do.
+
+**Điểm quay về:** đạt thì quay về `CP-KT`. Nếu còn dùng điểm bị loại, học `N-TXĐ-01`, làm một câu mới về tập xác định rồi mới trở lại bài Kiểm tra đang sửa.
+
+::: answer-link
+[Xem lời giải](#lg-g01-s-k-e01)
+:::
+
+### G01-S-K-E02 — Ba nghiệm của đạo hàm, chỉ hai cực trị {#g01-s-k-e02 .zo-learning-task .zo-learning-task--item}
+
+**Kích hoạt khi:** học sinh coi $f^\prime(x_0)=0$ là đủ để kết luận cực trị.
+
+Hình biểu diễn đồ thị $y=g^\prime(x)$ của một hàm $g$ có đạo hàm trên $\mathbb{R}$. Đồ thị cắt trục hoành tại $x=-2$ và $x=3$, tiếp xúc với trục hoành tại $x=1$. Dấu của đạo hàm lần lượt là dương, âm, âm, dương trên các khoảng tách bởi ba mốc. Biết $g(-2)=5$, $g(3)=-1$.
+
+:::: r1-figure
+![Đồ thị g′ cắt trục hoành tại −2 và 3, tiếp xúc trục hoành tại 1; dấu lần lượt dương, âm, âm, dương.](hinh/do_thi_12.svg){loading="lazy"}
+
+::: r1-figcaption
+G01-S-K-E02 — Đồ thị của đạo hàm, không phải đồ thị của $g$.
+:::
+::::
+
+1. Nêu các khoảng đơn điệu.
+2. Xét cực trị tại cả ba nghiệm của đạo hàm.
+3. Ghi các điểm cực trị của đồ thị $g$ mà dữ kiện cho phép xác định.
+
+**Tiêu chí xác nhận lỗi đã sửa:** xét dấu hai phía của từng nghiệm; không chọn $x=1$ làm điểm cực trị; gộp đúng khoảng nghịch biến qua $1$.
+
+**Điểm quay về:** đạt thì quay về `CP-KT`. Nếu vẫn đếm nghiệm, quay lại Mục 2.3 và 4.3 của Bài học; nếu xét dấu yếu, học `N-DẤU-01`; sau đó làm một đồ thị đạo hàm mới.
+
+::: answer-link
+[Xem lời giải](#lg-g01-s-k-e02)
+:::
+
+### G01-S-K-E03 — Điểm ghép không có đạo hàm vẫn là cực trị {#g01-s-k-e03 .zo-learning-task .zo-learning-task--item}
+
+**Kích hoạt khi:** học sinh loại một điểm khỏi danh sách ứng viên chỉ vì đạo hàm không tồn tại.
+
+Cho
+
+$$
+u(x)=
+\begin{cases}
+-2x+1 & \text{khi } x<0,\\
+x^2+1 & \text{khi } x\geq0.
+\end{cases}
+$$
+
+Kiểm tra tính liên tục, sự tồn tại của $u^\prime(0)$ và cực trị tại $0$. Trình bày thêm một cách kiểm tra bằng định nghĩa cực trị.
+
+**Tiêu chí xác nhận lỗi đã sửa:** tách kiểm tra liên tục khỏi kiểm tra đạo hàm; không dùng “đạo hàm không tồn tại” để phủ định cực trị; dùng được so sánh lân cận hoặc chiều biến thiên hai phía.
+
+**Điểm quay về:** đạt thì quay về `CP-KT`. Nếu còn nhầm điểm ghép, học `N-LT-01` rồi làm một hàm từng đoạn mới trước khi quay lại.
+
+::: answer-link
+[Xem lời giải](#lg-g01-s-k-e03)
+:::
+
+### G01-S-K-E04 — Đọc đúng ba đối tượng từ bảng mới {#g01-s-k-e04 .zo-learning-task .zo-learning-task--item}
+
+**Kích hoạt khi:** học sinh nhầm điểm cực trị, giá trị cực trị và điểm cực trị của đồ thị.
+
+Cho hàm số $m$ liên tục trên $[-5;4]$. Bảng biến thiên cho biết $m$ tăng từ $m(-5)=0$ đến $m(-2)=6$, giảm đến $m(1)=-3$, rồi tăng đến $m(4)=2$. Không phân loại hai đầu mút theo định nghĩa cực trị hai phía.
+
+1. Ghi điểm cực đại, giá trị cực đại và điểm cực đại của đồ thị.
+2. Ghi ba đối tượng tương ứng ở cực tiểu.
+3. Sửa câu: “Hàm số có điểm cực đại bằng $6$ và điểm cực tiểu là $(1;-3)$.”
+
+**Tiêu chí xác nhận lỗi đã sửa:** không dùng một số tung độ để trả lời câu hỏi về điểm của hàm số; không dùng một cặp tọa độ để trả lời câu hỏi về hoành độ cực trị; gọi đúng cả sáu đại lượng.
+
+**Điểm quay về:** đạt thì quay về `CP-KT`. Nếu còn nhầm hàng bảng, học `N-BBT-01`; nếu còn nhầm điểm đồ thị, học `N-ĐT-01`; sau đó làm một bảng mới.
+
+::: answer-link
+[Xem lời giải](#lg-g01-s-k-e04)
+:::
+
+### G01-S-K-E05 — Hai nhánh cùng tăng nhưng không tăng trên hợp {#g01-s-k-e05 .zo-learning-task .zo-learning-task--item}
+
+**Kích hoạt khi:** học sinh tự gộp các khoảng rời mà không kiểm tra các cặp điểm chéo.
+
+Cho
+
+$$
+q(x)=
+\begin{cases}
+x^3+5 & \text{khi } x<0,\\
+x^3-5 & \text{khi } x>0.
+\end{cases}
+$$
+
+trên $D=\mathbb{R}\setminus\{0\}$.
+
+Chứng minh $q$ đồng biến trên từng khoảng của $D$. Sau đó quyết định có thể gọi $q$ đồng biến trên toàn $D$ theo yêu cầu so sánh mọi cặp $x_1<x_2$ thuộc $D$ hay không.
+
+**Tiêu chí xác nhận lỗi đã sửa:** phân biệt kết luận trên từng khoảng với kết luận trên hợp; tự đưa ra một cặp chéo hợp lệ và tính đúng giá trị; không dùng điểm $0$ vì điểm này không thuộc tập xác định.
+
+**Điểm quay về:** đạt thì quay về `CP-KT`. Nếu còn chọn điểm ngoài tập, học `N-TXĐ-01`; nếu chưa hiểu yêu cầu “mọi cặp”, quay lại Mục 6.4 rồi làm một câu tập rời mới.
+
+::: answer-link
+[Xem lời giải](#lg-g01-s-k-e05)
+:::
+
+### G01-S-K-E06 — Đạo hàm có các lũy thừa chẵn {#g01-s-k-e06 .zo-learning-task .zo-learning-task--item}
+
+**Kích hoạt khi:** học sinh đảo “đồng biến và có đạo hàm” thành “đạo hàm dương tại mọi điểm”.
+
+Cho hàm số $f$ có đạo hàm trên $\mathbb{R}$ và
+
+$$
+f^\prime(x)=x^2(x-2)^2.
+$$
+
+1. Xét dấu đạo hàm và kết luận chiều biến thiên trên $\mathbb{R}$.
+2. Xét cực trị tại $0$ và $2$.
+3. Sửa câu: “Muốn hàm đồng biến trên $\mathbb{R}$ thì bắt buộc $f^\prime(x)>0$ với mọi $x\in\mathbb{R}$.”
+
+**Tiêu chí xác nhận lỗi đã sửa:** xử lí đúng hai thừa số bình phương; không tách thành ba kết luận đồng biến rời nếu có thể gộp; phát biểu chiều đảo bằng dấu không âm, không phải dấu dương nghiêm ngặt.
+
+**Điểm quay về:** đạt thì quay về `CP-KT`. Nếu xét dấu sai, học `N-DẤU-01`; nếu còn đảo định lí, quay lại Mục 2.4 rồi làm một hàm mới có đạo hàm bằng $0$ tại hữu hạn điểm.
+
+::: answer-link
+[Xem lời giải](#lg-g01-s-k-e06)
+:::
+
+### G01-S-K-E07 — Cùng đạo hàm, khác giá trị cực trị {#g01-s-k-e07 .zo-learning-task .zo-learning-task--item}
+
+**Kích hoạt khi:** học sinh suy công thức hoặc tung độ của $f$ chỉ từ đồ thị hay công thức của $f^\prime$.
+
+Xét hai hàm
+
+$$
+r_1(x)=x^3-3x
+$$
+
+và
+
+$$
+r_2(x)=x^3-3x+5.
+$$
+
+1. Chứng minh hai hàm có cùng đạo hàm.
+2. Xác định điểm cực trị của mỗi hàm theo hoành độ.
+3. So sánh các giá trị cực trị và các điểm cực trị của hai đồ thị.
+4. Nêu chính xác điều một đồ thị $y=r^\prime(x)$ cho biết và điều nó chưa cho biết.
+
+**Tiêu chí xác nhận lỗi đã sửa:** giữ đúng các hoành độ cực trị chung; nhận ra phép cộng hằng số làm đổi tung độ nhưng không đổi đạo hàm; phân loại rõ dữ kiện biết được và chưa biết được.
+
+**Điểm quay về:** đạt thì quay về `CP-KT`. Nếu còn nhầm đồ thị hàm và đạo hàm, học `N-ĐT-01`; nếu còn đọc quá bảng, học `N-BBT-01`; sau đó làm một cặp hàm sai khác hằng số mới.
+
+::: answer-link
+[Xem lời giải](#lg-g01-s-k-e07)
+:::
+
+### G01-S-K-E08 — Giữ từng vế đúng trong mệnh đề ghép {#g01-s-k-e08 .zo-learning-task .zo-learning-task--item}
+
+**Kích hoạt khi:** học sinh xử lí sai “và”, “hoặc” hoặc sửa một câu bằng cách bỏ cả phần vốn đúng.
+
+Cho $p(x)=x^4$ trên $\mathbb{R}$. Đặt:
+
+- A: “$p^\prime(0)=0$”;
+- B: “$p$ đạt cực tiểu tại $0$”;
+- C: “$p^\prime(x)>0$ với mọi $x\ne0$”.
+
+1. Đánh giá A, B, C.
+2. Đánh giá các mệnh đề “A và C”, “B hoặc C”, “(A và B) và C”, “A hoặc (B và C)”.
+3. Một bạn nói: “B hoặc C sai vì C sai.” Hãy giữ phần đúng trong phân tích của bạn và sửa kết luận.
+
+**Tiêu chí xác nhận lỗi đã sửa:** đánh giá từng mệnh đề đơn trước khi nối; không dùng một vế sai để bác bỏ mệnh đề “hoặc”; giữ nhận xét đúng “C sai” khi sửa toàn bộ câu.
+
+**Điểm quay về:** đạt thì quay về `CP-KT`. Nếu còn nhầm phép nối hoặc điều kiện cần–đủ, học `N-LG-01`, làm bốn mệnh đề mới rồi quay lại.
+
+::: answer-link
+[Xem lời giải](#lg-g01-s-k-e08)
+:::
+
+### G01-S-K-E09 — Dấu đổi nhưng hàm không liên tục tại điểm ghép {#g01-s-k-e09 .zo-learning-task .zo-learning-task--item}
+
+**Kích hoạt khi:** học sinh dùng định lí đổi dấu đạo hàm qua một điểm chưa kiểm tra tính liên tục.
+
+Cho
+
+$$
+h(x)=
+\begin{cases}
+x+1 & \text{khi } x<0,\\
+0 & \text{khi } x=0,\\
+-x+1 & \text{khi } x>0.
+\end{cases}
+$$
+
+1. Nêu dấu đạo hàm ở hai phía của $0$.
+2. Kiểm tra tính liên tục tại $0$.
+3. Một bạn dùng dấu dương bên trái, âm bên phải để kết luận $h$ đạt cực đại tại $0$. Hãy bác bỏ cách dùng định lí và xác định cực trị thực sự tại $0$ bằng định nghĩa.
+
+**Tiêu chí xác nhận lỗi đã sửa:** kiểm tra tính liên tục trước khi gọi định lí; không biến “không áp dụng được định lí” thành “không có cực trị”; quay về định nghĩa để xác định đúng cực tiểu.
+
+**Điểm quay về:** đạt thì quay về `CP-KT`. Nếu còn bỏ điều kiện liên tục, học `N-LT-01`; sau câu kiểm tra lại mới làm một hàm từng đoạn mới cùng họ lỗi.
+
+::: answer-link
+[Xem lời giải](#lg-g01-s-k-e09)
+:::
+
+### Sửa lỗi sau Luyện tập {#sua-loi-sau-luyen-tap}
 
 ### Bài tập khắc phục lỗi 01. Mốc bị loại khỏi tập xác định {#sc01 .zo-learning-task .zo-learning-task--item}
 
@@ -1519,30 +1782,341 @@ Xét A, B, “A và B”, “A hoặc B”. Sau đó sửa câu “A và B” th
 Cách thực hiện
 :::
 
-1.  Sau khi sửa bài, chọn ngày quay lại và ghi vào nhật kí.
-2.  Ở buổi ôn, đóng tài liệu rồi tự nêu điều kiện của định lí đơn điệu, điều kiện xét cực trị và ba cách gọi đối tượng liên quan đến cực trị.
-3.  Tự giải lại một bài từng sai và giải thích từng bước.
-
-Nếu đã nhớ lời giải của bài cũ, việc làm lại chủ yếu kiểm tra khả năng nhớ và trình bày.
-
-Để kiểm tra khả năng vận dụng, làm một bài chưa đọc lời giải cùng mục tiêu; có thể chọn bài còn lại trong phần luyện tập hoặc nhờ giáo viên giao thêm.
-
-Nếu còn lặp lỗi, ghi rõ lỗi và quay lại đúng mục liên quan.
+1. Sau khi sửa bài, chọn ngày quay lại và ghi vào nhật kí.
+2. Ở buổi ôn, đóng tài liệu trước khi tự nhớ và làm nhiệm vụ mới dành riêng cho lượt Ôn lại.
+3. Bài từng sai chỉ dùng để nhớ lại nguyên nhân; không dùng việc làm lại bài đã biết lời giải làm bằng chứng chính cho độ bền.
+4. Sau mỗi lượt, đối chiếu tại `CP-ON` tương ứng, ghi mức hỗ trợ và quyết định giữ lịch, rút ngắn hoặc đi tiếp.
 ::::
 
 ### Nhật kí học tập {#nhat-ky}
 
-Sao chép bảng này ra giấy hoặc công cụ ghi chú. Không có ô nào được điền sẵn “đã đạt”.
+Sao chép mẫu trống này ra giấy hoặc công cụ ghi chú. Không có ô nào được điền sẵn “đã đạt”.
 
 ::: {#r1-table-t13 .table-scroll}
-| Ngày / câu | Bài làm ban đầu đã sai ở đâu? | Lỗi hoặc điều kiện bị bỏ | Cách sửa | Bài tập khắc phục lỗi và kết quả | Ngày hẹn ôn lại / kết quả |
-|------------|------------|------------|------------|------------|------------|
-| … | … | … | … | … | … |
-| … | … | … | … | … | … |
-| … | … | … | … | … | … |
+| Trường | Em ghi |
+|---|---|
+| Ngày–giờ | … |
+| Gói / mục tiêu | … |
+| Nguồn phát hiện: checkpoint và mã câu | … |
+| Bài làm ban đầu | … |
+| Mức hỗ trợ ban đầu | … |
+| Bằng chứng quan sát | … |
+| Phân loại: lỗi mục tiêu / thiếu Nền / chưa đủ bằng chứng | … |
+| Mã lỗi hoặc mã Nền | … |
+| Hành động sửa | … |
+| Bài khắc phục mới và kết quả | … |
+| Trạng thái sau sửa / bằng chứng đạt trong lượt hiện tại | … |
+| Ngày và mã bài Ôn lại dự kiến | … |
+| Kết quả sau khoảng trễ | … |
+| Quyết định tiếp theo | … |
 :::
 
-Nếu bài tập khắc phục lỗi còn sai, quay lại đúng phần nền và chưa đánh dấu lỗi đã sửa; ưu tiên xử lí ở buổi học tiếp theo. Nếu làm đúng và giải thích được, ghi “đã sửa trong lượt này” rồi tự chọn một buổi sau để kiểm tra lại khi không nhìn lời giải. Nếu tiếp tục đúng, đưa mục tiêu đó vào lượt luyện phối hợp; không cần tiếp tục làm nhiều câu giống hệt chỉ để tăng số lượng.
+**Ví dụ giả lập — không phải kết quả thật của một học sinh.**
+
+::: {#r1-table-t18 .table-scroll}
+| Trường | Ví dụ ghi |
+|---|---|
+| Ngày–giờ | 03/10/2026, 19:40 |
+| Gói / mục tiêu | R1-G01 / đọc dấu đạo hàm và kết luận cực trị |
+| Nguồn phát hiện: checkpoint và mã câu | `CP-LT2`, câu `R1G01-L05` |
+| Bài làm ban đầu | Kết luận “$x=1$ là điểm cực đại vì $f^\prime(1)=0$” |
+| Mức hỗ trợ ban đầu | Không hỗ trợ |
+| Bằng chứng quan sát | Chỉ dùng điều kiện $f^\prime(1)=0$, chưa kiểm tra đổi dấu |
+| Phân loại | Lỗi mục tiêu |
+| Mã lỗi hoặc mã Nền | `G01-E02` — coi $f^\prime(x_0)=0$ là đủ để có cực trị |
+| Hành động sửa | Xem lại cặp đối chứng tại Mục 4.2–4.3; viết lại điều kiện đủ bằng dấu |
+| Bài khắc phục mới và kết quả | `G01-S-L-E02`; trả lời đúng và giải thích “đạo hàm không đổi dấu nên chưa có cực trị” |
+| Trạng thái sau sửa / bằng chứng đạt trong lượt hiện tại | Đã xác nhận trong lượt, chưa xác nhận độ bền |
+| Ngày và mã bài Ôn lại dự kiến | 10/10/2026, bài `G01-O01` |
+| Kết quả sau khoảng trễ | Chưa đến hạn |
+| Quyết định tiếp theo | Đi chặng 3; không cần học Nền; kiểm tra lại lỗi này ở `CP-ON1` |
+:::
+
+Nếu bài tập khắc phục lỗi còn sai, quay lại đúng phần nền và chưa đánh dấu lỗi đã sửa. Nếu làm đúng và giải thích được, ghi “đã sửa trong lượt này” rồi hẹn một bài Ôn lại mới. Nếu tiếp tục đúng sau khoảng trễ, đưa mục tiêu đó vào lượt luyện phối hợp.
+
+### G01-O01 — Một nghiệm đổi dấu, một nghiệm không đổi dấu {#g01-o01 .zo-learning-task .zo-learning-task--item}
+
+**Vai trò:** `O`. **Thời điểm mặc định:** sau 2–3 ngày. **Mục tiêu:** `G01-M1`, `G01-M2`, `G01-M3`, `G01-M4`. **Điểm kiểm soát:** `CP-ON1`. **Họ lỗi cần quan sát:** `G01-E02`, `G01-E04`, `G01-E07`.
+
+Đóng tài liệu trước khi làm.
+
+Cho hàm số $f$ có đạo hàm trên $\mathbb{R}$. Hình biểu diễn định tính đồ thị $y=f^\prime(x)$ có đúng hai giao điểm với trục hoành tại $x=-1$ và $x=2$. Đồ thị cắt trục hoành tại $-1$, tiếp xúc với trục hoành tại $2$; nằm dưới trục hoành khi $x<-1$ và nằm trên trục hoành khi $x>-1$, trừ điểm $x=2$. Hình chỉ mã hóa nghiệm, dấu và cách cắt hoặc tiếp xúc, không cho tỉ lệ tung độ của đạo hàm. Biết $f(-1)=3$.
+
+:::: r1-figure
+![Đồ thị định tính f′ cắt trục hoành tại −1, tiếp xúc trục hoành tại 2; không có thang tung độ định lượng.](hinh/do_thi_11.svg){loading="lazy"}
+
+::: r1-figcaption
+G01-O01 — Hình chỉ mã hóa nghiệm, dấu và cách cắt hoặc tiếp xúc của đạo hàm.
+:::
+::::
+
+1. Nêu dấu của $f^\prime(x)$ và các khoảng đơn điệu của $f$.
+2. Xét cực trị tại $x=-1$ và $x=2$.
+3. Ghi điểm cực trị của hàm số, giá trị cực trị và điểm cực trị của đồ thị mà dữ kiện cho phép xác định.
+4. Trong ba đại lượng $f(2)$, công thức của $f$ và tung độ của đồ thị $f$ tại $x=-1$, đại lượng nào xác định được? Giải thích.
+
+**Tiêu chí đạt:** không đếm hai nghiệm của đạo hàm thành hai điểm cực trị; gộp đúng khoảng đồng biến qua $x=2$ và nêu được căn cứ; gọi đúng điểm cực trị, giá trị cực trị và điểm trên đồ thị; không tự suy ra $f(2)$ hoặc công thức của $f$.
+
+**Tuyến sau bài:** đạt thì quay về `CP-ON1` và giữ lịch `G01-O02`; sai vì đếm nghiệm đạo hàm thì kích hoạt `G01-S-O-E02`; sai cách gọi ba đối tượng thì kích hoạt `G01-S-O-E04`; suy quá dữ kiện hình thì kích hoạt `G01-S-O-E07`.
+
+::: answer-link
+[Xem lời giải](#lg-g01-o01)
+:::
+
+### Điểm kiểm soát Ôn lại 1 {#cp-on1}
+
+Tại `CP-ON1`, đối chiếu `G01-O01` theo `G01-M1`–`G01-M4`. Nếu lỗi tái diễn, làm đúng nhiệm vụ `S-O` theo họ lỗi; nếu thiếu nền, đi đúng tuyến Nền, làm câu kiểm tra lại mới rồi quay về chính `CP-ON1`. Đạt thì giữ lịch `G01-O02`.
+
+[Ghi kết quả tại Nhật kí học tập.](#nhat-ky)
+
+### G01-O02 — Bảng biến thiên trên hai thành phần {#g01-o02 .zo-learning-task .zo-learning-task--item}
+
+**Vai trò:** `O`. **Thời điểm mặc định:** sau khoảng 7 ngày. **Mục tiêu:** `G01-M1`, `G01-M3`, `G01-M4`, `G01-M5`. **Điểm kiểm soát:** `CP-ON2`. **Họ lỗi cần quan sát:** `G01-E05`, `G01-E06`, `G01-E07`, `G01-E08`.
+
+Đóng tài liệu trước khi làm.
+
+Cho hàm số $r$ liên tục trên từng thành phần của tập xác định
+
+$$
+D=[-4;-1]\cup[1;5].
+$$
+
+Bảng biến thiên không có hàng đạo hàm cho biết:
+
+- trên $[-4;-1]$, $r$ giảm từ $r(-4)=6$ xuống $r(-1)=0$;
+- trên $[1;3]$, $r$ tăng từ $r(1)=2$ lên $r(3)=4$;
+- trên $[3;5]$, $r$ giảm từ $4$ xuống $r(5)=1$.
+
+Đánh giá từng phát biểu sau và sửa toàn bộ phát biểu sai mà không làm mất phần đúng:
+
+a. Hàm số đạt cực đại địa phương tại $x=3$, giá trị cực đại là $4$, điểm cực đại của đồ thị là $(3;4)$.
+
+b. Vì $r$ giảm trên $[-4;-1]$ và trên $[3;5]$, có thể kết luận $r$ nghịch biến trên $[-4;-1]\cup[3;5]$.
+
+c. Vì bảng có mũi tên đi lên trên $[1;3]$, ta có $r^\prime(x)>0$ với mọi $x\in(1;3)$.
+
+Cuối cùng, xác định giá trị lớn nhất và giá trị nhỏ nhất của $r$ trên $D$, kèm các điểm đạt.
+
+**Tiêu chí đạt:** xét đủ hai thành phần của tập xác định; dùng được cặp $-1<5$ để bác bỏ phép gộp sai hoặc đưa ra một cặp chéo hợp lệ khác; không tự thêm hàng đạo hàm vào bảng; sửa câu sai nhưng giữ hai kết luận giảm riêng vốn đúng; xác định đúng giá trị lớn nhất, nhỏ nhất và điểm đạt.
+
+**Tuyến sau bài:** đạt thì quay về `CP-ON2` và giữ lịch `G01-O03`; gộp khoảng rời thì kích hoạt `G01-S-O-E05`; suy dấu nghiêm ngặt thì kích hoạt `G01-S-O-E06`; suy quá dữ kiện bảng thì kích hoạt `G01-S-O-E07`; làm mất phần đúng khi chữa thì kích hoạt `G01-S-O-E08`.
+
+::: answer-link
+[Xem lời giải](#lg-g01-o02)
+:::
+
+### Điểm kiểm soát Ôn lại 2 {#cp-on2}
+
+Tại `CP-ON2`, đối chiếu `G01-O02` theo `G01-M1`, `G01-M3`, `G01-M4`, `G01-M5`. Lỗi tái diễn đi đúng `S-O`; thiếu nền đi đúng tuyến Nền và làm câu kiểm tra lại mới trước khi quay về `CP-ON2`. Đạt thì giữ lịch `G01-O03`.
+
+[Ghi kết quả tại Nhật kí học tập.](#nhat-ky)
+
+### G01-O03 — Tự dựng chuỗi biểu diễn cho hàm từng đoạn {#g01-o03 .zo-learning-task .zo-learning-task--item}
+
+**Vai trò:** `O`. **Thời điểm mặc định:** sau khoảng 3–4 tuần. **Mục tiêu:** toàn bộ `G01-M1`–`G01-M5`. **Điểm kiểm soát:** `CP-ON3`. **Họ lỗi cần quan sát:** `G01-E02`, `G01-E03`, `G01-E04`, `G01-E06`, `G01-E08`, `G01-E09`.
+
+Đóng tài liệu trước khi làm.
+
+Cho hàm số
+
+$$
+F(x)=
+\begin{cases}
+-(x+1)^2+1 & \text{khi } x<0,\\
+x^3-3x & \text{khi } x\geq0.
+\end{cases}
+$$
+
+1. Xác định tập xác định. Kiểm tra tính liên tục và sự tồn tại của $F^\prime(0)$.
+2. Tính đạo hàm trên từng khoảng thích hợp. Tự chọn các mốc cần đặt vào bảng dấu; xét dấu và nêu các khoảng đơn điệu.
+3. Lập bảng biến thiên, xác định các cực trị và gọi đúng ba đối tượng ở mỗi cực trị.
+4. Một bạn viết: “$F$ nghịch biến trên $(-1;1)$, do đó $F^\prime(x)<0$ với mọi $x\in(-1;1)$.” Hãy giữ phần đúng, chỉ ra phần thiếu căn cứ và viết lại toàn bộ câu.
+
+**Tiêu chí đạt:** kiểm tra riêng liên tục và đạo hàm tại điểm ghép; chọn đủ ba mốc $-1$, $0$, $1$ nhưng không đếm mọi mốc thành cực trị; gộp đúng khoảng nghịch biến qua điểm ghép bằng tính liên tục và hành vi hai phía; gọi đúng ba đối tượng tại hai cực trị; giữ phần đúng khi sửa lập luận và không biến tính đơn điệu thành dấu đạo hàm nghiêm ngặt tại mọi điểm.
+
+**Tuyến sau bài:** đạt thì quay về `CP-ON3`, ghi nhận hoàn tất lượt duy trì hiện tại của R1-G01; sai tại điểm ghép thì kích hoạt `G01-S-O-E03` hoặc `G01-S-O-E09` theo nguồn lỗi; đếm mốc đạo hàm bằng $0$ thì kích hoạt `G01-S-O-E02`; nhầm ba đối tượng thì kích hoạt `G01-S-O-E04`; suy dấu nghiêm ngặt hoặc sửa sai logic thì kích hoạt `G01-S-O-E06` hoặc `G01-S-O-E08`.
+
+::: answer-link
+[Xem lời giải](#lg-g01-o03)
+:::
+
+### Điểm kiểm soát Ôn lại 3 {#cp-on3}
+
+Tại `CP-ON3`, đối chiếu `G01-O03` theo toàn bộ `G01-M1`–`G01-M5`. Nếu lỗi tái diễn, làm đúng `S-O`, đi tuyến Nền khi cần, dùng một nhiệm vụ mới và rút ngắn lịch kiểm tra lại; mọi đường đều quay về chính `CP-ON3`. Đạt thì ghi nhận hoàn tất lượt duy trì hiện tại của R1-G01.
+
+[Ghi kết quả tại Nhật kí học tập.](#nhat-ky)
+
+### Sửa lỗi sau Ôn lại {#sua-loi-sau-on-lai}
+
+Các nhiệm vụ `S-O` dưới đây ngắn hơn `S-K` và chỉ kiểm tra lại đúng họ lỗi vừa tái xuất hiện. Đạt hoặc chưa đạt đều quay về điểm `CP-ON` đang hoạt động; nếu sai, mở lại tuyến lỗi tương ứng, làm một biến thể mới và rút ngắn khoảng cách đến lượt Ôn lại kế tiếp.
+
+### G01-S-O-E01 — Điểm hở và điểm kín cùng hoành độ {#g01-s-o-e01 .zo-learning-task .zo-learning-task--item}
+
+Cho
+
+$$
+u(x)=
+\begin{cases}
+(x-1)^2 & \text{khi } x\ne1,\\
+2 & \text{khi } x=1.
+\end{cases}
+$$
+
+Tại hoành độ $1$, đồ thị có điểm hở và điểm kín nào? Xét cực trị của $u$ tại $1$.
+
+**Tiêu chí và điểm quay về:** đạt khi dùng điểm kín làm giá trị hàm, không lấy tung độ của điểm hở làm $u(1)$ và xác định đúng cực đại. Đạt hoặc chưa đạt đều quay về điểm `CP-ON` đã kích hoạt; nếu sai, học `N-TXĐ-01` hoặc `N-ĐT-01` theo nguồn lỗi rồi làm câu mới.
+
+::: answer-link
+[Xem lời giải](#lg-g01-s-o-e01)
+:::
+
+### G01-S-O-E02 — Một mốc không đổi dấu nằm giữa hai mốc đổi dấu {#g01-s-o-e02 .zo-learning-task .zo-learning-task--item}
+
+Cho hàm $v$ có đạo hàm trên $\mathbb{R}$ và
+
+$$
+v^\prime(x)=(x+2)(x-1)^2(x-3).
+$$
+
+Xác định các điểm cực trị trong ba nghiệm $-2$, $1$, $3$ của đạo hàm.
+
+**Tiêu chí và điểm quay về:** đạt khi xét dấu hai phía và không đếm $x=1$ thành cực trị. Quay về điểm `CP-ON` đang hoạt động; nếu sai, mở lại tuyến `G01-E02`, học `N-DẤU-01` nếu cần và làm một biến thể mới.
+
+::: answer-link
+[Xem lời giải](#lg-g01-s-o-e02)
+:::
+
+### G01-S-O-E03 — Cực trị tại điểm ghép {#g01-s-o-e03 .zo-learning-task .zo-learning-task--item}
+
+Cho
+
+$$
+w(x)=
+\begin{cases}
+-x & \text{khi } x<0,\\
+x^2 & \text{khi } x\geq0.
+\end{cases}
+$$
+
+Không tính dài dòng, hãy xét tính liên tục, sự tồn tại đạo hàm và cực trị tại $0$.
+
+**Tiêu chí và điểm quay về:** đạt khi tách ba câu hỏi liên tục–đạo hàm–cực trị và không loại cực trị vì đạo hàm không tồn tại. Quay về điểm `CP-ON` đang hoạt động; nếu sai, học `N-LT-01` rồi làm một câu ghép mới.
+
+::: answer-link
+[Xem lời giải](#lg-g01-s-o-e03)
+:::
+
+### G01-S-O-E04 — Hai hình, ba đối tượng {#g01-s-o-e04 .zo-learning-task .zo-learning-task--item}
+
+Hình A là đồ thị $y=f(x)$, có điểm cực đại $A(-1;3)$ và điểm cực tiểu $B(2;-2)$. Hình B là đồ thị $y=f^\prime(x)$, cắt trục hoành tại $C(-1;0)$ và $D(2;0)$ với dấu đổi phù hợp.
+
+:::: r1-figure
+![Hai bảng con: A là đồ thị f có cực đại A(−1;3), cực tiểu B(2;−2); B là đồ thị f′ cắt trục hoành tại C(−1;0), D(2;0).](hinh/do_thi_13.svg){loading="lazy"}
+
+::: r1-figcaption
+G01-S-O-E04 — Hai đồ thị dùng để phân biệt hoành độ, giá trị cực trị và điểm cực trị.
+:::
+::::
+
+Điền sáu đại lượng: điểm cực đại và cực tiểu của hàm số; hai giá trị cực trị; hai điểm cực trị của đồ thị $f$. Sau đó giải thích vì sao $C$, $D$ không phải là hai điểm cực trị của đồ thị $f$.
+
+**Tiêu chí và điểm quay về:** đạt khi gọi đúng cả sáu đại lượng và tách hai đồ thị. Quay về điểm `CP-ON` đang hoạt động; nếu sai, học `N-ĐT-01`, làm một cặp hình mới rồi rút ngắn lịch Ôn lại.
+
+::: answer-link
+[Xem lời giải](#lg-g01-s-o-e04)
+:::
+
+### G01-S-O-E05 — Tự chứng minh so sánh chéo {#g01-s-o-e05 .zo-learning-task .zo-learning-task--item}
+
+Cho
+
+$$
+s(x)=
+\begin{cases}
+x^3 & \text{khi } x\leq-1,\\
+x^3+1 & \text{khi } x\geq1
+\end{cases}
+$$
+
+trên $D=(-\infty;-1]\cup[1;+\infty)$. Hàm tăng trên từng thành phần. Hãy quyết định nó có thỏa $s(x_1)<s(x_2)$ với mọi $x_1<x_2$ thuộc $D$ hay không; không chỉ thử một cặp.
+
+**Tiêu chí và điểm quay về:** đạt khi xét đủ cặp cùng thành phần và cặp chéo, không dùng quy tắc máy móc “hợp khoảng luôn không đơn điệu”. Quay về điểm `CP-ON` đang hoạt động; nếu sai, mở lại tuyến `G01-E05` và làm câu tập rời mới.
+
+::: answer-link
+[Xem lời giải](#lg-g01-s-o-e05)
+:::
+
+### G01-S-O-E06 — Đồng biến nhưng đạo hàm có thể bằng không {#g01-s-o-e06 .zo-learning-task .zo-learning-task--item}
+
+Cho $a(x)=x^7$ trên $\mathbb{R}$. Đánh giá ba câu:
+
+1. $a$ đồng biến trên $\mathbb{R}$.
+2. $a^\prime(x)>0$ với mọi $x\in\mathbb{R}$.
+3. $0$ là điểm cực trị vì $a^\prime(0)=0$.
+
+**Tiêu chí và điểm quay về:** đạt khi giữ câu 1 đúng, sửa dấu nghiêm ngặt ở câu 2 và không suy cực trị từ một nghiệm đạo hàm. Quay về điểm `CP-ON` đang hoạt động; nếu sai, học `N-DẤU-01` hoặc mở lại tuyến `G01-E06` theo nguồn lỗi.
+
+::: answer-link
+[Xem lời giải](#lg-g01-s-o-e06)
+:::
+
+### G01-S-O-E07 — Biết, chưa biết và sai {#g01-s-o-e07 .zo-learning-task .zo-learning-task--item}
+
+Cho $p$ có đạo hàm trên $\mathbb{R}$. Đạo hàm dương trên $(-\infty;-2)$, âm trên $(-2;1)$ và $(1;+\infty)$; bằng $0$ tại $-2$, $1$. Biết $p(-2)=4$.
+
+Phân loại mỗi câu là “chắc chắn đúng”, “chắc chắn sai” hoặc “chưa đủ dữ kiện”:
+
+a. Điểm cực đại của đồ thị $p$ là $(-2;4)$.
+
+b. $p(1)=0$.
+
+c. $p$ đạt cực tiểu tại $1$.
+
+d. Các dữ kiện xác định duy nhất công thức của $p$.
+
+**Tiêu chí và điểm quay về:** đạt khi không tự gán $p(1)$, không tạo cực trị tại $1$ và phân biệt dữ kiện định tính với công thức. Quay về điểm `CP-ON` đang hoạt động; nếu sai, học `N-ĐT-01` hoặc `N-BBT-01`, rồi làm một câu phân loại mới.
+
+::: answer-link
+[Xem lời giải](#lg-g01-s-o-e07)
+:::
+
+### G01-S-O-E08 — Hai bước đúng, một bước sai {#g01-s-o-e08 .zo-learning-task .zo-learning-task--item}
+
+Một bạn giải bài với $b(x)=(x-1)^3+2$ như sau:
+
+1. $b^\prime(x)=3(x-1)^2\geq0$.
+2. Vì đạo hàm chỉ bằng $0$ tại một điểm, $b$ đồng biến trên $\mathbb{R}$.
+3. Vì $b^\prime(1)=0$, $b$ đạt cực tiểu tại $1$.
+
+Hãy giữ nguyên hai bước đúng, chỉ ra bước sai và viết kết luận hoàn chỉnh.
+
+**Tiêu chí và điểm quay về:** đạt khi không xóa hai bước đúng và sửa đúng bước 3. Quay về điểm `CP-ON` đang hoạt động; nếu sai, học `N-LG-01` hoặc mở lại tuyến `G01-E08`, rồi làm một lời giải ba bước mới.
+
+::: answer-link
+[Xem lời giải](#lg-g01-s-o-e08)
+:::
+
+### G01-S-O-E09 — Tham số tại điểm ghép {#g01-s-o-e09 .zo-learning-task .zo-learning-task--item}
+
+Với $a\in\mathbb{R}$, cho
+
+$$
+g_a(x)=
+\begin{cases}
+x+2 & \text{khi } x<0,\\
+a & \text{khi } x=0,\\
+2-x & \text{khi } x>0.
+\end{cases}
+$$
+
+1. Tìm $a$ để $g_a$ liên tục tại $0$.
+2. Dùng định nghĩa cực trị để phân loại $0$ khi $a\geq2$ và khi $a<2$.
+
+**Tiêu chí và điểm quay về:** đạt khi tìm đúng $a=2$, không áp dụng máy móc định lí cho $a\ne2$ và phân loại đúng bằng so sánh lân cận. Quay về điểm `CP-ON` đang hoạt động; nếu sai, học `N-LT-01`, làm một câu tham số mới và rút ngắn lịch Ôn lại.
+
+::: answer-link
+[Xem lời giải](#lg-g01-s-o-e09)
+:::
 
 ## Lời giải và hướng dẫn chấm {#loi-giai}
 
@@ -1556,12 +2130,338 @@ Chỉ mở lời giải của câu đã tự làm. Khi đối chiếu, kiểm tr
 Lời giải và thang chấm sau đây do ZO Math biên soạn.
 ::::
 
+### Đáp án các lượt Ôn lại {#loi-giai-on-lai-moi}
+
+:::: {#lg-g01-o01 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
+G01-O01 — Lời giải
+:::
+
+Ta có $f^\prime(x)<0$ trên $(-\infty;-1)$; $f^\prime(x)>0$ trên $(-1;2)$ và $(2;+\infty)$; đạo hàm bằng $0$ tại $-1$, $2$.
+
+Vì $f$ có đạo hàm trên $\mathbb{R}$, điểm $2$ là một điểm đạo hàm bằng $0$ cô lập trong khoảng mà đạo hàm dương ở hai phía. Do đó $f$ nghịch biến trên $(-\infty;-1)$ và đồng biến trên $(-1;+\infty)$.
+
+Qua $-1$, đạo hàm đổi từ âm sang dương nên $f$ đạt cực tiểu tại $-1$. Tại $2$, đạo hàm dương ở cả hai phía nên không có cực trị.
+
+Điểm cực tiểu của hàm số là $x=-1$; giá trị cực tiểu là $f(-1)=3$; điểm cực tiểu của đồ thị là $(-1;3)$.
+
+Dữ kiện xác định tung độ của đồ thị $f$ tại $x=-1$ vì đã cho $f(-1)=3$. Chưa đủ dữ kiện xác định $f(2)$ hoặc công thức của $f$: hình chỉ cho dấu và các nghiệm của đạo hàm, không cho độ lớn của sự thay đổi từ $-1$ đến $2$. Đồ thị đạo hàm không phải đồ thị hàm số.
+
+::: answer-link
+[Xem đề bài](#g01-o01)
+:::
+::::
+
+:::: {#lg-g01-o02 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
+G01-O02 — Lời giải
+:::
+
+a. Đúng. Bảng cho thấy $r$ tăng rồi giảm qua $3$; ba đối tượng được gọi đúng.
+
+b. Sai. Hai kết luận giảm trên từng thành phần là đúng, nhưng chưa thể gộp tự động. Chẳng hạn $-1<5$ nhưng $r(-1)=0<1=r(5)$, trái với yêu cầu của một kết luận nghịch biến trên toàn tập hợp được nêu. Câu sửa: “$r$ nghịch biến trên từng khoảng $[-4;-1]$ và $[3;5]$; không nghịch biến trên hợp hai khoảng ấy vì so sánh chéo không thỏa.”
+
+c. Sai. Bảng chỉ cho tính tăng, không cho giả thiết tồn tại đạo hàm. Ngay cả khi biết thêm có đạo hàm trên $(1;3)$, chỉ có thể kết luận $r^\prime(x)\geq0$ trên khoảng. Câu sửa: “$r$ đồng biến trên $[1;3]$; bảng hiện có không đủ để khẳng định đạo hàm dương tại mọi điểm.”
+
+So sánh các giá trị trên cả hai thành phần: giá trị lớn nhất là $6$, đạt tại $x=-4$; giá trị nhỏ nhất là $0$, đạt tại $x=-1$.
+
+::: answer-link
+[Xem đề bài](#g01-o02)
+:::
+::::
+
+:::: {#lg-g01-o03 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
+G01-O03 — Lời giải
+:::
+
+Tập xác định là $\mathbb{R}$. Ta có
+
+$$
+\lim_{x\to0^-}F(x)=0=F(0)=\lim_{x\to0^+}F(x),
+$$
+
+nên $F$ liên tục tại $0$.
+
+Với $x<0$, $F^\prime(x)=-2(x+1)$. Với $x>0$, $F^\prime(x)=3x^2-3=3(x-1)(x+1)$. Đạo hàm trái tại $0$ bằng $-2$, đạo hàm phải bằng $-3$, nên $F^\prime(0)$ không tồn tại.
+
+Các mốc cần xét là $-1$, $0$, $1$. Đạo hàm dương trên $(-\infty;-1)$; âm trên $(-1;0)$ và $(0;1)$; dương trên $(1;+\infty)$. Vì $F$ liên tục tại $0$ và giảm ở cả hai phía, có thể gộp thành khoảng nghịch biến $(-1;1)$.
+
+Hàm số đồng biến trên $(-\infty;-1)$ và $(1;+\infty)$; nghịch biến trên $(-1;1)$. Tại $-1$, hàm đổi từ tăng sang giảm nên đạt cực đại; $F(-1)=1$. Tại $1$, hàm đổi từ giảm sang tăng nên đạt cực tiểu; $F(1)=-2$. Tại $0$, hàm tiếp tục giảm nên không có cực trị dù đạo hàm không tồn tại.
+
+- Điểm cực đại của hàm số: $x=-1$; giá trị cực đại: $1$; điểm cực đại của đồ thị: $(-1;1)$.
+- Điểm cực tiểu của hàm số: $x=1$; giá trị cực tiểu: $-2$; điểm cực tiểu của đồ thị: $(1;-2)$.
+
+Phần “$F$ nghịch biến trên $(-1;1)$” đúng. Phần suy ra $F^\prime(x)<0$ tại mọi điểm sai vì $F^\prime(0)$ không tồn tại. Câu sửa: “$F$ nghịch biến trên $(-1;1)$; đạo hàm âm trên $(-1;0)$ và $(0;1)$, còn $F^\prime(0)$ không tồn tại.”
+
+::: answer-link
+[Xem đề bài](#g01-o03)
+:::
+::::
+
+### Lời giải Sửa lỗi sau Kiểm tra {#loi-giai-sua-loi-sau-kiem-tra}
+
+:::: {#lg-g01-s-k-e01 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
+G01-S-K-E01 — Lời giải
+:::
+
+$p^\prime(x)=2(x+2)$, âm trên $(-\infty;-2)$ và dương trên $(-2;+\infty)$. Tuy nhiên $-2\notin D$, nên $p(-2)$ không tồn tại và $-2$ không thể là điểm cực trị. Câu sửa: “$p$ nghịch biến trên $(-\infty;-2)$, đồng biến trên $(-2;+\infty)$; không có cực trị tại $-2$ vì điểm này bị loại khỏi tập xác định.” Đồ thị có điểm hở tại $(-2;1)$.
+
+::: answer-link
+[Xem đề bài](#g01-s-k-e01)
+:::
+::::
+
+:::: {#lg-g01-s-k-e02 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
+G01-S-K-E02 — Lời giải
+:::
+
+Đạo hàm dương trên $(-\infty;-2)$, âm trên $(-2;1)$ và $(1;3)$, dương trên $(3;+\infty)$. Vì $g$ có đạo hàm trên $\mathbb{R}$ và $1$ chỉ là một điểm đạo hàm bằng $0$ trong vùng dấu âm, $g$ nghịch biến trên toàn $(-2;3)$.
+
+Qua $-2$, dấu đổi từ dương sang âm nên $g$ đạt cực đại tại $-2$. Qua $1$, dấu vẫn âm nên không có cực trị. Qua $3$, dấu đổi từ âm sang dương nên $g$ đạt cực tiểu tại $3$.
+
+Hai điểm cực trị của đồ thị là $(-2;5)$ và $(3;-1)$.
+
+::: answer-link
+[Xem đề bài](#g01-s-k-e02)
+:::
+::::
+
+:::: {#lg-g01-s-k-e03 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
+G01-S-K-E03 — Lời giải
+:::
+
+$u(0)=1$ và hai giới hạn một phía đều bằng $1$, nên $u$ liên tục tại $0$. Đạo hàm trái bằng $-2$, đạo hàm phải bằng $0$, nên $u^\prime(0)$ không tồn tại.
+
+Khi $x<0$ và đủ gần $0$, $u(x)=-2x+1>1$. Khi $x>0$, $u(x)=x^2+1>1$. Vì vậy $u(x)>u(0)$ với mọi $x\ne0$ đủ gần $0$; hàm đạt cực tiểu tại $0$, giá trị cực tiểu $1$.
+
+::: answer-link
+[Xem đề bài](#g01-s-k-e03)
+:::
+::::
+
+:::: {#lg-g01-s-k-e04 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
+G01-S-K-E04 — Lời giải
+:::
+
+Hàm số đạt cực đại tại $x=-2$; giá trị cực đại là $6$; điểm cực đại của đồ thị là $(-2;6)$. Hàm số đạt cực tiểu tại $x=1$; giá trị cực tiểu là $-3$; điểm cực tiểu của đồ thị là $(1;-3)$.
+
+Câu sửa: “Hàm số có điểm cực đại $x=-2$, giá trị cực đại $6$; có điểm cực tiểu $x=1$, giá trị cực tiểu $-3$.” Có thể bổ sung hai điểm của đồ thị nếu câu hỏi yêu cầu tọa độ.
+
+::: answer-link
+[Xem đề bài](#g01-s-k-e04)
+:::
+::::
+
+:::: {#lg-g01-s-k-e05 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
+G01-S-K-E05 — Lời giải
+:::
+
+Trên mỗi khoảng $(-\infty;0)$ và $(0;+\infty)$, hàm $x^3$ đồng biến; cộng một hằng số không đổi chiều biến thiên. Vì vậy $q$ đồng biến trên từng khoảng.
+
+Tuy nhiên $-1<1$ mà $q(-1)=4>-4=q(1)$. Cặp chéo này bác bỏ tính đồng biến trên toàn $D$ theo yêu cầu so sánh mọi cặp.
+
+::: answer-link
+[Xem đề bài](#g01-s-k-e05)
+:::
+::::
+
+:::: {#lg-g01-s-k-e06 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
+G01-S-K-E06 — Lời giải
+:::
+
+$f^\prime(x)\geq0$ trên $\mathbb{R}$; bằng $0$ chỉ tại $0$, $2$ và dương ở các điểm còn lại. Theo chú ý về hữu hạn điểm đạo hàm bằng $0$, $f$ đồng biến trên $\mathbb{R}$. Đạo hàm không đổi dấu qua $0$ hoặc $2$, nên không có cực trị tại hai điểm ấy.
+
+Câu sửa: “Nếu $f$ có đạo hàm và đồng biến trên một khoảng thì $f^\prime(x)\geq0$ trên khoảng; đạo hàm có thể bằng $0$ tại một số điểm.”
+
+::: answer-link
+[Xem đề bài](#g01-s-k-e06)
+:::
+::::
+
+:::: {#lg-g01-s-k-e07 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
+G01-S-K-E07 — Lời giải
+:::
+
+$r_1^\prime(x)=r_2^\prime(x)=3x^2-3=3(x-1)(x+1)$. Cả hai hàm đạt cực đại tại $x=-1$ và cực tiểu tại $x=1$.
+
+Với $r_1$, giá trị cực đại là $2$, giá trị cực tiểu là $-2$; hai điểm đồ thị là $(-1;2)$, $(1;-2)$. Với $r_2$, các giá trị tương ứng là $7$, $3$; hai điểm đồ thị là $(-1;7)$, $(1;3)$.
+
+Đồ thị đạo hàm cho dấu, nghiệm đạo hàm, chiều biến thiên và vị trí hoành độ của các cực trị khi đủ điều kiện. Nó không tự cho công thức của hàm, các giá trị cực trị hoặc vị trí thẳng đứng của đồ thị hàm số.
+
+::: answer-link
+[Xem đề bài](#g01-s-k-e07)
+:::
+::::
+
+:::: {#lg-g01-s-k-e08 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
+G01-S-K-E08 — Lời giải
+:::
+
+$p^\prime(x)=4x^3$. Do đó A đúng. Vì $p(x)=x^4\geq0=p(0)$, B đúng. C sai vì đạo hàm âm khi $x<0$.
+
+- “A và C” sai.
+- “B hoặc C” đúng vì B đúng.
+- “(A và B) và C” sai vì C sai.
+- “A hoặc (B và C)” đúng vì A đúng.
+
+Bạn đã nhận đúng rằng C sai, nhưng kết luận về phép “hoặc” sai. Câu sửa: “C sai, B đúng; vì có ít nhất một vế đúng nên ‘B hoặc C’ đúng.”
+
+::: answer-link
+[Xem đề bài](#g01-s-k-e08)
+:::
+::::
+
+:::: {#lg-g01-s-k-e09 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
+G01-S-K-E09 — Lời giải
+:::
+
+Với $x<0$, $h^\prime(x)=1>0$; với $x>0$, $h^\prime(x)=-1<0$. Tuy nhiên
+
+$$
+\lim_{x\to0^-}h(x)=\lim_{x\to0^+}h(x)=1\ne0=h(0),
+$$
+
+nên $h$ không liên tục tại $0$. Không được áp dụng định lí đổi dấu đạo hàm để kết luận cực đại.
+
+Với $x\ne0$ đủ gần $0$, ta có $h(x)=1-|x|>0=h(0)$. Vì vậy $h$ đạt cực tiểu tại $0$, không phải cực đại.
+
+::: answer-link
+[Xem đề bài](#g01-s-k-e09)
+:::
+::::
+
+### Lời giải Sửa lỗi sau Ôn lại {#loi-giai-sua-loi-sau-on-lai}
+
+:::: {#lg-g01-s-o-e01 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
+G01-S-O-E01 — Lời giải
+:::
+
+Đồ thị có điểm hở $(1;0)$ của nhánh $(x-1)^2$ và điểm kín $(1;2)$ vì $u(1)=2$. Với $x\ne1$ đủ gần $1$, $u(x)=(x-1)^2<2=u(1)$, nên $u$ đạt cực đại tại $1$, giá trị cực đại $2$.
+
+::: answer-link
+[Xem đề bài](#g01-s-o-e01)
+:::
+::::
+
+:::: {#lg-g01-s-o-e02 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
+G01-S-O-E02 — Lời giải
+:::
+
+Đạo hàm dương trên $(-\infty;-2)$, âm trên $(-2;1)$ và $(1;3)$, dương trên $(3;+\infty)$. Vì vậy $v$ đạt cực đại tại $-2$, không có cực trị tại $1$, đạt cực tiểu tại $3$.
+
+::: answer-link
+[Xem đề bài](#g01-s-o-e02)
+:::
+::::
+
+:::: {#lg-g01-s-o-e03 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
+G01-S-O-E03 — Lời giải
+:::
+
+$w$ liên tục tại $0$ vì hai giới hạn và $w(0)$ đều bằng $0$. Đạo hàm trái bằng $-1$, đạo hàm phải bằng $0$, nên $w^\prime(0)$ không tồn tại. Với $x\ne0$ đủ gần $0$, $w(x)>0=w(0)$; do đó $w$ đạt cực tiểu tại $0$.
+
+::: answer-link
+[Xem đề bài](#g01-s-o-e03)
+:::
+::::
+
+:::: {#lg-g01-s-o-e04 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
+G01-S-O-E04 — Lời giải
+:::
+
+Điểm cực đại của hàm số là $-1$, điểm cực tiểu là $2$; giá trị cực đại là $3$, giá trị cực tiểu là $-2$; hai điểm cực trị của đồ thị $f$ là $(-1;3)$ và $(2;-2)$. Các điểm $C(-1;0)$, $D(2;0)$ nằm trên đồ thị đạo hàm nên chỉ thể hiện $f^\prime(-1)=f^\prime(2)=0$.
+
+::: answer-link
+[Xem đề bài](#g01-s-o-e04)
+:::
+::::
+
+:::: {#lg-g01-s-o-e05 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
+G01-S-O-E05 — Lời giải
+:::
+
+Với hai điểm trong cùng thành phần, kết luận đúng vì hàm bậc ba tăng. Với cặp chéo $x_1\leq-1<1\leq x_2$, ta có $s(x_1)=x_1^3\leq-1$ và $s(x_2)=x_2^3+1\geq2$, nên $s(x_1)<s(x_2)$. Do đó yêu cầu so sánh được thỏa trên toàn $D$.
+
+::: answer-link
+[Xem đề bài](#g01-s-o-e05)
+:::
+::::
+
+:::: {#lg-g01-s-o-e06 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
+G01-S-O-E06 — Lời giải
+:::
+
+$a$ đồng biến trên $\mathbb{R}$. Ta có $a^\prime(x)=7x^6\geq0$, bằng $0$ tại $0$, nên câu 2 sai. Đạo hàm dương ở hai phía của $0$, hàm tiếp tục tăng qua mốc nên câu 3 sai.
+
+::: answer-link
+[Xem đề bài](#g01-s-o-e06)
+:::
+::::
+
+:::: {#lg-g01-s-o-e07 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
+G01-S-O-E07 — Lời giải
+:::
+
+a chắc chắn đúng vì đạo hàm đổi dương sang âm tại $-2$ và đã biết giá trị hàm. b chưa đủ dữ kiện. c chắc chắn sai vì đạo hàm âm ở hai phía của $1$. d chắc chắn sai; nhiều đạo hàm khác nhau có thể cùng dấu và nghiệm như mô tả, nên dữ kiện càng không xác định duy nhất công thức hàm.
+
+::: answer-link
+[Xem đề bài](#g01-s-o-e07)
+:::
+::::
+
+:::: {#lg-g01-s-o-e08 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
+G01-S-O-E08 — Lời giải
+:::
+
+Hai bước đầu đúng. Bước 3 sai vì đạo hàm dương ở cả hai phía của $1$; hàm tiếp tục tăng và không có cực trị tại đó. Kết luận: $b$ đồng biến trên $\mathbb{R}$ và không đạt cực trị tại $1$, dù $b^\prime(1)=0$.
+
+::: answer-link
+[Xem đề bài](#g01-s-o-e08)
+:::
+::::
+
+:::: {#lg-g01-s-o-e09 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
+G01-S-O-E09 — Lời giải
+:::
+
+Hai giới hạn một phía tại $0$ đều bằng $2$, nên hàm liên tục tại $0$ khi và chỉ khi $a=2$.
+
+Với $x\ne0$ đủ gần $0$, ta có $g_a(x)=2-|x|<2$. Nếu $a\geq2$, thì $g_a(x)<g_a(0)$ với mọi $x\ne0$ đủ gần, nên $0$ là điểm cực đại. Nếu $a<2$, chọn lân cận đủ nhỏ để $2-|x|>a$ khi $x\ne0$; khi đó $g_a(x)>g_a(0)$, nên $0$ là điểm cực tiểu.
+
+Trường hợp $a>2$ hoặc $a<2$ cho thấy hàm vẫn có thể có cực trị tại điểm gián đoạn; điều kiện liên tục là điều kiện để dùng định lí đổi dấu đã học, không phải điều kiện cần trong định nghĩa cực trị.
+
+::: answer-link
+[Xem đề bài](#g01-s-o-e09)
+:::
+::::
+
 :::::: {#loi-giai-1 .r1-details .r1-solution .zo-learning-solution}
 ::: {.r1-summary .zo-learning-summary}
 Lời giải các câu hỏi và bài tập trong bài học
 :::
 
 Chỉ đọc mục tương ứng sau khi đã thử. Đây là lời giải của các câu nhúng trong bài học, chưa phải tập lời giải cho phần luyện tập hoặc cụm kiểm tra cuối gói.
+
+::::::
 
 ### Lời giải câu hỏi khởi động {#b.1.-câu-thử-nền}
 
@@ -1653,8 +2553,6 @@ ZO BBT placeholder
 [Xem đề bài](#câu-sau-chữa-cg01)
 :::
 ::::
-
-::::::
 
 ::::: {#loi-giai-2 .r1-details .r1-solution .zo-learning-solution}
 ::: {.r1-summary .zo-learning-summary}

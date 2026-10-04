@@ -70,8 +70,34 @@ class LearningArchitectureCheckerTests(unittest.TestCase):
         g02_planned = {task["id"] for task in checker.planned_tasks(self.g02)}
         self.assertEqual(g01_planned, set(self.g01["readiness"]["expected_planned_task_ids"]))
         self.assertEqual(g02_planned, set(self.g02["readiness"]["expected_planned_task_ids"]))
-        self.assertEqual(len(g01_planned), 21)
+        self.assertEqual(len(g01_planned), 0)
         self.assertEqual(len(g02_planned), 0)
+
+    def test_r1_g01_phase3_tasks_are_current_with_real_links(self):
+        tasks = {task["id"]: task for task in self.g01["tasks"]}
+        self.assertEqual(len(checker.G01_PHASE3_TASK_IDS), 21)
+        for task_id in checker.G01_PHASE3_TASK_IDS:
+            task = tasks[task_id]
+            self.assertEqual(task["status"], "current")
+            self.assertIsInstance(task["source_anchor"], str)
+            self.assertIsInstance(task["answer_anchor"], str)
+
+    def test_r1_g01_review_remediation_returns_to_activation_checkpoint(self):
+        tasks = {task["id"]: task for task in self.g01["tasks"]}
+        expected = ["CP-ON1", "CP-ON2", "CP-ON3"]
+        for index in range(1, 10):
+            task = tasks[f"G01-S-O-E{index:02d}"]
+            self.assertEqual(task["checkpoint_ids"], expected)
+            for field in ("next_on_pass", "next_on_error"):
+                self.assertEqual(task[field], {"kind": "activation_checkpoint", "checkpoint_ids": expected})
+
+    def test_r1_g01_phase3_figures_are_real_and_referenced(self):
+        source = self.g01_path.parent / self.g01["source"]["qmd"]
+        text = source.read_text(encoding="utf-8")
+        for task_id, figure in checker.G01_PHASE3_FIGURES.items():
+            self.assertEqual(text.count(f"]({figure})"), 1, task_id)
+            for suffix in (".tex", ".pdf", ".svg"):
+                self.assertTrue((source.parent / figure).with_suffix(suffix).is_file(), task_id)
 
     def test_r1_g02_phase2_tasks_are_current_with_real_anchors(self):
         expected = {
