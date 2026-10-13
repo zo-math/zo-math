@@ -1,0 +1,108 @@
+<script>
+(() => {
+  'use strict';
+  if (!document.body.classList.contains('zo-design-04-pilot')) return;
+
+  const STORAGE_KEY = 'zo_math_web_2027_design_0_4';
+  const backgrounds = [
+    {value: 'red-1', label: 'Đỏ ZO 1', color: '#FDEDED', gray: '#F8F5F0'},
+    {value: 'red-2', label: 'Đỏ ZO 2', color: '#F8BAB9', gray: '#DFD7CA'},
+    {value: 'yellow-1', label: 'Vàng ZO 1', color: '#FFF9E9', gray: '#FBFAF8'},
+    {value: 'yellow-2', label: 'Vàng ZO 2', color: '#FFE9A9', gray: '#DFD7CA'},
+    {value: 'gray-2', label: 'Xám ZO 2', color: '#F8F5F0', gray: '#F8F5F0'},
+    {value: 'gray-3', label: 'Xám ZO 3', color: '#DFD7CA', gray: '#DFD7CA'}
+  ];
+  const byValue = new Map(backgrounds.map(item => [item.value, item]));
+  const prefs = {background: 'gray-3', grayscale: false};
+
+  try {
+    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    if (byValue.has(stored.background)) prefs.background = stored.background;
+    prefs.grayscale = Boolean(stored.grayscale);
+  } catch (_) {
+    // Storage is optional; keep the documented default when unavailable.
+  }
+
+  const persist = () => {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs)); } catch (_) {}
+  };
+
+  const panel = document.createElement('details');
+  panel.className = 'zo-design-04-settings';
+  panel.dataset.zoDesignVersion = '0.4';
+  const summary = document.createElement('summary');
+  summary.textContent = 'Tùy chỉnh hiển thị';
+  const body = document.createElement('div');
+  body.className = 'zo-design-04-settings__body';
+  const fieldset = document.createElement('fieldset');
+  const legend = document.createElement('legend');
+  legend.textContent = 'Nền trang';
+  const choices = document.createElement('div');
+  choices.className = 'zo-design-04-backgrounds';
+
+  backgrounds.forEach(item => {
+    const label = document.createElement('label');
+    label.className = 'zo-design-04-choice';
+    const input = document.createElement('input');
+    input.type = 'radio';
+    input.name = 'zo-design-04-background';
+    input.value = item.value;
+    input.setAttribute('aria-label', item.label);
+    const swatch = document.createElement('span');
+    swatch.className = 'zo-design-04-choice__swatch';
+    swatch.style.background = item.color;
+    const text = document.createElement('span');
+    text.textContent = item.label;
+    const check = document.createElement('span');
+    check.className = 'zo-design-04-choice__check';
+    check.setAttribute('aria-hidden', 'true');
+    check.textContent = ' ✓';
+    label.append(input, swatch, text, check);
+    choices.append(label);
+  });
+
+  const tools = document.createElement('div');
+  tools.className = 'zo-design-04-settings__tools';
+  const grayLabel = document.createElement('label');
+  const grayInput = document.createElement('input');
+  grayInput.type = 'checkbox';
+  grayInput.id = 'zo-design-04-grayscale';
+  grayLabel.append(grayInput, document.createTextNode('Sắc xám'));
+  tools.append(grayLabel);
+  const status = document.createElement('p');
+  status.className = 'zo-design-04-settings__status';
+  status.setAttribute('role', 'status');
+  status.setAttribute('aria-live', 'polite');
+  fieldset.append(legend, choices);
+  body.append(fieldset, tools, status);
+  panel.append(summary, body);
+
+  const apply = (announce = false) => {
+    const selected = byValue.get(prefs.background) || byValue.get('gray-3');
+    document.documentElement.classList.toggle('zo-design-04-grayscale', prefs.grayscale);
+    document.body.style.setProperty('--zo04-page-bg', prefs.grayscale ? selected.gray : selected.color);
+    choices.querySelectorAll('input').forEach(input => {
+      input.checked = input.value === selected.value;
+    });
+    grayInput.checked = prefs.grayscale;
+    status.textContent = `${announce ? 'Đã chọn' : 'Đang dùng'} nền ${selected.label}${prefs.grayscale ? ' ở chế độ Sắc xám' : ''}. Vùng đọc giữ nền trắng.`;
+  };
+
+  choices.addEventListener('change', event => {
+    if (!event.target.matches('input[type="radio"]') || !byValue.has(event.target.value)) return;
+    prefs.background = event.target.value;
+    apply(true);
+    persist();
+  });
+  grayInput.addEventListener('change', () => {
+    prefs.grayscale = grayInput.checked;
+    apply(true);
+    persist();
+  });
+
+  const root = document.querySelector('.zo-on-thi-program, .zo-on-thi-package');
+  if (!root) return;
+  root.before(panel);
+  apply(false);
+})();
+</script>

@@ -1,6 +1,15 @@
 # R1-G02 — ma trận kiến trúc nội dung đích
 
+**Phạm vi hiện hành 11/10/2026:** ma trận này lưu hợp đồng chuyển đổi tháng 9, không tự đặt kiến trúc gói FB036. Đọc [hồ sơ G02](../../../tot_nghiep_thpt/2027/_quy_trinh/goi/R1_G02.md), [danh mục 08](../../../tot_nghiep_thpt/2027/_quy_trinh/08_danh_muc_tham_quyen_dieu_hanh.md) và bảng 03. Nhật kí tách nguồn chung đủ 14 trường; ba chặng thuộc Luyện tập; mục tiêu/lõi/chuyển giao theo hồ sơ hiện hành. Các câu “đã khóa”, G01 v1.2, M01–M04, chín thẻ, nguồn HTML/bảng vector bên dưới chỉ đúng giai đoạn chuyển đổi cũ; không phục hồi chúng hoặc bỏ Nền/CP đã có. DH_016 đã áp dụng/kiểm hệ nhãn và đường học theo nguồn hiện tại; HTML mới chờ chủ trì duyệt. FB036 giữ lịch sử; PDF chưa đồng bộ.
+
 ## 1. Phạm vi và trạng thái
+
+**Chuyển tiếp ngày 08/10/2026:** phần dưới lưu hợp đồng chuyển đổi tháng 9.
+Lượt hoàn thiện DH_007 áp dụng kiến trúc 2027 ở `01_kien_truc_hoc_tap.md`,
+hồ sơ `goi/R1_G02.md` của khóa và manifest hiện hành. Cây cũ chín thẻ,
+thiếu Nền/Nhật kí/điểm kiểm soát không phải đích của lượt này. Nội dung toán
+và ID nhiệm vụ cũ được giữ; bổ sung học liệu theo yêu cầu hiện tại của chủ trì.
+Chưa nghiệm thu HTML mới hoặc đồng bộ PDF.
 
 Tài liệu này khóa kiến trúc đích cho lượt chuyển R1-G02 từ bản thảo HTML sang gói QMD canonical. Đây là tài liệu điều khiển nội bộ, không phải nội dung dành cho người học và không được render hoặc xuất bản.
 

@@ -1,0 +1,8 @@
+\documentclass[tikz,border=3pt,10pt]{standalone}
+\usepackage{fontspec,unicode-math,amsmath,pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{backgrounds,calc,matrix,arrows.meta,patterns}
+\input{zo_graph_v02.tex}
+\begin{document}\zoGraphVTwoLayers
+\begin{tikzpicture}[zo graph v02 field]\begin{axis}[zo graph v02 axis,width=10cm,height=6.4cm,xmin=-1.8,xmax=1.8,ymin=-5,ymax=5,xlabel={$x$},ylabel={$y$},xlabel style={anchor=west},ylabel style={anchor=south},legend pos=north west]\addplot[zo graph v02 curve solid,domain=-1.7:1.7,samples=160]{x^3};\addplot[zo graph v02 tangent] coordinates {(-1,0) (1,0)};\addplot[zo graph v02 point] coordinates{(0,0)};\node[zo graph v02 protected label] at (axis cs:-1.05,3.3){$f(x)=x^3$};\end{axis}\end{tikzpicture}
+\end{document}

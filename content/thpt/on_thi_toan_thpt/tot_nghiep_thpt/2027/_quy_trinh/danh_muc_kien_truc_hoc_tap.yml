@@ -1,0 +1,155 @@
+schema_version: 1
+architecture_version: "0.2"
+catalog_id: on-thi-learning-architecture-v1
+
+valid_task_roles: [H, L, S-L, S-K, S-O, K, O, P, N]
+valid_task_statuses: [current, planned]
+
+transition_path_kinds:
+  - stage
+  - checkpoint
+  - remediation
+  - foundation
+  - maintenance
+  - complete
+  - transfer
+
+no_reuse_policy:
+  id: single-evidence-role-v1
+  protected_roles: [K, O]
+  prior_exposure_roles: [H, L, S-L, S-K, S-O]
+  rule: >-
+    Mỗi content_key chỉ được dùng cho một nhiệm vụ bằng chứng. Nhiệm vụ K hoặc O
+    không được trùng content_key với nhiệm vụ đã lộ trong H, L hoặc các tầng S.
+
+foundation_catalog:
+  id: on-thi-foundation-v1
+  units:
+    - id: N-TXĐ-01
+      label: Đọc tập xác định, tập đang xét và quan hệ thuộc
+      evidence_gap: Dùng điểm ngoài tập; đồng nhất công thức với hàm số; nhầm D với K.
+      retest_requirement: Xác định D, K và kiểm tra ba điểm có được dùng hay không.
+    - id: N-ĐH-01
+      label: Tính đạo hàm đa thức và hàm hữu tỉ đơn giản
+      evidence_gap: Không thể bắt đầu xét dấu vì tính sai đạo hàm.
+      retest_requirement: Tính đạo hàm một hàm mới và kiểm tra bằng khai triển hoặc thế số.
+    - id: N-ĐH-02
+      label: Đạo hàm lượng giác và số đo radian
+      evidence_gap: Không xử lí được sin x, cos x ở nhánh chuyển giao.
+      retest_requirement: Tính đạo hàm và xét dấu một biểu thức lượng giác mới trên đoạn hẹp.
+    - id: N-ĐH-03
+      label: Đạo hàm hàm mũ và lôgarit
+      evidence_gap: Không xử lí được e^x, ln x ở nhánh chuyển giao.
+      retest_requirement: Tính đạo hàm, ghi tập xác định và tìm nghiệm đạo hàm của hai hàm mới.
+    - id: N-DẤU-01
+      label: Xét dấu tích, thương và lũy thừa chẵn
+      evidence_gap: Có đạo hàm đúng nhưng bảng dấu sai.
+      retest_requirement: Lập bảng dấu một biểu thức mới và giải thích mốc không đổi dấu.
+    - id: N-BBT-01
+      label: Đọc và dựng bảng biến thiên
+      evidence_gap: Nhầm hàng x, f'(x), f(x) hoặc sai mũi tên.
+      retest_requirement: Hoàn thành một bảng thiếu từ dữ kiện ngắn.
+    - id: N-ĐT-01
+      label: Đọc đồ thị f, f' và điểm kín, điểm hở
+      evidence_gap: Lấy tung độ trên đồ thị đạo hàm làm giá trị hàm hoặc dùng điểm hở như điểm đạt.
+      retest_requirement: Đọc nhãn hai hình mới và xác định dữ kiện được phép suy ra.
+    - id: N-LT-01
+      label: Liên tục, đạo hàm một phía và điểm ghép
+      evidence_gap: Dùng định lí đổi dấu qua điểm chưa biết liên tục hoặc bỏ điểm không có đạo hàm.
+      retest_requirement: Kiểm tra liên tục và đạo hàm tại điểm ghép của hàm từng đoạn mới.
+    - id: N-LG-01
+      label: Mệnh đề và, hoặc, điều kiện đủ, cần và phản ví dụ
+      evidence_gap: Đánh giá đúng sai theo trực giác hoặc bỏ vế đúng khi sửa.
+      retest_requirement: Đánh giá bốn mệnh đề ngắn và sửa câu sai mà giữ phần đúng.
+    - id: N-GH-01
+      label: Cận, giới hạn và sự đạt được
+      evidence_gap: Đồng nhất cận với giá trị lớn nhất hoặc nhỏ nhất.
+      retest_requirement: Cho một hàm trên khoảng hở, xác định cận và kiểm tra có điểm đạt hay không.
+    - id: N-MH-01
+      label: Doanh thu, tổng chi phí, chi phí bình quân, lợi nhuận và đơn vị
+      evidence_gap: Lập sai hàm mục tiêu hoặc bỏ đơn vị.
+      retest_requirement: Lập hàm lợi nhuận từ dữ kiện mới, chưa cần tối ưu.
+    - id: N-NGUYÊN-01
+      label: Tối ưu khi biến nhận giá trị nguyên
+      evidence_gap: Làm tròn nghiệm thực hoặc giữ nghiệm không được phép.
+      retest_requirement: So sánh các ứng viên nguyên quanh điểm tối ưu của hàm phụ.
+
+journal_required_fields:
+  - timestamp
+  - package_objective
+  - detection_source
+  - initial_work
+  - initial_support_level
+  - observed_evidence
+  - classification
+  - error_or_foundation_id
+  - action
+  - new_remediation_task
+  - post_remediation_status
+  - review_schedule
+  - delayed_result
+  - next_decision
+
+
+# QD_025: từ vựng dùng chung cho toàn bộ gói chương trình 2027, kế thừa QD_023.
+# Không đổi schema_version/architecture_version của manifest chưa di trú.
+label_contract:
+  version: 1
+  decision: QD_025
+  approved_extension: G01_editorial_2026_10_10
+  scope: all_program_packages_2027
+  terms:
+    area.start: {"system":"architecture","name":"Bắt đầu","level":"orientation","parent":null,"scope":"Định hướng gói; không phải chặng làm bài.","aliases":[]}
+    area.lesson: {"system":"architecture","name":"Bài học","level":"main","parent":null,"scope":"Lời giảng theo mạch toán học; không luân phiên bắt buộc với Luyện tập.","aliases":[]}
+    area.practice: {"system":"architecture","name":"Luyện tập","level":"main","parent":null,"scope":"Tự làm theo chặng, đọc bằng chứng tại Điểm dừng.","aliases":[]}
+    area.test: {"system":"architecture","name":"Kiểm tra","level":"main","parent":null,"scope":"Tạo bài làm tự lực; không dùng hỗ trợ khi lượt đang diễn ra.","aliases":[]}
+    area.review: {"system":"architecture","name":"Ôn lại","level":"main","parent":null,"scope":"Nhiệm vụ dành riêng sau khoảng trễ thực tế.","aliases":[]}
+    area.foundation: {"system":"architecture","name":"Ôn nền","level":"support","parent":null,"scope":"Tài nguyên tiên quyết độc lập; không thuộc Bài học/Khởi động.","aliases":[]}
+    area.remediation: {"system":"architecture","name":"Sửa lỗi","level":"support","parent":null,"scope":"Sửa lập luận và xác nhận theo nơi phát hiện; giữ kết quả ban đầu.","aliases":[]}
+    area.journal: {"system":"architecture","name":"Nhật kí","level":"support","parent":null,"scope":"Một nguồn 14 trường, ghi quyết định hoặc nơi tiếp tục.","aliases":[]}
+    area.solutions: {"system":"architecture","name":"Lời giải","level":"support","parent":null,"scope":"Đích đối chiếu nhiệm vụ; không sao chép ví dụ đã giải.","aliases":[]}
+    area.downloads: {"system":"architecture","name":"Tải PDF","level":"utility","parent":null,"scope":"Danh sách đầu ra; số trang không chứng minh nội dung đã đồng bộ.","aliases":[]}
+    area.sources: {"system":"architecture","name":"Nguồn","level":"utility","parent":null,"scope":"Xuất xứ/tài liệu tham khảo; không là hoạt động Ôn nguồn.","aliases":[]}
+    view.full: {"system":"architecture","name":"Toàn văn","level":"view","parent":null,"scope":"Chế độ xem cùng cây nội dung; không có owner nội dung thứ hai.","aliases":[]}
+    group.study_guide: {"system":"architecture","name":"Cách học","level":"group","parent":"area.start","scope":"Hướng dẫn toàn gói, không tự tạo view cấp gốc.","aliases":[]}
+    group.warmup: {"system":"architecture","name":"Khởi động","level":"group","parent":"area.lesson","scope":"Nhóm nhiệm vụ đầu Bài học; không sở hữu Ôn nền.","aliases":[]}
+    group.knowledge: {"system":"architecture","name":"Mục kiến thức","level":"group","parent":"area.lesson","scope":"Nhóm toán có tiêu đề riêng; tên này chỉ dùng phân loại, không ép hiện lên trang.","aliases":[]}
+    group.stage: {"system":"architecture","name":"Chặng","level":"group","parent":"area.practice","scope":"Tổ chức Luyện tập; không làm dãy số nhiệm vụ bắt đầu lại.","aliases":[]}
+    group.round: {"system":"architecture","name":"Lượt","level":"group","parent":"area.review","scope":"Tổ chức Ôn lại theo lịch; không làm dãy số nhiệm vụ bắt đầu lại.","aliases":[]}
+    group.after_practice: {"system":"architecture","name":"Sau Luyện tập","level":"group","parent":"area.remediation","scope":"Sửa lỗi có nguồn phát hiện ở Luyện tập.","aliases":[]}
+    group.after_test: {"system":"architecture","name":"Sau Kiểm tra","level":"group","parent":"area.remediation","scope":"Sửa lỗi chỉ sau lượt Kiểm tra đã kết thúc.","aliases":[]}
+    group.after_review: {"system":"architecture","name":"Sau Ôn lại","level":"group","parent":"area.remediation","scope":"Sửa lỗi theo đúng lượt ôn gọi và nơi về.","aliases":[]}
+    point.checkpoint: {"system":"architecture","name":"Điểm dừng","level":"point","parent":null,"scope":"Tiêu chí, bằng chứng và quyết định cục bộ; không là khu vực cấp gốc.","aliases":[]}
+    type.explanation: {"system":"content_type","name":"Giải thích","scope":"Làm rõ ý nghĩa, quan hệ hoặc lập luận.","exclude":"Không cấp đơn vị riêng cho mọi đoạn văn.","aliases":[]}
+    type.guidance: {"system":"content_type","name":"Hướng dẫn","scope":"Cách sử dụng hoặc hành động tiếp theo.","exclude":"Không đồng nghĩa đề toán hay lời giải.","aliases":[]}
+    type.definition: {"system":"content_type","name":"Định nghĩa","scope":"Xác lập nghĩa khái niệm với điều kiện/phạm vi.","exclude":"Nhắc lại hoặc dẫn chiếu không phải định nghĩa mới.","aliases":[]}
+    type.theorem: {"system":"content_type","name":"Định lí","scope":"Kết quả có giả thiết và kết luận.","exclude":"Không tự nâng nhận xét thành định lí.","aliases":[]}
+    type.method: {"system":"content_type","name":"Phương pháp","scope":"Cách giải/quy trình có điều kiện áp dụng.","exclude":"Không phải mọi danh sách đánh số.","aliases":[]}
+    type.example: {"system":"content_type","name":"Ví dụ","scope":"Tình huống có phần làm mẫu để minh họa.","exclude":"Không tính là nhiệm vụ độc lập; không tách lời làm mẫu thành đáp án mới.","aliases":[]}
+    type.task: {"system":"content_type","name":"Nhiệm vụ","scope":"Yêu cầu tự giải quyết để tạo bài làm/câu trả lời.","exclude":"Giữ chức năng, mục tiêu, độ lộ; nhiều ý vẫn một đề.","aliases":[]}
+    type.hint: {"system":"content_type","name":"Gợi ý","scope":"Trợ giúp một phần cho một nhiệm vụ xác định.","exclude":"Không che đáp án đầy đủ dưới tên Gợi ý.","aliases":[]}
+    type.solution: {"system":"content_type","name":"Lời giải","scope":"Đáp án/lập luận/hướng dẫn chấm của nhiệm vụ xác định.","exclude":"Không tăng số nhiệm vụ; không sao chép đáp án.","aliases":[]}
+    type.checkpoint: {"system":"content_type","name":"Điểm dừng","scope":"Đọc bằng chứng và quyết định tiếp tục/hỗ trợ.","exclude":"Không đồng nhất với câu tự kiểm tra.","aliases":[]}
+    type.source: {"system":"content_type","name":"Nguồn","scope":"Xuất xứ và dữ kiện tham khảo.","exclude":"Không đồng nghĩa hoạt động Ôn nguồn.","aliases":[]}
+    function.warmup: {"system":"function","name":"Khởi động","roles":["H"],"scope":"Khảo sát hẹp ở đầu Bài học; không chứng nhận cả gói.","aliases":[]}
+    function.self_check: {"system":"function","name":"Tự kiểm tra","roles":["H"],"scope":"Tự làm trong Bài học; phân biệt câu có đáp án ngay với bằng chứng độc lập.","aliases":[]}
+    function.guided_thinking: {"system":"function","name":"Gợi mở","roles":["H"],"scope":"Thử suy nghĩ trước lời giải thích trong Bài học; một dãy số riêng. Lời giải thích tiếp theo là hướng dẫn, không tạo đáp án trùng hoặc bằng chứng độc lập mới.","aliases":[]}
+    function.practice: {"system":"function","name":"Luyện tập","roles":["L"],"scope":"Một dãy số xuyên suốt mọi chặng.","aliases":[]}
+    function.test: {"system":"function","name":"Kiểm tra","roles":["K"],"scope":"Tự lực hoàn toàn khi đang làm.","aliases":[]}
+    function.review: {"system":"function","name":"Ôn lại","roles":["O"],"scope":"Một dãy theo nhóm, giữ các lượt và lịch.","aliases":[]}
+    function.foundation_confirmation: {"system":"function","name":"Xác nhận nền","roles":["N"],"scope":"Xác nhận tiên quyết hẹp, thuộc tài nguyên Nền.","aliases":[]}
+    function.remediation: {"system":"function","name":"Sửa lỗi","roles":["S-L","S-K","S-O"],"scope":"Một nhóm chức năng; giữ nơi phát hiện/độ lộ khác nhau.","aliases":[]}
+    function.confirmation: {"system":"function","name":"Xác nhận","roles":["L","H","N","S-L","S-K","S-O"],"scope":"Nhiệm vụ con có bằng chứng riêng; không tự tăng số bài chính.","aliases":[]}
+    function.transfer: {"system":"function","name":"Chuyển giao","roles":["P"],"scope":"Áp dụng phương pháp sang họ hàm hoặc bối cảnh mới; chỉ khi có nhánh thật và đủ tiên quyết, không là chặng bắt buộc.","aliases":[]}
+    function.integration: {"system":"function","name":"Phối hợp","roles":["P"],"scope":"Kết nối kiến thức giữa các gói trong một tình huống; không đồng nghĩa chuyển giao phương pháp sang họ hàm mới.","aliases":[]}
+  policy:
+    one_structural_owner: true
+    numbering_scope: whole_functional_group
+    repeated_visible_label: omit
+    canonical_id_on_rename: preserve
+    count_basis: canonical_unit_not_region
+    shared_unit_numbering: package_binding_only
+    empty_group: forbidden
+    unknown_term: reject
+    operational_status: contract_with_package_application_states
+

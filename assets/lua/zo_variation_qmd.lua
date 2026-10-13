@@ -44,7 +44,7 @@ function M.new(options)
     end
     if FORMAT:match('html') then
       local output = {'<figure class="zo-variation-asset" data-bbt="'..esc(id)..'">',
-        '<img class="zo-variation-image" src="'..options.asset_dir..'/'..id:lower()..'.svg" alt="'..esc(title)..' — '..esc(id)..'">',
+        '<img class="zo-variation-image" src="'..options.asset_dir..'/'..id:lower()..'.svg" alt="'..esc(title)..'">',
         '<figcaption class="zo-variation-caption">'..esc(title)..'</figcaption>',
         '<div class="visually-hidden"><table class="variation" data-bbt="'..esc(id)..'"><caption>'..esc(title)..'</caption><thead>'}
       for i, row in ipairs(rows) do

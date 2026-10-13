@@ -1,16 +1,78 @@
 profile_version: 1
+table_design_audit:
+  decision: QD_030
+  work: DH_023
+  binding: _design/web_2027_mau_dung_chung/profiles/course-tables.json
+  report: _audit/zo_course_tables_2026-10-11/qa.json
+  html: _audit/zo_course_tables_2026-10-11/html-current/g01-reading.html
+  status: source_applied_HTML_QA_pending_owner_review
+  pdf_synchronized: false
+labeling_audit:
+  decision: QD_025
+  date: "2026-10-10"
+  status: source_applied_pending_html_acceptance
+  application: _quy_trinh/ap_dung_he_nhan.json
+  source_applied: true
+  package_specific_proposals: applied_from_user_edited_draft
+  evidence: _audit/r1_g01_ap_dung_ban_chot_2026-10-10/labels-current/ap_dung_he_nhan.json
+assessment_policy_audit:
+  decision: QD_024
+  date: "2026-10-10"
+  scope: all_program_packages_with_test
+  status: source_applied_checked_pending_owner_review
+  source_applied: true
+  open_findings: []
+  evidence: _audit/r1_g01_ap_dung_ban_chot_2026-10-10/qa-bound-current.json
 package:
   id: R1-G01
   candidate_version: "1.3"
   source: index.qmd
-  authority: "index.qmd canonical; nội dung và kỹ thuật đã hoàn tất"
+  authority: "index.qmd canonical cho nội dung; 01/QD_033 giữ đường học hiện hành cùng phần kế thừa QD_021 chưa bị thay; QD_024/025/028 giữ các chủ đề tương ứng; QD_029 ký pháp/số mục; 03 sở hữu trạng thái và kiểm hiện hành; audit QD_021, docs và receipt giữ lịch sử, không chứng nhận nguồn/HTML đã đạt QD_033"
 workflow:
-  production: accepted
+  production: in_production
   publication: pending
-  user_confirmed: true
+  user_confirmed: false
 acceptance:
   phase3: technical_candidate
   phase4_visual: recorded_in_audit
   design_basis: approved_matrix_v0_2
-  design_implementation: accepted
-  final: accepted
+  design_implementation: design_preserved_source_applied_QD025
+  final: pending_owner_html_review
+historical_acceptance:
+  milestone: FB033
+  receipt: giao_dien/web_2027_accepted.json
+  status: accepted_historical_output_not_current_refinement
+historical_governance_audit:
+  decision: QD_021
+  date: "2026-10-10"
+  source_dom_findings: 21
+  findings_status: RD01_RD06_and_KT_G01_01_source_fixed_checked_pending_owner
+  historical_QA_decision: QD_020
+  evidence_status: current_source_and_html_checked
+  situation_audit: passed
+  situation_scope: source_targets_wording_and_representative_runtime_not_math_peer_review
+  full_mathematical_runtime_review: not_performed
+  evidence: _audit/r1_g01_ap_dung_ban_chot_2026-10-10/qa-bound-current.json
+  historical_findings: _audit/r1_g01_ra_noi_dung_va_duong_hoc_2026-10-10.md
+  pdf_synchronized: false
+  docs_promoted: false
+
+governance_audit:
+  decision: QD_021
+  refinement_decision: QD_028
+  date: "2026-10-11"
+  work: DH_021
+  evidence: _audit/zo_pair_report_2026-10-11/qa.json
+  evidence_status: scoped_current_checks_not_owner_acceptance
+  situation_audit: passed
+  situation_scope: DH01_DH14_source_targets_wording_and_representative_runtime
+  mathematical_scope: changed_units_and_evidence_routes_not_full_independent_peer_review
+  pdf_synchronized: false
+  docs_promoted: false
+pair_refinement:
+  work: DH_026
+  decision: QD_031
+  report: _audit/zo_pair_backlog_2026-10-11/README.md
+  state: source_applied_checked_pending_owner_html_review
+  acceptance: pending_owner_html_review
+  pdf: stale_not_synchronized

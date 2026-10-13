@@ -1,5 +1,17 @@
 # D0 — đầu mối chuyển đổi canonical
 
+## Giao diện hiện hành — DH_018 / QD_027, 11/10/2026
+
+DH_025 ngày 11/10/2026 bổ sung đúng hai cặp dấu ngoặc `\left…\right` trong QMD theo quy chuẩn LaTeX chung. `cong_cu/kiem_chung_da_duyet.py` đảo đúng hai delta này trong bộ nhớ khi so toàn chuỗi với bản duyệt lịch sử; không sửa receipt/hash hoặc bỏ qua thay đổi toán khác. HTML mới chờ chủ trì xem, không tự kế thừa nghiệm thu lịch sử; trạng thái/bằng chứng ở bảng 03.
+
+Đã nối kit web 2027 vào nguồn/đường dựng, giữ nội dung đã duyệt và khảo sát
+tự nguyện. [Nguồn/lệnh/ranh giới](../giao_dien/README_web_2027.md). HTML mới
+chờ chủ trì xem; nghiệm thu 2026-10-03 chỉ chứng nhận bản lịch sử. Trạng thái
+và bước tiếp ở 03. Các mục 6B–6G bên dưới là lịch sử, không phục hồi generator
+hay cổng PDF cũ.
+
+Điểm vào khóa: [README 2027](../../../tot_nghiep_thpt/2027/_quy_trinh/README.md), [danh mục thẩm quyền 08](../../../tot_nghiep_thpt/2027/_quy_trinh/08_danh_muc_tham_quyen_dieu_hanh.md). D0 là HTML-only đã nghiệm thu, tự nguyện, không cổng bắt buộc vào học. Trạng thái phát hành và công việc ở 03; không tự chạy lại generator 6B hoặc dựng PDF nội dung từ hợp đồng lịch sử. Lượt QD_019 chỉ đồng bộ tài liệu, không kiểm live hoặc nghiệm thu mới.
+
 ## Quyết định hiện hành — tích hợp nội dung đã duyệt ngày 2026-10-02
 
 ### Điều chỉnh sau góp ý HTML

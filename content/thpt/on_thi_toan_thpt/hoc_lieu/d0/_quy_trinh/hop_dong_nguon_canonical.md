@@ -1,5 +1,13 @@
 # D0 — hợp đồng nguồn canonical cho chuyển đổi
 
+## Bổ sung DH_018 / QD_027 — 11/10/2026
+
+Nguồn nội dung/receipt bên dưới không thay. Opt-in `zo-web-2027-d0` dựng qua
+adapter/kit chung và map `giao_dien/web_2027_layout.json`. Chỉ đổi vùng đọc,
+shell/điều hướng, căn trái header bảng và vùng cuộn hình; không viết lại nội
+dung/ép R1. HTML mới chờ chủ trì duyệt, không kế thừa nghiệm thu cũ. D0 vẫn
+HTML-only; không sửa hash receipt để vượt cổng.
+
 ## Hợp đồng hiện hành sau duyệt nội dung 2026-10-02
 
 Yêu cầu mới nhất của người dùng thay thế các ranh giới công khai và luồng sử
@@ -12,7 +20,7 @@ tài sản tương đương đã duyệt. Không chạy script của tài liệu
 Ngân hàng v1.0, 24 câu thử lại và hồ sơ người hướng dẫn vẫn được bảo toàn riêng,
 không chiếu vào HTML hiện hành. Kiểm định toàn chuỗi dùng bản nội dung mới được
 duyệt, không dùng hướng dẫn 6B cũ; baseline lịch sử vẫn kiểm hash và toán 48/48.
-PDF, nghiệm thu HTML và xuất bản là các cổng riêng còn chờ. Phần dưới chỉ ghi
+D0 đã nghiệm thu HTML và được chốt HTML-only ngày 2026-10-03; không có cổng PDF nội dung cần thực hiện. Xuất bản là nhiệm vụ riêng, trạng thái ở bảng 03 của khóa 2027. Phần dưới chỉ ghi
 hợp đồng lịch sử và provenance; mọi điểm xung đột nhường quyền cho quyết định này.
 
 ## 1. Mục đích

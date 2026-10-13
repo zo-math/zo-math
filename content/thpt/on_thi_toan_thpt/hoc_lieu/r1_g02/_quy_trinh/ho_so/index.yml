@@ -1,17 +1,84 @@
 profile_version: 1
+table_design_audit:
+  decision: QD_030
+  work: DH_023
+  binding: _design/web_2027_mau_dung_chung/profiles/course-tables.json
+  report: _audit/zo_course_tables_2026-10-11/qa.json
+  html: _audit/zo_course_tables_2026-10-11/html-current/g02-reading.html
+  status: source_applied_HTML_QA_pending_owner_review
+  pdf_synchronized: false
+presentation_sync:
+  work: DH_019
+  reference: R1-G01_current_DH_015
+  implementation: canonical_opt_in_isolated_build
+  html: _audit/r1_g02_dong_bo_lai_g01_2026-10-11/html-current/g02-reading.html
+  report: _audit/r1_g02_dong_bo_lai_g01_2026-10-11/qa-verified/qa.json
+  parity_report: _audit/r1_g02_dong_bo_lai_g01_2026-10-11/pair-verified/pair.json
+  acceptance: pending_owner_html_review
+  pdf: stale_not_synchronized
+labeling_audit:
+  decision: QD_025
+  date: "2026-10-11"
+  status: source_applied_pending_html_acceptance
+  source_applied: true
+assessment_policy_audit:
+  decision: QD_024
+  date: "2026-10-11"
+  scope: all_program_packages_with_test
+  status: source_applied_checked_pending_owner_review
+  source_applied: true
+  open_findings: []
 package:
   id: R1-G02
   candidate_version: "0.2"
   source: index.qmd
-  authority: "index.qmd canonical; nội dung, HTML và hệ PDF đã hoàn tất nghiệm thu"
+  authority: "index.qmd canonical; đang hoàn thiện kiến trúc 2027; nghiệm thu PDF 2026-09-30 là lịch sử, không chứng nhận nguồn mới"
 workflow:
-  production: accepted
+  production: in_production
   publication: pending
-  user_confirmed: true
+  user_confirmed: false
 acceptance:
+  current_source: source_applied_checked_pending_owner_review
+  current_html: pending_owner_html_review
+  phase3: technical_candidate
+  phase4_visual: recorded_in_audit
+  design_basis: r1_g01_baseline
+  design_implementation: design_basis_preserved_checked_pending_owner_html_review
+  pdf_canonical: stale_not_synchronized_with_current_source
+  final: pending_owner_html_review
+historical_acceptance:
+  scope: source_and_outputs_before_DH007
   phase3: accepted
   phase4_visual: accepted
-  design_basis: r1_g01_baseline
   design_implementation: accepted
   pdf_canonical: accepted_2026_09_30
-  final: accepted
+historical_governance_audit:
+  decision: QD_021
+  date: "2026-10-11"
+  full_content_learning_path_audit: scoped_source_targets_wording_and_representative_runtime_checked
+  situation_audit: passed_DH01_DH14_source_targets_wording_and_representative_runtime
+  evidence_status: current_scoped_checks_not_owner_acceptance
+  evidence: _audit/r1_g02_dong_bo_lai_g01_2026-10-11/qa-verified/qa.json
+  semantic_binding: giao_dien/he_nhan.json
+  html: _audit/r1_g02_dong_bo_lai_g01_2026-10-11/html-current/g02-reading.html
+  limits: not_independent_full_math_peer_review_no_pdf_promotion_or_publication
+
+governance_audit:
+  decision: QD_021
+  refinement_decision: QD_028
+  date: "2026-10-11"
+  work: DH_021
+  evidence: _audit/zo_pair_report_2026-10-11/qa.json
+  evidence_status: scoped_current_checks_not_owner_acceptance
+  situation_audit: passed
+  situation_scope: DH01_DH14_source_targets_wording_and_representative_runtime
+  mathematical_scope: changed_units_and_evidence_routes_not_full_independent_peer_review
+  pdf_synchronized: false
+  docs_promoted: false
+pair_refinement:
+  work: DH_026
+  decision: QD_031
+  report: _audit/zo_pair_backlog_2026-10-11/README.md
+  state: source_applied_checked_pending_owner_html_review
+  acceptance: pending_owner_html_review
+  pdf: stale_not_synchronized

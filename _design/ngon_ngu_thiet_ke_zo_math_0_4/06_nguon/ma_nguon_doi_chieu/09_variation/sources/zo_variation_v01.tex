@@ -1,0 +1,37 @@
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{backgrounds,calc,matrix}
+\input{zo_graph_v02.tex}
+% The variation-table frame deliberately aliases the graph tokens instead of
+% maintaining visually similar values in a second place.
+\colorlet{zoVarBackground}{zoGraphVTwoPlotBackground}
+\colorlet{zoVarText}{zoGraphVTwoText}
+\colorlet{zoVarRule}{zoGraphVTwoPlotBorder}
+\colorlet{zoVarAccent}{zoGraphVTwoMain}
+\newcommand{\zoVarCell}[1]{\strut\hspace{3pt}#1\hspace{3pt}}
+\newcommand{\zoVarInterval}[1]{\textcolor{zoVarAccent}{\zoVarCell{#1}}}
+\tikzset{
+  zo variation matrix/.style={
+    matrix of nodes,
+    inner sep=0,
+    nodes in empty cells,
+    row sep=0,
+    column sep=0,
+    nodes={
+      anchor=center,
+      inner xsep=4pt,
+      inner ysep=4pt,
+      minimum height=8.5mm,
+      text=zoVarText
+    }
+  },
+  zo variation rule/.style={draw=zoGraphVTwoPlotBorder,line width=0.45pt},
+  zo variation frame/.style={
+    draw=zoGraphVTwoPlotBorder,
+    line width=0.45pt,
+    rounded corners=2mm
+  }
+}

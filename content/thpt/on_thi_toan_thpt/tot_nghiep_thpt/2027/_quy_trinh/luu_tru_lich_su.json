@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "decision": "QD_034",
+  "updated": "2026-10-13",
+  "role": "Chỉ mục truy nguyên lưu trữ; không là cấu hình build, chuẩn học tập hay bảng công việc thứ hai.",
+  "status": "archived_and_retired",
+  "repo_removed_files": 33805,
+  "repo_removed_bytes": 5876405502,
+  "learning_route_authority": "QD_033",
+  "archives": {
+    "history": {
+      "root": "E:/zo_math_ca_nhan/legacy_backup_archive/ZO_MATH_AUDIT_HISTORY_20261012",
+      "manifest": "manifest.json",
+      "manifest_sha256": "7b79503196dbe540d17358b4e2174dc58b918c390692ce0b8531a97ba7e435f3",
+      "restore": "RESTORE.txt",
+      "layout": "repo_relative_paths"
+    },
+    "retirement": {
+      "root": "E:/zo_math_ca_nhan/legacy_backup_archive/ZO_MATH_AUDIT_RETIREMENT_20261013",
+      "manifest": "manifest.json",
+      "manifest_sha256": "a4934b6e00788b9dc7f6d4ba252831c48609826c9a4598864faf8070101ccfb9",
+      "restore": "RESTORE.txt",
+      "layout": "repo_relative_paths"
+    },
+    "final": {
+      "root": "E:/zo_math_ca_nhan/legacy_backup_archive/ZO_MATH_FINAL_CLEANUP_20261013",
+      "manifest": "manifest.json",
+      "manifest_sha256": "36bb23ecb1bc0c849d2b90dab27f4873adc99b87056da9b05a46c34a000f5942",
+      "restore": "operation-tools/RESTORE.md",
+      "layout": "payload/repo_relative_paths",
+      "cache_manifest": "cache-manifest.json",
+      "cache_manifest_sha256": "e69018a2ab888a4e1a779c43fa822849c9c4b52c9a617a7437d5dae75a0e9a11",
+      "role": "Lịch sử không được bảo vệ và hai cache gốc đã lưu/kiểm hash ở lượt trước; bảy cache của lượt tiếp nối nằm trong kho seven_cache riêng."
+    },
+    "seven_cache": {
+      "root": "E:/zo_math_ca_nhan/legacy_backup_archive/DH035_7_CACHE",
+      "manifest": "manifest.json",
+      "manifest_sha256": "12d9655d6c6bfe06e2b943ef6a037688b5178f727e570b18f6d9487771e7e4f1",
+      "restore": "RESTORE.md",
+      "layout": "payload/repo_relative_paths",
+      "role": "Đúng bảy cache trong receipt DH_035 trước; đã đọc/sao lưu/kiểm SHA-256/gỡ bằng quyền thường, không nâng quyền hoặc đổi ACL."
+    },
+    "residual": {
+      "root": "E:/zo_math_ca_nhan/legacy_backup_archive/ZO_MATH_RESIDUAL_CLEANUP_20261013",
+      "manifest": "manifest.json",
+      "manifest_sha256": "43b0cfeeff17276a93fe5f95c2d96fd9d8830c2ec8519f88c7ceac48bbab292f",
+      "restore": "RESTORE.md",
+      "layout": "payload/repo_relative_paths",
+      "role": "Các cây bản sao/đầu ra thử/hồ sơ trình duyệt cũ đã kiểm SHA-256; không là nguồn build hay thẩm quyền điều hành."
+    }
+  },
+  "path_resolution": "layout repo_relative_paths: archive.root + '/' + entry.path; layout payload/repo_relative_paths: archive.root + '/payload/' + entry.path. SHA-256 từng tệp và danh sách thư mục rỗng tra manifest đã khóa hash tương ứng.",
+  "trees": [
+    {"path": "_audit/zo_g01_figure_integration_2026-10-08/mirror", "archive": "history", "role": "historical_render_mirror", "files": 11672, "bytes": 1512339731},
+    {"path": "_audit/zo_g01_source_sync_2026-10-08/mirror", "archive": "history", "role": "historical_render_mirror", "files": 12090, "bytes": 1508324237},
+    {"path": "_audit/zo_g01_downloads_2026-10-08/mirror", "archive": "history", "role": "historical_render_mirror", "files": 2068, "bytes": 430176336},
+    {"path": "_audit/r1_design_mirror", "archive": "history", "role": "historical_design_mirror", "files": 1810, "bytes": 762729951},
+    {"path": "_audit/r1_g01_html_verified", "archive": "history", "role": "historical_verified_mirror", "files": 1808, "bytes": 762729765},
+    {"path": "_audit/zo_course_navigation_2026-10-12/final", "archive": "history", "role": "historical_raw_render", "files": 2174, "bytes": 437114397},
+    {"path": "_audit/zo_home_countdown_2026-10-12/render-verified", "archive": "history", "role": "historical_raw_render", "files": 2162, "bytes": 462880788}
+  ],
+  "scripts": [
+    {"path": "_audit/zo_g01_source_sync_2026-10-08/final_render.py", "archive": "retirement", "role": "dated_render_driver"},
+    {"path": "_audit/zo_g01_source_sync_2026-10-08/promote_html.py", "archive": "retirement", "role": "dated_promotion_driver"},
+    {"path": "_audit/zo_g01_source_sync_2026-10-08/render_mirror.py", "archive": "retirement", "role": "dated_render_driver"},
+    {"path": "_audit/zo_g01_source_sync_2026-10-08/verify_sync.py", "archive": "retirement", "role": "historical_snapshot_qa"},
+    {"path": "_audit/zo_g01_figure_integration_2026-10-08/check.py", "archive": "retirement", "role": "historical_snapshot_qa"},
+    {"path": "_audit/zo_g01_figure_integration_2026-10-08/run.py", "archive": "retirement", "role": "dated_render_promotion_driver"},
+    {"path": "_audit/zo_g01_downloads_2026-10-08/check.py", "archive": "retirement", "role": "historical_snapshot_qa"},
+    {"path": "_audit/zo_g01_downloads_2026-10-08/run.py", "archive": "retirement", "role": "dated_render_promotion_driver"},
+    {"path": "_audit/on_thi_r1_g01_design/browser_qa.py", "archive": "retirement", "role": "historical_browser_qa"},
+    {"path": "_audit/on_thi_r1_g01_design/final_checks.py", "archive": "retirement", "role": "historical_snapshot_qa"},
+    {"path": "_audit/on_thi_r1_g01_design/mirror.py", "archive": "retirement", "role": "dated_mirror_driver"},
+    {"path": "_audit/on_thi_r1_g01_design/render_gateways.ps1", "archive": "retirement", "role": "dated_render_driver"},
+    {"path": "_audit/on_thi_r1_g01_design/render_html.ps1", "archive": "retirement", "role": "dated_render_driver"},
+    {"path": "_audit/on_thi_r1_g01_html_fix/mirror.py", "archive": "retirement", "role": "dated_mirror_driver"},
+    {"path": "_audit/on_thi_r1_g01_html_fix/navigation.py", "archive": "retirement", "role": "historical_browser_qa"},
+    {"path": "_audit/on_thi_r1_g01_html_fix/probe.py", "archive": "retirement", "role": "historical_browser_qa"},
+    {"path": "_audit/on_thi_r1_g01_html_fix/render.ps1", "archive": "retirement", "role": "dated_render_driver"},
+    {"path": "_audit/on_thi_r1_g01_html_fix/verify.py", "archive": "retirement", "role": "historical_snapshot_qa"},
+    {"path": "_audit/zo_course_navigation_2026-10-12/run.py", "archive": "retirement", "role": "dated_cluster_driver"},
+    {"path": "_audit/zo_home_countdown_2026-10-12/run.py", "archive": "retirement", "role": "dated_home_driver"},
+    {"path": "_audit/zo_home_clock_checkpoint_2026-10-12/checkpoint.py", "archive": "retirement", "role": "dated_checkpoint_builder"}
+  ],
+  "governance_preimages": {
+    "archive": "retirement",
+    "paths": [
+      "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/03_dieu_hanh_chuong_trinh.md",
+      "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/04_nhat_ki_quyet_dinh.md",
+      "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/08_danh_muc_tham_quyen_dieu_hanh.md"
+    ]
+  },
+  "evidence": {
+    "archive": "retirement",
+    "dependency_review": "evidence/dependency-resolution.json",
+    "preflight": "evidence/deletion-preflight.json",
+    "deletion": "evidence/deletion-result.json",
+    "final_verification": "evidence/result.json"
+  },
+  "additional_cleanups": [
+    {
+      "operation": "DH_035",
+      "archive": "final",
+      "authorization": "Chỉ thị chủ trì tiếp tục dọn và làm sạch repo; không suy thành quyền quản trị Windows.",
+      "status": "authorized_seven_caches_closed",
+      "repo_removed_files": 25377,
+      "repo_removed_bytes": 5827249232,
+      "protected_files_unchanged": 2987,
+      "history_result": "result.json",
+      "cache_result": "cache-result.json",
+      "final_checks": "final-checks.json",
+      "blocked_cache_trees": 0,
+      "previous_phase": "Receipt final-checks.json của kho final giữ nguyên kết quả lượt trước: bảy cache bị chặn đọc, yêu cầu nâng quyền bị từ chối; số repo_removed_files/bytes phía trên thuộc lượt trước.",
+      "seven_cache_continuation": {
+        "archive": "seven_cache",
+        "authorization": "Chỉ thị chủ trì: chỉ xử lí bảy cache trong receipt gốc bằng quyền thông thường; không nâng quyền, đổi ACL hoặc vượt chặn.",
+        "repo_removed_trees": 7,
+        "repo_removed_files": 630,
+        "repo_removed_bytes": 59785703,
+        "skipped_trees": 0,
+        "preflight": "preflight.json",
+        "archive_verification": "archive-verified.json",
+        "deletion": "deletion-result.json",
+        "scope_verification": "scope-result.json",
+        "repo_receipt": "_audit/zo_cleanup_final_20261013/ordinary-cache-result.json"
+      },
+      "limits": "Không còn mục vướng trong danh sách đúng bảy cache, không chứng nhận toàn repo sạch. Giữ bốn bản xem, nguồn, quyết định và thay đổi Git; không render, commit hay xuất bản. Kho cùng ổ E, số gỡ không phải dung lượng trống ròng."
+    },
+    {
+      "operation": "DH_033",
+      "authorization": "Chỉ thị chủ trì ngày 13/10/2026: tự dọn an toàn, giữ thành quả và quy tắc đã duyệt; không xin duyệt lại thủ tục kỹ thuật.",
+      "archive": "residual",
+      "status": "repo_copies_removed",
+      "archived_trees": 111,
+      "archived_files": 65245,
+      "archived_bytes": 14281566422,
+      "repo_removed_trees": 111,
+      "repo_removed_files": 65245,
+      "repo_removed_bytes": 14281566422,
+      "deletion_skipped_trees": 0,
+      "dependencies_and_exclusions": "plan-v2.json",
+      "archive_verification": "archive-verified.json",
+      "deletion": "deletion.json",
+      "final_checks": "final-checks.json",
+      "final_scope_and_archive_verification": "result.json",
+      "limits": "Giữ nguồn/quy tắc/bộ bản xem được bảo vệ, phụ thuộc còn dùng và mục chưa xác minh; không render/Git/xuất bản. Kho cùng ổ E, không coi số byte giảm trong repo là dung lượng trống ròng."
+    }
+  ],
+  "policy": "Không tái kích hoạt công cụ hoặc khôi phục thẩm quyền cũ từ kho. Nếu cần phục dựng mốc lịch sử, khôi phục có chọn lọc theo yêu cầu riêng và kiểm hash, không ghi đè nguồn mới."
+}

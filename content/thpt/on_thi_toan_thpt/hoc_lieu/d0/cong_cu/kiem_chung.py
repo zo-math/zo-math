@@ -31,7 +31,7 @@ QMD_PATH = PACKAGE_ROOT / "index.qmd"
 LUA_PATH = PACKAGE_ROOT / "cong_cu" / "d0.lua"
 GENERATOR_PATH = PACKAGE_ROOT / "cong_cu" / "tao_qmd_chuyen_doi.py"
 ASSET_ROOT = PACKAGE_ROOT / "hinh"
-PLAN_PATH = PACKAGE_ROOT / ".." / ".." / "tot_nghiep_thpt" / "2027" / "_quy_trinh" / "dieu_hanh" / "ke_hoach_dieu_hanh.md"
+PLAN_PATH = PACKAGE_ROOT / ".." / ".." / "tot_nghiep_thpt" / "2027" / "_quy_trinh" / "ke_hoach_dieu_hanh.md"
 HISTORICAL_STUDENT_PATH = BASELINE_ROOT / "2027_D0_hoc_sinh_v1.0.md"
 
 

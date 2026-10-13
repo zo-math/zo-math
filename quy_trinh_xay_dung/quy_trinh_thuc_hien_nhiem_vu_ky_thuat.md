@@ -130,6 +130,19 @@ Hồ sơ lịch sử, bản nháp, script patch dùng một lần và phiên b�
 
 Không stage hoặc commit nội dung `_audit/` khi thư mục này vẫn được `.gitignore` loại trừ. Nếu nhiệm vụ đã tạo hoặc sử dụng tệp trong `_audit/`, báo cáo cuối phải xác nhận tình trạng các tệp tạm liên quan.
 
+Đường biên dịch chính thức phải chạy được từ nguồn mà không có lịch sử
+`_audit/`. `scripts/zo_build_boundary.py` kiểm đầu vào trước render; launcher
+Quarto bật guard đọc tệp cho các tiến trình Python con (hook và kernel), kể cả
+qua `scripts/zo_python.py`, bằng runtime cục bộ `scripts/zo_build_runtime/`.
+Nguồn include, filter, template, tài nguyên và mã thực thi không được lấy
+từ `_audit/`, kể cả qua đường dẫn vòng hoặc alias. Đầu ra báo cáo mới có thể
+ghi tại đó; việc đọc báo cáo để xem xét nghiệm thu là một bước kiểm định riêng,
+không trở thành đầu vào sinh nội dung. Fixture dùng lâu dài thuộc
+`scripts/fixtures/`; so bản lịch sử phải nhận đầu vào tường minh, không tự
+chọn thư mục theo ngày hoặc tên `current` trong `_audit/`.
+Tệp trung gian biên dịch PDF và vector chính thức dùng `.quarto/`, tự dọn
+theo vòng đời công cụ; `_audit/` chỉ giữ đầu ra kiểm định và bằng chứng.
+
 ## 6. Xử lý lỗi trong quá trình làm việc
 
 Khi lệnh hoặc kiểm tra thất bại, agent phải:

@@ -34,9 +34,17 @@ python scripts/zo_python.py scripts/zo_quarto.py <quarto-command> [tham số...]
 
 Không ghi đường dẫn tuyệt đối tới executable Python vào metadata QMD. Cơ chế trên bảo đảm Jupyter và reticulate dùng nhất quán môi trường Python hiện hành theo cách portable.
 
+Biên dịch chính thức không được đọc đầu vào từ `_audit/`. Launcher Quarto và
+cổng pre-render `scripts/zo_build_boundary.py` thực thi ranh giới này; fixture
+dùng lâu dài phải ở nguồn được quản lý. Báo cáo tạm vẫn có thể ghi trong `_audit/`.
+
 Đối với bài QMD thuộc hệ thống có cấu hình, Codex dùng `scripts/zo_qmd.py` làm điểm vào vận hành và luôn gọi qua `scripts/zo_python.py`: dùng `check` cho kiểm định nguồn và `render` khi cần dựng đầu ra. `scripts/zo_check_repo.py` là checker lõi phía sau, chỉ được gọi trực tiếp khi bảo trì hoặc chẩn đoán checker, hoặc khi kiểm tra kĩ thuật ngoài vòng đời bài QMD có cấu hình. Cả hai công cụ đều không thay thế kiểm tra trực quan, nghiệm thu hoặc xuất bản.
 
 ## Quy ước trình bày chung
+
+Khi viết, sửa hoặc kiểm công thức toán, phải đọc và tuân thủ
+`quy_trinh_xay_dung/quy_chuan_dau_ngoac_latex.md`. Quy chuẩn dấu ngoặc
+co giãn áp dụng toàn ZO Math theo xác nhận của chủ trì ngày 11/10/2026.
 
 Không dùng `\boxed{...}` hoặc khung viền trực tiếp quanh công thức để nhấn mạnh. Công thức quan trọng được làm nổi bật bằng vị trí trong mạch văn hoặc bằng khối nội dung ZO Math phù hợp. Khi gặp công thức hiển thị riêng đang dùng `\boxed{...}`, chỉ loại bỏ lớp `\boxed` và giữ công thức ở dạng `$$...$$`, trừ khi nhiệm vụ hiện tại yêu cầu tổ chức lại nội dung.
 
@@ -94,8 +102,10 @@ bằng bộ công cụ ZO Math, phải đọc và tuân thủ thêm:
 - `quy_trinh_xay_dung/quy_chuan_san_xuat_hinh_hoc_zo_math_v0.1.md`.
 
 Dùng `scripts/zo_geometry.py` làm điểm vào production và luôn gọi qua
-`scripts/zo_python.py`. Nội dung trong `_audit/zo_geometry_spike/` chỉ là bằng
-chứng và fixture hồi quy, không phải phụ thuộc chạy canonical.
+`scripts/zo_python.py`. Fixture hồi quy ở `scripts/fixtures/geometry/`;
+helper ở `scripts/zo_geometry_stress.py`. Nội dung trong
+`_audit/zo_geometry_spike/` chỉ là bằng chứng lịch sử, không phải phụ thuộc
+biên dịch hoặc kiểm thử canonical.
 
 ### Xuất bản website
 

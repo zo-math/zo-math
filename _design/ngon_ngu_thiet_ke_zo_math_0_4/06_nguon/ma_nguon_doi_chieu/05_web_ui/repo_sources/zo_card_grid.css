@@ -1,0 +1,125 @@
+/* ZO Math card grid: reusable card system for project gateways. */
+
+.zo-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 2rem;
+}
+
+.zo-card {
+  display: flex;
+  flex-direction: column;
+  height: 18.4rem;
+  overflow: hidden;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 1rem;
+  background: var(--bs-body-bg);
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease,
+    opacity 160ms ease;
+}
+
+.zo-card.is-published:hover {
+  transform: translateY(-2px);
+  border-color: #d86a6a;
+  box-shadow: 0 0.75rem 1.45rem rgba(216, 106, 106, 0.12);
+}
+
+.zo-card.is-pending .zo-card-body {
+  opacity: 0.62;
+}
+
+.zo-card-figure {
+  display: block;
+  flex: 0 0 8rem;
+  height: 8rem;
+  min-height: 8rem;
+  max-height: 8rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  width: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--bs-primary-rgb), 0.34),
+    rgba(var(--bs-secondary-rgb), 0.46)
+  );
+  border-bottom: 1px solid var(--bs-border-color);
+  text-decoration: none;
+}
+
+.zo-card-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: drop-shadow(0 1px 1px rgba(255, 255, 255, 0.72))
+    drop-shadow(0 2px 3px rgba(74, 55, 38, 0.24));
+}
+
+.zo-card-body {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.95rem 0.95rem 1rem;
+  gap: 0.75rem;
+}
+
+.zo-card-title {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.8rem;
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.zo-card-title p:last-child {
+  margin-bottom: 0;
+}
+
+.zo-card-actions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.zo-card-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.85rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 999px;
+  padding: 0.16rem 0.68rem;
+  font-size: 0.76rem;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  background: var(--bs-body-bg);
+}
+
+.zo-card-pill--action {
+  font-weight: 600;
+}
+
+.zo-card-pill--action.is-disabled {
+  color: var(--bs-secondary-color);
+}
+
+@media (max-width: 767.98px) {
+  .zo-card {
+    height: auto;
+    min-height: 18.4rem;
+  }
+}

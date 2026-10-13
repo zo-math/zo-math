@@ -129,6 +129,8 @@ def validate_data(data: dict[str, Any]) -> None:
         raise BuildError("Mỗi tham chiếu gói phải có ID an toàn")
     if len(ids) != len(set(ids)):
         raise BuildError("ID gói bị trùng")
+    if any(item.get("learner_availability") not in {None, "preview"} for item in refs):
+        raise BuildError("learner_availability hiện chỉ hỗ trợ preview tường minh; không suy trạng thái nghiệm thu")
     if data.get("latest_package") not in ids:
         raise BuildError("latest_package không thuộc danh sách packages")
     strands = program["strands"]
@@ -155,7 +157,10 @@ def package_from_ref(ref: dict[str, Any], package_root: Path = PACKAGE_ROOT) -> 
     publication = str(workflow.get("publication", ""))
     if not code or not title or not version or not production or not publication:
         raise BuildError(f"Hồ sơ hoặc metadata gói chưa đủ: {ref_id}")
-    if production != "accepted" or publication != "pending":
+    # Learner availability is a catalog decision, not inherited acceptance of a
+    # newly edited package. Explicit previews may point at in-production sources.
+    preview = ref.get("learner_availability") == "preview"
+    if (production != "accepted" and not (preview and production in {"in_production", "validated"})) or publication != "pending":
         raise BuildError(f"Gói {code} chưa ở trạng thái ứng viên có thể học")
     if len(title) > 96:
         raise BuildError(f"Tên gói quá dài cho bìa: {code}")
@@ -177,7 +182,7 @@ def package_from_ref(ref: dict[str, Any], package_root: Path = PACKAGE_ROOT) -> 
         version=version.removesuffix("-migration") if html_only else version,
         production=production,
         publication=publication,
-        display_status="Có thể học",
+        display_status="Bản xem trước" if preview else "Có thể học",
         summary=str(ref.get("summary", "")).strip(),
         qmd=qmd,
         pdfs=pdfs,
@@ -250,13 +255,16 @@ def render_editions(program: dict[str, Any], colors: dict[str, str]) -> str:
 
 
 def render_program(program: dict[str, Any], packages: list[Package], colors: dict[str, str]) -> str:
+    if program.get('home_editorial_source'):
+        from zo_web_2027_home_landing import render_source
+        return GENERATED + '\n\n```{=html}\n' + render_source(program, packages) + '\n```\n'
     strands = "\n".join(
         f"::: {{.zo-on-thi-strand}}\n**{item['id']}** {item['title']}\n:::"
         for item in program["strands"]
     )
     cards = []
     for package in packages:
-        view_suffix = "#bat-dau" if package.html_only else "?r1-view=cach-hoc"
+        view_suffix = "#bat-dau" if package.html_only else "?r1-view=bat-dau#bat-dau"
         link_label = "Bắt đầu khảo sát" if package.html_only else "Bắt đầu học"
         cards.append(f"""::: {{.zo-on-thi-package data-package-id=\"{package.ref_id}\"}}
 ::: {{.zo-on-thi-package__layout}}
@@ -310,9 +318,13 @@ def render_program(program: dict[str, Any], packages: list[Package], colors: dic
 
 {program['purpose']}
 
-## Học theo cách nào?
+## Cách học {{#học-theo-cách-nào}}
 
-{ordered_list(program['learning_steps'], 'zo-on-thi-steps')}
+::: {{.zo-on-thi-steps}}
+
+{'\n'.join('- ' + step for step in program['learning_steps'])}
+
+:::
 
 ## Lộ trình
 

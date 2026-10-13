@@ -1,0 +1,21 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{fontspec,unicode-math,graphicx,xcolor,colortbl,array,tabularx,longtable,geometry,fancyhdr,enumitem,hyperref}
+\geometry{left=20mm,right=20mm,top=19mm,bottom=20mm}
+\setmainfont{BeVietnamPro_Regular.ttf}[Path=../assets/,BoldFont=BeVietnamPro_SemiBold.ttf]
+\setmathfont{STIXTwoMath.ttf}[Path=../assets/]
+\definecolor{ink}{HTML}{3E3A35}\definecolor{muted}{HTML}{766F66}\definecolor{grid}{HTML}{DFD7CA}\definecolor{paper}{HTML}{FBFAF8}\definecolor{head}{HTML}{F8F5F0}\definecolor{red}{HTML}{BF4240}\definecolor{brandred}{HTML}{EF5350}\definecolor{yellow}{HTML}{FFCA28}\definecolor{focus}{HTML}{FFF9E9}
+\pagecolor{paper}\color{ink}\arrayrulecolor{grid}\setlength\arrayrulewidth{.4pt}\setlength\tabcolsep{7pt}\renewcommand\arraystretch{1.5}\setlength\parindent{0pt}\setlength\parskip{8pt}\linespread{1.12}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\scriptsize\color{muted}ZO MATH / HỆ THIẾT KẾ 0.4}\fancyhead[R]{\scriptsize\color{muted}06.10.2026}\fancyfoot[L]{\scriptsize\color{muted}Nhận ra ZO. Tập trung vào Toán.}\fancyfoot[R]{\scriptsize\thepage}\renewcommand{\headrulewidth}{.3pt}\renewcommand{\footrulewidth}{0pt}
+\hypersetup{colorlinks=true,urlcolor=red,linkcolor=red}\setlist{nosep,leftmargin=1.5em}
+\newcommand{\tagline}[1]{{\small\color{muted}\MakeUppercase{#1}}\par}
+\newcommand{\titlepagehead}[2]{\tagline{#1}{\fontsize{27}{32}\selectfont\bfseries #2}\par\vspace{6mm}}
+\newcommand{\why}[1]{\par{\small\color{muted}\textbf{Vì sao.} #1}\par}
+\newcommand{\pic}[2]{\begin{center}\includegraphics[width=#2\linewidth]{#1}\end{center}}
+\begin{document}
+\tagline{Bảng mẫu / 0.4}\section*{03 · Bảng đối chiếu khái niệm}
+\begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}\hline
+\rowcolor{head}Tại $x=0$ & Giá trị hàm & Đạo hàm & Cực trị\\\hline
+$x^3$ & Có & Bằng 0 & Không\\\hline
+$|x|$ & Có & Không tồn tại & Cực tiểu\\\hline
+$1/x$ & Không & Ngoài tập xác định & Không xét\\\hline
+\end{tabularx}\why{Câu chữ căn trái, tiêu chí ổn định theo cột. Hàng đang đọc dùng yellow-1; từ “không” không tự mang nghĩa lỗi.}\end{document}

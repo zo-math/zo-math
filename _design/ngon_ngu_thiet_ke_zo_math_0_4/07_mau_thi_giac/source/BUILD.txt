@@ -1,0 +1,40 @@
+DỰNG VÀ CHỈNH 0.4
+
+Không cần chạy mã để xem. index.html và r1_g01.html tự chứa font/hình/tài nguyên cần dùng.
+
+Môi trường: Python3.12; Node.js; XeLaTeX; pdftocairo; ffmpeg.
+Python: fontTools, lxml, PyMuPDF, Pillow, numpy, reportlab, qrcode.
+Node: npm install katex@0.19.0 jsdom@26 sharp tại thư mục specimen_0_4.
+
+Bộ phận chỉnh trực tiếp:
+- design/color_system.json, tokens.css, roles_0_4.json: màu và vai trò. token_migration.json ghi ánh xạ cũ→mới.
+- source/system.css: toàn bộ hệ giao diện; lớp0.4 đặt cuối để thấy thay đổi rõ.
+- source/common.js, experience04.js: nhật kí, nền, sắc xám, cỡ chữ, giảm chuyển động và hành vi mẫu.
+- source/r1_controller.js: luồng học kế thừa; selector mục lục đã thích ứng với khối trắng.
+- source/table_engine.py, export_tables.py: BBT phẳng, công thức LaTeX→MathML, nguồn Quarto/tabular.
+- logos/*.svg: vector chỉnh sửa trực tiếp; build_identity.py dựng lại logo.
+- source/tex/*.tex: hình toán từ nguồn kế thừa; biên dịch trong source/tex bằng XeLaTeX.
+- source/build_pdf_editions.py: tám PDF bìa/kết mới, đối chiếu ruột với nguồn.
+- source/build_guide04.py: quy chuẩn14trang.
+
+Thứ tự tái dựng sau khi có đầu vào:
+python source/build_identity.py
+node source/raster.cjs
+python source/export_tables.py
+python source/build_table_pdfs.py
+python source/build_pdf_editions.py
+python source/build_media.py
+python source/build_motion.py
+python source/build_r1.py
+python source/build_guide04.py
+python source/build_gallery.py
+node source/dom_qa.cjs
+node source/gallery_qa.cjs
+node source/experience_qa.cjs
+python source/verify_sources.py
+python source/finish_docs.py
+python source/build_gallery.py
+python source/package_release.py
+
+Một số bộ dựng đối chiếu dùng thư mục evidence/r1_g01 và specimen_0_2/0_3 cùng cấp trong môi trường nghiên cứu gốc. Đường dẫn được khai báo ở đầu script; khi chuyển sang repo, ánh xạ chúng sang nguồn dự án. Các tài sản đã xuất, CSS/JS, native table sources và PDF nguồn đều có sẵn trong gói. Không tự chạy script lên repo đang xuất bản.
+Kiểm DOM không phải kiểm bố cục trình duyệt. Mẫu0.4 không tự thay nguồn sản xuất.

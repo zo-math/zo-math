@@ -26,6 +26,7 @@ from zo_pdf_contract import (
 
 ROOT = Path(__file__).resolve().parents[1]
 AUDIT_DIR = ROOT / "_audit"
+BUILD_DIR = ROOT / '.quarto' / 'zo_pdf_build'
 QUARTO_LAUNCHER = ROOT / "scripts" / "zo_quarto.py"
 
 
@@ -94,8 +95,8 @@ def build(source: Path, variant: str = "full") -> int:
     destination = output_path(source, variant)
     canonical_provenance = canonical_pdf_provenance_enabled(ROOT, source)
     input_state = canonical_variant_input_state(ROOT, source, variant) if canonical_provenance else None
-    AUDIT_DIR.mkdir(parents=True, exist_ok=True)
-    temp_dir = Path(tempfile.mkdtemp(prefix="zo_pdf_", dir=AUDIT_DIR))
+    BUILD_DIR.mkdir(parents=True, exist_ok=True)
+    temp_dir = Path(tempfile.mkdtemp(prefix="zo_pdf_", dir=BUILD_DIR))
     temp_relative = relative_to_root(temp_dir)
     command = [
         sys.executable,
@@ -115,7 +116,7 @@ def build(source: Path, variant: str = "full") -> int:
         if definition:
             build_root = isolated_project(source, temp_dir)
             command[1] = str(build_root / "scripts" / "zo_quarto.py")
-            command[-1] = "_audit/pdf_output"
+            command[-1] = ".quarto/pdf_output"
             if definition.get("include_support", True) is False:
                 support = build_root / "assets" / "tex" / "zo-pdf-support.tex"
                 support.write_text(
@@ -148,7 +149,7 @@ def build(source: Path, variant: str = "full") -> int:
         if completed.returncode != 0:
             return completed.returncode
 
-        output_root = build_root / "_audit/pdf_output" if definition else temp_dir
+        output_root = build_root / '.quarto/pdf_output' if definition else temp_dir
         expected = output_root / source.relative_to(ROOT).with_suffix(".pdf")
         if not expected.is_file():
             matches = list(output_root.rglob(f"{source.stem}.pdf"))

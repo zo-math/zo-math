@@ -1,0 +1,43 @@
+id: S05
+dimension: 3d
+backend: tikz-3dplot
+solid_type: convex_polyhedron
+camera: {elevation: 68, azimuth: 118, scale: 1.05}
+vertices:
+  - {id: A, coordinates: [0, 0, 0]}
+  - {id: B, coordinates: [4, 0, 0]}
+  - {id: C, coordinates: [4, 3, 0]}
+  - {id: D, coordinates: [0, 3, 0]}
+  - {id: S, coordinates: [2, 1.5, 3]}
+edges:
+  - {id: AB, endpoints: [A, B], visibility: auto}
+  - {id: BC, endpoints: [B, C], visibility: auto}
+  - {id: CD, endpoints: [C, D], visibility: auto}
+  - {id: DA, endpoints: [D, A], visibility: auto}
+  - {id: SA, endpoints: [S, A], visibility: auto}
+  - {id: SB, endpoints: [S, B], visibility: auto}
+  - {id: SC, endpoints: [S, C], visibility: auto}
+  - {id: SD, endpoints: [S, D], visibility: auto}
+faces:
+  - {id: base, points: [A, B, C, D], render: true}
+  - {id: side_ab, points: [S, A, B], render: false}
+  - {id: side_bc, points: [S, B, C], render: false}
+  - {id: side_cd, points: [S, C, D], render: false}
+  - {id: side_da, points: [S, D, A], render: false}
+section:
+  id: sigma
+  plane: {normal: [0, 0, 1], offset: -1.35}
+  edges: [SA, SB, SC, SD]
+  point_ids: [M, N, P, Q]
+  emphasized: true
+visibility_overrides: []
+labels:
+  - {target: A, text: "$A$", anchor: "below left=3pt and 2pt", mask: none}
+  - {target: B, text: "$B$", anchor: "below left=2pt and 1pt", mask: none}
+  - {target: C, text: "$C$", anchor: "below right=2pt and 1pt", mask: none}
+  - {target: D, text: "$D$", anchor: "right=4pt", mask: none}
+  - {target: S, text: "$S$", anchor: "above=4pt", mask: none}
+  - {target: M, text: "$M$", anchor: "left=4pt", mask: when_required}
+  - {target: N, text: "$N$", anchor: "left=7pt", mask: none}
+  - {target: P, text: "$P$", anchor: "right=4pt", mask: when_required}
+  - {target: Q, text: "$Q$", anchor: "above right=3pt and 1pt", mask: none}

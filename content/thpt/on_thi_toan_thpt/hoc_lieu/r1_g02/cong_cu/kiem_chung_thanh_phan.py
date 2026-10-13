@@ -16,7 +16,8 @@ BASELINE_SCRIPT = REPO_ROOT / "assets/html/zo_on_thi_learning_package_script.htm
 FILTER = ROOT / "cong_cu" / "r1_g02.lua"
 MOBILE_CHECKER = ROOT / "cong_cu" / "kiem_chung_mobile.mjs"
 CANONICAL_CONTRACT = (
-    REPO_ROOT / "content/thpt/on_thi_toan_thpt/_quy_trinh/quy_chuan_goi_qmd.md"
+    REPO_ROOT
+    / "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/quy_chuan_goi_qmd.md"
 )
 SHARED_COMPONENT_CSS = REPO_ROOT / "assets/css/_zo_learning_components.scss"
 SHARED_COMPONENT_LUA = REPO_ROOT / "assets/lua/zo_learning_components.lua"
@@ -235,9 +236,49 @@ def main() -> int:
     )
     require(
         "const tabEdgePadding = 12;" in baseline_script
-        and "selectedTab.offsetLeft - tabEdgePadding" in baseline_script
-        and "selectedTab.offsetLeft + selectedTab.offsetWidth + tabEdgePadding" in baseline_script,
-        "the shared tab strip must keep the selected mobile tab away from clipped edges",
+        and "const scroller = document.body.classList.contains('r1-nav-condensed')" in baseline_script
+        and ": tab.closest('.r1-tab-group-items') || tablist;" in baseline_script
+        and "tab.offsetLeft - tabEdgePadding" in baseline_script
+        and "tab.offsetLeft + tab.offsetWidth + tabEdgePadding" in baseline_script
+        and "overflow-x: visible;" in baseline_css,
+        "the shared controller must keep selected controls visible and let mobile group rows wrap without clipping",
+    )
+    require(
+        all(fragment in baseline_script for fragment in (
+            "label: 'Mạch học chính'",
+            "label: 'Hỗ trợ khi cần'",
+            "label: 'Tiện ích'",
+            "{view: 'on-lai', label: 'Ôn lại'",
+            "{view: 'sua-loi', label: 'Sửa lỗi'",
+            "groupNode.className = `r1-tab-group r1-tab-group--${group.id}`;",
+        ))
+        and baseline_script.index("{view: 'on-lai', label: 'Ôn lại'")
+        < baseline_script.index("{view: 'sua-loi', label: 'Sửa lỗi'"),
+        "the shared navigation must preserve the three semantic groups and keep review in the main path before remediation",
+    )
+    require(
+        all(fragment in baseline_script for fragment in (
+            "navSentinel.className = 'r1-nav-sentinel';",
+            "navSpacer.className = 'r1-nav-spacer';",
+            'function measureNavFootprints()',
+            "const headerOffset = Math.max(0, header.getBoundingClientRect().bottom);",
+            "document.body.classList.toggle('r1-nav-condensed', condensed);",
+            "navSlot.classList.toggle('r1-nav-slot--condensed', condensed);",
+            "navSpacer.style.height = `${spacerHeight}px`;",
+            "header.addEventListener('transitionend', scheduleReaderPosition);",
+            'function clearViewScope()',
+            'function applyViewScope(definition)',
+            'applyViewScope(definition);',
+        ))
+        and all(fragment in baseline_css for fragment in (
+            'position: sticky;',
+            'top: var(--r1-header-height, 0);',
+            'overflow-x: clip;',
+            'body.zo-on-thi-package-page.r1-nav-condensed .r1-nav-slot {',
+            'body.zo-on-thi-package-page.r1-nav-condensed .r1-tablist {',
+            'body.zo-on-thi-package-page { overflow-anchor: none; }',
+        )),
+        "the shared controller must keep a compact navigation visible while scrolling and isolate deep support views",
     )
     require(
         "| Mục tiêu | Việc em cần làm được |" in text

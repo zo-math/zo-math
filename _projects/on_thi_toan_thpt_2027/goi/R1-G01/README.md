@@ -1,5 +1,7 @@
 # ZO Math — R1-G01
 
+**Chuyển tiếp 10/10/2026:** toàn bộ trạng thái, nguồn `src/` và lệnh bên dưới thuộc gói v1.1 lịch sử. Nguồn canonical hiện hành là `content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.qmd`; tiếp quản tại [README vận hành](../../../../content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/_quy_trinh/README.md) và [bộ điều hành khóa](../../../../content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/README.md). Không biên tập hoặc tái sinh gói cũ để thay FB036; giữ nội dung phía dưới làm provenance, không nguồn sản xuất song song.
+
 Gói học liệu **Kết nối hàm số, bảng biến thiên và đồ thị**, thuộc dự án ZO Math — Ôn thi Toán THPT, Ấn bản ôn thi 2027.
 
 ## Trạng thái

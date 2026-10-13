@@ -1,13 +1,17 @@
 project:
   type: website
   output-dir: docs
+  pre-render:
+    - python scripts/zo_python.py scripts/zo_build_boundary.py
+  post-render:
+    - python scripts/zo_python.py scripts/zo_web_2027_production.py
   render:
     - "**/*.qmd"
     - "**/*.Rmd"
     - "!docs/**"
     - "!_audit/**"
+    - "!_design/**"
     - "!**/*.md"
-    - "!content/thpt/on_thi_toan_thpt/_quy_trinh/**"
     - "!content/thpt/on_thi_toan_thpt/**/_quy_trinh/**"
   preview:
     port: 4200

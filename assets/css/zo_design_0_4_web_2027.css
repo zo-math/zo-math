@@ -1,0 +1,304 @@
+/* ZO Math 0.4 pilot integration for the 2027 course home and R1-G01 only.
+   The body classes are the public scope boundary; do not broaden these rules. */
+body.zo-design-04-pilot {
+  --zo04-red-1: #fdeded;
+  --zo04-red-2: #f8bab9;
+  --zo04-red-4: #ef5350;
+  --zo04-red-5: #bf4240;
+  --zo04-red-6: #8f3130;
+  --zo04-yellow-1: #fff9e9;
+  --zo04-yellow-2: #ffe9a9;
+  --zo04-yellow-4: #ffca28;
+  --zo04-gray-1: #fbfaf8;
+  --zo04-gray-2: #f8f5f0;
+  --zo04-gray-3: #dfd7ca;
+  --zo04-gray-5: #9f968b;
+  --zo04-gray-6: #766f66;
+  --zo04-gray-7: #554f48;
+  --zo04-gray-8: #3e3a35;
+  --zo04-gray-9: #25221f;
+  --zo04-paper: #ffffff;
+  --zo04-page-bg: var(--zo04-gray-3);
+  --zo04-line: var(--zo04-gray-3);
+  --zo04-radius: 12px;
+  --r1-red: var(--zo04-red-4);
+  --r1-text: var(--zo04-gray-9);
+  --r1-muted: var(--zo04-gray-6);
+  --r1-border: var(--zo04-line);
+  --bs-primary: var(--zo04-red-5);
+  --bs-link-color: var(--zo04-red-5);
+  --bs-link-hover-color: var(--zo04-red-6);
+  background: var(--zo04-page-bg);
+  color: var(--zo04-gray-8);
+}
+
+html.zo-design-04-grayscale body.zo-design-04-pilot {
+  --zo04-red-1: #f8f5f0;
+  --zo04-red-2: #dfd7ca;
+  --zo04-red-4: #766f66;
+  --zo04-red-5: #554f48;
+  --zo04-red-6: #3e3a35;
+  --zo04-yellow-1: #fbfaf8;
+  --zo04-yellow-2: #dfd7ca;
+  --zo04-yellow-4: #9f968b;
+}
+
+html.zo-design-04-grayscale body.zo-design-04-pilot :is(img, svg, video) {
+  filter: grayscale(1);
+}
+
+body.zo-design-04-pilot :where(#quarto-content, main.content, .page-columns) {
+  background: transparent;
+}
+
+body.zo-design-04-pilot :where(a:not(.nav-link):not(.dropdown-item):not(.sidebar-link)) {
+  color: var(--zo04-red-5);
+  text-decoration: none;
+}
+
+body.zo-design-04-pilot :where(a:not(.nav-link):not(.dropdown-item):not(.sidebar-link)):hover {
+  color: var(--zo04-red-6);
+  background: var(--zo04-yellow-1);
+}
+
+body.zo-design-04-pilot :where(
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  summary,
+  [tabindex]:not([tabindex="-1"])
+):focus-visible {
+  outline: 2px solid var(--zo04-red-5) !important;
+  outline-offset: 3px !important;
+  box-shadow: none !important;
+}
+
+.zo-design-04-settings {
+  max-width: 58rem;
+  margin: 0 auto 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 0;
+  border-radius: var(--zo04-radius);
+  background: var(--zo04-paper);
+  color: var(--zo04-gray-8);
+}
+
+.zo-design-04-settings > summary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  cursor: pointer;
+  list-style: none;
+  font-size: .9rem;
+  font-weight: 600;
+}
+
+.zo-design-04-settings > summary::-webkit-details-marker { display: none; }
+.zo-design-04-settings > summary::after { content: "+"; margin-left: auto; color: var(--zo04-gray-6); }
+.zo-design-04-settings[open] > summary::after { content: "\2212"; }
+
+.zo-design-04-settings__body {
+  padding-top: 1rem;
+  border-top: 1px solid var(--zo04-line);
+}
+
+.zo-design-04-settings fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.zo-design-04-settings legend {
+  margin-bottom: .75rem;
+  color: var(--zo04-gray-6);
+  font-size: .78rem;
+  font-variant-caps: all-small-caps;
+  letter-spacing: .075em;
+}
+
+.zo-design-04-backgrounds {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: .65rem;
+}
+
+.zo-design-04-choice {
+  position: relative;
+  min-width: 0;
+  padding: .5rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--zo04-gray-7);
+  font-size: .72rem;
+  line-height: 1.35;
+}
+
+.zo-design-04-choice:has(input:checked) { border-color: var(--zo04-red-5); }
+.zo-design-04-choice:focus-within { outline: 2px solid var(--zo04-red-5); outline-offset: 2px; }
+.zo-design-04-choice input { position: absolute; opacity: 0; pointer-events: none; }
+.zo-design-04-choice__swatch { display: block; height: 2rem; margin-bottom: .4rem; border: 1px solid var(--zo04-line); border-radius: 4px; }
+.zo-design-04-choice__check { opacity: 0; }
+.zo-design-04-choice:has(input:checked) .zo-design-04-choice__check { opacity: 1; }
+
+.zo-design-04-settings__tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem 1.5rem;
+  align-items: center;
+  margin-top: 1rem;
+  font-size: .85rem;
+}
+
+.zo-design-04-settings__tools label { display: inline-flex; align-items: center; gap: .5rem; }
+.zo-design-04-settings__status { margin: .75rem 0 0; color: var(--zo04-gray-6); font-size: .78rem; }
+
+body.zo-design-04-pilot.zo-on-thi-page .zo-on-thi-program {
+  max-width: 64rem;
+}
+
+body.zo-design-04-pilot.zo-on-thi-page :is(
+  .zo-on-thi-hero,
+  .zo-on-thi-program > section.level2
+) {
+  margin-bottom: 1.5rem;
+  padding: clamp(1.35rem, 3vw, 2.25rem);
+  border-radius: var(--zo04-radius);
+  background: var(--zo04-paper);
+}
+
+body.zo-design-04-pilot.zo-on-thi-page .zo-on-thi-program > section.level2 > h2 {
+  margin-top: 0;
+  padding-top: 0;
+  color: var(--zo04-gray-8);
+}
+
+body.zo-design-04-pilot.zo-on-thi-page :is(.zo-on-thi-strand, .zo-on-thi-package) {
+  border: 1px solid var(--zo04-line);
+  border-radius: 8px;
+  background: var(--zo04-paper);
+}
+
+body.zo-design-04-pilot.zo-on-thi-page .zo-on-thi-package {
+  transition: border-color .14s ease, background-color .14s ease;
+}
+
+body.zo-design-04-pilot.zo-on-thi-page .zo-on-thi-package:is(:hover, :focus-within) {
+  border-color: var(--zo04-red-5);
+  background: var(--zo04-yellow-1);
+}
+
+body.zo-design-04-pilot.zo-on-thi-package-page #title-block-header {
+  margin-bottom: 1.5rem;
+  padding: clamp(1.35rem, 3vw, 2.25rem);
+  border-radius: var(--zo04-radius);
+  background: var(--zo04-paper);
+}
+
+body.zo-design-04-pilot.zo-on-thi-package-page .r1-nav-slot {
+  border: 0;
+  border-radius: var(--zo04-radius);
+  background: var(--zo04-paper);
+}
+
+body.zo-design-04-pilot.zo-on-thi-package-page .r1-tab {
+  border-color: transparent;
+  background: transparent;
+}
+
+body.zo-design-04-pilot.zo-on-thi-package-page .r1-tab[aria-selected="true"] {
+  border-color: var(--zo04-red-5);
+  background: var(--zo04-yellow-1);
+  color: var(--zo04-gray-8);
+}
+
+body.zo-design-04-pilot.zo-on-thi-package-page :is(
+  .zo-on-thi-package > section.level2,
+  .r1-view-panel > section.level2
+) {
+  padding: clamp(1.35rem, 3vw, 2.25rem);
+  border-radius: var(--zo04-radius);
+  background: var(--zo04-paper);
+}
+
+body.zo-design-04-pilot.zo-on-thi-package-page :is(
+  .zo-on-thi-package > section.level2,
+  .r1-view-panel > section.level2
+) > h2 {
+  margin-top: 0;
+  color: var(--zo04-gray-8);
+}
+
+body.zo-design-04-pilot.zo-on-thi-package-page :is(.r1-task-label, .r1-example-label, .r1-download-card__type) {
+  display: block;
+  margin: 0 0 .5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--zo04-gray-6);
+  font-size: .79em;
+  font-variant-caps: all-small-caps;
+  font-weight: 400;
+  letter-spacing: .075em;
+}
+
+body.zo-design-04-pilot.zo-on-thi-package-page .r1-data-table {
+  border: 1px solid var(--zo04-line);
+  background: var(--zo04-paper);
+}
+
+body.zo-design-04-pilot.zo-on-thi-package-page .r1-data-table :is(th, td) {
+  border: 1px solid var(--zo04-line);
+}
+
+body.zo-design-04-pilot.zo-on-thi-package-page .r1-data-table thead th {
+  border-bottom-width: 1px;
+  background: var(--zo04-gray-2);
+  font-weight: 600;
+}
+
+body.zo-design-04-pilot.zo-on-thi-package-page .r1-download-card,
+body.zo-design-04-pilot.zo-on-thi-package-page .r1-section-download-item {
+  border: 1px solid var(--zo04-line);
+  border-radius: 8px;
+  background: var(--zo04-paper);
+}
+
+body.zo-design-04-pilot.zo-on-thi-package-page .r1-download-card:is(:hover, :focus-within) {
+  border-color: var(--zo04-red-5);
+}
+
+body.zo-design-04-pilot.zo-on-thi-package-page .r1-download-support {
+  border: 0;
+  background: var(--zo04-gray-8);
+  color: var(--zo04-paper);
+}
+
+body.zo-design-04-pilot.zo-on-thi-package-page .r1-download-support :is(h3, dd) { color: var(--zo04-paper); }
+body.zo-design-04-pilot.zo-on-thi-package-page .r1-download-support dt { color: var(--zo04-gray-3); }
+body.zo-design-04-pilot.zo-on-thi-package-page .r1-download-support a { color: var(--zo04-yellow-4); }
+
+@media (max-width: 700px) {
+  .zo-design-04-backgrounds { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .zo-design-04-settings { padding: .85rem 1rem; }
+  body.zo-design-04-pilot.zo-on-thi-page :is(.zo-on-thi-hero, .zo-on-thi-program > section.level2),
+  body.zo-design-04-pilot.zo-on-thi-package-page :is(.zo-on-thi-package > section.level2, .r1-view-panel > section.level2),
+  body.zo-design-04-pilot.zo-on-thi-package-page #title-block-header {
+    padding: 1.15rem;
+  }
+}
+
+@media print {
+  body.zo-design-04-pilot { background: #ffffff; }
+  .zo-design-04-settings { display: none !important; }
+  body.zo-design-04-pilot.zo-on-thi-page :is(.zo-on-thi-hero, .zo-on-thi-program > section.level2),
+  body.zo-design-04-pilot.zo-on-thi-package-page :is(.zo-on-thi-package > section.level2, .r1-view-panel > section.level2),
+  body.zo-design-04-pilot.zo-on-thi-package-page #title-block-header {
+    padding: 0;
+    border-radius: 0;
+  }
+}

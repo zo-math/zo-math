@@ -1,0 +1,81 @@
+/* Canonical learning components shared by structured ZO Math lessons.
+   These classes express learning roles; content-block colors remain owned by
+   _zo_content_blocks.scss. */
+
+.zo-learning-task {
+  margin-block: 1.5rem;
+}
+
+.zo-learning-task > :first-child {
+  margin-top: 0;
+}
+
+.zo-learning-task > :last-child {
+  margin-bottom: 0;
+}
+
+.zo-learning-task--pause {
+  padding: 1rem 1.1rem;
+  border: 1px solid #{$gray-300};
+  border-radius: 0.55rem;
+  background: #{$gray-100};
+}
+
+.zo-learning-task--item {
+  padding-block: 0.2rem 0.4rem;
+}
+
+.zo-learning-example,
+.zo-learning-example-heading {
+  margin-block: 1.5rem 0.75rem;
+}
+
+.zo-learning-guidance > summary,
+.zo-learning-hint > summary,
+.zo-learning-solution > summary {
+  font-weight: 600;
+}
+
+.zo-learning-guidance {
+  --zo-block-background: #{$white};
+  --zo-block-border: #{$gray-300};
+  --zo-block-hover: #{$gray-100};
+  border-radius: 0.5rem;
+}
+
+.zo-learning-solution {
+  --zo-block-background: #{$gray-100};
+  --zo-block-border: #{$gray-300};
+  --zo-block-hover: #{$gray-200};
+  border-radius: 0.5rem;
+}
+
+details.zo-block.zo-learning-guidance > summary,
+details.zo-block.zo-learning-solution > summary {
+  min-height: 44px;
+  box-sizing: border-box;
+  padding: 0.4rem 3rem 0.4rem 0.85rem;
+}
+
+.zo-source-note {
+  display: block;
+  margin-top: 0.65rem;
+  color: #{$gray-600};
+  font-size: 0.8em;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+@media (max-width: 575.98px) {
+  .zo-learning-task--pause {
+    padding: 0.9rem 0.95rem;
+    border-radius: 0.45rem;
+  }
+}
+
+@media print {
+  .zo-learning-task--pause,
+  .zo-learning-task--item {
+    break-inside: avoid;
+  }
+}

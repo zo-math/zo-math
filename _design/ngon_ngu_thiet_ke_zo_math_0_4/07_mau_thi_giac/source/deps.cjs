@@ -1,0 +1,1 @@
+const path=require('path');module.exports=function(name){try{return require(name)}catch(first){try{return require(path.resolve(__dirname,'../../task_deps/node_modules',name))}catch(second){const runtime=process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES;if(runtime)return require(path.join(runtime,name));throw first}}};

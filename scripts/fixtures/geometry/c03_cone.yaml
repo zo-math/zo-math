@@ -1,0 +1,21 @@
+id: C03
+dimension: 3d
+backend: tikz-3dplot
+solid_type: cone
+camera:
+  elevation: 68
+  azimuth: 118
+  scale: 1.05
+vertices:
+  - {id: O, coordinates: [0, 0, 0]}
+  - {id: S, coordinates: [0, 0, 3]}
+cone:
+  bottom_center: O
+  apex: S
+  radius: 2
+segments:
+  - {id: SO, endpoints: [S, O], role: auxiliary, visibility: hidden}
+labels:
+  - {target: O, text: "$O$", anchor: "below right=3pt and 2pt", mask: none}
+  - {target: S, text: "$S$", anchor: "above=4pt", mask: none}
+visibility_overrides: []

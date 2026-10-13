@@ -1,5 +1,17 @@
 schema_version: 1
 manifest_kind: d0_canonical_migration
+web_2027:
+  decision: QD_027
+  source: index.qmd
+  reading_map: giao_dien/web_2027_layout.json
+  local_style: giao_dien/web_2027.css
+  local_controller: giao_dien/web_2027.js
+  adapter: scripts/zo_web_2027_d0.py
+  checker: scripts/zo_web_2027_d0_check.py
+  html_acceptance: pending_owner_review
+  content_changed: false
+  historical_acceptance_scope: original_html_only
+  publication: pending
 active_authority:
   decision: owner_approved_html_only_publication_2026_10_03
   canonical_source: index.qmd
@@ -48,8 +60,8 @@ baseline:
 
 authority:
   governing:
-    - ../../tot_nghiep_thpt/2027/_quy_trinh/dieu_hanh/ke_hoach_dieu_hanh.md
-    - ../../_quy_trinh/quy_chuan_goi_qmd.md
+    - ../../tot_nghiep_thpt/2027/_quy_trinh/ke_hoach_dieu_hanh.md
+    - ../../tot_nghiep_thpt/2027/_quy_trinh/quy_chuan_goi_qmd.md
     - _quy_trinh/README.md
     - _quy_trinh/hop_dong_nguon_canonical.md
   frozen_content_sources:
@@ -199,7 +211,7 @@ inventory:
     - scope
 
 strand_contract:
-  authority: ../../tot_nghiep_thpt/2027/_quy_trinh/dieu_hanh/ke_hoach_dieu_hanh.md
+  authority: ../../tot_nghiep_thpt/2027/_quy_trinh/ke_hoach_dieu_hanh.md
   authority_section: "4.5"
   strands:
     R1:

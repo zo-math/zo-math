@@ -120,10 +120,15 @@ local function configure_table(block, tbl, spec, seen_ids)
   block.attributes['data-responsive'] = mode
   block.attributes['data-col-widths'] = table.concat(widths, ',')
   block.attributes['data-row-header'] = tostring(row_header)
+  local table_styles = {}
+  for column, width in ipairs(widths) do
+    table.insert(table_styles, '--r1-table-col-'..column..': '..width..'%')
+  end
   if min_width ~= '' then
     block.attributes['data-min-width'] = min_width
-    block.attributes['style'] = '--r1-table-min-width: '..min_width
+    table.insert(table_styles, '--r1-table-min-width: '..min_width)
   end
+  block.attributes['style'] = table.concat(table_styles, '; ')
   if html and mode == 'scroll' then
     block.attributes['role'] = 'region'
     block.attributes['aria-label'] = label
@@ -160,20 +165,16 @@ end
 
 local function render_linked_html_table(div)
   -- Quarto reconstructs link-bearing pipe tables after this filter and can drop
-  -- Table attributes while retaining the wrapper. Keep the ordinary writer for
-  -- the table content, and make its contracted minimum width explicit through
-  -- the preserved wrapper so horizontal scrolling remains available.
+  -- Table attributes while retaining the wrapper. The wrapper therefore keeps
+  -- the full presentation contract, including per-column CSS variables. The
+  -- page stylesheet and runtime restore the normal table treatment without an
+  -- exception for any individual table id.
   div.attributes['data-r1-linked-table'] = 'true'
-  local style = pandoc.RawBlock('html', [[
-<style>
-.r1-table[data-r1-linked-table="true"] > table {
-  min-width: var(--r1-table-min-width);
-}
-</style>]])
+  if div.attributes['data-responsive'] ~= 'scroll' then return div end
   local hint = pandoc.Div(
     {pandoc.Plain({pandoc.Str('Bảng có thể cuộn ngang. Kéo sang bên hoặc dùng phím mũi tên khi bảng đang được chọn.')})},
     pandoc.Attr(div.identifier..'-hint', {'r1-table-scroll-hint'}, {hidden='hidden'}))
-  return {style, hint, div}
+  return {hint, div}
 end
 
 local function collect_linked_table_ids(doc, contract)
@@ -746,10 +747,14 @@ end
 
 local function build_lesson_toc(doc)
   local headings = pandoc.List()
+  local in_lesson = false
   doc:walk({Header=function(heading)
-    if tonumber(heading.level) == 3 and #headings < 9 then
+    if tonumber(heading.level) ~= 3 then return nil end
+    if heading.identifier == 'bắt-đầu-từ-đâu' then in_lesson = true end
+    if in_lesson then
       headings:insert(heading)
     end
+    if heading.identifier == 'khép-lại-bài-học' then in_lesson = false end
   end})
   assert(#headings == 9, 'R1-G01 lesson TOC expected 9 H3 headings, got '..#headings)
   assert(headings[1].identifier == 'bắt-đầu-từ-đâu' and headings[9].identifier == 'khép-lại-bài-học',
@@ -812,7 +817,11 @@ local function prepare(doc)
   end
   verify_projection_boundary_fixture()
   table_specs = doc.meta['r1-tables']
-  assert(table_specs and #table_specs == 18, 'R1-G01 table contract must contain 18 entries')
+  -- The approved HTML editorial pass adds the three-stage practice table.
+  -- PDF inventories below remain locked until a separately authorized PDF pass.
+  local expected_tables = html and 20 or 18
+  assert(table_specs and #table_specs == expected_tables,
+    'R1-G01 table contract must contain '..expected_tables..' entries for this format; PDF synchronization requires its own validated pass')
   table_specs_by_id = {}
   for _, spec in ipairs(table_specs) do
     local id = meta_text(spec.id)
@@ -823,7 +832,7 @@ local function prepare(doc)
   if html then return nil end
   if latex then doc = build_lesson_toc(doc) end
   doc = apply_table_contract(doc)
-  assert_inventory(doc, {math=1468, images=13, tables=18, bbt=13, details=52, answers=100}, 'source')
+  assert_inventory(doc, {math=1621, images=13, tables=18, bbt=13, details=67, answers=102}, 'source')
   if latex then
     variant = pandoc.utils.stringify(doc.meta['zo-pdf-variant'] or 'full')
     local part_spec = section_specs_by_variant[variant]
@@ -873,11 +882,12 @@ local function prepare(doc)
         return d
       end})
       assert(removed, 'Student projection did not find #'..solution_start)
-      -- Approved R1-G01 editorial projection; the solution section removes 669 math,
-      -- 2 images, 4 ordinary tables, 2 BBT blocks, 37 details blocks and 100 answer links.
-      assert_inventory(doc, {math=799, images=11, tables=14, bbt=11, details=15, answers=0}, 'student')
+      -- Student projection removes 672 math nodes, 2 images, 4 ordinary tables,
+      -- 2 BBT blocks, 38 details blocks and all 102 answer links. Canonical N
+      -- resources remain inside the lesson flow and therefore remain available.
+      assert_inventory(doc, {math=949, images=11, tables=14, bbt=11, details=29, answers=0}, 'student')
     else
-      assert_inventory(doc, {math=1468, images=13, tables=18, bbt=13, details=52, answers=100}, 'full')
+      assert_inventory(doc, {math=1621, images=13, tables=18, bbt=13, details=67, answers=102}, 'full')
     end
     local identifiers = identifiers_in_blocks(doc.blocks)
     doc:walk({Link=function(link)

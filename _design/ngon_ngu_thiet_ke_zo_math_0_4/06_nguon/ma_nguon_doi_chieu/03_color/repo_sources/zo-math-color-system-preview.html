@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ZO Math - Color System & UI Preview</title>
+<style>
+  :root{
+    /* Core Palette */
+    --primary:#ef5350;      /* Red 400 */
+    --primary-shade:#d32f2f;/* Red 700 */
+    --primary-tint:#ffcdd2; /* Red 100 */
+
+    --secondary:#ffca28;        /* Amber 400 */
+    --secondary-shade:#f9a825;  /* Yellow 800 */
+    --secondary-tint:#fff9c4;   /* Yellow 100 */
+
+    /* Accents */
+    --accent-blue:#42a5f5;  /* Blue 400 */
+    --accent-indigo:#7986cb;/* Indigo 400 */
+    --accent-teal:#1de8b5;  /* Teal A400 */
+
+    /* Neutrals */
+    --bg:#ffffff;
+    --surface:#f5f5f5;
+    --text:#2c2c2c;
+    --text-subtle:#616161;
+    --muted:#9e9e9e;
+    --border:#e6e6e6;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+  }
+  a{color:var(--primary);text-decoration:none}
+  a:hover{color:var(--primary-shade);text-decoration:underline}
+
+  /* Layout */
+  header.hero{
+    background:linear-gradient(90deg,var(--primary),var(--accent-blue));
+    color:#111;
+    padding:1rem;
+  }
+  header .topbar{
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  }
+  header .brand{font-weight:800;letter-spacing:.2px}
+  header nav a{margin-right:1rem;color:#111;font-weight:600}
+  header .subtitle{margin:.25rem 0 0;color:#111}
+  main{max-width:1180px;margin:0 auto;padding:1.25rem}
+  section{margin:2rem 0}
+  h1,h2,h3{line-height:1.25;margin:.2rem 0 .6rem}
+  h2{border-bottom:2px solid var(--border);padding-bottom:.35rem}
+
+  .grid{display:grid;gap:1rem}
+  .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  @media (max-width:900px){
+    .grid.cols-2,.grid.cols-3{grid-template-columns:1fr}
+  }
+
+  /* Swatches */
+  .swatch{
+    border:1px solid rgba(0,0,0,.08);
+    border-radius:.5rem;
+    overflow:hidden;
+    background:#fff;
+  }
+  .swatch .chip{
+    height:72px;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;
+  }
+  .swatch .meta{padding:.6rem .75rem;border-top:1px dashed var(--border);font-size:.95rem}
+  .code{font-variant-numeric:tabular-nums;background:#f7f7f7;border:1px solid #eee;padding:.1rem .35rem;border-radius:.25rem}
+
+  /* Cards / Buttons */
+  .card{
+    background:#fff;border:1px solid var(--border);border-radius:.6rem;padding:1rem;
+    box-shadow:0 2px 6px rgba(0,0,0,.04);
+  }
+  .btn{
+    display:inline-block;padding:.55rem 1rem;border-radius:.35rem;font-weight:700;
+    text-decoration:none;margin:.25rem .35rem .25rem 0;border:2px solid transparent;
+  }
+  .btn-primary{background:var(--primary);color:#111;border-color:var(--primary);}
+  .btn-primary:hover{background:var(--primary-shade);border-color:var(--primary-shade);}
+
+  .btn-secondary{background:var(--secondary);color:#111;border-color:var(--secondary);}
+  .btn-secondary:hover{background:var(--secondary-shade);border-color:var(--secondary-shade);}
+
+  .btn-outline{background:transparent;color:var(--primary);border-color:var(--primary);}
+  .btn-outline:hover{color:#111;background:var(--primary-tint)}
+
+  .badge{display:inline-block;padding:.2rem .5rem;border-radius:999px;font-size:.85rem;font-weight:700}
+  .badge-blue{background:var(--accent-blue);color:#fff}
+  .badge-indigo{background:var(--accent-indigo);color:#fff}
+  .badge-teal{background:var(--accent-teal);color:#111}
+
+  /* Callouts */
+  .callout{border-left:6px solid var(--accent-indigo);background:#fff;border:1px solid var(--border);border-left-color:var(--accent-indigo);padding:1rem;border-radius:.5rem}
+  .callout.warn{border-left-color:var(--secondary);background:var(--secondary-tint)}
+
+  /* Breadcrumb demo */
+  .breadcrumb{display:flex;flex-wrap:wrap;gap:.25rem;align-items:center;font-size:.95rem;margin:.5rem 0 1rem}
+  .breadcrumb a{color:var(--secondary);font-weight:600;text-decoration:none}
+  .breadcrumb a:hover{color:var(--primary)}
+  .breadcrumb .sep{color:var(--muted);padding:0 .35rem}
+  .breadcrumb .current{color:var(--primary);font-weight:700}
+
+  /* Table */
+  table{width:100%;border-collapse:collapse;margin:1rem 0;border:1px solid var(--border)}
+  th,td{padding:.6rem;border-top:1px solid var(--border);text-align:left}
+  thead th{background:#fafafa}
+
+  /* Sticky helper note */
+  .note{background:#fff;border:1px solid var(--border);border-radius:.5rem;padding:.75rem}
+
+  footer{padding:1.25rem;text-align:center;color:#666;border-top:1px solid var(--border);background:#fafafa}
+  small{color:var(--text-subtle)}
+</style>
+</head>
+<body>
+  <header class="hero">
+    <div class="topbar">
+      <div class="brand">ZO Math</div>
+      <nav>
+        <a href="#">Trang chủ</a>
+        <a href="#">Dự án</a>
+        <a href="#">Liên hệ</a>
+      </nav>
+    </div>
+    <p class="subtitle">Color System &amp; UI Preview – Primary <strong>#ef5350</strong>, Secondary <strong>#ffca28</strong>, với các accent hài hòa.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>1) Thuật ngữ cơ bản</h2>
+      <div class="grid cols-3">
+        <div class="note"><strong>Primary color</strong> – màu chủ đạo (đỏ #ef5350) xuất hiện nhiều nhất: nút chính, link, điểm nhấn thương hiệu.</div>
+        <div class="note"><strong>Secondary color</strong> – màu phụ (vàng #ffca28) dùng tiết chế: badge, nhấn nhỏ, highlight.</div>
+        <div class="note"><strong>Accent colors</strong> – màu điểm nhấn thêm (xanh, indigo, teal) để cân bằng nóng/lạnh, tránh đơn điệu.</div>
+        <div class="note"><strong>Complementary</strong> – màu đối nghịch trên vòng màu (đỏ ↔ xanh lam / xanh ngọc; vàng ↔ tím) → tương phản mạnh.</div>
+        <div class="note"><strong>Analogous</strong> – màu liền kề (đỏ ↔ cam ↔ hồng; vàng ↔ cam ↔ xanh lá) → hài hòa êm mắt.</div>
+        <div class="note"><strong>Shades &amp; Tints</strong> – <em>shades</em> là màu đậm hơn (thêm đen), <em>tints</em> là màu nhạt hơn (thêm trắng) của cùng một màu.</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>2) Core palette &amp; swatches</h2>
+      <div class="grid cols-3">
+        <div class="swatch">
+          <div class="chip" style="background:var(--primary);color:#111">Primary #ef5350</div>
+          <div class="meta">Nút chính, link, highlight</div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:var(--secondary);color:#111">Secondary #ffca28</div>
+          <div class="meta">Accent phụ, badge, nhấn nhẹ</div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:var(--accent-blue);">Blue #42a5f5</div>
+          <div class="meta">Complementary gần đỏ – cảm giác học thuật, mát</div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:var(--accent-indigo);">Indigo #7986cb</div>
+          <div class="meta">Bổ sung chiều sâu, hợp tiêu đề phụ</div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:var(--accent-teal);color:#111">Teal #1de8b5</div>
+          <div class="meta">Tươi mới, nên dùng ít làm gia vị</div>
+        </div>
+      </div>
+      <small>Mẹo: không dùng toàn bộ 5–6 màu cùng lúc trên một màn hình. Hãy ưu tiên Primary + 1 accent, Secondary dùng tiết chế.</small>
+    </section>
+
+    <section>
+      <h2>3) Shades &amp; Tints</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Primary Red (#ef5350)</h3>
+          <div class="grid cols-3">
+            <div class="swatch">
+              <div class="chip" style="background:var(--primary-shade);">Shade #d32f2f</div>
+              <div class="meta">Dùng cho hover/active hoặc tiêu đề đậm</div>
+            </div>
+            <div class="swatch">
+              <div class="chip" style="background:var(--primary);color:#111">Base #ef5350</div>
+              <div class="meta">Màu thương hiệu</div>
+            </div>
+            <div class="swatch">
+              <div class="chip" style="background:var(--primary-tint);color:#111">Tint #ffcdd2</div>
+              <div class="meta">Nền nổi bật dịu, callout nhẹ</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Secondary Yellow (#ffca28)</h3>
+          <div class="grid cols-3">
+            <div class="swatch">
+              <div class="chip" style="background:var(--secondary-shade);">Shade #f9a825</div>
+              <div class="meta">Hover/active cho nút vàng</div>
+            </div>
+            <div class="swatch">
+              <div class="chip" style="background:var(--secondary);color:#111">Base #ffca28</div>
+              <div class="meta">Accent phụ/badge</div>
+            </div>
+            <div class="swatch">
+              <div class="chip" style="background:var(--secondary-tint);color:#111">Tint #fff9c4</div>
+              <div class="meta">Nền nhẹ ấm áp</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>4) Gợi ý dùng (Complementary &amp; Analogous)</h2>
+      <table>
+        <thead><tr><th>Ngữ cảnh</th><th>Khuyến nghị</th><th>Lý do</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Nút chính / Link nổi bật</td>
+            <td><span class="badge" style="background:var(--primary);color:#111">Primary</span> + hover <span class="badge" style="background:var(--primary-shade);">Shade</span></td>
+            <td>Nhất quán thương hiệu, phản hồi tốt khi hover</td>
+          </tr>
+          <tr>
+            <td>Badge/Chip nhấn nhỏ</td>
+            <td><span class="badge" style="background:var(--secondary);color:#111">Secondary</span> hoặc <span class="badge badge-teal">Teal</span></td>
+            <td>Vàng/teal làm điểm nhấn sáng – dùng tiết chế</td>
+          </tr>
+          <tr>
+            <td>Tiêu đề phụ / Sidebar</td>
+            <td><span class="badge badge-indigo">Indigo</span> hoặc <span class="badge" style="background:var(--accent-blue)">Blue</span></td>
+            <td>Tạo chiều sâu, cân bằng tông nóng/lạnh</td>
+          </tr>
+          <tr>
+            <td>Callout cảnh báo dịu</td>
+            <td><span class="badge" style="background:var(--secondary-tint);color:#111">Secondary Tint</span></td>
+            <td>Nổi bật nhưng không quá gắt</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>5) Mini UI Kit</h2>
+
+      <div class="breadcrumb">
+        <a href="#">Danh sách hàm cơ bản</a>
+        <span class="sep">›</span>
+        <span class="current">Hàm số hằng</span>
+      </div>
+
+      <div class="card">
+        <h3>Buttons</h3>
+        <a class="btn btn-primary" href="#">Nút Primary</a>
+        <a class="btn btn-secondary" href="#">Nút Secondary</a>
+        <a class="btn btn-outline" href="#">Nút Outline</a>
+        <span class="badge badge-blue">Blue</span>
+        <span class="badge badge-indigo">Indigo</span>
+        <span class="badge badge-teal">Teal</span>
+      </div>
+
+      <div class="card">
+        <h3>Card nội dung</h3>
+        <p>Đồ thị hàm số <code>y=ax+b</code> là một đường thẳng. Sử dụng <span class="code">primary</span> cho link và <span class="code">secondary</span> cho accent.</p>
+        <div class="callout">
+          <strong>Ghi chú:</strong> Đây là callout mặc định (indigo) – hợp cho mẹo/nhắc nhở.
+        </div>
+        <div class="callout warn" style="margin-top:.75rem">
+          <strong>Cảnh báo nhẹ:</strong> Dùng tint vàng để thông báo thân thiện.
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>6) Khuyến nghị độ tương phản (đọc tốt)</h2>
+      <table>
+        <thead><tr><th>Nền</th><th>Text trắng</th><th>Text đen (#111–#2c2c2c)</th><th>Ghi chú</th></tr></thead>
+        <tbody>
+          <tr><td style="background:var(--primary);color:#fff;">#ef5350</td><td>✓ ổn</td><td>✓ ổn</td><td>Dùng text đen cho cảm giác hiện đại, trắng cũng OK</td></tr>
+          <tr><td style="background:var(--secondary);color:#111;">#ffca28</td><td>✗ dễ chói</td><td>✓ khuyến nghị</td><td>Vàng sáng nên ưu tiên text đen</td></tr>
+          <tr><td style="background:var(--accent-blue);color:#fff;">#42a5f5</td><td>✓ ổn</td><td>✗ có thể thiếu tương phản</td><td>Blue sáng → ưu tiên text trắng</td></tr>
+          <tr><td style="background:var(--accent-indigo);color:#fff;">#7986cb</td><td>✓ ổn</td><td>✗ hơi yếu</td><td>Indigo → text trắng đẹp</td></tr>
+          <tr><td style="background:var(--accent-teal);color:#111;">#1de8b5</td><td>✗</td><td>✓</td><td>Teal rất sáng → text đen</td></tr>
+        </tbody>
+      </table>
+      <small>Lưu ý: Bảng này mang tính hướng dẫn nhanh. Nếu cần đạt chuẩn WCAG nghiêm ngặt, nên đo contrast ratio cụ thể theo kích thước chữ.</small>
+    </section>
+
+    <section>
+      <h2>7) Cách đưa vào Quarto</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>SCSS (sandstone.scss)</h3>
+<pre><code>$primary:   #ef5350 !default;
+$secondary: #ffca28 !default;
+
+$body-bg:   #ffffff !default;
+$body-color:#2c2c2c !default;
+
+/* Màu trạng thái đề xuất mapping */
+$info:      #42a5f5 !default;  /* blue */
+$success:   #1de8b5 !default;  /* teal */
+$warning:   #f9a825 !default;  /* shade vàng */
+$danger:    #d32f2f !default;  /* shade đỏ */
+</code></pre>
+        </div>
+        <div class="card">
+          <h3>_quarto.yml</h3>
+<pre><code>format:
+  html:
+    theme: sandstone.scss
+# hoặc
+# format:
+#   html:
+#     theme:
+#       - sandstone
+#       - sandstone.scss
+</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 ZO Math • Color System &amp; UI Preview
+  </footer>
+</body>
+</html>

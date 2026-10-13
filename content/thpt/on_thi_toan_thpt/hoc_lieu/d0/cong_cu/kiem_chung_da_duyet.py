@@ -13,6 +13,14 @@ from tich_hop_html_da_duyet import ROOT, REPO, RECEIPT, SECTIONS, signature
 
 REVISION_PATH = ROOT / '_quy_trinh/dieu_chinh_sau_duyet.json'
 
+# DH_025, direct user rule on 2026-10-11: exactly two delimiter-only changes.
+# Reverse these deltas for historical comparison, never update approval hashes
+# or globally strip sizing commands (which would hide unrelated source edits).
+DELIMITER_DELTAS = {
+    r'\sin(\frac{\pi t}{6})=1':r'\sin\left(\frac{\pi t}{6}\right)=1',
+    r'\int_0^5(t-2)\,dt=[\frac{t^2}{2}-2t]_0^5=\frac52':r'\int_0^5(t-2)\,dt=\left[\frac{t^2}{2}-2t\right]_0^5=\frac52',
+}
+
 
 def require(ok, message):
     if not ok:
@@ -23,6 +31,22 @@ def verify_source():
     approval = json.loads(RECEIPT.read_text(encoding='utf-8'))
     qmd = ROOT / 'index.qmd'
     original_qmd = qmd.read_text(encoding='utf-8')
+    for before, after in DELIMITER_DELTAS.items():
+        require(original_qmd.count(after) == 1, 'Sai delta dấu ngoặc DH_025')
+        original_qmd = original_qmd.replace(after, before, 1)
+    # DH_018 permits only this presentation opt-in, not a new content receipt.
+    opted = 'body-classes: zo-page-article zo-meta-hidden zo-on-thi-package-page d0-page zo-web-2027-d0'
+    if opted in original_qmd:
+        require(original_qmd.count(opted) == 1, 'Marker D0 opt-in bị lặp')
+        original_qmd = original_qmd.replace(opted, opted.removesuffix(' zo-web-2027-d0'), 1)
+    # a46a8051472b70c526f4554c862bb75e506110fc changed only the two
+    # live catalog labels, outside the approved survey text. Reverse this
+    # exact committed delta; never replace the historical approval hash.
+    catalog = '- [Đơn điệu và cực trị](../r1_g01/index.qmd)\n- [Giá trị lớn nhất và giá trị nhỏ nhất](../r1_g02/index.qmd)'
+    historical = '- [Kết nối hàm số, bảng biến thiên và đồ thị](../r1_g01/index.qmd)\n- [Giá trị lớn nhất và giá trị nhỏ nhất của hàm số](../r1_g02/index.qmd)'
+    if catalog in original_qmd:
+        require(original_qmd.count(catalog) == 1, 'Delta danh mục D0 bị lặp')
+        original_qmd = original_qmd.replace(catalog, historical, 1)
     if REVISION_PATH.is_file():
         revision = json.loads(REVISION_PATH.read_text(encoding='utf-8'))
         for change in revision['replacements']:
@@ -40,6 +64,11 @@ def original_signature(element, identifier):
     if not REVISION_PATH.is_file():
         return signature(element)
     copy = BeautifulSoup(str(element), 'html.parser')
+    for annotation in copy.select('annotation[encoding="application/x-tex"]'):
+        formula = annotation.get_text()
+        for before, after in DELIMITER_DELTAS.items():
+            if formula == after:
+                annotation.string = before
     if identifier == 'khai-bao-pham-vi':
         require(not any(h.get_text(' ', strip=True) == 'Hàm số, đạo hàm, đồ thị' for h in copy.select('h3')), 'Tiêu đề trước ví dụ vẫn còn')
         heading = copy.new_tag('h3')
@@ -68,17 +97,34 @@ def original_signature(element, identifier):
     return signature(copy)
 
 
-def verify_html():
+def verify_projection(root):
+    """Full approved learner text/TeX, after removing presentation wrappers only."""
     approval = verify_source()
-    path = REPO / 'docs' / ROOT.relative_to(REPO) / 'index.html'
-    soup = BeautifulSoup(path.read_text(encoding='utf-8'), 'html.parser')
-    root = soup.select_one('.zo-on-thi-package.d0-package')
     require(root is not None, 'Thiếu root canonical')
     require([s.get('id') for s in root.find_all('section', recursive=False)] == SECTIONS, 'Sai cấu trúc thẻ')
     for identifier, expected in approval['sections'].items():
         actual = original_signature(root.find(id=identifier), identifier)
         require(actual['math'] == expected['math'], f'Chuỗi công thức khác bản duyệt: {identifier}')
         require(actual['text_sha256'] == expected['text_sha256'], f'Toàn chuỗi văn bản khác bản duyệt: {identifier}')
+    return approval
+
+
+def verify_html():
+    path = REPO / 'docs' / ROOT.relative_to(REPO) / 'index.html'
+    soup = BeautifulSoup(path.read_text(encoding='utf-8'), 'html.parser')
+    root = soup.select_one('.zo-on-thi-package.d0-package')
+    if soup.body.get('data-zo-web-production') == 'd0':
+        import sys
+        sys.path.insert(0, str(REPO / 'scripts'))
+        from zo_web_2027_d0 import strip_papers
+        from zo_web_2027_d0_check import validate
+        verify_projection(strip_papers(root))
+        checks, missing = validate(path)
+        require(all(checks.values()), 'D0 web 2027: ' + ', '.join(k for k,v in checks.items() if not v))
+        require(not missing, 'D0 web 2027 thiếu đích: ' + str(missing))
+        print('PASS: D0 web 2027; full approved text/TeX, IDs, closed disclosures and links.')
+        return
+    approval = verify_projection(root)
     ids = [s['id'] for s in root.select('[id]')]
     require(len(ids) == len(set(ids)), 'ID trùng')
     require([t['id'] for t in root.select('.d0-primary-task')] == approval['task_ids'], 'Sai 24 ID/thứ tự câu')

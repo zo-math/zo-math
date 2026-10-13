@@ -118,3 +118,13 @@ python scripts/zo_python.py quy_trinh_xay_dung/cong_cu_do_thi_ham_so_zo_math/kie
 
 Kiểm thử tạo đầu ra trong thư mục tạm riêng rồi dọn sau khi kết thúc. Nó không chuyển đổi R1-G01, dự án 100+ Hàm số hoặc tài sản canonical khác.
 
+## Lựa chọn thử nghiệm Design 0.4 — không đổi mặc định
+
+CLI bổ sung `--style 0.4`, `--surface paper|transparent-light|transparent-dark`
+và sidecar `--label-layout` để dịch hộp chữ có kiểm soát. Mặc định vẫn v0.2;
+không tự áp dụng cho nguồn hoặc tài sản hiện có. Bìa trong suốt chặn point
+open/pagecolor để tránh làm sai điểm loại. Profile không tự bố trí mọi nhãn.
+Nguồn, giới hạn và mẫu HTML xem tại
+`_design/web_2027_mau_dung_chung/figure-profile-candidate/README.md`.
+Mẫu FB030 đã duyệt và profile được nối opt-in vào HTML G01 ở FB031, G02 dùng trong HTML audit FB036. Đây không phải thay đổi mặc định toàn repo hoặc khóa Design 0.5; bản sửa học liệu FB036 vẫn chờ chủ trì xem, PDF chưa đồng bộ. Trạng thái khóa do bảng 03 tại `content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/` sở hữu.
+

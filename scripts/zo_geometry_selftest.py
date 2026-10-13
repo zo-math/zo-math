@@ -20,10 +20,9 @@ from zo_geometry import (
     validate,
 )
 REPO_ROOT = Path(__file__).resolve().parents[1]
-FIXTURE_ROOT = REPO_ROOT / "_audit" / "zo_geometry_spike"
-sys.path.insert(0, str(FIXTURE_ROOT))
+FIXTURE_ROOT = REPO_ROOT / "scripts" / "fixtures" / "geometry"
 
-from zo_geometry_stress_v01 import FAMILIES, VIEWS, adapt_labels, camera_readability, negative_cases, render_case, resolved_camera
+from zo_geometry_stress import FAMILIES, VIEWS, adapt_labels, camera_readability, negative_cases, render_case, resolved_camera
 
 
 HERE = FIXTURE_ROOT
@@ -384,7 +383,7 @@ class GeometryPrototypeTests(unittest.TestCase):
                 self.assertGreaterEqual(camera_readability(camera)["horizontal_circle_minor_ratio"], 0.20)
 
     def test_visual_tokens_are_centralized(self) -> None:
-        style = (HERE / "zo_geometry_spike_style.tex").read_text(encoding="utf-8")
+        style = (REPO_ROOT / "assets/tex/zo-geometry-styles.tex").read_text(encoding="utf-8")
         for token in (
             "\\zoGeometryVisibleWidth",
             "\\zoGeometryHiddenWidth",
@@ -400,4 +399,6 @@ class GeometryPrototypeTests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()
+    from zo_build_boundary import official_inputs
+    with official_inputs():
+        unittest.main()

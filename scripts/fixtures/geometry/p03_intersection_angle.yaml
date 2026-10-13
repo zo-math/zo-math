@@ -1,0 +1,19 @@
+id: P03
+dimension: 2d
+backend: tkz-euclide
+points:
+  - {id: A, coordinates: [-3, -1]}
+  - {id: B, coordinates: [3, 1]}
+  - {id: C, coordinates: [-2, 2]}
+  - {id: D, coordinates: [2, -2]}
+  - {id: O, coordinates: [0, 0]}
+objects:
+  - {type: segment, endpoints: [A, B], role: visible}
+  - {type: segment, endpoints: [C, D], role: visible}
+  - {type: angle_mark, points: [B, O, C], role: emphasized, size: .42}
+labels:
+  - {target: A, text: "$A$", anchor: below left, mask: none}
+  - {target: B, text: "$B$", anchor: above right, mask: none}
+  - {target: C, text: "$C$", anchor: above left, mask: none}
+  - {target: D, text: "$D$", anchor: below right, mask: none}
+  - {target: O, text: "$O$", anchor: "below=5pt", mask: none}
