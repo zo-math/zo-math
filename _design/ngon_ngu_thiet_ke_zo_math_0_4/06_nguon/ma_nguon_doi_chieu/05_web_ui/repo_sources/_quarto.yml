@@ -1,0 +1,299 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - "**/*.qmd"
+    - "**/*.Rmd"
+    - "!docs/**"
+    - "!_audit/**"
+    - "!**/*.md"
+    - "!content/thpt/on_thi_toan_thpt/_quy_trinh/**"
+    - "!content/thpt/on_thi_toan_thpt/**/_quy_trinh/**"
+  preview:
+    port: 4200
+    browser: true
+
+# editor:
+#   render-on-save: true
+
+resources:
+  - "CNAME"
+  - "assets/"
+  - "assets/fonts/*"
+  - "assets/tex/**"
+  - "figures/**"
+  - assets/css/three-columns.css
+
+lang: vi
+
+website:
+  title: "ZO Math"
+  bread-crumbs: true
+  description: "Một không gian giáo dục toán học nhằm làm cho toán học trở nên có nghĩa và đáng để suy nghĩ."
+  site-url: "https://zomath.vn/"
+  # site-path: "/" # Đảm bảo đường dẫn gốc là /
+  favicon: "images/favicon.ico"
+  navbar:
+    logo: "assets/logo/zo_math_logo_black_on_transprentt_1024.png"
+    logo-alt: "ZO Math"
+    title: false
+    left:
+      - href: "index.qmd"
+        text: "<i class='bi bi-house-door'></i>"
+      - text: "Giới Thiệu"
+        menu:
+          - text: "Giới thiệu về ZO Math"
+            href: "content/about.qmd"
+          - text: "Triết lí và định hướng"
+            href: "content/triet_li_va_dinh_huong.qmd"
+      - text: "Phổ Thông"
+        menu:
+          - text: "Toán 11"
+            href: "content/thpt/toan_11/index.qmd"
+          - text: "Toán 12"
+            href: "content/thpt/toan_12/index.qmd"
+          - text: "ZO Math 100+"
+            href: "content/thpt/zo_math_100/index.qmd"
+          - text: "Ôn thi Toán THPT"
+            href: "content/thpt/on_thi_toan_thpt/index.qmd"
+      - href: "content/di_tim/index.qmd"
+        text: "Đi Tìm"
+      - href: "content/khoa_hoc/index.qmd"
+        text: "Khóa Học"
+      - href: "content/kien_tao/index.qmd"
+        text: "Kiến Tạo"
+      - href: "content/cong_cu/index.qmd"
+        text: "Công Cụ"
+
+    right:
+      - href: "content/shop/index.qmd"
+        text: "Shop"
+      - href: "content/support/donate.qmd"
+        text: "Bảo Trợ"
+      - href: "content/contact.qmd"
+        text: "Liên Hệ"
+
+  sidebar:
+    - id: on-thi
+      title: "Ôn thi Toán THPT"
+      style: docked
+      search: false
+      contents:
+        - text: "Ôn thi Toán THPT"
+          href: content/thpt/on_thi_toan_thpt/index.qmd
+        - text: "Ôn thi Toán THPT 2027"
+          href: content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.qmd
+        - text: "Khảo sát đầu vào"
+          href: content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.qmd
+        - text: "Đơn điệu và cực trị"
+          href: content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.qmd
+        - text: "Giá trị lớn nhất và giá trị nhỏ nhất"
+          href: content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/index.qmd
+
+    - id: gioithieu
+      title: "Về ZO Math"
+      style: docked
+      search: true
+      contents:
+        - text: "Giới thiệu về ZO Math"
+          href: content/about.qmd
+        - text: "Triết lí và định hướng"
+          href: content/triet_li_va_dinh_huong.qmd
+        - text: "Bảo trợ"
+          href: content/support/donate.qmd
+        - text: "Liên hệ"
+          href: content/contact.qmd
+
+    - id: hamso100
+      title: "100+ Hàm số"
+      style: docked
+      search: true
+      contents:
+        - text: "ZO Math 100+"
+          href: content/thpt/zo_math_100/index.qmd
+        - text: "100+ Hàm số: sự biến thiên và đồ thị"
+          href: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/index.qmd
+        - text: "Dẫn nhập"
+          href: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/dan_nhap.qmd
+        - text: "Hàm số"
+          href: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/ham_so.qmd
+        - text: "Biến thiên"
+          href: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/bien_thien.qmd
+        - text: "Đồ thị"
+          href: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/do_thi.qmd
+        - section: "Danh sách hàm cơ bản"
+          href: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/index.qmd
+          contents:
+            - text: "Hàm số hằng"
+              href: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_so_hang.qmd
+            - text: "Hàm số bậc nhất"
+              href: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_so_bac_nhat.qmd
+            - text: "Hàm lô-ga-rit tự nhiên"
+              href: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_ln_x.qmd
+            - text: "Hàm √x"
+              href: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_can_x.qmd
+            - text: "Hàm số y = x²"
+              href: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_x_binh.qmd
+            - text: "Hàm số y = x³"
+              href: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_x_mu_3.qmd
+            - text: "Hàm số arcsin"
+              href: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_arcsin_x.qmd
+            - text: "Hàm số x trừ một trên x"
+              href: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_x_tru_mot_tren_x.qmd
+            - text: "Hàm dấu"
+              href: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/core/ham_sgn_x.qmd
+        - section: "Danh sách hàm mở rộng"
+        - section: "Danh sách hàm đào sâu"
+          contents:
+            - text: "Hàm số sin một trên x"
+              href: content/thpt/zo_math_100/100_ham_so_su_bien_thien_va_do_thi/depth/ham_sin_mot_tren_x.qmd
+
+
+    - id: kientao
+      title: "Kiến tạo"
+      style: docked
+      search: true
+      contents:
+        - text: "Kiến tạo"
+          href: content/kien_tao/index.qmd
+        - text: "Dịu dàng và gai góc"
+          href: content/kien_tao/diu_dang_va_gai_goc/diu_dang_va_gai_goc.qmd
+        - text: "Tiến thoái nhịp nhàng"
+          href: content/kien_tao/tien_thoai_nhip_nhang/tien_thoai_nhip_nhang.qmd
+
+  page-footer:
+    center: |
+      [Giới thiệu](/content/about.qmd) | [Triết lí và định hướng](/content/triet_li_va_dinh_huong.qmd) | [Liên hệ](/content/contact.qmd)
+      <br>
+      <a href="https://www.facebook.com/profile.php?id=61591689772259" title="Facebook"><i class="bi bi-facebook"></i></a>
+      <a href="https://www.tiktok.com/@zo.math" title="TikTok"><i class="bi bi-tiktok"></i></a>
+      <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a>
+      <br>
+      © 2026 ZO Math
+
+    # left: "© 2025 ZO Math."
+    # right: "[Liên hệ](/content/contact.qmd) | [Facebook](https://www.facebook.com/profile.php?id=61591689772259) | [YouTube](https://www.youtube.com/@ZO-Math)"
+
+format:
+  html:
+    theme:
+      # - sandstone
+      # - zo-math.organized.scss
+      - zo-math.scss
+    title-block-banner: true
+    default-image-extension: svg
+    css: "assets/css/custom.css"
+    include-after-body:
+      - assets/html/sidebar-layer.html
+    include-in-header:
+      - text: |
+          <script>
+            MathJax = {
+              loader: { load: ['[tex]/ams'] },
+              tex: {
+                packages: { '[+]': ['ams'] }
+              },
+              chtml: {
+                scale: 1.0
+              },
+              options: {
+                renderActions: { addMenu: [] }
+              }
+            };
+          </script>
+          <script>
+            document.addEventListener('DOMContentLoaded', function () {
+              const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+              const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+                const title = tooltipTriggerEl.getAttribute('title');
+                if (!title) return null;
+
+                const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
+                const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
+                tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
+                tooltipTriggerEl.setAttribute('title', '');
+
+                return new bootstrap.Tooltip(tooltipTriggerEl, {
+                  html: true,
+                  trigger: 'hover focus',
+                  boundary: 'viewport',
+                  placement: 'auto'
+                });
+              }).filter(tooltip => tooltip !== null);
+
+              tooltipTriggerList.forEach(tooltipTriggerEl => {
+                const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+                tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
+                  // Tìm phần tử .tooltip
+                  const tooltip = document.querySelector('.tooltip');
+                  if (tooltip) {
+                    // Kiểm tra xem có .tooltip-arrow không
+                    const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
+                    if (tooltipArrow) {
+                      tooltipArrow.style.background = 'transparent';
+                    } else {
+                      // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
+                      const tooltipInner = tooltip.querySelector('.tooltip-inner');
+                      if (tooltipInner) {
+                        // Thử làm trong suốt pseudo-elements của .tooltip
+                        tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
+                        // Thử làm trong suốt pseudo-elements của .tooltip-inner
+                        tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
+                      }
+                    }
+                  }
+
+                  // Xử lý MathJax trong tooltip
+                  const tooltipEl = document.querySelector('.tooltip-inner');
+                  if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
+
+                  if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                    MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
+                      console.log('MathJax rendered successfully in tooltip');
+                      if (tooltipInstance) {
+                        tooltipInstance.update();
+                      }
+                    }).catch(err => {
+                      console.error('MathJax render error:', err);
+                    });
+                  } else {
+                    console.error('MathJax is not loaded. Ensure MathJax script is included.');
+                  }
+                });
+              });
+            });
+          </script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+    # html-math-method: mathjax
+    mathjax:
+      url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+      # config: "TeX-MML-AM_CHTML"
+    toc: true
+
+  # pdf:
+  #   documentclass: article
+  #   pdf-engine: lualatex
+  #   default-image-extension: pdf
+  #   # execute:
+  #   #   allow-shell: true
+  #   pdf-engine-opts:
+  #     - "-shell-escape"
+  #     - "-file-line-error"
+  #   latex-auto-install: true
+  #   latex-auto-mk: true
+  #   include-in-header:
+  #     - "assets/tex/custom.tex"
+  #   # keep-tex: true
+
+execute:
+  freeze: auto # Chỉ chạy lại code khi file .qmd hoặc dữ liệu đầu vào thay đổi.
+  cache: true # Không render nếu code không đổi
+  echo: false # Mặc định ẩn code trong toàn bộ tài liệu
+  warning: false # Ẩn cảnh báo nếu có
+  message: false # Ẩn các thông báo thừa
+  tex-math: true
+  # dir: .
+
+filters:
+  - "assets/lua/custom.lua"
+  - "assets/lua/zo_pdf_download.lua"

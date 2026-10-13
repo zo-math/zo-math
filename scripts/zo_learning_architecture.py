@@ -15,9 +15,13 @@ from typing import Any, Iterable
 
 import yaml
 
+sys.dont_write_bytecode = True
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-COMMON_DIR = REPO_ROOT / "content/thpt/on_thi_toan_thpt/_quy_trinh"
+COMMON_DIR = (
+    REPO_ROOT
+    / "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh"
+)
 COMMON_CATALOG = COMMON_DIR / "danh_muc_kien_truc_hoc_tap.yml"
 SCHEMA_PATH = COMMON_DIR / "schema_kien_truc_hoc_tap.json"
 DEFAULT_MANIFESTS = (
@@ -639,7 +643,10 @@ def run(mode: str, paths: list[Path]) -> int:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("mode", choices=("schema", "readiness"))
+    parser.add_argument("mode", choices=("schema", "readiness", "labels"))
+    parser.add_argument("--application", help="Bảng di trú nhãn JSON canonical; chỉ dùng với labels.")
+    parser.add_argument("--output", help="Thư mục báo cáo mới dưới _audit; không sửa học liệu.")
+    parser.add_argument("--self-test", action="store_true", help="Chạy fixture hệ nhãn.")
     parser.add_argument(
         "manifests",
         nargs="*",
@@ -651,6 +658,13 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     try:
+        if args.mode == "labels":
+            if args.manifests:
+                raise ValueError("labels nhận --application, không nhận manifest positional")
+            from zo_learning_labels import run as run_labels
+            return run_labels(args.application, args.output, args.self_test)
+        if args.application or args.output or args.self_test:
+            raise ValueError("Các tùy chọn nhãn chỉ dùng với mode labels")
         return run(args.mode, _resolve_manifest_paths(args.manifests))
     except (OSError, ValueError, json.JSONDecodeError, yaml.YAMLError) as exc:
         print(f"RESULT: FAIL | {exc}", file=sys.stderr)

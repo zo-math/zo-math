@@ -1,0 +1,431 @@
+special:
+- id: dan_nhap
+  title: 'Dẫn nhập: Hàm số, sự biến thiên và đồ thị'
+  eyebrow: Bắt đầu
+  href: dan_nhap.qmd
+  status: published
+  note: Bài viết nền để nhìn lại hàm số như một quy luật biến thiên trước khi đi vào từng trường hợp cụ thể.
+  image: assets/img/cards/dan_nhap.svg
+  illustration: dan_nhap
+- id: ham_so
+  title: Hàm số
+  eyebrow: Nền tảng
+  href: ham_so.qmd
+  status: published
+  note: Nhìn hàm số như một quy tắc gắn đầu vào với đúng một đầu ra.
+  image: assets/img/cards/ham_so.svg
+  illustration: ham_so
+- id: bien_thien
+  title: Biến thiên
+  eyebrow: Nền tảng
+  href: bien_thien.qmd
+  status: published
+  note: Quan sát cách giá trị hàm số thay đổi khi biến đầu vào dịch chuyển.
+  image: assets/img/cards/bien_thien.svg
+  illustration: bien_thien
+- id: do_thi
+  title: Đồ thị
+  eyebrow: Nền tảng
+  href: do_thi.qmd
+  status: published
+  note: Nhìn toàn bộ quy luật của hàm số qua các điểm trên mặt phẳng tọa độ.
+  image: assets/img/cards/do_thi.svg
+  illustration: do_thi
+groups:
+- title: 0. Hàm hằng và lũy thừa nguyên không âm
+  items:
+  - number: 1
+    formula: $y=1$
+    labels:
+    - C
+    status: published
+    href: core/ham_so_hang.qmd
+    image: assets/img/cards/the_001.svg
+    plot: {xlim: [-3.0, 3.0], ylim: [-1.5, 3.5]}
+  - number: 4
+    formula: $y=x$
+    labels:
+    - C
+    status: published
+    href: core/ham_so_bac_nhat.qmd
+    image: assets/img/cards/the_004.svg
+    plot: {xlim: [-2.5, 2.5], ylim: [-3.0, 3.0]}
+  - number: 12
+    formula: $y=x^2$
+    labels:
+    - C
+    status: published
+    href: core/ham_x_binh.qmd
+    image: assets/img/cards/the_012.svg
+    plot: {xlim: [-2.1, 2.1], ylim: [-0.6, 5.4]}
+  - number: 24
+    formula: $y=x^3$
+    labels:
+    - C
+    status: published
+    href: core/ham_x_mu_3.qmd
+    image: assets/img/cards/the_024.svg
+    plot: {xlim: [-1.75, 1.75], ylim: [-6.2, 6.2]}
+  - number: 34
+    formula: $y=x^4$
+    labels:
+    - C
+    status: pending
+    href: ''
+    image: assets/img/cards/the_034.svg
+    plot: {xlim: [-1.5, 1.5], ylim: [-0.6, 6.0]}
+  - number: 44
+    formula: $y=x^5$
+    labels:
+    - C
+    status: pending
+    href: ''
+    image: assets/img/cards/the_044.svg
+    plot: {xlim: [-1.4, 1.4], ylim: [-6.2, 6.2]}
+  - number: 76
+    formula: $y=x^n$
+    labels:
+    - C
+    status: pending
+    href: ''
+    image: assets/img/cards/the_076.svg
+    plot: false
+- title: 1. Hàm lũy thừa hữu tỉ dương
+  items:
+  - number: 77
+    formula: $y=\sqrt{x}$
+    labels:
+    - C
+    status: published
+    href: core/ham_can_x.qmd
+    image: assets/img/cards/the_077.svg
+    plot: {xlim: [0.0, 5.5], ylim: [-0.1, 2.6]}
+  - number: 79
+    formula: $y=\sqrt[3]{x}$
+    labels:
+    - B
+    status: pending
+    href: ''
+    image: assets/img/cards/the_079.svg
+    plot: {xlim: [-4.0, 4.0], ylim: [-2.0, 2.0]}
+  - number: 80
+    formula: $y=x^{2/3}$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_080.svg
+    plot_expr: "cbrt(x)**2"
+    plot: {xlim: [-4.0, 4.0], ylim: [-0.1, 3.0]}
+- title: 2. Hàm lũy thừa nguyên âm
+  items:
+  - number: 50
+    formula: $y=\frac{1}{x}$
+    labels:
+    - C
+    status: pending
+    href: ''
+    image: assets/img/cards/the_050.svg
+    plot: {xlim: [-3.0, 3.0], ylim: [-4.0, 4.0]}
+  - number: 81
+    formula: $y=\frac{1}{x^2}$
+    labels:
+    - B
+    status: pending
+    href: ''
+    image: assets/img/cards/the_081.svg
+    plot: {xlim: [-3.0, 3.0], ylim: [-0.4, 4.0]}
+  - number: 82
+    formula: $y=\frac{1}{x^3}$
+    labels:
+    - B
+    status: pending
+    href: ''
+    image: assets/img/cards/the_082.svg
+    plot: {xlim: [-3.0, 3.0], ylim: [-4.0, 4.0]}
+- title: 3. Hàm lũy thừa tổng quát
+  items:
+  - number: 83
+    formula: $y=x^\alpha$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_083.svg
+    plot: false
+- title: 4. Hàm hữu tỉ
+  items:
+  - number: 149
+    formula: $y=\frac{x}{1+x}$
+    labels:
+    - B
+    status: pending
+    href: ''
+    image: assets/img/cards/the_149.svg
+  - number: 57
+    formula: $y=\frac{x^2-1}{x}$
+    labels:
+    - C
+    status: published
+    href: core/ham_x_tru_mot_tren_x.qmd
+    image: assets/img/cards/the_057.svg
+- title: 5. Trị tuyệt đối, từng đoạn và rời rạc
+  items:
+  - number: 85
+    formula: $y=\lvert x\rvert$
+    labels:
+    - C
+    status: published
+    href: core/ham_so_gia_tri_tuyet_doi.qmd
+    image: assets/img/cards/the_085.svg
+  - number: 87
+    formula: $y=\operatorname{sgn}x$
+    labels:
+    - B
+    status: published
+    href: core/ham_sgn_x.qmd
+    image: assets/img/cards/the_087.svg
+  - number: 89
+    formula: $y=\lfloor x\rfloor$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_089.svg
+  - number: 91
+    formula: $y=\{x\}$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_091.svg
+  - number: 92
+    formula: $y=\max(0,x)$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_092.svg
+  - number: 94
+    formula: $y=\begin{cases}1-\lvert x\rvert,&\lvert x\rvert\le1\\0,&\text{khác}\end{cases}$
+    labels:
+    - B
+    status: pending
+    href: ''
+    image: assets/img/cards/the_094.svg
+- title: 6. Lượng giác
+  items:
+  - number: 95
+    formula: $y=\sin x$
+    labels:
+    - C
+    status: pending
+    href: ''
+    image: assets/img/cards/the_095.svg
+  - number: 97
+    formula: $y=\tan x$
+    labels:
+    - C
+    status: pending
+    href: ''
+    image: assets/img/cards/the_097.svg
+  - number: 104
+    formula: $y=\sec x$
+    labels:
+    - B
+    status: pending
+    href: ''
+    image: assets/img/cards/the_104.svg
+- title: 7. Hàm lượng giác ngược
+  items:
+  - number: 106
+    formula: $y=\arcsin x$
+    labels:
+    - B
+    status: published
+    href: core/ham_arcsin_x.qmd
+    image: assets/img/cards/the_106.svg
+  - number: 108
+    formula: $y=\arctan x$
+    labels:
+    - B
+    status: pending
+    href: ''
+    image: assets/img/cards/the_108.svg
+- title: 8. Hàm mũ và hàm lô-ga
+  items:
+  - number: 111
+    formula: $y=e^x$
+    labels:
+    - C
+    status: pending
+    href: ''
+    image: assets/img/cards/the_111.svg
+  - number: 114
+    formula: $y=\ln x$
+    labels:
+    - C
+    status: published
+    href: core/ham_ln_x.qmd
+    image: assets/img/cards/the_114.svg
+  - number: 120
+    formula: $y=xe^x$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_120.svg
+  - number: 121
+    formula: $y=x\ln x$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_121.svg
+- title: 9. Hàm hai-pơ
+  items:
+  - number: 122
+    formula: $y=\sinh x$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_122.svg
+  - number: 123
+    formula: $y=\cosh x$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_123.svg
+  - number: 124
+    formula: $y=\tanh x$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_124.svg
+- title: 10. Hàm lai ghép
+  items:
+  - number: 129
+    formula: $y=x\sin x$
+    labels:
+    - B
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_129.svg
+  - number: 130
+    formula: $y=\frac{\sin x}{x}$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_130.svg
+  - number: 131
+    formula: $y=\sin\left(\frac{1}{x}\right)$
+    labels:
+    - D
+    status: published
+    href: 'depth/ham_sin_mot_tren_x.qmd'
+    image: assets/img/cards/the_131.svg
+  - number: 132
+    formula: $y=x+\sin x$
+    labels:
+    - B
+    status: pending
+    href: ''
+    image: assets/img/cards/the_132.svg
+  - number: 133
+    formula: $y=\ln(\sin x),\ x\in(0,\pi)$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_133.svg
+  - number: 134
+    formula: $y=\sqrt{1-x^2}$
+    labels:
+    - B
+    status: pending
+    href: ''
+    image: assets/img/cards/the_134.svg
+  - number: 136
+    formula: $y=\frac{x}{1+x^2}$
+    labels:
+    - B
+    status: pending
+    href: ''
+    image: assets/img/cards/the_136.svg
+- title: 11. Hàm trong xác suất và thống kê
+  items:
+  - number: 138
+    formula: $y=e^{-\frac{1}{2}x^2}$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_138.svg
+  - number: 139
+    formula: $y=e^{-\lvert x\rvert}$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_139.svg
+  - number: 140
+    formula: $y=\frac{1}{1+x^2}$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_140.svg
+  - number: 142
+    formula: $y=\frac{1}{x}e^{-\frac{1}{2}(\ln x)^2}$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_142.svg
+- title: 12. Hàm logistic và tăng trưởng
+  items:
+  - number: 143
+    formula: $y=\frac{1}{1+e^{-x}}$
+    labels:
+    - B
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_143.svg
+  - number: 145
+    formula: $y=e^{-e^{-x}}$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_145.svg
+- title: 13. Hàm kích hoạt trong AI/ML
+  items:
+  - number: 151
+    formula: $y=\ln(1+e^x)$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_151.svg
+- title: 14. Phụ lục học thuật
+  items:
+  - number: 155
+    formula: $y=\Gamma(x)$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_155.svg
+  - number: 157
+    formula: $y=J_0(x)$
+    labels:
+    - D
+    status: pending
+    href: ''
+    image: assets/img/cards/the_157.svg

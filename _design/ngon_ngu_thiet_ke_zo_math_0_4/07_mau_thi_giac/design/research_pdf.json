@@ -1,0 +1,206 @@
+{
+  "version": "0.4 research",
+  "scope": "Đọc nguồn TeX/Quarto, trích2trangđầu+2trangcuối của8PDF, xem ảnh render các bìa/trangkết. Không thay nội dung gốc; không xuất bản.",
+  "verdict": "Mẫu PDF hiện hành chưa tối ưu theo mục tiêu0.4. Giữ kỹ thuật chữ toán/STIX, trang trắng, nội dung và liên kết; thiết kế lại rõ bìa và trang kết.",
+  "primary_sources": [
+    "evidence/source_bundle/06_pdf_learning_materials/sources/zo-pdf.tex",
+    "evidence/source_bundle/06_pdf_learning_materials/sources/zo-pdf-rights.tex",
+    "evidence/source_bundle/06_pdf_learning_materials/sources/zo-pdf-support.tex",
+    "evidence/source_bundle/06_pdf_learning_materials/sources/_quarto-pdf.yml",
+    "evidence/r1_g01/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.html",
+    "specimen_0_3/pdf/ZO_Math_Quy_chuan_0_3.pdf"
+  ],
+  "findings": [
+    {
+      "what": "Bìa R1 nhỏ và dồn nửa trên; nhận diện đơn sắc và nhan đề đỏ nhỏ chưa tạo trọng tâm. Khoảng trống nửa dưới chưa đảm nhận chức năng.",
+      "evidence": "_audit/pdf_0_4/index_1.png"
+    },
+    {
+      "what": "Bìa R1 hiện có dấu nhấn đỏ–vàng riêng, không chỉ một gạch đỏ như TeX bản nguồn; đánh giá bản render hiện hành ưu tiên hơn source lịch sử.",
+      "evidence": "_audit/pdf_0_4/index_1.png"
+    },
+    {
+      "what": "Trang kết đầy đủ/học sinh có đúng thông tin hỗ trợ nhưng trắng đơn sắc, chữ nhỏ, không gắn rõ việc ủng hộ với khả năng tiếp tục biên soạn.",
+      "evidence": "_audit/pdf_0_4/index_57.png"
+    },
+    {
+      "what": "Hai bản luyện tập/ôn lại bị QR lẻ ở một trang cuối gần trắng; có thể thay trang này, không phải thêm bìa sau tạo lặp.",
+      "evidence": "_audit/pdf_0_4/index_luyen_tap_last.png;_audit/pdf_0_4/index_on_lai_last.png"
+    },
+    {
+      "what": "Hệ TeX cũ khai báo xám #5F6368 và vạch đỏ đầu trang0.7pt; chưa theo XámZO#3E3A35 và tiết chế đường phân cách của0.4.",
+      "evidence": "evidence/source_bundle/06_pdf_learning_materials/sources/zo-pdf.tex"
+    },
+    {
+      "what": "Quy chuẩn0.3 là tài liệu hướng dẫn riêng; bìa sử dụng O có viền, trang cuối chỉ nguồn/tệp, chưa minh họa trang kết của sản phẩm học liệu.",
+      "evidence": "_audit/pdf_0_4/ZO_Math_Quy_chuan_0_3_1.png;_audit/pdf_0_4/ZO_Math_Quy_chuan_0_3_11.png"
+    }
+  ],
+  "pdf_boundary_actions": [
+    {
+      "source": "/workspace/scratch/ac82747e7143/specimen_0_3/reference/r1_pdf/index.pdf",
+      "label": "Bản đầy đủ",
+      "original_pages": 57,
+      "first_page": "Chỉ bìa; thay trang1 bằng bìa0.4.",
+      "first_text": "ZO Math · Ôn thi Toán THPT 2027\nĐơn điệu và cực trị\nDấu đạo hàm, tính đơn điệu và cực trị— Bản đầy đủ, có lời giải\nPhiên bản ứng viên v1.3 · zomath.vn\nzomath.vn\nBản PDF này được tạo từbài viết tương ứng của ZO Math.\n© 2026 ZO Math. Bảo lưu mọi quyền.\n© 2026 ZO Math\nzomath.vn\n1 / 57\n",
+      "second_page_has_learning_content": true,
+      "last_text": "Bảo trợZO Math\nNếu tài liệu này hữu ích, bạn có thểtựnguyện góp phần duy trì và phát triển ZO\nMath. Việc bảo trợkhông phải là điều kiện đểsửdụng tài liệu và không làm phát\nsinh quyền lợi đặc biệt.\nNgân hàng:\nVietcombank\nSốtài khoản:\n0601000137768\nChủtài khoản:\nNguyễn Tấn Nhựt\nNội dung chuyển khoản:\nBAO TRO ZO MATH\n© 2026 ZO Math\nzomath.vn\n57 / 57\n",
+      "last_page_action": "replace",
+      "reason": "Trang 57 chỉ có khối Bảo trợ ZO Math.",
+      "preserve_pages_one_based": [
+        2,
+        56
+      ],
+      "expected_total_pages": 57,
+      "penultimate_text": "ZO Math\nĐơn điệu và cực trị\nBài tập khắc phục lỗi 07. Cảhai ứng viên phù hợp vì đều có đạo hàm 2𝑥. Chúng cùng có điểm\ncực tiểu 0, nhưng giá trịcực tiểu lần lượt là 0 và 7. Vì thếtung độcủa đồthịđạo hàm không\nphải tung độcủa đồthịhàm số. Em đã sửa được lỗi trong bài này khi tách vịtrí cực trịkhỏi giá\ntrịcực trị.\nXem đềbài\nBài tập khắc phục lỗi 08. 𝑠′(𝑥) = 3𝑥2, bằng 0 tại 0 và dương ởhai phía; 𝑠không đạt cực trịtại\n0. A đúng, B sai; “A và B” sai, “A hoặc B” đúng. Câu sửa: “𝑠′(0) = 0 và 𝑠không đạt cực trịtại 0.”\nEm đã sửa được lỗi trong bài này khi xửlí đúng cảhai phép nối và giữvếA.\nXem đềbài\nNguồn đối chiếu\n• BộGiáo dục và Đào tạo, Chương trình giáo dục phổthông môn Toán (2018), phần lớp 12, trang\n105–106: tính đơn điệu, bảng biến thiên, điểm cực trịvà giá trịcực trị.\n• Toán 12, tập một — Kết nối tri thức với cuộc sống, Bài 1, trang in 6–11 và 14 (trang PDF 8–13 và\n16 trong bản được cung cấp); Bài 4, trang in 26–27 (trang PDF 28–29).\nCác định nghĩa và điều kiện áp dụng được đối chiếu với SGK. Ví dụ, câu hỏi, phản ví dụ, lời giải và\nthang điểm trong học liệu do ZO Math biên soạn. Bản SGK đối chiếu có ghi “Bản mẫu”; sốtrang nêu\ntrên gắn với bản này.\nKết thúc học liệu “Đơn điệu và cực trị”.\nTrởlại gói học liệu trực tuyến\n© 2026 ZO Math\nzomath.vn\n56 / 57\n"
+    },
+    {
+      "source": "/workspace/scratch/ac82747e7143/specimen_0_3/reference/r1_pdf/index_hoc_sinh.pdf",
+      "label": "Bản học và bài tập",
+      "original_pages": 42,
+      "first_page": "Chỉ bìa; thay trang1 bằng bìa0.4.",
+      "first_text": "ZO Math · Ôn thi Toán THPT 2027\nĐơn điệu và cực trị\nDấu đạo hàm, tính đơn điệu và cực trị— Bản học và bài tập, không lời giải\nPhiên bản ứng viên v1.3 · zomath.vn\nzomath.vn\nBản PDF này được tạo từbài viết tương ứng của ZO Math.\n© 2026 ZO Math. Bảo lưu mọi quyền.\n© 2026 ZO Math\nzomath.vn\n1 / 42\n",
+      "second_page_has_learning_content": true,
+      "last_text": "Bảo trợZO Math\nNếu tài liệu này hữu ích, bạn có thểtựnguyện góp phần duy trì và phát triển ZO\nMath. Việc bảo trợkhông phải là điều kiện đểsửdụng tài liệu và không làm phát\nsinh quyền lợi đặc biệt.\nNgân hàng:\nVietcombank\nSốtài khoản:\n0601000137768\nChủtài khoản:\nNguyễn Tấn Nhựt\nNội dung chuyển khoản:\nBAO TRO ZO MATH\n© 2026 ZO Math\nzomath.vn\n42 / 42\n",
+      "last_page_action": "replace",
+      "reason": "Trang 42 chỉ có khối Bảo trợ ZO Math.",
+      "preserve_pages_one_based": [
+        2,
+        41
+      ],
+      "expected_total_pages": 42,
+      "penultimate_text": "ZO Math\nĐơn điệu và cực trị\nCác định nghĩa và điều kiện áp dụng được đối chiếu với SGK. Ví dụ, câu hỏi, phản ví dụ, lời giải và\nthang điểm trong học liệu do ZO Math biên soạn. Bản SGK đối chiếu có ghi “Bản mẫu”; sốtrang nêu\ntrên gắn với bản này.\nKết thúc học liệu “Đơn điệu và cực trị”.\nTrởlại gói học liệu trực tuyến\n© 2026 ZO Math\nzomath.vn\n41 / 42\n"
+    },
+    {
+      "source": "/workspace/scratch/ac82747e7143/specimen_0_3/reference/r1_pdf/index_luyen_tap.pdf",
+      "label": "Luyện tập",
+      "original_pages": 8,
+      "first_page": "Chỉ bìa; thay trang1 bằng bìa0.4.",
+      "first_text": "ZO Math · Ôn thi Toán THPT 2027\nĐơn điệu và cực trị\nDấu đạo hàm, tính đơn điệu và cực trị— Luyện tập\nPhiên bản ứng viên v1.3 · zomath.vn\nzomath.vn\nBản PDF này được tạo từbài viết tương ứng của ZO Math.\n© 2026 ZO Math. Bảo lưu mọi quyền.\n© 2026 ZO Math\nzomath.vn\n1 / 8\n",
+      "second_page_has_learning_content": true,
+      "last_text": "ZO Math\nĐơn điệu và cực trị\n© 2026 ZO Math\nzomath.vn\n8 / 8\n",
+      "last_page_action": "replace",
+      "reason": "Trang 8 chỉ có QR trở lại R1-G01, đầu/chân trang; nội dung học và nguồn đã kết ở trang 7.",
+      "preserve_pages_one_based": [
+        2,
+        7
+      ],
+      "expected_total_pages": 8,
+      "penultimate_text": "ZO Math\nĐơn điệu và cực trị\nVới mỗi ý, ghi đúng/sai và lí do. Với ý sai, viết lại cảcâu thành một phát biểu đúng, giữnhững vếvốn\nđúng.\nXem lời giải (mởtrên trang học liệu)\nBài luyện tập 08. Sửa một lời giải rồi làm câu mới\nCho 𝑟liên tục trên ℝ, có đạo hàm trên ℝvà bảng dấu sau; biết 𝑟(−3) = 5, 𝑟(1) = −2.\n𝑥\n−∞\n−3\n1\n+∞\n𝑟′(𝑥)\n+\n0\n−\n0\n−\nZO\nBảng dấu đạo hàm.\nLời giải của một bạn:\nĐạo hàm có hai nghiệm nên hàm sốcó hai điểm cực trị. Hàm sốcó điểm cực đại là 5 và\nđiểm cực tiểu là −2.\nChỉra từng lỗi, viết lại kết luận đúng và phân biệt ba đối tượng ởcực trịthực sự. Sau khi chữa, tự\nlàm Bài tập khắc phục lỗi 02 trong phần Sửa lỗi; không xem trước lời giải Bài tập khắc phục lỗi 02.\nXem lời giải (mởtrên trang học liệu)\nĐiểm kiểm soát sau chặng 3\nTại CP-LT3, tựkiểm G01-M3, G01-M4, G01-M5: đánh giá riêng từng mệnh đềcó căn cứ, giữphần\nđúng khi sửa và gọi đúng điểm cực trị, giá trịcực trị, điểm cực trịcủa đồthị.\n• Nếu gặp G01-E02, G01-E06 hoặc G01-E08, làm đúng bài S-L tương ứng trong Sửa lỗi sau Luyện\ntập (mởtrên trang học liệu).\n• Nếu thiếu nền logic, đi N-LG-01, làm bốn mệnh đềmới rồi quay vềý đang dừng.\n• Chỉchuyển sang CP-KT khi các lỗi chặn đã được xác nhận bằng bài mới; đúng do nhớlời giải\ncũ không phải bằng chứng đi tiếp.\nGhi kết quảtại Nhật kí học tập. (mởtrên trang học liệu)\nNguồn đối chiếu\n• BộGiáo dục và Đào tạo, Chương trình giáo dục phổthông môn Toán (2018), phần lớp 12, trang\n105–106: tính đơn điệu, bảng biến thiên, điểm cực trịvà giá trịcực trị.\n• Toán 12, tập một — Kết nối tri thức với cuộc sống, Bài 1, trang in 6–11 và 14 (trang PDF 8–13 và\n16 trong bản được cung cấp); Bài 4, trang in 26–27 (trang PDF 28–29).\nCác định nghĩa và điều kiện áp dụng được đối chiếu với SGK. Ví dụ, câu hỏi, phản ví dụ, lời giải và\nthang điểm trong học liệu do ZO Math biên soạn. Bản SGK đối chiếu có ghi “Bản mẫu”; sốtrang nêu\ntrên gắn với bản này.\nKết thúc học liệu “Đơn điệu và cực trị”.\nTrởlại gói học liệu trực tuyến\n© 2026 ZO Math\nzomath.vn\n7 / 8\n"
+    },
+    {
+      "source": "/workspace/scratch/ac82747e7143/specimen_0_3/reference/r1_pdf/index_on_lai.pdf",
+      "label": "Ôn lại",
+      "original_pages": 10,
+      "first_page": "Chỉ bìa; thay trang1 bằng bìa0.4.",
+      "first_text": "ZO Math · Ôn thi Toán THPT 2027\nĐơn điệu và cực trị\nDấu đạo hàm, tính đơn điệu và cực trị— Ôn lại\nPhiên bản ứng viên v1.3 · zomath.vn\nzomath.vn\nBản PDF này được tạo từbài viết tương ứng của ZO Math.\n© 2026 ZO Math. Bảo lưu mọi quyền.\n© 2026 ZO Math\nzomath.vn\n1 / 10\n",
+      "second_page_has_learning_content": true,
+      "last_text": "ZO Math\nĐơn điệu và cực trị\n© 2026 ZO Math\nzomath.vn\n10 / 10\n",
+      "last_page_action": "replace",
+      "reason": "Trang 10 chỉ có QR trở lại R1-G01, đầu/chân trang; nội dung học và nguồn đã kết ở trang 9.",
+      "preserve_pages_one_based": [
+        2,
+        9
+      ],
+      "expected_total_pages": 10,
+      "penultimate_text": "ZO Math\nĐơn điệu và cực trị\nTiêu chí và điểm quay về: đạt khi không tựgán 𝑝(1), không tạo cực trịtại 1 và phân biệt dữkiện\nđịnh tính với công thức. Quay vềđiểm CP-ON đang hoạt động; nếu sai, học N-ĐT-01 hoặc N-BBT-01,\nrồi làm một câu phân loại mới.\nXem lời giải (mởtrên trang học liệu)\nG01-S-O-E08 — Hai bước đúng, một bước sai\nMột bạn giải bài với 𝑏(𝑥) = (𝑥−1)3 + 2 như sau:\n1. 𝑏′(𝑥) = 3(𝑥−1)2 ≥0.\n2. Vì đạo hàm chỉbằng 0 tại một điểm, 𝑏đồng biến trên ℝ.\n3. Vì 𝑏′(1) = 0, 𝑏đạt cực tiểu tại 1.\nHãy giữnguyên hai bước đúng, chỉra bước sai và viết kết luận hoàn chỉnh.\nTiêu chí và điểm quay về: đạt khi không xóa hai bước đúng và sửa đúng bước 3. Quay vềđiểm\nCP-ON đang hoạt động; nếu sai, học N-LG-01 hoặc mởlại tuyến G01-E08, rồi làm một lời giải ba\nbước mới.\nXem lời giải (mởtrên trang học liệu)\nG01-S-O-E09 — Tham sốtại điểm ghép\nVới 𝑎∈ℝ, cho\n𝑔𝑎(𝑥) =\n⎧\n⎨\n⎩\n𝑥+ 2\nkhi 𝑥< 0,\n𝑎\nkhi 𝑥= 0,\n2 −𝑥\nkhi 𝑥> 0.\n1. Tìm 𝑎để𝑔𝑎liên tục tại 0.\n2. Dùng định nghĩa cực trịđểphân loại 0 khi 𝑎≥2 và khi 𝑎< 2.\nTiêu chí và điểm quay về: đạt khi tìm đúng 𝑎= 2, không áp dụng máy móc định lí cho 𝑎≠2 và\nphân loại đúng bằng so sánh lân cận. Quay vềđiểm CP-ON đang hoạt động; nếu sai, học N-LT-01,\nlàm một câu tham sốmới và rút ngắn lịch Ôn lại.\nXem lời giải (mởtrên trang học liệu)\nNguồn đối chiếu\n• BộGiáo dục và Đào tạo, Chương trình giáo dục phổthông môn Toán (2018), phần lớp 12, trang\n105–106: tính đơn điệu, bảng biến thiên, điểm cực trịvà giá trịcực trị.\n• Toán 12, tập một — Kết nối tri thức với cuộc sống, Bài 1, trang in 6–11 và 14 (trang PDF 8–13 và\n16 trong bản được cung cấp); Bài 4, trang in 26–27 (trang PDF 28–29).\nCác định nghĩa và điều kiện áp dụng được đối chiếu với SGK. Ví dụ, câu hỏi, phản ví dụ, lời giải và\nthang điểm trong học liệu do ZO Math biên soạn. Bản SGK đối chiếu có ghi “Bản mẫu”; sốtrang nêu\ntrên gắn với bản này.\nKết thúc học liệu “Đơn điệu và cực trị”.\nTrởlại gói học liệu trực tuyến\n© 2026 ZO Math\nzomath.vn\n9 / 10\n"
+    },
+    {
+      "source": "/workspace/scratch/ac82747e7143/specimen_0_3/reference/r1_pdf/index_bai_hoc.pdf",
+      "label": "Bài học",
+      "original_pages": 22,
+      "first_page": "Chỉ bìa; thay trang1 bằng bìa0.4.",
+      "first_text": "ZO Math · Ôn thi Toán THPT 2027\nĐơn điệu và cực trị\nDấu đạo hàm, tính đơn điệu và cực trị— Bài học\nPhiên bản ứng viên v1.3 · zomath.vn\nzomath.vn\nBản PDF này được tạo từbài viết tương ứng của ZO Math.\n© 2026 ZO Math. Bảo lưu mọi quyền.\n© 2026 ZO Math\nzomath.vn\n1 / 22\n",
+      "second_page_has_learning_content": true,
+      "last_text": "ZO Math\nĐơn điệu và cực trị\nTrước khi chuyển sang phần luyện tập, hãy tựnói lại năm điều:\n1. Đơn điệu được định nghĩa bằng so sánh giá trịtrên một tập đang xét; dấu đạo hàm là công cụ\nđểkết luận khi đủđiều kiện.\n2. Một điểm đạo hàm bằng 0 chưa quyết định được cực trị; một điểm không có đạo hàm cũng\nchưa loại trừcực trị.\n3. Bảng dấu, bảng biến thiên và đồthịphải nhất quán vềđối tượng, tập xác định, mốc và chiều\nbiến thiên.\n4. Một bảng hoặc hình không cho phép suy ra mọi điều vềhàm số; phải phân biệt điều được cho\nvới điều tựthêm.\n5. Sửa lỗi cần kết thúc bằng một câu mới tựlàm, không chỉbằng việc đọc lời giải.\nNếu chưa giải thích được một ý, quay lại ví dụtương ứng trước khi làm nhiệm vụphối hợp. Các câu\nhỏi tựkiểm tra trong bài chỉgiúp kiểm tra ngay sau khi học; chúng không phải bằng chứng độc lập\nrằng em đã đạt tất cảmục tiêu của bài học.\nNguồn đối chiếu\n• BộGiáo dục và Đào tạo, Chương trình giáo dục phổthông môn Toán (2018), phần lớp 12, trang\n105–106: tính đơn điệu, bảng biến thiên, điểm cực trịvà giá trịcực trị.\n• Toán 12, tập một — Kết nối tri thức với cuộc sống, Bài 1, trang in 6–11 và 14 (trang PDF 8–13 và\n16 trong bản được cung cấp); Bài 4, trang in 26–27 (trang PDF 28–29).\nCác định nghĩa và điều kiện áp dụng được đối chiếu với SGK. Ví dụ, câu hỏi, phản ví dụ, lời giải và\nthang điểm trong học liệu do ZO Math biên soạn. Bản SGK đối chiếu có ghi “Bản mẫu”; sốtrang nêu\ntrên gắn với bản này.\nKết thúc học liệu “Đơn điệu và cực trị”.\nTrởlại gói học liệu trực tuyến\n© 2026 ZO Math\nzomath.vn\n22 / 22\n",
+      "last_page_action": "preserve_and_append",
+      "reason": "Trang 22 có năm điều tự nói lại, lời hướng dẫn chuyển sang luyện tập và nguồn đối chiếu.",
+      "preserve_pages_one_based": [
+        2,
+        22
+      ],
+      "expected_total_pages": 23,
+      "penultimate_text": "ZO Math\nĐơn điệu và cực trị\nChỉmởlời giải Bài tập khắc phục lỗi mẫu trong mục “Lời giải các câu hỏi và bài tập trong bài học” ở\nphần Lời giải cuối tài liệu sau khi đã tựviết. Câu này kiểm tra lại lỗi “điểm có đạo hàm bằng 0 là\nđiểm cực trị”, đồng thời yêu cầu không tựthêm giá trịhàm sốtừdữkiện vềđạo hàm. Nó không chỉ\nthay sốtrong Ví dụ08.\nXem lời giải (mởtrên trang học liệu)\n7.4. Một dòng ghi lỗi có ích\nMột dòng ghi lỗi có ích.\nSau khi đối chiếu, ghi ngắn gọn theo mẫu:\nNội dung cần ghi\nMinh họa cho lỗi “coi đạo hàm bằng 0 là đủđểcó cực trị”\nBước đã sai\nKết luận có hai điểm cực trịvì đạo hàm có hai nghiệm\nĐiều đã bỏ\nChưa kiểm tra dấu hai phía của từng nghiệm\nCách sửa\nXét dấu; chỉdùng định lí khi đủgiảthiết và có đổi dấu phù hợp\nCâu kiểm tra lại\nBài tập khắc phục lỗi mẫu\nBằng chứng\nGhi kết quảbài tựlàm và lí do ởtừng mốc, không chép sẵn “đã đúng”\nViệc tiếp theo\nNếu còn nhầm tại 2, quay lại Ví dụ02 rồi làm một câu mới khác; nếu đã\nrõ, chuyển sang nhiệm vụphối hợp\nChỉghi “đã sửa trong lượt này” khi câu mới được làm đúng với lí do phù hợp. Một lượt đúng chưa\nthay thếcho việc kiểm tra độc lập và ôn lại sau đó. Ngày ôn lại được ghi từlỗi và kết quảthực tế,\nkhông ấn định cùng một lịch cho mọi người.\n7.5. Tám lỗi đểtựnhận diện\nSố\nDấu hiệu của lỗi\nCâu hỏi giúp tựsửa\n1\nBỏtập xác định hoặc khoảng xét\nMọi điểm đang dùng có thuộc tập xác định\nkhông?\n2\nĐạo hàm bằng 0 nên có cực trị\nDấu ởhai phía là gì?\n3\nKhông có đạo hàm nên không có cực trị\nHàm có xác định, liên tục và đổi chiều phù hợp\ntại đó không?\n4\nNhầm hoành độ, giá trịvà điểm đồthị\nCâu hỏi đang đòi 𝑥0, 𝑓(𝑥0) hay cảcặp tọa độ?\n5\nGộp các khoảng rời một cách tựđộng\nĐã kiểm tra cặp điểm thuộc hai nhánh khác\nnhau chưa?\n6\nĐảo định lí thành dấu nghiêm ngặt\nVí dụ02 có bác bỏkết luận này không?\n7\nThêm thông tin không có trong hình\nhoặc bảng\nDữkiện nào thực sựcho biết điều vừa viết?\n8\nXửlí sai “và”, “hoặc”, “mọi”, hoặc làm\nmất phần đúng khi chữa\nTừng vếđúng hay sai, và kết nối logic yêu cầu\nđiều gì?\nHãy nhận diện lỗi trong từng lập luận, rồi chọn việc cần sửa.\nKhép lại bài học\nMột lời giải tốt không chỉkết thúc bằng “đồng biến”, “nghịch biến” hoặc “cực trị”. Nó cho thấy đúng\nhàm số, đúng tập xác định, đúng điều kiện và đúng chiều suy luận.\n© 2026 ZO Math\nzomath.vn\n21 / 22\n"
+    },
+    {
+      "source": "/workspace/scratch/ac82747e7143/specimen_0_3/reference/r1_pdf/index_sua_loi.pdf",
+      "label": "Sửa lỗi",
+      "original_pages": 9,
+      "first_page": "Chỉ bìa; thay trang1 bằng bìa0.4.",
+      "first_text": "ZO Math · Ôn thi Toán THPT 2027\nĐơn điệu và cực trị\nDấu đạo hàm, tính đơn điệu và cực trị— Sửa lỗi\nPhiên bản ứng viên v1.3 · zomath.vn\nzomath.vn\nBản PDF này được tạo từbài viết tương ứng của ZO Math.\n© 2026 ZO Math. Bảo lưu mọi quyền.\n© 2026 ZO Math\nzomath.vn\n1 / 9\n",
+      "second_page_has_learning_content": true,
+      "last_text": "ZO Math\nĐơn điệu và cực trị\nỨng viên nào phù hợp với dữkiện? Chúng có cùng điểm cực tiểu và cùng giá trịcực tiểu không?\nDùng kết quảđểgiải thích vì sao chỉđọc một đồthịđạo hàm chưa biết giá trịcủa hàm sốtại mốc cực\ntrị.\nXem lời giải (mởtrên trang học liệu)\nBài tập khắc phục lỗi 08. Đổi cách nối hai vế\nCho 𝑠(𝑥) = 𝑥3 + 6 trên ℝ. Đặt A là phát biểu “𝑠′(0) = 0”, B là phát biểu “𝑠đạt cực trịtại 0”.\nXét A, B, “A và B”, “A hoặc B”. Sau đó sửa câu “A và B” thành một câu đúng, giữvếA. Mỗi đánh giá\nphải có lí do.\nXem lời giải (mởtrên trang học liệu)\nNguồn đối chiếu\n• BộGiáo dục và Đào tạo, Chương trình giáo dục phổthông môn Toán (2018), phần lớp 12, trang\n105–106: tính đơn điệu, bảng biến thiên, điểm cực trịvà giá trịcực trị.\n• Toán 12, tập một — Kết nối tri thức với cuộc sống, Bài 1, trang in 6–11 và 14 (trang PDF 8–13 và\n16 trong bản được cung cấp); Bài 4, trang in 26–27 (trang PDF 28–29).\nCác định nghĩa và điều kiện áp dụng được đối chiếu với SGK. Ví dụ, câu hỏi, phản ví dụ, lời giải và\nthang điểm trong học liệu do ZO Math biên soạn. Bản SGK đối chiếu có ghi “Bản mẫu”; sốtrang nêu\ntrên gắn với bản này.\nKết thúc học liệu “Đơn điệu và cực trị”.\nTrởlại gói học liệu trực tuyến\n© 2026 ZO Math\nzomath.vn\n9 / 9\n",
+      "last_page_action": "preserve_and_append",
+      "reason": "Trang 9 tiếp tục bài 07, chứa bài 08 và nguồn đối chiếu.",
+      "preserve_pages_one_based": [
+        2,
+        9
+      ],
+      "expected_total_pages": 10,
+      "penultimate_text": "ZO Math\nĐơn điệu và cực trị\nCho 𝑎(𝑥) = (𝑥−2)2 với tập xác định 𝐷= ℝ∖{2}. Xét dấu đạo hàm trên từng khoảng của tập xác\nđịnh. Sửa câu “đạo hàm đổi từâm sang dương qua 2, nên hàm sốcó cực tiểu tại 2”. Hình đồthịcần\ncó điểm kín hay điểm hởở(2; 0)?\nXem lời giải (mởtrên trang học liệu)\nBài tập khắc phục lỗi 02. Điểm có đạo hàm bằng 0 có quyết định cực trị?\nCho 𝑏có đạo hàm trên ℝvà 𝑏′(𝑥) = −(𝑥−1)4. Hãy kết luận đơn điệu trên ℝ, xét cực trịtại 1 và giải\nthích vì sao điểm có đạo hàm bằng 0 không đủđểkết luận cực trị.\nXem lời giải (mởtrên trang học liệu)\nBài tập khắc phục lỗi 03. Hai công thức nối tại một điểm\nCho 𝑐(𝑥) = 𝑥2 khi 𝑥≤0 và 𝑐(𝑥) = 𝑥khi 𝑥> 0.\nKiểm tra tính liên tục tại 0, sựtồn tại của 𝑐′(0) và cực trịtại 0. Nêu rõ điều kiện nào đã cho phép dùng\ndấu đạo hàm ởhai phía. Có thểkiểm tra thêm bằng định nghĩa cực trị.\nXem lời giải (mởtrên trang học liệu)\nBài tập khắc phục lỗi 04. Đọc đúng ba đối tượng\nCho 𝑑liên tục trên [−4; 3] với bảng biến thiên:\n𝑥\n−4\n−2\n1\n3\n𝑑(𝑥)\n0\n↗\n6\n↘\n−4\n↗\n2\nZO\nBảng biến thiên.\nViết điểm cực đại của hàm số, giá trịcực đại, điểm cực đại của đồthịvà ba đối tượng tương ứng ởcực\ntiểu. Không phân loại các đầu mút bằng định nghĩa hai phía.\nXem lời giải (mởtrên trang học liệu)\nBài tập khắc phục lỗi 05. Hợp các khoảng có phải lúc nào cũng sai?\nCho 𝑒(𝑥) = 𝑥khi 𝑥< 0 và 𝑒(𝑥) = 𝑥+ 1 khi 𝑥> 0, với 𝐷= ℝ∖{0}.\nHàm sốđồng biến trên từng khoảng của tập xác định. Nếu xét yêu cầu so sánh 𝑒(𝑥1) < 𝑒(𝑥2) với mọi\n𝑥1 < 𝑥2 thuộc cảtập 𝐷, yêu cầu ấy có được thỏa mãn không? Chứng minh cho các cặp cùng một\nkhoảng và các cặp thuộc hai phần khác nhau. Không chỉthửmột cặp số.\nXem lời giải (mởtrên trang học liệu)\nBài tập khắc phục lỗi 06. Đọc ngược từđồng biến\nMột hàm 𝑓đồng biến và có đạo hàm trên (−2; 2). Dữkiện bổsung 𝑓′(0) = 0 có mâu thuẫn không?\nNêu một hàm cụthểchứng minh câu trảlời và phát biểu đúng vềdấu 𝑓′ trên khoảng.\nXem lời giải (mởtrên trang học liệu)\nBài tập khắc phục lỗi 07. Hai hàm cùng đạo hàm\nĐạo hàm của một hàm sốtrên ℝcó công thức 𝑟′(𝑥) = 2𝑥. Hai ứng viên là 𝑟1(𝑥) = 𝑥2 và 𝑟2(𝑥) = 𝑥2 +7.\n© 2026 ZO Math\nzomath.vn\n8 / 9\n"
+    },
+    {
+      "source": "/workspace/scratch/ac82747e7143/specimen_0_3/reference/r1_pdf/index_kiem_tra.pdf",
+      "label": "Kiểm tra",
+      "original_pages": 5,
+      "first_page": "Chỉ bìa; thay trang1 bằng bìa0.4.",
+      "first_text": "ZO Math · Ôn thi Toán THPT 2027\nĐơn điệu và cực trị\nDấu đạo hàm, tính đơn điệu và cực trị— Kiểm tra\nPhiên bản ứng viên v1.3 · zomath.vn\nzomath.vn\nBản PDF này được tạo từbài viết tương ứng của ZO Math.\n© 2026 ZO Math. Bảo lưu mọi quyền.\n© 2026 ZO Math\nzomath.vn\n1 / 5\n",
+      "second_page_has_learning_content": true,
+      "last_text": "ZO Math\nĐơn điệu và cực trị\nSau khi hoàn thành bài kiểm tra\nCách thực hiện\n1. Mởhướng dẫn chấm và ghi điểm từng ý.\n2. Giữnguyên bài làm ban đầu đểnhận diện chỗsai, sau đó dùng bảng ởphần Sửa lỗi để\nchọn bài tập khắc phục.\n3. Thểhiện việc sửa lỗi bằng bài làm mới; không chỉđọc quy trình đểxác nhận đã sửa được\nlỗi.\nĐiểm kiểm soát sau Kiểm tra\nTại CP-KT, đọc kết quảtheo từng mục tiêu G01-M1–G01-M5, không dùng tổng điểm đểche một lỗi\nthiết yếu. Nếu gặp G01-E01–G01-E09, làm đúng nhiệm vụtrong Sửa lỗi sau Kiểm tra (mởtrên trang\nhọc liệu); nếu biểu hiện là thiếu tiên quyết, đi tuyến Nền tương ứng trước rồi làm một câu kiểm tra\nlại mới. Chỉlên lịch Ôn lại khi các mục tiêu thiết yếu có bằng chứng độc lập và lỗi chặn đã được xửlí.\nGhi kết quảtại Nhật kí học tập. (mởtrên trang học liệu)\nNguồn đối chiếu\n• BộGiáo dục và Đào tạo, Chương trình giáo dục phổthông môn Toán (2018), phần lớp 12, trang\n105–106: tính đơn điệu, bảng biến thiên, điểm cực trịvà giá trịcực trị.\n• Toán 12, tập một — Kết nối tri thức với cuộc sống, Bài 1, trang in 6–11 và 14 (trang PDF 8–13 và\n16 trong bản được cung cấp); Bài 4, trang in 26–27 (trang PDF 28–29).\nCác định nghĩa và điều kiện áp dụng được đối chiếu với SGK. Ví dụ, câu hỏi, phản ví dụ, lời giải và\nthang điểm trong học liệu do ZO Math biên soạn. Bản SGK đối chiếu có ghi “Bản mẫu”; sốtrang nêu\ntrên gắn với bản này.\nKết thúc học liệu “Đơn điệu và cực trị”.\nTrởlại gói học liệu trực tuyến\n© 2026 ZO Math\nzomath.vn\n5 / 5\n",
+      "last_page_action": "preserve_and_append",
+      "reason": "Trang 5 chứa cách tự chấm, điểm kiểm soát CP-KT, điều kiện chuyển sang Ôn lại và nguồn đối chiếu.",
+      "preserve_pages_one_based": [
+        2,
+        5
+      ],
+      "expected_total_pages": 6,
+      "penultimate_text": "ZO Math\nĐơn điệu và cực trị\n𝑥\n−4\n−1\n2\n5\n𝑟(𝑥)\n2\n↘\n−3\n↗\n4\n↘\n1\nZO\nBảng biến thiên.\na. Đồthị𝑟có điểm cực tiểu (−1; −3).\nb. Từgiảthiết đã cho, có thểkhẳng định rằng 𝑟′(𝑥) > 0 tại mọi 𝑥thuộc (−1; 2).\nc. Giá trịcực đại của 𝑟bằng 2 hoặc giá trịcực tiểu của 𝑟bằng −3.\nd. Bảng xác định duy nhất công thức của 𝑟.\nGhi đúng/sai và lí do cho từng ý; chỉchọn nhãn không được trọn điểm.\nXem lời giải (mởtrên trang học liệu)\nBài kiểm tra 04. Tập xác định và điểm không có đạo hàm — 4 điểm\nCho 𝑢(𝑥) = |𝑥−3| + 2 trên ℝvà 𝑣có cùng công thức trên ℝ∖{3}.\na. Xét sựtồn tại của 𝑢′(3) và cực trịcủa 𝑢tại 3, có giải thích.\nb. Xét khảnăng 3 là điểm cực trịcủa 𝑣.\nc. Một hàm khác 𝑤có tập xác định ℝ∖{0}, với 𝑤(𝑥) = 𝑥+ 4 khi 𝑥< 0 và 𝑤(𝑥) = 𝑥−4 khi 𝑥> 0.\nKết luận đơn điệu trên từng khoảng; kiểm tra việc gộp thành một kết luận trên cảtập xác định\nbằng so sánh chéo.\nd. Sửa toàn bộcâu “𝑢′(3) không tồn tại và 𝑢không có cực trịtại 3”, giữvếđúng.\nXem lời giải (mởtrên trang học liệu)\nBài kiểm tra 05. Một kết luận đã đủcăn cứchưa? — 3 điểm\nCho 𝐹xác định trên (−1; 1) và có đạo hàm trên (−1; 0), (0; 1). Biết 𝐹′(𝑥) > 0 ởkhoảng bên trái và\n𝐹′(𝑥) < 0 ởkhoảng bên phải. Đềkhông cho giá trị𝐹(0) hoặc tính liên tục tại 0.\nMột bạn viết: “Theo định lí đổi dấu đạo hàm, 𝐹đạt cực đại tại 0 và giá trịcực đại bằng 0.”\na. Chỉra điều kiện còn thiếu đểáp dụng định lí xét cực trịbằng dấu đạo hàm. Có đủcăn cứđể\nkết luận giá trịcực đại bằng 0 không?\nb. Nếu bổsung giảthiết 𝐹liên tục tại 0, hãy phát biểu kết luận đúng vềcực trịtại 0 và nêu\nđiều chưa xác định được bằng số.\nỞý a, chỉdùng dữkiện ban đầu. Ởý b, tính liên tục tại 0 là giảthiết được bổsung công khai cho một\ntình huống mới.\nXem lời giải (mởtrên trang học liệu)\n© 2026 ZO Math\nzomath.vn\n4 / 5\n"
+    },
+    {
+      "source": "/workspace/scratch/ac82747e7143/specimen_0_3/reference/r1_pdf/index_loi_giai.pdf",
+      "label": "Lời giải và hướng dẫn chấm",
+      "original_pages": 17,
+      "first_page": "Chỉ bìa; thay trang1 bằng bìa0.4.",
+      "first_text": "ZO Math · Ôn thi Toán THPT 2027\nĐơn điệu và cực trị\nDấu đạo hàm, tính đơn điệu và cực trị— Lời giải và hướng dẫn chấm\nPhiên bản ứng viên v1.3 · zomath.vn\nzomath.vn\nBản PDF này được tạo từbài viết tương ứng của ZO Math.\n© 2026 ZO Math. Bảo lưu mọi quyền.\n© 2026 ZO Math\nzomath.vn\n1 / 17\n",
+      "second_page_has_learning_content": true,
+      "last_text": "ZO Math\nĐơn điệu và cực trị\nCác định nghĩa và điều kiện áp dụng được đối chiếu với SGK. Ví dụ, câu hỏi, phản ví dụ, lời giải và\nthang điểm trong học liệu do ZO Math biên soạn. Bản SGK đối chiếu có ghi “Bản mẫu”; sốtrang nêu\ntrên gắn với bản này.\nKết thúc học liệu “Đơn điệu và cực trị”.\nTrởlại gói học liệu trực tuyến\n© 2026 ZO Math\nzomath.vn\n17 / 17\n",
+      "last_page_action": "preserve_and_append",
+      "reason": "Trang 17 tiếp tục lời giải thích nguồn/biên soạn sau danh sách nguồn ở trang16; giữ để không mất thông tin xuất xứ.",
+      "preserve_pages_one_based": [
+        2,
+        17
+      ],
+      "expected_total_pages": 18,
+      "penultimate_text": "ZO Math\nĐơn điệu và cực trị\nBài tập khắc phục lỗi 01–08 — Lời giải bài tập khắc phục lỗi\nBài tập khắc phục lỗi 01. Tập xác định không chứa 2. Đạo hàm 𝑎′(𝑥) = 2(𝑥−2) âm trên\n(−∞; 2), dương trên (2; +∞). Hàm giảm trên khoảng thứnhất, tăng trên khoảng thứhai, nhưng\nkhông có cực trịtại 2 vì 𝑎(2) không xác định. Hình phải có điểm hởtại (2; 0). Em đã sửa được\nlỗi trong bài này khi giữđúng tập xác định và không dùng dấu hai nhánh đểtạo một điểm thuộc\nhàm số.\nXem đềbài (mởtrên trang học liệu)\nBài tập khắc phục lỗi 02. Đạo hàm âm trừmột điểm 1, nơi bằng 0. 𝑏có đạo hàm trên ℝnên\nnghịch biến trên ℝtheo chú ý hữu hạn điểm bằng 0. Dấu âm ởhai phía và tính liên tục cho\nthấy không có cực trịtại 1. Em đã sửa được lỗi trong bài này khi lí do dùng dấu hai phía, không\nđếm điểm có đạo hàm bằng 0.\nXem đềbài (mởtrên trang học liệu)\nBài tập khắc phục lỗi 03. 𝑐(0) = 0; giới hạn bên trái của 𝑥2 và bên phải của 𝑥đều bằng 0, nên\n𝑐liên tục tại 0. Thương sai phân bên trái bằng ℎvà tiến đến 0, bên phải bằng 1; đạo hàm tại 0\nkhông tồn tại. Bên trái, 𝑐′(𝑥) = 2𝑥< 0; bên phải, 𝑐′(𝑥) = 1 > 0. Do đó 𝑐đạt cực tiểu tại 0, giá\ntrị0. Trực tiếp, 𝑐(𝑥) > 0 với mọi 𝑥≠0. Em đã sửa được lỗi trong bài này khi kiểm tra liên tục\nriêng, không nhầm không có đạo hàm với không có cực trị.\nXem đềbài (mởtrên trang học liệu)\nBài tập khắc phục lỗi 04. Cực đại: điểm của hàm số−2, giá trị6, điểm đồthị(−2; 6). Cực tiểu:\nđiểm của hàm số1, giá trị−4, điểm đồthị(1; −4). Em đã sửa được lỗi trong bài này khi cảba\nloại đối tượng được gọi đúng.\nXem đềbài (mởtrên trang học liệu)\nBài tập khắc phục lỗi 05. Có. Trên cùng một khoảng, 𝑒(𝑥2) −𝑒(𝑥1) = 𝑥2 −𝑥1 > 0. Với cặp\nchéo 𝑥1 < 0 < 𝑥2, ta có 𝑒(𝑥1) = 𝑥1 < 0 và 𝑒(𝑥2) = 𝑥2 + 1 > 1, nên 𝑒(𝑥1) < 𝑒(𝑥2). Hai loại cặp\nbao quát mọi trường hợp. Đây là kiểm tra mởrộng yêu cầu so sánh ra cảtập 𝐷; 𝐷vẫn không\nphải một khoảng. Em đã sửa được lỗi trong bài này khi chứng minh mọi cặp chéo, không chỉ\nthửmột cặp.\nXem đềbài (mởtrên trang học liệu)\nBài tập khắc phục lỗi 06. Không mâu thuẫn. Ví dụ𝑓(𝑥) = 𝑥5 đồng biến trên (−2; 2), có đạo\nhàm 5𝑥4 dương trừtại 0, nơi bằng 0. Từđồng biến và có đạo hàm chỉsuy ra 𝑓′(𝑥) ≥0 trên\nkhoảng. Em đã sửa được lỗi trong bài này khi giữđúng dấu không nghiêm ngặt và có phản ví\ndụhợp lệcho chiều đảo nghiêm ngặt.\nXem đềbài (mởtrên trang học liệu)\nBài tập khắc phục lỗi 07. Cảhai ứng viên phù hợp vì đều có đạo hàm 2𝑥. Chúng cùng có điểm\ncực tiểu 0, nhưng giá trịcực tiểu lần lượt là 0 và 7. Vì thếtung độcủa đồthịđạo hàm không\nphải tung độcủa đồthịhàm số. Em đã sửa được lỗi trong bài này khi tách vịtrí cực trịkhỏi giá\ntrịcực trị.\nXem đềbài (mởtrên trang học liệu)\nBài tập khắc phục lỗi 08. 𝑠′(𝑥) = 3𝑥2, bằng 0 tại 0 và dương ởhai phía; 𝑠không đạt cực trịtại\n0. A đúng, B sai; “A và B” sai, “A hoặc B” đúng. Câu sửa: “𝑠′(0) = 0 và 𝑠không đạt cực trịtại 0.”\nEm đã sửa được lỗi trong bài này khi xửlí đúng cảhai phép nối và giữvếA.\nXem đềbài (mởtrên trang học liệu)\nNguồn đối chiếu\n• BộGiáo dục và Đào tạo, Chương trình giáo dục phổthông môn Toán (2018), phần lớp 12, trang\n105–106: tính đơn điệu, bảng biến thiên, điểm cực trịvà giá trịcực trị.\n• Toán 12, tập một — Kết nối tri thức với cuộc sống, Bài 1, trang in 6–11 và 14 (trang PDF 8–13 và\n16 trong bản được cung cấp); Bài 4, trang in 26–27 (trang PDF 28–29).\n© 2026 ZO Math\nzomath.vn\n16 / 17\n"
+    }
+  ],
+  "one_recommended_design": {
+    "name": "Một hệ biên tập: bìa định hướng — ruột học — kết nối và ủng hộ",
+    "format": "A4; lề trái/phải22mm, trên22mm, dưới22mm; khung đọc166mm. Trang nội dung trắng để giữ độ rõ và tiết kiệm mực.",
+    "front": "Logo hai ô XámZO độc lập ở góc trên trái, ZĐỏZO và OVàngZO không viền. Dòng bộ tài liệu nhỏ9pt ở trên. Tên Đơn điệu và cực trị 34–38pt XámZO, ngắt hai dòng. Tên biến thể Bài học/Luyện tập...14pt ngay dưới để nhận đúng bản. Đặt một hình toán đúng nội dung ở nửa dưới, không thêm đồ trang trí. Khối3dòng chỉ rõ dùng bản này để làm gì, có/không lời giải, mãR1-G01. Link trở lại học liệu nằm chân trang; không lặp QR lớn ở cả bìa trước và sau.",
+    "body": "Chữ STIXTwoText11pt/STIXTwoMath giữ tính liên tục với ruột đã biên soạn; nhan đề BeVietnamPro nếu bộfont0.4có. Khối nội dung trắng, khoảng cách phân nhóm thay đường ngang. Tag unboxed smallcaps8.5–9pt, XámZOtone đọc được. Hình, bảng, BBThànghàmsốmộtrow dùng cùng tiêu chuẩnweb khi tái dàn ruột trong giai đoạn sau. Không gắn nhãn toàn bộruộtđãđược0.4 nếu chỉ thaybiên.",
+    "end": "Trang kết độc lập: đầu trang có hành động học tiếp ngắn, dẫn về đúng R1-G01. KhốiỦnghộZO Math nổi bật nền XámZO, nhanđềVàngZO, đoạnmời trắng. KhốiQR nguyênbản trênôtrắng40–42mm cùng bốn trườngngânhàngchínhxác, cỡ11–12pt. Vùngcuối có linkbảotrợ vànguồnphiênbản. Không dùng đường ngang phân vùng, dùngkhoảngtrắng24–32pt. Trangkếtcó thểgiữtoàn trắng ởbảninđen trắng, tuy nhiên chỉcầnđưa1bảnchuẩn vàmẫuthửsắcxám.",
+    "support_copy": "Ủng hộ ZO Math\nZO Math đang cần kinh phí để tiếp tục biên soạn học liệu và phát triển các công cụ học Toán. Nếu tài liệu hữu ích với bạn, sự ủng hộ của bạn sẽ giúp công việc này được tiếp tục.\nViệc ủng hộ là tự nguyện.",
+    "support_copy_provenance": "Tình trạng cần chi phí do người dùng nêu trực tiếp ở yêu cầu0.4; chức năng biên soạn/chia sẻ từ R1HTML; tựnguyện từzo-pdf-support.tex. Không nêu sốtiềnmục tiêu, tỷlệchi hay quyền lợi khôngcóngồn.",
+    "links": "Không gạch chân. Trong PDF dùng màu đỏ đủ đậm và câu hành động rõ; PDF không có cơ chế hover như web. Giữ link annotation thật.",
+    "folio": "Nếu thêmtrangkết làm tăng tổngtrang, cậpnhậtfooter tổngtrangngoàivùngnộidung học hoặc tránhphụthuộctổngtrang trongmẫu. Không đè lên côngthức. Giữ sốtrangruột2..N để cácliênkết/tríchdẫn hiệncó ítbịxáotrộn.",
+    "provenance_label": "Giao diện bìa và trang kết0.4 · Nội dung R1-G01v1.3 theo bảnthảo06/10/2026; ruộtgiữbảnnguồn. Không gọi đây là dàntrangtoànvăn0.4."
+  },
+  "support_verified_from_supplied_sources": {
+    "bank": "Vietcombank",
+    "account": "0601000137768",
+    "account_holder": "Nguyễn Tấn Nhựt",
+    "transfer_memo": "BAO TRO ZO MATH",
+    "qr_source": "/workspace/scratch/ac82747e7143/evidence/r1_g01/assets/images/qr_bao_tro_zo_math_vietcombank.jpg",
+    "support_url": "https://zomath.vn/content/support/donate.html",
+    "r1_url": "https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.html",
+    "verification_scope": "Khớp giữa HTML đính kèm và nguồnTex; chưa xác minh trực tiếp với ngân hàng. Chỉ sao chép QR gốc, không tự sinh dữliệuthanhtoán."
+  },
+  "production_checks": [
+    "So sánh văn bản từng trang ruột gốc và xuất mới trước khi giao.",
+    "8bìa thayđúng,4kếtthayvà4kếtthêm; khônglàm mấtphầnhọc/nguồn.",
+    "Mở xem tĩnhbìa/trangkết8bản vàcheckQRkhôngmờ/co méo.",
+    "Kiểm URIcủaliênkếtvànội dung4trườngngânhàng.",
+    "Đánhdấuruộtgiữnguồn; khônghứađãápdụngtoànbảng/BBT0.4trongPDFbọcbiên."
+  ]
+}

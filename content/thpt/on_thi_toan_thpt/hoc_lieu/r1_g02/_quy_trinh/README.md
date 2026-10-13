@@ -1,4 +1,57 @@
-# R1-G02 — gói học liệu canonical đã nghiệm thu
+# R1-G02 — nguồn canonical đang hoàn thiện kiến trúc 2027
+
+**Hiện hành DH_026/QD_031:** nguồn QMD/layout/binding đã sửa backlog theo owner; Nhật kí độc lập, Toàn văn/Sửa lỗi/Lời giải đúng thứ tự, bỏ hành động đề–đáp án cục bộ thừa, bảng chọn bài dùng chuẩn chung. Năm SVG chính/nền/bìa đều dựng mới theo profile 0.4, manifest kiểm toàn bộ đầu vào và asset, không tái dùng cache canonical cũ. Bản xem/evidence ở `_audit/zo_pair_backlog_2026-10-11/`; cổng nguồn/DOM `scripts/zo_web_2027_backlog_check.py` chạy trong adapter. Chờ chủ trì duyệt HTML, PDF chưa đồng bộ, root docs/receipt/Git không sửa. Các mô tả “hiện hành” bên dưới là lịch sử trước DH_026, không phục hồi owner/nhóm lời giải/nhật kí/cache đã bị thay.
+
+Hiện hành DH_023/QD_030: bảng theo chức năng 0.4, binding chung `profiles/course-tables.json`, guard `scripts/zo_course_tables.py` trong adapter. HTML/kiểm kê mới tại `_audit/zo_course_tables_2026-10-11/`; trạng thái theo 03 của khóa. Giữ sửa ký pháp/số mục QD_029 và guard `zo_math_notation.py`. Các mốc/đường dẫn bên dưới là lịch sử, không chứng nhận bản mới. Chưa PDF học liệu, promotion root docs, Git hoặc phát hành.
+
+**DH_019 hiện hành:** G02 đã nối adapter canonical `scripts/zo_web_2027_g02_production.py` vào hook QMD chung, marker `zo-web-2027-g02`. HTML cô lập mới: `_audit/r1_g02_dong_bo_lai_g01_2026-10-11/html-current/g02-reading.html`; kiểm mới `qa-verified/qa.json` và đối sánh trực tiếp `pair-verified/pair.json`. Đã sửa nhịp Cách học/Khởi động, nhãn thừa, tổng quan ba chặng và tên Điểm dừng theo G01; giữ toán/ID/manifest/nhánh riêng/Journal14. Các câu “chưa production/chỉ audit” của DH_016 dưới đây là lịch sử trước nối đường dựng; root docs vẫn chưa promotion, HTML mới chờ duyệt, PDF vẫn cũ. Việc tiếp theo chỉ ở 03.
+
+## DH_016 — bằng chứng trước lượt đồng bộ lại DH_019
+
+**DH_016 / QD_025 — hiện hành 11/10/2026:** đã áp dụng thay đổi G01 theo vai trò riêng G02 vào nguồn QMD/layout và binding `../giao_dien/he_nhan.json`: 59 nhiệm vụ/59 đáp án, số liên tục theo chức năng, Ôn nền độc lập, Khởi động/Tự kiểm tra nguyên tử, Lời giải cùng tên nhiệm vụ. Nhật kí giữ nguồn chung 14 trường; lõi M1–M5 và chuyển giao M6 không đổi. Dùng `scripts/zo_r1_g02_labels_check.py` để dựng/kiểm phép chiếu riêng G02; không ép quota G01 hoặc tuyên bố CLI bảng G01 đã tự hỗ trợ mọi gói. HTML hiện tại: `_audit/r1_g02_ap_dung_he_nhan_2026-10-11/delivery-html/g02-reading.html`; báo cáo `qa-release-preview/qa.json`, điều hành `governance-current.json`. Chờ chủ trì duyệt, chưa production/PDF/Git/phát hành.
+
+Điểm vào điều hành: [README khóa 2027](../../../tot_nghiep_thpt/2027/_quy_trinh/README.md); việc hiện hành chỉ ở bảng 03. QD_016–018 hợp nhất tài liệu ngày 10/10, không sửa QMD/HTML. Bài học/Luyện tập không xen kẽ; Nhật kí dùng cùng nguồn 14 trường với G01. Các mô tả “hiện hành/chờ xem” trong mục lịch sử thuộc thời điểm của mục, không cấp quyền hoặc nghiệm thu mới.
+
+**QD_021/024 hiện hành:** đã sửa/kiểm nguồn, đích và câu chữ DH01–DH14, cùng tuyến runtime đại diện; Kiểm tra bắt đầu khi chuẩn bị kĩ hoặc đủ tự tin, tự lực và không chia lượt. Không dùng QA cũ thay kiểm mới, không lấy tự tin làm bằng chứng đạt; QD_022 vẫn cho sửa và chỉ kiểm lại phần ảnh hưởng. Việc tiếp theo chỉ ở 03; không phải kiểm toán độc lập toàn gói hoặc chủ trì duyệt HTML.
+
+## FB036 — lịch sử đối sánh 08/10; cần rà lại QD_021
+
+Theo QD_019, đọc [danh mục 08](../../../tot_nghiep_thpt/2027/_quy_trinh/08_danh_muc_tham_quyen_dieu_hanh.md). Hồ sơ máy đọc đã tách nghiệm thu lịch sử tháng 9 khỏi ứng viên FB036 pending; không coi accepted cũ là chốt bản sửa mới. G01 đã có 21 RD nguồn/DOM ngày 10/10; G02 chưa audit toàn bộ ở mức tương đương. Kế thừa quy tắc chung, không copy đoạn G01 còn lỗi hoặc triển khai đề xuất chưa chốt. Nhật kí giữ một nguồn 14 trường. Lệnh/ma trận nghiệm thu cũ bên dưới là evidence theo bản, không quyền chạy hiện hành.
+
+HTML tại mốc FB036: `_audit/zo_web_pair_refinement_2026-10-08/g02/g02-reading.html`.
+Nguồn QMD đã sửa nhãn/tên, routing S-L/S-K/S-O, nhóm lời giải, ownership của
+xác nhận Nền, mục tiêu/điểm dừng/lỗi Ôn lại, typography Nguồn và bìa riêng từ
+Luyện tập 02. Nhật kí include chung; mọi disclosure mặc định đóng. Giữ toán,
+ID cũ và đích liên kết; không sao chép đồ thị G01. Hồ sơ và phép kiểm chống
+tái diễn tại README audit và `scripts/zo_web_2027_pair_check.py`.
+Chưa đủ điều kiện xin duyệt đường học theo QD_021; cần rà DH01–DH14. Chưa tích hợp HTML G02 vào `docs`, PDF/Git/phát hành/0.5.
+Các mốc DH007/FB035 và FB034 dưới đây là lịch sử, không phải bản hiện hành.
+
+## Mốc lịch sử — DH_007 / FB035, 08/10/2026
+
+Chủ trì đã chỉ ra bản FB034 còn lệch vai trò/cấp/vùng đọc/bảng ngay từ đầu.
+985/985 kiểm bố cục của mốc đó không chứng nhận nhất quán semantic.
+Nguồn đã được tinh chỉnh: Bắt đầu/Cách học, định hướng, khởi động, Ôn nền
+h4, khái niệm/ví dụ/tự kiểm/phương pháp và bảng; Nhật kí dùng include chung
+`../_dung_chung/nhat_ki_hoc_tap.qmd`, khóa bằng phần inline G01 đã chốt.
+HTML tại mốc FB035: `_audit/zo_g02_consistency_2026-10-08/g02-reading.html`.
+Kiểm semantic mới: `scripts/zo_g02_consistency_check.py` (144/144), kèm
+985/985 bố cục/hành vi; chưa là nghiệm thu chủ trì. Xem README audit mới.
+
+### Mốc FB034 trước phản hồi — lịch sử, không phải HTML hiện hành
+
+Nguồn `index.qmd` đã được tổ chức lại theo ba chặng, tám điểm kiểm soát,
+chín thẻ Nền, Nhật kí 14 trường và ba lượt Ôn lại có đề/lời giải riêng.
+Các nhiệm vụ toán đã có được tái dùng theo đúng vai trò; không sao chép toán G01.
+HTML để chủ trì xem nằm tại `_audit/zo_g02_completion_2026-10-08/g02-reading.html`.
+Hồ sơ và cách dựng/kiểm tại `giao_dien/README_web_2027.md` và README của audit.
+
+**Chờ chủ trì duyệt HTML/nội dung/đường học mới.** Không lấy nghiệm thu lịch sử
+hoặc `planned=0` làm nghiệm thu nguồn hiện hành. PDF đang có chưa đồng bộ;
+không dựng PDF hoặc sửa provenance bằng tay trong lượt này. G01/Nhà/D0 và
+thiết kế đã chốt được giữ nguyên; chưa stage/commit/push/phát hành hoặc khóa 0.5.
+
+## Hồ sơ lịch sử — không chứng nhận nguồn hiện hành
 
 `index.qmd` là nguồn biên soạn canonical của gói sau khi nội dung từ bản thảo
 HTML được chuyển đổi và đối chiếu. Nội dung, HTML và hệ PDF đã được nghiệm thu;
@@ -22,7 +75,7 @@ Thanh thẻ dùng hành vi điều hướng chung của chuyên mục: giữ ngu
 `sticky` ở `top: 0`; Navbar ẩn khi kéo xuống và xuất hiện lại khi kéo lên. HTML
 hiện có chỉ nhận thay đổi này ở lần render và tái xuất bản kế tiếp.
 
-Kiến trúc nội dung đích đã được chủ dự án duyệt và khóa tại
+Kiến trúc nội dung của mốc lịch sử đã được chủ dự án duyệt tại
 [`ma_tran_kien_truc_noi_dung.md`](ma_tran_kien_truc_noi_dung.md). Tệp này là
 căn cứ cho lượt tái cấu trúc `index.qmd`; không suy kiến trúc từ bản render tạm.
 

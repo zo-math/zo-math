@@ -1,0 +1,60 @@
+::::: {#nen-n-lt-01 .r1-details .r1-foundation-unit .zo-learning-hint data-r1-foundation-unit="N-LT-01"}
+::: {.r1-summary .zo-learning-summary}
+Liên tục và đạo hàm tại điểm ghép
+:::
+
+**Dùng khi:** em nhìn đạo hàm hai phía rồi bỏ qua giá trị ở điểm ghép hoặc nhầm liên tục với có đạo hàm.
+
+**Nhớ lại.** Kiểm tra liên tục tại một điểm bằng giá trị hàm và hai giới hạn một phía. Muốn kiểm tra đạo hàm tại điểm ghép, dùng các thương sai phân một phía dựa trên đúng giá trị hàm ở điểm đó. Có đạo hàm kéo theo liên tục; chiều ngược không luôn đúng.
+
+**Ví dụ hướng dẫn.** $a(x)=|x|$ liên tục tại $0$. Với $h>0$, thương sai phân bằng $1$; với $h<0$, bằng $-1$. Hai giới hạn không bằng nhau nên $a^\prime(0)$ không tồn tại.
+
+**Cách tính tại điểm ghép.** Với điểm ghép $x_0$, tính giá trị $f(x_0)$ theo nhánh chứa điểm đó, rồi tính riêng giới hạn của hai nhánh khi $x$ tiến đến $x_0$ từ trái và từ phải. Hàm liên tục tại $x_0$ khi cả hai giới hạn tồn tại và bằng đúng $f(x_0)$.
+
+Sau đó dùng đúng giá trị vừa tính trong thương sai phân:
+
+$$
+\frac{f(x_0+h)-f(x_0)}{h}.
+$$
+
+Tính riêng giới hạn khi $h\to0^-$ và $h\to0^+$. Đạo hàm tại $x_0$ tồn tại khi hai giới hạn hữu hạn và bằng nhau. Không lấy đạo hàm của một nhánh rồi gán ngay cho điểm ghép.
+
+Ở ví dụ $a(x)=|x|$, ta có $a(0)=0$; hai giới hạn của $|x|$ đều bằng $0$. Thương sai phân là $\frac{\lvert h\rvert}{h}$, bằng $-1$ khi $h<0$ và bằng $1$ khi $h>0$. Vì vậy liên tục và có đạo hàm là hai câu hỏi khác nhau.
+
+[]{#nen-n-lt-01-xn01}
+
+**Tự kiểm tra mới.** Cho
+
+$$
+u(x)=\begin{cases}
+3x+2 & \text{khi } x<0,\\
+2-x & \text{khi } x\geq0.
+\end{cases}
+$$
+
+Kiểm tra tính liên tục và sự tồn tại của $u^\prime(0)$. Dấu dương bên trái, âm bên phải có cho phép kết luận cực đại tại $0$ không? Giải thích bằng định lí hoặc so sánh giá trị gần $0$.
+
+:::: {#lg-nen-n-lt-01 .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
+Đáp án và tiêu chí
+:::
+
+Hai giới hạn và $u(0)$ đều bằng $2$, nên liên tục. Thương sai phân trái có giới hạn $3$, phải có giới hạn $-1$, nên không có đạo hàm tại $0$. Hàm đạt cực đại tại $0$ vì liên tục và đổi từ tăng sang giảm; cũng có thể thấy $u(x)<2=u(0)$ với mọi $x\ne0$ đủ gần. Đạt khi tách đủ ba câu hỏi: liên tục, đạo hàm, cực trị.
+
+::::
+
+[]{#nen-n-lt-01-xn02}
+
+**Xác nhận hẹp nếu lỗi là bỏ điều kiện liên tục.** Giữ hai công thức trên khi $x\ne0$ nhưng đặt giá trị tại $0$ bằng $4$. Có được dùng định lí đổi dấu đã học không; các giá trị ở đủ gần $0$ so với giá trị $4$ tại điểm ghép thế nào?
+
+:::: {#lg-nen-n-lt-01-xac-nhan .r1-details .r1-solution .zo-learning-solution}
+::: {.r1-summary .zo-learning-summary}
+Đáp án xác nhận hẹp
+:::
+
+Hàm không liên tục vì giới hạn là $2$ nhưng giá trị là $4$, nên không gọi định lí đó. Các giá trị ở đủ gần nhỏ hơn $4$. Không yêu cầu phân loại cực trị theo quy ước chưa dạy.
+
+::::
+
+**Quay về:** đúng câu về điểm ghép hoặc Điểm dừng đã gọi. Tự làm câu xác nhận trước khi mở đáp án; câu hẹp chỉ xác nhận việc kiểm điều kiện liên tục, không chứng nhận toàn bộ kĩ năng ở điểm ghép. Nếu câu phù hợp đã lộ hoặc còn sai, ghi “Chưa có bài mới để xác nhận thêm ở mục tiêu này”, xem lại cách tính phía trên và ghi mục tiêu chưa xác nhận; không ghi đạt chỉ từ hình dáng quen thuộc hoặc làm lại đáp án đã biết.
+:::::

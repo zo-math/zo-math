@@ -1,0 +1,167 @@
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{hyperxmp}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{lastpage}
+\usepackage{qrcode}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+
+\definecolor{zomathgray}{HTML}{5F6368}
+\definecolor{zomathred}{HTML}{EF5350}
+\definecolor{zomathblocktext}{HTML}{25221F}
+\definecolor{zomathblockwhitebg}{HTML}{FFFFFF}
+\definecolor{zomathblockwhiteborder}{HTML}{D9DEE3}
+\definecolor{zomathblockredbg}{HTML}{FFF4F3}
+\definecolor{zomathblockredborder}{HTML}{F2B1AF}
+\definecolor{zomathblockyellowbg}{HTML}{FFF9E9}
+\definecolor{zomathblockyellowborder}{HTML}{E3C970}
+\definecolor{zomathblockgraybg}{HTML}{F3F1EE}
+\definecolor{zomathblockgrayborder}{HTML}{DFD7CA}
+
+\tcbset{
+  zo block base/.style={
+    breakable,
+    boxrule=0.55pt,
+    arc=2mm,
+    outer arc=2mm,
+    left=3mm,
+    right=3mm,
+    top=2.5mm,
+    bottom=2.7mm,
+    before skip=1.1em,
+    after skip=1.1em,
+    coltitle=zomathblocktext,
+    fonttitle=\bfseries,
+    toptitle=2.5mm,
+    bottomtitle=1.4mm,
+    titlerule=0pt
+  }
+}
+
+\newtcolorbox{zoBlockRed}[1]{
+  zo block base,
+  colback=zomathblockredbg,
+  colframe=zomathblockredborder,
+  colbacktitle=zomathblockredbg,
+  title={#1}
+}
+
+\newtcolorbox{zoBlockWhite}[1]{
+  zo block base,
+  colback=zomathblockwhitebg,
+  colframe=zomathblockwhiteborder,
+  colbacktitle=zomathblockwhitebg,
+  coltitle=zomathgray,
+  title={#1}
+}
+
+\newtcolorbox{zoBlockYellow}[1]{
+  zo block base,
+  colback=zomathblockyellowbg,
+  colframe=zomathblockyellowborder,
+  colbacktitle=zomathblockyellowbg,
+  title={#1}
+}
+
+\newtcolorbox{zoBlockGray}[1]{
+  zo block base,
+  colback=zomathblockgraybg,
+  colframe=zomathblockgrayborder,
+  colbacktitle=zomathblockgraybg,
+  title={#1}
+}
+
+\providecommand{\zoPdfTitle}{ZO Math}
+\providecommand{\zoPdfMetaTitle}{ZO Math}
+\providecommand{\zoPdfSubtitle}{}
+\providecommand{\zoPdfShortTitle}{ZO Math}
+\providecommand{\zoPdfCollection}{Tài liệu học toán của ZO Math}
+\providecommand{\zoPdfDate}{}
+\providecommand{\zoPdfCanonicalUrl}{https://zomath.vn/}
+\providecommand{\zoPdfDisplayUrl}{zomath.vn}
+\providecommand{\zoPdfSubject}{Tài liệu học toán của ZO Math}
+\providecommand{\zoPdfKeywords}{ZO Math, toán học}
+
+\newcommand{\zoPdfFooterLeft}{%
+  \fontsize{7.5}{9}\selectfont\color{zomathgray}%
+  \textcopyright{} \the\year{} ZO Math%
+}
+\newcommand{\zoPdfFooterCenter}{%
+  \fontsize{7.5}{9}\selectfont\color{zomathgray}%
+  \href{\zoPdfCanonicalUrl}{\zoPdfDisplayUrl}%
+}
+\newcommand{\zoPdfFooterRight}{%
+  \fontsize{7.5}{9}\selectfont\color{zomathgray}%
+  \thepage\,/\,\pageref*{LastPage}%
+}
+\newcommand{\zoPdfApplyFooter}{%
+  \fancyfoot[L]{\zoPdfFooterLeft}%
+  \fancyfoot[C]{\zoPdfFooterCenter}%
+  \fancyfoot[R]{\zoPdfFooterRight}%
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{zomathgray}ZO Math}
+\fancyhead[R]{\small\color{zomathgray}\zoPdfShortTitle}
+\zoPdfApplyFooter
+\renewcommand{\headrulewidth}{0.7pt}
+\renewcommand{\headrule}{%
+  \hbox to\headwidth{\color{zomathred}\leaders\hrule height \headrulewidth\hfill}%
+}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{27pt}
+\setlist{topsep=0.4em, itemsep=0.25em, parsep=0pt, partopsep=0pt}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \zoPdfApplyFooter
+  \renewcommand{\headrulewidth}{0pt}%
+}
+
+\makeatletter
+\renewcommand{\maketitle}{%
+  \thispagestyle{plain}%
+  \begin{center}
+    \vspace*{-1.5em}
+    \includegraphics[width=27mm]{zo_math_logo_black_on_transprentt_1024.pdf}\par
+    \vspace{0.9em}
+    \begin{tabular}{c}
+      {\small\color{zomathgray}\zoPdfCollection}\\[0.65em]
+      {\color{zomathred}\rule{46mm}{1.2pt}}
+    \end{tabular}\par
+    \vspace{1.35em}
+    {\LARGE\bfseries\zoPdfTitle\par}
+    \ifx\zoPdfSubtitle\@empty\else
+      \vspace{0.55em}
+      {\large\color{zomathgray}\zoPdfSubtitle\par}
+    \fi
+    \ifx\zoPdfDate\@empty\else
+      \vspace{1.1em}
+      {\small\color{zomathgray}Cập nhật \zoPdfDate\par}
+    \fi
+  \end{center}
+  \vspace{0.8em}
+}
+\makeatother
+
+\AtBeginDocument{%
+  \hypersetup{
+    pdftitle={\zoPdfMetaTitle},
+    pdfauthor={ZO Math},
+    pdfsubject={\zoPdfSubject},
+    pdfkeywords={\zoPdfKeywords},
+    pdfcopyright={\textcopyright{} \the\year{} ZO Math. Bảo lưu mọi quyền.},
+    pdfmetalang={vi},
+    pdfpublisher={ZO Math},
+    pdfsource={\zoPdfCanonicalUrl},
+    pdfborder={0 0 0},
+    linkcolor=black,
+    urlcolor=zomathred
+  }%
+}

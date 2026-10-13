@@ -57,3 +57,11 @@ người viết mã; giao diện nhập liệu trực quan là hướng phát tr
 Khung bảng dùng trực tiếp token canonical của đồ thị v0.2: nền
 `zoGraphVTwoPlotBackground`, đường `zoGraphVTwoPlotBorder`, nét `0.45pt` và góc bo
 `2mm`. Các đường bên trong dùng cùng token, được clip trong khung bo tròn.
+
+## Renderer HTML 0.4 thử nghiệm
+
+`zo_variation_html.py` là lựa chọn native HTML/MathML riêng, nạp đúng JSON và
+validator/converter token hiện hành; không thay đường SVG/Lua/PDF mặc định.
+13 bảng G01 đã được thử tại `_audit/zo_math_figure_profile_2026-10-08/` (lịch sử).
+Đường opt-in hiện hành có adapter canonical cho cả G01/G02; DH_021 bổ sung BBT14 của G01 từ JSON cho lời giải Ôn lại 03 và kiểm riêng HTML mới. Không lấy FB036 hoặc số bảng cũ chứng nhận nguồn sau sửa. Trạng thái chỉ ở 03 của bộ điều hành khóa 2027. PDF học liệu và mặc định các dự án khác không đổi. Điều kiện áp dụng và guard nằm trong
+`_design/web_2027_mau_dung_chung/figure-profile-candidate/README.md`.

@@ -1,127 +1,165 @@
 <script>
 (() => {
+  'use strict';
+
   const root = document.querySelector('.r1-g01');
   if (!root) return;
 
   const TITLE = root.dataset.r1Title || 'Đơn điệu và cực trị';
   const VIEW_PARAM = 'r1-view';
-  const baseDefinitions = [
-    {view: 'cach-hoc', label: 'Cách học', ids: ['cách-học-với-tài-liệu-này', 'nguon']},
-    {view: 'bai-hoc', label: 'Bài học', ids: ['bai-hoc']},
-    {view: 'luyen-tap', label: 'Luyện tập', ids: ['phieu-luyen']},
-    {view: 'kiem-tra', label: 'Kiểm tra', ids: ['tu-kiem-tra']},
-    {view: 'sua-loi', label: 'Sửa lỗi', ids: ['sua-loi']},
-    {view: 'on-lai', label: 'Ôn lại', ids: ['on-lai']},
-    {view: 'loi-giai', label: 'Lời giải', ids: ['loi-giai', 'đọc-kết-quả-tự-kiểm-tra']},
-    {view: 'tai-pdf', label: 'Tải PDF', ids: ['tai-tai-lieu']},
-    {view: 'toan-van', label: 'Toàn văn', ids: []}
+  const REGION_ORDER = ['orientation', 'main', 'support', 'utilities'];
+
+  const mainDefinitions = [
+    {view: 'bat-dau', label: 'Bắt đầu', nodes: ['bat-dau'], target: 'bat-dau'},
+    {view: 'bai-hoc', label: 'Bài học', nodes: ['bai-hoc'], target: 'bai-hoc'},
+    {view: 'luyen-tap', label: 'Luyện tập', nodes: ['phieu-luyen'], target: 'phieu-luyen'},
+    {view: 'kiem-tra', label: 'Kiểm tra', nodes: ['tu-kiem-tra'], target: 'tu-kiem-tra'},
+    {view: 'on-lai', label: 'Ôn lại', nodes: ['on-lai'], target: 'on-lai'}
   ];
-  const baseContentOrder = [
-    'cách-học-với-tài-liệu-này', 'bai-hoc', 'phieu-luyen', 'tu-kiem-tra',
-    'sua-loi', 'on-lai', 'loi-giai', 'đọc-kết-quả-tự-kiểm-tra', 'nguon',
-    'tai-tai-lieu'
+  const supportDefinitions = [
+    {view: 'on-nen', label: 'Ôn nền', nodes: ['bai-hoc'], target: 'on-nen'},
+    {view: 'sua-loi', label: 'Sửa lỗi', nodes: ['sua-loi'], target: 'sua-loi'},
+    {view: 'nhat-ky', label: 'Nhật kí', nodes: ['nhat-ky'], target: 'nhat-ky'},
+    {view: 'loi-giai', label: 'Lời giải', nodes: ['loi-giai'], target: 'loi-giai'}
   ];
-  const contentOrder = baseContentOrder.filter(id =>
-    root.querySelector(`:scope > section#${CSS.escape(id)}`)
-  );
-  const contentIds = new Set(contentOrder);
-  const definitions = baseDefinitions
-    .map(item => ({...item, ids: item.ids.filter(id => contentIds.has(id))}))
-    .filter(item => item.view === 'toan-van' || item.ids.length > 0);
+  const utilityDefinitions = [
+    {view: 'tai-pdf', label: 'Tải PDF', nodes: ['tai-tai-lieu'], target: 'tai-tai-lieu'},
+    {view: 'nguon', label: 'Nguồn', nodes: ['nguon'], target: 'nguon'},
+    {view: 'toan-van', label: 'Toàn văn', nodes: [], target: 'bat-dau'}
+  ];
+  const definitions = [...mainDefinitions, ...supportDefinitions, ...utilityDefinitions];
   const byView = new Map(definitions.map(item => [item.view, item]));
+  const requiredIds = [
+    'bat-dau', 'bai-hoc', 'phieu-luyen', 'tu-kiem-tra', 'on-lai',
+    'sua-loi', 'nhat-ky', 'loi-giai', 'tai-tai-lieu', 'nguon'
+  ];
 
-  const draft = document.getElementById('quarto-draft-alert');
-  const status = root.querySelector('.r1-status');
-  if (draft && status) {
-    draft.textContent = status.textContent.trim();
-    draft.className = '';
-    status.replaceChildren(draft);
-  }
-
-  const tableWrappers = [...root.querySelectorAll('.r1-table-scroll-x')];
-  function updateTableOverflow(wrapper) {
-    const hint = document.getElementById(`${wrapper.id}-hint`);
-    if (!hint) return;
-    const overflowing = wrapper.scrollWidth > wrapper.clientWidth + 1;
-    hint.hidden = !overflowing;
-    if (overflowing) {
-      wrapper.tabIndex = 0;
-      wrapper.setAttribute('aria-describedby', hint.id);
-    } else {
-      wrapper.removeAttribute('tabindex');
-      wrapper.removeAttribute('aria-describedby');
-      wrapper.scrollLeft = 0;
-    }
-  }
-  function updateAllTables() {
-    tableWrappers.forEach(updateTableOverflow);
-  }
-  tableWrappers.forEach(wrapper => {
-    wrapper.addEventListener('keydown', event => {
-      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
-      if (wrapper.scrollWidth <= wrapper.clientWidth + 1) return;
-      const direction = event.key === 'ArrowRight' ? 1 : -1;
-      wrapper.scrollLeft += direction * Math.max(32, wrapper.clientWidth * .2);
-      event.preventDefault();
-    });
-  });
-  if ('ResizeObserver' in window) {
-    const tableObserver = new ResizeObserver(entries => {
-      entries.forEach(entry => updateTableOverflow(entry.target));
-    });
-    tableWrappers.forEach(wrapper => tableObserver.observe(wrapper));
-  } else {
-    window.addEventListener('resize', updateAllTables);
+  function directSection(id) {
+    return root.querySelector(`:scope > section#${CSS.escape(id)}`);
   }
 
   try {
-    const sectionById = new Map();
-    contentOrder.forEach(id => {
-      const section = root.querySelector(`:scope > section#${CSS.escape(id)}`);
-      sectionById.set(id, section);
+    const nodes = new Map();
+    ['bat-dau', 'bai-hoc', 'phieu-luyen', 'tu-kiem-tra', 'on-lai',
+      'sua-loi', 'loi-giai', 'tai-tai-lieu', 'nguon'].forEach(id => {
+      const node = directSection(id);
+      if (!node) throw new Error(`Missing required section #${id}`);
+      nodes.set(id, node);
     });
 
+    const repair = nodes.get('sua-loi');
+    const reviewRepair = document.getElementById('sua-loi-sau-on-lai');
+    if (reviewRepair && repair && repair !== reviewRepair.parentElement) repair.append(reviewRepair);
+
+    const journal = document.getElementById('nhat-ky');
+    if (!journal) throw new Error('Missing learning journal #nhat-ky');
+    nodes.set('nhat-ky', journal);
+
+    const draft = document.getElementById('quarto-draft-alert');
+    const status = root.querySelector('.r1-status');
+    if (draft && status) {
+      draft.textContent = status.textContent.trim();
+      draft.className = '';
+      status.replaceChildren(draft);
+    }
+
     const nav = document.createElement('nav');
-    nav.className = 'r1-section-nav';
-    nav.setAttribute('aria-label', `Các phần của học liệu “${TITLE}”`);
-    const tablist = document.createElement('div');
-    tablist.className = 'r1-tablist';
-    tablist.setAttribute('role', 'tablist');
-    tablist.setAttribute('aria-label', 'Chọn phần nội dung');
-    tablist.setAttribute('aria-orientation', 'horizontal');
-    nav.append(tablist);
+    nav.id = 'r1-learning-controller';
+    nav.className = 'r1-learning-controller';
+    nav.setAttribute('aria-label', `Điều hướng học liệu “${TITLE}”`);
 
-    const viewPanel = document.createElement('div');
-    viewPanel.id = 'r1-view-panel';
-    viewPanel.className = 'r1-view-panel';
-    viewPanel.setAttribute('role', 'tabpanel');
-    viewPanel.tabIndex = 0;
+    const mainBlock = document.createElement('div');
+    mainBlock.className = 'r1-learning-controller__main';
+    const mainLabel = document.createElement('p');
+    mainLabel.className = 'r1-learning-controller__label';
+    mainLabel.textContent = 'Mạch học chính';
+    const mainList = document.createElement('ol');
+    mainList.className = 'r1-learning-path';
+    mainBlock.append(mainLabel, mainList);
 
-    const firstSection = sectionById.get(contentOrder[0]);
+    const supportBlock = document.createElement('div');
+    supportBlock.className = 'r1-learning-controller__support';
+    const supportLabel = document.createElement('p');
+    supportLabel.className = 'r1-learning-controller__label';
+    supportLabel.textContent = 'Hỗ trợ khi cần';
+    const supportList = document.createElement('div');
+    supportList.className = 'r1-support-links';
+    supportBlock.append(supportLabel, supportList);
+
+    const utilityBlock = document.createElement('div');
+    utilityBlock.className = 'r1-learning-controller__utilities';
+    const utilityLabel = document.createElement('p');
+    utilityLabel.className = 'r1-learning-controller__label';
+    utilityLabel.textContent = 'Tiện ích';
+    const utilityList = document.createElement('div');
+    utilityList.className = 'r1-utility-links';
+    utilityBlock.append(utilityLabel, utilityList);
+    nav.append(mainBlock, supportBlock, utilityBlock);
+
+    const controls = new Map();
+    function makeControl(definition, kind, index = null) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = `r1-controller-button r1-controller-button--${kind}`;
+      button.dataset.r1View = definition.view;
+      button.setAttribute('aria-controls', 'r1-view-panel');
+      if (kind === 'main') {
+        const step = document.createElement('span');
+        step.className = 'r1-learning-path__step';
+        step.setAttribute('aria-hidden', 'true');
+        step.textContent = String(index + 1);
+        const label = document.createElement('span');
+        label.textContent = definition.label;
+        button.append(step, label);
+      } else {
+        button.textContent = definition.label;
+      }
+      controls.set(definition.view, button);
+      return button;
+    }
+    mainDefinitions.forEach((definition, index) => {
+      const item = document.createElement('li');
+      item.append(makeControl(definition, 'main', index));
+      mainList.append(item);
+    });
+    supportDefinitions.forEach(definition => supportList.append(makeControl(definition, 'support')));
+    utilityDefinitions.forEach(definition => utilityList.append(makeControl(definition, 'utility')));
+
     const navSlot = document.createElement('div');
-    navSlot.className = 'r1-nav-slot';
+    navSlot.className = 'r1-learning-controller-slot';
     navSlot.append(nav);
-    firstSection.before(navSlot, viewPanel);
-    contentOrder.forEach(id => viewPanel.append(sectionById.get(id)));
+
+    const panel = document.createElement('div');
+    panel.id = 'r1-view-panel';
+    panel.className = 'r1-view-panel r1-phase1-view-panel';
+    panel.setAttribute('role', 'region');
+    panel.setAttribute('aria-label', 'Nội dung học liệu');
+    nodes.get('bat-dau').before(navSlot, panel);
+
+    const regionSpecs = [
+      {key: 'orientation', label: 'A. Định hướng', nodeIds: ['bat-dau']},
+      {key: 'main', label: 'B. Mạch học chính', nodeIds: ['bai-hoc', 'phieu-luyen', 'tu-kiem-tra', 'on-lai']},
+      {key: 'support', label: 'C. Hỗ trợ khi cần', nodeIds: ['sua-loi', 'nhat-ky', 'loi-giai']},
+      {key: 'utilities', label: 'D. Tiện ích', nodeIds: ['tai-tai-lieu', 'nguon']}
+    ];
+    const regions = new Map();
+    regionSpecs.forEach(spec => {
+      const region = document.createElement('div');
+      region.className = 'r1-page-region';
+      region.dataset.r1Region = spec.key;
+      const label = document.createElement('p');
+      label.className = 'r1-page-region__label';
+      label.textContent = spec.label;
+      region.append(label);
+      spec.nodeIds.forEach(id => region.append(nodes.get(id)));
+      regions.set(spec.key, region);
+      panel.append(region);
+    });
 
     const footer = root.querySelector('.r1-footer');
     if (footer) root.append(footer);
 
-    const tabs = definitions.map((definition, index) => {
-      const tab = document.createElement('button');
-      tab.type = 'button';
-      tab.id = `r1-tab-${definition.view}`;
-      tab.className = 'r1-tab';
-      tab.textContent = definition.label;
-      tab.setAttribute('role', 'tab');
-      tab.setAttribute('aria-controls', viewPanel.id);
-      tab.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
-      tab.tabIndex = index === 0 ? 0 : -1;
-      tablist.append(tab);
-      return tab;
-    });
-
-    const lessonPanel = sectionById.get('bai-hoc');
+    const lessonPanel = nodes.get('bai-hoc');
     const lessonToc = lessonPanel.querySelector(':scope > .lesson-toc');
     const lessonHeadings = [...lessonPanel.querySelectorAll(':scope > section.level3 > h3')];
     const expectedLessonCount = Number.parseInt(root.dataset.r1LessonCount || '9', 10);
@@ -145,62 +183,365 @@
     const lessonDetails = document.createElement('details');
     lessonDetails.className = 'r1-section-toc';
     const lessonSummary = document.createElement('summary');
-    lessonSummary.textContent = 'Mục lục';
+    lessonSummary.textContent = 'Mục lục Bài học';
     const lessonNav = document.createElement('nav');
     lessonNav.setAttribute('aria-label', 'Mục lục bên trong Bài học');
     lessonToc.before(lessonDetails);
     lessonNav.append(lessonToc);
     lessonDetails.append(lessonSummary, lessonNav);
 
-    let currentView = definitions[0].view;
+    function wrapTableCellValue(cell) {
+      if (cell.firstElementChild?.classList.contains('r1-table-cell-value') && cell.children.length === 1) return;
+      const value = document.createElement('span');
+      value.className = 'r1-table-cell-value';
+      while (cell.firstChild) value.append(cell.firstChild);
+      cell.append(value);
+    }
 
-    const header = document.getElementById('quarto-header');
-    const navbar = header?.querySelector('.navbar');
-    let docked = false;
-    function updateDock() {
-      if (!header || !navbar) return;
-      const slotRect = navSlot.getBoundingClientRect();
-      const height = nav.getBoundingClientRect().height;
-      const headerHeight = header.getBoundingClientRect().height;
-      const menuOpen = Boolean(navbar.querySelector('.navbar-collapse.show, .navbar-collapse.collapsing'));
-      header.style.setProperty('--r1-nav-height', `${height}px`);
-      header.style.setProperty('--r1-nav-left', `${slotRect.left}px`);
-      header.style.setProperty('--r1-nav-width', `${slotRect.width}px`);
-      document.body.style.setProperty('--r1-reader-offset', `${headerHeight + height + 16}px`);
-      header.classList.toggle('r1-menu-open', menuOpen);
-      nav.inert = menuOpen;
-      // Freeze docking during menu expansion; its changing body offset is not
-      // a reader scroll. The navigation stays below (and cannot cover) the menu.
-      const shouldDock = menuOpen ? docked : slotRect.top <= headerHeight;
-      navSlot.style.height = `${height}px`;
-      if (shouldDock !== docked) {
-        const focusedTab = nav.contains(document.activeElement) ? document.activeElement : null;
-        const stripScroll = tablist.scrollLeft;
-        docked = shouldDock;
-        header.classList.toggle('r1-nav-docked', docked);
-        (docked ? header : navSlot).append(nav);
-        tablist.scrollLeft = stripScroll;
-        // Reparenting a focused element clears document.activeElement. Restore
-        // that same control without letting the browser scroll the page.
-        focusedTab?.focus({preventScroll: true});
+    const routeTable = document.getElementById('r1-table-t03');
+    const routeTableElement = routeTable?.querySelector('table');
+    if (!routeTable || !routeTableElement) throw new Error('Missing routing table #r1-table-t03');
+    routeTable.classList.add('r1-routing-table');
+
+    function normalizeConfiguredTable(wrapper) {
+      const table = wrapper.querySelector(':scope > table');
+      if (!table) return;
+      table.classList.add('r1-data-table');
+      const label = wrapper.getAttribute('aria-label');
+      if (label && !table.getAttribute('aria-label')) table.setAttribute('aria-label', label);
+      table.querySelectorAll('thead th').forEach(cell => cell.setAttribute('scope', 'col'));
+      if (wrapper.dataset.rowHeader === 'true') {
+        table.querySelectorAll('tbody tr').forEach(row => {
+          const first = row.firstElementChild;
+          if (first) first.setAttribute('role', 'rowheader');
+        });
+      }
+    }
+    root.querySelectorAll('.r1-table[data-r1-table]').forEach(normalizeConfiguredTable);
+    const routeHeaders = [...routeTableElement.querySelectorAll('thead th')]
+      .map(header => header.textContent.trim());
+    routeTableElement.querySelectorAll('tbody tr').forEach(row => {
+      [...row.children].forEach((cell, index) => {
+        cell.dataset.label = routeHeaders[index] || '';
+        wrapTableCellValue(cell);
+      });
+    });
+
+    const tableWrappers = [...root.querySelectorAll('.r1-table-scroll-x')];
+    function updateTableOverflow(wrapper) {
+      const hint = document.getElementById(`${wrapper.id}-hint`);
+      if (!hint) return;
+      const overflowing = wrapper.scrollWidth > wrapper.clientWidth + 1;
+      hint.hidden = !overflowing;
+      if (overflowing) {
+        wrapper.tabIndex = 0;
+        wrapper.setAttribute('aria-describedby', hint.id);
+      } else {
+        wrapper.removeAttribute('tabindex');
+        wrapper.removeAttribute('aria-describedby');
+        wrapper.scrollLeft = 0;
+      }
+    }
+    function updateAllTables() {
+      tableWrappers.forEach(updateTableOverflow);
+    }
+    tableWrappers.forEach(wrapper => {
+      wrapper.addEventListener('keydown', event => {
+        if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+        if (wrapper.scrollWidth <= wrapper.clientWidth + 1) return;
+        wrapper.scrollLeft += (event.key === 'ArrowRight' ? 1 : -1) * Math.max(32, wrapper.clientWidth * .2);
+        event.preventDefault();
+      });
+    });
+    if ('ResizeObserver' in window) {
+      const tableObserver = new ResizeObserver(entries => {
+        entries.forEach(entry => updateTableOverflow(entry.target));
+      });
+      tableWrappers.forEach(wrapper => tableObserver.observe(wrapper));
+    } else {
+      window.addEventListener('resize', updateAllTables);
+    }
+
+    const codeLabels = new Map([
+      ['CP-LT1', 'điểm dừng này'], ['CP-LT2', 'điểm dừng này'],
+      ['CP-LT3', 'điểm dừng này'], ['CP-KT', 'Điểm dừng sau bài Kiểm tra'],
+      ['CP-ON1', 'Điểm dừng Ôn lại hiện tại'], ['CP-ON2', 'Điểm dừng Ôn lại hiện tại'],
+      ['CP-ON3', 'Điểm dừng Ôn lại hiện tại'], ['CP-ON', 'Điểm dừng Ôn lại hiện tại'],
+      ['S-L', 'sửa lỗi sau Luyện tập'], ['S-K', 'sửa lỗi sau Kiểm tra'],
+      ['S-O', 'sửa lỗi sau Ôn lại'], ['O', 'bài Ôn lại']
+    ]);
+    const objectiveLabels = new Map([
+      ['G01-M1', 'tập xác định và điều kiện áp dụng'],
+      ['G01-M2', 'kết nối công thức với đạo hàm và dấu'],
+      ['G01-M3', 'xét cực trị bằng dấu hai phía'],
+      ['G01-M4', 'đọc đúng bảng biến thiên và đồ thị'],
+      ['G01-M5', 'kiểm tra logic của kết luận']
+    ]);
+    const errorLabels = new Map([
+      ['G01-E01', 'bỏ sót tập xác định hoặc khoảng xét'],
+      ['G01-E02', 'kết luận có cực trị chỉ vì đạo hàm bằng 0'],
+      ['G01-E03', 'cho rằng không có đạo hàm thì không có cực trị'],
+      ['G01-E04', 'nhầm điểm cực trị, giá trị cực trị và điểm trên đồ thị'],
+      ['G01-E05', 'gộp các khoảng rời nhau khi chưa so sánh chéo'],
+      ['G01-E06', 'đảo điều kiện đồng biến thành đạo hàm dương ở mọi điểm'],
+      ['G01-E07', 'kết luận vượt quá dữ kiện của bảng hoặc đồ thị'],
+      ['G01-E08', 'bỏ phần đúng khi sửa một lập luận'],
+      ['G01-E09', 'dùng đổi dấu qua điểm chưa kiểm tra tính liên tục']
+    ]);
+    function replaceManagementCodes(text) {
+      let value = text
+        .replace(/\b(?:G01-)?S-L-E(\d+)\b/g, 'bài sửa lỗi sau Luyện tập $1')
+        .replace(/\b(?:G01-)?S-K-E(\d+)\b/g, 'bài sửa lỗi sau Kiểm tra $1')
+        .replace(/\b(?:G01-)?S-O-E(\d+)\b/g, 'bài sửa lỗi sau Ôn lại $1');
+      codeLabels.forEach((label, code) => {
+        value = value.replace(new RegExp(`\\b${code.replace('-', '\\-')}\\b`, 'g'), label);
+      });
+      objectiveLabels.forEach((label, code) => {
+        value = value.replace(new RegExp(`\\b${code}\\b`, 'g'), label);
+      });
+      errorLabels.forEach((label, code) => {
+        value = value.replace(new RegExp(`\\b${code}\\b`, 'g'), label);
+      });
+      value = value
+        .replace(/\bG01-C\d+\b/g, 'phần luyện tập tiếp theo')
+        .replace(/\bG01-O(\d+)\b/g, 'bài Ôn lại $1')
+        .replace(/\bR1-G01\b/g, 'học liệu này')
+        .replace(/\bR1G01-L(\d+)\b/g, 'Bài luyện tập $1')
+        .replace(/\bN-TXĐ-01\b/g, 'mục Ôn nền về tập xác định')
+        .replace(/\bN-ĐH-01\b/g, 'mục Ôn nền về đạo hàm')
+        .replace(/\bN-DẤU-01\b/g, 'mục Ôn nền về xét dấu')
+        .replace(/\bN-BBT-01\b/g, 'mục Ôn nền về bảng biến thiên')
+        .replace(/\bN-ĐT-01\b/g, 'mục Ôn nền về đồ thị')
+        .replace(/\bN-LT-01\b/g, 'mục Ôn nền về tính liên tục')
+        .replace(/\bN-LG-01\b/g, 'mục Ôn nền về logic')
+        .replace(/Điểm kiểm soát/g, 'Điểm dừng')
+        .replace(/checkpoint/g, 'Điểm dừng');
+      return value;
+    }
+    function projectLearnerLabels() {
+      root.querySelectorAll('h1, h2, h3, h4, h5, summary').forEach(node => {
+        node.childNodes.forEach(child => {
+          if (child.nodeType !== Node.TEXT_NODE) return;
+          child.nodeValue = child.nodeValue.replace(/^\s*(?:G01|R1G01)-[A-Z0-9-]+\s+—\s+/, '');
+        });
+      });
+      root.querySelectorAll('code').forEach(code => {
+        const raw = code.textContent.trim();
+        const projected = replaceManagementCodes(raw);
+        if (projected !== raw) {
+          code.dataset.r1Code = raw;
+          code.textContent = projected;
+          code.classList.add('r1-learner-label');
+        }
+      });
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) {
+          const parent = node.parentElement;
+          if (!parent || parent.closest('script, style, math, svg, code')) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      const textNodes = [];
+      while (walker.nextNode()) textNodes.push(walker.currentNode);
+      textNodes.forEach(node => {
+        node.nodeValue = replaceManagementCodes(node.nodeValue);
+      });
+    }
+    projectLearnerLabels();
+
+    function buildLearnerRepairTable() {
+      const machineTable = document.getElementById('r1-table-t12');
+      if (!machineTable) throw new Error('Missing repair table #r1-table-t12');
+      const repairSpecs = [
+        ['G01-E01', 'Bỏ tập xác định, khoảng xét hoặc dùng điểm bị loại', 'tách-riêng-điểm-không-thuộc-tập-xác-định', 'Tập xác định và điểm bị loại'],
+        ['G01-E02', 'Thấy đạo hàm bằng 0 rồi kết luận có cực trị', 'cực-trị-được-gọi-tên-thế-nào', 'Điều kiện để kết luận cực trị'],
+        ['G01-E03', 'Cho rằng không có đạo hàm thì không có cực trị', 'đối-chứng-thứ-ba-không-có-đạo-hàm-nhưng-có-cực-trị', 'Cực trị tại điểm không có đạo hàm'],
+        ['G01-E04', 'Nhầm điểm cực trị, giá trị cực trị và điểm trên đồ thị', 'ba-đối-tượng-cần-tách-biệt', 'Ba đối tượng cần tách biệt'],
+        ['G01-E05', 'Gộp các khoảng rời nhau mà chưa so sánh chéo', 'vì-sao-không-tự-gộp-các-khoảng-rời-nhau', 'Các khoảng rời nhau'],
+        ['G01-E06', 'Đảo tính đồng biến thành đạo hàm dương ở mọi điểm', 'vì-sao-không-được-đảo-thành-điều-kiện-nghiêm-ngặt', 'Chiều ngược của định lí'],
+        ['G01-E07', 'Kết luận vượt quá dữ kiện của bảng hoặc đồ thị', 'bản-đồ-giới-hạn-suy-luận', 'Giới hạn của dữ kiện'],
+        ['G01-E08', 'Bỏ phần đúng khi sửa một lập luận', 'phán-quyết-từ-đúng-giả-thiết', 'Cách giữ phần đúng khi sửa'],
+        ['G01-E09', 'Dùng đổi dấu đạo hàm qua điểm chưa biết liên tục', 'tách-riêng-điểm-không-thuộc-tập-xác-định', 'Điều kiện tại điểm cần xét']
+      ];
+      const sourceRows = [...machineTable.querySelectorAll('tbody tr')];
+      if (sourceRows.length !== repairSpecs.length) throw new Error('Repair table must contain nine error families');
+
+      const learner = document.createElement('div');
+      learner.className = 'r1-action-table';
+      learner.setAttribute('role', 'region');
+      learner.setAttribute('aria-label', 'Chọn bài tập khắc phục lỗi');
+      const table = document.createElement('table');
+      const head = document.createElement('thead');
+      const headRow = document.createElement('tr');
+      ['Khi em gặp lỗi này', 'Xem lại', 'Làm bài mới', 'Sau đó'].forEach(label => {
+        const cell = document.createElement('th');
+        cell.scope = 'col';
+        cell.textContent = label;
+        headRow.append(cell);
+      });
+      head.append(headRow);
+      const body = document.createElement('tbody');
+      repairSpecs.forEach((spec, rowIndex) => {
+        const [code, symptom, reviewId, reviewLabel] = spec;
+        const sourceLinks = [...sourceRows[rowIndex].querySelectorAll('a[href^="#"]')];
+        const row = document.createElement('tr');
+        row.dataset.r1Error = code;
+
+        const symptomCell = document.createElement('th');
+        symptomCell.scope = 'row';
+        symptomCell.dataset.label = 'Khi em gặp lỗi này';
+        symptomCell.textContent = symptom;
+
+        const reviewCell = document.createElement('td');
+        reviewCell.dataset.label = 'Xem lại';
+        const reviewLink = document.createElement('a');
+        reviewLink.href = `#${reviewId}`;
+        reviewLink.textContent = reviewLabel;
+        reviewCell.append(reviewLink);
+
+        const taskCell = document.createElement('td');
+        taskCell.dataset.label = 'Làm bài mới';
+        const routeLabels = ['Sau Luyện tập', 'Sau Kiểm tra', 'Sau Ôn lại'];
+        sourceLinks.forEach((sourceLink, linkIndex) => {
+          if (taskCell.childNodes.length) taskCell.append(document.createTextNode(' · '));
+          const link = document.createElement('a');
+          link.href = sourceLink.getAttribute('href');
+          link.textContent = routeLabels[sourceLinks.length === 2 ? linkIndex + 1 : linkIndex];
+          taskCell.append(link);
+        });
+
+        const afterCell = document.createElement('td');
+        afterCell.dataset.label = 'Sau đó';
+        afterCell.textContent = 'Quay lại Điểm dừng nơi em phát hiện lỗi.';
+        [symptomCell, reviewCell, taskCell, afterCell].forEach(wrapTableCellValue);
+        row.append(symptomCell, reviewCell, taskCell, afterCell);
+        body.append(row);
+      });
+      table.append(head, body);
+      learner.append(table);
+      machineTable.before(learner);
+      machineTable.classList.add('r1-machine-only-table');
+      machineTable.hidden = true;
+      machineTable.setAttribute('aria-hidden', 'true');
+    }
+
+    function appendJournalField(list, label, value) {
+      const item = document.createElement('div');
+      const term = document.createElement('dt');
+      const description = document.createElement('dd');
+      term.textContent = label;
+      description.textContent = value;
+      item.append(term, description);
+      list.append(item);
+    }
+
+    function buildLearnerJournal() {
+      const journalSection = document.getElementById('nhat-ky');
+      const templateTable = document.getElementById('r1-table-t13');
+      const exampleTable = document.getElementById('r1-table-t18');
+      if (!journalSection || !templateTable || !exampleTable) throw new Error('Missing learning journal tables');
+      const labels = [
+        'Ngày và chặng', 'Bài hoặc bước sai', 'Sai ở đâu',
+        'Vì sao sai', 'Kết quả bài mới', 'Ngày ôn lại và kết quả'
+      ];
+      const form = document.createElement('dl');
+      form.className = 'r1-journal-form';
+      form.setAttribute('aria-label', 'Mẫu Nhật kí học tập sáu mục');
+      labels.forEach(label => appendJournalField(form, label, '…'));
+
+      const example = document.createElement('details');
+      example.className = 'r1-journal-example';
+      const summary = document.createElement('summary');
+      summary.textContent = 'Ví dụ giả lập — không phải kết quả thật';
+      const exampleFields = document.createElement('dl');
+      exampleFields.className = 'r1-journal-form';
+      const values = [
+        '03/10/2026, 19:40 · Luyện tập',
+        'Bài luyện tập 05 tại Điểm dừng sau chặng 2',
+        'Chỉ dùng điều kiện f′(1)=0, chưa kiểm tra đổi dấu',
+        'Coi đạo hàm bằng 0 là đủ để kết luận có cực trị',
+        'Đã làm đúng bài mới và giải thích: đạo hàm không đổi dấu nên chưa có cực trị',
+        '10/10/2026 · Chưa đến hạn'
+      ];
+      labels.forEach((label, index) => appendJournalField(exampleFields, label, values[index]));
+      example.append(summary, exampleFields);
+      templateTable.before(form);
+      exampleTable.before(example);
+      [templateTable, exampleTable].forEach(tableNode => {
+        tableNode.classList.add('r1-machine-only-table');
+        tableNode.hidden = true;
+        tableNode.setAttribute('aria-hidden', 'true');
+      });
+      const exampleLead = [...journalSection.querySelectorAll(':scope > p')]
+        .find(paragraph => paragraph.textContent.includes('Ví dụ giả lập'));
+      if (exampleLead) {
+        exampleLead.hidden = true;
+        exampleLead.setAttribute('aria-hidden', 'true');
       }
     }
 
-    function defaultTarget(view) {
-      if (view === 'toan-van') return contentOrder[0];
-      return byView.get(view)?.ids[0] || contentOrder[0];
+    function refineLearnerPresentation() {
+      const kickoffGuidance = document.getElementById('cach-thuc-hien-bat-dau');
+      if (kickoffGuidance) kickoffGuidance.open = true;
+      root.querySelectorAll('section.zo-learning-task--item > p:first-of-type').forEach(paragraph => {
+        if (!paragraph.textContent.trim().startsWith('Vai trò:')) return;
+        paragraph.classList.add('r1-machine-metadata');
+        paragraph.hidden = true;
+        paragraph.setAttribute('aria-hidden', 'true');
+      });
+      root.querySelectorAll('.r1-figcaption, figcaption').forEach(caption => {
+        caption.childNodes.forEach(child => {
+          if (child.nodeType === Node.TEXT_NODE) {
+            child.nodeValue = child.nodeValue.replace(/^\s*(?:(?:G01|R1G01)-[A-Z0-9-]+|bài Ôn lại \d+)\s+—\s+/, '');
+          }
+        });
+        caption.querySelectorAll('p').forEach(paragraph => {
+          paragraph.childNodes.forEach(child => {
+            if (child.nodeType === Node.TEXT_NODE) {
+              child.nodeValue = child.nodeValue.replace(/^\s*(?:(?:G01|R1G01)-[A-Z0-9-]+|bài Ôn lại \d+)\s+—\s+/, '');
+            }
+          });
+        });
+      });
+      root.querySelectorAll('details.r1-solution').forEach(details => {
+        const backLink = details.querySelector('.answer-link a[href^="#"]');
+        const task = backLink ? document.getElementById(backLink.hash.slice(1)) : null;
+        const heading = task?.querySelector(':scope > h3, :scope > h4');
+        const summary = details.querySelector(':scope > summary');
+        if (!heading || !summary) return;
+        const taskTitle = heading.textContent.trim()
+          .replace(/^\s*(?:G01|R1G01)-[A-Z0-9-]+\s+—\s+/, '');
+        summary.textContent = `Lời giải — ${taskTitle}`;
+      });
+      const embeddedSolutions = document.getElementById('loi-giai-1');
+      const embeddedSolutionBody = embeddedSolutions?.querySelector(':scope > .zo-block-body');
+      const embeddedSolutionSections = [
+        'b.1.-câu-thử-nền',
+        'b.2.-các-điểm-dừng',
+        'b.3.-lời-giải-câu-sau-chữa-cg01'
+      ].map(id => document.getElementById(id));
+      if (embeddedSolutionBody && embeddedSolutionSections.every(Boolean)) {
+        embeddedSolutionSections.forEach(section => embeddedSolutionBody.append(section));
+      }
+      root.querySelectorAll('.r1-section-download-item').forEach(item => {
+        const title = item.querySelector('.r1-section-download-title')?.textContent.trim();
+        const link = item.querySelector('.r1-section-download-link');
+        if (!title || !link) return;
+        const icon = link.querySelector('i');
+        while (link.firstChild) link.firstChild.remove();
+        if (icon) link.append(icon);
+        link.append(document.createTextNode(` Tải PDF ${title}`));
+        link.setAttribute('aria-label', `Tải PDF ${title}`);
+      });
     }
-    function ownerView(target) {
-      if (!target || !root.contains(target)) return null;
-      const ownerSection = contentOrder
-        .map(id => sectionById.get(id))
-        .find(section => section === target || section.contains(target));
-      if (!ownerSection) return definitions[0].view;
-      return definitions.find(item => item.ids.includes(ownerSection.id))?.view || definitions[0].view;
-    }
+
+    buildLearnerRepairTable();
+    buildLearnerJournal();
+    refineLearnerPresentation();
+
     function targetFromHash(hash) {
       if (!hash || hash === '#') return null;
-      let id;
+      let id = '';
       try { id = decodeURIComponent(hash.slice(1)); } catch { return null; }
       const target = document.getElementById(id);
       return target && root.contains(target) ? target : null;
@@ -211,53 +552,72 @@
       }
     }
     function focusTarget(target) {
-      const focusNode = target?.matches('details') ? target.querySelector(':scope > summary') : target;
+      const focusNode = target?.matches('details')
+        ? target.querySelector(':scope > summary')
+        : target?.matches('section')
+          ? target.querySelector(':scope > h2, :scope > h3, :scope > h4, :scope > h5')
+          : target;
       if (!focusNode) return;
       const hadTabindex = focusNode.hasAttribute('tabindex');
-      const oldTabindex = focusNode.getAttribute('tabindex');
+      const previous = focusNode.getAttribute('tabindex');
       if (!hadTabindex) focusNode.tabIndex = -1;
       focusNode.focus({preventScroll: true});
       if (!hadTabindex) {
         focusNode.addEventListener('blur', () => focusNode.removeAttribute('tabindex'), {once: true});
-      } else if (oldTabindex !== null) {
-        focusNode.setAttribute('tabindex', oldTabindex);
+      } else if (previous !== null) {
+        focusNode.setAttribute('tabindex', previous);
       }
     }
-    function scrollToTarget(target, focus = false) {
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        updateDock();
-        target.scrollIntoView({block: 'start'});
-        if (focus) focusTarget(target);
-      }));
+
+    function ownerView(target) {
+      if (!target || !root.contains(target)) return 'bat-dau';
+      if (routeTable === target || routeTable.contains(target)) return 'on-nen';
+      const owner = requiredIds
+        .map(id => nodes.get(id))
+        .find(node => node && (node === target || node.contains(target)));
+      if (!owner) return 'bat-dau';
+      return definitions.find(item => item.nodes.includes(owner.id) && item.view !== 'on-nen')?.view || 'bat-dau';
+    }
+
+    const compact = document.createElement('div');
+    compact.className = 'r1-compact-controller';
+    compact.setAttribute('aria-label', 'Điều hướng thu gọn');
+    compact.setAttribute('aria-hidden', 'true');
+    compact.inert = true;
+    const compactStage = document.createElement('span');
+    compactStage.className = 'r1-compact-controller__stage';
+    compactStage.textContent = 'Đang xem: Bắt đầu';
+    const compactOpen = document.createElement('button');
+    compactOpen.type = 'button';
+    compactOpen.className = 'r1-compact-controller__open';
+    compactOpen.textContent = 'Mở điều hướng';
+    compact.append(compactStage, compactOpen);
+    panel.before(compact);
+
+    let currentView = 'bat-dau';
+    function setRegionVisibility(visibleIds, full) {
+      REGION_ORDER.forEach(key => {
+        const region = regions.get(key);
+        const childSections = [...region.children].filter(node => node.matches('section'));
+        childSections.forEach(section => { section.hidden = !full && !visibleIds.has(section.id); });
+        region.hidden = !full && !childSections.some(section => !section.hidden);
+      });
     }
     function showView(view) {
-      const definition = byView.get(view) || definitions[0];
+      const definition = byView.get(view) || byView.get('bat-dau');
       currentView = definition.view;
-      const showAll = currentView === 'toan-van';
-      contentOrder.forEach(id => {
-        sectionById.get(id).hidden = !showAll && !definition.ids.includes(id);
+      const full = currentView === 'toan-van';
+      setRegionVisibility(new Set(full ? requiredIds : definition.nodes), full);
+      controls.forEach((button, key) => {
+        const selected = key === currentView;
+        button.classList.toggle('is-active', selected);
+        if (selected) button.setAttribute('aria-current', 'page');
+        else button.removeAttribute('aria-current');
       });
-      tabs.forEach((tab, index) => {
-        const selected = definitions[index].view === currentView;
-        tab.setAttribute('aria-selected', selected ? 'true' : 'false');
-        tab.tabIndex = selected ? 0 : -1;
-      });
-      const selectedTab = tabs[definitions.findIndex(item => item.view === currentView)];
-      viewPanel.setAttribute('aria-labelledby', selectedTab.id);
-      viewPanel.dataset.r1View = currentView;
-      root.classList.toggle('r1-full-view', showAll);
-      // Only scroll the tab strip horizontally; scrollIntoView would also
-      // scroll the document back to the slot before the target is revealed.
-      const tabEdgePadding = 12;
-      if (selectedTab.offsetLeft - tabEdgePadding < tablist.scrollLeft) {
-        tablist.scrollLeft = Math.max(0, selectedTab.offsetLeft - tabEdgePadding);
-      } else if (selectedTab.offsetLeft + selectedTab.offsetWidth + tabEdgePadding > tablist.scrollLeft + tablist.clientWidth) {
-        tablist.scrollLeft = selectedTab.offsetLeft + selectedTab.offsetWidth + tabEdgePadding - tablist.clientWidth;
-      }
-      requestAnimationFrame(() => {
-        updateAllTables();
-        updateLessonPosition();
-      });
+      panel.dataset.r1View = currentView;
+      root.classList.toggle('r1-full-view', full);
+      compactStage.textContent = `Đang xem: ${definition.label}`;
+      requestAnimationFrame(updateAllTables);
     }
     function urlFor(view, targetId) {
       const url = new URL(location.href);
@@ -266,52 +626,48 @@
       return `${url.pathname}${url.search}${url.hash}`;
     }
     function writeLocation(view, targetId, replace = false) {
-      const method = replace ? 'replaceState' : 'pushState';
-      history[method]({r1View: view, r1Target: targetId}, '', urlFor(view, targetId));
+      history[replace ? 'replaceState' : 'pushState'](
+        {r1View: view, r1Target: targetId}, '', urlFor(view, targetId)
+      );
     }
-    function activateTab(index) {
-      const definition = definitions[index];
-      const target = sectionById.get(defaultTarget(definition.view));
+    function scrollToTarget(target, focus = false) {
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        target.scrollIntoView({block: 'start'});
+        if (focus) focusTarget(target);
+      }));
+    }
+    function activateDefinition(definition, focus = false) {
+      const target = document.getElementById(definition.target) || nodes.get(definition.nodes[0]);
       showView(definition.view);
-      writeLocation(definition.view, target.id);
       openAncestors(target);
-      scrollToTarget(target);
+      writeLocation(definition.view, target.id);
+      scrollToTarget(target, focus);
     }
 
-    tabs.forEach((tab, index) => {
-      tab.addEventListener('click', () => activateTab(index));
-      tab.addEventListener('keydown', event => {
-        let nextIndex = null;
-        if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
-        if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
-        if (event.key === 'Home') nextIndex = 0;
-        if (event.key === 'End') nextIndex = tabs.length - 1;
-        if (nextIndex !== null) {
-          tabs[nextIndex].focus();
-          event.preventDefault();
-          return;
-        }
-        if (event.key === 'Enter' || event.key === ' ') {
-          activateTab(index);
+    controls.forEach((button, view) => {
+      button.addEventListener('click', () => activateDefinition(byView.get(view), true));
+    });
+    const mainButtons = mainDefinitions.map(item => controls.get(item.view));
+    mainButtons.forEach((button, index) => {
+      button.addEventListener('keydown', event => {
+        let next = null;
+        if (event.key === 'ArrowLeft') next = (index - 1 + mainButtons.length) % mainButtons.length;
+        if (event.key === 'ArrowRight') next = (index + 1) % mainButtons.length;
+        if (event.key === 'Home') next = 0;
+        if (event.key === 'End') next = mainButtons.length - 1;
+        if (next !== null) {
+          mainButtons[next].focus();
           event.preventDefault();
         }
       });
     });
 
     root.addEventListener('click', event => {
-      if (event.defaultPrevented || event.button !== 0 || event.metaKey ||
-          event.ctrlKey || event.shiftKey || event.altKey) return;
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey ||
+          event.shiftKey || event.altKey) return;
       const link = event.target.closest('a[href]');
       if (!link || !root.contains(link) || link.origin !== location.origin ||
           link.pathname !== location.pathname || !link.hash) return;
-      if (link.hash === '#xem-toan-bo') {
-        event.preventDefault();
-        const target = sectionById.get(defaultTarget('toan-van'));
-        showView('toan-van');
-        writeLocation('toan-van', target.id);
-        scrollToTarget(target, true);
-        return;
-      }
       const target = targetFromHash(link.hash);
       if (!target) return;
       event.preventDefault();
@@ -322,72 +678,88 @@
       scrollToTarget(target, true);
     });
 
-    function applyLocation(options = {}) {
-      const params = new URLSearchParams(location.search);
-      const requested = params.get(VIEW_PARAM);
-      if (location.hash === '#xem-toan-bo') {
-        const target = sectionById.get(defaultTarget('toan-van'));
-        showView('toan-van');
-        openAncestors(target);
-        writeLocation('toan-van', target.id, true);
-        if (options.scroll) scrollToTarget(target, options.focus);
-        return;
-      }
+    function applyLocation({scroll = false, focus = false} = {}) {
+      const requested = new URLSearchParams(location.search).get(VIEW_PARAM);
       const target = targetFromHash(location.hash);
-      let view = byView.has(requested) ? requested : definitions[0].view;
+      let view = byView.has(requested) ? requested : 'bat-dau';
       if (target && view !== 'toan-van') view = ownerView(target);
       showView(view);
-      const finalTarget = target || sectionById.get(defaultTarget(view));
+      const definition = byView.get(view);
+      const finalTarget = target || document.getElementById(definition.target) || nodes.get(definition.nodes[0]);
       openAncestors(finalTarget);
-      const hasCanonicalState = requested === view && Boolean(target);
-      const cleanDefault = !requested && !location.hash && view === definitions[0].view;
-      if (!hasCanonicalState && !cleanDefault) writeLocation(view, finalTarget.id, true);
-      if (options.scroll && target) scrollToTarget(finalTarget, options.focus);
+      if (requested !== view || (!target && (requested || view !== 'bat-dau'))) {
+        writeLocation(view, finalTarget.id, true);
+      }
+      if (scroll && target) scrollToTarget(finalTarget, focus);
     }
+
+    function setCompactVisible(visible) {
+      compact.classList.toggle('is-visible', visible);
+      compact.setAttribute('aria-hidden', visible ? 'false' : 'true');
+      compact.inert = !visible;
+      document.body.classList.toggle('r1-compact-visible', visible);
+    }
+    function updateCompactFromGeometry() {
+      const rect = nav.getBoundingClientRect();
+      setCompactVisible(!(rect.bottom > 0 && rect.top < window.innerHeight));
+    }
+    compact.addEventListener('focusin', () => setCompactVisible(true));
+    compact.addEventListener('focusout', () => requestAnimationFrame(updateCompactFromGeometry));
+    compactOpen.addEventListener('click', () => {
+      nav.scrollIntoView({block: 'start'});
+      requestAnimationFrame(() => {
+        setCompactVisible(false);
+        (controls.get(currentView) || controls.get('bat-dau')).focus({preventScroll: true});
+      });
+    });
+    if ('IntersectionObserver' in window) {
+      const compactObserver = new IntersectionObserver(entries => {
+        const entry = entries.find(item => item.target === nav);
+        if (entry) setCompactVisible(!entry.isIntersecting);
+      }, {threshold: .01});
+      compactObserver.observe(nav);
+    } else {
+      window.addEventListener('scroll', updateCompactFromGeometry, {passive: true});
+    }
+    window.addEventListener('resize', updateCompactFromGeometry);
 
     let lessonTicking = false;
     function updateLessonPosition() {
       lessonTicking = false;
-      updateDock();
-      if (lessonPanel.hidden) return;
+      if (nodes.get('bai-hoc').hidden) return;
       const offset = Math.max(120, window.innerHeight * .24);
       let activeId = lessonHeadings[0].parentElement.id;
       lessonHeadings.forEach(heading => {
         if (heading.getBoundingClientRect().top <= offset) activeId = heading.parentElement.id;
       });
       lessonToc.querySelectorAll('a').forEach(link => {
-        let linkId = '';
-        try { linkId = decodeURIComponent(link.hash.slice(1)); } catch { linkId = ''; }
-        if (linkId === activeId) link.setAttribute('aria-current', 'true');
+        let id = '';
+        try { id = decodeURIComponent(link.hash.slice(1)); } catch { id = ''; }
+        if (id === activeId) link.setAttribute('aria-current', 'true');
         else link.removeAttribute('aria-current');
       });
     }
-    function scheduleReaderPosition() {
+    function scheduleLessonPosition() {
       if (lessonTicking) return;
       lessonTicking = true;
       requestAnimationFrame(updateLessonPosition);
     }
-    window.addEventListener('scroll', scheduleReaderPosition, {passive: true});
-    window.addEventListener('resize', scheduleReaderPosition);
-    if (header && navbar) {
-      const dockObserver = new ResizeObserver(scheduleReaderPosition);
-      [header, nav, navSlot].forEach(node => dockObserver.observe(node));
-      new MutationObserver(scheduleReaderPosition).observe(navbar, {
-        subtree: true, attributes: true, attributeFilter: ['class', 'aria-expanded']
-      });
-    }
+    window.addEventListener('scroll', scheduleLessonPosition, {passive: true});
+    window.addEventListener('resize', scheduleLessonPosition);
 
     document.querySelectorAll('.quarto-secondary-nav-title, .sidebar-title, .menu-text, .breadcrumb-item a')
       .forEach(node => {
         if (node.textContent.trim() === 'R1-G01') node.textContent = TITLE;
       });
     document.querySelector('nav#TOC.toc-active')?.setAttribute('role', 'doc-toc');
-    root.classList.add('r1-tabs-ready');
+    root.classList.add('r1-phase1-ready');
     document.body.classList.add('r1-g01-nav-ready', 'r1-package-nav-ready');
-    updateDock();
     applyLocation({scroll: Boolean(location.hash), focus: false});
+    updateAllTables();
+    updateCompactFromGeometry();
     window.addEventListener('load', () => {
       updateAllTables();
+      updateCompactFromGeometry();
       if (location.hash) applyLocation({scroll: true, focus: false});
     }, {once: true});
     window.addEventListener('hashchange', () => applyLocation({scroll: true, focus: true}));

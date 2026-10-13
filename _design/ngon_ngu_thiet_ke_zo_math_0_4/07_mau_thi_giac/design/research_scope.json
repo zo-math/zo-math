@@ -1,0 +1,254 @@
+{
+  "version": "0.4-research-scope",
+  "date": "2026-10-06",
+  "scope": "Nghiên cứu bổ sung; không chỉnh0.3, không xuất bản. Các phản hồi mới của chủ dự án có ưu tiên hơn giới hạn lịch sử của Draft0.1.",
+  "conclusion": "0.3 đã là bộ mẫu liên medium có giá trị, nhưng chưa phải ngôn ngữ hình ảnh và âm thanh hoàn chỉnh: nhiều component được dựng, còn quan hệ giữa vai trò, trạng thái, nhịp, nhận diện âm thanh, PDF và mức nghiệm thu chưa thành hệ. 0.4 nên hoàn thiện một ngôn ngữ dùng chung qua các tình huống thật, thay vì tăng số mẫu chỉ để phủ danh mục.",
+  "status_legend": {
+    "co_can_thu": "Đã có tài sản hoặc quy tắc có nguồn, cần sửa và kiểm bằng mẫu0.4.",
+    "chua_du_co_so": "Có dấu vết/workflow nhưng chưa đủ để gọi là quy chuẩn; chỉ tạo mẫu có nhãn thử nghiệm."
+  },
+  "source_registry": {
+    "personality": "/workspace/scratch/ac82747e7143/project_sources/26-05_HAT_NHAN_DA_DU_CO_SO.md",
+    "scope": "/workspace/scratch/ac82747e7143/project_sources/05-P0_4_ban_do_nghien_cuu_ZO_Math_Design_System.md",
+    "maturity": "/workspace/scratch/ac82747e7143/project_sources/24-03_MA_TRAN_TRANG_THAI_VA_SAN_SANG.md",
+    "media_style": "/workspace/scratch/ac82747e7143/project_sources/02-Phong_cach_ZO_Math.md",
+    "motif": "/workspace/scratch/ac82747e7143/project_sources/01-Dau_nhan_ZO_Quy_cach.md",
+    "semantics": "/workspace/scratch/ac82747e7143/project_sources/21-P1_3d_ket_tinh_R6_va_Visual_Readiness_Gate.md",
+    "pronunciation": "/workspace/scratch/ac82747e7143/project_sources/30-source_bundle.zip::source_bundle/12_audio/sources/quy_chuan_chu_am_zo_math.md",
+    "voice_workflow": "/workspace/scratch/ac82747e7143/project_sources/30-source_bundle.zip::source_bundle/11_video_motion/external_sources/media_video_handbook_v0_3_render_audio.md",
+    "video_schema": "/workspace/scratch/ac82747e7143/project_sources/30-source_bundle.zip::source_bundle/11_video_motion/vertical_video/zo_video_scenes.py",
+    "support_pdf": "/workspace/scratch/ac82747e7143/project_sources/30-source_bundle.zip::source_bundle/06_pdf_learning_materials/sources/zo-pdf-support.tex",
+    "v03_roles": "/workspace/scratch/ac82747e7143/specimen_0_3/design/roles_0_3.json",
+    "v03_media": "/workspace/scratch/ac82747e7143/specimen_0_3/source/build_media.py",
+    "v03_gallery": "/workspace/scratch/ac82747e7143/specimen_0_3/source/build_gallery.py",
+    "v03_css": "/workspace/scratch/ac82747e7143/specimen_0_3/source/system.css",
+    "v03_tables": "/workspace/scratch/ac82747e7143/specimen_0_3/source/table_engine.py",
+    "v03_r1": "/workspace/scratch/ac82747e7143/specimen_0_3/source/build_r1.py"
+  },
+  "groups": [
+    {
+      "id": "G01",
+      "name": "Nền tảng, giọng điệu và lời dẫn",
+      "status": "co_can_thu",
+      "evidence": "Có bốn formulation: gần gũi trong tôn trọng; sống động nhưng điềm tĩnh; giản dị mà sâu sắc; rõ ràng và trong sáng. Đây là nền owner-calibrated; không tự suy ra mọi hình thức.",
+      "action_0_4": "Mỗi mẫu 0.4 có câu giải thích chức năng; viết lời kêu gọi hỗ trợ rõ mục đích, không hứa hiệu quả học tập chưa được chứng minh.",
+      "sources": [
+        "/workspace/scratch/ac82747e7143/project_sources/26-05_HAT_NHAN_DA_DU_CO_SO.md",
+        "/workspace/scratch/ac82747e7143/project_sources/02-Phong_cach_ZO_Math.md"
+      ]
+    },
+    {
+      "id": "G02",
+      "name": "Màu, tên token và mặt nền",
+      "status": "co_can_thu",
+      "evidence": "0.2 đã được chủ dự án chấp nhận; 0.3 giữ bảng màu nhưng token không nhất quán và chưa có cơ chế sáu nền.",
+      "action_0_4": "Dùng tên Đỏ ZO/Vàng ZO/Xám ZO; số tăng từ nhạt đến đậm trong từng thang; lập ánh xạ token cũ→mới; chọn hai nền nhẹ mỗi thang, nội dung trắng; sắc xám hoạt động độc lập.",
+      "sources": [
+        "/workspace/scratch/ac82747e7143/specimen_0_3/design/roles_0_3.json",
+        "/workspace/scratch/ac82747e7143/specimen_0_3/source/system.css"
+      ]
+    },
+    {
+      "id": "G03",
+      "name": "Logo, dấu nhấn và kích thước nhỏ",
+      "status": "co_can_thu",
+      "evidence": "0.3 có hệ vector và biến thể; phản hồi mới bác viền O. Dấu nhấn đã có hình học nguồn rõ.",
+      "action_0_4": "Tinh chỉnh một hệ logo hai ô Xám ZO độc lập, Z đỏ O vàng không viền; kiểm 16/24/32 px và đơn sắc; giữ dấu nhấn làm nhận diện phụ, không biến thành gạch chân hay kí hiệu toán.",
+      "sources": [
+        "/workspace/scratch/ac82747e7143/project_sources/01-Dau_nhan_ZO_Quy_cach.md",
+        "/workspace/scratch/ac82747e7143/specimen_0_3/source/build_gallery.py"
+      ]
+    },
+    {
+      "id": "G04",
+      "name": "Chữ, công thức và nhãn",
+      "status": "co_can_thu",
+      "evidence": "Có Be Vietnam Pro và STIX Two; tag và LaTeX tốt hơn. Chưa đủ bằng chứng screen-reader/math fallback hoặc mọi chữ hoa tiếng Việt ở nhỏ.",
+      "action_0_4": "Bảng vai trò theo web/PDF/video; LaTeX cho toán, phụ đề Unicode theo hướng dẫn media; tag phụ, small-cap, không hộp; kiểm dấu Việt và câu dài.",
+      "sources": [
+        "/workspace/scratch/ac82747e7143/project_sources/02-Phong_cach_ZO_Math.md",
+        "/workspace/scratch/ac82747e7143/specimen_0_3/design/roles_0_3.json"
+      ]
+    },
+    {
+      "id": "G05",
+      "name": "Không gian, khối trắng và nhịp đọc",
+      "status": "co_can_thu",
+      "evidence": "R1 đã có nội dung thật nhưng bản0.3 chưa có mặt nền toàn trang và khối trắng như yêu cầu.",
+      "action_0_4": "Nhịp bằng khoảng trắng, tiêu đề và thay đổi mặt nền; giảm đường phân cách; không lồng nhiều lớp thẻ trắng/hộp viền trong cùng khối.",
+      "sources": [
+        "/workspace/scratch/ac82747e7143/project_sources/26-05_HAT_NHAN_DA_DU_CO_SO.md",
+        "/workspace/scratch/ac82747e7143/project_sources/05-P0_4_ban_do_nghien_cuu_ZO_Math_Design_System.md",
+        "/workspace/scratch/ac82747e7143/specimen_0_3/source/system.css"
+      ]
+    },
+    {
+      "id": "G06",
+      "name": "Đồ thị, hình học, sơ đồ và biểu đồ",
+      "status": "co_can_thu",
+      "evidence": "Có ngôn ngữ nét và vai trò gần đồng nhất; semantic role cần giữ riêng theo loại hình.",
+      "action_0_4": "Mỗi hình giữ identity/miền xác định/điểm hở/nét khuất đúng nghĩa; thử thêm sơ đồ quan hệ và lát cắt 3D; đổi nền không làm mất điểm hở hay nhãn.",
+      "sources": [
+        "/workspace/scratch/ac82747e7143/project_sources/21-P1_3d_ket_tinh_R6_va_Visual_Readiness_Gate.md",
+        "/workspace/scratch/ac82747e7143/specimen_0_3/design/roles_0_3.json"
+      ]
+    },
+    {
+      "id": "G07",
+      "name": "Bảng dữ liệu và bảng biến thiên",
+      "status": "co_can_thu",
+      "evidence": "0.3 đã có native table nhưng giả lập bố trí cao-thấp bằng nhiều lớp dọc trong hàng giá trị.",
+      "action_0_4": "Ba hàng ngữ nghĩa x, đạo hàm, hàm số; giá trị+mũi tên nằm cùng hàng đơn; đầy đủ grid mảnh, LaTeX; nêu riêng điểm không xác định và giới hạn một phía.",
+      "sources": [
+        "/workspace/scratch/ac82747e7143/specimen_0_3/source/table_engine.py",
+        "/workspace/scratch/ac82747e7143/project_sources/21-P1_3d_ket_tinh_R6_va_Visual_Readiness_Gate.md"
+      ]
+    },
+    {
+      "id": "G08",
+      "name": "Tương tác và trạng thái UI",
+      "status": "co_can_thu",
+      "evidence": "Có điều hướng R1, lưu nhật kí, sắc xám; chưa có hệ thống focus/error/selected/disabled đầy đủ.",
+      "action_0_4": "Link không gạch chân nhưng có màu và đậm vừa; hover nền/màu, focus-visible viền; thẻ chọn dùng khung màu và trạng thái lập trình; các nút không phát âm ngoài ý muốn.",
+      "sources": [
+        "/workspace/scratch/ac82747e7143/specimen_0_3/source/system.css",
+        "/workspace/scratch/ac82747e7143/specimen_0_3/source/build_r1.py"
+      ]
+    },
+    {
+      "id": "G09",
+      "name": "PDF và tài liệu in",
+      "status": "co_can_thu",
+      "evidence": "Nguồn có branding và trang bảo trợ; chỉ có cấu hình/mẫu cũ không đủ kết luận tối ưu.",
+      "action_0_4": "Dựng bìa đầu, trang bài học, bài tập, lời giải và bìa cuối như cùng hệ; trang cuối bảo trợ nổi bật; thử A4 thực, xám, chữ tràn, QR và font nhúng.",
+      "sources": [
+        "/workspace/scratch/ac82747e7143/project_sources/30-source_bundle.zip::source_bundle/06_pdf_learning_materials/sources/zo-pdf-support.tex",
+        "/workspace/scratch/ac82747e7143/project_sources/05-P0_4_ban_do_nghien_cuu_ZO_Math_Design_System.md",
+        "/workspace/scratch/ac82747e7143/project_sources/24-03_MA_TRAN_TRANG_THAI_VA_SAN_SANG.md"
+      ]
+    },
+    {
+      "id": "G10",
+      "name": "Chuyển động và nhịp thời gian",
+      "status": "chua_du_co_so",
+      "evidence": "0.3 build_media chỉ thay plate tĩnh theo timing; các action write/create/fade_in/highlight trong schema là capability, không phải motion grammar đã được duyệt.",
+      "action_0_4": "Làm mẫu thật có reveal, biến đổi giữ identity, focus tạm thời, dừng quan sát; cung cấp bước tĩnh/reduced-motion. Chưa gọi các thời lượng thử là chuẩn phổ quát.",
+      "sources": [
+        "/workspace/scratch/ac82747e7143/specimen_0_3/source/build_media.py",
+        "/workspace/scratch/ac82747e7143/project_sources/30-source_bundle.zip::source_bundle/11_video_motion/vertical_video/zo_video_scenes.py",
+        "/workspace/scratch/ac82747e7143/project_sources/30-source_bundle.zip::source_bundle/11_video_motion/external_sources/media_video_handbook_v0_3_render_audio.md",
+        "/workspace/scratch/ac82747e7143/project_sources/05-P0_4_ban_do_nghien_cuu_ZO_Math_Design_System.md"
+      ]
+    },
+    {
+      "id": "G11",
+      "name": "Âm thanh, phát âm, im lặng và mix",
+      "status": "chua_du_co_so",
+      "evidence": "0.3 giữ 5 mẫu âm0.2. Quy chuẩn chú âm có authority riêng nhưng không xác nhận giọng thương hiệu, sonic mark hay mức mix.",
+      "action_0_4": "Tách lời đọc/phát âm/nhạc/cue/im lặng; mẫu cue chỉ phát theo thao tác, có bản không nhạc; đo file kĩ thuật không thay thế nghe duyệt; giữ nguồn và bản quyền từng asset.",
+      "sources": [
+        "/workspace/scratch/ac82747e7143/project_sources/30-source_bundle.zip::source_bundle/12_audio/sources/quy_chuan_chu_am_zo_math.md",
+        "/workspace/scratch/ac82747e7143/project_sources/30-source_bundle.zip::source_bundle/11_video_motion/external_sources/media_video_handbook_v0_3_render_audio.md",
+        "/workspace/scratch/ac82747e7143/specimen_0_3/source/build_gallery.py",
+        "/workspace/scratch/ac82747e7143/project_sources/05-P0_4_ban_do_nghien_cuu_ZO_Math_Design_System.md"
+      ]
+    },
+    {
+      "id": "G12",
+      "name": "Phân phối, ủng hộ, tiếp cận và quản trị",
+      "status": "co_can_thu",
+      "evidence": "Có các bìa dọc/ngang và mã nguồn. Nhưng thiếu pattern ủng hộ xuyên kênh, registry trạng thái và kiểm nghiệm sử dụng xuyên medium.",
+      "action_0_4": "Một pattern ủng hộ dùng ở cuối chặng học, vùng tải tài liệu và bìa cuối; tiền/QR giữ từ nguồn. Manifest asset, nguồn, quyền dùng, trạng thái dùng thử/chốt; ghi rõ các QA chưa thực hiện.",
+      "sources": [
+        "/workspace/scratch/ac82747e7143/project_sources/30-source_bundle.zip::source_bundle/06_pdf_learning_materials/sources/zo-pdf-support.tex",
+        "/workspace/scratch/ac82747e7143/project_sources/24-03_MA_TRAN_TRANG_THAI_VA_SAN_SANG.md",
+        "/workspace/scratch/ac82747e7143/specimen_0_3/source/build_gallery.py",
+        "/workspace/scratch/ac82747e7143/project_sources/05-P0_4_ban_do_nghien_cuu_ZO_Math_Design_System.md"
+      ]
+    }
+  ],
+  "high_value_specimens": [
+    {
+      "id": "S01",
+      "name": "R1-G01 với sáu nền và khối trắng",
+      "why": "Giải quyết trung tâm phản hồi; thử diện mạo trên bài dài thật thay vì bảng màu rời.",
+      "deliverable": "Một bài R1, chọn sáu nền, lưu lựa chọn, giữ sắc xám; khối trắng và thẻ đang chọn có viền.",
+      "acceptance": "Không đổi dữ kiện/toán; bàn phím hoạt động; các lựa chọn có tên rõ; trắng nội dung giữ ổn định."
+    },
+    {
+      "id": "S02",
+      "name": "Bảng biến thiên một hàng giá trị",
+      "why": "Loại mô phỏng hình vẽ trong table, trả lại cấu trúc đọc đơn giản.",
+      "deliverable": "13 dữ liệu hiện có chuyển cùng renderer; thêm mẫu giới hạn trái/phải và điểm loại.",
+      "acceptance": "Hàng x/đạo hàm/hàm số; không tách hàng hàm số để dựng độ cao; công thức LaTeX; bảng sai chủ ý giữ sai đúng chức năng bài tập."
+    },
+    {
+      "id": "S03",
+      "name": "Cụm ủng hộ tại ba ngữ cảnh",
+      "why": "ZO Math cần chi phí phát triển; phần này là chức năng sản phẩm và quan hệ với cộng đồng, không chỉ footnote.",
+      "deliverable": "Lời nhắc gọn cuối chặng + khối rõ ở vùng tải + trang cuối PDF có QR nguồn.",
+      "acceptance": "Không chắn bài học, không popup; cùng nội dung tài khoản nguồn; CTA rõ; không tự bịa mục tiêu tiền hoặc số người ủng hộ."
+    },
+    {
+      "id": "S04",
+      "name": "Tài liệu PDF học tập hoàn chỉnh",
+      "why": "Trang đầu/cuối cần được thiết kế và xem trong ngữ cảnh toàn tài liệu.",
+      "deliverable": "Bìa có mục tiêu, 2–3 trang bài học và bài tập, lời giải, trang kết/hỗ trợ; dùng cùng ba màu.",
+      "acceptance": "Render thật A4 màu/xám, font nhúng, QR đủ rõ, đầu-cuối cùng hệ; không tuyên bố mẫu cũ tối ưu khi chưa so sánh."
+    },
+    {
+      "id": "S05",
+      "name": "Chuyển động toán 20 giây",
+      "why": "Giúp xác lập nhịp nhận thức thay vì video slide.",
+      "deliverable": "Từ điểm chạy trên y=x² đến hướng tăng/giảm rồi bảng biến thiên; 4 pha đặt vấn đề→chạy điểm→dừng tại0→soi chiếu bảng; dọc/ngang.",
+      "acceptance": "Đối tượng giữ màu/nhãn; đường không nhảy vô cớ; nút dừng và bước tĩnh; lời/nhãn không che nhau; không tự phát."
+    },
+    {
+      "id": "S06",
+      "name": "Mẫu âm có chức năng và bản im lặng",
+      "why": "Phân biệt cue điều hướng, nhận diện và nội dung lời nói; tránh coi mọi bíp là sonic brand.",
+      "deliverable": "Một cue chuyển chặng rất ngắn theo nhịp điềm tĩnh; một đoạn voice có ngắt sau công thức; player nghe riêng và ghép; ghi rõ chưa chốt giọng thương hiệu.",
+      "acceptance": "Âm thanh chỉ bật theo chủ ý; không đặt nền dưới đoạn công thức khó; không tạo chúc mừng đúng/sai gây áp lực; transcript đồng bộ."
+    },
+    {
+      "id": "S07",
+      "name": "Logo hai ô tại kích thước sử dụng",
+      "why": "Đánh giá nhận diện thật trong navbar/favicon/bìa/avatar, không chỉ trình trên tấm lớn.",
+      "deliverable": "Một họ logo thống nhất Z đỏ và O vàng đặt trong hai ô Xám ZO, không viền O; biến thể ngang/đứng/đơn sắc.",
+      "acceptance": "O nhận ra ở24px; khoảng hở giữa ô và clearspace có quy tắc; dấu nhấn vẫn phân biệt với logo."
+    },
+    {
+      "id": "S08",
+      "name": "Bảng trạng thái và ma trận hệ thống",
+      "why": "Cho người dùng biết hệ đã bao phủ đâu và phần nào mới ở mức thử, tránh cảm giác đầy đủ giả.",
+      "deliverable": "12 nhóm trên với mẫu liên kết, nguồn, trạng thái và tiêu chí; thử selected/focus/disabled/error/loading ở một component.",
+      "acceptance": "Trạng thái không chỉ truyền bằng màu; nguồn/toán/dùng thử/đã duyệt không bị trộn; có danh sách kiểm thực sự đã chạy."
+    }
+  ],
+  "primary_sources": [
+    {
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html",
+      "claim": "Không truyền thông tin chỉ bằng màu; áp dụng chỉ dấu khác màu cho trạng thái và link bỏ gạch chân.",
+      "retrieved": "2026-10-06",
+      "tool_ref": "turn9view2"
+    },
+    {
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html",
+      "claim": "Chuyển động tương tác không thiết yếu nên tắt được và tôn trọng giảm chuyển động; đây là SC2.3.3 mứcAAA, không tự tuyên bố đạt toàn bộ WCAG.",
+      "retrieved": "2026-10-06",
+      "tool_ref": "turn9view0"
+    },
+    {
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/audio-control.html",
+      "claim": "W3C khuyến khích âm thanh khởi động bởi người dùng; tự phát trên3giây phải có pause/stop hoặc âm lượng độc lập.",
+      "retrieved": "2026-10-06",
+      "tool_ref": "turn9view1"
+    }
+  ],
+  "limitations": [
+    "Đã đọc nguồn/mã, không thực hiện review trình duyệt.",
+    "Không nghe và không chấm chất lượng cảm thụ của audio trong lượt nghiên cứu này.",
+    "Không suy voice brand hoặc sonic identity từ quy chuẩn chú âm hay sự tồn tại5file âm.",
+    "Không nâng candidate lịch sử thành chuẩn chung; các tên màu và chỉnh hình0.4 dựa trên yêu cầu mới của chủ dự án."
+  ]
+}

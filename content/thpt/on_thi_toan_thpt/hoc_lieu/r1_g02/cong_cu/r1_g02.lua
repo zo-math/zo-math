@@ -98,7 +98,7 @@ local function configure_table(block, tbl, spec, seen_ids)
   local family, mode = meta_text(spec.family), meta_text(spec.mode)
   local widths, centers = meta_numbers(spec.widths), meta_numbers(spec.center)
   local row_header = meta_text(spec.row_header) == 'true'
-  assert(id:match('^r1%-g02%-table%-t%d%d$') and not seen_ids[id], 'Invalid or duplicate R1-G02 table id: '..id)
+  assert((id:match('^r1%-g02%-table%-t%d%d$') or id == 'r1-table-t13' or id == 'r1-table-t18') and not seen_ids[id], 'Invalid or duplicate R1-G02/shared journal table id: '..id)
   assert(family == 'R' or family == 'J', 'Invalid R1-G02 table family: '..family)
   assert(mode == 'fit' or mode == 'scroll', 'Invalid R1-G02 table mode: '..mode)
   assert(#widths == #tbl.colspecs, 'R1-G02 table '..id..' width count does not match its columns')
@@ -155,7 +155,7 @@ end
 
 local function apply_table_contract(doc)
   local contract = doc.meta['r1-tables']
-  assert(contract and #contract == 10, 'R1-G02 table contract must contain 10 entries')
+  assert(contract and #contract == 13, 'R1-G02 table contract must contain 11 package tables and 2 shared journal tables')
   local seen_ids, specs_by_id = {}, {}
   for _, spec in ipairs(contract) do
     local id = meta_text(spec.id)
@@ -186,6 +186,13 @@ local function apply_table_contract(doc)
 end
 
 function Div(div)
+  if div.classes:includes('r1-foundation-unit') then
+    for i, block in ipairs(div.content) do
+      if block.t == 'Para' and pandoc.utils.stringify(block):match('^Quay về:') then
+        div.content[i] = pandoc.read('**Quay về:** đúng bài hoặc điểm dừng đã gọi thẻ. Nếu mở trực tiếp, chọn nơi quay về ở cuối Ôn nền.', 'markdown').blocks[1]
+      end
+    end
+  end
   local configured_table = false
   if html and not div.classes:includes('r1-table') then
     local tbl = table_in(div)
@@ -793,7 +800,7 @@ local function prepare(doc)
   end
   verify_projection_boundary_fixture()
   table_specs = doc.meta['r1-tables']
-  assert(table_specs and #table_specs == 10, 'R1-G02 table contract must contain 17 entries')
+  assert(table_specs and #table_specs == (html and 14 or 13), 'R1-G02 table contract differs from the HTML/PDF inventory')
   table_specs_by_id = {}
   for _, spec in ipairs(table_specs) do
     local id = meta_text(spec.id)
@@ -803,7 +810,7 @@ local function prepare(doc)
   if html then return nil end
   if latex then doc = build_lesson_toc(doc) end
   doc = apply_table_contract(doc)
-  assert_inventory(doc, {images=2, tables=10, bbt=2, details=60, answers=88}, 'source')
+  assert_inventory(doc, {images=2, tables=11, bbt=2, details=60, answers=88}, 'source')
   if latex then
     variant = pandoc.utils.stringify(doc.meta['zo-pdf-variant'] or 'full')
     local part_spec = section_specs_by_variant[variant]
@@ -856,7 +863,7 @@ local function prepare(doc)
       -- Approved R1-G02 editorial projection; the solution section removes 399 math / 4 ordinary tables.
       assert_inventory(doc, {answers=0}, 'student')
     else
-      assert_inventory(doc, {images=2, tables=10, bbt=2, details=60, answers=88}, 'full')
+      assert_inventory(doc, {images=2, tables=11, bbt=2, details=60, answers=88}, 'full')
     end
     local identifiers = identifiers_in_blocks(doc.blocks)
     doc:walk({Link=function(link)

@@ -1,0 +1,76 @@
+% Nguồn TikZ/PGF dùng chung; chỉ logo ZO Math dùng PDF vector tạm thời
+% được chuyển trực tiếp từ SVG gốc đã được chỉ định.
+\RequirePackage{tikz}
+\RequirePackage{graphicx}
+\RequirePackage{fontspec}
+\RequirePackage{unicode-math}
+\usetikzlibrary{calc}
+\providecommand{\zoFontPath}{../02_tai_nguyen/phong_chu/}
+\setmainfont{STIXTwoText-Regular.otf}[
+  Path=\zoFontPath,
+  BoldFont=STIXTwoText-Bold.otf,
+  ItalicFont=STIXTwoText-Italic.otf,
+  BoldItalicFont=STIXTwoText-BoldItalic.otf
+]
+\setmathfont{STIXTwoMath.otf}[Path=\zoFontPath]
+
+\definecolor{zoBackground}{HTML}{FBFAF8}
+\definecolor{zoPanel}{HTML}{FFF9E9}
+\definecolor{zoIntroPanel}{HTML}{FFF1C7}
+\definecolor{zoRed}{HTML}{EF5350}
+\definecolor{zoYellow}{HTML}{FFCF3D}
+\definecolor{zoText}{HTML}{3E3A35}
+\definecolor{zoGray}{HTML}{766F66}
+\definecolor{zoIntroGray}{HTML}{918C85}
+\definecolor{zoBlack}{HTML}{000000}
+\pagestyle{empty}
+\parindent=0pt
+\providecommand{\zoTopic}{ĐẠO HÀM VÀ BIẾN THIÊN}
+\providecommand{\zoLead}{Đạo hàm âm:\\đã đủ kết luận\\nghịch biến?}
+\newsavebox{\zoTopicBox}
+\newsavebox{\zoLeadBox}
+\newsavebox{\zoIntroTopicBox}
+\newsavebox{\zoIntroLeadBox}
+\newcommand{\zoMakeBox}[6]{%
+  \setbox#1=\vbox{\hsize=#2bp\parindent=0pt\raggedright
+    \rightskip=0pt plus .5\hsize\parfillskip=0pt\tolerance=10000
+    \hyphenpenalty=10000\exhyphenpenalty=10000\emergencystretch=2em
+    \fontsize{#4bp}{#5bp}\selectfont\color{zoText}#6\par}%
+  \ifdim\dimexpr\ht#1+\dp#1\relax>#3bp
+    \PackageError{ZO}{ZO-TEXT-TOO-TALL}{Rut gon chu de hoac cau dan.}%
+  \fi
+}
+
+% All coordinates are output pixels at 72 dpi.
+\newcommand{\zoCanvas}[2]{%
+  \path[use as bounding box] (0,0) rectangle (#1,#2);
+  \fill[zoBackground] (0,0) rectangle (#1,#2);%
+}
+\newcommand{\zoIntroCanvas}[2]{%
+  \path[use as bounding box] (0,0) rectangle (#1,#2);
+  \fill[zoRed] (0,0) rectangle (#1,#2);%
+}
+\newcommand{\zoIntroMakeBox}[8]{%
+  \setbox#1=\vbox{\hsize=#2bp\parindent=0pt #7
+    \tolerance=10000\hyphenpenalty=10000\exhyphenpenalty=10000\emergencystretch=2em
+    \fontsize{#4bp}{#5bp}\selectfont\color{#6}#8\par}%
+  \ifdim\dimexpr\ht#1+\dp#1\relax>#3bp
+    \PackageError{ZO}{ZO-INTRO-TEXT-TOO-TALL}{Rong chu de hoac cau dan.}%
+  \fi
+}
+\newcommand{\zoNodeNW}[6]{%
+  \node[anchor=north west,inner sep=0pt,outer sep=0pt,text=#5,
+    font=\fontsize{#3bp}{#4bp}\selectfont] at (#1,#2) {#6};%
+}
+\newcommand{\zoNodeBaseWest}[6]{%
+  \node[anchor=base west,inner sep=0pt,outer sep=0pt,text=#5,
+    font=\fontsize{#3bp}{#4bp}\selectfont] at (#1,#2) {#6};%
+}
+\newcommand{\zoNodeBase}[6]{%
+  \node[anchor=base,inner sep=0pt,outer sep=0pt,text=#5,
+    font=\fontsize{#3bp}{#4bp}\selectfont] at (#1,#2) {#6};%
+}
+\newcommand{\zoNodeBaseEast}[6]{%
+  \node[anchor=base east,inner sep=0pt,outer sep=0pt,text=#5,
+    font=\fontsize{#3bp}{#4bp}\selectfont] at (#1,#2) {#6};%
+}

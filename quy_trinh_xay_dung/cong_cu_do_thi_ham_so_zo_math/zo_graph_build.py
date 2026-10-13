@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -143,6 +145,11 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--check", action="store_true", help="Kiểm tra một trang, vector, font và SVG.")
     parser.add_argument("--keep-build", action="store_true", help="Giữ thư mục build tạm để chẩn đoán.")
     parser.add_argument("--force", action="store_true", help="Cho phép ghi đè PDF/SVG đã tồn tại.")
+    parser.add_argument("--style", choices=("v0.2", "0.4"), default="v0.2",
+                        help="0.4 là profile thử nghiệm, chỉ áp dụng khi chọn rõ.")
+    parser.add_argument("--surface", choices=("paper", "transparent-light", "transparent-dark"),
+                        default="paper", help="Nền hình; transparent chỉ dùng cho bìa đã kiểm bố trí nhãn.")
+    parser.add_argument("--label-layout", type=Path, help="Sidecar bố trí nhãn 0.4; chỉ dịch hộp chữ, không sửa toán.")
     return parser.parse_args(argv)
 
 
@@ -155,6 +162,13 @@ def build(args: argparse.Namespace) -> tuple[Path, Path]:
         source = Path.cwd() / source
     source = source.resolve()
     validate_source(source, repo_root)
+    profile = getattr(args, "style", "v0.2")
+    surface = getattr(args, "surface", "paper")
+    if profile != "0.4" and surface != "paper":
+        raise BuildError("Nền trong suốt yêu cầu lựa chọn --style 0.4.")
+    layout_path = getattr(args, "label_layout", None)
+    if layout_path and profile != "0.4":
+        raise BuildError("Bố trí nhãn mới yêu cầu --style 0.4.")
 
     lualatex = require_tool("lualatex")
     pdf2svg = require_tool("pdf2svg")
@@ -177,6 +191,47 @@ def build(args: argparse.Namespace) -> tuple[Path, Path]:
     build_dir = Path(tempfile.mkdtemp(prefix="zo_graph_build_"))
     env = make_tex_environment(repo_root, source.parent, style_dir)
     try:
+        latex_source = source.name
+        if profile == "0.4":
+            original = source.read_text(encoding="utf-8")
+            binding = r"\input{zo_graph_v02.tex}"
+            if original.count(binding) != 1:
+                raise BuildError("Profile 0.4 yêu cầu đúng một binding zo_graph_v02.tex trong nguồn.")
+            if surface != "paper":
+                # An open marker needs a local opaque mask. A generic transparent
+                # profile cannot safely infer the background under that marker.
+                if "point open" in original or r"\pagecolor" in original:
+                    raise BuildError("Bìa trong suốt chưa hỗ trợ point open/pagecolor; không tự làm sai điểm khuyết.")
+            wrapper = build_dir / source.name
+            replacement = (r"\def\zoGraphVFourSurface{" + surface + "}\n"
+                           + r"\input{zo_graph_v04.tex}")
+            styled = original.replace(binding, replacement)
+            if layout_path:
+                layout_path = layout_path.resolve()
+                if not path_inside(layout_path, repo_root):
+                    raise BuildError("Sidecar bố trí phải nằm trong repository.")
+                try:
+                    layout = json.loads(layout_path.read_text(encoding="utf-8"))
+                except (OSError, json.JSONDecodeError) as exc:
+                    raise BuildError(f"Không đọc được sidecar bố trí: {exc}") from exc
+                for item in layout.get("labels", []):
+                    # Exact label content is retained by construction; only node
+                    # style gains bounded display-unit offsets, never data coordinates.
+                    offsets = [item.get(key, 0) for key in ("xshift_pt", "yshift_pt")]
+                    if any(isinstance(v, bool) or not isinstance(v, (float, int)) or abs(v) > 60 for v in offsets):
+                        raise BuildError("Dịch nhãn phải là số trong [-60,60] pt.")
+                    pattern = (r"\\node\[(?P<style>[^\]]+)\](?P<position>\s+at\s+\(axis cs:[^)]+\)\s+)\{"
+                               + re.escape(item["math"]) + r"\};")
+                    def move(match):
+                        return (r"\node[" + match['style'] + f",xshift={offsets[0]:g}pt,yshift={offsets[1]:g}pt]"
+                                + match['position'] + "{" + item['math'] + "};")
+                    styled, count = re.subn(pattern, move, styled)
+                    if count != 1:
+                        raise BuildError("Mỗi nhãn sidecar phải khớp đúng một node nguồn.")
+                if layout.get("normalize_source_title_font"):
+                    styled = styled.replace(r"\fontsize{10}{12}", r"\fontsize{12.8}{15.36}")
+            wrapper.write_text(styled, encoding="utf-8", newline="\n")
+            latex_source = str(wrapper)
         latex = run_command(
             [
                 lualatex,
@@ -185,7 +240,7 @@ def build(args: argparse.Namespace) -> tuple[Path, Path]:
                 "-file-line-error",
                 "-synctex=0",
                 f"-output-directory={build_dir}",
-                source.name,
+                latex_source,
             ],
             source.parent,
             env,

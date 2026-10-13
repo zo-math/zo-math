@@ -1,4 +1,4 @@
-% R1-G01 G01-O01: do thi dinh tinh cua f' co nghiem cat -1 va nghiem tiep xuc 2.
+% R1-G01 G01-O01: do thi dinh tinh cua f' co nghiem tiep xuc -2 va nghiem cat 5.
 % Hinh chi ma hoa nghiem, dau va cach cat/tiep xuc; khong cho cong thuc hay ti le tung do.
 \documentclass[tikz,border=3pt]{standalone}
 \usepackage{fontspec}
@@ -13,21 +13,21 @@
 \zoGraphVTwoLayers
 \begin{axis}[
   zo graph v02 axis,
-  xmin=-3.2,xmax=3.5,ymin=-4.3,ymax=5.6,
-  restrict y to domain=-4.3:5.6,
-  xtick={-1,2},ytick=\empty,
+  xmin=-5,xmax=7,ymin=-22,ymax=13,
+  restrict y to domain=-22:13,
+  xtick={-2,5},ytick=\empty,
   xlabel={$x$},ylabel={$f^\prime(x)$},
-  every axis x label/.append style={at={(axis description cs:0.985,0.40)},anchor=south east},
-  every axis y label/.append style={at={(axis description cs:0.55,0.985)},anchor=north west}
+  every axis x label/.append style={at={(axis description cs:0.985,0.63)},anchor=south east},
+  every axis y label/.append style={at={(axis description cs:0.42,0.985)},anchor=north west}
 ]
   \node[zo graph v02 font sentinel] at (axis cs:0,0) {x};
-  \addplot[zo graph v02 curve solid,domain=-3.2:-1,samples=121,forget plot]
-    {(x+1)*(x-2)^2/3};
-  \addplot[zo graph v02 curve solid,domain=-1:2,samples=181,forget plot]
-    {(x+1)*(x-2)^2/3};
-  \addplot[zo graph v02 curve solid,domain=2:3.5,samples=121,forget plot]
-    {(x+1)*(x-2)^2/3};
-  \addplot[zo graph v02 point emphasized,forget plot] coordinates {(-1,0) (2,0)};
+  \addplot[zo graph v02 curve solid,domain=-5:-2,samples=121,forget plot]
+    {-(x+2)^2*(x-5)/8};
+  \addplot[zo graph v02 curve solid,domain=-2:5,samples=281,forget plot]
+    {-(x+2)^2*(x-5)/8};
+  \addplot[zo graph v02 curve solid,domain=5:7,samples=121,forget plot]
+    {-(x+2)^2*(x-5)/8};
+  \addplot[zo graph v02 point emphasized,forget plot] coordinates {(-2,0) (5,0)};
   \begin{pgfonlayer}{zoGraphVTwoTextLayer}
     \node[zo graph v02 tick label,anchor=north east,xshift=-2pt,yshift=-2pt]
       at (axis cs:0,0) {$O$};

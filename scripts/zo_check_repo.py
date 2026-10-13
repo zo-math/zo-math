@@ -1606,6 +1606,9 @@ def render_pages(paths: Sequence[Path], checker: Checker) -> int | None:
         base_command, quarto_env = prepare_quarto([])
     except FileNotFoundError:
         return EXIT_MISSING_TOOL
+    except ValueError as exc:
+        checker.add('official-build-input', False, str(exc))
+        return None
     out_dir = output_dir(checker.root)
     for relative in paths:
         page = checker.root / relative

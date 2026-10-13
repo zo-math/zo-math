@@ -1,5 +1,124 @@
 # R1-G01 — ứng viên Quarto v1.3
 
+**Hiện hành DH_026/QD_031:** nguồn QMD/layout/binding đã sửa backlog theo owner; Nhật kí độc lập, Toàn văn/Sửa lỗi/Lời giải đúng thứ tự, bỏ hành động đề–đáp án cục bộ thừa, bảng chọn bài dùng chuẩn chung. Bản xem và evidence ở `_audit/zo_pair_backlog_2026-10-11/`; cổng nguồn/DOM `scripts/zo_web_2027_backlog_check.py` chạy trong adapter. Trạng thái chờ chủ trì duyệt HTML; PDF chưa đồng bộ, root docs/receipt/Git không sửa. Mọi mô tả “hiện hành” ở các đoạn dưới là lịch sử trước DH_026; không phục hồi quy tắc đã bị QD_031 thay.
+
+Hiện hành DH_023/QD_030: bảng theo chức năng 0.4, binding chung `profiles/course-tables.json`, guard `scripts/zo_course_tables.py` trong adapter. HTML/kiểm kê mới tại `_audit/zo_course_tables_2026-10-11/`; trạng thái theo 03 của khóa. Giữ sửa ký pháp/số mục QD_029 và guard `zo_math_notation.py`. Các mốc/đường dẫn bên dưới là lịch sử, không chứng nhận bản mới. Chưa PDF học liệu, promotion root docs, Git hoặc phát hành.
+
+**Hiện hành — QD_025 / DH_015:** đã áp dụng bản chốt do chủ trì sửa vào QMD, binding và HTML cô lập. [Bảng áp dụng](ap_dung_he_nhan.md) ghi 69 nhiệm vụ/62 lời giải, Ôn nền độc lập, ba nhịp Cách học và hợp đồng QD_024 ở Kiểm tra. Quy tắc chung có hiệu lực toàn bộ gói của chương trình, không chỉ R1. Bằng chứng hiện hành tại `_audit/r1_g01_ap_dung_ban_chot_2026-10-10/`; dùng `zo_r1_g01_labels_check.py` và `zo_learning_architecture.py labels --self-test` qua launcher. Chờ chủ trì duyệt HTML, không tự kế thừa nghiệm thu. Chưa promotion docs, dựng PDF hoặc sửa receipt. Chỉ bảng 03 sở hữu việc tiếp theo; các mốc bên dưới là lịch sử, không khôi phục quy tắc/câu chữ đã bị thay thế.
+
+## HTML hiện hành — đồng bộ nguồn ngày 08/10/2026
+
+**Nguồn QD_020/DH_011 — lịch sử biên tập:** QMD/manifest/binding và include đã cập nhật, HTML cô lập tại `_audit/r1_g01_bien_tap_2026-10-10/`. Sau đó chủ trì bác bỏ sơ đồ; QD_021 mở lại RD01/RD06, thu hồi xin duyệt đường học. 465/465 không kiểm đúng chuỗi quan hệ; giữ báo cáo gốc nhưng không dùng để chứng nhận đường học mới. QD_022 chỉ yêu cầu kiểm lại phần chịu ảnh hưởng; phần khác xét riêng theo đầu vào/phép kiểm, không khóa hiệu chỉnh. HTML docs/receipt/PDF giữ nguyên; PDF STALE.
+
+**QD_021 — quy tắc hiện hành, trạng thái cũ đã được DH_015 thay thế:** đường học và 14 tình huống lấy từ 01/2.2.1–2.2.2; cổng thay thế/bằng chứng ở 02/1.2. DH_015 đã sửa RD01/RD06 và áp dụng QD_024/025 vào G01; G02 vẫn cần rà riêng. QA lịch sử không chứng nhận bản mới. Theo QD_022 chỉ kiểm lại phần bị ảnh hưởng, không hủy mọi QA hoặc chặn sửa chữa.
+
+Guard biên tập hiện hành: `scripts/zo_r1_g01_editorial_check.py`, qua `scripts/zo_python.py`, nhận `--html`/`--raw` tường minh và `--output` dưới audit; `--browser` kiểm giao diện/ngữ cảnh. Bằng chứng lịch sử `_audit/r1_g01_bien_tap_2026-10-10/qa/editorial-qa.json` không đạt cổng QD_021. Nguồn nội dung là QMD tươi; audit chỉ là đầu ra/baseline kiểm. Bảng T19 đầu Luyện tập đưa hợp đồng HTML lên 19 bảng, giữ kiểm ID/cột/thứ tự. Các inventory/variant PDF phải cập nhật bằng lượt PDF riêng sau khi HTML được duyệt, không đoán số đếm/số trang hoặc sửa provenance. Checker lịch sử 18 bảng không là cổng nghiệm thu HTML mới; không nới guard để giữ số đếm cũ.
+
+Điểm vào điều hành: [README khóa 2027](../../../tot_nghiep_thpt/2027/_quy_trinh/README.md); trạng thái/công việc chỉ ở bảng 03. QD_016–018 là lịch sử hợp nhất tài liệu; QD_020 đã mở biên tập học liệu. Bài học/Luyện tập không xen kẽ.
+
+**Đồng bộ QD_019 — lịch sử:** danh mục thẩm quyền ở [08](../../../tot_nghiep_thpt/2027/_quy_trinh/08_danh_muc_tham_quyen_dieu_hanh.md). Audit G01 ghi 21 RD chưa sửa tại thời điểm rà; trạng thái sau biên tập thuộc QD_020/DH_011/hồ sơ G01. Không coi có đủ CP/N hoặc kiểm bố cục là đường học đã khép.
+
+**FB036 — lịch sử 08/10, bị QD_021 tiếp quản về đường học:** chủ trì yêu cầu mở lại đúng các lỗi
+liên gói. QMD, include Nhật kí, bản đồ binding và runtime đã được sửa; HTML cục bộ
+đồng bộ tại `docs/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.html`.
+Bản sửa chờ chủ trì xem. Receipt FB033 giữ nguyên như mốc lịch sử, không được
+ghi lại để làm phép kiểm nghiệm thu cũ PASS. Hồ sơ: `_audit/zo_web_pair_refinement_2026-10-08/README.md`.
+Để kiểm bản sửa, dùng `scripts/zo_web_2027_pair_check.py`; lệnh checkpoint FB033
+phía dưới chỉ đối chiếu mốc cũ và không phải cổng PASS của FB036.
+
+**Mốc duyệt lịch sử FB033:** chủ trì đã duyệt HTML sau FB031/032:
+“Mình đã xem kết quả, tốt.” Bản tại thời điểm đó nằm ở `docs/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.html`,
+SHA-256 `8b3a9a1ad532e72951edb415d9ab32a37990a80e13c2d754a2f57028fedc764a`.
+Receipt nguồn: `giao_dien/web_2027_accepted.json`; có hash nội dung/ID/toán/runtime/nguồn và phạm vi duyệt.
+Các mốc phía dưới là lịch sử xây dựng; receipt FB033 không chứng nhận bytes của HTML FB036 đang có tại cùng đường dẫn.
+
+```text
+python scripts/zo_python.py scripts/zo_web_2027_g01_checkpoint.py check --output _audit/zo_g01_checkpoint_check
+python scripts/zo_python.py scripts/zo_web_2027_g01_checkpoint.py rebuild --output _audit/zo_g01_checkpoint_rebuild
+```
+
+Lệnh thứ hai dựng từ nguồn repository trong mirror tạm, không đọc audit mirror hay HTML cũ làm nguồn;
+so mốc đã duyệt và không promotion/ghi đè `docs`. Nguồn QMD/bản đồ/hình/bảng/luồng giữ nguyên.
+Nhật kí 14 trường là schema dùng chung; 154 vùng và 12 view là dữ kiện mốc FB033, không ép vào mọi gói hoặc bản sửa sau.
+PDF hiện có chưa đồng bộ; chưa nghiệm thu PDF, phát hành hoặc khóa Design 0.5.
+Hồ sơ lượt này: `_audit/zo_g01_html_checkpoint_2026-10-08/README.md`.
+
+Mốc đối chiếu được chủ trì chỉ định là
+`_audit/zo_web_2027_g01_g02_doi_sanh_2026-10-08/g01-kit.html`, SHA-256
+`5c97396dd9656971e442cb60a07aa799935d3233bf2ae15a53ebc57f76c77e3c`.
+Không lấy `g01-reading.html`, B2/B3/B4 hoặc HTML cũ làm mẫu thay thế.
+
+Đường dựng HTML hiện hành gồm:
+
+- `index.qmd`: nguồn nội dung toán, nhiệm vụ, ID; Nhật kí 14 trường include từ `../_dung_chung/nhat_ki_hoc_tap.qmd`;
+- `giao_dien/web_2027_layout.json`: bản đồ vùng đọc hiện hành và các binding nội dung,
+  không phải bản thảo toán thứ hai;
+- `_design/web_2027_mau_dung_chung/`: CSS, controller và UI đã được duyệt;
+- `giao_dien/assets/`: các SVG trình bày của mốc đã duyệt, khóa bằng checksum;
+- `scripts/zo_web_2027_production.py`: hook post-render nhận HTML Quarto vừa dựng,
+  kiểm nội dung/ID/công thức/nguồn hình rồi nối vào bản đồ giao diện.
+
+### Hình/bảng opt-in HTML — FB031 ngày 08/10/2026
+
+Chủ trì đã duyệt mẫu FB030 và giao tích hợp vào G01, giữ khung trang đã chốt.
+`giao_dien/web_2027_figures.json` chọn 13 nguồn TeX thật, bảng JSON và khung
+bìa ngang nhỏ/nền Vàng ZO sáng. Khung là lựa chọn biên soạn, không thêm bộ
+chọn cho người học. `scripts/zo_web_2027_figures.py` dựng vector riêng vào
+`giao_dien/assets/figures_0_4/`, có manifest khóa đầu vào/font/style/sidecar
+và hash SVG. Các SVG/PDF lịch sử trong `hinh/` không bị ghi đè.
+
+Hook kiểm phép chiếu QMD/layout cũ đầy đủ trước khi bộ nối hình thay đúng
+payload đồ thị/BBT. Bảng native và MathML lấy từ cùng JSON; giữ caption QMD,
+cột loại, giới hạn một phía, lỗi cố ý và ID. CSS hình mới scope đúng marker
+production G01; CSS/JS shell, 154 vùng đọc và 14 trường Nhật kí không đổi.
+
+```text
+python scripts/zo_python.py scripts/zo_web_2027_figures.py
+```
+
+Sau khi dựng, đầu vào không đổi và mọi SVG khớp hash mới được dùng
+`--reuse-graphs`. Nếu đầu ra web cùng tên đã tồn tại và cần tái dựng, chỉ dùng
+`--force` cho đúng thư mục web riêng này. Bộ nối đổi không buộc tái biên dịch
+TeX; receipt ghi riêng hash builder, nguồn vector vẫn phải khớp đầy đủ.
+Dựng HTML vẫn qua `zo_qmd.py render` trong mirror/index riêng; không lấy HTML
+audit hoặc `docs/` làm nguồn. Audit `_audit/zo_g01_figure_integration_2026-10-08/`
+ghi bằng chứng đối chiếu toàn trang và mốc hoàn tác. Đây chưa là nghiệm thu
+HTML tích hợp mới, PDF đồng bộ, khóa Design 0.5 hoặc phát hành.
+
+Build thường không đọc `_audit/`, không đọc HTML cũ trong `docs/` làm đầu vào.
+Hook chỉ chạy cho HTML G01 nằm trong danh sách đầu ra của lượt render; không
+chuyển G02, D0, Nhà khóa hoặc các trang khác. Marker production là điều kiện
+bắt buộc của cấu hình G01, ngăn âm thầm quay về shell cũ. Khi nội dung hoặc hình
+nguồn đổi, phải kiểm và cập nhật binding trong nhiệm vụ được giao; không nới guard
+để bỏ qua nội dung mới. Khoảng trắng sát công thức thuộc binding trình bày và phải
+được bảo toàn, không lấy khoảng trắng của một vị trí khác có cùng câu chữ.
+
+HTML có 12 view trong ba nhóm điều hướng. Ôn lại và Nhật kí tách riêng; Nhật kí
+dùng đủ 14 trường nguồn. Script legacy tạo sáu mục không được nạp trong HTML mới.
+Các mô tả chín thẻ, docking Headroom và CSS riêng ở phần lịch sử bên dưới không
+còn mô tả shell HTML hiện hành. Kiến trúc học tập vẫn lấy từ manifest gói và
+quy chuẩn khóa 2027, không suy ra từ số thẻ hoặc số vùng đọc.
+
+HTML được dựng qua `zo_qmd.py render` trong mirror với work-tree/index riêng,
+kiểm trước khi chuyển riêng đầu ra G01 và runtime cần thiết vào `docs/`.
+Bằng chứng và bản sao mốc nằm tại `_audit/zo_g01_source_sync_2026-10-08/`.
+Nhiệm vụ này chỉ đồng bộ HTML: tám PDF, metadata số trang và publication chưa
+được đồng bộ/nghiệm thu mới. Không gọi các link tải cũ là PDF hiện hành.
+
+## Hồ sơ nền và lịch sử trước đồng bộ HTML
+
+### FB032 — Tinh chỉnh tải PDF và nút drawer
+
+Chủ trì đã xem HTML FB031 và nhận xét tất cả ổn, trừ mục tải PDF và chữ trên
+nút drawer. Hook gọi thêm `scripts/zo_web_2027_downloads.py`;
+`giao_dien/downloads.css` chỉ scope G01/mục tải/nút đó. Tám thẻ giữ tên,
+mô tả, URL và download filename; số trang lấy trực tiếp từ tám PDF đang có.
+Desktop ba cột; mobile tên/mô tả trên, số trang và nút tải dưới. Nút drawer
+chỉ biểu tượng, vẫn có tên truy cập và giữ JS/luồng bàn phím hiện hành.
+Mục tải nói rõ PDF chưa đồng bộ với HTML. Không sửa QMD hoặc PDF để đổi UI.
+Hồ sơ kiểm và ảnh: `_audit/zo_g01_downloads_2026-10-08/README.md`.
+Hai tinh chỉnh mới chờ chủ trì xem, không làm lại các phần đã được xem ổn.
+
 `index.qmd` là nguồn canonical duy nhất của học liệu v1.3. Nội dung và kỹ thuật đã
 hoàn tất theo các lượt nghiệm thu 3D–3F; giao diện ứng viên dùng nhãn “Có thể học”.
 Hồ sơ vẫn giữ `publication: pending`: đây là ứng viên ra mắt cục bộ, chưa được
@@ -47,7 +166,7 @@ Baseline PDF canonical của R1-G01 được chủ dự án nghiệm thu thị g
 2026-09-30 và chốt ở Pha 5C với ma trận số trang: `full` 41, `student` 31,
 `bai_hoc` 22, `luyen_tap` 7, `kiem_tra` 5, `sua_loi` 5, `on_lai` 3 và
 `loi_giai` 12. Checker phải so sánh toàn bộ ma trận này và metadata hai thẻ tải
-phải ghi đúng 31/41 trang; không nới thành điều kiện chỉ lớn hơn 0. Thay đổi nguồn
+  phải khớp tệp thật của đúng mốc đó; 31/41 không phải số trang bắt buộc cho nguồn FB036 đã đổi. Không nới kiểm nội dung thành điều kiện chỉ lớn hơn 0. Khi được giao đồng bộ PDF, cập nhật kỳ vọng theo phạm vi mới và kiểm toàn bộ biến thể/tệp tải thực. Thay đổi nguồn
 thuộc fingerprint PDF phải dựng lại đủ biến thể bị `STALE` và đưa manifest
 provenance về `CURRENT`; không sửa receipt hoặc manifest bằng tay.
 
@@ -73,7 +192,7 @@ PDF vector khi dựng PDF học liệu; mỗi PDF và SVG được dựng từ T
 công cụ đồ thị ZO Math tại commit `354fb22`. Không còn tài sản PNG canonical hoặc
 pipeline Matplotlib riêng cho bộ mười đồ thị này.
 
-## Vận hành tám biến thể
+## Vận hành tám biến thể — chỉ chạy khi nhiệm vụ PDF được giao
 
 Từ gốc repository, dùng launcher hiện hành:
 
@@ -106,7 +225,7 @@ Trước mỗi render: xác nhận không có preview nền ngoài phiên kiểm
 ghi hash hai PDF hiện hành. Không render toàn repository thật để kiểm gói này.
 HTML dùng `zo_qmd.py render` trong mirror riêng với profile `on-thi-preview`;
 đặt đúng Git work-tree/index riêng của mirror khi dùng checker, không staging.
-Dựng PDF trước lượt HTML cuối để resources tải xuống là đúng bản vừa kiểm.
+Khi pha đồng bộ PDF được giao, dựng PDF trước lượt HTML tải cuối để resources là đúng bản vừa kiểm. Trong pha HTML-only hiện tại không tự dựng PDF theo chỉ dẫn lịch sử này.
 QMD chỉ khai định dạng HTML; PDF được chọn tường minh qua pipeline/profile PDF,
 không để preview HTML tự động sinh PDF cạnh nguồn.
 
@@ -119,7 +238,9 @@ Nghiệm thu trực quan HTML/hai PDF, chấp thuận thiết kế và chuyển 
 quyết định riêng của chủ dự án, không được suy từ PASS kỹ thuật. Cảnh báo hyphenation
 tiếng Việt và cảnh báo lịch sử khóa `/Group` tiếp tục được ghi riêng trong báo cáo audit.
 
-## Hồi quy header và docking
+## Hồi quy header PDF và docking HTML legacy — lịch sử
+
+Running header PDF vẫn cần kiểm khi được giao PDF; docking Headroom mô tả shell HTML cũ, không điều hành rail/drawer kit hiện hành. Không khôi phục đoạn HTML dưới đây vào nguồn mới.
 
 Running header dùng template chung một dòng: ZO Math + tên chính thức, không có
 nhãn biến thể. Nhãn hai bản vẫn nằm trên bìa/thẻ tải. Checker R1 kiểm tọa độ chữ

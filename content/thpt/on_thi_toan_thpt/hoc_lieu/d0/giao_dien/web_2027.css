@@ -1,0 +1,29 @@
+/* D0 only. Shared paper, type, palette and shell remain canonical in the kit. */
+.d0-web .hero{grid-template-columns:1fr}
+.d0-web .hero h1{max-width:20ch}
+.d0-web .reader-content{margin-bottom:80px}
+.d0-web .reader-content :is(h2,h3,h4)[tabindex="-1"]:focus{outline:none}
+.d0-web .d0-nav .r1-tab{text-decoration:none;display:block}
+.d0-web .d0-nav .r1-tab[aria-current]{background:var(--theme-yellow-1);border-color:var(--yellow);color:#943b35;font-weight:600}
+.d0-web .mobile-trigger{width:52px;height:52px;justify-content:center;padding:0}
+.d0-web .mobile-view{display:none}
+.d0-web .reading-region .zo-learning-task{margin:0;padding:0;border:0;background:transparent}
+.d0-web .d0-task-number,.d0-web .d0-task-code{font-size:11px;letter-spacing:.06em;color:var(--muted)}
+.d0-web .d0-task-number::after{content:' · ';white-space:pre}
+.d0-web .d0-task-meta{font-size:13px;line-height:1.8;color:var(--muted);margin:0 0 24px}
+.d0-web .d0-task-meta p{margin:0 0 8px}
+.d0-web .d0-response-options,.d0-web .d0-response-option{margin:16px 0}
+.d0-web .d0-response-option .d0-response-option{margin:0}
+.d0-web .d0-inline-math{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle}
+.d0-web .r1-data-table:not(.zo-course-table) th{text-align:left!important}
+.d0-web .d0-survey-toc ul{list-style:none;padding:0;margin-bottom:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 24px}
+.d0-web .d0-survey-toc a{display:block;min-height:44px;padding:8px 0;font-size:14px}
+.d0-web .zo-variation-asset,.d0-web .quarto-figure{margin:24px 0}
+.d0-web .figure-viewport img{display:block;width:var(--figure-width);max-width:none;height:auto;margin-inline:auto}
+.d0-web .zo-variation-caption{font-size:12px;color:var(--muted);margin:14px 0 0}
+.d0-web .d0-live-materials{margin:24px 0}
+.d0-web .d0-live-materials p:first-child{font-weight:600}
+.d0-web .reader-content blockquote{margin:20px 0;padding:0;color:var(--muted)}
+.d0-web .reader-content blockquote p{margin:0}
+html:not(.prototype-js) .d0-web .rail nav{display:block}
+@media(max-width:760px){.d0-web .d0-survey-toc ul{grid-template-columns:1fr}.d0-web .reader-content{margin-bottom:100px}}

@@ -22,12 +22,12 @@ from kiem_chung_header_pdf import inspect_pdf
 
 PACKAGE = Path(__file__).resolve().parents[1]
 ROOT = PACKAGE.parents[4]
-CANONICAL_CONTRACT = ROOT / 'content/thpt/on_thi_toan_thpt/_quy_trinh/quy_chuan_goi_qmd.md'
+CANONICAL_CONTRACT = ROOT / 'content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/quy_chuan_goi_qmd.md'
 
 TABLE_CONTRACT = [
     {'id': 'r1-table-t01', 'label': 'Cách học với tài liệu này', 'family': 'R', 'mode': 'fit', 'widths': [16, 50, 34], 'row_header': True},
     {'id': 'r1-table-t02', 'label': 'Học xong, em cần làm được gì?', 'family': 'R', 'mode': 'fit', 'widths': [30, 70], 'row_header': True},
-    {'id': 'r1-table-t03', 'label': 'Chọn đúng phần cần ôn', 'family': 'R', 'mode': 'fit', 'widths': [27, 49, 24], 'row_header': True},
+    {'id': 'r1-table-t03', 'label': 'Chọn đúng phần cần ôn', 'family': 'R', 'mode': 'scroll', 'widths': [19, 31, 27, 23], 'min_width': '56em', 'row_header': True},
     {'id': 'r1-table-t04', 'label': '3.2. Từ đạo hàm đến dấu và chiều biến thiên', 'family': 'R', 'mode': 'scroll', 'widths': [25, 16, 16, 18, 25], 'min_width': '30em', 'row_header': True},
     {'id': 'r1-table-t05', 'label': '4.1. Định lí cực trị dùng điều kiện nào?', 'family': 'R', 'mode': 'scroll', 'widths': [25, 25, 28, 22], 'min_width': '40em', 'row_header': False},
     {'id': 'r1-table-t06', 'label': '5.2. Ba đối tượng cần tách biệt', 'family': 'R', 'mode': 'scroll', 'widths': [30, 24, 23, 23], 'min_width': '36em', 'row_header': True},
@@ -36,7 +36,7 @@ TABLE_CONTRACT = [
     {'id': 'r1-table-t09', 'label': '7.1. Tách phát biểu thành từng vế', 'family': 'R', 'mode': 'fit', 'widths': [24, 36, 40], 'row_header': True},
     {'id': 'r1-table-t10', 'label': '7.4. Một dòng ghi lỗi có ích', 'family': 'R', 'mode': 'fit', 'widths': [25, 75], 'row_header': True},
     {'id': 'r1-table-t11', 'label': '7.5. Tám lỗi để tự nhận diện', 'family': 'R', 'mode': 'fit', 'widths': [7, 43, 50], 'row_header': True},
-    {'id': 'r1-table-t12', 'label': 'Chọn bài tập khắc phục lỗi', 'family': 'R', 'mode': 'scroll', 'widths': [22, 26, 26, 26], 'min_width': '52em', 'row_header': True},
+    {'id': 'r1-table-t12', 'label': 'Chọn bài tập khắc phục lỗi', 'family': 'R', 'mode': 'scroll', 'widths': [28, 24, 24, 24], 'min_width': '72em', 'row_header': True},
     {'id': 'r1-table-t13', 'label': 'Nhật kí học tập', 'family': 'J', 'mode': 'scroll', 'widths': [31, 69], 'min_width': '38em', 'row_header': True},
     {'id': 'r1-table-t18', 'label': 'Ví dụ giả lập Nhật kí học tập', 'family': 'J', 'mode': 'scroll', 'widths': [31, 69], 'min_width': '42em', 'row_header': True},
     {'id': 'r1-table-t14', 'label': 'Bài luyện tập 07 — Lời giải và phản biện', 'family': 'R', 'mode': 'scroll', 'widths': [6, 12, 37, 45], 'min_width': '44em', 'row_header': True},
@@ -48,7 +48,7 @@ SCROLL_HINT = 'Bảng có thể cuộn ngang. Kéo sang bên hoặc dùng phím 
 PRACTICE_RULES = ('Dùng các số liệu trong hình có nhãn như dữ kiện chính xác; '
                   'chỉ xét phần tập xác định được đề bài chỉ rõ. Không dùng kết luận '
                   'của một câu như giả thiết của câu khác.')
-GUIDANCE_CONTRACT = [
+PDF_GUIDANCE_CONTRACT = [
     {'id': 'cach-thuc-hien-su-dung-tai-lieu', 'blocks': [('ul', ['Tải bản học và bài tập để tự làm.', 'Dùng bản đầy đủ khi cần đối chiếu lời giải.', 'Trên màn hình, dùng các liên kết lời giải để mở đúng phần tương ứng.'])]},
     {'id': 'cach-thuc-hien-bat-dau', 'blocks': [('ol', ['Làm bốn câu hỏi khởi động trên giấy.', 'Đối chiếu lời giải rồi dùng bảng chỉ dẫn để ôn đúng phần còn vướng.']), ('p', 'Đọc các mục tiêu để biết mình cần làm được gì.')]},
     {'id': 'cach-thuc-hien-don-dieu', 'blocks': [('ol', ['Trả lời câu hỏi mở đầu bằng lời của em.', 'Đọc định nghĩa và Ví dụ 01, rồi tự làm Câu hỏi tự kiểm tra 01.', 'Khi đối chiếu, kiểm tra xem lập luận đã bao quát mọi cặp điểm trên khoảng xét chưa.'])]},
@@ -64,6 +64,30 @@ GUIDANCE_CONTRACT = [
     {'id': 'cach-thuc-hien-sua-loi', 'blocks': [('p', 'Mỗi lượt:'), ('ol', ['Giữ bài làm sai ban đầu.', 'Chỉ ra điều kiện hoặc bước suy luận bị bỏ.', 'Viết lại cho đúng.', 'Làm bài tập khắc phục lỗi tương ứng khi chưa mở đáp án.']), ('p', 'Nếu một bài mắc nhiều lỗi, làm các bài tập khắc phục lỗi tương ứng, không chỉ chọn lỗi dễ nhất.')]},
     {'id': 'cach-thuc-hien-on-lai', 'blocks': [('ol', ['Sau khi sửa bài, chọn ngày quay lại và ghi vào nhật kí.', 'Ở buổi ôn, đóng tài liệu trước khi tự nhớ và làm nhiệm vụ mới dành riêng cho lượt Ôn lại.', 'Bài từng sai chỉ dùng để nhớ lại nguyên nhân; không dùng việc làm lại bài đã biết lời giải làm bằng chứng chính cho độ bền.', 'Sau mỗi lượt, đối chiếu tại CP-ON tương ứng, ghi mức hỗ trợ và quyết định giữ lịch, rút ngắn hoặc đi tiếp.'])]},
     {'id': 'cach-thuc-hien-dung-loi-giai', 'blocks': [('p', 'Chỉ mở lời giải của câu đã tự làm. Khi đối chiếu, kiểm tra điều kiện và lí do trước khi đối chiếu đáp số.'), ('p', 'Lời giải và thang chấm sau đây do ZO Math biên soạn.')]},
+]
+GUIDANCE_CONTRACT = [
+    deepcopy(item) for item in PDF_GUIDANCE_CONTRACT
+    if item['id'] != 'cach-thuc-hien-su-dung-tai-lieu'
+]
+GUIDANCE_CONTRACT[0] = {
+    'id': 'cach-thuc-hien-bat-dau',
+    'blocks': [('p', 'Làm bốn câu hỏi trên giấy trước khi xem lời giải. Sau đó đối chiếu và chỉ ôn đúng phần còn vướng.')],
+}
+GUIDANCE_CONTRACT[-1] = {
+    'id': 'cach-thuc-hien-dung-loi-giai',
+    'blocks': [
+        ('p', 'Chỉ mở lời giải của câu đã tự làm. Khi đối chiếu, kiểm tra điều kiện và lí do trước khi đối chiếu đáp số.'),
+        ('p', 'Trên màn hình, dùng liên kết Xem lời giải để mở đúng phần tương ứng.'),
+        ('p', 'Lời giải và thang chấm sau đây do ZO Math biên soạn.'),
+    ],
+}
+next(item for item in GUIDANCE_CONTRACT if item['id'] == 'cach-thuc-hien-on-lai')['blocks'] = [
+    ('ol', [
+        'Sau khi sửa bài, chọn ngày quay lại và ghi vào nhật kí.',
+        'Ở buổi ôn, đóng tài liệu trước khi tự nhớ và làm nhiệm vụ mới dành riêng cho lượt Ôn lại.',
+        'Bài từng sai chỉ dùng để nhớ lại nguyên nhân; không dùng việc làm lại bài đã biết lời giải làm bằng chứng chính cho độ bền.',
+        'Sau mỗi lượt, đối chiếu tại Điểm kiểm soát Ôn lại tương ứng, ghi mức hỗ trợ và quyết định giữ lịch, rút ngắn hoặc đi tiếp.',
+    ])
 ]
 
 THEORY_CONTRACT = [
@@ -102,6 +126,7 @@ ANSWER_LINK_PAIRS = [
     *[(f'g01-s-k-e{index:02}', f'lg-g01-s-k-e{index:02}') for index in range(1, 10)],
     *[(f'g01-o{index:02}', f'lg-g01-o{index:02}') for index in range(1, 4)],
     *[(f'g01-s-o-e{index:02}', f'lg-g01-s-o-e{index:02}') for index in range(1, 10)],
+    ('g01-l08-xn01', 'lg-g01-l08-xn01'),
 ]
 
 PHASE3_TASK_IDS = {
@@ -276,6 +301,7 @@ def check(html):
     original = original.main
     checks = dict(history_checks)
     qmd = (PACKAGE/'index.qmd').read_text(encoding='utf-8')
+    script = (ROOT/'assets/html/zo_on_thi_learning_package_script.html').read_text(encoding='utf-8')
     front_matter = yaml.safe_load(qmd.split('---', 2)[1])
     registry = yaml.safe_load(
         (PACKAGE/'_quy_trinh/cau_hinh_san_xuat_qmd.yml').read_text(encoding='utf-8')
@@ -311,8 +337,8 @@ def check(html):
         and fixture_after == ['fixture-renamed', 'fixture-second', 'nguon']
     )
     counts = {}
-    for selector, expected in [('math', (985, 1469)), ('annotation', (985, 1469)), ('[id]', (107, 224)),
-                               ('a[href^="#"]', (51, 149)), ('.answer-link', (42, 100)), ('details', (16, 52)),
+    for selector, expected in [('math', (985, 1625)), ('annotation', (985, 1625)), ('[id]', (107, 245)),
+                               ('a[href^="#"]', (51, 204)), ('.answer-link', (42, 102)), ('details', (16, 68)),
                                ('table', (30, 31)), ('table.variation', 13), ('figure', (10, 26))]:
         target_root = runtime_target if selector == 'a[href^="#"]' else target
         counts[selector] = [len(original.select(selector)), len(target_root.select(selector))]
@@ -332,7 +358,23 @@ def check(html):
         if level == 4 and (text == 'Thử nghĩ trước' or text.startswith('Câu hỏi tự kiểm tra ')):
             removed_functional_headings.append((section, text))
         else:
+            if text in {
+                'Câu hỏi dẫn đường',
+                'Học xong, em cần làm được gì?',
+                'Câu hỏi khởi động',
+                'Chọn đúng phần cần ôn',
+            }:
+                continue
+            if text == 'Cách học với tài liệu này':
+                level = 3
+            if text == '0. Bắt đầu từ đâu?':
+                text = '0. Câu hỏi khởi động'
             projected_headings.append((level, text))
+    projected_headings = [item for item in projected_headings if item[1] not in {
+        'Lời giải câu hỏi khởi động',
+        'Lời giải câu hỏi tự kiểm tra',
+        'Lời giải bài tập khắc phục lỗi mẫu',
+    }]
     checks['prototype_functional_headings_exact'] = removed_functional_headings == [
         ('1. Đơn điệu nói điều gì?', 'Thử nghĩ trước'),
         ('1. Đơn điệu nói điều gì?', 'Câu hỏi tự kiểm tra 01'),
@@ -356,10 +398,10 @@ def check(html):
     checks['subtitle_preserved'] = norm(page.select_one('#title-block-header .subtitle').get_text()) == 'Dấu đạo hàm, tính đơn điệu và cực trị'
     checks['official_display_identity_exact'] = (
         norm(target.select_one('.r1-status').get_text()) == 'Có thể học'
-        and norm(target.select_one(':scope > p').get_text()).startswith(
+        and norm(target.select_one('#bat-dau > p').get_text()).startswith(
             'Học liệu “Đơn điệu và cực trị” là gói củng cố kiến thức nền'
         )
-        and target.select_one(':scope > p a').get('href').endswith(
+        and target.select_one('#bat-dau > p a').get('href').endswith(
             '/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html'
         )
         and norm(target.select_one('.r1-footer').get_text())
@@ -384,7 +426,7 @@ def check(html):
         and all('R1-G01' not in norm(link.get_text()) for link in sidebar_links + breadcrumb_links)
     )
     counts['logical_regions'] = [len(original.select('h1')), 1 + len([h for h in target.select('h2') if h.get('id', h.parent.get('id')) != 'cách-học-với-tài-liệu-này'])]
-    checks['static_regions_plus_download_exact'] = counts['logical_regions'] == [8, 9]
+    checks['static_regions_plus_download_exact'] = counts['logical_regions'] == [8, 10]
     maths = lambda root: [(x.get('display', 'inline'), norm(x.find('annotation', encoding='application/x-tex').get_text())) for x in root.select('math')]
     def maths_outside_theory(root):
         result = []
@@ -415,18 +457,23 @@ def check(html):
         if spec['mode'] == 'scroll':
             expected_table_ids.append(spec['id']+'-hint')
         expected_table_ids.append(spec['id'])
+    orientation_label_ids = {'câu-hỏi-dẫn-đường', 'học-xong-em-cần-làm-được-gì'}
+    ordered_original_ids = [value for value in ids(original) if value not in orientation_label_ids]
     checks['ordered_ids_unique'] = (
-        is_ordered_subsequence(ids(original), legacy_target_ids)
+        is_ordered_subsequence(ordered_original_ids, legacy_target_ids)
+        and {
+            node.get('id') for node in target.select('.r1-orientation-label[id]')
+        } == orientation_label_ids
         and [value for value in target_ids if value.startswith('r1-table-t')] == expected_table_ids
         and [value for value in target_ids if value in guidance_ids] == guidance_ids
         and PHASE3_TASK_IDS <= set(target_ids)
-        and len(set(target_ids)) == 224
+        and len(set(target_ids)) == 245
     )
     links = lambda root: [(unquote(x['href']), norm(x.get_text())) for x in root.select('a[href^="#"]')]
     checks['links_resolve'] = all(href[1:] in ids(target) for href, _ in links(runtime_target))
 
     answer_pair_records = []
-    answer_pair_contract_ok = len(ANSWER_LINK_PAIRS) == 50
+    answer_pair_contract_ok = len(ANSWER_LINK_PAIRS) == 51
     for source_id, solution_id in ANSWER_LINK_PAIRS:
         source_node = target.find(id=source_id)
         solution_node = target.find(id=solution_id)
@@ -439,17 +486,19 @@ def check(html):
             [(norm(item.get_text()), item.select_one('a').get('href')) for item in reverse],
         )
         answer_pair_records.append(record)
+        expected_forward = 'Xem đáp án câu xác nhận' if source_id == 'g01-l08-xn01' else 'Xem lời giải'
+        expected_reverse = 'Xem câu xác nhận' if source_id == 'g01-l08-xn01' else 'Xem đề bài'
         answer_pair_contract_ok &= (
             len(forward) == 1
             and len(reverse) == 1
-            and record[2] == [('Xem lời giải', '#'+solution_id)]
-            and record[3] == [('Xem đề bài', '#'+source_id)]
+            and record[2] == [(expected_forward, '#'+solution_id)]
+            and record[3] == [(expected_reverse, '#'+source_id)]
         )
     checks['ordered_links'] = answer_pair_contract_ok
     checks['answer_link_pairs_exact'] = answer_pair_contract_ok
 
     answer_links = target.select('.answer-link')
-    answer_links_at_end = len(answer_links) == 100
+    answer_links_at_end = len(answer_links) == 102
     for link in answer_links:
         label = norm(link.get_text())
         if label == 'Xem lời giải':
@@ -542,7 +591,15 @@ def check(html):
         else:
             scroll_wrappers_ok &= (
                 not wrapper.has_attr('role') and not wrapper.has_attr('tabindex')
-                and not wrapper.has_attr('aria-describedby') and hint is None
+                and not wrapper.has_attr('aria-describedby')
+                and (
+                    hint is None
+                    or (
+                        linked_navigation_table
+                        and hint.has_attr('hidden')
+                        and norm(hint.get_text()) == SCROLL_HINT
+                    )
+                )
             )
     checks['ordinary_table_contract_exact'] = table_contract_ok
     checks['ordinary_table_header_scope_exact'] = header_scope_ok
@@ -573,16 +630,21 @@ def check(html):
     )
     guidance = target.select('details.r1-details.r1-guidance')
     checks['details_gray_mapping_exact'] = (
-        len(target.select('details.r1-details.zo-block.zo-block-gray')) == 52
+        len(target.select('details.r1-details.zo-block.zo-block-gray')) == 68
         and not target.select('details.r1-details.zo-block-yellow, details.r1-details.zo-block-red')
-        and len(guidance) == 15
-        and len(target.select('details.r1-details.r1-guidance.zo-learning-guidance')) == 15
-        and len(target.select('details.r1-details.r1-solution.zo-learning-solution')) == 36
+        and len(guidance) == 14
+        and len(target.select('details.r1-details.r1-guidance.zo-learning-guidance')) == 14
+        and len(target.select('details.r1-details.r1-solution.zo-learning-solution')) == 45
         and len(target.select(
             'details.r1-details.zo-learning-guidance > summary.zo-block-title, '
             'details.r1-details.zo-learning-solution > summary.zo-block-title'
-        )) == 51
-        and all(norm(x.summary.get_text()) == 'Cách thực hiện' and not x.has_attr('open') for x in guidance)
+        )) == 60
+        and all(norm(x.summary.get_text()) == 'Cách thực hiện' for x in guidance)
+        and not any(x.has_attr('open') for x in guidance)
+        and '.r1-open-by-default' not in qmd
+        and "root.querySelectorAll('details.r1-open-by-default')" in script
+        and len(target.select('details#dinh-huong-bai-hoc.zo-learning-guidance')) == 1
+        and not target.select_one('details#dinh-huong-bai-hoc').has_attr('open')
         and [norm(x.summary.get_text()) for x in target.select('details.zo-learning-context-note')]
         == ['Đọc thêm — Giải thích bằng định nghĩa đạo hàm']
     )
@@ -614,13 +676,13 @@ def check(html):
         and len(guidance_records) == len(GUIDANCE_CONTRACT)
     )
     checks['guidance_structure_counts_exact'] = counts['guidance_structure'] == {
-        'blocks': 15,
-        'unordered_list_elements': 5,
-        'ordered_list_elements': 8,
-        'paragraph_elements': 9,
-        'blocks_with_unordered_lists': 5,
-        'blocks_with_ordered_lists': 8,
-        'blocks_without_lists': 2,
+        'blocks': 14,
+        'unordered_list_elements': 4,
+        'ordered_list_elements': 7,
+        'paragraph_elements': 10,
+        'blocks_with_unordered_lists': 4,
+        'blocks_with_ordered_lists': 7,
+        'blocks_without_lists': 3,
     }
     practice = target.select_one('section#phieu-luyen')
     practice_children = practice.find_all(recursive=False) if practice else []
@@ -684,8 +746,8 @@ def check(html):
     checks['pdf_guidance_flattened_exact'] = (
         pdf_texts['index.pdf'].count('Cách thực hiện') == 15
         and pdf_texts['index_hoc_sinh.pdf'].count('Cách thực hiện') == 14
-        and guidance_content_present(pdf_texts['index.pdf'], GUIDANCE_CONTRACT)
-        and guidance_content_present(pdf_texts['index_hoc_sinh.pdf'], GUIDANCE_CONTRACT[:-1])
+        and guidance_content_present(pdf_texts['index.pdf'], PDF_GUIDANCE_CONTRACT)
+        and guidance_content_present(pdf_texts['index_hoc_sinh.pdf'], PDF_GUIDANCE_CONTRACT[:-1])
     )
     checks['student_solution_filter_exact'] = not any(
         marker in pdf_texts['index_hoc_sinh.pdf']
@@ -800,11 +862,11 @@ def check(html):
             'Ý nghĩa của “cục bộ”.',
             'Phân biệt dữ kiện về đạo hàm và chiều biến thiên.',
             'Đánh giá từng kết luận từ giả thiết đã cho.',
-            'Một dòng ghi lỗi có ích.',
         ]
         and len(target.select('#bai-hoc details.zo-learning-context-note')) == 1
-        and len(target.select('#bai-hoc details.zo-learning-guidance')) == 8
-        and len(target.select('#cách-học-với-tài-liệu-này details.zo-learning-guidance')) == 1
+        and len(target.select('#bai-hoc details.zo-learning-guidance')) == 9
+        and len(target.select('#cách-học-với-tài-liệu-này details.zo-learning-guidance')) == 0
+        and len(target.select('#bai-hoc > section#bắt-đầu-từ-đâu > details#cach-thuc-hien-bat-dau')) == 1
         and [norm(x.get_text()) for x in target.select('.r1-example-label')]
         == [
             'Ví dụ 05 — Đạo hàm đang tăng nhưng hàm số đang giảm.',
@@ -842,16 +904,18 @@ def check(html):
     kickoff_task_children = [child for child in kickoff_task.children if getattr(child, 'name', None)] if kickoff_task else []
     checks['kickoff_questions_structure_exact'] = (
         kickoff is not None
-        and [child.name for child in kickoff_children] == ['h4', 'p', 'div']
-        and norm(kickoff_children[0].get_text()) == 'Câu hỏi khởi động'
-        and norm(kickoff_children[1].get_text())
-        == 'Hãy thử trước khi đọc đáp án trong mục “Lời giải các câu hỏi và bài tập trong bài học” ở phần Lời giải cuối tài liệu. Không cần tính điểm; câu nào chưa làm được sẽ chỉ ra phần cần ôn nhanh.'
+        and [child.name for child in kickoff_children] == ['div']
         and [child.name for child in kickoff_task_children] == ['ul', 'div']
         and len(kickoff_task.select(':scope > ul > li')) == 4
         and [norm(item.select_one('strong').get_text()) for item in kickoff_task.select(':scope > ul > li')]
         == [f'Câu hỏi khởi động {index:02}.' for index in range(1, 5)]
         and kickoff_task_children[-1].get('class') == ['answer-link']
         and kickoff_task_children[-1].select_one('a').get('href') == '#lg-khoi-dong'
+        and norm(target.select_one('#bắt-đầu-từ-đâu > h3').get_text()) == '0. Câu hỏi khởi động'
+        and norm(target.select_one('#cach-thuc-hien-bat-dau > summary').get_text()) == 'Cách thực hiện'
+        and not target.select_one('#cach-thuc-hien-bat-dau').has_attr('open')
+        and "root.querySelectorAll('details.r1-open-by-default')" in script
+        and target.select_one('#sau-khi-lam-xong #r1-table-t03') is not None
     )
     self_check_tasks = [target.select_one(f'#dừng-lại-{index}-d{index:02d}') for index in range(1, 7)]
     checks['self_check_questions_structure_exact'] = (
@@ -1026,12 +1090,13 @@ def check(html):
             '#sua-loi section.zo-learning-task--item[id^="g01-s-k-"], '
             '#on-lai section.zo-learning-task--item[id^="g01-"]'
         )}
-        and phase3_solution_ids == {node.get('id') for node in target.select(
+        and phase3_solution_ids | {'lg-g01-l08-xn01'} == {node.get('id') for node in target.select(
             '#loi-giai details.zo-learning-solution[id^="lg-g01-"]'
         )}
         and [node.get('id') for node in target.select('[id^="cp-"]')]
         == ['cp-lt1', 'cp-lt2', 'cp-lt3', 'cp-kt', 'cp-on1', 'cp-on2', 'cp-on3']
-        and 'G01-E02' in norm(target.select_one('#r1-table-t18').get_text(' ', strip=True))
+        and 'Coi' in norm(target.select_one('#r1-table-t18').get_text(' ', strip=True))
+        and 'cực trị' in norm(target.select_one('#r1-table-t18').get_text(' ', strip=True))
     )
     checks['downloads_exact'] = [(x['href'], x.get('download')) for x in target.select('.r1-downloads a')] == [
         ('index_hoc_sinh.pdf', 'R1-G01_hoc_va_bai_tap_v1.3.pdf'),
@@ -1129,7 +1194,7 @@ def check(html):
             and image is not None and caption is not None and table_caption is not None
             and norm(caption.get_text()) == norm(table_caption.get_text())
             and norm(caption.get_text()).endswith('.')
-            and image.get('alt', '').startswith(norm(caption.get_text()) + ' — ')
+            and image.get('alt', '') == norm(caption.get_text())
         )
     checks['variation_caption_below_asset_exact'] = variation_caption_contract
     variation_css = (ROOT/'assets/css/zo_variation.css').read_text(encoding='utf-8')
@@ -1141,7 +1206,7 @@ def check(html):
         'font-weight: 400;',
     ))
     css = (ROOT/'assets/css/zo_on_thi_learning_package.css').read_text(encoding='utf-8')
-    script = (ROOT/'assets/html/zo_on_thi_learning_package_script.html').read_text(encoding='utf-8')
+    shared_script = (ROOT/'assets/html/zo_on_thi_learning_package_script.html').read_text(encoding='utf-8')
     lua = (PACKAGE/'cong_cu/r1_g01.lua').read_text(encoding='utf-8')
     checks['lua_manifest_boundary_chain_derived_exact'] = (
         all(fragment in lua for fragment in (
@@ -1174,17 +1239,16 @@ def check(html):
         'border-radius: inherit;',
         'border-end-start-radius: 0;',
         'border-end-end-radius: 0;',
-        'padding-block: 5px;',
-        'margin: -5px -4px;',
-        'scroll-padding-inline: 4px;',
-        'scroll-snap-type: x proximity;',
-        'body.zo-on-thi-package-page .r1-tablist::before,',
-        'body.zo-on-thi-package-page .r1-tablist::after {',
-        'flex: 0 0 4px;',
-        'body.zo-on-thi-package-page .r1-tablist > .r1-tab + .r1-tab {',
-        'margin-inline-start: .2rem;',
-        'body.zo-on-thi-package-page .r1-tablist > .r1-tab:last-of-type {',
-        'scroll-snap-align: end;',
+        'grid-template-columns: minmax(0, 1.45fr) minmax(0, 1.1fr) minmax(0, .8fr);',
+        'body.zo-on-thi-package-page .r1-tab-group + .r1-tab-group {',
+        'border-inline-start: 1px solid var(--r1-border);',
+        'body.zo-on-thi-package-page .r1-tab-group-label {',
+        'text-transform: uppercase;',
+        'body.zo-on-thi-package-page .r1-tab-group-items {',
+        'overflow-x: auto;',
+        'body.zo-on-thi-package-page .r1-tab-group--main { grid-column: 1 / -1; }',
+        'border-block-start: 1px solid var(--r1-border);',
+        'overflow-x: visible;',
         '@media print',
     ))
     checks['all_disclosure_headers_compact_exact'] = all(fragment in css for fragment in (
@@ -1271,22 +1335,161 @@ def check(html):
             'desktop, 430 px và 390 px',
         )
     )
-    checks['canonical_mobile_tab_edge_contract_exact'] = (
-        'const tabEdgePadding = 12;' in script
-        and 'selectedTab.offsetLeft - tabEdgePadding' in script
-        and 'selectedTab.offsetLeft + selectedTab.offsetWidth + tabEdgePadding' in script
-    )
+    checks['shared_return_context_contract_exact'] = all(fragment in script for fragment in (
+        "const RETURN_PARAM = 'r1-return';",
+        "const CONTEXT_PARAM = 'r1-context';",
+        "returnBar.className = 'r1-support-return';",
+        'function sourceCheckpoint(link)',
+        "if (link.closest('#bắt-đầu-từ-đâu')) return 'bắt-đầu-từ-đâu';",
+        'function directReturnOptions(target)',
+        "url.searchParams.set(RETURN_PARAM, context.returnId);",
+        "window.addEventListener('popstate'",
+    )) and all(fragment in css for fragment in (
+        '.zo-on-thi-package .r1-support-return {',
+        '.zo-on-thi-package .r1-support-return[hidden] { display: none !important; }',
+        '.zo-on-thi-package .r1-support-return a { font-weight: 600; }',
+    ))
+    html_config = front_matter.get('format', {}).get('html', {})
     checks['canonical_package_assets_exact'] = (
-        'css: ../../../../../assets/css/zo_on_thi_learning_package.css' in qmd
-        and 'include-after-body: ../../../../../assets/html/zo_on_thi_learning_package_script.html' in qmd
+        html_config.get('css') == [
+            '../../../../../assets/css/zo_on_thi_learning_package.css',
+            '../../../../../assets/css/zo_design_0_4_web_2027.css',
+        ]
+        and html_config.get('include-after-body') == [
+            '../../../../../assets/html/zo_on_thi_learning_package_script.html',
+            '../../../../../assets/html/zo_design_0_4_web_2027.html',
+        ]
+        and 'zo-design-04-pilot' in front_matter.get('body-classes', '').split()
+        and (ROOT/'assets/css/zo_design_0_4_web_2027.css').is_file()
+        and (ROOT/'assets/html/zo_design_0_4_web_2027.html').is_file()
         and 'giao_dien/r1_g01.css' not in qmd
         and 'giao_dien/r1_g01_script.html' not in qmd
         and '.zo-on-thi-package' in css
         and 'body.zo-on-thi-package-page' in css
         and '.r1-g01' not in css
         and "document.querySelector('.zo-on-thi-package')" in script
-        and "root.dataset.r1Code" in script
         and "document.querySelector('.r1-g01')" not in script
+    )
+    navigation_main = [
+        "? {view: 'bat-dau', label: 'Bắt đầu'",
+        ": {view: 'cach-hoc', label: 'Cách học'",
+        "{view: 'bai-hoc', label: 'Bài học'",
+        "{view: 'luyen-tap', label: 'Luyện tập'",
+        "{view: 'kiem-tra', label: 'Kiểm tra'",
+        "{view: 'on-lai', label: 'Ôn lại'",
+    ]
+    checks['shared_navigation_views_exact'] = all(fragment in script for fragment in (
+        "const hasStartSection = Boolean(root.querySelector(':scope > section#bat-dau'));",
+        "id: 'main'", "label: 'Mạch học chính'",
+        "id: 'support'", "label: 'Hỗ trợ khi cần'",
+        "id: 'utility'", "label: 'Tiện ích'",
+        "{view: 'on-nen', label: 'Ôn nền'",
+        "{view: 'sua-loi', label: 'Sửa lỗi'",
+        "{view: 'nhat-ky', label: 'Nhật kí'",
+        "{view: 'loi-giai', label: 'Lời giải'",
+        "{view: 'tai-pdf', label: 'Tải PDF'",
+        "{view: 'nguon', label: 'Nguồn'",
+        "{view: 'toan-van', label: 'Toàn văn'",
+        "groupNode.className = `r1-tab-group r1-tab-group--${group.id}`;",
+        "tab.setAttribute('aria-describedby', tabGroups.get(definition.group).label.id);",
+        "const scroller = document.body.classList.contains('r1-nav-condensed')",
+        "? tablist",
+        ": tab.closest('.r1-tab-group-items') || tablist;",
+    )) and all(
+        script.index(navigation_main[index]) < script.index(navigation_main[index + 1])
+        for index in range(len(navigation_main) - 1)
+        if index != 0
+    ) and script.index("{view: 'on-lai', label: 'Ôn lại'") < script.index("{view: 'sua-loi', label: 'Sửa lỗi'")
+    checks['sticky_navigation_contract_exact'] = all(fragment in script for fragment in (
+        "navSentinel.className = 'r1-nav-sentinel';",
+        "navSpacer.className = 'r1-nav-spacer';",
+        'firstSection.before(navSentinel, navSlot, navSpacer, returnBar, viewPanel);',
+        "const headerOffset = Math.max(0, header.getBoundingClientRect().bottom);",
+        "const condensed = navSentinel.getBoundingClientRect().bottom <= headerOffset + 1;",
+        'function measureNavFootprints()',
+        'expandedNavFootprint = navSpacer.getBoundingClientRect().top - navSentinel.getBoundingClientRect().top;',
+        'condensedNavFootprint = navSpacer.getBoundingClientRect().top - navSentinel.getBoundingClientRect().top;',
+        'const spacerHeight = condensed ? Math.max(0, expandedNavFootprint - condensedNavFootprint) : 0;',
+        "navSpacer.style.height = `${spacerHeight}px`;",
+        "document.body.classList.toggle('r1-nav-condensed', condensed);",
+        "navSlot.classList.toggle('r1-nav-slot--condensed', condensed);",
+        "document.body.style.setProperty('--r1-header-height'",
+        "new MutationObserver(scheduleReaderPosition).observe(header",
+        "header.addEventListener('transitionend', scheduleReaderPosition);",
+    )) and all(fragment in css for fragment in (
+        'position: sticky;',
+        'top: var(--r1-header-height, 0);',
+        'overflow-x: clip;',
+        'body.zo-on-thi-package-page.r1-nav-condensed .r1-nav-slot {',
+        'body.zo-on-thi-package-page.r1-nav-condensed .r1-tablist {',
+        'body.zo-on-thi-package-page.r1-nav-condensed .r1-tab-group + .r1-tab-group {',
+        '.zo-on-thi-package .r1-nav-spacer {',
+        'body.zo-on-thi-package-page { overflow-anchor: none; }',
+    ))
+    checks['deep_support_views_isolated_exact'] = all(fragment in script for fragment in (
+        'function clearViewScope()',
+        'function hideForView(node)',
+        'function applyViewScope(definition)',
+        ".filter(item => item.target && item.view !== definition.view)",
+        "viewPanel.dataset.r1DeepTarget = target.id;",
+        'clearViewScope();',
+        'applyViewScope(definition);',
+    ))
+    foundation_ids = ['nen-n-txd-01', 'nen-n-dh-01', 'nen-n-dau-01', 'nen-n-bbt-01',
+                      'nen-n-dt-01', 'nen-n-lt-01', 'nen-n-lg-01']
+    journal_fields = [norm(row.select_one('th').get_text()) for row in target.select('#r1-table-t13 tbody tr')]
+    checks['refinement_structure_exact'] = (
+        target.select_one('#r1-table-t01.r1-machine-only-table[hidden][aria-hidden="true"]') is not None
+        and '0. Câu hỏi khởi động {#bắt-đầu-từ-đâu}' in qmd
+        and '{#dinh-huong-bai-hoc .r1-details .r1-lesson-orientation' in qmd
+        and '| Câu còn vướng | Kiến thức cần ôn | Đi đến | Sau đó |' in qmd
+        and [(norm(link.get_text()), link.get('href')) for link in target.select('#r1-table-t03 a')]
+        == [
+            ('Ôn nền: Tập xác định', '#nen-n-txd-01'),
+            ('Ôn nền: Đạo hàm', '#nen-n-dh-01'),
+            ('Ôn nền: Xét dấu', '#nen-n-dau-01'),
+            ('Ôn nền: Bảng biến thiên', '#nen-n-bbt-01'),
+            ('Ôn nền: Đồ thị hàm và đạo hàm', '#nen-n-dt-01'),
+        ]
+        and [node.get('id') for node in target.select('#on-nen > details.r1-foundation-unit')]
+        == foundation_ids
+        and len(journal_fields) == 14
+        and journal_fields == [
+            'Ngày–giờ', 'Gói / mục tiêu', 'Nguồn phát hiện',
+            'Bài làm ban đầu', 'Mức hỗ trợ ban đầu', 'Bằng chứng quan sát',
+            'Phân loại', 'Mã lỗi hoặc mã Nền', 'Hành động', 'Bài khắc phục mới',
+            'Trạng thái sau sửa', 'Hẹn Ôn lại', 'Kết quả sau khoảng trễ',
+            'Quyết định tiếp theo',
+        ]
+        and target.select_one('#g01-l08-xn01.r1-confirmation-task') is not None
+        and target.select_one('#g01-l08-xn01.zo-learning-task--item') is None
+        and target.select_one('#g01-o02 .r1-transfer-conditional') is not None
+    )
+    learner_text = visible_text(target)
+    checks['learner_text_has_no_management_codes'] = not re.search(
+        r'(?<![\w-])(?:G01-(?:M|E|C|L|K|O|S)|CP-(?:LT|KT|ON)|S-[LKO]-E|N-(?:TXĐ|ĐH|DẤU|BBT|ĐT|LT|LG)-01|BBT\d{2})(?![\w-])',
+        learner_text,
+    )
+    checks['all_solution_items_are_boxed'] = all(
+        item.find_parent('details', class_='zo-learning-solution') is not None
+        for item in target.select('.r1-solution-item')
+    )
+    checks['kickoff_guidance_closed_by_default'] = (
+        target.select_one('#cach-thuc-hien-bat-dau.r1-open-by-default') is None
+        and target.select_one('#cach-thuc-hien-bat-dau').has_attr('open') is False
+    )
+    checks['linked_tables_normalized_by_shared_runtime'] = all(fragment in script for fragment in (
+        'function normalizeConfiguredTable(wrapper)',
+        "table.classList.add('r1-data-table');",
+        "root.querySelectorAll('.r1-table[data-r1-table]').forEach(normalizeConfiguredTable);",
+    ))
+    checks['no_heading_repeated_immediately_below'] = all(
+        not (
+            (next_node := heading.find_next_sibling()) is not None
+            and next_node.name == 'p'
+            and norm(next_node.get_text(' ', strip=True)).rstrip('.') == norm(heading.get_text(' ', strip=True)).rstrip('.')
+        )
+        for heading in target.select('h2,h3,h4,h5,h6')
     )
     checks['guidance_white_surface_exact'] = all(fragment in shared_learning_css for fragment in (
         '.zo-learning-guidance {',
@@ -1354,14 +1557,15 @@ def check(html):
         and 'text-decoration-line: underline;' in css
     )
     checks['table_overflow_script_exact'] = all(fragment in script for fragment in (
-        "root.querySelectorAll('.r1-table-scroll-x')",
+        "const tableWrappers = [...root.querySelectorAll('.r1-table-scroll-x')];",
         'wrapper.scrollWidth > wrapper.clientWidth + 1',
         "wrapper.tabIndex = 0",
         "wrapper.setAttribute('aria-describedby', hint.id)",
         "wrapper.removeAttribute('tabindex')",
         "wrapper.addEventListener('keydown'",
-        "event.key !== 'ArrowLeft' && event.key !== 'ArrowRight'",
-        'wrapper.scrollLeft += direction * Math.max(32, wrapper.clientWidth * .2)',
+        "if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;",
+        "const direction = event.key === 'ArrowRight' ? 1 : -1;",
+        'wrapper.scrollLeft += direction * Math.max(32, wrapper.clientWidth * .2);',
         'event.preventDefault()',
         'new ResizeObserver',
     ))
@@ -1369,36 +1573,31 @@ def check(html):
         "if (node.tagName === 'DETAILS') node.open = true;" in script
         and "window.addEventListener('hashchange'" in script
         and "window.addEventListener('popstate'" in script
-        and "history[method]({r1View: view, r1Target: targetId}, '', urlFor(view, targetId));" in script
+        and "history[method]({r1View: view, r1Target: targetId}" in script
         and "const VIEW_PARAM = 'r1-view';" in script
         and "if (target && view !== 'toan-van') view = ownerView(target);" in script
         and "const view = currentView === 'toan-van' ? 'toan-van' : ownerView(target);" in script
         and "setAttribute('aria-expanded'" not in script and 'role="button"' not in script
     )
-    checks['progressive_tabs_apg_exact'] = all(fragment in script for fragment in (
-        "{view: 'cach-hoc', label: 'Cách học'",
-        "{view: 'tai-pdf', label: 'Tải PDF'",
-        "{view: 'toan-van', label: 'Toàn văn'",
-        "tablist.setAttribute('role', 'tablist')",
-        "tab.setAttribute('role', 'tab')",
-        "viewPanel.setAttribute('role', 'tabpanel')",
-        "tab.setAttribute('aria-controls', viewPanel.id)",
-        "tab.setAttribute('aria-selected'",
+    checks['shared_controller_keyboard_exact'] = all(fragment in script for fragment in (
+        "tab.setAttribute('aria-controls', viewPanel.id);",
+        "tab.setAttribute('aria-selected', index === 0 ? 'true' : 'false');",
+        'function ensureTabVisible(tab)',
+        "ensureTabVisible(tablist.querySelector('.r1-tab[aria-selected=\"true\"]'));",
+        'ensureTabVisible(selectedTab);',
         "if (event.key === 'ArrowLeft')",
         "if (event.key === 'ArrowRight')",
         "if (event.key === 'Home')",
         "if (event.key === 'End')",
-        "if (event.key === 'Enter' || event.key === ' ')",
-        "root.classList.add('r1-tabs-ready')",
-        "contentOrder.forEach(id => viewPanel.append(sectionById.get(id)))",
-        "viewPanel.setAttribute('aria-labelledby', selectedTab.id)",
+        "root.classList.add('r1-tabs-ready');",
+        "viewPanel.setAttribute('role', 'tabpanel');",
         "sectionById.get(id).hidden = !showAll && !definition.ids.includes(id);",
     )) and all(fragment not in script for fragment in (
         "event.key === 'ArrowUp'", "event.key === 'ArrowDown'",
         'cloneNode(', 'r1-view-all-toggle',
         "root.querySelectorAll('details').forEach(details => { details.open = true; })",
-    )) and '.zo-on-thi-package.r1-tabs-ready .r1-view-panel > [hidden]' in css
-    checks['local_navigation_exact'] = all(fragment in script for fragment in (
+    ))
+    checks['shared_lesson_navigation_exact'] = all(fragment in script for fragment in (
         "const expectedLessonCount = Number.parseInt(root.dataset.r1LessonCount || '9', 10);",
         'lessonHeadings.length !== expectedLessonCount',
         "lessonDetails.className = 'r1-section-toc'",
@@ -1409,7 +1608,7 @@ def check(html):
         'lessonMobile', "summary.textContent = 'Trong phần này'", 'r1-next-link',
     ))
     checks['single_canonical_dom_and_no_js_fallback_exact'] = (
-        script.count("setAttribute('role', 'tabpanel')") == 1
+        script.count("viewPanel.setAttribute('role', 'tabpanel')") == 1
         and 'cloneNode(' not in script and '.innerHTML' not in script
         and not target.select('section[hidden]')
         and len(target.select('.lesson-toc')) == 1

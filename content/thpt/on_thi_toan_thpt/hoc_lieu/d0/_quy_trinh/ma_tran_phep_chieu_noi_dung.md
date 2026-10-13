@@ -1,5 +1,13 @@
 # Ma trận phép chiếu nội dung D0
 
+## Giao diện DH_018 — 11/10/2026
+
+Nội dung/receipt giữ nguyên. Năm khu vực giữ ID/thứ tự. Chuẩn bị chia theo
+chọn câu/ghi bài/ví dụ, Khảo sát theo từng câu cùng link đối chiếu, Đối chiếu
+theo từng đáp án đóng, Chọn mạch theo hướng dẫn/đích mở. Map riêng tại
+`giao_dien/web_2027_layout.json`; checker bóc đúng lớp trình bày để so toàn
+văn/TeX/ID với raw Quarto mới và receipt, không chỉ so số giấy. HTML mới chờ duyệt.
+
 ## Phép chiếu hiện hành 2026-10-02
 
 `index.qmd` giữ nội dung bản HTML chủ dự án đã duyệt, không còn là đầu ra sống
@@ -14,7 +22,7 @@ chốt D0 là trang HTML-only ngày 2026-10-03. Tài sản PDF kỹ thuật và 
 vẫn được giữ nguyên, không phải đầu ra PDF nội dung của D0.
 Phần dưới ghi phép chiếu cũ, không còn điều hành HTML hiện hành.
 
-## Trạng thái và phạm vi
+## Trạng thái và phạm vi 6B — lịch sử, không áp cho nguồn hiện hành
 
 Tài liệu này khóa phép chiếu ngân hàng D0 v1.0 và lớp hướng dẫn đã biên tập ở Bước 6B sang `index.qmd`. Người dùng đã yêu cầu thực hiện Bước 6B; nghiệm thu nội dung biên tập và đầu ra vẫn là các cổng riêng.
 

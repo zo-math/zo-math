@@ -1,0 +1,8 @@
+\documentclass[tikz,border=3pt,10pt]{standalone}
+\usepackage{fontspec,unicode-math,amsmath,pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{backgrounds,calc,matrix,arrows.meta,patterns}
+\input{zo_graph_v02.tex}
+\begin{document}\zoGraphVTwoLayers
+\begin{tikzpicture}[zo graph v02 field]\begin{axis}[zo graph v02 axis,width=10cm,height=6.4cm,xmin=-4.3,xmax=4.3,ymin=-4.5,ymax=4.5,xlabel={$x$},ylabel={$y$},xlabel style={anchor=west},ylabel style={anchor=south},legend pos=north west]\addplot[zo graph v02 curve solid,domain=-4:-.16,samples=200,restrict y to domain=-4.5:4.5]{1/x};\addplot[zo graph v02 curve solid,domain=.16:4,samples=200,restrict y to domain=-4.5:4.5]{1/x};\node[zo graph v02 protected label] at (axis cs:2.5,3){$g(x)=1/x$};\end{axis}\end{tikzpicture}
+\end{document}

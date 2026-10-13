@@ -1,0 +1,279 @@
+{
+  "schema_version": 2,
+  "decision": "QD_033",
+  "effective_date": "2026-10-12",
+  "rule_owner": "01_kien_truc_hoc_tap.md",
+  "procedure_owner": "02_quy_trinh_va_nghiem_thu.md",
+  "work_owner": "03_dieu_hanh_chuong_trinh.md",
+  "dependency_policy": "Authority inventory, not byte lock. Replace superseded operative rules immediately; corrections remain allowed. Recheck only affected checks and their inputs/implementation.",
+  "dependencies": [
+    "scripts/zo_web_2027_navigation.py",
+    "scripts/zo_web_2027_navigation_check.py",
+    "_design/web_2027_mau_dung_chung/course-navigation.css",
+    "_design/web_2027_mau_dung_chung/course-navigation.js",
+    "scripts/zo_web_2027_backlog_check.py",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/giao_dien/web_2027_figures.json",
+    "scripts/zo_course_tables.py",
+    "_design/web_2027_mau_dung_chung/profiles/course-tables.json",
+    "_design/web_2027_mau_dung_chung/course-tables.css",
+    "_design/ngon_ngu_thiet_ke_zo_math_0_4/04_ap_dung/01_web_2027.md",
+    "_design/ngon_ngu_thiet_ke_zo_math_0_4/09_nhat_ki/cong_viec_hien_tai.json",
+    "_design/ngon_ngu_thiet_ke_zo_math_0_4/09_nhat_ki/lich_su.md",
+    "_design/ngon_ngu_thiet_ke_zo_math_0_4/09_nhat_ki/tiep_nhan_san_pham.json",
+    "_design/web_2027_mau_dung_chung/README.md",
+    "_design/web_2027_mau_dung_chung/hop_dong_vung_doc.md",
+    "_design/web_2027_mau_dung_chung/kiem_thu.md",
+    "_design/web_2027_mau_dung_chung/web-shell.css",
+    "content/thpt/on_thi_toan_thpt/AGENTS.md",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/_quy_trinh/README.md",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/_quy_trinh/ho_so/index.yml",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/_quy_trinh/README.md",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/_quy_trinh/ho_so/index.yml",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/01_kien_truc_hoc_tap.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/02_quy_trinh_va_nghiem_thu.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/03_dieu_hanh_chuong_trinh.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/04_nhat_ki_quyet_dinh.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/05_huong_dan_su_dung.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/06_nguon_va_chuyen_tiep.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/07_quy_chuan_cau_truc_trang_nguoi_hoc.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/08_danh_muc_tham_quyen_dieu_hanh.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/README.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/goi/R1_G01.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/goi/R1_G02.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/mau/ho_so_goi.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/quy_chuan_goi_qmd.md",
+    "scripts/zo_2027_governance_check.py",
+    "scripts/zo_math_notation.py",
+    "scripts/zo_r1_g01_editorial_check.py",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/danh_muc_kien_truc_hoc_tap.yml",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/schema_kien_truc_hoc_tap.json",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/_quy_trinh/ap_dung_he_nhan.json",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/_quy_trinh/ap_dung_he_nhan.md",
+    "scripts/zo_learning_architecture.py",
+    "scripts/zo_learning_labels.py",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/giao_dien/he_nhan.json",
+    "scripts/zo_r1_g01_labels.py",
+    "scripts/zo_r1_g01_labels_check.py",
+    "scripts/zo_r1_g01_rebind.py",
+    "scripts/zo_web_2027_production.py",
+    "_design/web_2027_mau_dung_chung/r1-controller.js",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/giao_dien/he_nhan.json",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/giao_dien/web_2027_layout.json",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/giao_dien/README_web_2027.md",
+    "scripts/zo_r1_g02_labels_check.py",
+    "scripts/zo_web_2027_g02.py",
+    "scripts/zo_web_2027_g02_production.py",
+    "scripts/zo_web_2027_g02_payloads.py",
+    "scripts/zo_web_2027_g02_sync_check.py",
+    "scripts/zo_web_2027_cluster_check.py",
+    "scripts/zo_web_2027_fallback_nav.py",
+    "scripts/zo_web_2027_gateway.py",
+    "scripts/zo_web_2027_d0.py",
+    "scripts/zo_web_2027_d0_check.py",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/d0/giao_dien/README_web_2027.md",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/d0/giao_dien/web_2027_layout.json",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/d0/giao_dien/web_2027.css",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/d0/giao_dien/web_2027.js",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/d0/_quy_trinh/README.md",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/d0/_quy_trinh/ho_so/index.yml",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/d0/cong_cu/kiem_chung.py",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/d0/cong_cu/kiem_chung_da_duyet.py",
+    "scripts/zo_web_2027_home.py",
+    "scripts/zo_web_2027_home_landing.py",
+    "scripts/zo_web_2027_home_landing_check.py",
+    "_design/web_2027_mau_dung_chung/course-home-landing.css",
+    "_design/web_2027_mau_dung_chung/course-home-landing.js",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/giao_dien/trang_nha.html.tpl",
+    "scripts/zo_web_2027_home_check.py",
+    "scripts/zo_build_on_thi.py",
+    "_design/web_2027_mau_dung_chung/profiles/course-home.json",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/giao_dien/README_web_2027.md"
+  ],
+  "products": {
+    "R1-G01": {
+      "learning_route": {
+        "decision": "QD_033",
+        "status": "pending_source_review",
+        "source_applied": false,
+        "review_scope": "qmd_html_alignment_not_yet_cross_checked",
+        "known_mismatch": false,
+        "previous_verified_decision": "QD_021",
+        "profile_audit_role": "historical_only"
+      },
+      "state": "source_applied_checked_pending_owner_html_review",
+      "open_blockers": [],
+      "situation_audit": "passed",
+      "historical_report": "_audit/r1_g01_bien_tap_2026-10-10/qa/editorial-qa.json",
+      "historical_report_valid_for_current_learning_route": false,
+      "labeling": {
+        "decision": "QD_025",
+        "status": "source_applied_pending_html_acceptance",
+        "source_applied": true
+      },
+      "assessment_policy": {
+        "decision": "QD_024",
+        "status": "source_applied_checked_pending_owner_review",
+        "source_applied": true
+      },
+      "situation_scope": "DH01_DH14_source_targets_wording_and_representative_runtime_not_math_peer_review",
+      "current_report": "_audit/zo_course_tables_2026-10-11/qa.json",
+      "table_language": {"decision":"QD_030","state":"source_applied_HTML_QA_pending_owner_review"},
+      "acceptance": "pending_owner_html_review"
+    },
+    "R1-G02": {
+      "learning_route": {
+        "decision": "QD_033",
+        "status": "pending_source_review",
+        "source_applied": false,
+        "review_scope": "qmd_html_alignment_not_yet_cross_checked",
+        "known_mismatch": false,
+        "previous_verified_decision": "QD_021",
+        "profile_audit_role": "historical_only"
+      },
+      "state": "source_applied_checked_pending_owner_html_review",
+      "open_blockers": [],
+      "situation_audit": "passed",
+      "historical_report_valid_for_current_learning_route": false,
+      "labeling": {
+        "decision": "QD_025",
+        "status": "source_applied_pending_html_acceptance",
+        "source_applied": true
+      },
+      "assessment_policy": {
+        "decision": "QD_024",
+        "status": "source_applied_checked_pending_owner_review",
+        "source_applied": true
+      },
+      "situation_scope": "DH01_DH14_source_targets_wording_and_representative_runtime_not_math_peer_review",
+      "current_report": "_audit/zo_course_tables_2026-10-11/qa.json",
+      "table_language": {"decision":"QD_030","state":"source_applied_HTML_QA_pending_owner_review"},
+      "implementation": "canonical_opt_in_isolated_build",
+      "acceptance": "pending_owner_html_review"
+    },
+    "D0": {
+      "state": "source_applied_checked_pending_owner_html_review",
+      "implementation": "canonical_opt_in_isolated_build",
+      "acceptance": "pending_owner_html_review",
+      "current_report": "_audit/zo_course_tables_2026-10-11/qa.json",
+      "table_language": {"decision":"QD_030","state":"source_applied_HTML_QA_pending_owner_review"},
+      "decision": "QD_027",
+      "content": "approved_content_preserved",
+      "pdf": "not_applicable_html_only",
+      "publication": "pending"
+    },
+    "course-home": {
+      "state": "source_applied_checked_pending_owner_html_review",
+      "implementation": "canonical_opt_in_isolated_build",
+      "acceptance": "pending_owner_html_review",
+      "current_report": "_audit/zo_course_tables_2026-10-11/qa.json",
+      "table_language": {"decision":"QD_030","state":"guard_applied_no_authored_tables_pending_owner_review"},
+      "decision": "QD_026",
+      "pdf": "not_requested",
+      "publication": "pending"
+    }
+  },
+  "unaffected_layers": [
+    "D0 approved content, immutable bank and historical receipts",
+    "Kế hoạch 0.6 bytes and historical sources",
+    "Design 0.4 source/specimens/tokens and Video/M8.R",
+    "Root docs, PDFs, historical receipts; private G01 learner source and out-of-approved-scope mathematics/assets/IDs"
+  ],
+  "historical_reports_policy": "Preserve reports unchanged. Changed rule topics invalidate only affected checks; unchanged checks may remain usable after verifying their inputs and checker implementation. Old reports cannot certify the new learning route merely by a PASS count.",
+  "active_rules": {
+    "course_navigation": {
+      "decision": "QD_032",
+      "owner": "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/07_quy_chuan_cau_truc_trang_nguoi_hoc.md",
+      "scope": "Home_D0_R1_G01_R1_G02",
+      "enforcement": "shared_navigation_module_and_four_adapters",
+      "supersedes": ["toolbar_course_name_link", "brand_label_as_top_action", "go_to_button", "permanent_course_link_row"]
+    },
+    "full_text_structure": {
+      "decision": "QD_031",
+      "owner": "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/07_quy_chuan_cau_truc_trang_nguoi_hoc.md",
+      "supersedes": ["journal_nested_in_review", "unconditional_bidirectional_local_answer_links", "repair_groups_in_wrong_source_order"],
+      "guard": "scripts/zo_web_2027_backlog_check.py"
+    },
+    "table_language": {
+      "decision": "QD_030",
+      "owner": "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/07_quy_chuan_cau_truc_trang_nguoi_hoc.md",
+      "scope": "all_course_pages_and_packages",
+      "enforcement": "Home_D0_G01_G02_role_binding_native_math_and_scoped_CSS",
+      "supersedes": ["blanket_left_header_alignment", "untyped_linked_tables", "D0_SVG_sign_table_in_opt_in_HTML"]
+    },
+    "math_notation": {
+      "decision": "QD_029",
+      "owner": "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/quy_chuan_goi_qmd.md",
+      "scope": "program_learning_packages",
+      "enforcement": "G01_G02_and_their_QMD_includes_and_shared_inline_math_CSS",
+      "supersedes": ["slash_fractions", "apostrophe_derivatives", "unbraced_roots", "inline_math_scrollbox_middle_alignment"]
+    },
+    "lesson_numbering": {
+      "decision": "QD_029",
+      "owner": "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/07_quy_chuan_cau_truc_trang_nguoi_hoc.md",
+      "scope": "R1_learning_packages",
+      "enforcement": "G01_G02_QMD_lesson_outline",
+      "supersedes": ["unnumbered_G02_knowledge_sections", "task_numbers_consuming_knowledge_subsection_numbers"]
+    },
+    "assessment_policy": {
+      "decision": "QD_024",
+      "owner": "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/01_kien_truc_hoc_tap.md",
+      "scope": "all_program_packages_with_test",
+      "entry": "prepared_or_confident",
+      "prior_independent_work_required_for_entry": false,
+      "split_attempt_allowed": false,
+      "confidence_is_achievement_evidence": false,
+      "supersedes": [
+        "QD_021:prior_independent_work_required_for_test_entry",
+        "multi_session_learning_permission_applied_to_single_test_attempt"
+      ]
+    },
+    "learning_route": {
+      "decision": "QD_033",
+      "owner": "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/01_kien_truc_hoc_tap.md",
+      "scope": "all_program_learning_packages",
+      "standard_recommended_progression": ["lesson", "practice", "test", "review"],
+      "mandatory_linear_sequence": false,
+      "entry_basis": ["need", "preparation", "existing_learning_evidence"],
+      "independent_contextual_supports": ["foundation", "solutions", "repair", "journal"],
+      "test_attempt_self_reliant": true,
+      "end_test_before_help": true,
+      "preserve_initial_work_separately": true,
+      "checkpoint_evidence_distinct_from_journal": true,
+      "journal_required_at_every_checkpoint": false,
+      "return_to_question_link": "only_when_question_solution_locations_separate",
+      "supersedes": [
+        "QD_021:compulsory_linear_interpretation",
+        "six_ordered_checkpoint_actions_as_mandatory_journal_ritual",
+        "unconditional_return_to_question_link",
+        "journal_owned_by_review",
+        "QD_020:seven_node_learning_map",
+        "QD_020:lesson_editorial_label"
+      ]
+    },
+    "label_system": {
+      "decision": "QD_025",
+      "owner": "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/01_kien_truc_hoc_tap.md",
+      "supersedes": [
+        "decorative_only_labels",
+        "number_reset_by_stage",
+        "mandatory_repeated_label_title",
+        "foundation_owned_by_lesson"
+      ]
+    },
+    "supersession_policy": {
+      "decision": "QD_022",
+      "owner": "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/02_quy_trinh_va_nghiem_thu.md",
+      "supersedes": [
+        "QD_021:global_dependency_hash_expiry"
+      ]
+    },
+    "transfer_terminology": {
+      "decision": "QD_028",
+      "owner": "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/01_kien_truc_hoc_tap.md",
+      "supersedes": [
+        "function.transfer:name=Phối hợp"
+      ],
+      "catalog": "danh_muc_kien_truc_hoc_tap.yml"
+    }
+  }
+}

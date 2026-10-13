@@ -15,8 +15,10 @@ Nguồn production:
 - self-test: `scripts/zo_geometry_selftest.py`;
 - style: `assets/tex/zo-geometry-styles.tex`.
 
-Nội dung trong `_audit/zo_geometry_spike/` là bằng chứng thiết kế và fixture hồi
-quy; không còn là phụ thuộc chạy của học liệu.
+Fixture hồi quy được quản lý tại `scripts/fixtures/geometry/`, helper ma trận
+tại `scripts/zo_geometry_stress.py`; self-test chỉ gọi compiler/checker và
+style canonical. Nội dung trong `_audit/zo_geometry_spike/` là bằng chứng
+thiết kế lịch sử, không là đầu vào biên dịch hoặc kiểm thử chính thức.
 
 ## 2. Điểm vào vận hành
 
