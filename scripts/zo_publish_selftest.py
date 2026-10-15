@@ -21,6 +21,19 @@ GOVERNANCE = SECTION + "/_quy_trinh"
 
 
 class PublicBoundaryTests(unittest.TestCase):
+    def test_ignored_editor_sessions_are_not_render_dependencies(self):
+        source=self.public/'support-source';destination=self.public/'support-copy'
+        editor='content/book/.Rproj.user/shared/notebooks/session/cache'
+        dependency='content/book/figure_files/figure.png'
+        self.write_at(source,editor,'private editor state')
+        self.write_at(source,dependency,'render dependency')
+        result=type('Result',(),{'returncode':0,'stdout':editor+'\0'+dependency+'\0'})()
+        with patch.object(publish,'git',return_value=result):
+            copied=publish.copy_ignored_render_support(source,destination)
+        self.assertEqual(copied['files'],[dependency])
+        self.assertFalse((destination/editor).exists())
+        self.assertEqual(copied['excluded']['editor-session-cache'],1)
+
     def test_historical_baseline_does_not_require_current_pdf_bytes_but_release_does(self):
         manifest=publish.build_manifest(self.public,self.config)
         issue={'type':'course-pdf-bytes','path':'historical.pdf'}

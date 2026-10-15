@@ -954,6 +954,9 @@ def copy_ignored_render_support(root: Path, destination: Path) -> dict[str, Any]
         if "__pycache__" in parts or relative.lower().endswith((".pyc", ".pyo")):
             excluded["python-cache"] += 1
             continue
+        if any(part in {".Rproj.user", ".ipynb_checkpoints"} for part in parts):
+            excluded["editor-session-cache"] += 1
+            continue
         source = root / relative
         if not source.is_file():
             continue

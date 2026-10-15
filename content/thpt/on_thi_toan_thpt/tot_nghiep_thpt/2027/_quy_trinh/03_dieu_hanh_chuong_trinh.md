@@ -17,7 +17,7 @@ Mọi trang màu được bao phủ bằng xem trực quan hoặc đối chiếu
 Đã sửa ngắt trang tiêu đề, bảng trong khối lời giải và chữ tràn ngoài trang;
 cổng hồi quy có fixture âm cho lỗi tiêu đề/chữ bị cắt. Không dựng lại sách
 khi chỉ đồng bộ số trang thẻ tải; thay nội dung/hình thật vẫn làm STALE.
-Kiểm nguồn ba gói đạt; kiểm điều hành 175/175; cổng xuất bản 33 kiểm thử đạt.
+Kiểm nguồn ba gói đạt; kiểm điều hành 175/175; cổng xuất bản 34 kiểm thử đạt.
 Đã bổ sung nhận diện provenance của một commit revert thông thường chỉ khi
 cây công khai khôi phục đúng byte cây cha của lần xuất bản bị revert; trường
 hợp khác vẫn bị từ chối. Không viết lại lịch sử Git hoặc bỏ qua kiểm nguồn.
