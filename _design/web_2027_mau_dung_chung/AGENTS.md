@@ -2,6 +2,11 @@
 
 Chỉ dẫn gốc repository tiếp tục có hiệu lực. Trước khi làm trong thư mục này, đọc `README.md`, `hop_dong_vung_doc.md`, `kiem_thu.md`.
 
+Bản tích hợp bốn trang đã xuất bản ngày 15/10/2026. Trạng thái hiện hành
+và hồ sơ khép việc lấy ở mục A của bảng điều hành 03, không lấy từ trạng
+thái chờ xem của các mốc FB/DH cũ. Nguồn bộ khung vẫn chưa là Design 0.5
+đã khóa. Thay đổi mới giữ quy trình kiểm và quyền phát hành theo phạm vi.
+
 - Đây là nguồn bộ khung dùng lại, chưa là Ngôn ngữ thiết kế 0.5 đã khóa. G01, G02, Nhà và D0 đã tích hợp opt-in vào đường dựng HTML canonical; G02 theo DH_019, Nhà theo DH_017, D0 theo DH_018 với map riêng. Mỗi HTML mới chờ duyệt riêng; không suy quyền promotion/PDF/phát hành.
 - Giữ G01 đã duyệt 9/10 làm đối chứng; không mở lại vòng chọn hướng hoặc ghi đè HTML đã duyệt để thử ý tưởng mới.
 - Tách khung/khối chung khỏi bản đồ nhịp đọc riêng; không sao chép vùng G01 hoặc ép luồng R1 vào Nhà/D0.

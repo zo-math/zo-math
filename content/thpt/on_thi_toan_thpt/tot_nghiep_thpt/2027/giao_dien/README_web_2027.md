@@ -1,5 +1,15 @@
 # HTML canonical của trang Nhà khóa 2027
 
+## Tiếp quản sau phát hành — 15/10/2026
+
+Nhà, D0, R1-G01 và R1-G02 đã được xuất bản, kiểm trực tiếp và khép hồ sơ
+theo mục A của bảng điều hành 03. Receipt phát hành ghi đúng nguồn/cây
+website; hồ sơ khép việc ghi dọn tài sản và kiểm sau phát hành. Các trạng
+thái chờ xem hoặc chưa xuất bản trong những mốc bên dưới là lịch sử.
+Bộ bìa hiện hành có đủ năm tỉ lệ tại `../assets/illustrations/`; chủ trì
+đã thay ảnh vuông và khép tìm ảnh. Dấu kiểm hiện tại ở `bo_anh_bia.json`,
+không sửa receipt nhập ảnh cũ để hợp thức hóa ảnh mới.
+
 ## Bộ xem đồng bộ và một ảnh bìa — 14/10/2026
 
 Điểm dựng bộ xem hiện hành là `scripts/zo_web_2027_bundle.py`, gọi qua
@@ -15,9 +25,14 @@ kiểm nguồn/geometry/HTML nhưng truyền `--to html` tới Quarto, không kh
 dự án nguồn cô lập với hàng rào `_audit` hoạt động, rồi mới tạo phép chiếu
 liên kết để xem. Nguồn QMD các trang chân trang cũng được đưa vào snapshot.
 
-Hình bìa chỉ dùng `hanh_trinh_nguoi_hoc_toan_3x4.png` ở mọi chiều rộng;
-không còn ảnh vuông hoặc CSS đổi họ ảnh trên mobile. Bốn biến thể không
-dùng đã được gỡ khỏi nguồn theo yêu cầu chủ trì; bản đối chiếu QD_035 và
+Trang Nhà chỉ hiển thị `hanh_trinh_nguoi_hoc_toan_3x4.png` ở mọi chiều rộng;
+CSS không đổi sang ảnh khác trên mobile. Bộ tài sản gồm đủ năm PNG 1:1,
+3:4, 4:3, 9:16 và 16:9 vẫn phải được giữ trong `../assets/illustrations/`
+để dùng cho các định dạng truyền thông. Việc gỡ bốn biến thể ở DH_045 đã
+phân loại nhầm tài sản còn dùng; đã khôi phục nguyên byte ngày 15/10/2026.
+Một ảnh hiển thị không có nghĩa thư viện chỉ được giữ một ảnh. Xem
+`../assets/illustrations/README.md`; kiểm bằng `scripts/zo_home_cover_check.py`
+qua launcher trước bàn giao hoặc dọn tài sản Nhà. Bản đối chiếu QD_035 và
 phụ thuộc được bảo vệ vẫn giữ nguyên. Ảnh dịch vụ theo mục dưới đây.
 
 ## Học trực tiếp — mẫu được chủ trì chốt ngày 14/10/2026

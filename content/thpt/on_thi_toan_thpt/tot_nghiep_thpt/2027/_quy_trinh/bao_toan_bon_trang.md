@@ -17,6 +17,13 @@ Checkpoint bổ sung độc lập: `E:/zo_math_ca_nhan/checkpoints/DH032_2026101
 
 ## Nguồn chính thức không được dọn nhầm
 
+**Đính chính tài sản ngày 15/10/2026:** bộ bìa Hành trình của người học toán
+trong `2027/assets/illustrations/` gồm đủ 1:1, 3:4, 4:3, 9:16, 16:9.
+Trang Nhà chọn hiển thị một ảnh không cho phép dọn bốn định dạng còn lại.
+Giữ đủ năm tệp theo SHA-256 trong `2027/giao_dien/bo_anh_bia.json` (bản
+vuông được chủ trì thay ngày 15/10; receipt nhập cũ giữ nguyên) và chạy
+`scripts/zo_home_cover_check.py` qua launcher trước dọn hoặc bàn giao.
+
 Các đường dẫn dưới đây tính từ gốc repo:
 
 | Trang | Nguồn chính thức | Phần phải giữ cùng nguồn |

@@ -437,3 +437,14 @@ không tạo roadmap song song. Các receipt 79/58 trang trước đây là lị
 Đã xuất bản ngày 15/10/2026 từ nguồn `bb480547eea5b5dc4a191255db8904b2d012a3d6`; commit public `3f99deac4b95e2b2e05e4f6e40ffd14e49be157a`.
 Bốn HTML và 17 PDF online khớp checksum; kiểm trình duyệt trực tiếp 13/13.
 Hồ sơ triển khai hiện hành nằm trong `ho_so_phat_hanh_20261015.json` của khóa.
+# Khép hồ sơ bốn trang — 15/10/2026
+
+Theo yêu cầu chủ trì, khép việc tìm ảnh sau khi chủ trì thay bản vuông;
+giữ đủ năm tỉ lệ trong thư viện. Bộ hiện hành có manifest riêng, biên bản
+nhập cũ giữ nguyên. Kiểm tài sản hiện hành và ca âm bảo vệ thiếu/sai ảnh.
+Đã phân biệt trạng thái hiện hành ở mục A của 03 với các mốc tích hợp cũ,
+đồng bộ điểm tiếp quản, dọn báo cáo chuẩn bị hết vai trò ra kho ngoài repo.
+Kiểm trực tiếp sau phát hành: 21/21 HTML/PDF khớp receipt; 17 PDF canonical
+giữ nguyên; worktree xuất bản sạch. Không dựng lại hoặc xuất bản thêm.
+Receipt phát hành gốc giữ nguyên; hồ sơ khép việc ở
+`content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/khep_ho_so_phat_hanh_20261015.json`.

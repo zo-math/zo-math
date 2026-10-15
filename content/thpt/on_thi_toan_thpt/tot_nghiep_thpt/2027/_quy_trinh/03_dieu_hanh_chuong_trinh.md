@@ -28,7 +28,35 @@ Tên thư mục render tạm đã rút ngắn để các trang lịch sử tên 
 Trạng thái: **đã xuất bản và kiểm trực tiếp trên zomath.vn**. Nguồn `bb480547eea5b5dc4a191255db8904b2d012a3d6`, public `3f99deac4b95e2b2e05e4f6e40ffd14e49be157a`. Hồ sơ máy đọc: [ho_so_phat_hanh_20261015.json](ho_so_phat_hanh_20261015.json). Bốn HTML và 17 PDF trên mạng khớp SHA-256 của cây xuất bản; kiểm trình duyệt trực tiếp 13/13, gồm thanh mục lục khi cuộn ở chế độ xám và trang Nhà trên màn hình nhỏ.
 Giới hạn kiểm: chưa in giấy/quét QR bằng điện thoại/phản biện toán độc lập.
 
-## Lịch sử trước SYNC-RELEASE01
+## A. Công việc đang mở
+
+**CLOSE-RELEASE01 — khép hồ sơ xuất bản ngày 15/10/2026.**
+
+- Phạm vi: bốn trang Nhà/D0/R1-G01/R1-G02 và 17 PDF thuộc bản phát hành
+  SYNC-RELEASE01. Chủ trì giao dọn dẹp, khép hồ sơ; việc tìm ảnh đã được
+  chủ trì khép sau khi tự tải lại và thay ảnh vuông vào đúng thư mục.
+- Trạng thái sản phẩm: đã xuất bản; hai gói R1 vẫn là bản xem trước đang
+  phát triển, không nâng thành hoàn tất toàn khóa. Không có việc tìm ảnh
+  hoặc việc xuất bản tiếp đang mở trong phạm vi nhiệm vụ này.
+- Một nguồn trạng thái: mục A này. README chuyên mục/khóa/kit dẫn về đây;
+  các mốc DH/FB/SYNC bên dưới là lịch sử. Quy tắc QD_033 và các chủ đề
+  khác giữ nguyên; khép việc không thay kiến trúc, nội dung hoặc thiết kế.
+- Receipt phát hành gốc giữ nguyên tại
+  [ho_so_phat_hanh_20261015.json](ho_so_phat_hanh_20261015.json).
+  Kết quả dọn, tài sản và xác minh sau phát hành nằm tại
+  [khep_ho_so_phat_hanh_20261015.json](khep_ho_so_phat_hanh_20261015.json).
+- Bộ ảnh bìa có đủ năm tỉ lệ; bản vuông hiện tại do chủ trì cung cấp.
+  Manifest `../giao_dien/bo_anh_bia.json` giữ dấu kiểm bộ đang dùng;
+  receipt nhập cũ không bị sửa. Guard thư viện đọc manifest hiện hành,
+  không đòi khôi phục lại ảnh vuông cũ. QMD chỉ hiển thị bản 3:4 như trước.
+- Dọn phần chuẩn bị đã hết vai trò ra kho ngoài repo, xác minh SHA-256
+  trước gỡ nguồn; giữ bằng chứng bản đã xuất bản và toàn bộ tài sản/bộ
+  xem được bảo vệ. Không chạy kết sổ toàn repo hoặc dọn công việc khác.
+- Giới hạn kiểm tại mốc phát hành vẫn giữ: chưa in giấy, quét QR bằng
+  điện thoại hoặc phản biện toán độc lập. Đây không phải việc còn treo
+  của lượt khép hồ sơ và không bị ghi thành đã kiểm.
+
+## B. Lịch sử trước khép hồ sơ
 
 **FIG-PDF01 — sửa phân kì nguồn hình và tầm soát đầu ra, 15/10/2026.**
 Trạng thái lịch sử tại FIG-PDF01; đã được SYNC-RELEASE01 ở trên thay thế.
@@ -116,7 +144,35 @@ PDF mẫu đã duyệt còn mở để đối chiếu. Các đoạn DH_042/DH_04
 đúng lịch sử mốc cũ.
 
 
-## A. Công việc đang mở
+### Công việc tại các mốc trước khép hồ sơ
+
+**15/10/2026 — sửa việc dọn nhầm bộ ảnh bìa (HOME-ASSET01).**
+
+**Đã khép theo xác nhận chủ trì:** sau lượt khôi phục, chủ trì báo ảnh
+vuông chưa đúng rồi tự tải lại, thay vào đúng thư mục và yêu cầu khép
+nhiệm vụ tìm ảnh. Bản 1:1 mới được ghi ở manifest tài sản hiện hành;
+biên bản nhập ảnh cũ giữ nguyên để truy nguyên. Không còn chờ tìm ảnh.
+
+- Chủ trì phát hiện bộ nhiều kích cỡ chỉ còn một ảnh trong nguồn. Nguyên
+  nhân: DH_045 đã suy từ yêu cầu hiển thị một ảnh 3:4 sang loại bỏ bốn
+  định dạng 1:1, 4:3, 9:16, 16:9 khỏi thư viện. Hai phạm vi này khác nhau.
+- Khôi phục bốn PNG từ Git `fb425ca1` vào `assets/illustrations/`; đủ năm
+  tệp khớp SHA-256, byte và kích thước của biên bản nhập, đồng thời khớp
+  các bản gốc còn tại `D:/Downloads/`. QMD vẫn hiển thị bản 3:4.
+- Thư viện có README liệt kê toàn bộ kích cỡ; danh mục bảo toàn phân biệt
+  tài sản truyền thông với ảnh hiển thị. Guard `zo_home_cover_check.py`
+  kiểm đủ năm bản và nguyên byte để bắt lại lỗi mất định dạng.
+- Kiểm thư viện đạt; bảy ca âm đều bị bắt: thiếu từng ảnh trong năm
+  định dạng, ảnh bị đổi byte, minh họa dịch vụ cũ xuất hiện lại. Fixture
+  trong `.quarto/` đã tự dọn; không tạo thêm bản xem hoặc báo cáo tạm.
+- Minh họa dịch vụ cũ `hoc_truc_tiep_trao_doi.svg` không còn được nguồn
+  thực thi tham chiếu và không nằm trong manifest bảo vệ DH_032: chuyển
+  ra `E:/zo_nhap/zo_math_archive/home-cover-assets-20261015/`, xác minh
+  SHA-256 trước gỡ nguồn. Giữ PNG/SVG `hoc_truc_tiep_buoi_hoc` đang dùng.
+- Mốc DH_045 bên dưới giữ nguyên để truy nguyên; phần cho phép gỡ bốn
+  ảnh đã bị thay bởi đính chính này. Không sửa receipt phát hành cũ.
+  Lượt này khôi phục tài sản và dọn minh họa cũ; không dựng HTML/PDF,
+  không thay nội dung website đang phục vụ, chưa commit hoặc xuất bản.
 
 **DH_045 — khép bộ xem bốn trang và một ảnh bìa, 14/10/2026.**
 
