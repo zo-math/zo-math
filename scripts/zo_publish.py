@@ -903,9 +903,20 @@ def render_to_staging(root: Path, render_dir: Path,
                       tool_root: Path | None = None) -> dict[str, Any]:
     require_public_profile(root)
     launcher = (tool_root or root) / "scripts/zo_quarto.py"
-    command = [sys.executable, str((tool_root or root) / "scripts/zo_python.py"),
-               "-B", str(launcher), "render", "--to", "html", "--output-dir", str(render_dir)]
-    result = run(command, root)
+    # Post-render adapters read their fresh HTML. Keep that working output out
+    # of _audit, whose historical files are deliberately forbidden as inputs.
+    # Only completed output is copied to the report/candidate staging tree.
+    working_parent = root / ".quarto"
+    working_parent.mkdir(exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="zo_publish_render_", dir=working_parent) as temporary:
+        working_output = Path(temporary) / "render"
+        working_output.mkdir()
+        command = [sys.executable, str((tool_root or root) / "scripts/zo_python.py"),
+                   "-B", str(launcher), "render", "--to", "html", "--output-dir",
+                   working_output.relative_to(root).as_posix()]
+        result = run(command, root)
+        if result.returncode == 0:
+            shutil.copytree(working_output, render_dir)
     matches = re.findall(r"\[\s*\d+/(\d+)\]", result.stdout + result.stderr)
     return {"command": command, "exit_code": result.returncode,
             "source_count": int(matches[-1]) if matches else None,
