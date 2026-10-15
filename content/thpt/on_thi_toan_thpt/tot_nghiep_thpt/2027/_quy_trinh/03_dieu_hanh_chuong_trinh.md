@@ -23,6 +23,7 @@ cây công khai khôi phục đúng byte cây cha của lần xuất bản bị 
 hợp khác vẫn bị từ chối. Không viết lại lịch sử Git hoặc bỏ qua kiểm nguồn.
 Đường prepare website đã khóa render HTML tường minh, không tự dựng nhánh PDF của D0; dùng các PDF canonical đã kiểm. Cache phiên RStudio/Jupyter không được sao chép làm phụ thuộc render.
 HTML tươi của prepare được render vào .quarto bằng đường dẫn tương đối rồi chuyển sang staging báo cáo, để adapter không đọc vùng audit lịch sử; kiểm tích hợp trang Nhà đã đạt.
+Tên thư mục render tạm đã rút ngắn để các trang lịch sử tên dài nằm trong giới hạn Windows; fixture sao chép đúng trang dài nhất đã đạt.
 Trạng thái: được phép xuất bản, đang chuẩn bị candidate mới bằng quy trình chính thức.
 Chưa khẳng định đã triển khai; chưa in giấy/quét QR bằng điện thoại/phản biện toán độc lập.
 
