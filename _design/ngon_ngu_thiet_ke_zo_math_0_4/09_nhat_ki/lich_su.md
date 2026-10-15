@@ -433,3 +433,7 @@ số trang và trạng thái thẻ tải đã đồng bộ. Khung PDF giữ thi�
 từng biến thể, hình/bảng và trang cuối. Chưa in giấy/quét QR/phản biện toán độc lập.
 Trạng thái triển khai và việc tiếp theo chỉ thuộc bảng 03 của khóa; mục này
 không tạo roadmap song song. Các receipt 79/58 trang trước đây là lịch sử.
+
+Đã xuất bản ngày 15/10/2026 từ nguồn `bb480547eea5b5dc4a191255db8904b2d012a3d6`; commit public `3f99deac4b95e2b2e05e4f6e40ffd14e49be157a`.
+Bốn HTML và 17 PDF online khớp checksum; kiểm trình duyệt trực tiếp 13/13.
+Hồ sơ triển khai hiện hành nằm trong `ho_so_phat_hanh_20261015.json` của khóa.

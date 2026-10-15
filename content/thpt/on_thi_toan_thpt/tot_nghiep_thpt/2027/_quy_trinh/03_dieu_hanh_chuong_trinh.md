@@ -25,8 +25,8 @@ hợp khác vẫn bị từ chối. Không viết lại lịch sử Git hoặc b
 HTML tươi của prepare được render vào .quarto bằng đường dẫn tương đối rồi chuyển sang staging báo cáo, để adapter không đọc vùng audit lịch sử; kiểm tích hợp trang Nhà đã đạt.
 Tên thư mục render tạm đã rút ngắn để các trang lịch sử tên dài nằm trong giới hạn Windows; fixture sao chép đúng trang dài nhất đã đạt.
 Đã sửa đóng gói theo chuỗi tham chiếu HTML/CSS tới CSS, JS, ảnh, PDF và font; giới hạn HTML bằng --page đúng bốn trang. Kiểm tích hợp trên render tươi: 0 lỗi, đúng bốn HTML đổi, 101 tài nguyên phụ thuộc; HTML ngoài phạm vi giữ nguyên.
-Trạng thái: được phép xuất bản, đang chuẩn bị candidate mới bằng quy trình chính thức.
-Chưa khẳng định đã triển khai; chưa in giấy/quét QR bằng điện thoại/phản biện toán độc lập.
+Trạng thái: **đã xuất bản và kiểm trực tiếp trên zomath.vn**. Nguồn `bb480547eea5b5dc4a191255db8904b2d012a3d6`, public `3f99deac4b95e2b2e05e4f6e40ffd14e49be157a`. Hồ sơ máy đọc: [ho_so_phat_hanh_20261015.json](ho_so_phat_hanh_20261015.json). Bốn HTML và 17 PDF trên mạng khớp SHA-256 của cây xuất bản; kiểm trình duyệt trực tiếp 13/13, gồm thanh mục lục khi cuộn ở chế độ xám và trang Nhà trên màn hình nhỏ.
+Giới hạn kiểm: chưa in giấy/quét QR bằng điện thoại/phản biện toán độc lập.
 
 ## Lịch sử trước SYNC-RELEASE01
 
