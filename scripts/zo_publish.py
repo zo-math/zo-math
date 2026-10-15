@@ -908,8 +908,8 @@ def render_to_staging(root: Path, render_dir: Path,
     # Only completed output is copied to the report/candidate staging tree.
     working_parent = root / ".quarto"
     working_parent.mkdir(exist_ok=True)
-    with tempfile.TemporaryDirectory(prefix="zo_publish_render_", dir=working_parent) as temporary:
-        working_output = Path(temporary) / "render"
+    with tempfile.TemporaryDirectory(prefix="p", dir=working_parent) as temporary:
+        working_output = Path(temporary) / "r"
         working_output.mkdir()
         command = [sys.executable, str((tool_root or root) / "scripts/zo_python.py"),
                    "-B", str(launcher), "render", "--to", "html", "--output-dir",
