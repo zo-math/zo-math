@@ -49,7 +49,7 @@ Khi cùng vấn đề thay đổi nhiều lần, áp dụng quyết định đư
 | `truyen_thong_qua_trinh.md` | Sổ nội dung truyền thông; không chứng nhận học liệu hoàn thiện hoặc đã phát hành |
 | `content/thpt/on_thi_toan_thpt/hoc_lieu/{d0,r1_g01,r1_g02}/_quy_trinh/README.md` | Điểm vào vận hành riêng; trạng thái hiện hành phải khớp 03 và hồ sơ đúng bản |
 | Cùng các thư mục trên: `cau_hinh_san_xuat_qmd.yml`, `ho_so/index.yml`; manifest kiến trúc/chuyển đổi, ma trận và hợp đồng nếu có | Cấu hình đang chạy, trạng thái máy đọc, quan hệ nguồn. Danh sách `controlling_documents` trong cấu hình là danh sách nạp/kiểm; không khiến báo cáo lịch sử trở thành quy chuẩn hiện hành. Phải phân vai theo README và sổ này |
-| D0: `hop_dong_nguon_canonical.md`, `ma_tran_phep_chieu_noi_dung.md` | Phần đầu hiện hành sở hữu phép chiếu D0 đã duyệt; phần 6B bên dưới chỉ lịch sử. HTML-only, tự nguyện, không áp nguyên kiến trúc R1 |
+| D0: `hop_dong_nguon_canonical.md`, `ma_tran_phep_chieu_noi_dung.md` | Phần đầu hiện hành sở hữu phép chiếu D0 đã duyệt; phần 6B bên dưới chỉ lịch sử. Tự nguyện, không áp nguyên kiến trúc R1; bổ sung PDF toàn trang ngày 14/10 theo yêu cầu trực tiếp, không khôi phục bốn biến thể |
 | D0: `bao_cao_sua_loi_5a.md`, `bao_cao_kiem_toan_buoc_6a.md`, `pilot_hinh_hoc/README.md`, `lich_su/v1_0/**` | Bằng chứng chuyển đổi/fixture/baseline bất biến, không lệnh tái sinh QMD mới |
 | G01/G02: `giao_dien/README_web_2027.md` nếu có; `_quy_trinh/README.md`; `giao_dien/web_2027_layout.json`, `web_2027_figures.json` | Hợp đồng vận hành/profile thực. Layout quy định ownership kỹ thuật, không tự quyết cấp sư phạm. Tổng số vùng là thống kê của bản kiểm, không mục tiêu liên gói |
 | `_design/web_2027_mau_dung_chung/AGENTS.md`, `README.md`, `hop_dong_vung_doc.md`, `kiem_thu.md`, `doi_sanh_lien_goi.md`, `doi_sanh_FB036.md`, `figure-profile-candidate/README.md` | Kit/hợp đồng component/QA và hồ sơ lỗi. Chức năng học do 01/07 xác lập. Các mốc FB cũ là evidence, không xác nhận ứng viên mới |
@@ -63,7 +63,7 @@ Khi cùng vấn đề thay đổi nhiều lần, áp dụng quyết định đư
 
 Các thư mục nguồn/media/specimen khác của Design là tài sản tham chiếu hoặc phụ thuộc, không vì nằm trong package mà có thẩm quyền điều hành khóa. Không cần sửa hàng trăm tài sản để đồng bộ văn bản điều hành.
 
-Trang Nhà DH_028 thay bố cục DH_017: `index.qmd` include partial sinh bởi `zo_build_on_thi.py` từ `_data/chuong_trinh.yml`, template biên tập `giao_dien/trang_nha.html.tpl` và metadata thật. `giao_dien/README_web_2027.md` sở hữu hướng vận hành; `profiles/course-home.json` chọn bố cục `editorial-home-2027`. Adapter `zo_web_2027_home.py` điều phối `zo_web_2027_home_landing.py`, nhận Quarto tươi; checker Home chọn phép kiểm `zo_web_2027_home_landing_check.py`. HTML/PNG nhập tại reference/assets chỉ là tài nguyên được giao, không là quy chuẩn. Thay đúng hướng dựng/kiểm Home cũ, không thay đường học 01, nghiệm thu lịch sử, D0, nguồn riêng G01/G02 hoặc PDF; catalog preview không chứng nhận đã nghiệm thu gói.
+Trang Nhà DH_038: `index.qmd` trực tiếp sở hữu nội dung biên tập native Markdown; không còn include toàn trang HTML sinh hoặc dùng template làm nguồn câu chữ. `zo_build_on_thi.py` sinh riêng ba component `_partials/home_countdown.qmd`, `home_catalog.qmd`, `home_strands.qmd` từ YAML/metadata thật. `giao_dien/README_web_2027.md` sở hữu hướng vận hành; `profiles/course-home.json` vẫn chọn bố cục `editorial-home-2027`. Adapter `zo_web_2027_home.py` điều phối `zo_web_2027_home_landing.py`; `zo_home_qmd.py` nối DOM native với UI đã có; checker Home kiểm nguồn native, hash component và Quarto tươi. HTML/PNG nhập tại reference/assets chỉ là tài nguyên được giao, không là quy chuẩn. Thay đúng cơ chế nguồn Nhà DH_028, không thay câu chữ đã chốt, đường học 01, QD_035, nghiệm thu lịch sử, D0, nguồn riêng G01/G02 hoặc PDF; catalog preview không chứng nhận đã nghiệm thu gói.
 
 ## 3. Các thay thế đã có căn cứ
 
@@ -85,7 +85,7 @@ Trang Nhà DH_028 thay bố cục DH_017: `index.qmd` include partial sinh bởi
 
 | Phát biểu dễ dùng nhầm | Căn cứ/đích hiện hành |
 |---|---|
-| D0 bắt buộc trước khi vào học; tái sinh từ generator 6B; cần PDF nội dung | D0 tự nguyện, QMD canonical từ HTML đã duyệt, HTML-only theo hợp đồng hiện hành D0/03 |
+| D0 bắt buộc trước khi vào học; tái sinh từ generator 6B; cần bốn biến thể PDF | D0 tự nguyện, QMD canonical; PDF toàn trang ngày 14/10 là sản phẩm được giao riêng, không là điều kiện vào học |
 | Bài học và Luyện tập xen kẽ theo ba chặng | QD_017/01: hai khu vực không xen kẽ; chặng thuộc Luyện tập; xem lại là hỗ trợ |
 | Nhật kí mẫu riêng của mỗi gói hoặc schema sáu trường | 01: một nguồn đủ 14 trường; ví dụ trong nguồn có thể cần sửa, không vì thế đổi schema |
 | G01 154 vùng, G02 phải bằng G01; mọi khối đều thu gọn | 07/kit: theo nhịp và owner; mạch chính mở cố định, chỉ hộp có trạng thái đóng/mở mặc định đóng |
@@ -98,7 +98,7 @@ Giữ Kế hoạch 0.6 nguyên byte. Kế hoạch còn điều hành phạm vi/l
 
 ## 4. Điều kiện kết thúc một lượt đồng bộ
 
-DH_018/QD_027 đưa kit vào đường dựng QMD D0 với map riêng; chỉ thay lớp trình bày. D0 vẫn tự nguyện/HTML-only, giữ nguyên nội dung và receipt. Trạng thái HTML mới pending owner review tại 03/hồ sơ D0, không kế thừa nghiệm thu 2026-10-03. Chỉ dẫn vận hành ở `hoc_lieu/d0/giao_dien/README_web_2027.md` tính từ chuyên mục Ôn thi; không chạy generator cũ hoặc dựng PDF nội dung.
+DH_018/QD_027 đưa kit vào đường dựng QMD D0 với map riêng; chỉ thay lớp trình bày. D0 vẫn tự nguyện, giữ nguyên nội dung và receipt. Trạng thái HTML mới pending owner review tại 03/hồ sơ D0, không kế thừa nghiệm thu 2026-10-03. Chỉ dẫn HTML ở `hoc_lieu/d0/giao_dien/README_web_2027.md`; PDF toàn trang theo yêu cầu 14/10 ở `_quy_trinh/README.md` của D0. Không chạy generator cũ hoặc khôi phục bốn biến thể PDF.
 
 QD_023 thay cách xem nhãn chỉ là chữ trang trí, suy chức năng từ heading/class, đếm nội dung theo số vùng và đánh lại số theo chặng. Tên khu vực lấy từ danh mục; tiêu đề/câu chữ/số riêng cần trạng thái duyệt trong bảng áp dụng. Những hợp đồng cho phép Ôn nền nằm dưới Khởi động chỉ là tương thích nguồn chưa di trú, không quy tắc sản xuất mới. Quy tắc học lấy QD_033 cùng phần kế thừa của QD_021; cơ chế thay thế QD_022 giữ nguyên. Không sửa Kế hoạch 0.6, Design 0.4 khóa hoặc nguồn D0/Nhà để triển khai hệ nhãn cục bộ này.
 

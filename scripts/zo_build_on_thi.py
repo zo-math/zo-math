@@ -117,13 +117,18 @@ def validate_data(data: dict[str, Any]) -> None:
     if not isinstance(program, dict) or not isinstance(refs, list) or not refs:
         raise BuildError("Thiếu program hoặc packages")
     required = {
-        "id", "title", "year", "status", "tagline", "introduction", "audience",
-        "purpose", "learning_steps", "roadmap", "roadmap_note", "strands",
-        "foundations_note", "r8_note", "strands_note", "start", "d0", "deployment",
+        "id", "title", "year", "status", "tagline", "introduction",
+        "purpose", "learning_steps", "roadmap", "strands",
+        "foundations_note", "r8_note", "strands_note", "d0",
+        "home_editorial_source", "exam_countdown",
     }
     missing = sorted(required - set(program))
     if missing:
         raise BuildError(f"Thiếu trường chương trình: {', '.join(missing)}")
+    if program['home_editorial_source'] != 'index.qmd':
+        raise BuildError('Câu chữ trang Nhà phải nằm trong index.qmd native, không trong template/partial sinh')
+    if any(key in program for key in ('audience', 'deployment', 'start', 'roadmap_note')):
+        raise BuildError('Câu chữ Nhà đã di trú sang index.qmd; không duy trì bản biên tập YAML song song')
     ids = [item.get("id") for item in refs if isinstance(item, dict)]
     if len(ids) != len(refs) or any(not re.fullmatch(r"[a-z0-9_]+", str(x or "")) for x in ids):
         raise BuildError("Mỗi tham chiếu gói phải có ID an toàn")
@@ -160,14 +165,24 @@ def package_from_ref(ref: dict[str, Any], package_root: Path = PACKAGE_ROOT) -> 
     # Learner availability is a catalog decision, not inherited acceptance of a
     # newly edited package. Explicit previews may point at in-production sources.
     preview = ref.get("learner_availability") == "preview"
-    if (production != "accepted" and not (preview and production in {"in_production", "validated"})) or publication != "pending":
+    if ((production != "accepted" and not (preview and production in {"in_production", "validated"}))
+            or publication not in {"pending", "published"}
+            or (publication == "published" and workflow.get("user_confirmed") is not True)):
         raise BuildError(f"Gói {code} chưa ở trạng thái ứng viên có thể học")
     if len(title) > 96:
         raise BuildError(f"Tên gói quá dài cho bìa: {code}")
     downloads = metadata.get("r1-download-files", [])
     sections = metadata.get("r1-section-download-files", [])
     pdfs = tuple(str(x.get("href", "")) for x in [*downloads, *sections] if isinstance(x, dict))
-    html_only = acceptance.get("pdf_canonical") == "not_applicable_html_only"
+    # D0 has one full-page PDF offered on its own page. The course catalog
+    # continues to link to the survey; R1's eight-file contract is inapplicable.
+    d0_pdf_pending = (ref_id == "d0" and code == "D0"
+                      and acceptance.get("pdf_canonical") in {
+                          "full_page_pending_owner_review_2026_10_14",
+                          "full_page_design_approved_publication_authorized_2026_10_15"}
+                      and isinstance(metadata.get("format", {}).get("pdf"), dict)
+                      and (package_dir / "index.pdf").is_file())
+    html_only = acceptance.get("pdf_canonical") == "not_applicable_html_only" or d0_pdf_pending
     if html_only and pdfs:
         raise BuildError(f"Gói HTML-only {code} không được khai báo PDF canonical")
     if not html_only and (len(pdfs) != 8 or len(set(pdfs)) != 8 or any(not name.endswith(".pdf") for name in pdfs)):
@@ -249,110 +264,6 @@ def render_editions(program: dict[str, Any], colors: dict[str, str]) -> str:
 ### [{program['title']}](tot_nghiep_thpt/2027/index.qmd)
 
 {program['tagline']}
-
-:::
-"""
-
-
-def render_program(program: dict[str, Any], packages: list[Package], colors: dict[str, str]) -> str:
-    if program.get('home_editorial_source'):
-        from zo_web_2027_home_landing import render_source
-        return GENERATED + '\n\n```{=html}\n' + render_source(program, packages) + '\n```\n'
-    strands = "\n".join(
-        f"::: {{.zo-on-thi-strand}}\n**{item['id']}** {item['title']}\n:::"
-        for item in program["strands"]
-    )
-    cards = []
-    for package in packages:
-        view_suffix = "#bat-dau" if package.html_only else "?r1-view=bat-dau#bat-dau"
-        link_label = "Bắt đầu khảo sát" if package.html_only else "Bắt đầu học"
-        cards.append(f"""::: {{.zo-on-thi-package data-package-id=\"{package.ref_id}\"}}
-::: {{.zo-on-thi-package__layout}}
-::: {{.zo-on-thi-package__cover}}
-![](assets/bia/{package.ref_id}.svg){{.zo-on-thi-cover alt=\"Bìa {package.code}: {package.title}\"}}
-:::
-::: {{.zo-on-thi-package__copy}}
-::: {{.zo-on-thi-package__meta}}
-{package.code} · Phiên bản {package.version} · {package.display_status}
-:::
-
-### {package.title}
-
-{package.summary}
-
-[{link_label} →]({package.html_url}{view_suffix}){{.zo-on-thi-link}}
-:::
-:::
-:::""")
-    return f"""{GENERATED}
-::: {{.zo-on-thi .zo-on-thi-program {component_color_attributes(colors)}}}
-
-::: {{.zo-on-thi-hero}}
-::: {{.zo-on-thi-hero__layout}}
-::: {{.zo-on-thi-hero__copy}}
-::: {{.zo-on-thi-status}}
-{program['status']}
-:::
-
-::: {{.zo-on-thi-hero__tagline}}
-{program['tagline']}
-:::
-
-[Xem gói học liệu hiện có ↓](#hoc-lieu-hien-co){{.zo-on-thi-link}}
-:::
-::: {{.zo-on-thi-hero__cover}}
-![](assets/bia/chuong_trinh.svg){{.zo-on-thi-cover alt=\"Bìa {program['title']}\"}}
-:::
-:::
-:::
-
-## Giới thiệu
-
-{program['introduction']}
-
-## Dành cho ai?
-
-{program['audience']}
-
-## Chương trình giúp em làm gì?
-
-{program['purpose']}
-
-## Cách học {{#học-theo-cách-nào}}
-
-::: {{.zo-on-thi-steps}}
-
-{'\n'.join('- ' + step for step in program['learning_steps'])}
-
-:::
-
-## Lộ trình
-
-{ordered_list(program['roadmap'], 'zo-on-thi-roadmap')}
-
-{program['roadmap_note']}
-
-## Tám mạch
-
-::: {{.zo-on-thi-strands}}
-{strands}
-:::
-
-{program['foundations_note']} {program['r8_note']} {program['strands_note']}
-
-## Học liệu hiện có {{#hoc-lieu-hien-co}}
-
-{'\n\n'.join(cards)}
-
-## Bắt đầu từ đâu?
-
-{program['start']}
-
-{program['d0']}
-
-## Trạng thái triển khai
-
-{program['deployment']}
 
 :::
 """
@@ -466,9 +377,10 @@ def outputs(data: dict[str, Any] | None = None, *, package_root: Path = PACKAGE_
     colors = theme_colors(theme_path)
     result = {
         HOME_PARTIAL: render_home(program, latest, colors),
-        PARTIAL_ROOT / "chuong_trinh.qmd": render_program(program, packages, colors),
         PARTIAL_ROOT / "an_ban.qmd": render_editions(program, colors),
     }
+    from zo_web_2027_home_landing import render_components
+    result.update({PARTIAL_ROOT / name:content for name,content in render_components(program, packages).items()})
     result.update(render_covers(program, packages, theme_path=theme_path))
     return result
 

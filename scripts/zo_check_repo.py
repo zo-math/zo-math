@@ -1601,7 +1601,7 @@ def output_dir(root: Path) -> Path:
     return root / str(value)
 
 
-def render_pages(paths: Sequence[Path], checker: Checker) -> int | None:
+def render_pages(paths: Sequence[Path], checker: Checker, html_only: bool = False) -> int | None:
     try:
         base_command, quarto_env = prepare_quarto([])
     except FileNotFoundError:
@@ -1621,7 +1621,10 @@ def render_pages(paths: Sequence[Path], checker: Checker) -> int | None:
         if failures_after > failures_before:
             checker.add("render", False, "Bỏ qua render vì scope của trang thất bại.", relative)
             continue
-        result = run([*base_command, "render", relative.as_posix()], checker.root, quarto_env)
+        command = [*base_command, "render", relative.as_posix()]
+        if html_only:
+            command.extend(["--to", "html"])
+        result = run(command, checker.root, quarto_env)
         combined = "\n".join(part for part in (result.stdout, result.stderr) if part).strip()
         warnings = [line.strip() for line in combined.splitlines() if re.search(r"\bwarn(?:ing)?\b|cảnh báo", line, re.IGNORECASE)]
         errors = [line.strip() for line in combined.splitlines() if re.search(r"\berror\b|lỗi", line, re.IGNORECASE)]
@@ -1689,6 +1692,7 @@ def parser() -> argparse.ArgumentParser:
     scope.add_argument("paths", nargs="+")
     render = subparsers.add_parser("render", parents=[common], help="Kiểm tra rồi render trang tường minh.")
     render.add_argument("paths", nargs="+")
+    render.add_argument("--html-only", action="store_true", help="Chỉ dựng HTML; không kích hoạt nhánh PDF của QMD.")
     return result
 
 
@@ -1719,7 +1723,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         if args.mode in {"quick", "scope"}:
             run_scope(paths, checker)
         else:
-            missing = render_pages(paths, checker)
+            missing = render_pages(paths, checker, args.html_only)
             if missing is not None:
                 print("ERROR: Không tìm thấy Quarto trong PATH.", file=sys.stderr)
                 return missing

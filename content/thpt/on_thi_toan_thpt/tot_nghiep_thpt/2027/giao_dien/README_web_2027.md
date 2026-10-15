@@ -1,6 +1,102 @@
 # HTML canonical của trang Nhà khóa 2027
 
-## DH_028 — bố cục biên tập từ mẫu trang Nhà được giao ngày 12/10/2026
+## Bộ xem đồng bộ và một ảnh bìa — 14/10/2026
+
+Điểm dựng bộ xem hiện hành là `scripts/zo_web_2027_bundle.py`, gọi qua
+`scripts/zo_python.py`: `build --output <thư_mục_audit_mới>` dựng cả Nhà,
+D0, G01 và G02 từ cùng snapshot nguồn. `check --output <bộ_đã_dựng>` từ
+chối nguồn hoặc tài nguyên đã lệch fingerprint. Không lấy ba HTML của
+`_audit/home-preview` để ghép vào Nhà mới. Mỗi trang đều quay về cùng Nhà,
+giữ query/fragment. Các bản xem cũ chỉ là bằng chứng, không là runtime mới.
+
+Khi dựng bộ HTML, CLI QMD dùng `render --html-only` cho ba học liệu: vẫn
+kiểm nguồn/geometry/HTML nhưng truyền `--to html` tới Quarto, không khởi
+động nhánh PDF D0. Render không có cờ giữ hành vi cũ. Adapter chạy trong
+dự án nguồn cô lập với hàng rào `_audit` hoạt động, rồi mới tạo phép chiếu
+liên kết để xem. Nguồn QMD các trang chân trang cũng được đưa vào snapshot.
+
+Hình bìa chỉ dùng `hanh_trinh_nguoi_hoc_toan_3x4.png` ở mọi chiều rộng;
+không còn ảnh vuông hoặc CSS đổi họ ảnh trên mobile. Bốn biến thể không
+dùng đã được gỡ khỏi nguồn theo yêu cầu chủ trì; bản đối chiếu QD_035 và
+phụ thuộc được bảo vệ vẫn giữ nguyên. Ảnh dịch vụ theo mục dưới đây.
+
+## Học trực tiếp — mẫu được chủ trì chốt ngày 14/10/2026
+
+Vùng `#hoc-truc-tiep` dùng `.home-service-feature`: lời văn native bên trái,
+minh họa riêng bên phải, thông báo chưa mở đăng ký ở dưới. Bỏ nhãn dịch vụ
+phía trên nhưng giữ câu xác nhận thu phí. Dấu nhấn trang trí nằm sau câu
+thu phí, hai phần CSS `flex:3`/`flex:2` cùng chiều cao, đỏ/vàng 6:4.
+
+Tài nguyên được quản lý tại `assets/illustrations/hoc_truc_tiep_buoi_hoc.png`
+và SVG cùng tên: PNG là cảnh tạo bằng imagegen; SVG nhúng PNG và logo vector
+đúng từ `07_mau_thi_giac/logos/horizontal_color.svg` vào tranh trên tường.
+SVG tự chứa, không đọc audit hoặc file ngoài repository khi dựng. Giữ hình
+người đơn giản, hướng dẫn áo đỏ, học sinh áo trắng, bút mực không tẩy và
+đèn vàng. Không lấy toàn ảnh mockup thay nội dung HTML.
+
+QMD sở hữu cấu trúc/nội dung/alt; CSS Home sở hữu bố cục responsive. Giữ ID
+tiêu đề bằng `.home-qmd-group` để normalizer trả ID từ wrapper về heading.
+Không sửa HTML sinh. Nghiệm thu bản dựng và trạng thái ở bảng điều hành 03.
+
+## Bố cục đọc — cập nhật nguồn ngày 14/10/2026
+
+`../index.qmd` đặt phần Hiểu vì sao/Dành cho ai trong giới thiệu đầu trang;
+Cách học ngay sau danh mục. `.home-reading-panel` chỉ áp sáu vùng đọc lớn,
+không đổi thẻ học liệu hay Ủng hộ. Hàng Cách học là một cột ở mọi chiều
+rộng; nội dung bên trong co từ ba cột xuống hai rồi một cột. Các khung
+kiến thức/FAQ bo góc xen nền. Học trực tiếp hiện dùng tài nguyên
+`../assets/illustrations/hoc_truc_tiep_buoi_hoc.svg` và `.home-service-feature`
+theo mẫu chủ trì chốt sau lượt bố cục này; SVG trao đổi cũ chỉ là lịch sử.
+
+Sửa bố cục bằng Markdown/div native và `course-home-landing.css`, không
+sửa HTML hoặc nhét toàn trang vào partial. Generator chỉ thêm số trình
+bày cho danh mục kiến thức và sinh `home_strands.qmd`; thẻ/countdown không
+đổi. `zo_home_qmd.py` giữ class khai ở QMD và chuẩn hóa ảnh native. Bản mẫu
+audit chỉ đối chiếu, không tham gia build. Giữ lời văn hiện hành, phục hồi
+ID thông báo trạng thái ngay trên câu đã có, không khôi phục lời catalog cũ.
+Guard HOM-L01 ở kit; kiểm/dựng vẫn qua launcher và đường cô lập bên dưới.
+
+## Thẻ học liệu — cập nhật hành vi ngày 14/10/2026
+
+Chỉ dòng **Làm khảo sát → / Mở tài liệu →** là liên kết. Ảnh, tiêu đề,
+mô tả và nền thẻ không bấm để mở trang; không role/tabindex/handler trên
+vỏ thẻ. Toàn thẻ giữ hover viền/bóng/màu tiêu đề, CTA có hover màu/mũi tên
+và focus bàn phím, không gạch chân hoặc hộp sáng. Quy tắc này thay hành vi
+link phủ thẻ của lượt 12/10 bên dưới. Sửa generator/CSS, không sửa partial
+bằng tay; checker Home có ca âm phục hồi whole-card link và kiểm click thật.
+PDF D0 ngày 14/10 còn chờ duyệt, không tự thêm link tải lên thẻ khảo sát.
+
+## DH_038 — biên tập trực tiếp bằng Quarto/Markdown
+
+**Sửa câu chữ tại `../index.qmd`.** Đây là nguồn biên tập duy nhất của trang
+Nhà: tiêu đề dùng `#`/`##`/`###`, đoạn văn/danh sách/link dùng Markdown;
+FAQ dùng heading trong vùng `data-home-tag="details"`. Các thuộc tính của
+fenced div giữ lớp giao diện, ID và vị trí; không đổi chúng chỉ để sửa chữ.
+Hai đoạn cuối `.home-support-copy` cấp lời Ủng hộ cho component dùng chung.
+
+`../_data/chuong_trinh.yml` giữ danh mục thật, tên mạch, mốc đồng hồ và dữ
+liệu Gateway còn dùng; không giữ bản sao bốn đoạn văn Nhà đã di trú.
+`zo_build_on_thi.py` chỉ sinh ba component Nhà trong `_partials/`:
+`home_countdown.qmd`, `home_catalog.qmd`, `home_strands.qmd`. Không sửa các
+partial này bằng tay. `zo_home_qmd.py` ràng DOM Quarto vào đúng giao diện
+hiện hành, không chứa lời biên tập, không đổi CSS/JS/toán hoặc ba trang khác.
+
+Template cũ và `_partials/chuong_trinh.qmd` được thay, không còn đường dựng
+hay nguồn biên tập hợp lệ. Bản trước di trú được lưu ngoài repo tại
+`E:/zo_math_ca_nhan/legacy_backup_archive/ZO_MATH_HOME_QMD_MIGRATION_20261013`;
+manifest khóa SHA-256 hai tệp cũ. QD_035 và các bản xem trước vẫn được bảo vệ;
+không tự thay bản chủ trì chọn. Trạng thái/kiểm/bước tiếp chỉ ở bảng 03.
+
+Sau sửa chữ: chạy generator kiểm đồng bộ, dựng Home cô lập qua
+`zo_web_2027_home_check.py rebuild`, rồi checker Home mới với `--preview`
+và **ba** đường dẫn `--d0/--g01/--g02` tường minh. Checker xác minh nguồn
+QMD native, hash cả ba component, projection/ID/links và ca âm template/
+HTML đổi đuôi/wrapper-only. Không dùng preview lịch sử làm đầu vào build.
+Lệnh đều qua `scripts/zo_python.py`. Không tự render root docs hoặc xuất bản.
+
+## Lịch sử DH_028 — nguồn template đã được DH_038 thay thế
+
+### Bố cục biên tập từ mẫu trang Nhà được giao ngày 12/10/2026
 
 ### Bản câu chữ được chủ trì duyệt ngày 12/10
 

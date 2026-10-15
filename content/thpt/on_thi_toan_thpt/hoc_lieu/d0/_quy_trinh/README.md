@@ -1,5 +1,80 @@
 # D0 — đầu mối chuyển đổi canonical
 
+## PDF đầy đủ từ nguồn — 14/10/2026
+
+Chủ trì đã duyệt bản mẫu bố cục và giao đưa vào đường dựng chính thức.
+`index.pdf` là bản đầy đủ dựng từ `index.qmd`: Bài 00, 24 đề, 25 phần
+đối chiếu, bảng tám mạch, bìa và trang kết. Hồ sơ bố cục là
+`cong_cu/d0_print_profile.json`/`d0_print.lua` và hai template trong
+`giao_dien/`. HTML tiếp tục dùng filter `d0.lua` riêng. Vùng Ủng hộ được
+chiếu mỗi lần dựng từ component HTML hiện hành qua `scripts/zo_pdf_support.py`;
+không dùng `content/support/donate.qmd` để viết lại câu chữ/thị giác.
+
+```text
+python scripts/zo_python.py -B scripts/zo_qmd.py check content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.qmd
+python scripts/zo_python.py -B content/thpt/on_thi_toan_thpt/hoc_lieu/d0/cong_cu/dung_pdf.py
+python scripts/zo_python.py -B content/thpt/on_thi_toan_thpt/hoc_lieu/d0/cong_cu/kiem_chung_pdf.py
+```
+
+Quy tắc dàn tại `_design/ngon_ngu_thiet_ke_zo_math_0_4/04_ap_dung/06_pdf_bo_cuc_doc_lap.md`.
+Biên nhận và kiểm máy ở `pdf_build.json`/`pdf_review.json`. Bản mẫu lịch sử
+không còn là đầu vào production. PDF mới là đầu ra sẵn để xem xét xuất bản;
+`_quarto.yml` khai tệp này là tài nguyên của lần dựng website. Đã thử
+dựng HTML D0 vào cây cô lập và xác nhận PDF được sao vào đầu ra với SHA-256
+trùng nguồn. Nghiệm thu toàn bản in và thao tác publish được theo dõi riêng
+ở bảng 03.
+
+## Hoàn thiện trình bày PDF — 14/10/2026
+
+Theo yêu cầu chủ trì sau khi xem bản đầu, áp dụng bổ sung tại
+`_design/ngon_ngu_thiet_ke_zo_math_0_4/04_ap_dung/06_pdf.md`.
+Bìa/kết có ngày dựng, phiên bản, bản quyền; trang kết có logo và thông tin
+Ủng hộ từ `content/support/donate.qmd`/QR hiện hành. Builder sinh metadata
+TeX trong cây cô lập, fingerprint nguồn Bảo trợ và ảnh QR; không lưu bản
+khai tài khoản thứ hai. `index.qmd` và JSON toán không đổi trong lượt này.
+
+Bảng dấu BBT01 dùng LaTeX native đọc JSON, không còn nhập `bbt01.pdf` cũ;
+HTML giữ nhánh renderer hiện có. Bảng thường bỏ lớp nền tiêu đề che viền,
+đặt nét 0,5 pt/căn theo chức năng và cột mô tả 36/64. Lớp PDF thêm số trang
+đích đề/đối chiếu, tiêu đề lời giải rõ hơn, ghép mục lục khảo sát với cuối
+hướng dẫn; lời giải R8-03 mở trang mới để giữ trọn đoạn. Hình hộp vẫn vector.
+
+Kiểm PDF: `python scripts/zo_python.py -B content/thpt/on_thi_toan_thpt/hoc_lieu/d0/cong_cu/kiem_chung_pdf.py`.
+Checker thêm metadata/Ủng hộ, từ chối bảng dấu vector cũ, tham chiếu chưa
+giải và kiểm ảnh đủ đường kẻ ngang/dọc cho sáu trang chứa bảy bảng. Cần
+Poppler, Pillow, NumPy; chạy từ nguồn repo, dọn ảnh trung gian tự động.
+Kiểm ảnh không chứng nhận thẩm mỹ/in giấy/quét QR hoặc nghiệm thu chủ trì.
+Triệu chứng/nguyên nhân/guard ở `pdf_quality.md`; trạng thái chỉ ở bảng 03.
+
+Mục dựng lần đầu bên dưới là bằng chứng lịch sử của DH_040; mô tả hai
+hình vector và 25 trang ở mốc đó không chứng nhận bản mới.
+
+## PDF toàn trang — yêu cầu trực tiếp ngày 14/10/2026
+
+Chủ trì giao dựng PDF của trang Khảo sát đầu vào. `index.qmd` tiếp tục là
+nguồn nội dung duy nhất; `index.pdf` chứa toàn bộ trang công khai, gồm 24 câu,
+Bài 00 và 25 phần đối chiếu. Đây không phải việc khôi phục bốn biến thể lịch sử.
+Lượt này không thêm thẻ tải PDF, đổi HTML hoặc xuất bản.
+
+```text
+python scripts/zo_python.py -B scripts/zo_qmd.py check content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.qmd
+python scripts/zo_python.py -B content/thpt/on_thi_toan_thpt/hoc_lieu/d0/cong_cu/kiem_chung.py
+python scripts/zo_python.py -B content/thpt/on_thi_toan_thpt/hoc_lieu/d0/cong_cu/dung_pdf.py
+```
+
+Thiết kế bản giấy nằm ở `giao_dien/d0_pdf.tex`, `d0_pdf_end.tex` và
+`cong_cu/d0_pdf.lua`, chỉ kích hoạt khi dựng PDF. Font/logo sao chép từ mẫu
+0.4, giữ giấy phép font. Bảng dữ liệu dùng LaTeX native đủ lưới; BBT/hình hộp
+dùng tài sản PDF vector hiện có. Builder dựng trong cây tạm cô lập, kiểm
+đầu vào không đổi, thay đầu ra sau thành công rồi dọn cây dựng. Receipt hash
+là `_quy_trinh/pdf_build.json`; nó không tự xác nhận chất lượng hoặc nghiệm thu.
+
+Quyết định HTML-only ngày 03/10 vẫn là provenance của lần phát hành đó.
+Chỉ phần cấm dựng PDF toàn trang được thay bằng yêu cầu mới; không tái áp dụng
+cổng bốn biến thể. Checker giữ receipt cũ, chỉ đảo chính xác phần metadata PDF
+đã khóa ở `pdf_source_delta.json` trong bộ nhớ để so lại toàn nguồn lịch sử.
+Trạng thái hiện tại và kết quả thật ở bảng điều hành 03; PDF chờ chủ trì xem.
+
 ## Giao diện hiện hành — DH_018 / QD_027, 11/10/2026
 
 DH_025 ngày 11/10/2026 bổ sung đúng hai cặp dấu ngoặc `\left…\right` trong QMD theo quy chuẩn LaTeX chung. `cong_cu/kiem_chung_da_duyet.py` đảo đúng hai delta này trong bộ nhớ khi so toàn chuỗi với bản duyệt lịch sử; không sửa receipt/hash hoặc bỏ qua thay đổi toán khác. HTML mới chờ chủ trì xem, không tự kế thừa nghiệm thu lịch sử; trạng thái/bằng chứng ở bảng 03.
@@ -10,7 +85,7 @@ chờ chủ trì xem; nghiệm thu 2026-10-03 chỉ chứng nhận bản lịch 
 và bước tiếp ở 03. Các mục 6B–6G bên dưới là lịch sử, không phục hồi generator
 hay cổng PDF cũ.
 
-Điểm vào khóa: [README 2027](../../../tot_nghiep_thpt/2027/_quy_trinh/README.md), [danh mục thẩm quyền 08](../../../tot_nghiep_thpt/2027/_quy_trinh/08_danh_muc_tham_quyen_dieu_hanh.md). D0 là HTML-only đã nghiệm thu, tự nguyện, không cổng bắt buộc vào học. Trạng thái phát hành và công việc ở 03; không tự chạy lại generator 6B hoặc dựng PDF nội dung từ hợp đồng lịch sử. Lượt QD_019 chỉ đồng bộ tài liệu, không kiểm live hoặc nghiệm thu mới.
+Điểm vào khóa: [README 2027](../../../tot_nghiep_thpt/2027/_quy_trinh/README.md), [danh mục thẩm quyền 08](../../../tot_nghiep_thpt/2027/_quy_trinh/08_danh_muc_tham_quyen_dieu_hanh.md). D0 tự nguyện, không là cổng bắt buộc vào học. HTML có nghiệm thu lịch sử; PDF toàn trang theo yêu cầu 14/10 ở mục trên. Không tự chạy lại generator 6B hoặc dựng các biến thể PDF từ hợp đồng lịch sử. Lượt QD_019 chỉ đồng bộ tài liệu, không kiểm live hoặc nghiệm thu mới.
 
 ## Quyết định hiện hành — tích hợp nội dung đã duyệt ngày 2026-10-02
 

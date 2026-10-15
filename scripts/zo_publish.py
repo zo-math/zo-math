@@ -56,7 +56,7 @@ SECRET_PATTERNS = (
     ("github-token", re.compile(r"gh[pousr]_[A-Za-z0-9_]{20,}")),
     ("google-api-key", re.compile(r"AIza[0-9A-Za-z_-]{30,}")),
     ("aws-access-key", re.compile(r"AKIA[0-9A-Z]{16}")),
-    ("personal-path", re.compile(r"(?i)(?:[A-Z]:[/\\]Users[/\\][^/\\\s]+|/home/[^/\s]+)")),
+    ("personal-path", re.compile(r"(?i)(?:[A-Z]:[/\\]Users[/\\][^/\\\s]+|(?<![A-Za-z0-9_./-])/home/[^/\s]+)")),
 )
 
 
@@ -750,9 +750,39 @@ def private_references(text: str, relative: str, config: Mapping[str, Any]) -> l
     return sorted(found)
 
 
-def validate_public(public: Path, manifest: Mapping[str, Any], config: Mapping[str, Any]) -> dict[str, Any]:
+def course_pdf_issues(public: Path, files: set[str]) -> list[dict[str, Any]]:
+    """A course PDF must match current source provenance and canonical bytes."""
+    from zo_pdf_contract import validate_canonical_pdf_provenance
+    source_root = Path(__file__).resolve().parents[1]
+    issues = []
+    for package in ['r1_g01', 'r1_g02']:
+        prefix = f'content/thpt/on_thi_toan_thpt/hoc_lieu/{package}'
+        config_path = source_root / prefix / '_quy_trinh/cau_hinh_san_xuat_qmd.yml'
+        if not config_path.is_file():
+            continue
+        definitions = yaml.safe_load(config_path.read_text(encoding='utf-8'))['extensions']['pdf_variants']
+        for variant, definition in definitions.items():
+            relative = prefix + '/' + definition['output']
+            if relative not in files:
+                continue
+            errors = validate_canonical_pdf_provenance(source_root, source_root / prefix / 'index.qmd', variant=variant)
+            if errors:
+                issues.append({'type':'stale-course-pdf', 'path':relative, 'variant':variant, 'errors':errors})
+            canonical = source_root / relative
+            candidate = public / relative
+            if not canonical.is_file() or not candidate.is_file() or sha256(canonical) != sha256(candidate):
+                issues.append({'type':'course-pdf-bytes', 'path':relative, 'variant':variant})
+    return issues
+
+
+def validate_public(public: Path, manifest: Mapping[str, Any], config: Mapping[str, Any],
+                    *, historical_comparison_only: bool = False) -> dict[str, Any]:
     issues: list[dict[str, Any]] = []
     files = set(manifest["files"])
+    # A baseline is evidence for the source/render diff, never a release tree.
+    # Current and final scoped candidates always enforce current PDF provenance.
+    if not historical_comparison_only:
+        issues.extend(course_pdf_issues(public, files))
     deny = config["denylist"]
     for relative in sorted(files):
         if path_denied(relative, deny["paths"], deny["globs"]):
@@ -873,7 +903,8 @@ def render_to_staging(root: Path, render_dir: Path,
                       tool_root: Path | None = None) -> dict[str, Any]:
     require_public_profile(root)
     launcher = (tool_root or root) / "scripts/zo_quarto.py"
-    command = [sys.executable, str(launcher), "render", "--output-dir", str(render_dir)]
+    command = [sys.executable, str((tool_root or root) / "scripts/zo_python.py"),
+               "-B", str(launcher), "render", "--output-dir", str(render_dir)]
     result = run(command, root)
     matches = re.findall(r"\[\s*\d+/(\d+)\]", result.stdout + result.stderr)
     return {"command": command, "exit_code": result.returncode,
@@ -885,6 +916,16 @@ def published_source_commit(root: Path, target: Path) -> str:
     """Read and validate the source commit recorded by the published target."""
     message = git_text(target, "show", "-s", "--format=%B", "HEAD", safe=target)
     matches = re.findall(r"(?im)^Source-Master:\s*([0-9a-f]{40,64})\s*$", message)
+    if not matches:
+        # A normal Git revert has no Source-Master trailer. Resolve only an
+        # exact restoration of a single-parent published commit's parent tree.
+        # Never infer provenance from dates or a merely similar rendered site.
+        reverted=re.findall(r"(?im)^This reverts commit ([0-9a-f]{40,64})\.$",message)
+        if len(reverted)==1:
+            parents=git_text(target,'show','-s','--format=%P',reverted[0],safe=target).split()
+            if len(parents)==1 and git_text(target,'rev-parse','HEAD^{tree}',safe=target)==git_text(target,'rev-parse',parents[0]+'^{tree}',safe=target):
+                restored=git_text(target,'show','-s','--format=%B',parents[0],safe=target)
+                matches=re.findall(r"(?im)^Source-Master:\s*([0-9a-f]{40,64})\s*$",restored)
     if len(matches) != 1:
         raise ConfigError("Commit gh-pages phải có đúng một trailer Source-Master hợp lệ.")
     commit = git_text(root, "rev-parse", f"{matches[0]}^{{commit}}")
@@ -1116,7 +1157,8 @@ def source_output_scope(root: Path, baseline_commit: str,
 
 
 def build_public_candidate(raw_output: Path, candidate: Path, target: Path,
-                           config: Mapping[str, Any]) -> dict[str, Any]:
+                           config: Mapping[str, Any], *,
+                           historical_comparison_only: bool = False) -> dict[str, Any]:
     """Build and validate the exact public tree without modifying either input tree."""
     if candidate.exists():
         raise ConfigError(f"Thư mục candidate phải chưa tồn tại: {candidate}")
@@ -1153,7 +1195,8 @@ def build_public_candidate(raw_output: Path, candidate: Path, target: Path,
         blocking.append({"type": "candidate-manifest-mismatch", "path": str(candidate)})
     blocking.extend(policy_manifest["issues"])
     blocking.extend(normalization["issues"])
-    validation = validate_public(candidate, public_manifest, config)
+    validation = validate_public(candidate, public_manifest, config,
+                                 historical_comparison_only=historical_comparison_only)
     blocking.extend(validation["issues"])
     blocking.extend(changed_trailing_whitespace(target, candidate, public_manifest))
 
@@ -1756,6 +1799,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                         payload["render_manifest"] = tree_manifest(render_dir)
                         baseline_candidate = build_public_candidate(
                             baseline_render_dir, baseline_public_dir, target, config,
+                            historical_comparison_only=True,
                         )
                         rendered_candidate = build_public_candidate(
                             render_dir, rendered_public_dir, target, config,

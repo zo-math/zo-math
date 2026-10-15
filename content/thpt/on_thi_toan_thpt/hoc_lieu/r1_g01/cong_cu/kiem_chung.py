@@ -1131,7 +1131,7 @@ def check(html):
         support is not None
         and support.name == 'div'
         and norm(support.select_one('p').get_text())
-        == 'Nếu học liệu hữu ích với bạn, bạn có thể ủng hộ ZO Math tiếp tục biên soạn và chia sẻ.'
+        == 'Nếu học liệu hữu ích với bạn, bạn có thể bảo trợ ZO Math tiếp tục biên soạn và chia sẻ.'
         and support.select_one('.r1-brand-mark').get('src') == 'hinh/dau_nhan_zo.svg'
         and support.select_one('.r1-support-qr').get('src').endswith('/assets/images/qr_bao_tro_zo_math_vietcombank.jpg')
         and [norm(x.get_text()) for x in support.select('dd')]

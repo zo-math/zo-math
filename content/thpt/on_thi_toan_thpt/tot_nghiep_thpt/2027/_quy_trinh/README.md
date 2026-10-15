@@ -1,5 +1,16 @@
 # ZO Math — Ôn thi Toán THPT, Ấn bản ôn thi 2027
 
+**PDF D0 ngày 14/10/2026:** chủ trì giao dựng một bản đầy đủ từ QMD hiện tại.
+[Nguồn và lệnh dựng](../../../hoc_lieu/d0/_quy_trinh/README.md).
+Không khôi phục bốn biến thể lịch sử, thay HTML hoặc tự xuất bản.
+Quyết định HTML-only trước đó không cấm tác vụ mới này; trạng thái ở 03.
+
+**DH_038 — nguồn Nhà Quarto native:** sửa trực tiếp `../index.qmd`, không
+sửa template HTML hoặc partial sinh. Hướng dựng/kiểm tại README giao diện
+Nhà; DH_037 giữ kết quả đường học, QD_035 giữ bộ bản xem chủ trì chọn.
+Trạng thái/bản mới/bước tiếp chỉ ở 03. Đây là di trú nguồn, không đổi kiến
+trúc, câu chữ đã chốt hoặc nghiệm thu/phát hành.
+
 **QD_035 — bảo vệ đúng bản chủ trì chọn:** Home tại `_audit/zo_home_refinement_2026-10-12/delivered/home-reading.html`, các trang nó liên kết và runtime là nguồn đối chiếu chính thức không được dọn/xóa hoặc tự thay bằng bản khác. Đọc [danh mục bảo toàn](bao_toan_bon_trang.md) trước dọn; manifest/checkpoint DH_032 nằm ngoài repo. Nguồn dựng vẫn là QMD/template/data/script canonical; không tự hoàn nguyên câu chữ hoặc thay nghiệm thu. Trạng thái và bước tiếp chỉ ở [03](03_dieu_hanh_chuong_trinh.md).
 
 **Điểm vào hiện hành — QD_033:** kiến trúc học tập ở [01](01_kien_truc_hoc_tap.md), cách thể hiện ở [07](07_quy_chuan_cau_truc_trang_nguoi_hoc.md), thẩm quyền ở [08](08_danh_muc_tham_quyen_dieu_hanh.md). **Bài học → Luyện tập → Kiểm tra → Ôn lại là tiến trình chuẩn được khuyến nghị, nhưng không phải điều kiện bắt buộc phải hoàn thành tuần tự**; hỗ trợ độc lập theo ngữ cảnh; lưu bằng chứng khác ghi Nhật kí; link quay lại đề chỉ khi tách vị trí. Công việc, trạng thái và bước tiếp theo chỉ ở [03](03_dieu_hanh_chuong_trinh.md). Các mốc/QA cũ bên dưới giữ để truy nguyên, không chứng nhận QD_033; G01/G02 chưa được đối chiếu lại ở cấp QMD/HTML với quyết định này nên chưa xác định có nội dung nào cần sửa. HTML chờ chủ trì duyệt, PDF chưa đồng bộ, chưa phát hành.
@@ -12,16 +23,21 @@ Hợp nhất và đồng bộ các lớp điều hành theo QD_033 ngày 12/10/2
 
 ### QD_021 — lịch sử triển khai đường học; phần mâu thuẫn được thay bởi QD_033
 
+QD_033 đã được áp dụng vào nguồn/HTML trong phạm vi bốn nhóm hiệu chỉnh
+DH_037; xem 03 và hồ sơ hiện hành để lấy bản mới/bằng chứng. Vẫn chờ
+chủ trì duyệt HTML; không dùng số PASS hoặc các mốc triển khai lịch sử
+bên dưới thay nghiệm thu bản mới. Bộ bản xem QD_035 chưa bị thay thế.
+
 G01 DH_011 từng bị chủ trì bác bỏ sơ đồ; 465/465 giữ làm bằng chứng lịch sử, không chứng nhận quan hệ mới. DH_015 đã áp dụng bản chốt người dùng vào nguồn và dựng HTML cô lập; trạng thái/bằng chứng ở 03 và hồ sơ G01, chưa là chủ trì duyệt HTML. DH_016 đã áp dụng và kiểm G02 theo QD_021/024/025; chưa là nghiệm thu của chủ trì hoặc kiểm toán độc lập toàn gói. Theo QD_022, cổng `scripts/zo_2027_governance_check.py` chọn quy tắc hiện hành theo chủ đề; chỉ kiểm lại phần bị ảnh hưởng, không khóa hiệu chỉnh hoặc hủy toàn bộ QA vì hash tài liệu đổi. Giữ thiết kế 9/10, Nhật kí 14 trường và receipt lịch sử.
 
 Trang Nhà đã nối kit canonical tại DH_017. Nguồn dữ liệu/partial/marker và lệnh dựng cô lập ở `../giao_dien/README_web_2027.md`; đường kiểm `zo_web_2027_home_check.py`. Không dùng preview lịch sử hoặc kiểm launch/PDF cũ chứng nhận bản Nhà mới. Trạng thái và bước tiếp theo chỉ ở 03, không suy quyền phát hành.
 
 ## 1. Định danh và thẩm quyền
 
-D0 đã nối kit qua nguồn opt-in ở DH_018/QD_027, map khảo sát riêng; [lệnh/ranh giới](../../../hoc_lieu/d0/giao_dien/README_web_2027.md). Nội dung/receipt giữ nguyên, giao diện mới chờ chủ trì xem, không kế thừa nghiệm thu cũ hoặc mở cổng PDF nội dung.
+D0 đã nối kit qua nguồn opt-in ở DH_018/QD_027, map khảo sát riêng; [lệnh/ranh giới](../../../hoc_lieu/d0/giao_dien/README_web_2027.md). Nội dung/receipt giữ nguyên, giao diện mới chờ chủ trì xem, không kế thừa nghiệm thu cũ. PDF toàn trang được giao riêng ngày 14/10, không là cổng vào học hoặc điều kiện nghiệm thu HTML.
 
 - Gốc điều hành canonical của khóa 2027: `content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/` (tính từ gốc repository).
-- Nguồn canonical của các gói nằm trong `content/thpt/on_thi_toan_thpt/hoc_lieu/<ma_goi>/`, dùng lại độc lập với năm thi; hiện có D0, R1-G01 và R1-G02. D0 đã có nguồn QMD canonical và là ứng viên HTML-only đã nghiệm thu.
+- Nguồn canonical của các gói nằm trong `content/thpt/on_thi_toan_thpt/hoc_lieu/<ma_goi>/`, dùng lại độc lập với năm thi; hiện có D0, R1-G01 và R1-G02. D0 có QMD canonical, HTML có nghiệm thu lịch sử; PDF mới chưa nghiệm thu.
 - Khóa 2027 đang ở trạng thái chưa xuất bản; các đầu ra đã duyệt đã được mở trong ranh giới ứng viên phát hành.
 - `README.md` này là điểm vào canonical duy nhất. [Bảng điều hành](03_dieu_hanh_chuong_trinh.md) là nơi duy nhất ghi công việc đang mở, trạng thái tổng hợp và việc tiếp theo.
 - Đơn vị quản lí chính thức là các gói học liệu ngang cấp: D0, R1-G01, R1-G02, R1-G03 và các gói tiếp theo.

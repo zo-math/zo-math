@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -16,6 +17,7 @@ from zo_pdf_contract import (
     canonical_variant_input_state,
     pdf_build_receipt_path,
     pdf_output_path,
+    pipeline_input_paths,
     pdf_variant,
     update_canonical_pdf_provenance,
     validate_canonical_pdf_provenance,
@@ -87,10 +89,35 @@ def isolated_project(source: Path, directory: Path) -> Path:
                 target = mirror / path.relative_to(ROOT)
                 target.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(path, target)
+    # Includes outside the package are declared canonical dependencies too.
+    # Copy them explicitly; the mirror must never resolve them from old HTML.
+    for relative in pipeline_input_paths(ROOT, source):
+        target = mirror / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(ROOT / relative, target)
     return mirror
 
 
-def build(source: Path, variant: str = "full") -> int:
+def verify_course_graph_paths(source: Path, text: str | None = None) -> None:
+    if source.parent.name != 'r1_g02':
+        return
+    text = source.read_text(encoding='utf-8') if text is None else text
+    references = re.findall(r'\]\(([^)\s]+\.(?:svg|pdf))\)', text)
+    graphs = [p for p in references if re.fullmatch(r'(?:nen_)?do_thi_\d{2}\.(?:svg|pdf)', Path(p).name)]
+    expected = {'giao_dien/assets/figures_0_4/'+n+'.svg' for n in ['do_thi_01','do_thi_02','nen_do_thi_01','nen_do_thi_02']}
+    if len(graphs) != 4 or set(graphs) != expected:
+        raise ValueError('G02 QMD must select exactly the four current shared graph SVG/PDF pairs.')
+
+
+def build(source: Path, variant: str = "full", preflight: bool = False) -> int:
+    verify_course_graph_paths(source)
+    # Fail before the expensive Quarto render if any current graph pair drifts.
+    if source.parent.name == 'r1_g01':
+        from zo_web_2027_figures import verify_print
+        verify_print()
+    if source.parent.name == 'r1_g02':
+        from zo_web_2027_g02_payloads import verify_print
+        verify_print()
     definition = pdf_variant(ROOT, source, variant)
     destination = output_path(source, variant)
     canonical_provenance = canonical_pdf_provenance_enabled(ROOT, source)
@@ -110,6 +137,8 @@ def build(source: Path, variant: str = "full") -> int:
         "--output-dir",
         temp_relative,
     ]
+    if preflight:
+        command[command.index('--to')+1]='latex'
 
     try:
         build_root = ROOT
@@ -125,6 +154,11 @@ def build(source: Path, variant: str = "full") -> int:
                 )
         if definition:
             metadata = dict(definition.get("metadata", {}))
+            from zo_pdf_course_shell import prepare as prepare_course_shell
+            course_shell = prepare_course_shell(ROOT, build_root, source, definition)
+            if course_shell:
+                metadata["zo-course-pdf-shell"] = True
+                metadata["geometry"] = ["top=22mm", "bottom=22mm", "left=21mm", "right=21mm"]
             metadata["zo-pdf-variant"] = variant
             metadata["zo-pdf-output"] = definition["output"]
             metadata_file = temp_dir / "variant.json"
@@ -135,6 +169,8 @@ def build(source: Path, variant: str = "full") -> int:
             str((ROOT / "assets" / "logo").resolve()),
             str((ROOT / "assets" / "images").resolve()),
         ]
+        if definition and course_shell:
+            tex_resource_dirs.insert(0, str(course_shell['runtime']))
         current_texinputs = environment.get("TEXINPUTS", "")
         environment["TEXINPUTS"] = os.pathsep.join(
             [*tex_resource_dirs, current_texinputs]
@@ -148,6 +184,13 @@ def build(source: Path, variant: str = "full") -> int:
         )
         if completed.returncode != 0:
             return completed.returncode
+
+        if preflight:
+            candidates=list((build_root/'.quarto/pdf_output').rglob(source.stem+'.tex'))
+            if len(candidates)!=1:raise ValueError('Preflight TeX output is missing or ambiguous')
+            shutil.copyfile(candidates[0],AUDIT_DIR/(source.parent.name+'_'+variant+'_preflight.tex'))
+            print('PREFLIGHT PASS: source, projection, current figures and TeX emitted without compiling the book.')
+            return 0
 
         output_root = build_root / '.quarto/pdf_output' if definition else temp_dir
         expected = output_root / source.relative_to(ROOT).with_suffix(".pdf")
@@ -248,7 +291,7 @@ def parser() -> argparse.ArgumentParser:
         description="Dựng PDF opt-in cho một trang QMD mà không render lại HTML."
     )
     subparsers = result.add_subparsers(dest="command", required=True)
-    for name in ("build", "status"):
+    for name in ("build", "status", "preflight"):
         command = subparsers.add_parser(name)
         command.add_argument("source", type=source_path)
         command.add_argument("--variant", default="full")
@@ -261,8 +304,8 @@ def main() -> int:
     if args.command == "self-test":
         return self_test()
     try:
-        if args.command == "build":
-            return build(args.source, args.variant)
+        if args.command in ("build", "preflight"):
+            return build(args.source, args.variant, args.command=='preflight')
         return status(args.source, args.variant)
     except (ValueError, OSError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)

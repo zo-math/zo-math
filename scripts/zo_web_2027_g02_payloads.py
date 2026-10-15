@@ -25,7 +25,18 @@ def vector_dependencies():
     return {p.relative_to(ROOT).as_posix():sha(p) for p in paths}
 
 def build_vectors(output):
-    """Build all five from canonical TeX; never trust a partial/stale SVG cache."""
+    """Reuse only complete verified pairs; otherwise build from canonical TeX."""
+    cache=PACKAGE/'giao_dien/assets/figures_0_4'
+    manifest=cache/'manifest.json'
+    if manifest.is_file():
+        receipt=json.loads(manifest.read_text(encoding='utf-8'))
+        if receipt['inputs']==vector_dependencies() and all((cache/n).is_file() and sha(cache/n)==h for n,h in receipt['assets'].items()):
+            expected={n+ext for n in ['do_thi_01','do_thi_02','nen_do_thi_01','nen_do_thi_02'] for ext in ['.svg','.pdf']}|{'cover-light.svg'}
+            if set(receipt['assets'])==expected:
+                dest=output/'assets/figures04';dest.mkdir(parents=True,exist_ok=True)
+                for name in receipt['assets']:shutil.copyfile(cache/name,dest/name)
+                (dest/'manifest.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+                return receipt
     graph = module('g02_graph04', GRAPH/'zo_graph_build.py')
     destination = output/'assets/figures04'
     destination.mkdir(parents=True,exist_ok=True)
@@ -33,8 +44,9 @@ def build_vectors(output):
     inputs = vector_dependencies()
     for source in sources:
         print('G02 vector',source.stem,flush=True)
-        _,svg = graph.build(graph.parse_args([str(source),'--style','0.4','--check','--force','--out-dir',str(output/'figure-build')]))
+        pdf,svg = graph.build(graph.parse_args([str(source),'--style','0.4','--check','--force','--out-dir',str(output/'figure-build')]))
         shutil.copyfile(svg,destination/svg.name)
+        shutil.copyfile(pdf,destination/pdf.name)
     # Representative G02 image: L02, endpoint comparison and a corner minimum.
     # Transparent artwork; background belongs to the independent cover frame.
     cover_source = PACKAGE/'giao_dien/cover_g02.tex'
@@ -42,13 +54,24 @@ def build_vectors(output):
         '--surface','transparent-light','--check','--force','--out-dir',str(output/'cover-build')]))
     shutil.copyfile(cover,destination/'cover-light.svg')
     if inputs!=vector_dependencies():raise ValueError('G02 vector inputs changed during build')
-    expected={p.stem+'.svg' for p in sources}|{'cover-light.svg'}
-    assets={p.name:sha(p) for p in destination.glob('*.svg')}
+    expected={p.stem+ext for p in sources for ext in ['.svg','.pdf']}|{'cover-light.svg'}
+    assets={p.name:sha(p) for p in destination.iterdir() if p.suffix in ['.svg','.pdf']}
     if set(assets)!=expected:raise ValueError('Incomplete G02 vector build')
     receipt={'profile':'0.4','inputs':inputs,'assets':assets,'cover_surface':'transparent-light',
              'fresh_all_five':True,'learning_pdf_built':False,'canonical_cache_used':False}
     (destination/'manifest.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+    cache.mkdir(parents=True,exist_ok=True)
+    for name in assets:shutil.copyfile(destination/name,cache/name)
+    shutil.copyfile(destination/'manifest.json',manifest)
     return receipt
+
+def verify_print():
+    cache=PACKAGE/'giao_dien/assets/figures_0_4'
+    receipt=json.loads((cache/'manifest.json').read_text(encoding='utf-8'))
+    expected={n+ext for n in ['do_thi_01','do_thi_02','nen_do_thi_01','nen_do_thi_02'] for ext in ['.svg','.pdf']}|{'cover-light.svg'}
+    if receipt['inputs']!=vector_dependencies() or set(receipt['assets'])!=expected or not all((cache/n).is_file() and sha(cache/n)==h for n,h in receipt['assets'].items()):
+        raise ValueError('G02 current paired figures missing or stale: regenerate before any book PDF render.')
+    return cache,receipt
 
 def apply(page,output, *, document=None):
     doc=document if document is not None else BeautifulSoup(page.read_text(encoding='utf-8'),'html.parser')
@@ -79,7 +102,12 @@ def apply(page,output, *, document=None):
         native=BeautifulSoup(variation.render_record(record,fragments),'html.parser').select_one('table')
         native.caption.string=caption.get_text(' ',strip=True)
         viewport=figure.select_one('.figure-viewport')
-        viewport.select_one('img').decompose()
+        if viewport is None:
+            viewport=doc.new_tag('div',attrs={'class':'figure-viewport'})
+            for child in list(figure.contents):viewport.append(child.extract())
+            figure.append(viewport)
+        old_image=viewport.select_one('img')
+        if old_image:old_image.decompose()
         figure.select_one('.visually-hidden').decompose()
         viewport.append(native)
         viewport['class']+=['zo-figure-scroll']

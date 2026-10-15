@@ -1,5 +1,39 @@
 # Lịch sử điều hành
 
+## 14/10/2026 — khung PDF chung D0 và bản đầy đủ R1-G01
+
+Theo yêu cầu trực tiếp của chủ trì, ZO031 ghi nhận trang đầu, trang cuối,
+header/footer của mẫu D0 đã duyệt là khung chung cho các gói học liệu.
+Đã đưa khung ấy vào nguồn TeX dùng chung và dựng R1-G01 đầy đủ 79 trang.
+Đã xem toàn bộ màu/sắc xám, kiểm kĩ thuật 13/13; hồ sơ tại
+`content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/_quy_trinh/ho_so/pdf_full_review.json`.
+Nguồn và số trang đã đồng bộ, ảnh trung gian được dọn; bản đầy đủ chờ
+chủ trì duyệt trước bảy biến thể còn lại. Không suy rộng thành nghiệm thu
+R1-G01, đổi phiên bản thiết kế hoặc xuất bản website.
+
+## 14/10/2026 — DH_044: mẫu duyệt thành PDF D0 đầy đủ
+
+Chủ trì duyệt mẫu dàn 9 trang và giao đồng bộ nguồn, quy tắc, dọn rác,
+dựng PDF dùng cho xuất bản. Hồ sơ in độc lập đã được đưa vào D0: 20 trang
+từ QMD, đủ Bài 00, 24 đề/đối chiếu, bảng mạch và trang kết. Bộ chiếu lấy
+Ủng hộ tươi từ HTML; hướng dẫn ghi nhận chuyển lên đầu, đoạn lời chỉ dẫn
+trùng nhau trong 24 lời giải được gộp sau khi kiểm đồng nhất. Đã xem 20
+trang màu/sắc xám, checker nguồn/PDF/lưới/link/font/metadata đạt. PDF
+đầy đủ chờ nghiệm thu riêng; chưa in giấy/quét QR hoặc xuất bản website.
+Bằng chứng current ở D0 `pdf_build.json`/`pdf_review.json`, quy tắc ở
+`04_ap_dung/06_pdf_bo_cuc_doc_lap.md`.
+
+## 14/10/2026 — PDF toàn trang Khảo sát đầu vào
+
+Chủ trì giao dựng PDF của D0. Nguồn vẫn là QMD hiện tại; không dùng HTML/PDF
+lịch sử làm nguồn hoặc khôi phục bốn biến thể. Lớp PDF cục bộ dùng màu/logo/font
+0.4, bảng native đủ lưới, hình vector hiện có và liên kết canonical. Bìa/ruột/kết
+được dựng từ nguồn; không đổi nội dung, HTML hoặc nguồn ba trang còn lại.
+Checker đảo đúng metadata PDF trong bộ nhớ để tiếp tục so toàn nguồn đã duyệt,
+không thay receipt cũ. Builder cô lập trung gian và tự dọn cây dựng.
+Kết quả kiểm và công việc hiện hành chỉ ở bảng 03, receipt của D0; mẫu vẫn chờ
+chủ trì xem, không nghiệm thu toàn thiết kế 0.4/0.5 hoặc xuất bản.
+
 ## 10/10/2026 — QD_022: chống quy tắc cũ, cho phép hiệu chỉnh
 
 Chủ trì làm rõ mục tiêu: không tái áp dụng quy tắc đã bị thay; không khóa sửa chữa hợp lệ. 02/1.2 và registry/guard chuyển sang quy tắc hiện hành theo chủ đề; hash chỉ ghi provenance. Chỉ kiểm lại phần bị ảnh hưởng, không hủy mọi QA. Đường học QD_021 và lỗi RD01/RD06 còn mở; không sửa học liệu, mẫu, runtime, HTML/PDF hoặc Git. Bằng chứng: `_audit/zo_2027_quy_tac_thay_the_QD022_2026-10-10/governance-qa.json`; trạng thái/bước tiếp chỉ ở 03. Dòng QD_021 bên dưới giữ lịch sử, cơ chế hủy toàn bộ theo fingerprint đã được QD_022 thay thế.
@@ -344,3 +378,58 @@ không push/phát hành/Design 0.5 và không thay các checkpoint đã niêm ph
 
 Kiểm mới và thao tác Git chỉ được nhận đạt theo receipt trong
 `_audit/zo_preservation_commit_20261013/`; trạng thái và bước tiếp chỉ ở 03.
+
+## 2026-10-14 — DH_042: hướng dẫn PDF và D0
+
+Chủ trì giao bổ sung/cụ thể hóa hướng dẫn PDF từ 0.4 rồi dựng lại từ QMD.
+Cập nhật 04_ap_dung/06_pdf.md và con trỏ thích ứng phương tiện; không sửa
+nguồn/mẫu khóa 06/07 hoặc khóa 0.5. D0 có bìa/kết đủ thông tin, bảng dấu
+native, guard raster ngang/dọc với hai ca âm, tiêu đề lời giải và số trang
+đích. QMD/JSON toán giữ nguyên; PDF 24 trang đã kiểm nguồn, bảo toàn 48/48,
+font/đích/metadata và xem màu/sắc xám. Chưa in giấy/quét QR/duyệt/phát hành.
+Nguồn/guard ở README D0, bằng chứng pdf_review.json; trạng thái chỉ ở 03.
+
+## 2026-10-14 — DH_044 / ZO031: bố cục PDF độc lập
+
+Chủ trì giao footer HTTPS giữa, Ủng hộ theo component HTML nguồn và nghiên
+cứu quy cách dàn nội dung PDF từ bốn trang/0.4. Đã đọc/xem DH_043, cập nhật
+sổ/quy tắc/hướng dẫn, bổ sung hợp đồng bố cục và cơ chế mẫu từ AST QMD.
+Mẫu 10 trang có bốn đề/bốn đối chiếu, bảng/hình, trích bảng mạch và bìa/kết.
+Kiểm link/vị trí footer từng trang, font/đích/tính tươi, năm bảng raster;
+ca âm footer và ca thay lời/tài khoản/màu HTML hoặc thiếu trường đạt.
+Đã xem mọi trang màu/sắc xám; chưa in/quét QR/duyệt/phát hành. QMD/HTML,
+PDF D0 đầy đủ và tài sản khóa giữ nguyên. Trạng thái/bước tiếp chỉ ở 03.
+
+### DH_044 — sửa ngay trên mẫu theo phản hồi bố cục
+
+Chủ trì yêu cầu ghi đè mẫu. Đề trở về một cột; bốn đối chiếu được dàn
+trọn trên hai trang, kết quả lấy nguyên từ nguồn đặt trước lời giải,
+nhận xét/ôn lại có vùng nền nhẹ; gộp đoạn hướng dẫn trùng nhau một lần.
+Mẫu mới 9 trang đã xem màu toàn bộ, kiểm font/link/footer/HTML/lưới bảng
+đạt và thêm guard bắt lưu ý rơi trang. Không tạo bản PDF thứ hai.
+
+### DH_044 — thay mẫu bị chủ trì đánh giá 4/10
+
+Ghi nhận mẫu trước không đạt. Chủ trì yêu cầu nhãn hình cùng cỡ chữ ngoài,
+dấu chấm tròn giữa bài/mạch, không lạm dụng kẻ ngang, khối nền đúng 0.4,
+trang cuối hai cột và khung Ủng hộ. Mẫu ghi đè mới dùng nhãn hình chính
+11 pt tính từ font vector nguồn; tám nhãn có •; bỏ nền nhận xét/kẻ giữa
+bài; trang kết học tiếp trái, Ủng hộ trong khung trắng/gray-3 bên phải.
+Giữ nguồn HTML cho nội dung Ủng hộ. Kiểm nguồn, bảng, footer và guard mới
+đạt; đã xem các trang chịu tác động. Không tự chuyển đánh giá thành đạt.
+
+Trang cuối được sửa tiếp sau phản hồi sai yêu cầu: hai cột chỉ dành cho
+lời dẫn học tiếp và QR; khung Ủng hộ độc lập bên dưới, rộng toàn vùng đọc.
+Đã dựng ghi đè, xem trang cuối và cập nhật guard vị trí/link. Chờ chủ trì
+xem lại; không coi kết quả kiểm máy là xác nhận cách hiểu yêu cầu.
+
+### 15/10/2026 — đồng bộ bộ xuất bản bốn trang
+
+Chủ trì duyệt thiết kế và yêu cầu dựng 14 biến thể, rồi yêu cầu xuất bản
+Nhà/D0/R1-G01/R1-G02 lên zomath.vn. Bộ 16 PDF R1 hiện hành đạt 17/17
+phép kiểm mỗi tệp; full G01 80 trang, full G02 61 trang. Nguồn hình HTML/PDF,
+số trang và trạng thái thẻ tải đã đồng bộ. Khung PDF giữ thiết kế D0 đã duyệt.
+Đã xem màu mọi trang hoặc đối chiếu pixel vùng thân đã xem; kiểm xám đại diện
+từng biến thể, hình/bảng và trang cuối. Chưa in giấy/quét QR/phản biện toán độc lập.
+Trạng thái triển khai và việc tiếp theo chỉ thuộc bảng 03 của khóa; mục này
+không tạo roadmap song song. Các receipt 79/58 trang trước đây là lịch sử.

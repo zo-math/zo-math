@@ -22,7 +22,7 @@
         <p class="brand-thought">$brand_thought</p>
       </div>
       <div id="rail-content">$navigation</div>
-      <a class="rail-support" href="#ung-ho">Ủng hộ ZO Math ↗</a>
+      <a class="rail-support" href="#ung-ho">Bảo trợ ZO Math ↗</a>
     </aside>
     <main id="reading" tabindex="-1">
       <div class="breadcrumb"><a href="$home_href">Nhà khóa 2027</a><span>/</span>$breadcrumb</div>

@@ -410,7 +410,7 @@ def build_inventory(data, base):
                             placement_rows=sum(r["kind"] == "semantic_placement" for r in rows),
                             prose_tables=sum(bool(r.get("anchor", "") and r["anchor"].startswith("r1-table-t")) for r in rows),
                             native_variation_tables=len({c["id"] for c in components}), native_variation_placements=len(components),
-                            graph_assets=len({a["target"] for a in assets if a["target"].startswith("hinh/do_thi_")}),
+                            graph_assets=len({a["target"] for a in assets if re.fullmatch(r"giao_dien/assets/figures_0_4/do_thi_\d{2}\.svg", a["target"])}),
                             canonical_includes=len({i["source"] for i in includes}), include_placements=len(includes), references=len(references)),
                 open_decisions=data["open_decisions"])
 

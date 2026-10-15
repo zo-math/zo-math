@@ -1,6 +1,18 @@
 # Hợp đồng vùng đọc của mẫu web 2027
 
-**Home DH_028:** template biên tập mới và profile `editorial-home-2027` thay
+**Home 14/10/2026:** riêng sáu vùng đọc lớn được chủ trì giao bố cục mới
+trắng/xám trắng rất nhẹ xen kẽ; không áp giấy trắng tuyệt đối của R1 lên
+Home hoặc đổi khối toán. Giới thiệu thuộc hero; Cách học đứng ngay sau
+danh mục. Hàng Cách học là các khung toàn chiều ngang, không bốn cột;
+kiến thức/FAQ giữ từng hàng độc lập. Học trực tiếp giữ minh họa và điểm
+nhấn đã duyệt. QMD sở hữu thứ tự/câu chữ/ảnh, CSS Home sở hữu hình thức;
+nguồn ảnh quản lý ở khóa, bản thử audit chỉ để đối chiếu. Thẻ CTA-only và
+các chức năng khác giữ nguyên, không đổi hợp đồng D0/R1 hoặc PDF.
+
+**Home DH_038:** nội dung biên tập native ở `2027/index.qmd`; ba component
+dữ liệu sinh chỉ dành cho đồng hồ/danh mục/mạch kiến thức. Binding
+`zo_home_qmd.py` giữ cây DOM/ID/heading/alt/summary đã có; không đặt câu chữ
+trong template hay toàn trang raw HTML. DH_028 trước đó và profile `editorial-home-2027` thay
 nhóm đọc/ảnh bìa Home DH_017 trong đúng phạm vi trang Nhà; giấy trắng/font/
 token/logo vẫn theo 0.4, không ép map vùng R1 lên trang Nhà. Nội dung từ
 Quarto tươi được kiểm projection trước đổi shell; thẻ danh mục lấy metadata

@@ -1,4 +1,4 @@
-"""Explicit G01 HTML figure profile; source math and PDF assets remain intact."""
+"""G01 shared figure profile: paired SVG/PDF from identical TeX/style/labels."""
 from __future__ import annotations
 import argparse
 import copy
@@ -64,7 +64,7 @@ def build(output, force=False, reuse_graphs=False):
             variation=module('variation_refresh',VARIATION/'zo_variation_html.py')
             variation.load_data(PACKAGE/config['variation_source'])
             receipt['native_variation_dependency_refreshed']=True
-        expected={name+'.svg' for name in config['graphs']}|{'cover-light.svg','cover-dark.svg'}
+        expected={name+ext for name in config['graphs'] for ext in ['.svg','.pdf']}|{'cover-light.svg','cover-dark.svg'}
         if set(receipt['assets'])!=expected:raise ValueError('Incomplete vector cache.')
         for name,digest in receipt['assets'].items():
             if sha(destination/name)!=digest:raise ValueError('Vector cache changed: '+name)
@@ -84,6 +84,7 @@ def build(output, force=False, reuse_graphs=False):
         if force: command += ['--force']
         pdf, svg = graph.build(graph.parse_args(command))
         generated[svg.name] = svg
+        generated[pdf.name] = pdf
     for surface, name in [('transparent-light','cover-light'),('transparent-dark','cover-dark')]:
         command=[str(GRAPH/'mau/cover_cubic_04.tex'),'--style','0.4','--surface',surface,
                  '--check','--out-dir',str(output/name)] + (['--force'] if force else [])
@@ -111,6 +112,21 @@ def verify(config):
     for name,digest in receipt['assets'].items():
         if sha(directory/name)!=digest: raise ValueError('Web SVG changed: '+name)
     return directory,receipt
+
+def verify_print():
+    config=json.loads(CONFIG.read_text(encoding='utf-8'))
+    directory,receipt=verify(config)
+    expected={name+ext for name in config['graphs'] for ext in ['.svg','.pdf']}|{'cover-light.svg','cover-dark.svg'}
+    if set(receipt['assets'])!=expected:
+        raise ValueError('Incomplete shared graph pairs: rebuild figures before any PDF render.')
+    verify_print_source((PACKAGE/'index.qmd').read_text(encoding='utf-8'),config)
+    return directory,receipt
+
+def verify_print_source(text,config):
+    references=re.findall(r'\]\(([^)]+do_thi_\d{2}\.svg)\)',text)
+    expected={config['asset_directory']+'/'+name+'.svg' for name in config['graphs']}
+    if set(references)!=expected or len(references)!=len(expected):
+        raise ValueError('QMD graph references must select exactly the current shared SVG/PDF pairs; legacy paths are forbidden.')
 
 def apply(target, page, output_root):
     """Replace only figure payloads after the strict accepted-layout guard."""
@@ -157,7 +173,8 @@ def apply(target, page, output_root):
         native=BeautifulSoup(variation.render_record(record,fragments),'html.parser').select_one('table')
         # Preserve the learner-facing QMD caption, not the internal JSON title.
         native.caption.string=caption_text
-        viewport.select_one('img').decompose()
+        old_image=viewport.select_one('img')
+        if old_image:old_image.decompose()
         figure.select_one('.visually-hidden').decompose()
         if caption.parent is viewport:
             caption.insert_before(copy.deepcopy(native))

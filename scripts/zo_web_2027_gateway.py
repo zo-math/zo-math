@@ -33,4 +33,5 @@ def adapt(path,output_root):
     doc.select_one('.lab-link').string='ZO Math'
     rail=doc.select_one('.rail-support');rail['href']=home;rail.string='Nhà khóa 2027 ↗'
     trigger=doc.select_one('.mobile-trigger');trigger['aria-label']='Mở mục lục các ấn bản';trigger.select_one('.mobile-view').decompose()
-    path.write_text(str(doc),encoding='utf-8');return True
+    from zo_course_html import write
+    write(path,doc);return True

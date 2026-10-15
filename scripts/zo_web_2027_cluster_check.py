@@ -26,8 +26,8 @@ def snapshot(out):
         source=ROOT/BASE/'hoc_lieu'/package
         shutil.copytree(source,out/'source-before'/package,ignore=shutil.ignore_patterns('*_files','__pycache__'))
     shutil.copyfile(ROOT/BASE/'hoc_lieu/r1_g01/giao_dien/web_2027_layout.json',out/'g01-layout-before.json')
-def render(out,phase,resume=False):
-    mirror=out/phase/'r1_g01-raw'
+def render(out,phase,resume=False,html_only=False):
+    mirror=(out/phase/'r1_g01-raw').resolve()
     if mirror.exists() and not resume:raise ValueError('Use a fresh phase directory')
     skip=shutil.ignore_patterns('__pycache__','.quarto','*_cache','*_files','.ipynb_checkpoints')
     for name in ['scripts','assets','quy_trinh_xay_dung','projects','_projects','figures','images','content/thpt/on_thi_toan_thpt','content/support','_design/web_2027_mau_dung_chung','_design/ngon_ngu_thiet_ke_zo_math_0_4/07_mau_thi_giac']:
@@ -38,15 +38,16 @@ def render(out,phase,resume=False):
         for p in (ROOT/folder).glob('_metadata.*'):
             if not resume:(mirror/folder).mkdir(parents=True,exist_ok=True);shutil.copyfile(p,mirror/folder/p.name)
     # Raw evidence deliberately bypasses only the opt-in post-render adapter.
-    config=yaml.safe_load((mirror/'_quarto.yml').read_text(encoding='utf-8'))
-    config['project']['post-render']=[]
-    (mirror/'_quarto.yml').write_text(yaml.safe_dump(config,allow_unicode=True,sort_keys=False),encoding='utf-8')
+    # Keep canonical configuration byte-identical, including PDF provenance.
+    # The opt-in hook skips adaptation only in this indexed raw-HTML mirror.
     shutil.copyfile(ROOT/'.git/index',mirror/'isolated.index')
-    env=dict(os.environ,GIT_DIR=str(ROOT/'.git'),GIT_WORK_TREE=str(mirror),GIT_INDEX_FILE=str(mirror/'isolated.index'))
+    (mirror/'_audit').mkdir(exist_ok=True)
+    env=dict(os.environ,GIT_DIR=str(ROOT/'.git'),GIT_WORK_TREE=str(mirror),GIT_INDEX_FILE=str(mirror/'isolated.index'),ZO_COURSE_RAW_HTML_ONLY='1')
     names=['g01','g02'] if phase=='before' else list(PAGES)
     for name in names:
         cmd=['python','scripts/zo_python.py','scripts/zo_qmd.py' if name in ['g01','g02','d0'] else 'scripts/zo_quarto.py','render',str(PAGES[name].with_suffix('.qmd'))]
         if name in ['home','gateway']:cmd+=['--profile','on-thi-preview','--to','html']
+        elif html_only:cmd+=['--html-only']
         with (mirror/(name+'-render.log')).open('w',encoding='utf-8') as log:
             rc=subprocess.run(cmd,cwd=mirror,env=env,stdout=log,stderr=subprocess.STDOUT).returncode
         if rc:raise RuntimeError(name+' render failed: '+str(mirror/(name+'-render.log')))

@@ -21,7 +21,7 @@ Các đường dẫn dưới đây tính từ gốc repo:
 
 | Trang | Nguồn chính thức | Phần phải giữ cùng nguồn |
 |---|---|---|
-| Nhà | `content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.qmd` | `_data/chuong_trinh.yml`, `giao_dien/trang_nha.html.tpl`, `giao_dien/`, `assets/illustrations/`, `_partials/chuong_trinh.qmd` (đầu ra sinh, không biên tập trực tiếp) |
+| Nhà | `content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.qmd` (nội dung native, DH_038) | `_data/chuong_trinh.yml`, `giao_dien/`, `assets/illustrations/`, ba partial sinh `_partials/home_countdown.qmd`, `home_catalog.qmd`, `home_strands.qmd`, binding `scripts/zo_home_qmd.py` và kit Home; không biên tập trực tiếp partial |
 | Khảo sát đầu vào | `content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.qmd` | Dữ liệu, hình, công cụ, cấu hình/hồ sơ và receipt nội dung duyệt trong toàn cây `d0/` |
 | Đơn điệu và cực trị | `content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.qmd` | Dữ liệu, TeX/hình, binding/layout, công cụ, cấu hình/hồ sơ, receipt lịch sử trong toàn cây `r1_g01/` |
 | Giá trị lớn nhất và giá trị nhỏ nhất | `content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/index.qmd` | Dữ liệu, TeX/hình và provenance bộ hình, binding/layout, công cụ, cấu hình/hồ sơ trong toàn cây `r1_g02/` |
@@ -29,6 +29,14 @@ Các đường dẫn dưới đây tính từ gốc repo:
 Phụ thuộc cần giữ: `hoc_lieu/_dung_chung/` (Ôn nền và Nhật kí), bộ điều hành khóa `_quy_trinh/`, các `AGENTS.md`/metadata trên đường dẫn; `_design/web_2027_mau_dung_chung/`, `_design/ngon_ngu_thiet_ke_zo_math_0_4/`; `scripts/`, `assets/`, `figures/`, `quy_trinh_xay_dung/` và cấu hình gốc. Các thư mục dùng chung được sao lưu bảo thủ; danh mục này không tuyên bố mọi tệp đều là phụ thuộc chạy trực tiếp. Không loại tệp khỏi danh sách chỉ vì chưa được Git theo dõi hoặc bị ignore.
 
 ## Checkpoint và bản xem
+
+DH_038 di trú nguồn Nhà theo yêu cầu chủ trì, không thay bộ bản xem QD_035
+hoặc sửa checkpoint cũ. Hai nguồn cũ `giao_dien/trang_nha.html.tpl` và
+`_partials/chuong_trinh.qmd` nghỉ dùng được sao lưu ngoài repo tại
+`E:/zo_math_ca_nhan/legacy_backup_archive/ZO_MATH_HOME_QMD_MIGRATION_20261013`;
+chỉ gỡ sau kiểm SHA-256 bản lưu và tương đương nội dung/DOM bản QMD mới.
+Manifest checkpoint cũ tiếp tục chứng nhận snapshot tại mốc đó, không yêu
+cầu phục hồi nguồn cũ vào đường build mới. Không xóa các bản xem/runtimes cũ.
 
 - Thư mục ngoài repo: `E:/zo_math_ca_nhan/checkpoints/DH030_20261012_BON_TRANG`; ZIP nằm cạnh, cùng tên gốc.
 - `manifest.json`: danh sách chính xác từng tệp/vai trò/kích thước/SHA-256/tình trạng Git; `payload/` giữ đường dẫn tương đối.

@@ -1,5 +1,15 @@
 # D0 — hợp đồng nguồn canonical cho chuyển đổi
 
+## Bổ sung PDF toàn trang — 14/10/2026
+
+Yêu cầu trực tiếp mới của chủ trì cho phép dựng một `index.pdf` từ
+`index.qmd` hiện tại, chứa toàn bộ nội dung công khai, kể cả hướng dẫn đối
+chiếu. Phần HTML-only ở mục 6 bên dưới ghi lại quyết định 03/10; không còn
+cấm đầu ra PDF toàn trang được giao lần này. Không khôi phục bốn vai trò PDF,
+ngân hàng thử lại hoặc hướng dẫn người tổ chức. Không thay receipt lịch sử,
+không tự nghiệm thu hoặc xuất bản PDF. Phạm vi máy đọc:
+`manifest_chuyen_doi.yml → pdf_delivery_20261014`.
+
 ## Bổ sung DH_018 / QD_027 — 11/10/2026
 
 Nguồn nội dung/receipt bên dưới không thay. Opt-in `zo-web-2027-d0` dựng qua

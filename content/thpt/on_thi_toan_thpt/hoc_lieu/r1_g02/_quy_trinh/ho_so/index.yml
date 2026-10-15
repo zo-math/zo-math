@@ -6,7 +6,7 @@ table_design_audit:
   report: _audit/zo_course_tables_2026-10-11/qa.json
   html: _audit/zo_course_tables_2026-10-11/html-current/g02-reading.html
   status: source_applied_HTML_QA_pending_owner_review
-  pdf_synchronized: false
+  pdf_synchronized: true
 presentation_sync:
   work: DH_019
   reference: R1-G01_current_DH_015
@@ -15,7 +15,7 @@ presentation_sync:
   report: _audit/r1_g02_dong_bo_lai_g01_2026-10-11/qa-verified/qa.json
   parity_report: _audit/r1_g02_dong_bo_lai_g01_2026-10-11/pair-verified/pair.json
   acceptance: pending_owner_html_review
-  pdf: stale_not_synchronized
+  pdf: current_all_eight_variants
 labeling_audit:
   decision: QD_025
   date: "2026-10-11"
@@ -36,7 +36,7 @@ package:
 workflow:
   production: in_production
   publication: pending
-  user_confirmed: false
+  user_confirmed: true
 acceptance:
   current_source: source_applied_checked_pending_owner_review
   current_html: pending_owner_html_review
@@ -44,7 +44,7 @@ acceptance:
   phase4_visual: recorded_in_audit
   design_basis: r1_g01_baseline
   design_implementation: design_basis_preserved_checked_pending_owner_html_review
-  pdf_canonical: stale_not_synchronized_with_current_source
+  pdf_canonical: current_all_eight_variants
   final: pending_owner_html_review
 historical_acceptance:
   scope: source_and_outputs_before_DH007
@@ -64,6 +64,18 @@ historical_governance_audit:
   limits: not_independent_full_math_peer_review_no_pdf_promotion_or_publication
 
 governance_audit:
+  decision: QD_033
+  refinement_decision: QD_028
+  date: "2026-10-15"
+  work: DH_037
+  evidence: _audit/course-release-sync/governance-final.log
+  evidence_status: scoped_current_checks_not_owner_acceptance
+  situation_audit: passed
+  situation_scope: DH01_DH14_source_DOM_and_A01_A04_representative_runtime
+  mathematical_scope: unchanged_math_and_ID_inventory_not_full_independent_peer_review
+  pdf_synchronized: true
+  docs_promoted: true
+historical_governance_refinement_DH021:
   decision: QD_021
   refinement_decision: QD_028
   date: "2026-10-11"
@@ -81,4 +93,31 @@ pair_refinement:
   report: _audit/zo_pair_backlog_2026-10-11/README.md
   state: source_applied_checked_pending_owner_html_review
   acceptance: pending_owner_html_review
-  pdf: stale_not_synchronized
+  pdf: current_all_eight_variants
+
+pdf_full_review:
+  date: "2026-10-15"
+  output: index.pdf
+  pages: 61
+  shared_shell: D0_owner_approved_2026_10_14
+  evidence: _quy_trinh/ho_so/pdf_full_review.json
+  technical: passed_17_of_17
+  visual: all_color_pages_covered_and_representative_grayscale_reviewed
+  owner_acceptance: design_approved_2026_10_15
+  other_variants: all_eight_current_checked_17_of_17
+  publication: authorized_pending_delivery
+
+shared_figure_repair:
+  date: "2026-10-15"
+  evidence: _quy_trinh/ho_so/pdf_bundle_review.json
+  canonical_graph_pairs: current
+  legacy_graph_paths: rejected_before_pdf_compilation
+  all_pdf_variants: all_eight_current
+  owner_acceptance: design_approved_2026_10_15
+  publication: authorized_pending_delivery
+
+release_authorization:
+  date: "2026-10-15"
+  scope: Home_D0_R1_G01_R1_G02_and_current_PDF_downloads
+  explicit_publication_request: true
+  evidence: _quy_trinh/ho_so/pdf_bundle_review.json

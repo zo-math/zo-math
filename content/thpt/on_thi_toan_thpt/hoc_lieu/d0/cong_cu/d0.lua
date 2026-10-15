@@ -11,7 +11,31 @@ local variation = assert(loadfile(pandoc.path.join({script_dir,
 })
 
 function Div(div)
-  if div.classes:includes('zo-variation') then return variation.render(div) end
+  if div.classes:includes('zo-variation') then
+    if FORMAT:match('latex') then
+      local file = assert(io.open(pandoc.path.join({script_dir, '../du_lieu/bang_bien_thien.json'})))
+      local data = pandoc.json.decode(file:read('*a')); file:close()
+      for _, item in ipairs(data) do
+        if item.id == div.attributes.bbt then
+          local out = {'\\begin{center}\\renewcommand{\\arraystretch}{1.6}',
+            '\\arrayrulecolor{zoGrid}\\setlength{\\arrayrulewidth}{.5pt}',
+            '\\begin{tabular}{|'..string.rep('c|', #item.rows[1])..'}\\hline'}
+          for _, row in ipairs(item.rows) do
+            local cells = {}
+            for _, cell in ipairs(row) do
+              local value = cell:gsub('−', '-'):gsub('∞', '\\infty'):gsub('′', "'")
+              cells[#cells+1] = '$'..value..'$'
+            end
+            out[#out+1] = table.concat(cells, ' & ')..' \\\\ \\hline'
+          end
+          out[#out+1] = '\\end{tabular}\\par\\smallskip{\\small '..item.title..'}\\end{center}'
+          return pandoc.RawBlock('latex', table.concat(out, '\n'))
+        end
+      end
+      error('Unknown D0 variation ID: '..tostring(div.attributes.bbt))
+    end
+    return variation.render(div)
+  end
   if html and div.classes:includes('d0-private') then
     return {}
   end

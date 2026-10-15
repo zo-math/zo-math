@@ -1,5 +1,83 @@
 # Kiểm và bàn giao mẫu web 2027
 
+## GRAY-NAV01 — mục lục phải ở lại khi cuộn trong chế độ xám
+
+Triệu chứng được chủ trì báo ngày 14/10/2026: điều hướng trang biến mất
+khi cuộn về cuối trong chế độ xám–trắng. Nguyên nhân là `filter` trên
+`body` đổi containing block của phần tử fixed, khiến rail cuộn theo trang.
+Sửa canonical tại `web-shell.css`: lọc trên `html.grayscale`, giữ toàn bộ
+trang sắc xám và vị trí điều hướng theo viewport. Không lọc body hoặc
+tổ tiên bao thanh điều hướng cố định.
+
+`scripts/zo_web_2027_grayscale_check.py` kiểm trình duyệt thật trên D0,
+G01/G02 (Bài học), sáu nền, desktop 1440/1000, đầu/giữa/95%/cuối trang:
+rail nhìn thấy, bấm được, geometry như bản màu, toolbar còn ở đầu viewport.
+Mobile 390 kiểm drawer ở cuối trang và Escape. Fixture âm đưa lại filter
+trên body phải làm phép kiểm thất bại, bỏ fixture phải phục hồi.
+`zo_web_2027_bundle.py build` bắt buộc chạy guard này trước bàn giao.
+Kiểm chỉ bật/tắt xám ở đầu trang trước đây không đủ để bắt lỗi này.
+
+## HOM-S01 — ghép Nhà mới với học liệu cũ và đổi ảnh bìa trên mobile
+
+Triệu chứng: Home dịch vụ mới lấy ba đích từ `_audit/home-preview`, bỏ qua
+lượt nguồn/hover đã sửa ở DH_039; đồng thời breakpoint 760px đổi bìa 3x4
+sang một bản 1x1 khác. Nguyên nhân nằm ở khâu chọn ứng viên preview và
+hợp đồng hai ảnh của QMD/profile/normalizer/CSS, không ở nội dung toán.
+
+Sửa canonical: Home chỉ khai một ảnh 3x4; normalizer/checker từ chối ảnh
+thứ hai, CSS không ẩn ảnh này trên mobile, profile chọn đúng ảnh và minh
+họa dịch vụ mới. Bộ xem dùng `zo_web_2027_bundle.py` dựng mới cả bốn trang
+từ một snapshot; không nhận HTML lịch sử làm nội dung. Manifest khóa nguồn,
+HTML và từng tài nguyên; kiểm đích menu/thẻ/quay lại trong cùng bộ. Ca âm
+nguồn lệch bị bắt, thiếu/thay ảnh vẫn bị guard Home từ chối. Dọn mirror và
+tài nguyên delivery không được dùng sau dựng; không dọn QD_035.
+
+Hai kiểm câu chữ cũ được thay bằng kiểm đúng vùng hỗ trợ hiện hành (trợ
+giúp linh hoạt rồi quay lại chỗ dừng) và danh mục thật: tám mạch không giả
+link mở học liệu, thẻ khớp mã gói canonical. Không sửa lời văn để đạt kiểm.
+Kết quả/giới hạn và chủ trì duyệt/phát hành phân biệt tại bảng 03.
+
+## Home — HOM-L01, chuyển bố cục đọc đã duyệt vào nguồn, 14/10/2026
+
+Nguồn là QMD native/CSS Home/generator, không HTML mẫu. Mẫu thử chỉ dùng
+đối chiếu; SVG học trực tiếp được chép vào tài nguyên khóa, kiểm SHA-256
+khớp trước khi nạp qua Markdown. Không tạo include hay runtime audit.
+Normalizer giữ class layout do QMD khai, chuẩn hóa ảnh/caption thành một
+ảnh có alt/kích thước; không chứa câu chữ biên tập. Giữ CTA-only của HOM-C01.
+
+Guard thay đúng phép kiểm bố cục cũ: intro trong hero, catalog rồi Cách học,
+sáu panel xen trắng/xám, không nhãn động từ; bốn hàng Cách học đủ heading/
+hai đoạn, tám mục kiến thức và bốn FAQ riêng. Runtime đo một cột/full-width/
+khoảng cách/viền/bo góc/nền, kiến thức hai cột desktop–một cột mobile, FAQ
+mở không cắt chữ, ảnh đúng tỉ lệ. Tiêm CSS bốn cột phải bị bắt trên desktop
+và mobile. Không chữa tràn bằng giấu overflow hoặc nới guard.
+
+Đối chiếu tường minh bản trước và bản mẫu: lời văn/toán/headings/disclosures
+theo owner, các đích và ID cũ, DOM thẻ giữ nguyên. Riêng catalog giữ lời
+QMD hiện tại thay lời mẫu cũ; phục hồi `trạng-thái-triển-khai` trên câu thông
+báo đã có để liên kết hoạt động, không đổi câu chữ. Không dùng chỉ số PASS
+thay nghiệm thu. Các guard câu chữ nguyên văn cũ không khớp lời chủ trì sửa
+vẫn báo riêng; không ép đổi chữ hoặc hạ guard để làm toàn bộ Home PASS.
+Bằng chứng/bản cuối và giới hạn ở 03; không sửa ba trang học liệu hoặc PDF.
+
+## Home — HOM-C01, chỉ dòng hành động mở học liệu, 14/10/2026
+
+Chủ trì thay hành vi thẻ phủ link của HOM-R01: bấm ảnh, tiêu đề, mô tả
+hoặc nền thẻ không mở trang. Nguyên nhân hiện trạng là generator bọc cả
+thẻ bằng `a.home-card-link`, không phải handler JS. Nguồn sửa là generator
+`zo_web_2027_home_landing.py`, CSS Home và checker; partial được sinh lại.
+Giữ bố cục/hover viền–bóng–màu tiêu đề. Chỉ `a.home-card-action` có href,
+tên truy cập gồm hành động và tiêu đề; hover đổi màu/nhích mũi tên, không
+nền sáng hoặc gạch chân; focus bàn phím rõ, reduced-motion không chuyển động.
+
+Guard hiện hành thay guard whole-card-link bên dưới, không sửa QA lịch sử:
+chặn anchor phủ thẻ, role/tabindex/handler điều hướng trên vỏ thẻ, thiếu
+CTA; kiểm pointer thật trên ảnh/tiêu đề/mô tả/nền, CTA đúng đích, Tab/Enter,
+hover giữ geometry, no-JS, lọc/tìm và màn hình hẹp. PDF D0 mới còn chờ duyệt
+không trở thành bộ tám PDF R1 hay đổi CTA khảo sát; ngoại lệ nhận diện chỉ
+cho D0 đúng trạng thái/hợp đồng, không nới kiểm tám PDF của R1. Bản xem,
+kết quả và phần chưa kiểm ở 03; không sửa QMD câu chữ hoặc ba trang học liệu.
+
 ## Home — HOM-R02, áp dụng bản câu chữ đã duyệt ngày 12/10
 
 Triệu chứng: chữ đọc vẫn khó hiểu sau HOM-R01, có “D0”, “R1”, “định vị”,
@@ -78,6 +156,21 @@ khôi phục, reduced-motion, timer không live từng giây và no-JS trung th�
 Hồ sơ riêng `_audit/zo_home_countdown_2026-10-12/`; giữ kiểm sáu kích thước,
 điều hướng/theme/catalog/footer, nguồn tươi và bảo toàn D0/R1/root docs/PDF.
 Giờ theo thiết bị; không nhận là đồng bộ NTP hay nghiệm thu screen reader.
+
+## NAV-H01 — đồng bộ hover điều hướng, 14/10/2026
+
+Triệu chứng: danh sách toàn khóa trên D0/G01/G02 còn nền sáng khi hover
+và gạch chân mục hiện tại. Nguyên nhân: HOM-R01 chỉ ghi đè CSS Home;
+`course-navigation.css` dùng chung vẫn giữ hai quy tắc cũ. Không phải
+lỗi câu chữ hoặc nguồn QMD, không sửa HTML sinh trực tiếp.
+
+Nguồn sửa: CSS điều hướng chung; mục hiện tại nhận diện bằng chữ đậm và
+`aria-current`, hover chỉ đổi màu chữ/icon, focus bàn phím vẫn có outline.
+Guard `zo_web_2027_navigation_check.py` đo pointer thật trên cả bốn mục
+và ba icon, trạng thái thường/hover/current, hình học không đổi, focus
+Tab và no-JS. Ca âm đưa lại nền/gạch chân/bóng phải bị phát hiện, kể cả
+CSS cũ được tiêm trong browser. Không thay rail, heading hoặc nội dung.
+Bằng chứng/bản xem và trạng thái ở 03; PASS không là chủ trì duyệt/phát hành.
 
 ## QD_032 — điều hướng toàn khóa học
 
@@ -212,3 +305,53 @@ Khi được giao đối sánh, kiểm **vai trò**, cấp tiêu đề, vùng s�
 ## Đối sánh DH_021
 
 Kiểm mới theo 02/1.3 và ma trận M01–M48; không dùng checker quota lịch sử để che đơn vị toán được sửa có thẩm quyền. Rà nguồn–lời giải, ca âm cho duplicate label/header-only/missing-link/misroute, BBT bổ sung, độ lộ và phạm vi xác nhận. Runtime hiện hành phải đo trực tiếp Nhật kí/Ôn lại, reload/Back, hỗ trợ/quay về, drawer/bàn phím và màn hình hẹp. Giới hạn được ghi riêng, không suy từ mã là đã kiểm tương tác.
+
+## DH_037 — Hồi quy áp dụng QD_033
+
+Lỗi đã xác minh: chỉ dẫn ở 12 Điểm dừng biến Nhật kí thành thao tác mặc
+định; cp-kt/cp-on3 G02 yêu cầu Sửa lỗi dù đã đạt; Nhà thiếu ngoại lệ kết
+thúc Kiểm tra trước trợ giúp; controller làm mất nơi gọi khi xem lại Bài
+học từ chặng/Điểm dừng. Đây là lỗi áp dụng nguồn/routing, không phải lý do
+đổi kiến trúc hoặc thiết kế.
+
+Nguồn sửa: QMD hai gói, template Nhà (partial sinh lại), controller dùng
+chung và binding G01 tương ứng. Giữ bài làm/bằng chứng không đồng nghĩa
+ghi Nhật kí mỗi Điểm dừng. Chọn trực tiếp Bài học là điểm vào bình thường;
+nhánh hỗ trợ giữ đúng hoạt động gọi qua reload/Back/tab độc lập và khi
+chuyển tiếp sang Ôn nền. Không mời trợ giúp giữa lượt Kiểm tra tự lực.
+
+Chạy qua launcher, trên bộ HTML mới dựng cô lập:
+
+```text
+python scripts/zo_python.py scripts/zo_qd033_route_check.py --preview <thu_muc_bon_trang_reading> --output <thu_muc_QA_moi_trong_audit> --browser
+```
+
+Guard kiểm lời hướng dẫn tại chính Điểm dừng, ca âm bắt buộc Nhật kí/
+Sửa lỗi/thiếu ngoại lệ Kiểm tra, nhãn/sở hữu và DH01–DH14 nguồn/DOM;
+kiểm browser những đường gọi Bài học thật ở 1440/430/390 px, quay về,
+reload/Back/tab khác, nhánh hỗ trợ tiếp, vào trực tiếp và no-JS. Không
+dùng PASS này thay nghiệm thu chủ trì, kiểm toán toán, PDF hoặc thiết bị
+thật. Nếu công cụ không hoàn tất thì ghi lỗi, không suy PASS từ ca đã chạy.
+
+## DH_038 / HOM-QMD01 — nguồn biên tập Nhà không phải QMD native
+
+Triệu chứng: mở `index.qmd` chỉ thấy include; muốn sửa lời dành cho học sinh
+phải mở template HTML. Nguyên nhân: generator sinh toàn trang raw HTML vào
+`chuong_trinh.qmd`; Quarto chỉ bọc đầu ra ấy. Không gọi đây là native QMD.
+
+Nguồn sửa: `2027/index.qmd` chứa heading/paragraph/list/link/FAQ và lời
+Ủng hộ bằng Markdown. Generator chỉ sinh ba component dữ liệu/UI; YAML
+không giữ bản sao bốn đoạn Nhà đã di trú. `zo_home_qmd.py` ràng DOM native
+vào UI cũ, không chứa lời biên tập. CSS/JS/tài sản và nguồn D0/R1 giữ nguyên.
+Template/partial toàn trang cũ gỡ sau lưu ngoài repo, xác minh SHA-256 và
+đối chiếu nội dung/DOM; không phục hồi chúng vào build mới từ checkpoint.
+
+Guard Home kiểm nguồn native, đúng ba include dữ liệu, hash QMD/component/
+mã dựng và runtime. Ca âm wrapper-only, HTML đổi đuôi QMD, include template
+cũ phải bị bắt. So độc lập bản DH_037 được chỉ định tường minh: toàn văn,
+ID/heading/disclosure/math, DOM/thuộc tính (trừ URL rebase đã kiểm), support;
+kiểm tương tác sáu độ rộng, đồng hồ thật, hover/focus, FAQ, no-JS và tuyến
+Home → D0/G01/G02 → Home mới. Không dùng bản lịch sử làm đầu vào render.
+
+Bằng chứng và kết quả hiện hành ở 03/DH_038. Kiểm kỹ thuật không thay chủ
+trì duyệt HTML, kiểm toán toán, PDF, Safari/Firefox/thiết bị thật hoặc release.

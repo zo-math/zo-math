@@ -98,6 +98,7 @@ class HomeBuilder(PreviewBuilder):
                 source = REPO / unquote(url.path).lstrip('/')
                 if not source.is_file(): raise ValueError('Missing footer canonical source: ' + str(source))
                 item['preview_href'] = self.href((self.output_root / source.relative_to(REPO)).with_suffix('.html'), url.query, url.fragment)
+                item['canonical_href'] = urlunsplit(('', '', '/' + source.relative_to(REPO).with_suffix('.html').as_posix(), url.query, url.fragment))
         def links(items, external=False):
             return '\n'.join('<a href="' + html.escape(n['preview_href'], quote=True) + '" data-canonical-href="' + html.escape(n['canonical_href'], quote=True) + '">' + html.escape(n['label']) + ('<span class="zo-site-footer__arrow" aria-hidden="true">↗</span>' if external else '') + '</a>' for n in items)
         return template('site-footer.html', information_links=links(data['information']), social_links=links(data['social'], True), copyright=html.escape(data['copyright']), brand_thought=html.escape(BRAND_THOUGHT)), data
@@ -150,7 +151,8 @@ class HomeBuilder(PreviewBuilder):
         self.resources['course-tables.css'] = {'source': '_design/web_2027_mau_dung_chung/course-tables.css', 'sha256': sha(KIT / 'course-tables.css')}
         from zo_web_2027_navigation import apply as apply_course_navigation
         self.resources.update(apply_course_navigation(doc, self.page, self.output_root, self.runtime, 'home'))
-        self.page.write_text(str(doc), encoding='utf-8')
+        from zo_course_html import write
+        write(self.page, doc)
         report['html_sha256'] = sha(self.page)
         return report
 

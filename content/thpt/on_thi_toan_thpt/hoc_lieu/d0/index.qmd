@@ -7,10 +7,10 @@ sidebar: on-thi
 number-sections: false
 page-layout: article
 body-classes: zo-page-article zo-meta-hidden zo-on-thi-package-page d0-page zo-web-2027-d0
-filters:
-  - cong_cu/d0.lua
 format:
   html:
+    filters:
+      - cong_cu/d0.lua
     title-block-style: default
     title-block-banner: false
     html-math-method: mathml
@@ -21,6 +21,28 @@ format:
       - giao_dien/d0.css
     include-after-body:
       - giao_dien/d0_script.html
+  pdf:
+    author: ZO Math
+    documentclass: article
+    pdf-engine: lualatex
+    papersize: a4
+    fontsize: 11pt
+    geometry: [top=22mm, bottom=22mm, left=21mm, right=21mm]
+    mainfont: STIX Two Text
+    mathfont: STIX Two Math
+    sansfont: STIX Two Text
+    toc: false
+    toc-depth: 2
+    toc-title: Mục lục
+    shift-heading-level-by: -1
+    colorlinks: true
+    linkcolor: zoInk
+    urlcolor: zoLink
+    keep-tex: false
+    include-in-header: giao_dien/d0_pdf.tex
+    include-after-body: giao_dien/d0_pdf_end.tex
+    filters:
+      - cong_cu/d0_print.lua
 ---
 
 <!-- D0_APPROVED_CONTENT: canonical text source; approval receipt is provenance, not a second editable source. -->

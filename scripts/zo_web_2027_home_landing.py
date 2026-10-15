@@ -1,6 +1,5 @@
-"""Editorial Home only: canonical template + real catalog, fresh Quarto input."""
+"""Native editorial QMD + generated data widgets; fresh Quarto input only."""
 from pathlib import Path
-from string import Template
 import copy
 import html
 import json
@@ -27,7 +26,7 @@ def countdown_source(program):
         raise ValueError('Provisional target must match the verified previous-year reference')
     if not config['source_url'].startswith('https://'):
         raise ValueError('Exam schedule needs a verified HTTPS source')
-    label = 'Tạm tính đến' if status == 'reference' else 'Lịch thi chính thức:'
+    label = 'Đếm ngược từ' if status == 'reference' else 'Lịch thi chính thức:'
     notice = (f'Ngày và giờ này được tạm lấy theo lịch thi Toán năm {reference.year}, chưa phải lịch thi chính thức năm {target.year}.'
               if status == 'reference' else 'Theo lịch thi Toán chính thức của Bộ Giáo dục và Đào tạo.')
     stamp = target.strftime('%H:%M ngày %d/%m/%Y')
@@ -38,16 +37,18 @@ def countdown_source(program):
         <div class="countdown-hms"><div><strong data-time="hours">—</strong><span>giờ</span></div><b aria-hidden="true">:</b><div><strong data-time="minutes">—</strong><span>phút</span></div><b aria-hidden="true">:</b><div><strong data-time="seconds">—</strong><span>giây</span></div></div>
       </div>
       <p class="countdown-date">{label} <time datetime="{html.escape(config['target'], quote=True)}">{stamp}</time>, giờ Việt Nam.</p>
-      <p class="countdown-notice">{notice} <a href="{html.escape(config['source_url'], quote=True)}">Xem lịch thi dùng để tính</a></p>
+      <p class="countdown-notice">{notice} <a href="{html.escape(config['source_url'], quote=True)}">Xem nguồn.</a></p>
       <p class="countdown-fallback">Bật JavaScript để xem đồng hồ cập nhật từng giây.</p>
       <p class="countdown-ended" role="status" hidden></p>
     </section>'''
 
 
-def render_source(program, packages):
+def render_components(program, packages):
     source = (REPO / COURSE / program['home_editorial_source']).resolve()
-    if not source.is_relative_to(REPO / COURSE / 'giao_dien') or source.suffix != '.tpl':
-        raise ValueError('Unsafe editorial source')
+    if source != (REPO / COURSE / 'index.qmd').resolve():
+        raise ValueError('Home editorial source must be the native index.qmd')
+    from zo_home_qmd import require_native_source
+    require_native_source(source.read_text(encoding='utf-8'))
     if [p.ref_id for p in packages] != ['d0', 'r1_g01', 'r1_g02']:
         raise ValueError('Home catalog must follow canonical D0 G01 G02 order')
     cards = []
@@ -58,15 +59,20 @@ def render_source(program, packages):
         if not (REPO / cover.lstrip('/')).is_file():
             raise ValueError('Missing canonical catalog cover ' + cover)
         entry = p.html_url + ('' if p.html_only else '?r1-view=bat-dau#bat-dau')
-        cards.append(f'''<article class="home-card" data-package-id="{p.ref_id}" data-category="{category}"><a class="home-card-link" href="{entry}" aria-labelledby="home-card-title-{p.ref_id}">
+        cards.append(f'''<article class="home-card" data-package-id="{p.ref_id}" data-category="{category}"><div class="home-card-content">
           <img src="{cover}" alt="" width="420" height="240" loading="lazy">
           <div class="home-card-copy"><span class="role">{html.escape(p.display_status)}</span>
           <h3 id="home-card-title-{p.ref_id}">{html.escape(p.title)}</h3><p>{html.escape(p.summary)}</p>
-          <span class="home-card-action">{'Làm khảo sát' if p.html_only else 'Mở tài liệu'} <span aria-hidden="true">→</span></span></div></a></article>''')
-    strands = ''.join(f'<div data-strand-id="{html.escape(s["id"], quote=True)}"><h3>{html.escape(s["title"])}</h3></div>' for s in program['strands'])
-    values = {k: html.escape(program[k]) for k in ['audience', 'deployment', 'start', 'roadmap_note']}
-    values.update(cards='\n'.join(cards), strands=strands, countdown=countdown_source(program))
-    return Template(source.read_text(encoding='utf-8')).substitute(values)
+          <a class="home-card-action" id="home-card-action-{p.ref_id}" href="{entry}" aria-labelledby="home-card-action-{p.ref_id} home-card-title-{p.ref_id}">{'Làm khảo sát' if p.html_only else 'Mở tài liệu'} <span aria-hidden="true">→</span></a></div></div></article>''')
+    strands = ''.join(f'<div data-strand-id="{html.escape(s["id"], quote=True)}"><span class="home-topic-number" aria-hidden="true">{i:02d}</span><h3>{html.escape(s["title"])}</h3></div>' for i,s in enumerate(program['strands'],1))
+    tools = '''<div class="home-catalog-tools" hidden>
+      <div class="home-filters" role="group" aria-label="Lọc học liệu"><button type="button" data-filter="all" aria-pressed="true">Tất cả</button><button type="button" data-filter="survey" aria-pressed="false">Khảo sát</button><button type="button" data-filter="functions" aria-pressed="false">Hàm số</button></div>
+      <label class="home-search">Tìm học liệu<input type="search" id="home-search" placeholder="Tên chủ đề muốn ôn" autocomplete="off"></label>
+    </div>'''
+    fragments = {'countdown': countdown_source(program), 'strands': strands,
+                 'catalog': tools+'\n<div class="home-catalog">'+'\n'.join(cards)+'</div>\n<p class="home-filter-status" role="status" aria-live="polite" hidden></p>'}
+    return {f'home_{name}.qmd': '<!-- Generated data/UI component; edit YAML or generator, not this file. -->\n\n```{=html}\n'+value+'\n```\n'
+            for name,value in fragments.items()}
 
 
 def build(builder):
@@ -74,6 +80,9 @@ def build(builder):
     root = raw.select_one('.home-landing-content')
     if root is None:
         raise ValueError('Editorial Home profile requires fresh editorial source; refuse old layout')
+    from zo_home_qmd import normalize_native_dom
+    editorial_text = (REPO / builder.profile['editorial_source']).read_text(encoding='utf-8')
+    support_copy = normalize_native_dom(raw, root, editorial_text)
     original = inventory(root)
     content = copy.deepcopy(root)
     builder.common_assets()
@@ -85,8 +94,8 @@ def build(builder):
     support.select_one('.prototype-note').decompose()
     support.select_one('.support-region')['class'] = ['support-region', 'home-paper', 'home-support']
     # Home-only approved copy; keep the shared support template, bank and QR intact.
-    support.select_one('.support-content > p').string = 'Nếu tài liệu hữu ích với bạn, bạn có thể ủng hộ ZO Math tiếp tục biên soạn và chia sẻ.'
-    support.select_one('.r1-support-link a').string = 'Xem thông tin ủng hộ'
+    support.select_one('.support-content > p').string = support_copy[0]
+    support.select_one('.r1-support-link a').string = support_copy[1]
     styles = ['reading-regions.css', 'web-shell.css', 'appearance-inline.css', 'site-footer.css', 'course-home-landing.css']
     result = template('page.html', title=html.escape(builder.profile['title']), body_class='course-home home-editorial zo-web-2027-home',
         home_href=builder.href(builder.page), breadcrumb='', drawer_title='Trong trang Nhà', navigation=builder.navigation(),
@@ -113,14 +122,15 @@ def build(builder):
     builder.resources.update(apply(doc, builder.page, builder.output_root, builder.runtime, 'home'))
     if inventory(doc.select_one('.home-landing-content')) != original:
         raise ValueError('Shell adapter changed canonical editorial text, IDs, headings or math')
-    builder.page.write_text(str(doc), encoding='utf-8')
+    from zo_course_html import write
+    write(builder.page, doc)
     data = REPO / COURSE / '_data/chuong_trinh.yml'
-    partial = REPO / COURSE / '_partials/chuong_trinh.qmd'
     editorial = REPO / builder.profile['editorial_source']
     return {'layout': 'editorial-home-2027', 'source_inventory': original,
         'canonical_data': data.relative_to(REPO).as_posix(), 'canonical_data_sha256': sha(data),
-        'partial_sha256': sha(partial), 'editorial_source': editorial.relative_to(REPO).as_posix(),
+        'component_sha256': {path:sha(REPO/path) for path in builder.profile['component_sources']},
+        'editorial_source': editorial.relative_to(REPO).as_posix(),
         'editorial_sha256': sha(editorial), 'profile_sha256': sha(KIT / 'profiles/course-home.json'),
         'resources': builder.resources, 'links': builder.links, 'footer': footer_info,
-        'implementation_sha256': {name:sha(REPO/'scripts'/name) for name in ['zo_build_on_thi.py','zo_web_2027_home.py','zo_web_2027_home_landing.py']},
+        'implementation_sha256': {name:sha(REPO/'scripts'/name) for name in ['zo_build_on_thi.py','zo_web_2027_home.py','zo_web_2027_home_landing.py','zo_home_qmd.py']},
         'html_sha256': sha(builder.page), 'reference_only_not_runtime': True}
