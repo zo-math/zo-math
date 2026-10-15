@@ -1,5 +1,10 @@
 # D0 — đầu mối chuyển đổi canonical
 
+**Hiện hành 15/10/2026:** HTML và PDF đầy đủ 20 trang đã xuất bản và xác minh trên zomath.vn. Hồ sơ triển khai nằm tại bảng 03 của khóa và `ho_so_phat_hanh_20261015.json`. Các trạng thái đầu ra trong nhật kí cũ bên dưới là lịch sử.
+
+Dựng HTML qua `python scripts/zo_python.py -B scripts/zo_qmd.py render content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.qmd --html-only`. Dựng PDF qua builder riêng `cong_cu/dung_pdf.py` bằng launcher; builder tạo metadata in trong dự án cô lập. Đường xuất bản website chỉ dựng HTML và lấy PDF canonical đã kiểm.
+
+
 ## PDF đầy đủ từ nguồn — 14/10/2026
 
 Chủ trì đã duyệt bản mẫu bố cục và giao đưa vào đường dựng chính thức.

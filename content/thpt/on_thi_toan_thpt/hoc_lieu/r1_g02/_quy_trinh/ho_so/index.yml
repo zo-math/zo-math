@@ -14,7 +14,7 @@ presentation_sync:
   html: _audit/r1_g02_dong_bo_lai_g01_2026-10-11/html-current/g02-reading.html
   report: _audit/r1_g02_dong_bo_lai_g01_2026-10-11/qa-verified/qa.json
   parity_report: _audit/r1_g02_dong_bo_lai_g01_2026-10-11/pair-verified/pair.json
-  acceptance: pending_owner_html_review
+  acceptance: owner_authorized_for_publication_2026_10_15
   pdf: current_all_eight_variants
 labeling_audit:
   decision: QD_025
@@ -35,17 +35,17 @@ package:
   authority: "index.qmd canonical; đang hoàn thiện kiến trúc 2027; nghiệm thu PDF 2026-09-30 là lịch sử, không chứng nhận nguồn mới"
 workflow:
   production: in_production
-  publication: pending
+  publication: published
   user_confirmed: true
 acceptance:
-  current_source: source_applied_checked_pending_owner_review
-  current_html: pending_owner_html_review
+  current_source: owner_authorized_for_publication_2026_10_15
+  current_html: owner_authorized_for_publication_2026_10_15
   phase3: technical_candidate
   phase4_visual: recorded_in_audit
   design_basis: r1_g01_baseline
-  design_implementation: design_basis_preserved_checked_pending_owner_html_review
+  design_implementation: owner_authorized_for_publication_2026_10_15
   pdf_canonical: current_all_eight_variants
-  final: pending_owner_html_review
+  final: owner_authorized_for_publication_2026_10_15
 historical_acceptance:
   scope: source_and_outputs_before_DH007
   phase3: accepted
@@ -91,8 +91,8 @@ pair_refinement:
   work: DH_026
   decision: QD_031
   report: _audit/zo_pair_backlog_2026-10-11/README.md
-  state: source_applied_checked_pending_owner_html_review
-  acceptance: pending_owner_html_review
+  state: owner_authorized_for_publication_2026_10_15
+  acceptance: owner_authorized_for_publication_2026_10_15
   pdf: current_all_eight_variants
 
 pdf_full_review:
@@ -105,7 +105,7 @@ pdf_full_review:
   visual: all_color_pages_covered_and_representative_grayscale_reviewed
   owner_acceptance: design_approved_2026_10_15
   other_variants: all_eight_current_checked_17_of_17
-  publication: authorized_pending_delivery
+  publication: published
 
 shared_figure_repair:
   date: "2026-10-15"
@@ -114,10 +114,13 @@ shared_figure_repair:
   legacy_graph_paths: rejected_before_pdf_compilation
   all_pdf_variants: all_eight_current
   owner_acceptance: design_approved_2026_10_15
-  publication: authorized_pending_delivery
+  publication: published
 
 release_authorization:
   date: "2026-10-15"
   scope: Home_D0_R1_G01_R1_G02_and_current_PDF_downloads
   explicit_publication_request: true
   evidence: _quy_trinh/ho_so/pdf_bundle_review.json
+  source_commit: bb480547eea5b5dc4a191255db8904b2d012a3d6
+  public_commit: 3f99deac4b95e2b2e05e4f6e40ffd14e49be157a
+  receipt: content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/ho_so_phat_hanh_20261015.json

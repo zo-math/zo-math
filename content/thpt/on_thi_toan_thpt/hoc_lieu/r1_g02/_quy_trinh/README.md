@@ -10,7 +10,7 @@ Hồ sơ hiện hành: `ho_so/pdf_bundle_review.json` và `ho_so/pdf_full_review
 Mọi trang màu đã được bao phủ bởi kiểm thị giác hoặc đối chiếu pixel vùng thân
 đã xem; kiểm xám đại diện từng biến thể và các trang hình/bảng/cuối của bản đầy đủ.
 Chưa in giấy, quét QR bằng điện thoại hoặc phản biện toán độc lập toàn gói.
-Đang thực hiện xuất bản; chỉ báo cáo triển khai thành công mới xác nhận đã lên website.
+Đã xuất bản và xác minh trực tiếp trên zomath.vn ngày 15/10/2026; hồ sơ triển khai ở bảng 03 của khóa.
 Các trạng thái chưa PDF/chưa promotion/chờ duyệt ở phần lịch sử bên dưới chỉ
 mô tả thời điểm của lượt ấy, không phải trạng thái bộ hiện hành.
 
