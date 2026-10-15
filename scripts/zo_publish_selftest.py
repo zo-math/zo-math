@@ -21,6 +21,18 @@ GOVERNANCE = SECTION + "/_quy_trinh"
 
 
 class PublicBoundaryTests(unittest.TestCase):
+    def test_fresh_render_output_stays_outside_audit_until_adapters_finish(self):
+        destination=self.public/'completed-render'
+        def render(command,root):
+            output=root/command[-1]
+            self.assertNotIn('_audit',output.relative_to(root).parts)
+            self.assertNotEqual(output,destination)
+            (output/'index.html').write_text('fresh adapted HTML',encoding='utf-8')
+            return type('Result',(),{'returncode':0,'stdout':'','stderr':''})()
+        with patch.object(publish,'require_public_profile'),patch.object(publish,'run',side_effect=render):
+            publish.render_to_staging(self.public,destination,tool_root=ROOT)
+        self.assertEqual((destination/'index.html').read_text(encoding='utf-8'),'fresh adapted HTML')
+
     def test_website_prepare_renders_only_html_through_repository_launchers(self):
         result=type('Result',(),{'returncode':0,'stdout':'[1/2] page.qmd','stderr':''})()
         with patch.object(publish,'require_public_profile'),patch.object(publish,'run',return_value=result) as run:
