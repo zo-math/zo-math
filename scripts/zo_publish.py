@@ -904,7 +904,7 @@ def render_to_staging(root: Path, render_dir: Path,
     require_public_profile(root)
     launcher = (tool_root or root) / "scripts/zo_quarto.py"
     command = [sys.executable, str((tool_root or root) / "scripts/zo_python.py"),
-               "-B", str(launcher), "render", "--output-dir", str(render_dir)]
+               "-B", str(launcher), "render", "--to", "html", "--output-dir", str(render_dir)]
     result = run(command, root)
     matches = re.findall(r"\[\s*\d+/(\d+)\]", result.stdout + result.stderr)
     return {"command": command, "exit_code": result.returncode,
