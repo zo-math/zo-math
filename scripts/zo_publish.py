@@ -1228,6 +1228,46 @@ def build_public_candidate(raw_output: Path, candidate: Path, target: Path,
     }
 
 
+def requested_html_scope(allowed: set[str], pages: Sequence[str],
+                         rendered_manifest: Mapping[str, Any]) -> set[str]:
+    if not pages:
+        return allowed
+    selected = {safe_relative(page, "requested HTML page") for page in pages}
+    if any(not page.endswith('.html') or page not in rendered_manifest['files'] for page in selected):
+        raise ConfigError("Trang --page phải là HTML công khai trong render mới.")
+    return {path for path in allowed if not path.endswith('.html')} | selected
+
+
+def asset_dependencies(rendered: Path, manifest: Mapping[str, Any], seeds: Sequence[str]) -> set[str]:
+    """Follow local assets, including CSS fonts, without widening the HTML scope."""
+    files=set(manifest['files']); pending=list(seeds); seen=set(); assets=set()
+    while pending:
+        relative=pending.pop()
+        if relative in seen or relative not in files:
+            continue
+        seen.add(relative)
+        suffix=PurePosixPath(relative).suffix.casefold()
+        if suffix not in {'.html','.css','.svg'}:
+            continue
+        text=(rendered/relative).read_text(encoding='utf-8',errors='replace')
+        refs=[]
+        if suffix in {'.html','.svg'}:
+            parser=LinkCollector();parser.feed(text);parser.close()
+            refs.extend(raw for _,raw in parser.links)
+        refs.extend(re.findall(r'''url\(\s*["']?([^"')\s]+)''',text))
+        refs.extend(re.findall(r'''@import\s+["']([^"']+)''',text))
+        for raw in refs:
+            try: url=urlsplit(decoded_reference(raw))
+            except ValueError: continue
+            if url.scheme or url.netloc or not url.path:
+                continue
+            path=posixpath.normpath(url.path.lstrip('/') if url.path.startswith('/') else
+                                   str(PurePosixPath(relative).parent/url.path))
+            if path in files and not path.lower().endswith('.html'):
+                assets.add(path);pending.append(path)
+    return assets
+
+
 def build_scoped_candidate(baseline: Path, rendered: Path, candidate: Path, target: Path,
                            config: Mapping[str, Any],
                            excluded: Mapping[str, int] | None = None,
@@ -1242,6 +1282,16 @@ def build_scoped_candidate(baseline: Path, rendered: Path, candidate: Path, targ
     source_diff = (restricted_diff(baseline_manifest, rendered_manifest, allowed_outputs)
                    if allowed_outputs is not None else raw_source_diff)
     render_diff = exact_diff(target_manifest, rendered_manifest)
+    dependencies=asset_dependencies(rendered,rendered_manifest,
+                                    source_diff['add']+source_diff['update'])
+    # A changed page must bring the exact assets it references even when an
+    # asset was already present in the baseline render but absent on the site.
+    dependency_diff=restricted_diff(target_manifest,rendered_manifest,dependencies)
+    for kind in ['add','update']:
+        source_diff[kind]=sorted(set(source_diff[kind])|set(dependency_diff[kind]))
+    source_diff['unchanged']=sorted((set(baseline_manifest['files'])&set(rendered_manifest['files']))-set(source_diff['update']))
+    source_diff['change_bytes']=(sum(rendered_manifest['files'][name]['size'] for name in source_diff['add']+source_diff['update'])+
+                                 sum(baseline_manifest['files'][name]['size'] for name in source_diff['delete']))
 
     candidate.mkdir(parents=True)
     copy_manifest(target, candidate, target_manifest)
@@ -1273,6 +1323,7 @@ def build_scoped_candidate(baseline: Path, rendered: Path, candidate: Path, targ
         "rendered_public_manifest": rendered_manifest,
         "raw_source_output_diff": raw_source_diff,
         "source_output_diff": source_diff,
+        "referenced_asset_dependencies": sorted(dependencies),
         "render_diff_before_scope": render_diff,
         "preserved_render_drift": preserved_render_drift,
         "public_manifest": public_manifest,
@@ -1689,6 +1740,7 @@ def parser() -> argparse.ArgumentParser:
     value.add_argument("command", nargs="?", help="Hỗ trợ: check, prepare, publish")
     value.add_argument("--config", default="publish_public.yml")
     value.add_argument("--report")
+    value.add_argument("--page", action="append", default=[], help="prepare: giới hạn HTML; lặp lại cho từng trang, vẫn kèm tài nguyên phụ thuộc.")
     return value
 
 
@@ -1696,6 +1748,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser().parse_args(argv)
     if args.command not in {"check", "prepare", "publish"}:
         print("ERROR: chỉ hỗ trợ lệnh 'check', 'prepare' và 'publish'.", file=sys.stderr)
+        return EXIT_USAGE
+    if args.page and args.command != 'prepare':
+        print('ERROR: --page chỉ dùng với prepare.',file=sys.stderr)
         return EXIT_USAGE
     if yaml is None:
         print("ERROR: thiếu dependency PyYAML.", file=sys.stderr)
@@ -1825,10 +1880,14 @@ def main(argv: Sequence[str] | None = None) -> int:
                             rendered_candidate["public_manifest"],
                         )
                         payload["source_output_scope"] = output_scope
+                        allowed_outputs=requested_html_scope(set(output_scope['allowed_outputs']),args.page,
+                                                             rendered_candidate['public_manifest'])
+                        output_scope['requested_pages']=args.page
+                        output_scope['allowed_outputs']=sorted(allowed_outputs)
                         scoped_candidate = build_scoped_candidate(
                             baseline_public_dir, rendered_public_dir, public_dir, target, config,
                             rendered_candidate["manifest"].get("excluded", {}),
-                            set(output_scope["allowed_outputs"]),
+                            allowed_outputs,
                         )
                         issues.extend(scoped_candidate["issues"])
                         if scoped_candidate["target_before_manifest"] != target_before:

@@ -21,6 +21,34 @@ GOVERNANCE = SECTION + "/_quy_trinh"
 
 
 class PublicBoundaryTests(unittest.TestCase):
+    def test_requested_pages_preserve_other_html_and_reject_unknown_pages(self):
+        files={'files':{'index.html':{},'content/about.html':{},'assets/site.css':{}}}
+        allowed=set(files['files'])
+        self.assertEqual(publish.requested_html_scope(allowed,['index.html'],files),{'index.html','assets/site.css'})
+        with self.assertRaises(publish.ConfigError):publish.requested_html_scope(allowed,['missing.html'],files)
+        with self.assertRaises(publish.ConfigError):publish.requested_html_scope(allowed,['assets/site.css'],files)
+
+    def test_changed_page_includes_generated_assets_and_transitive_fonts_only(self):
+        baseline=self.public/'base';rendered=self.public/'new';target=self.public/'site';candidate=self.public/'result'
+        for root in [baseline,rendered,target]:
+            self.write_at(root,'CNAME',self.config['custom_domain']['cname'])
+            self.write_at(root,'index.html','<main>old</main>\n')
+            self.write_at(root,'content/about.html','<p>published</p>\n')
+            self.write_at(root,'assets/js/unrelated.js','old\n')
+        # The asset is unchanged between renders but missing on the live site.
+        for root in [baseline,rendered]:
+            self.write_at(root,'assets/generated/site.css','@font-face{src:url("font.woff2")}\n')
+            self.write_at(root,'assets/generated/font.woff2','font bytes')
+        self.write_at(rendered,'index.html','<link rel="stylesheet" href="assets/generated/site.css"><main>new</main>\n')
+        self.write_at(rendered,'content/about.html','<p>unrequested change</p>\n')
+        self.write_at(rendered,'assets/js/unrelated.js','unrequested change\n')
+        result=publish.build_scoped_candidate(baseline,rendered,candidate,target,self.config,allowed_outputs={'index.html'})
+        self.assertEqual(result['issues'],[])
+        self.assertEqual((candidate/'assets/generated/font.woff2').read_text(),'font bytes')
+        self.assertEqual((candidate/'content/about.html').read_bytes(),(target/'content/about.html').read_bytes())
+        self.assertEqual((candidate/'assets/js/unrelated.js').read_bytes(),(target/'assets/js/unrelated.js').read_bytes())
+        self.assertEqual(set(result['referenced_asset_dependencies']),{'assets/generated/site.css','assets/generated/font.woff2'})
+
     def test_fresh_render_output_stays_outside_audit_until_adapters_finish(self):
         destination=self.public/'completed-render'
         legacy=('content/di_tim/hald_a_history_of_probability_and_statistics_and_their_applications_before_1750/'
