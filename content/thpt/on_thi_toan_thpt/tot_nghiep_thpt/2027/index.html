@@ -1,1309 +1,273 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
 
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.35">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-<meta name="description" content="Lộ trình và các gói học liệu ôn thi Toán THPT 2027 của ZO Math.">
-
-<title>Ôn thi Toán THPT 2027 – ZO Math</title>
-<style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
-div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
-  vertical-align: middle;
-}
-</style>
+<html data-zo-preferences="zo-web-2027-preview-v1" lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Ôn thi Toán THPT 2027 — ZO Math</title>
+<link href="../../../../../assets/zo_web_2027/home/assets/logos/favicon_color.svg" rel="icon"/>
+<link href="../../../../../assets/zo_web_2027/home/reading-regions.css" rel="stylesheet"/>
+<link href="../../../../../assets/zo_web_2027/home/web-shell.css" rel="stylesheet"/>
+<link href="../../../../../assets/zo_web_2027/home/appearance-inline.css" rel="stylesheet"/>
+<link href="../../../../../assets/zo_web_2027/home/site-footer.css" rel="stylesheet"/>
+<link href="../../../../../assets/zo_web_2027/home/course-home-landing.css" rel="stylesheet"/>
+<link href="../../../../../assets/zo_web_2027/home/course-tables.css" rel="stylesheet"/><link href="../../../../../assets/zo_web_2027/home/course-navigation.css" rel="stylesheet"/></head>
+<body class="course-home home-editorial zo-web-2027-home" data-zo-course-navigation="home" data-zo-table-contract="QD_030" data-zo-web-production="course-home" data-zo-web-shell="">
+<a class="skip" href="#reading">Đến nội dung</a>
+<span aria-hidden="true" id="zo-course-top"></span><header class="site-top site-top--course-navigation">
+<a href="index.html"><img alt="ZO Math" src="../../../../../assets/zo_web_2027/home/assets/logos/horizontal_color.svg" width="112"/></a>
 
 
-<script src="../../../../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../../../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../../../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../../../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../../../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../../../../">
-<link href="../../../../../images/favicon.ico" rel="icon">
-<script src="../../../../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../../../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../../../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../../../site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../../../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../../../site_libs/bootstrap/bootstrap-64f807840416e55af80c4fb7553251ed.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
-  "copy-button": false,
-  "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
-  "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
-  }
-}</script>
-<script>
-  MathJax = {
-    loader: { load: ['[tex]/ams'] },
-    tex: {
-      packages: { '[+]': ['ams'] }
-    },
-    chtml: {
-      scale: 1.0
-    },
-    options: {
-      renderActions: { addMenu: [] }
-    }
-  };
-</script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
-      const title = tooltipTriggerEl.getAttribute('title');
-      if (!title) return null;
-
-      const hasMath = /\\\(.*\\\)|\\\[.*\\\]/.test(title);
-      const newTitle = hasMath ? `<span class="mathjax-tooltip">${title}</span>` : title;
-      tooltipTriggerEl.setAttribute('data-bs-title', newTitle);
-      tooltipTriggerEl.setAttribute('title', '');
-
-      return new bootstrap.Tooltip(tooltipTriggerEl, {
-        html: true,
-        trigger: 'hover focus',
-        boundary: 'viewport',
-        placement: 'auto'
-      });
-    }).filter(tooltip => tooltip !== null);
-
-    tooltipTriggerList.forEach(tooltipTriggerEl => {
-      const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
-      tooltipTriggerEl.addEventListener('shown.bs.tooltip', function () {
-        // Tìm phần tử .tooltip
-        const tooltip = document.querySelector('.tooltip');
-        if (tooltip) {
-          // Kiểm tra xem có .tooltip-arrow không
-          const tooltipArrow = tooltip.querySelector('.tooltip-arrow');
-          if (tooltipArrow) {
-            tooltipArrow.style.background = 'transparent';
-          } else {
-            // Nếu không có .tooltip-arrow, kiểm tra pseudo-elements của .tooltip hoặc .tooltip-inner
-            const tooltipInner = tooltip.querySelector('.tooltip-inner');
-            if (tooltipInner) {
-              // Thử làm trong suốt pseudo-elements của .tooltip
-              tooltip.style.setProperty('--tooltip-before-background', 'transparent', 'important');
-              // Thử làm trong suốt pseudo-elements của .tooltip-inner
-              tooltipInner.style.setProperty('--tooltip-inner-before-background', 'transparent', 'important');
-            }
-          }
-        }
-
-        // Xử lý MathJax trong tooltip
-        const tooltipEl = document.querySelector('.tooltip-inner');
-        if (!tooltipEl || !tooltipEl.querySelector('.mathjax-tooltip')) return;
-
-        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
-          MathJax.typesetPromise([tooltipEl.querySelector('.mathjax-tooltip')]).then(() => {
-            console.log('MathJax rendered successfully in tooltip');
-            if (tooltipInstance) {
-              tooltipInstance.update();
-            }
-          }).catch(err => {
-            console.error('MathJax render error:', err);
-          });
-        } else {
-          console.error('MathJax is not loaded. Ensure MathJax script is included.');
-        }
-      });
-    });
-  });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
-
-
-<link rel="stylesheet" href="../../../../../assets/css/custom.css">
-<link rel="stylesheet" href="../../../../../assets/css/zo_on_thi.css">
-</head>
-
-<body class="nav-sidebar docked nav-fixed zo-on-thi-page fullcontent quarto-light">
-
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a href="../../../../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../../../../assets/logo/zo_math_logo_black_on_transprentt_1024.png" alt="ZO Math" class="navbar-logo light-content">
-    <img src="../../../../../assets/logo/zo_math_logo_black_on_transprentt_1024.png" alt="ZO Math" class="navbar-logo dark-content">
-    </a>
-  </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
+<nav aria-label="Điều hướng toàn khóa học" class="course-tools"><a aria-label="Nhà khóa học" class="course-action" data-course-action="home" href="index.html" title="Nhà khóa học"><svg aria-hidden="true" fill="none" focusable="false" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"></path></svg></a><details class="zo-course-menu"><summary aria-label="Danh sách toàn khóa học" class="course-action" data-course-action="list" title="Danh sách toàn khóa học"><svg aria-hidden="true" fill="none" focusable="false" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"></path></svg></summary><nav aria-label="Các trang trong khóa học" class="course-panel"><a aria-current="page" data-course-page="home" href="index.html">Nhà khóa học</a><a data-course-page="d0" href="../../hoc_lieu/d0/index.html">Khảo sát đầu vào</a><a data-course-page="g01" href="../../hoc_lieu/r1_g01/index.html?r1-view=bat-dau#bat-dau">Đơn điệu và cực trị</a><a data-course-page="g02" href="../../hoc_lieu/r1_g02/index.html?r1-view=bat-dau#bat-dau">Giá trị lớn nhất và nhỏ nhất</a></nav></details><a aria-label="Về đầu trang" class="course-action" data-course-action="top" href="#zo-course-top" title="Về đầu trang"><svg aria-hidden="true" fill="none" focusable="false" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="m6 10 6-6 6 6M12 4v17"></path></svg></a></nav><div aria-label="Tùy chỉnh hiển thị" class="appearance appearance--inline" role="group">
+<div aria-label="Chọn nền trang" class="swatches" role="radiogroup"><label title="Xám 3"><input aria-label="Nền Xám 3" name="background" style="--swatch:var(--theme-gray-3)" type="radio" value="gray-3"/></label><label title="Xám 2"><input aria-label="Nền Xám 2" name="background" style="--swatch:var(--theme-gray-2)" type="radio" value="gray-2"/></label><label title="Vàng 1"><input aria-label="Nền Vàng 1" checked="" name="background" style="--swatch:var(--theme-yellow-1)" type="radio" value="yellow-1"/></label><label title="Vàng 2"><input aria-label="Nền Vàng 2" name="background" style="--swatch:var(--theme-yellow-2)" type="radio" value="yellow-2"/></label><label title="Đỏ 1"><input aria-label="Nền Đỏ 1" name="background" style="--swatch:var(--theme-red-1)" type="radio" value="red-1"/></label><label title="Đỏ 2"><input aria-label="Nền Đỏ 2" name="background" style="--swatch:var(--theme-red-2)" type="radio" value="red-2"/></label></div>
+<button aria-label="Sắc xám" aria-pressed="false" class="gray-toggle" id="grayscale" title="Sắc xám" type="button">
+<svg aria-hidden="true" focusable="false" height="22" viewbox="0 0 24 24" width="22"><circle cx="12" cy="12" fill="white" r="8.5" stroke="currentColor" stroke-width="1.5"></circle><path d="M12 3.5a8.5 8.5 0 0 1 0 17Z" fill="currentColor"></path></svg>
 </button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../../../../../index.html"> 
-<span class="menu-text"><i class="bi bi-house-door"></i></span></a>
-  </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-giới-thiệu" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Giới Thiệu</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-giới-thiệu">    
-        <li>
-    <a class="dropdown-item" href="../../../../../content/about.html">
- <span class="dropdown-text">Giới thiệu về ZO Math</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../../../../content/triet_li_va_dinh_huong.html">
- <span class="dropdown-text">Triết lí và định hướng</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-phổ-thông" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Phổ Thông</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-phổ-thông">    
-        <li>
-    <a class="dropdown-item" href="../../../../../content/thpt/toan_11/index.html">
- <span class="dropdown-text">Toán 11</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../../../../content/thpt/toan_12/index.html">
- <span class="dropdown-text">Toán 12</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../../../../content/thpt/zo_math_100/index.html">
- <span class="dropdown-text">ZO Math 100+</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../../../../content/thpt/on_thi_toan_thpt/index.html">
- <span class="dropdown-text">Ôn thi Toán THPT</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="../../../../../content/di_tim/index.html"> 
-<span class="menu-text">Đi Tìm</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../../../content/khoa_hoc/index.html"> 
-<span class="menu-text">Khóa Học</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../../../content/kien_tao/index.html"> 
-<span class="menu-text">Kiến Tạo</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../../../content/cong_cu/index.html"> 
-<span class="menu-text">Công Cụ</span></a>
-  </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../../../../../content/shop/index.html"> 
-<span class="menu-text">Shop</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../../../content/support/donate.html"> 
-<span class="menu-text">Bảo Trợ</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../../../content/contact.html"> 
-<span class="menu-text">Liên Hệ</span></a>
-  </li>  
-</ul>
-          </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
 </div>
-      </div> <!-- /container-fluid -->
-    </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../../content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html">Ôn thi Toán THPT 2027</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
 </header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
-<!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../../../content/thpt/on_thi_toan_thpt/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Ôn thi Toán THPT</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../../../content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Ôn thi Toán THPT 2027</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../../../content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Khảo sát đầu vào</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container">
-  <a href="../../../../../content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Đơn điệu và cực trị</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../../../content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Giá trị lớn nhất và giá trị nhỏ nhất</span></a>
-  </div>
-</li>
-    </ul>
-    </div>
+<div class="workspace">
+<aside aria-label="Điều hướng khóa học" class="rail">
+<div class="rail-heading">
+<a href="index.html"><img alt="ZO Math" src="../../../../../assets/zo_web_2027/home/assets/logos/horizontal_color.svg" width="148"/></a>
+<p class="brand-thought">Học trong kỉ nguyên trí tuệ nhân tạo, học để tìm lại chính mình.</p>
+</div>
+<div id="rail-content"><nav aria-label="Mục lục trang Nhà" class="home-nav"><div class="r1-tab-group"><span class="r1-tab-group-label">Tìm hiểu khóa học</span><div class="r1-tab-group-items"><a href="#gi%E1%BB%9Bi-thi%E1%BB%87u">Giới thiệu</a><a href="#h%E1%BB%8Dc-theo-c%C3%A1ch-n%C3%A0o">Cách học</a><a href="#l%E1%BB%99-tr%C3%ACnh">Chuẩn bị cho kì thi</a><a href="#t%C3%A1m-m%E1%BA%A1ch">Em sẽ ôn những gì?</a></div></div><div class="r1-tab-group"><span class="r1-tab-group-label">Bắt đầu học</span><div class="r1-tab-group-items"><a href="#hoc-lieu-hien-co">Học liệu hiện có</a><a href="#b%E1%BA%AFt-%C4%91%E1%BA%A7u-t%E1%BB%AB-%C4%91%C3%A2u">Bắt đầu từ đâu?</a></div></div><div class="r1-tab-group"><span class="r1-tab-group-label">Thông tin</span><div class="r1-tab-group-items"><a href="#tr%E1%BA%A1ng-th%C3%A1i-tri%E1%BB%83n-khai">Tài liệu đang được bổ sung</a></div></div></nav></div>
+<a class="rail-support" href="#ung-ho">Bảo trợ ZO Math ↗</a>
+</aside>
+<main id="reading" tabindex="-1">
+
+<div class="zo-on-thi-program home-landing-content reader-content">
+<nav aria-label="Trong trang Nhà" class="home-section-nav">
+<a href="#hoc-lieu-hien-co">Khám phá học liệu</a>
+<a href="#học-theo-cách-nào">Cách học</a>
+<a href="#hoc-truc-tiep">Học trực tiếp</a>
+<a href="#ung-ho">Bảo trợ ZO Math</a>
 </nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
-<!-- margin-sidebar -->
-    
-<!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Ôn thi Toán THPT 2027</h1>
+<section aria-labelledby="home-title" class="home-hero" id="giới-thiệu">
+<div class="home-hero-copy">
+<span class="role">ZO Math · Học liệu miễn phí</span>
+<h1 id="home-title">Ôn thi Toán THPT <span>2027</span></h1>
+<section aria-label="Đếm ngược tới mốc thi Toán" class="home-countdown" data-countdown-status="reference" data-countdown-target="2027-06-11T14:30:00+07:00">
+<div class="countdown-heading"><span>Thời gian không chờ em</span><svg aria-hidden="true" class="countdown-dial" focusable="false" viewbox="0 0 48 48"><circle cx="24" cy="24" r="20"></circle><circle class="countdown-sweep" cx="24" cy="24" pathlength="60" r="20"></circle><path d="M24 12v12l8 4"></path></svg></div>
+<div aria-live="off" class="countdown-readout" hidden="" role="timer">
+<div class="countdown-days"><strong data-time="days">—</strong><span>ngày còn lại</span></div>
+<div class="countdown-hms"><div><strong data-time="hours">—</strong><span>giờ</span></div><b aria-hidden="true">:</b><div><strong data-time="minutes">—</strong><span>phút</span></div><b aria-hidden="true">:</b><div><strong data-time="seconds">—</strong><span>giây</span></div></div>
 </div>
-
+<p class="countdown-date">Đếm ngược từ <time datetime="2027-06-11T14:30:00+07:00">14:30 ngày 11/06/2027</time>, giờ Việt Nam.</p>
+<p class="countdown-notice">Ngày và giờ này được tạm lấy theo lịch thi Toán năm 2026, chưa phải lịch thi chính thức năm 2027. <a href="https://xaydungchinhsach.chinhphu.vn/lich-thi-tot-nghiep-thpt-nam-2026-119260319121525172.htm">Xem nguồn.</a></p>
+<p class="countdown-fallback">Bật JavaScript để xem đồng hồ cập nhật từng giây.</p>
+<p class="countdown-ended" hidden="" role="status"></p>
+</section>
+<p class="home-lead">Tài liệu tự học <strong>miễn phí</strong> dành cho học sinh ôn tập môn Toán: hiểu kiến thức, giải vấn đề và chuẩn bị cho kì thi tốt nghiệp THPT.</p>
+<p class="brand-thought"><em>Học trong kỉ nguyên trí tuệ nhân tạo, học để tìm lại chính mình.</em></p>
+</div>
+<figure aria-label="Minh họa hành trình học toán" class="home-journey figure"><img alt="Người học đi lên một con đường đỏ giữa các hình khối và dải đường cong, hướng tới vòm sáng màu vàng." class="journey-portrait figure-img" height="1448" src="../../../../../assets/zo_web_2027/home/assets/content/628cb9589b29_hanh_trinh_nguoi_hoc_toan_3x4.png" width="1086"/></figure>
+<section aria-labelledby="home-purpose" class="home-paper home-reading-panel home-introduction" id="chương-trình-giúp-em-làm-gì">
+<span class="role">Hiểu kiến thức · Tự giải bài</span>
+<h2 class="anchored" id="home-purpose">Hiểu vì sao. Tự giải quyết.</h2>
+<div class="home-two-columns">
+<div class="home-purpose-copy">
+<p class="home-key-question">Nhớ một công thức chưa đủ để biết khi nào dùng nó. Làm theo một lời giải cũng chưa chắc giúp em giải được bài khác.</p>
+<p>ZO Math giúp em hiểu kiến thức qua câu hỏi, giải thích, ví dụ và bài tập tự làm. Khi đối chiếu lời giải, hãy tìm xem mình đã nghĩ đúng ở đâu, sai ở đâu và vì sao.</p>
+<p>Điều quan trọng không chỉ là có đáp án đúng, mà là em có thể tự giải và giải thích lời giải của mình.</p>
+</div>
 <div>
-  <div class="description">
-    Lộ trình và các gói học liệu ôn thi Toán THPT 2027 của ZO Math.
-  </div>
-</div>
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<!-- generated by ZO Math build -->
-<div class="zo-on-thi zo-on-thi-program" data-on-thi-colors="canonical" style="--zo-on-thi-gray-300: #dfd7ca; --zo-on-thi-gray-800: #3e3a35">
-<div class="zo-on-thi-hero">
-<div class="zo-on-thi-hero__layout">
-<div class="zo-on-thi-hero__copy">
-<div class="zo-on-thi-status">
-<p>Đang triển khai</p>
-</div>
-<div class="zo-on-thi-hero__tagline">
-<p>Học từ chỗ hổng thực sự, củng cố từng nền tảng và theo dõi tiến bộ qua các gói học liệu có cấu trúc.</p>
-</div>
-<p><a href="#hoc-lieu-hien-co" class="zo-on-thi-link">Xem gói học liệu hiện có ↓</a></p>
-</div>
-<div class="zo-on-thi-hero__cover">
-<p><img src="assets/bia/chuong_trinh.svg" class="zo-on-thi-cover img-fluid" alt="Bìa Ôn thi Toán THPT 2027"></p>
-</div>
-</div>
-</div>
-<section id="giới-thiệu" class="level2">
-<h2 class="anchored" data-anchor-id="giới-thiệu">Giới thiệu</h2>
-<p>Chương trình tổ chức việc ôn Toán theo những mạch kiến thức liên kết: nhận diện phần cần bổ sung, ôn lại, luyện tập, tự kiểm tra và sửa lỗi bằng bài mới.</p>
-</section>
-<section id="dành-cho-ai" class="level2">
-<h2 class="anchored" data-anchor-id="dành-cho-ai">Dành cho ai?</h2>
-<p>Dành cho học sinh lớp 12 đã tiếp cận kiến thức lớp 10–11, với nền tảng và mục tiêu khác nhau. Phần chưa học được ghi riêng; việc ôn cần phù hợp với tiến độ ở trường và thời gian thực có.</p>
-</section>
-<section id="chương-trình-giúp-em-làm-gì" class="level2">
-<h2 class="anchored" data-anchor-id="chương-trình-giúp-em-làm-gì">Chương trình giúp em làm gì?</h2>
-<p>Biết mình cần củng cố gì, hiểu điều kiện của cách làm, tự chọn công cụ và kiểm tra lại phần đã sửa.</p>
-</section>
-<section id="học-theo-cách-nào" class="level2">
-<h2 class="anchored" data-anchor-id="học-theo-cách-nào">Học theo cách nào?</h2>
-<div class="zo-on-thi-steps">
-<ol type="1">
-<li>Tự làm trước khi xem lời giải.</li>
-<li>Đọc đúng phần cần ôn.</li>
-<li>Luyện tập và đối chiếu.</li>
-<li>Ghi lại lỗi.</li>
-<li>Thử một câu mới.</li>
-<li>Quay lại ôn khi cần.</li>
-</ol>
-</div>
-</section>
-<section id="lộ-trình" class="level2">
-<h2 class="anchored" data-anchor-id="lộ-trình">Lộ trình</h2>
-<div class="zo-on-thi-roadmap">
-<ol type="1">
-<li>Định vị đầu vào.</li>
-<li>Ôn trọng tâm.</li>
-<li>Phối hợp kiến thức.</li>
-<li>Luyện đề và chữa lỗi.</li>
-<li>Củng cố trước thi.</li>
-</ol>
-</div>
-<p>Lộ trình được điều chỉnh theo phần đã học, bài làm và quỹ thời gian; đây không phải lịch bắt buộc giống nhau cho mọi học sinh.</p>
-</section>
-<section id="tám-mạch" class="level2">
-<h2 class="anchored" data-anchor-id="tám-mạch">Tám mạch</h2>
-<div class="zo-on-thi-strands">
-<div class="zo-on-thi-strand">
-<p><strong>R1</strong> Hàm số, đạo hàm, đồ thị</p>
-</div>
-<div class="zo-on-thi-strand">
-<p><strong>R2</strong> Thống kê và đọc dữ liệu</p>
-</div>
-<div class="zo-on-thi-strand">
-<p><strong>R3</strong> Hình học, vectơ và tọa độ</p>
-</div>
-<div class="zo-on-thi-strand">
-<p><strong>R4</strong> Đếm và xác suất</p>
-</div>
-<div class="zo-on-thi-strand">
-<p><strong>R5</strong> Dãy số, mũ và lôgarit</p>
-</div>
-<div class="zo-on-thi-strand">
-<p><strong>R6</strong> Hàm số lượng giác và phương trình lượng giác</p>
-</div>
-<div class="zo-on-thi-strand">
-<p><strong>R7</strong> Nguyên hàm, tích phân và ứng dụng</p>
-</div>
-<div class="zo-on-thi-strand">
-<p><strong>R8</strong> Mô hình hóa, tối ưu và tổng hợp</p>
-</div>
-</div>
-<p>Nền N được bổ sung theo nhu cầu. R8 xuất hiện xuyên các mạch. Đây không phải tám khóa học đã mở.</p>
-</section>
-<section id="hoc-lieu-hien-co" class="level2">
-<h2 class="anchored" data-anchor-id="hoc-lieu-hien-co">Học liệu hiện có</h2>
-<div class="zo-on-thi-package" data-package-id="d0">
-<div class="zo-on-thi-package__layout">
-<div class="zo-on-thi-package__cover">
-<p><img src="assets/bia/d0.svg" class="zo-on-thi-cover img-fluid" alt="Bìa D0: Khảo sát đầu vào"></p>
-</div>
-<div class="zo-on-thi-package__copy">
-<div class="zo-on-thi-package__meta">
-<p>D0 · Phiên bản 1.0 · Có thể học</p>
-</div>
-<section id="khảo-sát-đầu-vào" class="level3">
-<h3 class="anchored" data-anchor-id="khảo-sát-đầu-vào">Khảo sát đầu vào</h3>
-<p>Khảo sát tự nguyện để định vị những phần đã học và chọn mạch ôn phù hợp; không yêu cầu làm đủ câu hay đạt điểm mới được vào học.</p>
-<p><a href="../../../../..\content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html#bat-dau" class="zo-on-thi-link">Bắt đầu khảo sát →</a></p>
-</section>
-</div>
-</div>
-</div>
-<div class="zo-on-thi-package" data-package-id="r1_g01">
-<div class="zo-on-thi-package__layout">
-<div class="zo-on-thi-package__cover">
-<p><img src="assets/bia/r1_g01.svg" class="zo-on-thi-cover img-fluid" alt="Bìa R1-G01: Đơn điệu và cực trị"></p>
-</div>
-<div class="zo-on-thi-package__copy">
-<div class="zo-on-thi-package__meta">
-<p>R1-G01 · Phiên bản 1.3 · Có thể học</p>
-</div>
-<section id="đơn-điệu-và-cực-trị" class="level3">
-<h3 class="anchored" data-anchor-id="đơn-điệu-và-cực-trị">Đơn điệu và cực trị</h3>
-<p>Đọc công thức, bảng biến thiên và đồ thị; dùng dấu đạo hàm để giải thích tính đơn điệu và cực trị.</p>
-<p><a href="../../../../..\content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.html?r1-view=cach-hoc" class="zo-on-thi-link">Bắt đầu học →</a></p>
-</section>
-</div>
-</div>
-</div>
-<div class="zo-on-thi-package" data-package-id="r1_g02">
-<div class="zo-on-thi-package__layout">
-<div class="zo-on-thi-package__cover">
-<p><img src="assets/bia/r1_g02.svg" class="zo-on-thi-cover img-fluid" alt="Bìa R1-G02: Giá trị lớn nhất và giá trị nhỏ nhất"></p>
-</div>
-<div class="zo-on-thi-package__copy">
-<div class="zo-on-thi-package__meta">
-<p>R1-G02 · Phiên bản 0.2 · Có thể học</p>
-</div>
-<section id="giá-trị-lớn-nhất-và-giá-trị-nhỏ-nhất" class="level3">
-<h3 class="anchored" data-anchor-id="giá-trị-lớn-nhất-và-giá-trị-nhỏ-nhất">Giá trị lớn nhất và giá trị nhỏ nhất</h3>
-<p>Phân biệt cực trị với giá trị lớn nhất, nhỏ nhất; tìm đúng giá trị trên tập được chỉ định và kiểm tra sự đạt được.</p>
-<p><a href="../../../../..\content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/index.html?r1-view=cach-hoc" class="zo-on-thi-link">Bắt đầu học →</a></p>
-</section>
-</div>
+<h3 class="anchored" id="dành-cho-ai">Dành cho ai?</h3>
+<p>Học sinh đang ôn thi tốt nghiệp THPT 2027. Em có thể chọn chủ đề cần học và chia thời gian học thành nhiều buổi, phù hợp với lịch học ở trường.</p>
 </div>
 </div>
 </section>
-<section id="bắt-đầu-từ-đâu" class="level2">
-<h2 class="anchored" data-anchor-id="bắt-đầu-từ-đâu">Bắt đầu từ đâu?</h2>
-<p>Nếu chưa biết mình nên ưu tiên mạch kiến thức nào, hãy bắt đầu bằng Khảo sát đầu vào D0. D0 là công cụ định vị tự nguyện, không phải điều kiện bắt buộc để mở một gói học.</p>
-<p>Trong mạch R1, chọn R1-G01 — Đơn điệu và cực trị khi em cần củng cố cách dùng dấu đạo hàm, bảng biến thiên và đồ thị để xét đơn điệu, cực trị. Chọn R1-G02 — Giá trị lớn nhất và giá trị nhỏ nhất khi em cần phân biệt cực trị với giá trị lớn nhất, nhỏ nhất và tìm các giá trị ấy trên một tập được chỉ định.</p>
 </section>
-<section id="trạng-thái-triển-khai" class="level2">
-<h2 class="anchored" data-anchor-id="trạng-thái-triển-khai">Trạng thái triển khai</h2>
-<p>Chương trình đang triển khai. Danh mục dưới đây chỉ hiển thị những học liệu đã có trong đợt phát hành.</p>
+<section aria-labelledby="home-catalog-title" class="home-paper" id="hoc-lieu-hien-co">
+<span class="role">Học liệu hiện có</span>
+<h2 class="anchored" id="home-catalog-title">Hôm nay, em muốn học gì?</h2>
+<p>Chọn chủ đề cần ôn. <span id="trạng-thái-triển-khai">Nội dung các tài liệu có thể được chỉnh sửa và bổ sung.</span></p>
+<div class="home-catalog-tools" hidden="">
+<div aria-label="Lọc học liệu" class="home-filters" role="group"><button aria-pressed="true" data-filter="all" type="button">Tất cả</button><button aria-pressed="false" data-filter="survey" type="button">Khảo sát</button><button aria-pressed="false" data-filter="functions" type="button">Hàm số</button></div>
+<label class="home-search">Tìm học liệu<input autocomplete="off" id="home-search" placeholder="Tên chủ đề muốn ôn" type="search"/></label>
+</div>
+<div class="home-catalog"><article class="home-card" data-category="survey" data-package-id="d0"><div class="home-card-content">
+<img alt="" height="240" loading="lazy" src="../../../../../assets/zo_web_2027/home/assets/content/e1862567be65_stack_color.svg" width="420">
+<div class="home-card-copy"><span class="role">Có thể học</span>
+<h3 class="anchored" id="home-card-title-d0">Khảo sát đầu vào</h3><p>Thử một số câu hỏi để nhận ra phần mình đã biết và phần cần ôn thêm. Em có thể chọn những câu phù hợp với kiến thức đã học, không cần làm hết.</p>
+<a aria-labelledby="home-card-action-d0 home-card-title-d0" class="home-card-action" data-canonical-href="../../../../../content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html" href="../../hoc_lieu/d0/index.html" id="home-card-action-d0">Làm khảo sát <span aria-hidden="true">→</span></a></div></img></div></article>
+<article class="home-card" data-category="functions" data-package-id="r1_g01"><div class="home-card-content">
+<img alt="" height="240" loading="lazy" src="../../../../../assets/zo_web_2027/home/assets/content/b185b6f93e13_cover-light.svg" width="420"/>
+<div class="home-card-copy"><span class="role">Bản xem trước</span>
+<h3 class="anchored" id="home-card-title-r1_g01">Đơn điệu và cực trị</h3><p>Khi nào hàm số đồng biến, nghịch biến? Làm sao tìm cực trị? Tìm hiểu qua công thức, dấu đạo hàm, bảng biến thiên và đồ thị.</p>
+<a aria-labelledby="home-card-action-r1_g01 home-card-title-r1_g01" class="home-card-action" data-canonical-href="../../../../../content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.html?r1-view=bat-dau#bat-dau" href="../../hoc_lieu/r1_g01/index.html?r1-view=bat-dau#bat-dau" id="home-card-action-r1_g01">Mở tài liệu <span aria-hidden="true">→</span></a></div></div></article>
+<article class="home-card" data-category="functions" data-package-id="r1_g02"><div class="home-card-content">
+<img alt="" height="240" loading="lazy" src="../../../../../assets/zo_web_2027/home/assets/content/03e594836963_cover-light.svg" width="420"/>
+<div class="home-card-copy"><span class="role">Bản xem trước</span>
+<h3 class="anchored" id="home-card-title-r1_g02">Giá trị lớn nhất và giá trị nhỏ nhất</h3><p>Tìm giá trị lớn nhất, nhỏ nhất trên một tập cho trước. Phân biệt chúng với cực trị và xác định những điểm mà hàm số nhận các giá trị ấy.</p>
+<a aria-labelledby="home-card-action-r1_g02 home-card-title-r1_g02" class="home-card-action" data-canonical-href="../../../../../content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/index.html?r1-view=bat-dau#bat-dau" href="../../hoc_lieu/r1_g02/index.html?r1-view=bat-dau#bat-dau" id="home-card-action-r1_g02">Mở tài liệu <span aria-hidden="true">→</span></a></div></div></article></div>
+<p aria-live="polite" class="home-filter-status" hidden="" role="status"></p>
+<div class="home-start" id="bắt-đầu-từ-đâu">
+<h3 class="anchored">Chưa biết nên bắt đầu từ đâu?</h3>
+<p>Khảo sát đầu vào giúp em chọn phần nên ôn trước. Đây không phải bài thi để xét điều kiện vào học: em không cần đạt một mức điểm mới được mở tài liệu.</p>
+<a class="home-action" data-canonical-href="../../../../../content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html" href="../../hoc_lieu/d0/index.html">Làm khảo sát đầu vào <span aria-hidden="true">→</span></a>
+</div>
+</section>
+<section aria-labelledby="home-method-title" class="home-paper home-reading-panel" id="học-theo-cách-nào">
+<span class="role">Cách học</span>
+<h2 class="anchored" id="home-method-title">Học theo nhịp của em</h2>
+<p>Trong mỗi tài liệu theo chủ đề, em sẽ gặp bốn phần chính:</p>
+<div class="home-method-grid">
+<div>
+<div class="home-method-heading">
+<span aria-hidden="true" class="home-method-number">01</span>
+<h3 class="anchored">Bài học</h3>
+</div>
+<p>Em chưa học chủ đề này hoặc muốn hiểu lại cho rõ.</p>
+<p>Tự trả lời các câu hỏi, rồi đọc giải thích và ví dụ. Chú ý vào lời giải và những điều kiện kèm theo.</p>
+</div>
+<div>
+<div class="home-method-heading">
+<span aria-hidden="true" class="home-method-number">02</span>
+<h3 class="anchored">Luyện tập</h3>
+</div>
+<p>Em muốn tự giải quyết vấn đề và luyện tập cách vận dụng kiến thức.</p>
+<p>Bài tập được chia thành các chặng. Cuối mỗi chặng có <strong>Điểm dừng</strong>: phần này hướng dẫn em xem lại bài làm để biết nên học tiếp hay luyện thêm chỗ nào.</p>
+</div>
+<div>
+<div class="home-method-heading">
+<span aria-hidden="true" class="home-method-number">03</span>
+<h3 class="anchored">Kiểm tra</h3>
+</div>
+<p>Khi đã chuẩn bị kĩ hoặc đủ tự tin, em có thể làm bài Kiểm tra.</p>
+<p>Hãy tự làm, không xem lời giải hay tìm trợ giúp trong lúc làm. Không chia bài Kiểm tra thành nhiều buổi. Làm xong, giữ bài làm để đối chiếu và xem mình cần cải thiện điều gì.</p>
+</div>
+<div>
+<div class="home-method-heading">
+<span aria-hidden="true" class="home-method-number">04</span>
+<h3 class="anchored">Ôn lại</h3>
+</div>
+<p>Hẹn một ngày quay lại ôn tập. Đến ngày đó, mở phần Ôn lại và tự làm các câu hỏi trước khi xem lời giải.</p>
+<p>Phần này giúp em biết kiến thức còn nhớ được đến đâu sau một thời gian.</p>
+</div>
+</div>
+<div class="home-method-tail">
+<p>Em không nhất thiết phải bắt đầu từ Bài học. Có thể vào Luyện tập hoặc Kiểm tra nếu thấy phù hợp, rồi quay lại phần cần học khi phát hiện chỗ chưa hiểu.</p>
+<h3 class="anchored">Nếu đang làm bài mà bị vướng</h3>
+<ul>
+<li>Chưa hiểu kiến thức của chủ đề: xem lại phần liên quan trong <strong>Bài học</strong>.</li>
+<li>Quên kiến thức cần dùng: tìm trong <strong>Ôn nền</strong>. Em cũng có thể chọn tài liệu, công cụ hoặc trao đổi với người khác để hiểu chỗ đang vướng.</li>
+<li>Sau đó, quay lại chỗ dừng chân trước đó.</li>
+</ul>
+<p class="home-method-note">Nếu cần trợ giúp, hãy kết thúc lượt Kiểm tra và giữ riêng bài đã tự làm trước khi mở phần hỗ trợ. Phần làm tiếp sau trợ giúp không tính vào kết quả tự lực của lượt ấy.</p>
+<h3 class="anchored">Sau khi làm bài</h3>
+<p>Mở <strong>Lời giải</strong> để đối chiếu cách làm, không chỉ đáp số. Nếu phát hiện lỗi, phần <strong>Sửa lỗi</strong> có những bài giúp em luyện lại chỗ đó.</p>
+<p>Cuối buổi học, em có thể ghi vào <strong>Nhật kí</strong>: điều đã hiểu, chỗ còn vướng, việc sẽ làm tiếp và ngày hẹn Ôn lại.</p>
+</div>
+</section>
+<section aria-labelledby="home-strands-title" class="home-paper home-reading-panel" id="tám-mạch">
+<span class="role">Phạm vi kiến thức</span>
+<h2 class="anchored" id="home-strands-title">Em sẽ ôn những gì?</h2>
+<p>Chương trình bao gồm các chủ đề:</p>
+<div class="home-strands">
+<div data-strand-id="R1"><span aria-hidden="true" class="home-topic-number">01</span><h3 class="anchored">Hàm số, đạo hàm và đồ thị</h3></div><div data-strand-id="R2"><span aria-hidden="true" class="home-topic-number">02</span><h3 class="anchored">Thống kê và đọc dữ liệu</h3></div><div data-strand-id="R3"><span aria-hidden="true" class="home-topic-number">03</span><h3 class="anchored">Hình học, vectơ và tọa độ</h3></div><div data-strand-id="R4"><span aria-hidden="true" class="home-topic-number">04</span><h3 class="anchored">Đếm và xác suất</h3></div><div data-strand-id="R5"><span aria-hidden="true" class="home-topic-number">05</span><h3 class="anchored">Dãy số, mũ và lôgarit</h3></div><div data-strand-id="R6"><span aria-hidden="true" class="home-topic-number">06</span><h3 class="anchored">Hàm số lượng giác và phương trình lượng giác</h3></div><div data-strand-id="R7"><span aria-hidden="true" class="home-topic-number">07</span><h3 class="anchored">Nguyên hàm, tích phân và ứng dụng</h3></div><div data-strand-id="R8"><span aria-hidden="true" class="home-topic-number">08</span><h3 class="anchored">Mô hình hóa, tối ưu và bài toán tổng hợp</h3></div>
+</div>
+<p>Một bài toán có thể ẩn chứa kiến thức từ nhiều chủ đề. Vì vậy, bên cạnh việc ôn từng chủ đề, em còn cần luyện tập kết hợp chúng.</p>
+<h3 class="anchored" id="lộ-trình">Chuẩn bị cho kì thi</h3>
+<p>Trước hết, tìm phần mình cần ôn và học lại kiến thức chưa vững. Sau đó, luyện những bài cần kết hợp nhiều kiến thức, luyện đề và xem lại các lỗi thường mắc. Gần ngày thi, dành thời gian củng cố những phần còn yếu.</p>
+<p>Em có thể điều chỉnh việc ôn theo bài mình làm được và thời gian còn lại, không cần theo một lịch giống mọi người.</p>
+</section>
+<section aria-labelledby="home-service-title" class="home-paper home-reading-panel home-service home-service-feature" id="hoc-truc-tiep">
+<div class="home-service-copy">
+<h2 class="anchored" id="home-service-title">Học trực tiếp cùng <span class="home-service-brand-title">ZO Math</span></h2>
+<h3 class="anchored">Xem bài làm của em</h3>
+<p>Em mang theo bài đã làm và những câu hỏi còn vướng. Buổi trao đổi sẽ tập trung vào cách em nghĩ, chỗ chưa hiểu và cách tự học tiếp.</p>
+<p class="home-service-fee">Đây là dịch vụ có thu phí, tách biệt với tài liệu tự học miễn phí.</p>
+<div aria-hidden="true" class="home-service-accent">
+</div>
+</div>
+<figure class="home-service-illustration"><img alt="Học sinh áo trắng viết bằng bút mực không tẩy, trao đổi bài làm với người hướng dẫn ZO Math áo đỏ dưới ánh đèn vàng; logo ZO Math treo trên tường." class="home-service-art" height="1086" loading="lazy" src="../../../../../assets/zo_web_2027/home/assets/content/b2b4861a1087_hoc_truc_tiep_buoi_hoc.svg" width="1448"/></figure>
+<div class="home-unanchored home-service-status">
+<h3 class="anchored">Chưa mở đăng kí</h3>
+<p>Hình thức học, lịch và mức phí sẽ được thông báo khi sẵn sàng. Em vẫn có thể sử dụng tài liệu miễn phí mà không đăng kí học trực tiếp.</p>
+</div>
+</section>
+<section aria-labelledby="home-trust-title" class="home-paper home-reading-panel" id="nguon-hoc-lieu">
+<span class="role">Nguồn và cách sử dụng</span>
+<h2 class="anchored" id="home-trust-title">Muốn tìm hiểu thêm?</h2>
+<p>Mỗi gói học liệu đều có mục <strong>Nguồn</strong>, ghi những tài liệu được sử dụng khi biên soạn. Em có thể xem mục này khi muốn đọc thêm hoặc tìm hiểu một nội dung từ nơi khác.</p>
+<details>
+<summary>Học bằng trí tuệ nhân tạo</summary>
+<p>Hãy tự thử trước. Nếu còn vướng, mà không có người chỉ bảo, em có thể nhờ công cụ giải thích hoặc gợi ý để em có thể bước tiếp và tự mình kết thúc vấn đề - không để công cụ làm thay em, giải quyết toàn bộ vấn đề.</p>
+<p>Đặt câu hỏi với công cụ là một việc rất quan trọng, đừng xem nhẹ nó. Em phải tìm hiểu và luyện tập cách đặt câu hỏi hiệu quả. Xem đây là một năng lực thiết yếu trong học tập hiện đại.</p>
+<p>Không dùng trí tuệ nhân tạo hoặc trợ giúp khác khi đang làm Kiểm tra.</p>
+</details>
+</section>
+<section aria-labelledby="home-faq-title" class="home-paper home-reading-panel home-faq" id="cau-hoi-thuong-gap">
+<h2 class="anchored" id="home-faq-title">Câu hỏi thường gặp</h2>
+<details>
+<summary>Nếu còn thiếu kiến thức lớp 10–11 thì sao?</summary>
+<p>Em không cần ôn lại toàn bộ lớp 10–11 trước khi bắt đầu.</p>
+<p>Khi gặp vấn đề cần kiến thức đã quên, hãy ôn đúng phần đó rồi quay lại làm tiếp. Ôn nền trong tài liệu là một nơi để tìm kiếm kiến thức đó. Em có thể dùng những nguồn trợ giúp khác phù hợp với mình.</p>
+<p>Nếu kiến thức ấy chưa từng học, cần dành thời gian học trước khi tiếp tục từ chỗ đang vướng.</p>
+</details>
+<details>
+<summary>Có phải làm Khảo sát đầu vào trước khi học không?</summary>
+<p>Không. Nếu đã biết mình cần ôn chủ đề nào, em có thể mở thẳng tài liệu của chủ đề đó.</p>
+</details>
+<details>
+<summary>Có thể học bằng PDF không?</summary>
+<p>Trong tài liệu theo chủ đề có mục <strong>Tải PDF</strong>. Hãy đọc thông báo tại đó trước khi tải: bản PDF có thể chưa chứa những chỉnh sửa mới nhất của trang web.</p>
+<p>Khảo sát đầu vào hiện dùng trên trang web.</p>
+</details>
+<details>
+<summary>Có cần trả phí để dùng tài liệu không?</summary>
+<p>Không. Tài liệu tự học miễn phí. Việc bảo trợ ZO Math là tự nguyện; học trực tiếp là dịch vụ riêng có thu phí.</p>
+</details>
 </section>
 </div>
-
-
-
-</main> <!-- /main -->
-<!-- Overlay để click ra ngoài và đóng sidebar -->
-
-<div class="sidebar-overlay" aria-hidden="true"></div>
-
-
-
-<script>
-
-  document.addEventListener("DOMContentLoaded", function () {
-
-    const body = document.body;
-
-
-
-    // Đảm bảo chỉ có 1 overlay trong DOM
-
-    let overlay = document.querySelector(".sidebar-overlay");
-
-    if (!overlay) {
-
-      overlay = document.createElement("div");
-
-      overlay.className = "sidebar-overlay";
-
-      body.appendChild(overlay);
-
-    } else {
-
-      // xóa overlay dư thừa nếu có
-
-      const all = document.querySelectorAll(".sidebar-overlay");
-
-      for (let i = 1; i < all.length; i++) all[i].remove();
-
-    }
-
-
-
-    // Sidebar (ưu tiên #quarto-sidebar); nếu dùng lớp khác, thêm vào đây
-
-    const sidebar = document.getElementById("quarto-sidebar");
-
-    if (!sidebar) return;
-
-
-
-    const toggles = Array.from(document.querySelectorAll(".quarto-btn-toggle, #quarto-header .quarto-btn-toggle"));
-
-
-
-    // Gỡ data-bs-* để Bootstrap không tự toggle song song
-
-    toggles.forEach(btn => {
-
-      if (btn.hasAttribute("data-bs-toggle")) btn.removeAttribute("data-bs-toggle");
-
-      if (btn.hasAttribute("data-bs-target")) btn.removeAttribute("data-bs-target");
-
-    });
-
-
-
-    const isOpen = () => sidebar.classList.contains("show");
-
-
-
-    function openSidebar() {
-
-      sidebar.classList.add("show");
-
-      overlay.classList.add("active");
-
-      overlay.style.display = "block";
-
-      body.classList.add("sidebar-open");
-
-      toggles.forEach(btn => btn.setAttribute("aria-expanded", "true"));
-
-    }
-
-
-
-    function closeSidebar() {
-
-      sidebar.classList.remove("show");
-
-      // tắt overlay ngay để không "kẹt xám"
-
-      overlay.classList.remove("active");
-
-      overlay.style.display = "none";
-
-      body.classList.remove("sidebar-open");
-
-      toggles.forEach(btn => btn.setAttribute("aria-expanded", "false"));
-
-    }
-
-
-
-    function toggleSidebar(e) {
-
-      if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
-
-      if (isOpen()) closeSidebar(); else openSidebar();
-
-    }
-
-
-
-    // Bắt click toggle (capture để chạy trước handler khác)
-
-    toggles.forEach(btn => {
-
-      btn.addEventListener("click", toggleSidebar, { capture: true });
-
-    });
-
-
-
-    // Click overlay -> luôn đóng
-
-    overlay.addEventListener("click", function (e) {
-
-      e.preventDefault();
-
-      e.stopImmediatePropagation();
-
-      if (isOpen()) closeSidebar();
-
-    }, { capture: true });
-
-
-
-    // ESC -> đóng
-
-    document.addEventListener("keydown", (e) => {
-
-      if (e.key === "Escape" && isOpen()) closeSidebar();
-
-    });
-
-
-
-    // Đồng bộ ban đầu
-
-    if (isOpen()) {
-
-      overlay.classList.add("active");
-
-      overlay.style.display = "block";
-
-      body.classList.add("sidebar-open");
-
-    } else {
-
-      overlay.classList.remove("active");
-
-      overlay.style.display = "none";
-
-      body.classList.remove("sidebar-open");
-
-    }
-
-  });
-
-</script>
-
-
-
-<!-- nav#TOC -->
-
-
-
-<script>
-
-  document.addEventListener("DOMContentLoaded", function () {
-
-    const body = document.body;
-
-
-
-    // Lấy TOC Quarto (1 trong 3 biến thể)
-
-    const rawToc =
-
-      document.querySelector("nav#TOC") ||
-
-      document.querySelector(".quarto-toc") ||
-
-      document.querySelector(".toc");
-
-
-
-    // Vùng breadcrumb/secondary nav để gắn nút & panel
-
-    const secNav = document.querySelector("#quarto-header .quarto-secondary-nav");
-
-    const secContainer = secNav?.querySelector(".container-fluid") || secNav;
-
-
-
-    // Nếu trang không có TOC thật thì không tạo nút TOC.
-
-    let tocBtn = secNav?.querySelector(".toc-toggle-btn");
-
-    if (!rawToc) {
-
-      tocBtn?.closest(".toc-toggle-holder")?.remove();
-
-      return;
-
-    }
-
-
-
-    // ----- Tạo nút TOC: CHỈ ICON, KHÔNG CHỮ
-
-    if (secContainer && !tocBtn) {
-
-      tocBtn = document.createElement("button");
-
-      tocBtn.type = "button";
-
-      tocBtn.className = "toc-toggle-btn only-icon";
-
-      tocBtn.setAttribute("aria-expanded", "false");
-
-      tocBtn.setAttribute("aria-label", "Trên trang này");
-
-      // Inline SVG (không phụ thuộc data-URI/CSP), nét rõ, dùng currentColor
-
-      tocBtn.innerHTML = `
-
-      <svg class="toc-icon" xmlns="http://www.w3.org/2000/svg"
-
-           width="24" height="24" viewBox="0 0 24 24" fill="none"
-
-           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-
-           aria-hidden="true" focusable="false">
-
-        <path d="M10 6h10M10 12h10M10 18h10"></path>
-
-        <circle cx="5" cy="6" r="1.15" fill="currentColor"></circle>
-
-        <circle cx="5" cy="12" r="1.15" fill="currentColor"></circle>
-
-        <circle cx="5" cy="18" r="1.15" fill="currentColor"></circle>
-
-      </svg>
-
-    `;
-
-      const holder = document.createElement("div");
-
-      holder.className = "toc-toggle-holder";
-
-      holder.style.marginLeft = "auto";
-
-      holder.appendChild(tocBtn);
-
-      secContainer.appendChild(holder);
-
-    }
-
-
-
-    // ----- Chuẩn hoá panel TOC
-
-    let tocEl = null;
-
-    if (rawToc && secNav) {
-
-      tocEl = rawToc;
-
-      tocEl.classList.add("q-toc");
-
-      // GIỮ id = "TOC" để ScrollSpy bắt đúng
-
-      tocEl.id = "TOC";
-
-      if (tocEl.parentElement !== secNav) secNav.appendChild(tocEl);
-
-      tocEl.setAttribute("role", "region");
-
-      tocEl.setAttribute("aria-label", "Trên trang này");
-
-      tocBtn?.setAttribute("aria-controls", tocEl.id);
-
-      const t = tocEl.querySelector(".toc-title, h2, h3");
-
-      if (t) t.classList.add("toc-title");
-
-
-
-      // Hiện các cấp mục lục đã được Quarto sinh ra theo toc-depth.
-
-      // Quarto/Bootstrap có thể gắn class "collapse" cho mục con, khiến ### bị ẩn.
-
-      tocEl.querySelectorAll("ul.collapse").forEach((ul) => {
-
-        ul.classList.remove("collapse");
-
-      });
-
-
-
-      // Khởi tạo/refresh ScrollSpy sau khi đã di chuyển TOC
-
-      initScrollSpy();
-
-    }
-
-
-
-    // ----- Toggle: chỉ bấm icon mới đóng/mở (KHÔNG close khi click ra ngoài)
-
-    function toggleTOC() {
-
-      if (!tocEl) return;
-
-      const open = tocEl.classList.toggle("is-open");
-
-      document.body.classList.toggle("toc-open", open);   // fallback cho CSS nếu cần
-
-      tocBtn?.setAttribute("aria-expanded", String(open));
-
-    }
-
-    tocBtn?.addEventListener("click", toggleTOC);
-
-
-
-    // Khi sidebar mở -> đóng TOC để tránh chồng chéo (giữ nguyên logic cũ)
-
-    const mo = new MutationObserver(() => {
-
-      if (body.classList.contains("sidebar-open")) {
-
-        tocEl?.classList.remove("is-open");
-
-        tocBtn?.setAttribute("aria-expanded", "false");
-
-      }
-
-    });
-
-    mo.observe(body, { attributes: true, attributeFilter: ["class"] });
-
-
-
-    // ----- Hàm khởi tạo Bootstrap ScrollSpy (đánh dấu mục đang đọc)
-
-    function initScrollSpy() {
-
-      if (!window.bootstrap) return; // Quarto thường có sẵn Bootstrap
-
-
-
-      // Gắn thuộc tính cho body (nếu chưa có)
-
-      document.body.setAttribute("data-bs-spy", "scroll");
-
-      document.body.setAttribute("data-bs-target", "#TOC");
-
-
-
-      // offset = navbar + breadcrumb (đọc từ CSS vars)
-
-      const cs = getComputedStyle(document.documentElement);
-
-      const nb = parseInt(cs.getPropertyValue("--navbar-h")) || 56;
-
-      const bc = parseInt(cs.getPropertyValue("--bc-h")) || 32;
-
-      const offset = nb + bc + 10;
-
-
-
-      const spy = bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
-
-        target: "#TOC",
-
-        offset
-
-      });
-
-      spy.refresh();
-
-
-
-      // Refresh lại khi load xong ảnh/resize để tính chuẩn vị trí
-
-      window.addEventListener("load", () => spy.refresh(), { once: true });
-
-      window.addEventListener("resize", () => spy.refresh());
-
-    }
-
-  });
-
-</script>
-<script id="quarto-html-after-body" type="application/javascript">
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
-    const isCodeAnnotation = (el) => {
-      for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {                     
-          return true;
-        }
-      }
-      return false;
-    }
-    const onCopySuccess = function(e) {
-      // button target
-      const button = e.trigger;
-      // don't keep focus
-      button.blur();
-      // flash "checked"
-      button.classList.add('code-copy-button-checked');
-      var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
-      let tooltip;
-      if (window.bootstrap) {
-        button.setAttribute("data-bs-toggle", "tooltip");
-        button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
-        tooltip = new bootstrap.Tooltip(button, 
-          { trigger: "manual", 
-            customClass: "code-copy-button-tooltip",
-            offset: [0, -8]});
-        tooltip.show();    
-      }
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.hide();
-          button.removeAttribute("data-bs-title");
-          button.removeAttribute("data-bs-toggle");
-          button.removeAttribute("data-bs-placement");
-        }
-        button.setAttribute("title", currentTitle);
-        button.classList.remove('code-copy-button-checked');
-      }, 1000);
-      // clear code selection
-      e.clearSelection();
-    }
-    const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-      text: getTextToCopy
-    });
-    clipboard.on('success', onCopySuccess);
-    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-        text: getTextToCopy,
-        container: window.document.getElementById('quarto-embedded-source-code-modal')
-      });
-      clipboardModal.on('success', onCopySuccess);
-    }
-      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/zomath\.vn\/");
-      var isInternal = (href) => {
-          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-      }
-      // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-      for (var i=0; i<links.length; i++) {
-        const link = links[i];
-        if (!isInternal(link.href)) {
-          // undo the damage that might have been done by quarto-nav.js in the case of
-          // links that we want to consider external
-          if (link.dataset.originalHref !== undefined) {
-            link.href = link.dataset.originalHref;
-          }
-        }
-      }
-    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-      const config = {
-        allowHTML: true,
-        maxWidth: 500,
-        delay: 100,
-        arrow: false,
-        appendTo: function(el) {
-            return el.parentElement;
-        },
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'quarto',
-        placement: 'bottom-start',
-      };
-      if (contentFn) {
-        config.content = contentFn;
-      }
-      if (onTriggerFn) {
-        config.onTrigger = onTriggerFn;
-      }
-      if (onUntriggerFn) {
-        config.onUntrigger = onUntriggerFn;
-      }
-      window.tippy(el, config); 
-    }
-    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-    for (var i=0; i<noterefs.length; i++) {
-      const ref = noterefs[i];
-      tippyHover(ref, function() {
-        // use id or data attribute instead here
-        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-        try { href = new URL(href).hash; } catch {}
-        const id = href.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note) {
-          return note.innerHTML;
-        } else {
-          return "";
-        }
-      });
-    }
-    const xrefs = window.document.querySelectorAll('a.quarto-xref');
-    const processXRef = (id, note) => {
-      // Strip column container classes
-      const stripColumnClz = (el) => {
-        el.classList.remove("page-full", "page-columns");
-        if (el.children) {
-          for (const child of el.children) {
-            stripColumnClz(child);
-          }
-        }
-      }
-      stripColumnClz(note)
-      if (id === null || id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children && note.children.length > 2) {
-          container.appendChild(note.children[0].cloneNode(true));
-          for (let i = 1; i < note.children.length; i++) {
-            const child = note.children[i];
-            if (child.tagName === "P" && child.innerText === "") {
-              continue;
-            } else {
-              container.appendChild(child.cloneNode(true));
-              break;
-            }
-          }
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(container);
-          }
-          return container.innerHTML
-        } else {
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(note);
-          }
-          return note.innerHTML;
-        }
-      } else {
-        // Remove any anchor links if they are present
-        const anchorLink = note.querySelector('a.anchorjs-link');
-        if (anchorLink) {
-          anchorLink.remove();
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        if (note.classList.contains("callout")) {
-          return note.outerHTML;
-        } else {
-          return note.innerHTML;
-        }
-      }
-    }
-    for (var i=0; i<xrefs.length; i++) {
-      const xref = xrefs[i];
-      tippyHover(xref, undefined, function(instance) {
-        instance.disable();
-        let url = xref.getAttribute('href');
-        let hash = undefined; 
-        if (url.startsWith('#')) {
-          hash = url;
-        } else {
-          try { hash = new URL(url).hash; } catch {}
-        }
-        if (hash) {
-          const id = hash.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note !== null) {
-            try {
-              const html = processXRef(id, note.cloneNode(true));
-              instance.setContent(html);
-            } finally {
-              instance.enable();
-              instance.show();
-            }
-          } else {
-            // See if we can fetch this
-            fetch(url.split('#')[0])
-            .then(res => res.text())
-            .then(html => {
-              const parser = new DOMParser();
-              const htmlDoc = parser.parseFromString(html, "text/html");
-              const note = htmlDoc.getElementById(id);
-              if (note !== null) {
-                const html = processXRef(id, note);
-                instance.setContent(html);
-              } 
-            }).finally(() => {
-              instance.enable();
-              instance.show();
-            });
-          }
-        } else {
-          // See if we can fetch a full url (with no hash to target)
-          // This is a special case and we should probably do some content thinning / targeting
-          fetch(url)
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.querySelector('main.content');
-            if (note !== null) {
-              // This should only happen for chapter cross references
-              // (since there is no id in the URL)
-              // remove the first header
-              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-                note.children[0].remove();
-              }
-              const html = processXRef(null, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      }, function(instance) {
-      });
-    }
-        let selectedAnnoteEl;
-        const selectorForAnnotation = ( cell, annotation) => {
-          let cellAttr = 'data-code-cell="' + cell + '"';
-          let lineAttr = 'data-code-annotation="' +  annotation + '"';
-          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-          return selector;
-        }
-        const selectCodeLines = (annoteEl) => {
-          const doc = window.document;
-          const targetCell = annoteEl.getAttribute("data-target-cell");
-          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-          const lineIds = lines.map((line) => {
-            return targetCell + "-" + line;
-          })
-          let top = null;
-          let height = null;
-          let parent = null;
-          if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
-            }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
-            }
-            selectedAnnoteEl = annoteEl;
-          }
-        };
-        const unselectCodeLines = () => {
-          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-          elementsIds.forEach((elId) => {
-            const div = window.document.getElementById(elId);
-            if (div) {
-              div.remove();
-            }
-          });
-          selectedAnnoteEl = undefined;
-        };
-          // Handle positioning of the toggle
-      window.addEventListener(
-        "resize",
-        throttle(() => {
-          elRect = undefined;
-          if (selectedAnnoteEl) {
-            selectCodeLines(selectedAnnoteEl);
-          }
-        }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
-              fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
-            }
-          });
-        }
-    const findCites = (el) => {
-      const parentEl = el.parentElement;
-      if (parentEl) {
-        const cites = parentEl.dataset.cites;
-        if (cites) {
-          return {
-            el,
-            cites: cites.split(' ')
-          };
-        } else {
-          return findCites(el.parentElement)
-        }
-      } else {
-        return undefined;
-      }
-    };
-    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-    for (var i=0; i<bibliorefs.length; i++) {
-      const ref = bibliorefs[i];
-      const citeInfo = findCites(ref);
-      if (citeInfo) {
-        tippyHover(citeInfo.el, function() {
-          var popup = window.document.createElement('div');
-          citeInfo.cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
-            }
-            popup.appendChild(citeDiv);
-          });
-          return popup.innerHTML;
-        });
-      }
-    }
-  });
-  </script>
-</div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
-    <div class="nav-footer-left">
-      &nbsp;
-    </div>   
-    <div class="nav-footer-center">
-<p><a href="../../../../../content/about.html">Giới thiệu</a> | <a href="../../../../../content/triet_li_va_dinh_huong.html">Triết lí và định hướng</a> | <a href="../../../../../content/contact.html">Liên hệ</a> <br> <a href="https://www.facebook.com/profile.php?id=61591689772259" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="https://www.tiktok.com/@zo.math" title="TikTok"><i class="bi bi-tiktok"></i></a> <a href="https://www.youtube.com/@ZO-Math" title="YouTube"><i class="bi bi-youtube"></i></a> <br> © 2026 ZO Math</p>
+<section aria-labelledby="r1-support-title" class="support-region home-paper home-support" id="ung-ho">
+<div class="support-brand"><img alt="ZO Math" src="../../../../../assets/zo_web_2027/home/assets/logos/stack_color.svg"/></div>
+<div aria-labelledby="r1-support-title" class="support-content">
+<h3 id="r1-support-title">Bảo trợ ZO Math</h3>
+<p>Nếu tài liệu hữu ích với bạn, bạn có thể bảo trợ ZO Math tiếp tục biên soạn và chia sẻ.</p>
+<div class="r1-support-details">
+<img alt="Mã QR Vietcombank để bảo trợ ZO Math" class="r1-support-qr" height="240" src="../../../../../assets/zo_web_2027/home/assets/qr_bao_tro_zo_math_vietcombank.jpg" width="240"/>
+<dl>
+<div><dt>Ngân hàng</dt><dd>Vietcombank</dd></div>
+<div><dt>Số tài khoản</dt><dd>0601000137768</dd></div>
+<div><dt>Chủ tài khoản</dt><dd>Nguyễn Tấn Nhựt</dd></div>
+<div><dt>Nội dung chuyển khoản</dt><dd>BAO TRO ZO MATH</dd></div>
+</dl>
 </div>
-    <div class="nav-footer-right">
-      &nbsp;
-    </div>
-  </div>
+<p class="r1-support-link"><a href="../../../../support/donate.html">Xem thông tin bảo trợ</a></p>
+</div>
+</section>
+</main><footer aria-label="Chân trang ZO Math" class="zo-site-footer" id="site-footer" role="contentinfo">
+<div class="zo-site-footer__inner">
+<div class="zo-site-footer__groups">
+<div class="zo-site-footer__brand">
+<img alt="ZO Math" src="../../../../../assets/zo_web_2027/home/assets/logos/horizontal_color.svg" width="116"/>
+<p>Học trong kỉ nguyên trí tuệ nhân tạo, học để tìm lại chính mình.</p>
+</div>
+<nav aria-label="Thông tin ZO Math" class="zo-site-footer__links">
+<h2>Về ZO Math</h2>
+<a data-canonical-href="/content/about.html" href="../../../../about.html">Giới thiệu</a>
+<a data-canonical-href="/content/triet_li_va_dinh_huong.html" href="../../../../triet_li_va_dinh_huong.html">Triết lí và định hướng</a>
+<a data-canonical-href="/content/contact.html" href="../../../../contact.html">Liên hệ</a>
+</nav>
+<nav aria-label="Kênh ZO Math" class="zo-site-footer__links">
+<h2>Kết nối</h2>
+<a data-canonical-href="https://www.facebook.com/profile.php?id=61591689772259" href="https://www.facebook.com/profile.php?id=61591689772259">Facebook<span aria-hidden="true" class="zo-site-footer__arrow">↗</span></a>
+<a data-canonical-href="https://www.tiktok.com/@zo.math" href="https://www.tiktok.com/@zo.math">TikTok<span aria-hidden="true" class="zo-site-footer__arrow">↗</span></a>
+<a data-canonical-href="https://www.youtube.com/@ZO-Math" href="https://www.youtube.com/@ZO-Math">YouTube<span aria-hidden="true" class="zo-site-footer__arrow">↗</span></a>
+</nav>
+</div>
+<p class="zo-site-footer__copyright">© 2026 ZO Math</p>
+</div>
 </footer>
-
-
-
-
-</body></html>
+</div>
+<button aria-controls="mobile-nav" aria-expanded="false" aria-haspopup="dialog" aria-label="Mở mục lục trang Nhà" class="mobile-trigger mobile-trigger--icon" type="button"><span aria-hidden="true">☰</span><span class="mobile-view">Mục lục khóa học</span></button>
+<dialog aria-labelledby="drawer-title" id="mobile-nav">
+<div class="drawer-top"><strong id="drawer-title">Trong trang Nhà</strong><button class="drawer-close" type="button">Đóng</button></div>
+<div id="drawer-mount"></div>
+</dialog>
+<script src="../../../../../assets/zo_web_2027/home/site-ui.js"></script>
+<script src="../../../../../assets/zo_web_2027/home/course-home-landing.js"></script>
+<script defer="" src="../../../../../assets/zo_web_2027/home/course-navigation.js"></script></body>
+</html>

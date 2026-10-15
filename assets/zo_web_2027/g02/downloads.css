@@ -1,0 +1,46 @@
+/* FB032: only the G01 PDF utility view and its mobile navigation trigger. */
+.zo-web-2027-production #tai-tai-lieu .r1-downloads,
+.zo-web-2027-production #tai-tai-lieu .r1-section-download-list {
+  display:grid;gap:12px;list-style:none;padding:0;margin:20px 0 28px;
+}
+.zo-web-2027-production #tai-tai-lieu .zo-pdf-card {
+  display:grid;grid-template-columns:minmax(0,1fr) 64px 100px;gap:16px;
+  align-items:center;border:1px solid var(--line);border-radius:6px;
+  padding:16px;margin:0!important;min-width:0;
+}
+.zo-web-2027-production #tai-tai-lieu .zo-pdf-copy {min-width:0;overflow-wrap:anywhere}
+.zo-web-2027-production #tai-tai-lieu .zo-pdf-title {
+  display:block;font-size:17px;line-height:1.45;font-weight:600;margin:0 0 6px;
+}
+.zo-web-2027-production #tai-tai-lieu .zo-pdf-description {
+  display:block;font-size:13px;line-height:1.6;color:var(--muted);margin:0;
+}
+.zo-web-2027-production #tai-tai-lieu .zo-pdf-pages {
+  display:flex;flex-direction:column;text-align:center;font-size:12px;
+  line-height:1.5;color:var(--muted);white-space:nowrap;
+}
+.zo-web-2027-production #tai-tai-lieu .zo-pdf-pages strong {font-size:17px;color:var(--ink);font-weight:600}
+.zo-web-2027-production #tai-tai-lieu .zo-pdf-download {
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:44px;padding:8px 10px;border:1px solid var(--yellow);
+  border-radius:4px;background:var(--yellow);color:var(--ink);
+  font-size:13px;line-height:1.4;text-decoration:none;white-space:nowrap;
+  margin:0;box-sizing:border-box;
+}
+.zo-web-2027-production #tai-tai-lieu .zo-pdf-download svg {width:16px;height:16px;flex:none}
+.zo-web-2027-production #tai-tai-lieu .zo-pdf-download:hover {border-color:var(--ink)}
+.zo-web-2027-production .mobile-trigger:focus-visible,
+.zo-web-2027-production #tai-tai-lieu .zo-pdf-download:focus-visible {outline:2px solid var(--ink);outline-offset:3px}
+.zo-web-2027-production .mobile-trigger .mobile-view {display:none}
+.zo-web-2027-production .mobile-trigger svg {display:block;width:20px;height:20px}
+@media(max-width:999px) {
+  .prototype-js .zo-web-2027-production .mobile-trigger {
+    width:52px;height:52px;min-height:52px;padding:0;gap:0;
+    justify-content:center;border-radius:50%;font-size:20px;
+  }
+}
+@media(max-width:600px) {
+  .zo-web-2027-production #tai-tai-lieu .zo-pdf-card {grid-template-columns:minmax(0,1fr) 100px;gap:12px;padding:14px}
+  .zo-web-2027-production #tai-tai-lieu .zo-pdf-copy {grid-column:1/-1}
+  .zo-web-2027-production #tai-tai-lieu .zo-pdf-pages {flex-direction:row;align-items:baseline;gap:5px;text-align:left}
+}
