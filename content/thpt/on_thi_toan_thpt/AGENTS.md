@@ -2,6 +2,18 @@
 
 Đây là tài liệu điều phối nội bộ, không phải nội dung xuất bản.
 
+## Tiếp quản sau phát hành 15/10/2026
+
+Bốn trang Nhà, D0, R1-G01, R1-G02 đã xuất bản. Trước công việc tiếp theo,
+đọc mục A của `tot_nghiep_thpt/2027/_quy_trinh/03_dieu_hanh_chuong_trinh.md`,
+receipt phát hành và hồ sơ khép việc được dẫn ở đó. Các trạng thái chờ
+duyệt trong mốc DH/FB bên dưới chỉ mô tả lịch sử của mốc ấy. Quy tắc
+chung vẫn có hiệu lực; một sửa đổi mới phải kiểm theo phạm vi ảnh hưởng.
+Bộ ảnh bìa giữ đủ năm tỉ lệ theo `tot_nghiep_thpt/2027/giao_dien/bo_anh_bia.json`; bản
+vuông do chủ trì thay đã khép tìm ảnh. Không phục hồi ảnh vuông từ
+receipt nhập cũ. Trước dọn tài sản, đọc danh mục bảo toàn và chạy
+`python scripts/zo_python.py -B scripts/zo_home_cover_check.py`.
+
 ## Phạm vi và thẩm quyền
 
 Tuân thủ `AGENTS.md` ở gốc repository và các tài liệu bắt buộc được dẫn chiếu tại đó. Điểm vào điều hành khóa 2027 là `tot_nghiep_thpt/2027/_quy_trinh/README.md`; quy chuẩn gói hiện hành là `tot_nghiep_thpt/2027/_quy_trinh/quy_chuan_goi_qmd.md`; mẫu hồ sơ là `tot_nghiep_thpt/2027/_quy_trinh/mau/ho_so_goi.md`.

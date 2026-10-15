@@ -1,5 +1,33 @@
 # ZO Math — Ôn thi Toán THPT, Ấn bản ôn thi 2027
 
+## Tiếp quản hiện hành
+
+Đọc **mục A của [03 — Điều hành](03_dieu_hanh_chuong_trinh.md)** để lấy
+trạng thái và việc tiếp theo. Bốn trang Nhà, D0, R1-G01, R1-G02 đã xuất
+bản ngày 15/10/2026; D0 có một PDF, hai gói R1 có tám PDF mỗi gói.
+Các gói R1 vẫn được giới thiệu là bản xem trước; đã xuất bản không đồng
+nghĩa đã hoàn thiện toàn bộ chương trình hoặc phản biện toán độc lập.
+
+- [Receipt phát hành](ho_so_phat_hanh_20261015.json): nguồn, commit website,
+  kết quả kiểm bản công khai và các giới hạn tại đúng mốc phát hành.
+- [Hồ sơ khép việc](khep_ho_so_phat_hanh_20261015.json): tài sản hiện hành,
+  dọn dẹp, kiểm sau phát hành và xác nhận khép việc tìm ảnh của chủ trì.
+- Nguồn sản xuất vẫn là QMD, dữ liệu, CSS và script trong repository;
+  HTML/PDF là đầu ra, `_audit/` chỉ chứa bằng chứng.
+- Bộ năm ảnh bìa và bản vuông chủ trì vừa thay được giữ theo manifest
+  `../giao_dien/bo_anh_bia.json`. Không xem ảnh ngoài lựa chọn hiển thị
+  của trang là rác. Bản đối chiếu QD_035 và checkpoint vẫn được bảo vệ.
+- Kiến trúc lấy từ 01/QD_033; Kiểm tra theo QD_024; nhãn theo QD_025;
+  quy trình theo 02; cách thể hiện theo 07; phân vai tài liệu theo 08.
+  Khép phát hành không thay đổi các quy tắc này.
+
+## Hồ sơ tiếp nhận và triển khai trước phát hành
+
+Các mô tả trạng thái, bản chờ xem và bước tiếp trong phần dưới được giữ
+theo mốc lịch sử. Chúng không thay trạng thái hiện hành ở mục A của 03.
+Các liên kết nguồn, phạm vi quy tắc và chứng cứ gốc tiếp tục dùng theo
+vai trò trong 08; không chạy lại lệnh lịch sử để phục hồi bản cũ.
+
 **PDF D0 ngày 14/10/2026:** chủ trì giao dựng một bản đầy đủ từ QMD hiện tại.
 [Nguồn và lệnh dựng](../../../hoc_lieu/d0/_quy_trinh/README.md).
 Không khôi phục bốn biến thể lịch sử, thay HTML hoặc tự xuất bản.

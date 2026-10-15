@@ -1,12 +1,20 @@
 # Mẫu web dùng chung — khóa Ôn thi Toán THPT 2027
 
+**Tiếp quản sau phát hành 15/10/2026:** bản tích hợp Nhà/D0/G01/G02 đã
+xuất bản; trạng thái và hồ sơ khép việc ở mục A của bảng điều hành 03.
+Ảnh học trực tiếp hiện dùng `hoc_truc_tiep_buoi_hoc.svg` cùng PNG nguồn;
+minh họa `hoc_truc_tiep_trao_doi.svg` bên dưới là mốc lịch sử đã nghỉ dùng.
+Thư viện bìa giữ đủ năm tỉ lệ, bản vuông do chủ trì thay; manifest hiện
+hành ở `2027/giao_dien/bo_anh_bia.json`. Không dọn ảnh chỉ vì trang không
+hiển thị ảnh đó. Các đoạn chờ xem của mốc cũ không phải trạng thái hiện tại.
+
 **Home — bố cục đọc được giao ngày 14/10/2026:** QMD đặt “Hiểu vì sao.
 Tự giải quyết.”/“Dành cho ai?” trong hero, Cách học ngay sau danh mục.
 CSS Home scoped cho sáu panel trắng–xám trắng; hàng Cách học một cột toàn
 chiều ngang ở mọi viewport, kiến thức/FAQ có khung riêng bo góc xen nền.
 Bốn nhãn động từ đã bỏ. Giữ thẻ/CTA HOM-C01, các chữ/ID/đích khác, đồng hồ,
 logo/font và nguồn ba trang học liệu. SVG học trực tiếp được quản lý tại
-`2027/assets/illustrations/hoc_truc_tiep_trao_doi.svg`, QMD nạp ảnh native;
+`2027/assets/illustrations/hoc_truc_tiep_buoi_hoc.svg`, QMD nạp ảnh native;
 adapter chỉ chuẩn hóa wrapper/caption Quarto. Mẫu thử được chỉ định chỉ là
 đối chiếu thiết kế, không phụ thuộc build. Guard HOM-L01 ở `kiem_thu.md`,
 trạng thái/kết quả ở 03; không tự nghiệm thu/phát hành hoặc nâng Design 0.5.
