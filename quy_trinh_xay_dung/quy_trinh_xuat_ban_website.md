@@ -34,6 +34,8 @@ Nếu push bị từ chối, công cụ giữ commit `gh-pages` cục bộ và b
 
 Không dùng `scripts/publish_public.sh` cho quy trình mới, trừ khi yêu cầu hiện tại của người dùng chỉ định rõ việc khảo sát script cũ. Không dùng `git add -A`, force push hoặc thao tác xóa diện rộng.
 
+Khi chỉ xuất bản một số trang, dùng `prepare --page <duong_dan_HTML>` và lặp lại `--page` cho từng trang đã được giao. Công cụ vẫn render toàn website để đối chiếu, nhưng chỉ phủ HTML thuộc danh sách này; HTML khác giữ nguyên byte đang xuất bản. CSS, JavaScript, ảnh, PDF và font được gom theo tham chiếu từ HTML/CSS chịu thay đổi, kể cả tài nguyên do adapter sinh; mọi tài nguyên vẫn phải thuộc allowlist và đạt validator. Chỉ mục site tiếp tục được chuẩn hóa theo cây công khai cuối cùng. Danh sách trang và tập tài nguyên phụ thuộc được lưu trong báo cáo prepare để kiểm trước publish.
+
 ## 4. Nguyên tắc an toàn
 
 - Không thay đổi `master` trong quá trình chuẩn bị hoặc xuất bản website.

@@ -17,13 +17,14 @@ Mọi trang màu được bao phủ bằng xem trực quan hoặc đối chiếu
 Đã sửa ngắt trang tiêu đề, bảng trong khối lời giải và chữ tràn ngoài trang;
 cổng hồi quy có fixture âm cho lỗi tiêu đề/chữ bị cắt. Không dựng lại sách
 khi chỉ đồng bộ số trang thẻ tải; thay nội dung/hình thật vẫn làm STALE.
-Kiểm nguồn ba gói đạt; kiểm điều hành 175/175; cổng xuất bản 36 kiểm thử đạt.
+Kiểm nguồn ba gói đạt; kiểm điều hành 175/175; cổng xuất bản 38 kiểm thử đạt.
 Đã bổ sung nhận diện provenance của một commit revert thông thường chỉ khi
 cây công khai khôi phục đúng byte cây cha của lần xuất bản bị revert; trường
 hợp khác vẫn bị từ chối. Không viết lại lịch sử Git hoặc bỏ qua kiểm nguồn.
 Đường prepare website đã khóa render HTML tường minh, không tự dựng nhánh PDF của D0; dùng các PDF canonical đã kiểm. Cache phiên RStudio/Jupyter không được sao chép làm phụ thuộc render.
 HTML tươi của prepare được render vào .quarto bằng đường dẫn tương đối rồi chuyển sang staging báo cáo, để adapter không đọc vùng audit lịch sử; kiểm tích hợp trang Nhà đã đạt.
 Tên thư mục render tạm đã rút ngắn để các trang lịch sử tên dài nằm trong giới hạn Windows; fixture sao chép đúng trang dài nhất đã đạt.
+Đã sửa đóng gói theo chuỗi tham chiếu HTML/CSS tới CSS, JS, ảnh, PDF và font; giới hạn HTML bằng --page đúng bốn trang. Kiểm tích hợp trên render tươi: 0 lỗi, đúng bốn HTML đổi, 101 tài nguyên phụ thuộc; HTML ngoài phạm vi giữ nguyên.
 Trạng thái: được phép xuất bản, đang chuẩn bị candidate mới bằng quy trình chính thức.
 Chưa khẳng định đã triển khai; chưa in giấy/quét QR bằng điện thoại/phản biện toán độc lập.
 
