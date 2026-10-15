@@ -133,7 +133,8 @@ class D0Builder(HomeBuilder):
         self.resources['course-tables.css']={'source':'_design/web_2027_mau_dung_chung/course-tables.css','sha256':sha(KIT/'course-tables.css')}
         from zo_web_2027_navigation import apply as apply_course_navigation
         self.resources.update(apply_course_navigation(doc,self.page,self.output_root,self.runtime,'d0'))
-        self.page.write_text(str(doc),encoding='utf-8')
+        from zo_course_html import write
+        write(self.page, doc)
         return {'source':str(PACKAGE/'index.qmd'),'source_sha256':sha(REPO/PACKAGE/'index.qmd'),'source_inventory':original,'source_markup':markup,'reading_beats':beats,'resources':self.resources,'links':self.links,'site_footer':footer_info,'layout_sha256':sha(LAYOUT),'html_sha256':sha(self.page),'acceptance':'pending_owner_review','publication':'pending'}
 
 def adapt(path,output_root):

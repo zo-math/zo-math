@@ -7,6 +7,7 @@
   "work_owner": "03_dieu_hanh_chuong_trinh.md",
   "dependency_policy": "Authority inventory, not byte lock. Replace superseded operative rules immediately; corrections remain allowed. Recheck only affected checks and their inputs/implementation.",
   "dependencies": [
+    "scripts/zo_qd033_route_check.py",
     "scripts/zo_web_2027_navigation.py",
     "scripts/zo_web_2027_navigation_check.py",
     "_design/web_2027_mau_dung_chung/course-navigation.css",
@@ -83,7 +84,11 @@
     "scripts/zo_web_2027_home_landing_check.py",
     "_design/web_2027_mau_dung_chung/course-home-landing.css",
     "_design/web_2027_mau_dung_chung/course-home-landing.js",
-    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/giao_dien/trang_nha.html.tpl",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.qmd",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_partials/home_countdown.qmd",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_partials/home_catalog.qmd",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_partials/home_strands.qmd",
+    "scripts/zo_home_qmd.py",
     "scripts/zo_web_2027_home_check.py",
     "scripts/zo_build_on_thi.py",
     "_design/web_2027_mau_dung_chung/profiles/course-home.json",
@@ -93,12 +98,13 @@
     "R1-G01": {
       "learning_route": {
         "decision": "QD_033",
-        "status": "pending_source_review",
-        "source_applied": false,
-        "review_scope": "qmd_html_alignment_not_yet_cross_checked",
+        "status": "source_applied_checked_pending_owner_review",
+        "source_applied": true,
+        "review_scope": "DH01_DH14_source_DOM_and_A01_A04_representative_runtime",
         "known_mismatch": false,
         "previous_verified_decision": "QD_021",
-        "profile_audit_role": "historical_only"
+        "profile_audit_role": "current_scoped_checks_not_owner_acceptance",
+        "evidence": "_audit/zo_qd033_apply_20261013/qa-final/qa.json"
       },
       "state": "source_applied_checked_pending_owner_html_review",
       "open_blockers": [],
@@ -123,12 +129,13 @@
     "R1-G02": {
       "learning_route": {
         "decision": "QD_033",
-        "status": "pending_source_review",
-        "source_applied": false,
-        "review_scope": "qmd_html_alignment_not_yet_cross_checked",
+        "status": "source_applied_checked_pending_owner_review",
+        "source_applied": true,
+        "review_scope": "DH01_DH14_source_DOM_and_A01_A04_representative_runtime",
         "known_mismatch": false,
         "previous_verified_decision": "QD_021",
-        "profile_audit_role": "historical_only"
+        "profile_audit_role": "current_scoped_checks_not_owner_acceptance",
+        "evidence": "_audit/zo_qd033_apply_20261013/qa-final/qa.json"
       },
       "state": "source_applied_checked_pending_owner_html_review",
       "open_blockers": [],
@@ -165,7 +172,9 @@
       "state": "source_applied_checked_pending_owner_html_review",
       "implementation": "canonical_opt_in_isolated_build",
       "acceptance": "pending_owner_html_review",
-      "current_report": "_audit/zo_course_tables_2026-10-11/qa.json",
+      "current_report": "_audit/zo_home_qmd_migration_20261013/delivered-final/qa.json",
+      "historical_report": "_audit/zo_course_tables_2026-10-11/qa.json",
+      "editorial_format": "native_quarto_markdown_DH_038",
       "table_language": {"decision":"QD_030","state":"guard_applied_no_authored_tables_pending_owner_review"},
       "decision": "QD_026",
       "pdf": "not_requested",

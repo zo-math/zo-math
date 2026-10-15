@@ -75,6 +75,59 @@ def preview(page, out, candidates):
     return target
 
 
+def action_only_cards(cards):
+    """Only the explicit CTA is a link; never restore a clickable card shell."""
+    return bool(cards) and all(
+        c.name == 'article' and not any(c.has_attr(k) for k in ['href', 'tabindex', 'role', 'onclick', 'onkeydown'])
+        and len(c.select('a')) == 1
+        and (a := c.select_one('a.home-card-action[href]')) is not None
+        and a.get('aria-labelledby') == a.get('id', '') + ' ' + c.h3.get('id', '')
+        and not a.select('img,h3,p,.home-card-copy')
+        and c.select_one('div.home-card-content') is not None
+        and not c.select('.home-card-link,[role=link],[role=button],[tabindex],[onclick],[onkeydown],button')
+        for c in cards)
+
+
+def reading_layout_checks(doc):
+    root=doc.select_one('.home-landing-content')
+    purpose=doc.select_one('#chương-trình-giúp-em-làm-gì')
+    rows=doc.select('.home-method-grid > div')
+    topics=doc.select('.home-strands > div')
+    return {
+        'intro purpose and audience inside opening hero':bool(purpose and purpose.parent.get('id')=='giới-thiệu' and purpose.find(id='dành-cho-ai')),
+        'catalog then method directly after opening hero':bool(root) and [s.get('id') for s in root.find_all('section',recursive=False)][:3]==['giới-thiệu','hoc-lieu-hien-co','học-theo-cách-nào'],
+        'four complete method rows without verb labels':len(rows)==4 and not doc.select('.home-method-verb') and all(len(r.find_all('p',recursive=False))==2 and r.select_one('.home-method-heading h3') and r.select_one('.home-method-number[aria-hidden=true]').get_text()==f'{i:02d}' for i,r in enumerate(rows,1)),
+        'six large reading panels kept':len(doc.select('.home-reading-panel'))==6,
+        'method support copy grouped not removed':bool(doc.select_one('.home-method-tail .home-method-note')) and len(doc.select('.home-method-tail > h3'))==2,
+        'eight topic frames numbered accessibly':len(topics)==8 and all(r.select_one('.home-topic-number[aria-hidden=true]').get_text()==f'{i:02d}' for i,r in enumerate(topics,1)),
+        'service illustration and copy retained':bool(doc.select_one('.home-service-copy #home-service-title') and doc.select_one('.home-service-illustration img.home-service-art[alt][width="1448"][height="1086"]')) and bool(doc.select_one('.home-service-status h3')),
+        'service copy accessible and fee explicit':bool(doc.select_one('.home-service-copy .home-service-fee')) and 'dịch vụ có thu phí' in doc.select_one('.home-service-copy').get_text(' ',strip=True) and not doc.select('.home-service .role'),
+        'service accent decorative after fee':bool(doc.select_one('.home-service-copy .home-service-fee + .home-service-accent[aria-hidden=true]')),
+        'FAQ four separate native disclosures':len(doc.select('.home-faq > details'))==4,
+    }
+
+
+READING_LAYOUT_GEOMETRY = r'''(()=>{
+  const rect=n=>n.getBoundingClientRect(), style=n=>getComputedStyle(n);
+  const grid=document.querySelector('.home-method-grid'), g=rect(grid), rows=[...grid.children];
+  const frames=nodes=>nodes.every(n=>style(n).borderTopStyle==='solid'&&parseFloat(style(n).borderRadius)>=9);
+  const alternating=nodes=>nodes.length>1&&style(nodes[0]).backgroundColor!==style(nodes[1]).backgroundColor;
+  const topics=[...document.querySelectorAll('.home-strands>div')], faq=[...document.querySelectorAll('.home-faq>details')];
+  const art=document.querySelector('.home-service-art'), a=rect(art);
+  const panels=['chương-trình-giúp-em-làm-gì','học-theo-cách-nào','tám-mạch','hoc-truc-tiep','nguon-hoc-lieu','cau-hoi-thuong-gap'].map(id=>style(document.getElementById(id)).backgroundColor);
+  return {
+    columns:style(grid).gridTemplateColumns.split(' ').length,
+    fullWidth:rows.every(n=>Math.abs(rect(n).x-g.x)<1&&Math.abs(rect(n).width-g.width)<1),
+    gaps:rows.slice(1).every((n,i)=>rect(n).top-rect(rows[i]).bottom>=9),
+    methodFrames:frames(rows),methodAlternates:alternating(rows),
+    topicFrames:frames(topics),topicColumns:style(document.querySelector('.home-strands')).gridTemplateColumns.split(' ').length,
+    faqFrames:frames(faq),faqAlternates:alternating(faq),
+    panelsAlternate:panels.every((c,i)=>c===(i===3?'rgb(255, 255, 255)':i%2?'rgb(247, 247, 245)':'rgb(255, 255, 255)')),
+    serviceFits:art.complete&&art.naturalWidth>0&&a.width>0&&a.left>=0&&a.right<=innerWidth&&Math.abs(a.width/a.height-1448/1086)<.01
+  };
+})()'''
+
+
 def validate(doc, build):
     root = doc.select_one('.home-landing-content')
     refs = load_yaml(DATA_PATH)['packages']
@@ -91,12 +144,12 @@ def validate(doc, build):
         'canonical text IDs headings disclosures math unchanged': bool(root) and json.loads(json.dumps(inventory(root))) == build['source_inventory'],
         'real catalog only and order': [c['data-package-id'] for c in cards] == [p.ref_id for p in packages],
         'catalog title summary status match canonical':len(cards) == len(packages) and all(c.h3.get_text(' ', strip=True) == p.title and c.p.get_text(' ', strip=True) == p.summary and p.display_status in c.select_one('.role').get_text() for c,p in zip(cards,packages)),
-        'catalog links actual packages':all(c.select_one('a.home-card-link') and '/hoc_lieu/'+c['data-package-id']+'/index.html' in c.select_one('a.home-card-link').get('data-canonical-href','') for c in cards),
-        'whole cards one native accessible link':all(len(c.select('a'))==1 and c.select_one('a.home-card-link[href]') and c.select_one('a')['aria-labelledby']==c.h3.get('id') and c.select_one('a').find('img') and c.select_one('a').find('p') for c in cards),
-        'catalog immediately after hero before purpose':bool(root) and [s.get('id') for s in root.find_all('section',recursive=False)][:3]==['giới-thiệu','hoc-lieu-hien-co','chương-trình-giúp-em-làm-gì'],
+        'catalog links actual packages':all(c.select_one('a.home-card-action') and '/hoc_lieu/'+c['data-package-id']+'/index.html' in c.select_one('a.home-card-action').get('data-canonical-href','') for c in cards),
+        'cards navigate only through accessible action links':action_only_cards(cards),
+        **reading_layout_checks(doc),
         'no management copy or prescribed textbook teacher route':not any(x in text for x in ['Mỗi ngày, một việc học được làm đến nơi.','Phần chưa học được ghi riêng','quyền bắt đầu không chứng nhận','hỏi giáo viên','sách giáo khoa']),
         'no visible internal course codes':not re.search(r'\b(?:D0|R[1-8](?:-G\d+)?)\b', text),
-        'flexible help and return to own work':'Em cũng có thể chọn tài liệu, công cụ hoặc trao đổi với người khác' in text and 'quay lại tự làm tiếp bài ấy' in text,
+        'flexible help and return to own work':bool(doc.select_one('.home-method-tail')) and 'Em cũng có thể chọn tài liệu, công cụ hoặc trao đổi với người khác' in doc.select_one('.home-method-tail').get_text(' ',strip=True) and 'Sau đó, quay lại chỗ dừng chân trước đó.' in doc.select_one('.home-method-tail').get_text(' ',strip=True),
         'unique IDs':len(doc.select('[id]')) == len({n['id'] for n in doc.select('[id]')}),
         'all old Home anchors retained':all(doc.find(id=x) for x in ['giới-thiệu','dành-cho-ai','chương-trình-giúp-em-làm-gì','học-theo-cách-nào','lộ-trình','tám-mạch','hoc-lieu-hien-co','bắt-đầu-từ-đâu','trạng-thái-triển-khai']),
         'real logo retained':doc.select_one('.site-top > a img')['src'].endswith('horizontal_color.svg'),
@@ -105,7 +158,7 @@ def validate(doc, build):
         'grayscale retained':bool(doc.select_one('#grayscale[aria-pressed]')),
         'contents trigger icon only':bool(doc.select_one('.mobile-trigger--icon[aria-label]')),
         'all disclosures initially closed':not doc.select('details[open]'),
-        'eight strands not fake available packages':len(doc.select('.home-strands > div')) == 8 and 'Chỉ những tài liệu trong danh mục hiện có mới có thể mở để học.' in text,
+        'eight strands not fake available packages':len(doc.select('.home-strands > div')) == 8 and not doc.select('.home-strands a[href]') and {n['data-package-id'] for n in doc.select('.home-card[data-package-id]')} == {p.ref_id for p in [package_from_ref(ref) for ref in load_yaml(DATA_PATH)['packages']]},
         'independent test separate from optional survey': 'Không chia bài Kiểm tra thành nhiều buổi.' in text and 'không xem lời giải hay tìm trợ giúp trong lúc làm' in text and 'Đây không phải bài thi để xét điều kiện vào học' in text,
         'survey PDF availability truthful': 'Khảo sát đầu vào hiện dùng trên trang web.' in text,
         'checkpoint explained before use':'Cuối mỗi chặng có Điểm dừng: phần này hướng dẫn em xem lại bài làm' in text,
@@ -113,11 +166,11 @@ def validate(doc, build):
         'countdown reference notice and fallback truthful':clock_copy,
         'countdown timestamp and verified source':bool(clock and clock.time and clock.select_one('.countdown-notice a')) and clock.time.get('datetime') == expected.time['datetime'] and clock.select_one('.countdown-notice a')['href'] == expected.select_one('.countdown-notice a')['href'],
         'countdown accessible non-live timer':bool(doc.select_one('.countdown-readout[role=timer][aria-live=off][hidden]')),
-        'service not open': 'Chưa mở đăng ký' in text and not doc.select('form[action],a[href*="register"]'),
+        'service not open': 'Chưa mở đăng kí' in text and not doc.select('form[action],a[href*="register"]'),
         'complete canonical footer':complete_site_footer(doc, footer_data()),
-        'support real QR and voluntary':bool(doc.select_one('img.r1-support-qr[src$="qr_bao_tro_zo_math_vietcombank.jpg"]')) and '0601000137768' in text and 'Việc ủng hộ ZO Math là tự nguyện' in text,
+        'support real QR and voluntary':bool(doc.select_one('img.r1-support-qr[src$="qr_bao_tro_zo_math_vietcombank.jpg"]')) and '0601000137768' in text and 'Việc bảo trợ ZO Math là tự nguyện' in text,
         'no imported mock or internal instructions':not doc.select('.prototype-note,script[src*="reference"],img[src^="data:"],.mock-dialog') and 'BẢN MẪU 04' not in text and not any('_quy_trinh' in a['href'] or 'reference/' in a['href'] for a in doc.select('a[href]')),
-        'conceptual image correct roles':bool(doc.select_one('.journey-portrait[src$="hanh_trinh_nguoi_hoc_toan_3x4.png"]')) and bool(doc.select_one('.journey-square[src$="hanh_trinh_nguoi_hoc_toan_1x1.png"]')) and not doc.select_one('.home-hero img[src$="cover-graph.svg"]'),
+        'conceptual image correct roles':len(doc.select('.home-journey img'))==1 and bool(doc.select_one('.journey-portrait[src$="hanh_trinh_nguoi_hoc_toan_3x4.png"]')) and not doc.select('.journey-square'),
         'no artificial task architecture or R1 controller':not doc.select('[data-zo-task],script[src*="r1-controller"]'),
     }
 
@@ -125,9 +178,29 @@ def validate(doc, build):
 def static(page, build):
     doc = BeautifulSoup(page.read_text(encoding='utf-8'),'html.parser')
     checks = validate(doc, build)
-    for key, path in [('canonical_data',REPO/build['canonical_data']), ('partial',REPO/'content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_partials/chuong_trinh.qmd'), ('editorial',REPO/build['editorial_source']), ('profile',KIT/'profiles/course-home.json')]:
+    for key, path in [('canonical_data',REPO/build['canonical_data']), ('editorial',REPO/build['editorial_source']), ('profile',KIT/'profiles/course-home.json')]:
         checks[key+' source current'] = sha(path) == build[key+'_sha256']
+    checks['generated component sources current'] = bool(build.get('component_sha256')) and all(sha(REPO/path)==digest for path,digest in build['component_sha256'].items())
+    from zo_home_qmd import source_checks, source_fixtures
+    checks.update(source_checks((REPO/build['editorial_source']).read_text(encoding='utf-8')))
+    checks.update(source_fixtures((REPO/build['editorial_source']).read_text(encoding='utf-8')))
     checks['generated outputs current'] = all(p.is_file() and p.read_text(encoding='utf-8') == value.rstrip()+'\n' for p,value in outputs().items())
+    # The full-page D0 PDF is pending review, not an eight-variant R1 catalog.
+    import zo_build_on_thi as catalog
+    from unittest.mock import patch
+    refs=load_yaml(DATA_PATH)['packages']
+    survey=package_from_ref(refs[0])
+    checks['D0 pending PDF preserves web survey entry']=survey.html_only and not survey.pdfs
+    for ref in refs:
+        profile=catalog.load_yaml(catalog.PACKAGE_ROOT/ref['id']/catalog.PROFILE_NAME)
+        profile['acceptance']['pdf_canonical']='full_page_pending_owner_review_2026_10_14_typo'
+        if ref['id']!='d0':profile['acceptance']['pdf_canonical']='full_page_pending_owner_review_2026_10_14'
+        try:
+            with patch.object(catalog,'load_yaml',return_value=profile), patch.object(catalog,'qmd_metadata',return_value={'title':'Fixture','format':{'pdf':{}}}):
+                package_from_ref(ref)
+            rejected=False
+        except ValueError:rejected=True
+        checks['negative PDF contract exception limited '+ref['id']]=rejected
     checks['current implementation built'] = all(sha(REPO/'scripts'/name)==digest for name,digest in build['implementation_sha256'].items())
     checks['table guard still mounted'] = 'course-tables.css' in build['resources']
     runtime = (page.parent / unquote(urlsplit(doc.select_one('link[rel=stylesheet]')['href']).path)).resolve().parent
@@ -151,10 +224,20 @@ def static(page, build):
         checks['negative countdown '+attribute+' '+value] = not validate(bad,build)['countdown target and status from canonical data']
     bad=copy.deepcopy(doc);bad.select_one('.countdown-notice').string='Lịch thi chính thức 2027.'
     checks['negative countdown missing provisional notice'] = not validate(bad,build)['countdown reference notice and fallback truthful']
-    bad=copy.deepcopy(doc);bad.select_one('.home-card-link').unwrap()
-    checks['negative whole card missing native link'] = not validate(bad,build)['whole cards one native accessible link']
+    bad=copy.deepcopy(doc);bad.select_one('.home-card-action').unwrap()
+    checks['negative missing native action link'] = not action_only_cards(bad.select('.home-card'))
+    bad=copy.deepcopy(doc);shell=bad.select_one('.home-card-content');shell.name='a';shell['href']='d0-reading.html';shell['class']=['home-card-link']
+    checks['negative restored whole card anchor'] = not action_only_cards(bad.select('.home-card'))
+    bad=copy.deepcopy(doc);bad.select_one('.home-card')['onclick']='location.href="d0-reading.html"'
+    checks['negative restored card click handler'] = not action_only_cards(bad.select('.home-card'))
+    bad=copy.deepcopy(doc);bad.select_one('.home-card')['tabindex']='0';bad.select_one('.home-card')['role']='link'
+    checks['negative restored keyboard card link'] = not action_only_cards(bad.select('.home-card'))
     bad=copy.deepcopy(doc);bad.select_one('#hoc-lieu-hien-co').insert_before(bad.select_one('.home-introduction').extract())
-    checks['negative purpose above catalog'] = not validate(bad,build)['catalog immediately after hero before purpose']
+    checks['negative purpose outside opening hero'] = not reading_layout_checks(bad)['intro purpose and audience inside opening hero']
+    bad=copy.deepcopy(doc);bad.select_one('.home-service-illustration').decompose()
+    checks['negative service illustration removed'] = not reading_layout_checks(bad)['service illustration and copy retained']
+    bad=copy.deepcopy(doc);bad.select_one('.home-method-grid > div').decompose()
+    checks['negative method row lost'] = not reading_layout_checks(bad)['four complete method rows without verb labels']
     bad=copy.deepcopy(doc);bad.select_one('.home-lead').append(' Gói khảo sát D0')
     checks['negative internal code in learner copy'] = not validate(bad,build)['no visible internal course codes']
     from zo_web_2027_home_landing import countdown_source
@@ -182,15 +265,36 @@ def browser(page, out):
                 except requests.RequestException:pass
                 time.sleep(.1)
             tab=next(t for t in requests.get(base+'/json',timeout=3).json() if t['type']=='page');b=Browser(tab['webSocketDebuggerUrl']);b.ws.settimeout(45);b.call('Page.enable');b.call('Runtime.enable')
+            def pointer_click(selector):
+                b.evaluate('document.querySelector('+json.dumps(selector)+').scrollIntoView({block:"center"})')
+                point=b.evaluate('(()=>{const r=document.querySelector('+json.dumps(selector)+').getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2}})()')
+                for event in ['mousePressed','mouseReleased']:b.call('Input.dispatchMouseEvent',dict(type=event,button='left',clickCount=1,**point))
+                time.sleep(.15)
             for width in [1440,1000,768,430,390,320]:
                 b.viewport(width,900);b.navigate(page.as_uri())
                 for _ in range(50):
                     if b.evaluate('!!document.querySelector(".home-landing-content")'):break
                     time.sleep(.1)
                 b.ready()
-                result=b.evaluate("""(()=>{const v=n=>!!n&&!!n.getClientRects().length&&!n.closest('[hidden]');return {url:location.href,title:document.title,fits:document.documentElement.scrollWidth<=innerWidth,loaded:[...document.images].every(n=>n.complete&&n.naturalWidth>0),white:[...document.querySelectorAll('.home-paper')].every(n=>getComputedStyle(n).backgroundColor==='rgb(255, 255, 255)'),overflow:[...document.querySelectorAll('main h1,main h2,main h3,main p,main li,summary')].filter(v).filter(n=>n.scrollWidth>n.clientWidth+2).map(n=>n.textContent.slice(0,50)),image:[...document.querySelectorAll('.home-journey img')].filter(v).map(n=>({name:n.className,ratio:n.clientWidth/n.clientHeight,native:n.naturalWidth/n.naturalHeight})),logo:v(document.querySelector('.site-top>a:first-child')),tools:v(document.querySelector('.course-tools')),font:document.fonts.check('17px Be'),closed:!document.querySelector('details[open]')};})()""")
+                result=b.evaluate("""(()=>{const v=n=>!!n&&!!n.getClientRects().length&&!n.closest('[hidden]');return {url:location.href,title:document.title,fits:document.documentElement.scrollWidth<=innerWidth,loaded:[...document.images].every(n=>n.complete&&n.naturalWidth>0),paper:[...document.querySelectorAll('.home-paper')].every(n=>['rgb(255, 255, 255)','rgb(247, 247, 245)'].includes(getComputedStyle(n).backgroundColor)),overflow:[...document.querySelectorAll('main h1,main h2,main h3,main p,main li,summary')].filter(v).filter(n=>n.scrollWidth>n.clientWidth+2).map(n=>n.textContent.slice(0,50)),image:[...document.querySelectorAll('.home-journey img')].filter(v).map(n=>({name:n.className,ratio:n.clientWidth/n.clientHeight,native:n.naturalWidth/n.naturalHeight})),logo:v(document.querySelector('.site-top>a:first-child')),tools:v(document.querySelector('.course-tools')),font:document.fonts.check('17px Be'),closed:!document.querySelector('details[open]')};})()""")
                 measures.append({'width':width,'geometry':result})
-                for name in ['fits','loaded','white','logo','tools','font','closed']:checks[f'{width} {name}']=result[name]
+                for name in ['fits','loaded','paper','logo','tools','font','closed']:checks[f'{width} {name}']=result[name]
+                layout=b.evaluate(READING_LAYOUT_GEOMETRY)
+                measures[-1]['reading_layout']=layout
+                checks[f'{width} method one full-width column']=layout['columns']==1 and layout['fullWidth'] and layout['gaps']
+                for key in ['methodFrames','methodAlternates','topicFrames','faqFrames','faqAlternates','panelsAlternate','serviceFits']:checks[f'{width} '+key]=layout[key]
+                checks[f'{width} topic responsive columns']=layout['topicColumns']==(1 if width<=650 else 2)
+                b.evaluate('document.querySelectorAll(".home-faq details").forEach(n=>n.open=true)')
+                checks[f'{width} open FAQ text not clipped']=b.evaluate('[...document.querySelectorAll(".home-faq p,.home-faq summary")].every(n=>n.scrollWidth<=n.clientWidth+2)&&document.documentElement.scrollWidth<=innerWidth')
+                b.evaluate('document.querySelectorAll(".home-faq details").forEach(n=>n.open=false)')
+                if width in [1440,390]:
+                    b.evaluate('window.__badColumns=document.createElement("style");window.__badColumns.textContent=".home-editorial .home-method-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}";document.head.append(window.__badColumns)')
+                    broken=b.evaluate(READING_LAYOUT_GEOMETRY)
+                    checks[f'{width} negative inherited four columns caught']=broken['columns']!=1 and not broken['fullWidth']
+                    b.evaluate('window.__badColumns.remove()')
+                    for selector,name in [('.home-introduction','intro'),('.home-method-grid','method-rows'),('.home-strands','topics'),('.home-service','service'),('.home-faq','faq')]:
+                        b.evaluate('document.querySelector('+json.dumps(selector)+').scrollIntoView({block:"center"})');b.screenshot(out/f'{name}-{width}.png')
+                    b.evaluate('window.scrollTo(0,0)')
                 checks[f'{width} no text overflow']=not result['overflow']
                 checks[f'{width} one intact illustration']=len(result['image'])==1 and abs(result['image'][0]['ratio']-result['image'][0]['native'])<.01
                 checks[f'{width} days label one line centered']=b.evaluate("""(()=>{const n=document.querySelector('.countdown-days>span'),s=n.previousElementSibling,a=n.getBoundingClientRect(),c=s.getBoundingClientRect();return getComputedStyle(n).whiteSpace==='nowrap'&&Math.abs(a.y+a.height/2-c.y-c.height/2)<1&&a.width+n.offsetLeft<=innerWidth&&getComputedStyle(n).fontSize==='13px'})()""")
@@ -226,8 +330,28 @@ def browser(page, out):
                 checks[f'{width} whole card reacts without geometry shift']=before_card['shadow']!=after_card['shadow'] and all(before_card[k]==after_card[k] for k in ['x','y','w','h'])
                 checks[f'{width} card no hover fill underline']=after_card['underline']=='none' and after_card['background']=='rgba(0, 0, 0, 0)'
                 if width in [1440,390]:b.screenshot(out/f'card-hover-{width}.png')
-                b.evaluate('document.querySelector(".home-card-link").focus()')
+                for package in ['d0','r1_g01','r1_g02']:
+                    for part in ['img','h3','p']:
+                        before_url=b.evaluate('location.href')
+                        pointer_click(f'.home-card[data-package-id={package}] {part}')
+                        checks[f'{width} {package} {part} click stays on Home']=b.evaluate('location.href')==before_url
+                    selector=f'.home-card[data-package-id={package}]'
+                    b.evaluate('document.querySelector('+json.dumps(selector)+').scrollIntoView({block:"center"})')
+                    point=b.evaluate('(()=>{const r=document.querySelector('+json.dumps(selector)+').getBoundingClientRect();return {x:r.x+4,y:r.y+4}})()')
+                    for event in ['mousePressed','mouseReleased']:b.call('Input.dispatchMouseEvent',dict(type=event,button='left',clickCount=1,**point))
+                    checks[f'{width} {package} card background click stays on Home']=b.evaluate('location.href')==before_url
+                b.evaluate('document.querySelector(".home-card-action").scrollIntoView({block:"center"})')
+                b.call('Input.dispatchMouseEvent',{'type':'mouseMoved','x':1,'y':1});time.sleep(.2)
+                before_action=b.evaluate('(()=>{const n=document.querySelector(".home-card-action");return {color:getComputedStyle(n).color,arrow:getComputedStyle(n.querySelector("span")).transform}})()')
+                point=b.evaluate('(()=>{const r=document.querySelector(".home-card-action").getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2}})()')
+                b.call('Input.dispatchMouseEvent',dict(type='mouseMoved',**point));time.sleep(.25)
+                after_action=b.evaluate('(()=>{const n=document.querySelector(".home-card-action"),s=getComputedStyle(n);return {color:s.color,arrow:getComputedStyle(n.querySelector("span")).transform,clean:s.backgroundColor==="rgba(0, 0, 0, 0)"&&s.textDecorationLine==="none"}})()')
+                checks[f'{width} action hover responds without fill underline']=after_action['clean'] and after_action['color']!=before_action['color'] and after_action['arrow']!=before_action['arrow']
+                checks[f'{width} card shell not interactive pointer']=b.evaluate('[...document.querySelectorAll(".home-card,.home-card-content,.home-card img,.home-card h3,.home-card p")].every(n=>getComputedStyle(n).cursor!=="pointer"&&!n.closest("a"))')
+                b.evaluate('document.querySelector("#home-search").focus()');b.key('Tab',9)
                 checks[f'{width} card keyboard focus visible']=b.evaluate('getComputedStyle(document.activeElement).outlineStyle!=="none" && getComputedStyle(document.querySelector(".home-card")).boxShadow!=="none"')
+                b.key('Tab',9)
+                checks[f'{width} Tab goes to next CTA not card']=b.evaluate('document.activeElement.matches(".home-card[data-package-id=r1_g01] .home-card-action")')
                 b.evaluate('document.activeElement.blur()')
                 b.evaluate('document.querySelector("#ung-ho").scrollIntoView()');b.screenshot(out/f'support-{width}.png')
                 b.click('[data-course-action=top]');checks[f'{width} top works']=b.evaluate('scrollY<2')
@@ -273,11 +397,14 @@ def browser(page, out):
             b.viewport(430,900);b.navigate(page.as_uri());b.click('.mobile-trigger');checks['mobile contents drawer opens']=b.evaluate('document.querySelector("#mobile-nav").open');b.key('Escape',27);checks['mobile drawer Escape']=b.evaluate('!document.querySelector("#mobile-nav").open')
             checks['mobile trigger shows icon not words']=b.evaluate('getComputedStyle(document.querySelector(".mobile-view")).display==="none"')
             for package, filename in [('d0','d0-reading.html'),('r1_g01','g01-reading.html'),('r1_g02','g02-reading.html')]:
-                b.navigate(page.as_uri());b.click(f'.home-card[data-package-id={package}] .home-card-action');b.ready()
+                b.navigate(page.as_uri());pointer_click(f'.home-card[data-package-id={package}] .home-card-action');b.ready()
                 checks['real navigation '+package]=b.evaluate(f'location.pathname.endsWith({json.dumps(filename)}) && !!document.querySelector("main")')
                 if package!='d0':checks['start view '+package]=b.evaluate('new URL(location.href).searchParams.get("r1-view")==="bat-dau" && location.hash==="#bat-dau"')
                 b.click('[data-course-action=home]');b.ready()
                 checks['return to new Home '+package]=b.evaluate('document.body.classList.contains("home-editorial")')
+            b.evaluate('document.querySelector(".home-card-action").focus()');b.key('Enter',13,'\r');b.ready()
+            checks['keyboard Enter on CTA opens D0']=b.evaluate('location.pathname.endsWith("d0-reading.html")')
+            b.navigate(page.as_uri());b.ready()
             # Browser zoom reduces the CSS viewport and scales the rendering.
             # body.style.zoom doubles boxes WITHOUT changing media queries and
             # is not a valid browser-zoom emulation. Keep that first result in QA.
@@ -295,7 +422,9 @@ def browser(page, out):
                 point=b.evaluate('(()=>{const r=document.querySelector(".home-card img").getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2}})()')
                 for event in ['mousePressed','mouseReleased']:b.call('Input.dispatchMouseEvent',dict(type=event,button='left',clickCount=1,**point))
                 time.sleep(.3);b.ready()
-                checks[f'{width} no JS actual image click opens D0']=b.evaluate('location.pathname.endsWith("d0-reading.html")')
+                checks[f'{width} no JS image click stays on Home']=b.evaluate('location.href')==page.as_uri()
+                b.click('.home-card-action');time.sleep(.3);b.ready()
+                checks[f'{width} no JS action opens D0']=b.evaluate('location.pathname.endsWith("d0-reading.html")')
                 b.call('Emulation.setScriptExecutionDisabled',{'value':False})
             save(out/'measurements.json',measures)
         finally:

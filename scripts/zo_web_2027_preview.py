@@ -221,6 +221,8 @@ class PreviewBuilder:
 
     def home(self, include_g01: bool, footer_baseline: Path | None = None, *, source: Path | None = None, write=True) -> dict:
         source = source or REPO / self.profile['rendered_source']
+        if self.profile.get('layout') == 'editorial-home-2027':
+            raise ValueError('Native Home uses zo_web_2027_home_check.py and zo_web_2027_home_landing_check.py, not the retired Home projection')
         data_file = REPO / self.profile['data_source']
         partial_file = REPO / self.profile['partial_source']
         doc = BeautifulSoup(source.read_text(encoding='utf-8'), 'html.parser')

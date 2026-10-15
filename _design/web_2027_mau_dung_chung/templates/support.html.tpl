@@ -1,10 +1,10 @@
 <section class="support-region" id="ung-ho" aria-labelledby="r1-support-title">
   <div class="support-brand"><img src="assets/logos/stack_color.svg" alt="ZO Math"></div>
   <div class="support-content" aria-labelledby="r1-support-title">
-    <h3 id="r1-support-title">Ủng hộ ZO Math</h3>
-    <p>Nếu học liệu hữu ích với bạn, bạn có thể ủng hộ ZO Math tiếp tục biên soạn và chia sẻ.</p>
+    <h3 id="r1-support-title">Bảo trợ ZO Math</h3>
+    <p>Nếu học liệu hữu ích với bạn, bạn có thể bảo trợ ZO Math tiếp tục biên soạn và chia sẻ.</p>
     <div class="r1-support-details">
-      <img class="r1-support-qr" src="assets/qr_bao_tro_zo_math_vietcombank.jpg" width="240" height="240" alt="Mã QR Vietcombank để ủng hộ ZO Math">
+      <img class="r1-support-qr" src="assets/qr_bao_tro_zo_math_vietcombank.jpg" width="240" height="240" alt="Mã QR Vietcombank để bảo trợ ZO Math">
       <dl>
         <div><dt>Ngân hàng</dt><dd>Vietcombank</dd></div>
         <div><dt>Số tài khoản</dt><dd>0601000137768</dd></div>

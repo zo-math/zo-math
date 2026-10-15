@@ -21,6 +21,37 @@ GOVERNANCE = SECTION + "/_quy_trinh"
 
 
 class PublicBoundaryTests(unittest.TestCase):
+    def test_historical_baseline_does_not_require_current_pdf_bytes_but_release_does(self):
+        manifest=publish.build_manifest(self.public,self.config)
+        issue={'type':'course-pdf-bytes','path':'historical.pdf'}
+        with patch.object(publish,'course_pdf_issues',return_value=[issue]) as gate:
+            historical=publish.validate_public(self.public,manifest,self.config,historical_comparison_only=True)
+            gate.assert_not_called()
+            current=publish.validate_public(self.public,manifest,self.config)
+            gate.assert_called_once()
+        self.assertNotIn(issue,historical['issues'])
+        self.assertIn(issue,current['issues'])
+
+    def test_stale_course_pdf_rejected_at_publication_boundary(self) -> None:
+        relative = SECTION + '/hoc_lieu/r1_g01/index.pdf'
+        self.write(relative, 'old PDF bytes')
+        with patch('zo_pdf_contract.validate_canonical_pdf_provenance', return_value=['source drift']):
+            issues = publish.course_pdf_issues(self.public, {relative})
+        self.assertTrue(any(x['type']=='stale-course-pdf' for x in issues))
+        self.assertTrue(any(x['type']=='course-pdf-bytes' for x in issues))
+
+    def test_unrelated_publication_fixture_has_no_course_pdf_gate(self) -> None:
+        self.assertEqual(publish.course_pdf_issues(self.public, {'CNAME','index.html'}), [])
+
+    def test_personal_paths_distinct_from_course_home_asset_urls(self) -> None:
+        pattern = dict(publish.SECRET_PATTERNS)['personal-path']
+        for value in ['C:/Users/example/private', 'C:\\Users\\example\\private', '/home/example/private', 'path="/home/example/private"']:
+            with self.subTest(private=value):
+                self.assertIsNotNone(pattern.search(value))
+        for value in ['../../../../../assets/zo_web_2027/home/web-shell.css', '/assets/zo_web_2027/home/site-ui.js', 'https://zomath.vn/assets/zo_web_2027/home/image.svg', 'assets/zo_web_2027/home/assets/fonts/font.ttf']:
+            with self.subTest(public=value):
+                self.assertIsNone(pattern.search(value))
+
     def setUp(self) -> None:
         audit = ROOT / "_audit"
         audit.mkdir(exist_ok=True)
@@ -448,6 +479,30 @@ class PublicBoundaryTests(unittest.TestCase):
             self.assertTrue(created)
             self.assertTrue(all(not path.exists() for path in created))
 
+
+class RevertedPublicationProvenance(unittest.TestCase):
+    def test_exact_restored_tree_resolves_source(self):
+        source='a'*40; reverted='b'*40; parent='c'*40
+        def read(root,*args,**kwargs):
+            if args==('show','-s','--format=%B','HEAD'):return f'This reverts commit {reverted}.\n'
+            if args==('show','-s','--format=%P',reverted):return parent
+            if args==('show','-s','--format=%B',parent):return f'Source-Master: {source}\n'
+            if args[0]=='rev-parse' and args[1].endswith('^{tree}'):return 'same-tree'
+            if args==('rev-parse',source+'^{commit}'):return source
+            raise AssertionError(args)
+        with patch.object(publish,'git_text',side_effect=read), patch.object(publish,'git',return_value=type('Result',(),{'returncode':0})()):
+            self.assertEqual(publish.published_source_commit(ROOT,ROOT),source)
+
+    def test_changed_tree_cannot_borrow_restored_source(self):
+        reverted='b'*40; parent='c'*40
+        def read(root,*args,**kwargs):
+            if args==('show','-s','--format=%B','HEAD'):return f'This reverts commit {reverted}.\n'
+            if args==('show','-s','--format=%P',reverted):return parent
+            if args==('rev-parse','HEAD^{tree}'):return 'changed-tree'
+            if args==('rev-parse',parent+'^{tree}'):return 'restored-tree'
+            raise AssertionError(args)
+        with patch.object(publish,'git_text',side_effect=read):
+            with self.assertRaises(publish.ConfigError):publish.published_source_commit(ROOT,ROOT)
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

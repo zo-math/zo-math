@@ -13,6 +13,11 @@ Chia khối theo chặng đọc có nghĩa; không biến từng đoạn thành 
 
 ## PDF
 
+Bổ sung vận hành được chủ trì giao ngày 14/10/2026 tại
+[hướng dẫn PDF](../04_ap_dung/06_pdf.md): thông tin ấn bản/bản quyền,
+trang kết/Ủng hộ, bảng, nhịp trang và kiểm hồi quy. D0 là bản kiểm chứng;
+không nâng mẫu 0.4 thành nghiệm thu mọi PDF hoặc khóa Design 0.5.
+
 Bìa gọi rõ học liệu và bản tải; trang kết có bước tiếp theo, Ủng hộ và đường quay lại học. Tám PDF 0.4 đã thay đầu/cuối, ruột vẫn v1.3. Đây không phải bằng chứng toàn bộ ruột đã có tag/bảng phẳng 0.4. Khi tích hợp, lấy nội dung mới nhất và dựng bìa/kết từ quy trình sản xuất, kiểm phân trang, bookmark và links.
 
 ## Video và âm

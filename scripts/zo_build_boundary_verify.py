@@ -40,7 +40,7 @@ def main():
         'scripts/zo_quarto.py', 'scripts/zo_build_boundary_verify.py',
         'scripts/zo_web_2027_production.py', 'scripts/zo_web_2027_figures.py',
         'scripts/zo_pdf.py']}
-    protected = list(PAGES.values()) + [BASE/'tot_nghiep_thpt/2027/giao_dien/trang_nha.html.tpl']
+    protected = list(PAGES.values())
     protected += [p.relative_to(ROOT) for p in (ROOT/'docs').rglob('*') if p.is_file()]
     before = {str(p): sha(ROOT/p) for p in protected}
     try:

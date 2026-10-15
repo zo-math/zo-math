@@ -35,9 +35,9 @@ G01_PHASE3_TASK_IDS = {
     *(f"G01-S-O-E{index:02d}" for index in range(1, 10)),
 }
 G01_PHASE3_FIGURES = {
-    "G01-O01": "hinh/do_thi_11.svg",
-    "G01-S-K-E02": "hinh/do_thi_12.svg",
-    "G01-S-O-E04": "hinh/do_thi_13.svg",
+    "G01-O01": "giao_dien/assets/figures_0_4/do_thi_11.svg",
+    "G01-S-K-E02": "giao_dien/assets/figures_0_4/do_thi_12.svg",
+    "G01-S-O-E04": "giao_dien/assets/figures_0_4/do_thi_13.svg",
 }
 
 

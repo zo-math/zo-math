@@ -1,11 +1,35 @@
 # Mẫu web dùng chung — khóa Ôn thi Toán THPT 2027
 
+**Home — bố cục đọc được giao ngày 14/10/2026:** QMD đặt “Hiểu vì sao.
+Tự giải quyết.”/“Dành cho ai?” trong hero, Cách học ngay sau danh mục.
+CSS Home scoped cho sáu panel trắng–xám trắng; hàng Cách học một cột toàn
+chiều ngang ở mọi viewport, kiến thức/FAQ có khung riêng bo góc xen nền.
+Bốn nhãn động từ đã bỏ. Giữ thẻ/CTA HOM-C01, các chữ/ID/đích khác, đồng hồ,
+logo/font và nguồn ba trang học liệu. SVG học trực tiếp được quản lý tại
+`2027/assets/illustrations/hoc_truc_tiep_trao_doi.svg`, QMD nạp ảnh native;
+adapter chỉ chuẩn hóa wrapper/caption Quarto. Mẫu thử được chỉ định chỉ là
+đối chiếu thiết kế, không phụ thuộc build. Guard HOM-L01 ở `kiem_thu.md`,
+trạng thái/kết quả ở 03; không tự nghiệm thu/phát hành hoặc nâng Design 0.5.
+
+**DH_038 — nguồn biên tập Nhà là QMD native:** `2027/index.qmd` sở hữu
+tiêu đề, đoạn văn, danh sách, FAQ, lời Ủng hộ và vị trí các vùng; không còn
+include toàn trang HTML sinh. YAML chỉ cấp dữ liệu danh mục/mạch/mốc thi
+và dữ liệu Gateway còn dùng. Ba partial `home_countdown.qmd`,
+`home_catalog.qmd`, `home_strands.qmd` là component dữ liệu/UI sinh tự động.
+`scripts/zo_home_qmd.py` nối DOM native với giao diện đã có, không chứa
+câu chữ biên tập. Không quay về template hoặc nguồn YAML câu chữ Nhà.
+Hướng vận hành ở README Nhà, trạng thái/bản xem ở 03; QD_035 giữ nguyên.
+
 **Home — tinh chỉnh phản hồi buổi sáng 12/10:** template/dữ liệu/generator
-Home dùng ngôn ngữ người học, catalog ngay dưới bìa, thẻ một liên kết native
-phủ cả ảnh/nội dung. CSS Home riêng bỏ nền hover sáng và gạch chân, giữ
+Home dùng ngôn ngữ người học, catalog ngay dưới bìa. Theo yêu cầu 14/10,
+thẻ không còn là liên kết phủ ảnh/nội dung: chỉ dòng hành động là anchor
+native, còn toàn thẻ vẫn phản hồi hover/focus-within. CSS Home riêng bỏ nền hover sáng và gạch chân, giữ
 focus/trạng thái chọn/nút vàng; nhãn ngày 13px nowrap/căn tâm. Hợp đồng và
 guard HOM-R01 ở `kiem_thu.md`, hướng vận hành ở README Nhà, trạng thái tại 03.
-Không sửa shared hover khiến D0/R1 thay đổi hoặc dùng QA đồng hồ cũ chứng
+Phạm vi lượt 12/10 chỉ là Home. Yêu cầu 14/10 đồng bộ riêng điều hướng
+toàn khóa trên D0/R1: `course-navigation.css` dùng hover đổi màu chữ/icon,
+không nền hoặc gạch chân; trang hiện tại giữ chữ đậm và `aria-current`.
+Không suy rộng sang rail/nội dung khác hoặc dùng QA đồng hồ cũ chứng
 nhận bản mới. Không tự nâng Design 0.5/đổi mốc thi/PDF/phát hành.
 
 **Bổ sung đồng hồ Home, 12/10/2026:** theo yêu cầu chủ trì, nguồn
@@ -16,8 +40,9 @@ D0/R1. Generator kiểm mốc, CSS/JS Home riêng thực thi; hướng vận hà
 đổi sang lịch chính thức tại README Nhà, trạng thái/bước tiếp chỉ ở 03.
 
 **DH_028 — Home biên tập từ mẫu nhập ngày 12/10/2026:** chỉ trang Nhà chọn
-`editorial-home-2027`; generator đọc `2027/giao_dien/trang_nha.html.tpl` và
-danh mục thật, adapter nhận raw Quarto mới, CSS/JS riêng `course-home-landing.*`.
+`editorial-home-2027`; tại mốc đó generator từng đọc template HTML và
+danh mục thật; DH_038 thay nguồn biên tập bằng QMD native, adapter vẫn nhận
+raw Quarto mới và dùng CSS/JS riêng `course-home-landing.*`.
 Hướng dẫn hiện hành ở `2027/giao_dien/README_web_2027.md`; checker mới
 `zo_web_2027_home_landing_check.py` thay guard bố cục Home cũ trong phạm vi
 này. Không đổi token/logo/font/kiến trúc của D0/R1, không áp phân cấp tiêu đề

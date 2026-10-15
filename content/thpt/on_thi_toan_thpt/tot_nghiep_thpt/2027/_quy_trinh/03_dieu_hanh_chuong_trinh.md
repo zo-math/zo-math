@@ -1,11 +1,480 @@
 # Điều hành chương trình — trạng thái và việc tiếp theo
 
-Phiên bản: 0.1 · Cập nhật trạng thái: 13/10/2026.
+Phiên bản: 0.1 · Cập nhật trạng thái: 15/10/2026.
 
 Đây là nơi duy nhất ghi công việc đang mở và thứ tự sản xuất hiện hành. Chỉ cập nhật trạng thái từ bằng chứng trong hồ sơ gói. [Điểm vào](README.md).
 
+**SYNC-RELEASE01 — bộ hiện hành và quyền xuất bản, 15/10/2026.**
+Thay trạng thái đầu ra/chờ duyệt trong FIG-PDF01 và các mục lịch sử bên dưới.
+Chủ trì đã trả lời “Duyệt thiết kế, dựng tiếp 14 biến thể”, sau đó yêu cầu
+xuất bản Nhà, D0, R1-G01, R1-G02 lên zomath.vn thay các trang cũ.
+Cả 16 PDF R1 hiện hành đạt 17/17 phép kiểm từng tệp; full G01 80 trang,
+học sinh G01 60 trang; full G02 61 trang, học sinh G02 42 trang. D0 20 trang.
+Số trang/mô tả thẻ tải, trạng thái PDF, provenance và hồ sơ gói đã đồng bộ.
+Xem `hoc_lieu/r1_g01/_quy_trinh/ho_so/pdf_bundle_review.json` và hồ sơ tương ứng G02.
+Mọi trang màu được bao phủ bằng xem trực quan hoặc đối chiếu pixel thân trang
+đã xem; kiểm xám đại diện từng biến thể và các trang hình/bảng/cuối của bản đầy đủ.
+Đã sửa ngắt trang tiêu đề, bảng trong khối lời giải và chữ tràn ngoài trang;
+cổng hồi quy có fixture âm cho lỗi tiêu đề/chữ bị cắt. Không dựng lại sách
+khi chỉ đồng bộ số trang thẻ tải; thay nội dung/hình thật vẫn làm STALE.
+Kiểm nguồn ba gói đạt; kiểm điều hành 175/175; cổng xuất bản 33 kiểm thử đạt.
+Đã bổ sung nhận diện provenance của một commit revert thông thường chỉ khi
+cây công khai khôi phục đúng byte cây cha của lần xuất bản bị revert; trường
+hợp khác vẫn bị từ chối. Không viết lại lịch sử Git hoặc bỏ qua kiểm nguồn.
+Trạng thái: được phép xuất bản, đang chuẩn bị candidate mới bằng quy trình chính thức.
+Chưa khẳng định đã triển khai; chưa in giấy/quét QR bằng điện thoại/phản biện toán độc lập.
+
+## Lịch sử trước SYNC-RELEASE01
+
+**FIG-PDF01 — sửa phân kì nguồn hình và tầm soát đầu ra, 15/10/2026.**
+Trạng thái lịch sử tại FIG-PDF01; đã được SYNC-RELEASE01 ở trên thay thế.
+Nguyên nhân đã xác minh: QMD G01/G02 chọn hình cũ; HTML thay hình riêng sau
+render, PDF chỉ đổi đuôi SVG thành PDF nên vẫn lấy hình cũ. Nay QMD chọn
+`giao_dien/assets/figures_0_4/`; HTML/PDF dùng cặp vector từ cùng nguồn toán,
+profile 0.4 và nhãn. 88 tài sản cũ không dùng đã lưu có checksum ngoài repository
+tại `E:/zo_nhap/zo_math_archive/course-release-repair-20261014`, rồi gỡ khỏi
+nguồn biên dịch. TeX toán, SVG mới đã duyệt và 14 PDF còn chờ giữ đúng byte.
+
+Sửa đồng thời kiểm kê AST G02, ranh giới/thứ tự 16 phép chiếu PDF, liên kết
+phần bị lược, caption trong khối Ôn nền, bảng Nhật kí và ngắt khối ngắn.
+Kiểm TeX nhanh đủ 16 cấu hình trước biên dịch; chặn hình cũ, thiếu cặp hoặc
+lệch fingerprint. Số trang thẻ tải được loại riêng khỏi fingerprint PDF để
+không gây dựng sách lại vì thay đúng số trang; tên/nội dung/hình vẫn làm STALE.
+
+Đầu ra hiện hành: full G01 79 trang, full G02 58 trang, D0 20 trang.
+G01/G02 đạt 13/13 và đã xem mọi trang màu/xám; D0 đạt checker riêng và xem
+mọi trang màu/xám. Hồ sơ ở `ho_so/pdf_full_review.json` từng gói và báo cáo
+`_audit/course-release-repair/`. 14 biến thể khác chưa dựng lại, đang chờ
+chủ trì duyệt full: bộ xét duyệt tự động từ chối thay cả bộ trước bước này.
+HTML mới ghi chính xác từng PDF đã cập nhật hoặc đang chờ; nguồn và docs
+đồng bộ từ Quarto mới. Bộ xem hiện hành ở `_audit/course-release-current/`.
+Kiểm bộ xem cuối 282/282, điều hướng 61/61, hồi quy rail xám 119/119;
+cổng tài liệu 233/233, kiểm nhãn nguồn và tự kiểm zo_pdf đạt. Cổng xuất bản
+có 30 kiểm thử đạt, từ chối 14 PDF STALE và cây Git chưa kết sổ; không còn
+lỗi nguồn hình, thiếu tài nguyên, đường dẫn riêng hoặc khoảng trắng HTML.
+Các PDF full G01/G02 ngày 15/10 giữ đúng ảnh mọi trang trong; chỉ đổi ngày
+tạo trên trang đầu/cuối so với bản đã xem, hai trang ấy đã xem lại.
+Báo cáo cuối: `_audit/course-release-repair/repair_report.json`.
+Chưa xuất bản, chưa nghiệm thu của chủ trì, chưa rà toán độc lập/in giấy/quét QR.
+
+**GRAY-NAV01 — sửa điều hướng mất khi cuộn trong sắc xám, 14/10/2026.**
+Sửa bộ lọc dùng chung từ body sang html để thanh cố định giữ vị trí theo
+viewport; không đổi nội dung học liệu. Guard trình duyệt trong
+`scripts/zo_web_2027_grayscale_check.py` được gắn vào đường dựng bộ bốn
+HTML; kiểm cuộn trên sáu nền và fixture âm lỗi cũ. Bộ xem của lượt sửa
+nằm tại `_audit/zo-course-grayscale-reviewed/html-current/`, báo cáo tại
+`grayscale-qa.json` trong cùng bộ. Binding tải bản đầy đủ G01 đồng bộ
+79 trang theo QMD/PDF vừa dựng; phép đối chiếu xác nhận chỉ số ấy đổi,
+không cập nhật fingerprint để bỏ qua thay đổi nội dung khác. Bộ cũ giữ
+để đối chiếu; không xuất bản website hoặc dựng lại PDF trong lượt này.
+
+**Lịch sử R1-G01 PDF đầy đủ — 14/10/2026, đã được thay bằng FIG-PDF01.**
+Đã dựng `hoc_lieu/r1_g01/index.pdf` từ QMD hiện hành: 79 trang.
+Thiết kế trang đầu, trang cuối, header/footer theo mẫu D0 đã được chủ trì
+duyệt; khung dùng chung nằm ở `assets/tex/zo-course-pdf-shell.tex` và
+`assets/tex/zo-course-pdf-end.tex`, quy tắc ZO031 đã được cập nhật.
+PDF đầy đủ có 20 bảng nội dung và 14 bảng biến thiên từ nguồn hiện hành;
+liên kết nội bộ có số trang in. Nội dung toán QMD được giữ nguyên, chỉ
+đồng bộ số trang bản đầy đủ từ 57 thành 79. Hồ sơ có thẩm quyền cho lượt
+này: `hoc_lieu/r1_g01/_quy_trinh/ho_so/pdf_full_review.json` và
+`pdf_provenance.json`: kiểm kĩ thuật 13/13, xem đủ 79 trang màu/sắc xám.
+PDF D0, bảy PDF G01 còn lại và bộ bốn HTML bàn giao giữ nguyên.
+Ảnh kiểm trung gian đã dọn, giữ ảnh bằng chứng đại diện. Chưa in giấy,
+quét QR bằng điện thoại hoặc rà toán độc lập. Bước tiếp theo là chủ trì
+xem bản đầy đủ này; chỉ tiếp tục bảy biến thể sau khi bản đầy đủ được duyệt.
+Chưa xuất bản website.
+
+**Lượt chính tả và bảo trợ — 14/10/2026.**
+Theo yêu cầu trực tiếp của chủ trì: bốn QMD hiện hành dùng chính tả i
+(định lí, kĩ, xử lí, nhật kí, đăng kí); Nhà đổi ủng hộ thành bảo trợ.
+Component Bảo trợ và nhãn rail dùng chung đổi cùng nguồn; giữ ID/URL cũ.
+Bộ HTML bàn giao của lượt này được dựng mới từ cả bốn nguồn tại
+`_audit/zo-course-editorial-current/html-current/home-reading.html`,
+cùng D0/G01/G02 trong thư mục ấy. Đây là bộ xem mới thay điểm vào DH_045
+cho lượt chỉnh chữ; DH_045 và QD_035 được giữ để đối chiếu, không ghép
+HTML cũ vào bản mới. Manifest và báo cáo trong cùng bộ ghi kết quả dựng
+và kiểm; không tự kế thừa nghiệm thu thị giác. Chỉ dựng HTML trong lượt
+này; các PDF chưa nhận những thay đổi chữ/component của lượt này.
+Không commit/push/prepare/publish.
+
+**D0 PDF — bản đầy đủ sau khi chủ trì duyệt mẫu DH_044, 14/10/2026.**
+Mẫu 9 trang được duyệt làm hướng dàn; `d0/index.pdf` đã dựng lại từ QMD bằng
+hồ sơ in độc lập, đủ Bài 00, 24 đề và 25 đối chiếu trên 20 trang. Ủng hộ
+lấy từ component HTML hiện hành, footer `zomath.vn` có link từng trang.
+Checker nguồn/PDF/bảng, font, link và metadata đạt; đã xem mọi trang màu
+và sắc xám. PDF đã được khai là tài nguyên website; lần dựng HTML cô lập
+chép đúng byte vào đầu ra. Đầu ra sẵn để chủ trì kiểm toàn bản trước quyết
+định xuất bản.
+Chưa in giấy/quét QR vật lý; chưa `prepare`/`publish`, commit hoặc push.
+Quy tắc và biên nhận ở D0 `06_pdf_bo_cuc_doc_lap.md`, `pdf_build.json`,
+`pdf_review.json`. Script/fixture/biên nhận thử và ảnh audit PDF dư đã dọn;
+PDF mẫu đã duyệt còn mở để đối chiếu. Các đoạn DH_042/DH_044 bên dưới giữ
+đúng lịch sử mốc cũ.
+
 
 ## A. Công việc đang mở
+
+**DH_045 — khép bộ xem bốn trang và một ảnh bìa, 14/10/2026.**
+
+- Xác minh lỗi bàn giao: Nhà dịch vụ mới đã ghép ba HTML từ
+  `_audit/home-preview`, bỏ qua nguồn/hover mới; không phải lỗi nội dung
+  toán cần hoàn nguyên. Chủ trì yêu cầu sửa nguồn và dọn bản ghép thừa.
+- Dựng mới Nhà/D0/G01/G02 cùng snapshot bằng `zo_web_2027_bundle.py`.
+  Điểm xem duy nhất của lượt này:
+  `_audit/zo-course-consistent/html-current/home-reading.html`.
+  Các thẻ, menu, chuyển gói và quay về Nhà nằm trong cùng bộ. Manifest
+  khóa QMD, mã/CSS/profile, tài nguyên và HTML; nguồn/asset lệch phải dựng lại.
+- Giữ đúng một ảnh bìa 3x4 desktop trên mọi chiều rộng: sửa QMD, profile,
+  CSS, normalizer và guard; gỡ bốn biến thể không dùng khỏi nguồn theo
+  yêu cầu chủ trì. Bản được bảo vệ QD_035 và phụ thuộc giữ nguyên.
+- CLI QMD bổ sung `render --html-only` để kiểm nguồn/geometry/HTML mà không
+  kích hoạt nhánh PDF D0; không có cờ giữ hành vi cũ. Adapter chạy trong
+  nguồn cô lập với boundary hoạt động, không đọc HTML lịch sử làm đầu vào.
+- Kiểm đồng bộ sau dọn 273/273, điều hướng static 61/61; không thiếu link.
+  Ca âm/câu chữ nguồn/bìa 6/6, hồi quy HTML-only 8/8. Hai guard Home đòi
+  câu cũ đã thay bằng kiểm hỗ trợ trong đúng vùng và danh mục canonical,
+  không sửa lời văn chủ trì. Lời/toán QMD ba học liệu giữ nguyên.
+- Mẫu/vùng dịch vụ đã được chủ trì duyệt thị giác ở lượt trước; bộ xem
+  đồng bộ mới chưa tự kế thừa nghiệm thu toàn bộ. Chưa kiểm browser trực
+  quan ở lượt này; có một ảnh nguồn, không còn nhánh đổi ảnh mobile.
+  Cảnh báo link gốc ngoài cây cô lập vẫn ở log, không thuộc các đích khóa.
+- Dọn các mirror/bản ghép lỗi và mẫu thử của nhiệm vụ, giữ bộ cuối, runtime,
+  giấy phép font và báo cáo; không xóa bản QD_035 hoặc dọn toàn repository.
+  Không ghi root docs/PDF, không stage/commit/push/xuất bản.
+
+**Bước tiếp: chủ trì mở bộ xem DH_045 và xác nhận đích học liệu/bìa.**
+Các đường xem Home dịch vụ/DH_043 bên dưới chỉ là lịch sử trước DH_045.
+
+**Lịch sử: Học trực tiếp trên Nhà — triển khai mẫu chủ trì chốt, 14/10/2026.**
+
+- Chỉ thay `#hoc-truc-tiep` trong QMD native và CSS Home. Chữ thật ở trái,
+  minh họa ở phải, thông báo chưa mở đăng ký ở dưới; bỏ nhãn phía trên,
+  giữ thông tin thu phí. Dấu nhấn sau phần chữ dùng đỏ/vàng 6:4.
+- PNG minh họa và SVG tự chứa thuộc tài nguyên khóa; SVG ghép đúng logo
+  vector 0.4 vào tranh treo tường. Không có phụ thuộc build vào `_audit/`.
+- Dựng cô lập từ nguồn qua `zo_web_2027_home_check.py rebuild`; bản xem:
+  `_audit/home-service-final-review/home-reading.html`, giữ ba trang học
+  liệu đối chiếu và runtime. Riêng vùng mới 21/21; checker toàn Nhà 107/109,
+  không thiếu link. Hai guard còn đòi câu cũ ở hỗ trợ/danh mục (`flexible
+  help and return to own work`, `eight strands not fake available packages`),
+  không sửa lời văn ngoài phạm vi để đạt guard. Log còn cảnh báo link đến
+  các trang gốc không có trong cây dựng cô lập, không thuộc vùng dịch vụ.
+- Chưa kiểm trực quan browser/responsive: công cụ trình duyệt chặn URL file.
+  CSS đã có nhánh mobile nhưng không nhận kiểm nguồn là nghiệm thu thị giác.
+  Mẫu ảnh đã được chốt; HTML dựng mới chờ chủ trì xem. Chưa commit/push,
+  PDF hoặc xuất bản; không thay bộ bản được bảo vệ QD_035.
+
+
+**DH_044 — Quy cách bố cục PDF độc lập và mẫu thử, 14/10/2026.**
+
+Trang cuối tiếp tục bị chủ trì phản hồi không đúng yêu cầu. Đã sửa phạm
+vi hai cột thành riêng mục Học tiếp (lời dẫn trái, QR/link phải), khung
+Ủng hộ nằm dưới và rộng toàn vùng đọc. Ghi đè cùng PDF; xem trang cuối
+và kiểm vị trí hai vùng/link đạt; chờ chủ trì xác nhận cách hiểu này.
+
+**Phản hồi mới nhất:** chủ trì đánh giá mẫu vừa sửa 4/10, không đạt.
+Đã ghi đè mẫu thay thế 9 trang: nhãn hình chính bằng thân bài 11 pt
+(tính từ font nguồn và kiểm scale trong PDF); tám nhãn Bài … • R…;
+bỏ kẻ ngang giữa bài và nền nhận xét; trang cuối hai cột, Ủng hộ có
+khung mặt trắng/viền gray-3 0.4. Nội dung/QR/tài khoản vẫn lấy HTML.
+Đã xem các trang thay đổi, kiểm bảng/font/link/footer, đủ bốn đối chiếu
+trên hai trang và guard cỡ nhãn/hai cột đạt. Chờ chủ trì xem mẫu thay thế.
+
+Lần thử trước phản hồi 4/10: chủ trì cho phép ghi đè
+đúng PDF mẫu. Mẫu mới 9 trang, đề một cột; bốn đối chiếu trọn trên hai
+trang vật lý 6–7, có kết quả/lời giải/lưu ý/ôn lại và link về đề ở đầu.
+Hướng dẫn chung trùng nhau được gộp một lần. Đã xem cả 9 trang màu;
+checker đạt font/đích/footer/HTML Ủng hộ/lưới bảng và guard ghi nhận
+không có lưu ý bị rơi sang trang riêng. Bản 10 trang mô tả dưới đây là
+lần thử trước, đã được ghi đè. Chờ chủ trì xem bố cục mới; chưa phát hành.
+
+Kiến trúc học tập theo QD_033 không đổi. Chủ trì yêu cầu footer giữa có
+link `zomath.vn`, Ủng hộ đồng bộ nội dung/thiết kế từ HTML hiện hành và
+nghiên cứu quy cách dàn PDF chính thức từ nguồn, lấy bốn HTML/0.4 làm ý tưởng.
+
+- Đã xem bốn trang của DH_043 và component Ủng hộ chung G01/G02/Home.
+  D0 HTML hiện chỉ có link ở rail; mẫu PDF khai binding component chung,
+  không giả báo đã trích vùng Ủng hộ đầy đủ từ D0 HTML. Bản audit chỉ để
+  đối chiếu; không làm đầu vào dựng hoặc thay bộ bảo vệ QD_035.
+- Cập nhật hướng dẫn PDF và `06_pdf_bo_cuc_doc_lap.md`: QMD/JSON sở hữu
+  nội dung, hồ sơ/TeX riêng sở hữu dàn in theo vai trò. D0 DH_042 đã có
+  adapter, nhưng chưa có bộ vai trò/bản đồ dàn trang riêng đủ hoàn thiện.
+  Quy tắc mới thay riêng cách lấy Ủng hộ; không tự khóa Design 0.5.
+- `scripts/zo_pdf_support.py` chiếu component HTML nguồn hiện hành:
+  tiêu đề/lời mời, trường theo thứ tự, logo/QR, màu heading, CTA/URL;
+  lấy lại mỗi lần dựng và fingerprint. Không hard-code bản khai tài khoản
+  hoặc đọc HTML audit. Biến thể câu chữ Home cần binding riêng khi áp dụng.
+- Mẫu và builder/checker thử riêng từng tạo PDF 10 trang. Script/fixture
+  thử đã dọn sau khi duyệt mẫu cuối; PDF mẫu cuối giữ để đối chiếu.
+  Có bìa/hướng dẫn, bốn đề/bốn đối chiếu, trích bảng tám mạch, trang kết;
+  không phải toàn bộ học liệu. Font thân Be 11/16, toán STIX, cột thông tin
+  chuẩn bị/đề, hình vector lớn hơn, bảng native và liên kết số trang.
+- Kiểm PASS: nguồn tươi, tám đích trích đoạn, font nhúng; footer URL đúng
+  và giữa đủ 10 trang; ca âm sai URL/lệch vị trí bị bắt. Thay tài khoản,
+  lời HTML/màu heading trong bộ kiểm làm dữ liệu chiếu đổi; thiếu trường
+  bị chặn. Raster đủ ngang/dọc năm bảng trên bốn trang.
+- Agent xem đủ 10 trang màu/sắc xám. Chưa in giấy/quét QR điện thoại;
+  cảnh báo hyphen-vietnamese còn từ môi trường. Cây dựng/profile browser
+  và ảnh bản trung gian dọn; chỉ giữ mẫu/bằng chứng hiện hành để xem.
+  Bốn QMD/HTML và D0 `index.pdf` trước mẫu giữ nguyên hash.
+
+**Bước tiếp theo: chủ trì xem mẫu bố cục; sau chọn mới áp dụng toàn bộ D0.**
+Chưa nghiệm thu mẫu, commit/push/phát hành. DH_043 Nhà vẫn chờ xem riêng;
+DH_042 là bản PDF trước góp ý mới, không tự thỏa yêu cầu thiết kế DH_044.
+
+**DH_043 — Chuyển thiết kế Nhà đã thống nhất vào nguồn, 14/10/2026.**
+
+Kiến trúc học tập vẫn theo QD_033. Mẫu được chủ trì chỉ định
+`_audit/home-preview/home-design-trial.html` chỉ đối chiếu thiết kế,
+không làm đầu vào biên dịch hoặc nguồn biên tập.
+
+- QMD canonical đặt Hiểu vì sao/Dành cho ai trong hero; Cách học ngay sau
+  danh mục. Sáu panel lớn xen trắng–xám trắng, bỏ bốn nhãn động từ; hàng
+  Cách học một cột full-width, bo góc/cách hàng/nền xen kẽ. Kiến thức và
+  FAQ có khung riêng; học trực tiếp giữ điểm nhấn/minh họa đã duyệt.
+- SVG chuyển vào `2027/assets/illustrations/hoc_truc_tiep_trao_doi.svg`,
+  SHA-256 khớp mẫu, nạp qua Markdown. Adapter chỉ chuẩn hóa wrapper/ảnh;
+  generator sinh số trình bày và partial kiến thức, không đổi thẻ/timer.
+- Giữ lời QMD hiện tại thay lời catalog mẫu cũ, DOM thẻ CTA-only, đích,
+  ID, toán/heading/disclosure. Phục hồi `trạng-thái-triển-khai` trên câu
+  thông báo đã có, không đổi chữ; không còn link thiếu đích. Hai guard
+  nguyên văn cũ không khớp nguồn chủ trì vẫn mở, không nới để đạt PASS.
+- Bản cuối: `_audit/home-layout-implementation/preview/home-reading.html`.
+  Home render từ nguồn bằng launcher Quarto trong cây cô lập; ba trang
+  đi kèm chỉ rebase từ DH_039, không render hoặc sửa nội dung. Build từ
+  nguồn không đọc audit; không ghi đè root docs hoặc mẫu/bản bảo vệ.
+- Generator CURRENT, scope/native/projection/cú pháp đạt; bảo toàn và
+  đối chiếu thiết kế 20/20. Home QA cuối 435/437, tất cả kiểm bố cục/tương
+  tác đạt; chỉ hai guard câu chữ cũ chưa khép. Edge sáu độ rộng 1440–320
+  px: một cột full-width, khung/nền/khoảng cách, FAQ mở, ảnh/tỉ lệ, không
+  tràn, hover/Tab/Enter/no-JS/lọc/tìm/timer/điều hướng. Ca âm bốn cột bị
+  bắt ở 1440/390. Đã xem intro/Cách học/kiến thức/FAQ/học trực tiếp rộng
+  và điện thoại. Chưa Safari/Firefox/cảm ứng thật/screen reader.
+- Giữ nguồn/bản xem/runtime và bằng chứng gọn, dọn mirror/profile/ảnh
+  thừa/script đối chiếu một lần. Không sửa nguồn/PDF ba học liệu, Git
+  index; cập nhật PDF D0 DH_042 riêng được giữ, không coi là tác vụ Home.
+
+**Bước tiếp theo: chủ trì xem HTML Nhà mới; chưa nghiệm thu/phát hành.**
+Không commit, push hoặc xuất bản. DH_042/DH_041 và mốc trước giữ bằng
+chứng riêng; đoạn trạng thái PDF dưới đây thuộc tác vụ riêng.
+
+Kiến trúc học tập hiện hành theo QD_033; lượt PDF dưới đây không thay đổi
+quyết định đường học hoặc trạng thái nghiệm thu của các trang HTML.
+
+### DH_042 — Cụ thể hóa hướng dẫn PDF 0.4 và dựng lại D0, 14/10/2026
+
+Theo yêu cầu trực tiếp sau chủ trì xem DH_040, bổ sung hướng dẫn PDF tại
+`_design/ngon_ngu_thiet_ke_zo_math_0_4/04_ap_dung/06_pdf.md`: bìa/kết,
+ngày/phiên bản/bản quyền, Ủng hộ, chữ, bảng, phân trang và kiểm hồi quy.
+Không khóa Design 0.5 hoặc tự áp dụng sang PDF G01/G02.
+
+- D0 đã dựng lại từ QMD hiện tại, 24 trang vật lý; đề, toán, JSON, ID,
+  lời giải và thứ tự giữ nguyên. Bảng dấu native từ JSON; bảng thường
+  bỏ lớp phủ nền header che đường viền, nét .5 pt/căn theo chức năng;
+  bảng mô tả 36/64. Bìa có ngày/bản quyền, cuối có logo/tài khoản/QR
+  Bảo trợ đọc từ nguồn hiện hành. Thêm số trang đích đề/đối chiếu;
+  lời giải R8-03 mở trang mới để không có dòng lẻ. HTML không dựng lại.
+- Kiểm nguồn QMD PASS; checker D0 bảo toàn nguồn/toán lịch sử 48/48.
+  PDF PASS: 50 đích, font nhúng, metadata/Ủng hộ, tham chiếu đã giải,
+  một hình hộp vector và bảng dấu native. Kiểm raster đủ ngang/dọc
+  bảy bảng trên sáu trang; hai ca âm xóa viền ngang/dọc bị từ chối.
+- Agent đã xem đủ 24 trang màu; bìa/kết và mọi trang bảng/hình ở sắc xám.
+  Chưa in giấy/quét QR bằng điện thoại. Cảnh báo thiếu hyphen-vietnamese
+  còn từ môi trường; đã xem dòng dài, không tuyên bố môi trường hết cảnh báo.
+- Bằng chứng ở D0 `pdf_build.json`, `pdf_review.json`, hồ sơ lỗi/guard
+  `pdf_quality.md`; ảnh tạm DH_042 đã dọn sau bản dựng production.
+  Cây dựng/ảnh trung gian checker được dọn; không stage/commit/push/phát hành.
+
+**Bước tiếp theo: chủ trì xem PDF mới; nghiệm thu và xuất bản vẫn pending.**
+DH_040 giữ bằng chứng lần dựng đầu, không chứng nhận chất lượng bản mới.
+
+**DH_041 — Thẻ Nhà chỉ điều hướng qua dòng hành động, 14/10/2026.**
+
+Kiến trúc học tập vẫn theo QD_033. Theo yêu cầu chủ trì, bỏ anchor phủ cả
+thẻ; ảnh/tiêu đề/mô tả/nền không điều hướng. Chỉ “Làm khảo sát →” và
+“Mở tài liệu →” là liên kết. Giữ hover viền/bóng/màu tiêu đề toàn thẻ;
+CTA đổi màu/mũi tên, focus bàn phím rõ, không nền sáng hoặc gạch chân.
+
+- Sửa generator, CSS Home, checker; sinh lại riêng `home_catalog.qmd`.
+  Quy tắc cập nhật ở 07/README giao diện/kit; HOM-C01 ghi nguyên nhân và
+  guard. Không sửa câu chữ QMD, nguồn/HTML D0 hoặc R1, đồng hồ hay PDF.
+- Khi dựng, phát hiện generator còn ép D0 PDF mới vào hợp đồng tám PDF
+  R1. Sửa tối thiểu nhận diện đúng D0 với PDF toàn trang đang chờ duyệt;
+  giữ CTA khảo sát/không công bố link tải, ca âm không nới hợp đồng R1.
+- Home render tươi trong cây cô lập, không ghi đè root docs hoặc QD_035.
+  Bản xem: `_audit/home-card-actions/preview/home-reading.html`; ba trang
+  liên kết là phép rebase từ DH_039, không render lại hoặc thay nội dung.
+- Nguồn Home chưa có cấu hình CLI QMD: kiểm scope bằng checker lõi,
+  kiểm native/projection bằng checker Home. Generator CURRENT, cú pháp
+  Python và kiểm scope đạt. Edge sáu độ rộng: toàn bộ kiểm thẻ/CTA,
+  pointer thật, Tab/Enter, focus, no-JS, tìm/lọc và không tràn đạt.
+  Home QA mới 361/365, không gọi toàn bộ Home PASS: ba kiểm câu chữ/ID
+  cũ khác QMD chủ trì đã sửa và link `#trạng-thái-triển-khai` mất đích.
+  Giữ nguồn chủ trì, không sửa hay nới phép kiểm để đạt PASS.
+- `build.json`, hai QA đầu/cuối và `source-state.json` lưu nguồn/guard/
+  phạm vi; ảnh desktop/mobile giữ để xem. Dọn cây dựng, profile Edge và
+  ảnh kiểm thừa. Chưa nghiệm thu chủ trì, Safari/Firefox/thiết bị thật;
+  không stage, commit, push hoặc xuất bản.
+
+**Bước tiếp theo: chủ trì xem tương tác thẻ; lỗi link nội bộ Nhà còn mở.**
+DH_040 (PDF D0) và DH_039 (điều hướng) vẫn chờ xem riêng.
+
+### DH_040 — PDF D0; chờ chủ trì xem
+
+**DH_040 — Dựng PDF toàn trang Khảo sát đầu vào, 14/10/2026.**
+
+Kiến trúc học tập vẫn theo QD_033; PDF không là điều kiện để vào học.
+
+- Theo yêu cầu trực tiếp của chủ trì, dựng một `hoc_lieu/d0/index.pdf` từ
+  `hoc_lieu/d0/index.qmd` hiện tại. PDF có 25 trang, đầy đủ 24 câu khảo sát,
+  Bài 00 và 25 phần đối chiếu; không phục hồi bốn biến thể lịch sử.
+- Bổ sung cấu hình PDF/lớp TeX–Lua cục bộ, font/logo 0.4 có giấy phép,
+  bảng LaTeX đủ lưới, hai hình vector hiện có, mục lục, liên kết và QR.
+  `cong_cu/dung_pdf.py` dùng launcher repo, cô lập trung gian, thay PDF
+  sau thành công và tự dọn cây dựng. Nội dung QMD chỉ thêm metadata PDF;
+  đề, toán, lời giải, ID và thứ tự không đổi. Không render hoặc sửa HTML.
+- Sửa tối thiểu guard HTML-only: chỉ nhận đúng hợp đồng PDF toàn trang
+  được giao và delta metadata đã khóa; receipt nghiệm thu cũ không đổi.
+  Đảo delta trong bộ nhớ rồi đối chiếu lại toàn nguồn. Quyết định HTML-only
+  trước đó không được tái áp dụng để cấm yêu cầu mới này. Nguồn/lệnh/
+  phạm vi tại README D0; con trỏ README khóa/08 đã đồng bộ.
+- Kiểm nguồn QMD đạt; checker D0 đạt, toán lịch sử 48/48; kiểm PDF đạt:
+  50 đích đề/đối chiếu, font nhúng, khổ A4, hai hình vector và các URL.
+  Cổng điều hành tài liệu 175/175. Đã xem đủ 25 trang, kiểm trang bảng,
+  hình hộp/công thức và phần đối chiếu ở cỡ đọc; xem sắc xám đại diện.
+  Chưa in giấy, quét QR bằng điện thoại hoặc nghiệm thu của chủ trì.
+- Bằng chứng gọn ở D0 `_quy_trinh/pdf_build.json` và `pdf_review.json`.
+  Giữ nguồn/PDF/receipt, dọn cây dựng, script chẩn đoán và ảnh kiểm tạm;
+  không tạo bản nguồn song song trong `_audit/`. Không thay nguồn Nhà,
+  G01/G02, các HTML/bản xem bảo vệ hoặc PDF khác; không stage/commit/push.
+  Đã dọn 135 tệp kiểm/chẩn đoán tạm (30.108.731 byte); các tệp này có thể
+  dựng lại. HEAD/index và 32 tệp thay đổi có sẵn ngoài phạm vi giữ nguyên.
+- DH_039 vẫn chờ chủ trì xem điều hướng; hai kiểm câu chữ Nhà còn mở
+  không được chứng nhận bằng việc dựng PDF D0.
+
+**Bước tiếp theo: chủ trì xem PDF D0; chưa xuất bản.**
+
+### DH_039 — Đồng bộ hover điều hướng; chờ chủ trì xem
+
+**DH_039 — Đồng bộ hover điều hướng toàn khóa, 14/10/2026.**
+
+Kiến trúc học tập vẫn theo QD_033; lượt này chỉ sửa hình thức điều hướng
+QD_032, không thay đường học hoặc trạng thái nghiệm thu nội dung.
+
+- Chủ trì chỉ rõ D0/G01/G02 còn kiểu cũ: nền hover sáng và gạch chân mục
+  hiện tại. CSS chung nay dùng hover đổi màu chữ/icon như Nhà; giữ chữ
+  đậm/`aria-current` cho trang hiện tại và outline focus bàn phím. Không
+  đổi rail, tiêu đề, câu chữ, QMD, toán, tài sản hoặc mốc đồng hồ.
+- Nguồn sửa: `course-navigation.css`, checker điều hướng; ghi quy tắc ở
+  07 và nguyên nhân/guard ở README/kiểm thử kit. Không sửa generated HTML
+  trực tiếp hoặc quay lại dùng lớp riêng của Nhà để chứng nhận ba trang.
+- Bản xem: `_audit/navigation-preview/html-current/home-reading.html` và
+  ba trang liên kết, cả bốn render tươi từ nguồn trong cây cô lập rồi nối
+  adapter canonical. `build.json` ghi hash QMD lúc tạo bản xem;
+  `source-state.json` phân biệt nguồn Home lúc render với lần lưu mới
+  ngoài tác vụ lúc 00:11 ngày 14/10; không hoàn nguyên hoặc render đè
+  lần sửa ấy. `qa-browser.json` ghi hash
+  CSS/checker. URL bản xem được rebase riêng, không làm đầu vào render.
+- Kiểm điều hướng: static 65/65; Edge 765/765 trên 1440/1000/768/430/390/320
+  px, hover pointer thật của bốn mục/ba icon, mục hiện tại, focus, Escape,
+  no-JS, chuyển trang thật, Top/ngữ cảnh, drawer/nền. Ca âm CSS cũ bị bắt.
+  Text/heading/ID/math/disclosure bốn trang không đổi so bản xem trước
+  `_audit/home-preview` được truyền tường minh. Đã xem ảnh D0 mobile/G02
+  desktop; đây không là nghiệm thu toán, thiết bị thật hoặc phát hành.
+- Đã dọn cây dựng 478.904.591 byte và 215 tệp delivery không được bản xem
+  sử dụng (141.433.495 byte), bỏ script/plan tạm và ảnh kiểm trùng; không
+  còn cache browser của lượt này. Giữ bốn HTML, phụ thuộc và bảy ảnh menu
+  để chủ trì xem. Đối chiếu hash 4.037 tệp ngoài sáu tệp sửa: chỉ nguồn
+  Home đổi ngoài tác vụ, được giữ nguyên; tất cả tệp còn lại, QD_035/các
+  bản bảo vệ, root docs/PDF/HEAD/index không đổi. Không stage/commit/push.
+- Hai kiểm câu chữ Home cũ của DH_038 vẫn chưa khép; kiểm điều hướng đạt
+  không chứng nhận chúng đã đạt. Không sửa câu chữ chủ trì để ép PASS.
+
+**Bước tiếp theo: chủ trì xem danh sách điều hướng trên bản DH_039.**
+
+### DH_038 — Nguồn Nhà native và lượt tự biên tập; giữ bằng chứng
+
+**DH_038 — Di trú nguồn biên tập Nhà sang Quarto native, 13/10/2026.**
+
+- Chủ trì giao chuyển nguồn Nhà về QMD thật và dọn ngay trung gian không
+  còn giá trị. `2027/index.qmd` nay chứa trực tiếp heading/đoạn văn/danh sách/
+  FAQ/lời Ủng hộ; không còn wrapper include toàn trang raw HTML. Không đổi
+  câu chữ đã chốt, UI, mốc đồng hồ, CSS/JS, ID, toán hoặc ba nguồn D0/R1.
+- YAML/metadata thật cấp danh mục/mạch/mốc thi; generator chỉ sinh ba
+  component dữ liệu/UI. Binding `scripts/zo_home_qmd.py` không chứa lời
+  biên tập; guard chặn wrapper-only, HTML đổi đuôi và template cũ. Bốn đoạn
+  Nhà đã di trú không còn bản biên tập YAML song song. Con trỏ thẩm quyền,
+  bảo toàn, profile và registry đã theo nguồn mới; không sửa lịch sử QD.
+- Bản mới: `_audit/zo_home_qmd_migration_20261013/delivered-final/home-reading.html`
+  và ba trang liên kết. Home dựng từ nguồn hiện hành trong cây cô lập;
+  ba trang kia là projection chỉ rebase URL của đúng DH_037 đã chỉ định,
+  không phải dựng lại hoặc thay nguồn/HTML được bảo vệ. QD_035, DH_037,
+  root `docs/`, PDF, checkpoint và mọi tài nguyên của chúng giữ nguyên.
+- QA Home cuối 265/265: nguồn/component/runtime tươi, ca âm, sáu độ rộng,
+  đồng hồ tick/tính giờ, hover/focus, FAQ/no-JS, đi và quay về Home mới qua
+  D0/G01/G02. Đối chiếu độc lập DH_037: inventory và cây DOM/thuộc tính
+  trừ URL rebase giống nhau; lời Ủng hộ cũng giữ nguyên. QA QD_033 nguồn/
+  DOM bốn trang 1297/1297; không chạy lại toàn bộ routing browser hai gói
+  vì đầu vào/DOM/runtime liên quan không đổi. Giới hạn QD_022 ghi tại report.
+- Template/partial toàn trang cũ được lưu nguyên byte ngoài repo tại
+  `E:/zo_math_ca_nhan/legacy_backup_archive/ZO_MATH_HOME_QMD_MIGRATION_20261013`,
+  kiểm SHA-256 trước khi gỡ. Không dùng bản lưu làm input build. Cây dựng,
+  preview thử và cache của lượt này chỉ gỡ sau kiểm phụ thuộc/đường dẫn;
+  kết quả thật trong `final-checks.json` và `cleanup.json` cùng audit nhiệm vụ.
+- Trạng thái: nguồn native và HTML kiểm kỹ thuật, chưa là nghiệm thu HTML
+  của chủ trì, PDF hoặc phát hành. Đã xem ảnh desktop/mobile và vùng Cách
+  học. Không stage, commit, push hoặc xuất bản; không khởi động kết sổ repo.
+
+**Lượt dựng lại sau chủ trì tự biên tập QMD, 13/10/2026:** bản xem tại
+`_audit/home-preview/home-reading.html`, nguồn vẫn là `2027/index.qmd`.
+Giữ nguyên câu chữ chủ trì; chỉ thêm neo vào thông báo bổ sung tài liệu
+hiện có để giữ đích mục lục. Đồng hồ sinh lại từ generator hiện hành.
+Sửa bộ nối Home làm mất ID tiêu đề khi Quarto chuyển ID lên fenced div:
+chỉ trả ID khai báo trong nguồn về tiêu đề, vẫn bỏ ID tự sinh; ca thử cả
+hai trường hợp đạt. Guard neo Home hiện hành kiểm lại đạt.
+QA mới tại `_audit/home-preview/qa-final.json`: 263/265, không thiếu
+liên kết/tài nguyên; 175 kiểm trình duyệt đạt.
+Hai kiểm chưa đạt vẫn đòi câu cũ về quay lại tự làm và danh mục hiện có;
+không sửa lời chủ trì hoặc nới checker để đạt PASS. Không tuyên bố toàn
+bộ QA đạt hay đã nghiệm thu. Cây dựng tạm được dọn sau kiểm phụ thuộc;
+giữ bản xem, runtime và kết quả kiểm tại cùng thư mục. D0/G01/G02 chỉ
+rebase bản xem trước, không dựng lại; các bản bảo vệ, docs/PDF/Git giữ nguyên.
+
+**Bước tiếp theo: chủ trì xem HTML mới và phản hồi.** Hai kiểm nguyên văn
+cũ cần được đối chiếu với cách viết mới trước khi khép QA/xuất bản; không
+tự đổi quy tắc kiến trúc hoặc sửa câu chữ để đáp ứng phép kiểm cũ.
+
+### DH_037 — Bản sửa QD_033 trước di trú nguồn Nhà; giữ lịch sử/bằng chứng
+
+**DH_037 — Áp dụng bốn nhóm hiệu chỉnh QD_033, 13/10/2026.**
+
+- Chủ trì đã duyệt sửa nguồn theo khảo sát bốn trang: A01 Nhật kí theo
+  ngữ cảnh tại 12 Điểm dừng; A02 Sửa lỗi ở G02 chỉ khi cần; A03 kết thúc
+  lượt Kiểm tra trước trợ giúp và giữ riêng bài ban đầu trên Nhà; A04 giữ
+  nơi gọi khi xem lại Bài học, tải lại/Back và chuyển tiếp sang hỗ trợ.
+- Nguồn QMD G01/G02, template/partial Nhà và controller dùng chung đã
+  hiệu chỉnh; binding G01 chỉ cập nhật bốn đoạn và provenance controller.
+  Không đổi kiến trúc, toán, ID, nhãn, CSS, tài sản toán hoặc nguồn D0.
+- Bốn trang dựng từ nguồn canonical trong cây cô lập, không dùng HTML
+  lịch sử làm đầu vào. Bản mới:
+  `_audit/zo_qd033_apply_20261013/html-current/home-reading.html` và ba
+  trang liên kết tại đó. Bản chọn QD_035, runtime, `docs/`, PDF và các
+  checkpoint bảo toàn giữ nguyên. Không stage, commit, push hoặc xuất bản.
+- Bằng chứng hiện hành ở `_audit/zo_qd033_apply_20261013/`: `qa-final/qa.json`
+  kiểm A01–A04, nhãn/sở hữu, ma trận DH01–DH14 và runtime đại diện;
+  `qa-browser.json` kiểm điều hướng bốn trang; `final-checks.json` kiểm
+  phạm vi/hash/cổng điều hành. Lỗi tải trình duyệt của lượt đầu giữ riêng,
+  không được tính PASS hoặc ghi lại receipt cũ.
+- Trạng thái: nguồn/HTML kiểm trong phạm vi, chờ chủ trì duyệt bản mới;
+  không phải kiểm toán toán độc lập, nghiệm thu PDF hay phát hành.
+  Guard mới `scripts/zo_qd033_route_check.py` đã được dẫn trong kit và
+  registry; không nới schema/checker hoặc tái áp dụng QD_021.
+
+**Bước tiếp theo:** chủ trì xem bốn trang trong bản mới; chỉ sau khi duyệt
+mới giao bước bảo toàn/commit hoặc thay bộ bản xem đã chọn. Không tự thay
+QD_035 bằng bản mới và không mở gói khác.
+
+### DH_036 — Commit bảo toàn cục bộ: đã khép, giữ để truy nguyên
 
 **DH_036 — Khép phạm vi commit bảo toàn cục bộ, 13/10/2026.**
 

@@ -1,5 +1,27 @@
 # R1-G01 — ứng viên Quarto v1.3
 
+**Bộ hiện hành đã đồng bộ — 15/10/2026.** Cả tám PDF đã dựng từ QMD hiện hành,
+đạt 17/17 phép kiểm mỗi tệp. Bản đầy đủ có 80 trang;
+bản học sinh có 60 trang. Thẻ tải lấy số trang thực tế và
+trạng thái provenance từng tệp. Nguồn hình HTML/PDF cùng bộ vector 0.4; BBT
+dựng native từ JSON. Thiết kế chung kế thừa D0 đã được chủ trì duyệt; chủ trì
+đã duyệt dựng 14 biến thể và yêu cầu xuất bản bốn trang lên zomath.vn.
+Hồ sơ hiện hành: `ho_so/pdf_bundle_review.json` và `ho_so/pdf_full_review.json`.
+Mọi trang màu đã được bao phủ bởi kiểm thị giác hoặc đối chiếu pixel vùng thân
+đã xem; kiểm xám đại diện từng biến thể và các trang hình/bảng/cuối của bản đầy đủ.
+Chưa in giấy, quét QR bằng điện thoại hoặc phản biện toán độc lập toàn gói.
+Đang thực hiện xuất bản; chỉ báo cáo triển khai thành công mới xác nhận đã lên website.
+Các trạng thái chưa PDF/chưa promotion/chờ duyệt ở phần lịch sử bên dưới chỉ
+mô tả thời điểm của lượt ấy, không phải trạng thái bộ hiện hành.
+
+Kiểm nhanh trước biên dịch: `python scripts/zo_python.py -B scripts/zo_pdf.py preflight
+content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.qmd --variant full`.
+Cổng chung `scripts/zo_course_release_audit.py --preflight --output <thu_muc_bao_cao>`
+kiểm cả 16 cấu hình bằng TeX, không dựng lại sách. Lệnh nào cũng gọi qua launcher.
+
+
+## Lịch sử triển khai trước lượt đồng bộ 15/10/2026
+
 **Hiện hành DH_026/QD_031:** nguồn QMD/layout/binding đã sửa backlog theo owner; Nhật kí độc lập, Toàn văn/Sửa lỗi/Lời giải đúng thứ tự, bỏ hành động đề–đáp án cục bộ thừa, bảng chọn bài dùng chuẩn chung. Bản xem và evidence ở `_audit/zo_pair_backlog_2026-10-11/`; cổng nguồn/DOM `scripts/zo_web_2027_backlog_check.py` chạy trong adapter. Trạng thái chờ chủ trì duyệt HTML; PDF chưa đồng bộ, root docs/receipt/Git không sửa. Mọi mô tả “hiện hành” ở các đoạn dưới là lịch sử trước DH_026; không phục hồi quy tắc đã bị QD_031 thay.
 
 Hiện hành DH_023/QD_030: bảng theo chức năng 0.4, binding chung `profiles/course-tables.json`, guard `scripts/zo_course_tables.py` trong adapter. HTML/kiểm kê mới tại `_audit/zo_course_tables_2026-10-11/`; trạng thái theo 03 của khóa. Giữ sửa ký pháp/số mục QD_029 và guard `zo_math_notation.py`. Các mốc/đường dẫn bên dưới là lịch sử, không chứng nhận bản mới. Chưa PDF học liệu, promotion root docs, Git hoặc phát hành.
@@ -262,3 +284,27 @@ node content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/cong_cu/kiem_chung_navbar.mjs
 1440/430/390 px, lưu JSON và chuỗi PNG; kiểm cả menu, focus, history, guidance,
 liên kết lời giải, bàn phím, no-JS và touch mô phỏng. Đây không phải nghiệm thu
 trên thiết bị cảm ứng thật hoặc chấp thuận của chủ dự án.
+# Bản đầy đủ PDF — khung D0 dùng chung, 14/10/2026
+
+Theo yêu cầu trực tiếp của chủ trì, dựng riêng `full` từ QMD hiện tại,
+kế thừa trang đầu/trang cuối/header/footer D0 đã duyệt qua
+`extensions.course_pdf_shell`. Khung là hai template trong `assets/tex/zo-course-pdf-*`;
+bộ dựng lấy Bảo trợ từ component HTML nguồn, dữ liệu gói từ QMD/hồ sơ.
+Pipeline mirror sao chép đủ include canonical ngoài thư mục gói.
+
+Adapter PDF dùng 20 bảng hiện hành theo ID, giữ số công thức/hình/BBT/
+disclosure/liên kết đáp án của AST nguồn. BBT gồm BBT14 mới, dựng native
+từ JSON; giữ cả các lỗi có chủ ý và mốc loại. Bảng thường native đủ lưới,
+header lặp trên trang tiếp; số trang đích được giải cho bản in. Không
+thay QMD/toán để khớp khuôn cũ; QMD chỉ cập nhật số trang bản đầy đủ.
+
+Đầu ra canonical: `index.pdf`; trạng thái full qua `zo_pdf.py status --variant full`.
+Báo cáo kỹ thuật/thị giác của bản này ở `_quy_trinh/ho_so/pdf_full_review.json`;
+trạng thái hiện hành chỉ ở bảng 03 của khóa. Bảy biến thể còn lại giữ nguyên,
+chưa đồng bộ hoặc nghiệm thu mới. Các ma trận 41/31 hay số PASS cũ bên
+dưới không chứng nhận bản này. Lệnh dựng:
+
+```text
+python scripts/zo_python.py -B scripts/zo_pdf.py build content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.qmd --variant full
+python scripts/zo_python.py -B scripts/zo_pdf_course_check.py content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.pdf
+```

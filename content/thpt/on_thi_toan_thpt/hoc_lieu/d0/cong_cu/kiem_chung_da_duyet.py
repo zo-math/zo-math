@@ -31,6 +31,32 @@ def verify_source():
     approval = json.loads(RECEIPT.read_text(encoding='utf-8'))
     qmd = ROOT / 'index.qmd'
     original_qmd = qmd.read_text(encoding='utf-8')
+    # Owner-approved print layout moves the existing HTML filter under HTML
+    # and replaces only PDF options. Reverse these exact presentation changes
+    # before checking the immutable content approval receipt.
+    print_layout = [
+        ('format:\n  html:\n    filters:\n      - cong_cu/d0.lua\n',
+         'filters:\n  - cong_cu/d0.lua\nformat:\n  html:\n'),
+        ('geometry: [top=22mm, bottom=22mm, left=21mm, right=21mm]',
+         'geometry: [top=24mm, bottom=24mm, left=23mm, right=23mm]'),
+        ('toc: false\n    toc-depth: 2', 'toc: true\n    toc-depth: 2'),
+        ('      - cong_cu/d0_print.lua', '      - cong_cu/d0_pdf.lua'),
+    ]
+    for current, previous in print_layout:
+        require(original_qmd.count(current)==1, 'PDF layout delta missing or repeated: '+current)
+        original_qmd=original_qmd.replace(current,previous,1)
+    pdf_delta = ROOT / '_quy_trinh/pdf_source_delta.json'
+    if pdf_delta.is_file():
+        # New PDF-only metadata is reversed in memory, not in the historical receipt.
+        delta = json.loads(pdf_delta.read_text(encoding='utf-8'))
+        require(delta['authority'] == 'owner_requested_D0_page_PDF_2026_10_14', 'Sai thẩm quyền PDF D0')
+        insertion = delta['metadata_insertion']
+        require(insertion.startswith('  pdf:\n') and '\n---' not in insertion, 'Delta phải chỉ chứa cấu hình PDF')
+        require(hashlib.sha256(insertion.encode()).hexdigest() == delta['sha256'], 'Delta PDF bị đổi')
+        block = '\n' + insertion.rstrip('\n')
+        front, body = original_qmd.split('\n---\n', 1)
+        require(front.count(block) == 1 and block not in body, 'Delta PDF sai vị trí/số lượng')
+        original_qmd = front.replace(block, '', 1) + '\n---\n' + body
     for before, after in DELIMITER_DELTAS.items():
         require(original_qmd.count(after) == 1, 'Sai delta dấu ngoặc DH_025')
         original_qmd = original_qmd.replace(after, before, 1)

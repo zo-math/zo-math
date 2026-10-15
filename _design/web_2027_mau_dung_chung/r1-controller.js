@@ -339,20 +339,38 @@
       return owner === 'sua-loi' || Boolean(target.closest('#on-nen, .r1-foundation-unit'));
     }
     function sourceCheckpoint(link) {
+      const params = new URLSearchParams(location.search);
+      // A second support resource must retain the original activity, not
+      // replace it with the confirmation task currently being consulted.
+      if (link.closest('#on-nen, #sua-loi, #loi-giai, #bai-hoc') && params.get(RETURN_PARAM)) {
+        return params.get(RETURN_PARAM);
+      }
       if (link.closest('#bắt-đầu-từ-đâu')) return 'bắt-đầu-từ-đâu';
       const source = link.closest('section[id^="cp-"], [id^="cp-"]');
       if (source) return source.id;
       const task = link.closest('section.zo-learning-task--item[id], section.r1-confirmation-task[id]');
       if (task) return task.id;
-      const params = new URLSearchParams(location.search);
-      return params.get(RETURN_PARAM) || '';
+      const stage = link.closest('[id^="g01-c"], [id^="g02-c"], #chuyen-giao');
+      if (stage) return stage.id;
+      return '';
+    }
+    function lessonSupportCall(link, target, callerId) {
+      if (ownerView(target) !== 'bai-hoc' || !callerId) return false;
+      const sourceOwner = ownerView(link);
+      // Ordinary entry/lesson TOC clicks are not support calls. The ended
+      // test checkpoint is eligible; test-question links are not invitations
+      // to get help during an independent attempt.
+      return sourceOwner === 'luyen-tap' || sourceOwner === 'on-lai' ||
+        (sourceOwner === 'kiem-tra' && Boolean(link.closest('#cp-kt'))) ||
+        ((sourceOwner === 'sua-loi' || sourceOwner === 'on-nen' || sourceOwner === 'loi-giai') &&
+          Boolean(new URLSearchParams(location.search).get(RETURN_PARAM)));
     }
     function directReturnOptions(target) {
       const id = target?.id || '';
       if (id.startsWith('g01-s-k-')) return ['cp-kt'];
       if (id.startsWith('sc')) return ['cp-lt1', 'cp-lt2', 'cp-lt3'];
       if (id.startsWith('g01-s-o-')) return ['cp-on1', 'cp-on2', 'cp-on3'];
-      return ['cp-lt1', 'cp-lt2', 'cp-lt3', 'cp-kt', 'cp-on1', 'cp-on2', 'cp-on3'];
+      return ['bắt-đầu-từ-đâu', 'bai-hoc', 'cp-lt1', 'cp-lt2', 'cp-lt3', 'cp-kt', 'cp-on1', 'cp-on2', 'cp-on3'];
     }
     function renderReturnBar(target) {
       const params = new URLSearchParams(location.search);
@@ -493,6 +511,7 @@
       showView(definition.view);
       writeLocation(definition.view, target.id, false, null);
       openAncestors(target);
+      renderReturnBar(target);
       scrollToTarget(target);
     }
 
@@ -533,16 +552,18 @@
       const target = targetFromHash(link.hash);
       if (!target) return;
       event.preventDefault();
+      const checkpointId = sourceCheckpoint(link);
+      const contextualSupport = supportTarget(target) || lessonSupportCall(link, target, checkpointId);
       const view = currentView === 'toan-van' ? 'toan-van' : ownerView(target);
       showView(view);
       openAncestors(target);
       if (link.classList.contains('r1-return-link')) {
         writeLocation(view, target.id, false, null);
       } else {
-        const checkpointId = sourceCheckpoint(link);
-        const context = supportTarget(target) && checkpointId
+        const context = contextualSupport && checkpointId
           ? {returnId: checkpointId, checkpointId}
-          : undefined;
+          : ownerView(target) === 'bai-hoc' && ownerView(link) === 'bai-hoc'
+            ? undefined : null;
         writeLocation(view, target.id, false, context);
       }
       renderReturnBar(target);

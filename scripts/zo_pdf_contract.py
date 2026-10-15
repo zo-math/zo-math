@@ -364,6 +364,15 @@ def canonical_variant_input_state(
         "path": _relative(root, source).as_posix(),
         "sha256": sha256_file(source),
     }
+    config=discover_project_config(root,_relative(root,source))
+    if config.raw.get('extensions',{}).get('pdf_source_fingerprint')=='course-qmd-without-download-page-counts-v1':
+        source_record['sha256']=course_pdf_source_digest(source.read_text(encoding='utf-8'))
+        source_record['hash_policy']='course-qmd-without-download-page-counts-v1'
+        import yaml
+        package=yaml.safe_load((source.parent/'_quy_trinh/ho_so/index.yml').read_text(encoding='utf-8'))['package']
+        # These are the only profile values used by the shared print shell.
+        # Review/acceptance bookkeeping must not invalidate the printed book.
+        source_record['print_package']={'id':package['id'],'version':str(package['candidate_version'])}
     pipeline = _pipeline_records(root, source)
     fingerprint_payload = {
         "generator": PDF_BUILD_GENERATOR,
@@ -380,6 +389,23 @@ def canonical_variant_input_state(
         "variant_definition": definition,
         "input_fingerprint": _canonical_json_hash(fingerprint_payload),
     }
+
+
+def course_pdf_source_digest(text: str) -> str:
+    """Exclude only HTML download page counts, never content or figure inputs.
+
+    These two metadata lists are removed from the printed body by the course
+    projection. Their title/description/path and every other metadata value
+    remain inputs; page counts are measured after the PDFs have been built.
+    """
+    import yaml
+    parts=text.split('---',2)
+    if len(parts)!=3 or parts[0].strip():raise ValueError('Expected QMD YAML front matter')
+    metadata=yaml.safe_load(parts[1])
+    for key in ['r1-download-files','r1-section-download-files']:
+        for item in metadata.get(key,[]):item.pop('pages',None)
+    payload=json.dumps(metadata,ensure_ascii=False,sort_keys=True,separators=(',',':'))+'\n'+parts[2]
+    return hashlib.sha256(payload.encode('utf-8')).hexdigest()
 
 
 def pdf_inventory(path: Path) -> dict[str, int]:

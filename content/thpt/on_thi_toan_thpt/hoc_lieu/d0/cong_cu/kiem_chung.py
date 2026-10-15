@@ -275,10 +275,24 @@ def verify_approved_release_contract(manifest: dict) -> None:
     require(profile["workflow"]["production"] == "accepted", "profile chưa khóa production accepted")
     require(profile["workflow"]["publication"] == "pending", "publication chỉ đổi sau khi xuất bản thành công")
     require(profile["acceptance"]["html_visual"] == "owner_accepted_2026_10_03", "profile chưa khóa nghiệm thu HTML")
-    require(profile["acceptance"]["pdf_canonical"] == "not_applicable_html_only", "profile còn yêu cầu PDF nội dung")
     qmd = QMD_PATH.read_text(encoding="utf-8")
     front_matter = qmd.split("---", 2)[1]
-    require("  html:" in front_matter and "  pdf:" not in front_matter, "QMD phải chỉ khai báo đầu ra HTML")
+    pdf = manifest.get("pdf_delivery_20261014")
+    if pdf is None:
+        require(profile["acceptance"]["pdf_canonical"] == "not_applicable_html_only", "profile còn yêu cầu PDF nội dung")
+        require("  html:" in front_matter and "  pdf:" not in front_matter, "QMD phải chỉ khai báo đầu ra HTML")
+    else:
+        require(pdf == {
+            "authority": "owner_requested_D0_page_PDF_2026_10_14",
+            "source": "index.qmd", "output": "index.pdf",
+            "scope": "full_public_page_only", "primary_tasks": 24, "comparisons": 25,
+            "historical_four_variants_reactivated": False,
+            "owner_acceptance": "pending", "publication": "pending",
+        }, "hợp đồng PDF toàn trang mới không đúng phạm vi được giao")
+        require(profile["acceptance"]["pdf_canonical"] == "full_page_pending_owner_review_2026_10_14", "không được tự nghiệm thu PDF mới")
+        require("  html:" in front_matter and "  pdf:" in front_matter, "nguồn phải có cả HTML và PDF toàn trang")
+        require('cong_cu/d0_pdf.lua' in front_matter, "thiếu adapter PDF độc lập")
+        require('giao_dien/d0_pdf.tex' in front_matter, "thiếu thiết kế trang giấy")
 
 
 def verify_editorial_contract(manifest: dict) -> None:

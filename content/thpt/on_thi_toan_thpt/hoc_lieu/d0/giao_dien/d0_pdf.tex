@@ -1,0 +1,58 @@
+% Print roles. Candidate values are intentionally separate from the HTML CSS.
+\usepackage{xcolor,colortbl,array,longtable,fancyhdr,needspace,qrcode,adjustbox}
+\usepackage{tikz}
+\input{giao_dien/d0_pdf_metadata.tex}
+\setmainfont[Path=giao_dien/pdf_fonts/,BoldFont=BeVietnamPro_SemiBold.ttf]{BeVietnamPro_Regular.ttf}
+\setsansfont[Path=giao_dien/pdf_fonts/,BoldFont=BeVietnamPro_SemiBold.ttf]{BeVietnamPro_Regular.ttf}
+\definecolor{zoInk}{HTML}{3E3A35}
+\definecolor{zoMuted}{HTML}{766F66}
+\definecolor{zoRed}{HTML}{EF5350}
+\definecolor{zoYellow}{HTML}{FFCA28}
+\definecolor{zoLink}{HTML}{943B35}
+\definecolor{zoGrid}{HTML}{B9B1A6}
+\definecolor{zoPaper}{HTML}{F8F5F0}
+% gray-3 from Design 0.4 tokens.css; frame requested for the support component.
+\definecolor{zoLine}{HTML}{DFD7CA}
+\color{zoInk}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlength{\emergencystretch}{2em}
+\setlength{\headheight}{16pt}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\sffamily\scriptsize ZO Math · Khảo sát đầu vào}
+\fancyhead[R]{\sffamily\scriptsize\zoRunningSection}
+\fancyfoot[L]{\sffamily\scriptsize Ôn thi Toán THPT 2027}
+\fancyfoot[C]{\sffamily\scriptsize\href{https://zomath.vn}{zomath.vn}}
+\fancyfoot[R]{\sffamily\scriptsize\thepage}
+\renewcommand{\headrulewidth}{0pt}\renewcommand{\footrulewidth}{0pt}
+\newcommand{\zoRunningSection}{Mẫu thiết kế PDF}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\sffamily\scriptsize\href{https://zomath.vn}{zomath.vn}}}
+\newcommand{\zoPage}[2]{\clearpage\renewcommand{\zoRunningSection}{#1}{\sffamily\scriptsize\color{zoLink}#1}\par\vspace{4mm}{\sffamily\fontsize{\zoSectionSize}{29}\selectfont\bfseries #2}\par\vspace{7mm}}
+\newcommand{\zoTaskHead}[2]{\par\addvspace{10pt}{\sffamily\scriptsize\color{zoMuted}#1}\par\nopagebreak\vspace{3mm}{\sffamily\fontsize{\zoTaskSize}{21}\selectfont\bfseries #2}\par\nopagebreak\vspace{5mm}}
+\newcommand{\zoSolutionHead}[1]{\par\addvspace{10pt}{\sffamily\fontsize{15}{20}\selectfont\bfseries #1}\par\nopagebreak\vspace{4mm}}
+% Editorial hierarchy: one reading column, stable roles, bounded support notes.
+\renewcommand{\zoPage}[2]{\clearpage\renewcommand{\zoRunningSection}{#1}{\scriptsize\color{zoLink}#1}\par\vspace{2mm}{\fontsize{\zoSectionSize}{29}\selectfont\bfseries #2}\par\vspace{3mm}}
+\renewcommand{\zoTaskHead}[2]{\Needspace{65mm}\par\addvspace{3mm}{\small\color{zoLink}#1}\par\nopagebreak{\fontsize{16}{21}\selectfont\bfseries #2}\par\nopagebreak\vspace{1mm}}
+\newcommand{\zoRole}[1]{\par\addvspace{1mm}\nopagebreak{\small\bfseries\color{zoLink}#1}\par\nopagebreak}
+\newcommand{\zoResult}[1]{\par\addvspace{1mm}{\small\bfseries\color{zoLink}Kết quả}\enspace #1\par}
+\newcommand{\zoSolutionTitle}[3]{\Needspace{65mm}\par\addvspace{3mm}{\small\color{zoLink}#1\hfill #3}\par\nopagebreak{\fontsize{16}{21}\selectfont\bfseries #2}\par\nopagebreak\vspace{1mm}}
+\newcommand{\zoReview}[2]{\par\addvspace{3mm}{\small #1\par\smallskip #2}\par}
+\newcommand{\zoDivider}{\par\addvspace{6mm}}
+\newcommand{\zoBack}[1]{{\small\color{zoMuted}#1}\par}
+\let\zoOriginalNormal\normalsize
+\renewcommand{\normalsize}{\zoOriginalNormal\fontsize{\zoBodySize}{\zoBodyLeading}\selectfont}
+\AtBeginDocument{\setmainfont[Path=giao_dien/pdf_fonts/,BoldFont=BeVietnamPro_SemiBold.ttf]{BeVietnamPro_Regular.ttf}\setsansfont[Path=giao_dien/pdf_fonts/,BoldFont=BeVietnamPro_SemiBold.ttf]{BeVietnamPro_Regular.ttf}\normalfont\normalsize}
+\makeatletter
+\renewcommand{\maketitle}{\begin{titlepage}\thispagestyle{plain}\sffamily
+\includegraphics[width=42mm]{giao_dien/zo_logo_04.png}\par\vspace{20mm}
+{\scriptsize\color{zoLink}ÔN THI TOÁN THPT 2027}\par\vspace{5mm}
+{\fontsize{39}{45}\selectfont\bfseries Khảo sát\\đầu vào}\par\vspace{7mm}
+{\color{zoRed}\rule{22mm}{2pt}}\hspace{2mm}{\color{zoYellow}\rule{12mm}{2pt}}\par\vspace{9mm}
+{\large Bản đầy đủ — có hướng dẫn đối chiếu}\par\vspace{5mm}
+\begin{minipage}{.83\linewidth}Chọn câu thuộc phần em đã học. Tự làm trước, rồi đối chiếu bài làm để chọn nội dung muốn ôn tiếp. Không cần làm hết các câu.\end{minipage}\par
+\vfill
+\begin{minipage}[c]{.20\linewidth}\color{zoInk}\qrcode[height=24mm]{https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html}\end{minipage}\hfill
+\begin{minipage}[c]{.76\linewidth}\href{https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html}{Mở trang Khảo sát đầu vào}\par\smallskip{\small\color{zoMuted}24 câu khảo sát · 8 mạch kiến thức · 1 bài minh họa.}\end{minipage}\par\vspace{8mm}
+{\scriptsize\color{zoMuted}Phiên bản nội dung 1.0 · Ngày tạo PDF: \zoBuildDate\par\smallskip\textcopyright{} \zoBuildYear\ ZO Math. Bản quyền nội dung thuộc ZO Math.}
+\end{titlepage}}
+\makeatother

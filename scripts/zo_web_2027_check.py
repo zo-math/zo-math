@@ -18,7 +18,7 @@ import subprocess
 import sys
 import tempfile
 import time
-from urllib.parse import quote, unquote, urlsplit
+from urllib.parse import quote, unquote, urlsplit, urlunsplit
 
 sys.dont_write_bytecode = True
 from bs4 import BeautifulSoup
@@ -129,9 +129,13 @@ def complete_site_footer(doc, data):
     nodes = doc.select('footer#site-footer[role=contentinfo]')
     if len(nodes) != 1 or nodes[0].find_parent('main') or nodes[0].find_parent(class_='support-region'):
         return False
-    actual = [(n.get('data-canonical-href'), n.get_text(' ', strip=True).replace(' ↗', ''))
+    def rendered(value):
+        url = urlsplit(value or '')
+        path = url.path[:-4] + '.html' if url.path.endswith('.qmd') else url.path
+        return urlunsplit((url.scheme, url.netloc, path, url.query, url.fragment))
+    actual = [(rendered(n.get('data-canonical-href')), n.get_text(' ', strip=True).replace(' ↗', ''))
               for n in nodes[0].select('nav a[href]')]
-    expected = [(n['canonical_href'], n['label']) for n in data['information'] + data['social']]
+    expected = [(rendered(n['canonical_href']), n['label']) for n in data['information'] + data['social']]
     return actual == expected and data['copyright'] in nodes[0].get_text(' ', strip=True)
 
 
@@ -293,7 +297,7 @@ class Checks:
                 browser.click(f'[name=background][value={theme}]')
                 self.check(f'Footer/{width}/{theme} footer remains white', browser.evaluate('getComputedStyle(document.getElementById("site-footer")).backgroundColor'), 'rgb(255, 255, 255)')
             browser.click('#grayscale')
-            self.check(f'Footer/{width} grayscale includes footer', browser.evaluate('document.documentElement.classList.contains("grayscale")&&getComputedStyle(document.body).filter==="grayscale(1)"'))
+            self.check(f'Footer/{width} grayscale includes footer without moving fixed navigation', browser.evaluate('document.documentElement.classList.contains("grayscale")&&getComputedStyle(document.documentElement).filter==="grayscale(1)"&&getComputedStyle(document.body).filter==="none"'))
             browser.click('#grayscale'); browser.click('[name=background][value=yellow-1]')
             browser.call('Emulation.setScriptExecutionDisabled', {'value': True}); browser.navigate(url)
             self.check(f'Footer/{width} no JS footer and all six links remain available', browser.evaluate('document.getElementById("site-footer").getClientRects().length>0&&document.querySelectorAll("#site-footer nav a[href]").length===6'))

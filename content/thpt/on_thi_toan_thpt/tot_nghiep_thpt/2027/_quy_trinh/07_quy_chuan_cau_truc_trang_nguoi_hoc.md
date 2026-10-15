@@ -20,11 +20,26 @@ Bảng chọn nơi ôn sau Khởi động phải phân biệt dấu hiệu, ki�
 
 ## 1. Phạm vi và bốn lớp không được trộn
 
+### Thẻ danh mục trên Nhà — hành vi được chủ trì chốt ngày 14/10/2026
+
+Thẻ không là nút hoặc liên kết mở học liệu. Chỉ dòng hành động “Làm khảo
+sát →”, “Mở tài liệu →” giữ liên kết thật; bấm ảnh, tiêu đề, mô tả hoặc
+nền thẻ không điều hướng. Toàn thẻ vẫn phản hồi khi hover, không thay đổi
+bố cục. Dòng liên kết có hover và focus bàn phím rõ, không gạch chân hay
+nền sáng. Không tabindex/role link hoặc handler điều hướng trên vỏ thẻ.
+Quy tắc này thay link phủ toàn thẻ của Home HOM-R01, không thay điều hướng
+toàn khóa hoặc thẻ chức năng khác; hiện thực/guard ở kit, trạng thái ở 03.
+
 ### Điều hướng toàn khóa học — QD_032
 
 Trên Nhà, D0, R1-G01 và R1-G02, thay liên kết tên khóa học và liên kết chữ giữa thanh bằng ba điều khiển icon, từ trái sang phải: **Nhà → Danh sách toàn khóa học → Đầu trang**. Logo ZO Math giữ nguyên. Không dùng logo/tên thương hiệu thay cho thao tác Đầu trang; không có nút “Đi tới” hoặc hàng liên kết khóa học thường trực thứ hai.
 
 Danh sách mặc định đóng, chứa Nhà khóa học, Khảo sát đầu vào, Đơn điệu và cực trị, Giá trị lớn nhất và nhỏ nhất; đánh dấu trang hiện tại. Liên kết thật cho phép chuyển trực tiếp giữa các gói, dùng URL/ID hiện hữu. Danh mục nguồn tại `_data/chuong_trinh.yml`; binding hiển thị/đích có một nguồn tại `scripts/zo_web_2027_navigation.py`. Danh mục đổi phải cập nhật binding và kiểm lại, không âm thầm bỏ sót gói mới.
+
+Theo xác nhận chủ trì ngày 14/10/2026, hover trong điều hướng toàn khóa
+chỉ đổi màu chữ/icon: không nền sáng, gạch chân, bóng hoặc dịch chuyển.
+Mục hiện tại giữ chữ đậm và `aria-current="page"`, không gạch chân.
+Focus bàn phím vẫn có outline nhìn rõ; hover không thay tín hiệu focus.
 
 Sáu màu nền và sắc xám giữ bên phải. Màn hình hẹp được xuống hàng cho nhóm màu, không biến danh sách đích thành hàng liên kết thường trực. Điều khiển có tên truy cập, focus thấy rõ, dùng được bằng bàn phím; Escape đóng danh sách và trả focus. Đầu trang không đổi view/URL ngữ cảnh khi JavaScript hoạt động; không JavaScript vẫn có liên kết đầu trang và danh sách native. Thanh khóa học độc lập với mục lục nội bộ từng trang.
 

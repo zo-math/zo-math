@@ -1,5 +1,27 @@
 # R1-G02 — nguồn canonical đang hoàn thiện kiến trúc 2027
 
+**Bộ hiện hành đã đồng bộ — 15/10/2026.** Cả tám PDF đã dựng từ QMD hiện hành,
+đạt 17/17 phép kiểm mỗi tệp. Bản đầy đủ có 61 trang;
+bản học sinh có 42 trang. Thẻ tải lấy số trang thực tế và
+trạng thái provenance từng tệp. Nguồn hình HTML/PDF cùng bộ vector 0.4; BBT
+dựng native từ JSON. Thiết kế chung kế thừa D0 đã được chủ trì duyệt; chủ trì
+đã duyệt dựng 14 biến thể và yêu cầu xuất bản bốn trang lên zomath.vn.
+Hồ sơ hiện hành: `ho_so/pdf_bundle_review.json` và `ho_so/pdf_full_review.json`.
+Mọi trang màu đã được bao phủ bởi kiểm thị giác hoặc đối chiếu pixel vùng thân
+đã xem; kiểm xám đại diện từng biến thể và các trang hình/bảng/cuối của bản đầy đủ.
+Chưa in giấy, quét QR bằng điện thoại hoặc phản biện toán độc lập toàn gói.
+Đang thực hiện xuất bản; chỉ báo cáo triển khai thành công mới xác nhận đã lên website.
+Các trạng thái chưa PDF/chưa promotion/chờ duyệt ở phần lịch sử bên dưới chỉ
+mô tả thời điểm của lượt ấy, không phải trạng thái bộ hiện hành.
+
+Kiểm nhanh trước biên dịch: `python scripts/zo_python.py -B scripts/zo_pdf.py preflight
+content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/index.qmd --variant full`.
+Cổng chung `scripts/zo_course_release_audit.py --preflight --output <thu_muc_bao_cao>`
+kiểm cả 16 cấu hình bằng TeX, không dựng lại sách. Lệnh nào cũng gọi qua launcher.
+
+
+## Lịch sử triển khai trước lượt đồng bộ 15/10/2026
+
 **Hiện hành DH_026/QD_031:** nguồn QMD/layout/binding đã sửa backlog theo owner; Nhật kí độc lập, Toàn văn/Sửa lỗi/Lời giải đúng thứ tự, bỏ hành động đề–đáp án cục bộ thừa, bảng chọn bài dùng chuẩn chung. Năm SVG chính/nền/bìa đều dựng mới theo profile 0.4, manifest kiểm toàn bộ đầu vào và asset, không tái dùng cache canonical cũ. Bản xem/evidence ở `_audit/zo_pair_backlog_2026-10-11/`; cổng nguồn/DOM `scripts/zo_web_2027_backlog_check.py` chạy trong adapter. Chờ chủ trì duyệt HTML, PDF chưa đồng bộ, root docs/receipt/Git không sửa. Các mô tả “hiện hành” bên dưới là lịch sử trước DH_026, không phục hồi owner/nhóm lời giải/nhật kí/cache đã bị thay.
 
 Hiện hành DH_023/QD_030: bảng theo chức năng 0.4, binding chung `profiles/course-tables.json`, guard `scripts/zo_course_tables.py` trong adapter. HTML/kiểm kê mới tại `_audit/zo_course_tables_2026-10-11/`; trạng thái theo 03 của khóa. Giữ sửa ký pháp/số mục QD_029 và guard `zo_math_notation.py`. Các mốc/đường dẫn bên dưới là lịch sử, không chứng nhận bản mới. Chưa PDF học liệu, promotion root docs, Git hoặc phát hành.
@@ -95,10 +117,10 @@ chuyển tiếp trong nguồn R1-G02. Bốn khối gợi ý là `hint`, không �
 python scripts/zo_python.py content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/cong_cu/kiem_chung_thanh_phan.py
 ```
 
-Baseline PDF canonical của R1-G02 được chủ dự án nghiệm thu thị giác ngày
-2026-09-30 và chốt ở Pha 6C với ma trận số trang: `full` 26, `student` 17,
-`bai_hoc` 10, `luyen_tap` 6, `kiem_tra` 4, `sua_loi` 5, `on_lai` 3 và
-`loi_giai` 10. Checker phải so sánh toàn bộ ma trận này và metadata hai thẻ tải
-phải ghi đúng 17/26 trang; không nới thành điều kiện chỉ lớn hơn 0. Thay đổi nguồn
-thuộc fingerprint PDF phải dựng lại đủ biến thể bị `STALE` và đưa manifest
-provenance về `CURRENT`; không sửa receipt hoặc manifest bằng tay.
+Baseline PDF R1-G02 tháng 9/2026 là bằng chứng lịch sử: `full` 26,
+`student` 17, `bai_hoc` 10, `luyen_tap` 6, `kiem_tra` 4, `sua_loi` 5,
+`on_lai` 3 và `loi_giai` 10. Ma trận này chỉ đối chiếu đúng bản nguồn
+tháng 9, không áp lên QMD/kiến trúc hiện hành. Bản đầy đủ mới có 58 trang;
+các số trang tải theo phần chỉ cập nhật sau khi dựng và đo PDF tương ứng.
+Thay nguồn thuộc fingerprint phải dựng các biến thể bị STALE bằng công cụ;
+không sửa provenance hoặc receipt bằng tay để chuyển thành CURRENT.

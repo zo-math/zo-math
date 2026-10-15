@@ -1202,6 +1202,8 @@ def command_checker(root: Path, mode: str, args: argparse.Namespace) -> int:
         mode,
         *_checker_arguments(args),
     )
+    if mode == "render" and getattr(args, "html_only", False):
+        command.append("--html-only")
     return _run_step(root, f"QMD {mode.upper()}", command)
 
 
@@ -1475,11 +1477,12 @@ def parser() -> argparse.ArgumentParser:
         parents=[common],
         help="Điều phối kiểm định nguồn qua checker hiện hành.",
     )
-    subparsers.add_parser(
+    render_parser = subparsers.add_parser(
         "render",
         parents=[common],
         help="Điều phối kiểm định nguồn, render và kiểm định đầu ra.",
     )
+    render_parser.add_argument("--html-only", action="store_true", help="Chỉ dựng HTML; giữ kiểm nguồn và bỏ nhánh PDF.")
 
     regression = subparsers.add_parser(
         "regression",

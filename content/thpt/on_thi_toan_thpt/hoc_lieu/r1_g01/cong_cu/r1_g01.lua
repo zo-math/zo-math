@@ -2,26 +2,30 @@
 local html = FORMAT:match('html') ~= nil
 local latex = FORMAT:match('latex') ~= nil
 local variant = 'full'
+local course_shell = false
 local download_specs = nil
 local section_download_specs = nil
 local section_specs_by_variant = {}
 local table_specs = nil
 local table_specs_by_id = {}
 local linked_table_ids = {}
-local COMMON_LEARNING_ID = 'cách-học-với-tài-liệu-này'
+local COMMON_LEARNING_ID = 'bat-dau'
 local COMMON_SOURCES_ID = 'nguon'
 local DOWNLOADS_ID = 'tai-tai-lieu'
 local script_dir = pandoc.path.directory(PANDOC_SCRIPT_FILE)
 local variation_module_path = pandoc.path.join({script_dir, '../../../../../../assets/lua/zo_variation_qmd.lua'})
 local variation_css_path = pandoc.path.join({script_dir, '../../../../../../assets/css/zo_variation.css'})
 local variation_module = assert(loadfile(variation_module_path))()
+local course_print=assert(loadfile(pandoc.path.join({script_dir,'../../../../../../assets/lua/zo_course_print.lua'})))()
 local variation = variation_module.new({
+  native_data_only=true,
   data_path=pandoc.path.join({script_dir, '../du_lieu/bang_bien_thien.json'}),
   asset_dir='hinh',
   css_path=variation_css_path
 })
 
 local function render_variation(div)
+  if latex and course_shell then return course_print.variation(div,pandoc.path.join({script_dir,'../du_lieu/bang_bien_thien.json'})) end
   local rendered = variation.render(div)
   if not latex then return rendered end
   local id = assert(div.attributes.bbt, 'R1-G01 BBT is missing its identifier')
@@ -69,6 +73,7 @@ local function replace_plain(text, needle, replacement)
 end
 
 local function render_grid_table(tbl)
+  if course_shell then return course_print.table(tbl) end
   local output = pandoc.write(pandoc.Pandoc({tbl}), 'latex')
   output = output:gsub('\r', '')
   output = replace_plain(output, '@{}', '|')
@@ -201,7 +206,7 @@ end
 
 local function apply_table_contract(doc)
   local contract = doc.meta['r1-tables']
-  assert(contract and #contract == 18, 'R1-G01 table contract must contain 18 entries')
+  assert(contract and #contract == 20, 'R1-G01 current table contract must contain 20 entries')
   local index, seen_ids = 0, {}
   local function configure(blocks)
     for _, block in ipairs(blocks) do
@@ -209,7 +214,8 @@ local function apply_table_contract(doc)
         local tbl = table_in(block)
         if tbl then
           index = index + 1
-          local spec = assert(contract[index], 'R1-G01 ordinary table is missing a contract entry')
+          local spec = assert(table_specs_by_id[block.identifier] or contract[index],
+            'R1-G01 ordinary table is missing a contract entry')
           configure_table(block, tbl, spec, seen_ids)
         else
           configure(block.content)
@@ -220,7 +226,7 @@ local function apply_table_contract(doc)
     end
   end
   configure(doc.blocks)
-  assert(index == 18, 'R1-G01 ordinary table inventory expected 18, got '..index)
+  assert(index == 20, 'R1-G01 current ordinary table inventory expected 20, got '..index)
   return doc
 end
 
@@ -290,10 +296,10 @@ function Div(div)
     return pandoc.RawBlock('html', [[
 <div class="r1-download-support" aria-labelledby="r1-support-title">
   <img class="r1-brand-mark" src="hinh/dau_nhan_zo.svg" alt="" width="198" height="8">
-  <h3 id="r1-support-title">Ủng hộ ZO Math</h3>
-  <p>Nếu học liệu hữu ích với bạn, bạn có thể ủng hộ ZO Math tiếp tục biên soạn và chia sẻ.</p>
+  <h3 id="r1-support-title">Bảo trợ ZO Math</h3>
+  <p>Nếu học liệu hữu ích với bạn, bạn có thể bảo trợ ZO Math tiếp tục biên soạn và chia sẻ.</p>
   <div class="r1-support-details">
-    <img class="r1-support-qr" src="/assets/images/qr_bao_tro_zo_math_vietcombank.jpg" alt="Mã QR Vietcombank để ủng hộ ZO Math" width="240" height="240">
+    <img class="r1-support-qr" src="/assets/images/qr_bao_tro_zo_math_vietcombank.jpg" alt="Mã QR Vietcombank để bảo trợ ZO Math" width="240" height="240">
     <dl>
       <div><dt>Ngân hàng</dt><dd>Vietcombank</dd></div>
       <div><dt>Số tài khoản</dt><dd>0601000137768</dd></div>
@@ -349,6 +355,11 @@ function Div(div)
         else body:insert(block) end
       end
       assert(title, 'Details without summary')
+      if course_shell then body=course_print.box_body(body) end
+      if course_shell and div.classes:includes('zo-learning-guidance')
+        and #pandoc.utils.stringify(div)<900 then
+        before:insert(1,pandoc.RawBlock('latex','\\Needspace{12\\baselineskip}'))
+      end
       local color = div.classes:includes('zo-learning-guidance')
         and 'zo-block-white' or 'zo-block-gray'
       local box = pandoc.Div({title, pandoc.Div(body, pandoc.Attr('', {'zo-block-body'}))},
@@ -387,10 +398,14 @@ function Div(div)
 end
 
 function Image(image)
-  local graph_number = image.src:match('^hinh/do_thi_(%d%d)%.svg$')
+  assert(not (latex and course_shell and image.src:match('^hinh/do_thi_')),
+    'Legacy graph asset forbidden in course PDF: '..image.src)
+  local graph_number = image.src:match('^giao_dien/assets/figures_0_4/do_thi_(%d%d)%.svg$')
   graph_number = tonumber(graph_number)
   if latex and graph_number and graph_number >= 1 and graph_number <= 13 then
     image.src = image.src:gsub('%.svg$', '.pdf')
+    local file = assert(io.open(image.src, 'rb'), 'Missing current paired graph PDF: '..image.src)
+    file:close()
     -- Preserve the asset's canonical physical size. Pandoc's \maxwidth policy
     -- still shrinks an oversized asset, but must never enlarge a narrow one.
     image.attributes.width = nil
@@ -408,6 +423,9 @@ function Table(tbl)
 end
 
 function Header(header)
+  if latex and course_shell and header.identifier ~= '' then
+    header.content:insert(pandoc.RawInline('latex','\\label{'..header.identifier..'}'))
+  end
   if latex and header.level == 2 then
     header.content:insert(1, pandoc.RawInline('latex', '\\color{zomathred}'))
   end
@@ -421,6 +439,16 @@ function Blocks(blocks)
     local following = blocks[i + 1]
     local previous = blocks[i - 1]
     local label = (block.t == 'Para' or block.t == 'Plain') and pandoc.utils.stringify(block) or ''
+      if course_shell and block.t == 'Header' and block.level >= 4
+        and pandoc.utils.stringify(block):match('Nhiệm vụ') then
+        -- Include the eight-line opening-paragraph guard in this reservation;
+        -- otherwise that later guard can eject the text after the H4 label.
+        result:insert(pandoc.RawBlock('latex', '\\Needspace{14\\baselineskip}'))
+      end
+    if course_shell and block.t=='Header' and block.identifier=='nguon' then
+      -- Keep the short reference list and its provenance paragraph together.
+      result:insert(pandoc.RawBlock('latex','\\Needspace{18\\baselineskip}'))
+    end
     if block.t == 'Header' and following and following.t == 'Div'
       and following.classes:includes('r1-guidance') then
       -- Keep a section heading with the flattened guidance label and useful
@@ -472,7 +500,7 @@ function Blocks(blocks)
     if block.t == 'Div' and block.classes:includes('r1-task') then
       -- A functional label is not a heading, so give its short task group an
       -- explicit guard against a label stranded at the foot of a page.
-      result:insert(pandoc.RawBlock('latex', '\\Needspace{6\\baselineskip}'))
+        result:insert(pandoc.RawBlock('latex', '\\Needspace{14\\baselineskip}'))
     end
     if block.t == 'Div' and block.classes:includes('table-scroll')
       and previous and previous.t == 'Div' and previous.classes:includes('r1-summary') then
@@ -494,7 +522,7 @@ local function finish(doc)
     -- Mutate that metadata in place but do not replace the real block stream.
     return nil
   end
-  if latex then
+  if latex and not doc.meta['zo-course-pdf-shell'] then
     local includes = doc.meta['header-includes'] or pandoc.MetaList({})
     if pandoc.utils.type(includes) ~= 'List' then includes = pandoc.MetaList({includes}) end
     includes:insert(pandoc.MetaBlocks({pandoc.RawBlock('latex', '\\usepackage{needspace}')}))
@@ -608,6 +636,16 @@ local function h2_positions(blocks)
   return positions
 end
 
+local function ordered_projection_specs(positions)
+  local result={}
+  for _,spec in ipairs(section_download_specs) do
+    assert(positions[spec.start] and positions[spec.end_before], 'Missing projection boundary: '..spec.start)
+    result[#result+1]=spec
+  end
+  table.sort(result,function(a,b) return positions[a.start]<positions[b.start] end)
+  return result
+end
+
 local function projection_boundary_chain(specs)
   assert(specs and #specs > 0, 'R1-G01 section projection manifest is empty')
   local boundaries = pandoc.List({COMMON_LEARNING_ID})
@@ -615,9 +653,10 @@ local function projection_boundary_chain(specs)
   for _, spec in ipairs(specs) do
     assert(spec.start ~= '' and spec.end_before ~= '',
       'R1-G01 section projection boundary is incomplete')
-    if expected_start then
-      assert(spec.start == expected_start,
-        'R1-G01 section projection boundaries are not contiguous at #'..spec.start)
+    if expected_start and spec.start ~= expected_start then
+      -- Independent support sections between downloadable parts stay on HTML;
+      -- their exact positions are validated against current H2 IDs below.
+      boundaries:insert(expected_start)
     end
     boundaries:insert(spec.start)
     expected_start = spec.end_before
@@ -657,16 +696,28 @@ end
 
 local function rewrite_projection_links(doc, original_blocks, positions, canonical_url, boundary_chain)
   local owner_by_id = {}
-  for _, spec in ipairs(section_download_specs) do
+  local ordered=ordered_projection_specs(positions)
+  for _, spec in ipairs(ordered) do
     local first, last = positions[spec.start], positions[spec.end_before] - 1
     for identifier in pairs(identifiers_in_blocks(blocks_slice(original_blocks, first, last))) do
       assert(not owner_by_id[identifier], 'R1-G01 identifier has multiple owner views: '..identifier)
       owner_by_id[identifier] = spec.view
     end
   end
+  for i=1,#ordered-1 do
+    local current,next_spec=ordered[i],ordered[i+1]
+    if current.end_before ~= next_spec.start then
+      local first,last=positions[current.end_before],positions[next_spec.start]-1
+      assert(first and first<=last, 'Invalid independent support gap: '..current.end_before)
+      for identifier in pairs(identifiers_in_blocks(blocks_slice(original_blocks,first,last))) do
+        assert(not owner_by_id[identifier], 'Duplicate support owner: '..identifier)
+        owner_by_id[identifier]=current.end_before
+      end
+    end
+  end
   local common_ranges = {
-    {positions[COMMON_LEARNING_ID], positions[boundary_chain[2]] - 1, 'cach-hoc'},
-    {positions[COMMON_SOURCES_ID], positions[DOWNLOADS_ID] - 1, 'cach-hoc'},
+    {positions[COMMON_LEARNING_ID], positions[boundary_chain[2]] - 1, 'bat-dau'},
+    {positions[COMMON_SOURCES_ID], positions[DOWNLOADS_ID] - 1, 'nguon'},
   }
   for _, range in ipairs(common_ranges) do
     for identifier in pairs(identifiers_in_blocks(blocks_slice(original_blocks, range[1], range[2]))) do
@@ -706,7 +757,7 @@ local function project_part(doc, spec, canonical_url)
   assert(root, 'R1-G01 PDF projection root is missing')
   local original_blocks = root.content
   local positions = h2_positions(original_blocks)
-  local required = projection_boundary_chain(section_download_specs)
+  local required = projection_boundary_chain(ordered_projection_specs(positions))
   local previous = 0
   for _, identifier in ipairs(required) do
     local current = assert(positions[identifier], 'R1-G01 projection boundary is missing: #'..identifier)
@@ -776,6 +827,8 @@ local function build_lesson_toc(doc)
 end
 
 local function prepare(doc)
+  course_shell = doc.meta['zo-course-pdf-shell'] ~= nil
+  assert(not latex or course_shell or #doc.blocks==0, 'Current course PDF profile required; build through scripts/zo_pdf.py')
   local download_meta = doc.meta['r1-download-files']
   assert(download_meta and #download_meta == 2, 'R1-G01 download contract must contain 2 entries')
   download_specs = {}
@@ -817,9 +870,8 @@ local function prepare(doc)
   end
   verify_projection_boundary_fixture()
   table_specs = doc.meta['r1-tables']
-  -- The approved HTML editorial pass adds the three-stage practice table.
-  -- PDF inventories below remain locked until a separately authorized PDF pass.
-  local expected_tables = html and 20 or 18
+  -- Authorized PDF synchronization uses the same current table manifest.
+  local expected_tables = 20
   assert(table_specs and #table_specs == expected_tables,
     'R1-G01 table contract must contain '..expected_tables..' entries for this format; PDF synchronization requires its own validated pass')
   table_specs_by_id = {}
@@ -832,7 +884,10 @@ local function prepare(doc)
   if html then return nil end
   if latex then doc = build_lesson_toc(doc) end
   doc = apply_table_contract(doc)
-  assert_inventory(doc, {math=1621, images=13, tables=18, bbt=13, details=67, answers=102}, 'source')
+  local original_ids = identifiers_in_blocks(doc.blocks)
+  -- Current canonical AST measured in the authorized full-PDF pass 2026-10-14.
+  -- Includes all current foundation/support material, without editing the math.
+  assert_inventory(doc, {math=1657, images=13, tables=20, bbt=14, details=85, answers=108}, 'source')
   if latex then
     variant = pandoc.utils.stringify(doc.meta['zo-pdf-variant'] or 'full')
     local part_spec = section_specs_by_variant[variant]
@@ -885,9 +940,22 @@ local function prepare(doc)
       -- Student projection removes 672 math nodes, 2 images, 4 ordinary tables,
       -- 2 BBT blocks, 38 details blocks and all 102 answer links. Canonical N
       -- resources remain inside the lesson flow and therefore remain available.
-      assert_inventory(doc, {math=949, images=11, tables=14, bbt=11, details=29, answers=0}, 'student')
+      assert_inventory(doc, {math=977, images=11, tables=17, bbt=11, details=30, answers=0}, 'student')
     else
-      assert_inventory(doc, {math=1621, images=13, tables=18, bbt=13, details=67, answers=102}, 'full')
+      assert_inventory(doc, {math=1657, images=13, tables=20, bbt=14, details=85, answers=108}, 'full')
+    end
+    if variant == 'student' then
+      local kept = identifiers_in_blocks(doc.blocks)
+      local branding = assert(doc.meta['zo-pdf-branding'])
+      local canonical = meta_text(branding['canonical-url'])
+      doc=doc:walk({Link=function(link)
+        if link.target:sub(1,1)=='#' and not kept[link.target:sub(2)] then
+          assert(original_ids[link.target:sub(2)], 'Student link was already missing from source: '..link.target)
+          link.target=canonical..'?r1-view=loi-giai'..link.target
+          append_external_label(link)
+          return link
+        end
+      end})
     end
     local identifiers = identifiers_in_blocks(doc.blocks)
     doc:walk({Link=function(link)
@@ -895,8 +963,9 @@ local function prepare(doc)
         assert(identifiers[link.target:sub(2)], 'R1-G01 dangling PDF hash link: '..link.target)
       end
     end})
+
   end
   return doc
 end
 
-return {{Pandoc=prepare}, {Div=Div, Image=Image, Figure=Figure, Table=Table, Header=Header, Blocks=Blocks}, {Pandoc=finish}}
+return {{Pandoc=prepare}, {Pandoc=course_print.references}, {Div=Div, Image=Image, Figure=Figure, Table=Table, Header=Header, Blocks=Blocks}, {Pandoc=finish}}

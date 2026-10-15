@@ -271,12 +271,17 @@ def adapt(path, output_root):
         raise ValueError('Production output retains a preview dependency')
     from zo_web_2027_navigation import apply as apply_course_navigation
     apply_course_navigation(target, path, output_root, runtime, 'g01')
-    path.write_text(str(target), encoding='utf-8')
+    from zo_course_pdf_download_state import apply as apply_pdf_state
+    apply_pdf_state(target,ROOT,PACKAGE)
+    from zo_course_html import write
+    write(path, target)
     print('G01 production adapter:', path, 'regions:', len(generated_root.select('.reading-region')))
     return True
 
 
 def main():
+    if os.environ.get('ZO_COURSE_RAW_HTML_ONLY')=='1' and (ROOT/'isolated.index').is_file():
+        return 0
     parser = argparse.ArgumentParser()
     parser.add_argument('--import-layout', type=Path)
     parser.add_argument('--source', type=Path)

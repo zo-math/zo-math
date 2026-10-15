@@ -110,7 +110,10 @@ def adapt(path, output_root):
         raise ValueError('G02 duplicate anchors or initially open disclosure')
     from zo_web_2027_navigation import apply as apply_course_navigation
     builder.resources.update(apply_course_navigation(doc,path,output_root,builder.output,'g02'))
-    path.write_text(str(doc), encoding='utf-8')
+    from zo_course_pdf_download_state import apply as apply_pdf_state
+    apply_pdf_state(doc,REPO,PACKAGE)
+    from zo_course_html import write
+    write(path, doc)
     report = {'package': 'R1-G02', 'source': (PACKAGE / 'index.qmd').as_posix(),
         'source_sha256': sha(REPO / PACKAGE / 'index.qmd'), 'html_sha256': sha(path),
         'canonical_render': True, 'payloads': payloads, 'vectors':vectors, 'learning_pdf_built': False,

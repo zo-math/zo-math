@@ -1,5 +1,18 @@
 # Sổ yêu cầu, quyết định và mẫu thử
 
+## Bổ sung ZO031 — khung PDF các gói học liệu, 14/10/2026
+
+Yêu cầu trực tiếp của chủ trì: trước khi dựng bản đầy đủ G01, cập nhật
+thiết kế PDF D0 đã duyệt để trang đầu/trang cuối/header/footer có cùng
+giao diện giữa các gói. Khung dùng chung giữ vị trí, vai trò, màu, font,
+logo và QR; dữ liệu tên gói/phiên bản/URL/ngày dựng thay theo nguồn.
+Chữ hiển thị dùng Bảo trợ theo lượt chính tả trước đó. Hai template
+`assets/tex/zo-course-pdf-shell.tex` và `zo-course-pdf-end.tex` hiện thực
+khung; `zo_pdf_course_shell.py` cấp metadata và component Bảo trợ tươi.
+G01 opt-in, dựng riêng `full` trước; bảy biến thể còn lại và G02 chưa dựng.
+PDF D0 được giữ để đối chiếu, không thay byte. Hướng dẫn ở `04_ap_dung/06_pdf.md`.
+Đây là quyết định khung chung, không phải nghiệm thu PDF G01 hoặc xuất bản.
+
 Đọc cột trạng thái trước khi áp dụng. “Yêu cầu đã xác nhận” không đồng nghĩa chủ dự án đã duyệt từng pixel của tệp hiện thực. Nguồn YC nằm trong [phản hồi](../06_nguon/yeu_cau_chu_du_an/phan_hoi_thiet_ke.md); nguồn S nằm trong [mục lục nguồn](../06_nguon/00_muc_luc.md). Dữ liệu tương ứng: [quy_tac.json](../03_du_lieu/quy_tac.json).
 
 ## ZO001 — Màu
@@ -241,3 +254,17 @@ Căn cứ: S02, M04. Giới hạn: Kiểm hình thu nhỏ và vùng bị giao di
 Phạm vi: Quy trình bàn giao.
 
 Căn cứ: S06, YC21. Giới hạn: Không thêm thủ tục xin phép cho chỉnh sửa nhỏ đã được giao; không tự phê duyệt thiết kế hoặc xuất bản.
+
+## ZO031 — PDF: footer, đồng bộ Ủng hộ và bố cục độc lập
+
+**Yêu cầu đã xác nhận, chỉ thị trực tiếp 14/10/2026.** Giữa footer có
+`zomath.vn` bấm được. Vùng Ủng hộ đồng bộ nội dung và quan hệ thị giác từ
+component HTML hiện hành mỗi lần dựng. Nội dung PDF lấy QMD/JSON nhưng
+hồ sơ bản in sở hữu typography/vai trò/bản đồ trang; nghiên cứu bốn trang
+và 0.4 rồi dựng mẫu thử trước áp dụng toàn bộ.
+
+Phạm vi: hướng dẫn PDF của bộ và mẫu kiểm chứng D0. Nguồn chi tiết:
+`04_ap_dung/06_pdf.md`, `04_ap_dung/06_pdf_bo_cuc_doc_lap.md`.
+Căn cứ: yêu cầu chủ trì kèm Screenshot 2026-10-14 102726.png trong DH_044.
+Giới hạn: tiêu chí chức năng đã giao không đồng nghĩa thông số mẫu được
+duyệt, PDF đã đạt thương mại hoặc được xuất bản; không sửa mẫu khóa 06/07.
