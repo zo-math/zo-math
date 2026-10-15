@@ -21,6 +21,16 @@ GOVERNANCE = SECTION + "/_quy_trinh"
 
 
 class PublicBoundaryTests(unittest.TestCase):
+    def test_website_prepare_renders_only_html_through_repository_launchers(self):
+        result=type('Result',(),{'returncode':0,'stdout':'[1/2] page.qmd','stderr':''})()
+        with patch.object(publish,'require_public_profile'),patch.object(publish,'run',return_value=result) as run:
+            rendered=publish.render_to_staging(self.public,self.public/'output',tool_root=ROOT)
+        command=run.call_args.args[0]
+        self.assertEqual(command[1],str(ROOT/'scripts/zo_python.py'))
+        self.assertEqual(command[3],str(ROOT/'scripts/zo_quarto.py'))
+        self.assertEqual(command[4:7],['render','--to','html'])
+        self.assertEqual(rendered['exit_code'],0)
+
     def test_ignored_editor_sessions_are_not_render_dependencies(self):
         source=self.public/'support-source';destination=self.public/'support-copy'
         editor='content/book/.Rproj.user/shared/notebooks/session/cache'
