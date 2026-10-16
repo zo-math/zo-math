@@ -29,6 +29,28 @@ Trạng thái: **đã xuất bản và kiểm trực tiếp trên zomath.vn**. N
 Giới hạn kiểm: chưa in giấy/quét QR bằng điện thoại/phản biện toán độc lập.
 
 ## A. Công việc đang mở
+
+**COMMON-HTML01 — áp dụng chốt đối sánh G01/G02/G03, 17/10/2026.**
+
+- Chủ trì duyệt bảng chốt chung rồi giao sửa nguồn, chưa tạo PDF. Quy tắc ở
+  07/6.2; cấu hình giá trị ở kit profiles/r1-consistency.json; cả ba adapter
+  gọi cùng hàm áp dụng/kiểm trong zo_web_2027_consistency.py.
+- Đã thống nhất nhãn đầu phần/tiêu đề tab, bỏ nhãn Ví dụ bị lặp, bổ sung tên
+  ví dụ G01 và đánh số hai đơn vị ví dụ riêng của G02; không phân loại lại các
+  minh họa ngắn hoặc nhiệm vụ tự làm thành ví dụ. G02 bỏ mã quản lí ở chính
+  văn và mô tả ảnh; ngày gốc/điều kiện dùng bằng chứng Ôn lại đã ra ngoài hộp đóng.
+- Ánh xạ G01 được cập nhật chỉ ở ba lá văn bản; chuỗi ID/toán/disclosure giữ
+  nguyên và mọi khóa văn bản khớp bản render nguồn tươi. Không sửa biên nhận
+  nghiệm thu cũ, không bỏ guard để hợp thức hóa nguồn mới.
+- Ba trang HTML đã dựng từ nguồn; kiểm nhãn G01 209/209, G02 332/332,
+  G03 863/863, hồi quy nhãn 20/20; kiểm chung có fixture âm. Đã đối chiếu
+  desktop và 390/430 px, không tràn ngang và thông tin ngày gốc nhìn thấy.
+  Hồ sơ mỗi gói: _quy_trinh/ho_so/doi_sanh_chung_20261017.json.
+- Chờ chủ trì xem HTML; nguồn đã được bảo tồn tại commit b0a63407.
+  Chưa tạo PDF hoặc xuất bản trong lượt đối sánh này. PDF cũ
+  không được coi là đã đồng bộ với nguồn vừa chỉnh. Bằng chứng và đầu vào
+  bảo trì ánh xạ hiện lưu tại _audit/r1_g03_manuscript_20261016/ để đối chiếu.
+
 **HOME-YT01 — nguồn YouTube và chuẩn bị riêng trang Nhà, 16/10/2026.**
 
 - Nguồn `index.qmd`, CSS Home và ảnh chờ dùng video `SJ1bb9gWxDA`;
@@ -53,7 +75,13 @@ Giới hạn kiểm: chưa in giấy/quét QR bằng điện thoại/phản bi�
 
 **G03-LABEL01 — khép thiếu hệ nhãn và chống bỏ sót khi dựng, 16/10/2026.**
 
-- Bìa riêng đã thay theo phản hồi chủ trì: nền ảnh/nhãn trong suốt, hai tiệm cận có nhãn, công thức đặt cách đầu nhánh. Chủ trì xác nhận “OK” rồi giao commit các giai đoạn đủ điều kiện. HTML hiện tại đã qua 847/847 kiểm, hệ nhãn 20/20; không suy thành duyệt toàn gói hoặc quyền phát hành. Không dựng PDF học liệu.
+- Tiếp tục đối chiếu G02 và sửa nguồn: ba thẻ Ôn nền mặc định đóng, nhãn nhóm Khởi động, bỏ nhãn Tự kiểm tra sai ở đầu phần Kiểm tra. QMD khai opt-in ngữ cảnh hỗ trợ và nhãn quay về; controller dùng metadata/ngữ nghĩa chỉ khi có opt-in, giữ nhánh cũ G01/G02. Đã thử Điểm dừng → Ôn nền → quay lại, Luyện tập → Sửa lỗi → Ôn nền giữ nơi gọi, và mở trực tiếp Sửa lỗi sau Kiểm tra. Bản hiện hành đạt 863/863 và hồi quy nhãn 20/20, công thức khớp bản thảo. Chưa tạo PDF, commit hoặc phát hành trong lượt này. Kết quả này tiếp nối mốc đối chiếu G01 ngay dưới.
+
+
+- Theo yêu cầu lấy G01 làm chuẩn: đã đồng bộ định hướng/Cách thực hiện thu gọn, nhãn đầu phần, khối định nghĩa mở và khối lời giải; đổi Footnotes thành Chú thích nguồn. Đã sửa số mục Bài học sau chuyển đổi để controller khởi tạo đủ mục lục. Bản HTML mới đạt 857/857, hồi quy nhãn 20/20, đã xem desktop và các phần liên quan trên màn hình hẹp. Hồ sơ hiện hành: `hoc_lieu/r1_g03/_quy_trinh/ho_so/index.yml` mục presentation_audit. Chờ chủ trì xem; không dựng PDF hoặc phát hành.
+
+
+- Bìa riêng đã thay theo phản hồi chủ trì: nền ảnh/nhãn trong suốt, hai tiệm cận có nhãn, công thức đặt cách đầu nhánh. Chủ trì xác nhận “OK” rồi giao commit các giai đoạn đủ điều kiện. HTML tại mốc thay bìa đã qua 847/847 kiểm, hệ nhãn 20/20; không suy thành duyệt toàn gói hoặc quyền phát hành. Không dựng PDF học liệu.
 
 
 - Chủ trì phát hiện G03 thiếu nhãn hiển thị. QD_025, 07/6.2 và danh mục đã có quy tắc; lượt chuyển đổi ban đầu mới gắn metadata và bộ kiểm không kiểm đầy đủ nhãn thật. Kết quả kiểm của G03-SOURCE01 không chứng nhận phần nhãn này.

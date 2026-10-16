@@ -1,5 +1,11 @@
 # R1-G01 — ứng viên Quarto v1.3
 
+**Đối sánh HTML — 17/10/2026.** Nguồn và HTML đã cập nhật theo chốt chung
+của chủ trì tại 07/6.2; xem hồ sơ `ho_so/doi_sanh_chung_20261017.json` và
+COMMON-HTML01 ở bảng điều hành khóa. Chưa dựng lại PDF trong lượt này;
+các mô tả CURRENT/nghiệm thu của bộ trước dưới đây là lịch sử của bộ ấy,
+không tự chứng nhận PDF đã đồng bộ với nguồn vừa chỉnh.
+
 **Bộ hiện hành đã đồng bộ — 15/10/2026.** Cả tám PDF đã dựng từ QMD hiện hành,
 đạt 17/17 phép kiểm mỗi tệp. Bản đầy đủ có 80 trang;
 bản học sinh có 60 trang. Thẻ tải lấy số trang thực tế và
