@@ -30,6 +30,20 @@ Giới hạn kiểm: chưa in giấy/quét QR bằng điện thoại/phản bi�
 
 ## A. Công việc đang mở
 
+**HOME-YT01 — nguồn YouTube và chuẩn bị riêng trang Nhà, 16/10/2026.**
+
+- Nguồn `index.qmd`, CSS Home và ảnh chờ dùng video `SJ1bb9gWxDA`;
+  đã bỏ MP4 khỏi HTML/chính sách public. Home 109/109 và runtime 7/7 đạt.
+- YouTube xác nhận lịch 20:30 ngày 16/10/2026 UTC+07:00; giao diện chờ giờ
+  hẹn và tải iframe khi người xem bấm. Chưa kiểm phát công khai sau giờ hẹn.
+- Dùng `prepare --committed-source --page` để dựng đúng HEAD đã commit,
+  loại thay đổi làm việc khác khỏi nguồn dựng, giữ nguyên PDF/trang ngoài phạm vi.
+- Kết quả prepare hiện hành lấy từ `_audit/zo_publish_prepare_report.json`
+  do công cụ tạo; chốt nguồn này không tự chứng nhận prepare hoặc xuất bản.
+  Chưa push/phát hành; cần duyệt diff chuẩn bị rồi mới thực hiện theo quyền.
+- Hồ sơ: `home_youtube_ban01_20261016.json`; biên nhận lịch YouTube ở
+  `zo_math_media/xuat_ban/bien_nhan/ZO-V000001`.
+
 **DOC-SYNC01 — dọn chỉ dẫn học tập lỗi thời, 16/10/2026.**
 
 - Chủ trì giao xóa tài liệu cũ có thể bỏ và cập nhật tài liệu cần giữ; bốn bản toàn văn/PDF cũ trong Nguồn đã được chủ trì xóa.

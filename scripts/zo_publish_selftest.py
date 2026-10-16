@@ -21,6 +21,59 @@ GOVERNANCE = SECTION + "/_quy_trinh"
 
 
 class PublicBoundaryTests(unittest.TestCase):
+    def test_committed_source_excludes_only_unstaged_dirty_issue(self):
+        state={'issues':['Working tree không sạch.', 'Vùng staged không trống.', 'Có merge hoặc rebase dang dở.', 'wrong branch']}
+        self.assertEqual(publish.source_mode_issues(state, False), state['issues'])
+        self.assertEqual(publish.source_mode_issues(state, True), state['issues'][1:])
+
+    def test_committed_source_requires_explicit_prepare_page(self):
+        for args in [['check','--committed-source'], ['publish','--committed-source'], ['prepare','--committed-source']]:
+            with self.subTest(args=args), redirect_stderr(io.StringIO()):
+                self.assertEqual(publish.main(args), publish.EXIT_USAGE)
+
+    def test_pdf_validation_uses_committed_contract_process(self):
+        from types import SimpleNamespace
+        snapshot=self.public/'committed-source'
+        result=SimpleNamespace(returncode=0, stdout='[{"type":"stale-course-pdf"}]', stderr='')
+        with patch.object(publish, 'run', return_value=result) as runner:
+            issues=publish.course_pdf_issues(self.public, {'a.pdf'}, snapshot)
+        self.assertEqual(issues, [{'type':'stale-course-pdf'}])
+        command, cwd=runner.call_args.args
+        self.assertEqual(cwd, snapshot)
+        self.assertEqual(command[1], str(snapshot/'scripts/zo_python.py'))
+
+    def test_scoped_release_keeps_pdf_guard_with_explicit_source(self):
+        raw,target,candidate=self.candidate_dirs()
+        # candidate_dirs already creates both input directories.
+        self.write_at(raw,'CNAME',self.config['custom_domain']['cname'])
+        self.write_at(target,'CNAME',self.config['custom_domain']['cname'])
+        source=self.public/'snapshot'
+        with patch.object(publish, 'course_pdf_issues', return_value=[{'type':'stale-course-pdf'}]) as gate:
+            result=publish.build_scoped_candidate(raw,raw,candidate,target,self.config,source_root=source)
+        self.assertIn({'type':'stale-course-pdf'},result['issues'])
+        self.assertEqual(gate.call_args.args[2],source)
+
+    def test_committed_snapshot_preserves_dirty_and_deleted_files(self):
+        repo=self.public/'repo';repo.mkdir()
+        self.assertEqual(publish.run(['git','init'],repo).returncode,0)
+        self.write_at(repo,'kept.txt','committed')
+        self.write_at(repo,'deleted.txt','original')
+        self.assertEqual(publish.run(['git','add','kept.txt','deleted.txt'],repo).returncode,0)
+        self.assertEqual(publish.run(['git','-c','user.name=Test','-c','user.email=test@example.invalid','commit','-m','initial'],repo).returncode,0)
+        self.write_at(repo,'kept.txt','working edit')
+        (repo/'deleted.txt').unlink()
+        self.write_at(repo,'untracked.txt','new work')
+        before=publish.status_porcelain(repo)
+        dest=self.public/'snapshot'
+        with publish.detached_source_tree(repo,dest,publish.git_text(repo,'rev-parse','HEAD'),self.public):
+            self.assertEqual((dest/'kept.txt').read_text(),'committed')
+            self.assertEqual((dest/'deleted.txt').read_text(),'original')
+            self.assertFalse((dest/'untracked.txt').exists())
+        self.assertFalse(dest.exists())
+        self.assertEqual(publish.status_porcelain(repo),before)
+        self.assertEqual((repo/'kept.txt').read_text(),'working edit')
+        self.assertFalse((repo/'deleted.txt').exists())
+
     def test_video_source_and_poster_are_public_dependencies(self):
         collector = publish.LinkCollector()
         collector.feed('<video poster="cover.png"><source src="intro.mp4" type="video/mp4"></video>')

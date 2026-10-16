@@ -17,7 +17,7 @@ import subprocess
 import sys
 import tempfile
 from collections import Counter
-from contextlib import contextmanager
+from contextlib import ExitStack, contextmanager
 from datetime import datetime, timezone
 from html import unescape
 from html.parser import HTMLParser
@@ -750,8 +750,19 @@ def private_references(text: str, relative: str, config: Mapping[str, Any]) -> l
     return sorted(found)
 
 
-def course_pdf_issues(public: Path, files: set[str]) -> list[dict[str, Any]]:
+def course_pdf_issues(public: Path, files: set[str], source_root: Path | None = None) -> list[dict[str, Any]]:
     """A course PDF must match current source provenance and canonical bytes."""
+    if source_root is not None and source_root.resolve() != Path(__file__).resolve().parents[1]:
+        # Validate with the same committed contract implementation and files as
+        # the render, not a different PDF pipeline being edited in the checkout.
+        command = [sys.executable, str(source_root / 'scripts/zo_python.py'), '-B', '-c',
+                   "import sys,json;from pathlib import Path;sys.path.insert(0,'scripts');import zo_publish;"
+                   "print(json.dumps(zo_publish.course_pdf_issues(Path(sys.argv[1]),set(json.loads(sys.argv[2])))))",
+                   str(public), json.dumps(sorted(files))]
+        result = run(command, source_root)
+        if result.returncode != 0:
+            raise RuntimeError('Committed PDF validator failed: ' + result.stderr)
+        return json.loads(result.stdout)
     from zo_pdf_contract import validate_canonical_pdf_provenance
     source_root = Path(__file__).resolve().parents[1]
     issues = []
@@ -776,13 +787,14 @@ def course_pdf_issues(public: Path, files: set[str]) -> list[dict[str, Any]]:
 
 
 def validate_public(public: Path, manifest: Mapping[str, Any], config: Mapping[str, Any],
-                    *, historical_comparison_only: bool = False) -> dict[str, Any]:
+                    *, historical_comparison_only: bool = False,
+                    source_root: Path | None = None) -> dict[str, Any]:
     issues: list[dict[str, Any]] = []
     files = set(manifest["files"])
     # A baseline is evidence for the source/render diff, never a release tree.
     # Current and final scoped candidates always enforce current PDF provenance.
     if not historical_comparison_only:
-        issues.extend(course_pdf_issues(public, files))
+        issues.extend(course_pdf_issues(public, files, source_root))
     deny = config["denylist"]
     for relative in sorted(files):
         if path_denied(relative, deny["paths"], deny["globs"]):
@@ -1172,7 +1184,8 @@ def source_output_scope(root: Path, baseline_commit: str,
 
 def build_public_candidate(raw_output: Path, candidate: Path, target: Path,
                            config: Mapping[str, Any], *,
-                           historical_comparison_only: bool = False) -> dict[str, Any]:
+                           historical_comparison_only: bool = False,
+                           source_root: Path | None = None) -> dict[str, Any]:
     """Build and validate the exact public tree without modifying either input tree."""
     if candidate.exists():
         raise ConfigError(f"Thư mục candidate phải chưa tồn tại: {candidate}")
@@ -1210,7 +1223,7 @@ def build_public_candidate(raw_output: Path, candidate: Path, target: Path,
     blocking.extend(policy_manifest["issues"])
     blocking.extend(normalization["issues"])
     validation = validate_public(candidate, public_manifest, config,
-                                 historical_comparison_only=historical_comparison_only)
+                                 historical_comparison_only=historical_comparison_only, source_root=source_root)
     blocking.extend(validation["issues"])
     blocking.extend(changed_trailing_whitespace(target, candidate, public_manifest))
 
@@ -1271,7 +1284,8 @@ def asset_dependencies(rendered: Path, manifest: Mapping[str, Any], seeds: Seque
 def build_scoped_candidate(baseline: Path, rendered: Path, candidate: Path, target: Path,
                            config: Mapping[str, Any],
                            excluded: Mapping[str, int] | None = None,
-                           allowed_outputs: set[str] | None = None) -> dict[str, Any]:
+                           allowed_outputs: set[str] | None = None,
+                           source_root: Path | None = None) -> dict[str, Any]:
     """Overlay only source-derived output changes onto the published target tree."""
     if candidate.exists():
         raise ConfigError(f"Thư mục candidate phải chưa tồn tại: {candidate}")
@@ -1306,7 +1320,7 @@ def build_scoped_candidate(baseline: Path, rendered: Path, candidate: Path, targ
     blocking: list[dict[str, Any]] = list(policy_manifest["issues"])
     if policy_files != public_manifest["files"]:
         blocking.append({"type": "candidate-manifest-mismatch", "path": str(candidate)})
-    validation = validate_public(candidate, public_manifest, config)
+    validation = validate_public(candidate, public_manifest, config, source_root=source_root)
     blocking.extend(validation["issues"])
     blocking.extend(changed_trailing_whitespace(target, candidate, public_manifest))
 
@@ -1534,7 +1548,7 @@ def cleanup_prepare(root: Path, report: Path, config: Mapping[str, Any]) -> list
 
 
 def validate_prepared_tree(root: Path, target: Path, config: Mapping[str, Any],
-                           payload: Mapping[str, Any]) -> None:
+                           payload: Mapping[str, Any], source_root: Path | None = None) -> None:
     manifest = payload["manifest"]
     paths = payload["prepare_paths"]
     public = root / paths["public_dir"]
@@ -1558,7 +1572,7 @@ def validate_prepared_tree(root: Path, target: Path, config: Mapping[str, Any],
                       for name, item in selected["files"].items()}
     if selected_files != manifest["files"]:
         raise RuntimeError("Allowlist không tái tạo đúng manifest đã prepare.")
-    validation = validate_public(target, manifest, config)
+    validation = validate_public(target, manifest, config, source_root=source_root)
     if validation["issues"]:
         raise RuntimeError("Validator HTML hoặc tài nguyên không đạt trên worktree đã prepare.")
     missing = [name for name in config["required_files"] if name not in manifest["files"]]
@@ -1580,7 +1594,7 @@ def publish_site(root: Path, config_path: Path, config: Mapping[str, Any]) -> in
     try:
         target = find_publish_worktree(root, config["target_branch"])
         source = git_state(root, config["source_branch"], f"origin/{config['source_branch']}")
-        if source["issues"] or source["ahead"] != 0 or source["behind"] != 0:
+        if source_mode_issues(source, bool(payload.get("committed_source"))) or source["ahead"] != 0 or source["behind"] != 0:
             raise RuntimeError("Repository nguồn không sạch hoặc chưa đồng bộ remote.")
         expected_source = payload["source"]["commit"]
         if source["commit"] != expected_source or source["remote_commit"] != expected_source:
@@ -1599,7 +1613,11 @@ def publish_site(root: Path, config_path: Path, config: Mapping[str, Any]) -> in
         expected_status = expected_worktree_status(payload["diff"])
         if status_porcelain(target, target) != expected_status:
             raise RuntimeError("Git status của worktree không khớp kế hoạch prepare.")
-        validate_prepared_tree(root, target, config, payload)
+        if payload.get('committed_source'):
+            with detached_source_tree(root, root/'_audit/_zpv', expected_source, root/'_audit') as snapshot:
+                validate_prepared_tree(root, target, config, payload, source_root=snapshot)
+        else:
+            validate_prepared_tree(root, target, config, payload)
         changed = [*payload["diff"]["add"], *payload["diff"]["update"], *payload["diff"]["delete"]]
         if not changed:
             warnings = cleanup_prepare(root, report, config)
@@ -1735,12 +1753,24 @@ def print_summary(payload: Mapping[str, Any], code: int) -> None:
     print(f"RESULT: {'PASS' if code == 0 else 'FAIL'} | EXIT={code}")
 
 
+def source_mode_issues(state: Mapping[str, Any], committed: bool) -> list[str]:
+    """Only a committed snapshot may exclude unstaged working-tree edits.
+
+    Wrong branch, staged changes, merge/rebase and stale remote refs remain
+    blocking; no file from the dirty checkout is a render source in this mode.
+    """
+    return [item for item in state['issues']
+            if not (committed and item == 'Working tree không sạch.')]
+
+
 def parser() -> argparse.ArgumentParser:
     value = argparse.ArgumentParser(description=__doc__)
     value.add_argument("command", nargs="?", help="Hỗ trợ: check, prepare, publish")
     value.add_argument("--config", default="publish_public.yml")
     value.add_argument("--report")
     value.add_argument("--page", action="append", default=[], help="prepare: giới hạn HTML; lặp lại cho từng trang, vẫn kèm tài nguyên phụ thuộc.")
+    value.add_argument('--committed-source', action='store_true',
+                       help='prepare --page: render only committed HEAD in a temporary source tree; preserve unrelated working edits.')
     return value
 
 
@@ -1755,6 +1785,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     if yaml is None:
         print("ERROR: thiếu dependency PyYAML.", file=sys.stderr)
         return EXIT_MISSING
+    if args.committed_source and (args.command != 'prepare' or not args.page):
+        print('ERROR: --committed-source requires prepare --page.', file=sys.stderr)
+        return EXIT_USAGE
+    snapshots = ExitStack()
     try:
         root = repo_root()
         config_path, config = load_config(root, args.config)
@@ -1811,8 +1845,13 @@ def main(argv: Sequence[str] | None = None) -> int:
             }
             source_status = {line[3:] for line in source_state["status"] if len(line) > 3}
             source_git_messages = [item for item in source_state["issues"] if item != "Working tree không sạch."]
-            if source_status - allowed_changes:
+            if not args.committed_source and source_status - allowed_changes:
                 source_git_messages.append("Working tree có thay đổi ngoài phạm vi triển khai prepare.")
+            if args.committed_source:
+                source_git_messages = source_mode_issues(source_state, True)
+                engine = git(root, 'diff', '--quiet', 'HEAD', '--', 'publish_public.yml', 'scripts/zo_publish.py')
+                if engine.returncode != 0:
+                    source_git_messages.append('Commit publication engine/config before committed-source prepare.')
             preflight = [item for item in issues if item["type"] in {"target-git", "target-symlink"}]
             preflight.extend({"type": "source-git", "message": item} for item in source_git_messages)
             if preflight:
@@ -1825,6 +1864,13 @@ def main(argv: Sequence[str] | None = None) -> int:
                 stage = root / prepare["staging_dir"]
                 render_dir, public_dir, backup_dir = stage / "render", stage / "public", stage / "backup"
                 baseline_source_dir = audit / "_zpb"
+                head_source = root
+                if args.committed_source:
+                    head_source = snapshots.enter_context(detached_source_tree(
+                        root, audit/'_zph', source_state['commit'], audit))
+                    payload['committed_source'] = True
+                    payload['excluded_working_changes'] = source_state['status']
+                    payload['head_render_support'] = copy_ignored_render_support(root, head_source)
                 baseline_render_dir = stage / "baseline_render"
                 baseline_public_dir = stage / "baseline_public"
                 rendered_public_dir = stage / "rendered_public"
@@ -1857,7 +1903,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                                    "message": "Quarto render baseline thất bại."})
                     code = EXIT_UNSAFE
                 else:
-                    render = render_to_staging(root, render_dir)
+                    render = render_to_staging(head_source, render_dir)
                     payload["render"] = render
                     if render["exit_code"] != 0:
                         safe_remove_tree(stage, audit)
@@ -1872,11 +1918,12 @@ def main(argv: Sequence[str] | None = None) -> int:
                         )
                         rendered_candidate = build_public_candidate(
                             render_dir, rendered_public_dir, target, config,
+                            source_root=head_source if args.committed_source else None,
                         )
                         issues.extend(baseline_candidate["issues"])
                         issues.extend(rendered_candidate["issues"])
                         output_scope = source_output_scope(
-                            root, baseline_commit, baseline_candidate["public_manifest"],
+                            head_source, baseline_commit, baseline_candidate["public_manifest"],
                             rendered_candidate["public_manifest"],
                         )
                         payload["source_output_scope"] = output_scope
@@ -1888,6 +1935,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                             baseline_public_dir, rendered_public_dir, public_dir, target, config,
                             rendered_candidate["manifest"].get("excluded", {}),
                             allowed_outputs,
+                            source_root=head_source if args.committed_source else None,
                         )
                         issues.extend(scoped_candidate["issues"])
                         if scoped_candidate["target_before_manifest"] != target_before:
@@ -1939,6 +1987,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     except RuntimeError as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return EXIT_UNSAFE
+    finally:
+        snapshots.close()
 
 
 if __name__ == "__main__":

@@ -1,21 +1,23 @@
 # HTML canonical của trang Nhà khóa 2027
 
-## Video giới thiệu Bản 01 ngày 16/10/2026
+## Video giới thiệu YouTube — 16/10/2026
 
-Chủ trì giao biên tập lại hoàn toàn vùng giới thiệu trong hero và đăng video
-Bản 01 có giọng B, bộ bìa đã duyệt. Nguồn chữ/vị trí vẫn ở `../index.qmd`;
-`.home-video-introduction` trong CSS Home bố trí chữ bên trái, video bên phải,
-chuyển thành một cột trên màn hình nhỏ. Không dùng khẩu hiệu cũ của vùng này.
+Nguồn trang Nhà đã chuyển từ MP4 tự lưu sang video YouTube `SJ1bb9gWxDA`.
+QMD giữ ảnh thu gọn Bản 01 và liên kết xem trên YouTube. Bộ xử lí
+`assets/js/zo_course_intro_youtube.js` tải iframe youtube-nocookie.com chỉ khi
+người xem bấm. Khung giữ tỉ lệ 16:9, có tên truy cập, toàn màn hình và
+referrer-policy strict-origin-when-cross-origin; không tự phát khi mở trang.
 
-MP4 và ảnh chờ tại `../assets/video/`, lấy nguyên byte từ dự án sản xuất
-`E:/zo_math_media/videos/on_thi_thpt_2027/gioi_thieu_khoa_hoc`.
-Video dùng controls/playsinline, preload none, không autoplay. Phụ đề động
-đã có trong hình, không bật thêm lớp phụ đề trùng. Bản nguồn dựng tiếp tục
-được quản lý ngoài kho website; ở đây chỉ lưu hai tài sản công khai cần dùng.
-Allowlist chỉ mở đúng MP4 này với ngoại lệ kích thước 20 MiB; validator và
-phép gom phụ thuộc nhận cả thuộc tính poster. Dựng lại qua launcher Quarto,
-kiểm phần giới thiệu và phát/tua thật trước khi xuất bản lại.
+Trước 20:30 ngày 16/10/2026 UTC+07:00, ảnh chờ đi cùng thông báo giờ công bố.
+Đến mốc này, nút xem tự mở và thông báo được ẩn; không cần xuất bản lại để
+đổi trạng thái. Đây là giao diện dựa vào đồng hồ thiết bị, không chứng nhận
+YouTube đã công khai: phải kiểm nền tảng sau giờ hẹn. Không có JavaScript thì
+liên kết xem YouTube vẫn dùng được.
 
+MP4 và ngoại lệ kích thước không còn trong chính sách xuất bản. Tệp phim cũ
+ở nguồn website và kho sản xuất được giữ lại; không dùng trong HTML mới.
+Chuyển nguồn/kiểm cục bộ không phải đã xuất bản. Bản 01 đã lên lịch YouTube;
+website mới còn chờ quy trình prepare/publish chính thức.
 ## Tiếp quản sau phát hành — 15/10/2026
 
 Nhà, D0, R1-G01 và R1-G02 đã được xuất bản, kiểm trực tiếp và khép hồ sơ
