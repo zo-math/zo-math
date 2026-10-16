@@ -24,7 +24,7 @@ python scripts/zo_python.py scripts/zo_publish.py publish
 
 `check` chỉ đọc: kiểm tra Git, worktree, cấu hình và cây đầu ra hiện có; từ đó dựng một candidate công khai trong thư mục hệ thống tạm nằm ngoài repository và worktree xuất bản. Candidate được lọc, bổ sung tệp đặc biệt, chuẩn hóa chỉ mục và kiểm định bằng cùng builder với `prepare`; diff dự kiến được tính từ byte cuối của candidate. Thư mục tạm luôn được dọn, còn repository, `docs`, Git index và worktree `gh-pages` không bị thay đổi.
 
-`prepare` render toàn website qua `scripts/zo_quarto.py` vào staging sạch trong `_audit/`, dùng lại đúng candidate builder của `check`, tạo báo cáo chuẩn bị rồi đồng bộ có kiểm soát sang worktree `gh-pages`. Để tách thay đổi nguồn khỏi drift của toolchain, công cụ đọc trailer `Source-Master` của commit `gh-pages` hiện hành, render commit nguồn đã xuất bản và HEAD bằng cùng toolchain, rồi chỉ phủ những đầu ra thực sự khác nhau giữa hai render lên cây đang xuất bản. Tập đầu ra được phép phủ còn phải bắt nguồn từ diff Git của source, quan hệ include/dependency hoặc nhóm sidebar thực sự thay đổi; khác biệt render nằm ngoài tập này được giữ nguyên byte từ `gh-pages`. Baseline tạm được bổ sung cùng các dependency và cache render đang bị Git ignore, nhưng tuyệt đối không lấy lại `docs`, `tmp` hoặc `_audit`. Chỉ mục toàn site vẫn được lấy từ render mới khi nội dung nguồn làm chúng thay đổi. `prepare` không tái sử dụng candidate tạm của lần `check`: mỗi lần chạy đều render, dựng và xác thực lại candidate từ trạng thái hiện hành. Lệnh này không stage, commit hoặc push. Chỉ chạy khi người dùng yêu cầu rõ và worktree đích hoàn toàn sạch; báo cáo chuẩn bị là căn cứ cho bước xuất bản tiếp theo.
+`prepare` không có `--page`, hoặc có `--full-render`, render toàn website qua `scripts/zo_quarto.py` vào staging sạch trong `_audit/`, dùng lại đúng candidate builder của `check`, tạo báo cáo chuẩn bị rồi đồng bộ có kiểm soát sang worktree `gh-pages`. Để tách thay đổi nguồn khỏi drift của toolchain, công cụ đọc trailer `Source-Master` của commit `gh-pages` hiện hành, render commit nguồn đã xuất bản và HEAD bằng cùng toolchain, rồi chỉ phủ những đầu ra thực sự khác nhau giữa hai render lên cây đang xuất bản. Tập đầu ra được phép phủ còn phải bắt nguồn từ diff Git của source, quan hệ include/dependency hoặc nhóm sidebar thực sự thay đổi; khác biệt render nằm ngoài tập này được giữ nguyên byte từ `gh-pages`. Baseline tạm được bổ sung cùng các dependency và cache render đang bị Git ignore, nhưng tuyệt đối không lấy lại `docs`, `tmp` hoặc `_audit`. Chỉ mục toàn site vẫn được lấy từ render mới khi nội dung nguồn làm chúng thay đổi. `prepare` toàn phần không tái sử dụng candidate tạm của lần `check`: mỗi lần chạy đều render, dựng và xác thực lại candidate từ trạng thái hiện hành. Đường `prepare --page` dùng cơ chế artifact riêng mô tả bên dưới. Lệnh này không stage, commit hoặc push. Chỉ chạy khi người dùng yêu cầu rõ và worktree đích hoàn toàn sạch; báo cáo chuẩn bị là căn cứ cho bước xuất bản tiếp theo.
 
 Candidate phải đạt kiểm tra trailing whitespace tương đương `git diff --check`. JSON và XML do công cụ chuẩn hóa phải dùng LF độc lập hệ điều hành. Với HTML, công cụ chỉ được bỏ khoảng trắng cuối dòng trên các dòng tag độc lập vừa thêm hoặc thay đổi và không nằm trong `pre`, `script`, `style` hoặc `textarea`; khoảng trắng có thể mang nghĩa phải được giữ nguyên và làm cổng kiểm tra thất bại thay vì bị sửa mù quáng.
 
@@ -34,7 +34,45 @@ Nếu push bị từ chối, công cụ giữ commit `gh-pages` cục bộ và b
 
 Không dùng `scripts/publish_public.sh` cho quy trình mới, trừ khi yêu cầu hiện tại của người dùng chỉ định rõ việc khảo sát script cũ. Không dùng `git add -A`, force push hoặc thao tác xóa diện rộng.
 
-Khi chỉ xuất bản một số trang, dùng `prepare --page <duong_dan_HTML>` và lặp lại `--page` cho từng trang đã được giao. Công cụ vẫn render toàn website để đối chiếu, nhưng chỉ phủ HTML thuộc danh sách này; HTML khác giữ nguyên byte đang xuất bản. CSS, JavaScript, ảnh, PDF và font được gom theo tham chiếu từ HTML/CSS chịu thay đổi, kể cả tài nguyên do adapter sinh; mọi tài nguyên vẫn phải thuộc allowlist và đạt validator. Chỉ mục site tiếp tục được chuẩn hóa theo cây công khai cuối cùng. Danh sách trang và tập tài nguyên phụ thuộc được lưu trong báo cáo prepare để kiểm trước publish.
+Khi chỉ cập nhật một số trang HTML, mặc định dùng `prepare --page <duong_dan_HTML>` và lặp lại `--page` cho từng trang đã được giao. Đường này dùng `scripts/zo_publish_pages.py`: chỉ render các nguồn QMD/Rmd được chọn, không render baseline lịch sử và không render toàn website. Cây public hiện hành là baseline; HTML khác cùng các PDF giữ nguyên byte. Muốn dùng cơ chế đối chiếu hai render toàn site cũ cho một phạm vi HTML, thêm `--full-render` một cách tường minh.
+
+### Cập nhật riêng trang: plan → prepare → validate → publish
+
+```text
+python scripts/zo_python.py scripts/zo_publish.py plan --page content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html
+python scripts/zo_python.py scripts/zo_publish.py prepare --committed-source --page content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html
+python scripts/zo_python.py scripts/zo_publish.py validate
+```
+
+`plan` chỉ khảo sát nguồn đang làm việc: nhận diện QMD/Rmd, kiểm phạm vi công khai, đường dẫn và tài nguyên khai báo trực tiếp. Không render, fetch, stage hay sửa worktree public; chỉ ghi báo cáo nếu chỉ định `--report`. Đây là kiểm tra sớm, chưa thay thế validator sau dựng.
+
+`prepare --page` kiểm Git, cấu hình toàn cục và tài nguyên trước khi dựng. Thay đổi `_quarto*.yml/yaml`, theme SCSS, filter hoặc extension toàn cục phải dùng `--full-render`; không tự mở rộng phạm vi. Sau một lượt render mỗi trang, công cụ lần theo HTML/CSS để gom đúng JS, ảnh, phông và giấy phép liên quan, kiểm allowlist/denylist, kích thước, nội dung nhạy cảm, liên kết và trailing whitespace. Tài nguyên thay đổi đang được trang khác dùng sẽ chặn phát hành, kèm danh sách trang bị ảnh hưởng; chủ nhiệm vụ phải mở rộng danh sách trang phù hợp hoặc chọn phát hành toàn phần.
+
+Công cụ ghép các mục search/sitemap của đúng trang được chọn vào chỉ mục public hiện hành. Không thay nội dung tìm kiếm hoặc metadata sitemap của trang ngoài phạm vi. Không tự xóa tài nguyên cũ còn có thể được trang khác dùng.
+
+PDF chỉ được kế thừa nếu SHA-256 và kích thước giống hệt bản public. Thêm, thay hoặc xóa PDF trên đường theo trang đều bị chặn; phải dùng quy trình đầy đủ với kiểm provenance PDF. Chỉ nội dung HTML/chỉ mục có byte thay đổi được phân tích lại; manifest, hash của phần giữ nguyên và ranh giới public vẫn được kiểm toàn cây. Đây là kế thừa bản đã phát hành, không phải miễn kiểm cho một PDF mới.
+
+`validate` dùng lại bản prepare, kiểm nguồn, HEAD public, manifest, backup, chính sách và validator cuối giống nhánh publish. Không render, fetch, stage, commit hay push. Nó không xác nhận remote mới nhất; `publish` vẫn fetch và kiểm remote ngay trước hành động thật. Nên chạy `validate` trước khi xin quyền phát hành để phát hiện lỗi môi trường/dependency sớm.
+
+### Artifact và điều kiện tái sử dụng
+
+Artifact ở `.quarto/zo_publish_cache/<fingerprint>/`; không nằm trong `_audit/`, không đưa vào Git hay cây public. Mỗi mục chỉ giữ trang đã chọn, chuỗi tài nguyên tham chiếu, search/sitemap cần ghép và receipt hash. Cache chỉ được tạo sau render thành công, nguồn không đổi trong khi dựng; khi dùng lại phải kiểm hash toàn bộ artifact. Cache hỏng bị chặn, không âm thầm dùng bản cũ hay sửa receipt.
+
+Fingerprint bao gồm trang được chọn, nội dung nguồn tracked (blob Git cho tệp sạch; hash trực tiếp cho tệp đã đổi), dependency bị ignore được phép, mã công cụ, chính sách public, phiên bản Quarto/Python/các gói Python và các biến môi trường liên quan. Chỉ thay metadata commit mà cây nguồn không đổi không buộc dựng lại. Hiện việc ghi nhận phụ thuộc là **bảo thủ trên toàn bộ nguồn tracked**, vì hook Python/R có thể đọc động: một số thay đổi nguồn không ảnh hưởng trực tiếp trang vẫn có thể làm cache mất hiệu lực. Chưa tuyên bố đã có đồ thị phụ thuộc tối thiểu cho mọi hook.
+
+Tài liệu có khối mã thực thi hoặc shortcode không xác định đầu vào không được tái sử dụng cache; vẫn render riêng trang mỗi lần. Khối HTML thô và include tĩnh được nhận diện riêng. Mỗi prepare vẫn xác thực và ghép candidate hiện hành, kể cả cache hit. `publish` phát hành đúng candidate đã duyệt, không render lại. Nguồn/công cụ/chính sách hoặc tệp phụ thuộc thay đổi sau prepare làm kiểm định dừng; không tự cập nhật SHA trong receipt. Nếu còn một prepare hợp lệ, không chạy đè: dùng `validate`/`publish` hoặc yêu cầu bỏ bản chuẩn bị cũ một cách có kiểm soát.
+
+### Đo thời gian và kiểm thử
+
+Receipt prepare theo trang ghi `timings` cho kiểm phạm vi, snapshot nguồn, preflight, fingerprint, artifact, backup, candidate/validator và đồng bộ; `page_release.cache_hit` cùng `render.source_count` phân biệt dựng mới với tái sử dụng. Full render cũng ghi thời gian baseline/head/tổng. `validate` báo thời gian kiểm không render; `publish` báo riêng validator, commit/đối chiếu Git, mạng và tổng. Không cộng thời gian chờ người duyệt vào tốc độ build.
+
+```text
+python scripts/zo_python.py scripts/zo_publish_selftest.py
+python scripts/zo_python.py scripts/zo_publish_pages_selftest.py
+```
+
+Bộ theo trang kiểm vòng prepare → validate → dùng lại artifact trên Git fixture, cache bị sửa, nguồn/công cụ đổi, nguồn đổi khi đang dựng, tài nguyên thiếu/cấm/dùng chung, giữ nguyên HTML/PDF, ghép chỉ mục, cùng đọc Git blob nhị phân/Unicode. Benchmark thực phải dùng cùng commit và cùng sửa đổi mẫu, so byte HTML/search với đường đầy đủ, tạo snapshot mới cả lần cache hit, không phát hành dữ liệu mẫu. Số đo một máy/một lượt không phải cam kết thời gian cho mọi trang.
+
 
 
 ### Chuẩn bị một số trang từ nguồn đã commit
@@ -52,10 +90,8 @@ và mọi sửa đổi khác nguyên trạng; snapshot được dọn cả khi c
 dependency/cache render bị ignore vốn được phép mới được bổ sung như đường
 dựng baseline, không dùng docs hay audit lịch sử làm đầu vào.
 
-PDF được kiểm bằng chính mã hợp đồng/provenance trong snapshot HEAD, không
-so bản phát hành với pipeline PDF đang được sửa ngoài commit. Cổng PDF vẫn
-chặn tệp sai/stale; trang/PDF ngoài phạm vi phải giữ nguyên byte đang public.
-Receipt ghi `committed_source`, SHA nguồn và các thay đổi làm việc bị loại
+Trong đường đầy đủ, PDF được kiểm bằng chính mã hợp đồng/provenance trong snapshot HEAD, không so với pipeline PDF đang được sửa ngoài commit. Trong đường theo trang, PDF phải giữ nguyên byte của bản public, mọi thay đổi PDF bị chặn như quy định ở trên.
+Receipt ghi `committed_source`, SHA nguồn, fingerprint artifact và các thay đổi làm việc bị loại
 khỏi render. Sai nhánh, vùng staged có dữ liệu, merge/rebase, source behind
 remote hoặc public worktree bẩn vẫn bị chặn.
 
@@ -78,11 +114,11 @@ thái làm việc hiện tại, không thay bằng kiểm một commit.
 
 ## 5. Trình tự dự kiến
 
-1. Render toàn website từ nguồn hiện hành qua `scripts/zo_quarto.py`.
-2. Chạy `check`: công cụ dựng candidate tạm, lọc, chuẩn hóa, kiểm định và tính diff; xử lý mọi điểm chặn.
+1. Chọn phạm vi: cập nhật riêng HTML dùng `plan --page`; thay cấu hình/toàn site/PDF dùng đường đầy đủ. Không mặc định render toàn website.
+2. Kiểm sớm nguồn, Git, dependency, chính sách và phạm vi; xử lí điểm chặn trước render. `check` vẫn phục vụ kiểm cây đầu ra hiện có, không phải bước bắt buộc dựng lại toàn site trước một cập nhật trang.
 3. Chủ dự án duyệt kết quả kiểm tra. `check` đạt không tự động cho phép `prepare` hoặc `publish`.
-4. Khi người dùng yêu cầu rõ, chạy `prepare`; công cụ render sạch và dựng, xác thực lại một candidate mới trước khi đồng bộ sang worktree xuất bản.
-5. Chủ dự án duyệt candidate và diff do `prepare` tạo.
+4. Khi người dùng yêu cầu rõ, chạy `prepare --page` hoặc prepare đầy đủ phù hợp; dựng/tái sử dụng artifact, xác thực và đồng bộ candidate có kiểm soát sang worktree xuất bản.
+5. Chạy `validate` không phát hành; chủ dự án duyệt candidate và diff do `prepare` tạo.
 6. Chỉ khi người dùng cho phép xuất bản, chạy `publish` để kiểm định lại remote, manifest và diff, sau đó commit riêng trên `gh-pages` và push thường.
 
 ## 6. Bản nháp và ranh giới nội bộ
@@ -100,3 +136,7 @@ python scripts/zo_python.py scripts/zo_publish_selftest.py
 ```
 
 Fixture của bộ kiểm thử nằm trong `_audit/` và được tự dọn. Khi mở rộng validator, phải phân biệt phát hiện mới trên đầu ra cũ với hồi quy do thay đổi nguồn; không tự dọn các vấn đề ngoài nhiệm vụ.
+
+### Benchmark tái lập (chỉ khi được giao đo hiệu năng)
+
+Dùng `python scripts/zo_python.py scripts/zo_publish_benchmark.py --page <trang.html> --old-text <chuoi-cu> --new-text <chuoi-moi> --report _audit/<ten-phep-do>.json`. Công cụ chỉ dựng sửa đổi mẫu trong snapshot tạm, không commit nguồn mẫu, không stage hay push, không sửa cây public. Cả lần đầu và lần cache dùng snapshot nguồn mới. Tất cả snapshot và sản phẩm lớn được dọn khi xong; chỉ giữ báo cáo. Đây là phép đo dài, không chạy trong mỗi lần cập nhật trang.
