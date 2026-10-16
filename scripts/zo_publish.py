@@ -41,7 +41,7 @@ SUPPORTED_VERSION = 1
 REPORT_SCHEMA_VERSION = 1
 TEXT_SUFFIXES = {".css", ".html", ".js", ".json", ".txt", ".xml"}
 HTML_PRESERVE_WHITESPACE_TAGS = {"pre", "script", "style", "textarea"}
-RENDER_SUPPORT_EXCLUDED_ROOTS = {"_audit", "docs", "tmp"}
+RENDER_SUPPORT_EXCLUDED_ROOTS = {"_audit", ".quarto", "docs", "tmp"}
 SOURCE_SUFFIXES = {
     ".aux", ".db", ".fdb_latexmk", ".fls", ".key", ".log", ".md",
     ".pem", ".ps1", ".py", ".qmd", ".r", ".rdata", ".rmd", ".sh",
@@ -758,7 +758,7 @@ def course_pdf_issues(public: Path, files: set[str], source_root: Path | None = 
         command = [sys.executable, str(source_root / 'scripts/zo_python.py'), '-B', '-c',
                    "import sys,json;from pathlib import Path;sys.path.insert(0,'scripts');import zo_publish;"
                    "print(json.dumps(zo_publish.course_pdf_issues(Path(sys.argv[1]),set(json.loads(sys.argv[2])))))",
-                   str(public), json.dumps(sorted(files))]
+                   str(public), json.dumps(sorted(name for name in files if name.lower().endswith(".pdf")))]
         result = run(command, source_root)
         if result.returncode != 0:
             raise RuntimeError('Committed PDF validator failed: ' + result.stderr)
@@ -1002,12 +1002,12 @@ def copy_ignored_render_support(root: Path, destination: Path) -> dict[str, Any]
 
 @contextmanager
 def detached_source_tree(root: Path, destination: Path, commit: str, audit: Path):
-    """Create a read-only-purpose detached worktree under _audit and always remove it."""
+    """Create a detached build snapshot inside a controlled temporary root and always remove it."""
     resolved = destination.resolve()
     try:
         resolved.relative_to(audit.resolve())
     except ValueError as exc:
-        raise ConfigError(f"Từ chối tạo baseline ngoài _audit/: {destination}") from exc
+        raise ConfigError(f"Từ chối tạo snapshot ngoài vùng tạm được chỉ định: {destination}") from exc
     if resolved.exists():
         raise ConfigError(f"Thư mục baseline phải chưa tồn tại: {destination}")
     added = git(root, "worktree", "add", "--detach", str(resolved), commit)
@@ -1614,7 +1614,7 @@ def publish_site(root: Path, config_path: Path, config: Mapping[str, Any]) -> in
         if status_porcelain(target, target) != expected_status:
             raise RuntimeError("Git status của worktree không khớp kế hoạch prepare.")
         if payload.get('committed_source'):
-            with detached_source_tree(root, root/'_audit/_zpv', expected_source, root/'_audit') as snapshot:
+            with detached_source_tree(root, root/'.quarto/_zpv', expected_source, root/'.quarto') as snapshot:
                 validate_prepared_tree(root, target, config, payload, source_root=snapshot)
         else:
             validate_prepared_tree(root, target, config, payload)
@@ -1863,11 +1863,11 @@ def main(argv: Sequence[str] | None = None) -> int:
                 audit = root / "_audit"
                 stage = root / prepare["staging_dir"]
                 render_dir, public_dir, backup_dir = stage / "render", stage / "public", stage / "backup"
-                baseline_source_dir = audit / "_zpb"
+                baseline_source_dir = root / ".quarto/_zpb"
                 head_source = root
                 if args.committed_source:
                     head_source = snapshots.enter_context(detached_source_tree(
-                        root, audit/'_zph', source_state['commit'], audit))
+                        root, root/'.quarto/_zph', source_state['commit'], root/'.quarto'))
                     payload['committed_source'] = True
                     payload['excluded_working_changes'] = source_state['status']
                     payload['head_render_support'] = copy_ignored_render_support(root, head_source)
@@ -1889,7 +1889,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                     raise RestoreError("Backup worktree không khớp manifest ban đầu.")
                 baseline_commit = published_source_commit(root, target)
                 payload["published_source_commit"] = baseline_commit
-                with detached_source_tree(root, baseline_source_dir, baseline_commit, audit) as baseline_source:
+                with detached_source_tree(root, baseline_source_dir, baseline_commit, root/".quarto") as baseline_source:
                     payload["baseline_render_support"] = copy_ignored_render_support(
                         root, baseline_source,
                     )

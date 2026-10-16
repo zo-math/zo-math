@@ -47,7 +47,7 @@ python scripts/zo_python.py scripts/zo_publish.py prepare --committed-source --p
 
 Chế độ này chỉ dùng với `prepare --page`. Trước đó phải commit đúng phần
 nguồn cần phát hành và mã/config công cụ xuất bản, để vùng staged trống.
-Công cụ dựng HEAD trong snapshot tạm `_audit/_zph`, giữ nơi biên tập chính
+Công cụ dựng HEAD trong snapshot tạm `.quarto/_zph`, giữ nơi biên tập chính
 và mọi sửa đổi khác nguyên trạng; snapshot được dọn cả khi có lỗi. Chỉ các
 dependency/cache render bị ignore vốn được phép mới được bổ sung như đường
 dựng baseline, không dùng docs hay audit lịch sử làm đầu vào.
