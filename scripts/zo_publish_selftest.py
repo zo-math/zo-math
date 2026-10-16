@@ -21,6 +21,19 @@ GOVERNANCE = SECTION + "/_quy_trinh"
 
 
 class PublicBoundaryTests(unittest.TestCase):
+    def test_historical_whitespace_does_not_relax_final_candidate(self):
+        raw=self.public/'historical-raw';raw.mkdir()
+        self.write_at(raw,'CNAME',self.config['custom_domain']['cname'])
+        self.write_at(raw,'index.html','<html><body>Text</body></html>')
+        self.write_at(raw,'assets/test/license.css','license trailing \n')
+        from unittest.mock import patch
+        with patch.object(publish,'validate_public',return_value={'issues':[]}):
+            old=publish.build_public_candidate(raw,self.public/'historical-candidate',self.public,self.config,historical_comparison_only=True)
+            new=publish.build_public_candidate(raw,self.public/'current-candidate',self.public,self.config)
+        self.assertTrue(old['historical_whitespace_issues'])
+        self.assertFalse(any(x['type']=='trailing-whitespace' for x in old['issues']))
+        self.assertTrue(any(x['type']=='trailing-whitespace' for x in new['issues']))
+
     def test_font_dependencies_include_local_license_files(self):
         raw=self.public/'font-test';raw.mkdir()
         contents={'index.html':'<link rel="stylesheet" href="style.css">',

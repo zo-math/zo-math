@@ -1225,7 +1225,9 @@ def build_public_candidate(raw_output: Path, candidate: Path, target: Path,
     validation = validate_public(candidate, public_manifest, config,
                                  historical_comparison_only=historical_comparison_only, source_root=source_root)
     blocking.extend(validation["issues"])
-    blocking.extend(changed_trailing_whitespace(target, candidate, public_manifest))
+    whitespace_issues = changed_trailing_whitespace(target, candidate, public_manifest)
+    if not historical_comparison_only:
+        blocking.extend(whitespace_issues)
 
     return {
         "selected_manifest": selected,
@@ -1235,6 +1237,7 @@ def build_public_candidate(raw_output: Path, candidate: Path, target: Path,
         "index_normalization": normalization,
         "html_whitespace_normalization": html_whitespace,
         "validation": validation,
+        "historical_whitespace_issues": whitespace_issues if historical_comparison_only else [],
         "issues": blocking,
         "diff": exact_diff(target_manifest, public_manifest),
         "target_before_manifest": target_manifest,
