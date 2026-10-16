@@ -37,6 +37,12 @@ def checks(page, output_root):
             "no executable draft dependency":"_quy_trinh/ban_thao" not in str(doc) and "_audit/" not in str(doc),
             "all registered PDF downloads available":len(root.select('a[download]'))==8 and all(n.get("data-pdf-current")=="true" for n in root.select(".zo-pdf-card")),
             "fallback navigation available":bool(doc.select("noscript nav a"))}
+    meta=yaml.safe_load(source.split('---',2)[1])
+    repair=next(item for item in meta['r1-section-download-files'] if item['variant']=='sua_loi')
+    repair_link=root.select_one('.zo-pdf-card a[href="index_sua_loi.pdf"]')
+    repair_card=repair_link.find_parent(class_='zo-pdf-card') if repair_link else None
+    result["repair PDF description matches actual branches"]=all(label in repair['description'] for label in ['Luyện tập','Kiểm tra','Ôn lại']) and 'Chuyển giao' not in repair['description'] and bool(repair_card and repair_card.select_one('.zo-pdf-description').get_text(' ',strip=True)==repair['description'])
+    result["PDF cards use shared styled component"]='zo-web-2027-production' in doc.body.get('class',[]) and len(root.select('.zo-pdf-card a[download] svg'))==8 and any(n.get('href','').endswith('g01-downloads.css') for n in doc.select('link[rel=stylesheet]'))
     lesson=root.find(id="bai-hoc")
     result["controller lesson heading count"]=len(lesson.select("h3"))==int(root["data-r1-lesson-count"])
     # Presentation regressions found by comparing the accepted G01 shell.
