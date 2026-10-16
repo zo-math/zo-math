@@ -10,6 +10,7 @@ import shutil
 import subprocess
 import sys
 import xml.etree.ElementTree as ET
+from zo_graphics import graph_path, load_graph, load_variation, load_variation_html
 
 sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,7 +22,7 @@ DEFAULT = ROOT / '_audit/zo_math_figure_profile_2026-10-08'
 
 
 def sha(p):
-    return hashlib.sha256(p.read_bytes()).hexdigest()
+    return hashlib.sha256(graph_path(p, ROOT).read_bytes()).hexdigest()
 
 
 def protect():
@@ -36,6 +37,12 @@ def protect():
 
 
 def load_module(name, path):
+    if Path(path).resolve() == (GRAPH / 'zo_graph_build.py').resolve():
+        return load_graph(name, ROOT)
+    if Path(path).name == 'zo_variation_build.py':
+        return load_variation(path, name, ROOT)
+    if Path(path).resolve() == (VARIATION / 'zo_variation_html.py').resolve():
+        return load_variation_html(name, ROOT)
     spec = importlib.util.spec_from_file_location(name, path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)

@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any, Sequence
 
 from zo_qmd_config import ProjectConfigError, discover_project_config
+from zo_graphics import geometry_paths
 
 
 class GeometryLifecycleError(RuntimeError):
@@ -68,12 +69,13 @@ def _assets_for_paths(root: Path, paths: Sequence[str]) -> list[tuple[Path, Path
     return assets
 
 
-def _receipt_errors(root: Path, source: Path, output: Path, dpi: int) -> list[str]:
-    compiler = root / "scripts/zo_geometry.py"
-    style = root / "assets/tex/zo-geometry-styles.tex"
+def _receipt_errors(root: Path, source: Path, output: Path, dpi: int, *, toolchain=None) -> list[str]:
+    tools = geometry_paths(root) if toolchain is None else toolchain
+    compiler = tools["compiler"]
+    style = tools["style"]
     receipt_path = output.with_suffix(".geometry.json")
     required = [source, compiler, style, *(output.with_suffix(s) for s in (".tex", ".pdf", ".svg", ".png"))]
-    missing = [str(path.relative_to(root)) for path in required if not path.is_file()]
+    missing = [str(path) for path in required if not path.is_file()]
     if missing:
         return ["thiếu tệp: " + ", ".join(missing)]
     if not receipt_path.is_file():
@@ -101,9 +103,14 @@ def run_geometry_lifecycle(root: Path, paths: Sequence[str], *, build_stale: boo
         return 1
     if not assets:
         return 0
+    try:
+        tools = geometry_paths(root)
+    except (FileNotFoundError, ValueError) as exc:
+        print(f"ERROR: geometry toolchain: {exc}", file=sys.stderr)
+        return 1
     launcher = root / "scripts/zo_python.py"
-    compiler = root / "scripts/zo_geometry.py"
-    checker = root / "scripts/zo_geometry_check.py"
+    compiler = tools["cli"]
+    checker = tools["checker"]
     for source, output, dpi in assets:
         errors = _receipt_errors(root, source, output, dpi)
         if errors and build_stale:
@@ -142,9 +149,21 @@ def _self_test() -> None:
             "outputs": {suffix: _sha256(output.with_suffix(suffix)) for suffix in (".tex", ".pdf", ".svg", ".png")},
         }
         output.with_suffix(".geometry.json").write_text(json.dumps(receipt), encoding="utf-8")
-        assert _receipt_errors(root, source, output, 180) == []
+        tools = {"compiler": compiler, "style": style}
+        assert _receipt_errors(root, source, output, 180, toolchain=tools) == []
+        source.write_text("changed source\n", encoding="utf-8")
+        assert _receipt_errors(root, source, output, 180, toolchain=tools)
+        source.write_text("id: test\n", encoding="utf-8")
+        compiler.write_text("changed compiler\n", encoding="utf-8")
+        assert _receipt_errors(root, source, output, 180, toolchain=tools)
+        compiler.write_text("compiler\n", encoding="utf-8")
+        output.with_suffix(".svg").write_bytes(b"changed output")
+        assert _receipt_errors(root, source, output, 180, toolchain=tools)
+        output.with_suffix(".svg").write_bytes(b".svg")
+        assert _receipt_errors(root, source, output, 181, toolchain=tools)
+        assert _receipt_errors(root, source, output, 180, toolchain=tools) == []
         style.write_text("changed\n", encoding="utf-8")
-        assert _receipt_errors(root, source, output, 180)
+        assert _receipt_errors(root, source, output, 180, toolchain=tools)
 
 
 if __name__ == "__main__":
