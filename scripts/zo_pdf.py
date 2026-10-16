@@ -12,6 +12,7 @@ from pathlib import Path
 
 from zo_artifact_freshness import FreshnessError, evaluate_artifact_freshness
 from zo_qmd_config import discover_project_config
+from zo_graphics import graph_path
 from zo_pdf_contract import (
     canonical_pdf_provenance_enabled,
     canonical_variant_input_state,
@@ -79,7 +80,7 @@ def isolated_project(source: Path, directory: Path) -> Path:
             shutil.copy2(path, mirror / path.name)
     for relative in (Path("assets"), Path("scripts"), config.project_root):
         shutil.copytree(ROOT / relative, mirror / relative, dirs_exist_ok=True,
-                        ignore=shutil.ignore_patterns("__pycache__", ".quarto", "*_files"))
+                        ignore=shutil.ignore_patterns("__pycache__", ".quarto", "_audit", "*_files"))
     for parent in source.parent.parents:
         if parent == ROOT:
             break
@@ -92,6 +93,10 @@ def isolated_project(source: Path, directory: Path) -> Path:
     # Includes outside the package are declared canonical dependencies too.
     # Copy them explicitly; the mirror must never resolve them from old HTML.
     for relative in pipeline_input_paths(ROOT, source):
+        if graph_path(ROOT / relative, ROOT) != (ROOT / relative).resolve():
+            # External tools stay external, including inside isolated builds.
+            # The launcher propagates ZO_MATH_GRAPHICS_ROOT to the child.
+            continue
         target = mirror / relative
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT / relative, target)
@@ -109,7 +114,8 @@ def verify_course_graph_paths(source: Path, text: str | None = None) -> None:
         raise ValueError('G02 QMD must select exactly the four current shared graph SVG/PDF pairs.')
 
 
-def build(source: Path, variant: str = "full", preflight: bool = False) -> int:
+def build(source: Path, variant: str = "full", preflight: bool = False,
+          output_directory: Path | None = None) -> int:
     verify_course_graph_paths(source)
     # Fail before the expensive Quarto render if any current graph pair drifts.
     if source.parent.name == 'r1_g01':
@@ -120,6 +126,14 @@ def build(source: Path, variant: str = "full", preflight: bool = False) -> int:
         verify_print()
     definition = pdf_variant(ROOT, source, variant)
     destination = output_path(source, variant)
+    if output_directory is not None:
+        output_directory = output_directory.resolve()
+        if not output_directory.is_relative_to(ROOT / '.quarto'):
+            raise ValueError('Candidate PDF output directory must be inside .quarto')
+        output_directory.mkdir(parents=True, exist_ok=True)
+        destination = output_directory / destination.name
+        if destination.exists():
+            raise ValueError('Candidate PDF already exists: ' + str(destination))
     canonical_provenance = canonical_pdf_provenance_enabled(ROOT, source)
     input_state = canonical_variant_input_state(ROOT, source, variant) if canonical_provenance else None
     BUILD_DIR.mkdir(parents=True, exist_ok=True)
@@ -209,9 +223,20 @@ def build(source: Path, variant: str = "full", preflight: bool = False) -> int:
         shutil.copy2(expected, replacement)
         validate_rendered_pdf(replacement)
         replacement.replace(destination)
-        receipt = write_pdf_build_receipt(ROOT, source, destination, variant=variant)
+        if output_directory is not None:
+            from zo_pdf_contract import sha256_file
+            receipt = destination.with_suffix('.pdf.build.json')
+            receipt.write_text(json.dumps({
+                'candidate_build_schema_version': 1,
+                'generator': 'scripts/zo_pdf.py', 'variant': variant,
+                'input_state': input_state,
+                'output': {'path': relative_to_root(destination), 'sha256': sha256_file(destination)},
+                'canonical_output_replaced': False,
+            }, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+        else:
+            receipt = write_pdf_build_receipt(ROOT, source, destination, variant=variant)
         manifest = None
-        if input_state is not None:
+        if input_state is not None and output_directory is None:
             manifest = update_canonical_pdf_provenance(
                 ROOT,
                 source,
@@ -295,6 +320,8 @@ def parser() -> argparse.ArgumentParser:
         command = subparsers.add_parser(name)
         command.add_argument("source", type=source_path)
         command.add_argument("--variant", default="full")
+        if name == 'build':
+            command.add_argument('--out-dir', type=Path, help='Build a candidate under .quarto without replacing registered PDFs or provenance')
     subparsers.add_parser("self-test")
     return result
 
@@ -305,7 +332,7 @@ def main() -> int:
         return self_test()
     try:
         if args.command in ("build", "preflight"):
-            return build(args.source, args.variant, args.command=='preflight')
+            return build(args.source, args.variant, args.command=='preflight', getattr(args, 'out_dir', None))
         return status(args.source, args.variant)
     except (ValueError, OSError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
