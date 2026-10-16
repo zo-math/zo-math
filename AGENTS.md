@@ -50,6 +50,17 @@ Không dùng `\boxed{...}` hoặc khung viền trực tiếp quanh công thức 
 
 ## Chỉ dẫn theo loại nhiệm vụ
 
+### Kết sổ cuối ngày trên toàn repository
+
+Khi người dùng trực tiếp yêu cầu "Kết thúc ngày làm việc", "Kết sổ cuối ngày"
+hoặc tương đương, agent thực hiện mục 11 của
+`quy_trinh_xay_dung/quy_trinh_thuc_hien_nhiem_vu_ky_thuat.md`, dùng
+`scripts/zo_end_day.py` qua `scripts/zo_python.py`. Agent tự lập và kiểm kế
+hoạch; không yêu cầu người dùng điền JSON hoặc chạy lệnh. Đây là cơ chế chung
+cho toàn ZO Math, không phải nghiệm thu hay xuất bản dự án con.
+Yêu cầu xây dựng cơ chế hoặc câu hỏi về cơ chế không kích hoạt kết sổ.
+Không suy đoán ngày làm việc đã kết thúc từ việc một nhiệm vụ vừa xong.
+
 ### Hệ thống sản xuất và kiểm định QMD
 
 Khi người dùng giao một nhiệm vụ QMD bằng ngôn ngữ tự nhiên, chẳng hạn "Hãy viết về hàm $y=e^x$", đó đã là yêu cầu hợp lệ nếu dự án đích đã được tích hợp. Agent phải tự chuyển yêu cầu ấy thành việc nhận diện dự án, nạp nguồn có thẩm quyền, lập kế hoạch, sản xuất, kiểm định và bàn giao; không yêu cầu người dùng biết tên script, cú pháp Terminal hoặc tự vận hành CLI. Nếu chưa có cấu hình và hợp đồng cho dự án đích, agent phải nói rõ đây là nhiệm vụ tích hợp dự án mới, không giả định cỗ máy đã hỗ trợ.
@@ -101,11 +112,36 @@ bằng bộ công cụ ZO Math, phải đọc và tuân thủ thêm:
 
 - `quy_trinh_xay_dung/quy_chuan_san_xuat_hinh_hoc_zo_math_v0.1.md`.
 
-Dùng `scripts/zo_geometry.py` làm điểm vào production và luôn gọi qua
-`scripts/zo_python.py`. Fixture hồi quy ở `scripts/fixtures/geometry/`;
-helper ở `scripts/zo_geometry_stress.py`. Nội dung trong
+Máy hình học production đã tách sang bộ `../zo_math_graphics`.
+Trong repository này, gọi adapter `scripts/zo_graphics.py geometry` qua
+`scripts/zo_python.py`; dùng `geometry-check` để kiểm nhãn/SVG và
+`geometry-test` để chạy hồi quy. Engine/checker ở `geometry/`, fixture ở
+`tests/fixtures/geometry/` của bộ công cụ ngoài repo. Nguồn YAML và các sản
+phẩm học liệu đang dùng vẫn thuộc dự án trong `zo_math`, không di chuyển
+theo công cụ. Có thể đặt `ZO_MATH_GRAPHICS_ROOT` khi cài bộ công cụ ở nơi khác.
+Nội dung trong
 `_audit/zo_geometry_spike/` chỉ là bằng chứng lịch sử, không phải phụ thuộc
 biên dịch hoặc kiểm thử canonical.
+
+### Công cụ đồ thị hàm số
+
+Máy đồ thị dùng chung ở `../zo_math_graphics/graph`; cửa vào độc lập là
+`zo_graph.py` ở gốc bộ công cụ. Trong repo này gọi
+`python scripts/zo_python.py scripts/zo_graphics.py graph <source.tex> ...`;
+chạy bộ kiểm bằng `scripts/zo_graphics.py graph-test` qua cùng launcher.
+Nguồn TEX và PDF/SVG đang dùng vẫn thuộc dự án `zo_math`. Đường dẫn công cụ
+cũ trong manifest là khóa dependency ổn định được adapter phân giải sang
+vị trí mới, không phải lý do để sửa manifest hoặc chép engine trở lại repo.
+
+### Công cụ bảng biến thiên
+
+Máy dựng vector/HTML, template và bộ kiểm ở `../zo_math_graphics/variation`;
+cửa vào độc lập là `zo_variation.py`. Trong repository gọi
+`python scripts/zo_python.py scripts/zo_graphics.py variation check <source.json>`
+hoặc `variation build <source.json> --out-dir <thu-muc-dich> --check`;
+chạy hồi quy bằng `variation test`. JSON và các sản phẩm bài học giữ tại
+`zo_math`; CSS/Lua tích hợp QMD cũng ở lại. Adapter phân giải khóa nguồn cũ
+trong hồ sơ sang vị trí mới; không sửa hash hay chép engine trở lại repo.
 
 ### Xuất bản website
 

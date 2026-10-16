@@ -10,14 +10,19 @@ dựng qua TikZ, `tkz-euclide` hoặc `tikz-3dplot`. Không tự động hồi t
 
 Nguồn production:
 
-- compiler và CLI: `scripts/zo_geometry.py`;
-- checker: `scripts/zo_geometry_check.py`;
-- self-test: `scripts/zo_geometry_selftest.py`;
-- style: `assets/tex/zo-geometry-styles.tex`.
+- bộ độc lập: `../zo_math_graphics` (hoặc `ZO_MATH_GRAPHICS_ROOT`);
+- CLI: `zo_geometry.py` ở gốc bộ công cụ; compiler nguyên byte ở `geometry/zo_geometry.py`;
+- checker: `geometry/zo_geometry_check.py`;
+- self-test: `tests/zo_geometry_selftest.py`;
+- style: `assets/tex/zo-geometry-styles.tex` của bộ công cụ;
+- adapter trong repo nội dung: `scripts/zo_graphics.py`.
 
-Fixture hồi quy được quản lý tại `scripts/fixtures/geometry/`, helper ma trận
-tại `scripts/zo_geometry_stress.py`; self-test chỉ gọi compiler/checker và
-style canonical. Nội dung trong `_audit/zo_geometry_spike/` là bằng chứng
+Fixture hồi quy được quản lý tại `tests/fixtures/geometry/` của bộ công cụ,
+helper ma trận tại `geometry/zo_geometry_stress.py`; self-test chỉ gọi
+compiler/checker và style canonical. Nguồn YAML và sản phẩm TEX/PDF/SVG/PNG,
+receipt của từng bài vẫn giữ trong dự án `zo_math`. Chỉ fixture nội bộ được
+chuyển theo bộ kiểm, không mang tài nguyên học liệu đang sử dụng sang đó.
+Nội dung trong `_audit/zo_geometry_spike/` là bằng chứng
 thiết kế lịch sử, không là đầu vào biên dịch hoặc kiểm thử chính thức.
 
 ## 2. Điểm vào vận hành
@@ -25,15 +30,21 @@ thiết kế lịch sử, không là đầu vào biên dịch hoặc kiểm th�
 Mọi lệnh Python phải qua trình khởi chạy repository-local:
 
 ```text
-python scripts/zo_python.py scripts/zo_geometry.py check <source.yml>
-python scripts/zo_python.py scripts/zo_geometry.py compile <source.yml> <output.tex>
-python scripts/zo_python.py scripts/zo_geometry.py build <source.yml> <output-prefix>
-python scripts/zo_python.py scripts/zo_geometry_check.py --strict-labels <source.yml> <output.svg>
-python scripts/zo_python.py scripts/zo_geometry_selftest.py -q
+python scripts/zo_python.py scripts/zo_graphics.py geometry check <source.yml>
+python scripts/zo_python.py scripts/zo_graphics.py geometry compile <source.yml> <output.tex>
+python scripts/zo_python.py scripts/zo_graphics.py geometry build <source.yml> <output-prefix>
+python scripts/zo_python.py scripts/zo_graphics.py geometry-check --strict-labels <source.yml> <output.svg>
+python scripts/zo_python.py scripts/zo_graphics.py geometry-test -q
 ```
 
 `build` sinh TeX, PDF vector, SVG, PNG kiểm tra và receipt `<output-prefix>.geometry.json`. Receipt khóa SHA-256 của nguồn YAML, compiler, style và bốn đầu ra. Với dự án QMD khai báo `extensions.geometry.assets`, `zo_qmd check` dùng receipt để phát hiện tài sản lỗi thời, còn `zo_qmd render` tự dựng lại trước khi dựng trang. PDF/SVG/PNG là đầu ra sinh,
 không sửa tay.
+
+Đường dẫn nguồn/đích tương đối được hiểu theo thư mục gọi. Công cụ ngoài repo
+tự cấp đường tìm style/phông khi dựng; có thể đọc YAML trong `zo_math` và
+ghi sản phẩm vào đích dự án chỉ định. Lượt di dời 15/10/2026 giữ nguyên byte
+compiler/style để receipt và hình cũ tiếp tục được kiểm đúng hash; không sửa
+receipt hoặc tái sinh sản phẩm hiện hành chỉ vì đổi chỗ công cụ.
 
 ## 3. Bất biến thị giác
 
