@@ -1,5 +1,6 @@
 """Shared scoped R1 presentation policy; no changes to mathematical content."""
 import json
+import re
 import os
 from pathlib import Path
 import shutil
@@ -44,3 +45,54 @@ def apply(document, page, runtime):
     css = runtime/'r1-consistency.css'
     shutil.copyfile(KIT/css.name, css)
     document.head.append(document.new_tag('link', rel='stylesheet', href=os.path.relpath(css,page.parent).replace('\\','/')))
+
+
+def apply_editorial_policy(document):
+    """Approved common page labels and titles; content stays source-owned."""
+    policy=json.loads((KIT/'profiles/r1-consistency.json').read_text(encoding='utf-8'))
+    root=document.select_one('.reader-content')
+    if root is None:raise ValueError('Common editorial policy requires a reader')
+    for heading in root.select('h2'):
+        title=heading.get_text(' ',strip=True)
+        prior=heading.find_previous_sibling(attrs={'data-reading-label':True})
+        if title=='Kiểm tra':
+            if prior:prior.decompose()
+            continue
+        if title not in policy['page_roles']:continue
+        if prior:prior.string=policy['page_roles'][title]
+        else:
+            label=document.new_tag('span',attrs={'class':'role','data-reading-label':''})
+            label.string=policy['page_roles'][title];heading.insert_before(label)
+    document.title.string=root['data-r1-title']+' — ZO Math'
+    require_editorial_policy(document)
+
+
+def require_editorial_policy(document):
+    policy=json.loads((KIT/'profiles/r1-consistency.json').read_text(encoding='utf-8'))
+    root=document.select_one('.reader-content')
+    for title in ['Bắt đầu','Bài học','Luyện tập','Ôn lại','Sửa lỗi','Nguồn']:
+        heading=next((n for n in root.select('h2') if n.get_text(' ',strip=True)==title),None)
+        label=heading.find_previous_sibling(attrs={'data-reading-label':True}) if heading else None
+        if not label or label.get_text(strip=True)!=policy['page_roles'][title]:
+            raise ValueError('Common area label missing: '+title)
+    if document.title.get_text()!=root['data-r1-title']+' — ZO Math':
+        raise ValueError('Browser title differs from common contract')
+    for heading in root.select('h2'):
+        if heading.get_text(strip=True)=='Kiểm tra' and heading.find_previous_sibling(attrs={'data-reading-label':True}):
+            raise ValueError('Assessment must not inherit lesson self-check label')
+    for label in root.select('[data-reading-label]'):
+        following=label.find_next_sibling()
+        if label.get_text(strip=True).casefold()=='ví dụ' and following and following.name in ['h3','h4','h5']:
+            title=re.sub(r'^\d+(?:\.\d+)*\.\s*','',following.get_text(' ',strip=True)).casefold()
+            if title.startswith('ví dụ'):raise ValueError('Repeated example label')
+    for paragraph in root.select('p'):
+        if re.search(r'\b(?:R1-)?G0[123]\b',paragraph.get_text(' ',strip=True)):
+            raise ValueError('Management package code in learner prose')
+    binding_path=ROOT/'content/thpt/on_thi_toan_thpt/hoc_lieu'/root['data-r1-code'].lower().replace('-','_')/'giao_dien/he_nhan.json'
+    data=json.loads(binding_path.read_text(encoding='utf-8'))
+    examples=data.get('editorial_examples') or [n for n in data.get('knowledge_units',[]) if n['type']=='type.example'] or data.get('examples',[])
+    for number,example in enumerate(examples,1):
+        node=root.find(id=example['anchor'])
+        title=re.search(r'Ví dụ\s+(\d{2})\s+—\s+([^\n]+)',node.get_text(' ',strip=True)) if node else None
+        if not title or int(title.group(1))!=number:
+            raise ValueError('Example title/continuous numbering differs from source binding: '+example['anchor'])

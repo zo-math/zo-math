@@ -114,7 +114,7 @@ def apply(page,output, *, document=None):
     if set(seen)!=set(by_id):raise ValueError('Missing G02 BBT')
     image=doc.select_one('.hero-art img')
     image['src']='assets/figures04/cover-light.svg'
-    image['alt']='Minh họa G02 từ Luyện tập 02: g(x)=|x+2| trên [-4;1], nhỏ nhất tại điểm gãy và lớn nhất tại đầu mút'
+    image['alt']='Minh họa từ nhiệm vụ về giá trị lớn nhất và giá trị nhỏ nhất: g(x)=|x+2| trên [-4;1], nhỏ nhất tại điểm gãy và lớn nhất tại đầu mút'
     doc.select_one('.hero-art figcaption').string='So sánh đầu mút và điểm bên trong · Minh họa từ Luyện tập 02'
     frame=doc.new_tag('div',attrs={'class':'zo-cover-frame','style':'--frame-width:420px;--frame-ratio:1/1;--frame-bg:#FFFBE8'})
     image.wrap(frame)

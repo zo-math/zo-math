@@ -5,6 +5,14 @@ Phiên bản: 0.2 · Cập nhật: 16/10/2026.
 Chỉ ghi quyết định có ảnh hưởng lâu dài; không chép hội thoại hay log lệnh. Bảng điều hành ghi việc hiện hành. [Điểm vào](README.md).
 
 
+## Bổ sung QD_025 — Chốt đối sánh ba gói, 17/10/2026
+
+Chủ trì duyệt bảng đề xuất chung về nhãn đầu phần, tên/số ví dụ và tiêu đề
+tab; đồng thời yêu cầu áp dụng các quy tắc đã có về hướng dẫn, mã quản lí và
+đường hỗ trợ. Quy tắc sở hữu tại 07/6.2, hiện thực dùng kit đang có. Phạm vi
+thực hiện là nguồn và HTML G01/G02/G03; chưa tạo PDF, không tự commit hoặc
+xuất bản. Khác biệt số lượng nội dung giữa gói được giữ nguyên.
+
 ## QD_036 — Tái sử dụng mẫu bản thảo và bảng kiểm trước trình
 
 - Ngày: 16/10/2026. Trạng thái: **chủ trì đã chốt và giao thực hiện** phương án hai tệp `mau/ban_thao_goi.md`, `mau/bang_kiem_ban_thao_goi.md`, cập nhật `mau/ho_so_goi.md` và cơ chế tự gọi trong AGENTS chuyên mục.

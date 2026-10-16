@@ -331,6 +331,10 @@
       };
       const target = document.getElementById(id);
       const heading = target?.querySelector(':scope > h3, :scope > h4, :scope > .r1-task-label, :scope > p > .r1-task-label');
+      if (root.dataset.r1SupportContext === 'semantic') {
+        return target?.dataset.r1ReturnLabel ||
+          target?.querySelector('h3,h4,h5,summary')?.textContent.trim() || 'hoạt động đang làm';
+      }
       return labels[id] || heading?.textContent.trim() || id;
     }
     function supportTarget(target) {
@@ -344,6 +348,10 @@
       // replace it with the confirmation task currently being consulted.
       if (link.closest('#on-nen, #sua-loi, #loi-giai, #bai-hoc') && params.get(RETURN_PARAM)) {
         return params.get(RETURN_PARAM);
+      }
+      if (root.dataset.r1SupportContext === 'semantic') {
+        const caller = link.closest('[data-zo-type="checkpoint"][id], [data-zo-type="task"][id], [data-zo-context^="stage:"][id]');
+        return caller?.id || '';
       }
       if (link.closest('#bắt-đầu-từ-đâu')) return 'bắt-đầu-từ-đâu';
       const source = link.closest('section[id^="cp-"], [id^="cp-"]');
@@ -361,12 +369,17 @@
       // test checkpoint is eligible; test-question links are not invitations
       // to get help during an independent attempt.
       return sourceOwner === 'luyen-tap' || sourceOwner === 'on-lai' ||
-        (sourceOwner === 'kiem-tra' && Boolean(link.closest('#cp-kt'))) ||
+        (sourceOwner === 'kiem-tra' && Boolean(link.closest(root.dataset.r1SupportContext === 'semantic' ? '[data-zo-type="checkpoint"][id]' : '#cp-kt'))) ||
         ((sourceOwner === 'sua-loi' || sourceOwner === 'on-nen' || sourceOwner === 'loi-giai') &&
           Boolean(new URLSearchParams(location.search).get(RETURN_PARAM)));
     }
     function directReturnOptions(target) {
       const id = target?.id || '';
+      if (root.dataset.r1SupportContext === 'semantic') {
+        const checkpoints = [...root.querySelectorAll('[data-r1-return-label][id]')];
+        const area = id.startsWith('S-K') ? '#tu-kiem-tra' : id.startsWith('S-L') ? '#phieu-luyen' : id.startsWith('S-O') ? '#on-lai' : '';
+        return checkpoints.filter(n => !area || n.closest(area)).map(n => n.id);
+      }
       if (id.startsWith('g01-s-k-')) return ['cp-kt'];
       if (id.startsWith('sc')) return ['cp-lt1', 'cp-lt2', 'cp-lt3'];
       if (id.startsWith('g01-s-o-')) return ['cp-on1', 'cp-on2', 'cp-on3'];

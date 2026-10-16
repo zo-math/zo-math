@@ -208,6 +208,28 @@ Trong Lời giải, tên nhóm phản chiếu nơi chứa nhiệm vụ; không t
 
 Giữ nhãn/heading/nội dung bên trong vùng, cùng trục đã duyệt. QD_023 không đổi kiểu chữ, màu, inset, controller hoặc thiết kế 9/10; không là nâng Design 0.5. G01 đã áp dụng tại DH_015, G02 tại DH_016; trạng thái nguồn, phép kiểm và duyệt HTML ghi riêng ở 03/profile, không được nhận là đã nghiệm thu chỉ vì cùng CSS.
 
+#### Chốt đối sánh chung ngày 17/10/2026
+
+Chủ trì đã duyệt áp dụng đồng thời cho G01, G02 và G03; không lấy toàn bộ
+hiện trạng của một gói làm chuẩn tuyệt đối cho gói khác.
+
+- Nhãn đầu phần thống nhất: Bắt đầu → Bắt đầu học; Bài học → Mạch học chính;
+  Luyện tập → Tự luyện; Ôn lại → Ôn sau khoảng trễ; Sửa lỗi → Hỗ trợ khi cần;
+  Nguồn → Nguồn học liệu. Đầu phần Kiểm tra không mang nhãn Tự kiểm tra của
+  Bài học. Bảng giá trị hiện thực ở `profiles/r1-consistency.json` của kit;
+  cả ba adapter dùng cùng hàm áp dụng/kiểm, không khai bảng riêng cạnh tranh.
+- Ví dụ được khai là đơn vị làm mẫu riêng dùng “Ví dụ NN — Tên mô tả”, đánh
+  số liên tục trong toàn gói, độc lập số mục kiến thức. Không biến mọi câu
+  “ví dụ/chẳng hạn” trong lời giảng hoặc nhiệm vụ tự làm thành ví dụ đánh số.
+  Giữ ID, đồng bộ dẫn chiếu; bỏ nhãn nhỏ Ví dụ nếu tiêu đề đã mang từ ấy.
+- Tiêu đề tab là “Tên học liệu — ZO Math”. Trạng thái ứng viên/chờ duyệt có
+  thông báo riêng đúng thực tế, không ghép HTML thử nghiệm vào tên học liệu.
+- Chính văn dùng tên nội dung, không dùng mã quản lí của gói. Mã trong ID,
+  đường dẫn, metadata và hồ sơ điều hành vẫn giữ để quản lí, không xóa máy móc.
+- Ôn lại giữ ngày gốc, lịch ôn, yêu cầu tự lực và điều kiện dùng hỗ trợ ở phần
+  nhìn thấy; chi tiết thao tác bổ sung đặt trong Cách thực hiện mặc định đóng.
+  Không giấu điều kiện bắt buộc chỉ để hai trang có cùng số hộp hoặc độ dài.
+
 #### Áp dụng khi dựng QMD và HTML
 
 Quy tắc ở mục này đã có trước G03; lượt 16/10/2026 bổ sung cơ chế dùng lại và chặn thiếu nhãn, không lập hệ nhãn thứ hai. Đối chứng là binding và HTML toàn văn G01/G02: một nhãn chức năng mang ngữ cảnh thật (chặng, lượt hoặc nơi phát hiện), một dãy số trong toàn nhóm, cùng ánh xạ cho đề và lời giải; loại nội dung không đồng nhất với chức năng nhiệm vụ.
