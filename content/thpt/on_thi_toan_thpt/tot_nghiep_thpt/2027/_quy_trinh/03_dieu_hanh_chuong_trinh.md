@@ -42,8 +42,17 @@ Giới hạn kiểm: chưa in giấy/quét QR bằng điện thoại/phản bi�
 - Kiểm phát hiện bốn liên kết nguồn dùng chung không có trang public; nguồn
   G03 đã đổi sang đúng thẻ Ôn nền trong hai gói trước và bảng Nhật kí sẵn có.
   Không đổi nội dung toán hoặc thêm một bản tài nguyên độc lập.
-- Hồ sơ PDF hiện hành: ho_so/pdf_release_20261017.json ở từng gói. Trạng thái
-  đang chuẩn bị cây public; chỉ ghi đã phát hành sau push và đối chiếu trực tiếp.
+- **Đã xuất bản và kiểm trực tiếp**: nguồn `c7d50ebf`, public `0b13f6d9`.
+  G01/G02 tái xuất bản, G03 phát hành lần đầu; đủ 24 PDF, mỗi bản 17/17 và
+  CURRENT. HTML G03 865/865, cấu trúc G01 279/279, G02 249/249; thẻ tải
+  trên màn hình 390 px không tràn, đúng tám bản hiện hành mỗi gói.
+- Kiểm trực tiếp 50/50 HTML/PDF/phông/giấy phép/ảnh khớp SHA-256 candidate.
+  Hồ sơ [ho_so_phat_hanh_20261017.json](ho_so_phat_hanh_20261017.json) sở hữu
+  dấu nguồn/public hiện hành; ho_so/pdf_release_20261017.json ở từng gói giữ
+  kiểm PDF. Bốn liên kết nguồn nội bộ và mô tả Sửa lỗi đã được sửa ở nguồn.
+- Đã khép chính sách công khai cho đúng phông và giấy phép; không mở rộng
+  allowlist toàn bộ định dạng. Chưa in giấy/quét QR bằng thiết bị thật hoặc
+  làm phản biện toán độc lập. Bước còn lại trong nhiệm vụ: kết sổ repo.
 
 
 **COMMON-HTML01 — áp dụng chốt đối sánh G01/G02/G03, 17/10/2026.**

@@ -9,7 +9,7 @@ table_design_audit:
   pdf_synchronized: true
 labeling_audit:
   decision: QD_025
-  date: "2026-10-10"
+  date: '2026-10-10'
   status: source_applied_pending_html_acceptance
   application: _quy_trinh/ap_dung_he_nhan.json
   source_applied: true
@@ -17,7 +17,7 @@ labeling_audit:
   evidence: _audit/r1_g01_ap_dung_ban_chot_2026-10-10/labels-current/ap_dung_he_nhan.json
 assessment_policy_audit:
   decision: QD_024
-  date: "2026-10-10"
+  date: '2026-10-10'
   scope: all_program_packages_with_test
   status: source_applied_checked_pending_owner_review
   source_applied: true
@@ -25,9 +25,12 @@ assessment_policy_audit:
   evidence: _audit/r1_g01_ap_dung_ban_chot_2026-10-10/qa-bound-current.json
 package:
   id: R1-G01
-  candidate_version: "1.3"
+  candidate_version: '1.3'
   source: index.qmd
-  authority: "index.qmd canonical cho nội dung; 01/QD_033 giữ đường học hiện hành cùng phần kế thừa QD_021 chưa bị thay; QD_024/025/028 giữ các chủ đề tương ứng; QD_029 ký pháp/số mục; 03 sở hữu trạng thái và kiểm hiện hành; audit QD_021, docs và receipt giữ lịch sử, không chứng nhận nguồn/HTML đã đạt QD_033"
+  authority: index.qmd canonical cho nội dung; 01/QD_033 giữ đường học hiện hành cùng
+    phần kế thừa QD_021 chưa bị thay; QD_024/025/028 giữ các chủ đề tương ứng; QD_029
+    ký pháp/số mục; 03 sở hữu trạng thái và kiểm hiện hành; audit QD_021, docs và
+    receipt giữ lịch sử, không chứng nhận nguồn/HTML đã đạt QD_033
 workflow:
   production: in_production
   publication: published
@@ -38,13 +41,14 @@ acceptance:
   design_basis: approved_matrix_v0_2
   design_implementation: design_preserved_source_applied_QD025
   final: owner_authorized_for_publication_2026_10_15
+  latest_release: owner_authorized_and_published_20261017
 historical_acceptance:
   milestone: FB033
   receipt: giao_dien/web_2027_accepted.json
   status: accepted_historical_output_not_current_refinement
 historical_governance_audit:
   decision: QD_021
-  date: "2026-10-10"
+  date: '2026-10-10'
   source_dom_findings: 21
   findings_status: RD01_RD06_and_KT_G01_01_source_fixed_checked_pending_owner
   historical_QA_decision: QD_020
@@ -56,11 +60,10 @@ historical_governance_audit:
   historical_findings: _audit/r1_g01_ra_noi_dung_va_duong_hoc_2026-10-10.md
   pdf_synchronized: false
   docs_promoted: false
-
 governance_audit:
   decision: QD_033
   refinement_decision: QD_028
-  date: "2026-10-15"
+  date: '2026-10-15'
   work: DH_037
   evidence: _audit/course-release-sync/governance-final.log
   evidence_status: scoped_current_checks_not_owner_acceptance
@@ -72,7 +75,7 @@ governance_audit:
 historical_governance_refinement_DH021:
   decision: QD_021
   refinement_decision: QD_028
-  date: "2026-10-11"
+  date: '2026-10-11'
   work: DH_021
   evidence: _audit/zo_pair_report_2026-10-11/qa.json
   evidence_status: scoped_current_checks_not_owner_acceptance
@@ -82,7 +85,7 @@ historical_governance_refinement_DH021:
   pdf_synchronized: false
   docs_promoted: false
 pdf_full_review:
-  date: "2026-10-15"
+  date: '2026-10-15'
   output: index.pdf
   pages: 80
   shared_shell: D0_owner_approved_2026_10_14
@@ -99,21 +102,29 @@ pair_refinement:
   state: owner_authorized_for_publication_2026_10_15
   acceptance: owner_authorized_for_publication_2026_10_15
   pdf: current_all_eight_variants
-
 shared_figure_repair:
-  date: "2026-10-15"
+  date: '2026-10-15'
   evidence: _quy_trinh/ho_so/pdf_bundle_review.json
   canonical_graph_pairs: current
   legacy_graph_paths: rejected_before_pdf_compilation
   all_pdf_variants: all_eight_current
   owner_acceptance: design_approved_2026_10_15
   publication: published
-
 release_authorization:
-  date: "2026-10-15"
+  date: '2026-10-15'
   scope: Home_D0_R1_G01_R1_G02_and_current_PDF_downloads
   explicit_publication_request: true
   evidence: _quy_trinh/ho_so/pdf_bundle_review.json
   source_commit: bb480547eea5b5dc4a191255db8904b2d012a3d6
   public_commit: 3f99deac4b95e2b2e05e4f6e40ffd14e49be157a
   receipt: content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/ho_so_phat_hanh_20261015.json
+release_audit:
+  date: '2026-10-17'
+  status: published_verified_live
+  source_commit: c7d50ebf41f2025bd566001480368ecb9fadc616
+  public_commit: 0b13f6d9036f6b35e243d866d202c0ad08db80be
+  record: content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/ho_so_phat_hanh_20261017.json
+  learning_pdf_variants: 8
+  all_pdf_checks: 17/17 and CURRENT
+  live_release_objects: 50/50 overall
+  earlier_audits: historical by their recorded scope
