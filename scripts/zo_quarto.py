@@ -25,6 +25,8 @@ def require_arguments(args):
                 require_source(Path(value), ROOT)
         elif not argument.startswith('-') and Path(argument).suffix.lower() in {'.qmd', '.rmd'}:
             require_source(Path(argument), ROOT)
+            from zo_course_labels import source_checks as course_label_source_checks, require as require_labels
+            require_labels(course_label_source_checks(ROOT/argument,ROOT),"source before Quarto")
 
 
 def prepare_quarto(

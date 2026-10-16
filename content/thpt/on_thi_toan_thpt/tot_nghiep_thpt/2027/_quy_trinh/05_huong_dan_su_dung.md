@@ -1,6 +1,6 @@
 # Cách dùng, quản lý và cập nhật trong VS Code
 
-Phiên bản: 0.9 · Ngày biên tập: 16/10/2026 · Tiếp quản kiến trúc theo QD_033; các quy tắc khác theo 08.
+Phiên bản: 0.10 · Ngày biên tập: 16/10/2026 · Tiếp quản kiến trúc theo QD_033; các quy tắc khác theo 08.
 
 Hướng dẫn dành cho người chủ trì. Bộ này dùng được với Codex và Copilot trên cùng repo. [Điểm vào](README.md).
 
@@ -40,6 +40,10 @@ Hệ nhãn QD_025 toàn chương trình kế thừa QD_023 và bổ sung Gợi m
 5. Đọc báo cáo. Giao phạm vi sửa cụ thể bằng prompt triển khai. Chỉ sau bước này mới sửa học liệu.
 
 Không cần tạo AGENTS.md mới để dùng bộ này. Nếu repo đã có chỉ dẫn chung, chỉ bổ sung liên kết đến điểm vào khi bạn giao rõ việc đó; tránh biến toàn bộ repo ZO Math thành dự án chỉ chuyên ôn thi 2027.
+
+### Giao viết bản thảo gói mới
+
+Chỉ cần giao “Viết bản thảo gói R1-G04” khi đã chốt phạm vi gói. Agent tự nạp [mẫu bản thảo](mau/ban_thao_goi.md) và [bảng kiểm](mau/bang_kiem_ban_thao_goi.md) theo [02/1.4](02_quy_trinh_va_nghiem_thu.md#ap-dung-mau-ban-thao): đối chiếu trước viết, kiểm có bằng chứng trước trình, báo khác biệt cần chốt. Người chủ trì không phải gọi tên tệp hoặc vận hành lệnh. Gói chưa được giao không được tạo trước; mẫu không cho phép chuyển QMD trước duyệt.
 
 ## 2. Ai làm việc gì?
 

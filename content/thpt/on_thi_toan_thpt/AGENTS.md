@@ -32,13 +32,29 @@ Danh mục thẩm quyền của toàn bộ bộ điều hành là `tot_nghiep_th
 
 Manifest từng gói nằm tại `hoc_lieu/<ma_goi>/_quy_trinh/kien_truc_hoc_tap.yml`. Trước khi biên soạn nội dung theo kiến trúc này, chạy checker schema và readiness qua `scripts/zo_learning_architecture.py`; `planned` là khoảng trống nội dung thật, không được đổi thành hoàn tất chỉ để checker readiness đạt. Schema hợp lệ hoặc `planned=0` không chứng nhận nội dung/đường học đã đúng; không đổi manifest trong một lượt chỉ đồng bộ văn bản điều hành.
 
+## Viết và kiểm bản thảo gói mới
+
+Khi chủ trì giao viết, sửa hoặc rà bản thảo gói R1 của khóa 2027, tự đọc và áp dụng:
+
+- `tot_nghiep_thpt/2027/_quy_trinh/mau/ban_thao_goi.md`;
+- `tot_nghiep_thpt/2027/_quy_trinh/mau/bang_kiem_ban_thao_goi.md`;
+- cơ chế sử dụng, lưu kết quả và cập nhật tại `02_quy_trinh_va_nghiem_thu.md`, mục 1.4.
+
+Yêu cầu tự nhiên như “Viết bản thảo gói R1-G04” kích hoạt việc nạp hai mẫu; không bắt chủ trì gọi tên mẫu hoặc biết lệnh. Trước viết phải có bảng đối chiếu theo chức năng với G01/G02; trước trình phải có kết quả bảng kiểm với vị trí bằng chứng và khác biệt có lí do. Đọc 01/07 và nguồn toán chính thức, không chỉ sao khung hoặc số lượng bài của gói trước. Gói đã có bản thảo ghi áp dụng hồi cứu; không giả đã dùng mẫu từ đầu. Không nâng PASS kí hiệu/liên kết thành đạt nội dung hoặc hình. Kết quả áp dụng thuộc `ho_so/` của gói; phần được chủ trì cho hoãn ghi đúng phạm vi, không đánh dấu Đạt. Không tạo thư mục hoặc gói tương lai ngoài phạm vi đã giao.
+
+## Bắt đầu dựng QMD hoặc HTML: luôn áp dụng hệ nhãn
+
+Yêu cầu chuyển bản thảo, dựng/hiệu chỉnh QMD hoặc HTML của gói R1 tự kích hoạt `07_quy_chuan_cau_truc_trang_nguoi_hoc.md`/6.2 và `02_quy_trinh_va_nghiem_thu.md`/2.4. Nạp `label_contract.display_contract` từ danh mục và `giao_dien/he_nhan.json` của gói trước khi dựng. Không dừng ở gắn metadata. Phải có nhãn chức năng/ngữ cảnh thật, số liên tục theo nhóm, cặp đề–lời giải, điểm dừng, loại kiến thức và ví dụ theo nội dung; không thêm nhãn đã lặp trong tiêu đề.
+
+Gói dựng mới dùng `scripts/zo_course_labels.py` với `display_contract: qd025-display-v1`; các cổng QMD/Quarto kiểm binding nguồn và nhãn HTML. Cổng thiếu/sai phải được sửa trước trình, không bỏ qua hoặc thay bằng số đếm. Giữ adapter G01/G02 làm đối chứng; không chép quota hoặc ngoại lệ riêng. Bảng áp dụng hiển thị hiện hành của gói mới là binding này; chỉ dùng bảng di trú `ap_dung_he_nhan.json` khi thực sự làm di trú theo 02/2.4. Khi phát triển gói mới, nối adapter hiển thị vào cổng chung và kiểm trình duyệt; không sửa tay HTML đầu ra.
+
 ## Giới hạn tích hợp và đầu mối điều hành
 
 Ngôn ngữ bảng QD_030 áp dụng toàn khóa 2027, theo chức năng tại `07_quy_chuan_cau_truc_trang_nguoi_hoc.md`/6.1.1 và mẫu Design 0.4 được dẫn chiếu. Trước dựng hoặc sửa bảng, kiểm ánh xạ trong `_design/web_2027_mau_dung_chung/profiles/course-tables.json`; bộ dựng dùng `scripts/zo_course_tables.py`. Không dùng quy tắc căn trái đại trà đã bị thay thế cho bảng giá trị/dấu/biến thiên hoặc suy kiểu từ tên; bảng chưa phân loại phải được xử lí trước khi trình HTML. Không sửa dữ liệu toán để khớp hình thức.
 
 Hai quy tắc Kiểm tra QD_024 ở `01_kien_truc_hoc_tap.md`, Mục 2.3–2.3.1, áp dụng cho toàn bộ các gói của chương trình Ôn thi Toán THPT 2027, không chỉ R1: đã chuẩn bị kĩ hoặc đủ tự tin thì có thể bắt đầu; một lượt Kiểm tra không chia nhiều đợt. Quyền bắt đầu không chứng nhận đạt mục tiêu. Nạp 07/4.4 và phép kiểm ở 02 khi sản xuất/rà hoạt động này; không dùng điều kiện vào Kiểm tra cũ. Không ép hợp đồng R1 hoặc Kiểm tra lên Khảo sát D0/tài nguyên Nền. Cổng tài liệu của khóa phải kiểm chủ đề `assessment_policy`; PASS tài liệu không chứng nhận nguồn học liệu/HTML đã áp dụng.
 
-Hệ nhãn học liệu QD_025 có hiệu lực cho toàn bộ các gói của chương trình, không chỉ R1: kế thừa QD_023 và bổ sung chức năng Gợi mở. Đọc 01/07, `label_contract` của danh mục kiến trúc và chuẩn QMD. Không tạo nhãn riêng, reset số theo chặng, suy chức năng từ tên hoặc dùng bố cục cũ để chứng nhận đã di trú. Trước sửa nguồn, lập/kiểm bảng `_quy_trinh/ap_dung_he_nhan.json` bằng `zo_learning_architecture.py labels --self-test` qua launcher. Bảng mapping_only không cho phép tự sửa QMD, render hoặc tuyên bố đã nghiệm thu. G01/G02 có binding hiển thị canonical riêng `giao_dien/he_nhan.json`; G02 đã áp dụng nguồn và kiểm HTML cô lập tại DH_016, chưa nghiệm thu chủ trì. Quy tắc mới thay phần cũ nhưng không cấm hiệu chỉnh theo QD_022.
+Hệ nhãn học liệu QD_025 có hiệu lực cho toàn bộ các gói của chương trình, không chỉ R1: kế thừa QD_023 và bổ sung chức năng Gợi mở. Đọc 01/07, `label_contract` của danh mục kiến trúc và chuẩn QMD. Không tạo nhãn riêng, reset số theo chặng, suy chức năng từ tên hoặc dùng bố cục cũ để chứng nhận đã di trú. Khi rà/di trú học liệu cũ, lập/kiểm bảng `_quy_trinh/ap_dung_he_nhan.json` bằng `zo_learning_architecture.py labels --self-test` qua launcher; gói dựng mới dùng binding/cổng hiển thị theo mục Bắt đầu dựng QMD hoặc HTML và 02/2.4. Bảng mapping_only không cho phép tự sửa QMD, render hoặc tuyên bố đã nghiệm thu. G01/G02 có binding hiển thị canonical riêng `giao_dien/he_nhan.json`; G02 đã áp dụng nguồn và kiểm HTML cô lập tại DH_016, chưa nghiệm thu chủ trì. Quy tắc mới thay phần cũ nhưng không cấm hiệu chỉnh theo QD_022.
 
 Trước biên tập hoặc kiểm xin duyệt gói R1 của khóa 2027, chạy `python scripts/zo_python.py scripts/zo_2027_governance_check.py` để xác minh bản điều hành và guard theo registry của khóa. Quyết định mới phải thay phần hoạt động cũ và đồng bộ những đích bị ảnh hưởng ngay trong cùng lượt theo mục 1.2 của quy trình 02. Cổng tài liệu đạt không chứng nhận sản phẩm; ứng viên có lỗi chặn không được trình như đã đạt. Theo QD_022/02/1.2, chỉ kiểm lại phần chịu ảnh hưởng của quy tắc, đầu vào hoặc phép kiểm thay đổi; không tái áp dụng quy tắc bị thay, không hủy toàn bộ QA vì hash tài liệu đổi hoặc cấm hiệu chỉnh hợp lệ. Không sửa hash/receipt/kết quả lịch sử để che lệch nguồn.
 
@@ -48,6 +64,30 @@ Trước biên tập hoặc kiểm xin duyệt gói R1 của khóa 2027, chạy 
 - Tài liệu đã khóa và thành phẩm lịch sử chỉ được chuyển hoặc sửa trong phạm vi chủ dự án giao; không suy từ việc chuyển quản trị thành quyền chuyển đổi học liệu.
 - Không tạo trước thư mục gói tương lai hoặc tài nguyên chưa dùng.
 - Không tự thay nội dung toán học, nhiệm vụ, thuật ngữ hoặc thiết kế đã chốt.
+
+## Sửa nhỏ: chọn đường cập nhật tối thiểu
+
+Áp dụng mục 7.1 của `quy_trinh_xay_dung/quy_trinh_thuc_hien_nhiem_vu_ky_thuat.md`
+ở gốc repo. Không coi một sửa ảnh/chữ là yêu cầu kiểm định lại toàn gói.
+Lệnh render cả chuyên mục bên dưới dùng cho phạm vi cả chuyên mục; sửa một
+trang dùng đường dẫn QMD cụ thể. Gói có cấu hình dùng
+`python scripts/zo_python.py scripts/zo_qmd.py render <index.qmd> --html-only`
+khi chỉ cần HTML, giữ các cổng bắt buộc. `draft: true` cần profile
+`on-thi-preview` theo cơ chế preview hiện hành; không sửa trạng thái để lách.
+
+Ví dụ khảo sát trước thay bìa G03 (16/10/2026): `scripts/zo_web_2027_g03.py` tạo hero
+và gọi `PreviewBuilder.common_assets()` trong `scripts/zo_web_2027_preview.py`,
+khi khảo sát lấy `_design/web_2027_mau_dung_chung/assets/cover-graph.svg` dùng chung.
+Sau cập nhật, G03 dùng `hinh/bia_tiem_can.tex` và SVG riêng của gói; giữ ảnh
+dùng chung nguyên vẹn.
+Không sửa ảnh dùng chung để thay riêng bìa G03: cập nhật nguồn/binding riêng
+của gói và phép đưa tài nguyên vào adapter trong phạm vi nhiệm vụ thay bìa.
+Sau đó render HTML đúng trang, kiểm ảnh tải được, đúng ảnh, đúng đường dẫn,
+không méo/cắt sai ở màn hình rộng và hẹp. Không sửa tay HTML/SVG đầu ra;
+ảnh cần sinh phải dùng công cụ nguồn phù hợp. Không dựng lại các hình bài tập
+hoặc PDF học liệu chỉ vì thay bìa HTML. Nếu yêu cầu gồm bìa PDF hay ảnh trên
+trang danh mục thì bổ sung chính những đầu ra đó. Đây là đường thực hiện cho
+lần thay bìa, không chứng nhận bìa hiện tại đã được sửa hay duyệt.
 
 ## Render, preview và xuất bản
 

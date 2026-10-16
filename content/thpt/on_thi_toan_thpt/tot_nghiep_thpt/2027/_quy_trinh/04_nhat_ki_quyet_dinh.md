@@ -1,9 +1,17 @@
 # Nhật kí quyết định
 
-Phiên bản: 0.1 · Cập nhật: 13/10/2026.
+Phiên bản: 0.2 · Cập nhật: 16/10/2026.
 
 Chỉ ghi quyết định có ảnh hưởng lâu dài; không chép hội thoại hay log lệnh. Bảng điều hành ghi việc hiện hành. [Điểm vào](README.md).
 
+
+## QD_036 — Tái sử dụng mẫu bản thảo và bảng kiểm trước trình
+
+- Ngày: 16/10/2026. Trạng thái: **chủ trì đã chốt và giao thực hiện** phương án hai tệp `mau/ban_thao_goi.md`, `mau/bang_kiem_ban_thao_goi.md`, cập nhật `mau/ho_so_goi.md` và cơ chế tự gọi trong AGENTS chuyên mục.
+- Phạm vi: gói R1 mới và việc rà/sửa bản thảo hiện có của khóa 2027; không áp máy móc lên D0/Nền hoặc thay nguồn kiến trúc 01 và cấu trúc trang 07. Quy trình 02/1.4 sở hữu cách áp dụng/cập nhật; mẫu trang dùng kit hiện có, mẫu bản thảo giữ nội dung/chức năng.
+- Trước viết phải đối chiếu từng thành phần với G01/G02; trước trình phải kiểm có vị trí bằng chứng. Khác mẫu có lí do, phần ảnh hưởng chức năng đã chốt cần báo trước. Không sao số lượng bài/mục hoặc nhãn riêng của gói mẫu; cải tiến được chốt thì cập nhật mẫu, bảng kiểm và liên kết liên quan cùng lượt, có phiên bản; không tự sửa hồi tố gói đã có.
+- Kết quả áp dụng thuộc ho_so của gói, trạng thái công việc thuộc 03. PASS công thức, liên kết, vector hoặc đủ số lượng không thay kiểm nội dung, xem hình hoặc chủ trì duyệt. Với G03, chủ trì cho hoãn xử lí hai hình đã nêu sang lúc dựng tài nguyên/QMD; phải theo dõi và kiểm lại thực, không tự coi dựng bằng công cụ là đã hết lỗi.
+- Không thu hồi QD_033/024/025 hoặc thiết kế trang đã chốt. Lần áp dụng đầu trên G03 là hồi cứu sau bản 0.8, không giả định đã dùng mẫu trước khi viết. Chốt quy trình không nghiệm thu G03 hoặc mở quyền commit/phát hành.
 
 ## QD_035 — Bảo vệ đúng bộ bản xem chủ trì chọn làm đối chiếu phát triển
 

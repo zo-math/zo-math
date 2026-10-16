@@ -1,0 +1,27 @@
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{backgrounds,arrows.meta}
+\input{zo_graph_v02.tex}
+\begin{document}
+\begin{tikzpicture}[zo graph v02 field]
+\zoGraphVTwoLayers
+
+% f(x)=2-12/(7-x) only for x<3; f(x)=-x+4+3/(x-3) only for x>3.
+% No asymptote is drawn: students match the accompanying exact limits to branches.
+\begin{axis}[zo graph v02 axis,width=11cm,height=7cm,
+ xmin=-12,xmax=12,ymin=-9,ymax=10,restrict y to domain=-9:10,
+ xtick={3},ytick={-1,2},xlabel={$x$},ylabel={$y$},
+ every axis x label/.append style={at={(axis description cs:0.98,0.474)},anchor=south east},
+ every axis y label/.append style={at={(axis description cs:0.5,0.98)},anchor=north west}]
+\node[zo graph v02 font sentinel] at (axis cs:0,0) {x};
+\addplot[zo graph v02 curve solid,domain=-12:2.99,samples=501,forget plot] {2-12/(7-x)};
+\addplot[zo graph v02 curve solid,domain=3.05:12,samples=501,forget plot] {-x+4+3/(x-3)};
+\addplot[zo graph v02 point open,forget plot] coordinates {(3,-1)};
+\node[zo graph v02 protected label,anchor=north east] at (axis cs:2.8,-1.2) {$(3;-1)$};
+\end{axis}
+
+\end{tikzpicture}
+\end{document}

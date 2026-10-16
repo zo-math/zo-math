@@ -1,6 +1,6 @@
 # Quy chuẩn tổ chức học liệu Ôn thi Toán THPT
 
-Phiên bản tài liệu: 0.8 · Ngày biên tập: 16/10/2026 · Căn cứ: phần còn hiệu lực của QD_016–032 và QD_033.
+Phiên bản tài liệu: 0.9 · Ngày biên tập: 16/10/2026 · Căn cứ: phần còn hiệu lực của QD_016–032 và QD_033.
 
 Tài liệu nội bộ, chỉ áp dụng cho chuyên mục này. Tài liệu quy định kiến trúc nguồn, ranh giới xuất bản và hợp đồng canonical cho thành phần học liệu; việc một component được mô tả ở đây không tự động có nghĩa component đó đã được triển khai hoặc kiểm định kỹ thuật.
 
@@ -15,6 +15,8 @@ Tài liệu nội bộ, chỉ áp dụng cho chuyên mục này. Tài liệu quy
 ## Khởi tạo gói mới và quản lí bản thảo
 
 Theo yêu cầu chủ trì ngày 16/10/2026, cách tổ chức G03 là cách khởi tạo dùng cho R1-G04 và các gói tiếp theo khi được giao. Đây là nền tổ chức hiện hành để tiếp tục cải tiến theo thực tế, không phải khuôn cố định về số bài, số hình hoặc nội dung học.
+
+Việc biên soạn dùng [mẫu bản thảo](mau/ban_thao_goi.md) và [bảng kiểm](mau/bang_kiem_ban_thao_goi.md); quy trình tự gọi từ yêu cầu tự nhiên, đối chiếu trước viết và kiểm trước trình do [02/1.4](02_quy_trinh_va_nghiem_thu.md#ap-dung-mau-ban-thao) sở hữu. Mẫu nội dung khác mẫu trang: mẫu trang tiếp tục dùng kit theo 07, không chép CSS/JS vào bản thảo. Kết quả áp dụng và phiên bản mẫu nằm trong `ho_so/` của gói; mẫu chung không ghi trạng thái riêng.
 
 Trước khi tạo thư mục của một gói, trình bày mã gói, đường dẫn, vai trò các phần và phạm vi sẽ tạo; chỉ thực hiện trong nhiệm vụ đã được chủ trì giao/chốt. Không tạo trước các gói tương lai. Nếu cần thêm nơi lưu trữ hoặc thay cấu trúc đã thống nhất, trình phương án để chủ trì chốt trước khi tạo; không tự sinh bản sao hoặc kho lưu trữ song song.
 
@@ -53,6 +55,10 @@ Bảng áp dụng `_quy_trinh/ap_dung_he_nhan.json` giữ selector, quan hệ v�
 Phép kiểm `zo_learning_architecture.py labels` xuất kiểm kê từ nguồn mới và annotations đã đọc, gồm heading, ID, các khối có vai trò, include, nhiệm vụ/đáp án, bảng/hình và dẫn chiếu. Locator chưa có ID được báo rõ, không giả thành anchor đã tồn tại. Mỗi đơn vị có một owner; số theo gói không ghi cứng vào include dùng chung. Một ví dụ nhiều bước, hai định nghĩa cùng hộp và một nguồn Nền dùng ở hai gói phải được đếm đúng quan hệ.
 
 Metadata/nhãn thiếu không được bỏ qua để build tiếp. Bản nguồn chưa di trú tiếp tục dùng hợp đồng kỹ thuật cũ cho chẩn đoán, nhưng không được chứng nhận là sản phẩm đã đạt QD_025. Sau khi có quyền sửa QMD, ánh xạ được duyệt phải được tích hợp vào nguồn/manifest/binding và filter cùng lượt; không dùng bảng audit hoặc fallback đoán theo heading để dựng production. Gợi mở là chức năng riêng trong danh mục, không nhập vào Tự kiểm tra hoặc tạo lời giải trùng lời giảng. Hệ nhãn áp dụng toàn bộ các gói chương trình; chỉ dùng những loại/chức năng thật sự có trong gói.
+
+### Cổng nhãn khi chuyển QMD và dựng HTML
+
+Khi bắt đầu dựng gói, tự nạp 07/6.2 và 02/2.4, hoàn chỉnh `giao_dien/he_nhan.json` từ nội dung thật. Gói dựng mới khai `display_contract: qd025-display-v1`; danh mục chung sở hữu mẫu nhãn, binding gói sở hữu ngữ cảnh, số/tên và owner. Dùng `scripts/zo_course_labels.py`, không sao bộ gán nhãn riêng của một gói. CLI QMD, launcher Quarto và cổng HTML kiểm việc áp dụng; metadata đúng nhưng thiếu nhãn nhìn thấy vẫn thất bại. G01/G02 giữ adapter hiện hành, không tự mở lượt di trú lại. Mô tả/ngoại lệ và kiểm thực tế theo 07; không lập thêm tài liệu chuẩn nhãn song song.
 
 ## Lớp tương thích và binding HTML 2027
 

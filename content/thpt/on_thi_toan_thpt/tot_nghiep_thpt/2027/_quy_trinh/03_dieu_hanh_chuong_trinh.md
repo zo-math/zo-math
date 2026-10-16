@@ -29,21 +29,6 @@ Trạng thái: **đã xuất bản và kiểm trực tiếp trên zomath.vn**. N
 Giới hạn kiểm: chưa in giấy/quét QR bằng điện thoại/phản biện toán độc lập.
 
 ## A. Công việc đang mở
-
-**G03-DRAFT01 — viết bản thảo nội dung R1-G03, 16/10/2026.**
-
-- Chủ trì giao: “Viết bản thảo gói R1-G03.” Đã viết [bản nội dung 0.2](../../../hoc_lieu/r1_g03/_quy_trinh/ban_thao/noi_dung.md) cho Đường tiệm cận của đồ thị hàm số; yêu cầu này tiếp nối và thay bước chờ giao viết tại G03-PREP01, không được ghi thành nghiệm thu nội dung.
-- Bản thảo gồm Bắt đầu, Bài học, Luyện tập, Kiểm tra, Ôn lại và các hỗ trợ độc lập theo QD_033. Có sáu ví dụ, 39 nhiệm vụ/câu tự kiểm (29 L/K/O/S/P, một Gợi mở, năm Tự kiểm tra Bài học, bốn câu nền), ba phần nền và lời giải. Nhật kí trích bảng trống 14 trường từ nguồn chung.
-- Bảy hình được dựng từ công thức/miền, profile 0.4, có nguồn TeX và cặp SVG/PDF; đã kiểm vector và xem đủ bảy hình. PDF ở đây là từng hình, chưa phải PDF toàn gói.
-- Đã rà 133 phép đại số/giới hạn, các đích/cặp đề–lời giải, thứ tự phần, dấu ngoặc và bảng dùng chung. Báo cáo: `_audit/r1_g03_manuscript_20261016/verification.json`. Kiểm quản trị chỉ xác nhận tài liệu áp dụng, không chứng nhận nội dung hoặc giao diện G03.
-- [Hồ sơ](goi/R1_G03.md), [đề cương](goi/R1_G03_de_cuong_bien_soan.md) và [ma trận](goi/R1_G03_ma_tran_nhiem_vu.md) lên 0.2, dẫn về nguồn nội dung duy nhất; các bản chuẩn bị 0.1 được lưu có checksum trong hồ sơ kiểm. G03-PREP01 đã khép ở phạm vi chuẩn bị; báo cáo 107 phép kiểm cũ giữ nguyên.
-- Góp ý kí hiệu/nguồn của chủ trì đã được áp dụng vào bản nội dung 0.2: dùng LaTeX cho số và biểu thức toán, phân số dạng xếp tầng; ghi rõ hướng mọi giới hạn. Định nghĩa ngang/đứng/xiên và cách tìm hệ số được đối chiếu lại SGK trang in 20/21/23/24, có chú thích tại chỗ; hai hướng vô cực được giải thích riêng. Kiểm 784 cụm toán qua Markdown/MathML và sáu giới hạn của ví dụ hệ số đạt. Hồ sơ gói lên 0.3; đề cương/ma trận dẫn bản nội dung mới. Báo cáo: `_audit/r1_g03_notation_20261016/verification.json`.
-- Trạng thái: đã có bản thảo nội dung để đọc duyệt; chưa phản biện toán độc lập/thử với học sinh, chưa nghiệm thu. Chưa tạo QMD/HTML/PDF học liệu, đưa lên danh mục công khai, phát hành trong lượt này. Các công việc khác bên dưới giữ nguyên phạm vi.
-- Theo yêu cầu tổ chức của chủ trì: bản thảo và 22 tệp tài nguyên được chuyển vào `hoc_lieu/r1_g03/_quy_trinh/ban_thao/`, cùng gói với G01/G02; các liên kết đã cập nhật. [README gói](../../../hoc_lieu/r1_g03/_quy_trinh/README.md) và [biên nhận](../../../hoc_lieu/r1_g03/_quy_trinh/ho_so/to_chuc_ban_thao_20261016.json) chỉ vị trí và checksum. Nội dung toán giữ nguyên; chưa tạo QMD hoặc tài nguyên sản xuất. Chỉ chuyển đổi sau khi bản thảo được duyệt; tài nguyên chính thức phải dựng qua công cụ ZO Math và không phụ thuộc vùng bản thảo.
-- Chủ trì giao commit mốc tổ chức/bản thảo G03 và áp dụng cách khởi tạo này cho G04 cùng các gói tiếp theo. Quy định được ghi tại mục Khởi tạo của chuẩn gói QMD, mẫu hồ sơ dẫn về đó; tiếp tục cập nhật khi có cải tiến được giao theo thực tế. Phạm vi chốt Git gồm G03, hồ sơ liên quan và hướng dẫn khởi tạo; không kèm công việc PDF, di dời công cụ hoặc thay đổi khác.
-- Bước tiếp theo của G03: chủ trì đọc bản nội dung, góp ý về lời giảng, tải học và các câu hỏi; chỉnh bản thảo theo phản hồi trước khi giao chuyển sang nguồn sản xuất theo quy trình 02.
-
-
 **HOME-YT01 — nguồn YouTube và chuẩn bị riêng trang Nhà, 16/10/2026.**
 
 - Nguồn `index.qmd`, CSS Home và ảnh chờ dùng video `SJ1bb9gWxDA`;
@@ -57,6 +42,49 @@ Giới hạn kiểm: chưa in giấy/quét QR bằng điện thoại/phản bi�
   Chưa push/phát hành; cần duyệt diff chuẩn bị rồi mới thực hiện theo quyền.
 - Hồ sơ: `home_youtube_ban01_20261016.json`; biên nhận lịch YouTube ở
   `zo_math_media/xuat_ban/bien_nhan/ZO-V000001`.
+
+**DRAFT-TEMPLATE01 — mẫu biên soạn và bảng kiểm, 16/10/2026.**
+
+- Chủ trì đã chốt vị trí, vai trò và cơ chế gọi rồi giao hoàn thành. Đã tạo [mẫu bản thảo 1.0](mau/ban_thao_goi.md) và [bảng kiểm 1.0](mau/bang_kiem_ban_thao_goi.md) trong thư mục mau hiện có; không tạo thư mục hoặc gói tương lai.
+- AGENTS chuyên mục tự kích hoạt mẫu từ yêu cầu viết/rà/sửa bản thảo R1. 02/1.4 sở hữu việc dùng: đối chiếu trước viết, kiểm bằng chứng trước trình, báo khác biệt có lí do, ghi phiên bản/hash và cập nhật mẫu cùng lượt khi có cải tiến đã chốt. Đồng bộ mẫu hồ sơ, quy chuẩn gói, README, hướng dẫn, danh mục thẩm quyền, QD_036 và danh sách phụ thuộc. Không tạo bộ kiến trúc hoặc mẫu trang thứ hai.
+- Đã áp dụng hồi cứu cho [G03 0.8](../../../hoc_lieu/r1_g03/_quy_trinh/ho_so/bang_kiem_ban_thao_20261016.md), không sửa nội dung hoặc hình; hai tiêu chí về hình/bản xuất giữ hoãn theo phản hồi của chủ trì. Bảng áp dụng không nhận là đã dùng mẫu trước khi viết hoặc nghiệm thu G03.
+- Kiểm tài liệu và tự kiểm cổng điều hành đạt 235/235; kiểm 35 liên kết mới, đọc Markdown của hai mẫu và bảng áp dụng đạt; nguồn và tài nguyên G03 giữ nguyên, các thay đổi ngoài phạm vi được bảo toàn. Bằng chứng kỹ thuật: `_audit/r1_g03_manuscript_20261016/template_setup_checks.json`.
+- Cơ chế gọi là chỉ dẫn bắt buộc của agent, không phải chương trình tự sinh hay kiểm tự động chất lượng lời giảng. Bộ mẫu đã hoàn thành; trạng thái/bước tiếp của G03 ở mục dưới. Chưa commit hoặc phát hành lượt này.
+
+**G03-LABEL01 — khép thiếu hệ nhãn và chống bỏ sót khi dựng, 16/10/2026.**
+
+- Bìa riêng đã thay theo phản hồi chủ trì: nền ảnh/nhãn trong suốt, hai tiệm cận có nhãn, công thức đặt cách đầu nhánh. Chủ trì xác nhận “OK” rồi giao commit các giai đoạn đủ điều kiện. HTML hiện tại đã qua 847/847 kiểm, hệ nhãn 20/20; không suy thành duyệt toàn gói hoặc quyền phát hành. Không dựng PDF học liệu.
+
+
+- Chủ trì phát hiện G03 thiếu nhãn hiển thị. QD_025, 07/6.2 và danh mục đã có quy tắc; lượt chuyển đổi ban đầu mới gắn metadata và bộ kiểm không kiểm đầy đủ nhãn thật. Kết quả kiểm của G03-SOURCE01 không chứng nhận phần nhãn này.
+- Đã đối chiếu binding cùng HTML toàn văn G01/G02; dùng lại nguyên tắc chức năng/ngữ cảnh, một dãy số toàn nhóm, loại nội dung riêng, đề–lời giải cùng ánh xạ và bỏ nhãn lặp tiêu đề. Không tạo một chuẩn nhãn khác hoặc sửa hồi tố hai gói đối chứng.
+- Danh mục chung sở hữu mẫu hiển thị; `zo_course_labels.py` áp dụng/kiểm từ binding gói, không cố định số bài. G03 dùng binding đầy đủ và nguồn QMD; các cổng QMD/Quarto/HTML chặn thiếu nhãn. AGENTS, 02 và quy chuẩn QMD tự kích hoạt bước này cho gói tiếp theo.
+- Bằng chứng và ứng viên HTML mới: [biên nhận áp dụng nhãn](../../../hoc_lieu/r1_g03/_quy_trinh/ho_so/ap_dung_nhan_20261016.json). Bản thảo, công thức và hình giữ nguyên; chỉ hiệu chỉnh metadata/nhãn và cách đánh số các câu xác nhận nền.
+- Trạng thái: ứng viên HTML có hệ nhãn chờ chủ trì xem; bước tiếp theo là duyệt hiển thị mới. Chưa dựng PDF học liệu, commit/push hoặc phát hành. Các phần kiểm ngoài nhãn của G03-SOURCE01 chỉ kế thừa theo đầu vào/phạm vi không đổi.
+
+**G03-SOURCE01 — chuyển QMD và dựng ứng viên HTML, 16/10/2026.**
+
+Thay trạng thái/bước tiếp về G03 ở G03-DRAFT01 và DRAFT-TEMPLATE01; các kết quả bản thảo bên dưới giữ làm căn cứ theo phiên bản.
+
+- Chủ trì đã chốt trình tự nguồn QMD → dựng tài nguyên → tích hợp/kiểm HTML và giao “OK. Tiến hành.” Quyền này áp dụng bước chuyển đổi; không ghi thành nghiệm thu HTML, PDF hoặc phát hành.
+- Nguồn hiện tại: [index.qmd](../../../hoc_lieu/r1_g03/index.qmd). Markdown 0.8 và tài nguyên bản thảo giữ nguyên, không sửa song song. Đã tạo cấu hình/hồ sơ QMD, manifest kiến trúc và binding nhiệm vụ/ví dụ; đăng ký ba đơn vị nền có thật của G03 vào danh mục chung.
+- Đã dựng mới 11 cặp SVG/PDF hình từ TeX qua ZO Math graph 0.4, không lấy đầu ra nháp làm tài sản chính thức. Khung hình cắt tiệm cận được mở xuống dưới trục hoành; xem toàn bộ danh mục hình xác nhận các hệ trục giao nhau. Không thay dữ kiện toán. PDF ở đây là từng hình vector, không phải PDF học liệu.
+- HTML dùng bộ khung chung G01/G02, có điều hướng, mục lục Bài học, vùng đọc, bảng phân loại và vùng bảo trợ/chân trang. Giữ cờ draft và danh mục công khai hiện hành. 42 cặp đề–lời giải giữ nguyên; lời giải Kiểm tra chỉ mở từ điểm dừng sau lượt.
+- Bản xem và bằng chứng kiểm hiện hành: [hồ sơ chuyển đổi](../../../hoc_lieu/r1_g03/_quy_trinh/ho_so/chuyen_qmd_20261016.json). Đây là ứng viên kỹ thuật chờ chủ trì duyệt HTML; chưa có PDF học liệu G03, chưa commit/push/phát hành.
+- Bước tiếp theo: chủ trì đọc ứng viên HTML, đặc biệt hình, Gợi mở và các tuyến hỗ trợ; hiệu chỉnh trong QMD theo góp ý. Sau khi HTML được duyệt, mới giao dựng và kiểm toàn văn PDF.
+
+**G03-DRAFT01 — căn cứ bản thảo trước chuyển đổi, 16/10/2026 (trạng thái mới ở G03-SOURCE01).**
+
+- Chủ trì giao sửa năm điểm được phát hiện khi rà bản 0.7 theo toàn văn Đơn điệu và cực trị. Đã áp dụng vào [bản nội dung 0.8](../../../hoc_lieu/r1_g03/_quy_trinh/ban_thao/noi_dung.md); duyệt phương án sửa chưa được ghi thành nghiệm thu nội dung mới.
+- Bản thảo vẫn có tám ví dụ, 52 nhiệm vụ/câu ở cấp kiểm kê, ba phần nền, 11 hình và 42 cặp đề–lời giải tách vị trí. Gợi mở 01–06 nằm tại đầu sáu mục; Sửa lỗi 01–12 liên tục. Các bổ sung lần này nằm trong các ý của nhiệm vụ hiện có.
+- R03-01: Nhiệm vụ 01 Sửa lỗi có ý b mới với giá trị riêng tại mốc và giới hạn trái vô cực, lời giải/tiêu chí tương ứng; Tự kiểm tra 06 dẫn thẳng đúng ý còn mới, không coi câu rút gọn là xác nhận thay thế. Nhật kí giả lập giữ trạng thái chưa xác nhận và chỉ rõ việc tự làm tiếp.
+- R03-02: Nhiệm vụ 05 Sửa lỗi có nhánh phải tiến gần đường xiên đi xuống; dữ kiện, nguồn TeX, SVG/PDF, đề, lời giải và tiêu chí đã đồng bộ. Hình dựng lại qua công cụ ZO Math profile 0.4, kiểm vector và xem trực quan đạt; chỉ thuộc tài nguyên bản thảo.
+- R03-03/04/05: các câu Sửa lỗi nhiều ý dẫn đúng phần học/nền theo ý; điểm Kiểm tra 02(b) tách ba thành phần rõ ràng, giữ tổng 20 điểm; đủ 21 đích số–tên trong bảng chọn bài. Quy tắc giữ bài ban đầu, dùng câu còn mới và quay về nơi gọi giữ nguyên.
+- Kiểm bản 0.8: 19 đối chiếu toán/điểm chịu ảnh hưởng đạt; 1115 cụm toán chuyển MathML không cảnh báo, 145 ID không trùng, 365 liên kết không hỏng; 42 cặp đề–lời giải khớp tên và đường quay lại, kiểm số nhóm và hướng giới hạn đạt. [Biên nhận hiệu chỉnh và khép năm phát hiện](../../../hoc_lieu/r1_g03/_quy_trinh/ho_so/hieu_chinh_sau_ra_soat_20261016.json). Chưa thay phản biện độc lập, thử với học sinh hoặc kiểm giao diện sản xuất.
+- [Hồ sơ phạm vi](goi/R1_G03.md) lên 0.11; [đề cương](goi/R1_G03_de_cuong_bien_soan.md) và [ma trận](goi/R1_G03_ma_tran_nhiem_vu.md) lên 0.8. [Biên nhận rà 0.7](../../../hoc_lieu/r1_g03/_quy_trinh/ho_so/ra_soat_toan_bo_theo_g01_20261016.json) cùng các biên nhận trước giữ nguyên theo phiên bản; năm phát hiện đã được tiếp quản bởi lượt này. Không sửa hồi tố G01/G02 hoặc kiến trúc chung.
+- Tệp `ban_thao/noi_dung.pdf` đang có vẫn là nội dung 0.3 (51 trang), không phản ánh Markdown 0.8. Điểm vào đọc duyệt là Markdown ở trên. Chưa có QMD/HTML/PDF học liệu chính thức hoặc tài nguyên sản xuất G03.
+- Áp dụng bảng kiểm mẫu 1.0 cho bản 0.8: kết quả và ngoại lệ ở [hồ sơ áp dụng](../../../hoc_lieu/r1_g03/_quy_trinh/ho_so/bang_kiem_ban_thao_20261016.md). Chủ trì nêu hai hình lạ, trong đó có hình hai trục không cắt nhau, và chọn xử lí khi dựng QMD/tài nguyên; chưa định danh đủ hai tệp, phải rà toàn bộ danh mục hình ở bước đó. Không tự coi công cụ hoặc visual PASS cũ đã giải quyết phản hồi mới. B19/B21 giữ hoãn, phải khép bằng xem hình thực trước trình HTML có các hình ấy.
+- Trạng thái: bản 0.8 đã hiệu chỉnh năm điểm nội dung, chờ chủ trì duyệt nội dung; hai hình giữ vấn đề mở được cho hoãn, chưa có QMD/HTML hiện hành. Bộ mẫu đã được áp dụng hồi cứu, không sửa bản thảo hoặc ảnh lần nữa trong lượt lập mẫu. Bước tiếp theo: chủ trì chốt nội dung trước khi giao chuyển QMD và dựng/kiểm tài nguyên để khép vấn đề hình. Chưa nghiệm thu, commit hoặc phát hành. Các công việc khác giữ nguyên phạm vi.
 
 **DOC-SYNC01 — dọn chỉ dẫn học tập lỗi thời, 16/10/2026.**
 

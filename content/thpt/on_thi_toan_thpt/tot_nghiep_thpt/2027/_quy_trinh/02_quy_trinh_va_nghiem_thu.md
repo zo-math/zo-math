@@ -1,6 +1,6 @@
 # Quy trình sản xuất, sửa chữa và nghiệm thu
 
-Phiên bản: 0.9 · Ngày biên tập: 12/10/2026 · Đường học QD_033; thay thế QD_022; hệ nhãn QD_025; Kiểm tra QD_024.
+Phiên bản: 0.10 · Ngày biên tập: 16/10/2026 · Đường học QD_033; thay thế QD_022; hệ nhãn QD_025; Kiểm tra QD_024.
 
 Áp dụng cho Codex/Copilot khi làm trong repo. [Điểm vào](README.md).
 
@@ -57,6 +57,20 @@ Theo QD_028, báo cáo nghiên cứu là dữ liệu đối chiếu, không là 
 
 Mỗi lỗi đã xử lí phải ghi triệu chứng, nguyên nhân đã kiểm, nguồn sửa, phép kiểm chống tái diễn, chứng cứ mới và giới hạn. Tách kiểm toán/nội dung, kiểm DOM và kiểm tương tác. Ca âm phải chứng minh guard bắt được chính lỗi; không sửa số lượng, baseline hoặc receipt để che lỗi. Nếu cần thay một đơn vị toán học tối thiểu, giữ ID, ghi rõ đề–đáp án mới và kiểm ý nghĩa/toán/độ lộ thực, không chỉ đổi content_key. Không dùng PASS lịch sử chứng nhận nguồn mới.
 
+<a id="ap-dung-mau-ban-thao"></a>
+
+### 1.4. Áp dụng mẫu bản thảo và bảng kiểm — QD_036
+
+Theo chốt của chủ trì ngày 16/10/2026, khi giao viết/rà/sửa bản thảo gói R1 của khóa 2027 bằng ngôn ngữ tự nhiên, agent tự nạp [mẫu bản thảo](mau/ban_thao_goi.md) và [bảng kiểm](mau/bang_kiem_ban_thao_goi.md), cùng 01/07 và hồ sơ gói. Ví dụ “Viết bản thảo gói R1-G04” đã đủ để gọi quy trình; không yêu cầu chủ trì nhớ tên tệp hay câu lệnh. D0, tài nguyên Nền hoặc loại khác phải chọn hợp đồng phù hợp, không ép vào mẫu R1.
+
+1. Trước viết: xác minh nguồn, phiên bản mẫu và bản G01/G02 đang dùng; hoàn thành phần A cùng bản đồ tương ứng từng chức năng. Đọc kĩ các phần liên quan của gói mẫu và tài liệu chính thức. Khác biệt phải nêu nội dung, lí do và phạm vi; khác biệt ảnh hưởng cấu trúc/chức năng đã chốt cần trình chốt trước khi viết phần đó, vẫn tiếp tục phần độc lập đã được giao. Không sao cứng số bài/mục/hình hoặc mã riêng của gói trước.
+2. Viết vào đúng `hoc_lieu/<ma_goi>/_quy_trinh/ban_thao/noi_dung.md`; tài nguyên ở vùng bản thảo đã thống nhất. Thực hiện tổ chức tệp theo quy chuẩn gói, không tạo nơi lưu trữ mới hoặc gói tương lai. Ghi phiên bản mẫu áp dụng trong hồ sơ, không sao toàn bộ bộ mẫu thành nhiều bản sửa độc lập.
+3. Trước trình: đọc toàn bản, hoàn thành phần B bằng tệp/mục/anchor và kết quả thực; kiểm ý nghĩa tuyến hỗ trợ, độ phủ câu còn mới, đề–lời giải, điểm thành phần và từng hình. Đếm số, liên kết tồn tại hoặc kiểm vector không thay kiểm mục tiêu và xem trực quan. Khép lỗi chịu ảnh hưởng trước khi báo đạt; phần được chủ trì cho hoãn phải có căn cứ, đích xử lí và điều kiện khép, không ghi Đạt.
+4. Lưu kết quả áp dụng trong `ho_so/` của chính gói, có phiên bản/hash bản thảo, mẫu và nguồn đối chiếu; tách thời điểm trước viết/trước trình. Gói đã có bản thảo chỉ áp dụng hồi cứu trước bước kế tiếp, không tuyên bố đã làm phần A trước khi viết. Trạng thái và việc tiếp theo chỉ ghi ở 03; biểu mẫu trống không mang trạng thái riêng của gói.
+5. Sau chủ trì duyệt bản thảo mới chuyển QMD theo quy chuẩn gói; tài nguyên chính thức dựng lại bằng công cụ ZO Math, rồi kiểm hình và bản xuất thực. Hai mẫu này điều hành biên soạn/kiểm nội dung; kit `_design/web_2027_mau_dung_chung/` điều hành hiện thực trang theo 07. Mẫu bản thảo không chứa CSS/JS và không tự cấp quyền render, commit, PDF hoặc phát hành.
+
+Khi có cải tiến được chốt, cập nhật mẫu/bảng kiểm và các đích bị ảnh hưởng cùng lượt, tăng phiên bản và ghi phạm vi tại 04/08. Gói đang làm chỉ kiểm lại phần chịu ảnh hưởng; kết quả cũ giữ theo phiên bản, không tự sửa hồi tố gói đã có. Cơ chế gọi hiện tại là chỉ dẫn bắt buộc trong AGENTS và quy trình này; chưa phải chương trình tự sinh hay cổng tự động đánh giá chất lượng lời giảng. Cổng tài liệu hiện có kiểm phụ thuộc/quy tắc đã mã hóa; kết quả bảng kiểm vẫn cần đọc có trách nhiệm.
+
 ## 2. Quy trình một lượt làm việc
 
 1. Đọc điểm vào, bảng điều hành và hồ sơ gói. Đọc hướng dẫn repo áp dụng; kiểm nhánh, trạng thái Git, diff hiện có và nguồn thực. Không coi đường dẫn trong bàn giao là đã được xác minh.
@@ -97,9 +111,13 @@ Thiếu nội dung bắt buộc phải ghi CÒN THIẾU; không tạo thẻ rỗ
 
 Nạp danh mục nhãn, 01, 07 và hợp đồng QMD; xác minh bằng `zo_2027_governance_check.py --self-test`. Lập bảng áp dụng từ QMD/include và manifest thật: ID hoặc locator khi chưa có ID riêng, loại, nơi sở hữu, nhóm chức năng, số/tên dự kiến, đáp án, nơi quay về, nơi dẫn chiếu và trạng thái duyệt. Không sửa học liệu để làm bảng có vẻ đã áp dụng.
 
-Chạy `python scripts/zo_python.py scripts/zo_learning_architecture.py labels --self-test --application <bảng_JSON_canonical> --output <thư_mục_mới_trong_audit>`. Cổng này kiểm danh mục, độ phủ nguồn, quan hệ và bảng di trú; không là nghiệm thu QMD/HTML. Kiểm nguồn sau áp dụng phải xác minh owner Ôn nền độc lập, ID không đổi, chức năng/độ lộ không bị đổi bởi tên, dãy số không đặt lại qua chặng, đề–đáp án khớp và nhãn không lặp. Trạng thái mapping_only không được báo là source_applied.
+Khi rà/di trú hệ cũ, chạy `python scripts/zo_python.py scripts/zo_learning_architecture.py labels --self-test --application <bảng_JSON_canonical> --output <thư_mục_mới_trong_audit>`. Cổng này kiểm danh mục, độ phủ nguồn, quan hệ và bảng di trú; không là nghiệm thu QMD/HTML. Kiểm nguồn sau áp dụng phải xác minh owner Ôn nền độc lập, ID không đổi, chức năng/độ lộ không bị đổi bởi tên, dãy số không đặt lại qua chặng, đề–đáp án khớp và nhãn không lặp. Trạng thái mapping_only không được báo là source_applied.
 
 Những câu chữ riêng, số cụ thể, anchor con dự kiến hoặc phân loại cần quyết định phải ghi riêng, không âm thầm chốt bằng checker. Không dùng regex đếm hộp làm số định nghĩa/ví dụ; kiểm đơn vị thực và nguồn dùng lại. Test metadata không thay kiểm hiển thị/trình duyệt, toán và DH01–DH14. Khi sửa QMD sau này, cập nhật binding/hợp đồng đầu ra đúng phạm vi rồi kiểm lại; lượt đồng bộ này không cho phép render/PDF/phát hành.
+
+**Kích hoạt tại bước dựng nguồn/bản xuất:** yêu cầu “dựng QMD”, “dựng HTML” hoặc chuyển một gói mới tự kích hoạt [07/6.2](07_quy_chuan_cau_truc_trang_nguoi_hoc.md#hệ-nhãn-qd_025-và-mục-lục). Với gói dựng mới, `giao_dien/he_nhan.json` là bảng áp dụng hiển thị hiện hành; không tạo thêm một bảng số/tên độc lập cạnh nó. Bảng `ap_dung_he_nhan.json` và cổng `labels --application` ở trên phục vụ rà/di trú hệ cũ và giữ đúng phạm vi của chúng. Không lấy kết quả mapping_only hoặc kiểm metadata làm bằng chứng nhãn đã hiện trong HTML.
+
+Thứ tự bắt buộc: kiểm kê vai trò và ngữ cảnh → hoàn chỉnh binding → kiểm nguồn → áp dụng nhãn dùng chung → dựng HTML → kiểm nhãn DOM và nhìn thực tế. `zo_course_labels.py` đọc từ vựng/mẫu hiển thị trong danh mục; cổng nguồn và đầu ra được gọi trong vòng đời QMD/Quarto, không phụ thuộc agent nhớ chạy một lệnh ngoài. Kiểm âm tối thiểu: mất nhãn nhưng metadata còn nguyên, thiếu context/binding, reset số sau chặng, sai owner, và nhãn VÍ DỤ thừa. Chỉ trình HTML sau khi khép các lỗi trong phạm vi; không mở PDF/phát hành qua bước này.
 
 ## 3. Báo cáo đối chiếu tối thiểu
 

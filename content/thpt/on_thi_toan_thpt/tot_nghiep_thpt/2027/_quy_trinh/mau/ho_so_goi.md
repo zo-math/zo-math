@@ -1,6 +1,6 @@
 # Mẫu hồ sơ một gói mới
 
-Phiên bản: 0.8 · Ngày biên tập: 16/10/2026 · Ma trận đồng bộ theo QD_021–025.
+Phiên bản: 0.9 · Ngày biên tập: 16/10/2026 · Ma trận đồng bộ theo QD_021–025.
 
 ## Hệ nhãn của gói
 
@@ -14,6 +14,21 @@ Nạp từ điển QD_025 của chương trình (kế thừa QD_023, bổ sung G
 ## Khởi tạo nơi biên soạn
 
 Áp dụng mục [Khởi tạo gói mới và quản lí bản thảo](../quy_chuan_goi_qmd.md#khởi-tạo-gói-mới-và-quản-lí-bản-thảo) của quy chuẩn gói. Ghi đường dẫn gói, bản thảo đang sửa, tài nguyên bản thảo và căn cứ chủ trì giao tạo. Đây là mẫu áp dụng cho G04 và các gói tiếp theo; khi thực tế cần cải tiến, cập nhật nguồn quy định và mẫu liên quan trong cùng lượt. Không tạo QMD trước khi bản thảo được duyệt hoặc sao tài nguyên nháp thành tài nguyên chính thức.
+
+## Mẫu biên soạn và kết quả áp dụng
+
+Nạp [khung bản thảo](ban_thao_goi.md) và [bảng kiểm](bang_kiem_ban_thao_goi.md) theo [02/1.4](../02_quy_trinh_va_nghiem_thu.md#ap-dung-mau-ban-thao). Hồ sơ chỉ giữ tham chiếu/phiên bản và bằng chứng áp dụng, không sao ngân hàng nội dung hoặc quy tắc mẫu thành nguồn thứ hai.
+
+| Thông tin | Giá trị của gói |
+|---|---|
+| Phiên bản/SHA-256 mẫu bản thảo và bảng kiểm | Chưa xác định |
+| Bản G01/G02 thực sự đối chiếu, phiên bản/SHA-256 | Chưa xác định |
+| Bảng đối chiếu trước viết (phần A), nơi lưu kết quả | Chưa lập |
+| Kết quả kiểm trước trình (phần B), bản/hash được kiểm | Chưa kiểm |
+| Khác mẫu, lí do và căn cứ chủ trì chốt | Chưa xác định |
+| Phần chưa kiểm/được hoãn, giai đoạn và điều kiện phải khép | Chưa xác định |
+
+Nếu tiếp quản bản thảo đã có, ghi rõ hồi cứu trước bước kế tiếp thay vì điền đã kiểm trước viết. Trạng thái công việc không thuộc mẫu này; dẫn về 03.
 
 ## 1. Nhận diện và phạm vi
 

@@ -74,6 +74,19 @@ foundation_catalog:
       evidence_gap: Làm tròn nghiệm thực hoặc giữ nghiệm không được phép.
       retest_requirement: So sánh các ứng viên nguyên quanh điểm tối ưu của hàm phụ.
 
+    - id: N-GH-02
+      label: Giới hạn một phía, hướng tiến gần và dấu
+      evidence_gap: Nhầm hướng hoặc dấu vô cực khi mẫu tiến về không.
+      retest_requirement: Tự tính hai giới hạn một phía của một phân thức mới và giải thích dấu.
+    - id: N-GH-03
+      label: Giới hạn ở vô cực, bậc và trị tuyệt đối
+      evidence_gap: Bỏ đầu trái hoặc dùng căn của bình phương không đúng dấu.
+      retest_requirement: Tự tính hai đầu của phân thức hoặc biểu thức căn mới theo phần còn thiếu.
+    - id: N-ĐS-01
+      label: Biến đổi phân thức, điều kiện, thương và phần dư
+      evidence_gap: Bỏ miền khi rút gọn hoặc chia sai phần tuyến tính.
+      retest_requirement: Biến đổi một phân thức mới, giữ điều kiện và nhân ngược để kiểm.
+
 journal_required_fields:
   - timestamp
   - package_objective
@@ -153,3 +166,32 @@ label_contract:
     unknown_term: reject
     operational_status: contract_with_package_application_states
 
+
+  # Projection of QD_025/07-6.2 already used by G01/G02; no package quotas.
+  display_contract:
+    version: qd025-display-v1
+    joiner: " • "
+    functions:
+      function.warmup: {label: "BÀI HỌC • KHỞI ĐỘNG"}
+      function.guided_thinking: {label: "BÀI HỌC • GỢI MỞ"}
+      function.self_check: {label: "BÀI HỌC • TỰ KIỂM TRA"}
+      function.practice: {label: "LUYỆN TẬP", context: stage}
+      function.test: {label: "KIỂM TRA"}
+      function.review: {label: "ÔN LẠI", context: round}
+      function.remediation: {label: "SỬA LỖI", context: after}
+      function.foundation_confirmation: {label: "ÔN NỀN • XÁC NHẬN"}
+      function.confirmation: {label: "XÁC NHẬN", context: within, context_position: prefix}
+      function.integration: {label: "PHỐI HỢP"}
+      function.transfer: {label: "CHUYỂN GIAO"}
+    contexts:
+      stage: "CHẶNG {number}"
+      round: "LƯỢT {number}"
+      after:
+        area.practice: "SAU LUYỆN TẬP"
+        area.test: "SAU KIỂM TRA"
+        area.review: "SAU ÔN LẠI"
+      within:
+        area.lesson: "BÀI HỌC"
+        area.practice: "LUYỆN TẬP"
+        area.foundation: "ÔN NỀN"
+        area.remediation: "SỬA LỖI"

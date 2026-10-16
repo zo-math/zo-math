@@ -200,11 +200,30 @@ Mỗi bảng thường có binding loại/chức năng tường minh trong `prof
 
 Nhãn hiển thị chỉ bổ sung ngữ cảnh chưa rõ từ tiêu đề/vùng đọc. Tiêu đề Ôn nền, Nhật kí, Nguồn hoặc Lời giải không cần dòng nhãn cùng chữ; Ví dụ 03 không cần nhãn VÍ DỤ lặp tiền tố. Metadata, heading và tên truy cập vẫn giữ đủ nghĩa. Không trải toàn bộ cây cha–con thành một nhãn dài, không thay heading bằng chữ nhỏ hoặc thêm aria-label khiến đọc lặp.
 
+Trong chính văn, tiêu đề, chú thích và nhãn liên kết dành cho người học, dùng tên nội dung/tài nguyên được tham chiếu, không dùng mã quản lí gói như `G02` hoặc mã thiết kế nhiệm vụ như `K02`, `S-K04`. Chẳng hạn viết “Giá trị lớn nhất và giá trị nhỏ nhất” hoặc “Nhiệm vụ 02 của Kiểm tra”. Mã vẫn được giữ trong ID, đường dẫn, metadata và hồ sơ nội bộ để truy nguyên; không sửa ID chỉ để đổi chữ hiển thị. Áp dụng khi biên soạn/hiệu chỉnh phần được giao; không tự mở lượt sửa hồi tố toàn bộ học liệu.
+
 Một nhóm nhiệm vụ cùng chức năng dùng một dãy liên tục trong gói. Chặng, lượt, mục toán và vùng đọc không làm dãy số bắt đầu lại. Giữ phân biệt Khởi động/Tự kiểm tra/Luyện tập/Kiểm tra/Ôn lại/Sửa lỗi/Xác nhận nền theo danh mục. Nhiệm vụ con có ID và bằng chứng riêng; không tự hòa vào số bài chính. Số và tên cụ thể cần bảng áp dụng của gói, không sao chép số G01 sang G02.
 
 Trong Lời giải, tên nhóm phản chiếu nơi chứa nhiệm vụ; không thêm tiền tố Lời giải ở mọi tiêu đề. Đề, đáp án, routing và dẫn chiếu dùng cùng một ánh xạ theo ID; dẫn từ nơi khác phải đủ nhóm/ngữ cảnh, không chỉ ghi số trần. Mục lục chọn các điểm thật sự giúp tìm nơi đọc từ cây nguồn; không quét mọi nhãn thành TOC hoặc dựng TOC thủ công cạnh tranh.
 
 Giữ nhãn/heading/nội dung bên trong vùng, cùng trục đã duyệt. QD_023 không đổi kiểu chữ, màu, inset, controller hoặc thiết kế 9/10; không là nâng Design 0.5. G01 đã áp dụng tại DH_015, G02 tại DH_016; trạng thái nguồn, phép kiểm và duyệt HTML ghi riêng ở 03/profile, không được nhận là đã nghiệm thu chỉ vì cùng CSS.
+
+#### Áp dụng khi dựng QMD và HTML
+
+Quy tắc ở mục này đã có trước G03; lượt 16/10/2026 bổ sung cơ chế dùng lại và chặn thiếu nhãn, không lập hệ nhãn thứ hai. Đối chứng là binding và HTML toàn văn G01/G02: một nhãn chức năng mang ngữ cảnh thật (chặng, lượt hoặc nơi phát hiện), một dãy số trong toàn nhóm, cùng ánh xạ cho đề và lời giải; loại nội dung không đồng nhất với chức năng nhiệm vụ.
+
+| Thành phần | Nguồn sở hữu | Cách dùng |
+|---|---|---|
+| Từ vựng, nhãn cơ bản và mẫu ghép ngữ cảnh | `danh_muc_kien_truc_hoc_tap.yml` → `label_contract` và `display_contract` | Đọc lại khi bắt đầu dựng; không viết một bảng tên riêng trong adapter của mỗi gói |
+| ID, chức năng, số, tên, chặng/lượt/nơi phát hiện, cặp đề–lời giải, loại nội dung và ngoại lệ không lặp | `hoc_lieu/<gói>/giao_dien/he_nhan.json` | Lập từ kiểm kê nội dung thật; thiếu ngữ cảnh phải sửa mapping trước dựng |
+| Metadata và chủ sở hữu trong cây nội dung | QMD và include được dùng | Khớp binding; không suy chức năng từ chữ “bài”, từ vị trí tình cờ hoặc kiểu hộp |
+| Áp dụng và kiểm phần hiển thị | `scripts/zo_course_labels.py` | Dùng CSS `.role`/`data-reading-label` hiện có; kiểm nhãn thật ở đúng vùng, không chỉ kiểm metadata |
+
+Khi bắt đầu chuyển bản thảo sang QMD hoặc dựng/hiệu chỉnh HTML, agent tự nạp mục 6.2, danh mục và binding của gói. Bảng áp dụng phải bao phủ nhiệm vụ, câu xác nhận nền, điểm dừng, đơn vị kiến thức và ví dụ; ví dụ đã ghi rõ loại trong tiêu đề không thêm nhãn VÍ DỤ lặp lại. Phần không có một loại nội dung phải ghi không áp dụng, không tạo định lí hay định nghĩa để đủ mẫu.
+
+G03 và các gói R1 dựng mới phải khai `display_contract: qd025-display-v1` trong binding và gọi phần áp dụng dùng chung. `zo_qmd.py check/render` và launcher Quarto kiểm nguồn; bộ ghép và kiểm đầu ra kiểm nhãn hiển thị. Thiếu binding, nhãn/ngữ cảnh, số không liên tục, nhãn sai chức năng, owner không tồn tại hoặc HTML chỉ có metadata phải làm kiểm thất bại. Gói mới chưa có adapter nhãn không được trình như HTML đã đạt. G01/G02 giữ các adapter theo bản đang có; chúng là đối chứng tương thích, không sao quota hay điều kiện riêng sang gói mới.
+
+Kiểm trình duyệt phải xác nhận nhãn nhìn thấy và đọc được ở desktop/mobile, nằm cùng vùng với tiêu đề, không lặp nhãn–tiêu đề, không tràn và không làm hỏng đường đi/về. PASS schema hoặc có thuộc tính `data-zo-function` không thay phép kiểm này. Các cổng tự động chỉ kiểm phần đã được mã hóa; việc phân loại đúng ý nghĩa vẫn phải được đọc và đối chiếu.
 
 ## 7. Responsive, khả năng truy cập và trạng thái bền
 
