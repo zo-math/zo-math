@@ -1,5 +1,21 @@
 # HTML canonical của trang Nhà khóa 2027
 
+## Video giới thiệu Bản 01 ngày 16/10/2026
+
+Chủ trì giao biên tập lại hoàn toàn vùng giới thiệu trong hero và đăng video
+Bản 01 có giọng B, bộ bìa đã duyệt. Nguồn chữ/vị trí vẫn ở `../index.qmd`;
+`.home-video-introduction` trong CSS Home bố trí chữ bên trái, video bên phải,
+chuyển thành một cột trên màn hình nhỏ. Không dùng khẩu hiệu cũ của vùng này.
+
+MP4 và ảnh chờ tại `../assets/video/`, lấy nguyên byte từ dự án sản xuất
+`E:/zo_math_media/videos/on_thi_thpt_2027/gioi_thieu_khoa_hoc`.
+Video dùng controls/playsinline, preload none, không autoplay. Phụ đề động
+đã có trong hình, không bật thêm lớp phụ đề trùng. Bản nguồn dựng tiếp tục
+được quản lý ngoài kho website; ở đây chỉ lưu hai tài sản công khai cần dùng.
+Allowlist chỉ mở đúng MP4 này với ngoại lệ kích thước 20 MiB; validator và
+phép gom phụ thuộc nhận cả thuộc tính poster. Dựng lại qua launcher Quarto,
+kiểm phần giới thiệu và phát/tua thật trước khi xuất bản lại.
+
 ## Tiếp quản sau phát hành — 15/10/2026
 
 Nhà, D0, R1-G01 và R1-G02 đã được xuất bản, kiểm trực tiếp và khép hồ sơ
