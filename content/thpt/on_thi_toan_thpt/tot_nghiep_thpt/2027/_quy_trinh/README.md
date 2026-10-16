@@ -21,6 +21,8 @@ nghĩa đã hoàn thiện toàn bộ chương trình hoặc phản biện toán 
   quy trình theo 02; cách thể hiện theo 07; phân vai tài liệu theo 08.
   Khép phát hành không thay đổi các quy tắc này.
 
+Việc dùng Nguồn cuộc trò chuyện và workspace được hướng dẫn tại [05](05_huong_dan_su_dung.md); vai trò tài liệu cũ và kho sao lưu tại [06](06_nguon_va_chuyen_tiep.md). Khi đọc được PC, lấy nguồn gói hiện hành trực tiếp từ workspace; không dùng bản toàn văn/PDF đính kèm cũ để quyết định kiến trúc gói mới.
+
 ## Hồ sơ tiếp nhận và triển khai trước phát hành
 
 Các mô tả trạng thái, bản chờ xem và bước tiếp trong phần dưới được giữ

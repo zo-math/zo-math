@@ -1,6 +1,6 @@
 # Nguồn, giới hạn kiểm chứng và chuyển tiếp hồ sơ cũ
 
-Phiên bản: 0.7 · Ngày biên tập: 10/10/2026 · Chuyển tiếp theo QD_021–025.
+Phiên bản: 0.8 · Ngày biên tập: 16/10/2026 · Chuyển tiếp kiến trúc theo QD_033; phân vai theo 08.
 
 QD_024 lấy hai sửa đổi trong bản biên tập G01 do chủ trì sửa và xác nhận phạm vi toàn chương trình làm căn cứ. Quy tắc hiện hành ở 01/2.3–2.3.1; 04 ghi chỉ thị, hash bản nhận và phần cũ bị thay. Không dùng điều kiện QD_021 cũ đòi bài làm độc lập trước khi vào Kiểm tra, hoặc suy quyền chia việc học nhiều buổi thành quyền chia cùng một lượt Kiểm tra. Bản gốc người dùng và báo cáo lịch sử giữ nguyên; cập nhật điều hành chưa đồng nghĩa nguồn/đầu ra đã sửa.
 
@@ -13,9 +13,26 @@ Tệp này ghi xuất xứ và vai trò tài liệu; không điều hành việc
 
 [08 — Danh mục thẩm quyền](08_danh_muc_tham_quyen_dieu_hanh.md) phân vai toàn bộ lớp tài liệu, gồm các lớp ngoài thư mục khóa. Kế hoạch 0.6 và baseline D0 giữ nguyên byte; chỉ phần phạm vi/lộ trình của Kế hoạch chưa bị quyết định sau thay thế tiếp tục điều hành. Prompt, checklist gói, mô tả D0, trạng thái chờ và kiểu trình bày cũ không là lệnh hiện hành.
 
-**QD_025/DH_015:** chủ trì giao áp dụng bản biên tập đã tự sửa vào G01 và dựng HTML; QMD/binding đã sửa, HTML cô lập chờ duyệt. Bản người dùng giữ nguyên SHA tại QD_024; không trở thành nguồn build. Từ vựng toàn chương trình lấy từ danh mục/01/07, bổ sung Gợi mở trên nền QD_023. Đường học QD_021, Kiểm tra QD_024 và thay thế QD_022 giữ nguyên. Các mô tả nguồn chưa sửa của DH_012–014 là lịch sử; G02 đã áp dụng/kiểm riêng tại DH_016, HTML mới chờ chủ trì duyệt; các kết quả G01 không thay nghiệm thu G02. Bằng chứng mới thuộc `_audit/r1_g01_ap_dung_ban_chot_2026-10-10/`; không dùng QA/receipt cũ nghiệm thu bản mới.
+**Lịch sử QD_025/DH_015 — không phải trạng thái hiện hành:** chủ trì giao áp dụng bản biên tập đã tự sửa vào G01 và dựng HTML; QMD/binding đã sửa, HTML cô lập chờ duyệt. Bản người dùng giữ nguyên SHA tại QD_024; không trở thành nguồn build. Từ vựng toàn chương trình lấy từ danh mục/01/07, bổ sung Gợi mở trên nền QD_023. Tại mốc đó, đường học QD_021, Kiểm tra QD_024 và thay thế QD_022 được giữ nguyên. Đường học hiện nay do QD_033 sở hữu tại 01. Các mô tả nguồn chưa sửa của DH_012–014 là lịch sử; G02 đã áp dụng/kiểm riêng tại DH_016, HTML mới chờ chủ trì duyệt; các kết quả G01 không thay nghiệm thu G02. Bằng chứng mới thuộc `_audit/r1_g01_ap_dung_ban_chot_2026-10-10/`; không dùng QA/receipt cũ nghiệm thu bản mới.
 
 Rà G01 ban đầu có 21 RD. Phương án đã được duyệt ở QD_020 và biên tập tại DH_011; sau đó chủ trì bác bỏ sơ đồ, được tiếp quản bởi QD_021/DH_012. Các phương án và báo cáo kiểm cũ dưới audit là bằng chứng theo thời điểm, không tự ghi đè phản hồi sau cùng. Các phần 7.x bên dưới giữ nguồn nghiên cứu cũ, không phải kiểm mới của repo. Việc tiếp theo chỉ ở 03.
+
+## Phân loại tài liệu sau rà soát ngày 16/10/2026
+
+Chủ trì giao xóa tài liệu lỗi thời có thể bỏ và cập nhật tài liệu cần giữ. Việc này xử lý nguồn chỉ dẫn cũ, không sửa toán, QMD, HTML/PDF hoặc thay kiến trúc QD_033.
+
+| Tài liệu | Xử lý và nơi đọc tiếp |
+|---|---|
+| Ma trận chuyển đổi G02 tháng 9, trước ở `hoc_lieu/r1_g02/_quy_trinh/ma_tran_kien_truc_noi_dung.md` | Gỡ khỏi cây làm việc sau sao lưu và kiểm SHA-256. Dùng 01, 07, hồ sơ G02 và manifest hiện hành. |
+| README hai gói và tài liệu tiếp quản 03/05/06/08/README | Cập nhật chỉ dẫn tới nguồn có thẩm quyền hiện nay; lịch sử không điều hành gói mới. |
+| Kế hoạch 0.6 | Giữ nguyên bản gốc; chỉ phạm vi/lộ trình chưa bị thay tiếp tục có hiệu lực. Sơ đồ cũ không thay 01/QD_033. |
+| Ghi chú một lõi hai cửa vào | Giữ tham khảo như giả thuyết sản phẩm, chưa phải kiến trúc được duyệt. |
+| `_projects/on_thi_toan_thpt_2027/goi/R1-G01/` và G01 `_quy_trinh/lich_su/v1_1.json` | Giữ nguyên: phép kiểm bảo toàn dùng danh sách tệp/checksum cùng đầu vào lịch sử. Chỉ cập nhật README chuyển tiếp ở cấp dự án cũ. |
+| Mẫu/nguồn đối chiếu trong Design 0.4 khóa | Giữ nguyên vì các manifest và phép kiểm nguồn thiết kế còn tham chiếu. Không dùng thứ tự thẻ của mẫu lịch sử làm kiến trúc học tập. |
+| Bản thảo G02 v0.1, nhật kí quyết định/phản hồi, receipt và checkpoint | Giữ dữ kiện lịch sử nguyên trạng; đọc vai trò theo 08, trạng thái theo 03. |
+| Bốn bản toàn văn/PDF G01/G02 cũ trong Nguồn cuộc trò chuyện | Chủ trì đã xóa; không tạo lại bản sao. Khuyến nghị cung cấp ngữ cảnh tại 05. |
+
+Kho sao lưu lượt này: `E:/zo_nhap/zo_math_archive/learning-document-cleanup-20261016`. `manifest.json` ghi đường dẫn gốc, thao tác, SHA-256 trước/sau và tệp sao lưu; `before/` giữ nguyên từng tệp được sửa hoặc gỡ. Báo cáo kiểm sau thao tác ở `_audit/learning-document-cleanup-20261016/verification.json` trong repo. Kho này chỉ phục vụ truy nguyên/khôi phục; không làm nguồn build hoặc chuẩn học tập.
 
 ## Cách tiếp quản trong repo
 

@@ -1,6 +1,6 @@
 # Cách dùng, quản lý và cập nhật trong VS Code
 
-Phiên bản: 0.8 · Ngày biên tập: 10/10/2026 · Tiếp quản theo QD_021–025.
+Phiên bản: 0.9 · Ngày biên tập: 16/10/2026 · Tiếp quản kiến trúc theo QD_033; các quy tắc khác theo 08.
 
 Hướng dẫn dành cho người chủ trì. Bộ này dùng được với Codex và Copilot trên cùng repo. [Điểm vào](README.md).
 
@@ -11,9 +11,19 @@ Không giải nén hoặc nhập lại bộ điều hành đã hiện diện. M�
 
 Chỉ cần giao bằng tên bước và phạm vi. Ví dụ: “Thực hiện bước đang đề xuất ở mục A; chỉ lập phương án biên tập, chưa sửa nguồn.” Nếu giao sửa, nêu rõ nhận phương án nào; agent lập danh sách tác động và kiểm phần dùng chung. Không diễn giải câu đồng ý với khảo sát thành quyền biên tập, PDF hoặc phát hành.
 
-Các bước nhập và prompt lần đầu ở dưới **chỉ dành cho một bộ bàn giao chưa tích hợp**, không chạy lại để tiếp tục FB036/DH_009. Quyết định mới phải được cập nhật đủ các lớp theo 02 trước khi biên tập tiếp. Chỉ 03 sở hữu công việc hiện hành; sau mỗi bàn giao đặt tên bước tiếp theo rõ ràng.
+Các bước nhập và prompt lần đầu ở dưới **chỉ dành cho một bộ bàn giao chưa tích hợp**, không chạy lại cho workspace đã tích hợp. Quyết định mới phải được cập nhật đủ các lớp theo 02 trước khi biên tập tiếp. Chỉ 03 sở hữu công việc hiện hành; sau mỗi bàn giao đặt tên bước tiếp theo rõ ràng.
+
+### Dùng Nguồn của cuộc trò chuyện và workspace
+
+**Khuyến nghị sử dụng ngày 16/10/2026:** khi cuộc trò chuyện đọc được workspace `E:/zo_math`, không cần tải lại toàn văn Markdown hoặc PDF của mọi gói đã hoàn thành vào Nguồn sau mỗi lần sửa. Duy trì bản sao như vậy tạo thêm phiên bản dễ bị dùng nhầm. Khi bắt đầu nhiệm vụ, agent đọc lại README này, 03, 08 và các nguồn hiện hành theo phạm vi; không dựa riêng vào trí nhớ hoặc bản đính kèm cũ.
+
+Nguồn của cuộc trò chuyện phù hợp để giữ tài liệu định hướng và tham khảo ổn định. Kế hoạch 0.6 chỉ còn điều hành phạm vi/lộ trình chưa bị thay thế; kiến trúc lấy từ 01/QD_033 và cách thể hiện lấy từ 07. Ghi chú “một lõi hai cửa vào” là giả thuyết sản phẩm, chưa là kiến trúc được duyệt. Tệp đồng bộ trong `sources/` là tài liệu tham khảo chỉ đọc; không sửa trực tiếp bản mirror để thay Nguồn trên ứng dụng.
+
+Khi cần làm việc ở nơi không đọc được PC, chuẩn bị một bộ bàn giao đúng nhiệm vụ từ nguồn mới nhất: điểm vào, phần điều hành/kiến trúc liên quan, hồ sơ và học liệu cần dùng. Ghi ngày chụp, đường dẫn nguồn, phiên bản hoặc commit, checksum và phạm vi; commit riêng không mô tả các sửa đổi chưa commit. Thay bản cũ của cùng bộ bàn giao thay vì tích lũy nhiều bản cùng tên, và không xem snapshot là nguồn sản xuất. Đây là khuyến nghị về cách cung cấp ngữ cảnh, không thay quy tắc học tập hay cấp quyền tự đồng bộ Nguồn.
 
 ### Tiếp quản sau một quyết định mới
+
+Kiến trúc hiện hành là QD_033 tại 01; không lấy chuỗi sáu bước có Sửa lỗi/Lời giải làm đường học bắt buộc. Các đoạn QD_024/025 dưới đây giải thích quyết định và phép kiểm tương ứng; trạng thái áp dụng, PDF và phát hành phải lấy từ mục A của 03, không từ các câu chờ duyệt ở hồ sơ ngày 10–11/10.
 
 QD_024 áp dụng hai quy tắc Kiểm tra cho toàn bộ các gói của chương trình tại 01/2.3.1, không chỉ R1. Đọc 07/4.4 để áp dụng lời dẫn, 02 để kiểm và 03 để biết sản phẩm nào chưa sửa. Không yêu cầu chứng minh bài làm độc lập trước khi được vào Kiểm tra, không cho chia cùng một lượt Kiểm tra thành nhiều đợt; quyền vào khác bằng chứng đạt mục tiêu. Bản biên tập G01 do chủ trì sửa đã được nhận làm chỉ dẫn triển khai, không yêu cầu duyệt lại cùng bản; chưa có nghĩa đã áp dụng nguồn hoặc nghiệm thu HTML.
 

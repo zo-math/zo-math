@@ -1,6 +1,6 @@
 # Điều hành chương trình — trạng thái và việc tiếp theo
 
-Phiên bản: 0.1 · Cập nhật trạng thái: 15/10/2026.
+Phiên bản: 0.1 · Cập nhật trạng thái: 16/10/2026.
 
 Đây là nơi duy nhất ghi công việc đang mở và thứ tự sản xuất hiện hành. Chỉ cập nhật trạng thái từ bằng chứng trong hồ sơ gói. [Điểm vào](README.md).
 
@@ -29,6 +29,14 @@ Trạng thái: **đã xuất bản và kiểm trực tiếp trên zomath.vn**. N
 Giới hạn kiểm: chưa in giấy/quét QR bằng điện thoại/phản biện toán độc lập.
 
 ## A. Công việc đang mở
+
+**DOC-SYNC01 — dọn chỉ dẫn học tập lỗi thời, 16/10/2026.**
+
+- Chủ trì giao xóa tài liệu cũ có thể bỏ và cập nhật tài liệu cần giữ; bốn bản toàn văn/PDF cũ trong Nguồn đã được chủ trì xóa.
+- Đã gỡ ma trận chuyển đổi G02 tháng 9 sau sao lưu có SHA-256; cập nhật tám tài liệu tiếp quản/điều hành để dẫn đúng 01/QD_033 và 07. Chỉ mục và lý do giữ hồ sơ lịch sử ở 06.
+- G01 v1.1, Design khóa, Kế hoạch 0.6, bản thảo/nhật kí/receipt lịch sử giữ nguyên; không sửa QMD, HTML/PDF, công cụ, nội dung toán hoặc kiến trúc.
+- Khuyến nghị quản lý Nguồn ở 05: đọc workspace khi có thể, chỉ đóng gói snapshot theo nhiệm vụ khi không đọc được PC; không tự tải lại mọi gói sau mỗi lần sửa.
+- Hồ sơ kiểm: `_audit/learning-document-cleanup-20261016/verification.json`. Lượt dọn tài liệu này đã khép; không mở thêm quyền biên soạn, commit hoặc phát hành. Công việc công cụ đã ghi dưới đây giữ nguyên phạm vi.
 
 **CLOSE-RELEASE01 — khép hồ sơ xuất bản ngày 15/10/2026.**
 

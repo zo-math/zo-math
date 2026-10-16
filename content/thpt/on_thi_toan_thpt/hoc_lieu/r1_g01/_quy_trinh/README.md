@@ -20,6 +20,10 @@ Cổng chung `scripts/zo_course_release_audit.py --preflight --output <thu_muc_b
 kiểm cả 16 cấu hình bằng TeX, không dựng lại sách. Lệnh nào cũng gọi qua launcher.
 
 
+## Kiến trúc dùng cho công việc tiếp theo
+
+Đọc [01 — Kiến trúc học tập](../../../tot_nghiep_thpt/2027/_quy_trinh/01_kien_truc_hoc_tap.md) theo QD_033 và [07 — Cấu trúc trang](../../../tot_nghiep_thpt/2027/_quy_trinh/07_quy_chuan_cau_truc_trang_nguoi_hoc.md). Các thứ tự thẻ, sơ đồ học và trạng thái trong phần lịch sử dưới đây chỉ mô tả bản tại thời điểm đó; không dùng làm mẫu cho gói mới. Nguồn học liệu hiện hành là `../index.qmd` cùng các include, dữ liệu và manifest của gói.
+
 ## Lịch sử triển khai trước lượt đồng bộ 15/10/2026
 
 **Hiện hành DH_026/QD_031:** nguồn QMD/layout/binding đã sửa backlog theo owner; Nhật kí độc lập, Toàn văn/Sửa lỗi/Lời giải đúng thứ tự, bỏ hành động đề–đáp án cục bộ thừa, bảng chọn bài dùng chuẩn chung. Bản xem và evidence ở `_audit/zo_pair_backlog_2026-10-11/`; cổng nguồn/DOM `scripts/zo_web_2027_backlog_check.py` chạy trong adapter. Trạng thái chờ chủ trì duyệt HTML; PDF chưa đồng bộ, root docs/receipt/Git không sửa. Mọi mô tả “hiện hành” ở các đoạn dưới là lịch sử trước DH_026; không phục hồi quy tắc đã bị QD_031 thay.
@@ -203,12 +207,11 @@ hoặc khung tài khoản. Luyện tập và Kiểm tra không mang lời giải
 HTML tải hai tệp trên bằng tên `download` lần lượt là
 `R1-G01_hoc_lieu_day_du_v1.3.pdf` và `R1-G01_hoc_va_bai_tap_v1.3.pdf`.
 Không tạo bản sao theo tên thân thiện, không dùng in trình duyệt làm PDF chính thức.
-Không còn nút/listener in. HTML dùng chín thẻ theo thứ tự Cách học, Bài học,
-Luyện tập, Kiểm tra, Sửa lỗi, Ôn lại, Lời giải, Tải PDF, Toàn văn. Tất cả thẻ
-dùng chung một cây nội dung canonical và một `tabpanel`; JavaScript chỉ ẩn/hiện
-các section sẵn có. Query `r1-view` giữ chế độ xem, hash giữ đích; liên kết hash
-cũ vẫn mở đúng thẻ sở hữu đích, còn Toàn văn giữ nguyên chế độ khi đi tới hoặc
-trở về từ lời giải. Khi không có JavaScript, toàn bộ nội dung vẫn đọc liên tục.
+Mốc lịch sử này đã bỏ nút/listener in và dùng giao diện chín thẻ.
+Thứ tự thẻ cũ đã được thay thế; kiến trúc học tập và cách thể hiện hiện hành
+đọc tại 01/QD_033 và 07, được dẫn ở đầu tài liệu. Không tái dùng giao diện
+chín thẻ làm mẫu cho gói mới. Chi tiết bản cũ được bảo toàn trong lịch sử Git
+và bản sao lưu của lượt dọn tài liệu ngày 16/10/2026 (chỉ mục tại 06 của khóa).
 Hình HTML dùng SVG gốc. Cả mười hình `do_thi_01` đến `do_thi_10` dùng trực tiếp
 PDF vector khi dựng PDF học liệu; mỗi PDF và SVG được dựng từ TEX cùng tên bằng bộ
 công cụ đồ thị ZO Math tại commit `354fb22`. Không còn tài sản PNG canonical hoặc
