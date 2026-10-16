@@ -1,5 +1,15 @@
 # Lịch sử điều hành
 
+## 17/10/2026 — phát hành ba gói R1 và khép bộ PDF
+
+Theo giao việc trực tiếp của chủ trì, đã tái xuất bản G01/G02 và phát hành
+G03; Nhà/D0 cập nhật danh mục/menu liên quan. Giữ khung in chung đã duyệt,
+đủ 24 PDF CURRENT và 17/17 kiểm mỗi bản. HTML G03 865/865; kiểm trực tiếp
+50/50 tệp khớp SHA-256. Nguồn c7d50ebf, public 0b13f6d9; hồ sơ hiện hành
+ở khóa 2027 ho_so_phat_hanh_20261017.json. Đợt này không đổi phiên bản
+thiết kế, không chứng nhận phản biện toán độc lập hoặc in/quét QR thật.
+
+
 ## 14/10/2026 — khung PDF chung D0 và bản đầy đủ R1-G01
 
 Theo yêu cầu trực tiếp của chủ trì, ZO031 ghi nhận trang đầu, trang cuối,
@@ -448,3 +458,18 @@ Kiểm trực tiếp sau phát hành: 21/21 HTML/PDF khớp receipt; 17 PDF cano
 giữ nguyên; worktree xuất bản sạch. Không dựng lại hoặc xuất bản thêm.
 Receipt phát hành gốc giữ nguyên; hồ sơ khép việc ở
 `content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/khep_ho_so_phat_hanh_20261015.json`.
+
+## 15/10/2026 — Ảnh bài đăng YouTube ra mắt khóa 2027
+
+Chủ trì yêu cầu làm lại ba ảnh sau khi bản đầu dùng bảng màu tự chọn không
+đối chiếu repo. Nguyên nhân: bỏ qua bộ thiết kế 0.4 khi lập đặc tả ảnh.
+Đã đọc quy chuẩn màu/logo/chữ, sổ yêu cầu và hướng dẫn ảnh bìa; đối chiếu
+mẫu social và công cụ ảnh video cũ (chỉ có dọc/ngang). Bộ mới là ba bố cục
+vuông 1440px, lấy trực tiếp palette JSON, logo và font Be Vietnam Pro của
+bộ 0.4, không sửa tài sản chung hoặc bộ ảnh bìa khóa đang dùng.
+Nguồn dựng và provenance ở
+`E:/CodexHome/visualizations/2026/10/15/01a13f21-1439-7720-a77f-7c4e296946aa/youtube-2027-v2`.
+Đã kiểm biên chữ, xem đủ ba PNG và bản thu nhỏ 360px/ảnh. Chưa kiểm trên
+giao diện YouTube thật; chờ chủ trì xem, chưa đăng. Bố cục mới không là
+chuẩn thương hiệu mới. Guard của bản dựng đọc màu từ nguồn chung và kiểm
+biên chữ; lần tái tạo phải tiếp tục dùng đúng nguồn logo/font đã ghi.

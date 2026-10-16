@@ -52,7 +52,8 @@ Giới hạn kiểm: chưa in giấy/quét QR bằng điện thoại/phản bi�
   kiểm PDF. Bốn liên kết nguồn nội bộ và mô tả Sửa lỗi đã được sửa ở nguồn.
 - Đã khép chính sách công khai cho đúng phông và giấy phép; không mở rộng
   allowlist toàn bộ định dạng. Chưa in giấy/quét QR bằng thiết bị thật hoặc
-  làm phản biện toán độc lập. Bước còn lại trong nhiệm vụ: kết sổ repo.
+  làm phản biện toán độc lập. Phần phát hành đã khép; kết sổ toàn repo do
+  biên nhận công cụ cuối ngày ghi nhận riêng. Chưa khởi động gói kế tiếp.
 
 
 **COMMON-HTML01 — áp dụng chốt đối sánh G01/G02/G03, 17/10/2026.**
