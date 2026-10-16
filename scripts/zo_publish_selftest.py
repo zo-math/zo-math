@@ -21,6 +21,11 @@ GOVERNANCE = SECTION + "/_quy_trinh"
 
 
 class PublicBoundaryTests(unittest.TestCase):
+    def test_video_source_and_poster_are_public_dependencies(self):
+        collector = publish.LinkCollector()
+        collector.feed('<video poster="cover.png"><source src="intro.mp4" type="video/mp4"></video>')
+        self.assertEqual(collector.links, [('poster', 'cover.png'), ('src', 'intro.mp4')])
+
     def test_requested_pages_preserve_other_html_and_reject_unknown_pages(self):
         files={'files':{'index.html':{},'content/about.html':{},'assets/site.css':{}}}
         allowed=set(files['files'])

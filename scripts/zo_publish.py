@@ -726,7 +726,7 @@ class LinkCollector(HTMLParser):
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         for key, value in attrs:
-            if value and key in {"src", "href"}:
+            if value and key in {"src", "href", "poster"}:
                 self.links.append((key, value))
             elif value and key == "srcset":
                 self.links.extend((key, item.strip().split()[0]) for item in value.split(",") if item.strip())
