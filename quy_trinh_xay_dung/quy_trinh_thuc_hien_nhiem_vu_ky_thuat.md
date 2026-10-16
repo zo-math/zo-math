@@ -269,3 +269,103 @@ Người dùng giữ quyền quyết định về:
 - nguyên tắc và ngoại lệ thiết kế;
 - đánh giá thẩm mỹ;
 - commit, push, xuất bản hoặc thao tác phá hủy khi chưa được ủy quyền.
+
+## 11. Agent kết sổ cuối ngày — toàn ZO Math
+
+### Kích hoạt và giới hạn ủy quyền
+
+Người dùng chỉ cần nói **"Kết thúc ngày làm việc"** trong phiên agent đang
+làm việc với repository. Đây là yêu cầu tường minh để agent kiểm kê toàn
+repository, tạo commit cục bộ theo từng nhóm nguồn đã phân loại, và chuyển
+tệp tạm không còn cần ra kho ngoài repository sau khi xác minh SHA-256.
+Không cần hỏi lại quyền thực hiện các thao tác đã nằm trong phạm vi này.
+
+Yêu cầu xây dựng cơ chế, hỏi tình trạng hoặc việc agent kết thúc một nhiệm vụ
+không phải yêu cầu kết sổ. Không tự hẹn giờ hay tự suy đoán thời điểm kết thúc.
+Không push, xuất bản, reset, stash, đổi nhánh, bỏ qua hook Git hoặc ép xóa.
+Commit bảo toàn không xác nhận nghiệm thu, đọc hiểu của học sinh hay duyệt thị
+giác. Công việc chưa xong vẫn được lưu với nhãn `wip(eod)` và lỗi đã biết;
+nhóm đã kiểm kỹ thuật dùng `checkpoint(eod)`, không gọi là đã nghiệm thu.
+
+### Trình tự agent tự thực hiện
+
+1. Xác nhận không có phiên khác đang ghi vào cùng checkout. Nếu có hoặc
+   chưa rõ người sở hữu thay đổi, dừng phần ghi và báo đúng chỗ cần xác nhận;
+   không tự đóng hoặc nhắn phiên khác. Đọc chỉ dẫn từ ngoài vào trong cho mọi
+   phạm vi liên quan, diff nguồn và hồ sơ điều hành hiện hành.
+2. Kiểm kê Git và **cả tệp bị Git bỏ qua** bằng `scan`. Xác định các bản đã
+   duyệt, bản đang chờ xem, bằng chứng và toàn bộ tài nguyên phục vụ chúng;
+   truyền các vùng bảo vệ qua `--protect` hoặc manifest qua
+   `--protect-manifest`. Không tái dùng danh sách xóa hay hash của lần cũ.
+   Không coi mọi tệp trong `_audit/` là rác. Không dùng việc giữ bằng chứng
+   làm lý do cho phép biên dịch chính thức đọc `_audit/`.
+3. Tự hoàn thiện kế hoạch: `instructions_reviewed`, `protection_reviewed`,
+   các `groups`, quyết định `keep`/`archive` có lý do. Mỗi thay đổi nguồn
+   thuộc đúng một nhóm, có danh sách tệp chính xác, thông điệp và trạng thái
+   `in_progress` hoặc `checked`. Ghép xóa/tạo của việc đổi tên trong cùng
+   nhóm. `checked` phải ghi kiểm tra thực tế ở `verification`; kiểm QMD dùng
+   điểm vào và hợp đồng hiện hành, không tự render toàn repo. Ghi kết quả
+   kiểm tra và quyết định bền vững vào hồ sơ đúng thẩm quyền trước khi chốt;
+   không tự nâng quyết định của dự án con thành quy tắc toàn hệ thống.
+4. Phân loại mọi tệp bị bỏ qua. Giữ bản cần dùng hiện hành cùng phụ thuộc;
+   chuyển cache, báo cáo thừa và lịch sử không còn phục vụ công việc ra kho
+   ngoài repo. Không đoán chỉ từ tên "old", "retry" hay thời gian sửa.
+   Nguồn hữu ích bị ignore nhầm phải được xử lí theo quản lý nguồn hiện hành,
+   không cất như rác. Không tự xử lí bí mật hoặc metadata hệ thống.
+5. Chạy `check` rồi `apply` với kế hoạch hiện hành. Kho ngoài repo phải là
+   thư mục riêng, không phải gốc ổ đĩa hay thư mục cha chứa repo. Dùng kho
+   đã xác định nếu có; nếu chưa có, đề xuất đường dẫn anh em
+   `<ten-repo>_archives/end_day` và xin quyền filesystem khi cần. Cờ
+   `--authorized-day-close` chỉ được dùng khi đã có yêu cầu trực tiếp của
+   người dùng; cờ không tự tạo ra quyền. Công cụ không tự nâng quyền.
+6. Đọc biên nhận ngoài repo, đối chiếu trạng thái cuối và báo ngắn:
+   repo đã kết sổ hay chưa, commit bảo toàn, nơi lưu trữ và việc cần tiếp tục.
+   Nếu còn tệp chưa phân loại, lỗi quyền hoặc writer đồng thời, báo **chưa
+   kết sổ**, không lặp thao tác phá hủy để cố đạt trạng thái sạch.
+
+### Công cụ và kế hoạch
+
+Các lệnh agent vận hành, không chuyển cho người dùng:
+
+```text
+python scripts/zo_python.py -B scripts/zo_end_day.py scan --summary
+python scripts/zo_python.py -B scripts/zo_end_day.py scan --protect <vung-can-giu> --output _audit/end-day-plan.json
+python scripts/zo_python.py -B scripts/zo_end_day.py check --plan _audit/end-day-plan.json
+python scripts/zo_python.py -B scripts/zo_end_day.py apply --plan _audit/end-day-plan.json --archive-root <kho-ngoai-repo> --authorized-day-close
+python scripts/zo_python.py -B scripts/zo_end_day_selftest.py
+```
+
+`scan` không có `--output` và `check` chỉ đọc. Kế hoạch mới phải nằm trong
+`_audit/`, là dữ liệu thao tác tạm, không phải đầu vào biên dịch chính thức.
+`groups` dùng `{state, message, paths, verification}`; `keep`/`archive` dùng
+`{path, reason}` với tệp hoặc tiền tố thư mục tương đối, không dùng glob.
+Manifest bảo vệ có dạng `{"files": [{"path": "duong/dan/tuong/doi"}]}`;
+hash hiện tại của manifest được khóa trong kế hoạch. Hash lịch sử không
+được mặc nhiên coi là hash của nguồn hiện tại.
+
+Công cụ khóa kế hoạch với repo, HEAD, nhánh, danh sách thay đổi và SHA-256;
+chặn staged có sẵn, xung đột, đường dẫn thoát repo, symlink/reparse point,
+archive bản được bảo vệ, quyết định thiếu hoặc chồng lấn. Chỉ stage danh
+sách tệp cụ thể, không `git add .`. Nó không tự biết ý nghĩa nội dung hoặc
+ai đã duyệt: bước đọc hồ sơ và phân loại thuộc trách nhiệm agent.
+
+Kho ngoài repo lưu `plan.json`, `manifest.json`, `result.json` và `payload/`.
+Mọi bản chép được xác minh trước khi xóa tệp gốc; không xóa đệ quy toàn
+thư mục. Biên nhận ghi commit, trạng thái kỹ thuật, lỗi và các tệp giữ lại.
+Kế hoạch tạm trong repo chỉ được bỏ sau khi kết sổ thành công. Nếu lỗi giữa
+chừng, giữ biên nhận và mọi kết quả đã tạo, không rollback phá hủy.
+
+Khôi phục khi cần là nhiệm vụ riêng: chép tệp từ `payload/<duong-dan-cu>`
+về đúng vị trí sau khi đối chiếu manifest và tránh ghi đè nguồn mới; lấy
+nguồn từ commit ghi trong biên nhận khi cần. Không tự restore toàn repo.
+
+### Thế nào là sạch sau kết sổ?
+
+Không còn thay đổi nguồn chưa commit; mọi tệp bị bỏ qua đã có lý do giữ
+hoặc đã chuyển ra kho có hash kiểm chứng; bản cần duyệt và tài nguyên của
+nó còn nguyên. **Sạch không có nghĩa là `_audit/` rỗng** hay mọi nội dung đã
+hoàn thành. Không che rác bằng cách mở rộng `.gitignore`.
+
+Kiểm thử hồi quy chạy trên Git repo giả lập tách biệt trong thư mục tạm,
+không commit hay dọn nguồn thực. Cơ chế này chỉ được agent kích hoạt sau
+yêu cầu người dùng; không phải dịch vụ nền hoặc hook tự động của ứng dụng.
