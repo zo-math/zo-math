@@ -767,7 +767,7 @@ def course_pdf_issues(public: Path, files: set[str], source_root: Path | None = 
     from zo_pdf_contract import validate_canonical_pdf_provenance
     source_root = Path(__file__).resolve().parents[1]
     issues = []
-    for package in ['r1_g01', 'r1_g02']:
+    for package in ['r1_g01', 'r1_g02', 'r1_g03']:
         prefix = f'content/thpt/on_thi_toan_thpt/hoc_lieu/{package}'
         config_path = source_root / prefix / '_quy_trinh/cau_hinh_san_xuat_qmd.yml'
         if not config_path.is_file():

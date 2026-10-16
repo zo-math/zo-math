@@ -18,9 +18,9 @@ Học từ chỗ hổng thực sự, củng cố từng nền tảng và theo d�
 :::
 
 ::: {.zo-on-thi-program-feature__latest}
-Gói mới nhất: R1-G02
+Gói mới nhất: R1-G03
 
-Giá trị lớn nhất và giá trị nhỏ nhất
+Đường tiệm cận
 :::
 
 [Khám phá chương trình →](content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.qmd){.zo-on-thi-link}

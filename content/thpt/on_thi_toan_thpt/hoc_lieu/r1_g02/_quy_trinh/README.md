@@ -1,10 +1,24 @@
 # R1-G02 — nguồn canonical đang hoàn thiện kiến trúc 2027
 
+**Phát hành được giao — 17/10/2026.** Chủ trì yêu cầu xuất bản ba gói.
+Đã dựng từ nguồn hiện hành đủ tám PDF mỗi gói, mỗi bản đạt 17/17 kiểm kỹ thuật
+và provenance CURRENT. Hồ sơ: [PDF đợt này](ho_so/pdf_release_20261017.json).
+Các mốc chờ PDF bên dưới là lịch sử; trạng thái phát hành thực tế lấy ở bảng 03.
+
 **Đối sánh HTML — 17/10/2026.** Nguồn và HTML đã cập nhật theo chốt chung
 của chủ trì tại 07/6.2; xem hồ sơ `ho_so/doi_sanh_chung_20261017.json` và
 COMMON-HTML01 ở bảng điều hành khóa. Chưa dựng lại PDF trong lượt này;
 các mô tả CURRENT/nghiệm thu của bộ trước dưới đây là lịch sử của bộ ấy,
 không tự chứng nhận PDF đã đồng bộ với nguồn vừa chỉnh.
+
+**Khép pipeline sau di dời công cụ — 16/10/2026.** Tám PDF của gói đã
+dựng và đối chiếu lại; provenance cả tám bản là CURRENT. Mọi trang giữ nguyên
+nội dung/bố cục so với bộ trước; các bản dựng qua nửa đêm chỉ cập nhật ngày
+tạo tại bìa/trang kết. Xem [hồ sơ tái kiểm pipeline](ho_so/pdf_pipeline_revalidation_20261015.json).
+Các hồ sơ `pdf_bundle_review.json`/`pdf_full_review.json` bên dưới ghi bộ trước
+lượt tái dựng này và được giữ nguyên làm bằng chứng đối chiếu. Đây là cập
+nhật kỹ thuật cục bộ, chưa xuất bản lại; receipt phát hành ngày 15/10 giữ nguyên.
+
 
 **Bộ hiện hành đã đồng bộ — 15/10/2026.** Cả tám PDF đã dựng từ QMD hiện hành,
 đạt 17/17 phép kiểm mỗi tệp. Bản đầy đủ có 61 trang;

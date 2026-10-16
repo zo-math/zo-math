@@ -214,6 +214,10 @@ transform_blocks = function(blocks)
         and text:match("^%s*<details[%s>]")
         and text:match("zo%-block")
       then
+        local identifier = text:match('id="([^"]+)"')
+        if identifier then
+          table.insert(output, pandoc.Div({}, pandoc.Attr(identifier)))
+        end
         details = {
           environment = html_environment(text),
           started = false,

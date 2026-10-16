@@ -1,4 +1,4 @@
-"""Approved course navigation; scoped to the four 2027 learner pages."""
+"""Approved course navigation; scoped to the canonical 2027 learner catalog."""
 from pathlib import Path
 import hashlib
 import os
@@ -14,6 +14,7 @@ PAGES = {
     'd0': (BASE / 'hoc_lieu/d0/index.html', 'Khảo sát đầu vào'),
     'g01': (BASE / 'hoc_lieu/r1_g01/index.html', 'Đơn điệu và cực trị'),
     'g02': (BASE / 'hoc_lieu/r1_g02/index.html', 'Giá trị lớn nhất và nhỏ nhất'),
+    'g03': (BASE / 'hoc_lieu/r1_g03/index.html', 'Đường tiệm cận'),
 }
 ICONS = {
     'home': '<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/>',
@@ -23,13 +24,10 @@ ICONS = {
 
 def destinations(output_root, page, current=None):
     catalog = yaml.safe_load((ROOT / BASE / 'tot_nghiep_thpt/2027/_data/chuong_trinh.yml').read_text(encoding='utf-8'))
-    if [p['id'] for p in catalog['packages']] != ['d0', 'r1_g01', 'r1_g02']:
+    if [p['id'] for p in catalog['packages']] != ['d0', 'r1_g01', 'r1_g02', 'r1_g03']:
         raise ValueError('Course navigation bindings must be updated for the current catalog')
     result = []
     entries=dict(PAGES)
-    # An in-production page may identify itself without entering the public catalog.
-    if current == "g03":
-        entries["g03"]=(BASE / "hoc_lieu/r1_g03/index.html", "Đường tiệm cận")
     for key, (relative, label) in entries.items():
         if not (ROOT / relative.with_suffix('.qmd')).is_file():
             raise ValueError(f'Missing canonical destination: {relative}')

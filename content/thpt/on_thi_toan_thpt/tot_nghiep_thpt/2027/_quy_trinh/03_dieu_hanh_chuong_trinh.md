@@ -30,6 +30,22 @@ Giới hạn kiểm: chưa in giấy/quét QR bằng điện thoại/phản bi�
 
 ## A. Công việc đang mở
 
+**RELEASE-R1-20261017 — xuất bản ba gói và kết sổ.**
+
+- Chủ trì trực tiếp giao tái xuất bản G01/G02, xuất bản G03 và vệ sinh repo
+  để kết thúc ngày làm việc; quyền này gồm chuẩn bị, commit nguồn, push nguồn
+  cần cho phát hành và chạy công cụ publish. Không suy thành phản biện toán độc lập.
+- Thay trạng thái chờ dựng PDF/phát hành ở COMMON-HTML01 và G03-LABEL01.
+  Dùng khung in chung, tám biến thể mỗi gói, provenance canonical; G03 có
+  thẻ tải và danh mục/menu khóa được cập nhật cùng lượt. Chỉ mở rộng HTML
+  Nhà/D0 vì danh mục và menu cần có đường vào gói mới.
+- Kiểm phát hiện bốn liên kết nguồn dùng chung không có trang public; nguồn
+  G03 đã đổi sang đúng thẻ Ôn nền trong hai gói trước và bảng Nhật kí sẵn có.
+  Không đổi nội dung toán hoặc thêm một bản tài nguyên độc lập.
+- Hồ sơ PDF hiện hành: ho_so/pdf_release_20261017.json ở từng gói. Trạng thái
+  đang chuẩn bị cây public; chỉ ghi đã phát hành sau push và đối chiếu trực tiếp.
+
+
 **COMMON-HTML01 — áp dụng chốt đối sánh G01/G02/G03, 17/10/2026.**
 
 - Chủ trì duyệt bảng chốt chung rồi giao sửa nguồn, chưa tạo PDF. Quy tắc ở
@@ -121,6 +137,24 @@ Thay trạng thái/bước tiếp về G03 ở G03-DRAFT01 và DRAFT-TEMPLATE01;
 - G01 v1.1, Design khóa, Kế hoạch 0.6, bản thảo/nhật kí/receipt lịch sử giữ nguyên; không sửa QMD, HTML/PDF, công cụ, nội dung toán hoặc kiến trúc.
 - Khuyến nghị quản lý Nguồn ở 05: đọc workspace khi có thể, chỉ đóng gói snapshot theo nhiệm vụ khi không đọc được PC; không tự tải lại mọi gói sau mỗi lần sửa.
 - Hồ sơ kiểm: `_audit/learning-document-cleanup-20261016/verification.json`. Lượt dọn tài liệu này đã khép; không mở thêm quyền biên soạn, commit hoặc phát hành. Công việc công cụ đã ghi dưới đây giữ nguyên phạm vi.
+
+**TOOL-PDF01 — khép pipeline PDF sau tách công cụ, 16/10/2026.**
+
+- Đã sửa bước dựng cô lập để dùng máy đồ họa ngoài repository, không chép
+  lại engine vào đường dẫn cũ; thêm chế độ dựng ứng viên vào `.quarto`.
+- Đủ 16 PDF G01/G02 được dựng đối chiếu, đạt 17/17 phép kiểm từng tệp;
+  mọi trang được so văn bản và pixel 120 dpi. Chỉ các chữ số ngày tạo ở
+  bìa/trang kết đổi khi phiên dựng qua nửa đêm; nội dung, hình và bố cục giữ nguyên.
+- PDF local và provenance được cập nhật từ chính bản dựng đã kiểm;
+  cả 16 biến thể CURRENT. Sáu fixture âm vẫn bác hash pipeline/output hoặc
+  fingerprint giả. Không bỏ qua guard hoặc sửa hash để hợp thức hóa bản cũ.
+- Hồ sơ từng gói: `hoc_lieu/<ma_goi>/_quy_trinh/ho_so/pdf_pipeline_revalidation_20261015.json`.
+  Bản PDF/provenance trước lượt này được sao lưu có xác minh SHA-256 ở
+  `E:/zo_media/_audit/pdf_provenance_migration_20261015/before`.
+- Chưa xuất bản lại. Bộ trên mạng và receipt SYNC-RELEASE01 giữ nguyên;
+  không suy từ CURRENT local thành quyền phát hành hay nghiệm thu mới.
+- Lượt kỹ thuật này đã khép; tiếp tục lộ trình kiểm kê/di dời công cụ.
+
 
 **CLOSE-RELEASE01 — khép hồ sơ xuất bản ngày 15/10/2026.**
 

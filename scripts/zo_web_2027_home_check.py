@@ -107,7 +107,7 @@ def static(page,build):
         'heading roles preserved':actual['headings']==[tuple(n) for n in original['headings']],
         'math preserved':actual['math']==original['math'],
         'disclosure preserved':actual['disclosures']==[tuple(n) for n in original['disclosures']],
-        'D0 G01 G02 order':[n['data-package-id'] for n in root.select('[data-package-id]')]==['d0','r1_g01','r1_g02'],
+        'D0 G01 G02 G03 order':[n['data-package-id'] for n in root.select('[data-package-id]')]==['d0','r1_g01','r1_g02','r1_g03'],
         'no package controller':not doc.select_one('script[src*="r1-controller"]'),
         'full brand':doc.select_one('.brand-thought').get_text(' ',strip=True)==BRAND_THOUGHT,
         'footer complete':complete_site_footer(doc,footer_data()),
@@ -127,7 +127,7 @@ def static(page,build):
         'generated sources current':all(p.is_file() and p.read_text(encoding='utf-8')==s.rstrip()+'\n' for p,s in outputs().items()),
     }
     data=load_yaml(DATA_PATH)
-    checks['catalog availability separate from acceptance']=[package_from_ref(r).display_status for r in data['packages']]==['Có thể học','Bản xem trước','Bản xem trước']
+    checks['catalog availability separate from acceptance']=[package_from_ref(r).display_status for r in data['packages']]==['Có thể học','Bản xem trước','Bản xem trước','Có thể học']
     for name,changed in [('unknown availability',{'learner_availability':'accepted'}),('unaccepted without explicit preview',{'learner_availability':None})]:
         bad=copy.deepcopy(data);bad['packages'][1].update(changed)
         try:

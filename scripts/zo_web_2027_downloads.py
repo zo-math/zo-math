@@ -71,3 +71,39 @@ def apply(target, page, output_root):
     runtime.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(ROOT / CSS, runtime)
     target.head.append(target.new_tag('link', attrs={'rel':'stylesheet','href':os.path.relpath(runtime, page.parent).replace('\\','/')}))
+
+
+def apply_from_metadata(doc, page, output_root, package):
+    """Use the existing download-card design for a newly registered package."""
+    import yaml
+    from zo_course_pdf_download_state import apply as apply_state
+    source = ROOT / package / 'index.qmd'
+    metadata = yaml.safe_load(source.read_text(encoding='utf-8').split('---', 2)[1])
+    section = doc.select_one('#tai-tai-lieu .reading-region')
+    if section is None:
+        raise ValueError('Missing source-owned download section')
+    doc.body['class'] = list(dict.fromkeys(doc.body.get('class', []) + ['zo-web-2027-production']))
+    cards = doc.new_tag('div', attrs={'class':'r1-downloads'})
+    section.append(cards)
+    for item in metadata['r1-download-files'] + metadata['r1-section-download-files']:
+        filename = item['href']
+        pdf = source.parent / filename
+        pages = len(PdfReader(pdf).pages)
+        card = doc.new_tag('div', attrs={'class':'r1-download-card zo-pdf-card'})
+        copy_node = doc.new_tag('div', attrs={'class':'zo-pdf-copy'})
+        title = doc.new_tag('h3', attrs={'class':'zo-pdf-title'}); title.string = item['title']
+        description = doc.new_tag('p', attrs={'class':'zo-pdf-description'}); description.string = item['description']
+        note = doc.new_tag('small', attrs={'class':'zo-pdf-version-note'})
+        copy_node.extend([title, description, note])
+        metric = doc.new_tag('div', attrs={'class':'zo-pdf-pages','data-pdf-pages':str(pages)})
+        number = doc.new_tag('strong'); number.string = str(pages)
+        unit = doc.new_tag('span'); unit.string = 'trang'; metric.extend([number, unit])
+        link = doc.new_tag('a', href=filename, download=item['download'], attrs={'class':'zo-pdf-download__link zo-pdf-download','aria-label':'Tải PDF: '+item['title']})
+        icon = doc.new_tag('svg', attrs={'viewBox':'0 0 24 24','aria-hidden':'true','focusable':'false'})
+        icon.append(doc.new_tag('path', attrs={'d':'M12 3v12m-4-4 4 4 4-4M5 16v5h14v-5','fill':'none','stroke':'currentColor','stroke-width':'1.7','stroke-linecap':'round','stroke-linejoin':'round'}))
+        link.extend([icon, 'Tải PDF'])
+        card.extend([copy_node, metric, link]); cards.append(card)
+    css = output_root / 'assets/zo_web_2027/g01-downloads.css'
+    css.parent.mkdir(parents=True, exist_ok=True); shutil.copyfile(ROOT / CSS, css)
+    doc.head.append(doc.new_tag('link', rel='stylesheet', href=os.path.relpath(css,page.parent).replace('\\','/')))
+    apply_state(doc, ROOT, package)
