@@ -107,6 +107,12 @@ def apply(doc, page, output_root, runtime, key):
         else:
             doc.body.append(doc.new_tag('script', src=href, defer=''))
         resources[name] = {'source': source.relative_to(ROOT).as_posix(), 'sha256': hashlib.sha256(source.read_bytes()).hexdigest()}
+    # Keep font licenses in the referenced public asset closure.
+    for license_name in ['OFL_BeVietnamPro.txt', 'OFL_STIX.txt']:
+        license_file = runtime / 'assets/fonts' / license_name
+        if not license_file.is_file():
+            raise ValueError('Missing font license: ' + str(license_file))
+        doc.head.append(doc.new_tag('link', rel='license', type='text/plain', href=os.path.relpath(license_file,page.parent).replace('\\','/')))
     require(doc, page, output_root, key)
     if protected != [str(n) for n in doc.select('main,.rail,footer.site-footer')] or logo != str(doc.select_one('.site-top > a:first-child')):
         raise ValueError('Course navigation must not change content, sidebar, footer, or logo')
