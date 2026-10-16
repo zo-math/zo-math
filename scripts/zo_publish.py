@@ -1593,6 +1593,13 @@ def validate_prepared_tree(root: Path, target: Path, config: Mapping[str, Any],
         raise RuntimeError("Cây đã prepare thiếu tệp bắt buộc hoặc .nojekyll.")
 
 
+def validate_committed_prepared_tree(root: Path, target: Path, config: Mapping[str, Any],
+                                     payload: Mapping[str, Any], snapshot: Path) -> None:
+    """Use the same permitted ignored dependencies as committed-source prepare."""
+    copy_ignored_render_support(root, snapshot)
+    validate_prepared_tree(root, target, config, payload, source_root=snapshot)
+
+
 def publish_site(root: Path, config_path: Path, config: Mapping[str, Any]) -> int:
     require_public_profile(root)
     try:
@@ -1628,7 +1635,7 @@ def publish_site(root: Path, config_path: Path, config: Mapping[str, Any]) -> in
             raise RuntimeError("Git status của worktree không khớp kế hoạch prepare.")
         if payload.get('committed_source'):
             with detached_source_tree(root, root/'.quarto/_zpv', expected_source, root/'.quarto') as snapshot:
-                validate_prepared_tree(root, target, config, payload, source_root=snapshot)
+                validate_committed_prepared_tree(root, target, config, payload, snapshot)
         else:
             validate_prepared_tree(root, target, config, payload)
         changed = [*payload["diff"]["add"], *payload["diff"]["update"], *payload["diff"]["delete"]]
