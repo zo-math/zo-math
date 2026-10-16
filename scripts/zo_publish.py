@@ -16,6 +16,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 from collections import Counter
 from contextlib import ExitStack, contextmanager
 from datetime import datetime, timezone
@@ -788,7 +789,8 @@ def course_pdf_issues(public: Path, files: set[str], source_root: Path | None = 
 
 def validate_public(public: Path, manifest: Mapping[str, Any], config: Mapping[str, Any],
                     *, historical_comparison_only: bool = False,
-                    source_root: Path | None = None) -> dict[str, Any]:
+                    source_root: Path | None = None,
+                    content_paths: set[str] | None = None) -> dict[str, Any]:
     issues: list[dict[str, Any]] = []
     files = set(manifest["files"])
     # A baseline is evidence for the source/render diff, never a release tree.
@@ -819,7 +821,7 @@ def validate_public(public: Path, manifest: Mapping[str, Any], config: Mapping[s
                     "actual": cname_value,
                 })
     html_count = link_count = 0
-    for relative in sorted(name for name in files if name.lower().endswith(".html")):
+    for relative in sorted(name for name in files if name.lower().endswith(".html") and (content_paths is None or name in content_paths)):
         html_count += 1
         text = (public / relative).read_text(encoding="utf-8", errors="replace")
         issues.extend({"type": "private-reference", "path": relative, "value": value}
@@ -858,6 +860,8 @@ def validate_public(public: Path, manifest: Mapping[str, Any], config: Mapping[s
                 issues.append({"type": "private-link", "path": relative, "value": raw})
     index_count = 0
     for relative in sorted(files):
+        if content_paths is not None and relative not in content_paths:
+            continue
         name = PurePosixPath(relative).name.lower()
         if name != "search.json" and not (name.startswith("sitemap") and name.endswith(".xml")):
             continue
@@ -913,6 +917,7 @@ def validate_public(public: Path, manifest: Mapping[str, Any], config: Mapping[s
 
 def render_to_staging(root: Path, render_dir: Path,
                       tool_root: Path | None = None) -> dict[str, Any]:
+    started = time.perf_counter()
     require_public_profile(root)
     launcher = (tool_root or root) / "scripts/zo_quarto.py"
     # Post-render adapters read their fresh HTML. Keep that working output out
@@ -932,7 +937,7 @@ def render_to_staging(root: Path, render_dir: Path,
     matches = re.findall(r"\[\s*\d+/(\d+)\]", result.stdout + result.stderr)
     return {"command": command, "exit_code": result.returncode,
             "source_count": int(matches[-1]) if matches else None,
-            "stdout": result.stdout, "stderr": result.stderr}
+            "stdout": result.stdout, "stderr": result.stderr, "seconds": time.perf_counter()-started}
 
 
 def published_source_commit(root: Path, target: Path) -> str:
@@ -1533,15 +1538,29 @@ def load_prepare_report(root: Path, config_path: Path, config: Mapping[str, Any]
 
 
 def committed_manifest(target: Path, commit: str) -> dict[str, Any]:
-    names = git_text(target, "ls-tree", "-r", "--name-only", commit, safe=target).splitlines()
-    files: dict[str, dict[str, Any]] = {}
+    """Read all immutable Git blobs in one batch instead of one process/file."""
+    names = git_text(target, "ls-tree", "-r", "--name-only", "-z", commit, safe=target).split("\0")
+    names = [name for name in names if name]
+    if any("\n" in name or "\r" in name for name in names):
+        raise RuntimeError("Unsafe newline in public Git path.")
+    request = "".join(f"{commit}:{name}\n" for name in names).encode('utf-8')
+    command = ["git", "-c", f"safe.directory={target.as_posix()}", "-C", str(target), "cat-file", "--batch"]
+    result = subprocess.run(command, cwd=target, input=request, capture_output=True, check=False)
+    if result.returncode:
+        raise RuntimeError("Cannot read public Git objects: " + result.stderr.decode('utf-8',errors='replace'))
+    import io
+    stream = io.BytesIO(result.stdout)
+    files = {}
     for name in names:
-        command = ["git", "-c", f"safe.directory={target.as_posix()}", "-C", str(target),
-                   "show", f"{commit}:{name}"]
-        result = subprocess.run(command, cwd=target, capture_output=True, check=False)
-        if result.returncode != 0:
-            raise RuntimeError(f"Không đọc được blob commit: {name}")
-        files[name] = {"size": len(result.stdout), "sha256": hashlib.sha256(result.stdout).hexdigest()}
+        header = stream.readline().split()
+        if len(header) != 3 or header[1] != b'blob':
+            raise RuntimeError("Invalid Git object response: " + name)
+        size = int(header[2]); data = stream.read(size)
+        if len(data) != size or stream.read(1) != b'\n':
+            raise RuntimeError("Truncated Git object response: " + name)
+        files[name] = {"size": size, "sha256": hashlib.sha256(data).hexdigest()}
+    if stream.read():
+        raise RuntimeError("Unexpected extra Git object data.")
     return {"files": files, "count": len(files), "bytes": sum(item["size"] for item in files.values())}
 
 
@@ -1562,6 +1581,10 @@ def cleanup_prepare(root: Path, report: Path, config: Mapping[str, Any]) -> list
 
 def validate_prepared_tree(root: Path, target: Path, config: Mapping[str, Any],
                            payload: Mapping[str, Any], source_root: Path | None = None) -> None:
+    if payload.get('page_release'):
+        from zo_publish_pages import validate_receipt
+        validate_receipt(root,target,config,payload)
+        return
     manifest = payload["manifest"]
     paths = payload["prepare_paths"]
     public = root / paths["public_dir"]
@@ -1601,6 +1624,8 @@ def validate_committed_prepared_tree(root: Path, target: Path, config: Mapping[s
 
 
 def publish_site(root: Path, config_path: Path, config: Mapping[str, Any]) -> int:
+    started=time.perf_counter()
+    timings={}
     require_public_profile(root)
     try:
         report, payload = load_prepare_report(root, config_path, config)
@@ -1633,11 +1658,15 @@ def publish_site(root: Path, config_path: Path, config: Mapping[str, Any]) -> in
         expected_status = expected_worktree_status(payload["diff"])
         if status_porcelain(target, target) != expected_status:
             raise RuntimeError("Git status của worktree không khớp kế hoạch prepare.")
-        if payload.get('committed_source'):
+        validation_started=time.perf_counter()
+        if payload.get('page_release'):
+            validate_prepared_tree(root,target,config,payload)
+        elif payload.get('committed_source'):
             with detached_source_tree(root, root/'.quarto/_zpv', expected_source, root/'.quarto') as snapshot:
                 validate_committed_prepared_tree(root, target, config, payload, snapshot)
         else:
             validate_prepared_tree(root, target, config, payload)
+        timings["validation_seconds"]=time.perf_counter()-validation_started
         changed = [*payload["diff"]["add"], *payload["diff"]["update"], *payload["diff"]["delete"]]
         if not changed:
             warnings = cleanup_prepare(root, report, config)
@@ -1645,6 +1674,7 @@ def publish_site(root: Path, config_path: Path, config: Mapping[str, Any]) -> in
             for warning in warnings:
                 print(f"WARN: {warning}", file=sys.stderr)
             return EXIT_OK
+        commit_started=time.perf_counter()
         for variable in ("GIT_AUTHOR_IDENT", "GIT_COMMITTER_IDENT"):
             identity = git(target, "var", variable, safe=target)
             if identity.returncode != 0 or not identity.stdout.strip():
@@ -1684,6 +1714,8 @@ def publish_site(root: Path, config_path: Path, config: Mapping[str, Any]) -> in
             raise RestoreError("Cây commit không khớp manifest công khai.")
         if status_porcelain(target, target) or git_text(target, "diff", "--cached", "--name-only", safe=target):
             raise RestoreError("Worktree không sạch sau commit xuất bản.")
+        timings["commit_and_verify_seconds"]=time.perf_counter()-commit_started
+        network_started=time.perf_counter()
         push = git(target, "push", "origin", config["target_branch"], safe=target)
         if push.returncode != 0:
             print(f"ERROR: push bị từ chối; giữ commit local {new_commit}: {push.stderr.strip()}", file=sys.stderr)
@@ -1701,7 +1733,10 @@ def publish_site(root: Path, config_path: Path, config: Mapping[str, Any]) -> in
         if git_text(root, "rev-parse", config["source_branch"]) != expected_source or \
                 git_text(root, "rev-parse", f"origin/{config['source_branch']}") != expected_source:
             raise RestoreError("master thay đổi trong quá trình publish.")
+        timings["network_seconds"]=time.perf_counter()-network_started
+        timings["total_seconds"]=time.perf_counter()-started
         warnings = cleanup_prepare(root, report, config)
+        print("TIMINGS:",json.dumps(timings))
         print(f"Đã xuất bản commit {new_commit} từ master {expected_source}.")
         for warning in warnings:
             print(f"WARN: {warning}", file=sys.stderr)
@@ -1785,9 +1820,10 @@ def source_mode_issues(state: Mapping[str, Any], committed: bool) -> list[str]:
 
 def parser() -> argparse.ArgumentParser:
     value = argparse.ArgumentParser(description=__doc__)
-    value.add_argument("command", nargs="?", help="Hỗ trợ: check, prepare, publish")
+    value.add_argument("command", nargs="?", help="Hỗ trợ: plan, check, prepare, validate, publish")
     value.add_argument("--config", default="publish_public.yml")
     value.add_argument("--report")
+    value.add_argument("--full-render", action="store_true", help="prepare: use the legacy two full-site renders instead of page artifacts.")
     value.add_argument("--page", action="append", default=[], help="prepare: giới hạn HTML; lặp lại cho từng trang, vẫn kèm tài nguyên phụ thuộc.")
     value.add_argument('--committed-source', action='store_true',
                        help='prepare --page: render only committed HEAD in a temporary source tree; preserve unrelated working edits.')
@@ -1795,11 +1831,15 @@ def parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    started = time.perf_counter()
     args = parser().parse_args(argv)
-    if args.command not in {"check", "prepare", "publish"}:
-        print("ERROR: chỉ hỗ trợ lệnh 'check', 'prepare' và 'publish'.", file=sys.stderr)
+    if args.full_render and args.command != "prepare":
+        print("ERROR: --full-render only applies to prepare.",file=sys.stderr)
         return EXIT_USAGE
-    if args.page and args.command != 'prepare':
+    if args.command not in {"check", "prepare", "publish", "plan", "validate"}:
+        print("ERROR: chỉ hỗ trợ plan, check, prepare, validate và publish.", file=sys.stderr)
+        return EXIT_USAGE
+    if args.page and args.command not in {'prepare','plan'}:
         print('ERROR: --page chỉ dùng với prepare.',file=sys.stderr)
         return EXIT_USAGE
     if yaml is None:
@@ -1815,6 +1855,19 @@ def main(argv: Sequence[str] | None = None) -> int:
         require_public_profile(root)
         if args.command == "publish":
             return publish_site(root, config_path, config)
+        if args.command == "plan":
+            from zo_publish_pages import preflight
+            plan = preflight(root, args.page, config)
+            plan['mode'] = 'plan'
+            plan['source_mode'] = 'working-source inspection only; no build, fetch or target mutation'
+            print(json.dumps(plan, ensure_ascii=False, indent=2))
+            if args.report:
+                report_target(root,args.report).write_text(json.dumps(plan,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+            return EXIT_UNSAFE if plan['issues'] else EXIT_OK
+        if args.command == "validate":
+            from zo_publish_pages import validate_only
+            return validate_only(root, config_path, config)
+
         if args.command == "prepare" and shutil.which("quarto") is None:
             raise MissingToolError("Không tìm thấy Quarto trong PATH.")
         target = find_publish_worktree(root, config["target_branch"])
@@ -1824,6 +1877,9 @@ def main(argv: Sequence[str] | None = None) -> int:
                 raise RuntimeError(fetch.stderr.strip() or "git fetch thất bại.")
         source_state = git_state(root, config["source_branch"], f"origin/{config['source_branch']}")
         target_state = git_state(target, config["target_branch"], f"origin/{config['target_branch']}", target)
+        if args.command == "prepare" and args.page and not args.full_render:
+            from zo_publish_pages import prepare as prepare_pages
+            return prepare_pages(root,target,config_path,config,args,source_state,target_state)
         issues: list[dict[str, Any]] = []
         issues.extend({"type": "source-git", "message": item} for item in source_state["issues"])
         issues.extend({"type": "target-git", "message": item} for item in target_state["issues"])
@@ -1988,12 +2044,14 @@ def main(argv: Sequence[str] | None = None) -> int:
                                 restore_from_backup(target, backup_dir, target_before)
                                 raise
         payload["exit_code"] = code
+        payload["timings"] = {"total_seconds":time.perf_counter()-started, "baseline_render":payload.get("baseline_render",{}).get("seconds"), "head_render":payload.get("render",{}).get("seconds")}
         report_raw = args.report or (config["prepare"]["report_file"] if args.command == "prepare" else None)
         if report_raw:
             report = report_target(root, report_raw)
             report.parent.mkdir(parents=True, exist_ok=True)
             report.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print_summary(payload, code)
+        print("TIMINGS:",json.dumps(payload["timings"]))
         return code
     except ConfigError as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
@@ -2012,4 +2070,5 @@ def main(argv: Sequence[str] | None = None) -> int:
 
 
 if __name__ == "__main__":
+    sys.modules["zo_publish"] = sys.modules[__name__]
     raise SystemExit(main())
