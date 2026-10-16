@@ -1,10 +1,10 @@
 ---
-title: "Đường tiệm cận"
+title: Đường tiệm cận
 lang: vi
 language:
-  section-title-footnotes: "Chú thích nguồn"
-subtitle: "Đọc giới hạn, xác định đường tiệm cận và giải thích trong đúng miền"
-draft: true
+  section-title-footnotes: Chú thích nguồn
+subtitle: Đọc giới hạn, xác định đường tiệm cận và giải thích trong đúng miền
+draft: false
 toc: false
 sidebar: false
 number-sections: false
@@ -16,7 +16,76 @@ format:
     anchor-sections: false
     fig-responsive: false
 resources:
-  - giao_dien/assets/figures_0_4/*.svg
+- giao_dien/assets/figures_0_4/*.svg
+- index.pdf
+- index_hoc_sinh.pdf
+- index_bai_hoc.pdf
+- index_luyen_tap.pdf
+- index_kiem_tra.pdf
+- index_sua_loi.pdf
+- index_on_lai.pdf
+- index_loi_giai.pdf
+filters:
+- ../../../../../assets/lua/zo_course_package_pdf.lua
+r1-download-files:
+- href: index_hoc_sinh.pdf
+  download: Duong_tiem_can_g03_hoc_sinh_v0.8.pdf
+  title: Bản học và bài tập
+  description: Dùng để tự học và làm bài; không có phần lời giải.
+- href: index.pdf
+  download: Duong_tiem_can_g03_v0.8.pdf
+  title: Bản đầy đủ
+  description: Có toàn bộ bài học, bài tập, lời giải và hướng dẫn chấm.
+r1-section-download-files:
+- variant: bai_hoc
+  href: index_bai_hoc.pdf
+  download: Duong_tiem_can_g03_bai_hoc_v0.8.pdf
+  title: Bài học
+  description: Kiến thức nền, ví dụ và câu hỏi tự kiểm tra.
+  start: bai-hoc
+  end-before: phieu-luyen
+  view: bai-hoc
+- variant: luyen_tap
+  href: index_luyen_tap.pdf
+  download: Duong_tiem_can_g03_luyen_tap_v0.8.pdf
+  title: Luyện tập
+  description: Các nhiệm vụ luyện tập, không kèm lời giải.
+  start: phieu-luyen
+  end-before: tu-kiem-tra
+  view: luyen-tap
+- variant: kiem_tra
+  href: index_kiem_tra.pdf
+  download: Duong_tiem_can_g03_kiem_tra_v0.8.pdf
+  title: Kiểm tra
+  description: Nhiệm vụ kiểm tra và tiêu chí tự đánh giá; không kèm đáp án.
+  start: tu-kiem-tra
+  end-before: on-lai
+  view: kiem-tra
+- variant: sua_loi
+  href: index_sua_loi.pdf
+  download: Duong_tiem_can_g03_sua_loi_v0.8.pdf
+  title: Sửa lỗi
+  description: Bảng nhận diện lỗi và các nhiệm vụ sửa sau Luyện tập, Kiểm tra, Chuyển
+    giao.
+  start: sua-loi
+  end-before: nhat-ky
+  view: sua-loi
+- variant: on_lai
+  href: index_on_lai.pdf
+  download: Duong_tiem_can_g03_on_lai_v0.8.pdf
+  title: Ôn lại
+  description: Các lượt ôn lại và nhiệm vụ tự kiểm tra.
+  start: on-lai
+  end-before: sua-loi
+  view: on-lai
+- variant: loi_giai
+  href: index_loi_giai.pdf
+  download: Duong_tiem_can_g03_loi_giai_v0.8.pdf
+  title: Lời giải
+  description: Lời giải, đáp án và hướng dẫn chấm.
+  start: loi-giai
+  end-before: nguon
+  view: loi-giai
 ---
 
 ::: {.zo-on-thi-package data-r1-title="Đường tiệm cận" data-r1-code="R1-G03" data-r1-support-context="semantic" data-r1-lesson-count="8"}
@@ -967,7 +1036,7 @@ Chọn đúng thao tác đang vướng. Mỗi phần có một ví dụ để h�
 
 ::::
 
-Nếu cần ôn rộng hơn, có thể đọc tài nguyên chung [Tập xác định và điều kiện áp dụng](../_dung_chung/nen/N-TXĐ-01.qmd), [Xét dấu biểu thức có nhân tử](../_dung_chung/nen/N-DẤU-01.qmd) và [Cận và giá trị được đạt](../_dung_chung/nen/N-GH-01.qmd). Câu đã gặp ở gói trước không trở thành câu xác nhận mới chỉ vì được dẫn lại ở đây.
+Nếu cần ôn rộng hơn, có thể đọc tài nguyên chung [Tập xác định và điều kiện áp dụng](../r1_g01/index.qmd?r1-view=on-nen#nen-n-txd-01), [Xét dấu biểu thức có nhân tử](../r1_g01/index.qmd?r1-view=on-nen#nen-n-dau-01) và [Cận và giá trị được đạt](../r1_g02/index.qmd?r1-view=on-nen#nen-n-gh-01). Câu đã gặp ở gói trước không trở thành câu xác nhận mới chỉ vì được dẫn lại ở đây.
 
 <details id="N-GH-02" class="r1-details r1-foundation-unit zo-learning-hint zo-block zo-block-gray">
 <summary class="zo-block-title">Giới hạn một phía: nhìn hướng và dấu</summary>
@@ -1349,7 +1418,7 @@ Nếu vào thẳng một thẻ hỗ trợ mà chưa có bài đang làm, hãy ch
 
 <a id="nhat-ki"></a>
 
-Ghi khi cần lưu một quyết định hoặc kết thúc buổi học. Em không phải ghi sau mọi thao tác và không phải điền đủ mọi trường khi chưa có dữ liệu. Dùng [mẫu Nhật kí chung của chương trình](../_dung_chung/nhat_ki_hoc_tap.qmd); mẫu giữ $14$ trường, gồm bài làm ban đầu, mức hỗ trợ, phần sau sửa, lịch ôn và nơi tiếp tục.
+Ghi khi cần lưu một quyết định hoặc kết thúc buổi học. Em không phải ghi sau mọi thao tác và không phải điền đủ mọi trường khi chưa có dữ liệu. Dùng [mẫu Nhật kí chung của chương trình](#g03-table-12); mẫu giữ $14$ trường, gồm bài làm ban đầu, mức hỗ trợ, phần sau sửa, lịch ôn và nơi tiếp tục.
 
 Mẫu trống dưới đây trích từ nguồn chung để em dùng ngay:
 
@@ -2405,5 +2474,10 @@ Các nhiệm vụ, dữ kiện số và mô hình giả định trong học li�
 [^sgk-xien]: Cùng SGK, Bài 3, định nghĩa đường tiệm cận xiên, trang in 23 (trang PDF 25).
 
 [^sgk-he-so]: Cùng SGK, Bài 3, phần “Chú ý” và “Nhận xét”, trang in 24 (trang PDF 26). Học liệu tách hai hướng lấy giới hạn để làm rõ cách dùng; không trộn kết quả của hai hướng.
+
+
+## Tải tài liệu {#tai-tai-lieu}
+
+Chọn bản phù hợp để đọc hoặc in. Số trang được đọc trực tiếp từ từng tệp PDF.
 
 :::

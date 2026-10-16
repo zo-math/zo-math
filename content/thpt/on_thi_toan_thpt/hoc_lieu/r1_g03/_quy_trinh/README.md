@@ -1,5 +1,10 @@
 # R1-G03 — quản lí bản thảo và nguồn học liệu
 
+**Phát hành được giao — 17/10/2026.** Chủ trì yêu cầu xuất bản ba gói.
+Đã dựng từ nguồn hiện hành đủ tám PDF mỗi gói, mỗi bản đạt 17/17 kiểm kỹ thuật
+và provenance CURRENT. Hồ sơ: [PDF đợt này](ho_so/pdf_release_20261017.json).
+Các mốc chờ PDF bên dưới là lịch sử; trạng thái phát hành thực tế lấy ở bảng 03.
+
 [Mở nguồn QMD](../index.qmd) · [Bản thảo tham chiếu](ban_thao/noi_dung.md) · [Hồ sơ phạm vi và nguồn](../../../tot_nghiep_thpt/2027/_quy_trinh/goi/R1_G03.md) · [Trạng thái và việc tiếp theo](../../../tot_nghiep_thpt/2027/_quy_trinh/03_dieu_hanh_chuong_trinh.md).
 
 Khi tiếp tục biên tập/rà bản thảo, tự nạp hai mẫu theo [02/1.4](../../../tot_nghiep_thpt/2027/_quy_trinh/02_quy_trinh_va_nghiem_thu.md#ap-dung-mau-ban-thao). [Kết quả áp dụng mẫu 1.0](ho_so/bang_kiem_ban_thao_20261016.md) giữ bằng chứng theo phiên bản; trạng thái và phần được hoãn vẫn do 03 sở hữu.

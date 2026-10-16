@@ -11,7 +11,7 @@ from zo_web_2027_g02 import canonical_math_matches, inv
 PACKAGE = Path("content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03")
 ROLES = {"bat-dau":"Bắt đầu", "bai-hoc":"Bài học", "phieu-luyen":"Luyện tập",
          "tu-kiem-tra":"Kiểm tra", "on-lai":"Ôn lại", "on-nen":"Ôn nền",
-         "sua-loi":"Sửa lỗi", "nhat-ky":"Nhật kí", "loi-giai":"Lời giải", "nguon":"Nguồn"}
+         "sua-loi":"Sửa lỗi", "nhat-ky":"Nhật kí", "loi-giai":"Lời giải", "nguon":"Nguồn", "tai-tai-lieu":"Tải tài liệu"}
 
 class Builder(HomeBuilder):
     def __init__(self, output_root):
@@ -122,6 +122,8 @@ def adapt(path, output_root):
     for link in root.select("a[href]"):
         value=link["href"];split=urlsplit(value)
         if split.scheme or split.netloc or not split.path:continue
+        if split.path.endswith('.qmd'):
+            split=split._replace(path=split.path[:-4]+'.html')
         target=(path.parent/unquote(split.path)).resolve()
         if not target.is_relative_to(output_root):raise ValueError("Link escapes output root")
         link["href"]=builder.href(target,split.query,split.fragment)
@@ -173,6 +175,8 @@ def adapt(path, output_root):
         node[key]=urlunsplit(("","",os.path.relpath(destination,path.parent).replace("\\","/"),url.query,url.fragment))
     from zo_course_tables import apply as apply_tables
     apply_tables(result,"r1_g03",path,builder.output)
+    from zo_web_2027_downloads import apply_from_metadata
+    apply_from_metadata(result,path,output_root,PACKAGE)
     from zo_web_2027_navigation import apply as apply_course_navigation
     apply_course_navigation(result,path,output_root,builder.output,"g03")
     result.body["data-zo-web-production"]="R1-G03"

@@ -35,7 +35,7 @@ def checks(page, output_root):
             "all disclosures initially closed":not root.select("details[open]"),
             "all tables explicitly classified":all(n.has_attr("data-table-kind") for n in root.select("table")),
             "no executable draft dependency":"_quy_trinh/ban_thao" not in str(doc) and "_audit/" not in str(doc),
-            "no package PDF invented":not root.select('a[download]'),
+            "all registered PDF downloads available":len(root.select('a[download]'))==8 and all(n.get("data-pdf-current")=="true" for n in root.select(".zo-pdf-card")),
             "fallback navigation available":bool(doc.select("noscript nav a"))}
     lesson=root.find(id="bai-hoc")
     result["controller lesson heading count"]=len(lesson.select("h3"))==int(root["data-r1-lesson-count"])
