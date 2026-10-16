@@ -36,6 +36,35 @@ Không dùng `scripts/publish_public.sh` cho quy trình mới, trừ khi yêu c�
 
 Khi chỉ xuất bản một số trang, dùng `prepare --page <duong_dan_HTML>` và lặp lại `--page` cho từng trang đã được giao. Công cụ vẫn render toàn website để đối chiếu, nhưng chỉ phủ HTML thuộc danh sách này; HTML khác giữ nguyên byte đang xuất bản. CSS, JavaScript, ảnh, PDF và font được gom theo tham chiếu từ HTML/CSS chịu thay đổi, kể cả tài nguyên do adapter sinh; mọi tài nguyên vẫn phải thuộc allowlist và đạt validator. Chỉ mục site tiếp tục được chuẩn hóa theo cây công khai cuối cùng. Danh sách trang và tập tài nguyên phụ thuộc được lưu trong báo cáo prepare để kiểm trước publish.
 
+
+### Chuẩn bị một số trang từ nguồn đã commit
+
+Khi checkout chính còn công việc khác chưa commit, dùng:
+
+```text
+python scripts/zo_python.py scripts/zo_publish.py prepare --committed-source --page content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html
+```
+
+Chế độ này chỉ dùng với `prepare --page`. Trước đó phải commit đúng phần
+nguồn cần phát hành và mã/config công cụ xuất bản, để vùng staged trống.
+Công cụ dựng HEAD trong snapshot tạm `_audit/_zph`, giữ nơi biên tập chính
+và mọi sửa đổi khác nguyên trạng; snapshot được dọn cả khi có lỗi. Chỉ các
+dependency/cache render bị ignore vốn được phép mới được bổ sung như đường
+dựng baseline, không dùng docs hay audit lịch sử làm đầu vào.
+
+PDF được kiểm bằng chính mã hợp đồng/provenance trong snapshot HEAD, không
+so bản phát hành với pipeline PDF đang được sửa ngoài commit. Cổng PDF vẫn
+chặn tệp sai/stale; trang/PDF ngoài phạm vi phải giữ nguyên byte đang public.
+Receipt ghi `committed_source`, SHA nguồn và các thay đổi làm việc bị loại
+khỏi render. Sai nhánh, vùng staged có dữ liệu, merge/rebase, source behind
+remote hoặc public worktree bẩn vẫn bị chặn.
+
+`publish` nhận receipt của chế độ này, kiểm lại HEAD/remote, manifest và
+PDF từ đúng commit. Nguồn vẫn phải được push trước khi publish theo quyền
+của chủ dự án; prepare không push. Không tự stash/restore hoặc commit phần
+việc khác để làm sạch checkout. Lệnh check mặc định vẫn kiểm toàn trạng
+thái làm việc hiện tại, không thay bằng kiểm một commit.
+
 ## 4. Nguyên tắc an toàn
 
 - Không thay đổi `master` trong quá trình chuẩn bị hoặc xuất bản website.
