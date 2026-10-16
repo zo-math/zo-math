@@ -1,6 +1,6 @@
 # Mẫu hồ sơ một gói mới
 
-Phiên bản: 0.7 · Ngày biên tập: 10/10/2026 · Ma trận đồng bộ theo QD_021–025.
+Phiên bản: 0.8 · Ngày biên tập: 16/10/2026 · Ma trận đồng bộ theo QD_021–025.
 
 ## Hệ nhãn của gói
 
@@ -10,6 +10,10 @@ Nạp từ điển QD_025 của chương trình (kế thừa QD_023, bổ sung G
 
 
 [Điểm vào](../README.md) · [Kiến trúc](../01_kien_truc_hoc_tap.md) · [Quy trình](../02_quy_trinh_va_nghiem_thu.md).
+
+## Khởi tạo nơi biên soạn
+
+Áp dụng mục [Khởi tạo gói mới và quản lí bản thảo](../quy_chuan_goi_qmd.md#khởi-tạo-gói-mới-và-quản-lí-bản-thảo) của quy chuẩn gói. Ghi đường dẫn gói, bản thảo đang sửa, tài nguyên bản thảo và căn cứ chủ trì giao tạo. Đây là mẫu áp dụng cho G04 và các gói tiếp theo; khi thực tế cần cải tiến, cập nhật nguồn quy định và mẫu liên quan trong cùng lượt. Không tạo QMD trước khi bản thảo được duyệt hoặc sao tài nguyên nháp thành tài nguyên chính thức.
 
 ## 1. Nhận diện và phạm vi
 
