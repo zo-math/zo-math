@@ -21,6 +21,21 @@ GOVERNANCE = SECTION + "/_quy_trinh"
 
 
 class PublicBoundaryTests(unittest.TestCase):
+    def test_committed_publish_loads_dependencies_before_validation(self):
+        snapshot=self.public/'publish-snapshot'
+        dependency=snapshot/'allowed/input.html'
+        def support(root, destination):
+            self.write_at(destination,'allowed/input.html','required PDF input')
+        def validate(root,target,config,payload,source_root=None):
+            self.assertEqual(source_root,snapshot)
+            self.assertTrue(dependency.is_file())
+            raise RuntimeError('validator still blocks invalid candidate')
+        with patch.object(publish,'copy_ignored_render_support',side_effect=support) as loader, patch.object(publish,'validate_prepared_tree',side_effect=validate) as checker:
+            with self.assertRaisesRegex(RuntimeError,'still blocks'):
+                publish.validate_committed_prepared_tree(ROOT,self.public,self.config,{},snapshot)
+        loader.assert_called_once_with(ROOT,snapshot)
+        checker.assert_called_once()
+
     def test_historical_whitespace_does_not_relax_final_candidate(self):
         raw=self.public/'historical-raw';raw.mkdir()
         self.write_at(raw,'CNAME',self.config['custom_domain']['cname'])
