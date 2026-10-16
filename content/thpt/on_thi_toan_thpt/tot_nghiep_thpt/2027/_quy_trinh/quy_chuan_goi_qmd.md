@@ -1,6 +1,6 @@
 # Quy chuẩn tổ chức học liệu Ôn thi Toán THPT
 
-Phiên bản tài liệu: 0.7 · Ngày biên tập: 12/10/2026 · Căn cứ: phần còn hiệu lực của QD_016–032 và QD_033.
+Phiên bản tài liệu: 0.8 · Ngày biên tập: 16/10/2026 · Căn cứ: phần còn hiệu lực của QD_016–032 và QD_033.
 
 Tài liệu nội bộ, chỉ áp dụng cho chuyên mục này. Tài liệu quy định kiến trúc nguồn, ranh giới xuất bản và hợp đồng canonical cho thành phần học liệu; việc một component được mô tả ở đây không tự động có nghĩa component đó đã được triển khai hoặc kiểm định kỹ thuật.
 
@@ -11,6 +11,32 @@ Tài liệu nội bộ, chỉ áp dụng cho chuyên mục này. Tài liệu quy
 - HTML/PDF là đầu ra sinh, không sửa tay. Mốc lịch sử không được tiếp tục dùng như nguồn phát triển song song.
 - Trang khóa `tot_nghiep_thpt/<nam>/index.qmd` dẫn tới học liệu dùng lại; không sao chép bài vào từng khóa.
 - Điều hành khóa và hồ sơ nội bộ nằm trong `_quy_trinh`, không đưa nguyên tài liệu điều hành lên trang người học.
+
+## Khởi tạo gói mới và quản lí bản thảo
+
+Theo yêu cầu chủ trì ngày 16/10/2026, cách tổ chức G03 là cách khởi tạo dùng cho R1-G04 và các gói tiếp theo khi được giao. Đây là nền tổ chức hiện hành để tiếp tục cải tiến theo thực tế, không phải khuôn cố định về số bài, số hình hoặc nội dung học.
+
+Trước khi tạo thư mục của một gói, trình bày mã gói, đường dẫn, vai trò các phần và phạm vi sẽ tạo; chỉ thực hiện trong nhiệm vụ đã được chủ trì giao/chốt. Không tạo trước các gói tương lai. Nếu cần thêm nơi lưu trữ hoặc thay cấu trúc đã thống nhất, trình phương án để chủ trì chốt trước khi tạo; không tự sinh bản sao hoặc kho lưu trữ song song.
+
+Khi bắt đầu biên soạn, dùng cấu trúc sau trong `hoc_lieu/<ma_goi>/`:
+
+```text
+_quy_trinh/
+├── README.md
+├── ban_thao/
+│   ├── noi_dung.md
+│   └── hinh/       # khi bản thảo có tài nguyên hình
+└── ho_so/          # khi có biên nhận/kết quả kiểm cần giữ
+```
+
+- `_quy_trinh/README.md` là điểm vào quản lí gói, dẫn tới bản thảo và hồ sơ của khóa. Bản thảo đang sửa chỉ có một nguồn `ban_thao/noi_dung.md`; tài nguyên của nó nằm trong vùng bản thảo, tách khỏi tài nguyên chính thức.
+- Hồ sơ phạm vi đặt tại `tot_nghiep_thpt/<nam>/_quy_trinh/goi/`; đề cương và ma trận chỉ lập khi cần, giữ vai trò chỉ mục/độ phủ và dẫn tới bản nội dung, không chép thành ngân hàng song song. Trạng thái và việc tiếp theo của khóa chỉ ghi tại 03.
+- Chỉ chuyển bản thảo sang `index.qmd` sau khi chủ trì duyệt. Giữ bản đã duyệt cùng tài nguyên làm căn cứ đối chiếu; sau khi chuyển đổi được kiểm và nghiệm thu, QMD là nguồn biên soạn chính thức duy nhất, không sửa tiếp hai bản song song.
+- Tài nguyên chính thức được tạo từ đầu vào toán đã duyệt bằng công cụ ZO Math đang áp dụng, theo cùng hợp đồng nguồn/dữ liệu/hình/giao diện của G01/G02. Dựng và kiểm lại đầu ra; không lấy SVG/PDF bản thảo làm tài sản chính thức bằng cách sao chép hoặc đổi tên, không cho build chính thức phụ thuộc `ban_thao/`.
+- Cấu hình QMD, manifest, binding, `du_lieu/`, `hinh/`, `giao_dien/` và công cụ riêng chỉ tạo lúc thực sự triển khai. Không sao cấu hình, mã nhiệm vụ, quota, script hoặc trạng thái nghiệm thu riêng của gói trước để lấp cấu trúc.
+- Khi khép một mốc tổ chức/bản thảo, kiểm liên kết, nguồn đang sửa duy nhất, tài nguyên và phạm vi thay đổi. Commit khi được chủ trì giao; commit bảo toàn mốc làm việc không thay nghiệm thu nội dung hoặc quyền phát hành.
+
+Nếu thực tế cho thấy cần cải tiến, ghi yêu cầu và phạm vi ảnh hưởng, cập nhật quy tắc tại mục này cùng các chỉ dẫn/mẫu bị ảnh hưởng trong cùng lượt được giao. README gói và mẫu hồ sơ dẫn về đây; không duy trì nhiều định nghĩa độc lập về cách khởi tạo.
 
 ## Cổng điều hành trước sản xuất
 

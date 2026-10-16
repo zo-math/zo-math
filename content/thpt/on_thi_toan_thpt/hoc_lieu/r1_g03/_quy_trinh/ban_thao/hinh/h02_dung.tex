@@ -1,0 +1,21 @@
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{backgrounds,arrows.meta}
+\input{zo_graph_v02.tex}
+\begin{document}
+\begin{tikzpicture}[zo graph v02 field]
+\zoGraphVTwoLayers
+\begin{axis}[zo graph v02 axis,width=11cm,height=7cm,
+    xmin=-4,xmax=8,ymin=-10,ymax=10,restrict y to domain=-10:10,
+    xtick={2},ytick={1},xlabel={$x$},ylabel={$y$},
+    every axis x label/.append style={at={(axis description cs:0.98,0.500)},anchor=south east},
+    every axis y label/.append style={at={(axis description cs:0.333,0.98)},anchor=north west}]
+\node[zo graph v02 font sentinel] at (axis cs:0,0) {x};
+\addplot[zo graph v02 asymptote,forget plot] coordinates {(2,-10) (2,10)};
+\addplot[zo graph v02 curve solid,domain=-4:1.93,samples=501,forget plot] {1+4/(x-2)};
+\addplot[zo graph v02 curve solid,domain=2.07:8,samples=501,forget plot] {1+4/(x-2)};
+
+\end{axis}\end{tikzpicture}\end{document}

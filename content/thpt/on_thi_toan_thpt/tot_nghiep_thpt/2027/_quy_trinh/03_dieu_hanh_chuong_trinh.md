@@ -30,6 +30,20 @@ Giới hạn kiểm: chưa in giấy/quét QR bằng điện thoại/phản bi�
 
 ## A. Công việc đang mở
 
+**G03-DRAFT01 — viết bản thảo nội dung R1-G03, 16/10/2026.**
+
+- Chủ trì giao: “Viết bản thảo gói R1-G03.” Đã viết [bản nội dung 0.2](../../../hoc_lieu/r1_g03/_quy_trinh/ban_thao/noi_dung.md) cho Đường tiệm cận của đồ thị hàm số; yêu cầu này tiếp nối và thay bước chờ giao viết tại G03-PREP01, không được ghi thành nghiệm thu nội dung.
+- Bản thảo gồm Bắt đầu, Bài học, Luyện tập, Kiểm tra, Ôn lại và các hỗ trợ độc lập theo QD_033. Có sáu ví dụ, 39 nhiệm vụ/câu tự kiểm (29 L/K/O/S/P, một Gợi mở, năm Tự kiểm tra Bài học, bốn câu nền), ba phần nền và lời giải. Nhật kí trích bảng trống 14 trường từ nguồn chung.
+- Bảy hình được dựng từ công thức/miền, profile 0.4, có nguồn TeX và cặp SVG/PDF; đã kiểm vector và xem đủ bảy hình. PDF ở đây là từng hình, chưa phải PDF toàn gói.
+- Đã rà 133 phép đại số/giới hạn, các đích/cặp đề–lời giải, thứ tự phần, dấu ngoặc và bảng dùng chung. Báo cáo: `_audit/r1_g03_manuscript_20261016/verification.json`. Kiểm quản trị chỉ xác nhận tài liệu áp dụng, không chứng nhận nội dung hoặc giao diện G03.
+- [Hồ sơ](goi/R1_G03.md), [đề cương](goi/R1_G03_de_cuong_bien_soan.md) và [ma trận](goi/R1_G03_ma_tran_nhiem_vu.md) lên 0.2, dẫn về nguồn nội dung duy nhất; các bản chuẩn bị 0.1 được lưu có checksum trong hồ sơ kiểm. G03-PREP01 đã khép ở phạm vi chuẩn bị; báo cáo 107 phép kiểm cũ giữ nguyên.
+- Góp ý kí hiệu/nguồn của chủ trì đã được áp dụng vào bản nội dung 0.2: dùng LaTeX cho số và biểu thức toán, phân số dạng xếp tầng; ghi rõ hướng mọi giới hạn. Định nghĩa ngang/đứng/xiên và cách tìm hệ số được đối chiếu lại SGK trang in 20/21/23/24, có chú thích tại chỗ; hai hướng vô cực được giải thích riêng. Kiểm 784 cụm toán qua Markdown/MathML và sáu giới hạn của ví dụ hệ số đạt. Hồ sơ gói lên 0.3; đề cương/ma trận dẫn bản nội dung mới. Báo cáo: `_audit/r1_g03_notation_20261016/verification.json`.
+- Trạng thái: đã có bản thảo nội dung để đọc duyệt; chưa phản biện toán độc lập/thử với học sinh, chưa nghiệm thu. Chưa tạo QMD/HTML/PDF học liệu, đưa lên danh mục công khai, phát hành trong lượt này. Các công việc khác bên dưới giữ nguyên phạm vi.
+- Theo yêu cầu tổ chức của chủ trì: bản thảo và 22 tệp tài nguyên được chuyển vào `hoc_lieu/r1_g03/_quy_trinh/ban_thao/`, cùng gói với G01/G02; các liên kết đã cập nhật. [README gói](../../../hoc_lieu/r1_g03/_quy_trinh/README.md) và [biên nhận](../../../hoc_lieu/r1_g03/_quy_trinh/ho_so/to_chuc_ban_thao_20261016.json) chỉ vị trí và checksum. Nội dung toán giữ nguyên; chưa tạo QMD hoặc tài nguyên sản xuất. Chỉ chuyển đổi sau khi bản thảo được duyệt; tài nguyên chính thức phải dựng qua công cụ ZO Math và không phụ thuộc vùng bản thảo.
+- Chủ trì giao commit mốc tổ chức/bản thảo G03 và áp dụng cách khởi tạo này cho G04 cùng các gói tiếp theo. Quy định được ghi tại mục Khởi tạo của chuẩn gói QMD, mẫu hồ sơ dẫn về đó; tiếp tục cập nhật khi có cải tiến được giao theo thực tế. Phạm vi chốt Git gồm G03, hồ sơ liên quan và hướng dẫn khởi tạo; không kèm công việc PDF, di dời công cụ hoặc thay đổi khác.
+- Bước tiếp theo của G03: chủ trì đọc bản nội dung, góp ý về lời giảng, tải học và các câu hỏi; chỉnh bản thảo theo phản hồi trước khi giao chuyển sang nguồn sản xuất theo quy trình 02.
+
+
 **HOME-YT01 — nguồn YouTube và chuẩn bị riêng trang Nhà, 16/10/2026.**
 
 - Nguồn `index.qmd`, CSS Home và ảnh chờ dùng video `SJ1bb9gWxDA`;
