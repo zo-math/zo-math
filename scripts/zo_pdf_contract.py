@@ -11,6 +11,7 @@ from typing import Any
 from pypdf import PdfReader
 
 from zo_qmd_config import discover_project_config
+from zo_graphics import graph_path
 
 PDF_BUILD_RECEIPT_VERSION = 1
 PDF_BUILD_GENERATOR = "scripts/zo_pdf.py"
@@ -144,7 +145,7 @@ def pipeline_input_paths(root: Path, source: Path | None = None) -> tuple[Path, 
 def _pipeline_records(root: Path, source: Path | None = None) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
     for relative in pipeline_input_paths(root, source):
-        absolute = root / relative
+        absolute = graph_path(root / relative, root)
         if not absolute.is_file():
             raise FileNotFoundError(f"Thiếu đầu vào PDF canonical: {relative.as_posix()}")
         records.append(
@@ -296,7 +297,7 @@ def validate_pdf_build_receipt(
             errors.append("pipeline_inputs thừa: " + ", ".join(extra))
 
     for relative in inputs:
-        absolute = root / relative
+        absolute = graph_path(root / relative, root)
         if not absolute.is_file():
             errors.append(f"đầu vào PDF canonical đã mất: {relative.as_posix()}")
             continue

@@ -12,19 +12,27 @@ import shutil
 import sys
 from bs4 import BeautifulSoup
 from zo_build_boundary import official_inputs
+from zo_graphics import graph_path, load_graph, load_variation, load_variation_html
 
 sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = ROOT / 'content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01'
 CONFIG = PACKAGE / 'giao_dien/web_2027_figures.json'
 PROFILE = ROOT / '_design/web_2027_mau_dung_chung/figure-profile-candidate'
+# Stable dependency-key namespace; actual IO is resolved by graph_path/module.
 GRAPH = ROOT / 'quy_trinh_xay_dung/cong_cu_do_thi_ham_so_zo_math'
 VARIATION = ROOT / 'quy_trinh_xay_dung/cong_cu_bang_bien_thien_zo_math'
 
 def sha(path):
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    return hashlib.sha256(graph_path(path, ROOT).read_bytes()).hexdigest()
 
 def module(name, path):
+    if Path(path).resolve() == (GRAPH / 'zo_graph_build.py').resolve():
+        return load_graph(name, ROOT)
+    if Path(path).name == 'zo_variation_build.py':
+        return load_variation(path, name, ROOT)
+    if Path(path).resolve() == (VARIATION / 'zo_variation_html.py').resolve():
+        return load_variation_html(name, ROOT)
     spec = importlib.util.spec_from_file_location(name, path)
     result = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(result)

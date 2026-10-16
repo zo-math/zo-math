@@ -20,6 +20,22 @@ def main(argv: Sequence[str] | None = None) -> int:
     env = os.environ.copy()
     env["PYTHONUTF8"] = "1"
     env["PYTHONDONTWRITEBYTECODE"] = "1"
+    # Keep the external tool discoverable by children running in source mirrors.
+    from zo_graphics import graphics_root
+    try:
+        env.setdefault("ZO_MATH_GRAPHICS_ROOT", str(graphics_root()))
+    except FileNotFoundError:
+        pass  # Tasks that do not use graphics do not require that installation.
+    # Preserve the variation engine's source/hash while binding moved graph TeX.
+    from pathlib import Path
+    repo = Path(__file__).resolve().parents[1]
+    variation = repo / "quy_trinh_xay_dung/cong_cu_bang_bien_thien_zo_math/zo_variation_build.py"
+    for index, argument in enumerate(args):
+        if argument.startswith("-"):
+            continue
+        if argument.endswith("zo_variation_build.py") and Path(argument).resolve() == variation:
+            args = [*args[:index], str(repo / "scripts/zo_graphics.py"), "variation", *args[index + 1:]]
+        break
     return subprocess.run([sys.executable, *args], env=env, check=False).returncode
 
 
