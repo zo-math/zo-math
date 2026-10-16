@@ -20,6 +20,10 @@ Cổng chung `scripts/zo_course_release_audit.py --preflight --output <thu_muc_b
 kiểm cả 16 cấu hình bằng TeX, không dựng lại sách. Lệnh nào cũng gọi qua launcher.
 
 
+## Kiến trúc dùng cho công việc tiếp theo
+
+Đọc [01 — Kiến trúc học tập](../../../tot_nghiep_thpt/2027/_quy_trinh/01_kien_truc_hoc_tap.md) theo QD_033 và [07 — Cấu trúc trang](../../../tot_nghiep_thpt/2027/_quy_trinh/07_quy_chuan_cau_truc_trang_nguoi_hoc.md). Các thứ tự thẻ, sơ đồ học và trạng thái trong phần lịch sử dưới đây chỉ mô tả bản tại thời điểm đó; không dùng làm mẫu cho gói mới. Nguồn học liệu hiện hành là `../index.qmd` cùng các include, dữ liệu và manifest của gói.
+
 ## Lịch sử triển khai trước lượt đồng bộ 15/10/2026
 
 **Hiện hành DH_026/QD_031:** nguồn QMD/layout/binding đã sửa backlog theo owner; Nhật kí độc lập, Toàn văn/Sửa lỗi/Lời giải đúng thứ tự, bỏ hành động đề–đáp án cục bộ thừa, bảng chọn bài dùng chuẩn chung. Năm SVG chính/nền/bìa đều dựng mới theo profile 0.4, manifest kiểm toàn bộ đầu vào và asset, không tái dùng cache canonical cũ. Bản xem/evidence ở `_audit/zo_pair_backlog_2026-10-11/`; cổng nguồn/DOM `scripts/zo_web_2027_backlog_check.py` chạy trong adapter. Chờ chủ trì duyệt HTML, PDF chưa đồng bộ, root docs/receipt/Git không sửa. Các mô tả “hiện hành” bên dưới là lịch sử trước DH_026, không phục hồi owner/nhóm lời giải/nhật kí/cache đã bị thay.
@@ -97,9 +101,12 @@ Thanh thẻ dùng hành vi điều hướng chung của chuyên mục: giữ ngu
 `sticky` ở `top: 0`; Navbar ẩn khi kéo xuống và xuất hiện lại khi kéo lên. HTML
 hiện có chỉ nhận thay đổi này ở lần render và tái xuất bản kế tiếp.
 
-Kiến trúc nội dung của mốc lịch sử đã được chủ dự án duyệt tại
-[`ma_tran_kien_truc_noi_dung.md`](ma_tran_kien_truc_noi_dung.md). Tệp này là
-căn cứ cho lượt tái cấu trúc `index.qmd`; không suy kiến trúc từ bản render tạm.
+Ma trận chuyển đổi tháng 9 đã hết vai trò vận hành và được chuyển vào kho
+lưu trữ ngày 16/10/2026; nơi lưu và checksum ở
+[06 — Nguồn và chuyển tiếp](../../../tot_nghiep_thpt/2027/_quy_trinh/06_nguon_va_chuyen_tiep.md).
+Để tiếp tục biên soạn, dùng 01/QD_033, 07,
+[hồ sơ G02](../../../tot_nghiep_thpt/2027/_quy_trinh/goi/R1_G02.md)
+và manifest hiện hành; không suy kiến trúc từ bản render tạm hoặc ma trận cũ.
 
 Bước 2 đã hoàn tất: ghi chú hiệu đính, truy nguyên và lịch sử rà soát được bảo
 toàn tại [`ho_so/lich_su_ban_thao_v0_1.md`](ho_so/lich_su_ban_thao_v0_1.md),

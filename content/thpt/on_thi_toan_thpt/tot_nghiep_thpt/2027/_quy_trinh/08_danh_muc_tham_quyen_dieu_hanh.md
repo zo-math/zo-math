@@ -6,7 +6,7 @@
 
 **QD_032:** 07 sở hữu điều hướng toàn khóa học; `_data/chuong_trinh.yml` sở hữu danh mục, `zo_web_2027_navigation.py` sở hữu binding hiển thị/URL hiện hữu, kit sở hữu CSS/JS và checker sở hữu kiểm kỹ thuật. Bốn adapter gọi cùng module; không lấy mẫu audit làm chuẩn/runtime thứ hai. 03 sở hữu DH_027 và trạng thái HTML. Phân cấp tiêu đề chưa được duyệt, không có quy tắc mới thay cấp hiện hành.
 
-Phiên bản: 0.8 · Ngày: 13/10/2026 · Căn cứ: QD_019, phần còn hiệu lực của QD_021, QD_022–032, QD_033, QD_034 và QD_035.
+Phiên bản: 0.9 · Ngày: 16/10/2026 · Căn cứ: QD_019, phần còn hiệu lực của QD_021, QD_022–032, QD_033, QD_034 và QD_035.
 
 **QD_033:** 01 sở hữu Bài học → Luyện tập → Kiểm tra → Ôn lại là tiến trình chuẩn được khuyến nghị nhưng không cưỡng chế hoàn thành tuần tự, cùng quyền chọn điểm vào, hỗ trợ độc lập, tự lực trong lượt Kiểm tra và phân biệt bằng chứng/Nhật kí; 07 sở hữu cách thể hiện cùng ngoại lệ liên kết tại chỗ; 02 sở hữu cơ chế thay thế. Registry chọn `learning_route`/QD_033, không lấy audit profile QD_021 làm xác nhận QMD/HTML hiện hành. Công việc/trạng thái/bước tiếp chỉ đọc mục A của 03; không phục hồi quy tắc cũ từ hồ sơ hay báo cáo giữ lịch sử.
 
@@ -57,8 +57,8 @@ Khi cùng vấn đề thay đổi nhiều lần, áp dụng quyết định đư
 | Cùng package Design: `04_ap_dung/01_web_2027.md`, `09_nhat_ki/cong_viec_hien_tai.json`, `tiep_nhan_san_pham.json`, `lich_su.md`, `phan_hoi_tich_hop_web_2027_0_4.md`, mốc duyệt và backlog 0.5 | Binding Web, con trỏ về 03, nhật kí feedback và đề xuất. Không mở lại M8.R/Video, không có quyền phát hành từ backlog |
 | `quy_trinh_xay_dung/cong_cu_do_thi_ham_so_zo_math/README.md`, `quy_trinh_xay_dung/cong_cu_bang_bien_thien_zo_math/README.md`; `scripts/zo_web_2027_*.py`, các hook/filter và CSS/JS | Hướng dẫn và hiện thực kỹ thuật: style 0.4 opt-in, bảng native HTML đã tích hợp nguồn canonical G01/G02 qua adapter và dựng cô lập. Preview G02 cũ chỉ là bằng chứng lịch sử; không gọi mặc định toàn repo là đã đổi, không suy PDF từ HTML |
 | `content/thpt/on_thi_toan_thpt/hoc_lieu/_dung_chung/nhat_ki_hoc_tap.qmd`, `nen/**`, `index.qmd` từng gói, trang Nhà/cửa ngõ, dữ liệu danh mục | Nguồn sản phẩm cần bảo toàn và đối chiếu với quy tắc; không phải một nguồn điều hành mới. Nhật kí dùng chung một nguồn, không viết riêng cho mỗi gói |
-| G02 `_quy_trinh/ma_tran_kien_truc_noi_dung.md`, `ho_so/lich_su_ban_thao_v0_1.md`; G01 `_quy_trinh/lich_su/**` | Hợp đồng chuyển đổi/bản thảo và mốc đồng bộ cũ. Ma trận G02 phần đầu dẫn chuẩn hiện hành; bản thảo/mốc cũ giữ nguyên, không phục hồi kiến trúc chín thẻ hay nhật kí gộp Ôn lại |
-| `_projects/on_thi_toan_thpt_2027/README.md`, `AGENTS.md`; tài liệu/bộ bàn giao còn lại ở vị trí cũ | Chuyển tiếp hoặc provenance; không điều hành song song, không thực thi prompt lịch sử |
+| G02 `_quy_trinh/ho_so/lich_su_ban_thao_v0_1.md`; G01 `_quy_trinh/lich_su/**`; kho chuyển tiếp tại 06 | Bản thảo và mốc đồng bộ cũ giữ nguyên. Ma trận chuyển đổi G02 tháng 9 đã được lưu ngoài repo, gỡ khỏi cây làm việc; không là chỉ dẫn biên soạn. Kiến trúc theo 01/QD_033, hiển thị theo 07 |
+| `_projects/on_thi_toan_thpt_2027/README.md`, `AGENTS.md`; tài liệu/bộ bàn giao còn lại ở vị trí cũ | Chuyển tiếp hoặc provenance; không điều hành song song, không thực thi prompt lịch sử. Bộ G01 v1.1 còn là đầu vào kiểm bảo toàn theo manifest SHA-256; giữ nguyên bytes, không xóa/sửa để làm mất sơ đồ lịch sử |
 | `_audit/**`, receipt nghiệm thu, checkpoint ngoài repo, PDF/HTML đã dựng và báo cáo QA | Bằng chứng theo bản/phạm vi. Giữ nguyên lịch sử; không dùng làm nguồn biên tập hoặc sửa hash để báo PASS |
 
 Các thư mục nguồn/media/specimen khác của Design là tài sản tham chiếu hoặc phụ thuộc, không vì nằm trong package mà có thẩm quyền điều hành khóa. Không cần sửa hàng trăm tài sản để đồng bộ văn bản điều hành.
