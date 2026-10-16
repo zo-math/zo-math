@@ -250,6 +250,7 @@ def main():
     parser.add_argument('--build',type=Path)
     parser.add_argument('--g01',type=Path);parser.add_argument('--g02',type=Path)
     parser.add_argument('--browser',action='store_true')
+    parser.add_argument('--public-candidate',action='store_true',help='Check only referenced resources in a filtered publication tree.')
     args=parser.parse_args();out=args.output.resolve()
     if not out.is_relative_to(REPO/'_audit') or out==REPO/'_audit':parser.error('Output must be named _audit directory')
     out.mkdir(parents=True,exist_ok=True)
@@ -260,7 +261,11 @@ def main():
         preview(args.html.resolve(),out,args.g01.resolve(),args.g02.resolve());return 0
     if not args.build:parser.error('--build required')
     build=json.loads(args.build.read_text(encoding='utf-8'))
-    checks,missing=static(args.html.resolve(),build)
+    if args.public_candidate:
+        from zo_web_2027_home_landing_check import static as editorial_static
+        checks,missing=editorial_static(args.html.resolve(),build,public_candidate=True)
+    else:
+        checks,missing=static(args.html.resolve(),build)
     if args.browser:
         if build.get('layout') == 'editorial-home-2027':
             from zo_web_2027_home_landing_check import browser as editorial_browser

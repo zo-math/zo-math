@@ -175,7 +175,7 @@ def validate(doc, build):
     }
 
 
-def static(page, build):
+def static(page, build, *, public_candidate=False):
     doc = BeautifulSoup(page.read_text(encoding='utf-8'),'html.parser')
     checks = validate(doc, build)
     for key, path in [('canonical_data',REPO/build['canonical_data']), ('editorial',REPO/build['editorial_source']), ('profile',KIT/'profiles/course-home.json')]:
@@ -204,7 +204,17 @@ def static(page, build):
     checks['current implementation built'] = all(sha(REPO/'scripts'/name)==digest for name,digest in build['implementation_sha256'].items())
     checks['table guard still mounted'] = 'course-tables.css' in build['resources']
     runtime = (page.parent / unquote(urlsplit(doc.select_one('link[rel=stylesheet]')['href']).path)).resolve().parent
+    used=None
+    if public_candidate:
+        from zo_publish import asset_dependencies, tree_manifest
+        public_root=page.parents[5]
+        missing_assets=[]
+        used=asset_dependencies(public_root, tree_manifest(public_root, True),
+                                [page.relative_to(public_root).as_posix()], missing_assets)
+        checks['public referenced asset closure complete']=not missing_assets
     for name, spec in build['resources'].items():
+        if used is not None and (runtime/name).relative_to(public_root).as_posix() not in used:
+            continue  # Unreferenced template assets are not part of a filtered publication.
         checks['runtime source and copy exact '+name] = sha(REPO/spec['source']) == spec['sha256'] and (runtime/name).is_file() and sha(runtime/name) == spec['sha256']
     missing=[]; parsed={page.resolve():doc}
     for n in doc.select('a[href],img[src],script[src],link[href]'):

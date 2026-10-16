@@ -1251,7 +1251,8 @@ def requested_html_scope(allowed: set[str], pages: Sequence[str],
     return {path for path in allowed if not path.endswith('.html')} | selected
 
 
-def asset_dependencies(rendered: Path, manifest: Mapping[str, Any], seeds: Sequence[str]) -> set[str]:
+def asset_dependencies(rendered: Path, manifest: Mapping[str, Any], seeds: Sequence[str],
+                       missing: list[str] | None = None) -> set[str]:
     """Follow local assets, including CSS fonts, without widening the HTML scope."""
     files=set(manifest['files']); pending=list(seeds); seen=set(); assets=set()
     while pending:
@@ -1278,6 +1279,12 @@ def asset_dependencies(rendered: Path, manifest: Mapping[str, Any], seeds: Seque
                                    str(PurePosixPath(relative).parent/url.path))
             if path in files and not path.lower().endswith('.html'):
                 assets.add(path);pending.append(path)
+                if PurePosixPath(path).suffix.lower() in {'.ttf','.woff','.woff2','.otf'}:
+                    parent=PurePosixPath(path).parent
+                    assets.update(name for name in files if PurePosixPath(name).parent==parent
+                                  and PurePosixPath(name).name.startswith('OFL') and name.endswith('.txt'))
+            elif path not in files and not path.lower().endswith('.html') and missing is not None:
+                missing.append(path)
     return assets
 
 
@@ -1318,6 +1325,9 @@ def build_scoped_candidate(baseline: Path, rendered: Path, candidate: Path, targ
         for name, metadata in policy_manifest["files"].items()
     }
     blocking: list[dict[str, Any]] = list(policy_manifest["issues"])
+    missing_dependencies: list[str] = []
+    asset_dependencies(candidate, public_manifest, source_diff['add']+source_diff['update'], missing_dependencies)
+    blocking.extend({'type':'missing-dependent-asset','path':name} for name in sorted(set(missing_dependencies)))
     if policy_files != public_manifest["files"]:
         blocking.append({"type": "candidate-manifest-mismatch", "path": str(candidate)})
     validation = validate_public(candidate, public_manifest, config, source_root=source_root)
