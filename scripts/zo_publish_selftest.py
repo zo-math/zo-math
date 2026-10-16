@@ -21,6 +21,26 @@ GOVERNANCE = SECTION + "/_quy_trinh"
 
 
 class PublicBoundaryTests(unittest.TestCase):
+    def test_font_dependencies_include_local_license_files(self):
+        raw=self.public/'font-test';raw.mkdir()
+        contents={'index.html':'<link rel="stylesheet" href="style.css">',
+                  'style.css':"@font-face{src:url('fonts/test.ttf')}",
+                  'fonts/test.ttf':'fixture','fonts/OFL_Test.txt':'license', 'unused.svg':'unused'}
+        for name,value in contents.items():self.write_at(raw,name,value)
+        found=publish.asset_dependencies(raw,publish.tree_manifest(raw),['index.html'])
+        self.assertIn('fonts/test.ttf',found)
+        self.assertIn('fonts/OFL_Test.txt',found)
+        self.assertNotIn('unused.svg',found)
+
+    def test_missing_css_font_blocks_scoped_candidate(self):
+        baseline,rendered,target,candidate=[self.public/name for name in ('fb','fr','ft','fc')]
+        for tree in (baseline,rendered,target):
+            tree.mkdir();self.write_at(tree,'CNAME',self.config['custom_domain']['cname'])
+        self.write_at(rendered,'index.html','<link rel="stylesheet" href="style.css">')
+        self.write_at(rendered,'style.css',"@font-face{src:url('missing.ttf')}")
+        result=publish.build_scoped_candidate(baseline,rendered,candidate,target,self.config)
+        self.assertIn({'type':'missing-dependent-asset','path':'missing.ttf'},result['issues'])
+
     def test_committed_source_excludes_only_unstaged_dirty_issue(self):
         state={'issues':['Working tree không sạch.', 'Vùng staged không trống.', 'Có merge hoặc rebase dang dở.', 'wrong branch']}
         self.assertEqual(publish.source_mode_issues(state, False), state['issues'])
