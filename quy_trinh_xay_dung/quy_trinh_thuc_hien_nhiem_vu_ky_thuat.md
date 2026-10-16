@@ -179,6 +179,37 @@ Tối thiểu phải xác nhận:
 
 Khi nhiệm vụ tác động đến giao diện, kiểm tra kỹ thuật không thay thế cho đánh giá trực quan. Agent phải xác định trang hoặc đầu ra cần người dùng xem và mô tả rõ nội dung cần duyệt.
 
+### 7.1. Đường cập nhật tối thiểu cho sửa đổi nhỏ
+
+Áp dụng ngay khi tiếp nhận yêu cầu sửa, không đợi người dùng nhắc về thời gian.
+Trước khi ghi tệp, xác định ngắn gọn: nguồn cần sửa → đầu ra chịu ảnh hưởng →
+phép kiểm cần chạy → điều kiện dừng. Đây là bước chọn phạm vi, không phải yêu
+cầu lập thêm hồ sơ hoặc xin duyệt lại việc đã được giao.
+
+- Chỉ đọc chỉ dẫn bắt buộc và phụ thuộc liên quan; tái sử dụng thông tin đã đọc
+  trong phiên nếu không có dấu hiệu thay đổi. Không khảo sát lại toàn dự án.
+- Tài liệu quản lý thuần văn bản: đọc diff và kiểm liên kết/quy tắc liên quan;
+  không render học liệu. Nội dung một trang: kiểm nguồn và render đúng trang,
+  đúng định dạng cần xem. Đổi ảnh: sinh/cập nhật đúng ảnh và trang sử dụng nó;
+  không dựng lại các hình toán, bảng biến thiên hoặc PDF không chịu ảnh hưởng.
+- Tận dụng lựa chọn phạm vi và chế độ HTML-only đang có. Không render cả thư
+  mục chỉ vì ví dụ lệnh trong hướng dẫn dùng tên thư mục. Không bỏ các cổng
+  bắt buộc của lệnh đã chọn để đạt tốc độ.
+- Tái sử dụng tài nguyên/bằng chứng còn phù hợp khi đầu vào và phụ thuộc của
+  chúng không đổi; không coi PASS cũ là PASS cho phần vừa sửa. Giữ các phép
+  kiểm toàn vẹn nhẹ vốn nằm trong adapter; kiểm hash không đồng nghĩa tái dựng.
+- Kiểm tự động trước, xem trực quan vùng thay đổi sau. Khi đã đạt điều kiện
+  dừng thì bàn giao; chỉ lặp lại khi có thay đổi mới, lỗi hoặc nghi vấn cụ thể.
+- Chỉ mở rộng kiểm tra khi thay đổi thành phần dùng chung, phát hiện phụ thuộc
+  bị ảnh hưởng hoặc có yêu cầu nghiệm thu/phát hành tương ứng. Nêu căn cứ mở
+  rộng. Không ghép chuẩn hóa, tái cấu trúc hay cải tiến công cụ vào sửa nhỏ.
+
+Ghi thời gian thực tế của từng bước chạy đáng kể (kiểm nguồn, sinh tài nguyên,
+render, kiểm đầu ra) bằng đồng hồ của công cụ hoặc bộ đo thời gian của shell;
+phân biệt với thời gian khảo sát/biên tập. Báo ngắn bước chậm và số lần chạy lại
+khi có chậm trễ; không suy đoán lỗi công cụ từ tổng thời gian hội thoại. Không
+chạy thêm build chỉ để đo. Không đặt cam kết số phút khi chưa có số đo.
+
 ## 8. Điều kiện hoàn thành nhiệm vụ
 
 Một nhiệm vụ kỹ thuật chỉ được xem là hoàn thành khi:
