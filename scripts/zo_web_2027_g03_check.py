@@ -37,6 +37,31 @@ def checks(page, output_root):
             "no executable draft dependency":"_quy_trinh/ban_thao" not in str(doc) and "_audit/" not in str(doc),
             "no package PDF invented":not root.select('a[download]'),
             "fallback navigation available":bool(doc.select("noscript nav a"))}
+    lesson=root.find(id="bai-hoc")
+    result["controller lesson heading count"]=len(lesson.select("h3"))==int(root["data-r1-lesson-count"])
+    # Presentation regressions found by comparing the accepted G01 shell.
+    orientation=root.select("details.r1-lesson-orientation")
+    result["G01 orientation component"]=len(orientation)==1 and not orientation[0].has_attr("open")
+    result["G01 execution guidance components"]=len(root.select("details.r1-guidance"))==7
+    result["G01 disclosure body and title"]=all(n.select_one(":scope > summary.zo-block-title") and n.select_one(":scope > .zo-block-body") for n in root.select("details"))
+    result["G01 definitions stay open"]=len(root.select('[data-zo-type="definition"] .zo-block-red'))==3 and not any(n.find_parent("details") for n in root.select('[data-zo-type="definition"] .zo-block-red'))
+    page_labels=json.loads((REPO/"_design/web_2027_mau_dung_chung/profiles/r1-consistency.json").read_text(encoding="utf-8"))["page_roles"]
+    for anchor,key in {"bat-dau":"Bắt đầu","bai-hoc":"Bài học","phieu-luyen":"Luyện tập","nguon":"Nguồn đối chiếu"}.items():
+        title=root.find(id=anchor).find("h2")
+        label=title.find_previous_sibling(attrs={"data-reading-label":True})
+        result["G01 area label "+anchor]=bool(label and label.get_text(strip=True)==page_labels[key])
+    result["Vietnamese source notes"]=bool(root.select_one(".footnotes h2") and root.select_one(".footnotes h2").get_text(strip=True)=="Chú thích nguồn")
+    foundations=root.select("#on-nen details.r1-foundation-unit")
+    result["G02 foundation resources collapsed"]=len(foundations)==3 and all(not n.has_attr("open") for n in foundations)
+    kickoff=root.find(id="khởi-động").find("h3")
+    kickoff_label=kickoff.find_previous_sibling(attrs={"data-reading-label":True})
+    result["G02 kickoff group label"]=bool(kickoff_label and kickoff_label.get_text(strip=True)=="Bài học · Khởi động")
+    test_heading=root.find(id="tu-kiem-tra").find("h2")
+    result["test area not lesson self-check"]=not test_heading.find_previous_sibling(attrs={"data-reading-label":True})
+    result["semantic support context opt-in"]=root.get("data-r1-support-context")=="semantic"
+    result["all checkpoint return labels"]=all(n.get("data-r1-return-label") for n in root.select('[data-zo-type="checkpoint"][id]'))
+    controller=(REPO/"_design/web_2027_mau_dung_chung/r1-controller.js").read_text(encoding="utf-8")
+    result["semantic support controller installed"]='root.dataset.r1SupportContext' in controller and '[data-r1-return-label][id]' in controller
     from zo_course_labels import html_checks, binding_checks
     result.update({"labels/"+k:v for k,v in binding_checks(binding).items()})
     result.update({"labels/"+k:v for k,v in html_checks(doc,binding).items()})

@@ -112,6 +112,8 @@ def adapt(path, output_root):
     builder.resources.update(apply_course_navigation(doc,path,output_root,builder.output,'g02'))
     from zo_course_pdf_download_state import apply as apply_pdf_state
     apply_pdf_state(doc,REPO,PACKAGE)
+    from zo_web_2027_consistency import apply_editorial_policy
+    apply_editorial_policy(doc)
     from zo_course_html import write
     write(path, doc)
     report = {'package': 'R1-G02', 'source': (PACKAGE / 'index.qmd').as_posix(),

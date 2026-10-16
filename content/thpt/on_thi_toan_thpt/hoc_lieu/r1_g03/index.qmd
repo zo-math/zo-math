@@ -1,6 +1,8 @@
 ---
 title: "Đường tiệm cận"
 lang: vi
+language:
+  section-title-footnotes: "Chú thích nguồn"
 subtitle: "Đọc giới hạn, xác định đường tiệm cận và giải thích trong đúng miền"
 draft: true
 toc: false
@@ -17,7 +19,7 @@ resources:
   - giao_dien/assets/figures_0_4/*.svg
 ---
 
-::: {.zo-on-thi-package data-r1-title="Đường tiệm cận" data-r1-code="R1-G03" data-r1-lesson-count="9"}
+::: {.zo-on-thi-package data-r1-title="Đường tiệm cận" data-r1-code="R1-G03" data-r1-support-context="semantic" data-r1-lesson-count="8"}
 
 ## Bắt đầu {#bat-dau}
 
@@ -90,7 +92,8 @@ Khi hoàn tất, ghi ngày gốc và hẹn Ôn lại sau khoảng $2$–$3$ ngà
 
 <div class="lesson-toc"></div>
 
-### Định hướng bài học
+<details id="định-hướng-bài-học" class="r1-details r1-lesson-orientation zo-learning-guidance zo-block zo-block-gray" data-reading-disclosure="guidance">
+<summary class="zo-block-title">Định hướng bài học</summary>
 
 **Câu hỏi dẫn đường:** từ công thức hoặc dữ kiện giới hạn, ta biết đồ thị tiến gần đường nào, ở phía nào, và còn điều gì chưa biết?
 
@@ -111,9 +114,16 @@ Trước mỗi kết luận, hãy xác định miền đang xét, hướng biế
 
 Bắt đầu bằng [Khởi động](#KD01), rồi vào [mục Giới hạn mô tả hành vi của hàm số](#bh-01). Mỗi mục kiến thức mở đầu bằng một nhiệm vụ Gợi mở, đánh số liên tục từ 01 đến 06. Hãy thử trả lời trước khi đọc phần giải thích; các câu này dẫn vào nội dung sắp học, không thay câu Tự kiểm tra cuối mục. Cuối mỗi mục có câu Tự kiểm tra và lời giải riêng. Học liệu chưa thực hiện toàn bộ quy trình khảo sát hàm số; không yêu cầu biện luận tham số hoặc tính đạo hàm trong các nhiệm vụ chính. Hai nhánh Phối hợp và Chuyển giao là lựa chọn thêm.
 
+</details>
+
 ### Khởi động {#khởi-động}
 
+<details class="r1-details r1-guidance zo-learning-guidance zo-block zo-block-gray" data-reading-disclosure="guidance">
+<summary class="zo-block-title">Cách thực hiện</summary>
+
 Tự làm bốn nhiệm vụ trên giấy trước khi mở lời giải. Chúng giúp em nhận ra thao tác nền còn vướng; không cần tính điểm và không cần biết trước tên các đường tiệm cận.
+
+</details>
 
 #### Nhiệm vụ 01 — Giữ miền khi rút gọn {#KD01 .zo-learning-task data-zo-type="task" data-zo-function="function.warmup" data-zo-task="G03-KD01" data-zo-number="1"}
 
@@ -139,7 +149,7 @@ Viết $A(x)=\frac{2x^2+x+5}{x+1}$ thành một biểu thức bậc nhất cộn
 
 [Xem lời giải sau khi tự làm](#lg-KD04).
 
-#### Sau khi làm xong {#CP-KD data-zo-type="checkpoint"}
+#### Sau khi làm xong {#CP-KD data-zo-type="checkpoint" data-r1-return-label="Khởi động"}
 
 Giữ bài làm rồi đối chiếu từng câu. Câu còn vướng chỉ ra đúng phần nền nên xem lại trong bảng dưới; không cần học lại mọi tài nguyên. Nếu đã rõ cả bốn thao tác, chuyển sang [mục Giới hạn mô tả hành vi của hàm số](#bh-01). Làm đúng Khởi động chưa có nghĩa đã đạt các mục tiêu của gói.
 
@@ -160,7 +170,12 @@ Sau khi xem nền, tự làm câu của tài nguyên nếu còn mới rồi tr�
 
 ### 1. Giới hạn mô tả hành vi của hàm số {#bh-01}
 
-**Cách thực hiện:** thử trả lời câu hỏi dưới; đọc Ví dụ 01 và chỉ trên hai hình điều khác nhau tại điểm bị loại; cuối mục tự làm Tự kiểm tra 01.
+<details class="r1-details r1-guidance zo-learning-guidance zo-block zo-block-gray" data-reading-disclosure="guidance">
+<summary class="zo-block-title">Cách thực hiện</summary>
+
+thử trả lời câu hỏi dưới; đọc Ví dụ 01 và chỉ trên hai hình điều khác nhau tại điểm bị loại; cuối mục tự làm Tự kiểm tra 01.
+
+</details>
 
 #### Gợi mở 01 {#GM01 .zo-learning-task data-zo-type="task" data-zo-function="function.guided_thinking" data-zo-task="G03-GM01" data-zo-number="1"}
 
@@ -230,7 +245,12 @@ Cho $r(x)=\frac{x^2-1}{x-1}$ với tập xác định tự nhiên. Một bạn v
 
 ### 2. Tiệm cận ngang: xét riêng hai đầu vô cực {#bh-02}
 
-**Cách thực hiện:** đọc định nghĩa và ghi hướng giới hạn trong từng ví dụ; so sánh trường hợp hai đầu trùng nhau, khác nhau và đồ thị cắt đường ngang; cuối mục tự làm Tự kiểm tra 02.
+<details class="r1-details r1-guidance zo-learning-guidance zo-block zo-block-gray" data-reading-disclosure="guidance">
+<summary class="zo-block-title">Cách thực hiện</summary>
+
+đọc định nghĩa và ghi hướng giới hạn trong từng ví dụ; so sánh trường hợp hai đầu trùng nhau, khác nhau và đồ thị cắt đường ngang; cuối mục tự làm Tự kiểm tra 02.
+
+</details>
 
 #### Gợi mở 02 {#GM02 .zo-learning-task data-zo-type="task" data-zo-function="function.guided_thinking" data-zo-task="G03-GM02" data-zo-number="2"}
 
@@ -242,6 +262,8 @@ Ta đang so $f(x)$ với $4$, tức so tung độ của điểm trên đồ th�
 
 #### 2.1. Định nghĩa và ý nghĩa {#định-nghĩa-và-ý-nghĩa data-zo-type="definition" data-zo-unit="G03-U02"}
 
+::: {.zo-block .zo-block-red}
+
 Đường thẳng **$y=L$** là một tiệm cận ngang của đồ thị $y=f(x)$ nếu ít nhất một trong hai điều kiện sau đúng:
 
 $$\lim_{x\to+\infty}f(x)=L\qquad\text{hoặc}\qquad\lim_{x\to-\infty}f(x)=L,$$
@@ -249,6 +271,8 @@ $$\lim_{x\to+\infty}f(x)=L\qquad\text{hoặc}\qquad\lim_{x\to-\infty}f(x)=L,$$
 trong đó $L$ là số thực và hướng đang xét có nghĩa trên tập xác định. Đây là định nghĩa tiệm cận ngang trong SGK, viết với kí hiệu $L$ thay cho $y_0$.[^sgk-ngang]
 
 Chẳng hạn, khi $f(x)\to L$ ở đầu phải, độ chênh tung độ $|f(x)-L|$ tiến về $0$ khi $x\to+\infty$. Đường ngang mô tả hành vi ở xa, không buộc đồ thị phải nằm về một phía của đường ở mọi điểm.
+
+:::
 
 #### 2.2. Ví dụ 02 — Hai đầu cho cùng một đường {#H02 .zo-learning-task data-zo-type="example" data-zo-task="G03-H02" data-zo-number="2"}
 
@@ -318,7 +342,12 @@ Biết $\lim_{x\to+\infty}p(x)=-1$ và $\lim_{x\to-\infty}p(x)=3$. Hãy viết c
 
 ### 3. Tiệm cận đứng: một phía vô cực đã đủ {#bh-03}
 
-**Cách thực hiện:** đọc từ “ít nhất một” trong định nghĩa; trở lại hai hàm ở Ví dụ 01; kiểm dấu hai phía trong Ví dụ 05 rồi làm Tự kiểm tra 03.
+<details class="r1-details r1-guidance zo-learning-guidance zo-block zo-block-gray" data-reading-disclosure="guidance">
+<summary class="zo-block-title">Cách thực hiện</summary>
+
+đọc từ “ít nhất một” trong định nghĩa; trở lại hai hàm ở Ví dụ 01; kiểm dấu hai phía trong Ví dụ 05 rồi làm Tự kiểm tra 03.
+
+</details>
 
 #### Gợi mở 03 {#GM03 .zo-learning-task data-zo-type="task" data-zo-function="function.guided_thinking" data-zo-task="G03-GM03" data-zo-number="3"}
 
@@ -330,6 +359,8 @@ Hoành độ tiến tới $2$ từ phải, còn tung độ tăng không bị ch�
 
 #### 3.1. Định nghĩa và các phía được phép xét {#định-nghĩa-và-các-phía-được-phép-xét data-zo-type="definition" data-zo-unit="G03-U03"}
 
+::: {.zo-block .zo-block-red}
+
 Đường thẳng **$x=a$** là tiệm cận đứng của đồ thị $y=f(x)$ nếu ít nhất một trong bốn điều kiện sau được thỏa mãn:[^sgk-dung]
 
 $$\lim_{x\to a^+}f(x)=+\infty;\qquad \lim_{x\to a^-}f(x)=+\infty;$$
@@ -339,6 +370,8 @@ $$\lim_{x\to a^+}f(x)=-\infty;\qquad \lim_{x\to a^-}f(x)=-\infty.$$
 Chỉ xét phía có điểm của tập xác định tiến sát $a$. Không cần cả hai phía tồn tại; nếu cả hai có nghĩa, chúng cũng không phải cùng dấu. Phương trình đường đứng là $x=a$, không phải $y=a$.
 
 Ở Ví dụ 01, $v$ có tiệm cận đứng $x=2$ vì giới hạn trái là $-\infty$ và giới hạn phải là $+\infty$. Với $u$, hai giới hạn tại $2$ bằng $4$, nên $x=2$ không là tiệm cận đứng. **Điểm bị loại chỉ là mốc cần xem xét, chưa phải kết luận.**
+
+:::
 
 #### 3.2. Ví dụ 05 — Hai phía cùng đi lên {#H04 .zo-learning-task data-zo-type="example" data-zo-task="G03-H04" data-zo-number="5"}
 
@@ -358,7 +391,12 @@ Hàm $w$ có tập xác định $(-\infty;5)$, liên tục trên khoảng này v
 
 ### 4. Tiệm cận xiên: kiểm phần chênh lệch {#bh-04}
 
-**Cách thực hiện:** tự chia phân thức ở Ví dụ 06 trước khi đối chiếu; nhân ngược, kiểm giới hạn hiệu, rồi đọc từng nhánh trên hình. Sau đó so với cách tìm hai hệ số và làm Tự kiểm tra 04.
+<details class="r1-details r1-guidance zo-learning-guidance zo-block zo-block-gray" data-reading-disclosure="guidance">
+<summary class="zo-block-title">Cách thực hiện</summary>
+
+tự chia phân thức ở Ví dụ 06 trước khi đối chiếu; nhân ngược, kiểm giới hạn hiệu, rồi đọc từng nhánh trên hình. Sau đó so với cách tìm hai hệ số và làm Tự kiểm tra 04.
+
+</details>
 
 #### Gợi mở 04 {#GM04 .zo-learning-task data-zo-type="task" data-zo-function="function.guided_thinking" data-zo-task="G03-GM04" data-zo-number="4"}
 
@@ -370,6 +408,8 @@ Ta đang so $h(x)$ với $x-1$, tức so tung độ của điểm trên đồ th
 
 #### 4.1. Định nghĩa bằng giới hạn của hiệu {#định-nghĩa-bằng-giới-hạn-của-hiệu data-zo-type="definition" data-zo-unit="G03-U04"}
 
+::: {.zo-block .zo-block-red}
+
 Theo định nghĩa trong SGK, đường thẳng **$y=ax+b$**, với $a\ne0$, là tiệm cận xiên của đồ thị $y=f(x)$ nếu[^sgk-xien]
 
 $$\lim_{x\to+\infty}[f(x)-(ax+b)]=0$$
@@ -379,6 +419,8 @@ hoặc
 $$\lim_{x\to-\infty}[f(x)-(ax+b)]=0.$$
 
 Ở cùng một hoành độ $x$, hiệu $f(x)-(ax+b)$ là chênh lệch tung độ giữa đồ thị và đường thẳng. Khi hiệu tiến về $0$, khoảng cách từ điểm trên đồ thị đến đường thẳng ấy cũng tiến về $0$. Nếu $a=0$, đường là đường ngang và ta dùng tên tiệm cận ngang.
+
+:::
 
 #### 4.2. Ví dụ 06 — Tách phần tuyến tính và phần còn lại {#H05 .zo-learning-task data-zo-type="example" data-zo-task="G03-H05" data-zo-number="6"}
 
@@ -455,7 +497,12 @@ Cho $q(x)=2x-5+\frac{1}{x+6}$, $x\ne -6$. Một bạn chỉ nhìn hệ số củ
 
 ### 5. Đọc kết quả trong đúng miền và đúng bối cảnh {#bh-05}
 
-**Cách thực hiện:** chọn loại giới hạn theo câu hỏi; dùng bảng giới hạn suy luận trước khi đọc hình; đọc miền và đơn vị trong Ví dụ 07 rồi làm Tự kiểm tra 05.
+<details class="r1-details r1-guidance zo-learning-guidance zo-block zo-block-gray" data-reading-disclosure="guidance">
+<summary class="zo-block-title">Cách thực hiện</summary>
+
+chọn loại giới hạn theo câu hỏi; dùng bảng giới hạn suy luận trước khi đọc hình; đọc miền và đơn vị trong Ví dụ 07 rồi làm Tự kiểm tra 05.
+
+</details>
 
 #### Gợi mở 05 {#GM05 .zo-learning-task data-zo-type="task" data-zo-function="function.guided_thinking" data-zo-task="G03-GM05" data-zo-number="5"}
 
@@ -516,7 +563,12 @@ Một chỉ số được mô hình hóa bởi $z(t)=10+\frac{8}{t+2}$, $t\ge 0$
 
 ### 6. Sửa một lập luận và tự kiểm lại {#bh-06}
 
-**Cách thực hiện:** tự chỉ ra vế đúng và bước sai trong ví dụ; đọc cách chữa; sau đó làm câu Tự kiểm tra mới trước khi mở lời giải. Đọc hiểu lời chữa chưa chứng minh em tự xử lí được tình huống khác.
+<details class="r1-details r1-guidance zo-learning-guidance zo-block zo-block-gray" data-reading-disclosure="guidance">
+<summary class="zo-block-title">Cách thực hiện</summary>
+
+tự chỉ ra vế đúng và bước sai trong ví dụ; đọc cách chữa; sau đó làm câu Tự kiểm tra mới trước khi mở lời giải. Đọc hiểu lời chữa chưa chứng minh em tự xử lí được tình huống khác.
+
+</details>
 
 #### Gợi mở 06 {#GM06 .zo-learning-task data-zo-type="task" data-zo-function="function.guided_thinking" data-zo-task="G03-GM06" data-zo-number="6"}
 
@@ -628,7 +680,7 @@ Cho $\lim_{x\to+\infty}f(x)=7$ và $\lim_{x\to-\infty}f(x)=-2$. Viết các đư
 
 [Đối chiếu sau khi tự làm](#lg-L05). Nếu cần, [xem lại đúng phần đang vướng](#bh-02), rồi trở lại nhiệm vụ này.
 
-### Điểm dừng 01 {#CP01 data-zo-type="checkpoint"}
+### Điểm dừng 01 {#CP01 data-zo-type="checkpoint" data-r1-return-label="Điểm dừng sau chặng 1"}
 
 Đối chiếu [lời giải Luyện tập](#lg-luyen). Kiểm ba điều: em giữ miền ở nhiệm vụ 03–04; ghi đúng đường/hướng ở nhiệm vụ 01–02 và $05$; hiểu vì sao một phía đủ trong nhiệm vụ 04.
 
@@ -695,7 +747,7 @@ c) Một bạn dùng mẫu $t+2$ để gọi $t=-2$ là tiệm cận đứng c�
 
 [Đối chiếu sau khi tự làm](#lg-L10). Nếu cần, [xem lại đúng phần đang vướng](#bh-05), rồi trở lại nhiệm vụ này.
 
-### Điểm dừng 02 {#CP02 data-zo-type="checkpoint"}
+### Điểm dừng 02 {#CP02 data-zo-type="checkpoint" data-r1-return-label="Điểm dừng sau chặng 2"}
 
 Đối chiếu nhiệm vụ 06–10. Em cần kiểm phần dư ở $06$–$07$, hiểu giao điểm trong $08$, nối đúng cả ba hành vi ở $09$ và giữ miền/đơn vị trong $10$.
 
@@ -801,7 +853,7 @@ b) Kiểm xem mức $9\,\mathrm{mg}\,\mathrm{L}^{-1}$ có được đạt ở th
 
 c) Kiểm việc gọi $t=-4$ là tiệm cận đứng của đồ thị trên miền mô hình.
 
-### Sau khi kết thúc lượt Kiểm tra {#CPK data-zo-type="checkpoint"}
+### Sau khi kết thúc lượt Kiểm tra {#CPK data-zo-type="checkpoint" data-r1-return-label="Điểm dừng sau Kiểm tra"}
 
 Giữ bài ban đầu rồi mới mở [Lời giải Kiểm tra](#lg-kiem-tra). Đối chiếu theo từng khả năng:
 
@@ -855,7 +907,7 @@ b) Tìm tiệm cận ngang của $w(x)=\frac{7x-4}{2x+1}$. Ghi hướng đã ki�
 
 [Đối chiếu sau khi tự làm](#lg-O01).
 
-#### Điểm dừng {#CP-O01 data-zo-type="checkpoint"}
+#### Điểm dừng {#CP-O01 data-zo-type="checkpoint" data-r1-return-label="Điểm dừng Ôn lại lượt 1"}
 
 Kiểm lại hai việc: em phân biệt giới hạn hữu hạn với vô cực tại cùng mốc; em viết đúng đường ngang theo hai hướng. Nếu sai ý về miền hoặc dấu, chọn đúng ý ở [Nhiệm vụ 10 của Sửa lỗi sau Ôn lại](#S-O01); nếu sai giới hạn phân thức ở vô cực, xem [Giới hạn ở vô cực](#N-GH-03) rồi dùng một câu hai đầu còn mới trong [bảng chọn sửa lỗi](#chon-sua-loi).
 
@@ -873,7 +925,7 @@ b) Cho $g(x)=1+\frac{x-2}{x^2+9}$. Xác định tiệm cận ngang và giao đi�
 
 [Đối chiếu sau khi tự làm](#lg-O02).
 
-#### Điểm dừng {#CP-O02 data-zo-type="checkpoint"}
+#### Điểm dừng {#CP-O02 data-zo-type="checkpoint" data-r1-return-label="Điểm dừng Ôn lại lượt 2"}
 
 Em cần có phần dư đúng, giới hạn hiệu bằng $0$, dấu hai phía tại điểm loại và lập luận về giao điểm. Sai phần xiên hoặc giao điểm thì chọn đúng ý ở [Nhiệm vụ 11 của Sửa lỗi sau Ôn lại](#S-O02); sai dấu/phía thì dùng [Nhiệm vụ 10(b) của Sửa lỗi sau Ôn lại](#S-O01), nếu các ý còn mới.
 
@@ -895,7 +947,7 @@ d) Trong mô hình giả định $B(t)=4+\frac{15}{t+3}$ ($\mathrm{mg}\,\mathrm{
 
 [Đối chiếu sau khi tự làm](#lg-O03).
 
-#### Điểm dừng {#CP-O03 data-zo-type="checkpoint"}
+#### Điểm dừng {#CP-O03 data-zo-type="checkpoint" data-r1-return-label="Điểm dừng Ôn lại lượt 3"}
 
 Đối chiếu riêng bốn ý: miền và giới hạn tại điểm loại; đường ngang gắn đúng đầu; phần dư của đường xiên; miền và đơn vị trong mô hình. Chọn đúng ý còn mới ở [Sửa lỗi sau Ôn lại](#sua-sau-on) nếu cần, rồi trở về điểm này.
 
@@ -917,7 +969,8 @@ Chọn đúng thao tác đang vướng. Mỗi phần có một ví dụ để h�
 
 Nếu cần ôn rộng hơn, có thể đọc tài nguyên chung [Tập xác định và điều kiện áp dụng](../_dung_chung/nen/N-TXĐ-01.qmd), [Xét dấu biểu thức có nhân tử](../_dung_chung/nen/N-DẤU-01.qmd) và [Cận và giá trị được đạt](../_dung_chung/nen/N-GH-01.qmd). Câu đã gặp ở gói trước không trở thành câu xác nhận mới chỉ vì được dẫn lại ở đây.
 
-### Giới hạn một phía: nhìn hướng và dấu {#N-GH-02}
+<details id="N-GH-02" class="r1-details r1-foundation-unit zo-learning-hint zo-block zo-block-gray">
+<summary class="zo-block-title">Giới hạn một phía: nhìn hướng và dấu</summary>
 
 **Dùng khi:** em biết mốc cần xét nhưng chưa hiểu phải tiến từ phía nào, hoặc chưa giải thích được dấu $+\infty$/$-\infty$.
 
@@ -947,7 +1000,10 @@ Khi $x\to -4^{-}$, $x+4$ âm và tiến tới $0$, tử $-2$ âm; thương dươ
 
 Trở về nhiệm vụ đang gọi. Nếu mở thẻ trực tiếp, có thể quay lại [mục tiệm cận đứng](#bh-03) hoặc chọn [Luyện tập](#luyen-tap). Nếu đã xem đáp án trước khi tự làm, đừng dùng lại câu này làm bằng chứng mới.
 
-### Giới hạn ở vô cực: hai hướng cần được kiểm {#N-GH-03}
+</details>
+
+<details id="N-GH-03" class="r1-details r1-foundation-unit zo-learning-hint zo-block zo-block-gray">
+<summary class="zo-block-title">Giới hạn ở vô cực: hai hướng cần được kiểm</summary>
 
 **Dùng khi:** em đang thay “vô cực” vào biểu thức, không biết chia theo bậc, hoặc cho rằng kết quả tại $+\infty$ tự dùng được cho $-\infty$.
 
@@ -995,7 +1051,10 @@ Căn sau tiến tới $1$. Ở $+\infty$, $\frac{|x|}{x}=1$ nên $r(x)\to 1$; �
 
 Trở về nhiệm vụ đang gọi; nếu vào trực tiếp, chọn [mục tiệm cận ngang](#bh-02) hoặc [Chuyển giao](#P02) khi đã đủ nền. Các câu đã xem đáp án chỉ dùng để học lại.
 
-### Biến đổi phân thức: giữ điều kiện, kiểm thương và dư {#N-DS-01}
+</details>
+
+<details id="N-DS-01" class="r1-details r1-foundation-unit zo-learning-hint zo-block zo-block-gray">
+<summary class="zo-block-title">Biến đổi phân thức: giữ điều kiện, kiểm thương và dư</summary>
 
 **Dùng khi:** em rút gọn rồi thêm điểm vào miền, hoặc phép chia dẫn đến sai đường xiên.
 
@@ -1032,6 +1091,8 @@ vì $(x-1)^2+4=x^2-2x+5$. Đạt thao tác nền khi thương, dư, điều ki�
 ::::
 
 Nếu mở trực tiếp, trở lại [mục 1](#bh-01) khi vướng miền hoặc [mục 4](#bh-04) khi vướng phép chia. Nếu câu nền đã lộ, không ghi lần làm lại là xác nhận độc lập mới.
+
+</details>
 
 ## Sửa lỗi {#sua-loi}
 

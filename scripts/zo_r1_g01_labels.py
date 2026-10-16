@@ -170,7 +170,7 @@ def remove_redundant_labels(document):
         heading=paper.find(['h2','h3','h4','h5','h6'])
         title=heading.get_text(' ',strip=True).casefold() if heading else ''
         stage=wording=='chặng học' and title.startswith('chặng ')
-        example=wording=='ví dụ' and title.startswith('ví dụ')
+        example=wording=='ví dụ' and re.sub(r'^\d+(?:\.\d+)*\.\s*','',title).startswith('ví dụ')
         misplaced=wording=='tự kiểm tra' and paper.find_parent(id='tu-kiem-tra')
         same=wording==title
         if stage or example or misplaced or same:label.decompose()

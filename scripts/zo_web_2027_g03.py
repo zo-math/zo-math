@@ -79,8 +79,6 @@ def adapt(path, output_root):
         paper=doc.new_tag("div",attrs={"class":"reading-region","data-reading-reason":"Source-owned complete reading unit"})
         nodes[0].insert_before(paper)
         for n in nodes:paper.append(n.extract())
-        if not paper.find(["h2","h3","h4","h5","h6"]):
-            label=doc.new_tag("span",attrs={"data-reading-label":"true","class":"role"});label.string=role;paper.insert(0,label)
         return paper
     def regions(section, role):
         if section.has_attr("data-zo-task"):
@@ -127,7 +125,19 @@ def adapt(path, output_root):
         target=(path.parent/unquote(split.path)).resolve()
         if not target.is_relative_to(output_root):raise ValueError("Link escapes output root")
         link["href"]=builder.href(target,split.query,split.fragment)
-    for details in root.select("details"):details.attrs.pop("open",None)
+    for details in root.select("details"):
+        details.attrs.pop("open",None)
+        guidance=any(c in details.get("class",[]) for c in ["zo-learning-guidance","r1-foundation-unit"])
+        details["class"]=list(dict.fromkeys(details.get("class",[])+
+            (["r1-details","zo-block","zo-block-gray"] if guidance else
+             ["r1-details","r1-solution","zo-learning-solution","solution","zo-block","zo-block-gray"])))
+        summary=details.find("summary",recursive=False)
+        if summary is None:raise ValueError("Disclosure needs a summary")
+        summary["class"]=list(dict.fromkeys(summary.get("class",[])+["zo-block-title"]))
+        body=doc.new_tag("div",attrs={"class":"zo-block-body"})
+        for child in list(details.contents):
+            if child is not summary:body.append(child.extract())
+        details.append(body)
     title=root["data-r1-title"];subtitle=original.select_one(".subtitle").get_text(" ",strip=True)
     home=builder.href(output_root/"content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html")
     hero=f'<section class="hero" aria-label="Bìa học liệu"><div class="hero-copy"><span class="eyebrow">Ôn thi Toán THPT 2027 · Hàm số</span><h1>{html.escape(title)}</h1><p>{html.escape(subtitle)}</p><a class="hero-action" href="?r1-view=bai-hoc#bai-hoc">Vào Bài học <span aria-hidden="true">↗</span></a></div><figure class="hero-art"><img src="assets/g03-cover.svg" alt="Hai nhánh đồ thị tiến gần đường tiệm cận đứng và đường tiệm cận ngang; không phải dữ kiện bài tập"><figcaption>Minh họa nhận diện · Không phải dữ kiện của nhiệm vụ</figcaption></figure></section>'
@@ -140,7 +150,17 @@ def adapt(path, output_root):
         styles="\n".join(f'<link rel="stylesheet" href="{n}">' for n in ["reading-regions.css","web-shell.css","site-footer.css","appearance-inline.css","r1-g02-adapter.css","r1-consistency.css"]),
         scripts='<script src="r1-controller.js"></script><script src="site-ui.js"></script>')
     result=BeautifulSoup(rendered,"html.parser")
-    apply_labels(result,binding,ROLES)
+    apply_labels(result,binding,{})
+    page_labels=json.loads((KIT/"profiles/r1-consistency.json").read_text(encoding="utf-8"))["page_roles"]
+    from zo_course_labels import put_label
+    for ident,title in ROLES.items():
+        section=result.find(id=ident)
+        heading=section.find("h2")
+        if heading is not None and title in page_labels and ident!="tu-kiem-tra":
+            put_label(result,heading,page_labels[title])
+    # Match the accepted G01 source-area label (its policy uses the old title).
+    put_label(result,result.find(id="nguon").find("h2"),page_labels["Nguồn đối chiếu"])
+    put_label(result,result.find(id="khởi-động").find("h3"),"Bài học · Khởi động")
     fallback=result.new_tag("noscript");nav=result.new_tag("nav",attrs={"aria-label":"Các phần của học liệu"})
     for anchor,label in ROLES.items():
         para=result.new_tag("p");a=result.new_tag("a",href="#"+anchor);a.string=label;para.append(a);nav.append(para)
@@ -157,6 +177,8 @@ def adapt(path, output_root):
     apply_course_navigation(result,path,output_root,builder.output,"g03")
     result.body["data-zo-web-production"]="R1-G03"
     result.title.string=title+" — ZO Math"
+    from zo_web_2027_consistency import apply_editorial_policy
+    apply_editorial_policy(result)
     from zo_course_html import write
     write(path,result)
     print("G03 shell:",len(root.select(".reading-region")),"reading regions")

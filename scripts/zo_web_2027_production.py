@@ -276,6 +276,8 @@ def adapt(path, output_root):
     apply_course_navigation(target, path, output_root, runtime, 'g01')
     from zo_course_pdf_download_state import apply as apply_pdf_state
     apply_pdf_state(target,ROOT,PACKAGE)
+    from zo_web_2027_consistency import apply_editorial_policy
+    apply_editorial_policy(target)
     from zo_course_html import write
     write(path, target)
     print('G01 production adapter:', path, 'regions:', len(generated_root.select('.reading-region')))
