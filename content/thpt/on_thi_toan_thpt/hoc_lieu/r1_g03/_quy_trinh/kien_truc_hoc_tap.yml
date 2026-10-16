@@ -1,0 +1,1455 @@
+schema_version: 1
+architecture_version: '0.2'
+matrix_version: '0.1'
+package:
+  id: R1-G03
+  title: Đường tiệm cận
+source:
+  qmd: ../index.qmd
+policies:
+  no_reuse_policy: single-evidence-role-v1
+  foundation_catalog: on-thi-foundation-v1
+objectives:
+- id: G03-M1
+  description: Giữ miền và phân biệt giá trị tại mốc với giới hạn lân cận.
+  essential: true
+  prerequisite_ids: []
+  dependent_objective_ids: []
+- id: G03-M2
+  description: Tìm tiệm cận ngang và xét riêng hai đầu vô cực.
+  essential: true
+  prerequisite_ids:
+  - G03-M1
+  dependent_objective_ids: []
+- id: G03-M3
+  description: Tìm tiệm cận đứng bằng ít nhất một giới hạn một phía vô cực.
+  essential: true
+  prerequisite_ids:
+  - G03-M1
+  dependent_objective_ids: []
+- id: G03-M4
+  description: Tìm đường xiên và kiểm giới hạn của hiệu bằng không.
+  essential: true
+  prerequisite_ids:
+  - G03-M1
+  dependent_objective_ids: []
+- id: G03-M5
+  description: Nối biểu diễn, đọc đúng nhánh và kiểm phản ví dụ về giao điểm.
+  essential: true
+  prerequisite_ids:
+  - G03-M1
+  dependent_objective_ids: []
+- id: G03-M6
+  description: Giải thích kết quả trong đúng miền và đơn vị của mô hình.
+  essential: true
+  prerequisite_ids:
+  - G03-M1
+  dependent_objective_ids: []
+stages:
+- id: G03-C1
+  description: Miền, hướng và các đường ngang/đứng
+  objective_ids:
+  - G03-M1
+  - G03-M2
+  - G03-M3
+  learning_section_anchors:
+  - bh-01
+  - bh-02
+  - bh-03
+  - bh-06
+  practice_task_ids:
+  - G03-L01
+  - G03-L02
+  - G03-L03
+  - G03-L04
+  - G03-L05
+  checkpoint_id: CP01
+- id: G03-C2
+  description: Phần dư, hình đồ thị và mô hình
+  objective_ids:
+  - G03-M3
+  - G03-M4
+  - G03-M5
+  - G03-M6
+  learning_section_anchors:
+  - bh-02
+  - bh-04
+  - bh-05
+  - bh-06
+  practice_task_ids:
+  - G03-L06
+  - G03-L07
+  - G03-L08
+  - G03-L09
+  - G03-L10
+  checkpoint_id: CP02
+checkpoints:
+- id: CP-KD
+  evidence_task_ids:
+  - G03-KD01
+  - G03-KD02
+  - G03-KD03
+  - G03-KD04
+  paths:
+    pass:
+      kind: stage
+      target_ids:
+      - G03-C1
+    error:
+      kind: foundation
+      target_ids: &id001
+      - G03-N1
+      - G03-N2
+      - G03-N3
+    foundation:
+      kind: foundation
+      target_ids: *id001
+- id: CP01
+  evidence_task_ids:
+  - G03-L01
+  - G03-L02
+  - G03-L03
+  - G03-L04
+  - G03-L05
+  paths:
+    pass:
+      kind: stage
+      target_ids:
+      - G03-C2
+    error:
+      kind: remediation
+      target_ids:
+      - G03-E01
+      - G03-E02
+      - G03-E03
+    foundation:
+      kind: foundation
+      target_ids:
+      - G03-N1
+      - G03-N2
+      - G03-N3
+- id: CP02
+  evidence_task_ids:
+  - G03-L06
+  - G03-L07
+  - G03-L08
+  - G03-L09
+  - G03-L10
+  paths:
+    pass:
+      kind: checkpoint
+      target_ids:
+      - CPK
+    error:
+      kind: remediation
+      target_ids:
+      - G03-E02
+      - G03-E04
+      - G03-E05
+      - G03-E06
+    foundation:
+      kind: foundation
+      target_ids:
+      - G03-N1
+      - G03-N2
+      - G03-N3
+- id: CPK
+  evidence_task_ids:
+  - G03-K01
+  - G03-K02
+  - G03-K03
+  - G03-K04
+  - G03-K05
+  paths:
+    pass:
+      kind: maintenance
+      target_ids: []
+    error:
+      kind: remediation
+      target_ids:
+      - G03-E01
+      - G03-E02
+      - G03-E03
+      - G03-E04
+      - G03-E05
+      - G03-E06
+    foundation:
+      kind: foundation
+      target_ids:
+      - G03-N1
+      - G03-N2
+      - G03-N3
+- id: CP-O01
+  evidence_task_ids:
+  - G03-O01
+  paths:
+    pass:
+      kind: maintenance
+      target_ids: []
+    error:
+      kind: remediation
+      target_ids:
+      - G03-E01
+      - G03-E02
+      - G03-E03
+    foundation:
+      kind: foundation
+      target_ids:
+      - G03-N1
+      - G03-N2
+      - G03-N3
+- id: CP-O02
+  evidence_task_ids:
+  - G03-O02
+  paths:
+    pass:
+      kind: maintenance
+      target_ids: []
+    error:
+      kind: remediation
+      target_ids:
+      - G03-E02
+      - G03-E04
+      - G03-E05
+    foundation:
+      kind: foundation
+      target_ids:
+      - G03-N1
+      - G03-N2
+      - G03-N3
+- id: CP-O03
+  evidence_task_ids:
+  - G03-O03
+  paths:
+    pass:
+      kind: maintenance
+      target_ids: []
+    error:
+      kind: remediation
+      target_ids:
+      - G03-E01
+      - G03-E03
+      - G03-E04
+      - G03-E05
+      - G03-E06
+    foundation:
+      kind: foundation
+      target_ids:
+      - G03-N1
+      - G03-N2
+      - G03-N3
+tasks:
+- id: G03-KD01
+  role: H
+  subtype: function.warmup
+  status: current
+  objective_ids:
+  - G03-M1
+  error_ids:
+  - G03-E01
+  checkpoint_ids:
+  - CP-KD
+  source_anchor: KD01
+  source_locator: null
+  answer_anchor: lg-KD01
+  content_key: G03-KD01
+  exposure_policy: guided
+  next_on_pass: CP-KD
+  next_on_error: CP-KD
+- id: G03-KD02
+  role: H
+  subtype: function.warmup
+  status: current
+  objective_ids:
+  - G03-M3
+  error_ids:
+  - G03-E02
+  checkpoint_ids:
+  - CP-KD
+  source_anchor: KD02
+  source_locator: null
+  answer_anchor: lg-KD02
+  content_key: G03-KD02
+  exposure_policy: guided
+  next_on_pass: CP-KD
+  next_on_error: CP-KD
+- id: G03-KD03
+  role: H
+  subtype: function.warmup
+  status: current
+  objective_ids:
+  - G03-M2
+  error_ids:
+  - G03-E03
+  checkpoint_ids:
+  - CP-KD
+  source_anchor: KD03
+  source_locator: null
+  answer_anchor: lg-KD03
+  content_key: G03-KD03
+  exposure_policy: guided
+  next_on_pass: CP-KD
+  next_on_error: CP-KD
+- id: G03-KD04
+  role: H
+  subtype: function.warmup
+  status: current
+  objective_ids:
+  - G03-M4
+  error_ids:
+  - G03-E04
+  checkpoint_ids:
+  - CP-KD
+  source_anchor: KD04
+  source_locator: null
+  answer_anchor: lg-KD04
+  content_key: G03-KD04
+  exposure_policy: guided
+  next_on_pass: CP-KD
+  next_on_error: CP-KD
+- id: G03-GM01
+  role: H
+  subtype: function.guided_thinking
+  status: current
+  objective_ids:
+  - G03-M1
+  error_ids:
+  - G03-E01
+  checkpoint_ids:
+  - CP01
+  source_anchor: GM01
+  source_locator: null
+  answer_anchor: GM01
+  content_key: G03-GM01
+  exposure_policy: guided
+  next_on_pass: CP01
+  next_on_error: CP01
+- id: G03-T01
+  role: H
+  subtype: function.self_check
+  status: current
+  objective_ids:
+  - G03-M1
+  error_ids:
+  - G03-E01
+  checkpoint_ids:
+  - CP01
+  source_anchor: T01
+  source_locator: null
+  answer_anchor: lg-T01
+  content_key: G03-T01
+  exposure_policy: guided
+  next_on_pass: CP01
+  next_on_error: CP01
+- id: G03-GM02
+  role: H
+  subtype: function.guided_thinking
+  status: current
+  objective_ids:
+  - G03-M2
+  - G03-M5
+  error_ids:
+  - G03-E03
+  - G03-E05
+  checkpoint_ids:
+  - CP01
+  source_anchor: GM02
+  source_locator: null
+  answer_anchor: GM02
+  content_key: G03-GM02
+  exposure_policy: guided
+  next_on_pass: CP01
+  next_on_error: CP01
+- id: G03-T02
+  role: H
+  subtype: function.self_check
+  status: current
+  objective_ids:
+  - G03-M2
+  - G03-M5
+  error_ids:
+  - G03-E03
+  - G03-E05
+  checkpoint_ids:
+  - CP01
+  source_anchor: T02
+  source_locator: null
+  answer_anchor: lg-T02
+  content_key: G03-T02
+  exposure_policy: guided
+  next_on_pass: CP01
+  next_on_error: CP01
+- id: G03-GM03
+  role: H
+  subtype: function.guided_thinking
+  status: current
+  objective_ids:
+  - G03-M3
+  error_ids:
+  - G03-E02
+  checkpoint_ids:
+  - CP01
+  source_anchor: GM03
+  source_locator: null
+  answer_anchor: GM03
+  content_key: G03-GM03
+  exposure_policy: guided
+  next_on_pass: CP01
+  next_on_error: CP01
+- id: G03-T03
+  role: H
+  subtype: function.self_check
+  status: current
+  objective_ids:
+  - G03-M3
+  error_ids:
+  - G03-E02
+  checkpoint_ids:
+  - CP01
+  source_anchor: T03
+  source_locator: null
+  answer_anchor: lg-T03
+  content_key: G03-T03
+  exposure_policy: guided
+  next_on_pass: CP01
+  next_on_error: CP01
+- id: G03-GM04
+  role: H
+  subtype: function.guided_thinking
+  status: current
+  objective_ids:
+  - G03-M4
+  error_ids:
+  - G03-E04
+  checkpoint_ids:
+  - CP02
+  source_anchor: GM04
+  source_locator: null
+  answer_anchor: GM04
+  content_key: G03-GM04
+  exposure_policy: guided
+  next_on_pass: CP02
+  next_on_error: CP02
+- id: G03-T04
+  role: H
+  subtype: function.self_check
+  status: current
+  objective_ids:
+  - G03-M4
+  error_ids:
+  - G03-E04
+  checkpoint_ids:
+  - CP02
+  source_anchor: T04
+  source_locator: null
+  answer_anchor: lg-T04
+  content_key: G03-T04
+  exposure_policy: guided
+  next_on_pass: CP02
+  next_on_error: CP02
+- id: G03-GM05
+  role: H
+  subtype: function.guided_thinking
+  status: current
+  objective_ids:
+  - G03-M5
+  - G03-M6
+  error_ids:
+  - G03-E05
+  - G03-E06
+  checkpoint_ids:
+  - CP02
+  source_anchor: GM05
+  source_locator: null
+  answer_anchor: GM05
+  content_key: G03-GM05
+  exposure_policy: guided
+  next_on_pass: CP02
+  next_on_error: CP02
+- id: G03-T05
+  role: H
+  subtype: function.self_check
+  status: current
+  objective_ids:
+  - G03-M5
+  - G03-M6
+  error_ids:
+  - G03-E05
+  - G03-E06
+  checkpoint_ids:
+  - CP02
+  source_anchor: T05
+  source_locator: null
+  answer_anchor: lg-T05
+  content_key: G03-T05
+  exposure_policy: guided
+  next_on_pass: CP02
+  next_on_error: CP02
+- id: G03-GM06
+  role: H
+  subtype: function.guided_thinking
+  status: current
+  objective_ids:
+  - G03-M1
+  - G03-M3
+  error_ids:
+  - G03-E01
+  - G03-E02
+  checkpoint_ids:
+  - CP02
+  source_anchor: GM06
+  source_locator: null
+  answer_anchor: GM06
+  content_key: G03-GM06
+  exposure_policy: guided
+  next_on_pass: CP02
+  next_on_error: CP02
+- id: G03-T06
+  role: H
+  subtype: function.self_check
+  status: current
+  objective_ids:
+  - G03-M1
+  - G03-M3
+  error_ids:
+  - G03-E01
+  - G03-E02
+  checkpoint_ids:
+  - CP02
+  source_anchor: T06
+  source_locator: null
+  answer_anchor: lg-T06
+  content_key: G03-T06
+  exposure_policy: guided
+  next_on_pass: CP02
+  next_on_error: CP02
+- id: G03-L01
+  role: L
+  subtype: function.practice
+  status: current
+  objective_ids:
+  - G03-M2
+  - G03-M3
+  error_ids:
+  - G03-E02
+  - G03-E03
+  checkpoint_ids:
+  - CP01
+  source_anchor: L01
+  source_locator: null
+  answer_anchor: lg-L01
+  content_key: G03-L01
+  exposure_policy: practice
+  next_on_pass: CP01
+  next_on_error: CP01
+- id: G03-L02
+  role: L
+  subtype: function.practice
+  status: current
+  objective_ids:
+  - G03-M1
+  - G03-M2
+  - G03-M3
+  error_ids:
+  - G03-E01
+  - G03-E02
+  - G03-E03
+  checkpoint_ids:
+  - CP01
+  source_anchor: L02
+  source_locator: null
+  answer_anchor: lg-L02
+  content_key: G03-L02
+  exposure_policy: practice
+  next_on_pass: CP01
+  next_on_error: CP01
+- id: G03-L03
+  role: L
+  subtype: function.practice
+  status: current
+  objective_ids:
+  - G03-M1
+  - G03-M3
+  error_ids:
+  - G03-E01
+  - G03-E02
+  checkpoint_ids:
+  - CP01
+  source_anchor: L03
+  source_locator: null
+  answer_anchor: lg-L03
+  content_key: G03-L03
+  exposure_policy: practice
+  next_on_pass: CP01
+  next_on_error: CP01
+- id: G03-L04
+  role: L
+  subtype: function.practice
+  status: current
+  objective_ids:
+  - G03-M1
+  - G03-M3
+  error_ids:
+  - G03-E01
+  - G03-E02
+  checkpoint_ids:
+  - CP01
+  source_anchor: L04
+  source_locator: null
+  answer_anchor: lg-L04
+  content_key: G03-L04
+  exposure_policy: practice
+  next_on_pass: CP01
+  next_on_error: CP01
+- id: G03-L05
+  role: L
+  subtype: function.practice
+  status: current
+  objective_ids:
+  - G03-M2
+  error_ids:
+  - G03-E03
+  checkpoint_ids:
+  - CP01
+  source_anchor: L05
+  source_locator: null
+  answer_anchor: lg-L05
+  content_key: G03-L05
+  exposure_policy: practice
+  next_on_pass: CP01
+  next_on_error: CP01
+- id: G03-L06
+  role: L
+  subtype: function.practice
+  status: current
+  objective_ids:
+  - G03-M4
+  error_ids:
+  - G03-E04
+  checkpoint_ids:
+  - CP02
+  source_anchor: L06
+  source_locator: null
+  answer_anchor: lg-L06
+  content_key: G03-L06
+  exposure_policy: practice
+  next_on_pass: CP02
+  next_on_error: CP02
+- id: G03-L07
+  role: L
+  subtype: function.practice
+  status: current
+  objective_ids:
+  - G03-M4
+  error_ids:
+  - G03-E04
+  checkpoint_ids:
+  - CP02
+  source_anchor: L07
+  source_locator: null
+  answer_anchor: lg-L07
+  content_key: G03-L07
+  exposure_policy: practice
+  next_on_pass: CP02
+  next_on_error: CP02
+- id: G03-L08
+  role: L
+  subtype: function.practice
+  status: current
+  objective_ids:
+  - G03-M5
+  error_ids:
+  - G03-E05
+  checkpoint_ids:
+  - CP02
+  source_anchor: L08
+  source_locator: null
+  answer_anchor: lg-L08
+  content_key: G03-L08
+  exposure_policy: practice
+  next_on_pass: CP02
+  next_on_error: CP02
+- id: G03-L09
+  role: L
+  subtype: function.practice
+  status: current
+  objective_ids:
+  - G03-M3
+  - G03-M4
+  - G03-M5
+  error_ids:
+  - G03-E02
+  - G03-E04
+  - G03-E05
+  checkpoint_ids:
+  - CP02
+  source_anchor: L09
+  source_locator: null
+  answer_anchor: lg-L09
+  content_key: G03-L09
+  exposure_policy: practice
+  next_on_pass: CP02
+  next_on_error: CP02
+- id: G03-L10
+  role: L
+  subtype: function.practice
+  status: current
+  objective_ids:
+  - G03-M6
+  error_ids:
+  - G03-E06
+  checkpoint_ids:
+  - CP02
+  source_anchor: L10
+  source_locator: null
+  answer_anchor: lg-L10
+  content_key: G03-L10
+  exposure_policy: practice
+  next_on_pass: CP02
+  next_on_error: CP02
+- id: G03-P01
+  role: P
+  subtype: function.integration
+  status: current
+  objective_ids:
+  - G03-M2
+  - G03-M6
+  error_ids:
+  - G03-E03
+  - G03-E06
+  checkpoint_ids: &id002
+  - CP01
+  - CP02
+  source_anchor: P01
+  source_locator: null
+  answer_anchor: lg-P01
+  content_key: G03-P01
+  exposure_policy: transfer
+  next_on_pass: &id003
+    kind: activation_checkpoint
+    checkpoint_ids: *id002
+  next_on_error: *id003
+- id: G03-P02
+  role: P
+  subtype: function.transfer
+  status: current
+  objective_ids:
+  - G03-M4
+  error_ids:
+  - G03-E04
+  checkpoint_ids: &id004
+  - CP01
+  - CP02
+  source_anchor: P02
+  source_locator: null
+  answer_anchor: lg-P02
+  content_key: G03-P02
+  exposure_policy: transfer
+  next_on_pass: &id005
+    kind: activation_checkpoint
+    checkpoint_ids: *id004
+  next_on_error: *id005
+- id: G03-K01
+  role: K
+  subtype: function.test
+  status: current
+  objective_ids:
+  - G03-M1
+  - G03-M3
+  error_ids:
+  - G03-E01
+  - G03-E02
+  checkpoint_ids:
+  - CPK
+  source_anchor: K01
+  source_locator: null
+  answer_anchor: lg-K01
+  content_key: G03-K01
+  exposure_policy: independent
+  next_on_pass: CPK
+  next_on_error: CPK
+- id: G03-K02
+  role: K
+  subtype: function.test
+  status: current
+  objective_ids:
+  - G03-M2
+  - G03-M3
+  - G03-M5
+  error_ids:
+  - G03-E02
+  - G03-E03
+  - G03-E05
+  checkpoint_ids:
+  - CPK
+  source_anchor: K02
+  source_locator: null
+  answer_anchor: lg-K02
+  content_key: G03-K02
+  exposure_policy: independent
+  next_on_pass: CPK
+  next_on_error: CPK
+- id: G03-K03
+  role: K
+  subtype: function.test
+  status: current
+  objective_ids:
+  - G03-M3
+  - G03-M4
+  error_ids:
+  - G03-E02
+  - G03-E04
+  checkpoint_ids:
+  - CPK
+  source_anchor: K03
+  source_locator: null
+  answer_anchor: lg-K03
+  content_key: G03-K03
+  exposure_policy: independent
+  next_on_pass: CPK
+  next_on_error: CPK
+- id: G03-K04
+  role: K
+  subtype: function.test
+  status: current
+  objective_ids:
+  - G03-M5
+  error_ids:
+  - G03-E05
+  checkpoint_ids:
+  - CPK
+  source_anchor: K04
+  source_locator: null
+  answer_anchor: lg-K04
+  content_key: G03-K04
+  exposure_policy: independent
+  next_on_pass: CPK
+  next_on_error: CPK
+- id: G03-K05
+  role: K
+  subtype: function.test
+  status: current
+  objective_ids:
+  - G03-M6
+  error_ids:
+  - G03-E06
+  checkpoint_ids:
+  - CPK
+  source_anchor: K05
+  source_locator: null
+  answer_anchor: lg-K05
+  content_key: G03-K05
+  exposure_policy: independent
+  next_on_pass: CPK
+  next_on_error: CPK
+- id: G03-O01
+  role: O
+  subtype: function.review
+  status: current
+  objective_ids:
+  - G03-M1
+  - G03-M2
+  - G03-M3
+  error_ids:
+  - G03-E01
+  - G03-E02
+  - G03-E03
+  checkpoint_ids:
+  - CP-O01
+  source_anchor: O01
+  source_locator: null
+  answer_anchor: lg-O01
+  content_key: G03-O01
+  exposure_policy: review-reserved
+  next_on_pass: CP-O01
+  next_on_error: CP-O01
+- id: G03-O02
+  role: O
+  subtype: function.review
+  status: current
+  objective_ids:
+  - G03-M3
+  - G03-M4
+  - G03-M5
+  error_ids:
+  - G03-E02
+  - G03-E04
+  - G03-E05
+  checkpoint_ids:
+  - CP-O02
+  source_anchor: O02
+  source_locator: null
+  answer_anchor: lg-O02
+  content_key: G03-O02
+  exposure_policy: review-reserved
+  next_on_pass: CP-O02
+  next_on_error: CP-O02
+- id: G03-O03
+  role: O
+  subtype: function.review
+  status: current
+  objective_ids:
+  - G03-M1
+  - G03-M2
+  - G03-M4
+  - G03-M5
+  - G03-M6
+  error_ids:
+  - G03-E01
+  - G03-E03
+  - G03-E04
+  - G03-E05
+  - G03-E06
+  checkpoint_ids:
+  - CP-O03
+  source_anchor: O03
+  source_locator: null
+  answer_anchor: lg-O03
+  content_key: G03-O03
+  exposure_policy: review-reserved
+  next_on_pass: CP-O03
+  next_on_error: CP-O03
+- id: G03-S-L01
+  role: S-L
+  subtype: function.remediation
+  status: current
+  objective_ids:
+  - G03-M1
+  - G03-M3
+  error_ids:
+  - G03-E01
+  - G03-E02
+  checkpoint_ids: &id006
+  - CP01
+  - CP02
+  source_anchor: S-L01
+  source_locator: null
+  answer_anchor: lg-S-L01
+  content_key: G03-S-L01
+  exposure_policy: remediation
+  next_on_pass: &id007
+    kind: activation_checkpoint
+    checkpoint_ids: *id006
+  next_on_error: *id007
+- id: G03-S-L02
+  role: S-L
+  subtype: function.remediation
+  status: current
+  objective_ids:
+  - G03-M3
+  error_ids:
+  - G03-E02
+  checkpoint_ids: &id008
+  - CP01
+  - CP02
+  source_anchor: S-L02
+  source_locator: null
+  answer_anchor: lg-S-L02
+  content_key: G03-S-L02
+  exposure_policy: remediation
+  next_on_pass: &id009
+    kind: activation_checkpoint
+    checkpoint_ids: *id008
+  next_on_error: *id009
+- id: G03-S-L03
+  role: S-L
+  subtype: function.remediation
+  status: current
+  objective_ids:
+  - G03-M2
+  - G03-M5
+  error_ids:
+  - G03-E03
+  - G03-E05
+  checkpoint_ids: &id010
+  - CP01
+  - CP02
+  source_anchor: S-L03
+  source_locator: null
+  answer_anchor: lg-S-L03
+  content_key: G03-S-L03
+  exposure_policy: remediation
+  next_on_pass: &id011
+    kind: activation_checkpoint
+    checkpoint_ids: *id010
+  next_on_error: *id011
+- id: G03-S-L04
+  role: S-L
+  subtype: function.remediation
+  status: current
+  objective_ids:
+  - G03-M4
+  - G03-M6
+  error_ids:
+  - G03-E04
+  - G03-E06
+  checkpoint_ids: &id012
+  - CP01
+  - CP02
+  source_anchor: S-L04
+  source_locator: null
+  answer_anchor: lg-S-L04
+  content_key: G03-S-L04
+  exposure_policy: remediation
+  next_on_pass: &id013
+    kind: activation_checkpoint
+    checkpoint_ids: *id012
+  next_on_error: *id013
+- id: G03-S-L05
+  role: S-L
+  subtype: function.remediation
+  status: current
+  objective_ids:
+  - G03-M2
+  - G03-M3
+  - G03-M4
+  - G03-M5
+  error_ids:
+  - G03-E02
+  - G03-E03
+  - G03-E04
+  - G03-E05
+  checkpoint_ids: &id014
+  - CP01
+  - CP02
+  source_anchor: S-L05
+  source_locator: null
+  answer_anchor: lg-S-L05
+  content_key: G03-S-L05
+  exposure_policy: remediation
+  next_on_pass: &id015
+    kind: activation_checkpoint
+    checkpoint_ids: *id014
+  next_on_error: *id015
+- id: G03-S-K01
+  role: S-K
+  subtype: function.remediation
+  status: current
+  objective_ids:
+  - G03-M1
+  - G03-M3
+  error_ids:
+  - G03-E01
+  - G03-E02
+  checkpoint_ids:
+  - CPK
+  source_anchor: S-K01
+  source_locator: null
+  answer_anchor: lg-S-K01
+  content_key: G03-S-K01
+  exposure_policy: remediation
+  next_on_pass: CPK
+  next_on_error: CPK
+- id: G03-S-K02
+  role: S-K
+  subtype: function.remediation
+  status: current
+  objective_ids:
+  - G03-M2
+  - G03-M5
+  error_ids:
+  - G03-E03
+  - G03-E05
+  checkpoint_ids:
+  - CPK
+  source_anchor: S-K02
+  source_locator: null
+  answer_anchor: lg-S-K02
+  content_key: G03-S-K02
+  exposure_policy: remediation
+  next_on_pass: CPK
+  next_on_error: CPK
+- id: G03-S-K03
+  role: S-K
+  subtype: function.remediation
+  status: current
+  objective_ids:
+  - G03-M4
+  - G03-M6
+  error_ids:
+  - G03-E04
+  - G03-E06
+  checkpoint_ids:
+  - CPK
+  source_anchor: S-K03
+  source_locator: null
+  answer_anchor: lg-S-K03
+  content_key: G03-S-K03
+  exposure_policy: remediation
+  next_on_pass: CPK
+  next_on_error: CPK
+- id: G03-S-K04
+  role: S-K
+  subtype: function.remediation
+  status: current
+  objective_ids:
+  - G03-M3
+  - G03-M4
+  - G03-M5
+  error_ids:
+  - G03-E02
+  - G03-E04
+  - G03-E05
+  checkpoint_ids:
+  - CPK
+  source_anchor: S-K04
+  source_locator: null
+  answer_anchor: lg-S-K04
+  content_key: G03-S-K04
+  exposure_policy: remediation
+  next_on_pass: CPK
+  next_on_error: CPK
+- id: G03-S-O01
+  role: S-O
+  subtype: function.remediation
+  status: current
+  objective_ids:
+  - G03-M1
+  - G03-M2
+  - G03-M3
+  error_ids:
+  - G03-E01
+  - G03-E02
+  - G03-E03
+  checkpoint_ids: &id016
+  - CP-O01
+  - CP-O02
+  - CP-O03
+  source_anchor: S-O01
+  source_locator: null
+  answer_anchor: lg-S-O01
+  content_key: G03-S-O01
+  exposure_policy: remediation
+  next_on_pass: &id017
+    kind: activation_checkpoint
+    checkpoint_ids: *id016
+  next_on_error: *id017
+- id: G03-S-O02
+  role: S-O
+  subtype: function.remediation
+  status: current
+  objective_ids:
+  - G03-M4
+  - G03-M5
+  - G03-M6
+  error_ids:
+  - G03-E04
+  - G03-E05
+  - G03-E06
+  checkpoint_ids: &id018
+  - CP-O01
+  - CP-O02
+  - CP-O03
+  source_anchor: S-O02
+  source_locator: null
+  answer_anchor: lg-S-O02
+  content_key: G03-S-O02
+  exposure_policy: remediation
+  next_on_pass: &id019
+    kind: activation_checkpoint
+    checkpoint_ids: *id018
+  next_on_error: *id019
+- id: G03-S-O03
+  role: S-O
+  subtype: function.remediation
+  status: current
+  objective_ids:
+  - G03-M1
+  - G03-M2
+  - G03-M3
+  - G03-M4
+  - G03-M5
+  error_ids:
+  - G03-E01
+  - G03-E02
+  - G03-E03
+  - G03-E04
+  - G03-E05
+  checkpoint_ids: &id020
+  - CP-O01
+  - CP-O02
+  - CP-O03
+  source_anchor: S-O03
+  source_locator: null
+  answer_anchor: lg-S-O03
+  content_key: G03-S-O03
+  exposure_policy: remediation
+  next_on_pass: &id021
+    kind: activation_checkpoint
+    checkpoint_ids: *id020
+  next_on_error: *id021
+- id: G03-N02-Q
+  role: N
+  subtype: function.foundation_confirmation
+  status: current
+  objective_ids:
+  - G03-M3
+  error_ids:
+  - G03-E02
+  checkpoint_ids: &id022
+  - CP01
+  - CP02
+  source_anchor: N02-Q
+  source_locator: null
+  answer_anchor: N02-Q
+  content_key: G03-N02-Q
+  exposure_policy: foundation
+  next_on_pass: &id023
+    kind: activation_checkpoint
+    checkpoint_ids: *id022
+  next_on_error: *id023
+- id: G03-N03-Q1
+  role: N
+  subtype: function.foundation_confirmation
+  status: current
+  objective_ids:
+  - G03-M2
+  error_ids:
+  - G03-E03
+  checkpoint_ids: &id024
+  - CP01
+  - CP02
+  source_anchor: N03-Q1
+  source_locator: null
+  answer_anchor: N03-Q1
+  content_key: G03-N03-Q1
+  exposure_policy: foundation
+  next_on_pass: &id025
+    kind: activation_checkpoint
+    checkpoint_ids: *id024
+  next_on_error: *id025
+- id: G03-N03-Q2
+  role: N
+  subtype: function.foundation_confirmation
+  status: current
+  objective_ids:
+  - G03-M2
+  - G03-M4
+  error_ids:
+  - G03-E03
+  - G03-E04
+  checkpoint_ids: &id026
+  - CP01
+  - CP02
+  source_anchor: N03-Q2
+  source_locator: null
+  answer_anchor: N03-Q2
+  content_key: G03-N03-Q2
+  exposure_policy: foundation
+  next_on_pass: &id027
+    kind: activation_checkpoint
+    checkpoint_ids: *id026
+  next_on_error: *id027
+- id: G03-NDS-Q
+  role: N
+  subtype: function.foundation_confirmation
+  status: current
+  objective_ids:
+  - G03-M1
+  - G03-M4
+  error_ids:
+  - G03-E01
+  - G03-E04
+  checkpoint_ids: &id028
+  - CP01
+  - CP02
+  source_anchor: NDS-Q
+  source_locator: null
+  answer_anchor: NDS-Q
+  content_key: G03-NDS-Q
+  exposure_policy: foundation
+  next_on_pass: &id029
+    kind: activation_checkpoint
+    checkpoint_ids: *id028
+  next_on_error: *id029
+errors:
+- id: G03-E01
+  symptom: Nhầm điểm bị loại, giá trị tại mốc và giới hạn.
+  classification_rule: Đối chiếu bài ban đầu và đúng ý; chỉ gọi nền nếu thiếu thao
+    tác nền, giữ riêng kết quả sau hỗ trợ.
+  objective_ids:
+  - G03-M1
+  - G03-M3
+  detection_checkpoint_ids:
+  - CP01
+  - CP02
+  - CPK
+  - CP-O01
+  - CP-O02
+  - CP-O03
+  review_anchor: bh-01
+  foundation_route_ids:
+  - G03-N3
+  remediation:
+    S-L: G03-S-L01
+    S-K: G03-S-K01
+    S-O: G03-S-O01
+  return_anchor: chon-sua-loi
+- id: G03-E02
+  symptom: Nhầm dấu hoặc phía tạo giới hạn vô cực.
+  classification_rule: Đối chiếu bài ban đầu và đúng ý; chỉ gọi nền nếu thiếu thao
+    tác nền, giữ riêng kết quả sau hỗ trợ.
+  objective_ids:
+  - G03-M3
+  detection_checkpoint_ids:
+  - CP01
+  - CP02
+  - CPK
+  - CP-O01
+  - CP-O02
+  - CP-O03
+  review_anchor: bh-03
+  foundation_route_ids:
+  - G03-N1
+  remediation:
+    S-L: G03-S-L02
+    S-K: G03-S-K01
+    S-O: G03-S-O01
+  return_anchor: chon-sua-loi
+- id: G03-E03
+  symptom: Bỏ đầu trái, đếm trùng hoặc nhầm phương trình.
+  classification_rule: Đối chiếu bài ban đầu và đúng ý; chỉ gọi nền nếu thiếu thao
+    tác nền, giữ riêng kết quả sau hỗ trợ.
+  objective_ids:
+  - G03-M2
+  detection_checkpoint_ids:
+  - CP01
+  - CP02
+  - CPK
+  - CP-O01
+  - CP-O02
+  - CP-O03
+  review_anchor: bh-02
+  foundation_route_ids:
+  - G03-N2
+  remediation:
+    S-L: G03-S-L03
+    S-K: G03-S-K02
+    S-O: G03-S-O01
+  return_anchor: chon-sua-loi
+- id: G03-E04
+  symptom: Thiếu phần tuyến tính hoặc không kiểm hiệu về không.
+  classification_rule: Đối chiếu bài ban đầu và đúng ý; chỉ gọi nền nếu thiếu thao
+    tác nền, giữ riêng kết quả sau hỗ trợ.
+  objective_ids:
+  - G03-M4
+  detection_checkpoint_ids:
+  - CP01
+  - CP02
+  - CPK
+  - CP-O01
+  - CP-O02
+  - CP-O03
+  review_anchor: bh-04
+  foundation_route_ids:
+  - G03-N3
+  remediation:
+    S-L: G03-S-L04
+    S-K: G03-S-K03
+    S-O: G03-S-O02
+  return_anchor: chon-sua-loi
+- id: G03-E05
+  symptom: Nhầm giao điểm, nhánh hoặc dùng hình phác làm số đo.
+  classification_rule: Đối chiếu bài ban đầu và đúng ý; chỉ gọi nền nếu thiếu thao
+    tác nền, giữ riêng kết quả sau hỗ trợ.
+  objective_ids:
+  - G03-M5
+  detection_checkpoint_ids:
+  - CP01
+  - CP02
+  - CPK
+  - CP-O01
+  - CP-O02
+  - CP-O03
+  review_anchor: bh-05
+  foundation_route_ids: []
+  remediation:
+    S-L: G03-S-L03
+    S-K: G03-S-K02
+    S-O: G03-S-O02
+  return_anchor: chon-sua-loi
+- id: G03-E06
+  symptom: Bỏ miền hoặc nhầm mức tiến tới với giá trị đạt được.
+  classification_rule: Đối chiếu bài ban đầu và đúng ý; chỉ gọi nền nếu thiếu thao
+    tác nền, giữ riêng kết quả sau hỗ trợ.
+  objective_ids:
+  - G03-M6
+  detection_checkpoint_ids:
+  - CP01
+  - CP02
+  - CPK
+  - CP-O01
+  - CP-O02
+  - CP-O03
+  review_anchor: bh-05
+  foundation_route_ids: []
+  remediation:
+    S-L: G03-S-L04
+    S-K: G03-S-K03
+    S-O: G03-S-O02
+  return_anchor: chon-sua-loi
+foundation_routes:
+- id: G03-N1
+  objective_ids:
+  - G03-M3
+  symptom: Thiếu thao tác nền được chỉ trong N-GH-02
+  unit_id: N-GH-02
+  retest:
+    status: specified
+    requirement: Tự làm câu tại N02-Q nếu còn mới, đối chiếu rồi trở về đúng nhiệm
+      vụ gọi; câu đã xem dùng học lại, không nhận làm bằng chứng mới.
+  return_anchors:
+  - KD01
+  - KD02
+  - KD03
+  - KD04
+  - CP01
+  - CP02
+  - CPK
+  - CP-O01
+  - CP-O02
+  - CP-O03
+- id: G03-N2
+  objective_ids:
+  - G03-M2
+  - G03-M4
+  symptom: Thiếu thao tác nền được chỉ trong N-GH-03
+  unit_id: N-GH-03
+  retest:
+    status: specified
+    requirement: Tự làm câu tại N03-Q1 nếu còn mới, đối chiếu rồi trở về đúng nhiệm
+      vụ gọi; câu đã xem dùng học lại, không nhận làm bằng chứng mới.
+  return_anchors:
+  - KD01
+  - KD02
+  - KD03
+  - KD04
+  - CP01
+  - CP02
+  - CPK
+  - CP-O01
+  - CP-O02
+  - CP-O03
+- id: G03-N3
+  objective_ids:
+  - G03-M1
+  - G03-M4
+  symptom: Thiếu thao tác nền được chỉ trong N-ĐS-01
+  unit_id: N-ĐS-01
+  retest:
+    status: specified
+    requirement: Tự làm câu tại NDS-Q nếu còn mới, đối chiếu rồi trở về đúng nhiệm
+      vụ gọi; câu đã xem dùng học lại, không nhận làm bằng chứng mới.
+  return_anchors:
+  - KD01
+  - KD02
+  - KD03
+  - KD04
+  - CP01
+  - CP02
+  - CPK
+  - CP-O01
+  - CP-O02
+  - CP-O03
+readiness:
+  expected_planned_task_ids: []

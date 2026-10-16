@@ -1,0 +1,24 @@
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{backgrounds,arrows.meta}
+\input{zo_graph_v02.tex}
+\begin{document}
+\begin{tikzpicture}[zo graph v02 field]
+\zoGraphVTwoLayers
+
+\begin{axis}[zo graph v02 axis,width=11cm,height=8cm,
+ xmin=-8,xmax=10,ymin=-12,ymax=6,restrict y to domain=-12:6,
+ xtick={1},ytick={1,2,4},xlabel={$x$},ylabel={$y$}]
+\node[zo graph v02 font sentinel] at (axis cs:0,0) {x};
+\addplot[zo graph v02 curve solid,domain=-8:0.96,samples=501,forget plot] {x-2-2/(1-x)};
+\addplot[zo graph v02 curve solid,domain=1.01:10,samples=501,forget plot] {4-3/x};
+\addplot[zo graph v02 point open,forget plot] coordinates {(1,1)};
+\addplot[only marks,mark=*,mark size=2pt,forget plot] coordinates {(1,2)};
+\node[zo graph v02 protected label,anchor=west] at (axis cs:2,1.1) {$(1;1)$};
+\node[zo graph v02 protected label,anchor=east] at (axis cs:-1,2.8) {$(1;2)$};
+\end{axis}
+\end{tikzpicture}
+\end{document}

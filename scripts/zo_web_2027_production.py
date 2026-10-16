@@ -162,6 +162,9 @@ def import_layout(reference, source, destination):
 
 @official_inputs()
 def adapt(path, output_root):
+    if path.resolve() == (output_root / "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/index.html").resolve():
+        from zo_web_2027_g03 import adapt as adapt_g03
+        return adapt_g03(path, output_root)
     if path.resolve() == (output_root / 'content/thpt/on_thi_toan_thpt/index.html').resolve():
         from zo_web_2027_gateway import adapt as adapt_gateway
         return adapt_gateway(path,output_root)
@@ -308,9 +311,18 @@ def main():
         d0 = (output / 'content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html').resolve()
         g02 = (output / 'content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/index.html').resolve()
         gateway=(output/'content/thpt/on_thi_toan_thpt/index.html').resolve()
-        paths = [p for p in [candidate, home, d0, g02, gateway] if p in rendered]
+        g03 = (output / "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/index.html").resolve()
+        paths = [p for p in [candidate, home, d0, g02, g03, gateway] if p in rendered]
+        from zo_course_labels import governed, LEGACY
+        paths=list(dict.fromkeys(paths+[p for p in rendered if governed(p) and p.parent.name not in LEGACY]))
     for path in paths:
-        if path.is_file(): adapt(path, output)
+        if path.is_file():
+            adapt(path, output)
+            from zo_course_labels import governed, LEGACY, binding as course_label_binding, html_checks as course_label_html_checks, require as require_labels
+            if governed(path) and path.parent.name not in LEGACY:
+                source=ROOT/path.relative_to(output).with_suffix(".qmd")
+                if BeautifulSoup(path.read_text(encoding="utf-8"),"html.parser").body is not None:
+                    require_labels(course_label_html_checks(BeautifulSoup(path.read_text(encoding="utf-8"),"html.parser"),course_label_binding(source)),"post-render HTML")
     return 0
 
 

@@ -1,6 +1,6 @@
-# Đường tiệm cận của đồ thị hàm số
+# Đường tiệm cận
 
-**R1-G03 · Bản thảo nội dung 0.2 · 16/10/2026**
+**Bản thảo nội dung 0.8 · 16/10/2026**
 
 _Bản để đọc và góp ý; chưa phải học liệu đã nghiệm thu hoặc phát hành._
 
@@ -8,57 +8,158 @@ _Bản để đọc và góp ý; chưa phải học liệu đã nghiệm thu ho�
 
 ## Bắt đầu
 
-Một điểm bị loại khỏi tập xác định có luôn tạo ra tiệm cận đứng không? Một đồ thị đã cắt đường thẳng còn có thể tiến sát đường thẳng ấy ở rất xa không? Hai đầu của cùng một đồ thị có thể tiến sát hai đường khác nhau không?
+Học liệu “Đường tiệm cận” giúp em dùng giới hạn để xác định đường thẳng mà đồ thị tiến gần, đọc đúng các nhánh và giải thích kết quả trong miền đang xét. Các nhiệm vụ giúp nhận ra lỗi về miền, hướng giới hạn và cách suy luận. Bài Kiểm tra đánh giá mục tiêu của học liệu, không mô phỏng cấu trúc đề thi tốt nghiệp.
 
-Gói này giúp em trả lời bằng giới hạn, đồng thời nhìn được ý nghĩa hình học của kết quả. Sau khi học và tự làm, em cần có thể:
+Một điểm bị loại khỏi tập xác định có luôn tạo ra tiệm cận đứng không? Đồ thị đã cắt một đường thẳng còn có thể tiến sát đường ấy ở rất xa không? Hai đầu của cùng một đồ thị có thể tiến sát hai đường khác nhau không?
 
-- Giữ đúng tập xác định; phân biệt giá trị của hàm tại một điểm với giới hạn khi tiến gần điểm ấy.
-- Tìm tiệm cận ngang và nói rõ đầu vô cực nào cho kết quả đó.
+### Mục tiêu
+
+Sau khi học và tự làm, em cần có thể:
+
+- Giữ đúng tập xác định; phân biệt giá trị tại một điểm với giới hạn khi tiến gần điểm ấy.
+- Tìm tiệm cận ngang và nói rõ hướng tiến ra vô cực tương ứng.
 - Tìm tiệm cận đứng bằng giới hạn một phía phù hợp.
 - Tìm tiệm cận xiên trong trường hợp đơn giản và kiểm phần chênh lệch tiến về $0$.
-- Nối công thức, giới hạn và hình đồ thị; giải thích được vì sao đồ thị có thể cắt tiệm cận.
+- Nối công thức, dữ kiện giới hạn và hình đồ thị; giải thích vì sao đồ thị có thể cắt đường tiệm cận.
 - Diễn giải kết quả trong một mô hình được cho, đúng miền và đơn vị.
 
-**Chọn nơi bắt đầu.** Nếu cần học hoặc nhớ lại khái niệm, vào [Bài học](#bai-hoc). Nếu đã hiểu và muốn tự làm, vào [Luyện tập](#luyen-tap). Nếu đã chuẩn bị kĩ hoặc đủ tự tin, em có thể vào [Kiểm tra](#kiem-tra), kể cả chưa làm các phần trước. Khi đến lịch ôn, chọn lượt ở [Ôn lại](#on-lai). Việc bỏ qua một phần không tự chứng nhận em đã đạt mục tiêu của phần ấy.
+### Tiên quyết
 
-Em có thể gọi [Ôn nền](#on-nen), [Sửa lỗi](#sua-loi), [Nhật kí](#nhat-ki) và [Lời giải](#loi-giai) khi cần. Hãy nhớ nhiệm vụ đang làm để trở lại sau hỗ trợ. Riêng trong một lượt Kiểm tra, em cần tự lực hoàn toàn; nếu muốn mở trợ giúp, hãy kết thúc lượt ấy trước và giữ nguyên bài làm ban đầu.
+Em cần biến đổi được phân thức, xét dấu đơn giản và đọc kí hiệu giới hạn. Các nhiệm vụ [Khởi động](#KD01) giúp em tự kiểm bốn thao tác nền này trước khi vào phần học. Nếu thiếu thao tác nào, dùng đúng phần [Ôn nền](#on-nen) được dẫn trong bài. Đạo hàm không bắt buộc trong các nhiệm vụ chính.
 
-Để học phần chính, em cần đọc được phân thức, xét dấu đơn giản và hiểu kí hiệu giới hạn. Phần nền trong gói sẽ giúp ôn đúng thao tác đang vướng. Đạo hàm không phải công cụ bắt buộc để tìm tiệm cận trong các bài chính. Hai nhánh Phối hợp và Chuyển giao cuối Luyện tập là lựa chọn thêm, có điều kiện nền riêng.
+Nhánh [Phối hợp](#P01) cần kiến thức về giá trị lớn nhất, nhỏ nhất trên tập đang xét. Nhánh [Chuyển giao](#P02) cần đọc được giới hạn chứa căn và trị tuyệt đối. Hai nhánh là lựa chọn thêm.
 
-**Tự ghi nhận kết quả.** Giữ bài tự làm trước khi xem lời giải. Khi đối chiếu, xét cả kết luận lẫn lí do. Nếu đã nhận trợ giúp, ghi riêng phần làm được sau trợ giúp. Một câu làm đúng chỉ xác nhận những mục tiêu mà câu ấy thực sự kiểm tra.
+### Cách học
+
+Chuẩn bị giấy để giữ bài tự làm và ghi lí do cho từng kết luận. Tự trả lời trước khi mở phần đối chiếu. Em có thể chia Bài học và Luyện tập thành nhiều buổi; riêng một lượt Kiểm tra phải thực hiện liên tục theo hướng dẫn của phần ấy. Khởi động chỉ khảo sát một số thao tác nền, không kiểm hết tiên quyết hoặc chứng nhận đạt cả gói.
+
+### Chọn nơi bắt đầu
+
+- Cần học hoặc nhớ lại khái niệm: vào [Bài học](#bai-hoc).
+- Đã hiểu và muốn tự làm: vào [Luyện tập](#luyen-tap).
+- Đã chuẩn bị kĩ hoặc đủ tự tin: có thể vào [Kiểm tra](#kiem-tra), kể cả chưa làm các phần trước.
+- Đến ngày hẹn: chọn lượt ở [Ôn lại](#on-lai).
+
+Đó là các điểm vào theo nhu cầu. Việc bỏ qua một phần không tự cho biết em đã làm chủ phần ấy.
+
+### Bản đồ học
+
+[Bài học](#bai-hoc) → [Luyện tập](#luyen-tap) → [Kiểm tra](#kiem-tra) → [Ôn lại](#on-lai)
+
+Đây là tiến trình được khuyến nghị và thứ tự tra đọc. Em được chọn điểm vào, đi tới hoặc quay lại theo nhu cầu; không phải hoàn tất lần lượt mọi phần mới được vào phần tiếp theo. Phần bỏ qua không tự được xem là đã đạt. Ôn lại thực hiện theo ngày hẹn.
+
+Ôn nền, Lời giải, Sửa lỗi và Nhật kí là các hỗ trợ được gọi khi cần, theo bảng dưới. Sau hỗ trợ, trở về đúng nhiệm vụ hoặc Điểm dừng đang vướng.
+
+### Khi cần hỗ trợ
+
+| Em đang cần                             | Nơi nên mở                                             | Sau đó                                                  |
+| --------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------- |
+| Nhớ lại một khái niệm của gói           | Đúng mục trong [Bài học](#bai-hoc)                     | Trở về câu đang vướng                                   |
+| Bổ sung cách đọc giới hạn hoặc biến đổi | Đúng phần [Ôn nền](#on-nen)                            | Tự làm câu nền rồi trở về bài gốc                       |
+| Đối chiếu hoặc sửa bài đã làm           | [Lời giải](#loi-giai), rồi [Sửa lỗi](#sua-loi) nếu cần | Kiểm đúng phần còn sai bằng câu phù hợp chưa xem đáp án |
+| Lưu quyết định hoặc nơi tiếp tục        | [Nhật kí](#nhat-ki)                                    | Ghi dữ kiện đã có, không cần ghi sau mọi thao tác       |
+
+Giữ bài tự làm trước khi mở trợ giúp; khi đối chiếu, xem cả lí do và kết luận. Nếu đã nhận trợ giúp, ghi riêng phần làm được sau đó. Câu đã xem đáp án dùng để học lại, không tính là lần tự làm mới.
+
+Riêng trong một lượt Kiểm tra, em phải tự lực hoàn toàn. Nếu cần mở Bài học, Ôn nền, Sửa lỗi hoặc Lời giải để trợ giúp, hãy kết thúc lượt và giữ bài ban đầu trước. Nếu vào thẳng một phần hỗ trợ, chọn câu hoặc hoạt động em muốn trở về.
+
+### Khi nào hoàn tất lượt chính?
+
+Hoàn tất lượt chính khi bài làm tự lực cho thấy em đáp ứng các mục tiêu thiết yếu và những lỗi cản trở việc học tiếp đã được kiểm lại bằng câu phù hợp còn mới. Dùng bảng sau [Kiểm tra](#CPK) để xem từng mục tiêu, không chỉ đếm đáp số đúng. Nếu chưa có câu mới phù hợp hoặc còn sai sau hỗ trợ, ghi rõ phần chưa xác nhận và tiếp tục phần độc lập đủ nền.
+
+Khi hoàn tất, ghi ngày gốc và hẹn Ôn lại sau khoảng $2$–$3$ ngày, $7$ ngày và $3$–$4$ tuần. Em có thể học tiếp nội dung phù hợp trong khi chờ lịch ôn; kết quả làm được ngay sau học chưa cho biết em còn nhớ sau nhiều ngày.
 
 <a id="bai-hoc"></a>
 
 ## Bài học
 
+### Định hướng bài học
+
+**Câu hỏi dẫn đường:** từ công thức hoặc dữ kiện giới hạn, ta biết đồ thị tiến gần đường nào, ở phía nào, và còn điều gì chưa biết?
+
+Trước mỗi kết luận, hãy xác định miền đang xét, hướng biến tiến tới và biểu thức cần lấy giới hạn. Sau đó nối kết quả với phương trình đường thẳng và đúng nhánh trên hình.
+
+| Phần học                      | Việc em tập làm                                            |
+| ----------------------------- | ---------------------------------------------------------- |
+| [Giới hạn và giá trị](#bh-01) | Phân biệt giá trị tại điểm với hành vi ở gần điểm          |
+| [Tiệm cận ngang](#bh-02)      | Xét riêng hai đầu vô cực, không đếm trùng đường            |
+| [Tiệm cận đứng](#bh-03)       | Dùng ít nhất một giới hạn một phía vô cực hợp lệ           |
+| [Tiệm cận xiên](#bh-04)       | Tìm đủ đường thẳng, kiểm giới hạn của hiệu và nối với hình |
+| [Miền và bối cảnh](#bh-05)    | Chọn kết luận vừa đủ dữ kiện và diễn giải mô hình          |
+| [Sửa một lập luận](#bh-06)    | Giữ phần đúng, sửa đúng lí do và tự làm câu xác nhận       |
+
+Bắt đầu bằng [Khởi động](#KD01), rồi vào [mục Giới hạn mô tả hành vi của hàm số](#bh-01). Mỗi mục kiến thức mở đầu bằng một nhiệm vụ Gợi mở, đánh số liên tục từ 01 đến 06. Hãy thử trả lời trước khi đọc phần giải thích; các câu này dẫn vào nội dung sắp học, không thay câu Tự kiểm tra cuối mục. Cuối mỗi mục có câu Tự kiểm tra và lời giải riêng. Học liệu chưa thực hiện toàn bộ quy trình khảo sát hàm số; không yêu cầu biện luận tham số hoặc tính đạo hàm trong các nhiệm vụ chính. Hai nhánh Phối hợp và Chuyển giao là lựa chọn thêm.
+
 ### Khởi động
 
-<a id="GM01"></a>
+Tự làm bốn nhiệm vụ trên giấy trước khi mở lời giải. Chúng giúp em nhận ra thao tác nền còn vướng; không cần tính điểm và không cần biết trước tên các đường tiệm cận.
 
-#### Gợi mở 01 — Điều gì đang tiến gần?
+<a id="KD01"></a>
 
-Đọc ba dữ kiện sau và thử diễn tả bằng lời. Nếu chưa biết tên đường tiệm cận, em vẫn có thể trả lời điều gì đang xảy ra.
+#### Nhiệm vụ 01 — Giữ miền khi rút gọn
 
-| Tình huống | Dữ kiện                                                             |
-| ---------- | ------------------------------------------------------------------- |
-| A          | Khi $x$ tăng không bị chặn, $f(x)$ tiến tới $4$                     |
-| B          | Khi $x$ tiến tới $2$ từ phía lớn hơn $2$, $g(x)$ tăng không bị chặn |
-| C          | Khi $x$ tăng không bị chặn, hiệu $h(x)-(x-1)$ tiến tới $0$          |
+Cho $r(x)=\frac{x^2-100}{x-10}$ với tập xác định tự nhiên. Ghi tập xác định, rút gọn biểu thức trên miền ấy. Sau rút gọn, em có được thêm $10$ vào tập xác định hoặc viết giá trị $r(10)$ không?
 
-Trong A và C, em đang so tung độ của điểm trên đồ thị với tung độ của đường thẳng nào? Trong B, hoành độ tiến gần mốc nào và tung độ có tiến tới một số hữu hạn không?
+[Xem lời giải sau khi tự làm](#lg-KD01).
 
-<details>
-<summary>Đối chiếu sau khi đã thử</summary>
+<a id="KD02"></a>
 
-A so $f(x)$ với $4$, tức so đồ thị với đường $y=4$. C so $h(x)$ với $x-1$, tức so đồ thị với đường $y=x-1$. Trong B, hoành độ tiến tới $2$ từ phải, còn tung độ tăng không bị chặn. Dữ kiện B không nói $g(2)$ bằng vô cực: vô cực không phải một giá trị thực để gán cho hàm số.
+#### Nhiệm vụ 02 — Đọc hướng và xét dấu
 
-Nếu chưa đọc được hướng tiến gần, xem [Giới hạn một phía](#N-GH-02); nếu vướng khi $x$ ra vô cực, xem [Giới hạn ở vô cực](#N-GH-03). Sau đó trở lại câu hỏi này và tiếp tục mục 1. Đây là câu gợi mở, không phải phép xác nhận em đã biết toàn gói.
+Với $p(x)=-\frac{3}{x-1}$, hãy diễn tả $x\to1^-$ và $x\to1^+$ bằng lời. Ở mỗi phía, xác định dấu của mẫu rồi tính giới hạn tương ứng. Bài này chưa yêu cầu gọi tên đường tiệm cận.
 
-</details>
+[Xem lời giải sau khi tự làm](#lg-KD02).
+
+<a id="KD03"></a>
+
+#### Nhiệm vụ 03 — Xét riêng hai đầu vô cực
+
+Tính $\lim_{x\to+\infty}q(x)$ và $\lim_{x\to-\infty}q(x)$ với $q(x)=\frac{4x+1}{x+2}$. Viết phép chia cả tử và mẫu cho $x$ để làm rõ kết quả; không thay “vô cực” vào công thức như một số.
+
+[Xem lời giải sau khi tự làm](#lg-KD03).
+
+<a id="KD04"></a>
+
+#### Nhiệm vụ 04 — Kiểm thương và phần dư
+
+Viết $A(x)=\frac{2x^2+x+5}{x+1}$ thành một biểu thức bậc nhất cộng phần dư trên mẫu. Ghi điều kiện của $x$ và nhân ngược để kiểm lại. Bài này chỉ kiểm phép biến đổi, chưa yêu cầu kết luận về tiệm cận.
+
+[Xem lời giải sau khi tự làm](#lg-KD04).
+
+<a id="CP-KD"></a>
+
+#### Sau khi làm xong
+
+Giữ bài làm rồi đối chiếu từng câu. Câu còn vướng chỉ ra đúng phần nền nên xem lại trong bảng dưới; không cần học lại mọi tài nguyên. Nếu đã rõ cả bốn thao tác, chuyển sang [mục Giới hạn mô tả hành vi của hàm số](#bh-01). Làm đúng Khởi động chưa có nghĩa đã đạt các mục tiêu của gói.
+
+#### Chọn đúng phần cần ôn
+
+| Câu còn vướng | Kiến thức cần ôn                      | Đi đến                         | Sau đó                                                  |
+| ------------- | ------------------------------------- | ------------------------------ | ------------------------------------------------------- |
+| Nhiệm vụ 01   | Mẫu khác $0$ và điều kiện khi rút gọn | [Biến đổi phân thức](#N-DS-01) | Trở về [Nhiệm vụ 01](#KD01), sửa điều kiện rồi tiếp tục |
+| Nhiệm vụ 02   | Hướng tiến gần và dấu của phân thức   | [Giới hạn một phía](#N-GH-02)  | Trở về [Nhiệm vụ 02](#KD02), giải thích lại từng phía   |
+| Nhiệm vụ 03   | Chia theo bậc và giới hạn ở hai đầu   | [Giới hạn ở vô cực](#N-GH-03)  | Trở về [Nhiệm vụ 03](#KD03), kiểm hai hướng             |
+| Nhiệm vụ 04   | Thương, phần dư và phép nhân kiểm lại | [Biến đổi phân thức](#N-DS-01) | Trở về [Nhiệm vụ 04](#KD04), kiểm đúng phép biến đổi    |
+
+Sau khi xem nền, tự làm câu của tài nguyên nếu còn mới rồi trở lại câu đang vướng. Lần sửa câu Khởi động đã xem lời giải giúp em học lại, không được tính là một câu xác nhận độc lập mới. Nếu một thao tác vẫn chưa rõ, ghi phần còn thiếu và đọc đúng phần giải thích; không tự đánh dấu đã đủ nền.
 
 <a id="bh-01"></a>
 
 ### 1. Giới hạn mô tả hành vi của hàm số
+
+**Cách thực hiện:** thử trả lời câu hỏi dưới; đọc Ví dụ 01 và chỉ trên hai hình điều khác nhau tại điểm bị loại; cuối mục tự làm Tự kiểm tra 01.
+
+<a id="GM01"></a>
+
+**Gợi mở 01**
+
+Thử trả lời trước khi đọc tiếp.
+
+Hai công thức cùng không xác định tại một hoành độ có buộc đồ thị có cùng hành vi ở gần đó không? Giá trị tại điểm và giới hạn khi tiến gần điểm ấy đang trả lời cùng một câu hỏi hay hai câu hỏi khác nhau?
+
+Việc không xác định tại một điểm chưa cho biết hàm tiến tới đâu ở lân cận. Giá trị tại điểm và giới hạn cần được xét riêng. Hãy kiểm lại nhận xét này bằng hai hàm trong Ví dụ 01.
+
+#### 1.1. Giá trị, giới hạn tại điểm và giới hạn ở vô cực
 
 Ba câu hỏi sau khác nhau:
 
@@ -70,7 +171,7 @@ Giới hạn xét các giá trị ở gần mốc, không tự bổ sung một �
 
 <a id="H01"></a>
 
-#### Ví dụ 01 — Cùng loại một điểm, hành vi khác nhau
+#### 1.2. Ví dụ 01 — Cùng loại một điểm, hành vi khác nhau
 
 Xét
 
@@ -98,7 +199,7 @@ _Hình $2$. Cũng loại $x=2$, nhưng tung độ không tiến tới một số
 
 <a id="T01"></a>
 
-#### Tự kiểm tra 01 — Rút gọn có thêm được một điểm không?
+#### 1.3. Tự kiểm tra 01 — Rút gọn có thêm được một điểm không?
 
 Cho $r(x)=\frac{x^2-1}{x-1}$ với tập xác định tự nhiên. Một bạn viết: “$r(x)=x+1$ nên $r(1)=2$.” Hãy chỉ rõ phần đúng, phần sai; tìm giới hạn của $r(x)$ khi $x\to 1$.
 
@@ -107,6 +208,20 @@ Cho $r(x)=\frac{x^2-1}{x-1}$ với tập xác định tự nhiên. Một bạn v
 <a id="bh-02"></a>
 
 ### 2. Tiệm cận ngang: xét riêng hai đầu vô cực
+
+**Cách thực hiện:** đọc định nghĩa và ghi hướng giới hạn trong từng ví dụ; so sánh trường hợp hai đầu trùng nhau, khác nhau và đồ thị cắt đường ngang; cuối mục tự làm Tự kiểm tra 02.
+
+<a id="GM02"></a>
+
+**Gợi mở 02**
+
+Thử trả lời trước khi đọc tiếp.
+
+Khi $x\to+\infty$, $f(x)\to4$. Tung độ của điểm trên đồ thị đang tiến gần tung độ của đường thẳng nào? Dữ kiện này đã cho biết hành vi ở đầu trái chưa?
+
+Ta đang so $f(x)$ với $4$, tức so tung độ của điểm trên đồ thị với tung độ của đường $y=4$. Dữ kiện chỉ nói về đầu phải. Định nghĩa dưới đây giúp gọi tên đường ấy và xét riêng từng đầu vô cực. Một điểm giao hữu hạn có mâu thuẫn với hành vi ở rất xa không? Hãy giữ câu hỏi này khi đọc các ví dụ.
+
+#### 2.1. Định nghĩa và ý nghĩa
 
 Đường thẳng **$y=L$** là một tiệm cận ngang của đồ thị $y=f(x)$ nếu ít nhất một trong hai điều kiện sau đúng:
 
@@ -118,7 +233,7 @@ Chẳng hạn, khi $f(x)\to L$ ở đầu phải, độ chênh tung độ $|f(x)
 
 <a id="H02"></a>
 
-#### Ví dụ 02 — Hai đầu cho cùng một đường
+#### 2.2. Ví dụ 02 — Hai đầu cho cùng một đường
 
 Cho $f(x)=4-\frac{3}{x+2}$, $x\ne-2$. Vì $\frac{3}{x+2}\to0$ khi $x\to+\infty$ và khi $x\to-\infty$, ta có
 
@@ -132,7 +247,7 @@ _Hình $3$. Đồ thị của $f$ trong Ví dụ 02; nét đứt ngang biểu di
 
 <a id="H03"></a>
 
-#### Ví dụ 03 — Hai đầu có thể khác nhau
+#### 2.3. Ví dụ 03 — Hai đầu có thể khác nhau
 
 Biết $\lim_{x\to+\infty}g(x)=2$ và $\lim_{x\to-\infty}g(x)=-3$. Đồ thị có hai tiệm cận ngang: $y=2$ ở đầu phải và $y=-3$ ở đầu trái. Không được lấy kết quả của đầu phải áp cho đầu trái nếu chưa có căn cứ.
 
@@ -142,9 +257,25 @@ _Hình $4$. Một đồ thị phù hợp với hai giới hạn đã cho. Dữ k
 
 **Chọn cách tính phù hợp.** Với phân thức, có thể chia cả tử và mẫu cho lũy thừa thích hợp của $x$. Đó là cách tính giới hạn cho dạng đang xét, không phải định nghĩa tiệm cận ngang. Nếu miền chỉ có đầu $+\infty$, chỉ xét đầu ấy; không tạo thêm một đầu $-\infty$ không thuộc miền.
 
+<a id="H07"></a>
+
+#### 2.4. Ví dụ 04 — Cắt tiệm cận ngang tại một điểm
+
+Xét $F(x)=2+\frac{x}{x^2+1}$ trên $\mathbb R$. Khi $x\ne0$, ta có
+
+$$\frac{x}{x^2+1}=\frac{\frac{1}{x}}{1+\frac{1}{x^2}}\longrightarrow0\quad\text{khi }x\to\pm\infty.$$
+
+Vì vậy $\lim_{x\to+\infty}F(x)=\lim_{x\to-\infty}F(x)=2$, nên $y=2$ là tiệm cận ngang. Nhưng phương trình $F(x)=2$ tương đương $x=0$: đồ thị cắt đường ấy tại $(0;2)$.
+
+![Đường cong cắt một đường ngang rồi tiến gần đường ấy ở cả hai đầu.](hinh/h07_cat_tiem_can.svg)
+
+_Hình $5$. Điểm giao hữu hạn và giới hạn ở vô cực là hai thông tin cùng đúng._
+
+Không có mâu thuẫn: định nghĩa tiệm cận ngang yêu cầu độ chênh tiến về $0$ khi biến ra vô cực, không cấm độ chênh bằng $0$ tại một hoành độ hữu hạn.
+
 <a id="T02"></a>
 
-#### Tự kiểm tra 02 — Ghi cả đường và hướng
+#### 2.5. Tự kiểm tra 02 — Ghi cả đường và hướng
 
 Biết $\lim_{x\to+\infty}p(x)=-1$ và $\lim_{x\to-\infty}p(x)=3$. Hãy viết các tiệm cận ngang cùng hướng tương ứng. Một bạn chỉ ghi $y=-1$ đã đủ chưa?
 
@@ -153,6 +284,20 @@ Biết $\lim_{x\to+\infty}p(x)=-1$ và $\lim_{x\to-\infty}p(x)=3$. Hãy viết c
 <a id="bh-03"></a>
 
 ### 3. Tiệm cận đứng: một phía vô cực đã đủ
+
+**Cách thực hiện:** đọc từ “ít nhất một” trong định nghĩa; trở lại hai hàm ở Ví dụ 01; kiểm dấu hai phía trong Ví dụ 05 rồi làm Tự kiểm tra 03.
+
+<a id="GM03"></a>
+
+**Gợi mở 03**
+
+Thử trả lời trước khi đọc tiếp.
+
+Khi $x\to2^+$, $g(x)\to+\infty$. Hoành độ đang tiến gần mốc nào, từ phía nào? Tung độ có tiến tới một số hữu hạn không?
+
+Hoành độ tiến tới $2$ từ phải, còn tung độ tăng không bị chặn. Dữ kiện không gán $g(2)$ bằng vô cực: vô cực không phải một giá trị thực của hàm số. Nếu giới hạn trái hữu hạn, hành vi phía phải này có đủ để xác định một đường tiệm cận đứng không? Hãy đối chiếu với điều kiện trong định nghĩa dưới đây.
+
+#### 3.1. Định nghĩa và các phía được phép xét
 
 Đường thẳng **$x=a$** là tiệm cận đứng của đồ thị $y=f(x)$ nếu ít nhất một trong bốn điều kiện sau được thỏa mãn:[^sgk-dung]
 
@@ -166,7 +311,7 @@ Chỉ xét phía có điểm của tập xác định tiến sát $a$. Không c�
 
 <a id="H04"></a>
 
-#### Ví dụ 04 — Hai phía cùng đi lên
+#### 3.2. Ví dụ 05 — Hai phía cùng đi lên
 
 Cho $g(x)=\frac{2}{(x+3)^2}$, $x\ne -3$. Khi $x$ tiến tới $-3$ từ bất cứ phía nào, $(x+3)^2$ dương và tiến về $0$. Vì vậy
 
@@ -178,7 +323,7 @@ $$\lim_{x\to-3^-}g(x)=+\infty,\qquad \lim_{x\to-3^+}g(x)=+\infty.$$
 
 <a id="T03"></a>
 
-#### Tự kiểm tra 03 — Chỉ một phía có nghĩa
+#### 3.3. Tự kiểm tra 03 — Chỉ một phía có nghĩa
 
 Hàm $w$ có tập xác định $(-\infty;5)$, liên tục trên khoảng này và $\lim_{x\to5^-}w(x)=-\infty$. Có thể kết luận $x=5$ là tiệm cận đứng không? Có cần thêm giới hạn phải tại $5$ không?
 
@@ -187,6 +332,20 @@ Hàm $w$ có tập xác định $(-\infty;5)$, liên tục trên khoảng này v
 <a id="bh-04"></a>
 
 ### 4. Tiệm cận xiên: kiểm phần chênh lệch
+
+**Cách thực hiện:** tự chia phân thức ở Ví dụ 06 trước khi đối chiếu; nhân ngược, kiểm giới hạn hiệu, rồi đọc từng nhánh trên hình. Sau đó so với cách tìm hai hệ số và làm Tự kiểm tra 04.
+
+<a id="GM04"></a>
+
+**Gợi mở 04**
+
+Thử trả lời trước khi đọc tiếp.
+
+Khi $x\to+\infty$, hiệu $h(x)-(x-1)$ tiến tới $0$. Em đang so tung độ của điểm trên đồ thị với tung độ của đường thẳng nào? Hiệu tiến về $0$ cho biết điều gì?
+
+Ta đang so $h(x)$ với $x-1$, tức so tung độ của điểm trên đồ thị với tung độ của đường $y=x-1$ có cùng hoành độ. Phần chênh lệch ấy tiến về $0$ ở đầu phải. Định nghĩa dưới đây dùng chính giới hạn của hiệu để nhận biết tiệm cận xiên. Hai đường thẳng có cùng hệ số góc đã là cùng một đường chưa? Hãy lưu ý cả hệ số tự do khi kiểm giới hạn.
+
+#### 4.1. Định nghĩa bằng giới hạn của hiệu
 
 Theo định nghĩa trong SGK, đường thẳng **$y=ax+b$**, với $a\ne0$, là tiệm cận xiên của đồ thị $y=f(x)$ nếu[^sgk-xien]
 
@@ -200,7 +359,7 @@ $$\lim_{x\to-\infty}[f(x)-(ax+b)]=0.$$
 
 <a id="H05"></a>
 
-#### Ví dụ 05 — Tách phần tuyến tính và phần còn lại
+#### 4.2. Ví dụ 06 — Tách phần tuyến tính và phần còn lại
 
 Cho $h(x)=\frac{x^2+x+4}{x-1}$, $x\ne 1$. Chia đa thức, ta được
 
@@ -214,9 +373,22 @@ Vì thế $y=x+2$ là tiệm cận xiên ở cả hai đầu. Muốn tìm thêm 
 
 ![Hai nhánh đồ thị tiến gần một đường xiên ở xa và một đường đứng gần điểm bị loại.](hinh/h05_xien.svg)
 
-_Hình $5$. Đường xiên mô tả phần tuyến tính ở xa; giới hạn tại $x=1$ trả lời câu hỏi khác._
+_Hình $6$. Đường xiên mô tả phần tuyến tính ở xa; giới hạn tại $x=1$ trả lời câu hỏi khác._
 
-**Tìm đủ hai hệ số của đường tiệm cận xiên.** Theo phần “Chú ý” của SGK, có thể tìm lần lượt hệ số góc và hệ số tự do bằng giới hạn.[^sgk-he-so] Ta phải chọn một hướng tiến ra vô cực và giữ nguyên hướng ấy trong cả hai phép tính.
+**Từ công thức đến thông tin trên hình.** Với cùng hàm $h$ trong Ví dụ 06, ta đi lần lượt:
+
+| Bước                 | Dữ kiện đã kiểm                                            | Điều cần chỉ trên Hình $6$                                                    |
+| -------------------- | ---------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| Giữ miền             | $x\ne1$                                                    | Hai phần đồ thị nằm hai phía của mốc $1$                                      |
+| Xét gần mốc          | $\lim_{x\to1^-}h(x)=-\infty$, $\lim_{x\to1^+}h(x)=+\infty$ | Nhánh trái đi xuống, nhánh phải đi lên không bị chặn khi tiến gần đường $x=1$ |
+| Xét ở xa             | $\lim_{x\to\pm\infty}[h(x)-(x+2)]=0$                       | Mỗi đầu tiến gần đường $y=x+2$ ở hướng tương ứng                              |
+| Đọc vị trí tương đối | $h(x)-(x+2)=\frac{6}{x-1}$                                 | Nhánh bên trái nằm dưới đường xiên, nhánh bên phải nằm trên đường xiên        |
+
+Khi phác riêng các thông tin tiệm cận, trước hết đặt đường đứng $x=1$ và đường xiên $y=x+2$; sau đó ghi hướng của các nhánh gần mốc và ở xa. Các giới hạn không tự cho mọi khoảng tăng giảm, điểm cực trị hoặc một hình dạng duy nhất ở giữa. Hình $6$ được dựng từ công thức đầy đủ; không được lấy nét cong của hình làm kết luận đã chứng minh chỉ bằng tiệm cận.
+
+#### 4.3. Tìm đủ hai hệ số của đường tiệm cận xiên
+
+Theo phần “Chú ý” của SGK, có thể tìm lần lượt hệ số góc và hệ số tự do bằng giới hạn.[^sgk-he-so] Ta phải chọn một hướng tiến ra vô cực và giữ nguyên hướng ấy trong cả hai phép tính.
 
 - **Khi xét phía $x\to+\infty$**, tính
 
@@ -232,7 +404,7 @@ _Hình $5$. Đường xiên mô tả phần tuyến tính ở xa; giới hạn t
 
 Các giá trị $a$, $b$ tìm được ở hai hướng có thể khác nhau. Không lấy $a$ ở hướng này rồi ghép với $b$ ở hướng kia. Nếu chỉ tính $\lim_{x\to+\infty}\frac{f(x)}{x}=a$, em mới tìm được hệ số góc ở phía $x\to+\infty$, chưa biết hệ số tự do $b$ để viết phương trình đường thẳng. Trường hợp phía $x\to-\infty$ cũng cần đủ hai bước như vậy.
 
-Với hàm $h$ trong Ví dụ 05, khi xét phía $x\to+\infty$, ta có
+Với hàm $h$ trong Ví dụ 06, khi xét phía $x\to+\infty$, ta có
 
 $$\lim_{x\to+\infty}\frac{h(x)}{x}=\lim_{x\to+\infty}\left[1+\frac{2}{x}+\frac{6}{x(x-1)}\right]=1,$$
 
@@ -244,7 +416,7 @@ Vậy đường tiệm cận xiên ở phía này là $y=x+2$. Cách tách thư�
 
 <a id="T04"></a>
 
-#### Tự kiểm tra 04 — Thiếu một hằng số
+#### 4.4. Tự kiểm tra 04 — Thiếu một hằng số
 
 Cho $q(x)=2x-5+\frac{1}{x+6}$, $x\ne -6$. Một bạn chỉ nhìn hệ số của $x$ và chọn $y=2x$. Hãy tìm đường xiên đúng và dùng giới hạn của hiệu để bác đường đã chọn.
 
@@ -254,19 +426,44 @@ Cho $q(x)=2x-5+\frac{1}{x+6}$, $x\ne -6$. Một bạn chỉ nhìn hệ số củ
 
 ### 5. Đọc kết quả trong đúng miền và đúng bối cảnh
 
+**Cách thực hiện:** chọn loại giới hạn theo câu hỏi; dùng bảng giới hạn suy luận trước khi đọc hình; đọc miền và đơn vị trong Ví dụ 07 rồi làm Tự kiểm tra 05.
+
+<a id="GM05"></a>
+
+**Gợi mở 05**
+
+Thử trả lời trước khi đọc tiếp.
+
+Một công thức tính được tại thời gian âm có cho phép dùng thời gian ấy trong mọi mô hình không? Một giới hạn hữu hạn có luôn là giá trị được đạt không?
+
+Công thức phải đi cùng miền của mô hình. Giới hạn mô tả mức tiến tới; muốn biết mức ấy có được đạt hay không, còn phải kiểm các giá trị của hàm trong miền. Mục này giúp em giữ hai ranh giới đó khi diễn giải kết quả.
+
+#### 5.1. Chọn giới hạn theo câu hỏi và theo miền
+
 Khi gặp một bài tiệm cận, hãy tự hỏi: biến đang tiến tới một mốc hữu hạn hay ra vô cực? Miền cho phép tiếp cận theo phía nào? Ta cần xét $f(x)$, hay xét hiệu giữa $f(x)$ và một biểu thức tuyến tính?
 
-| Muốn kiểm | Dữ kiện quyết định                                                | Dạng phương trình |
-| --------- | ----------------------------------------------------------------- | ----------------- |
-| Ngang     | $f(x)$ tiến tới số hữu hạn $L$ ở một đầu vô cực                   | $y=L$             |
+| Muốn kiểm | Dữ kiện quyết định                                                  | Dạng phương trình |
+| --------- | ------------------------------------------------------------------- | ----------------- |
+| Ngang     | $f(x)$ tiến tới số hữu hạn $L$ ở một đầu vô cực                     | $y=L$             |
 | Đứng      | $f(x)$ tiến tới $+\infty$ hoặc $-\infty$ ở ít nhất một phía của $a$ | $x=a$             |
-| Xiên      | $f(x)-(ax+b)$ tiến về $0$ ở một đầu vô cực, $a\ne 0$              | $y=ax+b$          |
+| Xiên      | $f(x)-(ax+b)$ tiến về $0$ ở một đầu vô cực, $a\ne 0$                | $y=ax+b$          |
 
 Hình vẽ giúp nhìn hướng và vị trí. Một cửa sổ hình hữu hạn không tự chứng minh hành vi ở vô cực; khi cần kết luận chính xác, dùng công thức, giới hạn được cho hoặc kí hiệu dữ kiện trên hình. Đặc biệt, nhìn đồ thị “rất gần” một đường chưa chứng minh được đó là tiệm cận.
 
+**Giới hạn của suy luận từ dữ kiện**
+
+| Dữ kiện đang có                           | Điều có căn cứ                                               | Điều chưa được tự thêm                                        |
+| ----------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------- |
+| Công thức và miền                         | Tính giới hạn theo các hướng thuộc miền, rồi dùng định nghĩa | Gọi nghiệm mẫu là tiệm cận đứng trước khi xét giới hạn        |
+| Một giới hạn hữu hạn ở đầu phải           | Tiệm cận ngang ở đầu phải                                    | Kết quả ở đầu trái hoặc kết luận không có đường đứng          |
+| Một phía tiến tới vô cực tại mốc          | Tiệm cận đứng tại mốc ấy                                     | Dấu hoặc giá trị giới hạn ở phía còn lại                      |
+| Giới hạn hiệu với một đường xiên bằng $0$ | Tiệm cận xiên ở hướng đã xét                                 | Vị trí trên/dưới ở mọi điểm, hoặc cấm giao điểm               |
+| Hình trong một cửa sổ hữu hạn             | Vị trí, nhãn và quan hệ được đề xác định rõ                  | Hành vi ở vô cực chỉ vì nét vẽ trông gần một đường            |
+| Công thức của mô hình trên miền đã cho    | Kết luận trong miền, với đơn vị và giả thiết của mô hình     | Mở rộng thời gian hoặc khẳng định thực nghiệm ngoài giả thiết |
+
 <a id="H06"></a>
 
-#### Ví dụ 06 — Tiến tới một mức không có nghĩa đạt mức ấy
+#### 5.2. Ví dụ 07 — Tiến tới một mức không có nghĩa đạt mức ấy
 
 Trong một mô hình giả định, nồng độ sau $t$ giờ được cho bởi
 
@@ -280,15 +477,73 @@ Kết luận trên thuộc mô hình đã cho, không là khẳng định thực
 
 <a id="T05"></a>
 
-#### Tự kiểm tra 05 — Không mở rộng miền theo ý mình
+#### 5.3. Tự kiểm tra 05 — Không mở rộng miền theo ý mình
 
 Một chỉ số được mô hình hóa bởi $z(t)=10+\frac{8}{t+2}$, $t\ge 0$ tính bằng giờ, $z$ tính bằng điểm. Hãy nêu ý nghĩa giới hạn khi $t\to +\infty$; chỉ số có bằng $10$ tại thời điểm hữu hạn không? Có nên dùng $t=-2$ làm tiệm cận đứng của đồ thị trên miền này không?
 
-[Đối chiếu Tự kiểm tra 05](#lg-T05). Nếu nhầm giới hạn với một giá trị được đạt, đọc lại Ví dụ 06; nếu nhầm miền, xem [Biến đổi phân thức](#N-DS-01). Quay lại câu này sau khi đối chiếu.
+[Đối chiếu Tự kiểm tra 05](#lg-T05). Nếu nhầm giới hạn với một giá trị được đạt, đọc lại Ví dụ 07; nếu nhầm miền, xem [Biến đổi phân thức](#N-DS-01). Quay lại câu này sau khi đối chiếu.
+
+<a id="bh-06"></a>
+
+### 6. Sửa một lập luận và tự kiểm lại
+
+**Cách thực hiện:** tự chỉ ra vế đúng và bước sai trong ví dụ; đọc cách chữa; sau đó làm câu Tự kiểm tra mới trước khi mở lời giải. Đọc hiểu lời chữa chưa chứng minh em tự xử lí được tình huống khác.
+
+<a id="GM06"></a>
+
+**Gợi mở 06**
+
+Thử trả lời trước khi đọc tiếp.
+
+Em đọc lời chữa và thấy hợp lí. Điều đó đã đủ để biết em sẽ tự phát hiện và sửa được lỗi khi dữ kiện đổi từ công thức sang giới hạn cho sẵn chưa? Khi một lập luận có cả phần đúng và phần sai, em cần giữ lại điều gì?
+
+Đọc hiểu lời chữa chưa cho biết em có tự làm được tình huống khác hay không. Hãy giữ phần đúng, tìm đúng bước suy luận sai, sửa căn cứ rồi tự làm câu phù hợp còn mới. Ví dụ và câu Tự kiểm tra dưới đây giúp phân biệt các việc ấy.
+
+<a id="H08"></a>
+
+#### 6.1. Ví dụ 08 — Giữ phần đúng khi sửa
+
+Cho $u(x)=\frac{x^2-121}{x-11}$ trên miền tự nhiên. Một bạn viết: “Hàm không xác định tại $11$, nên $x=11$ là tiệm cận đứng; rút gọn được $u(x)=x+11$, nên $u(11)=22$.”
+
+- **Phần đúng:** miền loại $11$; phép rút gọn đúng với $x\ne11$.
+- **Bước sai:** dùng việc không xác định để kết luận giới hạn vô cực; sau đó dùng biểu thức rút gọn để thêm giá trị ngoài miền.
+- **Kiểm lại căn cứ:** $\lim_{x\to11^-}u(x)=\lim_{x\to11^+}u(x)=22$, là giới hạn hữu hạn.
+- **Viết lại:** “Hàm có miền $\mathbb R\setminus\{11\}$. Trên miền này, $u(x)=x+11$. Hai giới hạn tại $11$ bằng $22$, nên $x=11$ không là tiệm cận đứng; $u(11)$ vẫn không được xác định.”
+
+Ví dụ đã cho lời chữa, vì vậy không dùng việc chép lại lời chữa làm bằng chứng mới. Nhiệm vụ dưới đổi sang dữ kiện giới hạn có sẵn và giữ một giá trị riêng tại mốc.
+
+<a id="T06"></a>
+
+#### 6.2. Tự kiểm tra 06 — Có giá trị tại mốc vẫn cần xét lân cận
+
+Một hàm $g$ xác định trên $\mathbb R$, có $g(2)=5$ và $\lim_{x\to2^+}g(x)=+\infty$. Một bạn nói: “Điểm $(2;5)$ thuộc đồ thị, nên $x=2$ không thể là tiệm cận đứng.”
+
+Hãy giữ phần đúng, chỉ bước suy luận sai, viết lại toàn bộ câu và nêu điều chưa biết về giới hạn trái tại $2$.
+
+**Tiêu chí tự kiểm:** phân biệt giá trị tại mốc với giới hạn phải; dùng đúng điều kiện đủ của đường đứng; giữ dữ kiện đúng và không tự gán giới hạn trái.
+
+[Đối chiếu sau khi tự làm](#lg-T06). Nếu còn nhầm, xem lại [định nghĩa tiệm cận đứng](#bh-03); nếu thiếu cách đọc hướng, xem [Giới hạn một phía](#N-GH-02). Khi cần xác nhận sau sửa, tự làm ý b còn mới của [Nhiệm vụ 01 trong Sửa lỗi sau Luyện tập](#S-L01), rồi trở về đây. Ý a chỉ kiểm điểm bị loại sau rút gọn, không thay việc kiểm một giá trị được gán riêng tại mốc. Nếu ý b đã lộ hoặc còn sai sau hỗ trợ, [ghi mục tiêu chưa xác nhận](#het-bai-moi).
+
+#### 6.3. Ghi lại điều đã sửa
+
+Một dòng ghi lỗi có ích nêu: bước sai, điều kiện đã bỏ, cách sửa, câu mới đã tự làm và kết quả thực. Chẳng hạn với nhiệm vụ vừa làm, cần ghi rõ em có tách giá trị tại mốc khỏi giới hạn phải hay không; không chép sẵn “đã đạt”. Nếu chỉ làm đúng sau trợ giúp, giữ riêng kết quả ấy với bài ban đầu.
+
+Dùng [danh sách dấu hiệu và câu hỏi tự sửa](#doc-loi) để chọn đúng phần xem lại. Một câu mới làm đúng chỉ xác nhận mục tiêu mà câu ấy thực sự kiểm. Hẹn Ôn lại toàn gói khi hoàn tất lượt chính; nếu cần kiểm sớm riêng lỗi vừa sửa, ghi lịch riêng.
 
 ### Khép lại bài học
 
 Giới hạn vừa giúp xác định đường tiệm cận, vừa giúp giải thích điều đồ thị đang biểu diễn. Với điểm hữu hạn, hãy tách giá trị tại điểm khỏi hành vi ở lân cận. Ở vô cực, hãy xét riêng từng hướng. Với đường xiên, đừng dừng ở hệ số góc: phần chênh lệch phải tiến về $0$.
+
+Trước khi chuyển hoạt động, hãy tự nói lại:
+
+- Miền cho phép xét những hướng nào, và giới hạn khác giá trị tại điểm ra sao?
+- Vì sao một phía vô cực đủ cho đường đứng, còn một điểm bị loại thì chưa đủ?
+- Hai đầu cho mấy đường ngang khác nhau? Đường xiên được kiểm bằng hiệu nào?
+- Điều gì trong hình là dữ kiện, điều gì chỉ giúp hình dung?
+- Một giới hạn trong mô hình nói gì về mức tiến tới và việc đạt mức ấy?
+- Em đã sửa lí do và tự làm câu phù hợp còn mới, hay mới đọc hiểu đáp án?
+
+Ý nào chưa giải thích được thì trở lại đúng mục tương ứng. Các câu Tự kiểm tra giúp kiểm ngay sau học, chưa chứng nhận mọi mục tiêu hoặc khả năng nhớ sau nhiều ngày.
 
 Khi kết hợp với đơn điệu, cực trị và giá trị trên miền xét đã học ở các gói trước, em có thêm những dữ kiện để khảo sát và đọc đồ thị. Em có thể chuyển sang [Luyện tập](#luyen-tap), chọn [Kiểm tra](#kiem-tra) nếu đã chuẩn bị, hoặc ghi nơi cần tiếp tục trong [Nhật kí](#nhat-ki).
 
@@ -297,6 +552,13 @@ Khi kết hợp với đơn điệu, cực trị và giá trị trên miền xé
 ## Luyện tập
 
 Hãy tự làm trước khi mở lời giải. Khi vướng, xác định em chưa hiểu khái niệm hay chưa làm được thao tác nền, rồi chọn đúng đích hỗ trợ. Việc xem lại không bắt em phải học lại từ đầu. Giữ bài ban đầu để thấy phần nào đã tự làm được.
+
+| Chặng                     | Việc cần làm được                                               | Nhiệm vụ và nơi đối chiếu             |
+| ------------------------- | --------------------------------------------------------------- | ------------------------------------- |
+| Miền, hướng và ngang/đứng | Giữ miền; xét đúng phía; phân biệt đường ngang với đường đứng   | Nhiệm vụ 01–05; [Điểm dừng 01](#CP01) |
+| Phần dư, hình và mô hình  | Kiểm đường xiên; đọc đúng nhánh; giữ miền và đơn vị của mô hình | Nhiệm vụ 06–10; [Điểm dừng 02](#CP02) |
+
+Nếu chưa làm được thao tác nền, mở đúng thẻ Ôn nền và tự làm câu của thẻ trước khi trở về. Nếu biết kiến thức nhưng sai lập luận, giữ bài ban đầu, tìm bước sai rồi dùng câu Sửa lỗi được chỉ định khi còn mới. Một câu xác nhận phù hợp làm đúng với lí do đã đủ cho đúng lỗi ấy trong lượt; không mặc định phải tìm thêm bài thứ ba. Trên bản in có lời giải, tra đúng tên nhóm và số nhiệm vụ; trên màn hình dùng liên kết của câu đang làm.
 
 ### Chặng 1 — Miền, hướng và các đường ngang/đứng
 
@@ -356,11 +618,13 @@ Cho $\lim_{x\to+\infty}f(x)=7$ và $\lim_{x\to-\infty}f(x)=-2$. Viết các đư
 Đối chiếu [lời giải Luyện tập](#lg-luyen). Kiểm ba điều: em giữ miền ở nhiệm vụ 03–04; ghi đúng đường/hướng ở nhiệm vụ 01–02 và $05$; hiểu vì sao một phía đủ trong nhiệm vụ 04.
 
 - Nếu cả kết luận và lí do đều đúng, em có thể sang chặng 2 hoặc chọn hoạt động phù hợp khác.
-- Nếu nhầm điểm loại, gọi [Sửa lỗi sau Luyện tập 01](#S-L01).
-- Nếu nhầm dấu/phía, xem [nền giới hạn một phía](#N-GH-02), rồi dùng [Sửa lỗi sau Luyện tập 02](#S-L02) nếu câu còn mới.
-- Nếu bỏ sót đầu trái, xem lại mục 2 và dùng [Sửa lỗi sau Luyện tập 03(a)](#S-L03).
+- Nếu nhầm điểm loại, gọi [Nhiệm vụ 01 của Sửa lỗi sau Luyện tập](#S-L01).
+- Nếu nhầm dấu/phía, xem [nền giới hạn một phía](#N-GH-02), rồi dùng [Nhiệm vụ 02 của Sửa lỗi sau Luyện tập](#S-L02) nếu câu còn mới.
+- Nếu bỏ sót đầu trái, xem lại mục 2 và dùng [Nhiệm vụ 03(a) của Sửa lỗi sau Luyện tập](#S-L03).
 
 Sau hỗ trợ, trở lại Điểm dừng này và kiểm đúng tiêu chí còn thiếu. Bài đã xem lời giải vẫn dùng để học, nhưng không tính là bằng chứng độc lập mới. Không cần vào tất cả nhánh khi đã đạt.
+
+Nếu còn vướng miền hoặc giới hạn một phía, chưa ghi đã đạt phần ấy. Em vẫn có thể làm phần độc lập mà mình đủ nền; phần cần thao tác đang thiếu phải được học lại trước khi kết luận đã làm chủ. Khi câu xác nhận phù hợp đã lộ hoặc còn sai, dùng [quy tắc khi hết câu mới](#het-bai-moi); không lấy đề Kiểm tra hoặc Ôn lại để luyện trước.
 
 ### Chặng 2 — Phần dư, hình đồ thị và mô hình
 
@@ -432,20 +696,20 @@ c) Một bạn dùng mẫu $t+2$ để gọi $t=-2$ là tiệm cận đứng c�
 
 Đối chiếu nhiệm vụ 06–10. Em cần kiểm phần dư ở $06$–$07$, hiểu giao điểm trong $08$, nối đúng cả ba hành vi ở $09$ và giữ miền/đơn vị trong $10$.
 
-- Thiếu phần dư hoặc hệ số tự do: [Biến đổi phân thức](#N-DS-01), rồi [Sửa lỗi sau Luyện tập 04(a)](#S-L04).
-- Cho rằng đồ thị không được cắt tiệm cận: xem lại định nghĩa, rồi [Sửa lỗi sau Luyện tập 03(b)](#S-L03).
-- Diễn giải vượt miền hoặc nhầm mức đạt được: mục 5, rồi [Sửa lỗi sau Luyện tập 04(b)](#S-L04).
-- Nếu chỉ nhầm cách đọc hình ở nhiệm vụ 09, trở lại các dữ kiện giới hạn, chỉ từng nhánh rồi tự giải thích; nếu đã xem lời giải, kết quả làm lại không trở thành bài mới. Phần đọc hình ở Kiểm tra sẽ cho dữ kiện khác.
+- Thiếu phần dư hoặc hệ số tự do: [Biến đổi phân thức](#N-DS-01), rồi [Nhiệm vụ 04(a) của Sửa lỗi sau Luyện tập](#S-L04).
+- Cho rằng đồ thị không được cắt tiệm cận: xem lại định nghĩa, rồi [Nhiệm vụ 03(b) của Sửa lỗi sau Luyện tập](#S-L03).
+- Diễn giải vượt miền hoặc nhầm mức đạt được: mục 5, rồi [Nhiệm vụ 04(b) của Sửa lỗi sau Luyện tập](#S-L04).
+- Nếu nhầm cách đọc hình ở nhiệm vụ 09, xem lại cách nối dữ kiện với từng nhánh ở mục 5. Khi cần tự kiểm lại bằng hình khác, dùng [Nhiệm vụ 05 của Sửa lỗi sau Luyện tập](#S-L05) nếu còn mới, rồi trở về Điểm dừng này. Không dùng một câu ở nhiều nơi như thể đó là nhiều lần xác nhận khác nhau.
 
-Khi đủ tiêu chí, em có thể làm Kiểm tra hoặc chọn nhánh tự chọn dưới đây. Không bắt làm hai nhánh thêm để được vào Kiểm tra.
+Khi đã chuẩn bị kĩ hoặc đủ tự tin, em có thể làm Kiểm tra hoặc chọn nhánh tự chọn dưới đây. Quyền bắt đầu không có nghĩa các mục tiêu còn vướng đã đạt. Nếu chưa có câu mới phù hợp hoặc còn sai, ghi rõ mục tiêu chưa xác nhận và xem lại đúng phần; chỉ dùng kết quả của phần đã tự làm được. Không bắt làm hai nhánh thêm để được vào Kiểm tra.
 
 ### Phối hợp — lựa chọn thêm
 
 <a id="P01"></a>
 
-#### Nhiệm vụ 01 — Phối hợp — tiệm cận và giá trị không đạt
+#### Nhiệm vụ 01 — Tiệm cận và giá trị không đạt
 
-Chọn bài này nếu em đã học giá trị lớn nhất/nhỏ nhất ở G02 hoặc có nền tương ứng. Với $C(x)=2+\frac{6}{x+1}$ trên $x\ge 0$, hãy tìm GTLN, GTNN nếu có và giải thích quan hệ với tiệm cận ngang.
+Chọn bài này nếu em đã học giá trị lớn nhất và nhỏ nhất hoặc có nền tương ứng. Với $C(x)=2+\frac{6}{x+1}$ trên $x\ge 0$, hãy tìm GTLN, GTNN nếu có và giải thích quan hệ với tiệm cận ngang.
 
 [Đối chiếu sau khi tự làm](#lg-P01). Nếu cần, [xem lại đúng phần đang vướng](#bh-05), rồi trở lại nhiệm vụ này.
 
@@ -453,7 +717,7 @@ Chọn bài này nếu em đã học giá trị lớn nhất/nhỏ nhất ở G0
 
 <a id="P02"></a>
 
-#### Nhiệm vụ 01 — Chuyển giao — hai đường xiên khác nhau
+#### Nhiệm vụ 01 — Hai đường xiên khác nhau
 
 Chọn bài này nếu em đọc được giới hạn căn và $\sqrt{x^2}=|x|$ ở phần nền. Với $f(x)=\sqrt{x^2+9}$, hãy kiểm $y=x$ ở $+\infty$ và $y=-x$ ở $-\infty$ bằng cách nhân liên hợp. Có được lấy một đường làm đáp án cho cả hai đầu không?
 
@@ -463,13 +727,17 @@ Chọn bài này nếu em đọc được giới hạn căn và $\sqrt{x^2}=|x|$
 
 ## Kiểm tra
 
+**Thời gian đề xuất: $40$ phút. Tổng điểm: $20$.** Thời gian là gợi ý cho lượt đầu và cần điều chỉnh sau sử dụng; thang điểm giúp phân tích bài làm, không mô phỏng thang điểm thi tốt nghiệp.
+
 Em có thể bắt đầu nếu đã chuẩn bị kĩ hoặc đủ tự tin. Trong lượt này, tự làm cả năm nhiệm vụ, không mở Bài học, Ôn nền, Sửa lỗi hoặc Lời giải để trợ giúp. **Một lượt không chia thành nhiều đợt/buổi rồi ghép thành cùng một kết quả độc lập.** Nếu cần nhận trợ giúp, hãy kết thúc lượt, giữ bài làm ban đầu; phần làm sau hỗ trợ được ghi riêng.
 
-Ghi miền, hướng giới hạn và lí do, không chỉ đáp án. Để khảo sát khả năng của mình, ghi thời gian thực đã dùng; bản thảo này chưa quy định một thời lượng chuẩn. Đây là kiểm tra mục tiêu của gói, không phải đề mô phỏng thi quốc gia.
+Ghi miền, hướng giới hạn và lí do, không chỉ đáp án. Chuẩn bị giấy và đồng hồ; ghi thời điểm bắt đầu, kết thúc và phần chưa làm được. Nếu dùng thời gian khác đề xuất, ghi đúng thời gian thực. Chỉ mở hướng dẫn chấm sau khi kết thúc lượt; giữ bài ban đầu trước khi sửa. Đây là kiểm tra mục tiêu của gói, không phải đề mô phỏng thi quốc gia.
 
 <a id="K01"></a>
 
 #### Nhiệm vụ 01 — Hai hàm ở cùng một mốc
+
+**$4$ điểm.**
 
 Cho $p(x)=\frac{x^2-16}{x-4}$ và $q(x)=\frac{3}{(x-4)^2}$, mỗi hàm lấy tập xác định tự nhiên.
 
@@ -482,6 +750,8 @@ c) Với mỗi đồ thị, $x=4$ có là tiệm cận đứng không? Giải th
 <a id="K02"></a>
 
 #### Nhiệm vụ 02 — Đọc hai đầu và một mốc hữu hạn
+
+**$4$ điểm.**
 
 Một hàm $f$ xác định trên $\mathbb R\setminus\{-1\}$, liên tục trên từng khoảng của miền, có hình dưới đây. Các dữ kiện đi kèm là
 
@@ -502,19 +772,45 @@ c) Giới hạn trái hữu hạn tại $-1$ có làm mất tiệm cận đứng
 
 #### Nhiệm vụ 03 — Đường xiên cần đủ hai hệ số
 
-Tìm tiệm cận đứng và xiên của $f(x)=\frac{2x^2+3x+8}{x+1}$. Một lời giải khác chọn $y=2x$. Hãy dùng giới hạn để kiểm lời giải ấy.
+**$5$ điểm.**
+
+Cho $f(x)=\frac{2x^2+3x+8}{x+1}$ trên miền tự nhiên.
+
+a) Ghi miền và tách phân thức thành phần bậc nhất cộng phần dư trên mẫu.
+
+b) Tìm tiệm cận xiên, kiểm giới hạn hiệu ở hai đầu.
+
+c) Một bạn chọn $y=2x$. Dùng giới hạn để kiểm đường ấy.
+
+d) Tìm tiệm cận đứng bằng giới hạn một phía.
 
 <a id="K04"></a>
 
 #### Nhiệm vụ 04 — Một phản ví dụ cần hai điều
 
-Với $g(x)=-2+\frac{x+3}{x^2+4}$, hãy kiểm nhận định “Nếu đồ thị cắt $y=-2$ thì $y=-2$ không thể là tiệm cận ngang”. Câu trả lời cần chứng minh cả hành vi ở vô cực và giao điểm.
+**$3$ điểm.**
+
+Với $g(x)=-2+\frac{x+3}{x^2+4}$, xét nhận định “Nếu đồ thị cắt $y=-2$ thì $y=-2$ không thể là tiệm cận ngang”.
+
+a) Tính giới hạn ở hai đầu và kết luận tiệm cận ngang.
+
+b) Tìm giao điểm của đồ thị với đường ấy, kiểm điểm thuộc miền.
+
+c) Đánh giá nhận định và giải thích quan hệ giữa hai kết quả.
 
 <a id="K05"></a>
 
 #### Nhiệm vụ 05 — Giới hạn của mô hình
 
-Một mô hình giả định mô tả nồng độ sau $t$ phút: $A(t)=9+\frac{20}{t+4}$ ($\mathrm{mg}\,\mathrm{L}^{-1}$), $t\ge 0$. Hãy nêu đường tiệm cận ngang và ý nghĩa; kiểm xem mức $9$ $\mathrm{mg}\,\mathrm{L}^{-1}$ có được đạt ở thời điểm hữu hạn không; kiểm việc gọi $t=-4$ là tiệm cận đứng của đồ thị mô hình.
+**$4$ điểm.**
+
+Một mô hình giả định mô tả nồng độ sau $t$ phút: $A(t)=9+\frac{20}{t+4}$ ($\mathrm{mg}\,\mathrm{L}^{-1}$), $t\ge0$.
+
+a) Nêu đường tiệm cận ngang và diễn giải giới hạn với đúng đơn vị.
+
+b) Kiểm xem mức $9\,\mathrm{mg}\,\mathrm{L}^{-1}$ có được đạt ở thời điểm hữu hạn không.
+
+c) Kiểm việc gọi $t=-4$ là tiệm cận đứng của đồ thị trên miền mô hình.
 
 <a id="CPK"></a>
 
@@ -522,18 +818,19 @@ Một mô hình giả định mô tả nồng độ sau $t$ phút: $A(t)=9+\frac
 
 Giữ bài ban đầu rồi mới mở [Lời giải Kiểm tra](#lg-kiem-tra). Đối chiếu theo từng khả năng:
 
-| Khả năng cần xác nhận                         | Nơi đọc bằng chứng |
-| --------------------------------------------- | ------------------ |
-| Giữ miền, phân biệt giới hạn và giá trị       | Nhiệm vụ 01        |
-| Xét ngang theo từng đầu                       | Nhiệm vụ 02        |
-| Dùng đúng điều kiện đứng và dấu/phía          | Nhiệm vụ 01–03     |
-| Tìm đủ đường xiên và kiểm hiệu                | Nhiệm vụ 03        |
-| Nối hình/dữ kiện; phản biện việc cắt tiệm cận | Nhiệm vụ 02 và $04$  |
-| Diễn giải mô hình đúng miền, đơn vị           | Nhiệm vụ 05        |
+| Khả năng cần xác nhận                   | Bằng chứng cần xem                  | Biểu hiện cần có                                                                            |
+| --------------------------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------- |
+| Giữ miền; phân biệt giới hạn và giá trị | Nhiệm vụ 01(a), 01(c), 03(a), 05(c) | Giữ điểm loại sau rút gọn; không gán giới hạn làm giá trị; không mở rộng miền mô hình       |
+| Xét ngang theo từng đầu                 | Nhiệm vụ 02(a), 04(a)               | Ghi đúng phương trình và hướng; phân biệt hai đường khác nhau với một đường ở hai đầu       |
+| Điều kiện đứng, dấu và phía             | Nhiệm vụ 01(b–c), 02(c), 03(d)      | Có ít nhất một giới hạn vô cực hợp lệ; giữ đúng dấu và không đòi cả hai phía                |
+| Tìm đường xiên và kiểm hiệu             | Nhiệm vụ 03(a–c)                    | Phần bậc nhất có đủ hai hệ số; hiệu tiến về $0$ ở hướng đã ghi; bác đường sai bằng giới hạn |
+| Nối dữ kiện với hình                    | Nhiệm vụ 02(b), đọc cùng 02(a–c)    | Chỉ đúng từng nhánh, mốc và hướng; chỉ ghi đúng phương trình chưa đủ                        |
+| Phản biện việc cắt tiệm cận             | Nhiệm vụ 04(a–c)                    | Có giới hạn, giao điểm hợp lệ và lời giải thích vì sao cùng đúng                            |
+| Diễn giải mô hình                       | Nhiệm vụ 05(a–c)                    | Đúng mức, đơn vị, sự đạt được và miền; không dùng mốc ngoài miền                            |
 
 Ghi “tự làm đúng”, “còn thiếu lí do”, “sai/chưa làm được” hoặc “đã nhận hỗ trợ” theo bài thực. Nếu sai, dùng bảng [Chọn bài sửa lỗi](#chon-sua-loi), giữ riêng kết quả ban đầu và kết quả sau sửa. Không lấy tổng số câu đúng che một mục tiêu thiết yếu còn vướng.
 
-Hoàn tất lượt chính khi các mục tiêu thiết yếu đều có bằng chứng độc lập phù hợp và lỗi chặn đã được xác nhận lại bằng câu còn mới. Nếu riêng việc đọc hình chưa đủ bằng chứng và hình K02 đã lộ, ghi phần đó chưa xác nhận; không xem câu chỉ tính công thức là thay thế đầy đủ. Khi chưa có hình mới phù hợp, xem hướng xử lí [hết bài mới](#het-bai-moi).
+Hoàn tất lượt chính khi em tự làm được theo các mục tiêu thiết yếu và các lỗi cản trở việc học tiếp đã được kiểm lại bằng câu còn mới. Nếu còn nhầm cách đọc hình ở Nhiệm vụ 02 của Kiểm tra, dùng [Nhiệm vụ 09 của Sửa lỗi sau Kiểm tra](#S-K04) khi chưa xem đáp án; chỉ đúng nhánh và giải thích từng giới hạn rồi trở về điểm này. Nếu câu ấy đã lộ, làm theo hướng dẫn [khi hết bài mới](#het-bai-moi). Câu chỉ tính từ công thức không thay cho phần đọc hình.
 
 Khi hoàn tất lượt chính, hẹn Ôn lại. Em có thể tiếp tục học phần khác phù hợp tiên quyết trong lúc chờ ngày ôn; không bắt chờ xong tất cả lượt ôn mới được học tiếp.
 
@@ -541,9 +838,17 @@ Khi hoàn tất lượt chính, hẹn Ôn lại. Em có thể tiếp tục học
 
 ## Ôn lại
 
-Gợi ý lịch tính từ ngày hoàn tất lượt chính: lượt 1 sau $2$–$3$ ngày; lượt 2 khoảng $7$ ngày; lượt 3 khoảng $3$–$4$ tuần. Ghi ngày thực. Nếu một mục tiêu vừa phải sửa, hẹn kiểm gần hơn cho riêng mục tiêu ấy và giữ lịch sử cũ. Khi sát kì thi, chỉ kết luận về khoảng trễ đã thực sự quan sát.
+Gợi ý lịch tính từ ngày hoàn tất lượt chính: lượt 1 sau $2$–$3$ ngày; lượt 2 khoảng $7$ ngày; lượt 3 khoảng $3$–$4$ tuần. Ghi ngày thực. Nếu vừa sửa lại một mục tiêu, hẹn kiểm gần hơn cho riêng mục tiêu ấy và giữ lịch sử cũ. Khi sát kì thi, chỉ kết luận về khoảng trễ đã thực sự quan sát.
 
-Tự làm trước, giữ kết quả rồi đối chiếu. Nếu cần trợ giúp, ghi riêng phần sau hỗ trợ. Mỗi lượt chỉ lấy mẫu những khả năng nêu bên dưới; đủ ba lượt không tự chứng nhận mọi tình huống của chủ đề.
+Tự làm trước, giữ kết quả rồi đối chiếu. Nếu cần trợ giúp, ghi riêng phần sau hỗ trợ. Mỗi lượt chỉ ôn và kiểm lại những khả năng nêu bên dưới; đủ ba lượt không tự chứng nhận mọi tình huống của chủ đề.
+
+| Ngày hẹn tính từ ngày hoàn tất lượt chính | Nhiệm vụ cần tự làm              | Điểm dừng         |
+| ----------------------------------------- | -------------------------------- | ----------------- |
+| Sau khoảng $2$–$3$ ngày                   | [Nhớ lại miền và giới hạn](#O01) | [Lượt 1](#CP-O01) |
+| Sau khoảng $7$ ngày                       | [Phần dư và giao điểm](#O02)     | [Lượt 2](#CP-O02) |
+| Sau khoảng $3$–$4$ tuần                   | [Chọn điều cần kiểm](#O03)       | [Lượt 3](#CP-O03) |
+
+Ghi ngày gốc và các ngày hẹn vào Nhật kí. Đóng phần Bài học và Lời giải khi tự nhớ và làm; chỉ mở trợ giúp sau khi giữ bài ban đầu. Không làm trước nhiệm vụ của lượt sau để lấp chỗ thiếu ở lượt hiện tại. Lần kiểm riêng một lỗi không thay ngày gốc hoặc toàn bộ lượt Ôn lại.
 
 ### Lượt 1
 
@@ -551,13 +856,21 @@ Tự làm trước, giữ kết quả rồi đối chiếu. Nếu cần trợ gi
 
 #### Nhiệm vụ 01 — Nhớ lại miền và giới hạn
 
+**Thời điểm:** sau khoảng $2$–$3$ ngày. **Mục tiêu:** phân biệt miền, giới hạn tại mốc và đường ngang ở hai đầu. **Lỗi cần quan sát:** gọi điểm loại là đường đứng; bỏ dấu/phía; chỉ xét một đầu. Sau bài, về [Điểm dừng lượt 1](#CP-O01).
+
 a) Xét riêng mốc $5$ đối với $u(x)=\frac{x^2-25}{x-5}$ và $v(x)=\frac{2}{x-5}$ trên các miền tự nhiên. Viết giới hạn tại mốc, kết luận về tiệm cận đứng và giữ đúng giá trị có/không xác định.
 
 b) Tìm tiệm cận ngang của $w(x)=\frac{7x-4}{2x+1}$. Ghi hướng đã kiểm.
 
 [Đối chiếu sau khi tự làm](#lg-O01).
 
-Lượt này lấy mẫu miền, ngang và đứng. Nếu vướng, chọn đúng ý ở [Sửa lỗi sau Ôn lại 01](#S-O01), rồi trở lại lượt 1.
+<a id="CP-O01"></a>
+
+#### Điểm dừng
+
+Kiểm lại hai việc: em phân biệt giới hạn hữu hạn với vô cực tại cùng mốc; em viết đúng đường ngang theo hai hướng. Nếu sai ý về miền hoặc dấu, chọn đúng ý ở [Nhiệm vụ 10 của Sửa lỗi sau Ôn lại](#S-O01); nếu sai giới hạn phân thức ở vô cực, xem [Giới hạn ở vô cực](#N-GH-03) rồi dùng một câu hai đầu còn mới trong [bảng chọn sửa lỗi](#chon-sua-loi).
+
+Sau hỗ trợ, trở về điểm này và ghi phần tự làm trước trợ giúp riêng với phần đã sửa. Nếu đã giải thích đúng, giữ lịch lượt tiếp theo; lượt này chưa kiểm đường xiên, đọc hình hoặc mô hình.
 
 ### Lượt 2
 
@@ -565,19 +878,29 @@ Lượt này lấy mẫu miền, ngang và đứng. Nếu vướng, chọn đún
 
 #### Nhiệm vụ 02 — Phần dư và giao điểm
 
+**Thời điểm:** sau khoảng $7$ ngày. **Mục tiêu:** kiểm đường đứng, đường xiên và lập luận về giao điểm. **Lỗi cần quan sát:** chia sai, thiếu hằng số; không kiểm hiệu; coi giao điểm là mâu thuẫn. Sau bài, về [Điểm dừng lượt 2](#CP-O02).
+
 a) Tìm tiệm cận đứng, xiên của $f(x)=\frac{x^2-3x+8}{x-2}$; viết bước kiểm phần dư.
 
 b) Cho $g(x)=1+\frac{x-2}{x^2+9}$. Xác định tiệm cận ngang và giao điểm với đường ấy. Dùng kết quả để trả lời: cắt một tiệm cận có trái định nghĩa không?
 
 [Đối chiếu sau khi tự làm](#lg-O02).
 
-Lượt này lấy mẫu đứng, xiên và phản ví dụ về giao điểm. Nếu vướng phần xiên hoặc giao điểm, dùng đúng ý ở [Sửa lỗi sau Ôn lại 02](#S-O02); sai dấu/phía dùng [nhiệm vụ 01(b)](#S-O01), rồi trở lại lượt 2.
+<a id="CP-O02"></a>
+
+#### Điểm dừng
+
+Em cần có phần dư đúng, giới hạn hiệu bằng $0$, dấu hai phía tại điểm loại và lập luận về giao điểm. Sai phần xiên hoặc giao điểm thì chọn đúng ý ở [Nhiệm vụ 11 của Sửa lỗi sau Ôn lại](#S-O02); sai dấu/phía thì dùng [Nhiệm vụ 10(b) của Sửa lỗi sau Ôn lại](#S-O01), nếu các ý còn mới.
+
+Quay về điểm này sau khi đối chiếu, ghi kết quả đúng phần đã tự làm được rồi giữ lịch lượt sau. Lượt này chưa kiểm cách diễn giải mô hình.
 
 ### Lượt 3
 
 <a id="O03"></a>
 
 #### Nhiệm vụ 03 — Chọn điều cần kiểm
+
+**Thời điểm:** sau khoảng $3$–$4$ tuần. **Mục tiêu:** phối hợp miền, hướng, đường ngang/xiên và mô hình theo các ý dưới. **Lỗi cần quan sát:** đoán từ mẫu; bỏ một đầu; bỏ miền hoặc đơn vị. Sau bài, về [Điểm dừng lượt 3](#CP-O03).
 
 a) Với $u(x)=\frac{x^2-36}{x-6}$ trên miền tự nhiên, xét nhận định $x=6$ là tiệm cận đứng.
 
@@ -589,7 +912,13 @@ d) Trong mô hình giả định $B(t)=4+\frac{15}{t+3}$ ($\mathrm{mg}\,\mathrm{
 
 [Đối chiếu sau khi tự làm](#lg-O03).
 
-Lượt này lấy mẫu miền, hai đầu, đường xiên và mô hình. Nó chưa thay phép kiểm giới hạn vô cực tại điểm nếu kĩ năng ấy còn vướng. Chọn đúng ý ở [Sửa lỗi sau Ôn lại](#sua-sau-on), rồi trở lại lượt 3.
+<a id="CP-O03"></a>
+
+#### Điểm dừng
+
+Đối chiếu riêng bốn ý: miền và giới hạn tại điểm loại; đường ngang gắn đúng đầu; phần dư của đường xiên; miền và đơn vị trong mô hình. Chọn đúng ý còn mới ở [Sửa lỗi sau Ôn lại](#sua-sau-on) nếu cần, rồi trở về điểm này.
+
+Ghi ngày thực và phần làm được sau khoảng trễ. Việc nhớ được bốn ý này chưa thay một lần tự đọc hình mới hoặc kiểm giới hạn vô cực tại mốc hữu hạn. Nếu còn vướng các phần ấy, hẹn kiểm riêng bằng câu phù hợp; không nhận cả chủ đề chỉ vì đã làm đủ ba lượt.
 
 <a id="on-nen"></a>
 
@@ -597,11 +926,11 @@ Lượt này lấy mẫu miền, hai đầu, đường xiên và mô hình. Nó 
 
 Chọn đúng thao tác đang vướng. Mỗi phần có một ví dụ để học và một câu tự làm khác ví dụ. Hãy nhớ câu đang gọi hỗ trợ; sau đối chiếu, trở về đúng câu ấy. Làm được câu nền chỉ xác nhận thao tác nền, không tự xác nhận toàn bộ mục tiêu của bài gốc.
 
-| Em đang vướng                               | Phần nên đọc                   |
-| ------------------------------------------- | ------------------------------ |
-| Không rõ $x\to a^{-}$, $x\to a^{+}$; nhầm dấu vô cực        | [Giới hạn một phía](#N-GH-02)  |
-| Không biết xử lí $x\to \pm \infty$ hoặc bỏ sót một đầu   | [Giới hạn ở vô cực](#N-GH-03)  |
-| Rút gọn làm mất điểm loại; chia đa thức sai | [Biến đổi phân thức](#N-DS-01) |
+| Em đang vướng                                          | Phần nên đọc                   |
+| ------------------------------------------------------ | ------------------------------ |
+| Không rõ $x\to a^{-}$, $x\to a^{+}$; nhầm dấu vô cực   | [Giới hạn một phía](#N-GH-02)  |
+| Không biết xử lí $x\to \pm \infty$ hoặc bỏ sót một đầu | [Giới hạn ở vô cực](#N-GH-03)  |
+| Rút gọn làm mất điểm loại; chia đa thức sai            | [Biến đổi phân thức](#N-DS-01) |
 
 Nếu cần ôn rộng hơn, có thể đọc tài nguyên chung [Tập xác định và điều kiện áp dụng](../../../_dung_chung/nen/N-TXĐ-01.qmd), [Xét dấu biểu thức có nhân tử](../../../_dung_chung/nen/N-DẤU-01.qmd) và [Cận và giá trị được đạt](../../../_dung_chung/nen/N-GH-01.qmd). Câu đã gặp ở gói trước không trở thành câu xác nhận mới chỉ vì được dẫn lại ở đây.
 
@@ -721,14 +1050,21 @@ Giữ bài ban đầu và chỉ ra bước chưa đúng trước khi chọn câu
 
 ### Chọn bài theo dấu hiệu
 
-| Dấu hiệu cần sửa                        | Sau Luyện tập            | Sau Kiểm tra             | Sau Ôn lại               |
-| --------------------------------------- | ------------------------ | ------------------------ | ------------------------ |
-| Điểm bị loại hoặc giá trị bị nhầm       | [Nhiệm vụ 01](#S-L01)    | [Nhiệm vụ 01(a)](#S-K01) | [Nhiệm vụ 01(a)](#S-O01) |
-| Dấu hoặc phía giới hạn bị nhầm          | [Nhiệm vụ 02](#S-L02)    | [Nhiệm vụ 01(b)](#S-K01) | [Nhiệm vụ 01(b)](#S-O01) |
-| Bỏ sót một đầu vô cực                   | [Nhiệm vụ 03(a)](#S-L03) | [Nhiệm vụ 02(a)](#S-K02) | [Nhiệm vụ 01(c)](#S-O01) |
-| Phần tuyến tính/phần dư chưa đúng       | [Nhiệm vụ 04(a)](#S-L04) | [Nhiệm vụ 03(a)](#S-K03) | [Nhiệm vụ 02(a)](#S-O02) |
-| Cho rằng đồ thị không được cắt tiệm cận | [Nhiệm vụ 03(b)](#S-L03) | [Nhiệm vụ 02(b)](#S-K02) | [Nhiệm vụ 02(b)](#S-O02) |
-| Nhầm mức tiến tới hoặc bỏ miền mô hình  | [Nhiệm vụ 04(b)](#S-L04) | [Nhiệm vụ 03(b)](#S-K03) | [Nhiệm vụ 02(c)](#S-O02) |
+| Dấu hiệu cần sửa                                     | Sau Luyện tập                                                 | Sau Kiểm tra                                                         | Sau Ôn lại                                                     |
+| ---------------------------------------------------- | ------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------- |
+| Điểm bị loại hoặc giá trị bị nhầm                    | [Nhiệm vụ 01 – Giá trị tại mốc và hành vi lân cận](#S-L01)    | [Nhiệm vụ 06 – Phân biệt hữu hạn và vô cực (ý a)](#S-K01)            | [Nhiệm vụ 10 – Ôn lại miền, phía và hai đầu (ý a)](#S-O01)     |
+| Dấu hoặc phía giới hạn bị nhầm                       | [Nhiệm vụ 02 – Dấu ở hai phía](#S-L02)                        | [Nhiệm vụ 06 – Phân biệt hữu hạn và vô cực (ý b)](#S-K01)            | [Nhiệm vụ 10 – Ôn lại miền, phía và hai đầu (ý b)](#S-O01)     |
+| Bỏ sót một đầu vô cực                                | [Nhiệm vụ 03 – Hai đầu và một giao điểm (ý a)](#S-L03)        | [Nhiệm vụ 07 – Không nhầm giới hạn với giao điểm (ý a)](#S-K02)      | [Nhiệm vụ 10 – Ôn lại miền, phía và hai đầu (ý c)](#S-O01)     |
+| Phần tuyến tính/phần dư chưa đúng                    | [Nhiệm vụ 04 – Giữ hằng số và giữ miền mô hình (ý a)](#S-L04) | [Nhiệm vụ 08 – Xác nhận đường xiên và ý nghĩa mô hình (ý a)](#S-K03) | [Nhiệm vụ 11 – Ôn lại phần dư và cách diễn giải (ý a)](#S-O02) |
+| Cho rằng đồ thị không được cắt tiệm cận              | [Nhiệm vụ 03 – Hai đầu và một giao điểm (ý b)](#S-L03)        | [Nhiệm vụ 07 – Không nhầm giới hạn với giao điểm (ý b)](#S-K02)      | [Nhiệm vụ 11 – Ôn lại phần dư và cách diễn giải (ý b)](#S-O02) |
+| Nhầm mức tiến tới hoặc bỏ miền mô hình               | [Nhiệm vụ 04 – Giữ hằng số và giữ miền mô hình (ý b)](#S-L04) | [Nhiệm vụ 08 – Xác nhận đường xiên và ý nghĩa mô hình (ý b)](#S-K03) | [Nhiệm vụ 11 – Ôn lại phần dư và cách diễn giải (ý c)](#S-O02) |
+| Đọc nhầm nhánh, điểm hở/kín hoặc phía tạo đường đứng | [Nhiệm vụ 05 – Đường đứng và đường xiên từ hai nhánh](#S-L05) | [Nhiệm vụ 09 – Điểm hở và nhánh bên kia](#S-K04)                     | [Nhiệm vụ 12 – Điểm kín và hai nhánh khác nhau](#S-O03)        |
+
+Riêng lỗi dùng một giá trị được gán tại mốc để bác tiệm cận đứng, trong Bài học hoặc Luyện tập hãy tự làm ý b còn mới của [Nhiệm vụ 01 – Giá trị tại mốc và hành vi lân cận](#S-L01). Nếu lỗi được phát hiện sau Kiểm tra, vẫn có thể dùng ý ấy khi thực sự chưa lộ vì nó thuộc nhóm trước; nếu đã lộ thì ghi chưa xác nhận. Sau Ôn lại, dùng ý b còn mới của [Nhiệm vụ 12 – Điểm kín và hai nhánh khác nhau](#S-O03). Không lấy việc làm đúng câu về điểm bị loại thay cho tình huống giá trị đã được gán riêng.
+
+Các câu đọc hình của ba nhóm là ba nhiệm vụ riêng. Dùng đúng nhóm theo nơi phát hiện; không dùng sớm bài Kiểm tra, Ôn lại hoặc Sửa lỗi của giai đoạn sau để lấp chỗ thiếu. Một câu đã gặp không trở thành câu mới sau nhiều ngày. Nếu câu của nhóm phù hợp đã lộ hoặc còn sai, dùng [hướng dẫn khi hết câu mới](#het-bai-moi).
+
+<a id="doc-loi"></a>
 
 ### Đọc lỗi để biết cần xem lại gì
 
@@ -737,7 +1073,9 @@ Giữ bài ban đầu và chỉ ra bước chưa đúng trước khi chọn câu
 - **Hai đầu là hai câu hỏi.** Xem [mục 2](#bh-02); ghi tách $+\infty$ và $-\infty$. Chỉ xét hướng miền cho phép; trùng kết quả thì chỉ có một đường ngang.
 - **Thương chưa đủ nếu chia sai hoặc bỏ hằng số.** Nhân ngược ở [nền biến đổi](#N-DS-01), rồi kiểm hiệu với cả $ax+b$ theo [mục 4](#bh-04).
 - **Giao điểm hữu hạn không bác giới hạn ở xa.** Xem lại định nghĩa ngang; phải kiểm giới hạn và giải phương trình giao điểm, không chỉ nhìn hình.
-- **Mô hình có miền riêng.** Xem [Ví dụ 06](#bh-05); chỉ xét mốc tiếp cận được trong miền, kiểm dấu phần dư trước khi nói một mức được đạt.
+- **Mô hình có miền riêng.** Xem [Ví dụ 07](#bh-05); chỉ xét mốc tiếp cận được trong miền, kiểm dấu phần dư trước khi nói một mức được đạt.
+
+Sau mỗi lỗi, tự hỏi: “Miền có cho phép hướng này không?”, “Giới hạn nào quyết định kết luận?”, “Mình đang giữ phần đúng nào?”, “Câu mới vừa làm thực sự xác nhận điều gì?”. Những câu hỏi ấy giúp dùng đúng giải thích phía trên.
 
 Nếu lỗi được phát hiện ngay trong Bài học, em cũng có thể dùng câu sửa phù hợp còn mới ở nhóm Sau Luyện tập và trở về câu Bài học đang vướng; không cần chờ làm Kiểm tra mới được sửa.
 
@@ -747,9 +1085,17 @@ Nếu lỗi được phát hiện ngay trong Bài học, em cũng có thể dùn
 
 <a id="S-L01"></a>
 
-#### Nhiệm vụ 01 — Giữ điểm bị loại
+#### Nhiệm vụ 01 — Giá trị tại mốc và hành vi lân cận
 
-Với $u(x)=\frac{x^2-49}{x-7}$, ghi miền, tính giới hạn tại $7$ và kiểm $x=7$ có là tiệm cận đứng không. Có thể gán $u(7)=14$ sau rút gọn không?
+**Dùng khi:** rút gọn làm mất điểm bị loại (ý a), hoặc dùng giá trị tại mốc để bác tiệm cận đứng (ý b).
+
+a) Với $u(x)=\frac{x^2-49}{x-7}$, ghi miền, tính giới hạn tại $7$ và kiểm $x=7$ có là tiệm cận đứng không. Có thể gán $u(7)=14$ sau rút gọn không?
+
+b) Hàm $v$ xác định trên $\mathbb R$, có $v(-1)=4$ và $\lim_{x\to-1^-}v(x)=-\infty$. Một bạn nói: “Điểm $(-1;4)$ thuộc đồ thị, nên $x=-1$ không thể là tiệm cận đứng.” Hãy giữ phần đúng, chỉ bước sai và viết lại kết luận có căn cứ. Dữ kiện có quyết định giới hạn phải tại $-1$ không?
+
+**Tiêu chí xác nhận:** ý a giữ miền và phân biệt giới hạn hữu hạn với giá trị tại điểm bị loại; ý b giữ điểm trên đồ thị, dùng giới hạn trái vô cực và không suy thêm về phía phải. Mỗi ý chỉ xác nhận tình huống mà ý ấy kiểm.
+
+**Sau đối chiếu:** nếu tự làm đúng với lí do, trở về [Điểm dừng 01](#CP01), [Điểm dừng 02](#CP02) hoặc câu Bài học đã gọi và chỉ ghi phần đã xác nhận. Nếu sai ý a, xem [Giới hạn và giá trị](#bh-01) hoặc [Biến đổi phân thức](#N-DS-01) tùy nguyên nhân; nếu sai ý b, xem [Tiệm cận đứng](#bh-03) hoặc [Giới hạn một phía](#N-GH-02); nếu câu phù hợp đã lộ hoặc còn sai sau hỗ trợ, [ghi phần chưa xác nhận](#het-bai-moi), rồi trở về nơi gọi.
 
 [Đối chiếu sau khi tự làm](#lg-S-L01).
 
@@ -757,7 +1103,13 @@ Với $u(x)=\frac{x^2-49}{x-7}$, ghi miền, tính giới hạn tại $7$ và ki
 
 #### Nhiệm vụ 02 — Dấu ở hai phía
 
+**Dùng khi:** nhầm dấu hoặc phía.
+
 Tính hai giới hạn một phía của $v(x)=-\frac{4}{x-6}$ tại $6$. Nêu tiệm cận đứng và giải thích dấu.
+
+**Tiêu chí xác nhận:** giải thích dấu tử/mẫu ở từng phía và dùng đúng định nghĩa đường đứng.
+
+**Sau đối chiếu:** nếu tự làm đúng với lí do, trở về [Điểm dừng 01](#CP01), [Điểm dừng 02](#CP02) hoặc câu Bài học đã gọi và chỉ ghi phần đã xác nhận. Nếu còn sai, [xem lại phần liên quan](#N-GH-02); nếu câu phù hợp đã lộ hoặc còn sai sau hỗ trợ, [ghi phần chưa xác nhận](#het-bai-moi), rồi trở về nơi gọi.
 
 [Đối chiếu sau khi tự làm](#lg-S-L02).
 
@@ -765,9 +1117,15 @@ Tính hai giới hạn một phía của $v(x)=-\frac{4}{x-6}$ tại $6$. Nêu t
 
 #### Nhiệm vụ 03 — Hai đầu và một giao điểm
 
+**Dùng khi:** bỏ một đầu hoặc cho rằng đồ thị không thể cắt tiệm cận.
+
 a) Biết giới hạn của $f$ bằng $-6$ ở $+\infty$ và $4$ ở $-\infty$. Ghi hai tiệm cận ngang theo hướng.
 
 b) Với $g(x)=2+\frac{x+1}{x^2+2}$, chứng minh một tiệm cận ngang và tìm giao điểm của đồ thị với nó.
+
+**Tiêu chí xác nhận:** ý a ghi đường theo từng đầu; ý b có giới hạn, giao điểm và lí do không mâu thuẫn.
+
+**Sau đối chiếu:** nếu tự làm đúng với lí do, trở về [Điểm dừng 01](#CP01), [Điểm dừng 02](#CP02) hoặc câu Bài học đã gọi và chỉ ghi phần đã xác nhận. Nếu còn sai, [xem lại phần liên quan](#bh-02); nếu câu phù hợp đã lộ hoặc còn sai sau hỗ trợ, [ghi phần chưa xác nhận](#het-bai-moi), rồi trở về nơi gọi.
 
 [Đối chiếu sau khi tự làm](#lg-S-L03).
 
@@ -775,11 +1133,41 @@ b) Với $g(x)=2+\frac{x+1}{x^2+2}$, chứng minh một tiệm cận ngang và t
 
 #### Nhiệm vụ 04 — Giữ hằng số và giữ miền mô hình
 
+**Dùng khi:** thiếu hệ số tự do hoặc bỏ miền mô hình.
+
 a) Tìm tiệm cận xiên của $f(x)=\frac{x^2+4x+9}{x+1}$, kiểm bằng giới hạn hiệu.
 
 b) Mô hình giả định $a(t)=8+\frac{10}{t+5}$ ( ${}^{\circ}\mathrm{C}$), $t\ge 0$ giờ: nêu mức tiến tới, việc đạt mức ấy và kiểm mốc $t=-5$.
 
+**Tiêu chí xác nhận:** ý a kiểm phép chia và giới hạn hiệu; ý b giữ miền, đơn vị và xét sự đạt được.
+
+**Sau đối chiếu:** nếu tự làm đúng với lí do, trở về [Điểm dừng 01](#CP01), [Điểm dừng 02](#CP02) hoặc câu Bài học đã gọi và chỉ ghi phần đã xác nhận. Nếu sai ý a, xem [Biến đổi phân thức](#N-DS-01) để kiểm phép chia và [Tiệm cận xiên](#bh-04) để kiểm hiệu; nếu sai ý b, xem [Miền và bối cảnh](#bh-05); nếu câu phù hợp đã lộ hoặc còn sai sau hỗ trợ, [ghi phần chưa xác nhận](#het-bai-moi), rồi trở về nơi gọi.
+
 [Đối chiếu sau khi tự làm](#lg-S-L04).
+
+<a id="S-L05"></a>
+
+#### Nhiệm vụ 05 — Đường đứng và đường xiên từ hai nhánh
+
+**Dùng khi:** đọc nhầm nhánh, hướng đường xiên hoặc dùng điểm hở để bác đường đứng.
+
+Hàm $f$ xác định trên $\mathbb R\setminus\{-2\}$, liên tục trên từng khoảng của miền. Hình đi kèm dữ kiện chính xác:
+
+$$\lim_{x\to-\infty}f(x)=3,\qquad\lim_{x\to-2^-}f(x)=-\infty,$$
+
+$$\lim_{x\to-2^+}f(x)=1,\qquad\lim_{x\to+\infty}[f(x)-(-x-2)]=0.$$
+
+![Nhánh trái đi xuống không bị chặn gần mốc; nhánh phải bắt đầu bằng điểm hở rồi đi xuống ở xa.](hinh/s_l05_doc_hinh.svg)
+
+a) Viết các tiệm cận suy ra từ dữ kiện; chỉ đúng nhánh và hướng trên hình. Ở đầu phải, nhánh tiến gần đường xiên đi lên hay đi xuống? Nêu giới hạn hiệu làm căn cứ.
+
+b) Một bạn dùng điểm hở $(-2;1)$ để bác tiệm cận đứng tại mốc. Chỉ ra bước sai; giới hạn phải hữu hạn có quyết định giới hạn trái không?
+
+**Tiêu chí xác nhận:** chỉ đúng đường ngang ở đầu trái, đường đứng từ phía trái và đường xiên đi xuống ở đầu phải; giữ giới hạn từng phía, kiểm giới hạn hiệu và không gán giá trị ở điểm hở. Nếu chỉ đọc đúng ngang/đứng, chưa xác nhận phần đọc hình xiên.
+
+**Sau đối chiếu:** nếu tự làm đúng với lí do, trở về [Điểm dừng 01](#CP01), [Điểm dừng 02](#CP02) hoặc câu Bài học đã gọi và chỉ ghi phần đã xác nhận. Nếu nhầm nhánh hoặc phía tạo đường đứng, xem [Tiệm cận đứng](#bh-03) và [Giới hạn một phía](#N-GH-02); nếu nhầm đường xiên, xem [Tiệm cận xiên](#bh-04); nếu câu phù hợp đã lộ hoặc còn sai sau hỗ trợ, [ghi phần chưa xác nhận](#het-bai-moi), rồi trở về nơi gọi.
+
+[Đối chiếu sau khi tự làm](#lg-S-L05).
 
 <a id="sua-sau-kiem"></a>
 
@@ -787,33 +1175,77 @@ b) Mô hình giả định $a(t)=8+\frac{10}{t+5}$ ( ${}^{\circ}\mathrm{C}$), $t
 
 <a id="S-K01"></a>
 
-#### Nhiệm vụ 01 — Phân biệt hữu hạn và vô cực
+#### Nhiệm vụ 06 — Phân biệt hữu hạn và vô cực
+
+**Dùng khi:** lẫn điểm bị loại, giới hạn hữu hạn và vô cực.
 
 a) Xét riêng mốc $8$ cho $p(x)=\frac{x^2-64}{x-8}$ trên miền tự nhiên; kết luận về giá trị tại điểm và đường đứng.
 
 b) Tính hai giới hạn của $q(x)=-\frac{3}{(x+2)^2}$ tại $-2$, rồi kết luận đường đứng.
 
+**Tiêu chí xác nhận:** xử lí riêng từng hàm; ý a giữ miền, ý b giải thích dấu mẫu bình phương.
+
+**Sau đối chiếu:** nếu tự làm đúng với lí do, trở về [Điểm dừng sau Kiểm tra](#CPK) và chỉ ghi phần đã xác nhận. Nếu sai ý a, xem [Giới hạn và giá trị](#bh-01); nếu sai ý b, xem [Giới hạn một phía](#N-GH-02) và [Tiệm cận đứng](#bh-03); nếu câu phù hợp đã lộ hoặc còn sai sau hỗ trợ, [ghi phần chưa xác nhận](#het-bai-moi), rồi trở về nơi gọi.
+
 [Đối chiếu sau khi tự làm](#lg-S-K01).
 
 <a id="S-K02"></a>
 
-#### Nhiệm vụ 02 — Không nhầm giới hạn với giao điểm
+#### Nhiệm vụ 07 — Không nhầm giới hạn với giao điểm
+
+**Dùng khi:** bỏ một đầu hoặc nhầm giao điểm với giới hạn ở xa.
 
 a) Biết giới hạn của $f$ bằng $6$ ở $+\infty$ và $-7$ ở $-\infty$. Ghi các đường ngang.
 
 b) Với $g(x)=-3+\frac{x-4}{x^2+5}$, kiểm $y=-3$ là tiệm cận ngang và tìm giao điểm của đồ thị với nó; giải thích vì sao hai kết quả cùng đúng.
 
+**Tiêu chí xác nhận:** xét đủ hai đầu ở ý a; có giới hạn và giao điểm hợp lệ ở ý b.
+
+**Sau đối chiếu:** nếu tự làm đúng với lí do, trở về [Điểm dừng sau Kiểm tra](#CPK) và chỉ ghi phần đã xác nhận. Nếu còn sai, [xem lại phần liên quan](#bh-02); nếu câu phù hợp đã lộ hoặc còn sai sau hỗ trợ, [ghi phần chưa xác nhận](#het-bai-moi), rồi trở về nơi gọi.
+
 [Đối chiếu sau khi tự làm](#lg-S-K02).
 
 <a id="S-K03"></a>
 
-#### Nhiệm vụ 03 — Xác nhận đường xiên và ý nghĩa mô hình
+#### Nhiệm vụ 08 — Xác nhận đường xiên và ý nghĩa mô hình
 
-a) Tìm tiệm cận xiên của $f(x)=\frac{2x^2-3x+6}{x-1}$, nêu phép kiểm hiệu.
+**Dùng khi:** chọn sai phần tuyến tính hoặc ngoại suy vượt miền.
 
-b) Mô hình giả định $b(t)=7+\frac{14}{t+6}$ ($\mathrm{mg}\,\mathrm{L}^{-1}$), $t\ge 0$ phút: nêu mức tiến tới, có đạt không và có dùng được mốc $-6$ làm tiệm cận đứng không.
+a) Tìm tiệm cận xiên của $f(x)=\frac{2x^2-3x+6}{x-1}$; kiểm bằng giới hạn của hiệu.
+
+b) Một mô hình giả định $b(t)=7+\frac{14}{t+6}$, với $b$ tính bằng $\mathrm{mg}\,\mathrm L^{-1}$, chỉ được cho trong $30$ phút đầu: $0\le t\le30$. Một bạn kết luận “đồ thị mô hình có tiệm cận ngang $b=7$ khi $t\to+\infty$”. Kết luận ấy có theo được từ miền đã cho không? Nếu bổ sung giả thiết dùng cùng công thức cho mọi $t\ge0$, hãy nêu mức tiến tới và kiểm việc đạt mức ấy trong mô hình mở rộng.
+
+**Tiêu chí xác nhận:** ý a kiểm hiệu; ý b phân biệt miền hữu hạn với giả thiết mở rộng được bổ sung.
+
+**Sau đối chiếu:** nếu tự làm đúng với lí do, trở về [Điểm dừng sau Kiểm tra](#CPK) và chỉ ghi phần đã xác nhận. Nếu sai ý a, xem [Biến đổi phân thức](#N-DS-01) và [Tiệm cận xiên](#bh-04); nếu sai ý b, xem [Miền và bối cảnh](#bh-05); nếu câu phù hợp đã lộ hoặc còn sai sau hỗ trợ, [ghi phần chưa xác nhận](#het-bai-moi), rồi trở về nơi gọi.
 
 [Đối chiếu sau khi tự làm](#lg-S-K03).
+
+<a id="S-K04"></a>
+
+#### Nhiệm vụ 09 — Điểm hở và nhánh bên kia
+
+**Dùng khi:** nhầm nhánh, hướng đường xiên hoặc vai trò điểm hở.
+
+Hình sau thuộc một hàm xác định trên $\mathbb R\setminus\{3\}$, liên tục trên từng khoảng của miền. Các dữ kiện chính xác đi kèm là
+
+$$\lim_{x\to-\infty}f(x)=2,\qquad\lim_{x\to3^-}f(x)=-1,\qquad\lim_{x\to3^+}f(x)=+\infty,$$
+
+$$\lim_{x\to+\infty}[f(x)-(-x+4)]=0.$$
+
+![Nhánh trái kết thúc bằng điểm hở; nhánh phải đi lên gần mốc rồi đi xuống ở xa.](hinh/s_k04_doc_hinh.svg)
+
+a) Viết các tiệm cận suy ra từ dữ kiện. Trên hình, chỉ nhánh và hướng tương ứng với từng đường; với đầu phải, chỉ rõ nhánh đang tiến gần một đường xiên đi lên hay đi xuống.
+
+b) Giải thích điểm hở trên nhánh trái nói gì về giới hạn trái và giá trị tại mốc. Thông tin ấy có bác được tiệm cận đứng từ phía phải không?
+
+c) Kiểm nhận định “Có điểm hở nên không thể có tiệm cận đứng ở cùng hoành độ”.
+
+**Tiêu chí xác nhận:** nối đúng mỗi giới hạn với phần hình tương ứng, giải thích vì sao một phía đủ.
+
+**Sau đối chiếu:** nếu tự làm đúng với lí do, trở về [Điểm dừng sau Kiểm tra](#CPK) và chỉ ghi phần đã xác nhận. Nếu còn sai, [xem lại phần liên quan](#bh-05); nếu câu phù hợp đã lộ hoặc còn sai sau hỗ trợ, [ghi phần chưa xác nhận](#het-bai-moi), rồi trở về nơi gọi.
+
+[Đối chiếu sau khi tự làm](#lg-S-K04).
 
 <a id="sua-sau-on"></a>
 
@@ -821,7 +1253,9 @@ b) Mô hình giả định $b(t)=7+\frac{14}{t+6}$ ($\mathrm{mg}\,\mathrm{L}^{-1
 
 <a id="S-O01"></a>
 
-#### Nhiệm vụ 01 — Ôn lại miền, phía và hai đầu
+#### Nhiệm vụ 10 — Ôn lại miền, phía và hai đầu
+
+**Dùng khi:** tái diễn lỗi miền, dấu hoặc bỏ đầu vô cực.
 
 a) Xét mốc $9$ của $u(x)=\frac{x^2-81}{x-9}$: miền, giới hạn, giá trị tại điểm và đường đứng.
 
@@ -829,19 +1263,55 @@ b) Tính hai giới hạn của $v(x)=\frac{5}{x+4}$ tại $-4$, kết luận đ
 
 c) Một hàm có giới hạn $8$ ở $+\infty$ và $-9$ ở $-\infty$. Ghi đường ngang theo hướng.
 
+**Tiêu chí xác nhận:** đối chiếu từng ý; không lấy đúng một ý làm xác nhận các ý còn lại.
+
+**Sau đối chiếu:** nếu tự làm đúng với lí do, trở về [Điểm dừng lượt 1](#CP-O01), [lượt 2](#CP-O02) hoặc [lượt 3](#CP-O03) đã gọi và chỉ ghi phần đã xác nhận. Nếu sai ý a, xem [Giới hạn và giá trị](#bh-01); nếu sai ý b, xem [Giới hạn một phía](#N-GH-02) và [Tiệm cận đứng](#bh-03); nếu sai ý c, xem [Giới hạn ở vô cực](#N-GH-03) và [Tiệm cận ngang](#bh-02); nếu câu phù hợp đã lộ hoặc còn sai sau hỗ trợ, [ghi phần chưa xác nhận](#het-bai-moi), rồi trở về nơi gọi.
+
 [Đối chiếu sau khi tự làm](#lg-S-O01).
 
 <a id="S-O02"></a>
 
-#### Nhiệm vụ 02 — Ôn lại phần dư và cách diễn giải
+#### Nhiệm vụ 11 — Ôn lại phần dư và cách diễn giải
 
-a) Tìm tiệm cận xiên của $f(x)=\frac{3x^2-2x+7}{x-1}$.
+**Dùng khi:** quên kiểm phần dư, giao điểm hoặc dấu phần dư trong mô hình.
 
-b) Với $g(x)=4+\frac{x+2}{x^2+7}$, chứng minh tiệm cận ngang và tìm giao điểm với nó.
+a) Tìm tiệm cận xiên của $f(x)=\frac{3x^2-2x+7}{x-1}$, kiểm bằng giới hạn của hiệu.
 
-c) Mô hình giả định $c(t)=3+\frac{16}{t+7}$ ($\mathrm{mg}\,\mathrm{L}^{-1}$), $t\ge 0$ giờ: nêu mức tiến tới, có đạt không và vai trò của mốc $-7$.
+b) Với $g(x)=4+\frac{x+2}{x^2+7}$, tìm tiệm cận ngang và giao điểm của đồ thị với đường ấy.
+
+c) Trong mô hình giả định $c(t)=3-\frac{16}{t+7}$, với $c$ tính bằng $\mathrm{mg}\,\mathrm L^{-1}$ và $t\ge0$ tính bằng giờ, nêu mức tiến tới và việc đạt mức ấy. Có thể từ giới hạn bằng $3$ mà kết luận $c(t)>3$ không? Kiểm vai trò của mốc $-7$.
+
+**Tiêu chí xác nhận:** phân biệt ba mục tiêu; diễn giải đúng việc tiến gần từ phía nào và việc đạt mức.
+
+**Sau đối chiếu:** nếu tự làm đúng với lí do, trở về [Điểm dừng lượt 1](#CP-O01), [lượt 2](#CP-O02) hoặc [lượt 3](#CP-O03) đã gọi và chỉ ghi phần đã xác nhận. Nếu sai ý a, xem [Biến đổi phân thức](#N-DS-01) và [Tiệm cận xiên](#bh-04); nếu sai ý b, xem [Tiệm cận ngang](#bh-02), đặc biệt Ví dụ 04; nếu sai ý c, xem [Miền và bối cảnh](#bh-05); nếu câu phù hợp đã lộ hoặc còn sai sau hỗ trợ, [ghi phần chưa xác nhận](#het-bai-moi), rồi trở về nơi gọi.
 
 [Đối chiếu sau khi tự làm](#lg-S-O02).
+
+<a id="S-O03"></a>
+
+#### Nhiệm vụ 12 — Điểm kín và hai nhánh khác nhau
+
+**Dùng khi:** nhầm điểm kín với giới hạn hoặc áp một đầu cho cả hai đầu.
+
+Hàm $g$ xác định trên $\mathbb R$, liên tục trên mỗi khoảng $(-\infty;1)$ và $(1;+\infty)$, có $g(1)=2$. Dữ kiện chính xác kèm hình là
+
+$$\lim_{x\to-\infty}[g(x)-(x-2)]=0,\qquad\lim_{x\to1^-}g(x)=-\infty,$$
+
+$$\lim_{x\to1^+}g(x)=1,\qquad\lim_{x\to+\infty}g(x)=4.$$
+
+![Nhánh trái tiến gần đường xiên ở xa và đi xuống gần mốc; nhánh phải có điểm hở, cùng hoành độ còn có một điểm kín riêng.](hinh/s_o03_doc_hinh.svg)
+
+a) Nêu các tiệm cận, chỉ nhánh và hướng tương ứng. Không áp kết quả của đầu trái cho đầu phải.
+
+b) Phân biệt điểm kín $(1;2)$, điểm hở $(1;1)$ và giới hạn trái. Việc $g(1)$ được xác định có bác được tiệm cận đứng không?
+
+c) Chỉ từ dữ kiện tiệm cận, có xác định duy nhất toàn bộ đồ thị không? Nêu giới hạn của kết luận.
+
+**Tiêu chí xác nhận:** đọc đúng cả hai nhánh, tách giá trị tại mốc khỏi giới hạn và không suy duy nhất đồ thị.
+
+**Sau đối chiếu:** nếu tự làm đúng với lí do, trở về [Điểm dừng lượt 1](#CP-O01), [lượt 2](#CP-O02) hoặc [lượt 3](#CP-O03) đã gọi và chỉ ghi phần đã xác nhận. Nếu còn sai, [xem lại phần liên quan](#bh-03); nếu câu phù hợp đã lộ hoặc còn sai sau hỗ trợ, [ghi phần chưa xác nhận](#het-bai-moi), rồi trở về nơi gọi.
+
+[Đối chiếu sau khi tự làm](#lg-S-O03).
 
 <a id="het-bai-moi"></a>
 
@@ -849,7 +1319,7 @@ c) Mô hình giả định $c(t)=3+\frac{16}{t+7}$ ($\mathrm{mg}\,\mathrm{L}^{-1
 
 Nếu tự làm đúng và giải thích được, ghi “đã xác nhận mục tiêu này trong lượt”, rồi trở về nhiệm vụ hoặc điểm dừng đã gọi hỗ trợ. Kết quả ấy không đổi điểm Kiểm tra ban đầu và chưa chứng nhận khả năng sau nhiều ngày.
 
-Nếu đã xem đáp án, câu trở thành tài nguyên học. Có thể chọn một câu/ý khác cùng mục tiêu trong bảng mà em chưa gặp; giữ đúng nơi quay về, không coi việc đổi nhóm hay đổi mã là làm bài mới. Một câu chỉ tính tiệm cận không tự xác nhận cả khả năng đọc hình.
+Nếu đã xem đáp án, câu trở thành tài nguyên học. Chỉ chọn câu/ý khác cùng mục tiêu còn mới trong nhóm của giai đoạn đang học hoặc nhóm trước nếu phù hợp; giữ đúng nơi quay về. Không lấy câu của giai đoạn sau để dùng sớm, không coi đổi số bài là làm bài mới. Một câu chỉ tính tiệm cận không thay cho việc chỉ và giải thích đúng các nhánh trên hình.
 
 Nếu các câu phù hợp đều đã lộ hoặc em vẫn chưa làm được, ghi rõ **chưa có đủ bằng chứng mới để xác nhận mục tiêu này**. Trở lại đoạn học hoặc nền đúng nguyên nhân; lưu yêu cầu bổ sung câu phù hợp khi trao đổi về bài học. Em có thể tiếp tục mục tiêu độc lập đã đủ nền. Không tự đánh dấu hoàn tất, không phải tự tìm một câu chưa được kiểm rồi coi là đã đạt.
 
@@ -880,6 +1350,27 @@ Mẫu trống dưới đây trích từ nguồn chung để em dùng ngay:
 | Kết quả sau khoảng trễ | …      |
 | Quyết định tiếp theo   | …      |
 
+**Ví dụ giả lập — không phải kết quả thật của một học sinh.** Ví dụ minh họa cách ghi cho lỗi ở bài đã có lời giải trong Bài học; không cung cấp đáp án của một câu Sửa lỗi chưa dùng.
+
+| Trường                 | Ví dụ ghi                                                                                                                                         |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ngày–giờ               | Ngày $16$ tháng $10$ năm $2026$, lúc $19$ giờ $40$ phút                                                                                           |
+| Gói / mục tiêu         | Đường tiệm cận / phân biệt giá trị tại mốc với giới hạn một phía                                                                                  |
+| Nguồn phát hiện        | Tự kiểm tra 06 trong Bài học                                                                                                                      |
+| Bài làm ban đầu        | Viết rằng có giá trị $g(2)=5$ nên không thể có tiệm cận đứng tại $2$                                                                              |
+| Mức hỗ trợ ban đầu     | Tự làm, chưa mở lời giải                                                                                                                          |
+| Bằng chứng quan sát    | Đã ghi đúng điểm $(2;5)$ nhưng bỏ dữ kiện giới hạn phải vô cực                                                                                    |
+| Phân loại              | Lỗi về điều kiện tiệm cận đứng                                                                                                                    |
+| Mã lỗi hoặc mã Nền     | Nhầm giá trị tại điểm với hành vi ở lân cận                                                                                                       |
+| Hành động              | Đọc lại định nghĩa; giữ điểm trên đồ thị, sửa lí do về đường đứng                                                                                 |
+| Bài khắc phục mới      | Chưa thực hiện câu mới phù hợp còn chưa lộ                                                                                                        |
+| Trạng thái sau sửa     | Đã hiểu lời chữa; chưa có bằng chứng độc lập mới để xác nhận                                                                                      |
+| Hẹn Ôn lại             | Chưa hẹn toàn gói vì chưa hoàn tất lượt chính; ghi việc cần kiểm riêng ở buổi tiếp                                                                |
+| Kết quả sau khoảng trễ | Chưa kiểm                                                                                                                                         |
+| Quyết định tiếp theo   | Tự làm ý b còn mới của Nhiệm vụ 01 trong Sửa lỗi sau Luyện tập, rồi trở về Tự kiểm tra 06; giữ mục tiêu chưa xác nhận cho đến khi có kết quả thực |
+
+Ví dụ không điền “đã đạt” chỉ vì đã đọc lời chữa. Khi có câu mới tự làm thật, thay các ô tương ứng bằng tên câu, mức hỗ trợ và kết quả quan sát; giữ lịch Ôn lại toàn gói riêng với lịch kiểm một lỗi.
+
 Với gói này, hãy ghi rõ câu/ý đang vướng và mức đã xác nhận. Chẳng hạn, sau khi sửa phần miền, có thể ghi “đã phân biệt điểm loại với giới hạn hữu hạn trong câu mới; phần đọc hình chưa kiểm”. Đó là cách mô tả phạm vi kết quả, không phải kết quả được điền sẵn cho em.
 
 Giữ riêng ngày hẹn và kết quả thực của lượt ôn. Nếu chưa tự làm sau khoảng trễ, trường kết quả sau khoảng trễ vẫn là “chưa kiểm”.
@@ -888,51 +1379,225 @@ Giữ riêng ngày hẹn và kết quả thực của lượt ôn. Nếu chưa t
 
 ## Lời giải
 
-Phần này để đối chiếu sau khi tự làm. Các ví dụ trong Bài học và đáp án nền nằm ngay tại nơi giải thích; dưới đây là lời giải cho các nhiệm vụ tách vị trí. Muốn xem trong khi đang Kiểm tra, cần kết thúc lượt trước và giữ bài ban đầu.
+Tự làm rồi mới mở lời giải của đúng câu. Đối chiếu điều kiện, cách làm và kết luận; phần tiêu chí giúp em nhận ra bước còn thiếu. Nếu đang làm Kiểm tra, hãy kết thúc lượt và giữ bài ban đầu trước khi mở trợ giúp.
+
+Các ví dụ làm mẫu và đáp án nền ở ngay nơi giải thích; không chép lại ở đây.
+
+<a id="lg-bai-hoc"></a>
+
+### Bài học
+
+<a id="lg-khoi-dong"></a>
+
+#### Khởi động
+
+<a id="lg-KD01"></a>
+
+##### Nhiệm vụ 01 — Giữ miền khi rút gọn
+
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+Mẫu phải khác $0$, nên $D=\mathbb R\setminus\{10\}$. Với $x\ne10$,
+
+$$r(x)=\frac{(x-10)(x+10)}{x-10}=x+10.$$
+
+Hai biểu thức bằng nhau trên $D$. Phép rút gọn không mở rộng miền, nên không được thêm $10$ hoặc gán giá trị $r(10)$.
+
+**Tiêu chí đối chiếu:** giữ điều kiện bên cạnh công thức rút gọn. Nếu còn nhầm, xem [Biến đổi phân thức](#N-DS-01), rồi trở về [Nhiệm vụ 01 của Khởi động](#KD01).
+
+</details>
+
+[Trở lại đề](#KD01).
+
+<a id="lg-KD02"></a>
+
+##### Nhiệm vụ 02 — Đọc hướng và xét dấu
+
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+Khi $x\to1^-$, các giá trị $x<1$ tiến gần $1$; mẫu $x-1$ âm và tiến về $0$. Tử $-3$ âm, nên thương dương và tăng không bị chặn:
+
+$$\lim_{x\to1^-}p(x)=+\infty.$$
+
+Khi $x\to1^+$, các giá trị $x>1$ tiến gần $1$; mẫu dương và tiến về $0$. Tử vẫn âm, nên
+
+$$\lim_{x\to1^+}p(x)=-\infty.$$
+
+**Tiêu chí đối chiếu:** đọc đúng hướng và giải thích dấu ở từng phía. Nếu vướng, dùng [Giới hạn một phía](#N-GH-02), rồi trở về [Nhiệm vụ 02 của Khởi động](#KD02).
+
+</details>
+
+[Trở lại đề](#KD02).
+
+<a id="lg-KD03"></a>
+
+##### Nhiệm vụ 03 — Xét riêng hai đầu vô cực
+
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+Khi xét ở xa, $x\ne0$ và
+
+$$q(x)=\frac{4+\frac{1}{x}}{1+\frac{2}{x}}.$$
+
+Ở mỗi hướng $x\to+\infty$ và $x\to-\infty$, tử tiến về $4$, mẫu tiến về $1$ khác $0$. Vì vậy
+
+$$\lim_{x\to+\infty}q(x)=\lim_{x\to-\infty}q(x)=4.$$
+
+Phép chia cho $x$ phục vụ việc tính ở vô cực; miền ban đầu của $q$ vẫn loại $-2$.
+
+**Tiêu chí đối chiếu:** có biến đổi hợp lệ và kiểm riêng hai hướng. Nếu vướng, dùng [Giới hạn ở vô cực](#N-GH-03), rồi trở về [Nhiệm vụ 03 của Khởi động](#KD03).
+
+</details>
+
+[Trở lại đề](#KD03).
+
+<a id="lg-KD04"></a>
+
+##### Nhiệm vụ 04 — Kiểm thương và phần dư
+
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+Điều kiện là $x\ne-1$. Ta có
+
+$$(x+1)(2x-1)+6=2x^2+x+5,$$
+
+nên
+
+$$A(x)=2x-1+\frac{6}{x+1}\quad(x\ne-1).$$
+
+Nhân ngược cho đúng tử ban đầu là cách kiểm phép chia. Việc dùng kết quả này để tìm tiệm cận còn cần bước giới hạn, sẽ được học ở phần chính.
+
+**Tiêu chí đối chiếu:** đúng thương, dư, điều kiện và phép nhân kiểm lại. Nếu thiếu thao tác, dùng [Biến đổi phân thức](#N-DS-01), rồi trở về [Nhiệm vụ 04 của Khởi động](#KD04).
+
+</details>
+
+[Trở lại đề](#KD04).
 
 <a id="lg-tu-kiem"></a>
 
-### Tự kiểm tra trong Bài học
+#### Tự kiểm tra
 
 <a id="lg-T01"></a>
 
-#### Tự kiểm tra 01
+##### Tự kiểm tra 01 — Rút gọn có thêm được một điểm không?
 
-Điều đúng là $r(x)=x+1$ với $x\ne 1$. Miền tự nhiên vẫn loại $1$ nên $r(1)$ không xác định. Giới hạn tại $1$ bằng $2$ vì giới hạn của $x+1$ là $2$. Tiêu chí: giữ điều kiện và tách giá trị khỏi giới hạn. Nếu còn nhầm, dùng nền biến đổi phân thức và một câu sửa về điểm bị loại còn mới.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
 
-[Trở lại nhiệm vụ](#T01).
+Tập xác định tự nhiên là $D=\mathbb R\setminus\{1\}$. Với $x\in D$, ta có
+
+$$r(x)=\frac{(x-1)(x+1)}{x-1}=x+1.$$
+
+Vì vậy $\lim_{x\to1}r(x)=2$. Phép rút gọn chỉ đúng trên $D$; nó không thêm $1$ vào miền nên $r(1)$ vẫn không xác định. Nhận xét của bạn đúng ở phép biến đổi khi $x\ne1$, sai ở việc gán giá trị tại điểm bị loại.
+
+**Tiêu chí đối chiếu:** ghi điều kiện rút gọn; phân biệt giới hạn với giá trị của hàm.
+
+</details>
+
+[Trở lại đề](#T01).
 
 <a id="lg-T02"></a>
 
-#### Tự kiểm tra 02
+##### Tự kiểm tra 02 — Ghi cả đường và hướng
 
-Tiệm cận ngang $y=-1$ ở $+\infty$ và $y=3$ ở $-\infty$. Chỉ ghi $y=-1$ bỏ sót đầu trái. Tiêu chí: hai phương trình đúng dạng, đúng hướng; không ghi $x=-1$ hoặc $x=3$.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
 
-[Trở lại nhiệm vụ](#T02).
+Theo định nghĩa, giới hạn khi $x\to+\infty$ cho tiệm cận ngang $y=-1$, còn giới hạn khi $x\to-\infty$ cho tiệm cận ngang $y=3$.
+
+Chỉ ghi $y=-1$ là bỏ sót đầu trái. Hai kết quả khác nhau nên có hai đường tiệm cận ngang; phương trình của chúng có dạng $y=L$, không phải $x=L$.
+
+**Tiêu chí đối chiếu:** viết đủ hai đường và gắn đúng hướng tiến ra vô cực.
+
+</details>
+
+[Trở lại đề](#T02).
 
 <a id="lg-T03"></a>
 
-#### Tự kiểm tra 03
+##### Tự kiểm tra 03 — Chỉ một phía có nghĩa
 
-Có: giới hạn trái tại $5$ bằng $-\infty$ đã đủ chứng minh $x=5$ là tiệm cận đứng. Miền không có điểm lớn hơn $5$ nên không yêu cầu giới hạn phải. Không được viết $w(5)=-\infty$.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
 
-[Trở lại nhiệm vụ](#T03).
+Có thể kết luận $x=5$ là tiệm cận đứng vì
+
+$$\lim_{x\to5^-}w(x)=-\infty.$$
+
+Chỉ một giới hạn một phía vô cực đã đủ. Miền $(-\infty;5)$ không có điểm nào lớn hơn $5$ nên không yêu cầu thêm giới hạn phải. Kết quả không có nghĩa $w(5)=-\infty$: hàm không được xác định tại $5$.
+
+**Tiêu chí đối chiếu:** viện dẫn đúng điều kiện một phía và giữ đúng tập xác định.
+
+</details>
+
+[Trở lại đề](#T03).
 
 <a id="lg-T04"></a>
 
-#### Tự kiểm tra 04
+##### Tự kiểm tra 04 — Thiếu một hằng số
 
-Hiệu $q(x)-(2x-5)=\frac{1}{x+6}$ tiến về $0$ ở hai đầu, nên tiệm cận xiên là $y=2x-5$. Hiệu $q(x)-2x$ tiến về $-5$, không bằng $0$; do đó $y=2x$ sai. Tiêu chí: tìm đủ hệ số tự do và bác bằng đúng giới hạn hiệu.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
 
-[Trở lại nhiệm vụ](#T04).
+Với $x\ne-6$, ta có
+
+$$q(x)-(2x-5)=\frac{1}{x+6}.$$
+
+Ở cả hai hướng $x\to+\infty$ và $x\to-\infty$, phần phân thức tiến về $0$. Vì thế đường tiệm cận xiên là $y=2x-5$.
+
+Trong khi đó,
+
+$$\lim_{x\to+\infty}[q(x)-2x]=\lim_{x\to-\infty}[q(x)-2x]=-5\ne0.$$
+
+Do đó $y=2x$ không phải tiệm cận xiên. Chỉ hệ số góc chưa xác định đủ đường thẳng.
+
+**Tiêu chí đối chiếu:** tìm đủ hệ số tự do và bác đường sai bằng giới hạn của hiệu.
+
+</details>
+
+[Trở lại đề](#T04).
 
 <a id="lg-T05"></a>
 
-#### Tự kiểm tra 05
+##### Tự kiểm tra 05 — Không mở rộng miền theo ý mình
 
-Khi $t\to +\infty$, $z(t)\to 10$ điểm nên đường ngang $z=10$ mô tả mức tiến tới của mô hình. Với $t\ge 0$ hữu hạn, $\frac{8}{t+2}>0$ nên $z(t)>10$; không đạt $10$. Miền không tiến sát được $-2$ nên mốc ấy không là tiệm cận đứng của đồ thị mô hình. Tiêu chí: nêu đủ giới hạn, dấu phần dư và miền.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
 
-[Trở lại nhiệm vụ](#T05).
+Trên miền $t\ge0$, mẫu $t+2$ dương. Ta có
+
+$$\lim_{t\to+\infty}z(t)=10.$$
+
+Đường ngang $z=10$ biểu diễn mức mà chỉ số tiến gần khi thời gian tăng trong mô hình. Với mọi $t\ge0$ hữu hạn, $\frac{8}{t+2}>0$, nên $z(t)>10$; chỉ số không bằng $10$ tại thời điểm hữu hạn.
+
+Miền thời gian không có điểm nào tiến sát $-2$, nên không lấy $t=-2$ làm tiệm cận đứng của đồ thị trên miền mô hình.
+
+**Tiêu chí đối chiếu:** nêu giới hạn, kiểm sự đạt được bằng dấu phần dư và giữ đúng miền.
+
+</details>
+
+[Trở lại đề](#T05).
+
+<a id="lg-T06"></a>
+
+##### Tự kiểm tra 06 — Có giá trị tại mốc vẫn cần xét lân cận
+
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+Điểm $(2;5)$ thuộc đồ thị là phần đúng vì $g(2)=5$. Tuy nhiên, $\lim_{x\to2^+}g(x)=+\infty$ đã đủ để $x=2$ là tiệm cận đứng. Giá trị tại đúng mốc không thay đổi hành vi ở các điểm lân cận phía phải.
+
+Câu sửa: “Đồ thị có điểm $(2;5)$ và có tiệm cận đứng $x=2$, vì giới hạn phải tại $2$ bằng $+\infty$.” Dữ kiện chưa quyết định giới hạn trái; không được gán nó bằng $5$ hoặc $+\infty$.
+
+Đạt khi giữ đúng điểm trên đồ thị, viện dẫn đúng giới hạn phải và không suy thêm về phía trái. Nếu còn dùng giá trị tại mốc để bác tiệm cận, đọc lại đoạn “Nếu hàm được gán riêng giá trị tại mốc?” ở [mục tiệm cận đứng](#bh-03).
+
+</details>
+
+[Trở lại đề](#T06).
 
 <a id="lg-luyen"></a>
 
@@ -942,7 +1607,18 @@ Khi $t\to +\infty$, $z(t)\to 10$ điểm nên đường ngang $z=10$ mô tả m�
 
 #### Nhiệm vụ 01 — Từ giới hạn đến đường thẳng
 
-Hai giới hạn ở vô cực đều bằng $2$, nên cùng xác định một tiệm cận ngang $y=2$. Giới hạn trái tại $1$ bằng $-\infty$ (hoặc giới hạn phải bằng $+\infty$) chứng minh $x=1$ là tiệm cận đứng. Hàm liên tục tại mọi điểm khác $1$, nên không có tiệm cận đứng nào khác. Đạt khi ghi đúng phương trình, hướng và không đếm đôi $y=2$.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+Hai giới hạn ở vô cực cùng bằng $2$ nên xác định một tiệm cận ngang $y=2$, ở cả đầu trái và đầu phải. Không đếm một đường hai lần.
+
+Giới hạn $\lim_{x\to1^-}f(x)=-\infty$ đã đủ chứng minh $x=1$ là tiệm cận đứng; giới hạn phải $+\infty$ cho thêm hành vi của nhánh bên kia. Hàm liên tục tại mọi điểm khác $1$, nên không có tiệm cận đứng nào khác.
+
+**Tiêu chí đối chiếu:** ghi đúng dạng phương trình, viện dẫn đúng giới hạn và không đếm đôi đường ngang.
+
+**Nếu còn sai:** nhầm phía hoặc điều kiện đường đứng thì xem [Giới hạn một phía](#N-GH-02) và làm [Nhiệm vụ 02 trong Sửa lỗi](#S-L02); nhầm phương trình đường ngang hoặc hai đầu thì xem [Tiệm cận ngang](#bh-02) và làm ý a của [Nhiệm vụ 03 trong Sửa lỗi](#S-L03). Chọn đúng ý còn mới, không làm lại câu đã lộ để xác nhận. Sau hỗ trợ, trở về [đề đang làm](#L01) và Điểm dừng đã gọi.
+
+</details>
 
 [Trở lại đề](#L01).
 
@@ -950,7 +1626,28 @@ Hai giới hạn ở vô cực đều bằng $2$, nên cùng xác định một 
 
 #### Nhiệm vụ 02 — Giữ miền trước khi tính
 
-Miền là $\mathbb R\setminus\{3\}$. Ta có $f(x)=5+\frac{17}{x-3}$. Ở hai đầu vô cực, phần phân thức tiến về $0$, nên $y=5$ là tiệm cận ngang. Tại $3$, giới hạn trái là $-\infty$ và phải là $+\infty$, nên $x=3$ là tiệm cận đứng. Ngoài $3$, hàm liên tục. Đạt khi kết luận dựa giới hạn, không chỉ dựa nghiệm mẫu.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+Tập xác định là $D=\mathbb R\setminus\{3\}$. Trên miền này,
+
+$$f(x)=5+\frac{17}{x-3}.$$
+
+Vì phần phân thức tiến về $0$ ở cả hai đầu vô cực,
+
+$$\lim_{x\to+\infty}f(x)=\lim_{x\to-\infty}f(x)=5.$$
+
+Tiệm cận ngang là $y=5$. Khi $x\to3^-$, mẫu âm và tiến về $0$; khi $x\to3^+$, mẫu dương và tiến về $0$. Tử của phần phân thức là $17>0$, nên
+
+$$\lim_{x\to3^-}f(x)=-\infty,\qquad\lim_{x\to3^+}f(x)=+\infty.$$
+
+Tiệm cận đứng là $x=3$. Ngoài điểm này hàm liên tục, nên không còn tiệm cận đứng khác.
+
+**Tiêu chí đối chiếu:** miền đúng; giới hạn ở vô cực và giới hạn một phía đúng; kết luận dựa vào giới hạn.
+
+**Nếu còn sai:** sai biến đổi thì xem [Biến đổi phân thức](#N-DS-01) và tự kiểm thao tác trước; sai giới hạn ở vô cực thì xem [Giới hạn ở vô cực](#N-GH-03), chọn đúng ý còn mới ở [bảng chọn câu sửa](#chon-sua-loi); sai dấu hoặc phía tại mốc thì xem [Giới hạn một phía](#N-GH-02) và làm [Nhiệm vụ 02 trong Sửa lỗi](#S-L02). Câu chỉ tính giới hạn tại mốc không xác nhận phần ở vô cực. Sau hỗ trợ, trở về [đề đang làm](#L02) và Điểm dừng đã gọi.
+
+</details>
 
 [Trở lại đề](#L02).
 
@@ -958,7 +1655,22 @@ Miền là $\mathbb R\setminus\{3\}$. Ta có $f(x)=5+\frac{17}{x-3}$. Ở hai đ
 
 #### Nhiệm vụ 03 — Một điểm hở
 
-Miền vẫn loại $3$. Với $x\ne 3$, $u(x)=x+3$, nên hai giới hạn tại $3$ đều bằng $6$, là số hữu hạn. Vì thế $x=3$ không là tiệm cận đứng. Không được viết $u(3)=6$: công thức rút gọn chỉ bằng hàm ban đầu trên miền đã có. Đạt khi tách được giới hạn bằng $6$ khỏi giá trị không xác định.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+Miền tự nhiên là $D=\mathbb R\setminus\{3\}$. Với $x\ne3$,
+
+$$u(x)=\frac{(x-3)(x+3)}{x-3}=x+3.$$
+
+Do đó $\lim_{x\to3^-}u(x)=\lim_{x\to3^+}u(x)=6$. Cả hai giới hạn đều hữu hạn, nên $x=3$ không là tiệm cận đứng. Nhận định đã cho sai.
+
+Giới hạn bằng $6$ không làm $u(3)$ được xác định. Đồ thị có điểm hở ở $(3;6)$.
+
+**Tiêu chí đối chiếu:** giữ điểm loại sau rút gọn và không đồng nhất giới hạn với giá trị tại điểm.
+
+**Nếu còn sai ở mục tiêu đang đối chiếu:** [xem lại kiến thức/thao tác liên quan](#N-DS-01), rồi chọn đúng ý còn mới của [Nhiệm vụ 01 trong Sửa lỗi](#S-L01). Chỉ làm phần khớp lỗi thực tế; câu đã lộ dùng để học, không xác nhận lại. Sau hỗ trợ, trở về [đề đang làm](#L03) và Điểm dừng đã gọi.
+
+</details>
 
 [Trở lại đề](#L03).
 
@@ -966,7 +1678,22 @@ Miền vẫn loại $3$. Với $x\ne 3$, $u(x)=x+3$, nên hai giới hạn tại
 
 #### Nhiệm vụ 04 — Chỉ có một phía để tiến gần
 
-Khi $x\to 4^{+}$ thì $\sqrt{x-4}\to0^+$, do đó $f(x)\to +\infty$ và $x=4$ là tiệm cận đứng. Không có điểm của $D$ ở phía trái $4$, nên không xét giới hạn trái theo miền này. Khi $x\to+\infty$, mẫu tăng không bị chặn nên $f(x)\to 0$: tiệm cận ngang $y=0$. Không có đầu $-\infty$ trong $D$. Đạt khi giữ đúng miền và nhận một phía đủ cho tiệm cận đứng.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+Miền đã cho là $D=(4;+\infty)$. Khi $x\to4^+$, ta có $\sqrt{x-4}\to0^+$, nên
+
+$$\lim_{x\to4^+}\frac{1}{\sqrt{x-4}}=+\infty.$$
+
+Vậy $x=4$ là tiệm cận đứng. Không xét phía trái vì không có điểm thuộc $D$ ở phía ấy.
+
+Khi $x\to+\infty$, mẫu tăng không bị chặn nên $\lim_{x\to+\infty}f(x)=0$. Tiệm cận ngang là $y=0$. Miền không có đầu $-\infty$.
+
+**Tiêu chí đối chiếu:** xét đúng các hướng miền cho phép và hiểu một phía vô cực đã đủ.
+
+**Nếu còn sai ở mục tiêu đang đối chiếu:** [xem lại kiến thức/thao tác liên quan](#N-GH-02), rồi chọn đúng ý còn mới của [Nhiệm vụ 02 trong Sửa lỗi](#S-L02). Chỉ làm phần khớp lỗi thực tế; câu đã lộ dùng để học, không xác nhận lại. Sau hỗ trợ, trở về [đề đang làm](#L04) và Điểm dừng đã gọi.
+
+</details>
 
 [Trở lại đề](#L04).
 
@@ -974,7 +1701,18 @@ Khi $x\to 4^{+}$ thì $\sqrt{x-4}\to0^+$, do đó $f(x)\to +\infty$ và $x=4$ l�
 
 #### Nhiệm vụ 05 — Không bỏ sót đầu trái
 
-Đầu phải cho $y=7$, đầu trái cho $y=-2$. Chưa có dữ kiện về hành vi gần các mốc hữu hạn nên không thể kết luận không có tiệm cận đứng. Đạt khi ghi đủ hai đường và không suy quá dữ kiện.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+Giới hạn ở đầu phải cho đường $y=7$; giới hạn ở đầu trái cho đường $y=-2$. Đó là hai tiệm cận ngang khác nhau.
+
+Hai dữ kiện chỉ mô tả hành vi ở vô cực, chưa cho biết hàm số tiến tới đâu gần các mốc hữu hạn. Vì vậy không thể từ đó kết luận đồ thị không có tiệm cận đứng.
+
+**Tiêu chí đối chiếu:** ghi đủ hai hướng và phân biệt điều suy ra được với điều chưa đủ dữ kiện.
+
+**Nếu còn sai ở mục tiêu đang đối chiếu:** [xem lại kiến thức/thao tác liên quan](#bh-02), rồi chọn đúng ý còn mới của [Nhiệm vụ 03 trong Sửa lỗi](#S-L03). Chỉ làm phần khớp lỗi thực tế; câu đã lộ dùng để học, không xác nhận lại. Sau hỗ trợ, trở về [đề đang làm](#L05) và Điểm dừng đã gọi.
+
+</details>
 
 [Trở lại đề](#L05).
 
@@ -982,7 +1720,28 @@ Khi $x\to 4^{+}$ thì $\sqrt{x-4}\to0^+$, do đó $f(x)\to +\infty$ và $x=4$ l�
 
 #### Nhiệm vụ 06 — Thương và phần dư
 
-Miền loại $-2$. Vì $(x+2)(x+1)+5=x^2+3x+7$, ta có $f(x)=x+1+\frac{5}{x+2}$. Hiệu với $x+1$ tiến về $0$ ở cả hai đầu vô cực, nên tiệm cận xiên là $y=x+1$. Tại $-2$, trái $-\infty$ và phải $+\infty$, nên $x=-2$ là tiệm cận đứng. Đạt khi có cả bước chia và kiểm phần dư.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+Tập xác định là $D=\mathbb R\setminus\{-2\}$. Kiểm phép chia bằng
+
+$$(x+2)(x+1)+5=x^2+3x+7.$$
+
+Với $x\ne-2$, suy ra $f(x)=x+1+\frac{5}{x+2}$. Vì thế
+
+$$\lim_{x\to+\infty}[f(x)-(x+1)]=\lim_{x\to-\infty}[f(x)-(x+1)]=0.$$
+
+Đường tiệm cận xiên là $y=x+1$. Phần dư có tử dương, nên
+
+$$\lim_{x\to-2^-}f(x)=-\infty,\qquad\lim_{x\to-2^+}f(x)=+\infty.$$
+
+Tiệm cận đứng là $x=-2$. Hàm liên tục ở các điểm còn lại.
+
+**Tiêu chí đối chiếu:** phép chia, phép nhân kiểm lại, giới hạn của hiệu và giới hạn tại điểm loại đều đúng.
+
+**Nếu chia sai hoặc thiếu hệ số tự do:** [xem lại kiến thức/thao tác liên quan](#N-DS-01), rồi chọn đúng ý còn mới của [Nhiệm vụ 04 trong Sửa lỗi](#S-L04). Chỉ làm phần khớp lỗi thực tế; câu đã lộ dùng để học, không xác nhận lại. Sau hỗ trợ, trở về [đề đang làm](#L06) và Điểm dừng đã gọi.
+
+</details>
 
 [Trở lại đề](#L06).
 
@@ -990,7 +1749,28 @@ Miền loại $-2$. Vì $(x+2)(x+1)+5=x^2+3x+7$, ta có $f(x)=x+1+\frac{5}{x+2}$
 
 #### Nhiệm vụ 07 — Đừng bỏ mất hệ số tự do
 
-Ta có $g(x)=2x+3+\frac{10}{x-2}$. Do đó $g(x)-(2x+3)\to0$ ở hai đầu: đường xiên là $y=2x+3$. Trong khi đó $g(x)-2x\to3\ne0$, nên $y=2x$ không phải đường xiên. Hệ số góc $2$ chưa đủ xác định hệ số tự do. Đạt khi dùng giới hạn của hiệu để bác kết luận sai.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+Trên miền $x\ne2$, chia đa thức được
+
+$$g(x)=2x+3+\frac{10}{x-2}.$$
+
+Kiểm lại bằng $(x-2)(2x+3)+10=2x^2-x+4$. Phần dư tiến về $0$ ở cả hai đầu, nên
+
+$$\lim_{x\to\pm\infty}[g(x)-(2x+3)]=0.$$
+
+Vậy tiệm cận xiên là $y=2x+3$. Mặt khác,
+
+$$\lim_{x\to+\infty}[g(x)-2x]=\lim_{x\to-\infty}[g(x)-2x]=3\ne0.$$
+
+Đường $y=2x$ bị bác bỏ. Tỉ số hệ số cao nhất chỉ giúp nhận hệ số góc trong phép chia này, chưa cho hệ số tự do.
+
+**Tiêu chí đối chiếu:** tìm đủ đường thẳng và dùng đúng giới hạn hiệu để kiểm nhận định.
+
+**Nếu chia sai hoặc thiếu hệ số tự do:** [xem lại kiến thức/thao tác liên quan](#bh-04), rồi chọn đúng ý còn mới của [Nhiệm vụ 04 trong Sửa lỗi](#S-L04). Chỉ làm phần khớp lỗi thực tế; câu đã lộ dùng để học, không xác nhận lại. Sau hỗ trợ, trở về [đề đang làm](#L07) và Điểm dừng đã gọi.
+
+</details>
 
 [Trở lại đề](#L07).
 
@@ -998,7 +1778,22 @@ Ta có $g(x)=2x+3+\frac{10}{x-2}$. Do đó $g(x)-(2x+3)\to0$ ở hai đầu: đ�
 
 #### Nhiệm vụ 08 — Cắt mà vẫn tiến sát
 
-Mẫu $x^2+1>0$ với mọi $x$. Chia tử và mẫu của phần phân thức cho $x^2$, ta thấy phần ấy tiến về $0$ ở cả hai đầu vô cực. Vì thế $y=3$ là tiệm cận ngang. Phương trình $f(x)=3$ tương đương $x-1=0$, cho giao điểm $(1;3)$. Không mâu thuẫn: định nghĩa nói về giới hạn ở vô cực, không cấm giao điểm tại một hoành độ hữu hạn. Đạt khi chứng minh cả giới hạn và giao điểm.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+Vì $x^2+1>0$ với mọi $x$, hàm có miền $\mathbb R$. Khi $x\ne0$, ta viết
+
+$$\frac{x-1}{x^2+1}=\frac{\frac{1}{x}-\frac{1}{x^2}}{1+\frac{1}{x^2}}.$$
+
+Tử tiến về $0$, mẫu tiến về $1$ khi $x\to+\infty$ hoặc $x\to-\infty$. Vì vậy $\lim_{x\to\pm\infty}f(x)=3$ và tiệm cận ngang là $y=3$.
+
+Phương trình $f(x)=3$ tương đương $x-1=0$, nên giao điểm là $(1;3)$. Không có mâu thuẫn: định nghĩa tiệm cận ngang mô tả hành vi ở vô cực, còn giao điểm có hoành độ hữu hạn.
+
+**Tiêu chí đối chiếu:** chứng minh cả giới hạn và giao điểm, rồi giải thích vì sao chúng cùng đúng.
+
+**Nếu coi giao điểm là mâu thuẫn với tiệm cận:** [xem lại kiến thức/thao tác liên quan](#bh-02), rồi chọn đúng ý còn mới của [Nhiệm vụ 03 trong Sửa lỗi](#S-L03). Chỉ làm phần khớp lỗi thực tế; câu đã lộ dùng để học, không xác nhận lại. Sau hỗ trợ, trở về [đề đang làm](#L08) và Điểm dừng đã gọi.
+
+</details>
 
 [Trở lại đề](#L08).
 
@@ -1006,7 +1801,22 @@ Mẫu $x^2+1>0$ với mọi $x$. Chia tử và mẫu của phần phân thức c
 
 #### Nhiệm vụ 09 — Một hình, ba hành vi
 
-Đầu trái cho tiệm cận ngang $y=-1$. Phía phải tại $2$ cho tiệm cận đứng $x=2$ vì $f(x)\to -\infty$; giới hạn trái hữu hạn không xóa điều kiện đã đúng ở phía phải. Đầu phải có hiệu với $2x+1$ tiến về $0$ nên cho tiệm cận xiên $y=2x+1$. Hình hỗ trợ nhận hướng nhưng chỉ có cửa sổ hữu hạn; những giới hạn được cho mới bảo đảm kết luận về vô cực. Đạt khi nối đúng cả ba dữ kiện với hình và không yêu cầu hai phía cùng vô cực.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+**a)** Ở nhánh bên trái, dữ kiện $\lim_{x\to-\infty}f(x)=-1$ cho tiệm cận ngang $y=-1$. Trên hình, đó là mức nhánh trái tiến gần khi đi xa về bên trái.
+
+Ở phía phải của mốc $2$, nhánh đi xuống không bị chặn: $\lim_{x\to2^+}f(x)=-\infty$. Do đó $x=2$ là tiệm cận đứng. Khi đi xa về bên phải, hiệu với $2x+1$ tiến về $0$, nên $y=2x+1$ là tiệm cận xiên ở đầu phải.
+
+**b)** Giới hạn trái bằng $4$ chỉ mô tả nhánh trái tại mốc $2$. Điều kiện tiệm cận đứng cần ít nhất một phía vô cực; giới hạn phải đã thỏa điều kiện, nên giới hạn trái hữu hạn không bác kết luận.
+
+**c)** Một ảnh chỉ thể hiện cửa sổ hữu hạn. Các giới hạn được cho bảo đảm kết luận về hành vi ở xa; không thay chúng bằng việc ước lượng một đoạn trông gần thẳng.
+
+**Tiêu chí đối chiếu:** chỉ đúng ba hành vi trên hình và viện dẫn đúng dữ kiện tương ứng.
+
+**Nếu không nối được dữ kiện với đúng nhánh:** [xem lại kiến thức/thao tác liên quan](#bh-05), rồi chọn đúng ý còn mới của [Nhiệm vụ 05 trong Sửa lỗi](#S-L05). Chỉ làm phần khớp lỗi thực tế; câu đã lộ dùng để học, không xác nhận lại. Sau hỗ trợ, trở về [đề đang làm](#L09) và Điểm dừng đã gọi.
+
+</details>
 
 [Trở lại đề](#L09).
 
@@ -1014,27 +1824,82 @@ Mẫu $x^2+1>0$ với mọi $x$. Chia tử và mẫu của phần phân thức c
 
 #### Nhiệm vụ 10 — Nhiệt độ trong mô hình
 
-Ở $+\infty$, phần $\frac{18}{t+2}$ tiến về $0$ nên đồ thị có tiệm cận ngang $h=6$: mô hình cho nhiệt độ tiến gần $6$ ${}^{\circ}\mathrm{C}$ theo thời gian. Với mọi $t\ge 0$, phần dư dương nên $h(t)>6$; không đạt $6$ ${}^{\circ}\mathrm{C}$ ở thời điểm hữu hạn. Các thời điểm hợp lệ không thể tiến sát $-2$, vì vậy $t=-2$ không là tiệm cận đứng của đồ thị trên miền mô hình này. Đạt khi nêu đủ giới hạn, sự không đạt và miền.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+**a)** Trên miền $t\ge0$, ta có
+
+$$\lim_{t\to+\infty}h(t)=6.$$
+
+Đồ thị có tiệm cận ngang $h=6$: trong mô hình, nhiệt độ tiến gần $6\,{}^{\circ}\mathrm C$ khi thời gian tăng.
+
+**b)** Với mọi $t\ge0$ hữu hạn, $\frac{18}{t+2}>0$, nên $h(t)>6$. Không có thời điểm hữu hạn tại đó nhiệt độ bằng đúng mức này.
+
+**c)** Miền $t\ge0$ không cho thời điểm tiến sát $-2$. Vì vậy $t=-2$ không là tiệm cận đứng của đồ thị trên miền mô hình, dù mẫu của công thức bằng $0$ ở đó.
+
+**Tiêu chí đối chiếu:** giữ đủ giới hạn, đơn vị, điều kiện không đạt và miền thời gian.
+
+**Nếu bỏ miền hoặc nhầm mức tiến tới với mức đạt được:** [xem lại kiến thức/thao tác liên quan](#bh-05), rồi chọn đúng ý còn mới của [Nhiệm vụ 04 trong Sửa lỗi](#S-L04). Chỉ làm phần khớp lỗi thực tế; câu đã lộ dùng để học, không xác nhận lại. Sau hỗ trợ, trở về [đề đang làm](#L10) và Điểm dừng đã gọi.
+
+</details>
 
 [Trở lại đề](#L10).
 
 <a id="lg-nhanh"></a>
 
-### Phối hợp và Chuyển giao
+### Phối hợp
 
 <a id="lg-P01"></a>
 
-#### Nhiệm vụ 01 — Phối hợp — tiệm cận và giá trị không đạt
+#### Nhiệm vụ 01 — Tiệm cận và giá trị không đạt
 
-Với $x\ge 0$, $0<\frac{6}{x+1}\le6$, nên $2<C(x)\le8$; dấu bằng ở trên xảy ra tại $x=0$. GTLN là $8$ tại $0$. Hàm không có GTNN: với bất cứ $x\ge 0$, chọn $x+1$ thì $C(x+1)<C(x)$, nên không điểm nào cho giá trị nhỏ nhất. Giới hạn tại $+\infty$ bằng $2$ nên tiệm cận ngang $y=2$; mức tiến tới không được đạt. Không chỉ nói “$2$ không đạt” mà bỏ bước loại mọi ứng viên GTNN.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+Với $x\ge0$, ta có $x+1\ge1$, nên
+
+$$0<\frac{6}{x+1}\le6,\qquad 2<C(x)\le8.$$
+
+Dấu bằng $C(x)=8$ xảy ra tại $x=0$, nên giá trị lớn nhất là $8$ và đạt tại $0$.
+
+Để loại mọi ứng viên cho giá trị nhỏ nhất, lấy bất kì $x\ge0$ và xét điểm $x+1$ cũng thuộc miền. Vì $x+2>x+1>0$,
+
+$$C(x+1)=2+\frac{6}{x+2}<2+\frac{6}{x+1}=C(x).$$
+
+Mỗi giá trị đều có một giá trị nhỏ hơn, nên hàm không có giá trị nhỏ nhất. Đồng thời $\lim_{x\to+\infty}C(x)=2$ cho tiệm cận ngang $y=2$; mức tiến tới ấy không được đạt.
+
+**Tiêu chí đối chiếu:** nêu điểm đạt giá trị lớn nhất; chứng minh không có giá trị nhỏ nhất, không chỉ nói mức $2$ không đạt.
+
+</details>
 
 [Trở lại đề](#P01).
 
+<a id="lg-chuyen-giao"></a>
+
+### Chuyển giao
+
 <a id="lg-P02"></a>
 
-#### Nhiệm vụ 02 — Chuyển giao — hai đường xiên khác nhau
+#### Nhiệm vụ 01 — Hai đường xiên khác nhau
 
-Khi $x\to+\infty$, $\sqrt{x^2+9}-x=\frac{9}{\sqrt{x^2+9}+x}\to0$, nên $y=x$ là tiệm cận xiên ở đầu phải. Khi $x\to-\infty$, $\sqrt{x^2+9}+x=\frac{9}{\sqrt{x^2+9}-x}\to0$ vì mẫu dương và tăng không bị chặn; $y=-x$ là tiệm cận xiên ở đầu trái. Hai đường có hệ số góc khác nhau; phải ghi đúng hướng. Việc dùng $\sqrt{x^2}=x$ cho $x$ âm sẽ làm sai kết luận.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+Hàm xác định trên $\mathbb R$. Khi $x\to+\infty$, nhân liên hợp được
+
+$$\sqrt{x^2+9}-x=\frac{9}{\sqrt{x^2+9}+x}\longrightarrow0.$$
+
+Mẫu dương và tăng không bị chặn ở hướng này, nên $y=x$ là tiệm cận xiên ở đầu phải.
+
+Khi $x\to-\infty$, xét đường khác:
+
+$$\sqrt{x^2+9}+x=\frac{9}{\sqrt{x^2+9}-x}\longrightarrow0.$$
+
+Ở hướng này, $-x\to+\infty$ và mẫu cũng tăng không bị chặn, nên $y=-x$ là tiệm cận xiên ở đầu trái. Không lấy một đường làm kết luận cho cả hai đầu.
+
+**Tiêu chí đối chiếu:** chọn đúng hiệu ở mỗi hướng; giải thích mẫu tiến ra vô cực; không dùng $\sqrt{x^2}=x$ khi $x<0$.
+
+</details>
 
 [Trở lại đề](#P02).
 
@@ -1046,7 +1911,34 @@ Khi $x\to+\infty$, $\sqrt{x^2+9}-x=\frac{9}{\sqrt{x^2+9}+x}\to0$, nên $y=x$ là
 
 #### Nhiệm vụ 01 — Hai hàm ở cùng một mốc
 
-Cả hai miền đều là $\mathbb R\setminus\{4\}$. Với $x\ne 4$, $p(x)=x+4$ nên hai giới hạn tại $4$ bằng $8$; $x=4$ không là tiệm cận đứng của $p$ và $p(4)$ vẫn không xác định. Với $q$, mẫu bình phương tiến về $0^+$ từ cả hai phía, nên hai giới hạn đều $+\infty$; $x=4$ là tiệm cận đứng của $q$. Tiêu chí: miền/không tự gán giá trị; giới hạn hữu hạn của $p$; giới hạn vô cực của $q$; kết luận đứng dựa đúng định nghĩa. Một ý đúng không thay ý còn thiếu.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+| Ý   | Căn cứ để cho điểm                                                                  | Điểm |
+| --- | ----------------------------------------------------------------------------------- | ---- |
+| a   | Đúng miền của cả hai hàm; mỗi miền $0{,}5$                                          | $1$  |
+| b   | Đúng giới hạn và căn cứ của từng hàm; mỗi hàm $1$                                   | $2$  |
+| c   | Phân loại đúng hai đường đứng có lí do: $0{,}5$; giữ $p(4)$ không xác định: $0{,}5$ | $1$  |
+
+Chấp nhận cách giải khác có căn cứ tương đương. Cho điểm theo phần thực sự làm được; không cộng phần lí do khi chỉ có đáp số.
+
+**a)** Hai tập xác định tự nhiên đều là $\mathbb R\setminus\{4\}$.
+
+**b)** Với $x\ne4$, ta có $p(x)=x+4$. Do đó
+
+$$\lim_{x\to4^-}p(x)=\lim_{x\to4^+}p(x)=8.$$
+
+Với $q$, mẫu $(x-4)^2$ dương và tiến về $0$ từ cả hai phía, còn tử bằng $3>0$. Vì vậy
+
+$$\lim_{x\to4^-}q(x)=\lim_{x\to4^+}q(x)=+\infty.$$
+
+**c)** Đường $x=4$ không là tiệm cận đứng của đồ thị $p$, nhưng là tiệm cận đứng của đồ thị $q$. Phép rút gọn không làm $p(4)$ được xác định, nên không được gán $p(4)=8$.
+
+**Tiêu chí đối chiếu:** xem riêng miền, hai giới hạn của mỗi hàm, kết luận tiệm cận và giá trị tại điểm.
+
+**Nếu còn sai ở mục tiêu đang đối chiếu:** [xem lại kiến thức/thao tác liên quan](#bh-01), rồi chọn đúng ý còn mới của [Nhiệm vụ 06 trong Sửa lỗi](#S-K01). Chỉ làm phần khớp lỗi thực tế; câu đã lộ dùng để học, không xác nhận lại. Sau hỗ trợ, trở về [đề đang làm](#K01) và Điểm dừng đã gọi.
+
+</details>
 
 [Trở lại đề](#K01).
 
@@ -1054,7 +1946,30 @@ Cả hai miền đều là $\mathbb R\setminus\{4\}$. Với $x\ne 4$, $p(x)=x+4$
 
 #### Nhiệm vụ 02 — Đọc hai đầu và một mốc hữu hạn
 
-Đầu trái cho $y=1$, đầu phải cho $y=-4$: hai tiệm cận ngang khác nhau. Phía phải tại $-1$ có giới hạn $+\infty$ nên $x=-1$ là tiệm cận đứng. Nhánh trái đi đến điểm hở $(-1;3)$; điều đó chỉ mô tả phía trái, không bác điều kiện vô cực phía phải. Hàm liên tục ngoài mốc $-1$ nên không có tiệm cận đứng nào khác. Tiêu chí: đủ hai đầu; phương trình đúng dạng; đối chiếu đúng nhánh; hiểu “ít nhất một phía”.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+| Ý   | Căn cứ để cho điểm                                                                                     | Điểm    |
+| --- | ------------------------------------------------------------------------------------------------------ | ------- |
+| a   | Hai đường ngang kèm hướng: $1$; đường đứng kèm phía: $0{,}5$                                           | $1{,}5$ |
+| b   | Chỉ đúng hành vi ở hai đầu xa: $0{,}5$; phía trái tại mốc: $0{,}5$; phía phải tại mốc: $0{,}5$         | $1{,}5$ |
+| c   | Nêu một phía vô cực là đủ: $0{,}5$; giải thích giới hạn trái hữu hạn không bác điều kiện phải: $0{,}5$ | $1$     |
+
+Chấp nhận cách giải khác có căn cứ tương đương. Cho điểm theo phần thực sự làm được; không cộng phần lí do khi chỉ có đáp số.
+
+**a)** Giới hạn ở đầu trái bằng $1$ cho tiệm cận ngang $y=1$ khi $x\to-\infty$. Giới hạn ở đầu phải bằng $-4$ cho tiệm cận ngang $y=-4$ khi $x\to+\infty$.
+
+Vì $\lim_{x\to-1^+}f(x)=+\infty$, đường $x=-1$ là tiệm cận đứng. Hàm liên tục tại các điểm còn lại của miền nên không có tiệm cận đứng khác.
+
+**b)** Nhánh trái tiến gần mức $1$ khi đi xa về bên trái, rồi kết thúc bằng điểm hở $(-1;3)$. Nhánh phải đi lên không bị chặn khi tiến gần mốc $-1$ từ phải, rồi tiến gần mức $-4$ khi đi xa về bên phải. Cần chỉ từng phần trên hình, không chỉ đọc lại ba phương trình.
+
+**c)** Giới hạn trái hữu hạn không xóa điều kiện vô cực đã đúng ở phía phải. Một phía vô cực đủ để kết luận tiệm cận đứng.
+
+**Tiêu chí đối chiếu:** đủ hai đầu, đúng dạng phương trình và đúng nhánh; giải thích được vai trò của từng giới hạn một phía.
+
+**Nếu không nối được dữ kiện với đúng nhánh:** [xem lại kiến thức/thao tác liên quan](#bh-03), rồi chọn đúng ý còn mới của [Nhiệm vụ 09 trong Sửa lỗi](#S-K04). Chỉ làm phần khớp lỗi thực tế; câu đã lộ dùng để học, không xác nhận lại. Sau hỗ trợ, trở về [đề đang làm](#K02) và Điểm dừng đã gọi.
+
+</details>
 
 [Trở lại đề](#K02).
 
@@ -1062,7 +1977,39 @@ Cả hai miền đều là $\mathbb R\setminus\{4\}$. Với $x\ne 4$, $p(x)=x+4$
 
 #### Nhiệm vụ 03 — Đường xiên cần đủ hai hệ số
 
-Miền loại $-1$. Ta có $f(x)=2x+1+\frac{7}{x+1}$ do $(x+1)(2x+1)+7=2x^2+3x+8$. Hiệu với $2x+1$ tiến về $0$ ở hai đầu, nên tiệm cận xiên $y=2x+1$. Tại $-1$, trái $-\infty$ và phải $+\infty$ nên tiệm cận đứng $x=-1$. Hiệu với $2x$ tiến về $1$, không bằng $0$; do đó $y=2x$ sai. Tiêu chí: giữ miền; chia đúng; chứng minh bằng giới hạn hiệu; kiểm mốc đứng riêng.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+| Ý   | Căn cứ để cho điểm                                                                  | Điểm    |
+| --- | ----------------------------------------------------------------------------------- | ------- |
+| a   | Miền: $0{,}5$; thương và dư đúng: $0{,}5$                                           | $1$     |
+| b   | Đường xiên đúng: $0{,}5$; kiểm hiệu ở hai đầu: $1$                                  | $1{,}5$ |
+| c   | Tính giới hạn hiệu với đường đề nghị: $0{,}5$; so với điều kiện định nghĩa: $0{,}5$ | $1$     |
+| d   | Hai giới hạn một phía và lí do về dấu: $1$; phương trình đường đứng: $0{,}5$        | $1{,}5$ |
+
+Chấp nhận cách giải khác có căn cứ tương đương. Cho điểm theo phần thực sự làm được; không cộng phần lí do khi chỉ có đáp số.
+
+Tập xác định là $D=\mathbb R\setminus\{-1\}$. Với $x\ne-1$,
+
+$$f(x)=2x+1+\frac{7}{x+1},$$
+
+vì $(x+1)(2x+1)+7=2x^2+3x+8$. Suy ra
+
+$$\lim_{x\to+\infty}[f(x)-(2x+1)]=\lim_{x\to-\infty}[f(x)-(2x+1)]=0.$$
+
+Tiệm cận xiên là $y=2x+1$. Trong khi đó, $\lim_{x\to\pm\infty}[f(x)-2x]=1\ne0$, nên đường $y=2x$ được đề nghị không đúng.
+
+Tại điểm loại, phần dư có tử dương và mẫu đổi dấu qua $-1$:
+
+$$\lim_{x\to-1^-}f(x)=-\infty,\qquad\lim_{x\to-1^+}f(x)=+\infty.$$
+
+Tiệm cận đứng là $x=-1$.
+
+**Tiêu chí đối chiếu:** giữ miền; chia và kiểm hiệu đúng; xét đường đứng bằng giới hạn riêng tại điểm loại.
+
+**Nếu chia sai hoặc thiếu hệ số tự do:** xem [Biến đổi phân thức](#N-DS-01), rồi dùng ý a của [Nhiệm vụ 08 trong Sửa lỗi sau Kiểm tra](#S-K03). Nếu sai dấu hoặc điều kiện đường đứng ở ý d, xem [Giới hạn một phía](#N-GH-02), rồi chọn ý b của [Nhiệm vụ 06 trong Sửa lỗi sau Kiểm tra](#S-K01). Chỉ làm phần khớp lỗi thực tế; câu đã lộ dùng để học, không xác nhận lại. Sau hỗ trợ, trở về [đề đang làm](#K03) và Điểm dừng đã gọi.
+
+</details>
 
 [Trở lại đề](#K03).
 
@@ -1070,7 +2017,32 @@ Miền loại $-1$. Ta có $f(x)=2x+1+\frac{7}{x+1}$ do $(x+1)(2x+1)+7=2x^2+3x+8
 
 #### Nhiệm vụ 04 — Một phản ví dụ cần hai điều
 
-Vì $x^2+4>0$ với mọi $x$ và $\frac{x+3}{x^2+4}\to0$ khi $x\to \pm \infty$, đường $y=-2$ là tiệm cận ngang. Giải $g(x)=-2$ được $x=-3$; giao điểm là $(-3;-2)$. Đây là phản ví dụ cho nhận định. Tiêu chí: có giới hạn, có giao điểm hợp lệ và giải thích định nghĩa không cấm cắt ở hữu hạn.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+| Ý   | Căn cứ để cho điểm                                                               | Điểm |
+| --- | -------------------------------------------------------------------------------- | ---- |
+| a   | Biến đổi và giới hạn ở hai đầu: $0{,}5$; đường ngang: $0{,}5$                    | $1$  |
+| b   | Giao điểm: $0{,}5$; kiểm miền: $0{,}5$                                           | $1$  |
+| c   | Bác nhận định: $0{,}5$; giải thích bằng định nghĩa và giao điểm hữu hạn: $0{,}5$ | $1$  |
+
+Chấp nhận cách giải khác có căn cứ tương đương. Cho điểm theo phần thực sự làm được; không cộng phần lí do khi chỉ có đáp số.
+
+Mẫu $x^2+4$ dương với mọi $x$. Khi $x\ne0$,
+
+$$\frac{x+3}{x^2+4}=\frac{\frac{1}{x}+\frac{3}{x^2}}{1+\frac{4}{x^2}}\longrightarrow0\quad\text{khi }x\to\pm\infty.$$
+
+Do đó $\lim_{x\to\pm\infty}g(x)=-2$, nên $y=-2$ là tiệm cận ngang.
+
+Mặt khác, $g(x)=-2$ tương đương $x+3=0$. Giao điểm là $(-3;-2)$, thuộc đồ thị vì mẫu tại đó khác $0$.
+
+Hàm này vừa có tiệm cận ngang vừa cắt đường ấy, nên nhận định đã cho sai. Giao điểm hữu hạn không trái điều kiện giới hạn ở vô cực.
+
+**Tiêu chí đối chiếu:** có phép tính giới hạn, có giao điểm hợp lệ và có lời giải thích nối hai kết quả.
+
+**Nếu coi giao điểm là mâu thuẫn với tiệm cận:** [xem lại kiến thức/thao tác liên quan](#bh-02), rồi chọn đúng ý còn mới của [Nhiệm vụ 07 trong Sửa lỗi](#S-K02). Chỉ làm phần khớp lỗi thực tế; câu đã lộ dùng để học, không xác nhận lại. Sau hỗ trợ, trở về [đề đang làm](#K04) và Điểm dừng đã gọi.
+
+</details>
 
 [Trở lại đề](#K04).
 
@@ -1078,7 +2050,32 @@ Vì $x^2+4>0$ với mọi $x$ và $\frac{x+3}{x^2+4}\to0$ khi $x\to \pm \infty$,
 
 #### Nhiệm vụ 05 — Giới hạn của mô hình
 
-Khi $t\to +\infty$, $\frac{20}{t+4}\to0$ nên $A\to 9$. Tiệm cận ngang là $A=9$, biểu thị nồng độ tiến gần $9$ $\mathrm{mg}\,\mathrm{L}^{-1}$ trong mô hình. Vì phần dư dương với mọi $t\ge 0$ hữu hạn, mức ấy không được đạt. Miền $t\ge 0$ không tiến sát được $-4$, nên không lấy $t=-4$ làm tiệm cận đứng của đồ thị mô hình. Tiêu chí: giới hạn, dấu phần dư và miền đều được nêu; không biến dự báo mô hình thành kết luận thực nghiệm.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+| Ý   | Căn cứ để cho điểm                                                                      | Điểm    |
+| --- | --------------------------------------------------------------------------------------- | ------- |
+| a   | Giới hạn và đường ngang: $1$; ý nghĩa cùng đơn vị: $0{,}5$                              | $1{,}5$ |
+| b   | Kết luận sự đạt được: $0{,}5$; căn cứ dấu phần dư trên miền: $1$                        | $1{,}5$ |
+| c   | Bác đường đứng đề nghị: $0{,}5$; chỉ rõ không có thời điểm hợp lệ tiến sát mốc: $0{,}5$ | $1$     |
+
+Chấp nhận cách giải khác có căn cứ tương đương. Cho điểm theo phần thực sự làm được; không cộng phần lí do khi chỉ có đáp số.
+
+Khi $t\to+\infty$ trong miền $t\ge0$,
+
+$$\lim_{t\to+\infty}A(t)=9.$$
+
+Tiệm cận ngang là $A=9$. Trong mô hình, nồng độ tiến gần $9\,\mathrm{mg}\,\mathrm L^{-1}$ khi thời gian tăng.
+
+Với mọi thời điểm hữu hạn hợp lệ, $t+4>0$ nên $\frac{20}{t+4}>0$ và $A(t)>9$. Do đó nồng độ không bằng đúng mức ấy tại một thời điểm hữu hạn.
+
+Miền $t\ge0$ không có điểm nào tiến sát $-4$, nên không lấy $t=-4$ làm tiệm cận đứng của đồ thị mô hình. Công thức đại số và miền thời gian phải được xét cùng nhau.
+
+**Tiêu chí đối chiếu:** giới hạn và đơn vị đúng; kiểm sự đạt được bằng dấu phần dư; không mở rộng miền.
+
+**Nếu bỏ miền hoặc nhầm mức tiến tới với mức đạt được:** [xem lại kiến thức/thao tác liên quan](#bh-05), rồi chọn đúng ý còn mới của [Nhiệm vụ 08 trong Sửa lỗi](#S-K03). Chỉ làm phần khớp lỗi thực tế; câu đã lộ dùng để học, không xác nhận lại. Sau hỗ trợ, trở về [đề đang làm](#K05) và Điểm dừng đã gọi.
+
+</details>
 
 [Trở lại đề](#K05).
 
@@ -1090,7 +2087,28 @@ Khi $t\to +\infty$, $\frac{20}{t+4}\to0$ nên $A\to 9$. Tiệm cận ngang là $
 
 #### Nhiệm vụ 01 — Nhớ lại miền và giới hạn
 
-a) Hai miền đều loại $5$. Với $x\ne 5$, $u=x+5$ nên giới hạn bằng $10$; $x=5$ không là tiệm cận đứng và $u(5)$ không xác định. Với $v$, trái tại $5$ là $-\infty$, phải $+\infty$, nên $x=5$ là tiệm cận đứng. b) Chia tử/mẫu cho $x$: giới hạn $w$ bằng $\frac{7}{2}$ ở cả hai đầu, nên $y=\frac{7}{2}$ là tiệm cận ngang. Lượt này kiểm miền, ngang và đứng; không xác nhận kĩ năng xiên hoặc diễn giải mô hình.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+**a)** Hai hàm có miền tự nhiên $\mathbb R\setminus\{5\}$. Với $x\ne5$, $u(x)=x+5$, nên
+
+$$\lim_{x\to5^-}u(x)=\lim_{x\to5^+}u(x)=10.$$
+
+Đường $x=5$ không là tiệm cận đứng của đồ thị $u$ và $u(5)$ vẫn không xác định. Với $v$, tử dương còn mẫu tiến về $0$ theo dấu từng phía, nên
+
+$$\lim_{x\to5^-}v(x)=-\infty,\qquad\lim_{x\to5^+}v(x)=+\infty.$$
+
+Vậy $x=5$ là tiệm cận đứng của đồ thị $v$; $v(5)$ cũng không xác định.
+
+**b)** Chia tử và mẫu của $w$ cho $x$ khi xét ở xa:
+
+$$w(x)=\frac{7-\frac{4}{x}}{2+\frac{1}{x}}.$$
+
+Ở cả hai đầu, tử tiến về $7$, mẫu tiến về $2$ khác $0$. Tiệm cận ngang là $y=\frac{7}{2}$ khi $x\to+\infty$ và khi $x\to-\infty$.
+
+**Tiêu chí đối chiếu:** phân biệt hai hành vi tại điểm loại và tính đúng giới hạn ở cả hai đầu.
+
+</details>
 
 [Trở lại đề](#O01).
 
@@ -1098,7 +2116,24 @@ a) Hai miền đều loại $5$. Với $x\ne 5$, $u=x+5$ nên giới hạn bằn
 
 #### Nhiệm vụ 02 — Phần dư và giao điểm
 
-a) $f(x)=x-1+\frac{6}{x-2}$, $x\ne 2$. Hiệu với $x-1$ tiến về $0$ ở hai đầu nên tiệm cận xiên $y=x-1$. Tại $2$: trái $-\infty$, phải $+\infty$ nên tiệm cận đứng $x=2$. b) Phần phân thức của $g$ tiến về $0$ ở cả hai đầu vì bậc tử nhỏ hơn bậc mẫu; tiệm cận ngang $y=1$. Giải $g=1$ được $x=2$, giao điểm $(2;1)$. Định nghĩa ở vô cực không cấm giao điểm hữu hạn. Lượt này lấy mẫu đứng, xiên và phản ví dụ, không thay phép đo diễn giải mô hình.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+**a)** Miền của $f$ là $\mathbb R\setminus\{2\}$. Vì $(x-2)(x-1)+6=x^2-3x+8$,
+
+$$f(x)=x-1+\frac{6}{x-2}\quad(x\ne2).$$
+
+Hiệu với $x-1$ tiến về $0$ khi $x\to+\infty$ và khi $x\to-\infty$, nên tiệm cận xiên là $y=x-1$. Tại $2$, giới hạn trái là $-\infty$, giới hạn phải là $+\infty$; tiệm cận đứng là $x=2$.
+
+**b)** Mẫu $x^2+9>0$ với mọi $x$. Phần phân thức có thể viết thành
+
+$$\frac{x-2}{x^2+9}=\frac{\frac{1}{x}-\frac{2}{x^2}}{1+\frac{9}{x^2}}\quad(x\ne0).$$
+
+Biểu thức tiến về $0$ ở cả hai đầu nên tiệm cận ngang của $g$ là $y=1$. Giải $g(x)=1$ được $x=2$; giao điểm $(2;1)$ hợp lệ. Việc cắt tại điểm hữu hạn không trái định nghĩa.
+
+**Tiêu chí đối chiếu:** chia đúng và kiểm phần dư; chứng minh cả giới hạn và giao điểm ở ý thứ hai.
+
+</details>
 
 [Trở lại đề](#O02).
 
@@ -1106,19 +2141,51 @@ a) $f(x)=x-1+\frac{6}{x-2}$, $x\ne 2$. Hiệu với $x-1$ tiến về $0$ ở ha
 
 #### Nhiệm vụ 03 — Chọn điều cần kiểm
 
-a) Miền loại $6$, $u=x+6$ trên miền nên giới hạn tại $6$ bằng $12$; không có tiệm cận đứng tại $6$ và không tự gán $u(6)$. b) $y=3$ ứng với đầu phải, $y=-5$ ứng với đầu trái; hai đường ngang phải đặt đúng trên/dưới trục hoành. c) $v(x)=3x-2+\frac{7}{x+1}$, nên hiệu với $3x-2$ tiến về $0$ và đường xiên là $y=3x-2$. d) $B\to 4$ $\mathrm{mg}\,\mathrm{L}^{-1}$ khi $t\to +\infty$, luôn $B>4$ tại $t$ hữu hạn; $-3$ không thể tiếp cận trong miền $t\ge 0$ nên không là tiệm cận đứng của đồ thị mô hình. Lượt này không thay phép xác nhận giới hạn vô cực tại điểm hữu hạn nếu kĩ năng ấy còn vướng.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+**a)** Tập xác định của $u$ loại $6$. Với $x\ne6$, $u(x)=x+6$, nên $\lim_{x\to6}u(x)=12$. Vì giới hạn hữu hạn, $x=6$ không là tiệm cận đứng; $u(6)$ vẫn không xác định.
+
+**b)** Tiệm cận ngang $y=3$ ứng với đầu phải; $y=-5$ ứng với đầu trái. Khi phác, đặt đường thứ nhất phía trên trục hoành, đường thứ hai phía dưới và ghi rõ hướng tương ứng. Hai dữ kiện không xác định toàn bộ dáng điệu đồ thị ở giữa.
+
+**c)** Trên miền $x\ne-1$,
+
+$$v(x)=3x-2+\frac{7}{x+1},$$
+
+vì $(x+1)(3x-2)+7=3x^2+x+5$. Phần dư tiến về $0$ ở cả hai đầu, nên $\lim_{x\to\pm\infty}[v(x)-(3x-2)]=0$. Tiệm cận xiên là $y=3x-2$.
+
+**d)** Trong miền $t\ge0$, $\lim_{t\to+\infty}B(t)=4$. Mức tiến tới là $4\,\mathrm{mg}\,\mathrm L^{-1}$. Vì $\frac{15}{t+3}>0$ tại mọi thời điểm hữu hạn hợp lệ, $B(t)>4$ và không đạt mức ấy. Miền không tiếp cận được $-3$ nên không lấy $t=-3$ làm tiệm cận đứng của đồ thị mô hình.
+
+**Tiêu chí đối chiếu:** xem riêng từng ý; ghi phần chưa giải thích được thay vì nhận cả lượt chỉ từ vài đáp số đúng.
+
+</details>
 
 [Trở lại đề](#O03).
 
 <a id="lg-sl"></a>
 
-### Sửa lỗi sau Luyện tập
+### Sửa lỗi — Sau Luyện tập
 
 <a id="lg-S-L01"></a>
 
-#### Nhiệm vụ 01 — Giữ điểm bị loại
+#### Nhiệm vụ 01 — Giá trị tại mốc và hành vi lân cận
 
-Miền loại $7$. Trên miền, $u=x+7$ nên hai giới hạn tại $7$ bằng $14$. Không có tiệm cận đứng tại $7$ và $u(7)$ không xác định. Cần nêu cả miền lẫn giới hạn, không chỉ trả lời “không”.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+**a)** Tập xác định là $D=\mathbb R\setminus\{7\}$. Với $x\ne7$,
+
+$$u(x)=\frac{(x-7)(x+7)}{x-7}=x+7.$$
+
+Do đó $\lim_{x\to7^-}u(x)=\lim_{x\to7^+}u(x)=14$. Hai giới hạn hữu hạn nên $x=7$ không là tiệm cận đứng. Phép rút gọn không thêm $7$ vào miền, vì thế $u(7)$ không xác định.
+
+**b)** Điểm $(-1;4)$ thuộc đồ thị là phần đúng vì $v(-1)=4$. Tuy nhiên, $\lim_{x\to-1^-}v(x)=-\infty$ đã đủ để $x=-1$ là tiệm cận đứng; giá trị tại đúng mốc không xóa hành vi ở lân cận phía trái.
+
+Câu sửa: “Đồ thị có điểm $(-1;4)$ và có tiệm cận đứng $x=-1$, vì giới hạn trái tại $-1$ bằng $-\infty$.” Dữ kiện chưa quyết định giới hạn phải; không được tự gán nó bằng $4$ hoặc $-\infty$.
+
+**Tiêu chí đối chiếu:** ở ý a, giữ điều kiện rút gọn và giải thích vì sao giới hạn bằng $14$ không tạo giá trị tại điểm. Ở ý b, giữ dữ kiện giá trị tại mốc, viện dẫn đúng giới hạn trái và phân biệt điều đã biết với điều chưa biết về phía phải. Làm đúng ý a không tự xác nhận ý b. Sau đối chiếu, trở về đúng câu hoặc Điểm dừng đã gọi; nếu từ Tự kiểm tra 06 thì [trở về câu ấy](#T06). Câu đã xem lời giải dùng để học, không tính là xác nhận độc lập mới.
+
+</details>
 
 [Trở lại đề](#S-L01).
 
@@ -1126,7 +2193,22 @@ Miền loại $7$. Trên miền, $u=x+7$ nên hai giới hạn tại $7$ bằng 
 
 #### Nhiệm vụ 02 — Dấu ở hai phía
 
-Khi $x\to 6^{-}$, mẫu âm tiến tới $0$, tử âm nên $v\to +\infty$. Khi $x\to 6^{+}$, mẫu dương tiến tới $0$ nên $v\to -\infty$. Đường đứng là $x=6$; chỉ cần một phía vô cực đã đủ, còn hai dấu cho biết hành vi từng nhánh.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+Hàm có miền $\mathbb R\setminus\{6\}$. Khi $x\to6^-$, tử $-4$ âm và mẫu $x-6$ âm, tiến về $0$. Thương dương và tăng không bị chặn:
+
+$$\lim_{x\to6^-}v(x)=+\infty.$$
+
+Khi $x\to6^+$, mẫu dương và tiến về $0$, còn tử âm, nên
+
+$$\lim_{x\to6^+}v(x)=-\infty.$$
+
+Tiệm cận đứng là $x=6$. Một trong hai giới hạn vô cực đã đủ kết luận, còn việc tính cả hai giúp mô tả đúng từng nhánh.
+
+**Tiêu chí đối chiếu:** giải thích được dấu từ tử và mẫu; không đoán theo một mẫu nhớ sẵn.
+
+</details>
 
 [Trở lại đề](#S-L02).
 
@@ -1134,7 +2216,20 @@ Khi $x\to 6^{-}$, mẫu âm tiến tới $0$, tử âm nên $v\to +\infty$. Khi 
 
 #### Nhiệm vụ 03 — Hai đầu và một giao điểm
 
-a) $y=-6$ ở đầu phải; $y=4$ ở đầu trái. b) Mẫu luôn dương, phần phân thức tiến về $0$ ở hai đầu; tiệm cận ngang $y=2$. Giải $g=2$ được $x=-1$ nên giao điểm $(-1;2)$. Hai ý kiểm hai việc khác nhau; làm đúng $(a)$ chưa thay chứng minh ở $(b)$.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+**a)** Giới hạn ở đầu phải cho tiệm cận ngang $y=-6$ khi $x\to+\infty$; giới hạn ở đầu trái cho $y=4$ khi $x\to-\infty$.
+
+**b)** Hàm $g$ xác định trên $\mathbb R$ vì $x^2+2>0$. Khi $x\ne0$,
+
+$$\frac{x+1}{x^2+2}=\frac{\frac{1}{x}+\frac{1}{x^2}}{1+\frac{2}{x^2}}\longrightarrow0\quad\text{khi }x\to\pm\infty.$$
+
+Vậy tiệm cận ngang là $y=2$. Phương trình $g(x)=2$ tương đương $x+1=0$ và cho giao điểm $(-1;2)$.
+
+**Tiêu chí đối chiếu:** ý đầu kiểm hai hướng; ý sau cần cả giới hạn lẫn giao điểm. Làm đúng một ý không thay phần còn thiếu.
+
+</details>
 
 [Trở lại đề](#S-L03).
 
@@ -1142,57 +2237,218 @@ a) $y=-6$ ở đầu phải; $y=4$ ở đầu trái. b) Mẫu luôn dương, ph�
 
 #### Nhiệm vụ 04 — Giữ hằng số và giữ miền mô hình
 
-a) $f=x+3+\frac{6}{x+1}$; nhân ngược trả đúng tử. Hiệu với $x+3$ tiến về $0$ ở hai đầu, nên tiệm cận xiên $y=x+3$. b) $a\to 8$ ${}^{\circ}\mathrm{C}$ khi $t\to +\infty$, nhưng $a>8$ ở mọi $t$ hữu hạn. Miền không tiến sát $-5$, nên mốc ấy không là tiệm cận đứng của đồ thị mô hình. Kết quả mỗi ý xác nhận đúng mục tiêu của ý ấy.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+**a)** Miền là $\mathbb R\setminus\{-1\}$. Trên miền này,
+
+$$f(x)=x+3+\frac{6}{x+1},$$
+
+vì $(x+1)(x+3)+6=x^2+4x+9$. Hiệu với $x+3$ tiến về $0$ khi $x\to+\infty$ và khi $x\to-\infty$. Tiệm cận xiên là $y=x+3$.
+
+**b)** Trong miền $t\ge0$, ta có $\lim_{t\to+\infty}a(t)=8$. Mức tiến tới là $8\,{}^{\circ}\mathrm C$. Phần $\frac{10}{t+5}>0$ ở mọi thời điểm hữu hạn hợp lệ, nên $a(t)>8$ và không đạt mức ấy.
+
+Miền không cho $t$ tiến sát $-5$, nên mốc đó không tạo tiệm cận đứng của đồ thị mô hình.
+
+**Tiêu chí đối chiếu:** kiểm đủ hệ số tự do và phần dư ở ý đầu; giữ giới hạn, sự đạt được và miền ở ý sau.
+
+</details>
 
 [Trở lại đề](#S-L04).
 
+<a id="lg-S-L05"></a>
+
+#### Nhiệm vụ 05 — Đường đứng và đường xiên từ hai nhánh
+
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+Ở đầu trái, $\lim_{x\to-\infty}f(x)=3$ cho tiệm cận ngang $y=3$. Đường $x=-2$ là tiệm cận đứng do giới hạn trái tại mốc bằng $-\infty$. Ở đầu phải, $\lim_{x\to+\infty}[f(x)-(-x-2)]=0$ cho tiệm cận xiên $y=-x-2$.
+
+Nhánh trái tiến gần mức $3$ khi đi xa về trái và đi xuống không bị chặn khi tới $-2$ từ trái. Nhánh phải tiến tới điểm hở $(-2;1)$ khi tới mốc từ phải; khi đi xa về phải, nó tiến gần đường xiên $y=-x-2$ đi xuống. Hiệu tiến về $0$ ở đầu phải mới là căn cứ nhận đường xiên; không chỉ dựa vào nét cong trông gần thẳng.
+
+Điểm hở không phải giá trị của hàm tại $-2$; nó biểu thị giới hạn phải hữu hạn trong hình này. Giới hạn phải không thay thế giới hạn trái. Vì thế dùng điểm hở để bác đường đứng là sai.
+
+Đạt khi chỉ đúng từng nhánh, hướng và đường tương ứng, kể cả đường xiên ở đầu phải, đồng thời giải thích được căn cứ; không chỉ chép ba phương trình. Nếu còn nhầm phía, xem [Giới hạn một phía](#N-GH-02); nếu đòi hai phía cùng vô cực, xem [mục tiệm cận đứng](#bh-03). Nếu nhầm nhánh xiên, xem [Tiệm cận xiên](#bh-04). Trở về [Điểm dừng 02](#CP02) nếu bài được gọi từ đó, hoặc nhiệm vụ đã gọi.
+
+</details>
+
+[Trở lại đề](#S-L05).
+
 <a id="lg-sk"></a>
 
-### Sửa lỗi sau Kiểm tra
+### Sửa lỗi — Sau Kiểm tra
 
 <a id="lg-S-K01"></a>
 
-#### Nhiệm vụ 01 — Phân biệt hữu hạn và vô cực
+#### Nhiệm vụ 06 — Phân biệt hữu hạn và vô cực
 
-a) Miền loại $8$; $p=x+8$ trên miền nên giới hạn $16$, không có tiệm cận đứng tại $8$ và $p(8)$ không xác định. b) Mẫu bình phương tiến về $0^+$, tử âm nên cả hai giới hạn bằng $-\infty$; tiệm cận đứng $x=-2$. Không dùng mẫu dấu trái/phải của $\frac{1}{x-a}$ cho mẫu bình phương.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+**a)** Miền của $p$ loại $8$. Với $x\ne8$, $p(x)=x+8$, nên
+
+$$\lim_{x\to8^-}p(x)=\lim_{x\to8^+}p(x)=16.$$
+
+Do đó $x=8$ không là tiệm cận đứng, còn $p(8)$ không xác định. Giới hạn hữu hạn không bổ sung giá trị tại điểm.
+
+**b)** Với $q$, miền loại $-2$. Mẫu $(x+2)^2$ dương và tiến về $0$ ở cả hai phía, tử bằng $-3<0$, nên
+
+$$\lim_{x\to-2^-}q(x)=\lim_{x\to-2^+}q(x)=-\infty.$$
+
+Vậy $x=-2$ là tiệm cận đứng. Mẫu bình phương khiến dấu hai phía giống nhau trong bài này.
+
+**Tiêu chí đối chiếu:** phân biệt giới hạn hữu hạn/vô cực và giải thích dấu khi mẫu là bình phương.
+
+</details>
 
 [Trở lại đề](#S-K01).
 
 <a id="lg-S-K02"></a>
 
-#### Nhiệm vụ 02 — Không nhầm giới hạn với giao điểm
+#### Nhiệm vụ 07 — Không nhầm giới hạn với giao điểm
 
-a) $y=6$ ở đầu phải; $y=-7$ ở đầu trái. b) Phần phân thức tiến về $0$ ở hai đầu vì chia cả tử và mẫu cho $x^2$ cho tử tiến về $0$, mẫu về $1$. Ngang $y=-3$. Giải $g=-3$ được $x=4$, giao điểm $(4;-3)$. Giới hạn ở vô cực không cấm cắt tại hoành độ hữu hạn.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+**a)** Đầu phải cho tiệm cận ngang $y=6$ khi $x\to+\infty$; đầu trái cho $y=-7$ khi $x\to-\infty$.
+
+**b)** Vì $x^2+5>0$, hàm $g$ có miền $\mathbb R$. Chia tử và mẫu của phần phân thức cho $x^2$ khi xét ở xa:
+
+$$\frac{x-4}{x^2+5}=\frac{\frac{1}{x}-\frac{4}{x^2}}{1+\frac{5}{x^2}}\longrightarrow0\quad\text{khi }x\to\pm\infty.$$
+
+Vậy $y=-3$ là tiệm cận ngang. Giải $g(x)=-3$ được $x=4$, nên đồ thị cắt đường ấy tại $(4;-3)$. Giao điểm hữu hạn không bác giới hạn ở vô cực.
+
+**Tiêu chí đối chiếu:** đúng đường và hướng ở ý đầu; có cả phép kiểm giới hạn lẫn giao điểm ở ý sau.
+
+</details>
 
 [Trở lại đề](#S-K02).
 
 <a id="lg-S-K03"></a>
 
-#### Nhiệm vụ 03 — Xác nhận đường xiên và ý nghĩa mô hình
+#### Nhiệm vụ 08 — Xác nhận đường xiên và ý nghĩa mô hình
 
-a) $f=2x-1+\frac{5}{x-1}$, $x\ne 1$. Hiệu với $2x-1$ tiến về $0$, nên tiệm cận xiên $y=2x-1$. b) $b\to 7$ $\mathrm{mg}\,\mathrm{L}^{-1}$ ở $+\infty$, luôn $b>7$ tại $t$ hữu hạn; miền $t\ge 0$ không tiếp cận $-6$ nên không có tiệm cận đứng tại mốc ấy trên miền mô hình. Phải giữ riêng kết luận sau sửa với bài Kiểm tra ban đầu.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+**a)** Với $x\ne1$, ta có
+
+$$f(x)=2x-1+\frac{5}{x-1},$$
+
+vì $(x-1)(2x-1)+5=2x^2-3x+6$. Suy ra
+
+$$\lim_{x\to+\infty}[f(x)-(2x-1)]=\lim_{x\to-\infty}[f(x)-(2x-1)]=0.$$
+
+Tiệm cận xiên là $y=2x-1$.
+
+**b)** Mô hình chỉ được cho trên đoạn $[0;30]$. Trong miền này không có hướng $t\to+\infty$, nên chưa thể dùng giới hạn ở vô cực để kết luận đồ thị mô hình có tiệm cận ngang. Nhận định của bạn đã vượt miền được cho.
+
+Nếu bổ sung giả thiết mở rộng cùng công thức cho mọi $t\ge0$, ta đang xét một mô hình mở rộng. Khi đó
+
+$$\lim_{t\to+\infty}\left[7+\frac{14}{t+6}\right]=7,$$
+
+nên mô hình mở rộng có đường ngang $b=7$ và $b(t)>7$ ở mọi thời điểm hữu hạn hợp lệ; mức $7\,\mathrm{mg}\,\mathrm L^{-1}$ không được đạt. Kết luận có điều kiện này không tự đúng cho miền ban đầu.
+
+**Tiêu chí đối chiếu:** ý đầu kiểm đủ đường xiên; ý sau phân biệt mô hình đã cho với mô hình được mở rộng thêm.
+
+</details>
 
 [Trở lại đề](#S-K03).
 
+<a id="lg-S-K04"></a>
+
+#### Nhiệm vụ 09 — Điểm hở và nhánh bên kia
+
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+**a)** Nhánh trái tiến gần mức $2$ khi $x\to-\infty$, nên có tiệm cận ngang $y=2$ ở đầu trái. Nhánh phải đi lên không bị chặn khi $x\to3^+$, nên $x=3$ là tiệm cận đứng.
+
+Ở đầu phải, dữ kiện $\lim_{x\to+\infty}[f(x)-(-x+4)]=0$ cho tiệm cận xiên $y=-x+4$. Trên hình cần chỉ đúng nhánh đi xuống ở xa về bên phải và hướng tiến gần đường xiên ấy.
+
+**b)** Điểm hở $(3;-1)$ cho biết giới hạn trái tại $3$ bằng $-1$, đồng thời điểm này không thuộc đồ thị. Nó không mô tả giới hạn phải. Vì giới hạn phải bằng $+\infty$, điều kiện tiệm cận đứng vẫn được thỏa mãn.
+
+**c)** Nhận định “có điểm hở nên không có tiệm cận đứng ở cùng hoành độ” sai. Phải xét hành vi ở từng phía, không lấy một dấu hiệu ở nhánh trái thay cho việc kiểm cả mốc.
+
+**Tiêu chí đối chiếu:** chỉ đúng nhánh/hướng của ba đường, giải thích điểm hở và điều kiện một phía. Câu chỉ tính từ công thức không thay phần chỉ trên hình.
+
+</details>
+
+[Trở lại đề](#S-K04).
+
 <a id="lg-so"></a>
 
-### Sửa lỗi sau Ôn lại
+### Sửa lỗi — Sau Ôn lại
 
 <a id="lg-S-O01"></a>
 
-#### Nhiệm vụ 01 — Ôn lại miền, phía và hai đầu
+#### Nhiệm vụ 10 — Ôn lại miền, phía và hai đầu
 
-a) Miền loại $9$; $u=x+9$ trên miền, giới hạn $18$; $u(9)$ không xác định và $x=9$ không là tiệm cận đứng. b) Trái tại $-4$ cho $-\infty$, phải cho $+\infty$; tiệm cận đứng $x=-4$. c) $y=8$ ở đầu phải, $y=-9$ ở đầu trái. Chỉ ghi đã xác nhận những ý thực sự tự làm đúng; không dùng một ý đúng để nhận cả ba.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+**a)** Miền của $u$ là $\mathbb R\setminus\{9\}$. Với $x\ne9$, $u(x)=x+9$, nên $\lim_{x\to9}u(x)=18$. Vì giới hạn hữu hạn, $x=9$ không là tiệm cận đứng, còn $u(9)$ vẫn không xác định.
+
+**b)** Với $v(x)=\frac{5}{x+4}$, tử dương và mẫu đổi dấu qua $-4$. Do đó
+
+$$\lim_{x\to-4^-}v(x)=-\infty,\qquad\lim_{x\to-4^+}v(x)=+\infty.$$
+
+Tiệm cận đứng là $x=-4$.
+
+**c)** Tiệm cận ngang ở đầu phải là $y=8$ khi $x\to+\infty$; ở đầu trái là $y=-9$ khi $x\to-\infty$.
+
+**Tiêu chí đối chiếu:** xem riêng miền và giới hạn hữu hạn, dấu hai phía, hai đầu vô cực; không dùng một ý đúng để nhận cả ba.
+
+</details>
 
 [Trở lại đề](#S-O01).
 
 <a id="lg-S-O02"></a>
 
-#### Nhiệm vụ 02 — Ôn lại phần dư và cách diễn giải
+#### Nhiệm vụ 11 — Ôn lại phần dư và cách diễn giải
 
-a) $f=3x+1+\frac{8}{x-1}$, nên hiệu với $3x+1$ tiến về $0$; tiệm cận xiên $y=3x+1$. b) Mẫu luôn dương, phần phân thức về $0$ ở hai đầu; tiệm cận ngang $y=4$, cắt tại $(-2;4)$. c) $c\to 3$ $\mathrm{mg}\,\mathrm{L}^{-1}$ ở $+\infty$ nhưng $c>3$ ở hữu hạn; $-7$ không thể tiếp cận trong miền nên không lấy làm tiệm cận đứng của đồ thị mô hình. Ba ý lần lượt xác nhận phần dư, phản ví dụ và miền/diễn giải.
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+**a)** Trên miền $x\ne1$,
+
+$$f(x)=3x+1+\frac{8}{x-1},$$
+
+vì $(x-1)(3x+1)+8=3x^2-2x+7$. Hiệu với $3x+1$ tiến về $0$ ở cả hai đầu, nên $\lim_{x\to\pm\infty}[f(x)-(3x+1)]=0$ và tiệm cận xiên là $y=3x+1$.
+
+**b)** Mẫu $x^2+7>0$ với mọi $x$. Phần phân thức của $g$ tiến về $0$ khi $x\to+\infty$ và khi $x\to-\infty$, vì sau khi chia tử/mẫu cho $x^2$ ta được tử tiến về $0$, mẫu tiến về $1$. Tiệm cận ngang là $y=4$.
+
+Giải $g(x)=4$ được $x=-2$, nên giao điểm là $(-2;4)$. Việc cắt tại điểm hữu hạn phù hợp với định nghĩa.
+
+**c)** Với $t\ge0$, $t+7>0$ nên
+
+$$c(t)=3-\frac{16}{t+7}<3,\qquad\lim_{t\to+\infty}c(t)=3.$$
+
+Nồng độ tiến gần $3\,\mathrm{mg}\,\mathrm L^{-1}$ từ phía dưới và không đạt mức ấy tại thời điểm hữu hạn. Giới hạn bằng $3$ không cho phép kết luận $c(t)>3$: phải xét dấu phần chênh lệch. Mốc $-7$ không thể tiếp cận trong miền mô hình nên không là tiệm cận đứng của đồ thị này.
+
+**Tiêu chí đối chiếu:** kiểm phần dư, giao điểm và dấu tiến gần; giữ đúng miền, đơn vị trong mô hình.
+
+</details>
 
 [Trở lại đề](#S-O02).
+
+<a id="lg-S-O03"></a>
+
+#### Nhiệm vụ 12 — Điểm kín và hai nhánh khác nhau
+
+<details>
+<summary>Lời giải và tiêu chí đối chiếu</summary>
+
+Ở đầu trái, $y=x-2$ là tiệm cận xiên vì giới hạn hiệu đã cho bằng $0$. Ở đầu phải, $y=4$ là tiệm cận ngang. Đường đứng $x=1$ được xác định bởi giới hạn trái $-\infty$.
+
+Nhánh trái tiến gần đường xiên khi đi xa về trái và đi xuống không bị chặn khi tới $1$ từ trái. Nhánh phải tiến tới điểm hở $(1;1)$ khi tới mốc từ phải và tiến gần mức $4$ khi đi xa về phải. Điểm kín $(1;2)$ cho $g(1)=2$; nó không thay đổi hai giới hạn một phía. Hàm vẫn có tiệm cận đứng dù có giá trị tại mốc.
+
+Các giới hạn ràng buộc hành vi gần mốc và ở xa, không xác định mọi giá trị bên trong các khoảng hoặc một công thức duy nhất. Đạt khi tách đúng điểm kín, điểm hở, hai phía và hai đầu. Nếu còn dùng giá trị tại mốc để bác đường đứng, xem lại [mục tiệm cận đứng](#bh-03), rồi quay về đúng Điểm dừng Ôn lại đã gọi; câu đã xem không trở thành xác nhận mới.
+
+</details>
+
+[Trở lại đề](#S-O03).
 
 <a id="nguon"></a>
 
@@ -1205,6 +2461,9 @@ a) $f=3x+1+\frac{8}{x-1}$, nên hiệu với $3x+1$ tiến về $0$; tiệm cậ
 Các nhiệm vụ, dữ kiện số và mô hình giả định trong bản thảo được biên soạn cho gói này. Hình được dựng từ công thức của từng hình; hình trong câu đọc đồ thị đi cùng dữ kiện giới hạn để có căn cứ kết luận chính xác. Gói không khẳng định tần suất xuất hiện của tiệm cận trong đề thi 2027.
 
 [^sgk-ngang]: Toán 12, tập một, Kết nối tri thức với cuộc sống, Bài 3, định nghĩa đường tiệm cận ngang, trang in 20 (trang PDF 22 trong bản ở Nguồn dự án).
+
 [^sgk-dung]: Cùng SGK, Bài 3, định nghĩa đường tiệm cận đứng, trang in 21 (trang PDF 23). Bản thảo dùng kí hiệu $a$ thay cho $x_0$ và giữ điều kiện “ít nhất một”.
+
 [^sgk-xien]: Cùng SGK, Bài 3, định nghĩa đường tiệm cận xiên, trang in 23 (trang PDF 25).
+
 [^sgk-he-so]: Cùng SGK, Bài 3, phần “Chú ý” và “Nhận xét”, trang in 24 (trang PDF 26). Bản thảo tách hai hướng lấy giới hạn để làm rõ cách dùng; không trộn kết quả của hai hướng.

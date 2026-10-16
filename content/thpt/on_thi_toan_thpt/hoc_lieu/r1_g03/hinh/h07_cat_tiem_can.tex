@@ -1,0 +1,27 @@
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{backgrounds,arrows.meta}
+\input{zo_graph_v02.tex}
+\begin{document}
+\begin{tikzpicture}[zo graph v02 field]
+\zoGraphVTwoLayers
+
+% A finite crossing does not prevent a horizontal asymptote at either end.
+\begin{axis}[zo graph v02 axis,width=11cm,height=7cm,
+ xmin=-6,xmax=6,ymin=-0.5,ymax=3.2,restrict y to domain=-0.5:3.2,
+ xtick={-2,2},ytick={1,2,3},xlabel={$x$},ylabel={$y$},
+ every axis x label/.append style={at={(axis description cs:0.98,0.01)},anchor=south east},
+ every axis y label/.append style={at={(axis description cs:0.5,0.98)},anchor=north west}]
+\node[zo graph v02 font sentinel] at (axis cs:0,0) {x};
+\addplot[zo graph v02 asymptote,domain=-6:6,forget plot] {2};
+\addplot[zo graph v02 curve solid,domain=-6:6,samples=501,forget plot] {2+x/(x^2+1)};
+\addplot[zo graph v02 point emphasized,forget plot] coordinates {(0,2)};
+\node[zo graph v02 protected label,anchor=north west] at (axis cs:0.2,1.95) {$(0;2)$};
+\node[zo graph v02 protected label,anchor=south] at (axis cs:4.7,2) {$y=2$};
+\end{axis}
+
+\end{tikzpicture}
+\end{document}

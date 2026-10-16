@@ -1,0 +1,235 @@
+{
+  "date": "2026-10-16",
+  "scope": "Thực hiện và kiểm năm hiệu chỉnh sau rà soát G03 0.7; nội dung hiện hành 0.8",
+  "input": {
+    "before_sha256": "867ff5e6cd2b09cb3045d6c22d31629f545c527d34ba8c868991ee27c0a530a8",
+    "after_edit_sha256": "3fdfca12f37d26728b887d18b1c0add21673900231395807ca1c7eb66bbd4dcb",
+    "version": "0.8",
+    "changes": [
+      "S-L01(b) independent confirmation with finite assigned point and left infinite limit",
+      "S-L05 right oblique branch, question and solution",
+      "subpart-specific support routes",
+      "explicit K02(b) scoring components",
+      "21 named repair-table links"
+    ]
+  },
+  "verification": {
+    "version": "0.8",
+    "manuscript_sha256": "3fdfca12f37d26728b887d18b1c0add21673900231395807ca1c7eb66bbd4dcb",
+    "math_expressions": 1115,
+    "links": 365,
+    "anchors": 145,
+    "managed_tasks": 52,
+    "separated_pairs": 42,
+    "figures": 11,
+    "technical": "all scoped checks pass",
+    "symbolic_and_scoring_checks": [
+      {
+        "case": "SL01a original reduction",
+        "actual": "0",
+        "expected": "0",
+        "passed": true
+      },
+      {
+        "case": "SL01a finite -",
+        "actual": "14",
+        "expected": "14",
+        "passed": true
+      },
+      {
+        "case": "SL01a finite +",
+        "actual": "14",
+        "expected": "14",
+        "passed": true
+      },
+      {
+        "case": "SL01b compatible left branch",
+        "actual": "-oo",
+        "expected": "-oo",
+        "passed": true
+      },
+      {
+        "case": "SL01b right limit can differ 0",
+        "actual": "0",
+        "expected": "0",
+        "passed": true
+      },
+      {
+        "case": "SL01b right limit can differ 2",
+        "actual": "2",
+        "expected": "2",
+        "passed": true
+      },
+      {
+        "case": "SL05 left horizontal",
+        "actual": "3",
+        "expected": "3",
+        "passed": true
+      },
+      {
+        "case": "SL05 left vertical",
+        "actual": "-oo",
+        "expected": "-oo",
+        "passed": true
+      },
+      {
+        "case": "SL05 right local",
+        "actual": "1",
+        "expected": "1",
+        "passed": true
+      },
+      {
+        "case": "SL05 right oblique difference",
+        "actual": "0",
+        "expected": "0",
+        "passed": true
+      },
+      {
+        "case": "SL05 right branch not horizontal",
+        "actual": "-oo",
+        "expected": "-oo",
+        "passed": true
+      },
+      {
+        "case": "SL05 open point ordinate",
+        "actual": "1",
+        "expected": "1",
+        "passed": true
+      },
+      {
+        "case": "K02b explicit components",
+        "actual": "3/2",
+        "expected": "3/2",
+        "passed": true
+      },
+      {
+        "case": "K01 row totals",
+        "actual": "4",
+        "expected": "4",
+        "passed": true
+      },
+      {
+        "case": "K02 row totals",
+        "actual": "4",
+        "expected": "4",
+        "passed": true
+      },
+      {
+        "case": "K03 row totals",
+        "actual": "5",
+        "expected": "5",
+        "passed": true
+      },
+      {
+        "case": "K04 row totals",
+        "actual": "3",
+        "expected": "3",
+        "passed": true
+      },
+      {
+        "case": "K05 row totals",
+        "actual": "4",
+        "expected": "4",
+        "passed": true
+      },
+      {
+        "case": "K total score",
+        "actual": "20",
+        "expected": "20",
+        "passed": true
+      }
+    ],
+    "issue_closure": [
+      {
+        "id": "R03-01",
+        "status": "implemented_and_verified"
+      },
+      {
+        "id": "R03-02",
+        "status": "implemented_and_verified"
+      },
+      {
+        "id": "R03-03",
+        "status": "implemented_and_verified"
+      },
+      {
+        "id": "R03-04",
+        "status": "implemented_and_verified"
+      },
+      {
+        "id": "R03-05",
+        "status": "implemented_and_verified"
+      }
+    ],
+    "new_figure": {
+      "vector_check": "pass",
+      "visual_review": "pass",
+      "source_sha256": "0e43ec05f0d723e9ab09a342b87d86ae1835cfa8c3d36eb8521dd98d71d89425"
+    },
+    "limits": "No learner trial, independent review or current full-layout G03 PDF; content approval pending."
+  },
+  "closure": [
+    {
+      "id": "R03-01",
+      "change": "S-L01(b), lg-S-L01(b), T06 direct routing, journal next step"
+    },
+    {
+      "id": "R03-02",
+      "change": "S-L05 right oblique branch and matching graph source/outputs/data/answer"
+    },
+    {
+      "id": "R03-03",
+      "change": "Subpart-specific routes in seven repair tasks"
+    },
+    {
+      "id": "R03-04",
+      "change": "K02(b) three explicit 0.5 components totaling 1.5"
+    },
+    {
+      "id": "R03-05",
+      "change": "21 full number-and-title repair-table links"
+    }
+  ],
+  "files": [
+    {
+      "path": "content\\thpt\\on_thi_toan_thpt\\hoc_lieu\\r1_g03\\_quy_trinh\\ban_thao\\noi_dung.md",
+      "sha256": "3fdfca12f37d26728b887d18b1c0add21673900231395807ca1c7eb66bbd4dcb"
+    },
+    {
+      "path": "content\\thpt\\on_thi_toan_thpt\\hoc_lieu\\r1_g03\\_quy_trinh\\ban_thao\\hinh\\manifest.json",
+      "sha256": "6591df210b3bcc6d80282848fceffe75a0ea1bf65361ca4bf04b4237ff61d0a8"
+    },
+    {
+      "path": "content\\thpt\\on_thi_toan_thpt\\hoc_lieu\\r1_g03\\_quy_trinh\\ban_thao\\hinh\\s_l05_doc_hinh.tex",
+      "sha256": "0e43ec05f0d723e9ab09a342b87d86ae1835cfa8c3d36eb8521dd98d71d89425"
+    },
+    {
+      "path": "content\\thpt\\on_thi_toan_thpt\\hoc_lieu\\r1_g03\\_quy_trinh\\ban_thao\\hinh\\s_l05_doc_hinh.svg",
+      "sha256": "923287bc0d8985e52c8fe053d74d4745e0b428ceaec72a87f64edf077dd3bf3f"
+    },
+    {
+      "path": "content\\thpt\\on_thi_toan_thpt\\hoc_lieu\\r1_g03\\_quy_trinh\\ban_thao\\hinh\\s_l05_doc_hinh.pdf",
+      "sha256": "2eed12d29e19d7c183718321d89eb2737219850334bfcec4d15d9290d3b54ada"
+    },
+    {
+      "path": "content\\thpt\\on_thi_toan_thpt\\tot_nghiep_thpt\\2027\\_quy_trinh\\goi\\R1_G03.md",
+      "sha256": "ac89485a6aacee24c84729f47944386a548ea260e3f604415dc13d22619c2ecc"
+    },
+    {
+      "path": "content\\thpt\\on_thi_toan_thpt\\tot_nghiep_thpt\\2027\\_quy_trinh\\goi\\R1_G03_de_cuong_bien_soan.md",
+      "sha256": "ef6d9d63824bc5046a7922a9943f11cdeda259a305ccc9d9b058bf74b6a20e65"
+    },
+    {
+      "path": "content\\thpt\\on_thi_toan_thpt\\tot_nghiep_thpt\\2027\\_quy_trinh\\goi\\R1_G03_ma_tran_nhiem_vu.md",
+      "sha256": "640d55b821a4e02f72e4852a3dd20f453d8d1bec3cbf9837393b3f6bf963278d"
+    },
+    {
+      "path": "content\\thpt\\on_thi_toan_thpt\\tot_nghiep_thpt\\2027\\_quy_trinh\\03_dieu_hanh_chuong_trinh.md",
+      "sha256": "2d58798d2d3ef6de931bc707b2bfcf65a1201ccbf51a0dc342619a5e5ac68329"
+    }
+  ],
+  "historical_review": "ra_soat_toan_bo_theo_g01_20261016.json preserved unchanged",
+  "owner_acceptance": "pending",
+  "official_qmd": "not_created",
+  "publication": "not_performed"
+}

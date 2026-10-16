@@ -1,0 +1,100 @@
+{
+  "date": "2026-10-16",
+  "scope": "Correct omitted diagnostic warmup; separate from existing guided question",
+  "before_sha256": "196844094cc5dece71b3360f97185757d73203b97353c3ff137b135cd6f9f269",
+  "after_sha256": "ac7ef9ab2394615278b78103cb3a0565d094bd9d5b0edec7cfd93d758ce52c7b",
+  "task_slots": 44,
+  "new_warmup_tasks": [
+    {
+      "id": "KD01",
+      "title": "Giữ miền khi rút gọn"
+    },
+    {
+      "id": "KD02",
+      "title": "Đọc hướng và xét dấu"
+    },
+    {
+      "id": "KD03",
+      "title": "Xét riêng hai đầu vô cực"
+    },
+    {
+      "id": "KD04",
+      "title": "Kiểm thương và phần dư"
+    }
+  ],
+  "separate_guided_question": "GM01 retained; no double classification",
+  "separated_question_solution_pairs": 39,
+  "math_spans": 946,
+  "existing_math_preserved": true,
+  "new_math_checks": [
+    {
+      "case": "warmup domain: denominator zero",
+      "actual": "[10]",
+      "expected": "[10]"
+    },
+    {
+      "case": "warmup reduction",
+      "actual": "0",
+      "expected": "0"
+    },
+    {
+      "case": "warmup one-sided left",
+      "actual": "oo",
+      "expected": "oo"
+    },
+    {
+      "case": "warmup one-sided right",
+      "actual": "-oo",
+      "expected": "-oo"
+    },
+    {
+      "case": "warmup infinity oo",
+      "actual": "4",
+      "expected": "4"
+    },
+    {
+      "case": "warmup infinity -oo",
+      "actual": "4",
+      "expected": "4"
+    },
+    {
+      "case": "warmup division",
+      "actual": "0",
+      "expected": "0"
+    }
+  ],
+  "new_math_passed": 7,
+  "links_checked": 203,
+  "visible_management_codes": 0,
+  "new_figures_or_folders": false,
+  "files": [
+    {
+      "path": "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/_quy_trinh/ban_thao/noi_dung.md",
+      "before_sha256": "196844094cc5dece71b3360f97185757d73203b97353c3ff137b135cd6f9f269",
+      "after_sha256": "ac7ef9ab2394615278b78103cb3a0565d094bd9d5b0edec7cfd93d758ce52c7b"
+    },
+    {
+      "path": "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/goi/R1_G03.md",
+      "before_sha256": "89186df40df36c33331f4cf6cf646e1a5e463c5b4d0e1e3e90dce76197aa6c4e",
+      "after_sha256": "75cd7f96ad163c92d8db29481f65b62cbf65b77eede66e90153c467b21406e68"
+    },
+    {
+      "path": "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/goi/R1_G03_de_cuong_bien_soan.md",
+      "before_sha256": "6e2cbe8839ddd4a71a203f055a4815e3491acfb68efb81df03bd81d285cb2756",
+      "after_sha256": "5ee6d6eb1a852da2a49007eb55d277a1550f979391777306c563d4ba664db2a8"
+    },
+    {
+      "path": "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/goi/R1_G03_ma_tran_nhiem_vu.md",
+      "before_sha256": "aa5483d4b34940d3eb1fcd7c5fef78deb72cdf171c751adceb92c2b6c0e745b1",
+      "after_sha256": "4f90319e47db47ce17a5a481bc5bcb7450867b82214a51ffd7a5c2418252cdf8"
+    },
+    {
+      "path": "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/03_dieu_hanh_chuong_trinh.md",
+      "before_sha256": "52a6060046aad3a7bf645c78a1dfb909d242d954902eda8c6058541613c33611",
+      "after_sha256": "2beaebfc341f29c4bb2e0eace3513745168f24e3758d40bbe1e3cd80801f8962"
+    }
+  ],
+  "owner_acceptance": "pending for revised manuscript",
+  "qmd_created": false,
+  "committed": false
+}

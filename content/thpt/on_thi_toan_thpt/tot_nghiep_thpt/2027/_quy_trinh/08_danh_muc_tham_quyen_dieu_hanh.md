@@ -6,7 +6,7 @@
 
 **QD_032:** 07 sở hữu điều hướng toàn khóa học; `_data/chuong_trinh.yml` sở hữu danh mục, `zo_web_2027_navigation.py` sở hữu binding hiển thị/URL hiện hữu, kit sở hữu CSS/JS và checker sở hữu kiểm kỹ thuật. Bốn adapter gọi cùng module; không lấy mẫu audit làm chuẩn/runtime thứ hai. 03 sở hữu DH_027 và trạng thái HTML. Phân cấp tiêu đề chưa được duyệt, không có quy tắc mới thay cấp hiện hành.
 
-Phiên bản: 0.9 · Ngày: 16/10/2026 · Căn cứ: QD_019, phần còn hiệu lực của QD_021, QD_022–032, QD_033, QD_034 và QD_035.
+Phiên bản: 0.10 · Ngày: 16/10/2026 · Căn cứ: QD_019, phần còn hiệu lực của QD_021, QD_022–032, QD_033, QD_034, QD_035 và QD_036.
 
 **QD_033:** 01 sở hữu Bài học → Luyện tập → Kiểm tra → Ôn lại là tiến trình chuẩn được khuyến nghị nhưng không cưỡng chế hoàn thành tuần tự, cùng quyền chọn điểm vào, hỗ trợ độc lập, tự lực trong lượt Kiểm tra và phân biệt bằng chứng/Nhật kí; 07 sở hữu cách thể hiện cùng ngoại lệ liên kết tại chỗ; 02 sở hữu cơ chế thay thế. Registry chọn `learning_route`/QD_033, không lấy audit profile QD_021 làm xác nhận QMD/HTML hiện hành. Công việc/trạng thái/bước tiếp chỉ đọc mục A của 03; không phục hồi quy tắc cũ từ hồ sơ hay báo cáo giữ lịch sử.
 
@@ -24,6 +24,7 @@ QD_028 bổ sung phân biệt chức năng nhánh tại 01/2.5.1 và danh mục 
 | Đường học, chức năng học tập, Nhật kí 14 trường | [01 — Kiến trúc](01_kien_truc_hoc_tap.md) | Hồ sơ gói cụ thể hóa mục tiêu/toán/tham số; manifest ghi hiện thực cần đối chiếu |
 | Quyền bắt đầu và không chia một lượt Kiểm tra, toàn chương trình (QD_024) | 01/2.3–2.3.1 | 07/4.4 giữ lời dẫn, 02 giữ phép kiểm; hồ sơ/template không giới hạn hai quy tắc này ở R1 hoặc dùng lại điều kiện cũ |
 | Cách sản xuất, sửa và nghiệm thu | [02 — Quy trình](02_quy_trinh_va_nghiem_thu.md) | README vận hành chỉ dẫn đúng công cụ và phạm vi của gói |
+| Gọi mẫu, đối chiếu trước viết và kiểm trước trình bản thảo R1 (QD_036) | 02/1.4; [mẫu bản thảo](mau/ban_thao_goi.md) và [bảng kiểm](mau/bang_kiem_ban_thao_goi.md) là công cụ áp dụng 01/07 | AGENTS kích hoạt từ yêu cầu tự nhiên; hồ sơ gói ghi phiên bản/bằng chứng trong ho_so, không tạo bộ kiến trúc hoặc thiết kế trang thứ hai |
 | Việc đang mở, thứ tự và bước tiếp | [03 — Điều hành](03_dieu_hanh_chuong_trinh.md) | Chỉ trỏ về đây; không duy trì roadmap cạnh tranh |
 | Bản đối chiếu chủ trì chọn, nguồn/phụ thuộc không được dọn (QD_035) | [Danh mục bảo toàn](bao_toan_bon_trang.md); manifest DH_032 ghi từng tệp/hash | 03 ghi trạng thái; bản xem là nguồn đối chiếu được bảo vệ, không thay QMD/template/data/script làm nguồn dựng; không lấy tên `_audit/` hay bản khác mới hơn làm quyền xóa |
 | Quyết định và phần bị thay thế | [04 — Nhật kí quyết định](04_nhat_ki_quyet_dinh.md) | Ghi nguồn phát sinh/evidence, không tự phê duyệt đề xuất |

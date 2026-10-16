@@ -21,16 +21,20 @@ ICONS = {
     'top': '<path d="m6 10 6-6 6 6M12 4v17"/>',
 }
 
-def destinations(output_root, page):
+def destinations(output_root, page, current=None):
     catalog = yaml.safe_load((ROOT / BASE / 'tot_nghiep_thpt/2027/_data/chuong_trinh.yml').read_text(encoding='utf-8'))
     if [p['id'] for p in catalog['packages']] != ['d0', 'r1_g01', 'r1_g02']:
         raise ValueError('Course navigation bindings must be updated for the current catalog')
     result = []
-    for key, (relative, label) in PAGES.items():
+    entries=dict(PAGES)
+    # An in-production page may identify itself without entering the public catalog.
+    if current == "g03":
+        entries["g03"]=(BASE / "hoc_lieu/r1_g03/index.html", "Đường tiệm cận")
+    for key, (relative, label) in entries.items():
         if not (ROOT / relative.with_suffix('.qmd')).is_file():
             raise ValueError(f'Missing canonical destination: {relative}')
         href = os.path.relpath(output_root / relative, page.parent).replace('\\', '/')
-        if key in ('g01', 'g02'):
+        if key in ('g01', 'g02', 'g03'):
             href += '?r1-view=bat-dau#bat-dau'
         result.append((key, href, label))
     return result
@@ -48,7 +52,7 @@ def require(doc, page, output_root, key):
     if menu.has_attr('open') or not doc.select_one('#zo-course-top'):
         raise ValueError('Course menu must start closed and Top must have a target')
     actual = menu.select('nav a')
-    expected = destinations(output_root, page)
+    expected = destinations(output_root, page, key)
     if [(n.get('data-course-page'), n.get('href'), n.get_text(strip=True)) for n in actual] != expected:
         raise ValueError('Course destinations differ from the approved catalog bindings')
     if [n.get('data-course-page') for n in actual if n.get('aria-current') == 'page'] != [key]:
@@ -71,7 +75,7 @@ def apply(doc, page, output_root, runtime, key):
     anchor = doc.new_tag('span', id='zo-course-top', attrs={'aria-hidden': 'true'})
     header.insert_before(anchor)
     tools = doc.new_tag('nav', attrs={'class': 'course-tools', 'aria-label': 'Điều hướng toàn khóa học'})
-    dest = destinations(output_root, page)
+    dest = destinations(output_root, page, key)
     for action, label, href in [('home', 'Nhà khóa học', dest[0][1]), ('list', 'Danh sách toàn khóa học', None), ('top', 'Về đầu trang', '#zo-course-top')]:
         node = doc.new_tag('summary' if action == 'list' else 'a', attrs={'class': 'course-action', 'aria-label': label, 'title': label, 'data-course-action': action})
         if href is not None:

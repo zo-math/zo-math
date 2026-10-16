@@ -1,0 +1,156 @@
+{
+  "date": "2026-10-16",
+  "package": "R1-G03",
+  "work": "G03-LABEL01",
+  "scope": "Apply existing QD_025 visible labeling; reusable projection and mandatory source/HTML gates",
+  "finding": {
+    "existing_authority": [
+      "07_quy_chuan_cau_truc_trang_nguoi_hoc.md#6.2",
+      "danh_muc_kien_truc_hoc_tap.yml#label_contract",
+      "02_quy_trinh_va_nghiem_thu.md#2.4"
+    ],
+    "prior_defect": "G03 had task metadata but incomplete visible labels and no complete display check.",
+    "prior_conversion_receipt": "chuyen_qmd_20261016.json is historical; it does not certify this missing-label scope."
+  },
+  "references": {
+    "R1-G01": {
+      "binding_sha256": "69c75b4f7c9c7136f909acae70a1007814a739d4e7fcc581eb101c6c37ec4df7",
+      "html_sha256": "53a6069665ea0e699b1bda758bae6b9618330d62b17430c212a6ef0609a6bd42",
+      "tasks": 69,
+      "source_edited": false,
+      "html_edited": false
+    },
+    "R1-G02": {
+      "binding_sha256": "9a59edc00c93fe6c65d799806adccd71d0c52da9a204ab638f98f2c42b65900c",
+      "html_sha256": "8492887f0639a4213305eababa48685021854044ed0a94e34dd87cb0d49ee107",
+      "tasks": 59,
+      "source_edited": false,
+      "html_edited": false
+    }
+  },
+  "rules_applied": [
+    "Separate area, content type, task function, title and technical ID.",
+    "Use function labels plus explicit real stage/round/detection context.",
+    "Number continuously across each complete functional group; group size belongs to package content.",
+    "Question and answer use the same function/number/context mapping.",
+    "Preserve canonical IDs and mathematical content.",
+    "Do not duplicate a content-type label already explicit in the title.",
+    "Do not assume confirmation always belongs to practice."
+  ],
+  "source_roles": {
+    "tasks": 52,
+    "paired_answers": 42,
+    "checkpoints": 7,
+    "knowledge_units": 7,
+    "examples": 8,
+    "visible_labels_in_full_text": 127,
+    "counts_are_not_quotas": true
+  },
+  "new_mechanism": {
+    "vocabulary_and_patterns": "danh_muc_kien_truc_hoc_tap.yml / label_contract.display_contract",
+    "package_mapping": "giao_dien/he_nhan.json",
+    "projection": "scripts/zo_course_labels.py",
+    "activation": [
+      "AGENTS.md course instructions",
+      "02 / 2.4",
+      "07 / 6.2",
+      "quy_chuan_goi_qmd.md"
+    ],
+    "automatic_gates": [
+      "zo_qmd.py check/render via zo_check_repo.py",
+      "zo_quarto.py explicit QMD source preflight",
+      "G03 production adapter and generic post-render HTML gate"
+    ],
+    "legacy_adapters": "G01/G02 unchanged; compatibility tested against current displayed HTML."
+  },
+  "verification": {
+    "qmd_render": "PASS; HTML only, zero errors/warnings",
+    "html_checks": {
+      "passed": 847,
+      "total": 847,
+      "report": "_audit/r1_g03_manuscript_20261016/g03_labels_html.json"
+    },
+    "regression_and_negative_tests": {
+      "passed": 20,
+      "total": 20,
+      "report": "_audit/r1_g03_manuscript_20261016/labels_selftest.json"
+    },
+    "real_cli_negative": {
+      "qmd_check": {
+        "exit_code": 1,
+        "expected": 1,
+        "passed": true,
+        "missing_label_detected": true
+      },
+      "qmd_render": {
+        "exit_code": 1,
+        "expected": 1,
+        "passed": true,
+        "missing_label_detected": true
+      },
+      "direct_quarto": {
+        "exit_code": 4,
+        "expected": 4,
+        "passed": true,
+        "missing_label_detected": true
+      },
+      "existing_html_untouched": {
+        "passed": true
+      }
+    },
+    "governance_selftest": "235/235",
+    "architecture_schema": "PASS",
+    "browser": {
+      "report": "_audit/r1_g03_manuscript_20261016/labels_browser.json",
+      "desktop_views": 11,
+      "widths": [
+        1440,
+        430,
+        390
+      ],
+      "visible_labels_in_mobile_full_text": 127,
+      "label_style_failures": 0,
+      "page_overflow": false,
+      "desktop_screenshot": "E:/CodexHome/visualizations/2026/10/16/01a1434b-9b41-7900-87c8-8bcde3d2ce8d/G03-nhan-desktop.jpg",
+      "mobile_screenshot": "E:/CodexHome/visualizations/2026/10/16/01a1434b-9b41-7900-87c8-8bcde3d2ce8d/G03-nhan-mobile.jpg"
+    },
+    "all_previous_math_annotations_preserved": true,
+    "math_count": 1115,
+    "all_previous_dom_ids_preserved": true,
+    "draft_and_figure_sources_unchanged": true,
+    "preexisting_dirty_files_outside_scope_preserved": true,
+    "diff_check": "PASS for exact changed paths; no normalization of pre-existing draft/governance whitespace outside this task.",
+    "limits": "Label scope and unaffected content invariants; not independent mathematical peer review, full accessibility certification or JavaScript-disabled browser acceptance."
+  },
+  "review": {
+    "html": "_audit/r1_g03_manuscript_20261016/production_build/docs/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/index.html",
+    "html_sha256": "f351cfae3afd7584d8690e150ff2bbf69cd58d3e181134450e9b7c1da2fca35d",
+    "source_sha256": "fa19971a1590d407746269ef6bed103dfb76a54163761af5542f5b4370b7ad3a",
+    "url": "http://127.0.0.1:8767/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/index.html?r1-view=bai-hoc#GM02",
+    "owner_acceptance": "pending"
+  },
+  "files_sha256": {
+    "scripts/zo_check_repo.py": "3be8d7af09dffc577e6c19197c9e3076a91236de65ee469addc8e0fbec7bce37",
+    "scripts/zo_quarto.py": "dab801519a3543c7dabff381fad89c20a43058ab2c3a8d43f7796968367a0b98",
+    "scripts/zo_web_2027_production.py": "734eba124385aa9844b86a4cf7192e59e9677af880ba88d92d198aca493a29ff",
+    "scripts/zo_web_2027_g03.py": "40fcd57c4480e813f1dda31888ce8c59ad1d560923406a8a189e39830817859a",
+    "scripts/zo_web_2027_g03_check.py": "90a0f45ccea50c5b9d1bacf61e8221f090071701c4da42d08eeb6563cce0db03",
+    "scripts/zo_course_labels.py": "8d549d288b53fe0425315d6c58d78b7e230a865fd315dceb78771dd512944bce",
+    "scripts/zo_course_labels_selftest.py": "37ada286ab007ece735b8ad8789ca3c5bce944027375c11ac968992a0d08ddfd",
+    "content/thpt/on_thi_toan_thpt/AGENTS.md": "047872cd7331a1a2491e8e0360563afaae57f39987e9aa2f3c3947753a49d0a9",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/02_quy_trinh_va_nghiem_thu.md": "6ba5e300f6524a5275cf3adcb1897c3016b19545a3fd8ef04de4ba97ff156e5f",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/03_dieu_hanh_chuong_trinh.md": "92d6324d47d4b2f2cb58e8452462b9f70b78ceafdf7b637de1a68d4d6d2d19a4",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/07_quy_chuan_cau_truc_trang_nguoi_hoc.md": "fa714ac0ccfaf1f44e9528a8502e3ef7ef377df207fdc7c246fd29c228e228f1",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/danh_muc_kien_truc_hoc_tap.yml": "c93b0cb75bc3b32ee3361007b6095c370a27a340216054d5d1442a43ba85fd09",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/quy_chuan_goi_qmd.md": "2405f1e826b2a26f6d3c72898602b149d263db7b067fc99ea1a77ad279971dbb",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/_quy_trinh/README.md": "7f90ae08dc49244401d20c3a8e16e3ecb3e021ccc618274b5224ba038a6ceb8e",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/index.qmd": "fa19971a1590d407746269ef6bed103dfb76a54163761af5542f5b4370b7ad3a",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/giao_dien/he_nhan.json": "b07665d2ff0139d81c03b1145d4603957943af0c0d9894fabb90ed8c2828e178",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/_quy_trinh/ho_so/index.yml": "add9bfaec9175ed98660ae8739e151d7c64a39dd434846b5a5a648a61c4628d5"
+  },
+  "learning_pdf_built": false,
+  "canonical_docs_modified": false,
+  "committed": false,
+  "published": false,
+  "cleanup": "Temporary source mirror removed after checks; current HTML/assets, comparison inputs and verification evidence retained for owner review."
+}

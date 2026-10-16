@@ -83,7 +83,7 @@ Pha và việc tiếp theo hiện hành được ghi tại [Bảng điều hành
 | Kiểm hoặc sửa R1-G01 | [Bảng điều hành](03_dieu_hanh_chuong_trinh.md), [Kiến trúc](01_kien_truc_hoc_tap.md), [Quy trình](02_quy_trinh_va_nghiem_thu.md), [Hồ sơ G01](goi/R1_G01.md) |
 | Kiểm hoặc sửa R1-G02 | Ba tài liệu chung trên và [Hồ sơ G02](goi/R1_G02.md); đọc kết quả G01 đã chốt khi có ảnh hưởng dùng chung |
 | Sửa cấu trúc trang hoặc component người học | Các tài liệu của gói, [Quy chuẩn trang người học](07_quy_chuan_cau_truc_trang_nguoi_hoc.md) và [Quy chuẩn gói QMD](quy_chuan_goi_qmd.md) |
-| Sản xuất một gói mới | [Kế hoạch 0.6](ke_hoach_dieu_hanh.md), ba tài liệu chung và [mẫu hồ sơ](mau/ho_so_goi.md) |
+| Sản xuất một gói mới | [Kế hoạch 0.6](ke_hoach_dieu_hanh.md), ba tài liệu chung, [mẫu hồ sơ](mau/ho_so_goi.md), [mẫu bản thảo](mau/ban_thao_goi.md) và [bảng kiểm](mau/bang_kiem_ban_thao_goi.md), theo [02/1.4](02_quy_trinh_va_nghiem_thu.md#ap-dung-mau-ban-thao) |
 | Tìm căn cứ quyết định | [Nhật kí quyết định](04_nhat_ki_quyet_dinh.md) và [Nguồn, chuyển tiếp](06_nguon_va_chuyen_tiep.md) |
 
 Yêu cầu hiện hành của người chủ trì xác định phạm vi và quyền thực hiện. Kế hoạch 0.6 điều hành phạm vi/lộ trình còn hiệu lực, không phục hồi trạng thái, mô tả D0 hoặc lệnh gói đã được thay bởi quyết định mới. Kiến trúc và quy trình điều hành cách thiết kế, kiểm tra; hồ sơ gói giữ phạm vi và bằng chứng riêng; repo và bản thực chạy là bằng chứng về cái đã tồn tại. Danh mục 08 phân vai cả tài liệu ngoài thư mục này. Tài liệu lịch sử không tự ghi đè quyết định mới.
