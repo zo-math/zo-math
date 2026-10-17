@@ -123,12 +123,13 @@ r1-tables:
     row_header: true
     center: []
   - id: r1-g02-table-t05
-    label: "Lịch ôn lại và nhiệm vụ tương ứng"
     family: R
     mode: scroll
-    widths: [24, 76]
-    min_width: 44em
+    label: Lịch Ôn lại, nhiệm vụ và Điểm dừng
+    widths: [34, 40, 26]
+    min_width: 36em
     row_header: true
+    center: []
   - id: r1-g02-table-t06
     label: "Bảng giá trị của p tại các điểm cần so sánh"
     family: R
@@ -322,9 +323,9 @@ Cách thực hiện
 Hãy thử trả lời trên giấy trước khi mở lời giải. Không cần tính điểm; câu nào còn vướng sẽ chỉ ra phần cần ôn.
 
 ::::: {#g02-khoi-dong-01 .zo-learning-task .zo-learning-task--pause}
-#### Nhiệm vụ 01
+#### Nhiệm vụ 01 — Cực đại và giá trị lớn nhất {#nhiệm-vụ-01}
 
-Hàm số $r$ liên tục trên $[-3; 4]$, biến thiên đúng như bảng. Tại $x = 2$, hàm số có giá trị cực đại bằng 1. Có thể kết luận 1 là giá trị lớn nhất trên đoạn này không? Giá trị lớn nhất, nhỏ nhất thực tế là bao nhiêu?
+Hàm số $r$ liên tục trên $[-3; 4]$, biến thiên đúng như bảng. Tại $x = 2$, hàm số có giá trị cực đại bằng $1$. Có thể kết luận $1$ là giá trị lớn nhất trên đoạn này không? Giá trị lớn nhất, nhỏ nhất thực tế là bao nhiêu?
 
 :::: table-scroll
 ::: {.r1-bbt bbt="BBT01" caption="Bảng biến thiên của hàm số r trên đoạn từ −3 đến 4."}
@@ -338,7 +339,7 @@ ZO BBT placeholder
 :::::
 
 ::::: {#g02-khoi-dong-02 .zo-learning-task .zo-learning-task--pause}
-#### Nhiệm vụ 02
+#### Nhiệm vụ 02 — Tập đang xét và điểm đạt {#nhiệm-vụ-02}
 
 Cho hàm số $f(x)=(x-2)^2$. Một bạn nhận xét: “Giá trị nhỏ nhất của $f$ trên $K=(2;5]$ bằng $0$ vì $f(2)=0$.” Nhận xét này đúng không? Vì sao?
 
@@ -348,7 +349,7 @@ Cho hàm số $f(x)=(x-2)^2$. Một bạn nhận xét: “Giá trị nhỏ nhấ
 :::::
 
 ::::: {#g02-khoi-dong-03 .zo-learning-task .zo-learning-task--pause}
-#### Nhiệm vụ 03
+#### Nhiệm vụ 03 — Đọc đúng đồ thị đạo hàm {#nhiệm-vụ-03}
 
 Trên một hình ghi nhãn $y = f^\prime(x)$, điểm $(1; 0)$ thuộc đường biểu diễn. Có thể ghi $f(1) = 0$ không?
 
@@ -384,6 +385,16 @@ Cách thực hiện
 1.  Đọc trọn dữ kiện và xác định tập xác định $D$.
 2.  Xác định tập đang xét $K$ và kiểm tra quan hệ giữa $K$ với $D$.
 3.  Quyết định điểm hoặc giá trị nào được dùng trong phép so sánh trên $K$.
+::::
+
+:::: {#g02-goi-mo-01 .r1-task .zo-learning-task .zo-learning-task--pause data-zo-type="task" data-zo-task="G02-GM01" data-zo-function="function.guided_thinking" data-zo-number="1"}
+[**Gợi mở 01 — Tập xác định và tập đang xét**]{.r1-task-label}
+
+Thử trả lời trước khi đọc tiếp.
+
+Tính được $f(2)$ có đủ để dùng $2$ làm điểm đạt trên tập $K=(2;5]$ không?
+
+Đọc tiếp để phân biệt tập xác định, tập đang xét và điểm được phép dùng.
 ::::
 
 #### 1.1. Quy tắc và tập xác định {#quy-tac-va-tap-xac-dinh}
@@ -439,6 +450,16 @@ Cách thực hiện
 - Kiểm tra có điểm thuộc $K$ tại đó giá trị được đạt.
 ::::
 
+:::: {#g02-goi-mo-02 .r1-task .zo-learning-task .zo-learning-task--pause data-zo-type="task" data-zo-task="G02-GM02" data-zo-function="function.guided_thinking" data-zo-number="2"}
+[**Gợi mở 02 — So sánh chưa đủ để có giá trị lớn nhất**]{.r1-task-label}
+
+Thử trả lời trước khi đọc tiếp.
+
+Biết $f(x)\le M$ với mọi $x\in K$ đã đủ để gọi $M$ là giá trị lớn nhất trên $K$ chưa?
+
+Định nghĩa dưới đây còn yêu cầu giá trị ấy được đạt tại một điểm thuộc $K$.
+::::
+
 #### 2.1. Giá trị lớn nhất, nhỏ nhất {#dinh-nghia-tren-tap-dang-xet}
 
 Cho hàm số $f$ có tập xác định $D$. Với tập không rỗng $K \subseteq D$ (có thể $K = D$), số $M$ là **giá trị lớn nhất** của $f$ trên $K$ khi:
@@ -469,7 +490,7 @@ Kí hiệu: $\min_{x\in K} f(x)=m$.
 
 [Nguồn đối chiếu: Sách giáo khoa Toán 12, tập một, bộ Kết nối tri thức với cuộc sống, bài 2, trang 15 (trang 17 của tệp PDF), phần định nghĩa.]{.zo-source-note}
 
-Sách giáo khoa trình bày trên tập $D$. Bản này dùng $K$ cho tập được yêu cầu xét; khi xét toàn bộ tập xác định thì $K=D$. Cả điều kiện so sánh và điều kiện đạt được đều phải dùng cùng tập $K$.
+Tập được yêu cầu xét là $K$; khi xét toàn bộ tập xác định thì $K=D$. Cả điều kiện so sánh và điều kiện đạt được đều phải dùng cùng tập $K$.
 
 Hãy viết đủ: **“Giá trị lớn nhất bằng $M$, đạt tại $x=x_0$.”** Số $M$ là giá trị; $x_0$ là điểm đạt giá trị của hàm số; $(x_0;M)$ là một điểm trên đồ thị. Một giá trị lớn nhất có thể đạt tại nhiều điểm.
 
@@ -480,7 +501,7 @@ Xét $f(x)=(x-2)^2$ trên $K=(2;5]$.
 ::: {#cau-hoi-bai-hoc-01 .r1-task .r1-g02-pause .zo-learning-task .zo-learning-task--pause}
 []{#nhiệm-vụ-01-1}
 
-**Nhiệm vụ 01.**
+**Tự kiểm tra 01 — Điểm bị loại và sự đạt được.**
 
 Không được lấy $x=2$. Vậy $0$ có thể là giá trị nhỏ nhất không? Nếu $0$ không phải giá trị nhỏ nhất, liệu có một số dương nào nhỏ nhất?
 
@@ -493,11 +514,11 @@ Không được lấy $x=2$. Vậy $0$ có thể là giá trị nhỏ nhất kh�
 
 Nếu chỉ có $f(x) \le M$ với mọi $x \in K$, ta mới có một **cận trên**. Nếu chỉ có $f(x) \ge m$, ta có một **cận dưới**. "Bị chặn trên", "bị chặn dưới" nói về sự tồn tại của những cận như vậy; "bị chặn" nghĩa là có cả hai.
 
-Ví dụ, trên $(0; 1)$, hàm số $f(x) = x$ có $0 < f(x) < 1$. Hàm số bị chặn nhưng không đạt 0 hoặc 1. Với mỗi $x \in (0; 1)$, điểm $\frac{x}{2}$ cho giá trị nhỏ hơn, còn điểm $\frac{x+1}{2}$ cho giá trị lớn hơn. Vì vậy hàm số không có cả giá trị nhỏ nhất lẫn lớn nhất trên khoảng này.
+Ví dụ, trên $(0; 1)$, hàm số $f(x) = x$ có $0 < f(x) < 1$. Hàm số bị chặn nhưng không đạt $0$ hoặc $1$. Với mỗi $x \in (0; 1)$, điểm $\frac{x}{2}$ cho giá trị nhỏ hơn, còn điểm $\frac{x+1}{2}$ cho giá trị lớn hơn. Vì vậy hàm số không có cả giá trị nhỏ nhất lẫn lớn nhất trên khoảng này.
 
 [**Không đạt một cận tùy ý chưa đủ để kết luận không có giá trị lớn nhất.**]{.r1-unboxed-label}
 
-Hàm số hằng $f(x) = 3$ không đạt cận trên 10, nhưng có giá trị lớn nhất bằng 3. Muốn bác bỏ sự tồn tại, cần lập luận loại được mọi giá trị có thể là lớn nhất.
+Hàm số hằng $f(x) = 3$ không đạt cận trên $10$, nhưng có giá trị lớn nhất bằng $3$. Muốn bác bỏ sự tồn tại, cần lập luận loại được mọi giá trị có thể là lớn nhất.
 
 #### 2.4. Cực trị và giá trị toàn tập {#cực-trị-và-giá-trị-lớn-nhất-nhỏ-nhất}
 
@@ -514,7 +535,7 @@ Hàm số hằng $f(x) = 3$ không đạt cận trên 10, nhưng có giá trị 
 Một điểm cực trị thuộc $K$ là một điểm cần xem xét khi tìm giá trị lớn nhất, nhỏ nhất trên $K$. Ngược lại, điểm đạt giá trị lớn nhất, nhỏ nhất chưa chắc là điểm cực trị: giá trị ấy có thể đạt tại đầu mút, hoặc bằng các giá trị ở những điểm lân cận.
 
 ::: {#cau-hoi-bai-hoc-02 .r1-task .r1-g02-pause .zo-learning-task .zo-learning-task--pause}
-#### Nhiệm vụ 02
+#### Tự kiểm tra 02 — Hàm hằng và cực trị {#nhiệm-vụ-02-1}
 
 Cho hàm số $f(x) = 2$ có tập xác định $(0; 1)$. Hàm số có giá trị lớn nhất, nhỏ nhất không? Có điểm cực đại hoặc cực tiểu không? Hãy giải thích bằng cách so sánh giá trị tại một điểm với các giá trị ở những điểm gần nó.
 
@@ -536,6 +557,16 @@ Cách thực hiện
 4.  So sánh các giá trị và ghi tất cả điểm đạt.
 ::::
 
+:::: {#g02-goi-mo-03 .r1-task .zo-learning-task .zo-learning-task--pause data-zo-type="task" data-zo-task="G02-GM03" data-zo-function="function.guided_thinking" data-zo-number="3"}
+[**Gợi mở 03 — Danh sách điểm cần so sánh**]{.r1-task-label}
+
+Thử trả lời trước khi đọc tiếp.
+
+Khi tìm giá trị lớn nhất, nhỏ nhất trên một đoạn, chỉ tìm nghiệm của đạo hàm có đủ không?
+
+Hãy đối chiếu điều kiện tồn tại rồi lập đủ danh sách các điểm cần xét trong quy trình dưới đây.
+::::
+
 #### 3.1. Điều kiện tồn tại {#dieu-kien-bao-dam-ton-tai}
 
 :::: {#g02-dinh-li-ton-tai .zo-block .zo-block-red}
@@ -551,7 +582,7 @@ Cần kiểm tra $[a; b] \subseteq D$ và tính liên tục trên toàn đoạn.
 Đây là **điều kiện đủ**. Nếu thiếu điều kiện, em chưa được dùng bảo đảm trên; em cũng chưa được kết luận rằng giá trị lớn nhất, nhỏ nhất không tồn tại.
 
 ::: {#cau-hoi-bai-hoc-03 .r1-task .r1-g02-pause .zo-learning-task .zo-learning-task--pause}
-#### Nhiệm vụ 03
+#### Tự kiểm tra 03 — Kiểm điều kiện liên tục {#nhiệm-vụ-03-1}
 
 Hàm $q$ có tập xác định $[0;1]$, với $q(x)=x$ khi $0\le x<1$ và $q(1)=0$. Một bạn chỉ so sánh $q(0)=q(1)=0$ rồi kết luận giá trị lớn nhất bằng $0$. Bạn đã bỏ điều kiện nào?
 
@@ -589,7 +620,7 @@ Kiểm tra trực tiếp: $a(x)=(x-1)^2-1$ và $0\le(x-1)^2\le4$ trên đoạn. 
 ::: {#cau-hoi-bai-hoc-04 .r1-task .r1-g02-pause .zo-learning-task .zo-learning-task--pause}
 []{#nhiệm-vụ-04}
 
-**Nhiệm vụ 04.**
+**Tự kiểm tra 04 — Lập đủ điểm cần so sánh.**
 
 Cho hàm số $p(x)=x^2-4x+1$. Tìm giá trị lớn nhất, nhỏ nhất của $p$ trên đoạn $[-1;4]$.
 Em sẽ đưa những điểm nào vào danh sách? Vì sao?
@@ -611,6 +642,16 @@ Cách thực hiện
 2.  Xét từng thành phần của $K$ và ghi các giá trị đạt được hoặc cận liên quan.
 3.  Phân biệt giá trị hàm số với giới hạn và kiểm tra sự đạt được.
 4.  So sánh trên toàn bộ $K$ rồi mới kết luận.
+::::
+
+:::: {#g02-goi-mo-04 .r1-task .zo-learning-task .zo-learning-task--pause data-zo-type="task" data-zo-task="G02-GM04" data-zo-function="function.guided_thinking" data-zo-number="4"}
+[**Gợi mở 04 — Đầu mút có được lấy không?**]{.r1-task-label}
+
+Thử trả lời trước khi đọc tiếp.
+
+Nếu đổi đoạn đóng thành khoảng hở, kết quả lớn nhất, nhỏ nhất có nhất thiết được giữ nguyên không?
+
+Các ví dụ dưới đây giữ công thức nhưng đổi tập đang xét để kiểm riêng sự đạt được.
 ::::
 
 #### 4.1. Thay tập đang xét {#doc-su-dat-duoc-khi-thay-tap}
@@ -664,6 +705,16 @@ Cách thực hiện
 4.  Diễn giải kết quả cùng đơn vị trong bối cảnh bài toán.
 ::::
 
+:::: {#g02-goi-mo-05 .r1-task .zo-learning-task .zo-learning-task--pause data-zo-type="task" data-zo-task="G02-GM05" data-zo-function="function.guided_thinking" data-zo-number="5"}
+[**Gợi mở 05 — Giữ ràng buộc khi chọn điểm đạt**]{.r1-task-label}
+
+Thử trả lời trước khi đọc tiếp.
+
+Nếu biến chỉ nhận giá trị nguyên, có thể lấy ngay điểm đạt của mô hình liên tục làm đáp án không?
+
+Phần tiếp theo phân biệt đại lượng cần tối ưu với miền giá trị được phép chọn.
+::::
+
 #### 5.1. Đại lượng và ràng buộc {#dai-luong-ham-muc-tieu-rang-buoc}
 
 Trong gói này, công thức doanh thu và chi phí đã được cung cấp. Em cần lập đúng hàm lợi nhuận, xác định tập đang xét rồi tìm và diễn giải giá trị lớn nhất.
@@ -677,7 +728,7 @@ Nếu đề cho **chi phí bình quân cho một sản phẩm** là $G(x)$, thì
 Đọc kĩ $x$ là lượng đo có thể nhận giá trị thực hay số sản phẩm phải nguyên. Nếu chỉ nhận giá trị nguyên, hàm lợi nhuận của bài toán được xét trên tập các số nguyên được phép. Có thể dùng một **hàm phụ nhận biến thực** có cùng công thức để tìm ứng viên, nhưng phải gọi rõ đó là hàm phụ. Khi hàm phụ tăng rồi giảm và đỉnh nằm giữa hai số nguyên liên tiếp được phép, so sánh hai số ấy; không dùng việc làm tròn như một quy tắc chung.
 
 ::: {#cau-hoi-bai-hoc-05 .r1-task .r1-g02-pause .zo-learning-task .zo-learning-task--pause}
-#### Nhiệm vụ 05
+#### Tự kiểm tra 05 — Chọn trong miền nguyên {#nhiệm-vụ-05}
 
 Một hàm $P$ tăng đến $x=2{,}2$ rồi giảm. Chỉ được chọn $x=2$ hoặc $x=3$, với $P(2)=8$ và $P(3)=9{,}2$. Chọn số nguyên gần $2{,}2$ nhất có cho giá trị lớn nhất không?
 
@@ -1100,11 +1151,11 @@ Cách thực hiện
 Các mốc tính từ ngày đủ điều kiện chuyển sang gói tiếp theo, được ghi vào Nhật kí. Có thể học gói tiếp theo phù hợp trong khi vẫn giữ lịch Ôn lại. Nếu nhiệm vụ đã lộ đáp án, không dùng lại để chứng nhận một kết quả độc lập mới.
 
 ::: {#r1-g02-table-t05 .table-scroll}
-| Lượt quay lại | Nhiệm vụ mới, làm trước khi mở đáp án |
-|:--------------|:---------------------------------------|
-| Sau khoảng 2--3 ngày | [Nhiệm vụ 01](#o01). |
-| Sau khoảng 7 ngày | [Nhiệm vụ 02](#o02). |
-| Sau khoảng 3--4 tuần | [Nhiệm vụ 03](#o03). |
+| Ngày hẹn tính từ ngày hoàn tất lượt chính | Nhiệm vụ cần tự làm | Điểm dừng |
+|---|---|---|
+| Sau khoảng $2$–$3$ ngày | [Nhiệm vụ 01](#o01) | [Điểm dừng lượt 1](#cp-on1) |
+| Sau khoảng $7$ ngày | [Nhiệm vụ 02](#o02) | [Điểm dừng lượt 2](#cp-on2) |
+| Sau khoảng $3$–$4$ tuần | [Nhiệm vụ 03](#o03) | [Điểm dừng lượt 3](#cp-on3) |
 :::
 
 ### Nhiệm vụ 01 – Tập xác định và sự đạt được {#o01 .zo-learning-task .zo-learning-task--item}
@@ -1621,7 +1672,7 @@ kiện và lí do trước khi so sánh đáp số; giữ lại bài làm ban đ
 
 :::: {#lg-g02-khoi-dong-01 .r1-details .r1-solution .zo-learning-solution}
 ::: {.r1-summary .zo-learning-summary}
-Nhiệm vụ 01
+Nhiệm vụ 01 — Cực đại và giá trị lớn nhất
 :::
 
 Không. Giá trị $1$ chỉ là cực đại cục bộ; $r(-3)=5>1$. Toàn bảng cho giá trị lớn nhất $5$ tại $-3$ và nhỏ nhất $-2$ tại $0$.
@@ -1633,7 +1684,7 @@ Không. Giá trị $1$ chỉ là cực đại cục bộ; $r(-3)=5>1$. Toàn b�
 
 :::: {#lg-g02-khoi-dong-02 .r1-details .r1-solution .zo-learning-solution}
 ::: {.r1-summary .zo-learning-summary}
-Nhiệm vụ 02
+Nhiệm vụ 02 — Tập đang xét và điểm đạt
 :::
 
 Nhận xét sai. Phép tính $f(2)=0$ đúng, nhưng $2\notin K$. Với mọi $x\in K$, ta có $f(x)>0$, nên $0$ không phải giá trị nhỏ nhất trên $K$. Việc có một giá trị nhỏ nhất khác hay không sẽ được xét ở Giá trị lớn nhất, nhỏ nhất.
@@ -1645,7 +1696,7 @@ Nhận xét sai. Phép tính $f(2)=0$ đúng, nhưng $2\notin K$. Với mọi $x
 
 :::: {#lg-g02-khoi-dong-03 .r1-details .r1-solution .zo-learning-solution}
 ::: {.r1-summary .zo-learning-summary}
-Nhiệm vụ 03
+Nhiệm vụ 03 — Đọc đúng đồ thị đạo hàm
 :::
 
 Chỉ suy ra $f^\prime(1) = 0$. Tung độ trên đồ thị đạo hàm không phải giá trị của hàm số ban đầu.
@@ -1664,7 +1715,7 @@ Nếu vướng câu 2, đọc mục [Hàm số được cho bằng cả quy tắ
 
 :::: {#loi-giai-bai-hoc-01 .r1-details .r1-solution .zo-learning-solution}
 ::: {.r1-summary .zo-learning-summary}
-Nhiệm vụ 01
+Tự kiểm tra 01 — Điểm bị loại và sự đạt được
 :::
 
 Với mọi $x\in K$, $0<(x-2)^2\le9$; dấu bằng bên phải xảy ra tại $x=5$. Vì vậy giá trị lớn nhất bằng $9$ tại $x=5$. Giá trị $0$ không được đạt trên $K$ vì phương trình $(x-2)^2=0$ chỉ có nghiệm $2$, mà $2\notin K$.
@@ -1678,7 +1729,7 @@ Với mọi $x\in K$, $0<(x-2)^2\le9$; dấu bằng bên phải xảy ra tại $
 
 :::: {#loi-giai-bai-hoc-02 .r1-details .r1-solution .zo-learning-solution}
 ::: {.r1-summary .zo-learning-summary}
-Nhiệm vụ 02
+Tự kiểm tra 02 — Hàm hằng và cực trị
 :::
 
 Giá trị lớn nhất và nhỏ nhất đều bằng 2, đạt tại mọi điểm thuộc (0; 1): mọi giá trị đều không lớn hơn 2 và không nhỏ hơn 2. Hàm số không có điểm cực đại hay cực tiểu, vì giá trị tại mỗi điểm đều bằng các giá trị ở những điểm gần nó; không có sự lớn hơn hoặc nhỏ hơn nghiêm ngặt.
@@ -1690,7 +1741,7 @@ Giá trị lớn nhất và nhỏ nhất đều bằng 2, đạt tại mọi đi
 
 :::: {#loi-giai-bai-hoc-03 .r1-details .r1-solution .zo-learning-solution}
 ::: {.r1-summary .zo-learning-summary}
-Nhiệm vụ 03
+Tự kiểm tra 03 — Kiểm điều kiện liên tục
 :::
 
 Giới hạn của $q$ khi $x$ tiến đến $1$ từ bên trái bằng $1$, khác $q(1)=0$: $q$ không liên tục trên đoạn. Không được dùng quy trình cho hàm liên tục. Giá trị nhỏ nhất bằng $0$ tại $0$ và $1$. Không có giá trị lớn nhất: với mỗi giá trị $c\in[0;1)$, điểm $y=\frac{c+1}{2}$ thuộc $(0;1)$ cho $q(y)=y>c$.
@@ -1704,7 +1755,7 @@ Cũng không được đảo thành "không liên tục thì không thể có c�
 
 ::::: {#loi-giai-bai-hoc-04 .r1-details .r1-solution .zo-learning-solution}
 ::: {.r1-summary .zo-learning-summary}
-Nhiệm vụ 04
+Tự kiểm tra 04 — Lập đủ điểm cần so sánh
 :::
 
 Hàm số $p$ có tập xác định $\mathbb{R}$; tập đang xét là $K=[-1;4]$. Đoạn này nằm trong tập xác định và $p$ liên tục trên đoạn đó. Ta có $p^\prime(x)=2x-4$, bằng $0$ tại $x=2\in(-1;4)$. Đạo hàm tồn tại tại mọi điểm bên trong đoạn.
@@ -1728,7 +1779,7 @@ Giá trị lớn nhất bằng $6$ tại $x=-1$; giá trị nhỏ nhất bằng 
 
 :::: {#loi-giai-bai-hoc-05 .r1-details .r1-solution .zo-learning-solution}
 ::: {.r1-summary .zo-learning-summary}
-Nhiệm vụ 05
+Tự kiểm tra 05 — Chọn trong miền nguyên
 :::
 
 Không. Phải chọn $x=3$ vì $P(3)=9{,}2>P(2)=8$. Chiều biến thiên giúp chọn ứng viên; so sánh giá trị mới quyết định đáp án.

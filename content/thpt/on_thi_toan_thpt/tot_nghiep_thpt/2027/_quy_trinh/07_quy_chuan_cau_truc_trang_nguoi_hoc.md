@@ -286,13 +286,25 @@ Kiểm trình duyệt phải xác nhận nhãn nhìn thấy và đọc được 
 
 ### 6.3. Chính văn, chú thích nguồn và hình ngay từ bản thảo
 
-Áp dụng khi viết hoặc hiệu chỉnh nội dung theo phản hồi của chủ trì ngày 17/10/2026; không mở lượt sửa hồi tố G01–G03.
+Áp dụng khi viết hoặc hiệu chỉnh nội dung. Lượt 17/10/2026 chưa mở sửa hồi tố G01–G03; yêu cầu đối chiếu và thống nhất bốn gói ngày 18/10/2026 đã mở phạm vi đó, gồm chú thích nguồn trong G01–G04.
 
 - Chính văn dành cho người học phát biểu trực tiếp nội dung toán và giải thích vì sao đúng. Không dùng “theo sách…”, “SGK nêu…” hoặc kể việc người biên soạn dựa vào tài liệu nào để dẫn vào kiến thức; không đưa lí do tổ chức hồ sơ, đánh số hoặc sản xuất vào bài học.
 - Căn cứ vẫn phải có và được đọc thật. Cách trình bày lấy tại mục **Công thức và nguồn đối chiếu** của [quy chuẩn gói](quy_chuan_goi_qmd.md): chú thích .zo-source-note sau nội dung liên quan, câu hoàn chỉnh, tên tài liệu đầy đủ và vị trí chính xác. Danh mục cuối bài giữ thông tin thư mục; hồ sơ nội bộ giữ đối chiếu chi tiết và giới hạn. Không đổi thành giấu nguồn hoặc tự tạo phát biểu toán.
 - Hình được đặt vào bản thảo để chủ trì đọc phải theo ngôn ngữ thiết kế hiện hành ở 6.1. Không tự miễn màu/phông/nét/vạch/nhãn vì gọi hình là nháp. Dùng công cụ ZO Math, component theo đúng vai trò và cổng 6.1.2; profile 0.4 không tự chứng nhận đã áp dụng; kiểm từng hình ở cỡ tự nhiên và nền quy định. Chưa duyệt là trạng thái nghiệm thu, không phải một style khác.
 - Khối lời giải dùng đúng vai trò solution và mặc định đóng; không bọc tùy tiện mọi đoạn giảng thành hộp. Kiểm kí pháp bằng guard hiện có, bao gồm ngoặc co giãn; nhận diện giới hạn phạm vi của checker, không biến lỗi tương thích parser thành hệ đánh số mới.
 - Bản thảo không phải bản dàn trang HTML/PDF. Việc dựng SVG bằng công cụ đồ thị có thể cần PDF vector trung gian để chuyển đổi; tệp đó phải được kiểm và dọn theo vòng đời công cụ, không được ghi là đã dựng PDF học liệu hoặc giữ thêm bản xuất ngoài phạm vi.
+
+### 6.4. Đối chiếu giữa các gói theo chức năng
+
+Áp dụng cho G01–G04 từ yêu cầu chủ trì ngày 18/10/2026. Không lấy một trang làm mẫu tuyệt đối hoặc đồng nhất số mục, nhiệm vụ, chặng, tài nguyên nền và nhánh Chuyển giao.
+
+- Gợi mở nằm sau Cách thực hiện của từng mục kiến thức, trước phần giải thích; có câu hỏi và cầu nối tại chỗ. Dùng “Gợi mở NN — Nội dung”; tự kiểm trong Bài học dùng “Tự kiểm tra NN — Nội dung”; Khởi động dùng “Nhiệm vụ NN — Nội dung”. Các dãy số vẫn theo chức năng trong bảng áp dụng, không tạo hệ mới. Tiêu đề câu hỏi cùng vai trò dùng `.zo-task-title` chung, không phụ thuộc việc nguồn cũ dùng heading hay nhãn trong đoạn.
+- Cây Lời giải phản ánh khu chứa đề: Bài học chứa Khởi động/Tự kiểm tra; Sửa lỗi chứa các nhóm theo nơi phát hiện. Nhãn nhóm con phải có mục cha. `heading_context` trong bảng áp dụng khai đích và đường ngữ cảnh của nhóm; không đoán từ cỡ chữ. Không để một giấy đọc chỉ có tiêu đề nhóm.
+- Bảng chọn hỗ trợ sau Khởi động có bốn chức năng: câu còn vướng, kiến thức cần ôn, đi đến, sau đó. Bảng đầu Luyện tập chỉ ra các chặng thật và nơi đối chiếu. Lịch Ôn lại có ngày hẹn, nhiệm vụ, Điểm dừng. Đích cụ thể và số hàng do nội dung gói quyết định.
+- Mỗi tài nguyên Ôn nền độc lập có một giấy đọc riêng; mở/đóng từng tài nguyên không buộc mở các tài nguyên khác. Phần hướng dẫn và bảng chọn tài nguyên có thể dài khác nhau theo nội dung.
+- Chú thích nguồn theo 6.3 nằm thành đoạn riêng sau nội dung liên quan; danh mục cuối bài giữ thông tin thư mục. Không lấy tên tài liệu trong chính văn làm lời biện hộ cho phát biểu toán.
+- `zo_web_2027_consistency.py` áp dụng/kiểm phần trình bày chung; `zo_course_labels.py` kiểm tên theo chức năng và đường nhãn; `profiles/course-tables.json` ánh xạ bảng. G01 vẫn cần cập nhật bố cục từ hai bản dựng nguồn trước/sau khi nội dung đổi, có kiểm bảo toàn; không chỉ ghi hash mới. Receipt đã duyệt giữ nguyên.
+- Sau sửa phải đối chiếu HTML mới: nội dung, cặp đề–lời giải, ID cũ, số và nhãn, hình/BBT, computed style và ảnh chụp desktop/mobile. Bảng kiểm không được chỉ đếm component hoặc chấp nhận mọi trang vì từng trang đã PASS riêng.
 
 ## 7. Responsive, khả năng truy cập và trạng thái bền
 

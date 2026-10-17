@@ -32,11 +32,8 @@ r1-tables:
   - 50.0
   row_header: true
 - id: g04-table-03
-  label: Bảng đối chiếu và điều hướng
-  widths:
-  - 33.333333333333336
-  - 33.333333333333336
-  - 33.333333333333336
+  label: Ôn sau Khởi động và quay về nhiệm vụ
+  widths: [20, 28, 27, 25]
   row_header: true
 - id: g04-table-10
   label: Bảng đối chiếu và điều hướng
@@ -66,6 +63,14 @@ r1-tables:
   - 25.0
   - 25.0
   - 25.0
+  row_header: true
+- id: g04-table-luyen-tap
+  label: Hai chặng Luyện tập và nơi đối chiếu
+  widths: [18, 44, 38]
+  row_header: true
+- id: g04-table-on-lai
+  label: Lịch Ôn lại, nhiệm vụ và Điểm dừng
+  widths: [34, 40, 26]
   row_header: true
 ---
 
@@ -97,7 +102,7 @@ y=\frac{ax^2+bx+c}{mx+n},\qquad a\ne0,\quad m\ne0,
 $$
 với đa thức tử không chia hết cho đa thức mẫu ở họ cuối. Điều kiện của từng mẫu số vẫn phải được xét.
 
-<p class="zo-source-note">Đối chiếu Chương trình giáo dục phổ thông môn Toán, phần lớp 12, trang 106.</p>
+<p class="zo-source-note">Nguồn đối chiếu: Chương trình giáo dục phổ thông môn Toán, phần lớp 12, trang 106.</p>
 
 ### Tiên quyết
 
@@ -191,12 +196,12 @@ Viết $\frac{x^2+2x+5}{x+1}$ thành một đa thức bậc nhất cộng một 
 #### Sau khi làm xong {#CP-KD data-zo-type="checkpoint" data-r1-return-label="Sau khi làm xong"}
 
 ::: {#g04-table-03 .table-scroll}
-| Còn vướng | Đúng phần cần ôn | Nơi trở về |
-|---|---|---|
-| Miền/rút gọn | [Tập xác định](#nen-mien) | [Nhiệm vụ 01 của Khởi động](#KD01) |
-| Đạo hàm hoặc xét dấu | [Đạo hàm và dấu](#nen-dao-ham) | [Nhiệm vụ 02 của Khởi động](#KD02) |
-| Hướng giới hạn | [Giới hạn và tiệm cận](#nen-gioi-han) | [Nhiệm vụ 03 của Khởi động](#KD03) |
-| Phép chia đa thức | [Thương và phần dư](#nen-chia) | [Nhiệm vụ 04 của Khởi động](#KD04) |
+| Câu còn vướng | Kiến thức cần ôn | Đi đến | Sau đó |
+|---|---|---|---|
+| Miền và rút gọn | Giữ điều kiện xác định | [Tập xác định](#nen-mien) | [Nhiệm vụ 01 của Khởi động](#KD01) |
+| Đạo hàm hoặc xét dấu | Tính đạo hàm, xét dấu trên từng khoảng | [Đạo hàm và dấu](#nen-dao-ham) | [Nhiệm vụ 02 của Khởi động](#KD02) |
+| Hướng giới hạn | Đọc đúng phía tiến tới | [Giới hạn và tiệm cận](#nen-gioi-han) | [Nhiệm vụ 03 của Khởi động](#KD03) |
+| Phép chia đa thức | Kiểm thương và phần dư | [Thương và phần dư](#nen-chia) | [Nhiệm vụ 04 của Khởi động](#KD04) |
 
 :::
 Nếu thao tác đã vững, vào [mục đầu Bài học](#bh-01) hoặc chọn hoạt động phù hợp; không phải đi qua mọi thẻ nền.
@@ -209,7 +214,7 @@ Nếu thao tác đã vững, vào [mục đầu Bài học](#bh-01) hoặc chọ
 
 </details>
 
-#### Gợi mở 01 {#GM01 .zo-learning-task data-zo-type="task" data-zo-task="G04-GM01" data-zo-function="function.guided_thinking" data-zo-number="1"}
+#### Gợi mở 01 — Cùng đạo hàm, có cùng đồ thị? {#GM01 .zo-learning-task data-zo-type="task" data-zo-task="G04-GM01" data-zo-function="function.guided_thinking" data-zo-number="1"}
 
 Thử trả lời trước khi đọc tiếp.
 
@@ -225,7 +230,7 @@ Một bản khảo sát gồm ba việc chính:
 - **Khảo sát sự biến thiên.** Tính đạo hàm; tìm các điểm đạo hàm bằng $0$ hoặc không tồn tại thuộc miền đang xét; xét dấu và kết luận đơn điệu, cực trị. Tính các giới hạn cần thiết, tìm tiệm cận nếu có, rồi lập bảng biến thiên.
 - **Vẽ đồ thị dựa trên bảng biến thiên.** Bổ sung giao điểm với các trục hoặc điểm đặc trưng dễ tính; lưu ý tính đối xứng.
 
-<p class="zo-source-note">Đối chiếu Sách giáo khoa Toán 12, tập một, bộ Kết nối tri thức với cuộc sống, Bài 4, trang 26–27.</p>
+<p class="zo-source-note">Nguồn đối chiếu: Sách giáo khoa Toán 12, tập một, bộ Kết nối tri thức với cuộc sống, Bài 4, trang 26–27.</p>
 
 Ở ba họ hàm của học liệu, đạo hàm tồn tại tại mọi điểm thuộc tập xác định. Điểm làm mẫu số bằng $0$ bị loại khỏi miền, không phải một điểm cực trị cần xét của hàm.
 
@@ -253,7 +258,7 @@ dự đoán từ dấu đạo hàm, sau đó tính giá trị tại các mốc v
 
 </details>
 
-#### Gợi mở 02 {#GM02 .zo-learning-task data-zo-type="task" data-zo-task="G04-GM02" data-zo-function="function.guided_thinking" data-zo-number="2"}
+#### Gợi mở 02 — Đổi dấu và đổi chiều {#GM02 .zo-learning-task data-zo-type="task" data-zo-task="G04-GM02" data-zo-function="function.guided_thinking" data-zo-number="2"}
 
 Thử trả lời trước khi đọc tiếp.
 
@@ -269,9 +274,9 @@ f^\prime(x)=3ax^2+2bx+c.
 $$
 Dấu của tam thức này quyết định chiều biến thiên. Khi có hai nghiệm phân biệt, xét đủ các khoảng; khi có nghiệm kép, kiểm việc đạo hàm không đổi dấu; khi không có nghiệm thực, dấu không đổi trên $\mathbb R$.
 
-Đồ thị hàm bậc ba không có tiệm cận và có tâm đối xứng là điểm trên đồ thị có hoành độ $x_0=-\frac{b}{3a}$. Vì vậy phải lấy cả tung độ $f(x_0)$, không nhầm $x_0$ với một điểm. Quy tắc dấu và cực trị xem [Đơn điệu và cực trị](https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/).
+Đồ thị hàm bậc ba không có tiệm cận và có tâm đối xứng là điểm trên đồ thị có hoành độ $x_0=-\frac{b}{3a}$. Vì vậy phải lấy cả tung độ $f(x_0)$, không nhầm $x_0$ với một điểm. Quy tắc dấu và cực trị xem [Đơn điệu và cực trị](../r1_g01/index.qmd).
 
-<p class="zo-source-note">Đối chiếu Sách giáo khoa Toán 12, tập một, bộ Kết nối tri thức với cuộc sống, Bài 4, trang 27.</p>
+<p class="zo-source-note">Nguồn đối chiếu: Sách giáo khoa Toán 12, tập một, bộ Kết nối tri thức với cuộc sống, Bài 4, trang 27.</p>
 
 #### 2.2. Ví dụ 02 — Hai cực trị và một nghiệm kép của hàm {#VD02}
 
@@ -329,7 +334,7 @@ xác định hai khoảng của miền, tính giới hạn một phía và dấu
 
 </details>
 
-#### Gợi mở 03 {#GM03 .zo-learning-task data-zo-type="task" data-zo-task="G04-GM03" data-zo-function="function.guided_thinking" data-zo-number="3"}
+#### Gợi mở 03 — Cùng tiệm cận, khác vị trí {#GM03 .zo-learning-task data-zo-type="task" data-zo-task="G04-GM03" data-zo-function="function.guided_thinking" data-zo-number="3"}
 
 Thử trả lời trước khi đọc tiếp.
 
@@ -343,7 +348,7 @@ Với $f(x)=\frac{ax+b}{cx+d}$, điều kiện $c\ne0$, $ad-bc\ne0$ bảo đảm
 
 Đồ thị nhận giao điểm hai tiệm cận làm tâm đối xứng; hai đường phân giác của các góc tạo bởi hai tiệm cận là các trục đối xứng. Khi dùng hình để nhận đối xứng, hai trục tọa độ phải có cùng tỉ lệ độ dài.
 
-<p class="zo-source-note">Đối chiếu Sách giáo khoa Toán 12, tập một, bộ Kết nối tri thức với cuộc sống, Bài 4, trang 28–29.</p>
+<p class="zo-source-note">Nguồn đối chiếu: Sách giáo khoa Toán 12, tập một, bộ Kết nối tri thức với cuộc sống, Bài 4, trang 28–29.</p>
 
 #### 3.2. Ví dụ 04 — Ghép biến thiên với tiệm cận ngang {#VD04}
 
@@ -386,7 +391,7 @@ chia đa thức và kiểm ngược trước; dùng cùng một biểu thức đ
 
 </details>
 
-#### Gợi mở 04 {#GM04 .zo-learning-task data-zo-type="task" data-zo-task="G04-GM04" data-zo-function="function.guided_thinking" data-zo-number="4"}
+#### Gợi mở 04 — Phần dư và cực trị {#GM04 .zo-learning-task data-zo-type="task" data-zo-task="G04-GM04" data-zo-function="function.guided_thinking" data-zo-number="4"}
 
 Thử trả lời trước khi đọc tiếp.
 
@@ -404,7 +409,7 @@ Sau phép chia, phân thức trong phạm vi bài có dạng “đa thức bậc
 
 Đồ thị nhận giao điểm tiệm cận đứng và tiệm cận xiên làm tâm đối xứng, nhận hai đường phân giác của các góc tạo bởi các tiệm cận làm các trục đối xứng. Không mặc định đường ngang hoặc đường thẳng vuông góc tiệm cận xiên là trục đối xứng.
 
-<p class="zo-source-note">Đối chiếu Sách giáo khoa Toán 12, tập một, bộ Kết nối tri thức với cuộc sống, Bài 4, trang 30–32.</p>
+<p class="zo-source-note">Nguồn đối chiếu: Sách giáo khoa Toán 12, tập một, bộ Kết nối tri thức với cuộc sống, Bài 4, trang 30–32.</p>
 
 #### 4.2. Ví dụ 05 — Tiệm cận xiên và hai cực trị {#VD05}
 
@@ -482,7 +487,7 @@ ghi biến, đơn vị và miền mô hình trước khi lấy kết luận từ
 
 </details>
 
-#### Gợi mở 05 {#GM05 .zo-learning-task data-zo-type="task" data-zo-task="G04-GM05" data-zo-function="function.guided_thinking" data-zo-number="5"}
+#### Gợi mở 05 — Miền mô hình và giá trị đạt được {#GM05 .zo-learning-task data-zo-type="task" data-zo-task="G04-GM05" data-zo-function="function.guided_thinking" data-zo-number="5"}
 
 Thử trả lời trước khi đọc tiếp.
 
@@ -532,6 +537,15 @@ Nếu còn vướng, xem đúng mục đó. Nếu đã nắm cách làm, vào [L
 ## Luyện tập {#phieu-luyen}
 
 <span id="luyen-tap"></span>
+
+Tự làm trước khi mở lời giải; giữ riêng bài làm ban đầu và kết quả sau hỗ trợ. Chọn chặng theo việc còn cần luyện; phần chưa làm chưa có bằng chứng.
+
+::: {#g04-table-luyen-tap .table-scroll}
+| Chặng | Việc cần làm được | Nhiệm vụ và nơi đối chiếu |
+|---|---|---|
+| [Chặng 1](#chang-1) | Khảo sát bậc ba và phân thức bậc nhất; kiểm dấu và hình vẽ | [Nhiệm vụ 01](#L01)–[03](#L03); [Điểm dừng](#CP01) |
+| [Chặng 2](#chang-2) | Ghép tiệm cận xiên với biến thiên, diễn giải đúng miền | [Nhiệm vụ 04](#L04)–[06](#L06); [Điểm dừng](#CP02) |
+:::
 
 <details class="zo-learning-guidance r1-guidance"><summary>Cách thực hiện</summary>
 
@@ -660,6 +674,15 @@ Nếu lỗi thiết yếu đã được xác nhận đúng bằng câu phù hợ
 
 Ghi ngày hẹn cụ thể tính từ ngày hoàn tất lượt chính. Các mốc dưới đây là lịch đề xuất; ghi khoảng trễ thực tế nếu đổi lịch. Trước mỗi lượt, chưa đọc lại Bài học và chưa xem đề của lượt sau. Sau khi tự làm mới đối chiếu. Câu đã xem hoặc đã dùng để sửa trước đó không còn đo được khả năng nhớ độc lập như dự định.
 
+
+::: {#g04-table-on-lai .table-scroll}
+| Ngày hẹn tính từ ngày hoàn tất lượt chính | Nhiệm vụ cần tự làm | Điểm dừng |
+|---|---|---|
+| Sau khoảng $2$–$3$ ngày | [Nhiệm vụ 01](#O01) | [Điểm dừng lượt 1](#CP-O01) |
+| Sau khoảng $7$ ngày | [Nhiệm vụ 02](#O02) | [Điểm dừng lượt 2](#CP-O02) |
+| Sau khoảng $3$–$4$ tuần | [Nhiệm vụ 03](#O03) | [Điểm dừng lượt 3](#CP-O03) |
+:::
+
 ### Lượt 1 — Sau khoảng $2$–$3$ ngày {#on-luot-1 data-zo-context="round:1"}
 
 Lấy mẫu quy trình và đồ thị bậc ba.
@@ -710,13 +733,13 @@ Chọn đúng thao tác đang vướng và ghi nhớ nhiệm vụ đã gọi. C�
 
 <details id="nen-mien" class="zo-learning-guidance r1-foundation-unit"><summary>Tập xác định và điểm bị loại</summary>
 
-Mở [Tập xác định và khoảng xét](https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/?r1-view=on-nen#nen-n-txd-01). Giữ điều kiện của hàm gốc khi rút gọn. Sau tự kiểm, quay về [Khởi động — Miền trước và sau rút gọn](#KD01), hoặc đúng bước miền của bài đã gọi; kết quả câu nền không thay kết quả khảo sát.
+Mở [Tập xác định và khoảng xét](../r1_g01/index.qmd?r1-view=on-nen#nen-n-txd-01). Giữ điều kiện của hàm gốc khi rút gọn. Sau tự kiểm, quay về [Khởi động — Miền trước và sau rút gọn](#KD01), hoặc đúng bước miền của bài đã gọi; kết quả câu nền không thay kết quả khảo sát.
 
 </details>
 
 <details id="nen-dao-ham" class="zo-learning-guidance r1-foundation-unit"><summary>Đạo hàm và xét dấu</summary>
 
-Mở [Đạo hàm đa thức](https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/?r1-view=on-nen#nen-n-dh-01) khi sai đạo hàm đa thức; mở [Xét dấu biểu thức có nhân tử](https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/?r1-view=on-nen#nen-n-dau-01) khi sai dấu. Hai thẻ này không dạy đầy đủ đạo hàm phân thức: với lỗi đó xem phép tính ở [Ví dụ 04](#VD04), [Ví dụ 05](#VD05), rồi tự làm đúng ý phân thức trong nhóm Sửa lỗi thuộc nơi phát hiện.
+Mở [Đạo hàm đa thức](../r1_g01/index.qmd?r1-view=on-nen#nen-n-dh-01) khi sai đạo hàm đa thức; mở [Xét dấu biểu thức có nhân tử](../r1_g01/index.qmd?r1-view=on-nen#nen-n-dau-01) khi sai dấu. Hai thẻ này không dạy đầy đủ đạo hàm phân thức: với lỗi đó xem phép tính ở [Ví dụ 04](#VD04), [Ví dụ 05](#VD05), rồi tự làm đúng ý phân thức trong nhóm Sửa lỗi thuộc nơi phát hiện.
 
 Trở về [Khởi động — Đạo hàm và dấu](#KD02) hoặc bước đạo hàm của bài gốc. Xét đúng dấu chưa tự xác nhận việc gọi tên cực trị, tiệm cận hoặc vẽ hình.
 
@@ -724,7 +747,7 @@ Trở về [Khởi động — Đạo hàm và dấu](#KD02) hoặc bước đ�
 
 <details id="nen-gioi-han" class="zo-learning-guidance r1-foundation-unit"><summary>Giới hạn và giá trị được đạt</summary>
 
-Mở [Giới hạn một phía](https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/?r1-view=on-nen#N-GH-02) khi nhầm hướng/dấu; [Giới hạn ở vô cực](https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/?r1-view=on-nen#N-GH-03) khi bỏ một đầu hoặc thay vô cực như một số; [Cận và giá trị được đạt](https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/?r1-view=on-nen#nen-n-gh-01) khi nhầm cận với giá trị nhỏ nhất.
+Mở [Giới hạn một phía](../r1_g03/index.qmd?r1-view=on-nen#N-GH-02) khi nhầm hướng/dấu; [Giới hạn ở vô cực](../r1_g03/index.qmd?r1-view=on-nen#N-GH-03) khi bỏ một đầu hoặc thay vô cực như một số; [Cận và giá trị được đạt](../r1_g02/index.qmd?r1-view=on-nen#nen-n-gh-01) khi nhầm cận với giá trị nhỏ nhất.
 
 Chỉ dùng phần phù hợp với phân thức đang học, không cần làm nhánh căn của thẻ giới hạn ở vô cực. Trở về [Khởi động — Giới hạn có hướng](#KD03) hoặc bài đang gọi; nếu vướng mô hình, trở về [mục đọc đúng miền](#bh-05).
 
@@ -732,7 +755,7 @@ Chỉ dùng phần phù hợp với phân thức đang học, không cần làm 
 
 <details id="nen-chia" class="zo-learning-guidance r1-foundation-unit"><summary>Biến đổi phân thức</summary>
 
-Mở [Biến đổi phân thức: giữ điều kiện, kiểm thương và dư](https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/?r1-view=on-nen#N-DS-01). Ví dụ của thẻ cũng xuất hiện trong Khởi động để nối nền đã học; nếu đã xem, dùng nó để nhớ thao tác, không nhận là bằng chứng tự lực mới. Sau tự kiểm nền còn mới, quay về [Khởi động — Thương và phần dư](#KD04) hoặc bước chia của bài gốc. Cần kiểm giới hạn phần dư khi kết luận tiệm cận.
+Mở [Biến đổi phân thức: giữ điều kiện, kiểm thương và dư](../r1_g03/index.qmd?r1-view=on-nen#N-DS-01). Ví dụ của thẻ cũng xuất hiện trong Khởi động để nối nền đã học; nếu đã xem, dùng nó để nhớ thao tác, không nhận là bằng chứng tự lực mới. Sau tự kiểm nền còn mới, quay về [Khởi động — Thương và phần dư](#KD04) hoặc bước chia của bài gốc. Cần kiểm giới hạn phần dư khi kết luận tiệm cận.
 
 Khi mở thẻ ở học liệu khác, đường “quay về” của thẻ thuộc học liệu ấy. Hãy trở lại trang này bằng lịch sử trình duyệt hoặc tab đang đọc, rồi về đúng nhiệm vụ đã gọi ở trên.
 
@@ -747,15 +770,15 @@ Dùng sau khi đã tự làm và biết điều cần sửa; riêng Kiểm tra p
 ::: {#g04-table-13 .table-scroll}
 | Nơi phát hiện | Lỗi cần kiểm lại | Nhiệm vụ xác nhận | Xem lại trước khi làm |
 |---|---|---|---|
-| Tự kiểm tra/Luyện tập | Điểm đạo hàm bằng $0$ không là cực trị | [Nhiệm vụ 01 — Sau luyện tập — Bậc ba, ý a](#S01) | [Bậc ba không cực trị](#VD03) |
-| Tự kiểm tra/Luyện tập | Sơ đồ, bảng hoặc hình bậc ba | [Nhiệm vụ 01 — Sau luyện tập — Bậc ba, ý b](#S01) | [Sơ đồ](#bh-01), [bậc ba](#bh-02) |
-| Tự kiểm tra/Luyện tập | Phân thức bậc nhất | [Nhiệm vụ 02 — Sau luyện tập — Phân thức và miền, ý a](#S02) | [Mục phân thức bậc nhất](#bh-03) |
-| Tự kiểm tra/Luyện tập | Phân thức bậc hai có cực trị / không cực trị | [Nhiệm vụ 02 — Sau luyện tập — Phân thức và miền, ý b / c](#S02) | [Mục phân thức bậc hai](#bh-04) |
-| Tự kiểm tra/Luyện tập | Miền mô hình, cận và giá trị đạt | [Nhiệm vụ 02 — Sau luyện tập — Phân thức và miền, ý d](#S02) | [Miền mô hình](#bh-05) |
-| Sau Kiểm tra | Bậc ba: không cực trị / có cực trị | [Nhiệm vụ 03 — Sau kiểm tra — Bậc ba, ý a / b](#S03) | [Mục bậc ba](#bh-02) |
-| Sau Kiểm tra | Phân thức bậc nhất / bậc hai có cực trị / bậc hai không cực trị / miền mô hình | [Nhiệm vụ 04 — Sau kiểm tra — Phân thức và miền, ý a / b / c / d](#S04) | [Phân thức bậc nhất](#bh-03), [phân thức bậc hai](#bh-04), [miền mô hình](#bh-05) theo ý |
-| Sau Ôn lại | Bậc ba: điểm dừng / khảo sát đầy đủ | [Nhiệm vụ 05 — Sau ôn lại — Bậc ba, ý a / b](#S05) | [Mục bậc ba](#bh-02) |
-| Sau Ôn lại | Phân thức bậc nhất / bậc hai có cực trị / bậc hai không cực trị / miền mô hình | [Nhiệm vụ 06 — Sau ôn lại — Phân thức và miền, ý a / b / c / d](#S06) | [Phân thức bậc nhất](#bh-03), [phân thức bậc hai](#bh-04), [miền mô hình](#bh-05) theo ý |
+| Tự kiểm tra/Luyện tập | Điểm đạo hàm bằng $0$ không là cực trị | [Nhiệm vụ 01 — Bậc ba, ý a](#S01) | [Bậc ba không cực trị](#VD03) |
+| Tự kiểm tra/Luyện tập | Sơ đồ, bảng hoặc hình bậc ba | [Nhiệm vụ 01 — Bậc ba, ý b](#S01) | [Sơ đồ](#bh-01), [bậc ba](#bh-02) |
+| Tự kiểm tra/Luyện tập | Phân thức bậc nhất | [Nhiệm vụ 02 — Phân thức và miền, ý a](#S02) | [Mục phân thức bậc nhất](#bh-03) |
+| Tự kiểm tra/Luyện tập | Phân thức bậc hai có cực trị / không cực trị | [Nhiệm vụ 02 — Phân thức và miền, ý b / c](#S02) | [Mục phân thức bậc hai](#bh-04) |
+| Tự kiểm tra/Luyện tập | Miền mô hình, cận và giá trị đạt | [Nhiệm vụ 02 — Phân thức và miền, ý d](#S02) | [Miền mô hình](#bh-05) |
+| Sau Kiểm tra | Bậc ba: không cực trị / có cực trị | [Nhiệm vụ 03 — Bậc ba, ý a / b](#S03) | [Mục bậc ba](#bh-02) |
+| Sau Kiểm tra | Phân thức bậc nhất / bậc hai có cực trị / bậc hai không cực trị / miền mô hình | [Nhiệm vụ 04 — Phân thức và miền, ý a / b / c / d](#S04) | [Phân thức bậc nhất](#bh-03), [phân thức bậc hai](#bh-04), [miền mô hình](#bh-05) theo ý |
+| Sau Ôn lại | Bậc ba: điểm dừng / khảo sát đầy đủ | [Nhiệm vụ 05 — Bậc ba, ý a / b](#S05) | [Mục bậc ba](#bh-02) |
+| Sau Ôn lại | Phân thức bậc nhất / bậc hai có cực trị / bậc hai không cực trị / miền mô hình | [Nhiệm vụ 06 — Phân thức và miền, ý a / b / c / d](#S06) | [Phân thức bậc nhất](#bh-03), [phân thức bậc hai](#bh-04), [miền mô hình](#bh-05) theo ý |
 
 :::
 Các ý a, b, c của nhóm phân thức kiểm các trường hợp khác nhau; mỗi ý có bảng và hình để đối chiếu. Đúng một ý không tự xác nhận ý còn lại. Chỉ chọn ý khớp lỗi và còn mới.
@@ -764,9 +787,9 @@ Các ý a, b, c của nhóm phân thức kiểm các trường hợp khác nhau;
 
 Câu đã xem đề/lời giải hoặc làm với hỗ trợ được dùng để học lại, không nhận là xác nhận độc lập mới. Không lấy trước câu Kiểm tra, câu của lượt Ôn lại sau hoặc bài dành cho nơi phát hiện khác. Nếu hết câu phù hợp còn mới, ghi mục tiêu chưa xác nhận và đề nghị người hướng dẫn cung cấp câu tương đương; không tự ghi “đã đạt”. Nếu vẫn sai, trở lại đúng mục học/thao tác nền, ghi điểm còn vướng và nơi cần tiếp tục.
 
-### Sau Luyện tập hoặc Tự kiểm tra {#sua-sau-luyen data-zo-context="after:area.practice"}
+### Sau Luyện tập {#sua-sau-luyen data-zo-context="after:area.practice"}
 
-#### Nhiệm vụ 01 — Sau luyện tập — Bậc ba {#S01 .zo-learning-task data-zo-type="task" data-zo-task="G04-S01" data-zo-function="function.remediation" data-zo-number="1"}
+#### Nhiệm vụ 01 — Bậc ba {#S01 .zo-learning-task data-zo-type="task" data-zo-task="G04-S01" data-zo-function="function.remediation" data-zo-number="1"}
 
 a) Khảo sát và phác đồ thị $p(x)=-(x+2)^3+5$ theo đủ sơ đồ. Đặc biệt giải thích vì sao điểm có đạo hàm bằng $0$ không là cực trị. So sánh thêm với $q(x)=x^3+2x$: vì sao $q$ cũng không có cực trị nhưng không có điểm đạo hàm bằng $0$? Không cần khảo sát đầy đủ $q$.
 
@@ -774,7 +797,7 @@ b) Khảo sát và phác đồ thị $f(x)=x^3+3x^2-4$: miền, đạo hàm/dấ
 
 [Xem lời giải](#lg-S01).
 
-#### Nhiệm vụ 02 — Sau luyện tập — Phân thức và miền {#S02 .zo-learning-task data-zo-type="task" data-zo-task="G04-S02" data-zo-function="function.remediation" data-zo-number="2"}
+#### Nhiệm vụ 02 — Phân thức và miền {#S02 .zo-learning-task data-zo-type="task" data-zo-task="G04-S02" data-zo-function="function.remediation" data-zo-number="2"}
 
 a) Khảo sát và vẽ $f(x)=2-\frac{4}{x+2}$ theo đủ sơ đồ: miền, đạo hàm, giới hạn, biến thiên, tiệm cận, giao trục, tâm và các trục đối xứng.
 
@@ -790,7 +813,7 @@ d) Mô hình $A(x)=1+\frac{20}{x}$ triệu đồng mỗi tấn áp dụng với 
 
 ### Sau Kiểm tra {#sua-sau-kiem data-zo-context="after:area.test"}
 
-#### Nhiệm vụ 03 — Sau kiểm tra — Bậc ba {#S03 .zo-learning-task data-zo-type="task" data-zo-task="G04-S03" data-zo-function="function.remediation" data-zo-number="3"}
+#### Nhiệm vụ 03 — Bậc ba {#S03 .zo-learning-task data-zo-type="task" data-zo-task="G04-S03" data-zo-function="function.remediation" data-zo-number="3"}
 
 a) Khảo sát và phác đồ thị $p(x)=-(x-2)^3+3$ theo đủ sơ đồ. Đặc biệt giải thích vì sao điểm có đạo hàm bằng $0$ không là cực trị.
 
@@ -798,7 +821,7 @@ b) Khảo sát và phác đồ thị $f(x)=-x^3-3x^2+4$ theo đủ sơ đồ. D�
 
 [Xem lời giải](#lg-S03).
 
-#### Nhiệm vụ 04 — Sau kiểm tra — Phân thức và miền {#S04 .zo-learning-task data-zo-type="task" data-zo-task="G04-S04" data-zo-function="function.remediation" data-zo-number="4"}
+#### Nhiệm vụ 04 — Phân thức và miền {#S04 .zo-learning-task data-zo-type="task" data-zo-task="G04-S04" data-zo-function="function.remediation" data-zo-number="4"}
 
 a) Khảo sát và vẽ $f(x)=3+\frac{3}{x-1}$ theo đủ sơ đồ: miền, đạo hàm, giới hạn, biến thiên, tiệm cận, giao trục, tâm và các trục đối xứng.
 
@@ -814,7 +837,7 @@ d) Mô hình $A(x)=4+\frac{24}{x}$ triệu đồng mỗi tấn áp dụng với 
 
 ### Sau Ôn lại {#sua-sau-on data-zo-context="after:area.review"}
 
-#### Nhiệm vụ 05 — Sau ôn lại — Bậc ba {#S05 .zo-learning-task data-zo-type="task" data-zo-task="G04-S05" data-zo-function="function.remediation" data-zo-number="5"}
+#### Nhiệm vụ 05 — Bậc ba {#S05 .zo-learning-task data-zo-type="task" data-zo-task="G04-S05" data-zo-function="function.remediation" data-zo-number="5"}
 
 a) Khảo sát và phác đồ thị $p(x)=(x-1)^3-2$ theo đủ sơ đồ. Đặc biệt giải thích vì sao điểm có đạo hàm bằng $0$ không là cực trị.
 
@@ -822,7 +845,7 @@ b) Khảo sát và phác đồ thị $f(x)=x^3+6x^2+9x$ theo đủ sơ đồ. D�
 
 [Xem lời giải](#lg-S05).
 
-#### Nhiệm vụ 06 — Sau ôn lại — Phân thức và miền {#S06 .zo-learning-task data-zo-type="task" data-zo-task="G04-S06" data-zo-function="function.remediation" data-zo-number="6"}
+#### Nhiệm vụ 06 — Phân thức và miền {#S06 .zo-learning-task data-zo-type="task" data-zo-task="G04-S06" data-zo-function="function.remediation" data-zo-number="6"}
 
 a) Khảo sát và vẽ $f(x)=1-\frac{3}{x+2}$ theo đủ sơ đồ: miền, đạo hàm, giới hạn, biến thiên, tiệm cận, giao trục, tâm và các trục đối xứng.
 
@@ -840,7 +863,7 @@ d) Mô hình $A(x)=2+\frac{36}{x}$ triệu đồng mỗi tấn áp dụng với 
 
 <span id="nhat-ki"></span>
 
-Dùng khi cần lưu kết quả, lỗi, mức hỗ trợ, lịch hẹn hoặc điểm tiếp tục; không bắt ghi sau từng câu. Mẫu dưới giữ đúng các trường của [Nhật kí học tập dùng chung](https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/?r1-view=nhat-ki#nhat-ki). Sao chép ra giấy hoặc công cụ ghi chú và tự điền; không có trạng thái đạt điền sẵn.
+Dùng khi cần lưu kết quả, lỗi, mức hỗ trợ, lịch hẹn hoặc điểm tiếp tục; không bắt ghi sau từng câu. Mẫu dưới giữ đúng các trường của [Nhật kí học tập dùng chung](../r1_g03/index.qmd?r1-view=nhat-ki#nhat-ki). Sao chép ra giấy hoặc công cụ ghi chú và tự điền; không có trạng thái đạt điền sẵn.
 
 {{< include ../_dung_chung/nhat_ki_hoc_tap.qmd >}}
 
@@ -850,9 +873,11 @@ Ghi tên nội dung và lỗi bằng lời có nghĩa; chỉ ghi mã lỗi/Nền
 
 Mở sau khi đã tự làm. Mỗi lời giải có đường trở về đúng đề; phần quyết định tiếp tục nằm ở Điểm dừng tương ứng. Chỉ mở lời giải của nhiệm vụ cần đối chiếu; giữ lại bài tự làm để nhận ra bước đúng và bước cần sửa.
 
-### Khởi động {#lg-khoi-dong}
+### Bài học {#lg-bai-hoc}
 
-#### Nhiệm vụ 01 — Miền trước và sau rút gọn {#lg-KD01}
+#### Khởi động {#lg-khoi-dong}
+
+##### Nhiệm vụ 01 — Miền trước và sau rút gọn {#lg-KD01}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -863,7 +888,7 @@ $D=\mathbb R\setminus\{3\}$. Trên miền ấy, $r(x)=x+3$. Điểm $(3;6)$ khô
 
 [Trở về đề — Miền trước và sau rút gọn](#KD01).
 
-#### Nhiệm vụ 02 — Đạo hàm và dấu {#lg-KD02}
+##### Nhiệm vụ 02 — Đạo hàm và dấu {#lg-KD02}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -874,7 +899,7 @@ $p^\prime(x)=3x^2-12=3(x-2)(x+2)$. Dấu lần lượt là $+$, $-$, $+$ trên $
 
 [Trở về đề — Đạo hàm và dấu](#KD02).
 
-#### Nhiệm vụ 03 — Giới hạn có hướng {#lg-KD03}
+##### Nhiệm vụ 03 — Giới hạn có hướng {#lg-KD03}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -889,7 +914,7 @@ Hai đường tiệm cận là $x=-2$, $y=1$. Tiêu chí: đủ bốn hướng, 
 
 [Trở về đề — Giới hạn có hướng](#KD03).
 
-#### Nhiệm vụ 04 — Thương và phần dư {#lg-KD04}
+##### Nhiệm vụ 04 — Thương và phần dư {#lg-KD04}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -904,9 +929,9 @@ vì $(x+1)(x+1)+4=x^2+2x+5$. Tiêu chí: phần dư là $4$, giữ mẫu và đi
 
 [Trở về đề — Thương và phần dư](#KD04).
 
-### Tự kiểm tra {#lg-tu-kiem-tra}
+#### Tự kiểm tra {#lg-tu-kiem-tra}
 
-#### Tự kiểm tra 01 — Tìm mâu thuẫn trước khi nối nét {#lg-T01}
+##### Tự kiểm tra 01 — Tìm mâu thuẫn trước khi nối nét {#lg-T01}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -921,7 +946,7 @@ Hàm không có cực trị vì đạo hàm dương trên $\mathbb R$. Tiêu ch�
 
 [Trở về đề — Tìm mâu thuẫn trước khi nối nét](#T01).
 
-#### Tự kiểm tra 02 — Một điểm dừng không đổi chiều {#lg-T02}
+##### Tự kiểm tra 02 — Một điểm dừng không đổi chiều {#lg-T02}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -943,7 +968,7 @@ Tâm $I(1;2)$; các điểm kiểm $(0;3)$, $(2;1)$. Không có tiệm cận. H�
 
 [Trở về đề — Một điểm dừng không đổi chiều](#T02).
 
-#### Tự kiểm tra 03 — Hai nhánh đồng biến {#lg-T03}
+##### Tự kiểm tra 03 — Hai nhánh đồng biến {#lg-T03}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -966,7 +991,7 @@ Tiệm cận $x=-2$, $y=1$, tâm $I(-2;1)$. Giao cả hai trục tại $O$. Hai 
 
 [Trở về đề — Hai nhánh đồng biến](#T03).
 
-#### Tự kiểm tra 04 — Kiểm lại dấu của phần dư {#lg-T04}
+##### Tự kiểm tra 04 — Kiểm lại dấu của phần dư {#lg-T04}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -998,7 +1023,7 @@ Nhánh trái nằm trên đường xiên, nhánh phải nằm dưới. Tiêu ch�
 
 [Trở về đề — Kiểm lại dấu của phần dư](#T04).
 
-#### Tự kiểm tra 05 — Giữ miền khi đọc chi phí {#lg-T05}
+##### Tự kiểm tra 05 — Giữ miền khi đọc chi phí {#lg-T05}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -1324,9 +1349,9 @@ Tiêu chí: không đặt giá trị hàm tại điểm loại, không gọi đi
 
 ### Sửa lỗi {#lg-sua-loi}
 
-### Sau Luyện tập hoặc Tự kiểm tra {#lg-sl}
+#### Sau Luyện tập {#lg-sl}
 
-#### Nhiệm vụ 01 — Sau luyện tập — Bậc ba {#lg-S01}
+##### Nhiệm vụ 01 — Bậc ba {#lg-S01}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -1362,7 +1387,7 @@ Tiêu chí ý b: toàn bộ chuỗi dữ kiện và hình thống nhất; làm �
 
 [Trở về đề — Sau luyện tập — Bậc ba](#S01).
 
-#### Nhiệm vụ 02 — Sau luyện tập — Phân thức và miền {#lg-S02}
+##### Nhiệm vụ 02 — Phân thức và miền {#lg-S02}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -1430,9 +1455,9 @@ Tiêu chí: đánh dấu riêng ý đã tự làm; ý a không xác nhận phân
 
 [Trở về đề — Sau luyện tập — Phân thức và miền](#S02).
 
-### Sau Kiểm tra {#lg-sk}
+#### Sau Kiểm tra {#lg-sk}
 
-#### Nhiệm vụ 03 — Sau kiểm tra — Bậc ba {#lg-S03}
+##### Nhiệm vụ 03 — Bậc ba {#lg-S03}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -1466,7 +1491,7 @@ Tiêu chí: dữ kiện đúng và hình đúng; giữ nguyên kết quả bài 
 
 [Trở về đề — Sau kiểm tra — Bậc ba](#S03).
 
-#### Nhiệm vụ 04 — Sau kiểm tra — Phân thức và miền {#lg-S04}
+##### Nhiệm vụ 04 — Phân thức và miền {#lg-S04}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -1534,9 +1559,9 @@ Tiêu chí và giới hạn từng ý như tên kĩ năng trong đề; kết qu�
 
 [Trở về đề — Sau kiểm tra — Phân thức và miền](#S04).
 
-### Sau Ôn lại {#lg-so}
+#### Sau Ôn lại {#lg-so}
 
-#### Nhiệm vụ 05 — Sau ôn lại — Bậc ba {#lg-S05}
+##### Nhiệm vụ 05 — Bậc ba {#lg-S05}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -1570,7 +1595,7 @@ Tiêu chí: tự khôi phục đủ quy trình; ghi khoảng trễ thực tế v
 
 [Trở về đề — Sau ôn lại — Bậc ba](#S05).
 
-#### Nhiệm vụ 06 — Sau ôn lại — Phân thức và miền {#lg-S06}
+##### Nhiệm vụ 06 — Phân thức và miền {#lg-S06}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
