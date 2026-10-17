@@ -4,6 +4,13 @@ Phiên bản: 0.1 · Cập nhật trạng thái: 18/10/2026.
 
 Đây là nơi duy nhất ghi công việc đang mở và thứ tự sản xuất hiện hành. Chỉ cập nhật trạng thái từ bằng chứng trong hồ sơ gói. [Điểm vào](README.md).
 
+**CHECKPOINT-SOURCE-20261018 — đã lưu mốc nguồn điều hướng và trình bày, 18/10/2026.**
+
+- Theo yêu cầu commit tiếp theo của chủ trì, đã lưu 35 tệp nguồn/binding, quy tắc, cổng chống tái diễn và hồ sơ tại `ecd95a43f33ca89e4d0c79e3118247f7a8b1b8e5`: mục lục toàn khóa, nhãn đề–lời giải, bảng/chú thích, bỏ dòng dưới bìa và điều hướng tới–về liên học liệu. Các phần có phụ thuộc chung được lưu cùng mốc để không tách nguồn khỏi bộ kiểm.
+- Kiểm staged D0/G01–G04 đạt; điều hướng nguồn 1362/1362, fixture đường về 24/24, nhãn thao tác 46/46, bảng 44/44, shell 12/12 và tài liệu 242/242. Đối chiếu 1524 tệp thành phẩm/tài nguyên/bản thảo/bằng chứng duyệt trong danh mục bảo toàn: không đổi. [Biên nhận commit và phạm vi](ho_so_commit_nguon_dieu_huong_va_trinh_bay_20261018.json).
+- Đây là mốc nguồn đã commit và kiểm kỹ thuật; chưa dựng HTML/PDF cho các sửa đang chờ, chưa kiểm trình duyệt hoặc chủ trì duyệt đầu ra mới, chưa push/xuất bản. Các cờ “chưa commit” ở các lượt bên dưới và trong báo cáo là trạng thái lịch sử trước yêu cầu lưu mốc này. Trạng thái còn mở là dựng/kiểm HTML khi được giao.
+- Không đưa `_audit/` hoặc `.quarto/` vào Git; giữ các bản xem cũ, snapshot đối chứng và báo cáo đang phục vụ kiểm/duyệt. Mục lục và bộ sinh đã đổi nguồn nhưng bản xem cũ vẫn chưa phản ánh các lượt sửa; không dùng nó làm bằng chứng hiển thị mới. Repo công cụ hình không có thay đổi cần lưu mốc.
+
 **NAV-ROUNDTRIP-01 — rà điều hướng tới–về sáu trang, 18/10/2026.**
 
 - Mục lục toàn khóa đã đủ Nhà/D0/G01–G04 từ lượt NAV-G04-01. Đã rà thêm liên kết nguồn, cặp đề–lời giải, đường hỗ trợ và các mục nội trang; không thêm liên kết nhảy thừa cho lời giải tại chỗ hoặc biến thứ tự học thành bắt buộc.
