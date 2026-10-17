@@ -79,6 +79,57 @@ def expand(path,seen=None):
     seen=seen|{path};text=path.read_text(encoding="utf-8")
     return re.sub(r"\{\{<\s*include\s+([^>]+?)\s*>\}\}",lambda m:expand(path.parent/m[1].strip(),seen),text)
 
+def answer_action_labels(root=ROOT):
+    policy=Path(root)/'_design/web_2027_mau_dung_chung/profiles/r1-consistency.json'
+    return json.loads(policy.read_text(encoding='utf-8'))['answer_actions']
+
+
+def answer_action_targets(data):
+    questions={u['question']:u['answer'] for u in data['units'] if u.get('answer')}
+    forward=set(questions.values())|{u['answer_owner'] for u in data['units']
+        if re.match(r'^(?:lg-|loi-giai-)',u.get('answer_owner',''))}
+    return questions,forward
+
+
+def answer_action_source_checks(path,root=ROOT,text=None):
+    """Exact action wording, including legacy packages; no HTML is generated."""
+    if not governed(path):return {}
+    try:
+        data=binding(path);labels=answer_action_labels(root)
+        questions,forward=answer_action_targets(data)
+        text=expand(path) if text is None else text
+    except (OSError,ValueError,KeyError) as exc:return {'answer actions readable: '+str(exc):False}
+    checks={}
+    semantic=set(questions)|set(questions.values())
+    owners=[(m.start(),m[1] or m[2]) for m in re.finditer(r'''\{#([^\s}]+)|\bid=["']([^"']+)["']''',text) if (m[1] or m[2]) in semantic]
+    owners+= [(m.start(),None) for m in re.finditer(r'^## ',text,re.M)]
+    owners.sort()
+    for n,m in enumerate(re.finditer(r'\[([^\]\n]+)\]\(#([^\s)]+)\)',text),1):
+        label,target=m.groups()
+        owner=next((ident for pos,ident in reversed(owners) if pos<m.start()),None)
+        returns=target in questions and (owner==questions[target] or re.match(r'^(?:Xem|Trở|Quay|Về|Mở).*?(?:đề|câu xác nhận)',label,re.I))
+        kind='forward' if target in forward else 'return' if returns else None
+        if kind:checks[f'{n}/{target} exact {kind} action']=label==labels[kind]
+    return checks
+
+
+def answer_action_html_checks(doc,data,root=ROOT):
+    from urllib.parse import urlsplit,unquote
+    reader=doc.select_one('.reader-content');questions,forward=answer_action_targets(data)
+    labels=answer_action_labels(root);checks={}
+    for n,link in enumerate(reader.select('a[href]'),1):
+        url=urlsplit(link['href'])
+        if url.scheme or url.netloc or url.path or not url.fragment:continue
+        # Section navigation retains section names; these checks concern actions.
+        if link.find_parent('nav') is not None or link.find_parent(class_='lesson-toc') is not None:continue
+        target=unquote(url.fragment);label=link.get_text(' ',strip=True)
+        paired_answer=questions.get(target)
+        returns=bool(paired_answer and (link.find_parent(id=paired_answer) or re.match(r'^(?:Xem|Trở|Quay|Về|Mở).*?(?:đề|câu xác nhận)',label,re.I)))
+        kind='forward' if target in forward else 'return' if returns else None
+        if kind:checks[f'{n}/{target} exact {kind} action']=label==labels[kind]
+    return checks
+
+
 def source_checks(path,root=ROOT):
     path=Path(path);checks={}
     if not governed(path):return checks
@@ -86,6 +137,7 @@ def source_checks(path,root=ROOT):
         try:data=binding(path)
         except (OSError,ValueError):return {"legacy binding readable":False}
         checks.update(binding_checks(data,root))
+        checks.update(answer_action_source_checks(path,root))
         checks["parent context mode required"]=uses_context_labels(data)
         return checks
     try:data=binding(path);vocab=contract(root)
@@ -93,6 +145,7 @@ def source_checks(path,root=ROOT):
     checks.update(binding_checks(data,root));checks["display contract opt-in mandatory"]=data.get("display_contract")==VERSION
     checks["parent context presentation required"]=uses_context_labels(data)
     text=expand(path)
+    checks.update(answer_action_source_checks(path,root,text))
     def has_anchor(ident):return bool(re.search(r"\{#"+re.escape(ident)+r"(?=[\s}])|\bid=[\"']"+re.escape(ident)+r"[\"']",text))
     for u in data.get("units",[]):
         checks[u["id"]+" source owner exists"]=has_anchor(u["question"])

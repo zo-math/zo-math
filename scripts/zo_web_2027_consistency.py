@@ -154,6 +154,10 @@ def presentation_checks(doc,data):
         owner=root.find(id=spec['owner'])
         matches=[h for h in owner.select('h3,h4,h5,h6') if h.get_text(' ',strip=True)==spec['title']] if owner else []
         checks[f'subgroup {n} explicit context target']=len(matches)==1
+    from zo_course_tables import media_html_checks
+    checks.update(media_html_checks(doc))
+    from zo_course_labels import answer_action_html_checks
+    checks.update(answer_action_html_checks(doc,data))
     checks['cross-package references use the current bundle']=not any(re.match(r'https?://(?:www\.)?zomath\.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g0[1-4](?:/|$)',a['href']) for a in root.select('a[href]'))
     notes=root.select('.zo-source-note')
     checks['source notes separate from prose']=bool(notes) and all(n.name=='p' or (n.parent.name=='p' and n.parent.get_text(' ',strip=True)==n.get_text(' ',strip=True)) for n in notes)

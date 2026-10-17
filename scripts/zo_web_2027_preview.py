@@ -256,9 +256,6 @@ class PreviewBuilder:
         cover.clear(); cover['class'] = ['hero-art']; cover.name = 'figure'
         image = doc.new_tag('img', src='assets/cover-graph.svg', alt='Minh họa mạch R1: đồ thị p(x)=x³−3x+1')
         cover.append(image)
-        caption = doc.new_tag('figcaption', attrs={'data-design-note': ''})
-        caption.string = 'Đọc công thức, bảng biến thiên và đồ thị'
-        cover.append(caption)
         root['class'] = ['zo-on-thi', 'zo-on-thi-program', 'reader-content']
         root.attrs.pop('style', None)
         groups = []

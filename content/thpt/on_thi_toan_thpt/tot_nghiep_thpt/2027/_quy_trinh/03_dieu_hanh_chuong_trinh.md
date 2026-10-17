@@ -4,6 +4,39 @@ Phiên bản: 0.1 · Cập nhật trạng thái: 18/10/2026.
 
 Đây là nơi duy nhất ghi công việc đang mở và thứ tự sản xuất hiện hành. Chỉ cập nhật trạng thái từ bằng chứng trong hồ sơ gói. [Điểm vào](README.md).
 
+**NAV-ROUNDTRIP-01 — rà điều hướng tới–về sáu trang, 18/10/2026.**
+
+- Mục lục toàn khóa đã đủ Nhà/D0/G01–G04 từ lượt NAV-G04-01. Đã rà thêm liên kết nguồn, cặp đề–lời giải, đường hỗ trợ và các mục nội trang; không thêm liên kết nhảy thừa cho lời giải tại chỗ hoặc biến thứ tự học thành bắt buộc.
+- Bổ sung Đường tiệm cận và Khảo sát sự biến thiên và vẽ đồ thị của hàm số trong danh sách học liệu của D0. Sửa thiếu ngữ cảnh quay về khi G03/G04 mở Ôn nền/Nhật kí ở bài khác: nguồn có điểm về dự phòng, controller giữ caller gốc trong URL, nhánh G02 nhường đường về ngoại gói. Chuẩn hóa view Nhật kí của liên kết G04.
+- Sửa thao tác chọn mục trong drawer D0 để đóng hộp và focus đích như Nhà. Cổng nguồn điều hướng đã mở rộng kiểm đích/neo và ngữ cảnh; có fixture chuỗi hỗ trợ, tab mới/tải lại và thử âm. [Phạm vi, kết quả và phần chờ](ho_so_dieu_huong_20261018.md).
+- Chỉ sửa/kiểm nguồn và fixture trong bộ nhớ; chưa dựng HTML/PDF, chưa kiểm trực quan/hành vi trên HTML mới, chưa commit/push/xuất bản. Giữ nguyên các sửa nguồn chờ trước đó và danh mục phát hành; không ghi G04 thành đã xuất bản.
+
+**COVER-CAPTION-01 — bỏ dòng chú thích dưới ảnh bìa, 18/10/2026.**
+
+- Theo yêu cầu chủ trì, bỏ chú thích nhìn thấy dưới ảnh bìa G01–G04 tại hồ sơ bố cục G01, các bộ sinh G02/G03/G04 và nhánh payload G02; bỏ cả dòng cùng vai trò tại bộ sinh Nhà dùng chung. Nhà hiện hành không có dòng tương ứng; D0 không có ảnh bìa nên không cần sửa.
+- Giữ nguyên ảnh, mô tả thay thế, nội dung QMD và chú thích bảng/đồ thị trong bài. Cổng shell dùng chung chặn `figcaption` trong `.hero-art`, có thử âm và ca bảo toàn chú thích hình nội dung. Quy tắc ở 07/6.1.1.
+- Chỉ sửa và kiểm nguồn; chưa dựng HTML/PDF, chưa kiểm hiển thị mới, chưa commit/push/xuất bản. Các bản xem HTML hiện có vẫn là trước sửa. Giữ các sửa nguồn chưa commit của các lượt điều hướng, nhãn liên kết và bảng.
+
+**TABLE-CAPTION-01 — đồng bộ nguồn bảng toán và vị trí chú thích, 18/10/2026.**
+
+- Đã rà G01–G04 và bảng dấu D0 theo yêu cầu mới: 55 bảng toán, 63 đồ thị R1 cùng hình hình học D0. Chưa dựng HTML. Bảng giá trị còn dùng kiểu bảng lời văn; G02 chèn bảng native sau tên có sẵn, khiến tên nằm trên; hai tên BBT G01 còn nằm trong vùng cuộn.
+- Đã dùng chung lớp lưới toán/nền/nét/cỡ chữ/khoảng đệm cho values/sign/variation, giữ căn chữ/cột theo chức năng. Thành phần dùng chung đặt tên dưới và ngoài vùng cuộn; sửa cả nhánh payload G02, mặc định Quarto và CSS fallback. Các tên có sẵn giữ nguyên.
+- Giữ không tên cho hai bảng giá trị G02, một bảng giải thích dấu G01 và năm đồ thị dữ kiện G03 vì ngữ cảnh đủ rõ; ghi lý do tại binding/QMD, không thêm tên hoặc số thừa. [Hồ sơ kiểm kê, nguồn và phần chờ](ho_so_bang_va_chu_thich_20261018.md).
+- Đã sửa/kiểm nguồn và fixture; kiểm hiển thị thật chờ khi được giao dựng HTML. Không dựng HTML/PDF/hình, không đổi dữ liệu toán/bản thảo/receipt, chưa commit/push/xuất bản. Giữ các sửa điều hướng và nhãn thao tác của hai lượt trước.
+
+**ANSWER-ACTION-01 — thống nhất nguồn nhãn liên kết đề–lời giải, 18/10/2026.**
+
+- Chủ trì chỉ ra nhãn đi–về còn khác nhau sau lần kiểm trước. Quy tắc: đi “Xem lời giải”, về “Xem đề bài”. Đã rà QMD, include, bản đồ bố cục, bộ sinh và cổng kiểm; Nhà/D0 không có các thao tác tương ứng. G01 đổi một cặp riêng; G03/G04 chuẩn hóa các biến thể. Liên kết mở công thức riêng của G02 giữ đúng chức năng.
+- Nguyên nhân: nguồn G03/G04 dùng cách gọi riêng; G01 có ngoại lệ câu xác nhận; các kiểm trước kiểm href/cặp/số lượng, thiếu điều kiện nhãn chính xác; nhánh kiểm nguồn cũ còn bỏ qua G01/G02. Đã nối kiểm câu chữ vào CLI cho cả bốn gói và cổng trình bày chung, dùng nhãn từ một profile.
+- [Hồ sơ phạm vi, kiểm và phần chờ](ho_so_nhan_lien_ket_20261018.md). Chỉ sửa/kiểm nguồn, không dựng lại HTML/PDF. Bản đồ G01 đổi đúng hai binding chữ và fingerprint liên quan từ đối chứng trước đã xác minh khớp; còn chờ kiểm với raw Quarto tươi khi được giao dựng. Các HTML hiện tại chưa có sửa nhãn và điều hướng NAV-G04-01.
+- Chưa commit/push/xuất bản hoặc chủ trì duyệt đầu ra mới. Giữ bản thảo, tài nguyên toán, PDF, receipt và các thay đổi điều hướng chưa commit của lượt trước.
+
+**NAV-G04-01 — đồng bộ nguồn danh sách điều hướng, 18/10/2026.**
+
+- Chủ trì phát hiện chỉ trang G04 có đủ đích, các trang khác thiếu G04. Nguyên nhân: module chung chỉ thêm G04 trong nhánh `current == g04`.
+- Đã đưa G04 vào danh sách đích chung của `zo_web_2027_navigation.py`, bổ sung cùng đích trong sidebar `_quarto.yml`, cập nhật quy tắc QD_032 tại 07. Cổng `source_checks()` của `zo_web_2027_navigation_check.py` kiểm đủ đích cho Nhà/D0/G01–G04, cả trường hợp không truyền trang hiện tại; không đọc hoặc sinh HTML.
+- Chỉ sửa/kiểm nguồn theo yêu cầu. Chưa dựng lại HTML/PDF, chưa commit/push/xuất bản trong lượt này. Các bản xem hiện có vẫn là bản trước sửa mục lục; khi được giao dựng lại, kiểm menu trên cả sáu trang và các liên kết thật. Danh mục thẻ/trạng thái duyệt G04 giữ nguyên.
+
 **CHECKPOINT-CONSISTENCY-R1-01 — lưu mốc thống nhất bốn học liệu, 18/10/2026.**
 
 - Theo yêu cầu commit tiếp theo của chủ trì, nguồn QMD/binding G01–G04, thành phần trình bày, quy tắc và cổng chống tái diễn được lưu tại `ec904d8dcedf0866f4df46207b78340c1daf2a99`. Cổng nguồn staged bốn QMD đạt; không dựng lại HTML hoặc PDF chỉ để commit.

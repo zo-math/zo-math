@@ -89,7 +89,7 @@
   });
   dialog.addEventListener('click', event => {
     if (event.target === dialog) closeDrawer();
-    const anchor = event.target.closest('.home-nav a');
+    const anchor = event.target.closest('.home-nav a, .d0-nav a');
     if (anchor) {
       pendingDestination = document.getElementById(decodeURIComponent(anchor.hash.slice(1)));
       closeDrawer();

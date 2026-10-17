@@ -8,7 +8,8 @@ KIT=ROOT/'_design/web_2027_mau_dung_chung'
 
 def checks(doc):
     nodes=doc.select('button.mobile-trigger')
-    values={'one contents trigger':len(nodes)==1}
+    values={'one contents trigger':len(nodes)==1,
+            'cover has no visible caption':not doc.select('.hero-art figcaption')}
     if len(nodes)!=1:return values
     trigger=nodes[0];icon=trigger.select('svg');state=trigger.select_one('.mobile-view')
     visible=[]
@@ -62,6 +63,12 @@ def self_test():
     doc=BeautifulSoup((KIT/'templates/page.html.tpl').read_text(encoding='utf-8'),'html.parser')
     values={'canonical template valid':all(checks(doc).values()),
             'canonical CSS valid':all(css_checks((KIT/'web-shell.css').read_text(encoding='utf-8')).values())}
+    body_caption=copy.deepcopy(doc)
+    body_caption.append(BeautifulSoup('<figure><img alt="Đồ thị trong bài"><figcaption>Tên đồ thị trong bài</figcaption></figure>','html.parser'))
+    values['allow instructional figure captions']=all(checks(body_caption).values())
+    cover_caption=copy.deepcopy(doc)
+    cover_caption.append(BeautifulSoup('<figure class="hero-art"><img alt="Ảnh bìa"><figcaption>Dòng dưới ảnh bìa</figcaption></figure>','html.parser'))
+    values['reject cover captions']=not all(checks(cover_caption).values())
     def negative(name,change):
         candidate=copy.deepcopy(doc);change(candidate)
         values[name]=not all(checks(candidate).values())

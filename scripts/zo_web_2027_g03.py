@@ -142,7 +142,7 @@ def adapt(path, output_root):
         details.append(body)
     title=root["data-r1-title"];subtitle=original.select_one(".subtitle").get_text(" ",strip=True)
     home=builder.href(output_root/"content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html")
-    hero=f'<section class="hero" aria-label="Bìa học liệu"><div class="hero-copy"><span class="eyebrow">Ôn thi Toán THPT 2027 · Hàm số</span><h1>{html.escape(title)}</h1><p>{html.escape(subtitle)}</p><a class="hero-action" href="?r1-view=bai-hoc#bai-hoc">Vào Bài học <span aria-hidden="true">↗</span></a></div><figure class="hero-art"><img src="assets/g03-cover.svg" alt="Hai nhánh đồ thị tiến gần đường tiệm cận đứng và đường tiệm cận ngang; không phải dữ kiện bài tập"><figcaption>Minh họa nhận diện · Không phải dữ kiện của nhiệm vụ</figcaption></figure></section>'
+    hero=f'<section class="hero" aria-label="Bìa học liệu"><div class="hero-copy"><span class="eyebrow">Ôn thi Toán THPT 2027 · Hàm số</span><h1>{html.escape(title)}</h1><p>{html.escape(subtitle)}</p><a class="hero-action" href="?r1-view=bai-hoc#bai-hoc">Vào Bài học <span aria-hidden="true">↗</span></a></div><figure class="hero-art"><img src="assets/g03-cover.svg" alt="Hai nhánh đồ thị tiến gần đường tiệm cận đứng và đường tiệm cận ngang; không phải dữ kiện bài tập"></figure></section>'
     footer,_=builder.site_footer()
     support=template("support.html",support_href=builder.href(output_root/"content/support/donate.html"),
         prototype_note="Bản HTML chờ duyệt; chưa phát hành.")

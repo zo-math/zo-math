@@ -9,9 +9,71 @@ import argparse, copy, hashlib, json, socket, subprocess, sys, tempfile, time
 sys.dont_write_bytecode = True
 from bs4 import BeautifulSoup
 import requests
+import yaml
 from zo_web_2027_navigation import ROOT, PAGES, require, destinations
 from unittest.mock import patch
 from zo_web_2027_check import Browser, edge_executable
+
+def source_checks(text_overrides=None):
+    """Check shared destinations without rendering or reading generated HTML."""
+    expected=['home','d0','g01','g02','g03','g04']
+    output=ROOT/'docs'
+    values={}
+    for current in [None,*expected]:
+        page=output/PAGES.get(current,PAGES['home'])[0]
+        links=destinations(output,page,current)
+        values[str(current)+' shared complete menu']=[key for key,_,_ in links]==expected
+        g04=[href for key,href,_ in links if key=='g04']
+        values[str(current)+' G04 source destination']=len(g04)==1 and (page.parent/unquote(urlsplit(g04[0]).path)).resolve()==(output/BASE_G04).resolve()
+        values[str(current)+' G04 starts at beginning']=len(g04)==1 and urlsplit(g04[0]).query=='r1-view=bat-dau' and urlsplit(g04[0]).fragment=='bat-dau'
+    config=yaml.safe_load((ROOT/'_quarto.yml').read_text(encoding='utf-8'))
+    sidebar=next(s for s in config['website']['sidebar'] if s.get('id')=='on-thi')
+    values['Quarto sidebar contains G04 once']=sum(n.get('href')==str(BASE_G04.with_suffix('.qmd')).replace('\\','/') for n in sidebar['contents'])==1
+    from zo_course_labels import expand
+    import re
+    from urllib.parse import parse_qs
+    source_texts={key:expand(ROOT/relative.with_suffix('.qmd')) for key,(relative,_) in PAGES.items()}
+    source_texts.update(text_overrides or {})
+    def anchors(text):
+        return set(re.findall(r'\{[^}\n]*?#([^\s}]+)',text))|set(re.findall(r"\bid=[\"']([^\"']+)",text))
+    source_ids={key:anchors(text) for key,text in source_texts.items()}
+    by_source={(ROOT/relative.with_suffix('.qmd')).resolve():key for key,(relative,_) in PAGES.items()}
+    for current,(relative,_) in PAGES.items():
+        source=ROOT/relative.with_suffix('.qmd')
+        text=source_texts[current]
+        ids=source_ids[current]
+        for target,href,_ in destinations(output,output/relative,current):
+            url=urlsplit(href);target_source=ROOT/PAGES[target][0].with_suffix('.qmd')
+            target_text=source_texts[target]
+            values[current+'/'+target+' file exists']=target_source.is_file()
+            values[current+'/'+target+' entry anchor']=not url.fragment or url.fragment in source_ids[target]
+        hrefs=[m[2] for m in re.finditer(r'(?<!!)\[([^\]\n]+)\]\(([^\s)]+)\)',text)]
+        hrefs+=re.findall(r"\bhref=[\"']([^\"']+)",text)
+        for number,href in enumerate(hrefs,1):
+            url=urlsplit(href)
+            if url.scheme or url.netloc:continue
+            destination=(source.parent/unquote(url.path)).resolve() if url.path else source.resolve()
+            if destination.suffix=='.html':destination=destination.with_suffix('.qmd')
+            target_key=by_source.get(destination)
+            if target_key is None:continue
+            fragment=unquote(url.fragment)
+            generated_local=not url.path and fragment in {'ung-ho','xem-toan-bo'}
+            values[current+'/local-link/'+str(number)+' existing anchor']=not fragment or fragment in source_ids[target_key] or generated_local
+        for number,m in enumerate(re.finditer(r'(?<!!)\[([^\]\n]+)\]\(([^\s)]+)\)',text),1):
+            url=urlsplit(m[2]);params=parse_qs(url.query)
+            if not url.path.startswith('../r1_g') or params.get('r1-view',[''])[0] not in ['on-nen','bai-hoc','nhat-ky']:continue
+            prefix=current+'/cross-support/'+str(number)
+            values[prefix+' explicit return page']=params.get('r1-return-page')==[source.parent.name]
+            values[prefix+' existing caller']=params.get('r1-return',[''])[0] in ids
+            values[prefix+' named return view']=bool(params.get('r1-return-view') and params.get('r1-return-label'))
+    d0=source_texts['d0']
+    for key,(relative,_) in PAGES.items():
+        if key.startswith('g'):values['D0 lists '+key]=('../'+relative.parent.name+'/index.qmd') in d0
+    return values
+
+
+BASE_G04=Path('content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g04/index.html')
+
 
 def hover_style_ok(style):
     return (style['background'] == 'rgba(0, 0, 0, 0)'
@@ -43,7 +105,7 @@ def navigation_style_checks(b, check, prefix):
     })()"""))
 
 def run(out, browser=False, baseline=None):
-    values = {}
+    values = source_checks()
     def check(name, value):
         values[name] = bool(value)
         if not value: print('FAIL', name, flush=True)
@@ -233,8 +295,13 @@ def browser_checks(out,check):
             except subprocess.TimeoutExpired:proc.kill();proc.wait()
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True);p.add_argument('--browser',action='store_true');p.add_argument('--baseline',type=Path,help='Explicit optional historical HTML comparison');a=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True);p.add_argument('--browser',action='store_true');p.add_argument('--source-only',action='store_true');p.add_argument('--baseline',type=Path,help='Explicit optional historical HTML comparison');a=p.parse_args()
     out=a.output.resolve()
     if not out.is_relative_to(ROOT/'_audit'):raise ValueError('Evidence must stay in audit')
+    if a.source_only:
+        out.mkdir(parents=True,exist_ok=True);values=source_checks()
+        report={'checks':values,'passed':sum(values.values()),'total':len(values),'failures':[k for k,v in values.items() if not v],'html_built':False}
+        (out/'qa-source.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+        print(json.dumps({k:v for k,v in report.items() if k!='checks'},ensure_ascii=False));return int(bool(report['failures']))
     return run(out,a.browser,a.baseline.resolve() if a.baseline else None)
 if __name__=='__main__':raise SystemExit(main())

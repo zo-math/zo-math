@@ -22,6 +22,8 @@
   const all=['bắt-đầu-từ-đâu','bai-hoc','cp-lt1','cp-lt2','cp-lt3','cp-kt','cp-on1','cp-on2','cp-on3','cp-p'];
   function update(){
     if(bar.hidden)return;
+    // The shared controller owns return routes to another package.
+    if(bar.dataset.r1ExternalReturn==='true')return;
     const params=new URLSearchParams(location.search),returnId=params.get('r1-return'),context=params.get('r1-context');
     let hash='';try{hash=decodeURIComponent(location.hash.slice(1));}catch{}
     const target=document.getElementById(hash);

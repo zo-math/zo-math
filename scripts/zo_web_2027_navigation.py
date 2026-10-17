@@ -15,6 +15,7 @@ PAGES = {
     'g01': (BASE / 'hoc_lieu/r1_g01/index.html', 'Đơn điệu và cực trị'),
     'g02': (BASE / 'hoc_lieu/r1_g02/index.html', 'Giá trị lớn nhất và nhỏ nhất'),
     'g03': (BASE / 'hoc_lieu/r1_g03/index.html', 'Đường tiệm cận'),
+    'g04': (BASE / 'hoc_lieu/r1_g04/index.html', 'Khảo sát sự biến thiên và vẽ đồ thị của hàm số'),
 }
 ICONS = {
     'home': '<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/>',
@@ -27,10 +28,7 @@ def destinations(output_root, page, current=None):
     if [p['id'] for p in catalog['packages']] != ['d0', 'r1_g01', 'r1_g02', 'r1_g03']:
         raise ValueError('Course navigation bindings must be updated for the current catalog')
     result = []
-    entries=dict(PAGES)
-    if current == "g04":
-        entries["g04"]=(BASE / "hoc_lieu/r1_g04/index.html", "Khảo sát sự biến thiên và vẽ đồ thị của hàm số")
-    for key, (relative, label) in entries.items():
+    for key, (relative, label) in PAGES.items():
         if not (ROOT / relative.with_suffix('.qmd')).is_file():
             raise ValueError(f'Missing canonical destination: {relative}')
         href = os.path.relpath(output_root / relative, page.parent).replace('\\', '/')
@@ -63,6 +61,9 @@ def require(doc, page, output_root, key):
         raise ValueError('Course tools must precede the existing appearance controls')
 
 def apply(doc, page, output_root, runtime, key):
+    from zo_web_2027_navigation_check import source_checks
+    failures=[name for name,passed in source_checks().items() if not passed]
+    if failures:raise ValueError('Course source navigation: '+'; '.join(failures))
     protected = [str(n) for n in doc.select('main,.rail,footer.site-footer')]
     logo = str(doc.select_one('.site-top > a:first-child'))
     header = doc.select_one('.site-top')
