@@ -1,8 +1,21 @@
 # Điều hành chương trình — trạng thái và việc tiếp theo
 
-Phiên bản: 0.1 · Cập nhật trạng thái: 16/10/2026.
+Phiên bản: 0.1 · Cập nhật trạng thái: 18/10/2026.
 
 Đây là nơi duy nhất ghi công việc đang mở và thứ tự sản xuất hiện hành. Chỉ cập nhật trạng thái từ bằng chứng trong hồ sơ gói. [Điểm vào](README.md).
+
+**CHECKPOINT-CONSISTENCY-R1-01 — lưu mốc thống nhất bốn học liệu, 18/10/2026.**
+
+- Theo yêu cầu commit tiếp theo của chủ trì, nguồn QMD/binding G01–G04, thành phần trình bày, quy tắc và cổng chống tái diễn được lưu tại `ec904d8dcedf0866f4df46207b78340c1daf2a99`. Cổng nguồn staged bốn QMD đạt; không dựng lại HTML hoặc PDF chỉ để commit.
+- Hồ sơ kiểm kê và fingerprint của lần bàn giao HTML được lưu cùng mốc tài liệu tiếp theo. [Biên nhận commit và phạm vi](ho_so_commit_nhat_quan_bon_goi_20261018.json) liên kết commit nguồn với bằng chứng kỹ thuật. Các cờ “chưa commit” bên dưới và trong báo cáo bàn giao chỉ đúng thời điểm trước yêu cầu này, được giữ làm lịch sử.
+- Bản xem bốn HTML vẫn chờ chủ trì duyệt; nhất là năm Gợi mở G02 mới bổ sung. Chưa push hoặc xuất bản; PDF, ảnh bìa, bản thảo và thành phẩm công khai giữ nguyên. Không đưa `_audit/` hoặc `.quarto/` vào Git; giữ bản xem và bằng chứng đang phục vụ duyệt.
+
+**CONSISTENCY-R1-01 — đối chiếu HTML và thống nhất G01–G04, 18/10/2026.**
+
+- Theo yêu cầu mới của chủ trì: đã đối chiếu HTML hiện hành, chọn trình bày theo chức năng, sửa bốn QMD cùng binding/bộ sinh và dựng lại HTML cô lập. Không mở phạm vi PDF hoặc xuất bản.
+- Thống nhất tên/cỡ chữ nhiệm vụ, Gợi mở theo mục Bài học, chú thích nguồn, cây/nhãn Lời giải, bảng hỗ trợ và lịch Ôn lại, khối Ôn nền và liên kết giữa gói. G02 bổ sung năm Gợi mở từ nội dung sẵn có; cần xem trong bản duyệt mới.
+- [Kiểm kê, lý do chọn và bản xem bốn trang](ho_so_nhat_quan_bon_goi_20261018.md); [fingerprint và kết quả kiểm cuối](ho_so_nhat_quan_bon_goi_20261018.json). Quy tắc chung ở 07/6.4, quy trình gọi cổng tại 02. Không dùng hồ sơ này thay nghiệm thu.
+- Việc tiếp theo: chủ trì xem/duyệt HTML mới. Giữ nguyên PDF, ảnh bìa, bản thảo, các receipt và thành phẩm công khai. Chưa commit, push hoặc xuất bản trong lượt này; mốc CHECKPOINT bên dưới là lịch sử trước lượt sửa.
 
 **CHECKPOINT-20261018 — lưu mốc nguồn cục bộ theo yêu cầu chủ trì.**
 
