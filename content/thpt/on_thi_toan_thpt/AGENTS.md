@@ -103,3 +103,11 @@ Preview chỉ lắng nghe tại `127.0.0.1`. Navbar/sidebar nguồn dùng chung 
 Metadata `draft: true` không thay thế hàng rào xuất bản. `publish_public.yml` chỉ cho phép đầu ra công khai đã duyệt và tiếp tục chặn `_quy_trinh` lâu dài. Không liên kết tài liệu điều hành từ trang dành cho người đọc, không khai báo resources quét cả cây chuyên mục.
 
 Tuân thủ `quy_trinh_xay_dung/quy_trinh_xuat_ban_website.md`. Chỉ dùng `zo_publish.py check` khi kiểm tra; `prepare`/`publish`, staging, commit và push cần yêu cầu riêng. Không dùng `_publish_exclude.md` hoặc `.gitignore` làm hàng rào public.
+
+## ?nh ??i di?n g?i m?i
+
+Khi chu?n b? d?ng QMD/HTML cho g?i m?i, b?t bu?c th?c hi?n m?c ?Ch?n ?nh
+??i di?n khi d?ng g?i m?i? trong quy tr?nh 02 c?a kh?a: ?? xu?t theo n?i
+dung, ch? tr? duy?t, r?i khai b?o `giao_dien/anh_bia.json`. Kh?ng k? th?a
+?nh g?i m?u. `zo_course_cover.py` l? c?ng binding tr??c/sau adapter HTML;
+kh?ng s?a hash ho?c t? ghi approved ?? v??t y?u c?u duy?t.

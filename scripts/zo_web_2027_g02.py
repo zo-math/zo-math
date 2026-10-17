@@ -75,6 +75,9 @@ def build(output, fresh_source=None, *, builder=None):
         dump(protected, {n.relative_to(REPO).as_posix(): sha(n) for n in paths})
     b.ui_baseline = REPO / p['home']
     b.common_assets()
+    from zo_course_cover import load_cover
+    cover = load_cover(REPO, "r1_g02")
+    b.materialize(cover, "assets/cover-graph.svg")
     b.materialize(KIT / 'r1-g02-adapter.css', 'r1-g02-adapter.css')
     b.materialize(KIT / 'site-footer.css', 'site-footer.css')
     external_routes=[]

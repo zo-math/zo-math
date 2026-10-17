@@ -162,6 +162,18 @@ def import_layout(reference, source, destination):
 
 @official_inputs()
 def adapt(path, output_root):
+    from zo_course_cover import load_cover, check_html
+    relative = path.resolve().relative_to(output_root.resolve())
+    is_package = relative.parent.parent == Path('content/thpt/on_thi_toan_thpt/hoc_lieu') and relative.parent.name != 'd0'
+    if is_package:
+        load_cover(ROOT, relative.parent.name)
+    result = _adapt(path, output_root)
+    if is_package:
+        check_html(ROOT, relative.parent.name, path)
+    return result
+
+
+def _adapt(path, output_root):
     if path.resolve() == (output_root / "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/index.html").resolve():
         from zo_web_2027_g03 import adapt as adapt_g03
         return adapt_g03(path, output_root)

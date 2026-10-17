@@ -106,7 +106,8 @@ def adapt(path, output_root):
     if root.select(".reading-region .reading-region"):raise ValueError("Nested reading regions")
     builder=Builder(output_root);builder.output.mkdir(parents=True,exist_ok=True)
     builder.common_assets()
-    builder.materialize(REPO/PACKAGE/"giao_dien/assets/figures_0_4/bia_tiem_can.svg", "assets/g03-cover.svg")
+    from zo_course_cover import load_cover
+    builder.materialize(load_cover(REPO, PACKAGE.name), "assets/g03-cover.svg")
     for name in ["r1-g02-adapter.css","site-footer.css","r1-consistency.css"]:builder.materialize(KIT/name,name)
     for img in root.select("img[src]"):
         target=(path.parent/unquote(urlsplit(img["src"]).path)).resolve()
