@@ -146,7 +146,7 @@ label_contract:
     type.source: {"system":"content_type","name":"Nguồn","scope":"Xuất xứ và dữ kiện tham khảo.","exclude":"Không đồng nghĩa hoạt động Ôn nguồn.","aliases":[]}
     function.warmup: {"system":"function","name":"Khởi động","roles":["H"],"scope":"Khảo sát hẹp ở đầu Bài học; không chứng nhận cả gói.","aliases":[]}
     function.self_check: {"system":"function","name":"Tự kiểm tra","roles":["H"],"scope":"Tự làm trong Bài học; phân biệt câu có đáp án ngay với bằng chứng độc lập.","aliases":[]}
-    function.guided_thinking: {"system":"function","name":"Gợi mở","roles":["H"],"scope":"Thử suy nghĩ trước lời giải thích trong Bài học; một dãy số riêng. Lời giải thích tiếp theo là hướng dẫn, không tạo đáp án trùng hoặc bằng chứng độc lập mới.","aliases":[]}
+    function.guided_thinking: {"system":"function","name":"Gợi mở","roles":["H"],"scope":"Thử suy nghĩ trong từng mục kiến thức của Bài học, sau Cách thực hiện và trước lời giải thích; không là mục chung ngang cấp Khởi động hoặc Bài học. Một dãy số liên tục riêng toàn nhóm, không reset theo mục. Phản hồi tại chỗ; lời giải thích tiếp theo là hướng dẫn, không tạo đáp án trùng hoặc bằng chứng độc lập mới.","aliases":[]}
     function.practice: {"system":"function","name":"Luyện tập","roles":["L"],"scope":"Một dãy số xuyên suốt mọi chặng.","aliases":[]}
     function.test: {"system":"function","name":"Kiểm tra","roles":["K"],"scope":"Tự lực hoàn toàn khi đang làm.","aliases":[]}
     function.review: {"system":"function","name":"Ôn lại","roles":["O"],"scope":"Một dãy theo nhóm, giữ các lượt và lịch.","aliases":[]}
@@ -171,6 +171,45 @@ label_contract:
   display_contract:
     version: qd025-display-v1
     joiner: " • "
+    context_labels:
+      id: parent-context-v1
+      joiner: ' · '
+      areas:
+        bat-dau: Mạch học chính
+        bai-hoc: Mạch học chính
+        phieu-luyen: Mạch học chính
+        tu-kiem-tra: Mạch học chính
+        on-lai: Mạch học chính
+        on-nen: Hỗ trợ khi cần
+        sua-loi: Hỗ trợ khi cần
+        nhat-ky: Hỗ trợ khi cần
+        loi-giai: Hỗ trợ khi cần
+        nguon: Tiện ích
+        tai-tai-lieu: Tiện ích
+      area_names:
+        bat-dau: Bắt đầu
+        bai-hoc: Bài học
+        phieu-luyen: Luyện tập
+        tu-kiem-tra: Kiểm tra
+        on-lai: Ôn lại
+        on-nen: Ôn nền
+        sua-loi: Sửa lỗi
+        nhat-ky: Nhật kí
+        loi-giai: Lời giải
+        nguon: Nguồn
+        tai-tai-lieu: Tải PDF
+      function_areas:
+        function.warmup: bai-hoc
+        function.guided_thinking: bai-hoc
+        function.self_check: bai-hoc
+        function.practice: phieu-luyen
+        function.test: tu-kiem-tra
+        function.review: on-lai
+        function.remediation: sua-loi
+        function.foundation_confirmation: on-nen
+        function.confirmation: phieu-luyen
+        function.integration: phieu-luyen
+        function.transfer: phieu-luyen
     functions:
       function.warmup: {label: "BÀI HỌC • KHỞI ĐỘNG"}
       function.guided_thinking: {label: "BÀI HỌC • GỢI MỞ"}

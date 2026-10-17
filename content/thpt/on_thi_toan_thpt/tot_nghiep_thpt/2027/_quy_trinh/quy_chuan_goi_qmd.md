@@ -299,3 +299,7 @@ Các tên dưới đây ghi baseline component tương thích trước shell kit
 Các trang và tài sản đã duyệt của chuyên mục chỉ được chọn qua allowlist trong `publish_public.yml`. `_quy_trinh` luôn bị chặn kể cả khi mở các trang học. Không đưa liên kết, dữ liệu chỉ mục hay resources chứa đường dẫn nội bộ vào cây public.
 
 Preview dùng profile `on-thi-preview`, chỉ ở `127.0.0.1`; không phải pipeline xuất bản. `zo_publish.py` phải từ chối profile này và kiểm tra đường dẫn bị cấm sau chuẩn hóa trong manifest, HTML, `search.json` và sitemap.
+
+## Hiệu chỉnh nhãn ngữ cảnh, 17/10/2026
+
+Nhãn cấp chứa theo 07/6.2 thay các bảng mỹ thuật cũ khi dựng G04/gói mới: Bài học → MẠCH HỌC CHÍNH; Khởi động → MẠCH HỌC CHÍNH · BÀI HỌC. Từ vựng/chức năng/số QD_025 không đổi. Binding khai context_labels: parent-context-v1; label_contract.display_contract.context_labels là nguồn giá trị, zo_course_labels.py ghép/kiểm từ owner/context tươi. Adapter không ghi đè nhãn bằng chuỗi riêng. Dùng .role và đúng dấu “ · ”; kiểm kê trước–sau, kiểm nhãn nhìn thấy desktop/mobile. Các giá trị cũ chỉ tương thích gói chưa di trú, không là mẫu cho gói mới.

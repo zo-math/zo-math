@@ -1,5 +1,8 @@
 # R1-G02 — nguồn canonical đang hoàn thiện kiến trúc 2027
 
+**Nhãn cấp chứa — ứng viên sau phát hành, 17/10/2026.** Đã đồng bộ theo chỉ thị chủ trì; [HTML mới và hồ sơ](ho_so/dong_bo_nhan_20261017.md). Nguồn QMD/hình/PDF giữ nguyên. Chưa xuất bản lại hoặc dựng PDF; các xác nhận phát hành/CURRENT bên dưới thuộc bộ đã phát hành trước lượt nhãn này. Chủ trì giao commit mốc nguồn, không phải nghiệm thu HTML hoặc phát hành.
+
+
 **Phát hành được giao — 17/10/2026.** Chủ trì yêu cầu xuất bản ba gói.
 Đã dựng từ nguồn hiện hành đủ tám PDF mỗi gói, mỗi bản đạt 17/17 kiểm kỹ thuật
 và provenance CURRENT. Hồ sơ: [PDF đợt này](ho_so/pdf_release_20261017.json).

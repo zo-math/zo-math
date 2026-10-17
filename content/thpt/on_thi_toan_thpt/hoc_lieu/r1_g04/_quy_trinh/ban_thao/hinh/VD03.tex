@@ -1,0 +1,33 @@
+% Generated from du_lieu_hinh.json; edit data or sinh_hinh.py, never this derived TEX.
+% Purpose: A stationary point need not be an extremum.
+% Profile: ZO Math 0.4, transparent-light; equal coordinate units.
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{backgrounds,arrows.meta}
+\input{zo_graph_v02.tex}
+\begin{document}
+\begin{tikzpicture}[zo graph v02 field]
+\zoGraphVTwoLayers
+\begin{axis}[zo graph v02 axis,
+width=9.5cm,height=9.5cm,
+xmin=-4,xmax=4,ymin=-3,ymax=5,
+restrict y to domain=-3:5,unbounded coords=jump,
+xtick={-1},ytick={1},
+xlabel={$x$},ylabel={$y$},
+every axis x label/.append style={at={(axis description cs:1,0.375)},anchor=south west,xshift=5pt,yshift=4pt},
+every axis y label/.append style={at={(axis description cs:0.5,1)},anchor=south west,xshift=4pt,yshift=4pt}
+]
+\node[zo graph v02 font sentinel] at (axis cs:0,0) {x};
+\addplot[zo graph v02 curve solid,domain=-4:4,samples=501,forget plot] {x^3+1};
+\addplot[zo graph v02 point,forget plot] coordinates {(-1,0) (0,1)};
+\addplot[only marks,mark=x,mark size=2.3pt,draw=zoGraphVTwoText,line width=0.6pt,on layer=zoGraphVTwoMarkerLayer,forget plot] coordinates {(0,1)};
+\begin{pgfonlayer}{zoGraphVTwoTextLayer}
+\node[zo graph v02 protected label,anchor=south west,xshift=7pt,yshift=7pt] at (axis cs:0,1) {$I$};
+\node[zo graph v02 tick label,anchor=north east,xshift=-3pt,yshift=-3pt] at (axis cs:0,0) {$O$};
+\end{pgfonlayer}
+\end{axis}
+\end{tikzpicture}
+\end{document}

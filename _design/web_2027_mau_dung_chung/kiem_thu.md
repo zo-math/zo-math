@@ -368,3 +368,7 @@ H?i quy: `python scripts/zo_python.py -B scripts/zo_course_cover_selftest.py`.
 Ca ?m g?m thi?u khai b?o, ch?a duy?t, sai g?i, m??n ???ng d?n, ??i ?nh,
 sao ch?p ??i t?n ?nh kh?c v? HTML d?ng nh?m ?nh. Kh?ng suy PASS k? thu?t
 th?nh ??nh gi? t? ??ng t?nh ??i di?n, nghi?m thu m?i ho?c ph?t h?nh.
+
+## Nhãn cấp chứa — 17/10/2026
+
+Với mode parent-context-v1, kiểm đủ nhãn tiêu đề theo cây owner và ngữ cảnh khai báo; Bài học = MẠCH HỌC CHÍNH, Khởi động = MẠCH HỌC CHÍNH · BÀI HỌC. Chặn nhãn Khởi động cũ, nhãn cấp cha bị mất khi hai tiêu đề cùng giấy, mode/binding cũ và dấu bullet “•”. Không dùng nhãn type thay ngữ cảnh. Kiểm cùng CSS .role, nhãn trong giấy, không tràn ở 1440/430/390 px và đường đi/về còn đúng. Giữ bộ trích cấu trúc nguồn G01/G02; nhãn cuối cùng gọi bộ ghép chung. Không sửa HTML/PDF phát hành hoặc receipt lịch sử để đạt kiểm.

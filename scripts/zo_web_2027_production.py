@@ -174,6 +174,9 @@ def adapt(path, output_root):
 
 
 def _adapt(path, output_root):
+    if path.resolve() == (output_root / "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g04/index.html").resolve():
+        from zo_web_2027_g04 import adapt as adapt_g04
+        return adapt_g04(path, output_root)
     if path.resolve() == (output_root / "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/index.html").resolve():
         from zo_web_2027_g03 import adapt as adapt_g03
         return adapt_g03(path, output_root)

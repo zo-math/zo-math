@@ -36,11 +36,11 @@ package:
     là lịch sử, không chứng nhận nguồn mới
 workflow:
   production: in_production
-  publication: published
-  user_confirmed: true
+  publication: pending
+  user_confirmed: false
 acceptance:
-  current_source: owner_authorized_for_publication_2026_10_15
-  current_html: owner_authorized_for_publication_2026_10_15
+  current_source: label_binding_updated_qmd_unchanged
+  current_html: parent_context_labels_checked_pending_owner_review
   phase3: technical_candidate
   phase4_visual: recorded_in_audit
   design_basis: r1_g01_baseline
@@ -132,3 +132,8 @@ release_audit:
   all_pdf_checks: 17/17 and CURRENT
   live_release_objects: 50/50 overall
   earlier_audits: historical by their recorded scope
+context_label_update:
+  mode: parent-context-v1
+  evidence: _quy_trinh/ho_so/dong_bo_nhan_20261017.json
+  publication: not_republished
+  learning_pdf: not_rebuilt

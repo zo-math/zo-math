@@ -35,9 +35,13 @@ def checks(page, output_root):
             "all disclosures initially closed":not root.select("details[open]"),
             "all tables explicitly classified":all(n.has_attr("data-table-kind") for n in root.select("table")),
             "no executable draft dependency":"_quy_trinh/ban_thao" not in str(doc) and "_audit/" not in str(doc),
-            "all registered PDF downloads available":len(root.select('a[download]'))==8 and all(n.get("data-pdf-current")=="true" for n in root.select(".zo-pdf-card")),
+            "all registered PDF downloads available":len(root.select('a[download]'))==8 and all(n.get("data-pdf-current") in ("true","false") for n in root.select(".zo-pdf-card")),
             "fallback navigation available":bool(doc.select("noscript nav a"))}
     meta=yaml.safe_load(source.split('---',2)[1])
+    from zo_pdf_contract import validate_canonical_pdf_provenance
+    cfg=yaml.safe_load((package/"_quy_trinh/cau_hinh_san_xuat_qmd.yml").read_text(encoding="utf-8"))
+    variants={v["output"]:k for k,v in cfg["extensions"]["pdf_variants"].items()}
+    result["PDF live state matches provenance"]=all(card.get("data-pdf-current")==str(not validate_canonical_pdf_provenance(REPO,package/"index.qmd",variant=variants[Path(card.select_one("a[download]")["href"]).name])).lower() for card in root.select(".zo-pdf-card"))
     repair=next(item for item in meta['r1-section-download-files'] if item['variant']=='sua_loi')
     repair_link=root.select_one('.zo-pdf-card a[href="index_sua_loi.pdf"]')
     repair_card=repair_link.find_parent(class_='zo-pdf-card') if repair_link else None
@@ -51,7 +55,9 @@ def checks(page, output_root):
     result["G01 execution guidance components"]=len(root.select("details.r1-guidance"))==7
     result["G01 disclosure body and title"]=all(n.select_one(":scope > summary.zo-block-title") and n.select_one(":scope > .zo-block-body") for n in root.select("details"))
     result["G01 definitions stay open"]=len(root.select('[data-zo-type="definition"] .zo-block-red'))==3 and not any(n.find_parent("details") for n in root.select('[data-zo-type="definition"] .zo-block-red'))
-    page_labels=json.loads((REPO/"_design/web_2027_mau_dung_chung/profiles/r1-consistency.json").read_text(encoding="utf-8"))["page_roles"]
+    from zo_course_labels import context_policy
+    cp=context_policy()
+    page_labels={key:cp["areas"][anchor].upper() for anchor,key in {"bat-dau":"Bắt đầu","bai-hoc":"Bài học","phieu-luyen":"Luyện tập","nguon":"Nguồn đối chiếu"}.items()}
     for anchor,key in {"bat-dau":"Bắt đầu","bai-hoc":"Bài học","phieu-luyen":"Luyện tập","nguon":"Nguồn đối chiếu"}.items():
         title=root.find(id=anchor).find("h2")
         label=title.find_previous_sibling(attrs={"data-reading-label":True})
@@ -61,9 +67,9 @@ def checks(page, output_root):
     result["G02 foundation resources collapsed"]=len(foundations)==3 and all(not n.has_attr("open") for n in foundations)
     kickoff=root.find(id="khởi-động").find("h3")
     kickoff_label=kickoff.find_previous_sibling(attrs={"data-reading-label":True})
-    result["G02 kickoff group label"]=bool(kickoff_label and kickoff_label.get_text(strip=True)=="Bài học · Khởi động")
+    result["G02 kickoff group label"]=bool(kickoff_label and kickoff_label.get_text(strip=True)=="MẠCH HỌC CHÍNH · BÀI HỌC")
     test_heading=root.find(id="tu-kiem-tra").find("h2")
-    result["test area not lesson self-check"]=not test_heading.find_previous_sibling(attrs={"data-reading-label":True})
+    result["test area parent context"]=test_heading.find_previous_sibling(attrs={"data-reading-label":True}).get_text(strip=True)=="MẠCH HỌC CHÍNH"
     result["semantic support context opt-in"]=root.get("data-r1-support-context")=="semantic"
     result["all checkpoint return labels"]=all(n.get("data-r1-return-label") for n in root.select('[data-zo-type="checkpoint"][id]'))
     controller=(REPO/"_design/web_2027_mau_dung_chung/r1-controller.js").read_text(encoding="utf-8")

@@ -1,0 +1,35 @@
+% Generated from du_lieu_hinh.json; edit data or sinh_hinh.py, never this derived TEX.
+% Purpose: Extrema on distinct branches are local comparisons.
+% Profile: ZO Math 0.4, transparent-light; equal coordinate units.
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{backgrounds,arrows.meta}
+\input{zo_graph_v02.tex}
+\begin{document}
+\begin{tikzpicture}[zo graph v02 field]
+\zoGraphVTwoLayers
+\begin{axis}[zo graph v02 axis,
+width=7.6cm,height=9.5cm,
+xmin=-4,xmax=4,ymin=-3,ymax=7,
+restrict y to domain=-3:7,unbounded coords=jump,
+xtick={-2,2},ytick={-2,2,6},
+xlabel={$x$},ylabel={$y$},
+every axis x label/.append style={at={(axis description cs:1,0.3)},anchor=south west,xshift=5pt,yshift=4pt},
+every axis y label/.append style={at={(axis description cs:0.5,1)},anchor=south west,xshift=4pt,yshift=4pt}
+]
+\node[zo graph v02 font sentinel] at (axis cs:0,0) {x};
+\addplot[zo graph v02 asymptote,domain=-4:4,samples=2,forget plot] {x+2};
+\addplot[zo graph v02 curve solid,domain=-3.992:-0.008,samples=501,forget plot] {(x^2+2*x+4)/x};
+\addplot[zo graph v02 curve solid,domain=0.008:3.992,samples=501,forget plot] {(x^2+2*x+4)/x};
+\addplot[zo graph v02 point,forget plot] coordinates {(-2,-2) (2,6)};
+\addplot[only marks,mark=x,mark size=2.3pt,draw=zoGraphVTwoText,line width=0.6pt,on layer=zoGraphVTwoMarkerLayer,forget plot] coordinates {(0,2)};
+\begin{pgfonlayer}{zoGraphVTwoTextLayer}
+\node[zo graph v02 protected label,anchor=south east,xshift=-7pt,yshift=7pt] at (axis cs:0,2) {$I$};
+\node[zo graph v02 tick label,anchor=north east,xshift=-3pt,yshift=-3pt] at (axis cs:0,0) {$O$};
+\end{pgfonlayer}
+\end{axis}
+\end{tikzpicture}
+\end{document}

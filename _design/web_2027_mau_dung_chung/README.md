@@ -181,3 +181,6 @@ Hai CLI điều phối `scripts/zo_web_2027_g02.py`. `profiles/r1-g02.json` khó
 Nguồn lấy từ HTML G02 hiện có; trước dựng phải đối chiếu toàn chuỗi công thức TeX hiển thị với QMD hiện hành (alt hình được kiểm riêng). Sau dựng so nguyên văn/thứ tự, MathML, ID, heading, trạng thái disclosure, mọi link và thuộc tính download. Chỉ một ID thiết kế mới `ung-ho`; ID nguồn không thay. Các mốc Nhà/G01 cũ giữ nguyên.
 
 G02 chưa có Ôn nền, Nhật kí hay các CP độc lập trong nguồn đang dùng. Không dựng thẻ rỗng/giả hoặc tự thêm nội dung để đủ 12 view G01. Prototype có 10 view, vẫn mở Cách học; đây là bảo toàn hiện trạng, không xác nhận toàn bộ kiến trúc đích G02 đã hoàn tất. Link PDF cũ giữ nguyên, không dựng, đồng bộ hoặc nghiệm thu PDF.
+
+
+Nhãn ngữ cảnh 17/10/2026: quy tắc tại 07/6.2, giá trị duy nhất tại danh mục kiến trúc/label_contract.display_contract.context_labels. G04/gói mới dùng parent-context-v1; bộ ghép chung zo_course_labels.py, cùng .role. Không dùng nhãn viết riêng hoặc profiles/r1-consistency.json/page_roles cũ để ghi đè nhãn cấp cha. Các giá trị cũ chỉ tương thích gói chưa di trú; không đổi thành phẩm đã phát hành trong lượt G04.

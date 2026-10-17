@@ -1,11 +1,12 @@
 <!--
-MẪU BIÊN SOẠN NỘI DUNG GÓI — phiên bản 1.0, ngày 16/10/2026.
+MẪU BIÊN SOẠN NỘI DUNG GÓI — phiên bản 1.1, ngày 17/10/2026.
 Phạm vi: các gói học liệu R1 của khóa Ôn thi Toán THPT 2027; loại khác phải xác định hợp đồng phù hợp trước, không ép D0/Nền theo khung này.
 Đây là khung nội dung, độc lập với mẫu trang. Nguồn chức năng: [01](../01_kien_truc_hoc_tap.md); cách trình bày: [07](../07_quy_chuan_cau_truc_trang_nguoi_hoc.md); quy trình sử dụng mẫu: [02, mục 1.4](../02_quy_trinh_va_nghiem_thu.md#ap-dung-mau-ban-thao); tổ chức tệp/chuyển QMD: [quy chuẩn gói](../quy_chuan_goi_qmd.md); [bảng kiểm](bang_kiem_ban_thao_goi.md).
 Đối chiếu từ nguồn G01/G02 hiện hành theo chức năng, không theo số bài/số trang. Số chặng, số mục và mọi tham số dưới đây chỉ là chỗ mẫu, không phải định mức.
 Cách dùng: lập bảng đối chiếu trước viết theo 02/1.4; đưa khung cần dùng vào đúng ban_thao/noi_dung.md của gói đã được giao. Giữ một bản nội dung đang sửa. Điền toàn bộ chỗ [CẦN VIẾT: ...], bỏ ghi chú nội bộ trước khi trình người học; cập nhật liên kết tương đối sau khi sao chép. Không sao ID hoặc đề toán riêng từ G01/G02. ID minh họa ở đây chỉ là các điểm neo trong khung, cần ánh xạ theo hồ sơ gói.
 Mỗi vai trò trong mẫu phải có nội dung hoặc giải thích không áp dụng có căn cứ. Khác biệt ảnh hưởng cấu trúc/chức năng đã chốt phải báo chủ trì và được chốt trước khi trình; không bỏ mắt xích chỉ vì khó viết theo mẫu. Không bổ sung chức năng hay thiết kế mới qua mẫu này.
 Mẫu trang dùng lại bộ _design/web_2027_mau_dung_chung; không chép CSS/JS vào bản thảo. Khi có cải tiến đã chốt: cập nhật mẫu, bảng kiểm và các liên kết bị ảnh hưởng cùng lượt, tăng phiên bản; không tự sửa hồi tố gói đã có.
+Trước viết/rà phải đọc mục Công thức và nguồn đối chiếu trong quy chuẩn gói, quy chuẩn ngoặc LaTeX, hướng dẫn khối nội dung và 07/6.1,6.3. Chính văn phát biểu trực tiếp; căn cứ dùng chú thích .zo-source-note sau nội dung, không kể “theo SGK…” trong lời giảng. Có hình thì dùng công cụ ZO Math/profile hiện hành ngay ở bản thảo; không tự đặt palette/phông hoặc đợi chuyển QMD mới sửa diện mạo.
 -->
 
 # [CẦN VIẾT: tên học liệu]
@@ -250,8 +251,8 @@ Thử trả lời trước khi đọc tiếp.
 
 ##### Nhiệm vụ 01 — [CẦN VIẾT: tên khớp đề]
 
-<details>
-<summary>Lời giải và tiêu chí đối chiếu</summary>
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
 
 [CẦN VIẾT: lời giải và tiêu chí, đích hỗ trợ khi cần.]
 
@@ -265,8 +266,8 @@ Thử trả lời trước khi đọc tiếp.
 
 ##### Tự kiểm tra 01 — [CẦN VIẾT: tên khớp đề]
 
-<details>
-<summary>Lời giải và tiêu chí đối chiếu</summary>
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
 
 [CẦN VIẾT: lời giải và tiêu chí.]
 
@@ -280,8 +281,8 @@ Thử trả lời trước khi đọc tiếp.
 
 #### Nhiệm vụ 01 — [CẦN VIẾT: tên khớp đề]
 
-<details>
-<summary>Lời giải và tiêu chí đối chiếu</summary>
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
 
 [CẦN VIẾT: lời giải đủ bước, theo từng ý; hỗ trợ và phạm vi xác nhận.]
 
@@ -299,8 +300,8 @@ Thử trả lời trước khi đọc tiếp.
 
 #### Nhiệm vụ 01 — [CẦN VIẾT: tên khớp đề]
 
-<details>
-<summary>Lời giải và hướng dẫn chấm</summary>
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và hướng dẫn chấm</summary>
 
 [CẦN VIẾT: lời giải đủ ý, điều kiện, tiêu chí và điểm thành phần rõ; cộng điểm từng ý và toàn bài.]
 
@@ -314,8 +315,8 @@ Thử trả lời trước khi đọc tiếp.
 
 #### Nhiệm vụ 01 — [CẦN VIẾT: tên khớp đề]
 
-<details>
-<summary>Lời giải và tiêu chí đối chiếu</summary>
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
 
 [CẦN VIẾT: lời giải, tiêu chí và giới hạn của lượt lấy mẫu.]
 
@@ -329,8 +330,8 @@ Thử trả lời trước khi đọc tiếp.
 
 #### Nhiệm vụ 01 — [CẦN VIẾT: tên khớp đề]
 
-<details>
-<summary>Lời giải và tiêu chí đối chiếu</summary>
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
 
 [CẦN VIẾT: giải đúng từng ý, giữ phần đúng khi chữa, tiêu chí và nơi quay về.]
 
@@ -350,4 +351,7 @@ Thử trả lời trước khi đọc tiếp.
 
 ## Nguồn
 
-[CẦN VIẾT: tài liệu chính thức đã đọc, bản, trang in/trang PDF; nguồn học liệu tham chiếu bằng tên; điều tự biên soạn và giới hạn. Chú thích tại phát biểu vẫn phải hiện diện, không chỉ liệt kê cuối bài.]
+[CẦN VIẾT: tài liệu chính thức đã đọc, bản, trang in/trang PDF; nguồn học liệu tham chiếu bằng tên; danh mục giữ thông tin thư mục, quá trình đối chiếu và biên soạn ghi ở hồ sơ. Chú thích tại phát biểu vẫn phải hiện diện, không chỉ liệt kê cuối bài.]
+
+
+Nhãn khi chuyển QMD/HTML: áp 07/6.2, quy tắc Nhãn ngữ cảnh theo cấp chứa ngày 17/10/2026. Bài học → MẠCH HỌC CHÍNH; Khởi động → MẠCH HỌC CHÍNH · BÀI HỌC; nhiệm vụ Khởi động thêm KHỞI ĐỘNG ở cuối. Không dùng bảng nhãn mỹ thuật cũ làm mẫu. Kiểm kê owner/tiêu đề/nhãn trước–sau, dấu chấm nhỏ, cùng kiểu .role và quan hệ đề–lời giải; giữ loại/chức năng/số trong metadata.
