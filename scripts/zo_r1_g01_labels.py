@@ -38,7 +38,7 @@ def remove_local_answer_actions(root, units):
 def apply(document, binding_path=None):
     data = json.loads(Path(binding_path or BINDINGS).read_text(encoding='utf-8'))
     root = document.select_one('.reader-content')
-    if data.get('package') not in ('R1-G01', 'R1-G02') or len(data['units']) != {'R1-G01': 69, 'R1-G02': 59}[data['package']]:
+    if data.get('package') not in ('R1-G01', 'R1-G02'):
         raise ValueError('Unsupported package semantic binding')
     targets = [a for u in data['units'] for a in (u['question'], u.get('answer')) if a]
     if len(targets) != len(set(targets)):

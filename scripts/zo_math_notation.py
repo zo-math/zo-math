@@ -79,7 +79,7 @@ def outline_errors(text: str) -> list[dict]:
         level, title = heading.groups(); title = title.strip()
         # Structural opening/closure and independently numbered task groups
         # are not knowledge-section numbers. Do not reset task numbers.
-        if title in ['Khởi động', 'Khép lại bài học'] or title.startswith('Nhiệm vụ '):
+        if title in ['Khởi động', 'Khép lại bài học'] or title.startswith(('Nhiệm vụ ', 'Gợi mở ', 'Tự kiểm tra ')):
             continue
         if level == '###':
             major += 1; minor = 0

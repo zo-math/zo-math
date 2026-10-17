@@ -19,7 +19,7 @@ QD_025 mở rộng hệ nhãn QD_023 bằng Gợi mở, áp dụng toàn chươn
 QD_028 bổ sung phân biệt chức năng nhánh tại 01/2.5.1 và danh mục nhãn, quy trình đối sánh tại 02/1.3, hiển thị tại 07 và ánh xạ tại chuẩn QMD. Không tạo quy chuẩn riêng từ báo cáo nghiên cứu. DH_021 là mốc đối sánh lịch sử; việc hiện hành của hai gói và toàn khóa chỉ lấy từ mục A của 03. Hồ sơ và báo cáo mới không thay receipt lịch sử.
 
 
-**Bổ sung vận hành bản thảo ngày 17/10/2026:** 07/6.3 giữ yêu cầu chính văn phát biểu trực tiếp và không miễn thiết kế cho hình nháp; quy chuẩn gói giữ quy cách .zo-source-note; 02/1.4 bắt buộc nạp trước viết/rà. Mẫu nội dung hiện hành 1.1, bảng kiểm 1.2. Ghi chép 1.0/1.1 ở đoạn Gợi mở phía trên chỉ mô tả mốc hiệu chỉnh trước đó. Không sửa sản phẩm G01–G03 hoặc nâng Design 0.5 trong lượt G04 này.
+**Bổ sung vận hành bản thảo ngày 17/10/2026:** 07/6.3 giữ yêu cầu chính văn phát biểu trực tiếp và không miễn thiết kế cho hình nháp; quy chuẩn gói giữ quy cách .zo-source-note; 02/1.4 bắt buộc nạp trước viết/rà. Mẫu nội dung hiện hành 1.1, bảng kiểm 1.2. Ghi chép 1.0/1.1 ở đoạn Gợi mở phía trên chỉ mô tả mốc hiệu chỉnh trước đó. Giới hạn không sửa G01–G03 chỉ áp dụng lượt G04 ngày 17/10. Yêu cầu ngày 18/10 đã cho phép đối chiếu và sửa QMD/HTML G01–G04 theo 07/6.4; không mở PDF hoặc nâng Design 0.5.
 
 ## 1. Một vấn đề, một nguồn có thẩm quyền
 

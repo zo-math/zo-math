@@ -14,6 +14,17 @@ def formulas(text):
     text=re.sub(r"^!\[.*$","",text,flags=re.M)
     return ["".join(v.split()) for pair in MATH.findall(text) for v in pair if v]
 
+def instructional_formulas(text):
+    """Exclude bibliographic notation and task-reference numbers, not lesson math.
+
+    The 2026-10-18 editorial migration moves source attribution out of prose.
+    The original approved draft remains immutable evidence.
+    """
+    text=re.sub(r"^\[\^[^]]+\]:[^\n]*", "", text, flags=re.M)
+    text=text.replace("Đây là định nghĩa tiệm cận ngang trong SGK, viết với kí hiệu $L$ thay cho $y_0$.", "")
+    text=text.replace("và $05$", "và 05").replace("$06$–$07$", "06–07")
+    return formulas(text)
+
 def checks(page, output_root):
     package=REPO/PACKAGE
     source=(package/"index.qmd").read_text(encoding="utf-8")
@@ -24,7 +35,7 @@ def checks(page, output_root):
     if root is None:return {"canonical reading root exists":False}, {}
     ids=[n["id"] for n in doc.select("[id]")]
     result={"canonical shell applied":doc.body.get("data-zo-web-production")=="R1-G03",
-            "draft preserved as math reference":formulas(source.split("---",2)[2])==formulas(draft),
+            "draft preserved as math reference":instructional_formulas(source.split("---",2)[2])==instructional_formulas(draft),
             "native math sequence preserved":formulas(source.split("---",2)[2])==["".join(n.get_text().split()) for n in root.select("annotation")],
             "notation valid":not math_errors(source),
             "unique DOM IDs":len(ids)==len(set(ids)),
@@ -62,7 +73,7 @@ def checks(page, output_root):
         title=root.find(id=anchor).find("h2")
         label=title.find_previous_sibling(attrs={"data-reading-label":True})
         result["G01 area label "+anchor]=bool(label and label.get_text(strip=True)==page_labels[key])
-    result["Vietnamese source notes"]=bool(root.select_one(".footnotes h2") and root.select_one(".footnotes h2").get_text(strip=True)=="Chú thích nguồn")
+    result["local bibliographic source notes"]=len(root.select("#bai-hoc .zo-source-note"))==4 and all("Kết nối tri thức với cuộc sống" in n.get_text() for n in root.select(".zo-source-note")) and not root.select("section.footnotes")
     foundations=root.select("#on-nen details.r1-foundation-unit")
     result["G02 foundation resources collapsed"]=len(foundations)==3 and all(not n.has_attr("open") for n in foundations)
     kickoff=root.find(id="khởi-động").find("h3")

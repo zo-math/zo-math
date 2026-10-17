@@ -38,18 +38,19 @@ def validate_binding(data):
     terms = validate_catalog(load_yaml(COMMON_CATALOG))
     assert data['package'] == 'R1-G02' and data['decision'] == 'QD_025'
     assert data['status'] == 'source_applied_pending_html_acceptance'
-    assert len(data['units']) == 59
-    targets = [a for u in data['units'] for a in (u['question'], u['answer'])]
+    assert len(data['units']) == 64
+    targets = [a for u in data['units'] for a in (u['question'], u['answer']) if a]
     assert len(targets) == len(set(targets))
     expected = {'function.practice':9,'function.test':5,'function.review':3,
                 'function.remediation':18,'function.transfer':4,
                 'function.warmup':3,'function.self_check':5,
-                'function.foundation_confirmation':12}
+                'function.foundation_confirmation':12,'function.guided_thinking':5}
     assert Counter(u['function'] for u in data['units']) == expected
     for function, count in expected.items():
         group = [u for u in data['units'] if u['function'] == function]
         assert function in terms and [u['number'] for u in group] == list(range(1,count+1))
-        assert all(u['title'].startswith(f"Nhiệm vụ {u['number']:02d}") for u in group)
+        prefix = {"function.guided_thinking":"Gợi mở", "function.self_check":"Tự kiểm tra"}.get(function,"Nhiệm vụ")
+        assert all(u['title'].startswith(f"{prefix} {u['number']:02d}") for u in group)
     knowledge=data['knowledge_units']
     assert len({u['id'] for u in knowledge})==len(knowledge)
     assert len({u['anchor'] for u in knowledge})==len(knowledge)
@@ -64,6 +65,12 @@ def predicates(doc, data):
     root = doc.select_one('.reader-content')
     checks = {}
     for u in data['units']:
+        if u['function']=='function.guided_thinking':
+            q=root.find(id=u['question'])
+            checks[u['id']+' prompt in its knowledge section']=bool(q and q.find_parent(id=u['question_owner'])) and not u.get('answer')
+            checks[u['id']+' prompt title and semantic binding']=bool(q) and u['title'] in q.get_text(' ',strip=True) and q.get('data-zo-task')==u['id']
+            checks[u['id']+' prompt and bridge share reading unit']=bool(q) and len([p for p in q.find_all('p') if not p.select_one('.r1-task-label,.zo-task-title') and p.get_text(' ',strip=True)!='Thử trả lời trước khi đọc tiếp.'])>=2
+            continue
         q, a = root.find(id=u['question']), root.find(id=u['answer'])
         checks[u['id']+' bound question/answer'] = bool(q and a) and all(
             n.get('data-zo-task') == u['id'] and n.get('data-zo-function') == u['function']
@@ -212,7 +219,7 @@ def browser_checks(page, output):
                     b.screenshot(output/f'on-nen-{width}.png')
             b.call('Emulation.setScriptExecutionDisabled',{'value':True})
             b.navigate(page.as_uri())
-            checks['no JS all tasks remain present']=b.evaluate('document.querySelectorAll("[data-zo-type=task]").length')==59
+            checks['no JS all tasks remain present']=b.evaluate('document.querySelectorAll("[data-zo-type=task]").length')==64
             checks['no JS independent foundation source owner']=b.evaluate('!document.getElementById("on-nen").parentElement.closest("section")')
             b.call('Emulation.setScriptExecutionDisabled',{'value':False})
         finally:

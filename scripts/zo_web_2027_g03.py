@@ -102,6 +102,8 @@ def adapt(path, output_root):
         section=root.find("section",id=ident,recursive=False)
         if section is None:raise ValueError("Missing source section: "+ident)
         regions(section,role)
+    from zo_web_2027_consistency import separate_foundation_resources
+    separate_foundation_resources(root)
     if inv(root)!=baseline:raise ValueError("G03 reading projection changed content, mathematics or IDs")
     if root.select(".reading-region .reading-region"):raise ValueError("Nested reading regions")
     builder=Builder(output_root);builder.output.mkdir(parents=True,exist_ok=True)

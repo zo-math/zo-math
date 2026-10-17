@@ -55,6 +55,10 @@ def binding_checks(data,root=ROOT):
                 spec=policy["functions"][function];base=spec["label"]
                 bases=[prefix+policy["joiner"]+base for prefix in policy["contexts"][spec["context"]].values()] if spec.get("context_position")=="prefix" else [base]
                 checks[key+" legacy label compatible"]=any(label==b or label.startswith(b+policy["joiner"]) for b in bases)
+        if data.get("descriptive_task_titles") and function in {"function.guided_thinking","function.self_check","function.warmup"}:
+            prefix={"function.guided_thinking":"Gợi mở","function.self_check":"Tự kiểm tra","function.warmup":"Nhiệm vụ"}[function]
+            expected=rf"{prefix} {u.get('number',0):02d} [—–] \S.+"
+            checks[key+" descriptive functional title"]=bool(re.fullmatch(expected,plain_title(u.get("title",""))))
         if function=="function.guided_thinking":checks[key+" no duplicate prompt answer"]=not u.get("answer")
         if strict:
             checks[key+" canonical task title specified"]=isinstance(u.get("title"),str) and bool(u["title"].strip())
@@ -275,6 +279,10 @@ def context_heading_label(reader, heading, data, root=ROOT):
     cp=next((n for n in heading.parents if n.get("id") in data.get("checkpoint_context",{})),None)
     if cp is not None:
         return policy["joiner"].join(data["checkpoint_context"][cp["id"]]).upper()
+    for spec in data.get("heading_context",[]):
+        owner=reader.find(id=spec["owner"])
+        if owner is not None and heading in owner.descendants and context_title_text(heading)==spec["title"]:
+            return policy["joiner"].join(spec["path"]).upper()
     area=next((n for n in heading.parents if n.get("id") in policy["areas"]),None)
     if area is None:raise ValueError("Heading lacks a declared context area: "+heading.get_text(" ",strip=True))
     ident=area["id"];parts=[policy["areas"][ident]]

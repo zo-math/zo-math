@@ -234,3 +234,8 @@ Khi dựng/hiệu chỉnh nhãn, nạp quy tắc 07/6.2 và label_contract.displ
 ### Kiểm component shell trước bàn giao — DRAWER-ICON01
 
 Nút mục lục trong trang theo 07/6 và hợp đồng kit là component dùng chung, không thuộc mục tải PDF. Nạp template/CSS/runtime shell canonical; không lấy hiện thực nằm trong mô-đun PDF của G01/G02 làm tiền đề cho gói mới. scripts/zo_web_2027_shell.py kiểm template trước ghép và HTML/runtime CSS sau adapter. Kiểm thực tế trên màn hình hẹp cả trang chưa có PDF, sau đổi view/tải lại, bàn phím/đóng/chọn đích/resize; đối chiếu với nút icon đã chốt. Cổng chỉ kiểm click được hoặc tệp CSS tồn tại không chứng nhận đúng thiết kế. Thử âm phải bắt chữ view lộ ra, thiếu icon/tên truy cập, sai kích thước hoặc đích dialog. Không dựng lại hình/PDF chỉ vì sửa nút.
+
+
+### Đối chiếu liên gói sau hiệu chỉnh ngày 18/10/2026
+
+Khi nhiệm vụ yêu cầu thống nhất các trang, đọc HTML hiện hành và phân biệt với bản đã phát hành trước khi chọn mẫu; lập kiểm kê điểm khác, phương án chọn và khác biệt nội dung cần giữ. Áp dụng 07/6.4 tại QMD, bảng nhãn/bảng dữ liệu và bộ sinh đúng vai trò. Dựng HTML trong phạm vi được giao; kiểm `zo_web_2027_consistency.presentation_checks` qua bộ dựng và chạy thử âm bằng `scripts/zo_r1_presentation_check.py`. Kiểm toán/nội dung và xem thật không được thay bằng thử âm hoặc báo cáo cũ. Kết quả phải có đường mở bốn trang và trạng thái riêng của nguồn, kỹ thuật, duyệt, PDF, phát hành.

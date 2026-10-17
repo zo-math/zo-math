@@ -54,6 +54,14 @@ def apply_editorial_policy(document):
     if root is None:raise ValueError('Common editorial policy requires a reader')
     binding_path=ROOT/'content/thpt/on_thi_toan_thpt/hoc_lieu'/root['data-r1-code'].lower().replace('-','_')/'giao_dien/he_nhan.json'
     data=json.loads(binding_path.read_text(encoding='utf-8'))
+    if data.get('descriptive_task_titles'):
+        for unit in data['units']:
+            if unit['function'] not in {'function.guided_thinking','function.self_check','function.warmup'}:continue
+            owner=root.find(id=unit['question'])
+            candidates=owner.select('h2,h3,h4,h5,h6,.r1-task-label,p > strong')
+            title=next((n for n in candidates if n.get_text(' ',strip=True)==unit['title']),None)
+            if title is None:raise ValueError('Missing functional task title: '+unit['id'])
+            title['class']=list(dict.fromkeys(title.get('class',[])+['zo-task-title']))
     from zo_course_labels import apply_context_labels
     apply_context_labels(document,data)
     for heading in ([] if root.has_attr("data-zo-context-labels") else root.select('h2')):
@@ -97,6 +105,7 @@ def require_editorial_policy(document):
     examples=data.get('editorial_examples') or [n for n in data.get('knowledge_units',[]) if n['type']=='type.example'] or data.get('examples',[])
     from zo_course_labels import context_html_checks, require
     require(context_html_checks(document,data),"parent-context HTML")
+    require(presentation_checks(document,data),"shared reading presentation")
     from zo_course_math_assets import html_checks as math_asset_html_checks
     require(math_asset_html_checks(document,binding_path.parent.parent.name),"course math assets HTML")
     from zo_course_math_assets import lesson_display_checks
@@ -106,3 +115,52 @@ def require_editorial_policy(document):
         title=re.search(r'Ví dụ\s+(\d{2})\s+—\s+([^\n]+)',node.get_text(' ',strip=True)) if node else None
         if not title or int(title.group(1))!=number:
             raise ValueError('Example title/continuous numbering differs from source binding: '+example['anchor'])
+
+
+def separate_foundation_resources(document):
+    """Each independent foundation disclosure is one paper, as in G01/G02."""
+    from bs4 import BeautifulSoup
+    factory=BeautifulSoup('', 'html.parser')
+    owner=document.find(id='on-nen')
+    if owner is None:return
+    for resource in list(owner.select('details.r1-foundation-unit')):
+        if resource.find_parent('details'):continue
+        paper=resource.find_parent(class_='reading-region')
+        if paper is None or resource.parent is not paper:continue
+        if len(paper.find_all(recursive=False))==1:continue
+        siblings=list(resource.find_next_siblings())
+        unit=factory.new_tag('div',attrs={'class':'reading-region','data-reading-reason':'Independent foundation resource'})
+        paper.insert_after(unit);unit.append(resource.extract())
+        if siblings:
+            tail=factory.new_tag('div',attrs={'class':'reading-region'})
+            unit.insert_after(tail)
+            for n in siblings:tail.append(n.extract())
+        if not paper.get_text(strip=True) and not paper.find('img'):paper.decompose()
+
+
+def presentation_checks(doc,data):
+    """Four-page consistency contract, activated by its explicit package binding."""
+    if not data.get('descriptive_task_titles'):return {}
+    root=doc.select_one('.reader-content');checks={}
+    for unit in data['units']:
+        if unit['function'] not in {'function.guided_thinking','function.self_check','function.warmup'}:continue
+        owner=root.find(id=unit['question']);title=owner.select_one('.zo-task-title') if owner else None
+        checks[unit['id']+' shared visible question title']=bool(title and title.get_text(' ',strip=True)==unit['title'])
+        if unit['function']=='function.guided_thinking':
+            checks[unit['id']+' invitation before explanation']=bool(owner and 'Thử trả lời trước khi đọc tiếp.' in owner.get_text(' ',strip=True))
+            checks[unit['id']+' local lesson prompt']=bool(owner and owner.find_parent(id='bai-hoc')) and not unit.get('answer')
+            if unit.get('question_owner'):checks[unit['id']+' knowledge owner']=bool(owner and owner.find_parent(id=unit['question_owner']))
+    for n,spec in enumerate(data.get('heading_context',[]),1):
+        owner=root.find(id=spec['owner'])
+        matches=[h for h in owner.select('h3,h4,h5,h6') if h.get_text(' ',strip=True)==spec['title']] if owner else []
+        checks[f'subgroup {n} explicit context target']=len(matches)==1
+    checks['cross-package references use the current bundle']=not any(re.match(r'https?://(?:www\.)?zomath\.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g0[1-4](?:/|$)',a['href']) for a in root.select('a[href]'))
+    notes=root.select('.zo-source-note')
+    checks['source notes separate from prose']=bool(notes) and all(n.name=='p' or (n.parent.name=='p' and n.parent.get_text(' ',strip=True)==n.get_text(' ',strip=True)) for n in notes)
+    checks['no bibliographic writing narration']=not any(re.search(r'Theo định nghĩa trong SGK|Theo phần .Chú ý. của SGK|Sách giáo khoa trình bày|Bản này dùng',p.get_text()) for p in root.select('#bai-hoc p') if not p.select('.zo-source-note'))
+    calendar=root.find(id='on-lai').find('table')
+    checks['review calendar has three functional columns']=bool(calendar) and len(calendar.select('thead th'))==3 and len(calendar.select('tbody tr'))==3
+    resources=[n for n in root.select('#on-nen details.r1-foundation-unit') if not n.find_parent('details')]
+    checks['independent foundation resources have distinct papers']=bool(resources) and len({id(n.find_parent(class_='reading-region')) for n in resources})==len(resources)
+    checks['no authored heading-only reading paper']=all(p.select('p,li,table,figure,details,.zo-learning-task') for p in root.select('.reading-region'))
+    return checks
