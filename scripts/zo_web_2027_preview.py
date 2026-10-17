@@ -148,7 +148,6 @@ class PreviewBuilder:
                     raise ValueError('Expected one existing STIX font licence.')
                 source = matches[0]
             self.materialize(source, 'assets/fonts/' + source.name)
-        self.materialize(KIT / 'assets/cover-graph.svg', 'assets/cover-graph.svg')
         self.materialize(REPO / 'assets/images/qr_bao_tro_zo_math_vietcombank.jpg', 'assets/qr_bao_tro_zo_math_vietcombank.jpg')
         if self.ui_baseline or self.current_home:
             self.materialize(KIT / 'appearance-inline.css', 'appearance-inline.css')
@@ -223,6 +222,8 @@ class PreviewBuilder:
         source = source or REPO / self.profile['rendered_source']
         if self.profile.get('layout') == 'editorial-home-2027':
             raise ValueError('Native Home uses zo_web_2027_home_check.py and zo_web_2027_home_landing_check.py, not the retired Home projection')
+        # Explicit legacy Home illustration; never part of common assets.
+        self.materialize(KIT / 'assets/cover-graph.svg', 'assets/cover-graph.svg')
         data_file = REPO / self.profile['data_source']
         partial_file = REPO / self.profile['partial_source']
         doc = BeautifulSoup(source.read_text(encoding='utf-8'), 'html.parser')
