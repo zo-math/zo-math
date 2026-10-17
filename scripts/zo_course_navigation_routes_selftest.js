@@ -68,6 +68,17 @@ for(const context of ['home','d0']){
  shell.pendingDestination=null;callback({target:{closest:selector=>selector.includes('.'+(context==='d0'?'d0':'home')+'-nav a')?{hash:'#chon-mach'}:null}});
  check(context+' drawer closes and selects focus destination',closed>0&&shell.pendingDestination===target);
 }
+vm.runInContext(fn('openAncestors'),sandbox);
+const owned={tagName:'DETAILS',open:false,closest:()=>section};
+const unrelated={tagName:'DETAILS',open:false,closest:()=>({})};
+const section={tagName:'SECTION',parentElement:sandbox.root,matches:()=>true,querySelectorAll:()=>[unrelated,owned]};
+sandbox.openAncestors(section);
+check('solution section opens its owned disclosure',owned.open);
+check('solution section keeps unrelated disclosures closed',!unrelated.open);
+const grouped={tagName:'SECTION',parentElement:sandbox.root,matches:()=>false,querySelectorAll:()=>[unrelated]};
+sandbox.openAncestors(grouped);check('solution group does not reveal all answers',!unrelated.open);
+const direct={tagName:'DETAILS',parentElement:sandbox.root,matches:()=>true,open:false};
+sandbox.openAncestors(direct);check('direct disclosure targets still open',direct.open);
 const report={checks,passed:Object.values(checks).filter(Boolean).length,total:Object.keys(checks).length,failures:Object.keys(checks).filter(k=>!checks[k]),html_built:false,browser_checked:false};
 console.log(JSON.stringify(report,null,2));
 if(process.argv[2]){

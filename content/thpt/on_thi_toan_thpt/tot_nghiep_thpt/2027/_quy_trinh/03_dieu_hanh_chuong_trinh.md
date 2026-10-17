@@ -4,6 +4,13 @@ Phiên bản: 0.1 · Cập nhật trạng thái: 18/10/2026.
 
 Đây là nơi duy nhất ghi công việc đang mở và thứ tự sản xuất hiện hành. Chỉ cập nhật trạng thái từ bằng chứng trong hồ sơ gói. [Điểm vào](README.md).
 
+**HTML-REFRESH-20261018 — đã dựng/kiểm sáu HTML từ nguồn hiện hành, 18/10/2026.**
+
+- Theo yêu cầu mới: Nhà, D0, G01–G04 đã dựng và kiểm ở [bộ xem mới](http://127.0.0.1:8877/_audit/html_refresh_20261018/index.html); bản cũ giữ nguyên. [Hồ sơ nguồn sửa, kết quả và phần chờ](ho_so_dung_lai_html_20261018.md), [fingerprint](ho_so_dung_lai_html_20261018.json).
+- Khép các phụ thuộc bị bỏ sót: binding JS G01 cũ, khai báo preview G03 trong danh mục, bộ kiểm D0 theo SVG/trạng thái lịch sử và đích section của lời giải G03 chưa mở details con. Đã sửa đúng nguồn/gate, giữ receipt/ảnh bìa/nội dung toán; controller chỉ mở hộp thuộc nhiệm vụ được gọi. Cập nhật runtime JS bằng bộ materialize, không dựng lại nội dung vì riêng thay đổi JS.
+- HTML 8321/8321, trình duyệt 228/228 ở desktop/mobile cùng Back/tải lại/hai tab/no-JS, cổng nguồn 1397/1397; 1727 tệp bảo vệ không đổi. Các báo cáo chưa đạt ban đầu giữ riêng và được phân biệt với kết quả cuối.
+- Trạng thái hiện hành: HTML đã dựng và kiểm kỹ thuật, chờ chủ trì xem/duyệt. Chưa commit/push/xuất bản; PDF học liệu và thành phẩm công khai giữ nguyên. Chỉ có PDF vector trung gian của bốn đồ thị G02 trong mirror, không phải PDF học liệu. Các dòng “chưa dựng HTML” ở các mốc nguồn phía dưới là lịch sử trước yêu cầu này.
+
 **CHECKPOINT-SOURCE-20261018 — đã lưu mốc nguồn điều hướng và trình bày, 18/10/2026.**
 
 - Theo yêu cầu commit tiếp theo của chủ trì, đã lưu 35 tệp nguồn/binding, quy tắc, cổng chống tái diễn và hồ sơ tại `ecd95a43f33ca89e4d0c79e3118247f7a8b1b8e5`: mục lục toàn khóa, nhãn đề–lời giải, bảng/chú thích, bỏ dòng dưới bìa và điều hướng tới–về liên học liệu. Các phần có phụ thuộc chung được lưu cùng mốc để không tách nguồn khỏi bộ kiểm.

@@ -11,7 +11,8 @@ from zo_web_2027_preview import REPO,BRAND_THOUGHT,inventory,sha,footer_data
 from zo_web_2027_home_check import rebuild,save
 from zo_web_2027_check import Browser,GEOMETRY,edge_executable,complete_site_footer
 sys.path.insert(0,str(REPO/PACKAGE/'cong_cu'))
-from kiem_chung_da_duyet import verify_projection
+from kiem_chung_da_duyet import original_signature
+from tich_hop_html_da_duyet import RECEIPT
 
 VIEWS=['bat-dau','khai-bao-pham-vi','khao-sat','doc-ket-qua','chon-mach']
 TASKS=[f'd0-r{r}-{n:02}' for r in range(1,9) for n in range(1,4)]
@@ -54,6 +55,40 @@ def preview(page,out,candidates):
         'candidates':{k:{'path':str(v),'sha256':sha(v)} for k,v in input_candidates.items()}})
     return output
 
+def verify_approved_content(root):
+    """Compare learner content with immutable approval, independently of release state."""
+    approval=json.loads(RECEIPT.read_text(encoding='utf-8'))
+    assert [s.get('id') for s in root.find_all('section',recursive=False)]==VIEWS
+    for identifier,expected in approval['sections'].items():
+        actual=original_signature(root.find(id=identifier),identifier)
+        assert actual['math']==expected['math'], 'Approved mathematics changed: '+identifier
+        assert actual['text_sha256']==expected['text_sha256'], 'Approved learner text changed: '+identifier
+
+
+def current_projection(root,build):
+    """Validate native JSON cells before comparing with the fresh Quarto source tree."""
+    from zo_web_2027_figures import module,VARIATION
+    renderer=module('d0_native_projection_check',VARIATION/'zo_variation_html.py')
+    records=renderer.load_data(REPO/PACKAGE/'du_lieu/bang_bien_thien.json')
+    fragments=renderer.math_fragments(records)
+    clone=strip_papers(root)
+    source=BeautifulSoup(build['source_markup'],'html.parser')
+    def cells(table):
+        return [[(c.get_text(' ',strip=True),[n.get_text() for n in c.select('annotation[encoding="application/x-tex"]')],c.get('rowspan'),c.get('colspan')) for c in row.find_all(['th','td'],recursive=False)] for row in table.select('tr')]
+    assert len(clone.select('figure.zo-variation-asset'))==len(records)
+    for record in records:
+        selector='figure.zo-variation-asset[data-bbt="'+record['id']+'"]'
+        figure=clone.select_one(selector);original=source.select_one(selector)
+        assert figure is not None and original is not None
+        actual=figure.select_one('table.zo-variation-native')
+        expected=BeautifulSoup(renderer.render_record(record,fragments),'html.parser').select_one('table')
+        assert actual is not None and cells(actual)==cells(expected), 'Native sign cells differ from canonical JSON'
+        assert figure.select_one('figcaption').get_text(' ',strip=True)==original.select_one('figcaption').get_text(' ',strip=True)
+        assert figure.get('id')==original.get('id')
+        figure.replace_with(copy.deepcopy(original))
+    return clone
+
+
 def validate(page,build=None):
     doc=BeautifulSoup(page.read_text(encoding='utf-8'),'html.parser');root=doc.select_one('.d0-package')
     checks={
@@ -65,8 +100,9 @@ def validate(page,build=None):
         'all disclosures closed':not root.select('details[open]'),
         '25 comparisons plus TOC':len(root.select('details'))==26,
         'six source tables':len(root.select('.d0-data-table .r1-data-table'))==6,
-        'accessible variation table':len(root.select('.zo-variation-asset table.variation'))==1,
-        'two source figures':len(root.select('img'))==2 and len(root.select('.figure-viewport img'))==2,
+        'accessible native sign table':len(root.select('.zo-variation-asset table.zo-variation-native[data-table-kind=sign]'))==1 and bool(root.select_one('.zo-variation-asset table caption')),
+        'one sign table and one geometry figure':len(root.select('.zo-variation-asset table.zo-variation-native'))==1 and len(root.select('img'))==1 and len(root.select('.figure-viewport img'))==1,
+        'geometry SVG is canonical':len(root.select('img'))==1 and sha((page.parent/unquote(urlsplit(root.select_one('img')['src']).path)).resolve())==sha(REPO/PACKAGE/'hinh/hinh_hop.svg'),
         'all labels/headings/prose inside paper':all(n.find_parent(class_='reading-region') for n in root.select('h2,h3,h4,h5,p,li,summary')),
         'no nested paper':not root.select('.reading-region .reading-region'),
         'unique IDs':len(doc.select('[id]'))==len({n['id'] for n in doc.select('[id]')}),
@@ -79,7 +115,7 @@ def validate(page,build=None):
         'no prototype claims':not doc.select('.prototype-note') and 'HTML thử nghiệm' not in doc.get_text(' ',strip=True),
         'strand TOC preserved':[n['href'] for n in root.select('.d0-survey-toc a')]==[f'#mach-r{r}' for r in range(1,9)],
     }
-    try:verify_projection(strip_papers(root));checks['full approved text and TeX']=True
+    try:verify_approved_content(strip_papers(root));checks['full approved text and TeX']=True
     except AssertionError:checks['full approved text and TeX']=False
     for task,answer in zip(TASKS,ANSWERS):
         checks[task+'/round trip']=bool(root.select_one(f'a[href="#{answer}"]')) and bool(root.select_one(f'#{answer} a[href="#{task}"]'))
@@ -94,7 +130,11 @@ def validate(page,build=None):
             if not parsed[target].find(id=unquote(url.fragment)):missing.append(value)
     checks['local resources links fragments']=not missing
     if build:
-        projected=inventory(strip_papers(root));expected=copy.deepcopy(build['source_inventory'])
+        try:
+            projected=inventory(current_projection(root,build));checks['native sign cells match canonical JSON']=True
+        except (AssertionError,AttributeError):
+            projected=None;checks['native sign cells match canonical JSON']=False
+        expected=copy.deepcopy(build['source_inventory'])
         expected['headings']=[tuple(n) for n in expected['headings']];expected['disclosures']=[tuple(n) for n in expected['disclosures']]
         checks['fresh Quarto whole projection']=projected==expected
         checks['current QMD hash']=sha(REPO/build['source'])==build['source_sha256']
@@ -110,9 +150,14 @@ def validate(page,build=None):
         else:bad.select_one('#bat-dau p').string='Nội dung chưa được duyệt'
         if name=='lost-task-ID':valid=[n['id'] for n in bad.select('.d0-primary-task')]==TASKS
         else:
-            try:verify_projection(bad);valid=True
+            try:verify_approved_content(bad);valid=True
             except AssertionError:valid=False
         checks['fixture rejects '+name]=not valid
+    if build:
+        bad=copy.deepcopy(root);bad.select_one('.zo-variation-native annotation').string='wrong sign'
+        try:current_projection(bad,build);rejected=False
+        except AssertionError:rejected=True
+        checks['fixture rejects changed native mathematics']=rejected
     return checks,missing
 
 def browser(page,out):
