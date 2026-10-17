@@ -4,6 +4,13 @@ Phiên bản: 0.1 · Cập nhật trạng thái: 18/10/2026.
 
 Đây là nơi duy nhất ghi công việc đang mở và thứ tự sản xuất hiện hành. Chỉ cập nhật trạng thái từ bằng chứng trong hồ sơ gói. [Điểm vào](README.md).
 
+**CHECKPOINT-HTML-REFRESH-20261018 — đã commit nguồn và hồ sơ dựng HTML, 18/10/2026.**
+
+- Theo yêu cầu chủ trì, 14 tệp nguồn/binding, cổng kiểm, quy tắc và hồ sơ của lượt dựng HTML đã lưu tại `18f4c926a87198c19ec2bc6c55c1d81032f0761a`. [Biên nhận phạm vi, Git blob và fingerprint đầu ra](ho_so_commit_dung_lai_html_20261018.json).
+- Trước commit: nguồn điều hướng 1397/1397, hồi quy định tuyến 28/28, danh mục sinh CURRENT, kiểm G01 staged đạt và hồ sơ 242/242. Đối chiếu lại chín hash nguồn sửa và sáu cặp QMD/HTML: khớp hồ sơ đã kiểm; kết quả HTML 8321/8321, trình duyệt 228/228 và bảo toàn 1727 tệp giữ nguyên.
+- Hiện hành: nguồn đã commit; sáu HTML tại [bộ xem](http://127.0.0.1:8877/_audit/html_refresh_20261018/index.html) đã kiểm kỹ thuật và chờ chủ trì duyệt. Lượt commit không dựng thêm HTML/PDF, không push/xuất bản. Các cờ/dòng “chưa commit” trong hồ sơ và mốc dựng bên dưới là lịch sử trước mốc này.
+- `_audit/` và `.quarto/` tiếp tục ngoài Git, giữ bản xem, log và ảnh đối chứng. PDF học liệu, tài nguyên canonical và thành phẩm công khai không đổi.
+
 **HTML-REFRESH-20261018 — đã dựng/kiểm sáu HTML từ nguồn hiện hành, 18/10/2026.**
 
 - Theo yêu cầu mới: Nhà, D0, G01–G04 đã dựng và kiểm ở [bộ xem mới](http://127.0.0.1:8877/_audit/html_refresh_20261018/index.html); bản cũ giữ nguyên. [Hồ sơ nguồn sửa, kết quả và phần chờ](ho_so_dung_lai_html_20261018.md), [fingerprint](ho_so_dung_lai_html_20261018.json).
