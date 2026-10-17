@@ -372,3 +372,21 @@ th?nh ??nh gi? t? ??ng t?nh ??i di?n, nghi?m thu m?i ho?c ph?t h?nh.
 ## Nhãn cấp chứa — 17/10/2026
 
 Với mode parent-context-v1, kiểm đủ nhãn tiêu đề theo cây owner và ngữ cảnh khai báo; Bài học = MẠCH HỌC CHÍNH, Khởi động = MẠCH HỌC CHÍNH · BÀI HỌC. Chặn nhãn Khởi động cũ, nhãn cấp cha bị mất khi hai tiêu đề cùng giấy, mode/binding cũ và dấu bullet “•”. Không dùng nhãn type thay ngữ cảnh. Kiểm cùng CSS .role, nhãn trong giấy, không tràn ở 1440/430/390 px và đường đi/về còn đúng. Giữ bộ trích cấu trúc nguồn G01/G02; nhãn cuối cùng gọi bộ ghép chung. Không sửa HTML/PDF phát hành hoặc receipt lịch sử để đạt kiểm.
+
+## MATH-ASSET01 — đường dựng phải khớp vai trò
+
+Theo 07/6.1.2 và 02/2.5 của khóa: source/HTML guard dùng scripts/zo_course_math_assets.py, binding profiles/course-math-assets.json. Không nối BBT bằng bảng thường được gán kind=variation; bộ nối bảng phải từ chối. Hình trong bài gọi cùng production-figures.css và cỡ tự nhiên, bìa dùng manifest riêng. Ma trận đối chứng phải chỉ ra cả component và đầu ra nhìn được; có thử âm JSON rỗng, thiếu giới hạn/điểm loại, surface bìa trong bài, provenance mã sinh/style/phông và sizing. Tương thích G01–G03 không chứng nhận G04/gói mới; không đổi shell/PDF/receipt hoặc xuất bản.
+
+## DRAWER-ICON01 — nút capsule trở lại ở gói chưa có PDF
+
+Nguyên nhân: template/JS shell còn nút chữ theo view; hình thức icon G01/G02 lại nằm trong mô-đun/CSS tải PDF. G04 chưa có PDF nên bỏ qua nhánh ấy. Kiểm cũ chỉ xác nhận mở drawer nên vẫn PASS. Sửa chủ sở hữu trong template/web-shell.css/site-ui.js, không gọi mô-đun PDF để lấy giao diện nút. Cổng zo_web_2027_shell.py nằm trước ghép trang và sau adapter, không phụ thuộc agent nhớ chạy ngoài.
+
+Thử âm: bỏ mode/icon/tên truy cập/đích dialog; lộ tên view; bỏ hidden; CSS trở lại chiều rộng capsule. Browser: 390/430/768/999px phải đúng 52×52, icon 20px, không chữ; 1000/1440px nút ẩn, rail đúng; Enter/Escape/focus, chọn view, tải lại, resize và chế độ xám giữ chức năng. Trang không có PDF là ca bắt buộc. Không sửa PDF/source toán/HTML phát hành hoặc dùng PASS kiểm hình trước đó chứng nhận component này.
+
+
+## GRAPH-G03-01 — khung và tỉ lệ đồ thị theo G03
+
+Chủ trì chọn G03 làm mẫu ngày 17/10/2026. Áp dụng 07/6.1.2: preset `lesson-g03` của công cụ đồ thị, `set_lesson_graph_size` của adapter và CSS dùng `--figure-em`; không dùng width:auto của bản sửa trước. Giữ bố trí hình ghép, nội dung toán, bìa và BBT. Kiểm giá trị kích thước thật ở desktop/mobile cùng đối chứng G03, thử âm sai preset/hệ số/CSS. Trạng thái và bản xem tại 03; HTML sửa chưa tự là PDF đồng bộ, nghiệm thu hoặc xuất bản.
+
+
+GRAPH-G03-02 (18/10/2026): bảo toàn đối chứng bằng bản chụp/số đo, không giữ lỗi hiển thị trong nguồn hiện hành. Cổng lesson_display_checks áp dụng đủ G01–G04, bao gồm ảnh không có figure. G03 gọi apply_graph_display như các gói khác; kiểm đủ 11 ảnh trên desktop/mobile, sáu ảnh cũ giữ geometry và năm ảnh sửa nhận cùng tỉ lệ. Không dựng lại TEX/SVG/PDF khi chỉ sửa lớp đặt ảnh.

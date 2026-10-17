@@ -31,7 +31,7 @@
       $support
     </main>$site_footer
   </div>
-  <button class="mobile-trigger" type="button" aria-haspopup="dialog" aria-controls="mobile-nav" aria-expanded="false"><span aria-hidden="true">☰</span><span class="mobile-view">Mục lục khóa học</span></button>
+  <button class="mobile-trigger mobile-trigger--icon" type="button" aria-label="Mở mục lục học liệu" aria-haspopup="dialog" aria-controls="mobile-nav" aria-expanded="false"><span aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M5 6h14M5 12h14M5 18h14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg></span><span class="mobile-view" hidden aria-hidden="true">Mục lục học liệu</span></button>
   <dialog id="mobile-nav" aria-labelledby="drawer-title">
     <div class="drawer-top"><strong id="drawer-title">$drawer_title</strong><button class="drawer-close" type="button">Đóng</button></div>
     <div id="drawer-mount"></div>

@@ -1,0 +1,72 @@
+{
+  "task": "GRAPH-G03-02",
+  "date": "2026-10-18",
+  "cause": "five paragraph images did not match figure-only CSS; reference preservation was incorrectly interpreted as prohibition on fixing current display",
+  "source_changes": [
+    "scripts/zo_web_2027_g03.py",
+    "scripts/zo_course_math_assets.py",
+    "scripts/zo_web_2027_g03_check.py"
+  ],
+  "implementation": "G03 calls shared apply_graph_display; shared and G03-specific gates cover all eleven images, with and without figure; no vector rebuild",
+  "review": "http://127.0.0.1:8877/_audit/g03_graph_display_20261018/html/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/index.html?r1-view=toan-van",
+  "targets": {
+    "L09": {
+      "title": "Luyện tập — Một hình, ba hành vi",
+      "url": "http://127.0.0.1:8877/_audit/g03_graph_display_20261018/html/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/index.html?r1-view=toan-van#L09"
+    },
+    "K02": {
+      "title": "Kiểm tra — Đọc hai đầu và một mốc hữu hạn",
+      "url": "http://127.0.0.1:8877/_audit/g03_graph_display_20261018/html/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/index.html?r1-view=toan-van#K02"
+    },
+    "S-L05": {
+      "title": "Sửa lỗi — Đường đứng và đường xiên từ hai nhánh",
+      "url": "http://127.0.0.1:8877/_audit/g03_graph_display_20261018/html/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/index.html?r1-view=toan-van#S-L05"
+    },
+    "S-K04": {
+      "title": "Sửa lỗi — Điểm hở và nhánh bên kia",
+      "url": "http://127.0.0.1:8877/_audit/g03_graph_display_20261018/html/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/index.html?r1-view=toan-van#S-K04"
+    },
+    "S-O03": {
+      "title": "Sửa lỗi — Điểm kín và hai nhánh khác nhau",
+      "url": "http://127.0.0.1:8877/_audit/g03_graph_display_20261018/html/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/index.html?r1-view=toan-van#S-O03"
+    }
+  },
+  "verification": {
+    "browser": {
+      "passed": 30,
+      "total": 30,
+      "failures": []
+    },
+    "preservation_regression": {
+      "passed": 58,
+      "total": 58,
+      "failures": [],
+      "protected_count": 1489,
+      "protected_changes": []
+    },
+    "html": {
+      "passed": 1299,
+      "total": 1299
+    },
+    "six_previously_correct_sizes": "unchanged at 1440/430/390 px",
+    "fresh_QMD_HTML": "passed in isolated source mirror; HTML-only; 50.8 seconds",
+    "governance": {
+      "passed": 184,
+      "total": 184,
+      "failures": []
+    }
+  },
+  "status": {
+    "source_and_HTML": "checked",
+    "owner_review": "pending",
+    "vectors_rebuilt": false,
+    "lesson_PDF_rebuilt": false,
+    "published": false,
+    "commit": false,
+    "push": false
+  },
+  "audit": "_audit/g03_graph_display_20261018",
+  "before": "_audit/graph_g03_standard_20261017/qa-browser.json; _audit/r1_previous_labels_20261017/g03-reading.html",
+  "source_QMD_SHA256": "2de94adb2c8f0bf495699f2f01aefe86de7e1ff8654a453478a1d4cf8d32c616",
+  "temporary_cleanup": "owned source mirror and browser profile removed; fresh HTML and current review evidence retained"
+}

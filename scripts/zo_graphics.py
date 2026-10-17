@@ -52,6 +52,19 @@ def load_variation(path: Path, name='zo_variation_external', repo_root: Path | N
         raise ValueError('Unknown variation engine: ' + str(path))
     return _variation_api(repo_root).load_variation(name)
 
+def lesson_layout(repo_root: Path | None = None):
+    return load_graph("zo_graph_layout_profile", repo_root).lesson_layout()
+
+
+def set_lesson_graph_size(image, svg: Path, repo_root: Path | None = None):
+    import xml.etree.ElementTree as ET
+    profile = lesson_layout(repo_root)
+    width = float(ET.parse(svg).getroot().attrib["viewBox"].split()[2])
+    image["style"] = f"--figure-em:{width/profile['web_svg_bp_per_em']:.5f}em"
+    image["data-zo-graph-layout"] = profile["id"]
+    image["data-zo-graph-role"] = "lesson"
+
+
 def _variation_api(repo_root: Path | None = None):
     path = graphics_root(repo_root) / 'zo_variation.py'
     spec = importlib.util.spec_from_file_location('zo_variation_external_api', path)

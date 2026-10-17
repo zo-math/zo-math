@@ -1401,6 +1401,14 @@ def dispatch_article_source_validators(
             checker.add("course-label-source",not failed,"QD_025: "+("; ".join(failed) if failed else "binding, functions, contexts and numbering checked"),relative)
         except (OSError,ValueError,KeyError) as exc:
             checker.add("course-label-source",False,str(exc),relative)
+    from zo_course_math_assets import source_checks as math_asset_source_checks
+    try:
+        math_assets=math_asset_source_checks(checker.root/relative,checker.root)
+        if math_assets:
+            bad=[k for k,v in math_assets.items() if not v]
+            checker.add("course-math-assets",not bad,"; ".join(bad) or "role, native JSON and complete graph provenance checked",relative)
+    except (OSError,ValueError,KeyError) as exc:
+        checker.add("course-math-assets",False,str(exc),relative)
     context = article_validation_context(relative, checker.root, checker)
     if context is None:
         return None

@@ -199,6 +199,8 @@ G02 dùng adapter canonical `zo_web_2027_g02_production.py` nhận raw Quarto m�
 
 ### Bảng, bảng biến thiên và hình
 
+Cổng nguồn/bản xuất theo 07/6.1.2: dùng zo_course_math_assets.py và binding course-math-assets.json của kit. QMD gọi BBT bằng div .zo-native-bbt có data-bbt trỏ JSON duy nhất; không giữ bảng Markdown BBT song song hoặc khai ordinary kind=variation. Surface/cỡ hình trong bài khác vai trò ảnh bìa; giữ đúng manifest duyệt bìa.
+
 - Ngôn ngữ bảng dùng chung toàn khóa theo 07/6.1.1, QD_030: tám loại giá trị, dữ liệu/tần số, đối chiếu, hai chiều, dấu, biến thiên, tiêu chí và quy trình/thuật ngữ. Không dùng một kiểu căn cho mọi bảng. Header/row header khai đúng vai trò; Nhật kí lời văn trái, bảng giá trị toán giữa và dữ liệu số phải. Nét lưới/cỡ chữ/nhấn theo hợp đồng ấy, không tạo palette riêng.
 - `scripts/zo_course_tables.py` nối binding `profiles/course-tables.json` và `course-tables.css` từ kit vào cả Nhà/D0/G01/G02 sau phép chiếu nội dung; bảng thường có liên kết cũng nhận đủ lớp/ngữ nghĩa/width. Từ chối bảng chưa phân loại hoặc binding thiếu/trùng; BBT so từng ô với JSON trước áp dụng. D0 opt-in bảng dấu native giữ nguyên JSON và caption, không tái sinh nguồn D0 từ generator cũ. Các selector căn trái legacy chỉ áp bảng chưa opt-in, không đè loại mới. Không thay đường PDF mặc định.
 - Chọn `fit` khi bảng vẫn đọc thoải mái trên mobile; chọn `scroll` và `min_width` khi co bảng làm cột quá hẹp. Bảng `scroll` cuộn ngang trong vùng riêng, có chỉ dẫn khi thật sự tràn và không làm trang tràn ngang.

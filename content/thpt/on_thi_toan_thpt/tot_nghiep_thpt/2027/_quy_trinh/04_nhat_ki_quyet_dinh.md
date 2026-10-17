@@ -5,6 +5,14 @@ Phiên bản: 0.2 · Cập nhật: 16/10/2026.
 Chỉ ghi quyết định có ảnh hưởng lâu dài; không chép hội thoại hay log lệnh. Bảng điều hành ghi việc hiện hành. [Điểm vào](README.md).
 
 
+## GRAPH-G03-02 — sửa đủ năm ảnh còn lệch trong G03, 18/10/2026
+
+Chủ trì chất vấn việc giữ năm ảnh G03 chưa nhất quán. Không có trở ngại kỹ thuật; agent đã tự suy rộng việc giữ đối chứng thành giữ nguyên lỗi. Hiệu chỉnh: lưu bản chụp/số đo trước sửa, bảo toàn TEX/SVG và sửa lớp hiển thị của G03 để đủ 11 ảnh dùng component chung. Sáu ảnh đã đúng giữ cỡ; năm ảnh thiếu figure nhận cùng quy tắc. Cổng HTML phải bao phủ ảnh ở cả hai cấu trúc, không miễn kiểm G03. Không cần vẽ lại đồ thị hoặc dựng PDF học liệu cho thay đổi này.
+
+## GRAPH-G03-01 — chọn khung và tỉ lệ đồ thị G03, 17/10/2026
+
+Chủ trì xem kĩ và chọn kích thước khung, đường nét của G03 làm mẫu để thiết lập công cụ và cập nhật các đồ thị ở gói khác. Quyết định này thay riêng cỡ tự nhiên của đồ thị trong MATH-ASSET01; không thay phần BBT, bìa hoặc các xác nhận lịch sử. 07/6.1.2 sở hữu quy tắc; công cụ ngoài repo giữ preset, adapter giữ đặt cỡ. G03 không cần sửa để khớp tiêu chuẩn do chính nó làm mẫu. Khung hình ghép áp dụng theo từng ô và giữ quan hệ đối chiếu. Chưa có quyền commit, push, xuất bản hoặc dựng lại PDF học liệu.
+
 ## Làm rõ QD_036 — Kiểm trình bày ngay trong bản thảo, 17/10/2026
 
 - Căn cứ: chủ trì bác bản thảo G04 0.1 vì chính văn kể nguồn biên soạn và đồ thị sai ngôn ngữ thiết kế; yêu cầu được áp dụng ngay trong lượt hiệu chỉnh.
@@ -451,3 +459,15 @@ Sao chép mẫu này khi có quyết định thật; không đánh dấu mẫu l
 ## Triển khai tiếp nhãn cấp chứa và checkpoint, 17/10/2026
 
 Chủ trì giao cập nhật quy tắc cho các trang trước, tạm thời chưa xuất bản lại/chưa tạo PDF, rồi commit mốc nguồn. Phạm vi triển khai mở sang G01–G03; cùng quy tắc 07/6.2, giữ cấu trúc trích nguồn riêng nhưng bộ ghép nhãn cuối dùng chung. Lời giải tại chỗ giữ đúng ngữ cảnh chứa; Phối hợp/Chuyển giao không đổi chức năng hoặc số. Commit chỉ bảo toàn mốc nguồn, không là duyệt HTML hoặc quyền push/phát hành. Trạng thái và bằng chứng ở 03 và hồ sơ từng gói.
+
+## Khép lỗi đồ thị/BBT G04 — 17/10/2026
+
+Chủ trì chỉ ra đồ thị và BBT G04 không nhất quán với các gói trước, yêu cầu tìm nguyên nhân và cập nhật điều hành để không lặp. Đây là sửa thực thi quy tắc hiện hành, không phê duyệt thiết kế mới. Nguyên nhân: đồng nhất công cụ/profile với component; gán loại cho bảng thường để vượt đường native; sao cấu hình của gói không có BBT; kiểm hash/tải tệp thay đối sánh thị giác. Hiệu chỉnh 0.2 trước đó chỉ sửa từ Matplotlib sang công cụ ZO Math nên chưa khép lỗi này.
+
+07/6.1.2, 02/2.5, chuẩn QMD, mẫu/B19, AGENTS và kit cùng nối ma trận tài nguyên theo vai trò và cổng thực thi. 03 giữ trạng thái; hồ sơ gói giữ đối chiếu toán, phiên bản nguồn, ca âm và hình xem. Bảo toàn bản thảo/bìa đã duyệt, sản phẩm G01–G03 và docs/PDF; không tự commit/push/phát hành trong lượt này.
+
+## DRAWER-ICON01 — sửa nút mở mục lục về thiết kế đã chốt, 17/10/2026
+
+Chủ trì gửi ảnh G04 có nút “Bài học · Mục lục” dạng dài và yêu cầu chỉ icon như thiết kế trước, tìm lỗi để không tái diễn. Không chọn thiết kế mới. Lỗi thực thi: icon/CSS đã chốt nằm trong nhánh tải PDF của G01/G02, template và JS dùng chung vẫn giữ capsule; G04 không có PDF nên rơi về nhánh cũ. Kiểm trước chỉ đo hoạt động mở/đóng, chưa xác nhận hình thức.
+
+Nguồn sửa là shell template/CSS/runtime cùng cổng trước/sau adapter; 07, 02, AGENTS và kit xác định đúng chủ sở hữu và ca trang chưa PDF. Không biên tập nội dung toán, đổi kiến trúc, dựng lại hình/PDF, commit/push hoặc xuất bản. Trạng thái/bằng chứng ở 03; không sửa kết quả QA cũ để giả đã bắt lỗi từ trước.

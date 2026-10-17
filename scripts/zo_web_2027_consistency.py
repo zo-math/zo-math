@@ -97,6 +97,10 @@ def require_editorial_policy(document):
     examples=data.get('editorial_examples') or [n for n in data.get('knowledge_units',[]) if n['type']=='type.example'] or data.get('examples',[])
     from zo_course_labels import context_html_checks, require
     require(context_html_checks(document,data),"parent-context HTML")
+    from zo_course_math_assets import html_checks as math_asset_html_checks
+    require(math_asset_html_checks(document,binding_path.parent.parent.name),"course math assets HTML")
+    from zo_course_math_assets import lesson_display_checks
+    require(lesson_display_checks(document,binding_path.parent.parent.name),"G03 graph layout HTML")
     for number,example in enumerate(examples,1):
         node=root.find(id=example['anchor'])
         title=re.search(r'Ví dụ\s+(\d{2})\s+—\s+([^\n]+)',node.get_text(' ',strip=True)) if node else None

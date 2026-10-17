@@ -57,6 +57,8 @@ def promote_d0_grid(doc):
 def bind(doc,page_key):
     root=doc.select_one('.reader-content')
     if root is None:raise ValueError('Missing course reader root')
+    from zo_course_math_assets import apply_native
+    apply_native(doc,page_key)
     contract=load_contract();specs=table_specs(page_key);seen=set()
     for entry in contract['pages'][page_key]:
         matches=root.select(entry['selector'])
@@ -65,6 +67,7 @@ def bind(doc,page_key):
         if id(table) in seen:raise ValueError('Duplicate table role binding')
         seen.add(id(table));kind=entry['kind']
         if kind not in contract['types']:raise ValueError('Unknown table type')
+        if kind=='variation':raise ValueError('Variation tables must use canonical JSON and the native renderer; ordinary table binding is forbidden')
         owner=table.find_parent(id=True);spec=specs.get(owner.get('id'),{}) if owner else {}
         table['class']=list(dict.fromkeys(table.get('class',[])+['r1-data-table','zo-course-table','zo-course-table--'+kind]))
         table['data-table-kind']=kind;table['data-table-role']=entry['role']

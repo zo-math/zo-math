@@ -1,4 +1,4 @@
-/* Preview shell shared by Home and R1. No content rewriting or production mount. */
+/* Canonical shell behavior shared by course pages. No learner content rewriting. */
 (() => {
   if (!document.body.matches('[data-zo-web-shell]')) return;
   document.documentElement.classList.add('prototype-js');
@@ -99,6 +99,8 @@
     if (event.matches) closeDrawer();
   });
   function selectedView() {
+    // Icon-only shell component keeps its accessible name across view changes.
+    if (trigger.classList.contains("mobile-trigger--icon")) return;
     const current = document.querySelector('.r1-tab[aria-selected=true]');
     trigger.querySelector('.mobile-view').textContent = current ? current.textContent + ' · Mục lục' : 'Mục lục khóa học';
   }

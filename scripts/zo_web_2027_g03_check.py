@@ -106,6 +106,8 @@ def checks(page, output_root):
         text=(package/fig["input"]).read_text(encoding="utf-8")
         limits={key:float(value) for key,value in re.findall(r"(xmin|xmax|ymin|ymax)=(-?[\d.]+)",text)}
         result["axes interior "+fig["name"]]=limits["xmin"]<0<limits["xmax"] and limits["ymin"]<0<limits["ymax"]
+    from zo_course_math_assets import lesson_display_checks
+    result.update({"graph display/"+k:v for k,v in lesson_display_checks(doc,"r1_g03").items()})
     details={"broken_links":failures,"math_count":len(root.select("annotation")),"tables":len(root.select("table")),"figures":len(root.select("img")),"disclosures":len(root.select("details")),"reading_regions":len(root.select(".reading-region")),"source_sha256":sha(package/"index.qmd"),"html_sha256":sha(page)}
     return result,details
 

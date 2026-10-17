@@ -1,6 +1,6 @@
 # Bảng kiểm áp dụng mẫu bản thảo gói
 
-Phiên bản mẫu: **1.2** · Ngày: 17/10/2026 · Phạm vi: bản thảo gói R1 của khóa 2027. Đây là công cụ áp dụng, không tạo kiến trúc hoặc chuẩn hiển thị mới.
+Phiên bản mẫu: **1.4** · Ngày: 17/10/2026 · Phạm vi: bản thảo gói R1 của khóa 2027. Đây là công cụ áp dụng, không tạo kiến trúc hoặc chuẩn hiển thị mới.
 
 Nguồn: [01 — chức năng học tập](../01_kien_truc_hoc_tap.md), [07 — trình bày](../07_quy_chuan_cau_truc_trang_nguoi_hoc.md), [02/1.4 — cách dùng](../02_quy_trinh_va_nghiem_thu.md#ap-dung-mau-ban-thao), [khung bản thảo](ban_thao_goi.md), [tổ chức nguồn](../quy_chuan_goi_qmd.md). G01/G02 là học liệu đối chiếu theo chức năng; nội dung toán và số lượng nhiệm vụ thuộc gói đang viết.
 
@@ -67,7 +67,7 @@ Bảng đối chiếu cấu trúc dùng trước viết: mỗi dòng phải ghi 
 | B16 | Nhật kí đúng nguồn 14 trường; không bắt ghi mỗi câu; ví dụ ghi giả lập và không lộ đáp án câu xác nhận chưa dùng | 01/2.8; nguồn Nhật kí chung | Chưa điền | Chưa kiểm |
 | B17 | Mọi đề có lời giải đúng nhóm/tên/ý; tách vị trí thì có đường đi/về, xử lí tại chỗ thì không nhân lời giải hoặc tạo nhóm trống | 07/5.3,6.2; quy chuẩn gói | Chưa điền | Chưa kiểm |
 | B18 | Gọi guard kí pháp hiện có, ghi rõ phạm vi hỗ trợ; toán đúng miền, dấu, hướng, đơn vị, mức đạt/chưa đạt và giới hạn suy luận; LaTeX cho số/biểu thức, phân số và ngoặc đúng quy chuẩn | Nguồn toán; quy chuẩn kí hiệu/dấu ngoặc | Chưa điền | Chưa kiểm |
-| B19 | Mỗi hình trong bản thảo cũng phải qua công cụ ZO Math/profile 0.4 hiện hành: đúng màu/phông/nét, vạch có chọn lọc, cỡ tự nhiên/nền quy định; khớp dữ kiện/đáp án, nhãn không va chạm, điểm kín/hở đúng; trục cắt đúng gốc và đủ đầu mũi tên; xem thực thay vì chỉ tin kiểm vector hoặc gọi là nháp | 07/6.1,6.3; công cụ/profile đồ thị ZO Math; yêu cầu chủ trì về hình G03/G04 | Chưa điền | Chưa kiểm |
+| B19 | Lập ma trận tài nguyên theo vai trò trước viết/chuyển QMD; dùng công cụ ZO Math/component hiện hành, tách hình trong bài và bìa. BBT từ một JSON/native MathML, giữ mốc/dấu/giới hạn hai phía/điểm loại/số hàng. Kiểm khung và cỡ hiển thị đồ thị theo GRAPH-G03-01/G03, scope CSS thật sự hoạt động, phông/nét/vạch/nhãn/điểm/trục; đối chứng đồ thị với G03 và BBT với gói có bảng trên desktop/mobile và thử âm. Không lấy profile 0.4, hash, kind=variation hoặc ảnh montage làm đủ bằng chứng | 07/6.1.2,6.3; 02/2.5; công cụ ZO Math và binding kit | Chưa điền | Chưa kiểm |
 | B20 | Chính văn và nhãn liên kết dùng tên có nghĩa, không dùng mã quản lí; liên kết tồn tại và thực sự dẫn đúng nội dung | 07/6.2; đối chiếu ngữ nghĩa thủ công | Chưa điền | Chưa kiểm |
 | B21 | Bản trình duyệt đúng phiên bản, hết chỗ trống/ghi chú nội bộ; phân biệt nội dung và HTML/PDF; ghi rõ những phần được hoãn | 02/4; quy chuẩn gói | Chưa điền | Chưa kiểm |
 | B22 | Trạng thái đã sửa/đã kiểm/chủ trì duyệt/phát hành tách biệt; không sửa receipt cũ và không kế thừa PASS sai phạm vi | 02/4; 03 | Chưa điền | Chưa kiểm |
@@ -84,3 +84,5 @@ Nêu phần đã đạt, phần cần sửa/chưa kiểm và ngoại lệ có c�
 
 
 Nhãn khi chuyển QMD/HTML: áp 07/6.2, quy tắc Nhãn ngữ cảnh theo cấp chứa ngày 17/10/2026. Bài học → MẠCH HỌC CHÍNH; Khởi động → MẠCH HỌC CHÍNH · BÀI HỌC; nhiệm vụ Khởi động thêm KHỞI ĐỘNG ở cuối. Không dùng bảng nhãn mỹ thuật cũ làm mẫu. Kiểm kê owner/tiêu đề/nhãn trước–sau, dấu chấm nhỏ, cùng kiểu .role và quan hệ đề–lời giải; giữ loại/chức năng/số trong metadata.
+
+Bổ sung B19 theo 07/6.1.2, 02/2.5: phải có ma trận tài nguyên theo vai trò; hình trong bài/bìa đối chiếu riêng, cấu hình surface/cỡ tường minh; BBT đi qua JSON/bộ dựng native, có đối sánh mốc/dấu/giới hạn/điểm loại/hàng thật; bằng chứng thử âm và xem desktop/mobile: đồ thị theo G03, BBT theo gói có bảng cùng vai trò. Không đánh Đạt chỉ vì cùng profile 0.4, cùng CSS, đủ hash hoặc kind=variation. Áp dụng cả bản thảo, không đẩy thiếu sót này tới bước QMD.

@@ -115,3 +115,14 @@ Các lỗi nội dung/đường học chưa sửa phải có ID, vị trí, ch�
 ### Hiệu chỉnh nhãn ngày 17/10/2026
 
 07/6.2 sở hữu quy tắc nhãn cấp chứa; label_contract.display_contract.context_labels sở hữu từ vựng ghép ngữ cảnh; zo_course_labels.py áp dụng/kiểm. Binding gói sở hữu mode, owner và checkpoint_context. r1-consistency.json/page_roles và nhãn riêng của adapter cũ chỉ tương thích gói chưa di trú, không là chuẩn mới. G04 là phạm vi sản phẩm đang sửa; không suy kiểm kê G01–G03 thành quyền tái xuất bản. 03 tiếp tục sở hữu trạng thái và việc tiếp theo.
+
+### Khép lỗi tài nguyên toán G04 ngày 17/10/2026
+
+07/6.1.2 sở hữu vai trò và component; 02/2.5 sở hữu bước nạp trước viết/chuyển QMD và nghiệm thu. course-math-assets.json là binding máy, zo_course_math_assets.py thực thi; công cụ dựng vẫn ở ZO Math Graphics qua adapter. Gói chỉ sở hữu dữ liệu, nguồn sinh và receipt đúng phiên bản. Không lấy lựa chọn surface của bản G04 cũ, bảng kiểm PASS hoặc JSON rỗng G03 làm thẩm quyền thiết kế. Bản thảo/bìa đã duyệt giữ nguyên; 03 ghi bản sửa đang xem và các giới hạn.
+
+### DRAWER-ICON01
+
+07/6 sở hữu nút mục lục chỉ icon; kit/hop_dong_vung_doc.md ghi hợp đồng đã chốt. Template/CSS/site-ui.js sở hữu hiện thực độc lập với downloads; zo_web_2027_shell.py là cổng dùng chung ở template và post-render. 02 sở hữu kiểm bàn giao; 03 sở hữu trạng thái. Đoạn tương thích trong mô-đun PDF G01/G02 không là nguồn chuẩn cho gói mới.
+
+
+GRAPH-G03-01: 07/6.1.2 sở hữu khung/tỉ lệ đồ thị do chủ trì chọn; `../zo_math_graphics/graph/profiles/lesson-g03.json` là thông số công cụ duy nhất, `zo_graphics.py` nối công cụ và đặt cỡ, `production-figures.css` hiển thị. G01/G02/G03/G04 và gói mới áp dụng; bản chụp G03 trước sửa là đối chứng. GRAPH-G03-02 giữ nguồn vẽ nhưng sửa lớp hiển thị năm ảnh, không coi đối chứng là lệnh giữ lỗi. Chỉ thay phần cỡ tự nhiên trước đó; không thay BBT hoặc bìa, không suy PDF/phát hành.
