@@ -88,7 +88,7 @@ def predicates(doc, data):
     checks['warmup and self-check use G01 task-title role'] = all(root.find(id=u['question']).select_one('.r1-task-label') for u in data['units'] if u['function'] in ['function.warmup','function.self_check'])
     checks['checkpoint short title with binding context'] = all(root.find(id=a).find(['h3','h4']).get_text(' ',strip=True)=='Điểm dừng' for a in data['checkpoints'])
     checks['three-stage overview uses the shared table component'] = bool(root.select_one('#r1-g02-table-t11.r1-table')) and len(root.select('#r1-g02-table-t11 tbody tr')) == 3
-    checks['no redundant foundation outer label'] = not root.select('#on-nen .reading-region > [data-reading-label]')
+    checks['foundation parent context labels valid'] = all(n.get_text(' ',strip=True).startswith('HỖ TRỢ KHI CẦN') for n in root.select('#on-nen [data-reading-label]'))
     checks['no heading duplicates its outer label'] = all(not p.find(['h2','h3','h4','h5']) or not p.find(attrs={'data-reading-label':True},recursive=False) or p.find(['h2','h3','h4','h5']).get_text(' ',strip=True).casefold()!=p.find(attrs={'data-reading-label':True},recursive=False).get_text(' ',strip=True).casefold() for p in root.select('.reading-region'))
     ids = [n['id'] for n in doc.select('[id]')]
     checks['unique DOM IDs'] = len(ids) == len(set(ids))
@@ -134,7 +134,7 @@ def situations(doc):
         'DH03':(link('g02-khoi-dong-01','lg-g02-khoi-dong-01') and link('lg-g02-khoi-dong-01','g02-khoi-dong-01'),['g02-khoi-dong-01','lg-g02-khoi-dong-01']),
         'DH04':('xem lại đúng lời giải thích hoặc ví dụ trong Bài học' in help_text and 'Nếu đã nắm phần học' in guide,['phieu-luyen','g02-ho-tro-khi-can','bai-hoc']),
         'DH05':(link('cp-lt1','nen-n-dh-01'),['cp-lt1','nen-n-dh-01','nen-n-dh-01-xn01']),
-        'DH06':(all(link('cp-lt1',t) and root.find(id=t).find_parent(id='sua-loi') and root.find(id=t).get('data-zo-function')=='function.remediation' and 'SỬA LỖI • SAU LUYỆN TẬP' in text(t) for t in ['s00','s01','s02']) and 'Nếu đã đáp ứng tiêu chí, không cần qua mọi nhánh hỗ trợ' in help_text,['cp-lt1','sua-loi-sau-luyen-tap','s00','s01','s02']),
+        'DH06':(all(link('cp-lt1',t) and root.find(id=t).find_parent(id='sua-loi') and root.find(id=t).get('data-zo-function')=='function.remediation' and 'SỬA LỖI · SAU LUYỆN TẬP' in text(t) for t in ['s00','s01','s02']) and 'Nếu đã đáp ứng tiêu chí, không cần qua mọi nhánh hỗ trợ' in help_text,['cp-lt1','sua-loi-sau-luyen-tap','s00','s01','s02']),
         'DH07':(all(t in guide for t in ['Trong lúc Kiểm tra, phải tự lực hoàn toàn','không dùng Bài học, Ôn nền, Lời giải hoặc Sửa lỗi','kết thúc lượt kiểm tra']) and all(t in text('tu-kiem-tra') for t in ['chuẩn bị kĩ lưỡng hoặc đủ tự tin','không chia thành nhiều đợt','kết quả sau hỗ trợ']),['cách-học-với-tài-liệu-này','tu-kiem-tra']),
         'DH08':(all(link('cp-kt',t) for t in ['đọc-kết-quả-tự-kiểm-tra','sua-loi-sau-kiem-tra','on-nen']) and 'bài làm ban đầu' in text('cp-kt'),['cp-kt','đọc-kết-quả-tự-kiểm-tra','sua-loi-sau-kiem-tra','on-nen']),
         'DH09':('Bài học, Luyện tập, Ôn lại và sau khi kết thúc Kiểm tra' in guide and link('cp-on2','nen-n-gh-01'),['cách-học-với-tài-liệu-này','cp-on2','bai-hoc','on-nen']),

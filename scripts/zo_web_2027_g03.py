@@ -154,16 +154,6 @@ def adapt(path, output_root):
         scripts='<script src="r1-controller.js"></script><script src="site-ui.js"></script>')
     result=BeautifulSoup(rendered,"html.parser")
     apply_labels(result,binding,{})
-    page_labels=json.loads((KIT/"profiles/r1-consistency.json").read_text(encoding="utf-8"))["page_roles"]
-    from zo_course_labels import put_label
-    for ident,title in ROLES.items():
-        section=result.find(id=ident)
-        heading=section.find("h2")
-        if heading is not None and title in page_labels and ident!="tu-kiem-tra":
-            put_label(result,heading,page_labels[title])
-    # Match the accepted G01 source-area label (its policy uses the old title).
-    put_label(result,result.find(id="nguon").find("h2"),page_labels["Nguồn đối chiếu"])
-    put_label(result,result.find(id="khởi-động").find("h3"),"Bài học · Khởi động")
     fallback=result.new_tag("noscript");nav=result.new_tag("nav",attrs={"aria-label":"Các phần của học liệu"})
     for anchor,label in ROLES.items():
         para=result.new_tag("p");a=result.new_tag("a",href="#"+anchor);a.string=label;para.append(a);nav.append(para)

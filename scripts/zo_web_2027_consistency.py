@@ -52,7 +52,11 @@ def apply_editorial_policy(document):
     policy=json.loads((KIT/'profiles/r1-consistency.json').read_text(encoding='utf-8'))
     root=document.select_one('.reader-content')
     if root is None:raise ValueError('Common editorial policy requires a reader')
-    for heading in root.select('h2'):
+    binding_path=ROOT/'content/thpt/on_thi_toan_thpt/hoc_lieu'/root['data-r1-code'].lower().replace('-','_')/'giao_dien/he_nhan.json'
+    data=json.loads(binding_path.read_text(encoding='utf-8'))
+    from zo_course_labels import apply_context_labels
+    apply_context_labels(document,data)
+    for heading in ([] if root.has_attr("data-zo-context-labels") else root.select('h2')):
         title=heading.get_text(' ',strip=True)
         prior=heading.find_previous_sibling(attrs={'data-reading-label':True})
         if title=='Kiểm tra':
@@ -70,14 +74,14 @@ def apply_editorial_policy(document):
 def require_editorial_policy(document):
     policy=json.loads((KIT/'profiles/r1-consistency.json').read_text(encoding='utf-8'))
     root=document.select_one('.reader-content')
-    for title in ['Bắt đầu','Bài học','Luyện tập','Ôn lại','Sửa lỗi','Nguồn']:
+    for title in ([] if root.has_attr('data-zo-context-labels') else ['Bắt đầu','Bài học','Luyện tập','Ôn lại','Sửa lỗi','Nguồn']):
         heading=next((n for n in root.select('h2') if n.get_text(' ',strip=True)==title),None)
         label=heading.find_previous_sibling(attrs={'data-reading-label':True}) if heading else None
         if not label or label.get_text(strip=True)!=policy['page_roles'][title]:
             raise ValueError('Common area label missing: '+title)
     if document.title.get_text()!=root['data-r1-title']+' — ZO Math':
         raise ValueError('Browser title differs from common contract')
-    for heading in root.select('h2'):
+    for heading in ([] if root.has_attr('data-zo-context-labels') else root.select('h2')):
         if heading.get_text(strip=True)=='Kiểm tra' and heading.find_previous_sibling(attrs={'data-reading-label':True}):
             raise ValueError('Assessment must not inherit lesson self-check label')
     for label in root.select('[data-reading-label]'):
@@ -91,6 +95,8 @@ def require_editorial_policy(document):
     binding_path=ROOT/'content/thpt/on_thi_toan_thpt/hoc_lieu'/root['data-r1-code'].lower().replace('-','_')/'giao_dien/he_nhan.json'
     data=json.loads(binding_path.read_text(encoding='utf-8'))
     examples=data.get('editorial_examples') or [n for n in data.get('knowledge_units',[]) if n['type']=='type.example'] or data.get('examples',[])
+    from zo_course_labels import context_html_checks, require
+    require(context_html_checks(document,data),"parent-context HTML")
     for number,example in enumerate(examples,1):
         node=root.find(id=example['anchor'])
         title=re.search(r'Ví dụ\s+(\d{2})\s+—\s+([^\n]+)',node.get_text(' ',strip=True)) if node else None

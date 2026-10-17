@@ -1,0 +1,52 @@
+schema_version: 1
+project:
+  id: on_thi_r1_g04
+  name: Khảo sát sự biến thiên và vẽ đồ thị của hàm số
+  root: content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g04
+discovery:
+  article_types:
+  - id: on_thi_package
+    include:
+    - index.qmd
+    exclude: []
+profiles:
+  directory: _quy_trinh/ho_so
+  naming: by_article_stem
+  required: true
+modules:
+  required:
+  - qmd-core
+  - zo-html-pdf
+  optional: []
+metadata:
+  core_required:
+  - title
+  - draft
+  project_required: []
+  body_classes_required:
+  - zo-page-article
+  - zo-meta-hidden
+  placeholders: []
+publication:
+  production_states:
+  - draft
+  - in_production
+  - validated
+  - accepted
+  publication_states:
+  - pending
+  - published
+  user_confirmation_required: true
+references:
+  controlling_documents:
+  - _quy_trinh/README.md
+  templates: []
+  theory_sources: []
+  quality_exemplars: []
+regression:
+  articles:
+  - index.qmd
+  expected_checker_version: 2.6.0
+  preserve_cli: true
+extensions:
+  artifact_identity: path

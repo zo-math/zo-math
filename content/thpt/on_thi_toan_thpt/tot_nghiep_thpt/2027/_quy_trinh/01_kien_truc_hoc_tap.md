@@ -226,5 +226,8 @@ Giữ mã đã tồn tại nếu còn đúng vai trò. Không đổi mọi mã c
 Nguồn dự án và ba nghiên cứu bổ sung được ghi tại [Nguồn và chuyển tiếp](06_nguon_va_chuyen_tiep.md). Các phát biểu về cơ sở khoa học ở Mục 2.9 dẫn tới mục tài liệu tham chiếu trong tệp ấy. [Quy trình nghiệm thu](02_quy_trinh_va_nghiem_thu.md) xác định cách kiểm kiến trúc trong sản phẩm.
 ## Bổ sung từ vựng QD_025
 
-Gợi mở (`function.guided_thinking`) là chức năng Nhiệm vụ yêu cầu thử suy nghĩ trước lời giải thích của Bài học, không phải Tự kiểm tra sau học. Có dãy số riêng toàn nhóm; phần giảng ngay sau là hướng dẫn, không tạo đáp án trùng hoặc bằng chứng độc lập mới. Nghĩa này bổ sung danh mục QD_023; không thay đường học QD_021 hoặc quyền bắt đầu Kiểm tra QD_024.
+Gợi mở (`function.guided_thinking`) là chức năng Nhiệm vụ yêu cầu thử suy nghĩ trước lời giải thích của từng mục kiến thức trong Bài học, không phải Tự kiểm tra sau học. Mỗi nhiệm vụ Gợi mở thuộc đúng mục kiến thức mà nó dẫn vào: đặt sau Cách thực hiện và trước phần giải thích/định nghĩa/ví dụ; phản hồi hoặc cầu nối nằm tại chỗ. Không gom thành mục Gợi mở chung ngang cấp với Khởi động hoặc Bài học. Khởi động thuộc Bài học và giữ chức năng tự kiểm nền riêng. Gợi mở có dãy số liên tục riêng toàn nhóm, không đặt lại theo mục; phần giảng ngay sau là hướng dẫn, không tạo đáp án trùng hoặc bằng chứng độc lập mới. Nghĩa này bổ sung danh mục QD_023; không thay đường học hiện hành QD_033 hoặc quyền bắt đầu Kiểm tra QD_024. Số nhiệm vụ theo nội dung từng gói, không sao số lượng của gói đối chứng.
 
+### Hiển thị nhãn theo cấp chứa, 17/10/2026
+
+Hiệu chỉnh theo chỉ thị chủ trì: Bài học → MẠCH HỌC CHÍNH; Khởi động → MẠCH HỌC CHÍNH · BÀI HỌC. Đây là quy tắc trình bày ở 07/6.2, không đổi chức năng QD_025, số nhiệm vụ hoặc tạo chuỗi bắt buộc. Metadata giữ loại/chức năng; nhãn nhìn thấy chỉ ngữ cảnh cấp cha và chặng/lượt/nơi phát hiện. G04 và gói dựng mới dùng context_labels: parent-context-v1; nhãn cũ chưa di trú không làm mẫu mới.

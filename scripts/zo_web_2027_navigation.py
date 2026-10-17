@@ -28,11 +28,13 @@ def destinations(output_root, page, current=None):
         raise ValueError('Course navigation bindings must be updated for the current catalog')
     result = []
     entries=dict(PAGES)
+    if current == "g04":
+        entries["g04"]=(BASE / "hoc_lieu/r1_g04/index.html", "Khảo sát sự biến thiên và vẽ đồ thị của hàm số")
     for key, (relative, label) in entries.items():
         if not (ROOT / relative.with_suffix('.qmd')).is_file():
             raise ValueError(f'Missing canonical destination: {relative}')
         href = os.path.relpath(output_root / relative, page.parent).replace('\\', '/')
-        if key in ('g01', 'g02', 'g03'):
+        if key in ('g01', 'g02', 'g03', 'g04'):
             href += '?r1-view=bat-dau#bat-dau'
         result.append((key, href, label))
     return result

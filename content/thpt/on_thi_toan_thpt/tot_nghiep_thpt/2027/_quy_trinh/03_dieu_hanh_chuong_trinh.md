@@ -30,6 +30,26 @@ Giới hạn kiểm: chưa in giấy/quét QR bằng điện thoại/phản bi�
 
 ## A. Công việc đang mở
 
+**PARENT-LABEL-G01-G03 — đồng bộ nguồn, chưa phát hành lại, 17/10/2026.**
+
+- Chủ trì giao áp dụng quy tắc cấp chứa cho các trang trước và commit mốc này; chưa xuất bản lại hoặc tạo lại PDF.
+- Đã đồng bộ G01/G02/G03, cùng bộ ghép với G04; giữ nguyên QMD, nội dung, ID, số, hình và PDF. HTML cô lập có 215/192/176 nhãn; kiểm riêng 1066/1066, 953/953, 1222/1222; cổng cũ 209/209, 332/332, 1263/1263. Trình duyệt 315/315 ở 1440/430/390 px. [Hồ sơ tổng hợp](ho_so_dong_bo_nhan_20261017.json), README từng gói dẫn HTML thực tế.
+- 1564 tệp bảo toàn (docs, nguồn QMD, hình, PDF, Git index trước stage) không đổi. Thẻ PDF ở bản xem phản ánh provenance thật; không sửa receipt/hash để nhận CURRENT. Các trạng thái phát hành trước đây không chứng nhận ứng viên nhãn này.
+- Mốc nguồn R1-G04 và toàn bộ hiệu chỉnh liên quan của phiên được giao commit cục bộ. Bước tiếp theo: chủ trì xem các HTML mới. Chưa push, phát hành lại hoặc PDF mới.
+
+
+**R1-G04 — đã chuyển QMD và kiểm HTML; chờ chủ trì xem đầu ra, 17/10/2026.**
+
+- Chủ trì bác phần trình bày của bản 0.1: chính văn kể căn cứ SGK và đồ thị chưa theo ngôn ngữ ZO Math. Các kết quả kiểm tính/liên kết trước đó không chứng nhận biên tập/thị giác; không kế thừa kết luận Đạt của 0.1.
+- Đã sửa [bản thảo duy nhất 0.2](../../../hoc_lieu/r1_g04/_quy_trinh/ban_thao/noi_dung.md): phát biểu trực tiếp, chú thích .zo-source-note đúng quy cách; sửa ngoặc chứa căn/phân số, vai trò khối lời giải và bỏ câu giải thích biên tập. Giữ phạm vi, toán, ID, năm Gợi mở trong năm mục và 28 cặp đề–lời giải.
+- Đã thay bộ sinh Matplotlib bằng công cụ đồ thị ZO Math/profile 0.4 trong chính ban_thao/hinh/, dựng và xem 35 SVG nền trong suốt; chỉ dựng lại hình chịu ảnh hưởng khi sửa nhãn. PDF vector chuyển đổi là trung gian tạm và được dọn, không dựng PDF học liệu.
+- [Hồ sơ kiểm lượt sửa](../../../hoc_lieu/r1_g04/_quy_trinh/ho_so/ra_soat_trinh_bay_20261017.md) và JSON cùng tên thay kết luận trình hiện hành; hồ sơ 0.1 giữ đúng mốc/hash cũ. 02/07/mẫu/04/08 đã nối yêu cầu chú thích, kí pháp và thiết kế ngay từ bản thảo; mẫu nội dung 1.1, bảng kiểm 1.2. Không thay sản phẩm G01–G03.
+- Chủ trì đã xem bản thảo 0.2 và trả lời chưa phát hiện vấn đề; sau đó duyệt ảnh trong phương án làm bìa bằng câu “OK. Mình duyệt ảnh này làm ảnh bìa.” [Hồ sơ ghi nhận](../../../hoc_lieu/r1_g04/_quy_trinh/ho_so/duyet_ban_thao_va_anh_bia_20261017.json) giữ đúng lời, tệp và hash. Ảnh bìa là đúng byte VD05 đã được liên kết; manifest riêng của gói đã qua cổng ảnh.
+- Đã chuyển một nguồn QMD ứng viên, nối mẫu trang, QD025/QD030, Nhật kí chung và manifest kiến trúc; bản thảo/ảnh đã duyệt giữ nguyên. HTML cô lập qua CLI QMD không lỗi/cảnh báo; kiểm HTML 715/715, trình duyệt 234/234 ở 1440/430/390 px; 35 SVG chính thức khớp hình đã xem. [Bản xem và hồ sơ bàn giao](../../../hoc_lieu/r1_g04/_quy_trinh/ho_so/kiem_qmd_html_20261017.md).
+- Hiệu chỉnh nhãn theo chỉ thị chủ trì: đã kiểm kê 79 nhãn/21 cách ghi và thay bằng nhãn cấp chứa cho đủ 121 tiêu đề; Bài học → MẠCH HỌC CHÍNH, Khởi động → MẠCH HỌC CHÍNH · BÀI HỌC. Quy tắc dùng lại tại 07/6.2, danh mục sở hữu giá trị, bộ gán chung thay chuỗi riêng trong adapter. [Bản HTML hiện hành và kiểm kê đầy đủ](../../../hoc_lieu/r1_g04/_quy_trinh/ho_so/hieu_chinh_nhan_20261017.md); HTML 989/989, trình duyệt 138/138, hồi quy/thử lỗi 12/12. Các kết quả nhãn của mốc chuyển nguồn bên trên giữ đúng mốc trước sửa. G01–G03 đã di trú nguồn theo chỉ thị tiếp theo; sản phẩm công khai nguyên trạng; QMD/hình/PDF không đổi.
+- Bước tiếp theo: chủ trì xem HTML thực tế. Chưa duyệt đầu ra, chưa PDF học liệu, commit/push/xuất bản. Không thay docs/danh mục công khai; 1404 tệp docs và Git index được bảo toàn, chín sản phẩm đối chứng không đổi. Ba lỗi đường dẫn hình G01 đã ghi trước tiếp tục ngoài phạm vi.
+
+
 **RELEASE-R1-20261017 — xuất bản ba gói và kết sổ.**
 
 - Chủ trì trực tiếp giao tái xuất bản G01/G02, xuất bản G03 và vệ sinh repo

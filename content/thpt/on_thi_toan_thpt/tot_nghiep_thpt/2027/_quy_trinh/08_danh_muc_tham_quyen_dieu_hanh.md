@@ -6,15 +6,20 @@
 
 **QD_032:** 07 sở hữu điều hướng toàn khóa học; `_data/chuong_trinh.yml` sở hữu danh mục, `zo_web_2027_navigation.py` sở hữu binding hiển thị/URL hiện hữu, kit sở hữu CSS/JS và checker sở hữu kiểm kỹ thuật. Bốn adapter gọi cùng module; không lấy mẫu audit làm chuẩn/runtime thứ hai. 03 sở hữu DH_027 và trạng thái HTML. Phân cấp tiêu đề chưa được duyệt, không có quy tắc mới thay cấp hiện hành.
 
-Phiên bản: 0.10 · Ngày: 16/10/2026 · Căn cứ: QD_019, phần còn hiệu lực của QD_021, QD_022–032, QD_033, QD_034, QD_035 và QD_036.
+Phiên bản: 0.11 · Ngày: 17/10/2026 · Căn cứ: QD_019, phần còn hiệu lực của QD_021, QD_022–032, QD_033, QD_034, QD_035 và QD_036.
 
 **QD_033:** 01 sở hữu Bài học → Luyện tập → Kiểm tra → Ôn lại là tiến trình chuẩn được khuyến nghị nhưng không cưỡng chế hoàn thành tuần tự, cùng quyền chọn điểm vào, hỗ trợ độc lập, tự lực trong lượt Kiểm tra và phân biệt bằng chứng/Nhật kí; 07 sở hữu cách thể hiện cùng ngoại lệ liên kết tại chỗ; 02 sở hữu cơ chế thay thế. Registry chọn `learning_route`/QD_033, không lấy audit profile QD_021 làm xác nhận QMD/HTML hiện hành. Công việc/trạng thái/bước tiếp chỉ đọc mục A của 03; không phục hồi quy tắc cũ từ hồ sơ hay báo cáo giữ lịch sử.
+
+Làm rõ QD_025/QD_036 ngày 17/10/2026: 01 sở hữu quan hệ Gợi mở thuộc từng mục kiến thức trong Bài học; 07 sở hữu cách giữ cấp mục trong tiêu đề/mục lục/điều hướng; danh mục nhãn cụ thể hóa cùng nghĩa. Bảng kiểm bản thảo 1.1 ghi đường dẫn cha–con; mẫu bản thảo 1.0 đã đúng nên giữ nguyên. Hồ sơ G03 có bảng phân bổ hiện hành và cảnh báo mục 11–13 là lịch sử đã bị thay; không sửa bản thảo đã giữ làm căn cứ, receipt hoặc HTML/PDF. Không lấy hàng kiểm kê chức năng làm cấp mục.
 
 QD_025 mở rộng hệ nhãn QD_023 bằng Gợi mở, áp dụng toàn chương trình. Chủ sở hữu từ vựng/quan hệ vẫn ở danh mục/01, hiển thị ở 07. G01 đã áp dụng bản chốt vào QMD; `giao_dien/he_nhan.json` là binding hiển thị canonical của G01, không là từ điển hoặc nguồn toán thứ hai. `zo_r1_g01_labels.py` và `zo_r1_g01_labels_check.py` thực thi/kiểm phép chiếu; `zo_r1_g01_rebind.py` chỉ là thao tác di trú layout tường minh, không phụ thuộc build thông thường. G02 đã di trú tại DH_016 bằng binding riêng `giao_dien/he_nhan.json` và `zo_r1_g02_labels_check.py`; helper chung nhận binding G02 tường minh, mặc định G01 không đổi. Kiểm kê từ nguồn tươi nằm trong audit, không là nguồn build thứ hai. Không tuyên bố CLI di trú G01 đã tự hỗ trợ mọi gói. Trạng thái từng gói ở 03/profile, không suy từ cùng CSS.
 
 Đây là sổ phân vai tài liệu, không phải một bộ quy tắc hoặc roadmap thứ hai. [README](README.md) là điểm vào; [03](03_dieu_hanh_chuong_trinh.md) sở hữu công việc và trạng thái tổng hợp. Đường dẫn có tiền tố `content/`, `_design/`, `_projects/`, `scripts/`, `assets/` và `quy_trinh_xay_dung/` dưới đây tính từ gốc repo.
 
 QD_028 bổ sung phân biệt chức năng nhánh tại 01/2.5.1 và danh mục nhãn, quy trình đối sánh tại 02/1.3, hiển thị tại 07 và ánh xạ tại chuẩn QMD. Không tạo quy chuẩn riêng từ báo cáo nghiên cứu. DH_021 là mốc đối sánh lịch sử; việc hiện hành của hai gói và toàn khóa chỉ lấy từ mục A của 03. Hồ sơ và báo cáo mới không thay receipt lịch sử.
+
+
+**Bổ sung vận hành bản thảo ngày 17/10/2026:** 07/6.3 giữ yêu cầu chính văn phát biểu trực tiếp và không miễn thiết kế cho hình nháp; quy chuẩn gói giữ quy cách .zo-source-note; 02/1.4 bắt buộc nạp trước viết/rà. Mẫu nội dung hiện hành 1.1, bảng kiểm 1.2. Ghi chép 1.0/1.1 ở đoạn Gợi mở phía trên chỉ mô tả mốc hiệu chỉnh trước đó. Không sửa sản phẩm G01–G03 hoặc nâng Design 0.5 trong lượt G04 này.
 
 ## 1. Một vấn đề, một nguồn có thẩm quyền
 
@@ -106,3 +111,7 @@ QD_023 thay cách xem nhãn chỉ là chữ trang trí, suy chức năng từ he
 Theo [02](02_quy_trinh_va_nghiem_thu.md): ghi quyết định → xác định tài liệu bị ảnh hưởng → cập nhật chủ sở hữu và các bản tham chiếu/trạng thái máy đọc → kiểm liên kết, mâu thuẫn, trạng thái đúng bản và bảo toàn ngoài phạm vi → ghi bằng chứng ở 03. Không chỉ thêm lời tổng kết trên một README.
 
 Các lỗi nội dung/đường học chưa sửa phải có ID, vị trí, chủ sở hữu và trạng thái riêng trong hồ sơ gói. Đồng bộ tài liệu không là nghiệm thu học liệu, không là xác nhận HTML/PDF/live đã đồng bộ.
+
+### Hiệu chỉnh nhãn ngày 17/10/2026
+
+07/6.2 sở hữu quy tắc nhãn cấp chứa; label_contract.display_contract.context_labels sở hữu từ vựng ghép ngữ cảnh; zo_course_labels.py áp dụng/kiểm. Binding gói sở hữu mode, owner và checkpoint_context. r1-consistency.json/page_roles và nhãn riêng của adapter cũ chỉ tương thích gói chưa di trú, không là chuẩn mới. G04 là phạm vi sản phẩm đang sửa; không suy kiểm kê G01–G03 thành quyền tái xuất bản. 03 tiếp tục sở hữu trạng thái và việc tiếp theo.

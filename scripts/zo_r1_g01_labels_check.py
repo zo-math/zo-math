@@ -7,6 +7,7 @@ from pathlib import Path
 import re
 from urllib.parse import unquote
 from bs4 import BeautifulSoup
+from zo_course_labels import context_unit_label
 from zo_web_2027_production import ROOT, PACKAGE, PLAN, sha, norm, content_fingerprint
 from zo_learning_architecture import load_yaml
 from zo_2027_governance_check import governance_context
@@ -104,7 +105,7 @@ def predicates(doc, bindings):
             context=node
             if key=='answer' and ident=='lg-cg01' and node:
                 context=node.find_parent('details')
-            checks[unit['id']+'/'+key+' identity/label/title']=bool(node and context and node.get('data-zo-task')==unit['id'] and node.get('data-zo-function')==unit['function'] and unit['title'] in context.get_text(' ',strip=True) and unit['label'] in context.get_text(' ',strip=True))
+            checks[unit['id']+'/'+key+' identity/label/title']=bool(node and context and node.get('data-zo-task')==unit['id'] and node.get('data-zo-function')==unit['function'] and unit['title'] in context.get_text(' ',strip=True) and context_unit_label(unit,key,bindings) in context.get_text(' ',strip=True))
             if key=='answer':
                 from zo_r1_g01_labels import local_answer_pair
                 q=root.find(id=unit['question']);local=local_answer_pair(q,node)

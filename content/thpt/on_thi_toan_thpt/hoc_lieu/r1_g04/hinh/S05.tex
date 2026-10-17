@@ -1,0 +1,33 @@
+% Generated from du_lieu/hinh_do_thi.json; edit data or _quy_trinh/sinh_hinh.py.
+% Purpose: Confirm the cubic survey after delayed review.
+% Profile: ZO Math 0.4, transparent-light; equal coordinate units.
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{backgrounds,arrows.meta}
+\input{zo_graph_v02.tex}
+\begin{document}
+\begin{tikzpicture}[zo graph v02 field]
+\zoGraphVTwoLayers
+\begin{axis}[zo graph v02 axis,
+width=9.5cm,height=9.5cm,
+xmin=-6,xmax=2,ymin=-6,ymax=2,
+restrict y to domain=-6:2,unbounded coords=jump,
+xtick={-3,-2,-1},ytick={-4,-2},
+xlabel={$x$},ylabel={$y$},
+every axis x label/.append style={at={(axis description cs:1,0.75)},anchor=south west,xshift=5pt,yshift=4pt},
+every axis y label/.append style={at={(axis description cs:0.75,1)},anchor=south west,xshift=4pt,yshift=4pt}
+]
+\node[zo graph v02 font sentinel] at (axis cs:0,0) {x};
+\addplot[zo graph v02 curve solid,domain=-6:2,samples=501,forget plot] {x^3+6*x^2+9*x};
+\addplot[zo graph v02 point,forget plot] coordinates {(-3,0) (-1,-4) (0,0)};
+\addplot[only marks,mark=x,mark size=2.3pt,draw=zoGraphVTwoText,line width=0.6pt,on layer=zoGraphVTwoMarkerLayer,forget plot] coordinates {(-2,-2)};
+\begin{pgfonlayer}{zoGraphVTwoTextLayer}
+\node[zo graph v02 protected label,anchor=south west,xshift=7pt,yshift=7pt] at (axis cs:-2,-2) {$I$};
+\node[zo graph v02 tick label,anchor=north east,xshift=-3pt,yshift=-3pt] at (axis cs:0,0) {$O$};
+\end{pgfonlayer}
+\end{axis}
+\end{tikzpicture}
+\end{document}

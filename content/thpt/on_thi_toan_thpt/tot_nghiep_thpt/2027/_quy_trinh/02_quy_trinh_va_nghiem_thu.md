@@ -63,6 +63,8 @@ Mỗi lỗi đã xử lí phải ghi triệu chứng, nguyên nhân đã kiểm,
 
 Theo chốt của chủ trì ngày 16/10/2026, khi giao viết/rà/sửa bản thảo gói R1 của khóa 2027 bằng ngôn ngữ tự nhiên, agent tự nạp [mẫu bản thảo](mau/ban_thao_goi.md) và [bảng kiểm](mau/bang_kiem_ban_thao_goi.md), cùng 01/07 và hồ sơ gói. Ví dụ “Viết bản thảo gói R1-G04” đã đủ để gọi quy trình; không yêu cầu chủ trì nhớ tên tệp hay câu lệnh. D0, tài nguyên Nền hoặc loại khác phải chọn hợp đồng phù hợp, không ép vào mẫu R1.
 
+**Nạp quy cách trình bày trước viết/rà:** đọc thêm mục “Công thức và nguồn đối chiếu” của quy chuẩn gói, quy chuẩn ngoặc LaTeX, hướng dẫn khối nội dung, 07/6.1 và 6.3. Có hình thì đọc hướng dẫn công cụ đồ thị ZO Math/profile 0.4 được 07 dẫn. Áp dụng ngay trong bản thảo; không chờ chuyển QMD mới sửa chú thích hoặc hình. Chính văn và provenance có vai trò khác nhau: nêu nội dung trực tiếp, dẫn nguồn bằng chú thích chuẩn, lưu quá trình đối chiếu trong hồ sơ. Số kiểm tính toán/liên kết không chứng nhận đạt biên tập hay thị giác.
+
 1. Trước viết: xác minh nguồn, phiên bản mẫu và bản G01/G02 đang dùng; hoàn thành phần A cùng bản đồ tương ứng từng chức năng. Đọc kĩ các phần liên quan của gói mẫu và tài liệu chính thức. Khác biệt phải nêu nội dung, lí do và phạm vi; khác biệt ảnh hưởng cấu trúc/chức năng đã chốt cần trình chốt trước khi viết phần đó, vẫn tiếp tục phần độc lập đã được giao. Không sao cứng số bài/mục/hình hoặc mã riêng của gói trước.
 2. Viết vào đúng `hoc_lieu/<ma_goi>/_quy_trinh/ban_thao/noi_dung.md`; tài nguyên ở vùng bản thảo đã thống nhất. Thực hiện tổ chức tệp theo quy chuẩn gói, không tạo nơi lưu trữ mới hoặc gói tương lai. Ghi phiên bản mẫu áp dụng trong hồ sơ, không sao toàn bộ bộ mẫu thành nhiều bản sửa độc lập.
 3. Trước trình: đọc toàn bản, hoàn thành phần B bằng tệp/mục/anchor và kết quả thực; kiểm ý nghĩa tuyến hỗ trợ, độ phủ câu còn mới, đề–lời giải, điểm thành phần và từng hình. Đếm số, liên kết tồn tại hoặc kiểm vector không thay kiểm mục tiêu và xem trực quan. Khép lỗi chịu ảnh hưởng trước khi báo đạt; phần được chủ trì cho hoãn phải có căn cứ, đích xử lí và điều kiện khép, không ghi Đạt.
@@ -218,3 +220,7 @@ adapter: thi?u khai b?o, ?nh ngo?i g?i, ?nh ch?a duy?t, hash sai, tr?ng ?nh
 binding v? b?n ?nh; m?c ?? ??i di?n do agent ?? xu?t v? ch? tr? ??nh gi?.
 Kh?ng c? ?nh m?c ??nh khi thi?u khai b?o. Ki?m tr?c quan sau d?ng v?n c?n
 x?c nh?n ?nh ??ng n?i dung, trong su?t, kh?ng m?o/c?t ? m?n h?nh r?ng/h?p.
+
+### Bổ sung cổng nhãn cấp chứa, 17/10/2026 (mục 2.4)
+
+Khi dựng/hiệu chỉnh nhãn, nạp quy tắc 07/6.2 và label_contract.display_contract.context_labels. Kiểm kê owner/tiêu đề/nhãn trước–sau; G04 và gói mới khai context_labels: parent-context-v1. Cổng nguồn/HTML kiểm cấp cha, dấu “ · ” và nhãn cùng vùng; không chép nhãn riêng của adapter hoặc lấy giá trị tương thích cũ làm mẫu. Kiểm phần nhãn/bố cục/điều hướng chịu ảnh hưởng; không dựng lại hình/PDF. Bằng chứng và việc tiếp theo ở hồ sơ gói/03. Hiệu chỉnh hiển thị không đổi nghĩa toán, ID hoặc dãy số.

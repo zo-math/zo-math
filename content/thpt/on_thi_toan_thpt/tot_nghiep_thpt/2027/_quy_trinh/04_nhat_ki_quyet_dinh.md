@@ -5,6 +5,21 @@ Phiên bản: 0.2 · Cập nhật: 16/10/2026.
 Chỉ ghi quyết định có ảnh hưởng lâu dài; không chép hội thoại hay log lệnh. Bảng điều hành ghi việc hiện hành. [Điểm vào](README.md).
 
 
+## Làm rõ QD_036 — Kiểm trình bày ngay trong bản thảo, 17/10/2026
+
+- Căn cứ: chủ trì bác bản thảo G04 0.1 vì chính văn kể nguồn biên soạn và đồ thị sai ngôn ngữ thiết kế; yêu cầu được áp dụng ngay trong lượt hiệu chỉnh.
+- Quy cách .zo-source-note đã có trong quy chuẩn gói; không phải thiếu chuẩn để tự chọn lối dẫn. Bộ sinh Matplotlib riêng đã thay style/phông/màu/nét dùng chung mà chưa có quyết định ngoại lệ.
+- Khép lỗ hổng áp dụng tại 02/1.4, 07/6.3, mẫu bản thảo 1.1 và bảng kiểm 1.2: nạp các nguồn trình bày trước viết/rà, kiểm chính văn/chú thích, khối lời giải, kí pháp và từng hình; bản nháp không là ngoại lệ thiết kế.
+- Không quyết định lại kiến trúc hoặc tạo chuẩn trích dẫn/thiết kế mới. Mẫu 1.0/bảng kiểm 1.1 vẫn mô tả đúng mốc trước; bổ sung này là phiên bản kế tiếp. Chỉ hiệu chỉnh gói đang làm, giữ sản phẩm/receipt G01–G03. Báo cáo 0.1 không chứng nhận bản sửa và không được dùng thay nghiệm thu chủ trì.
+
+## Làm rõ QD_025/QD_036 — Gợi mở thuộc từng mục kiến thức, 17/10/2026
+
+- Căn cứ: chủ trì yêu cầu sửa cách xếp Gợi mở ngang cấp và cập nhật từ phiên “R1-G03 - Đường tiệm cận của đồ thị hàm số”. Đã đối chiếu chuỗi sửa 0.5 → 0.6 → 0.7 trong phiên `01a1434b-9b41-7900-87c8-8bcde3d2ce8d`, hồ sơ G03 mục 11–14 và nguồn QMD hiện hành.
+- Giữ chốt cuối: Gợi mở nằm trong từng mục kiến thức của Bài học, sau Cách thực hiện và trước lời giải thích, có phản hồi tại chỗ; giữ nhãn/số liên tục toàn nhóm. Không có mục Gợi mở chung ngang cấp Khởi động hoặc Bài học. Khởi động thuộc Bài học. Không sao số lượng nhiệm vụ giữa gói.
+- Nguyên nhân tái diễn: báo cáo đối chiếu đã làm phẳng quan hệ cấp mục; bảng kiểm mẫu còn một hàng liệt kê gộp; mô tả chức năng trong 01/07/danh mục chưa nêu rõ nơi sở hữu; lịch sử G03 giữ cả cách tổ chức đã bị bác bỏ. Mẫu bản thảo 1.0 và QMD G03 hiện hành đã đặt đúng, không cần sửa hồi tố.
+- Hiệu chỉnh diễn đạt tại 01/07/danh mục; bảng kiểm tăng lên 1.1 với đường dẫn cha–con và phép kiểm từng mục; hồ sơ G03 thêm chỉ dẫn hiện hành/bảng phân bổ và cảnh báo phần lịch sử. Mẫu bản thảo giữ 1.0. 08 ghi phạm vi; 03 ghi việc hiện hành. Dọn tham chiếu đường học QD_021 trong mô tả đang hoạt động về đúng QD_033; giữ các ghi chép/receipt lịch sử.
+- Đây là làm rõ và chống áp dụng sai quy tắc đã chốt, không quyết định lại kiến trúc, đổi hợp đồng nhãn, sửa sản phẩm G01–G03 hoặc cho phép tạo bản thảo R1-G04. Không sửa hash/biên nhận cũ để chứng nhận lượt này.
+
 ## Bổ sung QD_025 — Chốt đối sánh ba gói, 17/10/2026
 
 Chủ trì duyệt bảng đề xuất chung về nhãn đầu phần, tên/số ví dụ và tiêu đề
@@ -426,3 +441,13 @@ Sao chép mẫu này khi có quyết định thật; không đánh dấu mẫu l
 - Tệp và gói chịu ảnh hưởng:
 - Thay thế quyết định nào:
 - Việc cần cập nhật và người thực hiện:
+
+## Hiệu chỉnh hiển thị QD_025 — nhãn ngữ cảnh theo cấp chứa, 17/10/2026
+
+- Căn cứ trực tiếp: chủ trì xác nhận Bài học có nhãn MẠCH HỌC CHÍNH; Khởi động có MẠCH HỌC CHÍNH · BÀI HỌC, yêu cầu kiểm kê/gán lại và ghi quy tắc tái sử dụng.
+- Thay cách trộn nhãn mỹ thuật đầu phần, chức năng và nhãn viết riêng. Quy tắc sở hữu ở 07/6.2; danh mục sở hữu giá trị; bộ ghép/kiểm chung sở hữu hiện thực. Nhãn chỉ ngữ cảnh cấp chứa, dùng duy nhất dấu “ · ” và .role hiện hành. Metadata chức năng/loại, ID, dãy số và kiến trúc giữ nguyên.
+- Phạm vi triển khai hiện tại: toàn bộ nhãn R1-G04 và cơ chế dùng lại cho gói mới. G01–G03 được kiểm kê đối chứng, giữ tương thích gói chưa di trú; không sửa thành phẩm/receipt đã phát hành. Không PDF, commit/push hoặc xuất bản. Trạng thái/bằng chứng hiện hành ở 03.
+
+## Triển khai tiếp nhãn cấp chứa và checkpoint, 17/10/2026
+
+Chủ trì giao cập nhật quy tắc cho các trang trước, tạm thời chưa xuất bản lại/chưa tạo PDF, rồi commit mốc nguồn. Phạm vi triển khai mở sang G01–G03; cùng quy tắc 07/6.2, giữ cấu trúc trích nguồn riêng nhưng bộ ghép nhãn cuối dùng chung. Lời giải tại chỗ giữ đúng ngữ cảnh chứa; Phối hợp/Chuyển giao không đổi chức năng hoặc số. Commit chỉ bảo toàn mốc nguồn, không là duyệt HTML hoặc quyền push/phát hành. Trạng thái và bằng chứng ở 03 và hồ sơ từng gói.

@@ -7,6 +7,7 @@ G01/G02 keep their accepted legacy adapters and are compatibility references.
 from __future__ import annotations
 import json,re
 from collections import defaultdict
+from functools import lru_cache
 from pathlib import Path
 import yaml
 
@@ -39,13 +40,15 @@ def binding_checks(data,root=ROOT):
     units=data.get("units",[]);ids=[u.get("id") for u in units];targets=[u.get("question") for u in units]
     checks["nonempty unique task IDs/owners"]=bool(units) and None not in ids+targets and len(set(ids))==len(ids) and len(set(targets))==len(targets)
     strict=data.get("display_contract")==VERSION
+    checks["known context label presentation"]=data.get("context_labels") in (None,CONTEXT_MODE)
+    if uses_context_labels(data):checks["all checkpoint contexts declared"]=set(data.get("checkpoint_context",{}))==set(data.get("checkpoints",{}))
     for u in units:
         key=u.get("id","missing");function=u.get("function");label=u.get("label")
         checks[key+" known function"]=function in policy["functions"]
         checks[key+" visible label specified"]=isinstance(label,str) and bool(label.strip())
         if function in policy["functions"] and label:
-            if strict:
-                try:expected=display_label(u,policy)
+            if strict or uses_context_labels(data):
+                try:expected=context_unit_label(u,"question",data,root) if uses_context_labels(data) else display_label(u,policy)
                 except (KeyError,TypeError,ValueError):expected=None
                 checks[key+" display context matches function"]=label==expected
             else:
@@ -56,6 +59,8 @@ def binding_checks(data,root=ROOT):
         if strict:
             checks[key+" canonical task title specified"]=isinstance(u.get("title"),str) and bool(u["title"].strip())
             if u.get("answer"):checks[key+" canonical answer title specified"]=isinstance(u.get("answer_title"),str) and bool(u["answer_title"].strip())
+        if uses_context_labels(data) and u.get("answer"):
+            checks[key+" answer context label declared"]=u.get("answer_label")==context_unit_label(u,"answer",data,root)
         number=u.get("number")
         if number is not None:
             checks[key+" positive integer number"]=isinstance(number,int) and not isinstance(number,bool) and number>0
@@ -72,10 +77,17 @@ def expand(path,seen=None):
 
 def source_checks(path,root=ROOT):
     path=Path(path);checks={}
-    if not governed(path) or path.parent.name in LEGACY:return checks
+    if not governed(path):return checks
+    if path.parent.name in LEGACY:
+        try:data=binding(path)
+        except (OSError,ValueError):return {"legacy binding readable":False}
+        checks.update(binding_checks(data,root))
+        checks["parent context mode required"]=uses_context_labels(data)
+        return checks
     try:data=binding(path);vocab=contract(root)
     except (OSError,ValueError,KeyError,yaml.YAMLError) as exc:return {"label binding/catalog readable: "+str(exc):False}
     checks.update(binding_checks(data,root));checks["display contract opt-in mandatory"]=data.get("display_contract")==VERSION
+    checks["parent context presentation required"]=uses_context_labels(data)
     text=expand(path)
     def has_anchor(ident):return bool(re.search(r"\{#"+re.escape(ident)+r"(?=[\s}])|\bid=[\"']"+re.escape(ident)+r"[\"']",text))
     for u in data.get("units",[]):
@@ -128,6 +140,7 @@ def apply(doc,data,area_labels=None,root=ROOT):
     reader=doc.select_one(".reader-content");vocab=contract(root)
     for u in data["units"]:
         for target,kind in [(u["question"],"question"),(u.get("answer"),"answer")]:
+            shown_label=context_unit_label(u,kind,data,root)
             if not target:continue
             node=reader.find(id=target)
             if node is None:raise ValueError("Missing label owner "+target)
@@ -136,8 +149,9 @@ def apply(doc,data,area_labels=None,root=ROOT):
             node["data-zo-type"]="solution" if kind=="answer" else "task"
             node["data-zo-function"]=u["function"];node["data-zo-task"]=u["id"]
             if u.get("number") is not None:node["data-zo-number"]=str(u["number"])
-            put_label(doc,title,u["label"])
+            put_label(doc,title,context_unit_label(u,kind,data,root))
     for anchor,label in data["checkpoints"].items():
+        if uses_context_labels(data):label=context_policy(root)["joiner"].join(data["checkpoint_context"][anchor]).upper()
         node=reader.find(id=anchor)
         if node is None:raise ValueError("Missing checkpoint "+anchor)
         headings=node.select("h2,h3,h4,h5,h6")
@@ -165,6 +179,7 @@ def apply(doc,data,area_labels=None,root=ROOT):
         label=area_labels[owner["id"]]
         if label in ["Ôn nền","Lời giải"] or omit_type_label(title.get_text(" ",strip=True),label):continue
         put_label(doc,title,label)
+    apply_context_labels(doc,data,root)
     require(html_checks(doc,data,root),"HTML")
     return data
 
@@ -173,9 +188,10 @@ def html_checks(doc,data,root=ROOT):
     if reader is None:return {"reader exists for visible labels":False}
     for u in data["units"]:
         for target,kind in [(u["question"],"question"),(u.get("answer"),"answer")]:
+            shown_label=context_unit_label(u,kind,data,root)
             if not target:continue
             node=reader.find(id=target);key=u["id"]+"/"+kind
-            checks[key+" metadata/label same owner"]=bool(node and node.get("data-zo-function")==u["function"] and node.get("data-zo-task")==u["id"] and len([n for n in node.select("[data-reading-label]") if n.get_text(" ",strip=True)==u["label"]])==1)
+            checks[key+" metadata/label same owner"]=bool(node and node.get("data-zo-function")==u["function"] and node.get("data-zo-task")==u["id"] and len([n for n in node.select("[data-reading-label]") if n.get_text(" ",strip=True)==shown_label])==1)
             if data.get("display_contract")==VERSION and node:
                 owner=node.find_parent(id=u.get(kind+"_owner")) if u.get(kind+"_owner") else None
                 checks[key+" structural owner matches binding"]=owner is not None
@@ -186,17 +202,124 @@ def html_checks(doc,data,root=ROOT):
                 try:title=find_title(node,wording,u.get("title_selector") if kind=="question" else None)
                 except ValueError:title=None
                 label=title.find_previous_sibling() if title else None
-                checks[key+" label adjacent to title with shared style"]=bool(label and label.has_attr("data-reading-label") and "role" in label.get("class",[]) and label.get_text(" ",strip=True)==u["label"])
+                checks[key+" label adjacent to title with shared style"]=bool(label and label.has_attr("data-reading-label") and "role" in label.get("class",[]) and label.get_text(" ",strip=True)==shown_label)
     for anchor,label in data.get("checkpoints",{}).items():
+        if uses_context_labels(data):label=context_policy(root)["joiner"].join(data["checkpoint_context"][anchor]).upper()
         node=reader.find(id=anchor);checks[anchor+" checkpoint visible label"]=bool(node and any(n.get_text(" ",strip=True)==label for n in node.select("[data-reading-label]")))
     vocab=contract(root)
     for u in data.get("knowledge_units",[]):
         node=reader.find(id=u["anchor"]);label=vocab["terms"][u["type"]]["name"]
         checks[u["id"]+" type and structural owner"]=bool(node and node.get("data-zo-type")==u["type"].removeprefix("type.") and node.find_parent(id=u["owner"]))
         actual=[n for n in node.select("[data-reading-label]") if n.get_text(" ",strip=True)==label] if node else []
-        checks[u["id"]+" visible type obeys no repetition"]=len(actual)==(0 if omit_type_label(u["title"],label) else 1)
+        checks[u["id"]+" visible type obeys no repetition"]=uses_context_labels(data) or len(actual)==(0 if omit_type_label(u["title"],label) else 1)
     for u in data.get("examples",[]):
         node=reader.find(id=u["anchor"]);checks[u["id"]+" example identity and no duplicate type"]=bool(node and node.get("data-zo-type")=="example" and not any(n.get_text(" ",strip=True).casefold()=="ví dụ" for n in node.select("[data-reading-label]")))
     checks["labels belong to reading papers"]=all(n.find_parent(class_="reading-region") for n in reader.select("[data-reading-label]"))
+    checks.update(context_html_checks(doc,data,root))
     checks["no hidden label workaround"]=not reader.select('[data-reading-label][hidden],[data-reading-label][aria-hidden="true"]')
+    return checks
+
+
+CONTEXT_MODE = "parent-context-v1"
+
+def uses_context_labels(data):
+    return data.get("context_labels") == CONTEXT_MODE
+
+@lru_cache(maxsize=8)
+def _context_policy_cached(path,mtime_ns):
+    vocab=yaml.safe_load(Path(path).read_text(encoding="utf-8"))["label_contract"]
+    policy=dict(vocab["display_contract"]["context_labels"])
+    policy["_terms"]=vocab["terms"];policy["_contexts"]=vocab["display_contract"]["contexts"]
+    return policy
+
+def context_policy(root=ROOT):
+    path=Path(root)/CATALOG
+    return _context_policy_cached(str(path.resolve()),path.stat().st_mtime_ns)
+
+def context_unit_label(unit, kind, data, root=ROOT):
+    if not uses_context_labels(data):
+        return unit["label"]
+    policy=context_policy(root)
+    area=unit.get("context_area") or policy["function_areas"][unit["function"]]
+    parts=[policy["areas"][area], policy["area_names"][area]]
+    if unit["function"]=="function.warmup":
+        parts.append(policy["_terms"]["function.warmup"]["name"])
+    if unit["function"] in ("function.integration","function.transfer"):
+        parts.append(policy["_terms"][unit["function"]]["name"])
+    if unit.get("context"):
+        key,value=next(iter(unit["context"].items()))
+        pattern=policy["_contexts"][key]
+        suffix=pattern[value] if isinstance(pattern,dict) else pattern.format(number=value)
+        if suffix.casefold() not in [p.casefold() for p in parts]:parts.append(suffix)
+    parts.extend(unit.get("context_detail",[]))
+    if kind=="answer":
+        answer_area=unit.get("answer_context_area","loi-giai")
+        if answer_area=="loi-giai":
+            parts=[policy["areas"]["loi-giai"],policy["area_names"]["loi-giai"]]+parts[1:]
+            if unit["function"]=="function.self_check":
+                parts.append(policy["_terms"]["function.self_check"]["name"])
+        elif answer_area!=area:
+            parts=[policy["areas"][answer_area],policy["area_names"][answer_area]]
+    return policy["joiner"].join(parts).upper()
+
+def context_heading_label(reader, heading, data, root=ROOT):
+    policy=context_policy(root)
+    owners={unit[key]:(unit,kind) for unit in data["units"] for key,kind in [("question","question"),("answer","answer")] if unit.get(key)}
+    for node in [heading,*heading.parents]:
+        match=owners.get(node.get("id"))
+        if match:
+            unit,kind=match
+            wording=unit.get("answer_title",unit["title"]) if kind=="answer" else unit["title"]
+            if heading.get_text(" ",strip=True)==wording:
+                return context_unit_label(unit,kind,data,root)
+    cp=next((n for n in heading.parents if n.get("id") in data.get("checkpoint_context",{})),None)
+    if cp is not None:
+        return policy["joiner"].join(data["checkpoint_context"][cp["id"]]).upper()
+    area=next((n for n in heading.parents if n.get("id") in policy["areas"]),None)
+    if area is None:raise ValueError("Heading lacks a declared context area: "+heading.get_text(" ",strip=True))
+    ident=area["id"];parts=[policy["areas"][ident]]
+    if heading.name!="h2" or heading is not area.find("h2"):
+        parts.append(policy["area_names"][ident])
+    return policy["joiner"].join(parts).upper()
+
+def context_title_text(node):
+    return " ".join(n.strip() for n in node.find_all(string=True) if n.strip() and not any(p.has_attr("data-reading-label") for p in n.parents if p is not node))
+
+def context_targets(reader,data):
+    areas=context_policy()["areas"]
+    result={id(h):(h,None,None) for h in reader.select("h2,h3,h4,h5,h6") if any(n.get("id") in areas for n in h.parents)}
+    for unit in data["units"]:
+        for key,kind in [("question","question"),("answer","answer")]:
+            ident=unit.get(key)
+            node=reader.find(id=ident) if ident else None
+            if node is None:continue
+            if ident=="lg-cg01":node=node.find_parent("details")
+            wording=unit.get("answer_title",unit["title"]) if kind=="answer" else unit["title"]
+            candidates=node.select("h2,h3,h4,h5,h6,summary,p > strong,.r1-task-label")
+            matches=[n for n in candidates if context_title_text(n)==wording]
+            if len(matches)!=1:raise ValueError("Context task title missing/ambiguous: "+str(ident)+" / "+str(len(matches)))
+            result[id(matches[0])]=(matches[0],unit,kind)
+    return list(result.values())
+
+def apply_context_labels(doc,data,root=ROOT):
+    if not uses_context_labels(data):return
+    reader=doc.select_one(".reader-content")
+    for label in list(reader.select("[data-reading-label]")):label.decompose()
+    for heading,unit,kind in context_targets(reader,data):
+        label=doc.new_tag("span",attrs={"class":"role","data-reading-label":""})
+        label.string=context_unit_label(unit,kind,data,root) if unit else context_heading_label(reader,heading,data,root)
+        if heading.name=="summary":heading.insert(0,label)
+        else:heading.insert_before(label)
+    reader["data-zo-context-labels"]=CONTEXT_MODE
+
+def context_html_checks(doc,data,root=ROOT):
+    if not uses_context_labels(data):return {}
+    reader=doc.select_one(".reader-content");checks={}
+    if reader is None:return {"context reader exists":False}
+    for index,(heading,unit,kind) in enumerate(context_targets(reader,data),1):
+        label=heading.find(attrs={"data-reading-label":True},recursive=False) if heading.name=="summary" else heading.find_previous_sibling()
+        expected=context_unit_label(unit,kind,data,root) if unit else context_heading_label(reader,heading,data,root)
+        checks[f"context/{index} parent path and shared typography"]=bool(label and label.has_attr("data-reading-label") and "role" in label.get("class",[]) and label.get_text(" ",strip=True)==expected)
+        checks[f"context/{index} label stays in reading region"]=bool(label and label.find_parent(class_="reading-region") is heading.find_parent(class_="reading-region"))
+    checks["context small-dot separator only"]=all("•" not in n.get_text() for n in reader.select("[data-reading-label]"))
     return checks

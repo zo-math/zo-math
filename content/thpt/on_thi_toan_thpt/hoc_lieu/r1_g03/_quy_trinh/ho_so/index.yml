@@ -5,12 +5,12 @@ package:
   source: index.qmd
   authority: Canonical QMD; publication explicitly requested by owner on 17/10/2026
 workflow:
-  production: accepted
-  publication: published
-  user_confirmed: true
+  production: in_production
+  publication: pending
+  user_confirmed: false
 acceptance:
-  current_source: converted_candidate_checked
-  current_html: published_verified_live_20261017
+  current_source: label_binding_updated_qmd_unchanged
+  current_html: parent_context_labels_checked_pending_owner_review
   final: owner_authorized_for_publication_20261017
   latest_release: owner_authorized_and_published_20261017
 labeling_audit:
@@ -43,3 +43,8 @@ release_audit:
   all_pdf_checks: 17/17 and CURRENT
   live_release_objects: 50/50 overall
   earlier_audits: historical by their recorded scope
+context_label_update:
+  mode: parent-context-v1
+  evidence: _quy_trinh/ho_so/dong_bo_nhan_20261017.json
+  publication: not_republished
+  learning_pdf: not_rebuilt

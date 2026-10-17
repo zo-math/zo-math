@@ -213,10 +213,7 @@ Giữ nhãn/heading/nội dung bên trong vùng, cùng trục đã duyệt. QD_0
 Chủ trì đã duyệt áp dụng đồng thời cho G01, G02 và G03; không lấy toàn bộ
 hiện trạng của một gói làm chuẩn tuyệt đối cho gói khác.
 
-- Nhãn đầu phần thống nhất: Bắt đầu → Bắt đầu học; Bài học → Mạch học chính;
-  Luyện tập → Tự luyện; Ôn lại → Ôn sau khoảng trễ; Sửa lỗi → Hỗ trợ khi cần;
-  Nguồn → Nguồn học liệu. Đầu phần Kiểm tra không mang nhãn Tự kiểm tra của
-  Bài học. Bảng giá trị hiện thực ở `profiles/r1-consistency.json` của kit;
+- Nhãn đầu phần tại mốc đối sánh này được thay bằng quy tắc Nhãn ngữ cảnh theo cấp chứa bên dưới khi dựng mới/hiệu chỉnh theo chỉ thị mới. Bảng giá trị cũ chỉ giữ tương thích các gói chưa di trú; không dùng làm chuẩn gán nhãn cho G04 hoặc gói mới. Bảng giá trị tương thích ở `profiles/r1-consistency.json` của kit;
   cả ba adapter dùng cùng hàm áp dụng/kiểm, không khai bảng riêng cạnh tranh.
 - Ví dụ được khai là đơn vị làm mẫu riêng dùng “Ví dụ NN — Tên mô tả”, đánh
   số liên tục trong toàn gói, độc lập số mục kiến thức. Không biến mọi câu
@@ -230,9 +227,39 @@ hiện trạng của một gói làm chuẩn tuyệt đối cho gói khác.
   nhìn thấy; chi tiết thao tác bổ sung đặt trong Cách thực hiện mặc định đóng.
   Không giấu điều kiện bắt buộc chỉ để hai trang có cùng số hộp hoặc độ dài.
 
+#### Nhãn ngữ cảnh theo cấp chứa — hiệu chỉnh ngày 17/10/2026
+
+Chủ trì yêu cầu kiểm kê và gán lại nhãn: Bài học mang nhãn “MẠCH HỌC CHÍNH”; Khởi động mang “MẠCH HỌC CHÍNH · BÀI HỌC”. Quy tắc này thay các nhãn ngữ cảnh cũ ở mốc đối sánh bên trên trong phạm vi triển khai mới; không đổi chức năng, ID, dãy số hoặc kiến trúc học tập.
+
+Dòng nhãn trên tiêu đề chỉ vị trí/cấp chứa. Không lấy tên chính đối tượng thay cấp cha; không trộn tên gọi mỹ thuật như “Tự luyện”, “Ôn sau khoảng trễ” với nhãn phân cấp. Nhóm chính là Mạch học chính, Hỗ trợ khi cần và Tiện ích, đúng các nhóm điều hướng đang có. Các mục kiến thức dùng ngữ cảnh ngắn của Bài học; tên dài vẫn thuộc tiêu đề/mục lục, không lặp ở mọi nhãn.
+
+| Đối tượng | Nhãn ngữ cảnh |
+|---|---|
+| Bắt đầu, Bài học, Luyện tập, Kiểm tra, Ôn lại | MẠCH HỌC CHÍNH |
+| Khởi động, các mục kiến thức, Khép lại trong Bài học | MẠCH HỌC CHÍNH · BÀI HỌC |
+| Nhiệm vụ Khởi động và điểm dừng của nhóm | MẠCH HỌC CHÍNH · BÀI HỌC · KHỞI ĐỘNG |
+| Gợi mở, ví dụ, tự kiểm tra, đơn vị kiến thức trong Bài học | MẠCH HỌC CHÍNH · BÀI HỌC |
+| Chặng Luyện tập | MẠCH HỌC CHÍNH · LUYỆN TẬP |
+| Nhiệm vụ/điểm dừng của chặng | MẠCH HỌC CHÍNH · LUYỆN TẬP · CHẶNG n |
+| Lượt Ôn lại | MẠCH HỌC CHÍNH · ÔN LẠI |
+| Nhiệm vụ/điểm dừng của lượt | MẠCH HỌC CHÍNH · ÔN LẠI · LƯỢT n |
+| Ôn nền, Sửa lỗi, Nhật kí, Lời giải | HỖ TRỢ KHI CẦN |
+| Nhóm/thẻ trong một khu hỗ trợ | HỖ TRỢ KHI CẦN · tên khu |
+| Nhiệm vụ Sửa lỗi | HỖ TRỢ KHI CẦN · SỬA LỖI · SAU nơi phát hiện |
+| Lời giải của một nhiệm vụ | HỖ TRỢ KHI CẦN · LỜI GIẢI · nhóm nguồn và ngữ cảnh cần phân biệt |
+| Nguồn | TIỆN ÍCH |
+
+Dùng đúng dấu chấm giữa nhỏ U+00B7 với một khoảng trắng hai phía: “ · ”. Dùng cùng thành phần .role/data-reading-label, kiểu chữ, cỡ, trọng lượng và trục căn hiện hành; không tạo CSS riêng từng nhóm. Không dùng lẫn dấu bullet “•”, mũi tên hoặc dấu phân cách khác. Tiêu đề giữ tên riêng của đối tượng; không thêm tên ấy vào nhãn chỉ để lặp lại. Loại kiến thức/chức năng nhiệm vụ vẫn giữ đầy đủ trong metadata/binding và tên học liệu; không dùng từ “Giải thích” hoặc tên loại để thay dòng ngữ cảnh.
+
+Nhãn đề và lời giải được ghép theo vị trí đang đọc: cùng ID ghép cặp, chức năng và số, nhưng lời giải thuộc khu Lời giải. Không dùng nguyên nhãn Mạch học chính của đề cho phần nằm trong Hỗ trợ. Chặng/lượt/nơi phát hiện lấy từ context đã khai, không đoán từ câu chữ.
+
+Nguồn máy đọc duy nhất là danh mục kiến trúc, label_contract.display_contract.context_labels, id parent-context-v1. Binding khai context_labels: parent-context-v1 và checkpoint_context; bộ ghép/kiểm chung zo_course_labels.py dựng nhãn từ owner, vai trò và context nguồn tươi. G01–G04 đã nối quy tắc này ở nguồn theo chỉ thị chủ trì; gói mới bắt buộc gọi cùng bộ ghép. G01/G02 giữ bộ trích cấu trúc tương thích, nhưng không còn tự sở hữu nhãn hiển thị cuối. Thành phẩm đã phát hành và receipt cũ giữ nguyên cho đến khi có yêu cầu phát hành lại. Đầu phần Kiểm tra có nhãn MẠCH HỌC CHÍNH, không dùng nhãn Tự kiểm tra của Bài học.
+
+Trước trình HTML phải có kiểm kê từng nhãn với owner/tiêu đề/trước–sau; kiểm đủ nhãn đầu phần, nhóm, nhiệm vụ, kiến thức, ví dụ, điểm dừng và lời giải. Cổng phải chặn thiếu nhãn cấp cha, nhãn cũ ghi đè, sai dấu phân cách hoặc nhãn rời vùng tiêu đề; xem thực ở desktop/mobile sau thay đổi. Kiểm nhãn không chứng nhận toán, nội dung hoặc phát hành.
+
 #### Áp dụng khi dựng QMD và HTML
 
-Quy tắc ở mục này đã có trước G03; lượt 16/10/2026 bổ sung cơ chế dùng lại và chặn thiếu nhãn, không lập hệ nhãn thứ hai. Đối chứng là binding và HTML toàn văn G01/G02: một nhãn chức năng mang ngữ cảnh thật (chặng, lượt hoặc nơi phát hiện), một dãy số trong toàn nhóm, cùng ánh xạ cho đề và lời giải; loại nội dung không đồng nhất với chức năng nhiệm vụ.
+Quy tắc ở mục này đã có trước G03; lượt 16/10/2026 bổ sung cơ chế dùng lại và chặn thiếu nhãn, không lập hệ nhãn thứ hai. Đối chứng là binding và HTML toàn văn G01/G02: một nhãn chức năng mang ngữ cảnh thật (chặng, lượt hoặc nơi phát hiện), một dãy số trong toàn nhóm, cùng ánh xạ ID/chức năng/số cho đề và lời giải, nhãn ngữ cảnh theo vị trí đọc; loại nội dung không đồng nhất với chức năng nhiệm vụ.
 
 | Thành phần | Nguồn sở hữu | Cách dùng |
 |---|---|---|
@@ -246,6 +273,16 @@ Khi bắt đầu chuyển bản thảo sang QMD hoặc dựng/hiệu chỉnh HTM
 G03 và các gói R1 dựng mới phải khai `display_contract: qd025-display-v1` trong binding và gọi phần áp dụng dùng chung. `zo_qmd.py check/render` và launcher Quarto kiểm nguồn; bộ ghép và kiểm đầu ra kiểm nhãn hiển thị. Thiếu binding, nhãn/ngữ cảnh, số không liên tục, nhãn sai chức năng, owner không tồn tại hoặc HTML chỉ có metadata phải làm kiểm thất bại. Gói mới chưa có adapter nhãn không được trình như HTML đã đạt. G01/G02 giữ các adapter theo bản đang có; chúng là đối chứng tương thích, không sao quota hay điều kiện riêng sang gói mới.
 
 Kiểm trình duyệt phải xác nhận nhãn nhìn thấy và đọc được ở desktop/mobile, nằm cùng vùng với tiêu đề, không lặp nhãn–tiêu đề, không tràn và không làm hỏng đường đi/về. PASS schema hoặc có thuộc tính `data-zo-function` không thay phép kiểm này. Các cổng tự động chỉ kiểm phần đã được mã hóa; việc phân loại đúng ý nghĩa vẫn phải được đọc và đối chiếu.
+
+### 6.3. Chính văn, chú thích nguồn và hình ngay từ bản thảo
+
+Áp dụng khi viết hoặc hiệu chỉnh nội dung theo phản hồi của chủ trì ngày 17/10/2026; không mở lượt sửa hồi tố G01–G03.
+
+- Chính văn dành cho người học phát biểu trực tiếp nội dung toán và giải thích vì sao đúng. Không dùng “theo sách…”, “SGK nêu…” hoặc kể việc người biên soạn dựa vào tài liệu nào để dẫn vào kiến thức; không đưa lí do tổ chức hồ sơ, đánh số hoặc sản xuất vào bài học.
+- Căn cứ vẫn phải có và được đọc thật. Cách trình bày lấy tại mục **Công thức và nguồn đối chiếu** của [quy chuẩn gói](quy_chuan_goi_qmd.md): chú thích .zo-source-note sau nội dung liên quan, câu hoàn chỉnh, tên tài liệu đầy đủ và vị trí chính xác. Danh mục cuối bài giữ thông tin thư mục; hồ sơ nội bộ giữ đối chiếu chi tiết và giới hạn. Không đổi thành giấu nguồn hoặc tự tạo phát biểu toán.
+- Hình được đặt vào bản thảo để chủ trì đọc phải theo ngôn ngữ thiết kế hiện hành ở 6.1. Không tự miễn màu/phông/nét/vạch/nhãn vì gọi hình là nháp. Dùng công cụ ZO Math và profile 0.4 đã tích hợp cho khóa; kiểm từng hình ở cỡ tự nhiên và nền quy định. Chưa duyệt là trạng thái nghiệm thu, không phải một style khác.
+- Khối lời giải dùng đúng vai trò solution và mặc định đóng; không bọc tùy tiện mọi đoạn giảng thành hộp. Kiểm kí pháp bằng guard hiện có, bao gồm ngoặc co giãn; nhận diện giới hạn phạm vi của checker, không biến lỗi tương thích parser thành hệ đánh số mới.
+- Bản thảo không phải bản dàn trang HTML/PDF. Việc dựng SVG bằng công cụ đồ thị có thể cần PDF vector trung gian để chuyển đổi; tệp đó phải được kiểm và dọn theo vòng đời công cụ, không được ghi là đã dựng PDF học liệu hoặc giữ thêm bản xuất ngoài phạm vi.
 
 ## 7. Responsive, khả năng truy cập và trạng thái bền
 
@@ -296,5 +333,5 @@ Checker và rà thủ công phải chặn ít nhất các lỗi sau:
 Trạng thái sản phẩm chỉ ở [bảng điều hành](03_dieu_hanh_chuong_trinh.md) và hồ sơ gói. QD_021 thu hồi sơ đồ DH_011; G01 đã sửa tại DH_015, G02 đã áp dụng/kiểm tại DH_016. Trạng thái duyệt vẫn ghi riêng theo từng bản. Giữ thiết kế 9/10 và nghiệm thu lịch sử đúng bản. Hợp nhất chuẩn không tự sửa học liệu, mở PDF/phát hành hoặc khóa Design 0.5.
 ## Bổ sung đã duyệt QD_025
 
-`function.guided_thinking` (Gợi mở) là chức năng Nhiệm vụ trước lời giải thích trong Bài học. Nhãn BÀI HỌC • GỢI MỞ; số liên tục riêng toàn nhóm. Lời dẫn: “Thử trả lời trước khi đọc tiếp.” Không gộp với Tự kiểm tra, không tạo nhóm đáp án trống hoặc chép lại lời giảng. Nguồn Nền dùng định danh trung tính; số/tên hiển thị của từng gói nằm ở binding của gói, không ghi cứng số G01 vào include dùng chung. Bổ sung này mở rộng danh mục QD_023, không thay kiến trúc hoặc thiết kế đã duyệt.
+`function.guided_thinking` (Gợi mở) là chức năng Nhiệm vụ trước lời giải thích của từng mục kiến thức trong Bài học. Phân cấp nội dung: Bài học → mục kiến thức → Gợi mở; Khởi động là mục riêng bên trong Bài học. Gợi mở đặt sau Cách thực hiện, trước phần giải thích/định nghĩa/ví dụ của đúng mục, kèm phản hồi hoặc cầu nối tại chỗ. Tiêu đề, mục lục, điều hướng và bảng đối chiếu phải giữ quan hệ này; không tạo mục Gợi mở chung ngang cấp Khởi động hay Bài học. Nhãn BÀI HỌC • GỢI MỞ; số liên tục riêng toàn nhóm, không đặt lại theo mục kiến thức. Lời dẫn: “Thử trả lời trước khi đọc tiếp.” Không gộp với Tự kiểm tra, không tạo nhóm đáp án trống hoặc chép lại lời giảng. Nguồn Nền dùng định danh trung tính; số/tên hiển thị của từng gói nằm ở binding của gói, không ghi cứng số G01 vào include dùng chung. Bổ sung này mở rộng danh mục QD_023, không thay kiến trúc hoặc thiết kế đã duyệt.
 

@@ -48,6 +48,8 @@ Yêu cầu chuyển bản thảo, dựng/hiệu chỉnh QMD hoặc HTML của g�
 
 Gói dựng mới dùng `scripts/zo_course_labels.py` với `display_contract: qd025-display-v1`; các cổng QMD/Quarto kiểm binding nguồn và nhãn HTML. Cổng thiếu/sai phải được sửa trước trình, không bỏ qua hoặc thay bằng số đếm. Giữ adapter G01/G02 làm đối chứng; không chép quota hoặc ngoại lệ riêng. Bảng áp dụng hiển thị hiện hành của gói mới là binding này; chỉ dùng bảng di trú `ap_dung_he_nhan.json` khi thực sự làm di trú theo 02/2.4. Khi phát triển gói mới, nối adapter hiển thị vào cổng chung và kiểm trình duyệt; không sửa tay HTML đầu ra.
 
+Nhãn ngữ cảnh hiện hành theo hiệu chỉnh 17/10/2026 tại 07/6.2: Bài học → MẠCH HỌC CHÍNH; Khởi động → MẠCH HỌC CHÍNH · BÀI HỌC. G04/gói mới khai context_labels: parent-context-v1; gọi zo_course_labels.py, không gán lại bằng chuỗi riêng trong adapter. G01–G03 đã đồng bộ nguồn nhãn theo chỉ thị tiếp theo; thành phẩm công khai vẫn nguyên trạng. Giữ metadata chức năng/loại, ID và dãy số; cùng thành phần .role, một dấu “ · ”.
+
 ## Giới hạn tích hợp và đầu mối điều hành
 
 Ngôn ngữ bảng QD_030 áp dụng toàn khóa 2027, theo chức năng tại `07_quy_chuan_cau_truc_trang_nguoi_hoc.md`/6.1.1 và mẫu Design 0.4 được dẫn chiếu. Trước dựng hoặc sửa bảng, kiểm ánh xạ trong `_design/web_2027_mau_dung_chung/profiles/course-tables.json`; bộ dựng dùng `scripts/zo_course_tables.py`. Không dùng quy tắc căn trái đại trà đã bị thay thế cho bảng giá trị/dấu/biến thiên hoặc suy kiểu từ tên; bảng chưa phân loại phải được xử lí trước khi trình HTML. Không sửa dữ liệu toán để khớp hình thức.

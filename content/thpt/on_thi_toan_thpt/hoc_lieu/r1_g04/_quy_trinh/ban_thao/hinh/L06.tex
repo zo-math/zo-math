@@ -1,0 +1,31 @@
+% Generated from du_lieu_hinh.json; edit data or sinh_hinh.py, never this derived TEX.
+% Purpose: Only the closed production interval belongs to the model graph.
+% Profile: ZO Math 0.4, transparent-light; equal coordinate units.
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{backgrounds,arrows.meta}
+\input{zo_graph_v02.tex}
+\begin{document}
+\begin{tikzpicture}[zo graph v02 field]
+\zoGraphVTwoLayers
+\begin{axis}[zo graph v02 axis,
+width=5.80555556cm,height=9.5cm,
+xmin=-1,xmax=10,ymin=-1,ymax=17.0,
+restrict y to domain=-1:17.0,unbounded coords=jump,
+xtick={2,8},ytick={6,15},
+xlabel={$x$},ylabel={$A$},
+every axis x label/.append style={at={(axis description cs:1,0.0555555556)},anchor=south west,xshift=5pt,yshift=4pt},
+every axis y label/.append style={at={(axis description cs:0.0909090909,1)},anchor=south west,xshift=4pt,yshift=4pt}
+]
+\node[zo graph v02 font sentinel] at (axis cs:0,0) {x};
+\addplot[zo graph v02 curve solid,domain=2:8,samples=501,forget plot] {3+24/x};
+\addplot[zo graph v02 point,forget plot] coordinates {(2,15) (8,6)};
+\begin{pgfonlayer}{zoGraphVTwoTextLayer}
+\node[zo graph v02 tick label,anchor=north east,xshift=-3pt,yshift=-3pt] at (axis cs:0,0) {$O$};
+\end{pgfonlayer}
+\end{axis}
+\end{tikzpicture}
+\end{document}
