@@ -5,7 +5,7 @@
 .reader-content .zo-course-table tbody th{background:#FBFAF8}
 .reader-content .zo-course-table :is(th,td)>p:last-child{margin-bottom:0}
 .reader-content .zo-course-table math{font-size:1em}
-.reader-content .zo-course-table caption{caption-side:top;text-align:left;font-size:inherit;font-weight:600;padding-bottom:12px}
+.reader-content .zo-course-table caption{caption-side:bottom;text-align:left;font-size:inherit;font-weight:400;padding-top:.65em}
 .reader-content .zo-course-table caption.sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
 .reader-content .zo-course-table .d0-inline-math{display:inline;max-width:none;overflow:visible;vertical-align:baseline}
 .reader-content .zo-course-table-frame{width:100%;max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:thin;margin:24px 0}
@@ -28,3 +28,16 @@
 .reader-content .zo-course-table--variation .trend{color:#BF4240}
 .reader-content .zo-course-table .excluded{border-left:3px double #766F66;border-right:3px double #766F66}
 @media(max-width:760px){.reader-content .zo-course-table:not(.zo-variation-native) :is(th,td){padding:10px 12px}}
+
+/* Mathematical grids share the existing native 0.4 surface and cell rhythm.
+   Higher specificity keeps this course component independent of stylesheet order. */
+.reader-content table.zo-course-table.zo-math-grid{--zo-grid-ink:#3E3A35;--zo-grid-line:#DFD7CA;--zo-grid-paper:#FBFAF8;--zo-grid-trend:#BF4240;border:1px solid var(--zo-grid-line);background:var(--zo-grid-paper);color:var(--zo-grid-ink);font-size:1em;line-height:1.6}
+.reader-content table.zo-course-table.zo-math-grid :is(th,td){border:1px solid var(--zo-grid-line);background:transparent;min-width:2.4em;padding:.65em .8em;vertical-align:middle;font-weight:400}
+.reader-content table.zo-course-table.zo-math-grid:not([data-table-variant="explained"]) :is(th,td){white-space:nowrap}
+.reader-content table.zo-course-table.zo-math-grid[data-table-variant="explained"] thead th{font-weight:600;background:var(--theme-gray-2)}
+.reader-content table.zo-course-table.zo-math-grid .zo-focus-cell{background:var(--theme-yellow-1)}
+.reader-content table.zo-course-table.zo-math-grid .trend{color:var(--zo-grid-trend)}
+.reader-content table.zo-course-table.zo-math-grid .excluded{border-left:3px double #766F66;border-right:3px double #766F66}
+/* Visible names sit below their object; accessible table names remain hidden. */
+.reader-content figcaption,.reader-content .quarto-float-caption,.reader-content table.zo-course-table caption:not(.sr-only){color:var(--muted);font-size:.88em;line-height:1.6;font-weight:400;text-align:left;padding:.65em 0 0;margin:0;white-space:normal}
+.reader-content figcaption p,.reader-content .quarto-float-caption p{margin:0}

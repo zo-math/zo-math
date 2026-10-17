@@ -4,7 +4,7 @@ Content/IDs/links are QMD-owned; native mathematical grids are JSON-owned.
 Bindings classify function, not text. Unclassified or stale tables fail build.
 """
 from __future__ import annotations
-import argparse, copy, json, os, shutil, sys
+import argparse, copy, json, os, re, shutil, sys
 from pathlib import Path
 from bs4 import BeautifulSoup
 import yaml
@@ -32,6 +32,81 @@ def table_specs(page_key):
 def native_records(page_key):
     if page_key=='home':return {}
     return {r['id']:r for r in json.loads((BASE/'hoc_lieu'/page_key/'du_lieu/bang_bien_thien.json').read_text(encoding='utf-8'))}
+
+def place_captions_below(root):
+    """Keep one owned name after the figure/scroll area, without changing text."""
+    for figure in root.select('figure'):
+        captions=[n for n in figure.select('figcaption') if n.find_parent('figure') is figure]
+        if len(captions)>1:raise ValueError('Figure has multiple visible captions')
+        if captions:figure.append(captions[0].extract())
+
+
+def apply_mathematical_presentation(root):
+    grid=load_contract()['mathematical_grid']
+    for table in root.select('table[data-table-kind]'):
+        if table['data-table-kind'] in grid['kinds']:
+            table['class']=list(dict.fromkeys(table.get('class',[])+[grid['class']]))
+    place_captions_below(root)
+
+
+def media_html_checks(doc):
+    root=doc.select_one('.reader-content');grid=load_contract()['mathematical_grid'];checks={}
+    for n,table in enumerate(root.select('table[data-table-kind]'),1):
+        if table['data-table-kind'] not in grid['kinds']:continue
+        checks[f'table {n} shared mathematical grid']=grid['class'] in table.get('class',[])
+        if 'zo-variation-native' in table.get('class',[]):
+            figure=table.find_parent('figure');cap=figure.find('figcaption',recursive=False) if figure else None
+            checks[f'table {n} one name below scroll']=bool(cap and cap.get_text(strip=True)) and list(figure.find_all(recursive=False))[-1] is cap
+    for n,figure in enumerate(root.select('figure'),1):
+        own=[c for c in figure.select('figcaption') if c.find_parent('figure') is figure]
+        if own:checks[f'figure {n} name below content']=len(own)==1 and own[0].parent is figure and list(figure.find_all(recursive=False))[-1] is own[0]
+    for n,image in enumerate(root.select('.figure-viewport img'),1):
+        if 'zo-variation-image' in image.get('class',[]):continue
+        figure=image.find_parent('figure');cap=figure.find('figcaption') if figure else None
+        named=bool(cap and cap.get_text(strip=True));omitted=image.get('data-zo-caption')=='omitted'
+        checks[f'image {n} reviewed caption choice']=(named and not omitted) or (not named and omitted and bool(image.get('data-zo-caption-reason','').strip()) and bool(image.get('alt','').strip()))
+    return checks
+
+
+def media_style_checks(css=None):
+    css=(KIT/'course-tables.css').read_text(encoding='utf-8') if css is None else css
+    def declarations(selector):
+        match=re.search(r'(?m)^'+re.escape(selector)+r'\{([^}]+)\}',css)
+        return dict(item.split(':',1) for item in match[1].split(';') if ':' in item) if match else {}
+    table=declarations('.reader-content table.zo-course-table.zo-math-grid')
+    cells=declarations('.reader-content table.zo-course-table.zo-math-grid :is(th,td)')
+    excluded=declarations('.reader-content table.zo-course-table.zo-math-grid .excluded')
+    return {'math grid uses native surface':table.get('--zo-grid-paper')=='#FBFAF8' and table.get('background')=='var(--zo-grid-paper)',
+            'math grid uses native ink and line':table.get('--zo-grid-ink')=='#3E3A35' and table.get('--zo-grid-line')=='#DFD7CA',
+            'math grid uses body-size math':table.get('font-size')=='1em' and table.get('line-height')=='1.6',
+            'math grid cells use same stroke and padding':cells.get('border')=='1px solid var(--zo-grid-line)' and cells.get('padding')=='.65em .8em' and cells.get('min-width')=='2.4em',
+            'excluded columns retain double boundary':excluded.get('border-left')=='3px double #766F66' and excluded.get('border-right')=='3px double #766F66',
+            'table names below': 'caption-side:bottom' in css and not re.search(r'caption-side\s*:\s*top',css)}
+
+
+def media_source_checks(source,repo=ROOT,text=None):
+    source=Path(source);repo=Path(repo)
+    if source.name!='index.qmd' or source.parent.name not in {'d0','r1_g01','r1_g02','r1_g03','r1_g04'} or source.parent.parent.name!='hoc_lieu':return {}
+    text=source.read_text(encoding='utf-8') if text is None else text
+    inherited=yaml.safe_load((repo/'content/thpt/on_thi_toan_thpt/_metadata.yml').read_text(encoding='utf-8'))
+    meta=yaml.safe_load(text.split('---',2)[1]);checks={'table caption default below':meta.get('tbl-cap-location',inherited.get('tbl-cap-location'))=='bottom'}
+    checks.update(media_style_checks())
+    entries=load_contract()['pages'][source.parent.name]
+    for entry in entries:
+        if entry['kind'] not in {'sign','values'}:continue
+        checks[entry['selector']+' reviewed unnamed grid']=entry.get('caption_policy')=='context' and bool(entry.get('caption_reason','').strip())
+    for n,m in enumerate(re.finditer(r'!\[([^\n]*?)\]\(([^\s)]+)\)(\{[^\n}]*\})?',text),1):
+        caption,path,attrs=m.groups();attrs=attrs or ''
+        if not path.endswith('.svg'):continue
+        start=text.rfind('<figure',0,m.start());closed=text.rfind('</figure>',0,m.start());end=text.find('</figure>',m.end())
+        explicit=start>closed and end>=0 and bool(re.search(r'<figcaption[^>]*>\s*\S',text[start:end]))
+        omitted='data-zo-caption="omitted"' in attrs
+        if not caption.strip() and not explicit:
+            reason=re.search(r'data-zo-caption-reason="([^"]+)"',attrs);alt=re.search(r'fig-alt="([^"]+)"',attrs)
+            checks[f'image {n}/{Path(path).name} justified omission']=omitted and bool(reason and reason[1].strip()) and bool(alt and alt[1].strip())
+        else:checks[f'image {n}/{Path(path).name} named when shown']=not omitted
+    return checks
+
 
 def promote_d0_grid(doc):
     """Opt-in native rendering of unchanged D0 BBT JSON, not regeneration of QMD."""
@@ -126,6 +201,9 @@ def bind(doc,page_key):
     if native_seen!=set(records):raise ValueError('Missing canonical native mathematical tables')
     unknown=[t.get('id',str(t)[:140]) for t in root.select('table') if id(t) not in seen]
     if unknown:raise ValueError('Unclassified course tables: '+str(unknown))
+    apply_mathematical_presentation(root)
+    failed=[name for name,value in media_html_checks(doc).items() if not value]
+    if failed:raise ValueError('Course tables/captions: '+str(failed))
     return len(seen)
 
 def apply(doc,page_key,page,runtime):
@@ -140,6 +218,36 @@ def apply(doc,page_key,page,runtime):
 def self_test():
     data=load_contract();checks={}
     checks['eight supported 0.4 types']=len(set(data['types']))==8
+    checks.update(media_style_checks())
+    for key in ['d0','r1_g01','r1_g02','r1_g03','r1_g04']:
+        source=media_source_checks(BASE/'hoc_lieu'/key/'index.qmd')
+        checks[key+' current media source']=bool(source) and all(source.values())
+    fixture=BeautifulSoup('<main class="reader-content"><figure><div class="figure-viewport"><figcaption>Tên bảng</figcaption><table class="zo-course-table" data-table-kind="values"><tr><th>x</th><td>1</td></tr><tr><th>f(x)</th><td>2</td></tr></table></div></figure></main>','html.parser')
+    checks['old mathematical class/caption defects rejected']=not all(media_html_checks(fixture).values())
+    cells=[n.get_text() for n in fixture.select('th,td')]
+    apply_mathematical_presentation(fixture.select_one('.reader-content'))
+    checks['shared math component with name below accepted']=all(media_html_checks(fixture).values())
+    checks['math cells unchanged by presentation']=[n.get_text() for n in fixture.select('th,td')]==cells
+    cap=fixture.select_one('figcaption')
+    checks['name outside horizontal scrolling area']=cap.parent is fixture.figure and fixture.figure.contents[-1] is cap
+    once=str(fixture);apply_mathematical_presentation(fixture.select_one('.reader-content'))
+    checks['caption placement idempotent']=str(fixture)==once
+    broken=copy.deepcopy(fixture);broken.table['class']=['zo-course-table']
+    checks['missing math grid class rejected']=not all(media_html_checks(broken).values())
+    broken=copy.deepcopy(fixture);broken.figure.insert(0,broken.figcaption.extract())
+    checks['caption above figure rejected']=not all(media_html_checks(broken).values())
+    unnamed=BeautifulSoup('<main class="reader-content"><table class="zo-course-table" data-table-kind="values"><tr><th>x</th><td>1</td></tr></table></main>','html.parser')
+    apply_mathematical_presentation(unnamed.select_one('.reader-content'))
+    checks['contextual value table remains unnamed']=not unnamed.find('caption') and not unnamed.find('figcaption') and all(media_html_checks(unnamed).values())
+    omitted=BeautifulSoup('<main class="reader-content"><div class="figure-viewport"><img alt="Đồ thị dữ kiện" data-zo-caption="omitted" data-zo-caption-reason="Một đồ thị duy nhất trong đề"></div></main>','html.parser')
+    checks['justified graph caption omission accepted']=all(media_html_checks(omitted).values())
+    omitted.img.attrs.pop('data-zo-caption-reason')
+    checks['unexplained missing graph caption rejected']=not all(media_html_checks(omitted).values())
+    css=(KIT/'course-tables.css').read_text(encoding='utf-8')
+    for old,new in [('font-size:1em;line-height:1.6','font-size:.88em;line-height:1.6'),('padding:.65em .8em','padding:12px 15px'),('caption-side:bottom','caption-side:top'),('border-left:3px double #766F66','border-left:1px solid #766F66')]:
+        checks['reject CSS regression '+new]=not all(media_style_checks(css.replace(old,new)).values())
+    source=BASE/'hoc_lieu/r1_g03/index.qmd';text=source.read_text(encoding='utf-8')
+    checks['source missing graph-caption reason rejected']=not all(media_source_checks(source,text=text.replace('data-zo-caption-reason=', 'data-omitted-reason=',1)).values())
     for key,entries in data['pages'].items():
         checks[key+' unique bindings']=len({e['selector'] for e in entries})==len(entries)
         checks[key+' explicit valid roles']=all(e['kind'] in data['types'] and e.get('role') for e in entries)

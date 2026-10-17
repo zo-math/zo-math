@@ -1394,6 +1394,14 @@ def dispatch_article_source_validators(
     relative: Path, text: str, checker: Checker
 ) -> ArticleValidationContext | None:
     from zo_course_labels import governed, LEGACY, source_checks as course_label_source_checks
+    from zo_course_labels import answer_action_source_checks
+    if governed(relative):
+        try:
+            actions=answer_action_source_checks(checker.root/relative,checker.root)
+            failed=[key for key,value in actions.items() if not value]
+            checker.add('course-answer-actions',not failed,'; '.join(failed) or 'Exact forward/return action wording checked',relative)
+        except (OSError,ValueError,KeyError) as exc:
+            checker.add('course-answer-actions',False,str(exc),relative)
     if governed(relative) and relative.parent.name not in LEGACY:
         try:
             values=course_label_source_checks(checker.root/relative,checker.root)
@@ -1401,6 +1409,14 @@ def dispatch_article_source_validators(
             checker.add("course-label-source",not failed,"QD_025: "+("; ".join(failed) if failed else "binding, functions, contexts and numbering checked"),relative)
         except (OSError,ValueError,KeyError) as exc:
             checker.add("course-label-source",False,str(exc),relative)
+    from zo_course_tables import media_source_checks
+    try:
+        media=media_source_checks(checker.root/relative,checker.root)
+        if media:
+            failed=[key for key,value in media.items() if not value]
+            checker.add('course-table-figure-presentation',not failed,'; '.join(failed) or 'Math grid styles and caption choices checked at source',relative)
+    except (OSError,ValueError,KeyError) as exc:
+        checker.add('course-table-figure-presentation',False,str(exc),relative)
     from zo_course_math_assets import source_checks as math_asset_source_checks
     try:
         math_assets=math_asset_source_checks(checker.root/relative,checker.root)

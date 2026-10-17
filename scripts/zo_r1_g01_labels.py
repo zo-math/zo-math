@@ -7,6 +7,7 @@ import json
 import re
 from pathlib import Path
 from bs4 import NavigableString
+from zo_course_labels import answer_action_labels
 
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = Path('content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01')
@@ -79,7 +80,7 @@ def apply(document, binding_path=None):
                     if sibling.name == 'details': break
                     holder.append(sibling.extract())
                 action = document.new_tag('div', attrs={'class':'answer-link'})
-                link = document.new_tag('a',href='#'+unit['answer']);link.string='Xem lời giải'
+                link = document.new_tag('a',href='#'+unit['answer']);link.string=answer_action_labels()['forward']
                 action.append(link);holder.append(action)
                 node = holder
             title = node.select_one(':scope > h2, :scope > h3, :scope > h4, :scope > .r1-task-label, :scope > p > .r1-task-label, :scope > p > strong, :scope > summary')

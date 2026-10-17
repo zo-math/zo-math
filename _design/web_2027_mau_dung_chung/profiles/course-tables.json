@@ -3,13 +3,14 @@
   "decision": "QD_030",
   "design_reference": "_design/ngon_ngu_thiet_ke_zo_math_0_4/07_mau_thi_giac/source/table_engine.py",
   "types": ["values", "frequency", "comparison", "matrix", "sign", "variation", "rubric", "process"],
+  "mathematical_grid": {"kinds":["values","sign","variation"],"class":"zo-math-grid"},
   "pages": {
     "home": [],
     "r1_g01": [
       {"selector":"#r1-table-t01 table","kind":"process","role":"Chọn hỗ trợ và điểm trở về"},
       {"selector":"#r1-table-t02 table","kind":"rubric","role":"Mục tiêu và tiêu chí cần đạt","variant":"criteria","widths":[18,82]},
       {"selector":"#r1-table-t03 table","kind":"process","role":"Ôn sau Khởi động và quay về nhiệm vụ"},
-      {"selector":"#r1-table-t04 table","kind":"sign","role":"Dấu các nhân tử, dấu đạo hàm và kết luận","variant":"explained","center_body_columns":[1,2,3,4],"focus_column":4},
+      {"selector":"#r1-table-t04 table","kind":"sign","role":"Dấu các nhân tử, dấu đạo hàm và kết luận","variant":"explained","center_body_columns":[1,2,3,4],"focus_column":4,"caption_policy":"context","caption_reason":"Mục phương pháp và đầu cột đã xác định dấu của đạo hàm; chỉ có một bảng trong mục."},
       {"selector":"#r1-table-t05 table","kind":"comparison","role":"Đối chiếu dấu hai phía với cực trị"},
       {"selector":"#r1-table-t06 table","kind":"comparison","role":"Phân biệt ba đối tượng cực trị"},
       {"selector":"#r1-table-t07 table","kind":"comparison","role":"Phân biệt đồ thị hàm số và đạo hàm"},
@@ -40,8 +41,8 @@
       {"selector":"#r1-table-t13 table","kind":"process","role":"Nhật kí 14 trường","variant":"fields"},
       {"selector":"#r1-table-t18 table","kind":"process","role":"Nhật kí giả lập 14 trường","variant":"fields"},
       {"selector":"#r1-g02-table-t04 table","kind":"process","role":"Chọn Sửa lỗi theo nơi phát hiện","variant":"routing"},
-      {"selector":"#r1-g02-table-t06 table","kind":"values","role":"Giá trị tại các điểm cần so sánh"},
-      {"selector":"#r1-g02-table-t07 table","kind":"values","role":"Giá trị tại các điểm cần so sánh"}
+      {"selector":"#r1-g02-table-t06 table","kind":"values","role":"Giá trị tại các điểm cần so sánh","caption_policy":"context","caption_reason":"Đoạn lời giải ngay trước bảng đã nêu hàm đang xét; hai hàng giữ rõ cặp đầu vào và giá trị."},
+      {"selector":"#r1-g02-table-t07 table","kind":"values","role":"Giá trị tại các điểm cần so sánh","caption_policy":"context","caption_reason":"Một bảng giá trị duy nhất trong lời giải nhiệm vụ; câu trước và nhãn hàng xác định hàm đang xét."}
     ],
     "d0": [
       {"selector":"#d0-r2-02 table","kind":"frequency","role":"Tần số theo nhóm thời gian","variant":"transposed","widths":[31,23,23,23]},
