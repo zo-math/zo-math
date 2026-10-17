@@ -69,7 +69,11 @@ def inventory(node: Tag) -> dict:
 
 
 def template(name: str, **values) -> str:
-    return Template((KIT / 'templates' / (name + '.tpl')).read_text(encoding='utf-8')).substitute(values)
+    rendered=Template((KIT / 'templates' / (name + '.tpl')).read_text(encoding='utf-8')).substitute(values)
+    if name=='page.html':
+        from zo_web_2027_shell import require as require_shell
+        require_shell(BeautifulSoup(rendered,'html.parser'))
+    return rendered
 
 
 def footer_data() -> dict:

@@ -91,7 +91,7 @@ Wrapper có thể là `div` để không làm thay đổi cấp heading nguồn;
 | Thẻ PDF: tiêu đề và mô tả / số trang / nút tải; mobile xếp lại | Danh sách PDF và số trang đọc từ tệp thật; tám thẻ chỉ là G01, không là quy định mọi gói |
 | Footer ngoài main; Ủng hộ là section riêng | Link/thông tin canonical của trang; không bỏ footer khi thay shell |
 
-Profile hình mới G01 thay cơ chế suy `--figure-em` từ SVG lịch sử ở gói đã opt-in: SVG mới giữ kích thước tự nhiên theo profile 0.4; không giãn đầy giấy. Phần chưa chuyển profile giữ cơ chế tương thích, không âm thầm đổi các gói khác. Nguồn: `figure-profile-candidate/`, bộ nối `scripts/zo_web_2027_figures.py` và config hình G01. Không sửa toán để đạt hình thức.
+GRAPH-G03-01 thay quy tắc cỡ tự nhiên cũ của G01/G02/G04: gọi preset công cụ `lesson-g03` và đặt `--figure-em` bằng viewBox_width / 16.5 qua `zo_graphics.set_lesson_graph_size`; CSS chung dùng đúng biến này. Khung từng ô 11 × 7 cm, ngoại lệ cao 8 cm ghi rõ lí do. Bản chụp G03 trước sửa là đối chứng; nguồn TEX/SVG G03 giữ nguyên nhưng lớp hiển thị được sửa để đủ 11 ảnh nhận cùng quy tắc (GRAPH-G03-02). Hình ghép giữ bố trí các ô. Phông/nét 0.4 giữ nguyên, tỉ lệ trên trang theo G03; không giãn đầy giấy. Nguồn: `figure-profile-candidate/`, bộ nối `scripts/zo_web_2027_figures.py` và config hình G01. Không sửa toán để đạt hình thức.
 
 Nút drawer G01 chỉ hiện biểu tượng, 52×52px; tên truy cập “Mở mục lục học liệu”, Enter mở, Escape đóng/trả focus. Nút tải tối thiểu 44px. Giữ lời cảnh báo PDF chưa đồng bộ tới khi có nhiệm vụ PDF được nghiệm thu; số trang đúng không chứng minh nội dung PDF mới.
 
@@ -102,3 +102,11 @@ Tách rõ quyết định đã duyệt, hiện thực có kiểm, trải nghiệ
 ## Đối sánh hai gói QD_028
 
 Quy tắc vùng đọc và bảng theo 07; phạm vi xác nhận theo 01/2.5.1; phép kiểm theo 02/1.3. Kit chỉ hiện thực: không giấy chỉ có tiêu đề, không nhãn ngữ cảnh lặp, bảng giữ liên kết canonical, mục lục hai gói có cùng tên truy cập. Trạng thái/lệnh hiện hành theo 03/README gói; không dùng lịch sử FB để chứng nhận lượt mới.
+
+## MATH-ASSET01 — đường dựng phải khớp vai trò
+
+Theo 07/6.1.2 và 02/2.5 của khóa: source/HTML guard dùng scripts/zo_course_math_assets.py, binding profiles/course-math-assets.json. Không nối BBT bằng bảng thường được gán kind=variation; bộ nối bảng phải từ chối. Hình trong bài gọi cùng production-figures.css và cỡ tự nhiên, bìa dùng manifest riêng. Ma trận đối chứng phải chỉ ra cả component và đầu ra nhìn được; có thử âm JSON rỗng, thiếu giới hạn/điểm loại, surface bìa trong bài, provenance mã sinh/style/phông và sizing. Tương thích G01–G03 không chứng nhận G04/gói mới; không đổi shell/PDF/receipt hoặc xuất bản.
+
+## DRAWER-ICON01 — chủ sở hữu của nút mở mục lục
+
+Quy tắc nút icon ở trên áp dụng cho mọi gói/trang dùng shell, kể cả chưa có PDF. Template page.html.tpl sở hữu SVG/tên truy cập; web-shell.css sở hữu kích thước/hình tròn; site-ui.js sở hữu mở/đóng/focus/resize. Không phụ thuộc downloads.css hoặc đoạn chèn icon trong adapter PDF. Các đoạn tương thích G01/G02 không là chuẩn để nhân bản. zo_web_2027_shell.py chặn template/HTML/runtime CSS lệch trước bàn giao; kiểm browser vẫn bắt buộc. Nội dung main, rail, các view và điều hướng toàn khóa giữ nguyên.

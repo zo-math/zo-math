@@ -9,10 +9,30 @@ workflow:
   publication: pending
   user_confirmed: false
 acceptance:
-  current_source: converted_and_technically_checked
-  current_html: parent_context_labels_checked_pending_owner_review
+  current_source: math_asset_roles_corrected_and_checked
+  current_html: graph_g03_layout_checked_pending_owner_review
   final: pending
 labeling_audit:
   context_labels: parent-context-v1
   status: source_and_fresh_HTML_checked_pending_owner_review
   evidence: _quy_trinh/ho_so/hieu_chinh_nhan_20261017.json
+math_asset_audit:
+  rule: 07/6.1.2; 02/2.5
+  evidence: _quy_trinh/ho_so/khac_phuc_tai_nguyen_20261017.json
+  owner_acceptance: pending
+  lesson_pdf_built: false
+  published: false
+shell_audit:
+  rule: DRAWER-ICON01; 07/6
+  evidence: _quy_trinh/ho_so/khac_phuc_nut_muc_luc_20261017.json
+  status: source_and_HTML_checked_pending_owner_review
+  PDF_changed: false
+  published: false
+
+graph_layout_audit:
+  rule: GRAPH-G03-01; 07/6.1.2
+  status: source_vectors_and_HTML_checked_pending_owner_review
+  evidence: ../../tot_nghiep_thpt/2027/_quy_trinh/ho_so_do_thi_theo_g03_20261017.json
+  owner_acceptance: pending
+  lesson_pdf_built: false
+  published: false

@@ -116,9 +116,6 @@ def adapt(path, output_root):
         if not source.is_file():raise ValueError("Missing official figure: "+str(source))
         img["src"]=builder.materialize(source,"assets/content/"+source.name)
         img["class"]=img.get("class",[])+["math-illustration"]
-        import xml.etree.ElementTree as ET
-        width=float(ET.parse(source).getroot().attrib["viewBox"].split()[2])
-        img["style"]=f"--figure-em:{width/16.5:.5f}em"
         viewport=doc.new_tag("div",attrs={"class":"figure-viewport","tabindex":"0","role":"region","aria-label":img.get("alt","Hình đồ thị")+"; cuộn ngang khi cần"});img.wrap(viewport)
     for link in root.select("a[href]"):
         value=link["href"];split=urlsplit(value)
@@ -172,6 +169,8 @@ def adapt(path, output_root):
     apply_course_navigation(result,path,output_root,builder.output,"g03")
     result.body["data-zo-web-production"]="R1-G03"
     result.title.string=title+" — ZO Math"
+    from zo_course_math_assets import apply_graph_display
+    apply_graph_display(result,path,builder.output)
     from zo_web_2027_consistency import apply_editorial_policy
     apply_editorial_policy(result)
     from zo_course_html import write

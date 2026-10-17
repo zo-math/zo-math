@@ -4,6 +4,42 @@ Phiên bản: 0.1 · Cập nhật trạng thái: 16/10/2026.
 
 Đây là nơi duy nhất ghi công việc đang mở và thứ tự sản xuất hiện hành. Chỉ cập nhật trạng thái từ bằng chứng trong hồ sơ gói. [Điểm vào](README.md).
 
+**CHECKPOINT-20261018 — lưu mốc nguồn cục bộ theo yêu cầu chủ trì.**
+
+- Phạm vi mốc học liệu: các sửa đồ thị/BBT G04, nút mục lục dùng chung, khung/tỉ lệ đồ thị G01–G04 và cổng chống tái diễn; nguồn, tài nguyên chính thức, quy tắc và hồ sơ được lưu cùng nhau vì có quan hệ phụ thuộc.
+- Bộ công cụ độc lập đã có Git cục bộ tại `E:/zo_math_graphics`; mốc đầu `763686d6af27` giữ nguồn công cụ hiện hành, gồm preset G03 và sửa token BBT. [Hồ sơ mốc và khóa phụ thuộc](ho_so_commit_20261018.json) lưu commit và hash đầy đủ. Không chép engine trở lại repo nội dung.
+- Mốc học liệu nhận diện trong Git bằng tiêu đề `checkpoint: unify course graphs, native variation tables and contents navigation`; không dùng commit thay kiểm hoặc nghiệm thu. Các cờ chưa commit trong báo cáo lượt trước vẫn giữ đúng thời điểm, không sửa lịch sử.
+- Các HTML sửa vẫn chờ chủ trì duyệt; không dựng lại PDF học liệu, push, thiết lập remote mới hoặc xuất bản. Bản xem tại hai đường dẫn audit trong hồ sơ; không stage vùng `_audit/`.
+
+**GRAPH-G03-02 — khép năm ảnh còn lệch trong G03, 18/10/2026.**
+
+- Thay phần tự giới hạn “G03 giữ nguyên” của lượt trước: giữ nguyên nguồn TEX/SVG và bản đối chứng, sửa cách hiển thị đủ 11 ảnh bằng component chung. Lỗi là năm ảnh không có figure nên không nhận selector đặt cỡ cũ; không phải lỗi cần vẽ lại ảnh.
+- Đã dựng/kiểm HTML riêng G03: HTML 1299/1299, browser 30/30, bảo toàn/thử âm 58/58; cả 11 ảnh cùng tỉ lệ, sáu ảnh cũ giữ cỡ. 1489 tệp bảo vệ không đổi. Bản xem và số đo trước sửa giữ nguyên.
+- [Hồ sơ và bản xem mới](../../../hoc_lieu/r1_g03/_quy_trinh/ho_so/dong_bo_nam_hinh_20261018.md). Chưa chủ trì duyệt HTML sửa, chưa PDF học liệu, commit/push hoặc xuất bản lại.
+
+**GRAPH-G03-01 — đồng bộ đồ thị theo mẫu G03, đã kiểm kỹ thuật 17/10/2026.**
+
+- Chủ trì chọn diện mạo G03: khung từng ô 11 × 7 cm (hai hình G03 cao 8 cm), cùng nét/phông 0.4 và tỉ lệ viewBox_width/16.5 em khi hiển thị. Quy tắc này thay riêng cỡ CSS tự nhiên trong MATH-ASSET01, không thay phần sửa BBT.
+- Phạm vi: 13 đồ thị G01, 4 đồ thị G02, 35 đồ thị G04; G03 giữ nguyên làm đối chứng. Hình ghép giữ bố trí; bìa, BBT, bản thảo và nội dung toán không đổi.
+- Đã dựng và xem 52 đồ thị, HTML ba gói qua CLI; HTML G04 1512/1512, browser 99/99, bảo toàn 181/181 và 1615 tệp, công cụ đồ thị/hồi quy tài nguyên đạt. Hai hình mẫu G03 tái dựng đúng byte. Năm ảnh G03 có CSS co giãn khác đã ghi riêng, không sửa hoặc dùng làm mẫu đặt cỡ.
+- [Hồ sơ và điểm xem thực tế](ho_so_do_thi_theo_g03_20261017.md). Chờ chủ trì xem các HTML mới. Chưa PDF học liệu, commit/push hoặc xuất bản lại.
+
+**DRAWER-ICON01 — nút mục lục chỉ icon, 17/10/2026.**
+
+- Chủ trì chỉ ra G04 còn nút capsule “Bài học · Mục lục”. Nguyên nhân: template/JS shell giữ nút chữ; G01/G02 nhận icon từ nhánh/CSS tải PDF; G04 chưa PDF nên rơi về mẫu thử cũ. Kiểm trước chưa xác nhận hình thức component.
+- Đã đưa SVG/tên truy cập và kích thước 52×52/icon 20px về template/web-shell.css/site-ui.js. Cổng zo_web_2027_shell.py chạy trước ghép và sau adapter, độc lập với PDF; G04 checker gọi cùng cổng. 07/6, 02, AGENTS và kit ghi rõ chủ sở hữu và ca trang chưa PDF.
+- HTML-only dựng cô lập đạt; HTML 1442/1442, shell 18/18, thử âm 10/10, browser 129/129, cổng tài liệu 240/240. Browser gồm G04 thật ở 390/430/768/999/1000/1440px và sáu fixture ngữ cảnh CSS; không tuyên bố đã dựng lại các trang đối chứng. Lỗi mô phỏng Enter ban đầu và báo cáo đầu giữ riêng; thao tác đúng đã kiểm.
+- [Hồ sơ nguyên nhân và bản xem mới](../../../hoc_lieu/r1_g04/_quy_trinh/ho_so/khac_phuc_nut_muc_luc_20261017.md). Nguồn QMD, toán, toàn bộ hình/BBT, bản thảo/bìa và docs/PDF công khai giữ nguyên; main/rail/footer/site-top G04 nguyên DOM.
+- Bước tiếp: chủ trì xem bản HTML mới. Chưa duyệt hiển thị sửa, chưa PDF học liệu, commit/push hoặc xuất bản trong lượt này. MATH-ASSET01 bên dưới giữ bằng chứng riêng phần hình/bảng, không chứng nhận nút.
+
+**MATH-ASSET01 — khép lỗi đồ thị/BBT R1-G04, 17/10/2026.**
+
+- Chủ trì phát hiện hình và BBT G04 không nhất quán với trước. Nguyên nhân nằm ở cách chọn component, tích hợp và cổng kiểm của agent: hình nội dung dùng surface bìa/sizing riêng; CSS hình đã nạp nhưng thiếu lớp kích hoạt; BBT Markdown được gán kind=variation với JSON rỗng; kiểm hash/đếm loại đã bỏ lọt. Lượt sửa 0.2 trước đó chưa khép lỗi này.
+- Nguồn G04 đã dùng một JSON cho 35 BBT và lời gọi có ID trong QMD; hình trong bài dùng component 0.4/surface paper/cỡ tự nhiên. Bìa và bản thảo đã duyệt, các receipt/ảnh kiểm lịch sử giữ nguyên. 07/6.1.2, 02/2.5, mẫu/B19, AGENTS, chuẩn QMD và kit nối cùng ma trận vai trò/cổng tự động, không chọn chuẩn thiết kế mới.
+- HTML dựng cô lập bằng CLI QMD đạt; kiểm HTML 1424/1424, thử âm/hồi quy 28/28, browser 66/66 ở 1440/430/390 px, kiểm tương thích native/cache 8/8 và 40/40 token cũ. Bộ test BBT dùng chung đạt. Cổng nguồn đối chiếu dữ kiện BBT với bản thảo và kiểm đầy đủ provenance hình. Không dùng các số này thay chủ trì duyệt.
+- [Hồ sơ nguyên nhân, nguồn sửa và bản xem](../../../hoc_lieu/r1_g04/_quy_trinh/ho_so/khac_phuc_tai_nguyen_20261017.md); JSON cùng tên ghi hash/bằng chứng và danh sách tệp. Công cụ BBT ngoài repo nội dung có ba tệp sửa liên quan; không nhân bản vào gói. Phụ thuộc native BBT tách khỏi cache đồ thị để không kéo theo dựng vector/PDF khi chỉ sửa bảng.
+- Bước tiếp: chủ trì xem HTML sửa. Chưa duyệt hiển thị sửa, chưa PDF học liệu/commit/push/phát hành. Các mốc G04 phía dưới là lịch sử trước phản hồi này; không chứng nhận diện mạo hiện hành.
+
 **SYNC-RELEASE01 — bộ hiện hành và quyền xuất bản, 15/10/2026.**
 Thay trạng thái đầu ra/chờ duyệt trong FIG-PDF01 và các mục lịch sử bên dưới.
 Chủ trì đã trả lời “Duyệt thiết kế, dựng tiếp 14 biến thể”, sau đó yêu cầu
@@ -38,7 +74,7 @@ Giới hạn kiểm: chưa in giấy/quét QR bằng điện thoại/phản bi�
 - Mốc nguồn R1-G04 và toàn bộ hiệu chỉnh liên quan của phiên được giao commit cục bộ. Bước tiếp theo: chủ trì xem các HTML mới. Chưa push, phát hành lại hoặc PDF mới.
 
 
-**R1-G04 — đã chuyển QMD và kiểm HTML; chờ chủ trì xem đầu ra, 17/10/2026.**
+**R1-G04 — lịch sử chuyển QMD/hiệu chỉnh nhãn trước MATH-ASSET01, 17/10/2026.**
 
 - Chủ trì bác phần trình bày của bản 0.1: chính văn kể căn cứ SGK và đồ thị chưa theo ngôn ngữ ZO Math. Các kết quả kiểm tính/liên kết trước đó không chứng nhận biên tập/thị giác; không kế thừa kết luận Đạt của 0.1.
 - Đã sửa [bản thảo duy nhất 0.2](../../../hoc_lieu/r1_g04/_quy_trinh/ban_thao/noi_dung.md): phát biểu trực tiếp, chú thích .zo-source-note đúng quy cách; sửa ngoặc chứa căn/phân số, vai trò khối lời giải và bỏ câu giải thích biên tập. Giữ phạm vi, toán, ID, năm Gợi mở trong năm mục và 28 cặp đề–lời giải.

@@ -23,6 +23,8 @@ class Builder(HomeBuilder):
 def adapt(path, output_root):
     from zo_course_labels import source_checks, require as require_labels, apply as apply_labels
     require_labels(source_checks(REPO/PACKAGE/"index.qmd"),"source")
+    from zo_course_math_assets import require_source
+    require_source(REPO/PACKAGE/"index.qmd")
     original = BeautifulSoup(path.read_text(encoding="utf-8"), "html.parser")
     if original.body is None:
         # Quarto omits draft pages in an ordinary public render.
@@ -166,6 +168,8 @@ def adapt(path, output_root):
         node[key]=urlunsplit(("","",os.path.relpath(destination,path.parent).replace("\\","/"),url.query,url.fragment))
     from zo_course_tables import apply as apply_tables
     apply_tables(result,"r1_g04",path,builder.output)
+    from zo_course_math_assets import apply_graph_display
+    apply_graph_display(result,path,builder.output)
     from zo_web_2027_navigation import apply as apply_course_navigation
     apply_course_navigation(result,path,output_root,builder.output,"g04")
     result.body["data-zo-web-production"]="R1-G04"

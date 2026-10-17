@@ -1,5 +1,12 @@
 # R1-G04 — Điểm vào nguồn và hồ sơ
 
+**GRAPH-G03-01 — ứng viên đồ thị theo mẫu G03.** Đã cập nhật nguồn và kiểm HTML riêng; [hồ sơ và bản xem](../../../tot_nghiep_thpt/2027/_quy_trinh/ho_so_do_thi_theo_g03_20261017.md). Chưa chủ trì duyệt hình thức, chưa dựng lại PDF học liệu hoặc xuất bản. G03/bìa/BBT/nội dung toán giữ nguyên; trạng thái PDF của bản cũ không chứng nhận bản HTML này.
+
+
+**Nút mục lục — bản sửa mới:** [Nguyên nhân và HTML tại vị trí chủ trì phản ánh](ho_so/khac_phuc_nut_muc_luc_20261017.md). Component shell chỉ icon, độc lập với PDF; các kiểm/hồ sơ trước không chứng nhận nút này. Trạng thái hiện hành ở 03/DRAWER-ICON01.
+
+**Bản xem sau sửa tài nguyên toán:** [Hồ sơ nguyên nhân và HTML sửa](ho_so/khac_phuc_tai_nguyen_20261017.md). Dùng JSON BBT/native và component hình trong bài; bản thảo/bìa đã duyệt giữ nguyên. Các kết quả 0.2/chuyển QMD/nhãn dưới đây là mốc trước phản hồi thị giác; không chứng nhận bản sửa. Trạng thái duy nhất ở 03/MATH-ASSET01.
+
 Phạm vi phương án được chủ trì duyệt: Khảo sát sự biến thiên và vẽ đồ thị của hàm số, năm mục kiến thức; Gợi mở thuộc từng mục.
 
 - [Nguồn QMD duy nhất của ứng viên](../index.qmd).

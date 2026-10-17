@@ -18,7 +18,7 @@ CONFIG=PACKAGE/'giao_dien/web_2027_figures.json'
 def vector_dependencies():
     config=json.loads(CONFIG.read_text(encoding='utf-8'))
     paths=[CONFIG,Path(__file__),GRAPH/'zo_graph_build.py',GRAPH/'tex/zo_graph_v02.tex',
-           GRAPH/'tex/zo_graph_v04.tex',PROFILE/'frame-tokens.json',PROFILE/'production-figures.css',
+           GRAPH/'tex/zo_graph_v04.tex',GRAPH/'profiles/lesson-g03.json',PROFILE/'frame-tokens.json',PROFILE/'production-figures.css',
            ROOT/'_design/ngon_ngu_thiet_ke_zo_math_0_4/07_mau_thi_giac/design/color_system.json']
     paths += [PACKAGE/item['source'] for item in config['figures']]
     paths += list((ROOT/'assets/fonts').glob('STIXTwo*.otf'))
@@ -44,21 +44,25 @@ def build_vectors(output):
     inputs = vector_dependencies()
     for source in sources:
         print('G02 vector',source.stem,flush=True)
-        pdf,svg = graph.build(graph.parse_args([str(source),'--style','0.4','--check','--force','--out-dir',str(output/'figure-build')]))
+        pdf,svg = graph.build(graph.parse_args([str(source),'--style','0.4','--layout','lesson-g03','--check','--force','--out-dir',str(output/'figure-build')]))
         shutil.copyfile(svg,destination/svg.name)
         shutil.copyfile(pdf,destination/pdf.name)
     # Representative G02 image: L02, endpoint comparison and a corner minimum.
     # Transparent artwork; background belongs to the independent cover frame.
-    cover_source = PACKAGE/'giao_dien/cover_g02.tex'
-    _, cover = graph.build(graph.parse_args([str(cover_source),'--style','0.4',
-        '--surface','transparent-light','--check','--force','--out-dir',str(output/'cover-build')]))
-    shutil.copyfile(cover,destination/'cover-light.svg')
+    old=json.loads(manifest.read_text(encoding='utf-8'))
+    keys=[(GRAPH/f).relative_to(ROOT).as_posix() for f in ['tex/zo_graph_v02.tex','tex/zo_graph_v04.tex']]
+    keys += [(PACKAGE/'giao_dien/cover_g02.tex').relative_to(ROOT).as_posix()]
+    keys += [k for k in inputs if k.startswith('assets/fonts/')]
+    if any(old['inputs'].get(k)!=inputs[k] for k in keys) or sha(cache/'cover-light.svg')!=old['assets']['cover-light.svg']:
+        raise ValueError('Cover changed; use its separate cover workflow')
+    shutil.copyfile(cache/'cover-light.svg',destination/'cover-light.svg')
     if inputs!=vector_dependencies():raise ValueError('G02 vector inputs changed during build')
     expected={p.stem+ext for p in sources for ext in ['.svg','.pdf']}|{'cover-light.svg'}
     assets={p.name:sha(p) for p in destination.iterdir() if p.suffix in ['.svg','.pdf']}
     if set(assets)!=expected:raise ValueError('Incomplete G02 vector build')
     receipt={'profile':'0.4','inputs':inputs,'assets':assets,'cover_surface':'transparent-light',
-             'fresh_all_five':True,'learning_pdf_built':False,'canonical_cache_used':False}
+             'fresh_all_five':False,'learning_pdf_built':False,'canonical_cache_used':False,
+             'lesson_layout':'lesson-g03','preserved_cover_origin':old.get('preserved_cover_origin',old)}
     (destination/'manifest.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     cache.mkdir(parents=True,exist_ok=True)
     for name in assets:shutil.copyfile(destination/name,cache/name)
@@ -84,7 +88,8 @@ def apply(page,output, *, document=None):
         name=Path(image['src']).name.split('_',1)[-1]
         if name not in ['do_thi_01.svg','do_thi_02.svg','nen_do_thi_01.svg','nen_do_thi_02.svg']:continue
         image['src']='assets/figures04/'+name
-        image.attrs.pop('style',None)
+        from zo_graphics import set_lesson_graph_size
+        set_lesson_graph_size(image,output/'assets/figures04'/name,ROOT)
         image['class']+=['zo-graph-04']
         image.parent['class']+=['zo-figure-scroll']
     sys.path.insert(0,str(VARIATION))

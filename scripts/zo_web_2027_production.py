@@ -168,6 +168,10 @@ def adapt(path, output_root):
     if is_package:
         load_cover(ROOT, relative.parent.name)
     result = _adapt(path, output_root)
+    from zo_web_2027_shell import require as require_shell
+    rendered=BeautifulSoup(path.read_text(encoding="utf-8"),"html.parser")
+    if rendered.body is not None and rendered.body.has_attr("data-zo-web-shell"):
+        require_shell(rendered,path)
     if is_package:
         check_html(ROOT, relative.parent.name, path)
     return result

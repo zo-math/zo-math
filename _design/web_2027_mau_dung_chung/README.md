@@ -184,3 +184,17 @@ G02 chưa có Ôn nền, Nhật kí hay các CP độc lập trong nguồn đang
 
 
 Nhãn ngữ cảnh 17/10/2026: quy tắc tại 07/6.2, giá trị duy nhất tại danh mục kiến trúc/label_contract.display_contract.context_labels. G04/gói mới dùng parent-context-v1; bộ ghép chung zo_course_labels.py, cùng .role. Không dùng nhãn viết riêng hoặc profiles/r1-consistency.json/page_roles cũ để ghi đè nhãn cấp cha. Các giá trị cũ chỉ tương thích gói chưa di trú; không đổi thành phẩm đã phát hành trong lượt G04.
+
+## MATH-ASSET01 — đường dựng phải khớp vai trò
+
+Theo 07/6.1.2 và 02/2.5 của khóa: source/HTML guard dùng scripts/zo_course_math_assets.py, binding profiles/course-math-assets.json. Không nối BBT bằng bảng thường được gán kind=variation; bộ nối bảng phải từ chối. Hình trong bài gọi cùng production-figures.css và cỡ tự nhiên, bìa dùng manifest riêng. Ma trận đối chứng phải chỉ ra cả component và đầu ra nhìn được; có thử âm JSON rỗng, thiếu giới hạn/điểm loại, surface bìa trong bài, provenance mã sinh/style/phông và sizing. Tương thích G01–G03 không chứng nhận G04/gói mới; không đổi shell/PDF/receipt hoặc xuất bản.
+
+**Nút mục lục — DRAWER-ICON01:** thành phần shell độc lập với PDF, nguồn template page.html.tpl/web-shell.css/site-ui.js, cổng scripts/zo_web_2027_shell.py. Áp dụng 07/6 và hợp đồng vùng đọc; không nhân bản các đoạn chèn icon trong mô-đun PDF. Kiểm gồm hình thức và runtime, có trang chưa PDF và ca âm; bằng chứng/trạng thái tại 03.
+
+
+## GRAPH-G03-01 — khung và tỉ lệ đồ thị theo G03
+
+Chủ trì chọn G03 làm mẫu ngày 17/10/2026. Áp dụng 07/6.1.2: preset `lesson-g03` của công cụ đồ thị, `set_lesson_graph_size` của adapter và CSS dùng `--figure-em`; không dùng width:auto của bản sửa trước. Giữ bố trí hình ghép, nội dung toán, bìa và BBT. Kiểm giá trị kích thước thật ở desktop/mobile cùng đối chứng G03, thử âm sai preset/hệ số/CSS. Trạng thái và bản xem tại 03; HTML sửa chưa tự là PDF đồng bộ, nghiệm thu hoặc xuất bản.
+
+
+GRAPH-G03-02 (18/10/2026): bảo toàn đối chứng bằng bản chụp/số đo, không giữ lỗi hiển thị trong nguồn hiện hành. Cổng lesson_display_checks áp dụng đủ G01–G04, bao gồm ảnh không có figure. G03 gọi apply_graph_display như các gói khác; kiểm đủ 11 ảnh trên desktop/mobile, sáu ảnh cũ giữ geometry và năm ảnh sửa nhận cùng tỉ lệ. Không dựng lại TEX/SVG/PDF khi chỉ sửa lớp đặt ảnh.

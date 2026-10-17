@@ -355,3 +355,5 @@ Thử trả lời trước khi đọc tiếp.
 
 
 Nhãn khi chuyển QMD/HTML: áp 07/6.2, quy tắc Nhãn ngữ cảnh theo cấp chứa ngày 17/10/2026. Bài học → MẠCH HỌC CHÍNH; Khởi động → MẠCH HỌC CHÍNH · BÀI HỌC; nhiệm vụ Khởi động thêm KHỞI ĐỘNG ở cuối. Không dùng bảng nhãn mỹ thuật cũ làm mẫu. Kiểm kê owner/tiêu đề/nhãn trước–sau, dấu chấm nhỏ, cùng kiểu .role và quan hệ đề–lời giải; giữ loại/chức năng/số trong metadata.
+
+Trước điền nội dung/hình và trước chuyển QMD, nạp 07/6.1.2, 02/2.5 và mục B19 của bảng kiểm 1.4. Ma trận tài nguyên ghi vai trò → dữ liệu → bộ dựng → surface/cỡ → đối chứng → guard/thử âm → ảnh xem thực. Dùng bộ dựng native cho BBT; không mặc nhiên kế thừa cấu hình của bìa hoặc JSON rỗng từ gói không có BBT.

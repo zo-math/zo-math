@@ -40,7 +40,7 @@ def module(name, path):
 
 def dependencies(config):
     paths = [CONFIG, GRAPH/'zo_graph_build.py', GRAPH/'tex/zo_graph_v02.tex',
-             GRAPH/'tex/zo_graph_v04.tex', GRAPH/'mau/cover_cubic_04.tex',
+             GRAPH/'tex/zo_graph_v04.tex', GRAPH/'profiles/lesson-g03.json', GRAPH/'mau/cover_cubic_04.tex',
              PROFILE/'frame-tokens.json', PROFILE/'production-figures.css',
              VARIATION/'zo_variation_html.py', VARIATION/'zo_variation_build.py',
              PACKAGE/config['variation_source'],
@@ -86,18 +86,24 @@ def build(output, force=False, reuse_graphs=False):
     generated = {}
     for name in config['graphs']:
         print('Building', name, flush=True)
-        command = [str(PACKAGE/'hinh'/f'{name}.tex'), '--style','0.4','--check','--out-dir',str(output/'graphs')]
+        command = [str(PACKAGE/'hinh'/f'{name}.tex'), '--style','0.4','--layout',config['lesson_layout'],'--check','--out-dir',str(output/'graphs')]
         if name in config['label_layouts']:
             command += ['--label-layout',str(ROOT/config['label_layouts'][name])]
         if force: command += ['--force']
         pdf, svg = graph.build(graph.parse_args(command))
         generated[svg.name] = svg
         generated[pdf.name] = pdf
-    for surface, name in [('transparent-light','cover-light'),('transparent-dark','cover-dark')]:
-        command=[str(GRAPH/'mau/cover_cubic_04.tex'),'--style','0.4','--surface',surface,
-                 '--check','--out-dir',str(output/name)] + (['--force'] if force else [])
-        pdf,svg=graph.build(graph.parse_args(command))
-        generated[name+'.svg']=svg
+    old=json.loads((destination/'manifest.json').read_text(encoding='utf-8'))
+    # Lesson layout never changes cover geometry. Verify its original source,
+    # styles and fonts, and retain the exact cover assets and origin receipt.
+    cover_keys=[(GRAPH/f).relative_to(ROOT).as_posix() for f in
+                ['mau/cover_cubic_04.tex','tex/zo_graph_v02.tex','tex/zo_graph_v04.tex']]
+    cover_keys += [k for k in before if k.startswith('assets/fonts/')]
+    if any(old['source_hashes'].get(k)!=before[k] for k in cover_keys):
+        raise ValueError('Cover inputs changed; handle cover through its separate workflow')
+    for name in ['cover-light.svg','cover-dark.svg']:
+        if sha(destination/name)!=old['assets'][name]:raise ValueError('Cover asset changed: '+name)
+        generated[name]=destination/name
     if dependencies(config) != before:
         raise ValueError('Source changed while graphs were building; refuse mixed outputs.')
     destination.mkdir(parents=True,exist_ok=True)
@@ -105,20 +111,33 @@ def build(output, force=False, reuse_graphs=False):
         target=destination/name
         if target.exists() and sha(target)!=sha(source) and not force:
             raise ValueError('Different existing web asset; requires explicit --force: '+name)
-        shutil.copyfile(source,target)
+        if source.resolve()!=target.resolve():shutil.copyfile(source,target)
     receipt={'profile':config['profile'],'source_hashes':before,'builder_sha256':sha(Path(__file__)),
              'assets':{name:sha(destination/name) for name in generated},
-             'course_pdf_changed':False,'graph_pdf_evidence':output.relative_to(ROOT).as_posix()}
+             'course_pdf_changed':False,'graph_pdf_evidence':output.relative_to(ROOT).as_posix(),
+             'lesson_layout':config['lesson_layout'],'preserved_cover_origin':old.get('preserved_cover_origin',old)}
     (destination/'manifest.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print('Web SVG assets and guarded provenance:',destination,flush=True)
+
+def graph_only_dependencies(values,config):
+    # BBT data/renderer are consumed afresh by apply(), not by the cached
+    # graph SVG/PDF compiler. Do not rebuild all vectors for a native-only fix.
+    native={(VARIATION/name).relative_to(ROOT).as_posix() for name in
+            ["zo_variation_build.py","zo_variation_html.py"]}
+    native.add((PACKAGE/config["variation_source"]).relative_to(ROOT).as_posix())
+    return {key:value for key,value in values.items() if key not in native}
 
 def verify(config):
     directory=PACKAGE/config['asset_directory']
     receipt=json.loads((directory/'manifest.json').read_text(encoding='utf-8'))
-    if receipt['source_hashes'] != dependencies(config):
+    if graph_only_dependencies(receipt['source_hashes'],config) != graph_only_dependencies(dependencies(config),config):
         raise ValueError('Web figure inputs changed; rebuild with zo_web_2027_figures.py before rendering.')
     for name,digest in receipt['assets'].items():
         if sha(directory/name)!=digest: raise ValueError('Web SVG changed: '+name)
+    # Fresh native data are validated independently, never certified by a
+    # historical graph-cache receipt.
+    native=module("verify_native_bbt",VARIATION/"zo_variation_html.py")
+    native.load_data(PACKAGE/config["variation_source"])
     return directory,receipt
 
 def verify_print():
@@ -155,7 +174,8 @@ def apply(target, page, output_root):
         if name not in config['graphs']: raise ValueError('Unconfigured graph: '+name)
         seen.add(name)
         image['src']=url(name+'.svg')
-        image.attrs.pop('style',None)
+        from zo_graphics import set_lesson_graph_size
+        set_lesson_graph_size(image,directory/(name+'.svg'),ROOT)
         image['class'] += ['zo-graph-04']
         image.parent['class'] += ['zo-figure-scroll']
     if seen!=set(config['graphs']): raise ValueError('Not all canonical G01 graphs were matched: '+str(seen))

@@ -1,5 +1,8 @@
 # R1-G01 — ứng viên Quarto v1.3
 
+**GRAPH-G03-01 — ứng viên đồ thị theo mẫu G03.** Đã cập nhật nguồn và kiểm HTML riêng; [hồ sơ và bản xem](../../../tot_nghiep_thpt/2027/_quy_trinh/ho_so_do_thi_theo_g03_20261017.md). Chưa chủ trì duyệt hình thức, chưa dựng lại PDF học liệu hoặc xuất bản. G03/bìa/BBT/nội dung toán giữ nguyên; trạng thái PDF của bản cũ không chứng nhận bản HTML này.
+
+
 **Nhãn cấp chứa — ứng viên sau phát hành, 17/10/2026.** Đã đồng bộ theo chỉ thị chủ trì; [HTML mới và hồ sơ](ho_so/dong_bo_nhan_20261017.md). Nguồn QMD/hình/PDF giữ nguyên. Chưa xuất bản lại hoặc dựng PDF; các xác nhận phát hành/CURRENT bên dưới thuộc bộ đã phát hành trước lượt nhãn này. Chủ trì giao commit mốc nguồn, không phải nghiệm thu HTML hoặc phát hành.
 
 

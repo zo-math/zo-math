@@ -50,6 +50,10 @@ Gói dựng mới dùng `scripts/zo_course_labels.py` với `display_contract: q
 
 Nhãn ngữ cảnh hiện hành theo hiệu chỉnh 17/10/2026 tại 07/6.2: Bài học → MẠCH HỌC CHÍNH; Khởi động → MẠCH HỌC CHÍNH · BÀI HỌC. G04/gói mới khai context_labels: parent-context-v1; gọi zo_course_labels.py, không gán lại bằng chuỗi riêng trong adapter. G01–G03 đã đồng bộ nguồn nhãn theo chỉ thị tiếp theo; thành phẩm công khai vẫn nguyên trạng. Giữ metadata chức năng/loại, ID và dãy số; cùng thành phần .role, một dấu “ · ”.
 
+## Cổng đồ thị và bảng biến thiên
+
+Công việc có hình/BBT tự kích hoạt 07/6.1.2 và 02/2.5: ma trận tài nguyên theo vai trò trước viết/chuyển nguồn; bộ dựng ZO Math, JSON BBT canonical, component hình dùng chung và kiểm đối chứng thực. CLI QMD/Quarto cùng cổng HTML gọi zo_course_math_assets.py cho G04/gói mới. Phân loại bảng hoặc chọn profile không thay kiểm component/vai trò/provenance. Giữ nguyên bản thảo/ảnh bìa đã duyệt; bản sửa hiển thị phải trình riêng. Không sao JSON rỗng hoặc sizing riêng từ gói không có BBT.
+
 ## Giới hạn tích hợp và đầu mối điều hành
 
 Ngôn ngữ bảng QD_030 áp dụng toàn khóa 2027, theo chức năng tại `07_quy_chuan_cau_truc_trang_nguoi_hoc.md`/6.1.1 và mẫu Design 0.4 được dẫn chiếu. Trước dựng hoặc sửa bảng, kiểm ánh xạ trong `_design/web_2027_mau_dung_chung/profiles/course-tables.json`; bộ dựng dùng `scripts/zo_course_tables.py`. Không dùng quy tắc căn trái đại trà đã bị thay thế cho bảng giá trị/dấu/biến thiên hoặc suy kiểu từ tên; bảng chưa phân loại phải được xử lí trước khi trình HTML. Không sửa dữ liệu toán để khớp hình thức.
@@ -113,3 +117,15 @@ Khi chu?n b? d?ng QMD/HTML cho g?i m?i, b?t bu?c th?c hi?n m?c ?Ch?n ?nh
 dung, ch? tr? duy?t, r?i khai b?o `giao_dien/anh_bia.json`. Kh?ng k? th?a
 ?nh g?i m?u. `zo_course_cover.py` l? c?ng binding tr??c/sau adapter HTML;
 kh?ng s?a hash ho?c t? ghi approved ?? v??t y?u c?u duy?t.
+
+## Component shell không phụ thuộc tính năng của gói mẫu
+
+Khi dựng/hiệu chỉnh HTML, áp dụng 07/6 và DRAWER-ICON01 trong hợp đồng kit: nút mở mục lục chỉ icon theo shell canonical, độc lập với việc gói có PDF. Cổng template/post-render dùng zo_web_2027_shell.py; phải kiểm kích thước, hình thức, tên truy cập và bàn phím/resize sau đổi view, có ca trang chưa PDF. Không dùng “click được”, cùng CSS hoặc PASS lĩnh vực khác thay kiểm component; không kéo thêm PDF/hình chỉ để nhận giao diện nút.
+
+
+## GRAPH-G03-01 — khung và tỉ lệ đồ thị theo G03
+
+Chủ trì chọn G03 làm mẫu ngày 17/10/2026. Áp dụng 07/6.1.2: preset `lesson-g03` của công cụ đồ thị, `set_lesson_graph_size` của adapter và CSS dùng `--figure-em`; không dùng width:auto của bản sửa trước. Giữ bố trí hình ghép, nội dung toán, bìa và BBT. Kiểm giá trị kích thước thật ở desktop/mobile cùng đối chứng G03, thử âm sai preset/hệ số/CSS. Trạng thái và bản xem tại 03; HTML sửa chưa tự là PDF đồng bộ, nghiệm thu hoặc xuất bản.
+
+
+GRAPH-G03-02 (18/10/2026): bảo toàn đối chứng bằng bản chụp/số đo, không giữ lỗi hiển thị trong nguồn hiện hành. Cổng lesson_display_checks áp dụng đủ G01–G04, bao gồm ảnh không có figure. G03 gọi apply_graph_display như các gói khác; kiểm đủ 11 ảnh trên desktop/mobile, sáu ảnh cũ giữ geometry và năm ảnh sửa nhận cùng tỉ lệ. Không dựng lại TEX/SVG/PDF khi chỉ sửa lớp đặt ảnh.

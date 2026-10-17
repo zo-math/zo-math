@@ -1,0 +1,104 @@
+{
+  "issue": "DRAWER-ICON01",
+  "owner_instruction": "Restore icon-only contents trigger and prevent recurrence",
+  "screenshot_reference": "d:/Pictures/Screenshots/Screenshot 2026-10-17 223554.png",
+  "root_cause": "Icon-only navigation presentation was coupled to PDF download modules while shared template/runtime retained capsule view text; tests checked opening but not component design.",
+  "source_hashes": {
+    "_design/web_2027_mau_dung_chung/templates/page.html.tpl": "35a8da2aa1e3d17fea11ac294df06413e0149b1e1b89f530c00d6f68239552bb",
+    "_design/web_2027_mau_dung_chung/web-shell.css": "84ca95fbdd4970986d3d62446513b478ad4e9d890131340dd91216acc8aa3468",
+    "_design/web_2027_mau_dung_chung/site-ui.js": "0f0389b4f9550029c421afb44da3bf33e926b45ba758bce13eb7d6cbd2d1c37b",
+    "scripts/zo_web_2027_shell.py": "acf6350c412e52964de3a47678e2c0ff5544f17ca0e44ce0f607f4c51345167f",
+    "scripts/zo_web_2027_preview.py": "d8775d3ed70dd55f7d944bf92fb914ec3b71f8888b35d0e07b255e9da994cf9a",
+    "scripts/zo_web_2027_production.py": "e25eee5776165cf095d3a47ee398d69523b5b6f45d2d733c0fa3edad9dad3818",
+    "scripts/zo_web_2027_g04_check.py": "3b78f312eb628616e025e6a366135126fc817229f4ba4e37d4eda945cf58a08b"
+  },
+  "rule_owner": "07/6; kit/hop_dong_vung_doc.md",
+  "source_gate": "template(page.html) requires shared shell checks",
+  "output_gate": "zo_web_2027_production.adapt requires actual HTML and runtime CSS checks; G04 checker also calls same module",
+  "verification": {
+    "qa-negative.json": {
+      "passed": 10,
+      "total": 10
+    },
+    "qa-shell.json": {
+      "passed": 18,
+      "total": 18
+    },
+    "qa-browser.json": {
+      "passed": 129,
+      "total": 129
+    },
+    "qa-html.json": {
+      "passed": 1442,
+      "total": 1442
+    },
+    "qa-content-preservation.json": {
+      "passed": 5,
+      "total": 5
+    }
+  },
+  "real_browser_widths": [
+    390,
+    430,
+    768,
+    999,
+    1000,
+    1440
+  ],
+  "synthetic_component_contexts": [
+    "home",
+    "home-editorial",
+    "d0",
+    "g01-PDF-CSS",
+    "g02-PDF-CSS",
+    "g04-no-PDF"
+  ],
+  "source_render": "Fresh QMD HTML-only, isolated source mirror; zero render errors/warnings",
+  "initial_test_report": "_audit/g04_drawer_20261017/qa-browser-initial.json",
+  "initial_test_limit": "Enter event payload omitted character; traced and corrected to existing G01 test convention; product native button handling unchanged",
+  "protection": {
+    "checked": 1972,
+    "changed": [],
+    "prior_unrelated_changes_modified": [],
+    "intentional_profile_and_readme_updates": [
+      "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g04/_quy_trinh/README.md",
+      "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g04/_quy_trinh/ho_so/index.yml"
+    ],
+    "previous_external_tool_changes_preserved": true
+  },
+  "preview": "http://127.0.0.1:8877/_audit/g04_drawer_20261017/g04-reading.html?r1-view=bai-hoc#T05",
+  "preview_file": "_audit/g04_drawer_20261017/g04-reading.html",
+  "owner_acceptance": "pending",
+  "lesson_pdf_built": false,
+  "math_figures_rebuilt": false,
+  "published": false,
+  "committed": false,
+  "pushed": false,
+  "files_changed_this_turn": [
+    "_design/web_2027_mau_dung_chung/README.md",
+    "_design/web_2027_mau_dung_chung/hop_dong_vung_doc.md",
+    "_design/web_2027_mau_dung_chung/kiem_thu.md",
+    "_design/web_2027_mau_dung_chung/site-ui.js",
+    "_design/web_2027_mau_dung_chung/templates/page.html.tpl",
+    "_design/web_2027_mau_dung_chung/web-shell.css",
+    "content/thpt/on_thi_toan_thpt/AGENTS.md",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g04/_quy_trinh/README.md",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g04/_quy_trinh/ho_so/index.yml",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g04/_quy_trinh/ho_so/khac_phuc_nut_muc_luc_20261017.json",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g04/_quy_trinh/ho_so/khac_phuc_nut_muc_luc_20261017.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/02_quy_trinh_va_nghiem_thu.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/03_dieu_hanh_chuong_trinh.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/04_nhat_ki_quyet_dinh.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/07_quy_chuan_cau_truc_trang_nguoi_hoc.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/08_danh_muc_tham_quyen_dieu_hanh.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/hop_dong_dieu_hanh.json",
+    "scripts/zo_web_2027_g04_check.py",
+    "scripts/zo_web_2027_preview.py",
+    "scripts/zo_web_2027_production.py",
+    "scripts/zo_web_2027_shell.py"
+  ],
+  "limits": [
+    "Local Edge and synthetic CSS contexts are not real-device testing or republication of reference pages.",
+    "Historical product receipts and prior QA reports were preserved."
+  ]
+}

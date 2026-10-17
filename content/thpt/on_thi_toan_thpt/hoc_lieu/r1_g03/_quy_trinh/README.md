@@ -1,5 +1,8 @@
 # R1-G03 — quản lí bản thảo và nguồn học liệu
 
+**GRAPH-G03-02 — sửa đủ năm ảnh còn lệch cỡ, 18/10/2026.** Cả 11 ảnh đã dùng cùng thành phần hiển thị; sáu ảnh cũ giữ cỡ. [Hồ sơ và bản xem](ho_so/dong_bo_nam_hinh_20261018.md). Nguồn QMD/TEX/SVG/PDF không đổi; chưa chủ trì duyệt HTML sửa hoặc xuất bản lại.
+
+
 **Nhãn cấp chứa — ứng viên sau phát hành, 17/10/2026.** Đã đồng bộ theo chỉ thị chủ trì; [HTML mới và hồ sơ](ho_so/dong_bo_nhan_20261017.md). Nguồn QMD/hình/PDF giữ nguyên. Chưa xuất bản lại hoặc dựng PDF; các xác nhận phát hành/CURRENT bên dưới thuộc bộ đã phát hành trước lượt nhãn này. Chủ trì giao commit mốc nguồn, không phải nghiệm thu HTML hoặc phát hành.
 
 

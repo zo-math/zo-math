@@ -1,6 +1,7 @@
 """Canonical graph data -> existing ZO Math graph adapter; no lesson PDF."""
 from pathlib import Path
 import argparse, concurrent.futures, hashlib, io, json, math, shutil, subprocess, sys, tempfile
+sys.path.insert(0,str(Path(__file__).resolve().parents[6]/"scripts"))
 import sympy as sp
 from PIL import Image, ImageDraw
 
@@ -37,7 +38,8 @@ def make_source(s):
         xmax=math.ceil(max([0,cx+3]+[p[0] for p in pts]))+1
         ymin=math.floor(min([0,cy-3]+[p[1] for p in pts]))-1
         ymax=math.ceil(max([0,cy+3]+[p[1] for p in pts]))+1
-    unit=min(11.5/(xmax-xmin),9.5/(ymax-ymin))
+    from zo_graphics import lesson_layout
+    layout=lesson_layout(REPO)
     xticks=set();yticks=set()
     for px,py in pts+s["critical"]+([s["center"]] if s["center"] else []):
         if abs(px-round(px))<1e-8 and px!=0:xticks.add(round(px))
@@ -52,12 +54,12 @@ def make_source(s):
         if level!=0 and abs(level-round(level))<1e-8:yticks.add(round(level))
     bounds=[xmin,xmax] if s["pole"] is None else [xmin,s["pole"],xmax]
     if s["domain"]:bounds=[s["domain"][0],s["domain"][1] or xmax]
-    lines=[r"\documentclass[tikz,border=6pt]{standalone}",r"\usepackage{fontspec}",
+    lines=[r"\documentclass[tikz,border=3pt]{standalone}",r"\usepackage{fontspec}",
       r"\usepackage{unicode-math}",r"\usepackage{pgfplots}",r"\pgfplotsset{compat=1.18}",
       r"\usetikzlibrary{backgrounds,arrows.meta}",r"\input{zo_graph_v02.tex}",
       r"\begin{document}",r"\begin{tikzpicture}[zo graph v02 field]",r"\zoGraphVTwoLayers",
       r"\begin{axis}[zo graph v02 axis,",
-      f"width={number((xmax-xmin)*unit)}cm,height={number((ymax-ymin)*unit)}cm,",
+      f"width={layout['frame_width_cm']}cm,height={layout['frame_height_cm']}cm,",
       f"xmin={xmin},xmax={xmax},ymin={ymin},ymax={ymax},",
       f"restrict y to domain={ymin}:{ymax},unbounded coords=jump,",
       f"xtick={{{sparse(xticks)}}},ytick={{{sparse(yticks)}}},",
@@ -91,47 +93,68 @@ def make_source(s):
     lines.extend([r"\node[zo graph v02 tick label,anchor=north east,xshift=-3pt,yshift=-3pt] at (axis cs:0,0) {$O$};",
       r"\end{pgfonlayer}",r"\end{axis}",r"\end{tikzpicture}",r"\end{document}"])
     header="% Generated from du_lieu/hinh_do_thi.json; edit data or _quy_trinh/sinh_hinh.py.\n"
-    header+="% Purpose: "+s["purpose"]+"\n% Profile: ZO Math 0.4, transparent-light; equal coordinate units.\n"
+    header+="% Purpose: "+s["purpose"]+"\n% Profile: ZO Math 0.4, paper; lesson-g03 physical frame, mathematical windows preserved.\n"
     source=ROOT/(s["id"]+".tex");source.write_text(header+"\n".join(lines)+"\n",encoding="utf-8")
     return {"id":s["id"],"source":source.name,"formula":str(f),"derivative":str(sp.factor(df)),
       "roots":[str(v) for v in roots],"critical":[[str(v),str(f.subs(x,v))] for v in actual],
-      "view":[xmin,xmax,ymin,ymax],"unit_cm":unit,"purpose":s["purpose"]}
+      "view":[xmin,xmax,ymin,ymax],"frame_cm":[layout["frame_width_cm"],layout["frame_height_cm"]],"axis_unit_cm":[layout["frame_width_cm"]/(xmax-xmin),layout["frame_height_cm"]/(ymax-ymin)],"purpose":s["purpose"]}
 def build(s):
     rec=make_source(s)
     with tempfile.TemporaryDirectory(prefix="zo_g04_official_",dir=REPO/".quarto") as tmp:
         cmd=[sys.executable,str(REPO/"scripts/zo_python.py"),"-B",str(REPO/"scripts/zo_graphics.py"),
-          "graph",str(ROOT/rec["source"]),"--style","0.4","--surface","transparent-light","--check","--out-dir",tmp]
+          "graph",str(ROOT/rec["source"]),"--style","0.4","--surface","paper","--layout","lesson-g03","--check","--out-dir",tmp]
         run=subprocess.run(cmd,cwd=REPO,text=True,encoding="utf-8",errors="replace",capture_output=True)
         if run.returncode:raise RuntimeError(s["id"]+"\n"+run.stdout+run.stderr)
         # PDF is an ephemeral vector conversion intermediate, not a lesson PDF.
         shutil.copy2(Path(tmp)/(s["id"]+".svg"),OUTPUT/(s["id"]+".svg"))
         rec.update({"svg_sha256":H(OUTPUT/(s["id"]+".svg")),"tool_check":"passed",
-          "style":"0.4","surface":"transparent-light","pdf_retained":False})
+          "style":"0.4","surface":"paper","pdf_retained":False})
     print("built "+s["id"],flush=True);return rec
 def previews(specs):
     images=[]
     for s in specs:
         out=subprocess.run(["rsvg-convert",str(OUTPUT/(s["id"]+".svg"))],check=True,capture_output=True)
         im=Image.open(io.BytesIO(out.stdout)).convert("RGBA")
-        assert im.getpixel((0,0))[3]==0,s["id"]
+        # Body figures use the shared paper frame; approved cover is separate.
         images.append((s["id"],im))
     for k in range(0,len(images),6):
         sheet=Image.new("RGB",(1800,1800),"white");draw=ImageDraw.Draw(sheet)
         for j,(label,im) in enumerate(images[k:k+6]):
             im.thumbnail((570,825));px=(j%3)*600+(600-im.width)//2;py=(j//3)*900+35
             sheet.paste(im,(px,py),im);draw.text(((j%3)*600+15,(j//3)*900+8),label,fill="black")
-        sheet.save(EVIDENCE/f"xem_hinh_{k//6+1:02d}.png")
+        sheet.save(EVIDENCE/f"xem_hinh_khung_g03_{k//6+1:02d}.png")
 def main():
     parser=argparse.ArgumentParser();parser.add_argument("ids",nargs="*");parser.add_argument("--workers",type=int,default=3);args=parser.parse_args()
+    from zo_course_math_assets import graph_inputs, canonical_digest
+    inputs_before=graph_inputs(PACKAGE,REPO)
     specs=json.loads((PACKAGE/"du_lieu/hinh_do_thi.json").read_text(encoding="utf-8"))
     selected=[s for s in specs if not args.ids or s["id"] in args.ids]
     assert selected and set(args.ids)<={s["id"] for s in specs}
+    previous=json.loads((PACKAGE/"giao_dien/hinh_manifest.json").read_text(encoding="utf-8"))
+    if args.ids and previous.get("source_hashes")!=inputs_before:
+        raise ValueError("Shared graph inputs changed; select all figures to avoid mixed provenance")
+
     (REPO/".quarto").mkdir(exist_ok=True)
-    report=EVIDENCE/"kiem_hinh_chinh_thuc_20261017.json"
+    report=EVIDENCE/"kiem_hinh_khung_g03_20261017.json"
     prior=json.loads(report.read_text(encoding="utf-8")) if report.exists() else []
     kept=[r for r in prior if r["id"] not in {s["id"] for s in selected}]
     with concurrent.futures.ThreadPoolExecutor(max_workers=args.workers) as pool:
         records=list(pool.map(build,selected))
+    if graph_inputs(PACKAGE,REPO)!=inputs_before:
+        raise ValueError("Graph inputs changed during generation; refuse a mixed receipt")
     report.write_text(json.dumps(sorted(kept+records,key=lambda r:r["id"]),ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    from zo_course_math_assets import graph_inputs, canonical_digest
+    manifest_path=PACKAGE/"giao_dien/hinh_manifest.json"
+    manifest=json.loads(manifest_path.read_text(encoding="utf-8"))
+    by_id={s["id"]:s for s in specs}
+    selected_ids={s["id"] for s in selected}
+    for figure in manifest["figures"]:
+        if figure["name"] not in selected_ids:continue
+        figure.update({"input_sha256":H(PACKAGE/figure["input"]),"svg_sha256":H(PACKAGE/figure["svg"]),
+                       "role":"lesson","style":"0.4","surface":"paper","layout":"lesson-g03",
+                       "spec_sha256":canonical_digest(by_id[figure["name"]])})
+    manifest["tool"]="scripts/zo_graphics.py graph --style 0.4 --surface paper --layout lesson-g03 --check"
+    manifest["source_hashes"]=inputs_before
+    manifest_path.write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     if all((OUTPUT/(s["id"]+".svg")).exists() for s in specs):previews(specs)
 if __name__=="__main__":main()
