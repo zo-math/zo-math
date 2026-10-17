@@ -469,6 +469,13 @@
       for (let node = target; node && node !== root; node = node.parentElement) {
         if (node.tagName === 'DETAILS') node.open = true;
       }
+      // A solution anchor may own a section whose disclosure is a child.
+      // Open only that unit's solution, never all answers in a group.
+      if (target?.matches('[data-zo-type="solution"][data-zo-task]') && target.tagName !== 'DETAILS') {
+        const owned = [...target.querySelectorAll('details.r1-solution,details.zo-learning-solution,details.solution')]
+          .find(node => node.closest('[data-zo-task]') === target);
+        if (owned) owned.open = true;
+      }
     }
     function focusTarget(target) {
       const focusNode = target?.matches('details') ? target.querySelector(':scope > summary') : target;

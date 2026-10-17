@@ -147,6 +147,8 @@ Người học phải tra được theo **nơi phát hiện** và theo **tên l�
 
 Mỗi nhiệm vụ độc lập có một đích lời giải xác định. Chỉ yêu cầu liên kết quay lại đề khi đề và lời giải thực sự ở hai vị trí tách biệt; khi cùng tài nguyên/vùng đọc thì dùng đối chiếu tại chỗ, không thêm liên kết nhảy thừa (Mục 3). Lời giải mặc định đóng; toàn bộ đáp án, lời giải hoặc hướng dẫn chấm tách khỏi đề phải nằm trong khối `solution`. Ví dụ đã giải trong mạch chính không được lặp lại thành một lời giải thứ hai. Nhóm Khởi động/Tự kiểm/Luyện tập/Kiểm tra/Ôn lại/S-L/S-K/S-O phải khớp nhiệm vụ thật; Chuyển giao riêng khi gói có nhánh ấy, không tạo nhóm rỗng để bằng số nhóm gói khác.
 
+Khi “Xem lời giải” trỏ tới một section chứa hộp lời giải, bộ điều khiển mở đúng hộp thuộc nhiệm vụ đó, cùng các ancestor cần thiết. Không chỉ cuộn tới section rồi để nội dung/lượt về còn bị đóng; không mở hàng loạt đáp án trong một nhóm. Đích là chính details vẫn giữ hành vi mở tại chỗ. Các hộp khác mặc định đóng khi mở trang mới.
+
 ### 5.4. Nhật kí
 
 Giao diện và bản in dùng đúng **14 trường** đã duyệt tại Mục 2.8 của [kiến trúc học tập](01_kien_truc_hoc_tap.md). Không rút riêng một gói còn sáu trường, không đổi tên trường và không thêm cụm giải thích vào tên trường. Giá trị ví dụ dùng tên bài, mục tiêu, lỗi và checkpoint chính thức; mã máy chỉ nằm ở dữ liệu hoặc thuộc tính kỹ thuật.

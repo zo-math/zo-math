@@ -18,7 +18,14 @@ def source_checks(text_overrides=None):
     """Check shared destinations without rendering or reading generated HTML."""
     expected=['home','d0','g01','g02','g03','g04']
     output=ROOT/'docs'
-    values={}
+    from zo_web_2027_production import runtime_source_checks
+    values=runtime_source_checks(ROOT)
+    from zo_build_on_thi import outputs,BuildError
+    try:
+        for source,content in outputs().items():
+            values['course generated source current '+source.relative_to(ROOT).as_posix()]=(source.is_file() and source.read_text(encoding='utf-8')==content.rstrip()+'\n')
+    except (BuildError,OSError,ValueError,KeyError,TypeError) as exc:
+        values['course catalog and generated sources readable: '+str(exc)]=False
     for current in [None,*expected]:
         page=output/PAGES.get(current,PAGES['home'])[0]
         links=destinations(output,page,current)

@@ -1395,6 +1395,14 @@ def dispatch_article_source_validators(
 ) -> ArticleValidationContext | None:
     from zo_course_labels import governed, LEGACY, source_checks as course_label_source_checks
     from zo_course_labels import answer_action_source_checks
+    if relative.as_posix()=="content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.qmd":
+        from zo_web_2027_production import runtime_source_checks
+        try:
+            values=runtime_source_checks(checker.root)
+            failed=[key for key,value in values.items() if not value]
+            checker.add("course-runtime-source-bindings",not failed,"; ".join(failed) or "Current runtime asset bindings checked before Quarto",relative)
+        except (OSError,ValueError,KeyError) as exc:
+            checker.add("course-runtime-source-bindings",False,str(exc),relative)
     if governed(relative):
         try:
             actions=answer_action_source_checks(checker.root/relative,checker.root)

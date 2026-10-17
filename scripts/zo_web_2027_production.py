@@ -32,6 +32,18 @@ def sha(data):
     return hashlib.sha256(data if isinstance(data, bytes) else data.encode('utf-8')).hexdigest()
 
 
+def runtime_source_checks(root=ROOT, plan=None):
+    """Check current source bindings before render; never renew acceptance."""
+    root=Path(root).resolve()
+    if plan is None:
+        plan=json.loads((root/PACKAGE/'giao_dien/web_2027_layout.json').read_text(encoding='utf-8'))
+    values={'G01 runtime asset map exists':bool(plan.get('assets'))}
+    for spec in plan.get('assets',{}).values():
+        source=(root/spec['source']).resolve()
+        values['G01 runtime source current '+spec['source']]=(source.is_relative_to(root) and source.is_file() and sha(source.read_bytes())==spec['sha256'])
+    return values
+
+
 def norm(text):
     return re.sub(r'\s+', ' ', text).strip()
 
