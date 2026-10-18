@@ -142,6 +142,7 @@ def validate(doc, build):
     return {
         'editorial layout marker':bool(root) and doc.body.get('data-zo-web-production') == 'course-home',
         'canonical text IDs headings disclosures math unchanged': bool(root) and json.loads(json.dumps(inventory(root))) == build['source_inventory'],
+        'catalog prose contains no unrendered TeX':not any(re.search(r'\$|\\(?:infty|frac|sqrt)\b', c.p.get_text(' ', strip=True)) for c in cards),
         'real catalog only and order': [c['data-package-id'] for c in cards] == [p.ref_id for p in packages],
         'catalog title summary status match canonical':len(cards) == len(packages) and all(c.h3.get_text(' ', strip=True) == p.title and c.p.get_text(' ', strip=True) == p.summary and p.display_status in c.select_one('.role').get_text() for c,p in zip(cards,packages)),
         'catalog links actual packages':all(c.select_one('a.home-card-action') and '/hoc_lieu/'+c['data-package-id']+'/index.html' in c.select_one('a.home-card-action').get('data-canonical-href','') for c in cards),
@@ -149,7 +150,7 @@ def validate(doc, build):
         **reading_layout_checks(doc),
         'no management copy or prescribed textbook teacher route':not any(x in text for x in ['Mỗi ngày, một việc học được làm đến nơi.','Phần chưa học được ghi riêng','quyền bắt đầu không chứng nhận','hỏi giáo viên','sách giáo khoa']),
         'no visible internal course codes':not re.search(r'\b(?:D0|R[1-8](?:-G\d+)?)\b', text),
-        'flexible help and return to own work':bool(doc.select_one('.home-method-tail')) and 'Em cũng có thể chọn tài liệu, công cụ hoặc trao đổi với người khác' in doc.select_one('.home-method-tail').get_text(' ',strip=True) and 'Sau đó, quay lại chỗ dừng chân trước đó.' in doc.select_one('.home-method-tail').get_text(' ',strip=True),
+        'flexible help and return to own work':bool(doc.select_one('.home-method-tail')) and 'Em cũng có thể chọn tài liệu, công cụ hoặc trao đổi với người khác' in doc.select_one('.home-method-tail').get_text(' ',strip=True) and 'Sau đó, quay lại bài hoặc phần đang học trước khi mở hỗ trợ.' in doc.select_one('.home-method-tail').get_text(' ',strip=True),
         'unique IDs':len(doc.select('[id]')) == len({n['id'] for n in doc.select('[id]')}),
         'all old Home anchors retained':all(doc.find(id=x) for x in ['giới-thiệu','dành-cho-ai','chương-trình-giúp-em-làm-gì','học-theo-cách-nào','lộ-trình','tám-mạch','hoc-lieu-hien-co','bắt-đầu-từ-đâu','trạng-thái-triển-khai']),
         'real logo retained':doc.select_one('.site-top > a img')['src'].endswith('horizontal_color.svg'),
