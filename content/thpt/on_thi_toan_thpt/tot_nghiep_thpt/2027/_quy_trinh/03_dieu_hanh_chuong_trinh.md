@@ -3,6 +3,20 @@
 Phiên bản: 0.1 · Cập nhật trạng thái: 18/10/2026.
 
 
+
+**HTML-TABLE-FUNCTIONS-20261019 — sáu trang sau chuẩn hóa bảng, chờ xem.**
+
+- [Mở bộ xem hiện hành](http://127.0.0.1:8877/_audit/html_table_functions_six_20261019/index.html); HTML tại `_audit/html_table_functions_six_20261019/html-current`, tệp mở lại nằm cạnh trang đầu sau khi hoàn tất cổng bàn giao.
+- Sáu trang được dựng từ nguồn vừa hiệu chỉnh. Kiểm liên kết sáu trang đạt; điều hướng chế độ xám đạt; mọi bảng được gắn vai trò đã được mở trong các vùng đọc và kiểm ở 1440 px cùng 390 px. Hồ sơ ở `_audit/html_table_functions_six_20261019/`.
+- Nguồn, quy tắc và công cụ đã được lưu tại commit `79d13e0e`; PDF giữ nguyên và chưa đồng bộ với lượt sửa nguồn này. Chưa push, xuất bản hoặc ghi nhận chủ trì duyệt.
+
+
+**TABLE-FUNCTIONS-20261019 — nguồn bảng theo phương án chủ trì đã duyệt.**
+
+- Phạm vi: G01–G04 và bảng chọn mạch D0; Khóa 2027 không có bảng thuộc nhóm này nên giữ nguyên. Chuẩn hóa theo chức năng, bảo toàn mục tiêu, điều kiện toán và đích điều hướng; profile/CSS/adapter/cổng nguồn dùng chung được cập nhật.
+- Nguồn đã hiệu chỉnh; kiểm và đối chiếu tại `_audit/table_roles_20261019/`, quy tắc ở 07/6.1.8, quy trình 02 và B26. Bảng Đọc kết quả có mapping mục tiêu–bài làm–tiêu chí; bảng lỗi phụ G01 được dẫn về danh mục nút thắt, giữ bookmark.
+- Chưa dựng HTML/PDF, chưa commit hoặc xuất bản. Bộ HTML liên kết dưới đây vẫn là bản trước lượt này; chưa hiển thị các bảng vừa sửa. Kiểm bố cục rộng/hẹp, bàn phím và screen reader của cách xếp theo tình huống chờ lượt dựng được phép. Không thay biên nhận nghiệm thu lịch sử.
+
 **HTML-BOTTLENECKS-20261019 — bản xem bốn gói.**
 
 - Bản xem hiện hành cho G01–G04: [Bốn bảng nút thắt nhận thức](http://127.0.0.1:8877/_audit/html_bottlenecks_four_20261019/index.html). HTML dựng từ nguồn canonical hiện hành trong bản sao cô lập; các trang Khóa 2027/D0 giữ từ bộ sáu trang trước để phục vụ điều hướng, không thuộc phạm vi dựng lại này.
