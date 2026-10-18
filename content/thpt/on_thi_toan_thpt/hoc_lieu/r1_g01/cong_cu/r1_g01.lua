@@ -870,8 +870,9 @@ local function prepare(doc)
   end
   verify_projection_boundary_fixture()
   table_specs = doc.meta['r1-tables']
-  -- Authorized PDF synchronization uses the same current table manifest.
-  local expected_tables = 20
+  -- HTML follows the current 19-table manifest; PDF retains the inventory
+  -- of its last validated pass until a separately authorized synchronization.
+  local expected_tables = html and 19 or 20
   assert(table_specs and #table_specs == expected_tables,
     'R1-G01 table contract must contain '..expected_tables..' entries for this format; PDF synchronization requires its own validated pass')
   table_specs_by_id = {}

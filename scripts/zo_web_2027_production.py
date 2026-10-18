@@ -231,7 +231,9 @@ def _adapt(path, output_root):
     from zo_course_editorial import restore_g01_for_comparison as restore_editorial_for_comparison
     from zo_course_numbering import restore_g01_for_comparison as restore_numbering
     from zo_course_remediation import restore_g01_for_comparison as restore_remediation
-    remediation_comparison=restore_remediation(source_root,plan,ROOT/PACKAGE/'index.qmd')
+    from zo_course_table_roles import restore_g01_for_comparison as restore_table_functions
+    table_comparison=restore_table_functions(source_root,plan,ROOT/PACKAGE/'index.qmd')
+    remediation_comparison=restore_remediation(table_comparison,plan,ROOT/PACKAGE/'index.qmd')
     numbering_comparison=restore_numbering(remediation_comparison,plan,ROOT/PACKAGE/'index.qmd')
     editorial_comparison=restore_editorial_for_comparison(numbering_comparison,plan,ROOT/PACKAGE/'index.qmd')
     comparison = restore_g01_for_comparison(editorial_comparison,plan,ROOT/PACKAGE/'index.qmd')
@@ -265,6 +267,9 @@ def _adapt(path, output_root):
         raise ValueError('Unknown URL binding')
 
     def decode(n):
+        if 'table_function_node' in n:
+            from zo_course_table_roles import source_node
+            return source_node(source_root,n['table_function_node'],plan)
         if 'source_node' in n:
             from zo_course_remediation import source_node
             return source_node(source_root,n['source_node'],plan)

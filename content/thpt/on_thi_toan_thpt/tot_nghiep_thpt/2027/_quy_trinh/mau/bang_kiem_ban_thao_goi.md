@@ -97,3 +97,11 @@ Bổ sung B19 theo 07/6.1.2, 02/2.5: phải có ma trận tài nguyên theo vai 
 - Đọc thực tế đề và tiêu chí, giữ nhóm theo ngữ cảnh, lịch sử đã gặp và đường về; không gán một bài cho tất cả biểu hiện cùng họ lỗi.
 - Cổng nguồn và bảng rộng/hẹp được kiểm ở đúng giai đoạn; không dùng PASS cấu trúc thay kết luận sư phạm hoặc nghiệm thu.
 - Khi dùng danh mục làm trục bài giảng, giữ tiên quyết, Gợi mở trong Bài học và hỗ trợ tùy nhu cầu; ghi nhận bài đã dùng trước lớp.
+
+
+### B26 — Tiêu chí, so sánh và quy trình theo chức năng (19/10/2026)
+
+- Đối chiếu ngang theo 07/6.1.8; giữ hoặc không có bảng theo nhu cầu thật, không theo quota.
+- Tiêu đề cột đúng nội dung; mục tiêu có bài/ý và tiêu chí tương ứng, giới hạn chưa đo được ghi rõ. Không dùng nơi hỗ trợ thay tiêu chí.
+- Số điểm chỉ ở nơi có thang điểm; điều kiện toán, tên nhiệm vụ và đích tới/lui còn nguyên. Nhật kí đủ 14 trường; không giữ danh mục lỗi trùng làm nguồn cạnh tranh.
+- Chọn profile chức năng dùng chung, không tự chia đều cột hoặc thu nhỏ chữ. Phân biệt bảng cần so ngang với bảng tra từng tình huống; kiểm nguồn trước dựng và quan sát rộng/hẹp sau khi được phép dựng.

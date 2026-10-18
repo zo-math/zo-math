@@ -1461,6 +1461,11 @@ def dispatch_article_source_validators(
     if remediation:
         failed=[key for key,value in remediation.items() if not value]
         checker.add('course-remediation',not failed,'; '.join(failed) or 'Reviewed bottleneck rows, knowledge and task routes checked',relative)
+    from zo_course_table_roles import source_checks as table_function_checks
+    functions=table_function_checks(checker.root/relative,checker.root,text)
+    if functions:
+        failed=[key for key,value in functions.items() if not value]
+        checker.add('course-table-functions',not failed,'; '.join(failed) or 'Table function profiles, goal coverage and routes checked',relative)
     from zo_course_tables import media_source_checks
     try:
         media=media_source_checks(checker.root/relative,checker.root)

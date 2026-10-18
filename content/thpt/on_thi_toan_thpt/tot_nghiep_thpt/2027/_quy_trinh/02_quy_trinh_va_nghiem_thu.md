@@ -294,3 +294,10 @@ Trước trình G01–G04, dùng zo_course_numbering.py qua cổng zo_course_lab
 Trước viết hoặc sửa gói có Sửa lỗi, nạp 01 và 07/6.1.7. Lập đối chiếu mục tiêu/kiến thức/Gợi mở/ví dụ/nhiệm vụ/tiêu chí → nút thắt → biểu hiện → câu hỏi/cách tháo gỡ → đích học lại → nhiệm vụ và ý tự kiểm tra theo ngữ cảnh. Đọc đề và lời giải ở đích; gán thiếu hoặc quá phạm vi phải ghi rõ, không lấy số liên kết làm bằng chứng khép tuyến. Bảng kiểm bản thảo có B25; không sao quota gói mẫu.
 
 Cổng nguồn chung `zo_course_remediation.py` nằm trong CLI QMD và Quarto; kiểm hiện hành từ he_nhan.json, không dùng bản PASS cũ. Chạy hồi quy `zo_course_remediation_selftest.py` khi đổi cơ chế. Cổng chỉ xác minh phần máy kiểm được; biên tập viên phải đọc từng dòng và đối chiếu độ bao phủ. Sau thay nguồn, giữ riêng trạng thái nguồn/kiểm nguồn/HTML/PDF/chủ trì duyệt/xuất bản. Khi chỉ được sửa nguồn, chưa mở thêm render để chứng nhận thị giác.
+
+
+## Rà bảng theo chức năng — TABLE-FUNCTIONS-20261019
+
+Nạp 07/6.1.8 khi viết hoặc sửa bảng tiêu chí, so sánh, quy trình/điều hướng. Kiểm kê ngang theo chức năng ở các trang đang có; quyết định giữ/sửa/bỏ/không áp dụng kèm lí do, không sao quota. Đối chiếu trước–sau mục tiêu, điều kiện toán, nội dung từng ô và đích liên kết; với bảng Đọc kết quả lập mapping từng mục tiêu sang bài/ý và tiêu chí, ghi giới hạn chưa đo. Danh mục lỗi phụ chỉ bỏ sau khi có đối chiếu với bảng nút thắt.
+
+Chạy `zo_course_table_roles_selftest.py` qua launcher cùng `zo_qmd.py check` các nguồn ảnh hưởng. Ca âm gồm sai tiêu đề/cột, thiếu bằng chứng, đổi đích, mất hàng bao phủ mục tiêu, cột điểm lẫn lời văn hoặc căn sai, mẫu mobile thiếu nhãn và override độ rộng theo gói. Cập nhật hồ sơ rà câu chữ chỉ sau đọc diff thực tế; giữ hồ sơ nghiệm thu cũ. Kiểm mảnh DOM trong bộ nhớ không phải dựng trang. Khi được phép dựng HTML, kiểm thêm rộng/hẹp, cuộn cục bộ, tiêu đề trường, thứ tự đọc, bàn phím, đường hỗ trợ và bản xem hiện hành; không lấy PASS nguồn thay nghiệm thu hiển thị.

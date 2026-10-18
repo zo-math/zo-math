@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 import yaml
 
 # One browser predicate used by both existing checkers and the table audit.
-BROWSER_ALIGNMENT_ERRORS = '''(()=>{const errors=[];for(const t of document.querySelectorAll('.reader-content table')){const kind=t.dataset.tableKind;for(const c of t.querySelectorAll('th,td')){if(!c.getClientRects().length)continue;const head=!!c.closest('thead');let expected='left';if(kind==='values'||kind==='variation'||(kind==='sign'&&t.dataset.tableVariant!=='explained'))expected='center';if(kind==='matrix'&&!head&&c.tagName==='TD')expected='center';if(kind==='frequency'&&!head&&c.tagName==='TD')expected='right';if(c.classList.contains('zo-center-cell'))expected='center';if(t.dataset.tableVariant==='numbered'&&!head&&c.tagName==='TH')expected='center';if(head){const body=t.querySelector('tbody tr')?.children[c.cellIndex];if(body)expected=getComputedStyle(body).textAlign}if(!kind&&c.tagName!=='TH')continue;if(getComputedStyle(c).textAlign!==expected)errors.push({kind,text:c.textContent.trim(),expected,actual:getComputedStyle(c).textAlign})}}return errors})()'''
+BROWSER_ALIGNMENT_ERRORS = '''(()=>{const errors=[];for(const t of document.querySelectorAll('.reader-content table')){const kind=t.dataset.tableKind;for(const c of t.querySelectorAll('th,td')){if(!c.getClientRects().length)continue;const head=!!c.closest('thead');let expected='left';if(kind==='values'||kind==='variation'||(kind==='sign'&&t.dataset.tableVariant!=='explained'))expected='center';if(kind==='matrix'&&!head&&c.tagName==='TD')expected='center';if(kind==='frequency'&&!head&&c.tagName==='TD')expected='right';if(c.classList.contains('zo-center-cell'))expected='center';if(c.classList.contains('zo-numeric-cell'))expected='right';if(t.dataset.tableVariant==='numbered'&&!head&&c.tagName==='TH')expected='center';if(head){const body=t.querySelector('tbody tr')?.children[c.cellIndex];if(body)expected=getComputedStyle(body).textAlign}if(!kind&&c.tagName!=='TH')continue;if(getComputedStyle(c).textAlign!==expected)errors.push({kind,text:c.textContent.trim(),expected,actual:getComputedStyle(c).textAlign})}}return errors})()'''
 
 ROOT=Path(__file__).resolve().parents[1]
 KIT=ROOT/'_design/web_2027_mau_dung_chung'
@@ -73,6 +73,8 @@ def media_html_checks(doc):
         checks[f'image {n} reviewed caption choice']=(named and not omitted) or (not named and omitted and bool(image.get('data-zo-caption-reason','').strip()) and bool(image.get('alt','').strip()))
     from zo_course_remediation import html_checks as remediation_html_checks
     checks.update(remediation_html_checks(doc))
+    from zo_course_table_roles import html_checks as function_html_checks
+    checks.update(function_html_checks(doc))
     return checks
 
 
@@ -143,10 +145,12 @@ def bind(doc,page_key):
     from zo_course_math_assets import apply_native
     apply_native(doc,page_key)
     contract=load_contract();specs=table_specs(page_key);seen=set()
+    from zo_course_table_roles import function_profile,apply_function
     for entry in contract['pages'][page_key]:
         matches=root.select(entry['selector'])
         if len(matches)!=1:raise ValueError('Missing or ambiguous table role: '+entry['selector'])
         table=matches[0]
+        function=function_profile(entry,contract)
         if id(table) in seen:raise ValueError('Duplicate table role binding')
         seen.add(id(table));kind=entry['kind']
         if kind not in contract['types']:raise ValueError('Unknown table type')
@@ -156,13 +160,14 @@ def bind(doc,page_key):
         table['data-table-kind']=kind;table['data-table-role']=entry['role']
         if entry.get('variant'):table['data-table-variant']=entry['variant']
         rows=table.select('tr');cols=len(rows[0].find_all(['th','td'],recursive=False))
-        widths=entry.get('widths',spec.get('widths',[100/cols]*cols))
+        widths=function['widths'] if function else entry.get('widths',spec.get('widths',[100/cols]*cols))
         if len(widths)!=cols or abs(sum(widths)-100)>.01:raise ValueError('Invalid table widths')
         for colgroup in list(table.select('colgroup')):colgroup.decompose()
         colgroup=doc.new_tag('colgroup')
         for width in widths:colgroup.append(doc.new_tag('col',attrs={'style':f'width:{width:g}%'}))
         table.insert(0,colgroup)
-        row_header=entry.get('row_header',spec.get('row_header',True))
+        row_header=function['row_header'] if function else entry.get('row_header',spec.get('row_header',True))
+        right_columns=function.get('right_columns',[]) if function else []
         for r,row in enumerate(rows):
             cells=row.find_all(['th','td'],recursive=False)
             if len(cells)!=cols:raise ValueError('Merged table requires an explicit structural policy')
@@ -174,7 +179,7 @@ def bind(doc,page_key):
                 classes=[n for n in cell.get('class',[]) if not n.startswith('zo-')]
                 if r>0 and c+1 in entry.get('center_body_columns',[]):classes.append('zo-center-cell')
                 if c+1==entry.get('focus_column'):classes.append('zo-focus-cell')
-                if kind=='frequency' and r>0 and (c>0 or not row_header):classes.append('zo-numeric-cell')
+                if c+1 in right_columns or kind=='frequency' and r>0 and (c>0 or not row_header):classes.append('zo-numeric-cell')
                 if classes:cell['class']=classes
                 elif cell.has_attr('class'):del cell['class']
         if entry.get('corner_label'):
@@ -183,9 +188,9 @@ def bind(doc,page_key):
         # first column when the table has no row headings. Body policy is intact.
         for c,cell in enumerate(rows[0].find_all(['th','td'],recursive=False)):
             centered=(c+1 in entry.get('center_body_columns',[]) or kind in {'values','sign'} and entry.get('variant')!='explained' or kind=='matrix' and (c>0 or not row_header) or entry.get('variant')=='numbered' and c==0)
-            right=kind=='frequency' and (c>0 or not row_header)
+            right=c+1 in right_columns or kind=='frequency' and (c>0 or not row_header)
             if centered:cell['class']=cell.get('class',[])+['zo-center-cell']
-            elif right:cell['class']=cell.get('class',[])+['zo-numeric-cell']
+            elif right:cell['class']=list(dict.fromkeys(cell.get('class',[])+['zo-numeric-cell']))
         frame=table.parent
         if not any(c in frame.get('class',[]) for c in ['r1-table','r1-table-scroll-x','table-scroll','zo-course-table-frame']):
             frame=doc.new_tag('div');table.wrap(frame)
@@ -196,7 +201,11 @@ def bind(doc,page_key):
         minimum=None if kind=='values' else spec.get('min_width')
         if minimum is None and page_key=='d0':minimum='32em' if cols>=4 else '26em'
         if entry.get('variant')=='routing':minimum='54em'
+        if function:minimum=function.get('min_width')
         table['style']='min-width:'+str(minimum) if minimum else 'min-width:0'
+        if function:
+            apply_function(table,function,entry['function'],doc)
+            frame['aria-label']=entry['role']+(' ; cuộn ngang khi cần' if function['responsive']=='scroll' else '')
     records=native_records(page_key);native_seen=set()
     for table in root.select('table.zo-variation-native'):
         rid=table['data-bbt'];record=records.get(rid)
