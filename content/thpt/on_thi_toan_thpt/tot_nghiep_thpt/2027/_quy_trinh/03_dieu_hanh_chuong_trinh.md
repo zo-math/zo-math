@@ -4,6 +4,16 @@ Phiên bản: 0.1 · Cập nhật trạng thái: 18/10/2026.
 
 Đây là nơi duy nhất ghi công việc đang mở và thứ tự sản xuất hiện hành. Chỉ cập nhật trạng thái từ bằng chứng trong hồ sơ gói. [Điểm vào](README.md).
 
+**COMMIT-HTML-CURRENT-20261018 — lưu mốc theo yêu cầu chủ trì.**
+
+- Sửa câu giới thiệu Home và cổng kiểm đã lưu tại a9d8a119; hồ sơ sáu HTML được lưu thành mốc riêng cùng cập nhật này. Các dòng chưa commit bên dưới ghi trạng thái tại thời điểm dựng. Không dựng thêm, không push hoặc xuất bản; HTML vẫn chờ chủ trì duyệt, PDF giữ nguyên.
+
+**HTML-CURRENT-SIX-20261018 — sáu HTML từ nguồn hiện hành đã kiểm, chờ chủ trì xem.**
+
+- [Mở bộ xem mới](http://127.0.0.1:8877/_audit/html_current_six_20261018/index.html); HTML tại `_audit/html_current_six_20261018/html`, tệp mở lại `Mo_ban_xem_HTML.cmd` cạnh trang đầu bộ xem. Các bản xem trước giữ làm đối chứng.
+- Sáu trang được dựng mới từ nguồn sau biên tập và hiệu chỉnh số/nhãn; kiểm sáu HTML 3767/3767, Home 113/113, D0 186/186, trình duyệt rộng/hẹp 256/256 sau kiểm lại đúng phạm vi trục ba view G02. [Hồ sơ, sửa nhỏ phát hiện khi dựng và giới hạn](ho_so_html_nguon_hien_hanh_20261018.md).
+- Không dựng lại PDF, không commit/push/xuất bản trong lượt này. HEAD/staging và 2434 tệp thành phẩm/bản xem được bảo toàn. G04 giữ trạng thái bản thảo, ảnh bìa thành phẩm D0 còn chờ duyệt. Các dòng “chưa dựng HTML” phía dưới mô tả thời điểm lịch sử; lượt này chưa có nghiệm thu chủ trì.
+
 **SOURCE-CHECKPOINT-20261018 — chủ trì yêu cầu commit các mốc nguồn.**
 
 - Công cụ mở lại HTML đã lưu tại `225523e9`, hồi quy máy chủ/shortcut 7/7. Nhóm nguồn học liệu lưu cùng mốc `checkpoint(course): synchronize reading, goals, editorial and numbering rules`: các phần dùng chung QMD/binding/checker được giữ đồng bộ, không chia thành trạng thái trung gian thiếu phụ thuộc.
