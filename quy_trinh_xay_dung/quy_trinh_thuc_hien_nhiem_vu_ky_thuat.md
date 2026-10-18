@@ -249,6 +249,24 @@ Nêu rõ lỗi, cảnh báo hoặc vấn đề chưa xử lý, nếu có. Không
 
 Không kể lại toàn bộ quá trình suy luận nội bộ và không đưa một danh sách dài các khả năng không cần thiết.
 
+### 9.1. Bàn giao và mở lại bản xem HTML trên máy
+
+Liên kết `http://127.0.0.1:<cổng>/...` chỉ hoạt động khi máy chủ trên chính máy đó đang chạy. Kết sổ ngày hoặc khởi động lại máy có thể dừng tiến trình dù HTML còn nguyên. Không xem một lần HTTP 200 là bảo đảm liên kết luôn mở được; nhấp liên kết trình duyệt không tự khởi động máy chủ.
+
+- Bàn giao phải ghi đường dẫn HTML thật, URL, cổng và cách mở lại. Dùng `scripts/zo_html_preview.py` qua launcher; công cụ đọc HTML có sẵn, kiểm SHA-256 nội dung HTTP đúng tệp, tái dùng máy chủ đúng hoặc khởi động máy chủ nền chỉ ở `127.0.0.1`. Cổng đang phục vụ nội dung khác thì báo rõ, không giết tiến trình hoặc tự đổi cổng làm hỏng liên kết đã bàn giao.
+- Khi người dùng yêu cầu “mở lại bản xem HTML” hoặc báo không xem được, agent kiểm tệp trước rồi tự chạy lệnh mở lại; không yêu cầu người dùng dựng trang hoặc tự vận hành Terminal. Không tự khôi phục snapshot đã lưu kho để thay nguồn hiện hành. Tệp mất thì đối chiếu biên nhận trước, ghi rõ thiếu tệp.
+- Khi bàn giao bản xem trên Windows, thêm `--shortcut` để tạo `Mo_ban_xem_HTML.cmd` cạnh trang đầu vào. Người dùng có thể nhấp đúp tệp ấy trong File Explorer sau khi khởi động máy; tệp gọi công cụ canonical, chờ HTTP đúng nội dung rồi mở trình duyệt mặc định. Không cài dịch vụ hay tác vụ tự khởi động Windows. Nếu dùng Codex, agent có thể thêm `--no-browser`, xác minh rồi mở URL trong panel.
+
+```text
+python -B scripts/zo_python.py -B scripts/zo_html_preview.py --page <HTML-tuong-doi-tu-repo> --port 8877 --shortcut
+```
+
+`--no-browser` chỉ kiểm/khởi động máy chủ và in URL. Hai cờ `-B` tắt sinh bytecode ở cả launcher và tiến trình con, tránh tạo lại cache khi xác minh kết sổ. Công cụ mở lại không render, sửa HTML/PDF, cấp nghiệm thu, commit hoặc xuất bản.
+
+Trước kết sổ, bảo vệ trang đầu vào, toàn bộ HTML/tài nguyên liên kết, tệp mở nhanh và bằng chứng còn cần duyệt bằng `--protect`/manifest của `zo_end_day.py`; không chỉ giữ mỗi URL. Kiểm tệp mở nhanh còn gọi được công cụ canonical sau khi chuyển mirror/cache ra kho. Biên nhận kết sổ phải phân biệt bảo toàn tệp với tiến trình máy chủ: không hứa localhost còn chạy sau reboot; ghi cách mở lại và phần chờ duyệt. Không tự đóng máy chủ của phiên khác.
+
+Kiểm chống tái diễn: `python -B scripts/zo_python.py -B scripts/zo_html_preview_selftest.py` dùng máy chủ thật để kiểm khởi động lại sau khi dừng, mở lặp không tạo máy chủ thừa, cổng sai, tài nguyên tương đối, HTML thiếu/sai đường dẫn và tệp mở nhanh. Chỉ mở bản đã dựng, không dựng học liệu để kiểm khởi động máy chủ.
+
 ## 10. Những việc agent không chuyển lại cho người dùng
 
 Trong điều kiện VS Code, repository và công cụ đang hoạt động bình thường, agent không được yêu cầu người dùng:
@@ -299,6 +317,8 @@ nhóm đã kiểm kỹ thuật dùng `checkpoint(eod)`, không gọi là đã ng
    `--protect-manifest`. Không tái dùng danh sách xóa hay hash của lần cũ.
    Không coi mọi tệp trong `_audit/` là rác. Không dùng việc giữ bằng chứng
    làm lý do cho phép biên dịch chính thức đọc `_audit/`.
+   Với bản xem HTML, áp dụng mục 9.1: bảo vệ cả tệp mở nhanh và tài nguyên;
+   ghi cách mở lại máy chủ sau reboot, không chỉ bảo toàn URL.
 3. Tự hoàn thiện kế hoạch: `instructions_reviewed`, `protection_reviewed`,
    các `groups`, quyết định `keep`/`archive` có lý do. Mỗi thay đổi nguồn
    thuộc đúng một nhóm, có danh sách tệp chính xác, thông điệp và trạng thái
