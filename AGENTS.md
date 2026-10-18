@@ -61,6 +61,13 @@ cho toàn ZO Math, không phải nghiệm thu hay xuất bản dự án con.
 Yêu cầu xây dựng cơ chế hoặc câu hỏi về cơ chế không kích hoạt kết sổ.
 Không suy đoán ngày làm việc đã kết thúc từ việc một nhiệm vụ vừa xong.
 
+### Mở lại bản xem HTML
+
+Khi bàn giao hoặc mở lại HTML trên localhost, áp dụng mục 9.1 của
+`quy_trinh_xay_dung/quy_trinh_thuc_hien_nhiem_vu_ky_thuat.md` và dùng
+`scripts/zo_html_preview.py` qua launcher. Giữ đường mở lại sau kết sổ/reboot,
+không chỉ gửi URL hoặc dựng lại học liệu vì máy chủ đã dừng.
+
 ### Hệ thống sản xuất và kiểm định QMD
 
 Khi người dùng giao một nhiệm vụ QMD bằng ngôn ngữ tự nhiên, chẳng hạn "Hãy viết về hàm $y=e^x$", đó đã là yêu cầu hợp lệ nếu dự án đích đã được tích hợp. Agent phải tự chuyển yêu cầu ấy thành việc nhận diện dự án, nạp nguồn có thẩm quyền, lập kế hoạch, sản xuất, kiểm định và bàn giao; không yêu cầu người dùng biết tên script, cú pháp Terminal hoặc tự vận hành CLI. Nếu chưa có cấu hình và hợp đồng cho dự án đích, agent phải nói rõ đây là nhiệm vụ tích hợp dự án mới, không giả định cỗ máy đã hỗ trợ.
