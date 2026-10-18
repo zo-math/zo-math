@@ -66,7 +66,7 @@ Không suy đoán ngày làm việc đã kết thúc từ việc một nhiệm v
 Khi bàn giao hoặc mở lại HTML trên localhost, áp dụng mục 9.1 của
 `quy_trinh_xay_dung/quy_trinh_thuc_hien_nhiem_vu_ky_thuat.md` và dùng
 `scripts/zo_html_preview.py` qua launcher. Giữ đường mở lại sau kết sổ/reboot,
-không chỉ gửi URL hoặc dựng lại học liệu vì máy chủ đã dừng.
+không chỉ gửi URL hoặc dựng lại học liệu vì máy chủ đã dừng. Trước MỖI lần bàn giao/gửi lại liên kết, bắt buộc dùng `scripts/zo_html_handoff.py` theo 9.1: prepare → mở đúng bản hiện hành và quan sát thật bằng trình duyệt → confirm → check ngay trước trả lời. HTTP-only không đạt; giữ tab bằng markDeliverable, lưu snapshot/ảnh mới. Không dùng PASS cũ hoặc browser_requested để thay xác nhận xem được.
 
 ### Hệ thống sản xuất và kiểm định QMD
 

@@ -137,3 +137,7 @@ Mọi nhiệm vụ viết/sửa/rà nguồn người học trong chuyên mục g
 
 
 Sau NUMBERING-20261018, G01–G04 kiểm số hiện hành bằng zo_course_numbering_selftest.py và cổng zo_course_labels.py. Bảng di trú ap_dung_he_nhan.json giữ nguyên làm bằng chứng của quy tắc cũ; không dùng inventory đánh số theo chức năng của bảng ấy để chứng nhận số mới.
+
+## Cổng bàn giao HTML mỗi lượt
+
+Mỗi lần bàn giao hoặc gửi lại liên kết xem HTML phải theo quy trình toàn repo 9.1 và 02/2.6: zo_html_handoff.py prepare/confirm/check, lấy bộ xem hiện hành từ liên kết bản xem đầu tiên ở 03, không chọn theo mtime. Bắt buộc quan sát mới trang đầu và một trang nội dung qua trình duyệt, lưu snapshot/PNG hoặc JPEG, giữ tab bàn giao; HTTP hoặc PASS cũ không đủ. Chưa xác nhận bằng trình duyệt thì nói rõ chưa khép bàn giao.
