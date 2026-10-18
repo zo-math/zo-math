@@ -43,3 +43,9 @@
 .reader-content figcaption p,.reader-content .quarto-float-caption p{margin:0}
 
 /* Column headers receive the same alignment class as their data column. */
+
+/* The four-column bottleneck table fits the desktop reading region.
+   Keep the existing legible minimum and local horizontal scroll on narrow screens. */
+@media(min-width:1000px){
+  .reader-content [data-zo-remediation="bottlenecks-v1"] table.zo-course-table{min-width:0!important}
+}

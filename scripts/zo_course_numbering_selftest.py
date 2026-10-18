@@ -27,6 +27,24 @@ def main():
         lesson=[u for u in data['units'] if u['function'] in ('function.warmup','function.self_check','function.guided_thinking')]
         checks[f'G{n:02d} lesson context exactly two levels']=all(context_unit_label(u,'question',data)=='MẠCH HỌC · BÀI HỌC' for u in lesson)
         checks[f'G{n:02d} answers belong to actual support area']=all(context_unit_label(u,'answer',data).startswith('HỖ TRỢ · ') for u in data['units'] if u.get('answer'))
+    from zo_course_numbering import retired_self_check_absent
+    from zo_course_remediation import HEADERS, CONTRACT
+    fixture=BeautifulSoup('<main class="reader-content"><div id="routing" data-zo-remediation="'+CONTRACT+'"><table><thead><tr>'+''.join('<th>'+h+'</th>' for h in HEADERS)+'</tr></thead><tbody><tr><td>Nội dung</td></tr></tbody></table></div></main>','html.parser').main
+    data={'remediation':{'contract':CONTRACT,'table':'routing'}}
+    before=str(fixture)
+    checks['routing column allowed in its exact owned component']=retired_self_check_absent(fixture,data)
+    checks['numbering inspection never changes rendered content']=str(fixture)==before
+    for name,tag in [('heading','h3'),('paragraph','p'),('link','a')]:
+        bad=copy.deepcopy(fixture);bad.append(BeautifulSoup('<'+tag+'>Tự kiểm tra 01</'+tag+'>','html.parser'))
+        checks['retired activity outside routing '+name+' rejected']=not retired_self_check_absent(bad,data)
+    bad=copy.deepcopy(fixture);bad.div.attrs.pop('data-zo-remediation')
+    checks['unmarked routing column rejected']=not retired_self_check_absent(bad,data)
+    bad=copy.deepcopy(fixture);bad.div['id']='other'
+    checks['unowned routing column rejected']=not retired_self_check_absent(bad,data)
+    bad=copy.deepcopy(fixture);bad.select('th')[-1].string='Tự kiểm tra 01'
+    checks['numbered old activity inside routing column rejected']=not retired_self_check_absent(bad,data)
+    bad=copy.deepcopy(fixture);bad.append(copy.deepcopy(bad.div))
+    checks['duplicate routing exception rejected']=not retired_self_check_absent(bad,data)
     from zo_course_editorial import inline_signature
     from zo_web_2027_production import content_fingerprint
     qmd=ROOT/'content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.qmd'
