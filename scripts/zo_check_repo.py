@@ -1456,6 +1456,11 @@ def dispatch_article_source_validators(
             checker.add("course-label-source",not failed,"QD_025: "+("; ".join(failed) if failed else "binding, functions, contexts and numbering checked"),relative)
         except (OSError,ValueError,KeyError) as exc:
             checker.add("course-label-source",False,str(exc),relative)
+    from zo_course_remediation import source_checks as remediation_source_checks
+    remediation=remediation_source_checks(checker.root/relative,checker.root)
+    if remediation:
+        failed=[key for key,value in remediation.items() if not value]
+        checker.add('course-remediation',not failed,'; '.join(failed) or 'Reviewed bottleneck rows, knowledge and task routes checked',relative)
     from zo_course_tables import media_source_checks
     try:
         media=media_source_checks(checker.root/relative,checker.root)

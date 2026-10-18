@@ -2,6 +2,14 @@
 
 Phiên bản: 0.1 · Cập nhật trạng thái: 18/10/2026.
 
+
+**HTML-BOTTLENECKS-20261019 — bản xem bốn gói.**
+
+- Bản xem hiện hành cho G01–G04: [Bốn bảng nút thắt nhận thức](http://127.0.0.1:8877/_audit/html_bottlenecks_four_20261019/index.html). HTML dựng từ nguồn canonical hiện hành trong bản sao cô lập; các trang Khóa 2027/D0 giữ từ bộ sáu trang trước để phục vụ điều hướng, không thuộc phạm vi dựng lại này.
+- Hồ sơ dựng, đối chiếu và kiểm trình duyệt: `_audit/html_bottlenecks_four_20261019/`; mở lại sau reboot bằng `Mo_ban_xem_HTML.cmd` cạnh trang đầu. Cổng bàn giao mới phải có prepared/browser/confirmed và còn hạn theo quy trình 9.1.
+- Bảng có lần lượt 14, 13, 11, 14 dòng; đối chiếu đủ nội dung/binding, liên kết kiến thức và bài tự kiểm. Kiểm màn hình rộng/hẹp được ghi riêng trong hồ sơ; không dùng kiểm cấu trúc thay quan sát thật.
+- Trạng thái: HTML ứng viên chờ chủ trì xem và duyệt; không tạo lại PDF, không commit hoặc xuất bản. Website đã xuất bản và các bản xem lịch sử được bảo toàn. PDF tải từ trang vẫn là bộ cũ, chưa đồng bộ lượt biên tập này.
+
 Đây là nơi duy nhất ghi công việc đang mở và thứ tự sản xuất hiện hành. Chỉ cập nhật trạng thái từ bằng chứng trong hồ sơ gói. [Điểm vào](README.md).
 
 **HTML-HANDOFF-GATE-20261018 — bắt buộc xác nhận xem được mỗi lần bàn giao.**
@@ -212,6 +220,13 @@ Trạng thái: **đã xuất bản và kiểm trực tiếp trên zomath.vn**. N
 Giới hạn kiểm: chưa in giấy/quét QR bằng điện thoại/phản biện toán độc lập.
 
 ## A. Công việc đang mở
+
+**BOTTLENECKS-20261019 — rà bảng Sửa lỗi theo nút thắt nhận thức.**
+
+- Đã đối chiếu bốn gói và sửa bảng nguồn theo bốn cột chung, 52 dòng; trang Khóa/D0 không có mục Sửa lỗi tương đương. [Hồ sơ kiểm kê, căn cứ và giới hạn](ho_so_nut_that_nhan_thuc_20261019.md).
+- Quy tắc 07/6.1.7, hướng tổ chức bài giảng tại 01; 02, mẫu/bảng kiểm và cổng nguồn cùng được cập nhật. Các tuyến chưa có bài tự kiểm đủ được ghi rõ, không gán đạt bằng một bài chỉ cùng họ lỗi.
+- Chưa dựng HTML/PDF, chưa kiểm trực quan hoặc có duyệt đầu ra mới, chưa commit/xuất bản. Bản xem được dẫn bên dưới vẫn là bản trước hiệu chỉnh nguồn. Bước tiếp: đọc bảng nguồn, giải quyết các khoảng trống bài tự kiểm khi được giao, rồi dựng/kiểm trực quan khi chủ trì yêu cầu.
+
 
 **PARENT-LABEL-G01-G03 — đồng bộ nguồn, chưa phát hành lại, 17/10/2026.**
 

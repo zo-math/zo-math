@@ -207,11 +207,13 @@ Thử trả lời trước khi đọc tiếp.
 
 [CẦN VIẾT: giữ phần đúng và bài ban đầu, tìm bước sai, xem đúng nội dung, tự làm câu phù hợp còn mới và trở về nơi gọi; ghi chưa xác nhận khi thiếu bằng chứng.]
 
-### Chọn bài theo dấu hiệu
+### Nút thắt nhận thức và cách tháo gỡ
 
-| Dấu hiệu cần sửa | Sau Luyện tập | Sau Kiểm tra | Sau Ôn lại |
+| Nút thắt nhận thức | Biểu hiện dễ nhầm | Câu hỏi và cách tháo gỡ | Tự kiểm tra |
 |---|---|---|---|
-| [CẦN ĐIỀN] | [Nhiệm vụ NN – tên, ý tương ứng] | [Nhiệm vụ NN – tên, ý tương ứng] | [Nhiệm vụ NN – tên, ý tương ứng] |
+| [CẦN VIẾT: một phân biệt cần hiểu] | [CẦN VIẾT: biểu hiện trong bài làm] | [CẦN VIẾT: câu hỏi, giải thích và liên kết đúng mục học] | [CẦN VIẾT: nhiệm vụ/ý theo ngữ cảnh; thiếu bài phải nói rõ] |
+
+[CẦN ĐỐI CHIẾU theo 07/6.1.7: bao phủ mục tiêu, kiến thức, Gợi mở, ví dụ, nhiệm vụ và tiêu chí; không sao số dòng, không coi nút thắt là bẫy; chỉ liên kết bài thực sự kiểm đúng biểu hiện.]
 
 ### Sau Luyện tập
 

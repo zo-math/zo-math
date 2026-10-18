@@ -31,13 +31,18 @@ def apply(document, page, runtime):
     if routing is None:
         raise ValueError('Missing repair-routing table')
     table = routing.select_one('table')
-    if [n.get_text(' ', strip=True) for n in table.select('thead th')] != policy['routing_headers']:
+    from zo_course_remediation import HEADERS
+    from zo_course_tables import load_contract
+    key='r1_g01' if routing['id']=='r1-table-t12' else 'r1_g02'
+    spec=next(s for s in load_contract()['pages'][key] if s['selector']=='#'+routing['id']+' table')
+    widths=spec['widths']
+    if [n.get_text(' ', strip=True) for n in table.select('thead th')] != HEADERS:
         raise ValueError('Repair-routing columns differ from the common contract')
     routing['class'] = routing.get('class', []) + ['r1-repair-routing']
-    routing['data-col-widths'] = ','.join(str(n) for n in policy['routing_widths'])
+    routing['data-col-widths'] = ','.join(str(n) for n in widths)
     routing['data-min-width'] = '54em'
-    routing['aria-label'] = 'Chọn bài sửa lỗi theo nơi phát hiện'
-    routing['style'] = '; '.join([f'--r1-table-col-{i+1}: {n}%' for i,n in enumerate(policy['routing_widths'])]+['--r1-table-min-width:54em'])
+    routing['aria-label'] = 'Nút thắt nhận thức và cách tháo gỡ'
+    routing['style'] = '; '.join([f'--r1-table-col-{i+1}: {n}%' for i,n in enumerate(widths)]+['--r1-table-min-width:54em'])
     for header in root.select('.r1-table th'):
         header.attrs.pop('align', None)
         header['style'] = 'text-align:left'

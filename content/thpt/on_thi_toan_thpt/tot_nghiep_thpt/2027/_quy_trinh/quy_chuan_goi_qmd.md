@@ -206,7 +206,7 @@ Cổng nguồn/bản xuất theo 07/6.1.2: dùng zo_course_math_assets.py và bi
 - Chọn `fit` khi bảng vẫn đọc thoải mái trên mobile; chọn `scroll` và `min_width` khi co bảng làm cột quá hẹp. Bảng `scroll` cuộn ngang trong vùng riêng, có chỉ dẫn khi thật sự tràn và không làm trang tràn ngang.
 - Bảng có liên kết vẫn phải nhận đủ lớp bảng canonical, tên trợ năng, header cột và row header như bảng không có liên kết; không chấp nhận ngoại lệ làm mất khung bảng hoặc ngữ nghĩa chỉ vì cell chứa anchor.
 - Bảng điều hướng hoặc sửa lỗi phải ghi bằng tên chính thức và mô tả người học hiểu được. Mã quản lí được giữ ở anchor hoặc thuộc tính dữ liệu, không hiện trong ô bảng.
-- Bảng định tuyến Sửa lỗi G01/G02 dùng mẫu bốn cột, tỉ lệ 40/20/20/20 trong kit; không ép bảng khác cùng mẫu. Tên khu vực theo danh mục QD_023; tên bảng riêng theo ánh xạ được duyệt, giữ ID và tên trường Nhật kí.
+- Bảng nút thắt nhận thức trong Sửa lỗi theo 07/6.1.7/BOTTLENECKS-20261019, dùng bốn cột và tỉ lệ 17/22/36/25 từ profiles/course-tables.json. Quy tắc này thay mẫu định tuyến 40/20/20/20 cũ; không ép bảng khác cùng mẫu. Giữ nhóm nhiệm vụ theo nơi phát hiện, ID và trường Nhật kí; ràng buộc remediation trong he_nhan.json được cổng nguồn kiểm.
 - BBT web opt-in native/MathML lấy cùng JSON canonical; giữ mốc/dấu/giới hạn/cột loại/lỗi cố ý. Đồ thị SVG profile 0.4 dùng cỡ tự nhiên, nhãn phù hợp chữ, không kéo đầy giấy. Caption nằm dưới hình trong cùng vùng; viewport hình cuộn cục bộ khi cần. Vector lịch sử/PDF giữ tương thích ngoài phạm vi đã chuyển.
 - Hình phải tải thật; BBT native phải đủ dữ liệu và MathML trong HTML mới. Alt/caption mô tả nội dung, không thêm mã kỹ thuật.
 - Không gán công thức hàm số vào nhãn đồ thị nếu đề bài không cung cấp công thức ấy.

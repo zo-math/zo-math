@@ -115,10 +115,10 @@ r1-tables:
     row_header: true
     center: []
   - id: r1-g02-table-t04
-    label: "Chọn bài sửa lỗi theo nơi phát hiện"
+    label: "Nút thắt nhận thức và cách tháo gỡ"
     family: R
     mode: scroll
-    widths: [40, 20, 20, 20]
+    widths: [17, 22, 36, 25]
     min_width: 54em
     row_header: true
     center: []
@@ -1227,17 +1227,26 @@ Giữ nguyên bài làm ban đầu. Dùng bảng dưới đây để tìm điề
 
 ### Chọn bài sửa lỗi {#chọn-bài-tập-khắc-phục-lỗi}
 
-::: {#r1-g02-table-t04 .table-scroll}
-| Dấu hiệu cần sửa | Sau Luyện tập | Sau Kiểm tra | Sau Ôn lại |
-|:---|:---|:---|:---|
-| Nhầm cực trị với lớn nhất, nhỏ nhất; thiếu đầu mút | [Nhiệm vụ 40 – Cực đại và toàn đoạn](#s00) | [Nhiệm vụ 48 – Cực trị không thay cho giá trị lớn nhất, nhỏ nhất](#s-k-e01) | [Nhiệm vụ 54 – Xen kẽ cực trị và giá trị lớn nhất](#s-o-e01) |
-| Nhầm tập xác định, tập đang xét hoặc sự đạt được | [Nhiệm vụ 41 – Có cận nhưng không đạt](#s01) | [Nhiệm vụ 49 – Cùng công thức, khác tập xác định](#s-k-e02) | [Nhiệm vụ 55 – Khoảng nửa kín và điểm ngoài tập](#s-o-e02) |
-| Bỏ điểm không có đạo hàm | [Nhiệm vụ 42 – Điểm gãy và tọa độ](#s02) | [Nhiệm vụ 50 – Điểm không có đạo hàm vẫn có thể là ứng viên](#s-k-e03) | [Nhiệm vụ 56 – Điểm gãy và tọa độ](#s-o-e03) |
-| Bỏ thành phần hoặc đọc sai điểm hở và giới hạn | [Nhiệm vụ 43 – Đọc hai thành phần](#s03) | [Nhiệm vụ 51 – Hai thành phần và một giá trị đạt](#s-k-e04) | [Nhiệm vụ 57 – Tập rời và điểm hở](#s-o-e04) |
-| Nhầm hoành độ, giá trị và điểm trên đồ thị | [Nhiệm vụ 42 – Điểm gãy và tọa độ](#s02) | [Nhiệm vụ 50 – Điểm không có đạo hàm vẫn có thể là ứng viên](#s-k-e03) | [Nhiệm vụ 56 – Điểm gãy và tọa độ](#s-o-e03) |
-| Đọc nhầm đồ thị đạo hàm | [Xác nhận nền đọc đồ thị](#g02-nen-do-thi-xac-nhan), nếu chưa gặp trước đó | [Xác nhận nền đọc đồ thị](#g02-nen-do-thi-xac-nhan), nếu chưa gặp trước đó; chỉ sau khi kết thúc Kiểm tra | [Xác nhận nền đọc đồ thị](#g02-nen-do-thi-xac-nhan), nếu chưa gặp trước đó |
-| Sai tổng chi phí hoặc điều kiện số nguyên | [Nhiệm vụ 44 – Tổng chi phí và số nguyên](#s04) | [Nhiệm vụ 52 – Đỉnh nằm giữa hai số nguyên](#s-k-e05) | [Nhiệm vụ 58 – Hai nghiệm nguyên cùng tối ưu](#s-o-e05) |
-| Dùng sai định lí tồn tại | [Nhiệm vụ 45 – Đoạn đóng chưa đủ](#s05) | [Nhiệm vụ 53 – Đoạn đóng chưa đủ để dùng định lí tồn tại](#s-k-e06) | [Nhiệm vụ 59 – Quay về định nghĩa khi hàm gián đoạn](#s-o-e06) |
+::: {#r1-g02-table-t04 .table-scroll data-zo-remediation="bottlenecks-v1"}
+
+Mỗi dòng dưới đây chỉ ra một điều cần phân biệt để hiểu bài vững hơn. Đối chiếu với bài làm của em, thử trả lời câu hỏi rồi xem lại phần học được dẫn khi cần. Chọn đúng bài và đúng ý theo nơi phát hiện; nếu đang học Bài học, có thể dùng nhóm Sau Luyện tập. Chỉ tự kiểm tra bằng bài phù hợp chưa gặp trước đó; trong lượt Kiểm tra phải kết thúc lượt trước khi dùng hỗ trợ.
+
+| Nút thắt nhận thức | Biểu hiện dễ nhầm | Câu hỏi và cách tháo gỡ | Tự kiểm tra |
+|---|---|---|---|
+| Cực trị cục bộ và giá trị trên toàn tập | Lấy ngay một giá trị cực đại làm giá trị lớn nhất. | **Giá trị ấy đã được so sánh với mọi ứng viên hợp lệ chưa?** Xác định tập đang xét và so sánh đầy đủ; cực trị không tự quyết định lớn nhất, nhỏ nhất. [Xem lại kiến thức](#cực-trị-và-giá-trị-lớn-nhất-nhỏ-nhất). | **Sau Luyện tập:** [Nhiệm vụ 40 – Cực đại và toàn đoạn](#s00). **Sau Kiểm tra:** [Nhiệm vụ 48 – Cực trị không thay cho giá trị lớn nhất, nhỏ nhất](#s-k-e01). **Sau Ôn lại:** [Nhiệm vụ 54 – Xen kẽ cực trị và giá trị lớn nhất](#s-o-e01). |
+| Điểm tới hạn và đầu mút | Chỉ giải phương trình đạo hàm bằng $0$, bỏ hai đầu mút của đoạn. | **Danh sách ứng viên còn thiếu đầu mút nào thuộc tập đang xét?** Lập đủ danh sách trước khi tính và so sánh giá trị hàm số. [Xem lại kiến thức](#quy-trình-so-sánh-một-danh-sách-hữu-hạn). | **Sau Luyện tập:** [Nhiệm vụ 40 – Cực đại và toàn đoạn](#s00). **Sau Kiểm tra:** [Nhiệm vụ 48 – Cực trị không thay cho giá trị lớn nhất, nhỏ nhất](#s-k-e01). **Sau Ôn lại:** [Nhiệm vụ 54 – Xen kẽ cực trị và giá trị lớn nhất](#s-o-e01). |
+| Công thức, tập xác định và tập đang xét | Tính được biểu thức tại một số rồi coi số đó là điểm đạt hợp lệ. | **Điểm ấy có thuộc cả tập xác định và tập đang xét không?** Đọc đầy đủ dữ kiện; phép thay vào biểu thức không tự tạo giá trị của hàm số ngoài tập xác định. [Xem lại kiến thức](#quy-tac-va-tap-xac-dinh). | **Sau Luyện tập:** [Nhiệm vụ 41 – Có cận nhưng không đạt](#s01). **Sau Kiểm tra:** [Nhiệm vụ 49 – Cùng công thức, khác tập xác định](#s-k-e02). **Sau Ôn lại:** [Nhiệm vụ 55 – Khoảng nửa kín và điểm ngoài tập](#s-o-e02). |
+| Cận và giá trị được đạt | Coi một mức chỉ tiến gần là giá trị lớn nhất hoặc nhỏ nhất. | **Có điểm nào thuộc tập đang xét làm hàm số bằng mức ấy không?** Kiểm cả bất đẳng thức so sánh và sự tồn tại của điểm đạt; nếu không có, giải thích vì sao không có giá trị lớn nhất hoặc nhỏ nhất tương ứng. [Xem lại kiến thức](#cận-chưa-chắc-là-giá-trị-đạt-được). | **Sau Luyện tập:** [Nhiệm vụ 41 – Có cận nhưng không đạt](#s01). **Sau Kiểm tra:** [Nhiệm vụ 49 – Cùng công thức, khác tập xác định](#s-k-e02). **Sau Ôn lại:** [Nhiệm vụ 55 – Khoảng nửa kín và điểm ngoài tập](#s-o-e02). |
+| Giá trị hàm số và sự tồn tại của đạo hàm | Bỏ điểm gãy dù hàm số có giá trị tại đó. | **Đạo hàm không tồn tại có làm mất giá trị hàm số không?** Giữ điểm hợp lệ có thể đạt lớn nhất, nhỏ nhất trong danh sách cần so sánh. [Xem lại kiến thức](#quy-trình-so-sánh-một-danh-sách-hữu-hạn). | **Sau Luyện tập:** [Nhiệm vụ 42 – Điểm gãy và tọa độ](#s02). **Sau Kiểm tra:** [Nhiệm vụ 50 – Điểm không có đạo hàm vẫn có thể là ứng viên](#s-k-e03). **Sau Ôn lại:** [Nhiệm vụ 56 – Điểm gãy và tọa độ](#s-o-e03). |
+| Từng thành phần và toàn bộ tập | Chỉ xét một nhánh hoặc nối kết luận đơn điệu qua điểm bị loại. | **Đã xét và so sánh kết quả của mọi thành phần chưa?** Làm việc trên từng thành phần, sau đó đối chiếu trên toàn tập đang xét. [Xem lại kiến thức](#khi-k-gồm-nhiều-thành-phần-rời-nhau). | **Sau Luyện tập:** [Nhiệm vụ 43 – Đọc hai thành phần](#s03). **Sau Kiểm tra:** [Nhiệm vụ 51 – Hai thành phần và một giá trị đạt](#s-k-e04). **Sau Ôn lại:** [Nhiệm vụ 57 – Tập rời và điểm hở](#s-o-e04). |
+| Điểm hở và một giá trị có thể đạt ở nơi khác | Thấy điểm hở rồi loại luôn tung độ ấy khỏi tập giá trị. | **Tung độ đó có được đạt tại một điểm khác không?** Phân biệt một điểm không thuộc đồ thị với một giá trị không bao giờ đạt được. [Xem lại kiến thức](#khi-k-gồm-nhiều-thành-phần-rời-nhau). | **Sau Luyện tập:** [Nhiệm vụ 43 – Đọc hai thành phần](#s03). **Sau Kiểm tra:** [Nhiệm vụ 51 – Hai thành phần và một giá trị đạt](#s-k-e04). **Sau Ôn lại:** [Nhiệm vụ 57 – Tập rời và điểm hở](#s-o-e04). |
+| Hoành độ, giá trị và điểm đạt | So sánh hoành độ thay cho giá trị hoặc ghi hoành độ vào chỗ giá trị lớn nhất, nhỏ nhất. | **Đề hỏi giá trị nào và điểm nào cho giá trị ấy?** So sánh các giá trị hàm số; kết luận riêng giá trị và hoành độ điểm đạt. [Xem lại kiến thức](#ví-dụ-làm-mẫu-so-sánh-giá-trị-không-so-sánh-hoành-độ). | **Sau Luyện tập:** [Nhiệm vụ 42 – Điểm gãy và tọa độ](#s02). **Sau Kiểm tra:** [Nhiệm vụ 50 – Điểm không có đạo hàm vẫn có thể là ứng viên](#s-k-e03). **Sau Ôn lại:** [Nhiệm vụ 56 – Điểm gãy và tọa độ](#s-o-e03). |
+| Một điểm đạt và tất cả điểm đạt | Chỉ ghi một phương án khi nhiều điểm cùng cho giá trị tối ưu. | **Còn điểm hợp lệ nào cho cùng giá trị tốt nhất không?** Đối chiếu mọi ứng viên và ghi đủ các điểm đạt được đề bài yêu cầu. [Xem lại kiến thức](#ví-dụ-làm-mẫu-so-sánh-giá-trị-không-so-sánh-hoành-độ). | **Sau Luyện tập:** chưa có bài riêng về nhiều điểm cùng đạt. **Sau Kiểm tra:** [Nhiệm vụ 48](#s-k-e01). **Sau Ôn lại:** [Nhiệm vụ 58](#s-o-e05) kiểm nhiều phương án nguyên cùng tối ưu. |
+| Đồ thị hàm số và đồ thị đạo hàm | Đọc tung độ của đạo hàm thành giá trị lớn nhất của hàm số. | **Đồ thị được cho là của đại lượng nào?** Dùng dấu đạo hàm để xét biến thiên; giá trị hàm số cần dữ kiện riêng. [Xem lại kiến thức](#chọn-công-cụ-từ-dữ-kiện). | **Sau Luyện tập:** [Xác nhận nền đọc đồ thị](#g02-nen-do-thi-xac-nhan), nếu chưa gặp trước đó. **Sau Kiểm tra:** [Xác nhận nền đọc đồ thị](#g02-nen-do-thi-xac-nhan), nếu chưa gặp trước đó; chỉ sau khi kết thúc Kiểm tra. **Sau Ôn lại:** [Xác nhận nền đọc đồ thị](#g02-nen-do-thi-xac-nhan), nếu chưa gặp trước đó. |
+| Chi phí bình quân và tổng chi phí | Lấy doanh thu trừ chi phí bình quân để tính lợi nhuận. | **Đơn vị của hai đại lượng đem trừ có giống nhau không?** Lập tổng chi phí bằng số lượng nhân chi phí bình quân, rồi mới lập hàm mục tiêu. [Xem lại kiến thức](#dai-luong-ham-muc-tieu-rang-buoc). | **Sau Luyện tập:** [Nhiệm vụ 44 – Tổng chi phí và số nguyên](#s04). **Sau Kiểm tra:** [Nhiệm vụ 52 – Đỉnh nằm giữa hai số nguyên](#s-k-e05). **Sau Ôn lại:** [Nhiệm vụ 58 – Hai nghiệm nguyên cùng tối ưu](#s-o-e05). |
+| Nghiệm tối ưu liên tục và ràng buộc số nguyên | Giữ nghiệm không nguyên hoặc làm tròn ngay mà không so sánh. | **Những giá trị nguyên nào hợp lệ và cho giá trị mục tiêu tốt nhất?** Dùng biến thiên để tìm ứng viên nguyên cần xét, so sánh trực tiếp và ghi đủ các phương án tối ưu. [Xem lại kiến thức](#dai-luong-ham-muc-tieu-rang-buoc). | **Sau Luyện tập:** [Nhiệm vụ 44 – Tổng chi phí và số nguyên](#s04). **Sau Kiểm tra:** [Nhiệm vụ 52 – Đỉnh nằm giữa hai số nguyên](#s-k-e05). **Sau Ôn lại:** [Nhiệm vụ 58 – Hai nghiệm nguyên cùng tối ưu](#s-o-e05). |
+| Điều kiện bảo đảm và điều kiện cần | Cho rằng đoạn đóng luôn bảo đảm tồn tại, hoặc thiếu liên tục thì chắc chắn không có lớn nhất, nhỏ nhất. | **Đã đủ giả thiết để dùng định lí chưa; nếu chưa, định nghĩa cho biết gì?** Kiểm tra liên tục trên đoạn; không áp dụng được định lí không đồng nghĩa kết luận ngược lại đúng. [Xem lại kiến thức](#dieu-kien-bao-dam-ton-tai). | **Sau Luyện tập:** [Nhiệm vụ 45 – Đoạn đóng chưa đủ](#s05). **Sau Kiểm tra:** [Nhiệm vụ 53 – Đoạn đóng chưa đủ để dùng định lí tồn tại](#s-k-e06). **Sau Ôn lại:** [Nhiệm vụ 59 – Quay về định nghĩa khi hàm gián đoạn](#s-o-e06). |
+
 :::
 
 :::: {.r1-details .zo-learning-hint}

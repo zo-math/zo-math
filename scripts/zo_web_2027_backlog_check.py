@@ -63,13 +63,13 @@ def checks(doc,binding):
             result[unit['id']+'/'+direction+' appropriate action']=len(links)==(0 if local else 1)
     tid='r1-table-t12' if binding['package']=='R1-G01' else 'r1-g02-table-t04'
     table=root.find(id=tid).find('table')
-    result['routing is four common columns']=[n.get_text(' ',strip=True) for n in table.select('thead th')]==['Dấu hiệu cần sửa','Sau Luyện tập','Sau Kiểm tra','Sau Ôn lại']
-    result['routing retains package row count']=len(table.select('tbody tr'))==(9 if binding['package']=='R1-G01' else 8)
+    result['routing is four common columns']=[n.get_text(' ',strip=True) for n in table.select('thead th')]==__import__('zo_course_remediation').HEADERS
+    result['routing retains package row count']=len(table.select('tbody tr'))==len(binding['remediation']['rows'])
     result['routing symptoms do not mix in directions']='Cách sửa:' not in table.get_text()
     by_id={u['question']:u for u in binding['units']}
     for link in table.select('a[href]'):
         target=link['href'].removeprefix('#');unit=by_id.get(target)
-        if unit and unit['function']=='function.remediation':result[target+' routing exact task title']=link.get_text(' ',strip=True)==unit['title']
+        if unit and unit['function']=='function.remediation':result[target+' routing exact task title']=link.get_text(' ',strip=True)==unit['title'] or link.get_text(' ',strip=True)==f"Nhiệm vụ {unit['number']:02d}"
     result['sentence initial task cells capitalized']=not any(re.match(r'^nhiệm vụ\s',cell.get_text(' ',strip=True)) for cell in root.select('td'))
     result['all disclosures closed']=not root.select('details[open]')
     return result
@@ -92,7 +92,7 @@ def fixtures(doc,binding):
     broken=copy.deepcopy(doc);broken.find(id='sua-loi').insert(0,broken.find(id='sua-loi-sau-on-lai').extract())
     results['negative after-review placed first']=not all(checks(broken,binding).values())
     broken=copy.deepcopy(doc);tid='r1-table-t12' if binding['package']=='R1-G01' else 'r1-g02-table-t04'
-    broken.find(id=tid).select_one('tbody a').string='Nhiệm vụ 99'
+    broken.find(id=tid).select_one('tbody tr td:last-child a').string='Nhiệm vụ 99'
     results['negative routing mismatched title']=not all(checks(broken,binding).values())
     broken=copy.deepcopy(doc)
     unit=next(u for u in binding['units'] if u['function']=='function.remediation' and u['number']==1)

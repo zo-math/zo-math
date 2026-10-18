@@ -287,3 +287,10 @@ Theo 07/6.1.6: rà cả chính văn, tên mục, bảng/chú thích, đề–l�
 ### Kiểm số và nhãn NUMBERING-20261018
 
 Trước trình G01–G04, dùng zo_course_numbering.py qua cổng zo_course_labels.py: kiểm thứ tự nguồn/toàn văn, một dãy mỗi loại hiển thị, đề–đáp án cùng số, dẫn chiếu theo ID, Điểm dừng kể cả Khởi động/Ôn lại; thử âm số đặt lại giữa hai chức năng. Bộ nhãn chỉ nhận nhánh và khu vực chứa. Không dùng kiểm tăng số riêng từng chức năng làm bằng chứng đạt.
+
+
+## Rà bảng nút thắt nhận thức — BOTTLENECKS-20261019
+
+Trước viết hoặc sửa gói có Sửa lỗi, nạp 01 và 07/6.1.7. Lập đối chiếu mục tiêu/kiến thức/Gợi mở/ví dụ/nhiệm vụ/tiêu chí → nút thắt → biểu hiện → câu hỏi/cách tháo gỡ → đích học lại → nhiệm vụ và ý tự kiểm tra theo ngữ cảnh. Đọc đề và lời giải ở đích; gán thiếu hoặc quá phạm vi phải ghi rõ, không lấy số liên kết làm bằng chứng khép tuyến. Bảng kiểm bản thảo có B25; không sao quota gói mẫu.
+
+Cổng nguồn chung `zo_course_remediation.py` nằm trong CLI QMD và Quarto; kiểm hiện hành từ he_nhan.json, không dùng bản PASS cũ. Chạy hồi quy `zo_course_remediation_selftest.py` khi đổi cơ chế. Cổng chỉ xác minh phần máy kiểm được; biên tập viên phải đọc từng dòng và đối chiếu độ bao phủ. Sau thay nguồn, giữ riêng trạng thái nguồn/kiểm nguồn/HTML/PDF/chủ trì duyệt/xuất bản. Khi chỉ được sửa nguồn, chưa mở thêm render để chứng nhận thị giác.
