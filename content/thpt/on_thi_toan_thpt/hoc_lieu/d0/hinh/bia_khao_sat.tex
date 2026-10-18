@@ -1,0 +1,47 @@
+% D0 cover: a work-in-progress page, a pencil and independent reflection marks.
+% Decorative illustration only; no exercise data, axes or compulsory learning route.
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{backgrounds,arrows.meta}
+\input{zo_graph_v02.tex}
+\definecolor{d0Ink}{HTML}{3E3A35}
+\definecolor{d0Line}{HTML}{DFD7CA}
+\definecolor{d0Yellow}{HTML}{FFCA28}
+\definecolor{d0Soft}{HTML}{FFE9A9}
+\definecolor{d0Red}{HTML}{BF4240}
+\begin{document}
+\begin{tikzpicture}[zo graph v02 field,x=1cm,y=1cm,line cap=round,line join=round]
+\useasboundingbox (0,0) rectangle (10.5,6);
+\node[zo graph v02 font sentinel] at (0,0) {x};
+% The light fill belongs to the drawn paper, not to the outer transparent canvas.
+\path[fill=white,draw=d0Ink,line width=1pt,rounded corners=6pt] (2,0.65) rectangle (7.2,5.3);
+\path[fill=d0Soft,draw=none,rounded corners=3pt] (2.55,4.35) rectangle (5.6,4.7);
+\foreach \y in {3.75,2.95,2.15} {
+  \draw[d0Line,line width=1pt] (3.45,\y) -- (6.55,\y);
+  \draw[d0Line,line width=1pt] (3.45,\y-0.22) -- (5.65,\y-0.22);
+}
+\draw[d0Ink,line width=1pt] (2.7,3.75) circle (0.19);
+\draw[d0Ink,line width=1.15pt] (2.57,3.76) -- (2.67,3.64) -- (2.87,3.9);
+\draw[d0Red,line width=1pt] (2.7,2.95) circle (0.19);
+\node[text=d0Red,font=\fontsize{13}{15}\selectfont] at (2.7,2.95) {$?$};
+\draw[d0Ink,line width=1pt] (2.7,2.15) circle (0.19);
+% A second, small attempt on the same page, with no mark or score.
+\draw[d0Red,line width=1.1pt] (3.5,1.35) .. controls (4,1.65) and (4.5,1.05) .. (5.2,1.4);
+% Pencil; detached from the page content so it never hides a mark.
+\begin{scope}[shift={(7.65,0.95)},rotate=-25]
+\path[fill=d0Yellow,draw=d0Ink,line width=1pt] (0,0.6) rectangle (0.42,4.15);
+\path[fill=d0Soft,draw=d0Ink,line width=1pt] (0,0.6) -- (0.21,0) -- (0.42,0.6) -- cycle;
+\path[fill=d0Ink] (0.14,0.2) -- (0.21,0) -- (0.28,0.2) -- cycle;
+\path[fill=d0Red,draw=d0Ink,line width=1pt,rounded corners=2pt] (0,4.15) rectangle (0.42,4.55);
+\draw[d0Ink,line width=.5pt] (0.15,0.7) -- (0.15,4.05);
+\end{scope}
+% Independent prompts, without arrows, ranking or mandatory sequence.
+\draw[d0Line,line width=1pt] (0.85,4.5) circle (0.4);
+\node[text=d0Ink,font=\fontsize{19}{21}\selectfont] at (0.85,4.5) {$?$};
+\path[fill=d0Soft] (8.4,5.35) circle (0.32);
+\draw[d0Ink,line width=1.1pt] (8.23,5.35) -- (8.35,5.2) -- (8.58,5.5);
+\end{tikzpicture}
+\end{document}

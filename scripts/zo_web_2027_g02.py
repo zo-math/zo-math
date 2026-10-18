@@ -48,6 +48,8 @@ def build(output, fresh_source=None, *, builder=None):
     output = output.resolve() if production else audit_path(output)
     b = builder or PreviewBuilder(output)
     p = json.loads(PROFILE.read_text(encoding='utf-8'))
+    if not fresh_source and p.get("legacy_projection_retired"):
+        raise ValueError("Legacy G02 projection retired; use fresh canonical Quarto input and the current source layout")
     if fresh_source:
         p['figure_label_pt'].update({'nen_do_thi_01.svg': 16.5, 'nen_do_thi_02.svg': 16.5})
         p['absent_source_features']=[]
@@ -370,7 +372,7 @@ def build(output, fresh_source=None, *, builder=None):
     home = b.href(b.output_root / 'content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html') if production else relative_href(REPO / p['home'], output)
     title = root['data-r1-title']
     subtitle = original.select_one('.subtitle').get_text(' ', strip=True)
-    hero = f'<section class="hero" aria-label="Bìa học liệu"><div class="hero-copy"><span class="eyebrow">Ôn thi Toán THPT 2027 · Hàm số</span><h1>{html.escape(title)}</h1><p>{html.escape(subtitle)}</p><a class="hero-action" href="?r1-view=bai-hoc#bai-hoc">Vào Bài học <span aria-hidden="true">↗</span></a></div><figure class="hero-art"><img src="assets/cover-graph.svg" alt="Minh họa hàm số; không phải dữ kiện bài tập"></figure></section>'
+    hero = f'<section class="hero" aria-label="Bìa học liệu"><div class="hero-copy"><span class="eyebrow">Ôn thi Toán THPT 2027 · Hàm số</span><h1>{html.escape(title)}</h1><p>{html.escape(subtitle)}</p></div><figure class="hero-art"><img src="assets/cover-graph.svg" alt="Minh họa hàm số; không phải dữ kiện bài tập"></figure></section>'
     footer, footer_info = b.site_footer()
     page = template('page.html', title=html.escape(title), body_class='g02-preview', home_href=home,
                     appearance=b.appearance(), brand_thought=html.escape(BRAND_THOUGHT), navigation='<div id="nav-mount"></div>',

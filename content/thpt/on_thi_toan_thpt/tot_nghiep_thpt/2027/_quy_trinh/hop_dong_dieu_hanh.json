@@ -101,7 +101,15 @@
     "_design/web_2027_mau_dung_chung/templates/page.html.tpl",
     "_design/web_2027_mau_dung_chung/site-ui.js",
     "scripts/zo_graphics.py",
-    "scripts/zo_web_2027_figures.py"
+    "scripts/zo_web_2027_figures.py",
+    "scripts/zo_course_learning_goals.py",
+    "scripts/zo_course_learning_goals_selftest.py",
+    "scripts/zo_course_instructions.py",
+    "scripts/zo_course_instructions_selftest.py",
+    "scripts/zo_course_editorial.py",
+    "scripts/zo_course_editorial_selftest.py",
+    "_design/web_2027_mau_dung_chung/profiles/editorial-language.json",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/ho_so_bien_tap_ro_nghia_20261018.json"
   ],
   "products": {
     "R1-G01": {
@@ -323,7 +331,11 @@
         "number_reset_by_stage",
         "mandatory_repeated_label_title",
         "foundation_owned_by_lesson"
-      ]
+      ],
+      "revision": "NUMBERING-20261018",
+      "numbering_scope": "package_visible_type",
+      "context_depth": 2,
+      "guard": "scripts/zo_course_numbering.py"
     },
     "supersession_policy": {
       "decision": "QD_022",
@@ -339,6 +351,41 @@
         "function.transfer:name=Phối hợp"
       ],
       "catalog": "danh_muc_kien_truc_hoc_tap.yml"
+    },
+    "learning_goals_placement": {
+      "decision": "GOALS-START-20261018",
+      "owner": "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/07_quy_chuan_cau_truc_trang_nguoi_hoc.md",
+      "scope": "R1_learning_packages",
+      "enforcement": "source_and_HTML_goal_owner_and_evidence_guards",
+      "guard": "scripts/zo_course_learning_goals.py",
+      "supersedes": [
+        "full_goal_table_repeated_in_lesson_orientation",
+        "chapter_map_as_goal_table",
+        "optional_transfer_mixed_with_core_goals"
+      ]
+    },
+    "purposeful_instructions": {
+      "decision": "INSTRUCTIONS-20261018",
+      "owner": "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/07_quy_chuan_cau_truc_trang_nguoi_hoc.md",
+      "scope": "R1_learning_packages",
+      "enforcement": "source_and_HTML_visible_required_declared_optional_capitalized",
+      "guard": "scripts/zo_course_instructions.py",
+      "supersedes": [
+        "mandatory_instruction_box_in_every_knowledge_unit",
+        "required_actions_hidden_in_generic_disclosure"
+      ]
+    },
+    "editorial_language": {
+      "decision": "EDITORIAL-20261018",
+      "owner": "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/07_quy_chuan_cau_truc_trang_nguoi_hoc.md",
+      "scope": "all_course_pages_and_included_learner_sources",
+      "guard": "scripts/zo_course_editorial.py",
+      "enforcement": "lexical_regressions_and_current_source_editorial_review_not_semantic_proof",
+      "supersedes": [
+        "domain_shorthand_mien_for_tap_xac_dinh",
+        "internal_assessment_jargon_in_learner_prose",
+        "technical_PASS_as_editorial_acceptance"
+      ]
     }
   }
 }

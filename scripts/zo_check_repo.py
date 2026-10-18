@@ -1393,8 +1393,39 @@ RENDER_VALIDATOR_ADAPTERS: dict[str, RenderValidatorAdapter] = {
 def dispatch_article_source_validators(
     relative: Path, text: str, checker: Checker
 ) -> ArticleValidationContext | None:
+    from zo_course_editorial import governed as editorial_governed, source_checks as editorial_source_checks
+    if editorial_governed(checker.root/relative):
+        values=editorial_source_checks(checker.root/relative,checker.root,text)
+        failed=[k for k,v in values.items() if not v]
+        checker.add("course-editorial",not failed,"; ".join(failed) or "Terminology and source editorial review current",relative)
     from zo_course_labels import governed, LEGACY, source_checks as course_label_source_checks
     from zo_course_labels import answer_action_source_checks
+    if governed(relative):
+        from zo_course_instructions import source_checks as instruction_source_checks
+        try:
+            values=instruction_source_checks(checker.root/relative,checker.root,text)
+            failed=[key for key,value in values.items() if not value]
+            checker.add("course-instructions",not failed,"; ".join(failed) or "Required instructions visible, optional help declared, uppercase openings checked",relative)
+        except (OSError,ValueError,KeyError) as exc:
+            checker.add("course-instructions",False,str(exc),relative)
+        from zo_course_learning_goals import source_checks as learning_goal_source_checks
+        try:
+            values=learning_goal_source_checks(checker.root/relative,checker.root,text)
+            failed=[key for key,value in values.items() if not value]
+            checker.add("course-learning-goals",not failed,"; ".join(failed) or "One visible goal table, question-only guide and declared evidence checked",relative)
+        except (OSError,ValueError,KeyError) as exc:
+            checker.add("course-learning-goals",False,str(exc),relative)
+    if governed(relative) or relative.as_posix() in {
+        "content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.qmd",
+        "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.qmd",
+    }:
+        from zo_course_reading_regions import source_checks as reading_source_checks
+        try:
+            values=reading_source_checks(checker.root)
+            failed=[key for key,value in values.items() if not value]
+            checker.add("course-reading-source",not failed,"; ".join(failed) or "Current cover and independent reading policy checked",relative)
+        except (OSError,ValueError,KeyError) as exc:
+            checker.add("course-reading-source",False,str(exc),relative)
     if relative.as_posix()=="content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.qmd":
         from zo_web_2027_production import runtime_source_checks
         try:
@@ -1403,7 +1434,15 @@ def dispatch_article_source_validators(
             checker.add("course-runtime-source-bindings",not failed,"; ".join(failed) or "Current runtime asset bindings checked before Quarto",relative)
         except (OSError,ValueError,KeyError) as exc:
             checker.add("course-runtime-source-bindings",False,str(exc),relative)
-    if governed(relative):
+    if relative.as_posix()=="content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.qmd":
+        from zo_d0_presentation import source_checks as d0_source_checks
+        try:
+            values=d0_source_checks(checker.root/relative,checker.root,text)
+            failed=[key for key,value in values.items() if not value]
+            checker.add("d0-presentation-source",not failed,"; ".join(failed) or "D0 actions, numeric tables and owned cover checked",relative)
+        except (OSError,ValueError,KeyError) as exc:
+            checker.add("d0-presentation-source",False,str(exc),relative)
+    if governed(relative) or relative.as_posix()=="content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.qmd":
         try:
             actions=answer_action_source_checks(checker.root/relative,checker.root)
             failed=[key for key,value in actions.items() if not value]

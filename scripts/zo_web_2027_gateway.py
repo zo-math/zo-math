@@ -22,7 +22,7 @@ def adapt(path,output_root):
     from zo_web_2027_preview import KIT
     builder.materialize(KIT/'site-footer.css','site-footer.css');styles+='\n<link rel="stylesheet" href="'+builder.runtime_hrefs['site-footer.css']+'">'
     page=template('page.html',title='Ôn thi Toán THPT',body_class='course-home-preview zo-web-2027-gateway',home_href=home,
-        appearance=builder.appearance(),brand_thought=html.escape(BRAND_THOUGHT),navigation='<nav aria-label="Ấn bản"><p><a href="#gateway-content">Ấn bản hiện có</a></p><p><a href="'+home+'">Nhà khóa 2027</a></p></nav>',
+        appearance=builder.appearance(),brand_thought=html.escape(BRAND_THOUGHT),navigation='<nav aria-label="Ấn bản"><p><a href="#gateway-content">Ấn bản hiện có</a></p><p><a href="'+home+'">Khóa 2027</a></p></nav>',
         breadcrumb='Các ấn bản',hero='',content=str(source),support='',site_footer=footer,drawer_title='Các ấn bản',styles=styles,scripts='<script src="'+builder.runtime_hrefs['site-ui.js']+'"></script>')
     doc=BeautifulSoup(page,'html.parser')
     for node in doc.select('img[src],link[href]'):
@@ -31,7 +31,7 @@ def adapt(path,output_root):
             node[key]=builder.runtime_hrefs[node[key]]
     doc.body['data-zo-web-production']='course-gateway'
     doc.select_one('.lab-link').string='ZO Math'
-    rail=doc.select_one('.rail-support');rail['href']=home;rail.string='Nhà khóa 2027 ↗'
+    rail=doc.select_one('.rail-support');rail['href']=home;rail.string='Khóa 2027 ↗'
     trigger=doc.select_one('.mobile-trigger');trigger['aria-label']='Mở mục lục các ấn bản';trigger.select_one('.mobile-view').decompose()
     from zo_course_html import write
     write(path,doc);return True

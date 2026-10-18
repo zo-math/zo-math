@@ -129,6 +129,24 @@ Tự nạp 07/6.1.2 khi công việc có đồ thị/BBT. GRAPH-G03-01 lấy G03
 
 Chạy cổng nguồn tự động trước render, cổng HTML sau render và các thử âm của 07. Khi dữ liệu/phần triển khai đổi, kiểm lại đúng tài nguyên chịu ảnh hưởng; không dựng PDF học liệu hoặc website toàn bộ. Nếu bộ dựng chung chưa diễn đạt được giới hạn một phía, sửa bộ dựng và kiểm tương thích, không chuyển sang bảng thường hoặc gộp mất dữ kiện. Hồ sơ phải chỉ ra nguyên nhân → nguồn sửa → guard → kết quả thực → phần chờ duyệt. Không chỉnh receipt lịch sử; ưu tiên báo cáo mới dẫn đúng bản nguồn.
 
+**D0 cũng phải qua cổng trình bày:** nhãn cặp đề–lời giải dùng chung `answer_actions`; không ép D0 vào hệ chức năng/luồng R1. `zo_d0_presentation.py` kiểm đủ cặp, ô số LaTeX, phân loại bảy bảng, căn cột chuyển vị, chú thích và bìa riêng. Cổng nguồn được CLI QMD gọi, cổng HTML nằm trong adapter và checker D0; không dùng kiểm đếm liên kết để thay kiểm nhãn. Số chuyển sang LaTeX phải giữ đúng giá trị; checker đảo riêng delta hiển thị trong bộ nhớ rồi so toàn văn/toán với receipt bất biến, có thử âm đổi số và đổi chính văn.
+
+Bìa mới được chủ trì duyệt hướng và yêu cầu dựng xem ghi `direction_approved`/`pending_owner_review` trong `giao_dien/anh_bia.json`, không tự ghi đã duyệt ảnh thành phẩm. `ZO_D0_COVER_PREVIEW=1` chỉ mở trường hợp này trong mirror `.quarto`; loader/check ảnh mặc định vẫn từ chối cho đường chính thức. Khi kiểm trực quan thấy trình duyệt giữ CSS cũ, sửa bộ sinh để dùng query phiên bản theo hash; không sửa tay HTML, không yêu cầu chủ trì xóa cache để che lỗi.
+
+### 2.6. Bàn giao và mở lại bản xem HTML
+
+Khi dựng bộ xem có trang `draft: true`, đặt profile `on-thi-preview` riêng cho tiến trình dựng (qua `QUARTO_PROFILE` khi CLI QMD không có tham số profile); gói dùng `--html-only`, Nhà dùng `--to html`. Không đổi `draft` để lấy nội dung. Kiểm phải có reader/nội dung thật, không chỉ tồn tại tệp HTML. Chỉ dựng lại trang bị lỗi cấu hình, giữ log lần đầu và không bỏ cổng nguồn/HTML.
+
+Áp dụng mục 9.1 của quy trình kỹ thuật toàn repo; không đặt cơ chế máy chủ riêng cho từng gói. URL localhost chỉ dùng được khi máy chủ còn chạy. Yêu cầu mở lại hoặc báo lỗi kết nối kích hoạt kiểm tệp → mở lại bằng công cụ canonical → kiểm HTTP đúng nội dung → mở URL; không render lại hoặc dùng đầu ra cũ thay cho bản chờ duyệt.
+
+Bộ xem hiện hành được ghi duy nhất tại 03. Với bộ HTML ngày 18/10/2026:
+
+```text
+python -B scripts/zo_python.py -B scripts/zo_html_preview.py --page _audit/html_six_20261018/index.html --port 8877 --shortcut
+```
+
+Tệp `E:\zo_math\_audit\html_six_20261018\Mo_ban_xem_HTML.cmd` cho phép nhấp đúp mở lại sau reboot. Khi thay bộ xem, cập nhật đường dẫn tại 03 và lệnh/tệp mở nhanh tương ứng, không tự chọn thư mục “mới nhất” theo tên hoặc thời gian. Trước kết sổ, bảo vệ `index.html`, `html/` cùng mọi tài nguyên phục vụ sáu trang, tệp mở nhanh và bằng chứng kiểm/ảnh chụp; mirror/cache đã kết thúc có thể lưu kho riêng. HTML, PDF, duyệt chủ trì và xuất bản vẫn là các trạng thái độc lập.
+
 ## 3. Báo cáo đối chiếu tối thiểu
 
 Với lượt sửa bảng QD_030, kiểm kê toàn bộ bảng của từng bề mặt (kể cả trong disclosure), ánh xạ theo chức năng tại 07/6.1.1 trước dựng. So từng ô văn bản/TeX/JSON và ID; kiểm kiểu, ngữ nghĩa hàng/cột, lưới, cỡ chữ, màu nhấn hợp lệ, local scroll/focus khi cần và no page overflow. Có ca âm chặn bảng thiếu/trùng/chưa phân loại, dữ liệu native sai và runtime căn sai/mất lưới. Bằng chứng cần mang revision `table_language` của cổng điều hành; báo cáo cũ dùng quy tắc căn trái đại trà không chứng nhận phần bảng mới. Không đổi toán hoặc sao chép quota G01; chỉ 03 ghi trạng thái, 07 sở hữu quy tắc.
@@ -249,3 +267,25 @@ Khi nhiệm vụ yêu cầu thống nhất các trang, đọc HTML hiện hành 
 ### Rà bảng toán và chú thích — 18/10/2026
 
 Khi hiệu chỉnh bảng/hình theo 07/6.1.1, kiểm kê bảng biến thiên, bảng giá trị hàm và bảng dấu của các trang đang có; đọc ngữ cảnh để chọn giữ tên, thêm tên hay giữ không tên. Tên nhìn thấy đặt dưới và ngoài vùng cuộn. `zo_course_tables.media_source_checks` nối vào CLI QMD cho D0/G01–G04; `media_html_checks` chạy sau gắn lớp/vị trí và qua cổng trình bày chung. Chạy `python scripts/zo_python.py -B scripts/zo_course_tables.py --self-test` để thử kiểu ô, tên nằm trên, lớp thiếu và ngoại lệ tên. Chỉ sửa nguồn thì không dựng lại trang/hình/PDF; ghi rõ kiểm nguồn/fixture, phần chờ xem thật và giữ bằng chứng HTML hiện có. Không sửa dữ liệu toán, nguồn vẽ hoặc receipt để đồng nhất hình thức.
+
+## Bổ sung kiểm bìa và ranh giới vùng đọc — 18/10/2026
+
+Áp dụng 07/6.1.3. Cổng nguồn `zo_check_repo.py` gọi `zo_course_reading_regions.source_checks`; trước dựng chạy hồi quy cùng tên, đối chiếu cả bốn gói. Không lấy số vùng bằng nhau làm đạt. Khi chủ trì chỉ cho sửa nguồn, chỉ đọc HTML đối chứng và thử DOM trong bộ nhớ, giữ fingerprint toàn bộ HTML/PDF trước–sau. Kiểm nguồn không chứng nhận bố cục nhìn thấy; dựng và duyệt HTML thực hiện ở lượt được phép sau.
+
+## Kiểm hợp nhất mục tiêu — GOALS-START-20261018
+
+Theo 07/6.1.4, trước sửa lập bảng đối chiếu Bắt đầu/bảng cũ/bằng chứng; sau sửa mỗi gói còn một bảng mục tiêu nhìn thấy ở Bắt đầu và khối Câu hỏi dẫn đường không chứa bảng. Chạy `zo_qmd.py check` cho đúng gói; cổng `course-learning-goals` và `zo_course_learning_goals_selftest.py` kiểm cả adapter cũ/mới, mất dòng, sai chủ sở hữu và đối chiếu bị ẩn. Chỉ kiểm trong bộ nhớ nếu chưa được dựng HTML; không lấy kết quả đó làm nghiệm thu sản phẩm mới. G01 dùng phép đảo giới hạn để đối chiếu fingerprint cũ, không cập nhật fingerprint/receipt nghiệm thu; văn bản lịch sử chỉ tham gia so sánh, không dùng sinh nội dung.
+
+## Kiểm chỉ dẫn thực hiện — INSTRUCTIONS-20261018
+
+Khi viết/rà Cách thực hiện, áp dụng 07/6.1.5: kiểm kê từng mục trong ngữ cảnh, quyết định giữ/sửa/bỏ có lí do và ghi chỗ yêu cầu còn được giữ. Không kiểm chỉ bằng số hộp hoặc chữ hoa. Nạp mẫu bản thảo 1.4, bảng kiểm 1.7; ghi không áp dụng khi chỉ dẫn không cần, không điền lời nhắc đọc cho đủ khung. Chạy `scripts/zo_course_instructions_selftest.py` qua launcher và cổng QMD nguồn; cổng HTML dùng cùng module khi được phép dựng. Chỉ sửa nguồn thì kiểm DOM trong bộ nhớ, không ghi HTML. G01 dùng phép đảo giới hạn trong bản sao cây kiểm để giữ fingerprint nghiệm thu gốc, cập nhật binding nguồn minh bạch; không sửa receipt hoặc lấy HTML lịch sử làm đầu vào dựng.
+
+
+### Rà thuật ngữ và câu chữ trước trình — EDITORIAL-20261018
+
+Theo 07/6.1.6: rà cả chính văn, tên mục, bảng/chú thích, đề–lời giải, Ôn nền và dữ liệu sinh đang được gọi; lập đối chiếu nguyên văn/câu mới/lí do bỏ, bảo toàn điều kiện toán và điều hướng. Không giới hạn lượt rà vào Cách thực hiện hoặc kiểm chữ đầu câu. Bản thảo dùng bảng kiểm B24; nguồn QMD gọi cổng `zo_course_editorial.py` qua CLI hiện hành. Hồ sơ nguồn được rà phải khớp từng tệp được include; sửa sau đó phải đọc phần ảnh hưởng trước khi ghi phạm vi rà mới. Cổng từ vựng và hash không thay đọc ngữ nghĩa. Không render hoặc commit nếu chủ trì chỉ giao sửa nguồn.
+
+
+### Kiểm số và nhãn NUMBERING-20261018
+
+Trước trình G01–G04, dùng zo_course_numbering.py qua cổng zo_course_labels.py: kiểm thứ tự nguồn/toàn văn, một dãy mỗi loại hiển thị, đề–đáp án cùng số, dẫn chiếu theo ID, Điểm dừng kể cả Khởi động/Ôn lại; thử âm số đặt lại giữa hai chức năng. Bộ nhãn chỉ nhận nhánh và khu vực chứa. Không dùng kiểm tăng số riêng từng chức năng làm bằng chứng đạt.

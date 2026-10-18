@@ -33,7 +33,7 @@ QD_033: kit không sở hữu kiến trúc. Đối chiếu 01/2.2–2.4 trước
 
 ## Các bất biến khi dùng lại
 
-QD_025 kế thừa QD_023 và thêm Gợi mở: nguồn chính thức là `label_contract` của danh mục kiến trúc toàn chương trình và 01/07. Dòng nhãn chỉ bổ sung ngữ cảnh không rõ, không lặp tiêu đề; số liên tục theo nhóm chức năng. Mục lục và vùng đọc cùng cây owner, nhưng vùng không phải đơn vị đếm. Bảng di trú không là nguồn build. Ôn nền là khu hỗ trợ độc lập; G01 đã có owner cấp gốc và binding hiển thị canonical. G02 đã áp dụng Ôn nền cấp gốc và binding riêng tại DH_016; bằng chứng mới kiểm theo nguồn/đích/câu chữ và runtime đại diện, không dùng layout cũ chứng nhận quy tắc mới.
+QD_025 kế thừa QD_023 và thêm Gợi mở: nguồn chính thức là `label_contract` của danh mục kiến trúc toàn chương trình và 01/07. Dòng nhãn chỉ bổ sung ngữ cảnh không rõ, không lặp tiêu đề; số liên tục theo loại hiển thị trong toàn gói. Mục lục và vùng đọc cùng cây owner, nhưng vùng không phải đơn vị đếm. Bảng di trú không là nguồn build. Ôn nền là khu hỗ trợ độc lập; G01 đã có owner cấp gốc và binding hiển thị canonical. G02 đã áp dụng Ôn nền cấp gốc và binding riêng tại DH_016; bằng chứng mới kiểm theo nguồn/đích/câu chữ và runtime đại diện, không dùng layout cũ chứng nhận quy tắc mới.
 
 1. **Vùng đọc sở hữu trọn một bước đọc có nghĩa.** Nhãn, tiêu đề, lời dẫn, công thức, hình, chú thích và hành động liên quan nằm trong vùng đó. Không thả heading/link quay lại trên nền trống. Hero, navigation và section ủng hộ là các vùng giao diện riêng, không phải đoạn thân bài rơi ngoài giấy.
 2. **Không chia theo số heading, chiều cao màn hình hoặc độ dài tùy ý.** Ghép các mắt xích cùng đạt một kết quả đọc; ngắt khi người đọc chuyển mục tiêu hoặc thao tác. Không tách chú thích/ràng buộc khỏi hình hay câu hỏi khỏi dữ kiện cần dùng.
@@ -110,3 +110,11 @@ Theo 07/6.1.2 và 02/2.5 của khóa: source/HTML guard dùng scripts/zo_course_
 ## DRAWER-ICON01 — chủ sở hữu của nút mở mục lục
 
 Quy tắc nút icon ở trên áp dụng cho mọi gói/trang dùng shell, kể cả chưa có PDF. Template page.html.tpl sở hữu SVG/tên truy cập; web-shell.css sở hữu kích thước/hình tròn; site-ui.js sở hữu mở/đóng/focus/resize. Không phụ thuộc downloads.css hoặc đoạn chèn icon trong adapter PDF. Các đoạn tương thích G01/G02 không là chuẩn để nhân bản. zo_web_2027_shell.py chặn template/HTML/runtime CSS lệch trước bàn giao; kiểm browser vẫn bắt buộc. Nội dung main, rail, các view và điều hướng toàn khóa giữ nguyên.
+
+## Hiệu chỉnh ranh giới và bìa ngày 18/10/2026
+
+Áp dụng 07/6.1.3 của khóa: mỗi nhiệm vụ và mỗi lời giải độc lập có giấy riêng; hướng dẫn chung riêng khi đủ nội dung, tiêu đề đơn độc đi cùng nội dung kế tiếp. Không tách ví dụ phụ thuộc, Gợi mở khỏi mục kiến thức hoặc thẻ Ôn nền có đối chiếu tại chỗ. Bản đồ gom Khởi động G01/G02 cũ không còn làm mẫu. Hiện thực chung `scripts/zo_course_reading_regions.py` qua `apply_editorial_policy`, trước nhãn ngữ cảnh; Nhà/D0 giữ map riêng. Breadcrumb dùng “Khóa 2027”, bỏ CTA “Vào Bài học” trong bìa học liệu; không xóa CTA khác chức năng. Receipt cũ chỉ là lịch sử.
+
+## GOALS-START-20261018 — mục tiêu và câu hỏi có chủ sở hữu riêng
+
+Theo 07/6.1.4: một bảng mục tiêu đầy đủ, nhìn thấy ở Bắt đầu, tên Học xong, em cần làm được gì?, hai cột Mục tiêu/Việc em cần làm được. Đầu Bài học là Câu hỏi dẫn đường mặc định đóng; không lặp bảng mục tiêu hoặc danh sách Mục lục. Số dòng theo nội dung, nhánh thêm ngoài lõi. Giữ ID/table binding và map nhịp đọc hiện hành; đoạn layout G01 cũ chỉ là mốc, không phục hồi vị trí bảng. Mẫu/bảng kiểm nội dung đã cập nhật; không hồi tố bản thảo đã duyệt hoặc receipt.

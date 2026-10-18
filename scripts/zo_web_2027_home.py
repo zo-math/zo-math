@@ -151,6 +151,8 @@ class HomeBuilder(PreviewBuilder):
         self.resources['course-tables.css'] = {'source': '_design/web_2027_mau_dung_chung/course-tables.css', 'sha256': sha(KIT / 'course-tables.css')}
         from zo_web_2027_navigation import apply as apply_course_navigation
         self.resources.update(apply_course_navigation(doc, self.page, self.output_root, self.runtime, 'home'))
+        from zo_course_editorial import require as require_language, html_checks as language_checks
+        require_language(language_checks(doc))
         from zo_course_html import write
         write(self.page, doc)
         report['html_sha256'] = sha(self.page)

@@ -226,7 +226,14 @@ def _adapt(path, output_root):
     for name, digest in plan['source_asset_hashes'].items():
         if sha((ROOT / name).read_bytes()) != digest:
             raise ValueError('Canonical diagram/data changed; revalidate the approved display asset: ' + name)
-    if content_fingerprint(source_root) != plan['source_fingerprint']:
+    from zo_course_learning_goals import inverse_g01_fingerprint
+    from zo_course_instructions import restore_g01_for_comparison
+    from zo_course_editorial import restore_g01_for_comparison as restore_editorial_for_comparison
+    from zo_course_numbering import restore_g01_for_comparison as restore_numbering
+    numbering_comparison=restore_numbering(source_root,plan,ROOT/PACKAGE/'index.qmd')
+    editorial_comparison=restore_editorial_for_comparison(numbering_comparison,plan,ROOT/PACKAGE/'index.qmd')
+    comparison = restore_g01_for_comparison(editorial_comparison,plan,ROOT/PACKAGE/'index.qmd')
+    if inverse_g01_fingerprint(comparison,plan,content_fingerprint,ROOT/PACKAGE/'index.qmd') != plan['source_fingerprint']:
         raise ValueError('Fresh QMD content/IDs/disclosures differ from the imported baseline; do not silently drop new content.')
     target = BeautifulSoup('', 'html.parser')
     runtime = output_root / 'assets/zo_web_2027'

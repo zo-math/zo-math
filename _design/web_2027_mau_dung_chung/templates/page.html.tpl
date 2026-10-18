@@ -25,7 +25,7 @@
       <a class="rail-support" href="#ung-ho">Bảo trợ ZO Math ↗</a>
     </aside>
     <main id="reading" tabindex="-1">
-      <div class="breadcrumb"><a href="$home_href">Nhà khóa 2027</a><span>/</span>$breadcrumb</div>
+      <div class="breadcrumb"><a href="$home_href">Khóa 2027</a><span>/</span>$breadcrumb</div>
       $hero
       $content
       $support

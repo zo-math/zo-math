@@ -2,7 +2,7 @@
 from __future__ import annotations
 import copy,html,json,os,re,sys
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, urlunsplit
 import xml.etree.ElementTree as ET
 sys.dont_write_bytecode=True
 from bs4 import BeautifulSoup,Tag
@@ -116,7 +116,10 @@ class D0Builder(HomeBuilder):
         nav='<nav class="d0-nav" aria-label="Các phần của bài khảo sát"><div class="r1-tab-group"><span class="r1-tab-group-label">Khảo sát đầu vào</span><div class="r1-tab-group-items">'+''.join('<a class="r1-tab" href="#'+s['id']+'">'+html.escape(s['label'])+'</a>' for s in self.layout['views'])+'</div></div></nav>'
         footer,footer_info=self.site_footer()
         styles=['reading-regions.css','web-shell.css','appearance-inline.css','site-footer.css','web_2027.css']
-        hero='<header class="hero"><div class="hero-copy"><h1>'+html.escape(title)+'</h1></div></header>'
+        from zo_course_cover import load_cover
+        allow_cover_preview=os.environ.get('ZO_D0_COVER_PREVIEW')=='1' and '.quarto' in REPO.parts
+        self.materialize(load_cover(REPO,'d0',allow_direction_approved=allow_cover_preview),'assets/d0-cover.svg')
+        hero='<header class="hero" aria-label="Bìa khảo sát"><div class="hero-copy"><h1>'+html.escape(title)+'</h1></div><figure class="hero-art"><img src="assets/d0-cover.svg" alt="Trang bài làm, cây bút và những dấu nhận biết điều đã hiểu hoặc còn phân vân; minh họa việc tự chọn nội dung ôn"></figure></header>'
         doc=BeautifulSoup(template('page.html',title=title,body_class='d0-web '+MARKER,home_href=home,breadcrumb=title,drawer_title='Mục lục khảo sát',navigation=nav,appearance=self.appearance(),hero=hero,content=str(root),support='',site_footer=footer,styles=''.join('<link rel="stylesheet" href="'+n+'">' for n in styles),scripts='<script src="site-ui.js"></script><script src="web_2027.js"></script>',brand_thought=html.escape(BRAND_THOUGHT)),'html.parser')
         doc.title.string=title+' — ZO Math'
         doc.body['data-zo-web-production']='d0'
@@ -130,11 +133,25 @@ class D0Builder(HomeBuilder):
         if inventory(strip_papers(doc.select_one('.d0-package')))!=original:raise ValueError('D0 final projection differs')
         from zo_course_tables import apply as apply_tables
         apply_tables(doc,'d0',self.page,self.runtime)
+        from zo_d0_presentation import html_checks
+        failures=[k for k,v in html_checks(doc,REPO).items() if not v]
+        if failures:raise ValueError('D0 presentation: '+ '; '.join(failures))
         self.resources['course-tables.css']={'source':'_design/web_2027_mau_dung_chung/course-tables.css','sha256':sha(KIT/'course-tables.css')}
         from zo_web_2027_navigation import apply as apply_course_navigation
         self.resources.update(apply_course_navigation(doc,self.page,self.output_root,self.runtime,'d0'))
+        # Stable filenames need content versions after review-only CSS updates.
+        for node in doc.select('link[rel="stylesheet"][href]'):
+            url=urlsplit(node['href']);name=Path(url.path).name
+            if name in self.resources:
+                node['href']=urlunsplit(('','',url.path,'v='+self.resources[name]['sha256'][:16],url.fragment))
+        from zo_d0_presentation import asset_version_checks
+        if not all(asset_version_checks(doc,REPO).values()):raise ValueError('D0 CSS version binding failed')
+        from zo_course_editorial import require as require_language, html_checks as language_checks
+        require_language(language_checks(doc))
         from zo_course_html import write
         write(self.page, doc)
+        from zo_course_cover import check_html
+        check_html(REPO,'d0',self.page,allow_direction_approved=allow_cover_preview)
         return {'source':str(PACKAGE/'index.qmd'),'source_sha256':sha(REPO/PACKAGE/'index.qmd'),'source_inventory':original,'source_markup':markup,'reading_beats':beats,'resources':self.resources,'links':self.links,'site_footer':footer_info,'layout_sha256':sha(LAYOUT),'html_sha256':sha(self.page),'acceptance':'pending_owner_review','publication':'pending'}
 
 def adapt(path,output_root):

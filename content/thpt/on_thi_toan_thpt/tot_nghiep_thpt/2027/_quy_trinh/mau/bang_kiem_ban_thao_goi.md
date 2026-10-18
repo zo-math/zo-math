@@ -1,6 +1,6 @@
 # Bảng kiểm áp dụng mẫu bản thảo gói
 
-Phiên bản mẫu: **1.4** · Ngày: 17/10/2026 · Phạm vi: bản thảo gói R1 của khóa 2027. Đây là công cụ áp dụng, không tạo kiến trúc hoặc chuẩn hiển thị mới.
+Phiên bản mẫu: **1.7** · Ngày: 18/10/2026 · Phạm vi: bản thảo gói R1 của khóa 2027. Đây là công cụ áp dụng, không tạo kiến trúc hoặc chuẩn hiển thị mới.
 
 Nguồn: [01 — chức năng học tập](../01_kien_truc_hoc_tap.md), [07 — trình bày](../07_quy_chuan_cau_truc_trang_nguoi_hoc.md), [02/1.4 — cách dùng](../02_quy_trinh_va_nghiem_thu.md#ap-dung-mau-ban-thao), [khung bản thảo](ban_thao_goi.md), [tổ chức nguồn](../quy_chuan_goi_qmd.md). G01/G02 là học liệu đối chiếu theo chức năng; nội dung toán và số lượng nhiệm vụ thuộc gói đang viết.
 
@@ -31,7 +31,7 @@ Bảng đối chiếu cấu trúc dùng trước viết: mỗi dòng phải ghi 
 | Bắt đầu | Chưa điền | Chưa điền | Chưa điền | Chưa điền |
 | Bài học → Định hướng | Chưa điền | Chưa điền | Chưa điền | Chưa điền |
 | Bài học → Khởi động → nhiệm vụ và phản hồi/đường chọn nền | Chưa điền | Chưa điền | Chưa điền | Chưa điền |
-| Bài học → từng mục kiến thức → Cách thực hiện | Chưa điền | Chưa điền | Chưa điền | Chưa điền |
+| Chỉ dẫn thao tác nếu cần → bỏ lặp, điều kiện nhìn thấy, đầu câu viết hoa | Chưa điền | Chưa điền | Chưa điền | Chưa điền |
 | Bài học → từng mục kiến thức → Gợi mở và phản hồi/cầu nối tại chỗ | Chưa điền | Chưa điền | Chưa điền | Chưa điền |
 | Bài học → từng mục kiến thức → lời giảng, định nghĩa/định lí và ví dụ | Chưa điền | Chưa điền | Chưa điền | Chưa điền |
 | Bài học → từng mục kiến thức → Tự kiểm tra và hỗ trợ | Chưa điền | Chưa điền | Chưa điền | Chưa điền |
@@ -49,10 +49,10 @@ Bảng đối chiếu cấu trúc dùng trước viết: mỗi dòng phải ghi 
 
 | ID | Điều phải đọc/kiểm thực chất | Nguồn sở hữu | Kết quả/vị trí bằng chứng | Trạng thái |
 |---|---|---|---|---|
-| B01 | Bắt đầu đủ mục tiêu, tiên quyết, cách học/điểm vào, sơ đồ đúng nghĩa và điều kiện hoàn tất | 01/2.2–2.3,2.7; 07/4 | Chưa điền | Chưa kiểm |
-| B02 | Bài học và Luyện tập riêng; bốn khu vực chính và hỗ trợ ngang, không biến mục lục thành chuỗi bắt buộc | 01/2.2.1; 07/3–4 | Chưa điền | Chưa kiểm |
+| B01 | Bắt đầu có một bảng Học xong, em cần làm được gì? nhìn thấy, đối chiếu không mất mục tiêu từ bảng cũ/bằng chứng; đủ tiên quyết, điểm vào và điều kiện hoàn tất | 01/2.2–2.3,2.7; 07/4 | Chưa điền | Chưa kiểm |
+| B02 | Bài học và Luyện tập riêng; Câu hỏi dẫn đường mặc định đóng, không lặp bảng mục tiêu/Mục lục; giữ bốn khu vực và hỗ trợ ngang, không tạo chuỗi bắt buộc | 01/2.2.1; 07/3–4 | Chưa điền | Chưa kiểm |
 | B03 | Khởi động thuộc Bài học, là nhiệm vụ kiểm nền thật, có phản hồi và đường chọn nền; không thay Gợi mở | 01/2.3; G01/G02 | Chưa điền | Chưa kiểm |
-| B04 | Từng Gợi mở thuộc đúng mục kiến thức trong Bài học, sau Cách thực hiện và trước lời giải thích, có phản hồi/cầu nối tại chỗ; giữ nhãn và số liên tục toàn nhóm, không reset theo mục; không có mục Gợi mở chung ngang cấp Khởi động/Bài học | 01/QD_025; 07 bổ sung QD_025 | Chưa điền | Chưa kiểm |
+| B04 | Từng Gợi mở thuộc đúng mục kiến thức trong Bài học, sau chỉ dẫn thao tác nếu thật sự cần, trước lời giải thích, có phản hồi/cầu nối tại chỗ; giữ nhãn và số liên tục toàn nhóm, không reset theo mục; không có mục Gợi mở chung ngang cấp Khởi động/Bài học | 01/QD_025; 07 bổ sung QD_025 | Chưa điền | Chưa kiểm |
 | B05 | Chính văn phát biểu trực tiếp; lời giảng/định nghĩa/định lí đủ điều kiện và có căn cứ đã đọc; chú thích .zo-source-note đúng vị trí/câu/tên/trang, không dẫn “theo SGK…” hoặc kể quá trình biên soạn trong lời giảng | Nguồn toán gói; 07/4.2,6.3; quy chuẩn gói/Công thức và nguồn đối chiếu | Chưa điền | Chưa kiểm |
 | B06 | Ví dụ đủ lời giải; Tự kiểm tra để tự làm, không dùng lại ví dụ đã giải làm bằng chứng mới; khép lại có điều cần tự giải thích | 01/2.1,2.5; G01/G02 | Chưa điền | Chưa kiểm |
 | B07 | Mục/tiểu mục và từng nhóm nhiệm vụ đánh liên tục; tên, số, chức năng, đề–đáp án và dẫn chiếu cùng ánh xạ | 07/6.2; danh mục nhãn | Chưa điền | Chưa kiểm |
@@ -66,11 +66,13 @@ Bảng đối chiếu cấu trúc dùng trước viết: mỗi dòng phải ghi 
 | B15 | Phối hợp và Chuyển giao phân biệt, có tiên quyết, đề/lời giải riêng nếu thật sự cần; không ép thành lõi | 01/2.5.1; 07 | Chưa điền | Chưa kiểm |
 | B16 | Nhật kí đúng nguồn 14 trường; không bắt ghi mỗi câu; ví dụ ghi giả lập và không lộ đáp án câu xác nhận chưa dùng | 01/2.8; nguồn Nhật kí chung | Chưa điền | Chưa kiểm |
 | B17 | Mọi đề có lời giải đúng nhóm/tên/ý; tách vị trí thì có đường đi/về, xử lí tại chỗ thì không nhân lời giải hoặc tạo nhóm trống | 07/5.3,6.2; quy chuẩn gói | Chưa điền | Chưa kiểm |
-| B18 | Gọi guard kí pháp hiện có, ghi rõ phạm vi hỗ trợ; toán đúng miền, dấu, hướng, đơn vị, mức đạt/chưa đạt và giới hạn suy luận; LaTeX cho số/biểu thức, phân số và ngoặc đúng quy chuẩn | Nguồn toán; quy chuẩn kí hiệu/dấu ngoặc | Chưa điền | Chưa kiểm |
+| B18 | Gọi guard kí pháp hiện có, ghi rõ phạm vi hỗ trợ; toán đúng tập xác định/tập đang xét, dấu, hướng, đơn vị, mức đạt/chưa đạt và giới hạn suy luận; LaTeX cho số/biểu thức, phân số và ngoặc đúng quy chuẩn | Nguồn toán; quy chuẩn kí hiệu/dấu ngoặc | Chưa điền | Chưa kiểm |
 | B19 | Lập ma trận tài nguyên theo vai trò trước viết/chuyển QMD; dùng công cụ ZO Math/component hiện hành, tách hình trong bài và bìa. BBT từ một JSON/native MathML, giữ mốc/dấu/giới hạn hai phía/điểm loại/số hàng. Kiểm khung và cỡ hiển thị đồ thị theo GRAPH-G03-01/G03, scope CSS thật sự hoạt động, phông/nét/vạch/nhãn/điểm/trục; đối chứng đồ thị với G03 và BBT với gói có bảng trên desktop/mobile và thử âm. Không lấy profile 0.4, hash, kind=variation hoặc ảnh montage làm đủ bằng chứng | 07/6.1.2,6.3; 02/2.5; công cụ ZO Math và binding kit | Chưa điền | Chưa kiểm |
 | B20 | Chính văn và nhãn liên kết dùng tên có nghĩa, không dùng mã quản lí; liên kết tồn tại và thực sự dẫn đúng nội dung | 07/6.2; đối chiếu ngữ nghĩa thủ công | Chưa điền | Chưa kiểm |
 | B21 | Bản trình duyệt đúng phiên bản, hết chỗ trống/ghi chú nội bộ; phân biệt nội dung và HTML/PDF; ghi rõ những phần được hoãn | 02/4; quy chuẩn gói | Chưa điền | Chưa kiểm |
 | B22 | Trạng thái đã sửa/đã kiểm/chủ trì duyệt/phát hành tách biệt; không sửa receipt cũ và không kế thừa PASS sai phạm vi | 02/4; 03 | Chưa điền | Chưa kiểm |
+| B23 | Rà từng Cách thực hiện trong ngữ cảnh: bỏ đoạn chỉ lặp thứ tự đọc/phương pháp; giữ yêu cầu cần thiết nhìn thấy; trợ giúp tùy chọn mới dùng hộp xám đóng; câu đầu viết hoa; có kiểm kê giữ/sửa/bỏ và không mất điều kiện | 07/6.1.5; INSTRUCTIONS-20261018 | Chưa điền | Chưa kiểm |
+| B24 | Rà thuật ngữ theo nghĩa: tập xác định/tập đang xét/điều kiện biến; câu đủ đối tượng và quan hệ toán, không có lời điều hành hoặc viết tắt tối nghĩa. Đối chiếu nguyên văn/câu mới/lí do bỏ, đích hỗ trợ đúng lỗi; đọc lại tiêu đề, đề–lời giải, bảng, alt, include và dữ liệu sinh. Giữ điều kiện, ID và điều hướng; hồ sơ rà nguồn khớp bản hiện tại; cổng máy không thay đọc ngữ nghĩa | 07/6.1.6; EDITORIAL-20261018 | Chưa điền | Chưa kiểm |
 
 ## Bảng ngoại lệ và việc hoãn
 

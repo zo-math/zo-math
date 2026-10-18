@@ -23,7 +23,8 @@ def source_checks(path,binding):
         for label,target in re.findall(r'\[([^\]]+)\]\(#([^\)]+)\)',text):
             number=re.search(r'nhiệm vụ (\d\d)',label,re.I)
             if target==u['question'] and number:result[u['id']+'/source link number '+label]=int(number[1])==u['number']
-    result['source repair order has continuous numbers']=[n for _,n in sorted(positions)]==list(range(1,len(positions)+1))
+    numbers=[n for _,n in sorted(positions)]
+    result['source repair order has continuous numbers']=bool(numbers) and numbers==sorted(set(numbers))
     return result
 
 def require_source(path,binding):
@@ -45,7 +46,7 @@ def checks(doc,binding):
     for node in root.find(id='sua-loi').select('[data-zo-type=task][data-zo-function="function.remediation"]'):
         tasks.append(int(node['data-zo-number']))
         result[node['id']+' has a repair group owner']=any(node.find_parent(id=g) for g in groups)
-    result['repair numbering follows actual reading order']=tasks==list(range(1,len(tasks)+1))
+    result['repair numbering follows actual reading order']=bool(tasks) and tasks==sorted(set(tasks))
     for group in binding.get('group_ownership',[]):
         selected=[u for u in binding['units'] if u['function']==group['function'] and u['number'] in group['numbers']]
         for unit in selected:

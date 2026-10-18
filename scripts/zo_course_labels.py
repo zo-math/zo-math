@@ -24,6 +24,9 @@ def contract(root=ROOT):
     return yaml.safe_load((root/CATALOG).read_text(encoding="utf-8"))["label_contract"]
 
 def binding(path):
+    if Path(path).parent.name=="d0" and Path(path).parent.parent.name=="hoc_lieu":
+        from zo_d0_presentation import PAIRS
+        return {"units":[{"question":q,"answer":a} for q,a in PAIRS.items()]}
     return json.loads((Path(path).parent/"giao_dien/he_nhan.json").read_text(encoding="utf-8"))
 
 def display_label(unit,policy):
@@ -45,6 +48,9 @@ def binding_checks(data,root=ROOT):
     for u in units:
         key=u.get("id","missing");function=u.get("function");label=u.get("label")
         checks[key+" known function"]=function in policy["functions"]
+        if function in policy["functions"]:
+            context_key=policy["functions"][function].get("context")
+            if context_key:checks[key+" declared functional context retained"]=isinstance(u.get("context"),dict) and context_key in u["context"]
         checks[key+" visible label specified"]=isinstance(label,str) and bool(label.strip())
         if function in policy["functions"] and label:
             if strict or uses_context_labels(data):
@@ -56,7 +62,7 @@ def binding_checks(data,root=ROOT):
                 bases=[prefix+policy["joiner"]+base for prefix in policy["contexts"][spec["context"]].values()] if spec.get("context_position")=="prefix" else [base]
                 checks[key+" legacy label compatible"]=any(label==b or label.startswith(b+policy["joiner"]) for b in bases)
         if data.get("descriptive_task_titles") and function in {"function.guided_thinking","function.self_check","function.warmup"}:
-            prefix={"function.guided_thinking":"Gợi mở","function.self_check":"Tự kiểm tra","function.warmup":"Nhiệm vụ"}[function]
+            prefix="Gợi mở" if function=="function.guided_thinking" else "Nhiệm vụ"
             expected=rf"{prefix} {u.get('number',0):02d} [—–] \S.+"
             checks[key+" descriptive functional title"]=bool(re.fullmatch(expected,plain_title(u.get("title",""))))
         if function=="function.guided_thinking":checks[key+" no duplicate prompt answer"]=not u.get("answer")
@@ -66,10 +72,12 @@ def binding_checks(data,root=ROOT):
         if uses_context_labels(data) and u.get("answer"):
             checks[key+" answer context label declared"]=u.get("answer_label")==context_unit_label(u,"answer",data,root)
         number=u.get("number")
+        checks[key+" package type number required"]=isinstance(number,int) and not isinstance(number,bool) and number>0
         if number is not None:
             checks[key+" positive integer number"]=isinstance(number,int) and not isinstance(number,bool) and number>0
-            numbers[function].append(number)
-    for function,values in numbers.items():checks[function+" continuous numbering"]=sorted(values)==list(range(1,len(values)+1))
+            from zo_course_numbering import group
+            numbers[group(u)].append(number)
+    for name,values in numbers.items():checks[name+" continuous package numbering"]=sorted(values)==list(range(1,len(values)+1))
     for u in data.get("knowledge_units",[]):checks[u["id"]+" known content type"]=u.get("type") in vocab["terms"] and u["type"].startswith("type.")
     return checks
 
@@ -93,7 +101,7 @@ def answer_action_targets(data):
 
 def answer_action_source_checks(path,root=ROOT,text=None):
     """Exact action wording, including legacy packages; no HTML is generated."""
-    if not governed(path):return {}
+    if not governed(path) and not (Path(path).parent.name=="d0" and Path(path).parent.parent.name=="hoc_lieu" and Path(path).name=="index.qmd"):return {}
     try:
         data=binding(path);labels=answer_action_labels(root)
         questions,forward=answer_action_targets(data)
@@ -133,6 +141,12 @@ def answer_action_html_checks(doc,data,root=ROOT):
 def source_checks(path,root=ROOT):
     path=Path(path);checks={}
     if not governed(path):return checks
+    from zo_course_learning_goals import source_checks as goal_source_checks
+    try:checks.update(goal_source_checks(path,root))
+    except (OSError,ValueError,KeyError) as exc:return {"learning goal/label binding readable: "+str(exc):False}
+    from zo_course_numbering import source_checks as numbering_source_checks
+    try:checks.update(numbering_source_checks(expand(path),binding(path)))
+    except (OSError,ValueError,KeyError) as exc:return {"package numbering readable: "+str(exc):False}
     if path.parent.name in LEGACY:
         try:data=binding(path)
         except (OSError,ValueError):return {"legacy binding readable":False}
@@ -242,13 +256,18 @@ def apply(doc,data,area_labels=None,root=ROOT):
 
 def html_checks(doc,data,root=ROOT):
     reader=doc.select_one(".reader-content");checks={}
+    from zo_course_learning_goals import html_checks as goal_html_checks
+    if data.get("learning_goals"):checks.update(goal_html_checks(doc,data["learning_goals"]))
     if reader is None:return {"reader exists for visible labels":False}
     for u in data["units"]:
         for target,kind in [(u["question"],"question"),(u.get("answer"),"answer")]:
             shown_label=context_unit_label(u,kind,data,root)
             if not target:continue
             node=reader.find(id=target);key=u["id"]+"/"+kind
-            checks[key+" metadata/label same owner"]=bool(node and node.get("data-zo-function")==u["function"] and node.get("data-zo-task")==u["id"] and len([n for n in node.select("[data-reading-label]") if n.get_text(" ",strip=True)==shown_label])==1)
+            label_owner=node.find_parent('details') if target=='lg-cg01' and node else node
+            # A section may also own child explanations with the same short
+            # area label. Exact title adjacency is checked separately below.
+            checks[key+" metadata/label same owner"]=bool(node and label_owner and node.get("data-zo-function")==u["function"] and node.get("data-zo-task")==u["id"] and any(n.get_text(" ",strip=True)==shown_label for n in label_owner.select("[data-reading-label]")))
             if data.get("display_contract")==VERSION and node:
                 owner=node.find_parent(id=u.get(kind+"_owner")) if u.get(kind+"_owner") else None
                 checks[key+" structural owner matches binding"]=owner is not None
@@ -270,6 +289,7 @@ def html_checks(doc,data,root=ROOT):
         actual=[n for n in node.select("[data-reading-label]") if n.get_text(" ",strip=True)==label] if node else []
         checks[u["id"]+" visible type obeys no repetition"]=uses_context_labels(data) or len(actual)==(0 if omit_type_label(u["title"],label) else 1)
     for u in data.get("examples",[]):
+        if not isinstance(u,dict):continue  # Legacy G01 uses neutral anchor IDs.
         node=reader.find(id=u["anchor"]);checks[u["id"]+" example identity and no duplicate type"]=bool(node and node.get("data-zo-type")=="example" and not any(n.get_text(" ",strip=True).casefold()=="ví dụ" for n in node.select("[data-reading-label]")))
     checks["labels belong to reading papers"]=all(n.find_parent(class_="reading-region") for n in reader.select("[data-reading-label]"))
     checks.update(context_html_checks(doc,data,root))
@@ -298,25 +318,9 @@ def context_unit_label(unit, kind, data, root=ROOT):
         return unit["label"]
     policy=context_policy(root)
     area=unit.get("context_area") or policy["function_areas"][unit["function"]]
-    parts=[policy["areas"][area], policy["area_names"][area]]
-    if unit["function"]=="function.warmup":
-        parts.append(policy["_terms"]["function.warmup"]["name"])
-    if unit["function"] in ("function.integration","function.transfer"):
-        parts.append(policy["_terms"][unit["function"]]["name"])
-    if unit.get("context"):
-        key,value=next(iter(unit["context"].items()))
-        pattern=policy["_contexts"][key]
-        suffix=pattern[value] if isinstance(pattern,dict) else pattern.format(number=value)
-        if suffix.casefold() not in [p.casefold() for p in parts]:parts.append(suffix)
-    parts.extend(unit.get("context_detail",[]))
     if kind=="answer":
-        answer_area=unit.get("answer_context_area","loi-giai")
-        if answer_area=="loi-giai":
-            parts=[policy["areas"]["loi-giai"],policy["area_names"]["loi-giai"]]+parts[1:]
-            if unit["function"]=="function.self_check":
-                parts.append(policy["_terms"]["function.self_check"]["name"])
-        elif answer_area!=area:
-            parts=[policy["areas"][answer_area],policy["area_names"][answer_area]]
+        area=unit.get("answer_context_area","loi-giai")
+    parts=[policy["areas"][area],policy["area_names"][area]]
     return policy["joiner"].join(parts).upper()
 
 def context_heading_label(reader, heading, data, root=ROOT):
@@ -331,11 +335,11 @@ def context_heading_label(reader, heading, data, root=ROOT):
                 return context_unit_label(unit,kind,data,root)
     cp=next((n for n in heading.parents if n.get("id") in data.get("checkpoint_context",{})),None)
     if cp is not None:
-        return policy["joiner"].join(data["checkpoint_context"][cp["id"]]).upper()
+        return policy["joiner"].join(data["checkpoint_context"][cp["id"]][:2]).upper()
     for spec in data.get("heading_context",[]):
         owner=reader.find(id=spec["owner"])
         if owner is not None and heading in owner.descendants and context_title_text(heading)==spec["title"]:
-            return policy["joiner"].join(spec["path"]).upper()
+            return policy["joiner"].join(spec["path"][:2]).upper()
     area=next((n for n in heading.parents if n.get("id") in policy["areas"]),None)
     if area is None:raise ValueError("Heading lacks a declared context area: "+heading.get_text(" ",strip=True))
     ident=area["id"];parts=[policy["areas"][ident]]
@@ -383,4 +387,7 @@ def context_html_checks(doc,data,root=ROOT):
         checks[f"context/{index} parent path and shared typography"]=bool(label and label.has_attr("data-reading-label") and "role" in label.get("class",[]) and label.get_text(" ",strip=True)==expected)
         checks[f"context/{index} label stays in reading region"]=bool(label and label.find_parent(class_="reading-region") is heading.find_parent(class_="reading-region"))
     checks["context small-dot separator only"]=all("•" not in n.get_text() for n in reader.select("[data-reading-label]"))
+    checks["context at most branch and containing area"]=all(len(n.get_text().split(" · "))<=2 for n in reader.select("[data-reading-label]"))
+    from zo_course_numbering import html_checks as numbering_html_checks
+    checks.update(numbering_html_checks(doc,data))
     return checks

@@ -4,6 +4,68 @@ Phiên bản: 0.1 · Cập nhật trạng thái: 18/10/2026.
 
 Đây là nơi duy nhất ghi công việc đang mở và thứ tự sản xuất hiện hành. Chỉ cập nhật trạng thái từ bằng chứng trong hồ sơ gói. [Điểm vào](README.md).
 
+**SOURCE-CHECKPOINT-20261018 — chủ trì yêu cầu commit các mốc nguồn.**
+
+- Công cụ mở lại HTML đã lưu tại `225523e9`, hồi quy máy chủ/shortcut 7/7. Nhóm nguồn học liệu lưu cùng mốc `checkpoint(course): synchronize reading, goals, editorial and numbering rules`: các phần dùng chung QMD/binding/checker được giữ đồng bộ, không chia thành trạng thái trung gian thiếu phụ thuộc.
+- Đây là checkpoint nguồn, chưa phải chủ trì nghiệm thu HTML/PDF hoặc cho xuất bản. Những dòng “chưa commit” ở từng mốc phía dưới mô tả thời điểm bàn giao trước yêu cầu này. Không push, không dựng lại PDF, không dọn bản xem/ảnh/bằng chứng; giữ đường mở lại của D0 và G01–G04.
+
+**D0-NUMBERING-20261018 — số bài và căn tiêu đề bảng đã kiểm, chờ duyệt.**
+
+- Theo chỉ thị chủ trì, D0 không có nhãn Mạch học/Hỗ trợ hoặc dòng mã mạch trước từng bài; Bài 01–24 chạy liên tục toàn trang, ví dụ trong Chuẩn bị giữ Bài 00. Đề và phần đối chiếu dùng cùng số/tên; giữ năm khu vực, tính tự nguyện, ID và toàn bộ toán.
+- Sửa bộ dựng bảng dùng chung để tiêu đề cột căn theo số liệu: ma trận tham gia căn giữa, hai bảng vật liệu/lãi căn phải các cột số. Nguồn kiểm đạt; HTML 237/237 (gồm màn hình 1440/390/320), 106/106 cặp liên kết/ảnh/căn bảng ở 1440/390; hồi quy D0 29/29, bảng 47/47. Đã tự xem ba bảng và tiêu đề rộng/hẹp; receipt cũ giữ nguyên, phép đối chiếu đảo chính xác phần số/nhãn và biên tập đã được giao trước đó.
+- [Mở bản xem D0](http://127.0.0.1:8877/_audit/d0_numbering_20261018/index.html); HTML và tệp mở lại tại `_audit/d0_numbering_20261018/`. [Hồ sơ và tệp sửa](../../../hoc_lieu/d0/_quy_trinh/ho_so/d0_so_bai_va_bang_20261018.json).
+- Việc tiếp theo: chủ trì xem D0 mới. Chưa dựng lại PDF, commit/push hoặc xuất bản; các trang khác trong bộ xem chỉ được chép từ bản đã dựng để giữ điều hướng, không chứng nhận đã dựng lại các trang đó. Các mốc D0 cũ bên dưới giữ làm lịch sử.
+
+**NUMBERING-20261018 — số và nhãn G01–G04 đã kiểm kỹ thuật, chờ duyệt.**
+
+- Theo chỉ thị chủ trì, mỗi loại có một dãy số liên tục riêng toàn gói; Tự kiểm tra đổi thành Nhiệm vụ và nối chung dãy nhiệm vụ. Nhánh là Mạch học/Hỗ trợ; nhãn con chỉ thêm khu vực chứa, dùng “ · ”. Giữ chức năng, ID, toán và cặp đề–đáp án.
+- Đã đồng bộ bốn QMD/binding, dãy Điểm dừng, tham chiếu/bảng/mục lục/trợ năng, bộ dựng tương thích G01–G02 và cổng chung. 57/57 hồi quy; nguồn 59/59; HTML 6045/6045; trình duyệt 72/72 ở 1440/390 px. Fingerprint và receipt G01 giữ nguyên; G02/G04 dùng đúng tham chiếu G01 trong ví dụ Nhật kí chung.
+- [Hồ sơ phạm vi, tệp sửa và kiểm](ho_so_so_va_nhan_20261018.json). [Bản xem mới](http://127.0.0.1:8877/_audit/numbering_20261018/index.html); HTML tại `_audit/numbering_20261018/html`, tệp mở lại `_audit/numbering_20261018/Mo_ban_xem_HTML.cmd`.
+- Việc tiếp theo: chủ trì xem/duyệt bốn HTML mới. Chưa commit/push/xuất bản hoặc tạo lại PDF học liệu. Những mốc “chưa dựng HTML” bên dưới giữ thời điểm lịch sử; lượt này chỉ dựng G01–G04, không tự chứng nhận Nhà/D0 hoặc PDF.
+
+**EDITORIAL-20261018 — nguồn sáu trang đã biên tập theo ma trận duyệt.**
+
+- Đã áp dụng 61 mục đối chiếu và 252 dòng thuật ngữ, sửa nguồn sáu trang cùng Ôn nền, dữ liệu sinh danh mục và nhãn liên quan. Giữ điều kiện toán, ID, số ý/bước và điều hướng; 67 binding G01 được đối chiếu có phạm vi, không sửa biên nhận lịch sử.
+- Quy tắc tại 07/6.1.6; 02, mẫu bản thảo 1.4/bảng kiểm 1.7 và cổng nguồn/HTML đã nối. Hồi quy biên tập 138/138, cấu trúc AST 18/18, toàn vẹn 52/52. [Hồ sơ và nguồn đối chiếu](ho_so_bien_tap_ro_nghia_20261018.md).
+- Chưa dựng HTML/PDF, chưa commit hoặc xuất bản; 4708 tệp thành phẩm/bản xem được bảo toàn, staged rỗng. Nguồn đã sửa/kiểm kỹ thuật; chưa kiểm trực quan hoặc có nghiệm thu mới. Bộ HTML đang lưu vẫn là bản trước hiệu chỉnh, không là bản xem kết quả biên tập.
+
+**INSTRUCTIONS-20261018 — rà và sửa nguồn Cách thực hiện.**
+
+- Kiểm kê 38 mục ở G01–G04: bỏ 24 đoạn lặp, biên tập 14 chỉ dẫn cần thiết thành đoạn nhìn thấy; trang khóa/D0 không có mục mang tên này. Nhiệm vụ và nội dung ngoài các mục được kiểm kê giữ nguyên.
+- Nguyên nhân ở ô mẫu mặc định, cách hiểu thứ tự Gợi mở và việc thu gọn điều kiện cần thấy; lỗi chữ thường có ngay trong nguồn G03/G04. Đã sửa 01/07, mẫu bản thảo 1.3, bảng kiểm 1.6, binding G01 và cổng nguồn/HTML. [Kiểm kê và giới hạn](ho_so_cach_thuc_hien_20261018.md).
+- Kiểm nguồn bốn QMD đạt, hồi quy chỉ dẫn 102/102, mục tiêu 92/92, DOM G01 trong bộ nhớ 18/18. Chưa dựng HTML/PDF, chưa commit hoặc xuất bản; các bộ xem phía dưới vẫn là bản trước sửa mục tiêu và chỉ dẫn. Chưa kiểm trực quan hoặc có nghiệm thu mới.
+
+**GOALS-START-20261018 — nguồn bốn gói đã hợp nhất mục tiêu, chưa dựng HTML/PDF.**
+
+- Chủ trì duyệt một bảng Học xong, em cần làm được gì? hiển thị tại Bắt đầu; đầu Bài học là Câu hỏi dẫn đường mặc định đóng, không lặp bảng. Đã cập nhật G01/G02/G03/G04 với đủ yêu cầu cũ, giữ riêng nhánh Chuyển giao và tường minh sửa lập luận/đối xứng đúng nội dung gói. [Hồ sơ đối chiếu và nguồn](ho_so_hop_nhat_muc_tieu_20261018.md).
+- Quy tắc tại 07/6.1.4, mẫu/bảng kiểm hiện hành 1.2/1.5; cổng nguồn và HTML dùng chung đã nối. Nguồn bốn gói đạt, hồi quy 92/92, tham chiếu 58/58, điều hành 244/244; chỉ kiểm DOM trong bộ nhớ, không dựng đầu ra. Fingerprint/biên nhận nghiệm thu G01 giữ nguyên.
+- Phần nhiệm vụ/công thức và các thành phẩm được bảo vệ không đổi. Chưa commit, chưa HTML/PDF hoặc xuất bản. Bộ `html_six_20261018` bên dưới vẫn là bản trước lượt sửa này; không dùng để xác nhận bố cục mới.
+
+**HTML-SIX-20261018 — sáu HTML mới sau sửa bìa/vùng đọc, chờ xem.**
+
+- [Mở bộ xem hiện hành](http://127.0.0.1:8877/_audit/html_six_20261018/index.html); HTML tại `E:\zo_math\_audit\html_six_20261018\html`, mở lại bằng `Mo_ban_xem_HTML.cmd` cùng thư mục trang đầu bộ xem. Bộ `html_refresh_20261018` giữ làm đối chứng cũ.
+- Đã dựng Nhà, D0 và bốn gói từ nguồn hiện hành; G04 dùng profile xem trước, giữ trạng thái bản thảo. Đã kiểm 427/427 toàn bộ, 208/208 trình duyệt rộng/hẹp, Nhà 111/111 và D0 135/135. [Hồ sơ, nguồn và giới hạn](ho_so_html_sau_sua_vung_doc_20261018.md).
+- Chưa dựng lại PDF học liệu, chưa commit hoặc xuất bản; PDF, website công khai, bộ xem cũ và Git index không đổi. Chờ chủ trì xem sáu HTML; không tự ghi nghiệm thu bìa D0 hoặc bố cục.
+
+**READING-REGIONS-20261018 — sửa nguồn bìa và ranh giới vùng đọc, chưa dựng HTML.**
+
+- Đã kiểm kê Nhà, D0, G01–G04: đổi breadcrumb “Khóa 2027”, bỏ CTA bìa dư ở bốn gói. Tách nhiệm vụ/lời giải Khởi động độc lập G01/G02; G03/G04 giữ map, Nhà/D0 giữ cách chia theo chức năng riêng.
+- Nguyên nhân: binding lịch sử G01, chỉ dẫn G02 sao cách gom ấy, trong khi G03/G04 chia theo nhiệm vụ; thiếu guard chung. Sửa cơ chế `zo_course_reading_regions.py` và cổng nguồn/HTML; quy tắc tại 07/6.1.3 và hợp đồng kit. Không sửa kiến trúc hoặc receipt lịch sử.
+- [Kiểm kê, nguồn sửa và giới hạn](ho_so_bia_vung_doc_20261018.md). Chỉ đã sửa nguồn và kiểm trong bộ nhớ; HTML/PDF đang lưu giữ nguyên, chưa có bản xem áp dụng lượt sửa này, chưa commit/duyệt bố cục mới/xuất bản.
+
+**D0-PRESENTATION-20261018 — bìa theo hướng đã duyệt, sửa bảng và nhãn, dựng riêng HTML.**
+
+- Chủ trì giao tạo bìa theo hướng trang bài làm/bút/dấu tự nhận biết và sửa D0. Nguồn có 34 ô số mới dùng LaTeX, hai bảng ghép nhóm căn cùng trục cột, 24 lượt “Xem lời giải” và 24 lượt “Xem đề bài”; tên bảng dấu gọn, dưới bảng. Sáu bảng không tên giữ theo ngữ cảnh, có lý do trong binding.
+- Bìa do công cụ ZO Math sinh từ TEX, nền ngoài trong suốt, riêng D0; chỉ duyệt hướng, ảnh thành phẩm đang chờ xem. Kiểm nguồn/HTML và hồi quy mở rộng D0, không suy kiến trúc R1 cho khảo sát. Giữ nguyên receipt nội dung và hồ sơ phát hành cũ.
+- [Xem D0 mới](http://127.0.0.1:8877/_audit/html_refresh_20261018/html/content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html); [hồ sơ phạm vi/kết quả](../../../hoc_lieu/d0/_quy_trinh/ho_so/d0_trinh_bay_20261018.md). Chỉ HTML D0/tài nguyên riêng được cập nhật trong bộ xem; Nhà/G01–G04 giữ nguyên. CSS D0 có phiên bản theo hash để không dùng nhầm cache.
+- Trạng thái: đã sửa/kiểm kỹ thuật và dựng HTML D0, chờ chủ trì duyệt bìa/bố cục; chưa commit, chưa dựng lại PDF học liệu hoặc xuất bản. Công cụ bìa có sinh PDF vector trung gian của riêng ảnh mới. PDF học liệu/các bản HTML còn lại giữ nguyên. Các mốc kiểm “sáu HTML không đổi” trước đây chỉ đúng ở thời điểm trước lượt sửa D0 này.
+
+**HTML-PREVIEW-REOPEN-20261018 — bổ sung cách mở lại bản xem sau kết sổ/reboot.**
+
+- Lỗi không mở được do máy chủ localhost đã dừng; sáu HTML và nguồn vẫn nguyên. Công cụ dùng chung `scripts/zo_html_preview.py` kiểm đúng nội dung rồi tái dùng/khởi động máy chủ nền; quy trình toàn repo mục 9.1, áp dụng tại 02/2.6.
+- Bộ xem hiện hành: `_audit/html_refresh_20261018/index.html`, cổng `8877`; [mở bộ HTML](http://127.0.0.1:8877/_audit/html_refresh_20261018/index.html). Tệp mở lại tại `E:\zo_math\_audit\html_refresh_20261018\Mo_ban_xem_HTML.cmd`; giữ cùng trang đầu vào, `html/`, ảnh chụp và báo cáo khi kết sổ. Có thể nhấp đúp tệp trong File Explorer hoặc yêu cầu agent mở lại; URL không tự bật máy chủ sau khi khởi động máy.
+- Đã kiểm 7 tình huống bằng máy chủ thật, gồm dừng rồi mở lại, tái dùng đúng máy chủ và từ chối cổng phục vụ nội dung khác. Chỉ mở HTML có sẵn, không dựng HTML/PDF hoặc thay dữ liệu toán. Nguồn công cụ/quy trình đang sửa chưa commit; sáu HTML vẫn chờ chủ trì duyệt, chưa xuất bản.
+
 **CHECKPOINT-HTML-REFRESH-20261018 — đã commit nguồn và hồ sơ dựng HTML, 18/10/2026.**
 
 - Theo yêu cầu chủ trì, 14 tệp nguồn/binding, cổng kiểm, quy tắc và hồ sơ của lượt dựng HTML đã lưu tại `18f4c926a87198c19ec2bc6c55c1d81032f0761a`. [Biên nhận phạm vi, Git blob và fingerprint đầu ra](ho_so_commit_dung_lai_html_20261018.json).

@@ -112,8 +112,8 @@ def predicates(doc, bindings):
                 links=node.select('.answer-link a[href="#'+unit['question']+'"]') if node else []
                 checks[unit['id']+' answer navigation matches ownership']=not links if local else bool(links)
     checks['Gợi mở never has duplicated answers']=all(not u['answer'] for u in bindings['units'] if u['function']=='function.guided_thinking')
-    checks['practice continuous across stages']=[u['number'] for u in bindings['units'] if u['function']=='function.practice']==list(range(1,9))
-    checks['remediation continuous across contexts']=sorted(u['number'] for u in bindings['units'] if u['function']=='function.remediation')==list(range(1,27))
+    from zo_course_numbering import html_checks as numbering_html_checks
+    checks.update(numbering_html_checks(doc,bindings))
     for ident in ['on-nen','nhat-ky','nguon','loi-giai','cách-học-với-tài-liệu-này']:
         owner=root.find(id=ident);paper=owner if 'reading-region' in owner.get('class',[]) else owner.select_one(':scope > .reading-region')
         heading=paper.find(['h2','h3']) if paper else None

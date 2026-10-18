@@ -1,5 +1,6 @@
 /* D0 only. Shared paper, type, palette and shell remain canonical in the kit. */
-.d0-web .hero{grid-template-columns:1fr}
+.d0-web .hero{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
+@media(max-width:760px){.d0-web .hero{grid-template-columns:1fr}}
 .d0-web .hero h1{max-width:20ch}
 .d0-web .reader-content{margin-bottom:80px}
 .d0-web .reader-content :is(h2,h3,h4)[tabindex="-1"]:focus{outline:none}
@@ -8,8 +9,6 @@
 .d0-web .mobile-trigger{width:52px;height:52px;justify-content:center;padding:0}
 .d0-web .mobile-view{display:none}
 .d0-web .reading-region .zo-learning-task{margin:0;padding:0;border:0;background:transparent}
-.d0-web .d0-task-number,.d0-web .d0-task-code{font-size:11px;letter-spacing:.06em;color:var(--muted)}
-.d0-web .d0-task-number::after{content:' · ';white-space:pre}
 .d0-web .d0-task-meta{font-size:13px;line-height:1.8;color:var(--muted);margin:0 0 24px}
 .d0-web .d0-task-meta p{margin:0 0 8px}
 .d0-web .d0-response-options,.d0-web .d0-response-option{margin:16px 0}

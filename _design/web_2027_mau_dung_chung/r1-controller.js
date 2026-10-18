@@ -11,7 +11,7 @@
   const baseGroups = [
     {
       id: 'main',
-      label: 'Mạch học chính',
+      label: 'Mạch học',
       definitions: [
         hasStartSection
           ? {view: 'bat-dau', label: 'Bắt đầu', ids: ['bat-dau']}
@@ -24,7 +24,7 @@
     },
     {
       id: 'support',
-      label: 'Hỗ trợ khi cần',
+      label: 'Hỗ trợ',
       definitions: [
         {view: 'on-nen', label: 'Ôn nền', ids: document.getElementById('on-nen')?.classList.contains('level2') ? ['on-nen'] : ['bai-hoc'], target: 'on-nen'},
         {view: 'sua-loi', label: 'Sửa lỗi', ids: ['sua-loi']},
