@@ -230,7 +230,9 @@ def _adapt(path, output_root):
     from zo_course_instructions import restore_g01_for_comparison
     from zo_course_editorial import restore_g01_for_comparison as restore_editorial_for_comparison
     from zo_course_numbering import restore_g01_for_comparison as restore_numbering
-    numbering_comparison=restore_numbering(source_root,plan,ROOT/PACKAGE/'index.qmd')
+    from zo_course_remediation import restore_g01_for_comparison as restore_remediation
+    remediation_comparison=restore_remediation(source_root,plan,ROOT/PACKAGE/'index.qmd')
+    numbering_comparison=restore_numbering(remediation_comparison,plan,ROOT/PACKAGE/'index.qmd')
     editorial_comparison=restore_editorial_for_comparison(numbering_comparison,plan,ROOT/PACKAGE/'index.qmd')
     comparison = restore_g01_for_comparison(editorial_comparison,plan,ROOT/PACKAGE/'index.qmd')
     if inverse_g01_fingerprint(comparison,plan,content_fingerprint,ROOT/PACKAGE/'index.qmd') != plan['source_fingerprint']:
@@ -263,6 +265,9 @@ def _adapt(path, output_root):
         raise ValueError('Unknown URL binding')
 
     def decode(n):
+        if 'source_node' in n:
+            from zo_course_remediation import source_node
+            return source_node(source_root,n['source_node'],plan)
         if 'literal' in n: return NavigableString(n['literal'])
         if 'text' in n:
             if n['text'] not in texts: raise ValueError('Canonical wording changed; update its approved layout binding: ' + n['text'])

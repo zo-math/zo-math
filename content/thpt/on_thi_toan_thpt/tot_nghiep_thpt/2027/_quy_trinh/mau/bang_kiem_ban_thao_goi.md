@@ -88,3 +88,12 @@ Nêu phần đã đạt, phần cần sửa/chưa kiểm và ngoại lệ có c�
 Nhãn khi chuyển QMD/HTML: áp 07/6.2, quy tắc Nhãn ngữ cảnh theo cấp chứa ngày 17/10/2026. Bài học → MẠCH HỌC CHÍNH; Khởi động → MẠCH HỌC CHÍNH · BÀI HỌC; nhiệm vụ Khởi động thêm KHỞI ĐỘNG ở cuối. Không dùng bảng nhãn mỹ thuật cũ làm mẫu. Kiểm kê owner/tiêu đề/nhãn trước–sau, dấu chấm nhỏ, cùng kiểu .role và quan hệ đề–lời giải; giữ loại/chức năng/số trong metadata.
 
 Bổ sung B19 theo 07/6.1.2, 02/2.5: phải có ma trận tài nguyên theo vai trò; hình trong bài/bìa đối chiếu riêng, cấu hình surface/cỡ tường minh; BBT đi qua JSON/bộ dựng native, có đối sánh mốc/dấu/giới hạn/điểm loại/hàng thật; bằng chứng thử âm và xem desktop/mobile: đồ thị theo G03, BBT theo gói có bảng cùng vai trò. Không đánh Đạt chỉ vì cùng profile 0.4, cùng CSS, đủ hash hoặc kind=variation. Áp dụng cả bản thảo, không đẩy thiếu sót này tới bước QMD.
+
+
+### B25 — Bảng nút thắt nhận thức (bổ sung 19/10/2026)
+
+- Đối chiếu toàn bộ mục tiêu/kiến thức/Gợi mở/ví dụ/nhiệm vụ/lời giải với từng dòng hoặc lí do không có dòng riêng.
+- Đủ bốn cột theo 07/6.1.7; mỗi dòng có biểu hiện cụ thể, câu hỏi, cách tháo gỡ, đích học lại và nhiệm vụ/ý đúng phạm vi hoặc ghi thiếu.
+- Đọc thực tế đề và tiêu chí, giữ nhóm theo ngữ cảnh, lịch sử đã gặp và đường về; không gán một bài cho tất cả biểu hiện cùng họ lỗi.
+- Cổng nguồn và bảng rộng/hẹp được kiểm ở đúng giai đoạn; không dùng PASS cấu trúc thay kết luận sư phạm hoặc nghiệm thu.
+- Khi dùng danh mục làm trục bài giảng, giữ tiên quyết, Gợi mở trong Bài học và hỗ trợ tùy nhu cầu; ghi nhận bài đã dùng trước lớp.

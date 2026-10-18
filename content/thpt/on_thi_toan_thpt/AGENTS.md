@@ -141,3 +141,8 @@ Sau NUMBERING-20261018, G01–G04 kiểm số hiện hành bằng zo_course_numb
 ## Cổng bàn giao HTML mỗi lượt
 
 Mỗi lần bàn giao hoặc gửi lại liên kết xem HTML phải theo quy trình toàn repo 9.1 và 02/2.6: zo_html_handoff.py prepare/confirm/check, lấy bộ xem hiện hành từ liên kết bản xem đầu tiên ở 03, không chọn theo mtime. Bắt buộc quan sát mới trang đầu và một trang nội dung qua trình duyệt, lưu snapshot/PNG hoặc JPEG, giữ tab bàn giao; HTTP hoặc PASS cũ không đủ. Chưa xác nhận bằng trình duyệt thì nói rõ chưa khép bàn giao.
+
+
+## Bảng nút thắt nhận thức trong Sửa lỗi
+
+Mọi nhiệm vụ viết/rà/sửa gói có Sửa lỗi phải nạp 07/6.1.7, bổ sung tương ứng ở 01/02 và B25 của bảng kiểm. Bảng bao phủ phạm vi gói bằng đối chiếu nội dung, không bằng quota; giữ câu hỏi/cách tháo gỡ và bài tự kiểm đúng ý, ghi rõ thiếu bài. Dùng zo_course_remediation.py qua cổng nguồn; không gọi nút thắt là bẫy, không ép học sinh đi qua tất cả hỗ trợ.

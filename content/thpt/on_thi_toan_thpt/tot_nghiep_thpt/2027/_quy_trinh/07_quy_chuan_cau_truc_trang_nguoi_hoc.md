@@ -84,7 +84,7 @@ QD_031: thứ tự các khu vực nguồn/Toàn văn là **Bắt đầu → Bài
 
 Đề và đáp án trong cùng một tài nguyên/vùng đọc dùng hộp đối chiếu mặc định đóng, không thêm liên kết “Xem lời giải”/“Xem đề bài” chỉ nhảy giữa hai chỗ kề nhau. Hai nơi thực sự tách biệt vẫn giữ vòng dẫn đề–đáp án. Cùng trang HTML không đủ để coi là cùng vùng; guard kiểm chủ sở hữu cụ thể và binding nhiệm vụ.
 
-Bảng Chọn bài sửa lỗi dùng bốn cột **Dấu hiệu cần sửa / Sau Luyện tập / Sau Kiểm tra / Sau Ôn lại**; ô đầu là dấu hiệu ngắn, ba ô đích dùng **Nhiệm vụ NN – tên nhiệm vụ**. Hướng dẫn dài thuộc phần giải thích riêng, không nhồi vào ô dấu hiệu hoặc bỏ đi. Đích Ôn nền vẫn nêu đúng tài nguyên. Viết hoa đầu ô/câu, không viết hoa máy móc mọi từ “nhiệm vụ”. Quy tắc kiểu bảng QD_030 vẫn áp dụng.
+Bảng trong Sửa lỗi áp dụng 6.1.7/BOTTLENECKS-20261019: Nút thắt nhận thức / Biểu hiện dễ nhầm / Câu hỏi và cách tháo gỡ / Tự kiểm tra. Quy tắc này thay cấu trúc bốn cột định tuyến cũ của QD_031; giữ các nhóm bài theo nơi phát hiện và đích Ôn nền đúng tài nguyên. Viết hoa đầu ô/câu; kiểu bảng tiếp tục dùng QD_030.
 
 Lớp thị giác thử nghiệm phải là tăng cường lũy tiến: CSS mặc định đã tạo bề mặt đọc rõ trước khi JavaScript thêm điều khiển; điều khiển chọn nền hoặc chế độ màu có thể vắng khi không có JavaScript nhưng nội dung không được mất nền đọc, tương phản hoặc cấu trúc. Một bộ điều khiển dùng chung chỉ có một nguồn canonical và được giới hạn bằng body class/phạm vi rõ, không sao chép riêng vào từng trang.
 
@@ -260,6 +260,22 @@ QMD sở hữu câu chữ. Binding `giao_dien/he_nhan.json:instructions` chỉ k
 Cổng `scripts/zo_course_editorial.py` kiểm nguồn sáu trang và include, thuật ngữ/diễn đạt đã xác định là lỗi, rồi đối chiếu hồ sơ rà nguồn hiện hành. Profile từ vựng ở `profiles/editorial-language.json` của kit; quy tắc vẫn do mục này sở hữu. Cổng nguồn trong CLI QMD áp dụng độc lập với hợp đồng R1, cổng HTML nối cả Nhà/D0 và bốn gói. Thay đổi nguồn làm hồ sơ rà hết khớp thì phải đọc và đối chiếu phần thay đổi trước khi cập nhật hồ sơ; không chạy lệnh tự gia hạn hash để vượt kiểm. Hồ sơ này chứng nhận phạm vi biên tập do agent đã kiểm, không chứng nhận chủ trì duyệt HTML/PDF hoặc phát hành. Cổng tự động không thể chứng minh mọi câu đều rõ nghĩa.
 
 G01 giữ fingerprint và biên nhận lịch sử. Chỉ các đoạn được duyệt trong lượt biên tập mới có binding nguồn mới; phép đảo phục vụ so sánh chạy trên cây sao, kiểm đủ khóa chữ/TeX và số lần xuất hiện. Nội dung lịch sử không đi vào thành phẩm. Câu chữ, công thức, ID hoặc trạng thái đóng/mở ngoài danh sách ấy vẫn chịu cổng đầy đủ như trước.
+
+
+
+### 6.1.7. Bảng nút thắt nhận thức — BOTTLENECKS-20261019
+
+Theo yêu cầu chủ trì ngày 19/10/2026, bảng trong Sửa lỗi là danh mục những sự phân biệt học sinh cần hiểu, không phải danh sách bẫy để đánh đố. Áp dụng cho các gói hiện có và gói mới có Sửa lỗi; trang Khóa và Khảo sát đầu vào giữ vai trò riêng, không thêm Sửa lỗi chỉ để giống gói R1.
+
+Dùng bốn cột theo thứ tự **Nút thắt nhận thức · Biểu hiện dễ nhầm · Câu hỏi và cách tháo gỡ · Tự kiểm tra**. Mỗi dòng chỉ một phân biệt có ý nghĩa: biểu hiện quan sát được trong bài làm, câu hỏi để học sinh tự nhận ra, giải thích đủ rõ và liên kết đến đúng đoạn học. Cột cuối ghi rõ nhiệm vụ/ý theo nơi phát hiện, giữ các nhánh Sau Luyện tập, Sau Kiểm tra, Sau Ôn lại đã có. Không gán bài chỉ vì cùng tên họ lỗi; nếu bài không kiểm đủ biểu hiện, ghi giới hạn hoặc thiếu bài. Giữ nguyên chức năng Sửa lỗi, ID và số nhiệm vụ hiện hành; không thêm một hệ mã/đánh số cho nút thắt trong chính văn.
+
+Bảng luôn nhìn thấy khi mở mục Sửa lỗi, dùng component process/routing của QD_030, tiêu đề cột căn trái, cột đầu là tiêu đề dòng, cùng tỉ lệ cột 17/22/36/25 và cuộn ngang khi cần. Không có màu, icon hoặc kiểu bảng riêng theo gói. Tiêu đề mục đã xác định vai trò nên không cần lặp tên bảng; nếu có tên bảng thì đặt dưới theo quy tắc chung. Phải kiểm thực tế rộng/hẹp ở lượt dựng HTML; nguồn đã hợp đồng chưa chứng minh bố cục đã đạt.
+
+Đầy đủ được xét theo phạm vi gói, không theo một số dòng cố định: đối chiếu từng mục tiêu, mục kiến thức/Gợi mở, ví dụ đối chứng, nhiệm vụ, lời giải và tiêu chí với ít nhất một dòng hoặc lí do không phát sinh nút thắt riêng. Tách các nhầm lẫn cần cách tháo gỡ khác nhau; không nhân bản cùng một nút thắt theo giai đoạn. Không tuyên bố đã bao quát mọi sai lầm có thể có của học sinh. Khi có phản hồi mới, bổ sung danh mục và kiểm lại tuyến liên quan.
+
+QMD sở hữu nội dung. `giao_dien/he_nhan.json:remediation` chỉ ràng buộc tên dòng và các đích đã đối chiếu, không sinh lời giảng. `scripts/zo_course_remediation.py` kiểm cấu trúc, thiếu dòng, liên kết và chỗ thiếu bài qua cổng QMD/Quarto; kiểm ngữ nghĩa/độ bao phủ vẫn do người biên tập đọc. Với G01, bảng lấy trực tiếp từ nguồn tươi qua binding; phép đảo riêng chỉ đối chiếu lịch sử, không thay receipt/fingerprint hoặc phát ra nội dung cũ.
+
+Tiêu đề cột **Tự kiểm tra** của bảng này chỉ chức năng cột, không phải tên hoạt động đánh số đã được đổi thành Nhiệm vụ. Cổng nhãn chỉ miễn đúng ô tiêu đề thứ tư của bảng đã khai báo theo hợp đồng; không miễn tên hoạt động cũ ở tiêu đề, liên kết hoặc chính văn khác. Bảng vừa vùng đọc ở chế độ desktop; màn hình hẹp giữ cỡ chữ và cuộn ngang trong vùng bảng. Quy tắc CSS dùng chung thuộc `course-tables.css`; không đặt độ rộng riêng cho từng gói.
 
 ### 6.2. Hệ nhãn QD_025 và mục lục
 

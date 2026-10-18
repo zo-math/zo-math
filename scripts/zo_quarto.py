@@ -27,6 +27,8 @@ def require_arguments(args):
             require_source(Path(argument), ROOT)
             from zo_course_labels import source_checks as course_label_source_checks, require as require_labels
             require_labels(course_label_source_checks(ROOT/argument,ROOT),"source before Quarto")
+            from zo_course_remediation import source_checks as remediation_source_checks
+            require_labels(remediation_source_checks(ROOT/argument,ROOT),'remediation source before Quarto')
             from zo_course_math_assets import require_source as require_math_assets
             require_math_assets(ROOT/argument,ROOT)
 

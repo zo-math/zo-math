@@ -236,3 +236,10 @@ Hiệu chỉnh theo chỉ thị chủ trì: Bài học → MẠCH HỌC CHÍNH; 
 ### Hiệu chỉnh số và nhãn — NUMBERING-20261018
 
 Mỗi loại hiển thị dùng một dãy số liên tục riêng từ 01 theo thứ tự xuất hiện trong toàn gói; không đặt lại theo mục, chức năng, chặng, lượt hoặc khu vực. Tất cả nhiệm vụ, kể cả tự làm trong Bài học, Khởi động, Luyện tập, Kiểm tra, Ôn lại, Ôn nền và Sửa lỗi, dùng chung dãy Nhiệm vụ. “Tự kiểm tra” đổi thành “Nhiệm vụ”; chức năng nội bộ vẫn giữ để phân biệt vai trò sư phạm. Gợi mở, Ví dụ và Điểm dừng có dãy riêng. Đề và lời giải dùng cùng số, không đếm lại lời giải; ID giữ nguyên. Include dùng chung không chứa số riêng của gói. Dẫn chiếu, bảng, mục lục và liên kết đi–về dùng cùng ánh xạ theo ID. Nhãn hiển thị theo 07/6.2: MẠCH HỌC hoặc HỖ TRỢ ở đầu khu vực; nội dung bên trong thêm đúng tên khu vực bằng dấu “ · ”.
+
+
+## Bổ sung Sửa lỗi — nút thắt nhận thức (19/10/2026)
+
+Nút thắt nhận thức là chỗ học sinh chưa phân biệt được các đối tượng, điều kiện hoặc quan hệ toán học dẫn đến cách hiểu chưa đúng. Biên soạn để học sinh tự nhận ra và tháo gỡ qua câu hỏi, đối chứng, giải thích và vận dụng; không chủ ý tạo bẫy. Danh mục trong Sửa lỗi cần bao phủ các nút thắt thuộc phạm vi gói theo 07/6.1.7.
+
+Khi đứng lớp, giáo viên có thể lấy các nút thắt làm trục triển khai: nêu tình huống để học sinh bộc lộ cách hiểu, cho các em giải thích và đối chiếu, hình thành kiến thức cần thiết rồi thử vận dụng. Đây là cách tổ chức bài giảng theo mục tiêu và tiên quyết, không thay kiến trúc học liệu hay biến Sửa lỗi thành chặng bắt buộc trước Bài học. Gợi mở vẫn thuộc từng mục Bài học. Nếu dùng trước một nhiệm vụ vốn dành cho tự kiểm tra, ghi nhận nhiệm vụ đã được gặp; không dùng lại nó để xác nhận khả năng tự giải bài mới.

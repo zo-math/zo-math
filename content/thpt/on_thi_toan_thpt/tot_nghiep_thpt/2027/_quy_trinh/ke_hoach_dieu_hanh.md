@@ -2508,7 +2508,7 @@ Khi sản xuất gói, tách hàng H-YC liên quan thành các mục có thể k
 Đã xem hình các trang CT 81, 106, 107 trong đợt rà. Các biểu thức dưới đây làm rõ phạm vi, không thay việc tự giải và kiểm điều kiện của từng bài sản xuất:
 
 - B06: $\sqrt{ax^2+bx+c}=\sqrt{dx^2+ex+f}$ và $\sqrt{ax^2+bx+c}=dx+e$ là hai dạng ở tr.81. Phải kiểm điều kiện và nghiệm sau biến đổi.
-- B21: $y=ax^3+bx^2+cx+d$ với $a\ne0$; $y=\frac{ax+b}{cx+d}$ với $c\ne0$, $ad-bc\ne0$; $y=\frac{ax^2+bx+c}{mx+n}$ với $a\ne0$, $m\ne0$, đa thức tử không chia hết cho đa thức mẫu. Tập xác định và điều kiện mẫu khác 0 vẫn phải xét.
+- B21: $y=ax^3+bx^2+cx+d$ với $a\ne0$; $y=\frac{ax+b}{cx+d}$ với $c\ne0$, $ad-bc\ne0$; $y=\frac{ax^2+bx+c}{dx+e}$ với $a\ne0$, $d\ne0$, đa thức tử không chia hết cho đa thức mẫu. Tập xác định và điều kiện mẫu khác 0 vẫn phải xét.
 - B22: CT tr.107 liệt kê các hàm $x^\alpha$ với $\alpha\ne-1$, $\frac{1}{x}$, $\sin x$, $\cos x$, $\frac{1}{\cos^2x}$, $\frac{1}{\sin^2x}$, $a^x$, $e^x$. Điều kiện xác định của từng hàm phải đi kèm; đây là danh sách hàm cần tìm nguyên hàm, không phải bảng đáp án.
 - B31: góc nhị diện và góc phẳng nhị diện có mục tiêu riêng; B34 có ba cách cơ bản lập mặt phẳng; B35 cần kiểm riêng đường có thành phần chỉ phương bằng 0 trước khi viết dạng chính tắc.
 

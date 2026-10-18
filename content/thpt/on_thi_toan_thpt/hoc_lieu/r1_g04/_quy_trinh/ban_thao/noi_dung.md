@@ -28,7 +28,7 @@ $$
 y=\frac{ax+b}{cx+d},\qquad c\ne0,\quad ad-bc\ne0;
 $$
 $$
-y=\frac{ax^2+bx+c}{mx+n},\qquad a\ne0,\quad m\ne0,
+y=\frac{ax^2+bx+c}{dx+e},\qquad a\ne0,\quad d\ne0,
 $$
 với đa thức tử không chia hết cho đa thức mẫu ở họ cuối. Điều kiện của từng mẫu số vẫn phải được xét.
 

@@ -71,6 +71,8 @@ def media_html_checks(doc):
         figure=image.find_parent('figure');cap=figure.find('figcaption') if figure else None
         named=bool(cap and cap.get_text(strip=True));omitted=image.get('data-zo-caption')=='omitted'
         checks[f'image {n} reviewed caption choice']=(named and not omitted) or (not named and omitted and bool(image.get('data-zo-caption-reason','').strip()) and bool(image.get('alt','').strip()))
+    from zo_course_remediation import html_checks as remediation_html_checks
+    checks.update(remediation_html_checks(doc))
     return checks
 
 
