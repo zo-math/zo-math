@@ -10,7 +10,7 @@ BASE = Path("content/thpt/on_thi_toan_thpt/hoc_lieu")
 def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
-def load_cover(root, package):
+def load_cover(root, package, *, allow_direction_approved=False):
     root = Path(root).resolve()
     if Path(package).name != package or package in {".", ".."}:
         raise ValueError("Invalid package identity")
@@ -18,7 +18,8 @@ def load_cover(root, package):
     record = json.loads((folder / "giao_dien/anh_bia.json").read_text(encoding="utf-8"))
     if record.get("schema_version") != 1 or record.get("package") != package:
         raise ValueError("Cover declaration belongs to another package")
-    if record.get("approval") != "approved" or not all(str(record.get(k, "")).strip() for k in ["selection_reason", "approval_evidence"]):
+    allowed = record.get("approval") == "approved" or (allow_direction_approved and record.get("approval") == "direction_approved" and record.get("image_acceptance") == "pending_owner_review")
+    if not allowed or not all(str(record.get(k, "")).strip() for k in ["selection_reason", "approval_evidence"]):
         raise ValueError("Cover needs selection rationale and explicit approval evidence")
     image = (folder / record["image"]).resolve()
     if not image.is_relative_to(folder.resolve()) or not image.is_file():
@@ -34,8 +35,8 @@ def load_cover(root, package):
             raise ValueError("Cover duplicates another package's declared image")
     return image
 
-def check_html(root, package, html_path):
-    expected = load_cover(root, package)
+def check_html(root, package, html_path, *, allow_direction_approved=False):
+    expected = load_cover(root, package, allow_direction_approved=allow_direction_approved)
     html_path = Path(html_path)
     doc = BeautifulSoup(html_path.read_text(encoding="utf-8"), "html.parser")
     images = doc.select(".hero-art img")

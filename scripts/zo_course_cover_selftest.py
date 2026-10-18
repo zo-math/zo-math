@@ -26,6 +26,14 @@ class CoverTests(unittest.TestCase):
     def test_unapproved_blocks(self):
         self.record["approval"]="pending";self.save()
         with self.assertRaises(ValueError):load_cover(self.root,"r1_g04")
+    def test_direction_approval_is_not_final_image_approval(self):
+        self.record.update(approval="direction_approved",image_acceptance="pending_owner_review");self.save()
+        with self.assertRaises(ValueError):load_cover(self.root,"r1_g04")
+        self.assertEqual(load_cover(self.root,"r1_g04",allow_direction_approved=True),self.image)
+    def test_direction_preview_still_checks_image_hash(self):
+        self.record.update(approval="direction_approved",image_acceptance="pending_owner_review");self.save()
+        self.image.write_text("changed",encoding="utf-8")
+        with self.assertRaises(ValueError):load_cover(self.root,"r1_g04",allow_direction_approved=True)
     def test_wrong_package_blocks(self):
         self.record["package"]="r1_g01";self.save()
         with self.assertRaises(ValueError):load_cover(self.root,"r1_g04")

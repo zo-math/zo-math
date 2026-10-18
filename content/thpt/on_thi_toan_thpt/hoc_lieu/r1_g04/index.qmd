@@ -3,7 +3,7 @@ title: Khảo sát sự biến thiên và vẽ đồ thị của hàm số
 lang: vi
 language:
   section-title-footnotes: Chú thích nguồn
-subtitle: Tổ chức khảo sát, kiểm tra các biểu diễn và vẽ đồ thị trong đúng miền
+subtitle: Khảo sát hàm số, vẽ đồ thị và kiểm tra hình vẽ bằng kết quả tính toán
 draft: true
 toc: false
 sidebar: false
@@ -26,10 +26,8 @@ r1-tables:
   - 33.333333333333336
   row_header: true
 - id: g04-table-02
-  label: Bảng đối chiếu và điều hướng
-  widths:
-  - 50.0
-  - 50.0
+  label: Học xong, em cần làm được gì?
+  widths: [18, 82]
   row_header: true
 - id: g04-table-03
   label: Ôn sau Khởi động và quay về nhiệm vụ
@@ -80,15 +78,20 @@ r1-tables:
 
 Một bảng biến thiên đúng chưa bảo đảm hình vẽ đã đúng. Nếu quên một điểm bị loại, đặt sai giao điểm hoặc nối hai nhánh qua tiệm cận đứng, em có thể vẽ một đồ thị trái với chính phép tính của mình. Học liệu này giúp em tổ chức kết quả khảo sát và dùng các biểu diễn để kiểm tra lẫn nhau.
 
-### Mục tiêu
+[**Học xong, em cần làm được gì?**]{#mục-tiêu .r1-orientation-label}
 
 Sau khi học và tự làm, em cần có thể:
 
-- Lập một bản khảo sát có đủ miền xác định, đạo hàm, biến thiên, cực trị, giới hạn và tiệm cận khi có.
-- Vẽ đồ thị hàm bậc ba; phân biệt có cực trị với có điểm đạo hàm bằng $0$ nhưng không có cực trị.
-- Khảo sát hai họ phân thức, giữ đúng khoảng xác định và hướng của từng nhánh.
-- Nhận biết tâm đối xứng; với hai họ phân thức đang xét, nhận biết các trục đối xứng theo hai đường phân giác của các tiệm cận.
-- Kiểm sự phù hợp giữa công thức, bảng biến thiên và đồ thị; giải thích kết quả trong miền và đơn vị của mô hình.
+::: {#g04-table-02 .table-scroll}
+| Mục tiêu | Việc em cần làm được |
+|---|---|
+| Tổ chức bản khảo sát | Lập bản khảo sát có đủ tập xác định, đạo hàm, biến thiên, cực trị, giới hạn và tiệm cận khi có; nhận ra thông tin còn thiếu. |
+| Khảo sát hàm số bậc ba | Vẽ đồ thị hàm số bậc ba; đọc dấu đạo hàm, cực trị và hai đầu đồ thị; phân biệt có cực trị với có điểm đạo hàm bằng $0$ nhưng không có cực trị. |
+| Khảo sát phân thức bậc nhất trên bậc nhất | Giữ đúng hai khoảng xác định, tìm tiệm cận và hướng của từng nhánh. |
+| Khảo sát phân thức bậc hai trên bậc nhất | Giữ đúng khoảng xác định và hướng nhánh; nối phép chia, tiệm cận xiên và biến thiên. |
+| Nhận biết đối xứng | Nhận biết tâm đối xứng; với hai họ phân thức đang xét, nhận biết các trục đối xứng theo hai đường phân giác của các tiệm cận. |
+| Kiểm các biểu diễn và diễn giải mô hình | Kiểm sự phù hợp giữa công thức, bảng biến thiên và đồ thị; giải thích kết quả trong điều kiện của biến và đơn vị của mô hình. |
+:::
 
 Ba họ hàm của phần khảo sát đầy đủ là
 $$
@@ -112,7 +115,7 @@ Em cần biết tìm tập xác định, tính đạo hàm, xét dấu, xác đ�
 
 ### Cách học và chọn nơi bắt đầu
 
-Chuẩn bị giấy để lưu bài tự làm, bảng và hình. Đọc Gợi mở rồi thử trả lời trước phần giải thích. Khi vẽ, ghi dữ kiện đã tính trước, sau đó mới nối dáng điệu đường cong.
+Chuẩn bị giấy để lưu bài tự làm, bảng và hình. Đọc Gợi mở rồi thử trả lời trước phần giải thích. Khi vẽ, ghi dữ kiện đã tính trước, sau đó mới nối dáng điệu đường cong. Sau mỗi mục, tự làm nhiệm vụ cuối mỗi mục.
 
 - Cần học hoặc nhớ lại: mở [Bài học](#bai-hoc).
 - Đã nắm phần học, muốn tự thực hiện: mở [Luyện tập](#luyen-tap).
@@ -141,27 +144,16 @@ Em có thể chia Bài học và Luyện tập thành nhiều buổi. Riêng **m
 
 Dùng [bảng đối chiếu sau Kiểm tra](#CPK) để xem từng mục tiêu. Hoàn tất lượt chính khi có bài làm tự lực phù hợp, những lỗi thiết yếu đã được kiểm lại và các giới hạn còn lại được ghi rõ. Kết quả đúng ở một mục tiêu không thay bằng chứng của mục tiêu còn sai.
 
-Sau khi hoàn tất, ghi ngày gốc và hẹn ôn sau khoảng $2$–$3$ ngày, $7$ ngày, $3$–$4$ tuần. Có thể học tiếp nội dung đủ tiên quyết trong khi chờ ôn. Nếu chưa có câu phù hợp còn mới để xác nhận, ghi “chưa đủ bằng chứng”; không tự coi bài đã đọc lời giải là bài mới.
+Sau khi hoàn tất, ghi ngày gốc và hẹn ôn sau khoảng $2$–$3$ ngày, $7$ ngày, $3$–$4$ tuần. Có thể học tiếp nội dung đủ tiên quyết trong khi chờ ôn. Nếu chưa có câu phù hợp chưa gặp trước đó để xác nhận, ghi “chưa đủ bằng chứng”; không tự coi bài đã đọc lời giải là bài mới.
 
 ## Bài học {#bai-hoc}
 
 <div class="lesson-toc"></div>
 
-<details id="dinh-huong" class="zo-learning-guidance r1-lesson-orientation"><summary>Định hướng bài học</summary>
+<details id="dinh-huong" class="zo-learning-guidance r1-lesson-orientation"><summary>Câu hỏi dẫn đường</summary>
 
-Câu hỏi dẫn đường: **mỗi nét trên đồ thị được bảo đảm bởi dữ kiện nào?**
+**Mỗi nét trên đồ thị được bảo đảm bởi dữ kiện nào?**
 
-::: {#g04-table-02 .table-scroll}
-| Mục học | Việc cần làm được |
-|---|---|
-| [Từ dữ kiện đến sơ đồ khảo sát](#bh-01) | Biết thông tin nào còn thiếu, kiểm các biểu diễn với nhau |
-| [Hàm số bậc ba](#bh-02) | Đọc dấu đạo hàm, cực trị và hai đầu đồ thị |
-| [Phân thức bậc nhất trên bậc nhất](#bh-03) | Giữ hai khoảng xác định, tìm tiệm cận và hướng nhánh |
-| [Phân thức bậc hai trên bậc nhất](#bh-04) | Nối phép chia, tiệm cận xiên và biến thiên |
-| [Kết quả khảo sát trong đúng miền](#bh-05) | Dùng kết quả toán vừa đủ cho mô hình |
-
-:::
-Trước hết, thử các thao tác ngắn trong Khởi động. Ở mỗi mục học, hãy nghĩ về câu Gợi mở trước khi đọc giải thích, rồi tự làm câu kiểm tra cuối mục.
 
 </details>
 
@@ -169,9 +161,9 @@ Trước hết, thử các thao tác ngắn trong Khởi động. Ở mỗi mụ
 
 Tự làm trước khi tra lời giải. Ghi cả điều kiện và lí do, không chỉ đáp số.
 
-#### Nhiệm vụ 01 — Miền trước và sau rút gọn {#KD01 .zo-learning-task data-zo-type="task" data-zo-task="G04-KD01" data-zo-function="function.warmup" data-zo-number="1"}
+#### Nhiệm vụ 01 — Tập xác định trước và sau rút gọn {#KD01 .zo-learning-task data-zo-type="task" data-zo-task="G04-KD01" data-zo-function="function.warmup" data-zo-number="1"}
 
-Cho $r(x)=\frac{x^2-9}{x-3}$. Tìm tập xác định, rút gọn trên miền ấy và giải thích vì sao sau rút gọn không được tự thêm điểm có hoành độ $3$ vào đồ thị.
+Cho $r(x)=\frac{x^2-9}{x-3}$. Tìm tập xác định, rút gọn trên tập xác định ấy và giải thích vì sao sau rút gọn không được tự thêm điểm có hoành độ $3$ vào đồ thị.
 
 [Xem lời giải](#lg-KD01).
 
@@ -189,16 +181,16 @@ Cho $q(x)=1+\frac{2}{x+2}$. Tính giới hạn khi $x\to-2^-$, $x\to-2^+$, $x\to
 
 #### Nhiệm vụ 04 — Thương và phần dư {#KD04 .zo-learning-task data-zo-type="task" data-zo-task="G04-KD04" data-zo-function="function.warmup" data-zo-number="4"}
 
-Viết $\frac{x^2+2x+5}{x+1}$ thành một đa thức bậc nhất cộng một phân thức có tử là hằng số. Ghi điều kiện và nhân ngược để kiểm lại.
+Viết $\frac{x^2+2x+5}{x+1}$ thành một đa thức bậc nhất cộng một phân thức có tử là hằng số. Ghi điều kiện, rồi kiểm phép chia bằng cách lấy mẫu nhân với thương và cộng phần dư.
 
 [Xem lời giải](#lg-KD04).
 
-#### Sau khi làm xong {#CP-KD data-zo-type="checkpoint" data-r1-return-label="Sau khi làm xong"}
+#### Điểm dừng 01 — Sau khi làm xong {#CP-KD data-zo-type="checkpoint" data-r1-return-label="Điểm dừng 01 — Sau khi làm xong"}
 
 ::: {#g04-table-03 .table-scroll}
 | Câu còn vướng | Kiến thức cần ôn | Đi đến | Sau đó |
 |---|---|---|---|
-| Miền và rút gọn | Giữ điều kiện xác định | [Tập xác định](#nen-mien) | [Nhiệm vụ 01 của Khởi động](#KD01) |
+| Tập xác định và rút gọn | Giữ điều kiện xác định | [Tập xác định](#nen-mien) | [Nhiệm vụ 01 của Khởi động](#KD01) |
 | Đạo hàm hoặc xét dấu | Tính đạo hàm, xét dấu trên từng khoảng | [Đạo hàm và dấu](#nen-dao-ham) | [Nhiệm vụ 02 của Khởi động](#KD02) |
 | Hướng giới hạn | Đọc đúng phía tiến tới | [Giới hạn và tiệm cận](#nen-gioi-han) | [Nhiệm vụ 03 của Khởi động](#KD03) |
 | Phép chia đa thức | Kiểm thương và phần dư | [Thương và phần dư](#nen-chia) | [Nhiệm vụ 04 của Khởi động](#KD04) |
@@ -208,11 +200,7 @@ Nếu thao tác đã vững, vào [mục đầu Bài học](#bh-01) hoặc chọ
 
 ### 1. Từ dữ kiện đến sơ đồ khảo sát {#bh-01}
 
-<details class="zo-learning-guidance r1-guidance"><summary>Cách thực hiện</summary>
 
-đọc một kết quả khảo sát như một lập luận: dữ kiện nào cho phép kết luận gì, còn thiếu gì trước khi vẽ.
-
-</details>
 
 #### Gợi mở 01 — Cùng đạo hàm, có cùng đồ thị? {#GM01 .zo-learning-task data-zo-type="task" data-zo-task="G04-GM01" data-zo-function="function.guided_thinking" data-zo-number="1"}
 
@@ -227,14 +215,14 @@ Ta có $u(0)=0$ và $v(0)=2$. Dấu đạo hàm cho cùng chiều biến thiên 
 Một bản khảo sát gồm ba việc chính:
 
 - **Tìm tập xác định.** Ghi rõ những điểm bị loại; những khoảng bị tách không được nối qua nhau.
-- **Khảo sát sự biến thiên.** Tính đạo hàm; tìm các điểm đạo hàm bằng $0$ hoặc không tồn tại thuộc miền đang xét; xét dấu và kết luận đơn điệu, cực trị. Tính các giới hạn cần thiết, tìm tiệm cận nếu có, rồi lập bảng biến thiên.
+- **Khảo sát sự biến thiên.** Tính đạo hàm. Trong tập xác định, tìm các điểm tại đó đạo hàm bằng $0$ hoặc không tồn tại; xét dấu đạo hàm trên từng khoảng để kết luận chiều biến thiên và cực trị. Tiếp đó, tính các giới hạn cần thiết, xác định tiệm cận nếu có và lập bảng biến thiên.
 - **Vẽ đồ thị dựa trên bảng biến thiên.** Bổ sung giao điểm với các trục hoặc điểm đặc trưng dễ tính; lưu ý tính đối xứng.
 
 <p class="zo-source-note">Nguồn đối chiếu: Sách giáo khoa Toán 12, tập một, bộ Kết nối tri thức với cuộc sống, Bài 4, trang 26–27.</p>
 
-Ở ba họ hàm của học liệu, đạo hàm tồn tại tại mọi điểm thuộc tập xác định. Điểm làm mẫu số bằng $0$ bị loại khỏi miền, không phải một điểm cực trị cần xét của hàm.
+Trong bài này, các hàm số bậc ba và hai dạng hàm phân thức đang xét đều có đạo hàm tại mọi điểm thuộc tập xác định. Với hàm phân thức, giá trị làm mẫu số bằng $0$ không thuộc tập xác định: hàm số không có giá trị tại đó, nên đó không thể là điểm cực trị của hàm số. Ta vẫn xét giới hạn khi biến tiến gần giá trị bị loại để tìm tiệm cận đứng, nếu có.
 
-Bảng biến thiên phải phân biệt **giá trị tại điểm** với **giới hạn ở phía điểm bị loại**. Khi miền bị tách, giữ riêng từng khoảng. Một cửa sổ hình vẽ chỉ cho thấy một phần đồ thị; chiều đi tới vô cực do giới hạn xác định, không do mép ảnh.
+Trong bảng biến thiên, cần phân biệt giá trị hàm số tại một điểm với giới hạn khi biến tiến gần điểm đó. Nếu một giá trị không thuộc tập xác định, không ghi giới hạn như thể đó là giá trị hàm số tại điểm bị loại. Khi tập xác định gồm hai khoảng rời nhau, lập bảng và vẽ riêng từng nhánh. Hình chỉ thể hiện một phần đồ thị; kết luận về giới hạn phải dựa vào phép tính hoặc dữ kiện đã cho.
 
 #### 1.2. Ví dụ 01 — Cùng dấu đạo hàm, khác vị trí {#VD01}
 
@@ -244,19 +232,15 @@ Nhưng $v(x)-u(x)=2$ với mọi $x$: đồ thị thứ hai cao hơn đồ thị
 
 **Tự kiểm một hình vừa vẽ:** điểm đã đánh dấu có thỏa công thức không; chiều đường cong có khớp dấu đạo hàm không; hướng gần tiệm cận có đúng giới hạn một phía không; có vô tình thêm một điểm bị loại không?
 
-#### 1.3. Tự kiểm tra 01 — Tìm mâu thuẫn trước khi nối nét {#T01 .zo-learning-task data-zo-type="task" data-zo-task="G04-T01" data-zo-function="function.self_check" data-zo-number="1"}
+#### 1.3. Nhiệm vụ 05 — Tìm mâu thuẫn trước khi nối nét {#T01 .zo-learning-task data-zo-type="task" data-zo-task="G04-T01" data-zo-function="function.self_check" data-zo-number="5"}
 
 Một bản khảo sát của $h(x)=x^3+x-1$ ghi: tập xác định $\mathbb R$; đạo hàm $3x^2+1>0$; đồng biến trên $\mathbb R$; đồ thị đi qua $O(0;0)$. Chỉ ra phần sai, sửa lại và bổ sung hai giới hạn ở vô cực. Bản sửa đã cho phép kết luận có cực trị chưa?
 
-[Xem lời giải](#lg-T01). Nếu vướng cách dùng công thức kiểm điểm, xem lại [Ví dụ 01](#VD01); cần xác nhận sau hỗ trợ dùng ý phù hợp của [Nhiệm vụ 01 của Sửa lỗi](#S01) nếu còn mới, rồi trở lại câu này.
+[Xem lời giải](#lg-T01). Nếu chưa biết kiểm tra một điểm có thuộc đồ thị hay không, thay hoành độ của điểm vào công thức rồi so sánh kết quả với tung độ đã cho; xem cách dùng giá trị hàm số ở [Ví dụ 01](#VD01).
 
 ### 2. Khảo sát và vẽ đồ thị hàm số bậc ba {#bh-02}
 
-<details class="zo-learning-guidance r1-guidance"><summary>Cách thực hiện</summary>
 
-dự đoán từ dấu đạo hàm, sau đó tính giá trị tại các mốc và kiểm hình; không mặc định mọi hàm bậc ba có hai cực trị.
-
-</details>
 
 #### Gợi mở 02 — Đổi dấu và đổi chiều {#GM02 .zo-learning-task data-zo-type="task" data-zo-task="G04-GM02" data-zo-function="function.guided_thinking" data-zo-number="2"}
 
@@ -264,7 +248,7 @@ Thử trả lời trước khi đọc tiếp.
 
 Nếu đạo hàm lần lượt mang dấu dương, âm, dương trên ba khoảng liên tiếp, đồ thị đổi chiều thế nào? Nếu đạo hàm chỉ bằng $0$ tại một điểm nhưng dương ở cả hai phía, điều gì trong dự đoán ấy phải thay đổi?
 
-Trường hợp đầu gợi hai lần đổi chiều; trường hợp sau không có sự đổi chiều tại mốc ấy. Để kết luận cực trị phải xét điểm thuộc miền và dấu hai phía, không chỉ giải phương trình đạo hàm.
+Trường hợp đầu gợi hai lần đổi chiều; trường hợp sau không có sự đổi chiều tại mốc ấy. Để kết luận cực trị phải xét điểm thuộc tập xác định và dấu hai phía, không chỉ giải phương trình đạo hàm.
 
 #### 2.1. Những thông tin cần giữ {#kt-02 data-zo-type="explanation" data-zo-unit="G04-U02"}
 
@@ -282,7 +266,7 @@ Dấu của tam thức này quyết định chiều biến thiên. Khi có hai n
 
 Khảo sát $f(x)=x^3-3x+2$.
 
-Miền xác định là $\mathbb R$. Ta có
+Tập xác định là $\mathbb R$. Ta có
 $$
 f^\prime(x)=3(x-1)(x+1),
 $$
@@ -302,7 +286,7 @@ Hai giao điểm với trục hoành không phải hai điểm cực trị: ph�
 
 #### 2.3. Ví dụ 03 — Đạo hàm bằng không mà không có cực trị {#VD03}
 
-Với $g(x)=x^3+1$, miền là $\mathbb R$,
+Với $g(x)=x^3+1$, tập xác định là $\mathbb R$,
 $$
 g^\prime(x)=3x^2,\qquad g^\prime(0)=0.
 $$
@@ -314,25 +298,21 @@ $$
 
 ::: {#g04-table-05 .zo-native-bbt data-bbt="g04-table-05"}
 :::
-Giao trục là $(-1;0)$ và $(0;1)$; tâm đối xứng $I(0;1)$; không có tiệm cận. Điểm có tiếp tuyến ngang vẫn nằm trên một đường cong tiếp tục đi lên qua điểm ấy.
+Các giao điểm với trục hoành và trục tung lần lượt là $(-1;0)$ và $(0;1)$; tâm đối xứng $I(0;1)$; không có tiệm cận. Điểm có tiếp tuyến ngang vẫn nằm trên một đường cong tiếp tục đi lên qua điểm ấy.
 
 ![Đồ thị hàm bậc ba đồng biến, đi ngang tại tâm rồi tiếp tục tăng.](giao_dien/assets/figures_0_4/VD03.svg)
 
 Hàm $u(x)=x^3+x$ ở Ví dụ 01 cũng không có cực trị, nhưng đạo hàm của nó không bằng $0$ ở đâu. Hai trường hợp cùng không có cực trị cần được phân biệt.
 
-#### 2.4. Tự kiểm tra 02 — Một điểm dừng không đổi chiều {#T02 .zo-learning-task data-zo-type="task" data-zo-task="G04-T02" data-zo-function="function.self_check" data-zo-number="2"}
+#### 2.4. Nhiệm vụ 06 — Một điểm dừng không đổi chiều {#T02 .zo-learning-task data-zo-type="task" data-zo-task="G04-T02" data-zo-function="function.self_check" data-zo-number="6"}
 
 Với $p(x)=-(x-1)^3+2$, tìm đạo hàm, lập bảng biến thiên, kết luận cực trị và xác định tâm đối xứng. Phác đồ thị bằng tâm và các điểm có hoành độ $0$, $2$; không cần viết chính xác giao điểm với trục hoành.
 
-[Xem lời giải](#lg-T02). Nếu đã xem lời giải, dùng [Nhiệm vụ 01 của Sửa lỗi, ý a](#S01) còn mới để kiểm cả việc không đổi dấu và hình vẽ; ý b của nhiệm vụ ấy kiểm trường hợp có hai cực trị.
+[Xem lời giải](#lg-T02). Nếu còn nhầm đạo hàm bằng $0$ với cực trị, xem lại [Ví dụ 03](#VD03).
 
 ### 3. Khảo sát hàm phân thức bậc nhất trên bậc nhất {#bh-03}
 
-<details class="zo-learning-guidance r1-guidance"><summary>Cách thực hiện</summary>
 
-xác định hai khoảng của miền, tính giới hạn một phía và dấu đạo hàm; giữ riêng từng nhánh trên bảng và hình.
-
-</details>
 
 #### Gợi mở 03 — Cùng tiệm cận, khác vị trí {#GM03 .zo-learning-task data-zo-type="task" data-zo-task="G04-GM03" data-zo-function="function.guided_thinking" data-zo-number="3"}
 
@@ -344,7 +324,7 @@ Một phần dư dương cho nhánh bên phải nằm trên đường ngang; ph�
 
 #### 3.1. Từ công thức đến hai nhánh {#kt-03 data-zo-type="explanation" data-zo-unit="G04-U03"}
 
-Với $f(x)=\frac{ax+b}{cx+d}$, điều kiện $c\ne0$, $ad-bc\ne0$ bảo đảm đây không phải hàm hằng sau rút gọn. Ta xét mẫu khác $0$, tính đạo hàm và các giới hạn. Không kết luận đơn điệu trên “toàn miền” chỉ từ một dấu đạo hàm nếu miền gồm hai khoảng rời.
+Với $f(x)=\frac{ax+b}{cx+d}$, điều kiện $c\ne0$, $ad-bc\ne0$ bảo đảm đây không phải hàm hằng sau rút gọn. Ta xét mẫu khác $0$, tính đạo hàm và các giới hạn. Không kết luận đơn điệu trên “toàn tập xác định” chỉ từ một dấu đạo hàm nếu tập xác định gồm hai khoảng rời.
 
 Đồ thị nhận giao điểm hai tiệm cận làm tâm đối xứng; hai đường phân giác của các góc tạo bởi hai tiệm cận là các trục đối xứng. Khi dùng hình để nhận đối xứng, hai trục tọa độ phải có cùng tỉ lệ độ dài.
 
@@ -356,7 +336,7 @@ Khảo sát
 $$
 f(x)=\frac{2x+1}{x-1}=2+\frac{3}{x-1}.
 $$
-Miền $D=\mathbb R\setminus\{1\}$. Đạo hàm
+Tập xác định $D=\mathbb R\setminus\{1\}$. Đạo hàm
 $$
 f^\prime(x)=-\frac{3}{(x-1)^2}<0\quad(x\ne1).
 $$
@@ -371,25 +351,21 @@ Hai tiệm cận là $x=1$, $y=2$.
 
 ::: {#g04-table-06 .zo-native-bbt data-bbt="g04-table-06"}
 :::
-Các số ở hai đầu mỗi ô là giới hạn; không có giá trị $f(1)$. Đồ thị đi qua $\left(-\frac{1}{2};0\right)$, $(0;-1)$; có tâm $I(1;2)$ và hai trục đối xứng $y-2=x-1$, $y-2=-(x-1)$. Với $x<1$, đồ thị nằm dưới $y=2$; với $x>1$, nằm trên $y=2$.
+Ở mốc $x=1$, các kí hiệu $-\infty$ và $+\infty$ trong hàng $f(x)$ biểu thị giới hạn từ bên trái và bên phải; chúng không phải giá trị $f(1)$, vì $1$ không thuộc tập xác định. Đồ thị đi qua $\left(-\frac{1}{2};0\right)$, $(0;-1)$; có tâm $I(1;2)$ và hai trục đối xứng $y-2=x-1$, $y-2=-(x-1)$. Với $x<1$, đồ thị nằm dưới $y=2$; với $x>1$, nằm trên $y=2$.
 
 ![Hai nhánh phân thức nghịch biến, tách tại tiệm cận đứng và tiến tới tiệm cận ngang.](giao_dien/assets/figures_0_4/VD04.svg)
 
 Không đặt một điểm đặc ở giao hai tiệm cận: tâm đối xứng không thuộc đồ thị này.
 
-#### 3.3. Tự kiểm tra 03 — Hai nhánh đồng biến {#T03 .zo-learning-task data-zo-type="task" data-zo-task="G04-T03" data-zo-function="function.self_check" data-zo-number="3"}
+#### 3.3. Nhiệm vụ 07 — Hai nhánh đồng biến {#T03 .zo-learning-task data-zo-type="task" data-zo-task="G04-T03" data-zo-function="function.self_check" data-zo-number="7"}
 
-Khảo sát và vẽ đồ thị $g(x)=\frac{x}{x+2}=1-\frac{2}{x+2}$. Ghi miền, đạo hàm, khoảng đơn điệu, cực trị, bốn giới hạn cần thiết, tiệm cận, giao trục và tâm đối xứng. Vì sao không nối đường cong qua $x=-2$?
+Khảo sát và vẽ đồ thị $g(x)=\frac{x}{x+2}=1-\frac{2}{x+2}$. Ghi tập xác định, đạo hàm, khoảng đơn điệu, cực trị, bốn giới hạn cần thiết, tiệm cận, giao điểm với các trục tọa độ và tâm đối xứng. Vì sao không nối đường cong qua $x=-2$?
 
-[Xem lời giải](#lg-T03). Nếu cần hỗ trợ, xem [Ví dụ 04](#VD04); sau hỗ trợ dùng [Nhiệm vụ 02 của Sửa lỗi, ý a](#S02) nếu còn mới, rồi trở lại đây.
+[Xem lời giải](#lg-T03). Nếu chưa biết kết hợp chiều biến thiên và tiệm cận để vẽ hai nhánh, xem lại [Ví dụ 04](#VD04).
 
 ### 4. Khảo sát hàm phân thức bậc hai trên bậc nhất {#bh-04}
 
-<details class="zo-learning-guidance r1-guidance"><summary>Cách thực hiện</summary>
 
-chia đa thức và kiểm ngược trước; dùng cùng một biểu thức để tính đạo hàm, giới hạn và vị trí so với tiệm cận xiên.
-
-</details>
 
 #### Gợi mở 04 — Phần dư và cực trị {#GM04 .zo-learning-task data-zo-type="task" data-zo-task="G04-GM04" data-zo-function="function.guided_thinking" data-zo-number="4"}
 
@@ -437,13 +413,13 @@ $$
 
 ::: {#g04-table-07 .zo-native-bbt data-bbt="g04-table-07"}
 :::
-Hai cột có đầu mút $1$ không chứa điểm ấy. Đạo hàm bằng $0$ tại các mốc $0$, $2$ đã ghi ở trên.
+Giá trị $x=1$ không thuộc tập xác định, nên hai nhánh được xét riêng trên các khoảng ở hai phía của $1$. Hai nghiệm của phương trình $u^\prime(x)=0$ là $x=0$ và $x=2$.
 
 Đồ thị giao cả hai trục tại $O(0;0)$, tâm đối xứng $I(1;2)$. Nhánh bên trái ở dưới đường xiên; nhánh bên phải ở trên. Hai trục đối xứng là hai đường phân giác của $x=1$ và $y=x+1$, không phải chính hai tiệm cận.
 
 ![Đồ thị phân thức có hai cực trị, một tiệm cận đứng và một tiệm cận xiên.](giao_dien/assets/figures_0_4/VD05.svg)
 
-Giá trị cực đại $0$ nhỏ hơn giá trị cực tiểu $4$ không mâu thuẫn: chúng là các so sánh trong lân cận thuộc hai nhánh khác nhau.
+Giá trị cực đại $0$ nhỏ hơn giá trị cực tiểu $4$ vẫn có thể xảy ra. Cực đại tại $x=0$ chỉ được so sánh với giá trị của hàm số ở các điểm đủ gần $0$; cực tiểu tại $x=2$ chỉ được so sánh với giá trị ở các điểm đủ gần $2$. Hai kết luận này không yêu cầu giá trị cực đại phải lớn hơn mọi giá trị cực tiểu.
 
 #### 4.3. Ví dụ 06 — Cùng tiệm cận, không có cực trị {#VD06}
 
@@ -451,7 +427,7 @@ Với
 $$
 v(x)=\frac{x^2-2}{x-1}=x+1-\frac{1}{x-1},
 $$
-miền vẫn là $\mathbb R\setminus\{1\}$, nhưng
+tập xác định vẫn là $\mathbb R\setminus\{1\}$, nhưng
 $$
 v^\prime(x)=1+\frac{1}{(x-1)^2}>0.
 $$
@@ -469,25 +445,21 @@ $$
 
 ::: {#g04-table-08 .zo-native-bbt data-bbt="g04-table-08"}
 :::
-Tiệm cận và tâm vẫn là $x=1$, $y=x+1$, $I(1;2)$. Giao trục hoành tại $\left(-\sqrt{2};0\right)$, $\left(\sqrt{2};0\right)$, giao trục tung tại $(0;2)$. Nhánh trái nằm trên đường xiên, nhánh phải nằm dưới.
+Tiệm cận và tâm vẫn là $x=1$, $y=x+1$, $I(1;2)$. Đồ thị giao với trục hoành tại $\left(-\sqrt{2};0\right)$, $\left(\sqrt{2};0\right)$, giao điểm với trục tung tại $(0;2)$. Nhánh trái nằm trên đường xiên, nhánh phải nằm dưới.
 
 ![Hai nhánh đồng biến không có cực trị, có cùng các tiệm cận với ví dụ trước.](giao_dien/assets/figures_0_4/VD06.svg)
 
-#### 4.4. Tự kiểm tra 04 — Kiểm lại dấu của phần dư {#T04 .zo-learning-task data-zo-type="task" data-zo-task="G04-T04" data-zo-function="function.self_check" data-zo-number="4"}
+#### 4.4. Nhiệm vụ 08 — Kiểm lại dấu của phần dư {#T04 .zo-learning-task data-zo-type="task" data-zo-task="G04-T04" data-zo-function="function.self_check" data-zo-number="8"}
 
-Cho $h(x)=x-1-\frac{4}{x-2}$. Tìm miền, đạo hàm, biến thiên, cực trị, tiệm cận và tâm đối xứng. Lập bảng biến thiên và phác hai nhánh; dùng điểm có hoành độ $0$ để kiểm vị trí. Không cần giải chính xác giao với trục hoành.
+Cho $h(x)=x-1-\frac{4}{x-2}$. Tìm tập xác định, đạo hàm, biến thiên, cực trị, tiệm cận và tâm đối xứng. Lập bảng biến thiên và phác hai nhánh; dùng điểm có hoành độ $0$ để kiểm vị trí. Không cần giải chính xác giao với trục hoành.
 
-[Xem lời giải](#lg-T04). Xem lại [hai ví dụ phân thức bậc hai](#VD05) nếu nhầm dấu; xác nhận riêng trường hợp có cực trị bằng [Nhiệm vụ 02 của Sửa lỗi, ý b](#S02), trường hợp không có cực trị bằng ý c, nếu các ý ấy còn mới.
+[Xem lời giải](#lg-T04). Nếu nhầm dấu đạo hàm hoặc vị trí hai nhánh so với tiệm cận xiên, xem lại [Ví dụ 05](#VD05) và [Ví dụ 06](#VD06).
 
-### 5. Đọc và sử dụng kết quả khảo sát đúng miền {#bh-05}
+### 5. Giải thích kết quả khảo sát trong bài toán thực tế {#bh-05}
 
-<details class="zo-learning-guidance r1-guidance"><summary>Cách thực hiện</summary>
 
-ghi biến, đơn vị và miền mô hình trước khi lấy kết luận từ đồ thị. Phân biệt giới hạn với giá trị được đạt.
 
-</details>
-
-#### Gợi mở 05 — Miền mô hình và giá trị đạt được {#GM05 .zo-learning-task data-zo-type="task" data-zo-task="G04-GM05" data-zo-function="function.guided_thinking" data-zo-number="5"}
+#### Gợi mở 05 — Điều kiện của mô hình và giá trị có thể đạt {#GM05 .zo-learning-task data-zo-type="task" data-zo-task="G04-GM05" data-zo-function="function.guided_thinking" data-zo-number="5"}
 
 Thử trả lời trước khi đọc tiếp.
 
@@ -499,7 +471,7 @@ Khối lượng không âm; bài toán còn giới hạn khối lượng đượ
 
 Đang xét tập nào? Giá trị nào được đạt trong tập đó? Kết luận đang nói về mô hình được cho hay về thực tế chưa được kiểm chứng?
 
-Các bài dưới đây dùng mô hình chi phí giả định. Biến và đơn vị phải được giữ rõ trong mỗi kết luận; công thức chỉ được dùng trên miền đã cho.
+Các bài dưới đây dùng mô hình chi phí giả định. Biến và đơn vị phải được giữ rõ trong mỗi kết luận; công thức chỉ được dùng trên tập đã cho.
 
 #### 5.2. Ví dụ 07 — Chi phí trung bình có cận nhưng không có giá trị nhỏ nhất {#VD07}
 
@@ -509,7 +481,7 @@ A(x)=\frac{C(x)}{x}=2+\frac{12}{x}
 $$
 tính bằng triệu đồng mỗi tấn.
 
-Ta có $A^\prime(x)=-\frac{12}{x^2}<0$, nên $A$ giảm trên $[1;+\infty)$. Tại đầu miền, $A(1)=14$.
+Ta có $A^\prime(x)=-\frac{12}{x^2}<0$, nên $A$ giảm trên $[1;+\infty)$. Tại $x=1$, ta được $A(1)=14$.
 $$
 \lim_{x\to+\infty}A(x)=2,\qquad A(x)>2\quad(x\ge1).
 $$
@@ -517,19 +489,19 @@ Giá trị lớn nhất là $14$, đạt tại $x=1$. Không có giá trị nh�
 
 ::: {#g04-table-09 .zo-native-bbt data-bbt="g04-table-09"}
 :::
-![Đồ thị chi phí trung bình trên miền từ một tấn trở lên, điểm đầu kín và tiến tới cận dưới.](giao_dien/assets/figures_0_4/VD07.svg)
+![Đồ thị chi phí trung bình khi khối lượng sản phẩm từ một tấn trở lên; điểm đầu thuộc đồ thị, chi phí giảm và tiến gần cận dưới.](giao_dien/assets/figures_0_4/VD07.svg)
 
-Đường $y=2$ mô tả xu hướng khi $x\to+\infty$ trong mô hình; không có nhánh âm hoặc tiệm cận đứng tại $0$ của **đồ thị bị giới hạn ở $x\ge1$**. Nếu chỉ xét $[1;6]$, giá trị nhỏ nhất là $A(6)=4$, đạt tại $6$; miền mới làm kết luận về sự đạt được thay đổi.
+Đường $y=2$ mô tả xu hướng khi $x\to+\infty$ trong mô hình. Đồ thị của hàm số với tập xác định $[1;+\infty)$ không có nhánh ứng với $x<0$ hoặc tiệm cận đứng $x=0$. Nếu chỉ tìm giá trị nhỏ nhất trên đoạn $[1;6]$, ta được $A(6)=4$, đạt khi sản xuất $6$ tấn. Như vậy, cùng một công thức nhưng xét trên hai tập khác nhau có thể cho kết luận khác nhau về giá trị nhỏ nhất.
 
-#### 5.3. Tự kiểm tra 05 — Giữ miền khi đọc chi phí {#T05 .zo-learning-task data-zo-type="task" data-zo-task="G04-T05" data-zo-function="function.self_check" data-zo-number="5"}
+#### 5.3. Nhiệm vụ 09 — Chi phí trên hai tập đang xét {#T05 .zo-learning-task data-zo-type="task" data-zo-task="G04-T05" data-zo-function="function.self_check" data-zo-number="9"}
 
 Một mô hình cho $B(x)=4+\frac{18}{x}$ triệu đồng mỗi tấn, với $x\ge2$. Tìm chiều biến thiên, giá trị lớn nhất và giải thích có hay không giá trị nhỏ nhất. Nếu chỉ xét $[2;6]$, kết luận về giá trị nhỏ nhất thay đổi thế nào? Không dùng riêng hình vẽ để thay lập luận.
 
-[Xem lời giải](#lg-T05). Nếu nhầm cận với giá trị đạt, xem lại [Ví dụ 07](#VD07); dùng [Nhiệm vụ 02 của Sửa lỗi, ý d](#S02) còn mới để xác nhận việc phân biệt miền không bị chặn với đoạn hữu hạn.
+[Xem lời giải](#lg-T05). Nếu nhầm cận dưới với giá trị nhỏ nhất, xem lại [Ví dụ 07](#VD07).
 
 ### Khép lại bài học {#khep-lai}
 
-Không nhìn lời giải, em hãy giải thích vì sao cần biết miền trước khi xét biến thiên; vì sao đạo hàm bằng $0$ chưa đủ kết luận cực trị; và vì sao cùng tiệm cận chưa quyết định cùng đồ thị. Chọn một hình của bài học, chỉ ra dữ kiện bảo đảm mỗi giao điểm, mốc cực trị và hướng nhánh.
+Không nhìn lời giải, em hãy giải thích vì sao cần biết tập xác định trước khi xét biến thiên; vì sao đạo hàm bằng $0$ chưa đủ kết luận cực trị; và vì sao cùng tiệm cận chưa quyết định cùng đồ thị. Chọn một hình của bài học, chỉ ra dữ kiện bảo đảm mỗi giao điểm, mốc cực trị và hướng nhánh.
 
 Nếu còn vướng, xem đúng mục đó. Nếu đã nắm cách làm, vào [Luyện tập](#luyen-tap) hoặc chọn hoạt động phù hợp; làm được câu ngay sau ví dụ chưa xác nhận việc nhớ sau khoảng trễ.
 
@@ -543,87 +515,87 @@ Tự làm trước khi mở lời giải; giữ riêng bài làm ban đầu và 
 ::: {#g04-table-luyen-tap .table-scroll}
 | Chặng | Việc cần làm được | Nhiệm vụ và nơi đối chiếu |
 |---|---|---|
-| [Chặng 1](#chang-1) | Khảo sát bậc ba và phân thức bậc nhất; kiểm dấu và hình vẽ | [Nhiệm vụ 01](#L01)–[03](#L03); [Điểm dừng](#CP01) |
-| [Chặng 2](#chang-2) | Ghép tiệm cận xiên với biến thiên, diễn giải đúng miền | [Nhiệm vụ 04](#L04)–[06](#L06); [Điểm dừng](#CP02) |
+| [Chặng 1](#chang-1) | Khảo sát bậc ba và phân thức bậc nhất; kiểm dấu và hình vẽ | [Nhiệm vụ 10](#L01)–[12](#L03); [Điểm dừng 02](#CP01) |
+| [Chặng 2](#chang-2) | Ghép tiệm cận xiên với biến thiên, diễn giải đúng tập đang xét | [Nhiệm vụ 13](#L04)–[15](#L06); [Điểm dừng 03](#CP02) |
 :::
 
-<details class="zo-learning-guidance r1-guidance"><summary>Cách thực hiện</summary>
+::: {#huong-dan-luyen-tap data-zo-instructions="required"}
 
-tự làm từng nhiệm vụ rồi đối chiếu; giữ bài trước khi sửa. Có thể chia nhiều buổi. Với câu đã từng xem lời giải, ghi rõ mức hỗ trợ; không tính việc nhớ lại đáp án là bằng chứng mới. Khi vướng, dùng đúng đường hỗ trợ ở Điểm dừng.
+Có thể chia Luyện tập thành nhiều buổi. Ghi rõ mức hỗ trợ với câu đã xem lời giải; không tính việc nhớ lại đáp án là bằng chứng mới. Khi vướng, dùng đường hỗ trợ phù hợp ở Điểm dừng rồi trở lại bài đang làm.
 
-</details>
+:::
 
 ### Chặng 1 — Bậc ba và phân thức bậc nhất {#chang-1 data-zo-context="stage:1"}
 
 Mục tiêu: tự tổ chức bản khảo sát, kiểm cực trị qua dấu và vẽ đúng nhánh. Làm các nhiệm vụ dưới đây theo nhu cầu đã xác định; phần chưa làm chưa có bằng chứng.
 
-#### Nhiệm vụ 01 — Khảo sát một hàm bậc ba {#L01 .zo-learning-task data-zo-type="task" data-zo-task="G04-L01" data-zo-function="function.practice" data-zo-number="1"}
+#### Nhiệm vụ 10 — Khảo sát một hàm bậc ba {#L01 .zo-learning-task data-zo-type="task" data-zo-task="G04-L01" data-zo-function="function.practice" data-zo-number="10"}
 
-Khảo sát và vẽ đồ thị $f(x)=x^3-3x^2+4$. Ghi đủ miền, đạo hàm/dấu, cực trị, giới hạn, bảng biến thiên, giao trục và tâm đối xứng. Kiểm việc đường cong đi qua hay chạm trục hoành tại các giao điểm.
+Khảo sát và vẽ đồ thị $f(x)=x^3-3x^2+4$. Ghi đủ tập xác định, đạo hàm/dấu, cực trị, giới hạn, bảng biến thiên, giao điểm với các trục tọa độ và tâm đối xứng. Kiểm việc đường cong đi qua hay chạm trục hoành tại các giao điểm.
 
 [Xem lời giải](#lg-L01).
 
 
-#### Nhiệm vụ 02 — Không có cực trị theo hai cách {#L02 .zo-learning-task data-zo-type="task" data-zo-task="G04-L02" data-zo-function="function.practice" data-zo-number="2"}
+#### Nhiệm vụ 11 — Không có cực trị theo hai cách {#L02 .zo-learning-task data-zo-type="task" data-zo-task="G04-L02" data-zo-function="function.practice" data-zo-number="11"}
 
 So sánh $p(x)=x^3+3x^2+3x$ với $q(x)=x^3+3x$. Tìm dấu đạo hàm và cực trị của mỗi hàm. Với $p$, tính tâm đối xứng và giải thích ý nghĩa của điểm có đạo hàm bằng $0$. Không yêu cầu khảo sát đầy đủ hai đồ thị.
 
 [Xem lời giải](#lg-L02).
 
 
-#### Nhiệm vụ 03 — Khảo sát phân thức với hai nhánh tăng {#L03 .zo-learning-task data-zo-type="task" data-zo-task="G04-L03" data-zo-function="function.practice" data-zo-number="3"}
+#### Nhiệm vụ 12 — Khảo sát phân thức với hai nhánh tăng {#L03 .zo-learning-task data-zo-type="task" data-zo-task="G04-L03" data-zo-function="function.practice" data-zo-number="12"}
 
-Khảo sát và vẽ đồ thị $f(x)=\frac{3x-8}{x-2}$. Nêu miền, chiều biến thiên, cực trị, các giới hạn, tiệm cận, giao trục, tâm và các trục đối xứng.
+Khảo sát và vẽ đồ thị $f(x)=\frac{3x-8}{x-2}$. Nêu tập xác định, chiều biến thiên, cực trị, các giới hạn, tiệm cận, giao điểm với các trục tọa độ, tâm và các trục đối xứng.
 
 [Xem lời giải](#lg-L03).
 
-### Điểm dừng 01 — Đối chiếu chặng đầu {#CP01 data-zo-type="checkpoint" data-r1-return-label="Điểm dừng 01 — Đối chiếu chặng đầu"}
+### Điểm dừng 02 — Đối chiếu chặng đầu {#CP01 data-zo-type="checkpoint" data-r1-return-label="Điểm dừng 02 — Đối chiếu chặng đầu"}
 
 ::: {#g04-table-10 .table-scroll}
 | Việc cần xác nhận | Bằng chứng | Nếu chưa đúng |
 |---|---|---|
-| Bản khảo sát và hình bậc ba thống nhất | Nhiệm vụ 01 | Xem [sơ đồ](#bh-01), [bậc ba](#bh-02); [Nhiệm vụ 01 của Sửa lỗi, ý b](#S01) |
-| Đạo hàm bằng $0$ nhưng không đổi dấu | Nhiệm vụ 02 | Xem [bậc ba không có cực trị](#VD03); [Nhiệm vụ 01 của Sửa lỗi, ý a](#S01) |
-| Hai khoảng, các giới hạn và hình phân thức bậc nhất | Nhiệm vụ 03 | Xem [phân thức bậc nhất](#bh-03); [Nhiệm vụ 02 của Sửa lỗi, ý a](#S02) |
+| Bản khảo sát và hình bậc ba thống nhất | Nhiệm vụ 10 | Xem [sơ đồ](#bh-01), [bậc ba](#bh-02); [Nhiệm vụ 23 của Sửa lỗi, ý b](#S01) |
+| Đạo hàm bằng $0$ nhưng không đổi dấu | Nhiệm vụ 11 | Xem [bậc ba không có cực trị](#VD03); [Nhiệm vụ 23 của Sửa lỗi, ý a](#S01) |
+| Hai khoảng, các giới hạn và hình phân thức bậc nhất | Nhiệm vụ 12 | Xem [phân thức bậc nhất](#bh-03); [Nhiệm vụ 24 của Sửa lỗi, ý a](#S02) |
 
 :::
-Chỉ dùng ý sửa còn mới và đúng lỗi. Nếu đúng, giải thích được và hình khớp dữ kiện, ghi bằng chứng rồi chọn chặng tiếp hoặc hoạt động phù hợp. Nếu sai thao tác, mở [Ôn nền](#on-nen); nếu hết câu mới, [ghi phần chưa xác nhận](#het-bai-moi). Sau hỗ trợ trở về Điểm dừng này; không phải làm lại mọi câu của chặng.
+Chỉ dùng ý sửa chưa gặp trước đó và đúng lỗi. Nếu đúng, giải thích được và hình khớp dữ kiện, ghi bằng chứng rồi chọn chặng tiếp hoặc hoạt động phù hợp. Nếu sai thao tác, mở [Ôn nền](#on-nen); nếu hết câu mới, [ghi phần chưa xác nhận](#het-bai-moi). Sau hỗ trợ trở về Điểm dừng này; không phải làm lại mọi câu của chặng.
 
-### Chặng 2 — Tiệm cận xiên và miền mô hình {#chang-2 data-zo-context="stage:2"}
+### Chặng 2 — Tiệm cận xiên và điều kiện của mô hình {#chang-2 data-zo-context="stage:2"}
 
-Mục tiêu: phân biệt hai khả năng biến thiên của phân thức bậc hai, rồi giới hạn kết luận theo miền thực sự được xét.
+Mục tiêu: phân biệt hai trường hợp có cực trị và không có cực trị của hàm phân thức bậc hai trên bậc nhất; giải thích kết quả của mô hình theo đúng điều kiện mà biến số được phép nhận.
 
-#### Nhiệm vụ 04 — Khảo sát phân thức có tiệm cận xiên {#L04 .zo-learning-task data-zo-type="task" data-zo-task="G04-L04" data-zo-function="function.practice" data-zo-number="4"}
+#### Nhiệm vụ 13 — Khảo sát phân thức có tiệm cận xiên {#L04 .zo-learning-task data-zo-type="task" data-zo-task="G04-L04" data-zo-function="function.practice" data-zo-number="13"}
 
 Khảo sát và vẽ đồ thị $h(x)=\frac{x^2+2x+4}{x}$. Giải thích vì sao có thể có giá trị cực đại nhỏ hơn giá trị cực tiểu. Xác định tâm và mô tả hai trục đối xứng, không bắt buộc tìm phương trình các đường phân giác.
 
 [Xem lời giải](#lg-L04).
 
 
-#### Nhiệm vụ 05 — Dấu trừ làm thay đổi hai nhánh {#L05 .zo-learning-task data-zo-type="task" data-zo-task="G04-L05" data-zo-function="function.practice" data-zo-number="5"}
+#### Nhiệm vụ 14 — Dấu trừ làm thay đổi hai nhánh {#L05 .zo-learning-task data-zo-type="task" data-zo-task="G04-L05" data-zo-function="function.practice" data-zo-number="14"}
 
-Khảo sát và vẽ đồ thị $v(x)=\frac{x^2-x-3}{x+1}$. Kiểm lại dấu đạo hàm bằng cách viết dưới dạng thương và phần dư; xác định giao trục và tâm đối xứng.
+Khảo sát và vẽ đồ thị $v(x)=\frac{x^2-x-3}{x+1}$. Kiểm lại dấu đạo hàm bằng cách viết dưới dạng thương và phần dư; xác định giao điểm với các trục tọa độ và tâm đối xứng.
 
 [Xem lời giải](#lg-L05).
 
 
-#### Nhiệm vụ 06 — Đồ thị chỉ trên miền sản xuất {#L06 .zo-learning-task data-zo-type="task" data-zo-task="G04-L06" data-zo-function="function.practice" data-zo-number="6"}
+#### Nhiệm vụ 15 — Đồ thị chỉ trên khoảng sản lượng được phép {#L06 .zo-learning-task data-zo-type="task" data-zo-task="G04-L06" data-zo-function="function.practice" data-zo-number="15"}
 
-Một mô hình chi phí trung bình cho $A(x)=3+\frac{24}{x}$ triệu đồng mỗi tấn, với khối lượng $x\in[2;8]$ tấn. Lập bảng biến thiên, vẽ phần đồ thị đúng miền, tìm giá trị lớn nhất/nhỏ nhất và nơi đạt. Nhận xét câu “đường $y=3$ là tiệm cận ngang nên chi phí nhỏ nhất bằng $3$”.
+Một mô hình chi phí trung bình cho $A(x)=3+\frac{24}{x}$ triệu đồng mỗi tấn, với khối lượng $x\in[2;8]$ tấn. Lập bảng biến thiên và vẽ phần đồ thị ứng với $x\in[2;8]$. Tìm giá trị lớn nhất, giá trị nhỏ nhất và khối lượng để đạt từng giá trị ấy. Nhận xét câu “đường $y=3$ là tiệm cận ngang nên chi phí nhỏ nhất bằng $3$”.
 
 [Xem lời giải](#lg-L06).
 
-### Điểm dừng 02 — Đối chiếu khảo sát và diễn giải {#CP02 data-zo-type="checkpoint" data-r1-return-label="Điểm dừng 02 — Đối chiếu khảo sát và diễn giải"}
+### Điểm dừng 03 — Đối chiếu khảo sát và diễn giải {#CP02 data-zo-type="checkpoint" data-r1-return-label="Điểm dừng 03 — Đối chiếu khảo sát và diễn giải"}
 
 ::: {#g04-table-11 .table-scroll}
 | Việc cần xác nhận | Bằng chứng | Nếu chưa đúng |
 |---|---|---|
-| Tiệm cận xiên, hai cực trị, bảng và hình | Nhiệm vụ 04 | [Ví dụ có hai cực trị](#VD05); [Nhiệm vụ 02 của Sửa lỗi, ý b](#S02) |
-| Phân thức bậc hai không có cực trị; bảng và hình | Nhiệm vụ 05 | [Ví dụ không cực trị](#VD06); [Nhiệm vụ 02 của Sửa lỗi, ý c](#S02) |
-| Đọc giá trị được đạt trên miền hữu hạn, có đơn vị | Nhiệm vụ 06 | [Miền mô hình](#bh-05); [Nhiệm vụ 02 của Sửa lỗi, ý d](#S02) |
+| Tiệm cận xiên, hai cực trị, bảng và hình | Nhiệm vụ 13 | [Ví dụ có hai cực trị](#VD05); [Nhiệm vụ 24 của Sửa lỗi, ý b](#S02) |
+| Phân thức bậc hai không có cực trị; bảng và hình | Nhiệm vụ 14 | [Ví dụ không cực trị](#VD06); [Nhiệm vụ 24 của Sửa lỗi, ý c](#S02) |
+| Đọc giá trị được đạt trên đoạn đang xét, có đơn vị | Nhiệm vụ 15 | [Điều kiện của mô hình](#bh-05); [Nhiệm vụ 24 của Sửa lỗi, ý d](#S02) |
 
 :::
-Nếu sai riêng hình vẽ của trường hợp không cực trị, dùng ý c còn mới và kiểm cả hình, không chỉ đạo hàm. Với lỗi cơ bản đã khép và bằng chứng phù hợp, em có thể chọn Kiểm tra khi chuẩn bị kĩ hoặc đủ tự tin. Có thể quay lại đúng mục học khi cần; không dùng tổng số câu đúng bù cho một mục tiêu còn thiếu.
+Nếu hình vẽ của trường hợp không có cực trị còn sai, dùng ý c chưa gặp trước đó và kiểm tra cả hình vẽ, không chỉ phép tính đạo hàm. Em có thể bắt đầu Kiểm tra khi đã chuẩn bị kĩ hoặc đủ tự tin, hoặc quay lại đúng mục học nếu cần. Khi đánh giá kết quả, không dùng số câu đúng ở những phần khác để bỏ qua một nội dung còn vướng.
 
 ## Kiểm tra {#tu-kiem-tra}
 
@@ -633,26 +605,26 @@ Chọn khi đã chuẩn bị kĩ hoặc đủ tự tin. **Một lượt tự l�
 
 Ghi thời điểm bắt đầu; làm trên giấy, ghi cả bảng và hình. Nếu cần hỗ trợ hoặc phải dừng, kết thúc lượt, ghi phần đã làm và thời lượng thực tế rồi mới mở hỗ trợ. Không nối phần làm sau hỗ trợ vào kết quả độc lập. Chưa dùng thang điểm cộng dồn; đối chiếu từng mục tiêu ở cuối lượt.
 
-#### Nhiệm vụ 01 — Khảo sát hàm bậc ba {#K01 .zo-learning-task data-zo-type="task" data-zo-task="G04-K01" data-zo-function="function.test" data-zo-number="1"}
+#### Nhiệm vụ 16 — Khảo sát hàm bậc ba {#K01 .zo-learning-task data-zo-type="task" data-zo-task="G04-K01" data-zo-function="function.test" data-zo-number="16"}
 
-Khảo sát và vẽ đồ thị $f(x)=-x^3+3x^2$. Trình bày miền, đạo hàm và dấu, cực trị, giới hạn, bảng biến thiên, giao trục, tâm đối xứng. Giải thích việc đồ thị đi qua hay chạm trục hoành.
-
-
-#### Nhiệm vụ 02 — Khảo sát phân thức bậc nhất {#K02 .zo-learning-task data-zo-type="task" data-zo-task="G04-K02" data-zo-function="function.test" data-zo-number="2"}
-
-Khảo sát và vẽ đồ thị $f(x)=\frac{x+3}{x+1}$. Nêu miền, đạo hàm, các giới hạn ở hai phía điểm loại và hai đầu vô cực, tiệm cận, bảng biến thiên, giao trục và tâm đối xứng.
+Khảo sát và vẽ đồ thị $f(x)=-x^3+3x^2$. Trình bày tập xác định, đạo hàm và dấu, cực trị, giới hạn, bảng biến thiên, giao điểm với các trục tọa độ, tâm đối xứng. Giải thích việc đồ thị đi qua hay chạm trục hoành.
 
 
-#### Nhiệm vụ 03 — Khảo sát phân thức bậc hai {#K03 .zo-learning-task data-zo-type="task" data-zo-task="G04-K03" data-zo-function="function.test" data-zo-number="3"}
+#### Nhiệm vụ 17 — Khảo sát phân thức bậc nhất {#K02 .zo-learning-task data-zo-type="task" data-zo-task="G04-K02" data-zo-function="function.test" data-zo-number="17"}
+
+Khảo sát và vẽ đồ thị $f(x)=\frac{x+3}{x+1}$. Nêu tập xác định, đạo hàm, các giới hạn ở hai phía điểm loại và hai đầu vô cực, tiệm cận, bảng biến thiên, giao điểm với các trục tọa độ và tâm đối xứng.
+
+
+#### Nhiệm vụ 18 — Khảo sát phân thức bậc hai {#K03 .zo-learning-task data-zo-type="task" data-zo-task="G04-K03" data-zo-function="function.test" data-zo-number="18"}
 
 Khảo sát và vẽ đồ thị $h(x)=\frac{x^2+3x}{x-1}$. Nêu đầy đủ các dữ kiện của sơ đồ khảo sát; xác định tâm đối xứng và mô tả cách xác định các trục đối xứng, không cần tìm phương trình các trục ấy.
 
 
-#### Nhiệm vụ 04 — Kết luận trong miền của mô hình {#K04 .zo-learning-task data-zo-type="task" data-zo-task="G04-K04" data-zo-function="function.test" data-zo-number="4"}
+#### Nhiệm vụ 19 — Kết luận trong tập đang xét của mô hình {#K04 .zo-learning-task data-zo-type="task" data-zo-task="G04-K04" data-zo-function="function.test" data-zo-number="19"}
 
-Một mô hình chi phí trung bình là $B(x)=5+\frac{18}{x}$ triệu đồng mỗi tấn, áp dụng với $3\le x\le9$ tấn. Tìm chiều biến thiên, giá trị lớn nhất và nhỏ nhất trên miền này. Nhận xét lời giải “đường tiệm cận ngang là $y=5$ nên chi phí trung bình nhỏ nhất là $5$ triệu đồng mỗi tấn”. Có thể dùng bài toán này để kết luận chi phí ở sản lượng $20$ tấn không?
+Một mô hình chi phí trung bình là $B(x)=5+\frac{18}{x}$ triệu đồng mỗi tấn, áp dụng với $3\le x\le9$ tấn. Tìm chiều biến thiên, giá trị lớn nhất và nhỏ nhất trên tập đang xét này. Nhận xét lời giải “đường tiệm cận ngang là $y=5$ nên chi phí trung bình nhỏ nhất là $5$ triệu đồng mỗi tấn”. Có thể dùng bài toán này để kết luận chi phí ở sản lượng $20$ tấn không?
 
-### Kết thúc lượt và đối chiếu kết quả {#CPK data-zo-type="checkpoint" data-r1-return-label="Kết thúc lượt và đối chiếu kết quả"}
+### Điểm dừng 04 — Kết thúc lượt và đối chiếu kết quả {#CPK data-zo-type="checkpoint" data-r1-return-label="Điểm dừng 04 — Kết thúc lượt và đối chiếu kết quả"}
 
 Lưu bài ban đầu, đánh dấu chỗ chưa làm; sau đó mới [Xem lời giải](#lg-kiem-tra).
 
@@ -660,15 +632,15 @@ Lưu bài ban đầu, đánh dấu chỗ chưa làm; sau đó mới [Xem lời g
 | Mục tiêu | Bằng chứng cần xem | Hỗ trợ sau khi đã kết thúc lượt |
 |---|---|---|
 | Tổ chức và kiểm các biểu diễn | Các nhiệm vụ khảo sát: điều kiện, bảng, hình nhất quán | [Sơ đồ khảo sát](#bh-01), rồi ý khảo sát đúng họ hàm ở Sửa lỗi |
-| Khảo sát bậc ba | Nhiệm vụ 01 | [Nhiệm vụ 03 của Sửa lỗi, ý b](#S03); ý a chỉ dùng nếu lỗi liên quan điểm đạo hàm bằng $0$ |
-| Phân thức bậc nhất | Nhiệm vụ 02 | [Nhiệm vụ 04 của Sửa lỗi, ý a](#S04) |
-| Phân thức bậc hai và đối xứng | Nhiệm vụ 03 | [Nhiệm vụ 04 của Sửa lỗi, ý b](#S04) |
-| Miền mô hình, giá trị đạt và đơn vị | Nhiệm vụ 04 | [Nhiệm vụ 04 của Sửa lỗi, ý d](#S04) |
+| Khảo sát bậc ba | Nhiệm vụ 16 | [Nhiệm vụ 25 của Sửa lỗi, ý b](#S03); ý a chỉ dùng nếu lỗi liên quan điểm đạo hàm bằng $0$ |
+| Phân thức bậc nhất | Nhiệm vụ 17 | [Nhiệm vụ 26 của Sửa lỗi, ý a](#S04) |
+| Phân thức bậc hai và đối xứng | Nhiệm vụ 18 | [Nhiệm vụ 26 của Sửa lỗi, ý b](#S04) |
+| Điều kiện của mô hình, giá trị đạt và đơn vị | Nhiệm vụ 19 | [Nhiệm vụ 26 của Sửa lỗi, ý d](#S04) |
 
 :::
-Với mỗi mục tiêu ghi: tự làm đúng; còn lỗi cụ thể; chưa có bằng chứng; hoặc đã có hỗ trợ. Kiểm tra này không lấy mẫu riêng trường hợp bậc ba không cực trị và phân thức bậc hai không cực trị: xem thêm bằng chứng tự làm phù hợp của Tự kiểm tra/Luyện tập; không suy rằng đúng ba hình ở đây là đúng mọi trường hợp.
+Với mỗi mục tiêu, ghi phần đã tự làm đúng, lỗi cụ thể còn mắc, phần chưa có bài làm để đối chiếu hoặc phần đã dùng trợ giúp. Bài Kiểm tra này chưa hỏi riêng hai trường hợp: hàm bậc ba không có cực trị và hàm phân thức bậc hai trên bậc nhất không có cực trị. Để nhận xét hai trường hợp ấy, xem thêm bài tự làm tương ứng trong Bài học hoặc Luyện tập; không suy rằng vẽ đúng các đồ thị trong bài Kiểm tra là đã làm đúng mọi trường hợp.
 
-Nếu lỗi thiết yếu đã được xác nhận đúng bằng câu phù hợp còn mới, ghi phần sửa riêng. Nếu chưa có bằng chứng phù hợp, giữ mục tiêu chưa xác nhận. Khi đủ điều kiện hoàn tất lượt chính, ghi ngày gốc và hẹn [Ôn lại](#on-lai); không bắt chờ hết các lượt ôn mới được học nội dung tiếp theo đủ tiên quyết.
+Nếu lỗi thiết yếu đã được xác nhận đúng bằng câu phù hợp chưa gặp trước đó, ghi phần sửa riêng. Nếu chưa có bằng chứng phù hợp, giữ mục tiêu chưa xác nhận. Khi đủ điều kiện hoàn tất lượt chính, ghi ngày gốc và hẹn [Ôn lại](#on-lai); không bắt chờ hết các lượt ôn mới được học nội dung tiếp theo đủ tiên quyết.
 
 ## Ôn lại {#on-lai}
 
@@ -678,62 +650,62 @@ Ghi ngày hẹn cụ thể tính từ ngày hoàn tất lượt chính. Các m�
 ::: {#g04-table-on-lai .table-scroll}
 | Ngày hẹn tính từ ngày hoàn tất lượt chính | Nhiệm vụ cần tự làm | Điểm dừng |
 |---|---|---|
-| Sau khoảng $2$–$3$ ngày | [Nhiệm vụ 01](#O01) | [Điểm dừng lượt 1](#CP-O01) |
-| Sau khoảng $7$ ngày | [Nhiệm vụ 02](#O02) | [Điểm dừng lượt 2](#CP-O02) |
-| Sau khoảng $3$–$4$ tuần | [Nhiệm vụ 03](#O03) | [Điểm dừng lượt 3](#CP-O03) |
+| Sau khoảng $2$–$3$ ngày | [Nhiệm vụ 20](#O01) | [Điểm dừng 05](#CP-O01) |
+| Sau khoảng $7$ ngày | [Nhiệm vụ 21](#O02) | [Điểm dừng 06](#CP-O02) |
+| Sau khoảng $3$–$4$ tuần | [Nhiệm vụ 22](#O03) | [Điểm dừng 07](#CP-O03) |
 :::
 
 ### Lượt 1 — Sau khoảng $2$–$3$ ngày {#on-luot-1 data-zo-context="round:1"}
 
-Lấy mẫu quy trình và đồ thị bậc ba.
 
-#### Nhiệm vụ 01 — Nhớ lại khảo sát bậc ba {#O01 .zo-learning-task data-zo-type="task" data-zo-task="G04-O01" data-zo-function="function.review" data-zo-number="1"}
 
-Không xem Bài học, lập bảng biến thiên và phác đồ thị $f(x)=x^3-6x^2+9x$. Ghi miền, đạo hàm/dấu, cực trị, giới hạn, giao trục và tâm đối xứng. Dùng bảng kiểm khảo sát do em tự nhớ trước khi mở lời giải.
+#### Nhiệm vụ 20 — Nhớ lại khảo sát bậc ba {#O01 .zo-learning-task data-zo-type="task" data-zo-task="G04-O01" data-zo-function="function.review" data-zo-number="20"}
+
+Không xem Bài học, lập bảng biến thiên và phác đồ thị $f(x)=x^3-6x^2+9x$. Ghi tập xác định, đạo hàm/dấu, cực trị, giới hạn, giao điểm với các trục tọa độ và tâm đối xứng. Dùng bảng kiểm khảo sát do em tự nhớ trước khi mở lời giải.
 
 [Xem lời giải](#lg-O01).
 
-#### Điểm dừng lượt 1 {#CP-O01 data-zo-type="checkpoint" data-r1-return-label="Điểm dừng lượt 1"}
+#### Điểm dừng 05 {#CP-O01 data-zo-type="checkpoint" data-r1-return-label="Điểm dừng 05"}
 
-Tự nhớ đủ quy trình, tính đúng và hình khớp thì ghi bằng chứng bậc ba sau khoảng trễ này. Nếu lỗi, xem [mục bậc ba](#bh-02), chọn [Nhiệm vụ 05 của Sửa lỗi, ý b](#S05) còn mới. Ý a xác nhận riêng trường hợp không có cực trị. Sau sửa quay về đây; không ghi đạt hai họ phân thức từ lượt này.
+Tự nhớ đủ quy trình, tính đúng và hình khớp thì ghi bằng chứng bậc ba sau khoảng trễ này. Nếu lỗi, xem [mục bậc ba](#bh-02), chọn [Nhiệm vụ 27 của Sửa lỗi, ý b](#S05) chưa gặp trước đó. Ý a xác nhận riêng trường hợp không có cực trị. Sau sửa quay về đây; không ghi đạt hai họ phân thức từ lượt này.
 
 ### Lượt 2 — Sau khoảng $7$ ngày {#on-luot-2 data-zo-context="round:2"}
 
-Lấy mẫu phân thức bậc nhất và đọc giá trị trên miền hữu hạn; ghi kết quả từng ý riêng.
 
-#### Nhiệm vụ 02 — Nhớ lại phân thức và miền mô hình {#O02 .zo-learning-task data-zo-type="task" data-zo-task="G04-O02" data-zo-function="function.review" data-zo-number="2"}
 
-a) Khảo sát và phác đồ thị $f(x)=2-\frac{4}{x+1}$; trình bày miền, đạo hàm, biến thiên, giới hạn, tiệm cận, giao trục và tâm.
+#### Nhiệm vụ 21 — Nhớ lại phân thức và điều kiện của mô hình {#O02 .zo-learning-task data-zo-type="task" data-zo-task="G04-O02" data-zo-function="function.review" data-zo-number="21"}
+
+a) Khảo sát và phác đồ thị $f(x)=2-\frac{4}{x+1}$; trình bày tập xác định, đạo hàm, biến thiên, giới hạn, tiệm cận, giao điểm với các trục tọa độ và tâm.
 
 b) Mô hình $A(x)=2+\frac{30}{x}$ triệu đồng mỗi tấn áp dụng trên $3\le x\le15$ tấn. Tìm giá trị lớn nhất, nhỏ nhất và giải thích vì sao không lấy $2$ làm giá trị nhỏ nhất.
 
 [Xem lời giải](#lg-O02).
 
-#### Điểm dừng lượt 2 {#CP-O02 data-zo-type="checkpoint" data-r1-return-label="Điểm dừng lượt 2"}
+#### Điểm dừng 06 {#CP-O02 data-zo-type="checkpoint" data-r1-return-label="Điểm dừng 06"}
 
-Nếu ý a sai, xem [phân thức bậc nhất](#bh-03), chọn [Nhiệm vụ 06 của Sửa lỗi, ý a](#S06) còn mới. Nếu ý b sai, xem [miền mô hình](#bh-05), chọn ý d của nhiệm vụ ấy. Sau hỗ trợ quay về đây, ghi đúng ý được xác nhận; không coi sửa ngay là bằng chứng nhớ lâu.
+Nếu ý a còn sai, xem lại [phân thức bậc nhất](#bh-03), rồi tự làm [Nhiệm vụ 28 của Sửa lỗi, ý a](#S06) nếu chưa gặp trước đó. Nếu ý b còn sai, xem lại [cách giải thích kết quả trong mô hình](#bh-05), rồi dùng ý d của nhiệm vụ ấy. Sau đó quay lại Điểm dừng này, ghi kết quả từng ý và trợ giúp đã dùng. Việc sửa đúng ngay sau khi xem lời giải chưa cho biết em còn nhớ cách làm sau một thời gian.
 
 ### Lượt 3 — Sau khoảng $3$–$4$ tuần {#on-luot-3 data-zo-context="round:3"}
 
-Lấy mẫu khảo sát phân thức bậc hai và sự phù hợp giữa cực trị, tiệm cận, đối xứng và hình.
 
-#### Nhiệm vụ 03 — Nhớ lại tiệm cận xiên và cực trị {#O03 .zo-learning-task data-zo-type="task" data-zo-task="G04-O03" data-zo-function="function.review" data-zo-number="3"}
 
-Khảo sát và phác đồ thị $h(x)=x+2+\frac{1}{x}$. Ghi miền, đạo hàm/dấu, cực trị, các giới hạn cần thiết, tiệm cận, bảng biến thiên, giao trục và tâm. Mô tả cách xác định trục đối xứng; không cần viết phương trình các trục.
+#### Nhiệm vụ 22 — Nhớ lại tiệm cận xiên và cực trị {#O03 .zo-learning-task data-zo-type="task" data-zo-task="G04-O03" data-zo-function="function.review" data-zo-number="22"}
+
+Khảo sát và phác đồ thị $h(x)=x+2+\frac{1}{x}$. Ghi tập xác định, đạo hàm/dấu, cực trị, các giới hạn cần thiết, tiệm cận, bảng biến thiên, giao điểm với các trục tọa độ và tâm. Mô tả cách xác định trục đối xứng; không cần viết phương trình các trục.
 
 [Xem lời giải](#lg-O03).
 
-#### Điểm dừng lượt 3 {#CP-O03 data-zo-type="checkpoint" data-r1-return-label="Điểm dừng lượt 3"}
+#### Điểm dừng 07 {#CP-O03 data-zo-type="checkpoint" data-r1-return-label="Điểm dừng 07"}
 
-Nếu còn lỗi, xem [phân thức bậc hai](#bh-04), chọn [Nhiệm vụ 06 của Sửa lỗi, ý b](#S06) còn mới. Ý c xác nhận trường hợp không cực trị, không thay bằng chứng trường hợp có cực trị ở ý b. Sau sửa quay về đây. Các lượt ôn chỉ chứng nhận mục tiêu đã lấy mẫu ở khoảng trễ thực tế; mục tiêu chưa được lấy mẫu hoặc câu đã lộ phải ghi rõ.
+Nếu còn lỗi, xem [phân thức bậc hai](#bh-04), rồi tự làm [Nhiệm vụ 28 của Sửa lỗi, ý b](#S06) nếu chưa gặp trước đó. Ý c kiểm trường hợp không có cực trị, không thay cho trường hợp có cực trị ở ý b. Sau khi sửa, quay lại Điểm dừng này và ghi phần em tự làm được, phần đã dùng hỗ trợ. Lượt ôn này kiểm tra cách khảo sát hàm phân thức bậc hai có cực trị; làm đúng bài này chưa cho biết kết quả ở mọi dạng hàm khác. Nếu vừa xem lời giải rồi làm lại, chưa thể dựa vào lần đó để kết luận mình còn nhớ sau một thời gian.
 
 ## Ôn nền {#on-nen}
 
-Chọn đúng thao tác đang vướng và ghi nhớ nhiệm vụ đã gọi. Các liên kết dưới mở phần nền đã có trong học liệu liên quan; không cần học lại cả học liệu. Làm câu tự kiểm ở đó chỉ khi còn mới; câu từng gặp không trở thành mới do được dẫn lại.
+Chọn đúng thao tác đang vướng và ghi nhớ nhiệm vụ đã gọi. Các liên kết dưới mở phần nền đã có trong học liệu liên quan; không cần học lại cả học liệu. Làm câu tự kiểm ở đó chỉ khi chưa gặp trước đó; câu từng gặp không trở thành mới do được dẫn lại.
 
 <details id="nen-mien" class="zo-learning-guidance r1-foundation-unit"><summary>Tập xác định và điểm bị loại</summary>
 
-Mở [Tập xác định và khoảng xét](../r1_g01/index.qmd?r1-view=on-nen&r1-return-page=r1_g04&r1-return=nen-mien&r1-return-view=on-nen&r1-return-label=T%E1%BA%ADp+x%C3%A1c+%C4%91%E1%BB%8Bnh+v%C3%A0+%C4%91i%E1%BB%83m+b%E1%BB%8B+lo%E1%BA%A1i#nen-n-txd-01). Giữ điều kiện của hàm gốc khi rút gọn. Sau tự kiểm, quay về [Khởi động — Miền trước và sau rút gọn](#KD01), hoặc đúng bước miền của bài đã gọi; kết quả câu nền không thay kết quả khảo sát.
+Mở [Tập xác định và khoảng xét](../r1_g01/index.qmd?r1-view=on-nen&r1-return-page=r1_g04&r1-return=nen-mien&r1-return-view=on-nen&r1-return-label=T%E1%BA%ADp+x%C3%A1c+%C4%91%E1%BB%8Bnh+v%C3%A0+%C4%91i%E1%BB%83m+b%E1%BB%8B+lo%E1%BA%A1i#nen-n-txd-01). Giữ điều kiện của hàm số ban đầu khi rút gọn. Sau khi ôn, quay về [Nhiệm vụ 01 của Khởi động](#KD01) nếu em mở thẻ từ đó; nếu đang làm một bài khảo sát khác, trở lại bước tìm tập xác định của bài ấy. Làm đúng câu ôn nền chỉ cho biết em đã làm được thao tác đó, chưa thay cho việc hoàn thành bài khảo sát.
 
 </details>
 
@@ -749,13 +721,13 @@ Trở về [Khởi động — Đạo hàm và dấu](#KD02) hoặc bước đ�
 
 Mở [Giới hạn một phía](../r1_g03/index.qmd?r1-view=on-nen&r1-return-page=r1_g04&r1-return=nen-gioi-han&r1-return-view=on-nen&r1-return-label=Gi%E1%BB%9Bi+h%E1%BA%A1n+v%C3%A0+gi%C3%A1+tr%E1%BB%8B+%C4%91%C6%B0%E1%BB%A3c+%C4%91%E1%BA%A1t#N-GH-02) khi nhầm hướng/dấu; [Giới hạn ở vô cực](../r1_g03/index.qmd?r1-view=on-nen&r1-return-page=r1_g04&r1-return=nen-gioi-han&r1-return-view=on-nen&r1-return-label=Gi%E1%BB%9Bi+h%E1%BA%A1n+v%C3%A0+gi%C3%A1+tr%E1%BB%8B+%C4%91%C6%B0%E1%BB%A3c+%C4%91%E1%BA%A1t#N-GH-03) khi bỏ một đầu hoặc thay vô cực như một số; [Cận và giá trị được đạt](../r1_g02/index.qmd?r1-view=on-nen&r1-return-page=r1_g04&r1-return=nen-gioi-han&r1-return-view=on-nen&r1-return-label=Gi%E1%BB%9Bi+h%E1%BA%A1n+v%C3%A0+gi%C3%A1+tr%E1%BB%8B+%C4%91%C6%B0%E1%BB%A3c+%C4%91%E1%BA%A1t#nen-n-gh-01) khi nhầm cận với giá trị nhỏ nhất.
 
-Chỉ dùng phần phù hợp với phân thức đang học, không cần làm nhánh căn của thẻ giới hạn ở vô cực. Trở về [Khởi động — Giới hạn có hướng](#KD03) hoặc bài đang gọi; nếu vướng mô hình, trở về [mục đọc đúng miền](#bh-05).
+Chỉ dùng phần phù hợp với phân thức đang học, không cần làm nhánh căn của thẻ giới hạn ở vô cực. Trở về [Khởi động — Giới hạn có hướng](#KD03) hoặc bài đang làm trước khi mở hỗ trợ; nếu vướng mô hình, trở về [mục đọc đúng tập đang xét](#bh-05).
 
 </details>
 
 <details id="nen-chia" class="zo-learning-guidance r1-foundation-unit"><summary>Biến đổi phân thức</summary>
 
-Mở [Biến đổi phân thức: giữ điều kiện, kiểm thương và dư](../r1_g03/index.qmd?r1-view=on-nen&r1-return-page=r1_g04&r1-return=nen-chia&r1-return-view=on-nen&r1-return-label=Bi%E1%BA%BFn+%C4%91%E1%BB%95i+ph%C3%A2n+th%E1%BB%A9c#N-DS-01). Ví dụ của thẻ cũng xuất hiện trong Khởi động để nối nền đã học; nếu đã xem, dùng nó để nhớ thao tác, không nhận là bằng chứng tự lực mới. Sau tự kiểm nền còn mới, quay về [Khởi động — Thương và phần dư](#KD04) hoặc bước chia của bài gốc. Cần kiểm giới hạn phần dư khi kết luận tiệm cận.
+Mở [Biến đổi phân thức: giữ điều kiện, kiểm thương và dư](../r1_g03/index.qmd?r1-view=on-nen&r1-return-page=r1_g04&r1-return=nen-chia&r1-return-view=on-nen&r1-return-label=Bi%E1%BA%BFn+%C4%91%E1%BB%95i+ph%C3%A2n+th%E1%BB%A9c#N-DS-01). Ví dụ của thẻ cũng xuất hiện trong Khởi động để nối nền đã học; nếu đã xem, dùng nó để nhớ thao tác, không nhận là bằng chứng tự lực mới. Sau tự kiểm nền chưa gặp trước đó, quay về [Khởi động — Thương và phần dư](#KD04) hoặc bước chia của bài gốc. Cần kiểm giới hạn phần dư khi kết luận tiệm cận.
 
 Khi mở thẻ ở học liệu khác, dùng liên kết “Quay lại” phía trên nội dung để về đúng nhiệm vụ hoặc thẻ nền đã gọi. Nếu liên kết này không hiện, dùng nút Quay lại của trình duyệt hoặc tab đang đọc, rồi về nhiệm vụ đã gọi ở trên.
 
@@ -763,57 +735,57 @@ Khi mở thẻ ở học liệu khác, dùng liên kết “Quay lại” phía 
 </details>
 ## Sửa lỗi {#sua-loi}
 
-Dùng sau khi đã tự làm và biết điều cần sửa; riêng Kiểm tra phải kết thúc lượt trước. Không cần làm tất cả các câu ở đây. Chọn theo **nơi phát hiện và mục tiêu thực sự sai**, xem lại đúng phần rồi tự làm ý phù hợp còn mới. Giữ bài ban đầu và ghi mức hỗ trợ.
+Dùng sau khi đã tự làm và biết điều cần sửa; riêng Kiểm tra phải kết thúc lượt trước. Không cần làm tất cả các câu ở đây. Chọn theo **nơi phát hiện và mục tiêu thực sự sai**, xem lại đúng phần rồi tự làm ý phù hợp chưa gặp trước đó. Giữ bài ban đầu và ghi mức hỗ trợ.
 
 ### Chọn đúng ý và nơi quay về {#chon-sua-loi}
 
 ::: {#g04-table-13 .table-scroll}
 | Nơi phát hiện | Lỗi cần kiểm lại | Nhiệm vụ xác nhận | Xem lại trước khi làm |
 |---|---|---|---|
-| Tự kiểm tra/Luyện tập | Điểm đạo hàm bằng $0$ không là cực trị | [Nhiệm vụ 01 — Bậc ba, ý a](#S01) | [Bậc ba không cực trị](#VD03) |
-| Tự kiểm tra/Luyện tập | Sơ đồ, bảng hoặc hình bậc ba | [Nhiệm vụ 01 — Bậc ba, ý b](#S01) | [Sơ đồ](#bh-01), [bậc ba](#bh-02) |
-| Tự kiểm tra/Luyện tập | Phân thức bậc nhất | [Nhiệm vụ 02 — Phân thức và miền, ý a](#S02) | [Mục phân thức bậc nhất](#bh-03) |
-| Tự kiểm tra/Luyện tập | Phân thức bậc hai có cực trị / không cực trị | [Nhiệm vụ 02 — Phân thức và miền, ý b / c](#S02) | [Mục phân thức bậc hai](#bh-04) |
-| Tự kiểm tra/Luyện tập | Miền mô hình, cận và giá trị đạt | [Nhiệm vụ 02 — Phân thức và miền, ý d](#S02) | [Miền mô hình](#bh-05) |
-| Sau Kiểm tra | Bậc ba: không cực trị / có cực trị | [Nhiệm vụ 03 — Bậc ba, ý a / b](#S03) | [Mục bậc ba](#bh-02) |
-| Sau Kiểm tra | Phân thức bậc nhất / bậc hai có cực trị / bậc hai không cực trị / miền mô hình | [Nhiệm vụ 04 — Phân thức và miền, ý a / b / c / d](#S04) | [Phân thức bậc nhất](#bh-03), [phân thức bậc hai](#bh-04), [miền mô hình](#bh-05) theo ý |
-| Sau Ôn lại | Bậc ba: điểm dừng / khảo sát đầy đủ | [Nhiệm vụ 05 — Bậc ba, ý a / b](#S05) | [Mục bậc ba](#bh-02) |
-| Sau Ôn lại | Phân thức bậc nhất / bậc hai có cực trị / bậc hai không cực trị / miền mô hình | [Nhiệm vụ 06 — Phân thức và miền, ý a / b / c / d](#S06) | [Phân thức bậc nhất](#bh-03), [phân thức bậc hai](#bh-04), [miền mô hình](#bh-05) theo ý |
+| Nhiệm vụ trong Bài học/Luyện tập | Điểm đạo hàm bằng $0$ không là cực trị | [Nhiệm vụ 23 — Bậc ba, ý a](#S01) | [Bậc ba không cực trị](#VD03) |
+| Nhiệm vụ trong Bài học/Luyện tập | Sơ đồ, bảng hoặc hình bậc ba | [Nhiệm vụ 23 — Bậc ba, ý b](#S01) | [Sơ đồ](#bh-01), [bậc ba](#bh-02) |
+| Nhiệm vụ trong Bài học/Luyện tập | Phân thức bậc nhất | [Nhiệm vụ 24 — Phân thức và bài toán thực tế, ý a](#S02) | [Mục phân thức bậc nhất](#bh-03) |
+| Nhiệm vụ trong Bài học/Luyện tập | Phân thức bậc hai có cực trị / không cực trị | [Nhiệm vụ 24 — Phân thức và bài toán thực tế, ý b / c](#S02) | [Mục phân thức bậc hai](#bh-04) |
+| Nhiệm vụ trong Bài học/Luyện tập | Điều kiện của mô hình, cận và giá trị đạt | [Nhiệm vụ 24 — Phân thức và bài toán thực tế, ý d](#S02) | [Điều kiện của mô hình](#bh-05) |
+| Sau Kiểm tra | Bậc ba: không cực trị / có cực trị | [Nhiệm vụ 25 — Bậc ba, ý a / b](#S03) | [Mục bậc ba](#bh-02) |
+| Sau Kiểm tra | Phân thức bậc nhất / bậc hai có cực trị / bậc hai không cực trị / điều kiện của mô hình | [Nhiệm vụ 26 — Phân thức và bài toán thực tế, ý a / b / c / d](#S04) | [Phân thức bậc nhất](#bh-03), [phân thức bậc hai](#bh-04), [điều kiện của mô hình](#bh-05) theo ý |
+| Sau Ôn lại | Bậc ba: điểm dừng / khảo sát đầy đủ | [Nhiệm vụ 27 — Bậc ba, ý a / b](#S05) | [Mục bậc ba](#bh-02) |
+| Sau Ôn lại | Phân thức bậc nhất / bậc hai có cực trị / bậc hai không cực trị / điều kiện của mô hình | [Nhiệm vụ 28 — Phân thức và bài toán thực tế, ý a / b / c / d](#S06) | [Phân thức bậc nhất](#bh-03), [phân thức bậc hai](#bh-04), [điều kiện của mô hình](#bh-05) theo ý |
 
 :::
-Các ý a, b, c của nhóm phân thức kiểm các trường hợp khác nhau; mỗi ý có bảng và hình để đối chiếu. Đúng một ý không tự xác nhận ý còn lại. Chỉ chọn ý khớp lỗi và còn mới.
+Các ý a, b, c của nhóm phân thức kiểm các trường hợp khác nhau; mỗi ý có bảng và hình để đối chiếu. Đúng một ý không tự xác nhận ý còn lại. Chỉ chọn ý khớp lỗi và chưa gặp trước đó.
 
-### Khi câu phù hợp đã lộ hoặc vẫn chưa đúng {#het-bai-moi}
+### Khi câu phù hợp đã gặp trước đó hoặc vẫn chưa đúng {#het-bai-moi}
 
-Câu đã xem đề/lời giải hoặc làm với hỗ trợ được dùng để học lại, không nhận là xác nhận độc lập mới. Không lấy trước câu Kiểm tra, câu của lượt Ôn lại sau hoặc bài dành cho nơi phát hiện khác. Nếu hết câu phù hợp còn mới, ghi mục tiêu chưa xác nhận và đề nghị người hướng dẫn cung cấp câu tương đương; không tự ghi “đã đạt”. Nếu vẫn sai, trở lại đúng mục học/thao tác nền, ghi điểm còn vướng và nơi cần tiếp tục.
+Bài đã gặp trước đây vẫn có thể dùng để ôn cách làm, nhưng không được coi là một bài mới để tự kiểm tra. Nếu đã biết lời giải hoặc đã làm bài với trợ giúp, hãy ghi rõ điều đó; không tính lần làm lại là kết quả tự giải một bài mới. Không làm trước bài Kiểm tra, bài của lượt Ôn lại sau hoặc bài Sửa lỗi dành cho phần học khác chỉ để thay một bài đã gặp. Khi không còn bài phù hợp để kiểm tra thêm, ghi “Chưa có bài mới để xác nhận thêm ở mục tiêu này”, xem lại phần đang vướng và tiếp tục nội dung khác mà em đã đủ kiến thức.
 
 ### Sau Luyện tập {#sua-sau-luyen data-zo-context="after:area.practice"}
 
-#### Nhiệm vụ 01 — Bậc ba {#S01 .zo-learning-task data-zo-type="task" data-zo-task="G04-S01" data-zo-function="function.remediation" data-zo-number="1"}
+#### Nhiệm vụ 23 — Bậc ba {#S01 .zo-learning-task data-zo-type="task" data-zo-task="G04-S01" data-zo-function="function.remediation" data-zo-number="23"}
 
 a) Khảo sát và phác đồ thị $p(x)=-(x+2)^3+5$ theo đủ sơ đồ. Đặc biệt giải thích vì sao điểm có đạo hàm bằng $0$ không là cực trị. So sánh thêm với $q(x)=x^3+2x$: vì sao $q$ cũng không có cực trị nhưng không có điểm đạo hàm bằng $0$? Không cần khảo sát đầy đủ $q$.
 
-b) Khảo sát và phác đồ thị $f(x)=x^3+3x^2-4$: miền, đạo hàm/dấu, cực trị, giới hạn, bảng biến thiên, giao trục và tâm.
+b) Khảo sát và phác đồ thị $f(x)=x^3+3x^2-4$: tập xác định, đạo hàm/dấu, cực trị, giới hạn, bảng biến thiên, giao điểm với các trục tọa độ và tâm.
 
 [Xem lời giải](#lg-S01).
 
-#### Nhiệm vụ 02 — Phân thức và miền {#S02 .zo-learning-task data-zo-type="task" data-zo-task="G04-S02" data-zo-function="function.remediation" data-zo-number="2"}
+#### Nhiệm vụ 24 — Phân thức và bài toán thực tế {#S02 .zo-learning-task data-zo-type="task" data-zo-task="G04-S02" data-zo-function="function.remediation" data-zo-number="24"}
 
-a) Khảo sát và vẽ $f(x)=2-\frac{4}{x+2}$ theo đủ sơ đồ: miền, đạo hàm, giới hạn, biến thiên, tiệm cận, giao trục, tâm và các trục đối xứng.
+a) Khảo sát và vẽ $f(x)=2-\frac{4}{x+2}$ theo đủ sơ đồ: tập xác định, đạo hàm, giới hạn, biến thiên, tiệm cận, giao điểm với các trục tọa độ, tâm và các trục đối xứng.
 
 b) Khảo sát và vẽ $h(x)=x+3+\frac{1}{x+1}$ theo đủ sơ đồ; mô tả các trục đối xứng.
 
 c) Khảo sát và vẽ $v(x)=x+3-\frac{1}{x+1}$ theo đủ sơ đồ; mô tả các trục đối xứng.
 
-d) Mô hình $A(x)=1+\frac{20}{x}$ triệu đồng mỗi tấn áp dụng với $x\ge2$ tấn. Tìm giá trị lớn nhất, giải thích có hay không giá trị nhỏ nhất. Xét lại nếu miền là $[2;10]$.
+d) Mô hình $A(x)=1+\frac{20}{x}$ triệu đồng mỗi tấn áp dụng với $x\ge2$ tấn. Tìm giá trị lớn nhất, giải thích có hay không giá trị nhỏ nhất. Xét lại nếu tập đang xét là $[2;10]$.
 
 [Xem lời giải](#lg-S02).
 
-**Sau đối chiếu:** ghi đúng ý đã xác nhận, trở về [Tự kiểm tra 01](#T01), [02](#T02), [03](#T03), [04](#T04), [05](#T05), hoặc [Điểm dừng 01](#CP01), [Điểm dừng 02](#CP02) đã gọi. Không tự chọn một nơi khác để bỏ qua tiêu chí còn thiếu.
+**Sau đối chiếu:** ghi đúng ý đã xác nhận, trở về [Nhiệm vụ 05](#T01), [06](#T02), [07](#T03), [08](#T04), [09](#T05), hoặc [Điểm dừng 02](#CP01), [Điểm dừng 03](#CP02) đã gọi. Không tự chọn một nơi khác để bỏ qua tiêu chí còn thiếu.
 
 ### Sau Kiểm tra {#sua-sau-kiem data-zo-context="after:area.test"}
 
-#### Nhiệm vụ 03 — Bậc ba {#S03 .zo-learning-task data-zo-type="task" data-zo-task="G04-S03" data-zo-function="function.remediation" data-zo-number="3"}
+#### Nhiệm vụ 25 — Bậc ba {#S03 .zo-learning-task data-zo-type="task" data-zo-task="G04-S03" data-zo-function="function.remediation" data-zo-number="25"}
 
 a) Khảo sát và phác đồ thị $p(x)=-(x-2)^3+3$ theo đủ sơ đồ. Đặc biệt giải thích vì sao điểm có đạo hàm bằng $0$ không là cực trị.
 
@@ -821,9 +793,9 @@ b) Khảo sát và phác đồ thị $f(x)=-x^3-3x^2+4$ theo đủ sơ đồ. D�
 
 [Xem lời giải](#lg-S03).
 
-#### Nhiệm vụ 04 — Phân thức và miền {#S04 .zo-learning-task data-zo-type="task" data-zo-task="G04-S04" data-zo-function="function.remediation" data-zo-number="4"}
+#### Nhiệm vụ 26 — Phân thức và bài toán thực tế {#S04 .zo-learning-task data-zo-type="task" data-zo-task="G04-S04" data-zo-function="function.remediation" data-zo-number="26"}
 
-a) Khảo sát và vẽ $f(x)=3+\frac{3}{x-1}$ theo đủ sơ đồ: miền, đạo hàm, giới hạn, biến thiên, tiệm cận, giao trục, tâm và các trục đối xứng.
+a) Khảo sát và vẽ $f(x)=3+\frac{3}{x-1}$ theo đủ sơ đồ: tập xác định, đạo hàm, giới hạn, biến thiên, tiệm cận, giao điểm với các trục tọa độ, tâm và các trục đối xứng.
 
 b) Khảo sát và vẽ $h(x)=x+2+\frac{4}{x+2}$ theo đủ sơ đồ; mô tả các trục đối xứng.
 
@@ -837,17 +809,17 @@ d) Mô hình $A(x)=4+\frac{24}{x}$ triệu đồng mỗi tấn áp dụng với 
 
 ### Sau Ôn lại {#sua-sau-on data-zo-context="after:area.review"}
 
-#### Nhiệm vụ 05 — Bậc ba {#S05 .zo-learning-task data-zo-type="task" data-zo-task="G04-S05" data-zo-function="function.remediation" data-zo-number="5"}
+#### Nhiệm vụ 27 — Bậc ba {#S05 .zo-learning-task data-zo-type="task" data-zo-task="G04-S05" data-zo-function="function.remediation" data-zo-number="27"}
 
 a) Khảo sát và phác đồ thị $p(x)=(x-1)^3-2$ theo đủ sơ đồ. Đặc biệt giải thích vì sao điểm có đạo hàm bằng $0$ không là cực trị.
 
-b) Khảo sát và phác đồ thị $f(x)=x^3+6x^2+9x$ theo đủ sơ đồ. Dùng đúng ý còn mới theo trường hợp cần xác nhận sau khoảng trễ.
+b) Khảo sát và phác đồ thị $f(x)=x^3+6x^2+9x$ theo đủ sơ đồ. Dùng đúng ý chưa gặp trước đó theo trường hợp cần xác nhận sau khoảng trễ.
 
 [Xem lời giải](#lg-S05).
 
-#### Nhiệm vụ 06 — Phân thức và miền {#S06 .zo-learning-task data-zo-type="task" data-zo-task="G04-S06" data-zo-function="function.remediation" data-zo-number="6"}
+#### Nhiệm vụ 28 — Phân thức và bài toán thực tế {#S06 .zo-learning-task data-zo-type="task" data-zo-task="G04-S06" data-zo-function="function.remediation" data-zo-number="28"}
 
-a) Khảo sát và vẽ $f(x)=1-\frac{3}{x+2}$ theo đủ sơ đồ: miền, đạo hàm, giới hạn, biến thiên, tiệm cận, giao trục, tâm và các trục đối xứng.
+a) Khảo sát và vẽ $f(x)=1-\frac{3}{x+2}$ theo đủ sơ đồ: tập xác định, đạo hàm, giới hạn, biến thiên, tiệm cận, giao điểm với các trục tọa độ, tâm và các trục đối xứng.
 
 b) Khảo sát và vẽ $h(x)=x-1+\frac{1}{x-2}$ theo đủ sơ đồ; mô tả các trục đối xứng.
 
@@ -857,7 +829,7 @@ d) Mô hình $A(x)=2+\frac{36}{x}$ triệu đồng mỗi tấn áp dụng với 
 
 [Xem lời giải](#lg-S06).
 
-**Sau đối chiếu:** trở về [Điểm dừng lượt 1](#CP-O01), [lượt 2](#CP-O02) hoặc [lượt 3](#CP-O03) đã gọi. Ghi khoảng trễ thực tế và phần hỗ trợ; nếu tái lỗi, hẹn kiểm riêng lỗi ấy ở buổi sau, không ghi nhớ bền chỉ vì vừa sửa đúng.
+**Sau đối chiếu:** trở về [Điểm dừng 05](#CP-O01), [Điểm dừng 06](#CP-O02) hoặc [Điểm dừng 07](#CP-O03) đã gọi. Ghi khoảng trễ thực tế và phần hỗ trợ; nếu tái lỗi, hẹn kiểm riêng lỗi ấy ở buổi sau, không ghi nhớ bền chỉ vì vừa sửa đúng.
 
 ## Nhật kí {#nhat-ky}
 
@@ -867,7 +839,7 @@ Dùng khi cần lưu kết quả, lỗi, mức hỗ trợ, lịch hẹn hoặc �
 
 {{< include ../_dung_chung/nhat_ki_hoc_tap.qmd >}}
 
-Ghi tên nội dung và lỗi bằng lời có nghĩa; chỉ ghi mã lỗi/Nền khi hệ đang dùng có mã phù hợp. “Đã xác nhận lỗi này trong lượt” khác với “nhớ sau khoảng trễ”. Nếu câu đã lộ hoặc chưa có câu xác nhận phù hợp, ghi rõ; đừng đổi thành đạt chỉ vì đã sửa bài gốc.
+Ghi tên nội dung và lỗi bằng lời có nghĩa; chỉ ghi mã lỗi/Nền khi hệ đang dùng có mã phù hợp. “Đã xác nhận lỗi này trong lượt” khác với “nhớ sau khoảng trễ”. Nếu câu đã gặp trước đó hoặc chưa có câu xác nhận phù hợp, ghi rõ; đừng đổi thành đạt chỉ vì đã sửa bài gốc.
 
 ## Lời giải {#loi-giai}
 
@@ -877,12 +849,12 @@ Mở sau khi đã tự làm. Mỗi lời giải có đường trở về đúng 
 
 #### Khởi động {#lg-khoi-dong}
 
-##### Nhiệm vụ 01 — Miền trước và sau rút gọn {#lg-KD01}
+##### Nhiệm vụ 01 — Tập xác định trước và sau rút gọn {#lg-KD01}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
 
-$D=\mathbb R\setminus\{3\}$. Trên miền ấy, $r(x)=x+3$. Điểm $(3;6)$ không thuộc đồ thị vì công thức ban đầu không xác định tại $3$. Tiêu chí: giữ điều kiện trong cả phép biến đổi và hình; không coi rút gọn là quyền mở rộng miền.
+$D=\mathbb R\setminus\{3\}$. Trên tập xác định ấy, $r(x)=x+3$. Điểm $(3;6)$ không thuộc đồ thị vì công thức ban đầu không xác định tại $3$. Tiêu chí: giữ điều kiện trong cả phép biến đổi và hình; không coi rút gọn là quyền mở rộng tập xác định.
 
 </details>
 
@@ -893,7 +865,7 @@ $D=\mathbb R\setminus\{3\}$. Trên miền ấy, $r(x)=x+3$. Điểm $(3;6)$ khô
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
 
-$p^\prime(x)=3x^2-12=3(x-2)(x+2)$. Dấu lần lượt là $+$, $-$, $+$ trên $(-\infty;-2)$, $(-2;2)$, $(2;+\infty)$. Cực đại tại $x=-2$, cực tiểu tại $x=2$. Trước kết luận, kiểm điểm thuộc miền và đạo hàm đổi dấu qua điểm ấy. Nếu chỉ tìm được hai nghiệm đạo hàm mà chưa xét dấu, kết luận chưa đủ căn cứ.
+$p^\prime(x)=3x^2-12=3(x-2)(x+2)$. Dấu lần lượt là $+$, $-$, $+$ trên $(-\infty;-2)$, $(-2;2)$, $(2;+\infty)$. Cực đại tại $x=-2$, cực tiểu tại $x=2$. Trước kết luận, kiểm tra giá trị đang xét có thuộc tập xác định hay không và đạo hàm đổi dấu qua điểm ấy. Nếu chỉ tìm được hai nghiệm của phương trình đạo hàm bằng $0$ mà chưa xét dấu, kết luận chưa đủ căn cứ.
 
 </details>
 
@@ -923,20 +895,20 @@ Với $x\ne-1$,
 $$
 \frac{x^2+2x+5}{x+1}=x+1+\frac{4}{x+1},
 $$
-vì $(x+1)(x+1)+4=x^2+2x+5$. Tiêu chí: phần dư là $4$, giữ mẫu và điều kiện; nhân ngược khớp tử ban đầu.
+vì $(x+1)(x+1)+4=x^2+2x+5$. Bài làm cần có phần dư $4$, giữ mẫu số và điều kiện xác định. Khi lấy mẫu nhân với thương rồi cộng phần dư, kết quả phải đúng bằng tử số ban đầu.
 
 </details>
 
 [Xem đề bài](#KD04).
 
-#### Tự kiểm tra {#lg-tu-kiem-tra}
+#### Nhiệm vụ trong Bài học {#lg-tu-kiem-tra}
 
-##### Tự kiểm tra 01 — Tìm mâu thuẫn trước khi nối nét {#lg-T01}
+##### Nhiệm vụ 05 — Tìm mâu thuẫn trước khi nối nét {#lg-T01}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
 
-$h(0)=-1$, nên đồ thị đi qua $(0;-1)$, không qua $O$. Các kết quả về miền, đạo hàm và đồng biến đã đúng.
+$h(0)=-1$, nên đồ thị đi qua $(0;-1)$, không qua $O$. Các kết quả về tập xác định, đạo hàm và đồng biến đã đúng.
 $$
 \lim_{x\to-\infty}h(x)=-\infty,\qquad\lim_{x\to+\infty}h(x)=+\infty.
 $$
@@ -946,12 +918,12 @@ Hàm không có cực trị vì đạo hàm dương trên $\mathbb R$. Tiêu ch�
 
 [Xem đề bài](#T01).
 
-##### Tự kiểm tra 02 — Một điểm dừng không đổi chiều {#lg-T02}
+##### Nhiệm vụ 06 — Một điểm dừng không đổi chiều {#lg-T02}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
 
-Miền $\mathbb R$; $p^\prime(x)=-3(x-1)^2$. Đạo hàm âm hai phía của $1$, bằng $0$ tại $1$; hàm nghịch biến trên $\mathbb R$, không có cực trị.
+Tập xác định $\mathbb R$; $p^\prime(x)=-3(x-1)^2$. Đạo hàm âm hai phía của $1$, bằng $0$ tại $1$; hàm nghịch biến trên $\mathbb R$, không có cực trị.
 $$
 \lim_{x\to-\infty}p(x)=+\infty,\qquad\lim_{x\to+\infty}p(x)=-\infty.
 $$
@@ -968,7 +940,7 @@ Tâm $I(1;2)$; các điểm kiểm $(0;3)$, $(2;1)$. Không có tiệm cận. H�
 
 [Xem đề bài](#T02).
 
-##### Tự kiểm tra 03 — Hai nhánh đồng biến {#lg-T03}
+##### Nhiệm vụ 07 — Hai nhánh đồng biến {#lg-T03}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -983,15 +955,15 @@ $$
 
 ::: {#g04-table-15 .zo-native-bbt data-bbt="g04-table-15"}
 :::
-Tiệm cận $x=-2$, $y=1$, tâm $I(-2;1)$. Giao cả hai trục tại $O$. Hai đường phân giác $y-1=\pm(x+2)$ là trục đối xứng. Không nối qua $-2$ vì điểm này không thuộc miền; các giới hạn còn cho thấy hai nhánh đi về hai phía vô cực.
+Tiệm cận $x=-2$, $y=1$, tâm $I(-2;1)$. Giao cả hai trục tại $O$. Hai đường phân giác $y-1=\pm(x+2)$ là trục đối xứng. Không nối qua $-2$ vì điểm này không thuộc tập xác định; các giới hạn còn cho thấy hai nhánh đi về hai phía vô cực.
 
-![Hai nhánh đồng biến của phân thức, điểm giao trục ở gốc tọa độ.](giao_dien/assets/figures_0_4/T03.svg)
+![Hai nhánh đồng biến của phân thức, điểm giao điểm với các trục tọa độ ở gốc tọa độ.](giao_dien/assets/figures_0_4/T03.svg)
 
 </details>
 
 [Xem đề bài](#T03).
 
-##### Tự kiểm tra 04 — Kiểm lại dấu của phần dư {#lg-T04}
+##### Nhiệm vụ 08 — Kiểm lại dấu của phần dư {#lg-T04}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -1023,16 +995,16 @@ Nhánh trái nằm trên đường xiên, nhánh phải nằm dưới. Tiêu ch�
 
 [Xem đề bài](#T04).
 
-##### Tự kiểm tra 05 — Giữ miền khi đọc chi phí {#lg-T05}
+##### Nhiệm vụ 09 — Chi phí trên hai tập đang xét {#lg-T05}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
 
-$B^\prime(x)=-\frac{18}{x^2}<0$ trên miền $x\ge2$. Giá trị lớn nhất $B(2)=13$, đơn vị triệu đồng mỗi tấn.
+$B^\prime(x)=-\frac{18}{x^2}<0$ trên tập đang xét $x\ge2$. Giá trị lớn nhất $B(2)=13$, đơn vị triệu đồng mỗi tấn.
 $$
 \lim_{x\to+\infty}B(x)=4,\qquad B(x)>4.
 $$
-Không có giá trị nhỏ nhất trên $[2;+\infty)$: với mỗi $x$, chọn khối lượng lớn hơn thì $B$ nhỏ hơn. Trên $[2;6]$, giá trị nhỏ nhất là $B(6)=7$, đạt tại $6$. Tiêu chí: hai miền cho hai kết luận khác nhau, không gọi $4$ là giá trị nhỏ nhất.
+Không có giá trị nhỏ nhất trên $[2;+\infty)$: với mỗi $x$, chọn khối lượng lớn hơn thì $B$ nhỏ hơn. Trên $[2;6]$, giá trị nhỏ nhất là $B(6)=7$, đạt tại $6$. Tiêu chí: hai tập đang xét cho hai kết luận khác nhau, không gọi $4$ là giá trị nhỏ nhất.
 
 </details>
 
@@ -1040,19 +1012,19 @@ Không có giá trị nhỏ nhất trên $[2;+\infty)$: với mỗi $x$, chọn 
 
 ### Luyện tập {#lg-luyen-tap}
 
-#### Nhiệm vụ 01 — Khảo sát một hàm bậc ba {#lg-L01}
+#### Nhiệm vụ 10 — Khảo sát một hàm bậc ba {#lg-L01}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
 
-Miền $\mathbb R$; $f^\prime(x)=3x(x-2)$. Dấu $+$, $-$, $+$; cực đại $(0;4)$, cực tiểu $(2;0)$.
+Tập xác định là $\mathbb R$. Ta có $f^\prime(x)=3x(x-2)$. Hàm số đồng biến trên $(-\infty;0)$ và $(2;+\infty)$, nghịch biến trên $(0;2)$. Hàm đạt cực đại tại $x=0$, giá trị cực đại bằng $4$; đạt cực tiểu tại $x=2$, giá trị cực tiểu bằng $0$. Các điểm cực trị tương ứng của đồ thị là $(0;4)$ và $(2;0)$.
 $$
 \lim_{x\to-\infty}f(x)=-\infty,\qquad\lim_{x\to+\infty}f(x)=+\infty.
 $$
 
 ::: {#g04-table-17 .zo-native-bbt data-bbt="g04-table-17"}
 :::
-Dấu đạo hàm bằng $0$ tại $0$, $2$; dấu trên các khoảng là dấu đã ghi ở trên. $f(x)=(x+1)(x-2)^2$, nên giao trục hoành tại $(-1;0)$, $(2;0)$; giao trục tung tại $(0;4)$. Tâm $I(1;2)$; không có tiệm cận. Đồ thị đi qua trục hoành tại $-1$, chạm rồi đổi chiều tại $2$.
+Dấu đạo hàm bằng $0$ tại $0$, $2$; dấu trên các khoảng là dấu đã ghi ở trên. $f(x)=(x+1)(x-2)^2$, nên giao điểm với trục hoành tại $(-1;0)$, $(2;0)$; giao điểm với trục tung tại $(0;4)$. Tâm $I(1;2)$; không có tiệm cận. Đồ thị đi qua trục hoành tại $-1$, chạm rồi đổi chiều tại $2$.
 
 ![Đồ thị bậc ba với hai cực trị và tâm ở giữa chúng.](giao_dien/assets/figures_0_4/L01.svg)
 
@@ -1062,7 +1034,7 @@ Tiêu chí: không nhầm hai nghiệm của hàm với hai hoành độ cực t
 
 [Xem đề bài](#L01).
 
-#### Nhiệm vụ 02 — Không có cực trị theo hai cách {#lg-L02}
+#### Nhiệm vụ 11 — Không có cực trị theo hai cách {#lg-L02}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -1074,7 +1046,7 @@ $q^\prime(x)=3x^2+3>0$ trên $\mathbb R$, nên $q$ cũng đồng biến, không 
 
 [Xem đề bài](#L02).
 
-#### Nhiệm vụ 03 — Khảo sát phân thức với hai nhánh tăng {#lg-L03}
+#### Nhiệm vụ 12 — Khảo sát phân thức với hai nhánh tăng {#lg-L03}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -1087,7 +1059,7 @@ $$
 
 ::: {#g04-table-18 .zo-native-bbt data-bbt="g04-table-18"}
 :::
-Tiệm cận $x=2$, $y=3$; tâm $I(2;3)$; các trục đối xứng $y-3=\pm(x-2)$. Giao trục hoành $\left(\frac{8}{3};0\right)$, trục tung $(0;4)$.
+Tiệm cận $x=2$, $y=3$; tâm $I(2;3)$; các trục đối xứng $y-3=\pm(x-2)$. Đồ thị giao với trục hoành $\left(\frac{8}{3};0\right)$, trục tung $(0;4)$.
 
 ![Hai nhánh phân thức tăng về tiệm cận đứng và ngang đúng hướng.](giao_dien/assets/figures_0_4/L03.svg)
 
@@ -1095,7 +1067,7 @@ Tiệm cận $x=2$, $y=3$; tâm $I(2;3)$; các trục đối xứng $y-3=\pm(x-2
 
 [Xem đề bài](#L03).
 
-#### Nhiệm vụ 04 — Khảo sát phân thức có tiệm cận xiên {#lg-L04}
+#### Nhiệm vụ 13 — Khảo sát phân thức có tiệm cận xiên {#lg-L04}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -1118,7 +1090,7 @@ $$
 
 ::: {#g04-table-19 .zo-native-bbt data-bbt="g04-table-19"}
 :::
-Đạo hàm bằng $0$ tại $-2$, $2$. Tiệm cận $x=0$, $y=x+2$; tâm $I(0;2)$. Tử $(x+1)^2+3>0$, nên không giao trục hoành; không có điểm trên trục tung vì $0$ bị loại. Hai trục đối xứng là hai phân giác của hai tiệm cận.
+Đạo hàm bằng $0$ tại $-2$, $2$. Tiệm cận $x=0$, $y=x+2$; tâm $I(0;2)$. Tử $(x+1)^2+3>0$, nên không giao điểm với trục hoành; không có điểm trên trục tung vì $0$ bị loại. Hai trục đối xứng là hai phân giác của hai tiệm cận.
 
 ![Hai nhánh của phân thức có hai cực trị, không giao các trục tọa độ.](giao_dien/assets/figures_0_4/L04.svg)
 
@@ -1128,7 +1100,7 @@ Cực trị là so sánh trong lân cận; hai cực trị thuộc hai nhánh kh
 
 [Xem đề bài](#L04).
 
-#### Nhiệm vụ 05 — Dấu trừ làm thay đổi hai nhánh {#lg-L05}
+#### Nhiệm vụ 14 — Dấu trừ làm thay đổi hai nhánh {#lg-L05}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -1147,7 +1119,7 @@ $$
 
 ::: {#g04-table-20 .zo-native-bbt data-bbt="g04-table-20"}
 :::
-Tiệm cận $x=-1$, $y=x-2$; tâm $I(-1;-3)$. Giao trục tung $(0;-3)$; giao trục hoành $\left(\frac{1-\sqrt{13}}{2};0\right)$, $\left(\frac{1+\sqrt{13}}{2};0\right)$. Hai phân giác của tiệm cận là các trục đối xứng. Nhánh trái nằm trên đường xiên, nhánh phải nằm dưới.
+Tiệm cận $x=-1$, $y=x-2$; tâm $I(-1;-3)$. Đồ thị giao với trục tung $(0;-3)$; giao điểm với trục hoành $\left(\frac{1-\sqrt{13}}{2};0\right)$, $\left(\frac{1+\sqrt{13}}{2};0\right)$. Hai phân giác của tiệm cận là các trục đối xứng. Nhánh trái nằm trên đường xiên, nhánh phải nằm dưới.
 
 ![Phân thức có phần dư âm, không cực trị, hai nhánh đều tăng.](giao_dien/assets/figures_0_4/L05.svg)
 
@@ -1155,7 +1127,7 @@ Tiệm cận $x=-1$, $y=x-2$; tâm $I(-1;-3)$. Giao trục tung $(0;-3)$; giao t
 
 [Xem đề bài](#L05).
 
-#### Nhiệm vụ 06 — Đồ thị chỉ trên miền sản xuất {#lg-L06}
+#### Nhiệm vụ 15 — Đồ thị chỉ trên khoảng sản lượng được phép {#lg-L06}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -1168,7 +1140,7 @@ Giá trị lớn nhất $15$, đạt tại $2$ tấn; nhỏ nhất $6$, đạt t
 
 ![Phần đồ thị giảm trên đoạn sản lượng, hai đầu mút kín.](giao_dien/assets/figures_0_4/L06.svg)
 
-Miền $[2;8]$ không cho $x\to+\infty$, nên không dùng tiệm cận ngang của một hàm mở rộng để kết luận cho đồ thị bị giới hạn này. Câu đã nêu sai cả cách lấy miền lẫn sự đạt được.
+Đề bài chỉ xét $x\in[2;8]$, nên không xét $x\to+\infty$ cho đồ thị này. Đường tiệm cận ngang của hàm số mở rộng ngoài đoạn không xác định giá trị nhỏ nhất trên $[2;8]$. Cần so sánh các giá trị trên chính đoạn đã cho và kiểm tra nơi đạt được.
 
 </details>
 
@@ -1176,19 +1148,19 @@ Miền $[2;8]$ không cho $x\to+\infty$, nên không dùng tiệm cận ngang c�
 
 ### Kiểm tra {#lg-kiem-tra}
 
-#### Nhiệm vụ 01 — Khảo sát hàm bậc ba {#lg-K01}
+#### Nhiệm vụ 16 — Khảo sát hàm bậc ba {#lg-K01}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
 
-Miền $\mathbb R$; $f^\prime(x)=-3x(x-2)$. Dấu đạo hàm trên ba khoảng chia bởi $0$, $2$ lần lượt là $-$, $+$, $-$; bằng $0$ tại hai mốc. Cực tiểu $(0;0)$, cực đại $(2;4)$.
+Tập xác định $\mathbb R$; $f^\prime(x)=-3x(x-2)$. Dấu đạo hàm trên ba khoảng chia bởi $0$, $2$ lần lượt là $-$, $+$, $-$; bằng $0$ tại hai mốc. Hàm số đạt cực tiểu tại $x=0$, giá trị cực tiểu bằng $0$; điểm cực tiểu của đồ thị là $(0;0)$, hàm số đạt cực đại tại $x=2$, giá trị cực đại bằng $4$; điểm cực đại của đồ thị là $(2;4)$.
 $$
 \lim_{x\to-\infty}f(x)=+\infty,\qquad \lim_{x\to+\infty}f(x)=-\infty.
 $$
 
 ::: {#g04-table-22 .zo-native-bbt data-bbt="g04-table-22"}
 :::
-Vì $f(x)=x^2(3-x)$, giao trục hoành tại $(0;0)$, $(3;0)$; giao trục tung tại $(0;0)$. Tâm $I(1;2)$; không có tiệm cận. Đồ thị chạm trục hoành tại $0$, đi qua tại $3$.
+Vì $f(x)=x^2(3-x)$, giao điểm với trục hoành tại $(0;0)$, $(3;0)$; giao điểm với trục tung tại $(0;0)$. Tâm $I(1;2)$; không có tiệm cận. Đồ thị chạm trục hoành tại $0$, đi qua tại $3$.
 
 ![Đồ thị bậc ba có cực tiểu tại gốc tọa độ.](giao_dien/assets/figures_0_4/K01.svg)
 
@@ -1198,12 +1170,12 @@ Tiêu chí đối chiếu: đủ dữ kiện khảo sát, đúng chiều ở c�
 
 [Xem đề bài](#K01).
 
-#### Nhiệm vụ 02 — Khảo sát phân thức bậc nhất {#lg-K02}
+#### Nhiệm vụ 17 — Khảo sát phân thức bậc nhất {#lg-K02}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
 
-Ta có $f(x)=1+\frac{2}{x+1}$, miền $\mathbb R\setminus\{-1\}$ và $f^\prime(x)=-\frac{2}{(x+1)^2}<0$. Hàm nghịch biến trên từng khoảng $(-\infty;-1)$, $(-1;+\infty)$, không có cực trị.
+Ta có $f(x)=1+\frac{2}{x+1}$, tập xác định $\mathbb R\setminus\{-1\}$ và $f^\prime(x)=-\frac{2}{(x+1)^2}<0$. Hàm nghịch biến trên từng khoảng $(-\infty;-1)$, $(-1;+\infty)$, không có cực trị.
 $$
 \lim_{x\to-1^-}f(x)=-\infty,\qquad \lim_{x\to-1^+}f(x)=+\infty,\qquad
 \lim_{x\to-\infty}f(x)=\lim_{x\to+\infty}f(x)=1.
@@ -1211,7 +1183,7 @@ $$
 
 ::: {#g04-table-23 .zo-native-bbt data-bbt="g04-table-23"}
 :::
-Tiệm cận $x=-1$, $y=1$; tâm $I(-1;1)$; giao trục tại $(-3;0)$ và $(0;3)$. Nhánh trái dưới tiệm cận ngang, nhánh phải trên tiệm cận ngang.
+Tiệm cận $x=-1$, $y=1$; tâm $I(-1;1)$; giao điểm với các trục tọa độ tại $(-3;0)$ và $(0;3)$. Nhánh trái dưới tiệm cận ngang, nhánh phải trên tiệm cận ngang.
 
 ![Đồ thị phân thức bậc nhất với hai nhánh nghịch biến.](giao_dien/assets/figures_0_4/K02.svg)
 
@@ -1221,7 +1193,7 @@ Tiêu chí: không ghép hai khoảng thành một khoảng nghịch biến, kh�
 
 [Xem đề bài](#K02).
 
-#### Nhiệm vụ 03 — Khảo sát phân thức bậc hai {#lg-K03}
+#### Nhiệm vụ 18 — Khảo sát phân thức bậc hai {#lg-K03}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -1231,7 +1203,7 @@ $$
 h(x)=x+4+\frac{4}{x-1},\qquad D=\mathbb R\setminus\{1\},\qquad
 h^\prime(x)=1-\frac{4}{(x-1)^2}=\frac{(x+1)(x-3)}{(x-1)^2}.
 $$
-Đạo hàm bằng $0$ tại $-1$, $3$. Cực đại $(-1;1)$; cực tiểu $(3;9)$.
+Đạo hàm bằng $0$ tại $-1$, $3$. Hàm số đạt cực đại tại $x=-1$, giá trị cực đại bằng $1$; điểm cực đại của đồ thị là $(-1;1)$; hàm số đạt cực tiểu tại $x=3$, giá trị cực tiểu bằng $9$; điểm cực tiểu của đồ thị là $(3;9)$.
 $$
 \lim_{x\to1^-}h(x)=-\infty,\qquad \lim_{x\to1^+}h(x)=+\infty;
 $$
@@ -1245,7 +1217,7 @@ $$
 
 ::: {#g04-table-24 .zo-native-bbt data-bbt="g04-table-24"}
 :::
-Tiệm cận đứng $x=1$, tiệm cận xiên $y=x+4$, tâm $I(1;5)$. Hai trục đối xứng là hai đường phân giác của các góc tạo bởi hai tiệm cận, không phải chính các tiệm cận. Giao trục hoành tại $(-3;0)$, $(0;0)$; giao trục tung tại $(0;0)$. Nhánh trái dưới, nhánh phải trên đường xiên.
+Tiệm cận đứng $x=1$, tiệm cận xiên $y=x+4$, tâm $I(1;5)$. Hai trục đối xứng là hai đường phân giác của các góc tạo bởi hai tiệm cận, không phải chính các tiệm cận. Đồ thị giao với trục hoành tại $(-3;0)$, $(0;0)$; giao điểm với trục tung tại $(0;0)$. Nhánh trái dưới, nhánh phải trên đường xiên.
 
 ![Đồ thị phân thức bậc hai với hai cực trị và đường tiệm cận xiên.](giao_dien/assets/figures_0_4/K03.svg)
 
@@ -1255,16 +1227,16 @@ Tiêu chí: phép chia, dấu đạo hàm, bốn khoảng, giới hạn hai phí
 
 [Xem đề bài](#K03).
 
-#### Nhiệm vụ 04 — Kết luận trong miền của mô hình {#lg-K04}
+#### Nhiệm vụ 19 — Kết luận trong tập đang xét của mô hình {#lg-K04}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
 
-Miền mô hình $[3;9]$. Vì $B^\prime(x)=-\frac{18}{x^2}<0$ trên $(3;9)$, hàm giảm trên đoạn; $B(3)=11$, $B(9)=7$. Giá trị lớn nhất là $11$ triệu đồng mỗi tấn tại $3$ tấn, nhỏ nhất là $7$ triệu đồng mỗi tấn tại $9$ tấn.
+Điều kiện của mô hình $[3;9]$. Vì $B^\prime(x)=-\frac{18}{x^2}<0$ trên $(3;9)$, hàm giảm trên đoạn; $B(3)=11$, $B(9)=7$. Giá trị lớn nhất là $11$ triệu đồng mỗi tấn tại $3$ tấn, nhỏ nhất là $7$ triệu đồng mỗi tấn tại $9$ tấn.
 
 Đường $y=5$ gắn với giới hạn khi $x\to+\infty$ của công thức mở rộng, không phải giá trị nhỏ nhất trên đoạn đã cho. Đồ thị bị giới hạn ở đoạn không có nhánh tiến ra vô cực. Không kết luận cho $20$ tấn từ mô hình chỉ được giả thiết áp dụng trên $[3;9]$.
 
-Tiêu chí: giữ đúng miền, xét đầu mút, ghi đủ đơn vị và không suy rộng hiệu lực mô hình.
+Bài làm cần dùng đúng điều kiện về sản lượng, xét hai đầu mút của đoạn, ghi đơn vị cho kết quả và không áp dụng công thức cho sản lượng nằm ngoài điều kiện đề bài.
 
 </details>
 
@@ -1272,19 +1244,19 @@ Tiêu chí: giữ đúng miền, xét đầu mút, ghi đủ đơn vị và khô
 
 ### Ôn lại {#lg-on-lai}
 
-#### Nhiệm vụ 01 — Nhớ lại khảo sát bậc ba {#lg-O01}
+#### Nhiệm vụ 20 — Nhớ lại khảo sát bậc ba {#lg-O01}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
 
-Miền $\mathbb R$; $f^\prime(x)=3(x-1)(x-3)$. Dấu $+$, $-$, $+$ trên ba khoảng, bằng $0$ tại $1$, $3$. Cực đại $(1;4)$, cực tiểu $(3;0)$.
+Tập xác định $\mathbb R$; $f^\prime(x)=3(x-1)(x-3)$. Dấu $+$, $-$, $+$ trên ba khoảng, bằng $0$ tại $1$, $3$. Hàm số đạt cực đại tại $x=1$, giá trị cực đại bằng $4$; điểm cực đại của đồ thị là $(1;4)$, hàm số đạt cực tiểu tại $x=3$, giá trị cực tiểu bằng $0$; điểm cực tiểu của đồ thị là $(3;0)$.
 $$
 \lim_{x\to-\infty}f(x)=-\infty,\qquad \lim_{x\to+\infty}f(x)=+\infty.
 $$
 
 ::: {#g04-table-25 .zo-native-bbt data-bbt="g04-table-25"}
 :::
-$f(x)=x(x-3)^2$; giao trục hoành tại $(0;0)$, $(3;0)$ và trục tung tại $(0;0)$. Tâm $I(2;2)$; không tiệm cận. Đồ thị đi qua trục hoành tại $0$ và chạm tại $3$.
+$f(x)=x(x-3)^2$; giao điểm với trục hoành tại $(0;0)$, $(3;0)$ và trục tung tại $(0;0)$. Tâm $I(2;2)$; không tiệm cận. Đồ thị đi qua trục hoành tại $0$ và chạm tại $3$.
 
 ![Đồ thị bậc ba dùng cho lần ôn sau khoảng trễ đầu tiên.](giao_dien/assets/figures_0_4/O01.svg)
 
@@ -1294,12 +1266,12 @@ Tiêu chí: tự khôi phục quy trình và hình đúng; đây là mẫu kiể
 
 [Xem đề bài](#O01).
 
-#### Nhiệm vụ 02 — Nhớ lại phân thức và miền mô hình {#lg-O02}
+#### Nhiệm vụ 21 — Nhớ lại phân thức và điều kiện của mô hình {#lg-O02}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
 
-a) Miền $\mathbb R\setminus\{-1\}$; $f^\prime(x)=\frac{4}{(x+1)^2}>0$, đồng biến trên từng khoảng miền, không cực trị.
+a) Tập xác định là $\mathbb R\setminus\{-1\}$. Đạo hàm $f^\prime(x)=\frac{4}{(x+1)^2}>0$, nên hàm số đồng biến trên từng khoảng $(-\infty;-1)$ và $(-1;+\infty)$, không có cực trị.
 $$
 \lim_{x\to-1^-}f(x)=+\infty,\qquad \lim_{x\to-1^+}f(x)=-\infty,\qquad
 \lim_{x\to-\infty}f(x)=\lim_{x\to+\infty}f(x)=2.
@@ -1307,24 +1279,24 @@ $$
 
 ::: {#g04-table-26 .zo-native-bbt data-bbt="g04-table-26"}
 :::
-Tiệm cận $x=-1$, $y=2$; tâm $I(-1;2)$; giao trục tại $(1;0)$, $(0;-2)$. Nhánh trái trên, nhánh phải dưới tiệm cận ngang.
+Tiệm cận $x=-1$, $y=2$; tâm $I(-1;2)$; giao điểm với các trục tọa độ tại $(1;0)$, $(0;-2)$. Nhánh trái trên, nhánh phải dưới tiệm cận ngang.
 
 ![Đồ thị phân thức bậc nhất với hai nhánh đồng biến.](giao_dien/assets/figures_0_4/O02.svg)
 
 b) $A^\prime(x)=-\frac{30}{x^2}<0$; hàm giảm trên $[3;15]$. Giá trị lớn nhất $A(3)=12$, nhỏ nhất $A(15)=4$, đều tính bằng triệu đồng mỗi tấn. Cận $2$ của công thức mở rộng không được đạt trên đoạn; đoạn kết thúc ở $15$.
 
-Tiêu chí: ghi riêng bằng chứng của mỗi ý; làm được ý a không chứng nhận đọc miền ở ý b.
+Đối chiếu và ghi kết quả từng ý. Làm được ý a về khảo sát phân thức chưa cho biết em đã tìm đúng giá trị lớn nhất, nhỏ nhất và giữ đúng điều kiện của mô hình ở ý b.
 
 </details>
 
 [Xem đề bài](#O02).
 
-#### Nhiệm vụ 03 — Nhớ lại tiệm cận xiên và cực trị {#lg-O03}
+#### Nhiệm vụ 22 — Nhớ lại tiệm cận xiên và cực trị {#lg-O03}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
 
-Miền $\mathbb R\setminus\{0\}$; $h^\prime(x)=1-\frac{1}{x^2}=\frac{(x-1)(x+1)}{x^2}$. Đạo hàm bằng $0$ tại $-1$, $1$; cực đại $(-1;0)$, cực tiểu $(1;4)$.
+Tập xác định $\mathbb R\setminus\{0\}$; $h^\prime(x)=1-\frac{1}{x^2}=\frac{(x-1)(x+1)}{x^2}$. Đạo hàm bằng $0$ tại $-1$, $1$; hàm số đạt cực đại tại $x=-1$, giá trị cực đại bằng $0$; điểm cực đại của đồ thị là $(-1;0)$, hàm số đạt cực tiểu tại $x=1$, giá trị cực tiểu bằng $4$; điểm cực tiểu của đồ thị là $(1;4)$.
 $$
 \lim_{x\to0^-}h(x)=-\infty,\qquad \lim_{x\to0^+}h(x)=+\infty;
 $$
@@ -1337,7 +1309,7 @@ $$
 
 ::: {#g04-table-27 .zo-native-bbt data-bbt="g04-table-27"}
 :::
-Tiệm cận $x=0$, $y=x+2$; tâm $I(0;2)$. Trục đối xứng là hai đường phân giác của các góc tạo bởi hai tiệm cận. Vì $h(x)=\frac{(x+1)^2}{x}$, giao trục hoành tại $(-1;0)$, không giao trục tung. Nhánh trái dưới, nhánh phải trên đường xiên.
+Tiệm cận $x=0$, $y=x+2$; tâm $I(0;2)$. Trục đối xứng là hai đường phân giác của các góc tạo bởi hai tiệm cận. Vì $h(x)=\frac{(x+1)^2}{x}$, giao điểm với trục hoành tại $(-1;0)$, không giao điểm với trục tung. Nhánh trái dưới, nhánh phải trên đường xiên.
 
 ![Đồ thị có tiệm cận đứng trùng trục tung; không có điểm thuộc đồ thị trên trục này.](giao_dien/assets/figures_0_4/O03.svg)
 
@@ -1351,33 +1323,33 @@ Tiêu chí: không đặt giá trị hàm tại điểm loại, không gọi đi
 
 #### Sau Luyện tập {#lg-sl}
 
-##### Nhiệm vụ 01 — Bậc ba {#lg-S01}
+##### Nhiệm vụ 23 — Bậc ba {#lg-S01}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
 
-a) Miền $\mathbb R$; $p^\prime(x)=-3(x+2)^2$, dấu âm ở cả hai phía của $-2$, bằng $0$ chỉ tại mốc này. Hàm nghịch biến trên $\mathbb R$, không cực trị.
+a) Tập xác định $\mathbb R$; $p^\prime(x)=-3(x+2)^2$, dấu âm ở cả hai phía của $-2$, bằng $0$ chỉ tại mốc này. Hàm nghịch biến trên $\mathbb R$, không cực trị.
 $$
 \lim_{x\to-\infty}p(x)=+\infty,\qquad \lim_{x\to+\infty}p(x)=-\infty.
 $$
 
 ::: {#g04-table-28 .zo-native-bbt data-bbt="g04-table-28"}
 :::
-Tâm $I(-2;5)$; không tiệm cận. Giao trục hoành tại $\left(\sqrt[3]{5}-2;0\right)$, giao trục tung tại $(0;-3)$. Hoành độ giao trục hoành được tìm từ phương trình $p(x)=0$, không phải từ phương trình đạo hàm.
+Tâm $I(-2;5)$; không tiệm cận. Đồ thị giao với trục hoành tại $\left(\sqrt[3]{5}-2;0\right)$, giao điểm với trục tung tại $(0;-3)$. Hoành độ giao điểm với trục hoành được tìm từ phương trình $p(x)=0$, không phải từ phương trình đạo hàm.
 
 ![Đồ thị bậc ba không có cực trị, dùng để kiểm lại cả lập luận và hình vẽ.](giao_dien/assets/figures_0_4/S01a.svg)
 
-Với hàm so sánh, $q^\prime(x)=3x^2+2>0$ với mọi $x\in\mathbb R$. Hàm đồng biến, không cực trị và không có nghiệm đạo hàm; đây là khả năng khác với $p^\prime$ có một nghiệm nhưng không đổi dấu. Muốn xác nhận đủ hai khả năng, phải giải thích cả phần so sánh này.
+Với hàm so sánh, $q^\prime(x)=3x^2+2>0$ với mọi $x\in\mathbb R$. Hàm đồng biến, không cực trị và không có nghiệm của phương trình đạo hàm bằng $0$; đây là khả năng khác với $p^\prime$ có một nghiệm nhưng không đổi dấu. Muốn xác nhận đủ hai khả năng, phải giải thích cả phần so sánh này.
 
 
-b) Miền $\mathbb R$; $f^\prime(x)=3x(x+2)$; dấu $+$, $-$, $+$ trên ba khoảng chia bởi $-2$, $0$. Cực đại $(-2;0)$, cực tiểu $(0;-4)$.
+b) Tập xác định $\mathbb R$; $f^\prime(x)=3x(x+2)$; dấu $+$, $-$, $+$ trên ba khoảng chia bởi $-2$, $0$. Hàm số đạt cực đại tại $x=-2$, giá trị cực đại bằng $0$; điểm cực đại của đồ thị là $(-2;0)$, hàm số đạt cực tiểu tại $x=0$, giá trị cực tiểu bằng $-4$; điểm cực tiểu của đồ thị là $(0;-4)$.
 $$
 \lim_{x\to-\infty}f(x)=-\infty,\qquad\lim_{x\to+\infty}f(x)=+\infty.
 $$
 
 ::: {#g04-table-29 .zo-native-bbt data-bbt="g04-table-29"}
 :::
-$f(x)=(x-1)(x+2)^2$; giao trục hoành tại $(-2;0)$, $(1;0)$; giao trục tung $(0;-4)$. Tâm $I(-1;-2)$; không tiệm cận.
+$f(x)=(x-1)(x+2)^2$; giao điểm với trục hoành tại $(-2;0)$, $(1;0)$; giao điểm với trục tung $(0;-4)$. Tâm $I(-1;-2)$; không tiệm cận.
 
 ![Đồ thị bậc ba cho ý khảo sát đầy đủ sau luyện tập.](giao_dien/assets/figures_0_4/S01.svg)
 
@@ -1387,12 +1359,12 @@ Tiêu chí ý b: toàn bộ chuỗi dữ kiện và hình thống nhất; làm �
 
 [Xem đề bài](#S01).
 
-##### Nhiệm vụ 02 — Phân thức và miền {#lg-S02}
+##### Nhiệm vụ 24 — Phân thức và bài toán thực tế {#lg-S02}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
 
-a) Miền $\mathbb R\setminus\{-2\}$; $f(x)=2-\frac{4}{x+2}$; $f^\prime(x)=\frac{4}{(x+2)^2}>0$. Hàm đồng biến trên từng khoảng $(-\infty;-2)$, $(-2;+\infty)$, không cực trị.
+a) Tập xác định $\mathbb R\setminus\{-2\}$; $f(x)=2-\frac{4}{x+2}$; $f^\prime(x)=\frac{4}{(x+2)^2}>0$. Hàm đồng biến trên từng khoảng $(-\infty;-2)$, $(-2;+\infty)$, không cực trị.
 $$
 \lim_{x\to -2^-}f(x)=+\infty,\qquad
 \lim_{x\to -2^+}f(x)=-\infty,\qquad
@@ -1401,15 +1373,15 @@ $$
 
 ::: {#g04-table-30 .zo-native-bbt data-bbt="g04-table-30"}
 :::
-Tiệm cận $x=-2$, $y=2$; tâm $I(-2;2)$; giao trục hoành tại $(0;0)$, giao trục tung tại $(0;0)$. Hai trục đối xứng là $y-2=\pm(x+2)$. Nhánh trái ở trên, nhánh phải ở dưới tiệm cận ngang.
+Tiệm cận $x=-2$, $y=2$; tâm $I(-2;2)$; giao điểm với trục hoành tại $(0;0)$, giao điểm với trục tung tại $(0;0)$. Hai trục đối xứng là $y-2=\pm(x+2)$. Nhánh trái ở trên, nhánh phải ở dưới tiệm cận ngang.
 
 ![Hai nhánh phân thức và các tiệm cận để đối chiếu bài làm.](giao_dien/assets/figures_0_4/S02a.svg)
 
-b) Miền $\mathbb R\setminus\{-1\}$; $h(x)=x+3+\frac{1}{x+1}$,
+b) Tập xác định $\mathbb R\setminus\{-1\}$; $h(x)=x+3+\frac{1}{x+1}$,
 $$
 h^\prime(x)=1-\frac{1}{(x+1)^2}.
 $$
-Đạo hàm bằng $0$ tại $-2$, $0$. Cực đại $(-2;0)$, cực tiểu $(0;4)$.
+Đạo hàm bằng $0$ tại $-2$, $0$. Hàm số đạt cực đại tại $x=-2$, giá trị cực đại bằng $0$; điểm cực đại của đồ thị là $(-2;0)$, hàm số đạt cực tiểu tại $x=0$, giá trị cực tiểu bằng $4$; điểm cực tiểu của đồ thị là $(0;4)$.
 $$
 \lim_{x\to -1^-}h(x)=-\infty,\qquad\lim_{x\to -1^+}h(x)=+\infty;
 $$
@@ -1423,11 +1395,11 @@ $$
 
 ::: {#g04-table-31 .zo-native-bbt data-bbt="g04-table-31"}
 :::
-Tiệm cận $x=-1$, $y=x+3$; tâm $I(-1;2)$. Giao trục hoành tại $(-2;0)$ vì $h(x)=\frac{(x+2)^2}{x+1}$; giao trục tung $(0;4)$. Nhánh trái dưới, nhánh phải trên đường xiên. Hai trục đối xứng là hai đường phân giác của các góc tạo bởi hai tiệm cận.
+Tiệm cận $x=-1$, $y=x+3$; tâm $I(-1;2)$. Đồ thị giao với trục hoành tại $(-2;0)$ vì $h(x)=\frac{(x+2)^2}{x+1}$; giao điểm với trục tung $(0;4)$. Nhánh trái dưới, nhánh phải trên đường xiên. Hai trục đối xứng là hai đường phân giác của các góc tạo bởi hai tiệm cận.
 
 ![Phân thức bậc hai có hai cực trị để đối chiếu bài làm.](giao_dien/assets/figures_0_4/S02b.svg)
 
-c) Với $v(x)=x+3-\frac{1}{x+1}$, miền $\mathbb R\setminus\{-1\}$, $v^\prime(x)=1+\frac{1}{(x+1)^2}>0$: đồng biến trên từng khoảng $(-\infty;-1)$, $(-1;+\infty)$, không cực trị.
+c) Với $v(x)=x+3-\frac{1}{x+1}$, tập xác định $\mathbb R\setminus\{-1\}$, $v^\prime(x)=1+\frac{1}{(x+1)^2}>0$: đồng biến trên từng khoảng $(-\infty;-1)$, $(-1;+\infty)$, không cực trị.
 $$
 \lim_{x\to -1^-}v(x)=+\infty,\qquad \lim_{x\to -1^+}v(x)=-\infty;
 $$
@@ -1441,13 +1413,13 @@ Tiệm cận $x=-1$, $y=x+3$; tâm $I(-1;2)$. Nhánh trái trên, nhánh phải 
 
 ::: {#g04-table-32 .zo-native-bbt data-bbt="g04-table-32"}
 :::
-Giao trục hoành tại $\left(-2-\sqrt{2};0\right)$, $\left(-2+\sqrt{2};0\right)$; giao trục tung $(0;2)$. Các trục đối xứng là hai đường phân giác của các góc tạo bởi $x=-1$ và $y=x+3$.
+Đồ thị giao với trục hoành tại $\left(-2-\sqrt{2};0\right)$, $\left(-2+\sqrt{2};0\right)$; giao điểm với trục tung $(0;2)$. Các trục đối xứng là hai đường phân giác của các góc tạo bởi $x=-1$ và $y=x+3$.
 
 ![Phân thức bậc hai không có cực trị, có đủ giao điểm và hai nhánh để đối chiếu.](giao_dien/assets/figures_0_4/S02c.svg)
 
 Ý này xác nhận khảo sát trường hợp không cực trị khi cả lập luận, bảng và hình đều đúng.
 
-d) $A^\prime(x)=-\frac{20}{x^2}<0$. Trên $[2;+\infty)$, lớn nhất $A(2)=11$; không có giá trị nhỏ nhất vì hàm tiếp tục giảm, $A(x)>1$ và $\lim_{x\to+\infty}A(x)=1$. Trên $[2;10]$, lớn nhất vẫn $11$, nhỏ nhất $A(10)=3$, đều tính bằng triệu đồng mỗi tấn. Phải nêu sự khác nhau giữa cận không đạt ở miền đầu và giá trị đạt tại đầu mút ở miền sau.
+d) $A^\prime(x)=-\frac{20}{x^2}<0$. Trên $[2;+\infty)$, lớn nhất $A(2)=11$; không có giá trị nhỏ nhất vì hàm tiếp tục giảm, $A(x)>1$ và $\lim_{x\to+\infty}A(x)=1$. Trên $[2;10]$, lớn nhất vẫn $11$, nhỏ nhất $A(10)=3$, đều tính bằng triệu đồng mỗi tấn. Phải nêu sự khác nhau giữa cận không đạt ở tập đang xét ban đầu và giá trị đạt tại đầu mút ở tập đang xét sau.
 
 Tiêu chí: đánh dấu riêng ý đã tự làm; ý a không xác nhận phân thức bậc hai, ý b không xác nhận trường hợp không cực trị, ý c xác nhận riêng trường hợp không cực trị, ý d không xác nhận khảo sát phân thức.
 
@@ -1457,31 +1429,31 @@ Tiêu chí: đánh dấu riêng ý đã tự làm; ý a không xác nhận phân
 
 #### Sau Kiểm tra {#lg-sk}
 
-##### Nhiệm vụ 03 — Bậc ba {#lg-S03}
+##### Nhiệm vụ 25 — Bậc ba {#lg-S03}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
 
-a) Miền $\mathbb R$; $p^\prime(x)=-3(x-2)^2$, dấu âm ở cả hai phía của $2$, bằng $0$ chỉ tại mốc này. Hàm nghịch biến trên $\mathbb R$, không cực trị.
+a) Tập xác định $\mathbb R$; $p^\prime(x)=-3(x-2)^2$, dấu âm ở cả hai phía của $2$, bằng $0$ chỉ tại mốc này. Hàm nghịch biến trên $\mathbb R$, không cực trị.
 $$
 \lim_{x\to-\infty}p(x)=+\infty,\qquad \lim_{x\to+\infty}p(x)=-\infty.
 $$
 
 ::: {#g04-table-33 .zo-native-bbt data-bbt="g04-table-33"}
 :::
-Tâm $I(2;3)$; không tiệm cận. Giao trục hoành tại $\left(2+\sqrt[3]{3};0\right)$, giao trục tung tại $(0;11)$. Hoành độ giao trục hoành được tìm từ phương trình $p(x)=0$, không phải từ phương trình đạo hàm.
+Tâm $I(2;3)$; không tiệm cận. Đồ thị giao với trục hoành tại $\left(2+\sqrt[3]{3};0\right)$, giao điểm với trục tung tại $(0;11)$. Hoành độ giao điểm với trục hoành được tìm từ phương trình $p(x)=0$, không phải từ phương trình đạo hàm.
 
 ![Đồ thị bậc ba không có cực trị, dùng để kiểm lại cả lập luận và hình vẽ.](giao_dien/assets/figures_0_4/S03a.svg)
 
 
-b) Miền $\mathbb R$; $f^\prime(x)=-3x(x+2)$, dấu $-$, $+$, $-$ trên ba khoảng chia bởi $-2$, $0$; bằng $0$ tại hai mốc. Cực tiểu $(-2;0)$, cực đại $(0;4)$.
+b) Tập xác định $\mathbb R$; $f^\prime(x)=-3x(x+2)$, dấu $-$, $+$, $-$ trên ba khoảng chia bởi $-2$, $0$; bằng $0$ tại hai mốc. Hàm số đạt cực tiểu tại $x=-2$, giá trị cực tiểu bằng $0$; điểm cực tiểu của đồ thị là $(-2;0)$, hàm số đạt cực đại tại $x=0$, giá trị cực đại bằng $4$; điểm cực đại của đồ thị là $(0;4)$.
 $$
 \lim_{x\to-\infty}f(x)=+\infty,\qquad\lim_{x\to+\infty}f(x)=-\infty.
 $$
 
 ::: {#g04-table-34 .zo-native-bbt data-bbt="g04-table-34"}
 :::
-$f(x)=-(x-1)(x+2)^2$; giao trục hoành $(-2;0)$, $(1;0)$; giao trục tung $(0;4)$; tâm $I(-1;2)$; không tiệm cận.
+$f(x)=-(x-1)(x+2)^2$; giao điểm với trục hoành $(-2;0)$, $(1;0)$; giao điểm với trục tung $(0;4)$; tâm $I(-1;2)$; không tiệm cận.
 
 ![Đồ thị bậc ba đối chiếu sau lượt kiểm tra.](giao_dien/assets/figures_0_4/S03.svg)
 
@@ -1491,12 +1463,12 @@ Tiêu chí: dữ kiện đúng và hình đúng; giữ nguyên kết quả bài 
 
 [Xem đề bài](#S03).
 
-##### Nhiệm vụ 04 — Phân thức và miền {#lg-S04}
+##### Nhiệm vụ 26 — Phân thức và bài toán thực tế {#lg-S04}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
 
-a) Miền $\mathbb R\setminus\{1\}$; $f(x)=3+\frac{3}{x-1}$; $f^\prime(x)=-\frac{3}{(x-1)^2}<0$. Hàm nghịch biến trên từng khoảng $(-\infty;1)$, $(1;+\infty)$, không cực trị.
+a) Tập xác định $\mathbb R\setminus\{1\}$; $f(x)=3+\frac{3}{x-1}$; $f^\prime(x)=-\frac{3}{(x-1)^2}<0$. Hàm nghịch biến trên từng khoảng $(-\infty;1)$, $(1;+\infty)$, không cực trị.
 $$
 \lim_{x\to 1^-}f(x)=-\infty,\qquad
 \lim_{x\to 1^+}f(x)=+\infty,\qquad
@@ -1505,15 +1477,15 @@ $$
 
 ::: {#g04-table-35 .zo-native-bbt data-bbt="g04-table-35"}
 :::
-Tiệm cận $x=1$, $y=3$; tâm $I(1;3)$; giao trục hoành tại $(0;0)$, giao trục tung tại $(0;0)$. Hai trục đối xứng là $y-3=\pm(x-1)$. Nhánh trái ở dưới, nhánh phải ở trên tiệm cận ngang.
+Tiệm cận $x=1$, $y=3$; tâm $I(1;3)$; giao điểm với trục hoành tại $(0;0)$, giao điểm với trục tung tại $(0;0)$. Hai trục đối xứng là $y-3=\pm(x-1)$. Nhánh trái ở dưới, nhánh phải ở trên tiệm cận ngang.
 
 ![Hai nhánh phân thức và các tiệm cận để đối chiếu bài làm.](giao_dien/assets/figures_0_4/S04a.svg)
 
-b) Miền $\mathbb R\setminus\{-2\}$; $h(x)=x+2+\frac{4}{x+2}$,
+b) Tập xác định $\mathbb R\setminus\{-2\}$; $h(x)=x+2+\frac{4}{x+2}$,
 $$
 h^\prime(x)=1-\frac{4}{(x+2)^2}.
 $$
-Đạo hàm bằng $0$ tại $-4$, $0$. Cực đại $(-4;-4)$, cực tiểu $(0;4)$.
+Đạo hàm bằng $0$ tại $-4$, $0$. Hàm số đạt cực đại tại $x=-4$, giá trị cực đại bằng $-4$; điểm cực đại của đồ thị là $(-4;-4)$, hàm số đạt cực tiểu tại $x=0$, giá trị cực tiểu bằng $4$; điểm cực tiểu của đồ thị là $(0;4)$.
 $$
 \lim_{x\to -2^-}h(x)=-\infty,\qquad\lim_{x\to -2^+}h(x)=+\infty;
 $$
@@ -1527,11 +1499,11 @@ $$
 
 ::: {#g04-table-36 .zo-native-bbt data-bbt="g04-table-36"}
 :::
-Tiệm cận $x=-2$, $y=x+2$; tâm $I(-2;0)$. Không giao trục hoành vì tử $(x+2)^2+4>0$; giao trục tung tại $(0;4)$. Nhánh trái dưới, nhánh phải trên đường xiên. Hai trục đối xứng là hai đường phân giác của các góc tạo bởi hai tiệm cận.
+Tiệm cận $x=-2$, $y=x+2$; tâm $I(-2;0)$. Không giao điểm với trục hoành vì tử $(x+2)^2+4>0$; giao điểm với trục tung tại $(0;4)$. Nhánh trái dưới, nhánh phải trên đường xiên. Hai trục đối xứng là hai đường phân giác của các góc tạo bởi hai tiệm cận.
 
 ![Phân thức bậc hai có hai cực trị để đối chiếu bài làm.](giao_dien/assets/figures_0_4/S04b.svg)
 
-c) Với $v(x)=x+2-\frac{4}{x+2}$, miền $\mathbb R\setminus\{-2\}$, $v^\prime(x)=1+\frac{4}{(x+2)^2}>0$: đồng biến trên từng khoảng $(-\infty;-2)$, $(-2;+\infty)$, không cực trị.
+c) Với $v(x)=x+2-\frac{4}{x+2}$, tập xác định $\mathbb R\setminus\{-2\}$, $v^\prime(x)=1+\frac{4}{(x+2)^2}>0$: đồng biến trên từng khoảng $(-\infty;-2)$, $(-2;+\infty)$, không cực trị.
 $$
 \lim_{x\to -2^-}v(x)=+\infty,\qquad \lim_{x\to -2^+}v(x)=-\infty;
 $$
@@ -1545,7 +1517,7 @@ Tiệm cận $x=-2$, $y=x+2$; tâm $I(-2;0)$. Nhánh trái trên, nhánh phải 
 
 ::: {#g04-table-37 .zo-native-bbt data-bbt="g04-table-37"}
 :::
-Giao trục hoành tại $(-4;0)$, $(0;0)$; giao trục tung $(0;0)$. Các trục đối xứng là hai đường phân giác của các góc tạo bởi $x=-2$ và $y=x+2$.
+Đồ thị giao với trục hoành tại $(-4;0)$, $(0;0)$; giao điểm với trục tung $(0;0)$. Các trục đối xứng là hai đường phân giác của các góc tạo bởi $x=-2$ và $y=x+2$.
 
 ![Phân thức bậc hai không có cực trị, có đủ giao điểm và hai nhánh để đối chiếu.](giao_dien/assets/figures_0_4/S04c.svg)
 
@@ -1561,31 +1533,31 @@ Tiêu chí và giới hạn từng ý như tên kĩ năng trong đề; kết qu�
 
 #### Sau Ôn lại {#lg-so}
 
-##### Nhiệm vụ 05 — Bậc ba {#lg-S05}
+##### Nhiệm vụ 27 — Bậc ba {#lg-S05}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
 
-a) Miền $\mathbb R$; $p^\prime(x)=3(x-1)^2$, dấu dương ở cả hai phía của $1$, bằng $0$ chỉ tại mốc này. Hàm đồng biến trên $\mathbb R$, không cực trị.
+a) Tập xác định $\mathbb R$; $p^\prime(x)=3(x-1)^2$, dấu dương ở cả hai phía của $1$, bằng $0$ chỉ tại mốc này. Hàm đồng biến trên $\mathbb R$, không cực trị.
 $$
 \lim_{x\to-\infty}p(x)=-\infty,\qquad \lim_{x\to+\infty}p(x)=+\infty.
 $$
 
 ::: {#g04-table-38 .zo-native-bbt data-bbt="g04-table-38"}
 :::
-Tâm $I(1;-2)$; không tiệm cận. Giao trục hoành tại $\left(1+\sqrt[3]{2};0\right)$, giao trục tung tại $(0;-3)$. Hoành độ giao trục hoành được tìm từ phương trình $p(x)=0$, không phải từ phương trình đạo hàm.
+Tâm $I(1;-2)$; không tiệm cận. Đồ thị giao với trục hoành tại $\left(1+\sqrt[3]{2};0\right)$, giao điểm với trục tung tại $(0;-3)$. Hoành độ giao điểm với trục hoành được tìm từ phương trình $p(x)=0$, không phải từ phương trình đạo hàm.
 
 ![Đồ thị bậc ba không có cực trị, dùng để kiểm lại cả lập luận và hình vẽ.](giao_dien/assets/figures_0_4/S05a.svg)
 
 
-b) Miền $\mathbb R$; $f^\prime(x)=3(x+3)(x+1)$, dấu $+$, $-$, $+$ trên ba khoảng chia bởi $-3$, $-1$; bằng $0$ tại hai mốc. Cực đại $(-3;0)$, cực tiểu $(-1;-4)$.
+b) Tập xác định $\mathbb R$; $f^\prime(x)=3(x+3)(x+1)$, dấu $+$, $-$, $+$ trên ba khoảng chia bởi $-3$, $-1$; bằng $0$ tại hai mốc. Hàm số đạt cực đại tại $x=-3$, giá trị cực đại bằng $0$; điểm cực đại của đồ thị là $(-3;0)$, hàm số đạt cực tiểu tại $x=-1$, giá trị cực tiểu bằng $-4$; điểm cực tiểu của đồ thị là $(-1;-4)$.
 $$
 \lim_{x\to-\infty}f(x)=-\infty,\qquad\lim_{x\to+\infty}f(x)=+\infty.
 $$
 
 ::: {#g04-table-39 .zo-native-bbt data-bbt="g04-table-39"}
 :::
-$f(x)=x(x+3)^2$; giao trục hoành $(-3;0)$, $(0;0)$; giao trục tung $(0;0)$; tâm $I(-2;-2)$; không tiệm cận.
+$f(x)=x(x+3)^2$; giao điểm với trục hoành $(-3;0)$, $(0;0)$; giao điểm với trục tung $(0;0)$; tâm $I(-2;-2)$; không tiệm cận.
 
 ![Đồ thị bậc ba dành cho xác nhận sau ôn lại.](giao_dien/assets/figures_0_4/S05.svg)
 
@@ -1595,12 +1567,12 @@ Tiêu chí: tự khôi phục đủ quy trình; ghi khoảng trễ thực tế v
 
 [Xem đề bài](#S05).
 
-##### Nhiệm vụ 06 — Phân thức và miền {#lg-S06}
+##### Nhiệm vụ 28 — Phân thức và bài toán thực tế {#lg-S06}
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
 
-a) Miền $\mathbb R\setminus\{-2\}$; $f(x)=1-\frac{3}{x+2}$; $f^\prime(x)=\frac{3}{(x+2)^2}>0$. Hàm đồng biến trên từng khoảng $(-\infty;-2)$, $(-2;+\infty)$, không cực trị.
+a) Tập xác định $\mathbb R\setminus\{-2\}$; $f(x)=1-\frac{3}{x+2}$; $f^\prime(x)=\frac{3}{(x+2)^2}>0$. Hàm đồng biến trên từng khoảng $(-\infty;-2)$, $(-2;+\infty)$, không cực trị.
 $$
 \lim_{x\to -2^-}f(x)=+\infty,\qquad
 \lim_{x\to -2^+}f(x)=-\infty,\qquad
@@ -1609,15 +1581,15 @@ $$
 
 ::: {#g04-table-40 .zo-native-bbt data-bbt="g04-table-40"}
 :::
-Tiệm cận $x=-2$, $y=1$; tâm $I(-2;1)$; giao trục hoành tại $(1;0)$, giao trục tung tại $\left(0;-\frac{1}{2}\right)$. Hai trục đối xứng là $y-1=\pm(x+2)$. Nhánh trái ở trên, nhánh phải ở dưới tiệm cận ngang.
+Tiệm cận $x=-2$, $y=1$; tâm $I(-2;1)$; giao điểm với trục hoành tại $(1;0)$, giao điểm với trục tung tại $\left(0;-\frac{1}{2}\right)$. Hai trục đối xứng là $y-1=\pm(x+2)$. Nhánh trái ở trên, nhánh phải ở dưới tiệm cận ngang.
 
 ![Hai nhánh phân thức và các tiệm cận để đối chiếu bài làm.](giao_dien/assets/figures_0_4/S06a.svg)
 
-b) Miền $\mathbb R\setminus\{2\}$; $h(x)=x-1+\frac{1}{x-2}$,
+b) Tập xác định $\mathbb R\setminus\{2\}$; $h(x)=x-1+\frac{1}{x-2}$,
 $$
 h^\prime(x)=1-\frac{1}{(x-2)^2}.
 $$
-Đạo hàm bằng $0$ tại $1$, $3$. Cực đại $(1;-1)$, cực tiểu $(3;3)$.
+Đạo hàm bằng $0$ tại $1$, $3$. Hàm số đạt cực đại tại $x=1$, giá trị cực đại bằng $-1$; điểm cực đại của đồ thị là $(1;-1)$, hàm số đạt cực tiểu tại $x=3$, giá trị cực tiểu bằng $3$; điểm cực tiểu của đồ thị là $(3;3)$.
 $$
 \lim_{x\to 2^-}h(x)=-\infty,\qquad\lim_{x\to 2^+}h(x)=+\infty;
 $$
@@ -1631,11 +1603,11 @@ $$
 
 ::: {#g04-table-41 .zo-native-bbt data-bbt="g04-table-41"}
 :::
-Tiệm cận $x=2$, $y=x-1$; tâm $I(2;1)$. Không giao trục hoành vì $x^2-3x+3=\left(x-\frac{3}{2}\right)^2+\frac{3}{4}>0$; giao trục tung $\left(0;-\frac{3}{2}\right)$. Nhánh trái dưới, nhánh phải trên đường xiên. Hai trục đối xứng là hai đường phân giác của các góc tạo bởi hai tiệm cận.
+Tiệm cận $x=2$, $y=x-1$; tâm $I(2;1)$. Không giao điểm với trục hoành vì $x^2-3x+3=\left(x-\frac{3}{2}\right)^2+\frac{3}{4}>0$; giao điểm với trục tung $\left(0;-\frac{3}{2}\right)$. Nhánh trái dưới, nhánh phải trên đường xiên. Hai trục đối xứng là hai đường phân giác của các góc tạo bởi hai tiệm cận.
 
 ![Phân thức bậc hai có hai cực trị để đối chiếu bài làm.](giao_dien/assets/figures_0_4/S06b.svg)
 
-c) Với $v(x)=x-1-\frac{1}{x-2}$, miền $\mathbb R\setminus\{2\}$, $v^\prime(x)=1+\frac{1}{(x-2)^2}>0$: đồng biến trên từng khoảng $(-\infty;2)$, $(2;+\infty)$, không cực trị.
+c) Với $v(x)=x-1-\frac{1}{x-2}$, tập xác định $\mathbb R\setminus\{2\}$, $v^\prime(x)=1+\frac{1}{(x-2)^2}>0$: đồng biến trên từng khoảng $(-\infty;2)$, $(2;+\infty)$, không cực trị.
 $$
 \lim_{x\to 2^-}v(x)=+\infty,\qquad \lim_{x\to 2^+}v(x)=-\infty;
 $$
@@ -1649,7 +1621,7 @@ Tiệm cận $x=2$, $y=x-1$; tâm $I(2;1)$. Nhánh trái trên, nhánh phải d�
 
 ::: {#g04-table-42 .zo-native-bbt data-bbt="g04-table-42"}
 :::
-Giao trục hoành tại $\left(\frac{3-\sqrt{5}}{2};0\right)$, $\left(\frac{3+\sqrt{5}}{2};0\right)$; giao trục tung $\left(0;-\frac{1}{2}\right)$. Các trục đối xứng là hai đường phân giác của các góc tạo bởi $x=2$ và $y=x-1$.
+Đồ thị giao với trục hoành tại $\left(\frac{3-\sqrt{5}}{2};0\right)$, $\left(\frac{3+\sqrt{5}}{2};0\right)$; giao điểm với trục tung $\left(0;-\frac{1}{2}\right)$. Các trục đối xứng là hai đường phân giác của các góc tạo bởi $x=2$ và $y=x-1$.
 
 ![Phân thức bậc hai không có cực trị, có đủ giao điểm và hai nhánh để đối chiếu.](giao_dien/assets/figures_0_4/S06c.svg)
 

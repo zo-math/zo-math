@@ -1,0 +1,152 @@
+{
+  "decision": "NUMBERING-20261018",
+  "scope": [
+    "R1-G01",
+    "R1-G02",
+    "R1-G03",
+    "R1-G04"
+  ],
+  "status": "source_and_HTML_checked_pending_owner_acceptance",
+  "symptom": "Số Nhiệm vụ đặt lại theo chức năng và có nhãn nhiều tầng; Tự kiểm tra dùng tên riêng.",
+  "verified_cause": "Bộ đếm khóa theo function; các binding và bản đồ G01 giữ nhãn/tiêu đề/nhãn trợ năng cũ. Kiểm cũ chỉ kiểm dãy riêng từng chức năng.",
+  "canonical_fix": "Dãy theo loại hiển thị và thứ tự toàn văn từng gói; Nhiệm vụ hợp nhất các chức năng tự làm, giữ ID/chức năng. Nhãn chỉ nhánh và khu vực chứa. Đồng bộ đề, đáp án, bảng, tham chiếu, mục lục và trợ năng.",
+  "regression_prevention": [
+    "Cổng nguồn/HTML dùng chung theo package-type-v1",
+    "Ca âm reset số giữa chức năng, sai số đề/đáp án và Điểm dừng",
+    "Kiểm tham chiếu theo ID và số theo ngữ cảnh, gồm metadata/trợ năng",
+    "G01 inverse giới hạn theo block; fingerprint và receipt đã duyệt bất biến"
+  ],
+  "files_changed": [
+    "content/thpt/on_thi_toan_thpt/AGENTS.md",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/_dung_chung/nhat_ki_hoc_tap.qmd",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/giao_dien/web_2027_layout.json",
+    "_design/web_2027_mau_dung_chung/r1-controller.js",
+    "_design/web_2027_mau_dung_chung/hop_dong_vung_doc.md",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.qmd",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/giao_dien/he_nhan.json",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/index.qmd",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/giao_dien/he_nhan.json",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/index.qmd",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/giao_dien/he_nhan.json",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g04/index.qmd",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g04/giao_dien/he_nhan.json",
+    "scripts/zo_course_labels.py",
+    "scripts/zo_course_numbering.py",
+    "scripts/zo_course_numbering_selftest.py",
+    "scripts/zo_course_labels_selftest.py",
+    "scripts/zo_web_2027_production.py",
+    "scripts/zo_web_2027_backlog_check.py",
+    "scripts/zo_r1_g01_labels_check.py",
+    "scripts/zo_r1_g02_labels_check.py",
+    "scripts/zo_2027_governance_check.py",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/01_kien_truc_hoc_tap.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/02_quy_trinh_va_nghiem_thu.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/03_dieu_hanh_chuong_trinh.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/04_nhat_ki_quyet_dinh.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/07_quy_chuan_cau_truc_trang_nguoi_hoc.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/08_danh_muc_tham_quyen_dieu_hanh.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/quy_chuan_goi_qmd.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/danh_muc_kien_truc_hoc_tap.yml",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/hop_dong_dieu_hanh.json",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/ho_so_bien_tap_ro_nghia_20261018.json",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/ho_so_so_va_nhan_20261018.json"
+  ],
+  "checks": {
+    "source_scope": {
+      "passed": 59,
+      "total": 59
+    },
+    "regression": {
+      "passed": 57,
+      "total": 57,
+      "failures": []
+    },
+    "HTML": {
+      "passed": 6045,
+      "total": 6045,
+      "failures": []
+    },
+    "browser": {
+      "passed": 72,
+      "total": 72,
+      "failures": []
+    },
+    "official_HTML_render_exit_codes": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0
+    }
+  },
+  "packages": {
+    "G01": {
+      "missing": [],
+      "Nhiệm vụ": 62,
+      "Gợi mở": 7,
+      "Điểm dừng": 7,
+      "labels": 215,
+      "html_sha256": "826572ca5fcf75244530b8be988ba8b5b0d64d1c1020fd7519bf9079fe2d0b1d"
+    },
+    "G02": {
+      "missing": [],
+      "Nhiệm vụ": 59,
+      "Gợi mở": 5,
+      "Điểm dừng": 8,
+      "labels": 197,
+      "html_sha256": "4bbf16897bd202748e3869ced9a4f2a25c9e3f1f24320b6fed3dabbf5214f6d7"
+    },
+    "G03": {
+      "missing": [],
+      "Nhiệm vụ": 46,
+      "Gợi mở": 6,
+      "Điểm dừng": 7,
+      "labels": 175,
+      "html_sha256": "36a3e00999891d487d2bddd1f05444d9a8e61bbb1198e0d51bb14b08a557be87"
+    },
+    "G04": {
+      "missing": [],
+      "Nhiệm vụ": 28,
+      "Gợi mở": 5,
+      "Điểm dừng": 7,
+      "labels": 121,
+      "html_sha256": "b6381818d89a0041d74eb2e22572d4b8a0a8b825ef92150bace2176ca70e0027"
+    }
+  },
+  "preservation": {
+    "G01": {
+      "mathematics_preserved": true,
+      "source_ID_sequence_preserved": true
+    },
+    "G02": {
+      "mathematics_preserved": true,
+      "source_ID_sequence_preserved": true
+    },
+    "G03": {
+      "mathematics_preserved": true,
+      "source_ID_sequence_preserved": true
+    },
+    "G04": {
+      "mathematics_preserved": true,
+      "source_ID_sequence_preserved": true
+    }
+  },
+  "historical_G01_receipt_unchanged": true,
+  "preview": {
+    "entry": "_audit/numbering_20261018/index.html",
+    "HTML_root": "_audit/numbering_20261018/html",
+    "URL": "http://127.0.0.1:8877/_audit/numbering_20261018/index.html",
+    "port": 8877,
+    "reopen": "_audit/numbering_20261018/Mo_ban_xem_HTML.cmd"
+  },
+  "limits": [
+    "Edge kiểm 1440 px và 390 px, chưa phải chủ trì duyệt.",
+    "Quarto cảnh báo tám liên kết điều hướng ngoài phạm vi trong mirror; bộ bàn giao đã kiểm tệp/fragment cục bộ tồn tại.",
+    "PDF học liệu chưa dựng lại; thành phẩm công khai giữ nguyên.",
+    "Nhà/D0 và các trang thông tin trong bộ xem được chép để phục vụ điều hướng, không được dựng lại trong nhiệm vụ này."
+  ],
+  "commit": false,
+  "push": false,
+  "publication": false,
+  "owner_acceptance": "pending",
+  "audit_retained": "Bản xem, ảnh, báo cáo hiện hành, snapshot nguồn đầu lượt và bằng chứng inverse giữ cho chủ trì đối chiếu; script một lần được dọn sau kiểm."
+}

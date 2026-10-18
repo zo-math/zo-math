@@ -59,9 +59,9 @@ for ident in ['doi-tuong','dinh-nghia','tren-doan','tap-khac','loi-van','bắt-�
 for ident in ['quy-tac-va-tap-xac-dinh','dinh-nghia-tren-tap-dang-xet','dieu-kien-bao-dam-ton-tai','doc-su-dat-duoc-khi-thay-tap','dai-luong-ham-muc-tieu-rang-buoc','on-nen']:
     check(ident+' content/support h4',heading_level(page.find(id=ident)),'h4')
 check('Foundation nested under kickoff',page.find(id='on-nen').find_parent(id='bắt-đầu-từ-đâu') is not None)
-for ident in ['câu-hỏi-dẫn-đường','học-xong-em-cần-làm-được-gì']:
-    check(ident+' within lesson orientation',page.find(id=ident).find_parent(id='dinh-huong-bai-hoc') is not None)
-    check(ident+' not independent heading',page.find(id=ident).name,'span')
+for ident,owner in [('câu-hỏi-dẫn-đường','dinh-huong-bai-hoc'),('học-xong-em-cần-làm-được-gì','bat-dau')]:
+    check(ident+' in current functional owner',page.find(id=ident).find_parent(id=owner) is not None)
+    check(ident+' keeps existing anchor kind',page.find(id=ident).name,'span')
 check('Warmup task independent from instructions',paper(page.find(id='ba-câu-khởi-động')) is not paper(page.find(id='cach-thuc-hien-bat-dau')))
 self_id='ví-dụ-làm-mẫu-so-sánh-giá-trị-không-so-sánh-hoành-độ'
 check('Unworked task is not a worked example',role(page.find(id=self_id)),'Tự kiểm tra')

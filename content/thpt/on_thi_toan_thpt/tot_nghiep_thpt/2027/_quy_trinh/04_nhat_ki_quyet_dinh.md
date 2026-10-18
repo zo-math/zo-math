@@ -471,3 +471,29 @@ Chủ trì chỉ ra đồ thị và BBT G04 không nhất quán với các gói 
 Chủ trì gửi ảnh G04 có nút “Bài học · Mục lục” dạng dài và yêu cầu chỉ icon như thiết kế trước, tìm lỗi để không tái diễn. Không chọn thiết kế mới. Lỗi thực thi: icon/CSS đã chốt nằm trong nhánh tải PDF của G01/G02, template và JS dùng chung vẫn giữ capsule; G04 không có PDF nên rơi về nhánh cũ. Kiểm trước chỉ đo hoạt động mở/đóng, chưa xác nhận hình thức.
 
 Nguồn sửa là shell template/CSS/runtime cùng cổng trước/sau adapter; 07, 02, AGENTS và kit xác định đúng chủ sở hữu và ca trang chưa PDF. Không biên tập nội dung toán, đổi kiến trúc, dựng lại hình/PDF, commit/push hoặc xuất bản. Trạng thái/bằng chứng ở 03; không sửa kết quả QA cũ để giả đã bắt lỗi từ trước.
+
+## GOALS-START-20261018 — hợp nhất mục tiêu, 18/10/2026
+
+Chủ trì duyệt giữ một bảng đầy đủ ở Bắt đầu, tên Học xong, em cần làm được gì?, hiển thị trực tiếp; bỏ bảng trong Định hướng bài học của bốn gói. Đầu Bài học đổi thành Câu hỏi dẫn đường, thu gọn, giữ câu hỏi/gợi ý/phạm vi. G03/G04 phải đối chiếu trước bỏ để không mất yêu cầu cũ. Đây là thống nhất trình bày theo mục tiêu đã có, không thêm kiến trúc hoặc bắt đi qua các hỗ trợ.
+
+07/6.1.4 sở hữu quy tắc; 02 sở hữu phép kiểm, mẫu bản thảo 1.2/bảng kiểm 1.5 áp dụng cho lần viết mới. Kit/adapter hiện thực, 03 giữ trạng thái. Thay mẫu định hướng cũ có bảng mục tiêu/bản đồ mục; không sửa bằng chứng lịch sử hoặc bản thảo đã duyệt. Lượt được giao chỉ sửa nguồn, chưa HTML/PDF, commit hoặc xuất bản.
+
+## INSTRUCTIONS-20261018 — rà lại Cách thực hiện
+
+Ngày 18/10/2026, chủ trì yêu cầu bỏ mục không cần, biên tập mục còn cần thành hướng dẫn hiệu quả và thống nhất cách trình bày, sửa lỗi chữ đầu câu. Thực hiện ở nguồn theo 07/6.1.5; quy định “sau Cách thực hiện” được hiểu có điều kiện, không là quota. QD_004 tiếp tục điều hành trạng thái đóng của hỗ trợ tùy chọn thực sự được giữ. Không cấp quyền dựng HTML/PDF, nghiệm thu hoặc xuất bản trong lượt này. Chi tiết kiểm kê tại ho_so_cach_thuc_hien_20261018.md.
+
+
+## EDITORIAL-20261018 — biên tập thuật ngữ và lời văn
+
+Ngày 18/10/2026, chủ trì duyệt ma trận 61 mục và giao sửa nguồn cả sáu trang, giữ điều kiện toán/điều hướng, cập nhật quy tắc/cổng kiểm; không dựng HTML/PDF hoặc commit. 07/6.1.6 sở hữu cách dùng tập xác định/tập đang xét/điều kiện biến và lời văn dành cho học sinh; 01 giữ nguyên kiến trúc. Mẫu/bảng kiểm 1.4/1.7 thêm B24. Cổng `zo_course_editorial.py` kiểm nguồn/include/dữ liệu/nhãn và những lỗi từ vựng đã xác định, gắn với hồ sơ đọc biên tập đúng nguồn; không nhận PASS máy là chứng nhận mọi câu có nghĩa hoặc mọi phát biểu toán đúng. Giữ biên nhận lịch sử, không đổi hash để vượt kiểm. Trạng thái và việc tiếp theo chỉ tại 03; hồ sơ triển khai `ho_so_bien_tap_ro_nghia_20261018.md`.
+
+
+## NUMBERING-20261018 — số liên tục theo loại hiển thị, nhãn theo khu vực
+
+Chủ trì yêu cầu ngày 18/10/2026 áp dụng R1-G01–R1-G04. Mỗi loại hiển thị dùng một dãy số liên tục riêng từ 01 theo thứ tự xuất hiện trong toàn gói; không đặt lại theo mục, chức năng, chặng, lượt hoặc khu vực. Tất cả nhiệm vụ, kể cả tự làm trong Bài học, Khởi động, Luyện tập, Kiểm tra, Ôn lại, Ôn nền và Sửa lỗi, dùng chung dãy Nhiệm vụ. “Tự kiểm tra” đổi thành “Nhiệm vụ”; chức năng nội bộ vẫn giữ để phân biệt vai trò sư phạm. Gợi mở, Ví dụ và Điểm dừng có dãy riêng. Đề và lời giải dùng cùng số, không đếm lại lời giải; ID giữ nguyên. Include dùng chung không chứa số riêng của gói. Dẫn chiếu, bảng, mục lục và liên kết đi–về dùng cùng ánh xạ theo ID. MẠCH HỌC CHÍNH đổi MẠCH HỌC; HỖ TRỢ KHI CẦN đổi HỖ TRỢ. Nhãn con chỉ thêm tên khu vực đang chứa, phân cách “ · ”. Thay phần số theo chức năng và nhãn nhiều cấp trong QD_025/07, giữ ngữ nghĩa chức năng, kiến trúc và các receipt lịch sử.
+
+## D0-NUMBERING-20261018 — số bài khảo sát và trục căn tiêu đề bảng
+
+- Chỉ thị trực tiếp của chủ trì ngày 18/10/2026 thay đề xuất áp nhãn Mạch học/Hỗ trợ cho D0: bỏ nhãn trước từng bài, dùng Bài 01–24 liên tục toàn trang; ví dụ ở Chuẩn bị giữ Bài 00. Đề và phần đối chiếu cùng số/tên, giữ ID/liên kết và khảo sát tự nguyện. Quy tắc D0 ở 07 và map giao diện D0.
+- Số liệu căn phía nào, tiêu đề cột căn cùng phía đó; 07/6.1.1 thay mô tả cũ về tiêu đề ma trận căn trái. Bộ dựng bảng dùng chung thực thi theo cột; không đổi số liệu hay trục căn dữ liệu.
+- Thay đổi nguồn/HTML xem trước, chưa PDF, commit/push hoặc xuất bản; trạng thái và bản xem ở 03.

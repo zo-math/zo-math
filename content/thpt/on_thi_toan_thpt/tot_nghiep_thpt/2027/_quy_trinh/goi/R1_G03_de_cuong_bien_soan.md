@@ -1,5 +1,7 @@
 # R1-G03 — Đề cương biên soạn và chỉ mục nội dung
 
+> Hiệu chỉnh chỉ dẫn ngày 18/10/2026 — INSTRUCTIONS-20261018: áp dụng [07/6.1.5](../07_quy_chuan_cau_truc_trang_nguoi_hoc.md). Không bắt buộc Cách thực hiện ở từng mục; Gợi mở vẫn thuộc đúng mục và đứng trước giải thích. Các ghi chép phiên bản bản thảo phía dưới mô tả lịch sử, không là yêu cầu phục hồi hộp trong QMD hiện hành. Chỉ thị mới không sửa hồi tố bản thảo đã duyệt.
+
 Phiên bản 0.8 · 16/10/2026. Đề cương của [bản thảo nội dung 0.8](../../../../hoc_lieu/r1_g03/_quy_trinh/ban_thao/noi_dung.md), không là một kiến trúc học tập mới.
 
 [Hồ sơ nguồn và phạm vi](R1_G03.md) · [Ma trận mục tiêu và nhiệm vụ](R1_G03_ma_tran_nhiem_vu.md). Sửa lời giảng, dữ kiện, đề và lời giải tại bản nội dung; đề cương giữ lí do tổ chức và đường dẫn. Bản 0.1 được lưu trong hồ sơ kiểm của lượt biên soạn.

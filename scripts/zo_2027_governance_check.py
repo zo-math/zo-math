@@ -229,7 +229,13 @@ def governance_context():
             and terms['function.transfer']['scope']!=terms['function.integration']['scope'])
         application = json.loads(DEFAULT_APPLICATION.read_text(encoding='utf-8'))
         validate_application(application, json.loads(SCHEMA_PATH.read_text(encoding='utf-8')), terms)
-        validate_inventory(build_inventory(application, DEFAULT_APPLICATION.parent))
+        if registry['active_rules']['label_system'].get('revision') == 'NUMBERING-20261018':
+            from zo_course_labels import source_checks as current_label_checks
+            current=ROOT/'content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.qmd'
+            failures=[k for k,v in current_label_checks(current).items() if not v]
+            if failures:raise ValueError('Current numbering binding: '+str(failures))
+        else:
+            validate_inventory(build_inventory(application, DEFAULT_APPLICATION.parent))
         checks['QD_025 catalog/schema/current G01 map consistent'] = True
     except (ValueError, OSError, KeyError) as exc:
         checks['QD_025 catalog/schema/current G01 map consistent'] = False

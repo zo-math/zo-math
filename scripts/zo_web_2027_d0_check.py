@@ -57,6 +57,8 @@ def preview(page,out,candidates):
 
 def verify_approved_content(root):
     """Compare learner content with immutable approval, independently of release state."""
+    from zo_d0_presentation import approved_projection
+    root=approved_projection(root)
     approval=json.loads(RECEIPT.read_text(encoding='utf-8'))
     assert [s.get('id') for s in root.find_all('section',recursive=False)]==VIEWS
     for identifier,expected in approval['sections'].items():
@@ -115,6 +117,12 @@ def validate(page,build=None):
         'no prototype claims':not doc.select('.prototype-note') and 'HTML thử nghiệm' not in doc.get_text(' ',strip=True),
         'strand TOC preserved':[n['href'] for n in root.select('.d0-survey-toc a')]==[f'#mach-r{r}' for r in range(1,9)],
     }
+    from zo_d0_presentation import html_checks,asset_version_checks
+    checks.update(html_checks(doc,REPO));checks.update(asset_version_checks(doc,REPO))
+    from zo_course_cover import check_html
+    preview_allowed=page.resolve().is_relative_to(REPO/'_audit') or ('.quarto' in REPO.parts and os.environ.get('ZO_D0_COVER_PREVIEW')=='1')
+    try:checks['declared owned cover matches HTML']=check_html(REPO,'d0',page,allow_direction_approved=preview_allowed)
+    except (OSError,ValueError,KeyError):checks['declared owned cover matches HTML']=False
     try:verify_approved_content(strip_papers(root));checks['full approved text and TeX']=True
     except AssertionError:checks['full approved text and TeX']=False
     for task,answer in zip(TASKS,ANSWERS):
@@ -256,10 +264,47 @@ def browser(page,out):
             process.terminate();process.wait(timeout=15)
     return checks
 
+def responsive(page,out):
+    """D0-only responsive test: no render and no visit to another learning page."""
+    from zo_course_tables import BROWSER_ALIGNMENT_ERRORS
+    checks={};out.mkdir(parents=True,exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix='d0_responsive_',dir=out) as profile:
+        with socket.socket() as sock:sock.bind(('127.0.0.1',0));port=sock.getsockname()[1]
+        proc=subprocess.Popen([edge_executable(),'--headless=new','--disable-gpu','--no-first-run','--no-default-browser-check','--remote-allow-origins=http://localhost',f'--remote-debugging-port={port}',f'--user-data-dir={profile}','about:blank'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+        b=None
+        try:
+            for _ in range(100):
+                try:ws=next(t['webSocketDebuggerUrl'] for t in requests.get(f'http://127.0.0.1:{port}/json',timeout=1).json() if t['type']=='page');break
+                except (requests.RequestException,ValueError,StopIteration):time.sleep(.1)
+            else:raise RuntimeError('Owned Edge did not start')
+            b=Browser(ws);b.call('Page.enable')
+            for width in [1440,390,320]:
+                b.viewport(width,900);b.navigate(page.as_uri())
+                cover=b.evaluate('(()=>{const n=document.querySelector(".hero-art img"),r=n.getBoundingClientRect();return {loaded:n.complete&&n.naturalWidth>0,fits:r.left>=0&&r.right<=innerWidth,columns:getComputedStyle(document.querySelector(".hero")).gridTemplateColumns.split(" ").length}})()')
+                checks[f'{width}/cover loaded and fits']=cover['loaded'] and cover['fits']
+                checks[f'{width}/cover columns']=cover['columns']==(2 if width>760 else 1)
+                b.screenshot(out/f'd0-cover-{width}.png')
+                for view in VIEWS:
+                    b.click(f'.d0-nav a[href="#{view}"]')
+                    if view=='doc-ket-qua':b.evaluate('document.querySelectorAll("#doc-ket-qua details").forEach(n=>n.open=true)')
+                    g=b.evaluate(GEOMETRY)
+                    checks[f'{width}/{view}/no page overflow']=g['overflow']==[]
+                    checks[f'{width}/{view}/figures fit']=g['fits'] and g['loaded']
+                    checks[f'{width}/{view}/table alignment']=not b.evaluate(BROWSER_ALIGNMENT_ERRORS)
+                b.navigate(page.as_uri()+'?d0-view=khao-sat#d0-r2-02');b.screenshot(out/f'd0-grouped-table-{width}.png')
+        finally:
+            if b:
+                try:b.call('Browser.close')
+                except Exception:pass
+                b.ws.close()
+            try:proc.wait(timeout=8)
+            except subprocess.TimeoutExpired:proc.terminate();proc.wait(timeout=8)
+    return checks
+
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('command',choices=['rebuild','preview','check'])
     p.add_argument('--output',type=Path,required=True);p.add_argument('--html',type=Path);p.add_argument('--build',type=Path)
-    p.add_argument('--home',type=Path);p.add_argument('--g01',type=Path);p.add_argument('--g02',type=Path);p.add_argument('--browser',action='store_true')
+    p.add_argument('--home',type=Path);p.add_argument('--g01',type=Path);p.add_argument('--g02',type=Path);p.add_argument('--browser',action='store_true');p.add_argument('--responsive',action='store_true')
     args=p.parse_args();out=args.output.resolve()
     if not out.is_relative_to(REPO/'_audit') or out==REPO/'_audit':p.error('Named audit directory required')
     out.mkdir(parents=True,exist_ok=True)
@@ -274,6 +319,7 @@ def main():
     build=json.loads(args.build.read_text(encoding='utf-8')) if args.build else None
     checks,missing=validate(args.html.resolve(),build)
     if args.browser:checks.update(browser(args.html.resolve(),out/'images'))
+    if args.responsive:checks.update(responsive(args.html.resolve(),out/'responsive'))
     report={'checks':checks,'passed':sum(checks.values()),'total':len(checks),'failures':[k for k,v in checks.items() if not v],
         'missing_links':missing,'html_sha256':sha(args.html),'checker_sha256':sha(Path(__file__)),
         'limits':['Edge headless; not Safari/Firefox, real touch or screen-reader acceptance.','Not owner acceptance, PDF synchronization or publication.']}

@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 import yaml
 
 # One browser predicate used by both existing checkers and the table audit.
-BROWSER_ALIGNMENT_ERRORS = '''(()=>{const errors=[];for(const t of document.querySelectorAll('.reader-content table')){const kind=t.dataset.tableKind;for(const c of t.querySelectorAll('th,td')){if(!c.getClientRects().length)continue;const head=!!c.closest('thead');let expected='left';if(kind==='values'||kind==='variation'||(kind==='sign'&&t.dataset.tableVariant!=='explained'))expected='center';if(kind==='matrix'&&!head&&c.tagName==='TD')expected='center';if(kind==='frequency'&&!head&&c.tagName==='TD')expected='right';if(c.classList.contains('zo-center-cell'))expected='center';if(t.dataset.tableVariant==='numbered'&&!head&&c.tagName==='TH')expected='center';if(!kind&&c.tagName!=='TH')continue;if(getComputedStyle(c).textAlign!==expected)errors.push({kind,text:c.textContent.trim(),expected,actual:getComputedStyle(c).textAlign})}}return errors})()'''
+BROWSER_ALIGNMENT_ERRORS = '''(()=>{const errors=[];for(const t of document.querySelectorAll('.reader-content table')){const kind=t.dataset.tableKind;for(const c of t.querySelectorAll('th,td')){if(!c.getClientRects().length)continue;const head=!!c.closest('thead');let expected='left';if(kind==='values'||kind==='variation'||(kind==='sign'&&t.dataset.tableVariant!=='explained'))expected='center';if(kind==='matrix'&&!head&&c.tagName==='TD')expected='center';if(kind==='frequency'&&!head&&c.tagName==='TD')expected='right';if(c.classList.contains('zo-center-cell'))expected='center';if(t.dataset.tableVariant==='numbered'&&!head&&c.tagName==='TH')expected='center';if(head){const body=t.querySelector('tbody tr')?.children[c.cellIndex];if(body)expected=getComputedStyle(body).textAlign}if(!kind&&c.tagName!=='TH')continue;if(getComputedStyle(c).textAlign!==expected)errors.push({kind,text:c.textContent.trim(),expected,actual:getComputedStyle(c).textAlign})}}return errors})()'''
 
 ROOT=Path(__file__).resolve().parents[1]
 KIT=ROOT/'_design/web_2027_mau_dung_chung'
@@ -52,6 +52,12 @@ def apply_mathematical_presentation(root):
 def media_html_checks(doc):
     root=doc.select_one('.reader-content');grid=load_contract()['mathematical_grid'];checks={}
     for n,table in enumerate(root.select('table[data-table-kind]'),1):
+        rows=table.select('tr');kind=table['data-table-kind']
+        if len(rows)>1 and kind in {'frequency','matrix'}:
+            for c,(head,body) in enumerate(zip(rows[0].find_all(['th','td'],recursive=False),rows[1].find_all(['th','td'],recursive=False)),1):
+                center='zo-center-cell' in body.get('class',[]) or kind=='matrix' and body.name=='td'
+                right=not center and kind=='frequency' and body.name=='td'
+                checks[f'table {n} column {c} header matches data alignment']=('zo-center-cell' in head.get('class',[]))==center and ('zo-numeric-cell' in head.get('class',[]))==right
         if table['data-table-kind'] not in grid['kinds']:continue
         checks[f'table {n} shared mathematical grid']=grid['class'] in table.get('class',[])
         if 'zo-variation-native' in table.get('class',[]):
@@ -171,6 +177,13 @@ def bind(doc,page_key):
                 elif cell.has_attr('class'):del cell['class']
         if entry.get('corner_label'):
             rows[0].find(['th','td'],recursive=False)['aria-label']=entry['corner_label']
+        # Headers use the alignment of their data column, including a numeric
+        # first column when the table has no row headings. Body policy is intact.
+        for c,cell in enumerate(rows[0].find_all(['th','td'],recursive=False)):
+            centered=(c+1 in entry.get('center_body_columns',[]) or kind in {'values','sign'} and entry.get('variant')!='explained' or kind=='matrix' and (c>0 or not row_header) or entry.get('variant')=='numbered' and c==0)
+            right=kind=='frequency' and (c>0 or not row_header)
+            if centered:cell['class']=cell.get('class',[])+['zo-center-cell']
+            elif right:cell['class']=cell.get('class',[])+['zo-numeric-cell']
         frame=table.parent
         if not any(c in frame.get('class',[]) for c in ['r1-table','r1-table-scroll-x','table-scroll','zo-course-table-frame']):
             frame=doc.new_tag('div');table.wrap(frame)
@@ -218,6 +231,11 @@ def apply(doc,page_key,page,runtime):
 def self_test():
     data=load_contract();checks={}
     checks['eight supported 0.4 types']=len(set(data['types']))==8
+    checks['column headers follow body contract']=data.get('column_header_alignment')=='match_body_column'
+    fixture=BeautifulSoup('<main class="reader-content"><table data-table-kind="frequency"><thead><tr><th>Loại</th><th class="zo-numeric-cell">Lãi</th></tr></thead><tbody><tr><th>A</th><td class="zo-numeric-cell">30</td></tr></tbody></table></main>','html.parser')
+    checks['aligned numerical header accepted']=all(media_html_checks(fixture).values())
+    fixture.select_one('thead th.zo-numeric-cell').attrs.pop('class')
+    checks['left header above right data rejected']=not all(media_html_checks(fixture).values())
     checks.update(media_style_checks())
     for key in ['d0','r1_g01','r1_g02','r1_g03','r1_g04']:
         source=media_source_checks(BASE/'hoc_lieu'/key/'index.qmd')

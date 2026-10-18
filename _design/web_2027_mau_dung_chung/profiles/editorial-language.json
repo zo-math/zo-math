@@ -1,0 +1,37 @@
+{
+  "id": "EDITORIAL-20261018",
+  "owner": "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/07_quy_chuan_cau_truc_trang_nguoi_hoc.md#bien-tap-ro-nghia",
+  "review": "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/ho_so_bien_tap_ro_nghia_20261018.json",
+  "allowed_mien": [
+    "\\bmiền nghiệm\\b",
+    "\\bmiền phẳng\\b"
+  ],
+  "rules": [
+    {
+      "id": "domain-term",
+      "pattern": "\\bmiền\\b",
+      "message": "Nêu đúng tập xác định, tập đang xét hoặc điều kiện của biến; miền nghiệm/miền phẳng được giữ đúng nghĩa."
+    },
+    {
+      "id": "internal-assessment-language",
+      "pattern": "\\b(?:phép đo(?: độc lập)? (?:mới|sớm)|lấy mẫu(?!\\s+nhân)|bài thứ ba|chứng nhận độ bền|xác nhận độ bền)\\b",
+      "message": "Chuyển lời điều hành thành việc học sinh cần làm; gộp hướng dẫn lặp."
+    },
+    {
+      "id": "task-exposure-jargon",
+      "pattern": "\\b(?:chưa lộ|đã lộ|còn mới)\\b",
+      "message": "Nói rõ bài chưa gặp trước đó, đã biết lời giải hoặc đã dùng trợ giúp."
+    },
+    {
+      "id": "ambiguous-math-shorthand",
+      "pattern": "\\b(?:công thức kiểm điểm|nghiệm đạo hàm|giao trục|hàm tự nhiên|nhân ngược|kiểm hiệu)\\b",
+      "message": "Nêu rõ đối tượng và phép kiểm toán học."
+    },
+    {
+      "id": "broken-editorial-sentence",
+      "pattern": "\\b(?:tập đang xét xét|tập xác định loại|tập xác định không có đầu|từng khoảng tập xác định|đã dẫn đến đây hỗ trợ)\\b",
+      "message": "Đọc lại cả câu sau khi đổi thuật ngữ."
+    }
+  ],
+  "limits": "Cổng tìm cách diễn đạt đã xác định là sai và kiểm hồ sơ rà nguồn; không chứng nhận mọi câu đều rõ nghĩa hoặc mọi phát biểu toán đều đúng."
+}

@@ -1,5 +1,7 @@
 # R1-G03 — Ma trận mục tiêu, nhiệm vụ và kiểm chứng
 
+> Hiệu chỉnh chỉ dẫn ngày 18/10/2026 — INSTRUCTIONS-20261018: áp dụng [07/6.1.5](../07_quy_chuan_cau_truc_trang_nguoi_hoc.md). Không bắt buộc Cách thực hiện ở từng mục; Gợi mở vẫn thuộc đúng mục và đứng trước giải thích. Các ghi chép phiên bản bản thảo phía dưới mô tả lịch sử, không là yêu cầu phục hồi hộp trong QMD hiện hành. Chỉ thị mới không sửa hồi tố bản thảo đã duyệt.
+
 Phiên bản 0.8 · 16/10/2026. Chỉ mục của [bản thảo nội dung 0.8](../../../../hoc_lieu/r1_g03/_quy_trinh/ban_thao/noi_dung.md), chưa phải ngân hàng đã nghiệm thu.
 
 [Hồ sơ phạm vi](R1_G03.md) · [Đề cương](R1_G03_de_cuong_bien_soan.md). Đề, dữ kiện và lời giải được sửa tại bản nội dung. Ma trận giữ độ phủ và các tuyến kiểm, không giữ bản đáp án song song. Bản đặc tả 0.1 trước chuyển đổi được lưu tại `_audit/r1_g03_manuscript_20261016/before/` tính từ gốc repo.

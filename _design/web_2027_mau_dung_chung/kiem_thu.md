@@ -390,3 +390,11 @@ Chủ trì chọn G03 làm mẫu ngày 17/10/2026. Áp dụng 07/6.1.2: preset `
 
 
 GRAPH-G03-02 (18/10/2026): bảo toàn đối chứng bằng bản chụp/số đo, không giữ lỗi hiển thị trong nguồn hiện hành. Cổng lesson_display_checks áp dụng đủ G01–G04, bao gồm ảnh không có figure. G03 gọi apply_graph_display như các gói khác; kiểm đủ 11 ảnh trên desktop/mobile, sáu ảnh cũ giữ geometry và năm ảnh sửa nhận cùng tỉ lệ. Không dựng lại TEX/SVG/PDF khi chỉ sửa lớp đặt ảnh.
+
+## READING-REGIONS-20261018 — kiểm nguồn trước dựng
+
+Chạy `python -B scripts/zo_python.py -B scripts/zo_course_reading_regions_selftest.py`. Khi đối chiếu HTML đã có, thêm `--fixture-root <goc-html>`: chỉ đọc và biến đổi trong bộ nhớ, không dùng làm nguồn dựng. Kiểm âm nhiệm vụ chung giấy, giữ đối chiếu tại chỗ, ID/nhóm, chữ/toán/liên kết/hình, tính lặp không đổi, breadcrumb và CTA tại nguồn. `zo_check_repo.py` gọi kiểm nguồn bắt buộc; các adapter bốn gói gọi kiểm vùng thực qua chính sách biên tập. Kiểm trong bộ nhớ không thay duyệt HTML sau lần dựng được phép.
+
+## GOALS-START-20261018 — kiểm đúng vị trí và đủ nội dung
+
+`zo_course_learning_goals.py` nối cổng nguồn/HTML cả bốn gói; binding learning_goals giữ tên dòng và đích bằng chứng. `zo_course_learning_goals_selftest.py` kiểm mất mục tiêu, sai cột, bảng còn trong guide, mục tiêu bị thu gọn và tiêu đề cũ. G01 kiểm fingerprint nguyên bản bằng phép đảo đúng phần đã duyệt; thử âm phải tiếp tục bắt thay toán, chữ hoặc ID ngoài phạm vi. Test DOM chỉ trong bộ nhớ, không sinh HTML. Bản thử G02 không có fresh_source đã nghỉ dùng; đường sản xuất phải nhận raw Quarto tươi cùng map canonical.

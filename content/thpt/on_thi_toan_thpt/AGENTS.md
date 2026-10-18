@@ -44,11 +44,11 @@ Yêu cầu tự nhiên như “Viết bản thảo gói R1-G04” kích hoạt v
 
 ## Bắt đầu dựng QMD hoặc HTML: luôn áp dụng hệ nhãn
 
-Yêu cầu chuyển bản thảo, dựng/hiệu chỉnh QMD hoặc HTML của gói R1 tự kích hoạt `07_quy_chuan_cau_truc_trang_nguoi_hoc.md`/6.2 và `02_quy_trinh_va_nghiem_thu.md`/2.4. Nạp `label_contract.display_contract` từ danh mục và `giao_dien/he_nhan.json` của gói trước khi dựng. Không dừng ở gắn metadata. Phải có nhãn chức năng/ngữ cảnh thật, số liên tục theo nhóm, cặp đề–lời giải, điểm dừng, loại kiến thức và ví dụ theo nội dung; không thêm nhãn đã lặp trong tiêu đề.
+Yêu cầu chuyển bản thảo, dựng/hiệu chỉnh QMD hoặc HTML của gói R1 tự kích hoạt `07_quy_chuan_cau_truc_trang_nguoi_hoc.md`/6.2 và `02_quy_trinh_va_nghiem_thu.md`/2.4. Nạp `label_contract.display_contract` từ danh mục và `giao_dien/he_nhan.json` của gói trước khi dựng. Không dừng ở gắn metadata. Phải có nhãn chức năng/ngữ cảnh thật, số liên tục theo loại hiển thị toàn gói, cặp đề–lời giải, điểm dừng, loại kiến thức và ví dụ theo nội dung; không thêm nhãn đã lặp trong tiêu đề.
 
 Gói dựng mới dùng `scripts/zo_course_labels.py` với `display_contract: qd025-display-v1`; các cổng QMD/Quarto kiểm binding nguồn và nhãn HTML. Cổng thiếu/sai phải được sửa trước trình, không bỏ qua hoặc thay bằng số đếm. Giữ adapter G01/G02 làm đối chứng; không chép quota hoặc ngoại lệ riêng. Bảng áp dụng hiển thị hiện hành của gói mới là binding này; chỉ dùng bảng di trú `ap_dung_he_nhan.json` khi thực sự làm di trú theo 02/2.4. Khi phát triển gói mới, nối adapter hiển thị vào cổng chung và kiểm trình duyệt; không sửa tay HTML đầu ra.
 
-Nhãn ngữ cảnh hiện hành theo hiệu chỉnh 17/10/2026 tại 07/6.2: Bài học → MẠCH HỌC CHÍNH; Khởi động → MẠCH HỌC CHÍNH · BÀI HỌC. G04/gói mới khai context_labels: parent-context-v1; gọi zo_course_labels.py, không gán lại bằng chuỗi riêng trong adapter. G01–G03 đã đồng bộ nguồn nhãn theo chỉ thị tiếp theo; thành phẩm công khai vẫn nguyên trạng. Giữ metadata chức năng/loại, ID và dãy số; cùng thành phần .role, một dấu “ · ”.
+Nhãn và số hiện hành theo NUMBERING-20261018 tại 07/6.2: MẠCH HỌC/HỖ TRỢ; nhãn con chỉ thêm khu vực chứa, ví dụ MẠCH HỌC · BÀI HỌC. Mỗi loại hiển thị đánh số liên tục toàn gói, không theo chức năng; Tự kiểm tra đổi tên hiển thị thành Nhiệm vụ, cùng dãy Nhiệm vụ. G01–G04 khai numbering_scope: package-type-v1. Giữ chức năng/ID/cặp đề–đáp án, dùng zo_course_numbering.py và zo_course_labels.py; không gán chuỗi riêng trong adapter.
 
 ## Cổng đồ thị và bảng biến thiên
 
@@ -129,3 +129,11 @@ Chủ trì chọn G03 làm mẫu ngày 17/10/2026. Áp dụng 07/6.1.2: preset `
 
 
 GRAPH-G03-02 (18/10/2026): bảo toàn đối chứng bằng bản chụp/số đo, không giữ lỗi hiển thị trong nguồn hiện hành. Cổng lesson_display_checks áp dụng đủ G01–G04, bao gồm ảnh không có figure. G03 gọi apply_graph_display như các gói khác; kiểm đủ 11 ảnh trên desktop/mobile, sáu ảnh cũ giữ geometry và năm ảnh sửa nhận cùng tỉ lệ. Không dựng lại TEX/SVG/PDF khi chỉ sửa lớp đặt ảnh.
+
+
+## Biên tập thuật ngữ và câu chữ — EDITORIAL-20261018
+
+Mọi nhiệm vụ viết/sửa/rà nguồn người học trong chuyên mục gọi 07/6.1.6 và 02/Rà thuật ngữ, gồm cả Nhà/D0 và nguồn include. Dùng tập xác định khi đúng nghĩa; phân biệt tập đang xét và điều kiện biến. Đọc ngữ cảnh, chuyển lời điều hành thành hành động rõ, bảo toàn điều kiện toán và điều hướng; không thay từ hàng loạt rồi coi là đã rõ nghĩa. Mẫu/bảng kiểm hiện hành 1.4/1.7 có B24. Cổng `zo_course_editorial.py` nối CLI nguồn và HTML; hồ sơ rà hết khớp thì đọc lại phần thay đổi, không tự gia hạn hash. Giữ nghiệm thu và fingerprint lịch sử; phép đảo G01 chỉ dùng để so sánh trong bộ nhớ, không dựng lại lời văn cũ.
+
+
+Sau NUMBERING-20261018, G01–G04 kiểm số hiện hành bằng zo_course_numbering_selftest.py và cổng zo_course_labels.py. Bảng di trú ap_dung_he_nhan.json giữ nguyên làm bằng chứng của quy tắc cũ; không dùng inventory đánh số theo chức năng của bảng ấy để chứng nhận số mới.

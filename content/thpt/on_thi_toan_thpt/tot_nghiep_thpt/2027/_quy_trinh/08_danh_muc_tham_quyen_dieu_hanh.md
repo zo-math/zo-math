@@ -19,7 +19,9 @@ QD_025 mở rộng hệ nhãn QD_023 bằng Gợi mở, áp dụng toàn chươn
 QD_028 bổ sung phân biệt chức năng nhánh tại 01/2.5.1 và danh mục nhãn, quy trình đối sánh tại 02/1.3, hiển thị tại 07 và ánh xạ tại chuẩn QMD. Không tạo quy chuẩn riêng từ báo cáo nghiên cứu. DH_021 là mốc đối sánh lịch sử; việc hiện hành của hai gói và toàn khóa chỉ lấy từ mục A của 03. Hồ sơ và báo cáo mới không thay receipt lịch sử.
 
 
-**Bổ sung vận hành bản thảo ngày 17/10/2026:** 07/6.3 giữ yêu cầu chính văn phát biểu trực tiếp và không miễn thiết kế cho hình nháp; quy chuẩn gói giữ quy cách .zo-source-note; 02/1.4 bắt buộc nạp trước viết/rà. Mẫu nội dung hiện hành 1.1, bảng kiểm 1.2. Ghi chép 1.0/1.1 ở đoạn Gợi mở phía trên chỉ mô tả mốc hiệu chỉnh trước đó. Giới hạn không sửa G01–G03 chỉ áp dụng lượt G04 ngày 17/10. Yêu cầu ngày 18/10 đã cho phép đối chiếu và sửa QMD/HTML G01–G04 theo 07/6.4; không mở PDF hoặc nâng Design 0.5.
+**Bổ sung vận hành bản thảo ngày 17/10/2026:** 07/6.3 giữ yêu cầu chính văn phát biểu trực tiếp và không miễn thiết kế cho hình nháp; quy chuẩn gói giữ quy cách .zo-source-note; 02/1.4 bắt buộc nạp trước viết/rà. Tại mốc này, mẫu nội dung 1.1, bảng kiểm 1.2; đây không là chỉ dẫn phiên bản hiện hành sau các hiệu chỉnh tiếp theo. Ghi chép 1.0/1.1 ở đoạn Gợi mở phía trên chỉ mô tả mốc hiệu chỉnh trước đó. Giới hạn không sửa G01–G03 chỉ áp dụng lượt G04 ngày 17/10. Yêu cầu ngày 18/10 đã cho phép đối chiếu và sửa QMD/HTML G01–G04 theo 07/6.4; không mở PDF hoặc nâng Design 0.5.
+
+**GOALS-START-20261018:** 07/6.1.4 sở hữu vị trí/tên bảng mục tiêu và Câu hỏi dẫn đường; 01 tiếp tục sở hữu mục tiêu–hoạt động–bằng chứng. 02 giữ kiểm đối chiếu không mất mục tiêu, mẫu hiện hành là bản thảo 1.2 và bảng kiểm 1.5. QMD sở hữu lời người học; binding chỉ phục vụ kiểm. Không dùng sơ đồ mục học hoặc bản đồ G01/G02 cũ để phục hồi bảng mục tiêu trong Bài học.
 
 ## 1. Một vấn đề, một nguồn có thẩm quyền
 
@@ -73,7 +75,7 @@ Trang Nhà DH_038: `index.qmd` trực tiếp sở hữu nội dung biên tập n
 
 ## 3. Các thay thế đã có căn cứ
 
-**QD_031 / DH_026:** Nhật kí là khu vực ngang hàng, không thuộc Ôn lại; Toàn văn dùng đúng thứ tự ở 07/3. Nội dung con trở về đúng owner, không ghép peer. Sửa lỗi đánh số liên tục theo thứ tự Sau Luyện tập → Sau Kiểm tra → Sau Ôn lại, nhánh Chuyển giao đặt theo owner riêng G02; đồng bộ số qua binding/tiêu đề/đích/nhãn tham chiếu. Đề và đáp án cùng vùng/tài nguyên không có liên kết nhảy thừa, đáp án vẫn thu gọn. Bảng chọn bài dùng một kiểu bốn cột, chỉ dẫn dài tách khỏi ô nhưng không mất nội dung. G02 dựng mới đủ năm SVG theo profile 0.4 và kiểm provenance. Các hợp đồng/QA cũ trái các quy tắc này chỉ có giá trị lịch sử; không phục hồi Nhật kí gộp Ôn lại, lời giải sai nhóm hoặc cache hình cũ. 01/02/07 sở hữu quy tắc, registry và guard chỉ hiện thực kiểm; scope không bao gồm PDF học liệu/Git/phát hành.
+**QD_031 / DH_026:** Nhật kí là khu vực ngang hàng, không thuộc Ôn lại; Toàn văn dùng đúng thứ tự ở 07/3. Nội dung con trở về đúng owner, không ghép peer. Theo NUMBERING-20261018, Sửa lỗi nối tiếp dãy Nhiệm vụ toàn gói; thứ tự các nhóm vẫn Sau Luyện tập → Sau Kiểm tra → Sau Ôn lại, nhánh Chuyển giao đặt theo owner riêng G02; đồng bộ số qua binding/tiêu đề/đích/nhãn tham chiếu. Đề và đáp án cùng vùng/tài nguyên không có liên kết nhảy thừa, đáp án vẫn thu gọn. Bảng chọn bài dùng một kiểu bốn cột, chỉ dẫn dài tách khỏi ô nhưng không mất nội dung. G02 dựng mới đủ năm SVG theo profile 0.4 và kiểm provenance. Các hợp đồng/QA cũ trái các quy tắc này chỉ có giá trị lịch sử; không phục hồi Nhật kí gộp Ôn lại, lời giải sai nhóm hoặc cache hình cũ. 01/02/07 sở hữu quy tắc, registry và guard chỉ hiện thực kiểm; scope không bao gồm PDF học liệu/Git/phát hành.
 
 **QD_033 hiện hành cho đường học, kế thừa phần không bị thay của QD_021:** nghĩa và 14 tình huống lấy từ 01/2.2.1–2.2.2; cổng thay thế/bằng chứng ở 02/1.2. DH_015/016 đã triển khai hai gói theo quyết định tại thời điểm đó; không chứng nhận nguồn đã đạt QD_033 và không kế thừa nghiệm thu giữa gói. QA DH_011/FB036 và audit QD_021 trong profile giữ lịch sử; trạng thái đường học mới lấy từ 03/registry, không từ đoạn lịch sử.
 
@@ -126,3 +128,13 @@ Các lỗi nội dung/đường học chưa sửa phải có ID, vị trí, ch�
 
 
 GRAPH-G03-01: 07/6.1.2 sở hữu khung/tỉ lệ đồ thị do chủ trì chọn; `../zo_math_graphics/graph/profiles/lesson-g03.json` là thông số công cụ duy nhất, `zo_graphics.py` nối công cụ và đặt cỡ, `production-figures.css` hiển thị. G01/G02/G03/G04 và gói mới áp dụng; bản chụp G03 trước sửa là đối chứng. GRAPH-G03-02 giữ nguồn vẽ nhưng sửa lớp hiển thị năm ảnh, không coi đối chứng là lệnh giữ lỗi. Chỉ thay phần cỡ tự nhiên trước đó; không thay BBT hoặc bìa, không suy PDF/phát hành.
+
+**INSTRUCTIONS-20261018:** 07/6.1.5 sở hữu tính cần thiết, vị trí và trạng thái chỉ dẫn; 01 không yêu cầu ô Cách thực hiện trước mọi Gợi mở. Mẫu hiện hành: bản thảo 1.3, bảng kiểm 1.6 (thay phiên bản tại mốc GOALS-START, không sửa hồi tố lịch sử). 02 giữ quy trình đọc/đối chiếu, binding chỉ khai nơi kiểm, module zo_course_instructions.py hiện thực cổng; trạng thái ở 03.
+
+
+### Biên tập rõ nghĩa — EDITORIAL-20261018
+
+07/6.1.6 sở hữu thuật ngữ và cách diễn đạt cho cả sáu trang; 01 vẫn sở hữu kiến trúc và điều kiện học tập. 02 và B24 của bảng kiểm 1.7 điều hành cách đối chiếu; khung bản thảo 1.4 nhắc áp dụng trước viết. `zo_course_editorial.py` hiện thực cổng từ vựng, nguồn được rà và phép so sánh có phạm vi G01; không coi đây là máy chứng nhận ngữ nghĩa. Chỉ 03 ghi trạng thái hiện hành. Không thay biên nhận cũ hoặc dùng việc rà nguồn làm nghiệm thu HTML/PDF.
+
+
+NUMBERING-20261018 thay số theo chức năng và nhãn nhiều cấp; chủ sở hữu nghĩa ở 01, hiển thị ở 07, nguồn máy ở danh mục label_contract. Không sửa bảng di trú hoặc receipt lịch sử để giả đã áp dụng quy tắc mới.

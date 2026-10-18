@@ -54,6 +54,8 @@ def apply_editorial_policy(document):
     if root is None:raise ValueError('Common editorial policy requires a reader')
     binding_path=ROOT/'content/thpt/on_thi_toan_thpt/hoc_lieu'/root['data-r1-code'].lower().replace('-','_')/'giao_dien/he_nhan.json'
     data=json.loads(binding_path.read_text(encoding='utf-8'))
+    from zo_course_reading_regions import apply as apply_reading_regions
+    apply_reading_regions(document,data)
     if data.get('descriptive_task_titles'):
         for unit in data['units']:
             if unit['function'] not in {'function.guided_thinking','function.self_check','function.warmup'}:continue
@@ -80,6 +82,10 @@ def apply_editorial_policy(document):
 
 
 def require_editorial_policy(document):
+    from zo_course_editorial import require as require_language, html_checks as language_checks
+    require_language(language_checks(document))
+    from zo_course_reading_regions import require_cover
+    require_cover(document)
     policy=json.loads((KIT/'profiles/r1-consistency.json').read_text(encoding='utf-8'))
     root=document.select_one('.reader-content')
     for title in ([] if root.has_attr('data-zo-context-labels') else ['Bắt đầu','Bài học','Luyện tập','Ôn lại','Sửa lỗi','Nguồn']):
@@ -105,6 +111,10 @@ def require_editorial_policy(document):
     examples=data.get('editorial_examples') or [n for n in data.get('knowledge_units',[]) if n['type']=='type.example'] or data.get('examples',[])
     from zo_course_labels import context_html_checks, require
     require(context_html_checks(document,data),"parent-context HTML")
+    from zo_course_learning_goals import html_checks as goal_html_checks
+    require(goal_html_checks(document,data["learning_goals"]),"learning goal ownership")
+    from zo_course_instructions import html_checks as instruction_html_checks
+    require(instruction_html_checks(document,data),"purposeful activity instructions")
     require(presentation_checks(document,data),"shared reading presentation")
     from zo_course_math_assets import html_checks as math_asset_html_checks
     require(math_asset_html_checks(document,binding_path.parent.parent.name),"course math assets HTML")
@@ -142,6 +152,8 @@ def presentation_checks(doc,data):
     """Four-page consistency contract, activated by its explicit package binding."""
     if not data.get('descriptive_task_titles'):return {}
     root=doc.select_one('.reader-content');checks={}
+    from zo_course_reading_regions import require as require_reading_regions
+    require_reading_regions(doc,data)
     for unit in data['units']:
         if unit['function'] not in {'function.guided_thinking','function.self_check','function.warmup'}:continue
         owner=root.find(id=unit['question']);title=owner.select_one('.zo-task-title') if owner else None

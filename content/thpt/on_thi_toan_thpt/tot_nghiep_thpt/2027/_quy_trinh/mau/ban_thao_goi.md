@@ -1,5 +1,5 @@
 <!--
-MẪU BIÊN SOẠN NỘI DUNG GÓI — phiên bản 1.1, ngày 17/10/2026.
+MẪU BIÊN SOẠN NỘI DUNG GÓI — phiên bản 1.4, ngày 18/10/2026.
 Phạm vi: các gói học liệu R1 của khóa Ôn thi Toán THPT 2027; loại khác phải xác định hợp đồng phù hợp trước, không ép D0/Nền theo khung này.
 Đây là khung nội dung, độc lập với mẫu trang. Nguồn chức năng: [01](../01_kien_truc_hoc_tap.md); cách trình bày: [07](../07_quy_chuan_cau_truc_trang_nguoi_hoc.md); quy trình sử dụng mẫu: [02, mục 1.4](../02_quy_trinh_va_nghiem_thu.md#ap-dung-mau-ban-thao); tổ chức tệp/chuyển QMD: [quy chuẩn gói](../quy_chuan_goi_qmd.md); [bảng kiểm](bang_kiem_ban_thao_goi.md).
 Đối chiếu từ nguồn G01/G02 hiện hành theo chức năng, không theo số bài/số trang. Số chặng, số mục và mọi tham số dưới đây chỉ là chỗ mẫu, không phải định mức.
@@ -7,6 +7,7 @@ Cách dùng: lập bảng đối chiếu trước viết theo 02/1.4; đưa khun
 Mỗi vai trò trong mẫu phải có nội dung hoặc giải thích không áp dụng có căn cứ. Khác biệt ảnh hưởng cấu trúc/chức năng đã chốt phải báo chủ trì và được chốt trước khi trình; không bỏ mắt xích chỉ vì khó viết theo mẫu. Không bổ sung chức năng hay thiết kế mới qua mẫu này.
 Mẫu trang dùng lại bộ _design/web_2027_mau_dung_chung; không chép CSS/JS vào bản thảo. Khi có cải tiến đã chốt: cập nhật mẫu, bảng kiểm và các liên kết bị ảnh hưởng cùng lượt, tăng phiên bản; không tự sửa hồi tố gói đã có.
 Trước viết/rà phải đọc mục Công thức và nguồn đối chiếu trong quy chuẩn gói, quy chuẩn ngoặc LaTeX, hướng dẫn khối nội dung và 07/6.1,6.3. Chính văn phát biểu trực tiếp; căn cứ dùng chú thích .zo-source-note sau nội dung, không kể “theo SGK…” trong lời giảng. Có hình thì dùng công cụ ZO Math/profile hiện hành ngay ở bản thảo; không tự đặt palette/phông hoặc đợi chuyển QMD mới sửa diện mạo.
+Đọc 07/6.1.6 trước viết: dùng đúng tập xác định/tập đang xét/điều kiện biến, viết đủ đối tượng và quan hệ toán; chuyển lời điều hành thành hành động rõ cho học sinh. Rà cả đề–lời giải, bảng, alt và thẻ dùng chung. Lập đối chiếu giữ/viết lại/bỏ và gọi B24; không dùng PASS từ vựng thay đọc toàn văn.
 -->
 
 # [CẦN VIẾT: tên học liệu]
@@ -21,9 +22,13 @@ _Bản để đọc và góp ý; chưa phải học liệu đã nghiệm thu ho�
 
 [CẦN VIẾT: chủ đề giúp người học giải quyết điều gì; câu hỏi định hướng và phạm vi.]
 
-### Mục tiêu
+[**Học xong, em cần làm được gì?**]{#muc-tieu .r1-orientation-label}
 
-[CẦN VIẾT: khả năng quan sát được, gắn với bằng chứng trong gói; không dùng mã quản lí trong chính văn.]
+| Mục tiêu | Việc em cần làm được |
+|---|---|
+| [CẦN VIẾT: tên khả năng] | [CẦN VIẾT: biểu hiện quan sát được và có bằng chứng trong gói] |
+
+<!-- Một bản đầy đủ, nhìn thấy ở Bắt đầu; thêm dòng theo nội dung thật, không ép số dòng. Nhánh tự chọn có tiên quyết riêng đặt ngoài bảng. Ánh xạ ID bảng/tiêu đề và bằng chứng theo 07/6.1.4 khi chuyển QMD. -->
 
 ### Tiên quyết
 
@@ -53,9 +58,12 @@ _Bản để đọc và góp ý; chưa phải học liệu đã nghiệm thu ho�
 
 ## Bài học
 
-### Định hướng bài học
+<details class="zo-learning-guidance r1-lesson-orientation">
+<summary>Câu hỏi dẫn đường</summary>
 
-[CẦN VIẾT: câu hỏi dẫn đường, phạm vi và bản đồ các mục kiến thức thực tế.]
+[CẦN VIẾT: câu hỏi trung tâm, gợi ý suy nghĩ và phạm vi nếu cần. Không lặp bảng mục tiêu, nhãn cùng tên hoặc bản đồ các mục đã có ở Mục lục.]
+
+</details>
 
 ### Khởi động
 
@@ -79,7 +87,7 @@ _Bản để đọc và góp ý; chưa phải học liệu đã nghiệm thu ho�
 
 ### 1. [CẦN VIẾT: tên mục kiến thức]
 
-**Cách thực hiện:** [CẦN VIẾT: việc học sinh làm trong chính mục này.]
+<!-- Chỉ thêm chỉ dẫn thao tác khi hoạt động chưa đủ rõ; viết trực tiếp, đầu câu viết hoa. Bỏ lời nhắc thứ tự đọc đã có trong Gợi mở/phần giảng. Không tạo Cách thực hiện mặc định ở mỗi mục; điều kiện bắt buộc không đặt trong hộp thu gọn. Theo 07/6.1.5. -->
 
 <a id="goi-mo-01"></a>
 

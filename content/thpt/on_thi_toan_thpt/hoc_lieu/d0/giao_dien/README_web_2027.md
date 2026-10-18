@@ -1,5 +1,7 @@
 # D0 — giao diện web dùng chung 2027
 
+Hiệu chỉnh theo chỉ thị chủ trì 18/10/2026: D0 không dùng nhãn Mạch học/Hỗ trợ hoặc dòng mã mạch trước từng bài. Tiêu đề dùng **Bài 01 — tên bài** đến **Bài 24 — tên bài** liên tục toàn trang; ví dụ trong Chuẩn bị dùng **Bài 00 — tên bài**. Phần đối chiếu dùng cùng số và tên với đề; giữ mã kỹ thuật, ID và liên kết. Cổng `zo_d0_presentation.py` kiểm riêng D0, không áp hệ nhãn R1. Tiêu đề cột bảng căn cùng phía với số liệu theo 07/6.1.1 và bộ dựng chung.
+
 QD_030/DH_023: bảng dữ liệu/tần số, ma trận hai chiều, tra mạch và bảng dấu dùng ngôn ngữ 0.4 theo chức năng ở 07/6.1.1; binding chung `profiles/course-tables.json`. Bảng dấu native HTML thay ảnh SVG trong đầu ra opt-in từ JSON cũ, không thêm dữ kiện/toán. Bản xem mới `_audit/zo_course_tables_2026-10-11/html-current/d0-reading.html`; trạng thái chỉ ở 03; chưa duyệt hoặc phát hành.
 
 DH_018 / QD_027, 11/10/2026. Chỉ dẫn sản xuất, không phải nội dung người học.

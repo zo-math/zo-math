@@ -48,8 +48,8 @@ def validate_binding(data):
     assert Counter(u['function'] for u in data['units']) == expected
     for function, count in expected.items():
         group = [u for u in data['units'] if u['function'] == function]
-        assert function in terms and [u['number'] for u in group] == list(range(1,count+1))
-        prefix = {"function.guided_thinking":"Gợi mở", "function.self_check":"Tự kiểm tra"}.get(function,"Nhiệm vụ")
+        assert function in terms
+        prefix = "Gợi mở" if function=="function.guided_thinking" else "Nhiệm vụ"
         assert all(u['title'].startswith(f"{prefix} {u['number']:02d}") for u in group)
     knowledge=data['knowledge_units']
     assert len({u['id'] for u in knowledge})==len(knowledge)
@@ -93,7 +93,8 @@ def predicates(doc, data):
         guide_papers[0].find(id=a) for a in ['chọn-nơi-bắt-đầu','bản-đồ-học','r1-g02-table-t08'])
     checks['warmup tasks share the same reading result as G01'] = len({id(root.find(id=u['question']).find_parent(class_='reading-region')) for u in data['units'] if u['function']=='function.warmup'}) == 1
     checks['warmup and self-check use G01 task-title role'] = all(root.find(id=u['question']).select_one('.r1-task-label') for u in data['units'] if u['function'] in ['function.warmup','function.self_check'])
-    checks['checkpoint short title with binding context'] = all(root.find(id=a).find(['h3','h4']).get_text(' ',strip=True)=='Điểm dừng' for a in data['checkpoints'])
+    from zo_course_numbering import html_checks as numbering_html_checks
+    checks.update(numbering_html_checks(doc,data))
     checks['three-stage overview uses the shared table component'] = bool(root.select_one('#r1-g02-table-t11.r1-table')) and len(root.select('#r1-g02-table-t11 tbody tr')) == 3
     checks['foundation parent context labels valid'] = all(n.get_text(' ',strip=True).startswith('HỖ TRỢ KHI CẦN') for n in root.select('#on-nen [data-reading-label]'))
     checks['no heading duplicates its outer label'] = all(not p.find(['h2','h3','h4','h5']) or not p.find(attrs={'data-reading-label':True},recursive=False) or p.find(['h2','h3','h4','h5']).get_text(' ',strip=True).casefold()!=p.find(attrs={'data-reading-label':True},recursive=False).get_text(' ',strip=True).casefold() for p in root.select('.reading-region'))

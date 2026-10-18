@@ -10,8 +10,8 @@ BASE=Path('content/thpt/on_thi_toan_thpt/hoc_lieu')
 
 def run():
     results={};counts={};labels=answer_action_labels()
-    for g in range(1,5):
-        key=f'r1_g0{g}';source=ROOT/BASE/key/'index.qmd';text=expand(source)
+    for key in ['d0',*[f'r1_g0{g}' for g in range(1,5)]]:
+        source=ROOT/BASE/key/'index.qmd';text=expand(source)
         checks=answer_action_source_checks(source);counts[key]=len(checks)
         results[key+' canonical source actions']=bool(checks) and all(checks.values())
         for old in ['Xem lời giải sau khi tự làm','Đối chiếu sau khi tự làm','Xem đáp án câu xác nhận']:
@@ -31,6 +31,7 @@ def run():
         results[key+' DOM rejects arbitrary return']=not all(answer_action_html_checks(doc,data).values())
     source=ROOT/BASE/'r1_g02/index.qmd';text=expand(source)
     results['G02 separate formula disclosure retained']='[Xem công thức để kiểm tra](#loi-giai-l06-cong-thuc)' in text and all(answer_action_source_checks(source).values())
+    results['unrelated d0 directory unaffected']=answer_action_source_checks(ROOT/'content/another_project/d0/index.qmd')=={}
     results['other projects unaffected']=answer_action_source_checks(ROOT/'content/about.qmd')=={}
     return results,counts
 

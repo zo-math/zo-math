@@ -1,0 +1,90 @@
+{
+  "decision": "D0-NUMBERING-20261018",
+  "authority": "Direct owner request 18/10/2026: no labels; Bai 01-24 continuous; preparation Bai 00; column headings follow data alignment",
+  "symptom": "Repeated Bai 01-03 and separate strand badges; numeric columns and their headers aligned differently",
+  "verified_cause": "Canonical source used local strand numbers; table binder/CSS applied left alignment to descriptive headers regardless of data-column alignment; D0 had no numbering/header regression gate",
+  "repair": {
+    "source": "25 numbered headings and matching comparison titles; removed badges; retained explicit heading IDs and question-answer IDs",
+    "tables": "Shared binder assigns header alignment from column body roles; existing body values/alignments unchanged",
+    "regression": "Source/HTML numbering, example/answer consistency, no labels, table headers and bounded immutable-receipt inverse; negative fixtures included"
+  },
+  "files": [
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.qmd",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/d0/giao_dien/web_2027.css",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/d0/giao_dien/web_2027_layout.json",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/d0/giao_dien/README_web_2027.md",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/d0/_quy_trinh/ho_so/index.yml",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/d0/_quy_trinh/d0_numbering_delta.json",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/d0/_quy_trinh/d0_editorial_comparison_delta.json",
+    "scripts/zo_d0_presentation.py",
+    "scripts/zo_d0_presentation_selftest.py",
+    "scripts/zo_course_tables.py",
+    "_design/web_2027_mau_dung_chung/course-tables.css",
+    "_design/web_2027_mau_dung_chung/profiles/course-tables.json",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/07_quy_chuan_cau_truc_trang_nguoi_hoc.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/04_nhat_ki_quyet_dinh.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/ho_so_bien_tap_ro_nghia_20261018.json",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/03_dieu_hanh_chuong_trinh.md",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/d0/_quy_trinh/ho_so/d0_so_bai_va_bang_20261018.json"
+  ],
+  "verification": {
+    "source_check": "_audit\\d0_numbering_20261018\\source-check.log",
+    "render": "_audit\\d0_numbering_20261018\\render.log",
+    "render_errors": 0,
+    "render_warnings": 0,
+    "html_responsive": {
+      "passed": 237,
+      "total": 237,
+      "report": "_audit\\d0_numbering_20261018\\qa\\qa.json"
+    },
+    "round_trips_and_three_tables": {
+      "passed": 106,
+      "total": 106,
+      "report": "_audit\\d0_numbering_20261018\\browser_review.json"
+    },
+    "D0_regression": {
+      "passed": 29,
+      "total": 29,
+      "report": "_audit\\d0_numbering_20261018\\regression.json"
+    },
+    "table_regression": {
+      "passed": 47,
+      "total": 47
+    },
+    "governance": {
+      "passed": 192,
+      "total": 192
+    },
+    "source_integrity": {
+      "exact_bounded_inverse": true,
+      "all_math_unchanged": true,
+      "explicit_source_ids_preserved": true,
+      "source_check_passed": true
+    },
+    "visual_review": "Reviewed screenshots of all three tables, Bai 04 at 390px; header/data axes correct",
+    "original_approval_receipt": "unchanged; exact display and previously approved editorial deltas reversed in memory only"
+  },
+  "preview": {
+    "url": "http://127.0.0.1:8877/_audit/d0_numbering_20261018/index.html",
+    "html": "_audit\\d0_numbering_20261018\\html\\content\\thpt\\on_thi_toan_thpt\\hoc_lieu\\d0\\index.html",
+    "shortcut": "_audit\\d0_numbering_20261018\\Mo_ban_xem_HTML.cmd",
+    "server": "Existing localhost 8877 reused and HTTP content hash verified; shortcut can reopen after reboot",
+    "other_pages": "Copied from prior preview for navigation; not rebuilt in this task"
+  },
+  "state": {
+    "source_repaired": true,
+    "technical_checks": "passed",
+    "owner_acceptance": "pending_owner_review",
+    "learning_PDF": "not_rebuilt_previous_release_retained; PDF parser/layout remains a separate synchronization task",
+    "publication": "not_authorized",
+    "commit_push": "not_requested"
+  },
+  "temporary_files": "One-off browser helper removed; source-before, render/check reports, screenshots, preview and isolated mirror retained for comparison",
+  "sources_sha256": {
+    "content\\thpt\\on_thi_toan_thpt\\hoc_lieu\\d0\\index.qmd": "3a0c8bbac720cf22bd0ddcf5132cf2dc8407de7dc9528e3ea6a7b120580dffd3"
+  },
+  "limits": [
+    "Headless Edge checks simulate desktop/mobile; no real touch/screen-reader or PDF acceptance.",
+    "Shared header rule applies to future builds of other course pages; only D0 was rendered here."
+  ]
+}

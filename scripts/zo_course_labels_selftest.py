@@ -3,7 +3,7 @@ from pathlib import Path
 import argparse,copy,json
 from unittest.mock import patch
 from bs4 import BeautifulSoup
-from zo_course_labels import ROOT,binding,binding_checks,display_label,contract,html_checks,source_checks,require
+from zo_course_labels import ROOT,binding,binding_checks,display_label,contract,html_checks,source_checks,require,context_unit_label
 
 
 def run(page):
@@ -18,9 +18,11 @@ def run(page):
         previous=BeautifulSoup((ROOT/"docs"/package/"index.html").read_text(encoding="utf-8"),"html.parser")
         if code=="01":from zo_r1_g01_labels_check import predicates
         else:from zo_r1_g02_labels_check import predicates
-        checks=predicates(previous,old)
-        results["G"+code+" existing displayed-label regression"]=all(checks.values())
-        if not all(checks.values()):results["G"+code+" diagnostics"]=[k for k,v in checks.items() if not v]
+        # Published HTML is a historical product after a numbering revision;
+        # it must not certify the new binding without a fresh render.
+        try:current=all(html_checks(previous,old).values())
+        except (ValueError,KeyError):current=False
+        results["G"+code+" stale public labels rejected"]=not current
     broken=copy.deepcopy(doc)
     for label in list(broken.select("[data-reading-label]")):label.decompose()
     results["metadata-only old failure rejected"]=not all(html_checks(broken,data).values())
@@ -31,7 +33,7 @@ def run(page):
     results["missing binding context rejected"]=not all(binding_checks(bad).values())
     bad=copy.deepcopy(data);u=next(u for u in bad["units"] if u["function"]=="function.practice");u["context"]={"stage":2};u["label"]=display_label(u,contract()["display_contract"])
     results["self-consistent label in wrong source stage rejected"]=not all(html_checks(doc,bad).values())
-    bad=copy.deepcopy(data);u=next(u for u in bad["units"] if u["function"]=="function.remediation" and u["number"]==6);u["number"]=1
+    bad=copy.deepcopy(data);u=next(u for u in bad["units"] if u["function"]=="function.remediation");u["number"]=1
     results["number reset after context rejected"]=not all(binding_checks(bad).values())
     bad=copy.deepcopy(data);bad["units"][0]["question_owner"]="nguon"
     results["wrong structural owner rejected"]=not all(html_checks(doc,bad).values())
@@ -48,11 +50,16 @@ def run(page):
         results["missing current binding rejected"]=not all(source_checks(source).values())
     # Group size is content-owned, not copied from G01/G02.
     small=copy.deepcopy(data);small["units"]=[u for u in small["units"] if u["function"]=="function.practice"][:2]
+    for i,u in enumerate(small['units'],1):
+        import re
+        u['number']=i
+        for key in ['title','answer_title']:
+            if key in u:u[key]=re.sub(r'Nhiệm vụ \d+',f'Nhiệm vụ {i:02d}',u[key])
     results["arbitrary group size accepted without quota"]=all(binding_checks(small).values())
     confirmation=copy.deepcopy(small);confirmation["units"]=confirmation["units"][:1];unit=confirmation["units"][0]
-    unit["function"]="function.confirmation";unit["context"]={"within":"area.lesson"};unit["number"]=None
-    unit["label"]=display_label(unit,contract()["display_contract"])
-    results["confirmation context not hard-coded to practice"]=unit["label"]=="BÀI HỌC • XÁC NHẬN" and all(binding_checks(confirmation).values())
+    unit["function"]="function.confirmation";unit["context"]={"within":"area.lesson"};unit["context_area"]='bai-hoc'
+    unit["label"]=context_unit_label(unit,'question',confirmation)
+    results["confirmation context not hard-coded to practice"]=unit["label"]=="MẠCH HỌC · BÀI HỌC" and all(binding_checks(confirmation).values())
     results["other QMD projects unaffected"]=source_checks(ROOT/"content/about.qmd")=={}
     return results
 
