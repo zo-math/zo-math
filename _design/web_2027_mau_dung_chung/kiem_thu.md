@@ -398,3 +398,10 @@ Chạy `python -B scripts/zo_python.py -B scripts/zo_course_reading_regions_self
 ## GOALS-START-20261018 — kiểm đúng vị trí và đủ nội dung
 
 `zo_course_learning_goals.py` nối cổng nguồn/HTML cả bốn gói; binding learning_goals giữ tên dòng và đích bằng chứng. `zo_course_learning_goals_selftest.py` kiểm mất mục tiêu, sai cột, bảng còn trong guide, mục tiêu bị thu gọn và tiêu đề cũ. G01 kiểm fingerprint nguyên bản bằng phép đảo đúng phần đã duyệt; thử âm phải tiếp tục bắt thay toán, chữ hoặc ID ngoài phạm vi. Test DOM chỉ trong bộ nhớ, không sinh HTML. Bản thử G02 không có fresh_source đã nghỉ dùng; đường sản xuất phải nhận raw Quarto tươi cùng map canonical.
+
+
+## TABLE-FUNCTIONS-20261019 — lỗi chia cột và lẫn vai trò
+
+Nguyên nhân: binding chỉ khai loại tổng quát; bảng thiếu widths nhận các cột bằng nhau, trong khi metadata G01/G02 có min-width riêng. Cổng trước đó kiểm loại/căn lề nhưng chưa kiểm tiêu đề chức năng, bao phủ mục tiêu và cách đọc mobile. Vì thế cùng CSS vẫn có cột điểm quá rộng, tên mục tiêu bị ép và bảng đọc kết quả lẫn nơi hỗ trợ.
+
+Nguồn sửa là QMD, function_profiles, zo_course_tables.py và zo_course_table_roles.py. B26 và 07/6.1.8 thay cột tên tiêu chí cố định 18% và bốn cột sau Khởi động. Hồi quy source-only: zo_course_table_roles_selftest.py. Không sửa ảnh/bảng toán hoặc receipt; tên bảng dưới đối tượng giữ nguyên. Sau lần dựng được phép, phải xem các profile records/scroll/scoring thực tế ở 1440 và 390px, kiểm nhãn trường, giữ quan hệ so sánh, số căn phải, focus và công nghệ hỗ trợ. Chưa xem thì ghi chưa kiểm thị giác, không PASS thay.

@@ -49,3 +49,21 @@
 @media(min-width:1000px){
   .reader-content [data-zo-remediation="bottlenecks-v1"] table.zo-course-table{min-width:0!important}
 }
+
+/* TABLE-FUNCTIONS-20261019: columns follow function, never package defaults. */
+.reader-content .zo-course-table .zo-numeric-cell{text-align:right;font-variant-numeric:tabular-nums}
+.reader-content .zo-table-field-label{display:none}
+@media(min-width:1000px){
+  .reader-content table.zo-course-table[data-table-responsive="scroll"]{min-width:0!important}
+}
+@media(max-width:760px){
+  .reader-content table.zo-course-table[data-table-responsive="records"]{display:block;border:0;min-width:0!important}
+  .reader-content table.zo-course-table[data-table-responsive="records"] colgroup{display:none}
+  .reader-content table.zo-course-table[data-table-responsive="records"] thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .reader-content table.zo-course-table[data-table-responsive="records"] tbody{display:block}
+  .reader-content table.zo-course-table[data-table-responsive="records"] tbody tr{display:block;border:1px solid var(--line);margin:0 0 16px}
+  .reader-content table.zo-course-table[data-table-responsive="records"] :is(th,td){display:block;width:auto;border:0;border-bottom:1px solid var(--line);padding:10px 12px;text-align:left}
+  .reader-content table.zo-course-table[data-table-responsive="records"] tbody tr>:last-child{border-bottom:0}
+  .reader-content table.zo-course-table[data-table-responsive="records"] .zo-table-field-label{display:block;color:var(--muted);font-weight:600;margin-bottom:.25em}
+  .reader-content table.zo-course-table[data-table-responsive="records"] .zo-table-field-label::before{content:attr(data-label)}
+}

@@ -146,3 +146,8 @@ Mỗi lần bàn giao hoặc gửi lại liên kết xem HTML phải theo quy tr
 ## Bảng nút thắt nhận thức trong Sửa lỗi
 
 Mọi nhiệm vụ viết/rà/sửa gói có Sửa lỗi phải nạp 07/6.1.7, bổ sung tương ứng ở 01/02 và B25 của bảng kiểm. Bảng bao phủ phạm vi gói bằng đối chiếu nội dung, không bằng quota; giữ câu hỏi/cách tháo gỡ và bài tự kiểm đúng ý, ghi rõ thiếu bài. Dùng zo_course_remediation.py qua cổng nguồn; không gọi nút thắt là bẫy, không ép học sinh đi qua tất cả hỗ trợ.
+
+
+## Bảng tiêu chí, so sánh và điều hướng theo chức năng
+
+Nạp 07/6.1.8, 02/Rà bảng theo chức năng và B26. `function_profiles` của course-tables.json sở hữu tỉ lệ cột/cách thích ứng; QMD sở hữu lời văn. Dùng zo_course_table_roles.py qua cổng nguồn và adapter chung, đối chiếu đủ mục tiêu/đích trước cập nhật hồ sơ rà. Không ép mọi gói có mọi loại bảng; không dựng HTML/PDF khi chỉ được giao sửa nguồn. Phép thử mảnh DOM trong bộ nhớ không thay xem trang mới rộng/hẹp.

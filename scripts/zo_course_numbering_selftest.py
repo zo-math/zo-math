@@ -55,6 +55,14 @@ def main():
     old=copy.deepcopy(new);old.h4.string='Tự kiểm tra 01'
     saved=str(new)
     checks['G01 bounded inverse preserves the complete comparison']=content_fingerprint(restore_g01_for_comparison(new,plan,qmd))==content_fingerprint(old)
+    duplicate=copy.deepcopy(plan);duplicate['numbering_transition']['sources']={qmd.relative_to(ROOT).as_posix():'0'*64}
+    checks['G01 redundant historical QMD digest does not replace current binding']=content_fingerprint(restore_g01_for_comparison(new,duplicate,qmd))==content_fingerprint(old)
+    stale=copy.deepcopy(duplicate);stale['numbering_transition']['source_qmd_sha256']='0'*64
+    try:restore_g01_for_comparison(new,stale,qmd);checks['G01 current complete source binding still required']=False
+    except ValueError:checks['G01 current complete source binding still required']=True
+    include=copy.deepcopy(plan);include_path=Path(__file__).relative_to(ROOT).as_posix();include['numbering_transition']['sources']={include_path:'0'*64}
+    try:restore_g01_for_comparison(new,include,qmd);checks['G01 independent include digest remains protected']=False
+    except ValueError:checks['G01 independent include digest remains protected']=True
     checks['G01 historical inverse never mutates learner output']=str(new)==saved
     bad=copy.deepcopy(new);bad.p.append(' Thay ngoài phạm vi.')
     checks['G01 changes outside numbering remain detectable']=content_fingerprint(restore_g01_for_comparison(bad,plan,qmd))!=content_fingerprint(old)

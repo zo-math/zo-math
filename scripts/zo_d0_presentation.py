@@ -36,6 +36,10 @@ def numbering_source_checks(text):
 
 def restore_numbering_source(text,root=ROOT):
     """Undo the exact authorized source delta for immutable approval checks only."""
+    tables=json.loads((Path(root)/PACKAGE/'_quy_trinh/d0_editorial_comparison_delta.json').read_text(encoding='utf-8')).get('table_function_revision')
+    if tables:
+        assert tables['rule']=='TABLE-FUNCTIONS-20261019' and text.count(tables['after'])==1
+        text=text.replace(tables['after'],tables['before'],1)
     delta=json.loads((Path(root)/PACKAGE/'_quy_trinh/d0_numbering_delta.json').read_text(encoding='utf-8'))
     assert delta['authority']=='owner_requested_D0_global_Bai_numbers_no_labels_2026_10_18'
     for change in reversed(delta['replacements']):

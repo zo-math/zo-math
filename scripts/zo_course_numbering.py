@@ -4,6 +4,7 @@ Stable IDs own references; answers reuse their question number. Shared sources
 remain neutral and receive package-local numbers only in the projection.
 """
 from collections import defaultdict
+from pathlib import Path
 import re
 
 MODE = 'package-type-v1'
@@ -127,5 +128,14 @@ def restore_g01_for_comparison(source, plan, qmd):
     change=plan.get('numbering_transition')
     if not change:return source
     if change.get('id')!='NUMBERING-20261018':raise ValueError('Unknown numbering transition')
-    proxy=copy.deepcopy(plan);proxy['editorial_transition']=dict(change,id=RULE)
+    # source_qmd_sha256 already binds the complete current QMD.  Older
+    # transitions also copied that same QMD into `sources`; retaining its
+    # historical digest there would reject every later, separately reviewed
+    # bounded transition before its own inverse can run.  Keep independent
+    # includes protected, and let the complete current-source binding guard
+    # the QMD exactly once.
+    qmd_path=Path(qmd).resolve()
+    sources={path:digest for path,digest in change.get('sources',{}).items()
+             if (Path(__file__).resolve().parents[1]/path).resolve()!=qmd_path}
+    proxy=copy.deepcopy(plan);proxy['editorial_transition']=dict(change,id=RULE,sources=sources)
     return restore(source,proxy,qmd)
