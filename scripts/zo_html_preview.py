@@ -126,6 +126,8 @@ def main(argv=None):
             result['shortcut'] = shortcut(ROOT, args.page, args.port)
         if not args.no_browser:
             result['browser_requested'] = bool(webbrowser.open(result['url']))
+        # HTTP readiness or asking the browser to open is not a viewed handoff.
+        result.update(handoff_ready=False, browser_confirmation_required=True)
         print(json.dumps(result, ensure_ascii=False))
         return 0
     except (ValueError, OSError) as exc:

@@ -4,6 +4,14 @@ Phiên bản: 0.1 · Cập nhật trạng thái: 18/10/2026.
 
 Đây là nơi duy nhất ghi công việc đang mở và thứ tự sản xuất hiện hành. Chỉ cập nhật trạng thái từ bằng chứng trong hồ sơ gói. [Điểm vào](README.md).
 
+**HTML-HANDOFF-GATE-20261018 — bắt buộc xác nhận xem được mỗi lần bàn giao.**
+
+Chủ trì đã yêu cầu commit riêng mốc quy trình/cổng bàn giao này. Ghi nhận chưa commit trong phần kiểm dưới đây là trạng thái trước yêu cầu lưu mốc; không push hoặc xuất bản.
+
+- Nguyên nhân tái diễn: kiểm HTTP hoặc yêu cầu mở trình duyệt từng bị coi như xác nhận đã xem, trong khi máy chủ có thể dừng và tab tạm có thể đóng khi hết lượt. Quy trình 9.1 toàn repo, 02/2.6 và hai AGENTS nay bắt buộc prepare → mở đúng bản hiện hành/quan sát thật → confirm → check; giữ tab và bằng chứng mới. Đã bỏ đường dẫn mẫu cũ tại 02 để chỉ 03 sở hữu bản đang xem.
+- Công cụ dùng chung zo_html_handoff.py lấy liên kết bản xem đầu tiên tại 03, kiểm trang/tài nguyên đúng hash và máy chủ; chỉ khép sau snapshot/PNG hoặc JPEG mới của hub cùng trang nội dung. Từ chối bản cũ, quá mười phút, HTML/bằng chứng đổi, URL lỗi, thiếu ảnh hoặc chỉ mở hub. zo_html_preview.py luôn phân biệt mở lại với bàn giao đạt.
+- Hồi quy cổng 17/17, máy chủ/shortcut 7/7; đã thử thật trên bộ sáu trang, quan sát hub và D0 trong trình duyệt người dùng, giữ tab. Bằng chứng mới tại `_audit/html_handoff_20261018/`; biên nhận sống có hạn, phải làm mới ở lần bàn giao sau. Không dựng HTML/PDF, không commit/push/xuất bản hoặc nâng trạng thái duyệt.
+
 **COMMIT-HTML-CURRENT-20261018 — lưu mốc theo yêu cầu chủ trì.**
 
 - Sửa câu giới thiệu Home và cổng kiểm đã lưu tại a9d8a119; hồ sơ sáu HTML được lưu thành mốc riêng cùng cập nhật này. Các dòng chưa commit bên dưới ghi trạng thái tại thời điểm dựng. Không dựng thêm, không push hoặc xuất bản; HTML vẫn chờ chủ trì duyệt, PDF giữ nguyên.

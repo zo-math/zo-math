@@ -139,13 +139,11 @@ Khi dựng bộ xem có trang `draft: true`, đặt profile `on-thi-preview` ri�
 
 Áp dụng mục 9.1 của quy trình kỹ thuật toàn repo; không đặt cơ chế máy chủ riêng cho từng gói. URL localhost chỉ dùng được khi máy chủ còn chạy. Yêu cầu mở lại hoặc báo lỗi kết nối kích hoạt kiểm tệp → mở lại bằng công cụ canonical → kiểm HTTP đúng nội dung → mở URL; không render lại hoặc dùng đầu ra cũ thay cho bản chờ duyệt.
 
-Bộ xem hiện hành được ghi duy nhất tại 03. Với bộ HTML ngày 18/10/2026:
+Bộ xem hiện hành được ghi duy nhất tại 03: liên kết localhost `_audit/...html` đầu tiên là bản đang vận hành; các liên kết sau giữ lịch sử. Không để đường dẫn mẫu cũ trong quy trình thay nguồn thẩm quyền này. Không suy “mới nhất” theo tên hay thời gian thư mục.
 
-```text
-python -B scripts/zo_python.py -B scripts/zo_html_preview.py --page _audit/html_six_20261018/index.html --port 8877 --shortcut
-```
+Trước **mỗi lần** bàn giao hoặc gửi lại liên kết, bắt buộc cổng `scripts/zo_html_handoff.py` theo quy trình toàn repo 9.1: `prepare --authority content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/03_dieu_hanh_chuong_trinh.md --report _audit/<phien>/prepared.json`; mở đúng URL và quan sát thật hub cùng một trang nội dung; lưu snapshot/PNG hoặc JPEG và JSON bằng chứng có mã phiên; `confirm` rồi `check` ngay trước trả lời. HTTP đúng tệp chỉ là chuẩn bị, không thay xác nhận hiển thị. Giữ tab bằng `markDeliverable()` khi dùng Codex. Cổng từ chối máy chủ dừng/sai nội dung, bản cũ, bằng chứng thiếu/sai hoặc quá mười phút. Không tự ghi “đã xem” nếu trình duyệt chưa xác nhận.
 
-Tệp `E:\zo_math\_audit\html_six_20261018\Mo_ban_xem_HTML.cmd` cho phép nhấp đúp mở lại sau reboot. Khi thay bộ xem, cập nhật đường dẫn tại 03 và lệnh/tệp mở nhanh tương ứng, không tự chọn thư mục “mới nhất” theo tên hoặc thời gian. Trước kết sổ, bảo vệ `index.html`, `html/` cùng mọi tài nguyên phục vụ sáu trang, tệp mở nhanh và bằng chứng kiểm/ảnh chụp; mirror/cache đã kết thúc có thể lưu kho riêng. HTML, PDF, duyệt chủ trì và xuất bản vẫn là các trạng thái độc lập.
+Tệp `Mo_ban_xem_HTML.cmd` cạnh trang đầu bản xem cho phép mở lại sau reboot bằng công cụ canonical; nó không tự chứng nhận cổng bàn giao đã đạt. Khi thay bộ xem, cập nhật liên kết đầu tiên tại 03 và tạo shortcut cạnh bản mới. Trước kết sổ, bảo vệ trang đầu, HTML/tài nguyên, shortcut, biên nhận và bằng chứng còn cần duyệt. Bảo toàn tệp không đồng nghĩa máy chủ còn chạy sau reboot. Không dựng lại HTML/PDF hoặc xuất bản để kiểm mở lại.
 
 ## 3. Báo cáo đối chiếu tối thiểu
 

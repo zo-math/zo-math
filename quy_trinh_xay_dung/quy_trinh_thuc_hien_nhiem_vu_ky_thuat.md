@@ -267,6 +267,26 @@ Trước kết sổ, bảo vệ trang đầu vào, toàn bộ HTML/tài nguyên 
 
 Kiểm chống tái diễn: `python -B scripts/zo_python.py -B scripts/zo_html_preview_selftest.py` dùng máy chủ thật để kiểm khởi động lại sau khi dừng, mở lặp không tạo máy chủ thừa, cổng sai, tài nguyên tương đối, HTML thiếu/sai đường dẫn và tệp mở nhanh. Chỉ mở bản đã dựng, không dựng học liệu để kiểm khởi động máy chủ.
 
+
+#### Cổng bắt buộc ngay trước mỗi lần bàn giao
+
+Mỗi lần gửi hoặc gửi lại liên kết HTML, kể cả trả lời “bước tiếp theo”, phải thực hiện mới đủ ba bước. PASS cũ, tệp HTML tồn tại, HTTP 200 hoặc `browser_requested=true` không thay thế bước nào. Lần trước đã mở được không chứng minh lần này máy chủ còn chạy.
+
+1. **Chuẩn bị đúng bản hiện hành.** Chạy `zo_html_handoff.py prepare` qua launcher với tài liệu điều hành có thẩm quyền. Liên kết localhost trỏ `_audit/...html` đầu tiên trong tài liệu ấy là bản đang vận hành; các liên kết sau là lịch sử. Đây là hợp đồng trình bày của tài liệu điều hành, không chọn theo tên thư mục hoặc ngày sửa. Công cụ khởi động/tái dùng máy chủ, so SHA-256 HTTP với trang đầu, tất cả trang trong hub và tài nguyên trực tiếp, tạo shortcut và biên nhận mới có mã phiên. Thiếu/sai nội dung thì dừng, không bàn giao.
+2. **Mở và quan sát bằng trình duyệt.** Agent mở đúng URL biên nhận trong trình duyệt người dùng, nhìn thấy nội dung thật; nếu là hub thì mở thêm một trang nội dung thuộc bộ ấy. Thu snapshot có URL/tiêu đề và ảnh chụp PNG/JPEG của mỗi trang đã quan sát, ghi giờ quan sát sau giờ chuẩn bị cùng mã phiên vào JSON bằng chứng. Kiểm không có trang lỗi/trắng, xác nhận nội dung hiển thị; không lấy log HTTP hoặc ảnh chụp lịch sử làm bằng chứng trình duyệt. Trong Codex, gọi `markDeliverable()` để tab bàn giao còn mở khi kết thúc lượt. Nếu công cụ trình duyệt không hoạt động, báo “đã kiểm HTTP, chưa xác nhận xem được”; không tự điền đã xem hoặc tuyên bố bàn giao đạt.
+3. **Khép và kiểm lại ngay trước câu trả lời.** Chạy `confirm`, sau đó `check` trên biên nhận đã xác nhận. Cổng bắt buộc bằng chứng bước hai, đúng URL hiện hành, đúng hash, máy chủ vẫn phục vụ đúng nội dung; từ chối biên nhận quá mười phút, bản cũ, nguồn HTML đổi hoặc bằng chứng bị thay. Sau thời hạn phải chuẩn bị và quan sát lại, không gia hạn timestamp. Chỉ gửi trạng thái “xem được” khi `handoff_ready=true`. Không coi thao tác mở trình duyệt thành nghiệm thu nội dung hoặc xuất bản.
+
+```text
+python -B scripts/zo_python.py -B scripts/zo_html_handoff.py prepare --authority <tai-lieu-dieu-hanh.md> --report _audit/<phien>/prepared.json
+# Mở URL, quan sát trang đầu + trang nội dung; lưu snapshot/PNG hoặc JPEG và browser.json.
+python -B scripts/zo_python.py -B scripts/zo_html_handoff.py confirm --report _audit/<phien>/prepared.json --evidence _audit/<phien>/browser.json --output _audit/<phien>/confirmed.json
+python -B scripts/zo_python.py -B scripts/zo_html_handoff.py check --report _audit/<phien>/confirmed.json
+```
+
+JSON bằng chứng gồm `nonce` của biên nhận, `observed_at` (UTC Unix giây), và `visits`: mỗi lần mở có `page` (đường dẫn repo), `url`, `title`, `snapshot`, `screenshot` (hai đường dẫn repo) và `visible_content_confirmed: true`. Chỉ ghi xác nhận sau quan sát thật. Cổng kiểm tính mới/toàn vẹn của bằng chứng; trách nhiệm đánh giá trang nhìn thấy vẫn thuộc agent. Dùng tệp báo cáo mới, không ghi đè lịch sử. `zo_html_preview.py` và shortcut chỉ phục vụ mở lại, luôn trả `handoff_ready=false` vì chưa có bằng chứng quan sát.
+
+Chạy hồi quy `zo_html_preview_selftest.py` và `zo_html_handoff_selftest.py` qua launcher khi sửa cơ chế: máy chủ dừng/sai nội dung, bản cũ, biên nhận hết hạn, HTML đổi, chỉ mở hub, URL sai, trang lỗi, thiếu ảnh, bằng chứng sai phiên hoặc bị sửa phải bị chặn. Không dựng lại học liệu để kiểm cơ chế bàn giao.
+
 ## 10. Những việc agent không chuyển lại cho người dùng
 
 Trong điều kiện VS Code, repository và công cụ đang hoạt động bình thường, agent không được yêu cầu người dùng:
