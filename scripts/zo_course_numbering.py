@@ -75,6 +75,21 @@ def source_checks(text, data):
     return checks
 
 
+def retired_self_check_absent(reader, data):
+    """The approved routing column is not the retired numbered activity name."""
+    import copy
+    from zo_course_remediation import CONTRACT, HEADERS
+    visible=copy.deepcopy(reader)
+    binding=data.get('remediation',{})
+    frames=visible.find_all(id=binding.get('table',''))
+    if binding.get('contract')==CONTRACT and len(frames)==1:
+        frame=frames[0]
+        heads=frame.select('thead th')
+        if frame.get('data-zo-remediation')==CONTRACT and [h.get_text(' ',strip=True) for h in heads]==HEADERS:
+            heads[-1].decompose()
+    return 'Tự kiểm tra' not in visible.get_text(' ',strip=True)
+
+
 def html_checks(doc, data):
     reader=doc.select_one('.reader-content'); checks={}; groups=defaultdict(list)
     for u in data['units']:
@@ -87,7 +102,7 @@ def html_checks(doc, data):
     for a,n in data['checkpoint_numbers'].items():
         node=reader.find(id=a); title=node.find(['h2','h3','h4','h5','h6']) if node else None
         checks[a+' HTML checkpoint number']=bool(title and re.search(r'Điểm dừng '+f'{n:02d}'+r'(?:\s|$)',title.get_text(' ',strip=True)))
-    checks['retired self-check name absent from visible content']='Tự kiểm tra' not in reader.get_text(' ',strip=True)
+    checks['retired self-check name absent outside approved routing column']=retired_self_check_absent(reader,data)
     examples=data.get('editorial_examples') or [u for u in data.get('knowledge_units',[]) if u['type']=='type.example'] or data.get('examples',[])
     for number,example in enumerate(examples,1):
         if not isinstance(example,dict):continue
