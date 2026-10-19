@@ -107,7 +107,7 @@ def static(page,build):
         'heading roles preserved':actual['headings']==[tuple(n) for n in original['headings']],
         'math preserved':actual['math']==original['math'],
         'disclosure preserved':actual['disclosures']==[tuple(n) for n in original['disclosures']],
-        'D0 G01 G02 G03 order':[n['data-package-id'] for n in root.select('[data-package-id]')]==['d0','r1_g01','r1_g02','r1_g03'],
+        'D0 G01 G02 G03 order':[n['data-package-id'] for n in root.select('[data-package-id]')]==['d0','r1_g01','r1_g02','r1_g03','r1_g04'],
         'no package controller':not doc.select_one('script[src*="r1-controller"]'),
         'full brand':doc.select_one('.brand-thought').get_text(' ',strip=True)==BRAND_THOUGHT,
         'footer complete':complete_site_footer(doc,footer_data()),

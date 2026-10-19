@@ -475,6 +475,8 @@ Kiểu đầu mũi tên phải đồng nhất và được khóa trong style. Gi
 
 Nhãn $x$, $y$ ở gần đầu dương, ngoài đường trục và có khoảng thở. Không gắn cứng mọi nhãn vào cùng một góc cho tất cả hình.
 
+**Hiệu chỉnh thực thi AXIS-END-TICKS-20261019 theo chỉ thị chủ trì:** không có vạch chia (tick) tại hai đầu mũi tên của mỗi trục. Giữ mũi tên, tọa độ và nhãn số có ý nghĩa; không dịch giới hạn trục hoặc bỏ vạch bên trong để che lỗi. Không cần vạch phải dùng `\empty`, không dùng `{}` vì PGFPlots sẽ tự sinh vạch. Style 0.4 và phép kiểm nét vector của công cụ đồ thị thực thi quy tắc này; kiểm hash/phông hoặc quan sát ở ảnh thu nhỏ không thay được kiểm đầu trục.
+
 ### 8.2. Gốc, vạch và nhãn số
 
 Gốc tọa độ ghi một nhãn $O$ khi cần, không lặp số 0 trên cả hai trục. Trường hợp nhiều gốc hoặc ký hiệu đặc biệt phải được giải thích.
@@ -955,3 +957,9 @@ Không sửa tệp cũ, không đổi cấu trúc repository, không thay hình/
 | Còn mở | Hiện thực style v0.2; migration có kiểm soát; kiểm đủ bảy mẫu; tự động hóa kiểm hộp nhãn và hồi quy thị giác |
 
 **Điểm bàn giao:** v0.2 đủ làm nguồn quy chuẩn cho sản phẩm đồ thị mới; mọi thay đổi style hoặc migration dự án cũ phải được giao và nghiệm thu riêng.
+
+### Nguồn biên tập và đầu ra trung gian của học liệu khóa 2027
+
+G01–G03 sở hữu TEX và cấu hình nhãn tại gói; máy dựng không sinh lại các TEX ấy. G04 sở hữu `du_lieu/hinh_do_thi.json` và `_quy_trinh/sinh_hinh.py`; TEX trong `hinh/` là đầu ra trung gian. Cả bốn gói gọi cùng máy đồ thị trong bộ `zo_math_graphics` qua adapter. Khi TEX G04 khác kết quả sinh từ nguồn khai báo, công cụ phải dừng trước ghi đè; chỉ dùng `--update-sources` sau khi đã đọc chênh lệch và sửa JSON/bộ sinh theo yêu cầu được duyệt. Không coi việc dùng đúng máy dựng là bằng chứng nhãn và toán đã đúng.
+
+Nhãn tọa độ phải gắn với đúng điểm được chú thích, đọc được và không che nét đồ thị hoặc vạch/nhãn trục. Kiểm nhãn tại hình độc lập và tại HTML/PDF sau chèn. Khi sửa, giữ công thức, điểm, cửa sổ toán và khung đã chốt; không sửa SVG/PDF đầu ra.

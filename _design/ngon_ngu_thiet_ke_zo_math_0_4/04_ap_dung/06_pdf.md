@@ -4,6 +4,17 @@ Nơi làm việc theo thông tin đã có: `E:/zo_math`. Trạng thái repo hi�
 
 Quy tắc liên quan: ZO001, ZO012, ZO014, ZO015, ZO019, ZO031.
 
+## Bản thử bộ sinh R1 ngày 19/10/2026
+
+Theo yêu cầu chủ trì sau rà soát, `course-print-v2` được bật thử riêng cho G04 qua `extensions.course_pdf_shell.layout`; chưa áp dụng sang các gói còn lại. Hồ sơ vai trò chung ở `assets/tex/zo-course-print-profile.json`, phép chiếu ở `assets/lua/zo_course_package_pdf.lua`/`zo_course_print.lua`, template ở `assets/tex/zo-course-print-layout.tex`, cổng ở `scripts/zo_course_pdf_layout.py`. Chỉ 03 ghi bản xem và kết quả hiện hành.
+
+- R1 dùng thân STIX Two Text, toán STIX Two Math, tiêu đề/nhãn và bìa/kết Be Vietnam Pro. Không mang quy cách thân Be Vietnam Pro riêng của D0 sang R1. Giữ khung bìa/kết/header/footer đã duyệt.
+- Giữ cây khu vực/nhóm/nhiệm vụ từ QMD, chuyển cấp phù hợp bản in; mục lục in không thay bookmark. Biên dịch đủ lượt ổn định và đối chiếu từng số trang dẫn với footer thật của đích, không chỉ kiểm hết dấu hỏi.
+- Bảng chức năng lấy tỉ lệ từ cùng `course-tables.json`; metadata tỉ lệ cũ không được ghi đè profile. BBT native lấy JSON canonical, giữ từng ô/mốc/dấu/cột loại. Nhãn chữ dùng chữ, không đưa tiếng Việt vào môi trường toán. Caption giữ dưới hình/bảng theo tình huống nguồn.
+- Đồ thị dùng đúng cặp vector hiện hành và quy cách `lesson-g03`. Phép chiếu in giữ cùng tỉ lệ giữa các hình, quy đổi nhãn chính từ cỡ vector 12,8 pt về 11 pt theo hướng dẫn bản in; không dùng phần trăm chiều rộng trang để kéo đồng loạt hoặc sửa vector chỉ để đổi cách đặt. Kiểm luồng nội dung nhúng, hệ số đặt và biên hình thật.
+- Liên kết nội bộ có đích riêng theo ID và số trang; đích ngoài biến thể giữ URL canonical/chế độ xem đúng ngữ cảnh. Không đổi chữ Xem lời giải/Xem đề bài. Cổng chặn thiếu glyph, sai phông vai trò, thiếu BBT, sai ô/dấu, sai profile cột, sai kích thước hình hoặc sai số trang trước khi thay thành phẩm.
+- Dựng thử bằng `zo_pdf.py build <nguồn> --variant full --out-dir .quarto/<hồ sơ mới>` qua launcher. Bản thử và biên nhận lưu riêng, không cập nhật PDF/provenance canonical hoặc metadata thẻ tải. Sau kiểm kỹ thuật phải xem toàn bộ trang màu và các trang hình/bảng ở sắc xám. Chủ trì duyệt bản thử trước khi áp dụng rộng; không suy thành quyền commit/phát hành.
+
 ## Bổ sung vận hành ngày 14/10/2026
 
 **Khung PDF dùng chung kế thừa D0 đã duyệt, 14/10/2026:** chủ trì yêu cầu
@@ -137,3 +148,18 @@ Dùng nội dung đang có để dựng lại; đưa thiết kế bìa/kết th�
 ## Kiểm và đầu ra
 
 Kiểm bìa/ruột/cuối tất cả biến thể bị tác động, bookmark, hyperlinks, số trang, font nhúng, QR, mã phiên bản nội dung và chữ trên giấy. Đối chiếu dữ liệu ủng hộ từ nguồn hiện dùng trước phát hành. Kiểm trắng đen và kích thước in. Đầu ra gồm template tích hợp, PDF từ nguồn hiện tại, đối chiếu bảo toàn nội dung và cách chọn lại template cũ.
+
+
+### Đồng bộ cả khóa theo yêu cầu ngày 19/10/2026
+
+Yêu cầu đồng bộ sáu trang của chủ trì thay giới hạn chỉ thử G04 ở mục trước: `course-print-v2` áp dụng G01–G04 và cả tám biến thể mỗi gói. D0 giữ quy cách in riêng đã duyệt; trang Khóa 2027 là trang cửa ngõ HTML, không tự tạo thêm loại PDF ngoài hệ sản phẩm hiện hành. Cùng nguồn chính thức phải tái tạo được HTML và PDF; mẫu, bộ chuyển, phông, hình vector, bảng và liên kết tải đều nằm trong hợp đồng đầu vào/đầu ra.
+
+Hình ghép rộng hơn vùng in được xoay nguyên hình khi in, giữ nguyên thứ tự/hướng tương đối các ô, hình học và cỡ chữ/nét; không thu nhỏ riêng để ép vừa trang. Kiểm hình nhúng phải tính đầy đủ ma trận xoay và tỉ lệ. Nhãn đích có tiếng Việt được mã hóa nhất quán trong bộ chuyển PDF; URL trở về HTML giữ nguyên. Trạng thái văn bản trong ô BBT như “Không tồn tại” phải giữ đúng dữ liệu, không thay bằng phát biểu khác.
+
+Mỗi biến thể kiểm theo đúng phạm vi của nó: đủ mục, bảng, hình, đề/lời giải và đích nội bộ; đích ngoài biến thể trở về đúng vùng trên HTML. Số trang của thẻ tải lấy từ PDF mới, hash tệp tải phải khớp bản vừa dựng. Bản đang duyệt được đăng ký bằng manifest `ban_dang_duyet.json` tại `_quy_trinh` của khóa; cổng kết sổ tự phát hiện và bảo vệ đủ phụ thuộc, kể cả ngoài thư mục HTML. Không dùng việc giữ bản xem thay cho bảo toàn nguồn, và không dùng kỹ thuật đạt thay chủ trì nghiệm thu.
+
+### Bảo toàn nguồn và kiểm hình khi tái dựng
+
+Ảnh có hoặc không có chú thích đều phải căn giữa trong cột đọc, giữ đúng kích thước in đã chốt và không tự sinh tên từ alt. Bộ chiếu đưa ảnh độc lập qua cùng thành phần Figure; cổng PDF đo vị trí hình vector thật, từ chối lệch tâm quá hai điểm in. Nhãn được kiểm ở nguồn đồ thị và bằng quan sát, không chỉ qua hash.
+
+Ảnh bìa trên thẻ học liệu, bìa HTML và PDF lấy từ cùng `giao_dien/anh_bia.json`; chuyển SVG đã kiểm hash sang PDF vector chỉ đổi định dạng, không thay ảnh hoặc tự cấp duyệt. D0 giữ vai trò phông riêng đã chốt, có bookmark các phần; các bảng D0 nhận cùng tỉ lệ cột/căn cột từ profile chức năng như HTML. Không phục hồi bộ dựng bảng cố định theo số cột.

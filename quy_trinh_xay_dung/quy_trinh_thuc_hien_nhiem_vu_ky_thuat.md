@@ -265,6 +265,8 @@ python -B scripts/zo_python.py -B scripts/zo_html_preview.py --page <HTML-tuong-
 
 Trước kết sổ, bảo vệ trang đầu vào, toàn bộ HTML/tài nguyên liên kết, tệp mở nhanh và bằng chứng còn cần duyệt bằng `--protect`/manifest của `zo_end_day.py`; không chỉ giữ mỗi URL. Kiểm tệp mở nhanh còn gọi được công cụ canonical sau khi chuyển mirror/cache ra kho. Biên nhận kết sổ phải phân biệt bảo toàn tệp với tiến trình máy chủ: không hứa localhost còn chạy sau reboot; ghi cách mở lại và phần chờ duyệt. Không tự đóng máy chủ của phiên khác.
 
+Kiểm phụ thuộc theo chuỗi HTML → CSS → CSS nhập/font/ảnh và tệp tải xuống, kể cả khi nằm ngoài thư mục chứa trang, bằng `scripts/zo_html_dependencies.py`. Cổng bàn giao dùng cùng tập này để khóa hash và kiểm HTTP. Cổng kết sổ tự mở rộng bảo vệ theo phụ thuộc thật và chặn kế hoạch lưu kho bất kỳ tệp nào trong chuỗi; thư mục tên `delivery` không tự là bản trung gian được phép dọn. Thiếu tài nguyên của trang được bảo vệ thì scan phải thất bại. Sau dọn phải chạy lại cổng bàn giao khi gửi lại liên kết, không dùng trạng thái Git sạch hoặc tệp shortcut còn tồn tại làm bằng chứng bản xem hoạt động.
+
 Kiểm chống tái diễn: `python -B scripts/zo_python.py -B scripts/zo_html_preview_selftest.py` dùng máy chủ thật để kiểm khởi động lại sau khi dừng, mở lặp không tạo máy chủ thừa, cổng sai, tài nguyên tương đối, HTML thiếu/sai đường dẫn và tệp mở nhanh. Chỉ mở bản đã dựng, không dựng học liệu để kiểm khởi động máy chủ.
 
 
@@ -409,3 +411,15 @@ hoàn thành. Không che rác bằng cách mở rộng `.gitignore`.
 Kiểm thử hồi quy chạy trên Git repo giả lập tách biệt trong thư mục tạm,
 không commit hay dọn nguồn thực. Cơ chế này chỉ được agent kích hoạt sau
 yêu cầu người dùng; không phải dịch vụ nền hoặc hook tự động của ứng dụng.
+
+
+### Bảo vệ tự động bản đang duyệt — hiệu chỉnh 19/10/2026
+
+Sau mỗi bàn giao HTML/PDF chờ duyệt, cập nhật manifest máy đọc `content/**/_quy_trinh/ban_dang_duyet.json` trong phạm vi điều hành hiện hữu. Manifest không là nguồn biên dịch và không thay tài liệu điều hành: ghi `status: pending_owner_review`, các `entrypoints` và danh sách `files` có đường dẫn tương đối/SHA-256. Danh sách gồm bản xem, PDF tải, CSS, JS/module, phông, hình, tài nguyên được bộ dựng khai báo và đường mở lại; tệp nguồn chính thức vẫn được bảo toàn bằng cơ chế quản lý nguồn. Không cất ý tưởng hoặc mã sinh chỉ trong bản xem.
+
+`zo_end_day.py scan/check/apply` tự phát hiện manifest đang duyệt, không phụ thuộc agent có nhớ truyền `--protect` hay không. Kiểm tiếp phụ thuộc HTML/CSS/JS/SVG, chặn tệp thiếu, đổi hash, đường dẫn thoát repo, symlink, kế hoạch lỗi thời và mọi ý định archive tệp được bảo vệ. Xóa manifest khỏi kế hoạch không làm kế hoạch cũ hợp lệ. Chỉ bỏ trạng thái cần bảo vệ sau khi có quyết định xử lý bản duyệt; không coi kết phiên là hết giá trị. Yêu cầu cập nhật cổng không cho phép thực hiện kết sổ, commit hoặc archive trên repo thật.
+
+
+Bản xem localhost đứng đầu tài liệu điều hành 03 phải có trong `entrypoints` của manifest đang duyệt. Cổng kết sổ chặn cả trường hợp quên tạo manifest hoặc chỉ giữ manifest của bản xem cũ. Bảo vệ thêm các nguồn và bộ sinh cần tái tạo bản duyệt, kể cả tệp mới chưa commit; tệp mở lại phải dùng công cụ hiện hành. Lưu danh mục/hash phụ thuộc ngoài repo trong hồ sơ đồng bộ, không chuyển chúng vào thư mục tạm rồi coi là đã bảo toàn nguồn.
+
+Khi sửa bộ sinh PDF: dựng và xem bản đầy đủ trước để phát hiện lỗi phân cấp, chú thích, hình trôi hoặc tách trang; sau đó mới dựng các biến thể. Chỉ dựng HTML chứa thẻ tải PDF sau khi mọi PDF đã qua cổng nguồn hiện hành. Khóa trạng thái nguồn trong lúc dựng; nguồn đổi giữa chừng phải từ chối bản trộn. Số trang trên thẻ tải lấy từ PDF thật, không chép lại số trang lịch sử. Cập nhật chỉ số trang phải có đối chiếu xác nhận toàn bộ chính văn và metadata khác không đổi; giữ nguyên bằng chứng nghiệm thu lịch sử.

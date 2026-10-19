@@ -159,7 +159,7 @@ def adapt(path, output_root):
     result=BeautifulSoup(rendered,"html.parser")
     apply_labels(result,binding,{})
     fallback=result.new_tag("noscript");nav=result.new_tag("nav",attrs={"aria-label":"Các phần của học liệu"})
-    for anchor,label in ROLES.items():
+    for anchor,label in {**ROLES,"tai-tai-lieu":"Tải tài liệu"}.items():
         para=result.new_tag("p");a=result.new_tag("a",href="#"+anchor);a.string=label;para.append(a);nav.append(para)
     fallback.append(nav);result.find(id="rail-content").append(fallback)
     for node in result.select("[src],link[href],a[href]"):
@@ -170,6 +170,8 @@ def adapt(path, output_root):
         node[key]=urlunsplit(("","",os.path.relpath(destination,path.parent).replace("\\","/"),url.query,url.fragment))
     from zo_course_tables import apply as apply_tables
     apply_tables(result,"r1_g04",path,builder.output)
+    from zo_web_2027_downloads import apply_from_metadata
+    apply_from_metadata(result,path,output_root,PACKAGE,create_missing=True)
     from zo_course_math_assets import apply_graph_display
     apply_graph_display(result,path,builder.output)
     from zo_web_2027_navigation import apply as apply_course_navigation

@@ -1,0 +1,117 @@
+{
+  "id": "AXIS-END-TICKS-20261019",
+  "request": "Hai đầu mũi tên của mỗi trục tọa độ không được có vạch chia.",
+  "root_cause": {
+    "figure": "S04c",
+    "generator": "Empty tick list emitted as ytick={}, which requests automatic ticks from PGFPlots.",
+    "shared_style": "No guard against endpoint tick strokes.",
+    "prior_gate": "Matching embedded/source vectors did not check endpoint geometry.",
+    "review": "The agent missed the visible endpoint strokes during prior review; prior PASS is not acceptance of this defect."
+  },
+  "implementation": {
+    "empty_list": "Emit \\empty when no ticks are selected.",
+    "shared_style": "Profile 0.4 guards tick stroke placement at the resolved min/max of each axis; labels are preserved independently.",
+    "graph_gate": "Read actual PDF stroke paths and reject endpoint tick strokes before copying PDF/SVG outputs.",
+    "source_gate": "Check every paired graph PDF, not just hashes.",
+    "print_gate": "Require every source graph to pass endpoint checks and match its actual embedded vector stream."
+  },
+  "files": {
+    "shared_tool_root": "E:/zo_math_graphics",
+    "shared_tool_sources": [
+      "graph/tex/zo_graph_v04.tex",
+      "graph/zo_graph_build.py",
+      "graph/axis_ticks.py",
+      "graph/kiem_thu/axis_ticks_selftest.py",
+      "graph/kiem_thu/kiem_tra_cong_cu.py",
+      "graph/kiem_thu/fixtures/axis_ticks_*.tex",
+      "graph/README.md",
+      "requirements.txt"
+    ],
+    "content_sources": [
+      "scripts/zo_course_math_assets.py",
+      "scripts/zo_course_pdf_layout.py",
+      "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g04/_quy_trinh/sinh_hinh.py",
+      "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g04/hinh/S04c.tex",
+      "quy_trinh_xay_dung/quy_chuan_san_xuat_do_thi_ham_so_zo_math_v0.2.md",
+      "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/07_quy_chuan_cau_truc_trang_nguoi_hoc.md"
+    ],
+    "regenerated": "35 G04 paired PDFs/SVGs through official generator; manifest dependencies and hashes written by the generator. Only S04c changes drawing content; other PDFs differ in generated metadata only. Old dated evidence not overwritten; new evidence directory under G04 ho_so/axis_end_ticks_20261019."
+  },
+  "verification": {
+    "old_S04c_rejected_with_endpoint_ticks": 2,
+    "rendered_regression_cases": {
+      "passed": 7,
+      "total": 7
+    },
+    "print_regression_cases": {
+      "passed": 16,
+      "total": 16
+    },
+    "graph_assets": {
+      "passed": 35,
+      "total": 35
+    },
+    "source_check": "passed",
+    "governance": {
+      "passed": 192,
+      "total": 192
+    },
+    "pdf_base": {
+      "passed": 19,
+      "total": 19
+    },
+    "pdf_print_contract": {
+      "passed": 86,
+      "total": 86
+    },
+    "old_and_new_vector_difference": [
+      "S04c"
+    ],
+    "raster": {
+      "pages_compared": 64,
+      "changed_pages": [
+        {
+          "file": "page-57.png",
+          "difference_box": [
+            78,
+            123,
+            583,
+            859
+          ]
+        }
+      ]
+    },
+    "visual": "Reviewed corrected standalone figure and physical PDF page 57 (printed page 56), color and grayscale. Other 63 pages raster-identical to the previously reviewed candidate.",
+    "prior_warning_retained": "MiKTeX reports possible missing hyphen-vietnamese file; no replacement glyph or clipping in current checks."
+  },
+  "candidate": {
+    "path": "_audit/axis_end_ticks_20261019/G04_khong_vach_dau_truc_20261019.pdf",
+    "sha256": "ba14cf75b0d783f51ba3c72280507a075d6a61b2596f95c8c08d2070a828acb3",
+    "pages": 64,
+    "input_state_current": true,
+    "matches_build_receipt": true,
+    "report": "_audit/axis_end_ticks_20261019/final-print-check.json",
+    "supersedes_for_review": "PDF-G04-SHARED-TRIAL-20261019"
+  },
+  "preservation": {
+    "canonical_pdf_count": 33,
+    "canonical_qmd_count": 5,
+    "changed": [],
+    "prior_trial_retained": true,
+    "mathematical_data_changed": false,
+    "graph_frame_changed": false
+  },
+  "limits": {
+    "other_packages": "Not rebuilt. Their recorded graph dependency hashes/cache may now be stale after the shared tool change; do not rewrite those hashes to claim current. Apply only after pilot review.",
+    "html": "Not rebuilt; existing HTML previews do not display this correction yet."
+  },
+  "status": {
+    "source_fixed": true,
+    "technical_checked": true,
+    "owner_acceptance": "pending",
+    "canonical_pdf_replaced": false,
+    "committed": false,
+    "pushed": false,
+    "published": false
+  }
+}

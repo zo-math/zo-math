@@ -1,3 +1,11 @@
+-- PDF uses the shared R1 projection; HTML retains its source-owned adapter.
+if FORMAT:match('latex') then
+  local old=PANDOC_SCRIPT_FILE
+  PANDOC_SCRIPT_FILE=pandoc.path.join({pandoc.path.directory(old),'../../../../../../assets/lua/zo_course_package_pdf.lua'})
+  local filters=assert(loadfile(PANDOC_SCRIPT_FILE))()
+  PANDOC_SCRIPT_FILE=old
+  return filters
+end
 -- Candidate-only adapter. BBT values are literal data, never inferred.
 local html = FORMAT:match('html') ~= nil
 local latex = FORMAT:match('latex') ~= nil

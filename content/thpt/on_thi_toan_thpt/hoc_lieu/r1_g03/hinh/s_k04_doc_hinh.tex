@@ -13,14 +13,14 @@
 % No asymptote is drawn: students match the accompanying exact limits to branches.
 \begin{axis}[zo graph v02 axis,width=11cm,height=7cm,
  xmin=-12,xmax=12,ymin=-9,ymax=10,restrict y to domain=-9:10,
- xtick={3},ytick={-1,2},xlabel={$x$},ylabel={$y$},
+ xtick={3},ytick={-1,2},xticklabel style={anchor=south,yshift=3pt},xlabel={$x$},ylabel={$y$},
  every axis x label/.append style={at={(axis description cs:0.98,0.474)},anchor=south east},
  every axis y label/.append style={at={(axis description cs:0.5,0.98)},anchor=north west}]
 \node[zo graph v02 font sentinel] at (axis cs:0,0) {x};
 \addplot[zo graph v02 curve solid,domain=-12:2.99,samples=501,forget plot] {2-12/(7-x)};
 \addplot[zo graph v02 curve solid,domain=3.05:12,samples=501,forget plot] {-x+4+3/(x-3)};
 \addplot[zo graph v02 point open,forget plot] coordinates {(3,-1)};
-\node[zo graph v02 protected label,anchor=north east] at (axis cs:2.8,-1.2) {$(3;-1)$};
+\node[zo graph v02 tick label,anchor=north west,xshift=6pt,yshift=-7pt] at (axis cs:3,-1) {$(3;-1)$};
 \end{axis}
 
 \end{tikzpicture}

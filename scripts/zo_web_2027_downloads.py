@@ -9,6 +9,25 @@ ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = Path('content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01')
 CSS = PACKAGE / 'giao_dien/downloads.css'
 
+def project_source_section(section, layout_attrs):
+    """Use fresh download content and retain its approved reading presentation."""
+    if section is None:
+        raise ValueError('Missing current source download section')
+    projected = copy.deepcopy(section)
+    projected['class'] = list(dict.fromkeys(
+        projected.get('class', []) + layout_attrs.get('class', [])))
+    return projected
+
+
+def download_region_coverage(section):
+    """Every PDF card must sit inside an approved white reading region."""
+    if section is None:
+        return False
+    cards = section.select('.zo-pdf-card')
+    return bool(cards) and all(any('reading-region' in node.get('class', [])
+        for node in [card, *card.parents] if getattr(node, 'attrs', None)) for card in cards)
+
+
 def apply(target, page, output_root):
     section = target.select_one('#tai-tai-lieu')
     cards = section.select('.r1-download-card, .r1-section-download-item')
@@ -73,15 +92,28 @@ def apply(target, page, output_root):
     target.head.append(target.new_tag('link', attrs={'rel':'stylesheet','href':os.path.relpath(runtime, page.parent).replace('\\','/')}))
 
 
-def apply_from_metadata(doc, page, output_root, package):
+def metadata_section(doc, *, create_missing=False):
+    """A metadata-owned utility region; it adds no mathematical content."""
+    section=doc.select_one("#tai-tai-lieu .reading-region")
+    if section is not None:return section
+    if not create_missing or doc.select_one("#tai-tai-lieu") is not None:
+        raise ValueError("Missing source-owned download section")
+    root=doc.select_one(".zo-on-thi-package.reader-content")
+    if root is None:raise ValueError("Download utility requires the current source-owned reader")
+    owner=doc.new_tag("section",id="tai-tai-lieu",attrs={"class":"level2","data-generated-from":"r1-download-files r1-section-download-files"})
+    region=doc.new_tag("div",attrs={"class":"reading-region","data-reading-reason":"Metadata-owned PDF download utility"})
+    title=doc.new_tag("h2");title.string="Tải tài liệu"
+    intro=doc.new_tag("p");intro.string="Chọn bản phù hợp để đọc hoặc in. Số trang được đọc trực tiếp từ từng tệp PDF."
+    region.extend([title,intro]);owner.append(region);root.append(owner);return region
+
+
+def apply_from_metadata(doc, page, output_root, package, *, create_missing=False):
     """Use the existing download-card design for a newly registered package."""
     import yaml
     from zo_course_pdf_download_state import apply as apply_state
     source = ROOT / package / 'index.qmd'
     metadata = yaml.safe_load(source.read_text(encoding='utf-8').split('---', 2)[1])
-    section = doc.select_one('#tai-tai-lieu .reading-region')
-    if section is None:
-        raise ValueError('Missing source-owned download section')
+    section = metadata_section(doc,create_missing=create_missing)
     doc.body['class'] = list(dict.fromkeys(doc.body.get('class', []) + ['zo-web-2027-production']))
     cards = doc.new_tag('div', attrs={'class':'r1-downloads'})
     section.append(cards)

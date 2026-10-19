@@ -16,7 +16,8 @@
 \addplot[zo graph v02 curve solid,domain=-12:-2.04,samples=501,forget plot] {3+2/(x+2)};
 \addplot[zo graph v02 curve solid,domain=-1.99:10,samples=501,forget plot] {-x-2+2/(x+4)};
 \addplot[zo graph v02 point open,forget plot] coordinates {(-2,1)};
-\node[zo graph v02 protected label,anchor=center] at (axis cs:-6,1) {$(-2;1)$};
+\addplot[zo graph v02 auxiliary,forget plot] coordinates {(-2,1) (2.5,4.5)};
+\node[zo graph v02 tick label,anchor=south west] at (axis cs:2.5,4.5) {$(-2;1)$};
 \end{axis}
 \end{tikzpicture}
 \end{document}

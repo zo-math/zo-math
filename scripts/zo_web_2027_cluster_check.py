@@ -10,7 +10,7 @@ ROOT=Path(__file__).resolve().parents[1]
 BASE=Path('content/thpt/on_thi_toan_thpt')
 PAGES={'g01':BASE/'hoc_lieu/r1_g01/index.html','g02':BASE/'hoc_lieu/r1_g02/index.html',
        'home':BASE/'tot_nghiep_thpt/2027/index.html','d0':BASE/'hoc_lieu/d0/index.html',
-       'gateway':BASE/'index.html'}
+       'gateway':BASE/'index.html','g03':BASE/'hoc_lieu/r1_g03/index.html','g04':BASE/'hoc_lieu/r1_g04/index.html'}
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def save(p,data):
     p.parent.mkdir(parents=True,exist_ok=True)
@@ -26,8 +26,12 @@ def snapshot(out):
         source=ROOT/BASE/'hoc_lieu'/package
         shutil.copytree(source,out/'source-before'/package,ignore=shutil.ignore_patterns('*_files','__pycache__'))
     shutil.copyfile(ROOT/BASE/'hoc_lieu/r1_g01/giao_dien/web_2027_layout.json',out/'g01-layout-before.json')
+def render_mirror(out,phase):
+    identity=hashlib.sha256(str(Path(out).resolve()).encode()).hexdigest()[:16]
+    return (ROOT/'.quarto/course_html_build'/identity/phase/'project').resolve()
+
 def render(out,phase,resume=False,html_only=False):
-    mirror=(out/phase/'r1_g01-raw').resolve()
+    mirror=render_mirror(out,phase)
     if mirror.exists() and not resume:raise ValueError('Use a fresh phase directory')
     skip=shutil.ignore_patterns('__pycache__','.quarto','*_cache','*_files','.ipynb_checkpoints')
     for name in ['scripts','assets','quy_trinh_xay_dung','projects','_projects','figures','images','content/thpt/on_thi_toan_thpt','content/support','_design/web_2027_mau_dung_chung','_design/ngon_ngu_thiet_ke_zo_math_0_4/07_mau_thi_giac']:
@@ -42,10 +46,10 @@ def render(out,phase,resume=False,html_only=False):
     # The opt-in hook skips adaptation only in this indexed raw-HTML mirror.
     shutil.copyfile(ROOT/'.git/index',mirror/'isolated.index')
     (mirror/'_audit').mkdir(exist_ok=True)
-    env=dict(os.environ,GIT_DIR=str(ROOT/'.git'),GIT_WORK_TREE=str(mirror),GIT_INDEX_FILE=str(mirror/'isolated.index'),ZO_COURSE_RAW_HTML_ONLY='1')
+    env=dict(os.environ,GIT_DIR=str(ROOT/'.git'),GIT_WORK_TREE=str(mirror),GIT_INDEX_FILE=str(mirror/'isolated.index'),ZO_COURSE_RAW_HTML_ONLY='1',QUARTO_PROFILE='on-thi-preview')
     names=['g01','g02'] if phase=='before' else list(PAGES)
     for name in names:
-        cmd=['python','scripts/zo_python.py','scripts/zo_qmd.py' if name in ['g01','g02','d0'] else 'scripts/zo_quarto.py','render',str(PAGES[name].with_suffix('.qmd'))]
+        cmd=['python','scripts/zo_python.py','scripts/zo_qmd.py' if name in ['g01','g02','g03','g04','d0'] else 'scripts/zo_quarto.py','render',str(PAGES[name].with_suffix('.qmd'))]
         if name in ['home','gateway']:cmd+=['--profile','on-thi-preview','--to','html']
         elif html_only:cmd+=['--html-only']
         with (mirror/(name+'-render.log')).open('w',encoding='utf-8') as log:
@@ -54,7 +58,7 @@ def render(out,phase,resume=False,html_only=False):
         print('Raw rendered',name,flush=True)
     save(out/(phase+'-renders.json'),{name:sha(mirror/'docs'/PAGES[name]) for name in names})
 def refresh(out,name):
-    mirror=out/'final/r1_g01-raw';path=PAGES[name]
+    mirror=render_mirror(out,'final');path=PAGES[name]
     prior=out/'iteration-1';prior.mkdir(exist_ok=True)
     snapshot=prior/(name+'-raw.html')
     if snapshot.exists():snapshot=prior/(name+'-raw-'+str(time.time_ns())+'.html')
@@ -65,7 +69,7 @@ def refresh(out,name):
         rc=subprocess.run(['python','scripts/zo_python.py','scripts/zo_qmd.py','render',str(path.with_suffix('.qmd'))],cwd=mirror,env=env,stdout=log,stderr=subprocess.STDOUT).returncode
     if rc:raise RuntimeError('G01 refresh failed; see g01-render-2.log')
 def adapt(out,resume=False):
-    raw=out/'final/r1_g01-raw/docs';delivery=out/'delivery/docs'
+    raw=render_mirror(out,'final')/'docs';delivery=out/'delivery/docs'
     if delivery.exists() and not resume:raise ValueError('Never overwrite delivery')
     shutil.copytree(raw,delivery,dirs_exist_ok=resume)
     from zo_web_2027_production import adapt as convert

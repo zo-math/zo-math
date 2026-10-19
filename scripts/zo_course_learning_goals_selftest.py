@@ -31,7 +31,12 @@ def main():
     checks["D0 is not forced into learning package rule"]=spec(Path("fixture/hoc_lieu/d0/index.qmd")) is None
     p=BASE/'r1_g01/index.qmd';plan=json.loads((p.parent/'giao_dien/web_2027_layout.json').read_text(encoding='utf-8'));c=plan['source_transition'];guide_id='dinh-huong-bai-hoc'
     before=BeautifulSoup('<div class="reader-content"><section id="bat-dau"><p>'+c['old_intro_text']+'</p></section><section id="bai-hoc"><details id="'+guide_id+'"><summary>Định hướng bài học</summary><span id="câu-hỏi-dẫn-đường">Câu hỏi dẫn đường</span><p>Giữ nguyên câu hỏi.</p><span id="học-xong-em-cần-làm-được-gì">'+TITLE+'</span><div id="r1-table-t02">'+c['old_goal_text'][len(TITLE):].strip()+'</div><p>'+c['scope_text']+'</p></details><p id="outside">Nội dung khác <math><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math></p></section></div>','html.parser').div
+    for item in plan.get('metadata_pdf_transition',{}).get('counts',[]):
+        card=BeautifulSoup('<div class="r1-download-card"><a download href="'+item['href']+'">PDF</a><span class="r1-download-card__meta">'+str(item['before'])+' trang · PDF</span></div>','html.parser').div
+        before.append(card)
     expected=content_fingerprint(before);after=copy.deepcopy(before)
+    for item,card in zip(plan.get('metadata_pdf_transition',{}).get('counts',[]),after.select('.r1-download-card')):
+        card.select_one('.r1-download-card__meta').string=str(item['after'])+' trang · PDF'
     start=after.find(id='bat-dau');start.clear()
     # Deliberately different DOM structure, exact approved source text/IDs.
     heading=after.find(id='học-xong-em-cần-làm-được-gì').extract();table=after.find(id='r1-table-t02').extract();start.append(heading)
@@ -41,6 +46,9 @@ def main():
     checks['G01 bounded inverse retains full old fingerprint']=inverse_g01_fingerprint(after,scoped,content_fingerprint,p)==expected
     before_serialized=str(after);inverse_g01_fingerprint(after,scoped,content_fingerprint,p)
     checks['inverse never edits output DOM']=str(after)==before_serialized
+    bad=copy.deepcopy(after);bad.select_one('.r1-download-card__meta').string='999 trang · PDF'
+    try:inverse_g01_fingerprint(bad,scoped,content_fingerprint,p);checks['unmeasured page count rejected']=False
+    except ValueError:checks['unmeasured page count rejected']=True
     bad=copy.deepcopy(after);bad.find(id='outside').append(' Thêm câu ngoài phạm vi.')
     checks['unrelated prose remains protected']=inverse_g01_fingerprint(bad,scoped,content_fingerprint,p)!=expected
     bad=copy.deepcopy(after);bad.find('annotation').string='y'

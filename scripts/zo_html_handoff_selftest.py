@@ -24,6 +24,18 @@ class HandoffTests(unittest.TestCase):
  def test_prepare_is_not_ready(self):
   self.assertFalse(self.d['handoff_ready'])
   with self.assertRaisesRegex(ValueError,'NOT handoff-ready'):h.check(self.root,self.prepared)
+ def test_transitive_css_font_and_download_are_sealed(self):
+  runtime=self.root/'_audit/runtime';runtime.mkdir()
+  (runtime/'main.css').write_text('@import "inner.css";')
+  (runtime/'inner.css').write_text('@font-face{src:url(font.woff2)}')
+  (runtime/'font.woff2').write_bytes(b'font')
+  (runtime/'book.pdf').write_bytes(b'%PDF-fixture')
+  self.page.write_text('<html><head><title>Lesson</title><link rel="stylesheet" href="../runtime/main.css"></head><body>Actual learner content <a href="../runtime/book.pdf">Download</a></body></html>')
+  data=h.prepare(self.root,'03.md',self.root/'with-dependencies.json')
+  for name in ['main.css','inner.css','font.woff2','book.pdf']:
+   self.assertIn('_audit/runtime/'+name,data['files'])
+  (runtime/'font.woff2').unlink()
+  with self.assertRaisesRegex(ValueError,'Missing'):h.verify_live(self.root,data)
  def test_valid_omitted_body_tag(self):
   self.entry.write_text('<!doctype html><html><meta charset="utf-8"><title>Review</title><h1>A real current review page</h1><p>Visible learner content</p></html>')
   self.assertFalse(h.prepare(self.root,'03.md',self.root/'other.json')['handoff_ready'])

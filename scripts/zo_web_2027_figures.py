@@ -39,7 +39,7 @@ def module(name, path):
     return result
 
 def dependencies(config):
-    paths = [CONFIG, GRAPH/'zo_graph_build.py', GRAPH/'tex/zo_graph_v02.tex',
+    paths = [CONFIG, ROOT/'scripts/zo_course_cover_assets.py', GRAPH/'axis_ticks.py', GRAPH/'zo_graph_build.py', GRAPH/'tex/zo_graph_v02.tex',
              GRAPH/'tex/zo_graph_v04.tex', GRAPH/'profiles/lesson-g03.json', GRAPH/'mau/cover_cubic_04.tex',
              PROFILE/'frame-tokens.json', PROFILE/'production-figures.css',
              VARIATION/'zo_variation_html.py', VARIATION/'zo_variation_build.py',
@@ -100,7 +100,9 @@ def build(output, force=False, reuse_graphs=False):
                 ['mau/cover_cubic_04.tex','tex/zo_graph_v02.tex','tex/zo_graph_v04.tex']]
     cover_keys += [k for k in before if k.startswith('assets/fonts/')]
     if any(old['source_hashes'].get(k)!=before[k] for k in cover_keys):
-        raise ValueError('Cover inputs changed; handle cover through its separate workflow')
+        from zo_course_cover_assets import verify_rebuild
+        for surface in ['light','dark']:
+            verify_rebuild(ROOT,graph_path(GRAPH/'mau/cover_cubic_04.tex'), 'transparent-'+surface,destination/('cover-'+surface+'.svg'))
     for name in ['cover-light.svg','cover-dark.svg']:
         if sha(destination/name)!=old['assets'][name]:raise ValueError('Cover asset changed: '+name)
         generated[name]=destination/name

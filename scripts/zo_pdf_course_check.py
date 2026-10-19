@@ -13,6 +13,18 @@ from pypdf import PdfReader
 from zo_pdf_support import support_model
 
 
+def strict_structure(path):
+    from pypdf.generic import IndirectObject
+    reader=PdfReader(path,strict=True)
+    try:
+        for generation,objects in reader.xref.items():
+            for number in objects:
+                if number:reader.get_object(IndirectObject(number,generation,reader))
+        return True
+    except Exception:
+        return False
+
+
 def footer_checks(reader):
     results=[]
     for page in reader.pages:
@@ -66,25 +78,34 @@ def clipped_text_pages(reader):
     return failures
 
 
-def check(path):
+def replacement_glyph_lines(texts):
+    return [{'page':number,'text':line.strip()}
+            for number,text in enumerate(texts,1)
+            for line in text.splitlines() if '\ufffd' in line]
+
+
+def check(path, source=None, variant=None):
     reader=PdfReader(path); texts=[p.extract_text() for p in reader.pages]
     all_text='\n'.join(texts); support=support_model()
-    config=yaml.safe_load((path.parent/'_quy_trinh/cau_hinh_san_xuat_qmd.yml').read_text(encoding='utf-8'))
-    profile=yaml.safe_load((path.parent/'_quy_trinh/ho_so/index.yml').read_text(encoding='utf-8'))
-    definition=next(v for v in config['extensions']['pdf_variants'].values() if v['output']==path.name)
+    folder=Path(source).parent if source is not None else path.parent
+    config=yaml.safe_load((folder/'_quy_trinh/cau_hinh_san_xuat_qmd.yml').read_text(encoding='utf-8'))
+    profile=yaml.safe_load((folder/'_quy_trinh/ho_so/index.yml').read_text(encoding='utf-8'))
+    definition=config['extensions']['pdf_variants'][variant] if variant else next(v for v in config['extensions']['pdf_variants'].values() if v['output']==path.name)
+    output_name=definition['output']
     shell=config['extensions']['course_pdf_shell']
     norm=lambda t:re.sub(r'\s+',' ',t).strip()
     compact=lambda t:re.sub(r'\s+','',t)
     checks={
         'A4 every page':all(abs(float(p.mediabox.width)-595.276)<1 and abs(float(p.mediabox.height)-841.89)<1 for p in reader.pages),
         'centered HTTPS website footer every page':all(footer_checks(reader)),
-        'resolved print page references':'??' not in all_text and (path.name not in ['index.pdf','index_hoc_sinh.pdf'] or '(trang' in all_text),
+        'resolved print page references':'??' not in all_text and (output_name not in ['index.pdf','index_hoc_sinh.pdf'] or '(trang' in all_text),
         'cover title and version':norm(' '.join(shell['cover_lines'])) in norm(texts[0]) and 'Phiên bản nội dung '+str(profile['package']['candidate_version']) in texts[0],
         'cover creation date and rights':'Ngày tạo PDF:' in texts[0] and 'Bản quyền nội dung thuộc ZO Math' in texts[0],
         'closing learning invitation':'Chọn điều em' in texts[-1] and 'Mở học liệu' in texts[-1],
         'current support title and account':(support['title'] in texts[-1] and all(compact(f['value']) in compact(texts[-1]) for f in support['fields'])) if definition.get('include_support',True) else support['title'] not in texts[-1],
         'no former support wording':'ủng hộ' not in all_text.lower(),
-        'learning projection':all(s in all_text for s in ['Bắt đầu','Bài học','Luyện tập','Kiểm tra','Ôn lại','Ôn nền','Sửa lỗi','Nhật kí','Lời giải','Nguồn']) if path.name=='index.pdf' else len(texts)>2,
+        'no replacement glyphs':not replacement_glyph_lines(texts),
+        'learning projection':all(s in all_text for s in ['Bắt đầu','Bài học','Luyện tập','Kiểm tra','Ôn lại','Ôn nền','Sửa lỗi','Nhật kí','Lời giải','Nguồn']) if output_name=='index.pdf' else len(texts)>2,
         'no nearly empty interior pages':all(len(t.strip())>160 for t in texts[1:-1]),
         'no task heading stranded at page end':not orphan_task_pages(reader),
         'no text clipped beyond physical page':not clipped_text_pages(reader),
@@ -102,6 +123,7 @@ def check(path):
             if obj.get('/Resources'):resources(obj['/Resources'])
     for p in reader.pages:resources(p['/Resources'])
     checks['all fonts embedded']=not missing
+    checks['PDF dictionaries have no duplicate keys']=strict_structure(path)
     checks['Be Vietnam Pro and STIX Math']=any('BeVietnamPro' in f for f in fonts) and any('STIXTwoMath' in f for f in fonts)
     # Negative guard case uses an in-memory reader; never changes the PDF.
     negative=PdfReader(path)
@@ -117,7 +139,12 @@ def check(path):
     checks['negative stranded task heading rejected']=orphan_task_pages(SimpleNamespace(pages=[None,bad,None]))==[2] and not orphan_task_pages(SimpleNamespace(pages=[None,good,None]))
     bad_page=SimpleNamespace(mediabox=SimpleNamespace(height=841.89),extract_text=lambda visitor_text,**kwargs:visitor_text('Clipped task',[1,0,0,1,0,0],[1,0,0,1,20,900],None,10))
     checks['negative clipped text rejected']=bool(clipped_text_pages(SimpleNamespace(pages=[bad_page])))
+    checks['negative replacement glyph rejected']=(
+        replacement_glyph_lines(['Bài học','Bài học \ufffd Luyện tập'])==
+        [{'page':2,'text':'Bài học \ufffd Luyện tập'}]
+        and not replacement_glyph_lines(['Bài học → Luyện tập']))
     return {'checks':checks,'pages':len(reader.pages),'fonts':sorted(fonts),
+            'replacement_glyphs':replacement_glyph_lines(texts),
             'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
             'passed':sum(checks.values()),'total':len(checks),
             'failures':[k for k,v in checks.items() if not v],
@@ -126,8 +153,8 @@ def check(path):
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('pdf',type=Path);parser.add_argument('--report',type=Path)
-    args=parser.parse_args();report=check(args.pdf)
+    parser.add_argument('pdf',type=Path);parser.add_argument('--report',type=Path);parser.add_argument('--source',type=Path);parser.add_argument('--variant')
+    args=parser.parse_args();report=check(args.pdf,source=args.source,variant=args.variant)
     if args.report:
         args.report.parent.mkdir(parents=True,exist_ok=True)
         args.report.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')

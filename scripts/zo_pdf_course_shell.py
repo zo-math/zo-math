@@ -29,10 +29,20 @@ def prepare(root: Path, mirror: Path, source: Path, definition: dict) -> dict:
     shutil.copy2(d0/'giao_dien/zo_logo_04.png', runtime/'zo-course-logo.png')
     shutil.copy2(model['logo_path'], runtime/'zo-course-support-logo.png')
     shutil.copy2(model['qr_path'], runtime/'zo-course-support-qr.jpg')
+    from zo_course_cover import print_cover
+    print_cover(root,source.parent.name,runtime/'zo-course-cover.pdf')
     now = datetime.now(timezone(timedelta(hours=7)))
     variant = definition['metadata']['subtitle'].split('—')[-1].strip()
     downloads = meta['r1-download-files'] + meta.get('r1-section-download-files', [])
     download = next(x for x in downloads if x['href']==definition['output'])
+    layout=None
+    if shell.get('layout')=='course-print-v2':
+        from zo_course_pdf_layout import model as print_model
+        layout=print_model(root,source,next(k for k,v in config.raw['extensions']['pdf_variants'].items() if v['output']==definition['output']))
+    if layout:
+        shutil.copy2(root/'assets/tex/zo-course-print-layout.tex',runtime/'zo-course-print-layout.tex')
+        (mirror/'assets/tex/zo-course-print-runtime.json').write_text(
+            __import__('json').dumps(layout, ensure_ascii=False), encoding='utf-8')
     fields = {
         'zoPrintTitle': meta['title'], 'zoPrintPackage': profile['package']['id'],
         'zoPrintVersion': profile['package']['candidate_version'],
@@ -40,7 +50,7 @@ def prepare(root: Path, mirror: Path, source: Path, definition: dict) -> dict:
         'zoPrintURL': definition['metadata']['zo-pdf-branding']['canonical-url'],
         'zoBuildDate': now.strftime('%d/%m/%Y'), 'zoBuildYear': str(now.year),
     }
-    lines = [support_tex(model)]
+    lines = [support_tex(model), r'\newif\ifzoCoursePrintVTwo', r'\zoCoursePrintVTwo'+('true' if layout else 'false')]
     lines += [r'\newif\ifzoPrintSupport', r'\zoPrintSupport'+('true' if definition.get('include_support',True) else 'false')]
     lines += ['\\newcommand{\\'+k+'}{'+tex(str(v))+'}' for k,v in fields.items() if k!='zoPrintURL']
     # QR payloads must contain literal URL bytes, not TeX escapes for underscores.
@@ -52,11 +62,19 @@ def prepare(root: Path, mirror: Path, source: Path, definition: dict) -> dict:
     # The D0-style cover owns rights and the QR; suppress the old extra cover.
     (mirror/'assets/tex/zo-pdf-rights.tex').write_text('% Replaced by course shell cover.\n', encoding='utf-8')
     shutil.copy2(root/'assets/tex/zo-course-pdf-end.tex', mirror/'assets/tex/zo-pdf-support.tex')
+    if layout:
+        ending=mirror/'assets/tex/zo-pdf-support.tex'
+        ending.write_text('\\begingroup\\sffamily\n'+ending.read_text('utf-8')+'\n\\endgroup\n',encoding='utf-8')
     # Keep preamble order deterministic: the base defines block environments,
     # then the approved course shell replaces only the cover/header/footer.
     profile_path = mirror/'_quarto-pdf.yml'
     quarto_profile = yaml.safe_load(profile_path.read_text(encoding='utf-8'))
+    if layout:
+        quarto_profile['format']['pdf']['keep-tex']=True
+        quarto_profile['format']['pdf']['latex-clean']=False
+        quarto_profile['format']['pdf']['latex-min-runs']=4
+        quarto_profile['format']['pdf']['latex-max-runs']=6
     quarto_profile['format']['pdf']['include-in-header'] = [
         'assets/tex/zo-pdf.tex', 'assets/tex/zo-course-pdf-shell.tex']
     profile_path.write_text(yaml.safe_dump(quarto_profile,allow_unicode=True,sort_keys=False),encoding='utf-8')
-    return {'runtime': runtime, 'support_inputs': model['input_hashes']}
+    return {'runtime': runtime, 'support_inputs': model['input_hashes'], 'layout': layout}

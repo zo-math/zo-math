@@ -121,8 +121,12 @@ def scan(root, protection=(), manifests=(), exclude=()):
     branch = git(root, 'symbolic-ref', '--quiet', '--short', 'HEAD').stdout.decode().strip()
     protected = set()
     manifest_hashes = {}
-    for filename in manifests:
+    from zo_review_protection import active_manifests
+    try:automatic=active_manifests(root)
+    except (ValueError,OSError) as exc:raise Blocked('Active review protection failed: '+str(exc)) from exc
+    for filename in dict.fromkeys([*automatic,*manifests]):
         path = Path(filename).resolve()
+        if not path.is_file():raise Blocked('Repository changed since inventory: protection manifest missing')
         data = json.loads(path.read_text(encoding='utf-8-sig'))
         manifest_hashes[str(path)] = digest(path)
         for entry in data['files']:
@@ -133,6 +137,15 @@ def scan(root, protection=(), manifests=(), exclude=()):
     state = changes(root)
     hidden = [p for p in ignored(root) if p not in exclude]
     protected.update(p for p in hidden if any(under(p, prefix) for prefix in protection))
+    # Protect actual HTML/CSS/download dependencies, including files outside
+    # the selected preview directory. A clean Git tree is not a usable preview.
+    html=[safe(root,p) for p in protected if Path(p).suffix.lower() in {'.html','.htm'}]
+    if html:
+        from zo_html_dependencies import preview_files
+        try:
+            protected.update(p.relative_to(root).as_posix() for p in preview_files(root,html))
+        except ValueError as exc:
+            raise Blocked('Protected preview dependency failed: '+str(exc)) from exc
     instruction_paths = {'AGENTS.md', 'quy_trinh_xay_dung/quy_tac_lam_viec_voi_agent.md',
                          'quy_trinh_xay_dung/quy_trinh_thuc_hien_nhiem_vu_ky_thuat.md'}
     for relative in set(state) | set(hidden):

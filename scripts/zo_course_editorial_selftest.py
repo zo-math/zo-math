@@ -64,6 +64,14 @@ def main():
     stale=copy.deepcopy(plan);stale['editorial_transition']['source_qmd_sha256']='0'*64
     try:restore_g01_for_comparison(after,stale,qmd);checks['reject stale G01 source binding']=False
     except ValueError:checks['reject stale G01 source binding']=True
+    duplicate=copy.deepcopy(plan);duplicate['editorial_transition']['sources']={qmd.relative_to(ROOT).as_posix():'0'*64}
+    checks['historical self hash uses strict current full source binding']=content_fingerprint(restore_g01_for_comparison(after,duplicate,qmd))==content_fingerprint(expected)
+    stale=copy.deepcopy(duplicate);stale['editorial_transition']['source_qmd_sha256']='0'*64
+    try:restore_g01_for_comparison(after,stale,qmd);checks['stale current binding cannot hide behind old self hash']=False
+    except ValueError:checks['stale current binding cannot hide behind old self hash']=True
+    include=copy.deepcopy(plan);include['editorial_transition']['sources']={Path(__file__).relative_to(ROOT).as_posix():'0'*64}
+    try:restore_g01_for_comparison(after,include,qmd);checks['independent include hash remains strict']=False
+    except ValueError:checks['independent include hash remains strict']=True
     checks['historical accepted receipt unchanged']=plan['accepted_sha256']=='5c97396dd9656971e442cb60a07aa799935d3233bf2ae15a53ebc57f76c77e3c'
     report={'passed':sum(checks.values()),'total':len(checks),'failures':[k for k,v in checks.items() if not v],'checks':checks,'rendered':False}
     if args.report:

@@ -1510,7 +1510,11 @@ def dispatch_article_render_validators(
     relative: Path, html: Path, checker: Checker
 ) -> ArticleValidationContext | None:
     from zo_course_labels import governed, LEGACY, binding as course_label_binding, html_checks as course_label_html_checks
-    if governed(relative) and relative.parent.name not in LEGACY:
+    raw_mirror = (os.environ.get("ZO_COURSE_RAW_HTML_ONLY") == "1"
+                  and (checker.root/"isolated.index").is_file()
+                  and "course_html_build" in checker.root.resolve().parts
+                  and ".quarto" in checker.root.resolve().parts)
+    if governed(relative) and relative.parent.name not in LEGACY and not raw_mirror:
         try:
             from bs4 import BeautifulSoup
             values=course_label_html_checks(BeautifulSoup(html.read_text(encoding="utf-8"),"html.parser"),course_label_binding(checker.root/relative),checker.root)

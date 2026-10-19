@@ -267,6 +267,12 @@ def _adapt(path, output_root):
         raise ValueError('Unknown URL binding')
 
     def decode(n):
+        # Download metadata is current source content, not an imported
+        # historical text key. The full inverse comparison above remains strict.
+        if n.get('attrs',{}).get('id')=='tai-tai-lieu':
+            section=source_root.find(id='tai-tai-lieu')
+            from zo_web_2027_downloads import project_source_section
+            return project_source_section(section,n['attrs'])
         if 'table_function_node' in n:
             from zo_course_table_roles import source_node
             return source_node(source_root,n['table_function_node'],plan)

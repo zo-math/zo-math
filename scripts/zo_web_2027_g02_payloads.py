@@ -17,7 +17,7 @@ CONFIG=PACKAGE/'giao_dien/web_2027_figures.json'
 
 def vector_dependencies():
     config=json.loads(CONFIG.read_text(encoding='utf-8'))
-    paths=[CONFIG,Path(__file__),GRAPH/'zo_graph_build.py',GRAPH/'tex/zo_graph_v02.tex',
+    paths=[CONFIG,Path(__file__),ROOT/'scripts/zo_course_cover_assets.py',GRAPH/'axis_ticks.py',GRAPH/'zo_graph_build.py',GRAPH/'tex/zo_graph_v02.tex',
            GRAPH/'tex/zo_graph_v04.tex',GRAPH/'profiles/lesson-g03.json',PROFILE/'frame-tokens.json',PROFILE/'production-figures.css',
            ROOT/'_design/ngon_ngu_thiet_ke_zo_math_0_4/07_mau_thi_giac/design/color_system.json']
     paths += [PACKAGE/item['source'] for item in config['figures']]
@@ -53,8 +53,10 @@ def build_vectors(output):
     keys=[(GRAPH/f).relative_to(ROOT).as_posix() for f in ['tex/zo_graph_v02.tex','tex/zo_graph_v04.tex']]
     keys += [(PACKAGE/'giao_dien/cover_g02.tex').relative_to(ROOT).as_posix()]
     keys += [k for k in inputs if k.startswith('assets/fonts/')]
-    if any(old['inputs'].get(k)!=inputs[k] for k in keys) or sha(cache/'cover-light.svg')!=old['assets']['cover-light.svg']:
-        raise ValueError('Cover changed; use its separate cover workflow')
+    if sha(cache/'cover-light.svg')!=old['assets']['cover-light.svg']:raise ValueError('Approved cover bytes changed')
+    if any(old['inputs'].get(k)!=inputs[k] for k in keys):
+        from zo_course_cover_assets import verify_rebuild
+        verify_rebuild(ROOT,PACKAGE/'giao_dien/cover_g02.tex','transparent-light',cache/'cover-light.svg')
     shutil.copyfile(cache/'cover-light.svg',destination/'cover-light.svg')
     if inputs!=vector_dependencies():raise ValueError('G02 vector inputs changed during build')
     expected={p.stem+ext for p in sources for ext in ['.svg','.pdf']}|{'cover-light.svg'}

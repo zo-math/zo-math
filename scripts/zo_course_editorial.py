@@ -137,6 +137,10 @@ def restore_g01_for_comparison(source,plan,qmd):
     if change.get('id')!=RULE or change.get('historical_comparison_only') is not True or sha(Path(qmd).read_bytes())!=change.get('source_qmd_sha256'):
         raise ValueError('G01 editorial transition differs from its current source')
     for path,digest in change['sources'].items():
+        # The current full-QMD binding above is strict. This duplicated entry
+        # records the older editorial stage, before later bounded transitions;
+        # it is not a second current-source binding. Independent includes stay strict.
+        if (ROOT/path).resolve()==Path(qmd).resolve():continue
         if sha((ROOT/path).read_bytes())!=digest:raise ValueError('G01 edited include changed after review: '+path)
     result=copy.deepcopy(source);groups=defaultdict(list)
     for edit in change['edits']:groups[(edit['tag'],json.dumps(edit['after_signature']))].append(edit)

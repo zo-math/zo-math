@@ -72,6 +72,18 @@ def inverse_g01_fingerprint(source,plan,fingerprint,qmd):
     if not change:return fingerprint(source)
     if change.get("id")!="GOALS-START-20261018" or sha(Path(qmd).read_bytes())!=change["source_qmd_sha256"]:
         raise ValueError("G01 goal transition does not match current canonical QMD")
+    # Page counts are measured from PDFs; preserve the imported receipt while
+    # comparing only this explicitly recorded metadata-only transition.
+    page_transition=plan.get('metadata_pdf_transition')
+    if page_transition:
+        if page_transition.get('id')!='PDF-PAGES-SYNC-20261019' or page_transition.get('source_qmd_sha256')!=sha(Path(qmd).read_bytes()):raise ValueError('Unbound PDF page-count transition')
+        source=copy.deepcopy(source)
+        for item in page_transition['counts']:
+            cards=[n for n in source.select('.r1-download-card') if n.select_one('a[download]') and n.select_one('a[download]')['href']==item['href']]
+            if len(cards)!=1:raise ValueError('Missing/duplicate source download card: '+item['href'])
+            label=cards[0].select_one('.r1-download-card__meta')
+            if label is None or norm(label.get_text(' ',strip=True))!=str(item['after'])+' trang · PDF':raise ValueError('PDF page-count text differs from measured transition')
+            label.string=str(item['before'])+' trang · PDF'
     current=fingerprint(source);text=norm(source.get_text(" ",strip=True))
     before,after=change["old_intro_text"],change["new_intro_text"]
     start=source.find(id="bat-dau");guide=source.find(id="dinh-huong-bai-hoc")
