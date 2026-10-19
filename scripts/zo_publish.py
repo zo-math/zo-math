@@ -1839,6 +1839,8 @@ def parser() -> argparse.ArgumentParser:
     value.add_argument("--page", action="append", default=[], help="prepare: giới hạn HTML; lặp lại cho từng trang, vẫn kèm tài nguyên phụ thuộc.")
     value.add_argument('--committed-source', action='store_true',
                        help='prepare --page: render only committed HEAD in a temporary source tree; preserve unrelated working edits.')
+    value.add_argument('--allow-global-inputs-for-pages', action='store_true',
+                       help='prepare --page: render only selected pages even when shared build configuration changed; shared assets and PDFs remain guarded.')
     return value
 
 
@@ -1859,6 +1861,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         return EXIT_MISSING
     if args.committed_source and (args.command != 'prepare' or not args.page):
         print('ERROR: --committed-source requires prepare --page.', file=sys.stderr)
+        return EXIT_USAGE
+    if args.allow_global_inputs_for_pages and (args.command != 'prepare' or not args.page or args.full_render):
+        print('ERROR: --allow-global-inputs-for-pages requires scoped prepare --page.', file=sys.stderr)
         return EXIT_USAGE
     snapshots = ExitStack()
     try:
