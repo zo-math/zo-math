@@ -2,7 +2,7 @@
 import argparse,copy,json,re
 from pathlib import Path
 from bs4 import BeautifulSoup
-from zo_d0_presentation import ROOT,PACKAGE,source_checks,html_checks,asset_version_checks,restore_numbering_source
+from zo_d0_presentation import ROOT,PACKAGE,source_checks,html_checks,asset_version_checks,restore_editorial_source,restore_numbering_source,restore_presentation_source
 
 
 def run(page=None):

@@ -48,6 +48,40 @@ def restore_numbering_source(text,root=ROOT):
     return text
 
 
+def restore_presentation_source(text, root=ROOT):
+    """Undo the hash-bound 18/10 display delta for historical comparison."""
+    data=json.loads((Path(root)/PACKAGE/'_quy_trinh/d0_presentation_comparison_delta.json').read_text(encoding='utf-8'))
+    assert data['authority']=='d0_trinh_bay_20261018.json; owner-authorized source presentation delta'
+    assert hashlib.sha256(text.encode()).hexdigest()==data['source_after_sha256'],'Unexpected D0 presentation source'
+    for change in reversed(data['replacements']):
+        after=change['after'];before=change['before']
+        assert after and text.count(after)>=1,'Missing D0 presentation delta fragment'
+        text=text.replace(after,before,1)
+    assert hashlib.sha256(text.encode()).hexdigest()==data['source_before_sha256'],'D0 presentation inverse mismatch'
+    return text
+
+
+def restore_editorial_source(text, root=ROOT):
+    """Undo the bounded editorial delta before immutable approval checks."""
+    data=json.loads((Path(root)/PACKAGE/'_quy_trinh/d0_editorial_comparison_delta.json').read_text(encoding='utf-8'))
+    assert data['authority']=='EDITORIAL-20261018 owner-approved matrix; bounded inverse for unchanged historical approval only'
+    changes=data['source_changes']
+    removed=[change for change in changes if change['after']=='']
+    assert len(removed)==24 and len({change['before'] for change in removed})==1
+    repeated=removed[0]['before']
+    assert repeated not in text,'Repeated D0 guidance unexpectedly present before inversion'
+    for change in reversed([change for change in changes if change['after']]):
+        assert text.count(change['after'])==1,'Missing/repeated D0 editorial source delta'
+        text=text.replace(change['after'],change['before'],1)
+    targets=re.findall(r'\[Xem đề bài\]\(#(d0-r[1-8]-0[1-3])\)',text)
+    assert len(targets)==24 and len(set(targets))==24,'Missing/repeated D0 return links'
+    for target in targets:
+        marker='\n\n\n\n[Xem đề bài](#'+target+')'
+        assert text.count(marker)==1,'Unexpected spacing at D0 removed guidance: '+target
+        text=text.replace(marker,'\n\n'+repeated+'\n\n[Xem đề bài](#'+target+')',1)
+    return text
+
+
 def restore_numbering_html(clone):
     """Reverse numbering/removed badges in memory, without weakening prose checks."""
     strands={}

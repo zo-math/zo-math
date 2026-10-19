@@ -27,7 +27,7 @@ def grid_check(pdf):
     import numpy as np
     cases = [('Hàm số 𝑓 có đạo hàm', 3, 9), ('Trung bình ghép nhóm', 3, 5),
              ('Có tham gia', 4, 4), ('Loại Vật liệu', 4, 5),
-             ('Số bộ B Số bộ A lớn nhất', 7, 4), ('Mạch ôn Những nội dung', 10, 3)]
+             ('Số bộ B Số bộ A lớn nhất', 7, 4), ('Mạch ôn Nội dung của mạch', 10, 3)]
     binary = shutil.which('pdftoppm')
     assert binary, 'Poppler required for grid regression'
     root = PACKAGE.parents[4] / '.quarto'
@@ -146,6 +146,8 @@ def check():
     assert not re.search(r'\\(?:frac|sqrt|prime|left|right)\b', text), 'Unrendered LaTeX'
     assert text.count('Kiến thức cần dùng:') == 25, 'Task metadata missing'
     assert text.count('Nội dung cần ôn nếu còn vướng:') == 24, 'Comparison missing'
+    assert text.count('Xem lời giải') == 25 and text.count('Xem đề bài') == 25, 'Current answer-action labels missing'
+    assert 'Đối chiếu bài này sau khi tự làm' not in text and 'Quay lại đề bài' not in text, 'Old answer-action labels remain'
     assert 'trang ??' not in text, 'Unresolved print page reference'
     for page in (pdf.pages[0], pdf.pages[-1]):
         visible = page.extract_text()
@@ -199,8 +201,8 @@ def check():
     assert len(sign_page.get('/Resources', {}).get('/XObject', {})) == 0, 'Legacy sign table imported'
     assert any('BeVietnam' in name for name in embedded_fonts)
     assert any('STIX' in name for name in embedded_fonts)
-    assert any('/r1_g01/index.html' in uri for uri in urls)
-    assert any('/r1_g02/index.html' in uri for uri in urls)
+    for package in ('r1_g01', 'r1_g02', 'r1_g03', 'r1_g04'):
+        assert any('/'+package+'/index.html' in uri for uri in urls), 'Current learning link missing: '+package
     grids = grid_check(pdf)
     negative_grids = negative_grid_tests(pdf)
     return {'status': 'pass', 'pages': len(pdf.pages), 'task_and_comparison_anchors': len(expected),

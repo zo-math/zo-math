@@ -31,6 +31,15 @@ def verify_source():
     approval = json.loads(RECEIPT.read_text(encoding='utf-8'))
     qmd = ROOT / 'index.qmd'
     original_qmd = qmd.read_text(encoding='utf-8')
+    import sys
+    sys.path.insert(0, str(REPO / 'scripts'))
+    from zo_d0_presentation import restore_editorial_source, restore_numbering_source, restore_presentation_source
+    # Reverse the current, recorded presentation/editorial deltas before the
+    # immutable historical content receipt. Every inverse is bounded and the
+    # final receipt hash still has to match exactly.
+    original_qmd = restore_numbering_source(original_qmd, REPO)
+    original_qmd = restore_editorial_source(original_qmd, REPO)
+    original_qmd = restore_presentation_source(original_qmd, REPO)
     # Owner-approved print layout moves the existing HTML filter under HTML
     # and replaces only PDF options. Reverse these exact presentation changes
     # before checking the immutable content approval receipt.
@@ -81,7 +90,9 @@ def verify_source():
     require(hashlib.sha256(original_qmd.encode()).hexdigest() == approval['qmd_sha256'],
             'QMD khác ứng viên chuyển đổi đã khóa: cần đối chiếu đầy đủ, không cập nhật hash để bỏ qua sai biệt')
     profile = yaml.safe_load((ROOT / '_quy_trinh/ho_so/index.yml').read_text(encoding='utf-8'))
-    require(profile['workflow']['publication'] == 'pending', 'Không được nâng trạng thái xuất bản')
+    require(profile['workflow']['publication'] == 'published', 'Thiếu provenance của bản D0 đã phát hành')
+    current = profile.get('current_html_revision_20261018', {})
+    require(current.get('publication') == 'not_authorized', 'Bản sửa D0 hiện tại chưa được phép xuất bản')
     require(profile['workflow']['production'] == 'accepted', 'Ứng viên HTML chưa được nghiệm thu')
     return approval
 

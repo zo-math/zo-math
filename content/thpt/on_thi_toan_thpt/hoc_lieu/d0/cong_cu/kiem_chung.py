@@ -273,7 +273,9 @@ def verify_approved_release_contract(manifest: dict) -> None:
     require(delivery["content_pdfs"]["technical_pdf_assets_remain_canonical_assets"] is True, "phải bảo toàn tài sản PDF kỹ thuật")
     require("pdf_variants" not in manifest["target_contract"], "không được giữ danh sách biến thể PDF nội dung")
     require(profile["workflow"]["production"] == "accepted", "profile chưa khóa production accepted")
-    require(profile["workflow"]["publication"] == "pending", "publication chỉ đổi sau khi xuất bản thành công")
+    require(profile["workflow"]["publication"] == "published", "thiếu provenance của bản D0 đã phát hành")
+    current = profile.get("current_html_revision_20261018", {})
+    require(current.get("publication") == "not_authorized", "bản sửa hiện tại chưa được phép xuất bản")
     require(profile["acceptance"]["html_visual"] == "owner_accepted_2026_10_03", "profile chưa khóa nghiệm thu HTML")
     qmd = QMD_PATH.read_text(encoding="utf-8")
     front_matter = qmd.split("---", 2)[1]
@@ -289,9 +291,12 @@ def verify_approved_release_contract(manifest: dict) -> None:
             "historical_four_variants_reactivated": False,
             "owner_acceptance": "pending", "publication": "pending",
         }, "hợp đồng PDF toàn trang mới không đúng phạm vi được giao")
-        require(profile["acceptance"]["pdf_canonical"] == "full_page_pending_owner_review_2026_10_14", "không được tự nghiệm thu PDF mới")
+        require(profile["acceptance"]["pdf_canonical"] == "full_page_design_approved_publication_authorized_2026_10_15", "thiếu provenance nghiệm thu PDF lịch sử")
+        require(profile.get("current_html_revision_20261018", {}).get("learning_pdf") in {
+            "retained_previous_release_not_rebuilt", "current_rebuilt_pending_owner_review_2026_10_19",
+        }, "trạng thái PDF của bản sửa hiện tại không hợp lệ")
         require("  html:" in front_matter and "  pdf:" in front_matter, "nguồn phải có cả HTML và PDF toàn trang")
-        require('cong_cu/d0_pdf.lua' in front_matter, "thiếu adapter PDF độc lập")
+        require('cong_cu/d0_print.lua' in front_matter, "thiếu adapter PDF in hiện hành")
         require('giao_dien/d0_pdf.tex' in front_matter, "thiếu thiết kế trang giấy")
 
 
@@ -432,7 +437,7 @@ def verify_legacy_math_checker() -> None:
         isolated = Path(temp_dir) / "v1_0"
         shutil.copytree(BASELINE_ROOT, isolated)
         result = subprocess.run(
-            [sys.executable, str(isolated / "kiem_chung" / "kiem_tra_toan.py")],
+            [sys.executable, "-X", "utf8", str(isolated / "kiem_chung" / "kiem_tra_toan.py")],
             cwd=isolated,
             capture_output=True,
             text=True,

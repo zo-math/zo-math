@@ -11,6 +11,10 @@ from collections.abc import Mapping, Sequence
 from zo_build_boundary import ROOT, require_repository, require_source
 
 
+class QuartoNotFoundError(FileNotFoundError):
+    """The Quarto executable itself could not be resolved."""
+
+
 def require_arguments(args):
     """CLI metadata/filter/include overrides are compilation inputs as well."""
     inputs = {'--metadata-file', '--include-in-header', '--include-before-body',
@@ -44,9 +48,16 @@ def prepare_quarto(
         env['ZO_OFFICIAL_BUILD'] = '1'
         runtime = str(Path(__file__).resolve().parent / 'zo_build_runtime')
         env['PYTHONPATH'] = os.pathsep.join([runtime, *filter(None, [env.get('PYTHONPATH')])])
-    quarto = shutil.which("quarto", path=env.get("PATH"))
+    configured = env.get("ZO_QUARTO_EXECUTABLE")
+    if configured:
+        candidate = Path(configured)
+        if not candidate.is_file():
+            raise QuartoNotFoundError("quarto")
+        quarto = str(candidate)
+    else:
+        quarto = shutil.which("quarto", path=env.get("PATH"))
     if quarto is None:
-        raise FileNotFoundError("quarto")
+        raise QuartoNotFoundError("quarto")
     env.setdefault("QUARTO_PYTHON", sys.executable)
     env.setdefault("RETICULATE_PYTHON", sys.executable)
     return [quarto, *args], env
@@ -59,8 +70,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 2
     try:
         command, env = prepare_quarto(args)
-    except FileNotFoundError:
-        print("Error: quarto executable not found in PATH.", file=sys.stderr)
+    except QuartoNotFoundError as exc:
+        detail = str(exc)
+        if detail and detail != "quarto":
+            print("Error: quarto executable is unavailable: " + detail, file=sys.stderr)
+        else:
+            print("Error: quarto executable not found in PATH or ZO_QUARTO_EXECUTABLE.", file=sys.stderr)
         return 3
     except ValueError as exc:
         print('Error: official build input boundary: ' + str(exc), file=sys.stderr)

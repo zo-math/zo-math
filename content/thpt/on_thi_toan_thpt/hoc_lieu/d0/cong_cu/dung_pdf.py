@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -63,8 +64,17 @@ def inputs():
              ROOT / 'assets/lua/zo_learning_components.lua',
              ROOT / 'assets/lua/zo_variation_qmd.lua']
     paths += [PACKAGE / '_quy_trinh/pdf_source_delta.json',
-              PACKAGE / '_quy_trinh/cau_hinh_san_xuat_qmd.yml']
+              PACKAGE / '_quy_trinh/cau_hinh_san_xuat_qmd.yml',
+              PACKAGE / '_quy_trinh/ho_so/index.yml',
+              PACKAGE / '_quy_trinh/dieu_chinh_sau_duyet.json',
+              PACKAGE / '_quy_trinh/d0_editorial_comparison_delta.json',
+              PACKAGE / '_quy_trinh/d0_numbering_delta.json',
+              PACKAGE / '_quy_trinh/d0_presentation_comparison_delta.json',
+              PACKAGE / 'cong_cu/kiem_chung_da_duyet.py',
+              ROOT / 'scripts/zo_d0_presentation.py']
     paths += list((PACKAGE / 'giao_dien/pdf_fonts').glob('*'))
+    paths += [path for path in (ROOT / '_design/web_2027_mau_dung_chung').rglob('*') if path.is_file()]
+    paths += list((ROOT / 'content/thpt/on_thi_toan_thpt/hoc_lieu').glob('r*_g*/giao_dien/he_nhan.json'))
     paths += [PACKAGE / 'giao_dien/zo_logo_04.png',
               PACKAGE / 'du_lieu/bang_bien_thien.json', PACKAGE / 'hinh/bbt01.pdf',
               PACKAGE / 'hinh/hinh_hop.pdf']
@@ -82,8 +92,13 @@ def isolated_project(directory):
         if source.is_file():
             shutil.copy2(source, mirror / source.name)
     ignored = shutil.ignore_patterns('_audit', '__pycache__', '.quarto', '*_files')
-    for relative in (Path('assets'), Path('scripts'), PACKAGE.relative_to(ROOT)):
+    for relative in (Path('assets'), Path('scripts'),
+                     Path('_design/web_2027_mau_dung_chung'), PACKAGE.relative_to(ROOT)):
         shutil.copytree(ROOT / relative, mirror / relative, ignore=ignored)
+    for source in (ROOT / 'content/thpt/on_thi_toan_thpt/hoc_lieu').glob('r*_g*/giao_dien/he_nhan.json'):
+        target = mirror / source.relative_to(ROOT)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, target)
     for parent in PACKAGE.parents:
         if parent == ROOT:
             break
@@ -112,7 +127,11 @@ def main():
                    str(mirror / 'scripts/zo_quarto.py'), 'render',
                    SOURCE.relative_to(ROOT).as_posix(), '--to', 'pdf',
                    '--output-dir', '.quarto/pdf_output']
-        completed = subprocess.run(command, cwd=mirror)
+        environment = os.environ.copy()
+        quarto = shutil.which("quarto", path=environment.get("PATH"))
+        if quarto is not None:
+            environment["ZO_QUARTO_EXECUTABLE"] = quarto
+        completed = subprocess.run(command, cwd=mirror, env=environment)
         if completed.returncode:
             return completed.returncode
         candidates = list((mirror / '.quarto/pdf_output').rglob('index.pdf'))
