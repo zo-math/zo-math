@@ -19,7 +19,7 @@ def latest(root,authority):
  p=local(root,authority)
  # The operating document lists the current preview before historical entries.
  # Never infer freshness from an audit folder name or filesystem timestamp.
- match=re.search(r'http://127\.0\.0\.1:(\d+)/(_audit/[^\s)<>"\']+\.html)',p.read_text(encoding='utf-8'))
+ match=re.search(r'http://127\.0\.0\.1:(\d+)/((?:docs|_audit)/[^\s)<>"\']+\.html)',p.read_text(encoding='utf-8'))
  if not match:raise ValueError('Authority has no explicit current localhost preview')
  return preview.page_path(root,unquote(match[2])),int(match[1])
 def save(path,data):
@@ -34,7 +34,8 @@ def prepare(root,authority,report):
   u=urlsplit(link['href'])
   if u.scheme or u.netloc or not u.path:continue
   p=(entry.parent/unquote(u.path)).resolve()
-  if p.is_relative_to(entry.parent) and p.suffix.lower()=='.html':pages.add(preview.page_path(root,p))
+  declared=link.has_attr('data-course-page') and p.is_relative_to(root/'docs')
+  if (p.is_relative_to(entry.parent) or declared) and p.suffix.lower()=='.html':pages.add(preview.page_path(root,p))
  files=preview_files(root,pages)
  for p in pages:
   d=BeautifulSoup(p.read_text(encoding='utf-8'),'html.parser')

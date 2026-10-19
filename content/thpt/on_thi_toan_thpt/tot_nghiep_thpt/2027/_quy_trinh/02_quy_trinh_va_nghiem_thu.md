@@ -139,7 +139,7 @@ Khi dựng bộ xem có trang `draft: true`, đặt profile `on-thi-preview` ri�
 
 Áp dụng mục 9.1 của quy trình kỹ thuật toàn repo; không đặt cơ chế máy chủ riêng cho từng gói. URL localhost chỉ dùng được khi máy chủ còn chạy. Yêu cầu mở lại hoặc báo lỗi kết nối kích hoạt kiểm tệp → mở lại bằng công cụ canonical → kiểm HTTP đúng nội dung → mở URL; không render lại hoặc dùng đầu ra cũ thay cho bản chờ duyệt.
 
-Bộ xem hiện hành được ghi duy nhất tại 03: liên kết localhost `_audit/...html` đầu tiên là bản đang vận hành; các liên kết sau giữ lịch sử. Không để đường dẫn mẫu cũ trong quy trình thay nguồn thẩm quyền này. Không suy “mới nhất” theo tên hay thời gian thư mục.
+Bộ xem hiện hành được ghi duy nhất tại 03: liên kết localhost đầu tiên phải trỏ HTML chính thức trong `docs/`; đó là bản đang vận hành; các liên kết sau giữ lịch sử. Không để đường dẫn mẫu cũ trong quy trình thay nguồn thẩm quyền này. Không suy “mới nhất” theo tên hay thời gian thư mục.
 
 Trước **mỗi lần** bàn giao hoặc gửi lại liên kết, bắt buộc cổng `scripts/zo_html_handoff.py` theo quy trình toàn repo 9.1: `prepare --authority content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/03_dieu_hanh_chuong_trinh.md --report _audit/<phien>/prepared.json`; mở đúng URL và quan sát thật hub cùng một trang nội dung; lưu snapshot/PNG hoặc JPEG và JSON bằng chứng có mã phiên; `confirm` rồi `check` ngay trước trả lời. HTTP đúng tệp chỉ là chuẩn bị, không thay xác nhận hiển thị. Giữ tab bằng `markDeliverable()` khi dùng Codex. Cổng từ chối máy chủ dừng/sai nội dung, bản cũ, bằng chứng thiếu/sai hoặc quá mười phút. Không tự ghi “đã xem” nếu trình duyệt chưa xác nhận.
 

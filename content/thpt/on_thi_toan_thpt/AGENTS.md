@@ -104,7 +104,7 @@ python scripts/zo_python.py scripts/zo_quarto.py render content/thpt/on_thi_toan
 python scripts/zo_python.py scripts/zo_quarto.py preview content/thpt/on_thi_toan_thpt/index.qmd --profile on-thi-preview
 ```
 
-Preview chỉ lắng nghe tại `127.0.0.1`. Navbar/sidebar nguồn dùng chung có đường vào ứng viên để kiểm tra đường đi; các trang và tài sản đã duyệt của chuyên mục chỉ được chọn qua allowlist publish. Khi cần bảo toàn đầu ra hiện có trong một nhiệm vụ kiểm thử, dùng bản sao dự án cô lập dưới `_audit/`, giữ nguyên cấu hình dự án và profile.
+Preview chỉ lắng nghe tại `127.0.0.1`. Navbar/sidebar nguồn dùng chung có đường vào ứng viên để kiểm tra đường đi; các trang và tài sản đã duyệt của chuyên mục chỉ được chọn qua allowlist publish. Khi cần bảo toàn đầu ra hiện có trong một nhiệm vụ kiểm thử, dùng bản sao dự án cô lập dưới `.quarto/`, giữ nguyên cấu hình dự án và profile; `_audit/` chỉ nhận bằng chứng kiểm.
 
 Metadata `draft: true` không thay thế hàng rào xuất bản. `publish_public.yml` chỉ cho phép đầu ra công khai đã duyệt và tiếp tục chặn `_quy_trinh` lâu dài. Không liên kết tài liệu điều hành từ trang dành cho người đọc, không khai báo resources quét cả cây chuyên mục.
 
@@ -140,7 +140,7 @@ Sau NUMBERING-20261018, G01–G04 kiểm số hiện hành bằng zo_course_numb
 
 ## Cổng bàn giao HTML mỗi lượt
 
-Mỗi lần bàn giao hoặc gửi lại liên kết xem HTML phải theo quy trình toàn repo 9.1 và 02/2.6: zo_html_handoff.py prepare/confirm/check, lấy bộ xem hiện hành từ liên kết bản xem đầu tiên ở 03, không chọn theo mtime. Bắt buộc quan sát mới trang đầu và một trang nội dung qua trình duyệt, lưu snapshot/PNG hoặc JPEG, giữ tab bàn giao; HTTP hoặc PASS cũ không đủ. Chưa xác nhận bằng trình duyệt thì nói rõ chưa khép bàn giao.
+Mỗi lần bàn giao hoặc gửi lại liên kết xem HTML phải theo quy trình toàn repo 9.1 và 02/2.6: zo_html_handoff.py prepare/confirm/check, lấy bộ xem hiện hành từ liên kết bản xem đầu tiên ở 03 (đầu ra `docs/`), không chọn theo mtime. Bắt buộc quan sát mới trang đầu và một trang nội dung qua trình duyệt, lưu snapshot/PNG hoặc JPEG, giữ tab bàn giao; HTTP hoặc PASS cũ không đủ. Chưa xác nhận bằng trình duyệt thì nói rõ chưa khép bàn giao.
 
 
 ## Bảng nút thắt nhận thức trong Sửa lỗi
@@ -151,3 +151,8 @@ Mọi nhiệm vụ viết/rà/sửa gói có Sửa lỗi phải nạp 07/6.1.7, 
 ## Bảng tiêu chí, so sánh và điều hướng theo chức năng
 
 Nạp 07/6.1.8, 02/Rà bảng theo chức năng và B26. `function_profiles` của course-tables.json sở hữu tỉ lệ cột/cách thích ứng; QMD sở hữu lời văn. Dùng zo_course_table_roles.py qua cổng nguồn và adapter chung, đối chiếu đủ mục tiêu/đích trước cập nhật hồ sơ rà. Không ép mọi gói có mọi loại bảng; không dựng HTML/PDF khi chỉ được giao sửa nguồn. Phép thử mảnh DOM trong bộ nhớ không thay xem trang mới rộng/hẹp.
+
+
+## Đầu ra canonical, không giữ thành phẩm chỉ trong audit
+
+Sửa nguồn → dựng → kiểm → tự ghi đè đúng HTML trong `docs/` và PDF trong gói. Bộ sáu trang dùng `zo_web_2027_bundle.py build` (mặc định `docs/`); công cụ chặn đầu ra `_audit/`. `.quarto/` chỉ giữ trung gian trong vòng đời lệnh; `_audit/` giữ bằng chứng. Đường bàn giao/shortcut dùng `docs/`, không dùng các tệp `*-reading.html` ở audit làm bản chính. Sau khi chủ trì duyệt, cập nhật hồ sơ và giữ bảo vệ bằng `owner_approved`; không xem đã duyệt là được phép dọn sản phẩm.

@@ -249,6 +249,14 @@ Nêu rõ lỗi, cảnh báo hoặc vấn đề chưa xử lý, nếu có. Không
 
 Không kể lại toàn bộ quá trình suy luận nội bộ và không đưa một danh sách dài các khả năng không cần thiết.
 
+### Đầu ra chính thức của học liệu khóa 2027
+
+Nguồn được sửa tại thư mục canonical; HTML được dựng và tự ghi đè đúng đường dẫn trong `docs/` theo `_quarto.yml`; PDF được dựng và ghi đè ở chính gói. `_audit/` chỉ giữ báo cáo, log và ảnh kiểm. Không dùng bản HTML trong `_audit/` làm thành phẩm duy nhất, không có bước chép về bằng trí nhớ sau bàn giao.
+
+Bộ sáu trang dùng `python -B scripts/zo_python.py -B scripts/zo_web_2027_bundle.py build`: biên dịch trong `.quarto/`, kiểm đủ PDF/HTML và phụ thuộc trước khi tự cập nhật `docs/`. Cập nhật lỗi phải giữ hoặc khôi phục đầu ra cũ. Lệnh `check` đối chiếu chính bộ `docs/`, không chứng nhận một bộ xem khác. Một trang sửa nhỏ tiếp tục dùng `zo_qmd.py render <index.qmd> --html-only` và adapter post-render hiện có; không dựng toàn website.
+
+Bàn giao mở đúng HTML trong `docs/`. Manifest bảo vệ giữ cả HTML, PDF, nguồn và phụ thuộc ở trạng thái đang duyệt hoặc đã được chủ trì duyệt (`owner_approved`); nghiệm thu không tự cho phép dọn thành phẩm. Chỉ thay phần chịu ảnh hưởng khi có lần dựng mới đạt kiểm. Ghi duyệt theo lời chủ trì và đúng byte/nội dung đã xem; không tự nâng quyền xuất bản.
+
 ### 9.1. Bàn giao và mở lại bản xem HTML trên máy
 
 Liên kết `http://127.0.0.1:<cổng>/...` chỉ hoạt động khi máy chủ trên chính máy đó đang chạy. Kết sổ ngày hoặc khởi động lại máy có thể dừng tiến trình dù HTML còn nguyên. Không xem một lần HTTP 200 là bảo đảm liên kết luôn mở được; nhấp liên kết trình duyệt không tự khởi động máy chủ.
@@ -274,7 +282,7 @@ Kiểm chống tái diễn: `python -B scripts/zo_python.py -B scripts/zo_html_p
 
 Mỗi lần gửi hoặc gửi lại liên kết HTML, kể cả trả lời “bước tiếp theo”, phải thực hiện mới đủ ba bước. PASS cũ, tệp HTML tồn tại, HTTP 200 hoặc `browser_requested=true` không thay thế bước nào. Lần trước đã mở được không chứng minh lần này máy chủ còn chạy.
 
-1. **Chuẩn bị đúng bản hiện hành.** Chạy `zo_html_handoff.py prepare` qua launcher với tài liệu điều hành có thẩm quyền. Liên kết localhost trỏ `_audit/...html` đầu tiên trong tài liệu ấy là bản đang vận hành; các liên kết sau là lịch sử. Đây là hợp đồng trình bày của tài liệu điều hành, không chọn theo tên thư mục hoặc ngày sửa. Công cụ khởi động/tái dùng máy chủ, so SHA-256 HTTP với trang đầu, tất cả trang trong hub và tài nguyên trực tiếp, tạo shortcut và biên nhận mới có mã phiên. Thiếu/sai nội dung thì dừng, không bàn giao.
+1. **Chuẩn bị đúng bản hiện hành.** Chạy `zo_html_handoff.py prepare` qua launcher với tài liệu điều hành có thẩm quyền. Liên kết localhost đầu tiên trong tài liệu ấy là bản đang vận hành; với học liệu khóa 2027 phải trỏ `docs/...html`; các liên kết sau là lịch sử. Đây là hợp đồng trình bày của tài liệu điều hành, không chọn theo tên thư mục hoặc ngày sửa. Công cụ khởi động/tái dùng máy chủ, so SHA-256 HTTP với trang đầu, tất cả trang trong hub và tài nguyên trực tiếp, tạo shortcut và biên nhận mới có mã phiên. Thiếu/sai nội dung thì dừng, không bàn giao.
 2. **Mở và quan sát bằng trình duyệt.** Agent mở đúng URL biên nhận trong trình duyệt người dùng, nhìn thấy nội dung thật; nếu là hub thì mở thêm một trang nội dung thuộc bộ ấy. Thu snapshot có URL/tiêu đề và ảnh chụp PNG/JPEG của mỗi trang đã quan sát, ghi giờ quan sát sau giờ chuẩn bị cùng mã phiên vào JSON bằng chứng. Kiểm không có trang lỗi/trắng, xác nhận nội dung hiển thị; không lấy log HTTP hoặc ảnh chụp lịch sử làm bằng chứng trình duyệt. Trong Codex, gọi `markDeliverable()` để tab bàn giao còn mở khi kết thúc lượt. Nếu công cụ trình duyệt không hoạt động, báo “đã kiểm HTTP, chưa xác nhận xem được”; không tự điền đã xem hoặc tuyên bố bàn giao đạt.
 3. **Khép và kiểm lại ngay trước câu trả lời.** Chạy `confirm`, sau đó `check` trên biên nhận đã xác nhận. Cổng bắt buộc bằng chứng bước hai, đúng URL hiện hành, đúng hash, máy chủ vẫn phục vụ đúng nội dung; từ chối biên nhận quá mười phút, bản cũ, nguồn HTML đổi hoặc bằng chứng bị thay. Sau thời hạn phải chuẩn bị và quan sát lại, không gia hạn timestamp. Chỉ gửi trạng thái “xem được” khi `handoff_ready=true`. Không coi thao tác mở trình duyệt thành nghiệm thu nội dung hoặc xuất bản.
 

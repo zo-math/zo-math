@@ -21,6 +21,18 @@ class HandoffTests(unittest.TestCase):
  def write_evidence(self):self.evidence.write_text(json.dumps(self.ev))
  def tearDown(self):self.http.stop();self.server.stop();self.tmp.cleanup()
  def confirm(self):return h.confirm(self.root,self.prepared,self.evidence,self.root/'confirmed.json')
+ def test_canonical_docs_precedes_historical_audit(self):
+  page=self.root/'docs/course/index.html';lesson=self.root/'docs/material/d0.html'
+  page.parent.mkdir(parents=True);lesson.parent.mkdir(parents=True)
+  lesson.write_text('<html><head><title>Current lesson</title></head><body>Actual current learner content</body></html>')
+  page.write_text('<html><head><title>Current course</title></head><body>Actual current course <a data-course-page="d0" href="../material/d0.html">Survey</a></body></html>')
+  self.authority.write_text('[Current](http://127.0.0.1:8877/docs/course/index.html)\n[Old](http://127.0.0.1:8877/_audit/current/index.html)')
+  self.assertEqual(h.latest(self.root,'03.md')[0],page)
+  with patch.object(h.preview,'ensure_preview',return_value={'url':'http://127.0.0.1:8877/docs/course/index.html'}):
+   data=h.prepare(self.root,'03.md',self.root/'docs-prepared.json')
+  self.assertEqual(set(data['pages']),{'docs/course/index.html','docs/material/d0.html'})
+  self.assertIn('docs/material/d0.html',data['files'])
+
  def test_prepare_is_not_ready(self):
   self.assertFalse(self.d['handoff_ready'])
   with self.assertRaisesRegex(ValueError,'NOT handoff-ready'):h.check(self.root,self.prepared)

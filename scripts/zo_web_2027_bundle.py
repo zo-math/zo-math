@@ -250,66 +250,146 @@ def review_hub(out):
     (out/'index.html').write_text(text,'utf-8')
 
 
-def build(out):
-    if out.exists() and out.resolve()!=(ROOT/'_audit/current').resolve():
-        raise ValueError('Only the current six-page product may be refreshed in place')
-    out.mkdir(parents=True,exist_ok=True)
-    # Fail before rendering if any linked PDF belongs to an older input set.
-    # D0 has its own receipt and must participate alongside all R1 variants.
+RECEIPT = Path('content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/ho_so_dong_bo_sau_bang_20261019.json')
+
+
+def canonical_output(root=ROOT):
+    import yaml
+    root=Path(root).resolve()
+    name=yaml.safe_load((root/'_quarto.yml').read_text('utf-8'))['project']['output-dir']
+    out=(root/name).resolve()
+    if out != root/'docs':
+        raise ValueError('Course output must use the configured docs directory')
+    return out
+
+
+def install_current(produced, destination, paths, *, root=ROOT):
+    """Replace generated files only after validation; restore on copy failure."""
+    import tempfile
+    root=Path(root).resolve();produced=Path(produced).resolve();destination=Path(destination).resolve()
+    if destination != canonical_output(root) or not produced.is_relative_to(root/'.quarto'):
+        raise ValueError('Install only freshly generated .quarto files into canonical docs')
+    files={}
+    for relative in paths:
+        rel=Path(relative);source=(produced/rel).resolve();target=(destination/rel).resolve()
+        if rel.is_absolute() or '..' in rel.parts or not source.is_relative_to(produced) or not target.is_relative_to(destination) or not source.is_file():
+            raise ValueError('Unsafe or missing generated output: '+str(relative))
+        if source.is_symlink() or any(x.is_symlink() for x in target.parents if x!=root):
+            raise ValueError('Symlink in canonical output')
+        files[rel]=sha(source)
+    with tempfile.TemporaryDirectory(prefix='course-output-rollback-',dir=root/'.quarto') as backup:
+        backup=Path(backup);previous={};written=[]
+        try:
+            for rel,digest in files.items():
+                target=destination/rel;target.parent.mkdir(parents=True,exist_ok=True)
+                previous[rel]=target.is_file()
+                if previous[rel]:
+                    saved=backup/rel;saved.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(target,saved)
+                written.append(rel);shutil.copyfile(produced/rel,target)
+                if sha(target)!=digest:raise ValueError('Generated output copy differs: '+str(rel))
+        except Exception:
+            for rel in reversed(written):
+                target=destination/rel
+                if previous[rel]:shutil.copyfile(backup/rel,target)
+                elif target.is_file():target.unlink()
+            raise
+    return {rel.as_posix():digest for rel,digest in files.items()}
+
+
+def check_current(out, record=None):
+    out=Path(out).resolve()
+    if out!=canonical_output():raise ValueError('Check the canonical docs output')
+    if record is None:
+        record=json.loads((ROOT/RECEIPT).read_text('utf-8'))['canonical_html_build']
+    require_fresh(record)
+    if record.get('output_dir')!='docs':raise ValueError('Noncanonical course receipt')
+    values={}
+    for rel,digest in record['files'].items():
+        target=(out/rel).resolve()
+        values['current file '+rel]=target.is_relative_to(out) and target.is_file() and sha(target)==digest
+    expected={key:(out/path).resolve() for key,path in PAGES.items()}
+    for key,page in expected.items():
+        doc=BeautifulSoup(page.read_text('utf-8'),'html.parser')
+        values[key+' source-owned reader']=doc.select_one('.home-landing-content' if key=='home' else '.reader-content') is not None
+        values[key+' exact page']=sha(page)==record['pages'][key]['html_sha256']
+        for node in doc.select('img[src],script[src],link[href],a[href]'):
+            href=node.get('src',node.get('href',''));u=urlsplit(href)
+            if u.scheme or u.netloc or not u.path:continue
+            target=(out/unquote(u.path).lstrip('/')).resolve() if u.path.startswith('/') else (page.parent/unquote(u.path)).resolve()
+            if node.name!='a' or target.suffix=='.pdf' or node.has_attr('data-course-page') or 'rail-support' in node.get('class',[]):
+                values[key+' resolved '+href]=target.is_file() and target.is_relative_to(out)
+            values[key+' no audit '+href]='_audit' not in target.parts and not target.name.endswith('-reading.html')
+        for node in doc.select('.course-panel [data-course-page]'):
+            values[key+' canonical menu '+node['data-course-page']]=(page.parent/unquote(urlsplit(node['href']).path)).resolve()==expected[node['data-course-page']]
+    from zo_html_dependencies import preview_files
+    closure=preview_files(ROOT,expected.values())
+    values['complete resource closure in docs']=all(p.is_relative_to(out) for p in closure)
+    values['all six pages declared']=set(record['pages'])==set(PAGES)
+    failures=[k for k,v in values.items() if not v]
+    if failures:raise ValueError('Canonical HTML verification failed: '+str(failures))
+    return {'passed':len(values),'total':len(values),'failures':[],'output_dir':'docs','published':False}
+
+
+def build(out, reports=None):
+    import tempfile
+    out=Path(out).resolve()
+    if out!=canonical_output():
+        raise ValueError('Build writes canonical docs; _audit is for reports, not course HTML')
+    reports=Path(reports or ROOT/'_audit/current/verification/html-canonical-build').resolve()
+    if not reports.is_relative_to(ROOT/'_audit'):raise ValueError('Reports belong in _audit')
+    reports.mkdir(parents=True,exist_ok=True)
     from zo_web_2027_d0 import pdf_download
     from zo_pdf_contract import validate_canonical_pdf_provenance
     import yaml
-    pdf_download(ROOT, Path('content/thpt/on_thi_toan_thpt/hoc_lieu/d0'), 'index.pdf')
+    pdf_download(ROOT,Path('content/thpt/on_thi_toan_thpt/hoc_lieu/d0'),'index.pdf')
     for key,path in PAGES.items():
-        if key not in {'g01','g02','g03','g04'}:continue
+        if not key.startswith('g'):continue
         source=ROOT/path.with_suffix('.qmd')
         config=yaml.safe_load((source.parent/'_quy_trinh/cau_hinh_san_xuat_qmd.yml').read_text('utf-8'))
         for variant in config['extensions']['pdf_variants']:
             errors=validate_canonical_pdf_provenance(ROOT,source,variant=variant)
             if errors:raise ValueError(f'{key}/{variant} PDF is stale: '+str(errors))
-    baseline = sources()
-    cluster.PAGES = PAGES
-    cluster.render(out,'final',html_only=True)
-    adapt_bundle(out)
-    if baseline != sources():
-        raise ValueError('Sources changed during build; refuse a mixed bundle')
-    cluster.save(out/'bundle.json',{'sources':baseline,'pages':{key:{'source':str(path.with_suffix('.qmd')).replace('\\','/'),
-        'source_sha256':baseline[path.with_suffix('.qmd').as_posix()],
-        'html_sha256':sha(out/'html-current'/(key+'-reading.html'))} for key,path in PAGES.items()},
-        'origin':'all six freshly rendered from one source snapshot','published':False})
-    checks(out)
-    from zo_web_2027_navigation_check import run as navigation_checks
-    if navigation_checks(out):
-        raise ValueError('Four-page navigation checks failed')
-    from zo_web_2027_grayscale_check import run as grayscale_checks
-    if grayscale_checks(out):
-        raise ValueError('Grayscale scrolling navigation regression failed')
-    review_hub(out)
-    # Keep existing dependencies; this repair does not authorize deleting files.
-    manifest=json.loads((out/'bundle.json').read_text(encoding='utf-8'))
-    manifest['asset_sha256']={p.relative_to(out).as_posix():sha(p) for p in (out/'delivery/docs').rglob('*') if p.is_file()}
-    manifest['asset_sha256']['index.html']=sha(out/'index.html')
-    cluster.save(out/'bundle.json',manifest)
-    mirror = cluster.render_mirror(out,'final')
-    if not mirror.is_relative_to((ROOT/'.quarto/course_html_build').resolve()):
-        raise ValueError('Unsafe cleanup target')
-    logs = out/'render-logs';logs.mkdir(exist_ok=True)
-    for p in mirror.glob('*.log'):
-        shutil.copyfile(p,logs/p.name)
-    shutil.rmtree(mirror)
-    print('Review:',out/'html-current/home-reading.html')
-    return checks(out)
+    baseline=sources();cluster.PAGES=PAGES
+    (ROOT/'.quarto').mkdir(exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix='course-canonical-',dir=ROOT/'.quarto') as temp:
+        stage=Path(temp)/'stage';stage.mkdir();mirror=cluster.render_mirror(stage,'final')
+        try:
+            cluster.render(stage,'final',html_only=True);adapt_bundle(stage)
+            require_fresh({'sources':baseline})
+            snapshot={'sources':baseline,'pages':{key:{'source':path.with_suffix('.qmd').as_posix(),'source_sha256':baseline[path.with_suffix('.qmd').as_posix()],'html_sha256':sha(stage/'html-current'/(key+'-reading.html'))} for key,path in PAGES.items()}}
+            cluster.save(stage/'bundle.json',snapshot)
+            if checks(stage):raise ValueError('Fresh HTML bundle failed before install')
+            from zo_web_2027_navigation_check import run as navigation_checks
+            from zo_web_2027_grayscale_check import run as grayscale_checks
+            if navigation_checks(stage) or grayscale_checks(stage):raise ValueError('Navigation/grayscale failed before install')
+            require_fresh(snapshot)
+            produced=stage/'delivery/docs'
+            paths=[p.relative_to(produced) for p in produced.rglob('*') if p.is_file()]
+            installed=install_current(produced,out,paths)
+            record={'sources':baseline,'output_dir':'docs','files':installed,'pages':{key:{'source':path.with_suffix('.qmd').as_posix(),'html':(Path('docs')/path).as_posix(),'html_sha256':sha(out/path)} for key,path in PAGES.items()},'origin':'fresh canonical-source render; validated before automatic docs replacement','published':False}
+            result=check_current(out,record)
+            operating=json.loads((ROOT/RECEIPT).read_text('utf-8'));operating['canonical_html_build']=record
+            cluster.save(ROOT/RECEIPT,operating);cluster.save(reports/'canonical-output-check.json',result)
+            print(json.dumps(result,ensure_ascii=False));print('Current HTML:',out/PAGES['home'],flush=True)
+            return 0
+        finally:
+            for p in stage.glob('*.json'):shutil.copyfile(p,reports/p.name)
+            if mirror.is_dir():
+                logs=reports/'render-logs';logs.mkdir(exist_ok=True)
+                for p in mirror.glob('*.log'):shutil.copyfile(p,logs/p.name)
+                if not mirror.is_relative_to((ROOT/'.quarto/course_html_build').resolve()):raise ValueError('Unsafe build scratch cleanup')
+                shutil.rmtree(mirror)
 
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__)
+    parser=argparse.ArgumentParser(description='Build and overwrite current course HTML in configured docs; audit holds reports only.')
     parser.add_argument('command',choices=['build','check'])
-    parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--output',type=Path,default=ROOT/'docs')
+    parser.add_argument('--reports',type=Path)
     args=parser.parse_args();out=args.output.resolve()
-    if not out.is_relative_to(ROOT/'_audit') or out==ROOT/'_audit':
-        parser.error('Named _audit output required')
-    return build(out) if args.command=='build' else checks(out)
+    if out!=canonical_output():parser.error('Use canonical docs output; _audit is reserved for verification evidence')
+    if args.command=='build':return build(out,args.reports)
+    print(json.dumps(check_current(out),ensure_ascii=False));return 0
 
 
-if __name__=='__main__':
-    raise SystemExit(main())
+if __name__=='__main__':raise SystemExit(main())
