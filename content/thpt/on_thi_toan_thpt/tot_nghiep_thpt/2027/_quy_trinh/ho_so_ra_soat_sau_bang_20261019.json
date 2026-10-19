@@ -1,0 +1,247 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-19",
+  "scope_start": "17f3ddab (trước chuẩn hóa bảng chức năng)",
+  "repo_head": "dfe8e501",
+  "conclusion": "HTML đã khôi phục; bộ PDF hiện hành chưa đạt đồng bộ và chưa đủ cơ sở nghiệm thu.",
+  "inventory": {
+    "html_pages": 6,
+    "functional_tables": 56,
+    "pdf_files": 33,
+    "pdf_pages": 838,
+    "pdf_visual_pages": 20,
+    "html_static_checks": 2647,
+    "html_static_failures": 0,
+    "graph_source_pairs_matched": 63
+  },
+  "limits": [
+    "Đã phân tích văn bản/font/liên kết/hình của 33 PDF; chỉ xem trực tiếp 20 trang đại diện, không tuyên bố đã xem thị giác toàn bộ 838 trang.",
+    "Đã xem sáu HTML ở 1440×900 và 390×844; đã xem bảng tiêu chí bốn gói ở cả hai cỡ. Không dùng lượt này chứng nhận lại toàn bộ phép toán hoặc mọi tương tác.",
+    "Không dựng lại HTML/PDF, không sửa chính văn QMD, không commit, push hoặc xuất bản.",
+    "Các PDF tải trong bản xem được khôi phục đúng lịch sử nhưng còn cũ; không dùng làm bản đồng bộ mới."
+  ],
+  "tables_by_page": {
+    "d0": {
+      "count": 1,
+      "roles": {
+        "course-index": 1
+      }
+    },
+    "r1_g01": {
+      "count": 17,
+      "roles": {
+        "support": 1,
+        "goals": 1,
+        "warmup": 1,
+        "derivative-cases": 1,
+        "extrema-objects": 1,
+        "graph-roles": 1,
+        "inference": 1,
+        "logic": 1,
+        "worked-error": 1,
+        "practice": 1,
+        "assessment": 1,
+        "review": 1,
+        "journal": 2,
+        "verdict-repair": 1,
+        "scoring": 1,
+        "verdict": 1
+      }
+    },
+    "r1_g02": {
+      "count": 11,
+      "roles": {
+        "support": 1,
+        "goals": 1,
+        "warmup": 1,
+        "worked-objects": 1,
+        "concept-pair": 1,
+        "domain-cases": 1,
+        "practice": 1,
+        "assessment": 1,
+        "review": 1,
+        "journal": 2
+      }
+    },
+    "r1_g03": {
+      "count": 17,
+      "roles": {
+        "support": 1,
+        "goals": 1,
+        "warmup": 1,
+        "graph-evidence": 1,
+        "asymptote-summary": 1,
+        "inference": 1,
+        "practice": 1,
+        "assessment": 1,
+        "review": 1,
+        "foundation-index": 1,
+        "journal": 2,
+        "scoring": 5
+      }
+    },
+    "r1_g04": {
+      "count": 10,
+      "roles": {
+        "support": 1,
+        "goals": 1,
+        "warmup": 1,
+        "checkpoint": 2,
+        "assessment": 1,
+        "journal": 2,
+        "practice": 1,
+        "review": 1
+      }
+    }
+  },
+  "findings": [
+    {
+      "id": "A01",
+      "level": "Cao",
+      "item": "HTML mất tài nguyên sau kết sổ",
+      "verified": "Bản html-current còn nhưng CSS, JS, phông, hình và PDF ở delivery đã bị chuyển vào kho lưu trữ. Khôi phục 223 tệp thiếu từ manifest đã kiểm SHA-256; không ghi đè và không dựng lại.",
+      "cause": "Bảo vệ thư mục bản xem nhưng không lần theo phụ thuộc sang thư mục khác. Cổng bàn giao trước chỉ kiểm một phần tài nguyên trực tiếp.",
+      "status": "Đã khôi phục bản xem và sửa cơ chế bảo vệ; chưa commit.",
+      "next": "Mỗi lần bàn giao phải kiểm bao đóng phụ thuộc, HTTP đúng hash và quan sát trình duyệt mới.",
+      "evidence": [
+        "preview-protect-manifest.json",
+        "preview-recovery.json"
+      ]
+    },
+    {
+      "id": "A02",
+      "level": "Cao",
+      "item": "PDF tải từ HTML khác PDF hiện hành",
+      "verified": "24/24 liên kết PDF ở G01–G03 trỏ bản cũ. Toàn văn cũ/mới: G01 80/81 trang, G02 61/62, G03 67/69. D0/G04 chưa có liên kết PDF trong bộ xem này.",
+      "cause": "HTML và PDF được dựng ở hai mốc nhưng không có cổng kiểm đồng bộ bản tải và số trang.",
+      "status": "Chưa sửa bản tải. Việc khôi phục giữ đúng byte lịch sử, không biến chúng thành PDF mới.",
+      "next": "Sau khi PDF sửa đạt, tạo bộ bàn giao đồng bộ; sinh số trang từ PDF và đối chiếu hash các bản tải.",
+      "evidence": [
+        "preview-pdf-links.json"
+      ]
+    },
+    {
+      "id": "A03",
+      "level": "Cao",
+      "item": "Kích thước hình khi in chưa theo quy cách đã chọn",
+      "verified": "63/63 tài nguyên vector được QMD tham chiếu khớp luồng nội dung nhúng trong toàn văn hiện hành (13/4/11/35). Tuy nhiên scale đại diện đều 1:1; khung in G01/G02/G03/G04 lần lượt khoảng 347×235, 405×234, 347×234, 366×253 bp.",
+      "cause": "Bộ chuyển SVG sang PDF xóa thuộc tính width và dùng kích thước nội tại; quy cách hiển thị HTML không được chuyển thành hợp đồng in.",
+      "status": "Đã phân biệt hình cũ với lỗi đặt kích thước; chưa sửa bộ dựng hoặc dựng PDF.",
+      "next": "Lấy quyết định hình G03 làm căn cứ, chốt hợp đồng đặt hình A4 cho đồ thị và bảng hình; áp dụng dùng chung và kiểm BBox/scale/nét/chữ trước khi thay PDF hiện hành.",
+      "evidence": [
+        "graph-embedding.json",
+        "comparison.json"
+      ]
+    },
+    {
+      "id": "A04",
+      "level": "Cao",
+      "item": "Cấu trúc đọc PDF không đồng nhất",
+      "verified": "Cả 32 biến thể R1 tắt mục lục in. G01/G02 có mục lục cục bộ Bài học; G03/G04 thiếu tương ứng. Tiêu đề các cấp ở G03/G04 nhỏ, màu xám so với G01/G02, làm yếu phân cấp. Bookmark tồn tại không thay được mục lục in.",
+      "cause": "G01/G02 dùng adapter riêng; G03/G04 dùng phép chiếu chung nhưng chưa có hợp đồng chuyển cấp mục, mục lục và điểm bắt đầu vùng.",
+      "status": "Chưa sửa. Đã xem các trang đại diện; không tuyên bố mọi trang có lỗi này.",
+      "next": "Thiết kế một cấu trúc in dùng chung, giữ kiến trúc học hiện hành; quy định mục lục theo biến thể, phân cấp tiêu đề và chỗ ngắt trang, thử một gói trước.",
+      "evidence": [
+        "pdf-all-summary.json",
+        "comparison.json",
+        "pdf-images/r1_g01-review.png",
+        "pdf-images/r1_g03-review.png",
+        "pdf-images/r1_g04-review.png"
+      ]
+    },
+    {
+      "id": "A05",
+      "level": "Cao",
+      "item": "Phông thân bài bị ghi đè",
+      "verified": "Cấu hình PDF khai báo STIX nhưng shell dùng setmainfont và AtBeginDocument ép Be Vietnam Pro cho thân bài. Font nhúng có thật. So với PDF trước lượt bảng, D0–G03 đã dùng các họ phông này; chưa có bằng chứng phông chỉ đổi ở lượt mới.",
+      "cause": "Hai nơi sở hữu quy tắc phông, cổng chỉ kiểm có nhúng và có tên font, không kiểm vai trò thân bài/tiêu đề/toán.",
+      "status": "Chưa tự chọn lại phông thay chủ trì.",
+      "next": "Đối chiếu quyết định phông hiện hành, chọn một nơi khai báo; kiểm phông theo vai trò và trang mẫu.",
+      "evidence": [
+        "comparison.json",
+        "pdf-all-summary.json"
+      ]
+    },
+    {
+      "id": "A06",
+      "level": "Cao",
+      "item": "Mất ký tự trong PDF",
+      "verified": "32/32 PDF R1 có tổng 99 vị trí ký tự thay thế U+FFFD khi trích xuất, gồm mũi tên bản đồ học và dấu phẩy đạo hàm trong chú thích. Mẫu mũi tên mất đã được quan sát trên ảnh trang. D0 không có U+FFFD.",
+      "cause": "Ký tự văn bản không được font/chuỗi sinh hỗ trợ đầy đủ, cổng trước không phát hiện.",
+      "status": "Đã thêm cổng chặn và ca âm. Chạy G04 hiện hành bị chặn đúng: 18/19, lỗi no replacement glyphs. Chưa sửa nguồn ký tự hoặc PDF.",
+      "next": "Sửa nguồn sinh và font cho ký tự hợp lệ, dựng thử và nhìn lại; không thay ký tự thiếu bằng dấu khác chỉ để vượt cổng.",
+      "evidence": [
+        "glyph-evidence.json",
+        "g04-new-gate.json"
+      ]
+    },
+    {
+      "id": "A07",
+      "level": "Cao",
+      "item": "Vai trò bảng HTML chưa được chuyển đồng bộ sang PDF",
+      "verified": "Có 56 bảng chức năng: D0 1, G01 17, G02 11, G03 17, G04 10. HTML nhận profile theo chức năng. PDF G03/G04 dùng colspec mặc định/chỉ dẫn cũ; bảng mục tiêu chia gần đều thay vì tỉ lệ HTML 28/72. Một binding Khởi động G04 còn bốn trọng số cho bảng ba cột.",
+      "cause": "Chuẩn hóa bảng chỉ nối đủ đường HTML; adapter in dùng metadata khác, chưa có kiểm cặp số cột/trọng số/profile.",
+      "status": "Chưa sửa bảng hoặc metadata in trong lượt rà này.",
+      "next": "Một nguồn quy định vai trò, có phép chiếu riêng cho HTML và giấy. Kiểm số cột, tỉ lệ, caption, hàng tiếp trang và khả năng đọc; không ép trang nào cũng có mọi loại bảng.",
+      "evidence": [
+        "comparison.json",
+        "html-static.json",
+        "pdf-images/r1_g04-review.png"
+      ]
+    },
+    {
+      "id": "A08",
+      "level": "Cao",
+      "item": "Liên kết và chính sách từng biến thể PDF còn nợ kiểm",
+      "verified": "Báo cáo đồng bộ trước đã nêu đích lời giải quá chung và khác chính sách bản học sinh. Rà này chưa xác nhận từng cặp đích PDF. Kiểm URI ở bốn bản toàn văn hiện hành không tìm được URI không ASCII; vì vậy không lặp kết luận lỗi Unicode cho cả bộ.",
+      "cause": "Kiểm có tham chiếu/neo không chứng minh đi đúng nhiệm vụ; phép chiếu student/full khác giữa adapter.",
+      "status": "Chưa chứng nhận ánh xạ một-một PDF. Không ghi cảnh báo lịch sử thành sự thật đã tái hiện.",
+      "next": "Kiểm độc lập từng liên kết đề–lời giải và điểm đến trong mọi biến thể; chốt chính sách bản học sinh theo quyết định hiện hành.",
+      "evidence": [
+        "pdf-link-structure.json",
+        "../pdf_sync_20261019/bao_cao_dong_bo_pdf_20261019.md"
+      ]
+    },
+    {
+      "id": "A09",
+      "level": "Cao",
+      "item": "CURRENT/PASS bị dùng quá phạm vi chứng minh",
+      "verified": "Nguồn QMD hiện hành đạt cổng nguồn. Các hash/provenance khớp đầu vào không chứng minh bố cục, kích thước, vai trò font hay bài làm đi đúng lời giải. Cổng cũ 17/17 vẫn để lọt các lỗi trên.",
+      "cause": "Đồng nhất đúng nguồn với đúng thành phẩm; kiểm học tập chủ yếu tìm chuỗi/khối, kiểm tràn chưa bao hết hình và chiều ngang.",
+      "status": "Đã bổ sung cổng ký tự và phụ thuộc HTML; những cổng bố cục/đích PDF còn thiếu.",
+      "next": "Chỉ thay PDF hiện hành sau kiểm hợp đồng và xem bản ứng viên; provenance giữ nguyên chức năng ghi nguồn, không thay cho nghiệm thu.",
+      "evidence": [
+        "qmd-source.json",
+        "g04-new-gate.json"
+      ]
+    },
+    {
+      "id": "A10",
+      "level": "Cao",
+      "item": "Bàn giao/điều hành chưa phản ánh hết nợ lỗi",
+      "verified": "Báo cáo pdf_sync đã nói chưa đồng bộ nhưng đầu 03 vẫn nhấn 17/17. Hai hồ sơ prepare phát hành hiện có exit_code=1; không dùng chúng như bằng chứng đã phát hành bộ mới.",
+      "cause": "Trạng thái nguồn, kỹ thuật, đồng bộ, chủ trì duyệt và xuất bản không được tổng hợp thành mốc hiện hành rõ ràng.",
+      "status": "Đã bổ sung mốc rà soát ở đầu 03, giữ nguyên báo cáo lịch sử. Không commit, push hoặc xuất bản trong lượt này.",
+      "next": "Đóng các lỗi thành phẩm trước khi đề xuất bàn giao/phát hành mới.",
+      "evidence": [
+        "../publish_six_20261019_prepare.json",
+        "../publish_six_20261019_prepare_full.json"
+      ]
+    }
+  ],
+  "repair_order": [
+    "Giữ bản xem HTTP hoạt động, bảo vệ đầy đủ phụ thuộc; không dọn lại trong khi đang rà.",
+    "Chốt hợp đồng PDF dùng chung: hình theo chuẩn G03 đã chọn, phông theo vai trò, cấu trúc mục, bảng theo chức năng, chính sách biến thể và liên kết.",
+    "Sửa bộ sinh, dựng ứng viên một gói để đối chiếu và trình duyệt trước khi nhân rộng.",
+    "Dựng đúng các PDF chịu ảnh hưởng, kiểm kỹ thuật và quan sát theo toàn bộ hợp đồng; không chỉ dựa 17/17 cũ.",
+    "Tạo bộ HTML/PDF tải đồng bộ, sinh số trang và kiểm hash; mở thật trước bàn giao. Chỉ commit/phát hành khi có yêu cầu tương ứng."
+  ],
+  "state": {
+    "html": "restored_existing_preview",
+    "pdf": "not_synchronized",
+    "owner_acceptance": "not_granted_by_this_audit",
+    "rebuilt": false,
+    "committed": false,
+    "published": false
+  }
+}

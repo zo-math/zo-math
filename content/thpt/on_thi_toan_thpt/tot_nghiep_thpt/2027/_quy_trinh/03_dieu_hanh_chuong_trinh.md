@@ -1,7 +1,50 @@
 # Điều hành chương trình — trạng thái và việc tiếp theo
 
-Phiên bản: 0.1 · Cập nhật trạng thái: 19/10/2026.
+Phiên bản: 0.1 · Cập nhật trạng thái: 20/10/2026.
 
+
+**BẢN HIỆN HÀNH — chỉ giữ nguồn đã chốt cùng HTML/PDF từ nguồn đó.**
+
+- [Mở bộ xem duy nhất](http://127.0.0.1:8877/_audit/current/index.html). Tệp mở lại sau khởi động máy: `E:/zo_math/_audit/current/Mo_ban_xem_HTML.cmd`. Sáu HTML vừa dựng từ nguồn và 33 PDF khớp đầu vào hiện hành (D0 20 trang; bản đầy đủ G01 79, G02 59, G03 71, G04 64 trang). Kiểm bố cục HTML rộng/hẹp, nền đỏ/chế độ xám và các đích tải đều đạt. Đã xem bố cục 293 trang PDF đầy đủ và 28 trang mẫu của các biến thể; không coi đó là đã đọc soát lại toàn bộ phát biểu toán hoặc xem mọi trang của các biến thể. Biên nhận mở thật nằm tại `_audit/current/verification/handoff-source-repair-confirmed.json`. Đã lưu mốc commit cục bộ theo yêu cầu ngày 20/10/2026; chưa có nghiệm thu mới, push hoặc xuất bản.
+- Nguồn chính thức vẫn ở `content/thpt/on_thi_toan_thpt/`, tài nguyên và bộ sinh ở các vị trí canonical hiện hành; 33 PDF ở chính các gói. Không chuyển nguồn vào `_audit/`, không lấy đầu ra cũ làm nguồn.
+- Theo yêu cầu chủ trì, chỉ bộ xem hiện hành cùng phụ thuộc đầy đủ được giữ trong `_audit/current/`. Đã thu gọn 15.431 tệp cũ, khoảng 4 GB, khỏi workspace. Các bản thử, ảnh rà và báo cáo cũ được lưu khôi phục bên ngoài tại `E:/zo_nhap/zo_math_archive/current_only_20261019/retired-audit/`, kiểm SHA-256 trước khi bỏ khỏi workspace. Các đường `_audit/` trong lịch sử bên dưới không còn là bản xem hoạt động.
+- Khi thay bộ xem: dựng từ nguồn → kiểm → cập nhật đúng bộ đang dùng và manifest bảo vệ → kiểm phụ thuộc → mới dọn bản cũ. Không giữ nhiều bộ cùng mang ý nghĩa hiện hành. Các mốc commit không thay nghiệm thu hoặc quyền xuất bản; duyệt nội dung và kiểm kỹ thuật là hai trạng thái riêng.
+
+- Mốc cục bộ ngày 20/10/2026: nguồn/tài nguyên/bộ sinh `39f12303`, 33 PDF và provenance `f1e8fe32`; công cụ đồ thị ngoài repo `E:/zo_math_graphics` ở `e44fda5`. Kiểm lại cổng nguồn staged năm học liệu, bộ sáu HTML 606/606, các hồi quy PDF/bàn giao/bảo toàn đều đạt. Giữ nguyên nội dung và byte của bộ thành phẩm đã kiểm; không dựng lại, push hoặc xuất bản. HTML vẫn nằm ở bộ xem được bảo vệ, không ép đưa `_audit/` vào Git.
+
+## Lịch sử, không dùng làm bản xem hiện hành
+
+**SIX-SOURCE-RESOURCE-GENERATOR-SYNC-20261019 — sáu HTML và 33 PDF đã đồng bộ, chờ chủ trì duyệt.**
+
+- [Mở bản xem hiện hành](http://127.0.0.1:8877/_audit/six_source_sync_20261019/html-delivery/index.html). Sáu trang ở `html-current/` trong bộ này; trang đầu có đủ 33 đường tải PDF đúng phiên bản. Chỉ đường này là bản xem mới của lượt đồng bộ; các mục phía dưới là lịch sử, không thay bằng chứng hiện tại.
+- [Hồ sơ nguồn, tài nguyên, bộ sinh và giới hạn kiểm](ho_so_dong_bo_sau_bang_20261019.json). Bốn gói R1 dùng bộ sinh in chung và khung hình đã chốt; D0 giữ bộ sinh riêng. PDF đầy đủ có lần lượt D0 21, G01 79, G02 59, G03 69 và G04 64 trang; đã xem bố cục toàn bộ 292 trang đầy đủ và 51 trang mẫu của các biến thể. Không coi đó là đã xem mọi trang của mọi biến thể hoặc đã in thử giấy.
+- Chính văn sáu nguồn, mục tiêu, điều kiện toán và đích điều hướng được bảo toàn. G01/G02 cập nhật số trang tải theo PDF thật; thay đổi nguồn/binding có đối chiếu, không ghi đè nghiệm thu lịch sử. Bìa D0 vẫn chờ duyệt ảnh thành phẩm; quyền xem thử theo hướng đã duyệt không phải quyền xuất bản.
+- HTML đạt kiểm tài nguyên/33 đường tải/nguồn hiện hành; điều hướng 1609/1609, chế độ xám 197/197, nhãn 20/20; trình duyệt mở đủ vùng đọc ở 1440 và 390 px, chưa thấy ô bảng tràn hay hình co sai. Đã mở thật hub, D0 và G04 trong cửa sổ người dùng, lưu snapshot/ảnh và qua cổng confirm; biên nhận ở `_audit/six_source_sync_20261019/handoff-confirmed.json`. Tệp `Mo_ban_xem_HTML.cmd` cạnh trang đầu tự mở lại máy chủ sau khi khởi động máy.
+- Cổng kết sổ tự tìm `ban_dang_duyet.json`, khóa bản xem hiện hành cùng tài nguyên, nguồn và bộ sinh cần tái tạo, kể cả nguồn mới chưa commit. Đã kiểm hồi quy 33/33; lượt này chỉ kiểm bảo vệ, không thực hiện kết sổ, archive hoặc xóa bản đang duyệt. Chưa commit/push/xuất bản, chưa có nghiệm thu mới của chủ trì.
+
+## Các mốc lịch sử trước lượt đồng bộ này
+
+**AXIS-END-TICKS-20261019 — đã sửa vạch tại đầu trục; bản thử G04 mới chờ duyệt.**
+
+- Chủ trì chỉ ra lỗi trong S04c. Bộ sinh dùng `ytick={}` khiến PGFPlots tự chia vạch, style chưa chặn nét vạch ở đầu trục; cổng cũ chỉ so hình nhúng với tài nguyên, tự rà thị giác đã bỏ sót. Đã sửa danh sách rỗng thành `\empty`, thêm chốt riêng cho nét tick trong style 0.4 và phép kiểm nét PDF thật ở công cụ đồ thị/cổng nguồn/cổng PDF; giữ nguyên nhãn số được khai báo, dữ liệu toán và khung G03. Quy tắc 07/6.1.2 và quy chuẩn đồ thị đã nối cơ chế này.
+- Bản thử mới tại `E:/zo_math/_audit/axis_end_ticks_20261019/G04_khong_vach_dau_truc_20261019.pdf`, 64 trang, thay bản thử trước cho mục đích duyệt. [Hồ sơ nguyên nhân, tệp sửa, kiểm và giới hạn](../../../hoc_lieu/r1_g04/_quy_trinh/ho_so/axis_end_ticks_20261019.json). Bản cũ giữ nguyên làm bằng chứng.
+- Hồi quy đầu trục 7/7, hợp đồng in 16/16; cả 35 hình qua kiểm nét thực tế. PDF đạt 19/19 kỹ thuật và 86/86 hợp đồng in; chỉ trang vật lý 57 (số in 56) khác ảnh raster bản trước, đã xem lại màu/thang xám. 63 trang còn lại giống raster; chỉ nét vector S04c thay đổi. Các nguồn và kết quả hiện tại không được thay bằng PASS cũ.
+- 33 PDF sản xuất và năm QMD không đổi. Chưa dựng HTML hoặc gói khác, chưa commit/push/xuất bản; bộ xem HTML cũ chưa hiển thị sửa này. Công cụ chung đổi làm cache/phụ thuộc đồ thị ở gói chưa dựng có thể hết hạn; không tự sửa hash để coi là đồng bộ. Chờ chủ trì xem bản thử G04 trước khi áp dụng tiếp.
+
+**PDF-G04-SHARED-TRIAL-20261019 — bộ sinh dùng chung đã sửa; bản thử G04 chờ chủ trì duyệt.**
+
+- Bản thử đầy đủ gồm 64 trang, lưu tại `E:/zo_math/_audit/g04_pdf_shared_trial_20261019/G04_ban_thu_bo_sinh_chung_20261019.pdf`. [Hồ sơ thử, phạm vi và đối chiếu bảo toàn](../../../hoc_lieu/r1_g04/_quy_trinh/ho_so/pdf_shared_trial_20261019.json). Đây là bản ứng viên độc lập, chưa thay PDF sản xuất.
+- Đã sửa nguyên nhân dùng sai vai trò phông R1, bỏ sót bảng biến thiên native, bỏ qua profile bảng dùng chung, dùng tỉ lệ hình web cho bản in, phân cấp tiêu đề/neo trang và tiêu đề bị tách khi sang trang. Quy cách R1 dùng STIX Two Text cho chính văn, STIX Two Math cho toán, Be Vietnam Pro cho tiêu đề; giữ hình vector hiện hành với kích thước in theo quy cách. Quy tắc tại 06_pdf.md; profile, bộ chiếu và cổng mới dùng chung, nhưng chỉ cấu hình G04 bật `course-print-v2` trong lượt thử.
+- Cổng kiểm bản PDF thật đạt 19/19 kỹ thuật và 85/85 hợp đồng in; hồi quy mới 16/16. Đối chiếu đủ 35 hình vector, 35 bảng biến thiên theo từng ô, 11 bảng theo profile và 222 tham chiếu trang đến đúng đích. Đã xem toàn bộ 64 trang màu và 64 trang thang xám; chưa thử bản in giấy hoặc quét QR vật lý. Bằng chứng tại `_audit/g04_pdf_shared_trial_20261019/`, bản kiểm cuối là `final-print-check.json`.
+- SHA-256 xác nhận 109 tệp được bảo vệ không đổi: 33 PDF sản xuất, năm QMD học liệu và 71 tài nguyên hình G04. Chưa dựng các gói/biến thể còn lại, chưa dựng HTML, commit/push hoặc xuất bản. Chờ chủ trì xem bản thử rồi mới áp dụng tiếp; không dùng trạng thái PASS kỹ thuật thay nghiệm thu.
+
+**AUDIT-SINCE-TABLES-20261019 — kết luận hiện hành: PDF chưa đồng bộ; đã khôi phục đường xem HTML.**
+
+- [Mở sáu HTML hiện hành đã khôi phục](http://127.0.0.1:8877/_audit/html_table_functions_six_20261019/index.html). Đây là bộ đã dựng trước đó, không phải lần dựng mới. Lỗi do kết sổ bảo vệ `html-current` nhưng chuyển mất tài nguyên `delivery`; đã khôi phục 223 tệp thiếu từ kho lưu trữ sau kiểm SHA-256. Bàn giao và kết sổ nay dùng chung kiểm phụ thuộc HTML → CSS → phông/hình/PDF tải, kể cả ngoài thư mục bản xem.
+- [Hồ sơ rà soát, nguyên nhân và việc còn thiếu](ho_so_ra_soat_sau_bang_20261019.json); [bản đọc có ảnh đối chứng](http://127.0.0.1:8877/_audit/review_since_tables_20261019/index.html). Phân tích 33 PDF/838 trang; quan sát trực tiếp 20 trang PDF và sáu HTML rộng/hẹp. Không coi đó là đã quan sát mọi trang PDF.
+- 63/63 tài nguyên vector tham chiếu khớp hình nhúng PDF hiện hành, nhưng kích thước in chưa tuân quy cách đã chọn; 24 bản tải từ HTML G01–G03 còn là PDF cũ. PDF còn nợ cấu trúc/mục lục, phân cấp tiêu đề, vai trò phông, profile bảng, ký tự thiếu và kiểm cặp đích lời giải. Bộ mới chưa đủ cơ sở nghiệm thu đồng bộ. Các mốc 17/17 và CURRENT phía dưới chỉ là bằng chứng kỹ thuật/nguồn ở thời điểm lịch sử.
+- Đã sửa cơ chế bảo vệ/bàn giao HTML và thêm cổng ký tự thiếu PDF; hồi quy HTML 18/18, kết sổ 26/26. PDF G04 hiện hành bị cổng mới chặn đúng (18/19); không làm cho PASS bằng sửa hash/receipt. Chưa sửa chính văn, chưa dựng lại HTML/PDF, chưa commit/push hoặc xuất bản trong lượt rà soát.
+- Việc tiếp theo: xử lý hợp đồng sinh PDF dùng chung và bản ứng viên theo hồ sơ; không tiếp tục phát hành dựa trên PASS cũ. Giữ nguyên chứng cứ lịch sử và các tài nguyên bản xem đang được kiểm.
 
 **PDF-CURRENT-FIVE-20261019 — D0 và R1-G01–G04 đã dựng, chờ chủ trì xem.**
 
