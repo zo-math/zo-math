@@ -504,8 +504,8 @@
   "owner_acceptance": "approved",
   "d0_cover_image_acceptance": "approved",
   "committed": true,
-  "pushed": false,
-  "published": false,
+  "pushed": true,
+  "published": true,
   "real_end_day_apply_performed": false,
   "limits": [
     "No physical paper print or physical QR scan.",
@@ -2287,7 +2287,7 @@
       }
     },
     "origin": "fresh canonical-source render; validated before automatic docs replacement",
-    "published": false
+    "published": true
   },
   "canonical_output_repair_20261020": {
     "recorded_at": "2026-10-19T18:35:48.727337+00:00",
@@ -2497,8 +2497,8 @@
       "actual_browser_confirmed": "_audit/current/verification/canonical-output-confirmed.json"
     },
     "committed": true,
-    "pushed": false,
-    "published": false,
+    "pushed": true,
+    "published": true,
     "limits": [
       "No new mathematical or pedagogical edits.",
       "Previous full-book visual review remains applicable: HTML bytes identical and D0 PDF pages pixel-identical.",
@@ -2533,7 +2533,7 @@
     }
   },
   "publication_20261020": {
-    "status": "ready_for_prepare",
+    "status": "published_and_live_verified",
     "authorized_by": "OK. Hãy phát hành lên zomath.vn.",
     "owner_acceptance": "approved; unchanged current products",
     "mode": "zo_publish.py prepare --approved-course",
@@ -2556,7 +2556,54 @@
     },
     "historical_baseline_failure": "Old figure receipt is incompatible with current external graphics tools; no historical figure regeneration or receipt alteration. Replaced the historical-render release prerequisite with a sealed approved-current output release.",
     "evidence": "_audit/current/verification/publication_historical_baseline_failure_20261020.json",
-    "published": false,
-    "recorded_at": "2026-10-19T20:01:12.487194+00:00"
+    "published": true,
+    "recorded_at": "2026-10-19T20:01:12.487194+00:00",
+    "source_commit": "e563626a8c2962249002a56ab5115fe6a53ead17",
+    "public_commit": "814d2280d04b3d61af2060794e0338505bc8a7cf",
+    "verified_at": "2026-10-19T20:13:00.779156+00:00",
+    "public_url": "https://zomath.vn/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/",
+    "deployment": {
+      "status": "completed",
+      "conclusion": "success",
+      "run_url": "https://github.com/zo-math/zo-math/actions/runs/39316775507"
+    },
+    "live_checks": {
+      "passed": 241,
+      "total": 241,
+      "html_pages": 6,
+      "pdfs": 33,
+      "failures": []
+    },
+    "diff": {
+      "added": 70,
+      "updated": 78,
+      "deleted": 0,
+      "unchanged": 583
+    },
+    "browser_check": {
+      "checked_at": "2026-10-19T20:13:00.779156+00:00",
+      "status": "passed",
+      "method": "Actual in-app browser navigation, accessibility observations and screenshots after deployment.",
+      "pages": [
+        "content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html",
+        "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.html",
+        "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/index.html",
+        "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/index.html",
+        "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g04/index.html",
+        "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html"
+      ],
+      "home": "Five cards shown, including G04 and the current D0 cover.",
+      "d0": "Cover and text visible after font load; PDF link shows 20 pages.",
+      "g01_g02_g03": "Current start views, navigation and goal tables visible.",
+      "g04": "Start view and PDF tab visible; student PDF 32 pages and full PDF 64 pages.",
+      "screenshot": "_audit/current/verification/publication-browser-home.png",
+      "limits": "Sampled live browser views on all six pages; not a new full-document mathematical review or PDF page-by-page review."
+    },
+    "evidence_files": [
+      "_audit/current/verification/publication_prepared_20261020.json",
+      "_audit/current/verification/publication_live_20261020.json",
+      "_audit/current/verification/publication_deployment_20261020.json",
+      "_audit/current/verification/publication_browser_20261020.json"
+    ]
   }
 }
