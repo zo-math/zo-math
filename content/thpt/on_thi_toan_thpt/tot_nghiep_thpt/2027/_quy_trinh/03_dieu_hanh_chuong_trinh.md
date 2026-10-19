@@ -12,6 +12,8 @@ Phiên bản: 0.1 · Cập nhật trạng thái: 20/10/2026.
 
 - Ghi nhận lần duyệt mới ngày 20/10/2026: “Mình duyệt các kết quả này. Bước tiếp theo là gì?” Chủ trì tiếp tục yêu cầu ghi nhận duyệt và commit bộ dựng, cổng kiểm, quy trình cùng hồ sơ thành phẩm hiện hành. Phạm vi là kết quả sửa cơ chế và bộ đã kiểm; không cho phép push hoặc phát hành. Đối chiếu lại 854/854 kiểm HTML và hash đủ 33 PDF; không dựng lại HTML/PDF trong lượt commit.
 
+- Phát hành ngày 20/10/2026: chủ trì yêu cầu “OK. Hãy phát hành lên zomath.vn.” Đang chuẩn bị đúng sáu trang và 33 PDF theo `zo_publish.py prepare --approved-course`. Bộ dựng vừa kiểm 361/361, điều hướng 1610/1610, thang xám 197/197 và docs 854/854; cả 243 tệp đầu ra canonical cùng 33 PDF vẫn đúng từng byte với bộ đã duyệt. Cơ chế phát hành có 11 phép thử mới và 67 phép thử hiện hữu đạt; chưa ghi nhận phát hành thành công cho đến khi push và kiểm bản công khai.
+
 ## Lịch sử, không dùng làm bản xem hiện hành
 
 **SIX-SOURCE-RESOURCE-GENERATOR-SYNC-20261019 — sáu HTML và 33 PDF đã đồng bộ, chờ chủ trì duyệt.**
