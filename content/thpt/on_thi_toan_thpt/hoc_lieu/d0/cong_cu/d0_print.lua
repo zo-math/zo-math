@@ -92,8 +92,17 @@ local function layout(doc)
   if profile.full then
     out[#out+1]=raw('\\vspace{5mm}\\zoRole{GHI ĐIỀU EM NHẬN RA}'..tex({table.unpack(writing_guide,2)}))
   end
+  local function task_heading(div)
+    local heading
+    for _,b in ipairs(div.content) do if b.t=='Header' then heading=b;break end end
+    assert(heading,'Task heading missing: '..div.identifier)
+    local full=pandoc.utils.stringify(heading.content)
+    local tag,title=full:match('^(Bài %d%d) — (.+)$')
+    assert(tag and title,'Task heading must use the current page-wide number: '..div.identifier)
+    return tag,tex({pandoc.Para({pandoc.Str(title)})})
+  end
   local function task(div)
-    local tag=pandoc.utils.stringify(div.content[1]):gsub('(%d+)%s+(R%d+)','%1 • %2');local title=tex({pandoc.Para(div.content[2].content)})
+    local tag,title=task_heading(div)
     local meta,prompt
     for _,b in ipairs(div.content) do if b.t=='Div' then
       if b.classes:includes('d0-task-meta') then meta=b.content end
@@ -103,7 +112,7 @@ local function layout(doc)
     local comparison=div.identifier=='cau-minh-hoa' and 'doi-chieu-minh-hoa' or 'doi-chieu-'..div.identifier:sub(4)
     return '\\begin{minipage}{\\linewidth}\\hypertarget{'..div.identifier..'}{}\\label{'..div.identifier..'}\\zoTaskHead{'..tag..'}{'..title..'}\n'..
       '{\\small\\color{zoMuted}\\setlength{\\parskip}{2pt}'..tex(meta)..'}\\par\\vspace{3mm}\n'..
-      tex(prompt)..'\\par\\vspace{2mm}{\\small\\hyperlink{'..comparison..'}{Đối chiếu bài này sau khi tự làm (trang~\\pageref*{'..comparison..'})}}\\zoDivider\\end{minipage}\\par'
+      tex(prompt)..'\\par\\vspace{2mm}{\\small\\hyperlink{'..comparison..'}{Xem lời giải (trang~\\pageref*{'..comparison..'})}}\\zoDivider\\end{minipage}\\par'
   end
   if profile.full then
     local count_task,count_solution=0,0
@@ -118,25 +127,21 @@ local function layout(doc)
           local example=block.identifier=='doi-chieu-minh-hoa'
           local linked=example and 'cau-minh-hoa' or 'd0-'..block.identifier:sub(11)
           local source=assert(found[linked], 'Missing matching task: '..block.identifier)
-          local tag=pandoc.utils.stringify(source.content[1]):gsub('(%d+)%s+(R%d+)','%1 • %2')
-          local title=tex({pandoc.Para(source.content[2].content)})
-          local body={};local note,review,back,guidance
+          local tag,title=task_heading(source)
+          local body={};local note,review,back
           for i=2,#block.content do
             local b=block.content[i];local s=pandoc.utils.stringify(b)
             if s:match('^Đối chiếu:') then note=tex({b})
             elseif s:match('^Nội dung cần ôn nếu còn vướng:') then review=tex({b})
-            elseif s:match('^Em có thể đọc lại cách giải') then guidance=tex({b})
-            elseif s:match('^Quay lại đề bài') then back=tex({b})
+            elseif s:match('^Xem đề bài') then back=tex({b})
             else body[#body+1]=b end
           end
-          local backlink=back or ('\\hyperlink{'..linked..'}{Quay lại đề bài (trang~\\pageref*{'..linked..'})}')
+          local backlink=back or ('\\hyperlink{'..linked..'}{Xem đề bài (trang~\\pageref*{'..linked..'})}')
           local content='\\begin{minipage}{\\linewidth}\\hypertarget{'..block.identifier..'}{}\\label{'..block.identifier..'}\\zoSolutionTitle{'..tag..'}{'..title..'}{'..backlink..'}'
           if example then content=content..'\\zoRole{ĐỐI CHIẾU BÀI MINH HỌA}'..tex(body)
           else
-            assert(note and review and guidance and back,'Missing comparison roles: '..block.identifier)
+            assert(note and review and back,'Missing comparison roles: '..block.identifier)
             content=content..'\\zoRole{KẾT QUẢ VÀ LỜI GIẢI}'..tex(body)..'\\zoReview{'..note..'}{'..review..'}'
-            if not profile.shared_guidance then content=content..'\\par{\\small '..guidance..'}' end
-            if not profile._guidance then profile._guidance=guidance else assert(profile._guidance==guidance,'Shared guidance changed') end
           end
           out[#out+1]=raw(content..'\\zoDivider\\end{minipage}\\par');return
         end
@@ -149,7 +154,7 @@ local function layout(doc)
       end
       if block.t=='Para' then
         local s=pandoc.utils.stringify(block)
-        if s:match('^Đối chiếu bài này sau khi tự làm') then return end
+        if s:match('^Xem lời giải') then return end
         if s:match('^Chọn câu khảo sát để làm') then return end
       end
       if block.t=='Header' then
@@ -166,7 +171,6 @@ local function layout(doc)
     for _,b in ipairs(section('khao-sat')) do emit(b) end
     out[#out+1]=raw('\\zoPage{ĐỐI CHIẾU SAU KHI TỰ LÀM}{Đối chiếu bài làm}\\hypertarget{doc-ket-qua}{}\\label{doc-ket-qua}')
     for _,b in ipairs(comparison_main) do emit(b) end
-    if profile.shared_guidance then out[#out+1]=raw('\\zoRole{CÁCH ĐỌC PHẦN ĐỐI CHIẾU}{\\small '..assert(profile._guidance)..'}') end
     out[#out+1]=raw('\\zoPage{CHỌN NỘI DUNG MUỐN HỌC TIẾP}{Chọn mạch ôn và bắt đầu}\\hypertarget{chon-mach}{}\\label{chon-mach}')
     for _,b in ipairs(section('chon-mach')) do emit(b) end
     assert(count_task==25 and count_solution==25,'Incomplete QMD inventory: '..count_task..' tasks, '..count_solution..' solutions')
