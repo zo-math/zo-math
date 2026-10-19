@@ -9,7 +9,11 @@
 \definecolor{zoLink}{HTML}{943B35}
 \definecolor{zoGrid}{HTML}{B9B1A6}
 \definecolor{zoLine}{HTML}{DFD7CA}
+\ifzoCoursePrintVTwo
+\setmainfont{STIX Two Text}
+\else
 \setmainfont[Path=\zoPrintFontDir,BoldFont=BeVietnamPro_SemiBold.ttf]{BeVietnamPro_Regular.ttf}
+\fi
 \setsansfont[Path=\zoPrintFontDir,BoldFont=BeVietnamPro_SemiBold.ttf]{BeVietnamPro_Regular.ttf}
 \color{zoInk}
 \setlength{\parindent}{0pt}
@@ -34,10 +38,14 @@
 {\color{zoRed}\rule{22mm}{2pt}}\hspace{2mm}{\color{zoYellow}\rule{12mm}{2pt}}\par\vspace{9mm}
 {\large\zoPrintVariant}\par\vspace{5mm}
 \begin{minipage}{.83\linewidth}\zoPrintDescription\end{minipage}\par
+\par\vspace{6mm}{\centering\includegraphics[width=.64\linewidth,height=48mm,keepaspectratio]{zo-course-cover.pdf}\par}
 \vfill
 \begin{minipage}[c]{.20\linewidth}\color{zoInk}\qrcode[height=24mm]{\zoPrintURL}\end{minipage}\hfill
 \begin{minipage}[c]{.76\linewidth}\href{\zoPrintURL}{Mở trang \zoPrintTitle}\par\smallskip{\small\color{zoMuted}\zoPrintPackage}\end{minipage}\par\vspace{8mm}
 {\scriptsize\color{zoMuted}Phiên bản nội dung \zoPrintVersion\ · Ngày tạo PDF: \zoBuildDate\par\smallskip\textcopyright{} \zoBuildYear\ ZO Math. Bản quyền nội dung thuộc ZO Math.}
 \end{titlepage}}
 \makeatother
-\AtBeginDocument{\setmainfont[Path=\zoPrintFontDir,BoldFont=BeVietnamPro_SemiBold.ttf]{BeVietnamPro_Regular.ttf}\setsansfont[Path=\zoPrintFontDir,BoldFont=BeVietnamPro_SemiBold.ttf]{BeVietnamPro_Regular.ttf}\normalfont\fontsize{11}{16}\selectfont\hypersetup{urlcolor=zoLink,linkcolor=zoInk}}
+\ifzoCoursePrintVTwo
+\input{zo-course-print-layout.tex}
+\fi
+\AtBeginDocument{\ifzoCoursePrintVTwo\else\setmainfont[Path=\zoPrintFontDir,BoldFont=BeVietnamPro_SemiBold.ttf]{BeVietnamPro_Regular.ttf}\fi\normalfont\fontsize{11}{16}\selectfont\hypersetup{urlcolor=zoLink,linkcolor=zoInk}}

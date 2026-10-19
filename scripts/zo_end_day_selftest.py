@@ -66,6 +66,24 @@ class EndDayTests(unittest.TestCase):
         self.assertEqual(eod.git(self.root, 'rev-parse', 'HEAD').stdout, self.head)
         self.assertTrue((self.root / '_audit/trash.txt').exists())
 
+    def test_preview_dependencies_outside_protect_root_cannot_be_archived(self):
+        self.write('_audit/review/preview.html','<link rel="stylesheet" href="../delivery/main.css"><a href="../delivery/book.pdf">Download</a>')
+        self.write('_audit/delivery/main.css','@import "inner.css";')
+        self.write('_audit/delivery/inner.css','@font-face{src:url(font.woff2)}')
+        self.write('_audit/delivery/font.woff2','font fixture')
+        self.write('_audit/delivery/book.pdf','PDF fixture')
+        plan=self.plan(protection=['_audit/review'])
+        plan['archive'].append({'path':'_audit/delivery','reason':'simulated mistaken cleanup'})
+        self.assertIn('_audit/delivery/font.woff2',plan['protected'])
+        self.assertIn('_audit/delivery/book.pdf',plan['protected'])
+        with self.assertRaisesRegex(eod.Blocked,'Protected artifact'):
+            eod.validate(self.root,plan)
+
+    def test_missing_protected_preview_dependency_blocks_scan(self):
+        self.write('_audit/review/preview.html','<link rel="stylesheet" href="../delivery/missing.css">')
+        with self.assertRaisesRegex(eod.Blocked,'preview dependency'):
+            eod.scan(self.root,protection=['_audit/review'])
+
     def test_scan_is_read_only(self):
         before = eod.git(self.root, 'status', '--porcelain=v1', '-z').stdout
         plan = eod.scan(self.root)
@@ -260,6 +278,58 @@ class EndDayTests(unittest.TestCase):
             self.close(plan)
         self.unchanged()
 
+
+    def active_review(self,missing=False):
+        self.write('_audit/review/preview.html','<html><link rel="stylesheet" href="../delivery/style.css"><body>Review</body></html>')
+        if not missing:
+            self.write('_audit/delivery/style.css','@font-face {src:url(font.woff2)}')
+            self.write('_audit/delivery/font.woff2','font fixture')
+        self.write('content/course/_quy_trinh/ban_dang_duyet.json',json.dumps({'status':'pending_owner_review','entrypoints':['_audit/review/preview.html'],'files':[{'path':'_audit/review/preview.html'}]}))
+
+    def test_active_review_auto_protected_without_flags(self):
+        self.active_review();scan=eod.scan(self.root)
+        self.assertTrue({'_audit/review/preview.html','_audit/delivery/style.css','_audit/delivery/font.woff2'}<=set(scan['protected']))
+
+    def test_missing_active_review_dependency_blocks_scan(self):
+        self.active_review(missing=True)
+        with self.assertRaisesRegex(eod.Blocked,'dependency failed'):eod.scan(self.root)
+
+    def test_active_review_cannot_be_archived(self):
+        self.active_review();plan=self.plan();plan['archive'].append({'path':'_audit/delivery','reason':'mistaken cleanup'})
+        with self.assertRaisesRegex(eod.Blocked,'Protected artifact'):eod.validate(self.root,plan)
+
+    def test_active_review_hash_corruption_blocks_scan(self):
+        self.active_review();path=self.root/'content/course/_quy_trinh/ban_dang_duyet.json';data=json.loads(path.read_text());data['files'][0]['sha256']='wrong';path.write_text(json.dumps(data))
+        with self.assertRaisesRegex(eod.Blocked,'Active review file changed'):eod.scan(self.root)
+
+    def test_external_graphics_dependency_is_verified(self):
+        from unittest.mock import patch
+        import hashlib
+        self.active_review()
+        self.write('graphics/graph/engine.py','official engine fixture')
+        path=self.root/'content/course/_quy_trinh/ban_dang_duyet.json'
+        data=json.loads(path.read_text());data['external_dependencies']=[{'path':'graph/engine.py','sha256':hashlib.sha256((self.root/'graphics/graph/engine.py').read_bytes()).hexdigest()}]
+        path.write_text(json.dumps(data))
+        with patch('zo_graphics.graphics_root',return_value=self.root/'graphics'):
+            eod.scan(self.root)
+            (self.root/'graphics/graph/engine.py').write_text('changed engine')
+            with self.assertRaisesRegex(eod.Blocked,'External graphics source changed'):eod.scan(self.root)
+
+    def test_removed_active_review_manifest_invalidates_plan(self):
+        self.active_review();plan=self.plan();(self.root/'content/course/_quy_trinh/ban_dang_duyet.json').unlink()
+        with self.assertRaisesRegex(eod.Blocked,'changed since inventory'):eod.validate(self.root,plan)
+
+
+    def test_current_operating_preview_requires_active_manifest(self):
+        self.write('_audit/current/index.html','<html><body>Current review</body></html>')
+        self.write('content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/03_dieu_hanh_chuong_trinh.md','[Current](http://127.0.0.1:8877/_audit/current/index.html)')
+        with self.assertRaisesRegex(eod.Blocked,'no active protection manifest'):eod.scan(self.root)
+
+    def test_current_operating_preview_cannot_be_replaced_by_old_manifest(self):
+        self.active_review()
+        self.write('_audit/current/index.html','<html><body>New review</body></html>')
+        self.write('content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/03_dieu_hanh_chuong_trinh.md','[Current](http://127.0.0.1:8877/_audit/current/index.html)')
+        with self.assertRaisesRegex(eod.Blocked,'no active protection manifest'):eod.scan(self.root)
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

@@ -30,6 +30,8 @@ def print_metadata(mirror):
     """Use the same live HTML support component as the approved layout."""
     model = support_model()
     profile = json.loads((PACKAGE / 'cong_cu/d0_print_profile.json').read_text(encoding='utf-8'))
+    from zo_course_cover import print_cover
+    print_cover(ROOT,'d0',mirror/PACKAGE.relative_to(ROOT)/'giao_dien/d0_cover.pdf',allow_direction_approved=True)
     fields = {}
     now = datetime.now(timezone(timedelta(hours=7)))
     fields.update(zoBuildDate=now.strftime('%d/%m/%Y'), zoBuildYear=str(now.year))
@@ -50,6 +52,15 @@ def print_metadata(mirror):
         support_tex(model)+'\n'+'\n'.join('\\newcommand{\\' + key + '}{' + value + '}' for key, value in fields.items())
         + '\n\\definecolor{zoSupportHeading}{HTML}{'+heading+'}\n', encoding='utf-8')
     shutil.copy2(model['qr_path'], directory / 'd0_support_qr.jpg')
+    from zo_course_table_roles import contract, function_profile, table_rows
+    table_contract=contract(ROOT);table_specs={}
+    for entry in table_contract['pages']['d0']:
+        ident=entry['selector'][1:].split()[0]
+        rows=table_rows(SOURCE.read_text('utf-8'),ident)
+        spec=function_profile(entry,table_contract) or entry
+        widths=spec.get('widths') or [100/len(rows[0])]*len(rows[0])
+        table_specs[ident]={'widths':widths,'center':list(range(1,len(widths)+1)) if entry['kind'] in {'values','frequency','matrix','sign'} else [c+1 for c in entry.get('center_body_columns',[])], 'right':spec.get('right_columns',[])}
+    (directory/'d0_tables.json').write_text(json.dumps(table_specs,ensure_ascii=False),encoding='utf-8')
     shutil.copy2(model['logo_path'], directory / 'd0_support_stack.png')
     return {'date':fields['zoBuildDate'],'figure_label_pt':profile['typography']['body_pt'],
             'support_fields':model['fields'],'support_source_hashes':model['input_hashes']}
@@ -62,7 +73,7 @@ def inputs():
              PACKAGE / 'giao_dien/d0_pdf_end.tex', ROOT / '_quarto.yml',
              ROOT / 'scripts/zo_quarto.py', ROOT / 'scripts/zo_python.py',
              ROOT / 'assets/lua/zo_learning_components.lua',
-             ROOT / 'assets/lua/zo_variation_qmd.lua']
+             ROOT / 'assets/lua/zo_variation_qmd.lua', ROOT/'assets/lua/zo_course_print.lua']
     paths += [PACKAGE / '_quy_trinh/pdf_source_delta.json',
               PACKAGE / '_quy_trinh/cau_hinh_san_xuat_qmd.yml',
               PACKAGE / '_quy_trinh/ho_so/index.yml',
@@ -77,7 +88,7 @@ def inputs():
     paths += list((ROOT / 'content/thpt/on_thi_toan_thpt/hoc_lieu').glob('r*_g*/giao_dien/he_nhan.json'))
     paths += [PACKAGE / 'giao_dien/zo_logo_04.png',
               PACKAGE / 'du_lieu/bang_bien_thien.json', PACKAGE / 'hinh/bbt01.pdf',
-              PACKAGE / 'hinh/hinh_hop.pdf']
+              PACKAGE / 'hinh/hinh_hop.pdf', ROOT/'scripts/zo_course_cover.py', PACKAGE/'giao_dien/anh_bia.json', PACKAGE/'giao_dien/assets/bia_khao_sat.svg']
     model=support_model()
     paths += [ROOT / name for name in model['input_hashes']]
     return {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()

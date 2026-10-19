@@ -25,7 +25,7 @@ ICONS = {
 
 def destinations(output_root, page, current=None):
     catalog = yaml.safe_load((ROOT / BASE / 'tot_nghiep_thpt/2027/_data/chuong_trinh.yml').read_text(encoding='utf-8'))
-    if [p['id'] for p in catalog['packages']] != ['d0', 'r1_g01', 'r1_g02', 'r1_g03']:
+    if [p['id'] for p in catalog['packages']] != ['d0', 'r1_g01', 'r1_g02', 'r1_g03', 'r1_g04']:
         raise ValueError('Course navigation bindings must be updated for the current catalog')
     result = []
     for key, (relative, label) in PAGES.items():
@@ -119,4 +119,6 @@ def apply(doc, page, output_root, runtime, key):
     require(doc, page, output_root, key)
     if protected != [str(n) for n in doc.select('main,.rail,footer.site-footer')] or logo != str(doc.select_one('.site-top > a:first-child')):
         raise ValueError('Course navigation must not change content, sidebar, footer, or logo')
+    for link in doc.select('.rail-support'):
+        link['href']=os.path.relpath(output_root/'content/support/donate.html',page.parent).replace('\\','/')
     return resources

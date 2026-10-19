@@ -49,3 +49,24 @@ def check_html(root, package, html_path, *, allow_direction_approved=False):
     if not actual.is_file() or digest(actual) != digest(expected):
         raise ValueError("Rendered HTML does not display this package's approved cover")
     return True
+
+
+def print_cover(root, package, destination, *, allow_direction_approved=False):
+    """Vector format conversion of the declared cover; no artwork regeneration."""
+    import shutil, subprocess
+    source=load_cover(root,package,allow_direction_approved=allow_direction_approved)
+    binary=shutil.which('inkscape')
+    if not binary:raise ValueError('Inkscape required for approved vector cover conversion')
+    subprocess.run([binary,str(source),'--export-type=pdf','--export-filename='+str(destination)],check=True,capture_output=True)
+    from pypdf import PdfReader
+    reader=PdfReader(destination)
+    if len(reader.pages)!=1:raise ValueError('Cover must be a single vector page')
+    # LuaTeX adds its own Form transparency group when importing a PDF page.
+    # Remove the converter's page group in this intermediate conversion to
+    # prevent two /Group keys in the resulting book's Form dictionary.
+    from pypdf import PdfWriter
+    from pypdf.generic import NameObject
+    import io
+    writer=PdfWriter();page=reader.pages[0];page.pop(NameObject('/Group'),None);writer.add_page(page)
+    stream=io.BytesIO();writer.write(stream);Path(destination).write_bytes(stream.getvalue())
+    return source

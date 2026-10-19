@@ -15,7 +15,7 @@
 width=11cm,height=7cm,
 xmin=-6,xmax=2,ymin=-4,ymax=4,
 restrict y to domain=-4:4,unbounded coords=jump,
-xtick={-4,-2},ytick={},
+xtick={-4,-2},ytick=\empty,
 xlabel={$x$},ylabel={$y$},
 every axis x label/.append style={at={(axis description cs:1,0.5)},anchor=south west,xshift=5pt,yshift=4pt},
 every axis y label/.append style={at={(axis description cs:0.75,1)},anchor=south west,xshift=4pt,yshift=4pt}
@@ -29,7 +29,7 @@ every axis y label/.append style={at={(axis description cs:0.75,1)},anchor=south
 \addplot[only marks,mark=x,mark size=2.3pt,draw=zoGraphVTwoText,line width=0.6pt,on layer=zoGraphVTwoMarkerLayer,forget plot] coordinates {(-2,0)};
 \begin{pgfonlayer}{zoGraphVTwoTextLayer}
 \node[zo graph v02 protected label,anchor=south east,xshift=-7pt,yshift=7pt] at (axis cs:-2,0) {$I$};
-\node[zo graph v02 tick label,anchor=north east,xshift=-3pt,yshift=-3pt] at (axis cs:0,0) {$O$};
+\node[zo graph v02 tick label,anchor=south east,xshift=-4pt,yshift=4pt] at (axis cs:0,0) {$O$};
 \end{pgfonlayer}
 \end{axis}
 \end{tikzpicture}

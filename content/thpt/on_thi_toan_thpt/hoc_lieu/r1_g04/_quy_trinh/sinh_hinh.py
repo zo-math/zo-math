@@ -13,7 +13,7 @@ EVIDENCE=PACKAGE/"_quy_trinh/ho_so"
 x=sp.Symbol("x",real=True)
 H=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 def number(v):return f"{float(v):.9g}"
-def make_source(s):
+def make_source(s, update_sources=False):
     f=sp.sympify(s["expr"],locals={"x":x});df=sp.diff(f,x)
     actual=[v for v in sp.solve(sp.together(df).as_numer_denom()[0],x) if v.is_real]
     actual=[v for v in actual if s["pole"] is None or v!=s["pole"]]
@@ -49,6 +49,9 @@ def make_source(s):
         for v in sorted(values):
             if not chosen or v-chosen[-1]>=1:chosen.append(v)
         return ",".join(map(str,chosen))
+    def tick_option(values):
+        chosen=sparse(values)
+        return "{"+chosen+"}" if chosen else r"\empty"
     if s["line"] and not sp.sympify(s["line"],locals={"x":x}).has(x):
         level=float(sp.sympify(s["line"]))
         if level!=0 and abs(level-round(level))<1e-8:yticks.add(round(level))
@@ -62,7 +65,7 @@ def make_source(s):
       f"width={layout['frame_width_cm']}cm,height={layout['frame_height_cm']}cm,",
       f"xmin={xmin},xmax={xmax},ymin={ymin},ymax={ymax},",
       f"restrict y to domain={ymin}:{ymax},unbounded coords=jump,",
-      f"xtick={{{sparse(xticks)}}},ytick={{{sparse(yticks)}}},",
+      f"xtick={tick_option(xticks)},ytick={tick_option(yticks)},",
       "xlabel={$x$},ylabel={"+("$A$" if s["domain"] else "$y$")+"},",
       r"every axis x label/.append style={at={(axis description cs:1,"+number((0-ymin)/(ymax-ymin))+r")},anchor=south west,xshift=5pt,yshift=4pt},",
       r"every axis y label/.append style={at={(axis description cs:"+number((0-xmin)/(xmax-xmin))+r",1)},anchor=south west,xshift=4pt,yshift=4pt}",
@@ -90,16 +93,23 @@ def make_source(s):
         rising=s["pole"] is None and df.subs(x,cx)>0
         label_style="anchor=south east,xshift=-7pt,yshift=7pt" if slanted or rising else "anchor=south west,xshift=7pt,yshift=7pt"
         lines.append(r"\node[zo graph v02 protected label,"+label_style+"] at (axis cs:"+f"{cx},{cy}"+r") {$I$};")
-    lines.extend([r"\node[zo graph v02 tick label,anchor=north east,xshift=-3pt,yshift=-3pt] at (axis cs:0,0) {$O$};",
+    origin_styles={"below-left":"anchor=north east,xshift=-3pt,yshift=-3pt",
+      "above-left":"anchor=south east,xshift=-4pt,yshift=4pt",
+      "below-right":"anchor=north west,xshift=4pt,yshift=-4pt"}
+    origin_style=origin_styles[s.get("origin_label","below-left")]
+    lines.extend([r"\node[zo graph v02 tick label,"+origin_style+r"] at (axis cs:0,0) {$O$};",
       r"\end{pgfonlayer}",r"\end{axis}",r"\end{tikzpicture}",r"\end{document}"])
     header="% Generated from du_lieu/hinh_do_thi.json; edit data or _quy_trinh/sinh_hinh.py.\n"
     header+="% Purpose: "+s["purpose"]+"\n% Profile: ZO Math 0.4, paper; lesson-g03 physical frame, mathematical windows preserved.\n"
-    source=ROOT/(s["id"]+".tex");source.write_text(header+"\n".join(lines)+"\n",encoding="utf-8")
+    source=ROOT/(s["id"]+".tex"); generated=header+"\n".join(lines)+"\n"
+    if source.exists() and source.read_text("utf-8") != generated and not update_sources:
+        raise ValueError("TEX differs from canonical JSON/generator; review the difference before --update-sources: "+str(source))
+    source.write_text(generated,encoding="utf-8")
     return {"id":s["id"],"source":source.name,"formula":str(f),"derivative":str(sp.factor(df)),
       "roots":[str(v) for v in roots],"critical":[[str(v),str(f.subs(x,v))] for v in actual],
       "view":[xmin,xmax,ymin,ymax],"frame_cm":[layout["frame_width_cm"],layout["frame_height_cm"]],"axis_unit_cm":[layout["frame_width_cm"]/(xmax-xmin),layout["frame_height_cm"]/(ymax-ymin)],"purpose":s["purpose"]}
-def build(s):
-    rec=make_source(s)
+def build(s, update_sources=False):
+    rec=make_source(s, update_sources)
     with tempfile.TemporaryDirectory(prefix="zo_g04_official_",dir=REPO/".quarto") as tmp:
         cmd=[sys.executable,str(REPO/"scripts/zo_python.py"),"-B",str(REPO/"scripts/zo_graphics.py"),
           "graph",str(ROOT/rec["source"]),"--style","0.4","--surface","paper","--layout","lesson-g03","--check","--out-dir",tmp]
@@ -125,7 +135,12 @@ def previews(specs):
             sheet.paste(im,(px,py),im);draw.text(((j%3)*600+15,(j//3)*900+8),label,fill="black")
         sheet.save(EVIDENCE/f"xem_hinh_khung_g03_{k//6+1:02d}.png")
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument("ids",nargs="*");parser.add_argument("--workers",type=int,default=3);args=parser.parse_args()
+    global EVIDENCE
+    parser=argparse.ArgumentParser();parser.add_argument("ids",nargs="*");parser.add_argument("--workers",type=int,default=3);parser.add_argument("--update-sources",action="store_true",help="Only after reviewing canonical JSON/generator changes and the TEX differences");parser.add_argument("--report-dir",type=Path);args=parser.parse_args()
+    if args.report_dir:
+        destination=args.report_dir.resolve()
+        destination.relative_to(EVIDENCE.resolve())
+        EVIDENCE=destination;EVIDENCE.mkdir(parents=True,exist_ok=True)
     from zo_course_math_assets import graph_inputs, canonical_digest
     inputs_before=graph_inputs(PACKAGE,REPO)
     specs=json.loads((PACKAGE/"du_lieu/hinh_do_thi.json").read_text(encoding="utf-8"))
@@ -140,7 +155,7 @@ def main():
     prior=json.loads(report.read_text(encoding="utf-8")) if report.exists() else []
     kept=[r for r in prior if r["id"] not in {s["id"] for s in selected}]
     with concurrent.futures.ThreadPoolExecutor(max_workers=args.workers) as pool:
-        records=list(pool.map(build,selected))
+        records=list(pool.map(lambda spec:build(spec,args.update_sources),selected))
     if graph_inputs(PACKAGE,REPO)!=inputs_before:
         raise ValueError("Graph inputs changed during generation; refuse a mixed receipt")
     report.write_text(json.dumps(sorted(kept+records,key=lambda r:r["id"]),ensure_ascii=False,indent=2)+"\n",encoding="utf-8")

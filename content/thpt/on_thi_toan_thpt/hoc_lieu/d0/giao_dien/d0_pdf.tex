@@ -31,7 +31,8 @@
 \newcommand{\zoTaskHead}[2]{\par\addvspace{10pt}{\sffamily\scriptsize\color{zoMuted}#1}\par\nopagebreak\vspace{3mm}{\sffamily\fontsize{\zoTaskSize}{21}\selectfont\bfseries #2}\par\nopagebreak\vspace{5mm}}
 \newcommand{\zoSolutionHead}[1]{\par\addvspace{10pt}{\sffamily\fontsize{15}{20}\selectfont\bfseries #1}\par\nopagebreak\vspace{4mm}}
 % Editorial hierarchy: one reading column, stable roles, bounded support notes.
-\renewcommand{\zoPage}[2]{\clearpage\renewcommand{\zoRunningSection}{#1}{\scriptsize\color{zoLink}#1}\par\vspace{2mm}{\fontsize{\zoSectionSize}{29}\selectfont\bfseries #2}\par\vspace{3mm}}
+\newcounter{zoDZeroSection}
+\renewcommand{\zoPage}[2]{\clearpage\stepcounter{zoDZeroSection}\pdfbookmark[0]{#2}{d0-section-\thezoDZeroSection}\renewcommand{\zoRunningSection}{#1}{\scriptsize\color{zoLink}#1}\par\vspace{2mm}{\fontsize{\zoSectionSize}{29}\selectfont\bfseries #2}\par\vspace{3mm}}
 \renewcommand{\zoTaskHead}[2]{\Needspace{65mm}\par\addvspace{3mm}{\small\color{zoLink}#1}\par\nopagebreak{\fontsize{16}{21}\selectfont\bfseries #2}\par\nopagebreak\vspace{1mm}}
 \newcommand{\zoRole}[1]{\par\addvspace{1mm}\nopagebreak{\small\bfseries\color{zoLink}#1}\par\nopagebreak}
 \newcommand{\zoResult}[1]{\par\addvspace{1mm}{\small\bfseries\color{zoLink}Kết quả}\enspace #1\par}
@@ -50,6 +51,7 @@
 {\color{zoRed}\rule{22mm}{2pt}}\hspace{2mm}{\color{zoYellow}\rule{12mm}{2pt}}\par\vspace{9mm}
 {\large Bản đầy đủ — có hướng dẫn đối chiếu}\par\vspace{5mm}
 \begin{minipage}{.83\linewidth}Chọn câu thuộc phần em đã học. Tự làm trước, rồi đối chiếu bài làm để chọn nội dung muốn ôn tiếp. Không cần làm hết các câu.\end{minipage}\par
+\par\vspace{6mm}{\centering\includegraphics[width=.64\linewidth,height=48mm,keepaspectratio]{giao_dien/d0_cover.pdf}\par}
 \vfill
 \begin{minipage}[c]{.20\linewidth}\color{zoInk}\qrcode[height=24mm]{https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html}\end{minipage}\hfill
 \begin{minipage}[c]{.76\linewidth}\href{https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html}{Mở trang Khảo sát đầu vào}\par\smallskip{\small\color{zoMuted}24 câu khảo sát · 8 mạch kiến thức · 1 bài minh họa.}\end{minipage}\par\vspace{8mm}

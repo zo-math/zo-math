@@ -142,6 +142,11 @@ def check():
     expected |= {f'doi-chieu-r{r}-{n:02d}' for r in range(1, 9) for n in range(1, 4)}
     expected |= {'cau-minh-hoa', 'doi-chieu-minh-hoa'}
     assert expected <= names, 'Task or comparison anchors missing: ' + str(expected - names)
+    from zo_pdf_course_check import strict_structure
+    assert strict_structure(OUTPUT), 'PDF dictionaries contain duplicate keys'
+    assert len(pdf.outline)>=5, 'D0 section bookmarks missing'
+    closing=[page.extract_text() for page in pdf.pages if 'Mở mạch đã chọn' in page.extract_text()]
+    assert len(closing)==1 and 'Mạch ôn' in closing[0], 'Choice table and closing navigation split onto a near-empty page'
     text = '\n'.join(page.extract_text() for page in pdf.pages)
     assert not re.search(r'\\(?:frac|sqrt|prime|left|right)\b', text), 'Unrendered LaTeX'
     assert text.count('Kiến thức cần dùng:') == 25, 'Task metadata missing'

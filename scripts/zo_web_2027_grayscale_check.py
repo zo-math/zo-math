@@ -44,7 +44,7 @@ def run(out):
             b=Browser(target['webSocketDebuggerUrl'])
             for width in [1440,1000]:
                 b.viewport(width,850)
-                for key in ['d0','g01','g02']:
+                for key in ['d0','g01','g02','g03','g04']:
                     b.navigate((out/'html-current'/f'{key}-reading.html').as_uri()+('?r1-view=bai-hoc' if key!='d0' else ''))
                     # Set a real background radio and toggle through the shipped control.
                     for background in ['gray-3','gray-2','yellow-1','yellow-2','red-1','red-2']:

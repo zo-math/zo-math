@@ -1,0 +1,104 @@
+{
+  "id": "PDF-G04-SHARED-TRIAL-20261019",
+  "scope": "Shared R1 PDF generator; opt-in pilot G04 full only",
+  "request": "Sửa bộ sinh dùng chung theo quyết định hiện hành, cập nhật cổng kiểm, dựng thử G04; chưa commit/xuất bản",
+  "authority": [
+    "_design/ngon_ngu_thiet_ke_zo_math_0_4/04_ap_dung/06_pdf.md",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/07_quy_chuan_cau_truc_trang_nguoi_hoc.md"
+  ],
+  "root_causes": [
+    "R1 inherited the D0 body font override; text roles must be explicit per print profile.",
+    "The package projection omitted native variation-table divs and did not consume shared table role widths.",
+    "The web figure scale was reused for print rather than a physical print label target.",
+    "Heading hierarchy and pre-heading anchors produced flat structure, wrong page references and orphan parent headings.",
+    "The old gate verified existence of links/fonts/assets without verifying their actual printed role, dimensions, data and target page."
+  ],
+  "shared_implementation": [
+    "assets/tex/zo-course-print-profile.json",
+    "assets/tex/zo-course-print-layout.tex",
+    "assets/tex/zo-course-pdf-shell.tex",
+    "assets/lua/zo_course_package_pdf.lua",
+    "assets/lua/zo_course_print.lua",
+    "scripts/zo_course_pdf_layout.py",
+    "scripts/zo_course_pdf_layout_selftest.py",
+    "scripts/zo_pdf.py",
+    "scripts/zo_pdf_contract.py",
+    "scripts/zo_pdf_course_shell.py",
+    "scripts/zo_pdf_course_check.py"
+  ],
+  "resolved_contract": {
+    "body": "STIX Two Text 11 pt, leading 16 pt",
+    "math": "STIX Two Math",
+    "headings": "Be Vietnam Pro; section/subsection hierarchy and printed contents",
+    "graphs": "Use current paired vector PDF with the adopted lesson-g03 geometry; uniform scale 11/12.8 to obtain 11 pt source labels. Do not regenerate vectors or stretch to page width.",
+    "tables": "Shared function profiles; all canonical native variation-table cells preserved; Vietnamese row labels in text mode; captions below tables.",
+    "links": "Exact heading anchors placed at typesetting; printed page references checked against the actual destination footer number.",
+    "rollout": "course-print-v2 enabled only in G04 production config. Other packages retain existing profile until owner reviews the pilot."
+  },
+  "candidate": {
+    "path": "_audit/g04_pdf_shared_trial_20261019/G04_ban_thu_bo_sinh_chung_20261019.pdf",
+    "sha256": "69d1f0696b90238a3b92c79e8c54aa6935011f45cdf5739b6e63b69adb55292e",
+    "pages": 64,
+    "variant": "full",
+    "input_state_current": true,
+    "receipt": "_audit/g04_pdf_shared_trial_20261019/final-build-receipt.json"
+  },
+  "verification": {
+    "base_pdf_checks": {
+      "passed": 19,
+      "total": 19
+    },
+    "print_contract_checks": {
+      "passed": 85,
+      "total": 85
+    },
+    "regression_tests": {
+      "passed": 16,
+      "total": 16
+    },
+    "graph_streams_and_scale": 35,
+    "native_variation_tables_with_cell_comparison": 35,
+    "functional_tables_with_shared_widths": 11,
+    "printed_page_references": 222,
+    "orphan_headings": [],
+    "report": "_audit/g04_pdf_shared_trial_20261019/final-print-check.json"
+  },
+  "visual_review": {
+    "color_pages": "1-64",
+    "grayscale_pages": "1-64",
+    "evidence_color": "_audit/g04_pdf_shared_trial_20261019/review-color",
+    "evidence_grayscale": "_audit/g04_pdf_shared_trial_20261019/review-gray",
+    "method": "Rasterized final candidate; reviewed all page contact sheets and enlarged detail pages during layout repair. No physical print or physical QR scan."
+  },
+  "preservation": {
+    "protected_files_checked": 109,
+    "changed": [],
+    "canonical_pdfs": 33,
+    "canonical_qmd": 5,
+    "g04_assets": 71,
+    "candidate_matches_build": true,
+    "input_state_current": true,
+    "base_checks": 19,
+    "base_failures": [],
+    "layout_checks": 85,
+    "layout_failures": [],
+    "graphs": 35,
+    "native_variation_tables": 35,
+    "functional_tables": 11,
+    "print_refs": 222,
+    "sha256": "69d1f0696b90238a3b92c79e8c54aa6935011f45cdf5739b6e63b69adb55292e"
+  },
+  "status": {
+    "source_fixed": true,
+    "technical_checked": true,
+    "owner_acceptance": "pending",
+    "canonical_output_replaced": false,
+    "other_package_pdf_rebuilt": false,
+    "other_g04_variants_rebuilt": false,
+    "html_rebuilt": false,
+    "committed": false,
+    "pushed": false,
+    "published": false
+  },
+  "next": "Chủ trì xem và duyệt bản thử G04 trước khi áp dụng sang các gói hoặc biến thể còn lại."
+}

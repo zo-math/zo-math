@@ -7,22 +7,9 @@ local print_adapter=assert(loadfile(pandoc.path.join({here,'d0_pdf.lua'})))()[1]
 local source_path=pandoc.path.join({here,'d0.lua'})
 local source_environment=setmetatable({PANDOC_SCRIPT_FILE=source_path},{__index=_G})
 local source_adapter=assert(loadfile(source_path,'t',source_environment))()[1]
+local shared=assert(loadfile(pandoc.path.join({here,'../../../../../../assets/lua/zo_course_print.lua'})))()
 local function native_table(tbl)
-  local n=#tbl.colspecs;local widths={}
-  for i=1,n do
-    local fraction=n==2 and (i==1 and .36 or .64) or 1/n
-    widths[#widths+1]=string.format('>{%s\\arraybackslash}p{%.5f\\linewidth}',n==2 and '\\raggedright' or '\\centering',fraction*.97-.024)
-  end
-  local out={'\\par\\smallskip{\\small\\arrayrulecolor{zoGrid}\\setlength{\\arrayrulewidth}{.5pt}\\setlength{\\tabcolsep}{.012\\linewidth}\\renewcommand{\\arraystretch}{1.5}', '\\begin{tabular}{|'..table.concat(widths,'|')..'|}\\hline'}
-  local function row(r,head)
-    local cells={}
-    for _,c in ipairs(r.cells) do cells[#cells+1]=(head and '\\bfseries ' or '')..pandoc.write(pandoc.Pandoc(c.contents),'latex'):gsub('%s+$','') end
-    out[#out+1]=table.concat(cells,' & ')..' \\\\ \\hline'
-  end
-  for _,r in ipairs(tbl.head.rows) do row(r,true) end
-  for _,body in ipairs(tbl.bodies) do for _,r in ipairs(body.head) do row(r,false) end;for _,r in ipairs(body.body) do row(r,false) end end
-  out[#out+1]='\\end{tabular}}\\par\\smallskip'
-  return pandoc.RawBlock('latex',table.concat(out,'\n'))
+  return shared.box_body({shared.table(tbl)})[1]
 end
 assert(profile.full,'D0 production print profile must include the complete QMD')
 local selected={}
@@ -49,6 +36,31 @@ local function tex(blocks)
 end
 local function raw(text) return pandoc.RawBlock('latex',text) end
 local function layout(doc)
+  local file=assert(io.open(pandoc.path.join({here,'../giao_dien/d0_tables.json'})))
+  local specs=pandoc.json.decode(file:read('*a'));file:close()
+  doc=doc:walk({Div=function(div)
+    local spec=specs[div.identifier]
+    if not spec then return div end
+    div.content=pandoc.Pandoc(div.content):walk({Table=function(tbl)
+      assert(#tbl.colspecs==#spec.widths,'D0 table/profile mismatch: '..div.identifier)
+      tbl.attributes['zo-owner']=div.identifier;tbl.attributes['zo-widths']=table.concat(spec.widths,',')
+      for i,w in ipairs(spec.widths) do tbl.colspecs[i]={pandoc.AlignLeft,w/100} end
+      for _,i in ipairs(spec.center) do tbl.colspecs[i][1]=pandoc.AlignCenter end
+      for _,i in ipairs(spec.right) do tbl.colspecs[i][1]=pandoc.AlignRight end
+      return tbl
+    end}).blocks
+    return div
+  end})
+  local current_spec,current_id=nil,nil
+  doc=doc:walk({Header=function(h)
+    if h.level==2 then current_spec=specs[h.identifier];current_id=h.identifier end
+  end,Table=function(tbl)
+    if not current_spec or tbl.attributes['zo-owner'] then return tbl end
+    assert(#tbl.colspecs==#current_spec.widths,'D0 section table/profile mismatch')
+    tbl.attributes['zo-owner']=current_id;tbl.attributes['zo-widths']=table.concat(current_spec.widths,',')
+    for i,w in ipairs(current_spec.widths) do tbl.colspecs[i]={pandoc.AlignLeft,w/100} end
+    return tbl
+  end})
   if profile.full then
     doc:walk({Div=function(div)
       if div.classes:includes('d0-primary-task') or div.classes:includes('d0-example-task')
@@ -162,7 +174,10 @@ local function layout(doc)
         local anchor=id~='' and ('\\hypertarget{'..id..'}{}\\label{'..id..'}') or ''
         local label=tex({pandoc.Para(block.content)})
         out[#out+1]=raw(anchor..'\\Needspace{5\\baselineskip}\\zoRole{'..label..'}')
-      else out[#out+1]=raw(tex({block})) end
+      else
+        local rendered=tex({block})
+        if rendered:match('%S') then out[#out+1]=raw(rendered) end
+      end
     end
     out[#out+1]=raw('\\zoPage{CHUẨN BỊ KHẢO SÁT}{Chuẩn bị và chọn câu khảo sát}\\hypertarget{khai-bao-pham-vi}{}\\label{khai-bao-pham-vi}')
     for _,b in ipairs(section('khai-bao-pham-vi')) do emit(b) end

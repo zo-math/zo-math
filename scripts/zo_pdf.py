@@ -28,7 +28,7 @@ from zo_pdf_contract import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
-AUDIT_DIR = ROOT / "_audit"
+AUDIT_DIR = ROOT / "_audit/current/verification"
 BUILD_DIR = ROOT / '.quarto' / 'zo_pdf_build'
 QUARTO_LAUNCHER = ROOT / "scripts" / "zo_quarto.py"
 
@@ -173,6 +173,11 @@ def build(source: Path, variant: str = "full", preflight: bool = False,
             if course_shell:
                 metadata["zo-course-pdf-shell"] = True
                 metadata["geometry"] = ["top=22mm", "bottom=22mm", "left=21mm", "right=21mm"]
+            if course_shell and course_shell.get('layout'):
+                metadata['zo-course-print-v2'] = True
+                metadata['toc'] = True
+                metadata['toc-depth'] = course_shell['layout']['toc_depth']
+                metadata['keep-tex'] = True
             metadata["zo-pdf-variant"] = variant
             metadata["zo-pdf-output"] = definition["output"]
             metadata_file = temp_dir / "variant.json"
@@ -219,6 +224,27 @@ def build(source: Path, variant: str = "full", preflight: bool = False,
             expected = matches[0]
 
         validate_rendered_pdf(expected)
+        if definition and course_shell and course_shell.get('layout'):
+            from zo_course_pdf_layout import check as check_layout
+            from zo_pdf_course_check import check as check_course
+            tex_output = expected.with_suffix('.tex')
+            if not tex_output.is_file():
+                matches = list(build_root.rglob(source.stem+'.tex'))
+                if len(matches)!=1:raise ValueError('Missing candidate TeX evidence')
+                tex_output=matches[0]
+            technical=check_course(expected, source=source, variant=variant)
+            layout_check=check_layout(expected, source, ROOT, tex_output, variant)
+            report={'technical':technical,'layout':layout_check}
+            report_path=(output_directory or AUDIT_DIR)/(source.parent.name+'_'+variant+'_print_check.json')
+            report_path.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+            if technical['failures'] or layout_check['failures']:
+                # Retain a failed candidate only in its explicitly isolated review directory.
+                failed=output_directory or AUDIT_DIR
+                prefix='failed-candidate' if output_directory else source.parent.name+'_'+variant+'_'+temp_dir.name+'_failed'
+                shutil.copy2(expected, failed/(prefix+'.pdf'))
+                shutil.copy2(tex_output, failed/(prefix+'.tex'))
+                raise ValueError('Course PDF contract failed: '+str(technical['failures']+layout_check['failures']))
+            if output_directory:shutil.copy2(tex_output,output_directory/destination.with_suffix('.tex').name)
         if input_state is not None and canonical_variant_input_state(ROOT, source, variant) != input_state:
             print("PDF inputs changed during render; canonical output was not replaced.", file=sys.stderr)
             return 1

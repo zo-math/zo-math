@@ -27,13 +27,15 @@ def graph_inputs(package,repo=ROOT):
     paths={str(p.relative_to(repo)).replace("\\","/"):p for p in
            [package/"_quy_trinh/sinh_hinh.py",repo/"scripts/zo_graphics.py",repo/KIT/"figure-profile-candidate/production-figures.css",repo/POLICY]}
     paths.update({"graphics/"+str(p.relative_to(graphics)).replace("\\","/"):p for p in
-        [graphics/"zo_graph.py",graphics/"graph/zo_graph_build.py",graphics/"graph/tex/zo_graph_v02.tex",graphics/"graph/tex/zo_graph_v04.tex",graphics/"graph/profiles/lesson-g03.json",*sorted((graphics/"assets/fonts").glob("STIXTwo*.otf"))]})
+        [graphics/"zo_graph.py",graphics/"graph/zo_graph_build.py",graphics/"graph/axis_ticks.py",graphics/"graph/tex/zo_graph_v02.tex",graphics/"graph/tex/zo_graph_v04.tex",graphics/"graph/profiles/lesson-g03.json",*sorted((graphics/"assets/fonts").glob("STIXTwo*.otf"))]})
     return {name:digest(p) for name,p in paths.items()}
 
 def source_checks(source,repo=ROOT):
     source=Path(source);repo=Path(repo)
     if not source.is_absolute():source=repo/source
-    if not governed(source,repo):return {}
+    if not governed(source,repo):
+        if source.parent.name in {'r1_g01','r1_g02','r1_g03'}:return legacy_graph_checks(source,repo)
+        return {}
     p=source.parent;s=source.read_text(encoding="utf-8")
     if not (p/"giao_dien/hinh_manifest.json").exists() and not re.search(r"\.svg\)|\.zo-native-bbt|\\(?:nearrow|searrow|rightarrow)",s):
         return {"no graph or BBT resources in this package":True}
@@ -49,6 +51,8 @@ def source_checks(source,repo=ROOT):
         requires_pdf=bool(((production.get("extensions") or {}).get("pdf_variants") or {}))
     values={"graph dependencies match":manifest.get("source_hashes")==graph_inputs(p,repo),
             "graph inventory exact":{f["name"] for f in manifest["figures"]}==set(by_id) and len(manifest["figures"])==len(by_id)}
+    from zo_graphics import load_graph
+    graph_engine=load_graph("course_graph_axis_gate",repo)
     for f in manifest["figures"]:
         name=f["name"]
         values[name+"/body role"]=f.get("role")=="lesson"
@@ -62,6 +66,7 @@ def source_checks(source,repo=ROOT):
         if requires_pdf:
             rel=f.get("pdf");expected=f.get("pdf_sha256")
             values[name+"/pdf"]=bool(rel and expected and (p/rel).is_file() and digest(p/rel)==expected)
+            values[name+"/no endpoint tick strokes"]=bool(rel and (p/rel).is_file() and graph_engine.graph_axis_check(p/rel)["passed"])
     records=json.loads((p/"du_lieu/bang_bien_thien.json").read_text(encoding="utf-8"))
     renderer=load_variation_html("course_math_source",repo)
     for record in records:renderer.validate_record(record)
@@ -297,6 +302,30 @@ def self_test(page=None):
         broken=copy.deepcopy(doc);broken.select_one("table.zo-variation-native td")["data-source-value"]="changed"
         results["HTML data mismatch rejected"]=not all(html_checks(broken,"r1_g04").values())
     return results
+
+
+
+def legacy_graph_checks(source,repo=ROOT):
+    """Preserve legacy content adapters while enforcing current graph dependencies."""
+    from zo_graphics import load_graph
+    p=Path(source).parent;engine=load_graph('legacy_graph_source_gate',repo);values={}
+    try:
+        if p.name=='r1_g01':
+            from zo_web_2027_figures import verify_print
+            verify_print();c=json.loads((p/'giao_dien/web_2027_figures.json').read_text('utf-8'));files=[p/c['asset_directory']/(n+'.pdf') for n in c['graphs']]
+        elif p.name=='r1_g02':
+            from zo_web_2027_g02_payloads import verify_print
+            verify_print();c=json.loads((p/'giao_dien/web_2027_figures.json').read_text('utf-8'));files=[p/'giao_dien/assets/figures_0_4'/(Path(v['source']).stem+'.pdf') for v in c['figures'] if v['role']!='cover']
+        else:
+            from zo_course_graph_refresh import inputs
+            m=json.loads((p/'giao_dien/hinh_manifest.json').read_text('utf-8'));values['current owned graph tool dependencies']=m.get('source_hashes')==inputs(repo);files=[]
+            for v in m['figures']:
+                for key in ['input','pdf','svg']:values[v['name']+'/'+key+' hash']=digest(p/v[key])==v[key+'_sha256']
+                files.append(p/v['pdf'])
+        values['current graph cache']=True
+        for pdf in files:values[pdf.stem+'/no endpoint tick strokes']=engine.graph_axis_check(pdf)['passed']
+    except (OSError,ValueError) as exc:values['current graph cache: '+str(exc)]=False
+    return values
 
 if __name__=="__main__":
     import argparse

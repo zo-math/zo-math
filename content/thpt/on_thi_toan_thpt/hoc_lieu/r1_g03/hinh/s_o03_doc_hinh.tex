@@ -17,8 +17,10 @@
 \addplot[zo graph v02 curve solid,domain=1.01:10,samples=501,forget plot] {4-3/x};
 \addplot[zo graph v02 point open,forget plot] coordinates {(1,1)};
 \addplot[only marks,mark=*,mark size=2pt,forget plot] coordinates {(1,2)};
-\node[zo graph v02 protected label,anchor=west] at (axis cs:2,1.1) {$(1;1)$};
-\node[zo graph v02 protected label,anchor=east] at (axis cs:-1,2.8) {$(1;2)$};
+\addplot[zo graph v02 auxiliary,forget plot] coordinates {(1,1) (3.5,-1.5)};
+\node[zo graph v02 tick label,anchor=north west] at (axis cs:3.5,-1.5) {$(1;1)$};
+\addplot[zo graph v02 auxiliary,forget plot] coordinates {(1,2) (3.5,4.8)};
+\node[zo graph v02 tick label,anchor=south west] at (axis cs:3.5,4.8) {$(1;2)$};
 \end{axis}
 \end{tikzpicture}
 \end{document}

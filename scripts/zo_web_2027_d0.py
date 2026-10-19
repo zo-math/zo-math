@@ -14,6 +14,22 @@ D0=PACKAGE/'index.html'
 MARKER='zo-web-2027-d0'
 LAYOUT=REPO/PACKAGE/'giao_dien/web_2027_layout.json'
 
+def pdf_download(root, package, href):
+    """Expose only the exact PDF verified by D0's dedicated build receipt."""
+    from pypdf import PdfReader
+    folder=Path(root)/package;pdf=folder/'index.pdf'
+    receipt=json.loads((folder/'_quy_trinh/pdf_build.json').read_text('utf-8'))
+    if receipt.get('output_sha256')!=sha(pdf) or not receipt.get('inputs_sha256'):
+        raise ValueError('D0 PDF build receipt is missing or stale')
+    for relative,digest in receipt['inputs_sha256'].items():
+        target=(Path(root)/relative).resolve()
+        if not target.is_relative_to(Path(root).resolve()) or not target.is_file() or sha(target)!=digest:
+            raise ValueError('D0 PDF input is stale: '+relative)
+    count=len(PdfReader(pdf).pages)
+    if count<1:raise ValueError('Empty D0 PDF')
+    return '<div class="r1-tab-group"><span class="r1-tab-group-label">Tiện ích</span><div class="r1-tab-group-items"><a class="r1-tab" href="'+html.escape(href,quote=True)+'" download="Khao_sat_dau_vao_2027.pdf">Tải PDF · '+str(count)+' trang</a></div></div>'
+
+
 def strip_papers(root):
     root=copy.deepcopy(root)
     for n in root.select('[data-design-disclosure]'):
@@ -114,6 +130,11 @@ class D0Builder(HomeBuilder):
         if inventory(strip_papers(root))!=original:raise ValueError('D0 presentation changed original sequence')
         home=self.href(self.output_root/'content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html')
         nav='<nav class="d0-nav" aria-label="Các phần của bài khảo sát"><div class="r1-tab-group"><span class="r1-tab-group-label">Khảo sát đầu vào</span><div class="r1-tab-group-items">'+''.join('<a class="r1-tab" href="#'+s['id']+'">'+html.escape(s['label'])+'</a>' for s in self.layout['views'])+'</div></div></nav>'
+        pdf_path=self.output_root/PACKAGE/'index.pdf'
+        pdf_path.parent.mkdir(parents=True,exist_ok=True)
+        import shutil
+        shutil.copyfile(REPO/PACKAGE/'index.pdf',pdf_path)
+        nav=nav.replace('</nav>',pdf_download(REPO,PACKAGE,self.href(pdf_path))+'</nav>')
         footer,footer_info=self.site_footer()
         styles=['reading-regions.css','web-shell.css','appearance-inline.css','site-footer.css','web_2027.css']
         from zo_course_cover import load_cover

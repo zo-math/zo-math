@@ -5,6 +5,7 @@ import argparse, hashlib, json, re, uuid
 from urllib.parse import urlsplit, unquote
 from bs4 import BeautifulSoup
 import zo_html_preview as preview
+from zo_html_dependencies import preview_files
 
 ROOT=preview.ROOT
 MAX_AGE=600
@@ -34,7 +35,7 @@ def prepare(root,authority,report):
   if u.scheme or u.netloc or not u.path:continue
   p=(entry.parent/unquote(u.path)).resolve()
   if p.is_relative_to(entry.parent) and p.suffix.lower()=='.html':pages.add(preview.page_path(root,p))
- files=set(pages)
+ files=preview_files(root,pages)
  for p in pages:
   d=BeautifulSoup(p.read_text(encoding='utf-8'),'html.parser')
   # HTML permits omitted body tags; inspect learner text, not explicit syntax.
