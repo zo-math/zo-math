@@ -73,11 +73,23 @@ class RestoreError(RuntimeError):
     """The publication worktree could not be restored safely."""
 
 
-def run(command: Sequence[str], cwd: Path) -> subprocess.CompletedProcess[str]:
+def run(command: Sequence[str], cwd: Path, *,
+        environment: Mapping[str, str] | None = None) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         list(command), cwd=cwd, capture_output=True, text=True,
-        encoding="utf-8", errors="replace", check=False,
+        encoding="utf-8", errors="replace", check=False, env=environment,
     )
+
+
+def render_subprocess_environment(platform: str | None = None) -> dict[str, str]:
+    """Keep R/knitr in UTF-8 without passing the unsupported C.UTF-8 locale on Windows."""
+    environment = os.environ.copy()
+    if (platform or os.name) == "nt":
+        for name in ("LANG", "LC_ALL", "LC_CTYPE"):
+            value = environment.get(name, "").strip()
+            if re.fullmatch(r"(?i)C\.UTF-?8", value):
+                environment.pop(name, None)
+    return environment
 
 
 def git(root: Path, *args: str, safe: Path | None = None) -> subprocess.CompletedProcess[str]:
@@ -931,7 +943,7 @@ def render_to_staging(root: Path, render_dir: Path,
         command = [sys.executable, str((tool_root or root) / "scripts/zo_python.py"),
                    "-B", str(launcher), "render", "--to", "html", "--output-dir",
                    working_output.relative_to(root).as_posix()]
-        result = run(command, root)
+        result = run(command, root, environment=render_subprocess_environment())
         if result.returncode == 0:
             shutil.copytree(working_output, render_dir)
     matches = re.findall(r"\[\s*\d+/(\d+)\]", result.stdout + result.stderr)
