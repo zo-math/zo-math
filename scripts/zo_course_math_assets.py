@@ -41,6 +41,12 @@ def source_checks(source,repo=ROOT):
     manifest=json.loads((p/"giao_dien/hinh_manifest.json").read_text(encoding="utf-8"))
     specs=json.loads((p/"du_lieu/hinh_do_thi.json").read_text(encoding="utf-8"))
     by_id={v["id"]:v for v in specs}
+    config_path=p/"_quy_trinh/cau_hinh_san_xuat_qmd.yml"
+    requires_pdf=False
+    if config_path.exists():
+        import yaml
+        production=yaml.safe_load(config_path.read_text(encoding="utf-8")) or {}
+        requires_pdf=bool(((production.get("extensions") or {}).get("pdf_variants") or {}))
     values={"graph dependencies match":manifest.get("source_hashes")==graph_inputs(p,repo),
             "graph inventory exact":{f["name"] for f in manifest["figures"]}==set(by_id) and len(manifest["figures"])==len(by_id)}
     for f in manifest["figures"]:
@@ -50,7 +56,12 @@ def source_checks(source,repo=ROOT):
         values[name+"/style"]=f.get("style")==policy["lesson_graph"]["style"]
         values[name+"/layout"]=f.get("layout")==policy["lesson_graph"]["layout"]
         values[name+"/spec"]=f.get("spec_sha256")==canonical_digest(by_id.get(name))
-        for key in ("input","svg"):values[name+"/"+key]=digest(p/f[key])==f[key+"_sha256"]
+        for key in ("input","svg"):
+            rel=f.get(key);expected=f.get(key+"_sha256")
+            values[name+"/"+key]=bool(rel and expected and (p/rel).is_file() and digest(p/rel)==expected)
+        if requires_pdf:
+            rel=f.get("pdf");expected=f.get("pdf_sha256")
+            values[name+"/pdf"]=bool(rel and expected and (p/rel).is_file() and digest(p/rel)==expected)
     records=json.loads((p/"du_lieu/bang_bien_thien.json").read_text(encoding="utf-8"))
     renderer=load_variation_html("course_math_source",repo)
     for record in records:renderer.validate_record(record)
@@ -243,6 +254,8 @@ def self_test(page=None):
     reject("body may not use cover surface",manifest,lambda d:d["figures"][0].update(surface="transparent-light"))
     reject("body must declare lesson role",manifest,lambda d:d["figures"][0].update(role="cover"))
     reject("missing dependency receipt rejected",manifest,lambda d:d.pop("source_hashes"))
+    reject("missing paired graph PDF rejected",manifest,lambda d:d["figures"][0].pop("pdf"))
+    reject("changed paired graph PDF hash rejected",manifest,lambda d:d["figures"][0].update(pdf_sha256="changed"))
     for token in ("sinh_hinh.py","zo_graph_v04.tex","STIXTwoMath.otf"):
         reject("changed dependency rejected "+token,manifest,
                lambda d,token=token:d["source_hashes"].update({next(k for k in d["source_hashes"] if k.endswith(token)):"changed"}))

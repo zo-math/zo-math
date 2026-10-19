@@ -1,6 +1,6 @@
 # R1-G04 — Điểm vào nguồn và hồ sơ
 
-**GRAPH-G03-01 — ứng viên đồ thị theo mẫu G03.** Đã cập nhật nguồn và kiểm HTML riêng; [hồ sơ và bản xem](../../../tot_nghiep_thpt/2027/_quy_trinh/ho_so_do_thi_theo_g03_20261017.md). Chưa chủ trì duyệt hình thức, chưa dựng lại PDF học liệu hoặc xuất bản. G03/bìa/BBT/nội dung toán giữ nguyên; trạng thái PDF của bản cũ không chứng nhận bản HTML này.
+**GRAPH-G03-01 — đồ thị theo mẫu G03.** Nguồn và HTML riêng đã được kiểm; [hồ sơ và bản xem](../../../tot_nghiep_thpt/2027/_quy_trinh/ho_so_do_thi_theo_g03_20261017.md). PDF học liệu hiện hành đã được dựng lại ngày 19/10/2026 và qua cổng kỹ thuật; hình thức PDF vẫn chờ chủ trì xem, chưa xuất bản. G03/bìa/BBT/nội dung toán giữ nguyên.
 
 
 **Nút mục lục — bản sửa mới:** [Nguyên nhân và HTML tại vị trí chủ trì phản ánh](ho_so/khac_phuc_nut_muc_luc_20261017.md). Component shell chỉ icon, độc lập với PDF; các kiểm/hồ sơ trước không chứng nhận nút này. Trạng thái hiện hành ở 03/DRAWER-ICON01.
@@ -19,8 +19,8 @@ Phạm vi phương án được chủ trì duyệt: Khảo sát sự biến thi�
 - [Hồ sơ phạm vi](../../../tot_nghiep_thpt/2027/_quy_trinh/goi/R1_G04.md).
 - [Trạng thái và việc tiếp theo](../../../tot_nghiep_thpt/2027/_quy_trinh/03_dieu_hanh_chuong_trinh.md), mục A.
 
-Lượt viết 0.1 dùng mẫu nội dung 1.0/bảng kiểm 1.1; lượt sửa 0.2 áp dụng mẫu 1.1/bảng kiểm 1.2 hồi cứu. Chú thích nguồn theo quy chuẩn gói; đồ thị theo công cụ/profile ZO Math 0.4 từ giai đoạn bản thảo. Chủ trì đã xem bản thảo 0.2, chưa phát hiện vấn đề và đã duyệt ảnh bìa. Đã có QMD, binding sản xuất và HTML cô lập được kiểm; chưa PDF học liệu hoặc phát hành.
+Lượt viết 0.1 dùng mẫu nội dung 1.0/bảng kiểm 1.1; lượt sửa 0.2 áp dụng mẫu 1.1/bảng kiểm 1.2 hồi cứu. Chú thích nguồn theo quy chuẩn gói; đồ thị theo công cụ/profile ZO Math 0.4 từ giai đoạn bản thảo. Chủ trì đã xem bản thảo 0.2, chưa phát hiện vấn đề và đã duyệt ảnh bìa. Đã có QMD, binding sản xuất, HTML cô lập và tám PDF được kiểm kỹ thuật; PDF chờ chủ trì xem, chưa phát hành.
 
-Công cụ đồ thị tạo PDF vector trung gian để chuyển SVG/kiểm font; tệp trung gian được dọn, không giữ PDF trong bản thảo. Ảnh bìa đã được duyệt và khai báo tại [anh_bia.json](../giao_dien/anh_bia.json); [hồ sơ ghi nhận](ho_so/duyet_ban_thao_va_anh_bia_20261017.json) giữ đúng lời duyệt và hash ảnh đã xem. Nguồn và HTML đã kiểm kỹ thuật; chờ chủ trì xem đầu ra. Chưa PDF học liệu, commit/push/xuất bản. Tài nguyên sản xuất thuộc du_lieu/, hinh/ và giao_dien/; _quy_trinh/sinh_hinh.py không đọc bản thảo. Không dựng lại hình khi chỉ sửa chữ hoặc binding không tác động hình.
+Công cụ đồ thị giữ cặp SVG/PDF vector sản xuất; `giao_dien/hinh_manifest.json` khóa hash của cả hai định dạng và cổng nguồn bắt buộc PDF ghép cặp khi gói có biến thể PDF. Ảnh bìa đã được duyệt và khai báo tại [anh_bia.json](../giao_dien/anh_bia.json); [hồ sơ ghi nhận](ho_so/duyet_ban_thao_va_anh_bia_20261017.json) giữ đúng lời duyệt và hash ảnh đã xem. Nguồn, HTML và PDF đã kiểm kỹ thuật; PDF chờ chủ trì xem. Chưa commit/push/xuất bản. Tài nguyên sản xuất thuộc du_lieu/, hinh/ và giao_dien/; _quy_trinh/sinh_hinh.py không đọc bản thảo. Không dựng lại hình khi chỉ sửa chữ hoặc binding không tác động hình.
 
 Nhãn hiện hành theo chỉ thị cấp cha: dùng quy tắc 07/6.2 và catalog context_labels, cùng .role và dấu “ · ”. Nhãn cũ trong mốc chuyển nguồn đã được thay, không dùng để tiếp tục dựng. Mọi nhãn G04 gọi bộ ghép dùng chung; adapter không viết riêng nhãn Khởi động.

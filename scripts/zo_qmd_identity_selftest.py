@@ -16,7 +16,7 @@ from zo_pdf_contract import (
     update_canonical_pdf_provenance, validate_canonical_pdf_provenance,
     pdf_build_receipt_path, qmd_artifact_key, validate_pdf_build_receipt,
     write_pdf_build_receipt,
-    pdf_output_path, pdf_variant,
+    pdf_output_path, pdf_variant, pipeline_input_paths,
 )
 from zo_qmd_config import discover_project_config
 
@@ -39,11 +39,26 @@ class IdentityTests(unittest.TestCase):
             config['project']['id'] = 'fixture_'+name
             config['project']['root'] = package.relative_to(ROOT).as_posix()
             config['extensions']['artifact_inputs'] = ['table.json', 'figure.png', 'filter.lua']
+            config['extensions'].pop('course_pdf_shell', None)
             (package/'_quy_trinh/cau_hinh_san_xuat_qmd.yml').write_text(yaml.safe_dump(config), encoding='utf-8')
-            (package/'_quy_trinh/ho_so/index.yml').write_text('publication: pending\n', encoding='utf-8')
-            for filename in ['index.qmd', 'index.pdf', 'table.json', 'figure.png', 'filter.lua']:
+            (package/'_quy_trinh/ho_so/index.yml').write_text(
+                f"package:\n  id: FIXTURE-{name.upper()}\n  candidate_version: '1'\npublication: pending\n",
+                encoding='utf-8',
+            )
+            (package/'index.qmd').write_text('---\ntitle: Fixture\n---\n\nFixture.\n', encoding='utf-8')
+            for filename in ['index.pdf', 'table.json', 'figure.png', 'filter.lua']:
                 (package/filename).write_bytes(b'fixture\n')
             self.pages.append(package/'index.qmd')
+
+    def test_course_pdf_tracks_shared_label_bindings(self):
+        source = ROOT/'content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g04/index.qmd'
+        inputs = {path.as_posix() for path in pipeline_input_paths(ROOT, source)}
+        expected = {
+            f'content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g0{index}/giao_dien/he_nhan.json'
+            for index in range(1, 5)
+        }
+        expected.add('content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/danh_muc_kien_truc_hoc_tap.yml')
+        self.assertTrue(expected <= inputs)
 
     def make_pdf(self, path, pages=1):
         writer = PdfWriter()
