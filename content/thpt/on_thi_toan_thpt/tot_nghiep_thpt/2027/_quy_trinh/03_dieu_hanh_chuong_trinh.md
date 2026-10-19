@@ -2,15 +2,15 @@
 
 Phiên bản: 0.1 · Cập nhật trạng thái: 20/10/2026.
 
+**BẢN HIỆN HÀNH — chủ trì đã duyệt; HTML ở `docs/`, PDF ở chính gói.**
 
-**BẢN HIỆN HÀNH — chỉ giữ nguồn đã chốt cùng HTML/PDF từ nguồn đó.**
+- [Mở Khóa 2027 — đầu ra chính thức](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html). Sáu trang dùng đúng đường `docs/content/thpt/on_thi_toan_thpt/`; tệp mở lại sau reboot là `E:/zo_math/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/Mo_ban_xem_HTML.cmd`. Không dùng bản `*-reading.html` trong audit làm thành phẩm hiện hành.
+- Nguồn, tài nguyên và bộ sinh vẫn ở các vị trí canonical hiện hành. 33 PDF nằm trong chính các gói; bản đầy đủ D0 20, G01 79, G02 59, G03 71, G04 64 trang. D0 chỉ đồng bộ hồ sơ duyệt bìa, không đổi ảnh; cả 20 trang PDF giống raster bản đã duyệt. 32 PDF R1 và sáu QMD giữ nguyên byte.
+- Chủ trì xác nhận ngày 20/10/2026: “Đã duyệt, tạm thời chưa muốn sửa gì thêm.” Sáu HTML chính thức đã đối chiếu giống từng byte với HTML gốc của bộ đã duyệt. Hồ sơ hiện hành là mục `canonical_html_build` và `canonical_output_repair_20261020` trong `ho_so_dong_bo_sau_bang_20261019.json`; không lấy trạng thái chờ duyệt của các receipt lịch sử làm trạng thái hiện tại.
+- Sửa nguồn → dựng trong vùng biên dịch `.quarto/` → kiểm → bộ dựng tự cập nhật/ghi đè đúng `docs/`. Bộ sáu trang dùng `python -B scripts/zo_python.py -B scripts/zo_web_2027_bundle.py build`; lệnh từ chối đầu ra `_audit/`. Một trang sửa nhỏ tiếp tục dùng CLI QMD và post-render hiện hành. `_audit/` chỉ giữ bằng chứng; các bản HTML audit cũ là lịch sử, không là nguồn hoặc nơi giữ duy nhất của thành phẩm.
+- Bảo vệ cả khi đã duyệt bằng `status: owner_approved` trong manifest hiện hữu, gồm nguồn, PDF, sáu HTML docs và toàn bộ phụ thuộc. Cơ chế đã lưu tại commit `ae1b2ef1`; hồ sơ duyệt và thành phẩm được lưu trong commit chứa lần cập nhật điều hành này. Chưa push hoặc phát hành bộ mới. Các mốc nguồn/PDF trước đó `39f12303`, `f1e8fe32`, hồ sơ `0ba3330d` và công cụ đồ thị `e44fda5` giữ nguyên lịch sử.
 
-- [Mở bộ xem duy nhất](http://127.0.0.1:8877/_audit/current/index.html). Tệp mở lại sau khởi động máy: `E:/zo_math/_audit/current/Mo_ban_xem_HTML.cmd`. Sáu HTML vừa dựng từ nguồn và 33 PDF khớp đầu vào hiện hành (D0 20 trang; bản đầy đủ G01 79, G02 59, G03 71, G04 64 trang). Kiểm bố cục HTML rộng/hẹp, nền đỏ/chế độ xám và các đích tải đều đạt. Đã xem bố cục 293 trang PDF đầy đủ và 28 trang mẫu của các biến thể; không coi đó là đã đọc soát lại toàn bộ phát biểu toán hoặc xem mọi trang của các biến thể. Biên nhận mở thật nằm tại `_audit/current/verification/handoff-source-repair-confirmed.json`. Đã lưu mốc commit cục bộ theo yêu cầu ngày 20/10/2026; chưa có nghiệm thu mới, push hoặc xuất bản.
-- Nguồn chính thức vẫn ở `content/thpt/on_thi_toan_thpt/`, tài nguyên và bộ sinh ở các vị trí canonical hiện hành; 33 PDF ở chính các gói. Không chuyển nguồn vào `_audit/`, không lấy đầu ra cũ làm nguồn.
-- Theo yêu cầu chủ trì, chỉ bộ xem hiện hành cùng phụ thuộc đầy đủ được giữ trong `_audit/current/`. Đã thu gọn 15.431 tệp cũ, khoảng 4 GB, khỏi workspace. Các bản thử, ảnh rà và báo cáo cũ được lưu khôi phục bên ngoài tại `E:/zo_nhap/zo_math_archive/current_only_20261019/retired-audit/`, kiểm SHA-256 trước khi bỏ khỏi workspace. Các đường `_audit/` trong lịch sử bên dưới không còn là bản xem hoạt động.
-- Khi thay bộ xem: dựng từ nguồn → kiểm → cập nhật đúng bộ đang dùng và manifest bảo vệ → kiểm phụ thuộc → mới dọn bản cũ. Không giữ nhiều bộ cùng mang ý nghĩa hiện hành. Các mốc commit không thay nghiệm thu hoặc quyền xuất bản; duyệt nội dung và kiểm kỹ thuật là hai trạng thái riêng.
-
-- Mốc cục bộ ngày 20/10/2026: nguồn/tài nguyên/bộ sinh `39f12303`, 33 PDF và provenance `f1e8fe32`; công cụ đồ thị ngoài repo `E:/zo_math_graphics` ở `e44fda5`. Kiểm lại cổng nguồn staged năm học liệu, bộ sáu HTML 606/606, các hồi quy PDF/bàn giao/bảo toàn đều đạt. Giữ nguyên nội dung và byte của bộ thành phẩm đã kiểm; không dựng lại, push hoặc xuất bản. HTML vẫn nằm ở bộ xem được bảo vệ, không ép đưa `_audit/` vào Git.
+- Ghi nhận lần duyệt mới ngày 20/10/2026: “Mình duyệt các kết quả này. Bước tiếp theo là gì?” Chủ trì tiếp tục yêu cầu ghi nhận duyệt và commit bộ dựng, cổng kiểm, quy trình cùng hồ sơ thành phẩm hiện hành. Phạm vi là kết quả sửa cơ chế và bộ đã kiểm; không cho phép push hoặc phát hành. Đối chiếu lại 854/854 kiểm HTML và hash đủ 33 PDF; không dựng lại HTML/PDF trong lượt commit.
 
 ## Lịch sử, không dùng làm bản xem hiện hành
 
