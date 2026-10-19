@@ -140,3 +140,27 @@ Fixture của bộ kiểm thử nằm trong `_audit/` và được tự dọn. K
 ### Benchmark tái lập (chỉ khi được giao đo hiệu năng)
 
 Dùng `python scripts/zo_python.py scripts/zo_publish_benchmark.py --page <trang.html> --old-text <chuoi-cu> --new-text <chuoi-moi> --report _audit/<ten-phep-do>.json`. Công cụ chỉ dựng sửa đổi mẫu trong snapshot tạm, không commit nguồn mẫu, không stage hay push, không sửa cây public. Cả lần đầu và lần cache dùng snapshot nguồn mới. Tất cả snapshot và sản phẩm lớn được dọn khi xong; chỉ giữ báo cáo. Đây là phép đo dài, không chạy trong mỗi lần cập nhật trang.
+
+### Phát hành bộ sáu trang đã duyệt từ đầu ra canonical
+
+Với bộ Khóa 2027, D0 và G01–G04 đã được chủ trì duyệt, dùng
+`python scripts/zo_python.py scripts/zo_publish.py prepare --approved-course`,
+sau đó `validate` và `publish` như quy trình chung. Không dựng lại bản lịch sử
+chỉ để phát hành bộ hiện hành: phụ thuộc công cụ đồ thị bên ngoài đã đổi có
+thể khiến baseline lịch sử không còn tái tạo được bằng bộ công cụ hiện tại.
+
+Đường này chỉ nhận đúng sáu HTML trong `docs/`, có biên nhận dựng còn đúng
+nguồn, hash đầy đủ và manifest `owner_approved`. Kiểm provenance riêng D0
+và đủ 32 PDF R1, so byte 33 PDF tải với PDF trong gói. Ứng viên giữ nguyên
+byte HTML/PDF đã duyệt, chỉ lấy tài nguyên phụ thuộc đã kiểm, ghép mục tìm
+kiếm/sitemap của sáu trang; trang ngoài phạm vi giữ nguyên. Tài nguyên dùng
+chung làm ảnh hưởng trang ngoài phạm vi vẫn bị chặn. Cổng `validate`/`publish`
+kiểm lại nguồn, duyệt, hash, phụ thuộc, chính sách công khai và PDF; có backup
+và rollback trước commit. Không đọc HTML cũ từ audit, không sửa receipt để
+chấp nhận nguồn cũ và không tự cấp nghiệm thu.
+
+Nếu nguồn thực sự đổi, phải sửa nguồn → bộ dựng canonical → kiểm → đối chiếu
+bản đã duyệt trước prepare. Chỉ sửa công cụ phát hành cũng làm fingerprint
+bảo thủ hiện hành hết hạn: dựng lại sáu HTML bằng bộ dựng, xác nhận byte
+không đổi; không dựng lại hình hoặc PDF không chịu ảnh hưởng.
+Kiểm hồi quy: `python scripts/zo_python.py scripts/zo_publish_course_selftest.py`.
