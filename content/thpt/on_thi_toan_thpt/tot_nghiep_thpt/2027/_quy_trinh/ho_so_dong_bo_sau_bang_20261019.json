@@ -757,8 +757,10 @@
       "scripts/zo_pdf_course_shell.py": "dbe69cbf72be935ae13ae8ec1736369380f4c2491ffd1e335d259f01d445aec2",
       "scripts/zo_pdf_selftest.py": "19f33039155c8da9b6e557a1da2f6e3183d8fbc68ead914a67c61e05edf0ad24",
       "scripts/zo_pdf_support.py": "85b1b70134ee94dd7cface41843c3e04851c46e3e1ca66e452a24c83e85c0227",
-      "scripts/zo_publish.py": "ab664e1ec9101a0147b318fc025700877b05b418883fb26221851403e019de44",
+      "scripts/zo_publish.py": "9c901bc0e3350a0b66ac3f488f840a6b93dfbbb52df8f636d070458961b69986",
       "scripts/zo_publish_benchmark.py": "25d21ca62a3c0ea357417e61b486807012b899bf725dd974ef98f4f98b0ced17",
+      "scripts/zo_publish_course.py": "54213f73013ce78885661ba167977d42e9af637895c17cc49cdd7817d3ae8030",
+      "scripts/zo_publish_course_selftest.py": "5c1559785138f7155dd41fb490809ddae1681bd4971b3c8b651a16bc9655fffe",
       "scripts/zo_publish_pages.py": "a3291faa905dc7170d47b9f780333261897a0ff3644de4eef1c233e10984293d",
       "scripts/zo_publish_pages_selftest.py": "e48660b5db103a4fb7d49b6024686cf0ed8c65537c95a591472db82d70aa1f84",
       "scripts/zo_publish_selftest.py": "23f42bd17322082dc42221da8ed27a2863b2110e2da19cec254af39773c6b51b",
@@ -2529,5 +2531,32 @@
       "pdf_hashes_reverified": 33,
       "render_performed": false
     }
+  },
+  "publication_20261020": {
+    "status": "ready_for_prepare",
+    "authorized_by": "OK. Hãy phát hành lên zomath.vn.",
+    "owner_acceptance": "approved; unchanged current products",
+    "mode": "zo_publish.py prepare --approved-course",
+    "mechanism_commit": "80d1b99aafa4f7e4abf303ae5c709b7e781358a9",
+    "regressions": {
+      "approved_course": 11,
+      "publication_boundary": 49,
+      "page_release": 18
+    },
+    "preservation": {
+      "canonical_output_files_byte_identical": 243,
+      "html_byte_identical": 6,
+      "pdf_byte_identical": 33
+    },
+    "fresh_html_checks": {
+      "stage": 361,
+      "navigation": 1610,
+      "grayscale": 197,
+      "canonical_installed": 854
+    },
+    "historical_baseline_failure": "Old figure receipt is incompatible with current external graphics tools; no historical figure regeneration or receipt alteration. Replaced the historical-render release prerequisite with a sealed approved-current output release.",
+    "evidence": "_audit/current/verification/publication_historical_baseline_failure_20261020.json",
+    "published": false,
+    "recorded_at": "2026-10-19T20:01:12.487194+00:00"
   }
 }
