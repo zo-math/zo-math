@@ -182,6 +182,11 @@ class PageReleaseTests(unittest.TestCase):
             with self.assertRaisesRegex(p.ConfigError,'full-render'):
                 pages.require_page_scope(self.root,self.target)
 
+    def test_explicit_scoped_release_records_global_configuration(self):
+        with patch.object(p,'published_source_commit',return_value='a'*40),patch.object(p,'git_text',return_value='_quarto.yml\nindex.qmd'):
+            self.assertEqual(pages.require_page_scope(self.root,self.target,True),'a'*40)
+            self.assertEqual(pages.changed_global_inputs(self.root,'a'*40),['_quarto.yml'])
+
     def test_executable_or_unknown_shortcode_inputs_disable_cache(self):
         self.write(self.root,'index.qmd','{{< include child.md >}}')
         self.write(self.root,'child.md','Static source')

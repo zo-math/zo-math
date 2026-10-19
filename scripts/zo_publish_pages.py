@@ -162,7 +162,7 @@ def render_pages(root, destination, sources, tool_root=None):
         for source in sources:
             command=[sys.executable,str(tools/'scripts/zo_python.py'),'-B',str(tools/'scripts/zo_quarto.py'),
                      'render',source,'--to','html','--output-dir',output.relative_to(root).as_posix()]
-            result=p.run(command,root)
+            result=p.run(command,root,environment=p.render_subprocess_environment())
             logs.append({'command':command,'exit_code':result.returncode,'stdout':result.stdout,'stderr':result.stderr})
             if result.returncode:
                 raise RuntimeError('Page render failed: '+result.stderr[-5000:])
@@ -408,13 +408,19 @@ def validate_only(root,config_path,config):
     return 0
 
 
-def require_page_scope(root,target):
-    baseline=p.published_source_commit(root,target)
+def changed_global_inputs(root, baseline):
     changed=p.git_text(root,'diff','--name-only',baseline,'HEAD').splitlines()
-    global_paths=[name for name in changed if PurePosixPath(name).name.startswith('_quarto')
-                  and name.endswith(('.yml','.yaml')) or name.startswith(('_extensions/','filters/','assets/html/'))
-                  or name.endswith('.scss')]
-    if global_paths:
+    return [name for name in changed if (
+        (PurePosixPath(name).name.startswith('_quarto') and name.endswith(('.yml','.yaml')))
+        or name.startswith(('_extensions/','filters/','assets/html/'))
+        or name.endswith('.scss')
+    )]
+
+
+def require_page_scope(root,target,allow_global_inputs=False):
+    baseline=p.published_source_commit(root,target)
+    global_paths=changed_global_inputs(root,baseline)
+    if global_paths and not allow_global_inputs:
         raise p.ConfigError('Global build inputs changed; use prepare --full-render: '+', '.join(global_paths))
     return baseline
 
@@ -433,7 +439,13 @@ def prepare(root,target,config_path,config,args,source_state,target_state):
              'source':source_state,'target':target_state,'manifest':{},'diff':{},'validation':{},'issues':issues}
     if issues:return finish(root,args,config,payload,clock)
     with clock.phase('scope_preflight'):
-        payload['published_source_commit']=require_page_scope(root,target)
+        allow_global_inputs=getattr(args,'allow_global_inputs_for_pages',False)
+        payload['published_source_commit']=require_page_scope(
+            root,target,allow_global_inputs,
+        )
+        payload['page_scope_global_inputs']=(changed_global_inputs(
+            root,payload['published_source_commit'],
+        ) if allow_global_inputs else [])
     with p.ExitStack() as stack:
         with clock.phase('source_setup'):
             source=root
