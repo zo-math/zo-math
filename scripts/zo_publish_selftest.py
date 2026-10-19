@@ -21,6 +21,15 @@ GOVERNANCE = SECTION + "/_quy_trinh"
 
 
 class PublicBoundaryTests(unittest.TestCase):
+    def test_windows_render_environment_drops_unsupported_c_utf8(self):
+        values = {"LANG": "C.UTF-8", "LC_ALL": "C.UTF8", "LC_CTYPE": "C.UTF-8", "ZO_KEEP": "kept"}
+        with patch.dict(os.environ, values, clear=True):
+            environment = publish.render_subprocess_environment("nt")
+        self.assertNotIn("LANG", environment)
+        self.assertNotIn("LC_ALL", environment)
+        self.assertNotIn("LC_CTYPE", environment)
+        self.assertEqual(environment["ZO_KEEP"], "kept")
+
     def test_committed_publish_loads_dependencies_before_validation(self):
         snapshot=self.public/'publish-snapshot'
         dependency=snapshot/'allowed/input.html'
@@ -159,7 +168,7 @@ class PublicBoundaryTests(unittest.TestCase):
         destination=self.public/'completed-render'
         legacy=('content/di_tim/hald_a_history_of_probability_and_statistics_and_their_applications_before_1750/'
                 'hald-a-history-of-probability-and-statistics-and-their-applications-before-1750.html')
-        def render(command,root):
+        def render(command,root,environment=None):
             output=root/command[-1]
             self.assertNotIn('_audit',output.relative_to(root).parts)
             self.assertNotEqual(output,destination)
