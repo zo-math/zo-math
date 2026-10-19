@@ -1,4 +1,4 @@
-"""Canonical graph data -> existing ZO Math graph adapter; no lesson PDF."""
+"""Canonical graph data -> paired SVG/PDF assets through the ZO Math graph adapter."""
 from pathlib import Path
 import argparse, concurrent.futures, hashlib, io, json, math, shutil, subprocess, sys, tempfile
 sys.path.insert(0,str(Path(__file__).resolve().parents[6]/"scripts"))
@@ -105,10 +105,11 @@ def build(s):
           "graph",str(ROOT/rec["source"]),"--style","0.4","--surface","paper","--layout","lesson-g03","--check","--out-dir",tmp]
         run=subprocess.run(cmd,cwd=REPO,text=True,encoding="utf-8",errors="replace",capture_output=True)
         if run.returncode:raise RuntimeError(s["id"]+"\n"+run.stdout+run.stderr)
-        # PDF is an ephemeral vector conversion intermediate, not a lesson PDF.
         shutil.copy2(Path(tmp)/(s["id"]+".svg"),OUTPUT/(s["id"]+".svg"))
-        rec.update({"svg_sha256":H(OUTPUT/(s["id"]+".svg")),"tool_check":"passed",
-          "style":"0.4","surface":"paper","pdf_retained":False})
+        shutil.copy2(Path(tmp)/(s["id"]+".pdf"),OUTPUT/(s["id"]+".pdf"))
+        rec.update({"svg_sha256":H(OUTPUT/(s["id"]+".svg")),
+          "pdf_sha256":H(OUTPUT/(s["id"]+".pdf")),"tool_check":"passed",
+          "style":"0.4","surface":"paper","pdf_retained":True})
     print("built "+s["id"],flush=True);return rec
 def previews(specs):
     images=[]
@@ -150,7 +151,9 @@ def main():
     selected_ids={s["id"] for s in selected}
     for figure in manifest["figures"]:
         if figure["name"] not in selected_ids:continue
+        pdf="giao_dien/assets/figures_0_4/"+figure["name"]+".pdf"
         figure.update({"input_sha256":H(PACKAGE/figure["input"]),"svg_sha256":H(PACKAGE/figure["svg"]),
+                       "pdf":pdf,"pdf_sha256":H(PACKAGE/pdf),
                        "role":"lesson","style":"0.4","surface":"paper","layout":"lesson-g03",
                        "spec_sha256":canonical_digest(by_id[figure["name"]])})
     manifest["tool"]="scripts/zo_graphics.py graph --style 0.4 --surface paper --layout lesson-g03 --check"

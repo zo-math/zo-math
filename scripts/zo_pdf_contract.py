@@ -110,6 +110,29 @@ def pdf_build_receipt_path(root: Path, source: Path, variant: str = "full") -> P
     return root / "_audit" / f"{qmd_artifact_key(root, source)}{suffix}_pdf_build.json"
 
 
+def course_shared_label_inputs(root: Path, source: Path) -> tuple[Path, ...]:
+    """Return cross-package bindings read by the course numbering gate.
+
+    Official PDF builds run in an isolated mirror. The source gate checks
+    numbering across every current R package, so those bindings are build and
+    provenance inputs even when only one package is rendered.
+    """
+    course_root = root / "content/thpt/on_thi_toan_thpt/hoc_lieu"
+    absolute = (source if source.is_absolute() else root / source).resolve()
+    try:
+        relative = absolute.relative_to(course_root.resolve())
+    except ValueError:
+        return ()
+    if len(relative.parts) < 2 or not re.fullmatch(r"r[1-9]\d*_g\d+", relative.parts[0]):
+        return ()
+    bindings = sorted(course_root.glob("r*_g*/giao_dien/he_nhan.json"))
+    profiles = sorted(
+        (root / "_design/web_2027_mau_dung_chung/profiles").glob("*.json")
+    )
+    catalog = root / "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/danh_muc_kien_truc_hoc_tap.yml"
+    return tuple(path.relative_to(root) for path in [catalog, *bindings, *profiles])
+
+
 def pipeline_input_paths(root: Path, source: Path | None = None) -> tuple[Path, ...]:
     paths = list(CANONICAL_PDF_PIPELINE_INPUTS)
     if source is None:
@@ -119,6 +142,7 @@ def pipeline_input_paths(root: Path, source: Path | None = None) -> tuple[Path, 
         return tuple(paths)
     if config.raw.get("extensions", {}).get("pdf_variants") is not None:
         paths.extend([config.config_path, Path("scripts/zo_pdf_contract.py")])
+    paths.extend(course_shared_label_inputs(root, source))
     declared = config.raw.get("extensions", {}).get("artifact_inputs", [])
     if not isinstance(declared, list) or not all(isinstance(p, str) for p in declared):
         raise ValueError("extensions.artifact_inputs must be a list of project-relative paths")

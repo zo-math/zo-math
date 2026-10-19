@@ -179,6 +179,9 @@ def build(source: Path, variant: str = "full", preflight: bool = False,
             metadata_file.write_text(json.dumps(metadata, ensure_ascii=False), encoding="utf-8")
             command.extend(["--metadata-file", str(metadata_file)])
         environment = os.environ.copy()
+        quarto = shutil.which("quarto", path=environment.get("PATH"))
+        if quarto is not None:
+            environment["ZO_QUARTO_EXECUTABLE"] = quarto
         tex_resource_dirs = [
             str((ROOT / "assets" / "logo").resolve()),
             str((ROOT / "assets" / "images").resolve()),
