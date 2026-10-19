@@ -8,7 +8,7 @@ def active_manifests(root):
         if '_audit' in path.relative_to(root).parts or 'lich_su' in path.relative_to(root).parts:continue
         if path.is_symlink() or not path.resolve().is_relative_to(root):raise ValueError('Unsafe review manifest: '+str(path))
         data=json.loads(path.read_text('utf-8'))
-        if data.get('status')=='pending_owner_review':
+        if data.get('status') in {'pending_owner_review','owner_approved'}:
             if not data.get('files') or not data.get('entrypoints'):raise ValueError('Active review has no protected files/entrypoints')
             for entry in data['files']:
                 rel=Path(entry['path']);target=(root/rel).resolve()

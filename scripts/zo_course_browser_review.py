@@ -17,7 +17,9 @@ MEASURE=r"""(() => {
  });
  return {title:document.title,viewport:innerWidth,pageWidth:document.documentElement.scrollWidth,fullView:!!document.querySelector('.r1-full-view'),tables,graphs};
 })()"""
-def run(bundle,output):
+def run(bundle,output,canonical=False):
+ from zo_web_2027_bundle import PAGES
+ def page_for(key):return Path(bundle)/PAGES[key] if canonical else Path(bundle)/'html-current'/(key+'-reading.html')
  bundle=Path(bundle).resolve();output=Path(output).resolve();output.mkdir(parents=True,exist_ok=False);shots=output/'screenshots';shots.mkdir();records=[];failures=[]
  with socket.socket() as sock:sock.bind(('127.0.0.1',0));port=sock.getsockname()[1]
  base=f'http://127.0.0.1:{port}'
@@ -33,10 +35,10 @@ def run(bundle,output):
    tab=requests.put(base+'/json/new?about:blank',timeout=10).json();browser=Browser(tab['webSocketDebuggerUrl'])
    for key in ['home','d0','g01','g02','g03','g04']:
     for width in [1440,390]:
-     browser.viewport(width,1000 if width==1440 else 850);browser.navigate((bundle/'html-current'/(key+'-reading.html')).as_uri()+('?r1-view=toan-van' if key.startswith('g') else ''))
+     browser.viewport(width,1000 if width==1440 else 850);browser.navigate(page_for(key).as_uri()+('?r1-view=toan-van' if key.startswith('g') else ''))
      views=browser.evaluate("JSON.parse(document.querySelector('.d0-package')?.dataset.d0Views||'[]')") if key=='d0' else ['current']
      for view in views:
-      if key=='d0':browser.navigate((bundle/'html-current'/(key+'-reading.html')).as_uri()+'?d0-view='+view)
+      if key=='d0':browser.navigate(page_for(key).as_uri()+'?d0-view='+view)
       browser.evaluate("document.fonts.ready.then(()=>{document.querySelectorAll('.reader-content details').forEach(d=>d.open=true);return true})")
       info=browser.evaluate(MEASURE);info.update(page=key,width=width,view=view);records.append(info)
       if info['pageWidth']>width+3:failures.append(f'{key}/{width}/global horizontal overflow')
@@ -53,7 +55,7 @@ def run(bundle,output):
        safe=''.join(c if c.isalnum() or c in '-_' else '_' for c in table['kind']);browser.screenshot(shots/f'{key}-{view}-{width}-{safe}.png')
       print('Reviewed live',key,width,'tables',len(info['tables']),'graphs',len(info['graphs']),flush=True)
      if key.startswith('g'):
-      browser.navigate((bundle/'html-current'/(key+'-reading.html')).as_uri()+'?r1-view=tai-pdf#tai-tai-lieu')
+      browser.navigate(page_for(key).as_uri()+'?r1-view=tai-pdf#tai-tai-lieu')
       browser.click('input[name="background"][value="red-2"]')
       for gray in [False,True]:
        if gray:browser.click('#grayscale')
@@ -81,4 +83,4 @@ def run(bundle,output):
    except subprocess.TimeoutExpired:process.kill();process.wait(timeout=10)
  result={'records':records,'failures':failures,'owner_acceptance':'pending','published':False};(output/'report.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n','utf-8');print(json.dumps({'failures':failures}));return bool(failures)
 if __name__=='__main__':
- parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('bundle',type=Path);parser.add_argument('output',type=Path);a=parser.parse_args();raise SystemExit(run(a.bundle,a.output))
+ parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('bundle',type=Path);parser.add_argument('output',type=Path);parser.add_argument('--canonical',action='store_true');a=parser.parse_args();raise SystemExit(run(a.bundle,a.output,a.canonical))

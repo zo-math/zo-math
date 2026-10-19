@@ -174,3 +174,8 @@ Khi nhiệm vụ liên quan đến một lĩnh vực chưa có tài liệu chuy�
 4. hỏi người dùng khi cần một quyết định chưa được xác lập.
 
 Chỉ những tài liệu chuyên biệt có hiệu lực trên toàn ZO Math mới được dẫn trực tiếp từ `AGENTS.md` ở gốc repository sau khi người dùng phê duyệt. Tài liệu chỉ áp dụng cho một dự án con phải được dẫn từ `AGENTS.md` gần dự án ấy nhất.
+
+
+### Đầu ra HTML hiện hành của khóa 2027
+
+HTML khóa 2027 phải ở đúng đường dẫn trong `docs/` theo `_quarto.yml`; PDF ở chính gói. Bộ dựng sáu trang phải tự cập nhật đầu ra này sau kiểm, không bàn giao một bộ audit rồi chờ chép về thủ công. `_audit/` chỉ giữ bằng chứng. Bản đã duyệt vẫn được cổng kết sổ bảo vệ cùng phụ thuộc; nghiệm thu và phát hành là hai trạng thái riêng. Áp dụng mục Đầu ra chính thức và 9.1 của quy trình kỹ thuật.

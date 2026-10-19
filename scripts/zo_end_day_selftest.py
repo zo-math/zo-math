@@ -286,6 +286,14 @@ class EndDayTests(unittest.TestCase):
             self.write('_audit/delivery/font.woff2','font fixture')
         self.write('content/course/_quy_trinh/ban_dang_duyet.json',json.dumps({'status':'pending_owner_review','entrypoints':['_audit/review/preview.html'],'files':[{'path':'_audit/review/preview.html'}]}))
 
+    def test_owner_approved_outputs_remain_protected(self):
+        self.active_review()
+        path=self.root/'content/course/_quy_trinh/ban_dang_duyet.json'
+        data=json.loads(path.read_text());data['status']='owner_approved';path.write_text(json.dumps(data))
+        scan=eod.scan(self.root)
+        self.assertIn('_audit/review/preview.html',scan['protected'])
+        self.assertIn('_audit/delivery/font.woff2',scan['protected'])
+
     def test_active_review_auto_protected_without_flags(self):
         self.active_review();scan=eod.scan(self.root)
         self.assertTrue({'_audit/review/preview.html','_audit/delivery/style.css','_audit/delivery/font.woff2'}<=set(scan['protected']))
