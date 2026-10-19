@@ -1593,6 +1593,10 @@ def cleanup_prepare(root: Path, report: Path, config: Mapping[str, Any]) -> list
 
 def validate_prepared_tree(root: Path, target: Path, config: Mapping[str, Any],
                            payload: Mapping[str, Any], source_root: Path | None = None) -> None:
+    if payload.get('approved_course'):
+        from zo_publish_course import validate_receipt
+        validate_receipt(root, target, config, payload)
+        return
     if payload.get('page_release'):
         from zo_publish_pages import validate_receipt
         validate_receipt(root,target,config,payload)
@@ -1835,6 +1839,7 @@ def parser() -> argparse.ArgumentParser:
     value.add_argument("command", nargs="?", help="Hỗ trợ: plan, check, prepare, validate, publish")
     value.add_argument("--config", default="publish_public.yml")
     value.add_argument("--report")
+    value.add_argument("--approved-course", action="store_true", help="prepare: release the six approved canonical HTML pages and their verified PDFs without historical rebuilds.")
     value.add_argument("--full-render", action="store_true", help="prepare: use the legacy two full-site renders instead of page artifacts.")
     value.add_argument("--page", action="append", default=[], help="prepare: giới hạn HTML; lặp lại cho từng trang, vẫn kèm tài nguyên phụ thuộc.")
     value.add_argument('--committed-source', action='store_true',
@@ -1847,6 +1852,9 @@ def parser() -> argparse.ArgumentParser:
 def main(argv: Sequence[str] | None = None) -> int:
     started = time.perf_counter()
     args = parser().parse_args(argv)
+    if args.approved_course and (args.command != "prepare" or args.page or args.full_render or args.committed_source or args.allow_global_inputs_for_pages):
+        print("ERROR: --approved-course requires standalone prepare.", file=sys.stderr)
+        return EXIT_USAGE
     if args.full_render and args.command != "prepare":
         print("ERROR: --full-render only applies to prepare.",file=sys.stderr)
         return EXIT_USAGE
@@ -1894,6 +1902,9 @@ def main(argv: Sequence[str] | None = None) -> int:
                 raise RuntimeError(fetch.stderr.strip() or "git fetch thất bại.")
         source_state = git_state(root, config["source_branch"], f"origin/{config['source_branch']}")
         target_state = git_state(target, config["target_branch"], f"origin/{config['target_branch']}", target)
+        if args.command == "prepare" and args.approved_course:
+            from zo_publish_course import prepare
+            return prepare(root, target, config_path, config, args, source_state, target_state)
         if args.command == "prepare" and args.page and not args.full_render:
             from zo_publish_pages import prepare as prepare_pages
             return prepare_pages(root,target,config_path,config,args,source_state,target_state)
