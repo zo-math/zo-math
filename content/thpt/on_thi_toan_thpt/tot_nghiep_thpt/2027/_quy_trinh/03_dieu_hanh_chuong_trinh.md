@@ -1,7 +1,14 @@
 # Điều hành chương trình — trạng thái và việc tiếp theo
 
-Phiên bản: 0.1 · Cập nhật trạng thái: 18/10/2026.
+Phiên bản: 0.1 · Cập nhật trạng thái: 19/10/2026.
 
+
+**PDF-CURRENT-FIVE-20261019 — D0 và R1-G01–G04 đã dựng, chờ chủ trì xem.**
+
+- Đã dựng 33 PDF từ nguồn hiện hành: một bản D0 và tám biến thể cho mỗi gói G01–G04. Provenance của 32 biến thể R1 đều CURRENT; mỗi tệp đạt 17/17 cổng kỹ thuật. D0 đạt cổng riêng: 21 trang, 50 neo đề–đối chiếu, font nhúng, hình vector, liên kết G01–G04 và kiểm raster sáu bảng.
+- Đã quan sát bìa, trang giữa, trang cuối và các trang bảng quan trọng trên toàn bộ năm gói; chưa thấy tràn/cắt chữ hoặc sai khung. Đây là kiểm kỹ thuật và tự rà thị giác, không thay chủ trì nghiệm thu. Báo cáo ở `_audit/pdf_validation_20261019/` và ảnh rà ở `_audit/pdf_visual_20261019/`.
+- G04 giữ PDF vector ghép cặp với SVG trong tài nguyên sản xuất; cổng `zo_course_math_assets.py` kiểm file/hash và hai ca lỗi âm, đạt 25/25. D0 và G04 đã cập nhật hồ sơ trạng thái đúng mốc.
+- Chưa tạo lại HTML, chưa commit/push hoặc xuất bản. Số trang hiện trên thẻ tải G01/G02 vẫn là metadata lịch sử và lệch với tệp mới (G01: 60/80 so với 61/81; G02: 42/61 so với 44/62); việc đổi chúng cần một chuyển tiếp nguồn được duyệt riêng, không được nhập bằng cách thay hash cổng.
 
 
 **HTML-TABLE-FUNCTIONS-20261019 — sáu trang sau chuẩn hóa bảng, chờ xem.**
