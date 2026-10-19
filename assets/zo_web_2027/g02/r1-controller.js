@@ -11,7 +11,7 @@
   const baseGroups = [
     {
       id: 'main',
-      label: 'Mạch học chính',
+      label: 'Mạch học',
       definitions: [
         hasStartSection
           ? {view: 'bat-dau', label: 'Bắt đầu', ids: ['bat-dau']}
@@ -24,7 +24,7 @@
     },
     {
       id: 'support',
-      label: 'Hỗ trợ khi cần',
+      label: 'Hỗ trợ',
       definitions: [
         {view: 'on-nen', label: 'Ôn nền', ids: document.getElementById('on-nen')?.classList.contains('level2') ? ['on-nen'] : ['bai-hoc'], target: 'on-nen'},
         {view: 'sua-loi', label: 'Sửa lỗi', ids: ['sua-loi']},
@@ -385,11 +385,58 @@
       if (id.startsWith('g01-s-o-')) return ['cp-on1', 'cp-on2', 'cp-on3'];
       return ['bắt-đầu-từ-đâu', 'bai-hoc', 'cp-lt1', 'cp-lt2', 'cp-lt3', 'cp-kt', 'cp-on1', 'cp-on2', 'cp-on3'];
     }
+    // Cross-package support carries its caller in the URL, independently per tab.
+    function externalReturn(params = new URLSearchParams(location.search)) {
+      const page = params.get('r1-return-page'), id = params.get(RETURN_PARAM);
+      const view = params.get('r1-return-view');
+      const current = location.pathname.match(/\/hoc_lieu\/([^/]+)\/index\.html$/)?.[1];
+      if (!/^r[1-9]\d*_g\d+$/.test(page || '') || page === current || !id || !byView.has(view)) return null;
+      return {page, id, view, label: params.get('r1-return-label') || 'hoạt động đã gọi hỗ trợ'};
+    }
+    function externalReturnUrl(context) {
+      const url = new URL(`../${context.page}/index.html`, location.href);
+      url.searchParams.set(VIEW_PARAM, context.view);
+      url.hash = context.id;
+      return `${url.pathname}${url.search}${url.hash}`;
+    }
+    function decorateExternalSupport(link) {
+      if (!link || !root.contains(link) || link.classList.contains('r1-return-link')) return;
+      const url = new URL(link.href, location.href);
+      if (url.origin !== location.origin || url.pathname === location.pathname ||
+          !/\/hoc_lieu\/r[1-9]\d*_g\d+\/index\.html$/.test(url.pathname) || !url.hash ||
+          !['on-nen', 'bai-hoc', 'nhat-ky'].includes(url.searchParams.get(VIEW_PARAM))) return;
+      const inherited = externalReturn();
+      const page = location.pathname.match(/\/hoc_lieu\/([^/]+)\/index\.html$/)?.[1];
+      const id = sourceCheckpoint(link) || link.closest('[id]')?.id;
+      const caller = id && document.getElementById(id);
+      const context = inherited || (caller && page ?
+        {page, id, view: ownerView(caller), label: checkpointLabel(id)} : null);
+      if (!context) return;
+      url.searchParams.set('r1-return-page', context.page);
+      url.searchParams.set(RETURN_PARAM, context.id);
+      url.searchParams.set('r1-return-view', context.view);
+      url.searchParams.set('r1-return-label', context.label);
+      link.href = `${url.pathname}${url.search}${url.hash}`;
+    }
+    function renderExternalReturn() {
+      const context = externalReturn();
+      if (!context) return false;
+      const link = document.createElement('a');
+      link.className = 'r1-return-link';
+      link.href = externalReturnUrl(context);
+      link.textContent = `Quay lại ${context.label}`;
+      returnBar.dataset.r1ExternalReturn = "true";
+      returnBar.append(link);
+      returnBar.hidden = false;
+      return true;
+    }
     function renderReturnBar(target) {
       const params = new URLSearchParams(location.search);
       const returnId = params.get(RETURN_PARAM);
       const context = params.get(CONTEXT_PARAM);
       returnBar.replaceChildren();
+      delete returnBar.dataset.r1ExternalReturn;
+      if (renderExternalReturn()) return;
       if (returnId && document.getElementById(returnId)) {
         const text = document.createElement('span');
         text.textContent = context ? `Đang hỗ trợ từ ${checkpointLabel(context)}. ` : 'Đang ở nhánh hỗ trợ. ';
@@ -421,6 +468,13 @@
     function openAncestors(target) {
       for (let node = target; node && node !== root; node = node.parentElement) {
         if (node.tagName === 'DETAILS') node.open = true;
+      }
+      // A solution anchor may own a section whose disclosure is a child.
+      // Open only that unit's solution, never all answers in a group.
+      if (target?.matches('[data-zo-type="solution"][data-zo-task]') && target.tagName !== 'DETAILS') {
+        const owned = [...target.querySelectorAll('details.r1-solution,details.zo-learning-solution,details.solution')]
+          .find(node => node.closest('[data-zo-task]') === target);
+        if (owned) owned.open = true;
       }
     }
     function focusTarget(target) {
@@ -504,7 +558,9 @@
     function urlFor(view, targetId, context) {
       const url = new URL(location.href);
       url.searchParams.set(VIEW_PARAM, view);
-      if (context === null) {
+      if (externalReturn()) {
+        // Keep the original caller while consulting local answers or another resource.
+      } else if (context === null) {
         url.searchParams.delete(RETURN_PARAM);
         url.searchParams.delete(CONTEXT_PARAM);
       } else if (context) {
@@ -548,6 +604,10 @@
       });
     });
 
+    // Decorate before native navigation, including modifier clicks and new tabs.
+    for (const type of ['pointerdown', 'focusin', 'click', 'auxclick']) {
+      root.addEventListener(type, event => decorateExternalSupport(event.target.closest('a[href]')));
+    }
     root.addEventListener('click', event => {
       if (event.defaultPrevented || event.button !== 0 || event.metaKey ||
           event.ctrlKey || event.shiftKey || event.altKey) return;
