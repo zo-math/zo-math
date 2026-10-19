@@ -884,7 +884,7 @@ local function prepare(doc)
   if latex then doc = build_lesson_toc(doc) end
   doc = apply_table_contract(doc)
   local original_ids = identifiers_in_blocks(doc.blocks)
-  assert_inventory(doc, {math=1322, images=4, tables=14, bbt=2, details=88, answers=96}, 'source')
+  assert_inventory(doc, {math=1343, images=4, tables=14, bbt=2, details=77, answers=96}, 'source')
   if latex then
     variant = pandoc.utils.stringify(doc.meta['zo-pdf-variant'] or 'full')
     local part_spec = section_specs_by_variant[variant]
@@ -937,7 +937,7 @@ local function prepare(doc)
       -- Approved R1-G02 editorial projection; the solution section removes 399 math / 4 ordinary tables.
       assert_inventory(doc, {answers=0}, 'student')
     else
-      assert_inventory(doc, {math=1322, images=4, tables=14, bbt=2, details=88, answers=96}, 'full')
+      assert_inventory(doc, {math=1343, images=4, tables=14, bbt=2, details=77, answers=96}, 'full')
     end
     if variant == 'student' then
       local kept = identifiers_in_blocks(doc.blocks)

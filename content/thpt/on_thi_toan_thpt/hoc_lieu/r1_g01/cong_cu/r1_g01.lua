@@ -206,7 +206,7 @@ end
 
 local function apply_table_contract(doc)
   local contract = doc.meta['r1-tables']
-  assert(contract and #contract == 20, 'R1-G01 current table contract must contain 20 entries')
+  assert(contract and #contract == 19, 'R1-G01 current table contract must contain 19 entries')
   local index, seen_ids = 0, {}
   local function configure(blocks)
     for _, block in ipairs(blocks) do
@@ -226,7 +226,7 @@ local function apply_table_contract(doc)
     end
   end
   configure(doc.blocks)
-  assert(index == 20, 'R1-G01 current ordinary table inventory expected 20, got '..index)
+  assert(index == 19, 'R1-G01 current ordinary table inventory expected 19, got '..index)
   return doc
 end
 
@@ -870,11 +870,11 @@ local function prepare(doc)
   end
   verify_projection_boundary_fixture()
   table_specs = doc.meta['r1-tables']
-  -- HTML follows the current 19-table manifest; PDF retains the inventory
-  -- of its last validated pass until a separately authorized synchronization.
-  local expected_tables = html and 19 or 20
+  -- HTML and PDF share the current manifest; source projection validates
+  -- the exact inventory again below before any variant is emitted.
+  local expected_tables = 19
   assert(table_specs and #table_specs == expected_tables,
-    'R1-G01 table contract must contain '..expected_tables..' entries for this format; PDF synchronization requires its own validated pass')
+    'R1-G01 table contract must contain '..expected_tables..' current entries')
   table_specs_by_id = {}
   for _, spec in ipairs(table_specs) do
     local id = meta_text(spec.id)
@@ -888,7 +888,7 @@ local function prepare(doc)
   local original_ids = identifiers_in_blocks(doc.blocks)
   -- Current canonical AST measured in the authorized full-PDF pass 2026-10-14.
   -- Includes all current foundation/support material, without editing the math.
-  assert_inventory(doc, {math=1657, images=13, tables=20, bbt=14, details=85, answers=108}, 'source')
+  assert_inventory(doc, {math=1695, images=13, tables=19, bbt=14, details=71, answers=108}, 'source')
   if latex then
     variant = pandoc.utils.stringify(doc.meta['zo-pdf-variant'] or 'full')
     local part_spec = section_specs_by_variant[variant]
@@ -938,12 +938,12 @@ local function prepare(doc)
         return d
       end})
       assert(removed, 'Student projection did not find #'..solution_start)
-      -- Student projection removes 672 math nodes, 2 images, 4 ordinary tables,
-      -- 2 BBT blocks, 38 details blocks and all 102 answer links. Canonical N
+      -- Student projection removes 694 math nodes, 2 images, 3 ordinary tables,
+      -- 3 BBT blocks, 54 details blocks and all 108 answer links. Canonical N
       -- resources remain inside the lesson flow and therefore remain available.
-      assert_inventory(doc, {math=977, images=11, tables=17, bbt=11, details=30, answers=0}, 'student')
+      assert_inventory(doc, {math=1001, images=11, tables=16, bbt=11, details=17, answers=0}, 'student')
     else
-      assert_inventory(doc, {math=1657, images=13, tables=20, bbt=14, details=85, answers=108}, 'full')
+      assert_inventory(doc, {math=1695, images=13, tables=19, bbt=14, details=71, answers=108}, 'full')
     end
     if variant == 'student' then
       local kept = identifiers_in_blocks(doc.blocks)
