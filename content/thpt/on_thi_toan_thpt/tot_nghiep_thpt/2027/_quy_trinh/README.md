@@ -12,6 +12,8 @@
 
 ## Hồ sơ tích hợp R1-G05
 
+- [Biên nhận phát hành zomath.vn — bảy HTML và tám PDF G05, giữ nguyên 33 PDF cũ](../../../hoc_lieu/r1_g05/_quy_trinh/ho_so/phat_hanh_zomath_20261021.json).
+
 - [Nghiệm thu HTML tích hợp và quyền commit cục bộ](../../../hoc_lieu/r1_g05/_quy_trinh/ho_so/nghiem_thu_html_tich_hop_20261021.json).
 - [Biên nhận duyệt tám PDF R1-G05](../../../hoc_lieu/r1_g05/_quy_trinh/ho_so/duyet_bo_pdf_20261021.json).
 - [Khảo sát Bảo trợ trong 33 PDF đã phát hành](tinh_trang_bao_tro_33_pdf_20261021.md).
