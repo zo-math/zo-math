@@ -84,6 +84,16 @@ def replacement_glyph_lines(texts):
             for line in text.splitlines() if '\ufffd' in line]
 
 
+def closing_support_checks(texts, support):
+    """Every variant ends with the same current support component."""
+    compact=lambda value:re.sub(r'\s+','',value)
+    last=texts[-1] if texts else ''
+    return {
+        'current support title and account':support['title'] in last and all(compact(f['value']) in compact(last) for f in support['fields']),
+        'current support invitation and CTA':all(compact(support[k]) in compact(last) for k in ['copy','cta']),
+    }
+
+
 def check(path, source=None, variant=None):
     reader=PdfReader(path); texts=[p.extract_text() for p in reader.pages]
     all_text='\n'.join(texts); support=support_model()
@@ -102,7 +112,7 @@ def check(path, source=None, variant=None):
         'cover title and version':norm(' '.join(shell['cover_lines'])) in norm(texts[0]) and 'Phiên bản nội dung '+str(profile['package']['candidate_version']) in texts[0],
         'cover creation date and rights':'Ngày tạo PDF:' in texts[0] and 'Bản quyền nội dung thuộc ZO Math' in texts[0],
         'closing learning invitation':'Chọn điều em' in texts[-1] and 'Mở học liệu' in texts[-1],
-        'current support title and account':(support['title'] in texts[-1] and all(compact(f['value']) in compact(texts[-1]) for f in support['fields'])) if definition.get('include_support',True) else support['title'] not in texts[-1],
+        **closing_support_checks(texts,support),
         'no former support wording':'ủng hộ' not in all_text.lower(),
         'no replacement glyphs':not replacement_glyph_lines(texts),
         'learning projection':all(s in all_text for s in ['Bắt đầu','Bài học','Luyện tập','Kiểm tra','Ôn lại','Ôn nền','Sửa lỗi','Nhật kí','Lời giải','Nguồn']) if output_name=='index.pdf' else len(texts)>2,
@@ -110,6 +120,9 @@ def check(path, source=None, variant=None):
         'no task heading stranded at page end':not orphan_task_pages(reader),
         'no text clipped beyond physical page':not clipped_text_pages(reader),
     }
+    wrong_support=' '.join([support['title'],support['copy'],support['cta']])
+    checks['negative missing final support rejected']=not all(closing_support_checks(texts+['No support ending'],support).values())
+    checks['negative wrong support account rejected']=not all(closing_support_checks([wrong_support],support).values())
     fonts=set();missing=[]
     def resources(res):
         for font_ref in res.get('/Font',{}).values():

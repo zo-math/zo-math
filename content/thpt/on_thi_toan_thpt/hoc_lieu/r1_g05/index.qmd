@@ -1,0 +1,1209 @@
+---
+title: Ứng dụng đạo hàm trong thực tiễn
+subtitle: Lập mô hình một biến, chọn phương án tối ưu và kiểm tra kết luận trong bối cảnh
+lang: vi
+language:
+  section-title-footnotes: Chú thích nguồn
+draft: true
+toc: false
+sidebar: false
+number-sections: false
+page-layout: article
+body-classes: zo-page-article zo-meta-hidden zo-on-thi-package-page r1-g01-page zo-web-2027-g05
+format:
+  html:
+    html-math-method: mathml
+    anchor-sections: false
+    fig-responsive: false
+resources:
+- hinh/*.svg
+- index_hoc_sinh.pdf
+- index.pdf
+- index_bai_hoc.pdf
+- index_luyen_tap.pdf
+- index_kiem_tra.pdf
+- index_sua_loi.pdf
+- index_on_lai.pdf
+- index_loi_giai.pdf
+filters:
+- ../../../../../assets/lua/zo_course_package_pdf.lua
+r1-download-files:
+- href: index_hoc_sinh.pdf
+  download: Ung_dung_dao_ham_trong_thuc_tien_g05_hoc_sinh_v0.1.pdf
+  title: Bản học và bài tập
+  description: Dùng để tự học và làm bài; không có phần lời giải.
+- href: index.pdf
+  download: Ung_dung_dao_ham_trong_thuc_tien_g05_v0.1.pdf
+  title: Bản đầy đủ
+  description: Dùng để đọc toàn bộ bài học, nhiệm vụ, hỗ trợ và lời giải.
+r1-section-download-files:
+- variant: bai_hoc
+  href: index_bai_hoc.pdf
+  download: Ung_dung_dao_ham_trong_thuc_tien_g05_bai_hoc_v0.1.pdf
+  title: Bài học
+  description: Kiến thức, ví dụ và câu hỏi tự kiểm tra.
+  start: bai-hoc
+  end-before: phieu-luyen
+  view: bai-hoc
+- variant: luyen_tap
+  href: index_luyen_tap.pdf
+  download: Ung_dung_dao_ham_trong_thuc_tien_g05_luyen_tap_v0.1.pdf
+  title: Luyện tập
+  description: Các nhiệm vụ luyện tập, không kèm lời giải.
+  start: phieu-luyen
+  end-before: tu-kiem-tra
+  view: luyen-tap
+- variant: kiem_tra
+  href: index_kiem_tra.pdf
+  download: Ung_dung_dao_ham_trong_thuc_tien_g05_kiem_tra_v0.1.pdf
+  title: Kiểm tra
+  description: Nhiệm vụ kiểm tra và tiêu chí tự đánh giá; không kèm đáp án.
+  start: tu-kiem-tra
+  end-before: on-lai
+  view: kiem-tra
+- variant: sua_loi
+  href: index_sua_loi.pdf
+  download: Ung_dung_dao_ham_trong_thuc_tien_g05_sua_loi_v0.1.pdf
+  title: Sửa lỗi
+  description: Danh mục nút thắt nhận thức và các nhiệm vụ sửa lỗi.
+  start: sua-loi
+  end-before: nhat-ky
+  view: sua-loi
+- variant: on_lai
+  href: index_on_lai.pdf
+  download: Ung_dung_dao_ham_trong_thuc_tien_g05_on_lai_v0.1.pdf
+  title: Ôn lại
+  description: Các lượt ôn lại và nhiệm vụ tự kiểm tra; Ôn nền được gọi riêng trên trang học liệu.
+  start: on-lai
+  end-before: sua-loi
+  view: on-lai
+- variant: loi_giai
+  href: index_loi_giai.pdf
+  download: Ung_dung_dao_ham_trong_thuc_tien_g05_loi_giai_v0.1.pdf
+  title: Lời giải
+  description: Lời giải, đáp án và hướng dẫn chấm.
+  start: loi-giai
+  end-before: nguon
+  view: loi-giai
+r1-tables:
+- id: g05-table-06
+  label: Nút thắt nhận thức · Biểu hiện dễ nhầm · Câu hỏi và cách tháo gỡ · Tự kiểm tra
+  row_header: true
+- id: g05-table-05
+  label: Khi em vướng · Nguồn và việc làm sau đó
+  row_header: true
+- id: g05-table-04
+  label: Mục tiêu cần kiểm · Bài làm cần đối chiếu · Biểu hiện cần có
+  row_header: true
+- id: g05-table-03
+  label: Chặng · Trọng tâm luyện tập · Nhiệm vụ và Điểm dừng
+  row_header: true
+- id: g05-table-02
+  label: Khi cần · Mở phần nào? · Sau đó làm gì?
+  row_header: true
+- id: g05-table-01
+  label: Mục tiêu · Việc em cần làm được
+  row_header: true
+- id: r1-table-t13
+  label: Nhật kí học tập
+  row_header: true
+- id: r1-table-t18
+  label: Ví dụ giả lập Nhật kí
+  row_header: true
+---
+
+:::::::::::: {.zo-on-thi-package data-r1-title="Ứng dụng đạo hàm trong thực tiễn" data-r1-code="R1-G05" data-r1-support-context="semantic" data-r1-lesson-count="7"}
+
+## Bắt đầu {#bat-dau}
+
+Một phép tính đạo hàm đúng chưa chắc trả lời đúng câu hỏi thực tế. Em còn cần biết mình đang tính đại lượng nào, những giá trị nào được phép chọn và vì sao phương án cuối cùng tốt hơn các phương án còn lại.
+
+Gói này giúp em đi từ lời văn và hình minh họa đến mô hình một biến, giải bài toán rồi kiểm tra kết luận trong bối cảnh. Các số liệu dưới đây là **tình huống giả định phục vụ học toán**, không phải dữ liệu khảo sát thực tế. Hình phối cảnh giúp hình dung; dữ kiện chính xác nằm trong đề và nhãn kích thước, không suy số đo bằng mắt.
+
+[**Học xong, em cần làm được gì?**]{#muc-tieu .r1-orientation-label}
+
+::: {#g05-table-01 .table-scroll}
+| Mục tiêu | Việc em cần làm được |
+| --- | --- |
+| Xác định đại lượng | Nói rõ biến, đơn vị, đại lượng cần tìm; phân biệt doanh thu, tổng chi phí, chi phí trung bình và lợi nhuận. |
+| Hiểu ý nghĩa đạo hàm | Phân biệt tốc độ thay đổi trung bình và tức thời; diễn giải vận tốc, gia tốc, đơn vị; phân biệt chi phí biên với mức tăng chính xác. |
+| Lập mô hình một biến | Từ dữ kiện, lập quan hệ, chọn biến, viết hàm mục tiêu và xác định các giá trị được phép của biến. |
+| Chứng minh tối ưu | Dùng biến thiên hoặc so sánh đủ ứng viên phù hợp; kiểm biên và sự đạt được. |
+| Chọn phương án rời rạc | Xử lí điều kiện nguyên hoặc bước lựa chọn cho phép; so giá trị thực, không làm tròn máy móc. |
+| Kiểm tra kết luận | Trả lời đúng đại lượng, đơn vị và phạm vi; nhận ra khi đổi giả thiết phải xét lại mô hình. |
+:::
+
+### Tiên quyết và cách chọn điểm vào {#diem-vao}
+
+Em cần biến đổi biểu thức đơn giản, tính đạo hàm và đọc dấu đạo hàm. Công thức hình học cần thiết được nhắc tại chỗ. Phương pháp xét giá trị lớn nhất, nhỏ nhất có trong [gói đã học](../r1_g02/index.qmd#bai-hoc).
+
+Có thể vào [Bài học](#bai-hoc), [Luyện tập](#phieu-luyen), [Kiểm tra](#tu-kiem-tra) hoặc [Ôn lại](#on-lai) theo nhu cầu. Thứ tự này gợi ý cách tra đọc, không buộc em hoàn thành từng khu vực mới được sang khu vực khác. Nếu đã chuẩn bị hoặc đủ tự tin, em được bắt đầu Kiểm tra; sự tự tin chưa phải bằng chứng đã hiểu.
+
+Giữ bài ban đầu trước khi tra. Ngoài lượt Kiểm tra, em có thể gọi hỗ trợ khi cần rồi trở lại chỗ đang làm. Trong lượt Kiểm tra, làm độc lập đến khi kết thúc; sau đó mới xem lời giải hoặc nhận trợ giúp.
+
+::: {#g05-table-02 .table-scroll}
+| Khi cần | Mở phần nào? | Sau đó làm gì? |
+| --- | --- | --- |
+| Vướng đạo hàm, dấu hoặc điều kiện của biến | [Ôn nền](#on-nen) | Nhiệm vụ vừa dừng |
+| Chưa rõ sai ở đâu | [Sửa lỗi](#sua-loi) | Điểm dừng đã gọi hỗ trợ |
+| Giữ bằng chứng, hẹn kiểm lại | [Nhật kí](#nhat-ky) | Mục đang học |
+| Đã tự làm và cần đối chiếu | [Lời giải](#loi-giai) | Đề tương ứng |
+:::
+
+### Khi nào hoàn tất lượt chính? {#hoan-tat}
+
+Đối chiếu sáu mục tiêu với [bảng bằng chứng sau Kiểm tra](#cp-05). Mục tiêu có lỗi thiết yếu hoặc thiếu giải thích vẫn ghi chưa xác nhận, dù nhiều đáp số khác đúng. Bài làm có trợ giúp giúp em học; muốn xác nhận tự làm cần một nhiệm vụ phù hợp chưa xem đề hoặc lời giải. Khi đủ bằng chứng cho lượt chính, ghi ngày hoàn tất và hẹn ba lượt Ôn lại. Chỉ ghi khả năng duy trì khi có kết quả thực sau khoảng trễ.
+
+## Bài học {#bai-hoc}
+
+<div class="lesson-toc"></div>
+
+<details id="dinh-huong" class="zo-learning-guidance r1-lesson-orientation">
+<summary>Câu hỏi dẫn đường</summary>
+
+Làm thế nào chuyển một tình huống thành hàm số trên đúng tập được phép, dùng đạo hàm để trả lời câu hỏi đặt ra, rồi kiểm tra kết luận trong bối cảnh?
+
+Hãy thử nói bằng lời: điều gì được thay đổi, điều gì phải giữ và đại lượng nào cần tốt nhất. Mô hình chỉ dùng được trong những điều kiện nhất định.
+
+</details>
+
+### Khởi động {#khoi-dong}
+
+Tự làm ba nhiệm vụ ngắn để chọn phần cần học. Chưa cần giải bài tối ưu hoàn chỉnh.
+
+#### Nhiệm vụ 01 — Cần tối đa đại lượng nào? {#nv-01 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV01" data-zo-function="function.warmup" data-zo-number="1"}
+
+Bán $x$ sản phẩm, doanh thu $R(x)$ và tổng chi phí $C(x)$ cùng tính bằng nghìn đồng. Muốn lợi nhuận lớn nhất thì cần tối ưu biểu thức nào? Nếu $G(x)$ là chi phí trung bình một sản phẩm, quan hệ giữa $G(x)$ và $C(x)$ là gì khi $x>0$?
+
+[Xem lời giải](#lg-01)
+
+#### Nhiệm vụ 02 — Tính được nhưng có làm được không? {#nv-02 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV02" data-zo-function="function.warmup" data-zo-number="2"}
+
+Cắt bốn hình vuông cạnh $x$ cm ở bốn góc tấm bìa vuông cạnh $24$ cm rồi gấp thành hộp không nắp. Một bạn nhận cả $x=0$ và $x=12$ vì biểu thức $x(24-2x)^2$ vẫn tính được. Em có đồng ý không? Viết điều kiện để có hộp với ba kích thước dương.
+
+[Xem lời giải](#lg-02)
+
+#### Nhiệm vụ 03 — Một phương trình đã đủ chưa? {#nv-03 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV03" data-zo-function="function.warmup" data-zo-number="3"}
+
+Một bạn giải $F'(x)=0$ được $x=5$ rồi kết luận “chọn $x=5$ là tốt nhất”. Em cần biết thêm những gì? Nêu điều kiện của biến, đại lượng cần tối ưu và căn cứ so sánh với các phương án khác.
+
+[Xem lời giải](#lg-03)
+
+#### Điểm dừng 01 — Chọn chỗ cần làm rõ {#cp-01 .r1-checkpoint data-zo-type="checkpoint" data-r1-return-label="Điểm dừng 01 — Chọn chỗ cần làm rõ"}
+
+Vướng Nhiệm vụ 01: đọc [mục 1.1](#bh-11), làm Nhiệm vụ 05. Vướng Nhiệm vụ 02: đọc [mục 2.1](#bh-21), làm Nhiệm vụ 06. Vướng Nhiệm vụ 03: đọc [mục 3](#bh-03), làm Nhiệm vụ 08. Đúng Khởi động chỉ xác nhận thao tác mở đầu. Nếu câu được chỉ định đã xem rồi, dùng để học tiếp nhưng không ghi là bằng chứng mới.
+
+### 1. Đại lượng đang xét và tốc độ thay đổi {#bh-01}
+
+#### 1.1. Đọc tên và đơn vị trước khi chọn công thức {#bh-11}
+
+:::: {#gm-01 .zo-learning-task data-zo-type="task" data-zo-task="G05-GM01" data-zo-function="function.guided_thinking" data-zo-number="1"}
+
+**Gợi mở 01 — Bán nhiều hơn có chắc lãi nhiều hơn?**
+
+Thử trả lời trước khi đọc tiếp. Một phương án có doanh thu lớn hơn nhưng tổng chi phí cũng lớn hơn. Hai nhận xét ấy đã đủ chọn phương án có lợi nhuận lớn hơn chưa?
+
+::::
+
+Chưa đủ. Cần so sánh phần doanh thu còn lại sau khi trừ tổng chi phí:
+
+$$P(x)=R(x)-C(x).$$
+
+Nếu $G(x)$ là chi phí trung bình một sản phẩm và $x>0$, thì
+
+$$G(x)=\frac{C(x)}{x},\qquad C(x)=xG(x).$$
+
+Nếu $x$ đo bằng nghìn sản phẩm thì $x=2$ nghĩa là $2\,000$ sản phẩm. Không thay số sản phẩm thực vào công thức trước khi kiểm đơn vị của biến.
+
+<p class="zo-source-note">Nguồn đối chiếu về doanh thu, chi phí và lợi nhuận: Sách giáo khoa Toán 12, tập một, bộ Kết nối tri thức với cuộc sống, Bài 5, trang 38–40. Chi phí trung bình dẫn lại gói Giá trị lớn nhất và giá trị nhỏ nhất, mục 5.1.</p>
+
+#### 1.2. Thay đổi trên một khoảng và tại một thời điểm {#bh-12}
+
+:::: {#gm-02 .zo-learning-task data-zo-type="task" data-zo-task="G05-GM02" data-zo-function="function.guided_thinking" data-zo-number="2"}
+
+**Gợi mở 02 — Cùng nói về chuyển động nhưng khác câu hỏi**
+
+Thử trả lời trước khi đọc tiếp.
+
+“Trong một giây vừa qua, độ cao tăng trung bình bao nhiêu mét mỗi giây?” và “Đúng lúc này, vật đang đi lên nhanh bao nhiêu?” có phải luôn cho cùng một số không?
+
+::::
+
+Câu thứ nhất xét một khoảng, câu thứ hai xét một thời điểm. Với $a<b$, tốc độ thay đổi trung bình của $f$ trên $[a;b]$ là
+
+$$\frac{f(b)-f(a)}{b-a}.$$
+
+Nếu $f$ có đạo hàm tại $a$, tốc độ thay đổi tức thời là
+
+$$f'(a)=\lim_{h\to0}\frac{f(a+h)-f(a)}{h}.$$
+
+Đơn vị đạo hàm là đơn vị đại lượng chia cho đơn vị biến. Nếu $s(t)$ là tọa độ theo mét, $t$ theo giây, thì vận tốc $v(t)=s'(t)$ có đơn vị m/s; gia tốc $a(t)=v'(t)=s''(t)$ có đơn vị m/s$^2$. Vận tốc có dấu theo chiều chọn; tốc độ chuyển động là $|v(t)|$, không có “tốc độ âm”.
+
+<p class="zo-source-note">Nguồn đối chiếu: Chương trình giáo dục phổ thông môn Toán 2018, trang 95–96; Sách giáo khoa Toán 12, tập một, bộ Kết nối tri thức với cuộc sống, Bài 5, trang 33–34.</p>
+
+:::: {#vd-01 data-zo-type="example" data-zo-unit="G05-VD01"}
+
+**Ví dụ 01 — Cao nhất và đi lên nhanh nhất**
+
+Cho $h(t)=20t-5t^2$ mét với $0\le t\le4$ giây. Tốc độ thay đổi trung bình trên $[0;1]$ là $\frac{h(1)-h(0)}{1-0}=15$ m/s. Vận tốc $v(t)=20-10t$, nên $v(1)=10$ m/s. Hai số khác nhau vì trả lời hai câu hỏi khác nhau.
+
+Vận tốc dương trước $t=2$, bằng $0$ tại $t=2$, âm sau $t=2$ trong khoảng thời gian đang xét. Độ cao tăng rồi giảm, đạt lớn nhất $h(2)=20$ m. Vận tốc lớn nhất lại là $v(0)=20$ m/s; tại điểm cao nhất, vận tốc bằng $0$. Gia tốc không đổi bằng $-10$ m/s$^2$.
+
+::::
+
+#### Nhiệm vụ 04 — Đại lượng và thời điểm {#nv-04 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV04" data-zo-function="function.self_check" data-zo-number="4"}
+
+Cho tọa độ $s(t)=t^2+2t$ mét, $0\le t\le3$ giây. Tính vận tốc trung bình trên $[0;2]$, vận tốc và gia tốc tại $t=2$. Vì sao không thể lấy $s(2)$ làm vận tốc tại thời điểm đó?
+
+[Xem lời giải](#lg-04)
+
+#### 1.3. Chi phí biên và mức tăng chính xác {#bh-13}
+
+:::: {#gm-03 .zo-learning-task data-zo-type="task" data-zo-task="G05-GM03" data-zo-function="function.guided_thinking" data-zo-number="3"}
+
+**Gợi mở 03 — Thêm một sản phẩm**
+
+Thử trả lời trước khi đọc tiếp.
+
+Biết $C'(50)$ đã đủ biết chính xác $C(51)-C(50)$ chưa?
+
+::::
+
+Đạo hàm mô tả tốc độ thay đổi tức thời của mô hình liên tục. Chi phí biên tại mức sản lượng $x$ là $C'(x)$. Khi dùng để ước lượng chi phí thêm một sản phẩm, thường viết
+
+$$C(x+1)-C(x)\approx C'(x).$$
+
+Đây không phải đẳng thức đúng với mọi hàm. Nếu cần mức tăng chính xác, tính hiệu hai giá trị. Độ chính xác của xấp xỉ cần được kiểm khi tình huống đòi hỏi.
+
+<p class="zo-source-note">Nguồn đối chiếu: Sách giáo khoa Toán 12, tập một, bộ Kết nối tri thức với cuộc sống, Bài 5, trang 34–35 và bài 1.27, trang 41.</p>
+
+:::: {#vd-02 data-zo-type="example" data-zo-unit="G05-VD02"}
+
+**Ví dụ 02 — Gần nhau nhưng không bằng nhau**
+
+Cho $C(x)=0{,}02x^2+4x+100$ nghìn đồng, $x$ là số sản phẩm; dùng mô hình biến thực để tính đạo hàm. Ta có $C'(x)=0{,}04x+4$, nên $C'(50)=6$ nghìn đồng/sản phẩm. Mặt khác,
+
+$$C(51)-C(50)=0{,}02(51^2-50^2)+4=6{,}02$$
+
+nghìn đồng. Xấp xỉ thấp hơn mức tăng chính xác $0{,}02$ nghìn đồng.
+
+::::
+
+#### Nhiệm vụ 05 — Đơn vị quyết định cách thay số {#nv-05 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV05" data-zo-function="function.self_check" data-zo-number="5"}
+
+Tổng chi phí $C(x)=2x^2+30x+100$ triệu đồng, trong đó $x$ đo bằng nghìn sản phẩm. Viết chi phí trung bình theo triệu đồng trên một nghìn sản phẩm; tính chi phí trung bình một sản phẩm khi sản xuất $2\,000$ sản phẩm. Vì sao không thay $x=2\,000$?
+
+[Xem lời giải](#lg-05)
+
+### 2. Từ tình huống đến hàm một biến {#bh-02}
+
+#### 2.1. Chọn biến, dùng ràng buộc và giữ đúng điều kiện của biến {#bh-21}
+
+:::: {#gm-04 .zo-learning-task data-zo-type="task" data-zo-task="G05-GM04" data-zo-function="function.guided_thinking" data-zo-number="4"}
+
+**Gợi mở 04 — Một thay đổi kéo theo những thay đổi nào?**
+
+Thử trả lời trước khi đọc tiếp.
+
+Nhìn hình dưới. Khi tăng cạnh phần cắt, chiều cao hộp tăng. Hai kích thước đáy có giữ nguyên không? Chỉ tối đa chiều cao có làm thể tích lớn nhất không?
+
+::::
+
+![Hình 01 — Cùng một biến quyết định phần cắt, chiều cao và hai kích thước đáy. Phối cảnh không dùng để đo độ dài.](hinh/hop_cat_gap.svg){fig-alt="Tấm bìa vuông: bốn góc bị cắt, đường gấp và hộp mở sau khi gấp; phần cắt cạnh x, đáy cạnh 30 trừ 2x."}
+
+Tăng phần cắt làm hộp cao hơn nhưng đáy nhỏ đi. Với tấm bìa vuông cạnh $30$ cm, chọn $x$ cm là cạnh hình vuông cắt ở mỗi góc. Chiều cao hộp là $x$, cạnh đáy là $30-2x$. Điều kiện vật lí là $x>0$ và $30-2x>0$, tức $0<x<15$.
+
+$$V(x)=x(30-2x)^2,\qquad 0<x<15.$$
+
+Đa thức tính được với mọi số thực, nhưng mô hình hộp chỉ nhận $(0;15)$. Hai đầu mút cho hình suy biến, không phải hộp có ba kích thước dương.
+
+:::: {#vd-03 data-zo-type="example" data-zo-unit="G05-VD03"}
+
+**Ví dụ 03 — Đổi biến nhưng giữ cùng tình huống**
+
+Có thể chọn $a$ cm là cạnh đáy. Cạnh cắt bằng $\frac{30-a}{2}$, điều kiện $0<a<30$ và
+
+$$V(a)=a^2\frac{30-a}{2}.$$
+
+Hai biểu thức khác nhau vì biến biểu thị đại lượng khác nhau. Quan hệ $a=30-2x$ chuyển mỗi phương án hợp lệ từ cách chọn này sang cách chọn kia. Không so trực tiếp số đo $a$ với $x$ để kết luận hai mô hình mâu thuẫn.
+
+<p class="zo-source-note">Nguồn đối chiếu về quy trình chọn biến và điều kiện của biến: Sách giáo khoa Toán 12, tập một, bộ Kết nối tri thức với cuộc sống, Bài 5, trang 36–37; mô hình cắt hộp tại Bài 2, trang 17. Dữ kiện trong ví dụ do ZO Math biên soạn.</p>
+
+::::
+
+#### Nhiệm vụ 06 — Tấm bìa không còn vuông {#nv-06 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV06" data-zo-function="function.self_check" data-zo-number="6"}
+
+Tấm bìa chữ nhật có kích thước $24$ cm và $18$ cm. Cắt mỗi góc một hình vuông cạnh $x$ cm rồi gấp thành hộp không nắp. Lập hàm thể tích và điều kiện của $x$, chưa cần tối ưu. Vì sao phải xét điều kiện từ cả hai kích thước tấm bìa?
+
+[Xem lời giải](#lg-06)
+
+#### 2.2. Từ giá bán và số lượng đến lợi nhuận {#bh-22}
+
+:::: {#gm-05 .zo-learning-task data-zo-type="task" data-zo-task="G05-GM05" data-zo-function="function.guided_thinking" data-zo-number="5"}
+
+**Gợi mở 05 — Dữ kiện hay giả thiết thêm?**
+
+Thử trả lời trước khi đọc tiếp.
+
+Chỉ biết một lần giảm giá làm số người mua tăng, em có được kết luận mọi lần giảm sau đều tăng cùng một số người mua không?
+
+::::
+
+Không. Quan hệ ấy chỉ dùng được khi đề cung cấp hoặc chấp nhận mô hình như vậy trong một khoảng xác định. Cần nói rõ quan hệ giá–lượng nào đang được giả định.
+
+![Hình 02 — Giá bán, số lượng dự kiến và chi phí là các đại lượng khác nhau; hình không cung cấp dữ liệu doanh số.](hinh/quay_ban_hang.svg){fig-alt="Quầy bán hàng và thẻ giá; số sản phẩm vẽ chỉ minh họa bối cảnh, không biểu thị sản lượng hoặc nhu cầu trong bài."}
+
+:::: {#vd-04 data-zo-type="example" data-zo-unit="G05-VD04"}
+
+**Ví dụ 04 — Tự lập hàm lợi nhuận**
+
+Một quầy dự kiến bán $100$ sản phẩm/ngày ở giá $50$ nghìn đồng/sản phẩm. Trong phạm vi giảm giá không quá $20$ nghìn đồng, mô hình giả định mỗi lần giảm $1$ nghìn đồng sẽ bán thêm $5$ sản phẩm/ngày. Chi phí mỗi sản phẩm là $10$ nghìn đồng; chi phí cố định $400$ nghìn đồng/ngày. Giá chỉ được giảm theo các mức nguyên nghìn đồng.
+
+Chọn $k$ là số lần giảm $1$ nghìn đồng. Khi đó
+
+$$k\in\{0;1;\ldots;20\},\quad p(k)=50-k,\quad q(k)=100+5k.$$
+
+Doanh thu và tổng chi phí theo nghìn đồng/ngày là
+
+$$R(k)=(50-k)(100+5k),\qquad C(k)=10(100+5k)+400.$$
+
+Do đó
+
+$$P(k)=(40-k)(100+5k)-400=3600+100k-5k^2.$$
+
+Xét hàm cùng công thức với biến thực trên $[0;20]$: $P'(k)=100-10k$. Hàm tăng đến $k=10$, rồi giảm. Vì $10$ cũng là một lựa chọn nguyên được phép, lợi nhuận lớn nhất là $4100$ nghìn đồng/ngày, tại giá $40$ nghìn đồng/sản phẩm và số lượng dự kiến $150$ sản phẩm/ngày.
+
+Không chỉ báo “$k=10$”: người thực hiện cần giá bán và lợi nhuận. Kết luận phụ thuộc quan hệ giá–lượng đã giả định, không chứng minh khách hàng thật mua đúng số lượng ấy.
+
+<p class="zo-source-note">Nguồn đối chiếu: Sách giáo khoa Toán 12, tập một, bộ Kết nối tri thức với cuộc sống, Bài 5, trang 38–40. Số liệu và giới hạn lựa chọn do ZO Math biên soạn.</p>
+
+::::
+
+#### Nhiệm vụ 07 — Công suất thêm một ràng buộc {#nv-07 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV07" data-zo-function="function.self_check" data-zo-number="7"}
+
+Giữ mô hình Ví dụ 04 nhưng quầy chỉ cung ứng tối đa $130$ sản phẩm/ngày. Xác định lại tập giá trị được phép của $k$ và giá bán cho lợi nhuận lớn nhất. Có thể giữ ngay $k=10$ không?
+
+[Xem lời giải](#lg-07)
+
+### 3. Chứng minh phương án tốt nhất {#bh-03}
+
+:::: {#gm-06 .zo-learning-task data-zo-type="task" data-zo-task="G05-GM06" data-zo-function="function.guided_thinking" data-zo-number="6"}
+
+**Gợi mở 06 — Tìm ứng viên khác với xét đủ**
+
+Thử trả lời trước khi đọc tiếp.
+
+Hai bài có cùng công thức nhưng tập giá trị được phép khác nhau có nhất thiết cho cùng phương án tối ưu không? Nếu một hàm tiến gần một mức mà không bao giờ nhận mức ấy, có thể gọi đó là giá trị nhỏ nhất không?
+
+::::
+
+Tập giá trị được phép của biến là một phần của bài toán. Đạo hàm giúp xét biến thiên; kết luận còn phải kiểm biên và sự đạt được. Với hàm liên tục trên đoạn đóng và chỉ có hữu hạn điểm bên trong mà đạo hàm bằng $0$ hoặc không tồn tại, ta so sánh giá trị hàm tại hai đầu mút và tất cả các điểm bên trong ấy. Với tập đang xét là khoảng mở hoặc không bị chặn, không tự dùng cách “thế hai đầu mút” như với đoạn đóng.
+
+Xem [phương pháp giá trị lớn nhất, nhỏ nhất](../r1_g02/index.qmd#bai-hoc) khi cần. Hãy tự hỏi: những giá trị nào của biến được phép, vì sao đã xét đủ, có phương án nào đạt giá trị kết luận không?
+
+<p class="zo-source-note">Nguồn đối chiếu: Sách giáo khoa Toán 12, tập một, bộ Kết nối tri thức với cuộc sống, Bài 2, trang 15–19; quy trình vận dụng tại Bài 5, trang 36–37.</p>
+
+:::: {#vd-05 data-zo-type="example" data-zo-unit="G05-VD05"}
+
+**Ví dụ 05 — Hoàn tất bài toán chiếc hộp**
+
+Với $V(x)=x(30-2x)^2$ trên $(0;15)$:
+
+$$V'(x)=900-240x+12x^2=12(x-5)(x-15).$$
+
+Đạo hàm dương trên $(0;5)$, âm trên $(5;15)$. Vì thể tích tăng rồi giảm trên toàn khoảng giá trị được phép, nó đạt lớn nhất tại $x=5$. Hộp cao $5$ cm, đáy vuông cạnh $20$ cm, thể tích $2000$ cm$^3$. Không cần nhận các đầu mút suy biến làm phương án.
+
+::::
+
+:::: {#vd-06 data-zo-type="example" data-zo-unit="G05-VD06"}
+
+**Ví dụ 06 — Có mức tiến tới nhưng không có phương án đạt**
+
+Cho chi phí trung bình $A(x)=2+\frac{12}{x}$, $x\ge1$. Ta có $A'(x)=-\frac{12}{x^2}<0$, $A(x)>2$ với mọi $x\ge1$, và
+
+$$\lim_{x\to+\infty}A(x)=2.$$
+
+Không có sản lượng hữu hạn được phép nào cho $A(x)=2$, nên không có chi phí trung bình nhỏ nhất trên $[1;+\infty)$. Nếu thêm công suất $x\le6$, tập giá trị là $[1;6]$ và chi phí trung bình nhỏ nhất là $A(6)=4$. Hai tập giá trị tạo hai bài toán khác nhau. Đối chiếu [diễn giải mô hình trong bài Khảo sát](../r1_g04/index.qmd#bh-05) khi cần.
+
+::::
+
+#### Nhiệm vụ 08 — Giới hạn của một kết luận {#nv-08 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV08" data-zo-function="function.self_check" data-zo-number="8"}
+
+Cho $B(x)=3+\frac{18}{x}$, $x\ge2$. Một bạn viết “chi phí nhỏ nhất là $3$”. Sửa kết luận. Nếu thêm $x\le9$, kết quả thay đổi thế nào?
+
+[Xem lời giải](#lg-08)
+
+### 4. Khi chỉ được chọn những giá trị rời rạc {#bh-04}
+
+:::: {#gm-07 .zo-learning-task data-zo-type="task" data-zo-task="G05-GM07" data-zo-function="function.guided_thinking" data-zo-number="7"}
+
+**Gợi mở 07 — Gần nhất theo biến có chắc tốt nhất?**
+
+Thử trả lời trước khi đọc tiếp.
+
+Nghiệm tối ưu liên tục nằm giữa hai số nguyên. Khoảng cách tới nghiệm có phải đại lượng đang cần tối ưu không?
+
+::::
+
+Không. Cần so giá trị hàm mục tiêu tại phương án được phép. Nếu đã chứng minh hàm giảm rồi tăng và điểm đổi chiều nằm giữa hai số nguyên liên tiếp đều khả thi, hai số đó là ứng viên cho giá trị nhỏ nhất trên tập các giá trị nguyên liên tiếp đang xét. Nếu thiếu điều kiện này hoặc có ràng buộc loại ứng viên, phải xác định lại tập so sánh. Không dùng quy tắc hai số kề cho mọi bài toán nguyên.
+
+:::: {#vd-07 data-zo-type="example" data-zo-unit="G05-VD07"}
+
+**Ví dụ 07 — Làm tròn cho phương án kém hơn**
+
+Chọn số lô $n\in\{1;2;\ldots;6\}$, tổng chi phí $10n^2+61$ triệu đồng. Chi phí trung bình một lô là
+
+$$F(n)=10n+\frac{61}{n}.$$
+
+Hàm cùng công thức với biến thực $x>0$ có $F'(x)=10-\frac{61}{x^2}$, giảm đến $\sqrt{\frac{61}{10}}\approx2{,}47$ rồi tăng. So hai ứng viên $2$ và $3$:
+
+$$F(2)=\frac{101}{2},\quad F(3)=\frac{151}{3},\quad \frac{101}{2}-\frac{151}{3}=\frac{1}{6}>0.$$
+
+Chọn $3$ lô dù $2$ gần nghiệm liên tục hơn. Biến thiên chứng minh các số nguyên còn lại không tốt hơn hai ứng viên này.
+
+<p class="zo-source-note">Nguồn đối chiếu về điều kiện biến nguyên: gói Giá trị lớn nhất và giá trị nhỏ nhất, mục 5.1; bối cảnh số lượng và giá thuê đối chiếu Sách giáo khoa Toán 12, tập một, bộ Kết nối tri thức với cuộc sống, Bài 5, trang 38–41. Hàm biến thực là công cụ phụ, không biến số sản phẩm nguyên thành đại lượng liên tục.</p>
+
+::::
+
+#### Nhiệm vụ 09 — Một ứng viên bị loại {#nv-09 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV09" data-zo-function="function.self_check" data-zo-number="9"}
+
+Trong Ví dụ 07, nếu chỉ được chọn số lô chẵn thì tập được phép là gì? Phương án tối ưu có còn là $3$ không? So sánh đủ hoặc dùng biến thiên để giải thích việc loại bớt.
+
+[Xem lời giải](#lg-09)
+
+### 5. Trả kết quả về tình huống {#bh-05}
+
+:::: {#gm-08 .zo-learning-task data-zo-type="task" data-zo-task="G05-GM08" data-zo-function="function.guided_thinking" data-zo-number="8"}
+
+**Gợi mở 08 — Đáp số nào người hỏi cần?**
+
+Thử trả lời trước khi đọc tiếp.
+
+Trong bài hộp, “đáp số $5$” và “thể tích lớn nhất $2000$ cm$^3$, khi cắt cạnh $5$ cm, tạo đáy cạnh $20$ cm và chiều cao $5$ cm” khác nhau ở điều gì?
+
+::::
+
+Câu sau cho phép thực hiện và kiểm phương án. Kết luận cần đại lượng được hỏi, phương án, đơn vị và điều kiện áp dụng. Thế lại vào ràng buộc ban đầu. Nếu mô hình bỏ qua một yếu tố, nói rõ phạm vi thay vì biến kết quả toán thành cam kết thực tế.
+
+:::: {#vd-08 data-zo-type="example" data-zo-unit="G05-VD08"}
+
+**Ví dụ 08 — Đổi giả thiết phải xét lại mô hình**
+
+Kết quả chiếc hộp bỏ qua độ dày và mép dán. Nếu thiết kế cần mép dán, không giữ ngay công thức $x(30-2x)^2$ khi kích thước đáy đã đổi. Phải xác định lại thiết kế và ràng buộc rồi mới tối ưu. Kết quả cũ đúng cho mô hình cũ nhưng chưa chứng minh phương án mới.
+
+::::
+
+#### Nhiệm vụ 10 — Trả về đúng kích thước {#nv-10 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV10" data-zo-function="function.self_check" data-zo-number="10"}
+
+Một khu đất chữ nhật tựa tường, chỉ rào ba cạnh bằng $30$ m hàng rào. Chọn $x$ là cạnh vuông góc tường; một lời giải đã chứng minh $x=7{,}5$ cho diện tích lớn nhất $112{,}5$ m$^2$. Viết kết luận đầy đủ và kiểm cạnh còn lại. Nếu rào cả cạnh sát tường, có giữ ngay kết luận cũ không?
+
+[Xem lời giải](#lg-10)
+
+### Khép lại bài học {#khep-bai-hoc}
+
+Tự giải thích vì sao chọn hàm này, tập giá trị này và các ứng viên này; kết luận có nghĩa gì trong tình huống. Làm đúng ngay sau ví dụ chưa chứng minh em tự chọn được phương pháp trong bối cảnh mới. Dùng Luyện tập hoặc bắt đầu Kiểm tra khi thấy phù hợp.
+
+## Luyện tập {#phieu-luyen}
+
+[]{#luyen-tap}
+
+
+Tự làm trước khi xem lời giải. Có thể dùng hỗ trợ theo nhu cầu; ghi phần được giúp để không lẫn với phần tự làm. Không lấy đáp số đúng thay giải thích điều kiện của biến và sự tối ưu.
+
+::: {#g05-table-03 .table-scroll}
+| Chặng | Trọng tâm luyện tập | Nhiệm vụ và Điểm dừng |
+| --- | --- | --- |
+| Lập mô hình | Biến, ràng buộc, hàm mục tiêu | [Nhiệm vụ 11](#nv-11)–[12](#nv-12); [Điểm dừng 02](#cp-02) |
+| Đại lượng và đạo hàm | Chi phí trung bình; vận tốc, gia tốc | [Nhiệm vụ 13](#nv-13)–[14](#nv-14); [Điểm dừng 03](#cp-03) |
+| Kiểm phương án | Điều kiện nguyên, sự đạt được, giới hạn | [Nhiệm vụ 15](#nv-15)–[16](#nv-16); [Điểm dừng 04](#cp-04) |
+:::
+
+### Chặng 1 — Lập mô hình từ tình huống {#chang-1 data-zo-context="stage:1"}
+
+#### Nhiệm vụ 11 — Khu trồng cây sát tường {#nv-11 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV11" data-zo-function="function.practice" data-zo-number="11"}
+
+Dùng $48$ m hàng rào cho ba cạnh khu đất hình chữ nhật; cạnh thứ tư dựa vào tường đủ dài, không cần rào. Bỏ qua bề dày hàng rào. Chọn kích thước để diện tích lớn nhất. Tự chọn biến, lập điều kiện của biến, hàm mục tiêu, chứng minh rồi kiểm tổng chiều dài hàng rào.
+
+![Hình 03 — Cạnh sát tường không dùng hàng rào. Phối cảnh không thể hiện tỉ lệ của phương án tối ưu.](hinh/khu_dat_sat_tuong.svg){fig-alt="Khu đất tựa tường; hai cạnh vuông góc tường ký hiệu x, cạnh đối diện tường ký hiệu y; chỉ ba cạnh dùng hàng rào."}
+
+[Xem lời giải](#lg-11)
+
+#### Nhiệm vụ 12 — Giá bán thay đổi theo nấc {#nv-12 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV12" data-zo-function="function.practice" data-zo-number="12"}
+
+Ở giá $40$ nghìn đồng/sản phẩm, dự kiến bán $80$ sản phẩm/ngày. Mỗi lần giảm $2$ nghìn đồng, số bán dự kiến tăng $10$ sản phẩm/ngày. Mô hình áp dụng tối đa $8$ lần giảm. Chi phí biến đổi $12$ nghìn đồng/sản phẩm; chi phí cố định $240$ nghìn đồng/ngày. Số lần giảm nguyên. Tìm giá bán cho lợi nhuận lớn nhất, nêu số lượng và lợi nhuận tương ứng.
+
+[Xem lời giải](#lg-12)
+
+### Điểm dừng 02 — Kiểm mô hình trước đáp số {#cp-02 .r1-checkpoint data-zo-type="checkpoint" data-r1-return-label="Điểm dừng 02 — Kiểm mô hình trước đáp số"}
+
+Nhiệm vụ 11: kiểm quan hệ ba cạnh, điều kiện các kích thước dương, biến thiên và kích thước trả về. Nhiệm vụ 12: kiểm bước giá, lượng, tổng chi phí, điều kiện biến nhận giá trị nguyên và đơn vị. Sai quan hệ hoặc điều kiện của biến: xem [mục 2](#bh-02), dùng phần mô hình của [Nhiệm vụ 24](#nv-24) nếu chưa xem đề hoặc lời giải. Sai phương pháp tối ưu: [mục 3](#bh-03). Sai nguyên: [Nhiệm vụ 25](#nv-25). Câu hình học không xác nhận riêng lỗi lập quan hệ giá–lượng; nếu thiếu câu phù hợp chưa xem đề hoặc lời giải, ghi chưa xác nhận. Sau hỗ trợ trở về đây, kiểm các tiêu chí còn thiếu.
+
+### Chặng 2 — Đại lượng và đạo hàm {#chang-2 data-zo-context="stage:2"}
+
+#### Nhiệm vụ 13 — Tổng chi phí và chi phí trung bình {#nv-13 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV13" data-zo-function="function.practice" data-zo-number="13"}
+
+Sản lượng thực $x\in[10;40]$ tấn/ngày có tổng chi phí $C(x)=\frac{1}{2}x^2+8x+200$ triệu đồng/ngày. Tìm sản lượng cho chi phí trung bình một tấn nhỏ nhất. Nêu đơn vị của hàm đang tối ưu và vì sao không tối thiểu hóa ngay $C(x)$.
+
+[Xem lời giải](#lg-13)
+
+#### Nhiệm vụ 14 — Tọa độ, vận tốc, gia tốc {#nv-14 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV14" data-zo-function="function.practice" data-zo-number="14"}
+
+Cho $s(t)=t^3-3t^2+4t$ mét trên $0\le t\le3$ giây. Tính vận tốc trung bình trên $[1;2]$, vận tốc và gia tốc tại $t=2$. Tọa độ có giảm trong khoảng đang xét không? Giải thích bằng đạo hàm, không chỉ thử vài thời điểm.
+
+[Xem lời giải](#lg-14)
+
+### Điểm dừng 03 — Giải thích ý nghĩa {#cp-03 .r1-checkpoint data-zo-type="checkpoint" data-r1-return-label="Điểm dừng 03 — Giải thích ý nghĩa"}
+
+Nhiệm vụ 13 cần đúng đại lượng, đơn vị; Nhiệm vụ 14 cần phân biệt trung bình/tức thời và giải thích dấu trên cả khoảng thời gian đang xét. Sai đại lượng: trở lại [mục 1.1](#bh-11). Sai ý nghĩa đạo hàm: [mục 1.2](#bh-12), rồi phần đạo hàm của [Nhiệm vụ 24](#nv-24) nếu chưa xem đề hoặc lời giải. Câu chi phí không xác nhận đầy đủ riêng chuyển động; giữ ghi chú đó và xin câu mới đúng nội dung khi cần. Không làm trước câu Ôn lại để lấp phần thiếu.
+
+### Chặng 3 — Phương án và giới hạn {#chang-3 data-zo-context="stage:3"}
+
+#### Nhiệm vụ 15 — Chi phí trên một lô {#nv-15 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV15" data-zo-function="function.practice" data-zo-number="15"}
+
+Chọn $n\in\{1;2;\ldots;8\}$ lô, tổng chi phí $8n^2+50$ triệu đồng. Tìm số lô cho chi phí trung bình một lô nhỏ nhất. Giải thích đã xét đủ ứng viên, trả lời bằng số lô và chi phí trung bình.
+
+[Xem lời giải](#lg-15)
+
+#### Nhiệm vụ 16 — Thêm công suất thì kết luận đổi {#nv-16 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV16" data-zo-function="function.practice" data-zo-number="16"}
+
+Chi phí trung bình $A(x)=4+\frac{24}{x}$ triệu đồng/tấn, $x\ge2$ tấn/ngày. Báo cáo viết “tăng mãi sản lượng để đạt chi phí thấp nhất $4$ triệu đồng/tấn”. Chỉ ra phần sai. Khi công suất là $8$ tấn/ngày, tìm phương án tối ưu và giới hạn của kết luận.
+
+[Xem lời giải](#lg-16)
+
+### Điểm dừng 04 — Xét đủ và có điểm đạt {#cp-04 .r1-checkpoint data-zo-type="checkpoint" data-r1-return-label="Điểm dừng 04 — Xét đủ và có điểm đạt"}
+
+Nhiệm vụ 15 sai: xem [mục 4](#bh-04), dùng ý nguyên của [Nhiệm vụ 25](#nv-25). Nhiệm vụ 16 sai: xem [mục 3](#bh-03), dùng ý sự đạt được của Nhiệm vụ 25. Chỉ dùng ý chưa xem đề hoặc lời giải và đúng lỗi. Nếu đã đọc cả lời giải, các ý đó không còn dùng để kiểm tra việc tự làm lần đầu. Hết câu phù hợp: ghi chưa xác nhận, nhờ giáo viên giao câu khác; không đổi tên câu cũ thành bài mới.
+
+## Kiểm tra {#tu-kiem-tra}
+
+[]{#kiem-tra}
+
+
+Được bắt đầu khi đã chuẩn bị hoặc đủ tự tin, kể cả chưa có bài Luyện tập. Dành khoảng **75 phút cho một lượt liên tục**, tự lực, không chia đợt. Đây là thời lượng đề xuất của gói, không phải cấu hình đề thi quốc gia. Có thể dùng máy tính để tính toán; vẫn trình bày quan hệ, điều kiện của biến và căn cứ tối ưu. Kết thúc lượt, giữ bài ban đầu trước khi tra hoặc nhận trợ giúp. Dùng tiêu chí theo mục tiêu, không dùng tổng điểm che phần thiếu.
+
+#### Nhiệm vụ 17 — Hộp từ tấm bìa chữ nhật {#nv-17 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV17" data-zo-function="function.test" data-zo-number="17"}
+
+Tấm bìa $32$ cm và $20$ cm. Cắt mỗi góc hình vuông cạnh $x$ cm, gấp thành hộp không nắp, bỏ qua độ dày và mép dán. Tìm cách cắt cho thể tích lớn nhất. Lập mô hình, chứng minh và nêu đủ ba kích thước hộp.
+
+#### Nhiệm vụ 18 — Đọc báo cáo chi phí {#nv-18 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV18" data-zo-function="function.test" data-zo-number="18"}
+
+Tổng chi phí $C(x)=\frac{1}{10}x^2+5x+80$ nghìn đồng, $x$ là số sản phẩm; mô hình biến thực dùng để tính đạo hàm.
+
+1. Tính chi phí trung bình một sản phẩm tại $x=20$ và chi phí biên tại mức ấy, ghi đơn vị.
+2. Tính chính xác chi phí tăng khi sản lượng từ $20$ lên $21$, so với chi phí biên.
+3. Sửa câu “$C'(20)$ là tổng chi phí khi làm $20$ sản phẩm”.
+
+#### Nhiệm vụ 19 — Giá bán và giới hạn cung ứng {#nv-19 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV19" data-zo-function="function.test" data-zo-number="19"}
+
+Ở giá $60$ nghìn đồng/sản phẩm, dự kiến bán $60$ sản phẩm/ngày. Trong phạm vi không quá $12$ lần giảm, mỗi lần giảm $2$ nghìn đồng làm số lượng dự kiến tăng $5$ sản phẩm/ngày. Chi phí mỗi sản phẩm $20$ nghìn đồng, chi phí cố định $300$ nghìn đồng/ngày. Số lần giảm nguyên; cửa hàng chỉ đáp ứng tối đa $75$ sản phẩm/ngày. Chọn giá bán, số lượng và lợi nhuận tối ưu theo mô hình. Giải thích tác động của giới hạn cung ứng.
+
+#### Nhiệm vụ 20 — Hai cách hiểu nhỏ nhất {#nv-20 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV20" data-zo-function="function.test" data-zo-number="20"}
+
+1. Chọn $n\in\{1;2;\ldots;7\}$ lô; chi phí trung bình $F(n)=6n+\frac{40}{n}$ triệu đồng/lô. Tìm lựa chọn tối ưu, chứng minh xét đủ.
+2. Mô hình khác: $B(x)=3+\frac{12}{x}$ triệu đồng/tấn, $x\ge1$ tấn/ngày, chưa giới hạn công suất. Có chi phí trung bình nhỏ nhất không? Nêu điều chưa thể kết luận về thực tế từ mô hình này.
+
+### Điểm dừng 05 — Sau khi kết thúc lượt Kiểm tra {#cp-05 .r1-checkpoint data-zo-type="checkpoint" data-r1-return-label="Điểm dừng 05 — Sau khi kết thúc lượt Kiểm tra"}
+
+Ghi ngày, mức hỗ trợ, giữ bài gốc rồi đối chiếu từng bài: [Xem lời giải](#lg-17) của Nhiệm vụ 17; [Xem lời giải](#lg-18) của Nhiệm vụ 18; [Xem lời giải](#lg-19) của Nhiệm vụ 19; [Xem lời giải](#lg-20) của Nhiệm vụ 20.
+
+::: {#g05-table-04 .table-scroll}
+| Mục tiêu cần kiểm | Bài làm cần đối chiếu | Biểu hiện cần có |
+| --- | --- | --- |
+| Đại lượng, đơn vị | Nhiệm vụ [18](#nv-18),[19](#nv-19) | Không lẫn tổng/trung bình/biên/lợi nhuận; đơn vị đúng |
+| Ý nghĩa đạo hàm | Nhiệm vụ [18](#nv-18).2–3 | Phân biệt xấp xỉ với mức tăng chính xác |
+| Lập mô hình, điều kiện | Nhiệm vụ [17](#nv-17),[19](#nv-19) | Quan hệ, điều kiện, bước giá và công suất đúng |
+| Chứng minh tối ưu | Nhiệm vụ [17](#nv-17),[19](#nv-19),[20](#nv-20).2 | Xét đủ, đúng biên và sự đạt được |
+| Lựa chọn rời rạc | Nhiệm vụ [19](#nv-19),[20](#nv-20).1 | Tập giá trị nguyên đúng, đủ ứng viên và so giá trị |
+| Kết luận | Nhiệm vụ [17](#nv-17),[19](#nv-19),[20](#nv-20).2 | Đúng đối tượng, đơn vị, ràng buộc, giới hạn |
+:::
+
+**Nếu còn vướng:**
+
+- Đại lượng, đơn vị: Mục 1; Nhiệm vụ 27.1 hoặc 26 theo lỗi.
+- Ý nghĩa đạo hàm: Mục 1.2–1.3; Nhiệm vụ 27.1.
+- Lập mô hình, điều kiện: Mục 2; Nhiệm vụ 26; lỗi riêng giá–lượng cần câu mới phù hợp.
+- Chứng minh tối ưu: Mục 3; Nhiệm vụ 26; không đạt được cần câu riêng phù hợp.
+- Lựa chọn rời rạc: Mục 4; Nhiệm vụ 27.2.
+- Kết luận: Mục 5; Nhiệm vụ 26–27 theo ý.
+
+Lượt này **không trực tiếp kiểm vận tốc và gia tốc**. Cần bằng chứng tự làm Nhiệm vụ 14 khi chưa có trợ giúp; nếu đã xem đề hoặc lời giải, ghi phần chuyển động chưa xác nhận và xin câu mới. Nhiệm vụ 23 dành cho Ôn lại, không kéo lên làm trước. Bài sửa chỉ xác nhận phần đã kiểm, không thay một lượt Kiểm tra độc lập mới. Đủ bằng chứng lượt chính thì ghi ngày và hẹn các lượt sau.
+
+## Ôn lại {#on-lai}
+
+Hẹn từ ngày hoàn tất lượt chính: sau khoảng **2–3 ngày**, **7 ngày**, **3–4 tuần**. Ghi ngày hẹn và ngày thực làm, khoảng trễ thực nếu đổi lịch. Đây là cách tổ chức của khóa, không phải cam kết hiệu quả cho mọi người. Không đọc trước đề lượt sau để làm đủ bài lượt trước.
+
+::: {#g05-table-on-lai .table-scroll}
+| Thời điểm ôn | Nhiệm vụ cần tự làm | Điểm dừng |
+|---|---|---|
+| Sau khoảng 2–3 ngày | [Nhiệm vụ 21 — Bể đáy vuông không nắp](#nv-21) | [Điểm dừng 06](#cp-06) |
+| Sau khoảng 7 ngày | [Nhiệm vụ 22 — Giá thuê chỗ bán hàng](#nv-22) | [Điểm dừng 07](#cp-07) |
+| Sau khoảng 3–4 tuần | [Nhiệm vụ 23 — Lên cao và đi lên nhanh](#nv-23) | [Điểm dừng 08](#cp-08) |
+:::
+
+### Lượt 1 — Giữ thể tích, giảm vật liệu {#on-luot-1 data-zo-context="round:1"}
+
+#### Nhiệm vụ 21 — Bể đáy vuông không nắp {#nv-21 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV21" data-zo-function="function.review" data-zo-number="21"}
+
+Bể không nắp, đáy vuông, thể tích $32$ dm$^3$. Bỏ qua độ dày, hao hụt; đáy và thành cùng giá vật liệu trên đơn vị diện tích. Tìm kích thước dùng ít vật liệu nhất. Nếu đáy đắt hơn thành thì có giữ ngay hàm mục tiêu cũ không?
+
+![Hình 04 — Vật liệu gồm một đáy và bốn thành.](hinh/be_khong_nap.svg){fig-alt="Bể mở có đáy vuông cạnh x và chiều cao h; không có mặt trên."}
+
+[Xem lời giải](#lg-21)
+
+#### Điểm dừng 06 — Sau khoảng trễ thứ nhất {#cp-06 .r1-checkpoint data-zo-type="checkpoint" data-r1-return-label="Điểm dừng 06 — Sau khoảng trễ thứ nhất"}
+
+Kiểm quan hệ thể tích, diện tích, điều kiện của biến, tối ưu và giả thiết giá vật liệu. Sai: xem mục 2–3–5 theo bước; dùng [Nhiệm vụ 28](#nv-28) nếu đúng phần cần xác nhận và chưa xem đề hoặc lời giải. Bài này không đo riêng công thức diện tích bể; lỗi ở phần ấy cần câu hình học khác. Đúng một bài không xác nhận mọi mục tiêu.
+
+### Lượt 2 — Tối ưu có thể ở biên {#on-luot-2 data-zo-context="round:2"}
+
+#### Nhiệm vụ 22 — Giá thuê chỗ bán hàng {#nv-22 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV22" data-zo-function="function.review" data-zo-number="22"}
+
+Có $12$ chỗ cho thuê; giá $100$ nghìn đồng/chỗ/ngày thì thuê hết. Mỗi lần tăng $5$ nghìn đồng làm giảm đúng một chỗ được thuê theo mô hình. Cho phép $k\in\{0;1;\ldots;11\}$ lần tăng. Mỗi chỗ được thuê có chi phí $20$ nghìn đồng/ngày; chi phí cố định $100$ nghìn đồng/ngày. Tìm lợi nhuận lớn nhất, giải thích vì sao vẫn tìm được phương án tối ưu khi không có giá trị được phép nào làm đạo hàm bằng $0$.
+
+[Xem lời giải](#lg-22)
+
+#### Điểm dừng 07 — Không ép dùng thao tác quen {#cp-07 .r1-checkpoint data-zo-type="checkpoint" data-r1-return-label="Điểm dừng 07 — Không ép dùng thao tác quen"}
+
+Kiểm tập giá trị, hàm lợi nhuận, dấu đạo hàm, giá thuê và số chỗ trả về. Sai mô hình/biên: xem mục 2–3, dùng [Nhiệm vụ 28](#nv-28) nếu chưa dùng. Đã xem đề hoặc lời giải thì ghi cần câu mới. Lượt này không kiểm tốc độ thay đổi hay mọi bài toán trên khoảng mở.
+
+### Lượt 3 — Đại lượng và tốc độ thay đổi {#on-luot-3 data-zo-context="round:3"}
+
+#### Nhiệm vụ 23 — Lên cao và đi lên nhanh {#nv-23 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV23" data-zo-function="function.review" data-zo-number="23"}
+
+Cho $h(t)=12t-t^2$ mét, $0\le t\le12$ giây. Tính tốc độ thay đổi trung bình trên $[2;4]$, vận tốc và gia tốc tại $t=4$, thời điểm độ cao lớn nhất. Có thể nói vật đi lên nhanh nhất ở thời điểm cao nhất không? Hiểu đi lên nhanh bằng vận tốc theo chiều đi lên.
+
+[Xem lời giải](#lg-23)
+
+#### Điểm dừng 08 — Ghi đúng điều đã duy trì {#cp-08 .r1-checkpoint data-zo-type="checkpoint" data-r1-return-label="Điểm dừng 08 — Ghi đúng điều đã duy trì"}
+
+Tách trung bình, vận tốc tức thời, gia tốc và độ cao lớn nhất. Nếu còn lẫn, xem mục 1.2, dùng [Nhiệm vụ 29.1](#nv-29) nếu chưa xem đề hoặc lời giải. Lượt này chỉ kiểm một số biểu hiện về ý nghĩa đạo hàm; kết quả chưa cho biết em duy trì được tất cả mục tiêu của gói sau khoảng trễ. Ghi bằng chứng thực, phần chưa kiểm và quyết định tiếp theo.
+
+## Ôn nền {#on-nen}
+
+Chọn đúng thao tác đang vướng; không cần học tất cả trước khi trở lại bài. Nguồn chung dưới đây có giải thích và câu tự kiểm. Hoàn thành một câu nền chưa xác nhận được cả mục tiêu lập mô hình của gói này.
+
+::: {#g05-table-05 .table-scroll}
+| Khi em vướng | Nguồn và việc làm sau đó |
+| --- | --- |
+| Điều kiện của biểu thức | [Tập xác định](../r1_g01/index.qmd?r1-view=on-nen#nen-n-txd-01). **Tự kiểm sau đó:** Nhiệm vụ 06 nếu chưa xem đề hoặc lời giải. **Trở lại:** Mục 2 hoặc bài đã dừng. |
+| Tính đạo hàm | [Đạo hàm cơ bản](../r1_g01/index.qmd?r1-view=on-nen#nen-n-dh-01). **Tự kiểm sau đó:** Nhiệm vụ 04 nếu chưa xem đề hoặc lời giải. **Trở lại:** Mục 1 hoặc bài đang làm. |
+| Đọc dấu để kết luận biến thiên | [Dấu](../r1_g01/index.qmd?r1-view=on-nen#nen-n-dau-01) và [bảng biến thiên](../r1_g01/index.qmd?r1-view=on-nen#nen-n-bbt-01). **Tự kiểm sau đó:** Giải thích dấu trong Nhiệm vụ 13. **Trở lại:** Mục 3. |
+| Đại lượng, tổng và trung bình | [Mô hình và đơn vị](../r1_g02/index.qmd?r1-view=on-nen#nen-n-mh-01). **Tự kiểm sau đó:** Nhiệm vụ 05 nếu chưa xem đề hoặc lời giải. **Trở lại:** Mục 1.1 hoặc 2.2. |
+| Chọn giá trị nguyên | [Ràng buộc nguyên](../r1_g02/index.qmd?r1-view=on-nen#nen-n-nguyen-01). **Tự kiểm sau đó:** Nhiệm vụ 09 nếu chưa xem đề hoặc lời giải. **Trở lại:** Mục 4. |
+| Giới hạn và sự đạt được | [Đường tiệm cận — Bài học](../r1_g03/index.qmd#bai-hoc) và [Giá trị lớn nhất và giá trị nhỏ nhất — Bài học](../r1_g02/index.qmd#bai-hoc). **Tự kiểm sau đó:** Nhiệm vụ 08 nếu chưa xem đề hoặc lời giải. **Trở lại:** Mục 3. |
+:::
+
+Các đích này là nguồn đã có; phần nhiệm vụ ở gói này kiểm việc vận dụng sau khi đọc. Nếu đã xem câu hoặc lời giải, ghi rõ và dùng tuyến Sửa lỗi thích hợp; không giả một câu cũ thành câu mới.
+
+## Sửa lỗi {#sua-loi}
+
+Giữ bài ban đầu. Chỉ ra bước đầu tiên chưa có căn cứ; giữ phần đúng, giải thích và sửa bước ấy. Sau đó tự làm nhiệm vụ phù hợp **chưa xem đề hoặc lời giải trước đó**. Nếu giáo viên đã dùng câu này trên lớp, nó không còn là câu xác nhận mới của em. Hết câu phù hợp thì ghi “chưa xác nhận” và xin câu khác; không lấy câu Ôn lại của lượt sau để lấp thiếu.
+
+### Nút thắt nhận thức và cách tháo gỡ {#nut-that}
+
+Các biểu hiện sau giúp em tự nhận ra chỗ cần làm rõ, không dùng để gán nhãn năng lực hay đánh đố.
+
+::: {#g05-table-06 .table-scroll data-zo-remediation="bottlenecks-v1"}
+| Nút thắt nhận thức | Biểu hiện dễ nhầm | Câu hỏi và cách tháo gỡ | Tự kiểm tra |
+| --- | --- | --- | --- |
+| Chọn đại lượng | Lấy doanh thu thay lợi nhuận; tổng thay trung bình | “Đề hỏi gì, đơn vị gì?” Viết tên trước công thức; xem [1.1](#bh-11) | Sau Luyện tập: [Nhiệm vụ 24.2](#nv-24); Sau Kiểm tra: [Nhiệm vụ 27.1](#nv-27); Sau Ôn lại: [Nhiệm vụ 28.1](#nv-28) về lợi nhuận. Không thay các ý cho nhau nếu khác lỗi. |
+| Đơn vị của biến | Thay số sản phẩm vào biến nghìn sản phẩm | “Một đơn vị biến là bao nhiêu?” Đổi đơn vị trước khi thế; xem [1.1](#bh-11) | [Nhiệm vụ 05](#nv-05) kiểm trực tiếp quy mô nghìn sản phẩm. Nếu đã xem đề hoặc lời giải, các bài sửa không đủ thay thế riêng lỗi quy mô: cần câu mới. |
+| Trung bình/tức thời | Dùng đạo hàm cho mức tăng chính xác trên khoảng | “Trên khoảng hay tại thời điểm?” Xem [1.2](#bh-12) | Sau Luyện tập: [Nhiệm vụ 24.2](#nv-24); Sau Kiểm tra: [Nhiệm vụ 27.1](#nv-27); Sau Ôn lại: [Nhiệm vụ 29.1](#nv-29). |
+| Đại lượng và tốc độ | Lấy độ cao làm vận tốc; lẫn vận tốc/gia tốc | “Đang đọc giá trị hay tốc độ thay đổi?” Xem [1.2](#bh-12) | [Nhiệm vụ 14](#nv-14) nếu chưa gặp; Sau Ôn lại [Nhiệm vụ 29.1](#nv-29). Câu chi phí không xác nhận trọn phần chuyển động. |
+| Chi phí biên | Viết đạo hàm bằng hiệu hữu hạn | “Chính xác hay xấp xỉ?” Tính cả hai để đối chiếu; xem [1.3](#bh-13) | Sau Luyện tập [Nhiệm vụ 24.2](#nv-24); Sau Kiểm tra [Nhiệm vụ 27.1](#nv-27). Sau Ôn lại nếu đã xem hết đề hoặc lời giải, cần câu mới đúng chi phí. |
+| Đại lượng phụ thuộc | Tăng chiều cao nhưng giữ nguyên đáy | “Điều gì buộc đổi theo?” Dùng ràng buộc; xem [2.1](#bh-21) | Sau Luyện tập [Nhiệm vụ 24.1](#nv-24); Sau Kiểm tra [Nhiệm vụ 26](#nv-26); lỗi riêng cắt hộp cần câu cắt hộp mới nếu [Nhiệm vụ 06](#nv-06) đã xem đề hoặc lời giải. |
+| Tập xác định của biểu thức và các giá trị thực hiện được | Nhận kích thước không dương hoặc vượt công suất | “Tính được nhưng làm được không?” Xem [2.1](#bh-21), [2.2](#bh-22) | Sau Luyện tập [Nhiệm vụ 24.1](#nv-24); Sau Kiểm tra [Nhiệm vụ 26](#nv-26); Sau Ôn lại [Nhiệm vụ 28.1](#nv-28). |
+| Quan hệ chưa có căn cứ | Tự giả định giá–lượng luôn tuyến tính | “Dữ kiện nào cho phép viết?” Chỉ dùng quan hệ được cho; xem [2.2](#bh-22) | Sau Ôn lại [Nhiệm vụ 28.1](#nv-28), gồm câu về giới hạn. Sau Luyện tập/Kiểm cần câu mới riêng nếu lỗi này chưa được đo. |
+| Ứng viên và tối ưu toàn tập đang xét | Giải đạo hàm bằng không rồi dừng | “Đã loại mọi phương án khác chưa?” Xem [3](#bh-03) | Sau Luyện tập [Nhiệm vụ 24.1](#nv-24); Sau Kiểm tra [Nhiệm vụ 26](#nv-26); Sau Ôn lại [Nhiệm vụ 28.1](#nv-28). |
+| Mức tiến tới và mức đạt | Gọi giới hạn là giá trị nhỏ nhất | “Có điểm được phép nào đạt đúng mức đó?” Xem [3](#bh-03) | Sau Luyện tập [Nhiệm vụ 25.2](#nv-25); Sau Ôn lại [Nhiệm vụ 28.2](#nv-28). Sau Kiểm tra cần câu phù hợp chưa xem đề hoặc lời giải, không dùng trước [Nhiệm vụ 28](#nv-28). |
+| Nghiệm liên tục và chọn nguyên | Làm tròn thay so giá trị | “Đang tối ưu khoảng cách hay hàm mục tiêu?” Xem [4](#bh-04) | Sau Luyện tập [Nhiệm vụ 25.1](#nv-25); Sau Kiểm tra [Nhiệm vụ 27.2](#nv-27); Sau Ôn lại [Nhiệm vụ 29.2](#nv-29). |
+| Đáp số và kết luận | Báo biến phụ, quên đơn vị, ngoại suy | “Người hỏi cần thực hiện gì?” Thế lại ràng buộc; xem [5](#bh-05) | Các bài [Nhiệm vụ 24](#nv-24)–29 theo ngữ cảnh; phải đọc phần kết luận, không chỉ đáp số. |
+:::
+
+Chọn bài theo nơi phát hiện dưới đây; mỗi ý chỉ xác nhận phân biệt mà nó thực sự yêu cầu.
+
+### Sau Luyện tập {#sua-sau-luyen data-zo-context="after:area.practice"}
+
+#### Nhiệm vụ 24 — Quan hệ và mức thay đổi {#nv-24 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV24" data-zo-function="function.remediation" data-zo-number="24"}
+
+1. Dùng $36$ m rào ba cạnh một hình chữ nhật tựa tường. Lập mô hình diện tích, điều kiện của biến và tìm kích thước tốt nhất. Nêu giả thiết của hình.
+2. Cho tổng chi phí $C(x)=\frac{1}{20}x^2+2x+60$ nghìn đồng. Tại $10$ sản phẩm, tính tổng chi phí, chi phí trung bình, chi phí biên và mức tăng chính xác khi làm thêm một sản phẩm; phân biệt đơn vị và nghĩa.
+
+[Xem lời giải](#lg-24)
+
+#### Nhiệm vụ 25 — Nguyên và sự đạt được {#nv-25 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV25" data-zo-function="function.remediation" data-zo-number="25"}
+
+1. Chi phí trung bình $F(n)=5n+\frac{31}{n}$ triệu đồng/lô, $n\in\{1;2;\ldots;6\}$. Tìm tối ưu và kiểm xem làm tròn nghiệm liên tục có cho đúng không.
+2. Cho $A(x)=7+\frac{8}{x}$, $x\ge2$. Có giá trị nhỏ nhất không? Nếu giới hạn thêm $x\le8$ thì sao?
+
+[Xem lời giải](#lg-25)
+
+Sau khi tự làm và đối chiếu, quay về [Điểm dừng 02](#cp-02), [03](#cp-03) hoặc [04](#cp-04) đã gọi hỗ trợ. Chỉ ghi xác nhận cho ý đúng và tự lực, không chứng nhận cả chặng.
+
+### Sau Kiểm tra {#sua-sau-kiem data-zo-context="after:area.test"}
+
+#### Nhiệm vụ 26 — Thêm một vách ngăn {#nv-26 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV26" data-zo-function="function.remediation" data-zo-number="26"}
+
+Một khu đất chữ nhật dựa vào tường được chia thành hai ô bằng một hàng rào bên trong vuông góc tường. Tổng hàng rào cho ba cạnh ngoài và một vách ngăn là $60$ m; không rào cạnh sát tường. Tìm kích thước ngoài cho tổng diện tích lớn nhất. Vì sao không dùng ngay quan hệ rào ba cạnh của bài không có vách ngăn?
+
+![Hình 05 — Vách ngăn làm thay đổi ràng buộc, dù hình ngoài vẫn là chữ nhật.](hinh/khu_dat_co_vach.svg){fig-alt="Khu đất sát tường có thêm một vách ngăn vuông góc tường; tổng cộng ba đoạn chiều x và một đoạn chiều y cần rào."}
+
+[Xem lời giải](#lg-26)
+
+#### Nhiệm vụ 27 — Chi phí biên và lựa chọn nguyên {#nv-27 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV27" data-zo-function="function.remediation" data-zo-number="27"}
+
+1. Cho $C(x)=\frac{1}{4}x^2+6x+40$ nghìn đồng. Tính chi phí biên tại $x=8$, mức tăng chính xác từ $8$ lên $9$, tổng và trung bình tại $8$; diễn giải.
+2. Cho $F(n)=3n+\frac{19}{n}$ triệu đồng/lô, $n\in\{1;2;\ldots;6\}$. Tìm chi phí trung bình nhỏ nhất; chứng minh đã xét đủ ứng viên.
+
+[Xem lời giải](#lg-27)
+
+Quay về [Điểm dừng 05](#cp-05), giữ kết quả lượt Kiểm tra gốc riêng kết quả sau sửa. Chưa có câu mới đo đúng lỗi thì ghi chưa xác nhận; không sửa kết quả gốc thành đạt.
+
+### Sau Ôn lại {#sua-sau-on data-zo-context="after:area.review"}
+
+#### Nhiệm vụ 28 — Công suất và giới hạn mô hình {#nv-28 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV28" data-zo-function="function.remediation" data-zo-number="28"}
+
+1. Ở giá $30$ nghìn đồng/sản phẩm, dự kiến bán $40$ sản phẩm/ngày. Mỗi lần giảm $1$ nghìn đồng làm tăng $4$ sản phẩm/ngày theo mô hình, tối đa $10$ lần giảm nguyên. Chi phí mỗi sản phẩm $10$ nghìn đồng, chi phí cố định $80$ nghìn đồng/ngày; công suất $56$ sản phẩm/ngày. Chọn giá, lượng và lợi nhuận tối ưu. Nếu quan hệ giá–lượng thực khác giả thiết thì kết luận nào cần xem lại?
+2. Cho $A(x)=2+\frac{10}{x}$, $x\ge1$. Sửa kết luận “nhỏ nhất bằng $2$” và chỉ ra điều thiếu nếu muốn khuyến nghị một sản lượng cụ thể.
+
+[Xem lời giải](#lg-28)
+
+#### Nhiệm vụ 29 — Tự phân biệt và tự chọn {#nv-29 .zo-learning-task data-zo-type="task" data-zo-task="G05-NV29" data-zo-function="function.remediation" data-zo-number="29"}
+
+1. Cho $s(t)=2t^2+t$ mét, $0\le t\le3$ giây. Tính vận tốc trung bình trên $[1;2]$, vận tốc và gia tốc tại $t=2$, giải thích sự khác nhau.
+2. Chi phí trung bình $F(n)=n+\frac{13}{n}$ triệu đồng/lô, $n\in\{1;2;\ldots;8\}$. Tìm lựa chọn tối ưu và giải thích.
+
+[Xem lời giải](#lg-29)
+
+Quay về Điểm dừng [06](#cp-06), [07](#cp-07) hoặc [08](#cp-08) đã gọi. Ghi ngày, khoảng trễ và câu đã gặp. Câu sửa đúng ngay sau xem lại chưa chứng minh sự duy trì sau một khoảng trễ mới.
+
+## Nhật kí {#nhat-ky}
+
+[]{#nhat-ki}
+
+
+Dùng [mẫu Nhật kí học tập chung đủ 14 trường](#mau-nhat-ki). Sao mẫu trống ra giấy hoặc công cụ ghi chú. Không cần ghi một bản Nhật kí cho mỗi câu hoặc mỗi Điểm dừng; dùng khi cần giữ lỗi, bằng chứng, mức hỗ trợ và hẹn kiểm lại. Ví dụ trong nguồn chung được ghi rõ là giả lập, không phải dữ liệu học sinh của gói này.
+
+Ghi bài ban đầu và phần sau sửa riêng nhau. Nếu chưa có câu phù hợp chưa xem đề hoặc lời giải, ghi chưa xác nhận. Chỉ ghi kết quả sau khoảng trễ khi đã thực sự tự làm. Không tự điền trước đã đạt.
+
+[]{#mau-nhat-ki}
+
+{{< include ../_dung_chung/nhat_ki_hoc_tap.qmd >}}
+
+## Lời giải {#loi-giai}
+
+Chỉ đối chiếu sau khi tự làm; riêng Kiểm tra, kết thúc toàn lượt trước khi đọc. Mỗi lời giải dưới đây nêu kết quả và phần giải thích cần có. Cách giải khác đúng điều kiện và chứng minh đủ vẫn được chấp nhận.
+
+### Bài học — Khởi động {#muc-phu-1}
+
+##### Nhiệm vụ 01 — Cần tối đa đại lượng nào? {#lg-01}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+Tối đa $P(x)=R(x)-C(x)$. Với $x>0$, $G(x)=\frac{C(x)}{x}$ nên $C(x)=xG(x)$. $R,C,P$ có đơn vị nghìn đồng, $G$ nghìn đồng/sản phẩm nếu $x$ là số sản phẩm. Đúng công thức nhưng không phân biệt tổng và trung bình thì chưa đủ giải thích.
+
+</details>
+
+[Xem đề bài](#nv-01)
+
+##### Nhiệm vụ 02 — Tính được nhưng có làm được không? {#lg-02}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+Cần $x>0$ và $24-2x>0$, do đó $0<x<12$. Với $x=0$ không có chiều cao; với $x=12$ đáy có cạnh bằng $0$. Cả hai đều không tạo hộp có ba kích thước dương dù đa thức vẫn tính được.
+
+</details>
+
+[Xem đề bài](#nv-02)
+
+##### Nhiệm vụ 03 — Một phương trình đã đủ chưa? {#lg-03}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+Cần biết $x$ được phép nhận giá trị nào, có phải nguyên không, $F$ biểu thị gì, đang tìm lớn nhất hay nhỏ nhất. Phải kiểm $5$ khả thi và chứng minh tính tốt nhất bằng biến thiên hoặc xét đủ ứng viên phù hợp, kể cả biên. Phương trình đạo hàm chỉ cho ứng viên, không tự chứng minh tối ưu.
+
+</details>
+
+[Xem đề bài](#nv-03)
+
+### Bài học — Nhiệm vụ tự làm {#muc-phu-2}
+
+##### Nhiệm vụ 04 — Đại lượng và thời điểm {#lg-04}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+$s(0)=0$, $s(2)=8$, vận tốc trung bình $\frac{8-0}{2-0}=4$ m/s. $v(t)=2t+2$, $v(2)=6$ m/s; $a(t)=2$, nên gia tốc $2$ m/s$^2$. $s(2)=8$ m là tọa độ, khác cả nghĩa và đơn vị với vận tốc.
+
+</details>
+
+[Xem đề bài](#nv-04)
+
+##### Nhiệm vụ 05 — Đơn vị quyết định cách thay số {#lg-05}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+$G(x)=\frac{C(x)}{x}=2x+30+\frac{100}{x}$ triệu đồng/nghìn sản phẩm, $x>0$. Sản xuất $2\,000$ sản phẩm tương ứng $x=2$. $C(2)=168$ triệu đồng, $G(2)=84$ triệu đồng/nghìn sản phẩm, tức $84\,000$ đồng/sản phẩm. Thay $x=2\,000$ sẽ mô tả $2\,000\,000$ sản phẩm, sai quy mô.
+
+</details>
+
+[Xem đề bài](#nv-05)
+
+##### Nhiệm vụ 06 — Tấm bìa không còn vuông {#lg-06}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+$V(x)=x(24-2x)(18-2x)$ cm$^3$. Điều kiện $x>0$, $24-2x>0$, $18-2x>0$ cho $0<x<9$. Cạnh ngắn tạo giới hạn chặt hơn; chỉ xét cạnh dài sẽ nhận những phương án không có đáy dương.
+
+</details>
+
+[Xem đề bài](#nv-06)
+
+##### Nhiệm vụ 07 — Công suất thêm một ràng buộc {#lg-07}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+$100+5k\le130$ cho $k\le6$; kết hợp điều kiện ban đầu, $k\in\{0;1;\ldots;6\}$. $P'(k)=100-10k>0$ trên $[0;6]$, nên chọn $k=6$. Giá $44$ nghìn đồng/sản phẩm, số lượng $130$, lợi nhuận $P(6)=4020$ nghìn đồng/ngày. $k=10$ không khả thi.
+
+</details>
+
+[Xem đề bài](#nv-07)
+
+##### Nhiệm vụ 08 — Giới hạn của một kết luận {#lg-08}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+$B'(x)=-\frac{18}{x^2}<0$, $B(x)>3$ và $\lim_{x\to+\infty}B(x)=3$. Không có giá trị nhỏ nhất trên $[2;+\infty)$. Trên $[2;9]$, hàm giảm nên nhỏ nhất $B(9)=5$, đạt tại $x=9$. Không gọi mức giới hạn $3$ là giá trị đạt được.
+
+</details>
+
+[Xem đề bài](#nv-08)
+
+##### Nhiệm vụ 09 — Một ứng viên bị loại {#lg-09}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+Tập là $\{2;4;6\}$. Ta có $F(2)=\frac{101}{2}$, $F(4)=\frac{221}{4}$, $F(6)=\frac{421}{6}$, nên chọn $2$ lô. Cũng có thể dùng hàm tăng với $x>\sqrt{\frac{61}{10}}$ để loại $6$ sau khi so $2,4$. $3$ bị loại bởi điều kiện chẵn, không phải do tính sai giá trị.
+
+</details>
+
+[Xem đề bài](#nv-09)
+
+##### Nhiệm vụ 10 — Trả về đúng kích thước {#lg-10}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+Cạnh dọc tường dài $30-2\cdot7{,}5=15$ m. Chọn hai cạnh vuông góc tường dài $7{,}5$ m và cạnh còn lại dài $15$ m, diện tích $112{,}5$ m$^2$; tổng rào $2\cdot7{,}5+15=30$ m. Nếu rào bốn cạnh, quan hệ thành $2x+2y=30$, nên không dùng ngay kết luận của mô hình ba cạnh.
+
+</details>
+
+[Xem đề bài](#nv-10)
+
+### Luyện tập {#muc-phu-3}
+
+##### Nhiệm vụ 11 — Khu trồng cây sát tường {#lg-11}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+Gọi $x$ m là cạnh vuông góc tường, $y$ m là cạnh đối diện tường. $2x+y=48$, $x,y>0$, nên $y=48-2x$, $0<x<24$. Diện tích $A(x)=48x-2x^2$, $A'(x)=48-4x$, dương khi $x<12$, âm khi $x>12$. Vì vậy chọn $x=12$, $y=24$, diện tích lớn nhất $288$ m$^2$. Kiểm $2\cdot12+24=48$. Kết quả dùng giả thiết tường đủ dài, không hao chiều dài ở góc và không cần thêm cổng/vách.
+
+</details>
+
+[Xem đề bài](#nv-11)
+
+##### Nhiệm vụ 12 — Giá bán thay đổi theo nấc {#lg-12}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+Chọn $k\in\{0;1;\ldots;8\}$ lần giảm; giá $40-2k$, lượng $80+10k$. Lợi nhuận theo nghìn đồng/ngày:
+
+$$P(k)=(28-2k)(80+10k)-240=2000+120k-20k^2.$$
+
+Hàm biến thực có $P'(k)=120-40k$, tăng đến $3$ rồi giảm. $3$ nguyên và khả thi, nên giá $34$ nghìn đồng/sản phẩm, lượng $110$ sản phẩm/ngày, lợi nhuận $2180$ nghìn đồng/ngày. Phải trừ cả chi phí biến đổi và cố định; kết luận có điều kiện theo mô hình nhu cầu.
+
+</details>
+
+[Xem đề bài](#nv-12)
+
+##### Nhiệm vụ 13 — Tổng chi phí và chi phí trung bình {#lg-13}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+Hàm cần tối ưu là $G(x)=\frac{C(x)}{x}=\frac{1}{2}x+8+\frac{200}{x}$ triệu đồng/tấn, $x\in[10;40]$. Đạo hàm $G'(x)=\frac{1}{2}-\frac{200}{x^2}$ âm khi $10\le x<20$, bằng $0$ tại $20$, dương sau đó. Chọn $20$ tấn/ngày; nhỏ nhất $G(20)=28$ triệu đồng/tấn. Tổng chi phí tăng với $x$ trên đoạn đang xét nên tối thiểu hóa nó sẽ cho mục tiêu khác, không trả lời đề.
+
+</details>
+
+[Xem đề bài](#nv-13)
+
+##### Nhiệm vụ 14 — Tọa độ, vận tốc, gia tốc {#lg-14}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+$s(1)=2$, $s(2)=4$, vận tốc trung bình là $2$ m/s. $v(t)=3t^2-6t+4=3(t-1)^2+1$, nên $v(2)=4$ m/s; $a(t)=6t-6$, $a(2)=6$ m/s$^2$. Vì $v(t)>0$ trên $[0;3]$, tọa độ tăng suốt khoảng xét. Vận tốc dương không đồng nghĩa gia tốc luôn dương: $a(t)<0$ khi $0\le t<1$.
+
+</details>
+
+[Xem đề bài](#nv-14)
+
+##### Nhiệm vụ 15 — Chi phí trên một lô {#lg-15}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+$F(n)=8n+\frac{50}{n}$. Hàm biến thực có $F'(x)=8-\frac{50}{x^2}$, giảm đến $x=\frac{5}{2}$ rồi tăng. Trong tập các giá trị nguyên liên tiếp, chỉ cần so $2,3$: $F(2)=41$, $F(3)=\frac{122}{3}<41$. Chọn $3$ lô; chi phí trung bình nhỏ nhất $\frac{122}{3}$ triệu đồng/lô. Các số nguyên nhỏ hơn $2$ hoặc lớn hơn $3$ bị loại bằng biến thiên, không chỉ vì xa nghiệm.
+
+</details>
+
+[Xem đề bài](#nv-15)
+
+##### Nhiệm vụ 16 — Thêm công suất thì kết luận đổi {#lg-16}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+$A'(x)=-\frac{24}{x^2}<0$, $A(x)>4$ và $\lim_{x\to+\infty}A(x)=4$. Không đạt $4$ ở sản lượng hữu hạn nên không có giá trị nhỏ nhất trên $[2;+\infty)$. Trên $[2;8]$, chọn $x=8$, nhỏ nhất $A(8)=7$ triệu đồng/tấn. Không khuyến nghị tăng vô hạn ngoài khả năng nhà máy; kết luận chỉ đúng khi công thức và giới hạn công suất còn phù hợp.
+
+</details>
+
+[Xem đề bài](#nv-16)
+
+### Kiểm tra {#muc-phu-4}
+
+##### Nhiệm vụ 17 — Hộp từ tấm bìa chữ nhật {#lg-17}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+Chiều cao $x$, cạnh đáy $32-2x$ và $20-2x$, điều kiện $0<x<10$. Thể tích
+
+$$V(x)=x(32-2x)(20-2x)=640x-104x^2+4x^3.$$
+
+$$V'(x)=640-208x+12x^2=4(3x-40)(x-4).$$
+
+Trên $(0;4)$ hai thừa số sau cùng đều âm nên đạo hàm dương; trên $(4;10)$ đạo hàm âm. Chọn $x=4$ cm, đáy $24$ cm và $12$ cm, cao $4$ cm, thể tích lớn nhất $1152$ cm$^3$. Nghiệm $\frac{40}{3}$ của đạo hàm không thuộc tập giá trị được phép. Cần đủ lập mô hình, tập giá trị được phép, dấu và kích thước; chỉ ghi $4$ chưa đủ.
+
+</details>
+
+[Xem đề bài](#nv-17)
+
+##### Nhiệm vụ 18 — Đọc báo cáo chi phí {#lg-18}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+$C(20)=220$ nghìn đồng; chi phí trung bình $\frac{220}{20}=11$ nghìn đồng/sản phẩm. $C'(x)=\frac{x}{5}+5$, nên chi phí biên $C'(20)=9$ nghìn đồng/sản phẩm.
+
+$$C(21)-C(20)=\frac{1}{10}(21^2-20^2)+5=9{,}1$$
+
+nghìn đồng. $9$ là xấp xỉ cho chi phí thêm một sản phẩm, không bằng mức tăng chính xác $9{,}1$. Câu sửa: “$C'(20)$ là tốc độ thay đổi tức thời của tổng chi phí theo sản lượng tại mức $20$ sản phẩm trong mô hình liên tục; tổng chi phí tại mức ấy là $C(20)$.”
+
+</details>
+
+[Xem đề bài](#nv-18)
+
+##### Nhiệm vụ 19 — Giá bán và giới hạn cung ứng {#lg-19}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+Gọi $k$ là số lần giảm: $p=60-2k$, $q=60+5k$. Điều kiện công suất $60+5k\le75$ cho $k\le3$, nên tập giá trị thực hiện được là $\{0;1;2;3\}$. Lợi nhuận:
+
+$$P(k)=(40-2k)(60+5k)-300=2100+80k-10k^2.$$
+
+$P'(k)=80-20k>0$ trên $[0;3]$, chọn $k=3$. Giá $54$ nghìn đồng/sản phẩm, lượng $75$, lợi nhuận $2250$ nghìn đồng/ngày. Không có giới hạn công suất thì ứng viên $k=4$ cho $80$ sản phẩm, nhưng phương án ấy không được phép trong bài này. Quan hệ giá–lượng vẫn là giả thiết.
+
+</details>
+
+[Xem đề bài](#nv-19)
+
+##### Nhiệm vụ 20 — Hai cách hiểu nhỏ nhất {#lg-20}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+1. Hàm biến thực $F(x)=6x+\frac{40}{x}$ có đạo hàm $6-\frac{40}{x^2}$, giảm đến $\sqrt{\frac{20}{3}}\approx2{,}58$ rồi tăng. So $F(2)=32$ và $F(3)=\frac{94}{3}<32$. Chọn $3$ lô, nhỏ nhất $\frac{94}{3}$ triệu đồng/lô. Biến thiên chứng minh xét đủ.
+2. $B'(x)=-\frac{12}{x^2}<0$, $B(x)>3$, $\lim_{x\to+\infty}B(x)=3$. Không có giá trị nhỏ nhất trên tập giá trị đã cho. Mô hình chưa cho giới hạn công suất và chưa bảo đảm công thức đúng với sản lượng tùy lớn; không suy một nhà máy thật có thể tăng vô hạn hoặc đạt đúng mức $3$.
+
+</details>
+
+[Xem đề bài](#nv-20)
+
+### Ôn lại {#muc-phu-5}
+
+##### Nhiệm vụ 21 — Bể đáy vuông không nắp {#lg-21}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+Chọn cạnh đáy $x>0$ dm, chiều cao $h>0$ dm. $x^2h=32$, nên $h=\frac{32}{x^2}$. Diện tích vật liệu
+
+$$S(x)=x^2+4xh=x^2+\frac{128}{x},\qquad x>0.$$
+
+$$S'(x)=2x-\frac{128}{x^2}=\frac{2(x^3-64)}{x^2}.$$
+
+Dấu âm trên $(0;4)$, dương trên $(4;+\infty)$. Bể có cạnh đáy $4$ dm, cao $2$ dm, diện tích nhỏ nhất $48$ dm$^2$; thể tích kiểm lại $4^2\cdot2=32$ dm$^3$. Nếu đáy đắt hơn thành, tối thiểu diện tích không còn đồng nghĩa tối thiểu chi phí; phải đưa đơn giá khác nhau vào hàm mục tiêu.
+
+</details>
+
+[Xem đề bài](#nv-21)
+
+##### Nhiệm vụ 22 — Giá thuê chỗ bán hàng {#lg-22}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+Giá $100+5k$, số chỗ thuê $12-k$. Lợi nhuận theo nghìn đồng/ngày:
+
+$$P(k)=(80+5k)(12-k)-100=860-20k-5k^2.$$
+
+Với biến thực trên $[0;11]$, $P'(k)=-20-10k<0$. Hàm giảm nên tối ưu tại biên $k=0$, cũng là số nguyên được phép. Giá $100$ nghìn đồng/chỗ/ngày, thuê hết $12$ chỗ, lợi nhuận $860$ nghìn đồng/ngày. Nghiệm $k=-2$ của phương trình đạo hàm bằng không nằm ngoài tập giá trị được phép và không cần để đạt tối ưu.
+
+</details>
+
+[Xem đề bài](#nv-22)
+
+##### Nhiệm vụ 23 — Lên cao và đi lên nhanh {#lg-23}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+$h(2)=20$, $h(4)=32$; trung bình trên $[2;4]$ là $\frac{32-20}{4-2}=6$ m/s. $v(t)=12-2t$, nên $v(4)=4$ m/s; gia tốc $-2$ m/s$^2$. Độ cao tăng đến $t=6$ rồi giảm, lớn nhất $h(6)=36$ m. Vận tốc theo chiều lên lớn nhất tại $t=0$, bằng $12$ m/s, trong khi $v(6)=0$. Cao nhất không phải đi lên nhanh nhất.
+
+</details>
+
+[Xem đề bài](#nv-23)
+
+### Sửa lỗi — Sau Luyện tập {#muc-phu-6}
+
+##### Nhiệm vụ 24 — Quan hệ và mức thay đổi {#lg-24}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+1. Chọn $x$ là cạnh vuông góc tường. $y=36-2x$, $0<x<18$, $A(x)=36x-2x^2$. $A'(x)=36-4x$ đổi từ dương sang âm tại $9$. Chọn $x=9$ m, $y=18$ m, diện tích $162$ m$^2$. Giả thiết tường đủ dài và chỉ ba cạnh cần rào; kiểm $2\cdot9+18=36$.
+2. $C(10)=85$ nghìn đồng; trung bình $8{,}5$ nghìn đồng/sản phẩm. $C'(x)=\frac{x}{10}+2$, nên chi phí biên $3$ nghìn đồng/sản phẩm. Mức tăng chính xác $C(11)-C(10)=\frac{21}{20}+2=3{,}05$ nghìn đồng. Phân biệt tổng, trung bình, tốc độ và mức tăng; không dùng dấu bằng giữa $3$ và $3{,}05$.
+
+</details>
+
+[Xem đề bài](#nv-24)
+
+##### Nhiệm vụ 25 — Nguyên và sự đạt được {#lg-25}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+1. $F'(x)=5-\frac{31}{x^2}$, giảm đến $\sqrt{\frac{31}{5}}\approx2{,}49$ rồi tăng. So $F(2)=\frac{51}{2}$ và $F(3)=\frac{76}{3}$; hiệu bằng $\frac{1}{6}>0$. Chọn $3$ lô; làm tròn về $2$ sẽ sai. Cần nêu lí do hai ứng viên đã đủ.
+2. $A'(x)=-\frac{8}{x^2}<0$, $A(x)>7$ và $\lim_{x\to+\infty}A(x)=7$, nên không có nhỏ nhất trên $[2;+\infty)$. Trên $[2;8]$, nhỏ nhất $A(8)=8$.
+
+</details>
+
+[Xem đề bài](#nv-25)
+
+### Sửa lỗi — Sau Kiểm tra {#muc-phu-7}
+
+##### Nhiệm vụ 26 — Thêm một vách ngăn {#lg-26}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+Chọn $x$ là chiều vuông góc tường và $y$ là chiều dọc tường. Có ba đoạn chiều $x$ cần rào, nên $3x+y=60$, $0<x<20$. Diện tích $A(x)=x(60-3x)$, đạo hàm $60-6x$, dương trước $10$, âm sau $10$. Chọn $x=10$ m, $y=30$ m, diện tích $300$ m$^2$; kiểm $3\cdot10+30=60$. Quan hệ $2x+y=60$ bỏ quên vách ngăn. Vị trí vách ở giữa giúp chia đều hai ô nhưng không đổi tổng diện tích hoặc chiều dài vách.
+
+</details>
+
+[Xem đề bài](#nv-26)
+
+##### Nhiệm vụ 27 — Chi phí biên và lựa chọn nguyên {#lg-27}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+1. $C'(x)=\frac{x}{2}+6$, $C'(8)=10$ nghìn đồng/sản phẩm. Mức tăng chính xác $C(9)-C(8)=\frac{17}{4}+6=10{,}25$ nghìn đồng. Tổng $C(8)=104$ nghìn đồng; trung bình $13$ nghìn đồng/sản phẩm. Đạo hàm là tốc độ của mô hình, dùng xấp xỉ cho mức tăng thêm một sản phẩm.
+2. $F'(x)=3-\frac{19}{x^2}$, giảm đến $\sqrt{\frac{19}{3}}\approx2{,}52$ rồi tăng. $F(2)=\frac{31}{2}$, $F(3)=\frac{46}{3}$, hiệu $\frac{1}{6}>0$. Chọn $3$ lô, nhỏ nhất $\frac{46}{3}$ triệu đồng/lô. Biến thiên loại các số nguyên khác.
+
+</details>
+
+[Xem đề bài](#nv-27)
+
+### Sửa lỗi — Sau Ôn lại {#muc-phu-8}
+
+##### Nhiệm vụ 28 — Công suất và giới hạn mô hình {#lg-28}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+1. Chọn số lần giảm $k$: giá $30-k$, lượng $40+4k$. Công suất cho $k\le4$, nên $k\in\{0;1;2;3;4\}$. Lợi nhuận $P(k)=(20-k)(40+4k)-80=720+40k-4k^2$. Đạo hàm $40-8k>0$ trên $[0;4]$, chọn $k=4$. Giá $26$ nghìn đồng/sản phẩm, lượng $56$, lợi nhuận $816$ nghìn đồng/ngày. Nếu quan hệ nhu cầu thực khác giả thiết, cần lập lại lượng theo giá, hàm lợi nhuận và kiểm phương án; kết quả cũ không tự chứng minh tối ưu thực tế.
+2. $A(x)>2$, $A'(x)=-\frac{10}{x^2}<0$, $\lim_{x\to+\infty}A(x)=2$. Không có nhỏ nhất trên tập giá trị đã cho. Muốn khuyến nghị sản lượng thực cần giới hạn khả thi và phạm vi công thức còn phù hợp.
+
+</details>
+
+[Xem đề bài](#nv-28)
+
+##### Nhiệm vụ 29 — Tự phân biệt và tự chọn {#lg-29}
+
+<details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
+<summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
+
+
+1. $s(1)=3$, $s(2)=10$, trung bình $7$ m/s. $v(t)=4t+1$, $v(2)=9$ m/s, gia tốc $4$ m/s$^2$. Từng kết quả trả lời câu hỏi khác nhau; tọa độ $10$ m không phải vận tốc.
+2. $F'(x)=1-\frac{13}{x^2}$, giảm đến $\sqrt{13}\approx3{,}61$ rồi tăng. So $F(3)=\frac{22}{3}$ và $F(4)=\frac{29}{4}$, hiệu $\frac{1}{12}>0$. Chọn $4$ lô, nhỏ nhất $\frac{29}{4}$ triệu đồng/lô.
+
+</details>
+
+[Xem đề bài](#nv-29)
+
+## Nguồn và phạm vi đối chiếu {#nguon}
+
+- **Chương trình giáo dục phổ thông môn Toán 2018**, Bộ Giáo dục và Đào tạo: tr.95–96 về đạo hàm, vận tốc, gia tốc; tr.106–107 về ứng dụng đạo hàm, giá trị lớn nhất, nhỏ nhất trên tập đang xét và ứng dụng thực tiễn.
+- **Toán 12 — Tập Một, Kết nối tri thức với cuộc sống**, bản mẫu tháng 1-2024 đã đăng ký của dự án: Bài 2 tr.15–19; Bài 5 tr.33–41. Định nghĩa và quy trình được đối chiếu ở các chú thích tại chỗ; số liệu, lời văn bài tập ở đây do ZO Math biên soạn, không chép bài nguyên văn.
+- Các gói [Đơn điệu và cực trị](../r1_g01/index.qmd), [Giá trị lớn nhất và giá trị nhỏ nhất](../r1_g02/index.qmd), [Đường tiệm cận](../r1_g03/index.qmd), [Khảo sát sự biến thiên và vẽ đồ thị](../r1_g04/index.qmd) là nguồn dẫn lại trong khóa.
+- Hình minh họa giúp hình dung tình huống; nhãn hình không thay dữ kiện đề. Hình quầy hàng chỉ là bối cảnh. Chưa có bằng chứng quan sát học sinh để khẳng định tần suất các hiểu sai hoặc hiệu quả của cách tháo gỡ.
+
+
+
+
+
+
+
+
+::::::::::::

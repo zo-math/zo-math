@@ -1,0 +1,251 @@
+schema_version: 1
+project:
+  id: on_thi_r1_g05
+  name: Ứng dụng đạo hàm trong thực tiễn
+  root: content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g05
+discovery:
+  article_types:
+  - id: on_thi_package
+    include:
+    - index.qmd
+    exclude: []
+profiles:
+  directory: _quy_trinh/ho_so
+  naming: by_article_stem
+  required: true
+modules:
+  required:
+  - qmd-core
+  - zo-html-pdf
+  optional: []
+metadata:
+  core_required:
+  - title
+  - draft
+  project_required: []
+  body_classes_required:
+  - zo-page-article
+  - zo-meta-hidden
+  placeholders: []
+publication:
+  production_states:
+  - draft
+  - in_production
+  - validated
+  - accepted
+  publication_states:
+  - pending
+  - published
+  user_confirmation_required: true
+references:
+  controlling_documents:
+  - _quy_trinh/README.md
+  templates: []
+  theory_sources: []
+  quality_exemplars: []
+regression:
+  articles:
+  - index.qmd
+  expected_checker_version: 2.6.0
+  preserve_cli: true
+extensions:
+  artifact_identity: path
+  artifact_inputs:
+  - giao_dien/he_nhan.json
+  - giao_dien/anh_bia.json
+  - giao_dien/minh_hoa_manifest.json
+  - du_lieu/minh_hoa.json
+  - _quy_trinh/sinh_hinh.py
+  - giao_dien/print_assets.json
+  - hinh/hop_cat_gap.svg
+  - hinh/hop_cat_gap.pdf
+  - hinh/khu_dat_sat_tuong.svg
+  - hinh/khu_dat_sat_tuong.pdf
+  - hinh/quay_ban_hang.svg
+  - hinh/quay_ban_hang.pdf
+  - hinh/be_khong_nap.svg
+  - hinh/be_khong_nap.pdf
+  - hinh/khu_dat_co_vach.svg
+  - hinh/khu_dat_co_vach.pdf
+  - hinh/huong_bia.svg
+  - hinh/huong_bia.pdf
+  - _quy_trinh/sinh_hinh_in.py
+  pdf_provenance_manifest: giao_dien/pdf_provenance.json
+  course_pdf_shell:
+    layout: course-print-v2
+    reference: D0_owner_approved_2026_10_14
+    cover_lines:
+    - Ứng dụng đạo hàm
+    - trong thực tiễn
+    allow_direction_approved_preview: true
+    main_area_page_breaks:
+    - bat-dau
+    - phieu-luyen
+    - tu-kiem-tra
+    - on-lai
+    - on-nen
+    - sua-loi
+    - nhat-ky
+    - loi-giai
+    - nguon
+    flow_functional_opening: true
+  pdf_variants:
+    full:
+      output: index.pdf
+      description: Dùng để đọc toàn bộ bài học, nhiệm vụ, hỗ trợ và lời giải.
+      metadata:
+        toc: false
+        subtitle: Lập mô hình một biến và kiểm tra kết luận trong bối cảnh — Bản đầy đủ, có lời giải
+        zo-pdf-branding:
+          collection: ZO Math · Ôn thi Toán THPT 2027
+          short-title: Ứng dụng đạo hàm trong thực tiễn
+          canonical-url: https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g05/index.html
+          display-url: zomath.vn
+      include_support: true
+    student:
+      output: index_hoc_sinh.pdf
+      description: Dùng để tự học và làm bài; không có phần lời giải.
+      metadata:
+        toc: false
+        subtitle: Lập mô hình một biến và kiểm tra kết luận trong bối cảnh — Bản học và bài tập, không lời giải
+        zo-pdf-branding:
+          collection: ZO Math · Ôn thi Toán THPT 2027
+          short-title: Ứng dụng đạo hàm trong thực tiễn
+          canonical-url: https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g05/index.html
+          display-url: zomath.vn
+      include_support: true
+    bai_hoc:
+      output: index_bai_hoc.pdf
+      description: Kiến thức, ví dụ và câu hỏi tự kiểm tra.
+      metadata:
+        toc: false
+        subtitle: Lập mô hình một biến và kiểm tra kết luận trong bối cảnh — Bài học
+        zo-pdf-branding:
+          collection: ZO Math · Ôn thi Toán THPT 2027
+          short-title: Ứng dụng đạo hàm trong thực tiễn
+          canonical-url: https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g05/index.html
+          display-url: zomath.vn
+      include_support: true
+    luyen_tap:
+      output: index_luyen_tap.pdf
+      description: Các nhiệm vụ luyện tập, không kèm lời giải.
+      metadata:
+        toc: false
+        subtitle: Lập mô hình một biến và kiểm tra kết luận trong bối cảnh — Luyện tập
+        zo-pdf-branding:
+          collection: ZO Math · Ôn thi Toán THPT 2027
+          short-title: Ứng dụng đạo hàm trong thực tiễn
+          canonical-url: https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g05/index.html
+          display-url: zomath.vn
+      include_support: true
+    kiem_tra:
+      output: index_kiem_tra.pdf
+      description: Nhiệm vụ kiểm tra và tiêu chí tự đánh giá; không kèm đáp án.
+      metadata:
+        toc: false
+        subtitle: Lập mô hình một biến và kiểm tra kết luận trong bối cảnh — Kiểm tra
+        zo-pdf-branding:
+          collection: ZO Math · Ôn thi Toán THPT 2027
+          short-title: Ứng dụng đạo hàm trong thực tiễn
+          canonical-url: https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g05/index.html
+          display-url: zomath.vn
+      include_support: true
+    sua_loi:
+      output: index_sua_loi.pdf
+      description: Danh mục nút thắt nhận thức và các nhiệm vụ sửa lỗi.
+      metadata:
+        toc: false
+        subtitle: Lập mô hình một biến và kiểm tra kết luận trong bối cảnh — Sửa lỗi
+        zo-pdf-branding:
+          collection: ZO Math · Ôn thi Toán THPT 2027
+          short-title: Ứng dụng đạo hàm trong thực tiễn
+          canonical-url: https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g05/index.html
+          display-url: zomath.vn
+      include_support: true
+    on_lai:
+      output: index_on_lai.pdf
+      description: Các lượt ôn lại và nhiệm vụ tự kiểm tra; Ôn nền được gọi riêng trên trang học liệu.
+      metadata:
+        toc: false
+        subtitle: Lập mô hình một biến và kiểm tra kết luận trong bối cảnh — Ôn lại
+        zo-pdf-branding:
+          collection: ZO Math · Ôn thi Toán THPT 2027
+          short-title: Ứng dụng đạo hàm trong thực tiễn
+          canonical-url: https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g05/index.html
+          display-url: zomath.vn
+      include_support: true
+    loi_giai:
+      output: index_loi_giai.pdf
+      description: Lời giải, đáp án và hướng dẫn chấm.
+      metadata:
+        toc: false
+        subtitle: Lập mô hình một biến và kiểm tra kết luận trong bối cảnh — Lời giải
+        zo-pdf-branding:
+          collection: ZO Math · Ôn thi Toán THPT 2027
+          short-title: Ứng dụng đạo hàm trong thực tiễn
+          canonical-url: https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g05/index.html
+          display-url: zomath.vn
+      include_support: true
+  artifact_root_inputs:
+  - _design/ngon_ngu_thiet_ke_zo_math_0_4/07_mau_thi_giac/design/color_system.json
+  - _design/ngon_ngu_thiet_ke_zo_math_0_4/07_mau_thi_giac/logos/stack_color.png
+  - _design/ngon_ngu_thiet_ke_zo_math_0_4/07_mau_thi_giac/logos/stack_color.svg
+  - _design/web_2027_mau_dung_chung/figure-profile-candidate/frame-tokens.json
+  - _design/web_2027_mau_dung_chung/figure-profile-candidate/production-figures.css
+  - _design/web_2027_mau_dung_chung/templates/support.html.tpl
+  - _design/web_2027_mau_dung_chung/web-shell.css
+  - _quarto.yml
+  - assets/css/_zo_learning_components.scss
+  - assets/css/zo_on_thi_learning_package.css
+  - assets/fonts/STIXTwoMath.otf
+  - assets/fonts/STIXTwoText-Bold.otf
+  - assets/fonts/STIXTwoText-BoldItalic.otf
+  - assets/fonts/STIXTwoText-Italic.otf
+  - assets/fonts/STIXTwoText-Medium.otf
+  - assets/fonts/STIXTwoText-MediumItalic.otf
+  - assets/fonts/STIXTwoText-Regular.otf
+  - assets/fonts/STIXTwoText-Semibold.otf
+  - assets/fonts/STIXTwoText-SemiboldItalic.otf
+  - assets/html/zo_on_thi_learning_package_script.html
+  - assets/images/qr_bao_tro_zo_math_vietcombank.jpg
+  - assets/logo/zo_math_accent_mark.png
+  - assets/logo/zo_math_logo_black_on_transprentt_1024.pdf
+  - assets/lua/custom.lua
+  - assets/lua/zo_course_print.lua
+  - assets/lua/zo_learning_components.lua
+  - assets/lua/zo_pdf_content.lua
+  - assets/lua/zo_pdf_download.lua
+  - assets/lua/zo_variation_qmd.lua
+  - assets/tex/zo-course-pdf-end.tex
+  - assets/tex/zo-course-pdf-shell.tex
+  - content/thpt/on_thi_toan_thpt/_metadata.yml
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/_dung_chung/nhat_ki_hoc_tap.qmd
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/d0/giao_dien/pdf_fonts/BeVietnamPro_Regular.ttf
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/d0/giao_dien/pdf_fonts/BeVietnamPro_SemiBold.ttf
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/d0/giao_dien/pdf_fonts/OFL_BeVietnamPro.txt
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/d0/giao_dien/zo_logo_04.png
+  - quy_trinh_xay_dung/cong_cu_do_thi_ham_so_zo_math/tex/zo_graph_v02.tex
+  - quy_trinh_xay_dung/cong_cu_do_thi_ham_so_zo_math/tex/zo_graph_v04.tex
+  - quy_trinh_xay_dung/cong_cu_do_thi_ham_so_zo_math/zo_graph_build.py
+  - scripts/zo_pdf_course_shell.py
+  - scripts/zo_pdf_support.py
+  - zo-math.scss
+  - assets/lua/zo_course_package_pdf.lua
+  - content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/danh_muc_kien_truc_hoc_tap.yml
+  - scripts/zo_course_scenes.py
+  - scripts/zo_course_foundation.py
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/_dung_chung/nen/N-BBT-01.qmd
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/_dung_chung/nen/N-DẤU-01.qmd
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/_dung_chung/nen/N-GH-01.qmd
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/_dung_chung/nen/N-LG-01.qmd
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/_dung_chung/nen/N-LT-01.qmd
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/_dung_chung/nen/N-MH-01.qmd
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/_dung_chung/nen/N-NGUYÊN-01.qmd
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/_dung_chung/nen/N-TXĐ-01.qmd
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/_dung_chung/nen/N-ĐH-01.qmd
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/_dung_chung/nen/N-ĐH-02.qmd
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/_dung_chung/nen/N-ĐH-03.qmd
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/_dung_chung/nen/N-ĐT-01.qmd
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.qmd
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/index.qmd
+  pdf_source_fingerprint: course-qmd-without-download-page-counts-v1

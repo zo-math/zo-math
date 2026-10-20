@@ -178,10 +178,15 @@ def presentation_checks(doc,data):
     checks['cross-package references use the current bundle']=not any(re.match(r'https?://(?:www\.)?zomath\.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g0[1-4](?:/|$)',a['href']) for a in root.select('a[href]'))
     notes=root.select('.zo-source-note')
     checks['source notes separate from prose']=bool(notes) and all(n.name=='p' or (n.parent.name=='p' and n.parent.get_text(' ',strip=True)==n.get_text(' ',strip=True)) for n in notes)
+    checks['source notes readable at the point of use']=not root.select('a.footnote-ref,section.footnotes') and all(n.get_text(' ',strip=True).startswith('Nguồn đối chiếu') and n.get_text(' ',strip=True).endswith('.') and not re.search(r'\b(?:SGK|KNTT|CTGDPT)\b|\btr\.',n.get_text(' ',strip=True)) for n in notes)
     checks['no bibliographic writing narration']=not any(re.search(r'Theo định nghĩa trong SGK|Theo phần .Chú ý. của SGK|Sách giáo khoa trình bày|Bản này dùng',p.get_text()) for p in root.select('#bai-hoc p') if not p.select('.zo-source-note'))
     calendar=root.find(id='on-lai').find('table')
     checks['review calendar has three functional columns']=bool(calendar) and len(calendar.select('thead th'))==3 and len(calendar.select('tbody tr'))==3
     resources=[n for n in root.select('#on-nen details.r1-foundation-unit') if not n.find_parent('details')]
-    checks['independent foundation resources have distinct papers']=bool(resources) and len({id(n.find_parent(class_='reading-region')) for n in resources})==len(resources)
+    if data.get('foundation_mode')=='linked-shared':
+        from zo_course_foundation import html_checks as foundation_html_checks
+        checks.update(foundation_html_checks(root,data))
+    else:
+        checks['independent foundation resources have distinct papers']=bool(resources) and len({id(n.find_parent(class_='reading-region')) for n in resources})==len(resources)
     checks['no authored heading-only reading paper']=all(p.select('p,li,table,figure,details,.zo-learning-task') for p in root.select('.reading-region'))
     return checks

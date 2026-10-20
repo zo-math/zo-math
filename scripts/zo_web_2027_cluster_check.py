@@ -8,9 +8,9 @@ import yaml
 
 ROOT=Path(__file__).resolve().parents[1]
 BASE=Path('content/thpt/on_thi_toan_thpt')
-PAGES={'g01':BASE/'hoc_lieu/r1_g01/index.html','g02':BASE/'hoc_lieu/r1_g02/index.html',
-       'home':BASE/'tot_nghiep_thpt/2027/index.html','d0':BASE/'hoc_lieu/d0/index.html',
-       'gateway':BASE/'index.html','g03':BASE/'hoc_lieu/r1_g03/index.html','g04':BASE/'hoc_lieu/r1_g04/index.html'}
+from zo_web_2027_navigation import PAGES as COURSE_PAGES
+PAGES={key:relative for key,(relative,_) in COURSE_PAGES.items()}
+PAGES['gateway']=BASE/'index.html'
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def save(p,data):
     p.parent.mkdir(parents=True,exist_ok=True)
@@ -49,7 +49,7 @@ def render(out,phase,resume=False,html_only=False):
     env=dict(os.environ,GIT_DIR=str(ROOT/'.git'),GIT_WORK_TREE=str(mirror),GIT_INDEX_FILE=str(mirror/'isolated.index'),ZO_COURSE_RAW_HTML_ONLY='1',QUARTO_PROFILE='on-thi-preview')
     names=['g01','g02'] if phase=='before' else list(PAGES)
     for name in names:
-        cmd=['python','scripts/zo_python.py','scripts/zo_qmd.py' if name in ['g01','g02','g03','g04','d0'] else 'scripts/zo_quarto.py','render',str(PAGES[name].with_suffix('.qmd'))]
+        cmd=['python','scripts/zo_python.py','scripts/zo_qmd.py' if name not in ['home','gateway'] else 'scripts/zo_quarto.py','render',str(PAGES[name].with_suffix('.qmd'))]
         if name in ['home','gateway']:cmd+=['--profile','on-thi-preview','--to','html']
         elif html_only:cmd+=['--html-only']
         with (mirror/(name+'-render.log')).open('w',encoding='utf-8') as log:

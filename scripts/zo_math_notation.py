@@ -128,10 +128,24 @@ def runtime_css_errors(css: str) -> list[str]:
     return errors
 
 
+def display_css_errors(css: str) -> list[str]:
+    """Keep display MathML native and centered; retain local horizontal scrolling."""
+    blocks = re.findall(r'math\[display\s*=\s*["\x27]?block["\x27]?\]\s*\{([^}]+)\}', css)
+    if len(blocks) != 1:
+        return ['Expected one native display MathML rule']
+    properties = dict(re.findall(r'([\w-]+)\s*:\s*([^;]+)', blocks[0]))
+    expected = {'display':'block math', 'overflow-x':'auto', 'max-width':'100%'}
+    errors = ['Display MathML '+k+' must be '+v for k,v in expected.items() if properties.get(k,'').strip()!=v]
+    if properties.get('text-align','').strip() in {'left','right','start','end'}:
+        errors.append('Display MathML must retain native centering')
+    return errors
+
+
 def require_runtime_css(path: Path) -> None:
     errors = runtime_css_errors(path.read_text(encoding='utf-8'))
     errors += radical_css_errors(path.read_text(encoding='utf-8'))
     errors += math_font_errors(path.with_name('reading-regions.css').read_text(encoding='utf-8'))
+    errors += display_css_errors(path.with_name('reading-regions.css').read_text(encoding='utf-8'))
     if errors:
         raise ValueError('ZO Math inline layout gate failed: '+ '; '.join(errors))
 
@@ -196,6 +210,7 @@ def main():
     css_errors=runtime_css_errors((ROOT/'_design/web_2027_mau_dung_chung/web-shell.css').read_text(encoding='utf-8'))
     css_errors+=radical_css_errors((ROOT/'_design/web_2027_mau_dung_chung/web-shell.css').read_text(encoding='utf-8'))
     css_errors+=math_font_errors((ROOT/'_design/web_2027_mau_dung_chung/reading-regions.css').read_text(encoding='utf-8'))
+    css_errors+=display_css_errors((ROOT/'_design/web_2027_mau_dung_chung/reading-regions.css').read_text(encoding='utf-8'))
     result={'errors':errors,'css_errors':css_errors,'negative_fixtures':fixtures,'passed':not errors and not css_errors and all(fixtures.values()),'scope':[str(p) for p in paths]}
     if args.report:
         target=args.report.resolve()

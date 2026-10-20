@@ -91,6 +91,35 @@ def current_projection(root,build):
     return clone
 
 
+def retained_pdf_checks():
+    """Never certify old inputs or serve altered PDF bytes as the retained file."""
+    from zo_web_2027_d0 import pdf_download
+    import tempfile, shutil, hashlib
+    checks={}
+    with tempfile.TemporaryDirectory(prefix='d0_retained_pdf_',dir=REPO/'.quarto') as temp:
+        root=Path(temp);folder=root/PACKAGE;records=folder/'_quy_trinh';records.mkdir(parents=True)
+        pdf=folder/'index.pdf';shutil.copyfile(REPO/PACKAGE/'index.pdf',pdf)
+        source=root/'input.txt';source.write_text('original',encoding='utf-8')
+        receipt={'output_sha256':sha(pdf),'inputs_sha256':{'input.txt':sha(source)}}
+        (records/'pdf_build.json').write_text(json.dumps(receipt),encoding='utf-8')
+        current=pdf_download(root,PACKAGE,'index.pdf')
+        checks['PDF receipt current inputs labeled current']='data-pdf-current="true"' in current
+        source.write_text('changed',encoding='utf-8')
+        retained=pdf_download(root,PACKAGE,'index.pdf')
+        checks['PDF retained old inputs visibly non-current']='data-pdf-current="false"' in retained and 'chưa đồng bộ' in retained
+        pdf.write_bytes(b'not the receipted PDF')
+        try:pdf_download(root,PACKAGE,'index.pdf');rejected=False
+        except ValueError:rejected=True
+        checks['PDF changed bytes rejected despite retained state']=rejected
+        shutil.copyfile(REPO/PACKAGE/'index.pdf',pdf)
+        receipt['inputs_sha256']={'../outside.txt':'x'}
+        (records/'pdf_build.json').write_text(json.dumps(receipt),encoding='utf-8')
+        try:pdf_download(root,PACKAGE,'index.pdf');rejected=False
+        except ValueError:rejected=True
+        checks['PDF unsafe input path rejected']=rejected
+    return checks
+
+
 def validate(page,build=None):
     doc=BeautifulSoup(page.read_text(encoding='utf-8'),'html.parser');root=doc.select_one('.d0-package')
     checks={
@@ -109,7 +138,7 @@ def validate(page,build=None):
         'no nested paper':not root.select('.reading-region .reading-region'),
         'unique IDs':len(doc.select('[id]'))==len({n['id'] for n in doc.select('[id]')}),
         'no private tasks':not root.select('.d0-private,.d0-retest-task'),
-        'no R1 controller or PDF view':not doc.select('script[src*="r1-controller"],.r1-tablist') and not any(n['href'].endswith('.pdf') for n in doc.select('.d0-nav a')),
+        'no R1 controller or PDF view':not doc.select('script[src*="r1-controller"],.r1-tablist'),
         'canonical brand':doc.select_one('.brand-thought').get_text(' ',strip=True)==BRAND_THOUGHT,
         'complete footer':complete_site_footer(doc,footer_data()),
         'six colors grayscale icon':len(doc.select('.appearance--inline input[type=radio][aria-label]'))==6 and bool(doc.select_one('#grayscale[aria-label][aria-pressed]')),
@@ -166,6 +195,12 @@ def validate(page,build=None):
         try:current_projection(bad,build);rejected=False
         except AssertionError:rejected=True
         checks['fixture rejects changed native mathematics']=rejected
+    from zo_web_2027_d0 import pdf_download
+    expected_pdf=BeautifulSoup(pdf_download(REPO,PACKAGE,'index.pdf'),'html.parser').select_one('a[download]')
+    actual_pdf=doc.select('.d0-nav a[download]')
+    checks['D0 one receipted whole-document PDF download']=len(actual_pdf)==1 and (page.parent/unquote(urlsplit(actual_pdf[0]['href']).path)).resolve()==(page.parent/'index.pdf').resolve() and actual_pdf[0].get('download')==expected_pdf['download'] and actual_pdf[0].get_text(' ',strip=True)==expected_pdf.get_text(' ',strip=True)
+    checks['D0 PDF input state matches unchanged receipt']=len(actual_pdf)==1 and actual_pdf[0].get('data-pdf-current')==expected_pdf.get('data-pdf-current') and (expected_pdf['data-pdf-current']=='true' or bool(actual_pdf[0].parent.select_one('.zo-pdf-version-note')))
+    checks.update(retained_pdf_checks())
     return checks,missing
 
 def browser(page,out):

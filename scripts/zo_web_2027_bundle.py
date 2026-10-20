@@ -1,4 +1,4 @@
-"""Build one coherent six-page preview from current sources, never old HTML.
+"""Build one coherent registered-page preview from current sources, never old HTML.
 
 Run through zo_python.py. Official renders remain independent of _audit;
 the isolated mirror is merely an output destination. No publish or Git writes.
@@ -43,7 +43,7 @@ def sources():
 
 def require_fresh(manifest, current=None):
     if manifest['sources'] != (sources() if current is None else current):
-        raise ValueError('Bundle is stale: rebuild all six pages from current sources')
+        raise ValueError('Bundle is stale: rebuild all registered pages from current sources')
 
 
 def checks(out):
@@ -54,7 +54,7 @@ def checks(out):
     expected = {key:(preview/(key+'-reading.html')).resolve() for key in PAGES}
     for key, page in expected.items():
         doc = BeautifulSoup(page.read_text(encoding='utf-8'),'html.parser')
-        if key in {'g01','g02','g03','g04'}:
+        if key.startswith('g'):
             import yaml
             from pypdf import PdfReader
             from zo_pdf_contract import validate_canonical_pdf_provenance
@@ -111,7 +111,7 @@ def checks(out):
     home = BeautifulSoup(expected['home'].read_text(encoding='utf-8'),'html.parser')
     from zo_course_cover import load_cover
     for card in home.select('.home-card[data-package-id]'):
-        package=card['data-package-id'];cover=load_cover(ROOT,package,allow_direction_approved=package=='d0')
+        package=card['data-package-id'];cover=load_cover(ROOT,package,allow_direction_approved=package in {'d0','r1_g05'})
         actual=(expected['home'].parent/unquote(urlsplit(card.img['src']).path)).resolve()
         values['Home declared cover '+package]=actual.is_file() and sha(actual)==sha(cover)
     for key,page in expected.items():
@@ -324,7 +324,7 @@ def check_current(out, record=None):
     from zo_html_dependencies import preview_files
     closure=preview_files(ROOT,expected.values())
     values['complete resource closure in docs']=all(p.is_relative_to(out) for p in closure)
-    values['all six pages declared']=set(record['pages'])==set(PAGES)
+    values['all registered pages declared']=set(record['pages'])==set(PAGES)
     failures=[k for k,v in values.items() if not v]
     if failures:raise ValueError('Canonical HTML verification failed: '+str(failures))
     return {'passed':len(values),'total':len(values),'failures':[],'output_dir':'docs','published':False}

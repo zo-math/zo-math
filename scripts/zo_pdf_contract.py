@@ -77,8 +77,8 @@ def pdf_variant(root: Path, source: Path, variant: str = "full") -> dict[str, An
         if variant != "full":
             raise ValueError("This project has not enabled PDF variants")
         return None
-    if not isinstance(variants, dict) or not {"full", "student"}.issubset(variants):
-        raise ValueError("pdf_variants must declare at least full and student")
+    if not isinstance(variants, dict) or "full" not in variants:
+        raise ValueError("pdf_variants must declare full")
     outputs = []
     for name, definition in variants.items():
         if not isinstance(name, str) or not PDF_VARIANT_NAME.fullmatch(name):
@@ -146,7 +146,7 @@ def pipeline_input_paths(root: Path, source: Path | None = None) -> tuple[Path, 
         from zo_course_pdf_layout import INPUTS
         paths.extend(INPUTS)
         from zo_course_cover import load_cover
-        paths.extend([Path('scripts/zo_course_cover.py'), (root/source).parent.relative_to(root)/'giao_dien/anh_bia.json', load_cover(root,(root/source).parent.name).relative_to(root)])
+        paths.extend([Path('scripts/zo_course_cover.py'), (root/source).parent.relative_to(root)/'giao_dien/anh_bia.json', load_cover(root,(root/source).parent.name,allow_direction_approved=bool(config.raw['extensions']['course_pdf_shell'].get('allow_direction_approved_preview'))).relative_to(root)])
     paths.extend(course_shared_label_inputs(root, source))
     declared = config.raw.get("extensions", {}).get("artifact_inputs", [])
     if not isinstance(declared, list) or not all(isinstance(p, str) for p in declared):

@@ -18,9 +18,9 @@ Học từ chỗ hổng thực sự, củng cố từng nền tảng và theo d�
 :::
 
 ::: {.zo-on-thi-program-feature__latest}
-Gói mới nhất: R1-G04
+Gói mới nhất: R1-G05
 
-Khảo sát sự biến thiên và vẽ đồ thị của hàm số
+Ứng dụng đạo hàm trong thực tiễn
 :::
 
 [Khám phá chương trình →](content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.qmd){.zo-on-thi-link}

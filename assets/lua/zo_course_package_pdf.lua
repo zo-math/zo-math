@@ -15,7 +15,12 @@ local function normalize(blocks)
   for _,b in ipairs(blocks) do
     if b.t=='RawBlock' and b.format=='html' then
       local s=b.text
-      if s:match('^%s*<figure[%s>]') then
+      if s:match('^%s*<p%s[^>]*zo%-source%-note') then
+        if s:match('</p>%s*$') then current:insert(pandoc.Div(pandoc.read(s,'html').blocks,pandoc.Attr('',{'zo-source-note'})))
+        else local frame={parent=current,body=pandoc.Blocks{},kind='source-note'};stack[#stack+1]=frame;current=frame.body end
+      elseif s:match('^%s*</p>') and #stack>0 and stack[#stack].kind=='source-note' then
+        local frame=table.remove(stack);local note=pandoc.Div(current,pandoc.Attr('',{'zo-source-note'}));current=frame.parent;current:insert(note)
+      elseif s:match('^%s*<figure[%s>]') then
         local frame={parent=current,body=pandoc.Blocks{},title=pandoc.Blocks{},kind='figure'}
         stack[#stack+1]=frame;current=frame.body
       elseif s:match('^%s*<figcaption[%s>]') then
@@ -221,7 +226,12 @@ local function table_filter(t)
 end
 local function image_filter(i)
   if not latex then return nil end
-  if i.src:match('figures_0_4/.+%.svg$') then
+  local context=layout and layout.context_figures and layout.context_figures[i.src]
+  if context then
+    i.attributes['zo-context-source']=i.src
+    i.src=context.pdf;assert(io.open(i.src,'rb'),'Missing paired context PDF')
+    i.attributes.width=string.format('%.5fpt',context.width_pt);i.attributes.height=nil
+  elseif i.src:match('figures_0_4/.+%.svg$') then
     i.src=i.src:gsub('%.svg$','.pdf');assert(io.open(i.src,'rb'),'Missing paired PDF graph')
     if layout then
       local spec=assert(layout.graphs[i.src:gsub('%.pdf$','.svg')],'Unbound PDF graph: '..i.src)
@@ -233,12 +243,15 @@ local function image_filter(i)
 end
 local function figure_filter(fig)
   if not latex or not layout then return nil end
-  local wide=false
+  local wide=false;local contextual=false
   fig:walk({Image=function(i)
-    local spec=layout.graphs[i.src:gsub('%.pdf$','.svg')]
+    local key=i.attributes['zo-context-source'] or i.src:gsub('%.pdf$','.svg')
+    local context=layout.context_figures and layout.context_figures[key]
+    local spec=context or layout.graphs[key]
+    if context then contextual=true end
     if spec and spec.rotate then wide=true end
   end})
-  local explicit=fig.attributes['zo-explicit-caption']=='true'
+  local explicit=fig.attributes['zo-explicit-caption']=='true' or contextual and #fig.caption.long>0
   if not explicit then fig.caption.long=pandoc.Blocks{} end
   do
     local tex=pandoc.write(pandoc.Pandoc({fig}),'latex')
@@ -263,7 +276,11 @@ local function blocks_filter(blocks)
   local out=pandoc.Blocks{}
   for index,b in ipairs(blocks) do
     if b.t=='Header' then
-      if layout and b.level==1 then out:insert(pandoc.RawBlock('latex','\\clearpage')) end
+      if layout and b.level==1 then
+        local pagebreak=false
+        for _,id in ipairs(layout.main_area_page_breaks or {'*'}) do if id=='*' or id==b.identifier then pagebreak=true end end
+        if pagebreak then out:insert(pandoc.RawBlock('latex','\\clearpage')) end
+      end
       local function reserve(i)
         local h=blocks[i];local lines=8
         if layout and h.attributes['data-zo-task'] then

@@ -17,6 +17,16 @@ class PrintContractTests(unittest.TestCase):
   return root,src,data
  def model(self,root,src,data):
   with patch.object(layout,'contract',return_value=data),patch.object(layout,'lesson_layout',return_value={'id':'lesson-g03'}):return layout.model(root,src)
+ def test_functional_opening_flows_without_changing_full_or_other_packages(self):
+  meta={'r1-section-download-files':[{'variant':'luyen_tap','start':'phieu-luyen'}]}
+  original=['bat-dau','phieu-luyen','nguon'];shell={'main_area_page_breaks':original,'flow_functional_opening':True}
+  self.assertEqual(layout.area_page_breaks(shell,'luyen_tap',meta),['bat-dau','nguon'])
+  for variant in ['full','student','bai_hoc']:
+   self.assertEqual(layout.area_page_breaks(shell,variant,meta),original)
+  self.assertEqual(layout.area_page_breaks({'main_area_page_breaks':original},'luyen_tap',meta),original)
+  self.assertEqual(original,['bat-dau','phieu-luyen','nguon'])
+  with self.assertRaisesRegex(ValueError,'explicit'):
+   layout.area_page_breaks({'flow_functional_opening':True},'luyen_tap',meta)
  def test_shared_widths_override_stale_qmd_metadata(self):
   root,src,data=self.fixture();self.assertEqual(self.model(root,src,data)['tables']['goals']['widths'],[28,72])
  def test_wrong_column_count_rejected(self):
@@ -25,6 +35,28 @@ class PrintContractTests(unittest.TestCase):
  def test_missing_native_variation_rejected(self):
   root,src,data=self.fixture(extra='::: {#bbt .zo-native-bbt data-bbt="bbt"}\n:::\n')
   with self.assertRaisesRegex(ValueError,'variation data'):self.model(root,src,data)
+ def test_context_package_without_fake_variation_file(self):
+  root,src,data=self.fixture();(src.parent/'du_lieu/bang_bien_thien.json').unlink()
+  with patch('zo_course_scenes.declared',return_value=True),patch('zo_course_scenes.print_model',return_value={}):
+   result=self.model(root,src,data)
+  self.assertEqual(result['variations'],{});self.assertEqual(result['variation_ids'],[])
+ def test_declared_context_cannot_hide_missing_native_variation(self):
+  root,src,data=self.fixture(extra='::: {#bbt .zo-native-bbt data-bbt="bbt"}\n:::\n')
+  with patch('zo_course_scenes.declared',return_value=True),patch('zo_course_scenes.print_model',return_value={}),self.assertRaisesRegex(ValueError,'variation data'):
+   self.model(root,src,data)
+ def test_context_caption_loss_is_rejected(self):
+  data={'tables':{},'variation_ids':[],'explicit_figure_captions':1}
+  self.assertFalse(layout.validate_tex(r'\section{B}\subsection{C}',data)['explicit figure captions emitted once'])
+ def test_source_paragraph_keeps_small_muted_print_style(self):
+  import subprocess,sys
+  with tempfile.TemporaryDirectory(prefix='source_note_fixture_',dir=ROOT/'.quarto') as tmp:
+   src=Path(tmp)/'note.md'
+   src.write_text('---\nzo-course-pdf-shell: true\nzo-pdf-variant: full\nzo-pdf-branding:\n  canonical-url: https://zomath.vn/example/index.html\n---\n::: {.zo-on-thi-package}\n## Bài học {#bai-hoc}\nĐoạn cần đối chiếu.\n\n<p class="zo-source-note">Nguồn đối chiếu: Sách giáo khoa Toán 12, trang 33.</p>\n\n:::\n',encoding='utf-8')
+   result=subprocess.run([sys.executable,str(ROOT/'scripts/zo_python.py'),str(ROOT/'scripts/zo_quarto.py'),'pandoc',str(src),'--from','markdown','--to','latex','--lua-filter',str(ROOT/'assets/lua/zo_course_package_pdf.lua')],cwd=ROOT,capture_output=True,text=True)
+   self.assertEqual(result.returncode,0,result.stderr)
+   self.assertIn(r'\small\color{zomathgray}',result.stdout)
+   self.assertIn(r'\nopagebreak[4]',result.stdout)
+   self.assertIn('Nguồn đối chiếu',result.stdout)
  def test_wrong_graph_preset_rejected(self):
   root,src,data=self.fixture()
   with patch.object(layout,'lesson_layout',return_value={'id':'other'}),self.assertRaisesRegex(ValueError,'G03'):layout.model(root,src)

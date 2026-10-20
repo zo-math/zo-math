@@ -473,3 +473,12 @@ Nguồn dựng và provenance ở
 giao diện YouTube thật; chờ chủ trì xem, chưa đăng. Bố cục mới không là
 chuẩn thương hiệu mới. Guard của bản dựng đọc màu từ nguồn chung và kiểm
 biên chữ; lần tái tạo phải tiếp tục dùng đúng nguồn logo/font đã ghi.
+
+
+## 21/10/2026 — Bảo trợ cuối mọi PDF học liệu
+
+Chủ trì xác nhận trực tiếp trong nhiệm vụ R1-G05. Hướng dẫn 06_pdf.md và chỉ dẫn repo đã ghi quy tắc, thay ngoại lệ theo biến thể. Bộ dựng giữ component hiện hành, kiểm trang cuối trước thay PDF; cổng khóa học kiểm lời mời, CTA và tài khoản. Đây là thay đổi quy tắc đã được giao; không thay nghiệm thu hay phát hành các sản phẩm khác. Công việc và bản xem G05 chỉ do 03 sở hữu.
+
+## 21/10/2026 — Nghiệm thu bộ HTML tích hợp R1-G05
+
+Chủ trì đã duyệt đủ tám PDF và bộ HTML tích hợp bảy trang, cho phép commit phần hoàn tất trong E:/zo_math; chưa push hoặc xuất bản. Biên nhận khóa đúng hash ở hồ sơ G05/nghiem_thu_html_tich_hop_20261021.json; 03 sở hữu trạng thái. Giữ nguyên 33 PDF cũ, không dựng lại tài nguyên hoặc thay nghiệm thu lịch sử.

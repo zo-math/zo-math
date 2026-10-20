@@ -16,6 +16,16 @@ def pdf_id(value):
 def enabled(config):
     return config.raw.get('extensions',{}).get('course_pdf_shell',{}).get('layout')=='course-print-v2'
 
+def area_page_breaks(shell,variant,metadata):
+    breaks=shell.get('main_area_page_breaks',['*'])
+    part=next((v for v in metadata.get('r1-section-download-files',[]) if v['variant']==variant),None)
+    if shell.get('flow_functional_opening') and part:
+        if '*' in breaks:
+            raise ValueError('Functional opening flow requires explicit area page breaks')
+        breaks=[key for key in breaks if key!=part['start']]
+    return breaks
+
+
 def model(root,source,variant="full"):
     root=Path(root);source=Path(source);profile=json.loads((root/PROFILE).read_text('utf-8'))
     if profile['id']!='course-print-v2' or profile['body_font']!='STIX Two Text' or profile['heading_font']!='Be Vietnam Pro':
@@ -63,13 +73,18 @@ def model(root,source,variant="full"):
         ratio=profile['graph_label_pt']/profile['graph_source_label_pt']
         graphs[ref]={'pdf':ref[:-4]+'.pdf','width_pt':w*72.27/72*ratio,'height_pt':h*72.27/72*ratio,'scale':ratio,
           'rotate':w*72.27/72*ratio>476,'stream_sha256':hashlib.sha256(reader.pages[0].get_contents().get_data().strip()).hexdigest(),'axis_ticks':graph_engine.graph_axis_check(pdf)}
-    variation=json.loads((source.parent/'du_lieu/bang_bien_thien.json').read_text('utf-8'))
+    from zo_course_scenes import declared as scene_declared,print_model as scene_print_model
+    scene_refs=[ref for ref in re.findall(r'\]\(([^)\s]+\.svg)\)',text) if 'figures_0_4/' not in ref]
+    context_figures=scene_print_model(source,scene_refs) if scene_declared(source) else {}
+    variation=[] if scene_declared(source) else json.loads((source.parent/'du_lieu/bang_bien_thien.json').read_text('utf-8'))
     native_ids=re.findall(r'\{#([^\s}]+)\s+\.zo-native-bbt',text)+re.findall(r'\.r1-bbt\s+bbt="([^"]+)"',text)
     if not set(native_ids)<=set(v['id'] for v in variation):raise ValueError('Missing canonical variation data')
     links=[v for v in re.findall(r'\[Xem lời giải\]\(#([^)]*)\)',text) if v in selected_ids]
     backs=[v for v in re.findall(r'\[Xem đề bài\]\(#([^)]*)\)',text) if v in selected_ids]
     task_numbers={ident:int(number) for number,ident in re.findall(r'(?m)^#{2,6}\s+[^\n]*?Nhiệm vụ\s+(\d+)[^\n]*\{#([^\s}]+)',text)}
-    return dict(profile,explicit_figure_captions=text.count('r1-figcaption')+text.count('<figcaption>'),task_numbers={pdf_id(k):v for k,v in task_numbers.items()},tables=tables,graphs=graphs,variation_ids=native_ids,variations={v['id']:v for v in variation if v['id'] in native_ids},solution_targets=[pdf_id(v) for v in links],problem_targets=[pdf_id(v) for v in backs])
+    from zo_qmd_config import discover_project_config
+    config=discover_project_config(root,source.relative_to(root));shell=config.raw.get('extensions',{}).get('course_pdf_shell',{}) if config else {}
+    return dict(profile,main_area_page_breaks=area_page_breaks(shell,variant,metadata),explicit_figure_captions=text.count('r1-figcaption')+text.count('<figcaption>')+len(context_figures),context_figures=context_figures,task_numbers={pdf_id(k):v for k,v in task_numbers.items()},tables=tables,graphs=graphs,variation_ids=native_ids,variations={v['id']:v for v in variation if v['id'] in native_ids},solution_targets=[pdf_id(v) for v in links],problem_targets=[pdf_id(v) for v in backs])
 
 def validate_tex(text,data):
     checks={}
@@ -196,11 +211,16 @@ def check(pdf,source,root,tex_path=None,variant="full"):
       'all problem and solution destinations exist':set(target_ids)<=actual_names,
       'task anchors land on their heading page':all(k in named and re.search(r'Nhiệm\s+vụ\s+0*'+str(n)+r'\b',texts[reader.get_destination_page_number(named[k])]) for k,n in data['task_numbers'].items()),
       'solutions have distinct destinations':len(dest_positions)==len(set(data['solution_targets'])) and len(set(dest_positions))==len(dest_positions)}
+    context=embedded_graphs(reader,{'graphs':data.get('context_figures',{})})
+    expected_context=data.get('context_figures',{})
+    checks['all context illustration streams embedded']=set(v['source'] for v in context)==set(expected_context)
+    checks['context illustrations use authored label scale']=all(abs(v['scale_x']-v['expected_scale'])<.002 and abs(v['scale_y']-v['expected_scale'])<.002 for v in context)
+    checks['context illustrations centered and inside paper']=centered_graphs(context) and all(v['inside_page'] for v in context)
     orphan_headers=orphan_print_headers(reader)
     checks['no heading stranded before a page break']=not orphan_headers
     references=print_reference_checks(pdf,reader)
     checks['printed page references match actual destinations']=len(references['samples'])>=len(set(data['solution_targets'])) and not references['errors']
     checks['no text extends horizontally beyond paper']=not references['outside']
     if tex_path:checks.update(validate_tex(Path(tex_path).read_text('utf-8'),data))
-    return {'checks':checks,'failures':[k for k,v in checks.items() if not v],'orphan_headers':orphan_headers,'graphs':records,'print_references':references,'font_text_counts':dict(counts),'solution_count':len(data['solution_targets']),
+    return {'checks':checks,'failures':[k for k,v in checks.items() if not v],'orphan_headers':orphan_headers,'graphs':records,'context_figures':context,'print_references':references,'font_text_counts':dict(counts),'solution_count':len(data['solution_targets']),
             'task_anchor_errors':[{'id':k,'number':n,'page':reader.get_destination_page_number(named[k])+1 if k in named else None} for k,n in data['task_numbers'].items() if k not in named or not re.search(r'Nhiệm\s+vụ\s+0*'+str(n)+r'\b',texts[reader.get_destination_page_number(named[k])])], 'missing_destinations':sorted(set(target_ids)-actual_names),'pages':len(reader.pages),'owner_acceptance':'pending','published':False}

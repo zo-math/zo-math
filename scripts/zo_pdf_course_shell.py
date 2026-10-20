@@ -30,11 +30,14 @@ def prepare(root: Path, mirror: Path, source: Path, definition: dict) -> dict:
     shutil.copy2(model['logo_path'], runtime/'zo-course-support-logo.png')
     shutil.copy2(model['qr_path'], runtime/'zo-course-support-qr.jpg')
     from zo_course_cover import print_cover
-    print_cover(root,source.parent.name,runtime/'zo-course-cover.pdf')
+    print_cover(root,source.parent.name,runtime/'zo-course-cover.pdf',allow_direction_approved=bool(shell.get('allow_direction_approved_preview')))
     now = datetime.now(timezone(timedelta(hours=7)))
     variant = definition['metadata']['subtitle'].split('—')[-1].strip()
     downloads = meta['r1-download-files'] + meta.get('r1-section-download-files', [])
-    download = next(x for x in downloads if x['href']==definition['output'])
+    download = next((x for x in downloads if x['href']==definition['output']),None)
+    if download is None:
+        if not definition.get('description'):raise ValueError('PDF variant needs a source-owned description')
+        download={'description':definition['description']}
     layout=None
     if shell.get('layout')=='course-print-v2':
         from zo_course_pdf_layout import model as print_model
@@ -51,7 +54,7 @@ def prepare(root: Path, mirror: Path, source: Path, definition: dict) -> dict:
         'zoBuildDate': now.strftime('%d/%m/%Y'), 'zoBuildYear': str(now.year),
     }
     lines = [support_tex(model), r'\newif\ifzoCoursePrintVTwo', r'\zoCoursePrintVTwo'+('true' if layout else 'false')]
-    lines += [r'\newif\ifzoPrintSupport', r'\zoPrintSupport'+('true' if definition.get('include_support',True) else 'false')]
+    lines += [r'\newif\ifzoPrintSupport', r'\zoPrintSupporttrue']
     lines += ['\\newcommand{\\'+k+'}{'+tex(str(v))+'}' for k,v in fields.items() if k!='zoPrintURL']
     # QR payloads must contain literal URL bytes, not TeX escapes for underscores.
     lines += [r'\edef\zoPrintURL{\detokenize{'+fields['zoPrintURL']+'}}']

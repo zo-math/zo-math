@@ -31,6 +31,12 @@ def table_specs(page_key):
 
 def native_records(page_key):
     if page_key=='home':return {}
+    scene=BASE/'hoc_lieu'/page_key/'giao_dien/minh_hoa_manifest.json'
+    if scene.is_file():
+        from zo_course_scenes import source_checks
+        checks=source_checks(scene.parent.parent/'index.qmd')
+        if not all(checks.values()):raise ValueError('Invalid canonical scene inventory')
+        return {}
     return {r['id']:r for r in json.loads((BASE/'hoc_lieu'/page_key/'du_lieu/bang_bien_thien.json').read_text(encoding='utf-8'))}
 
 def place_captions_below(root):

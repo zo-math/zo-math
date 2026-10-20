@@ -15,19 +15,23 @@ MARKER='zo-web-2027-d0'
 LAYOUT=REPO/PACKAGE/'giao_dien/web_2027_layout.json'
 
 def pdf_download(root, package, href):
-    """Expose only the exact PDF verified by D0's dedicated build receipt."""
+    """Verify retained PDF bytes; distinguish them from current build inputs."""
     from pypdf import PdfReader
     folder=Path(root)/package;pdf=folder/'index.pdf'
     receipt=json.loads((folder/'_quy_trinh/pdf_build.json').read_text('utf-8'))
     if receipt.get('output_sha256')!=sha(pdf) or not receipt.get('inputs_sha256'):
         raise ValueError('D0 PDF build receipt is missing or stale')
+    stale=[]
     for relative,digest in receipt['inputs_sha256'].items():
         target=(Path(root)/relative).resolve()
-        if not target.is_relative_to(Path(root).resolve()) or not target.is_file() or sha(target)!=digest:
-            raise ValueError('D0 PDF input is stale: '+relative)
+        if not target.is_relative_to(Path(root).resolve()) or not target.is_file():
+            raise ValueError('D0 PDF input is missing or unsafe: '+relative)
+        if sha(target)!=digest:stale.append(relative)
     count=len(PdfReader(pdf).pages)
     if count<1:raise ValueError('Empty D0 PDF')
-    return '<div class="r1-tab-group"><span class="r1-tab-group-label">Tiện ích</span><div class="r1-tab-group-items"><a class="r1-tab" href="'+html.escape(href,quote=True)+'" download="Khao_sat_dau_vao_2027.pdf">Tải PDF · '+str(count)+' trang</a></div></div>'
+    state='false' if stale else 'true'
+    note='<small class="zo-pdf-version-note">Bản PDF trước, chưa đồng bộ với đầu vào hiện hành.</small>' if stale else ''
+    return '<div class="r1-tab-group"><span class="r1-tab-group-label">Tiện ích</span><div class="r1-tab-group-items"><a class="r1-tab" data-pdf-current="'+state+'" href="'+html.escape(href,quote=True)+'" download="Khao_sat_dau_vao_2027.pdf">Tải PDF · '+str(count)+' trang</a>'+note+'</div></div>'
 
 
 def strip_papers(root):

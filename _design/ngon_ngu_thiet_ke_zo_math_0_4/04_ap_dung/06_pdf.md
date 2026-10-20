@@ -4,6 +4,13 @@ Nơi làm việc theo thông tin đã có: `E:/zo_math`. Trạng thái repo hi�
 
 Quy tắc liên quan: ZO001, ZO012, ZO014, ZO015, ZO019, ZO031.
 
+
+## Quy tắc Bảo trợ được chủ trì xác nhận ngày 21/10/2026
+
+Tất cả PDF đều phải có phần **Bảo trợ** ở cuối tài liệu, kể cả bản học sinh và từng bản theo chức năng. Không lược bỏ vì tài liệu ngắn hoặc không có lời giải. Quy tắc này thay mọi ngoại lệ lược bỏ Bảo trợ trước đây; cờ lịch sử `include_support: false` không còn có tác dụng trong bộ dựng. G05 khai báo tường minh `include_support: true` cho cả tám biến thể.
+
+Dùng cùng nguồn component Bảo trợ hiện hành, logo, QR và các trường tài khoản; không tạo lời mời hoặc dữ liệu tài khoản riêng theo gói. Bộ dựng kiểm trang cuối trước khi ghi đè PDF; cổng khóa học kiểm cả lời mời, nút và tài khoản, có ca phủ định thiếu Bảo trợ/sai tài khoản. Nghiệm thu bản đã phát hành vẫn gắn đúng hash lịch sử; nhiệm vụ G05 này không tự tái dựng các PDF của gói khác.
+
 ## Bản thử bộ sinh R1 ngày 19/10/2026
 
 Theo yêu cầu chủ trì sau rà soát, `course-print-v2` được bật thử riêng cho G04 qua `extensions.course_pdf_shell.layout`; chưa áp dụng sang các gói còn lại. Hồ sơ vai trò chung ở `assets/tex/zo-course-print-profile.json`, phép chiếu ở `assets/lua/zo_course_package_pdf.lua`/`zo_course_print.lua`, template ở `assets/tex/zo-course-print-layout.tex`, cổng ở `scripts/zo_course_pdf_layout.py`. Chỉ 03 ghi bản xem và kết quả hiện hành.

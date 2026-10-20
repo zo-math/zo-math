@@ -150,6 +150,10 @@ chạy hồi quy bằng `variation test`. JSON và các sản phẩm bài học 
 `zo_math`; CSS/Lua tích hợp QMD cũng ở lại. Adapter phân giải khóa nguồn cũ
 trong hồ sơ sang vị trí mới; không sửa hash hay chép engine trở lại repo.
 
+### PDF học liệu: Bảo trợ cuối tài liệu
+
+Theo xác nhận của chủ trì ngày 21/10/2026, **mọi PDF học liệu**, gồm toàn văn, học sinh và từng chức năng, đều có phần **Bảo trợ ở cuối tài liệu**. Không có ngoại lệ lược bỏ theo biến thể; cờ lịch sử `include_support: false` không được bỏ phần này. Dùng nguồn component hiện hành và kiểm trang cuối trước ghi đè đầu ra. Chi tiết tại `_design/ngon_ngu_thiet_ke_zo_math_0_4/04_ap_dung/06_pdf.md`. Quy tắc áp dụng cho mọi lần dựng mới; không tự dựng lại sản phẩm đã phát hành ngoài phạm vi nhiệm vụ.
+
 ### Xuất bản website
 
 Khi nhiệm vụ liên quan đến xuất bản website, phải đọc và tuân thủ thêm:

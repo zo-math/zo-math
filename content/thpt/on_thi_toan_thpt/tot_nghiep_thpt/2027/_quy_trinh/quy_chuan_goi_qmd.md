@@ -224,6 +224,8 @@ Thẻ PDF gồm tiêu đề/mô tả, số trang và nút tải; mobile thích �
 
 ### Ánh xạ canonical sang PDF
 
+- Theo chỉ thị chủ trì ngày 21/10/2026, mọi PDF (toàn văn, học sinh và từng chức năng) đều có phần **Bảo trợ cuối tài liệu**. Dùng component nguồn chung; cấm lược bỏ theo biến thể. Bộ dựng và cổng PDF phải kiểm trang cuối trước thay đầu ra. Hướng dẫn nguồn: `_design/ngon_ngu_thiet_ke_zo_math_0_4/04_ap_dung/06_pdf.md`.
+
 - PDF giữ nguyên vai trò nội dung của QMD/HTML nhưng dùng quy tắc dàn trang phù hợp khổ A4; không sao chép máy móc kích thước hoặc hành vi thu gọn của trình duyệt.
 - `guidance` dùng khung nền trắng, viền xám nhạt và tiêu đề xám; `solution` dùng nền xám nhạt; `theory` tiếp tục dùng khung đỏ. Nội dung thường không được tự động đóng khung khi chuyển sang PDF.
 - Bảng thường có khung ngoài và đường kẻ ngang–dọc đầy đủ trong PDF. Tỉ lệ cột lấy từ hợp đồng bảng của gói; bảng dài được phép ngắt trang nhưng phải lặp hàng tiêu đề.

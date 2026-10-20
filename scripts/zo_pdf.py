@@ -64,6 +64,10 @@ def validate_rendered_pdf(path: Path) -> None:
         stream.seek(max(0, path.stat().st_size - 2048))
         if b"%%EOF" not in stream.read():
             raise ValueError("Đầu ra vừa render không có PDF EOF marker")
+    from pypdf import PdfReader
+    pages = PdfReader(path).pages
+    if not pages or 'Bảo trợ' not in (pages[-1].extract_text() or ''):
+        raise ValueError("Mọi PDF phải có phần Bảo trợ ở cuối tài liệu")
 
 
 def isolated_project(source: Path, directory: Path) -> Path:
@@ -160,12 +164,6 @@ def build(source: Path, variant: str = "full", preflight: bool = False,
             build_root = isolated_project(source, temp_dir)
             command[1] = str(build_root / "scripts" / "zo_quarto.py")
             command[-1] = ".quarto/pdf_output"
-            if definition.get("include_support", True) is False:
-                support = build_root / "assets" / "tex" / "zo-pdf-support.tex"
-                support.write_text(
-                    "% Intentionally omitted for this isolated PDF variant.\n",
-                    encoding="utf-8",
-                )
         if definition:
             metadata = dict(definition.get("metadata", {}))
             from zo_pdf_course_shell import prepare as prepare_course_shell
