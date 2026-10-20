@@ -763,8 +763,21 @@ def private_references(text: str, relative: str, config: Mapping[str, Any]) -> l
     return sorted(found)
 
 
-def course_pdf_issues(public: Path, files: set[str], source_root: Path | None = None) -> list[dict[str, Any]]:
-    """A course PDF must match current source provenance and canonical bytes."""
+def inherited_pdf_issues(public: Path, files: set[str], source_root: Path, inherited_pdfs: Mapping[str, str]) -> list[dict[str, Any]]:
+    """Exact byte inheritance; this never grants current-source provenance."""
+    issues = []
+    for relative, digest in inherited_pdfs.items():
+        canonical, candidate = source_root / relative, public / relative
+        if (relative not in files or not relative.startswith('content/thpt/on_thi_toan_thpt/hoc_lieu/')
+                or not relative.endswith('.pdf') or not canonical.is_file() or not candidate.is_file()
+                or sha256(canonical) != digest or sha256(candidate) != digest):
+            issues.append({'type': 'inherited-course-pdf-bytes', 'path': relative})
+    return issues
+
+
+def course_pdf_issues(public: Path, files: set[str], source_root: Path | None = None,
+                      inherited_pdfs: Mapping[str, str] | None = None) -> list[dict[str, Any]]:
+    """Require current provenance, or explicitly sealed unchanged public inheritance."""
     if source_root is not None and source_root.resolve() != Path(__file__).resolve().parents[1]:
         # Validate with the same committed contract implementation and files as
         # the render, not a different PDF pipeline being edited in the checkout.
@@ -779,7 +792,11 @@ def course_pdf_issues(public: Path, files: set[str], source_root: Path | None = 
     from zo_pdf_contract import validate_canonical_pdf_provenance
     source_root = Path(__file__).resolve().parents[1]
     issues = []
-    for package in ['r1_g01', 'r1_g02', 'r1_g03']:
+    inherited_pdfs = inherited_pdfs or {}
+    issues.extend(inherited_pdf_issues(public, files, source_root, inherited_pdfs))
+    packages = sorted(path.parent.parent.name for path in
+                      (source_root/'content/thpt/on_thi_toan_thpt/hoc_lieu').glob('r1_g*/_quy_trinh/cau_hinh_san_xuat_qmd.yml'))
+    for package in packages:
         prefix = f'content/thpt/on_thi_toan_thpt/hoc_lieu/{package}'
         config_path = source_root / prefix / '_quy_trinh/cau_hinh_san_xuat_qmd.yml'
         if not config_path.is_file():
@@ -789,7 +806,7 @@ def course_pdf_issues(public: Path, files: set[str], source_root: Path | None = 
             relative = prefix + '/' + definition['output']
             if relative not in files:
                 continue
-            errors = validate_canonical_pdf_provenance(source_root, source_root / prefix / 'index.qmd', variant=variant)
+            errors = [] if relative in inherited_pdfs else validate_canonical_pdf_provenance(source_root, source_root / prefix / 'index.qmd', variant=variant)
             if errors:
                 issues.append({'type':'stale-course-pdf', 'path':relative, 'variant':variant, 'errors':errors})
             canonical = source_root / relative
@@ -802,13 +819,19 @@ def course_pdf_issues(public: Path, files: set[str], source_root: Path | None = 
 def validate_public(public: Path, manifest: Mapping[str, Any], config: Mapping[str, Any],
                     *, historical_comparison_only: bool = False,
                     source_root: Path | None = None,
-                    content_paths: set[str] | None = None) -> dict[str, Any]:
+                    content_paths: set[str] | None = None,
+                    inherited_course_pdfs: Mapping[str, str] | None = None) -> dict[str, Any]:
     issues: list[dict[str, Any]] = []
     files = set(manifest["files"])
     # A baseline is evidence for the source/render diff, never a release tree.
     # Current and final scoped candidates always enforce current PDF provenance.
     if not historical_comparison_only:
-        issues.extend(course_pdf_issues(public, files, source_root))
+        if inherited_course_pdfs and source_root is not None:
+            raise ConfigError("PDF inheritance is only supported in the canonical approved-course checkout.")
+        if inherited_course_pdfs:
+            issues.extend(course_pdf_issues(public, files, inherited_pdfs=inherited_course_pdfs))
+        else:
+            issues.extend(course_pdf_issues(public, files, source_root))
     deny = config["denylist"]
     for relative in sorted(files):
         if path_denied(relative, deny["paths"], deny["globs"]):
@@ -1839,7 +1862,7 @@ def parser() -> argparse.ArgumentParser:
     value.add_argument("command", nargs="?", help="Hỗ trợ: plan, check, prepare, validate, publish")
     value.add_argument("--config", default="publish_public.yml")
     value.add_argument("--report")
-    value.add_argument("--approved-course", action="store_true", help="prepare: release the six approved canonical HTML pages and their verified PDFs without historical rebuilds.")
+    value.add_argument("--approved-course", action="store_true", help="prepare: release the approved canonical course HTML pages and their verified PDFs without historical rebuilds.")
     value.add_argument("--full-render", action="store_true", help="prepare: use the legacy two full-site renders instead of page artifacts.")
     value.add_argument("--page", action="append", default=[], help="prepare: giới hạn HTML; lặp lại cho từng trang, vẫn kèm tài nguyên phụ thuộc.")
     value.add_argument('--committed-source', action='store_true',

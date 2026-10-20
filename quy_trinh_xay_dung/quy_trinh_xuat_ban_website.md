@@ -164,3 +164,26 @@ bản đã duyệt trước prepare. Chỉ sửa công cụ phát hành cũng l�
 bảo thủ hiện hành hết hạn: dựng lại sáu HTML bằng bộ dựng, xác nhận byte
 không đổi; không dựng lại hình hoặc PDF không chịu ảnh hưởng.
 Kiểm hồi quy: `python scripts/zo_python.py scripts/zo_publish_course_selftest.py`.
+
+### Phát hành bộ tích hợp R1-G05 ngày 21/10/2026
+
+Yêu cầu phát hành hiện hành cho phép push và đưa đúng bảy HTML đã nghiệm thu
+cùng tám PDF G05 lên zomath.vn, giữ nguyên 33 PDF cũ. Đường `prepare
+--approved-course` đọc `r1_g05/_quy_trinh/ho_so/uy_quyen_phat_hanh_20261021.json`
+và các biên nhận nghiệm thu canonical được chỉ rõ trong đó. Không ghi đè biên
+nhận cũ hoặc dùng audit làm nguồn. Danh sách trang lấy từ binding điều hướng;
+kiểm kê PDF lấy từ cấu hình biến thể của từng gói và phải bằng tập đã duyệt.
+
+Tám PDF mới vẫn phải đạt provenance hiện hành. Chỉ 33 PDF được chủ trì yêu
+cầu giữ nguyên mới dùng cơ chế kế thừa: SHA-256 phải trùng biên nhận duyệt,
+blob Git của commit public trước, PDF canonical, bản tải trong docs và ứng
+viên. Chúng giữ trạng thái lịch sử, không được coi là CURRENT. Cổng mặc định
+và các chế độ phát hành khác tiếp tục yêu cầu provenance hiện hành. Validate
+và publish kiểm lại toàn bộ ràng buộc, backup và nguồn đã push.
+
+Với thay đổi chỉ ở công cụ phát hành, dùng chính biên nhận nghiệm thu khóa
+hash bảy QMD, bảy HTML và toàn bộ phụ thuộc, cùng manifest bảo vệ nguồn để
+chứng minh sản phẩm không đổi; không gia hạn fingerprint dựng của bộ cũ.
+Không dựng lại HTML, hình hoặc PDF đã duyệt chỉ để làm mới fingerprint bảo
+thủ của công cụ phát hành. Khi đầu vào sản phẩm thật sự đổi, vẫn bắt buộc
+sửa nguồn → dựng canonical → kiểm → trình duyệt lại phần chịu ảnh hưởng.
