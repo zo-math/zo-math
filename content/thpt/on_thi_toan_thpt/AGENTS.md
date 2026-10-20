@@ -2,17 +2,17 @@
 
 Đây là tài liệu điều phối nội bộ, không phải nội dung xuất bản.
 
-## Tiếp quản sau phát hành 15/10/2026
+## Tìm tài liệu và tiếp quản khóa 2027
 
-Bốn trang Nhà, D0, R1-G01, R1-G02 đã xuất bản. Trước công việc tiếp theo,
-đọc mục A của `tot_nghiep_thpt/2027/_quy_trinh/03_dieu_hanh_chuong_trinh.md`,
-receipt phát hành và hồ sơ khép việc được dẫn ở đó. Các trạng thái chờ
-duyệt trong mốc DH/FB bên dưới chỉ mô tả lịch sử của mốc ấy. Quy tắc
-chung vẫn có hiệu lực; một sửa đổi mới phải kiểm theo phạm vi ảnh hưởng.
-Bộ ảnh bìa giữ đủ năm tỉ lệ theo `tot_nghiep_thpt/2027/giao_dien/bo_anh_bia.json`; bản
-vuông do chủ trì thay đã khép tìm ảnh. Không phục hồi ảnh vuông từ
-receipt nhập cũ. Trước dọn tài sản, đọc danh mục bảo toàn và chạy
-`python scripts/zo_python.py -B scripts/zo_home_cover_check.py`.
+Mở `tot_nghiep_thpt/2027/_quy_trinh/README.md` để lấy mục lục đầy đủ.
+Đọc phần **BẢN HIỆN HÀNH** ở đầu `03_dieu_hanh_chuong_trinh.md` trước;
+các mục A/DH/FB nằm dưới phần Lịch sử không tự là việc tiếp theo.
+README chỉ dẫn đường, 03 sở hữu trạng thái và công việc; 08 phân vai nguồn.
+Không ghi trạng thái hoặc số lượng thành phẩm cố định trong chỉ dẫn này.
+
+Trước dọn tài sản, đọc danh mục bảo toàn và manifest được 03 dẫn; chạy
+`python scripts/zo_python.py -B scripts/zo_home_cover_check.py` khi phạm vi
+có ảnh bìa. Không phục hồi ảnh hoặc nguồn từ receipt nhập cũ.
 
 ## Phạm vi và thẩm quyền
 
@@ -64,7 +64,7 @@ Hệ nhãn học liệu QD_025 có hiệu lực cho toàn bộ các gói của c
 
 Trước biên tập hoặc kiểm xin duyệt gói R1 của khóa 2027, chạy `python scripts/zo_python.py scripts/zo_2027_governance_check.py` để xác minh bản điều hành và guard theo registry của khóa. Quyết định mới phải thay phần hoạt động cũ và đồng bộ những đích bị ảnh hưởng ngay trong cùng lượt theo mục 1.2 của quy trình 02. Cổng tài liệu đạt không chứng nhận sản phẩm; ứng viên có lỗi chặn không được trình như đã đạt. Theo QD_022/02/1.2, chỉ kiểm lại phần chịu ảnh hưởng của quy tắc, đầu vào hoặc phép kiểm thay đổi; không tái áp dụng quy tắc bị thay, không hủy toàn bộ QA vì hash tài liệu đổi hoặc cấm hiệu chỉnh hợp lệ. Không sửa hash/receipt/kết quả lịch sử để che lệch nguồn.
 
-- Tiếp quản từ mục A của bảng `03_dieu_hanh_chuong_trinh.md`, rồi hồ sơ gói và README vận hành, không từ mốc g01-kit/pilot/receipt lịch sử. QD_016–018 đã hợp nhất quyết định sau FB036: Bài học/Luyện tập không xen kẽ, Nhật kí một nguồn đủ 14 trường, vùng đọc theo nhịp và trạng thái đúng bản. Bản sửa hai gói chưa tự kế thừa nghiệm thu cũ; PDF/phát hành là nhiệm vụ riêng. Không suy trạng thái hiện hành từ số PASS hoặc metadata chưa đồng bộ.
+- Tiếp quản từ phần hiện hành ở đầu bảng `03_dieu_hanh_chuong_trinh.md`, rồi hồ sơ gói và README vận hành, không từ mốc g01-kit/pilot/receipt lịch sử. QD_016–018 đã hợp nhất quyết định sau FB036: Bài học/Luyện tập không xen kẽ, Nhật kí một nguồn đủ 14 trường, vùng đọc theo nhịp và trạng thái đúng bản. Bản sửa hai gói chưa tự kế thừa nghiệm thu cũ; PDF/phát hành là nhiệm vụ riêng. Không suy trạng thái hiện hành từ số PASS hoặc metadata chưa đồng bộ.
 - Không xem mẫu hồ sơ thiết kế của chuyên mục là schema CLI. Ứng viên R1-G01 có cấu hình và hồ sơ riêng trong `_quy_trinh/`; phải đọc README tại đó trước khi làm việc.
 - Với khóa 2027, phải đọc `tot_nghiep_thpt/2027/_quy_trinh/README.md`: đây là điểm vào canonical duy nhất. Công việc hiện hành và việc tiếp theo chỉ được ghi tại `03_dieu_hanh_chuong_trinh.md`. README cũ trong `_projects/on_thi_toan_thpt_2027` chỉ dùng để chuyển tiếp.
 - Tài liệu đã khóa và thành phẩm lịch sử chỉ được chuyển hoặc sửa trong phạm vi chủ dự án giao; không suy từ việc chuyển quản trị thành quyền chuyển đổi học liệu.

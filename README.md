@@ -2,6 +2,10 @@
 
 ZO Math là trang toán học dành cho học sinh, sinh viên, những bạn cần học toán và những ai yêu thích toán học.
 
+## Các dự án thành phần
+
+- **Ôn thi Toán THPT 2027 — Bộ điều hành:** [Mở mục lục và các tài liệu xây dựng](content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/README.md).
+
 ## Triết lý học toán tại ZO Math
 
 Học toán không chỉ là việc tìm ra đáp án đúng mà còn là hành trình khám phá và thấu hiểu. ZO Math không phải là nơi "dạy" theo kiểu truyền thống, mà là không gian để **cùng học, cùng khám phá**. Ở đây, chúng mình không dừng lại ở lời giải mà còn truy nguyên bản chất, đặt câu hỏi, thử nghiệm và tái hiện lại kiến thức theo cách riêng.

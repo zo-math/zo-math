@@ -14,6 +14,8 @@ Phiên bản: 0.1 · Cập nhật trạng thái: 20/10/2026.
 
 - Phát hành ngày 20/10/2026 theo yêu cầu “OK. Hãy phát hành lên zomath.vn.” [Mở Khóa 2027 công khai](https://zomath.vn/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/). Commit public `814d2280`, nguồn `e563626a`; GitHub Pages triển khai thành công. Đã tải kiểm 241/241 tệp public đúng hash, gồm đủ sáu HTML và 33 PDF; đã mở xem thật sáu trang và mục tải PDF G04. Bản đầy đủ D0/G01/G02/G03/G04 có 20/79/59/71/64 trang. Giữ nguyên byte toàn bộ sản phẩm đã duyệt và HTML ngoài phạm vi; không dựng lại hình/PDF. Hồ sơ và giới hạn tại `publication_20261020` trong hồ sơ đồng bộ hiện hành.
 
+- Tổ chức đường vào tài liệu ngày 20/10/2026: kiểm đủ 324 tệp điều hành/hồ sơ của khóa và D0, G01–G04; không thiếu tệp theo Git, đường dẫn và mọi thư mục cha không bị ẩn. README gốc repo nay dẫn tới README điều hành; README điều hành có mục lục đủ 60 tệp, phân vai hồ sơ/nền tảng/sản phẩm và giữ nguồn đăng ký. Ba PDF nguồn chính thức còn đúng hash. Ghi chép tiếp quản cũ giữ riêng, không dùng trạng thái cũ thay bản hiện hành. README gốc giữ vai trò chỉ mục của toàn ZO Math, mục “Các dự án thành phần” theo hiệu chỉnh của chủ trì. Chốt riêng mốc tổ chức tài liệu theo yêu cầu “Chốt các mốc cho tôi.” Không di chuyển/xóa tư liệu, không sửa học liệu hoặc dựng/phát hành lại.
+
 ## Lịch sử, không dùng làm bản xem hiện hành
 
 **SIX-SOURCE-RESOURCE-GENERATOR-SYNC-20261019 — sáu HTML và 33 PDF đã đồng bộ, chờ chủ trì duyệt.**

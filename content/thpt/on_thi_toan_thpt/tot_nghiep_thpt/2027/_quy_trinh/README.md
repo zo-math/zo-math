@@ -1,3 +1,136 @@
+# ZO Math — Bộ điều hành Ôn thi Toán THPT 2027
+
+Đây là điểm vào chính thức của bộ điều hành. Tài liệu vẫn nằm tại `content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/`, tính từ gốc repo.
+
+Để tìm lại nhanh, mở README ở gốc repo rồi chọn **Ôn thi Toán THPT 2027 — Bộ điều hành**. Liên kết ở gốc chỉ dẫn tới đây, không tạo bộ điều hành thứ hai.
+
+## Bắt đầu từ đâu?
+
+1. Đọc [03 — Điều hành: phần BẢN HIỆN HÀNH ở đầu tệp](03_dieu_hanh_chuong_trinh.md) để biết bản đang giữ và việc đang làm. Các mục dưới tiêu đề Lịch sử, kể cả mục A của một mốc cũ, phải đọc đúng thời điểm; không dùng làm việc tiếp theo mặc định.
+2. Đọc [08 — Danh mục thẩm quyền](08_danh_muc_tham_quyen_dieu_hanh.md) để xác định tài liệu nào sở hữu từng quyết định.
+3. Chọn tài liệu theo bảng dưới đây. README chỉ tổ chức đường đọc; trạng thái và việc tiếp theo chỉ cập nhật tại 03.
+
+## Kế hoạch, kiến trúc và cách làm
+
+| Cần tìm | Mở tài liệu |
+|---|---|
+| Phạm vi, mạch kiến thức và lộ trình | [Kế hoạch điều hành 0.6](ke_hoach_dieu_hanh.md) |
+| Kiến trúc học tập, chức năng hoạt động và hỗ trợ | [01 — Kiến trúc học tập](01_kien_truc_hoc_tap.md) |
+| Biên soạn, sửa, đối chiếu và nghiệm thu | [02 — Quy trình và nghiệm thu](02_quy_trinh_va_nghiem_thu.md) |
+| Quyết định và phần đã được thay thế | [04 — Nhật kí quyết định](04_nhat_ki_quyet_dinh.md) |
+| Tiếp quản, giao việc và dùng nguồn cuộc trò chuyện | [05 — Hướng dẫn sử dụng](05_huong_dan_su_dung.md) |
+| Nguồn nhập, kho lưu và đường chuyển tiếp | [06 — Nguồn và chuyển tiếp](06_nguon_va_chuyen_tiep.md) |
+| Cấu trúc trang, Gợi mở, nhãn, bảng, hình và điều hướng | [07 — Quy chuẩn trang người học](07_quy_chuan_cau_truc_trang_nguoi_hoc.md) |
+| Cách viết nguồn QMD của gói | [Quy chuẩn gói QMD](quy_chuan_goi_qmd.md) |
+
+Kế hoạch 0.6 tiếp tục điều hành phạm vi/lộ trình trong phần chưa bị thay thế. Kiến trúc hiện hành đọc theo 01/QD_033; chính sách Kiểm tra theo QD_024; hệ nhãn theo QD_025 và các hiệu chỉnh hiện hành tại 07. Không phục hồi sơ đồ hoặc lệnh cũ từ phần lịch sử.
+
+## Mẫu và dữ liệu điều hành dùng chung
+
+- [Mẫu hồ sơ gói](mau/ho_so_goi.md)
+- [Mẫu bản thảo](mau/ban_thao_goi.md)
+- [Bảng kiểm bản thảo](mau/bang_kiem_ban_thao_goi.md)
+- [Danh mục kiến trúc và nhãn](danh_muc_kien_truc_hoc_tap.yml)
+- [Schema kiến trúc](schema_kien_truc_hoc_tap.json)
+- [Registry cổng kiểm tài liệu](hop_dong_dieu_hanh.json)
+
+Mẫu hỗ trợ áp dụng kiến trúc và quy chuẩn. Registry/cổng kiểm không tự cấp quyền duyệt, dựng hoặc phát hành.
+
+## Hồ sơ và nguồn từng gói
+
+| Gói | Phạm vi | Hồ sơ điều hành | Nguồn và hướng vận hành |
+|---|---|---|---|
+| D0 | Khảo sát đầu vào | [README của gói](../../../hoc_lieu/d0/_quy_trinh/README.md) | [QMD](../../../hoc_lieu/d0/index.qmd) · [Hồ sơ](../../../hoc_lieu/d0/_quy_trinh) |
+| R1-G01 | Đơn điệu và cực trị | [Phạm vi gói](goi/R1_G01.md) · [README của gói](../../../hoc_lieu/r1_g01/_quy_trinh/README.md) | [QMD](../../../hoc_lieu/r1_g01/index.qmd) · [Hồ sơ](../../../hoc_lieu/r1_g01/_quy_trinh) |
+| R1-G02 | Giá trị lớn nhất và giá trị nhỏ nhất | [Phạm vi gói](goi/R1_G02.md) · [README của gói](../../../hoc_lieu/r1_g02/_quy_trinh/README.md) | [QMD](../../../hoc_lieu/r1_g02/index.qmd) · [Hồ sơ](../../../hoc_lieu/r1_g02/_quy_trinh) |
+| R1-G03 | Đường tiệm cận | [Phạm vi gói](goi/R1_G03.md) · [README của gói](../../../hoc_lieu/r1_g03/_quy_trinh/README.md) | [QMD](../../../hoc_lieu/r1_g03/index.qmd) · [Hồ sơ](../../../hoc_lieu/r1_g03/_quy_trinh) |
+| R1-G04 | Khảo sát sự biến thiên và vẽ đồ thị của hàm số | [Phạm vi gói](goi/R1_G04.md) · [README của gói](../../../hoc_lieu/r1_g04/_quy_trinh/README.md) | [QMD](../../../hoc_lieu/r1_g04/index.qmd) · [Hồ sơ](../../../hoc_lieu/r1_g04/_quy_trinh) |
+
+Tài liệu thiết kế riêng của G03: [đề cương biên soạn](goi/R1_G03_de_cuong_bien_soan.md) và [ma trận nhiệm vụ](goi/R1_G03_ma_tran_nhiem_vu.md). Đọc trạng thái trong hồ sơ gói và 03, không dùng đề cương thay nguồn sản phẩm hiện hành.
+
+## Nguồn toán đã đăng ký
+
+Kho nguồn cá nhân chỉ đọc: `E:\zo_math_ca_nhan\zo_math_on_thi_toan_thpt\nguon\`. Đây là vị trí truy cập cục bộ hiện hành, không phải thành phần của repo `E:\zo_math`. Tên tệp trong bảng được tính từ kho này; không sao chép PDF vào repo.
+
+| ID | Tên chính thức | Cơ quan / nhà xuất bản | Tên tệp hiện tại | SHA-256 |
+|---|---|---|---|---|
+| SRC-CTGDPT-TOAN-2018 | Chương trình giáo dục phổ thông môn Toán | Bộ Giáo dục và Đào tạo; ban hành kèm Thông tư 32/2018/TT-BGDĐT ngày 26/12/2018 | `Chuong trinh giao duc pho thong mon Toan 2018.pdf` | `f35d34ff84da2ca3f9ab72d5d67482ada414684b611deea98c4b329801b661ab` |
+| SRC-SGK12-KNTT-T1 | Toán 12 — Tập Một, Kết nối tri thức với cuộc sống | Nhà xuất bản Giáo dục Việt Nam | `Toan 12. Tap 1. Ket noi tri thuc voi cuoc song.pdf` | `faeb554bea9cf81189c5e790b1b1edb42f50b3648694acc80dc99682ada3f1fd` |
+| SRC-SGK12-KNTT-T2 | Toán 12 — Tập Hai, Kết nối tri thức với cuộc sống | Nhà xuất bản Giáo dục Việt Nam | `Toan 12. Tap 2. Ket noi tri thuc voi cuoc song.pdf` | `3c642f2e80d86d699ea62bbcabd0c3074fd5118def96e4b3b8ce1f9ead7f97bb` |
+
+Đã đối chiếu ngày 2026-09-13: chương trình là bản đầy đủ 123 trang được chủ dự án chọn; không đăng ký bản rút gọn 38 trang. Hai SGK được nhận diện trực quan qua bìa, trang tên sách và trang thông tin xuất bản: đúng bộ, lớp và tập; tổng chủ biên Hà Huy Khoái; bìa và trang tên sách ghi “Bản mẫu — Tháng 1-2024”, trang xuất bản ghi bản quyền 2024, một số trường in/ISBN còn để trống. Tập Một có 104 trang PDF, Tập Hai có 99 trang PDF; không coi đây là bản in thương mại đã xác minh ISBN đầy đủ.
+
+Ba tệp với SHA-256 trên là các bản tham chiếu hiện hành cho việc thẩm định, biên tập tiếp R1-G01 và chuẩn bị các gói sau. Chúng nằm trong kho nguồn cá nhân chỉ đọc và không được sao chép vào repo chỉ để tạo một bản nguồn song song.
+
+## Nơi lưu theo vai trò
+
+| Loại tư liệu | Nơi lưu và cách đọc |
+|---|---|
+| Điều hành khóa theo năm | Chính thư mục này; 03 sở hữu trạng thái, 08 phân vai tài liệu |
+| Nguồn, tài nguyên, bản thảo và hồ sơ từng gói | [Các gói học liệu](../../../hoc_lieu); giữ bản thảo/tài nguyên bản thảo độc lập theo quy trình 02 |
+| Bộ thành phần trang và công cụ dùng chung | [Kit trang 2027](../../../../../../_design/web_2027_mau_dung_chung); [chỉ dẫn công cụ và quy trình toàn repo](../../../../../../AGENTS.md) |
+| HTML hiện hành | Trong `docs/` theo cấu hình Quarto; đường mở và trạng thái tại 03 |
+| PDF hiện hành | Trong chính gói, cùng cấp với QMD; không chọn bản thử trong audit làm bản chính |
+| Bằng chứng kiểm và bản chụp | `_audit/`; không là nguồn dựng hoặc nơi giữ duy nhất của sản phẩm |
+| Vị trí quản trị cũ | [README chuyển tiếp](../../../../../../_projects/on_thi_toan_thpt_2027/README.md); không điều hành song song hoặc chạy lại prompt lịch sử |
+
+Giữ nguyên đường nguồn, công cụ và thành phẩm; khi sửa học liệu, sửa nguồn rồi dựng và kiểm theo phạm vi được giao. Không chuyển bộ điều hành vào `docs/` hoặc công khai tài liệu nội bộ. Không tạo các bản nguồn `current`, `final` hoặc `moi_nhat`.
+
+## Hồ sơ, bảo toàn và truy nguyên
+
+Đọc 03 để biết hồ sơ nào đang áp dụng. Ngày trong tên tệp không tự xác định bản hiện hành.
+
+- [Hồ sơ đồng bộ nguồn, sản phẩm và phát hành — đọc mục được 03 dẫn chiếu](ho_so_dong_bo_sau_bang_20261019.json)
+- [Danh mục tệp được bảo vệ cùng phụ thuộc](ban_dang_duyet.json)
+- [Danh mục bảo toàn các bản đối chiếu lịch sử](bao_toan_bon_trang.md)
+- [Chỉ mục lưu trữ lịch sử](luu_tru_lich_su.json)
+- [Sổ truyền thông quá trình](truyen_thong_qua_trinh.md)
+
+<details>
+<summary>Danh mục hồ sơ theo từng mốc — dùng để truy nguyên</summary>
+
+- [ho_so_bang_va_chu_thich_20261018.md](ho_so_bang_va_chu_thich_20261018.md)
+- [ho_so_bia_vung_doc_20261018.md](ho_so_bia_vung_doc_20261018.md)
+- [ho_so_bien_tap_ro_nghia_20261018.json](ho_so_bien_tap_ro_nghia_20261018.json)
+- [ho_so_bien_tap_ro_nghia_20261018.md](ho_so_bien_tap_ro_nghia_20261018.md)
+- [ho_so_bien_tap_ro_nghia_20261019.json](ho_so_bien_tap_ro_nghia_20261019.json)
+- [ho_so_cach_thuc_hien_20261018.json](ho_so_cach_thuc_hien_20261018.json)
+- [ho_so_cach_thuc_hien_20261018.md](ho_so_cach_thuc_hien_20261018.md)
+- [ho_so_commit_20261018.json](ho_so_commit_20261018.json)
+- [ho_so_commit_dung_lai_html_20261018.json](ho_so_commit_dung_lai_html_20261018.json)
+- [ho_so_commit_nguon_dieu_huong_va_trinh_bay_20261018.json](ho_so_commit_nguon_dieu_huong_va_trinh_bay_20261018.json)
+- [ho_so_commit_nhat_quan_bon_goi_20261018.json](ho_so_commit_nhat_quan_bon_goi_20261018.json)
+- [ho_so_dieu_huong_20261018.md](ho_so_dieu_huong_20261018.md)
+- [ho_so_do_thi_theo_g03_20261017.json](ho_so_do_thi_theo_g03_20261017.json)
+- [ho_so_do_thi_theo_g03_20261017.md](ho_so_do_thi_theo_g03_20261017.md)
+- [ho_so_dong_bo_nhan_20261017.json](ho_so_dong_bo_nhan_20261017.json)
+- [ho_so_dung_lai_html_20261018.json](ho_so_dung_lai_html_20261018.json)
+- [ho_so_dung_lai_html_20261018.md](ho_so_dung_lai_html_20261018.md)
+- [ho_so_hop_nhat_muc_tieu_20261018.json](ho_so_hop_nhat_muc_tieu_20261018.json)
+- [ho_so_hop_nhat_muc_tieu_20261018.md](ho_so_hop_nhat_muc_tieu_20261018.md)
+- [ho_so_html_nguon_hien_hanh_20261018.md](ho_so_html_nguon_hien_hanh_20261018.md)
+- [ho_so_html_sau_sua_vung_doc_20261018.md](ho_so_html_sau_sua_vung_doc_20261018.md)
+- [ho_so_nhan_lien_ket_20261018.md](ho_so_nhan_lien_ket_20261018.md)
+- [ho_so_nhat_quan_bon_goi_20261018.json](ho_so_nhat_quan_bon_goi_20261018.json)
+- [ho_so_nhat_quan_bon_goi_20261018.md](ho_so_nhat_quan_bon_goi_20261018.md)
+- [ho_so_nut_that_nhan_thuc_20261019.md](ho_so_nut_that_nhan_thuc_20261019.md)
+- [ho_so_phat_hanh_20261015.json](ho_so_phat_hanh_20261015.json)
+- [ho_so_phat_hanh_20261017.json](ho_so_phat_hanh_20261017.json)
+- [ho_so_ra_soat_sau_bang_20261019.json](ho_so_ra_soat_sau_bang_20261019.json)
+- [ho_so_so_va_nhan_20261018.json](ho_so_so_va_nhan_20261018.json)
+- [home_video_ban01_20261016.json](home_video_ban01_20261016.json)
+- [home_youtube_ban01_20261016.json](home_youtube_ban01_20261016.json)
+- [khep_ho_so_phat_hanh_20261015.json](khep_ho_so_phat_hanh_20261015.json)
+
+Các hồ sơ này giữ phạm vi, bằng chứng và giới hạn tại từng mốc. Không lấy PASS hoặc trạng thái cũ thay nghiệm thu hiện hành ở 03.
+
+</details>
+
+## Ghi chép tiếp quản và chuyển đổi trước đây
+
+<details>
+<summary>Đọc ghi chép README cũ — không dùng các trạng thái và bước tiếp bên dưới làm trạng thái hiện hành</summary>
+
 # ZO Math — Ôn thi Toán THPT, Ấn bản ôn thi 2027
 
 ## Tiếp quản hiện hành
@@ -140,20 +273,6 @@ Trạng thái được quản lí theo gói và tổng hợp tại [bảng đi�
 | Studio R1-G01 | Chưa sản xuất Studio chính thức; media thử nghiệm không thay đổi trạng thái này |
 | R1-G02 | DH_016 áp dụng bản chốt G01 theo vai trò riêng G02; bằng chứng mới ở hồ sơ/03, HTML cô lập chờ chủ trì duyệt. FB036 giữ lịch sử; PDF chưa đồng bộ |
 
-## 4. Danh mục nguồn đang dùng
-
-Kho nguồn cá nhân chỉ đọc: `E:\zo_math_ca_nhan\zo_math_on_thi_toan_thpt\nguon\`. Đây là vị trí truy cập cục bộ hiện hành, không phải thành phần của repo `E:\zo_math`. Tên tệp trong bảng được tính từ kho này; không sao chép PDF vào repo.
-
-| ID | Tên chính thức | Cơ quan / nhà xuất bản | Tên tệp hiện tại | SHA-256 |
-|---|---|---|---|---|
-| SRC-CTGDPT-TOAN-2018 | Chương trình giáo dục phổ thông môn Toán | Bộ Giáo dục và Đào tạo; ban hành kèm Thông tư 32/2018/TT-BGDĐT ngày 26/12/2018 | `Chuong trinh giao duc pho thong mon Toan 2018.pdf` | `f35d34ff84da2ca3f9ab72d5d67482ada414684b611deea98c4b329801b661ab` |
-| SRC-SGK12-KNTT-T1 | Toán 12 — Tập Một, Kết nối tri thức với cuộc sống | Nhà xuất bản Giáo dục Việt Nam | `Toan 12. Tap 1. Ket noi tri thuc voi cuoc song.pdf` | `faeb554bea9cf81189c5e790b1b1edb42f50b3648694acc80dc99682ada3f1fd` |
-| SRC-SGK12-KNTT-T2 | Toán 12 — Tập Hai, Kết nối tri thức với cuộc sống | Nhà xuất bản Giáo dục Việt Nam | `Toan 12. Tap 2. Ket noi tri thuc voi cuoc song.pdf` | `3c642f2e80d86d699ea62bbcabd0c3074fd5118def96e4b3b8ce1f9ead7f97bb` |
-
-Đã đối chiếu ngày 2026-09-13: chương trình là bản đầy đủ 123 trang được chủ dự án chọn; không đăng ký bản rút gọn 38 trang. Hai SGK được nhận diện trực quan qua bìa, trang tên sách và trang thông tin xuất bản: đúng bộ, lớp và tập; tổng chủ biên Hà Huy Khoái; bìa và trang tên sách ghi “Bản mẫu — Tháng 1-2024”, trang xuất bản ghi bản quyền 2024, một số trường in/ISBN còn để trống. Tập Một có 104 trang PDF, Tập Hai có 99 trang PDF; không coi đây là bản in thương mại đã xác minh ISBN đầy đủ.
-
-Ba tệp với SHA-256 trên là các bản tham chiếu hiện hành cho việc thẩm định, biên tập tiếp R1-G01 và chuẩn bị các gói sau. Chúng nằm trong kho nguồn cá nhân chỉ đọc và không được sao chép vào repo chỉ để tạo một bản nguồn song song.
-
 ## 5. Trạng thái chuyển đổi và đầu mối việc hiện hành
 
 - Pha 1–3 và các lượt hoàn thiện R1-G01 đã hoàn tất; chuyên mục có ứng viên ra mắt cục bộ, chưa xuất bản.
@@ -183,3 +302,5 @@ Trạng thái chuyển đổi kỹ thuật của D0 được ghi tại `hoc_lieu
 - D0 gồm 25 tệp: 23 mục manifest, manifest và `HUONG_DAN_SU_DUNG.md`. SHA-256 của manifest giữ nguyên: `4a99567b0a20daab743586cf5d376f464a6e38fa6405d11433ad678e311f8b6c`. Bước 1 chuyển toàn bộ cây sang `hoc_lieu/d0/_quy_trinh/lich_su/v1_0/`; mọi byte và đường dẫn tương đối bên trong baseline được bảo toàn.
 - Truyền thông quá trình giữ nguyên các bản ghi và trạng thái; chỉ cập nhật hai liên kết tương đối tới hồ sơ R1-G01 còn ở vị trí cũ. Không đổi URL công khai hoặc fragment.
 - Các phát biểu trong hồ sơ D0 được giữ nguyên theo mốc lịch sử; việc chuyển và kiểm tra hash không phải một lần nghiệm thu sư phạm hay quyết định công bố mới.
+
+</details>
