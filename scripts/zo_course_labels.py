@@ -158,6 +158,8 @@ def source_checks(path,root=ROOT):
     except (OSError,ValueError,KeyError,yaml.YAMLError) as exc:return {"label binding/catalog readable: "+str(exc):False}
     checks.update(binding_checks(data,root));checks["display contract opt-in mandatory"]=data.get("display_contract")==VERSION
     checks["parent context presentation required"]=uses_context_labels(data)
+    from zo_course_foundation import source_checks as foundation_source_checks
+    checks.update(foundation_source_checks(path,data))
     text=expand(path)
     checks.update(answer_action_source_checks(path,root,text))
     def has_anchor(ident):return bool(re.search(r"\{#"+re.escape(ident)+r"(?=[\s}])|\bid=[\"']"+re.escape(ident)+r"[\"']",text))

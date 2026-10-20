@@ -49,13 +49,14 @@ def render_components(program, packages):
         raise ValueError('Home editorial source must be the native index.qmd')
     from zo_home_qmd import require_native_source
     require_native_source(source.read_text(encoding='utf-8'))
-    if [p.ref_id for p in packages] != ['d0', 'r1_g01', 'r1_g02', 'r1_g03', 'r1_g04']:
+    from zo_web_2027_navigation import PAGES
+    if [p.ref_id for p in packages] != [relative.parent.name for key,(relative,_) in PAGES.items() if key!='home']:
         raise ValueError('Home catalog must follow canonical D0 G01 G02 G03 order')
     cards = []
     for p in packages:
         category = 'survey' if p.ref_id == 'd0' else 'functions'
         from zo_course_cover import load_cover
-        asset=load_cover(REPO,p.ref_id,allow_direction_approved=p.ref_id=='d0')
+        asset=load_cover(REPO,p.ref_id,allow_direction_approved=p.html_only or p.display_status=='Bản xem trước')
         cover='/' + asset.relative_to(REPO).as_posix()
         if not (REPO / cover.lstrip('/')).is_file():
             raise ValueError('Missing canonical catalog cover ' + cover)

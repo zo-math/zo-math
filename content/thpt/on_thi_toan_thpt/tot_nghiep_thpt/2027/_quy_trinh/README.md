@@ -10,6 +10,13 @@
 2. Đọc [08 — Danh mục thẩm quyền](08_danh_muc_tham_quyen_dieu_hanh.md) để xác định tài liệu nào sở hữu từng quyết định.
 3. Chọn tài liệu theo bảng dưới đây. README chỉ tổ chức đường đọc; trạng thái và việc tiếp theo chỉ cập nhật tại 03.
 
+## Hồ sơ tích hợp R1-G05
+
+- [Nghiệm thu HTML tích hợp và quyền commit cục bộ](../../../hoc_lieu/r1_g05/_quy_trinh/ho_so/nghiem_thu_html_tich_hop_20261021.json).
+- [Biên nhận duyệt tám PDF R1-G05](../../../hoc_lieu/r1_g05/_quy_trinh/ho_so/duyet_bo_pdf_20261021.json).
+- [Khảo sát Bảo trợ trong 33 PDF đã phát hành](tinh_trang_bao_tro_33_pdf_20261021.md).
+- Trạng thái và bước tiếp theo tiếp tục do [03](03_dieu_hanh_chuong_trinh.md) sở hữu.
+
 ## Kế hoạch, kiến trúc và cách làm
 
 | Cần tìm | Mở tài liệu |
@@ -45,6 +52,7 @@ Mẫu hỗ trợ áp dụng kiến trúc và quy chuẩn. Registry/cổng kiểm
 | R1-G02 | Giá trị lớn nhất và giá trị nhỏ nhất | [Phạm vi gói](goi/R1_G02.md) · [README của gói](../../../hoc_lieu/r1_g02/_quy_trinh/README.md) | [QMD](../../../hoc_lieu/r1_g02/index.qmd) · [Hồ sơ](../../../hoc_lieu/r1_g02/_quy_trinh) |
 | R1-G03 | Đường tiệm cận | [Phạm vi gói](goi/R1_G03.md) · [README của gói](../../../hoc_lieu/r1_g03/_quy_trinh/README.md) | [QMD](../../../hoc_lieu/r1_g03/index.qmd) · [Hồ sơ](../../../hoc_lieu/r1_g03/_quy_trinh) |
 | R1-G04 | Khảo sát sự biến thiên và vẽ đồ thị của hàm số | [Phạm vi gói](goi/R1_G04.md) · [README của gói](../../../hoc_lieu/r1_g04/_quy_trinh/README.md) | [QMD](../../../hoc_lieu/r1_g04/index.qmd) · [Hồ sơ](../../../hoc_lieu/r1_g04/_quy_trinh) |
+| R1-G05 | Ứng dụng đạo hàm trong thực tiễn | [Phạm vi gói](goi/R1_G05.md) · [README của gói](../../../hoc_lieu/r1_g05/_quy_trinh/README.md) | [QMD](../../../hoc_lieu/r1_g05/index.qmd) · [HTML và bộ PDF](../../../hoc_lieu/r1_g05/_quy_trinh/ho_so/bo_pdf_va_muc_tai_20261021.md) · [Bản thảo đã duyệt](../../../hoc_lieu/r1_g05/_quy_trinh/ban_thao/noi_dung.md) |
 
 Tài liệu thiết kế riêng của G03: [đề cương biên soạn](goi/R1_G03_de_cuong_bien_soan.md) và [ma trận nhiệm vụ](goi/R1_G03_ma_tran_nhiem_vu.md). Đọc trạng thái trong hồ sơ gói và 03, không dùng đề cương thay nguồn sản phẩm hiện hành.
 

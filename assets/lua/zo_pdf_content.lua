@@ -78,7 +78,7 @@ local function style_source_note(span)
     return nil
   end
   local result = {
-    pandoc.RawInline("latex", "\\par\\smallskip{\\small\\color{zomathgray}")
+    pandoc.RawInline("latex", "\\par\\nopagebreak[4]\\smallskip{\\small\\color{zomathgray}")
   }
   for _, inline in ipairs(span.content) do table.insert(result, inline) end
   table.insert(result, pandoc.RawInline("latex", "\\par}"))
@@ -153,7 +153,7 @@ local transform_blocks
 local function transform_div(div)
   if has_class(div.classes, "zo-source-note") then
     local result = {
-      pandoc.RawBlock("latex", "\\par\\smallskip{\\small\\color{zomathgray}")
+      pandoc.RawBlock("latex", "\\par\\nopagebreak[4]\\smallskip{\\small\\color{zomathgray}")
     }
     append_all(result, transform_blocks(div.content))
     table.insert(result, pandoc.RawBlock("latex", "\\par}"))

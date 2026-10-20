@@ -33,6 +33,8 @@ def graph_inputs(package,repo=ROOT):
 def source_checks(source,repo=ROOT):
     source=Path(source);repo=Path(repo)
     if not source.is_absolute():source=repo/source
+    from zo_course_scenes import declared, source_checks as scene_checks
+    if declared(source):return scene_checks(source,repo)
     if not governed(source,repo):
         if source.parent.name in {'r1_g01','r1_g02','r1_g03'}:return legacy_graph_checks(source,repo)
         return {}
@@ -121,6 +123,8 @@ def apply_graph_display(doc,page,runtime,repo=ROOT):
 
 def html_checks(doc,page_key,repo=ROOT):
     source=Path(repo)/BASE/page_key/"index.qmd"
+    from zo_course_scenes import declared
+    if declared(source):return {}  # Scene HTML is checked against the actual output path by its adapter.
     if not governed(source,repo):return {}
     root=doc.select_one(".reader-content")
     records=json.loads((source.parent/"du_lieu/bang_bien_thien.json").read_text(encoding="utf-8"))

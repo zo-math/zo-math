@@ -16,7 +16,7 @@ from zo_web_2027_check import Browser, edge_executable
 
 def source_checks(text_overrides=None):
     """Check shared destinations without rendering or reading generated HTML."""
-    expected=['home','d0','g01','g02','g03','g04']
+    expected=['home','d0','g01','g02','g03','g04','g05']
     output=ROOT/'docs'
     from zo_web_2027_production import runtime_source_checks
     values=runtime_source_checks(ROOT)
@@ -33,6 +33,10 @@ def source_checks(text_overrides=None):
         g04=[href for key,href,_ in links if key=='g04']
         values[str(current)+' G04 source destination']=len(g04)==1 and (page.parent/unquote(urlsplit(g04[0]).path)).resolve()==(output/BASE_G04).resolve()
         values[str(current)+' G04 starts at beginning']=len(g04)==1 and urlsplit(g04[0]).query=='r1-view=bat-dau' and urlsplit(g04[0]).fragment=='bat-dau'
+    for current in [None,*expected]:
+        page=output/PAGES.get(current,PAGES['home'])[0]
+        g05=[href for key,href,_ in destinations(output,page,current) if key=='g05']
+        values[str(current)+' G05 canonical entry']=len(g05)==1 and (page.parent/unquote(urlsplit(g05[0]).path)).resolve()==(output/PAGES['g05'][0]).resolve() and urlsplit(g05[0]).query=='r1-view=bat-dau' and urlsplit(g05[0]).fragment=='bat-dau'
     config=yaml.safe_load((ROOT/'_quarto.yml').read_text(encoding='utf-8'))
     sidebar=next(s for s in config['website']['sidebar'] if s.get('id')=='on-thi')
     values['Quarto sidebar contains G04 once']=sum(n.get('href')==str(BASE_G04.with_suffix('.qmd')).replace('\\','/') for n in sidebar['contents'])==1
@@ -70,12 +74,23 @@ def source_checks(text_overrides=None):
             url=urlsplit(m[2]);params=parse_qs(url.query)
             if not url.path.startswith('../r1_g') or params.get('r1-view',[''])[0] not in ['on-nen','bai-hoc','nhat-ky']:continue
             prefix=current+'/cross-support/'+str(number)
+            # Linked shared support may name its return in the source-owned row.
+            # Do not force a fixed caller onto an independent support entry.
+            binding_path=source.parent/'giao_dien/he_nhan.json'
+            binding=json.loads(binding_path.read_text('utf-8')) if binding_path.is_file() else {}
+            registered={v['href'].replace('.html','.qmd') for v in binding.get('foundation_links',[])}
+            if binding.get('foundation_mode')=='linked-shared' and m[2] in registered:
+                row=next((line for line in text.splitlines() if m[0] in line),'')
+                values[prefix+' named in-place return']='**Trở lại:**' in row and bool(row.split('**Trở lại:**',1)[1].strip(' |.'))
+                continue
             values[prefix+' explicit return page']=params.get('r1-return-page')==[source.parent.name]
             values[prefix+' existing caller']=params.get('r1-return',[''])[0] in ids
             values[prefix+' named return view']=bool(params.get('r1-return-view') and params.get('r1-return-label'))
     d0=source_texts['d0']
     for key,(relative,_) in PAGES.items():
-        if key.startswith('g'):values['D0 lists '+key]=('../'+relative.parent.name+'/index.qmd') in d0
+        # D0's diagnostic recommendations remain its own approved content.
+        # New catalog entries are available through the shared menu and Home.
+        if key in {'g01','g02','g03','g04'}:values['D0 lists '+key]=('../'+relative.parent.name+'/index.qmd') in d0
     return values
 
 

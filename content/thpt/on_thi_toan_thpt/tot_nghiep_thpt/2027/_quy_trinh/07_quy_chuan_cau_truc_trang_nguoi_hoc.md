@@ -32,9 +32,9 @@ toàn khóa hoặc thẻ chức năng khác; hiện thực/guard ở kit, trạn
 
 ### Điều hướng toàn khóa học — QD_032
 
-Trên Nhà, D0 và R1-G01–R1-G04, thay liên kết tên khóa học và liên kết chữ giữa thanh bằng ba điều khiển icon, từ trái sang phải: **Nhà → Danh sách toàn khóa học → Đầu trang**. Logo ZO Math giữ nguyên. Không dùng logo/tên thương hiệu thay cho thao tác Đầu trang; không có nút “Đi tới” hoặc hàng liên kết khóa học thường trực thứ hai.
+Trên Nhà, D0 và R1-G01–R1-G05, thay liên kết tên khóa học và liên kết chữ giữa thanh bằng ba điều khiển icon, từ trái sang phải: **Nhà → Danh sách toàn khóa học → Đầu trang**. Logo ZO Math giữ nguyên. Không dùng logo/tên thương hiệu thay cho thao tác Đầu trang; không có nút “Đi tới” hoặc hàng liên kết khóa học thường trực thứ hai.
 
-Danh sách mặc định đóng, dùng cùng tập đích trên mọi trang: Nhà khóa học, Khảo sát đầu vào, Đơn điệu và cực trị, Giá trị lớn nhất và nhỏ nhất, Đường tiệm cận, Khảo sát sự biến thiên và vẽ đồ thị của hàm số; chỉ đánh dấu trang hiện tại khác nhau. Không thêm đích riêng theo trang đang dựng. Liên kết thật cho phép chuyển trực tiếp giữa các gói, dùng URL/ID hiện hữu. Danh mục học liệu tại `_data/chuong_trinh.yml`; binding điều hướng có một nguồn tại `scripts/zo_web_2027_navigation.py`. Liên kết G04 được chủ trì yêu cầu bổ sung ngày 18/10/2026; việc thêm đích không đổi trạng thái duyệt, danh mục thẻ hoặc xuất bản của gói. Mục lục Quarto trong `_quarto.yml` phải có cùng đích G04. Danh mục đổi phải cập nhật binding và kiểm lại, không âm thầm bỏ sót gói mới.
+Danh sách mặc định đóng, dùng cùng tập đích trên mọi trang: Nhà khóa học, Khảo sát đầu vào, Đơn điệu và cực trị, Giá trị lớn nhất và nhỏ nhất, Đường tiệm cận, Khảo sát sự biến thiên và vẽ đồ thị của hàm số, Ứng dụng đạo hàm trong thực tiễn; chỉ đánh dấu trang hiện tại khác nhau. Không thêm đích riêng theo trang đang dựng. Liên kết thật cho phép chuyển trực tiếp giữa các gói, dùng URL/ID hiện hữu. Danh mục học liệu tại `_data/chuong_trinh.yml`; binding điều hướng có một nguồn tại `scripts/zo_web_2027_navigation.py`. Liên kết G04 được chủ trì yêu cầu bổ sung ngày 18/10/2026; việc thêm đích không đổi trạng thái duyệt, danh mục thẻ hoặc xuất bản của gói. Mục lục Quarto trong `_quarto.yml` phải có cùng đích G04. Danh mục đổi phải cập nhật binding và kiểm lại, không âm thầm bỏ sót gói mới. Ngày 21/10/2026, chủ trì giao tích hợp R1-G05: thẻ danh mục và menu chung bảy trang dùng cùng đích G05; nội dung định vị đầu vào D0 giữ nguyên. Nguồn chính văn và PDF G05 đã duyệt giữ nguyên; HTML tích hợp chờ duyệt riêng. Không thêm đích ứng viên chỉ cho trang G05.
 
 Theo xác nhận chủ trì ngày 14/10/2026, hover trong điều hướng toàn khóa
 chỉ đổi màu chữ/icon: không nền sáng, gạch chân, bóng hoặc dịch chuyển.
@@ -413,6 +413,8 @@ Kiểm trình duyệt phải xác nhận nhãn nhìn thấy và đọc được 
 - Không quảng bá lưu tiến độ tự động nếu sản phẩm chưa có chức năng ấy.
 
 ## 8. Cổng nghiệm thu HTML và khóa PDF
+
+Theo chỉ thị chủ trì ngày 21/10/2026, tất cả PDF học liệu đều có phần **Bảo trợ cuối tài liệu**, kể cả bản ngắn theo chức năng và bản không có lời giải. Dùng component nguồn chung; bộ dựng và cổng kiểm trang cuối không cho lược bỏ. Căn cứ triển khai ở quy chuẩn gói QMD / Ánh xạ canonical sang PDF và hướng dẫn PDF dùng chung.
 
 Kiểm tự động chỉ chứng minh các bất biến đã mã hóa; không thay nghiệm thu của con người. Một lượt xin duyệt HTML tối thiểu phải có:
 
