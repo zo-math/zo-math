@@ -72,6 +72,25 @@ class ApprovedCourseTests(unittest.TestCase):
         with patch.object(p,'course_pdf_issues',return_value=[{'type':'stale-course-pdf'}]) as guard:
             result=self.candidate()
         guard.assert_called_once();self.assertTrue(any(x['type']=='stale-course-pdf' for x in result['issues']))
+    def test_inherited_pdf_requires_existing_public_bytes(self):
+        with self.assertRaisesRegex(p.ConfigError, 'existing public tree'):
+            course.candidate(self.target,self.docs,self.root/'render',self.root/'public',
+                             [self.page],self.pdfs,self.config,inherited_pdfs=self.pdfs)
+    def test_inherited_pdf_checks_canonical_and_candidate_bytes(self):
+        self.write(self.root,self.pdf,'PDF fixture bytes')
+        self.assertFalse(p.inherited_pdf_issues(self.docs,{self.pdf},self.root,self.pdfs))
+        self.write(self.docs,self.pdf,'changed public PDF')
+        self.assertEqual(p.inherited_pdf_issues(self.docs,{self.pdf},self.root,self.pdfs)[0]['type'],
+                         'inherited-course-pdf-bytes')
+        self.write(self.docs,self.pdf,'PDF fixture bytes')
+        self.write(self.root,self.pdf,'changed canonical PDF')
+        self.assertTrue(p.inherited_pdf_issues(self.docs,{self.pdf},self.root,self.pdfs))
+    def test_missing_inherited_pdf_rejected(self):
+        self.assertTrue(p.inherited_pdf_issues(self.docs,set(),self.root,self.pdfs))
+    def test_inheritance_cannot_use_committed_snapshot_mode(self):
+        with self.assertRaisesRegex(p.ConfigError,'canonical approved-course'):
+            p.validate_public(self.docs,{'files':{}},self.config,
+                              source_root=self.root,inherited_course_pdfs=self.pdfs)
     def test_approved_mode_cannot_mix_render_or_other_commands(self):
         for args in [['check','--approved-course'],['prepare','--approved-course','--full-render'],['prepare','--approved-course','--page','index.html']]:
             with self.subTest(args=args),redirect_stderr(io.StringIO()):self.assertEqual(p.main(args),p.EXIT_USAGE)

@@ -1,6 +1,7 @@
 """Release the approved canonical course outputs, preserving all other pages.
 
-No historical render, alternate product location, or PDF provenance exemption.
+Exact owner acceptance; new PDFs require current provenance. Explicit inherited PDFs
+retain their historical public bytes and are never recertified as CURRENT.
 """
 from __future__ import annotations
 import json
@@ -14,7 +15,7 @@ from zo_publish_pages import Timings, finish, merge_indexes, allowed
 RECORD = Path('content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/ho_so_dong_bo_sau_bang_20261019.json')
 
 
-def verify_approved(root):
+def verify_legacy_approved(root):
     import yaml
     import zo_web_2027_bundle as bundle
     from zo_review_protection import active_manifests
@@ -57,6 +58,84 @@ def verify_approved(root):
             'canonical_files': record['canonical_html_build']['files']}
 
 
+RELEASE = Path('content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g05/_quy_trinh/ho_so/uy_quyen_phat_hanh_20261021.json')
+
+
+def verify_approved(root):
+    if not (root/RELEASE).is_file():
+        return verify_legacy_approved(root)
+    import hashlib
+    import re
+    import subprocess
+    import yaml
+    import zo_web_2027_bundle as bundle
+    from zo_review_protection import active_manifests
+    from zo_pdf_contract import validate_canonical_pdf_provenance
+    if root.resolve() != bundle.ROOT.resolve():
+        raise p.ConfigError('Approved course verification requires the canonical source checkout.')
+    release = json.loads((root/RELEASE).read_text('utf-8'))
+    if not all(release.get('authorization', {}).get(k) is True for k in ['push', 'publication']):
+        raise p.ConfigError('No explicit release authorization.')
+    record_path = p.safe_relative(release['HTML_acceptance_record'], 'HTML acceptance')
+    pdf_record_path = p.safe_relative(release['PDF_acceptance_record'], 'PDF acceptance')
+    record = json.loads((root/record_path).read_text('utf-8'))
+    pdf_record = json.loads((root/pdf_record_path).read_text('utf-8'))
+    if record.get('acceptance') != 'owner_approved' or pdf_record.get('owner_acceptance') != 'owner_approved':
+        raise p.ConfigError('Current course products have no owner acceptance.')
+    pages = sorted(path.as_posix() for path in bundle.PAGES.values())
+    expected = {'docs/'+name for name in pages}
+    if {x['path'] for x in record['HTMLs']} != expected:
+        raise p.ConfigError('Accepted HTML inventory differs from the canonical navigation.')
+    manifests = [json.loads(x.read_text('utf-8')) for x in active_manifests(root)]
+    if not any(m['status'] == 'owner_approved' and expected <= set(m['entrypoints']) for m in manifests):
+        raise p.ConfigError('All current HTML pages must have approved protection.')
+    for item in record['canonical_QMD_sources'] + record['HTMLs'] + record['served_dependencies']:
+        name = p.safe_relative(item['path'], 'accepted file')
+        if not (root/name).is_file() or p.sha256(root/name) != item['sha256']:
+            raise p.ConfigError('Accepted source/output changed: '+name)
+    canonical_files = {x['path'].removeprefix('docs/'):x['sha256'] for x in record['served_dependencies']}
+    canonical_files.update({x['path'].removeprefix('docs/'):x['sha256'] for x in record['HTMLs']})
+    inherited = {x['path']:x['sha256'] for x in record['legacy_33_PDFs']}
+    new = {x['path']:x for x in pdf_record['outputs']}
+    if new != {x['path']:x for x in record['G05_PDFs']} or set(new) & set(inherited):
+        raise p.ConfigError('PDF acceptance inventories disagree.')
+    inventory = {}
+    for key, page in bundle.PAGES.items():
+        if key == 'home': continue
+        if key == 'd0':
+            inventory[(page.parent/'index.pdf').as_posix()] = ('full', page.with_suffix('.qmd'))
+        else:
+            config = yaml.safe_load((root/page.parent/'_quy_trinh/cau_hinh_san_xuat_qmd.yml').read_text('utf-8'))
+            for variant, definition in config['extensions']['pdf_variants'].items():
+                inventory[(page.parent/definition['output']).as_posix()] = (variant, page.with_suffix('.qmd'))
+    if set(inventory) != set(inherited) | set(new):
+        raise p.ConfigError('Incomplete or extra accepted PDF variant inventory.')
+    previous = release['previous_public_commit']
+    if not re.fullmatch('[0-9a-f]{40}', previous):
+        raise p.ConfigError('Inherited PDFs require an immutable full public commit.')
+    pdfs = {}
+    for name, (variant, source) in inventory.items():
+        digest = inherited.get(name) or new[name]['sha256']
+        if name in inherited:
+            result = subprocess.run(['git','-C',str(root),'cat-file','blob',previous+':'+name], capture_output=True)
+            if result.returncode or hashlib.sha256(result.stdout).hexdigest() != digest:
+                raise p.ConfigError('Inherited PDF differs from previous public Git blob: '+name)
+        else:
+            if new[name]['variant'] != variant:
+                raise p.ConfigError('Accepted PDF variant mismatch: '+name)
+            errors = validate_canonical_pdf_provenance(root, root/source, variant=variant)
+            if errors:
+                raise p.ConfigError('Stale new course PDF '+name+': '+str(errors))
+        for base in [root, root/'docs']:
+            if not (base/name).is_file() or p.sha256(base/name) != digest:
+                raise p.ConfigError('Canonical PDF download differs: '+name)
+        pdfs[name] = digest
+    return {'pages':pages, 'pdfs':pdfs, 'canonical_files':canonical_files,
+            'inherited_pdfs':inherited, 'previous_public_commit':previous,
+            'record_sha256':p.sha256(root/record_path), 'PDF_record_sha256':p.sha256(root/pdf_record_path),
+            'release_sha256':p.sha256(root/RELEASE)}
+
+
 def require_exact_products(tree, docs, pages, pdfs):
     for name in pages:
         if not (tree/name).is_file() or p.sha256(tree/name) != p.sha256(docs/name):
@@ -85,8 +164,11 @@ def selected_indexes(rendered, pages, config):
     p.write_text_lf(rendered/'sitemap.xml', ET.tostring(sitemap, encoding='unicode')+'\n')
 
 
-def candidate(target, docs, rendered, destination, pages, pdfs, config, approved_files=None):
+def candidate(target, docs, rendered, destination, pages, pdfs, config, approved_files=None, inherited_pdfs=None):
     before = p.tree_manifest(target, True)
+    for name, digest in (inherited_pdfs or {}).items():
+        if before["files"].get(name, {}).get("sha256") != digest:
+            raise p.ConfigError("Inherited PDF differs from existing public tree: "+name)
     raw = p.tree_manifest(docs)
     missing = []
     dependencies = p.asset_dependencies(docs, raw, pages, missing)
@@ -121,7 +203,7 @@ def candidate(target, docs, rendered, destination, pages, pdfs, config, approved
     issues.extend(policy['issues'])
     if {name: {'sha256': item['sha256'], 'size': item['size']} for name, item in policy['files'].items()} != manifest['files']:
         issues.append({'type': 'candidate-manifest-mismatch'})
-    validation = p.validate_public(destination, manifest, config)
+    validation = p.validate_public(destination, manifest, config, inherited_course_pdfs=inherited_pdfs)
     issues.extend(validation['issues'])
     issues.extend(p.changed_trailing_whitespace(target, destination, manifest))
     require_exact_products(destination, docs, pages, pdfs)
@@ -149,7 +231,7 @@ def validate_receipt(root, target, config, payload):
         raise p.ConfigError('Approved publication policy mismatch.')
     if any(name not in payload['manifest']['files'] for name in config['required_files']):
         raise p.ConfigError('Missing required public file.')
-    result = p.validate_public(target, payload['manifest'], config)
+    result = p.validate_public(target, payload['manifest'], config, inherited_course_pdfs=seal.get('inherited_pdfs'))
     if result['issues'] or p.changed_trailing_whitespace(backup, target, payload['manifest']):
         raise p.ConfigError('Approved publication validation failed: '+str(result['issues']))
     return result
@@ -181,7 +263,7 @@ def prepare(root, target, config_path, config, args, source_state, target_state)
         p.copy_manifest(target, stage/'backup', before)
         if p.tree_manifest(stage/'backup') != before:
             raise p.RestoreError('Publication backup mismatch.')
-        result = candidate(target, root/'docs', stage/'render', stage/'public', seal['pages'], seal['pdfs'], config, seal['canonical_files'])
+        result = candidate(target, root/'docs', stage/'render', stage/'public', seal['pages'], seal['pdfs'], config, seal['canonical_files'], seal.get('inherited_pdfs'))
         payload.update(result)
         payload['prepare_paths'] = {key: f'{config["prepare"]["staging_dir"]}/{folder}' for key, folder in [('render_dir','render'),('public_dir','public'),('backup_dir','backup')]}
         payload['prepare_paths'].update(staging_dir=config['prepare']['staging_dir'], report_file=config['prepare']['report_file'])
