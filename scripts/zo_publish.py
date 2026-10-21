@@ -1865,6 +1865,8 @@ def parser() -> argparse.ArgumentParser:
     value.add_argument("--approved-course", action="store_true", help="prepare: release the approved canonical course HTML pages and their verified PDFs without historical rebuilds.")
     value.add_argument("--full-render", action="store_true", help="prepare: use the legacy two full-site renders instead of page artifacts.")
     value.add_argument("--page", action="append", default=[], help="prepare: giới hạn HTML; lặp lại cho từng trang, vẫn kèm tài nguyên phụ thuộc.")
+    value.add_argument('--d0-pdf', action='store_true',
+                       help='prepare --page D0: include the one current, receipted D0 PDF.')
     value.add_argument('--committed-source', action='store_true',
                        help='prepare --page: render only committed HEAD in a temporary source tree; preserve unrelated working edits.')
     value.add_argument('--allow-global-inputs-for-pages', action='store_true',
@@ -1886,6 +1888,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         return EXIT_USAGE
     if args.page and args.command not in {'prepare','plan'}:
         print('ERROR: --page chỉ dùng với prepare.',file=sys.stderr)
+        return EXIT_USAGE
+    if args.d0_pdf and (args.command != 'prepare' or args.page != ['content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html'] or args.full_render or args.approved_course):
+        print('ERROR: --d0-pdf requires scoped prepare of D0 alone.', file=sys.stderr)
         return EXIT_USAGE
     if yaml is None:
         print("ERROR: thiếu dependency PyYAML.", file=sys.stderr)

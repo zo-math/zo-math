@@ -166,8 +166,9 @@ def package_from_ref(ref: dict[str, Any], package_root: Path = PACKAGE_ROOT) -> 
     # newly edited package. Explicit previews may point at in-production sources.
     preview = ref.get("learner_availability") == "preview"
     if ((production != "accepted" and not (preview and production in {"in_production", "validated"}))
-            or publication not in {"pending", "published"}
-            or (publication == "published" and workflow.get("user_confirmed") is not True)):
+            or publication not in {"pending", "published", "published_live_verified"}
+            or (publication in {"published", "published_live_verified"}
+                and workflow.get("user_confirmed") is not True)):
         raise BuildError(f"Gói {code} chưa ở trạng thái ứng viên có thể học")
     if len(title) > 96:
         raise BuildError(f"Tên gói quá dài cho bìa: {code}")

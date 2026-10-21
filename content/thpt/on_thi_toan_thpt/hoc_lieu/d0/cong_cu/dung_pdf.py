@@ -75,6 +75,7 @@ def inputs():
              ROOT / 'assets/lua/zo_learning_components.lua',
              ROOT / 'assets/lua/zo_variation_qmd.lua', ROOT/'assets/lua/zo_course_print.lua']
     paths += [PACKAGE / '_quy_trinh/pdf_source_delta.json',
+              PACKAGE / '_quy_trinh/d0_bai00_logic_delta.json',
               PACKAGE / '_quy_trinh/cau_hinh_san_xuat_qmd.yml',
               PACKAGE / '_quy_trinh/ho_so/index.yml',
               PACKAGE / '_quy_trinh/dieu_chinh_sau_duyet.json',

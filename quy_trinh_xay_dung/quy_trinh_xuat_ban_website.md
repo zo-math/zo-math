@@ -52,6 +52,8 @@ Công cụ ghép các mục search/sitemap của đúng trang được chọn v�
 
 PDF chỉ được kế thừa nếu SHA-256 và kích thước giống hệt bản public. Thêm, thay hoặc xóa PDF trên đường theo trang đều bị chặn; phải dùng quy trình đầy đủ với kiểm provenance PDF. Chỉ nội dung HTML/chỉ mục có byte thay đổi được phân tích lại; manifest, hash của phần giữ nguyên và ranh giới public vẫn được kiểm toàn cây. Đây là kế thừa bản đã phát hành, không phải miễn kiểm cho một PDF mới.
 
+Riêng khi chủ trì yêu cầu cập nhật cùng lúc trang D0 và PDF toàn văn của chính D0, dùng `prepare --page content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html --d0-pdf`. Cổng chỉ nhận đúng một trang này và `content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.pdf`, kiểm biên nhận dựng, toàn bộ hash đầu vào hiện hành, byte PDF canonical/ứng viên và số trang. Mọi PDF khác phải giữ nguyên byte; `validate` và `publish` kiểm lại cùng điều kiện từ biên nhận prepare.
+
 `validate` dùng lại bản prepare, kiểm nguồn, HEAD public, manifest, backup, chính sách và validator cuối giống nhánh publish. Không render, fetch, stage, commit hay push. Nó không xác nhận remote mới nhất; `publish` vẫn fetch và kiểm remote ngay trước hành động thật. Nên chạy `validate` trước khi xin quyền phát hành để phát hiện lỗi môi trường/dependency sớm.
 
 ### Artifact và điều kiện tái sử dụng

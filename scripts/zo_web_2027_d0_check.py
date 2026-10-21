@@ -11,7 +11,7 @@ from zo_web_2027_preview import REPO,BRAND_THOUGHT,inventory,sha,footer_data
 from zo_web_2027_home_check import rebuild,save
 from zo_web_2027_check import Browser,GEOMETRY,edge_executable,complete_site_footer
 sys.path.insert(0,str(REPO/PACKAGE/'cong_cu'))
-from kiem_chung_da_duyet import original_signature
+from kiem_chung_da_duyet import verify_projection
 from tich_hop_html_da_duyet import RECEIPT
 
 VIEWS=['bat-dau','khai-bao-pham-vi','khao-sat','doc-ket-qua','chon-mach']
@@ -56,15 +56,8 @@ def preview(page,out,candidates):
     return output
 
 def verify_approved_content(root):
-    """Compare learner content with immutable approval, independently of release state."""
-    from zo_d0_presentation import approved_projection
-    root=approved_projection(root)
-    approval=json.loads(RECEIPT.read_text(encoding='utf-8'))
-    assert [s.get('id') for s in root.find_all('section',recursive=False)]==VIEWS
-    for identifier,expected in approval['sections'].items():
-        actual=original_signature(root.find(id=identifier),identifier)
-        assert actual['math']==expected['math'], 'Approved mathematics changed: '+identifier
-        assert actual['text_sha256']==expected['text_sha256'], 'Approved learner text changed: '+identifier
+    """Check the current D0 revision and retain the historical source guard."""
+    verify_projection(root)
 
 
 def current_projection(root,build):
@@ -289,9 +282,9 @@ def browser(page,out):
                 checks[slug+'/actual current candidate']=b.evaluate('[...new Set([...document.querySelectorAll("[data-zo-task]")].map(n=>n.dataset.zoTask))].sort()')==sorted(n['id'] for n in binding['units'])
                 b.evaluate('history.back()');time.sleep(.2);b.ready()
                 checks[slug+'/Back to D0']=b.evaluate('document.querySelector(".d0-package").dataset.d0View==="chon-mach"')
-            b.navigate(page.as_uri());b.click('.course-link');b.ready()
+            b.navigate(page.as_uri());b.click('[data-course-action=home]');b.ready()
             checks['course link current Home']=b.evaluate('document.body.classList.contains("course-home")')
-            b.click('.zo-on-thi-package[data-package-id=d0] a');b.ready()
+            b.click('#home-card-action-d0');b.ready()
             checks['Home returns current D0']=b.evaluate('document.body.dataset.zoWebProduction==="d0"&&document.querySelector(".d0-package").dataset.d0View==="bat-dau"')
             save(out/'measurements.json',measurements)
         finally:
@@ -313,6 +306,7 @@ def responsive(page,out):
                 except (requests.RequestException,ValueError,StopIteration):time.sleep(.1)
             else:raise RuntimeError('Owned Edge did not start')
             b=Browser(ws);b.call('Page.enable')
+            alignment_errors={}
             for width in [1440,390,320]:
                 b.viewport(width,900);b.navigate(page.as_uri())
                 cover=b.evaluate('(()=>{const n=document.querySelector(".hero-art img"),r=n.getBoundingClientRect();return {loaded:n.complete&&n.naturalWidth>0,fits:r.left>=0&&r.right<=innerWidth,columns:getComputedStyle(document.querySelector(".hero")).gridTemplateColumns.split(" ").length}})()')
@@ -325,8 +319,11 @@ def responsive(page,out):
                     g=b.evaluate(GEOMETRY)
                     checks[f'{width}/{view}/no page overflow']=g['overflow']==[]
                     checks[f'{width}/{view}/figures fit']=g['fits'] and g['loaded']
-                    checks[f'{width}/{view}/table alignment']=not b.evaluate(BROWSER_ALIGNMENT_ERRORS)
+                    errors=b.evaluate(BROWSER_ALIGNMENT_ERRORS)
+                    checks[f'{width}/{view}/table alignment']=not errors
+                    if errors:alignment_errors[f'{width}/{view}']=errors
                 b.navigate(page.as_uri()+'?d0-view=khao-sat#d0-r2-02');b.screenshot(out/f'd0-grouped-table-{width}.png')
+            save(out/'alignment-errors.json',alignment_errors)
         finally:
             if b:
                 try:b.call('Browser.close')

@@ -57,6 +57,22 @@ class PageReleaseTests(unittest.TestCase):
         result=self.build()
         self.assertIn({'type':'page-release-pdf-change','path':'content/old.pdf'},result['issues'])
 
+    def test_d0_pdf_requires_current_receipt_inputs_and_exact_candidate_bytes(self):
+        source=self.root/'d0-source';candidate=self.root/'d0-candidate'
+        for root in (source,candidate):
+            file=root/pages.D0_PDF;file.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copyfile(ROOT/pages.D0_PDF,file)
+        self.write(source,'input.txt','current')
+        self.write(source,'content/thpt/on_thi_toan_thpt/hoc_lieu/d0/_quy_trinh/pdf_build.json',
+                   json.dumps({'output_sha256':p.sha256(source/pages.D0_PDF),
+                               'inputs_sha256':{'input.txt':p.sha256(source/'input.txt')}}))
+        self.assertEqual(pages.d0_pdf_issues(candidate,source),[])
+        self.write(source,'input.txt','stale')
+        self.assertEqual(pages.d0_pdf_issues(candidate,source)[0]['type'],'d0-pdf-provenance')
+        self.write(source,'input.txt','current')
+        (candidate/pages.D0_PDF).write_bytes(b'altered')
+        self.assertEqual(pages.d0_pdf_issues(candidate,source)[0]['type'],'d0-pdf-provenance')
+
     def test_missing_asset_fails_before_candidate_copy(self):
         (self.raw/'assets/test/page.woff2').unlink()
         with self.assertRaisesRegex(p.ConfigError,'Missing rendered dependencies'):self.build()
