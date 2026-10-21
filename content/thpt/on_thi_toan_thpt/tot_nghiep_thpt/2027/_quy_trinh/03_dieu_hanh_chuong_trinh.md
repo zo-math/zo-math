@@ -2,6 +2,8 @@
 
 Phiên bản: 0.1 · Cập nhật trạng thái: 21/10/2026.
 
+**Cập nhật riêng D0 ngày 21/10/2026 — đã phát hành và kiểm trực tuyến.** Chủ trì yêu cầu dựng lại HTML/PDF sau khi duyệt lập luận Bài 00, rồi xuất bản riêng D0. Nguồn phát hành `c76c3f19`, public `db7cfea7`; diff chỉ gồm HTML D0, PDF D0 và hai chỉ mục tìm kiếm/sitemap, 764 tệp khác giữ nguyên byte. PDF 20 trang và HTML qua cổng D0; kiểm responsive 251/251. Hai URL công khai trả HTTP 200 và byte đúng commit public. [Biên nhận phát hành D0](../../../hoc_lieu/d0/_quy_trinh/ho_so/phat_hanh_bai00_20261021.json) giữ hash, phạm vi và bằng chứng triển khai. Những mốc nghiệm thu/phát hành cũ phía dưới được giữ làm lịch sử, không mô tả bản D0 vừa cập nhật.
+
 **BẢN HIỆN HÀNH — bộ HTML khóa 2027 tích hợp R1-G05, chủ trì đã nghiệm thu và phát hành ngày 21/10/2026.**
 
 - [Mở khóa 2027 — bộ HTML tích hợp G05](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html). Danh mục và menu chung nối tới D0, G01–G05; đây là bản cục bộ đúng byte đã phát hành. Tệp mở lại: `E:/zo_math/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/Mo_ban_xem_HTML.cmd`.
