@@ -11,6 +11,19 @@ NUMERIC={'d0-r2-02':3,'d0-r2-03':6,'d0-r4-03':4,'d0-r8-03':6,'doi-chieu-r8-03':1
 PAIRS={f'd0-r{r}-{i:02}':f'doi-chieu-r{r}-{i:02}' for r in range(1,9) for i in range(1,4)}
 
 
+def restore_bai00_logic_source(text, root=ROOT):
+    """Reverse only the approved Bài 00 revision for historical comparison."""
+    path=Path(root)/PACKAGE/'_quy_trinh/d0_bai00_logic_delta.json'
+    delta=json.loads(path.read_text(encoding='utf-8'))
+    assert delta['authority']=='Owner-approved D0 Bài 00 logic correction, 2026-10-21'
+    assert hashlib.sha256(text.encode()).hexdigest()==delta['source_after_sha256'], 'Unexpected D0 Bài 00 source'
+    for change in reversed(delta['replacements']):
+        assert change['after'] and text.count(change['after'])==1, 'Missing/repeated Bài 00 revision'
+        text=text.replace(change['after'],change['before'],1)
+    assert hashlib.sha256(text.encode()).hexdigest()==delta['source_before_sha256'], 'Bài 00 inverse mismatch'
+    return text
+
+
 def numbered_tasks(text):
     """Read titles from QMD; the page order owns numbers, IDs stay stable."""
     records=[]

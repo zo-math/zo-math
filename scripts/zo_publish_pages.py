@@ -22,6 +22,8 @@ from xml.etree import ElementTree as ET
 import zo_publish as p
 
 VERSION = 1
+D0_PDF = 'content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.pdf'
+D0_PAGE = 'content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html'
 
 
 class Timings:
@@ -129,7 +131,7 @@ def input_fingerprints(root,only_ignored=False):
     return inputs
 
 
-def fingerprint(root, pages, config, tool_root=None):
+def fingerprint(root, pages, config, tool_root=None, d0_pdf=False):
     """Conservative dependency key: all tracked bytes and permitted ignored inputs.
 
     This intentionally invalidates on unrelated tracked source changes rather
@@ -143,7 +145,7 @@ def fingerprint(root, pages, config, tool_root=None):
     version=p.run(['quarto','--version'],root)
     if version.returncode:
         raise p.MissingToolError('Cannot identify Quarto version.')
-    data={'version':VERSION,'pages':sorted(set(pages)),'inputs':inputs,'tools':tools,
+    data={'version':VERSION,'pages':sorted(set(pages)),'d0_pdf':d0_pdf,'inputs':inputs,'tools':tools,
           'config':config,'python':sys.version,'quarto':version.stdout.strip(),
           'packages':sorted((d.metadata.get('Name',''),d.version) for d in importlib.metadata.distributions()),
           'environment':{k:os.environ.get(k) for k in ['QUARTO_PROFILE','QUARTO_PYTHON','RETICULATE_PYTHON','ZO_MATH_GRAPHICS_ROOT','ZO_OFFICIAL_BUILD']}}
@@ -191,12 +193,12 @@ def cache_eligible(root,sources):
     return True
 
 
-def artifact(root, pages, config, destination, cache_root, timings, tool_root=None):
+def artifact(root, pages, config, destination, cache_root, timings, tool_root=None, d0_pdf=False):
     check=preflight(root,pages,config)
     if check['issues']:
         raise p.ConfigError(json.dumps(check['issues'],ensure_ascii=False))
     with timings.phase('fingerprint'):
-        seal=fingerprint(root,pages,config,tool_root)
+        seal=fingerprint(root,pages,config,tool_root,d0_pdf)
     reusable=cache_eligible(root,check['sources'])
     cache_root.mkdir(parents=True,exist_ok=True)
     cached=cache_root/seal['key']
@@ -213,11 +215,15 @@ def artifact(root, pages, config, destination, cache_root, timings, tool_root=No
             temp=Path(temporary)
             render=render_pages(root,temp/'raw',check['sources'],tool_root)
             # Hooks must not silently rewrite a fingerprinted source.
-            if fingerprint(root,pages,config,tool_root)!=seal:
+            if fingerprint(root,pages,config,tool_root,d0_pdf)!=seal:
                 raise p.ConfigError('Source inputs changed during page render.')
             raw_manifest=p.tree_manifest(temp/'raw')
             missing=[]
             keep=set(pages)|p.asset_dependencies(temp/'raw',raw_manifest,pages,missing)
+            if d0_pdf:
+                if pages != [D0_PAGE] or D0_PDF not in raw_manifest['files']:
+                    raise p.ConfigError('D0 PDF missing from the scoped HTML render.')
+                keep.add(D0_PDF)
             if missing:raise p.ConfigError('Missing artifact dependencies: '+str(sorted(set(missing))))
             keep.update(x for x in ['search.json','sitemap.xml'] if x in raw_manifest['files'])
             p.copy_manifest(temp/'raw',temp/'render',{'files':{x:raw_manifest['files'][x] for x in keep}})
@@ -283,17 +289,40 @@ def merge_indexes(target, rendered, candidate, pages, config):
             p.write_text_lf(candidate/'sitemap.xml',ET.tostring(oldroot,encoding='unicode')+'\n')
 
 
-def inherited_pdf_issues(public, manifest, before):
+def inherited_pdf_issues(public, manifest, before, d0_pdf=False):
     names=set(before['files'])|set(manifest['files'])
     return [{'type':'page-release-pdf-change','path':name}
             for name in sorted(names) if name.lower().endswith('.pdf')
+            and not (d0_pdf and name == D0_PDF)
             and before['files'].get(name)!=manifest['files'].get(name)]
 
 
-def validate_candidate(candidate, manifest, config, before):
-    # Only inherited, byte-identical PDFs may use this route. No provenance
-    # exemption is available for a new/replaced PDF: use full release instead.
-    issues=inherited_pdf_issues(candidate,manifest,before)
+def d0_pdf_issues(candidate, source):
+    """Permit one replaced PDF only when its canonical bytes and inputs are current."""
+    receipt_path=source/'content/thpt/on_thi_toan_thpt/hoc_lieu/d0/_quy_trinh/pdf_build.json'
+    try:
+        receipt=json.loads(receipt_path.read_text(encoding='utf-8'))
+        digest=receipt['output_sha256']
+        inputs=receipt['inputs_sha256']
+        if not inputs or p.sha256(source/D0_PDF)!=digest or p.sha256(candidate/D0_PDF)!=digest:
+            raise ValueError('D0 PDF bytes or receipt differ')
+        for name,wanted in inputs.items():
+            safe=p.safe_relative(name,'D0 PDF input')
+            file=(source/safe).resolve()
+            if not file.is_relative_to(source.resolve()) or not file.is_file() or p.sha256(file)!=wanted:
+                raise ValueError('D0 PDF input is stale: '+name)
+        from pypdf import PdfReader
+        if len(PdfReader(candidate/D0_PDF).pages)!=20:
+            raise ValueError('D0 PDF page count changed')
+    except (OSError,KeyError,ValueError,TypeError) as exc:
+        return [{'type':'d0-pdf-provenance','path':D0_PDF,'message':str(exc)}]
+    return []
+
+
+def validate_candidate(candidate, manifest, config, before, d0_pdf=False, source=None):
+    issues=inherited_pdf_issues(candidate,manifest,before,d0_pdf)
+    if d0_pdf:
+        issues.extend(d0_pdf_issues(candidate,source or Path(__file__).resolve().parents[1]))
     difference=p.exact_diff(before,manifest)
     changed=set(difference['add']+difference['update'])
     if difference['delete']:
@@ -305,7 +334,7 @@ def validate_candidate(candidate, manifest, config, before):
     return result
 
 
-def candidate(target, rendered, destination, pages, config):
+def candidate(target, rendered, destination, pages, config, d0_pdf=False, source=None):
     before=p.tree_manifest(target,True)
     raw=p.tree_manifest(rendered)
     for name in pages:
@@ -314,6 +343,10 @@ def candidate(target, rendered, destination, pages, config):
     dependencies=p.asset_dependencies(rendered,raw,pages,missing)
     if missing:raise p.ConfigError('Missing rendered dependencies: '+', '.join(sorted(set(missing))))
     selected=set(pages)|dependencies
+    if d0_pdf:
+        if pages != [D0_PAGE] or D0_PDF not in raw['files']:
+            raise p.ConfigError('D0 PDF scope or render output differs.')
+        selected.add(D0_PDF)
     for name in selected:
         if not allowed(name,config):raise p.ConfigError('Dependency not allowlisted: '+name)
     destination.mkdir(parents=True)
@@ -342,7 +375,7 @@ def candidate(target, rendered, destination, pages, config):
             if name.endswith('.html') and name not in pages:
                 shared=p.asset_dependencies(target,before,[name])&changed_assets
                 if shared:issues.append({'type':'shared-asset-needs-pages','path':name,'assets':sorted(shared)})
-    validation=validate_candidate(destination,manifest,config,before)
+    validation=validate_candidate(destination,manifest,config,before,d0_pdf,source)
     issues.extend(validation['issues'])
     return {'manifest':manifest,'manifest_sha256':p.manifest_digest(manifest),'diff':diff,
             'target_before_manifest':before,'validation':validation,'issues':issues,
@@ -378,7 +411,7 @@ def validate_receipt(root,target,config,payload,check_source=True):
         else:
             expected=seal['inputs'];actual=input_fingerprints(root)
         if actual!=expected:raise p.ConfigError('Source dependency set or bytes changed after prepare.')
-    result=validate_candidate(target,payload['manifest'],config,payload['target_before_manifest'])
+    result=validate_candidate(target,payload['manifest'],config,payload['target_before_manifest'],payload['page_release'].get('d0_pdf',False))
     if result['issues']:raise p.ConfigError(json.dumps(result['issues'],ensure_ascii=False))
     if p.changed_trailing_whitespace(backup,target,payload['manifest']):
         raise p.ConfigError('Prepared whitespace check failed.')
@@ -470,11 +503,12 @@ def prepare(root,target,config_path,config,args,source_state,target_state):
             if not retention['keep'] and stage.exists() and p.tree_manifest(target,True)==before:
                 p.safe_remove_tree(stage,root/'_audit')
         stack.callback(cleanup_failed_stage)
-        made=artifact(source,args.page,config,stage/'render',root/'.quarto/zo_publish_cache',clock,source)
+        d0_pdf=getattr(args,'d0_pdf',False)
+        made=artifact(source,args.page,config,stage/'render',root/'.quarto/zo_publish_cache',clock,source,d0_pdf)
         with clock.phase('candidate_validation'):
-            result=candidate(target,stage/'render',stage/'public',args.page,config)
+            result=candidate(target,stage/'render',stage/'public',args.page,config,d0_pdf,source)
         payload.update(result)
-        payload['page_release']={'version':VERSION,'pages':sorted(set(args.page)),**made}
+        payload['page_release']={'version':VERSION,'pages':sorted(set(args.page)),'d0_pdf':d0_pdf,**made}
         payload['prepare_paths']={key:f'{config["prepare"]["staging_dir"]}/{folder}' for key,folder in [('render_dir','render'),('public_dir','public'),('backup_dir','backup')]}
         payload['prepare_paths'].update(staging_dir=config['prepare']['staging_dir'],report_file=config['prepare']['report_file'])
         if not result['issues']:

@@ -59,6 +59,9 @@ def media_html_checks(doc):
     root=doc.select_one('.reader-content');grid=load_contract()['mathematical_grid'];checks={}
     for n,table in enumerate(root.select('table[data-table-kind]'),1):
         rows=table.select('tr');kind=table['data-table-kind']
+        checks[f'table {n} no conflicting cell alignment classes']=not any(
+            {'zo-center-cell','zo-numeric-cell'}.issubset(cell.get('class',[]))
+            for cell in table.select('th,td'))
         if len(rows)>1 and kind in {'frequency','matrix'}:
             for c,(head,body) in enumerate(zip(rows[0].find_all(['th','td'],recursive=False),rows[1].find_all(['th','td'],recursive=False)),1):
                 center='zo-center-cell' in body.get('class',[]) or kind=='matrix' and body.name=='td'
@@ -185,7 +188,7 @@ def bind(doc,page_key):
                 classes=[n for n in cell.get('class',[]) if not n.startswith('zo-')]
                 if r>0 and c+1 in entry.get('center_body_columns',[]):classes.append('zo-center-cell')
                 if c+1==entry.get('focus_column'):classes.append('zo-focus-cell')
-                if c+1 in right_columns or kind=='frequency' and r>0 and (c>0 or not row_header):classes.append('zo-numeric-cell')
+                if (c+1 in right_columns or kind=='frequency' and r>0 and (c>0 or not row_header)) and c+1 not in entry.get('center_body_columns',[]):classes.append('zo-numeric-cell')
                 if classes:cell['class']=classes
                 elif cell.has_attr('class'):del cell['class']
         if entry.get('corner_label'):

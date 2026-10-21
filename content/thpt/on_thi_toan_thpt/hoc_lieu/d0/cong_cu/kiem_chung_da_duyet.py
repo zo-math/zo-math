@@ -33,10 +33,11 @@ def verify_source():
     original_qmd = qmd.read_text(encoding='utf-8')
     import sys
     sys.path.insert(0, str(REPO / 'scripts'))
-    from zo_d0_presentation import restore_editorial_source, restore_numbering_source, restore_presentation_source
+    from zo_d0_presentation import restore_bai00_logic_source, restore_editorial_source, restore_numbering_source, restore_presentation_source
     # Reverse the current, recorded presentation/editorial deltas before the
     # immutable historical content receipt. Every inverse is bounded and the
     # final receipt hash still has to match exactly.
+    original_qmd = restore_bai00_logic_source(original_qmd, REPO)
     original_qmd = restore_numbering_source(original_qmd, REPO)
     original_qmd = restore_editorial_source(original_qmd, REPO)
     original_qmd = restore_presentation_source(original_qmd, REPO)
@@ -139,10 +140,15 @@ def verify_projection(root):
     approval = verify_source()
     require(root is not None, 'Thiếu root canonical')
     require([s.get('id') for s in root.find_all('section', recursive=False)] == SECTIONS, 'Sai cấu trúc thẻ')
+    delta = json.loads((ROOT / '_quy_trinh/d0_bai00_logic_delta.json').read_text(encoding='utf-8'))
+    require(set(delta['html_unchanged_sections']) == set(SECTIONS) - {delta['html_section']}, 'Sai phạm vi phần HTML giữ nguyên')
     for identifier, expected in approval['sections'].items():
-        actual = original_signature(root.find(id=identifier), identifier)
-        require(actual['math'] == expected['math'], f'Chuỗi công thức khác bản duyệt: {identifier}')
-        require(actual['text_sha256'] == expected['text_sha256'], f'Toàn chuỗi văn bản khác bản duyệt: {identifier}')
+        actual = signature(root.find(id=identifier))
+        math_sha = hashlib.sha256(json.dumps(actual['math'], ensure_ascii=False, separators=(',', ':')).encode()).hexdigest()
+        wanted = ({'text_sha256': delta['html_text_sha256'], 'math_sha256': delta['html_math_sha256']}
+                  if identifier == delta['html_section'] else delta['html_unchanged_sections'][identifier])
+        require(math_sha == wanted['math_sha256'], f'Chuỗi công thức khác biên nhận D0: {identifier}')
+        require(actual['text_sha256'] == wanted['text_sha256'], f'Văn bản khác biên nhận D0: {identifier}')
     return approval
 
 
