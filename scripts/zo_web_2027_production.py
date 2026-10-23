@@ -178,18 +178,22 @@ def adapt(path, output_root):
     relative = path.resolve().relative_to(output_root.resolve())
     is_package = relative.parent.parent == Path('content/thpt/on_thi_toan_thpt/hoc_lieu') and relative.parent.name != 'd0'
     if is_package:
-        load_cover(ROOT, relative.parent.name, allow_direction_approved=relative.parent.name=="r1_g05")
+        load_cover(ROOT, relative.parent.name, allow_direction_approved=relative.parent.name in {"r1_g05","r2_g01"})
     result = _adapt(path, output_root)
     from zo_web_2027_shell import require as require_shell
     rendered=BeautifulSoup(path.read_text(encoding="utf-8"),"html.parser")
     if rendered.body is not None and rendered.body.has_attr("data-zo-web-shell"):
         require_shell(rendered,path)
     if is_package:
-        check_html(ROOT, relative.parent.name, path, allow_direction_approved=relative.parent.name=="r1_g05")
+        check_html(ROOT, relative.parent.name, path, allow_direction_approved=relative.parent.name in {"r1_g05","r2_g01"})
     return result
 
 
 def _adapt(path, output_root):
+    relative=path.resolve().relative_to(output_root.resolve())
+    if (ROOT/relative.parent/'giao_dien/html.json').is_file():
+        from zo_web_2027_package import adapt as adapt_package
+        return adapt_package(path,output_root,relative.parent)
     if path.resolve() == (output_root / "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g05/index.html").resolve():
         from zo_web_2027_g05 import adapt as adapt_g05
         return adapt_g05(path,output_root)

@@ -1,6 +1,6 @@
 # Bảng kiểm áp dụng mẫu bản thảo gói
 
-Phiên bản mẫu: **1.7** · Ngày: 18/10/2026 · Phạm vi: bản thảo gói R1 của khóa 2027. Đây là công cụ áp dụng, không tạo kiến trúc hoặc chuẩn hiển thị mới.
+Phiên bản mẫu: **1.8** · Ngày: 23/10/2026 · Phạm vi: bản thảo gói R1 của khóa 2027. Đây là công cụ áp dụng, không tạo kiến trúc hoặc chuẩn hiển thị mới.
 
 Nguồn: [01 — chức năng học tập](../01_kien_truc_hoc_tap.md), [07 — trình bày](../07_quy_chuan_cau_truc_trang_nguoi_hoc.md), [02/1.4 — cách dùng](../02_quy_trinh_va_nghiem_thu.md#ap-dung-mau-ban-thao), [khung bản thảo](ban_thao_goi.md), [tổ chức nguồn](../quy_chuan_goi_qmd.md). G01/G02 là học liệu đối chiếu theo chức năng; nội dung toán và số lượng nhiệm vụ thuộc gói đang viết.
 
@@ -105,3 +105,13 @@ Bổ sung B19 theo 07/6.1.2, 02/2.5: phải có ma trận tài nguyên theo vai 
 - Tiêu đề cột đúng nội dung; mục tiêu có bài/ý và tiêu chí tương ứng, giới hạn chưa đo được ghi rõ. Không dùng nơi hỗ trợ thay tiêu chí.
 - Số điểm chỉ ở nơi có thang điểm; điều kiện toán, tên nhiệm vụ và đích tới/lui còn nguyên. Nhật kí đủ 14 trường; không giữ danh mục lỗi trùng làm nguồn cạnh tranh.
 - Chọn profile chức năng dùng chung, không tự chia đều cột hoặc thu nhỏ chữ. Phân biệt bảng cần so ngang với bảng tra từng tình huống; kiểm nguồn trước dựng và quan sát rộng/hẹp sau khi được phép dựng.
+
+### B27 — Giọng văn rõ nghĩa, có ngữ cảnh (23/10/2026)
+
+Áp dụng tiêu chí biên tập này cho toàn khóa theo 07/6.1.6; không ép cấu trúc mẫu R1 lên trang/gói có chức năng khác.
+
+- Người học hiểu đối tượng, đại lượng, đơn vị, thời gian/địa điểm cần thiết; không còn thuật ngữ hoặc mã chưa giải thích cản trở việc hiểu đề.
+- Mỗi nhiệm vụ có mục đích; câu hỏi dùng ngữ cảnh và yêu cầu giải thích cụ thể; lời giải trả lời đủ, giữ giới hạn kết luận.
+- Câu văn đủ đối tượng, hành động và điều kiện; không rút gọn gây hiểu sai, không diễn giải dài ngoài nhu cầu.
+- Ôn lại không nhắc trước kiến thức/công thức/cách giải hoặc mục “Nhớ lại trước khi làm”; quy ước dữ liệu vẫn đủ tại đề.
+- Ghi phạm vi/đoạn đối chiếu và kết luận bằng đọc thực tế. Chưa rà thì ghi Chưa kiểm; không suy đạt từ PASS công cụ hoặc từ việc quy chuẩn đã được duyệt.

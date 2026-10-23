@@ -5,6 +5,10 @@ Phiên bản: 0.2 · Cập nhật: 16/10/2026.
 Chỉ ghi quyết định có ảnh hưởng lâu dài; không chép hội thoại hay log lệnh. Bảng điều hành ghi việc hiện hành. [Điểm vào](README.md).
 
 
+## VOICE-CONTEXT-20261023 — Giọng văn rõ nghĩa, có ngữ cảnh
+
+Ngày 23/10/2026, chủ trì duyệt tên và giao ghi thành quy chuẩn chung Ôn thi Toán THPT 2027. Mẫu tham chiếu là phần mở đầu Ôn lại và Ôn lần 1 R2-G01 đã hiệu chỉnh, không gồm Ôn lần 2–3 chưa duyệt. 07/6.1.6 sở hữu quy tắc, 01 làm rõ chức năng Ôn lại, 02 và mẫu/bảng kiểm sở hữu cách áp dụng; 03 ghi trạng thái. Quyết định cụ thể hóa chuẩn biên tập hiện hành, không thay kiến thức toán. Nhiệm vụ hiện tại chỉ sửa tài liệu quy chuẩn và soạn lại hai lượt ôn để duyệt; chưa sửa QMD, render, commit, push hoặc xuất bản.
+
 ## GRAPH-G03-02 — sửa đủ năm ảnh còn lệch trong G03, 18/10/2026
 
 Chủ trì chất vấn việc giữ năm ảnh G03 chưa nhất quán. Không có trở ngại kỹ thuật; agent đã tự suy rộng việc giữ đối chứng thành giữ nguyên lỗi. Hiệu chỉnh: lưu bản chụp/số đo trước sửa, bảo toàn TEX/SVG và sửa lớp hiển thị của G03 để đủ 11 ảnh dùng component chung. Sáu ảnh đã đúng giữ cỡ; năm ảnh thiếu figure nhận cùng quy tắc. Cổng HTML phải bao phủ ảnh ở cả hai cấu trúc, không miễn kiểm G03. Không cần vẽ lại đồ thị hoặc dựng PDF học liệu cho thay đổi này.

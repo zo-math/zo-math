@@ -1,5 +1,7 @@
 # Danh mục và thẩm quyền bộ điều hành 2027
 
+**VOICE-CONTEXT-20261023:** 07/6.1.6 sở hữu Giọng văn rõ nghĩa, có ngữ cảnh áp dụng toàn khóa; 01 giữ ranh giới tự làm/nhắc kiến thức của Ôn lại; 02 và B27/mẫu bản thảo hướng dẫn rà. 04 lưu quyết định, 03 giữ phạm vi đã duyệt/chưa áp dụng. Không dùng bản QMD/HTML R2-G01 cũ làm bằng chứng đạt chuẩn mới.
+
 **QD_035:** [Danh mục bảo toàn](bao_toan_bon_trang.md) sở hữu việc bảo vệ đúng bộ `_audit/zo_home_refinement_2026-10-12/delivered/home-reading.html` và các trang/tài nguyên liên kết làm nguồn đối chiếu chính thức để phát triển tiếp, không được dọn/xóa hoặc tự thay bằng bộ DH_030. Manifest DH_032 ngoài repo ghi từng tệp/hash; 03 sở hữu trạng thái. Nguồn build vẫn là QMD/template/data/script canonical; không nâng bản HTML audit thành chuẩn nội dung, runtime production hay nghiệm thu mới, không đảo câu chữ đã duyệt. Giữ nguyên hai checkpoint cũ.
 
 **QD_034:** [Chỉ mục lưu trữ lịch sử](luu_tru_lich_su.json) chỉ ánh xạ bảy cây và 21 driver audit đã được phép nghỉ dùng tới kho ngoài repo/manifest/SHA-256; không là cấu hình chạy, nguồn sản xuất hoặc chuẩn học tập. 03 sở hữu trạng thái DH_031, 04 giữ quyết định mới và lịch sử nguyên trạng. Các checker canonical và đầu vào hiện hành không bị đổi; giữ `html-current`, `delivery` và figure `build`. Không khôi phục thẩm quyền hoặc chạy lại driver cũ từ đường dẫn trong hồ sơ lịch sử. QD_033 tiếp tục sở hữu đường học; PASS lưu trữ không nghiệm thu học liệu.

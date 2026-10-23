@@ -1,0 +1,78 @@
+schema_version: 1
+project:
+  id: on_thi_r2_g01
+  name: Đọc dữ liệu và đo xu thế trung tâm
+  root: content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01
+discovery:
+  article_types:
+  - id: on_thi_package
+    include:
+    - index.qmd
+    exclude: []
+profiles:
+  directory: _quy_trinh/ho_so
+  naming: by_article_stem
+  required: true
+modules:
+  required:
+  - qmd-core
+  - zo-html-pdf
+  optional: []
+metadata:
+  core_required:
+  - title
+  - draft
+  project_required: []
+  body_classes_required:
+  - zo-page-article
+  - zo-meta-hidden
+  placeholders: []
+publication:
+  production_states:
+  - draft
+  - in_production
+  - validated
+  - accepted
+  publication_states:
+  - pending
+  - published
+  user_confirmation_required: true
+references:
+  controlling_documents:
+  - _quy_trinh/README.md
+  templates: []
+  theory_sources: []
+  quality_exemplars: []
+regression:
+  articles:
+  - index.qmd
+  expected_checker_version: 2.6.0
+  preserve_cli: true
+extensions:
+  artifact_identity: path
+  artifact_inputs:
+  - giao_dien/he_nhan.json
+  - du_lieu/phan_chia.json
+  - du_lieu/hoc.json
+  - du_lieu/luyen.json
+  - du_lieu/kiem_tra.json
+  - du_lieu/on_lai.json
+  - du_lieu/sua_loi.json
+  - giao_dien/html.json
+  - giao_dien/anh_bia.json
+  - giao_dien/bia_manifest.json
+  - hinh/bia.svg
+  - _quy_trinh/sinh_bia.py
+  artifact_root_inputs:
+  - _quarto.yml
+  - content/thpt/on_thi_toan_thpt/_metadata.yml
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/_dung_chung/nhat_ki_hoc_tap.qmd
+  - _design/web_2027_mau_dung_chung/profiles/course-tables.json
+  - assets/lua/zo_learning_components.lua
+  - assets/css/zo_on_thi_learning_package.css
+  - assets/html/zo_on_thi_learning_package_script.html
+  - scripts/zo_web_2027_package.py
+  - scripts/zo_course_cover_frame.py
+  - _design/web_2027_mau_dung_chung/course-cover-frame.css
+  - _design/web_2027_mau_dung_chung/r1-controller.js
+  - assets/lua/zo_course_learning.lua

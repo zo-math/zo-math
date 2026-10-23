@@ -164,7 +164,7 @@ def presentation_checks(doc,data):
         owner=root.find(id=unit['question']);title=owner.select_one('.zo-task-title') if owner else None
         checks[unit['id']+' shared visible question title']=bool(title and title.get_text(' ',strip=True)==unit['title'])
         if unit['function']=='function.guided_thinking':
-            checks[unit['id']+' invitation before explanation']=bool(owner and 'Thử trả lời trước khi đọc tiếp.' in owner.get_text(' ',strip=True))
+            checks[unit['id']+' invitation before explanation']=bool(owner and (('?' in owner.get_text(' ',strip=True)) if data.get('guided_prompt_contract')=='source-owned-question' else 'Thử trả lời trước khi đọc tiếp.' in owner.get_text(' ',strip=True)))
             checks[unit['id']+' local lesson prompt']=bool(owner and owner.find_parent(id='bai-hoc')) and not unit.get('answer')
             if unit.get('question_owner'):checks[unit['id']+' knowledge owner']=bool(owner and owner.find_parent(id=unit['question_owner']))
     for n,spec in enumerate(data.get('heading_context',[]),1):
@@ -178,7 +178,7 @@ def presentation_checks(doc,data):
     checks['cross-package references use the current bundle']=not any(re.match(r'https?://(?:www\.)?zomath\.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g0[1-4](?:/|$)',a['href']) for a in root.select('a[href]'))
     notes=root.select('.zo-source-note')
     checks['source notes separate from prose']=bool(notes) and all(n.name=='p' or (n.parent.name=='p' and n.parent.get_text(' ',strip=True)==n.get_text(' ',strip=True)) for n in notes)
-    checks['source notes readable at the point of use']=not root.select('a.footnote-ref,section.footnotes') and all(n.get_text(' ',strip=True).startswith('Nguồn đối chiếu') and n.get_text(' ',strip=True).endswith('.') and not re.search(r'\b(?:SGK|KNTT|CTGDPT)\b|\btr\.',n.get_text(' ',strip=True)) for n in notes)
+    checks['source notes readable at the point of use']=not root.select('a.footnote-ref,section.footnotes') and all(n.get_text(' ',strip=True).startswith(tuple(data.get('source_note_prefixes',['Nguồn đối chiếu']))) and n.get_text(' ',strip=True).endswith('.') and not re.search(r'\b(?:SGK|KNTT|CTGDPT)\b|\btr\.',n.get_text(' ',strip=True)) for n in notes)
     checks['no bibliographic writing narration']=not any(re.search(r'Theo định nghĩa trong SGK|Theo phần .Chú ý. của SGK|Sách giáo khoa trình bày|Bản này dùng',p.get_text()) for p in root.select('#bai-hoc p') if not p.select('.zo-source-note'))
     calendar=root.find(id='on-lai').find('table')
     checks['review calendar has three functional columns']=bool(calendar) and len(calendar.select('thead th'))==3 and len(calendar.select('tbody tr'))==3
@@ -186,6 +186,9 @@ def presentation_checks(doc,data):
     if data.get('foundation_mode')=='linked-shared':
         from zo_course_foundation import html_checks as foundation_html_checks
         checks.update(foundation_html_checks(root,data))
+    elif data.get('foundation_mode')=='local':
+        resources=[root.find(id=ident) for ident in data.get('foundation_units',[])]
+        checks['independent foundation resources have distinct papers']=bool(resources) and all(n is not None and n.get('data-zo-foundation')=='local' and len(n.select('.reading-region'))>=1 for n in resources) and len({id(n.select_one('.reading-region')) for n in resources if n is not None})==len(resources)
     else:
         checks['independent foundation resources have distinct papers']=bool(resources) and len({id(n.find_parent(class_='reading-region')) for n in resources})==len(resources)
     checks['no authored heading-only reading paper']=all(p.select('p,li,table,figure,details,.zo-learning-task') for p in root.select('.reading-region'))

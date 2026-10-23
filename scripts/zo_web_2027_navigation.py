@@ -24,7 +24,7 @@ ICONS = {
     'top': '<path d="m6 10 6-6 6 6M12 4v17"/>',
 }
 
-def destinations(output_root, page, current=None):
+def destinations(output_root, page, current=None, preview_entry=None):
     catalog = yaml.safe_load((ROOT / BASE / 'tot_nghiep_thpt/2027/_data/chuong_trinh.yml').read_text(encoding='utf-8'))
     if [p['id'] for p in catalog['packages']] != [relative.parent.name for key, (relative, _) in PAGES.items() if key != 'home']:
         raise ValueError('Course navigation bindings must be updated for the current catalog')
@@ -36,9 +36,18 @@ def destinations(output_root, page, current=None):
         if key.startswith('g'):
             href += '?r1-view=bat-dau#bat-dau'
         result.append((key, href, label))
+    if preview_entry is not None:
+        relative,label=preview_entry
+        relative=Path(relative)
+        if relative.parent.parent!=BASE/'hoc_lieu' or not (ROOT/relative.with_suffix('.qmd')).is_file():
+            raise ValueError('Preview entry must have a canonical package QMD')
+        if current in PAGES:raise ValueError('Do not replace a published catalog entry with a preview')
+        href=os.path.relpath(output_root/relative,page.parent).replace('\\','/')+'?r1-view=bat-dau#bat-dau'
+        result.append((current,href,label))
     return result
 
-def require(doc, page, output_root, key):
+
+def require(doc, page, output_root, key, preview_entry=None):
     header = doc.select_one('.site-top--course-navigation')
     if header is None or header.select('.course-link,.lab-link'):
         raise ValueError('Missing approved navigation or legacy toolbar link')
@@ -51,7 +60,7 @@ def require(doc, page, output_root, key):
     if menu.has_attr('open') or not doc.select_one('#zo-course-top'):
         raise ValueError('Course menu must start closed and Top must have a target')
     actual = menu.select('nav a')
-    expected = destinations(output_root, page, key)
+    expected = destinations(output_root, page, key, preview_entry)
     if [(n.get('data-course-page'), n.get('href'), n.get_text(strip=True)) for n in actual] != expected:
         raise ValueError('Course destinations differ from the approved catalog bindings')
     if [n.get('data-course-page') for n in actual if n.get('aria-current') == 'page'] != [key]:
@@ -61,7 +70,7 @@ def require(doc, page, output_root, key):
     if len(header.select('.appearance')) != 1 or header.select_one('.course-tools').find_next_sibling() != header.select_one('.appearance'):
         raise ValueError('Course tools must precede the existing appearance controls')
 
-def apply(doc, page, output_root, runtime, key):
+def apply(doc, page, output_root, runtime, key, preview_entry=None):
     from zo_web_2027_navigation_check import source_checks
     failures=[name for name,passed in source_checks().items() if not passed]
     if failures:raise ValueError('Course source navigation: '+'; '.join(failures))
@@ -77,7 +86,7 @@ def apply(doc, page, output_root, runtime, key):
     anchor = doc.new_tag('span', id='zo-course-top', attrs={'aria-hidden': 'true'})
     header.insert_before(anchor)
     tools = doc.new_tag('nav', attrs={'class': 'course-tools', 'aria-label': 'Điều hướng toàn khóa học'})
-    dest = destinations(output_root, page, key)
+    dest = destinations(output_root, page, key, preview_entry)
     for action, label, href in [('home', 'Nhà khóa học', dest[0][1]), ('list', 'Danh sách toàn khóa học', None), ('top', 'Về đầu trang', '#zo-course-top')]:
         node = doc.new_tag('summary' if action == 'list' else 'a', attrs={'class': 'course-action', 'aria-label': label, 'title': label, 'data-course-action': action})
         if href is not None:
@@ -117,7 +126,7 @@ def apply(doc, page, output_root, runtime, key):
         if not license_file.is_file():
             raise ValueError('Missing font license: ' + str(license_file))
         doc.head.append(doc.new_tag('link', rel='license', type='text/plain', href=os.path.relpath(license_file,page.parent).replace('\\','/')))
-    require(doc, page, output_root, key)
+    require(doc, page, output_root, key, preview_entry)
     if protected != [str(n) for n in doc.select('main,.rail,footer.site-footer')] or logo != str(doc.select_one('.site-top > a:first-child')):
         raise ValueError('Course navigation must not change content, sidebar, footer, or logo')
     for link in doc.select('.rail-support'):
