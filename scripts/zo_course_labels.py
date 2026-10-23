@@ -199,7 +199,7 @@ def omit_type_label(title,type_name):
 
 def find_title(node,wording=None,selector=None):
     candidates=node.select(selector) if selector else node.select("h2,h3,h4,h5,h6,summary,p > strong")
-    if wording is not None:candidates=[n for n in candidates if n.get_text(" ",strip=True)==wording]
+    if wording is not None:candidates=[n for n in candidates if context_title_text(n)==wording]
     if len(candidates)!=1:raise ValueError("Ambiguous/missing owned title: "+str(wording))
     return candidates[0]
 
@@ -279,7 +279,7 @@ def html_checks(doc,data,root=ROOT):
                 wording=u.get("answer_title",u.get("title")) if kind=="answer" else u.get("title")
                 try:title=find_title(node,wording,u.get("title_selector") if kind=="question" else None)
                 except ValueError:title=None
-                label=title.find_previous_sibling() if title else None
+                label=(title.find(attrs={"data-reading-label":True},recursive=False) if title.name=="summary" else title.find_previous_sibling()) if title else None
                 checks[key+" label adjacent to title with shared style"]=bool(label and label.has_attr("data-reading-label") and "role" in label.get("class",[]) and label.get_text(" ",strip=True)==shown_label)
     for anchor,label in data.get("checkpoints",{}).items():
         if uses_context_labels(data):label=context_policy(root)["joiner"].join(data["checkpoint_context"][anchor]).upper()

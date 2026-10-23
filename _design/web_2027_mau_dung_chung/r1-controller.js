@@ -42,6 +42,12 @@
       ]
     }
   ];
+  const reviewRounds = JSON.parse(root.dataset.r1ReviewRounds || '[]');
+  reviewRounds.forEach(item => {
+    const target = root.querySelector('#' + CSS.escape(item.target));
+    if (!target || !target.closest('#on-lai')) throw new Error('Review round target is not owned by Ôn lại');
+    baseGroups[0].definitions.push({...item, ids:['on-lai']});
+  });
   const baseContentOrder = [
     hasStartSection ? 'bat-dau' : 'cách-học-với-tài-liệu-này',
     'bai-hoc', 'phieu-luyen', 'tu-kiem-tra',
@@ -198,6 +204,7 @@
       tab.id = `r1-tab-${definition.view}`;
       tab.className = 'r1-tab';
       tab.textContent = definition.label;
+      if (definition.parent) tab.dataset.parentView = definition.parent;
       tab.setAttribute('role', 'tab');
       tab.setAttribute('aria-controls', viewPanel.id);
       tab.setAttribute('aria-describedby', tabGroups.get(definition.group).label.id);
@@ -209,7 +216,7 @@
 
     const lessonPanel = sectionById.get('bai-hoc');
     const lessonToc = lessonPanel.querySelector('.lesson-toc');
-    const lessonHeadings = [...lessonPanel.querySelectorAll(':scope > section.level3')].map(n => n.querySelector('h3'));
+    const lessonHeadings = [...lessonPanel.querySelectorAll(root.dataset.r1LessonSelector || ':scope > section.level3')].map(n => n.querySelector('h3'));
     const expectedLessonCount = Number.parseInt(root.dataset.r1LessonCount || '9', 10);
     if (!lessonToc || lessonHeadings.length !== expectedLessonCount) {
       throw new Error(`Lesson table of contents must contain ${expectedLessonCount} headings`);

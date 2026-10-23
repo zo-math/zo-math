@@ -1,5 +1,5 @@
 <!--
-MẪU BIÊN SOẠN NỘI DUNG GÓI — phiên bản 1.4, ngày 18/10/2026.
+MẪU BIÊN SOẠN NỘI DUNG GÓI — phiên bản 1.5, ngày 23/10/2026.
 Phạm vi: các gói học liệu R1 của khóa Ôn thi Toán THPT 2027; loại khác phải xác định hợp đồng phù hợp trước, không ép D0/Nền theo khung này.
 Đây là khung nội dung, độc lập với mẫu trang. Nguồn chức năng: [01](../01_kien_truc_hoc_tap.md); cách trình bày: [07](../07_quy_chuan_cau_truc_trang_nguoi_hoc.md); quy trình sử dụng mẫu: [02, mục 1.4](../02_quy_trinh_va_nghiem_thu.md#ap-dung-mau-ban-thao); tổ chức tệp/chuyển QMD: [quy chuẩn gói](../quy_chuan_goi_qmd.md); [bảng kiểm](bang_kiem_ban_thao_goi.md).
 Đối chiếu từ nguồn G01/G02 hiện hành theo chức năng, không theo số bài/số trang. Số chặng, số mục và mọi tham số dưới đây chỉ là chỗ mẫu, không phải định mức.
@@ -8,6 +8,7 @@ Mỗi vai trò trong mẫu phải có nội dung hoặc giải thích không áp
 Mẫu trang dùng lại bộ _design/web_2027_mau_dung_chung; không chép CSS/JS vào bản thảo. Khi có cải tiến đã chốt: cập nhật mẫu, bảng kiểm và các liên kết bị ảnh hưởng cùng lượt, tăng phiên bản; không tự sửa hồi tố gói đã có.
 Trước viết/rà phải đọc mục Công thức và nguồn đối chiếu trong quy chuẩn gói, quy chuẩn ngoặc LaTeX, hướng dẫn khối nội dung và 07/6.1,6.3. Chính văn phát biểu trực tiếp; căn cứ dùng chú thích .zo-source-note sau nội dung, không kể “theo SGK…” trong lời giảng. Có hình thì dùng công cụ ZO Math/profile hiện hành ngay ở bản thảo; không tự đặt palette/phông hoặc đợi chuyển QMD mới sửa diện mạo.
 Đọc 07/6.1.6 trước viết: dùng đúng tập xác định/tập đang xét/điều kiện biến, viết đủ đối tượng và quan hệ toán; chuyển lời điều hành thành hành động rõ cho học sinh. Rà cả đề–lời giải, bảng, alt và thẻ dùng chung. Lập đối chiếu giữ/viết lại/bỏ và gọi B24; không dùng PASS từ vựng thay đọc toàn văn.
+Bổ sung VOICE-CONTEXT-20261023: nạp Giọng văn rõ nghĩa, có ngữ cảnh ở 07/6.1.6 và B27. Chuẩn giọng văn áp dụng toàn khóa, không mở rộng máy móc cấu trúc mẫu R1 cho D0/Nền. Ôn lại không nhắc trước kiến thức hoặc cách giải; đề đủ ngữ cảnh, thuật ngữ và quy ước dữ liệu; phép tính gắn với câu hỏi có ý nghĩa, lời giải đáp lại câu hỏi.
 -->
 
 # [CẦN VIẾT: tên học liệu]

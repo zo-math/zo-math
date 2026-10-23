@@ -88,7 +88,9 @@ def retired_self_check_absent(reader, data):
         heads=frame.select('thead th')
         if frame.get('data-zo-remediation')==CONTRACT and [h.get_text(' ',strip=True) for h in heads]==HEADERS:
             heads[-1].decompose()
-    return 'Tự kiểm tra' not in visible.get_text(' ',strip=True)
+    # Reject the retired activity/type name, while retaining approved descriptive
+    # wording such as 'Nhiệm vụ 22 — Tự kiểm tra phép tính cơ bản'.
+    return not any(re.match(r'^Tự kiểm tra(?:\s|$)',n.get_text(' ',strip=True)) for n in visible.select('h2,h3,h4,h5,h6,summary,[data-reading-label],.r1-task-label'))
 
 
 def html_checks(doc, data):

@@ -127,7 +127,8 @@ def html_checks(doc,page_key,repo=ROOT):
     if declared(source):return {}  # Scene HTML is checked against the actual output path by its adapter.
     if not governed(source,repo):return {}
     root=doc.select_one(".reader-content")
-    records=json.loads((source.parent/"du_lieu/bang_bien_thien.json").read_text(encoding="utf-8"))
+    from zo_course_tables import native_records
+    records=list(native_records(page_key).values())
     values={"shared figure namespace active":"zo-web-2027-production" in doc.body.get("class",[]),
             "no ordinary variation HTML":not root.select('table[data-table-kind="variation"]:not(.zo-variation-native)'),
             "shared figure stylesheet":any(Path(n["href"].split("?")[0]).name=="production-figures.css" for n in doc.select("link[href]"))}
@@ -139,7 +140,11 @@ def html_checks(doc,page_key,repo=ROOT):
         values[r["id"]+"/canonical rows"]=rows==r["rows"]
         values[r["id"]+"/rendered math"]=all(c.find("math") for c in tables[0].select('[data-source-value]') if re.search(r"[↗↘→∞]|\d",c["data-source-value"]) and c["data-source-value"]!="Không xác định")
     graphs=root.select(".figure-viewport img")
-    expected=json.loads((source.parent/"giao_dien/hinh_manifest.json").read_text())["figures"]
+    manifest=source.parent/"giao_dien/hinh_manifest.json"
+    if not manifest.is_file():
+        values["no undeclared lesson images"]=not graphs
+        return values
+    expected=json.loads(manifest.read_text())["figures"]
     values["graph display count"]=len(graphs)==len(expected)
     values["graph G03 shared display"]=all("zo-graph-04" in im.get("class",[]) and im.get("data-zo-graph-role")=="lesson" and im.get("data-zo-graph-layout")=="lesson-g03" and bool(re.fullmatch(r"--figure-em:[0-9.]+em",im.get("style",""))) for im in graphs)
     from zo_graphics import lesson_layout

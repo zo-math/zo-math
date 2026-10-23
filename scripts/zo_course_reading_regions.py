@@ -31,6 +31,13 @@ def apply(document, binding):
     def paper(nodes):
         if not nodes:
             return None
+        # A review round is itself a view target. Keep its paper on that
+        # owner so hiding the round also hides the background and padding.
+        if len(nodes) == 1 and nodes[0].get("data-zo-context", "").startswith("round:"):
+            region = nodes[0]
+            region["class"] = list(dict.fromkeys(region.get("class", []) + ["reading-region"]))
+            region["data-reading-reason"] = "Complete review round; paper follows its view visibility."
+            return region
         region = document.new_tag("div", attrs={"class":"reading-region",
             "data-reading-reason":"Một nhiệm vụ độc lập hoặc hướng dẫn chung trọn vẹn; giữ dữ kiện, hình, hỗ trợ và hành động cùng chủ sở hữu."})
         nodes[0].insert_before(region)

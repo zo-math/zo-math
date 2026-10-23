@@ -1,0 +1,98 @@
+{
+  "package": "R2-G01",
+  "date": "2026-10-22",
+  "source_bytes_sha256": {
+    "penguins": "f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93",
+    "bike": "b70182d0d0508e9abbb79306ce5c0cec34869000f8220175ac83d11dbe845401",
+    "noaa": "62b651e2a2235c09af8484bfd6227b71c474ff0d286eee056393b209705a6d66"
+  },
+  "day_csv_sha256": "a6bcf826782d3c0fbfdcbeead17cd0884185a0dafe8ff10cd48a874ee7ba18be",
+  "urls": {
+    "penguins": "https://raw.githubusercontent.com/allisonhorst/palmerpenguins/main/inst/extdata/penguins.csv",
+    "bike": "https://archive.ics.uci.edu/static/public/275/bike%2Bsharing%2Bdataset.zip",
+    "noaa": "https://www.ncei.noaa.gov/access/services/data/v1?dataset=daily-summaries&stations=USW00024233&startDate=2023-01-01&endDate=2023-12-31&dataTypes=PRCP&format=json&units=metric&includeAttributes=true&includeStationName=true"
+  },
+  "partition": {
+    "penguins_row_ranges": {
+      "hoc": [
+        [
+          1,
+          50
+        ],
+        [
+          153,
+          186
+        ]
+      ],
+      "luyen": [
+        [
+          51,
+          100
+        ]
+      ],
+      "kiem_tra": [
+        [
+          101,
+          152
+        ]
+      ],
+      "on_lai": [
+        [
+          277,
+          344
+        ]
+      ],
+      "sua_loi": [
+        [
+          187,
+          276
+        ]
+      ]
+    },
+    "bike_months": {
+      "hoc": "2012-01",
+      "luyen": "2012-02",
+      "kiem_tra": "2012-03"
+    },
+    "noaa_months": {
+      "hoc": "2023-01",
+      "luyen": "2023-07",
+      "kiem_tra": "2023-11",
+      "sua_loi": "2023-02"
+    }
+  },
+  "units": {
+    "penguins_flipper": "mm",
+    "bike_cnt": "rental counts per daily record, not unique persons",
+    "noaa_PRCP": "mm, API units=metric; do not divide by ten again"
+  },
+  "rules": [
+    "Source row is 1-based excluding CSV header, not animal identifier.",
+    "Missing target variable excluded only from numerical calculation; raw record retained.",
+    "NOAA trace T retained; zero stored is not proof of no precipitation.",
+    "No source row/date overlaps between roles. Within-role examples and whole samples may overlap and are not new independent confirmation.",
+    "No future review data used for earlier repair.",
+    "Only draft excerpts saved, not full source archives."
+  ],
+  "licences": {
+    "penguins": "CC0 1.0; credit Gorman, Palmer LTER, Horst/Hill/Gorman",
+    "bike": "CC BY 4.0; credit Fanaee-T and Gama, UCI; selected columns/months and derived summaries by ZO Math",
+    "noaa": "US federal station subset; public domain US government data policy, do not generalize to all third-party GHCN data"
+  },
+  "textbooks": [
+    {
+      "title": "Toán 10, Tập một, Kết nối tri thức với cuộc sống",
+      "path": "E:\\zo_math_ca_nhan\\zo_math_on_thi_toan_thpt\\nguon\\Toan 10. Tap 1. Ket noi tri thuc voi cuoc song.pdf",
+      "sha256": "dba1641d06b712fdb9c197da1d2a2719a48aae59285947eae01826f4d88abfce",
+      "printed_pages_read": "78-81",
+      "pdf_page_offset": 1
+    },
+    {
+      "title": "Toán 11, Tập một, Kết nối tri thức với cuộc sống",
+      "path": "E:\\zo_math_ca_nhan\\zo_math_on_thi_toan_thpt\\nguon\\Toan 11. Tap 1. Ket noi tri thuc voi cuoc song.pdf",
+      "sha256": "8b24d33320f1cb3aa54e043933d9e5ea84312ce0456677e6118ac3ed61344d9d",
+      "printed_pages_read": "58-60,62-66",
+      "pdf_page_offset": 1
+    }
+  ]
+}

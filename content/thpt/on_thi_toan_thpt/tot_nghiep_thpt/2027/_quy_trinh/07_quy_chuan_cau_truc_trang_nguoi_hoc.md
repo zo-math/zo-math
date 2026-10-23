@@ -264,6 +264,25 @@ G01 giữ fingerprint và biên nhận lịch sử. Chỉ các đoạn được 
 
 
 
+#### Giọng văn rõ nghĩa, có ngữ cảnh — VOICE-CONTEXT-20261023 {#giong-van-ro-nghia-co-ngu-canh}
+
+Chủ trì duyệt ngày 23/10/2026. Áp dụng toàn dự án Ôn thi Toán THPT 2027: trang khóa, Khảo sát đầu vào, các gói và tài nguyên Nền; gồm đề, lời giảng, lời giải, bảng, chú thích, hướng dẫn và điều hướng. Đây là phần cụ thể hóa chuẩn biên tập ở 6.1.6, không thay điều kiện toán hoặc kiến trúc chức năng.
+
+**Mục tiêu:** người học hiểu mình đang đọc gì, đang làm gì và việc ấy có ý nghĩa gì. Sự ngắn gọn, thân thiện hoặc số lượng câu không thay thế sự rõ nghĩa.
+
+1. Cho người học ngữ cảnh đủ để hình dung: đối tượng, đại lượng, thời gian, địa điểm và đơn vị khi chúng liên quan đến việc hiểu đề hoặc giới hạn kết luận. Với bài toán thuần túy, ngữ cảnh có thể là một câu hỏi toán học; không dựng chuyện đời sống gượng ép.
+2. Giải thích thuật ngữ, chữ viết tắt và quy ước dữ liệu tại nơi cần dùng. Không giả định học sinh nhớ tên loài, tên bộ dữ liệu hoặc mã cột từ buổi học trước. Tên cơ quan, mã trạm và thông tin truy nguồn đặt trong chú thích khi không cần cho lập luận; không yêu cầu học thuộc.
+3. Mỗi nhiệm vụ có câu hỏi hoặc mục đích rõ. Phép tính phải phục vụ điều cần tìm hiểu; ngữ cảnh tham gia vào câu hỏi và cách giải thích kết quả, không chỉ làm đoạn dẫn trang trí trước một chuỗi thao tác.
+4. Viết đủ đối tượng, hành động, điều kiện và phạm vi áp dụng. Phân biệt giá trị với vị trí, mẫu với một phần của mẫu, phép đo với đại lượng thực tế, số 0 với ô thiếu. Không rút gọn thành lời dễ hiểu sai như “bỏ vị trí chính giữa”.
+5. Phân biệt thông tin để hiểu đề với kiến thức để giải. Bài học được giải thích và dẫn dắt; Luyện tập có hỗ trợ theo thiết kế; Kiểm tra và Ôn lại dành phần tự làm cho học sinh huy động kiến thức. Riêng Ôn lại không mở đầu bằng công thức, quy trình giải, lời tóm tắt kiến thức hoặc mục “Nhớ lại trước khi làm”. Câu hỏi gợi nhớ nếu cần phải là nhiệm vụ tự làm có mục tiêu, không ngầm cung cấp đáp án cho câu sau. Giải thích đầy đủ đặt ở Bài học, lời giải và hỗ trợ sau khi tự làm.
+6. Cung cấp đủ quy ước của bộ dữ liệu trong đề, kể cả đơn vị và nghĩa của ký hiệu như T. Đây là thông tin để đọc dữ liệu, không phải nhắc trước kiến thức toán. Đặt đơn vị tại đại lượng/đầu bảng liên quan; không đưa đơn vị riêng của một bộ dữ liệu vào hướng dẫn chung cho nhiều tình huống.
+7. Câu yêu cầu giải thích phải chỉ rõ điều cần xem xét: ý nghĩa kết quả, sự khác biệt, thông tin bị mất, phạm vi hoặc tính hợp lệ của kết luận. Lời giải trả lời đúng câu hỏi và gắn kết quả với đối tượng; không dừng ở đáp số.
+8. Giữ giọng tôn trọng, tự nhiên, không lên giọng chỉ bảo hoặc giả định học sinh đã hiểu. Giải thích vừa đủ để làm nhiệm vụ; không chất thêm kiến thức ngoài mục tiêu hoặc thuật ngữ không cần thiết.
+
+**Mẫu tham chiếu đã duyệt:** bản thảo phần mở đầu Ôn lại và Ôn lần 1 của R2-G01 trong cuộc trao đổi ngày 23/10/2026 (tác vụ 01a15f95-0ef2-7c20-847f-aaf45deff40e, khối bản thảo 73146, chỉ hai phần được chủ trì xác nhận). Ôn lần 2 và 3 của bản ấy chưa được duyệt. QMD/HTML R2-G01 dựng trước quyết định này chưa chứa bản biên tập vừa duyệt; không dùng chúng làm mẫu đã áp dụng chuẩn mới. Quy tắc đầy đủ tại mục này là nguồn điều hành, không phụ thuộc việc truy cập cuộc trao đổi.
+
+Áp dụng ngay khi biên soạn hoặc rà phần được giao. Không tự sửa hồi tố toàn bộ học liệu, đổi lịch ôn của gói khác, render hoặc nâng trạng thái nghiệm thu. Quy chuẩn đã được duyệt không đồng nghĩa mọi sản phẩm đã được rà hoặc đạt. Kiểm theo 02 và bảng kiểm bản thảo; cổng từ vựng không chứng minh chất lượng giọng văn.
+
 ### 6.1.7. Bảng nút thắt nhận thức — BOTTLENECKS-20261019
 
 Theo yêu cầu chủ trì ngày 19/10/2026, bảng trong Sửa lỗi là danh mục những sự phân biệt học sinh cần hiểu, không phải danh sách bẫy để đánh đố. Áp dụng cho các gói hiện có và gói mới có Sửa lỗi; trang Khóa và Khảo sát đầu vào giữ vai trò riêng, không thêm Sửa lỗi chỉ để giống gói R1.

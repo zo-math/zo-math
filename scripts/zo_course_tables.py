@@ -37,6 +37,7 @@ def native_records(page_key):
         checks=source_checks(scene.parent.parent/'index.qmd')
         if not all(checks.values()):raise ValueError('Invalid canonical scene inventory')
         return {}
+    if not any(e.get('kind')=='variation' for e in load_contract()['pages'].get(page_key,[])):return {}
     return {r['id']:r for r in json.loads((BASE/'hoc_lieu'/page_key/'du_lieu/bang_bien_thien.json').read_text(encoding='utf-8'))}
 
 def place_captions_below(root):

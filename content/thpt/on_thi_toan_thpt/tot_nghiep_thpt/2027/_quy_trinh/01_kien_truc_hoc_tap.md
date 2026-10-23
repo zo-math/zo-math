@@ -149,6 +149,10 @@ Một tuyến nền đủ dùng có: dấu hiệu cần ôn; giải thích ngắ
 
 Kho Nền chung được xây dần. Bảy tài nguyên đầu tiên của R1-G01 có một nguồn canonical cho mỗi tài nguyên tại `content/thpt/on_thi_toan_thpt/hoc_lieu/_dung_chung/nen/`; gói gọi lại bằng include, không sao chép thành nguồn sửa độc lập. Vị trí này được chọn sau khi kiểm cấu trúc `hoc_lieu/`: đây là nội dung dùng chung giữa các gói, không phải nhiệm vụ quản lý riêng của G01 và không là trang đứng độc lập trong `_quarto.yml`. Người đang thiếu kiến thức rộng hơn phạm vi thẻ cần học phần nền tương ứng, không bị yêu cầu vượt qua bằng vài thao tác đoán đáp án.
 
+### Làm rõ chức năng Ôn lại — VOICE-CONTEXT-20261023
+
+Ôn lại tạo cơ hội tự huy động kiến thức sau khoảng trễ. Không trình bày lại kiến thức, công thức, cách giải hoặc mục “Nhớ lại trước khi làm” trước đề. Mỗi lượt vẫn cung cấp đủ ngữ cảnh, thuật ngữ và quy ước dữ liệu để hiểu đề độc lập. Lời giải và trợ giúp dùng sau khi tự làm; giữ phần làm độc lập riêng với phần sau hỗ trợ. Giọng văn và ngoại lệ thông tin dữ liệu do [07/6.1.6](07_quy_chuan_cau_truc_trang_nguoi_hoc.md#giong-van-ro-nghia-co-ngu-canh) sở hữu.
+
 ## 2.7. Hoàn tất gói được hiểu đúng ở hai thời điểm
 
 **Hoàn tất lượt chính:** các mục tiêu thiết yếu có bài làm độc lập phù hợp; lỗi chặn đã được kiểm tra lại; đã ghi những giới hạn còn lại và ngày Ôn lại. Nếu cần sửa sau Kiểm tra, ghi riêng kết quả lần đầu và bằng chứng sau sửa. Không đổi điểm gốc thành điểm của bài đã chữa.
