@@ -177,7 +177,7 @@ def presentation_checks(doc,data):
     checks.update(answer_action_html_checks(doc,data))
     checks['cross-package references use the current bundle']=not any(re.match(r'https?://(?:www\.)?zomath\.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g0[1-4](?:/|$)',a['href']) for a in root.select('a[href]'))
     notes=root.select('.zo-source-note')
-    checks['source notes separate from prose']=bool(notes) and all(n.name=='p' or (n.parent.name=='p' and n.parent.get_text(' ',strip=True)==n.get_text(' ',strip=True)) for n in notes)
+    checks['source notes separate from prose']=bool(notes) and all(n.name=='p' or (n.name=='div' and bool(n.find_all(recursive=False)) and all(child.name=='p' for child in n.find_all(recursive=False))) or (n.parent.name=='p' and n.parent.get_text(' ',strip=True)==n.get_text(' ',strip=True)) for n in notes)
     checks['source notes readable at the point of use']=not root.select('a.footnote-ref,section.footnotes') and all(n.get_text(' ',strip=True).startswith(tuple(data.get('source_note_prefixes',['Nguồn đối chiếu']))) and n.get_text(' ',strip=True).endswith('.') and not re.search(r'\b(?:SGK|KNTT|CTGDPT)\b|\btr\.',n.get_text(' ',strip=True)) for n in notes)
     checks['no bibliographic writing narration']=not any(re.search(r'Theo định nghĩa trong SGK|Theo phần .Chú ý. của SGK|Sách giáo khoa trình bày|Bản này dùng',p.get_text()) for p in root.select('#bai-hoc p') if not p.select('.zo-source-note'))
     calendar=root.find(id='on-lai').find('table')

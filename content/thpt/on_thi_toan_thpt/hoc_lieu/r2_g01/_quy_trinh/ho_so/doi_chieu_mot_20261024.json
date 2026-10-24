@@ -1,0 +1,768 @@
+{
+  "package": "R2-G01",
+  "date": "2026-10-24",
+  "scope": "Nghiên cứu và sửa nguồn về mốt; không render HTML/PDF, commit, push hoặc xuất bản.",
+  "sources": [
+    {
+      "file": "Chuong trinh giao duc pho thong mon Toan 2018.pdf",
+      "sha256": "f35d34ff84da2ca3f9ab72d5d67482ada414684b611deea98c4b329801b661ab",
+      "printed_pages": [
+        85,
+        101,
+        102
+      ],
+      "pdf_page_offset": 0,
+      "finding": "Yêu cầu tính, hiểu ý nghĩa và sử dụng mốt; không định nghĩa riêng các trường hợp biên.",
+      "method": "Đọc trực tiếp ảnh trang; riêng chương trình có đối chiếu cả văn bản trích xuất."
+    },
+    {
+      "file": "Toan 10. Tap 1. Ket noi tri thuc voi cuoc song.pdf",
+      "sha256": "dba1641d06b712fdb9c197da1d2a2719a48aae59285947eae01826f4d88abfce",
+      "printed_pages": [
+        81
+      ],
+      "pdf_page_offset": 1,
+      "finding": "Định nghĩa tần số lớn nhất; nhiều mốt; mọi tần số bằng nhau thì không có mốt. Không giải thích riêng mẫu có một giá trị khác nhau.",
+      "method": "Đọc trực tiếp ảnh trang; riêng chương trình có đối chiếu cả văn bản trích xuất."
+    },
+    {
+      "file": "Toán 10. Ket noi tri thuc voi cuoc song. Sach giao vien.pdf",
+      "sha256": "02e58440714fbbd000551b4d13963281e01968a234239e5f19abdb8452af0144",
+      "printed_pages": [
+        142,
+        143,
+        144,
+        145
+      ],
+      "pdf_page_offset": 1,
+      "finding": "Ý nghĩa mốt, ví dụ và nhận xét thực hiện như sách giáo khoa; không có ngoại lệ riêng cho mẫu chỉ một giá trị.",
+      "method": "Đọc trực tiếp ảnh trang; riêng chương trình có đối chiếu cả văn bản trích xuất."
+    },
+    {
+      "file": "Toan 10. Bai tap. Tap 1. Ket noi tri thuc voi cuoc song.pdf",
+      "sha256": "2b1b98665b2c5cccb99f6699a43cbf71b8b2dfc63bdaec759a7b1c51778e2fa1",
+      "printed_pages": [
+        74,
+        75,
+        76,
+        77,
+        125,
+        126
+      ],
+      "pdf_page_offset": 1,
+      "finding": "Phần tóm tắt có định nghĩa tần số lớn nhất và nhiều mốt; không nhắc lại quy ước không mốt. Sự lược bỏ không phủ nhận nhận xét sách giáo khoa. Bài 5.10 xét mẫu có nhiều giá trị khác nhau, một mốt rõ ràng.",
+      "method": "Đọc trực tiếp ảnh trang; riêng chương trình có đối chiếu cả văn bản trích xuất."
+    },
+    {
+      "file": "Toan 11. Tap 1. Ket noi tri thuc voi cuoc song.pdf",
+      "sha256": "8b24d33320f1cb3aa54e043933d9e5ea84312ce0456677e6118ac3ed61344d9d",
+      "printed_pages": [
+        66
+      ],
+      "pdf_page_offset": 1,
+      "finding": "Công thức, nhóm bằng độ rộng, tần số ngoài bằng 0, khả năng nhiều mốt và không mốt khi các tần số bằng nhau.",
+      "method": "Đọc trực tiếp ảnh trang; riêng chương trình có đối chiếu cả văn bản trích xuất."
+    },
+    {
+      "file": "Toan 11. Ket noi tri thuc voi cuoc song. Sach giao vien.pdf",
+      "sha256": "b95ccc2c48606d8974655d58815065afff78b697319dafa3041fc8d556b379d0",
+      "printed_pages": [
+        102,
+        103,
+        104,
+        105
+      ],
+      "pdf_page_offset": 1,
+      "finding": "Bài 3.4 xác định hai nhóm liền nhau đồng hạng; không suy ra số giá trị mốt khác nhau.",
+      "method": "Đọc trực tiếp ảnh trang; riêng chương trình có đối chiếu cả văn bản trích xuất."
+    },
+    {
+      "file": "Toan 11. Bai tap. Tap 1. Ket noi tri thuc voi cuoc song.pdf",
+      "sha256": "fb5292103e5b682531ce37b5f30598393bba81b2943da9c1a374fdeb56557229",
+      "printed_pages": [
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        128,
+        129
+      ],
+      "pdf_page_offset": 1,
+      "finding": "Nhắc đầy đủ quy tắc; 3.15 đáp án A = 0 mốt; 3.25 không áp dụng định nghĩa đang học khi độ rộng khác nhau.",
+      "method": "Đọc trực tiếp ảnh trang; riêng chương trình có đối chiếu cả văn bản trích xuất."
+    }
+  ],
+  "source_scope_limit": "Chỉ kết luận về các mục và trang đã đối chiếu, không tuyên bố đã khảo sát mọi sách hoặc mọi hướng dẫn của chương trình.",
+  "decisions": [
+    "Chính văn xét mốt mẫu gốc có ít nhất hai giá trị khác nhau; phân biệt rõ ba trường hợp và không tự thêm ngoại lệ một giá trị.",
+    "Không có câu tính mốt với mẫu một quan sát hoặc toàn bộ quan sát bằng nhau trong gói; không thêm câu hỏi có/không mốt cho các mẫu ấy.",
+    "Bài tính mốt ghép nhóm giới hạn ở nhóm đều, một nhóm cao nhất duy nhất; đây là phạm vi bài tập, không phải điều kiện tổng quát của khái niệm.",
+    "Giữ quy ước không mốt khi mọi tần số bằng nhau; không giải thích nó chỉ bằng lỗi chia 0 vì nhóm biên có thể cho mẫu số dương.",
+    "Không suy số mốt khác nhau từ số nhóm cao nhất. Ví dụ kiểm nội bộ: tần số 2,4,4,2 trên bốn khoảng rộng 10 cho cùng giá trị 20 khi thay vào công thức từ mỗi nhóm giữa; không đưa phép mở rộng này thành bài phải học.",
+    "Không đưa quy tắc của phần mềm thống kê hoặc định nghĩa ngoài nguồn chương trình vào làm đáp án chấm học sinh."
+  ],
+  "raw_frequency_checks": [
+    {
+      "label": "VD01: 16 Adélie 2007",
+      "n": 16,
+      "frequency": {
+        "180": 1,
+        "181": 2,
+        "182": 1,
+        "185": 1,
+        "186": 2,
+        "190": 2,
+        "191": 1,
+        "193": 2,
+        "195": 3,
+        "198": 1
+      },
+      "modes": [
+        195
+      ]
+    },
+    {
+      "label": "49 Adélie 2007",
+      "n": 49,
+      "frequency": {
+        "172": 1,
+        "174": 1,
+        "178": 2,
+        "179": 1,
+        "180": 5,
+        "181": 3,
+        "182": 3,
+        "183": 1,
+        "184": 3,
+        "185": 3,
+        "186": 3,
+        "187": 2,
+        "188": 1,
+        "189": 1,
+        "190": 5,
+        "191": 2,
+        "193": 2,
+        "194": 1,
+        "195": 5,
+        "196": 2,
+        "197": 1,
+        "198": 1
+      },
+      "modes": [
+        180,
+        190,
+        195
+      ]
+    },
+    {
+      "label": "NV07b",
+      "n": 12,
+      "frequency": {
+        "181": 1,
+        "185": 1,
+        "186": 2,
+        "187": 1,
+        "188": 1,
+        "190": 1,
+        "191": 1,
+        "193": 1,
+        "194": 1,
+        "195": 1,
+        "200": 1
+      },
+      "modes": [
+        186
+      ]
+    },
+    {
+      "label": "NV07c",
+      "n": 13,
+      "frequency": {
+        "181": 1,
+        "185": 2,
+        "186": 2,
+        "187": 1,
+        "188": 1,
+        "190": 1,
+        "191": 1,
+        "193": 1,
+        "194": 1,
+        "195": 1,
+        "200": 1
+      },
+      "modes": [
+        185,
+        186
+      ]
+    },
+    {
+      "label": "NV15b",
+      "n": 12,
+      "frequency": {
+        "181": 1,
+        "183": 1,
+        "184": 1,
+        "190": 2,
+        "191": 1,
+        "192": 1,
+        "193": 1,
+        "197": 1,
+        "198": 1,
+        "199": 1,
+        "203": 1
+      },
+      "modes": [
+        190
+      ]
+    },
+    {
+      "label": "NV19 C1",
+      "n": 12,
+      "frequency": {
+        "178": 1,
+        "188": 1,
+        "192": 1,
+        "193": 2,
+        "194": 1,
+        "195": 1,
+        "196": 1,
+        "197": 2,
+        "198": 2
+      },
+      "modes": [
+        193,
+        197,
+        198
+      ]
+    },
+    {
+      "label": "NV20 C1",
+      "n": 7,
+      "frequency": {
+        "187": 2,
+        "191": 1,
+        "200": 2,
+        "201": 1,
+        "205": 1
+      },
+      "modes": [
+        187,
+        200
+      ]
+    },
+    {
+      "label": "NV21 C1",
+      "n": 24,
+      "frequency": {
+        "187": 2,
+        "189": 1,
+        "190": 1,
+        "191": 1,
+        "193": 2,
+        "194": 1,
+        "195": 1,
+        "196": 1,
+        "197": 1,
+        "198": 2,
+        "199": 1,
+        "201": 2,
+        "202": 2,
+        "203": 2,
+        "206": 1,
+        "207": 1,
+        "210": 1,
+        "212": 1
+      },
+      "modes": [
+        187,
+        193,
+        198,
+        201,
+        202,
+        203
+      ]
+    },
+    {
+      "label": "NV24b",
+      "n": 12,
+      "frequency": {
+        "208": 3,
+        "210": 1,
+        "213": 1,
+        "216": 1,
+        "217": 1,
+        "219": 1,
+        "220": 2,
+        "222": 1,
+        "225": 1
+      },
+      "modes": [
+        208
+      ]
+    },
+    {
+      "label": "NV25a",
+      "n": 12,
+      "frequency": {
+        "208": 1,
+        "210": 3,
+        "213": 1,
+        "215": 1,
+        "217": 1,
+        "220": 3,
+        "225": 2
+      },
+      "modes": [
+        210,
+        220
+      ]
+    },
+    {
+      "label": "NV26d",
+      "n": 4,
+      "frequency": {
+        "212": 1,
+        "221": 1,
+        "224": 1,
+        "228": 1
+      },
+      "modes": []
+    },
+    {
+      "label": "VD08",
+      "n": 31,
+      "frequency": {
+        "1301": 1,
+        "1951": 1,
+        "1977": 1,
+        "2177": 1,
+        "2236": 1,
+        "2294": 1,
+        "2298": 1,
+        "2311": 1,
+        "2368": 1,
+        "2376": 1,
+        "2432": 1,
+        "2493": 1,
+        "2935": 1,
+        "3163": 1,
+        "3214": 1,
+        "3243": 1,
+        "3272": 1,
+        "3292": 1,
+        "3376": 1,
+        "3425": 1,
+        "3456": 1,
+        "3598": 1,
+        "3624": 1,
+        "4023": 1,
+        "4075": 1,
+        "4097": 1,
+        "4098": 1,
+        "4270": 1,
+        "4339": 1,
+        "4509": 1,
+        "4521": 1
+      },
+      "modes": []
+    },
+    {
+      "label": "NV12c",
+      "n": 29,
+      "frequency": {
+        "1529": 1,
+        "1834": 1,
+        "2169": 1,
+        "2689": 1,
+        "2732": 1,
+        "2802": 1,
+        "2832": 1,
+        "2947": 1,
+        "3005": 1,
+        "3129": 1,
+        "3389": 1,
+        "3422": 1,
+        "3487": 1,
+        "3761": 1,
+        "3777": 1,
+        "3784": 1,
+        "3830": 1,
+        "3831": 1,
+        "3922": 1,
+        "4151": 1,
+        "4154": 1,
+        "4169": 1,
+        "4318": 1,
+        "4322": 1,
+        "4363": 1,
+        "4375": 1,
+        "4579": 1,
+        "4773": 1,
+        "5062": 1
+      },
+      "modes": []
+    },
+    {
+      "label": "NV17c",
+      "n": 31,
+      "frequency": {
+        "3194": 1,
+        "3333": 1,
+        "3372": 1,
+        "3423": 1,
+        "3956": 1,
+        "4066": 1,
+        "4118": 1,
+        "4378": 1,
+        "4569": 1,
+        "4911": 1,
+        "4916": 1,
+        "4990": 1,
+        "4996": 1,
+        "5102": 1,
+        "5298": 1,
+        "5382": 1,
+        "5459": 1,
+        "5558": 1,
+        "5698": 1,
+        "5847": 1,
+        "5892": 1,
+        "6093": 1,
+        "6133": 1,
+        "6153": 1,
+        "6192": 1,
+        "6230": 1,
+        "6235": 1,
+        "6312": 1,
+        "6871": 1,
+        "7836": 1,
+        "8362": 1
+      },
+      "modes": []
+    },
+    {
+      "label": "Tự kiểm Ôn 1",
+      "n": 6,
+      "frequency": {
+        "2": 1,
+        "4": 2,
+        "7": 1,
+        "8": 1,
+        "9": 1
+      },
+      "modes": [
+        4
+      ]
+    },
+    {
+      "label": "Tự kiểm Ôn 3",
+      "n": 8,
+      "frequency": {
+        "1": 2,
+        "3": 2,
+        "5": 2,
+        "9": 2
+      },
+      "modes": []
+    }
+  ],
+  "grouped_mode_checks": [
+    {
+      "label": "VD06",
+      "frequencies": [
+        2,
+        3,
+        15,
+        10,
+        10,
+        9
+      ],
+      "modal_group": [
+        180,
+        185
+      ],
+      "mode": "3120/17"
+    },
+    {
+      "label": "NV10c",
+      "frequencies": [
+        0,
+        1,
+        3,
+        15,
+        18,
+        9,
+        2,
+        2,
+        0
+      ],
+      "modal_group": [
+        190,
+        195
+      ],
+      "mode": "765/4"
+    },
+    {
+      "label": "NV16c",
+      "frequencies": [
+        0,
+        1,
+        4,
+        11,
+        19,
+        12,
+        4,
+        0,
+        1
+      ],
+      "modal_group": [
+        190,
+        195
+      ],
+      "mode": "578/3"
+    },
+    {
+      "label": "NV20 C2c",
+      "frequencies": [
+        0,
+        0,
+        3,
+        2,
+        5,
+        4,
+        2,
+        2
+      ],
+      "modal_group": [
+        195,
+        200
+      ],
+      "mode": "795/4"
+    },
+    {
+      "label": "NV25d",
+      "frequencies": [
+        0,
+        4,
+        6,
+        7,
+        11,
+        3,
+        3
+      ],
+      "modal_group": [
+        220,
+        225
+      ],
+      "mode": "665/3"
+    },
+    {
+      "label": "Tự kiểm Ôn 2",
+      "frequencies": [
+        2,
+        6,
+        2
+      ],
+      "modal_group": [
+        10,
+        20
+      ],
+      "mode": "15"
+    }
+  ],
+  "tied_group_tasks_reviewed": [
+    "VD08: 3,10,10,8; chỉ giải thích nhóm đông nhất và mốt gốc.",
+    "NV21 C2: 3,5,6,6,2,2; chỉ đọc nhóm cao nhất, đề nói không yêu cầu mốt.",
+    "Tự kiểm Ôn 3: 2,4,4,2; chỉ hỏi trung bình, trung vị và nhóm cao nhất."
+  ],
+  "question_policy": "Không hỏi có/không mốt ở mẫu một giá trị khác nhau; không buộc đếm mốt của bảng có nhóm cao nhất đồng hạng hoặc mẫu số 0 khi chưa có quy tắc rõ. Không nhầm nhóm rộng không đều với trường hợp đã định nghĩa nhưng không có mốt.",
+  "changes": [
+    {
+      "before": "**Tần số của một giá trị** là số lần giá trị ấy xuất hiện trong mẫu. Mốt là giá trị có tần số lớn nhất. Nếu một số giá trị cùng có tần số lớn nhất và nổi trội hơn các giá trị còn lại, mẫu có nhiều mốt. Khi mẫu có ít nhất hai giá trị phân biệt và tất cả các giá trị ấy xuất hiện với cùng tần số, ta quy ước mẫu không có mốt. Khi đó, không có giá trị nào xuất hiện nhiều hơn các giá trị khác để nổi bật về tần số. Nếu mọi quan sát đều bằng một giá trị duy nhất, chính giá trị ấy là mốt.",
+      "after": "**Tần số của một giá trị** là số lần giá trị ấy xuất hiện trong mẫu. Các bài tìm mốt của mẫu gốc trong gói này đều xét mẫu có ít nhất hai giá trị khác nhau. Với những mẫu ấy, cần phân biệt:\n\n- **Không có mốt:** tất cả các giá trị khác nhau đều xuất hiện cùng một số lần. Ta dùng quy ước mẫu không có mốt, vì không có giá trị nào nổi trội về tần số.\n- **Một mốt:** có đúng một giá trị xuất hiện nhiều lần hơn mỗi giá trị còn lại. Giá trị ấy là mốt.\n- **Nhiều mốt:** có từ hai giá trị trở lên cùng đạt tần số lớn nhất, đồng thời vẫn có giá trị khác mang tần số nhỏ hơn. Tất cả các giá trị đạt tần số lớn nhất ấy đều là mốt.\n\nVì vậy, khi các tần số không đồng loạt bằng nhau, tìm mốt là tìm đủ các giá trị có tần số lớn nhất. Không chỉ đếm xem một giá trị có lặp lại hay không; cần so sánh số lần xuất hiện của nó với các giá trị khác.",
+      "reason": "Phân biệt ba trường hợp trong phạm vi mẫu có ít nhất hai giá trị khác nhau; bỏ ngoại lệ một giá trị chưa có căn cứ riêng."
+    },
+    {
+      "before": "Căn cứ toán học: Toán 10, Tập một, Kết nối tri thức với cuộc sống, Bài 13, trang 81. Các tần số Penguins trong đoạn này được tính từ phần dữ liệu Adélie 2007 đã nêu.",
+      "after": "Căn cứ toán học: Toán 10, Tập một, Kết nối tri thức với cuộc sống, Bài 13, trang 81, gồm định nghĩa và cả hai nhận xét về nhiều mốt, không có mốt. Đối chiếu thêm Toán 10, Sách giáo viên, cùng bộ sách, trang 144–145, và Bài tập Toán 10, Tập một, cùng bộ sách, trang 75, 77, 126. Các mục này chưa giải thích riêng trường hợp mẫu chỉ có một quan sát hoặc mọi quan sát đều bằng nhau; gói không dùng những trường hợp ấy để hỏi có hay không có mốt. Xem [chú thích về phạm vi và câu hỏi cần tránh](#chu-thich-mot). Các tần số Penguins ở trên được tính từ phần dữ liệu Adélie 2007 đã nêu.",
+      "reason": "Dẫn đủ định nghĩa và nhận xét; xác định giới hạn của chính các mục nguồn đã kiểm, không tuyên bố chương trình cấm trường hợp biên."
+    },
+    {
+      "before": "Trong phạm vi đang học, các nhóm có cùng độ rộng $h$. Chọn nhóm có tần số lớn nhất. Nếu nhóm này có đầu mút trái $a$, tần số $f$, hai nhóm kề có tần số $f_-$ và $f_+$, thì",
+      "after": "Bảng ghép nhóm cho biết số quan sát trong từng khoảng, không cho biết số lần xuất hiện của từng giá trị gốc. Vì vậy, cần phân biệt **nhóm có tần số lớn nhất** với **giá trị mốt tính từ bảng nhóm**.\n\nCác bài yêu cầu tính mốt ghép nhóm trong gói này dùng bảng có ít nhất hai nhóm liên tiếp, cùng độ rộng $h$, và có đúng một nhóm có tần số lớn nhất. Nhóm ấy được gọi là nhóm chứa mốt. Gọi $a$ là đầu mút trái của nhóm, $f$ là tần số của nhóm; $f_-$ và $f_+$ lần lượt là tần số của nhóm liền trước và liền sau. Khi đó",
+      "reason": "Nêu rõ đối tượng và phạm vi bài tính; không biến điều kiện một nhóm cao nhất của gói thành điều kiện định nghĩa tổng quát."
+    },
+    {
+      "before": "Với nhóm ở đầu hoặc cuối bảng, quy ước tần số phía ngoài bằng $0$. Công thức cần mẫu số dương. Nếu có nhiều nhóm cùng cao nhất, cần xem xét tình huống cụ thể; không tùy ý chọn một nhóm rồi tuyên bố mốt duy nhất. Nếu tất cả tần số nhóm bằng nhau, mẫu ghép nhóm không có mốt theo quy ước đang dùng.",
+      "after": "Nếu nhóm chứa mốt đứng đầu bảng thì dùng $f_-=0$; nếu đứng cuối bảng thì dùng $f_+=0$. Với đúng một nhóm có tần số lớn nhất, hai hiệu ở mẫu số đều dương, nên phép chia thực hiện được.\n\nVới bảng có ít nhất hai nhóm cùng độ rộng, nếu tần số của tất cả các nhóm bằng nhau thì dùng quy ước mẫu ghép nhóm không có mốt. Cần kiểm tra trường hợp này trước khi dùng công thức.\n\nNếu chỉ một số nhóm cùng đạt tần số lớn nhất, hãy nêu đủ những nhóm ấy. **Số nhóm cùng cao nhất không tự động là số giá trị mốt khác nhau.** Với tình huống ấy, các câu hỏi liên quan đến mốt trong gói chỉ yêu cầu nhận biết những nhóm cao nhất; không yêu cầu tính hay đếm các giá trị mốt ghép nhóm.",
+      "reason": "Tách trường hợp tần số đều với một số nhóm đồng hạng; tránh suy số mốt từ số nhóm và tránh áp dụng công thức ở biên để phá quy ước."
+    },
+    {
+      "before": "Căn cứ toán học và điều kiện độ rộng nhóm bằng nhau: Toán 11, Tập một, Kết nối tri thức với cuộc sống, Bài 9, trang 66.",
+      "after": "Căn cứ toán học: Toán 11, Tập một, Kết nối tri thức với cuộc sống, Bài 9, trang 66; Bài tập Toán 11, Tập một, cùng bộ sách, trang 48, bài 3.15 ở trang 51 và đáp án ở trang 129. Các nguồn nêu điều kiện độ rộng nhóm bằng nhau, công thức, quy ước tần số ngoài bảng bằng 0, khả năng có nhiều mốt và trường hợp các tần số bằng nhau thì không có mốt. Toán 11, Sách giáo viên, cùng bộ sách, lời giải bài 3.4 ở trang 104–105 xác định hai nhóm cùng có tần số lớn nhất nhưng không tính số giá trị mốt khác nhau. Phạm vi bài tính chỉ có một nhóm cao nhất là lựa chọn của gói này; không được hiểu thành khẳng định mẫu ghép nhóm luôn có nhiều nhất một mốt. Xem [chú thích về các trường hợp chưa được xử lí đầy đủ trong nguồn đã đối chiếu](#chu-thich-mot).",
+      "reason": "Bổ sung căn cứ trực tiếp từ sách bài tập và sách giáo viên, phân biệt lựa chọn sư phạm với nội dung chương trình."
+    },
+    {
+      "before": "Mẫu gốc không có mốt vì mọi giá trị đều xuất hiện một lần. Nếu ghép nhóm",
+      "after": "Mẫu gốc có 31 giá trị khác nhau, mỗi giá trị xuất hiện một lần, nên không có mốt theo quy ước đã nêu. Nếu ghép nhóm",
+      "reason": "Nêu rõ nhiều giá trị khác nhau, tần số và căn cứ quy ước trong ví dụ Bike Sharing."
+    },
+    {
+      "before": "[Nhiệm vụ 07b–c](#nv07), [08c](#nv08) | Đếm lại tần số;",
+      "after": "[Nhiệm vụ 07b–c](#nv07) | Đếm lại tần số;",
+      "reason": "Bỏ dẫn chứng 08c khỏi tiêu chí mốt vì câu ấy so sánh tứ phân vị, không hỏi mốt."
+    },
+    {
+      "before": "Giá trị nào xuất hiện nhiều lần nhất? Có nhiều giá trị cùng đạt số lần ấy không? Nếu mẫu có ít nhất hai giá trị phân biệt và tất cả các giá trị ấy có cùng tần số thì mẫu không có mốt. Xem [mốt mẫu gốc](#hoc-goc)",
+      "after": "Mẫu có những giá trị khác nhau nào, mỗi giá trị xuất hiện mấy lần? Với các mẫu đang học, nếu tất cả tần số bằng nhau thì dùng quy ước không có mốt; nếu không, tìm đủ các giá trị có tần số lớn nhất. Xem [mốt mẫu gốc](#hoc-goc) và [giới hạn câu hỏi](#chu-thich-mot)",
+      "reason": "Đồng bộ hỗ trợ với phạm vi quy tắc đã giải thích."
+    },
+    {
+      "before": "| Điều kiện công thức mốt ghép nhóm | Dùng công thức khi các nhóm rộng khác nhau; thấy nhiều nhóm có cùng tần số lớn nhất nhưng vẫn kết luận chỉ có một mốt | Có đúng một nhóm có tần số lớn nhất và các nhóm rộng bằng nhau không? Xem [Ví dụ 06](#vd06)",
+      "after": "| Tính mốt từ bảng ghép nhóm | Dùng công thức khi các nhóm rộng khác nhau; đồng nhất số nhóm cao nhất với số giá trị mốt | Các nhóm có cùng độ rộng không? Bài tính trong gói có đúng một nhóm cao nhất không? Nếu có nhiều nhóm cùng cao nhất, nêu đủ các nhóm nhưng không tự suy số giá trị mốt. Xem [Ví dụ 06](#vd06) và [giới hạn câu hỏi](#chu-thich-mot)",
+      "reason": "Sửa phát biểu dễ khiến người học suy nhiều nhóm cao nhất bắt buộc cho nhiều giá trị mốt khác nhau."
+    },
+    {
+      "before": "c) Mọi giá trị đều xuất hiện một lần nên mẫu gốc không có mốt theo quy ước đã học.",
+      "after": "c) Mẫu có 29 giá trị khác nhau; mỗi giá trị có tần số 1. Các tần số bằng nhau, nên mẫu gốc không có mốt theo quy ước đã học.",
+      "reason": "Lời giải 12: nêu đủ số giá trị khác nhau và tần số."
+    },
+    {
+      "before": "Mốt $190$ mm xuất hiện hai lần.",
+      "after": "Mốt là $190$ mm: giá trị này xuất hiện hai lần, còn mỗi giá trị khác xuất hiện một lần.",
+      "reason": "Lời giải 15: chứng minh đạt tần số lớn nhất, không chỉ nêu có lặp."
+    },
+    {
+      "before": "c) Mẫu không có mốt vì mọi giá trị có tần số bằng một.",
+      "after": "c) Mẫu có 31 giá trị khác nhau, mỗi giá trị xuất hiện một lần. Theo quy ước đã học, mẫu không có mốt vì các tần số đều bằng nhau.",
+      "reason": "Lời giải 17: thống nhất quy ước và phạm vi mẫu."
+    },
+    {
+      "before": "c) Có ba mốt 193, 197 và 198 mm, mỗi giá trị xuất hiện hai lần. Chỉ ghi một mốt",
+      "after": "c) Có ba mốt 193, 197 và 198 mm: mỗi giá trị xuất hiện hai lần, còn mỗi giá trị khác xuất hiện một lần. Chỉ ghi một mốt",
+      "reason": "Lời giải 19: phân biệt đồng hạng ở mức cao nhất với mọi tần số bằng nhau."
+    },
+    {
+      "before": "Hai mốt là 187 và 200 mm, mỗi giá trị xuất hiện hai lần.",
+      "after": "Hai mốt là 187 và 200 mm: mỗi giá trị xuất hiện hai lần, còn các giá trị 191, 201, 205 mm đều xuất hiện một lần.",
+      "reason": "Lời giải 20: so sánh tần số với các giá trị còn lại."
+    },
+    {
+      "before": "c) Khoảng $[195;200)$ có nhiều cá thể nhất: 5 cá thể. Hai khoảng liền trước và liền sau có tần số 2 và 4.",
+      "after": "c) Các khoảng đều rộng 5 mm. Khoảng $[195;200)$ là khoảng duy nhất có tần số lớn nhất: 5 cá thể. Hai khoảng liền trước và liền sau có tần số 2 và 4.",
+      "reason": "Lời giải 20: kiểm điều kiện bài tính mốt ghép nhóm trước thay số."
+    },
+    {
+      "before": "Có sáu mốt: 187, 193, 198, 201, 202, 203 mm. Mỗi giá trị xuất hiện hai lần.",
+      "after": "Có sáu mốt: 187, 193, 198, 201, 202, 203 mm. Mỗi giá trị ấy xuất hiện hai lần; mỗi giá trị khác chỉ xuất hiện một lần. Vì vậy, đây là trường hợp nhiều mốt, không phải mọi giá trị khác nhau đều có cùng tần số.",
+      "reason": "Lời giải 21: làm rõ vì sao sáu mốt không mâu thuẫn với quy ước không có mốt."
+    },
+    {
+      "before": "Bốn giá trị phân biệt đều xuất hiện hai lần nên mẫu không có mốt.",
+      "after": "Bốn giá trị khác nhau là 1, 3, 5, 9 đều xuất hiện hai lần; theo quy ước đã học, mẫu không có mốt. Việc các số đều lặp lại không đủ để kết luận mẫu có mốt.",
+      "reason": "Tự kiểm Ôn 3: giải thích đầy đủ trường hợp mọi tần số đều bằng 2."
+    },
+    {
+      "before": "Mốt là $208$ mm, xuất hiện ba lần.",
+      "after": "Mốt là $208$ mm: giá trị này xuất hiện ba lần, $220$ mm xuất hiện hai lần, còn mỗi giá trị khác xuất hiện một lần.",
+      "reason": "Lời giải 24: so sánh đầy đủ tần số."
+    },
+    {
+      "before": "Hai mốt gốc là $210$ và $220$ mm, mỗi số xuất hiện ba lần.",
+      "after": "Hai mốt gốc là $210$ và $220$ mm: mỗi giá trị xuất hiện ba lần, $225$ mm xuất hiện hai lần, còn mỗi giá trị khác xuất hiện một lần.",
+      "reason": "Lời giải 25: nêu đầy đủ bằng chứng nhiều mốt."
+    },
+    {
+      "before": "d) Bốn giá trị phân biệt đều xuất hiện một lần nên mẫu bốn giá trị không có mốt theo quy ước đang dùng.",
+      "after": "d) Bốn giá trị 212, 221, 224, 228 mm khác nhau và đều xuất hiện một lần. Các tần số đều bằng 1, nên mẫu không có mốt theo quy ước đã học.",
+      "reason": "Lời giải 26: thống nhất giải thích với bài học."
+    },
+    {
+      "before": "- **Chương trình giáo dục phổ thông môn Toán 2018**, Bộ Giáo dục và Đào tạo: yêu cầu cần đạt về các số đặc trưng của mẫu không ghép nhóm và ghép nhóm, phần lớp 10 và lớp 11.",
+      "after": "- **Chương trình giáo dục phổ thông môn Toán 2018**, Bộ Giáo dục và Đào tạo, trang 85 và 101–102: yêu cầu tính, giải thích ý nghĩa và sử dụng các số đặc trưng của mẫu không ghép nhóm và ghép nhóm, phần lớp 10 và lớp 11.",
+      "reason": "Bổ sung vị trí cụ thể của yêu cầu chương trình."
+    },
+    {
+      "before": "- **Toán 10 — Sách giáo viên, Kết nối tri thức với cuộc sống**, Nhà xuất bản Giáo dục Việt Nam, trang 142–144: ý nghĩa và cách lựa chọn các số đặc trưng.",
+      "after": "- **Toán 10 — Sách giáo viên, Kết nối tri thức với cuộc sống**, Nhà xuất bản Giáo dục Việt Nam, trang 142–145: ý nghĩa, cách lựa chọn các số đặc trưng, hướng dẫn dạy mốt và lời giải liên quan.",
+      "reason": "Cập nhật phạm vi trang đã đối chiếu trực tiếp."
+    },
+    {
+      "before": "- **Toán 11 — Sách giáo viên, Kết nối tri thức với cuộc sống**, Nhà xuất bản Giáo dục Việt Nam, trang 103–105: cách dẫn dắt và giải thích kết quả từ mẫu ghép nhóm.",
+      "after": "- **Toán 11 — Sách giáo viên, Kết nối tri thức với cuộc sống**, Nhà xuất bản Giáo dục Việt Nam, trang 103–105: cách dẫn dắt về mốt ghép nhóm, giải thích kết quả và phân biệt nhóm chứa mốt với giá trị tính được.\n- **Bài tập Toán 10, Tập một — Kết nối tri thức với cuộc sống**, Nhà xuất bản Giáo dục Việt Nam, trang 75, 77, 126: phần nhắc kiến thức về mốt, bài 5.10 và lời giải.\n- **Bài tập Toán 11, Tập một — Kết nối tri thức với cuộc sống**, Nhà xuất bản Giáo dục Việt Nam, trang 48, 50–52, 128–129: quy tắc mốt ghép nhóm, các bài 3.8, 3.15, 3.20–3.21, 3.25 và lời giải.",
+      "reason": "Đăng ký đúng các nguồn bổ trợ đã đọc; không dùng thay định nghĩa và nhận xét trong sách giáo khoa."
+    },
+    {
+      "before": "Lời giảng, nhiệm vụ và lời giải trong gói do ZO Math biên soạn; không sao chép bài tập hoặc hình sách.",
+      "after": "Lời giảng, nhiệm vụ và lời giải trong gói do ZO Math biên soạn; không sao chép bài tập hoặc hình sách.\n\n::: {#chu-thich-mot .zo-source-note}\n**Chú thích về phạm vi kiến thức mốt và những câu hỏi cần tránh.** Chương trình môn Toán 2018 nêu yêu cầu tính và hiểu ý nghĩa của mốt; các trang 85, 101–102 không đặt ra quy tắc riêng cho mọi trường hợp biên. Phần giải thích trong gói dùng các quy tắc đã nêu ở Toán 10, Tập một, trang 81 và Toán 11, Tập một, trang 66, bộ Kết nối tri thức với cuộc sống.\n\n**Điều đã có căn cứ rõ:** với mẫu gốc có nhiều giá trị khác nhau, cần phân biệt một mốt, nhiều giá trị cùng đạt tần số lớn nhất và trường hợp mọi tần số bằng nhau thì không có mốt. Với mẫu ghép nhóm, các nhóm phải có cùng độ rộng để dùng định nghĩa và công thức đang học; khi mọi tần số nhóm bằng nhau thì mẫu không có mốt. Bài 3.15 của Bài tập Toán 11, Tập một, trang 51, cùng đáp án trang 129 xác nhận trường hợp sau.\n\n**Điều các mục nguồn đã đối chiếu chưa giải thích riêng:** mẫu gốc chỉ có một quan sát; mẫu có nhiều quan sát nhưng tất cả đều bằng một giá trị; cách xử lí tổng quát khi nhiều nhóm liên tiếp cùng cao nhất làm mẫu số trong công thức bằng 0. Nhận xét rằng mẫu ghép nhóm có thể có nhiều mốt không tự cung cấp cách đếm các giá trị mốt khác nhau trong mọi tình huống ấy. Đây là giới hạn của căn cứ đã kiểm, không phải khẳng định chương trình cấm xét các mẫu đó, cũng không phải kết luận chúng có hoặc không có mốt.\n\n**Khi chọn hoặc đặt câu hỏi:** tránh yêu cầu trả lời có/không có mốt cho mẫu chỉ có một giá trị khác nhau; tránh hỏi mẫu “luôn có mốt” hoặc đếm mốt khi đề chưa làm rõ trường hợp và quy ước. Không suy số mốt từ số nhóm cùng cao nhất, không tính với mẫu số bằng 0, không dùng công thức đang học cho nhóm rộng khác nhau. Nếu gặp một đề như vậy, trước hết cần làm rõ quy ước và căn cứ của đáp án; không xem việc đoán đúng quy ước ngầm là thước đo hiểu bài. Gói này không dùng các trường hợp chưa rõ ấy để đánh giá học sinh. Với bảng có nhiều nhóm cùng cao nhất, các câu hỏi liên quan đến mốt chỉ yêu cầu nhận biết những nhóm ấy và tần số tương ứng.\n:::",
+      "reason": "Ghi chú công khai căn cứ đã rõ/chưa rõ và cảnh báo câu hỏi đánh đố quy ước, đúng yêu cầu người dùng."
+    }
+  ],
+  "source_before_sha256": "3558c3f30615822f8a8a702eee660274b69382aab89416f401a9b83b7fa3a9be",
+  "source_after_sha256": "5a9421019034a9538a9374ff34250db81672bec5b61991673c4f8db57e8334cd",
+  "preserved_files_sha256": {
+    "docs/content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.html": "dbda987ebbf7bbc3ce9b1a6d33438542e8259e349ccbb081f41a1588d17df456",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/du_lieu/hoc.json": "eacd07cf7689f50722d96aeb34f2a387f3f42a0c469ec8e3d818febd3d9a39e4",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/du_lieu/kiem_tra.json": "ba46ef231a2975f0fb6cdf87377fa6837de2e5c2f7bda1747035328ffe61a0b6",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/du_lieu/luyen.json": "10b7cd31672301986fcf440147e35e0b170c242ef5e5f047ce1d5604344527dd",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/du_lieu/on_lai.json": "7dcf43b6164a3ddb3211069977570c3bc75f69ffe290c985449ab66437efca3d",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/du_lieu/phan_chia.json": "1b56caf9878accc7dfe57c02c92aab9abf5a693b983efdaf990a4a6f3b5d338a",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/du_lieu/sua_loi.json": "3f69ebf044f72ac3013b7398f3588fc650c0a33c4d6ebc34f19dcc776e819ea5",
+    "_design/web_2027_mau_dung_chung/profiles/course-tables.json": "5bde9dad7788a9d8b9b95ff9766684a9a1a864fe09bec6ab768942796a0f57e6",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/giao_dien/web_2027_layout.json": "53b1ff9d3dd2616b1813fa0f0669c1fa09a54d800935155998ec8e5a7b633666",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/giao_dien/html.json": "a6331102aa85844f44bcca26442ec8479c5aebc83b30d105caa97e55e0675ba2",
+    "quy_trinh_xay_dung/quy_trinh_thuc_hien_nhiem_vu_ky_thuat.md": "90fad822292e1a24109941a27654bfcbb44989f609afcb954977f0d812d354a7",
+    "scripts/zo_publish.py": "9b70fc8d52ed8299d791f2e1b76ab36d4e313dd4e5b6b50c451bc7e59871662b",
+    "scripts/zo_publish_pages.py": "2bed1b1d27de6d663cdece9f9b7d778928984cc09907e6708c9d48250c3fbee6",
+    "scripts/zo_publish_pages_selftest.py": "f39f7e21a57ac199db0c57b976aa888b4542343f79991a61034428d4411affa6",
+    "scripts/zo_publish_pdfs.py": "7408a4a17b6e5d8bb91ee5a7720a881e688e840524cbcc87de137292c62aa35d",
+    "scripts/zo_publish_pdfs_selftest.py": "c7e65376346cf1a06e88b77b5a0ad551a3737bb6d04a926bba23e208e0374e54"
+  },
+  "validation": {
+    "raw_samples_passed": 16,
+    "grouped_calculations_passed": 6,
+    "qmd_check": "PASS",
+    "first_qmd_check": {
+      "result": "failed",
+      "reason": "Hai liên kết chú thích và tên hàng mới trong QMD chưa được đồng bộ ở he_nhan.json; các kiểm khác đạt.",
+      "resolution": "Đồng bộ đúng ba thuộc tính của hai hàng liên quan; giữ nguyên bộ kiểm tra."
+    },
+    "second_qmd_check": {
+      "result": "failed",
+      "reason": "Sau khi đồng bộ hệ nhãn, biên nhận đọc lại còn giữ hash cũ của hệ nhãn.",
+      "resolution": "Đọc và xác nhận chênh lệch đúng hai hàng, cập nhật hash trong biên nhận; không sửa bộ kiểm tra."
+    },
+    "qmd_check_exit_code": 0,
+    "qmd_check_command": "python -B scripts/zo_python.py -B scripts/zo_qmd.py check content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.qmd",
+    "final_qmd_check_output": "CHECKER VERSION: 2.6.0\nMODE: scope | WORKTREE\nROOT: E:\\zo_math\nSCOPE (1):\n  - content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.qmd\nCHECKS:\n  PASS git-status: M _design/web_2027_mau_dung_chung/profiles/course-tables.json\n M content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/giao_dien/web_2027_layout.json\n M content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/giao_dien/he_nhan.json\n M content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/giao_dien/html.json\n M content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.qmd\n M content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/03_dieu_hanh_chuong_trinh.md\n M content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/ho_so_bien_tap_ro_nghia_20261019.json\n M quy_trinh_xay_dung/quy_trinh_thuc_hien_nhiem_vu_ky_thuat.md\n M quy_trinh_xay_dung/quy_trinh_xuat_ban_website.md\n M scripts/zo_publish.py\n M scripts/zo_publish_pages.py\n M scripts/zo_publish_pages_selftest.py\n?? content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/_quy_trinh/ho_so/doi_chieu_mot_20261024.json\n?? content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/hinh/adelie_canh_boi_v1/\n?? content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/hinh/thu_vien_ngu_canh_v1/\n?? scripts/zo_publish_pdfs.py\n?? scripts/zo_publish_pdfs_selftest.py\n  PASS git-diff-check: Đạt.\n  PASS git-eol: Git không báo EOL trộn.\n  PASS mixed-eol [content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.qmd]: Không có EOL trộn.\n  PASS trailing-whitespace [content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.qmd]: Không có trailing whitespace mới.\n  PASS utf8 [content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.qmd]: Đọc UTF-8 thành công.\n  PASS markdown-resources [content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.qmd]: Các tài nguyên cục bộ tồn tại.\n  PASS markdown-image-resources [content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.qmd]: Các tài nguyên cục bộ tồn tại.\n  PASS course-editorial [content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.qmd]: Terminology and source editorial review current\n  PASS course-instructions [content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.qmd]: Required instructions visible, optional help declared, uppercase openings checked\n  PASS course-learning-goals [content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.qmd]: One visible goal table, question-only guide and declared evidence checked\n  PASS course-reading-source [content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.qmd]: Current cover and independent reading policy checked\n  PASS course-answer-actions [content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.qmd]: Exact forward/return action wording checked\n  PASS course-label-source [content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.qmd]: QD_025: binding, functions, contexts and numbering checked\n  PASS course-remediation [content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.qmd]: Reviewed bottleneck rows, knowledge and task routes checked\n  PASS course-table-functions [content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.qmd]: Table function profiles, goal coverage and routes checked\n  PASS course-math-assets [content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.qmd]: role, native JSON and complete graph provenance checked\n  PASS qmd-project-discovery [content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.qmd]: project='on_thi_r2_g01'; article_type='on_thi_package'; config=content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/_quy_trinh/cau_hinh_san_xuat_qmd.yml.\n  PASS qmd-validator-plan [content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.qmd]: mode='native'; modules=['qmd-core', 'zo-html-pdf']; source=[]; render=[].\nAUTOMATED RESULT: PASS | EXIT=0\n=== QMD EARLY SOURCE POLICY ===\nPASS pdf-metadata-latex-compatibility: metadata PDF-string dùng văn bản thuần.\n\n=== QMD SCOPE ===\n$ C:\\Users\\DELL\\AppData\\Local\\Programs\\Python\\Python312\\python.exe E:\\zo_math\\scripts\\zo_python.py E:\\zo_math\\scripts\\zo_check_repo.py scope content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.qmd\n",
+    "only_declared_qmd_edits": true,
+    "display_math_unchanged": true,
+    "headings_and_existing_ids_unchanged": true,
+    "new_source_note_anchor": "chu-thich-mot",
+    "protected_files_unchanged": 16,
+    "previous_state_preserved_byte_for_byte": true,
+    "binding_change_limited_to_two_mode_rows": true,
+    "previous_editorial_receipt_preserved_except_two_current_hashes_and_one_review": true
+  },
+  "owner_content_approval": "pending",
+  "html_rendered": false,
+  "pdf_rendered": false,
+  "committed": false,
+  "pushed": false,
+  "published": false,
+  "related_binding_change": {
+    "file": "content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/giao_dien/he_nhan.json",
+    "before_sha256": "c232e8d454c965f1ffc5bbe943d64e0a41563b51294eb18783207978c60a7425",
+    "after_sha256": "67551081531cb5297688f92a14e18f4492acaf29ecc5cea803e7780f91356c7b",
+    "scope": "Đồng bộ tên hàng 8 và hai liên kết chú thích mới ở hàng 4, 8 của bảng Sửa lỗi; giữ các hàng và tuyến nhiệm vụ khác."
+  },
+  "modified_repo_files_this_turn": [
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.qmd",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/giao_dien/he_nhan.json",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/ho_so_bien_tap_ro_nghia_20261019.json",
+    "content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/03_dieu_hanh_chuong_trinh.md",
+    "content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/_quy_trinh/ho_so/doi_chieu_mot_20261024.json"
+  ]
+}

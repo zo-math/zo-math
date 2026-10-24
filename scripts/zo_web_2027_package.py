@@ -13,6 +13,17 @@ class Builder(HomeBuilder):
   super().__init__(output_root/f'assets/zo_web_2027/{key}/index.html',output_root);self.runtime=self.output
  def common_assets(self):PreviewBuilder.common_assets(self)
 
+def normalize_source_notes(root):
+ """Keep source-note paragraphs and explicit link targets intact."""
+ for note in list(root.select('div.zo-source-note')):
+  children=note.find_all(recursive=False)
+  if not children or any(child.name!='p' for child in children):
+   raise ValueError('Source note must contain complete paragraphs')
+  if len(children)==1:
+   paragraph=children[0].extract()
+   paragraph.attrs.update(note.attrs)
+   note.replace_with(paragraph)
+
 def adapt(path,output_root,package):
  PACKAGE=Path(package);settings=json.loads((REPO/PACKAGE/'giao_dien/html.json').read_text(encoding='utf-8'));key=settings['runtime']
  if settings.get('schema_version')!=1 or settings.get('package')!=PACKAGE.name:raise ValueError('Invalid package shell binding')
@@ -38,10 +49,7 @@ def adapt(path,output_root,package):
    for key in list(node.attrs):
     if key.startswith('data-zo-'):del node[key]
    node['class']=[c for c in node.get('class',[]) if c!='zo-learning-task']
- for note in list(root.select('div.zo-source-note')):
-  children=note.find_all(recursive=False)
-  if len(children)!=1 or children[0].name!='p':raise ValueError('Source note must be one complete paragraph')
-  paragraph=children[0].extract();paragraph['class']=['zo-source-note'];note.replace_with(paragraph)
+ normalize_source_notes(root)
  root['class']=list(dict.fromkeys(root.get('class',[])+['reader-content']))
  root['data-r1-lesson-selector']=settings['lesson_selector']
  root['data-r1-review-rounds']=json.dumps(settings.get('review_rounds',[]),ensure_ascii=False)

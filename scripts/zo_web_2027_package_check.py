@@ -24,7 +24,8 @@ def run(page):
  checks['all 27 task pairs retained']=len([u for u in data['units'] if u.get('answer')])==27
  checks['five lesson headings']=len(reader.select('#bai-hoc > section[data-zo-lesson]'))==5
  checks['three separate review targets']=len(reader.select('#on-lai [data-zo-context^="round:"]'))==3
- checks['source note paragraphs retained']=len(reader.select('p.zo-source-note'))==10
+ expected_notes=len(re.findall(r'(?m)^:+ \{[^}\n]*\.zo-source-note\b',source.read_text(encoding='utf-8')))
+ checks['source note paragraphs retained']=len(reader.select('.zo-source-note'))==expected_notes and expected_notes>0
  checks['long data sequences locally scrollable']=len(reader.select('.zo-inline-math-scroll math'))>=4
  checks['no invented variation data']=native_records(source.parent.name)=={} and not (source.parent/'du_lieu/bang_bien_thien.json').exists()
  checks['native data tables classified']=all(t.get('data-table-kind') for t in reader.select('table'))
