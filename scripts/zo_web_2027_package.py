@@ -93,7 +93,8 @@ def adapt(path,output_root,package):
  from zo_course_cover import load_cover
  builder.materialize(load_cover(REPO,PACKAGE.name,allow_direction_approved=True),'assets/cover.svg')
  for name in ['r1-g02-adapter.css','site-footer.css','r1-consistency.css']:builder.materialize(KIT/name,name)
- if root.select('img[src]'):raise ValueError('Body illustrations need an explicit role-aware adapter')
+ from zo_course_illustrations import materialize as materialize_illustrations
+ materialize_illustrations(root,REPO/PACKAGE,builder)
  for link in root.select('a[href]'):
   split=urlsplit(link['href'])
   if split.scheme or split.netloc or not split.path:continue
