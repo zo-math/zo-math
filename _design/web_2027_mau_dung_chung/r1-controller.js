@@ -245,6 +245,138 @@
     lessonNav.append(lessonToc);
     lessonDetails.append(lessonSummary, lessonNav);
 
+    // Opt-in hierarchical contents; headings remain owned by the QMD source.
+    const contents = JSON.parse(root.dataset.zoContents || '[]');
+    const contentsBranches = new Map();
+    const contentsLinks = [];
+    let contentsSerial = 0;
+    if (contents.length) {
+      nav.classList.add('zo-contents-nav');
+      // A disclosure navigation contains links and buttons, not a flat tab widget.
+      tablist.removeAttribute('role');
+      tablist.removeAttribute('aria-orientation');
+      viewPanel.removeAttribute('role');
+      tabs.forEach(tab => {tab.removeAttribute('role');tab.removeAttribute('aria-selected');});
+      function makeList(items, view) {
+        const list = document.createElement('ul');
+        list.className = 'zo-contents-list';
+        items.forEach(item => {
+          const li = document.createElement('li');
+          const row = document.createElement('div');
+          row.className = 'zo-contents-row';
+          const link = document.createElement('a');
+          link.href = urlFor(view, item.target, null);
+          link.textContent = item.label;
+          link.dataset.contentsTarget = item.target;
+          row.append(link); li.append(row); list.append(li);
+          contentsLinks.push({link, target:document.getElementById(item.target),view});
+          link.addEventListener('click', event => {
+            if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+            event.preventDefault(); event.stopPropagation();
+            const target = document.getElementById(item.target);
+            const nextView = currentView === 'toan-van' ? 'toan-van' : ownerView(target);
+            showView(nextView); openAncestors(target);
+            writeLocation(nextView,target.id,false,null); renderReturnBar(target);
+            scrollToTarget(target,true);
+            document.dispatchEvent(new CustomEvent('zo:contents-destination',{detail:{target}}));
+          });
+          if (item.children) addDisclosure(row,li,makeList(item.children,view),item.label);
+        });
+        return list;
+      }
+      function addDisclosure(row,owner,list,label) {
+        const button=document.createElement('button');button.type='button';
+        button.className='zo-contents-toggle';button.textContent='›';
+        button.setAttribute('aria-label','Mở hoặc thu gọn các mục trong '+label);
+        list.id='zo-contents-'+(++contentsSerial);
+        button.setAttribute('aria-controls',list.id);button.setAttribute('aria-expanded','false');
+        list.hidden=true;row.append(button);owner.append(list);
+        button.addEventListener('click',()=>{list.hidden=!list.hidden;button.setAttribute('aria-expanded',String(!list.hidden));});
+        return {list,button};
+      }
+      contents.forEach(group=>{
+        const tab=document.getElementById('r1-tab-'+group.view);
+        if (!tab) throw new Error('Missing contents view '+group.view);
+        const owner=document.createElement('div');owner.className='zo-contents-branch';
+        const row=document.createElement('div');row.className='zo-contents-row';
+        tab.before(owner);row.append(tab);owner.append(row);
+        contentsBranches.set(group.view,addDisclosure(row,owner,makeList(group.items,group.view),tab.textContent));
+      });
+      // Existing review URLs remain valid; the tree supplies their visible links.
+      tabs.forEach(tab=>{if(tab.dataset.parentView)tab.hidden=true;});
+      const lessonItems=contents.find(g=>g.view==='bai-hoc').items;
+      lessonToc.replaceChildren(makeList(lessonItems,'bai-hoc'));
+      let ticking=false;
+      addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(()=>{ticking=false;markContents();});}},{passive:true});
+      addEventListener('resize',markContents);
+    }
+    let readingContents = {section:null, active:null};
+    function markContents() {
+      if (!contents.length) return;
+      // No child is current until its actual position has been reached.
+      let section=null;
+      contentOrder.forEach(id=>{
+        const node=sectionById.get(id);
+        if(node.getClientRects().length && node.getBoundingClientRect().top<=140)section=node;
+      });
+      const visible=contentsLinks.filter(x=>section && section.contains(x.target) && x.target.getClientRects().length)
+        .sort((a,b)=>a.target===b.target?0:a.target.compareDocumentPosition(b.target)&Node.DOCUMENT_POSITION_FOLLOWING?-1:1);
+      let active=null;
+      visible.forEach(x=>{if(x.target.getBoundingClientRect().top<=140)active=x;});
+      readingContents={section,active};
+      const readingView=section ? definitions.find(d=>!d.parent && d.ids.includes(section.id))?.view : null;
+      tabs.forEach(tab=>{
+        if(tab.id==='r1-tab-'+readingView)tab.setAttribute('data-reading-current','true');
+        else tab.removeAttribute('data-reading-current');
+      });
+      contentsLinks.forEach(x=>{
+        if(active && x.target===active.target)x.link.setAttribute('aria-current','location');
+        else x.link.removeAttribute('aria-current');
+        x.link.href=urlFor(currentView==='toan-van'?'toan-van':x.view,x.target.id,null);
+      });
+      followReadingContents();
+    }
+    function revealContents(target, sidebarOnly = false) {
+      if(!target)return;
+      const definition=definitions.find(d=>!d.parent && d.ids.some(id=>sectionById.get(id)?.contains(target)));
+      const branch=contentsBranches.get(definition?.view);
+      if(branch){branch.list.hidden=false;branch.button.setAttribute('aria-expanded','true');}
+      contentsLinks.filter(x=>x.target===target && (!sidebarOnly || nav.contains(x.link))).forEach(({link})=>{
+        for(let list=link.closest('.zo-contents-list');list;list=list.parentElement.closest('.zo-contents-list')){
+          list.hidden=false;document.querySelector('[aria-controls="'+list.id+'"]')?.setAttribute('aria-expanded','true');
+        }
+      });
+    }
+    function followReadingContents() {
+      const target=readingContents.active?.target || readingContents.section;
+      if(!target)return;
+      // Open only the navigation tree, never the in-content TOC or an answer.
+      revealContents(target,true);
+      const links=contentsLinks.filter(x=>x.target===target && nav.contains(x.link));
+      const link=links.length ? links[links.length-1].link : nav.querySelector('[data-reading-current]');
+      if(!link)return;
+      const dialog=document.getElementById('mobile-nav');
+      const scroller=dialog?.open ? dialog : document.getElementById('rail-content');
+      if(!scroller || !scroller.getClientRects().length || !link.getClientRects().length)return;
+      const bounds=scroller.getBoundingClientRect(), item=link.getBoundingClientRect();
+      const top=Math.max(0,bounds.top)+12, bottom=Math.min(innerHeight,bounds.bottom)-12;
+      // Adjust the navigation's own scroll only; never move the reading page.
+      if(item.top<top)scroller.scrollTop+=item.top-top;
+      else if(item.bottom>bottom)scroller.scrollTop+=item.bottom-bottom;
+    }
+    function syncContents() {
+      if (!contents.length) return;
+      // Reveal only the destination. Unrelated user-opened/closed branches persist.
+      revealContents(targetFromHash(location.hash));
+      tabs.forEach(tab=>{tab.tabIndex=tab.hidden?-1:0;});
+      requestAnimationFrame(markContents);
+    }
+    document.addEventListener('zo:contents-open',()=>{
+      if(!contents.length)return;
+      markContents();
+      requestAnimationFrame(followReadingContents);
+    });
+
     let currentView = definitions[0].view;
 
     const header = document.getElementById('quarto-header');
@@ -547,8 +679,8 @@
       applyViewScope(definition);
       tabs.forEach((tab, index) => {
         const selected = definitions[index].view === currentView;
-        tab.setAttribute('aria-selected', selected ? 'true' : 'false');
-        tab.tabIndex = selected ? 0 : -1;
+        tab.setAttribute(contents.length ? 'aria-pressed' : 'aria-selected', selected ? 'true' : 'false');
+        tab.tabIndex = contents.length ? (tab.hidden ? -1 : 0) : (selected ? 0 : -1);
       });
       const selectedTab = tabs[definitions.findIndex(item => item.view === currentView)];
       viewPanel.setAttribute('aria-labelledby', selectedTab.id);
@@ -580,6 +712,7 @@
     function writeLocation(view, targetId, replace = false, context) {
       const method = replace ? 'replaceState' : 'pushState';
       history[method]({r1View: view, r1Target: targetId}, '', urlFor(view, targetId, context));
+      syncContents();
     }
     function activateTab(index) {
       const definition = definitions[index];
@@ -594,6 +727,7 @@
     tabs.forEach((tab, index) => {
       tab.addEventListener('click', () => activateTab(index));
       tab.addEventListener('keydown', event => {
+        if (contents.length) return;
         let nextIndex = null;
         if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
         if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
@@ -665,6 +799,7 @@
       let view = byView.has(requested) ? requested : definitions[0].view;
       if (target && view !== 'toan-van') view = ownerView(target);
       showView(view);
+      syncContents();
       const finalTarget = target || document.getElementById(defaultTarget(view));
       openAncestors(finalTarget);
       const hasCanonicalState = requested === view && Boolean(target);
@@ -684,6 +819,7 @@
       lessonHeadings.forEach(heading => {
         if (heading.getBoundingClientRect().top <= offset) activeId = heading.closest('section.level3').id;
       });
+      if (contents.length) { markContents(); return; }
       lessonToc.querySelectorAll('a').forEach(link => {
         let linkId = '';
         try { linkId = decodeURIComponent(link.hash.slice(1)); } catch { linkId = ''; }
