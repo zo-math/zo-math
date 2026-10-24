@@ -666,10 +666,10 @@
       {
         "selector": "#r2g01-table-03 table",
         "kind": "process",
-        "role": "Bài/điều còn vướng · Phần cần ôn · Trở lại bài",
+        "role": "Em còn vướng ở đâu? · Mở phần ôn nào? · Ôn xong, làm lại",
         "caption_policy": "context",
         "caption_reason": "Lời dẫn và đầu cột xác định nội dung bảng.",
-        "function": "warmup"
+        "function": "warmup_questions"
       },
       {
         "selector": "#r2g01-table-04 table",
@@ -904,7 +904,7 @@
       {
         "selector": "#r2g01-table-25 table",
         "kind": "frequency",
-        "role": "Ngày · PRCP, mm · Ký hiệu T",
+        "role": "Ngày · Lượng giáng thủy, mm · Ký hiệu T",
         "caption_policy": "context",
         "caption_reason": "Lời dẫn và đầu cột xác định nội dung bảng.",
         "right_columns": [
@@ -926,7 +926,7 @@
       {
         "selector": "#r2g01-table-27 table",
         "kind": "frequency",
-        "role": "Số cần tìm · Vị trí $r$ · Nhóm, mm · $F$ · $f$ · Kết quả, mm",
+        "role": "Số cần tìm · Mốc tần số $r$ · Nhóm, mm · $F$ · $f$ · Kết quả, mm",
         "caption_policy": "context",
         "caption_reason": "Lời dẫn và đầu cột xác định nội dung bảng.",
         "right_columns": [
@@ -1014,7 +1014,7 @@
       {
         "selector": "#r2g01-table-35 table",
         "kind": "frequency",
-        "role": "Số cần tìm · Vị trí dùng để nội suy · Khoảng, mm · Số quan sát trước khoảng · Tần số của khoảng",
+        "role": "Số cần tìm · Mốc tần số dùng để nội suy · Khoảng, mm · Số quan sát trước khoảng · Tần số của khoảng",
         "caption_policy": "context",
         "caption_reason": "Lời dẫn và đầu cột xác định nội dung bảng."
       }
@@ -1382,6 +1382,21 @@
         "Lượt ôn",
         "Thời điểm",
         "Trọng tâm"
+      ]
+    },
+    "warmup_questions": {
+      "kind": "process",
+      "widths": [
+        26,
+        44,
+        30
+      ],
+      "responsive": "records",
+      "row_header": true,
+      "headers": [
+        "Em còn vướng ở đâu?",
+        "Mở phần ôn nào?",
+        "Ôn xong, làm lại"
       ]
     }
   }
