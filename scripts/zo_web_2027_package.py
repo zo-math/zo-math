@@ -54,6 +54,8 @@ def adapt(path,output_root,package):
  root['data-r1-lesson-selector']=settings['lesson_selector']
  root['data-r1-review-rounds']=json.dumps(settings.get('review_rounds',[]),ensure_ascii=False)
  root['data-zo-reading-contract']='source-owned'
+ from zo_course_contents import apply_contents
+ apply_contents(root,settings)
  for formula in root.select('math:not([display=block])'):
   annotation=formula.select_one('annotation[encoding="application/x-tex"]')
   if annotation and (annotation.get_text().count(';')>=4 or len(annotation.get_text())>100):
