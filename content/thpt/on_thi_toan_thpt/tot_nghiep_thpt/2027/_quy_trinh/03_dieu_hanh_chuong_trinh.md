@@ -1,5 +1,11 @@
 # Điều hành chương trình — trạng thái và việc tiếp theo
 
+**Duyệt năm ảnh minh họa R2-G01 — 25/10/2026.** Chủ trì đã duyệt cả năm ảnh tại Nhiệm vụ 01, Ví dụ 08, Nhiệm vụ 14, 19 và 24, cho phép commit cục bộ đúng phạm vi. [Biên nhận duyệt năm ảnh](../../../hoc_lieu/r2_g01/_quy_trinh/ho_so/duyet_nam_anh_20261025.json) ghi hash nguồn, ảnh và HTML đã kiểm. Các ghi nhận chờ duyệt ảnh bên dưới là lịch sử. Không dựng PDF, push hoặc xuất bản.
+
+**Ba ảnh minh họa tiếp theo R2-G01 — 25/10/2026.** Chủ trì đã duyệt cách chèn hai ảnh trước và phương án ba ảnh tiếp theo. Đã chèn trạm khí tượng tại Nhiệm vụ 14, Chinstrap tại Nhiệm vụ 19 và Gentoo tại Nhiệm vụ 24 (thuộc Sửa lỗi; đề xuất trước gọi nhầm Ôn nền). Chỉ dựng ba khối ảnh; HTML ngoài ba khối và nội dung toán giữ nguyên. Kiểm HTML đạt 2620/2620, đã xem cả ba vị trí trên màn hình rộng/hẹp. Chờ duyệt kết quả; chưa dựng PDF, commit, push hoặc xuất bản. Bằng chứng: `_audit/r2g01_three_illustrations_20261025/`.
+
+**Hai ảnh minh họa R2-G01 — 25/10/2026.** Đã chèn ảnh Adélie tại Nhiệm vụ 01 và ảnh xe đạp dùng chung tại Ví dụ 08 theo hai mẫu được duyệt. Chỉ dựng hai khối ảnh; HTML ngoài hai khối giữ nguyên, nội dung toán không đổi. Kiểm HTML đạt 2617/2617; đã xem trên màn hình rộng và hẹp. Chờ chủ trì xem kết quả. Bằng chứng: `_audit/r2g01_two_illustrations_20261025/`. Chưa dựng PDF, commit, push hoặc xuất bản.
+
 **Duyệt mục lục R2-G01 — 25/10/2026.** Chủ trì đã duyệt mục lục mới, gồm phân cấp, chỉ báo vị trí, tự mở nhánh và tự cuộn vùng mục lục; cho phép commit cục bộ đúng phạm vi. [Biên nhận duyệt mục lục](../../../hoc_lieu/r2_g01/_quy_trinh/ho_so/duyet_muc_luc_20261025.json) ghi SHA-256 nguồn, HTML và runtime đã duyệt. Các ghi nhận chờ duyệt mục lục bên dưới là lịch sử. Giữ nguyên nội dung toán; chờ yêu cầu công việc tiếp theo. Chưa dựng PDF, push hoặc xuất bản.
 
 **Theo vị trí đọc R2-G01 — 25/10/2026.** Theo yêu cầu mới của chủ trì, mục lục tự mở nhánh đang đọc và cuộn riêng vùng điều hướng để mục hiện tại nằm trong tầm nhìn. Không tự mở mục lục trong thân bài hay lời giải, không kéo vị trí nội dung trang. Chỉ cập nhật nguồn controller và runtime riêng R2-G01; QMD và HTML giữ nguyên byte. Đã kiểm trình duyệt rộng/hẹp; chờ chủ trì duyệt. Bằng chứng: `_audit/r2g01_contents_follow_20261025/`. Chưa dựng PDF, commit, push hoặc xuất bản.
