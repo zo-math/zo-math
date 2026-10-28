@@ -63,7 +63,7 @@ Mỗi lỗi đã xử lí phải ghi triệu chứng, nguyên nhân đã kiểm,
 
 ### 1.4. Áp dụng mẫu bản thảo và bảng kiểm — QD_036
 
-Theo chốt của chủ trì ngày 16/10/2026, khi giao viết/rà/sửa bản thảo gói R1 của khóa 2027 bằng ngôn ngữ tự nhiên, agent tự nạp [mẫu bản thảo](mau/ban_thao_goi.md) và [bảng kiểm](mau/bang_kiem_ban_thao_goi.md), cùng 01/07 và hồ sơ gói. Ví dụ “Viết bản thảo gói R1-G04” đã đủ để gọi quy trình; không yêu cầu chủ trì nhớ tên tệp hay câu lệnh. D0, tài nguyên Nền hoặc loại khác phải chọn hợp đồng phù hợp, không ép vào mẫu R1.
+Theo chốt của chủ trì ngày 16/10/2026, khi giao viết/rà/sửa bản thảo gói học liệu của khóa 2027 bằng ngôn ngữ tự nhiên, agent tự nạp [mẫu bản thảo](mau/ban_thao_goi.md) và [bảng kiểm](mau/bang_kiem_ban_thao_goi.md), cùng 01/07 và hồ sơ gói. Ví dụ “Viết bản thảo gói R1-G04” đã đủ để gọi quy trình; không yêu cầu chủ trì nhớ tên tệp hay câu lệnh. D0, tài nguyên Nền hoặc loại khác phải chọn hợp đồng phù hợp, không ép vào khung gói học liệu. Phạm vi mở rộng từ R1 theo R2G01-LESSONS-20261028; không đổi chức năng riêng của từng mạch.
 
 **Nạp quy cách trình bày trước viết/rà:** đọc thêm mục “Công thức và nguồn đối chiếu” của quy chuẩn gói, quy chuẩn ngoặc LaTeX, hướng dẫn khối nội dung, 07/6.1, 6.1.2 và 6.3; thực hiện ma trận/cổng tại 2.5. Có hình thì đọc hướng dẫn công cụ đồ thị ZO Math/profile 0.4 được 07 dẫn. Áp dụng ngay trong bản thảo; không chờ chuyển QMD mới sửa chú thích hoặc hình. Chính văn và provenance có vai trò khác nhau: nêu nội dung trực tiếp, dẫn nguồn bằng chú thích chuẩn, lưu quá trình đối chiếu trong hồ sơ. Số kiểm tính toán/liên kết không chứng nhận đạt biên tập hay thị giác.
 
@@ -74,6 +74,22 @@ Theo chốt của chủ trì ngày 16/10/2026, khi giao viết/rà/sửa bản t
 5. Sau chủ trì duyệt bản thảo mới chuyển QMD theo quy chuẩn gói; tài nguyên chính thức dựng lại bằng công cụ ZO Math, rồi kiểm hình và bản xuất thực. Hai mẫu này điều hành biên soạn/kiểm nội dung; kit `_design/web_2027_mau_dung_chung/` điều hành hiện thực trang theo 07. Mẫu bản thảo không chứa CSS/JS và không tự cấp quyền render, commit, PDF hoặc phát hành.
 
 Khi có cải tiến được chốt, cập nhật mẫu/bảng kiểm và các đích bị ảnh hưởng cùng lượt, tăng phiên bản và ghi phạm vi tại 04/08. Gói đang làm chỉ kiểm lại phần chịu ảnh hưởng; kết quả cũ giữ theo phiên bản, không tự sửa hồi tố gói đã có. Cơ chế gọi hiện tại là chỉ dẫn bắt buộc trong AGENTS và quy trình này; chưa phải chương trình tự sinh hay cổng tự động đánh giá chất lượng lời giảng. Cổng tài liệu hiện có kiểm phụ thuộc/quy tắc đã mã hóa; kết quả bảng kiểm vẫn cần đọc có trách nhiệm.
+
+### 1.5. Rà lời giảng và sửa có đối chiếu — R2G01-LESSONS-20261028
+
+1. Trước viết, lập bản đồ ngắn: câu hỏi/ý tưởng toán → điều người học cần giải thích → tình huống/ví dụ/phản ví dụ → giả thiết/giới hạn → nhiệm vụ và nút thắt liên quan. Đọc gói trước theo chức năng, không dùng bộ dữ liệu hoặc số lượng hoạt động làm khung cố định. Theo 01/2.1.1 và 07/6.1.6.
+2. Khi được giao rà, đọc cả phạm vi yêu cầu, gồm nguồn include, đề–lời giải, bảng/hình/chú thích và điều hướng liên quan. Những chỗ chủ trì nêu là điểm khởi đầu, không phải danh sách lỗi đầy đủ. Kiểm kê vị trí, nguyên văn, vấn đề, cách sửa và điều kiện cần giữ; với vấn đề lập luận, viết một đoạn mẫu đủ ngữ cảnh để đánh giá cách diễn giải.
+3. Nếu chủ trì yêu cầu duyệt kiểm kê/đoạn mẫu trước tích hợp, giữ nguyên nguồn cho đến khi được duyệt. Sau khi đã duyệt, thực hiện hết phạm vi được giao, không hỏi lại cùng một quyền. Chỉ thị sửa trực tiếp hợp lệ không bị biến thành một vòng xin phép mới bởi quy trình này.
+4. Khi tích hợp, đọc phần trước và sau, chỉnh chuyển tiếp; rà các lời nhắc lại, ví dụ, lời giải, hình và bảng chịu ảnh hưởng. Kiểm nội dung theo nguồn và giả thiết, không dùng số lượng công thức hoặc PASS từ khóa để chứng nhận người học hiểu được lập luận. Giữ các dữ kiện, điều kiện, ID và tài sản ngoài phạm vi.
+5. Ghi riêng: phương án được duyệt; đoạn/nội dung được duyệt; đã tích hợp; đã kiểm nguồn; đã dựng/quan sát HTML; chủ trì chấp nhận kết quả; PDF tương ứng; phát hành. Không dùng việc người dùng chuyển sang góp ý khác làm nghiệm thu toàn bộ bản xuất. Kiểm lại đúng phần chịu ảnh hưởng, không dựng lại sản phẩm ngoài nhiệm vụ.
+
+### 1.6. Bản thảo so sánh với bản đang dùng — R2G01-LESSONS-20261028
+
+Khi được giao tạo phương án thay thế, dùng vùng bản thảo riêng theo quy chuẩn gói. Ghi đường dẫn tuyệt đối của nguồn chính, nguồn thảo, đầu ra HTML, thư mục gốc máy chủ và URL tương ứng trong hồ sơ. Hai cổng localhost khác nhau không chứng minh hai nguồn tách biệt. Xác minh hash nguồn/đầu ra, một dấu nhận diện nội dung thật và nhãn phiên bản trên trang trước khi gọi nó là bản thảo mới.
+
+Bản HTML để đánh giá dùng đúng giao diện chính thức, nhãn Bản thảo và phiên bản nhìn thấy; có thể mở bản đang dùng bên cạnh để đối chiếu. Không gọi giao diện dựng nhanh là giao diện chính thức, không mở bản cũ rồi nhận là bản mới. Khi URL lỗi, thực hiện 2.6 và quy trình bàn giao HTML của repo; không chỉ gửi lại liên kết.
+
+Trước thay bản chính theo lệnh đã duyệt: sao lưu đủ nguồn/tài nguyên cần phục hồi, lập danh sách tệp thay thế, kiểm nội dung đã duyệt và bảo toàn phần còn lại. Sau thay: kiểm đúng đường dẫn chính thức, gỡ nhãn Bản thảo ở bản chính, ghi nơi sao lưu và trạng thái HTML/PDF riêng. Vùng thảo phải xóa được mà bản chính không thiếu tài nguyên; không tự xóa trong nhiệm vụ không yêu cầu dọn. Phê duyệt thay bản chính không tự cho phép xuất bản website.
 
 ## 2. Quy trình một lượt làm việc
 
@@ -272,11 +288,11 @@ Khi hiệu chỉnh bảng/hình theo 07/6.1.1, kiểm kê bảng biến thiên, 
 
 ## Kiểm hợp nhất mục tiêu — GOALS-START-20261018
 
-Theo 07/6.1.4, trước sửa lập bảng đối chiếu Bắt đầu/bảng cũ/bằng chứng; sau sửa mỗi gói còn một bảng mục tiêu nhìn thấy ở Bắt đầu và khối Câu hỏi dẫn đường không chứa bảng. Chạy `zo_qmd.py check` cho đúng gói; cổng `course-learning-goals` và `zo_course_learning_goals_selftest.py` kiểm cả adapter cũ/mới, mất dòng, sai chủ sở hữu và đối chiếu bị ẩn. Chỉ kiểm trong bộ nhớ nếu chưa được dựng HTML; không lấy kết quả đó làm nghiệm thu sản phẩm mới. G01 dùng phép đảo giới hạn để đối chiếu fingerprint cũ, không cập nhật fingerprint/receipt nghiệm thu; văn bản lịch sử chỉ tham gia so sánh, không dùng sinh nội dung.
+Theo 07/6.1.4, trước sửa lập bảng đối chiếu Bắt đầu/bảng cũ/bằng chứng; sau sửa mỗi gói còn một bảng mục tiêu nhìn thấy ở Bắt đầu và dẫn nhập Bài học luôn mở bằng đoạn thường, không có nhãn/heading riêng hoặc mục lục lặp theo R2G01-LESSONS-20261028. Chạy `zo_qmd.py check` cho đúng gói; cổng `course-learning-goals` và `zo_course_learning_goals_selftest.py` kiểm cả adapter cũ/mới, mất dòng, sai chủ sở hữu và đối chiếu bị ẩn. Chỉ kiểm trong bộ nhớ nếu chưa được dựng HTML; không lấy kết quả đó làm nghiệm thu sản phẩm mới. G01 dùng phép đảo giới hạn để đối chiếu fingerprint cũ, không cập nhật fingerprint/receipt nghiệm thu; văn bản lịch sử chỉ tham gia so sánh, không dùng sinh nội dung.
 
 ## Kiểm chỉ dẫn thực hiện — INSTRUCTIONS-20261018
 
-Khi viết/rà Cách thực hiện, áp dụng 07/6.1.5: kiểm kê từng mục trong ngữ cảnh, quyết định giữ/sửa/bỏ có lí do và ghi chỗ yêu cầu còn được giữ. Không kiểm chỉ bằng số hộp hoặc chữ hoa. Nạp mẫu bản thảo 1.4, bảng kiểm 1.7; ghi không áp dụng khi chỉ dẫn không cần, không điền lời nhắc đọc cho đủ khung. Chạy `scripts/zo_course_instructions_selftest.py` qua launcher và cổng QMD nguồn; cổng HTML dùng cùng module khi được phép dựng. Chỉ sửa nguồn thì kiểm DOM trong bộ nhớ, không ghi HTML. G01 dùng phép đảo giới hạn trong bản sao cây kiểm để giữ fingerprint nghiệm thu gốc, cập nhật binding nguồn minh bạch; không sửa receipt hoặc lấy HTML lịch sử làm đầu vào dựng.
+Khi viết/rà Cách thực hiện, áp dụng 07/6.1.5: kiểm kê từng mục trong ngữ cảnh, quyết định giữ/sửa/bỏ có lí do và ghi chỗ yêu cầu còn được giữ. Không kiểm chỉ bằng số hộp hoặc chữ hoa. Nạp phiên bản hiện hành của mẫu bản thảo và bảng kiểm; ghi không áp dụng khi chỉ dẫn không cần, không điền lời nhắc đọc cho đủ khung. Chạy `scripts/zo_course_instructions_selftest.py` qua launcher và cổng QMD nguồn; cổng HTML dùng cùng module khi được phép dựng. Chỉ sửa nguồn thì kiểm DOM trong bộ nhớ, không ghi HTML. G01 dùng phép đảo giới hạn trong bản sao cây kiểm để giữ fingerprint nghiệm thu gốc, cập nhật binding nguồn minh bạch; không sửa receipt hoặc lấy HTML lịch sử làm đầu vào dựng.
 
 
 ### Rà thuật ngữ và câu chữ trước trình — EDITORIAL-20261018
@@ -307,3 +323,9 @@ Chạy `zo_course_table_roles_selftest.py` qua launcher cùng `zo_qmd.py check` 
 Trước viết/rà nội dung toàn khóa, nạp [07/6.1.6](07_quy_chuan_cau_truc_trang_nguoi_hoc.md#giong-van-ro-nghia-co-ngu-canh). Đọc từng nhiệm vụ từ góc nhìn người học quay lại sau nhiều ngày: có hiểu đối tượng và dữ liệu không, có từ chưa giải thích không, biết mình đang tìm điều gì không, kết quả có được diễn giải đúng phạm vi không? Rà đề và lời giải cùng nhau; lập đối chiếu nguyên văn — vấn đề — câu mới — điều kiện/đích cần giữ.
 
 Dùng B27 của bảng kiểm. Với Ôn lại, kiểm không nhắc trước kiến thức/cách giải; vẫn đủ ngữ cảnh và quy ước dữ liệu. Không coi thêm một đoạn giới thiệu là đã đạt nếu câu hỏi không dùng ngữ cảnh. Ghi riêng quy chuẩn đã duyệt, bản thảo đã duyệt từng phần, nguồn đã áp dụng và HTML/PDF đã kiểm. Chuẩn mới không cấp quyền sửa hoặc dựng phần ngoài nhiệm vụ; kiểm tự động chỉ hỗ trợ, không chứng nhận giọng văn.
+
+## Kiểm bố cục sau hiệu chỉnh R2G01-LESSONS-20261028
+
+Theo 07/6.1.4, 6.2.1–6.2.2 và 6.3: đối chiếu cây mục kiến thức/hoạt động từ nguồn tới DOM và mục lục; kiểm đoạn dẫn nhập luôn nhìn thấy; đo kiểu chữ tên hoạt động so với chính văn và nhãn ngữ cảnh; đọc ý nghĩa mọi dấu trong hình; kiểm cả hai nút tới/lui ở cỡ rộng/hẹp bằng ảnh, số đo và thao tác thực. Giữ bookmark và cặp đề–lời giải. Dùng B02, B07, B19, B21, B27–B29 của bảng kiểm.
+
+Registry ghi phần tự động đã có và phần phải đọc/xem thủ công. Không tuyên bố cổng từ vựng đã chứng minh lập luận hay checker cũ đã kiểm đầy đủ quy tắc mới. Gói cũ được đánh giá khi có nhiệm vụ liên quan; ghi chênh lệch, sửa trong phạm vi được giao và chỉ trình phần không còn lỗi chặn. Lượt chỉ cập nhật quy chuẩn không sửa sản phẩm hoặc gia hạn nghiệm thu sản phẩm.

@@ -5,6 +5,26 @@ Phiên bản: 0.2 · Cập nhật: 16/10/2026.
 Chỉ ghi quyết định có ảnh hưởng lâu dài; không chép hội thoại hay log lệnh. Bảng điều hành ghi việc hiện hành. [Điểm vào](README.md).
 
 
+## R2G01-LESSONS-20261028 — Tổng kết và áp dụng cải tiến từ R2-G01
+
+Ngày 28/10/2026, chủ trì yêu cầu tổng kết toàn bộ góp ý, đề xuất và sửa đổi đã thực hiện/chấp nhận, cập nhật đúng nơi để cải tiến sản xuất về sau. Đây là quyền cập nhật quy trình/quy chuẩn, không là xác nhận nghiệm thu mọi bản HTML gần nhất.
+
+| Chủ đề | Phần được giữ/thay | Chủ sở hữu hiện hành |
+|---|---|---|
+| Lời giảng | Ý tưởng toán và lập luận dẫn việc chọn ví dụ/dữ liệu; không chỉ tính minh họa trên bộ dữ liệu cố định; giữ dữ liệu thực khi phù hợp | 01/2.1.1; 07/6.1.6 |
+| Văn phong | Cụ thể hóa VOICE-CONTEXT-20261023: đủ ngữ cảnh và bước giải thích, điều kiện toán thực; không dùng giới hạn tài liệu để né nghĩa | 07/6.1.6; 02/1.5 |
+| Phân số | Làm rõ QD_029, dạng tử–mẫu kể cả trong dòng văn | Quy chuẩn gói |
+| Dẫn nhập | Thay riêng phần thu gọn của GOALS-START-20261018; phương án nhãn lớn sau đó cũng bị bác. Chốt cuối là đoạn văn thường luôn mở, không mục/nhãn riêng | 07/6.1.4 |
+| Phân cấp | Thay giới hạn tạm chưa duyệt tại QD_032 bằng mục kiến thức hai cấp khi cần, hoạt động đúng mục cha; giữ chức năng và dãy số theo loại | 07/6.2.1 |
+| Kiểu chữ | Bỏ kiểu nhãn cho Gợi mở/Ví dụ/Nhiệm vụ trong Bài học; chính văn in đậm toàn tên, nhãn ngữ cảnh giữ kiểu riêng | 07/6.2.1 |
+| Hình | Làm rõ yêu cầu thiết kế đã có: nhãn/giải nghĩa, chú thích có chức năng, nối với lập luận; kiểm hình thật | 07/6.3 |
+| Nút chuyển | Thay nút chữ hình chữ nhật bằng cặp nút tròn gọn chỉ mũi tên, ở tâm, dưới Bảo trợ; tên đích trợ năng. 36/20 px là bản thực hiện còn chờ góp ý, chưa khóa token | 07/6.2.2 |
+| Bản thảo và bàn giao | Tách nguồn/đầu ra thật, giao diện chính thức có nhãn phiên bản; kiểm đúng trang; thay bản chính có sao lưu và bảo toàn | Quy chuẩn gói; 02/1.6,2.6 |
+
+Mẫu bản thảo tăng 1.5 → 1.6; bảng kiểm 1.8 → 1.9, thay trực tiếp chỉ dẫn cũ còn hoạt động (dẫn nhập đóng, Ví dụ/Tự kiểm tra chiếm số tiểu mục, nhãn MẠCH HỌC CHÍNH). AGENTS, 08 và registry dẫn lại các chủ sở hữu. Phạm vi áp dụng là lần sản xuất/hiệu chỉnh được giao tiếp theo của các gói trong chuyên mục; không tự sửa tất cả gói cũ, công cụ chung, QMD/HTML/PDF hoặc tài liệu Design 0.4. Các con số/đơn vị riêng R2-G01 không thành quota.
+
+Giữ nguyên các biên nhận lịch sử. Đã duyệt phương án hoặc một đoạn văn không đồng nghĩa đã nghiệm thu kết quả tích hợp. Bản chính thay ngày 27/10 đã được chọn; các lượt sửa sau ghi trạng thái từng phạm vi. [Hồ sơ tổng kết và bằng chứng](../../../hoc_lieu/r2_g01/_quy_trinh/ho_so/tong_ket_cai_tien_20261028.md); trạng thái/việc tiếp theo tại 03.
+
 ## VOICE-CONTEXT-20261023 — Giọng văn rõ nghĩa, có ngữ cảnh
 
 Ngày 23/10/2026, chủ trì duyệt tên và giao ghi thành quy chuẩn chung Ôn thi Toán THPT 2027. Mẫu tham chiếu là phần mở đầu Ôn lại và Ôn lần 1 R2-G01 đã hiệu chỉnh, không gồm Ôn lần 2–3 chưa duyệt. 07/6.1.6 sở hữu quy tắc, 01 làm rõ chức năng Ôn lại, 02 và mẫu/bảng kiểm sở hữu cách áp dụng; 03 ghi trạng thái. Quyết định cụ thể hóa chuẩn biên tập hiện hành, không thay kiến thức toán. Nhiệm vụ hiện tại chỉ sửa tài liệu quy chuẩn và soạn lại hai lượt ôn để duyệt; chưa sửa QMD, render, commit, push hoặc xuất bản.

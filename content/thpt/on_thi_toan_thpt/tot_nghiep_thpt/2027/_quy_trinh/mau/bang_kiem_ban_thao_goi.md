@@ -1,6 +1,6 @@
 # Bảng kiểm áp dụng mẫu bản thảo gói
 
-Phiên bản mẫu: **1.8** · Ngày: 23/10/2026 · Phạm vi: bản thảo gói R1 của khóa 2027. Đây là công cụ áp dụng, không tạo kiến trúc hoặc chuẩn hiển thị mới.
+Phiên bản mẫu: **1.9** · Ngày: 28/10/2026 · Phạm vi: bản thảo gói học liệu của khóa 2027. Đây là công cụ áp dụng, không tạo kiến trúc hoặc chuẩn hiển thị mới.
 
 Nguồn: [01 — chức năng học tập](../01_kien_truc_hoc_tap.md), [07 — trình bày](../07_quy_chuan_cau_truc_trang_nguoi_hoc.md), [02/1.4 — cách dùng](../02_quy_trinh_va_nghiem_thu.md#ap-dung-mau-ban-thao), [khung bản thảo](ban_thao_goi.md), [tổ chức nguồn](../quy_chuan_goi_qmd.md). G01/G02 là học liệu đối chiếu theo chức năng; nội dung toán và số lượng nhiệm vụ thuộc gói đang viết.
 
@@ -29,7 +29,7 @@ Bảng đối chiếu cấu trúc dùng trước viết: mỗi dòng phải ghi 
 | Thành phần/chức năng và nơi sở hữu | Vị trí trong gói đối chứng đã đọc (ghi rõ G01/G02/G03) | Vị trí dự kiến ở gói mới | Giữ/đổi/không áp dụng | Lí do và căn cứ chốt nếu đổi |
 |---|---|---|---|---|
 | Bắt đầu | Chưa điền | Chưa điền | Chưa điền | Chưa điền |
-| Bài học → Định hướng | Chưa điền | Chưa điền | Chưa điền | Chưa điền |
+| Bài học → hai đoạn dẫn nhập thường, luôn mở | Chưa điền | Chưa điền | Chưa điền | Chưa điền |
 | Bài học → Khởi động → nhiệm vụ và phản hồi/đường chọn nền | Chưa điền | Chưa điền | Chưa điền | Chưa điền |
 | Chỉ dẫn thao tác nếu cần → bỏ lặp, điều kiện nhìn thấy, đầu câu viết hoa | Chưa điền | Chưa điền | Chưa điền | Chưa điền |
 | Bài học → từng mục kiến thức → Gợi mở và phản hồi/cầu nối tại chỗ | Chưa điền | Chưa điền | Chưa điền | Chưa điền |
@@ -50,12 +50,12 @@ Bảng đối chiếu cấu trúc dùng trước viết: mỗi dòng phải ghi 
 | ID | Điều phải đọc/kiểm thực chất | Nguồn sở hữu | Kết quả/vị trí bằng chứng | Trạng thái |
 |---|---|---|---|---|
 | B01 | Bắt đầu có một bảng Học xong, em cần làm được gì? nhìn thấy, đối chiếu không mất mục tiêu từ bảng cũ/bằng chứng; đủ tiên quyết, điểm vào và điều kiện hoàn tất | 01/2.2–2.3,2.7; 07/4 | Chưa điền | Chưa kiểm |
-| B02 | Bài học và Luyện tập riêng; Câu hỏi dẫn đường mặc định đóng, không lặp bảng mục tiêu/Mục lục; giữ bốn khu vực và hỗ trợ ngang, không tạo chuỗi bắt buộc | 01/2.2.1; 07/3–4 | Chưa điền | Chưa kiểm |
+| B02 | Bài học và Luyện tập riêng; dẫn nhập luôn mở bằng hai đoạn thường, không nhãn/heading riêng, không lặp bảng mục tiêu hoặc mục lục ở thanh điều hướng; giữ bốn khu vực và hỗ trợ ngang, không tạo chuỗi bắt buộc | 01/2.2.1; 07/3–4 | Chưa điền | Chưa kiểm |
 | B03 | Khởi động thuộc Bài học, là nhiệm vụ kiểm nền thật, có phản hồi và đường chọn nền; không thay Gợi mở | 01/2.3; G01/G02 | Chưa điền | Chưa kiểm |
 | B04 | Từng Gợi mở thuộc đúng mục kiến thức trong Bài học, sau chỉ dẫn thao tác nếu thật sự cần, trước lời giải thích, có phản hồi/cầu nối tại chỗ; giữ nhãn và số liên tục toàn nhóm, không reset theo mục; không có mục Gợi mở chung ngang cấp Khởi động/Bài học | 01/QD_025; 07 bổ sung QD_025 | Chưa điền | Chưa kiểm |
 | B05 | Chính văn phát biểu trực tiếp; lời giảng/định nghĩa/định lí đủ điều kiện và có căn cứ đã đọc; chú thích .zo-source-note đúng vị trí/câu/tên/trang, không dẫn “theo SGK…” hoặc kể quá trình biên soạn trong lời giảng | Nguồn toán gói; 07/4.2,6.3; quy chuẩn gói/Công thức và nguồn đối chiếu | Chưa điền | Chưa kiểm |
 | B06 | Ví dụ đủ lời giải; Tự kiểm tra để tự làm, không dùng lại ví dụ đã giải làm bằng chứng mới; khép lại có điều cần tự giải thích | 01/2.1,2.5; G01/G02 | Chưa điền | Chưa kiểm |
-| B07 | Mục/tiểu mục và từng nhóm nhiệm vụ đánh liên tục; tên, số, chức năng, đề–đáp án và dẫn chiếu cùng ánh xạ | 07/6.2; danh mục nhãn | Chưa điền | Chưa kiểm |
+| B07 | Mục kiến thức có số hai cấp khi cần; Gợi mở/Ví dụ/Nhiệm vụ trong Bài học là hoạt động đúng mục cha, tên cùng phông/cỡ chính văn và in đậm, không kiểu nhãn; cây nguồn/DOM/mục lục khớp; dãy từng loại toàn gói, ID/cặp lời giải giữ đúng | 07/6.2–6.2.1; danh mục nhãn | Chưa điền | Chưa kiểm |
 | B08 | Luyện tập có mục tiêu từng chặng, Điểm dừng đủ tiêu chí và quyết định; số bài không reset | 01/2.4; 07/4.3 | Chưa điền | Chưa kiểm |
 | B09 | Mỗi tuyến hỗ trợ đúng lỗi và từng ý; câu xác nhận kiểm đúng tình huống/biểu diễn, còn mới; trở về đúng nơi gọi; hết bài mới không tự nhận đạt | 01/2.5–2.6; 02/1.3 | Chưa điền | Chưa kiểm |
 | B10 | Kiểm tra cho vào khi chuẩn bị hoặc tự tin, tự lực toàn lượt, không chia đợt, kết thúc trước hỗ trợ và giữ bài ban đầu | 01/2.3.1; 07/4.4 | Chưa điền | Chưa kiểm |
@@ -66,10 +66,10 @@ Bảng đối chiếu cấu trúc dùng trước viết: mỗi dòng phải ghi 
 | B15 | Phối hợp và Chuyển giao phân biệt, có tiên quyết, đề/lời giải riêng nếu thật sự cần; không ép thành lõi | 01/2.5.1; 07 | Chưa điền | Chưa kiểm |
 | B16 | Nhật kí đúng nguồn 14 trường; không bắt ghi mỗi câu; ví dụ ghi giả lập và không lộ đáp án câu xác nhận chưa dùng | 01/2.8; nguồn Nhật kí chung | Chưa điền | Chưa kiểm |
 | B17 | Mọi đề có lời giải đúng nhóm/tên/ý; tách vị trí thì có đường đi/về, xử lí tại chỗ thì không nhân lời giải hoặc tạo nhóm trống | 07/5.3,6.2; quy chuẩn gói | Chưa điền | Chưa kiểm |
-| B18 | Gọi guard kí pháp hiện có, ghi rõ phạm vi hỗ trợ; toán đúng tập xác định/tập đang xét, dấu, hướng, đơn vị, mức đạt/chưa đạt và giới hạn suy luận; LaTeX cho số/biểu thức, phân số và ngoặc đúng quy chuẩn | Nguồn toán; quy chuẩn kí hiệu/dấu ngoặc | Chưa điền | Chưa kiểm |
+| B18 | Gọi guard kí pháp hiện có, ghi rõ phạm vi hỗ trợ; toán đúng tập xác định/tập đang xét, dấu, hướng, đơn vị, mức đạt/chưa đạt và giới hạn suy luận; LaTeX cho số/biểu thức và ngoặc đúng quy chuẩn; không dùng / ghi phân số/phân thức kể cả trong dòng văn | Nguồn toán; quy chuẩn kí hiệu/dấu ngoặc | Chưa điền | Chưa kiểm |
 | B19 | Lập ma trận tài nguyên theo vai trò trước viết/chuyển QMD; dùng công cụ ZO Math/component hiện hành, tách hình trong bài và bìa. BBT từ một JSON/native MathML, giữ mốc/dấu/giới hạn hai phía/điểm loại/số hàng. Kiểm khung và cỡ hiển thị đồ thị theo GRAPH-G03-01/G03, scope CSS thật sự hoạt động, phông/nét/vạch/nhãn/điểm/trục; đối chứng đồ thị với G03 và BBT với gói có bảng trên desktop/mobile và thử âm. Không lấy profile 0.4, hash, kind=variation hoặc ảnh montage làm đủ bằng chứng | 07/6.1.2,6.3; 02/2.5; công cụ ZO Math và binding kit | Chưa điền | Chưa kiểm |
 | B20 | Chính văn và nhãn liên kết dùng tên có nghĩa, không dùng mã quản lí; liên kết tồn tại và thực sự dẫn đúng nội dung | 07/6.2; đối chiếu ngữ nghĩa thủ công | Chưa điền | Chưa kiểm |
-| B21 | Bản trình duyệt đúng phiên bản, hết chỗ trống/ghi chú nội bộ; phân biệt nội dung và HTML/PDF; ghi rõ những phần được hoãn | 02/4; quy chuẩn gói | Chưa điền | Chưa kiểm |
+| B21 | Bản trình duyệt đúng nguồn/đầu ra/phiên bản; bản so sánh lưu riêng, có nhãn Bản thảo và giao diện chính thức, mở thật đúng nội dung; bảo toàn bản chính; phân biệt HTML/PDF, ghi việc hoãn | 02/1.6,2.6,4; quy chuẩn gói | Chưa điền | Chưa kiểm |
 | B22 | Trạng thái đã sửa/đã kiểm/chủ trì duyệt/phát hành tách biệt; không sửa receipt cũ và không kế thừa PASS sai phạm vi | 02/4; 03 | Chưa điền | Chưa kiểm |
 | B23 | Rà từng Cách thực hiện trong ngữ cảnh: bỏ đoạn chỉ lặp thứ tự đọc/phương pháp; giữ yêu cầu cần thiết nhìn thấy; trợ giúp tùy chọn mới dùng hộp xám đóng; câu đầu viết hoa; có kiểm kê giữ/sửa/bỏ và không mất điều kiện | 07/6.1.5; INSTRUCTIONS-20261018 | Chưa điền | Chưa kiểm |
 | B24 | Rà thuật ngữ theo nghĩa: tập xác định/tập đang xét/điều kiện biến; câu đủ đối tượng và quan hệ toán, không có lời điều hành hoặc viết tắt tối nghĩa. Đối chiếu nguyên văn/câu mới/lí do bỏ, đích hỗ trợ đúng lỗi; đọc lại tiêu đề, đề–lời giải, bảng, alt, include và dữ liệu sinh. Giữ điều kiện, ID và điều hướng; hồ sơ rà nguồn khớp bản hiện tại; cổng máy không thay đọc ngữ nghĩa | 07/6.1.6; EDITORIAL-20261018 | Chưa điền | Chưa kiểm |
@@ -85,7 +85,7 @@ Bảng đối chiếu cấu trúc dùng trước viết: mỗi dòng phải ghi 
 Nêu phần đã đạt, phần cần sửa/chưa kiểm và ngoại lệ có căn cứ. Lỗi toán/đường học thiết yếu chưa khép không được trình như đã đạt; việc hoãn chỉ có hiệu lực đúng phạm vi chủ trì chốt. Mẫu và kiểm kỹ thuật không thay đọc toàn nội dung, xem hình hoặc chủ trì duyệt. Chuyển QMD sau duyệt bản thảo theo quy chuẩn gói; tài nguyên chính thức phải dựng lại bằng công cụ ZO Math. Mẫu bản thảo không chứa CSS/JS, thiết kế lại trang hoặc chỉ tiêu số bài.
 
 
-Nhãn khi chuyển QMD/HTML: áp 07/6.2, quy tắc Nhãn ngữ cảnh theo cấp chứa ngày 17/10/2026. Bài học → MẠCH HỌC CHÍNH; Khởi động → MẠCH HỌC CHÍNH · BÀI HỌC; nhiệm vụ Khởi động thêm KHỞI ĐỘNG ở cuối. Không dùng bảng nhãn mỹ thuật cũ làm mẫu. Kiểm kê owner/tiêu đề/nhãn trước–sau, dấu chấm nhỏ, cùng kiểu .role và quan hệ đề–lời giải; giữ loại/chức năng/số trong metadata.
+Nhãn khi chuyển QMD/HTML: áp 07/6.2 và 6.2.1 hiện hành. Bài học có nhãn MẠCH HỌC; hoạt động trong Bài học có ngữ cảnh MẠCH HỌC · BÀI HỌC khi cần, không nối thêm KHỞI ĐỘNG hoặc đổi thành MẠCH HỌC CHÍNH. Tên Gợi mở/Ví dụ/Nhiệm vụ là tiêu đề hoạt động, không dùng kiểu nhãn. Kiểm owner, số, dấu chấm giữa và cặp đề–lời giải từ nguồn tới hiển thị.
 
 Bổ sung B19 theo 07/6.1.2, 02/2.5: phải có ma trận tài nguyên theo vai trò; hình trong bài/bìa đối chiếu riêng, cấu hình surface/cỡ tường minh; BBT đi qua JSON/bộ dựng native, có đối sánh mốc/dấu/giới hạn/điểm loại/hàng thật; bằng chứng thử âm và xem desktop/mobile: đồ thị theo G03, BBT theo gói có bảng cùng vai trò. Không đánh Đạt chỉ vì cùng profile 0.4, cùng CSS, đủ hash hoặc kind=variation. Áp dụng cả bản thảo, không đẩy thiếu sót này tới bước QMD.
 
@@ -115,3 +115,17 @@ Bổ sung B19 theo 07/6.1.2, 02/2.5: phải có ma trận tài nguyên theo vai 
 - Câu văn đủ đối tượng, hành động và điều kiện; không rút gọn gây hiểu sai, không diễn giải dài ngoài nhu cầu.
 - Ôn lại không nhắc trước kiến thức/công thức/cách giải hoặc mục “Nhớ lại trước khi làm”; quy ước dữ liệu vẫn đủ tại đề.
 - Ghi phạm vi/đoạn đối chiếu và kết luận bằng đọc thực tế. Chưa rà thì ghi Chưa kiểm; không suy đạt từ PASS công cụ hoặc từ việc quy chuẩn đã được duyệt.
+
+### B28 — Ý tưởng, lập luận và nguồn (R2G01-LESSONS-20261028)
+
+- Mỗi khái niệm có câu hỏi cần giải quyết, ý nghĩa, lí do của các bước và giới hạn; không chỉ tính minh họa. Ví dụ nhỏ/giả định/phản ví dụ và dữ liệu thực được chọn theo nhu cầu toán học, không theo quota.
+- Kiểm từng bước nối từ dữ kiện tới công thức và diễn giải kết quả: kí hiệu, đơn vị, giả thiết, trường hợp biên, chính xác hay ước lượng. Không dùng khẩu hiệu hoặc “trong gói này” để thay điều kiện toán.
+- Đọc nguồn thật, phân biệt công thức có căn cứ với diễn giải tự xây; không dùng một mẫu tùy ý làm chứng minh. Nút thắt có nội dung đã được khai triển và đích hỗ trợ tương ứng.
+- Khi sửa, có kiểm kê và đoạn mẫu theo yêu cầu duyệt; sau tích hợp đọc toàn phạm vi cùng chuyển tiếp, đề–lời giải, bảng/hình/Sửa lỗi liên quan. Ghi bằng chứng đọc, không chỉ PASS máy.
+
+### B29 — Đọc hình và điều hướng cuối trang (R2G01-LESSONS-20261028)
+
+- Người học biết mỗi chấm, đường, dấu, màu và giá trị được đánh dấu biểu diễn gì. Có nhãn trực tiếp hoặc giải nghĩa gần hình, alt có nghĩa; câu dẫn/chú thích nối hình với lập luận. Không có kí hiệu riêng không được giải thích; giữ đúng đơn vị và dữ kiện.
+- Hình dùng ngôn ngữ ZO Math ngay trong bản thảo, kiểm ở cỡ đọc thật trên màn hình rộng/hẹp; áp B19 theo loại hình, không ép hình thống kê vào bố cục đồ thị hàm số.
+- Nút trước trái/sau phải dưới Bảo trợ, hình tròn gọn, chỉ mũi tên ở tâm; có tên đích trợ năng/tooltip, focus và thao tác tới/lui đúng. Kiểm cả hai nút, không dùng số đo của một nút chứng nhận cả cặp. Kích thước cụ thể chưa duyệt không thành token chung.
+- Giữ riêng đề xuất được duyệt, kết quả đã thực hiện/kiểm và chủ trì chấp nhận. Không mặc nhận các gói khác đã áp dụng vì cập nhật bảng kiểm.

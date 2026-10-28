@@ -1,9 +1,9 @@
 <!--
-MẪU BIÊN SOẠN NỘI DUNG GÓI — phiên bản 1.5, ngày 23/10/2026.
-Phạm vi: các gói học liệu R1 của khóa Ôn thi Toán THPT 2027; loại khác phải xác định hợp đồng phù hợp trước, không ép D0/Nền theo khung này.
+MẪU BIÊN SOẠN NỘI DUNG GÓI — phiên bản 1.6, ngày 28/10/2026.
+Phạm vi: các gói học liệu của khóa Ôn thi Toán THPT 2027; loại khác phải xác định hợp đồng phù hợp trước, không ép D0/Nền theo khung này.
 Đây là khung nội dung, độc lập với mẫu trang. Nguồn chức năng: [01](../01_kien_truc_hoc_tap.md); cách trình bày: [07](../07_quy_chuan_cau_truc_trang_nguoi_hoc.md); quy trình sử dụng mẫu: [02, mục 1.4](../02_quy_trinh_va_nghiem_thu.md#ap-dung-mau-ban-thao); tổ chức tệp/chuyển QMD: [quy chuẩn gói](../quy_chuan_goi_qmd.md); [bảng kiểm](bang_kiem_ban_thao_goi.md).
 Đối chiếu từ nguồn G01/G02 hiện hành theo chức năng, không theo số bài/số trang. Số chặng, số mục và mọi tham số dưới đây chỉ là chỗ mẫu, không phải định mức.
-Cách dùng: lập bảng đối chiếu trước viết theo 02/1.4; đưa khung cần dùng vào đúng ban_thao/noi_dung.md của gói đã được giao. Giữ một bản nội dung đang sửa. Điền toàn bộ chỗ [CẦN VIẾT: ...], bỏ ghi chú nội bộ trước khi trình người học; cập nhật liên kết tương đối sau khi sao chép. Không sao ID hoặc đề toán riêng từ G01/G02. ID minh họa ở đây chỉ là các điểm neo trong khung, cần ánh xạ theo hồ sơ gói.
+Cách dùng: lập bảng đối chiếu trước viết theo 02/1.4; đưa khung cần dùng vào đúng ban_thao/noi_dung.md của gói đã được giao. Giữ một nguồn đang sửa cho mỗi phương án đã được giao; bản thay thế cần so sánh lưu riêng theo quy chuẩn gói và 02/1.6. Điền toàn bộ chỗ [CẦN VIẾT: ...], bỏ ghi chú nội bộ trước khi trình người học; cập nhật liên kết tương đối sau khi sao chép. Không sao ID hoặc đề toán riêng từ G01/G02. ID minh họa ở đây chỉ là các điểm neo trong khung, cần ánh xạ theo hồ sơ gói.
 Mỗi vai trò trong mẫu phải có nội dung hoặc giải thích không áp dụng có căn cứ. Khác biệt ảnh hưởng cấu trúc/chức năng đã chốt phải báo chủ trì và được chốt trước khi trình; không bỏ mắt xích chỉ vì khó viết theo mẫu. Không bổ sung chức năng hay thiết kế mới qua mẫu này.
 Mẫu trang dùng lại bộ _design/web_2027_mau_dung_chung; không chép CSS/JS vào bản thảo. Khi có cải tiến đã chốt: cập nhật mẫu, bảng kiểm và các liên kết bị ảnh hưởng cùng lượt, tăng phiên bản; không tự sửa hồi tố gói đã có.
 Trước viết/rà phải đọc mục Công thức và nguồn đối chiếu trong quy chuẩn gói, quy chuẩn ngoặc LaTeX, hướng dẫn khối nội dung và 07/6.1,6.3. Chính văn phát biểu trực tiếp; căn cứ dùng chú thích .zo-source-note sau nội dung, không kể “theo SGK…” trong lời giảng. Có hình thì dùng công cụ ZO Math/profile hiện hành ngay ở bản thảo; không tự đặt palette/phông hoặc đợi chuyển QMD mới sửa diện mạo.
@@ -59,12 +59,11 @@ _Bản để đọc và góp ý; chưa phải học liệu đã nghiệm thu ho�
 
 ## Bài học
 
-<details class="zo-learning-guidance r1-lesson-orientation">
-<summary>Câu hỏi dẫn đường</summary>
+::: {#dinh-huong .zo-lesson-intro}
+[CẦN VIẾT: câu hỏi trung tâm ngắn, nêu điều cốt lõi cần tìm hiểu.]
 
-[CẦN VIẾT: câu hỏi trung tâm, gợi ý suy nghĩ và phạm vi nếu cần. Không lặp bảng mục tiêu, nhãn cùng tên hoặc bản đồ các mục đã có ở Mục lục.]
-
-</details>
+[CẦN VIẾT: một đoạn dẫn ngắn giải thích ý nghĩa câu hỏi. Hai đoạn đều dùng chữ thường của chính văn, không có nhãn/tiêu đề riêng, không thu gọn, không lặp mục lục.]
+:::
 
 ### Khởi động
 
@@ -72,13 +71,13 @@ _Bản để đọc và góp ý; chưa phải học liệu đã nghiệm thu ho�
 
 <a id="khoi-dong-01"></a>
 
-#### Nhiệm vụ 01 — [CẦN VIẾT: tên nội dung]
+**Nhiệm vụ 01 — [CẦN VIẾT: tên nội dung]**
 
 [CẦN VIẾT: câu tự kiểm nền, dữ kiện, phạm vi yêu cầu.]
 
 [Xem lời giải](#giai-khoi-dong-01).
 
-<!-- Lặp nhiệm vụ Khởi động khi cần; số liên tục riêng nhóm. -->
+<!-- Lặp khi cần; Nhiệm vụ dùng một dãy toàn gói theo 07/6.2. Số minh họa phải được ánh xạ lại theo nội dung thực. -->
 
 #### Sau khi làm xong
 
@@ -88,35 +87,33 @@ _Bản để đọc và góp ý; chưa phải học liệu đã nghiệm thu ho�
 
 ### 1. [CẦN VIẾT: tên mục kiến thức]
 
-<!-- Chỉ thêm chỉ dẫn thao tác khi hoạt động chưa đủ rõ; viết trực tiếp, đầu câu viết hoa. Bỏ lời nhắc thứ tự đọc đã có trong Gợi mở/phần giảng. Không tạo Cách thực hiện mặc định ở mỗi mục; điều kiện bắt buộc không đặt trong hộp thu gọn. Theo 07/6.1.5. -->
+<!-- Trước viết, lập bản đồ câu hỏi/ý tưởng → giải thích → ví dụ/phản ví dụ → giả thiết/giới hạn → nhiệm vụ theo 01/2.1.1 và 02/1.5. Không lấy số bộ dữ liệu làm khung lời giảng. -->
 
-<a id="goi-mo-01"></a>
+#### 1.1. [CẦN VIẾT: tên một chủ đề toán thực sự cần tách]
 
-**Gợi mở 01**
+::: {#goi-mo-01 .zo-lesson-activity}
+**Gợi mở 01 — [CẦN VIẾT: điều cần tìm hiểu]**
 
-Thử trả lời trước khi đọc tiếp.
+[CẦN VIẾT: câu hỏi dẫn vào nội dung của mục; chỉ dẫn tự làm khi thật sự cần.]
+:::
 
-[CẦN VIẾT: câu hỏi dẫn vào đúng nội dung của mục.]
+[CẦN VIẾT: phản hồi/cầu nối; giải thích đối tượng, dữ kiện, điều chưa biết, từng bước lập luận, điều kiện của công thức và ý nghĩa kết quả. Nguồn để trong chú thích đúng chuẩn. Không biến những gợi ý biên soạn này thành tiêu đề cứng.]
 
-[CẦN VIẾT: phản hồi hoặc cầu nối tại chỗ, trước khi triển khai lời giảng.]
+::: {#vi-du-01 .zo-lesson-activity}
+**Ví dụ 01 — [CẦN VIẾT: tên nội dung]**
 
-#### 1.1. [CẦN VIẾT: phần giải thích/định nghĩa cần thiết]
+[CẦN VIẾT: dữ kiện, miền/điều kiện, lời giải đủ bước, kết luận và giới hạn suy luận. Dữ liệu giả định được nói rõ; dữ liệu thực được giữ khi phục vụ câu hỏi.]
+:::
 
-[CẦN VIẾT: phát biểu đủ điều kiện, phạm vi và nguồn chính thức, ghi trang đã đối chiếu; liên hệ biểu diễn khi phù hợp.]
+::: {#tu-kiem-01 .zo-lesson-activity}
+**Nhiệm vụ 02 — [CẦN VIẾT: tên nội dung]**
 
-#### 1.2. Ví dụ 01 — [CẦN VIẾT: tên nội dung]
-
-[CẦN VIẾT: dữ kiện, miền/điều kiện, lời giải đủ bước, kết luận và giới hạn suy luận. Ví dụ đã giải không phải câu đo độc lập.]
-
-<a id="tu-kiem-01"></a>
-
-#### 1.3. Tự kiểm tra 01 — [CẦN VIẾT: tên nội dung]
-
-[CẦN VIẾT: nhiệm vụ mới để tự làm, tiêu chí và tuyến hỗ trợ đúng lỗi.]
+[CẦN VIẾT: nhiệm vụ để tự làm, tiêu chí và hỗ trợ đúng lỗi.]
 
 [Xem lời giải](#giai-tu-kiem-01).
+:::
 
-<!-- Lặp cấu trúc cho mục tiếp theo theo mạch toán. Đánh mục 2, 3,...; Gợi mở, Ví dụ và Tự kiểm tra chạy số liên tục riêng từng nhóm. Không tạo mục Gợi mở chung ngoài các mục kiến thức. Số tiểu mục, ví dụ và biểu diễn không bị cố định bởi mục minh họa trên. Đổi cách trình bày khi nội dung cần phải có lí do đối chiếu. -->
+<!-- Chỉ thêm 1.2 nếu có chủ đề toán khác; không đánh 1.2 cho một Ví dụ hay Nhiệm vụ. Hoạt động củng cố nhiều mục con thuộc mục cha chung, cần đóng mục con đúng cấu trúc nguồn khi chuyển QMD. Mục lục phản chiếu cây thật; giữ ID/cặp lời giải. Tên hoạt động cùng phông/cỡ chính văn, in đậm toàn tên, không kiểu nhãn. Mỗi loại Gợi mở/Ví dụ/Nhiệm vụ có dãy riêng toàn gói; các số trong mẫu chỉ minh họa. -->
 
 ### Khép lại bài học
 
@@ -136,7 +133,7 @@ Thử trả lời trước khi đọc tiếp.
 
 <a id="luyen-01"></a>
 
-#### Nhiệm vụ 01 — [CẦN VIẾT: tên nội dung]
+#### Nhiệm vụ NN — [CẦN VIẾT: tên nội dung]
 
 [CẦN VIẾT: đề, dữ kiện, miền, đơn vị và yêu cầu từng ý.]
 
@@ -156,11 +153,11 @@ Thử trả lời trước khi đọc tiếp.
 
 <a id="kiem-01"></a>
 
-#### Nhiệm vụ 01 — [CẦN VIẾT: tên nội dung]
+#### Nhiệm vụ NN — [CẦN VIẾT: tên nội dung]
 
 [CẦN VIẾT: đề và điểm từng nhiệm vụ/ý nếu áp dụng. Không đặt lời giải hoặc gợi ý trợ giúp trong đề đang kiểm.]
 
-<!-- Lặp số theo nhóm Kiểm tra; chỉ dẫn tra lời giải sau kết thúc lượt. -->
+<!-- Số Nhiệm vụ tiếp tục dãy toàn gói; NN là chỗ điền sau ánh xạ, đề–lời giải cùng số. Chỉ tra lời giải sau kết thúc lượt. -->
 
 ### Sau khi kết thúc lượt Kiểm tra
 
@@ -184,7 +181,7 @@ Thử trả lời trước khi đọc tiếp.
 
 <a id="on-01"></a>
 
-#### Nhiệm vụ 01 — [CẦN VIẾT: tên nội dung]
+#### Nhiệm vụ NN — [CẦN VIẾT: tên nội dung]
 
 [CẦN VIẾT: đề dành riêng cho lượt ôn.]
 
@@ -194,7 +191,7 @@ Thử trả lời trước khi đọc tiếp.
 
 [CẦN VIẾT: kết quả thực sau khoảng trễ; phạm vi đã/chưa kiểm; hỗ trợ, câu còn mới và nơi quay về.]
 
-<!-- Lặp lượt theo kế hoạch gói; số Ôn lại liên tục qua lượt, không reset. -->
+<!-- Lặp lượt theo kế hoạch gói; dãy Nhiệm vụ toàn gói tiếp tục qua lượt, không reset. -->
 
 <a id="on-nen"></a>
 
@@ -220,7 +217,7 @@ Thử trả lời trước khi đọc tiếp.
 
 <a id="sua-01"></a>
 
-#### Nhiệm vụ 01 — [CẦN VIẾT: tên nội dung]
+#### Nhiệm vụ NN — [CẦN VIẾT: tên nội dung]
 
 **Dùng khi:** [CẦN VIẾT: lỗi cụ thể, tách ý khi cần.]
 
@@ -234,11 +231,11 @@ Thử trả lời trước khi đọc tiếp.
 
 ### Sau Kiểm tra
 
-[CẦN VIẾT: nhiệm vụ/ý phù hợp, đủ đích lời giải và tuyến trở lại Điểm dừng Kiểm tra; tiếp tục số Sửa lỗi.]
+[CẦN VIẾT: nhiệm vụ/ý phù hợp, đủ đích lời giải và tuyến trở lại Điểm dừng Kiểm tra; tiếp tục dãy Nhiệm vụ toàn gói.]
 
 ### Sau Ôn lại
 
-[CẦN VIẾT: nhiệm vụ/ý phù hợp, đủ đích lời giải và tuyến trở lại lượt ôn đã gọi; tiếp tục số Sửa lỗi.]
+[CẦN VIẾT: nhiệm vụ/ý phù hợp, đủ đích lời giải và tuyến trở lại lượt ôn đã gọi; tiếp tục dãy Nhiệm vụ toàn gói.]
 
 <!-- Không nhân máy móc mỗi lỗi thành ba biến thể. Phải chứng minh câu được dùng còn mới và đúng mục tiêu tại nơi gọi; thiếu câu phải ghi thật và báo cáo, không mượn nhiệm vụ tương lai. -->
 
@@ -271,11 +268,11 @@ Thử trả lời trước khi đọc tiếp.
 
 [Xem đề bài](#khoi-dong-01).
 
-#### Tự kiểm tra
+#### [CẦN VIẾT: mục kiến thức chứa nhiệm vụ]
 
 <a id="giai-tu-kiem-01"></a>
 
-##### Tự kiểm tra 01 — [CẦN VIẾT: tên khớp đề]
+##### Nhiệm vụ 02 — [CẦN VIẾT: tên khớp đề]
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -290,7 +287,7 @@ Thử trả lời trước khi đọc tiếp.
 
 <a id="giai-luyen-01"></a>
 
-#### Nhiệm vụ 01 — [CẦN VIẾT: tên khớp đề]
+#### Nhiệm vụ NN — [CẦN VIẾT: tên khớp đề]
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -309,7 +306,7 @@ Thử trả lời trước khi đọc tiếp.
 
 <a id="giai-kiem-01"></a>
 
-#### Nhiệm vụ 01 — [CẦN VIẾT: tên khớp đề]
+#### Nhiệm vụ NN — [CẦN VIẾT: tên khớp đề]
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và hướng dẫn chấm</summary>
@@ -324,7 +321,7 @@ Thử trả lời trước khi đọc tiếp.
 
 <a id="giai-on-01"></a>
 
-#### Nhiệm vụ 01 — [CẦN VIẾT: tên khớp đề]
+#### Nhiệm vụ NN — [CẦN VIẾT: tên khớp đề]
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -339,7 +336,7 @@ Thử trả lời trước khi đọc tiếp.
 
 <a id="giai-sua-01"></a>
 
-#### Nhiệm vụ 01 — [CẦN VIẾT: tên khớp đề]
+#### Nhiệm vụ NN — [CẦN VIẾT: tên khớp đề]
 
 <details class="zo-block zo-block-gray zo-learning-solution" data-reading-disclosure="solution">
 <summary class="zo-block-title">Lời giải và tiêu chí đối chiếu</summary>
@@ -352,11 +349,11 @@ Thử trả lời trước khi đọc tiếp.
 
 ### Sửa lỗi — Sau Kiểm tra
 
-[CẦN VIẾT: lời giải cho nhiệm vụ thật, tiếp tục số Sửa lỗi và khớp đề.]
+[CẦN VIẾT: lời giải cho nhiệm vụ thật, tiếp tục dãy Nhiệm vụ toàn gói và khớp đề.]
 
 ### Sửa lỗi — Sau Ôn lại
 
-[CẦN VIẾT: lời giải cho nhiệm vụ thật, tiếp tục số Sửa lỗi và khớp đề.]
+[CẦN VIẾT: lời giải cho nhiệm vụ thật, tiếp tục dãy Nhiệm vụ toàn gói và khớp đề.]
 
 <a id="nguon"></a>
 
@@ -365,6 +362,6 @@ Thử trả lời trước khi đọc tiếp.
 [CẦN VIẾT: tài liệu chính thức đã đọc, bản, trang in/trang PDF; nguồn học liệu tham chiếu bằng tên; danh mục giữ thông tin thư mục, quá trình đối chiếu và biên soạn ghi ở hồ sơ. Chú thích tại phát biểu vẫn phải hiện diện, không chỉ liệt kê cuối bài.]
 
 
-Nhãn khi chuyển QMD/HTML: áp 07/6.2, quy tắc Nhãn ngữ cảnh theo cấp chứa ngày 17/10/2026. Bài học → MẠCH HỌC CHÍNH; Khởi động → MẠCH HỌC CHÍNH · BÀI HỌC; nhiệm vụ Khởi động thêm KHỞI ĐỘNG ở cuối. Không dùng bảng nhãn mỹ thuật cũ làm mẫu. Kiểm kê owner/tiêu đề/nhãn trước–sau, dấu chấm nhỏ, cùng kiểu .role và quan hệ đề–lời giải; giữ loại/chức năng/số trong metadata.
+Nhãn khi chuyển QMD/HTML: theo 07/6.2 và 6.2.1 hiện hành. Bài học dùng MẠCH HỌC; hoạt động trong Bài học dùng ngữ cảnh MẠCH HỌC · BÀI HỌC khi cần. Không nối KHỞI ĐỘNG vào nhãn hoặc phục hồi MẠCH HỌC CHÍNH. Tên hoạt động là chính văn in đậm, không kiểu nhãn; kiểm owner, số và cặp đề–lời giải.
 
 Trước điền nội dung/hình và trước chuyển QMD, nạp 07/6.1.2, 02/2.5 và mục B19 của bảng kiểm 1.4. Ma trận tài nguyên ghi vai trò → dữ liệu → bộ dựng → surface/cỡ → đối chứng → guard/thử âm → ảnh xem thực. Dùng bộ dựng native cho BBT; không mặc nhiên kế thừa cấu hình của bìa hoặc JSON rỗng từ gói không có BBT.
