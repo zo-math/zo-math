@@ -34,13 +34,17 @@ Manifest từng gói nằm tại `hoc_lieu/<ma_goi>/_quy_trinh/kien_truc_hoc_tap
 
 ## Viết và kiểm bản thảo gói mới
 
-Khi chủ trì giao viết, sửa hoặc rà bản thảo gói R1 của khóa 2027, tự đọc và áp dụng:
+Khi chủ trì giao viết, sửa hoặc rà bản thảo gói học liệu của khóa 2027, tự đọc và áp dụng:
 
 - `tot_nghiep_thpt/2027/_quy_trinh/mau/ban_thao_goi.md`;
 - `tot_nghiep_thpt/2027/_quy_trinh/mau/bang_kiem_ban_thao_goi.md`;
 - cơ chế sử dụng, lưu kết quả và cập nhật tại `02_quy_trinh_va_nghiem_thu.md`, mục 1.4.
 
 Yêu cầu tự nhiên như “Viết bản thảo gói R1-G04” kích hoạt việc nạp hai mẫu; không bắt chủ trì gọi tên mẫu hoặc biết lệnh. Trước viết phải có bảng đối chiếu theo chức năng với G01/G02; trước trình phải có kết quả bảng kiểm với vị trí bằng chứng và khác biệt có lí do. Đọc 01/07 và nguồn toán chính thức, không chỉ sao khung hoặc số lượng bài của gói trước. Gói đã có bản thảo ghi áp dụng hồi cứu; không giả đã dùng mẫu từ đầu. Không nâng PASS kí hiệu/liên kết thành đạt nội dung hoặc hình. Kết quả áp dụng thuộc `ho_so/` của gói; phần được chủ trì cho hoãn ghi đúng phạm vi, không đánh dấu Đạt. Không tạo thư mục hoặc gói tương lai ngoài phạm vi đã giao.
+
+## Bài học rút ra từ R2-G01 — R2G01-LESSONS-20261028
+
+Khi biên soạn, rà hoặc hiệu chỉnh gói học liệu, nạp 01/2.1.1 (ý tưởng và lập luận), 07/6.1.4,6.1.6,6.2.1–6.2.2,6.3 (dẫn nhập, giọng văn, cấp mục/kiểu chữ, nút chuyển và hình), 02/1.5–1.6 (kiểm kê, duyệt, tích hợp và bản thảo cách ly), quy chuẩn gói và mẫu/bảng kiểm hiện hành. Quy tắc áp dụng cho các mạch của chuyên mục, không chỉ R1; không ép D0/Nền vào khung gói. Không dùng mẫu cũ để khôi phục dẫn nhập thu gọn, tên hoạt động kiểu nhãn hoặc mục lục lặp. Hồ sơ tổng kết R2-G01 chỉ cung cấp bằng chứng; quy tắc có thẩm quyền ở các mục vừa dẫn. Lượt chỉ cập nhật quy chuẩn không cho phép tự sửa sản phẩm/receipt hoặc phát hành.
 
 ## Bắt đầu dựng QMD hoặc HTML: luôn áp dụng hệ nhãn
 

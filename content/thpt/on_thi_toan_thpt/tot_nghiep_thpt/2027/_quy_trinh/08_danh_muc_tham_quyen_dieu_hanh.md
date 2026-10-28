@@ -1,12 +1,14 @@
 # Danh mục và thẩm quyền bộ điều hành 2027
 
+**R2G01-LESSONS-20261028:** 01/2.1.1 sở hữu tổ chức theo ý tưởng toán, vai trò dữ liệu và nút thắt; 07/6.1.4,6.1.6,6.2.1–6.2.2,6.3 sở hữu lời giảng, dẫn nhập, cấp mục/kiểu chữ, hình và nút chuyển. 02/1.5–1.6 sở hữu kiểm kê–duyệt–tích hợp và đối chiếu bản thảo; quy chuẩn gói sở hữu nơi lưu/cây nguồn/kí pháp; mẫu 1.6 và bảng kiểm 1.9 cụ thể hóa thao tác. 04 ghi phần cũ bị thay, 03 ghi trạng thái áp dụng; registry dẫn chủ đề và giới hạn kiểm máy. [Tổng kết R2-G01](../../../hoc_lieu/r2_g01/_quy_trinh/ho_so/tong_ket_cai_tien_20261028.md) là hồ sơ bằng chứng, không là bộ quy tắc cạnh tranh. Phạm vi là chuyên mục Ôn thi Toán THPT; không đổi Design toàn repo hoặc tự di trú sản phẩm đã phát hành.
+
 **VOICE-CONTEXT-20261023:** 07/6.1.6 sở hữu Giọng văn rõ nghĩa, có ngữ cảnh áp dụng toàn khóa; 01 giữ ranh giới tự làm/nhắc kiến thức của Ôn lại; 02 và B27/mẫu bản thảo hướng dẫn rà. 04 lưu quyết định, 03 giữ phạm vi đã duyệt/chưa áp dụng. Không dùng bản QMD/HTML R2-G01 cũ làm bằng chứng đạt chuẩn mới.
 
 **QD_035:** [Danh mục bảo toàn](bao_toan_bon_trang.md) sở hữu việc bảo vệ đúng bộ `_audit/zo_home_refinement_2026-10-12/delivered/home-reading.html` và các trang/tài nguyên liên kết làm nguồn đối chiếu chính thức để phát triển tiếp, không được dọn/xóa hoặc tự thay bằng bộ DH_030. Manifest DH_032 ngoài repo ghi từng tệp/hash; 03 sở hữu trạng thái. Nguồn build vẫn là QMD/template/data/script canonical; không nâng bản HTML audit thành chuẩn nội dung, runtime production hay nghiệm thu mới, không đảo câu chữ đã duyệt. Giữ nguyên hai checkpoint cũ.
 
 **QD_034:** [Chỉ mục lưu trữ lịch sử](luu_tru_lich_su.json) chỉ ánh xạ bảy cây và 21 driver audit đã được phép nghỉ dùng tới kho ngoài repo/manifest/SHA-256; không là cấu hình chạy, nguồn sản xuất hoặc chuẩn học tập. 03 sở hữu trạng thái DH_031, 04 giữ quyết định mới và lịch sử nguyên trạng. Các checker canonical và đầu vào hiện hành không bị đổi; giữ `html-current`, `delivery` và figure `build`. Không khôi phục thẩm quyền hoặc chạy lại driver cũ từ đường dẫn trong hồ sơ lịch sử. QD_033 tiếp tục sở hữu đường học; PASS lưu trữ không nghiệm thu học liệu.
 
-**QD_032:** 07 sở hữu điều hướng toàn khóa học; `_data/chuong_trinh.yml` sở hữu danh mục, `zo_web_2027_navigation.py` sở hữu binding hiển thị/URL hiện hữu, kit sở hữu CSS/JS và checker sở hữu kiểm kỹ thuật. Bốn adapter gọi cùng module; không lấy mẫu audit làm chuẩn/runtime thứ hai. 03 sở hữu DH_027 và trạng thái HTML. Phân cấp tiêu đề chưa được duyệt, không có quy tắc mới thay cấp hiện hành.
+**QD_032:** 07 sở hữu điều hướng toàn khóa học; `_data/chuong_trinh.yml` sở hữu danh mục, `zo_web_2027_navigation.py` sở hữu binding hiển thị/URL hiện hữu, kit sở hữu CSS/JS và checker sở hữu kiểm kỹ thuật. Bốn adapter gọi cùng module; không lấy mẫu audit làm chuẩn/runtime thứ hai. 03 sở hữu DH_027 và trạng thái HTML. Giới hạn chưa duyệt phân cấp chỉ thuộc mốc QD_032; quy tắc kế tiếp nằm tại 07/6.2.1 theo R2G01-LESSONS-20261028.
 
 Phiên bản: 0.11 · Ngày: 17/10/2026 · Căn cứ: QD_019, phần còn hiệu lực của QD_021, QD_022–032, QD_033, QD_034, QD_035 và QD_036.
 
@@ -23,7 +25,7 @@ QD_028 bổ sung phân biệt chức năng nhánh tại 01/2.5.1 và danh mục 
 
 **Bổ sung vận hành bản thảo ngày 17/10/2026:** 07/6.3 giữ yêu cầu chính văn phát biểu trực tiếp và không miễn thiết kế cho hình nháp; quy chuẩn gói giữ quy cách .zo-source-note; 02/1.4 bắt buộc nạp trước viết/rà. Tại mốc này, mẫu nội dung 1.1, bảng kiểm 1.2; đây không là chỉ dẫn phiên bản hiện hành sau các hiệu chỉnh tiếp theo. Ghi chép 1.0/1.1 ở đoạn Gợi mở phía trên chỉ mô tả mốc hiệu chỉnh trước đó. Giới hạn không sửa G01–G03 chỉ áp dụng lượt G04 ngày 17/10. Yêu cầu ngày 18/10 đã cho phép đối chiếu và sửa QMD/HTML G01–G04 theo 07/6.4; không mở PDF hoặc nâng Design 0.5.
 
-**GOALS-START-20261018:** 07/6.1.4 sở hữu vị trí/tên bảng mục tiêu và Câu hỏi dẫn đường; 01 tiếp tục sở hữu mục tiêu–hoạt động–bằng chứng. 02 giữ kiểm đối chiếu không mất mục tiêu, mẫu hiện hành là bản thảo 1.2 và bảng kiểm 1.5. QMD sở hữu lời người học; binding chỉ phục vụ kiểm. Không dùng sơ đồ mục học hoặc bản đồ G01/G02 cũ để phục hồi bảng mục tiêu trong Bài học.
+**GOALS-START-20261018:** 07/6.1.4 sở hữu vị trí/tên bảng mục tiêu và Câu hỏi dẫn đường; 01 tiếp tục sở hữu mục tiêu–hoạt động–bằng chứng. 02 giữ kiểm đối chiếu không mất mục tiêu, phiên bản tại mốc 18/10 là bản thảo 1.2 và bảng kiểm 1.5; dùng phiên bản hiện hành trong hai tệp mẫu. QMD sở hữu lời người học; binding chỉ phục vụ kiểm. Không dùng sơ đồ mục học hoặc bản đồ G01/G02 cũ để phục hồi bảng mục tiêu trong Bài học.
 
 ## 1. Một vấn đề, một nguồn có thẩm quyền
 

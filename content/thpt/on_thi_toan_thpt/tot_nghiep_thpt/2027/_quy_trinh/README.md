@@ -10,6 +10,11 @@
 2. Đọc [08 — Danh mục thẩm quyền](08_danh_muc_tham_quyen_dieu_hanh.md) để xác định tài liệu nào sở hữu từng quyết định.
 3. Chọn tài liệu theo bảng dưới đây. README chỉ tổ chức đường đọc; trạng thái và việc tiếp theo chỉ cập nhật tại 03.
 
+## Cải tiến từ đối chiếu R2-G01
+
+- [Tổng kết góp ý, quyết định sau cùng và bằng chứng 27–28/10/2026](../../../hoc_lieu/r2_g01/_quy_trinh/ho_so/tong_ket_cai_tien_20261028.md).
+- Quy tắc sở hữu ở 01/02/07 và quy chuẩn gói; [04](04_nhat_ki_quyet_dinh.md) ghi phần cũ bị thay, [08](08_danh_muc_tham_quyen_dieu_hanh.md) chỉ đúng nơi đọc. Trạng thái sản phẩm tiếp tục ở [03](03_dieu_hanh_chuong_trinh.md).
+
 ## Hồ sơ tích hợp R1-G05
 
 - [Biên nhận phát hành zomath.vn — bảy HTML và tám PDF G05, giữ nguyên 33 PDF cũ](../../../hoc_lieu/r1_g05/_quy_trinh/ho_so/phat_hanh_zomath_20261021.json).

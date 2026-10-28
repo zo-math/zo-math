@@ -1,5 +1,7 @@
 # Quy chuẩn cấu trúc trang người học
 
+**Hiệu chỉnh R2G01-LESSONS-20261028 (28/10/2026):** áp dụng các quy tắc dưới đây cho lần biên soạn hoặc hiệu chỉnh tiếp theo của các gói Ôn thi Toán THPT. Các gói cũ chưa được giao sửa giữ sản phẩm hiện có và phải ghi rõ khoảng cách khi được rà; không suy rằng đã đồng loạt áp dụng. Không thay ngôn ngữ thiết kế toàn ZO Math. Quyết định và phần bị thay được ghi tại 04; 03 giữ trạng thái sản phẩm.
+
 Phiên bản: 0.8 · Ngày biên tập: 12/10/2026 · Đường học QD_033 (kế thừa phần không bị thay của QD_021); hệ nhãn QD_025 (kế thừa QD_023); Kiểm tra QD_024.
 
 Tài liệu này quy định cấu trúc thông tin, điều hướng và tiêu chí nghiệm thu giao diện cho các gói học liệu R1 của ấn bản 2027. [Điểm vào](README.md).
@@ -43,7 +45,7 @@ Focus bàn phím vẫn có outline nhìn rõ; hover không thay tín hiệu focu
 
 Sáu màu nền và sắc xám giữ bên phải. Màn hình hẹp được xuống hàng cho nhóm màu, không biến danh sách đích thành hàng liên kết thường trực. Điều khiển có tên truy cập, focus thấy rõ, dùng được bằng bàn phím; Escape đóng danh sách và trả focus. Đầu trang không đổi view/URL ngữ cảnh khi JavaScript hoạt động; không JavaScript vẫn có liên kết đầu trang và danh sách native. Thanh khóa học độc lập với mục lục nội bộ từng trang.
 
-Phạm vi QD_032 chỉ là điều hướng. Phương án phân cấp tiêu đề chưa được duyệt: giữ nguyên tiêu đề, nhãn, vùng đọc, toán, luồng học và footer. Duyệt mẫu không là nghiệm thu toàn bộ bốn HTML hoặc phát hành.
+Phạm vi QD_032 chỉ là điều hướng; việc chưa duyệt phân cấp tiêu đề là giới hạn của mốc QD_032. Từ R2G01-LESSONS-20261028, cấp mục trong Bài học theo 6.2.1. Duyệt mẫu điều hướng không là nghiệm thu các HTML hoặc phát hành.
 
 Trang người học phải giữ riêng bốn lớp:
 
@@ -80,7 +82,7 @@ Nguồn QMD và cây DOM phải có thứ tự sư phạm đúng trước khi Ja
 
 Chế độ Toàn văn dùng cùng một cây DOM, không nhân bản nội dung thành nguồn thứ hai. Khi JavaScript không chạy, người học vẫn đọc được toàn bộ nội dung, liên kết tới đúng đích và nhận biết được trật tự học.
 
-QD_031: thứ tự các khu vực nguồn/Toàn văn là **Bắt đầu → Bài học → Luyện tập → Kiểm tra → Ôn lại → Ôn nền → Sửa lỗi → Nhật kí → Lời giải → Nguồn → Tải PDF**. Đây là thứ tự tra đọc, không phải tuyến học bắt buộc qua tất cả hỗ trợ. Khởi động thuộc Bài học; Nhật kí là khu vực độc lập. Trong Sửa lỗi, nhóm theo thứ tự **Sau Luyện tập → Sau Kiểm tra → Sau Ôn lại**; nhánh Sau Chuyển giao của G02 đi sau Sau Luyện tập. Nhiệm vụ là con của đúng nhóm, không là heading ngang hàng với nhóm. Số chạy liên tục trong nhóm chức năng; đổi thứ tự phải cập nhật tiêu đề, bảng chọn, dẫn chiếu và đáp án cùng lượt, giữ ID. Trong Lời giải, thứ tự/cây nhóm phản chiếu nơi sở hữu nhiệm vụ; không dồn các phần độc lập vào một phần lớn.
+QD_031: thứ tự các khu vực nguồn/Toàn văn là **Bắt đầu → Bài học → Luyện tập → Kiểm tra → Ôn lại → Ôn nền → Sửa lỗi → Nhật kí → Lời giải → Nguồn → Tải PDF**. Đây là thứ tự tra đọc, không phải tuyến học bắt buộc qua tất cả hỗ trợ. Khởi động thuộc Bài học; Nhật kí là khu vực độc lập. Trong Sửa lỗi, nhóm theo thứ tự **Sau Luyện tập → Sau Kiểm tra → Sau Ôn lại**; nhánh Sau Chuyển giao của G02 đi sau Sau Luyện tập. Nhiệm vụ là con của đúng nhóm, không là heading ngang hàng với nhóm. Theo NUMBERING-20261018, số chạy liên tục theo từng loại hiển thị trong toàn gói, không theo nhóm chức năng; đổi thứ tự phải cập nhật tiêu đề, bảng chọn, dẫn chiếu và đáp án cùng lượt, giữ ID. Trong Lời giải, thứ tự/cây nhóm phản chiếu nơi sở hữu nhiệm vụ; không dồn các phần độc lập vào một phần lớn.
 
 Đề và đáp án trong cùng một tài nguyên/vùng đọc dùng hộp đối chiếu mặc định đóng, không thêm liên kết “Xem lời giải”/“Xem đề bài” chỉ nhảy giữa hai chỗ kề nhau. Hai nơi thực sự tách biệt vẫn giữ vòng dẫn đề–đáp án. Cùng trang HTML không đủ để coi là cùng vùng; guard kiểm chủ sở hữu cụ thể và binding nhiệm vụ.
 
@@ -107,7 +109,7 @@ Mỗi mục điều hướng là một view có phạm vi rõ. **Nhật kí** v�
 
 - Mục kiến thức được đánh số liên tục `1.`, `2.`, …; mục con dùng `1.1.`, `1.2.`, … trong cả G01 và G02. Khởi động và Khép lại là khu vực cấu trúc, không lấy số mục kiến thức. Số Nhiệm vụ thuộc dãy chung toàn gói, không chen vào hoặc làm khuyết dãy số mục kiến thức; không đặt lại số Luyện tập qua chặng. Giữ ID/đích liên kết khi sửa số hiển thị. Quy tắc được kiểm bằng guard ký pháp/số mục theo QD_029, không suy số mục G02 phải bằng G01.
 - Mỗi mục tiêu có giải thích, ví dụ hoặc câu dừng phù hợp; không lặp nguyên văn tiêu đề ngay bên dưới.
-- Đầu Bài học dùng khối thu gọn Câu hỏi dẫn đường theo Mục 6.1.4, không lặp bảng mục tiêu ở Bắt đầu; yêu cầu bắt buộc trước nhiệm vụ phải nhìn thấy đúng lúc.
+- Đầu Bài học có câu hỏi trung tâm và lời dẫn ngắn dưới dạng đoạn văn thường, luôn mở theo 6.1.4; không lặp bảng mục tiêu hoặc mục lục đã có ở thanh điều hướng.
 - Sau một cụm tự kiểm phải có đích rõ: đối chiếu lời giải, hỗ trợ đúng nhu cầu và tiếp tục mạch Bài học. Tham chiếu bài luyện không biến Bài học/Luyện tập thành luân phiên bắt buộc.
 
 ### 4.3. Luyện tập và checkpoint
@@ -227,11 +229,13 @@ Breadcrumb về trang đầu khóa ghi **Khóa 2027**. Bìa học liệu không 
 
 Hiện thực: mẫu `templates/page.html.tpl`, binding bố cục G01 và các bộ sinh G02–G04. `scripts/zo_course_reading_regions.py` phân vùng sau khi ghép nội dung, trước ghép nhãn ngữ cảnh, qua `apply_editorial_policy`; chặn giấy lồng giấy và nhiều nhiệm vụ độc lập chung giấy. `zo_check_repo.py` gọi kiểm nguồn, cổng HTML bốn gói gọi kiểm cấu trúc; kiểm hồi quy dùng fixture trong bộ nhớ, không dựng tệp HTML. Quy tắc này thay việc gom nhiệm vụ trong bản đồ cũ, không thay kiến trúc học tập hoặc receipt nghiệm thu lịch sử.
 
-### 6.1.4. Mục tiêu ở Bắt đầu, Câu hỏi dẫn đường ở Bài học — GOALS-START-20261018
+### 6.1.4. Mục tiêu ở Bắt đầu, dẫn nhập ở Bài học — GOALS-START-20261018, hiệu chỉnh R2G01-LESSONS-20261028
 
 Mỗi gói có một bản mục tiêu đầy đủ tại Bắt đầu, dưới tên **Học xong, em cần làm được gì?**, hiển thị trực tiếp. Dùng bảng hai cột **Mục tiêu** — **Việc em cần làm được**; cột đầu gọi tên khả năng, cột sau nêu hành động/biểu hiện có thể đối chiếu. Số dòng theo mục tiêu thực của gói, không ép bằng nhau. Mục tiêu theo chặng chỉ tóm tắt phần liên quan; bảng đọc kết quả sau Kiểm tra giữ bằng chứng/tiêu chí riêng, không bị xóa vì có cùng tên mục tiêu.
 
-Đầu Bài học giữ khối thu gọn **Câu hỏi dẫn đường**, gồm câu hỏi trung tâm, gợi ý suy nghĩ và ghi chú phạm vi cần thiết. Không lặp nhãn cùng tên trong thân, không đặt bảng mục tiêu hoặc bảng liệt kê các mục học trong khối này; danh sách tra đọc thuộc Mục lục. Giữ các ID/liên kết đang được dùng khi di chuyển hoặc đổi tên. Yêu cầu thực hiện bắt buộc viết trực tiếp tại đúng hoạt động hoặc Cách học, không giấu trong khối này.
+Ngay dưới tiêu đề Bài học, viết câu hỏi trung tâm và một đoạn dẫn ngắn bằng chữ văn bản thường, luôn nhìn thấy. Câu hỏi nêu điều cốt lõi người học cần lần theo; lời dẫn chỉ làm rõ ý nghĩa hoặc hướng tìm hiểu. Không đặt tiêu đề phụ, nhãn “Câu hỏi dẫn đường” hay “BÀI HỌC · CÂU HỎI DẪN ĐƯỜNG”; không in đậm/phóng to cả câu, không biến đoạn dẫn thành một mục học hoặc một mục lục. Không dùng details/summary. Giữ ID cũ để liên kết không hỏng. Bảng mục tiêu vẫn ở Bắt đầu; chỉ dẫn bắt buộc nằm ngay tại hoạt động cần dùng.
+
+Khi thanh điều hướng đã có mục lục đầy đủ, bỏ bản mục lục lặp ở đầu Bài học. Mục lục lấy đúng cây nội dung và giữ các đích tra đọc cần thiết; không xóa hoạt động khỏi mục lục chỉ vì hoạt động không còn là heading kiến thức.
 
 Trước bỏ bảng cũ, đối chiếu từng mục tiêu ở Bắt đầu, từng yêu cầu trong bảng cũ và bằng chứng hiện có ở Bài học/Luyện tập/Kiểm tra/Sửa lỗi. Giữ đủ cả điều kiện, miền, giới hạn dữ kiện, đối xứng và yêu cầu đánh giá/sửa/xác nhận khi gói có; ghi nơi được giữ. Nhánh Chuyển giao có tiên quyết riêng đặt ngoài bảng mục tiêu cốt lõi, nêu rõ điều kiện và không dùng làm điều kiện hoàn tất lõi. Không biến việc nêu mục tiêu sửa lập luận thành bắt mọi người đi qua nhánh Sửa lỗi.
 
@@ -282,6 +286,15 @@ Chủ trì duyệt ngày 23/10/2026. Áp dụng toàn dự án Ôn thi Toán THP
 **Mẫu tham chiếu đã duyệt:** bản thảo phần mở đầu Ôn lại và Ôn lần 1 của R2-G01 trong cuộc trao đổi ngày 23/10/2026 (tác vụ 01a15f95-0ef2-7c20-847f-aaf45deff40e, khối bản thảo 73146, chỉ hai phần được chủ trì xác nhận). Ôn lần 2 và 3 của bản ấy chưa được duyệt. QMD/HTML R2-G01 dựng trước quyết định này chưa chứa bản biên tập vừa duyệt; không dùng chúng làm mẫu đã áp dụng chuẩn mới. Quy tắc đầy đủ tại mục này là nguồn điều hành, không phụ thuộc việc truy cập cuộc trao đổi.
 
 Áp dụng ngay khi biên soạn hoặc rà phần được giao. Không tự sửa hồi tố toàn bộ học liệu, đổi lịch ôn của gói khác, render hoặc nâng trạng thái nghiệm thu. Quy chuẩn đã được duyệt không đồng nghĩa mọi sản phẩm đã được rà hoặc đạt. Kiểm theo 02 và bảng kiểm bản thảo; cổng từ vựng không chứng minh chất lượng giọng văn.
+
+#### Giải thích có căn cứ và đủ bước — R2G01-LESSONS-20261028
+
+- Không dùng “trong gói này”, “ở tài liệu này” để né điều kiện hoặc giới hạn của một phát biểu toán. Viết điều kiện thực sự của định nghĩa, phép tính hay mô hình. Dẫn đường như “xem lại Ví dụ…” vẫn được dùng khi có ích; không cấm máy móc mọi từ chỉ tài liệu.
+- Một câu như “giữ tổng khi chia đều” hoặc “giữ vị trí giữa” chỉ nêu ý tưởng. Cần nói tổng của đại lượng nào, chia cho ai/cái gì, vì sao dẫn tới phép tính; với dãy đã sắp, phân biệt vị trí với giá trị. Giới thiệu kí hiệu trước hoặc ngay khi dùng, giải thích bước chuyển từ tình huống sang biểu thức rồi trở lại ý nghĩa và đơn vị.
+- Khi nội suy hoặc dùng giá trị đại diện, nêu rõ thông tin đã mất, phần cần ước lượng và giả thiết cho phép tính. Giải thích cụ thể vì sao một tỉ lệ trong dữ liệu được chuyển thành tỉ lệ trên hình hoặc độ rộng. Không tạo một mẫu số liệu tùy ý rồi coi đó là chứng minh duy nhất của công thức ước lượng.
+- Phân biệt phát biểu/công thức có trong tài liệu nguồn với cách diễn giải do người biên soạn xây dựng. Đọc và lưu đúng vị trí nguồn trong hồ sơ; phần diễn giải tự xây phải được kiểm toán và ghi giả thiết, không gán cho nguồn khi nguồn không nói vậy. Chính văn, chú thích và thư mục vẫn theo 6.3.
+- Kiểm trường hợp biên, giá trị trùng nhau, mẫu chẵn/lẻ, dấu và đơn vị khi liên quan. Chẳng hạn trung vị mẫu gốc có số phần tử chẵn và trung vị ước lượng từ bảng ghép nhóm không được đồng nhất; hai khoảng ghép liền kề phải có quy ước biên không chồng lấn.
+- Đọc lại toàn đoạn và các câu trước/sau sau khi tích hợp. Rà cả đề, lời giải, hình, bảng, Sửa lỗi và phần nhắc lại chịu ảnh hưởng; không chỉ vá những câu người đọc đã chỉ ra. Phân số/phân thức trong cả dòng văn dùng LaTeX theo quy chuẩn gói, không viết bằng dấu gạch chéo.
 
 ### 6.1.7. Bảng nút thắt nhận thức — BOTTLENECKS-20261019
 
@@ -399,6 +412,22 @@ G03 và các gói R1 dựng mới phải khai `display_contract: qd025-display-v
 
 Kiểm trình duyệt phải xác nhận nhãn nhìn thấy và đọc được ở desktop/mobile, nằm cùng vùng với tiêu đề, không lặp nhãn–tiêu đề, không tràn và không làm hỏng đường đi/về. PASS schema hoặc có thuộc tính `data-zo-function` không thay phép kiểm này. Các cổng tự động chỉ kiểm phần đã được mã hóa; việc phân loại đúng ý nghĩa vẫn phải được đọc và đối chiếu.
 
+### 6.2.1. Mục kiến thức, hoạt động và nhãn là ba vai trò khác nhau — R2G01-LESSONS-20261028
+
+Mục kiến thức là một chủ đề toán có nội dung phát triển riêng. Dùng số hai cấp khi cần: 1, 2, … và 2.1, 2.2, …; không tạo cấp con rỗng hoặc chia mục chỉ để đủ số. Số mục kiến thức độc lập với dãy Gợi mở, Ví dụ, Nhiệm vụ theo NUMBERING-20261018.
+
+Trong Bài học, Gợi mở, Ví dụ và Nhiệm vụ là hoạt động phục vụ mục kiến thức hoặc Khởi động chứa nó. Dùng đoạn tiêu đề in đậm toàn bộ “Gợi mở NN — Tên”, “Ví dụ NN — Tên”, “Nhiệm vụ NN — Tên”, cùng phông và cỡ chữ chính văn. Không dùng small caps, chữ hoa cưỡng bức, giãn chữ kiểu nhãn hoặc cỡ lớn ngang heading. Tên loại/số trong metadata không biến hoạt động thành nhãn thị giác. Nhãn ngữ cảnh thực sự như “MẠCH HỌC · BÀI HỌC” vẫn dùng kiểu nhãn chung.
+
+Hoạt động phải nằm trong đúng mục cha ở cả nguồn và DOM, không chỉ được làm nhỏ bằng CSS. Nếu củng cố nhiều mục con, đặt ở mục cha chung sau các phần liên quan và viết câu chuyển nói rõ nội dung được củng cố. Nếu chỉ phục vụ một mục con, đặt trong mục con ấy. Luyện tập, Kiểm tra, Ôn lại và các phần khác giữ heading cho đơn vị học độc lập theo chức năng; không hạ mọi nhiệm vụ toàn gói thành đoạn văn vì một sửa trong Bài học.
+
+Mục lục phản chiếu quan hệ cha–con thật, có thể giữ điểm neo tới hoạt động để tra đọc. Không suy cấp từ cỡ chữ, từ tiền tố loại hoặc từ việc cùng nằm trên một bảng kiểm. Giữ ID, số, liên kết đề–lời giải và bookmark cũ; kiểm đích sau khi đổi cấu trúc. Hai đoạn dẫn nhập không trở thành mục kiến thức.
+
+### 6.2.2. Nút chuyển phần ở cuối trang — R2G01-LESSONS-20261028
+
+Đặt nút phần trước bên trái, phần tiếp theo bên phải, phía dưới Bảo trợ và trước footer website. Dùng hình tròn gọn, chỉ hiện mũi tên; giữ tên đích trong tooltip và tên truy cập. Dùng biểu tượng vector có khung đối xứng, căn giữa cả khung và nét mũi tên theo hai trục; không dựa vào baseline của kí tự chữ. Giữ thứ tự phần, URL/view, trạng thái đầu/cuối và điều kiện học đã có; đây là điều hướng, không buộc hoàn thành tuần tự.
+
+Kiểm riêng cả hai nút trên màn hình rộng/hẹp: hình tròn, cỡ phù hợp, không bị cắt, mũi tên ở tâm, focus nhìn thấy, thao tác chuột/bàn phím và đích tới/lui đúng. Số đo 36 px cho nút và 20 px cho SVG đang được thử ở R2-G01; chưa có xác nhận thị giác cuối cùng của chủ trì, nên chưa khóa thành token chung. Không sao nút mở mục lục 52 px sang nút này vì khác chức năng.
+
 ### 6.3. Chính văn, chú thích nguồn và hình ngay từ bản thảo
 
 Áp dụng khi viết hoặc hiệu chỉnh nội dung. Lượt 17/10/2026 chưa mở sửa hồi tố G01–G03; yêu cầu đối chiếu và thống nhất bốn gói ngày 18/10/2026 đã mở phạm vi đó, gồm chú thích nguồn trong G01–G04.
@@ -409,11 +438,17 @@ Kiểm trình duyệt phải xác nhận nhãn nhìn thấy và đọc được 
 - Khối lời giải dùng đúng vai trò solution và mặc định đóng; không bọc tùy tiện mọi đoạn giảng thành hộp. Kiểm kí pháp bằng guard hiện có, bao gồm ngoặc co giãn; nhận diện giới hạn phạm vi của checker, không biến lỗi tương thích parser thành hệ đánh số mới.
 - Bản thảo không phải bản dàn trang HTML/PDF. Việc dựng SVG bằng công cụ đồ thị có thể cần PDF vector trung gian để chuyển đổi; tệp đó phải được kiểm và dọn theo vòng đời công cụ, không được ghi là đã dựng PDF học liệu hoặc giữ thêm bản xuất ngoài phạm vi.
 
+#### Hình phải giúp đọc lập luận — R2G01-LESSONS-20261028
+
+Mỗi hình trong lời giảng phải trả lời được: hình biểu diễn điều gì, từng dấu/đường/màu có nghĩa gì, và người học cần nhận thấy quan hệ nào. Ưu tiên nhãn trực tiếp; nếu dùng kí hiệu riêng phải giải nghĩa gần chỗ nhìn thấy. Không để một tam giác, nét đứt hoặc giao điểm không được giải thích gánh ý nghĩa của trung vị, trung bình hay phép ước lượng. Phân biệt quan sát thật với đường phụ và giá trị ước lượng; giữ đơn vị, biên nhóm và thang đo đúng.
+
+Câu dẫn nối từ câu hỏi tới hình, phần giải thích hoặc chú thích nối hình trở lại lập luận. Không chỉ đặt tên hình mà thiếu ý nghĩa; không lặp nguyên cả lời giảng làm chú thích. Hình trong bài cần alt có nghĩa và chú thích khi cần giải mã/đối chiếu theo 6.1.1; không áp quy tắc bỏ chú thích bìa lên hình dữ kiện. Kiểm bản vẽ nguồn, hình xuất và hình ở cỡ đọc thực trên desktop/mobile theo ngôn ngữ ZO Math hiện hành; không coi “vẽ được” là đã đạt.
+
 ### 6.4. Đối chiếu giữa các gói theo chức năng
 
 Áp dụng cho G01–G04 từ yêu cầu chủ trì ngày 18/10/2026. Không lấy một trang làm mẫu tuyệt đối hoặc đồng nhất số mục, nhiệm vụ, chặng, tài nguyên nền và nhánh Chuyển giao.
 
-- Gợi mở thuộc từng mục kiến thức, sau chỉ dẫn thao tác nếu thật sự cần, trước phần giải thích; có câu hỏi và cầu nối tại chỗ. Dùng “Gợi mở NN — Nội dung”; tự làm trong Bài học và Khởi động dùng “Nhiệm vụ NN — Nội dung”. Theo NUMBERING-20261018, các chức năng dùng chung dãy Nhiệm vụ toàn gói; Gợi mở có dãy riêng. Tiêu đề câu hỏi cùng vai trò dùng `.zo-task-title` chung, không phụ thuộc việc nguồn cũ dùng heading hay nhãn trong đoạn.
+- Gợi mở thuộc từng mục kiến thức, sau chỉ dẫn thao tác nếu thật sự cần, trước phần giải thích; có câu hỏi và cầu nối tại chỗ. Dùng “Gợi mở NN — Nội dung”; tự làm trong Bài học và Khởi động dùng “Nhiệm vụ NN — Nội dung”. Theo NUMBERING-20261018, các chức năng dùng chung dãy Nhiệm vụ toàn gói; Gợi mở có dãy riêng. Phân cấp và kiểu chữ hoạt động trong Bài học theo 6.2.1; lớp `.zo-task-title` không được làm tên hoạt động lớn ngang tiêu đề kiến thức hoặc biến nó thành nhãn.
 - Liên kết đi từ đề đến lời giải dùng đúng “Xem lời giải”; lượt về dùng đúng “Xem đề bài”, gồm cả câu xác nhận và liên kết quay về trong lời hướng dẫn. Không thêm “sau khi tự làm”, tên nhiệm vụ hoặc đổi thành “Đối chiếu…” trong nhãn. Điều kiện tự làm viết ở câu hướng dẫn; tên mục trong mục lục và liên kết có chức năng riêng như mở công thức vẫn giữ đúng vai trò. Câu chữ thao tác có một nguồn tại `answer_actions` của `profiles/r1-consistency.json`; không tạo ngoại lệ theo gói. Giữ nguyên đích, quan hệ đề–lời giải, điều kiện mở lời giải và cơ chế quay lại. Kiểm cả nhãn nguồn và nhãn HTML, không chỉ đếm liên kết hoặc kiểm href.
 - Cây Lời giải phản ánh khu chứa đề: Bài học chứa Khởi động/Tự kiểm tra; Sửa lỗi chứa các nhóm theo nơi phát hiện. Nhãn nhóm con phải có mục cha. `heading_context` trong bảng áp dụng khai đích và đường ngữ cảnh của nhóm; không đoán từ cỡ chữ. Không để một giấy đọc chỉ có tiêu đề nhóm.
 - Bảng chọn hỗ trợ sau Khởi động giữ đủ bốn chức năng trong ba cột: bài/điều còn vướng, phần cần ôn kèm liên kết, trở lại bài (6.1.8). Bảng đầu Luyện tập chỉ ra các chặng thật và nơi đối chiếu. Lịch Ôn lại có ngày hẹn, nhiệm vụ, Điểm dừng. Đích cụ thể và số hàng do nội dung gói quyết định.

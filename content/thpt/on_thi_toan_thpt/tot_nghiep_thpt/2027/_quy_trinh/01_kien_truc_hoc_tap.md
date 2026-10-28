@@ -37,6 +37,16 @@ Mỗi chặng Luyện tập phục vụ một cụm mục tiêu có quan hệ g�
 
 D0 là công cụ định vị đầu vào của chương trình; một đơn vị Nền là tài nguyên hỗ trợ hẹp; một đề tổng hợp là công cụ đánh giá và luyện chiến lược. Không ép ba loại này vào nguyên mẫu trang R1-G01. Chúng dùng lại các hợp đồng phù hợp như tự làm, phản hồi, thử lại và ghi kết quả.
 
+### 2.1.1. Tổ chức lời giảng theo ý tưởng toán học — R2G01-LESSONS-20261028
+
+Áp dụng khi viết hoặc sửa Bài học của các gói Ôn thi Toán THPT. Trước chọn dữ liệu, xác định câu hỏi toán học cần giải quyết, ý nghĩa của khái niệm, điều kiện sử dụng và trở ngại người học cần vượt qua. Từ đó chọn tình huống, ví dụ, phản ví dụ và nhiệm vụ giúp người học nhận ra, giải thích và sử dụng ý tưởng ấy. Một chuỗi phép tính trên dữ liệu có thật chưa đủ thay cho lời giảng.
+
+Dữ liệu thực tế tiếp tục dùng khi phục vụ câu hỏi và cách diễn giải kết quả. Khi dữ liệu ấy chưa bộc lộ hiện tượng cần học, dùng mẫu nhỏ giả định hoặc phản ví dụ, ghi rõ tính giả định và mục đích; không phải tạo chuyện đời sống cho mọi lập luận. Không ấn định số bộ dữ liệu, số ví dụ hoặc sao cấu trúc của gói trước.
+
+Lời giảng phải nối được dữ kiện với kết luận: điều đã biết, điều chưa xác định được, giả thiết hoặc quy ước được dùng, lí do của bước chuyển và ý nghĩa kết quả. Công thức xuất hiện sau khi người đọc hiểu nó đang trả lời câu hỏi nào; việc nêu một ý tưởng ngắn không thay cho lập luận. Phân biệt kết quả chính xác, quy tắc ước lượng và điều không thể suy ra từ dữ liệu. Mạch này không phải bảy tiêu đề bắt buộc.
+
+Nút thắt nhận thức phải truy được tới chính lời giảng, ví dụ, câu hỏi và biểu hiện sai có thật trong mục tiêu bài; phần tháo gỡ nối về đúng nội dung ấy. Không bổ sung một danh sách kiến thức rời để làm đầy bảng Sửa lỗi. Cách viết, hình và cấp mục theo 07; quy trình đọc đối chiếu theo 02/1.5.
+
 ## 2.2. Mục lục và hành trình học có quan hệ thế nào
 
 Giữ năm mục điều hướng đã được chọn: **Bắt đầu, Bài học, Luyện tập, Kiểm tra, Ôn lại**. Gọi chúng là “khu vực”, không gọi là năm bước bắt buộc mà ai cũng phải đi qua đúng một lần.
@@ -45,7 +55,7 @@ Bài học là nơi lưu lời giảng theo mạch toán học. Luyện tập t�
 
 Người mới có thể bắt đầu từ Khởi động trong Bài học; người đã nắm phần học có thể vào Luyện tập; quyền vào Kiểm tra theo Mục 2.3.1. Đây là những gợi ý điểm vào, không phải một lộ trình bắt buộc chung. Tự đánh giá diễn ra tại Điểm dừng của hoạt động đang làm, không chờ hoàn thành cả mạch. Ôn lại phục vụ việc khơi lại kiến thức sau khoảng trễ; người học chọn lượt phù hợp với việc đã học, không phải đi lại từ Bài học chỉ để được ôn.
 
-Các mục tiêu cần đạt phải có bản tóm tắt nhìn thấy ở Bắt đầu và đầu mỗi chặng. Phần định hướng dài trong Bài học có thể tiếp tục đặt trong khối đóng/mở. **Ẩn phần diễn giải dài không đồng nghĩa ẩn điều kiện học xong.**
+Các mục tiêu cần đạt phải có bản tóm tắt nhìn thấy ở Bắt đầu và đầu mỗi chặng. Đầu Bài học là dẫn nhập ngắn, luôn nhìn thấy theo 07/6.1.4. Trợ giúp tùy chọn dài được phân loại riêng theo 07/6.1.5; không thu gọn câu hỏi trung tâm hoặc điều kiện cần cho việc học.
 
 ### 2.2.1. Mạch chính và các nhánh không đồng nghĩa một chuỗi bước
 

@@ -40,6 +40,20 @@ _quy_trinh/
 
 Nếu thực tế cho thấy cần cải tiến, ghi yêu cầu và phạm vi ảnh hưởng, cập nhật quy tắc tại mục này cùng các chỉ dẫn/mẫu bị ảnh hưởng trong cùng lượt được giao. README gói và mẫu hồ sơ dẫn về đây; không duy trì nhiều định nghĩa độc lập về cách khởi tạo.
 
+### Bản thảo thay thế có thể đối chiếu và gỡ độc lập — R2G01-LESSONS-20261028
+
+Một nguồn chính hiện hành không cấm lưu một phương án thay thế được chủ trì giao. Với lượt so sánh, dùng vùng riêng có phiên bản trong `_quy_trinh/ban_thao/<phien_ban>/` hoặc thư mục làm việc cách ly được ghi rõ trong hồ sơ; mỗi phương án chỉ có một nguồn đang sửa. Ghi ánh xạ nguồn thảo, bản dựng cách ly, HTML xem thử và máy chủ/URL; tất cả đường dẫn phải phân biệt rõ với `index.qmd` và HTML chính trong `docs/`. Không dùng chung tệp đầu ra có thể ghi đè bản chính.
+
+Nếu người dùng yêu cầu xem HTML trước khi duyệt nội dung, được dựng QMD/HTML trong cây cách ly cho mục đích đó; đây không phải chuyển nguồn chính thức. Bản xem dùng cùng giao diện chính thức và nhãn Bản thảo/phiên bản nhìn thấy. Đổi cổng không thay việc tách nguồn và kiểm đúng nội dung. Quy trình đối chiếu, thay thế, sao lưu và kiểm mở lại tại 02/1.6, 2.6.
+
+Sau khi phương án được chọn và yêu cầu thay bản chính, chuyển có kiểm soát sang nguồn chính, giữ bản đã duyệt làm đối chứng; không tiếp tục sửa hai bản song song. Nguồn chính không phụ thuộc vùng thảo hoặc `_audit/`. PDF cũ giữ đúng trạng thái phiên bản, không tự đại diện nội dung HTML mới.
+
+### Cây mục và toán trong dòng văn — R2G01-LESSONS-20261028
+
+QMD sở hữu quan hệ cha–con: mục kiến thức có heading/số; hoạt động hỗ trợ trong Bài học dùng tiêu đề đoạn in đậm và container có ID thuộc đúng mục, theo 07/6.2.1. Khi hoạt động ôn nhiều mục con, đóng mục con trước khi đặt hoạt động ở cha chung; không chỉ sửa CSS hoặc mục lục để che cây nguồn sai. Dẫn nhập dùng đoạn văn thường, binding `learning_goals.guide_display: plain-introduction` khi adapter hỗ trợ. Gói mới phải nối/kiểm hỗ trợ cần thiết trước trình, không coi một giá trị metadata là đủ.
+
+Mọi phân số/phân thức dùng LaTeX dạng tử–mẫu, kể cả trong dòng văn, bảng, chú thích và lời giải: ví dụ `$\frac{n}{2}$`, `$\frac{a+b}{2}$`. Không dùng dấu `/` làm kí hiệu phân số/phân thức hoặc giấu nó trong code span. Phân biệt với dấu gạch chéo trong URL, đường dẫn hoặc dữ liệu không phải biểu thức toán; không thay máy móc các chuỗi đó. Đây là làm rõ QD_029, không tạo quy ước toán mới.
+
 ## Cổng điều hành trước sản xuất
 
 Theo QD_033 và QD_022/02/1.2, xác minh registry phụ thuộc trước biên tập và kiểm đầu ra. Khi đổi quy tắc/guard, báo cáo cũ mất hiệu lực trong phạm vi bị ảnh hưởng; không đổi QMD hoặc metadata để giả đạt. Sơ đồ/lời dẫn/routing phải khớp 14 tình huống 01/2.2.2. Không để adapter suy kiến trúc hoặc chép ghi chú biên tập lên trang người học. Đây là cổng điều hành/nghiệm thu; không tuyên bố CLI Quarto/PDF đã tự khóa mọi trường hợp. Chưa cho phép dựng PDF hoặc phát hành từ việc tài liệu đạt.
@@ -173,7 +187,7 @@ G02 dùng adapter canonical `zo_web_2027_g02_production.py` nhận raw Quarto m�
 ### Khung trang và điều hướng
 
 - Một trang có bìa/nhận diện và vùng đọc theo hợp đồng 07; bìa phủ workspace, cột đọc có lề thở. Vùng đọc sở hữu nhãn/heading/nội dung/hình/chú thích/link, một inset và không giấy lồng. Tham số kit không là chỉ tiêu số vùng/số view cho gói khác.
-- Điều hướng canonical có ba nhóm, không phải một dãy mục ngang hàng: **Mạch học chính** gồm `Bắt đầu/Cách học`, `Bài học`, `Luyện tập`, `Kiểm tra`, `Ôn lại`; **Hỗ trợ khi cần** gồm `Ôn nền`, `Sửa lỗi`, `Nhật kí`, `Lời giải`; **Tiện ích** gồm `Tải PDF`, `Nguồn`, `Toàn văn`. Chỉ hiện mục mà trang có nội dung thật; không đổi vai trò để lấp đủ nhóm.
+- Điều hướng canonical có ba nhóm, không phải một dãy mục ngang hàng: **Mạch học** gồm `Bắt đầu/Cách học`, `Bài học`, `Luyện tập`, `Kiểm tra`, `Ôn lại`; **Hỗ trợ** gồm `Ôn nền`, `Sửa lỗi`, `Nhật kí`, `Lời giải`; **Tiện ích** gồm `Tải PDF`, `Nguồn`, `Toàn văn`. Chỉ hiện mục mà trang có nội dung thật; không đổi vai trò để lấp đủ nhóm.
 - Kit dùng rail trái desktop, nút biểu tượng/dialog mobile; tên truy cập, bàn phím, Escape/focus và resize đúng hợp đồng. Ba nhóm giữ riêng, đặc biệt `Kiểm tra` → `Ôn lại`. Điều hướng không mất khi cuộn hoặc gây tràn cấp trang. Bảng ngang/thanh thu gọn trước kit là lịch sử tương thích, không đích giao diện hiện hành.
 - Chiều rộng viewport/vị trí cuộn không tự đổi do trạng thái điều hướng; kiểm rail, toolbar và nút/dialog trên view dài/ngắn. Không dùng vòng `scrollTo` tranh quyền cuộn hoặc áp selector spacer cũ vào shell mới.
 - Theo QD_025/031/033, `Ôn nền` và `Nhật kí` đều có owner cấp gốc độc lập; Ôn nền không thuộc Bài học/Khởi động, Nhật kí không thuộc Ôn lại. Nhánh tương thích sâu chỉ phục vụ đọc nguồn lịch sử, không cho phép sản xuất mới giữ owner sai. `Back`, tải lại, liên kết sâu và `Toàn văn` giữ đúng phạm vi; không nhân bản/di chuyển DOM lớn để sửa nguồn sai.
