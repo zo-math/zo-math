@@ -1,19 +1,19 @@
 profile_version: 1
 package:
   id: R2-G01
-  candidate_version: '0.2'
+  candidate_version: '0.4'
   source: index.qmd
-  authority: Chủ trì đã duyệt QMD và hướng bìa/HTML; giao hoàn thiện và dựng xem ngày
-    22/10/2026. HTML và ảnh bìa thành phẩm chờ duyệt; chưa giao PDF, commit, push
-    hoặc phát hành.
+  authority: Chủ trì duyệt kiểm kê 40 mục và hướng viết 6 đoạn mẫu ngày 27/10/2026,
+    giao chỉnh sửa R2-G01 và dựng HTML chính thức để đọc, góp ý. Kết quả biên tập
+    mới chờ chủ trì xem.
 workflow:
-  production: in_production
+  production: validated
   publication: pending
   user_confirmed: false
 acceptance:
-  draft: owner_approved
-  current_qmd: owner_approved
-  current_html: source_and_browser_checked_pending_owner_review
-  current_pdf: not_built
+  draft: approved_editing_plan
+  current_qmd: pending_owner_review
+  current_html: pending_owner_review
+  current_pdf: not_built_for_current_source
   cover_direction: owner_approved
-  rendered_cover: pending_owner_review
+  rendered_cover: owner_approved

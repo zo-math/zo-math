@@ -2,7 +2,7 @@
   "schema_version": 1,
   "package": "R2-G01",
   "decision": "QD_025",
-  "status": "source_applied_pending_html_acceptance",
+  "status": "source_revised_pending_owner_review",
   "display_contract": "qd025-display-v1",
   "context_labels": "parent-context-v1",
   "numbering_scope": "package-type-v1",
@@ -68,7 +68,7 @@
       "number": 5,
       "title": "Nhiệm vụ 05 — Tự nội suy và giải thích kết quả",
       "answer_title": "Lời giải Nhiệm vụ 05 — Tự nội suy và giải thích kết quả",
-      "question_owner": "hoc-uoc-luong",
+      "question_owner": "trung-vị-và-tứ-phân-vị-của-mẫu-ghép-nhóm",
       "answer_owner": "loi-giai",
       "label": "MẠCH HỌC · BÀI HỌC",
       "answer_label": "HỖ TRỢ · LỜI GIẢI"
@@ -423,7 +423,7 @@
       "function": "function.guided_thinking",
       "number": 2,
       "title": "Gợi mở 02 — “Ở giữa” và “chia đều” có cùng nghĩa không?",
-      "question_owner": "hoc-goc",
+      "question_owner": "số-trung-bình-và-trung-vị",
       "label": "MẠCH HỌC · BÀI HỌC"
     },
     {
@@ -458,7 +458,7 @@
     {
       "id": "R2G01-VD01",
       "anchor": "vd01",
-      "owner": "hoc-goc",
+      "owner": "số-trung-bình-và-trung-vị",
       "type": "type.example",
       "number": 1,
       "title": "Ví dụ 01 — Một mẫu có 16 giá trị",
@@ -467,7 +467,7 @@
     {
       "id": "R2G01-VD02",
       "anchor": "vd02",
-      "owner": "hoc-goc",
+      "owner": "tứ-phân-vị-chia-theo-thứ-tự",
       "type": "type.example",
       "number": 2,
       "title": "Ví dụ 02 — Khi cỡ mẫu lẻ",
@@ -485,7 +485,7 @@
     {
       "id": "R2G01-VD04",
       "anchor": "vd04",
-      "owner": "hoc-uoc-luong",
+      "owner": "số-trung-bình-của-mẫu-ghép-nhóm",
       "type": "type.example",
       "number": 4,
       "title": "Ví dụ 04 — Trung điểm giúp tính, nhưng không khôi phục dữ liệu gốc",
@@ -494,7 +494,7 @@
     {
       "id": "R2G01-VD05",
       "anchor": "vd05",
-      "owner": "hoc-uoc-luong",
+      "owner": "trung-vị-và-tứ-phân-vị-của-mẫu-ghép-nhóm",
       "type": "type.example",
       "number": 5,
       "title": "Ví dụ 05 — Xác định nhóm trước khi thay số",
@@ -503,7 +503,7 @@
     {
       "id": "R2G01-VD06",
       "anchor": "vd06",
-      "owner": "hoc-uoc-luong",
+      "owner": "mốt-của-mẫu-ghép-nhóm",
       "type": "type.example",
       "number": 6,
       "title": "Ví dụ 06 — Mốt của bảng nhóm và mốt của mẫu gốc",
@@ -524,7 +524,7 @@
       "owner": "hoc-chon",
       "type": "type.example",
       "number": 8,
-      "title": "Ví dụ 08 — Một ngày điển hình hay tổng lượt thuê?",
+      "title": "Ví dụ 08 — Cùng một tháng, hai cách mô tả số lượt thuê",
       "visible_label": "omit_title_repeats_type"
     },
     {
@@ -609,6 +609,16 @@
         ]
       },
       {
+        "title": "Trung bình và thời gian của người ở giữa",
+        "knowledge_anchors": [
+          "khi-trung-binh-khong-dien-hinh",
+          "mot-so-chua-du"
+        ],
+        "route_anchors": [
+          "nv26"
+        ]
+      },
+      {
         "title": "Vị trí và giá trị",
         "knowledge_anchors": [
           "hoc-goc"
@@ -621,6 +631,15 @@
         "title": "Hai nửa khi cỡ mẫu lẻ",
         "knowledge_anchors": [
           "vd02"
+        ],
+        "route_anchors": [
+          "nv24"
+        ]
+      },
+      {
+        "title": "Cùng trung bình và trung vị, khác các giá trị còn lại",
+        "knowledge_anchors": [
+          "vi-sao-can-tu-phan-vi"
         ],
         "route_anchors": [
           "nv24"
@@ -648,17 +667,18 @@
         ]
       },
       {
-        "title": "Trung điểm và quan sát",
+        "title": "Trung điểm và số đo thật",
         "knowledge_anchors": [
-          "vd03"
+          "vi-sao-trung-diem"
         ],
         "route_anchors": [
           "nv25"
         ]
       },
       {
-        "title": "Tần số trước nhóm và đến hết nhóm",
+        "title": "Mức tích lũy và giá trị nội suy",
         "knowledge_anchors": [
+          "vi-sao-noi-suy",
           "vd05"
         ],
         "route_anchors": [
@@ -666,7 +686,7 @@
         ]
       },
       {
-        "title": "Tính mốt từ bảng ghép nhóm",
+        "title": "Điều kiện tính mốt ghép nhóm",
         "knowledge_anchors": [
           "vd06",
           "chu-thich-mot"
@@ -676,8 +696,9 @@
         ]
       },
       {
-        "title": "Số giá trị của từng nhóm khi tính trung bình chung",
+        "title": "Cỡ nhóm khi tính trung bình chung",
         "knowledge_anchors": [
+          "trung-binh-co-trong-so",
           "vd07"
         ],
         "route_anchors": [
@@ -685,7 +706,7 @@
         ]
       },
       {
-        "title": "Số 0 và ký hiệu ghi kèm",
+        "title": "Số 0, ký hiệu ghi kèm và tổng",
         "knowledge_anchors": [
           "vd09"
         ],
@@ -776,7 +797,8 @@
           "nv17"
         ],
         "assessment_rows": [
-          5
+          5,
+          6
         ],
         "assessment_evidence": [
           "nv17"
@@ -790,7 +812,7 @@
           "nv18"
         ],
         "assessment_rows": [
-          6
+          7
         ],
         "assessment_evidence": [
           "nv16",
@@ -798,7 +820,8 @@
           "nv18"
         ]
       }
-    ]
+    ],
+    "guide_display": "plain-introduction"
   },
   "guided_prompt_contract": "source-owned-question",
   "source_note_prefixes": [
@@ -807,7 +830,7 @@
     "Căn cứ công thức:",
     "Căn cứ toán học và điều kiện độ rộng nhóm bằng nhau:",
     "Nguồn:",
-    "Chú thích về phạm vi kiến thức mốt và những câu hỏi cần tránh."
+    "Lưu ý về định nghĩa và quy ước mốt."
   ],
   "foundation_units": [
     "nen-tinh",
