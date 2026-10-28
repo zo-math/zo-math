@@ -35,9 +35,16 @@ def source_checks(path,root=ROOT,text=None):
     legacy=re.search(r"^(:{3,}) \{#"+re.escape(b["guide"])+r" [^\n]+\}\n(.*?)^\1[ \t]*$",lesson,re.M|re.S)
     native=re.search(r'<details\b[^>]*\bid="'+re.escape(b["guide"])+r'"[^>]*>(.*?)</details>',lesson,re.S)
     guide=legacy.group(2) if legacy else native.group(1) if native else ""
-    checks["question-only guide exists"]=bool(guide and GUIDE_TITLE in guide and "Định hướng bài học" not in guide)
+    plain=b.get("guide_display")=="plain-introduction"
+    visible=b.get("guide_display")=="always-visible"
+    label="BÀI HỌC · CÂU HỎI DẪN ĐƯỜNG" if visible else GUIDE_TITLE
+    checks["guide display is declared"]=b.get("guide_display","disclosure") in {"disclosure","always-visible","plain-introduction"}
+    checks["question-only guide exists"]=bool(guide and (plain or label in guide) and "Định hướng bài học" not in guide)
+    if visible:checks["guide is permanently visible in source"]=bool(legacy and ".zo-lesson-question" in legacy.group(0) and "<details" not in guide and "<summary" not in guide)
     checks["guide contains no goal table or chapter table"]=bool(guide) and not re.search(r"(?m)^\s*\||<table\b",guide)
-    checks["no repeated guide label"]=guide.count(GUIDE_TITLE)==1
+    checks["no repeated guide label"]=label not in guide if plain else guide.count(label)==1
+    if plain:
+        checks["introduction is ordinary prose"]=bool(legacy and ".zo-lesson-intro" in legacy.group(0) and not re.search(r"(?m)^#{1,6} |\*\*|<details|<summary|zo-guide-label|\{\.role",guide))
     checks["no full goal list duplicated in guide"]=TITLE not in guide and not all(r["title"] in guide for r in b["rows"])
     if path.parent.name=="r1_g01":
         plan=json.loads((path.parent/"giao_dien/web_2027_layout.json").read_text(encoding="utf-8"))
@@ -51,15 +58,20 @@ def html_checks(doc,b):
     guide=root.find(id=b["guide"]) if root else None
     t=table.find("table") if table else None
     rows=[[c.get_text(" ",strip=True) for c in row.find_all(["th","td"],recursive=False)] for row in t.select("tbody tr")] if t else []
+    plain=b.get("guide_display")=="plain-introduction"
+    visible=b.get("guide_display")=="always-visible"
+    label="BÀI HỌC · CÂU HỎI DẪN ĐƯỜNG" if visible else GUIDE_TITLE
+    guide_title=guide.select_one(".zo-guide-label") if guide and visible else guide.find("summary") if guide else None
+    plain_display=bool(guide and guide.name=="div" and "zo-lesson-intro" in guide.get("class",[]) and not guide.find_parent("details") and not guide.find(["summary","details","h1","h2","h3","h4","h5","h6","strong"]))
     return {
         "goals belong to Bắt đầu":bool(table and table.find_parent(id="bat-dau")),
         "goals visible without disclosure":bool(table and not table.find_parent("details")),
         "one correctly named goal heading":bool(heading and heading.find_parent(id="bat-dau") and heading.get_text(" ",strip=True)==TITLE),
         "goal columns":bool(t and [c.get_text(" ",strip=True) for c in t.select("thead th")]==COLUMNS),
         "all declared goal rows":[r[0] for r in rows]==[r["title"] for r in b["rows"]],
-        "question-only guide":bool(guide and guide.find_parent(id="bai-hoc") and guide.find("summary") and guide.find("summary").get_text(" ",strip=True)==GUIDE_TITLE and not guide.find("table")),
-        "guide closed by default":bool(guide and not guide.has_attr("open")),
-        "guide label not repeated":bool(guide and guide.get_text(" ",strip=True).count(GUIDE_TITLE)==1),
+        "question-only guide":bool(guide and guide.find_parent(id="bai-hoc") and (plain or guide_title and guide_title.get_text(" ",strip=True)==label) and not guide.find("table")),
+        "guide display matches binding":plain_display if plain else bool(guide and (guide.name=="div" and "zo-lesson-question" in guide.get("class",[]) and not guide.find_parent("details") and not guide.find(["summary","details"]) if visible else guide and not guide.has_attr("open"))),
+        "guide label not repeated":bool(guide and (label not in guide.get_text(" ",strip=True) if plain else guide.get_text(" ",strip=True).count(label)==1)),
     }
 
 def inverse_g01_fingerprint(source,plan,fingerprint,qmd):

@@ -1,0 +1,214 @@
+{
+  "request": "Mình duyệt bản kiểm kê và hướng chỉnh sửa này. Hãy cập nhật R2-G01 theo các điểm trên, chỉnh câu chuyển tiếp cho liền mạch, rồi dựng lại HTML bằng giao diện chính thức để mình đọc và góp ý.",
+  "approval": "Approved ten audit groups and two context additions; source editing, transitions and official local HTML rebuild authorized.",
+  "scope": "Clarity revisions across lesson, exercises, solutions, remediation and journal; measurement precision and precipitation-unit context.",
+  "before_source_sha256": "fe31aa81207db4563de7aaac5b4f98fad98261d5dd646bb3ef95c5e7f5338792",
+  "source_sha256": "64fc98fb9d61eb82bd5834319f68509649f0a67d271953527e8c451024a97ef8",
+  "changes": [
+    {
+      "before": "Trong mẫu $2;3;3;4;8$, có ba giá trị không lớn hơn trung vị $3$ và bốn giá trị không nhỏ hơn $3$. Hai số đếm đều lớn hơn một nửa cỡ mẫu vì hai giá trị bằng $3$ được tính ở cả hai phía. Tổng quát, có **ít nhất một nửa** số quan sát không lớn hơn trung vị và ít nhất một nửa không nhỏ hơn trung vị. Điều này không có nghĩa đúng một nửa nhỏ hơn và đúng một nửa lớn hơn trung vị.",
+      "after": "Trong mẫu $2;3;3;4;8$, ta có thể thực hiện hai phép đếm riêng:\n\n- Các quan sát có giá trị không lớn hơn trung vị $3$ là $2;3;3$: có ba quan sát.\n- Các quan sát có giá trị không nhỏ hơn $3$ là $3;3;4;8$: có bốn quan sát.\n\nHai quan sát bằng $3$ thỏa cả hai điều kiện so sánh, nên xuất hiện trong cả hai phép đếm. Ta đang kiểm tra hai điều kiện, không chia mẫu thành hai nhóm tách biệt. Vì vậy, hai số đếm có thể cùng lớn hơn một nửa cỡ mẫu.\n\nTổng quát, có **ít nhất một nửa** số quan sát không lớn hơn trung vị và ít nhất một nửa không nhỏ hơn trung vị. Điều này không có nghĩa đúng một nửa nhỏ hơn và đúng một nửa lớn hơn trung vị.",
+      "reason": "02: Phân biệt hai phép đếm với việc chia mẫu thành hai nhóm."
+    },
+    {
+      "before": "Phép tính $\\frac{10+20}{2}=15$ dành một nửa trọng số cho mỗi nhóm. Nhưng nhóm thứ nhất chỉ chiếm $\\frac{2}{10}$ số quan sát, còn nhóm thứ hai chiếm $\\frac{8}{10}$. Muốn mỗi quan sát được tính một lần, phải lấy trung bình có trọng số theo cỡ nhóm. Nếu cỡ hai nhóm bằng nhau thì công thức này rút gọn thành trung bình cộng của hai trung bình; nếu hai trung bình bằng nhau thì hai cách cũng cho cùng kết quả.",
+      "after": "Phép tính $\\frac{10+20}{2}=15$ tính hai nhóm ngang nhau: mỗi trung bình nhóm được tính một lần, dù nhóm thứ hai có số quan sát gấp bốn lần nhóm thứ nhất. Trong mẫu gộp, hai nhóm thực sự chiếm $\\frac{2}{10}$ và $\\frac{8}{10}$ số quan sát. Vì vậy, để mỗi quan sát được tính một lần, ta nhân từng trung bình nhóm với số quan sát tương ứng, cộng các tích rồi chia cho tổng số quan sát. Nếu cỡ hai nhóm bằng nhau thì công thức này rút gọn thành trung bình cộng của hai trung bình; nếu hai trung bình bằng nhau thì hai cách cũng cho cùng kết quả.",
+      "reason": "09: Giải thích trọng số bằng số quan sát thay cho cách nói rút gọn."
+    },
+    {
+      "before": "Trung vị $190$ mm mô tả vị trí giữa của dãy đã sắp.",
+      "after": "Trung vị $190$ mm là trung bình cộng của hai số đo ở vị trí thứ $8$ và thứ $9$ trong dãy đã sắp.",
+      "reason": "03: Phân biệt số đo với số thứ tự."
+    },
+    {
+      "before": "Số trung bình có bốn chữ số thập phân không nói rằng từng cá thể đã được đo chính xác đến mức đó. Độ chính xác của phép chia và độ chính xác của phép đo là hai việc khác nhau.",
+      "after": "Các số đo trong danh sách được ghi bằng số nguyên mm, nhưng phép chia $\\frac{3021}{16}$ cho kết quả $188{,}8125$. Bốn chữ số sau dấu phẩy phát sinh từ phép chia; chúng không cho biết dụng cụ đã đo từng cá thể chính xác đến một phần mười nghìn mm. Muốn biết độ chính xác của phép đo, ta cần thông tin về dụng cụ và cách đo. Vì vậy, không thể suy độ chính xác ấy chỉ từ số chữ số thập phân của trung bình.",
+      "reason": "11: Nối chữ số thập phân của phép chia với giới hạn thông tin về phép đo."
+    },
+    {
+      "before": "Ba tứ phân vị chia theo thứ tự và số lượng quan sát, không chia đoạn từ giá trị nhỏ nhất đến lớn nhất thành bốn đoạn dài bằng nhau.",
+      "after": "Ta xác định các tứ phân vị bằng cách xét các quan sát trong dãy đã sắp, rồi tìm trung vị của toàn dãy và của từng nửa. Ta không chia đoạn từ giá trị nhỏ nhất đến lớn nhất thành bốn đoạn dài bằng nhau.",
+      "reason": "01: Nêu rõ hành động thay cho cụm chia theo thứ tự."
+    },
+    {
+      "before": "Trong mẫu B, $Q_1=4$ nhưng chỉ có một trong tám giá trị nhỏ hơn $4$. Vì có các giá trị trùng nhau, không thể diễn giải $Q_1$ thành “đúng $25\\%$ quan sát nhỏ hơn $Q_1$”. Cần phân biệt “nhỏ hơn” với “không lớn hơn”.",
+      "after": "Trong mẫu B, $Q_1=4$. Tuy nhiên, chỉ có một trong tám quan sát nhỏ hơn $4$, còn có bốn trong tám quan sát không lớn hơn $4$. Hai tỉ lệ lần lượt là $\\frac{1}{8}$ và $\\frac{4}{8}$; không tỉ lệ nào bằng $25\\%$.\n\nNguyên nhân là ba quan sát cùng mang giá trị $4$: nếu đếm các giá trị nhỏ hơn $4$ thì không tính cả ba; nếu đếm các giá trị không lớn hơn $4$ thì tính cả ba. Vì thế, không thể hiểu ba tứ phân vị là những mốc luôn chia các giá trị của mẫu thành bốn nhóm, mỗi nhóm có đúng $25\\%$ số quan sát. Khi tìm $Q_1,Q_2,Q_3$, ta cần thực hiện cách xác định bằng trung vị của hai nửa đã nêu; đổi dấu “nhỏ hơn” thành “không lớn hơn” không khắc phục được sự khác nhau về số đếm này.",
+      "reason": "01: Đếm cả hai trường hợp và giải thích ảnh hưởng của giá trị trùng nhau."
+    },
+    {
+      "before": "**Sai khác giữa hai số trung bình có thể lớn đến đâu?** Nếu các nhóm cùng độ rộng $h$, mỗi giá trị khi được thay bằng trung điểm sẽ thay đổi một lượng nằm từ $-\\frac{h}{2}$ đến $\\frac{h}{2}$. Chênh lệch giữa tổng mới và tổng cũ là tổng của $n$ lượng thay đổi ấy, nên nằm từ $-\\frac{nh}{2}$ đến $\\frac{nh}{2}$. Chia cho $n$, chênh lệch giữa hai trung bình nằm từ $-\\frac{h}{2}$ đến $\\frac{h}{2}$. Vì thế, độ lớn sai khác không vượt quá $\\frac{h}{2}$.",
+      "after": "**Sai khác giữa hai số trung bình có thể lớn đến đâu?** Xét một nhóm rộng $5$ mm, chẳng hạn $[180;185)$, có trung điểm $182{,}5$ mm. Mọi số đo trong nhóm đều cách trung điểm không quá $2{,}5$ mm. Vì vậy, khi thay một số đo bằng trung điểm, số đó có thể tăng hoặc giảm, nhưng lượng thay đổi không vượt quá $2{,}5$ mm.\n\nNếu cả $n$ số đo đều thuộc các nhóm rộng $5$ mm, tổng mới có thể lệch tổng cũ không quá $n\\cdot2{,}5$ mm. Hai số trung bình đều được tính bằng cách chia tổng tương ứng cho cùng số $n$, nên chúng chênh nhau không quá $\\frac{n\\cdot2{,}5}{n}=2{,}5$ mm.\n\nVới độ rộng chung $h$, lập luận tương tự cho giới hạn $\\frac{h}{2}$: mỗi giá trị thay đổi không quá $\\frac{h}{2}$; tổng thay đổi không quá $n\\cdot\\frac{h}{2}$; chia cho $n$ thì hai trung bình chênh nhau không quá $\\frac{h}{2}$.",
+      "reason": "04: Giải thích từng giá trị, tổng và trung bình qua cùng một ví dụ."
+    },
+    {
+      "before": "Số $\\frac{h}{2}$ là **mức sai khác không thể vượt quá** theo cách thay thế này; nó không phải sai khác thực tế của mọi bảng. Nhóm hẹp hơn làm mức giới hạn ấy nhỏ hơn, nhưng sai khác thực tế còn tùy các lượng tăng và giảm bù nhau thế nào. Nó không nhất thiết giảm ở mọi lần đổi cách chia nhóm. [Nhiệm vụ 11](#nv11) giúp kiểm tra điều đó bằng dữ liệu thật.",
+      "after": "Đây là **mức sai khác không thể vượt quá**, không phải sai khác thực tế của mọi mẫu. Chẳng hạn, hai số đo $181$ mm và $184$ mm cùng thuộc $[180;185)$. Thay cả hai bằng $182{,}5$ mm làm số thứ nhất tăng $1{,}5$ mm và số thứ hai giảm $1{,}5$ mm. Tổng không đổi, nên trung bình cũng không đổi.\n\nNhóm hẹp hơn làm giới hạn $\\frac{h}{2}$ nhỏ hơn. Nhưng sai khác thực tế còn tùy những lượng tăng và giảm có bù lại cho nhau hay không; vì vậy, nó không nhất thiết giảm sau mỗi lần chia nhóm hẹp hơn. [Nhiệm vụ 11](#nv11) giúp đối chiếu hai điều này bằng dữ liệu thật.",
+      "reason": "04: Phân biệt giới hạn sai khác với sai khác thực tế bằng một phép bù cụ thể."
+    },
+    {
+      "before": "Nếu $r$ đúng bằng mức tích lũy ở biên hai nhóm kề nhau có tần số dương, tính từ cuối nhóm trước hoặc đầu nhóm sau cho cùng biên. Chẳng hạn, bảng ở [Nhiệm vụ 25](#nv25) có nhóm $[215;220)$ với $F=10$, $f=7$ và nhóm $[220;225)$ với $F=17$, $f=11$. Với $r=17$, hai cách cho $215+\\frac{17-10}{7}\\cdot5=220$ và $220+\\frac{17-17}{11}\\cdot5=220$ mm. Đây là hai cách tính cùng một biên, không phải đếm một quan sát hai lần. Không chia cho tần số $0$; lập luận về hai nhóm kề có tần số dương không áp dụng qua một dải nhóm rỗng.",
+      "after": "Nếu mức cần đạt $r$ đúng bằng tần số tích lũy ở biên chung của hai nhóm kề nhau có tần số dương, ta có thể tính từ nhóm đứng trước hoặc nhóm đứng sau. Hai phép tính cùng cho giá trị ở biên ấy.\n\nChẳng hạn, bảng ở [Nhiệm vụ 25](#nv25) có nhóm $[215;220)$ với $F=10$, $f=7$ và nhóm $[220;225)$ với $F=17$, $f=11$. Khi cần đạt $r=17$:\n\n- Tính từ nhóm $[215;220)$, ta cần thêm đủ $17-10=7$ quan sát, bằng toàn bộ tần số của nhóm. Vì vậy, ta đi hết độ rộng nhóm và được $215+\\frac{17-10}{7}\\cdot5=220$ mm.\n- Tính từ nhóm $[220;225)$, tần số tích lũy trước nhóm đã bằng $17$. Ta không cần đi thêm vào nhóm, nên được $220+\\frac{17-17}{11}\\cdot5=220$ mm.\n\nĐây là hai cách tìm cùng một giá trị biên. Quy tắc xếp số đo vào nhóm vẫn giữ nguyên: một số đo bằng $220$ thuộc $[220;225)$, không thuộc $[215;220)$.\n\n**Nếu có nhóm tần số bằng $0$.** Nhóm ấy không chứa quan sát nào, nên không được chọn để thay vào công thức có mẫu số $f$. Cần phân biệt trường hợp này với hai nhóm có tần số dương ở ngay cạnh nhau. Nếu giữa chúng có một hoặc nhiều nhóm không chứa quan sát, tần số tích lũy giữ nguyên trên cả khoảng trống ấy. Khi mức cần đạt đúng bằng mức đang giữ nguyên, điều kiện về tần số tích lũy chưa chọn được một giá trị duy nhất trong khoảng trống. Vì vậy, không áp dụng kết luận “hai cách tính cho cùng một biên” qua khoảng trống này; muốn chọn một giá trị cụ thể cần thêm quy tắc cho tình huống đó.",
+      "reason": "05: Tách trường hợp biên chung và khoảng trống; giữ điều kiện f dương."
+    },
+    {
+      "before": "Nếu chỉ một số nhóm cùng đạt tần số lớn nhất, cần xem xét riêng các nhóm ấy. Không thể đếm số nhóm cao nhất rồi kết luận ngay có bấy nhiêu giá trị mốt: hai nhóm cao nhất kề nhau có thể cho cùng một giá trị ở biên chung. Nếu một nhóm và cả hai nhóm liền kề đều có cùng tần số lớn nhất, hai độ chênh đều bằng $0$, nên công thức không xác định. Khi đó, phải nêu rõ tình trạng của bảng và quy tắc được sử dụng, không thực hiện phép chia cho $0$.",
+      "after": "**Nếu có nhiều nhóm cùng đạt tần số lớn nhất.** Trước hết, xác định những nhóm ấy và xem chúng có kề nhau không. Số nhóm có tần số lớn nhất chưa cho biết sẽ có bao nhiêu giá trị mốt khác nhau khi tính bằng công thức.\n\nChẳng hạn, bốn nhóm $[0;10)$, $[10;20)$, $[20;30)$, $[30;40)$ có tần số lần lượt là $3;8;8;2$. Hai nhóm ở giữa cùng có tần số lớn nhất. Nếu xét nhóm $[10;20)$, hai độ chênh là $8-3=5$ và $8-8=0$, nên công thức cho $10+\\frac{5}{5+0}\\cdot10=20$. Nếu xét nhóm $[20;30)$, hai độ chênh là $8-8=0$ và $8-2=6$, nên công thức cho $20+\\frac{0}{0+6}\\cdot10=20$. Hai nhóm được xét nhưng chỉ có một giá trị tính được: biên chung $20$.\n\nNếu một nhóm và cả hai nhóm liền kề đều cùng đạt tần số lớn nhất, cả hai độ chênh đều bằng $0$. Công thức khi ấy có mẫu số bằng $0$, nên không tính được giá trị mốt từ nhóm đang xét. Trong bài làm, cần chỉ ra các nhóm cùng đạt tần số lớn nhất và nói rõ công thức không xác định ở nhóm nào. Nếu đề chưa cho quy tắc xử lí thêm, ta dừng ở kết luận đó, không tự chọn một trung điểm làm mốt. Trường hợp này khác với quy ước không có mốt khi **tất cả** các nhóm có cùng tần số.",
+      "reason": "05: Bổ sung ví dụ hai nhóm kề và hành động cụ thể khi mẫu số bằng 0."
+    },
+    {
+      "before": "Một trạm khí tượng tại sân bay Seattle–Tacoma, bang Washington, Hoa Kỳ, ghi lượng giáng thủy theo ngày. **Giáng thủy** là nước từ mưa, tuyết… rơi xuống; lượng ghi ở đây được quy đổi thành lượng nước tương đương, đo bằng mm.",
+      "after": "Một trạm khí tượng tại sân bay Seattle–Tacoma, bang Washington, Hoa Kỳ, ghi lượng giáng thủy theo ngày. **Giáng thủy** là nước từ mưa, tuyết… rơi xuống. Để hiểu đơn vị mm, hãy hình dung lượng nước ấy được giữ lại và phủ đều trên một mặt phẳng nằm ngang: độ sâu của lớp nước là lượng giáng thủy được báo cáo. Tuyết được quy đổi thành lượng nước sau khi tan. Vì vậy, số mm ở đây chỉ độ sâu lớp nước tương đương, không phải độ sâu lớp tuyết.",
+      "reason": "12: Giải thích đại lượng đo bằng mm trong ngữ cảnh thời tiết."
+    },
+    {
+      "before": "Thử trả lời bằng lập luận của mình: Vì sao chỉ một thời gian chờ tăng mà trung bình của cả nhóm tăng? Vì sao trung vị không đổi khi thay $8$ bằng $28$, nhưng có thể đổi khi thay $2$ bằng $30$? Vì sao hai mẫu cùng trung bình và trung vị vẫn có tứ phân vị khác nhau? Vì sao hai mẫu cùng cho một bảng ghép nhóm mà có trung bình khác nhau? Khi trả lời, nêu bước nối giữa dữ kiện và kết luận, rồi vận dụng vào các mẫu mới ở phần Luyện tập.",
+      "after": "Trước khi sang Luyện tập, thử trả lời các câu hỏi sau bằng lập luận của mình:\n\n- Vì sao chỉ một thời gian chờ tăng mà trung bình của cả nhóm tăng?\n- Xét lại mẫu thời gian chờ $2;3;3;4;8$ phút. Nếu chỉ thay $8$ bằng $28$, vì sao trung vị không đổi? Trở lại mẫu ban đầu, nếu chỉ thay $2$ bằng $30$, trung vị thay đổi thế nào và vì sao?\n- Vì sao hai mẫu cùng trung bình và trung vị vẫn có thể có tứ phân vị khác nhau?\n- Vì sao hai mẫu cùng cho một bảng ghép nhóm mà có thể có trung bình khác nhau?\n\nKhi trả lời, nêu bước nối giữa dữ kiện và kết luận. Các nhiệm vụ ở phần Luyện tập sẽ yêu cầu em vận dụng những lập luận ấy vào các mẫu mới.",
+      "reason": "07: Nhắc đủ dữ kiện và phân biệt hai phép thay độc lập."
+    },
+    {
+      "before": "b) Nếu báo cáo cần vị trí giữa các ngày sau khi xếp theo số lượt thuê, em chọn số nào?",
+      "after": "b) Báo cáo cần cho biết: sau khi xếp số lượt thuê của 29 ngày từ nhỏ đến lớn, số lượt thuê ở vị trí chính giữa bằng bao nhiêu? Em chọn số đặc trưng nào để trả lời và báo cáo kết quả ra sao?",
+      "reason": "03: Câu hỏi nói rõ đại lượng cần tìm."
+    },
+    {
+      "before": "b) Chọn số để mô tả vị trí giữa các ngày đã xếp theo lượng thuê. Nêu khác biệt về ý nghĩa so với ý a.",
+      "after": "b) Sau khi xếp số lượt thuê của 31 ngày từ nhỏ đến lớn, số lượt thuê ở vị trí chính giữa bằng bao nhiêu? Chọn số đặc trưng để trả lời và giải thích câu trả lời này khác ý a ở điểm nào.",
+      "reason": "03: Câu hỏi Kiểm tra đủ ngữ cảnh nhưng không cho trước phương pháp giải."
+    },
+    {
+      "before": "d) Dùng kết quả trung vị để viết một câu mô tả vị trí giữa của 12 số đo. Câu viết cần cho người đọc biết em đang nói về nhóm chim nào.",
+      "after": "d) Dùng kết quả trung vị để viết một câu cho biết hai số đo ở giữa dãy đã sắp có trung bình cộng bằng bao nhiêu. Câu viết cần cho người đọc biết em đang nói về nhóm chim nào.",
+      "reason": "03: Diễn đạt ý nghĩa trung vị chẵn, không gọi trung vị là vị trí."
+    },
+    {
+      "before": "Em cần mô tả vị trí giữa và những chiều dài xuất hiện nhiều nhất trong nhóm này.",
+      "after": "Em cần tìm chiều dài ở giữa dãy số đo đã sắp và những chiều dài xuất hiện nhiều nhất trong nhóm này.",
+      "reason": "03: Đồng bộ lời dẫn Ôn lại."
+    },
+    {
+      "before": "lý do chọn số phải gắn với tổng hoặc vị trí giữa,",
+      "after": "lý do chọn số phải gắn với việc chia đều tổng lượt thuê hoặc tìm số lượt thuê ở giữa dãy đã sắp,",
+      "reason": "03: Đồng bộ câu đối chiếu."
+    },
+    {
+      "before": "Lý do phân biệt mục đích mô tả tổng với vị trí giữa",
+      "after": "Phân biệt câu hỏi về tổng lượt thuê chia đều cho mỗi ngày với câu hỏi về số lượt thuê ở giữa dãy đã sắp",
+      "reason": "03: Đồng bộ tiêu chí, giữ nguyên các đích tự kiểm."
+    },
+    {
+      "before": "Theo quy ước của bài, nửa dưới chỉ gồm",
+      "after": "Theo cách xác định tứ phân vị bằng trung vị của hai nửa đã nêu trong Bài học, nửa dưới chỉ gồm",
+      "reason": "06: Nêu đúng phương pháp thay cho phạm vi đúng trong bài."
+    },
+    {
+      "before": "b) Chọn trung vị $3777$ lượt/ngày để mô tả vị trí giữa khi xếp 29 ngày theo số lượt thuê. Điều này không nói tổng tháng bằng $29\\cdot3777$.",
+      "after": "b) Chọn trung vị $3777$ lượt mỗi ngày. Khi xếp 29 số lượt thuê từ nhỏ đến lớn, vị trí chính giữa là thứ $15$, và giá trị ở vị trí ấy là $3777$ lượt. Số $15$ là số thứ tự trong dãy đã sắp, không phải ngày 15 của tháng; $3777$ mới là số lượt thuê cần báo cáo. Trung vị không được tính bằng cách chia tổng, nên không thể lấy $29\\cdot3777$ để khôi phục tổng lượt thuê trong tháng.",
+      "reason": "03: Nối đáp số với đúng đại lượng, phân biệt thứ tự với ngày lịch."
+    },
+    {
+      "before": "d) Mẫu giả định có tổng $100$ lượt, trung bình $20$ lượt/ngày và trung vị $12$ lượt/ngày. Người viết bản tin về vị trí giữa dùng $12$; người phụ trách cần tổng $100$ và mức chia đều $20$. Bốn ngày có từ $10$ đến $14$ lượt, một ngày có $52$ lượt. Trung vị giúp mô tả vị trí giữa, nhưng nếu chỉ nêu nó, người đọc có thể không thấy ngày có mức sử dụng cao. Phần chênh lệch này có thể quan trọng với vận hành; chưa đủ dữ kiện để suy nhu cầu mọi ngày tương lai.",
+      "after": "d) Mẫu giả định có tổng $100$ lượt, trung bình $20$ lượt mỗi ngày và trung vị $12$ lượt. Dãy $10;12;12;14;52$ đã sắp từ nhỏ đến lớn, nên ngày đứng thứ ba theo mức sử dụng có $12$ lượt. Người viết bản tin chọn thông tin này để mô tả mức sử dụng ở giữa dãy. Người phụ trách vận hành cần tổng $100$ lượt và mức chia đều $20$ lượt mỗi ngày.\n\nBốn ngày có từ $10$ đến $14$ lượt, còn một ngày có $52$ lượt. Nếu chỉ báo cáo trung vị $12$ lượt, người đọc chưa biết ngày có mức sử dụng cao nhất và tổng lượt của cả năm ngày. Ngày có $52$ lượt có thể quan trọng đối với việc bố trí phục vụ, dù nó không làm thay đổi giá trị ở giữa dãy; dữ liệu này cũng chưa đủ để suy nhu cầu của mọi ngày tương lai.",
+      "reason": "03,08: Giải thích theo câu hỏi cụ thể, không lặp vị trí giữa như một nhãn."
+    },
+    {
+      "before": "b) Chọn trung vị $5382$ lượt/ngày cho vị trí giữa khi sắp 31 ngày. Nó dựa vào vị trí thứ 16, trong khi trung bình dùng tổng của tất cả các ngày.",
+      "after": "b) Chọn trung vị $5382$ lượt mỗi ngày. Trong dãy 31 số lượt thuê đã sắp từ nhỏ đến lớn, giá trị thứ $16$ bằng $5382$; đó là số lượt thuê ở vị trí chính giữa. Ý a hỏi mức chia đều tổng lượt thuê cho 31 ngày, còn ý b hỏi giá trị ở giữa dãy đã sắp. Vì cách xác định khác nhau, hai số trả lời hai câu hỏi khác nhau.",
+      "reason": "03: Đồng bộ lời giải Kiểm tra với câu hỏi mới."
+    },
+    {
+      "before": "cách ấy dành một nửa trọng số cho mỗi nhóm, trong khi hai nhóm chiếm $\\frac{20}{29}$ và $\\frac{9}{29}$ số ngày. Vì mỗi ngày cần được tính một lần, phải dùng trọng số theo số ngày.",
+      "after": "cách ấy tính hai trung bình ngang nhau dù chúng lần lượt đại diện cho 20 ngày và 9 ngày. Trong cả tháng, hai nhóm chiếm $\\frac{20}{29}$ và $\\frac{9}{29}$ số ngày. Nhân từng trung bình với đúng số ngày của nhóm rồi cộng lại mới tính đủ đóng góp của từng ngày vào tổng.",
+      "reason": "09: Diễn giải trọng số ở lời giải bằng số ngày."
+    },
+    {
+      "before": "Phép chia đôi dành một nửa trọng số cho nhóm hai ngày và một nửa cho nhóm năm ngày. Nhưng trong cả tuần, hai nhóm chiếm $\\frac{2}{7}$ và $\\frac{5}{7}$ số ngày. Muốn mỗi ngày được tính một lần, lấy $\\frac{2\\cdot5988{,}5+5\\cdot6596{,}4}{7}=\\frac{44959}{7}\\approx6422{,}71$ lượt/ngày. Các tích ở tử chính là tổng của từng nhóm.",
+      "after": "Cộng hai trung bình rồi chia tổng cho $2$ là tính hai nhóm ngang nhau, dù một nhóm có hai ngày và nhóm kia có năm ngày. Trong cả tuần, hai nhóm chiếm $\\frac{2}{7}$ và $\\frac{5}{7}$ số ngày. Muốn tính đủ cả bảy ngày, ta khôi phục tổng của từng nhóm rồi lấy $\\frac{2\\cdot5988{,}5+5\\cdot6596{,}4}{7}=\\frac{44959}{7}\\approx6422{,}71$ lượt mỗi ngày. Các tích ở tử chính là tổng của từng nhóm.",
+      "reason": "09: Trình bày đủ thao tác và ý nghĩa trọng số."
+    },
+    {
+      "before": "mốt 15.",
+      "after": "mốt 15. Để tính mốt, chọn nhóm $[10;20)$ có tần số $6$, lớn hơn tần số $2$ của mỗi nhóm liền kề. Hai độ chênh cùng bằng $6-2=4$, nên kết quả là $10+\\frac{4}{4+4}\\cdot10=15$, đúng tại trung điểm nhóm.",
+      "reason": "08: Bổ sung bước giải thích mà câu tự kiểm đã yêu cầu."
+    },
+    {
+      "before": "b) Một cách viết tham khảo: “Trong nhóm 24 cá thể Chinstrap được ghi nhận năm 2009 này, chiều dài cánh bơi trung bình khoảng $198{,}08$ mm và trung vị bằng $198$ mm. Hai số này mô tả mức trung bình và vị trí giữa của mẫu, nhưng không cho biết chiều dài của từng cá thể.”",
+      "after": "b) Một cách viết tham khảo: “Với 24 cá thể Chinstrap được ghi nhận năm 2009 ở khu vực quần đảo Palmer, Nam Cực, trung bình cộng của hai chiều dài cánh bơi ở giữa dãy đã sắp là $198$ mm. Các số đo trong nhóm nằm từ $187$ mm đến $212$ mm.”",
+      "reason": "08: Bản giới thiệu hai câu cho biết mức ở giữa và khoảng số đo quan sát được."
+    },
+    {
+      "before": "Cách chọn này giúp người đọc hình dung mức trung bình và vị trí giữa, đồng thời giữ rõ giới hạn của bản tóm tắt. Có thể chọn thông tin khác nếu số liệu đúng, lý do phù hợp và giữ đối tượng, đơn vị cùng phạm vi mẫu; không bắt buộc chọn đúng hai số như ví dụ. Không được biến một số đại diện thành chiều dài của mọi cá thể.",
+      "after": "Người viết chọn trung vị $198$ mm để người đọc biết mức chiều dài ở giữa dãy đã sắp. Nêu thêm số nhỏ nhất và số lớn nhất giúp người đọc thấy các cá thể không có cùng một chiều dài, thay vì hình dung cả nhóm đều bằng $198$ mm. Tuy vậy, hai câu trên chưa cho biết từng chiều dài xuất hiện bao nhiêu lần hoặc các số đo tập trung ở đâu trong khoảng từ $187$ mm đến $212$ mm.\n\nCó thể chọn thông tin khác nếu giải thích được nó giúp trả lời câu hỏi nào. Khi viết, cần giữ đúng nhóm chim, năm ghi nhận và đơn vị; không biến một số đại diện thành chiều dài của mọi cá thể.",
+      "reason": "08: Giải thích đóng góp của mỗi thông tin và điều bản tóm tắt còn bỏ ngỏ."
+    },
+    {
+      "before": "Đã có bao nhiêu trước nhóm và còn thiếu bao nhiêu để đạt mức cần tìm? $r$ là mức tích lũy cần đạt; $F$ là mức đã có trước nhóm. Phần còn thiếu $r-F$ chia cho tần số nhóm cho một tỉ lệ; theo giả thiết tăng đều, lấy tỉ lệ ấy của độ rộng rồi cộng đầu trái.",
+      "after": "Có bao nhiêu quan sát thuộc các nhóm đứng trước nhóm đang xét? Số đó là $F$, còn $r$ là mức tần số tích lũy cần đạt. Phần cần thêm $r-F$ chiếm tỉ lệ $\\frac{r-F}{f}$ tần số của nhóm. Theo giả thiết phân bố đều, lấy tỉ lệ ấy nhân với độ rộng nhóm, rồi cộng kết quả vào giá trị ở đầu mút trái.",
+      "reason": "09: Khôi phục đầy đủ đối tượng và bước tính trong bảng Sửa lỗi."
+    },
+    {
+      "before": "Bảng có các nhóm cùng độ rộng và đúng một nhóm cao nhất không? Khi có nhiều nhóm cùng cao nhất, cần kiểm từng trường hợp, nhất là mẫu số bằng $0$.",
+      "after": "Các nhóm có cùng độ rộng không, và những nhóm nào có tần số lớn nhất? Nếu có nhiều nhóm cùng đạt tần số lớn nhất, xét tần số của các nhóm liền kề trước khi tính; hai nhóm kề có thể cho cùng một giá trị ở biên. Nếu mẫu số bằng $0$, ghi rõ công thức không xác định ở nhóm đang xét.",
+      "reason": "09: Chỉ rõ thao tác thay cho kiểm từng trường hợp."
+    },
+    {
+      "before": "Chia đôi hai trung bình dành một nửa trọng số cho mỗi nhóm.",
+      "after": "Cộng hai trung bình rồi chia tổng cho $2$ là tính hai nhóm ngang nhau, dù số quan sát của chúng có thể khác nhau.",
+      "reason": "09: Tránh diễn đạt chia đôi hai trung bình."
+    },
+    {
+      "before": "Trung vị $0$ nói về hai giá trị giữa hoặc một giá trị giữa, không xóa các ngày có số đo dương khỏi tổng.",
+      "after": "Trung vị được xác định từ một hoặc hai giá trị ở giữa dãy đã sắp. Với số đo giáng thủy không âm, trung vị có thể bằng $0$ trong khi tổng vẫn dương, vì một số ngày khác có lượng giáng thủy dương.",
+      "reason": "09: Giải thích vì sao tổng vẫn dương, giữ điều kiện số liệu không âm."
+    },
+    {
+      "before": "Trung vị bằng $0$ không xóa giá trị dương ngày 09/02 và không làm tổng bằng $0$.",
+      "after": "Trung vị bằng $0$ vì giá trị ở giữa dãy $0;0;2{,}3$ là $0$. Tổng vẫn bằng $2{,}3$ mm vì phép cộng tính cả lượng giáng thủy dương của ngày 09/02.",
+      "reason": "09: Đồng bộ lời giải Nhiệm vụ 27 với Sửa lỗi."
+    },
+    {
+      "before": "Khi có nhiều nhóm cùng đạt tần số lớn nhất, phải kiểm từng trường hợp: các kết quả có thể trùng nhau tại biên, hoặc mẫu số bằng $0$. Vì vậy, cần nêu rõ các nhóm đông nhất và điều kiện áp dụng trước khi tính; không suy số giá trị mốt từ số nhóm cao nhất, không chia cho $0$ và không tự dùng công thức cho các nhóm khác độ rộng.",
+      "after": "Khi có nhiều nhóm cùng đạt tần số lớn nhất, xét từng nhóm cùng tần số của hai nhóm liền kề: nếu mẫu số khác $0$ thì tính và đối chiếu các kết quả; nếu mẫu số bằng $0$ thì ghi rõ công thức không xác định ở nhóm đó. Hai nhóm kề có thể cho cùng một giá trị tại biên, như ví dụ trong [phần mốt ghép nhóm](#vi-sao-cong-thuc-mot). Không suy số giá trị mốt từ số nhóm có tần số lớn nhất và không tự dùng công thức cho các nhóm khác độ rộng.",
+      "reason": "05: Đồng bộ chú thích với cách xử lí trong Bài học."
+    },
+    {
+      "before": "[Mở mẫu Nhật kí học tập dùng chung, gồm 14 mục cần ghi]",
+      "after": "[Mở mẫu Nhật kí học tập, gồm 14 mục cần ghi]",
+      "reason": "10: Phần minh họa được biên soạn riêng cho thống kê, giữ schema 14 mục."
+    },
+    {
+      "before": "**Ví dụ ghi một lỗi về trung vị — tình huống giả định.** Sau Nhiệm vụ 15b, một bạn nhận ra mình đã lấy vị trí giữa làm đáp số trung vị. Bạn có thể ghi: “Bài đầu: ghi số chỉ vị trí thay cho số đo tại vị trí ấy. Đã xem lại Ví dụ 01. Tự làm Nhiệm vụ 24b để kiểm tra cách tìm trung vị, chưa mở lời giải. Sau đối chiếu: tìm đúng giá trị trung vị và giải thích được; mới kiểm riêng ý này. Việc tiếp theo: trở lại Điểm dừng 04 để đối chiếu những ý còn lại.” Đây chỉ là mẫu diễn đạt; em ghi đúng việc mình đã làm, không chép kết quả giả định thành kết quả của mình.",
+      "after": "**Ví dụ ở cuối mục này minh họa cách ghi một lỗi về trung vị.** Một bạn nhầm số thứ tự của vị trí giữa với số đo cần tìm. Bảng ghi lại bài làm ban đầu, việc bạn đã làm để sửa và điều cần kiểm ở buổi học sau. Đây là tình huống giả định; em ghi đúng việc mình đã làm, không chép kết quả của ví dụ thành kết quả của mình.",
+      "reason": "10: Nối lời dẫn với ví dụ điền đủ 14 mục, không lặp ví dụ hai lần."
+    },
+    {
+      "before": "Em có thể dựa vào ví dụ thống kê ở trên để ghi việc vừa làm. Ví dụ đạo hàm trong mẫu chung chỉ để tham khảo thêm cách điền các mục khi cần; em không phải học hoặc giải thêm bài ấy.",
+      "after": "Mẫu trống dưới đây giữ đủ 14 mục để em sử dụng. Bảng kế tiếp minh họa cách điền các mục ấy với lỗi nhầm vị trí và giá trị vừa nêu.",
+      "reason": "10: Giữ toàn bộ minh họa trong ngữ cảnh thống kê."
+    },
+    {
+      "before": "{{< include ../_dung_chung/nhat_ki_hoc_tap.qmd >}}",
+      "after": "Sao chép mẫu trống này ra giấy hoặc công cụ ghi chú. Không có ô nào được điền sẵn “đã đạt”.\n\n::: {#r1-table-t13 .table-scroll}\n| Trường | Em ghi |\n|---|---|\n| Ngày–giờ | … |\n| Gói / mục tiêu | … |\n| Nguồn phát hiện | … |\n| Bài làm ban đầu | … |\n| Mức hỗ trợ ban đầu | … |\n| Bằng chứng quan sát | … |\n| Phân loại | … |\n| Mã lỗi hoặc mã Nền | … |\n| Hành động | … |\n| Bài khắc phục mới | … |\n| Trạng thái sau sửa | … |\n| Hẹn Ôn lại | … |\n| Kết quả sau khoảng trễ | … |\n| Quyết định tiếp theo | … |\n:::\n\n**Ví dụ giả định — ghi lại một lỗi về trung vị.** Bảng minh họa cách ghi, không cung cấp đáp số của bài tự kiểm tra.\n\n::: {#r1-table-t18 .table-scroll}\n| Trường | Ví dụ ghi |\n|---|---|\n| Ngày–giờ | 28/10/2026, 19:40 |\n| Gói / mục tiêu | Đọc dữ liệu và đo xu thế trung tâm; phân biệt vị trí giữa với giá trị trung vị |\n| Nguồn phát hiện | Nhiệm vụ 15b trong Kiểm tra; nhận ra lỗi khi đối chiếu sau khi đã kết thúc lượt |\n| Bài làm ban đầu | Ghi số chỉ vị trí giữa làm đáp số trung vị, chưa lấy các số đo ở những vị trí ấy |\n| Mức hỗ trợ ban đầu | Tự làm trong lượt Kiểm tra, chưa xem lời giải |\n| Bằng chứng quan sát | Bài làm có bước tìm vị trí nhưng chưa có bước lấy số đo và tính trung bình cộng của hai số đo ở giữa |\n| Phân loại | Chưa phân biệt số thứ tự trong danh sách với số đo |\n| Mã lỗi hoặc mã Nền | Nhầm vị trí với giá trị |\n| Hành động | Đọc lại Ví dụ 01 và sửa bài: xác định hai vị trí giữa, lấy hai số đo tại đó rồi tính trung bình cộng |\n| Bài khắc phục mới | Tự làm ý tìm trung vị của Nhiệm vụ 24b, chưa xem đề và lời giải của nhiệm vụ này trước lần tự kiểm |\n| Trạng thái sau sửa | Đã tự tìm đúng trung vị và giải thích được trong bài mới; mới kiểm việc phân biệt vị trí với giá trị, chưa kết luận về các mục tiêu khác |\n| Hẹn Ôn lại | Kiểm lại riêng lỗi này ở buổi học kế tiếp. Sau khi hoàn tất lượt học chính, ghi ba ngày hẹn ôn toàn bài theo lịch ở trên |\n| Kết quả sau khoảng trễ | Chưa kiểm tra lại ở buổi sau, nên chưa biết còn tự làm được hay không |\n| Quyết định tiếp theo | Trở lại Điểm dừng 04 để đối chiếu những yêu cầu còn lại |\n:::\n\nNếu bài tự kiểm tra vẫn còn sai, ghi rõ bước còn vướng và đọc lại phần liên quan trước khi làm tiếp. Nếu đã tự làm đúng một bài mới và giải thích được, ghi điều đã làm được ở bài ấy; một kết quả đúng chưa đủ để kết luận đã đạt mọi mục tiêu.\n\nNếu chưa có bài phù hợp mà em chưa gặp trước đó, ghi “chưa kiểm tra được bằng một bài mới”. Vài ngày sau, khi quay lại tự làm, hãy ghi kết quả thực tế: còn làm được, cần gợi ý hay lại mắc lỗi cũ. Lần kiểm riêng một lỗi vừa sửa được ghi riêng với ba lượt Ôn lại toàn bài.",
+      "reason": "10: Giữ nguyên mẫu trống 14 trường; ví dụ và hướng dẫn riêng nằm tại nguồn R2-G01, nguồn dùng chung không bị sửa."
+    },
+    {
+      "before": "Ý nghĩa ký hiệu T được nêu trong [hướng dẫn dữ liệu GHCN-Daily của NOAA](https://www.ncei.noaa.gov/pub/data/ghcn/daily/readme.txt).",
+      "after": "Ý nghĩa ký hiệu T được nêu trong [hướng dẫn dữ liệu GHCN-Daily của NOAA](https://www.ncei.noaa.gov/pub/data/ghcn/daily/readme.txt). Cách hiểu lượng giáng thủy theo độ sâu lớp nước tương đương được trình bày trong [hướng dẫn đo của WMO, Chương 6](https://www.weather.gov/media/epz/mesonet/CWOP-WMO8.pdf#page=135).",
+      "reason": "12: Ghi nguồn cho cách giải thích đơn vị mm."
+    }
+  ],
+  "review": {
+    "math": "Two separate median counts; both counts at Q1 with ties; midpoint mean-error bound; positive-frequency boundary and empty-gap cases; equal-width modal plateau cases checked algebraically.",
+    "prose": "Read changes with adjoining paragraphs; preserve distinction between observation position and value; task prompts do not disclose new self-check answers.",
+    "journal": "All fourteen field names and the blank form retained. Statistics example and guidance embedded in R2-G01 only; the shared journal source and other packages unchanged.",
+    "preserved": "Existing headings, anchors, learning units, figures, input datasets and numeric data tables; approved median and mode core explanations unchanged."
+  },
+  "integration_accepted": false,
+  "html": "rebuilt_official_interface_pending_owner_review",
+  "backup": "E:\\CodexHome\\.chatgpt-projects\\g-p-6a9f8a1518448191973c0bfa768cda04\\outputs\\R2-G01_ra_soat_toan_bai_20261028\\before",
+  "pdf_rebuilt": false,
+  "published": false,
+  "committed": false,
+  "html_sha256": "2b9c1ca5163c0ddad70eba29c3b3ac90900428405305145cd6497b0a5dc5d8dc",
+  "math_slash_operators": 0,
+  "render_report": "_audit/r2g01_ra_soat_toan_bai_20261028/render.json"
+}

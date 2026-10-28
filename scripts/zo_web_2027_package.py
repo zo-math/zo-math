@@ -115,7 +115,7 @@ def adapt(path,output_root,package):
  title=root['data-r1-title'];subtitle=original.select_one('.subtitle').get_text(' ',strip=True)
  home=builder.href(output_root/'content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html')
  hero='<section class="hero" aria-label="Bìa học liệu"><div class="hero-copy"><span class="eyebrow">'+html.escape(settings['eyebrow'])+'</span><h1>'+html.escape(title)+'</h1><p>'+html.escape(subtitle)+'</p></div><figure class="hero-art"><img src="assets/cover.svg" alt="'+html.escape(settings['cover_alt'],quote=True)+'"></figure></section>'
- footer,_=builder.site_footer();support=template('support.html',support_href=builder.href(output_root/'content/support/donate.html'),prototype_note='Bản HTML chờ duyệt.')
+ footer,_=builder.site_footer();support=template('support.html',support_href=builder.href(output_root/'content/support/donate.html'),prototype_note=settings.get('status_note','Bản HTML chờ duyệt.'))
  rendered=template('page.html',title=html.escape(title),body_class='g02-preview zo-web-2027-production',home_href=home,appearance=builder.appearance(),brand_thought=html.escape(BRAND_THOUGHT),navigation='<div id="nav-mount"></div>',breadcrumb=html.escape(title),hero=hero,content=str(root),support=support,site_footer=footer,drawer_title='Các phần của học liệu',styles='\n'.join(f'<link rel="stylesheet" href="{n}">' for n in ['reading-regions.css','web-shell.css','site-footer.css','appearance-inline.css','r1-g02-adapter.css','r1-consistency.css']),scripts='<script src="r1-controller.js"></script><script src="site-ui.js"></script>')
  result=BeautifulSoup(rendered,'html.parser');apply_labels(result,binding,{})
  fallback=result.new_tag('noscript');nav=result.new_tag('nav',attrs={'aria-label':'Các phần của học liệu'})
@@ -140,6 +140,17 @@ def adapt(path,output_root,package):
  apply_cover_frame(result,settings['cover_frame'],path,builder.output)
  from zo_web_2027_consistency import apply_editorial_policy
  apply_editorial_policy(result)
+ # Optional package-owned reader refinement, loaded after the shared controller.
+ enhancement=settings.get('reader_enhancement',{})
+ for kind,relative in enhancement.items():
+  if kind not in {'style','script'}:raise ValueError('Unknown reader enhancement')
+  source=(REPO/PACKAGE/relative).resolve()
+  if not source.is_relative_to((REPO/PACKAGE/'giao_dien').resolve()) or not source.is_file():raise ValueError('Reader enhancement escapes package interface')
+  if source.suffix!=('.css' if kind=='style' else '.js'):raise ValueError('Reader enhancement type mismatch')
+  asset=builder.materialize(source,'reader'+source.suffix)
+  href=os.path.relpath(builder.output/asset,path.parent).replace('\\','/')
+  if kind=='style':result.head.append(result.new_tag('link',rel='stylesheet',href=href))
+  else:result.body.append(result.new_tag('script',src=href))
  from zo_course_html import write
  write(path,result)
  print('Package shell:',len(result.select('.reading-region')),'reading regions;',len(result.select('.zo-pdf-card')),'PDF downloads')

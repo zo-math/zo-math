@@ -1,0 +1,21 @@
+/* Explicit page navigation and statistical figures; enabled by source. */
+.zo-page-navigation{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin:28px 0 0}
+.zo-page-navigation[hidden]{display:none}
+.zo-page-navigation a{display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:36px;height:36px;max-width:100%;padding:0;border:1px solid var(--line);border-radius:50%;background:white;color:var(--ink);line-height:1;text-decoration:none}
+.zo-page-navigation svg{display:block;width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.zo-page-navigation a:hover{background:var(--theme-yellow-1);border-color:var(--yellow)}
+.zo-page-navigation__previous{grid-column:1;justify-self:start}
+.zo-page-navigation__next{grid-column:2;justify-self:end;text-align:right}
+.reader-content .zo-statistical-figure .zo-statistical-scroll{max-width:100%;overflow-x:auto}
+.reader-content .zo-statistical-figure img{display:block;width:700px;max-width:none;height:auto;margin-inline:auto}
+.reader-content .zo-statistical-figure figcaption{text-align:left;font-size:14px;line-height:1.7;color:var(--ink)}
+
+[data-r1-page-navigation="true"] .r1-section-toc{display:none}
+
+/* Activities belong to their topic; their names are prose, not section headings. */
+.reader-content #bai-hoc .zo-lesson-activity{margin-block:24px}
+.reader-content #bai-hoc .zo-lesson-activity>p:first-of-type>strong,
+.reader-content #bai-hoc .zo-lesson-activity .zo-task-title{display:block;font-family:inherit;font-size:1em;line-height:inherit;font-weight:700;font-variant:normal;letter-spacing:normal;text-transform:none;margin:0}
+.reader-content #bai-hoc .zo-activity-kind{font:inherit;font-variant:normal;letter-spacing:normal;text-transform:none}
+.reader-content #bai-hoc .zo-knowledge-section{margin-block:32px}
+.reader-content #bai-hoc .zo-knowledge-section>h4{font-size:21px;line-height:1.5;font-weight:600}
