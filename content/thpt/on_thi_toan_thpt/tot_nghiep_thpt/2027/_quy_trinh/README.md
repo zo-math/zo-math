@@ -60,6 +60,7 @@ Mẫu hỗ trợ áp dụng kiến trúc và quy chuẩn. Registry/cổng kiểm
 | R1-G03 | Đường tiệm cận | [Phạm vi gói](goi/R1_G03.md) · [README của gói](../../../hoc_lieu/r1_g03/_quy_trinh/README.md) | [QMD](../../../hoc_lieu/r1_g03/index.qmd) · [Hồ sơ](../../../hoc_lieu/r1_g03/_quy_trinh) |
 | R1-G04 | Khảo sát sự biến thiên và vẽ đồ thị của hàm số | [Phạm vi gói](goi/R1_G04.md) · [README của gói](../../../hoc_lieu/r1_g04/_quy_trinh/README.md) | [QMD](../../../hoc_lieu/r1_g04/index.qmd) · [Hồ sơ](../../../hoc_lieu/r1_g04/_quy_trinh) |
 | R1-G05 | Ứng dụng đạo hàm trong thực tiễn | [Phạm vi gói](goi/R1_G05.md) · [README của gói](../../../hoc_lieu/r1_g05/_quy_trinh/README.md) | [QMD](../../../hoc_lieu/r1_g05/index.qmd) · [HTML và bộ PDF](../../../hoc_lieu/r1_g05/_quy_trinh/ho_so/bo_pdf_va_muc_tai_20261021.md) · [Bản thảo đã duyệt](../../../hoc_lieu/r1_g05/_quy_trinh/ban_thao/noi_dung.md) |
+| R2-G01 | Đọc dữ liệu và đo xu thế trung tâm | [README của gói](../../../hoc_lieu/r2_g01/_quy_trinh/README.md) | [QMD](../../../hoc_lieu/r2_g01/index.qmd) · [Đồng bộ toàn khóa](../../../hoc_lieu/r2_g01/_quy_trinh/ho_so/dong_bo_toan_khoa_20261029.json) |
 
 Tài liệu thiết kế riêng của G03: [đề cương biên soạn](goi/R1_G03_de_cuong_bien_soan.md) và [ma trận nhiệm vụ](goi/R1_G03_ma_tran_nhiem_vu.md). Đọc trạng thái trong hồ sơ gói và 03, không dùng đề cương thay nguồn sản phẩm hiện hành.
 
