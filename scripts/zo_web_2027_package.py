@@ -132,8 +132,8 @@ def adapt(path,output_root,package):
  apply_tables(result,PACKAGE.name,path,builder.output)
  css=KIT/'figure-profile-candidate/production-figures.css';target=builder.output/css.name
  target.write_bytes(css.read_bytes());result.head.append(result.new_tag('link',rel='stylesheet',href=os.path.relpath(target,path.parent).replace('\\','/')))
- from zo_web_2027_navigation import apply as apply_navigation
- apply_navigation(result,path,output_root,builder.output,PACKAGE.name,preview_entry=(PACKAGE/'index.html',title))
+ from zo_web_2027_navigation import apply as apply_navigation, PAGES
+ apply_navigation(result,path,output_root,builder.output,PACKAGE.name,preview_entry=None if PACKAGE.name in PAGES else (PACKAGE/'index.html',title))
  result.body['data-zo-web-production']=root['data-r1-code'];result.title.string=title+' — ZO Math'
  # Source-owned square cover frame uses shared palette and dimensions.
  from zo_course_cover_frame import apply as apply_cover_frame

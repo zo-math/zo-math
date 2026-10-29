@@ -54,7 +54,7 @@ def render_components(program, packages):
         raise ValueError('Home catalog must follow canonical D0 G01 G02 G03 order')
     cards = []
     for p in packages:
-        category = 'survey' if p.ref_id == 'd0' else 'functions'
+        category = 'survey' if p.ref_id == 'd0' else ('statistics' if p.ref_id.startswith('r2_') else 'functions')
         from zo_course_cover import load_cover
         asset=load_cover(REPO,p.ref_id,allow_direction_approved=p.html_only or p.display_status=='Bản xem trước')
         cover='/' + asset.relative_to(REPO).as_posix()
@@ -68,7 +68,7 @@ def render_components(program, packages):
           <a class="home-card-action" id="home-card-action-{p.ref_id}" href="{entry}" aria-labelledby="home-card-action-{p.ref_id} home-card-title-{p.ref_id}">{'Làm khảo sát' if p.html_only else 'Mở tài liệu'} <span aria-hidden="true">→</span></a></div></div></article>''')
     strands = ''.join(f'<div data-strand-id="{html.escape(s["id"], quote=True)}"><span class="home-topic-number" aria-hidden="true">{i:02d}</span><h3>{html.escape(s["title"])}</h3></div>' for i,s in enumerate(program['strands'],1))
     tools = '''<div class="home-catalog-tools" hidden>
-      <div class="home-filters" role="group" aria-label="Lọc học liệu"><button type="button" data-filter="all" aria-pressed="true">Tất cả</button><button type="button" data-filter="survey" aria-pressed="false">Khảo sát</button><button type="button" data-filter="functions" aria-pressed="false">Hàm số</button></div>
+      <div class="home-filters" role="group" aria-label="Lọc học liệu"><button type="button" data-filter="all" aria-pressed="true">Tất cả</button><button type="button" data-filter="survey" aria-pressed="false">Khảo sát</button><button type="button" data-filter="functions" aria-pressed="false">Hàm số</button><button type="button" data-filter="statistics" aria-pressed="false">Thống kê</button></div>
       <label class="home-search">Tìm học liệu<input type="search" id="home-search" placeholder="Tên chủ đề muốn ôn" autocomplete="off"></label>
     </div>'''
     fragments = {'countdown': countdown_source(program), 'strands': strands,
