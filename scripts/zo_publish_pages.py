@@ -141,7 +141,7 @@ def fingerprint(root, pages, config, tool_root=None, d0_pdf=False, pdfs=None):
     tool_root=tool_root or Path(__file__).resolve().parents[1]
     inputs=input_fingerprints(root)
     tools={name:tool_sha(tool_root/'scripts'/name)
-           for name in ['zo_publish.py','zo_publish_pages.py','zo_quarto.py','zo_python.py']}
+           for name in ['zo_publish.py','zo_publish_pages.py','zo_quarto.py','zo_python.py','zo_publish_navigation.py']}
     if pdfs:
         tools['zo_publish_pdfs.py']=tool_sha(tool_root/'scripts/zo_publish_pdfs.py')
     version=p.run(['quarto','--version'],root)
@@ -196,13 +196,13 @@ def cache_eligible(root,sources):
     return True
 
 
-def artifact(root, pages, config, destination, cache_root, timings, tool_root=None, d0_pdf=False, pdfs=None):
+def artifact(root, pages, config, destination, cache_root, timings, tool_root=None, d0_pdf=False, pdfs=None, navigation=None, public=None):
     check=preflight(root,pages,config)
     if check['issues']:
         raise p.ConfigError(json.dumps(check['issues'],ensure_ascii=False))
     with timings.phase('fingerprint'):
         seal=fingerprint(root,pages,config,tool_root,d0_pdf,pdfs)
-    reusable=cache_eligible(root,check['sources'])
+    reusable=not navigation and cache_eligible(root,check['sources'])
     cache_root.mkdir(parents=True,exist_ok=True)
     cached=cache_root/seal['key']
     with timings.phase('artifact'):
@@ -216,7 +216,11 @@ def artifact(root, pages, config, destination, cache_root, timings, tool_root=No
             return {'cache_hit':True,'cache_eligible':True,'fingerprint':seal,'render':{'source_count':0,'exit_code':0}}
         with tempfile.TemporaryDirectory(prefix='artifact-',dir=cache_root) as temporary:
             temp=Path(temporary)
-            render=render_pages(root,temp/'raw',check['sources'],tool_root)
+            sources=[s for s in check['sources'] if str(Path(s).with_suffix('.html')).replace('\\','/') not in (navigation or [])]
+            render=render_pages(root,temp/'raw',sources,tool_root)
+            if navigation:
+                from zo_publish_navigation import inherit
+                render['navigation_only']=inherit(public,temp/'raw',navigation,config)
             # Hooks must not silently rewrite a fingerprinted source.
             if fingerprint(root,pages,config,tool_root,d0_pdf,pdfs)!=seal:
                 raise p.ConfigError('Source inputs changed during page render.')
@@ -424,6 +428,10 @@ def validate_receipt(root,target,config,payload,check_source=True,source_root=No
         raise p.ConfigError('Prepared artifact or public worktree drift.')
     if p.tree_manifest(backup)!=payload['target_before_manifest']:
         raise p.ConfigError('Prepared backup drift.')
+    navigation=payload['page_release'].get('render',{}).get('navigation_only',{})
+    if navigation:
+        from zo_publish_navigation import verify
+        verify(backup,target,navigation)
     seal=payload['page_release']['fingerprint']
     if payload['page_release']['version']!=VERSION:raise p.ConfigError('Unsupported page receipt version.')
     tool_root=Path(__file__).resolve().parents[1]
@@ -558,7 +566,7 @@ def prepare(root,target,config_path,config,args,source_state,target_state):
                 p.safe_remove_tree(stage,root/'_audit')
         stack.callback(cleanup_failed_stage)
         d0_pdf=getattr(args,'d0_pdf',False)
-        made=artifact(source,args.page,config,stage/'render',root/'.quarto/zo_publish_cache',clock,source,d0_pdf,pdfs)
+        made=artifact(source,args.page,config,stage/'render',root/'.quarto/zo_publish_cache',clock,source,d0_pdf,pdfs,getattr(args,'navigation_only_page',[]),target)
         with clock.phase('candidate_validation'):
             result=candidate(target,stage/'render',stage/'public',args.page,config,d0_pdf,source,pdfs)
         payload.update(result)

@@ -224,3 +224,7 @@ chứng minh sản phẩm không đổi; không gia hạn fingerprint dựng c�
 Không dựng lại HTML, hình hoặc PDF đã duyệt chỉ để làm mới fingerprint bảo
 thủ của công cụ phát hành. Khi đầu vào sản phẩm thật sự đổi, vẫn bắt buộc
 sửa nguồn → dựng canonical → kiểm → trình duyệt lại phần chịu ảnh hưởng.
+
+### Đồng bộ menu mà giữ nội dung đã phát hành
+
+Khi chỉ thêm học liệu vào danh mục toàn khóa, dùng `--navigation-only-page <trang.html>` cùng `--page <trang.html>` cho từng trang học liệu cũ; trang Nhà vẫn được dựng từ nguồn. Chế độ này lấy HTML từ cây public được kiểm Git, chỉ thay phần tử menu toàn khóa theo nguồn điều hướng chung, giữ nguyên mọi byte ngoài menu và kế thừa chỉ mục tìm kiếm, sitemap của các trang đó. Không kết hợp thay PDF. Biên nhận khóa hash bản trước; `validate` và `publish` kiểm lại phép biến đổi để chặn thay đổi nội dung ngoài menu. Không dùng chế độ này cho sửa bài học.
