@@ -1,12 +1,14 @@
 # Điều hành chương trình — trạng thái và việc tiếp theo
 
-## BẢN HIỆN HÀNH — Tổng kết cải tiến R2-G01, 28/10/2026
+## BẢN HIỆN HÀNH — HTML và tám PDF R2-G01 đã duyệt, 29/10/2026
+
+[Bản HTML hiện hành](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.html).
+
+Chủ trì đã duyệt HTML, PDF đầy đủ và bảy PDF riêng, đồng thời giao cập nhật bộ tải chính và commit đồng bộ. Tám tệp đã duyệt được sao chép nguyên byte về thư mục học liệu và thư mục tải HTML: đầy đủ 81 trang; học và bài tập 64; Bài học 33; Luyện tập 14; Kiểm tra 11; Ôn lại 17; Sửa lỗi 14; Lời giải 25. Nội dung bài học giữ nguyên; nguồn QMD bổ sung thông tin tải và số trang. [Biên nhận đồng bộ](../../../hoc_lieu/r2_g01/_quy_trinh/ho_so/dong_bo_pdf_da_duyet_20261029.json) ghi hash từng bản. Các biên nhận dựng và chờ duyệt trước đó được giữ làm lịch sử. Chưa push hoặc phát hành.
+
+### Mốc tổng kết cải tiến R2-G01 — 28/10/2026
 
 Đã đối chiếu chuỗi góp ý với nguồn và biên nhận R2-G01, cập nhật quy tắc R2G01-LESSONS-20261028 vào 01/02/07, quy chuẩn gói, mẫu, bảng kiểm, AGENTS, 04/08 và registry. [Tổng kết đầy đủ, phần bị thay và bằng chứng](../../../hoc_lieu/r2_g01/_quy_trinh/ho_so/tong_ket_cai_tien_20261028.md). Mẫu bản thảo hiện hành 1.6; bảng kiểm 1.9. Phạm vi là các gói Ôn thi Toán THPT trong công việc sản xuất/hiệu chỉnh được giao tiếp theo; không tự di trú các sản phẩm cũ.
-
-**Trạng thái sản phẩm:** bản thay chính ngày 27/10 và các đoạn viết lại đã được chủ trì duyệt theo phạm vi trong hồ sơ. Những bản tích hợp/giao diện sau đó đã được thực hiện và kiểm nhưng chưa có xác nhận nghiệm thu toàn bộ. Hai nút hiện là 36 px, SVG 20 px căn tâm; còn chờ góp ý thị giác, không khóa hai số đo thành chuẩn chung. PDF 25/10 thuộc nội dung cũ; chưa có PDF tương ứng các sửa 27–28/10. Lượt tổng kết chỉ sửa tài liệu điều hành, giữ nguyên sản phẩm và biên nhận cũ.
-
-**Việc tiếp theo:** tiếp nhận góp ý vào bản R2-G01 hiện hành; khi được giao gói mới hoặc sửa tiếp, tự nạp quy tắc và mẫu đã đồng bộ. Không tự dựng PDF, phát hành hoặc sửa hàng loạt gói khác.
 
 ## Lịch sử các lượt sửa R2-G01 ngày 27–28/10/2026
 

@@ -157,6 +157,7 @@ local function transform_div(div)
     }
     append_all(result, transform_blocks(div.content))
     table.insert(result, pandoc.RawBlock("latex", "\\par}"))
+    if div.identifier ~= "" then return {pandoc.Div(result,pandoc.Attr(div.identifier))} end
     return result
   end
 

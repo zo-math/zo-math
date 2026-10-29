@@ -131,7 +131,7 @@ def input_fingerprints(root,only_ignored=False):
     return inputs
 
 
-def fingerprint(root, pages, config, tool_root=None, d0_pdf=False):
+def fingerprint(root, pages, config, tool_root=None, d0_pdf=False, pdfs=None):
     """Conservative dependency key: all tracked bytes and permitted ignored inputs.
 
     This intentionally invalidates on unrelated tracked source changes rather
@@ -142,10 +142,13 @@ def fingerprint(root, pages, config, tool_root=None, d0_pdf=False):
     inputs=input_fingerprints(root)
     tools={name:tool_sha(tool_root/'scripts'/name)
            for name in ['zo_publish.py','zo_publish_pages.py','zo_quarto.py','zo_python.py']}
+    if pdfs:
+        tools['zo_publish_pdfs.py']=tool_sha(tool_root/'scripts/zo_publish_pdfs.py')
     version=p.run(['quarto','--version'],root)
     if version.returncode:
         raise p.MissingToolError('Cannot identify Quarto version.')
     data={'version':VERSION,'pages':sorted(set(pages)),'d0_pdf':d0_pdf,'inputs':inputs,'tools':tools,
+          'selected_pdfs':pdfs or [],
           'config':config,'python':sys.version,'quarto':version.stdout.strip(),
           'packages':sorted((d.metadata.get('Name',''),d.version) for d in importlib.metadata.distributions()),
           'environment':{k:os.environ.get(k) for k in ['QUARTO_PROFILE','QUARTO_PYTHON','RETICULATE_PYTHON','ZO_MATH_GRAPHICS_ROOT','ZO_OFFICIAL_BUILD']}}
@@ -193,12 +196,12 @@ def cache_eligible(root,sources):
     return True
 
 
-def artifact(root, pages, config, destination, cache_root, timings, tool_root=None, d0_pdf=False):
+def artifact(root, pages, config, destination, cache_root, timings, tool_root=None, d0_pdf=False, pdfs=None):
     check=preflight(root,pages,config)
     if check['issues']:
         raise p.ConfigError(json.dumps(check['issues'],ensure_ascii=False))
     with timings.phase('fingerprint'):
-        seal=fingerprint(root,pages,config,tool_root,d0_pdf)
+        seal=fingerprint(root,pages,config,tool_root,d0_pdf,pdfs)
     reusable=cache_eligible(root,check['sources'])
     cache_root.mkdir(parents=True,exist_ok=True)
     cached=cache_root/seal['key']
@@ -215,8 +218,14 @@ def artifact(root, pages, config, destination, cache_root, timings, tool_root=No
             temp=Path(temporary)
             render=render_pages(root,temp/'raw',check['sources'],tool_root)
             # Hooks must not silently rewrite a fingerprinted source.
-            if fingerprint(root,pages,config,tool_root,d0_pdf)!=seal:
+            if fingerprint(root,pages,config,tool_root,d0_pdf,pdfs)!=seal:
                 raise p.ConfigError('Source inputs changed during page render.')
+            # A new page may link a canonical PDF that Quarto did not copy.
+            # Supply verified PDFs before resolving the HTML dependencies.
+            for record in pdfs or []:
+                target=temp/'raw'/record['path']
+                target.parent.mkdir(parents=True,exist_ok=True)
+                shutil.copyfile(root/record['path'],target)
             raw_manifest=p.tree_manifest(temp/'raw')
             missing=[]
             keep=set(pages)|p.asset_dependencies(temp/'raw',raw_manifest,pages,missing)
@@ -224,6 +233,7 @@ def artifact(root, pages, config, destination, cache_root, timings, tool_root=No
                 if pages != [D0_PAGE] or D0_PDF not in raw_manifest['files']:
                     raise p.ConfigError('D0 PDF missing from the scoped HTML render.')
                 keep.add(D0_PDF)
+            keep.update(record['path'] for record in pdfs or [])
             if missing:raise p.ConfigError('Missing artifact dependencies: '+str(sorted(set(missing))))
             keep.update(x for x in ['search.json','sitemap.xml'] if x in raw_manifest['files'])
             p.copy_manifest(temp/'raw',temp/'render',{'files':{x:raw_manifest['files'][x] for x in keep}})
@@ -289,11 +299,13 @@ def merge_indexes(target, rendered, candidate, pages, config):
             p.write_text_lf(candidate/'sitemap.xml',ET.tostring(oldroot,encoding='unicode')+'\n')
 
 
-def inherited_pdf_issues(public, manifest, before, d0_pdf=False):
+def inherited_pdf_issues(public, manifest, before, d0_pdf=False, pdfs=None):
     names=set(before['files'])|set(manifest['files'])
+    selected={record['path'] for record in pdfs or []}
     return [{'type':'page-release-pdf-change','path':name}
             for name in sorted(names) if name.lower().endswith('.pdf')
             and not (d0_pdf and name == D0_PDF)
+            and name not in selected
             and before['files'].get(name)!=manifest['files'].get(name)]
 
 
@@ -312,17 +324,20 @@ def d0_pdf_issues(candidate, source):
             if not file.is_relative_to(source.resolve()) or not file.is_file() or p.sha256(file)!=wanted:
                 raise ValueError('D0 PDF input is stale: '+name)
         from pypdf import PdfReader
-        if len(PdfReader(candidate/D0_PDF).pages)!=20:
-            raise ValueError('D0 PDF page count changed')
+        if not isinstance(receipt.get('pages'),int) or receipt['pages']<1 or len(PdfReader(candidate/D0_PDF).pages)!=receipt['pages']:
+            raise ValueError('D0 PDF page count differs from its build receipt')
     except (OSError,KeyError,ValueError,TypeError) as exc:
         return [{'type':'d0-pdf-provenance','path':D0_PDF,'message':str(exc)}]
     return []
 
 
-def validate_candidate(candidate, manifest, config, before, d0_pdf=False, source=None):
-    issues=inherited_pdf_issues(candidate,manifest,before,d0_pdf)
+def validate_candidate(candidate, manifest, config, before, d0_pdf=False, source=None, pdfs=None):
+    issues=inherited_pdf_issues(candidate,manifest,before,d0_pdf,pdfs)
     if d0_pdf:
         issues.extend(d0_pdf_issues(candidate,source or Path(__file__).resolve().parents[1]))
+    if pdfs:
+        from zo_publish_pdfs import validate_pdfs
+        issues.extend(validate_pdfs(source or Path(__file__).resolve().parents[1],pdfs,config,candidate))
     difference=p.exact_diff(before,manifest)
     changed=set(difference['add']+difference['update'])
     if difference['delete']:
@@ -334,7 +349,13 @@ def validate_candidate(candidate, manifest, config, before, d0_pdf=False, source
     return result
 
 
-def candidate(target, rendered, destination, pages, config, d0_pdf=False, source=None):
+def candidate(target, rendered, destination, pages, config, d0_pdf=False, source=None, pdfs=None):
+    if pdfs:
+        from zo_publish_pdfs import selected_pdfs
+        expected=selected_pdfs(source,selected_sources(source,pages),evidence=False)
+        identity=lambda record:{k:record.get(k) for k in ('source','path','variant','contract')}
+        if list(map(identity,pdfs))!=expected:
+            raise p.ConfigError('PDF outputs must belong to exactly the selected pages.')
     before=p.tree_manifest(target,True)
     raw=p.tree_manifest(rendered)
     for name in pages:
@@ -343,6 +364,17 @@ def candidate(target, rendered, destination, pages, config, d0_pdf=False, source
     dependencies=p.asset_dependencies(rendered,raw,pages,missing)
     if missing:raise p.ConfigError('Missing rendered dependencies: '+', '.join(sorted(set(missing))))
     selected=set(pages)|dependencies
+    if pdfs:
+        selected_pdf_paths={record['path'] for record in pdfs}
+        for name in dependencies:
+            if name.lower().endswith('.pdf') and name not in selected_pdf_paths:
+                if name not in before['files']:
+                    raise p.ConfigError('New linked PDF is outside selected sources: '+name)
+                selected.discard(name)  # Keep the published PDF, even if a hook copied another version.
+    for record in pdfs or []:
+        if record['path'] not in raw['files']:
+            raise p.ConfigError('Missing selected PDF: '+record['path'])
+        selected.add(record['path'])
     if d0_pdf:
         if pages != [D0_PAGE] or D0_PDF not in raw['files']:
             raise p.ConfigError('D0 PDF scope or render output differs.')
@@ -369,20 +401,21 @@ def candidate(target, rendered, destination, pages, config, d0_pdf=False, source
     if set(policy['files'])!=set(manifest['files']):issues.append({'type':'candidate-manifest-mismatch'})
     # Asset replacement can affect unselected pages even if their HTML stays
     # unchanged. Block it instead of silently widening the release.
-    changed_assets=set(diff['update'])-set(pages)-{'search.json','sitemap.xml'}
+    selected_pdf_paths={record['path'] for record in pdfs or []}
+    changed_assets=set(diff['update'])-set(pages)-{'search.json','sitemap.xml'}-selected_pdf_paths
     if changed_assets:
         for name in before['files']:
             if name.endswith('.html') and name not in pages:
                 shared=p.asset_dependencies(target,before,[name])&changed_assets
                 if shared:issues.append({'type':'shared-asset-needs-pages','path':name,'assets':sorted(shared)})
-    validation=validate_candidate(destination,manifest,config,before,d0_pdf,source)
+    validation=validate_candidate(destination,manifest,config,before,d0_pdf,source,pdfs)
     issues.extend(validation['issues'])
     return {'manifest':manifest,'manifest_sha256':p.manifest_digest(manifest),'diff':diff,
             'target_before_manifest':before,'validation':validation,'issues':issues,
             'referenced_asset_dependencies':sorted(dependencies),'index_normalization':indexes}
 
 
-def validate_receipt(root,target,config,payload,check_source=True):
+def validate_receipt(root,target,config,payload,check_source=True,source_root=None):
     """Read-only final gate, shared by validate and publish; no remote mutation."""
     paths=payload['prepare_paths'];public=root/paths['public_dir'];backup=root/paths['backup_dir']
     if p.scan_symlinks(target,True) or p.scan_symlinks(public) or p.scan_symlinks(backup):
@@ -411,7 +444,15 @@ def validate_receipt(root,target,config,payload,check_source=True):
         else:
             expected=seal['inputs'];actual=input_fingerprints(root)
         if actual!=expected:raise p.ConfigError('Source dependency set or bytes changed after prepare.')
-    result=validate_candidate(target,payload['manifest'],config,payload['target_before_manifest'],payload['page_release'].get('d0_pdf',False))
+    pdfs=payload['page_release'].get('pdfs',[])
+    if pdfs:
+        from zo_publish_pdfs import selected_pdfs
+        wanted=selected_pdfs(source_root or root,selected_sources(source_root or root,payload['page_release']['pages']),evidence=False)
+        identity=lambda record:{k:record[k] for k in ('source','path','variant','contract')}
+        if list(map(identity,pdfs))!=wanted:
+            raise p.ConfigError('Selected PDFs no longer match selected pages.')
+    result=validate_candidate(target,payload['manifest'],config,payload['target_before_manifest'],
+                              payload['page_release'].get('d0_pdf',False),source_root or root,pdfs)
     if result['issues']:raise p.ConfigError(json.dumps(result['issues'],ensure_ascii=False))
     if p.changed_trailing_whitespace(backup,target,payload['manifest']):
         raise p.ConfigError('Prepared whitespace check failed.')
@@ -435,7 +476,11 @@ def validate_only(root,config_path,config):
         raise p.ConfigError('Public HEAD changed after prepare.')
     if p.git_text(target,'diff','--cached','--name-only',safe=target):
         raise p.ConfigError('Public index is not empty.')
-    p.validate_prepared_tree(root,target,config,payload)
+    if payload.get('committed_source'):
+        with p.detached_source_tree(root,root/'.quarto/_zpv',payload['source']['commit'],root/'.quarto') as snapshot:
+            p.validate_committed_prepared_tree(root,target,config,payload,snapshot)
+    else:
+        p.validate_prepared_tree(root,target,config,payload)
     print(json.dumps({'mode':'validate','passed':True,'rendered_pages':0,
                       'pushed':False,'mutated':False,'seconds':time.perf_counter()-start}))
     return 0
@@ -480,13 +525,19 @@ def prepare(root,target,config_path,config,args,source_state,target_state):
             root,payload['published_source_commit'],
         ) if allow_global_inputs else [])
     with p.ExitStack() as stack:
+        pdfs=[]
+        if getattr(args,'with_pdfs',False):
+            from zo_publish_pdfs import selected_pdfs
+            pdfs=selected_pdfs(root,selected_sources(root,args.page))
         with clock.phase('source_setup'):
             source=root
             if args.committed_source:
-                for name in ['publish_public.yml','scripts/zo_publish.py','scripts/zo_publish_pages.py']:
+                engine=['publish_public.yml','scripts/zo_publish.py','scripts/zo_publish_pages.py']
+                if pdfs:engine.append('scripts/zo_publish_pdfs.py')
+                for name in engine:
                     if p.git(root,'ls-files','--error-unmatch','--',name).returncode:
                         raise p.ConfigError('Publication engine/config must be tracked and committed: '+name)
-                if p.git(root,'diff','--quiet','HEAD','--','publish_public.yml','scripts/zo_publish.py','scripts/zo_publish_pages.py').returncode:
+                if p.git(root,'diff','--quiet','HEAD','--',*engine).returncode:
                     raise p.ConfigError('Commit publication engine/config before --committed-source prepare.')
                 source=stack.enter_context(p.detached_source_tree(root,root/'.quarto/_zpp',source_state['commit'],root/'.quarto'))
                 p.copy_ignored_render_support(root,source)
@@ -494,6 +545,9 @@ def prepare(root,target,config_path,config,args,source_state,target_state):
                 payload['excluded_working_changes']=source_state['status']
         with clock.phase('preflight'):
             result=preflight(source,args.page,config,target)
+            if pdfs:
+                from zo_publish_pdfs import validate_pdfs
+                result['issues'].extend(validate_pdfs(source,pdfs,config))
             if result['issues']:payload['issues'].extend(result['issues']);return finish(root,args,config,payload,clock)
         stage.mkdir(parents=True)
         with clock.phase('backup'):
@@ -504,11 +558,11 @@ def prepare(root,target,config_path,config,args,source_state,target_state):
                 p.safe_remove_tree(stage,root/'_audit')
         stack.callback(cleanup_failed_stage)
         d0_pdf=getattr(args,'d0_pdf',False)
-        made=artifact(source,args.page,config,stage/'render',root/'.quarto/zo_publish_cache',clock,source,d0_pdf)
+        made=artifact(source,args.page,config,stage/'render',root/'.quarto/zo_publish_cache',clock,source,d0_pdf,pdfs)
         with clock.phase('candidate_validation'):
-            result=candidate(target,stage/'render',stage/'public',args.page,config,d0_pdf,source)
+            result=candidate(target,stage/'render',stage/'public',args.page,config,d0_pdf,source,pdfs)
         payload.update(result)
-        payload['page_release']={'version':VERSION,'pages':sorted(set(args.page)),'d0_pdf':d0_pdf,**made}
+        payload['page_release']={'version':VERSION,'pages':sorted(set(args.page)),'d0_pdf':d0_pdf,'pdfs':pdfs,**made}
         payload['prepare_paths']={key:f'{config["prepare"]["staging_dir"]}/{folder}' for key,folder in [('render_dir','render'),('public_dir','public'),('backup_dir','backup')]}
         payload['prepare_paths'].update(staging_dir=config['prepare']['staging_dir'],report_file=config['prepare']['report_file'])
         if not result['issues']:

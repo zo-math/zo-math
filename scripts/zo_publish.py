@@ -1622,7 +1622,7 @@ def validate_prepared_tree(root: Path, target: Path, config: Mapping[str, Any],
         return
     if payload.get('page_release'):
         from zo_publish_pages import validate_receipt
-        validate_receipt(root,target,config,payload)
+        validate_receipt(root,target,config,payload,source_root=source_root)
         return
     manifest = payload["manifest"]
     paths = payload["prepare_paths"]
@@ -1867,6 +1867,8 @@ def parser() -> argparse.ArgumentParser:
     value.add_argument("--page", action="append", default=[], help="prepare: giới hạn HTML; lặp lại cho từng trang, vẫn kèm tài nguyên phụ thuộc.")
     value.add_argument('--d0-pdf', action='store_true',
                        help='prepare --page D0: include the one current, receipted D0 PDF.')
+    value.add_argument('--with-pdfs', action='store_true',
+                       help='plan/prepare --page: include current PDFs declared by exactly the selected sources.')
     value.add_argument('--committed-source', action='store_true',
                        help='prepare --page: render only committed HEAD in a temporary source tree; preserve unrelated working edits.')
     value.add_argument('--allow-global-inputs-for-pages', action='store_true',
@@ -1883,6 +1885,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.full_render and args.command != "prepare":
         print("ERROR: --full-render only applies to prepare.",file=sys.stderr)
         return EXIT_USAGE
+    if args.command == 'prepare' and not (args.page or args.full_render or args.approved_course):
+        print('ERROR: choose --page for scoped updates, or explicitly request --full-render. No build was started.', file=sys.stderr)
+        return EXIT_USAGE
     if args.command not in {"check", "prepare", "publish", "plan", "validate"}:
         print("ERROR: chỉ hỗ trợ plan, check, prepare, validate và publish.", file=sys.stderr)
         return EXIT_USAGE
@@ -1891,6 +1896,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         return EXIT_USAGE
     if args.d0_pdf and (args.command != 'prepare' or args.page != ['content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html'] or args.full_render or args.approved_course):
         print('ERROR: --d0-pdf requires scoped prepare of D0 alone.', file=sys.stderr)
+        return EXIT_USAGE
+    if args.with_pdfs and (args.command not in {'plan', 'prepare'} or not args.page or args.full_render or args.approved_course or args.d0_pdf):
+        print('ERROR: --with-pdfs requires scoped plan/prepare --page; do not combine with --d0-pdf.', file=sys.stderr)
         return EXIT_USAGE
     if yaml is None:
         print("ERROR: thiếu dependency PyYAML.", file=sys.stderr)
@@ -1911,6 +1919,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         if args.command == "plan":
             from zo_publish_pages import preflight
             plan = preflight(root, args.page, config)
+            if args.with_pdfs:
+                from zo_publish_pdfs import selected_pdfs, validate_pdfs
+                pdfs = selected_pdfs(root, plan['sources'])
+                plan['pdfs'] = [{k: v for k, v in record.items() if k != 'build_receipt'} for record in pdfs]
+                plan['issues'].extend(validate_pdfs(root, pdfs, config))
             plan['mode'] = 'plan'
             plan['source_mode'] = 'working-source inspection only; no build, fetch or target mutation'
             print(json.dumps(plan, ensure_ascii=False, indent=2))
@@ -2109,7 +2122,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         print_summary(payload, code)
         print("TIMINGS:",json.dumps(payload["timings"]))
         return code
-    except ConfigError as exc:
+    except (ConfigError, ValueError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return EXIT_USAGE
     except (MissingToolError, FileNotFoundError) as exc:

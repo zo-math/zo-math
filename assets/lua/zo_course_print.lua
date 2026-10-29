@@ -49,6 +49,9 @@ function M.table(tbl)
     end
     local out={'% zo-table '..(tbl.attributes['zo-owner'] or tbl.identifier)..' widths='..(tbl.attributes['zo-widths'] or ''),'\\begingroup\\small\\arrayrulecolor{zoGrid}\\setlength{\\arrayrulewidth}{.5pt}\\setlength{\\tabcolsep}{.012\\linewidth}\\renewcommand{\\arraystretch}{1.35}',
       '\\begin{longtable}{|'..table.concat(widths,'|')..'|}\\hline'}
+    local stretch=tonumber(tbl.attributes['zo-arraystretch'] or '1.35')
+    assert(stretch>=1.1 and stretch<=1.6,'Invalid print table spacing')
+    out[2]=out[2]:gsub('{1.35}', '{'..tostring(stretch)..'}',1)
     local function row(r,header)
       local cells={}
       for _,c in ipairs(r.cells) do
