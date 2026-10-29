@@ -1,0 +1,69 @@
+/* QD_030: Design 0.4 table roles, opt-in course pages only. No shell changes. */
+.reader-content .zo-course-table{border-collapse:collapse;border:1px solid var(--line);width:100%;table-layout:fixed;font-size:.88em;line-height:1.6;background:#fff;color:var(--ink);margin:0}
+.reader-content .zo-course-table :is(th,td){border:1px solid var(--line);padding:12px 15px;vertical-align:top;text-align:left;font-weight:400;background:transparent;overflow-wrap:normal}
+.reader-content .zo-course-table thead th{background:var(--theme-gray-2);font-weight:600}
+.reader-content .zo-course-table tbody th{background:#FBFAF8}
+.reader-content .zo-course-table :is(th,td)>p:last-child{margin-bottom:0}
+.reader-content .zo-course-table math{font-size:1em}
+.reader-content .zo-course-table caption{caption-side:bottom;text-align:left;font-size:inherit;font-weight:400;padding-top:.65em}
+.reader-content .zo-course-table caption.sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.reader-content .zo-course-table .d0-inline-math{display:inline;max-width:none;overflow:visible;vertical-align:baseline}
+.reader-content .zo-course-table-frame{width:100%;max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:thin;margin:24px 0}
+.reader-content .zo-course-table-frame:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.reader-content .zo-course-table--frequency tbody td,.reader-content .zo-course-table--frequency .zo-numeric-cell{text-align:right;font-variant-numeric:tabular-nums}
+.reader-content .zo-course-table--values :is(th,td),.reader-content .zo-course-table--matrix :is(th,td),.reader-content .zo-course-table--sign:not([data-table-variant="explained"]) :is(th,td),.reader-content .zo-course-table--variation :is(th,td){text-align:center;vertical-align:middle}
+.reader-content .zo-course-table--values,.reader-content .zo-course-table--matrix{table-layout:auto}
+.reader-content .zo-course-table--values :is(th,td){min-width:4em;white-space:nowrap}
+.reader-content .zo-course-table--values{width:auto;min-width:min(100%,24em);margin-inline:auto}
+.reader-content .zo-course-table--matrix tbody th,.reader-content .zo-course-table--matrix thead th{text-align:left}
+.reader-content .zo-course-table .zo-center-cell{text-align:center;vertical-align:middle}
+.reader-content .zo-course-table .zo-focus-cell{background:var(--theme-yellow-1)}
+.reader-content .zo-course-table .zo-intersection-cell{background:var(--theme-yellow-2)}
+.reader-content .zo-course-table tfoot :is(th,td),.reader-content .zo-course-table .zo-total-cell{background:var(--theme-gray-2);font-weight:600}
+.reader-content .zo-course-table[data-table-variant="numbered"] tbody th{color:var(--muted);text-align:center;white-space:nowrap;padding-inline:8px}
+.reader-content .zo-course-table--sign:not([data-table-variant="explained"]),.reader-content .zo-course-table--variation{width:max-content;max-width:none;table-layout:auto;margin-inline:auto;font-size:1em;line-height:1.6}
+.reader-content .zo-course-table--sign:not([data-table-variant="explained"]) :is(th,td),.reader-content .zo-course-table--variation :is(th,td){min-width:2.4em;white-space:nowrap;padding:.65em .8em;font-weight:400}
+.reader-content .zo-course-table--sign .trend{color:var(--ink)}
+.reader-content .zo-course-table--sign:not([data-table-variant="explained"]) thead th{font-weight:600}
+.reader-content .zo-course-table--variation .trend{color:#BF4240}
+.reader-content .zo-course-table .excluded{border-left:3px double #766F66;border-right:3px double #766F66}
+@media(max-width:760px){.reader-content .zo-course-table:not(.zo-variation-native) :is(th,td){padding:10px 12px}}
+
+/* Mathematical grids share the existing native 0.4 surface and cell rhythm.
+   Higher specificity keeps this course component independent of stylesheet order. */
+.reader-content table.zo-course-table.zo-math-grid{--zo-grid-ink:#3E3A35;--zo-grid-line:#DFD7CA;--zo-grid-paper:#FBFAF8;--zo-grid-trend:#BF4240;border:1px solid var(--zo-grid-line);background:var(--zo-grid-paper);color:var(--zo-grid-ink);font-size:1em;line-height:1.6}
+.reader-content table.zo-course-table.zo-math-grid :is(th,td){border:1px solid var(--zo-grid-line);background:transparent;min-width:2.4em;padding:.65em .8em;vertical-align:middle;font-weight:400}
+.reader-content table.zo-course-table.zo-math-grid:not([data-table-variant="explained"]) :is(th,td){white-space:nowrap}
+.reader-content table.zo-course-table.zo-math-grid[data-table-variant="explained"] thead th{font-weight:600;background:var(--theme-gray-2)}
+.reader-content table.zo-course-table.zo-math-grid .zo-focus-cell{background:var(--theme-yellow-1)}
+.reader-content table.zo-course-table.zo-math-grid .trend{color:var(--zo-grid-trend)}
+.reader-content table.zo-course-table.zo-math-grid .excluded{border-left:3px double #766F66;border-right:3px double #766F66}
+/* Visible names sit below their object; accessible table names remain hidden. */
+.reader-content figcaption,.reader-content .quarto-float-caption,.reader-content table.zo-course-table caption:not(.sr-only){color:var(--muted);font-size:.88em;line-height:1.6;font-weight:400;text-align:left;padding:.65em 0 0;margin:0;white-space:normal}
+.reader-content figcaption p,.reader-content .quarto-float-caption p{margin:0}
+
+/* Column headers receive the same alignment class as their data column. */
+
+/* The four-column bottleneck table fits the desktop reading region.
+   Keep the existing legible minimum and local horizontal scroll on narrow screens. */
+@media(min-width:1000px){
+  .reader-content [data-zo-remediation="bottlenecks-v1"] table.zo-course-table{min-width:0!important}
+}
+
+/* TABLE-FUNCTIONS-20261019: columns follow function, never package defaults. */
+.reader-content .zo-course-table .zo-numeric-cell{text-align:right;font-variant-numeric:tabular-nums}
+.reader-content .zo-table-field-label{display:none}
+@media(min-width:1000px){
+  .reader-content table.zo-course-table[data-table-responsive="scroll"]{min-width:0!important}
+}
+@media(max-width:760px){
+  .reader-content table.zo-course-table[data-table-responsive="records"]{display:block;border:0;min-width:0!important}
+  .reader-content table.zo-course-table[data-table-responsive="records"] colgroup{display:none}
+  .reader-content table.zo-course-table[data-table-responsive="records"] thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .reader-content table.zo-course-table[data-table-responsive="records"] tbody{display:block}
+  .reader-content table.zo-course-table[data-table-responsive="records"] tbody tr{display:block;border:1px solid var(--line);margin:0 0 16px}
+  .reader-content table.zo-course-table[data-table-responsive="records"] :is(th,td){display:block;width:auto;border:0;border-bottom:1px solid var(--line);padding:10px 12px;text-align:left}
+  .reader-content table.zo-course-table[data-table-responsive="records"] tbody tr>:last-child{border-bottom:0}
+  .reader-content table.zo-course-table[data-table-responsive="records"] .zo-table-field-label{display:block;color:var(--muted);font-weight:600;margin-bottom:.25em}
+  .reader-content table.zo-course-table[data-table-responsive="records"] .zo-table-field-label::before{content:attr(data-label)}
+}

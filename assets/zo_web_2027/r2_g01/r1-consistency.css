@@ -1,0 +1,12 @@
+/* R1-G01/G02 only. Native mathematical variation grids are not prose tables. */
+.reader-content .r1-table:not(.zo-course-table-frame) th,
+.reader-content table:not(.zo-course-table):not(.zo-variation-native):not(.variation) thead th {
+  text-align: left !important;
+}
+/* Remediation columns and minimum width are owned by course-tables binding. */
+.reader-content #nguon .r1-footer { font: inherit; }
+
+/* Question titles use their semantic role, independent of legacy QMD markup. */
+.reader-content .zo-task-title{display:block;font-size:23px;line-height:1.5;font-weight:600;margin:0 0 22px}
+.reader-content p:has(>.zo-task-title){margin:0}
+@media(max-width:760px){.reader-content .zo-task-title{font-size:21px}}

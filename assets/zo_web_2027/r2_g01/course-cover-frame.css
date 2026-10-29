@@ -1,0 +1,9 @@
+/* Source-owned authoring presets; the SVG remains transparent. */
+.hero-art[data-zo-cover-shape]{width:min(100%,var(--cover-width));max-width:var(--cover-width);aspect-ratio:1;background:var(--yellow-1,#FFF9E9);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.hero-art[data-zo-cover-shape] img{width:100%;max-height:none;height:auto}
+.r1-tab[data-parent-view]{margin-inline-start:14px;width:calc(100% - 14px);font-size:12px}
+.r1-tab-group--main .r1-tab[data-parent-view]::before{content:none;counter-increment:none}
+@media(max-width:760px){.hero-art[data-zo-cover-shape]{width:min(100%,320px)}}
+
+.reader-content .zo-inline-math-scroll{display:inline-block;max-width:100%;overflow-x:auto;vertical-align:middle;padding-block:2px}
+.reader-content .zo-inline-math-scroll:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
