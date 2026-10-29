@@ -52,7 +52,7 @@
   const mount = document.querySelector('#nav-mount');
   if (slot && mount) mount.append(slot);
   const tablist = document.querySelector('.r1-tablist');
-  if (tablist) {
+  if (tablist && !document.querySelector('.zo-contents-nav')) {
     tablist.setAttribute('aria-orientation', 'vertical');
     tablist.addEventListener('keydown', event => {
       if (!['ArrowUp', 'ArrowDown'].includes(event.key)) return;
@@ -69,8 +69,12 @@
   const trigger = document.querySelector('.mobile-trigger');
   const closeButton = dialog.querySelector('.drawer-close');
   let pendingDestination = null;
+  document.addEventListener('zo:contents-destination',event=>{
+    if(dialog.open){pendingDestination=event.detail.target;dialog.close();}
+  });
   function closeDrawer() { if (dialog.open) dialog.close(); }
   trigger.addEventListener('click', () => {
+    document.dispatchEvent(new CustomEvent('zo:contents-open'));
     drawer.append(...rail.childNodes);
     dialog.showModal(); trigger.setAttribute('aria-expanded', 'true'); closeButton.focus();
   });
