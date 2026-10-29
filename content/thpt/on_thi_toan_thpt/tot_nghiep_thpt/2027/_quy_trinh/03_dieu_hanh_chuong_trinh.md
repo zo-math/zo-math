@@ -1,10 +1,10 @@
 # Điều hành chương trình — trạng thái và việc tiếp theo
 
-## BẢN HIỆN HÀNH — HTML và tám PDF R2-G01 đã duyệt, 29/10/2026
+## BẢN HIỆN HÀNH — R2-G01 đã phát hành và kiểm trên zomath.vn, 29/10/2026
 
 [Bản HTML hiện hành](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.html).
 
-Chủ trì đã duyệt HTML, PDF đầy đủ và bảy PDF riêng, đồng thời giao cập nhật bộ tải chính và commit đồng bộ. Tám tệp đã duyệt được sao chép nguyên byte về thư mục học liệu và thư mục tải HTML: đầy đủ 81 trang; học và bài tập 64; Bài học 33; Luyện tập 14; Kiểm tra 11; Ôn lại 17; Sửa lỗi 14; Lời giải 25. Nội dung bài học giữ nguyên; nguồn QMD bổ sung thông tin tải và số trang. [Biên nhận đồng bộ](../../../hoc_lieu/r2_g01/_quy_trinh/ho_so/dong_bo_pdf_da_duyet_20261029.json) ghi hash từng bản. Các biên nhận dựng và chờ duyệt trước đó được giữ làm lịch sử. Chưa push hoặc phát hành.
+Chủ trì đã duyệt HTML, PDF đầy đủ và bảy PDF riêng, đồng thời giao cập nhật bộ tải chính và commit đồng bộ. Tám tệp đã duyệt được sao chép nguyên byte về thư mục học liệu và thư mục tải HTML: đầy đủ 81 trang; học và bài tập 64; Bài học 33; Luyện tập 14; Kiểm tra 11; Ôn lại 17; Sửa lỗi 14; Lời giải 25. Nội dung bài học giữ nguyên; nguồn QMD bổ sung thông tin tải và số trang. [Biên nhận đồng bộ](../../../hoc_lieu/r2_g01/_quy_trinh/ho_so/dong_bo_pdf_da_duyet_20261029.json) ghi hash từng bản. Các biên nhận dựng và chờ duyệt trước đó được giữ làm lịch sử. Đã phát hành commit website `6d9e62c8` từ nguồn `f1b1b94e`, đã kiểm HTML công khai và đủ tám PDF khớp bản đã duyệt. [Trang công khai](https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.html). [Biên nhận phát hành](../../../hoc_lieu/r2_g01/_quy_trinh/ho_so/phat_hanh_20261029.json).
 
 ### Mốc tổng kết cải tiến R2-G01 — 28/10/2026
 
