@@ -151,6 +151,14 @@ def adapt(path,output_root,package):
   href=os.path.relpath(builder.output/asset,path.parent).replace('\\','/')
   if kind=='style':result.head.append(result.new_tag('link',rel='stylesheet',href=href))
   else:result.body.append(result.new_tag('script',src=href))
+ # Render downloads only when the package declares its complete PDF set.
+ import yaml
+ metadata=yaml.safe_load((REPO/PACKAGE/'index.qmd').read_text(encoding='utf-8').split('---',2)[1])
+ if metadata.get('r1-download-files'):
+  from zo_web_2027_downloads import apply_from_metadata
+  apply_from_metadata(result,path,output_root,PACKAGE,create_missing=True)
+  from zo_course_labels import apply_context_labels
+  apply_context_labels(result,binding)
  from zo_course_html import write
  write(path,result)
  print('Package shell:',len(result.select('.reading-region')),'reading regions;',len(result.select('.zo-pdf-card')),'PDF downloads')

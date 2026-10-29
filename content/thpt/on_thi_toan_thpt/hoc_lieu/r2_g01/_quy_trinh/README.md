@@ -1,5 +1,7 @@
 # R2-G01 — Đọc dữ liệu và đo xu thế trung tâm
 
+**Hiện hành 29/10/2026:** HTML và cả tám PDF đã được chủ trì duyệt. Bộ tải chính dùng đúng các PDF đã duyệt, được giữ nguyên byte. [Biên nhận đồng bộ](ho_so/dong_bo_pdf_da_duyet_20261029.json). Các đoạn theo ngày bên dưới là lịch sử; trạng thái mới nhất theo tài liệu điều hành 03.
+
 **Tổng kết cải tiến 28/10/2026:** [góp ý, phương án cuối và bằng chứng](ho_so/tong_ket_cai_tien_20261028.md). Quy tắc dùng lại thuộc bộ điều hành khóa theo phân vai 08; trạng thái hiện hành đọc 03. Các ghi nhận theo ngày bên dưới là lịch sử, không phải nghiệm thu mới cho toàn bộ bản tích hợp.
 
 **Giao diện và hình ngày 28/10/2026:** theo đề xuất được chủ trì duyệt, R2-G01 dùng hai đoạn dẫn nhập thông thường ngay dưới Bài học (hiệu chỉnh theo yêu cầu chủ trì ngày 28/10; bỏ nhãn riêng và kiểu chữ tiêu đề), không lặp mục lục trong Bài học, có hai nút chuyển phần hình tròn chỉ hiện mũi tên dưới Bảo trợ (tên đích nằm trong chú giải khi rê chuột và tên truy cập) và ba hình thống kê được vẽ lại. Ở lượt thực hiện này chỉ R2-G01 được sửa. Theo tổng kết R2G01-LESSONS-20261028, quy tắc mới áp dụng cho công việc biên soạn/hiệu chỉnh tiếp theo; các sản phẩm khác chưa được di trú trong lượt tổng kết. Phân cấp đã hiệu chỉnh theo phương án chủ trì duyệt: mục kiến thức có số hai cấp, hoạt động trong Bài học dùng phông và cỡ chữ văn bản thường, in đậm cả tên (không dùng kiểu nhãn), và thuộc đúng phần; NV03 củng cố mục 2.1–2.2, NV05 thuộc mục 4.2. Mục lục phản chiếu cấu trúc nguồn. [Biên nhận phân cấp](ho_so/phan_cap_20261028.json). [Biên nhận](ho_so/giao_dien_va_hinh_20261028.json).
@@ -11,7 +13,7 @@
 Điểm vào hồ sơ gói. Trạng thái và việc tiếp theo của khóa do [03 — Điều hành](../../../tot_nghiep_thpt/2027/_quy_trinh/03_dieu_hanh_chuong_trinh.md) sở hữu.
 
 - [Nguồn QMD đã duyệt](../index.qmd).
-- [Bản HTML hiện hành chờ xem](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.html).
+- [Bản HTML hiện hành đã duyệt](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.html).
 - [Báo cáo dựng và kiểm HTML](ho_so/dung_html_20261022.md).
 - [Duyệt QMD và hướng bìa/HTML](ho_so/duyet_qmd_va_huong_html_20261022.json).
 - [Bản thảo 0.2 đã duyệt, giữ nguyên để đối chiếu](ban_thao/noi_dung.md).

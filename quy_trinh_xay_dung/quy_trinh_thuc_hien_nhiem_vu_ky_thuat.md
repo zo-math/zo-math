@@ -204,6 +204,23 @@ cầu lập thêm hồ sơ hoặc xin duyệt lại việc đã được giao.
   bị ảnh hưởng hoặc có yêu cầu nghiệm thu/phát hành tương ứng. Nêu căn cứ mở
   rộng. Không ghép chuẩn hóa, tái cấu trúc hay cải tiến công cụ vào sửa nhỏ.
 
+Điểm chặn chi phí cho sửa đổi nhỏ:
+
+- Trước lệnh dựng hoặc kiểm đầu tiên, nêu trong cập nhật tiến độ bốn mục đã
+  xác định: nguồn, đầu ra chịu ảnh hưởng, cổng kiểm và điều kiện dừng. Lệnh
+  toàn dự án/toàn website phải có phụ thuộc hoặc yêu cầu cụ thể làm căn cứ;
+  không chạy chỉ để "cho chắc" khi đã có cổng theo trang.
+- Với mỗi lần dựng hoặc kiểm lại tốn thời gian, ghi đầu vào đã đổi và lý do
+  chạy lại. Không lặp lệnh trên cùng đầu vào sau một PASS, hoặc lặp lỗi với
+  cùng giả thuyết. Một lỗi của cổng ngoài phạm vi không tự mở rộng nhiệm vụ
+  sửa nội dung thành bảo trì cổng đó.
+- Sau hai lần thất bại của cùng cổng, hoặc khi đã qua năm phút mà chưa xác
+  định được đường hoàn thành, dừng các lệnh dựng/kiểm tốn thời gian; báo ngay
+  kết quả đã có, nguyên nhân chậm, thời gian và số lần chạy. Tiếp tục chẩn
+  đoán bằng thao tác chỉ đọc để xác định cách xử lý; chỉ chạy tiếp lệnh tốn
+  thời gian khi đã có giả thuyết mới và phạm vi kiểm cụ thể. Mốc năm phút là
+  điểm báo cáo và chọn lại đường đi, không phải cam kết thời gian hoàn tất.
+
 Ghi thời gian thực tế của từng bước chạy đáng kể (kiểm nguồn, sinh tài nguyên,
 render, kiểm đầu ra) bằng đồng hồ của công cụ hoặc bộ đo thời gian của shell;
 phân biệt với thời gian khảo sát/biên tập. Báo ngắn bước chậm và số lần chạy lại

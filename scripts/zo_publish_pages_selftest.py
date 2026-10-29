@@ -65,6 +65,7 @@ class PageReleaseTests(unittest.TestCase):
         self.write(source,'input.txt','current')
         self.write(source,'content/thpt/on_thi_toan_thpt/hoc_lieu/d0/_quy_trinh/pdf_build.json',
                    json.dumps({'output_sha256':p.sha256(source/pages.D0_PDF),
+                               'pages':20,
                                'inputs_sha256':{'input.txt':p.sha256(source/'input.txt')}}))
         self.assertEqual(pages.d0_pdf_issues(candidate,source),[])
         self.write(source,'input.txt','stale')

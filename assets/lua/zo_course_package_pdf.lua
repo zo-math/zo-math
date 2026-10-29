@@ -16,10 +16,10 @@ local function normalize(blocks)
     if b.t=='RawBlock' and b.format=='html' then
       local s=b.text
       if s:match('^%s*<p%s[^>]*zo%-source%-note') then
-        if s:match('</p>%s*$') then current:insert(pandoc.Div(pandoc.read(s,'html').blocks,pandoc.Attr('',{'zo-source-note'})))
-        else local frame={parent=current,body=pandoc.Blocks{},kind='source-note'};stack[#stack+1]=frame;current=frame.body end
+        if s:match('</p>%s*$') then current:insert(pandoc.Div(pandoc.read(s,'html').blocks,pandoc.Attr(s:match('id="([^"]+)"') or '',{'zo-source-note'})))
+        else local frame={parent=current,body=pandoc.Blocks{},kind='source-note',id=s:match('id="([^"]+)"') or ''};stack[#stack+1]=frame;current=frame.body end
       elseif s:match('^%s*</p>') and #stack>0 and stack[#stack].kind=='source-note' then
-        local frame=table.remove(stack);local note=pandoc.Div(current,pandoc.Attr('',{'zo-source-note'}));current=frame.parent;current:insert(note)
+        local frame=table.remove(stack);local note=pandoc.Div(current,pandoc.Attr(frame.id,{'zo-source-note'}));current=frame.parent;current:insert(note)
       elseif s:match('^%s*<figure[%s>]') then
         local frame={parent=current,body=pandoc.Blocks{},title=pandoc.Blocks{},kind='figure'}
         stack[#stack+1]=frame;current=frame.body
@@ -137,6 +137,14 @@ local function prepare(doc)
       end
     end})
   end
+  if layout then
+    doc=doc:walk({Div=function(d)
+      for _,id in ipairs(layout.target_page_breaks or {}) do
+        if d.identifier==id then return {pandoc.RawBlock('latex','\\clearpage'),d} end
+      end
+      return d
+    end})
+  end
   local original=ids(doc);local specs={}
   local owners={};local current_view='bat-dau'
   doc:walk({Header=function(h)
@@ -180,6 +188,7 @@ local function prepare(doc)
         div.content=pandoc.Pandoc(div.content):walk({Table=function(t)
           assert(#t.colspecs==#spec.widths,'PDF table column mismatch: '..div.identifier)
           t.attributes['zo-owner']=div.identifier
+          if spec.arraystretch then t.attributes['zo-arraystretch']=tostring(spec.arraystretch) end
           t.attributes['zo-widths']=table.concat(spec.widths,',')
           local total=0;for _,w in ipairs(spec.widths) do total=total+w end
           for i,w in ipairs(spec.widths) do t.colspecs[i]={pandoc.AlignLeft,w/total} end
@@ -283,6 +292,8 @@ local function blocks_filter(blocks)
       end
       local function reserve(i)
         local h=blocks[i];local lines=8
+        local configured=layout and layout.heading_reserve_lines and layout.heading_reserve_lines[h.identifier]
+        if configured then assert(configured>=3 and configured<=26);return configured end
         if layout and h.attributes['data-zo-task'] then
           local chars=0
           for j=i+1,#blocks do
@@ -300,11 +311,22 @@ local function blocks_filter(blocks)
       out:insert(pandoc.RawBlock('latex','\\Needspace{'..lines..'\\baselineskip}'))
       if layout and b.identifier~='' then out:insert(pandoc.RawBlock('latex','\\gdef\\zoNextAnchor{'..b.identifier..'}')) end
     end
+    -- Activity titles are body text, but must stay with their first paragraph.
+    local activity_title=false
+    if layout and (b.t=='Para' or b.t=='Plain') then
+      local title=str(b)
+      activity_title=(title:match('^Ví dụ%s+%d+%s+—') or
+        title:match('^Gợi mở%s+%d+%s+—') or
+        title:match('^Nhiệm vụ%s+%d+%s+—') or
+        title:match('^Lời giải Nhiệm vụ%s+%d+%s+—') or
+        title=='Sau khi tự làm') and true or false
+      if activity_title then out:insert(pandoc.RawBlock('latex','\\Needspace{4\\baselineskip}')) end
+    end
     if layout and (b.t=='Para' or b.t=='Plain') and str(b):match('^Bảng%s+[IVX]+$') then
       out:insert(pandoc.RawBlock('latex','\\Needspace{10\\baselineskip}'))
     end
     out:insert(b)
-    if (b.t=='Para' or b.t=='Plain') and pandoc.utils.stringify(b):match('^Nhiệm vụ%s+%d+') then
+    if activity_title or ((b.t=='Para' or b.t=='Plain') and pandoc.utils.stringify(b):match('^Nhiệm vụ%s+%d+')) then
       out:insert(pandoc.RawBlock('latex','\\nopagebreak[4]'))
     end
   end

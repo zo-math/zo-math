@@ -31,9 +31,11 @@ def prepare(root: Path, mirror: Path, source: Path, definition: dict) -> dict:
     shutil.copy2(model['qr_path'], runtime/'zo-course-support-qr.jpg')
     from zo_course_cover import print_cover
     print_cover(root,source.parent.name,runtime/'zo-course-cover.pdf',allow_direction_approved=bool(shell.get('allow_direction_approved_preview')))
+    from zo_pdf_raster_illustrations import prepare as prepare_raster
+    prepare_raster(root,mirror,source,shell)
     now = datetime.now(timezone(timedelta(hours=7)))
     variant = definition['metadata']['subtitle'].split('—')[-1].strip()
-    downloads = meta['r1-download-files'] + meta.get('r1-section-download-files', [])
+    downloads = meta.get('r1-download-files', []) + meta.get('r1-section-download-files', [])
     download = next((x for x in downloads if x['href']==definition['output']),None)
     if download is None:
         if not definition.get('description'):raise ValueError('PDF variant needs a source-owned description')

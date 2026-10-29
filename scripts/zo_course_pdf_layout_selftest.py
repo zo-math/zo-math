@@ -6,6 +6,12 @@ import zo_course_pdf_layout as layout
 
 ROOT=Path(__file__).resolve().parents[1]
 class PrintContractTests(unittest.TestCase):
+ def test_selected_section_excludes_other_figures_and_targets(self):
+  text='---\nr1-section-download-files:\n- variant: bai_hoc\n  start: bai-hoc\n---\n## Start {#bat-dau}\nOPEN\n## Lesson {#bai-hoc}\nKEEP\n## Practice {#phieu-luyen}\nDROP\n## Sources {#nguon}\nSOURCE\n'
+  chosen=layout.selected_source(text,'bai_hoc')
+  self.assertIn('KEEP',chosen);self.assertIn('SOURCE',chosen);self.assertNotIn('DROP',chosen)
+  self.assertEqual(layout.selected_source(text),text)
+  with self.assertRaisesRegex(ValueError,'Unknown PDF variant'):layout.selected_source(text,'unknown')
  def fixture(self,widths=(28,72),extra=''):
   tmp=tempfile.TemporaryDirectory();self.addCleanup(tmp.cleanup);root=Path(tmp.name)
   (root/layout.PROFILE).parent.mkdir(parents=True)
@@ -34,6 +40,13 @@ class PrintContractTests(unittest.TestCase):
   with self.assertRaisesRegex(ValueError,'column mismatch'):self.model(root,src,data)
  def test_missing_native_variation_rejected(self):
   root,src,data=self.fixture(extra='::: {#bbt .zo-native-bbt data-bbt="bbt"}\n:::\n')
+  with self.assertRaisesRegex(ValueError,'variation data'):self.model(root,src,data)
+ def test_no_variation_file_needed_without_native_tables(self):
+  root,src,data=self.fixture();(src.parent/'du_lieu/bang_bien_thien.json').unlink()
+  result=self.model(root,src,data)
+  self.assertEqual(result['variations'],{});self.assertEqual(result['variation_ids'],[])
+ def test_missing_variation_file_still_rejects_native_table(self):
+  root,src,data=self.fixture(extra='::: {#bbt .zo-native-bbt data-bbt="bbt"}\n:::\n');(src.parent/'du_lieu/bang_bien_thien.json').unlink()
   with self.assertRaisesRegex(ValueError,'variation data'):self.model(root,src,data)
  def test_context_package_without_fake_variation_file(self):
   root,src,data=self.fixture();(src.parent/'du_lieu/bang_bien_thien.json').unlink()

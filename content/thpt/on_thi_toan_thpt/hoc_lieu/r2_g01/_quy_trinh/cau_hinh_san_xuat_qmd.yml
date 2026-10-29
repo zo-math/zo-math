@@ -49,6 +49,8 @@ regression:
   expected_checker_version: 2.6.0
   preserve_cli: true
 extensions:
+  pdf_provenance_manifest: _quy_trinh/ho_so/pdf_canonical.json
+  pdf_source_fingerprint: course-qmd-without-download-page-counts-v1
   artifact_identity: path
   artifact_inputs:
   - giao_dien/reader.js
@@ -99,3 +101,162 @@ extensions:
   - _design/web_2027_mau_dung_chung/course-cover-frame.css
   - _design/web_2027_mau_dung_chung/r1-controller.js
   - assets/lua/zo_course_learning.lua
+  - assets/fonts/STIXTwoMath.otf
+  - assets/fonts/STIXTwoText-Bold.otf
+  - assets/fonts/STIXTwoText-BoldItalic.otf
+  - assets/fonts/STIXTwoText-Italic.otf
+  - assets/fonts/STIXTwoText-Medium.otf
+  - assets/fonts/STIXTwoText-MediumItalic.otf
+  - assets/fonts/STIXTwoText-Regular.otf
+  - assets/fonts/STIXTwoText-Semibold.otf
+  - assets/fonts/STIXTwoText-SemiboldItalic.otf
+  - assets/images/qr_bao_tro_zo_math_vietcombank.jpg
+  - assets/logo/zo_math_accent_mark.png
+  - assets/logo/zo_math_logo_black_on_transprentt_1024.pdf
+  - assets/lua/custom.lua
+  - assets/lua/zo_course_print.lua
+  - assets/lua/zo_pdf_content.lua
+  - assets/lua/zo_pdf_download.lua
+  - assets/lua/zo_variation_qmd.lua
+  - assets/tex/zo-course-pdf-end.tex
+  - assets/tex/zo-course-pdf-shell.tex
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/d0/giao_dien/pdf_fonts/BeVietnamPro_Regular.ttf
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/d0/giao_dien/pdf_fonts/BeVietnamPro_SemiBold.ttf
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/d0/giao_dien/pdf_fonts/OFL_BeVietnamPro.txt
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/d0/giao_dien/zo_logo_04.png
+  - scripts/zo_pdf_course_shell.py
+  - scripts/zo_pdf_support.py
+  - assets/lua/zo_course_package_pdf.lua
+  - scripts/zo_pdf_raster_illustrations.py
+  course_pdf_shell:
+    flow_functional_opening: true
+    layout: course-print-v2
+    reference: D0_owner_approved_2026_10_14
+    cover_lines:
+    - Đọc dữ liệu và đo
+    - xu thế trung tâm
+    allow_direction_approved_preview: true
+    main_area_page_breaks:
+    - bai-hoc
+    - phieu-luyen
+    - tu-kiem-tra
+    - on-lai
+    - loi-giai
+    target_page_breaks:
+    - luot1
+    - luot2
+    - luot3
+    - nv24
+    raster_illustrations:
+      r2g01-illustration-adelie: 95
+      r2g01-illustration-xe-dap: 125
+      r2g01-illustration-tram-khi-tuong: 105
+      r2g01-illustration-chinstrap: 85
+      r2g01-illustration-gentoo: 85
+    heading_reserve_lines:
+      dung06: 4
+      chang2: 10
+    table_arraystretch:
+      r2g01-table-01: 1.1
+      r2g01-table-02: 1.1
+      r2g01-table-29: 1.1
+      r1-table-t13: 1.15
+      r1-table-t18: 1.15
+  pdf_variants:
+    full:
+      output: index.pdf
+      description: Toàn bộ bài học, nhiệm vụ, ôn lại, hỗ trợ và lời giải.
+      include_support: true
+      metadata:
+        subtitle: Đọc đúng dữ liệu, chọn số đại diện và hiểu giới hạn của kết luận
+          — Bản đầy đủ, có lời giải
+        zo-pdf-branding:
+          collection: ZO Math · Ôn thi Toán THPT 2027
+          short-title: Đọc dữ liệu và đo xu thế trung tâm
+          canonical-url: https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.html
+          display-url: zomath.vn
+    student:
+      output: index_hoc_sinh.pdf
+      description: Dùng để tự học và làm bài; không có phần lời giải.
+      include_support: true
+      metadata:
+        subtitle: Đọc đúng dữ liệu, chọn số đại diện và hiểu giới hạn của kết luận — Bản
+          học và bài tập
+        zo-pdf-branding:
+          collection: ZO Math · Ôn thi Toán THPT 2027
+          short-title: Đọc dữ liệu và đo xu thế trung tâm
+          canonical-url: https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.html
+          display-url: zomath.vn
+    bai_hoc:
+      output: index_bai_hoc.pdf
+      description: Kiến thức, ví dụ và câu hỏi tự kiểm tra.
+      include_support: true
+      metadata:
+        subtitle: Đọc đúng dữ liệu, chọn số đại diện và hiểu giới hạn của kết luận — Bài
+          học
+        zo-pdf-branding:
+          collection: ZO Math · Ôn thi Toán THPT 2027
+          short-title: Đọc dữ liệu và đo xu thế trung tâm
+          canonical-url: https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.html
+          display-url: zomath.vn
+    luyen_tap:
+      output: index_luyen_tap.pdf
+      description: Các nhiệm vụ luyện tập, không kèm lời giải.
+      include_support: true
+      metadata:
+        subtitle: Đọc đúng dữ liệu, chọn số đại diện và hiểu giới hạn của kết luận — Luyện
+          tập
+        zo-pdf-branding:
+          collection: ZO Math · Ôn thi Toán THPT 2027
+          short-title: Đọc dữ liệu và đo xu thế trung tâm
+          canonical-url: https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.html
+          display-url: zomath.vn
+    kiem_tra:
+      output: index_kiem_tra.pdf
+      description: Nhiệm vụ kiểm tra và tiêu chí tự đánh giá; không kèm đáp án.
+      include_support: true
+      metadata:
+        subtitle: Đọc đúng dữ liệu, chọn số đại diện và hiểu giới hạn của kết luận — Kiểm
+          tra
+        zo-pdf-branding:
+          collection: ZO Math · Ôn thi Toán THPT 2027
+          short-title: Đọc dữ liệu và đo xu thế trung tâm
+          canonical-url: https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.html
+          display-url: zomath.vn
+    on_lai:
+      output: index_on_lai.pdf
+      description: Các lượt ôn lại và nhiệm vụ tự kiểm tra; Ôn nền được gọi riêng trên
+        trang học liệu.
+      include_support: true
+      metadata:
+        subtitle: Đọc đúng dữ liệu, chọn số đại diện và hiểu giới hạn của kết luận — Ôn
+          lại
+        zo-pdf-branding:
+          collection: ZO Math · Ôn thi Toán THPT 2027
+          short-title: Đọc dữ liệu và đo xu thế trung tâm
+          canonical-url: https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.html
+          display-url: zomath.vn
+    sua_loi:
+      output: index_sua_loi.pdf
+      description: Danh mục nút thắt nhận thức và các nhiệm vụ sửa lỗi.
+      include_support: true
+      metadata:
+        subtitle: Đọc đúng dữ liệu, chọn số đại diện và hiểu giới hạn của kết luận — Sửa
+          lỗi
+        zo-pdf-branding:
+          collection: ZO Math · Ôn thi Toán THPT 2027
+          short-title: Đọc dữ liệu và đo xu thế trung tâm
+          canonical-url: https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.html
+          display-url: zomath.vn
+    loi_giai:
+      output: index_loi_giai.pdf
+      description: Lời giải, đáp án và hướng dẫn đối chiếu.
+      include_support: true
+      metadata:
+        subtitle: Đọc đúng dữ liệu, chọn số đại diện và hiểu giới hạn của kết luận — Lời
+          giải
+        zo-pdf-branding:
+          collection: ZO Math · Ôn thi Toán THPT 2027
+          short-title: Đọc dữ liệu và đo xu thế trung tâm
+          canonical-url: https://zomath.vn/content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.html
+          display-url: zomath.vn
