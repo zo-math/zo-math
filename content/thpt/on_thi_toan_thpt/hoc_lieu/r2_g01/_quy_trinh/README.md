@@ -1,6 +1,6 @@
 # R2-G01 — Đọc dữ liệu và đo xu thế trung tâm
 
-**Hiện hành 29/10/2026:** HTML và cả tám PDF đã được chủ trì duyệt. Bộ tải chính dùng đúng các PDF đã duyệt, được giữ nguyên byte. [Biên nhận đồng bộ](ho_so/dong_bo_pdf_da_duyet_20261029.json). Các đoạn theo ngày bên dưới là lịch sử; trạng thái mới nhất theo tài liệu điều hành 03.
+**Hiện hành 29/10/2026:** HTML và cả tám PDF đã được chủ trì duyệt, đã phát hành lên zomath.vn và kiểm byte công khai. [Biên nhận phát hành](ho_so/phat_hanh_20261029.json). Bộ tải chính dùng đúng các PDF đã duyệt, được giữ nguyên byte. [Biên nhận đồng bộ](ho_so/dong_bo_pdf_da_duyet_20261029.json). Các đoạn theo ngày bên dưới là lịch sử; trạng thái mới nhất theo tài liệu điều hành 03.
 
 **Tổng kết cải tiến 28/10/2026:** [góp ý, phương án cuối và bằng chứng](ho_so/tong_ket_cai_tien_20261028.md). Quy tắc dùng lại thuộc bộ điều hành khóa theo phân vai 08; trạng thái hiện hành đọc 03. Các ghi nhận theo ngày bên dưới là lịch sử, không phải nghiệm thu mới cho toàn bộ bản tích hợp.
 
