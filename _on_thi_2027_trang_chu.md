@@ -18,9 +18,9 @@ Học từ chỗ hổng thực sự, củng cố từng nền tảng và theo d�
 :::
 
 ::: {.zo-on-thi-program-feature__latest}
-Gói mới nhất: R1-G05
+Gói mới nhất: R2-G01
 
-Ứng dụng đạo hàm trong thực tiễn
+Đọc dữ liệu và đo xu thế trung tâm
 :::
 
 [Khám phá chương trình →](content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.qmd){.zo-on-thi-link}

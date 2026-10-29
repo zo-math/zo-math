@@ -16,7 +16,7 @@ from zo_web_2027_check import Browser, edge_executable
 
 def source_checks(text_overrides=None):
     """Check shared destinations without rendering or reading generated HTML."""
-    expected=['home','d0','g01','g02','g03','g04','g05']
+    expected=['home','d0','g01','g02','g03','g04','g05','r2_g01']
     output=ROOT/'docs'
     from zo_web_2027_production import runtime_source_checks
     values=runtime_source_checks(ROOT)
