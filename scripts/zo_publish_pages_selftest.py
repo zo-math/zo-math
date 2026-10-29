@@ -111,7 +111,7 @@ class PageReleaseTests(unittest.TestCase):
         repo=self.root/'source';repo.mkdir();(repo/'.quarto').mkdir()
         self.write(repo,'index.qmd','New source')
         config_path=repo/'publish_public.yml';config_path.write_text('fixture')
-        tool_names=['zo_publish.py','zo_publish_pages.py','zo_quarto.py','zo_python.py']
+        tool_names=['zo_publish.py','zo_publish_pages.py','zo_quarto.py','zo_python.py','zo_publish_navigation.py']
         seal={'key':'fixture-key','inputs':{'index.qmd':p.sha256(repo/'index.qmd')},
               'tools':{x:pages.tool_sha(ROOT/'scripts'/x) for x in tool_names}}
         args=SimpleNamespace(page=['index.html'],committed_source=False,report=None)
@@ -164,7 +164,7 @@ class PageReleaseTests(unittest.TestCase):
     def test_input_or_tool_changes_invalidate_cache_key(self):
         repo=self.root/'fingerprint';repo.mkdir()
         self.write(repo,'index.qmd','source')
-        for name in ['zo_publish.py','zo_publish_pages.py','zo_quarto.py','zo_python.py']:
+        for name in ['zo_publish.py','zo_publish_pages.py','zo_quarto.py','zo_python.py','zo_publish_navigation.py']:
             self.write(repo,'scripts/'+name,'tool')
         def source_git(root,*args):
             return '100644 '+('b'*40)+' 0\tindex.qmd\0' if args[0]=='ls-files' else 'index.qmd\0'
@@ -229,6 +229,31 @@ class PageReleaseTests(unittest.TestCase):
         self.assertEqual(result.returncode,p.EXIT_USAGE)
         self.assertIn('ERROR:',result.stderr)
         self.assertNotIn('Traceback',result.stderr)
+
+
+class NavigationInheritanceTests(unittest.TestCase):
+    def test_only_menu_changes_and_is_idempotent(self):
+        import zo_publish_navigation as n
+        old=b'<main>Original &amp; content</main><nav class="course-panel"><a>old</a></nav><footer>unchanged</footer>'
+        with patch.object(n,'PAGES',{'g':(Path('lesson.html'),'Lesson')}), patch.object(n,'destinations',return_value=[('g','lesson.html','Lesson')]):
+            new=n.refresh(old,'lesson.html',Path('.'))
+            self.assertTrue(new.startswith(b'<main>Original &amp; content</main>'))
+            self.assertTrue(new.endswith(b'<footer>unchanged</footer>'))
+            self.assertIn(b'aria-current="page"',new)
+            self.assertEqual(n.refresh(new,'lesson.html',Path('.')),new)
+            for bad in [b'<main>No menu</main>',old+old]:
+                with self.assertRaises(p.ConfigError):n.refresh(bad,'lesson.html',Path('.'))
+    def test_verify_rejects_changed_lesson(self):
+        import zo_publish_navigation as n
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);backup=root/'before';target=root/'after';backup.mkdir();target.mkdir()
+            old=b'<main>Keep me</main><nav class="course-panel"><a>old</a></nav>'
+            (backup/'lesson.html').write_bytes(old)
+            with patch.object(n,'PAGES',{'g':(Path('lesson.html'),'Lesson')}), patch.object(n,'destinations',return_value=[('g','lesson.html','Lesson')]):
+                (target/'lesson.html').write_bytes(n.refresh(old,'lesson.html',target));seal={'lesson.html':p.sha256(backup/'lesson.html')}
+                n.verify(backup,target,seal)
+                (target/'lesson.html').write_bytes((target/'lesson.html').read_bytes().replace(b'Keep me',b'Changed'))
+                with self.assertRaises(p.ConfigError):n.verify(backup,target,seal)
 
 
 if __name__=='__main__':unittest.main(verbosity=2)
