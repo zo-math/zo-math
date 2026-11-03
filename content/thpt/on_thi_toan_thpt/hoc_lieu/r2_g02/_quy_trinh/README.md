@@ -5,8 +5,8 @@
 - [Nguồn QMD chính thức, nơi tiếp tục hiệu chỉnh](../index.qmd).
 - [Ôn nền dùng chung — nguồn QMD](../../_dung_chung/nen/so_gan_dung_sai_so.qmd) · [HTML](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/hoc_lieu/_dung_chung/nen/so_gan_dung_sai_so.html).
 - [Phạm vi và đề cương đã duyệt](../../../tot_nghiep_thpt/2027/_quy_trinh/goi/R2_G02.md).
-- [Bản thảo đã duyệt, đóng băng để đối chiếu](ban_thao/noi_dung.md).
 - [Biên nhận duyệt hai bản thảo](ho_so/duyet_hai_ban_thao_20261030.json).
+- [Hiệu chỉnh tách bốn nhiệm vụ Khởi động](ho_so/tach_khoi_dong_20261103.json).
 - [Đối chiếu và kiểm chuyển QMD](ho_so/kiem_chuyen_qmd_20261030.json).
 - [Đối chiếu trước viết](ho_so/doi_chieu_truoc_viet.md), [kiểm bản thảo](ho_so/kiem_truoc_trinh_20261029.md).
 

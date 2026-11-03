@@ -32,8 +32,24 @@ def dots(ax, values, palette):
         ax.plot(value,.22+seen[value]*.24,'o',color=palette['gray-8'],markersize=7,zorder=4)
         seen[value]+=1
 
+
+def save_independent(fig, path, title):
+    from matplotlib.transforms import Bbox
+    fig.canvas.draw()
+    axes = list(fig.axes)
+    assert len(axes) == 2
+    renderer = fig.canvas.get_renderer()
+    boxes = [ax.get_tightbbox(renderer).transformed(fig.dpi_scale_trans.inverted()).padded(.08) for ax in axes]
+    for index, (ax, box) in enumerate(zip(axes, boxes)):
+        for other in axes: other.set_visible(other is ax)
+        target = path.with_name(path.stem + '_' + 'ab'[index] + '.svg')
+        fig.savefig(target, bbox_inches=box, metadata={'Date':None, 'Title':title + ' — ' + 'ab'[index]})
+    for ax in axes: ax.set_visible(True)
+
 def save(fig, path, title, description):
-    fig.savefig(path,bbox_inches='tight',metadata={'Date':None,'Title':title,'Description':description})
+    save_independent(fig, path, title)
+    if '--independent-only' not in __import__('sys').argv:
+        fig.savefig(path,bbox_inches='tight',metadata={'Date':None,'Title':title,'Description':description})
     plt.close(fig)
 
 def draw():

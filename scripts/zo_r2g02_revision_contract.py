@@ -15,7 +15,10 @@ def settings_for(path):
 
 def review_for(path,root):
     if settings_for(path) is None:return None
-    review=json.loads((Path(path).parent/'_quy_trinh/ho_so/r01_editorial_review.json').read_text(encoding='utf-8'))
+    review_path=Path(path).parent/'_quy_trinh/ho_so/figure_design_20261104_review.json'
+    if not review_path.is_file():review_path=Path(path).parent/'_quy_trinh/ho_so/independent_figures_20261103_review.json'
+    if not review_path.is_file():review_path=Path(path).parent/'_quy_trinh/ho_so/r01_editorial_review.json'
+    review=json.loads(review_path.read_text(encoding='utf-8'))
     if review.get('revision')!='R01-DOT07' or review.get('package')!='r2_g02':raise ValueError('R2-G02 source review mismatch')
     if review.get('owner_HTML_acceptance') is not False:raise ValueError('Source review is not owner acceptance')
     return review

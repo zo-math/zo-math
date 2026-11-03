@@ -38,7 +38,7 @@ def selected_source(full,variant="full"):
         for chunk in chunks:
             header=re.match(r'^## [^\n]*\{#([^\s}]+)',chunk)
             section=header[1] if header else ''
-            keep=(section!='loi-giai') if variant=='student' else (section in {'bat-dau','nguon',(part or {}).get('start')})
+            keep=(section!='loi-giai') if variant=='student' else (section in {'nguon',(part or {}).get('start')})
             if keep and section!='tai-tai-lieu':kept.append(chunk)
         text=''.join(kept)
     return text
@@ -107,7 +107,7 @@ def model(root,source,variant="full"):
     for ident,value in shell.get('table_arraystretch',{}).items():
         if ident not in declared or not 1.1<=value<=1.6:raise ValueError('Invalid table spacing override')
         if ident in tables:tables[ident]['arraystretch']=value
-    return dict(profile,heading_reserve_lines=shell.get('heading_reserve_lines',{}),target_page_breaks=[v for v in shell.get('target_page_breaks',[]) if v in selected_ids],main_area_page_breaks=area_page_breaks(shell,variant,metadata),explicit_figure_captions=caption_text.count('r1-figcaption')+len(re.findall(r'<figcaption(?:\s[^>]*)?>',caption_text))+len(context_figures),context_figures=context_figures,task_numbers={pdf_id(k):v for k,v in task_numbers.items()},tables=tables,graphs=graphs,variation_ids=native_ids,variations={v['id']:v for v in variation if v['id'] in native_ids},solution_targets=[pdf_id(v) for v in links],problem_targets=[pdf_id(v) for v in backs])
+    return dict(profile,heading_reserve_lines=shell.get('heading_reserve_lines',{}),target_page_breaks=[v for v in shell.get('target_page_breaks',[]) if v in selected_ids],main_area_page_breaks=area_page_breaks(shell,variant,metadata),explicit_figure_captions=caption_text.count('r1-figcaption')+len(re.findall(r'<figcaption(?:\s[^>]*)?>',caption_text))+sum(1 for ref in context_figures if ref in re.sub(r'<figure\b.*?</figure>', '', caption_text, flags=re.S)),context_figures=context_figures,task_numbers={pdf_id(k):v for k,v in task_numbers.items()},tables=tables,graphs=graphs,variation_ids=native_ids,variations={v['id']:v for v in variation if v['id'] in native_ids},solution_targets=[pdf_id(v) for v in links],problem_targets=[pdf_id(v) for v in backs])
 
 def validate_tex(text,data):
     checks={}

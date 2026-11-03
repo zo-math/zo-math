@@ -1862,6 +1862,7 @@ def parser() -> argparse.ArgumentParser:
     value.add_argument("command", nargs="?", help="Hỗ trợ: plan, check, prepare, validate, publish")
     value.add_argument("--config", default="publish_public.yml")
     value.add_argument("--report")
+    value.add_argument("--current-course", action="store_true", help="prepare: release the fresh integrated canonical course under explicit current authorization, without inferring owner acceptance.")
     value.add_argument("--approved-course", action="store_true", help="prepare: release the approved canonical course HTML pages and their verified PDFs without historical rebuilds.")
     value.add_argument("--full-render", action="store_true", help="prepare: use the legacy two full-site renders instead of page artifacts.")
     value.add_argument("--navigation-only-page", action="append", default=[], help="prepare: inherit published learner HTML and update only its canonical course menu; must also be in --page.")
@@ -1883,13 +1884,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.navigation_only_page and (args.command != "prepare" or not set(args.navigation_only_page) <= set(args.page) or args.with_pdfs or args.d0_pdf):
         print("ERROR: navigation-only requires selected HTML pages and no PDF changes.", file=sys.stderr)
         return EXIT_USAGE
-    if args.approved_course and (args.command != "prepare" or args.page or args.full_render or args.committed_source or args.allow_global_inputs_for_pages):
+    if (args.approved_course or args.current_course) and (args.approved_course and args.current_course or args.command != "prepare" or args.page or args.full_render or args.committed_source or args.allow_global_inputs_for_pages):
         print("ERROR: --approved-course requires standalone prepare.", file=sys.stderr)
         return EXIT_USAGE
     if args.full_render and args.command != "prepare":
         print("ERROR: --full-render only applies to prepare.",file=sys.stderr)
         return EXIT_USAGE
-    if args.command == 'prepare' and not (args.page or args.full_render or args.approved_course):
+    if args.command == 'prepare' and not (args.page or args.full_render or args.approved_course or args.current_course):
         print('ERROR: choose --page for scoped updates, or explicitly request --full-render. No build was started.', file=sys.stderr)
         return EXIT_USAGE
     if args.command not in {"check", "prepare", "publish", "plan", "validate"}:
@@ -1898,10 +1899,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.page and args.command not in {'prepare','plan'}:
         print('ERROR: --page chỉ dùng với prepare.',file=sys.stderr)
         return EXIT_USAGE
-    if args.d0_pdf and (args.command != 'prepare' or args.page != ['content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html'] or args.full_render or args.approved_course):
+    if args.d0_pdf and (args.command != 'prepare' or args.page != ['content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html'] or args.full_render or args.approved_course or args.current_course):
         print('ERROR: --d0-pdf requires scoped prepare of D0 alone.', file=sys.stderr)
         return EXIT_USAGE
-    if args.with_pdfs and (args.command not in {'plan', 'prepare'} or not args.page or args.full_render or args.approved_course or args.d0_pdf):
+    if args.with_pdfs and (args.command not in {'plan', 'prepare'} or not args.page or args.full_render or args.approved_course or args.current_course or args.d0_pdf):
         print('ERROR: --with-pdfs requires scoped plan/prepare --page; do not combine with --d0-pdf.', file=sys.stderr)
         return EXIT_USAGE
     if yaml is None:
@@ -1947,7 +1948,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 raise RuntimeError(fetch.stderr.strip() or "git fetch thất bại.")
         source_state = git_state(root, config["source_branch"], f"origin/{config['source_branch']}")
         target_state = git_state(target, config["target_branch"], f"origin/{config['target_branch']}", target)
-        if args.command == "prepare" and args.approved_course:
+        if args.command == "prepare" and (args.approved_course or args.current_course):
             from zo_publish_course import prepare
             return prepare(root, target, config_path, config, args, source_state, target_state)
         if args.command == "prepare" and args.page and not args.full_render:

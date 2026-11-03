@@ -228,3 +228,26 @@ sửa nguồn → dựng canonical → kiểm → trình duyệt lại phần ch
 ### Đồng bộ menu mà giữ nội dung đã phát hành
 
 Khi chỉ thêm học liệu vào danh mục toàn khóa, dùng `--navigation-only-page <trang.html>` cùng `--page <trang.html>` cho từng trang học liệu cũ; trang Nhà vẫn được dựng từ nguồn. Chế độ này lấy HTML từ cây public được kiểm Git, chỉ thay phần tử menu toàn khóa theo nguồn điều hướng chung, giữ nguyên mọi byte ngoài menu và kế thừa chỉ mục tìm kiếm, sitemap của các trang đó. Không kết hợp thay PDF. Biên nhận khóa hash bản trước; `validate` và `publish` kiểm lại phép biến đổi để chặn thay đổi nội dung ngoài menu. Không dùng chế độ này cho sửa bài học.
+
+
+### Phát hành khóa hiện hành theo quyền điều phối
+
+Khi chủ dự án giao rõ toàn bộ chuỗi hoàn thiện, commit và xuất bản khóa đã
+tích hợp, dùng `prepare --current-course`, rồi `validate` và `publish`.
+Chế độ này nhận đầu ra của pipeline nguồn chính hiện hành; không render lại
+toàn website và không dùng biên nhận nghiệm thu lịch sử cho sản phẩm mới.
+
+Hồ sơ `2027/_quy_trinh/ho_so/uy_quyen_phat_hanh_hien_hanh.json` ghi nguyên văn
+quyền phát hành, danh sách trang/PDF và hash các sản phẩm cùng tài nguyên đã
+kiểm. Chỉ lập dấu kiểm kỹ thuật sau khi dựng và kiểm thực tế. Không ghi
+`owner_approved` hoặc suy nghiệm thu chủ quan từ quyền điều phối phát hành.
+
+Cổng kiểm đòi đủ trang hiện hành, nguồn dựng còn khớp, liên kết hợp lệ,
+provenance hiện hành của từng PDF và byte bản tải trùng PDF canonical.
+Candidate giữ nguyên trang ngoài khóa, ghép riêng search/sitemap; tài nguyên
+dùng chung ảnh hưởng ngoài phạm vi vẫn bị chặn. Mọi phép kiểm công khai,
+backup, nguồn đã commit/push, remote và push không force tiếp tục áp dụng.
+Không kết hợp cờ này với `--approved-course`, `--page` hay `--full-render`.
+
+Kiểm hồi quy: `scripts/zo_publish_current_course_selftest.py` và
+`scripts/zo_publish_course_selftest.py`, qua launcher Python của repository.

@@ -43,7 +43,14 @@ def header(active='course', reader=False):
 <div class="header-controls"><a class="header-saved" href="da-luu.html" aria-label="Học liệu đã lưu" {'aria-current="page"' if active=='saved' else ''}>{icon('bookmark')}<span>Đã lưu</span><span class="saved-count" hidden>0</span></a><button class="icon-button appearance-open" data-open-presence="appearance" aria-label="Tùy chọn giao diện" title="Tùy chọn giao diện">{icon("grid")}</button></div></header>'''
 
 def footer():
-    return '<footer class="site-footer"><span>ZO Math · Học liệu miễn phí</span><a href="cach-hoc.html">Cách học</a></footer>'
+    config=yaml.safe_load((c.ROOT/'_quarto.yml').read_text('utf-8'))
+    center=config['website']['page-footer']['center']
+    import re
+    info=''.join('<a href="'+esc(href.replace('.qmd','.html'),quote=True)+'">'+esc(label)+'</a>' for label,href in re.findall(r'\[([^\]]+)\]\(([^)]+)\)',center))
+    social=''.join('<a href="'+esc(a['href'],quote=True)+'">'+esc(a.get('title',''))+'</a>' for a in BeautifulSoup(center,'html.parser').select('a[href]'))
+    copyright=re.search(r'©\s*\d{4}\s+ZO Math',center)
+    assert copyright and info and social,'Canonical footer missing'
+    return '<footer class="site-footer" aria-label="Chân trang ZO Math"><div><p class="brand-thought">Học trong kỉ nguyên trí tuệ nhân tạo, học để tìm lại chính mình.</p><nav aria-label="Thông tin ZO Math">'+info+'</nav><nav aria-label="Kết nối ZO Math">'+social+'</nav><p>'+copyright.group()+' · Học liệu miễn phí</p></div><a href="cach-hoc.html">Cách học</a></footer>'
 
 def document(title,body,kind='home',data=None,css=None):
     source=c.ROOT/c.PAGE.with_suffix('.qmd')
@@ -178,7 +185,7 @@ def reader(p,items):
     body=body.replace('<h2>Em đã kết thúc lượt kiểm tra?</h2>','<h2 id="support-gate-title">Em đã kết thúc lượt kiểm tra?</h2>')
     data={'course':p,'catalog':items,'modes':[{'id':k,'title':t} for k,t,h,ic in MODES],
           'overviewAliases':overview_aliases(p['id'])}
-    return document(p['title'],body,'reader',data,css),{'id':p['id'],'math_count':len(before['math']),'ids':len(before['ids']),'images':before['images'],'tables':before['tables'],'content_unchanged':True,'text_sha256':before['text']}
+    return document(p['title'],body+footer(),'reader',data,css),{'id':p['id'],'math_count':len(before['math']),'ids':len(before['ids']),'images':before['images'],'tables':before['tables'],'content_unchanged':True,'text_sha256':before['text']}
 
 def saved(items):
     body=header('saved')+f'''<main id="main-content" class="utility-main"><h1>Học liệu đã lưu</h1><p class="utility-intro">Chuyên đề và vị trí đọc em đã đánh dấu trên trình duyệt này.</p><div id="saved-list"></div><div id="saved-empty" class="empty-state">{icon('bookmark')}<h2>Chưa có học liệu được lưu</h2><p>Chọn biểu tượng đánh dấu trên chuyên đề hoặc ngay trong bài học.<br>Những chỗ em muốn quay lại sẽ ở đây.</p>{btn('chuyen-de.html#chuyen-de','Chọn chuyên đề')}</div><p class="local-note">Dấu lưu chỉ ở trình duyệt này, chưa đồng bộ giữa các thiết bị.</p></main>'''+footer()

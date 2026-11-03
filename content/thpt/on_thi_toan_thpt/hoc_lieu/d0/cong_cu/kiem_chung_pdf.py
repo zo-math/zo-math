@@ -117,12 +117,15 @@ def negative_source_tests():
         'comparison_changed': text.replace('Nội dung cần ôn nếu còn vướng:', 'WRONG:', 1),
     }
     for name, mutated in cases.items():
+        assert mutated != text, name + " fixture did not change the source"
         def reader(path, *args, **kwargs):
             return mutated if path.resolve() == source else original(path, *args, **kwargs)
         with patch.object(Path, 'read_text', reader):
             try:
                 verify_source()
-            except AssertionError:
+            except (AssertionError, ValueError):
+                # Current source-delta validation rejects mutations with a
+                # ValueError before historical assertions are reached.
                 continue
             raise AssertionError(name + ' escaped source regression')
     return list(cases)

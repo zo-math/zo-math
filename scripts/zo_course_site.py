@@ -35,7 +35,7 @@ def prepare_reader(doc,key):
     # Lifecycle text is replaced explicitly; no learning sentence is rewritten.
     notes=[]
     for n in root.select('.zo-pdf-current-note'):
-        notes.append(n.get_text(' ',strip=True));n.string='Các PDF hiện có là bản trước, chưa đồng bộ với nội dung HTML hiện hành.'
+        notes.append(n.get_text(' ',strip=True))  # Preserve the live provenance label emitted by the native adapter.
     before=fingerprint(root)
     on_lai=root.select_one('#on-lai')
     if on_lai:
@@ -123,8 +123,12 @@ def live_inputs():
 def freshness(record):
     failures=[]
     current=live_inputs()
-    for path in sorted(set(current)|set(record['inputs'])):
-        if current.get(path)!=record['inputs'].get(path):failures.append('Changed input: '+path)
+    if 'page_inputs' in record:
+        for page,changes in scope_state(record)[2].items():
+            failures.append('Pending page: '+page+' ('+', '.join(changes)+')')
+    else:
+        for path in sorted(set(current)|set(record['inputs'])):
+            if current.get(path)!=record['inputs'].get(path):failures.append('Changed input: '+path)
     for path,digest in record['outputs'].items():
         p=c.OUT/path
         if not p.is_file() or sha(p)!=digest:failures.append('Changed output: '+path)
@@ -142,23 +146,19 @@ def catalog_metadata():
     return result
 
 def validate_render_scope(selected):
-    """A partial build cannot certify unrelated changed sources as current."""
-    all_sources={v.with_suffix('.qmd') for v in [*c.PAGES.values(),c.FOUNDATION]}
-    selected=set(selected)
-    if selected==all_sources:return
-    if not CURRENT.is_file():raise ValueError('Build the complete course once before partial rendering')
-    previous=json.loads(CURRENT.read_text('utf-8'))
-    if previous.get('catalog_metadata')!=catalog_metadata():raise ValueError('Catalog metadata changed; run full course build')
-    from zo_course_editorial import closure
-    affected=set()
-    for source in selected:affected.update(p.relative_to(ROOT).as_posix() for p in closure(ROOT/source,ROOT))
-    shared=set()
-    for source in all_sources-selected:shared.update(p.relative_to(ROOT).as_posix() for p in closure(ROOT/source,ROOT))
-    allowed=affected-shared
-    current=live_inputs()
-    changed={p for p in set(current)|set(previous['inputs']) if current.get(p)!=previous['inputs'].get(p)}
-    forbidden=changed-allowed
-    if forbidden:raise ValueError('Shared or other course inputs changed; run full course build: '+str(sorted(forbidden)))
+    """Validate the requested pages; never expand a local render to the course."""
+    known={v.with_suffix('.qmd') for v in [*c.PAGES.values(),c.FOUNDATION]}
+    unknown=set(selected)-known
+    if unknown:raise ValueError('Unknown course sources: '+str(sorted(unknown)))
+    if not selected:raise ValueError('Select at least one source')
+
+def scope_state(record):
+    from zo_course_site_scope import TABLES, page_inputs, baseline, stale_pages
+    inputs=live_inputs();tables=json.loads((ROOT/TABLES).read_text('utf-8'))
+    current=page_inputs(ROOT,c,inputs,catalog_metadata(),tables)
+    previous=baseline(ROOT,c,record,inputs,tables)
+    return previous,current,stale_pages(previous,current),tables
+
 
 def project_rendered(raw_paths,report=None,native_input=None):
     selected=relevant(raw_paths)
@@ -211,9 +211,10 @@ def project_rendered(raw_paths,report=None,native_input=None):
             result=result.replace('</body>','<script src="'+b.esc(native_scripts[0],quote=True)+'" defer></script><script src="foundation-return.js" defer></script></body>')
         else:continue
         results[page]=c.finish(result,page)
-    c.PAGE=c.PAGES['home'];items=c.catalog()
-    for name,html in [('chuyen-de.html',b.topics(items)),('da-luu.html',b.saved(items)),('cach-hoc.html',b.guide())]:results[c.HOME/name]=c.finish(html,c.HOME/name)
-    for g in b.GUIDES:results[c.HOME/g['file']]=c.finish(b.detailed_guide(g,items),c.HOME/g['file'])
+    if c.PAGES['home'].with_suffix('.qmd') in selected:
+        c.PAGE=c.PAGES['home'];items=c.catalog()
+        for name,html in [('chuyen-de.html',b.topics(items)),('da-luu.html',b.saved(items)),('cach-hoc.html',b.guide())]:results[c.HOME/name]=c.finish(html,c.HOME/name)
+        for g in b.GUIDES:results[c.HOME/g['file']]=c.finish(b.detailed_guide(g,items),c.HOME/g['file'])
     for page,text in results.items():
         dest=c.OUT/page;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(text,'utf-8')
     check=local_check([c.OUT/p for p in results])
@@ -233,19 +234,45 @@ def project_rendered(raw_paths,report=None,native_input=None):
     # All declared sources must have final HTML, never a native/intermediate page.
     complete=all((c.OUT/p).is_file() and 'data-zo-course-site=' in (c.OUT/p).read_text('utf-8') for p in [*c.PAGES.values(),c.FOUNDATION])
     record=dict(data,inputs=live_inputs(),catalog_metadata=catalog_metadata(),outputs=combined,assets={p.relative_to(c.OUT).as_posix():sha(p) for p in c.ASSETS.rglob('*') if p.is_file()},complete=complete)
+    from zo_course_site_scope import merge_evidence, stale_pages
+    previous,current,pending,tables=scope_state(prior)
+    record['page_inputs']=merge_evidence(previous,current,[p.as_posix() for p in results])
+    record['table_profiles']=tables
+    record['pending_pages']=stale_pages(record['page_inputs'],current)
     save(CURRENT,record)
     from zo_course_site_protection import refresh
     refresh(ROOT,c,record)
     print('COURSE SITE: PASS; pages='+str(len(results))+'; references='+str(check['references']))
     return 0
 def main(argv=None):
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('command',choices=['build','check']);parser.add_argument('--report',default='_audit/course_site_build.json');args=parser.parse_args(argv)
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('command',choices=['build','check','plan']);parser.add_argument('--report',default='_audit/course_site_build.json');parser.add_argument('--page',action='append',default=[]);parser.add_argument('--all',action='store_true',help='Explicit full-course build');args=parser.parse_args(argv)
+    if args.command=='plan':
+        record=json.loads(CURRENT.read_text('utf-8')) if CURRENT.is_file() else {}
+        pending=scope_state(record)[2]
+        result={'pending_pages':pending,'automatic_full_build':False}
+        save(ROOT/args.report,result);print(json.dumps(result,ensure_ascii=False));return 0
+    if args.command=='check' and args.page:
+        requested=relevant(args.page)
+        if len(requested)!=len(args.page):raise ValueError('Use canonical QMD paths with --page')
+        pages=[c.OUT/p.with_suffix('.html') for p in requested]
+        record=json.loads(CURRENT.read_text('utf-8'));pending=scope_state(record)[2]
+        result=local_check(pages)
+        for source in requested:
+            key=source.with_suffix('.html').as_posix()
+            if key in pending:result['failures'].append('Pending page: '+key)
+            if key not in record.get('outputs',{}) or not (c.OUT/key).is_file() or sha(c.OUT/key)!=record['outputs'][key]:
+                result['failures'].append('Changed or missing output: '+key)
+        result['other_pending_pages']=[p for p in pending if p not in {s.with_suffix('.html').as_posix() for s in requested}]
+        save(ROOT/args.report,result);print(json.dumps(result,ensure_ascii=False));return int(bool(result['failures']))
     if args.command=='check':
         pages=[c.OUT/p for p in [*c.PAGES.values(),c.FOUNDATION]]
         from zo_course_site_sources.guidance_content import GUIDES
         pages += [c.OUT/c.HOME/n for n in ['chuyen-de.html','cach-hoc.html','da-luu.html',*[g['file'] for g in GUIDES]]]
         result=local_check(pages);record=json.loads(CURRENT.read_text('utf-8'));result['failures']+=freshness(record);result['failures']+=[] if record.get('complete') else ['Incomplete current course build'];save(ROOT/args.report,result);print(json.dumps(result,ensure_ascii=False));return int(bool(result['failures']))
     import zo_qmd
-    paths=[str(p.with_suffix('.qmd')) for p in [*c.PAGES.values(),c.FOUNDATION]]
+    if args.all and args.page:parser.error('Choose --page or --all, not both')
+    if not args.all and not args.page:parser.error('Select --page <QMD>; use --all only for an explicitly requested full-course build')
+    paths=[str(p.with_suffix('.qmd')) for p in [*c.PAGES.values(),c.FOUNDATION]] if args.all else args.page
+    if len(relevant(paths))!=len(paths):parser.error('Use canonical course QMD paths')
     return zo_qmd.main(['render',*paths,'--html-only','--report',args.report])
 if __name__=='__main__':raise SystemExit(main())
