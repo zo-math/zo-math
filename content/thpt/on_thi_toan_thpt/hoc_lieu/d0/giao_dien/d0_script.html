@@ -1,0 +1,156 @@
+<script>
+(() => {
+  const root = document.querySelector('.d0-package');
+  if (!root) return;
+
+  const definitions = [
+    {view: 'bat-dau', label: 'Bắt đầu', ids: ['bat-dau']},
+    {view: 'khai-bao-pham-vi', label: 'Chuẩn bị', ids: ['khai-bao-pham-vi']},
+    {view: 'khao-sat', label: 'Làm khảo sát', ids: ['khao-sat']},
+    {view: 'doc-ket-qua', label: 'Đối chiếu bài làm', ids: ['doc-ket-qua']},
+    {view: 'chon-mach', label: 'Chọn mạch ôn', ids: ['chon-mach']}
+  ];
+  const sections = new Map();
+  definitions.flatMap(item => item.ids).forEach(id => {
+    const section = root.querySelector(`:scope > section#${CSS.escape(id)}`);
+    if (section) sections.set(id, section);
+  });
+  if (!sections.size) return;
+
+  const navSlot = document.createElement('div');
+  navSlot.className = 'd0-nav-slot';
+  const nav = document.createElement('nav');
+  nav.setAttribute('aria-label', 'Các phần của bài khảo sát');
+  const tablist = document.createElement('div');
+  tablist.className = 'd0-tablist';
+  tablist.setAttribute('role', 'tablist');
+  tablist.setAttribute('aria-label', 'Chọn phần nội dung');
+  nav.append(tablist);
+  navSlot.append(nav);
+
+  const panel = document.createElement('div');
+  panel.className = 'd0-view-panel';
+  panel.id = 'd0-view-panel';
+  panel.setAttribute('role', 'tabpanel');
+  panel.tabIndex = -1;
+  root.firstElementChild.before(navSlot, panel);
+  [...sections.values()].forEach(section => panel.append(section));
+
+  const activeDefinitions = definitions.filter(item => item.ids.some(id => sections.has(id)));
+  const tabs = activeDefinitions.map((item, index) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'd0-tab';
+    button.id = `d0-tab-${item.view}`;
+    button.textContent = item.label;
+    button.setAttribute('role', 'tab');
+    button.setAttribute('aria-controls', panel.id);
+    button.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
+    button.tabIndex = index === 0 ? 0 : -1;
+    tablist.append(button);
+    return button;
+  });
+
+  const survey = sections.get('khao-sat');
+  if (survey) {
+    const toc = survey.querySelector('.d0-survey-toc');
+    if (toc) {
+      const details = document.createElement('details');
+      details.className = 'r1-section-toc';
+      const summary = document.createElement('summary');
+      summary.textContent = 'Mục lục';
+      const navigation = document.createElement('nav');
+      navigation.setAttribute('aria-label', 'Mục lục khảo sát');
+      toc.before(details);
+      toc.querySelector(':scope > p')?.remove();
+      navigation.append(toc);
+      details.append(summary, navigation);
+    }
+  }
+
+  function ownerView(target) {
+    for (const item of activeDefinitions) {
+      if (item.ids.some(id => sections.get(id)?.contains(target) || sections.get(id) === target)) return item.view;
+    }
+    return activeDefinitions[0].view;
+  }
+
+  function show(view) {
+    const definition = activeDefinitions.find(item => item.view === view) || activeDefinitions[0];
+    sections.forEach((section, id) => { section.hidden = !definition.ids.includes(id); });
+    tabs.forEach((tab, index) => {
+      const selected = activeDefinitions[index].view === definition.view;
+      tab.setAttribute('aria-selected', selected ? 'true' : 'false');
+      tab.tabIndex = selected ? 0 : -1;
+    });
+    panel.setAttribute('aria-labelledby', `d0-tab-${definition.view}`);
+    panel.dataset.d0View = definition.view;
+    const activeTab = tabs.find(tab => tab.getAttribute('aria-selected') === 'true');
+    if (activeTab) {
+      const a = activeTab.getBoundingClientRect(), b = tablist.getBoundingClientRect();
+      if (a.left < b.left + 12) tablist.scrollLeft += a.left - b.left - 12;
+      if (a.right > b.right - 12) tablist.scrollLeft += a.right - b.right + 12;
+    }
+    return definition.view;
+  }
+
+  function writeLocation(view, hash = '') {
+    const url = new URL(location.href);
+    url.searchParams.set('d0-view', view);
+    url.hash = hash;
+    history.pushState({d0View: view}, '', `${url.pathname}${url.search}${url.hash}`);
+  }
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => {
+      const view = show(activeDefinitions[index].view);
+      writeLocation(view);
+      panel.focus({preventScroll: true});
+      panel.scrollIntoView({block: 'start'});
+    });
+    tab.addEventListener('keydown', event => {
+      let next = null;
+      if (event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
+      if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+      if (event.key === 'Home') next = 0;
+      if (event.key === 'End') next = tabs.length - 1;
+      if (next !== null) { tabs[next].focus(); event.preventDefault(); }
+    });
+  });
+
+  root.addEventListener('click', event => {
+    const link = event.target.closest('a[href]');
+    if (!link || !link.hash) return;
+    const destination = new URL(link.href, location.href);
+    if (destination.origin !== location.origin || destination.pathname !== location.pathname) return;
+    const target = document.getElementById(decodeURIComponent(link.hash.slice(1)));
+    if (!target || !root.contains(target)) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const view = ownerView(target);
+    show(view);
+    writeLocation(view, link.hash);
+    reveal(target);
+  });
+
+  function reveal(target) {
+    for (let node = target; node && node !== root; node = node.parentElement) {
+      if (node.tagName === 'DETAILS') node.open = true;
+    }
+    requestAnimationFrame(() => target.scrollIntoView({block: 'start'}));
+  }
+
+  function applyLocation() {
+    const target = location.hash ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+    const requested = new URLSearchParams(location.search).get('d0-view');
+    const view = target && root.contains(target) ? ownerView(target) : requested;
+    show(view || activeDefinitions[0].view);
+    if (target && root.contains(target)) reveal(target);
+  }
+
+  root.classList.add('d0-nav-ready');
+  applyLocation();
+  window.addEventListener('popstate', applyLocation);
+  window.addEventListener('hashchange', applyLocation);
+})();
+</script>

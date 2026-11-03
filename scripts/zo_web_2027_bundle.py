@@ -331,54 +331,11 @@ def check_current(out, record=None):
 
 
 def build(out, reports=None):
-    import tempfile
-    out=Path(out).resolve()
-    if out!=canonical_output():
-        raise ValueError('Build writes canonical docs; _audit is for reports, not course HTML')
-    reports=Path(reports or ROOT/'_audit/current/verification/html-canonical-build').resolve()
-    if not reports.is_relative_to(ROOT/'_audit'):raise ValueError('Reports belong in _audit')
-    reports.mkdir(parents=True,exist_ok=True)
-    from zo_web_2027_d0 import pdf_download
-    from zo_pdf_contract import validate_canonical_pdf_provenance
-    import yaml
-    pdf_download(ROOT,Path('content/thpt/on_thi_toan_thpt/hoc_lieu/d0'),'index.pdf')
-    for key,path in PAGES.items():
-        if not key.startswith('g'):continue
-        source=ROOT/path.with_suffix('.qmd')
-        config=yaml.safe_load((source.parent/'_quy_trinh/cau_hinh_san_xuat_qmd.yml').read_text('utf-8'))
-        for variant in config['extensions']['pdf_variants']:
-            errors=validate_canonical_pdf_provenance(ROOT,source,variant=variant)
-            if errors:raise ValueError(f'{key}/{variant} PDF is stale: '+str(errors))
-    baseline=sources();cluster.PAGES=PAGES
-    (ROOT/'.quarto').mkdir(exist_ok=True)
-    with tempfile.TemporaryDirectory(prefix='course-canonical-',dir=ROOT/'.quarto') as temp:
-        stage=Path(temp)/'stage';stage.mkdir();mirror=cluster.render_mirror(stage,'final')
-        try:
-            cluster.render(stage,'final',html_only=True);adapt_bundle(stage)
-            require_fresh({'sources':baseline})
-            snapshot={'sources':baseline,'pages':{key:{'source':path.with_suffix('.qmd').as_posix(),'source_sha256':baseline[path.with_suffix('.qmd').as_posix()],'html_sha256':sha(stage/'html-current'/(key+'-reading.html'))} for key,path in PAGES.items()}}
-            cluster.save(stage/'bundle.json',snapshot)
-            if checks(stage):raise ValueError('Fresh HTML bundle failed before install')
-            from zo_web_2027_navigation_check import run as navigation_checks
-            from zo_web_2027_grayscale_check import run as grayscale_checks
-            if navigation_checks(stage) or grayscale_checks(stage):raise ValueError('Navigation/grayscale failed before install')
-            require_fresh(snapshot)
-            produced=stage/'delivery/docs'
-            paths=[p.relative_to(produced) for p in produced.rglob('*') if p.is_file()]
-            installed=install_current(produced,out,paths)
-            record={'sources':baseline,'output_dir':'docs','files':installed,'pages':{key:{'source':path.with_suffix('.qmd').as_posix(),'html':(Path('docs')/path).as_posix(),'html_sha256':sha(out/path)} for key,path in PAGES.items()},'origin':'fresh canonical-source render; validated before automatic docs replacement','published':False}
-            result=check_current(out,record)
-            operating=json.loads((ROOT/RECEIPT).read_text('utf-8'));operating['canonical_html_build']=record
-            cluster.save(ROOT/RECEIPT,operating);cluster.save(reports/'canonical-output-check.json',result)
-            print(json.dumps(result,ensure_ascii=False));print('Current HTML:',out/PAGES['home'],flush=True)
-            return 0
-        finally:
-            for p in stage.glob('*.json'):shutil.copyfile(p,reports/p.name)
-            if mirror.is_dir():
-                logs=reports/'render-logs';logs.mkdir(exist_ok=True)
-                for p in mirror.glob('*.log'):shutil.copyfile(p,logs/p.name)
-                if not mirror.is_relative_to((ROOT/'.quarto/course_html_build').resolve()):raise ValueError('Unsafe build scratch cleanup')
-                shutil.rmtree(mirror)
+    if Path(out).resolve()!=canonical_output():
+        raise ValueError('Build writes canonical docs')
+    from zo_course_site import main as course_main
+    report=Path(reports or ROOT/'_audit/course_site_build')/'course-build.json'
+    return course_main(['build','--report',str(report)])
 
 
 def main():
@@ -388,8 +345,13 @@ def main():
     parser.add_argument('--reports',type=Path)
     args=parser.parse_args();out=args.output.resolve()
     if out!=canonical_output():parser.error('Use canonical docs output; _audit is reserved for verification evidence')
-    if args.command=='build':return build(out,args.reports)
-    print(json.dumps(check_current(out),ensure_ascii=False));return 0
+    # The approved R01+r20 lifecycle supersedes the six-page/PDF-coupled bundle.
+    # Native QMD source/render validators remain inside the common operating CLI.
+    from zo_course_site import main as course_main
+    reports=(args.reports or ROOT/'_audit/current/verification/html-canonical-build').resolve()
+    if not reports.is_relative_to(ROOT/'_audit'):parser.error('Reports belong in _audit')
+    reports.mkdir(parents=True,exist_ok=True)
+    return course_main([args.command,'--report',str(reports/('course-'+args.command+'.json'))])
 
 
 if __name__=='__main__':raise SystemExit(main())

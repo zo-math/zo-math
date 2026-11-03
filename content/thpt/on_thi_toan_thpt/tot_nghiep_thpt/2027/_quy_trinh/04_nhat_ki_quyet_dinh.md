@@ -4,6 +4,10 @@ Phiên bản: 0.2 · Cập nhật: 16/10/2026.
 
 Chỉ ghi quyết định có ảnh hưởng lâu dài; không chép hội thoại hay log lệnh. Bảng điều hành ghi việc hiện hành. [Điểm vào](README.md).
 
+## CURRENT-SOURCE-20261103 — Chỉ vận hành một bộ nguồn
+
+Chủ trì yêu cầu hoàn thiện nguồn chính, kiểm chạy độc lập và xóa phần cũ không còn dùng. Không giữ R01 riêng, prototype hoặc bản xem cũ để đối chiếu; thay yêu cầu bảo toàn các bộ ấy tại QD_035 và mốc tích hợp cũ. Phạm vi là hệ thống khóa 2027; giữ nội dung toán, tài sản đang dùng và PDF có liên kết. Không tự commit, push hay xuất bản. Cổng nguồn chặn đọc các cây đã nghỉ dùng; chỉ nguồn canonical, công cụ sản xuất và các hợp đồng kiểm hiện hành được tham gia dựng/kiểm.
+
 
 ## R2G01-LESSONS-20261028 — Tổng kết và áp dụng cải tiến từ R2-G01
 

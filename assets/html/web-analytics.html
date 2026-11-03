@@ -1,0 +1,12 @@
+<!-- Cloudflare Web Analytics: production hostnames only. -->
+<script type="module" id="zo-web-analytics">
+  if (["zomath.vn", "www.zomath.vn"].includes(window.location.hostname)
+      && !document.querySelector('script[src="https://static.cloudflareinsights.com/beacon.min.js"]')) {
+    const beacon = document.createElement("script");
+    beacon.type = "module";
+    beacon.src = "https://static.cloudflareinsights.com/beacon.min.js";
+    beacon.setAttribute("data-cf-beacon", JSON.stringify({token: "d941fa2270504b35bfe69a628b3ed8b8"}));
+    document.body.appendChild(beacon);
+  }
+</script>
+<!-- End Cloudflare Web Analytics -->

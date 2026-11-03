@@ -1,0 +1,36 @@
+% R1-G01 G01-S-O-E04: hai bang con phan biet do thi f va do thi f'.
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{backgrounds,arrows.meta}
+\input{zo_graph_v02.tex}
+
+\begin{document}
+\begin{tikzpicture}[zo graph v02 field]
+\zoGraphVTwoLayers
+\begin{axis}[
+width=70mm,height=52mm,
+  zo graph v02 axis,
+  xmin=-3,xmax=3.5,
+  xtick={-1,2},
+  xlabel={$x$},
+  every axis x label/.append style={at={(axis description cs:0.985,0.45)},anchor=south east},
+  ymin=-3.2,ymax=4.2,ytick=\empty,ylabel={$f^\prime(x)$},
+  every axis y label/.append style={at={(axis description cs:0.55,0.985)},anchor=north west},
+  title={B}
+]
+
+  \addplot[zo graph v02 curve solid,domain=-3:3.5,samples=221,forget plot]
+    {10/9*(x+1)*(x-2)};
+  \addplot[zo graph v02 point emphasized,forget plot] coordinates {(-1,0) (2,0)};
+  \begin{pgfonlayer}{zoGraphVTwoTextLayer}
+    \node[zo graph v02 tick label,anchor=north east,xshift=-8pt,yshift=-18pt] at (axis cs:-1,0) {$C(-1;0)$};
+    \node[zo graph v02 tick label,anchor=north west] at (axis cs:2.08,-0.30) {$D(2;0)$};
+    \node[zo graph v02 tick label,anchor=north east,xshift=-2pt,yshift=-2pt] at (axis cs:0,0) {$O$};
+  \end{pgfonlayer}
+\end{axis}
+
+\end{tikzpicture}
+\end{document}

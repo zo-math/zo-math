@@ -409,6 +409,7 @@ function Image(image)
   assert(not (latex and course_shell and image.src:match('^hinh/do_thi_')),
     'Legacy graph asset forbidden in course PDF: '..image.src)
   local graph_number = image.src:match('^giao_dien/assets/figures_0_4/do_thi_(%d%d)%.svg$')
+    or image.src:match('^giao_dien/assets/figures_0_4/do_thi_(%d%d)_[ab]%.svg$')
   graph_number = tonumber(graph_number)
   if latex and graph_number and graph_number >= 1 and graph_number <= 13 then
     image.src = image.src:gsub('%.svg$', '.pdf')

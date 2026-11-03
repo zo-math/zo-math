@@ -2,6 +2,8 @@
 
 Đây là điểm vào chính thức của bộ điều hành. Tài liệu vẫn nằm tại `content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/`, tính từ gốc repo.
 
+**Nguồn vận hành duy nhất, 03/11/2026:** dùng QMD/dữ liệu/công cụ trong repository chính và đường dựng `scripts/zo_course_site.py`. Đọc [hướng dẫn vận hành nguồn](../../../../../../scripts/zo_course_site_sources/README.md). Bản R01 riêng, prototype, dự án và bản xem cũ đã nghỉ dùng; không giữ để đối chiếu, không đọc làm đầu vào và không khôi phục theo các mốc lịch sử bên dưới. Danh mục bảo vệ hiện hành là `ban_dang_duyet.json`, được sinh từ bộ nguồn đang chạy.
+
 Để tìm lại nhanh, mở README ở gốc repo rồi chọn **Ôn thi Toán THPT 2027 — Bộ điều hành**. Liên kết ở gốc chỉ dẫn tới đây, không tạo bộ điều hành thứ hai.
 
 ## Bắt đầu từ đâu?
@@ -190,7 +192,7 @@ Nhà; DH_037 giữ kết quả đường học, QD_035 giữ bộ bản xem ch�
 Trạng thái/bản mới/bước tiếp chỉ ở 03. Đây là di trú nguồn, không đổi kiến
 trúc, câu chữ đã chốt hoặc nghiệm thu/phát hành.
 
-**QD_035 — bảo vệ đúng bản chủ trì chọn:** Home tại `_audit/zo_home_refinement_2026-10-12/delivered/home-reading.html`, các trang nó liên kết và runtime là nguồn đối chiếu chính thức không được dọn/xóa hoặc tự thay bằng bản khác. Đọc [danh mục bảo toàn](bao_toan_bon_trang.md) trước dọn; manifest/checkpoint DH_032 nằm ngoài repo. Nguồn dựng vẫn là QMD/template/data/script canonical; không tự hoàn nguyên câu chữ hoặc thay nghiệm thu. Trạng thái và bước tiếp chỉ ở [03](03_dieu_hanh_chuong_trinh.md).
+**Bảo vệ nguồn hiện hành:** yêu cầu giữ bộ đối chiếu tại QD_035 đã được chủ trì thay thế bằng CURRENT-SOURCE-20261103. Đọc [danh mục bảo vệ](bao_toan_bon_trang.md); chỉ danh mục sinh từ bản dựng hiện hành được dùng để bảo vệ nguồn và thành phẩm. Trạng thái và bước tiếp chỉ ở [03](03_dieu_hanh_chuong_trinh.md).
 
 **Điểm vào hiện hành — QD_033:** kiến trúc học tập ở [01](01_kien_truc_hoc_tap.md), cách thể hiện ở [07](07_quy_chuan_cau_truc_trang_nguoi_hoc.md), thẩm quyền ở [08](08_danh_muc_tham_quyen_dieu_hanh.md). **Bài học → Luyện tập → Kiểm tra → Ôn lại là tiến trình chuẩn được khuyến nghị, nhưng không phải điều kiện bắt buộc phải hoàn thành tuần tự**; hỗ trợ độc lập theo ngữ cảnh; lưu bằng chứng khác ghi Nhật kí; link quay lại đề chỉ khi tách vị trí. Công việc, trạng thái và bước tiếp theo chỉ ở [03](03_dieu_hanh_chuong_trinh.md). Các mốc/QA cũ bên dưới giữ để truy nguyên, không chứng nhận QD_033; G01/G02 chưa được đối chiếu lại ở cấp QMD/HTML với quyết định này nên chưa xác định có nội dung nào cần sửa. HTML chờ chủ trì duyệt, PDF chưa đồng bộ, chưa phát hành.
 

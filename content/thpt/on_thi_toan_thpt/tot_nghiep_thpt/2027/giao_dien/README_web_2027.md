@@ -1,5 +1,10 @@
 # HTML canonical của trang Nhà khóa 2027
 
+## Vận hành sau tích hợp R01 và r20 — 03/11/2026
+
+Đường dựng hiện hành là `scripts/zo_course_site.py` qua `scripts/zo_python.py`, với `zo_qmd.py` giữ các cổng nguồn/render. Xem [hướng dẫn nguồn và dựng HTML](../../../../../../scripts/zo_course_site_sources/README.md). Kết quả ghi trực tiếp `docs/`; không dựng vào audit và không dùng nguồn HTML đóng băng của prototype. QMD Nhà/YAML sở hữu lời văn và dữ liệu; r20 sở hữu bố cục. Trạng thái và việc tiếp theo chỉ ở [03](../_quy_trinh/03_dieu_hanh_chuong_trinh.md). Các lệnh/bố cục trong các mốc bên dưới chỉ có giá trị lịch sử ở phần đã bị thay.
+
+
 ## Video giới thiệu YouTube — 16/10/2026
 
 Nguồn trang Nhà đã chuyển từ MP4 tự lưu sang video YouTube `SJ1bb9gWxDA`.

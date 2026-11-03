@@ -31,6 +31,15 @@ def require_source(path: Path, root: Path = ROOT) -> Path:
     parts = resolved.relative_to(root).parts if resolved.is_relative_to(root) else resolved.parts
     if '_audit' in {part.casefold() for part in parts} or resolved.is_relative_to((root / '_audit').resolve()):
         raise ValueError('Official build cannot read an _audit input: ' + str(path))
+    retired = [root / '_design/website_hoc_tap_2027',
+               root / '_projects/on_thi_toan_thpt_2027',
+               root.parent / 'zo_math_revision_2027_r01']
+    if any(resolved.is_relative_to(folder.resolve()) for folder in retired):
+        raise ValueError('Official build cannot read a retired 2027 source: ' + str(path))
+    course = root / 'content/thpt/on_thi_toan_thpt/hoc_lieu'
+    relative_parts = [p.casefold() for p in resolved.relative_to(course).parts] if resolved.is_relative_to(course) else []
+    if any(relative_parts[i:i+2] == ['_quy_trinh', 'ban_thao'] for i in range(len(relative_parts)-1)):
+        raise ValueError('Official build cannot read a retired 2027 source: ' + str(path))
     return resolved
 
 
@@ -103,7 +112,8 @@ def check(root: Path = ROOT) -> dict:
                     require_source(candidate, root)
                 except ValueError as exc:
                     errors.append(str(exc))
-        names[:] = [n for n in names if n not in EXCLUDED]
+        names[:] = [n for n in names if n not in EXCLUDED
+                    and (Path(directory)/n).resolve() != (root/'_projects/on_thi_toan_thpt_2027').resolve()]
         for name in files:
             path = Path(directory) / name
             if path.suffix.lower() not in {'.qmd', '.rmd'} and not (

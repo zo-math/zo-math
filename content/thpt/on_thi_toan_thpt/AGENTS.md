@@ -1,5 +1,10 @@
 # Chỉ dẫn cho chuyên mục Ôn thi Toán THPT
 
+## Điểm vận hành HTML sau tích hợp R01+r20
+
+Đọc trạng thái hiện hành ở 03 và `scripts/zo_course_site_sources/README.md`. Nguồn duy nhất là `E:\zo_math`. Theo yêu cầu chủ trì ngày 03/11/2026, bản R01 riêng, prototype và các bản xem cũ không còn là nguồn đối chiếu hay phụ thuộc; loại bỏ sau kiểm nguồn chính chạy độc lập. `zo_qmd.py render ... --html-only` kiểm native rồi áp giao diện hiện hành; toàn khóa dùng `zo_course_site.py build`, qua `zo_python.py`. HTML cuối ở `docs/`. Không khôi phục đường dựng cũ từ ghi chép lịch sử. Không commit hoặc xuất bản khi chưa được giao.
+
+
 Đây là tài liệu điều phối nội bộ, không phải nội dung xuất bản.
 
 ## Tìm tài liệu và tiếp quản khóa 2027

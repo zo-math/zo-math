@@ -1,0 +1,64 @@
+schema_version: 1
+project:
+  id: on_thi_shared_approximation
+  name: Số gần đúng, sai số và quy tròn
+  root: content/thpt/on_thi_toan_thpt/hoc_lieu/_dung_chung/nen
+discovery:
+  article_types:
+  - id: on_thi_foundation
+    include:
+    - so_gan_dung_sai_so.qmd
+    exclude: []
+profiles:
+  directory: _quy_trinh/ho_so
+  naming: by_article_stem
+  required: true
+modules:
+  required:
+  - qmd-core
+  - zo-html-pdf
+  optional: []
+metadata:
+  core_required:
+  - title
+  - draft
+  project_required: []
+  body_classes_required:
+  - zo-page-article
+  placeholders: []
+publication:
+  production_states:
+  - draft
+  - in_production
+  - validated
+  - accepted
+  publication_states:
+  - pending
+  - published
+  user_confirmation_required: true
+references:
+  controlling_documents:
+  - _quy_trinh/README.md
+  templates: []
+  theory_sources: []
+  quality_exemplars: []
+regression:
+  articles:
+  - so_gan_dung_sai_so.qmd
+  expected_checker_version: 2.6.0
+  preserve_cli: true
+extensions:
+  artifact_identity: path
+  artifact_root_inputs:
+  - scripts/zo_web_2027_package.py
+  - scripts/zo_course_table_roles.py
+  - scripts/zo_course_remediation.py
+  - _design/web_2027_mau_dung_chung/profiles/course-tables.json
+  - assets/lua/zo_course_learning.lua
+  - scripts/zo_course_editorial.py
+  - assets/lua/zo_learning_components.lua
+  - _quarto.yml
+  - scripts/zo_web_2027_consistency.py
+  - content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.qmd
+  artifact_inputs:
+  - giao_dien/so_gan_dung_sai_so.js

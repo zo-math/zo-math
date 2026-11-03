@@ -44,7 +44,7 @@ def normalize_native_dom(doc, root, source_text=''):
     support.decompose()
     for node in root.select('[data-home-tag]'):
         name=node.attrs.pop('data-home-tag')
-        if name not in ('section','nav','figure','details'):raise ValueError('Unsupported Home presentation tag '+name)
+        if name not in ('section','nav','figure','details','ol','li'):raise ValueError('Unsupported Home presentation tag '+name)
         node.name=name
         if name=='details':node.attrs={}
     explicit_heading_ids = set(re.findall(r'^#{1,6} .*?\{[^}\n]*#([^\s}]+)', source_text, re.M))

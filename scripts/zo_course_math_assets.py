@@ -146,6 +146,11 @@ def html_checks(doc,page_key,repo=ROOT):
         return values
     expected=json.loads(manifest.read_text())["figures"]
     values["graph display count"]=len(graphs)==len(expected)
+    if page_key=='r1_g04':
+        from zo_g04_revision_contract import graph_inventory_matches
+        revision_inventory=graph_inventory_matches(graphs,source,{Path(f['svg']).name for f in expected})
+        if revision_inventory is not None:values['graph display count']=revision_inventory
+
     values["graph G03 shared display"]=all("zo-graph-04" in im.get("class",[]) and im.get("data-zo-graph-role")=="lesson" and im.get("data-zo-graph-layout")=="lesson-g03" and bool(re.fullmatch(r"--figure-em:[0-9.]+em",im.get("style",""))) for im in graphs)
     from zo_graphics import lesson_layout
     import xml.etree.ElementTree as ET
@@ -172,6 +177,18 @@ def lesson_display_checks(doc,page_key,repo=ROOT):
     images=doc.select(".reader-content .figure-viewport img")
     by_name={p.name:p for p in files};ratio=lesson_layout(repo)["web_svg_bp_per_em"]
     values={"G03 shared sizing namespace":"zo-web-2027-production" in doc.body.get("class",[]),"G03 graph inventory":len(images)==len(files),"G03 shared sizing CSS":any(Path(n["href"]).name=="production-figures.css" for n in doc.select("link[href]"))}
+
+    if page_key=='r1_g04':
+        from zo_g04_revision_contract import graph_inventory_matches
+        revision_inventory=graph_inventory_matches(images,package/'index.qmd',set(by_name))
+        if revision_inventory is not None:values['G03 graph inventory']=revision_inventory
+    settings=package/'giao_dien/html.json'
+    if page_key=='r1_g01' and settings.is_file() and json.loads(settings.read_text(encoding='utf-8')).get('adapter')=='g01-revision-source-v1':
+        from collections import Counter
+        from zo_course_editorial import closure
+        declared=Counter(Path(name).name for text in closure(package/'index.qmd',repo).values() for name in re.findall(r'!\[[^\n]*?\]\(([^)]+do_thi_\d{2}(?:_[ab])?\.svg)\)',text))
+        actual=Counter(Path(image['src']).name for image in images)
+        values['G03 graph inventory']=actual==declared and set(declared)==set(by_name)
     for im in images:
         name=Path(im["src"]).name;p=by_name.get(name)
         values[name+"/owned graph"]=p is not None
@@ -219,28 +236,27 @@ def _segments(rows,canonical=False):
     return answer
 
 def draft_table_checks(package):
-    """Compare endpoint limits, trends and provided derivative rows with the frozen draft."""
-    p=Path(package);draft=(p/"_quy_trinh/ban_thao/noi_dung.md").read_text(encoding="utf-8")
-    blocks=[m[0] for m in re.finditer(r"(?m)(?:^\|.*\n)+",draft) if re.search(r"\\(?:nearrow|searrow|rightarrow)",m[0])]
-    records=json.loads((p/"du_lieu/bang_bien_thien.json").read_text(encoding="utf-8"))
-    values={"approved BBT inventory":len(blocks)==len(records)}
-    for block,record in zip(blocks,records):
-        rows=[[_clean(v) for v in line.strip("|").split("|")] for line in block.splitlines()
-              if not re.fullmatch(r"[| :\-]+",line)]
-        name=record["id"]
-        values[name+"/approved limits signs trends"]=_segments(rows)==_segments(record["rows"],True)
-        values[name+"/provided row count"]=len(rows)==len(record["rows"])
-        expected_excluded=[]
-        if rows[0][0]!="x":
-            intervals=rows[0][1:]
-            for i in range(len(intervals)-1):
-                if intervals[i].endswith(")") and intervals[i+1].startswith("("):
-                    expected_excluded.append(2*i+3)
-        values[name+"/excluded points"]=expected_excluded==record.get("excluded_columns",[])
+    """Validate the current semantic contract without reading retired drafts.
 
-        # Preserve every explicitly supplied derivative zero/status at a point.
-        if rows[0][0]=="x" and len(rows)==3:
-            values[name+"/provided point derivative"]=rows[1]==[[_clean(v) for v in rr] for rr in record["rows"]][1]
+    The function name remains compatible with the existing source gate.
+    """
+    p=Path(package)
+    source=p/'du_lieu/bang_bien_thien.json'
+    contract=json.loads((p/'_quy_trinh/hop_dong_bang_bien_thien.json').read_text('utf-8'))
+    records=json.loads(source.read_text('utf-8'))
+    reference=contract['records']
+    values={'BBT contract identity':contract.get('schema_version')==1 and contract.get('package')==p.name,
+            'BBT source matches reviewed contract':digest(source)==contract.get('source_sha256'),
+            'approved BBT inventory':[r['id'] for r in records]==[r['id'] for r in reference]}
+    for expected,record in zip(reference,records):
+        name=record['id']
+        segments=json.loads(json.dumps(_segments(record['rows'],True)))
+        values[name+'/approved limits signs trends']=expected['segments']==segments
+        values[name+'/provided row count']=expected['row_count']==len(record['rows'])
+        values[name+'/excluded points']=expected['excluded_columns']==record.get('excluded_columns',[])
+        if expected['point_derivative'] is not None:
+            rows=[[_clean(v) for v in row] for row in record['rows']]
+            values[name+'/provided point derivative']=len(rows)==3 and expected['point_derivative']==rows[1]
     return values
 
 def self_test(page=None):
