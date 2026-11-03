@@ -52,6 +52,16 @@ def model(root,source,variant="full"):
     data=contract(root);full=source.read_text('utf-8');text=full;tables={}
     metadata=yaml.safe_load(full.split('---',2)[1])
     text=selected_source(full,variant)
+    # Captions in canonical includes are printed too. Count each occurrence,
+    # including repeated includes, and reject cycles rather than undercounting.
+    def caption_source(value,base,stack):
+        def expand(match):
+            included=(base/match[1]).resolve()
+            if not included.is_relative_to(root.resolve()) or included in stack:
+                raise ValueError('Invalid print caption include: '+str(included))
+            return caption_source(included.read_text('utf-8'),included.parent,stack+(included,))
+        return re.sub(r'{{<\s*include\s+([^\s>]+)\s*>}}',expand,value)
+    caption_text=caption_source(text,source.parent,(source.resolve(),))
     selected_ids=set(re.findall(r'\{#([^\s}]+)',text))|set(re.findall(r'<a\s+id=["\']([^"\']+)',text))
 
     for entry in data['pages'][source.parent.name]:
@@ -97,7 +107,7 @@ def model(root,source,variant="full"):
     for ident,value in shell.get('table_arraystretch',{}).items():
         if ident not in declared or not 1.1<=value<=1.6:raise ValueError('Invalid table spacing override')
         if ident in tables:tables[ident]['arraystretch']=value
-    return dict(profile,heading_reserve_lines=shell.get('heading_reserve_lines',{}),target_page_breaks=[v for v in shell.get('target_page_breaks',[]) if v in selected_ids],main_area_page_breaks=area_page_breaks(shell,variant,metadata),explicit_figure_captions=text.count('r1-figcaption')+len(re.findall(r'<figcaption(?:\s[^>]*)?>',text))+len(context_figures),context_figures=context_figures,task_numbers={pdf_id(k):v for k,v in task_numbers.items()},tables=tables,graphs=graphs,variation_ids=native_ids,variations={v['id']:v for v in variation if v['id'] in native_ids},solution_targets=[pdf_id(v) for v in links],problem_targets=[pdf_id(v) for v in backs])
+    return dict(profile,heading_reserve_lines=shell.get('heading_reserve_lines',{}),target_page_breaks=[v for v in shell.get('target_page_breaks',[]) if v in selected_ids],main_area_page_breaks=area_page_breaks(shell,variant,metadata),explicit_figure_captions=caption_text.count('r1-figcaption')+len(re.findall(r'<figcaption(?:\s[^>]*)?>',caption_text))+len(context_figures),context_figures=context_figures,task_numbers={pdf_id(k):v for k,v in task_numbers.items()},tables=tables,graphs=graphs,variation_ids=native_ids,variations={v['id']:v for v in variation if v['id'] in native_ids},solution_targets=[pdf_id(v) for v in links],problem_targets=[pdf_id(v) for v in backs])
 
 def validate_tex(text,data):
     checks={}
