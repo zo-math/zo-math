@@ -304,8 +304,28 @@ def tank(s):
 
 BUILD={'cut_fold':cut_fold,'garden':garden,'kiosk':kiosk,'tank':tank}
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+
+def save_independent(fig, path, title):
+    from matplotlib.transforms import Bbox
+    fig.canvas.draw()
+    axes = list(fig.axes)
+    assert len(axes) == 2
+    renderer = fig.canvas.get_renderer()
+    boxes = [ax.get_tightbbox(renderer).transformed(fig.dpi_scale_trans.inverted()).padded(.08) for ax in axes]
+    for index, (ax, box) in enumerate(zip(axes, boxes)):
+        for other in axes: other.set_visible(other is ax)
+        target = path.with_name(path.stem + '_' + 'ab'[index] + '.svg')
+        fig.savefig(target, bbox_inches=box, metadata={'Date':None, 'Title':title + ' — ' + 'ab'[index]})
+    for ax in axes: ax.set_visible(True)
+
 def main():
  data=json.loads(DATA.read_text(encoding='utf-8'))
+ if '--independent-only' in sys.argv:
+  scene=next(s for s in data['scenes'] if s['id']=='hop_cat_gap')
+  validate(scene);fig=cut_fold(scene);fig.canvas.draw()
+  for d in fig.zo_dimensions:check_dimension(d)
+  save_independent(fig,HERE/'hop_cat_gap.svg','Cắt bốn góc và gấp thành hộp không nắp')
+  plt.close(fig);print('Exported two independent vector panels; original composite unchanged');return
  for s in data['scenes']:validate(s)
  # Meaningful negative fixtures: invalid cuts and unsupported partition arrangements.
  for source,patch in [(data['scenes'][0],{'cut':15}),(data['scenes'][1],{'partitions':2}),(data['scenes'][3],{'height':0})]:
@@ -325,6 +345,10 @@ def main():
    box=patch.get_window_extent();frame=fig.bbox
    assert box.x0>=frame.x0 and box.x1<=frame.x1 and box.y0>=frame.y0 and box.y1<=frame.y1, 'label outside canvas: '+label
    assert box.height<frame.height*.12, 'oversized glyph: '+label
+  if s['id']=='hop_cat_gap':
+   save_independent(fig,HERE/'hop_cat_gap.svg','Cắt bốn góc và gấp thành hộp không nắp')
+   for suffix in 'ab':
+    name='hop_cat_gap_'+suffix+'.svg';outputs[name]=sha(HERE/name)
   for ext in ['svg','png']:
    out=HERE/(s['id']+'.'+ext)
    kw={'metadata':{'Date':None,'Creator':'ZO Math G05 parametric scenes v1'}} if ext=='svg' else {'metadata':{'Software':'ZO Math G05 parametric scenes v1'}}
@@ -335,6 +359,7 @@ def main():
    outputs[out.name]=sha(out)
   plt.close(fig)
  receipt={'kind':'parametric-scenes-v1','generator':'_quy_trinh/'+Path(__file__).name,'generator_sha256':sha(Path(__file__)),'data_sha256':sha(DATA),'style_source':str(STYLE),'style_sha256':sha(STYLE),'font_source':str(FONT),'font_sha256':sha(FONT),'math_font_source':str(MATHFONT),'math_font_sha256':sha(MATHFONT),'matplotlib':matplotlib.__version__,'outputs':outputs,'negative_cases':3,'dimension_checks':dimension_checks,'dimension_negative_cases':dimension_negative,'kiosk_negative_cases':kiosk_negative,'kiosk_geometry_check':'passed','status':'generated_pending_html_owner_review','limits':['context illustrations, not mathematical plots','parametric context scenes, not a general geometry engine','perspective drawings must not be measured','no HTML/PDF generated']}
+ receipt['body_panels']={'hop_cat_gap':['hop_cat_gap_a','hop_cat_gap_b']}
  MANIFEST.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
  print('Generated',len(outputs),'SVG/PNG files; 3 invalid-scene cases rejected; dimensions:',dimension_checks,'; negative dimension cases:',len(dimension_negative),'; negative kiosk cases:',len(kiosk_negative))
 if __name__=='__main__':main()

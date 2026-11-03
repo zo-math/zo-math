@@ -74,6 +74,13 @@ def prepare(root: Path, mirror: Path, source: Path, definition: dict) -> dict:
     # then the approved course shell replaces only the cover/header/footer.
     profile_path = mirror/'_quarto-pdf.yml'
     quarto_profile = yaml.safe_load(profile_path.read_text(encoding='utf-8'))
+    # The package filter first normalizes nested HTML disclosures and verifies
+    # their mathematics/IDs, then invokes zo_pdf_content in its finish phase.
+    # Running the generic filter earlier consumes an outer disclosure at the
+    # first nested closing tag and destroys the structure before normalization.
+    if any(str(f).endswith('zo_course_package_pdf.lua') for f in meta.get('filters', [])) or shell.get('raster_illustrations'):
+        quarto_profile['filters'] = [f for f in quarto_profile.get('filters', [])
+                                     if str(f) != 'assets/lua/zo_pdf_content.lua']
     if layout:
         quarto_profile['format']['pdf']['keep-tex']=True
         quarto_profile['format']['pdf']['latex-clean']=False

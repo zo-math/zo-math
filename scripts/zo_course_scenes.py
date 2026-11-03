@@ -20,6 +20,8 @@ def source_checks(source,repo=ROOT):
  for name,digest in m['outputs'].items():checks['scene '+name]=Path(name).name==name and sha(p/'hinh'/name)==digest
  data=json.loads((p/'du_lieu/minh_hoa.json').read_text(encoding='utf-8'));body={v['id'] for v in data['scenes'] if not v.get('cover')}
  images={Path(v).stem for v in re.findall(r'!\[[^\n]*\]\(([^)]+\.svg)\)',s)}
+ panels=m.get('body_panels',{});checks['split panels belong to declared scenes']=set(panels)<=body and all(len(v)==2 and len(set(v))==2 for v in panels.values())
+ body={n for v in body for n in panels.get(v,[v])}
  checks['exact body illustration inventory']=images==body
  checks['scenes have no authored BBT']=not re.search(r'zo-native-bbt|\\(?:nearrow|searrow|rightarrow)',s)
  checks['dimension regression retained']=sum(m['dimension_checks'].values())==15 and len(m['dimension_negative_cases'])==5
@@ -28,6 +30,7 @@ def source_checks(source,repo=ROOT):
 
 def html_checks(doc,source,page):
  source=Path(source);m=json.loads((source.parent/'giao_dien/minh_hoa_manifest.json').read_text(encoding='utf-8'));expected={n for n in m['outputs'] if n.endswith('.svg') and n!='huong_bia.svg'}
+ expected-={name+'.svg' for name in m.get('body_panels',{})}
  images=doc.select('.reader-content .figure-viewport img');checks={'all context figures displayed':{Path(unquote(urlsplit(im['src']).path)).name for im in images}==expected and len(images)==len(expected)}
  for im in images:
   name=Path(unquote(urlsplit(im['src']).path)).name;asset=(Path(page).parent/unquote(urlsplit(im['src']).path)).resolve()

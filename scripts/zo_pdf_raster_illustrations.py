@@ -12,26 +12,28 @@ def prepare(root,mirror,source,shell):
         fig=BeautifulSoup(match.group(),'html.parser').figure
         ident=fig.get('id')
         if ident not in specs:
-            img=fig.img
-            assert img and fig.figcaption and img.get('alt') and Path(img['src']).suffix.lower()=='.svg', 'Unconfigured raster illustration'
+            images=fig.find_all('img')
+            assert images and fig.figcaption and all(im.get('alt') and Path(im['src']).suffix.lower()=='.svg' for im in images), 'Unconfigured raster illustration'
             caption=fig.figcaption.get_text(' ',strip=True)
             import subprocess, shutil
-            original=(source.parent/img['src']).resolve()
-            assert original.is_relative_to((source.parent/'hinh').resolve())
-            target=mirror/'assets/tex/course-runtime'/(ident+'.pdf')
             converter=shutil.which('inkscape') or shutil.which('inkscape.com')
             assert converter, 'Inkscape is required for vector PDF illustrations'
-            subprocess.run([converter,str(original),'--export-type=pdf','--export-filename='+str(target)],check=True,capture_output=True)
-            # Match the existing cover/scene conversion: LuaTeX supplies its own Group.
-            from pypdf import PdfReader, PdfWriter
-            from pypdf.generic import NameObject
-            import io
-            reader=PdfReader(target); assert len(reader.pages)==1
-            page=reader.pages[0]; page.pop(NameObject('/Group'),None)
-            writer=PdfWriter(); writer.add_page(page)
-            stream=io.BytesIO(); writer.write(stream); target.write_bytes(stream.getvalue())
-            rel=Path(__import__('os').path.relpath(target,mirror/source.parent.relative_to(root))).as_posix()
-            return '::: {#'+ident+' .r1-figure}\n\n!['+img['alt']+']('+rel+'){width="150mm"}\n\n::: {.r1-figcaption}\n'+caption+'\n:::\n\n:::'
+            projected=[]
+            for number,img in enumerate(images,1):
+                original=(source.parent/img['src']).resolve()
+                assert original.is_relative_to((source.parent/'hinh').resolve())
+                target=mirror/'assets/tex/course-runtime'/(ident+'-'+str(number)+'.pdf')
+                subprocess.run([converter,str(original),'--export-type=pdf','--export-filename='+str(target)],check=True,capture_output=True)
+                from pypdf import PdfReader, PdfWriter
+                from pypdf.generic import NameObject
+                import io
+                reader=PdfReader(target); assert len(reader.pages)==1
+                page=reader.pages[0]; page.pop(NameObject('/Group'),None)
+                writer=PdfWriter(); writer.add_page(page)
+                stream=io.BytesIO(); writer.write(stream); target.write_bytes(stream.getvalue())
+                rel=Path(__import__('os').path.relpath(target,mirror/source.parent.relative_to(root))).as_posix()
+                projected.append('!['+img['alt']+']('+rel+'){width="150mm"}')
+            return '<figure id="'+ident+'">\n\n'+'\n\n'.join(projected)+'\n\n<figcaption>\n\n'+caption+'\n\n</figcaption>\n\n</figure>'
         img=fig.img;assert img and fig.figcaption and img.get('alt')
         original=(source.parent/img['src']).resolve()
         assert original.is_relative_to((source.parent/'hinh').resolve())

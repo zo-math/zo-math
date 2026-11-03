@@ -21,7 +21,7 @@ local function normalize(blocks)
       elseif s:match('^%s*</p>') and #stack>0 and stack[#stack].kind=='source-note' then
         local frame=table.remove(stack);local note=pandoc.Div(current,pandoc.Attr(frame.id,{'zo-source-note'}));current=frame.parent;current:insert(note)
       elseif s:match('^%s*<figure[%s>]') then
-        local frame={parent=current,body=pandoc.Blocks{},title=pandoc.Blocks{},kind='figure'}
+        local frame={parent=current,body=pandoc.Blocks{},title=pandoc.Blocks{},kind='figure',id=s:match('id="([^"]+)"') or ''}
         stack[#stack+1]=frame;current=frame.body
       elseif s:match('^%s*<figcaption[%s>]') then
         assert(#stack>0 and stack[#stack].kind=='figure','Caption without figure');stack[#stack].pending=true
@@ -33,7 +33,7 @@ local function normalize(blocks)
         for _,child in ipairs(current) do
           if child.t=='Figure' then content:extend(child.content) else content:insert(child) end
         end
-        local fig=pandoc.Figure(content,pandoc.Caption(frame.title))
+        local fig=pandoc.Figure(content,pandoc.Caption(frame.title),pandoc.Attr(frame.id))
         fig.attributes['zo-explicit-caption']='true'
         current=frame.parent;current:insert(fig)
       elseif s:match('^%s*<details[%s>]') then
@@ -157,7 +157,7 @@ local function prepare(doc)
   local section='';local projected=pandoc.Blocks{}
   for _,b in ipairs(doc.blocks) do
     if b.t=='Header' and b.level==2 then section=b.identifier end
-    local keep=not part or section=='bat-dau' or section=='nguon' or section==str(part.start)
+    local keep=not part or section=='nguon' or section==str(part.start)
     if variant=='student' and section=='loi-giai' then keep=false end
     if section=='tai-tai-lieu' then keep=false end
     if keep then projected:insert(b) end
@@ -264,6 +264,18 @@ local function figure_filter(fig)
   if not explicit then fig.caption.long=pandoc.Blocks{} end
   do
     local tex=pandoc.write(pandoc.Pandoc({fig}),'latex')
+    local panels=0
+    fig:walk({Image=function() panels=panels+1 end})
+    if panels>1 then
+      -- Independent panels retain their authored scale and stack vertically.
+      -- Pandoc's default half-width minipages make explicit-width vectors
+      -- overlap or extend outside the paper.
+      local removed
+      tex,removed=tex:gsub('\\begin{minipage}%b[]%b{}','')
+      assert(removed==panels,'Unexpected independent-panel TeX layout')
+      tex=tex:gsub('\\end{minipage}',function() return '\\par\\vspace{8pt}' end)
+      tex=tex:gsub('\\hfill','')
+    end
     -- Do not let print floats move a graph across the following explanation.
     local changed
     tex,changed=tex:gsub('\\begin{figure}%b[]',function() return '\\begin{figure}[H]' end)

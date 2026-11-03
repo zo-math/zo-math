@@ -104,6 +104,13 @@ def isolated_project(source: Path, directory: Path) -> Path:
         target = mirror / relative
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT / relative, target)
+    # A single-PDF mirror contains only the dependency closure, not every
+    # page named by the website-wide glob. Do not discover unrelated QMDs.
+    import yaml
+    project_file=mirror/'_quarto.yml'
+    project=yaml.safe_load(project_file.read_text('utf-8'))
+    project['project']['render']=[source.relative_to(ROOT).as_posix()]
+    project_file.write_text(yaml.safe_dump(project,allow_unicode=True,sort_keys=False),'utf-8')
     return mirror
 
 
@@ -140,6 +147,7 @@ def build(source: Path, variant: str = "full", preflight: bool = False,
             raise ValueError('Candidate PDF already exists: ' + str(destination))
     canonical_provenance = canonical_pdf_provenance_enabled(ROOT, source)
     input_state = canonical_variant_input_state(ROOT, source, variant) if canonical_provenance else None
+    AUDIT_DIR.mkdir(parents=True, exist_ok=True)
     BUILD_DIR.mkdir(parents=True, exist_ok=True)
     temp_dir = Path(tempfile.mkdtemp(prefix="zo_pdf_", dir=BUILD_DIR))
     temp_relative = relative_to_root(temp_dir)

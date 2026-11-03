@@ -36,7 +36,7 @@ def run(page):
  checks['lesson TOC mount and real entry count']=bool(lesson.select_one('.lesson-toc')) and len(lesson.select(':scope > section.level3'))==expected==7
  checks['29 questions and solutions']=len([u for u in data['units'] if u.get('answer')])==29
  checks['eight semantic caller/return checkpoints']={x.get('id') for x in root.select('section[data-zo-type=checkpoint][data-r1-return-label]')}=={f'cp-{i:02d}' for i in range(1,9)}
- checks['five body illustrations']=len(root.select('.figure-viewport img'))==5
+ checks['body illustration inventory']=all(scene_html(doc,source,page).values())
  from zo_course_pdf_download_state import apply as pdf_state
  from zo_web_2027_downloads import download_region_coverage
  from zo_pdf_contract import validate_canonical_pdf_provenance

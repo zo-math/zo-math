@@ -1,6 +1,22 @@
 # Điều hành chương trình — trạng thái và việc tiếp theo
 
-## BẢN HIỆN HÀNH — Một nguồn duy nhất, 03/11/2026
+## BẢN HIỆN HÀNH — Hình thống kê R2-G02, 04/11/2026
+
+[R2-G02 — bản HTML chính để duyệt](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g02/index.html).
+
+Theo yêu cầu chủ trì, đã dựng lại năm hình đang dùng trong Bài học bằng phông Be Vietnam Pro được chỉ định theo tệp, màu chuẩn ZO Math 0.4 và nhãn đủ nghĩa. Tiêu đề dùng cùng độ đậm trên toàn dòng; ghi chú dùng chữ thường nhất quán. Dữ liệu, thang đo, trung bình, phương sai, tứ phân vị và ngưỡng giữ nguyên. Hai cặp hình vẫn tách thành các ảnh độc lập. Bốn nhiệm vụ Khởi động và dãy số 01–32 được bảo toàn.
+
+Chỉ dựng HTML R2-G02, không dựng toàn khóa; bản mới chờ chủ trì duyệt. Hồ sơ hiện hành của lần sửa hình: `../../../hoc_lieu/r2_g02/_quy_trinh/ho_so/figure_design_20261104_review.json`; bằng chứng kiểm tại `_audit/r2g02_figures_20261104/`. Không dựng PDF học liệu, commit, push hoặc xuất bản. Nguồn chính và cơ chế dựng cục bộ tiếp tục theo `scripts/zo_course_site_sources/README.md`.
+
+## LỊCH SỬ — Tách bốn nhiệm vụ Khởi động R2-G02, 03/11/2026
+
+[R2-G02 — bản HTML chính để duyệt](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g02/index.html).
+
+Chủ trì đã duyệt tách Khởi động thành bốn nhiệm vụ: đọc mẫu và các số đặc trưng; đếm quan sát theo tần số; bình phương và căn bậc hai số học; đọc đầu mút của khoảng. Đã đồng bộ đề, lời giải riêng, mục lục, số toàn gói 01–32 và liên kết Ôn nền/quay lại. Giữ toàn bộ ID cũ; 28 nhiệm vụ phía sau cùng lời giải chỉ đổi số dẫn chiếu. HTML đã dựng và kiểm; đã quan sát trực tiếp mục lục, bốn đề, lời giải riêng và đường Ôn nền/quay lại. Cổng bàn giao mới đạt; chờ chủ trì duyệt, chưa nghiệm thu sản phẩm. Hồ sơ: `../../../hoc_lieu/r2_g02/_quy_trinh/ho_so/tach_khoi_dong_20261103.json`.
+
+Tiếp tục chỉ dùng nguồn chính `E:\zo_math` và đường dựng tại `scripts/zo_course_site_sources/README.md` theo CURRENT-SOURCE-20261103. Không dựng PDF học liệu, stage, commit, push hoặc xuất bản. Việc tiếp theo là chủ trì xem bản HTML đã tách nhiệm vụ; không tự chuyển sang bước khác.
+
+## MỐC NGUỒN ĐANG ÁP DỤNG — Một nguồn duy nhất, 03/11/2026
 
 [Khóa Ôn thi Toán THPT 2027 — nguồn chính](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html).
 
