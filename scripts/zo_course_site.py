@@ -217,6 +217,20 @@ def project_rendered(raw_paths,report=None,native_input=None):
         for g in b.GUIDES:results[c.HOME/g['file']]=c.finish(b.detailed_guide(g,items),c.HOME/g['file'])
     for page,text in results.items():
         dest=c.OUT/page;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(text,'utf-8')
+    # Download products come from the canonical package, independently of
+    # whether Quarto's per-article resource list happens to copy each variant.
+    import yaml
+    for key,page in c.PAGES.items():
+        if key=='home' or page.with_suffix('.qmd') not in selected:continue
+        config=ROOT/page.parent/'_quy_trinh/cau_hinh_san_xuat_qmd.yml'
+        variants=yaml.safe_load(config.read_text('utf-8')).get('extensions',{}).get('pdf_variants',{}) if config.is_file() else {}
+        names=['index.pdf'] if key=='d0' else [v['output'] for v in variants.values()]
+        for name in names:
+            src=ROOT/page.parent/name;dest=c.OUT/page.parent/name
+            if not src.is_file():raise ValueError('Missing canonical PDF download: '+str(src))
+            if not dest.is_file() or sha(src)!=sha(dest):shutil.copyfile(src,dest)
+    from zo_course_site_output import normalize_lines
+    normalized_lines=normalize_lines(ROOT,c.OUT,[c.OUT/p for p in results])
     check=local_check([c.OUT/p for p in results])
     # Prune only after a complete build has valid final pages. A partial
     # render must not retire assets of a page it did not regenerate.
@@ -224,7 +238,7 @@ def project_rendered(raw_paths,report=None,native_input=None):
     if not check['failures'] and len(selected)==len(c.PAGES)+1:
         from zo_course_site_output import prune
         removed=prune(ROOT,c.OUT,[c.OUT/p for p in results])
-    data={'built_at':datetime.now(timezone.utc).isoformat(),'root':str(ROOT),'source_mode':'fresh native QMD after existing source and render validators','sources':{p.as_posix():sha(ROOT/p) for p in selected},'outputs':{p.as_posix():sha(c.OUT/p) for p in results},'packages':records,'local_links':check,'retired_generated_assets':removed,'PDF_built':False,'published':False,'owner_acceptance':False}
+    data={'built_at':datetime.now(timezone.utc).isoformat(),'root':str(ROOT),'source_mode':'fresh native QMD after existing source and render validators','sources':{p.as_posix():sha(ROOT/p) for p in selected},'outputs':{p.as_posix():sha(c.OUT/p) for p in results},'packages':records,'local_links':check,'retired_generated_assets':removed,'normalized_text_line_endings':normalized_lines,'PDF_built':False,'published':False,'owner_acceptance':False}
     out=Path(report).with_name(Path(report).stem+'-site.json') if report else ROOT/'_audit/course_site_build.json'
     if not out.is_absolute():out=ROOT/out
     save(out,data)
