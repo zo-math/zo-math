@@ -152,7 +152,7 @@ def verify_print():
     return directory,receipt
 
 def verify_print_source(text,config):
-    references=re.findall(r'\]\(([^)]+do_thi_\d{2}\.svg)\)',text)
+    references=re.findall(r'\]\(([^)]+do_thi_\d{2}(?:_[ab])?\.svg)\)',text)
     expected={config['asset_directory']+'/'+name+'.svg' for name in config['graphs']}
     if set(references)!=expected or len(references)!=len(expected):
         raise ValueError('QMD graph references must select exactly the current shared SVG/PDF pairs; legacy paths are forbidden.')
@@ -170,7 +170,7 @@ def apply(target, page, output_root):
     # Match original graph identity, not arbitrary img position or basename hashes.
     seen=set()
     for image in target.select('.reader-content .figure-viewport img'):
-        match=re.search(r'(do_thi_\d{2})\.svg$',image['src'])
+        match=re.search(r'(do_thi_\d{2}(?:_[ab])?)\.svg$',image['src'])
         if not match: continue
         name=match.group(1)
         if name not in config['graphs']: raise ValueError('Unconfigured graph: '+name)

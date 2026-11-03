@@ -48,7 +48,12 @@ def source_checks(path,root=ROOT,text=None):
     checks["no full goal list duplicated in guide"]=TITLE not in guide and not all(r["title"] in guide for r in b["rows"])
     if path.parent.name=="r1_g01":
         plan=json.loads((path.parent/"giao_dien/web_2027_layout.json").read_text(encoding="utf-8"))
-        checks["G01 explicit current transition binding"]=plan.get("source_transition",{}).get("source_qmd_sha256")==sha(text.replace("\r\n","\n").replace("\n","\r\n").encode("utf-8")) if b"\r\n" in path.read_bytes() else plan.get("source_transition",{}).get("source_qmd_sha256")==sha(text)
+        from zo_g01_revision_contract import review_for
+        revision=review_for(path,root)
+        if revision is not None:
+            checks["G01 reviewed revision source current"]=revision["sources"].get(path.relative_to(root).as_posix())==sha(path.read_bytes() if text==path.read_text(encoding="utf-8") else text)
+        else:
+            checks["G01 explicit current transition binding"]=plan.get("source_transition",{}).get("source_qmd_sha256")==sha(text.replace("\r\n","\n").replace("\n","\r\n").encode("utf-8")) if b"\r\n" in path.read_bytes() else plan.get("source_transition",{}).get("source_qmd_sha256")==sha(text)
     return checks
 
 def html_checks(doc,b):

@@ -183,7 +183,8 @@ def package_from_ref(ref: dict[str, Any], package_root: Path = PACKAGE_ROOT) -> 
                           "full_page_design_approved_publication_authorized_2026_10_15"}
                       and isinstance(metadata.get("format", {}).get("pdf"), dict)
                       and (package_dir / "index.pdf").is_file())
-    html_only = acceptance.get("pdf_canonical") == "not_applicable_html_only" or d0_pdf_pending
+    html_only = (acceptance.get("pdf_canonical") == "not_applicable_html_only" or d0_pdf_pending
+                 or (preview and acceptance.get("current_pdf") == "not_requested" and not pdfs))
     if html_only and pdfs:
         raise BuildError(f"Gói HTML-only {code} không được khai báo PDF canonical")
     if not html_only and (len(pdfs) != 8 or len(set(pdfs)) != 8 or any(not name.endswith(".pdf") for name in pdfs)):

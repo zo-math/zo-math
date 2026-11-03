@@ -99,8 +99,9 @@ class D0Builder(HomeBuilder):
         self.layout=json.loads(LAYOUT.read_text(encoding='utf-8'))
 
     def common_assets(self):
+        from zo_d0_home_revision_contract import d0_runtime_source
         for name in ['reading-regions.css','web-shell.css','site-ui.js','appearance-inline.css','site-footer.css']:
-            self.materialize(KIT/name,name)
+            self.materialize(d0_runtime_source(name,KIT/name,REPO),name)
         for name in ['web_2027.css','web_2027.js']:self.materialize(REPO/PACKAGE/'giao_dien'/name,name)
         for name in ['horizontal_color.svg','stack_color.svg','favicon_color.svg']:
             self.materialize(DESIGN04/'logos'/name,'assets/logos/'+name)

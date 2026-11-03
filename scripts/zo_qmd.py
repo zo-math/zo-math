@@ -1204,7 +1204,23 @@ def command_checker(root: Path, mode: str, args: argparse.Namespace) -> int:
     )
     if mode == "render" and getattr(args, "html_only", False):
         command.append("--html-only")
-    return _run_step(root, f"QMD {mode.upper()}", command)
+    from zo_course_site import relevant, project_rendered, validate_render_scope
+    course_paths = relevant(args.paths) if mode == "render" else []
+    if course_paths:
+        validate_render_scope(course_paths)
+    previous_profile = os.environ.get("QUARTO_PROFILE")
+    if course_paths and getattr(args, "html_only", False) and previous_profile is None:
+        os.environ["QUARTO_PROFILE"] = "on-thi-preview"
+    try:
+        result = _run_step(root, f"QMD {mode.upper()}", command)
+        if result == EXIT_OK and course_paths:
+            return project_rendered(course_paths, args.report)
+        return result
+    finally:
+        if previous_profile is None:
+            os.environ.pop("QUARTO_PROFILE", None)
+        else:
+            os.environ["QUARTO_PROFILE"] = previous_profile
 
 
 def command_regression(root: Path, args: argparse.Namespace) -> int:

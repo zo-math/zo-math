@@ -11,6 +11,14 @@ from zo_build_boundary import ROOT, check, official_inputs, require_source
 
 
 class BoundaryTests(unittest.TestCase):
+    def test_retired_course_sources_are_rejected(self):
+        for relative in ['_design/website_hoc_tap_2027/inputs/lesson.html',
+                         '_projects/on_thi_toan_thpt_2027/goi/old.html',
+                         'content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g04/_quy_trinh/ban_thao/noi_dung.md']:
+            with self.subTest(path=relative):
+                with self.assertRaisesRegex(ValueError, 'retired 2027 source'):
+                    require_source(ROOT / relative, ROOT)
+
     def setUp(self):
         (ROOT / '_audit').mkdir(exist_ok=True)
         self.tmp = tempfile.TemporaryDirectory(prefix='zo_boundary_', dir=ROOT/'_audit')
@@ -26,6 +34,13 @@ class BoundaryTests(unittest.TestCase):
         (self.root / '_audit').rmdir()
         (self.root / 'index.qmd').write_text('---\ntitle: Test\n---\nText', encoding='utf-8')
         self.assertTrue(check(self.root)['passed'])
+
+    def test_repository_scan_skips_retired_project(self):
+        old = self.root / '_projects/on_thi_toan_thpt_2027'
+        old.mkdir(parents=True)
+        (old / 'old.qmd').write_text('{{< include missing.md >}}', encoding='utf-8')
+        with official_inputs(self.root):
+            self.assertTrue(check(self.root)['passed'])
 
     def test_history_cannot_change_source_check(self):
         first = check(self.root)
@@ -108,7 +123,7 @@ class BoundaryTests(unittest.TestCase):
         # Run a copy of the launcher/guard rooted in the fixture repository.
         import shutil
         (self.root / 'scripts').mkdir()
-        for name in ['zo_python.py', 'zo_build_boundary.py']:
+        for name in ['zo_python.py', 'zo_build_boundary.py', 'zo_graphics.py']:
             shutil.copyfile(ROOT/'scripts'/name, self.root/'scripts'/name)
         shutil.copytree(ROOT/'scripts/zo_build_runtime', self.root/'scripts/zo_build_runtime')
         env['PYTHONPATH'] = str(self.root/'scripts/zo_build_runtime')

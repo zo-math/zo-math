@@ -181,7 +181,19 @@ def presentation_checks(doc,data):
     checks['source notes readable at the point of use']=not root.select('a.footnote-ref,section.footnotes') and all(n.get_text(' ',strip=True).startswith(tuple(data.get('source_note_prefixes',['Nguồn đối chiếu']))) and n.get_text(' ',strip=True).endswith('.') and not re.search(r'\b(?:SGK|KNTT|CTGDPT)\b|\btr\.',n.get_text(' ',strip=True)) for n in notes)
     checks['no bibliographic writing narration']=not any(re.search(r'Theo định nghĩa trong SGK|Theo phần .Chú ý. của SGK|Sách giáo khoa trình bày|Bản này dùng',p.get_text()) for p in root.select('#bai-hoc p') if not p.select('.zo-source-note'))
     calendar=root.find(id='on-lai').find('table')
-    checks['review calendar has three functional columns']=bool(calendar) and len(calendar.select('thead th'))==3 and len(calendar.select('tbody tr'))==3
+    calendar_spec=data.get('review_calendar',{})
+    if calendar_spec.get('format')=='prose':
+        prose=root.find(id=calendar_spec.get('anchor',''))
+        rounds=calendar_spec.get('rounds',[])
+        checks['prose review calendar has three linked rounds']=bool(
+            prose is not None and prose.get('data-zo-review-calendar')=='prose'
+            and len(rounds)==3 and len(set(rounds))==3
+            and [a.get('href') for a in prose.select('a[href]')]==['#'+x for x in rounds]
+            and all(root.find(id=x) is not None for x in rounds)
+            and 'ngày hoàn tất lượt chính' in prose.get_text(' ',strip=True)
+            and 'ngày thực tế' in prose.get_text(' ',strip=True))
+    else:
+        checks['review calendar has three functional columns']=bool(calendar) and len(calendar.select('thead th'))==3 and len(calendar.select('tbody tr'))==3
     resources=[n for n in root.select('#on-nen details.r1-foundation-unit') if not n.find_parent('details')]
     if data.get('foundation_mode')=='linked-shared':
         from zo_course_foundation import html_checks as foundation_html_checks

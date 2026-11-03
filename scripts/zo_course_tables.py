@@ -21,7 +21,8 @@ def load_contract():
     data=json.loads(CONTRACT.read_text(encoding='utf-8'))
     if data.get('schema_version')!=1 or data.get('decision')!='QD_030':
         raise ValueError('Unsupported current table contract')
-    return data
+    from zo_g05_revision_contract import extend_tables
+    return extend_tables(data,ROOT)
 
 def table_specs(page_key):
     if page_key=='home':return {}
@@ -31,6 +32,34 @@ def table_specs(page_key):
 
 def native_records(page_key):
     if page_key=='home':return {}
+    if page_key=='d0':
+        # D0's existing sign table is owned by its canonical data bank even
+        # though its content inventory originally recorded an image placeholder.
+        from zo_graphics import load_variation_html
+        renderer=load_variation_html('d0_table_ownership',ROOT)
+        records=renderer.load_data(BASE/'hoc_lieu/d0/du_lieu/bang_bien_thien.json')
+        return {record['id']:record for record in records}
+    if page_key=='r1_g04':
+        from zo_g04_revision_contract import settings_for
+        if settings_for(BASE/'hoc_lieu/r1_g04/index.qmd') is not None:
+            from zo_graphics import load_variation_html
+            renderer=load_variation_html('g04_revision_table_ownership',ROOT)
+            records=renderer.load_data(BASE/'hoc_lieu/r1_g04/du_lieu/bang_bien_thien.json')
+            return {record['id']:record for record in records}
+    if page_key=='r1_g02':
+        settings=BASE/'hoc_lieu/r1_g02/giao_dien/html.json'
+        if settings.is_file() and json.loads(settings.read_text(encoding='utf-8')).get('adapter')=='g02-revision-source-v1':
+            from zo_graphics import load_variation_html
+            renderer=load_variation_html('g02_revision_table_ownership',ROOT)
+            records=renderer.load_data(BASE/'hoc_lieu/r1_g02/du_lieu/bang_bien_thien.json')
+            return {record['id']:record for record in records}
+    if page_key=='r1_g01':
+        settings=BASE/'hoc_lieu/r1_g01/giao_dien/html.json'
+        if settings.is_file() and json.loads(settings.read_text(encoding='utf-8')).get('adapter')=='g01-revision-source-v1':
+            from zo_graphics import load_variation_html
+            renderer=load_variation_html('g01_revision_table_ownership',ROOT)
+            records=renderer.load_data(BASE/'hoc_lieu/r1_g01/du_lieu/bang_bien_thien.json')
+            return {record['id']:record for record in records}
     scene=BASE/'hoc_lieu'/page_key/'giao_dien/minh_hoa_manifest.json'
     if scene.is_file():
         from zo_course_scenes import source_checks

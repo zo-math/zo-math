@@ -1041,6 +1041,101 @@
           2
         ]
       }
+    ],
+    "r2_g02": [
+      {
+        "selector": "#r2g02-table-01 table",
+        "kind": "rubric",
+        "role": "Mục tiêu · Việc em cần làm được",
+        "caption_policy": "context",
+        "caption_reason": "Lời dẫn và đầu cột đã xác định nội dung bảng.",
+        "function": "goals"
+      },
+      {
+        "selector": "#r2g02-table-02 table",
+        "kind": "values",
+        "role": "Thời gian · $[0;10)$ · $[10;20)$ · $[20;30)$",
+        "caption_policy": "context",
+        "caption_reason": "Lời dẫn và đầu cột đã xác định nội dung bảng."
+      },
+      {
+        "selector": "#r2g02-table-03 table",
+        "kind": "comparison",
+        "role": "Điều cần mô tả · Số đo có thể dùng · Cần đọc kèm",
+        "caption_policy": "context",
+        "caption_reason": "Lời dẫn và đầu cột đã xác định nội dung bảng.",
+        "function": "measure_selection"
+      },
+      {
+        "selector": "#r2g02-table-04 table",
+        "kind": "values",
+        "role": "Thời gian · $[0;5)$ · $[5;10)$ · $[10;15)$ · $[15;20)$ · $[20;25)$",
+        "caption_policy": "context",
+        "caption_reason": "Lời dẫn và đầu cột đã xác định nội dung bảng."
+      },
+      {
+        "selector": "#r2g02-table-05 table",
+        "kind": "values",
+        "role": "Thời gian · $[10;20)$ · $[20;30)$ · $[30;40)$ · $[40;50)$",
+        "caption_policy": "context",
+        "caption_reason": "Lời dẫn và đầu cột đã xác định nội dung bảng."
+      },
+      {
+        "selector": "#r2g02-table-06 table",
+        "kind": "frequency",
+        "role": "Quy trình · Trung bình · Độ lệch chuẩn",
+        "caption_policy": "context",
+        "caption_reason": "Lời dẫn và đầu cột đã xác định nội dung bảng.",
+        "right_columns": [
+          2,
+          3
+        ]
+      },
+      {
+        "selector": "#r2g02-table-07 table",
+        "kind": "rubric",
+        "role": "Mục tiêu cần xác nhận · Bằng chứng · Tiêu chí · Nếu còn vướng",
+        "caption_policy": "context",
+        "caption_reason": "Lời dẫn và đầu cột đã xác định nội dung bảng.",
+        "function": "assessment_support"
+      },
+      {
+        "selector": "#r2g02-table-08 table",
+        "kind": "values",
+        "role": "Thời gian · $[0;4)$ · $[4;8)$ · $[8;12)$ · $[12;16)$",
+        "caption_policy": "context",
+        "caption_reason": "Lời dẫn và đầu cột đã xác định nội dung bảng."
+      },
+      {
+        "selector": "#r2g02-table-09 table",
+        "kind": "process",
+        "role": "Nút thắt nhận thức · Câu hỏi để kiểm lại · Cách tháo gỡ · Tự kiểm tra",
+        "caption_policy": "context",
+        "caption_reason": "Lời dẫn và đầu cột đã xác định nội dung bảng.",
+        "variant": "routing",
+        "widths": [
+          25,
+          23,
+          32,
+          20
+        ]
+      },
+      {
+        "selector": "#r2g02-table-10 table",
+        "kind": "process",
+        "role": "Trường · Em ghi",
+        "caption_policy": "context",
+        "caption_reason": "Lời dẫn và đầu cột đã xác định nội dung bảng.",
+        "function": "journal"
+      },
+      {
+        "selector": "#r2g02-table-11 table",
+        "kind": "process",
+        "role": "Trường · Ví dụ ghi",
+        "caption_policy": "context",
+        "caption_reason": "Lời dẫn và đầu cột đã xác định nội dung bảng.",
+        "function": "journal"
+      }
     ]
   },
   "function_contract": "TABLE-FUNCTIONS-20261019",
@@ -1420,6 +1515,39 @@
         "Em còn vướng ở đâu?",
         "Mở phần ôn nào?",
         "Ôn xong, làm lại"
+      ]
+    },
+    "assessment_support": {
+      "kind": "rubric",
+      "base_function": "assessment",
+      "widths": [
+        24,
+        22,
+        32,
+        22
+      ],
+      "responsive": "records",
+      "row_header": true,
+      "headers": [
+        "Mục tiêu cần xác nhận",
+        "Bằng chứng",
+        "Tiêu chí",
+        "Nếu còn vướng"
+      ]
+    },
+    "measure_selection": {
+      "kind": "comparison",
+      "widths": [
+        30,
+        30,
+        40
+      ],
+      "responsive": "records",
+      "row_header": true,
+      "headers": [
+        "Điều cần mô tả",
+        "Số đo có thể dùng",
+        "Cần đọc kèm"
       ]
     }
   }

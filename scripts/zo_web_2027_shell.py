@@ -44,7 +44,11 @@ def css_checks(css):
 
 def require(doc,page=None):
     values=checks(doc)
-    css=(KIT/'web-shell.css').read_text(encoding='utf-8')
+    css_source=KIT/'web-shell.css'
+    if page is not None and Path(page).resolve()==(ROOT/'docs/content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.html').resolve() and doc.body.get('data-zo-web-production')=='d0':
+        from zo_d0_home_revision_contract import d0_runtime_source
+        css_source=d0_runtime_source('web-shell.css',css_source,ROOT)
+    css=css_source.read_text(encoding='utf-8')
     values.update(css_checks(css))
     if page is not None:
         from urllib.parse import urlsplit,unquote
@@ -52,7 +56,7 @@ def require(doc,page=None):
         values['shared runtime stylesheet']=len(links)==1
         if len(links)==1:
             runtime=(Path(page).parent/unquote(urlsplit(links[0]['href']).path)).resolve()
-            values['runtime CSS matches source']=runtime.is_file() and runtime.read_bytes()==(KIT/'web-shell.css').read_bytes()
+            values['runtime CSS matches source']=runtime.is_file() and runtime.read_bytes()==css_source.read_bytes()
     bad=[k for k,v in values.items() if not v]
     if bad:raise ValueError('Shared contents trigger: '+'; '.join(bad))
     return values

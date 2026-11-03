@@ -14,8 +14,8 @@ ROLES = {"bat-dau":"Bắt đầu", "bai-hoc":"Bài học", "phieu-luyen":"Luyệ
          "sua-loi":"Sửa lỗi", "nhat-ky":"Nhật kí", "loi-giai":"Lời giải", "nguon":"Nguồn"}
 
 class Builder(HomeBuilder):
-    def __init__(self, output_root):
-        super().__init__(output_root / "assets/zo_web_2027/g04/index.html", output_root)
+    def __init__(self, output_root, runtime="g04"):
+        super().__init__(output_root / "assets/zo_web_2027" / runtime / "index.html", output_root)
         self.runtime = self.output
     def common_assets(self):
         PreviewBuilder.common_assets(self)
@@ -75,6 +75,9 @@ def adapt(path, output_root):
             node["class"]=[c for c in node.get("class",[]) if c!="zo-learning-task"]
     root["class"] = list(dict.fromkeys(root.get("class", []) + ["reader-content"]))
     doc=BeautifulSoup("", "html.parser")
+    from zo_course_review_disclosures import project as project_review_rounds
+    project_review_rounds(root,doc)
+    baseline=inv(root)
     def wrap(owner, nodes, role):
         nodes=[n for n in nodes if isinstance(n,Tag)]
         if not nodes:return
@@ -108,7 +111,9 @@ def adapt(path, output_root):
     separate_foundation_resources(root)
     if inv(root)!=baseline:raise ValueError("G04 reading projection changed content, mathematics or IDs")
     if root.select(".reading-region .reading-region"):raise ValueError("Nested reading regions")
-    builder=Builder(output_root);builder.output.mkdir(parents=True,exist_ok=True)
+    from zo_g04_revision_contract import settings_for
+    revision=settings_for(REPO/PACKAGE/"index.qmd")
+    builder=Builder(output_root,revision["runtime"] if revision else "g04");builder.output.mkdir(parents=True,exist_ok=True)
     builder.common_assets()
     from zo_course_cover import load_cover
     builder.materialize(load_cover(REPO, PACKAGE.name), "assets/g04-cover.svg")
@@ -172,6 +177,14 @@ def adapt(path, output_root):
     apply_tables(result,"r1_g04",path,builder.output)
     from zo_web_2027_downloads import apply_from_metadata
     apply_from_metadata(result,path,output_root,PACKAGE,create_missing=True)
+    if revision:
+        note=result.select_one('#tai-tai-lieu .zo-pdf-current-note')
+        if note is None:raise ValueError('Missing PDF version warning')
+        note.string='Các PDF đang giữ bản cũ, chưa phản ánh bản sửa R01. Chỉ xem và góp ý HTML trong 10 đợt sửa; PDF sẽ được xây dựng sau khi toàn bộ kết quả đạt yêu cầu.'
+        style=builder.output/'r01-reader.css'
+        style.write_bytes((REPO/PACKAGE/'giao_dien/r01-reader.css').read_bytes())
+        result.head.append(result.new_tag('link',rel='stylesheet',href=os.path.relpath(style,path.parent).replace('\\','/')))
+
     from zo_course_math_assets import apply_graph_display
     apply_graph_display(result,path,builder.output)
     from zo_web_2027_navigation import apply as apply_course_navigation
@@ -180,6 +193,8 @@ def adapt(path, output_root):
     result.title.string=title+" — ZO Math"
     from zo_web_2027_consistency import apply_editorial_policy
     apply_editorial_policy(result)
+    from zo_course_review_disclosures import install as install_review_rounds
+    install_review_rounds(result,path,builder.output)
     from zo_course_html import write
     write(path,result)
     print("G04 shell:",len(root.select(".reading-region")),"reading regions")

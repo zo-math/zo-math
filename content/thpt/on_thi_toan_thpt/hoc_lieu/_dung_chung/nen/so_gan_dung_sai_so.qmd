@@ -1,0 +1,207 @@
+---
+title: Số gần đúng, sai số và quy tròn
+subtitle: Ôn nền dùng chung · Đọc giới hạn sai số và sử dụng số gần đúng đúng mức chính xác.
+lang: vi
+draft: true
+toc: true
+toc-depth: 2
+sidebar: false
+number-sections: false
+page-layout: article
+body-classes: zo-page-article zo-meta-hidden
+format:
+  html:
+    html-math-method: mathml
+    anchor-sections: false
+filters:
+- ../../../../../../assets/lua/zo_course_learning.lua
+include-after-body:
+  text: <script src="giao_dien/so_gan_dung_sai_so.js"></script>
+resources:
+- giao_dien/so_gan_dung_sai_so.js
+---
+
+Khi một thước đo ghi chiều dài là $12{,}4$ cm, con số ấy chưa cho biết chiều dài thực chính xác đến mọi chữ số. Khi máy tính hiện nhiều chữ số của một căn bậc hai, các chữ số hiện ra cũng chỉ là một cách biểu diễn gần đúng. Ta cần phân biệt giá trị cần tìm, giá trị dùng thay thế và mức sai lệch được phép.
+
+## Khi nào cần học phần này? {#dau-vao}
+
+Em cần xem lại nếu chưa phân biệt sai số với độ phân tán; chưa giải thích được dấu $\pm$; hoặc thường làm tròn các bước trung gian rồi nhận được kết quả khác đáp án. Sau khi học, em cần đọc được một khoảng chứa số đúng, tính hoặc đánh giá sai số, chọn cách quy tròn và sử dụng kết quả tính mà không khẳng định quá độ chính xác được biết.
+
+Tài nguyên này có dãy Nhiệm vụ riêng. Các câu tự làm không phải bài Kiểm tra của gói gọi tới đây. Nếu đang trong một lượt Kiểm tra, hãy kết thúc lượt trước khi dùng hỗ trợ và giữ nguyên bài làm ban đầu.
+
+## 1. Số đúng và số dùng thay thế {#so-gan-dung}
+
+Gọi $x$ là số đúng và $a$ là số gần đúng được dùng thay cho $x$. Chẳng hạn, độ dài đường chéo của hình vuông cạnh $1$ cm là $\sqrt{2}$ cm. Giá trị $\sqrt{2}$ là chính xác; $1{,}414$ là một số gần đúng của nó. Một số viết bằng căn vẫn có thể là số đúng, còn một số có nhiều chữ số thập phân vẫn có thể chỉ là số gần đúng.
+
+Sai số tuyệt đối của $a$ là
+
+$$
+\Delta_a=|a-x|.
+$$
+
+Đây là khoảng cách giữa số dùng thay thế và số đúng. Nếu $x$ chưa biết thì thường ta chưa tính được chính xác $\Delta_a$. Khi có căn cứ bảo đảm $\Delta_a\le d$, với $d>0$, ta biết
+
+$$
+a-d\le x\le a+d.
+$$
+
+Cách viết $x=a\pm d$ diễn đạt điều kiện khoảng này, không nói rằng $x$ chỉ có thể nhận hai giá trị đầu mút. Số $d$ là một giới hạn được bảo đảm cho sai số tuyệt đối; không được tự kết luận sai số thực tế bằng $d$.
+
+**Ví dụ 01 — Đọc một kết quả đo.** Giả sử phép đo cho biết chiều dài thật $x$ thỏa $|x-24{,}6|\le0{,}2$ cm. Khi đó $24{,}4\le x\le24{,}8$ cm. Ta dùng $24{,}6$ cm làm số gần đúng, với độ chính xác $0{,}2$ cm. Nếu sau đó xác định được $x=24{,}53$ cm thì sai số thực tế là $0{,}07$ cm, nhỏ hơn giới hạn đã biết.
+
+Một dụng cụ có vạch chia nhỏ chưa tự bảo đảm mọi phép đo đều chính xác tới nửa vạch chia: còn phải xét cách đọc, hiệu chuẩn và điều kiện đo. Nếu đề cho mô hình làm tròn số đo đến vạch gần nhất và không xét sai số khác, ta mới dùng giới hạn bằng nửa độ chia cho bước làm tròn ấy.
+
+::: {.zo-source-note}
+Căn cứ về số gần đúng, sai số tuyệt đối và độ chính xác: Toán 10, Tập một — Kết nối tri thức với cuộc sống, Nhà xuất bản Giáo dục Việt Nam, Bài 12, trang 74–75. Kí hiệu $x$ được dùng cho số đúng để tránh nhầm với số trung bình trong bài thống kê.
+:::
+
+[]{#nen-nv01}
+**Nhiệm vụ 01 — Khoảng nào được bảo đảm?**
+
+Một báo cáo giả định ghi khối lượng thật $x=250\pm2$ g. Nêu số gần đúng, giới hạn sai số tuyệt đối và khoảng chứa $x$. Có thể kết luận sai số thực tế bằng $2$ g không? Nếu phép đo đối chứng cho $x=249{,}3$ g, hãy tính sai số thực tế.
+
+[Xem lời giải](#nen-giai01).
+
+## 2. Sai số tương đối trả lời câu hỏi gì? {#sai-so-tuong-doi}
+
+Sai lệch $1$ cm có ý nghĩa khác nhau khi đo một thanh dài khoảng $10$ cm và một đoạn dài khoảng $1\,000$ cm. Để diễn đạt sai lệch so với độ lớn của số gần đúng, với $a\ne0$, ta dùng
+
+$$
+\delta_a=\frac{\Delta_a}{|a|}.
+$$
+
+Sai số tương đối không có đơn vị. Có thể viết nó dưới dạng phần trăm. Nếu chỉ biết $\Delta_a\le d$ thì
+
+$$
+\delta_a\le\frac{d}{|a|}.
+$$
+
+Vế phải là giới hạn cho sai số tương đối, không phải sai số tương đối chính xác khi chưa biết $x$. Khi $a=0$, tỉ số này không xác định; ta vẫn có thể dùng sai số tuyệt đối để mô tả độ gần.
+
+**Ví dụ 02 — So sánh hai giới hạn sai số.** Hai phép đo giả định được báo là $40\pm0{,}2$ cm và $200\pm0{,}5$ cm. Giới hạn sai số tương đối lần lượt là $\frac{0{,}2}{40}=0{,}5\%$ và $\frac{0{,}5}{200}=0{,}25\%$. Phép đo thứ hai có giới hạn tương đối nhỏ hơn, dù giới hạn tuyệt đối lớn hơn. Từ hai giới hạn này chưa suy ra sai số thực tế của từng phép đo.
+
+::: {.zo-source-note}
+Định nghĩa và cách đánh giá sai số tương đối được đối chiếu với Toán 10, Tập một — Kết nối tri thức với cuộc sống, Nhà xuất bản Giáo dục Việt Nam, trang 75–76.
+:::
+
+[]{#nen-nv02}
+**Nhiệm vụ 02 — Cùng đơn vị, khác độ lớn**
+
+Hai kết quả đo giả định là $50\pm0{,}3$ cm và $120\pm0{,}4$ cm. Tính giới hạn sai số tương đối của mỗi kết quả. Kết quả nào có giới hạn tuyệt đối nhỏ hơn? Kết quả nào có giới hạn tương đối nhỏ hơn? Viết rõ tiêu chí trong mỗi nhận xét.
+
+[Xem lời giải](#nen-giai02).
+
+## 3. Quy tròn và độ chính xác {#quy-tron}
+
+Khi làm tròn đến hàng phần trăm, ta chọn một bội của $0{,}01$ gần số đang xét nhất; với số dương, chữ số tiếp theo từ $5$ trở lên làm chữ số hàng phần trăm tăng một đơn vị. Chẳng hạn, $18{,}276$ làm tròn đến hàng phần trăm là $18{,}28$.
+
+Nếu làm tròn một số đúng đến đơn vị hàng $h$, sai số do riêng bước làm tròn không vượt quá $\frac{h}{2}$. Vì vậy, muốn tìm số gần đúng của một số đúng với sai số không quá $0{,}0005$, có thể làm tròn đến hàng phần nghìn: khi ấy $h=0{,}001$.
+
+Cần phân biệt hai yêu cầu sau.
+
+| Yêu cầu | Cách hiểu và thực hiện |
+|---|---|
+| Làm tròn đến một hàng đã chỉ định | Thực hiện đúng hàng ấy. Ví dụ, làm tròn $18{,}276$ đến hàng phần trăm được $18{,}28$. |
+| Viết số quy tròn của số gần đúng có độ chính xác $d$, đề không chỉ định hàng | Dùng quy ước: chọn hàng thấp nhất có một đơn vị hàng lớn hơn $d$, rồi làm tròn $a$ đến hàng đó. |
+
+**Ví dụ 03 — Độ chính xác không phải số chữ số sau dấu phẩy.** Cho số gần đúng $a=18{,}274$ có độ chính xác $d=0{,}02$. Một đơn vị hàng phần trăm là $0{,}01$, chưa lớn hơn $d$; một đơn vị hàng phần mười là $0{,}1$, lớn hơn $d$. Theo quy ước ở bảng, số quy tròn là $18{,}3$. Việc làm tròn này không bảo đảm số mới vẫn có sai số tối đa $0{,}02$: từ $x\in[18{,}254;18{,}294]$, khoảng cách lớn nhất tới $18{,}3$ là $0{,}046$. Không được giữ nguyên giới hạn sai số cũ cho số mới một cách tự động.
+
+Khi tính phương sai hoặc độ lệch chuẩn, hãy giữ đủ chữ số ở các bước trung gian và làm tròn kết quả cuối theo yêu cầu. Nếu máy tính hiện một số âm rất nhỏ cho phương sai do trừ hai số gần nhau, hãy tính lại bằng tổng bình phương độ lệch hoặc tăng độ chính xác. Phương sai thật không âm; không tự đổi dấu một kết quả chưa kiểm.
+
+::: {.zo-source-note}
+Quy tắc quy tròn và quy ước chọn hàng khi biết độ chính xác được đối chiếu với Toán 10, Tập một — Kết nối tri thức với cuộc sống, Nhà xuất bản Giáo dục Việt Nam, trang 76–77. Cần phân biệt sai số có trước với sai lệch phát sinh do quy tròn.
+:::
+
+### Khi đang tính phương sai: nhìn thấy tác hại của làm tròn sớm {#quy-tron-phuong-sai}
+
+Nếu chỉ đang ôn quy tròn số, em có thể để mục này lại đến khi học phương sai. Với mẫu $9{,}9;10;10{,}1$, trung bình bằng $10$. Trung bình các bình phương là $100+\frac{1}{150}$. Nếu làm tròn số này đến hàng đơn vị trước khi trừ bình phương trung bình, em nhận $100-100=0$ và làm mất toàn bộ độ phân tán.
+
+Tính bằng các độ lệch cho $s^2=\frac{(-0{,}1)^2+0^2+0{,}1^2}{3}=\frac{1}{150}>0$. Hai công thức phương sai vẫn tương đương khi tính chính xác; sai lệch ở đây do thay một đại lượng trung gian bằng số đã làm tròn. Hãy giữ giá trị chưa làm tròn để tính tiếp, rồi làm tròn kết quả cuối theo yêu cầu.
+
+[]{#nen-nv03}
+**Nhiệm vụ 03 — Hai yêu cầu làm tròn**
+
+a) Dùng máy tính tìm một số gần đúng của $\sqrt{3}$ với sai số không quá $0{,}0005$. Giải thích hàng làm tròn đã chọn.
+
+b) Số gần đúng $a=32{,}467$ có độ chính xác $d=0{,}02$. Viết số quy tròn theo quy ước khi đề chưa chỉ định hàng. Từ khoảng chứa số đúng, kiểm xem có được khẳng định số quy tròn mới vẫn sai lệch không quá $0{,}02$ hay không.
+
+c) Nếu đang học phương sai: mẫu $1{,}01;1{,}02;1{,}03$ có trung bình $1{,}02$. Một bạn làm tròn trung bình các bình phương đến hàng phần trăm, được $1{,}04$, rồi tính $1{,}04-1{,}02^2=-0{,}0004$. Chỉ ra bước làm mất độ chính xác và tính lại phương sai bằng các độ lệch. Có nên sửa kết quả chỉ bằng cách bỏ dấu âm không?
+
+[Xem lời giải](#nen-giai03).
+
+## 4. Sai số đo khác độ phân tán của các kết quả {#sai-so-va-phan-tan}
+
+Giả sử một vật có khối lượng chuẩn $100$ g, nhưng cân luôn cho kết quả $103$ g trong năm lần đo. Năm kết quả không phân tán: phương sai bằng $0$. Tuy vậy, mỗi kết quả đều sai lệch $3$ g so với chuẩn.
+
+Độ phân tán mô tả sự khác nhau giữa các giá trị trong mẫu. Sai số của phép đo so sánh giá trị báo với số đúng hoặc một giá trị chuẩn được chấp nhận. Hai câu hỏi có thể cần những thông tin khác nhau. Nếu chưa biết chuẩn, chỉ có độ lệch chuẩn nhỏ chưa đủ kết luận dụng cụ đo đúng.
+
+[]{#nen-nv04}
+**Nhiệm vụ 04 — Các lần đo giống nhau**
+
+Một vật chuẩn có khối lượng $200$ g. Ba lần đo bằng một cân cho kết quả $202;202;202$ g. Hãy tính độ phân tán bằng phương sai và sai số tuyệt đối của từng kết quả so với chuẩn. Nhận xét “cân không có sai số vì ba kết quả giống nhau” sai ở đâu?
+
+[Xem lời giải](#nen-giai04).
+
+## Đối chiếu sau khi tự làm {#loi-giai-nen}
+
+:::: {#nen-giai01 .zo-learning-solution}
+::: {.zo-learning-summary}
+Lời giải Nhiệm vụ 01 — Khoảng nào được bảo đảm?
+:::
+
+Số gần đúng là $250$ g; giới hạn sai số tuyệt đối là $2$ g; $x\in[248;252]$ g. Chưa biết $x$ thì chưa biết sai số thực tế, chỉ biết nó không quá $2$ g. Khi $x=249{,}3$ g, sai số là $|250-249{,}3|=0{,}7$ g.
+
+Đạt khi phân biệt được giới hạn với giá trị sai số thực, và đọc dấu $\pm$ thành cả một khoảng.
+
+::::
+
+[Xem đề bài](#nen-nv01).
+
+:::: {#nen-giai02 .zo-learning-solution}
+::: {.zo-learning-summary}
+Lời giải Nhiệm vụ 02 — Cùng đơn vị, khác độ lớn
+:::
+
+Giới hạn tương đối là $\frac{0{,}3}{50}=0{,}6\%$ và $\frac{0{,}4}{120}=\frac{1}{300}\approx0{,}333\%$. Kết quả thứ nhất có giới hạn tuyệt đối nhỏ hơn; kết quả thứ hai có giới hạn tương đối nhỏ hơn. Hai nhận xét dùng hai tiêu chí khác nhau và đều nói về giới hạn, chưa nói sai số thực tế.
+
+::::
+
+[Xem đề bài](#nen-nv02).
+
+:::: {#nen-giai03 .zo-learning-solution}
+::: {.zo-learning-summary}
+Lời giải Nhiệm vụ 03 — Hai yêu cầu làm tròn
+:::
+
+a) $\sqrt{3}\approx1{,}732$. Làm tròn đến hàng phần nghìn cho sai số do quy tròn không quá $0{,}0005$. Có thể kiểm bằng giá trị máy tính có nhiều chữ số hơn: sai lệch khoảng $0{,}0000508$.
+
+b) Chọn hàng phần mười vì $0{,}01<0{,}02<0{,}1$. Số quy tròn là $32{,}5$. Số đúng thuộc $[32{,}447;32{,}487]$; khoảng cách tới $32{,}5$ có thể tới $0{,}053$, nên không được giữ kết luận sai số mới không quá $0{,}02$.
+
+c) Trung bình các bình phương chính xác là $1{,}0404+\frac{1}{15000}$, đã bị làm tròn thành $1{,}04$. Tính từ các độ lệch $-0{,}01;0;0{,}01$ cho $s^2=\frac{0{,}0001+0+0{,}0001}{3}=\frac{1}{15000}>0$. Bỏ dấu âm sẽ cho $0{,}0004$, vẫn sai. Phải sửa bước tính dùng số làm tròn; không sửa dấu đáp số.
+
+Ở hai ý đầu, đạt khi nhận ra hai yêu cầu khác nhau, không lấy số chữ số hiển thị làm độ chính xác đo.
+
+::::
+
+[Xem đề bài](#nen-nv03).
+
+:::: {#nen-giai04 .zo-learning-solution}
+::: {.zo-learning-summary}
+Lời giải Nhiệm vụ 04 — Các lần đo giống nhau
+:::
+
+Trung bình mẫu là $202$ g; mọi độ lệch so với trung bình bằng $0$, nên phương sai bằng $0$. Mỗi phép đo sai lệch $|202-200|=2$ g so với chuẩn. Nhận xét đã lấy sự giống nhau giữa các lần đo thay cho sự gần đúng với chuẩn.
+
+::::
+
+[Xem đề bài](#nen-nv04).
+
+## Quay lại việc đang làm
+
+Nếu đã tự làm và giải thích đúng phần đang vướng, trở về nhiệm vụ đã gọi Ôn nền. Nếu đã xem lời giải trước khi làm, ghi nhận đó là phần học có hỗ trợ; muốn xác nhận cần một câu phù hợp chưa gặp. Không lấy việc hoàn thành tài nguyên này để chứng nhận mọi mục tiêu của gói thống kê.
+
+Trở về gói đang học: [Ôn nền trong Độ phân tán và so sánh dữ liệu](../../r2_g02/index.qmd#on-nen).
+
+## Nguồn
+
+Chương trình giáo dục phổ thông môn Toán 2018, Bộ Giáo dục và Đào tạo, trang 85. Toán 10, Tập một — Kết nối tri thức với cuộc sống, Nhà xuất bản Giáo dục Việt Nam, Bài 12, trang 73–77. Các ví dụ và nhiệm vụ ở đây do ZO Math biên soạn; các số đo mang tính giả định.

@@ -51,7 +51,7 @@ def render_components(program, packages):
     require_native_source(source.read_text(encoding='utf-8'))
     from zo_web_2027_navigation import PAGES
     if [p.ref_id for p in packages] != [relative.parent.name for key,(relative,_) in PAGES.items() if key!='home']:
-        raise ValueError('Home catalog must follow canonical D0 G01 G02 G03 order')
+        raise ValueError('Home catalog must follow the complete canonical navigation order')
     cards = []
     for p in packages:
         category = 'survey' if p.ref_id == 'd0' else ('statistics' if p.ref_id.startswith('r2_') else 'functions')
@@ -66,7 +66,7 @@ def render_components(program, packages):
           <div class="home-card-copy"><span class="role">{html.escape(p.display_status)}</span>
           <h3 id="home-card-title-{p.ref_id}">{html.escape(p.title)}</h3><p>{html.escape(p.summary)}</p>
           <a class="home-card-action" id="home-card-action-{p.ref_id}" href="{entry}" aria-labelledby="home-card-action-{p.ref_id} home-card-title-{p.ref_id}">{'Làm khảo sát' if p.html_only else 'Mở tài liệu'} <span aria-hidden="true">→</span></a></div></div></article>''')
-    strands = ''.join(f'<div data-strand-id="{html.escape(s["id"], quote=True)}"><span class="home-topic-number" aria-hidden="true">{i:02d}</span><h3>{html.escape(s["title"])}</h3></div>' for i,s in enumerate(program['strands'],1))
+    strands = ''.join(f'<div data-strand-id="{html.escape(s["id"], quote=True)}"><span class="home-topic-number" aria-hidden="true">{i:02d}</span><h3>{html.escape(s["title"])}</h3><p>{html.escape(s["description"])}</p></div>' for i,s in enumerate(program['strands'],1))
     tools = '''<div class="home-catalog-tools" hidden>
       <div class="home-filters" role="group" aria-label="Lọc học liệu"><button type="button" data-filter="all" aria-pressed="true">Tất cả</button><button type="button" data-filter="survey" aria-pressed="false">Khảo sát</button><button type="button" data-filter="functions" aria-pressed="false">Hàm số</button><button type="button" data-filter="statistics" aria-pressed="false">Thống kê</button></div>
       <label class="home-search">Tìm học liệu<input type="search" id="home-search" placeholder="Tên chủ đề muốn ôn" autocomplete="off"></label>

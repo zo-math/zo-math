@@ -37,6 +37,8 @@ def verify_source():
     # Reverse the current, recorded presentation/editorial deltas before the
     # immutable historical content receipt. Every inverse is bounded and the
     # final receipt hash still has to match exactly.
+    from zo_d0_home_revision_contract import restore_d0_source
+    original_qmd = restore_d0_source(original_qmd, REPO)
     original_qmd = restore_bai00_logic_source(original_qmd, REPO)
     original_qmd = restore_numbering_source(original_qmd, REPO)
     original_qmd = restore_editorial_source(original_qmd, REPO)
@@ -138,6 +140,8 @@ def original_signature(element, identifier):
 def verify_projection(root):
     """Full approved learner text/TeX, after removing presentation wrappers only."""
     approval = verify_source()
+    from zo_d0_home_revision_contract import restore_format_projection
+    root = restore_format_projection(root, REPO)
     require(root is not None, 'Thiếu root canonical')
     require([s.get('id') for s in root.find_all('section', recursive=False)] == SECTIONS, 'Sai cấu trúc thẻ')
     delta = json.loads((ROOT / '_quy_trinh/d0_bai00_logic_delta.json').read_text(encoding='utf-8'))

@@ -1,0 +1,28 @@
+<script>
+(() => {
+  const root = document.querySelector('.r1-g02');
+  if (!root) return;
+
+  root.querySelectorAll('.r1-table').forEach(wrapper => {
+    const table = wrapper.querySelector(':scope > table');
+    if (!table) return;
+    table.classList.add('r1-data-table');
+    table.setAttribute('aria-label', wrapper.getAttribute('aria-label') || table.getAttribute('aria-label') || 'Bảng dữ liệu');
+    table.querySelectorAll('thead th').forEach(cell => cell.setAttribute('scope', 'col'));
+    if (wrapper.dataset.rowHeader !== 'true') return;
+    table.querySelectorAll('tbody tr').forEach(row => {
+      const first = row.firstElementChild;
+      if (!first) return;
+      if (first.tagName === 'TH') {
+        first.setAttribute('scope', 'row');
+        return;
+      }
+      const header = document.createElement('th');
+      [...first.attributes].forEach(attribute => header.setAttribute(attribute.name, attribute.value));
+      header.setAttribute('scope', 'row');
+      header.append(...first.childNodes);
+      first.replaceWith(header);
+    });
+  });
+})();
+</script>

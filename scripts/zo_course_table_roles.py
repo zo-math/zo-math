@@ -9,7 +9,9 @@ RULE='TABLE-FUNCTIONS-20261019'
 CONTRACT=Path('_design/web_2027_mau_dung_chung/profiles/course-tables.json')
 KINDS={'rubric','comparison','process'}
 
-def contract(root=ROOT):return json.loads((Path(root)/CONTRACT).read_text(encoding='utf-8'))
+def contract(root=ROOT):
+    from zo_g05_revision_contract import extend_tables
+    return extend_tables(json.loads((Path(root)/CONTRACT).read_text(encoding='utf-8')),root)
 
 def function_profile(entry,data):
     name=entry.get('function')
@@ -72,7 +74,7 @@ def source_checks(path,root=ROOT,text=None):
         for entry in data['pages'][key]:
             p=function_profile(entry,data)
             if p is None:continue
-            ident=entry['selector'][1:].split()[0];role=entry['function'];rows=table_rows(body,ident);tables[ident]=rows
+            ident=entry['selector'][1:].split()[0];role=p.get('base_function',entry['function']);rows=table_rows(body,ident);tables[ident]=rows
             prefix=ident+'/'
             c[prefix+'one nonempty source table']=len(rows)>=2
             if len(rows)<2:continue
@@ -93,7 +95,7 @@ def source_checks(path,root=ROOT,text=None):
         if key.startswith('r'):
             b=json.loads((path.parent/'giao_dien/he_nhan.json').read_text(encoding='utf-8'))
             goals=b['learning_goals'];assessment=goals.get('assessment_table');rows=tables.get(assessment,[])
-            c['goal/result tables have distinct functions']=any(e.get('function')=='assessment' and e['selector']=='#'+str(assessment)+' table' for e in data['pages'][key]) and any(e.get('function')=='goals' and e['selector']=='#'+goals['table']+' table' for e in data['pages'][key])
+            c['goal/result tables have distinct functions']=any(data.get('function_profiles',{}).get(e.get('function'),{}).get('base_function',e.get('function'))=='assessment' and e['selector']=='#'+str(assessment)+' table' for e in data['pages'][key]) and any(e.get('function')=='goals' and e['selector']=='#'+goals['table']+' table' for e in data['pages'][key])
             for n,g in enumerate(goals['rows'],1):
                 indexes=g.get('assessment_rows',[]);c[f'goal {n} result coverage']=bool(indexes) and all(isinstance(i,int) and 0<i<len(rows) for i in indexes)
                 if not c[f'goal {n} result coverage']:continue

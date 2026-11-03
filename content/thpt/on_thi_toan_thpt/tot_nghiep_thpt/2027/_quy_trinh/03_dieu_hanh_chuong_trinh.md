@@ -1,6 +1,90 @@
 # Điều hành chương trình — trạng thái và việc tiếp theo
 
-## BẢN HIỆN HÀNH — R2-G01 đã phát hành và kiểm trên zomath.vn, 29/10/2026
+## BẢN HIỆN HÀNH — Một nguồn duy nhất, 03/11/2026
+
+[Khóa Ôn thi Toán THPT 2027 — nguồn chính](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html).
+
+Theo CURRENT-SOURCE-20261103, chỉ biên tập và vận hành trong `E:\zo_math`. Đã xóa bản R01 riêng, prototype, dự án cũ, các bản xem/mirror cũ và nguồn đồ thị ghép đã được thay bằng nguồn độc lập. Không còn vai trò đối chiếu hoặc quyền khôi phục chúng từ các ghi chép lịch sử bên dưới. Chỉ dẫn vận hành tại `scripts/zo_course_site_sources/README.md`; HTML hiện hành ở `docs/`.
+
+Đã dựng độc lập sau xóa: 10 nguồn QMD thành 17 trang HTML, 2.799 tham chiếu cục bộ hợp lệ; đã mở và quan sát lại trang khóa học, D0 và G01 trong trình duyệt. Phép kiểm điều hướng đã chuyển sang tài nguyên đồ thị hiện hành; bảng biến thiên dùng hợp đồng ngữ nghĩa canonical, không đọc bản thảo cũ. Đã xóa sáu thư mục bản thảo và các bộ kiểm chỉ phục vụ chúng. Cả 17 HTML giữ nguyên byte sau bước bỏ bản thảo; 25 phép thử tài nguyên toán, 14 hồi quy cổng nguồn và 192 phép kiểm bộ điều hành đạt.
+
+Danh mục nguồn gồm cả module dựng/kiểm, cấu hình, dữ liệu, hình, CSS/JS, mẫu, phông, màu và analytics; nhận biết tệp thêm/sửa/xóa. Cổng nguồn từ chối đọc các cây đã nghỉ dùng và bản thảo; bộ dựng tự dọn tài nguyên sinh không còn được dùng và không tích lũy bản HTML trung gian. Bảo vệ toàn khóa sinh từ bản dựng hiện hành, không lấy trạng thái duyệt của bộ cũ. Hồ sơ hoàn tất: `ho_so/nguon_duy_nhat_20261103.json`. Nội dung toán và các PDF học liệu đang dùng được giữ nguyên. Không commit, push hoặc xuất bản.
+
+Các mục phía dưới chỉ ghi lịch sử quyết định và công việc; không chạy lại các lệnh hoặc mở bản xem cũ trong đó.
+
+## LỊCH SỬ — Tách nguồn năm cặp đồ thị R1-G01, 03/11/2026
+
+[R1-G01 — bản HTML chính](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.html).
+
+Theo phương án chủ trì duyệt, đã tách các cặp đồ thị 03, 04, 06, 09 và 13 thành mười nguồn TEX độc lập, hậu tố `_a`/`_b`, và biên dịch lại từng ảnh SVG/PDF vector. Giữ nhãn Hình 03/Hình 04 và chú thích chung; mỗi đồ thị có ảnh và khung riêng. Đối chiếu đủ mười nguồn giữ nguyên tùy chọn trục, lệnh vẽ, tọa độ, nhãn và điểm kín/hở. QMD và cấu hình chọn nguồn mới; hồ sơ cũ giữ nguyên. Bằng chứng tại `_audit/r1_g01_independent_figures_20261103/`.
+
+HTML chính đã cập nhật đủ sáu vị trí sử dụng, gồm cặp f/f′ được dùng lại trong Ôn nền. Kiểm nguồn đạt; kiểm bảo toàn toàn bộ QMD chính và include bằng phép đảo đúng sáu thay ảnh về hash trước sửa đạt; đã xem ảnh của cả mười vector độc lập. Kiểm HTML/tài nguyên HTTP đúng hash đạt, toàn khóa 17 trang/2.799 tham chiếu không lỗi. Công cụ trình duyệt ứng dụng không khả dụng, nên chưa xác nhận xem HTML trực tiếp trong trình duyệt và chưa khép cổng bàn giao thị giác. Chưa nghiệm thu chủ trì. PDF học liệu giữ nguyên, chưa đồng bộ với thay đổi hình này. Không commit, push hoặc xuất bản. Bằng chứng nguồn/ảnh/HTTP được giữ tại thư mục audit nêu trên.
+
+## LỊCH SỬ — PDF toàn văn R1-G01 dựng lại, 03/11/2026
+
+[Home Khóa 2027 — bản HTML chính](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html).
+
+Theo yêu cầu riêng của chủ trì, đã dựng lại duy nhất `hoc_lieu/r1_g01/index.pdf` từ nguồn chính hiện hành: 81 trang A4, provenance CURRENT. Bản mới chờ chủ trì xem, chưa nghiệm thu hoặc xuất bản. Bảy PDF thành phần giữ nguyên. Không dựng lại HTML trong lượt PDF này.
+
+Sửa hai lỗi kỹ thuật được tái hiện: giữ tiêu đề nhiệm vụ dùng dấu “–” cùng nội dung đầu tiên; kiểm chú thích hình từ cả nguồn nhúng thay vì chỉ tệp QMD chính. Không thay nội dung học liệu. Kiểm kỹ thuật/bố cục đạt, đã xem ảnh cả 81 trang màu và đối chứng sắc xám các trang hình/bảng/cuối. Một số trang chuyển mạch còn nhiều khoảng trắng theo quy tắc ngắt trang hiện hành; chưa tự thay quy tắc dàn trang. Không in giấy hoặc thử quét QR bằng điện thoại.
+
+Hồ sơ kiểm và bản PDF trước sửa: `_audit/r1_g01_pdf_full_20261103/`; danh mục bảo vệ bản mới: `hoc_lieu/r1_g01/_quy_trinh/ban_dang_duyet.json`. Chỉ PDF toàn văn được đồng bộ; không suy trạng thái này sang các biến thể, PDF khác hoặc thẻ tải HTML. Chưa commit, push hoặc xuất bản.
+
+## LỊCH SỬ — Toàn bộ học liệu theo mẫu trình bày R2-G01, 03/11/2026
+
+[Home Khóa 2027 — bản HTML chính](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html) · [R1-G03](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/index.html) · [Bảng kiểm kê đủ 9 trang](http://127.0.0.1:8877/_audit/course_format_20261103/review.html).
+
+Đã thực hiện phạm vi đầy đủ mà chủ trì nhắc lại: đọc trọn nguồn mẫu R2-G01 và quy tắc liên quan; đối chiếu tất cả bảy gói, D0, tài nguyên Nền độc lập và nguồn include theo chức năng. Không giới hạn ở số hoặc tiêu đề. G01–G03 mở dẫn nhập thành văn bản thường; G04–G05/R2-G02 giữ phần nguồn đã khớp. Chuyển các quy tắc đọc của mẫu vào lớp dùng chung: phân cấp chữ, khoảng cách, tên hoạt động, chú thích hình, mục lục nhiều cấp trên rộng/hẹp và nút tới/lui cuối phần. Giữ điều hướng và thanh Bảo trợ r20. Đổi 23 phân số viết bằng dấu “/” sang tử–mẫu tương đương, gồm D0, G05, R2-G01 và một nguồn Nền G02. Không sửa dữ liệu, nội dung toán, nhiệm vụ, lời giải hay ID.
+
+Đã dựng lại toàn khóa từ nguồn chính, kiểm nguồn/render/liên kết và xem đủ 9 trang học liệu trong trình duyệt ứng dụng, gồm màn hình rộng/hẹp và đường đề–lời giải–quay lại. Bảng kiểm kê ghi riêng phần sửa và phần đã khớp nên giữ. D0 tiếp tục độc lập; tài nguyên Nền giữ chức năng ôn nền. Không có trang học liệu hiện hành bị để ngoài phạm vi này. [Hồ sơ lượt trình bày đầy đủ](ho_so/course_format_20261103.json) dẫn bằng chứng, các phép đối chiếu và bản phục hồi.
+
+Nguồn chính: `E:\zo_math`. 939 PDF cũ giữ nguyên. Chưa dựng PDF, commit, push hoặc xuất bản. Bản R01 độc lập và prototype r20 không chỉnh sửa. Kết quả kiểm và xem HTML chưa tự cấp nghiệm thu chủ trì. Các mục phía dưới là lịch sử, không là yêu cầu còn chờ của lượt này.
+
+
+## Mốc chuẩn hóa tiêu đề Bài học R1-G01–G05, 03/11/2026 — lịch sử
+
+[R1-G01 — bản HTML chính](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/index.html) · [R1-G02](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/index.html).
+
+Đã hoàn tất hai gói còn lại G01–G02 theo 07/6.2.1, tiếp nối G03–G05. Đổi 16 heading hoạt động thành đoạn tiêu đề in đậm, bỏ kiểu nhãn ở 23 tiêu đề và tách hai tên ví dụ đang lẫn vào câu dẫn. Bỏ hai tiêu đề mục con G02 chỉ lặp nội dung nhiệm vụ; giữ neo, đưa NV04 về mục định nghĩa và NV07 về phương pháp so sánh ứng viên. Nối lại số 10 mục kiến thức; đồng bộ hai chỉ dẫn quay lại trong Sửa lỗi và hai nhãn truy cập bảng. Giữ số hoạt động, công thức, dữ liệu, tất cả neo cũ và cặp đề–lời giải. Các hoạt động thuộc đúng mục kiến thức trong nguồn và cây HTML; G03–G05 không sửa lại, D0 vẫn độc lập.
+
+Đã dựng qua đường HTML chính, kiểm đối chiếu nguồn/MathML/neo/liên kết, kiểm trực tiếp G01–G02 trên màn hình rộng và hẹp cùng đường đề–lời giải–quay lại. 371/371 mục bảo toàn đạt; 17 trang/2766 tham chiếu cục bộ không lỗi. 939 PDF và prototype r20 giữ nguyên; bản R01 độc lập không sửa. Lỗi báo tải phông ở lượt kiểm trước do tiến trình bị chặn kết nối nội bộ (WinError 10013); kiểm với quyền phù hợp nhận HTTP 200 và nội dung đúng hash. Không sửa phông hay bỏ qua cổng kiểm.
+
+[Hồ sơ hoàn tất G01–G02](ho_so/lesson_titles_g01_g02_20261103.json) dẫn kiểm kê, bản phục hồi và bằng chứng. Nguồn chính là `E:\zo_math`. Không còn gói R1 nào chờ chuẩn hóa trong nhiệm vụ này. Chủ trì có thể đọc/góp ý bản HTML; việc tự kiểm không tự nhận nghiệm thu thay chủ trì. Chưa dựng PDF, commit, push hoặc xuất bản. Các lịch tắt máy/giới hạn phiên cũ trong lịch sử không còn là giới hạn của lượt hoàn tất này. PDF và phát hành chỉ thực hiện trong nhiệm vụ được giao riêng.
+
+
+## Mốc đã khép R1-G03–G05, 03/11/2026 — lịch sử
+
+[R1-G03 — bản HTML chính](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g03/index.html) · [R1-G04](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g04/index.html) · [R1-G05](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g05/index.html).
+
+Sau tích hợp R01/r20, thực hiện yêu cầu đã giao về số và tiêu đề theo mẫu R2-G01 (R2-G02 đã kế thừa), căn cứ 07/6.2.1. Đã đổi 55 heading hoạt động trong Bài học của G03–G05 thành tiêu đề đoạn in đậm dưới đúng mục cha; bỏ số mục kiến thức trước tên hoạt động. G03 nối số hai mục kiến thức từ 4.3 → 4.2 và 6.3 → 6.1. Giữ nguyên các dãy số hoạt động, ID, đề–lời giải, công thức, nội dung và các phần ngoài Bài học. Dùng đúng kiểu chữ hoạt động đã có ở R2-G01; không lập hệ nhãn mới.
+
+Đã dựng lại HTML qua đường chính và kiểm nguồn, bảo toàn nội dung/MathML/ID và liên kết: 144/144 mục bảo toàn đạt; 17 trang/2.763 tham chiếu không lỗi. Đã kiểm trực tiếp G03–G05 ở màn hình rộng/hẹp, kiểu chữ và đường đề–lời giải–quay lại. [Hồ sơ lượt sửa](ho_so/lesson_titles_20261103.json) dẫn kiểm kê, bằng chứng và bản phục hồi trước sửa. Nguồn chính tiếp tục là `E:\zo_math`; bản R01 độc lập và prototype r20 giữ nguyên. Chưa dựng PDF, commit, push hay xuất bản; bản HTML này chưa tự nhận nghiệm thu chủ trì.
+
+**Việc còn lại đã được giao: R1-G01 và R1-G02.** Hai nguồn còn nguyên trạng. Tiếp tục từ chính nguồn hiện hành; tách nhãn Gợi mở/Ví dụ/Nhiệm vụ khỏi số mục kiến thức theo cùng 6.2.1, giữ mọi ID và liên kết. Hai gói có wrapper, neo tiêu đề và binding cũ khác G03–G05: cần đối chiếu từng chủ sở hữu trước đổi cấu trúc, không áp máy móc phép bọc lại. Khép nguồn → HTML → kiểm phần đổi trong cùng lượt. D0 là khảo sát riêng, không ép vào khung Bài học. Đã giới hạn lượt sửa theo cửa sổ trước lịch tắt máy của chủ trì. HTML dựng xong trước khi phiên bị gián đoạn; kiểm trình duyệt và hồ sơ bàn giao được khép khi tiếp tục phiên. Hai gói G01–G02 vẫn là việc chưa thực hiện.
+
+
+## Mốc tích hợp R01 và giao diện r20 vào nguồn chính, 03/11/2026 — đã hoàn tất
+
+[Nhà khóa 2027 — bản chính](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html) · [Danh mục chuyên đề](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/chuyen-de.html).
+
+Chủ trì đã duyệt toàn bộ R01 và trực tiếp xác nhận tích hợp nội dung R01 cùng giao diện r20 vào `E:\zo_math`, có bản phục hồi, chưa dựng PDF/commit/xuất bản. Đã đưa nguồn và phụ thuộc vào main, dựng đủ 10 nguồn thành 17 trang HTML hiện hành, kiểm nguồn/render, bảo toàn nội dung và kiểm trực tiếp trong trình duyệt ứng dụng. R2-G02 có đầy đủ thẻ, bộ lọc và điều hướng; D0 vẫn là khảo sát riêng. Ba lượt Ôn lại mở riêng, đáp án mặc định đóng; hỗ trợ có đường quay lại và giữ ranh giới lượt Kiểm tra.
+
+Chỉ tiếp tục biên tập tại `E:\zo_math`. Bản R01 độc lập và prototype r20 được giữ làm đối chứng, không là đầu vào dựng chính. [Hướng dẫn vận hành](../../../../../../scripts/zo_course_site_sources/README.md) chỉ rõ chủ sở hữu nguồn và lệnh dựng lại. [Biên nhận tích hợp](ho_so/tich_hop_r01_r20_20261103.json) dẫn báo cáo nguồn, HTML, bảo toàn và trình duyệt; bản phục hồi nằm ở `_audit/integration_r01_r20_20261103/recovery/`.
+
+Kiểm: 189 mục native, 17 trang/2.763 tham chiếu cục bộ, 95 mục bảo toàn; 939 PDF và 350 tệp nguồn/đối chứng r20 nguyên trạng. Đây là tích hợp cục bộ đã kiểm kỹ thuật, không phải phát hành website hoặc nghiệm thu PDF mới. Giữ thông báo PDF chưa đồng bộ với HTML. Không tạo commit, push hoặc xuất bản.
+
+Việc tiếp theo: các lần biên tập tiếp dùng nguồn chính và đường dựng hiện hành; PDF/commit/phát hành chỉ thực hiện trong nhiệm vụ được giao riêng. Các mục bên dưới là lịch sử theo thời điểm, không khôi phục trạng thái chờ duyệt hoặc đường dựng cũ đã được thay.
+
+
+## Mốc R2-G02 và Ôn nền đã dựng HTML, 30/10/2026 — lịch sử
+
+[HTML R2-G02 — Độ phân tán và so sánh dữ liệu](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g02/index.html) · [HTML Ôn nền — Số gần đúng, sai số và quy tròn](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/hoc_lieu/_dung_chung/nen/so_gan_dung_sai_so.html).
+
+Chủ trì đã duyệt hai bản thảo và hình hai mẫu cùng trung bình 10, khác độ phân tán làm ảnh đại diện. Đã chuyển sang [nguồn QMD R2-G02](../../../hoc_lieu/r2_g02/index.qmd) và [nguồn QMD Ôn nền](../../../hoc_lieu/_dung_chung/nen/so_gan_dung_sai_so.qmd); hai bản thảo được đóng băng để đối chiếu. Áp dụng cách đọc liền mạch, phân cấp mục, hoạt động, mục lục, lời giải và hình native đã chốt ở R2-G01. Văn bản, 708 biểu thức toán và 96 đích liên kết gốc giữ nguyên sau chuẩn hóa các nhãn điều hướng. Hồ sơ kiểm và bàn giao nằm tại [hồ sơ chuyển QMD](../../../hoc_lieu/r2_g02/_quy_trinh/ho_so/kiem_chuyen_qmd_20261030.json).
+
+Việc tiếp theo: chủ trì xem và góp ý hoặc duyệt hai bản HTML. Đây là bản xem cục bộ; kết quả tự kiểm không thay nghiệm thu. Chưa dựng PDF, stage, commit, push hoặc xuất bản; không đưa R2-G02 vào danh mục công khai. R2-G01 và các đầu ra đã phát hành được bảo toàn.
+
+## Mốc R2-G01 đã phát hành và kiểm trên zomath.vn, 29/10/2026
 
 [Bản HTML hiện hành](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g01/index.html).
 

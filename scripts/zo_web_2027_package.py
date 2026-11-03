@@ -159,6 +159,14 @@ def adapt(path,output_root,package):
   apply_from_metadata(result,path,output_root,PACKAGE,create_missing=True)
   from zo_course_labels import apply_context_labels
   apply_context_labels(result,binding)
+  if settings.get('revision_pdf_notice'):
+   from zo_r2g01_revision_contract import settings_for
+   if settings_for(REPO/PACKAGE/'index.qmd') is None:raise ValueError('PDF revision notice requires explicit R2-G01 R01 binding')
+   notice=result.new_tag('p',attrs={'class':'revision-pdf-notice'})
+   notice.string=settings['revision_pdf_notice']
+   area=result.find(id='tai-tai-lieu')
+   if area is None:raise ValueError('Missing PDF area for revision notice')
+   heading=area.find(['h2','h3']);heading.insert_after(notice)
  from zo_course_html import write
  write(path,result)
  print('Package shell:',len(result.select('.reading-region')),'reading regions;',len(result.select('.zo-pdf-card')),'PDF downloads')

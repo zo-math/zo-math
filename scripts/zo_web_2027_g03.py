@@ -14,8 +14,8 @@ ROLES = {"bat-dau":"Bắt đầu", "bai-hoc":"Bài học", "phieu-luyen":"Luyệ
          "sua-loi":"Sửa lỗi", "nhat-ky":"Nhật kí", "loi-giai":"Lời giải", "nguon":"Nguồn", "tai-tai-lieu":"Tải tài liệu"}
 
 class Builder(HomeBuilder):
-    def __init__(self, output_root):
-        super().__init__(output_root / "assets/zo_web_2027/g03/index.html", output_root)
+    def __init__(self, output_root, runtime="g03"):
+        super().__init__(output_root / "assets/zo_web_2027" / runtime / "index.html", output_root)
         self.runtime = self.output
     def common_assets(self):
         PreviewBuilder.common_assets(self)
@@ -106,7 +106,9 @@ def adapt(path, output_root):
     separate_foundation_resources(root)
     if inv(root)!=baseline:raise ValueError("G03 reading projection changed content, mathematics or IDs")
     if root.select(".reading-region .reading-region"):raise ValueError("Nested reading regions")
-    builder=Builder(output_root);builder.output.mkdir(parents=True,exist_ok=True)
+    from zo_g03_revision_contract import settings_for
+    revision=settings_for(REPO/PACKAGE/"index.qmd")
+    builder=Builder(output_root, revision["runtime"] if revision else "g03");builder.output.mkdir(parents=True,exist_ok=True)
     builder.common_assets()
     from zo_course_cover import load_cover
     builder.materialize(load_cover(REPO, PACKAGE.name), "assets/g03-cover.svg")
@@ -167,6 +169,13 @@ def adapt(path, output_root):
     apply_tables(result,"r1_g03",path,builder.output)
     from zo_web_2027_downloads import apply_from_metadata
     apply_from_metadata(result,path,output_root,PACKAGE)
+    if revision:
+        note=result.select_one('#tai-tai-lieu .zo-pdf-current-note')
+        if note is None:raise ValueError('Missing PDF version warning')
+        note.string='Các PDF đang giữ bản cũ, chưa phản ánh bản sửa R01. Chỉ xem và góp ý HTML trong 10 đợt sửa; PDF sẽ được xây dựng sau khi toàn bộ kết quả đạt yêu cầu.'
+        style=builder.output/'r01-reader.css'
+        style.write_bytes((REPO/PACKAGE/'giao_dien/r01-reader.css').read_bytes())
+        result.head.append(result.new_tag('link',rel='stylesheet',href=os.path.relpath(style,path.parent).replace('\\','/')))
     from zo_web_2027_navigation import apply as apply_course_navigation
     apply_course_navigation(result,path,output_root,builder.output,"g03")
     result.body["data-zo-web-production"]="R1-G03"

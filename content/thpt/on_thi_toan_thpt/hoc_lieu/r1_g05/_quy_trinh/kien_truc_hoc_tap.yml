@@ -126,6 +126,8 @@ checkpoints:
       - G05-N4
       - G05-N5
       - G05-N6
+      - G05-N7
+      - G05-N8
 - id: cp-02
   evidence_task_ids:
   - G05-NV11
@@ -158,6 +160,8 @@ checkpoints:
       - G05-N4
       - G05-N5
       - G05-N6
+      - G05-N7
+      - G05-N8
 - id: cp-03
   evidence_task_ids:
   - G05-NV13
@@ -190,6 +194,8 @@ checkpoints:
       - G05-N4
       - G05-N5
       - G05-N6
+      - G05-N7
+      - G05-N8
 - id: cp-04
   evidence_task_ids:
   - G05-NV15
@@ -222,6 +228,8 @@ checkpoints:
       - G05-N4
       - G05-N5
       - G05-N6
+      - G05-N7
+      - G05-N8
 - id: cp-05
   evidence_task_ids:
   - G05-NV17
@@ -256,6 +264,8 @@ checkpoints:
       - G05-N4
       - G05-N5
       - G05-N6
+      - G05-N7
+      - G05-N8
 - id: cp-06
   evidence_task_ids:
   - G05-NV21
@@ -287,6 +297,8 @@ checkpoints:
       - G05-N4
       - G05-N5
       - G05-N6
+      - G05-N7
+      - G05-N8
 - id: cp-07
   evidence_task_ids:
   - G05-NV22
@@ -318,6 +330,8 @@ checkpoints:
       - G05-N4
       - G05-N5
       - G05-N6
+      - G05-N7
+      - G05-N8
 - id: cp-08
   evidence_task_ids:
   - G05-NV23
@@ -349,6 +363,8 @@ checkpoints:
       - G05-N4
       - G05-N5
       - G05-N6
+      - G05-N7
+      - G05-N8
 tasks:
 - id: G05-NV01
   role: H
@@ -905,6 +921,8 @@ tasks:
   - G05-M3
   - G05-M4
   - G05-M6
+  - G05-M1
+  - G05-M2
   error_ids:
   - G05-E06
   - G05-E07
@@ -956,6 +974,10 @@ tasks:
   status: current
   objective_ids:
   - G05-M2
+  - G05-M3
+  - G05-M4
+  - G05-M5
+  - G05-M6
   error_ids:
   - G05-E03
   - G05-E04
@@ -1232,11 +1254,156 @@ tasks:
   exposure_policy: guided
   next_on_pass: cp-01
   next_on_error: cp-01
+- id: G05-SK-DV
+  role: S-K
+  subtype: function.remediation
+  status: current
+  objective_ids:
+  - G05-M1
+  - G05-M2
+  error_ids:
+  - G05-E02
+  - G05-E05
+  checkpoint_ids:
+  - cp-05
+  source_anchor: SK-DV
+  source_locator: null
+  answer_anchor: lg-SK-DV
+  content_key: G05-SK-DV
+  exposure_policy: remediation
+  next_on_pass: cp-05
+  next_on_error: cp-05
+- id: G05-SK-GL
+  role: S-K
+  subtype: function.remediation
+  status: current
+  objective_ids:
+  - G05-M1
+  - G05-M3
+  - G05-M4
+  - G05-M5
+  - G05-M6
+  error_ids:
+  - G05-E07
+  - G05-E08
+  - G05-E09
+  - G05-E11
+  - G05-E12
+  checkpoint_ids:
+  - cp-05
+  source_anchor: SK-GL
+  source_locator: null
+  answer_anchor: lg-SK-GL
+  content_key: G05-SK-GL
+  exposure_policy: remediation
+  next_on_pass: cp-05
+  next_on_error: cp-05
+- id: G05-SK-CD
+  role: S-K
+  subtype: function.remediation
+  status: current
+  objective_ids:
+  - G05-M2
+  - G05-M4
+  - G05-M6
+  error_ids:
+  - G05-E03
+  - G05-E04
+  - G05-E12
+  checkpoint_ids:
+  - cp-05
+  source_anchor: SK-CD
+  source_locator: null
+  answer_anchor: lg-SK-CD
+  content_key: G05-SK-CD
+  exposure_policy: remediation
+  next_on_pass: cp-05
+  next_on_error: cp-05
+- id: G05-SK-GH
+  role: S-K
+  subtype: function.remediation
+  status: current
+  objective_ids:
+  - G05-M4
+  - G05-M6
+  error_ids:
+  - G05-E09
+  - G05-E10
+  - G05-E12
+  checkpoint_ids:
+  - cp-05
+  source_anchor: SK-GH
+  source_locator: null
+  answer_anchor: lg-SK-GH
+  content_key: G05-SK-GH
+  exposure_policy: remediation
+  next_on_pass: cp-05
+  next_on_error: cp-05
+- id: G05-N01-Q
+  role: N
+  subtype: function.foundation_confirmation
+  status: current
+  objective_ids:
+  - G05-M1
+  - G05-M2
+  error_ids:
+  - G05-E02
+  - G05-E05
+  checkpoint_ids: &id001
+  - cp-01
+  - cp-02
+  - cp-03
+  - cp-04
+  - cp-05
+  - cp-06
+  - cp-07
+  - cp-08
+  source_anchor: N01-Q
+  source_locator: null
+  answer_anchor: lg-N01
+  content_key: G05-N01-Q
+  exposure_policy: foundation
+  next_on_pass: &id002
+    kind: activation_checkpoint
+    checkpoint_ids: *id001
+  next_on_error: *id002
+- id: G05-N02-Q
+  role: N
+  subtype: function.foundation_confirmation
+  status: current
+  objective_ids:
+  - G05-M1
+  - G05-M3
+  - G05-M5
+  - G05-M6
+  error_ids:
+  - G05-E07
+  - G05-E08
+  - G05-E11
+  - G05-E12
+  checkpoint_ids: &id003
+  - cp-01
+  - cp-02
+  - cp-03
+  - cp-04
+  - cp-05
+  - cp-06
+  - cp-07
+  - cp-08
+  source_anchor: N02-Q
+  source_locator: null
+  answer_anchor: lg-N02
+  content_key: G05-N02-Q
+  exposure_policy: foundation
+  next_on_pass: &id004
+    kind: activation_checkpoint
+    checkpoint_ids: *id003
+  next_on_error: *id004
 errors:
 - id: G05-E01
   symptom: Chọn đại lượng
-  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận
-    phần thực sự kiểm, các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
+  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận phần thực sự kiểm,
+    các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
   objective_ids:
   - G05-M1
   detection_checkpoint_ids:
@@ -1256,8 +1423,8 @@ errors:
   return_anchor: nut-that
 - id: G05-E02
   symptom: Đơn vị của biến
-  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận
-    phần thực sự kiểm, các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
+  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận phần thực sự kiểm,
+    các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
   objective_ids:
   - G05-M1
   detection_checkpoint_ids:
@@ -1269,16 +1436,17 @@ errors:
   - cp-07
   - cp-08
   review_anchor: bh-11
-  foundation_route_ids: []
+  foundation_route_ids:
+  - G05-N7
   remediation:
     S-L: null
-    S-K: null
+    S-K: G05-SK-DV
     S-O: null
   return_anchor: nut-that
 - id: G05-E03
   symptom: Trung bình/tức thời
-  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận
-    phần thực sự kiểm, các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
+  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận phần thực sự kiểm,
+    các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
   objective_ids:
   - G05-M2
   detection_checkpoint_ids:
@@ -1298,8 +1466,8 @@ errors:
   return_anchor: nut-that
 - id: G05-E04
   symptom: Đại lượng và tốc độ
-  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận
-    phần thực sự kiểm, các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
+  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận phần thực sự kiểm,
+    các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
   objective_ids:
   - G05-M2
   detection_checkpoint_ids:
@@ -1314,13 +1482,13 @@ errors:
   foundation_route_ids: []
   remediation:
     S-L: null
-    S-K: null
+    S-K: G05-SK-CD
     S-O: G05-NV29
   return_anchor: nut-that
 - id: G05-E05
   symptom: Chi phí biên
-  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận
-    phần thực sự kiểm, các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
+  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận phần thực sự kiểm,
+    các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
   objective_ids:
   - G05-M2
   detection_checkpoint_ids:
@@ -1332,7 +1500,8 @@ errors:
   - cp-07
   - cp-08
   review_anchor: bh-13
-  foundation_route_ids: []
+  foundation_route_ids:
+  - G05-N7
   remediation:
     S-L: G05-NV24
     S-K: G05-NV27
@@ -1340,8 +1509,8 @@ errors:
   return_anchor: nut-that
 - id: G05-E06
   symptom: Đại lượng phụ thuộc
-  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận
-    phần thực sự kiểm, các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
+  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận phần thực sự kiểm,
+    các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
   objective_ids:
   - G05-M3
   detection_checkpoint_ids:
@@ -1361,8 +1530,8 @@ errors:
   return_anchor: nut-that
 - id: G05-E07
   symptom: Tập xác định của biểu thức và các giá trị thực hiện được
-  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận
-    phần thực sự kiểm, các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
+  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận phần thực sự kiểm,
+    các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
   objective_ids:
   - G05-M3
   detection_checkpoint_ids:
@@ -1374,7 +1543,8 @@ errors:
   - cp-07
   - cp-08
   review_anchor: bh-21
-  foundation_route_ids: []
+  foundation_route_ids:
+  - G05-N8
   remediation:
     S-L: G05-NV24
     S-K: G05-NV26
@@ -1382,8 +1552,8 @@ errors:
   return_anchor: nut-that
 - id: G05-E08
   symptom: Quan hệ chưa có căn cứ
-  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận
-    phần thực sự kiểm, các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
+  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận phần thực sự kiểm,
+    các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
   objective_ids:
   - G05-M3
   - G05-M6
@@ -1396,16 +1566,17 @@ errors:
   - cp-07
   - cp-08
   review_anchor: bh-22
-  foundation_route_ids: []
+  foundation_route_ids:
+  - G05-N8
   remediation:
     S-L: null
-    S-K: null
+    S-K: G05-SK-GL
     S-O: G05-NV28
   return_anchor: nut-that
 - id: G05-E09
   symptom: Ứng viên và tối ưu toàn tập đang xét
-  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận
-    phần thực sự kiểm, các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
+  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận phần thực sự kiểm,
+    các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
   objective_ids:
   - G05-M4
   detection_checkpoint_ids:
@@ -1425,8 +1596,8 @@ errors:
   return_anchor: nut-that
 - id: G05-E10
   symptom: Mức tiến tới và mức đạt
-  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận
-    phần thực sự kiểm, các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
+  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận phần thực sự kiểm,
+    các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
   objective_ids:
   - G05-M4
   detection_checkpoint_ids:
@@ -1441,13 +1612,13 @@ errors:
   foundation_route_ids: []
   remediation:
     S-L: G05-NV25
-    S-K: null
+    S-K: G05-SK-GH
     S-O: G05-NV28
   return_anchor: nut-that
 - id: G05-E11
   symptom: Nghiệm liên tục và chọn nguyên
-  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận
-    phần thực sự kiểm, các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
+  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận phần thực sự kiểm,
+    các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
   objective_ids:
   - G05-M5
   detection_checkpoint_ids:
@@ -1459,7 +1630,8 @@ errors:
   - cp-07
   - cp-08
   review_anchor: bh-04
-  foundation_route_ids: []
+  foundation_route_ids:
+  - G05-N8
   remediation:
     S-L: G05-NV25
     S-K: G05-NV27
@@ -1467,8 +1639,8 @@ errors:
   return_anchor: nut-that
 - id: G05-E12
   symptom: Đáp số và kết luận
-  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận
-    phần thực sự kiểm, các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
+  classification_rule: Đối chiếu đúng ý trong bảng nút thắt; nhiệm vụ chỉ xác nhận phần thực sự kiểm,
+    các chỗ chưa có câu phù hợp được ghi rõ trong chính văn.
   objective_ids:
   - G05-M6
   detection_checkpoint_ids:
@@ -1480,7 +1652,8 @@ errors:
   - cp-07
   - cp-08
   review_anchor: bh-05
-  foundation_route_ids: []
+  foundation_route_ids:
+  - G05-N8
   remediation:
     S-L: G05-NV24
     S-K: G05-NV26
@@ -1499,9 +1672,8 @@ foundation_routes:
   unit_id: N-TXĐ-01
   retest:
     status: specified
-    requirement: 'Theo mục Ôn nền: tự làm nhiệm vụ được dẫn nếu chưa xem đề hoặc lời
-      giải; trở về bài đang dừng. Câu không còn phù hợp thì ghi chưa xác nhận và xin
-      câu khác.'
+    requirement: 'Theo mục Ôn nền: tự làm nhiệm vụ được dẫn nếu chưa xem đề hoặc lời giải; trở về bài
+      đang dừng. Câu không còn phù hợp thì ghi chưa xác nhận và xin câu khác.'
   return_anchors:
   - cp-01
   - cp-02
@@ -1523,9 +1695,8 @@ foundation_routes:
   unit_id: N-ĐH-01
   retest:
     status: specified
-    requirement: 'Theo mục Ôn nền: tự làm nhiệm vụ được dẫn nếu chưa xem đề hoặc lời
-      giải; trở về bài đang dừng. Câu không còn phù hợp thì ghi chưa xác nhận và xin
-      câu khác.'
+    requirement: 'Theo mục Ôn nền: tự làm nhiệm vụ được dẫn nếu chưa xem đề hoặc lời giải; trở về bài
+      đang dừng. Câu không còn phù hợp thì ghi chưa xác nhận và xin câu khác.'
   return_anchors:
   - cp-01
   - cp-02
@@ -1547,9 +1718,8 @@ foundation_routes:
   unit_id: N-DẤU-01
   retest:
     status: specified
-    requirement: 'Theo mục Ôn nền: tự làm nhiệm vụ được dẫn nếu chưa xem đề hoặc lời
-      giải; trở về bài đang dừng. Câu không còn phù hợp thì ghi chưa xác nhận và xin
-      câu khác.'
+    requirement: 'Theo mục Ôn nền: tự làm nhiệm vụ được dẫn nếu chưa xem đề hoặc lời giải; trở về bài
+      đang dừng. Câu không còn phù hợp thì ghi chưa xác nhận và xin câu khác.'
   return_anchors:
   - cp-01
   - cp-02
@@ -1571,9 +1741,8 @@ foundation_routes:
   unit_id: N-BBT-01
   retest:
     status: specified
-    requirement: 'Theo mục Ôn nền: tự làm nhiệm vụ được dẫn nếu chưa xem đề hoặc lời
-      giải; trở về bài đang dừng. Câu không còn phù hợp thì ghi chưa xác nhận và xin
-      câu khác.'
+    requirement: 'Theo mục Ôn nền: tự làm nhiệm vụ được dẫn nếu chưa xem đề hoặc lời giải; trở về bài
+      đang dừng. Câu không còn phù hợp thì ghi chưa xác nhận và xin câu khác.'
   return_anchors:
   - cp-01
   - cp-02
@@ -1595,9 +1764,8 @@ foundation_routes:
   unit_id: N-MH-01
   retest:
     status: specified
-    requirement: 'Theo mục Ôn nền: tự làm nhiệm vụ được dẫn nếu chưa xem đề hoặc lời
-      giải; trở về bài đang dừng. Câu không còn phù hợp thì ghi chưa xác nhận và xin
-      câu khác.'
+    requirement: 'Theo mục Ôn nền: tự làm nhiệm vụ được dẫn nếu chưa xem đề hoặc lời giải; trở về bài
+      đang dừng. Câu không còn phù hợp thì ghi chưa xác nhận và xin câu khác.'
   return_anchors:
   - cp-01
   - cp-02
@@ -1619,9 +1787,8 @@ foundation_routes:
   unit_id: N-NGUYÊN-01
   retest:
     status: specified
-    requirement: 'Theo mục Ôn nền: tự làm nhiệm vụ được dẫn nếu chưa xem đề hoặc lời
-      giải; trở về bài đang dừng. Câu không còn phù hợp thì ghi chưa xác nhận và xin
-      câu khác.'
+    requirement: 'Theo mục Ôn nền: tự làm nhiệm vụ được dẫn nếu chưa xem đề hoặc lời giải; trở về bài
+      đang dừng. Câu không còn phù hợp thì ghi chưa xác nhận và xin câu khác.'
   return_anchors:
   - cp-01
   - cp-02
@@ -1631,5 +1798,29 @@ foundation_routes:
   - cp-06
   - cp-07
   - cp-08
+- id: G05-N7
+  objective_ids:
+  - G05-M1
+  - G05-M2
+  symptom: Lẫn đơn vị của biến và số gia
+  unit_id: N-ĐH-01
+  retest:
+    status: specified
+    requirement: 'Thẻ nen-don-vi: mẫu có giải thích, hoàn thành bước, tự làm N01-Q nếu chưa gặp; ghi riêng
+      kết quả sau hỗ trợ rồi trở lại Điểm dừng gọi hỗ trợ.'
+  return_anchors: *id001
+- id: G05-N8
+  objective_ids:
+  - G05-M1
+  - G05-M3
+  - G05-M5
+  - G05-M6
+  symptom: Bỏ điều kiện khả thi trong mô hình giá–lượng
+  unit_id: N-MH-01
+  retest:
+    status: specified
+    requirement: 'Thẻ nen-mo-hinh: mẫu có giải thích, hoàn thành bước, tự làm N02-Q nếu chưa gặp; ghi
+      riêng kết quả sau hỗ trợ rồi trở lại Điểm dừng gọi hỗ trợ.'
+  return_anchors: *id003
 readiness:
   expected_planned_task_ids: []

@@ -41,10 +41,59 @@ def learner_lines(text):
         s=re.sub(r'<[^>]+>','',s)
         yield n,s
 
-def scan(text,root=ROOT,raw=False):
+
+def paragraph_key(text):
+    """Compare approved prose across Markdown links and HTML text-node spaces."""
+    text=re.sub(r'\[([^\]]+)\]\([^)]+\)',r'\1',text)
+    text=text.lstrip('- ').replace('*','').replace('[','').replace(']','')
+    return re.sub(r'\s+([.,;:?!])',r'\1',norm(text))
+
+
+def approved_manuscript_paragraphs(path,root=ROOT):
+    """An exact frozen manuscript approval can preserve wording during conversion.
+
+    No automatic exceptions: source prose must occur verbatim in the immutable,
+    hash-bound draft recorded by the owner's approval receipt. Build-time reads
+    stay on canonical source and provenance; the frozen draft is not a build input.
+    """
+    root=Path(root).resolve();path=Path(path)
+    record=path.parent/'_quy_trinh/ho_so/giu_nguyen_loi_van_da_duyet.json'
+    if not record.is_file():return []
+    data=json.loads(record.read_text(encoding='utf-8'))
+    def owned(relative):
+        p=(root/relative).resolve()
+        if not p.is_relative_to(root/COURSE):raise ValueError('Approved prose reference escapes course')
+        return p
+    owned(data['draft']);receipt=owned(data['approval_receipt'])
+    approval=json.loads(receipt.read_text(encoding='utf-8'))
+    if data.get('status')!='approved_manuscript_preserved' or data.get('source')!=path.name:
+        raise ValueError('Unknown approved-prose binding')
+    if sha(receipt.read_bytes())!=data['approval_receipt_sha256']:
+        raise ValueError('Approved manuscript/receipt changed')
+    if approval.get('status')!='both_manuscripts_owner_approved' or not any(
+        x.get('path')==data['draft'] and x.get('sha256')==data['draft_sha256']
+        for x in approval.get('sources',[])):
+        raise ValueError('Missing owner approval of exact manuscript')
+    paragraphs=list(data['paragraphs'])
+    for change in data.get('display_substitutions',[]):
+        code=change['code']
+        if not re.fullmatch(r'R\d+-G\d+',code):raise ValueError('Invalid display reference')
+        reference=root/COURSE/'hoc_lieu'/code.lower().replace('-','_')/'index.qmd'
+        import yaml
+        title=yaml.safe_load(reference.read_text(encoding='utf-8').split('---',2)[1])['title']
+        if change['title']!=title:raise ValueError('Display reference differs from canonical title')
+        paragraphs=[p.replace(code,title) for p in paragraphs]
+    lines=path.read_text(encoding='utf-8').splitlines()
+    if not paragraphs or any(not isinstance(p,str) or p not in lines for p in paragraphs):
+        raise ValueError('Current prose differs from its exact approved preservation record')
+    return paragraphs
+
+
+def scan(text,root=ROOT,raw=False,approved=()):
     p=policy(root);issues=[]
     rows=enumerate(text.splitlines(),1) if raw else learner_lines(text)
     for line,body in rows:
+        if paragraph_key(body) in {paragraph_key(p) for p in approved}:continue
         for allowed in p['allowed_mien']:body=re.sub(allowed,'',body,flags=re.I)
         for rule in p['rules']:
             if re.search(rule['pattern'],body,re.I):issues.append({'line':line,'rule':rule['id'],'message':rule['message']})
@@ -88,13 +137,37 @@ def source_checks(path,root=ROOT,text=None):
     if not governed(path):return {}
     root=Path(root);checks={}
     try:
-        p=policy(root);review=json.loads((root/p['review']).read_text(encoding='utf-8'))
+        p=policy(root)
+        from zo_g01_revision_contract import review_for
+        review=review_for(path,root)
+        if review is None:
+            from zo_g02_revision_contract import review_for as g02_review
+            review=g02_review(path,root)
+        if review is None:
+            from zo_g03_revision_contract import review_for as g03_review
+            review=g03_review(path,root)
+        if review is None:
+            from zo_g04_revision_contract import review_for as g04_review
+            review=g04_review(path,root)
+        if review is None:
+            from zo_g05_revision_contract import review_for as g05_review
+            review=g05_review(path,root)
+        if review is None:
+            from zo_r2g01_revision_contract import review_for as r2g01_review
+            review=r2g01_review(path,root)
+        if review is None:
+            from zo_r2g02_revision_contract import review_for as r2g02_review
+            review=r2g02_review(path,root)
+        if review is None:
+            from zo_d0_home_revision_contract import review_for as entry_review
+            review=entry_review(path,root)
+        if review is None:review=json.loads((root/p['review']).read_text(encoding='utf-8'))
         checks['current editorial policy']=p['id']==review.get('decision')==RULE
         checks['editorial review is source-only']=review.get('status')=='source_reviewed_not_rendered' and review.get('owner_HTML_acceptance') is False
         checks.update(dependent_checks(path,review,root))
         for source,s in closure(path,root,text).items():
             relative=source.relative_to(root).as_posix()
-            issues=scan(s,root)
+            issues=scan(s,root,approved=approved_manuscript_paragraphs(source,root))
             checks[relative+' no rejected terminology or shorthand']=not issues
             if issues:
                 for issue in issues:checks[relative+':'+str(issue['line'])+' '+issue['rule']]=False
@@ -109,6 +182,12 @@ def html_checks(document,root=ROOT):
     if source is None:return {'learner content exists':False}
     clone=copy.deepcopy(source)
     for n in clone.select('script,style,math,pre,code'):n.decompose()
+    code=document.body.get('data-zo-web-production','') if document.body else ''
+    if re.fullmatch(r'R\d+-G\d+',code):
+        path=Path(root)/COURSE/'hoc_lieu'/code.lower().replace('-','_')/'index.qmd'
+        accepted={paragraph_key(p) for p in approved_manuscript_paragraphs(path,root)}
+        for node in list(clone.select('p,li')):
+            if node.parent is not None and paragraph_key(node.get_text(' ',strip=True)) in accepted:node.decompose()
     return {'rendered learner terminology and instructions':not scan(clone.get_text('\n',strip=True),root,raw=True)}
 
 def require(checks,label='editorial language'):

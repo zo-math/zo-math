@@ -6,6 +6,7 @@ ROOT=Path(__file__).resolve().parents[1]
 RULE='BOTTLENECKS-20261019'
 CONTRACT='bottlenecks-v1'
 HEADERS=['Nút thắt nhận thức','Biểu hiện dễ nhầm','Câu hỏi và cách tháo gỡ','Tự kiểm tra']
+LAYOUTS={'combined-question-remedy-v1':HEADERS,'question-remedy-v1':['Nút thắt nhận thức','Câu hỏi để kiểm lại','Cách tháo gỡ','Tự kiểm tra']}
 
 def governed(path):
     p=Path(path)
@@ -20,6 +21,8 @@ def source_checks(path,root=ROOT,text=None):
         binding=json.loads((path.parent/'giao_dien/he_nhan.json').read_text(encoding='utf-8')).get('remediation',{})
         c['remediation declared for package']=binding.get('contract')==CONTRACT
         ident=binding.get('table','')
+        layout=binding.get('layout','combined-question-remedy-v1')
+        c['known column layout']=layout in LAYOUTS
         m=re.search(r'(?m)^(:{3,}) \{#'+re.escape(ident)+r'[^\n]*\}\n.*?^\1[ \t]*$',text,re.S|re.M) if ident else None
         c['one source-owned bottleneck table']=bool(m) and text.count('data-zo-remediation="'+CONTRACT+'"')==1
         if not m:return c
@@ -27,7 +30,7 @@ def source_checks(path,root=ROOT,text=None):
         c['table within Sửa lỗi']=bool(owners) and owners[-1].startswith('Sửa lỗi {#sua-loi}')
         lines=[x for x in m[0].splitlines() if x.startswith('|')]
         cells=[[s.strip() for s in x.strip('|').split('|')] for x in lines]
-        c['four shared columns']=bool(cells) and cells[0]==HEADERS and all(len(r)==4 for r in cells)
+        c['four shared columns']=bool(cells) and cells[0]==LAYOUTS.get(layout) and all(len(r)==4 for r in cells)
         actual=cells[2:];expected=binding.get('rows',[])
         c['reviewed row coverage and order']=[r[0] for r in actual]==[r['title'] for r in expected] and bool(expected)
         c['unique bottlenecks']=len({r[0] for r in actual})==len(actual)
@@ -36,13 +39,19 @@ def source_checks(path,root=ROOT,text=None):
         anchors=set(re.findall(r'\{#([^\s}]+)',alltext))|set(re.findall(r'\bid=["\']([^"\']+)',alltext))
         for n,(r,e) in enumerate(zip(actual,expected),1):
             if len(r)!=4:continue
-            c[f'row {n} explains a distinction']=all(v.strip() for v in r) and '?' in r[2] and not re.search(r'\bbẫy\b',r[0]+' '+r[1],re.I)
+            c[f'row {n} explains a distinction']=all(v.strip() for v in r) and '?' in r[1 if layout=='question-remedy-v1' else 2] and not re.search(r'\bbẫy\b',r[0]+' '+r[1],re.I)
             knowledge=re.findall(r'\]\(#([^)]*)\)',r[2]);routes=re.findall(r'\]\(#([^)]*)\)',r[3])
             c[f'row {n} reviewed knowledge links']=set(knowledge)==set(e['knowledge_anchors']) and bool(knowledge)
             c[f'row {n} reviewed task routes']=set(routes)==set(e['route_anchors'])
             c[f'row {n} link targets exist']=all(unquote(a) in anchors for a in knowledge+routes)
             c[f'row {n} route or explicit gap']=bool(routes) or 'Chưa có bài Sửa lỗi riêng' in r[3]
-        c['three contexts explicit']=all(s in m[0] for s in ['Sau Luyện tập','Sau Kiểm tra','Sau Ôn lại'])
+        if layout=='question-remedy-v1':
+            c['layout bound in source']='data-zo-remediation-layout="'+layout+'"' in m[0]
+            section=text[text.rfind('\n## ',0,m.start()):].split('\n## ',2)[1]
+            routes=binding.get('return_routes',{})
+            c['three contexts explicit']=set(routes)=={'practice','test','review'} and all(a in anchors and re.search(r'\]\(#'+re.escape(a)+r'\)',section) for a in routes.values())
+        else:
+            c['three contexts explicit']=all(s in m[0] for s in ['Sau Luyện tập','Sau Kiểm tra','Sau Ôn lại'])
     except (OSError,ValueError,KeyError) as exc:c['remediation readable: '+str(exc)]=False
     return c
 
@@ -50,10 +59,12 @@ def html_checks(doc):
     c={}
     for frame in doc.select('[data-zo-remediation]'):
         ident=frame.get('id','');ts=frame.select('table')
+        layout=frame.get('data-zo-remediation-layout','combined-question-remedy-v1')
+        c[ident+' known column layout']=layout in LAYOUTS
         c[ident+' one visible table']=len(ts)==1 and not frame.find_parent('details')
         if len(ts)!=1:continue
         table=ts[0];rows=table.select('tr')
-        c[ident+' shared headings']=[x.get_text(' ',strip=True) for x in rows[0].find_all(['th','td'],recursive=False)]==HEADERS
+        c[ident+' shared headings']=[x.get_text(' ',strip=True) for x in rows[0].find_all(['th','td'],recursive=False)]==LAYOUTS.get(layout)
         c[ident+' four columns']=all(len(r.find_all(['th','td'],recursive=False))==4 for r in rows)
         c[ident+' shared table style']=table.get('data-table-kind')=='process' and table.get('data-table-variant')=='routing'
     return c

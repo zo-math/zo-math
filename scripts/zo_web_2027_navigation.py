@@ -18,6 +18,7 @@ PAGES = {
     'g04': (BASE / 'hoc_lieu/r1_g04/index.html', 'Khảo sát sự biến thiên và vẽ đồ thị của hàm số'),
     'g05': (BASE / 'hoc_lieu/r1_g05/index.html', 'Ứng dụng đạo hàm trong thực tiễn'),
     'r2_g01': (BASE / 'hoc_lieu/r2_g01/index.html', 'Đọc dữ liệu và đo xu thế trung tâm'),
+    'r2_g02': (BASE / 'hoc_lieu/r2_g02/index.html', 'Đo độ phân tán của dữ liệu'),
 }
 ICONS = {
     'home': '<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/>',
@@ -37,7 +38,7 @@ def destinations(output_root, page, current=None, preview_entry=None):
         if key not in {'home', 'd0'}:
             href += '?r1-view=bat-dau#bat-dau'
         result.append((key, href, label))
-    if preview_entry is not None:
+    if preview_entry is not None and current not in PAGES:
         relative,label=preview_entry
         relative=Path(relative)
         if relative.parent.parent!=BASE/'hoc_lieu' or not (ROOT/relative.with_suffix('.qmd')).is_file():

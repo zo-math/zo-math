@@ -35,6 +35,25 @@ def sha(data):
 def runtime_source_checks(root=ROOT, plan=None):
     """Check current source bindings before render; never renew acceptance."""
     root=Path(root).resolve()
+    settings_path=root/PACKAGE/'giao_dien/html.json'
+    if settings_path.is_file():
+        settings=json.loads(settings_path.read_text(encoding='utf-8'))
+        if settings.get('adapter')=='g01-revision-source-v1':
+            # The active adapter renders the current QMD. Its graph contract
+            # must not depend on images in an imported historical layout.
+            config=json.loads((root/PACKAGE/'giao_dien/web_2027_figures.json').read_text('utf-8'))
+            directory=root/PACKAGE/config['asset_directory']
+            receipt=json.loads((directory/'manifest.json').read_text('utf-8'))
+            expected={name+ext for name in config['graphs'] for ext in ['.svg','.pdf']}|{'cover-light.svg','cover-dark.svg'}
+            values={'G01 current graph asset map':set(receipt['assets'])==expected}
+            for name,digest in receipt['assets'].items():
+                source=(directory/name).resolve()
+                values['G01 current graph '+name]=(source.is_relative_to(directory.resolve()) and source.is_file() and sha(source.read_bytes())==digest)
+            for name in config['graphs']:
+                source=root/PACKAGE/'hinh'/(name+'.tex')
+                relative=source.relative_to(root).as_posix()
+                values['G01 current graph source '+name]=(source.is_file() and sha(source.read_bytes())==receipt['source_hashes'].get(relative))
+            return values
     if plan is None:
         plan=json.loads((root/PACKAGE/'giao_dien/web_2027_layout.json').read_text(encoding='utf-8'))
     values={'G01 runtime asset map exists':bool(plan.get('assets'))}
@@ -191,6 +210,16 @@ def adapt(path, output_root):
 
 def _adapt(path, output_root):
     relative=path.resolve().relative_to(output_root.resolve())
+    if relative.parent.name == 'r1_g02' and (ROOT/relative.parent/'giao_dien/html.json').is_file():
+        settings = json.loads((ROOT/relative.parent/'giao_dien/html.json').read_text(encoding='utf-8'))
+        if settings.get('adapter') == 'g02-revision-source-v1':
+            from zo_web_2027_g02_revision import adapt as adapt_revision
+            return adapt_revision(path,output_root,relative.parent)
+    if relative.parent.name == 'r1_g01' and (ROOT/relative.parent/'giao_dien/html.json').is_file():
+        settings = json.loads((ROOT/relative.parent/'giao_dien/html.json').read_text(encoding='utf-8'))
+        if settings.get('adapter') == 'g01-revision-source-v1':
+            from zo_web_2027_g01_revision import adapt as adapt_revision
+            return adapt_revision(path,output_root,relative.parent)
     if (ROOT/relative.parent/'giao_dien/html.json').is_file():
         from zo_web_2027_package import adapt as adapt_package
         return adapt_package(path,output_root,relative.parent)
