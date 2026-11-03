@@ -62,3 +62,23 @@ def prune(root, output, pages):
         if not any(path.iterdir()):
             path.rmdir()
     return removed
+
+
+def normalize_lines(root, output, pages):
+    """Emit portable text files; change only CRLF encoding, never content."""
+    root, output = Path(root).resolve(), Path(output).resolve()
+    assert output == root / 'docs'
+    files = set(Path(p).resolve() for p in pages)
+    files.update(preview_files(root, files))
+    changed = []
+    for path in sorted(files):
+        if path.suffix.lower() not in {'.html', '.css', '.js', '.json', '.txt', '.xml'}:
+            continue
+        assert path.is_relative_to(output) and not path.is_symlink()
+        before = path.read_bytes()
+        after = before.replace(b'\r\n', b'\n')
+        if before != after:
+            assert before.decode('utf-8').replace('\r\n', '\n') == after.decode('utf-8')
+            path.write_bytes(after)
+            changed.append(path.relative_to(output).as_posix())
+    return changed
