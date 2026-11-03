@@ -1,0 +1,81 @@
+/* R2-G01 reading conventions, shared by all current learning pages.
+   The r20 shell owns the single page inset; inner regions do not add one. */
+.reader-content{font-size:17px;line-height:1.8}
+.reader-content h2{font-size:32px;line-height:1.3}
+.reader-content h3{font-size:26px;line-height:1.4;font-weight:600;letter-spacing:-.025em}
+.reader-content h4{font-size:23px;line-height:1.5;font-weight:600;letter-spacing:normal}
+.reader-content #bai-hoc h4{font-size:21px}
+.reader-content h5{font-size:19px;line-height:1.6}
+.reader-content p{margin-bottom:20px}
+.reader-content details summary{font-size:16px;color:var(--ink)}
+.reader-content details.zo-learning-guidance>summary{font-size:14px;color:var(--muted)}
+.reader-content details>.zo-block-body{padding-top:20px}
+.reader-content .zo-knowledge-section{margin-block:32px}
+.reader-content .level4{margin-block:32px}
+.reader-content .zo-lesson-intro{font:inherit;color:inherit;margin:0 0 28px;padding:0;border:0;background:transparent}
+.reader-content .zo-lesson-intro p{font:inherit}
+.reader-content .reading-region{padding:0;min-width:0}
+.reader-content .reading-region .reading-region{padding:0;border:0;background:transparent}
+.reader-content #bai-hoc .zo-lesson-activity{margin-block:24px;padding:0;border:0}
+.reader-content #bai-hoc .zo-lesson-activity>p:first-of-type>strong,
+.reader-content #bai-hoc .zo-lesson-activity .zo-task-title{display:block;font-family:inherit;font-size:1em;line-height:inherit;font-weight:700;font-variant:normal;letter-spacing:normal;text-transform:none;margin:0}
+.reader-content #bai-hoc .zo-activity-kind{font:inherit;font-variant:normal;letter-spacing:normal;text-transform:none}
+.reader-content figcaption{font-size:14px;line-height:1.7;color:var(--ink);text-align:left}
+.reader-content .zo-source-note{font-size:12px;line-height:1.7;color:var(--muted)}
+.reader-content .zo-statistical-scroll{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain}
+.reader-content .zo-statistical-figure .zo-statistical-scroll img{display:block;max-width:none;height:auto;margin-inline:auto}
+.reader-content[data-r1-code="R2-G01"] .zo-statistical-figure img{width:700px}
+.site-reader .reader-content .lesson-toc,.site-reader .reader-content .r1-section-toc{display:none}
+/* Preserve authored contents hierarchy, including prose activity titles. */
+.site-reader #page-outline a[data-depth="1"]{padding-left:12px}
+.site-reader #page-outline a[data-depth="2"]{padding-left:24px;font-size:11px}
+.site-reader #page-outline a[data-depth="3"]{padding-left:32px;font-size:11px}
+.zo-page-navigation{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin:28px 0 0}
+.zo-page-navigation[hidden]{display:none}
+.zo-page-navigation a{display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:36px;height:36px;padding:0;border:1px solid var(--line);border-radius:50%;background:white;color:var(--ink);line-height:1;text-decoration:none}
+.zo-page-navigation svg{display:block;width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.zo-page-navigation a:hover{background:var(--zo-yellow-1);border-color:var(--zo-yellow-4)}
+.zo-page-navigation__previous{grid-column:1;justify-self:start}
+.zo-page-navigation__next{grid-column:2;justify-self:end}
+.site-foundation .utility-main{max-width:850px}
+.site-foundation .reader-content>section{margin-block:32px}
+.site-foundation .reader-content #title-block-header{display:none}
+@media(max-width:760px){.reader-content{font-size:16px;line-height:1.85}.reader-content h2{font-size:28px}.reader-content h3{font-size:25px}.reader-content h4{font-size:21px}}
+
+/* On small screens the same contents remain reachable without a second rail. */
+.mobile-reading-outline{display:none}
+@media(max-width:1000px){
+ .mobile-reading-outline{display:block;border-block:1px solid var(--line);margin:0 0 24px;padding:14px 0}
+ .mobile-reading-outline summary{font-size:14px;font-weight:600}
+ .mobile-reading-outline nav{padding-top:12px;max-height:50vh;overflow:auto}
+ .mobile-reading-outline a{display:block;padding:7px 0;font-size:14px;line-height:1.7}
+ .mobile-reading-outline a[data-depth="1"]{padding-left:12px}
+ .mobile-reading-outline a[data-depth="2"]{padding-left:24px;font-size:13px}
+ .mobile-reading-outline a[data-depth="3"]{padding-left:32px;font-size:13px}
+}
+
+/* Independent foundation: same white reading surface and semantic hierarchy. */
+.site-foundation .utility-main{background:white;padding:32px;border-radius:8px;margin-block:32px}
+.site-foundation .reader-content h2{font-size:26px;line-height:1.4}
+.site-foundation .reader-content h3{font-size:21px;line-height:1.5}
+.foundation-contents{border-block:1px solid var(--line);padding:16px 0;margin:24px 0}
+.foundation-contents summary{font-size:16px}
+.foundation-contents nav{padding-top:12px}
+.foundation-contents a{display:block;padding:7px 0;font-size:15px;line-height:1.7}
+.foundation-contents .foundation-toc-h3{padding-left:16px}
+/* D0 retains the source-owned scale and compact diagnostic metadata. */
+.reader-content.d0-package .d0-task-meta{font-size:13px;line-height:1.8;color:var(--muted);margin:0 0 24px}
+.reader-content.d0-package .d0-task-meta p{margin:0 0 8px}
+.reader-content.d0-package .d0-response-options,.reader-content.d0-package .d0-response-option{margin:16px 0}
+.reader-content.d0-package .d0-response-option .d0-response-option{margin:0}
+.reader-content.d0-package .d0-inline-math{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle}
+.reader-content.d0-package .figure-viewport img{display:block;width:var(--figure-width);max-width:none;height:auto;margin-inline:auto}
+.reader-content.d0-package blockquote{margin:20px 0;padding:0;color:var(--muted)}
+@media(max-width:1000px){.mobile-reading-outline{scroll-margin-top:150px}}
+@media(max-width:760px){.site-foundation .utility-main{width:calc(100% - 24px);padding:22px;margin-block:20px}.mobile-reading-outline{scroll-margin-top:174px}}
+
+/* Shared canonical brand and footer, requested for the current release. */
+.site-footer .brand-thought{font-size:1.05rem;line-height:1.6;max-width:46rem;color:var(--ink,#252525)}
+.site-footer nav{display:flex;flex-wrap:wrap;gap:.6rem 1.2rem;margin:.8rem 0}
+.site-footer p{margin:.8rem 0}
+@media(max-width:600px){.site-footer{align-items:flex-start;gap:1rem;flex-direction:column}.site-footer .brand-thought{font-size:1rem}}
