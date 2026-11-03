@@ -314,7 +314,7 @@ local function blocks_filter(blocks)
     -- Activity titles are body text, but must stay with their first paragraph.
     local activity_title=false
     if layout and (b.t=='Para' or b.t=='Plain') then
-      local title=str(b)
+      local title=str(b):gsub('–','—')
       activity_title=(title:match('^Ví dụ%s+%d+%s+—') or
         title:match('^Gợi mở%s+%d+%s+—') or
         title:match('^Nhiệm vụ%s+%d+%s+—') or
