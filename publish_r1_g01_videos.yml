@@ -1,0 +1,224 @@
+version: 1
+source_branch: release/r1-g01-videos-20261104
+target_branch: gh-pages
+output_dir: docs
+
+custom_domain:
+  cname: zomath.vn
+
+prepare:
+  staging_dir: _audit/zo_publish_prepare
+  report_file: _audit/zo_publish_prepare_report.json
+  generated_target: true
+  special_files:
+    - .nojekyll
+  allowed_target_files:
+    - .nojekyll
+
+publish:
+  report_schema_version: 1
+  require_remote_source: true
+  cleanup_after_success: true
+
+allowlist:
+  files:
+    # Exact dependencies of the current integrated course release.
+    - assets/zo_web_2027/g03_revision_r01/assets/fonts/BeVietnamPro_Regular.ttf
+    - assets/zo_web_2027/g03_revision_r01/assets/fonts/BeVietnamPro_SemiBold.ttf
+    - assets/zo_web_2027/g03_revision_r01/assets/fonts/STIXTwoMath.ttf
+    - assets/zo_web_2027/g03_revision_r01/assets/fonts/OFL_BeVietnamPro.txt
+    - assets/zo_web_2027/g03_revision_r01/assets/fonts/OFL_STIX.txt
+    - assets/zo_web_2027/g04_revision_r01/assets/fonts/BeVietnamPro_Regular.ttf
+    - assets/zo_web_2027/g04_revision_r01/assets/fonts/BeVietnamPro_SemiBold.ttf
+    - assets/zo_web_2027/g04_revision_r01/assets/fonts/STIXTwoMath.ttf
+    - assets/zo_web_2027/g04_revision_r01/assets/fonts/OFL_BeVietnamPro.txt
+    - assets/zo_web_2027/g04_revision_r01/assets/fonts/OFL_STIX.txt
+    - assets/zo_web_2027/g05_revision_r01/assets/fonts/BeVietnamPro_Regular.ttf
+    - assets/zo_web_2027/g05_revision_r01/assets/fonts/BeVietnamPro_SemiBold.ttf
+    - assets/zo_web_2027/g05_revision_r01/assets/fonts/STIXTwoMath.ttf
+    - assets/zo_web_2027/g05_revision_r01/assets/fonts/OFL_BeVietnamPro.txt
+    - assets/zo_web_2027/g05_revision_r01/assets/fonts/OFL_STIX.txt
+    - assets/zo_web_2027/r1_g01_revision_r01/assets/fonts/BeVietnamPro_Regular.ttf
+    - assets/zo_web_2027/r1_g01_revision_r01/assets/fonts/BeVietnamPro_SemiBold.ttf
+    - assets/zo_web_2027/r1_g01_revision_r01/assets/fonts/STIXTwoMath.ttf
+    - assets/zo_web_2027/r1_g01_revision_r01/assets/fonts/OFL_BeVietnamPro.txt
+    - assets/zo_web_2027/r1_g01_revision_r01/assets/fonts/OFL_STIX.txt
+    - assets/zo_web_2027/r1_g02_revision_r01/assets/fonts/BeVietnamPro_Regular.ttf
+    - assets/zo_web_2027/r1_g02_revision_r01/assets/fonts/BeVietnamPro_SemiBold.ttf
+    - assets/zo_web_2027/r1_g02_revision_r01/assets/fonts/STIXTwoMath.ttf
+    - assets/zo_web_2027/r1_g02_revision_r01/assets/fonts/OFL_BeVietnamPro.txt
+    - assets/zo_web_2027/r1_g02_revision_r01/assets/fonts/OFL_STIX.txt
+    - assets/zo_web_2027/r2_g01_revision_r01/assets/fonts/BeVietnamPro_Regular.ttf
+    - assets/zo_web_2027/r2_g01_revision_r01/assets/fonts/BeVietnamPro_SemiBold.ttf
+    - assets/zo_web_2027/r2_g01_revision_r01/assets/fonts/STIXTwoMath.ttf
+    - assets/zo_web_2027/r2_g01_revision_r01/assets/fonts/OFL_BeVietnamPro.txt
+    - assets/zo_web_2027/r2_g01_revision_r01/assets/fonts/OFL_STIX.txt
+    - assets/zo_web_2027/r2_g02_revision_r01/assets/fonts/BeVietnamPro_Regular.ttf
+    - assets/zo_web_2027/r2_g02_revision_r01/assets/fonts/BeVietnamPro_SemiBold.ttf
+    - assets/zo_web_2027/r2_g02_revision_r01/assets/fonts/STIXTwoMath.ttf
+    - assets/zo_web_2027/r2_g02_revision_r01/assets/fonts/OFL_BeVietnamPro.txt
+    - assets/zo_web_2027/r2_g02_revision_r01/assets/fonts/OFL_STIX.txt
+    - assets/zo_web_2027/r2_g01_revision_r01/illustrations/adelie-canh-boi-4x3.webp
+    - assets/zo_web_2027/r2_g01_revision_r01/illustrations/chinstrap-1x1.webp
+    - assets/zo_web_2027/r2_g01_revision_r01/illustrations/gentoo-1x1.webp
+    - assets/zo_web_2027/r2_g01_revision_r01/illustrations/tram_khi_tuong-4x3.webp
+    - assets/zo_web_2027/r2_g01_revision_r01/illustrations/xe_dap_dung_chung-16x9.webp
+    - content/thpt/on_thi_toan_thpt/hoc_lieu/_dung_chung/nen/giao_dien/so_gan_dung_sai_so.js
+    # Fonts and licenses owned by the current 2027 interface.
+    - assets/course_site_2027/fonts/BeVietnamPro_Regular.ttf
+    - assets/course_site_2027/fonts/BeVietnamPro_SemiBold.ttf
+    - assets/course_site_2027/fonts/STIXTwoMath.ttf
+    - assets/course_site_2027/fonts/OFL_BeVietnamPro.txt
+    - assets/course_site_2027/fonts/OFL_STIX.txt
+    # Exact font assets and licenses required by the course pages.
+    - assets/zo_web_2027/assets/fonts/BeVietnamPro_Regular.ttf
+    - assets/zo_web_2027/assets/fonts/BeVietnamPro_SemiBold.ttf
+    - assets/zo_web_2027/assets/fonts/STIXTwoMath.ttf
+    - assets/zo_web_2027/assets/fonts/OFL_BeVietnamPro.txt
+    - assets/zo_web_2027/assets/fonts/OFL_STIX.txt
+    - assets/zo_web_2027/d0/assets/fonts/BeVietnamPro_Regular.ttf
+    - assets/zo_web_2027/d0/assets/fonts/BeVietnamPro_SemiBold.ttf
+    - assets/zo_web_2027/d0/assets/fonts/STIXTwoMath.ttf
+    - assets/zo_web_2027/d0/assets/fonts/OFL_BeVietnamPro.txt
+    - assets/zo_web_2027/d0/assets/fonts/OFL_STIX.txt
+    - assets/zo_web_2027/g02/assets/fonts/BeVietnamPro_Regular.ttf
+    - assets/zo_web_2027/g02/assets/fonts/BeVietnamPro_SemiBold.ttf
+    - assets/zo_web_2027/g02/assets/fonts/STIXTwoMath.ttf
+    - assets/zo_web_2027/g02/assets/fonts/OFL_BeVietnamPro.txt
+    - assets/zo_web_2027/g02/assets/fonts/OFL_STIX.txt
+    - assets/zo_web_2027/g03/assets/fonts/BeVietnamPro_Regular.ttf
+    - assets/zo_web_2027/g03/assets/fonts/BeVietnamPro_SemiBold.ttf
+    - assets/zo_web_2027/g03/assets/fonts/STIXTwoMath.ttf
+    - assets/zo_web_2027/g03/assets/fonts/OFL_BeVietnamPro.txt
+    - assets/zo_web_2027/g03/assets/fonts/OFL_STIX.txt
+    - assets/zo_web_2027/g04/assets/fonts/BeVietnamPro_Regular.ttf
+    - assets/zo_web_2027/g04/assets/fonts/BeVietnamPro_SemiBold.ttf
+    - assets/zo_web_2027/g04/assets/fonts/STIXTwoMath.ttf
+    - assets/zo_web_2027/g04/assets/fonts/OFL_BeVietnamPro.txt
+    - assets/zo_web_2027/g04/assets/fonts/OFL_STIX.txt
+    - assets/zo_web_2027/g05/assets/fonts/BeVietnamPro_Regular.ttf
+    - assets/zo_web_2027/g05/assets/fonts/BeVietnamPro_SemiBold.ttf
+    - assets/zo_web_2027/g05/assets/fonts/STIXTwoMath.ttf
+    - assets/zo_web_2027/g05/assets/fonts/OFL_BeVietnamPro.txt
+    - assets/zo_web_2027/g05/assets/fonts/OFL_STIX.txt
+    - assets/zo_web_2027/home/assets/fonts/BeVietnamPro_Regular.ttf
+    - assets/zo_web_2027/home/assets/fonts/BeVietnamPro_SemiBold.ttf
+    - assets/zo_web_2027/home/assets/fonts/STIXTwoMath.ttf
+    - assets/zo_web_2027/home/assets/fonts/OFL_BeVietnamPro.txt
+    - assets/zo_web_2027/home/assets/fonts/OFL_STIX.txt
+    - assets/zo_web_2027/r2_g01/assets/fonts/BeVietnamPro_Regular.ttf
+    - assets/zo_web_2027/r2_g01/assets/fonts/BeVietnamPro_SemiBold.ttf
+    - assets/zo_web_2027/r2_g01/assets/fonts/STIXTwoMath.ttf
+    - assets/zo_web_2027/r2_g01/assets/fonts/OFL_BeVietnamPro.txt
+    - assets/zo_web_2027/r2_g01/assets/fonts/OFL_STIX.txt
+    - assets/zo_web_2027/r2_g01/illustrations/adelie-canh-boi-4x3.webp
+    - assets/zo_web_2027/r2_g01/illustrations/chinstrap-1x1.webp
+    - assets/zo_web_2027/r2_g01/illustrations/gentoo-1x1.webp
+    - assets/zo_web_2027/r2_g01/illustrations/tram_khi_tuong-4x3.webp
+    - assets/zo_web_2027/r2_g01/illustrations/xe_dap_dung_chung-16x9.webp
+    - CNAME
+    - 404.html
+    - index.html
+    - search.json
+    - sitemap.xml
+    - robots.txt
+    - .nojekyll
+    - images/favicon.ico
+    - assets/logo/zo_math_logo_black_on_transprentt_1024.png
+    - assets/html/sidebar-layer.html
+    - content/thpt/index.html
+    - content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01/giao_dien/r1_g01.css
+    - content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/giao_dien/r1_g02.css
+    - content/thpt/on_thi_toan_thpt/hoc_lieu/d0/giao_dien/d0.css
+    - content/shop/index.html
+    - content/support/donate.html
+    - content/support/thanks.html
+    - content/triet_li_va_dinh_huong.html
+  globs:
+    - "site_libs/**"
+    - "assets/css/*.css"
+    - "assets/js/*.js"
+    - "assets/**/*.css"
+    - "assets/**/*.js"
+    - "assets/**/*.svg"
+    - "assets/**/*.png"
+    - "assets/**/*.jpg"
+    - "assets/**/*.jpeg"
+    - "assets/**/*.woff"
+    - "assets/**/*.woff2"
+    - "images/**"
+    - "content/about.html"
+    - "content/contact.html"
+    - "content/shop/**/*.html"
+    - "content/support/**/*.html"
+    - "content/thpt/**/*.html"
+    - "content/di_tim/**/*.html"
+    - "content/di_tim/*.html"
+    - "content/khoa_hoc/**/*.html"
+    - "content/khoa_hoc/*.html"
+    - "content/kien_tao/**/*.html"
+    - "content/kien_tao/*.html"
+    - "content/cong_cu/**/*.html"
+    - "content/cong_cu/*.html"
+    - "content/vi_sao/**/*.html"
+    - "content/vi_sao/*.html"
+    - "content/**/*.svg"
+    - "content/**/*.png"
+    - "content/**/*.jpg"
+    - "content/**/*.jpeg"
+    - "content/**/*.pdf"
+    - "content/thpt/**/assets/img/**/*.svg"
+    - "figures/thpt/**/*.svg"
+    - "figures/**/*.svg"
+    - "figures/**/*.png"
+    - "figures/**/*.jpg"
+    - "figures/**/*.jpeg"
+
+denylist:
+  paths:
+    - content/di_tim/di_tim_xac_suat
+    - content/di_tim/di_tim_ly_luan_toan_hoc
+    - content/di_tim/di_tim_toan_hoc
+    # Giữ vùng điều hành nội bộ bị chặn khi các trang học được mở công khai.
+    - _quy_trinh
+    - _audit
+    - README
+    - quy_trinh_xay_dung
+    - scripts
+  globs:
+    - "**/.env"
+    - "**/_quy_trinh"
+    - "**/_quy_trinh/**"
+    - "**/.env.*"
+    - "**/.ipynb_checkpoints/**"
+    - "**/__pycache__/**"
+    - "**/*_cache/**"
+    - "**/*.qmd"
+    - "**/*.Rmd"
+    - "**/*.md"
+    - "**/*.tex"
+    - "**/*.aux"
+    - "**/*.log"
+    - "**/*.fls"
+    - "**/*.fdb_latexmk"
+    - "**/*.synctex.gz"
+    - "**/*.py"
+    - "**/*.R"
+    - "**/*.sh"
+    - "**/*.ps1"
+    - "**/*.RData"
+    - "**/*.sqlite"
+    - "**/*.db"
+    - "**/*.pem"
+    - "**/*.key"
+
+default_max_file_size: 10485760
+size_exceptions: {}
+
+required_files:
+  - CNAME
+  - 404.html
+  - index.html
+  - .nojekyll
+  - images/favicon.ico
+  - assets/logo/zo_math_logo_black_on_transprentt_1024.png
