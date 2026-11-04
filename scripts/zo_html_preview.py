@@ -51,6 +51,9 @@ def matches(url, expected):
 def ensure_preview(root, page, port=8877):
     root = Path(root).resolve()
     target = page_path(root, page)
+    if 'data-zo-course-site=' in target.read_text(encoding='utf-8'):
+        from zo_site_views_dev import ensure
+        ensure()
     if not 1 <= port <= 65535:
         raise ValueError('Cổng phải trong khoảng 1–65535.')
     url = f'http://127.0.0.1:{port}/' + quote(target.relative_to(root).as_posix())

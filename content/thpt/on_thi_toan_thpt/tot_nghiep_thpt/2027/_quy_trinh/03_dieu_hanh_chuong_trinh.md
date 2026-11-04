@@ -1,6 +1,18 @@
 # Điều hành chương trình — trạng thái và việc tiếp theo
 
-## BẢN HIỆN HÀNH — Hình thống kê R2-G02, 04/11/2026
+## BẢN HIỆN HÀNH — Chân trang và tổng lượt xem Cloudflare, 04/11/2026
+
+[Khóa 2027 — bản HTML chính để duyệt chân trang](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html).
+
+Theo phản hồi trực tiếp của chủ trì: chân trang dùng chung trở về ba hàng thông tin ZO Math, kênh kết nối và bản quyền, nền trắng và căn giữa; bỏ khẩu hiệu cùng liên kết Cách học đứng riêng. Bỏ khối dẫn/nút Chuyên đề lặp ở cuối trang Cách học. Giữ điều hướng chính và thanh đồng hồ/Bảo trợ. Nguồn sửa tại `scripts/zo_course_site_sources/`; bằng chứng và kết quả dựng tại `_audit/footer_20261104/`. Bản sửa chờ duyệt trực quan; không commit, push hoặc xuất bản trong nhiệm vụ này.
+
+Theo yêu cầu tiếp theo, đã nối bộ đếm tổng lượt xem từ 03/11/2026 bằng Cloudflare Web Analytics, lọc bot và đúng hostname/site. Khóa Account Analytics Read được tạo sau xác nhận riêng của chủ trì, hết hạn 04/11/2027; khóa chỉ lưu mã hóa Windows DPAPI ngoài Git/HTML. API cục bộ tại 127.0.0.1:8878 đọc Cloudflare mỗi năm phút, giữ sổ từng ngày và thay số để không cộng trùng; chân trang đọc mỗi phút khi tab hiện, ghi mốc bắt đầu và báo dữ liệu cũ/lỗi. Lần gọi thật đầu trả về 26 lượt xem; đây không phải số nhập tay hay tổng lịch sử trước khi cài thống kê. Nguồn và hướng dẫn: `scripts/zo_site_views/README.md`; bằng chứng tại `_audit/site_views_20261104/`.
+
+Đồng thời sửa khoảng hở được chủ trì chỉ ra: bỏ khoảng chừa cố định dưới body, đo chiều cao thật của thanh đồng hồ để chừa chỗ bên trong nền trắng chân trang. Không còn dải nền trống giữa hai phần. Chỉ cập nhật JS/CSS dùng chung qua cổng `zo_course_site.py assets`, bảo toàn byte của cả 17 HTML và nội dung học liệu/PDF. Đường mở lại HTML tự khởi động/tái dùng API cục bộ khi có khóa. Worker dùng cùng mã đã chuẩn bị cho bước triển khai riêng; chưa tạo KV, route hoặc cron trên Cloudflare, chưa push hay xuất bản. Bản sửa tiếp tục chờ chủ trì xem, không tự coi là nghiệm thu.
+
+Việc duyệt hình R2-G02 ở mục kế tiếp vẫn còn hiệu lực; sửa chân trang không chứng nhận nghiệm thu hình hoặc PDF.
+
+## ĐANG CHỜ DUYỆT — Hình thống kê R2-G02, 04/11/2026
 
 [R2-G02 — bản HTML chính để duyệt](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g02/index.html).
 

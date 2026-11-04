@@ -511,3 +511,47 @@
     });
   }
 })();
+
+// Public aggregate only: no API credential or visitor details reach this page.
+(() => {
+  const footer = document.querySelector('.site-footer .footer-inner');
+  if (!footer) return;
+  const row = document.createElement('p');
+  row.className = 'site-views';
+  row.setAttribute('aria-live', 'polite');
+  row.textContent = 'Lượt xem toàn website: đang tải…';
+  footer.append(row);
+  const local = ['127.0.0.1', 'localhost'].includes(location.hostname);
+  const endpoint = local ? 'http://127.0.0.1:8878/api/site-views' : '/api/site-views';
+  let busy = false, last = null;
+  const format = new Intl.NumberFormat('vi-VN');
+  const date = value => new Date(value).toLocaleDateString('vi-VN', {timeZone:'Asia/Ho_Chi_Minh'});
+  function show(value, stale) {
+    row.replaceChildren(document.createTextNode('Lượt xem toàn website: ' + format.format(value.total)));
+    const note = document.createElement('small');
+    note.textContent = 'Cloudflare · từ ' + date(value.since) + (stale ? ' · Chưa cập nhật được số mới' : '');
+    row.append(note);
+    row.title = 'Cập nhật: ' + new Date(value.updated_at).toLocaleString('vi-VN') + '. Đã loại bot; số liệu có thể được Cloudflare hiệu chỉnh.';
+  }
+  async function refresh() {
+    if (busy || document.hidden) return;
+    busy = true;
+    try {
+      const response = await fetch(endpoint, {cache:'no-store',credentials:'omit',signal:AbortSignal.timeout(10000)});
+      if (!response.ok) throw Error('Unavailable');
+      const value = await response.json();
+      if (value.source !== 'Cloudflare Web Analytics' || value.metric !== 'page_views' || value.scope !== 'website'
+          || !Number.isSafeInteger(value.total) || value.total < 0 || value.exclude_bots !== true
+          || !Number.isFinite(Date.parse(value.since)) || !Number.isFinite(Date.parse(value.updated_at))
+          || Date.parse(value.updated_at) > Date.now()+60000 || Date.parse(value.since) > Date.parse(value.updated_at)) throw Error('Invalid aggregate');
+      last = value;
+      show(value, value.stale === true || Date.now()-Date.parse(value.updated_at)>20*60000);
+    } catch {
+      if (last) show(last, true);
+      else row.textContent = 'Lượt xem toàn website: tạm chưa lấy được số liệu';
+    } finally { busy = false; }
+  }
+  refresh();
+  setInterval(refresh, 60000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
+})();

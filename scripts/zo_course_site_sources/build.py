@@ -46,11 +46,11 @@ def footer():
     config=yaml.safe_load((c.ROOT/'_quarto.yml').read_text('utf-8'))
     center=config['website']['page-footer']['center']
     import re
-    info=''.join('<a href="'+esc(href.replace('.qmd','.html'),quote=True)+'">'+esc(label)+'</a>' for label,href in re.findall(r'\[([^\]]+)\]\(([^)]+)\)',center))
+    info=''.join('<a href="'+esc(c.rel(Path(href.lstrip('/')).with_suffix('.html')),quote=True)+'">'+esc(label)+'</a>' for label,href in re.findall(r'\[([^\]]+)\]\(([^)]+)\)',center))
     social=''.join('<a href="'+esc(a['href'],quote=True)+'">'+esc(a.get('title',''))+'</a>' for a in BeautifulSoup(center,'html.parser').select('a[href]'))
     copyright=re.search(r'©\s*\d{4}\s+ZO Math',center)
     assert copyright and info and social,'Canonical footer missing'
-    return '<footer class="site-footer" aria-label="Chân trang ZO Math"><div><p class="brand-thought">Học trong kỉ nguyên trí tuệ nhân tạo, học để tìm lại chính mình.</p><nav aria-label="Thông tin ZO Math">'+info+'</nav><nav aria-label="Kết nối ZO Math">'+social+'</nav><p>'+copyright.group()+' · Học liệu miễn phí</p></div><a href="cach-hoc.html">Cách học</a></footer>'
+    return '<footer class="site-footer" aria-label="Chân trang ZO Math"><div class="footer-inner"><nav aria-label="Thông tin ZO Math">'+info+'</nav><nav class="footer-social" aria-label="Kết nối ZO Math">'+social+'</nav><p class="footer-copyright">'+copyright.group()+' · Học liệu miễn phí</p></div></footer>'
 
 def document(title,body,kind='home',data=None,css=None):
     source=c.ROOT/c.PAGE.with_suffix('.qmd')
