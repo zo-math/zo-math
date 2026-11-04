@@ -1,6 +1,14 @@
 # Điều hành chương trình — trạng thái và việc tiếp theo
 
-## HIỆN HÀNH — Chuẩn bị cả video đã lên lịch, 05/11/2026
+## HIỆN HÀNH — Đã push nguồn/website; GitHub Pages đang chờ, 05/11/2026
+
+Chủ trì đã đồng ý rõ việc công khai nhánh nguồn vào `zo-math/zo-math`. Đã push thành công nhánh riêng `release/r1-g01-videos-20261104` tại `cf763de3`; không push master hoặc bốn commit ngoài phạm vi. Prepare và validate chính thức đều PASS; cây chuẩn bị trùng từng byte ứng viên đã kiểm. Công cụ publish đã commit và push `ec1bd8cd` trên gh-pages: đúng một HTML sửa, hai CSS/JS thêm, không có media, 1.002 tệp khác giữ nguyên. Remote master vẫn ở `49c5e36b`.
+
+Chưa xác nhận bản mới hiện diện trên website. GitHub Actions run `41891173669` build thành công nhưng deploy lần đầu hết thời gian sau hơn 600.000 ms ở trạng thái `updating_pages`, rồi action tự hủy deployment. Đã đọc log và chạy lại đúng job deploy `126788835136` một lần; GitHub nhận thành công. Lúc 19:12:26 UTC ngày 04/11 (02:12:26 giờ Việt Nam ngày 05/11), lần chạy lại vẫn `queued`, chưa có job mới bắt đầu; trang R1-G01 trả HTTP 200, hash trùng bản public cũ, chưa có khối video. Đây là chờ dịch vụ GitHub Pages, không còn là từ chối quyền công khai nguồn. Không tạo commit rỗng, không push lại, không đổi cấu hình Pages hay hủy lần chạy lại đang chờ.
+
+Còn phải đợi run trên hoàn tất rồi kiểm trực tiếp trang, hai tài nguyên nhúng, tài nguyên chung/PDF và 25 vị trí (20 phát thật, năm báo chưa khả dụng). Chưa lấy kiểm thử local thay kiểm trực tiếp. Giữ worktree nguồn riêng và ứng viên để tiếp tục nếu cần; các worktree Git sạch. Bằng chứng: `_audit/r1_g01_videos_20261104/publication.json`, `official-prepare.json`, `official-validation.json`, `deploy-attempt-1.log`, `deployment-current.json`. Job: https://github.com/zo-math/zo-math/actions/runs/41891173669 .
+
+## Mốc chuẩn bị cả video đã lên lịch — 05/11/2026
 
 Theo yêu cầu bổ sung của chủ trì, bản nguồn/canonical và ứng viên riêng đã có 25 khối nhúng YouTube: giữ 20 video công khai và thêm L05, L08 vào lời giải Luyện tập; O01, O02, O03 vào lời giải Ôn lại tương ứng. Đã đọc năm SRT cuối, khớp hash và dữ kiện của đúng bài. Không đặt video lời giải trong đề hoặc Kiểm tra; không tải tệp phim/phụ đề lên website. Hai tệp mới ở cây public là CSS/JS cho khung nhúng, không phải media.
 
