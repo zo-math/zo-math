@@ -70,5 +70,30 @@
       "code": "N-LG-01",
       "reason": "Draft release record without a YouTube URL"
     }
-  ]
+  ],
+  "technical_verification": {
+    "browser_checks": {
+      "passed": 39,
+      "total": 39,
+      "widths": [
+        1440,
+        390,
+        430
+      ]
+    },
+    "actual_iframe_playback": {
+      "passed": 20,
+      "total": 20,
+      "method": "Separate Edge test profile; click each player and observe currentTime > 0, paused false, readyState 4"
+    },
+    "source_commit": "9200acdea66353d61978e63fb2e245bd972855fa",
+    "reports": {
+      "_audit/r1_g01_videos_20261104/all-playback.json": "826872eea8c01f1a6648a0005a0f4fa4e8941620459592116ebd1c199884b7f8",
+      "_audit/r1_g01_videos_20261104/browser-check.json": "eb6bf2af284d94b282e7991403270d9b34e0dc2f306bf06c389382466228f871",
+      "_audit/r1_g01_videos_20261104/public-status.json": "6bad57f3fac01ce0ebb1847edfc129a9bd7b3758ab9048ef0430fc61c1adf360",
+      "_audit/r1_g01_videos_20261104/pdf-preservation.json": "87980c7f6d9db849909879b8aff653ab20f74e96c878fdbdfe0b1e4c50691495",
+      "_audit/r1_g01_videos_20261104/site-check.json": "7396388fbe41ebf35c1bf5c47ac046d2f78de0dbacdef2342ec8e7bb8e5fa872",
+      "_audit/r1_g01_videos_20261104/publish-blockers.json": "b3d1f4b9b5825e169bec28f0c379b7e413939968b9aef9187ada112f05b4b2ba"
+    }
+  }
 }
