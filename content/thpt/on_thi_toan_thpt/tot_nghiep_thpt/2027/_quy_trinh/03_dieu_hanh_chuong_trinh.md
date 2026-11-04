@@ -1,5 +1,13 @@
 # Điều hành chương trình — trạng thái và việc tiếp theo
 
+## HIỆN HÀNH — Nhúng video R1-G01, 04/11/2026
+
+Theo yêu cầu nhúng video, kiểm thử, commit và phát hành của chủ trì, đã bổ sung 20 video công khai: 11 trong Bài học, 6 trong Ôn nền và 3 trong đúng khối Lời giải. Đã đọc phụ đề cuối, đối chiếu SHA-256 với hồ sơ phát hành video và kiểm lại YouTube oEmbed (20 HTTP 200). Năm video lên lịch trả HTTP 403 và một bản nháp chưa có URL không được nhúng. Không xác nhận đã truy cập Studio: trình duyệt trong ứng dụng lỗi môi trường; dùng hồ sơ sản xuất và nguồn công khai.
+
+Video là hỗ trợ thu gọn, chỉ tải iframe khi mở, dừng khi đóng hoặc chuyển phần, có liên kết YouTube dự phòng. Đối chiếu nguồn sau khi loại phần HTML mới xác nhận giữ nguyên văn bản/toán/câu hỏi/đáp án/ID/hình của chín tệp; tám PDF trùng byte bản public. Bộ dựng canonical và kiểm 397 liên kết đạt; kiểm trình duyệt Edge tại 1440/430/390 px đạt 39/39, gồm bàn phím, khung dọc, đổi phần, lời giải và cổng hỗ trợ trong Kiểm tra. Không suy nghiệm thu chủ trì từ kiểm kỹ thuật.
+
+Chưa phát hành. Đang kiểm ứng viên chỉ trang R1-G01; nguồn hiện có bốn commit trước nhiệm vụ chưa push, và CSS/JS chung khác bản public. Không gộp hoặc đẩy các thay đổi giao diện ngoài phạm vi video. Danh mục vị trí, liên kết và hash phụ đề: `hoc_lieu/r1_g01/_quy_trinh/ho_so/videos_20261104_mapping.json`; hồ sơ biên tập mới: `videos_20261104_review.json`. Bằng chứng kiểm hiện hành: `_audit/r1_g01_videos_20261104/`.
+
 ## HIỆN HÀNH — Nhóm chuyên đề theo mạch
 
 Theo yêu cầu chủ trì, trang Chuyên đề có tiêu đề mạch lấy từ chuong_trinh.yml, không hiển thị mã quản lí. Mỗi mạch bắt đầu một lưới mới, nền thẻ luân phiên trắng/xám ZO; bộ lọc/tìm kiếm ẩn cả mạch không có kết quả. Hai mạch hiện có là Hàm số, đạo hàm và đồ thị (5 thẻ), Thống kê và đọc dữ liệu (2 thẻ). Giữ vị trí khảo sát đầu trang và toàn bộ ảnh/liên kết. Chỉ xem cục bộ, chưa phát hành. Bằng chứng: `_audit/topic_strands_20261105/`.
