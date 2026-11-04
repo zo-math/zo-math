@@ -152,12 +152,21 @@ def home(items):
     return document('Ôn thi Toán THPT 2027',body,data={'catalog':items})
 
 def topics(items):
-    rows=''.join(card(p) for p in items if p['id']!='d0')
+    strands=yaml.safe_load(c.DATA.read_text('utf-8'))['program']['strands']
+    groups=[]
+    for strand in strands:
+        members=[p for p in items if p['id']!='d0' and p['group']==strand['id']]
+        if not members:
+            continue
+        tone=' shaded' if len(groups)%2 else ''
+        heading='strand-'+strand['id'].lower()
+        groups.append(f'<section class="topic-strand{tone}" aria-labelledby="{heading}"><h2 id="{heading}">{esc(strand["title"])}</h2><div class="topic-grid">'+''.join(card(p) for p in members)+'</div></section>')
+    rows=''.join(groups)
     search=f'<label class="catalog-search">{icon("search")}<span class="visually-hidden">Tìm chuyên đề</span><input id="course-search" type="search" placeholder="Tìm chuyên đề…" autocomplete="off"></label>'
     body=header('topics')+f'''<main id="main-content" class="catalog-page"><div class="topics-introduction"><header class="catalog-heading"><h1>Chuyên đề</h1></header></div>
 <aside class="catalog-diagnostic"><div><h2>Khảo sát đầu vào</h2><p>{esc(next(p['summary'] for p in items if p['id']=='d0'))}</p></div>{btn('d0.html#khai-bao-pham-vi','Làm khảo sát','secondary')}</aside>
 <section id="recent-reading" class="resume-strip" aria-label="Vị trí đọc gần nhất" hidden></section>
-<section class="catalog" id="chuyen-de" aria-labelledby="catalog-title"><h2 id="catalog-title" class="visually-hidden">Danh sách chuyên đề</h2><div class="catalog-toolbar"><div class="catalog-filters" role="group" aria-label="Lọc chuyên đề"><button data-filter="all" aria-pressed="true">Tất cả</button><button data-filter="R1" aria-pressed="false">Hàm số</button><button data-filter="R2" aria-pressed="false">Thống kê</button></div>{search}</div><p id="filter-status" class="visually-hidden" role="status"></p><div class="topic-grid">{rows}</div><div id="no-courses" class="empty-state" hidden><h3>Chưa tìm thấy chuyên đề phù hợp</h3><p>Thử một từ ngắn hơn hoặc chọn “Tất cả”.</p><button id="clear-search" class="button secondary">Xóa bộ lọc</button></div></section>
+<section class="catalog" id="chuyen-de" aria-labelledby="catalog-title"><h2 id="catalog-title" class="visually-hidden">Danh sách chuyên đề</h2><div class="catalog-toolbar"><div class="catalog-filters" role="group" aria-label="Lọc chuyên đề"><button data-filter="all" aria-pressed="true">Tất cả</button><button data-filter="R1" aria-pressed="false">Hàm số</button><button data-filter="R2" aria-pressed="false">Thống kê</button></div>{search}</div><p id="filter-status" class="visually-hidden" role="status"></p><div class="topic-strands">{rows}</div><div id="no-courses" class="empty-state" hidden><h3>Chưa tìm thấy chuyên đề phù hợp</h3><p>Thử một từ ngắn hơn hoặc chọn “Tất cả”.</p><button id="clear-search" class="button secondary">Xóa bộ lọc</button></div></section>
 </main>'''+footer()
     return document('Chuyên đề',body,'topics',data={'catalog':items})
 

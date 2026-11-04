@@ -1,5 +1,9 @@
 # Điều hành chương trình — trạng thái và việc tiếp theo
 
+## HIỆN HÀNH — Nhóm chuyên đề theo mạch
+
+Theo yêu cầu chủ trì, trang Chuyên đề có tiêu đề mạch lấy từ chuong_trinh.yml, không hiển thị mã quản lí. Mỗi mạch bắt đầu một lưới mới, nền thẻ luân phiên trắng/xám ZO; bộ lọc/tìm kiếm ẩn cả mạch không có kết quả. Hai mạch hiện có là Hàm số, đạo hàm và đồ thị (5 thẻ), Thống kê và đọc dữ liệu (2 thẻ). Giữ vị trí khảo sát đầu trang và toàn bộ ảnh/liên kết. Chỉ xem cục bộ, chưa phát hành. Bằng chứng: `_audit/topic_strands_20261105/`.
+
 ## HIỆN HÀNH — Hoàn tất bộ ảnh và vị trí khảo sát
 
 Đã dọn bộ G03 v1 hết dùng, chuẩn hóa nguồn ảnh G05/R2-G02 và kiểm đủ bảy bộ, 35 PNG. Ảnh gốc giữ nguyên; bốn bố cục mới của mỗi bộ chờ duyệt riêng. Khảo sát đầu vào ở ngay dưới tiêu đề trang Chuyên đề, trước vị trí đọc gần nhất và bộ lọc; kiểm desktop/mobile không tràn ngang. Chủ trì đã giao kiểm tra, hiệu chỉnh và commit các mốc quan trọng; chưa cho phép push hoặc phát hành. Bằng chứng: `_audit/topic_library_cleanup_20261104/` và `_audit/catalog_diagnostic_top_20261105/`.
