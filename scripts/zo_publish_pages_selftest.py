@@ -58,14 +58,17 @@ class PageReleaseTests(unittest.TestCase):
         self.assertIn({'type':'page-release-pdf-change','path':'content/old.pdf'},result['issues'])
 
     def test_d0_pdf_requires_current_receipt_inputs_and_exact_candidate_bytes(self):
+        from pypdf import PdfWriter
         source=self.root/'d0-source';candidate=self.root/'d0-candidate'
         for root in (source,candidate):
             file=root/pages.D0_PDF;file.parent.mkdir(parents=True,exist_ok=True)
-            shutil.copyfile(ROOT/pages.D0_PDF,file)
+            writer=PdfWriter()
+            for _ in range(2):writer.add_blank_page(width=100,height=100)
+            writer.write(file)
         self.write(source,'input.txt','current')
         self.write(source,'content/thpt/on_thi_toan_thpt/hoc_lieu/d0/_quy_trinh/pdf_build.json',
                    json.dumps({'output_sha256':p.sha256(source/pages.D0_PDF),
-                               'pages':20,
+                               'pages':2,
                                'inputs_sha256':{'input.txt':p.sha256(source/'input.txt')}}))
         self.assertEqual(pages.d0_pdf_issues(candidate,source),[])
         self.write(source,'input.txt','stale')
@@ -164,7 +167,7 @@ class PageReleaseTests(unittest.TestCase):
     def test_input_or_tool_changes_invalidate_cache_key(self):
         repo=self.root/'fingerprint';repo.mkdir()
         self.write(repo,'index.qmd','source')
-        for name in ['zo_publish.py','zo_publish_pages.py','zo_quarto.py','zo_python.py','zo_publish_navigation.py']:
+        for name in ['zo_publish.py','zo_publish_pages.py','zo_quarto.py','zo_python.py','zo_publish_navigation.py','zo_publish_videos.py']:
             self.write(repo,'scripts/'+name,'tool')
         def source_git(root,*args):
             return '100644 '+('b'*40)+' 0\tindex.qmd\0' if args[0]=='ls-files' else 'index.qmd\0'

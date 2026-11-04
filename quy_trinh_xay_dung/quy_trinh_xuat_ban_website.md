@@ -251,3 +251,33 @@ Không kết hợp cờ này với `--approved-course`, `--page` hay `--full-ren
 
 Kiểm hồi quy: `scripts/zo_publish_current_course_selftest.py` và
 `scripts/zo_publish_course_selftest.py`, qua launcher Python của repository.
+
+### Bổ sung riêng video vào HTML đang công khai
+
+Khi được giao giữ nguyên giao diện đã phát hành và chỉ thêm video, dùng
+`prepare --page <HTML> --video-only-page <HTML>`, rồi `validate` và `publish`.
+Phiên bản đầu hỗ trợ R1-G01 theo hồ sơ vị trí
+`r1_g01/_quy_trinh/ho_so/videos_20261104_placements.json`.
+Đây là phép bổ sung có kiểm chứng trên cây Git public, không phải dựng lại
+giao diện trung gian hoặc sửa thủ công đầu ra trong `docs/`.
+
+Cổng kiểm yêu cầu nguồn QMD/include sau khi bỏ đúng các khối video mới phải
+trùng nguồn ghi trong commit public. Mỗi vị trí phải duy nhất; không chèn vào
+Kiểm tra. Chỉ được sửa HTML đã chọn và thêm hai tài nguyên video mới. Bỏ các
+đoạn chèn phải khôi phục đúng từng byte HTML trước đó. Các kiểm tra này chạy
+trước đồng bộ ứng viên và lặp lại trước xuất bản, cùng mọi cổng manifest,
+allowlist, PDF, tài nguyên dùng chung, remote và backup hiện hành. Chỉ mục
+tìm kiếm, sitemap và mọi tài nguyên đã phát hành giữ nguyên byte.
+
+Nếu nhánh `master` đang chứa công việc chưa được phép push, có thể tạo nhánh
+nguồn phát hành riêng từ đúng commit nguồn public theo quyền tách đợt của
+chủ trì. Chỉ đưa các tệp thuộc nhiệm vụ vào nhánh ấy; cấu hình riêng truyền
+bằng `--config` giữ nguyên toàn bộ chính sách public, chỉ thay `source_branch`.
+Nguồn vẫn phải commit, kiểm và push lên đúng nhánh đã khai báo trước publish;
+không force push hoặc đẩy các commit chưa được phép. Ghi `Source-Branch` và
+giữ trailer `Source-Master` như khóa tương thích cho SHA nguồn. Hợp nhất nhánh
+phát hành về nguồn chính cục bộ để giữ quan hệ tổ tiên, bảo toàn công việc
+khác; việc hợp nhất này không cho phép push phần việc khác.
+
+Kiểm hồi quy: `scripts/zo_publish_videos_selftest.py` và
+`scripts/zo_publish_pages_selftest.py`, qua launcher của repository.

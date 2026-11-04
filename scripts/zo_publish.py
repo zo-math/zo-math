@@ -1732,8 +1732,9 @@ def publish_site(root: Path, config_path: Path, config: Mapping[str, Any]) -> in
             unstage_paths(target, changed)
             raise
         short = expected_source[:12]
-        subject = f"Publish website from master {short}"
+        subject = f"Publish website from {config['source_branch']} {short}"
         body = (f"Source-Master: {expected_source}\n\n"
+                f"Source-Branch: {config['source_branch']}\n\n"
                 f"Previous-GH-Pages: {expected_target}\n\n"
                 f"Publish-Config-SHA256: {payload['config_sha256']}")
         commit = git(target, "commit", "-m", subject, "-m", body, safe=target)
@@ -1866,6 +1867,7 @@ def parser() -> argparse.ArgumentParser:
     value.add_argument("--approved-course", action="store_true", help="prepare: release the approved canonical course HTML pages and their verified PDFs without historical rebuilds.")
     value.add_argument("--full-render", action="store_true", help="prepare: use the legacy two full-site renders instead of page artifacts.")
     value.add_argument("--navigation-only-page", action="append", default=[], help="prepare: inherit published learner HTML and update only its canonical course menu; must also be in --page.")
+    value.add_argument("--video-only-page", action="append", default=[], help="prepare: add source-declared videos to published canonical HTML, preserving every existing byte and asset; must also be in --page.")
     value.add_argument("--page", action="append", default=[], help="prepare: giới hạn HTML; lặp lại cho từng trang, vẫn kèm tài nguyên phụ thuộc.")
     value.add_argument('--d0-pdf', action='store_true',
                        help='prepare --page D0: include the one current, receipted D0 PDF.')
@@ -1881,6 +1883,9 @@ def parser() -> argparse.ArgumentParser:
 def main(argv: Sequence[str] | None = None) -> int:
     started = time.perf_counter()
     args = parser().parse_args(argv)
+    if args.video_only_page and (args.command != 'prepare' or set(args.video_only_page) != set(args.page) or args.navigation_only_page or args.with_pdfs or args.d0_pdf or args.full_render or args.current_course or args.approved_course):
+        print('ERROR: video-only requires exactly the selected HTML pages and no other release mode.', file=sys.stderr)
+        return EXIT_USAGE
     if args.navigation_only_page and (args.command != "prepare" or not set(args.navigation_only_page) <= set(args.page) or args.with_pdfs or args.d0_pdf):
         print("ERROR: navigation-only requires selected HTML pages and no PDF changes.", file=sys.stderr)
         return EXIT_USAGE
