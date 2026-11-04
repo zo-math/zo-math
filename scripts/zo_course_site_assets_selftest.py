@@ -58,4 +58,14 @@ class AssetRefreshTests(unittest.TestCase):
         self.assertEqual(before,(self.c.OUT/'index.html').read_bytes())
         self.assertEqual((self.c.ASSETS/'app.js').read_text(),'new')
 
+    def test_asset_refresh_emits_portable_lines_without_changing_html(self):
+        before=(self.c.OUT/'index.html').read_bytes()
+        self.site.install_assets=lambda:(self.c.ASSETS/'app.js').write_bytes(b'first\r\nsecond\r\n')
+        with patch('zo_course_site_scope.page_inputs',return_value={}),patch('zo_course_site_protection.refresh'):
+            self.assertEqual(apply(self.site,Path('result.json')),0)
+        self.assertEqual((self.c.ASSETS/'app.js').read_bytes(),b'first\nsecond\n')
+        self.assertEqual((self.c.OUT/'index.html').read_bytes(),before)
+        record=json.loads(self.site.CURRENT.read_text('utf-8'))
+        self.assertEqual(record['shared_asset_refresh']['normalized_asset_line_endings'],['assets/app.js'])
+
 if __name__=='__main__': unittest.main()
