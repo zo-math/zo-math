@@ -3,6 +3,7 @@ import copy
 import io
 import json
 import tempfile
+import shutil
 import unittest
 from contextlib import redirect_stderr
 from pathlib import Path
@@ -65,6 +66,18 @@ class ApprovedCourseTests(unittest.TestCase):
         records=json.loads((self.root/'public/search.json').read_text())
         self.assertEqual(records[0],old[0]);self.assertEqual(records[1]['text'],'Current text')
         self.assertIn('https://zomath.vn/index.html',(self.root/'public/sitemap.xml').read_text())
+    def test_repeated_identical_release_preserves_full_indexes_byte_for_byte(self):
+        old=[{'href':'index.html','title':'Keep','text':'Keep'},{'href':self.page,'title':'Old','text':'Old'}]
+        self.write(self.target,'search.json',json.dumps(old))
+        self.write(self.target,'sitemap.xml','<urlset><url><loc>https://zomath.vn/index.html</loc></url><url><loc>https://zomath.vn/'+self.page+'</loc></url></urlset>')
+        self.candidate()
+        previous=self.root/'public';target=self.root/'second-target'
+        shutil.copytree(previous,target)
+        result=course.candidate(target,self.docs,self.root/'second-render',self.root/'second-public',[self.page],self.pdfs,self.config)
+        self.assertFalse(result['issues'])
+        for name in ['search.json','sitemap.xml']:
+            self.assertEqual((self.root/'second-public'/name).read_bytes(),(previous/name).read_bytes())
+        self.assertFalse(result['diff']['update'])
     def test_unsealed_dependency_rejected(self):
         with self.assertRaisesRegex(p.ConfigError,'Unsealed canonical dependency'):
             course.candidate(self.target,self.docs,self.root/'render',self.root/'public',[self.page],self.pdfs,self.config,{})

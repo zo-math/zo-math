@@ -29,12 +29,14 @@ def apply(site, report):
             raise ValueError('Previous asset changed outside builder: '+name)
     # No HTML is parsed, rewritten or adopted as native render input.
     site.install_assets()
+    from zo_course_site_output import normalize_lines
+    normalized=normalize_lines(root,context.OUT,[p for p in context.ASSETS.rglob('*') if p.is_file()])
     from zo_course_site_scope import page_inputs
     record = dict(prior, inputs=current)
     record['page_inputs'] = page_inputs(root, context, current, site.catalog_metadata(), prior['table_profiles'])
     record['pending_pages'] = {}
     record['assets'] = {p.relative_to(context.OUT).as_posix():site.sha(p) for p in context.ASSETS.rglob('*') if p.is_file()}
-    record['shared_asset_refresh'] = {'at':datetime.now(timezone.utc).isoformat(),'changed':sorted(changed),'HTML_unchanged':True}
+    record['shared_asset_refresh'] = {'at':datetime.now(timezone.utc).isoformat(),'changed':sorted(changed),'HTML_unchanged':True,'normalized_asset_line_endings':normalized}
     site.save(site.CURRENT, record)
     from zo_course_site_protection import refresh
     refresh(root, context, record)

@@ -185,7 +185,9 @@ def candidate(target, docs, rendered, destination, pages, pdfs, config, approved
     selected_indexes(rendered, pages, config)
     destination.mkdir(parents=True)
     p.copy_manifest(target, destination, before)
-    p.copy_manifest(rendered, destination, p.tree_manifest(rendered))
+    overlay=p.tree_manifest(rendered)
+    overlay['files']={name:item for name,item in overlay['files'].items() if name not in {'search.json','sitemap.xml'}}
+    p.copy_manifest(rendered, destination, overlay)
     merge_indexes(target, rendered, destination, pages, config)
     manifest = p.tree_manifest(destination)
     indexes = p.normalize_public_indexes(destination, manifest, config)
