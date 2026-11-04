@@ -1,12 +1,16 @@
 # Điều hành chương trình — trạng thái và việc tiếp theo
 
-## HIỆN HÀNH — Đã push nguồn/website; GitHub Pages đang chờ, 05/11/2026
+## HIỆN HÀNH — Đã push bản 25 video; GitHub Pages kẹt trạng thái, 05/11/2026
 
 Chủ trì đã đồng ý rõ việc công khai nhánh nguồn vào `zo-math/zo-math`. Đã push thành công nhánh riêng `release/r1-g01-videos-20261104` tại `cf763de3`; không push master hoặc bốn commit ngoài phạm vi. Prepare và validate chính thức đều PASS; cây chuẩn bị trùng từng byte ứng viên đã kiểm. Công cụ publish đã commit và push `ec1bd8cd` trên gh-pages: đúng một HTML sửa, hai CSS/JS thêm, không có media, 1.002 tệp khác giữ nguyên. Remote master vẫn ở `49c5e36b`.
 
-Chưa xác nhận bản mới hiện diện trên website. GitHub Actions run `41891173669` build thành công nhưng deploy lần đầu hết thời gian sau hơn 600.000 ms ở trạng thái `updating_pages`, rồi action tự hủy deployment. Đã đọc log và chạy lại đúng job deploy `126788835136` một lần; GitHub nhận thành công. Lúc 19:12:26 UTC ngày 04/11 (02:12:26 giờ Việt Nam ngày 05/11), lần chạy lại vẫn `queued`, chưa có job mới bắt đầu; trang R1-G01 trả HTTP 200, hash trùng bản public cũ, chưa có khối video. Đây là chờ dịch vụ GitHub Pages, không còn là từ chối quyền công khai nguồn. Không tạo commit rỗng, không push lại, không đổi cấu hình Pages hay hủy lần chạy lại đang chờ.
+Chưa xác nhận bản mới hiện diện trên website. Run `41891173669` build thành công nhưng deploy lần đầu hết thời gian sau hơn 600.000 ms ở trạng thái `updating_pages`, rồi action tự hủy deployment. Đã chạy lại đúng job deploy `126788835136` một lần; GitHub nhận thành công lúc 19:02:26 UTC ngày 04/11. Chẩn đoán tiếp: lần 1 `completed/failure`, lần 2 chưa tồn tại (HTTP 404), danh sách job mới rỗng, Pages báo `errored` và deployment báo `deployment_cancelled`, nhưng run vẫn `queued`.
 
-Còn phải đợi run trên hoàn tất rồi kiểm trực tiếp trang, hai tài nguyên nhúng, tài nguyên chung/PDF và 25 vị trí (20 phát thật, năm báo chưa khả dụng). Chưa lấy kiểm thử local thay kiểm trực tiếp. Giữ worktree nguồn riêng và ứng viên để tiếp tục nếu cần; các worktree Git sạch. Bằng chứng: `_audit/r1_g01_videos_20261104/publication.json`, `official-prepare.json`, `official-validation.json`, `deploy-attempt-1.log`, `deployment-current.json`. Job: https://github.com/zo-math/zo-math/actions/runs/41891173669 .
+Đã thử khôi phục an toàn bằng `cancel`, rồi `force-cancel` chính thức theo tài liệu GitHub. Cả hai đều trả HTTP 409 với thông báo nguyên văn “Cannot cancel a workflow re-run that has not yet queued.” Đây là xung đột trạng thái phía GitHub, không phải từ chối quyền xuất bản hay lỗi bộ kiểm nguồn. Không tạo job trùng, commit rỗng, push lại, đổi cấu hình Pages hoặc DNS. Các lệnh hủy không thành công; yêu cầu chạy lại vẫn do GitHub giữ. Cần GitHub giải phóng trạng thái này trước khi có thể xác nhận kết quả triển khai của run hiện có.
+
+Kiểm HTTP cuối tại 2026-11-04T19:20:50.229594+00:00: trang R1-G01 trả 200, hash vẫn `ae3b1d41cecc231fdbefda27b03f0deb006595a22d4ba1d10419d1b46e478039`, chưa có khối video mới. Chưa kiểm trình duyệt bản mới trên website vì bản ấy chưa được phục vụ. Bản ứng viên đã đạt 74/74 kiểm trình duyệt, gồm 20 video phát thật và năm phản hồi chưa khả dụng; không lấy kết quả local thay kiểm trực tiếp. Giữ worktree nguồn riêng và ứng viên để tiếp tục; không có tiến trình theo dõi cục bộ chạy nền.
+
+Bằng chứng: `_audit/r1_g01_videos_20261104/publication.json`, `official-prepare.json`, `official-validation.json`, `deploy-attempt-1.log`, `queue-recovery.json`, `deployment-diagnosis.json`. Run: https://github.com/zo-math/zo-math/actions/runs/41891173669 . Khi GitHub xử lý xong, phải kiểm lại trang, hai tài nguyên nhúng, tài nguyên chung/PDF và đủ 25 vị trí; chưa ghi trạng thái xuất bản thành công.
 
 ## Mốc chuẩn bị cả video đã lên lịch — 05/11/2026
 
