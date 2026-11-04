@@ -49,9 +49,13 @@ export async function update(env, now = Date.now(), fetcher = fetch) {
   }
   const total = Object.values(days).reduce((a, b) => a + b, 0);
   if (!Number.isSafeInteger(total)) throw Error('Total exceeds safe integer range');
+  const vietnamOffset = 7 * 3600000;
+  const dayStart = Math.floor((now + vietnamOffset) / DAY) * DAY - vietnamOffset;
+  const todayCount = now > dayStart ? await count(env, cfg, iso(Math.max(since, dayStart)), iso(now), fetcher) : 0;
   const ledger = {identity, days, updated_at: iso(now)};
   const snapshot = {schema_version: 1, source: 'Cloudflare Web Analytics', metric: 'page_views',
-    scope: 'website', hosts: cfg.hosts, total, since: cfg.since, updated_at: ledger.updated_at, exclude_bots: true};
+    scope: 'website', hosts: cfg.hosts, total, today: todayCount, day: iso(now+vietnamOffset).slice(0,10),
+    day_timezone: 'Asia/Ho_Chi_Minh', since: cfg.since, updated_at: ledger.updated_at, exclude_bots: true};
   // One write publishes the whole successful refresh; failed requests preserve the last good value.
   await env.SITE_VIEWS.put('ledger', JSON.stringify({...ledger, snapshot}));
   return snapshot;

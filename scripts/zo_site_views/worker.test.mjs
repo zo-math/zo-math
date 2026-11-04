@@ -47,3 +47,19 @@ test('API exposes aggregate only, labels stale data and restricts origins/method
   assert.equal((await handle(new Request('http://local/api/site-views',{headers:{Origin:'https://unrelated.example'}}),env)).status,403);
   assert.equal((await handle(new Request('http://local/api/site-views',{method:'POST'}),env)).status,405);
 });
+
+test('today starts at Vietnamese midnight, not UTC midnight or a rolling 24 hours',async()=>{
+  const env=environment(), filters=[];
+  const result=await update(env,Date.parse('2026-11-04T07:30:00Z'),async(url,options)=>{
+    filters.push(JSON.parse(options.body).variables.filter);
+    return data(10)(url,options);
+  });
+  assert.equal(filters.at(-1).datetime_geq,'2026-11-03T17:00:00.000Z');
+  assert.equal(result.today,10);assert.equal(result.day,'2026-11-04');
+  assert.equal(result.day_timezone,'Asia/Ho_Chi_Minh');
+});
+
+test('at exact Vietnamese midnight today resets without losing the cumulative total',async()=>{
+  const result=await update(environment(),Date.parse('2026-11-04T17:00:00Z'),data(10));
+  assert.equal(result.today,0);assert.equal(result.day,'2026-11-05');assert.equal(result.total,20);
+});

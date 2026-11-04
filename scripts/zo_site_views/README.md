@@ -6,6 +6,12 @@ Analytics, tài khoản/site/hostname được giới hạn trong cấu hình; l
 để thay lượt xem. Mốc bắt đầu 03/11/2026 là ngày bắt đầu ghi nhận, không tuyên
 bố phục hồi lịch sử trước khi cài beacon.
 
+Chân trang chỉ hiển thị hai dòng: lượt xem trong ngày và tổng từ 3/11/2026.
+Lượt trong ngày được truy vấn riêng từ 00:00 giờ Việt Nam (UTC+7), không lấy
+ngày UTC hoặc 24 giờ trượt. Qua nửa đêm, không hiển thị số ngày trước như
+số hôm nay trong lúc chờ lần cập nhật mới. Nguồn và trạng thái cập nhật nằm
+trong chú giải khi trỏ vào thống kê.
+
 `worker.mjs` giữ sổ tổng hợp từng ngày UTC, thay số theo ngày khi cập nhật,
 không cộng trùng. Mỗi lần cập nhật chỉ công bố sau khi tất cả truy vấn thành
 công; kiểm lại bảy ngày gần nhất để nhận hiệu chỉnh. Giữ ngày cũ vượt cửa sổ
