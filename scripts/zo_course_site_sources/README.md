@@ -1,6 +1,18 @@
 # Dựng HTML khóa 2027 từ nguồn chính
 
+## Đường vận hành duy nhất của website
+
+Tài liệu này sở hữu toàn bộ lệnh dựng, kiểm và cập nhật website khóa 2027. Các lệnh Quarto trực tiếp, bộ preview, checkpoint và shell kit cũ trong tài liệu khác đã hết hiệu lực đối với giao diện cuối. Chúng chỉ được gọi nội bộ khi bộ dựng hiện hành cần tạo nội dung native; không chạy chúng để ghi hoặc bàn giao website. Chỉ giữ nguồn nội dung và các hợp đồng toán/học tập còn hiệu lực, không kế thừa bố cục từ bản dựng cũ.
+
+Giao diện nằm trong thư mục này: `build.py` ghép trang; `site.css` là lớp cơ sở; `course-redesign.css` ghi đè giao diện toàn khóa; `learning-redesign.css` và `learning-format.css` áp cho trang học. Khi sửa CSS, phải kiểm thứ tự nạp và giá trị computed trên bản cuối. Không sửa kit `_design/web_2027_mau_dung_chung` để chỉnh header website mới.
+
+Vận hành từ gốc repo qua `scripts/zo_python.py`: `zo_course_site.py plan` để xác định phạm vi; `build --page <QMD>` để dựng trang cụ thể; `check --page <QMD>` để kiểm kết quả. `zo_qmd.py render <QMD> --html-only` là cửa vào tương đương, có gọi lớp website cuối. `build --all` chỉ dùng cho nhiệm vụ toàn khóa. `assets` chỉ dùng với thay đổi được cổng tài nguyên chấp nhận; không gọi riêng `install_assets()` để bỏ qua hồ sơ độ mới và bảo vệ. Mở HTML đã dựng bằng `zo_html_preview.py`, bàn giao theo `zo_html_handoff.py`; không chạy Quarto preview để thay bản website.
+
 Nguồn biên tập và vận hành duy nhất là repository `E:\zo_math`. Không có bản R01 riêng hoặc prototype trong vòng vận hành. Không đọc `inputs/material`, `preview` hay `_audit` làm đầu vào dựng. Các module native mà CLI hiện hành gọi là thành phần nguồn đang hoạt động; chúng không phải phương án khôi phục website cũ.
+
+## Quản lí minh họa thẻ
+
+Danh mục phiên bản và quy cách xuất ảnh tại `content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_data/minh_hoa_chuyen_de.json`. Nguồn ảnh thuộc `hinh/minh_hoa_chuyen_de_vN/` của từng gói; ảnh gốc đã chốt được bảo vệ bằng hash. Xem `illustrations/README.md` và dùng `scripts/zo_topic_art.py build/check` qua launcher cho năm tỉ lệ. Bộ dựng thẻ đọc danh mục này, không hard-code danh sách ảnh theo gói và không thay binding bìa học liệu/PDF. HTML hiện tại tiếp tục dùng nguyên byte ảnh gốc được duyệt; các bản xuất kích thước được quản lí riêng.
 
 ## Nguồn nào sở hữu phần nào
 

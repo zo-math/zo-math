@@ -1,5 +1,56 @@
 # Điều hành chương trình — trạng thái và việc tiếp theo
 
+## HIỆN HÀNH — Hoàn tất bộ ảnh và vị trí khảo sát
+
+Đã dọn bộ G03 v1 hết dùng, chuẩn hóa nguồn ảnh G05/R2-G02 và kiểm đủ bảy bộ, 35 PNG. Ảnh gốc giữ nguyên; bốn bố cục mới của mỗi bộ chờ duyệt riêng. Khảo sát đầu vào ở ngay dưới tiêu đề trang Chuyên đề, trước vị trí đọc gần nhất và bộ lọc; kiểm desktop/mobile không tràn ngang. Chủ trì đã giao kiểm tra, hiệu chỉnh và commit các mốc quan trọng; chưa cho phép push hoặc phát hành. Bằng chứng: `_audit/topic_library_cleanup_20261104/` và `_audit/catalog_diagnostic_top_20261105/`.
+
+## ĐÃ CHỐT HÌNH — Độ phân tán và so sánh dữ liệu, 04/11/2026
+
+Đã lưu đủ năm tỉ lệ trong thư viện chính thức R2-G02; bốn bố cục mới 1:1, 3:4, 4:3, 9:16 chờ duyệt riêng. Bản gốc và binding HTML giữ nguyên. Hồ sơ nguồn/prompt/hash ở manifest thư viện.
+
+[Khóa 2027 — bản HTML hiện hành](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html). [Chuyên đề](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/chuyen-de.html).
+
+Chủ trì yêu cầu đưa mẫu hai cân vào HTML để xem thử. Nguồn Nhiệm vụ 15, R2G02-NV12; ảnh lưu tại hoc_lieu/r2_g02/hinh/minh_hoa_chuyen_de_v1/. Chủ trì đã duyệt ảnh gốc và giao tạo đủ năm tỉ lệ; chỉ thay ảnh thẻ R2-G02. Giữ bìa học liệu/PDF, chưa push hoặc phát hành.
+
+## ĐÃ CHỐT HÌNH — Đọc dữ liệu và đo xu thế trung tâm, 04/11/2026
+
+Đã lưu đủ năm tỉ lệ trong thư viện chính thức R2-G01; bốn bố cục mới 1:1, 3:4, 4:3, 9:16 chờ duyệt riêng. Bản gốc và binding HTML giữ nguyên. Hồ sơ nguồn/prompt/hash ở manifest thư viện.
+
+[Khóa 2027 — bản HTML hiện hành](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html). [Chuyên đề](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/chuyen-de.html).
+
+Chủ trì duyệt mẫu năm đồng hồ và yêu cầu đưa vào HTML. Nguồn R2G01-GM02; ảnh nguyên byte tại hoc_lieu/r2_g01/hinh/minh_hoa_chuyen_de_v1/. Chỉ thay ảnh thẻ R2-G01, giữ bìa học liệu/PDF. Chưa phát hành.
+
+## THƯ VIỆN CHÍNH THỨC — Minh họa chiếc hộp G05, 04/11/2026
+
+Đã lưu đủ năm tỉ lệ 1:1, 3:4, 4:3, 9:16, 16:9 trong thư viện chính thức của G05 theo yêu cầu tiếp. Bốn bố cục mới được bố trí lại và chờ duyệt riêng; nguồn gốc giữ nguyên, HTML không tự chuyển sang biến thể. Manifest ghi prompt, kích thước và hash từng tệp.
+
+[Khóa 2027 — bản HTML hiện hành](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html). [Chuyên đề — ảnh G05 hiện hành](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/chuyen-de.html).
+
+Chủ trì yêu cầu gắn mẫu chiếc hộp vào HTML để xem thử trước. Ảnh từ Ví dụ 05 của G05, ba chiều cao 2/5/10 cm, hộp giữa nhấn đỏ vàng. Nguồn giữ nguyên byte tại hoc_lieu/r1_g05/hinh/minh_hoa_chuyen_de_v1/. Đã được chủ trì yêu cầu đưa vào thư viện chính thức và dùng trên HTML; không đổi bìa bài học/PDF. Chưa push hoặc phát hành. Bằng chứng: _audit/g05_card_preview_20261104/.
+
+
+## ĐÃ CHỐT HÌNH — Minh họa Khảo sát hàm số G04, 04/11/2026
+
+[Khóa 2027 — bản HTML hiện hành](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html). [Chuyên đề — xem thẻ Khảo sát hàm số](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/chuyen-de.html).
+
+Chủ trì đã duyệt ảnh gốc và yêu cầu đủ năm tỉ lệ. Sau phản hồi về lỗi tiệm cận ở bản vuông AI, bốn bố cục 1:1, 3:4, 4:3, 9:16 được dựng từ công thức bằng `scripts/zo_topic_art_g04.py`, dùng cùng ánh xạ tọa độ cho đồ thị/tiệm cận và kiểm đúng phía; đang chờ duyệt bố cục riêng. Bản 16:9 giữ bố cục đã chốt. Theo yêu cầu chủ trì, đưa ảnh mẫu từ Ví dụ 05 của G04 vào thẻ trên HTML cục bộ: hai nhánh rời, cực đại thấp hơn cực tiểu. Nguồn nguyên byte được lưu tại `hoc_lieu/r1_g04/hinh/minh_hoa_chuyen_de_v1/`; danh mục `_data/minh_hoa_chuyen_de.json` chọn phiên bản này. Giữ nguyên bìa học liệu/PDF và các thẻ khác. Chưa push hoặc phát hành. Bằng chứng: `_audit/g04_card_art_20261104/`.
+
+
+## ĐÃ CHỐT HÌNH — Minh họa Đường tiệm cận v2, 04/11/2026
+
+[Khóa 2027 — bản HTML hiện hành](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html). [Chuyên đề — xem thẻ Đường tiệm cận](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/chuyen-de.html).
+
+Chủ trì đã duyệt ảnh gốc v2 và giao tạo đủ năm tỉ lệ, tổ chức lưu giữ. Bốn bản bố trí lại 1:1, 3:4, 4:3, 9:16 chờ duyệt riêng; bản 16:9 giữ bố cục đã chốt. Ảnh gốc đổi tên ổn định thành `originals/r1_g03-approved.png`, giữ nguyên hash và dữ liệu điểm ảnh. Website tiếp tục dùng nguyên ảnh này. Chủ trì yêu cầu đưa ảnh mẫu G03 vào website. Bản đang dùng là v2 theo chỉ thị tiếp: bỏ nhãn, tăng độ cao đường cong và kéo dài hai đuôi ép sát tiệm cận; nguồn tại hoc_lieu/r1_g03/hinh/minh_hoa_chuyen_de_v2/. Bản v1 lỗi thời đã được xóa theo yêu cầu dọn dẹp, chỉ v2 còn trong nguồn. Lưu nguyên byte nguồn hiện hành tại `hoc_lieu/r1_g03/hinh/minh_hoa_chuyen_de_v2/originals/`, đăng ký manifest trong `_data/minh_hoa_chuyen_de.json` và cập nhật thẻ bằng bộ dựng hiện hành. Hình dựa trên Ví dụ 04: đường cong cắt tiệm cận ngang rồi tiến sát ở hai đầu. Giữ nguyên bìa học liệu/PDF, nội dung bài học và các thẻ khác. Chỉ cập nhật HTML cục bộ, chưa push hoặc phát hành. Bằng chứng: `_audit/g03_card_art_20261104/`.
+
+
+## ĐÃ CHỐT HÌNH — Hai minh họa thẻ G01/G02, 04/11/2026
+
+[Khóa 2027 — bản HTML hiện hành](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html). [Chuyên đề — hai minh họa đã chốt](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/chuyen-de.html).
+
+Chủ trì đã chốt hai ảnh viền điểm màu đỏ cùng đường cong. Ảnh gốc được lưu nguyên byte theo phiên bản trong `hinh/minh_hoa_chuyen_de_v1/` của từng gói G01/G02; danh mục duy nhất là `_data/minh_hoa_chuyen_de.json`, manifest từng bộ ghi bằng chứng duyệt, xuất xứ và hash. `scripts/zo_topic_art.py build/check` xuất/kiểm năm tỉ lệ 1:1, 3:4, 4:3, 9:16, 16:9. Theo lựa chọn tiếp của chủ trì, bốn tỉ lệ 1:1, 3:4, 4:3, 9:16 được bố trí lại riêng và đang chờ duyệt từng bản; bản 16:9 giữ bố cục đã chốt. `variant_sources` trong manifest tách rõ nguồn và trạng thái từng bố cục, không tự nâng các bản mới thành đã duyệt.
+
+Website đọc nguồn ảnh từ danh mục và tiếp tục dùng nguyên ảnh gốc đã chốt; không thay binding bìa học liệu/PDF. Các chuyên đề sau theo quy trình chốt ảnh → lưu phiên bản gói → đăng ký → xuất/kiểm → cập nhật HTML đúng phạm vi. Duyệt hai ảnh không tự là nghiệm thu toàn website hoặc quyền phát hành. Chưa push hoặc xuất bản. Bằng chứng ở `_audit/topic_art_library_20261104/`.
+
 ## BẢN HIỆN HÀNH — PDF và thống kê công khai, 04/11/2026
 
 [Khóa 2027 — bản HTML chính](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html).
