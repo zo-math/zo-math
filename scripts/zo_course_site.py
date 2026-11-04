@@ -35,7 +35,10 @@ def prepare_reader(doc,key):
     # Lifecycle text is replaced explicitly; no learning sentence is rewritten.
     notes=[]
     for n in root.select('.zo-pdf-current-note'):
-        notes.append(n.get_text(' ',strip=True))  # Preserve the live provenance label emitted by the native adapter.
+        notes.append(n.get_text(' ',strip=True))
+    if root.select('#tai-tai-lieu .zo-pdf-card'):
+        from zo_course_pdf_download_state import apply as apply_pdf_state
+        apply_pdf_state(doc,ROOT,c.BASE/'hoc_lieu'/key)
     before=fingerprint(root)
     on_lai=root.select_one('#on-lai')
     if on_lai:

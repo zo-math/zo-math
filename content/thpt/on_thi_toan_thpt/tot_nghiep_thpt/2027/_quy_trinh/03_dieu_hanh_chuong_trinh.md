@@ -1,6 +1,16 @@
 # Điều hành chương trình — trạng thái và việc tiếp theo
 
-## BẢN HIỆN HÀNH — Chân trang và tổng lượt xem Cloudflare, 04/11/2026
+## BẢN HIỆN HÀNH — Sửa PDF và phát hành lại, 04/11/2026
+
+[Khóa 2027 — bản HTML chính](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html).
+
+Chủ trì yêu cầu hoàn tất PDF, kiểm kỹ rồi xuất bản lại lên zomath.vn, chỉ cập nhật phần cần thiết và ghi đè đúng các đường dẫn hiện hành. Chỉ PDF toàn văn giữ phần Bắt đầu. Mọi biến thể khác bỏ trọn phần này, các mục con, mục lục và bookmark tương ứng; Bảo trợ vẫn ở cuối mọi bản.
+
+Đã sửa bộ chiếu Lua và mô hình kiểm bản in, bổ sung cổng kiểm PDF thực tế và chốt chặn khi phát hành. Sáu bản học sinh trước đó còn Bắt đầu là lỗi thật của bộ chiếu; không dùng lại các tệp ấy. Đã dựng mới 48 PDF của G01–G05 và R2-G01 từ QMD canonical, ghi đè tại gói và đồng bộ bản tải trong docs. Kiểm độc lập đủ 48 bản đạt: sáu toàn văn giữ Bắt đầu, 42 bản khác không còn phần này; provenance hiện hành, byte bản tải, kết quả bố cục và Bảo trợ cuối tài liệu đều đạt. PDF D0 không chịu ảnh hưởng được kiểm riêng, không dựng lại; R2-G02 chưa khai báo biến thể PDF.
+
+Lớp HTML cuối lấy lại trạng thái từ provenance thật, không giữ thông báo R01 cũ rằng PDF chưa cập nhật. Số trang trên thẻ tải được đọc từ tệp PDF thực tế. Không đổi nội dung toán, ảnh bìa, ID hoặc đường dẫn tải. Hồ sơ kiểm hiện hành: [PDF và bản tải](ho_so/pdf_opening_policy_20261104_review.json); bằng chứng ảnh tại `_audit/pdf_opening_policy_20261104/`. Quyền phát hành hiện tại được ghi ở `ho_so/uy_quyen_phat_hanh_hien_hanh.json`; nghiệm thu chủ quan không được suy ra từ quyền này. Kết quả đưa lên website phải theo biên nhận prepare/validate/publish và kiểm tệp đang phục vụ sau phát hành, không chỉ dựa vào trạng thái Git.
+
+## MỐC TRƯỚC — Chân trang và tổng lượt xem Cloudflare, 04/11/2026
 
 [Khóa 2027 — bản HTML chính để duyệt chân trang](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html).
 
