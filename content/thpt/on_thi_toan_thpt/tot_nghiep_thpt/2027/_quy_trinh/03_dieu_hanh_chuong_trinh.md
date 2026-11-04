@@ -1,6 +1,18 @@
 # Điều hành chương trình — trạng thái và việc tiếp theo
 
-## HIỆN HÀNH — Nhúng video R1-G01, 04/11/2026
+## HIỆN HÀNH — Chuẩn bị cả video đã lên lịch, 05/11/2026
+
+Theo yêu cầu bổ sung của chủ trì, bản nguồn/canonical và ứng viên riêng đã có 25 khối nhúng YouTube: giữ 20 video công khai và thêm L05, L08 vào lời giải Luyện tập; O01, O02, O03 vào lời giải Ôn lại tương ứng. Đã đọc năm SRT cuối, khớp hash và dữ kiện của đúng bài. Không đặt video lời giải trong đề hoặc Kiểm tra; không tải tệp phim/phụ đề lên website. Hai tệp mới ở cây public là CSS/JS cho khung nhúng, không phải media.
+
+Năm lịch dự kiến đều lúc 12:00 giờ Việt Nam: L05 ngày 05/11, L08 ngày 07/11, O01 ngày 08/11, O02 ngày 09/11, O03 ngày 10/11/2026. Hiện cả năm trả oEmbed 403 và iframe báo chưa khả dụng. Trang ghi lịch dự kiến, giải thích trạng thái do YouTube quyết định, có nút tải lại và liên kết dự phòng. Khi YouTube cho phát, mở/tải lại cùng khung sẽ xem được; không cần đổi ID hay phát hành lại website. Thông báo chờ chỉ ẩn khi API xác nhận đang phát; không suy công khai từ đồng hồ. Không thay lịch/quyền trên YouTube.
+
+Kiểm nguồn và dựng canonical qua `zo_qmd.py` đạt; đối chiếu bỏ khối nhúng vẫn giữ nguyên nội dung gốc của chín tệp. Ứng viên riêng vẫn chỉ thay một HTML, thêm hai tệp CSS/JS, giữ nguyên 1.002 tệp khác và 70 PDF kế thừa; 426 liên kết cục bộ không có lỗi. Trình duyệt đạt 74/74 (20 video phát thật, năm phản hồi chưa khả dụng được giải thích); giả lập chuyển trạng thái/lỗi/tải lại đạt 15/15 trên mỗi bản canonical và ứng viên. Giả lập không phải xác nhận các video đã lên lịch hiện phát được. Bộ kiểm bảo toàn phát hành đạt 12/12.
+
+N-LG-01 có sản phẩm đã duyệt nhưng hồ sơ phát hành `ZO-V000018` vẫn là draft, `youtube_id` và `url` đều null. Chưa nhúng, không tạo URL/iframe giả hoặc hứa thời điểm phát; cần ID YouTube thật để nối vào Ôn nền Mệnh đề và phản ví dụ. Hồ sơ mới: `videos_20261105_review.json`; danh mục 25 video và vị trí tiếp tục ở `videos_20261104_mapping.json` / `videos_20261104_placements.json`. Bằng chứng mới tại `_audit/r1_g01_videos_20261104/scheduled-*`.
+
+Chỉ chuẩn bị và kiểm thử theo yêu cầu mới; chưa push, chưa xuất bản, chưa thử lại thao tác bị từ chối. Nhánh public vẫn ở `4e3d259f`. Quyền công khai nhánh nguồn vào GitHub vẫn cần được xác nhận riêng; không bỏ cổng nguồn remote của quy trình phát hành. Mốc 20 video bên dưới là lịch sử của lượt trước.
+
+## Mốc chuẩn bị 20 video — 04/11/2026
 
 Theo yêu cầu nhúng video, kiểm thử, commit và phát hành của chủ trì, đã bổ sung 20 video công khai: 11 trong Bài học, 6 trong Ôn nền và 3 trong đúng khối Lời giải. Đã đọc phụ đề cuối, đối chiếu SHA-256 với hồ sơ phát hành video và kiểm lại YouTube oEmbed (20 HTTP 200). Năm video lên lịch trả HTTP 403 và một bản nháp chưa có URL không được nhúng. Không xác nhận đã truy cập Studio: trình duyệt trong ứng dụng lỗi môi trường; dùng hồ sơ sản xuất và nguồn công khai.
 
