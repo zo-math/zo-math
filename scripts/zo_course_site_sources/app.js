@@ -62,6 +62,7 @@
         const visible = (filter === 'all' || p.group === filter) && clean(`${p.title} ${p.summary} ${p.code}`).includes(query);
         card.hidden = !visible; if (visible) count++;
       });
+      $$('.topic-strand').forEach(group => { group.hidden = !Array.from(group.querySelectorAll('.course-card')).some(card => !card.hidden); });
       $('#filter-status').textContent = count + ' chuyên đề';
       $('#filter-status').classList.toggle('visually-hidden', !query && filter === 'all');
       $('#no-courses').hidden = count !== 0;
