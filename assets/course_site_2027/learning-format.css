@@ -74,8 +74,14 @@
 @media(max-width:1000px){.mobile-reading-outline{scroll-margin-top:150px}}
 @media(max-width:760px){.site-foundation .utility-main{width:calc(100% - 24px);padding:22px;margin-block:20px}.mobile-reading-outline{scroll-margin-top:174px}}
 
-/* Shared canonical brand and footer, requested for the current release. */
-.site-footer .brand-thought{font-size:1.05rem;line-height:1.6;max-width:46rem;color:var(--ink,#252525)}
-.site-footer nav{display:flex;flex-wrap:wrap;gap:.6rem 1.2rem;margin:.8rem 0}
-.site-footer p{margin:.8rem 0}
-@media(max-width:600px){.site-footer{align-items:flex-start;gap:1rem;flex-direction:column}.site-footer .brand-thought{font-size:1rem}}
+/* One shared footer: site information, social links, then copyright. */
+.site-footer{display:block;width:100%;max-width:none;margin:24px 0 0;padding:20px 24px calc(20px + var(--dock-height,88px));background:#fff;color:var(--muted);font-size:13px;line-height:1.8;text-align:center}
+.site-footer .footer-inner{max-width:1200px;margin-inline:auto}
+.site-footer nav{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 24px;margin:0}
+.site-footer nav a{display:inline-flex;align-items:center;min-height:32px;text-decoration:none;text-underline-offset:4px}
+.site-footer nav a:hover{text-decoration:underline;color:var(--red)}
+.site-footer .footer-social{gap:8px 24px;margin-top:4px}
+.site-footer .footer-copyright{margin:8px 0 0;font-size:12px}
+.site-footer .site-views{font-size:12px;margin:8px 0 0;line-height:1.7}
+@media screen{body{padding-bottom:0}}
+@media(max-width:600px){.site-footer{margin-top:20px;padding-inline:20px;font-size:12px}.site-footer nav{gap:4px 18px}}
