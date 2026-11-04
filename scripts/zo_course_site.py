@@ -82,6 +82,11 @@ def prepare_reader(doc,key):
     if not all(d in after['disclosures'] for d in before['disclosures']):raise ValueError('Existing answer disclosure lost')
     return doc,notes
 def install_assets():
+    from zo_topic_art import card_art, load_registry
+    (c.ASSETS/'illustrations').mkdir(parents=True,exist_ok=True)
+    for key in load_registry(ROOT)['packages']:
+        src,_=card_art(ROOT,key);dest=c.ASSETS/'illustrations'/(key+'.png')
+        if not dest.exists() or sha(src)!=sha(dest):shutil.copyfile(src,dest)
     c.ASSETS.mkdir(parents=True,exist_ok=True)
     for name in ['site.css','course-redesign.css','learning-redesign.css','guidance.css','learning-format.css','app.js','presence.js','foundation-return.js']:
         src=c.DESIGN/name;dest=c.ASSETS/name

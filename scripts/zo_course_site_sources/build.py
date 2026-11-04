@@ -99,6 +99,12 @@ MODES=[('bai-hoc','Bài học','Hiểu ý tưởng và cách làm','book'),('phi
        ('tu-kiem-tra','Kiểm tra','Thử sức trong một lượt tự làm','check'),('on-lai','Ôn lại','Gọi lại kiến thức sau một khoảng nghỉ','repeat')]
 
 def card(p):
+    # The registry selects approved card artwork independently of lesson/PDF covers.
+    from zo_topic_art import card_art
+    artwork = card_art(c.ROOT, p['id'])
+    if artwork is not None:
+        p = dict(p, cover=c.rel(Path('assets/course_site_2027/illustrations') / (p['id'] + '.png')),
+                 coverAlt=artwork[1])
     actions=''.join(f'<a class="topic-activity" data-activity="{key}" href="{p["url"]}#{key}">{icon(ic)}<span>{label}</span>{icon("arrow")}</a>' for key,label,hint,ic in MODES)
     overview=btn(p['url']+'#tong-quan','Tổng quan','primary topic-overview-entry',extra='data-overview')
     return f'''<article class="course-card topic-card" data-course="{p['id']}" data-group="{p['group']}" aria-labelledby="title-{p['id']}"><figure class="topic-art"><img src="{p['cover']}" alt="{esc(p['coverAlt'])}" loading="lazy"></figure><button class="save-course icon-button" data-save="{p['id']}" aria-label="Lưu chuyên đề {esc(p['title'])}" aria-pressed="false">{icon('bookmark')}</button><div class="topic-body"><h3 id="title-{p['id']}">{esc(p['title'])}</h3><p>{esc(p['summary'])}</p>{overview}<nav class="topic-activities" aria-label="Các phần của {esc(p['title'])}">{actions}</nav></div></article>'''
@@ -149,9 +155,10 @@ def topics(items):
     rows=''.join(card(p) for p in items if p['id']!='d0')
     search=f'<label class="catalog-search">{icon("search")}<span class="visually-hidden">Tìm chuyên đề</span><input id="course-search" type="search" placeholder="Tìm chuyên đề…" autocomplete="off"></label>'
     body=header('topics')+f'''<main id="main-content" class="catalog-page"><div class="topics-introduction"><header class="catalog-heading"><h1>Chuyên đề</h1></header></div>
+<aside class="catalog-diagnostic"><div><h2>Khảo sát đầu vào</h2><p>{esc(next(p['summary'] for p in items if p['id']=='d0'))}</p></div>{btn('d0.html#khai-bao-pham-vi','Làm khảo sát','secondary')}</aside>
 <section id="recent-reading" class="resume-strip" aria-label="Vị trí đọc gần nhất" hidden></section>
 <section class="catalog" id="chuyen-de" aria-labelledby="catalog-title"><h2 id="catalog-title" class="visually-hidden">Danh sách chuyên đề</h2><div class="catalog-toolbar"><div class="catalog-filters" role="group" aria-label="Lọc chuyên đề"><button data-filter="all" aria-pressed="true">Tất cả</button><button data-filter="R1" aria-pressed="false">Hàm số</button><button data-filter="R2" aria-pressed="false">Thống kê</button></div>{search}</div><p id="filter-status" class="visually-hidden" role="status"></p><div class="topic-grid">{rows}</div><div id="no-courses" class="empty-state" hidden><h3>Chưa tìm thấy chuyên đề phù hợp</h3><p>Thử một từ ngắn hơn hoặc chọn “Tất cả”.</p><button id="clear-search" class="button secondary">Xóa bộ lọc</button></div></section>
-<aside class="catalog-diagnostic"><div><h2>Khảo sát đầu vào</h2><p>{esc(next(p['summary'] for p in items if p['id']=='d0'))}</p></div>{btn('d0.html#khai-bao-pham-vi','Làm khảo sát','secondary')}</aside></main>'''+footer()
+</main>'''+footer()
     return document('Chuyên đề',body,'topics',data={'catalog':items})
 
 def side_nav(p,items):

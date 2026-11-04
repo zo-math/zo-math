@@ -33,7 +33,7 @@ def python_sources(root, entries):
 def build_sources(root, context):
     from zo_course_editorial import closure
     root = Path(root).resolve()
-    files = {context.DATA}
+    files = {context.DATA, root / context.HOME / '_data/minh_hoa_chuyen_de.json'}
     files.update(python_sources(root, [
         'scripts/zo_course_site.py', 'scripts/zo_qmd.py',
         'scripts/zo_check_repo.py', 'scripts/zo_quarto.py',
