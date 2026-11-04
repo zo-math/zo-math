@@ -3,6 +3,11 @@
   'use strict';
   const info = JSON.parse(document.querySelector('#page-data').textContent).presence;
   const dock = document.querySelector('#course-presence');
+  // Reserve its measured height inside the white footer, without a canvas gap.
+  const syncDockHeight = () => document.documentElement.style.setProperty('--dock-height', dock.getBoundingClientRect().height + 'px');
+  if ('ResizeObserver' in window) new ResizeObserver(syncDockHeight).observe(dock);
+  addEventListener('resize', syncDockHeight);
+  syncDockHeight();
   const dialog = document.querySelector('#presence-dialog');
   const target = Date.parse(info.target);
   const auto = document.querySelector('#exam-auto');
