@@ -16,7 +16,7 @@ def main():
     if not out.is_relative_to(ROOT/'_audit'):parser.error('Report must be in this repository audit directory')
     out.mkdir(parents=True,exist_ok=True)
     mapping=json.loads((ROOT/PACKAGE/'_quy_trinh/ho_so/videos_20261104_mapping.json').read_text('utf-8'))
-    server=None;checks={};playback=[];error=None
+    server=None;checks={};playback=[];scheduled=[];error=None
     class Quiet(SimpleHTTPRequestHandler):
         def log_message(self,*args):pass
     if args.root:
@@ -39,7 +39,7 @@ def main():
             target=requests.put(endpoint+'/json/new?about:blank',timeout=10).json();b=Browser(target['webSocketDebuggerUrl']);b.call('Page.enable');b.call('Runtime.enable')
             for width in [1440,390,430]:
                 b.viewport(width,1080 if width>500 else 844);b.navigate(url+'#bai-hoc')
-                test(f'{width}: 20 closed optional videos',b.evaluate('document.querySelectorAll(".zo-learning-video").length===20&&!document.querySelector(".zo-learning-video[open],.zo-learning-video iframe")'))
+                test(f'{width}: all videos initially closed',b.evaluate('document.querySelectorAll(".zo-learning-video").length==='+str(len(mapping))+'&&!document.querySelector(".zo-learning-video[open],.zo-learning-video iframe")'))
                 test(f'{width}: page fits',b.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
                 b.evaluate('document.querySelector("#video-h01 summary").focus()');b.key('Enter',13,'\r')
                 test(f'{width}: keyboard opens player',b.evaluate('!!document.querySelector("#video-h01 iframe[title]")'))
@@ -51,7 +51,19 @@ def main():
             for item in mapping:
                 ident='video-'+item['code'].lower();b.navigate(url+'#'+ident);time.sleep(.2)
                 test(ident+': iframe and fallback',b.evaluate('(()=>{const n=document.getElementById('+json.dumps(ident)+'),f=n.querySelector("iframe");return !!f&&f.src.includes('+json.dumps(item['video_id'])+')&&!!n.querySelector("a[target=_blank]")})()'))
-                if args.playback:
+                if item.get('availability',{}).get('status')=='scheduled_at_review':
+                    notice=b.evaluate('document.querySelector('+json.dumps('#'+ident+' .zo-video-status')+').textContent')
+                    test(ident+': schedule and YouTube authority disclosed','YouTube' in notice and ('Lịch công khai dự kiến' in notice or 'chưa cho phát' in notice))
+                    if args.playback:
+                        for _ in range(20):
+                            time.sleep(1)
+                            notice=b.evaluate('document.querySelector('+json.dumps('#'+ident+' .zo-video-status')+').textContent')
+                            if 'YouTube chưa cho phát' in notice:break
+                        unavailable='YouTube chưa cho phát' in notice
+                        scheduled.append(dict(code=item['code'],video_id=item['video_id'],unavailable_reported=unavailable,notice=notice))
+                        test(ident+': actual unavailable response explained',unavailable)
+                    b.screenshot(out/(ident+'.png'))
+                elif args.playback:
                     time.sleep(3);frame=next((t for t in b.call('Target.getTargets')['targetInfos'] if t['type']=='iframe' and item['video_id'] in t['url']),None)
                     record=dict(code=item['code'],video_id=item['video_id'],played=False)
                     if frame:
@@ -76,7 +88,7 @@ def main():
             b.navigate(url+'#tu-kiem-tra');test('no video in test',b.evaluate('!document.querySelector("#tu-kiem-tra .zo-learning-video")'))
             b.click('a[data-view="bai-hoc"]');test('test support gate retained',b.evaluate('document.querySelector("#support-gate").open'))
             b.call('Emulation.setScriptExecutionDisabled',{'value':True});b.call('Page.navigate',{'url':url});time.sleep(1)
-            test('no JS: all fallback links retained',b.evaluate('document.querySelectorAll(".zo-learning-video a[href^=\\"https://www.youtube.com/shorts/\\"]").length===20'))
+            test('no JS: all fallback links retained',b.evaluate('document.querySelectorAll(".zo-learning-video a[href^=\\"https://www.youtube.com/shorts/\\"]").length==='+str(len(mapping))))
         except Exception as exc:error=str(exc);print(error,flush=True)
         finally:
             if b:
@@ -86,6 +98,6 @@ def main():
             try:proc.wait(timeout=10)
             except subprocess.TimeoutExpired:proc.terminate();proc.wait(timeout=10)
             if server:server.shutdown()
-    args.report.write_text(json.dumps(dict(url=url,checks=checks,passed=sum(checks.values()),total=len(checks),playback=playback,error=error),ensure_ascii=False,indent=2),encoding='utf-8')
+    args.report.write_text(json.dumps(dict(url=url,checks=checks,passed=sum(checks.values()),total=len(checks),playback=playback,scheduled=scheduled,error=error),ensure_ascii=False,indent=2),encoding='utf-8')
     return int(bool(error) or not checks or not all(checks.values()))
 if __name__=='__main__':raise SystemExit(main())
