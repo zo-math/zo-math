@@ -94,6 +94,26 @@ def closing_support_checks(texts, support):
     }
 
 
+def opening_policy_checks(reader, variant, texts=None):
+    """Reject the opening in every non-full edition, including old PDFs."""
+    texts = texts if texts is not None else [page.extract_text() or '' for page in reader.pages]
+    def titles(nodes):
+        for node in nodes:
+            if isinstance(node, list):
+                yield from titles(node)
+            elif isinstance(node, dict):
+                yield str(node.get('/Title', ''))
+    is_opening = lambda text: bool(re.fullmatch(r'(?:\d+[.)]?\s*)?Bắt\s+đầu', ' '.join(text.split()), re.I))
+    has_anchor = 'bat-dau' in reader.named_destinations
+    has_outline = any(is_opening(title) for title in titles(reader.outline))
+    has_heading = any(is_opening(line) for text in texts for line in text.splitlines())
+    if variant == 'full':
+        return {'full edition retains opening': has_anchor and has_heading}
+    return {'non-full edition excludes opening anchor': not has_anchor,
+            'non-full edition excludes opening bookmark': not has_outline,
+            'non-full edition excludes opening heading': not has_heading}
+
+
 def check(path, source=None, variant=None):
     reader=PdfReader(path); texts=[p.extract_text() for p in reader.pages]
     all_text='\n'.join(texts); support=support_model()
@@ -102,10 +122,12 @@ def check(path, source=None, variant=None):
     profile=yaml.safe_load((folder/'_quy_trinh/ho_so/index.yml').read_text(encoding='utf-8'))
     definition=config['extensions']['pdf_variants'][variant] if variant else next(v for v in config['extensions']['pdf_variants'].values() if v['output']==path.name)
     output_name=definition['output']
+    actual_variant = variant or next(k for k,v in config['extensions']['pdf_variants'].items() if v['output']==output_name)
     shell=config['extensions']['course_pdf_shell']
     norm=lambda t:re.sub(r'\s+',' ',t).strip()
     compact=lambda t:re.sub(r'\s+','',t)
     checks={
+        **opening_policy_checks(reader, actual_variant, texts),
         'A4 every page':all(abs(float(p.mediabox.width)-595.276)<1 and abs(float(p.mediabox.height)-841.89)<1 for p in reader.pages),
         'centered HTTPS website footer every page':all(footer_checks(reader)),
         'resolved print page references':'??' not in all_text and (output_name not in ['index.pdf','index_hoc_sinh.pdf'] or '(trang' in all_text),

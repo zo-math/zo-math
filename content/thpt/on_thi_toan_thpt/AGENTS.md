@@ -106,6 +106,8 @@ lần thay bìa, không chứng nhận bìa hiện tại đã được sửa hay
 
 ## Render, preview và xuất bản
 
+PDF khóa 2027 tuân thủ mục “Ánh xạ canonical sang PDF” của quy chuẩn gói: chỉ `full` giữ phần Bắt đầu; tất cả biến thể còn lại phải bỏ cả phần và các mục con. Khi dựng hoặc chuẩn bị phát hành PDF, kiểm quy tắc này trên tệp thật, không kế thừa PDF cũ chỉ vì đã có provenance. Chỉ thị ngày 04/11/2026 thay cách chiếu bản học sinh trước đây.
+
 Kế thừa dự án Quarto ở gốc; không tạo `_quarto.yml` độc lập. Hai trang cửa ngõ chưa thuộc một dự án QMD có cấu hình, nên dùng trình khởi chạy Quarto chung từ gốc repository:
 
 ```text

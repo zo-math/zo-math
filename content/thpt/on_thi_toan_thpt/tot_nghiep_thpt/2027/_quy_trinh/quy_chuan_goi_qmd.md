@@ -238,6 +238,8 @@ Thẻ PDF gồm tiêu đề/mô tả, số trang và nút tải; mobile thích �
 
 ### Ánh xạ canonical sang PDF
 
+- Theo chỉ thị trực tiếp ngày 04/11/2026, **chỉ PDF toàn văn (`full`) giữ phần Bắt đầu**. Bản học sinh (`student`) và mọi PDF chức năng phải loại toàn bộ phần này cùng các mục con, mục lục và đích nội bộ tương ứng. Liên kết còn cần tới phần đã loại chuyển về HTML canonical; không giữ lại phần Bắt đầu chỉ để làm đích liên kết. Quy tắc này thay cách chiếu cũ của bản học sinh. Phải dựng lại từ QMD hiện hành; không dùng lại PDF cũ hoặc sửa tay provenance để gọi CURRENT. Bộ dựng và cổng xuất bản kiểm trực tiếp PDF, từ chối bản không toàn văn còn phần Bắt đầu. Bảo trợ cuối tài liệu vẫn bắt buộc trong mọi biến thể.
+
 - Theo chỉ thị chủ trì ngày 21/10/2026, mọi PDF (toàn văn, học sinh và từng chức năng) đều có phần **Bảo trợ cuối tài liệu**. Dùng component nguồn chung; cấm lược bỏ theo biến thể. Bộ dựng và cổng PDF phải kiểm trang cuối trước thay đầu ra. Hướng dẫn nguồn: `_design/ngon_ngu_thiet_ke_zo_math_0_4/04_ap_dung/06_pdf.md`.
 
 - PDF giữ nguyên vai trò nội dung của QMD/HTML nhưng dùng quy tắc dàn trang phù hợp khổ A4; không sao chép máy móc kích thước hoặc hành vi thu gọn của trình duyệt.

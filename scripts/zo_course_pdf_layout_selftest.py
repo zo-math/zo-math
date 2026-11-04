@@ -6,6 +6,38 @@ import zo_course_pdf_layout as layout
 
 ROOT=Path(__file__).resolve().parents[1]
 class PrintContractTests(unittest.TestCase):
+ def test_opening_is_full_only_in_source_projection(self):
+  text='---\nr1-section-download-files:\n- variant: bai_hoc\n  start: bai-hoc\n---\n## Bắt đầu {#bat-dau}\nINTRO_ONLY\n### Mục con {#intro-child}\nCHILD_ONLY\n## Bài học {#bai-hoc}\nLESSON_KEEP\n## Lời giải {#loi-giai}\nANSWER_ONLY\n## Nguồn {#nguon}\nSOURCE_KEEP\n'
+  self.assertIn('INTRO_ONLY',layout.selected_source(text,'full'))
+  for variant in ['student','bai_hoc']:
+   chosen=layout.selected_source(text,variant)
+   self.assertNotIn('INTRO_ONLY',chosen);self.assertNotIn('CHILD_ONLY',chosen)
+   self.assertIn('LESSON_KEEP',chosen);self.assertIn('SOURCE_KEEP',chosen)
+
+ def test_actual_pdf_opening_guard_rejects_anchor_bookmark_and_heading_separately(self):
+  from zo_pdf_course_check import opening_policy_checks
+  from types import SimpleNamespace
+  for anchor,outline,text in [({'bat-dau':True},[],''),({},[{'/Title':'1 Bắt đầu'}],''),({},[],'Bắt đầu\nIntro')]:
+   pdf=SimpleNamespace(named_destinations=anchor,outline=outline)
+   self.assertFalse(all(opening_policy_checks(pdf,'student',[text]).values()))
+  pdf=SimpleNamespace(named_destinations={},outline=[])
+  self.assertTrue(all(opening_policy_checks(pdf,'bai_hoc',['Bài học\nContent']).values()))
+  self.assertFalse(all(opening_policy_checks(pdf,'full',['Bài học']).values()))
+
+ def test_lua_projection_removes_entire_opening_and_repairs_links(self):
+  import subprocess,sys
+  with tempfile.TemporaryDirectory(prefix='opening_projection_',dir=ROOT/'.quarto') as tmp:
+   src=Path(tmp)/'opening.md'
+   content='---\nzo-course-pdf-shell: true\nzo-pdf-variant: VARIANT\nzo-pdf-branding:\n  canonical-url: https://zomath.vn/course/index.html\nr1-section-download-files:\n- variant: bai_hoc\n  start: bai-hoc\n---\n::: {.zo-on-thi-package}\n## Bắt đầu {#bat-dau}\nINTROONLY\n### Mục con {#intro-child}\nCHILDONLY\n## Bài học {#bai-hoc}\nLESSONKEEP\n[Xem hướng dẫn](#bat-dau)\n## Nguồn {#nguon}\nSOURCEKEEP\n:::\n'
+   for variant in ['full','student','bai_hoc']:
+    src.write_text(content.replace('VARIANT',variant).replace('\n##','\n\n##'),encoding='utf-8')
+    result=subprocess.run([sys.executable,str(ROOT/'scripts/zo_python.py'),str(ROOT/'scripts/zo_quarto.py'),'pandoc',str(src),'--from','markdown','--to','latex','--lua-filter',str(ROOT/'assets/lua/zo_course_package_pdf.lua')],cwd=ROOT,capture_output=True,text=True,encoding='utf-8')
+    self.assertEqual(result.returncode,0,result.stderr)
+    self.assertIn('LESSONKEEP',result.stdout)
+    if variant=='full':self.assertIn('INTROONLY',result.stdout)
+    else:
+     self.assertNotIn('INTROONLY',result.stdout);self.assertNotIn('CHILDONLY',result.stdout)
+     self.assertIn('https://zomath.vn/course/index.html',result.stdout)
  def test_selected_section_excludes_other_figures_and_targets(self):
   text='---\nr1-section-download-files:\n- variant: bai_hoc\n  start: bai-hoc\n---\n## Start {#bat-dau}\nOPEN\n## Lesson {#bai-hoc}\nKEEP\n## Practice {#phieu-luyen}\nDROP\n## Sources {#nguon}\nSOURCE\n'
   chosen=layout.selected_source(text,'bai_hoc')

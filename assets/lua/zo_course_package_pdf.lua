@@ -159,6 +159,8 @@ local function prepare(doc)
     if b.t=='Header' and b.level==2 then section=b.identifier end
     local keep=not part or section=='nguon' or section==str(part.start)
     if variant=='student' and section=='loi-giai' then keep=false end
+    -- Only the complete edition owns the opening, including all its children.
+    if variant~='full' and section=='bat-dau' then keep=false end
     if section=='tai-tai-lieu' then keep=false end
     if keep then projected:insert(b) end
   end

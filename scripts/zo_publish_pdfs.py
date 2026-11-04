@@ -79,6 +79,9 @@ def validate_pdfs(source_root, records, config, candidate=None):
             elif record['contract'] == 'canonical':
                 errors.extend(validate_canonical_pdf_provenance(
                     source_root, source_root / record['source'], variant=record['variant']))
+                if record['variant'] != 'full' and record['source'].startswith('content/thpt/on_thi_toan_thpt/hoc_lieu/r'):
+                    from zo_pdf_course_check import opening_policy_checks
+                    errors.extend(name for name,passed in opening_policy_checks(PdfReader(file), record['variant']).items() if not passed)
             else:
                 # Seal existing build evidence into the prepare receipt. Final
                 # validation is independent of disposable audit history, and

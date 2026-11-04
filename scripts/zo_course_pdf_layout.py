@@ -39,6 +39,7 @@ def selected_source(full,variant="full"):
             header=re.match(r'^## [^\n]*\{#([^\s}]+)',chunk)
             section=header[1] if header else ''
             keep=(section!='loi-giai') if variant=='student' else (section in {'nguon',(part or {}).get('start')})
+            if section=='bat-dau':keep=False
             if keep and section!='tai-tai-lieu':kept.append(chunk)
         text=''.join(kept)
     return text
