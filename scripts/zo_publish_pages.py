@@ -141,7 +141,7 @@ def fingerprint(root, pages, config, tool_root=None, d0_pdf=False, pdfs=None):
     tool_root=tool_root or Path(__file__).resolve().parents[1]
     inputs=input_fingerprints(root)
     tools={name:tool_sha(tool_root/'scripts'/name)
-           for name in ['zo_publish.py','zo_publish_pages.py','zo_quarto.py','zo_python.py','zo_publish_navigation.py']}
+           for name in ['zo_publish.py','zo_publish_pages.py','zo_quarto.py','zo_python.py','zo_publish_navigation.py','zo_publish_videos.py']}
     if pdfs:
         tools['zo_publish_pdfs.py']=tool_sha(tool_root/'scripts/zo_publish_pdfs.py')
     version=p.run(['quarto','--version'],root)
@@ -196,13 +196,13 @@ def cache_eligible(root,sources):
     return True
 
 
-def artifact(root, pages, config, destination, cache_root, timings, tool_root=None, d0_pdf=False, pdfs=None, navigation=None, public=None):
+def artifact(root, pages, config, destination, cache_root, timings, tool_root=None, d0_pdf=False, pdfs=None, navigation=None, public=None, videos=None):
     check=preflight(root,pages,config)
     if check['issues']:
         raise p.ConfigError(json.dumps(check['issues'],ensure_ascii=False))
     with timings.phase('fingerprint'):
         seal=fingerprint(root,pages,config,tool_root,d0_pdf,pdfs)
-    reusable=not navigation and cache_eligible(root,check['sources'])
+    reusable=not navigation and not videos and cache_eligible(root,check['sources'])
     cache_root.mkdir(parents=True,exist_ok=True)
     cached=cache_root/seal['key']
     with timings.phase('artifact'):
@@ -216,11 +216,15 @@ def artifact(root, pages, config, destination, cache_root, timings, tool_root=No
             return {'cache_hit':True,'cache_eligible':True,'fingerprint':seal,'render':{'source_count':0,'exit_code':0}}
         with tempfile.TemporaryDirectory(prefix='artifact-',dir=cache_root) as temporary:
             temp=Path(temporary)
-            sources=[s for s in check['sources'] if str(Path(s).with_suffix('.html')).replace('\\','/') not in (navigation or [])]
+            inherited=set(navigation or []) | set(videos or [])
+            sources=[s for s in check['sources'] if str(Path(s).with_suffix('.html')).replace('\\','/') not in inherited]
             render=render_pages(root,temp/'raw',sources,tool_root)
             if navigation:
                 from zo_publish_navigation import inherit
                 render['navigation_only']=inherit(public,temp/'raw',navigation,config)
+            if videos:
+                from zo_publish_videos import inherit
+                render['video_only']=inherit(root,public,temp/'raw',videos,config)
             # Hooks must not silently rewrite a fingerprinted source.
             if fingerprint(root,pages,config,tool_root,d0_pdf,pdfs)!=seal:
                 raise p.ConfigError('Source inputs changed during page render.')
@@ -432,6 +436,10 @@ def validate_receipt(root,target,config,payload,check_source=True,source_root=No
     if navigation:
         from zo_publish_navigation import verify
         verify(backup,target,navigation)
+    videos=payload['page_release'].get('render',{}).get('video_only',{})
+    if videos:
+        from zo_publish_videos import verify
+        verify(source_root or root,backup,target,videos)
     seal=payload['page_release']['fingerprint']
     if payload['page_release']['version']!=VERSION:raise p.ConfigError('Unsupported page receipt version.')
     tool_root=Path(__file__).resolve().parents[1]
@@ -566,9 +574,12 @@ def prepare(root,target,config_path,config,args,source_state,target_state):
                 p.safe_remove_tree(stage,root/'_audit')
         stack.callback(cleanup_failed_stage)
         d0_pdf=getattr(args,'d0_pdf',False)
-        made=artifact(source,args.page,config,stage/'render',root/'.quarto/zo_publish_cache',clock,source,d0_pdf,pdfs,getattr(args,'navigation_only_page',[]),target)
+        made=artifact(source,args.page,config,stage/'render',root/'.quarto/zo_publish_cache',clock,source,d0_pdf,pdfs,getattr(args,'navigation_only_page',[]),target,getattr(args,'video_only_page',[]))
         with clock.phase('candidate_validation'):
             result=candidate(target,stage/'render',stage/'public',args.page,config,d0_pdf,source,pdfs)
+            if made['render'].get('video_only'):
+                from zo_publish_videos import verify
+                verify(source,target,stage/'public',made['render']['video_only'])
         payload.update(result)
         payload['page_release']={'version':VERSION,'pages':sorted(set(args.page)),'d0_pdf':d0_pdf,'pdfs':pdfs,**made}
         payload['prepare_paths']={key:f'{config["prepare"]["staging_dir"]}/{folder}' for key,folder in [('render_dir','render'),('public_dir','public'),('backup_dir','backup')]}

@@ -115,6 +115,15 @@ def adapt(path,output_root,package):
     parent['class']=list(dict.fromkeys(parent.get('class',[])+['math-figure']))
     viewport=doc.new_tag('div',attrs={'class':'figure-viewport zo-figure-scroll'})
     img.wrap(viewport)
+ # Package-owned optional media assets travel with the projected reader.
+ for asset in root.select('link[rel="stylesheet"][href],script[src]'):
+  attribute='src' if asset.name=='script' else 'href'
+  raw=urlsplit(asset[attribute])
+  src=(REPO/PACKAGE/unquote(raw.path)).resolve()
+  expected='.js' if asset.name=='script' else '.css'
+  if raw.scheme or raw.netloc or not src.is_relative_to((REPO/PACKAGE/'giao_dien').resolve()) or src.suffix!=expected or not src.is_file():
+   raise ValueError('Invalid package reader asset '+asset[attribute])
+  asset[attribute]=builder.materialize(src,'reader/'+src.name)
  for link in root.select('a[href]'):
   split=urlsplit(link['href'])
   if split.scheme or split.netloc or not split.path:continue
@@ -123,7 +132,7 @@ def adapt(path,output_root,package):
   if not target.is_relative_to(output_root):raise ValueError('Link escapes output root')
   link['href']=builder.href(target,split.query,split.fragment)
  for details in root.select('details'):
-  details.attrs.pop('open',None);guidance='zo-learning-guidance' in details.get('class',[])
+  details.attrs.pop('open',None);guidance=bool({'zo-learning-guidance','zo-learning-video'} & set(details.get('class',[])))
   details['class']=list(dict.fromkeys(details.get('class',[])+(['r1-details','zo-block','zo-block-gray'] if guidance else ['r1-details','r1-solution','zo-learning-solution','solution','zo-block','zo-block-gray'])))
   summary=details.find('summary',recursive=False)
   if summary is None:raise ValueError('Disclosure lacks summary')
