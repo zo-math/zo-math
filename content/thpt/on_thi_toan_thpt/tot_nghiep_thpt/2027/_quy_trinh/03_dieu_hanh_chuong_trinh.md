@@ -10,6 +10,8 @@ Theo yêu cầu tiếp theo, đã nối bộ đếm tổng lượt xem từ 03/1
 
 Đồng thời sửa khoảng hở được chủ trì chỉ ra: bỏ khoảng chừa cố định dưới body, đo chiều cao thật của thanh đồng hồ để chừa chỗ bên trong nền trắng chân trang. Không còn dải nền trống giữa hai phần. Chỉ cập nhật JS/CSS dùng chung qua cổng `zo_course_site.py assets`, bảo toàn byte của cả 17 HTML và nội dung học liệu/PDF. Đường mở lại HTML tự khởi động/tái dùng API cục bộ khi có khóa. Worker dùng cùng mã đã chuẩn bị cho bước triển khai riêng; chưa tạo KV, route hoặc cron trên Cloudflare, chưa push hay xuất bản. Bản sửa tiếp tục chờ chủ trì xem, không tự coi là nghiệm thu.
 
+Theo hiệu chỉnh tiếp của chủ trì ngày 04/11/2026, thống kê chỉ hiện hai dòng: “Lượt xem trong ngày: …” và “Tổng lượt xem tính từ 3/11/2026: …”. Chủ trì đã xác nhận lại năm 2026. Lượt trong ngày truy vấn từ 00:00 giờ Việt Nam, không dùng ngày UTC hoặc 24 giờ trượt; kiểm chuyển ngày và giữ tổng tích lũy. Bằng chứng tại `_audit/site_views_two_lines_20261104/`; chưa commit, push hoặc xuất bản lượt hiệu chỉnh này.
+
 Việc duyệt hình R2-G02 ở mục kế tiếp vẫn còn hiệu lực; sửa chân trang không chứng nhận nghiệm thu hình hoặc PDF.
 
 ## ĐANG CHỜ DUYỆT — Hình thống kê R2-G02, 04/11/2026

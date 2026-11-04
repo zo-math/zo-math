@@ -519,19 +519,25 @@
   const row = document.createElement('p');
   row.className = 'site-views';
   row.setAttribute('aria-live', 'polite');
-  row.textContent = 'Lượt xem toàn website: đang tải…';
+  function lines(today, total) {
+    const first = document.createElement('span'), second = document.createElement('span');
+    first.textContent = 'Lượt xem trong ngày: ' + today;
+    second.textContent = total;
+    first.style.display = second.style.display = 'block';
+    row.replaceChildren(first, second);
+  }
+  lines('đang tải…', 'Tổng lượt xem: đang tải…');
   footer.append(row);
   const local = ['127.0.0.1', 'localhost'].includes(location.hostname);
   const endpoint = local ? 'http://127.0.0.1:8878/api/site-views' : '/api/site-views';
   let busy = false, last = null;
   const format = new Intl.NumberFormat('vi-VN');
   const date = value => new Date(value).toLocaleDateString('vi-VN', {timeZone:'Asia/Ho_Chi_Minh'});
+  const vietnamDay = value => new Intl.DateTimeFormat('en-CA', {timeZone:'Asia/Ho_Chi_Minh',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(value));
   function show(value, stale) {
-    row.replaceChildren(document.createTextNode('Lượt xem toàn website: ' + format.format(value.total)));
-    const note = document.createElement('small');
-    note.textContent = 'Cloudflare · từ ' + date(value.since) + (stale ? ' · Chưa cập nhật được số mới' : '');
-    row.append(note);
-    row.title = 'Cập nhật: ' + new Date(value.updated_at).toLocaleString('vi-VN') + '. Đã loại bot; số liệu có thể được Cloudflare hiệu chỉnh.';
+    const currentDay = value.day === vietnamDay(Date.now());
+    lines(currentDay ? format.format(value.today) : 'chưa cập nhật', 'Tổng lượt xem tính từ ' + date(value.since) + ': ' + format.format(value.total));
+    row.title = (stale || !currentDay ? 'Chưa cập nhật được số mới. ' : '') + 'Nguồn: Cloudflare. Cập nhật: ' + new Date(value.updated_at).toLocaleString('vi-VN') + '. Đã loại bot.';
   }
   async function refresh() {
     if (busy || document.hidden) return;
@@ -542,13 +548,15 @@
       const value = await response.json();
       if (value.source !== 'Cloudflare Web Analytics' || value.metric !== 'page_views' || value.scope !== 'website'
           || !Number.isSafeInteger(value.total) || value.total < 0 || value.exclude_bots !== true
+          || !Number.isSafeInteger(value.today) || value.today < 0 || value.day_timezone !== 'Asia/Ho_Chi_Minh'
+          || value.day !== vietnamDay(value.updated_at)
           || !Number.isFinite(Date.parse(value.since)) || !Number.isFinite(Date.parse(value.updated_at))
           || Date.parse(value.updated_at) > Date.now()+60000 || Date.parse(value.since) > Date.parse(value.updated_at)) throw Error('Invalid aggregate');
       last = value;
       show(value, value.stale === true || Date.now()-Date.parse(value.updated_at)>20*60000);
     } catch {
       if (last) show(last, true);
-      else row.textContent = 'Lượt xem toàn website: tạm chưa lấy được số liệu';
+      else lines('chưa lấy được số liệu', 'Tổng lượt xem: chưa lấy được số liệu');
     } finally { busy = false; }
   }
   refresh();
