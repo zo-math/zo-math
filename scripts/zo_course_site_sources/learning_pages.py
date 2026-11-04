@@ -20,7 +20,6 @@ def guide_hub(guides, icon, btn):
       <p>Khi hỏi giáo viên, bạn học hoặc công cụ trí tuệ nhân tạo, gửi đề bài, phần đã tự làm và bước chưa hiểu. Nêu câu hỏi cụ thể, chẳng hạn: “Vì sao ở bước này được dùng công thức đó?”. Sau khi nhận gợi ý, thử tự viết lại lời giải.</p>
       <p>Muốn đọc thêm tài liệu dùng để biên soạn, mở mục <strong>Nguồn</strong> trong chuyên đề. Đối chiếu điều kiện và kí hiệu của tài liệu ấy với bài đang học.</p></div></details>
       </section>
-      <div class="guide-catalog-entry"><p>Để bắt đầu một chuyên đề, mở <strong>Tổng quan</strong> để biết nội dung và kiến thức cần dùng, rồi chọn phần học.</p>{btn('chuyen-de.html','Chuyên đề','primary')}</div>
     </main>'''
 
 
@@ -32,5 +31,4 @@ def guide_article(g, guides, items, icon, btn):
       <header class="guidance-heading"><h1>{esc(g['title'])}</h1><p>{esc(g['summary'])}</p></header>
       <details class="guidance-mobile-toc"><summary>Các bước thực hiện</summary><nav aria-label="Mục lục trên điện thoại">{contents}<a href="#thu-trong-hoc-lieu">Ví dụ trong học liệu</a></nav></details><div class="guidance-layout"><aside class="guidance-toc"><strong>Các bước thực hiện</strong><nav aria-label="Mục lục hướng dẫn">{contents}<a href="#thu-trong-hoc-lieu">Ví dụ trong học liệu</a></nav></aside><article class="guidance-body">{sections}
       <section class="guidance-example" id="thu-trong-hoc-lieu"><h2>{esc(g['example']['title'])}</h2>{g['example']['html']}<div class="guidance-examples">{examples}</div></section>
-      <div class="guide-catalog-entry"><p>Áp dụng với chuyên đề em đang học: trong danh mục, chọn <strong>{esc(g['label'])}</strong> trên thẻ của chuyên đề đó.</p>{btn('chuyen-de.html','Chuyên đề','primary')}</div>
       </article></div></main>'''

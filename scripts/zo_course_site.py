@@ -259,7 +259,10 @@ def project_rendered(raw_paths,report=None,native_input=None):
     print('COURSE SITE: PASS; pages='+str(len(results))+'; references='+str(check['references']))
     return 0
 def main(argv=None):
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('command',choices=['build','check','plan']);parser.add_argument('--report',default='_audit/course_site_build.json');parser.add_argument('--page',action='append',default=[]);parser.add_argument('--all',action='store_true',help='Explicit full-course build');args=parser.parse_args(argv)
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('command',choices=['build','check','plan','assets']);parser.add_argument('--report',default='_audit/course_site_build.json');parser.add_argument('--page',action='append',default=[]);parser.add_argument('--all',action='store_true',help='Explicit full-course build');args=parser.parse_args(argv)
+    if args.command=='assets':
+        from zo_course_site_assets import apply
+        return apply(sys.modules[__name__], args.report)
     if args.command=='plan':
         record=json.loads(CURRENT.read_text('utf-8')) if CURRENT.is_file() else {}
         pending=scope_state(record)[2]
