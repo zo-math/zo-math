@@ -90,11 +90,7 @@ trang dùng đường dẫn QMD cụ thể. Gói có cấu hình dùng
 khi chỉ cần HTML, giữ các cổng bắt buộc. `draft: true` cần profile
 `on-thi-preview` theo cơ chế preview hiện hành; không sửa trạng thái để lách.
 
-Ví dụ khảo sát trước thay bìa G03 (16/10/2026): `scripts/zo_web_2027_g03.py` tạo hero
-và gọi `PreviewBuilder.common_assets()` trong `scripts/zo_web_2027_preview.py`,
-khi khảo sát lấy `_design/web_2027_mau_dung_chung/assets/cover-graph.svg` dùng chung.
-Sau cập nhật, G03 dùng `hinh/bia_tiem_can.tex` và SVG riêng của gói; giữ ảnh
-dùng chung nguyên vẹn.
+Bìa G03 dùng nguồn và binding riêng của gói; giữ tài nguyên dùng chung nguyên vẹn.
 Không sửa ảnh dùng chung để thay riêng bìa G03: cập nhật nguồn/binding riêng
 của gói và phép đưa tài nguyên vào adapter trong phạm vi nhiệm vụ thay bìa.
 Sau đó render HTML đúng trang, kiểm ảnh tải được, đúng ảnh, đúng đường dẫn,
@@ -108,11 +104,11 @@ lần thay bìa, không chứng nhận bìa hiện tại đã được sửa hay
 
 PDF khóa 2027 tuân thủ mục “Ánh xạ canonical sang PDF” của quy chuẩn gói: chỉ `full` giữ phần Bắt đầu; tất cả biến thể còn lại phải bỏ cả phần và các mục con. Khi dựng hoặc chuẩn bị phát hành PDF, kiểm quy tắc này trên tệp thật, không kế thừa PDF cũ chỉ vì đã có provenance. Chỉ thị ngày 04/11/2026 thay cách chiếu bản học sinh trước đây.
 
-Kế thừa dự án Quarto ở gốc; không tạo `_quarto.yml` độc lập. Hai trang cửa ngõ chưa thuộc một dự án QMD có cấu hình, nên dùng trình khởi chạy Quarto chung từ gốc repository:
+Kế thừa cấu hình dự án ở gốc; không tạo `_quarto.yml` độc lập. Với website khóa 2027, dùng bộ dựng hiện hành từ gốc repository:
 
 ```text
-python scripts/zo_python.py scripts/zo_quarto.py render content/thpt/on_thi_toan_thpt --profile on-thi-preview
-python scripts/zo_python.py scripts/zo_quarto.py preview content/thpt/on_thi_toan_thpt/index.qmd --profile on-thi-preview
+python scripts/zo_python.py scripts/zo_course_site.py build --page content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.qmd
+python scripts/zo_python.py scripts/zo_course_site.py check --page content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.qmd
 ```
 
 Preview chỉ lắng nghe tại `127.0.0.1`. Navbar/sidebar nguồn dùng chung có đường vào ứng viên để kiểm tra đường đi; các trang và tài sản đã duyệt của chuyên mục chỉ được chọn qua allowlist publish. Khi cần bảo toàn đầu ra hiện có trong một nhiệm vụ kiểm thử, dùng bản sao dự án cô lập dưới `.quarto/`, giữ nguyên cấu hình dự án và profile; `_audit/` chỉ nhận bằng chứng kiểm.
@@ -129,9 +125,9 @@ dung, ch? tr? duy?t, r?i khai b?o `giao_dien/anh_bia.json`. Kh?ng k? th?a
 ?nh g?i m?u. `zo_course_cover.py` l? c?ng binding tr??c/sau adapter HTML;
 kh?ng s?a hash ho?c t? ghi approved ?? v??t y?u c?u duy?t.
 
-## Component shell không phụ thuộc tính năng của gói mẫu
+## Giao diện website hiện hành
 
-Khi dựng/hiệu chỉnh HTML, áp dụng 07/6 và DRAWER-ICON01 trong hợp đồng kit: nút mở mục lục chỉ icon theo shell canonical, độc lập với việc gói có PDF. Cổng template/post-render dùng zo_web_2027_shell.py; phải kiểm kích thước, hình thức, tên truy cập và bàn phím/resize sau đổi view, có ca trang chưa PDF. Không dùng “click được”, cùng CSS hoặc PASS lĩnh vực khác thay kiểm component; không kéo thêm PDF/hình chỉ để nhận giao diện nút.
+Vỏ trang, header, điều hướng, mục lục và tùy chọn giao diện thuộc `scripts/zo_course_site_sources/`. Hướng dẫn vận hành duy nhất là README trong thư mục ấy. DRAWER-ICON01 và shell kit cũ chỉ mô tả giao diện native trung gian, không được áp lên website cuối. Kiểm tên truy cập, bàn phím, đóng/mở, chuyển phần và responsive trên giao diện mới, độc lập với PDF.
 
 
 ## GRAPH-G03-01 — khung và tỉ lệ đồ thị theo G03
@@ -166,4 +162,4 @@ Nạp 07/6.1.8, 02/Rà bảng theo chức năng và B26. `function_profiles` c�
 
 ## Đầu ra canonical, không giữ thành phẩm chỉ trong audit
 
-Sửa nguồn → dựng → kiểm → tự ghi đè đúng HTML trong `docs/` và PDF trong gói. Bộ sáu trang dùng `zo_web_2027_bundle.py build` (mặc định `docs/`); công cụ chặn đầu ra `_audit/`. `.quarto/` chỉ giữ trung gian trong vòng đời lệnh; `_audit/` giữ bằng chứng. Đường bàn giao/shortcut dùng `docs/`, không dùng các tệp `*-reading.html` ở audit làm bản chính. Sau khi chủ trì duyệt, cập nhật hồ sơ và giữ bảo vệ bằng `owner_approved`; không xem đã duyệt là được phép dọn sản phẩm.
+Sửa nguồn → dựng bằng `zo_course_site.py`/`zo_qmd.py` → kiểm → ghi đè đúng HTML trong `docs/`. Giao diện cuối thuộc `scripts/zo_course_site_sources/`; không dùng Quarto trực tiếp hoặc bộ vỏ trang cũ làm đầu ra bàn giao. PDF trong gói chỉ dựng khi nhiệm vụ yêu cầu. `.quarto/` giữ trung gian; `_audit/` giữ bằng chứng. Đường bàn giao/shortcut dùng `docs/`. Sau khi chủ trì duyệt, cập nhật hồ sơ và giữ bảo vệ bằng `owner_approved`.

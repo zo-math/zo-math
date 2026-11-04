@@ -1,5 +1,7 @@
 # Hợp đồng vùng đọc của mẫu web 2027
 
+> Vận hành website 2027: chỉ áp dụng `scripts/zo_course_site_sources/README.md` (đường dẫn tính từ gốc repository). Các hướng dẫn bên dưới về preview/checkpoint, vỏ trang kit, DRAWER-ICON01, bộ sáu trang và giữ R01/prototype làm đối chứng đã hết hiệu lực đối với website cuối. Nội dung toán, kiến trúc học tập, hợp đồng bảng/hình và quy trình PDF còn hiệu lực theo phạm vi riêng. Không lấy lệnh hoặc trạng thái trong hồ sơ lịch sử để dựng lại giao diện cũ.
+
 **Home 14/10/2026:** riêng sáu vùng đọc lớn được chủ trì giao bố cục mới
 trắng/xám trắng rất nhẹ xen kẽ; không áp giấy trắng tuyệt đối của R1 lên
 Home hoặc đổi khối toán. Giới thiệu thuộc hero; Cách học đứng ngay sau
@@ -93,7 +95,7 @@ Wrapper có thể là `div` để không làm thay đổi cấp heading nguồn;
 
 GRAPH-G03-01 thay quy tắc cỡ tự nhiên cũ của G01/G02/G04: gọi preset công cụ `lesson-g03` và đặt `--figure-em` bằng viewBox_width / 16.5 qua `zo_graphics.set_lesson_graph_size`; CSS chung dùng đúng biến này. Khung từng ô 11 × 7 cm, ngoại lệ cao 8 cm ghi rõ lí do. Bản chụp G03 trước sửa là đối chứng; nguồn TEX/SVG G03 giữ nguyên nhưng lớp hiển thị được sửa để đủ 11 ảnh nhận cùng quy tắc (GRAPH-G03-02). Hình ghép giữ bố trí các ô. Phông/nét 0.4 giữ nguyên, tỉ lệ trên trang theo G03; không giãn đầy giấy. Nguồn: `figure-profile-candidate/`, bộ nối `scripts/zo_web_2027_figures.py` và config hình G01. Không sửa toán để đạt hình thức.
 
-Nút drawer G01 chỉ hiện biểu tượng, 52×52px; tên truy cập “Mở mục lục học liệu”, Enter mở, Escape đóng/trả focus. Nút tải tối thiểu 44px. Giữ lời cảnh báo PDF chưa đồng bộ tới khi có nhiệm vụ PDF được nghiệm thu; số trang đúng không chứng minh nội dung PDF mới.
+Nút mục lục website dùng component trong `scripts/zo_course_site_sources/`, có tên truy cập, Enter mở, Escape đóng/trả focus. Nút tải tối thiểu 44px. Giữ cảnh báo PDF chưa đồng bộ theo trạng thái thực; số trang đúng không chứng minh nội dung PDF mới.
 
 Mốc duyệt lịch sử FB033, checksum/phạm vi tại `giao_dien/web_2027_accepted.json` của G01. Receipt không thay QMD, không chứng nhận FB036, không làm nguồn nội dung hoặc tự nâng chuẩn lên 0.5.
 
@@ -109,7 +111,7 @@ Theo 07/6.1.2 và 02/2.5 của khóa: source/HTML guard dùng scripts/zo_course_
 
 ## DRAWER-ICON01 — chủ sở hữu của nút mở mục lục
 
-Quy tắc nút icon ở trên áp dụng cho mọi gói/trang dùng shell, kể cả chưa có PDF. Template page.html.tpl sở hữu SVG/tên truy cập; web-shell.css sở hữu kích thước/hình tròn; site-ui.js sở hữu mở/đóng/focus/resize. Không phụ thuộc downloads.css hoặc đoạn chèn icon trong adapter PDF. Các đoạn tương thích G01/G02 không là chuẩn để nhân bản. zo_web_2027_shell.py chặn template/HTML/runtime CSS lệch trước bàn giao; kiểm browser vẫn bắt buộc. Nội dung main, rail, các view và điều hướng toàn khóa giữ nguyên.
+Quy tắc nút icon ở trên áp dụng cho mọi gói/trang dùng shell, kể cả chưa có PDF. Template page.html.tpl sở hữu SVG/tên truy cập; web-shell.css sở hữu kích thước/hình tròn; site-ui.js sở hữu mở/đóng/focus/resize. Không phụ thuộc downloads.css hoặc đoạn chèn icon trong adapter PDF. Các đoạn tương thích G01/G02 không là chuẩn để nhân bản. `zo_course_site.py check` kiểm website cuối trước bàn giao; kiểm browser vẫn bắt buộc. Nội dung main, rail, các view và điều hướng toàn khóa giữ nguyên.
 
 ## Hiệu chỉnh ranh giới và bìa ngày 18/10/2026
 

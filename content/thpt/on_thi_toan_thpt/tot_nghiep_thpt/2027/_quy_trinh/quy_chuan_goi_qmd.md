@@ -1,5 +1,7 @@
 # Quy chuẩn tổ chức học liệu Ôn thi Toán THPT
 
+> Vận hành website 2027: chỉ áp dụng `scripts/zo_course_site_sources/README.md` (đường dẫn tính từ gốc repository). Các hướng dẫn bên dưới về preview/checkpoint, vỏ trang kit, DRAWER-ICON01, bộ sáu trang và giữ R01/prototype làm đối chứng đã hết hiệu lực đối với website cuối. Nội dung toán, kiến trúc học tập, hợp đồng bảng/hình và quy trình PDF còn hiệu lực theo phạm vi riêng. Không lấy lệnh hoặc trạng thái trong hồ sơ lịch sử để dựng lại giao diện cũ.
+
 Phiên bản tài liệu: 0.9 · Ngày biên tập: 16/10/2026 · Căn cứ: phần còn hiệu lực của QD_016–032 và QD_033.
 
 Tài liệu nội bộ, chỉ áp dụng cho chuyên mục này. Tài liệu quy định kiến trúc nguồn, ranh giới xuất bản và hợp đồng canonical cho thành phần học liệu; việc một component được mô tả ở đây không tự động có nghĩa component đó đã được triển khai hoặc kiểm định kỹ thuật.

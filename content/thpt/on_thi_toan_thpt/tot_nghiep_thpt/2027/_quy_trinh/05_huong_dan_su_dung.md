@@ -1,5 +1,7 @@
 # Cách dùng, quản lý và cập nhật trong VS Code
 
+> Vận hành website 2027: chỉ áp dụng `scripts/zo_course_site_sources/README.md` (đường dẫn tính từ gốc repository). Các hướng dẫn bên dưới về preview/checkpoint, vỏ trang kit, DRAWER-ICON01, bộ sáu trang và giữ R01/prototype làm đối chứng đã hết hiệu lực đối với website cuối. Nội dung toán, kiến trúc học tập, hợp đồng bảng/hình và quy trình PDF còn hiệu lực theo phạm vi riêng. Không lấy lệnh hoặc trạng thái trong hồ sơ lịch sử để dựng lại giao diện cũ.
+
 Phiên bản: 0.10 · Ngày biên tập: 16/10/2026 · Tiếp quản kiến trúc theo QD_033; các quy tắc khác theo 08.
 
 Hướng dẫn dành cho người chủ trì. Bộ này dùng được với Codex và Copilot trên cùng repo. [Điểm vào](README.md).

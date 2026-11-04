@@ -1,5 +1,7 @@
 # R2-G02 — Độ phân tán và so sánh dữ liệu
 
+> Vận hành website 2027: chỉ áp dụng `scripts/zo_course_site_sources/README.md` (đường dẫn tính từ gốc repository). Các hướng dẫn bên dưới về preview/checkpoint, vỏ trang kit, DRAWER-ICON01, bộ sáu trang và giữ R01/prototype làm đối chứng đã hết hiệu lực đối với website cuối. Nội dung toán, kiến trúc học tập, hợp đồng bảng/hình và quy trình PDF còn hiệu lực theo phạm vi riêng. Không lấy lệnh hoặc trạng thái trong hồ sơ lịch sử để dựng lại giao diện cũ.
+
 [Bản HTML chờ duyệt](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/hoc_lieu/r2_g02/index.html). Trạng thái và việc tiếp theo đọc tại [03 — Điều hành chương trình](../../../tot_nghiep_thpt/2027/_quy_trinh/03_dieu_hanh_chuong_trinh.md).
 
 - [Nguồn QMD chính thức, nơi tiếp tục hiệu chỉnh](../index.qmd).

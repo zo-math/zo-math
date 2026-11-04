@@ -1,5 +1,7 @@
 # R1-G02 — nguồn canonical đang hoàn thiện kiến trúc 2027
 
+> Vận hành website 2027: chỉ áp dụng `scripts/zo_course_site_sources/README.md` (đường dẫn tính từ gốc repository). Các hướng dẫn bên dưới về preview/checkpoint, vỏ trang kit, DRAWER-ICON01, bộ sáu trang và giữ R01/prototype làm đối chứng đã hết hiệu lực đối với website cuối. Nội dung toán, kiến trúc học tập, hợp đồng bảng/hình và quy trình PDF còn hiệu lực theo phạm vi riêng. Không lấy lệnh hoặc trạng thái trong hồ sơ lịch sử để dựng lại giao diện cũ.
+
 **GRAPH-G03-01 — ứng viên đồ thị theo mẫu G03.** Đã cập nhật nguồn và kiểm HTML riêng; [hồ sơ và bản xem](../../../tot_nghiep_thpt/2027/_quy_trinh/ho_so_do_thi_theo_g03_20261017.md). Chưa chủ trì duyệt hình thức, chưa dựng lại PDF học liệu hoặc xuất bản. G03/bìa/BBT/nội dung toán giữ nguyên; trạng thái PDF của bản cũ không chứng nhận bản HTML này.
 
 

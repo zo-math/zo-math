@@ -1,5 +1,7 @@
 # ZO Math — Bộ điều hành Ôn thi Toán THPT 2027
 
+> Vận hành website 2027: chỉ áp dụng `scripts/zo_course_site_sources/README.md` (đường dẫn tính từ gốc repository). Các hướng dẫn bên dưới về preview/checkpoint, vỏ trang kit, DRAWER-ICON01, bộ sáu trang và giữ R01/prototype làm đối chứng đã hết hiệu lực đối với website cuối. Nội dung toán, kiến trúc học tập, hợp đồng bảng/hình và quy trình PDF còn hiệu lực theo phạm vi riêng. Không lấy lệnh hoặc trạng thái trong hồ sơ lịch sử để dựng lại giao diện cũ.
+
 Đây là điểm vào chính thức của bộ điều hành. Tài liệu vẫn nằm tại `content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/_quy_trinh/`, tính từ gốc repo.
 
 **Nguồn vận hành duy nhất, 03/11/2026:** dùng QMD/dữ liệu/công cụ trong repository chính và đường dựng `scripts/zo_course_site.py`. Đọc [hướng dẫn vận hành nguồn](../../../../../../scripts/zo_course_site_sources/README.md). Bản R01 riêng, prototype, dự án và bản xem cũ đã nghỉ dùng; không giữ để đối chiếu, không đọc làm đầu vào và không khôi phục theo các mốc lịch sử bên dưới. Danh mục bảo vệ hiện hành là `ban_dang_duyet.json`, được sinh từ bộ nguồn đang chạy.
@@ -211,7 +213,7 @@ bên dưới thay nghiệm thu bản mới. Bộ bản xem QD_035 chưa bị tha
 
 G01 DH_011 từng bị chủ trì bác bỏ sơ đồ; 465/465 giữ làm bằng chứng lịch sử, không chứng nhận quan hệ mới. DH_015 đã áp dụng bản chốt người dùng vào nguồn và dựng HTML cô lập; trạng thái/bằng chứng ở 03 và hồ sơ G01, chưa là chủ trì duyệt HTML. DH_016 đã áp dụng và kiểm G02 theo QD_021/024/025; chưa là nghiệm thu của chủ trì hoặc kiểm toán độc lập toàn gói. Theo QD_022, cổng `scripts/zo_2027_governance_check.py` chọn quy tắc hiện hành theo chủ đề; chỉ kiểm lại phần bị ảnh hưởng, không khóa hiệu chỉnh hoặc hủy toàn bộ QA vì hash tài liệu đổi. Giữ thiết kế 9/10, Nhật kí 14 trường và receipt lịch sử.
 
-Trang Nhà đã nối kit canonical tại DH_017. Nguồn dữ liệu/partial/marker và lệnh dựng cô lập ở `../giao_dien/README_web_2027.md`; đường kiểm `zo_web_2027_home_check.py`. Không dùng preview lịch sử hoặc kiểm launch/PDF cũ chứng nhận bản Nhà mới. Trạng thái và bước tiếp theo chỉ ở 03, không suy quyền phát hành.
+Trang Nhà đã nối kit canonical tại DH_017. Nguồn dữ liệu/partial/marker và lệnh dựng cô lập ở `../giao_dien/README_web_2027.md`; đường kiểm `zo_course_site.py`. Không dùng preview lịch sử hoặc kiểm launch/PDF cũ chứng nhận bản Nhà mới. Trạng thái và bước tiếp theo chỉ ở 03, không suy quyền phát hành.
 
 ## 1. Định danh và thẩm quyền
 

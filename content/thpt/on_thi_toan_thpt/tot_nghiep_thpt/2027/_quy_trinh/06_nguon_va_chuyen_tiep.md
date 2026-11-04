@@ -1,5 +1,7 @@
 # Nguồn, giới hạn kiểm chứng và chuyển tiếp hồ sơ cũ
 
+> Vận hành website 2027: chỉ áp dụng `scripts/zo_course_site_sources/README.md` (đường dẫn tính từ gốc repository). Các hướng dẫn bên dưới về preview/checkpoint, vỏ trang kit, DRAWER-ICON01, bộ sáu trang và giữ R01/prototype làm đối chứng đã hết hiệu lực đối với website cuối. Nội dung toán, kiến trúc học tập, hợp đồng bảng/hình và quy trình PDF còn hiệu lực theo phạm vi riêng. Không lấy lệnh hoặc trạng thái trong hồ sơ lịch sử để dựng lại giao diện cũ.
+
 Phiên bản: 0.8 · Ngày biên tập: 16/10/2026 · Chuyển tiếp kiến trúc theo QD_033; phân vai theo 08.
 
 QD_024 lấy hai sửa đổi trong bản biên tập G01 do chủ trì sửa và xác nhận phạm vi toàn chương trình làm căn cứ. Quy tắc hiện hành ở 01/2.3–2.3.1; 04 ghi chỉ thị, hash bản nhận và phần cũ bị thay. Không dùng điều kiện QD_021 cũ đòi bài làm độc lập trước khi vào Kiểm tra, hoặc suy quyền chia việc học nhiều buổi thành quyền chia cùng một lượt Kiểm tra. Bản gốc người dùng và báo cáo lịch sử giữ nguyên; cập nhật điều hành chưa đồng nghĩa nguồn/đầu ra đã sửa.

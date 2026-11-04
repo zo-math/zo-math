@@ -1,5 +1,7 @@
 # R2-G01 — Đọc dữ liệu và đo xu thế trung tâm
 
+> Vận hành website 2027: chỉ áp dụng `scripts/zo_course_site_sources/README.md` (đường dẫn tính từ gốc repository). Các hướng dẫn bên dưới về preview/checkpoint, vỏ trang kit, DRAWER-ICON01, bộ sáu trang và giữ R01/prototype làm đối chứng đã hết hiệu lực đối với website cuối. Nội dung toán, kiến trúc học tập, hợp đồng bảng/hình và quy trình PDF còn hiệu lực theo phạm vi riêng. Không lấy lệnh hoặc trạng thái trong hồ sơ lịch sử để dựng lại giao diện cũ.
+
 **Hiện hành 29/10/2026:** HTML và cả tám PDF đã được chủ trì duyệt, đã phát hành lên zomath.vn và kiểm byte công khai. [Biên nhận phát hành](ho_so/phat_hanh_20261029.json). Bộ tải chính dùng đúng các PDF đã duyệt, được giữ nguyên byte. [Biên nhận đồng bộ](ho_so/dong_bo_pdf_da_duyet_20261029.json). Các đoạn theo ngày bên dưới là lịch sử; trạng thái mới nhất theo tài liệu điều hành 03.
 
 **Tổng kết cải tiến 28/10/2026:** [góp ý, phương án cuối và bằng chứng](ho_so/tong_ket_cai_tien_20261028.md). Quy tắc dùng lại thuộc bộ điều hành khóa theo phân vai 08; trạng thái hiện hành đọc 03. Các ghi nhận theo ngày bên dưới là lịch sử, không phải nghiệm thu mới cho toàn bộ bản tích hợp.
