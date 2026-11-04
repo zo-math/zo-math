@@ -1,10 +1,14 @@
 # Điều hành chương trình — trạng thái và việc tiếp theo
 
-## BẢN HIỆN HÀNH — Sửa PDF và phát hành lại, 04/11/2026
+## BẢN HIỆN HÀNH — PDF và thống kê công khai, 04/11/2026
 
 [Khóa 2027 — bản HTML chính](http://127.0.0.1:8877/docs/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html).
 
 Chủ trì yêu cầu hoàn tất PDF, kiểm kỹ rồi xuất bản lại lên zomath.vn, chỉ cập nhật phần cần thiết và ghi đè đúng các đường dẫn hiện hành. Chỉ PDF toàn văn giữ phần Bắt đầu. Mọi biến thể khác bỏ trọn phần này, các mục con, mục lục và bookmark tương ứng; Bảo trợ vẫn ở cuối mọi bản.
+
+Đợt PDF đã phát hành bằng commit public `ca95003fa241ef88c236b5452666694cfc98c425`, từ nguồn `bbbb7341e515e2eac90ead5dbb188a79b8b61522`. Kiểm tải thật từ zomath.vn đạt 71/71 tệp, gồm 49 PDF; giữ nguyên đường dẫn tải.
+
+Theo yêu cầu tiếp của chủ trì, đã triển khai Worker `zo-math-site-views` và KV trên đúng tài khoản Cloudflare. Endpoint công khai `https://zo-math-site-views.khongvamot2024.workers.dev/api/site-views` chỉ trả số tổng hợp, cho phép CORS từ zomath.vn/www và dùng khóa Analytics Read trong Secret. Cron mỗi năm phút đã được quan sát chạy thật sau triển khai; số đầu tiên là 28 lượt trong ngày và 28 lượt tổng. Dịch vụ không phụ thuộc máy localhost, không đổi DNS hoặc nâng gói. Kết nối chân trang chỉ đổi endpoint trong app.js, giữ byte 17 HTML và 49 PDF. Khóa triển khai tạm kết thúc hiệu lực sau khi kiểm; hồ sơ hiện hành ở [thống kê công khai](ho_so/site_views_public_20261104_review.json). Việc phát hành kết nối tiếp tục qua prepare/validate/publish, kiểm JS và số hiển thị trên website công khai.
 
 Đã sửa bộ chiếu Lua và mô hình kiểm bản in, bổ sung cổng kiểm PDF thực tế và chốt chặn khi phát hành. Sáu bản học sinh trước đó còn Bắt đầu là lỗi thật của bộ chiếu; không dùng lại các tệp ấy. Đã dựng mới 48 PDF của G01–G05 và R2-G01 từ QMD canonical, ghi đè tại gói và đồng bộ bản tải trong docs. Kiểm độc lập đủ 48 bản đạt: sáu toàn văn giữ Bắt đầu, 42 bản khác không còn phần này; provenance hiện hành, byte bản tải, kết quả bố cục và Bảo trợ cuối tài liệu đều đạt. PDF D0 không chịu ảnh hưởng được kiểm riêng, không dựng lại; R2-G02 chưa khai báo biến thể PDF.
 

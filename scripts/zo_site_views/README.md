@@ -34,12 +34,21 @@ Git, không phải nguồn sinh nội dung học liệu.
 Không lưu khóa vào cấu hình, Git, HTML, báo cáo hoặc clipboard. Không in khóa
 ra hội thoại. Lệnh Python luôn qua `scripts/zo_python.py`.
 
-`worker.mjs` cũng là handler dành cho Cloudflare Worker sau này: cần binding
-KV `SITE_VIEWS`, secret `CF_ANALYTICS_API_TOKEN`, biến `SITE_CONFIG` đúng nội
-dung cấu hình và cron `*/5 * * * *`; route GET `/api/site-views`. Public GET
-chỉ đọc bản tổng hợp, không thực hiện truy vấn Cloudflare theo mỗi khách.
-Việc tạo KV, gán secret/route, cấu hình cron và triển khai là bước xuất bản
-riêng, chưa được thực hiện bởi lệnh thử cục bộ.
+Worker công khai `zo-math-site-views` chạy tại
+`https://zo-math-site-views.khongvamot2024.workers.dev/api/site-views`.
+Chân trang trên zomath.vn đọc endpoint này qua CORS; không cần đổi DNS.
+Worker dùng KV `SITE_VIEWS`, secret `CF_ANALYTICS_API_TOKEN`, biến `SITE_CONFIG`
+và cron `*/5 * * * *`. Public GET chỉ đọc bản tổng hợp, không truy vấn Analytics
+theo mỗi khách. Khóa Analytics chỉ đọc được giữ trong Secret phía Cloudflare.
+
+Đường triển khai chính thức, chỉ chạy sau khi được giao quyền triển khai:
+`python scripts/zo_python.py scripts/zo_site_views_deploy.py --worker zo-math-site-views --subdomain khongvamot2024 --report _audit/<ten-luot>/cloudflare-deployment.json`.
+Công cụ đọc khóa triển khai tạm đã mã hóa ở `.local/site-views/deploy.dpapi`,
+chỉ ghi Worker/KV/lịch của dịch vụ này, giữ sổ đã có; lần đầu cần sổ Cloudflare
+thật vừa cập nhật. Không đọc token qua tham số hay ghi vào báo cáo. Thu hồi
+khóa triển khai sau khi xong; quyền Analytics của Worker không phụ thuộc khóa
+triển khai tạm. Báo cáo triển khai và GET công khai là bằng chứng riêng;
+phải xác nhận timestamp tiến lên sau một lượt cron thực tế trước bàn giao.
 
 Sửa JS/CSS dùng chung mà không sửa chính văn: `zo_course_site.py assets`
 qua launcher. Cổng này từ chối thay QMD/cấu hình/nội dung hay HTML đã lệch,

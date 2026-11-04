@@ -529,7 +529,7 @@
   lines('đang tải…', 'Tổng lượt xem: đang tải…');
   footer.append(row);
   const local = ['127.0.0.1', 'localhost'].includes(location.hostname);
-  const endpoint = local ? 'http://127.0.0.1:8878/api/site-views' : '/api/site-views';
+  const endpoint = local ? 'http://127.0.0.1:8878/api/site-views' : 'https://zo-math-site-views.khongvamot2024.workers.dev/api/site-views';
   let busy = false, last = null;
   const format = new Intl.NumberFormat('vi-VN');
   const date = value => new Date(value).toLocaleDateString('vi-VN', {timeZone:'Asia/Ho_Chi_Minh'});
