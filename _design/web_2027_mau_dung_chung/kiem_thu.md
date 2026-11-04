@@ -1,5 +1,7 @@
 # Kiểm và bàn giao mẫu web 2027
 
+> Vận hành website 2027: chỉ áp dụng `scripts/zo_course_site_sources/README.md` (đường dẫn tính từ gốc repository). Các hướng dẫn bên dưới về preview/checkpoint, vỏ trang kit, DRAWER-ICON01, bộ sáu trang và giữ R01/prototype làm đối chứng đã hết hiệu lực đối với website cuối. Nội dung toán, kiến trúc học tập, hợp đồng bảng/hình và quy trình PDF còn hiệu lực theo phạm vi riêng. Không lấy lệnh hoặc trạng thái trong hồ sơ lịch sử để dựng lại giao diện cũ.
+
 ## GRAY-NAV01 — mục lục phải ở lại khi cuộn trong chế độ xám
 
 Triệu chứng được chủ trì báo ngày 14/10/2026: điều hướng trang biến mất
@@ -14,7 +16,7 @@ G01/G02 (Bài học), sáu nền, desktop 1440/1000, đầu/giữa/95%/cuối tr
 rail nhìn thấy, bấm được, geometry như bản màu, toolbar còn ở đầu viewport.
 Mobile 390 kiểm drawer ở cuối trang và Escape. Fixture âm đưa lại filter
 trên body phải làm phép kiểm thất bại, bỏ fixture phải phục hồi.
-`zo_web_2027_bundle.py build` bắt buộc chạy guard này trước bàn giao.
+Kiểm website cuối qua `zo_course_site.py check`; kiểm trực quan chế độ xám và vị trí điều hướng khi cuộn trước bàn giao.
 Kiểm chỉ bật/tắt xám ở đầu trang trước đây không đủ để bắt lỗi này.
 
 ## HOM-S01 — ghép Nhà mới với học liệu cũ và đổi ảnh bìa trên mobile
@@ -26,7 +28,7 @@ hợp đồng hai ảnh của QMD/profile/normalizer/CSS, không ở nội dung 
 
 Sửa canonical: Home chỉ khai một ảnh 3x4; normalizer/checker từ chối ảnh
 thứ hai, CSS không ẩn ảnh này trên mobile, profile chọn đúng ảnh và minh
-họa dịch vụ mới. Bộ xem dùng `zo_web_2027_bundle.py` dựng mới cả bốn trang
+họa dịch vụ mới. Bộ dựng website hiện hành tạo các trang trong phạm vi nhiệm vụ
 từ một snapshot; không nhận HTML lịch sử làm nội dung. Manifest khóa nguồn,
 HTML và từng tài nguyên; kiểm đích menu/thẻ/quay lại trong cùng bộ. Ca âm
 nguồn lệch bị bắt, thiếu/thay ảnh vẫn bị guard Home từ chối. Dọn mirror và
@@ -166,7 +168,7 @@ lỗi câu chữ hoặc nguồn QMD, không sửa HTML sinh trực tiếp.
 
 Nguồn sửa: CSS điều hướng chung; mục hiện tại nhận diện bằng chữ đậm và
 `aria-current`, hover chỉ đổi màu chữ/icon, focus bàn phím vẫn có outline.
-Guard `zo_web_2027_navigation_check.py` đo pointer thật trên cả bốn mục
+Kiểm trình duyệt website cuối đo pointer thật trên các mục điều hướng
 và ba icon, trạng thái thường/hover/current, hình học không đổi, focus
 Tab và no-JS. Ca âm đưa lại nền/gạch chân/bóng phải bị phát hiện, kể cả
 CSS cũ được tiêm trong browser. Không thay rail, heading hoặc nội dung.
@@ -174,7 +176,7 @@ Bằng chứng/bản xem và trạng thái ở 03; PASS không là chủ trì du
 
 ## QD_032 — điều hướng toàn khóa học
 
-Lỗi: hai điều khiển chữ không đúng chức năng, không có đường trực tiếp giữa gói; nguyên nhân là toolbar chỉ có Home và anchor mang tên thương hiệu. Nguồn sửa: module điều hướng chung và bốn adapter, CSS/JS scoped; không sửa generated HTML trực tiếp. Guard `zo_web_2027_navigation_check.py` phải bắt ca âm thiếu/sai thứ tự điều khiển, sai đích, thiếu current-page, mở sẵn hoặc còn link legacy. Build fail nếu catalog đổi mà binding chưa cập nhật hoặc main/rail/footer/logo đổi trong phép nối.
+Kiểm điều hướng website cuối: đúng thứ tự, đích, trang hiện tại, trạng thái đóng/mở và liên kết thật. Giữ nội dung main, ID, logo và tài nguyên; không sửa HTML sinh bằng tay.
 
 Kiểm browser 1440/1000/768/430/390/320 px: hình học, danh sách đóng mặc định, Enter/Escape/focus/pointer, đích thật và current-page, Top giữ URL/view, no-JS, chọn nền/sắc xám và drawer gói. Đối chiếu text/heading/math/ID/disclosure main với bằng chứng lượt trước, hash QMD/root docs/PDF/receipt/Git index trước–sau. Lưu lỗi QA đầu và kết quả sửa, không ghi đè bằng chứng. Đạt kiểm không đồng nghĩa chủ trì đã nghiệm thu hoặc phát hành; không bao gồm kiểm toán toàn bộ toán/PDF. Hồ sơ mới ở `_audit/zo_course_navigation_2026-10-12/`.
 
@@ -210,7 +212,7 @@ cũ giữ nguyên; HTML mới chờ chủ trì xem. Không PDF nội dung hoặc
 
 ## Nhà sau DH_017
 
-Dùng `zo_web_2027_home_check.py rebuild/preview/check --browser` qua launcher; chỉ dựng từ QMD/data/partial hiện hành, chưa promotion root docs. Kiểm đủ projection/ID/thứ tự, map vai trò, không nhãn trùng, giấy lồng hoặc orphan; canonical links/bat-dau và preview tới HTML G01/G02 tường minh; bìa SVG trong suốt/khung token riêng, footer đầy đủ, không controller R1. Edge 1920/1440/1000/768/430/390/320px: cột/inset/tràn/ảnh, cuộn ổn định, controls và persistence, drawer Enter/Escape/focus/resize, no-JS navigation còn hiện. Fixture kéo heading ra giấy, lặp nhãn và xóa footer phải bị bắt. Builder danh mục phân biệt bản xem trước với nghiệm thu; không đổi profile gói để vượt kiểm. Lỗi no-JS mobile do `.rail nav` từ CSS tương thích được chữa bằng selector Home-only, không nới checker hoặc sửa shell G01/G02. Báo cáo mới theo 03, không ghi đè các mốc FB.
+Dùng `zo_course_site.py build --page <QMD>` và `zo_course_site.py check --page <QMD>` qua launcher; chỉ dựng từ QMD/data/partial hiện hành, chưa promotion root docs. Kiểm đủ projection/ID/thứ tự, map vai trò, không nhãn trùng, giấy lồng hoặc orphan; canonical links/bat-dau và preview tới HTML G01/G02 tường minh; bìa SVG trong suốt/khung token riêng, footer đầy đủ, không controller R1. Edge 1920/1440/1000/768/430/390/320px: cột/inset/tràn/ảnh, cuộn ổn định, controls và persistence, drawer Enter/Escape/focus/resize, no-JS navigation còn hiện. Fixture kéo heading ra giấy, lặp nhãn và xóa footer phải bị bắt. Builder danh mục phân biệt bản xem trước với nghiệm thu; không đổi profile gói để vượt kiểm. Lỗi no-JS mobile do `.rail nav` từ CSS tương thích được chữa bằng selector Home-only, không nới checker hoặc sửa shell G01/G02. Báo cáo mới theo 03, không ghi đè các mốc FB.
 
 ## G02 sau áp dụng DH_016 — kiểm riêng theo vai trò
 
@@ -379,9 +381,9 @@ Theo 07/6.1.2 và 02/2.5 của khóa: source/HTML guard dùng scripts/zo_course_
 
 ## DRAWER-ICON01 — nút capsule trở lại ở gói chưa có PDF
 
-Nguyên nhân: template/JS shell còn nút chữ theo view; hình thức icon G01/G02 lại nằm trong mô-đun/CSS tải PDF. G04 chưa có PDF nên bỏ qua nhánh ấy. Kiểm cũ chỉ xác nhận mở drawer nên vẫn PASS. Sửa chủ sở hữu trong template/web-shell.css/site-ui.js, không gọi mô-đun PDF để lấy giao diện nút. Cổng zo_web_2027_shell.py nằm trước ghép trang và sau adapter, không phụ thuộc agent nhớ chạy ngoài.
+Nguồn component mục lục thuộc `scripts/zo_course_site_sources/`, độc lập với mô-đun PDF. Kiểm hình thức và hành vi thực trên website cuối; thao tác mở được chưa đủ xác nhận thiết kế.
 
-Thử âm: bỏ mode/icon/tên truy cập/đích dialog; lộ tên view; bỏ hidden; CSS trở lại chiều rộng capsule. Browser: 390/430/768/999px phải đúng 52×52, icon 20px, không chữ; 1000/1440px nút ẩn, rail đúng; Enter/Escape/focus, chọn view, tải lại, resize và chế độ xám giữ chức năng. Trang không có PDF là ca bắt buộc. Không sửa PDF/source toán/HTML phát hành hoặc dùng PASS kiểm hình trước đó chứng nhận component này.
+Kiểm tên truy cập, icon, đích mở mục lục và trạng thái ẩn/hiện theo responsive trên website mới. Kiểm Enter/Escape/focus, chọn phần, tải lại, resize và chế độ xám, kể cả trang chưa có PDF. Giữ PDF, nguồn toán và bằng chứng kiểm hình.
 
 
 ## GRAPH-G03-01 — khung và tỉ lệ đồ thị theo G03

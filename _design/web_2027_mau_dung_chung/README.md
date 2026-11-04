@@ -1,5 +1,7 @@
 # Mẫu web dùng chung — khóa Ôn thi Toán THPT 2027
 
+> Vận hành website 2027: chỉ áp dụng `scripts/zo_course_site_sources/README.md` (đường dẫn tính từ gốc repository). Các hướng dẫn bên dưới về preview/checkpoint, vỏ trang kit, DRAWER-ICON01, bộ sáu trang và giữ R01/prototype làm đối chứng đã hết hiệu lực đối với website cuối. Nội dung toán, kiến trúc học tập, hợp đồng bảng/hình và quy trình PDF còn hiệu lực theo phạm vi riêng. Không lấy lệnh hoặc trạng thái trong hồ sơ lịch sử để dựng lại giao diện cũ.
+
 **Tiếp quản sau phát hành 15/10/2026:** bản tích hợp Nhà/D0/G01/G02 đã
 xuất bản; trạng thái và hồ sơ khép việc ở mục A của bảng điều hành 03.
 Ảnh học trực tiếp hiện dùng `hoc_truc_tiep_buoi_hoc.svg` cùng PNG nguồn;
@@ -59,7 +61,7 @@ chưa duyệt; bảng và ba biểu tượng điều hướng đã duyệt giữ
 chỉ tham chiếu, không chạy JS hay đưa thẻ mô phỏng lên trang thật. Trạng thái
 và bước tiếp chỉ ở bảng 03; chưa duyệt HTML, PDF, root docs, Git hoặc release.
 
-**QD_032 — điều hướng khóa học đã duyệt:** bốn adapter Nhà/D0/G01/G02 gọi `scripts/zo_web_2027_navigation.py` sau khi dựng/rebase nội dung. Module thay hai liên kết toolbar cũ bằng Nhà → Danh sách → Đầu trang; CSS/JS riêng `course-navigation.*` chỉ tác động bốn trang, không đổi template của Gateway. Quy tắc tại 07; trạng thái tại 03/DH_027. Không áp dụng phân cấp tiêu đề mẫu chưa duyệt. Không JavaScript vẫn có danh sách native và liên kết thật. Guard tại `zo_web_2027_navigation_check.py`; không dùng mẫu audit làm runtime.
+Điều hướng website cuối thuộc `scripts/zo_course_site_sources/build.py` và CSS/JS cùng thư mục. Dùng danh mục canonical, đủ đích, liên kết thật và trang hiện tại. Bảo toàn nội dung, ID và kiểm no-JS; không lấy audit làm runtime.
 
 **RAD-01 / DH_024 — căn bậc hai mất cân đối:** dùng alias font `ZOMath` để thực sự chọn STIX đã có, không generic `Math`; bù cỡ glyph căn inline có số mũ theo phạm vi trong `web-shell.css`, giữ cỡ radicand và native baseline. Căn trong phân số/mũ hoặc cấu trúc cao/lồng không nhận bù này. Cổng chung ở `zo_math_notation.py` nối cả bốn adapter; hồ sơ nguyên nhân/guard tại `kiem_thu.md`. Không đổi toán, vùng đọc, font khóa hoặc receipt; trạng thái/HTML hiện hành chỉ ở 03. Lượt bảng QD_030 dưới đây vẫn có hiệu lực, QA bảng không chứng nhận tỉ lệ căn.
 
@@ -81,7 +83,7 @@ Bộ này tách hình thức đã được duyệt ở G01 khỏi nội dung ri�
 
 G02 canonical DH_019 dùng `scripts/zo_web_2027_g02_production.py`, cùng builder nhịp/binding với preview; không lấy HTML audit làm nguồn. [Hướng dẫn G02](../../content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02/giao_dien/README_web_2027.md) có lệnh hiện hành. Hàng rào kiểm thêm nhịp Cách học/Khởi động, tổng quan ba chặng, nhãn thừa và kiểu chữ/giấy/bảng đối chiếu trực tiếp G01–G02. Tài liệu/QA mới không tự thành chủ trì duyệt hoặc promotion.
 
-Nguồn và đường dựng hiện hành: [README Nhà](../../content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/giao_dien/README_web_2027.md). Adapter `zo_web_2027_home.py` tái dùng map/thuật toán Nhà và toàn bộ shell/font/token/footer; chỉ nhận raw Quarto vừa dựng. `zo_web_2027_home_check.py rebuild/preview/check` kiểm cô lập, không đọc audit cũ để sinh nội dung. Nhãn trùng tiêu đề bị ẩn, drawer chỉ biểu tượng, SVG bìa trong suốt/khung riêng. Header/CSS/controller G01/G02 không thay. Trạng thái/HTML và bằng chứng ở 03; chưa chủ trì duyệt bản mới, PDF hoặc phát hành.
+Nguồn và đường dựng hiện hành: [README Nhà](../../content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/giao_dien/README_web_2027.md). Adapter `zo_web_2027_home.py` tái dùng map/thuật toán Nhà và toàn bộ shell/font/token/footer; chỉ nhận raw Quarto vừa dựng. `zo_course_site.py build --page <QMD>` và `zo_course_site.py check --page <QMD>` kiểm cô lập, không đọc audit cũ để sinh nội dung. Nhãn trùng tiêu đề bị ẩn, drawer chỉ biểu tượng, SVG bìa trong suốt/khung riêng. Header/CSS/controller G01/G02 không thay. Trạng thái/HTML và bằng chứng ở 03; chưa chủ trì duyệt bản mới, PDF hoặc phát hành.
 
 ## Điểm xem lịch sử
 
@@ -126,7 +128,7 @@ Lịch sử FB029: [ma trận G01/G02 và hai HTML đối sánh](../../_audit/zo
 | Luồng R1 và nhánh quay về điểm dừng | `r1-controller.js` | Chỉ cho trang R1 đúng hợp đồng; **không nạp vào trang Nhà** |
 | Nhịp đọc và điều hướng trang Nhà | `profiles/course-home.json`, `course-home.css` | Bản đồ theo nội dung thật, không sao chép 12 view của G01 |
 | Footer website | `templates/site-footer.html.tpl`, `site-footer.css` | Tách khỏi Ủng hộ/nội dung học, lấy link và bản quyền từ `website.page-footer` đang có; chỉ bật cho Nhà trong lượt FB-026 |
-| Dựng/kiểm preview | `scripts/zo_web_2027_preview.py`, `scripts/zo_web_2027_check.py` | Nguồn lâu dài ở repo; đầu ra chỉ trong `_audit` |
+| Dựng/kiểm preview | `scripts/zo_course_site.py`, `scripts/zo_course_site.py` | Nguồn lâu dài ở repo; đầu ra chỉ trong `_audit` |
 
 Đọc [hợp đồng vùng đọc](hop_dong_vung_doc.md) trước khi nhân bản và [hướng dẫn kiểm](kiem_thu.md) trước khi bàn giao. Không sao chép 154 vùng của G01 sang gói khác. D0 cũng không được ép thành một gói R1.
 
@@ -136,28 +138,19 @@ Chạy từ gốc `E:/zo_math`:
 
 Lượt FB-027 đã được chốt qua FB028 (lệnh lịch sử, không ghi đè mốc để cập nhật bản mới):
 
-```powershell
-python scripts/zo_python.py scripts/zo_web_2027_preview.py --output _audit/zo_web_2027_tuy_chinh_2026-10-08 --g01-reference _audit/zo_design_web_2027_discovery_2026-10-07/g01-reading.html --ui-baseline _audit/zo_web_2027_footer_2026-10-08/home-reading.html
-python scripts/zo_python.py scripts/zo_web_2027_check.py --preview _audit/zo_web_2027_tuy_chinh_2026-10-08
-```
+Đường dựng và kiểm website: `scripts/zo_course_site_sources/README.md`. Đầu ra hiện hành ghi tại `docs/`.
 
 `--ui-baseline` chỉ cho phép đổi hai nhóm node đã được yêu cầu: câu nhận diện ở rail/footer và `.appearance` cùng stylesheet cục bộ. Phần DOM còn lại, toàn bộ main, CSS vùng đọc/bìa/nav/Ủng hộ/footer và controller R1 giữ nguyên, có so hình học và ảnh vùng đọc. Nội dung câu mới nằm tại một hằng `BRAND_THOUGHT` trong builder để rail/footer/G01 không lệch nhau. Không tự nâng 0.5.
 
 Các lệnh bên dưới mô tả lượt trước, không ghi đè audit đã duyệt để cập nhật UI mới. Template dropdown cũ chỉ giữ cho chế độ đối chiếu tương thích; điểm xem hiện hành dùng dãy màu trực tiếp.
 
-```powershell
-python scripts/zo_python.py scripts/zo_web_2027_preview.py --output _audit/zo_web_2027_mau_dung_chung_2026-10-08 --g01-reference _audit/zo_design_web_2027_discovery_2026-10-07/g01-reading.html
-python scripts/zo_python.py scripts/zo_web_2027_check.py --preview _audit/zo_web_2027_mau_dung_chung_2026-10-08
-```
+Đường dựng và kiểm website: `scripts/zo_course_site_sources/README.md`. Đầu ra hiện hành ghi tại `docs/`.
 
 Builder đọc HTML hiện hành để lấy nội dung và kiểm với dữ liệu canonical của trang Nhà. Nó **không render Quarto**. Nếu nguồn/đầu ra lệch, phải dừng và báo, không âm thầm sửa hoặc render production. G01 đối chứng là đầu vào được truyền rõ và khóa SHA-256; script không nhập builder/CSS/JS từ audit cũ. Khi tích hợp production sau này, phải có adapter từ QMD canonical, không dùng HTML audit làm nguồn chạy lâu dài.
 
 Lượt bổ sung footer riêng (không ghi đè mốc trước):
 
-```powershell
-python scripts/zo_python.py scripts/zo_web_2027_preview.py --output _audit/zo_web_2027_footer_2026-10-08 --g01-reference _audit/zo_design_web_2027_discovery_2026-10-07/g01-reading.html --footer-baseline _audit/zo_web_2027_mau_dung_chung_2026-10-08/home-reading.html
-python scripts/zo_python.py scripts/zo_web_2027_check.py --preview _audit/zo_web_2027_footer_2026-10-08
-```
+Đường dựng và kiểm website: `scripts/zo_course_site_sources/README.md`. Đầu ra hiện hành ghi tại `docs/`.
 
 `--footer-baseline` là đầu vào đối chiếu được chỉ rõ, không phải phụ thuộc runtime. Builder từ chối nếu DOM cũ thay đổi sau khi bỏ đúng footer/stylesheet mới; checker khóa hash trong `footer-before.json`, đo và so ảnh trước–sau. Chỉ CSS dưới `.zo-site-footer` được thêm, không sửa ba stylesheet cũ hoặc JS. Không dùng `assets/html/footer.html` không hoạt động hay nhận `<footer class="prototype-note">` của Ủng hộ là footer website. G01 đối chứng không nhận footer trong phạm vi này.
 
@@ -171,10 +164,7 @@ Không commit, push, xuất bản hoặc chuyển bộ khung thành tài nguyên
 
 ## Adapter HTML thử nghiệm R1-G02 — lịch sử FB028
 
-```text
-python scripts/zo_python.py scripts/zo_web_2027_preview.py --output _audit/zo_web_2027_g02_2026-10-08 --g02
-python scripts/zo_python.py scripts/zo_web_2027_check.py --preview _audit/zo_web_2027_g02_2026-10-08
-```
+Đường dựng và kiểm website: `scripts/zo_course_site_sources/README.md`. Đầu ra hiện hành ghi tại `docs/`.
 
 Hai CLI điều phối `scripts/zo_web_2027_g02.py`. `profiles/r1-g02.json` khóa bản đồ nhịp đọc riêng; `r1-g02-adapter.css` chỉ xử lí cấu trúc download/Ủng hộ và khoảng cuộn cho nhãn trên ID nhiệm vụ. Không đổi shell, giấy đọc, typography, token hay controller đã duyệt. 3.1–3.2 ở G02 cùng nhịp thực hiện phương pháp và ví dụ, không phải quyết định sao chép số mục G01.
 
@@ -189,7 +179,7 @@ Nhãn ngữ cảnh 17/10/2026: quy tắc tại 07/6.2, giá trị duy nhất t�
 
 Theo 07/6.1.2 và 02/2.5 của khóa: source/HTML guard dùng scripts/zo_course_math_assets.py, binding profiles/course-math-assets.json. Không nối BBT bằng bảng thường được gán kind=variation; bộ nối bảng phải từ chối. Hình trong bài gọi cùng production-figures.css và cỡ tự nhiên, bìa dùng manifest riêng. Ma trận đối chứng phải chỉ ra cả component và đầu ra nhìn được; có thử âm JSON rỗng, thiếu giới hạn/điểm loại, surface bìa trong bài, provenance mã sinh/style/phông và sizing. Tương thích G01–G03 không chứng nhận G04/gói mới; không đổi shell/PDF/receipt hoặc xuất bản.
 
-**Nút mục lục — DRAWER-ICON01:** thành phần shell độc lập với PDF, nguồn template page.html.tpl/web-shell.css/site-ui.js, cổng scripts/zo_web_2027_shell.py. Áp dụng 07/6 và hợp đồng vùng đọc; không nhân bản các đoạn chèn icon trong mô-đun PDF. Kiểm gồm hình thức và runtime, có trang chưa PDF và ca âm; bằng chứng/trạng thái tại 03.
+Nút mục lục website thuộc `scripts/zo_course_site_sources/`, độc lập với PDF. Kiểm hình thức, tên truy cập và hành vi thực; bằng chứng và trạng thái tại 03.
 
 
 ## GRAPH-G03-01 — khung và tỉ lệ đồ thị theo G03

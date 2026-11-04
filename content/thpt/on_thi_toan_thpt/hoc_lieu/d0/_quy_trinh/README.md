@@ -1,5 +1,7 @@
 # D0 — đầu mối chuyển đổi canonical
 
+> Vận hành website 2027: chỉ áp dụng `scripts/zo_course_site_sources/README.md` (đường dẫn tính từ gốc repository). Các hướng dẫn bên dưới về preview/checkpoint, vỏ trang kit, DRAWER-ICON01, bộ sáu trang và giữ R01/prototype làm đối chứng đã hết hiệu lực đối với website cuối. Nội dung toán, kiến trúc học tập, hợp đồng bảng/hình và quy trình PDF còn hiệu lực theo phạm vi riêng. Không lấy lệnh hoặc trạng thái trong hồ sơ lịch sử để dựng lại giao diện cũ.
+
 **Hiện hành 15/10/2026:** HTML và PDF đầy đủ 20 trang đã xuất bản và xác minh trên zomath.vn. Hồ sơ triển khai nằm tại bảng 03 của khóa và `ho_so_phat_hanh_20261015.json`. Các trạng thái đầu ra trong nhật kí cũ bên dưới là lịch sử.
 
 Dựng HTML qua `python scripts/zo_python.py -B scripts/zo_qmd.py render content/thpt/on_thi_toan_thpt/hoc_lieu/d0/index.qmd --html-only`. Dựng PDF qua builder riêng `cong_cu/dung_pdf.py` bằng launcher; builder tạo metadata in trong dự án cô lập. Đường xuất bản website chỉ dựng HTML và lấy PDF canonical đã kiểm.

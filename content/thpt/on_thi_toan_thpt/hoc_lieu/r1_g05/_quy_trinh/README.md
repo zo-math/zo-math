@@ -1,5 +1,7 @@
 # R1-G05 — Ứng dụng đạo hàm trong thực tiễn
 
+> Vận hành website 2027: chỉ áp dụng `scripts/zo_course_site_sources/README.md` (đường dẫn tính từ gốc repository). Các hướng dẫn bên dưới về preview/checkpoint, vỏ trang kit, DRAWER-ICON01, bộ sáu trang và giữ R01/prototype làm đối chứng đã hết hiệu lực đối với website cuối. Nội dung toán, kiến trúc học tập, hợp đồng bảng/hình và quy trình PDF còn hiệu lực theo phạm vi riêng. Không lấy lệnh hoặc trạng thái trong hồ sơ lịch sử để dựng lại giao diện cũ.
+
 - [Bộ tám PDF và mục tải HTML — hồ sơ kiểm khi bàn giao](ho_so/bo_pdf_va_muc_tai_20261021.md) · [Biên nhận duyệt toàn văn](ho_so/duyet_pdf_toan_van_20261021.json).
 - [Lần sửa HTML hiện hành: nguồn và căn giữa công thức](ho_so/sua_chu_thich_va_can_giua_20261021.md).
 - [Hồ sơ tích hợp trang khóa học và kiểm HTML](ho_so/tich_hop_khoa_20261021.md).

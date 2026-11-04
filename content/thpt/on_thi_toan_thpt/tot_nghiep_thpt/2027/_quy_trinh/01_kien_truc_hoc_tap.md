@@ -1,5 +1,7 @@
 # Kiến trúc học tập chung
 
+> Vận hành website 2027: chỉ áp dụng `scripts/zo_course_site_sources/README.md` (đường dẫn tính từ gốc repository). Các hướng dẫn bên dưới về preview/checkpoint, vỏ trang kit, DRAWER-ICON01, bộ sáu trang và giữ R01/prototype làm đối chứng đã hết hiệu lực đối với website cuối. Nội dung toán, kiến trúc học tập, hợp đồng bảng/hình và quy trình PDF còn hiệu lực theo phạm vi riêng. Không lấy lệnh hoặc trạng thái trong hồ sơ lịch sử để dựng lại giao diện cũ.
+
 Phiên bản: 0.8 · Ngày biên tập: 12/10/2026 · Đường học QD_033 (kế thừa phần không bị thay của QD_021); hệ nhãn QD_025 (kế thừa QD_023); Kiểm tra QD_024.
 
 Nguồn chuẩn dùng chung về hành trình học của toàn bộ chương trình Ôn thi Toán THPT 2027. Kế thừa đặc tả 0.2 và phần còn hiệu lực của QD_016–018/QD_021; QD_033 giữ Bài học → Luyện tập → Kiểm tra → Ôn lại là tiến trình chuẩn được khuyến nghị, đồng thời thay cách hiểu coi tiến trình này là điều kiện bắt buộc phải hoàn thành tuần tự, cùng các yêu cầu ghi Nhật kí ở mọi Điểm dừng và liên kết quay lại đề vô điều kiện. Việc cập nhật chuẩn không chứng nhận mọi đường học trong sản phẩm đã đạt. [Điểm vào](README.md).

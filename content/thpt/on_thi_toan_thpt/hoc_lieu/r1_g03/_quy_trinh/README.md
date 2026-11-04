@@ -1,5 +1,7 @@
 # R1-G03 — quản lí bản thảo và nguồn học liệu
 
+> Vận hành website 2027: chỉ áp dụng `scripts/zo_course_site_sources/README.md` (đường dẫn tính từ gốc repository). Các hướng dẫn bên dưới về preview/checkpoint, vỏ trang kit, DRAWER-ICON01, bộ sáu trang và giữ R01/prototype làm đối chứng đã hết hiệu lực đối với website cuối. Nội dung toán, kiến trúc học tập, hợp đồng bảng/hình và quy trình PDF còn hiệu lực theo phạm vi riêng. Không lấy lệnh hoặc trạng thái trong hồ sơ lịch sử để dựng lại giao diện cũ.
+
 **GRAPH-G03-02 — sửa đủ năm ảnh còn lệch cỡ, 18/10/2026.** Cả 11 ảnh đã dùng cùng thành phần hiển thị; sáu ảnh cũ giữ cỡ. [Hồ sơ và bản xem](ho_so/dong_bo_nam_hinh_20261018.md). Nguồn QMD/TEX/SVG/PDF không đổi; chưa chủ trì duyệt HTML sửa hoặc xuất bản lại.
 
 

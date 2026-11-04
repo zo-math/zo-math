@@ -1,5 +1,7 @@
 # Quy trình sản xuất, sửa chữa và nghiệm thu
 
+> Vận hành website 2027: chỉ áp dụng `scripts/zo_course_site_sources/README.md` (đường dẫn tính từ gốc repository). Các hướng dẫn bên dưới về preview/checkpoint, vỏ trang kit, DRAWER-ICON01, bộ sáu trang và giữ R01/prototype làm đối chứng đã hết hiệu lực đối với website cuối. Nội dung toán, kiến trúc học tập, hợp đồng bảng/hình và quy trình PDF còn hiệu lực theo phạm vi riêng. Không lấy lệnh hoặc trạng thái trong hồ sơ lịch sử để dựng lại giao diện cũ.
+
 Phiên bản: 0.10 · Ngày biên tập: 16/10/2026 · Đường học QD_033; thay thế QD_022; hệ nhãn QD_025; Kiểm tra QD_024.
 
 Áp dụng cho Codex/Copilot khi làm trong repo. [Điểm vào](README.md).
@@ -8,7 +10,7 @@ Phiên bản: 0.10 · Ngày biên tập: 16/10/2026 · Đường học QD_033; t
 
 **Kiểm đồng bộ nguồn trước dựng HTML:** cổng `course-runtime-source-bindings` trong CLI QMD kiểm các tài nguyên của bản đồ G01 trước Quarto; source gate điều hướng kiểm cùng ràng buộc, mô hình danh mục và các include sinh bằng `zo_build_on_thi.py --check`. Khi JS/CSS nguồn đổi, phải đồng bộ ràng buộc bố cục có căn cứ và kiểm runtime thật; không sửa receipt nghiệm thu hoặc khai báo bìa để vượt cổng. Trang Nhà chỉ ghi bản đang sửa là bản xem khi danh mục đã khai rõ `learner_availability: preview`. D0 mới kiểm bảng native với JSON, so toàn văn/TeX với biên nhận bất biến và so phép chiếu với markup Quarto tươi; không dùng checker SVG/trạng thái phát hành lịch sử để chứng nhận HTML hiện hành. Hành vi đề–lời giải phải kiểm bằng thao tác trên liên kết nhìn thấy, không gọi click vào phần đang đóng.
 
-**Kiểm điều hướng QD_032:** dùng quy tắc tại 07 và nguồn dùng chung, không tái dùng toolbar cũ từ layout đóng băng. Nghiệm thu trên đủ Nhà/D0/G01–G04 hiện có: đích thật, trang hiện tại, bàn phím/no-JS, mobile, bảo toàn URL/view khi về đầu, bảng màu và drawer độc lập. Chạy `scripts/zo_web_2027_navigation_check.py` qua `zo_python.py` với `--output` thư mục build cách ly; thêm `--browser` để kiểm trực quan/hành vi. Không thay bằng chứng cũ, không khóa việc hiệu chỉnh; kiểm lại các phần bị ảnh hưởng. Khi chỉ sửa nguồn, dùng `--source-only --output _audit/<ho-so>`: kiểm mục lục chung, các neo nguồn và đường quay về liên học liệu; chạy thêm `node scripts/zo_course_navigation_routes_selftest.js` cho các ca caller, chuỗi hỗ trợ, tab mới và drawer Nhà/D0. Bộ ghép điều hướng gọi cổng nguồn này trước khi tích hợp. Fixture không thay kiểm trình duyệt; khi được giao dựng mới phải kiểm click/Back/tải lại/nhiều tab và đường tới–về của cả các bài mới. Duyệt mẫu không cho phép đổi heading chưa duyệt hoặc phát hành.
+**Kiểm điều hướng website:** dùng `zo_course_site.py check --page <QMD>` qua launcher, rồi kiểm trực tiếp đích thật, trang hiện tại, bàn phím/no-JS, mobile và đường tới–về. Bảo toàn URL/ID, nội dung và bằng chứng cũ; kiểm click/Back/tải lại/nhiều tab cho các trang bị ảnh hưởng. Kiểm máy không thay quan sát và nghiệm thu; duyệt mẫu không cấp quyền sửa nội dung hoặc phát hành.
 
 Lượt QD_031: hai adapter G01/G02 bắt buộc kiểm nguồn và DOM bằng `scripts/zo_web_2027_backlog_check.py`: thứ tự Toàn văn, khu vực ngang hàng, sở hữu nhóm nhiệm vụ/lời giải, số Sửa lỗi và mọi nhãn liên kết, hành động cục bộ, bảng chọn bài. Dựng năm hình G02 mới và kiểm manifest nguồn/asset theo profile 0.4; không dùng cache cũ làm bằng chứng. Lấy trạng thái/bản xem ở 03/DH_026, không từ QA hoặc receipt lịch sử. Kiểm tự động phải kèm xem hình; không thay nghiệm thu chủ trì.
 
@@ -267,7 +269,7 @@ Khi dựng/hiệu chỉnh nhãn, nạp quy tắc 07/6.2 và label_contract.displ
 
 ### Kiểm component shell trước bàn giao — DRAWER-ICON01
 
-Nút mục lục trong trang theo 07/6 và hợp đồng kit là component dùng chung, không thuộc mục tải PDF. Nạp template/CSS/runtime shell canonical; không lấy hiện thực nằm trong mô-đun PDF của G01/G02 làm tiền đề cho gói mới. scripts/zo_web_2027_shell.py kiểm template trước ghép và HTML/runtime CSS sau adapter. Kiểm thực tế trên màn hình hẹp cả trang chưa có PDF, sau đổi view/tải lại, bàn phím/đóng/chọn đích/resize; đối chiếu với nút icon đã chốt. Cổng chỉ kiểm click được hoặc tệp CSS tồn tại không chứng nhận đúng thiết kế. Thử âm phải bắt chữ view lộ ra, thiếu icon/tên truy cập, sai kích thước hoặc đích dialog. Không dựng lại hình/PDF chỉ vì sửa nút.
+Nút mục lục trong trang theo 07/6 và hợp đồng kit là component dùng chung, không thuộc mục tải PDF. Nạp template/CSS/runtime shell canonical; không lấy hiện thực nằm trong mô-đun PDF của G01/G02 làm tiền đề cho gói mới. Website cuối kiểm bằng `zo_course_site.py check --page <QMD>`; CSS/JS giao diện thuộc `scripts/zo_course_site_sources/`. Kiểm thực tế trên màn hình hẹp cả trang chưa có PDF, sau đổi view/tải lại, bàn phím/đóng/chọn đích/resize; đối chiếu với nút icon đã chốt. Cổng chỉ kiểm click được hoặc tệp CSS tồn tại không chứng nhận đúng thiết kế. Thử âm phải bắt chữ view lộ ra, thiếu icon/tên truy cập, sai kích thước hoặc đích dialog. Không dựng lại hình/PDF chỉ vì sửa nút.
 
 
 ### Đối chiếu liên gói sau hiệu chỉnh ngày 18/10/2026

@@ -48,10 +48,6 @@ Không tự sửa QMD hoặc tạo ngân hàng mới trong lượt prototype. Nh
 
 ## Tái hiện
 
-```text
-python scripts/zo_python.py scripts/zo_web_2027_preview.py --compare --output _audit/zo_web_2027_g01_g02_doi_sanh_2026-10-08
-python scripts/zo_python.py scripts/zo_web_2027_check.py --compare --preview _audit/zo_web_2027_g01_g02_doi_sanh_2026-10-08
-python scripts/zo_python.py scripts/zo_web_2027_check.py --preview _audit/zo_web_2027_g01_g02_doi_sanh_2026-10-08
-```
+Đường dựng và kiểm website: `scripts/zo_course_site_sources/README.md`. Đầu ra hiện hành ghi tại `docs/`.
 
 Đầu ra: `index.html`, `ma_tran_doi_sanh.md`, `matrix.json`, inventory trước/sau toàn bộ task/table/heading/hình/route, `canonical-pointers.json`, đủ 28 bản ghi nguyên văn trong `old-defects.json`, manifest/hash, QA hai lớp và ảnh. Các báo cáo PASS chỉ chứng minh phạm vi guard, không thẩm định lại chân trị mọi đáp án, PDF, thiết bị thật, screen reader hoặc trình duyệt khác Edge.

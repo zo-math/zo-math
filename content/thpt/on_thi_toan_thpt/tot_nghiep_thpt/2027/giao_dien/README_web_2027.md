@@ -35,12 +35,11 @@ không sửa receipt nhập ảnh cũ để hợp thức hóa ảnh mới.
 
 ## Bộ xem đồng bộ và một ảnh bìa — 14/10/2026
 
-Điểm dựng bộ xem hiện hành là `scripts/zo_web_2027_bundle.py`, gọi qua
-`scripts/zo_python.py`: `build --output <thư_mục_audit_mới>` dựng cả Nhà,
-D0, G01 và G02 từ cùng snapshot nguồn. `check --output <bộ_đã_dựng>` từ
-chối nguồn hoặc tài nguyên đã lệch fingerprint. Không lấy ba HTML của
-`_audit/home-preview` để ghép vào Nhà mới. Mỗi trang đều quay về cùng Nhà,
-giữ query/fragment. Các bản xem cũ chỉ là bằng chứng, không là runtime mới.
+Điểm dựng website là `scripts/zo_course_site.py`, gọi qua
+`scripts/zo_python.py`: `build --page <QMD>` dựng đúng trang được giao,
+`check --page <QMD>` kiểm đầu ra trong `docs/`. Chỉ dùng `build --all`
+khi được giao toàn khóa. Không ghép HTML audit vào Nhà mới. Mỗi trang
+quay về cùng Nhà và giữ query/fragment; bản xem cũ không là runtime.
 
 Khi dựng bộ HTML, CLI QMD dùng `render --html-only` cho ba học liệu: vẫn
 kiểm nguồn/geometry/HTML nhưng truyền `--to html` tới Quarto, không khởi
@@ -125,12 +124,7 @@ hay nguồn biên tập hợp lệ. Bản trước di trú được lưu ngoài 
 manifest khóa SHA-256 hai tệp cũ. QD_035 và các bản xem trước vẫn được bảo vệ;
 không tự thay bản chủ trì chọn. Trạng thái/kiểm/bước tiếp chỉ ở bảng 03.
 
-Sau sửa chữ: chạy generator kiểm đồng bộ, dựng Home cô lập qua
-`zo_web_2027_home_check.py rebuild`, rồi checker Home mới với `--preview`
-và **ba** đường dẫn `--d0/--g01/--g02` tường minh. Checker xác minh nguồn
-QMD native, hash cả ba component, projection/ID/links và ca âm template/
-HTML đổi đuôi/wrapper-only. Không dùng preview lịch sử làm đầu vào build.
-Lệnh đều qua `scripts/zo_python.py`. Không tự render root docs hoặc xuất bản.
+Sau sửa nguồn Nhà, dựng và kiểm trang cụ thể qua `zo_course_site.py` theo `scripts/zo_course_site_sources/README.md`. Kiểm nguồn QMD, dữ liệu/partial, bảo toàn nội dung/ID và các đường tới–về giữa Nhà và học liệu. Chỉ dùng HTML vừa dựng tại `docs/`; không ghép ứng viên hoặc ánh xạ đường dẫn từ audit.
 
 ## Lịch sử DH_028 — nguồn template đã được DH_038 thay thế
 
@@ -222,14 +216,7 @@ Chạy generator, dựng và kiểm lại; không sửa ngày trong HTML/JS bằ
 Bản xem mới: `_audit/zo_home_countdown_2026-10-12/preview/home-reading.html`.
 Phạm vi kiểm/duyệt/phát hành vẫn tách biệt; nhiệm vụ và bước tiếp ở bảng 03.
 
-Dựng cách ly qua `zo_web_2027_home_check.py rebuild --output <audit_mới>`.
-Sau đó kiểm/ánh xạ bản xem bằng `zo_web_2027_home_landing_check.py --html
-<HTML_vừa_dựng> --build <build.json> --output <audit_preview> --preview --browser`
-(tất cả lệnh qua `scripts/zo_python.py`). `--preview` hiện dùng rõ các ứng viên
-D0/G01/G02 của DH_027; tạo bản sao chỉ đổi đường dẫn để quay về Home mới,
-kiểm bảo toàn projection, không sửa nguồn ba trang. Muốn đổi mốc phải sửa mapping và kiểm lại link. Không
-phụ thuộc mapping audit khi chạy production. Checker Home cũ đã điều phối
-phép kiểm bố cục mới theo build report, không áp guard nhóm đọc cũ.
+Sau sửa nguồn Nhà, dựng và kiểm trang cụ thể qua `zo_course_site.py` theo `scripts/zo_course_site_sources/README.md`. Kiểm nguồn QMD, dữ liệu/partial, bảo toàn nội dung/ID và các đường tới–về giữa Nhà và học liệu. Chỉ dùng HTML vừa dựng tại `docs/`; không ghép ứng viên hoặc ánh xạ đường dẫn từ audit.
 
 Bản xem lượt này: `_audit/zo_home_redesign_2026-10-12/delivered/preview/home-reading.html`.
 Chờ chủ trì duyệt. Không PDF, root docs, Git hoặc phát hành.
@@ -266,19 +253,7 @@ view cũ `cach-hoc`. ID/URL cũ được giữ.
 
 Luôn gọi Python qua `scripts/zo_python.py` từ gốc repo.
 
-1. `scripts/zo_build_on_thi.py --check`: xác minh dữ liệu/partial/bìa đồng bộ.
-2. `scripts/zo_2027_governance_check.py --self-test --report <audit.json>`:
-   kiểm điều hành, không nghiệm thu HTML.
-3. `scripts/zo_web_2027_home_check.py rebuild --output <audit_mới>`: sao nguồn
-   và cấu hình vào cây cô lập, render đúng trang Nhà bằng `zo_quarto.py` với
-   profile `on-thi-preview`, chạy hook mới. Không ghi đè root docs/Git index.
-4. `scripts/zo_web_2027_home_check.py preview --html <HTML_canonical_vừa_dựng>
-   --output <thư_mục_preview> --g01 <HTML_G01_hiện_hành> --g02 <HTML_G02_hiện_hành>`:
-   chỉ ánh xạ liên kết của bản xem, không đổi nguồn hoặc đầu ra canonical.
-5. `scripts/zo_web_2027_home_check.py check --html <preview/home-reading.html>
-   --build <audit_dựng/build.json> --output <audit_kiểm_mới> --browser`: kiểm
-   projection, nguồn tươi, tài nguyên/link/fragment, fixture và Edge 7 độ rộng,
-   scroll, drawer/keyboard/resize, màu/Sắc xám/reload, no-JS và footer.
+Dựng và kiểm theo `scripts/zo_course_site_sources/README.md`: chạy `zo_course_site.py build --page content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.qmd`, rồi `check --page` cùng nguồn qua launcher. Kiểm dữ liệu/partial, projection, ID, liên kết, tài nguyên, responsive, bàn phím, no-JS và chân trang trên HTML cuối trong `docs/`. Kiểm điều hành không thay nghiệm thu HTML.
 
 Checker ra mắt cũ `zo_check_on_thi_launch.py` kiểm mốc trước chuyển kit và cả
 PDF/root website; không dùng PASS lịch sử của nó để nghiệm thu trang Nhà mới.
