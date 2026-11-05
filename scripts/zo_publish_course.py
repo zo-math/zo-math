@@ -219,6 +219,9 @@ def validate_receipt(root, target, config, payload):
     if payload.get('approved_course',{}).get('verification_mode')=='current-course':
         from zo_publish_current_course import verify_current
         verifier=verify_current
+    elif payload.get('approved_course',{}).get('verification_mode')=='existing-course':
+        from zo_publish_existing_course import verify_existing
+        verifier=verify_existing
     seal = verifier(root)
     if payload['approved_course']['approval_seal'] != seal:
         raise p.ConfigError('Approved canonical source/output changed after prepare.')
@@ -258,6 +261,9 @@ def prepare(root, target, config_path, config, args, source_state, target_state)
     if getattr(args,'current_course',False):
         from zo_publish_current_course import verify_current
         verifier=verify_current
+    if getattr(args,'existing_course',False):
+        from zo_publish_existing_course import verify_existing
+        verifier=verify_existing
     seal = verifier(root)
     stage = root/config['prepare']['staging_dir']
     if stage.exists():
@@ -277,7 +283,7 @@ def prepare(root, target, config_path, config, args, source_state, target_state)
         payload.update(result)
         payload['prepare_paths'] = {key: f'{config["prepare"]["staging_dir"]}/{folder}' for key, folder in [('render_dir','render'),('public_dir','public'),('backup_dir','backup')]}
         payload['prepare_paths'].update(staging_dir=config['prepare']['staging_dir'], report_file=config['prepare']['report_file'])
-        payload['approved_course'] = {'version': 1, 'verification_mode': 'current-course' if getattr(args,'current_course',False) else 'historical-owner-acceptance', 'approval_seal': seal, 'render_manifest': p.tree_manifest(stage/'render'), 'render_performed': False}
+        payload['approved_course'] = {'version': 1, 'verification_mode': 'existing-course' if getattr(args,'existing_course',False) else 'current-course' if getattr(args,'current_course',False) else 'historical-owner-acceptance', 'approval_seal': seal, 'render_manifest': p.tree_manifest(stage/'render'), 'render_performed': False}
         if verifier(root) != seal or p.tree_manifest(target, True) != before:
             raise p.ConfigError('Source, approval or public tree changed during prepare.')
         if not result['issues']:

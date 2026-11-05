@@ -1,5 +1,19 @@
 # Điều hành chương trình — trạng thái và việc tiếp theo
 
+## HIỆN HÀNH — Chủ trì yêu cầu xuất bản nguyên bản mới, 05/11/2026
+
+Chủ trì chỉ thị trực tiếp: “Tối không cần kiểm chứng gì nữa, tôi cần đưa bản trang web mới lên. Có hiểu không? Chỉ đơn giản là xuất bản phiên bản mới.” Quyền này thay yêu cầu dừng ở chuẩn bị của lượt trước. Phát hành nguyên 17 HTML canonical vừa dựng và tài nguyên hiện có; không dựng hoặc tái chứng nhận PDF, chỉ giữ PDF trùng byte bản public. Hồ sơ riêng `ho_so/uy_quyen_phat_hanh_ban_hien_co_20261105.json` khóa chỉ thị và hash sản phẩm, không ghi đè biên nhận cũ. Dùng `zo_publish.py prepare --existing-course` rồi `publish`; các cơ chế public/Git/backup/toàn vẹn byte của công cụ vẫn áp dụng. Không mở vòng nghiệm thu nội dung mới hoặc suy nghiệm thu từ quyền phát hành. Kết quả triển khai thực sẽ ghi sau thao tác; trạng thái queued của lần trước không được coi là kết quả của đợt này.
+
+## HIỆN HÀNH — Kiểm và chuẩn bị phát hành toàn khóa, 05/11/2026
+
+Theo yêu cầu “Hãy kiểm tra và chuẩn bị phát hành khóa ôn thi 2027 lên zomath.vn.”, đã dựng lại HTML toàn khóa qua `zo_course_site.py build --all`, không dựng PDF. Mười nguồn đạt kiểm nguồn/render; lớp website cuối có 17 trang, 2.852 tham chiếu, kiểm độ mới và liên kết cuối đạt, không còn CRLF trong 247 tệp thuộc tập phụ thuộc của bản xem. Chỉ hai hồ sơ sinh `current_site_build.json` và `ban_dang_duyet.json` được cập nhật cùng đầu ra canonical. Không sửa nội dung toán hoặc biên nhận nghiệm thu lịch sử; bản dựng mới chưa tự được nghiệm thu.
+
+Kiểm 49 PDF: bản tải trong docs trùng PDF canonical, đủ Bảo trợ trang cuối; 17 PDF chưa đạt provenance hiện hành (D0: một; R1-G01 và R1-G05: tám mỗi gói). Đây là lệch nguồn/phụ thuộc với hồ sơ dựng, không tự kết luận sai nội dung. Chưa dựng lại hoặc sửa hash để hợp thức hóa. Kế hoạch public nhận diện đúng mười nguồn, không có lỗi phạm vi. Kiểm public trước dựng có 16 lỗi provenance R1 và 38 lỗi CRLF; bản dựng mới đã chuẩn hóa CRLF, nhưng chưa chạy lại toàn bộ cổng public hoặc tạo receipt prepare/validate thành công.
+
+Chưa đủ điều kiện phát hành: cần xử lý provenance của 17 PDF trong phạm vi được giao riêng, rà và khóa bản sản phẩm mới (bảy tệp khác dấu kiểm kỹ thuật cũ), quan sát HTML mới bằng trình duyệt, rồi prepare/validate chính thức. Trình duyệt trong ứng dụng hết thời gian chờ khi khởi tạo; Windows Computer Use `list_apps` vẫn hết thời gian chờ sau thử lại/khôi phục, nên không có xác nhận xem được và không bàn giao URL localhost trong lượt này.
+
+Git ban đầu sạch; master cục bộ `aa5b22e5` đi trước `origin/master` 15 commit, bản public Git ở `ec1bd8cd`. GitHub API vẫn báo run `41891173669` queued, chưa có kết luận; hai trang Nhà/R1-G01 trên zomath.vn trả HTTP 200 lúc 15:28 ngày 05/11 (ICT), R1-G01 chưa có iframe video mới. Chưa commit, push hoặc publish trong lượt này; không suy quyền công khai các commit nguồn từ yêu cầu chuẩn bị. Báo cáo: `_audit/release_20261105/readiness.json`, `course-check-final.json`, `pdf-check.json`, `plan.json`, `render.json`, `render-site.json`, `live-http.json`.
+
 ## HIỆN HÀNH — Đã push bản 25 video; GitHub Pages kẹt trạng thái, 05/11/2026
 
 Chủ trì đã đồng ý rõ việc công khai nhánh nguồn vào `zo-math/zo-math`. Đã push thành công nhánh riêng `release/r1-g01-videos-20261104` tại `cf763de3`; không push master hoặc bốn commit ngoài phạm vi. Prepare và validate chính thức đều PASS; cây chuẩn bị trùng từng byte ứng viên đã kiểm. Công cụ publish đã commit và push `ec1bd8cd` trên gh-pages: đúng một HTML sửa, hai CSS/JS thêm, không có media, 1.002 tệp khác giữ nguyên. Remote master vẫn ở `49c5e36b`.
