@@ -1,5 +1,11 @@
 # Điều hành chương trình — trạng thái và việc tiếp theo
 
+## HIỆN HÀNH — Đã xuất bản phiên bản website mới, 05/11/2026
+
+Sau khi chủ trì xác nhận tiếp tục xuất bản ngay, đã push nguồn `master` tại `4923e7b3802e896ccd03f379a1309fc858791ba6`, rồi chạy `zo_publish.py publish` thành công. Commit website là `2724189b106598de77865c957a323143558667cd`; GitHub Pages run `41999795946` đã `completed/success`. Trang Chuyên đề và R1-G01 trên zomath.vn trả HTTP 200, hash trùng bản mới canonical. Đây là xác nhận kết quả triển khai, không phải mở thêm vòng nghiệm thu nội dung.
+
+Đợt này đưa nguyên bản HTML/tài nguyên đã chốt lên; thêm bảy ảnh minh họa, sửa tám tệp (gồm HTML, tài nguyên dùng chung và search), không xóa tệp, 997 tệp giữ nguyên. PDF giữ nguyên byte public, không dựng hoặc tái chứng nhận. Các mục ghi bị chặn quyền hoặc GitHub queued bên dưới là lịch sử trước lần phát hành thành công này. Hồ sơ: `ho_so/phat_hanh_ban_hien_co_20261105.json`; bằng chứng HTTP tại `_audit/release_20261105/published-http.json`.
+
 ## HIỆN HÀNH — Chủ trì yêu cầu xuất bản nguyên bản mới, 05/11/2026
 
 Chủ trì chỉ thị trực tiếp: “Tối không cần kiểm chứng gì nữa, tôi cần đưa bản trang web mới lên. Có hiểu không? Chỉ đơn giản là xuất bản phiên bản mới.” Quyền này thay yêu cầu dừng ở chuẩn bị của lượt trước. Phát hành nguyên 17 HTML canonical vừa dựng và tài nguyên hiện có; không dựng hoặc tái chứng nhận PDF, chỉ giữ PDF trùng byte bản public. Hồ sơ riêng `ho_so/uy_quyen_phat_hanh_ban_hien_co_20261105.json` khóa chỉ thị và hash sản phẩm, không ghi đè biên nhận cũ. Dùng `zo_publish.py prepare --existing-course` rồi `publish`; các cơ chế public/Git/backup/toàn vẹn byte của công cụ vẫn áp dụng. Không mở vòng nghiệm thu nội dung mới hoặc suy nghiệm thu từ quyền phát hành. Kết quả triển khai thực sẽ ghi sau thao tác; trạng thái queued của lần trước không được coi là kết quả của đợt này.
