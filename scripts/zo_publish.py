@@ -1864,6 +1864,7 @@ def parser() -> argparse.ArgumentParser:
     value.add_argument("--config", default="publish_public.yml")
     value.add_argument("--report")
     value.add_argument("--current-course", action="store_true", help="prepare: release the fresh integrated canonical course under explicit current authorization, without inferring owner acceptance.")
+    value.add_argument("--existing-course", action="store_true", help="prepare: publish explicitly authorized existing canonical HTML, retaining byte-identical public PDFs; no new content certification.")
     value.add_argument("--approved-course", action="store_true", help="prepare: release the approved canonical course HTML pages and their verified PDFs without historical rebuilds.")
     value.add_argument("--full-render", action="store_true", help="prepare: use the legacy two full-site renders instead of page artifacts.")
     value.add_argument("--navigation-only-page", action="append", default=[], help="prepare: inherit published learner HTML and update only its canonical course menu; must also be in --page.")
@@ -1883,6 +1884,11 @@ def parser() -> argparse.ArgumentParser:
 def main(argv: Sequence[str] | None = None) -> int:
     started = time.perf_counter()
     args = parser().parse_args(argv)
+    if args.existing_course:
+        if args.current_course or args.approved_course or args.command != 'prepare' or args.with_pdfs or args.navigation_only_page or args.video_only_page:
+            print('ERROR: --existing-course requires standalone prepare.', file=sys.stderr)
+            return EXIT_USAGE
+        args.current_course = True
     if args.video_only_page and (args.command != 'prepare' or set(args.video_only_page) != set(args.page) or args.navigation_only_page or args.with_pdfs or args.d0_pdf or args.full_render or args.current_course or args.approved_course):
         print('ERROR: video-only requires exactly the selected HTML pages and no other release mode.', file=sys.stderr)
         return EXIT_USAGE

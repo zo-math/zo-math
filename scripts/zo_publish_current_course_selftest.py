@@ -24,6 +24,15 @@ class CurrentReleaseTests(unittest.TestCase):
   self.assertNotEqual(p.main(['prepare','--current-course','--page','index.html']),0)
  def test_current_mode_does_not_apply_to_publish_action(self):
   self.assertNotEqual(p.main(['publish','--current-course']),0)
+ def test_existing_mode_requires_standalone_prepare(self):
+  for args in [['publish','--existing-course'],['prepare','--existing-course','--current-course'],['prepare','--existing-course','--page','index.html']]:
+   self.assertNotEqual(p.main(args),0)
+ def test_existing_receipt_reverifies_exact_snapshot(self):
+  import zo_publish_existing_course as existing
+  payload={'approved_course':{'verification_mode':'existing-course','approval_seal':{'old':True}}}
+  with patch.object(existing,'verify_existing',return_value={'new':True}) as verifier:
+   with self.assertRaises(p.ConfigError):course.validate_receipt(Path('.'),Path('.'),{},payload)
+   verifier.assert_called_once()
  def test_current_receipt_reverifies_current_seal(self):
   payload={'approved_course':{'verification_mode':'current-course','approval_seal':{'old':True}}}
   with patch.object(current,'verify_current',return_value={'new':True}) as verifier:

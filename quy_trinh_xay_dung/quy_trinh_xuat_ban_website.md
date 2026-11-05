@@ -252,6 +252,17 @@ Không kết hợp cờ này với `--approved-course`, `--page` hay `--full-ren
 Kiểm hồi quy: `scripts/zo_publish_current_course_selftest.py` và
 `scripts/zo_publish_course_selftest.py`, qua launcher Python của repository.
 
+### Xuất bản nguyên bản HTML hiện có theo chỉ thị trực tiếp
+
+Theo yêu cầu trực tiếp ngày 05/11/2026 bỏ vòng kiểm chứng nội dung mới và xuất
+bản phiên bản hiện có, dùng `prepare --existing-course`, rồi `publish` qua
+launcher. Hồ sơ riêng `uy_quyen_phat_hanh_ban_hien_co_20261105.json` khóa nguyên
+văn chỉ thị, đủ 17 HTML cùng tài nguyên và PDF bằng hash. Không dựng lại, không
+ghi nghiệm thu hoặc provenance mới. PDF chỉ được kế thừa nếu trùng byte bản
+Git public; cổng này được kiểm cả prepare và publish. Mọi hàng rào phạm vi
+public, nguồn đã commit/push, backup, chống sửa sau prepare và push không
+force của công cụ vẫn giữ nguyên. Hồ sơ lịch sử không bị ghi đè.
+
 ### Bổ sung riêng video vào HTML đang công khai
 
 Khi được giao giữ nguyên giao diện đã phát hành và chỉ thêm video, dùng
