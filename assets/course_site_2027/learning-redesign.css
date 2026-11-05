@@ -275,3 +275,14 @@
 @media(max-width:540px){.topics-main .topics-heading{padding:26px 24px}.topics-main .topics-heading h1{font-size:36px}.topics-main .exam-hero-clock{padding-inline:24px}.topics-heading>p span{padding-inline:2px}.topics-introduction{margin-bottom:20px}.topics-main .resume-strip{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 16px;padding:18px 24px}.topics-main .resume-strip>.icon{display:none}.topics-main .resume-strip>div{min-width:0}.topics-main .resume-strip>a{grid-column:1;grid-row:2;justify-self:start}.topics-main .resume-strip>button{grid-column:2;grid-row:1;align-self:start}.topics-main .resume-strip strong{font-size:12px;line-height:1.7}.topics-main .resume-strip small{letter-spacing:0}}
 @media(min-width:1200px){.topics-main .catalog-controls{grid-template-columns:minmax(220px,1fr) auto auto;gap:18px;padding:18px 22px}.topics-main .mode-select{grid-column:auto;gap:10px}.topics-main .filter-tabs button{font-size:12px;padding-inline:12px}.topics-main .mode-select,.topics-main .mode-select select{font-size:12px}}
 @media(max-width:760px){.site-reader .reader-tools{top:100px}.site-reader .reader-sidebar{top:100px;height:calc(100dvh - 100px)}.site-reader .context-return{top:156px}.site-reader .reader-content [id]{scroll-margin-top:174px}.site-reader.has-context .reader-content [id]{scroll-margin-top:278px}.site-reader.focus-on .reader-tools{top:0}.site-reader.focus-on .context-return{top:56px}.site-reader.focus-on .reader-content [id]{scroll-margin-top:78px}.site-reader.has-context.focus-on .reader-content [id]{scroll-margin-top:180px}}
+
+/* Strand boundaries: each grid starts a new row; tones stay stable while filtering. */
+.topic-strand{--strand-surface:white;margin-top:40px}
+.topic-strand:first-child{margin-top:0}
+.topic-strand[hidden]{display:none}
+.topic-strand>h2{font-size:28px;line-height:1.35;letter-spacing:-.5px;margin:0 0 20px}
+.topic-strand.shaded{--strand-surface:var(--zo-gray-2)}
+.catalog-page .topic-strand .topic-card,.catalog-page .topic-strand .topic-card:hover,.topic-strand .topic-art{background:var(--strand-surface)}
+.topic-strand.shaded .topic-activity{background:white}
+.topic-strand.shaded .topic-activity:hover{background:var(--zo-gray-3)}
+@media(max-width:767px){.topic-strand{margin-top:32px}.topic-strand>h2{font-size:24px;margin-bottom:16px}}
