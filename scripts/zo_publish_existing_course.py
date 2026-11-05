@@ -32,7 +32,8 @@ def verify_existing(root):
             raise p.ConfigError('Invalid inherited course PDF: '+name)
         if auth['sealed_files'].get(name)!=digest or auth['sealed_files'].get('docs/'+name)!=digest:
             raise p.ConfigError('Inherited PDF is not sealed in both canonical locations: '+name)
-    raw=p.tree_manifest(root/'docs');missing=[]
+    raw={'files':{name[5:]:{'sha256':digest} for name,digest in auth['sealed_files'].items() if name.startswith('docs/')}}
+    missing=[]
     assets=p.asset_dependencies(root/'docs',raw,sorted(expected),missing)
     if missing:raise p.ConfigError('Missing publication assets: '+str(missing))
     selected=expected|set(pdfs)|assets
