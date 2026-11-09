@@ -2,6 +2,39 @@
 
 ## Đường vận hành duy nhất của website
 
+### Cập nhật thông thường: ghi đè bản hiện hành
+
+**Phát hành tuyệt đối không dựng lại.** Khi yêu cầu chỉ là phát hành, bỏ
+toàn bộ bước dựng: chỉ lấy các tài nguyên liên quan đang có để đưa lên.
+Dựng HTML, PDF, hình và các tài nguyên thuộc công việc dựng tài liệu riêng.
+Nếu tài nguyên cần phát hành chưa tồn tại thì báo đúng phần thiếu, không
+tự gọi bộ dựng để bổ sung trong nhiệm vụ phát hành. `prepare --page <HTML>`
+cũng chỉ nhận đầu ra có sẵn, không render và không cần Quarto.
+
+Theo chỉ thị chủ trì ngày 05/11/2026, chỉ vận hành một bản website hiện hành.
+Sửa nguồn → dựng đúng trang chịu ảnh hưởng, ghi đè HTML ở `docs/` → khi được
+giao cập nhật website, đưa phần thay đổi lên đúng địa chỉ cũ. Không tạo bản
+song song, không dựng lại toàn khóa cho một sửa nhỏ, không mở lại nghiệm thu
+nội dung hay dựng PDF chỉ để cập nhật HTML.
+
+Đường phát hành HTML mặc định là `zo_publish.py prepare --course-html`, rồi
+`zo_publish.py publish`, đều qua `scripts/zo_python.py`. Bước prepare lấy bản
+HTML đã dựng; không render, không cần biên nhận duyệt theo ngày. Công cụ tự
+ghi thông tin cần dùng trong lần cập nhật, chỉ ghi đè các tệp có byte thay đổi,
+giữ PDF public và trang ngoài khóa nguyên trạng. Bản sao khôi phục chỉ là tạm
+trong lúc cập nhật và được dọn khi xong; không là một phiên bản website khác.
+
+Agent tự làm chuỗi commit nguồn → push nguồn vào `zo-math/zo-math` → prepare
+→ publish khi người dùng yêu cầu đưa thay đổi lên zomath.vn. Không xin lại
+quyền cho từng bước kỹ thuật đã nằm trong yêu cầu đó. Sau push website, theo
+dõi kết quả triển khai; lỗi GitHub Pages là lỗi triển khai cần xử lý riêng,
+không bắt người dùng duyệt hoặc dựng lại học liệu.
+
+Các đường `--current-course`, `--approved-course`, `--existing-course` giữ để
+đọc/tái kiểm hồ sơ cũ hoặc tác vụ có phạm vi riêng; không phải đường mặc định
+cho cập nhật HTML thông thường. PDF mới/thay đổi chỉ đưa lên khi nhiệm vụ có
+yêu cầu PDF; trạng thái hồ sơ PDF cục bộ không chặn cập nhật riêng HTML.
+
 Tài liệu này sở hữu toàn bộ lệnh dựng, kiểm và cập nhật website khóa 2027. Các lệnh Quarto trực tiếp, bộ preview, checkpoint và shell kit cũ trong tài liệu khác đã hết hiệu lực đối với giao diện cuối. Chúng chỉ được gọi nội bộ khi bộ dựng hiện hành cần tạo nội dung native; không chạy chúng để ghi hoặc bàn giao website. Chỉ giữ nguồn nội dung và các hợp đồng toán/học tập còn hiệu lực, không kế thừa bố cục từ bản dựng cũ.
 
 Giao diện nằm trong thư mục này: `build.py` ghép trang; `site.css` là lớp cơ sở; `course-redesign.css` ghi đè giao diện toàn khóa; `learning-redesign.css` và `learning-format.css` áp cho trang học. Khi sửa CSS, phải kiểm thứ tự nạp và giá trị computed trên bản cuối. Không sửa kit `_design/web_2027_mau_dung_chung` để chỉnh header website mới.
@@ -32,8 +65,9 @@ Danh mục phiên bản và quy cách xuất ảnh tại `content/thpt/on_thi_to
 Luôn chạy từ gốc repository, qua launcher:
 
 ```text
-python scripts/zo_python.py scripts/zo_course_site.py build --all --report _audit/current/verification/course-render.json
-python scripts/zo_python.py scripts/zo_course_site.py check --report _audit/current/verification/course-check.json
+python scripts/zo_python.py scripts/zo_course_site.py build --page <QMD>
+python scripts/zo_python.py scripts/zo_publish.py prepare --course-html
+python scripts/zo_python.py scripts/zo_publish.py publish
 ```
 
 Lệnh toàn khóa dựng D0, bảy gói, Nhà và Ôn nền dùng chung; sinh bảy trang tiện ích/hướng dẫn. Tất cả ghi vào vị trí canonical trong `docs/`; chỉ dựng HTML. Lệnh `zo_web_2027_bundle.py build/check` chuyển vào cùng đường này, không dùng bộ sáu trang/PDF cũ.

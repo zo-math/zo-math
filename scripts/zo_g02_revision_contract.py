@@ -9,7 +9,8 @@ def review_for(path, root):
     settings=json.loads(config.read_text(encoding='utf-8'))
     if settings.get('adapter')!='g02-revision-source-v1':return None
     if settings.get('package')!='r1_g02':raise ValueError('Revision package mismatch')
-    review_path=path.parent/'_quy_trinh/ho_so/course_format_20261103_review.json'
+    review_path=path.parent/'_quy_trinh/ho_so/video_editorial_review.json'
+    if not review_path.is_file():review_path=path.parent/'_quy_trinh/ho_so/course_format_20261103_review.json'
     if not review_path.is_file():review_path=path.parent/'_quy_trinh/ho_so/lesson_titles_20261103_review.json'
     if not review_path.is_file():review_path=path.parent/'_quy_trinh/ho_so/r01_editorial_review.json'
     review=json.loads(review_path.read_text(encoding='utf-8'))

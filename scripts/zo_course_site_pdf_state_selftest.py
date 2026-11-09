@@ -13,7 +13,8 @@ class PdfStateTests(unittest.TestCase):
         return BeautifulSoup('<article class="reader-content"><p id="lesson">Giữ nguyên bài học.</p><section id="tai-tai-lieu"><h2>Tải tài liệu</h2><p class="zo-pdf-current-note">Các PDF đang giữ bản cũ, chưa phản ánh bản sửa R01.</p>'+cards+'</section></article>','html.parser')
 
     def test_current_pdf_replaces_obsolete_revision_warning(self):
-        with patch('zo_course_pdf_download_state.validate_canonical_pdf_provenance',return_value=[]):
+        states={name:{'errors':[],'status':'current'} for name in ['full','student','bai_hoc','luyen_tap','kiem_tra','sua_loi','on_lai','loi_giai']}
+        with patch('zo_course_pdf_download_state.inspect_print_states',return_value=states):
             doc,notes=site.prepare_reader(self.document(),'r1_g03')
         self.assertIn('bản cũ',notes[0])
         self.assertNotIn('bản cũ',doc.get_text())
@@ -22,7 +23,8 @@ class PdfStateTests(unittest.TestCase):
         self.assertEqual(len(doc.select('.zo-pdf-card[data-pdf-current="true"]')),8)
 
     def test_stale_pdf_remains_blocked(self):
-        with patch('zo_course_pdf_download_state.validate_canonical_pdf_provenance',return_value=['changed source']):
+        states={name:{'errors':['changed source'],'status':'stale'} for name in ['full','student','bai_hoc','luyen_tap','kiem_tra','sua_loi','on_lai','loi_giai']}
+        with patch('zo_course_pdf_download_state.inspect_print_states',return_value=states):
             doc,_=site.prepare_reader(self.document(),'r1_g03')
         self.assertEqual(len(doc.select('.zo-pdf-card[data-pdf-current="false"]')),8)
         self.assertIn('chưa dùng để xuất bản',doc.select_one('.zo-pdf-current-note').get_text())

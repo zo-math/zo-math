@@ -59,7 +59,7 @@
   }
   videos.forEach(video => {
     const status = video.querySelector('.zo-video-status');
-    if (!status) return;
+    if (!status || video.dataset.publicPlayback === 'pending') return;
     status.dataset.initial = status.textContent;
     const retry = document.createElement('button');
     retry.type = 'button';
@@ -78,6 +78,12 @@
   function sync() {
     videos.forEach(video => {
       const host = video.querySelector('.zo-video-player');
+      // A scheduled time is not evidence of public playback. The release
+      // review must explicitly remove this hold after real playback succeeds.
+      if (video.dataset.publicPlayback === 'pending') {
+        if (host.firstChild) stop(video);
+        return;
+      }
       if (!visible(video)) { if (host.firstChild) stop(video); return; }
       if (host.firstChild) return;
       const id = video.dataset.youtubeId;

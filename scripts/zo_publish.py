@@ -820,18 +820,26 @@ def validate_public(public: Path, manifest: Mapping[str, Any], config: Mapping[s
                     *, historical_comparison_only: bool = False,
                     source_root: Path | None = None,
                     content_paths: set[str] | None = None,
-                    inherited_course_pdfs: Mapping[str, str] | None = None) -> dict[str, Any]:
+                    inherited_course_pdfs: Mapping[str, str] | None = None,
+                    preserved_course_pdfs: Mapping[str, str] | None = None) -> dict[str, Any]:
     issues: list[dict[str, Any]] = []
     files = set(manifest["files"])
     # A baseline is evidence for the source/render diff, never a release tree.
     # Current and final scoped candidates always enforce current PDF provenance.
     if not historical_comparison_only:
+        for name, digest in (preserved_course_pdfs or {}).items():
+            file = public / name
+            if (name not in files or safe_relative(name,'preserved public PDF') != name
+                    or not name.endswith('.pdf') or not file.is_file() or file.is_symlink()
+                    or sha256(file) != digest):
+                issues.append({'type': 'preserved-course-pdf-bytes', 'path': name})
+        pdf_files = files - set(preserved_course_pdfs or {})
         if inherited_course_pdfs and source_root is not None:
             raise ConfigError("PDF inheritance is only supported in the canonical approved-course checkout.")
         if inherited_course_pdfs:
-            issues.extend(course_pdf_issues(public, files, inherited_pdfs=inherited_course_pdfs))
+            issues.extend(course_pdf_issues(public, pdf_files, inherited_pdfs=inherited_course_pdfs))
         else:
-            issues.extend(course_pdf_issues(public, files, source_root))
+            issues.extend(course_pdf_issues(public, pdf_files, source_root))
     deny = config["denylist"]
     for relative in sorted(files):
         if path_denied(relative, deny["paths"], deny["globs"]):
@@ -1865,6 +1873,7 @@ def parser() -> argparse.ArgumentParser:
     value.add_argument("--report")
     value.add_argument("--current-course", action="store_true", help="prepare: release the fresh integrated canonical course under explicit current authorization, without inferring owner acceptance.")
     value.add_argument("--existing-course", action="store_true", help="prepare: publish explicitly authorized existing canonical HTML, retaining byte-identical public PDFs; no new content certification.")
+    value.add_argument("--course-html", action="store_true", help="prepare: overwrite the current course website from its built HTML; keep published PDFs, without rendering or dated approval records.")
     value.add_argument("--approved-course", action="store_true", help="prepare: release the approved canonical course HTML pages and their verified PDFs without historical rebuilds.")
     value.add_argument("--full-render", action="store_true", help="prepare: use the legacy two full-site renders instead of page artifacts.")
     value.add_argument("--navigation-only-page", action="append", default=[], help="prepare: inherit published learner HTML and update only its canonical course menu; must also be in --page.")
@@ -1884,6 +1893,14 @@ def parser() -> argparse.ArgumentParser:
 def main(argv: Sequence[str] | None = None) -> int:
     started = time.perf_counter()
     args = parser().parse_args(argv)
+    if args.command == 'prepare' and (args.full_render or args.committed_source or args.allow_global_inputs_for_pages or args.navigation_only_page or args.video_only_page):
+        print('ERROR: Phát hành chỉ dùng tài nguyên đã có. Dựng/chỉnh HTML là nhiệm vụ tài liệu riêng; prepare không render hoặc tạo lại HTML.', file=sys.stderr)
+        return EXIT_USAGE
+    if args.course_html:
+        if args.current_course or args.existing_course or args.approved_course or args.command != 'prepare' or args.with_pdfs or args.navigation_only_page or args.video_only_page:
+            print('ERROR: --course-html requires standalone prepare.', file=sys.stderr)
+            return EXIT_USAGE
+        args.current_course = True
     if args.existing_course:
         if args.current_course or args.approved_course or args.command != 'prepare' or args.with_pdfs or args.navigation_only_page or args.video_only_page:
             print('ERROR: --existing-course requires standalone prepare.', file=sys.stderr)
@@ -1950,8 +1967,6 @@ def main(argv: Sequence[str] | None = None) -> int:
             from zo_publish_pages import validate_only
             return validate_only(root, config_path, config)
 
-        if args.command == "prepare" and shutil.which("quarto") is None:
-            raise MissingToolError("Không tìm thấy Quarto trong PATH.")
         target = find_publish_worktree(root, config["target_branch"])
         if args.command == "prepare":
             fetch = git(root, "fetch", "--prune", "origin")
@@ -1962,9 +1977,16 @@ def main(argv: Sequence[str] | None = None) -> int:
         if args.command == "prepare" and (args.approved_course or args.current_course):
             from zo_publish_course import prepare
             return prepare(root, target, config_path, config, args, source_state, target_state)
-        if args.command == "prepare" and args.page and not args.full_render:
-            from zo_publish_pages import prepare as prepare_pages
-            return prepare_pages(root,target,config_path,config,args,source_state,target_state)
+        if args.command == "prepare" and args.page:
+            if args.with_pdfs or args.d0_pdf:
+                from zo_publish_pages import preflight
+                from zo_publish_pdfs import selected_pdfs
+                scope=preflight(root,args.page,config)
+                if scope['issues']:raise ConfigError(str(scope['issues']))
+                args.built_pdfs=[record['path'] for record in selected_pdfs(root,scope['sources'],evidence=False)]
+            from zo_publish_course import prepare
+            args.built_pages = True
+            return prepare(root,target,config_path,config,args,source_state,target_state)
         issues: list[dict[str, Any]] = []
         issues.extend({"type": "source-git", "message": item} for item in source_state["issues"])
         issues.extend({"type": "target-git", "message": item} for item in target_state["issues"])

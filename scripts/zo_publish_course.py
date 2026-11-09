@@ -145,13 +145,14 @@ def require_exact_products(tree, docs, pages, pdfs):
             raise p.ConfigError('Approved PDF bytes changed: '+name)
 
 
-def selected_indexes(rendered, pages, config):
+def selected_indexes(rendered, pages, config, allow_body=False):
     """Derive only selected index records from the exact approved HTML."""
     records = []
     sitemap = ET.Element('urlset', xmlns='http://www.sitemaps.org/schemas/sitemap/0.9')
     for name in pages:
         doc = BeautifulSoup((rendered/name).read_text(encoding='utf-8'), 'html.parser')
         reading = doc.select_one('.home-landing-content, .reader-content, .course-home, .utility-main, .guidance-main, .learning-hub, .catalog-page')
+        if reading is None and allow_body:reading=doc.find('main') or doc.body
         if reading is None:
             raise p.ConfigError('Missing canonical reader: '+name)
         for node in reading.select('script,style,nav'):
@@ -164,14 +165,27 @@ def selected_indexes(rendered, pages, config):
     p.write_text_lf(rendered/'sitemap.xml', ET.tostring(sitemap, encoding='unicode')+'\n')
 
 
-def candidate(target, docs, rendered, destination, pages, pdfs, config, approved_files=None, inherited_pdfs=None):
+def candidate(target, docs, rendered, destination, pages, pdfs, config, approved_files=None, inherited_pdfs=None, preserved_pdfs=None):
     before = p.tree_manifest(target, True)
+    for name, digest in (preserved_pdfs or {}).items():
+        if before['files'].get(name, {}).get('sha256') != digest:
+            raise p.ConfigError('Preserved PDF differs from existing public tree: '+name)
     for name, digest in (inherited_pdfs or {}).items():
         if before["files"].get(name, {}).get("sha256") != digest:
             raise p.ConfigError("Inherited PDF differs from existing public tree: "+name)
-    raw = p.tree_manifest(docs)
+    if preserved_pdfs is not None and approved_files is not None:
+        raw={'files':{name:{'sha256':p.sha256(docs/name),'size':(docs/name).stat().st_size}
+                      for name in approved_files}}
+        raw['files'].update({name:before['files'][name] for name in preserved_pdfs})
+    else:
+        raw = p.tree_manifest(docs)
     missing = []
     dependencies = p.asset_dependencies(docs, raw, pages, missing)
+    if preserved_pdfs is not None:
+        referenced_pdfs = {name for name in dependencies if name.endswith('.pdf')}
+        if not referenced_pdfs <= set(preserved_pdfs)|set(pdfs):
+            raise p.ConfigError('New PDF requires an explicit PDF release: '+str(sorted(referenced_pdfs-set(preserved_pdfs)-set(pdfs))))
+        dependencies -= set(preserved_pdfs)
     if missing:
         raise p.ConfigError('Missing canonical dependencies: '+str(sorted(set(missing))))
     selected = set(pages) | set(pdfs) | dependencies
@@ -182,7 +196,7 @@ def candidate(target, docs, rendered, destination, pages, pdfs, config, approved
             raise p.ConfigError('Canonical dependency not public: '+name)
     rendered.mkdir(parents=True)
     p.copy_manifest(docs, rendered, {'files': {name: raw['files'][name] for name in selected}})
-    selected_indexes(rendered, pages, config)
+    selected_indexes(rendered, pages, config, allow_body=preserved_pdfs is not None)
     destination.mkdir(parents=True)
     p.copy_manifest(target, destination, before)
     overlay=p.tree_manifest(rendered)
@@ -205,7 +219,7 @@ def candidate(target, docs, rendered, destination, pages, pdfs, config, approved
     issues.extend(policy['issues'])
     if {name: {'sha256': item['sha256'], 'size': item['size']} for name, item in policy['files'].items()} != manifest['files']:
         issues.append({'type': 'candidate-manifest-mismatch'})
-    validation = p.validate_public(destination, manifest, config, inherited_course_pdfs=inherited_pdfs)
+    validation = p.validate_public(destination, manifest, config, inherited_course_pdfs=inherited_pdfs, preserved_course_pdfs=preserved_pdfs)
     issues.extend(validation['issues'])
     issues.extend(p.changed_trailing_whitespace(target, destination, manifest))
     require_exact_products(destination, docs, pages, pdfs)
@@ -222,6 +236,9 @@ def validate_receipt(root, target, config, payload):
     elif payload.get('approved_course',{}).get('verification_mode')=='existing-course':
         from zo_publish_existing_course import verify_existing
         verifier=verify_existing
+    elif payload.get('approved_course',{}).get('verification_mode') in {'course-html','built-pages'}:
+        from zo_publish_course_html import verify_snapshot
+        verifier=lambda checkout: verify_snapshot(checkout, payload['approved_course']['approval_seal'])
     seal = verifier(root)
     if payload['approved_course']['approval_seal'] != seal:
         raise p.ConfigError('Approved canonical source/output changed after prepare.')
@@ -234,13 +251,16 @@ def validate_receipt(root, target, config, payload):
         raise p.ConfigError('Approved publication tree changed after prepare.')
     if p.tree_manifest(backup) != payload['target_before_manifest'] or p.tree_manifest(rendered) != payload['approved_course']['render_manifest']:
         raise p.ConfigError('Publication backup or sealed input changed after prepare.')
+    for name,digest in seal.get('preserved_pdfs',{}).items():
+        if payload['target_before_manifest']['files'].get(name,{}).get('sha256')!=digest:
+            raise p.ConfigError('Preserved PDF differs from the publication baseline: '+name)
     require_exact_products(target, root/'docs', seal['pages'], seal['pdfs'])
     policy = p.build_manifest(target, config, True)
     if policy['issues'] or set(policy['files']) != set(payload['manifest']['files']):
         raise p.ConfigError('Approved publication policy mismatch.')
     if any(name not in payload['manifest']['files'] for name in config['required_files']):
         raise p.ConfigError('Missing required public file.')
-    result = p.validate_public(target, payload['manifest'], config, inherited_course_pdfs=seal.get('inherited_pdfs'))
+    result = p.validate_public(target, payload['manifest'], config, inherited_course_pdfs=seal.get('inherited_pdfs'), preserved_course_pdfs=seal.get('preserved_pdfs'))
     if result['issues'] or p.changed_trailing_whitespace(backup, target, payload['manifest']):
         raise p.ConfigError('Approved publication validation failed: '+str(result['issues']))
     return result
@@ -264,6 +284,11 @@ def prepare(root, target, config_path, config, args, source_state, target_state)
     if getattr(args,'existing_course',False):
         from zo_publish_existing_course import verify_existing
         verifier=verify_existing
+    if getattr(args,'course_html',False) or getattr(args,'built_pages',False):
+        from zo_publish_course_html import snapshot, verify_snapshot
+        captured=snapshot(root,target,args.page if getattr(args,'built_pages',False) else None,
+                          pdfs=getattr(args,'built_pdfs',None))
+        verifier=lambda checkout: verify_snapshot(checkout,captured)
     seal = verifier(root)
     stage = root/config['prepare']['staging_dir']
     if stage.exists():
@@ -279,11 +304,12 @@ def prepare(root, target, config_path, config, args, source_state, target_state)
         p.copy_manifest(target, stage/'backup', before)
         if p.tree_manifest(stage/'backup') != before:
             raise p.RestoreError('Publication backup mismatch.')
-        result = candidate(target, root/'docs', stage/'render', stage/'public', seal['pages'], seal['pdfs'], config, seal['canonical_files'], seal.get('inherited_pdfs'))
+        result = candidate(target, root/'docs', stage/'render', stage/'public', seal['pages'], seal['pdfs'], config, seal['canonical_files'], seal.get('inherited_pdfs'), seal.get('preserved_pdfs'))
         payload.update(result)
         payload['prepare_paths'] = {key: f'{config["prepare"]["staging_dir"]}/{folder}' for key, folder in [('render_dir','render'),('public_dir','public'),('backup_dir','backup')]}
         payload['prepare_paths'].update(staging_dir=config['prepare']['staging_dir'], report_file=config['prepare']['report_file'])
-        payload['approved_course'] = {'version': 1, 'verification_mode': 'existing-course' if getattr(args,'existing_course',False) else 'current-course' if getattr(args,'current_course',False) else 'historical-owner-acceptance', 'approval_seal': seal, 'render_manifest': p.tree_manifest(stage/'render'), 'render_performed': False}
+        mode='built-pages' if getattr(args,'built_pages',False) else 'course-html' if getattr(args,'course_html',False) else 'existing-course' if getattr(args,'existing_course',False) else 'current-course' if getattr(args,'current_course',False) else 'historical-owner-acceptance'
+        payload['approved_course'] = {'version': 1, 'verification_mode': mode, 'approval_seal': seal, 'render_manifest': p.tree_manifest(stage/'render'), 'render_performed': False}
         if verifier(root) != seal or p.tree_manifest(target, True) != before:
             raise p.ConfigError('Source, approval or public tree changed during prepare.')
         if not result['issues']:

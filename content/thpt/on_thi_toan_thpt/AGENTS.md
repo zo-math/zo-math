@@ -2,6 +2,22 @@
 
 ## Điểm vận hành HTML sau tích hợp R01+r20
 
+**Phát hành không dựng lại:** theo chỉ thị chủ trì 05/11/2026, yêu cầu chỉ
+phát hành thì lấy tài nguyên liên quan đã có để đưa lên, tuyệt đối không
+dựng HTML, PDF, hình hoặc tài nguyên khác. Sửa/dựng tài liệu là công việc
+riêng; không suy quyền dựng từ quyền phát hành. `prepare --page` và
+`prepare --course-html` đều dùng đầu ra hiện có, không gọi Quarto.
+
+**Cập nhật thông thường từ 05/11/2026:** theo chỉ thị chủ trì, sửa nguồn rồi
+ghi đè đúng HTML hiện hành trong `docs/`; chỉ một bản đang dùng. Khi được
+giao đưa thay đổi lên website, dùng `zo_publish.py prepare --course-html` rồi
+`publish` qua launcher; không render ở bước phát hành, không lập biên nhận
+nghiệm thu theo ngày và không đòi dựng lại PDF cho một cập nhật HTML. Chỉ
+dựng trang chịu ảnh hưởng; PDF public giữ nguyên. Agent tự thực hiện chuỗi
+commit/push nguồn vào kho `zo-math/zo-math` và phát hành theo yêu cầu ấy,
+không hỏi lại từng bước kỹ thuật. Hướng dẫn chi tiết sở hữu tại
+`scripts/zo_course_site_sources/README.md` và quy trình xuất bản toàn repo.
+
 Đọc trạng thái hiện hành ở 03 và `scripts/zo_course_site_sources/README.md`. Nguồn duy nhất là `E:\zo_math`. Theo yêu cầu chủ trì ngày 03/11/2026, bản R01 riêng, prototype và các bản xem cũ không còn là nguồn đối chiếu hay phụ thuộc; loại bỏ sau kiểm nguồn chính chạy độc lập. `zo_qmd.py render ... --html-only` kiểm native rồi áp giao diện hiện hành; toàn khóa chỉ dùng `zo_course_site.py build --all` khi được giao rõ phạm vi ấy, qua `zo_python.py`. Sửa cục bộ không tự chuyển sang dựng toàn khóa: dùng trang QMD cụ thể; `plan` và `check --page` báo độ mới từng trang. Tệp cấu hình chung không đồng nghĩa mọi trang bị ảnh hưởng. HTML cuối ở `docs/`. Không khôi phục đường dựng cũ từ ghi chép lịch sử. Không commit hoặc xuất bản khi chưa được giao.
 
 
