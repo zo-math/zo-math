@@ -134,7 +134,7 @@ def adapt(path,output_root,package):
   if not target.is_relative_to(output_root):raise ValueError('Link escapes output root')
   link['href']=builder.href(target,split.query,split.fragment)
  for details in root.select('details'):
-  details.attrs.pop('open',None);guidance='zo-learning-guidance' in details.get('class',[])
+  details.attrs.pop('open',None);guidance=bool({'zo-learning-guidance','zo-learning-video'} & set(details.get('class',[])))
   details['class']=list(dict.fromkeys(details.get('class',[])+(['r1-details','zo-block','zo-block-gray'] if guidance else ['r1-details','r1-solution','zo-learning-solution','solution','zo-block','zo-block-gray'])))
   summary=details.find('summary',recursive=False)
   if summary is None:raise ValueError('Disclosure lacks summary')
@@ -160,6 +160,13 @@ def adapt(path,output_root,package):
  for anchor,label in ROLES.items():
   para=result.new_tag('p');a=result.new_tag('a',href='#'+anchor);a.string=label;para.append(a);nav.append(para)
  fallback.append(nav);result.find(id='rail-content').append(fallback)
+ # Reuse the established lesson-video implementation, materializing the source
+ # references through the same asset pipeline as the rest of this reader.
+ for ext,selector,attr in [('css','link[href]','href'),('js','script[src]','src')]:
+  relative='../r1_g01/giao_dien/video.'+ext
+  for node in result.select(selector):
+   if node.get(attr)==relative:
+    node[attr]=builder.materialize((REPO/PACKAGE/relative).resolve(),'reader/video.'+ext)
  for node in result.select('[src],link[href],a[href]'):
   key='src' if node.has_attr('src') else 'href';url=urlsplit(node[key])
   if url.scheme or url.netloc or not url.path:continue

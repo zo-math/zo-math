@@ -156,6 +156,15 @@ Theo xác nhận của chủ trì ngày 21/10/2026, **mọi PDF học liệu**, 
 
 ### Xuất bản website
 
+**Ranh giới bắt buộc theo chỉ thị chủ trì 05/11/2026:** phát hành không phải
+dựng tài liệu. Khi yêu cầu chỉ là phát hành, chỉ lấy các HTML, PDF, hình và
+tài nguyên liên quan đã có để đưa lên; tuyệt đối không render, build, tạo
+lại tài nguyên hoặc tự dựng để khắc phục lỗi thời/thiếu đầu ra. Dựng HTML,
+PDF và các tài nguyên là nhiệm vụ dựng tài liệu riêng. Lệnh prepare/publish
+không được tự gọi bộ dựng. `prepare --page` lấy HTML hiện có; các cờ từng
+render trong phát hành (`--full-render`, `--committed-source`, ...) đã bị
+chặn. Mô tả lịch sử về render trong quy trình phát hành không còn hiệu lực.
+
 Khi nhiệm vụ liên quan đến xuất bản website, phải đọc và tuân thủ thêm:
 
 - `quy_trinh_xay_dung/quy_trinh_xuat_ban_website.md`
@@ -181,5 +190,16 @@ Chỉ những tài liệu chuyên biệt có hiệu lực trên toàn ZO Math m�
 
 
 ### Đầu ra HTML hiện hành của khóa 2027
+
+Theo chỉ thị chủ trì ngày 05/11/2026, cập nhật thông thường là sửa nguồn →
+ghi đè HTML hiện hành trong `docs/` → đưa phần thay đổi lên đúng địa chỉ cũ.
+Chỉ giữ một bản website đang dùng, không tạo bản song song hoặc yêu cầu duyệt
+lại mỗi lần sửa. Khi được giao cập nhật lên zomath.vn, dùng `zo_publish.py
+prepare --course-html` rồi `publish` qua launcher; agent tự commit/push nguồn
+vào `zo-math/zo-math` trong phạm vi nhiệm vụ. Không dựng lại toàn khóa hoặc
+PDF cho sửa HTML cục bộ, không lập hồ sơ duyệt theo ngày và không chạy thêm
+vòng kiểm toàn site ngoài các cổng của đường cập nhật. PDF public giữ nguyên
+trừ khi nhiệm vụ yêu cầu thay PDF. Bản sao khôi phục chỉ là tạm và được dọn
+sau xuất bản; chi tiết thuộc quy trình xuất bản và README bộ dựng hiện hành.
 
 HTML khóa 2027 được vận hành theo `scripts/zo_course_site_sources/README.md`. Dùng `zo_course_site.py build --page <QMD>` cho trang cụ thể hoặc `zo_qmd.py render <QMD> --html-only`; chỉ dùng `build --all` khi được giao toàn khóa. Luôn gọi qua `scripts/zo_python.py`. Không gọi trực tiếp `zo_quarto.py render/preview` để dựng hoặc bàn giao website khóa 2027: đó là tầng trung gian và có thể ghi đè vỏ trang mới bằng giao diện cũ. Giao diện cuối thuộc `scripts/zo_course_site_sources/`; HTML ghi đè đúng đường dẫn trong `docs/`, PDF ở chính gói và được dựng riêng khi được yêu cầu. `_audit/` chỉ giữ bằng chứng. Bản đã duyệt được bảo vệ cùng phụ thuộc; nghiệm thu và phát hành là hai trạng thái riêng. Áp dụng mục Đầu ra chính thức và 9.1 của quy trình kỹ thuật.

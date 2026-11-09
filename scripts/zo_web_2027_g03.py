@@ -131,6 +131,9 @@ def adapt(path, output_root):
         link["href"]=builder.href(target,split.query,split.fragment)
     for details in root.select("details"):
         details.attrs.pop("open",None)
+        if "zo-learning-video" in details.get("class", []):
+            # Optional media keeps its own body and is not answer feedback.
+            continue
         guidance=any(c in details.get("class",[]) for c in ["zo-learning-guidance","r1-foundation-unit"])
         details["class"]=list(dict.fromkeys(details.get("class",[])+
             (["r1-details","zo-block","zo-block-gray"] if guidance else

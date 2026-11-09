@@ -2,6 +2,23 @@
 
 ## 1. Mục đích và phạm vi
 
+**Chỉ thị hiện hành 05/11/2026:** phát hành không phải dựng tài liệu. Khi
+được yêu cầu phát hành, chỉ đưa các tài nguyên liên quan đã có lên website;
+tuyệt đối không render/build/tạo lại HTML, PDF, hình hoặc tài nguyên khác.
+Dựng tài liệu là nhiệm vụ riêng. Không tự dựng để xử lý tài nguyên thiếu
+hoặc hồ sơ lỗi thời trong một nhiệm vụ chỉ phát hành. Các mô tả phía dưới
+về `prepare` tự render, render baseline, cache render hay `--full-render`
+là cơ chế lịch sử đã bị thay; không được vận hành lại từ các mô tả đó.
+
+`prepare --page <HTML>` hiện lấy đúng HTML và phụ thuộc đang có trong docs,
+không cần Quarto, không đọc nguồn để dựng. `--with-pdfs`/`--d0-pdf` chỉ chọn
+PDF đã tồn tại, không dựng PDF. `--full-render`, `--committed-source`,
+`--allow-global-inputs-for-pages`, `--navigation-only-page` và
+`--video-only-page` bị chặn tại cửa vào phát hành trước mọi thao tác Git.
+Phép biến đổi nội dung/điều hướng/video phải hoàn tất ở công việc tài liệu
+trước khi yêu cầu phát hành. Kiểm file/hash và ghép chỉ mục public trong
+prepare là công việc đóng gói, không phải quyền tái dựng tài liệu.
+
 Quy trình này điều hành các nhiệm vụ kiểm tra, chuẩn bị và xuất bản website ZO Math. Đây là tài liệu nội bộ, không phải nội dung dành cho người đọc website.
 
 Nhánh `master` chứa nguồn xây dựng website. Nhánh `gh-pages` chỉ chứa cây đầu ra công khai. Commit nguồn và commit xuất bản phải luôn tách biệt.
@@ -14,11 +31,40 @@ Không mặc định công khai toàn bộ `content/`, `assets/`, `figures/` ho�
 
 ## 3. Công cụ chính thức
 
+### Cập nhật HTML khóa 2027 thông thường — mặc định từ 05/11/2026
+
+Chủ trì yêu cầu sửa thì ghi đè bản cũ và cập nhật ngay phần vừa sửa; chỉ một
+bản website hiện hành. Sau khi dựng đúng HTML chịu ảnh hưởng vào `docs/`, dùng:
+
+```text
+python scripts/zo_python.py scripts/zo_publish.py prepare --course-html
+python scripts/zo_python.py scripts/zo_publish.py publish
+```
+
+Đường này không render lại, không yêu cầu hồ sơ duyệt theo ngày hoặc provenance
+PDF mới. Nó lấy đúng HTML đã được bộ dựng ghi nhận, tự ghi hash các tệp cần
+đưa lên trong receipt tạm của lần cập nhật, ghép chỉ mục và chỉ ghi đè tệp có
+thay đổi. PDF đã public giữ nguyên byte, kể cả khi PDF cục bộ đang được sửa;
+thêm hoặc thay PDF cần phạm vi PDF riêng. HTML ngoài khóa được giữ nguyên.
+Không gọi thêm `check` toàn website hoặc `validate` riêng một cách máy móc:
+prepare/publish đã có cổng kỹ thuật cần thiết. Bản sao khôi phục và receipt
+được dọn khi publish xong, không tạo bản website song song.
+
+Yêu cầu cập nhật lên zomath.vn bao gồm các bước kỹ thuật commit/push nguồn
+vào kho `zo-math/zo-math`, prepare và publish; agent tự thực hiện đúng phạm vi
+đó. Việc chỉ sửa/xem cục bộ vẫn không tự kích hoạt xuất bản. Cổng public,
+backup tạm, khóa byte sau prepare, nguồn đã push và push không force giữ nguyên.
+
+Kiểm cơ chế: `zo_publish_course_html_selftest.py` và
+`zo_publish_course_selftest.py`, qua launcher; không render website thật để
+kiểm đường cập nhật. Các chế độ gắn nghiệm thu lịch sử bên dưới không thay
+đường mặc định này đối với sửa HTML thông thường.
+
 Mọi lệnh của công cụ xuất bản phải chạy qua trình khởi chạy Python repository-local:
 
 ```text
 python scripts/zo_python.py scripts/zo_publish.py check
-python scripts/zo_python.py scripts/zo_publish.py prepare --full-render
+python scripts/zo_python.py scripts/zo_publish.py prepare --page <HTML-da-co>
 python scripts/zo_python.py scripts/zo_publish.py publish
 ```
 

@@ -1,7 +1,7 @@
 """One live PDF-state label shared by the two course HTML adapters."""
 from pathlib import Path
 import yaml
-from zo_pdf_contract import validate_canonical_pdf_provenance
+from zo_pdf_print_state import inspect_print_states
 
 def apply(doc,root,package):
     for generated_note in doc.select('.prototype-note'):generated_note.decompose()
@@ -12,12 +12,14 @@ def apply(doc,root,package):
     names=[Path(card.select_one('a[download]')['href']).name for card in cards]
     if len(names)!=len(by_output) or set(names)!=set(by_output):
         raise ValueError('PDF cards must match every registered variant exactly once.')
+    states=inspect_print_states(root,source)
     current=[]
     for card in cards:
         link=card.select_one('a[download]');name=Path(link['href']).name
         variant=by_output[name]
-        fresh=not validate_canonical_pdf_provenance(root,source,variant=variant)
+        fresh=not states[variant]['errors']
         card['data-pdf-current']=str(fresh).lower()
+        card['data-pdf-basis']=states[variant]['status']
         label=card.select_one('.zo-pdf-version-note')
         label.string='PDF đã cập nhật.' if fresh else 'PDF đang chờ cập nhật.'
         current.append(fresh)
