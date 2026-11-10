@@ -78,6 +78,20 @@
   function sync() {
     videos.forEach(video => {
       const host = video.querySelector('.zo-video-player');
+      // Time permits a playback attempt; only YouTube confirms availability.
+      const scheduled = Date.parse(video.dataset.scheduledAt || '');
+      const pending = video.dataset.publicPlayback === 'pending';
+      const status = video.querySelector('.zo-video-status');
+      const retry = video.querySelector('.zo-video-retry');
+      if (pending && (!Number.isFinite(scheduled) || Date.now() < scheduled)) {
+        if (host.firstChild) stop(video);
+        if (retry && !retry.hidden) retry.hidden = true;
+        return;
+      }
+      if (pending && status) {
+        status.dataset.initial = 'Đã đến lịch công khai dự kiến. Bạn có thể thử phát; khả năng xem phụ thuộc trạng thái hiện tại trên YouTube.';
+        if (!host.firstChild) status.textContent = status.dataset.initial;
+      }
       if (!visible(video)) { if (host.firstChild) stop(video); return; }
       if (host.firstChild) return;
       const id = video.dataset.youtubeId;
@@ -96,6 +110,8 @@
   document.addEventListener('toggle', sync, true);
   window.addEventListener('hashchange', sync);
   window.addEventListener('popstate', sync);
+  window.addEventListener('focus', sync);
+  setInterval(sync, 30000);
   new MutationObserver(sync).observe(document.body, {
     subtree: true, attributes: true, attributeFilter: ['hidden', 'open']
   });
