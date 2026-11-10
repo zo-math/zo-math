@@ -1,5 +1,19 @@
 # Điều hành chương trình — trạng thái và việc tiếp theo
 
+## Rà lịch và sửa trạng thái video — 10/11/2026
+
+Kiểm cuối: đã dựng riêng G01–G04, cổng QMD và website đạt, 1.637 tham chiếu không lỗi; G01 đã được đồng bộ lại bản sao trình phát riêng. Kiểm tĩnh cuối xác nhận cả bốn trang nạp đúng JS canonical và sáu thông báo/liên kết G04 có tiếng Việt đúng. Giữ báo cáo kiểm hiện hành trong `_audit/video_schedule_review/`, không tạo script tạm. Chưa kiểm trực quan hoặc phát thật; chưa commit, push hoặc cập nhật zomath.vn.
+
+Theo phản ánh bằng ảnh của chủ trì, đã rà 48 hồ sơ YouTube và đối chiếu mọi lịch nhúng trong G01–G04. Có 47 lịch: 18 trong tháng 10, 29 trong tháng 11/2026; lịch cuối là 05:00 ngày 19/11/2026, không trùng khung và không lệch giữa nguồn website với hồ sơ. Bảy hồ sơ ZO-V000025–031 đã qua giờ hẹn nhưng còn trạng thái scheduled; chưa được xác nhận trực tiếp là công khai. ZO-V000018 (N-LG-01) còn draft, chưa có lịch. Đây là kiểm hồ sơ hiện hành, không phải xác nhận lại lịch trên Studio: browser host không hoạt động và quyền điều khiển Chrome không được cấp. Không sửa lịch YouTube hoặc hồ sơ phát hành.
+
+Nguyên nhân website không cho thử phát sau giờ hẹn là điều kiện chặn vô thời hạn `data-public-playback=pending` trong trình phát dùng chung. Đã sửa để chỉ giữ chặn trước giờ hẹn; đến giờ thì cho thử phát khi mở khối, giữ thông báo chưa xác nhận và xử lí lỗi từ YouTube, chỉ ẩn thông báo khi nhận sự kiện PLAYING. Không tự ghi video đã công khai vào hồ sơ. Kiểm mô phỏng API đạt: trước/đúng giờ hẹn, lỗi, đang phát, đóng/mở, thử lại và lịch không hợp lệ. Sửa lỗi tiếng Việt bị thay bằng dấu hỏi trong sáu thông báo/liên kết G04; nguồn toán và PDF giữ nguyên. Bộ đếm 212 ngày ở chân trang là mốc tham khảo thi 2027, không phải lịch video. Bằng chứng hiện hành: `_audit/video_schedule_review/schedule_audit.json`; đang cập nhật HTML các trang dùng trình phát, chưa xuất bản hoặc xác nhận trực quan.
+
+## R1-G04 ? Nh?ng s?u video Kh?o s?t h?m s?, 10/11/2026
+
+Theo y?u c?u ch? tr?, th?m s?u kh?i video HTML thu g?n v?o `hoc_lieu/r1_g04/index.qmd`: H01 t?i V? d? 02; H02 v? H05 t?i V? d? 04; H06 sau ph?n 4.1 v? ??i x?ng; H04 t?i V? d? 05; H03 t?i V? d? 06. ?? ??c to?n b? ph? ?? th?nh ph?m v? h? s? ZO-V000043?048; h? s? ghi s?u video ?? ??t l?ch t? 16?19/11 trong playlist Kh?o s?t s? bi?n thi?n v? v? ?? th? c?a h?m s?. Ch?a x?c nh?n ph?t c?ng khai; gi? th?ng b?o l?ch v? tr?ng th?i ch? c?a component video d?ng chung. Ph?n to?n ???c gi? nguy?n, ki?m b?ng ph?p lo?i ri?ng ph?n th?m r?i so ch?nh x?c ngu?n tr??c s?a. H? s? r? ngu?n m?i: `r1_g04/_quy_trinh/ho_so/video_editorial_review.json`; kh?ng s?a bi?n nh?n l?ch s?.
+
+?? d?ng HTML ??ng trang, c?ng QMD v? website ??t; 343 tham chi?u kh?ng l?i. Ki?m HTML t?nh x?c nh?n ?? s?u ID/l?ch/li?n k?t, m?c ??nh ??ng, m?i kh?i m?t th?n v? CSS/JS tr?nh ph?t t?n t?i. Gi? PDF. Ch? gi? b?o c?o ki?m trong `_audit/g04_video_integration/`, kh?ng t?o script t?m. C?ng c? tr?nh duy?t b?o `The browser access host is unavailable`: ch?a ki?m tr?c quan ho?c b?n giao localhost. Ch?a commit/push/xu?t b?n. B?o c?o d?ng v? ki?m hi?n h?nh ? `_audit/g04_video_integration/`. B??c ti?p theo l? ki?m giao di?n b?ng tr?nh duy?t khi c?ng c? ho?t ??ng; vi?c x?c nh?n ph?t c?ng khai v? c?p nh?t zomath.vn ch?a th?c hi?n.
+
 ## HIỆN HÀNH — Đã xuất bản phiên bản website mới, 05/11/2026
 
 Sau khi chủ trì xác nhận tiếp tục xuất bản ngay, đã push nguồn `master` tại `4923e7b3802e896ccd03f379a1309fc858791ba6`, rồi chạy `zo_publish.py publish` thành công. Commit website là `2724189b106598de77865c957a323143558667cd`; GitHub Pages run `41999795946` đã `completed/success`. Trang Chuyên đề và R1-G01 trên zomath.vn trả HTTP 200, hash trùng bản mới canonical. Đây là xác nhận kết quả triển khai, không phải mở thêm vòng nghiệm thu nội dung.

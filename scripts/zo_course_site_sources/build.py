@@ -195,8 +195,8 @@ def reader(p,items):
             css.append(resolved_ref(n['href'],source))
     overview=overview_content(p,content,icon,btn)
     video_loader=''
-    if p['id']=='r1_g03' and content.select_one('.zo-learning-video'):
-        # G03's native shell discards raw imports outside learning sections.
+    if p['id'] in {'r1_g03','r1_g04'} and content.select_one('.zo-learning-video'):
+        # These native shells discard raw imports outside learning sections.
         # Restore the existing shared player only for this media-bearing page.
         video_base='../r1_g01/giao_dien/'
         css.append(video_base+'video.css')
