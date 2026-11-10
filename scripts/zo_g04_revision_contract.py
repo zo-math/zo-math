@@ -15,7 +15,8 @@ def settings_for(path):
 
 def review_for(path,root):
     if settings_for(path) is None:return None
-    review_path=Path(path).parent/'_quy_trinh/ho_so/lesson_titles_20261103_review.json'
+    review_path=Path(path).parent/'_quy_trinh/ho_so/video_editorial_review.json'
+    if not review_path.is_file():review_path=Path(path).parent/'_quy_trinh/ho_so/lesson_titles_20261103_review.json'
     if not review_path.is_file():review_path=Path(path).parent/'_quy_trinh/ho_so/r01_editorial_review.json'
     review=json.loads(review_path.read_text(encoding='utf-8'))
     if review.get('revision')!='R01-DOT04' or review.get('package')!='r1_g04':raise ValueError('G04 source review mismatch')
