@@ -1,6 +1,10 @@
 /* R2-G01 reading conventions, shared by all current learning pages.
    The r20 shell owns the single page inset; inner regions do not add one. */
 .reader-content{font-size:17px;line-height:1.8}
+/* Native MathML uses its own math metrics, independently of prose leading. */
+.reader-content math{line-height:normal}
+.reader-content .zo-geometry-figure{width:100%;margin:24px 0}
+.reader-content .zo-geometry-figure img{display:block;width:var(--figure-width);max-width:100%;height:auto;margin-inline:auto}
 .reader-content h2{font-size:32px;line-height:1.3}
 .reader-content h3{font-size:26px;line-height:1.4;font-weight:600;letter-spacing:-.025em}
 .reader-content h4{font-size:23px;line-height:1.5;font-weight:600;letter-spacing:normal}
