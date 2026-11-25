@@ -142,6 +142,7 @@ body{padding-bottom:calc(104px + env(safe-area-inset-bottom))}
 .course-presence .presence-support-label{display:flex;flex-direction:column;gap:3px;font-size:13px;line-height:1.4;font-weight:400}
 .course-presence .presence-support-label>span{display:block}
 .course-presence .presence-support-label>strong{font-size:14px;font-weight:600}
+.course-presence .presence-support-compact{display:none;font:inherit}
 .toast,.focus-on .exit-focus{bottom:104px}
 @media(max-width:760px){
  .course-presence{gap:22px;padding-inline:16px;min-height:80px}
@@ -156,7 +157,8 @@ body{padding-bottom:calc(104px + env(safe-area-inset-bottom))}
  .site-reader .course-presence .presence-support{flex-direction:column;gap:1px;min-height:60px;padding:0}
  .site-reader .course-presence .presence-support .presence-qr{width:44px;height:44px}
  .site-reader .course-presence .presence-support-label{display:flex;font-size:9px;line-height:1.2}
- .site-reader .course-presence .presence-support-label>strong{display:none}
+ .site-reader .course-presence .presence-support-label>:is(span,strong){display:none}
+ .site-reader .course-presence .presence-support-compact{display:block}
 }
 @media(max-width:420px){
  .course-presence{gap:14px;padding-inline:12px;min-height:76px}

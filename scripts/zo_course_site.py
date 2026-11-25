@@ -30,6 +30,7 @@ def fingerprint(node):
     for label in text_node.select('[data-r20-review-label]'):label.decompose()
     return {'text':' '.join(text_node.get_text(' ',strip=True).split()),'math':[str(m) for m in node.select('math')],'ids':[n['id'] for n in node.select('[id]')],'headings':[(n.name,n.get_text()) for n in node.select('h1,h2,h3,h4,h5,h6')],'images':len(node.select('img')),'tables':len(node.select('table')),'disclosures':[(n.get('id'),n.has_attr('open'),n.select_one('summary').get_text(' ',strip=True) if n.select_one('summary') else '') for n in node.select('details')]}
 def prepare_reader(doc,key):
+    from zo_course_review_disclosures import project_remediation, project_solutions
     root=doc.select_one('.reader-content')
     if root is None:raise ValueError('Native reader missing: '+key)
     # Lifecycle text is replaced explicitly; no learning sentence is rewritten.
@@ -39,6 +40,11 @@ def prepare_reader(doc,key):
     if root.select('#tai-tai-lieu .zo-pdf-card'):
         from zo_course_pdf_download_state import apply as apply_pdf_state
         apply_pdf_state(doc,ROOT,c.BASE/'hoc_lieu'/key)
+    if key == 'r1_g01':
+        support = root.select_one('#tai-tai-lieu .r1-download-support')
+        if support is not None:
+            from zo_web_2027_downloads import project_course_support
+            support.replace_with(project_course_support(support, c.OUT / c.PAGES[key], c.OUT))
     before=fingerprint(root)
     on_lai=root.select_one('#on-lai')
     if on_lai:
@@ -74,6 +80,8 @@ def prepare_reader(doc,key):
         panels=on_lai.select('details.r01-review-round')
         if len(panels)!=3:raise ValueError('Expected three declared independent review rounds in '+key)
         for panel in panels:panel['name']='r01-review-rounds'
+    project_remediation(root, doc)
+    project_solutions(root)
     after=fingerprint(root)
     # Grouping checkpoints changes ID traversal order only if content moved;
     # all original text, notation, headings, IDs and disclosures must survive.
@@ -169,6 +177,11 @@ def scope_state(record):
 
 
 def project_rendered(raw_paths,report=None,native_input=None):
+    from zo_course_site_sections import build_lock
+    with build_lock(ROOT/'.quarto/course-site-sections.lock'):
+        return _project_rendered(raw_paths,report,native_input)
+
+def _project_rendered(raw_paths,report,native_input):
     selected=relevant(raw_paths)
     if not selected:return 0
     validate_render_scope(selected)
@@ -181,20 +194,23 @@ def project_rendered(raw_paths,report=None,native_input=None):
         for key,value in c.PAGES.items():
             if value==page:c.FRESH[key]=text
     install_assets()
+    from zo_course_site_sections import declarations, full_projection
     results={}
+    section_builds={}
     for page,text in native.items():
         c.PAGE=page;items=c.catalog()
+        sections=declarations(ROOT/page.with_suffix('.qmd'), ROOT)
         key=next((k for k,v in c.PAGES.items() if v==page),None)
         if key=='home':result=b.home(items)
         elif key in c.KEYS:
             doc,notes=prepare_reader(BeautifulSoup(text,'html.parser'),key)
             c.FRESH[key]=str(doc)
             item=next(p for p in items if p['id']==key)
-            result,record=b.reader(item,items)
+            result,record=b.reader(item,items,sections)
             result=c.finish(result,page)
             target=BeautifulSoup(result,'html.parser').select_one('.reader-content')
             assert fingerprint(target)==fingerprint(doc.select_one('.reader-content')),key+' native-to-r20 projection drift'
-            record.update(source=str(page.with_suffix('.qmd')),source_sha256=sha(ROOT/page.with_suffix('.qmd')),lifecycle_notes_replaced=notes,review_rounds_closed=len(target.select('details.r01-review-round:not([open])')))
+            record.update(source=str(page.with_suffix('.qmd')),source_sha256=sha(ROOT/page.with_suffix('.qmd')),lifecycle_notes_replaced=notes,review_rounds_closed=len(target.select('#on-lai details.r01-review-round:not([open])')))
             records.append(record)
         elif page==c.FOUNDATION:
             doc=BeautifulSoup(text,'html.parser');content=doc.select_one('main.content')
@@ -218,11 +234,15 @@ def project_rendered(raw_paths,report=None,native_input=None):
             if len(native_scripts)!=1:raise ValueError('Foundation canonical answer-reveal script missing or repeated')
             result=result.replace('</body>','<script src="'+b.esc(native_scripts[0],quote=True)+'" defer></script><script src="foundation-return.js" defer></script></body>')
         else:continue
-        results[page]=c.finish(result,page)
+        finished=c.finish(result,page)
+        results[page],section_builds[page.as_posix()]=full_projection(finished,sections,c.OUT/page)
     if c.PAGES['home'].with_suffix('.qmd') in selected:
         c.PAGE=c.PAGES['home'];items=c.catalog()
         for name,html in [('chuyen-de.html',b.topics(items)),('da-luu.html',b.saved(items)),('cach-hoc.html',b.guide())]:results[c.HOME/name]=c.finish(html,c.HOME/name)
         for g in b.GUIDES:results[c.HOME/g['file']]=c.finish(b.detailed_guide(g,items),c.HOME/g['file'])
+    for page in results.keys()-native.keys():
+        sections=declarations(ROOT/c.PAGES['home'].with_suffix('.qmd'), ROOT, output=page.name)
+        results[page],section_builds[page.as_posix()]=full_projection(results[page],sections,c.OUT/page)
     for page,text in results.items():
         dest=c.OUT/page;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(text,'utf-8')
     # Download products come from the canonical package, independently of
@@ -256,6 +276,7 @@ def project_rendered(raw_paths,report=None,native_input=None):
     # All declared sources must have final HTML, never a native/intermediate page.
     complete=all((c.OUT/p).is_file() and 'data-zo-course-site=' in (c.OUT/p).read_text('utf-8') for p in [*c.PAGES.values(),c.FOUNDATION])
     record=dict(data,inputs=live_inputs(),catalog_metadata=catalog_metadata(),outputs=combined,assets={p.relative_to(c.OUT).as_posix():sha(p) for p in c.ASSETS.rglob('*') if p.is_file()},complete=complete)
+    record['section_builds']={**prior.get('section_builds',{}),**section_builds}
     from zo_course_site_scope import merge_evidence, stale_pages
     previous,current,pending,tables=scope_state(prior)
     record['page_inputs']=merge_evidence(previous,current,[p.as_posix() for p in results])
@@ -267,7 +288,28 @@ def project_rendered(raw_paths,report=None,native_input=None):
     print('COURSE SITE: PASS; pages='+str(len(results))+'; references='+str(check['references']))
     return 0
 def main(argv=None):
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('command',choices=['build','check','plan','assets']);parser.add_argument('--report',default='_audit/course_site_build.json');parser.add_argument('--page',action='append',default=[]);parser.add_argument('--all',action='store_true',help='Explicit full-course build');args=parser.parse_args(argv)
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('command',choices=['build','check','plan','assets']);parser.add_argument('--report');parser.add_argument('--page',action='append',default=[]);parser.add_argument('--all',action='store_true',help='Explicit full-course build')
+    mode=parser.add_mutually_exclusive_group()
+    mode.add_argument('--section',action='append',default=[],help='QMD section ID; repeat for multiple regions')
+    mode.add_argument('--changed-sections',action='store_true',help='Find changed declared sections and their consumers')
+    args=parser.parse_args(argv)
+    if args.section or args.changed_sections:
+        if args.all or args.command not in {'build','plan'}:
+            parser.error('Section scope requires build or plan without --all')
+        pages=relevant(args.page)
+        if len(pages)!=len(args.page):
+            parser.error('Use canonical course QMD paths')
+        report=(ROOT/(args.report or '_audit/course_section_build.json')).resolve()
+        if not report.is_relative_to(ROOT/'_audit'):
+            parser.error('Section reports belong under _audit')
+        from zo_course_site_sections import build_sections
+        try:
+            result=build_sections(pages,args.section,CURRENT,report,plan=args.command=='plan')
+        except (OSError,ValueError) as exc:
+            parser.exit(1,str(exc)+'\n')
+        print(json.dumps(result,ensure_ascii=False))
+        return 0
+    args.report=args.report or '_audit/course_site_build.json'
     if args.command=='assets':
         from zo_course_site_assets import apply
         return apply(sys.modules[__name__], args.report)

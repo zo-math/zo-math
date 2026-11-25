@@ -82,7 +82,7 @@ def source_checks(path,root=ROOT,text=None):
             c[prefix+'shared widths']=sum(p['widths'])==100 and all(v>0 for v in p['widths'])
             c[prefix+'responsive policy']=p['responsive'] in {'records','scroll'} and (p['responsive']!='scroll' or bool(re.fullmatch(r'\d+em',p.get('min_width',''))))
             if p.get('headers'):c[prefix+'functional headings']=rows[0]==p['headers']
-            c[prefix+'no empty functional cells']=all(all(v for v in r) for r in rows[1:])
+            c[prefix+'no empty functional cells']=all(bool(r[0]) for r in rows[1:]) if role=='journal' else all(all(v for v in r) for r in rows[1:])
             if role in {'assessment','checkpoint'}:
                 c[prefix+'each evidence cell names linked work']=all(len(r)==n and bool(re.search(r'\]\(#[^)]+\)',r[1])) for r in rows[1:])
                 c[prefix+'no retired task names']=not re.search(r'\b(?:Kiểm tra|Bài|bài)\s+0[1-9]\b',str(rows))
@@ -94,12 +94,25 @@ def source_checks(path,root=ROOT,text=None):
                 for target in re.findall(r'\]\(#([^)]*)\)',str(row)):c[prefix+'target '+target]=unquote(target) in anchors
         if key.startswith('r'):
             b=json.loads((path.parent/'giao_dien/he_nhan.json').read_text(encoding='utf-8'))
-            goals=b['learning_goals'];assessment=goals.get('assessment_table');rows=tables.get(assessment,[])
-            c['goal/result tables have distinct functions']=any(data.get('function_profiles',{}).get(e.get('function'),{}).get('base_function',e.get('function'))=='assessment' and e['selector']=='#'+str(assessment)+' table' for e in data['pages'][key]) and any(e.get('function')=='goals' and e['selector']=='#'+goals['table']+' table' for e in data['pages'][key])
+            goals=b['learning_goals']
+            goal_table_bound=any(e.get('function')=='goals' and e['selector']=='#'+goals['table']+' table' for e in data['pages'][key])
+            assessment=goals.get('assessment_table');rows=tables.get(assessment,[])
+            review=goals.get('assessment_review')
+            if review:
+                review_pattern=r'(?ms)^<!-- zo-section '+re.escape(review)+r' -->\n(.*?)^<!-- /zo-section -->'
+                reviews=re.findall(review_pattern,body)
+                c['goal table and review list are independently bound']=goal_table_bound and not assessment and review in anchors and len(reviews)==1
+                review_links=set(re.findall(r'\]\(#([^)]*)\)',reviews[0])) if len(reviews)==1 else set()
+            else:
+                c['goal/result tables have distinct functions']=goal_table_bound and any(data.get('function_profiles',{}).get(e.get('function'),{}).get('base_function',e.get('function'))=='assessment' and e['selector']=='#'+str(assessment)+' table' for e in data['pages'][key])
             for n,g in enumerate(goals['rows'],1):
+                evidence=g.get('assessment_evidence',[])
+                if review:
+                    c[f'goal {n} reviewed evidence retained']=bool(evidence) and set(evidence)<=review_links & anchors
+                    continue
                 indexes=g.get('assessment_rows',[]);c[f'goal {n} result coverage']=bool(indexes) and all(isinstance(i,int) and 0<i<len(rows) for i in indexes)
                 if not c[f'goal {n} result coverage']:continue
-                evidence=g.get('assessment_evidence',[]);links=re.findall(r'\]\(#([^)]*)\)',' '.join(rows[i][1] for i in indexes))
+                links=re.findall(r'\]\(#([^)]*)\)',' '.join(rows[i][1] for i in indexes))
                 c[f'goal {n} reviewed evidence retained']=bool(evidence) and set(evidence)<=set(links)
         c.update(style_checks(root=root))
     except (OSError,ValueError,KeyError,IndexError) as exc:c['table function readable: '+str(exc)]=False

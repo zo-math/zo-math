@@ -190,26 +190,19 @@ local function render_linked_html_table(div)
   return {hint, div}
 end
 
-local function collect_linked_table_ids(doc, contract)
-  local index = 0
-  local function collect(blocks)
-    for _, block in ipairs(blocks) do
-      if block.t == 'Div' then
-        local tbl = table_in(block)
-        if tbl then
-          index = index + 1
-          local spec = assert(contract[index], 'R1-G01 ordinary table is missing a contract entry')
-          if table_contains_link(tbl) then linked_table_ids[meta_text(spec.id)] = true end
-        else
-          collect(block.content)
-        end
-      elseif block.t == 'BlockQuote' then
-        collect(block.content)
-      end
-    end
+local function collect_linked_table_ids(doc)
+  local seen = {}
+  doc:walk({Div=function(block)
+    local id = block.identifier
+    if not table_specs_by_id[id] then return end
+    local tbl = assert(table_in(block), 'R1-G01 table contract has no table: '..id)
+    assert(not seen[id], 'Duplicate R1-G01 table: '..id)
+    seen[id] = true
+    if table_contains_link(tbl) then linked_table_ids[id] = true end
+  end})
+  for id in pairs(table_specs_by_id) do
+    assert(seen[id], 'R1-G01 table contract id was not found: '..id)
   end
-  collect(doc.blocks)
-  assert(index == #contract, 'R1-G01 ordinary table inventory changed while collecting linked tables')
 end
 
 local function apply_table_contract(doc)
@@ -879,18 +872,21 @@ local function prepare(doc)
   end
   verify_projection_boundary_fixture()
   table_specs = doc.meta['r1-tables']
-  -- HTML and PDF share the current manifest; source projection validates
-  -- the exact inventory again below before any variant is emitted.
-  local expected_tables = 19
-  assert(table_specs and #table_specs == expected_tables,
-    'R1-G01 table contract must contain '..expected_tables..' current entries')
+  if html then
+    -- The HTML inventory is checked against the current source by collect_linked_table_ids.
+    assert(table_specs, 'R1-G01 table contract is missing')
+  else
+    local expected_tables = 19
+    assert(table_specs and #table_specs == expected_tables,
+      'R1-G01 table contract must contain '..expected_tables..' current entries')
+  end
   table_specs_by_id = {}
   for _, spec in ipairs(table_specs) do
     local id = meta_text(spec.id)
     assert(not table_specs_by_id[id], 'Duplicate R1-G01 table contract id: '..id)
     table_specs_by_id[id] = spec
   end
-  if html then collect_linked_table_ids(doc, table_specs) end
+  if html then collect_linked_table_ids(doc) end
   if html then return nil end
   if latex then doc = build_lesson_toc(doc) end
   doc = apply_table_contract(doc)

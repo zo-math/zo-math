@@ -83,7 +83,10 @@ def apply(document, binding_path=None):
                 link = document.new_tag('a',href='#'+unit['answer']);link.string=answer_action_labels()['forward']
                 action.append(link);holder.append(action)
                 node = holder
-            title = node.select_one(':scope > h2, :scope > h3, :scope > h4, :scope > .r1-task-label, :scope > p > .r1-task-label, :scope > p > strong, :scope > summary')
+            title = next((heading for heading in node.select('h2,h3,h4,h5,h6')
+                          if heading.get('data-anchor-id') == target), None)
+            if title is None:
+                title = node.select_one(':scope > h2, :scope > h3, :scope > h4, :scope > .r1-task-label, :scope > p > .r1-task-label, :scope > p > strong, :scope > summary')
             if title is None:
                 title = node.select_one(':scope > section > h3, :scope > section > h4, :scope > .reading-region > h3, :scope > .reading-region > h4')
             # The worked repair example has one summary, not a second title

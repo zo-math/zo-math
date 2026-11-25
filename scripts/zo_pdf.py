@@ -54,7 +54,7 @@ def output_path(source: Path, variant: str = "full") -> Path:
     return pdf_output_path(ROOT, source, variant)
 
 
-def validate_rendered_pdf(path: Path) -> None:
+def validate_rendered_pdf(path: Path, *, support_title: str = 'Bảo trợ') -> None:
     """Reject an incomplete renderer output before it can replace a canonical PDF."""
     if not path.is_file() or path.stat().st_size < 1024:
         raise ValueError("PDF vừa render bị thiếu hoặc có kích thước không hợp lệ")
@@ -66,7 +66,7 @@ def validate_rendered_pdf(path: Path) -> None:
             raise ValueError("Đầu ra vừa render không có PDF EOF marker")
     from pypdf import PdfReader
     pages = PdfReader(path).pages
-    if not pages or 'Bảo trợ' not in (pages[-1].extract_text() or ''):
+    if not pages or support_title not in ' '.join((pages[-1].extract_text() or '').split()):
         raise ValueError("Mọi PDF phải có phần Bảo trợ ở cuối tài liệu")
 
 
@@ -229,7 +229,8 @@ def build(source: Path, variant: str = "full", preflight: bool = False,
                 return 1
             expected = matches[0]
 
-        validate_rendered_pdf(expected)
+        support_title = course_shell['support_title'] if definition and course_shell else 'Bảo trợ'
+        validate_rendered_pdf(expected, support_title=support_title)
         if definition and course_shell and course_shell.get('layout'):
             from zo_course_pdf_layout import check as check_layout
             from zo_pdf_course_check import check as check_course
@@ -256,7 +257,7 @@ def build(source: Path, variant: str = "full", preflight: bool = False,
             return 1
         replacement = destination.with_name(f".{destination.name}.zo-pdf-replacement")
         shutil.copy2(expected, replacement)
-        validate_rendered_pdf(replacement)
+        validate_rendered_pdf(replacement, support_title=support_title)
         replacement.replace(destination)
         if output_directory is not None:
             from zo_pdf_contract import sha256_file

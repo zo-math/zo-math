@@ -113,6 +113,10 @@ def adapt(path,output_root,package):
    parent=img.find_parent('figure')
    if parent:
     parent['class']=list(dict.fromkeys(parent.get('class',[])+['math-figure']))
+    reason=settings.get('omitted_figure_captions',{}).get(src.name)
+    if reason and not parent.find('figcaption'):
+     img['data-zo-caption']='omitted'
+     img['data-zo-caption-reason']=reason
     viewport=doc.new_tag('div',attrs={'class':'figure-viewport zo-figure-scroll'})
     img.wrap(viewport)
  # Package-owned optional media assets travel with the projected reader.
@@ -217,7 +221,6 @@ def adapt(path,output_root,package):
   apply_pdf_state(result,REPO,PACKAGE)
   from zo_course_labels import apply_context_labels
   apply_context_labels(result,binding)
-  result.select_one('#tai-tai-lieu .zo-pdf-current-note').string='Các PDF đang giữ bản cũ, chưa phản ánh bản sửa R01. Chỉ xem và góp ý HTML trong 10 đợt sửa; PDF sẽ được xây dựng sau khi toàn bộ kết quả đạt yêu cầu.'
  from zo_course_html import write
  write(path,result)
  print('Package shell:',len(result.select('.reading-region')),'reading regions;',len(result.select('.zo-pdf-card')),'PDF downloads')

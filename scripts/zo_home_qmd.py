@@ -7,6 +7,22 @@ import re
 from bs4 import Comment
 
 
+def read_support_copy(source_text):
+    """Read the three plain-text lines shared by the course and download pages."""
+    match = re.search(r'^::: \{\.home-support-copy\}\s*\n(.*?)^:::[ \t]*$', source_text, re.M | re.S)
+    copy = re.split(r'\n[ \t]*\n', match[1].strip()) if match else []
+    if len(copy) != 3 or any(not line or '\n' in line for line in copy):
+        raise ValueError('Home QMD requires a support title, invitation and link label')
+    return copy
+
+
+def apply_support_copy(block, copy):
+    title, invitation, link = copy
+    block.select_one('.support-content > h3').string = title
+    block.select_one('.support-content > p').string = invitation
+    block.select_one('.r1-support-link a').string = link
+
+
 def source_checks(text):
     body = re.split(r'\n---\s*\n', text, maxsplit=1)[-1]
     return {
@@ -38,8 +54,8 @@ def source_fixtures(text):
 def normalize_native_dom(doc, root, source_text=''):
     """Bind native QMD attributes without inventing headings/copy/IDs."""
     support = doc.select_one('.home-support-copy')
-    if support is None or len(support.find_all('p',recursive=False)) != 2:
-        raise ValueError('Home QMD must own the two support-copy paragraphs')
+    if support is None or len(support.find_all('p',recursive=False)) != 3:
+        raise ValueError('Home QMD must own the support title, invitation and link label')
     support_copy = [p.get_text(' ',strip=True) for p in support.find_all('p',recursive=False)]
     support.decompose()
     for node in root.select('[data-home-tag]'):

@@ -80,7 +80,8 @@ def model(root,source,variant="full"):
             raise ValueError('Table profile/column mismatch: '+ident)
         tables[ident]={'widths':widths,'center_columns':list(range(len(widths))) if entry.get('kind') in {'sign','values'} else [],'right_columns':(fp or entry).get('right_columns',[]),'rows':len(rows)-1}
     graphs={};graph_engine=None
-    for ref in re.findall(r'\]\(([^)\s]+\.svg)\)',text):
+    graph_refs=re.findall(r'\]\(([^)\s]+\.svg)\)',caption_text)
+    for ref in dict.fromkeys(graph_refs):
         if 'figures_0_4/' not in ref:continue
         if graph_engine is None:graph_engine=load_graph("print_graph_axis_gate",root)
         pdf=(source.parent/ref).with_suffix('.pdf');reader=PdfReader(pdf)
@@ -93,7 +94,7 @@ def model(root,source,variant="full"):
         graphs[ref]={'pdf':ref[:-4]+'.pdf','width_pt':w*72.27/72*ratio,'height_pt':h*72.27/72*ratio,'scale':ratio,
           'rotate':w*72.27/72*ratio>476,'stream_sha256':hashlib.sha256(reader.pages[0].get_contents().get_data().strip()).hexdigest(),'axis_ticks':graph_engine.graph_axis_check(pdf)}
     from zo_course_scenes import declared as scene_declared,print_model as scene_print_model
-    scene_refs=[ref for ref in re.findall(r'\]\(([^)\s]+\.svg)\)',text) if 'figures_0_4/' not in ref]
+    scene_refs=[ref for ref in graph_refs if 'figures_0_4/' not in ref]
     context_figures=scene_print_model(source,scene_refs) if scene_declared(source) else {}
     variation_path=source.parent/'du_lieu/bang_bien_thien.json'
     variation=json.loads(variation_path.read_text('utf-8')) if variation_path.is_file() else []

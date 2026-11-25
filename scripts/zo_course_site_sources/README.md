@@ -62,6 +62,45 @@ Danh mục phiên bản và quy cách xuất ảnh tại `content/thpt/on_thi_to
 
 ## Dựng và kiểm
 
+### Chuyển giao diện theo từng chuyên đề
+
+Trong đợt biên tập, bật `versioned_course_assets` trong `giao_dien/html.json`
+của chuyên đề khi cần phát hành giao diện mới riêng. Bộ dựng sinh ba tệp
+CSS/JS có tên theo nội dung từ nguồn giao diện chung. Hai chuyên đề dùng cùng
+nội dung tệp sẽ dùng cùng đường dẫn. Địa chỉ HTML và PDF giữ nguyên.
+
+Khi biên tập xong cả khóa, kiểm tra tất cả trang dùng được cùng bộ giao diện.
+Bỏ cờ chuyển tiếp rồi dựng và phát hành HTML cùng bộ CSS/JS chung trong một
+lượt. Sau khi xác nhận các trang đã chuyển và không còn tham chiếu tới ba
+nhóm tên tạm trên site công khai, dọn các tệp theo phiên bản đã hết người
+dùng trong `docs/` và trên site. PDF chỉ thay khi có đợt cập nhật PDF riêng.
+
+### Dựng phần HTML vừa sửa
+
+Khi biên tập từng phần, dùng vùng có tên trong QMD. Quy ước áp dụng cho các nguồn trang của khóa, kể cả QMD dùng chung qua include. ID là ID của phần tử bao ngoài trong HTML hiện hành. Bao **nội dung bên trong** bằng hai dòng chú thích:
+
+~~~markdown
+<!-- zo-section kien-thuc -->
+
+Nội dung Markdown của phần này.
+
+<!-- /zo-section -->
+~~~
+
+Dạng mặc định dùng Markdown/Pandoc và MathML. Bố cục chuyên biệt được chọn bằng tên sau ID, chẳng hạn `<!-- zo-section tong-quan overview -->`. Bố cục Tổng quan dùng đoạn mở, nhãn và danh sách liên kết chọn phần, nhãn và bảng mục tiêu, rồi đến đoạn kiến thức cần dùng có nhãn đậm. QMD sở hữu lời văn. Mỗi ID phải ứng với đúng một vùng trong mỗi trang nhận. Không lồng vùng hoặc đặt lại ID của phần tử bao ngoài trong phần nội dung.
+
+Với một trang tiện ích sinh từ nguồn trang Nhà, ghi thêm đích, ví dụ `<!-- zo-section faq markdown output=cach-hoc.html -->`. Đích mặc định là HTML cùng đường dẫn với QMD. Một đoạn Markdown thuần dùng chung có thể được include trong nhiều vùng khác tên.
+
+~~~text
+python scripts/zo_python.py scripts/zo_course_site.py plan --changed-sections
+python scripts/zo_python.py scripts/zo_course_site.py build --changed-sections
+python scripts/zo_python.py scripts/zo_course_site.py build --page <QMD> --section <ID>
+~~~
+
+`--changed-sections` so dấu vết nguồn và bộ sinh của từng vùng đã khai báo. Có thể giới hạn nguồn bằng `--page` hoặc lặp `--section` để chọn nhiều phần. Một vùng thuộc QMD dùng chung được cập nhật ở mọi trang QMD có include nguồn đó. Cả dựng phần và dựng trang dùng cùng hàm sinh HTML cho vùng. Lượt dựng phần giữ nguyên byte ngoài vùng, cập nhật hash đầu ra và bằng chứng riêng của từng vùng. Lượt này không xác nhận độ mới của phần còn lại.
+
+Trang hoặc mục cũ chưa đánh dấu vẫn dùng đường dựng trang hiện hành. Khi cần biên tập riêng một mục cũ, xác định biên nguồn và đích HTML rồi khai báo vùng trước. Đối với mục phụ thuộc filter native, bài có mã thực thi hoặc nguồn sinh nhiều thành phần ngoài vùng, phải xác định đủ các phần chịu ảnh hưởng và bộ chiếu tương ứng. Lệnh dựng phần không tự chuyển thành dựng cả trang. PDF và xuất bản có lệnh riêng.
+
 Luôn chạy từ gốc repository, qua launcher:
 
 ```text
@@ -85,3 +124,19 @@ Bảng biến thiên được kiểm bằng `du_lieu/bang_bien_thien.json` và h
 D0 là khảo sát độc lập, không áp chu trình Kiểm tra của gói. PDF được dựng riêng theo từng biến thể và có provenance hiện hành; lớp HTML kế thừa trạng thái thật của từng bản tải. Không dựng PDF lại khi chỉ sửa HTML. Đợt phát hành hiện hành đã được giao dựng lại 49 PDF; quyền này không tự áp dụng cho các nhiệm vụ sau. Dựng HTML không commit, push hoặc xuất bản. Trước bàn giao localhost vẫn dùng prepare → quan sát trong trình duyệt ứng dụng → confirm → check theo quy trình chung.
 
 Kiểm ít nhất: danh mục đủ D0 và bảy gói (R2-G02 có thẻ/lọc/điều hướng), Tổng quan, từng lượt Ôn lại, đáp án đóng, chặn mở hỗ trợ trong lượt Kiểm tra, quay lại vị trí gốc, Đã lưu và bố cục rộng/hẹp. Kiểm máy không thay quan sát hay nghiệm thu chủ trì.
+
+## Chiếu nội dung trực tiếp cho R3
+
+Năm gói R3 dùng `html_projection: current-reader-v1` trong `giao_dien/html.json`.
+Sau khi Quarto chuyển QMD thành nội dung HTML và MathML, adapter giữ vùng đọc,
+áp nhãn, bảng, disclosure và các cổng kiểm nguồn/DOM/tài nguyên. Module
+`zo_course_reader_content.py` tạo tài liệu nội dung tối thiểu để bộ dựng hiện
+hành nhận trực tiếp. Nhánh này bỏ ghép `page.html`, hero, footer và controller
+của giao diện cũ. Breadcrumb và ảnh bìa tối thiểu được giữ ở lớp nội dung để
+cổng kiểm bìa xác minh cùng tài sản đã khai. Giao diện cuối vẫn do `build.py`
+ghi vào đúng trang trong `docs/`.
+
+Vẫn dùng `zo_qmd.py render <QMD> --html-only` qua launcher. Quarto/Pandoc còn
+đảm nhiệm chuyển đổi nội dung toán. Các gói ngoài phạm vi R3 tiếp tục dùng
+nhánh tương thích hiện có. Kiểm thời gian cần đo cùng môi trường và đầu vào,
+không suy tỉ lệ tiết kiệm từ việc bỏ một bước ghép trang.

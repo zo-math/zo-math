@@ -109,23 +109,81 @@
   if (document.body.dataset.page !== 'reader') return;
   const p = data.course;
   const root = $('.reader-content');
+  if (p.id === 'r1_g01') {
+    for (const summary of $$('.zo-learning-video > summary', root)) {
+      const title = summary.textContent.trim().replace(/^Video:\s*/iu, '');
+      const icon = document.createElement('span');
+      icon.className = 'zo-video-play-icon';
+      icon.setAttribute('aria-hidden', 'true');
+      summary.classList.add('zo-video-card-title');
+      summary.replaceChildren(icon, title);
+    }
+  }
   const overview = $('#tong-quan');
+  const overviewHome = overview.nextElementSibling;
+  const fullTextOverview = p.id === 'r1_g01' && overview.querySelector('#overview-introduction')
+    ? $('#bat-dau > .reading-region', root) : null;
   const topicOverview = p.id !== 'd0';
   const overviewLayout = 'orientation-12';
   const overviewAliases = data.overviewAliases || {};
   const sections = [...root.children].filter(n => n.id);
-  const labels = {'tong-quan':'Tổng quan','bat-dau':'Bắt đầu','bai-hoc':'Bài học','phieu-luyen':'Luyện tập','tu-kiem-tra':'Kiểm tra','on-lai':'Ôn lại','on-nen':'Ôn nền','sua-loi':'Sửa lỗi','nhat-ky':'Nhật kí','loi-giai':'Lời giải','nguon':'Nguồn tài liệu','tai-tai-lieu':'Tải PDF','toan-van':'Toàn văn','khai-bao-pham-vi':'Chọn phạm vi','khao-sat':'Khảo sát','doc-ket-qua':'Đọc kết quả','chon-mach':'Chọn mạch học'};
+  const labels = {'tong-quan':'Tổng quan','bat-dau':'Bắt đầu','bai-hoc':'Bài học','phieu-luyen':'Luyện tập','tu-kiem-tra':'Kiểm tra','on-lai':'Ôn lại','on-nen':'Ôn nền','sua-loi':'Sửa lỗi','nhat-ky':'Nhật kí','loi-giai':'Lời giải','nguon':'Nguồn tài liệu','tai-tai-lieu':'Tải PDF','toan-van':'Đọc toàn văn','khai-bao-pham-vi':'Chọn phạm vi','khao-sat':'Khảo sát','doc-ket-qua':'Đọc kết quả','chon-mach':'Chọn mạch học'};
   const supportViews = new Set(['on-lai','on-nen','sua-loi','nhat-ky','loi-giai','doc-ket-qua']);
+  const contextReturn = $('#context-return');
+  const returnButton = $('#return-to-task');
+  returnButton.classList.add('icon-button');
+  const legacyBackIcon = $(':scope > .icon', contextReturn);
+  returnButton.replaceChildren(legacyBackIcon || $('.icon', returnButton));
+  contextReturn.replaceChildren(returnButton);
+  const saveButton = $('#save-position');
+  if (contextReturn.nextElementSibling !== saveButton) saveButton.before(contextReturn);
+  const viewLabel = $('#current-view-label');
+  const supportGate = $('#support-gate');
+  const finishTestButton = $('button[value="end"]', supportGate);
+  const finishTestLabel = finishTestButton.firstChild;
+  if (finishTestLabel?.nodeType === Node.TEXT_NODE) finishTestLabel.nodeValue = 'Đã kết thúc ';
   let view = '', origin = null, pendingSupport = null, testEnded = false;
   let crossPageOrigin = null;
   let originFocus = null, outlineLinks = [], scrollTimer, suppressSave = true;
+  const solutionsWithInlineReturn = $('[data-zo-solution-return="inline"]', root)?.closest('#loi-giai');
+  const solutionReturnControls = new Map();
+  if (solutionsWithInlineReturn) {
+    $$('.answer-link a[href^="#"]', solutionsWithInlineReturn).forEach(link => {
+      const block = link.closest('.answer-link');
+      const destination = block.closest('details.r1-solution[id], section[id]');
+      if (!destination) return;
+      link.classList.add('icon-button', 'solution-return');
+      link.setAttribute('aria-label', 'Quay lại đề bài');
+      const backIcon = $('.icon', returnButton);
+      if (backIcon) link.replaceChildren(backIcon.cloneNode(true));
+      block.replaceChildren(link);
+      const cards = destination.matches('details.r1-solution')
+        ? [] : $$('details.r1-solution[id]', destination);
+      const controls = cards.length ? cards.map((card, index) => {
+        const footer = index === 0 ? block : block.cloneNode(true);
+        if (index > 0) footer.removeAttribute('id');
+        card.append(footer);
+        return $('a', footer);
+      }) : [link];
+      controls.forEach(control => control.addEventListener('click', event => {
+        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        const entry = activeSolutionReturn();
+        if (entry?.target !== destination.id) return;
+        event.preventDefault();
+        returnToReadingPosition(entry.position, solutionSourceLink(entry));
+      }));
+      solutionReturnControls.set(destination.id, controls);
+    });
+  }
   let renderVersion = 0;
   let bookmarkPosition = null;
   history.scrollRestoration = 'manual';
   const originalRecent = state.recent?.id === p.id ? {...state.recent} : null;
-  function nodeText(node) {
+  function nodeText(node, {omitReadingLabel = false} = {}) {
     if (!node) return '';
-    const clone = node.cloneNode(true); $$('annotation,.anchorjs-link', clone).forEach(n => n.remove());
+    const clone = node.cloneNode(true);
+    const excluded = omitReadingLabel ? 'annotation,.anchorjs-link,[data-reading-label]' : 'annotation,.anchorjs-link';
+    $$(excluded, clone).forEach(n => n.remove());
     return clone.textContent.replace(/\s+/g, ' ').trim();
   }
   function sectionFor(target) {
@@ -139,25 +197,47 @@
     return node.id || 'tong-quan';
   }
   function orientationTarget(target, mode) {
+    if (mode === 'toan-van' && fullTextOverview && overviewAliases[target] === 'overview-goals') {
+      return 'overview-goals';
+    }
     return mode === 'toan-van' ? target : overviewAliases[target] || target;
   }
   function hashTarget() {
     let legacyView = new URLSearchParams(location.search).get('r1-view');
+    if (legacyView === 'luyen-tap') legacyView = 'phieu-luyen';
+    if (legacyView === 'kiem-tra') legacyView = 'tu-kiem-tra';
     if (/^on-lai-\d+$/.test(legacyView || '')) legacyView='on-lai';
     const fallback = legacyView && (legacyView === 'toan-van' || sections.some(n => n.id === legacyView)) ? legacyView : 'tong-quan';
     try { return decodeURIComponent(location.hash.slice(1)) || fallback; }
     catch (_) { return 'tong-quan'; }
   }
+  function activeSolutionReturn() {
+    return solutionsWithInlineReturn && (view === 'loi-giai' || view === 'toan-van')
+      ? history.state?.zoSolutionReturn : null;
+  }
+  function solutionSourceLinks(href) {
+    return $$('a[href]', root).filter(link => link.getAttribute('href') === href);
+  }
+  function solutionSourceLink(entry) {
+    const links = solutionSourceLinks(entry.sourceHref || '#' + entry.target);
+    return entry.sourceIndex === undefined && links.length !== 1 ? null : links[entry.sourceIndex ?? 0];
+  }
   function returnContext() {
-    return origin && view !== origin.view ? origin : crossPageOrigin;
+    return activeSolutionReturn()?.position || (origin && view !== origin.view ? origin : crossPageOrigin);
   }
   function updateReturnContext() {
     const context = returnContext();
-    $('#context-return').hidden = !context;
-    document.body.classList.toggle('has-context', !!context);
-    $('#origin-label').textContent = !context ? '' : context.crossPage
+    contextReturn.hidden = !context;
+    const solutionReturn = activeSolutionReturn();
+    solutionReturnControls.forEach((controls, target) => {
+      const label = solutionReturn?.target === target ? 'Quay lại chỗ vừa đọc' : 'Quay lại đề bài';
+      controls.forEach(control => control.setAttribute('aria-label', label));
+    });
+    const destination = !context ? '' : context.crossPage
       ? context.courseTitle + ' · ' + context.label
       : context.label === labels[context.view] ? context.label : (labels[context.view] || '') + ' · ' + context.label;
+    returnButton.setAttribute('aria-label', destination ? 'Quay lại ' + destination : 'Quay lại');
+    returnButton.title = destination;
   }
   async function loadCrossPageOrigin() {
     const query = new URLSearchParams(location.search);
@@ -224,6 +304,10 @@
   }
   function openAncestors(node) {
     for (let ancestor = node; ancestor && ancestor !== root; ancestor = ancestor.parentElement) if (ancestor.tagName === 'DETAILS') ancestor.open = true;
+    if (node?.matches('[data-zo-review-disclosure="closed"]')) {
+      const round = $(':scope > details.r01-review-round', node);
+      if (round) round.open = true;
+    }
     // A solution anchor may own a section whose disclosure is a child.
     // Open only that unit's solution, never all answers in a group.
     if (node?.matches('[data-zo-type="solution"][data-zo-task]') && node.tagName !== 'DETAILS') {
@@ -235,14 +319,41 @@
   // Canonical contents take precedence. Other packages retain their complete
   // semantic heading/activity structure, without making activity names headings.
   const authoredContents = JSON.parse(root.dataset.zoContents || '[]');
+  const uniformOutline = root.dataset.r1Code === 'R1-G01';
+  const outlineHeading = $('.reading-outline > .nav-label');
+  const defaultOutlineHeading = outlineHeading.textContent;
   const mobileOutline = document.createElement('details');
   mobileOutline.className = 'mobile-reading-outline';
   const mobileOutlineTitle = document.createElement('summary'); mobileOutlineTitle.textContent = 'Trong phần này';
   const mobileOutlineLinks = document.createElement('nav'); mobileOutlineLinks.id = 'mobile-page-outline';
   mobileOutlineLinks.setAttribute('aria-label','Mục lục phần đang đọc trên điện thoại');
   mobileOutline.append(mobileOutlineTitle,mobileOutlineLinks); $('.reading-column').prepend(mobileOutline);
-  function updateMobileOutline() {
-    mobileOutlineLinks.replaceChildren(...[...$('#page-outline').children].map(a=>a.cloneNode(true)));
+  function updateMobileOutline(grouped) {
+    const links = [...$('#page-outline').children].map(a => a.cloneNode(true));
+    mobileOutlineLinks.replaceChildren();
+    if (grouped) {
+      let group, subtopics;
+      for (const link of links) {
+        if (link.dataset.depth === '0' || !group) {
+          group = document.createElement('div');
+          group.className = 'mobile-outline-group';
+          group.append(link);
+          mobileOutlineLinks.append(group);
+          subtopics = null;
+          continue;
+        }
+        if (!subtopics) {
+          subtopics = document.createElement('details');
+          const toggle = document.createElement('summary');
+          toggle.setAttribute('aria-label', 'Mục con của ' + group.firstElementChild.textContent);
+          subtopics.append(toggle);
+          group.append(subtopics);
+        }
+        subtopics.append(link);
+      }
+    } else {
+      mobileOutlineLinks.append(...links);
+    }
     mobileOutline.hidden = !mobileOutlineLinks.children.length; mobileOutline.open = false;
   }
   const pageNavigation = document.createElement('nav');
@@ -268,7 +379,7 @@
       svg.append(path); a.append(svg); pageNavigation.append(a);
     }
   }
-  function rebuildOutline(current) {
+  function rebuildOutline(current, groupPractice, groupReview) {
     const nav = $('#page-outline'); nav.replaceChildren(); outlineLinks = [];
     if (!current) return;
     const seen = new Set();
@@ -282,31 +393,88 @@
       if (topicOverview) return;
       $$('.topic-overview-section[id]',current).forEach(n => add(n,nodeText($('h2',n)))); return;
     }
-    const bindingView = {'phieu-luyen':'luyen-tap','tu-kiem-tra':'kiem-tra'}[view] || view;
+    if (view === 'toan-van') {
+      if (!uniformOutline) {
+        $$('h2',current).forEach(h => add(h.closest('[id]'),nodeText(h)));
+        return;
+      }
+      sections.forEach(section => {
+        const heading = $(':scope > .reading-region > h2', section);
+        if (!heading) return;
+        add(section, nodeText(heading, {omitReadingLabel:true}));
+        if (section.contains(overview)) {
+          $$('.topic-overview-section[id]', overview).forEach(n => add(n,nodeText($('h2',n)),1));
+        }
+        collectSectionOutline(section, section.id, (node,label,depth=0) => add(node,label,depth+1),
+          section.id === 'phieu-luyen' && Boolean($('#dinh-huong-luyen-tap [data-lesson-intro-end]', section)),
+          section.id === 'on-lai' && Boolean($('#cach-thuc-hien-on-lai [data-lesson-intro-end]', section)));
+      });
+      return;
+    }
+    collectSectionOutline(current, view, add, groupPractice, groupReview);
+  }
+  function collectSectionOutline(current, sectionView, add, groupPractice, groupReview) {
+    if (sectionView === 'nhat-ky' && $('#huong-dan-ghi-nhat-ki [data-lesson-intro-end]',current)) return;
+    if (sectionView === 'tai-tai-lieu' && $('#huong-dan-tai-pdf [data-lesson-intro-end]',current)) return;
+    if (sectionView === 'nguon' && $('#tai-lieu-doi-chieu [data-lesson-intro-end]',current)) return;
+    const bindingView = {'phieu-luyen':'luyen-tap','tu-kiem-tra':'kiem-tra'}[sectionView] || sectionView;
     const declared = authoredContents.find(g => g.view === bindingView);
     if (declared) {
       function visit(items,depth=0) {
-        items.forEach(item => {add(document.getElementById(item.target),item.label,depth);visit(item.children||[],depth+1);});
+        items.forEach(item => {
+          const node = document.getElementById(item.target);
+          add(node,item.label,depth);
+          if (item.children?.length) {
+            visit(item.children,depth+1);
+          } else if (sectionView === 'loi-giai' && node?.matches('[data-zo-solution-group]')) {
+            $$('details.r1-solution[id]',node).forEach(answer => {
+              add(answer,nodeText($(':scope > summary',answer), {omitReadingLabel:true}),depth+1);
+            });
+          }
+        });
       }
       visit(declared.items); return;
     }
-    if (view === 'toan-van') {
-      $$('h2',current).forEach(h => add(h.closest('[id]'),nodeText(h))); return;
+    if (groupPractice) {
+      $$(':scope > section[id]', current).forEach(unit => {
+        const heading = $('h3', unit);
+        if (heading) add(unit, nodeText(heading), unit.hasAttribute('data-zo-outline-group') || heading.hasAttribute('data-zo-outline-group') ? 0 : 1);
+      });
+      return;
     }
-    $$('h3,h4,h5,.zo-lesson-activity,details[id]',current).forEach(n => {
+    if (groupReview) {
+      $$('details.r01-review-round', current).forEach(round => {
+        const task = $('section.zo-learning-task[id]', round);
+        const checkpoint = $('section[data-zo-type="checkpoint"][id]', round);
+        const section = round.closest('section[data-zo-review-disclosure][id]');
+        add(section || task, nodeText($('summary', round)));
+        if (section && task) add(task, nodeText($('h3,h4', task)), 1);
+        if (checkpoint) add(checkpoint, nodeText($('h3,h4', checkpoint)), 1);
+      });
+      return;
+    }
+    const items = $$('h3,h4,h5,.zo-lesson-activity,details[id]',current);
+    let hasEntries = false;
+    function addEntry(node, label, depth) {
+      if (!node?.id || !label) return;
+      hasEntries = true;
+      add(node, label, depth);
+    }
+    items.forEach(n => {
       if (n.matches('h3,h4,h5')) {
         if (n.closest('.zo-lesson-activity,details')) return;
         const depth = Number(n.tagName.slice(1))-3;
-        add(n.closest('[id]'),nodeText(n),depth);
+        addEntry(n.closest('[id]'),nodeText(n),depth);
       } else if (n.matches('.zo-lesson-activity')) {
+        if (n.hasAttribute('data-zo-lead')) return;
         const title = $('p > strong,.zo-task-title',n);
         const target = n.id ? n : $('[id]',n);
-        add(target,nodeText(title),n.parentElement.closest('.level4,.zo-knowledge-section')?2:1);
+        addEntry(target,nodeText(title),n.parentElement.closest('.level4,.zo-knowledge-section')?2:1);
       } else if (!n.parentElement.closest('details') && !n.closest('#bai-hoc')) {
-        add(n,nodeText($('summary',n)),0);
+        addEntry(n,nodeText($('summary',n)),0);
       }
     });
-    if (!outlineLinks.length) add(current,labels[view]||view);
+    if (!hasEntries) add(current,labels[sectionView]||sectionView);
   }
   function renderRoute(target, options = {}) {
     const oldTarget = target;
@@ -326,25 +494,70 @@
     if (migrated || legacyGuidance) history.replaceState({...history.state,zoView:view}, '', routeUrl(target,view));
     document.body.classList.toggle('overview-open', topicOverview && view === 'tong-quan');
     if (view === 'tu-kiem-tra' && !options.returning && previousView !== view && !origin) testEnded = false;
-    $('#tong-quan').hidden = view !== 'tong-quan';
+    const fullText = view === 'toan-van';
+    if (fullText && fullTextOverview) {
+      if (fullTextOverview.nextElementSibling !== overview) fullTextOverview.after(overview);
+    } else if (overview.nextElementSibling !== overviewHome) {
+      overviewHome.before(overview);
+    }
+    overview.hidden = view !== 'tong-quan' && !(fullText && fullTextOverview);
     root.hidden = view === 'tong-quan';
+    root.classList.toggle('reading-full-text', fullText);
     sections.forEach(section => section.hidden = view !== 'toan-van' && section.id !== view);
     $$('[data-view]').forEach(a => {
       if (a.dataset.view === view) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
-    $('#current-view-label').textContent = labels[view] || view;
+    viewLabel.textContent = labels[view] || view;
     $('#mobile-view').textContent = labels[view] || view;
     updateReturnContext();
     const current = view === 'tong-quan' ? $('#tong-quan') : view === 'toan-van' ? root : document.getElementById(view);
-    rebuildOutline(current);
-    updateMobileOutline();
+    const lessonIntro = view === 'bai-hoc' && $('[data-lesson-intro-end]', current)?.parentElement;
+    const practiceIntro = view === 'phieu-luyen' && $('#dinh-huong-luyen-tap [data-lesson-intro-end]', current);
+    const testIntro = view === 'tu-kiem-tra' && $('#dinh-huong-kiem-tra [data-lesson-intro-end]', current);
+    const reviewIntro = view === 'on-lai' && $('#cach-thuc-hien-on-lai [data-lesson-intro-end]', current);
+    const foundationIntro = view === 'on-nen' && $('#huong-dan-on-nen [data-lesson-intro-end]', current);
+    const remediationIntro = view === 'sua-loi' && $('#cach-thuc-hien-sua-loi [data-lesson-intro-end]', current);
+    const solutionIntro = view === 'loi-giai' && $('#cach-thuc-hien-dung-loi-giai [data-lesson-intro-end]', current);
+    const inlineIntro = lessonIntro || practiceIntro?.parentElement || testIntro?.parentElement
+      || (uniformOutline && reviewIntro?.parentElement) || foundationIntro?.parentElement
+      || remediationIntro?.parentElement || solutionIntro?.parentElement
+      || (view === 'nhat-ky' && $('#huong-dan-ghi-nhat-ki [data-lesson-intro-end]', current)?.parentElement)
+      || (view === 'tai-tai-lieu' && $('#huong-dan-tai-pdf [data-lesson-intro-end]', current)?.parentElement)
+      || (view === 'nguon' && $('#tai-lieu-doi-chieu [data-lesson-intro-end]', current)?.parentElement);
+    const outlineTitle = fullText ? 'Mục lục toàn văn' : lessonIntro ? 'Mục lục bài học' : practiceIntro ? 'Mục lục luyện tập' : testIntro ? 'Mục lục kiểm tra' : reviewIntro ? 'Mục lục ôn lại' : foundationIntro ? 'Mục lục ôn nền' : remediationIntro ? 'Mục lục sửa lỗi' : solutionIntro ? 'Mục lục lời giải' : '';
+    outlineHeading.textContent = outlineTitle || defaultOutlineHeading;
+    mobileOutlineTitle.textContent = outlineTitle || 'Trong phần này';
+    mobileOutlineLinks.setAttribute('aria-label', outlineTitle || 'Mục lục phần đang đọc');
+    if (inlineIntro) inlineIntro.after(mobileOutline);
+    else $('.reading-column').prepend(mobileOutline);
+    rebuildOutline(current, Boolean(practiceIntro), Boolean(reviewIntro));
+    updateMobileOutline(Boolean(lessonIntro || practiceIntro || (uniformOutline && outlineTitle)));
+    if (reviewIntro && !uniformOutline) mobileOutline.hidden = true;
     updatePageNavigation();
     const node = document.getElementById(target);
-    if (node && root.contains(node)) openAncestors(node);
+    const warmupAnswer = uniformOutline && (options.initial || options.returning)
+      ? node?.closest('#loi-giai-khoi-dong details.r1-solution') : null;
+    if (node && root.contains(node)) {
+      if (uniformOutline && node.matches('#loi-giai, #loi-giai > section[data-zo-solution-group], #loi-giai-khoi-dong')) {
+        $$('details.r1-solution[open]', node).forEach(answer => { answer.open = false; });
+      }
+      if (warmupAnswer) {
+        // A restored fragment inside a closed answer would make the browser reveal it.
+        if (node !== warmupAnswer) history.replaceState(history.state, '', routeUrl(warmupAnswer.id, view));
+        warmupAnswer.open = false;
+      } else {
+        openAncestors(node);
+      }
+    }
     requestAnimationFrame(() => {
       if (version !== renderVersion) return;
-      if (options.position) restorePosition(options.position);
+      if (warmupAnswer) {
+        warmupAnswer.open = false;
+        warmupAnswer.scrollIntoView({block:'start', behavior:'instant'});
+      }
+      else if (options.position) restorePosition(options.position);
       else if (options.scroll !== undefined) window.scrollTo({top:options.scroll, behavior:'instant'});
+      else if ((inlineIntro || fullText) && target === view) window.scrollTo({top:0, behavior:'instant'});
       else if (target === view && mobileOutline.getClientRects().length) mobileOutline.scrollIntoView({block:'start',behavior:'instant'});
       else if (!options.initial && node && target !== 'tong-quan' && target !== 'toan-van') node.scrollIntoView({block:'start', behavior:'instant'});
       else if (!options.initial || topicOverview && target === 'tong-quan') window.scrollTo({top:0, behavior:'instant'});
@@ -357,10 +570,15 @@
   function navigate(target, options = {}) {
     const withinFullText = view === 'toan-van' && options.source && (root.contains(options.source) || options.source.closest('#page-outline,#mobile-page-outline'));
     target = orientationTarget(target, withinFullText ? 'toan-van' : undefined);
-    const nextView = withinFullText ? 'toan-van' : sectionFor(target);
-    const revealsSupport = supportViews.has(nextView) || ['tong-quan','bai-hoc','tai-tai-lieu','toan-van'].includes(nextView);
-    if (!options.approved && view === 'tu-kiem-tra' && revealsSupport && !testEnded) {
-      pendingSupport = {target, options}; $('#support-gate').showModal(); return;
+    const targetSection = sectionFor(target);
+    const nextView = withinFullText ? 'toan-van' : targetSection;
+    const revealsSupport = supportViews.has(targetSection) || ['tong-quan','bai-hoc','tai-tai-lieu','toan-van'].includes(targetSection);
+    const fromTest = view === 'tu-kiem-tra' || (withinFullText && options.source.closest('#tu-kiem-tra'));
+    if (!options.approved && fromTest && revealsSupport && !testEnded) {
+      pendingSupport = {target, options};
+      supportGate.returnValue = '';
+      supportGate.showModal();
+      return;
     }
     saveHistoryPosition();
     const contextualLink = (options.source && root.contains(options.source) && nextView !== view && target !== nextView)
@@ -370,7 +588,15 @@
       const task = options.source?.closest('.zo-learning-task[id]');
       if (task) {origin.target = task.id; origin.label = nodeText($('h3,h4,h5', task)) || origin.label;}
     } else if (!supportViews.has(nextView) && !contextualLink) origin = null;
-    history.pushState({zoOrigin:origin,zoView:nextView,zoTestEnded:testEnded}, '', routeUrl(target,nextView));
+    let solutionReturn = null;
+    if ((nextView === 'loi-giai' || withinFullText) && solutionReturnControls.has(target)
+        && root.contains(options.source) && !solutionsWithInlineReturn.contains(options.source)
+        && nodeText(options.source) === 'Xem lời giải') {
+      const sourceHref = options.source.getAttribute('href');
+      const sourceIndex = solutionSourceLinks(sourceHref).indexOf(options.source);
+      solutionReturn = {target, position:position(), sourceHref, sourceIndex};
+    }
+    history.pushState({zoOrigin:origin,zoView:nextView,zoTestEnded:testEnded,zoSolutionReturn:solutionReturn}, '', routeUrl(target,nextView));
     const mobileWasOpen = document.body.classList.contains('nav-open');
     closeNav(false);
     renderRoute(target, {...options,mode:nextView});
@@ -385,7 +611,7 @@
       const foundation=u.pathname.endsWith('/_dung_chung/nen/so_gan_dung_sai_so.html');
       const pdf=u.pathname.endsWith('.pdf');
       if(view==='tu-kiem-tra' && !testEnded && (destination||foundation||pdf)) {
-        event.preventDefault();pendingSupport={href:u.href};$('#support-gate').showModal();return;
+        event.preventDefault();pendingSupport={href:u.href};supportGate.showModal();return;
       }
       if((destination||foundation)&&root.contains(a)) {
         const current=position();
@@ -410,21 +636,24 @@
     testEnded = !!history.state?.zoTestEnded;
     closeNav(false); renderRoute(hashTarget(), {returning:true,mode:history.state?.zoView || new URLSearchParams(location.search).get('view'),position:history.state?.zoPosition});
   });
-  $('#support-gate').addEventListener('close', () => {
+  supportGate.addEventListener('close', () => {
     const pending = pendingSupport; pendingSupport = null;
-    if ($('#support-gate').returnValue === 'end' && pending) {
+    if (supportGate.returnValue === 'end' && pending) {
       testEnded = true; if(pending.href){location.assign(pending.href);return;} navigate(pending.target, {...pending.options, approved:true});
     }
   });
-  $('#return-to-task').addEventListener('click', () => {
-    const context = returnContext();
+  function returnToReadingPosition(context, focus) {
     if (!context) return;
     saveHistoryPosition();
     if (context.crossPage) {location.assign(context.url); return;}
-    const prior = origin, focus = originFocus; origin = null;
-    history.pushState({zoOrigin:null,zoView:prior.view,zoPosition:prior,zoTestEnded:testEnded}, '', routeUrl(prior.target,prior.view));
-    renderRoute(prior.target, {returning:true, mode:prior.view, position:prior});
+    origin = null;
+    history.pushState({zoOrigin:null,zoView:context.view,zoPosition:context,zoTestEnded:testEnded}, '', routeUrl(context.target,context.view));
+    renderRoute(context.target, {returning:true, mode:context.view, position:context});
     if (focus?.isConnected && focus.getClientRects().length) focus.focus({preventScroll:true});
+  }
+  returnButton.addEventListener('click', () => {
+    const entry = activeSolutionReturn();
+    returnToReadingPosition(returnContext(), entry ? solutionSourceLink(entry) : originFocus);
   });
   function updatePositionButton() {
     const pos = position();

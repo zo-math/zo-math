@@ -5,8 +5,26 @@ Runs only inside an isolated zo_pdf build. Never reads historical HTML/PDF.
 from pathlib import Path
 from datetime import datetime, timedelta, timezone
 import shutil
+import subprocess
+from xml.etree import ElementTree
 import yaml
 from zo_pdf_support import support_model, support_tex, tex
+
+COVER_LOGO_SOURCE = Path('_design/ngon_ngu_thiet_ke_zo_math_0_4/07_mau_thi_giac/logos/horizontal_color_dark.svg')
+
+
+def cover_logo(root: Path, runtime: Path) -> None:
+    """Use the white wordmark on the cover's own red background."""
+    tree = ElementTree.parse(root / COVER_LOGO_SOURCE)
+    logo = tree.getroot()
+    background, = logo.findall('{http://www.w3.org/2000/svg}rect')
+    logo.remove(background)
+    transparent = runtime / 'zo-course-logo-white-math.svg'
+    tree.write(transparent, encoding='utf-8', default_namespace=None)
+    subprocess.run([
+        'inkscape', str(transparent), '--export-width=1200',
+        '--export-filename=' + str(transparent.with_suffix('.png')),
+    ], check=True, capture_output=True)
 
 
 def prepare(root: Path, mirror: Path, source: Path, definition: dict) -> dict:
@@ -30,7 +48,13 @@ def prepare(root: Path, mirror: Path, source: Path, definition: dict) -> dict:
     shutil.copy2(model['logo_path'], runtime/'zo-course-support-logo.png')
     shutil.copy2(model['qr_path'], runtime/'zo-course-support-qr.jpg')
     from zo_course_cover import print_cover
-    print_cover(root,source.parent.name,runtime/'zo-course-cover.pdf',allow_direction_approved=bool(shell.get('allow_direction_approved_preview')))
+    from zo_topic_art import card_art
+    artwork = card_art(root, source.parent.name) if shell.get('layout') == 'course-print-v2' else None
+    cover = 'zo-course-cover.png' if artwork else 'zo-course-cover.pdf'
+    if artwork:
+        shutil.copy2(artwork[0], runtime / cover)
+    else:
+        print_cover(root,source.parent.name,runtime/cover,allow_direction_approved=bool(shell.get('allow_direction_approved_preview')))
     from zo_pdf_raster_illustrations import prepare as prepare_raster
     prepare_raster(root,mirror,source,shell)
     now = datetime.now(timezone(timedelta(hours=7)))
@@ -45,6 +69,7 @@ def prepare(root: Path, mirror: Path, source: Path, definition: dict) -> dict:
         from zo_course_pdf_layout import model as print_model
         layout=print_model(root,source,next(k for k,v in config.raw['extensions']['pdf_variants'].items() if v['output']==definition['output']))
     if layout:
+        cover_logo(root, runtime)
         shutil.copy2(root/'assets/tex/zo-course-print-layout.tex',runtime/'zo-course-print-layout.tex')
         (mirror/'assets/tex/zo-course-print-runtime.json').write_text(
             __import__('json').dumps(layout, ensure_ascii=False), encoding='utf-8')
@@ -55,12 +80,18 @@ def prepare(root: Path, mirror: Path, source: Path, definition: dict) -> dict:
         'zoPrintURL': definition['metadata']['zo-pdf-branding']['canonical-url'],
         'zoBuildDate': now.strftime('%d/%m/%Y'), 'zoBuildYear': str(now.year),
     }
+    if layout and download.get('view'):
+        from urllib.parse import urlencode
+        fields['zoPrintURL'] += '?' + urlencode({'r1-view': download['view']})
+    if fields['zoPrintDescription'].strip().rstrip('.').casefold() == variant.casefold():
+        fields['zoPrintDescription'] = ''
     lines = [support_tex(model), r'\newif\ifzoCoursePrintVTwo', r'\zoCoursePrintVTwo'+('true' if layout else 'false')]
     lines += [r'\newif\ifzoPrintSupport', r'\zoPrintSupporttrue']
     lines += ['\\newcommand{\\'+k+'}{'+tex(str(v))+'}' for k,v in fields.items() if k!='zoPrintURL']
     # QR payloads must contain literal URL bytes, not TeX escapes for underscores.
     lines += [r'\edef\zoPrintURL{\detokenize{'+fields['zoPrintURL']+'}}']
     lines += [r'\newcommand{\zoPrintCoverTitle}{'+r'\\'.join(tex(x) for x in shell['cover_lines'])+'}',
+              r'\newcommand{\zoPrintCoverImage}{'+cover+'}',
               r'\newcommand{\zoPrintFontDir}{'+runtime.as_posix()+'/}',
               r'\definecolor{zoSupportHeading}{HTML}{'+model['heading_color'].lstrip('#')+'}']
     (runtime/'zo-course-pdf-metadata.tex').write_text('\n'.join(lines)+'\n', encoding='utf-8')
@@ -89,4 +120,4 @@ def prepare(root: Path, mirror: Path, source: Path, definition: dict) -> dict:
     quarto_profile['format']['pdf']['include-in-header'] = [
         'assets/tex/zo-pdf.tex', 'assets/tex/zo-course-pdf-shell.tex']
     profile_path.write_text(yaml.safe_dump(quarto_profile,allow_unicode=True,sort_keys=False),encoding='utf-8')
-    return {'runtime': runtime, 'support_inputs': model['input_hashes'], 'layout': layout}
+    return {'runtime': runtime, 'support_inputs': model['input_hashes'], 'support_title': model['title'], 'layout': layout}

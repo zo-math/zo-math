@@ -1,7 +1,17 @@
-"""One live PDF-state label shared by the two course HTML adapters."""
+"""Shared titles and freshness labels for course PDF download cards."""
 from pathlib import Path
 import yaml
 from zo_pdf_print_state import inspect_print_states
+
+
+def apply_download_title(card, variant):
+    if variant == 'student':
+        title = 'Bản học sinh'
+        card.select_one('.zo-pdf-title').string = title
+        link = card.select_one('a[download]')
+        link['aria-label'] = 'Tải PDF: ' + title
+        link['download'] = link['download'].replace('_hoc_va_bai_tap_', '_hoc_sinh_')
+
 
 def apply(doc,root,package):
     for generated_note in doc.select('.prototype-note'):generated_note.decompose()
@@ -17,6 +27,10 @@ def apply(doc,root,package):
     for card in cards:
         link=card.select_one('a[download]');name=Path(link['href']).name
         variant=by_output[name]
+        apply_download_title(card,variant)
+        for role in card.select('.role'):
+            if role.get_text(' ', strip=True) == 'TIỆN ÍCH · TẢI PDF':
+                role.decompose()
         fresh=not states[variant]['errors']
         card['data-pdf-current']=str(fresh).lower()
         card['data-pdf-basis']=states[variant]['status']
@@ -24,6 +38,10 @@ def apply(doc,root,package):
         label.string='PDF đã cập nhật.' if fresh else 'PDF đang chờ cập nhật.'
         current.append(fresh)
     note=doc.select_one('#tai-tai-lieu .zo-pdf-current-note')
+    if doc.select_one('#tai-tai-lieu #huong-dan-tai-pdf') is not None:
+        if note is not None:
+            note.decompose()
+        return current
     if note is None:
         note=doc.new_tag('p',attrs={'class':'zo-pdf-current-note'})
         heading=doc.select_one('#tai-tai-lieu h2');heading.insert_after(note)

@@ -44,9 +44,9 @@ def orphan_task_pages(reader):
     failures=[]
     for number,page in enumerate(reader.pages[1:-1],2):
         lines=[line.strip() for line in page.extract_text().splitlines() if line.strip()]
-        lines=[line for line in lines if line!='Ôn thi Toán THPT 2027' and line!='zomath.vn' and not line.isdigit()]
+        lines=[line for line in lines if line!='zomath.vn' and not line.isdigit()]
         # Depending on text extraction, all three footer items share one line.
-        lines=[line for line in lines if not line.startswith('Ôn thi Toán THPT 2027')]
+        lines=[line for line in lines if not line.startswith('Ôn Toán 2027')]
         if lines and '(trang' not in lines[-1] and re.match(r'^Nhiệm vụ\s+\d+\b',lines[-1]):failures.append(number)
     return failures
 
@@ -89,7 +89,7 @@ def closing_support_checks(texts, support):
     compact=lambda value:re.sub(r'\s+','',value)
     last=texts[-1] if texts else ''
     return {
-        'current support title and account':support['title'] in last and all(compact(f['value']) in compact(last) for f in support['fields']),
+        'current support title and account':compact(support['title']) in compact(last) and all(compact(f['value']) in compact(last) for f in support['fields']),
         'current support invitation and CTA':all(compact(support[k]) in compact(last) for k in ['copy','cta']),
     }
 
@@ -126,14 +126,28 @@ def check(path, source=None, variant=None):
     shell=config['extensions']['course_pdf_shell']
     norm=lambda t:re.sub(r'\s+',' ',t).strip()
     compact=lambda t:re.sub(r'\s+','',t)
+    cover = norm(texts[0])
+    modern_cover = shell.get('layout') == 'course-print-v2'
     checks={
         **opening_policy_checks(reader, actual_variant, texts),
         'A4 every page':all(abs(float(p.mediabox.width)-595.276)<1 and abs(float(p.mediabox.height)-841.89)<1 for p in reader.pages),
         'centered HTTPS website footer every page':all(footer_checks(reader)),
         'resolved print page references':'??' not in all_text and (output_name not in ['index.pdf','index_hoc_sinh.pdf'] or '(trang' in all_text),
-        'cover title and version':norm(' '.join(shell['cover_lines'])) in norm(texts[0]) and 'Phiên bản nội dung '+str(profile['package']['candidate_version']) in texts[0],
-        'cover creation date and rights':'Ngày tạo PDF:' in texts[0] and 'Bản quyền nội dung thuộc ZO Math' in texts[0],
-        'closing learning invitation':'Chọn điều em' in texts[-1] and 'Mở học liệu' in texts[-1],
+        'cover topic title':norm(' '.join(shell['cover_lines'])) in cover,
+        'cover rights':'Bản quyền nội dung thuộc ZO Math' in cover,
+        'cover version and date follow layout':(
+            'Phiên bản nội dung' not in cover and 'Ngày tạo PDF:' not in cover if modern_cover
+            else 'Phiên bản nội dung '+str(profile['package']['candidate_version']) in cover and 'Ngày tạo PDF:' in cover
+        ),
+        'closing course introduction':all(
+            compact(phrase) in compact(texts[-1])
+            for phrase in ('Ôn thi Toán THPT 2027', 'Khóa học miễn phí của ZO Math', 'Mở trang khóa học')
+        ),
+        'closing link to course home':any(
+            ref.get_object().get('/A', {}).get('/URI') ==
+            'https://zomath.vn/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html'
+            for ref in reader.pages[-1].get('/Annots', [])
+        ),
         **closing_support_checks(texts,support),
         'no former support wording':'ủng hộ' not in all_text.lower(),
         'no replacement glyphs':not replacement_glyph_lines(texts),
@@ -169,8 +183,8 @@ def check(path, source=None, variant=None):
             ann['/A'][NameObject('/URI')]=TextStringObject('https://example.invalid')
     checks['negative wrong footer rejected']=not all(footer_checks(negative))
     from types import SimpleNamespace
-    bad=SimpleNamespace(extract_text=lambda:'Previous question text\nNhiệm vụ 13 – Xen kẽ cực trị và giá trị lớn nhất\nÔn thi Toán THPT 2027 zomath.vn 8')
-    good=SimpleNamespace(extract_text=lambda:'Lượt quay lại\nNhiệm vụ 03 (trang 38)\nÔn thi Toán THPT 2027 zomath.vn 35')
+    bad=SimpleNamespace(extract_text=lambda:'Previous question text\nNhiệm vụ 13 – Xen kẽ cực trị và giá trị lớn nhất\nÔn Toán 2027 zomath.vn 8')
+    good=SimpleNamespace(extract_text=lambda:'Lượt quay lại\nNhiệm vụ 03 (trang 38)\nÔn Toán 2027 zomath.vn 35')
     checks['negative stranded task heading rejected']=orphan_task_pages(SimpleNamespace(pages=[None,bad,None]))==[2] and not orphan_task_pages(SimpleNamespace(pages=[None,good,None]))
     bad_page=SimpleNamespace(mediabox=SimpleNamespace(height=841.89),extract_text=lambda visitor_text,**kwargs:visitor_text('Clipped task',[1,0,0,1,0,0],[1,0,0,1,20,900],None,10))
     checks['negative clipped text rejected']=bool(clipped_text_pages(SimpleNamespace(pages=[bad_page])))

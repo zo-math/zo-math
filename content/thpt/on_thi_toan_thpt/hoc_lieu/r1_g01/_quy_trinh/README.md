@@ -1,5 +1,9 @@
 # R1-G01 — ứng viên Quarto v1.3
 
+## Nguồn biên soạn hiện hành và bản thảo đã khép
+
+[Nguồn QMD hiện hành](../index.qmd) là nơi tiếp tục biên tập và lấy mẫu theo chức năng. [Hồ sơ bản thảo](ho_so/ban_thao_da_khep.json) ghi kết quả rà, các commit/đường dẫn/hash truy lại và giới hạn bằng chứng. Không dùng bản thảo, bản xem hoặc tài liệu lịch sử làm mẫu văn phong. Các mô tả giữ bản thảo bên dưới là lịch sử; không còn chỉ dẫn duy trì bản thảo song song. Nghiệm thu và xuất bản giữ trạng thái riêng tại 03.
+
 > Vận hành website 2027: chỉ áp dụng `scripts/zo_course_site_sources/README.md` (đường dẫn tính từ gốc repository). Các hướng dẫn bên dưới về preview/checkpoint, vỏ trang kit, DRAWER-ICON01, bộ sáu trang và giữ R01/prototype làm đối chứng đã hết hiệu lực đối với website cuối. Nội dung toán, kiến trúc học tập, hợp đồng bảng/hình và quy trình PDF còn hiệu lực theo phạm vi riêng. Không lấy lệnh hoặc trạng thái trong hồ sơ lịch sử để dựng lại giao diện cũ.
 
 **GRAPH-G03-01 — ứng viên đồ thị theo mẫu G03.** Đã cập nhật nguồn và kiểm HTML riêng; [hồ sơ và bản xem](../../../tot_nghiep_thpt/2027/_quy_trinh/ho_so_do_thi_theo_g03_20261017.md). Chưa chủ trì duyệt hình thức, chưa dựng lại PDF học liệu hoặc xuất bản. G03/bìa/BBT/nội dung toán giữ nguyên; trạng thái PDF của bản cũ không chứng nhận bản HTML này.

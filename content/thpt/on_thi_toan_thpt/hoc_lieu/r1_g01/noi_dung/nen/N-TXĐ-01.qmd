@@ -3,45 +3,84 @@
 Tập xác định và khoảng xét
 :::
 
-**Dùng khi:** em chọn một điểm bị loại, xét một khoảng đi qua điểm không thuộc tập xác định hoặc nhầm phép thay vào biểu thức với giá trị của hàm đã cho.
+::: {#nen-n-txd-01-dau-hieu}
+<!-- zo-section nen-n-txd-01-dau-hieu -->
+
+**Dùng thẻ này khi** em thay số vào công thức mà quên kiểm tra điểm đó có thuộc tập xác định không, hoặc xét một khoảng chứa điểm mà hàm không xác định.
+
+<!-- /zo-section -->
+:::
 
 **Nhớ lại.** Với biểu thức phân thức, mẫu phải khác $0$. Nếu đề cho thêm tập xác định, phải giữ điều kiện đó ngay cả khi biểu thức rút gọn tính được tại một điểm đã bị loại. Muốn dùng định lí trên một khoảng, toàn bộ khoảng phải thuộc tập xác định và thỏa các giả thiết tương ứng.
 
-**Ví dụ hướng dẫn.** Với $a(x)=\frac{1}{x+1}$, mẫu phải khác $0$, nên $x\ne-1$ và $D=\mathbb{R}\setminus\{-1\}$. Khoảng $(-2;0)$ chứa $-1$, vì vậy $a$ không xác định trên toàn khoảng ấy. Trước khi xét đơn điệu, phải tách tại $-1$; việc đạo hàm có cùng dấu ở hai bên không xóa được điểm bị loại.
+::: {#nen-n-txd-01-vi-du}
+<!-- zo-section nen-n-txd-01-vi-du -->
 
+**Ví dụ hướng dẫn.** Với $a(x)=\frac{1}{x+1}$, mẫu số khác $0$ khi $x\ne-1$, nên tập xác định là $\mathbb{R}\setminus\{-1\}$. Nếu định xét tính đơn điệu trên $(-2;0)$, ta gặp $x=-1$ nằm trong khoảng mà hàm không xác định. Vì vậy phải xét riêng trên $(-2;-1)$ và $(-1;0)$, kể cả khi đạo hàm có cùng dấu ở hai khoảng.
+
+<!-- /zo-section -->
+:::
+
+
+::: {.content-visible when-format="html"}
 
 ```{=html}
-<details class="zo-block zo-block-gray zo-learning-video" id="video-n-txd-01" data-youtube-id="zDS4URTAdjc">
-<summary class="zo-block-title">Xem video: Tập xác định: chỉ một điểm bị loại cũng đủ làm hỏng cả khoảng?</summary>
+<details class="zo-block zo-block-gray zo-learning-video" id="video-n-txd-01" data-youtube-id="zDS4URTAdjc" data-public-playback="public">
+<summary class="zo-block-title">Video: Xét đồng biến: Vì sao phải kiểm tập xác định?</summary>
 <div class="zo-block-body">
 <div class="zo-video-player"></div>
-<p><a href="https://www.youtube.com/shorts/zDS4URTAdjc" target="_blank" rel="noopener noreferrer">Mở video trên YouTube (thẻ mới)</a></p>
 </div>
 </details>
 ```
 
-**Làm tiếp một bước.** Với $b(x)=\frac{1}{x-2}$, hoàn thành: điều kiện của mẫu là …; tập xác định là …; khoảng $(1;3)$ có nằm trong tập xác định không?
+:::
+
+::: {#nen-n-txd-01-lam-tiep}
+<!-- zo-section nen-n-txd-01-lam-tiep -->
+
+**Làm tiếp một bước.** Một bạn muốn xét tính đơn điệu của hàm số $b(x)=\frac{1}{x-2}$ trên khoảng $(1;3)$. Trước khi tính đạo hàm, em hãy viết điều kiện để mẫu số khác $0$, rồi tìm tập xác định của $b$. Khoảng $(1;3)$ có nằm trọn trong tập xác định ấy không? Vì sao?
+
+<!-- /zo-section -->
+:::
 
 :::: {.r1-details .zo-learning-guidance}
 ::: {.r1-summary .zo-learning-summary}
 Đối chiếu bước vừa làm
 :::
 
-$x-2\ne0$, nên $D=\mathbb{R}\setminus\{2\}$. Khoảng $(1;3)$ chứa $2$, nên không nằm trọn trong $D$. Cần kiểm tra cả khoảng, không chỉ hai đầu mút.
+::: {#nen-n-txd-01-doi-chieu-buoc-vua-lam}
+<!-- zo-section nen-n-txd-01-doi-chieu-buoc-vua-lam -->
+
+Mẫu số khác $0$ khi $x-2\ne 0$, tức là $x\ne 2$. Vậy tập xác định của $b$ là $\mathbb{R}\setminus\{2\}$. Hai đầu mút $1$ và $3$ đều thuộc tập xác định, nhưng số $2$ nằm giữa chúng thì bị loại. Vì vậy, $(1;3)$ không nằm trọn trong tập xác định và không thể xét tính đơn điệu của $b$ trên cả khoảng đó.
+
+<!-- /zo-section -->
+:::
 ::::
 
 []{#nen-n-txd-01-xn01}
 
-**Tự kiểm tra mới.** Cho $u(x)=(x-4)^2+2$ trên $D=\mathbb{R}\setminus\{4\}$. Tính biểu thức tại $4$ có làm cho $u(4)$ tồn tại không? Có được áp dụng định lí trên $(3;5)$ không? Khi phác đồ thị, điểm $(4;2)$ là kín hay hở?
+**Tự kiểm tra mới.** Cho $u(x)=(x-4)^2+2$ trên $D=\mathbb{R}\setminus\{4\}$. Với tập xác định đã cho, $u(4)$ có xác định không? Vì sao? Có thể áp dụng định lí về dấu đạo hàm để xét tính đơn điệu trên cả khoảng $(3;5)$ không? Khi phác đồ thị, điểm $(4;2)$ được đánh dấu bằng điểm kín hay điểm hở?
 
 :::: {#lg-nen-n-txd-01 .r1-details .r1-solution .zo-learning-solution}
 ::: {.r1-summary .zo-learning-summary}
 Đáp án và tiêu chí
 :::
 
-$u(4)$ không tồn tại vì $4\notin D$; không dùng định lí trên cả $(3;5)$; điểm $(4;2)$ hở. Đạt khi cả ba kết luận đi kèm lí do về tập xác định, không chỉ dựa vào hình dạng parabol.
+::: {#nen-n-txd-01-loi-giai-tu-kiem-tra}
+<!-- zo-section nen-n-txd-01-loi-giai-tu-kiem-tra -->
+
+Điều kiện $x\in D$ loại $x=4$, nên $u(4)$ không xác định dù biểu thức $(x-4)^2+2$ tính được tại $x=4$. Vì khoảng $(3;5)$ chứa $4$, ta không thể áp dụng định lí về dấu đạo hàm trên cả khoảng đó. Khi phác đồ thị, đánh dấu điểm hở tại $(4;2)$ vì điểm này không thuộc đồ thị của $u$.
+
+<!-- /zo-section -->
+:::
 
 ::::
 
-**Quay về:** Quay lại câu Khởi động nếu em mở thẻ từ câu ấy; nếu đang làm một bài khác, trở lại bước tìm tập xác định của bài đó. Em có thể làm lại bài đã xem lời giải để hiểu cách làm, nhưng lần làm lại chưa cho biết em tự giải được một bài mới.
+::: {#nen-n-txd-01-quay-ve}
+<!-- zo-section nen-n-txd-01-quay-ve -->
+
+**Khi quay lại bài đang làm,** kiểm tra tập xác định trước, rồi xem khoảng em muốn xét có nằm trọn trong tập đó không.
+
+<!-- /zo-section -->
+:::
 :::::
