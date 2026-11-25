@@ -2,7 +2,7 @@
 from pathlib import Path
 from urllib.parse import urlsplit, unquote
 from datetime import datetime
-import os,json,hashlib,shutil
+import os,json,hashlib,shutil,re
 import yaml
 from bs4 import BeautifulSoup
 
@@ -73,6 +73,29 @@ def editorial_assets(page):
         assets[name]=target.relative_to(OUT)
     return assets
 
+def limit_reader_catalog(text,page):
+    config=ROOT/page.parent/'giao_dien/html.json'
+    keys=json.loads(config.read_text('utf-8')).get('reader_catalog') if config.is_file() else None
+    if keys is None:return text
+    owner=next((key for key, path in PAGES.items() if path==page),None)
+    if not isinstance(keys,list) or owner not in keys or len(keys)!=len(set(keys)) or not set(keys)<=set(KEYS):
+        raise ValueError(f'Invalid public reader catalog for {page}')
+    menu=r'<details class="course-switcher">.*?</details>'
+    data=r'(<script id="page-data" type="application/json">)(.*?)(</script>)'
+    def trim_menu(match):
+        return re.sub(r'<a\b[^>]*data-course-page="([^"]+)"[^>]*>.*?</a>',
+                      lambda link:link[0] if link[1] in keys else '',match[0],flags=re.S)
+    def trim_data(match):
+        payload=json.loads(match[2]);items=payload['catalog']
+        if set(keys)-{item['id'] for item in items}:
+            raise ValueError(f'Missing entries in the reader catalog for {page}')
+        payload['catalog']=[item for item in items if item['id'] in keys]
+        return match[1]+json.dumps(payload,ensure_ascii=False).replace('</','<\\/')+match[3]
+    text,menus=re.subn(menu,trim_menu,text,flags=re.S)
+    text,blocks=re.subn(data,trim_data,text,flags=re.S)
+    if (menus,blocks)!=(1,1):raise ValueError(f'Expected one reader catalog for {page}')
+    return text
+
 def finish(text,page):
     doc=BeautifulSoup(text,'html.parser')
     versions=editorial_assets(page)
@@ -99,4 +122,4 @@ def finish(text,page):
     if doc.find(id='zo-web-analytics') is None:
         analytics=BeautifulSoup((ROOT/'assets/html/web-analytics.html').read_text('utf-8'),'html.parser')
         for node in list(analytics.contents):doc.body.append(node.extract())
-    return str(doc)
+    return limit_reader_catalog(str(doc),page)

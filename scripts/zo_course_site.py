@@ -292,7 +292,15 @@ def main(argv=None):
     mode=parser.add_mutually_exclusive_group()
     mode.add_argument('--section',action='append',default=[],help='QMD section ID; repeat for multiple regions')
     mode.add_argument('--changed-sections',action='store_true',help='Find changed declared sections and their consumers')
+    mode.add_argument('--reader-catalog',action='store_true',help='Refresh only the configured course switcher and its data')
     args=parser.parse_args(argv)
+    if args.reader_catalog:
+        pages=relevant(args.page)
+        if args.command!='build' or args.all or len(args.page)!=1 or len(pages)!=1:
+            parser.error('Reader catalog refresh requires build and exactly one canonical reader page')
+        from zo_course_site_assets import refresh_reader_catalog
+        print(json.dumps(refresh_reader_catalog(sys.modules[__name__],pages[0]),ensure_ascii=False))
+        return 0
     if args.section or args.changed_sections:
         if args.all or args.command not in {'build','plan'}:
             parser.error('Section scope requires build or plan without --all')

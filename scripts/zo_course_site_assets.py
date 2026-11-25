@@ -1,6 +1,7 @@
 """Refresh shared non-content assets; refuse any other source or HTML drift."""
 import json
 from datetime import datetime, timezone
+from pathlib import Path
 
 ALLOWED = {
     'scripts/zo_course_site.py', 'scripts/zo_course_site_assets.py',
@@ -9,6 +10,45 @@ ALLOWED = {
     'scripts/zo_course_site_sources/presence.js',
     'scripts/zo_course_site_sources/learning-format.css',
 }
+
+
+def refresh_reader_catalog(site, source):
+    """Update navigation and its data without regenerating learning content."""
+    from zo_course_site_sections import build_lock
+    from zo_course_site_protection import refresh
+
+    root, context = site.ROOT, site.c
+    page = source.with_suffix('.html')
+    name = page.as_posix()
+    config = source.parent / 'giao_dien/html.json'
+    allowed = {'scripts/zo_course_site.py', 'scripts/zo_course_site_assets.py',
+               'scripts/zo_course_site_sources/context.py',
+               'scripts/zo_course_site_sources/README.md', config.as_posix()}
+    with build_lock(root/'.quarto/course-site-sections.lock'):
+        prior = json.loads(site.CURRENT.read_text('utf-8'))
+        _, current, pending, _ = site.scope_state(prior)
+        if set(pending.get(name, [])) - allowed:
+            raise ValueError(f'Other reader inputs changed: {pending[name]}')
+        target = context.OUT / page
+        if site.sha(target) != prior['outputs'].get(name):
+            raise ValueError(f'Expected the verified current HTML: {name}')
+        before = target.read_bytes()
+        after = context.limit_reader_catalog(before.decode('utf-8'), page).encode('utf-8')
+        target.write_bytes(after)
+        try:
+            result = site.local_check([target])
+            if result['failures']:
+                raise ValueError(str(result['failures']))
+        except Exception:
+            target.write_bytes(before)
+            raise
+        prior['inputs'] = site.live_inputs()
+        prior['outputs'][name] = site.sha(target)
+        prior['page_inputs'][name] = current[name]
+        prior['pending_pages'] = {key: reasons for key, reasons in pending.items() if key != name}
+        site.save(site.CURRENT, prior)
+        refresh(root, context, prior)
+        return result
 
 def apply(site, report):
     root, context = site.ROOT, site.c

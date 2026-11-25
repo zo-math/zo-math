@@ -69,6 +69,11 @@ của chuyên đề khi cần phát hành giao diện mới riêng. Bộ dựng 
 CSS/JS có tên theo nội dung từ nguồn giao diện chung. Hai chuyên đề dùng cùng
 nội dung tệp sẽ dùng cùng đường dẫn. Địa chỉ HTML và PDF giữ nguyên.
 
+Trong lượt phát hành riêng, `reader_catalog` giới hạn mục Chuyển chuyên đề
+ở những chuyên đề đã mở. Dùng `build --page <QMD> --reader-catalog` qua
+launcher khi chỉ thay danh sách này. Khi danh mục công khai đầy đủ, bỏ cấu hình
+giới hạn trong cùng lượt đưa các trang về giao diện chung.
+
 Khi biên tập xong cả khóa, kiểm tra tất cả trang dùng được cùng bộ giao diện.
 Bỏ cờ chuyển tiếp rồi dựng và phát hành HTML cùng bộ CSS/JS chung trong một
 lượt. Sau khi xác nhận các trang đã chuyển và không còn tham chiếu tới ba
