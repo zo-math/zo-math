@@ -1,0 +1,563 @@
+/* R2-G01 reading conventions, shared by all current learning pages.
+   The r20 shell owns the single page inset; inner regions do not add one. */
+.reader-content{font-size:17px;line-height:1.8}
+/* Native MathML uses its own math metrics, independently of prose leading. */
+.reader-content math{line-height:normal}
+.reader-content .zo-geometry-figure{width:100%;margin:24px 0}
+.reader-content .zo-geometry-figure img{display:block;width:var(--figure-width);max-width:100%;height:auto;margin-inline:auto}
+.reader-content h2{font-size:32px;line-height:1.3}
+.reader-content h3{font-size:26px;line-height:1.4;font-weight:600;letter-spacing:-.025em}
+.reader-content h4{font-size:23px;line-height:1.5;font-weight:600;letter-spacing:normal}
+.reader-content #bai-hoc h4{font-size:21px}
+.reader-content h5{font-size:19px;line-height:1.6}
+.reader-content p{margin-bottom:20px}
+.reader-content details summary{font-size:16px;color:var(--ink)}
+.reader-content details.zo-learning-guidance>summary{font-size:14px;color:var(--muted)}
+.reader-content details>.zo-block-body{padding-top:20px}
+.reader-content .zo-knowledge-section{margin-block:32px}
+.reader-content .level4{margin-block:32px}
+.reader-content .zo-lesson-intro{font:inherit;color:inherit;margin:0 0 28px;padding:0;border:0;background:transparent}
+.reader-content .zo-lesson-intro p{font:inherit}
+.reader-content .reading-region{padding:0;min-width:0}
+.reader-content .reading-region .reading-region{padding:0;border:0;background:transparent}
+.reader-content #bai-hoc .zo-lesson-activity{margin-block:24px;padding:0;border:0}
+.reader-content #bai-hoc .zo-lesson-activity>p:first-of-type>strong,
+.reader-content #bai-hoc .zo-lesson-activity .zo-task-title{display:block;font-family:inherit;font-size:1em;line-height:inherit;font-weight:700;font-variant:normal;letter-spacing:normal;text-transform:none;margin:0}
+.reader-content #bai-hoc .zo-activity-kind{font:inherit;font-variant:normal;letter-spacing:normal;text-transform:none}
+.reader-content figcaption{font-size:14px;line-height:1.7;color:var(--ink);text-align:left}
+.reader-content .zo-source-note{font-size:12px;line-height:1.7;color:var(--muted)}
+.reader-content .zo-statistical-scroll{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain}
+.reader-content .zo-statistical-figure .zo-statistical-scroll img{display:block;max-width:none;height:auto;margin-inline:auto}
+.reader-content[data-r1-code="R2-G01"] .zo-statistical-figure img{width:700px}
+.site-reader .reader-content .lesson-toc,.site-reader .reader-content .r1-section-toc{display:none}
+/* Preserve authored contents hierarchy, including prose activity titles. */
+.site-reader #page-outline a[data-depth="1"]{padding-left:12px}
+.site-reader #page-outline a[data-depth="2"]{padding-left:24px;font-size:11px}
+.site-reader #page-outline a[data-depth="3"]{padding-left:32px;font-size:11px}
+.zo-page-navigation{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin:28px 0 0}
+.zo-page-navigation[hidden]{display:none}
+.zo-page-navigation a{display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:36px;height:36px;padding:0;border:1px solid var(--line);border-radius:50%;background:white;color:var(--ink);line-height:1;text-decoration:none}
+.zo-page-navigation svg{display:block;width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.zo-page-navigation a:hover{background:var(--zo-yellow-1);border-color:var(--zo-yellow-4)}
+.zo-page-navigation__previous{grid-column:1;justify-self:start}
+.zo-page-navigation__next{grid-column:2;justify-self:end}
+.site-foundation .utility-main{max-width:850px}
+.site-foundation .reader-content>section{margin-block:32px}
+.site-foundation .reader-content #title-block-header{display:none}
+@media(max-width:760px){.reader-content{font-size:16px;line-height:1.85}.reader-content h2{font-size:28px}.reader-content h3{font-size:25px}.reader-content h4{font-size:21px}}
+
+/* On small screens the same contents remain reachable without a second rail. */
+.mobile-reading-outline{display:none}
+@media(max-width:1000px){
+ .mobile-reading-outline{display:block;border-block:1px solid var(--line);margin:0 0 24px;padding:14px 0}
+ .mobile-reading-outline summary{font-size:14px;font-weight:600}
+ .mobile-reading-outline nav{padding-top:12px;max-height:50vh;overflow:auto}
+ .mobile-reading-outline a{display:block;padding:7px 0;font-size:14px;line-height:1.7}
+ .mobile-reading-outline a[data-depth="1"]{padding-left:12px}
+ .mobile-reading-outline a[data-depth="2"]{padding-left:24px;font-size:13px}
+ .mobile-reading-outline a[data-depth="3"]{padding-left:32px;font-size:13px}
+}
+
+/* Independent foundation: same white reading surface and semantic hierarchy. */
+.site-foundation .utility-main{background:white;padding:32px;border-radius:8px;margin-block:32px}
+.site-foundation .reader-content h2{font-size:26px;line-height:1.4}
+.site-foundation .reader-content h3{font-size:21px;line-height:1.5}
+.foundation-contents{border-block:1px solid var(--line);padding:16px 0;margin:24px 0}
+.foundation-contents summary{font-size:16px}
+.foundation-contents nav{padding-top:12px}
+.foundation-contents a{display:block;padding:7px 0;font-size:15px;line-height:1.7}
+.foundation-contents .foundation-toc-h3{padding-left:16px}
+/* D0 retains the source-owned scale and compact diagnostic metadata. */
+.reader-content.d0-package .d0-task-meta{font-size:13px;line-height:1.8;color:var(--muted);margin:0 0 24px}
+.reader-content.d0-package .d0-task-meta p{margin:0 0 8px}
+.reader-content.d0-package .d0-response-options,.reader-content.d0-package .d0-response-option{margin:16px 0}
+.reader-content.d0-package .d0-response-option .d0-response-option{margin:0}
+.reader-content.d0-package .d0-inline-math{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle}
+.reader-content.d0-package .figure-viewport img{display:block;width:var(--figure-width);max-width:none;height:auto;margin-inline:auto}
+.reader-content.d0-package blockquote{margin:20px 0;padding:0;color:var(--muted)}
+@media(max-width:1000px){.mobile-reading-outline{scroll-margin-top:150px}}
+@media(max-width:760px){.site-foundation .utility-main{width:calc(100% - 24px);padding:22px;margin-block:20px}.mobile-reading-outline{scroll-margin-top:174px}}
+
+/* One shared footer: site information, social links, then copyright. */
+.site-footer{display:block;width:100%;max-width:none;margin:24px 0 0;padding:20px 24px calc(20px + var(--dock-height,88px));background:#fff;color:var(--muted);font-size:13px;line-height:1.8;text-align:center}
+.site-footer .footer-inner{max-width:1200px;margin-inline:auto}
+.site-footer nav{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 24px;margin:0}
+.site-footer nav a{display:inline-flex;align-items:center;min-height:32px;text-decoration:none;text-underline-offset:4px}
+.site-footer nav a:hover{text-decoration:underline;color:var(--red)}
+.site-footer .footer-social{gap:8px 24px;margin-top:4px}
+.site-footer .footer-copyright{margin:8px 0 0;font-size:12px}
+.site-footer .site-views{font-size:12px;margin:8px 0 0;line-height:1.7}
+@media screen{body{padding-bottom:0}}
+@media(max-width:600px){.site-footer{margin-top:20px;padding-inline:20px;font-size:12px}.site-footer nav{gap:4px 18px}}
+
+/* zo-section-style overview */
+@media screen {
+  .site-reader.overview-open:has(#tong-quan [data-reading-scale]),
+  .site-reader .reading-full-text #tong-quan {
+    --overview-prose: 1rem;
+    --overview-title-ratio: 2.375;
+    --overview-heading-ratio: 1.625;
+  }
+  .site-reader.overview-open.large-type:has(#tong-quan [data-reading-scale]),
+  .site-reader.large-type .reading-full-text #tong-quan {
+    --overview-prose: 1.1875rem;
+  }
+  .site-reader.overview-open:has(#tong-quan [data-reading-scale]) .lesson-heading h1 {
+    font-size: calc(var(--overview-prose) * var(--overview-title-ratio));
+  }
+  #tong-quan:has([data-reading-scale]) .topic-overview-section h2 {
+    font-size: calc(var(--overview-prose) * var(--overview-heading-ratio));
+  }
+  #tong-quan:has([data-reading-scale]) :is(.overview-introduction p, .topic-outline a, .overview-goals li, .topic-overview-section > p) {
+    font-size: var(--overview-prose);
+  }
+  .site-reader .reading-full-text #bat-dau:has(> #tong-quan) > .reading-region:first-child > :not(h2) {
+    display: none;
+  }
+  .site-reader .reading-full-text #tong-quan .topic-overview-section {
+    margin-block-start: 2rem;
+  }
+  .site-reader .reading-full-text #tong-quan .topic-overview-section > h2 {
+    margin-block: 0 1rem;
+  }
+  .site-reader .reading-full-text #tong-quan .topic-outline {
+    padding-inline-start: 0;
+  }
+  .site-reader .reading-full-text #tong-quan .topic-outline a:not(:hover, :focus-visible) {
+    color: var(--ink);
+  }
+  .overview-choice-help { margin-block-start: .75em; font-size: var(--overview-prose); }
+  .overview-choice-help summary { width: fit-content; cursor: pointer; padding-block: .45em; }
+  .overview-choice-help summary:is(:hover, :focus-visible) { color: var(--red); text-decoration: underline; }
+  .overview-choice-help dl { margin: .5em 0 0; }
+  .overview-choice-help dl > div + div { margin-block-start: .5em; }
+  .overview-choice-help dt { font-weight: 600; }
+  .overview-choice-help dd { margin: 0; }
+  @media (max-width: 760px) {
+    .site-reader.overview-open:has(#tong-quan [data-reading-scale]),
+    .site-reader .reading-full-text #tong-quan {
+      --overview-title-ratio: 1.9375;
+      --overview-heading-ratio: 1.4375;
+    }
+  }
+}
+/* /zo-section-style */
+
+/* zo-section-style lesson-activity */
+@media screen {
+  .reader-content[data-r1-code="R1-G01"] #bai-hoc .reading-region > [data-reading-label] + h3,
+  .reader-content[data-r1-code="R1-G01"] #phieu-luyen > section[data-zo-outline-group] > .reading-region > [data-reading-label] + h3,
+  .reader-content[data-r1-code="R1-G01"] #phieu-luyen > section > .reading-region > [data-reading-label] + h3[data-zo-outline-group] {
+    margin-block-start: 14px;
+  }
+  .reader-content #bai-hoc section:has(> .reading-region > [data-zo-lead])
+    [data-reading-label]:not(.reading-region:has(> [data-zo-lead]) > [data-reading-label]),
+  .reader-content [data-zo-lead] > p:has(> .zo-task-title) {
+    display: none;
+  }
+  .reader-content .r1-kickoff-questions .reading-region:has(> .r1-task[data-zo-function="function.warmup"]) {
+    margin-block-end: 24px;
+  }
+  .reader-content[data-r1-code="R1-G01"] .answer-link:has(> p > a:is([href^="#lg-"], [href^="#loi-giai-"])) {
+    font-size: .9em;
+  }
+  .site-reader:has(.reader-content[data-r1-code="R1-G01"]) :is(#tong-quan, .reader-content)
+    :is(p, li, td, th, dt, dd, figcaption) a[href]:not(:where(nav a, .button, .zo-pdf-download, [role="button"])):is(:hover, :focus-visible) {
+    color: var(--zo-red-6);
+    background-color: var(--zo-red-1);
+  }
+}
+/* /zo-section-style */
+
+/* zo-section-style lesson-intro */
+  .site-reader .reader-tools .context-return {
+    position: static;
+    flex: 0 0 auto;
+    margin: 0;
+    background: transparent;
+    padding: 0;
+    border: 0;
+  }
+  .site-reader .reader-tools .context-return[hidden] {
+    display: none;
+  }
+  .site-reader :is(.reader-tools #return-to-task, .solution-return) {
+    position: relative;
+    display: grid;
+    place-content: center;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .site-reader :is(.reader-tools #return-to-task, .solution-return)::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    box-sizing: border-box;
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .site-reader :is(.reader-tools #return-to-task, .solution-return) .icon {
+    width: 14px;
+    height: 14px;
+  }
+  .site-reader :is(.reader-tools #return-to-task, .solution-return):is(:hover, :focus-visible) {
+    color: var(--red);
+    text-decoration: none;
+  }
+  .site-reader .solution-return:is(:hover, :focus-visible)::after {
+    content: attr(aria-label);
+    position: absolute;
+    inset-inline-start: 100%;
+    inset-block-start: 50%;
+    transform: translateY(-50%);
+    padding: .2em .65em;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--paper, #fff);
+    color: var(--ink);
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+@media screen {
+  .reader-content details.zo-learning-video:has(> .zo-video-card-title) {
+    padding: 0;
+  }
+  .reader-content details.zo-learning-video > .zo-video-card-title {
+    box-sizing: border-box;
+    min-block-size: 64px;
+    padding: .7rem 1rem;
+    gap: .75rem;
+    font-size: inherit;
+    line-height: 1.45;
+  }
+  .reader-content details.zo-learning-video > .zo-video-card-title::before,
+  .reader-content details.zo-learning-video > .zo-video-card-title::after {
+    content: none;
+  }
+  .zo-video-card-title .zo-video-play-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 2.5rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--zo-red-6);
+  }
+  .zo-video-play-icon::before {
+    content: '';
+    width: .85rem;
+    height: .95rem;
+    margin-inline-start: .15rem;
+    background: white;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+  }
+  .site-reader:has([data-view="sua-loi"][aria-current="page"]):has(#cach-thuc-hien-sua-loi [data-lesson-intro-end]) :is(.lesson-heading > .eyebrow, .lesson-heading > p, .reader-breadcrumb > span, .reader-breadcrumb > .icon),
+  .site-reader:has([data-view="loi-giai"][aria-current="page"]):has(#cach-thuc-hien-dung-loi-giai [data-lesson-intro-end]) :is(.lesson-heading > .eyebrow, .lesson-heading > p, .reader-breadcrumb > span, .reader-breadcrumb > .icon),
+  .site-reader:has([data-view="nhat-ky"][aria-current="page"]):has(#huong-dan-ghi-nhat-ki [data-lesson-intro-end]) :is(.lesson-heading > .eyebrow, .lesson-heading > p, .reader-breadcrumb > span, .reader-breadcrumb > .icon, .reading-outline > .nav-label, #page-outline),
+  .site-reader:has([data-view="tai-tai-lieu"][aria-current="page"]):has(#huong-dan-tai-pdf [data-lesson-intro-end]) :is(.lesson-heading > .eyebrow, .lesson-heading > p, .reader-breadcrumb > span, .reader-breadcrumb > .icon, .reading-outline > .nav-label, #page-outline),
+  .site-reader:has([data-view="nguon"][aria-current="page"]):has(#tai-lieu-doi-chieu [data-lesson-intro-end]) :is(.lesson-heading > .eyebrow, .lesson-heading > p, .reader-breadcrumb > span, .reader-breadcrumb > .icon, .reading-outline > .nav-label, #page-outline),
+  .site-reader:is(:has([data-view="bai-hoc"][aria-current="page"]):has([data-lesson-intro-end]), :has([data-view="phieu-luyen"][aria-current="page"]):has(#dinh-huong-luyen-tap), :has([data-view="tu-kiem-tra"][aria-current="page"]):has(#dinh-huong-kiem-tra), :has([data-view="on-lai"][aria-current="page"]):has(#cach-thuc-hien-on-lai [data-lesson-intro-end]), :has([data-view="on-nen"][aria-current="page"]):has(#huong-dan-on-nen [data-lesson-intro-end])) :is(.lesson-heading > .eyebrow, .lesson-heading > p, .reader-breadcrumb > span, .reader-breadcrumb > .icon) {
+    display: none;
+  }
+  .site-reader:has([data-view="sua-loi"][aria-current="page"]):has(#cach-thuc-hien-sua-loi [data-lesson-intro-end]) .lesson-heading h1,
+  .site-reader:has([data-view="loi-giai"][aria-current="page"]):has(#cach-thuc-hien-dung-loi-giai [data-lesson-intro-end]) .lesson-heading h1,
+  .site-reader:has([data-view="nhat-ky"][aria-current="page"]):has(#huong-dan-ghi-nhat-ki [data-lesson-intro-end]) .lesson-heading h1,
+  .site-reader:has([data-view="tai-tai-lieu"][aria-current="page"]):has(#huong-dan-tai-pdf [data-lesson-intro-end]) .lesson-heading h1,
+  .site-reader:has([data-view="nguon"][aria-current="page"]):has(#tai-lieu-doi-chieu [data-lesson-intro-end]) .lesson-heading h1,
+  .site-reader:is(:has([data-view="bai-hoc"][aria-current="page"]):has([data-lesson-intro-end]), :has([data-view="phieu-luyen"][aria-current="page"]):has(#dinh-huong-luyen-tap), :has([data-view="tu-kiem-tra"][aria-current="page"]):has(#dinh-huong-kiem-tra), :has([data-view="on-lai"][aria-current="page"]):has(#cach-thuc-hien-on-lai [data-lesson-intro-end]), :has([data-view="on-nen"][aria-current="page"]):has(#huong-dan-on-nen [data-lesson-intro-end])) .lesson-heading h1 {
+    margin-bottom: 14px;
+  }
+  .site-reader #bai-hoc:target:has([data-lesson-intro-end]),
+  .site-reader #toan-van:target:has(.reading-full-text) {
+    scroll-margin-top: max(100vh, 30rem);
+  }
+  .site-reader .reading-full-text > section > .reading-region > [data-reading-label],
+  .site-reader .reading-full-text[data-r1-code="R1-G01"] [data-reading-label],
+  .site-reader .reading-full-text #bat-dau .r1-status,
+  .site-reader:has(.reading-full-text[data-r1-code="R1-G01"]) .lesson-heading > .eyebrow,
+  .site-reader:has(.reading-full-text > #bat-dau) .lesson-heading > p {
+    display: none;
+  }
+  .site-reader:has([data-view="bai-hoc"][aria-current="page"]) #bai-hoc .reading-region:has(> .zo-lesson-intro [data-lesson-intro-end]) > :is(h2, .role),
+  .site-reader:has([data-view="phieu-luyen"][aria-current="page"]) #phieu-luyen .reading-region:has(> #dinh-huong-luyen-tap) > :is(h2, .role),
+  .site-reader:has([data-view="tu-kiem-tra"][aria-current="page"]) #tu-kiem-tra .reading-region:has(> #dinh-huong-kiem-tra) > :is(h2, .role),
+  .site-reader:has([data-view="on-lai"][aria-current="page"]) #on-lai .reading-region:has(> #cach-thuc-hien-on-lai [data-lesson-intro-end]) > :is(h2, .role),
+  .site-reader .reader-content:not(.reading-full-text) #sua-loi .reading-region:has(> #cach-thuc-hien-sua-loi [data-lesson-intro-end]) > :is(h2, .role),
+  .site-reader .reader-content:not(.reading-full-text) #loi-giai .reading-region:has(> #cach-thuc-hien-dung-loi-giai [data-lesson-intro-end]) > :is(h2, .role),
+  .site-reader .reader-content:not(.reading-full-text) #nhat-ky .reading-region:has(> #huong-dan-ghi-nhat-ki [data-lesson-intro-end]) > :is(h2, .role),
+  .site-reader .reader-content:not(.reading-full-text) #tai-tai-lieu .reading-region:has(> #huong-dan-tai-pdf [data-lesson-intro-end]) > :is(h2, .role),
+  .site-reader .reader-content:not(.reading-full-text) #nguon .reading-region:has(> #tai-lieu-doi-chieu [data-lesson-intro-end]) > :is(h2, .role),
+  .site-reader:has([data-view="on-nen"][aria-current="page"]) #on-nen .reading-region:has(> #huong-dan-on-nen [data-lesson-intro-end]) > :is(h2, .role) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    margin: 0;
+  }
+  .site-reader #tai-tai-lieu:has(#huong-dan-tai-pdf [data-lesson-intro-end]) {
+    & .zo-pdf-card [data-reading-label],
+    & .r1-download-support > [data-reading-label],
+    &:not(:has(.zo-pdf-card[data-pdf-current="true"])) .zo-pdf-version-note,
+    &:not(:has(.zo-pdf-card[data-pdf-current="false"])) .zo-pdf-version-note {
+      display: none;
+    }
+  }
+  .site-reader #tai-tai-lieu .reader-course-support {
+    grid-template-columns: clamp(62px, 8vw, 102px) minmax(0, 1fr);
+    gap: clamp(22px, 3vw, 40px);
+    align-items: start;
+    padding: clamp(22px, 3.5vw, 48px);
+    margin-block: 32px 0;
+    border: 0;
+    border-radius: 10px;
+    background: var(--zo-yellow-1);
+  }
+  .site-reader #tai-tai-lieu .reader-course-support .support-content {
+    min-width: 0;
+  }
+  .site-reader #tai-tai-lieu .reader-course-support h3 {
+    margin: 0 0 .65em;
+    font-size: 1.55em;
+    line-height: 1.25;
+  }
+  .site-reader #tai-tai-lieu .reader-course-support .r1-support-details {
+    flex-flow: row wrap;
+    gap: 24px;
+    align-items: center;
+  }
+  .site-reader #tai-tai-lieu .reader-course-support .r1-support-qr {
+    box-sizing: border-box;
+    width: clamp(160px, 17vw, 208px);
+    max-width: 100%;
+    height: auto;
+    padding: 18px;
+    background: white;
+  }
+  .site-reader #tai-tai-lieu .reader-course-support dl {
+    flex: 1 1 235px;
+    min-width: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 24px;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  .site-reader #tai-tai-lieu .reader-course-support dt {
+    font-size: .76em;
+  }
+  .site-reader #tai-tai-lieu .reader-course-support dd {
+    font-size: .95em;
+  }
+  .site-reader #tai-tai-lieu .reader-course-support .r1-support-link {
+    margin-block: 0;
+  }
+  @media (max-width: 760px) {
+    .site-reader #tai-tai-lieu .reader-course-support {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .site-reader #tai-tai-lieu .reader-course-support .support-brand {
+      max-width: 76px;
+    }
+  }
+  .site-reader #phieu-luyen:has(#dinh-huong-luyen-tap) > section:not([data-zo-outline-group], :has(> .reading-region > h3[data-zo-outline-group])) > .reading-region > [data-reading-label],
+  .site-reader #tu-kiem-tra:has(#dinh-huong-kiem-tra) section > .reading-region > [data-reading-label],
+  .site-reader #on-lai:has(#cach-thuc-hien-on-lai [data-lesson-intro-end]) :is(section > .reading-region, .r01-review-round > summary) > [data-reading-label] {
+    display: none;
+  }
+  .site-reader #on-lai .r01-review-round > summary > h3 {
+    display: inline;
+    margin: 0;
+    font: inherit;
+  }
+  .site-reader .reader-content details:is(.zo-block, .r01-review-round):not(.zo-learning-video, [open]) {
+    padding-block: .35em;
+  }
+  .site-reader .reader-content details:is(.r01-review-round, .r1-foundation-unit):not([open]) {
+    padding-block: 0.75em;
+  }
+  .site-reader .reader-content details:is(.zo-block, .r01-review-round):not(.zo-learning-video) > summary {
+    box-sizing: border-box;
+    display: grid;
+    align-content: center;
+    min-block-size: 44px;
+    line-height: 1.4;
+  }
+  .site-reader .reader-content details:is(.r01-review-round, .r1-foundation-unit) > summary {
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .site-reader .reader-content details:is(.zo-block, .r01-review-round):not(.zo-learning-video) > summary::after,
+  .site-reader .reading-column .mobile-reading-outline > summary::after {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .site-reader #on-nen:has(#huong-dan-on-nen [data-lesson-intro-end]) .r1-foundation-unit [data-reading-label] {
+    display: none;
+  }
+  .site-reader #sua-loi:has(#cach-thuc-hien-sua-loi [data-lesson-intro-end]) section > .reading-region > [data-reading-label] {
+    display: none;
+  }
+  .site-reader #on-lai:has(#cach-thuc-hien-on-lai [data-lesson-intro-end]) details.r01-review-round > section.zo-learning-task,
+  .site-reader #on-lai:has(#cach-thuc-hien-on-lai [data-lesson-intro-end]) details.r01-review-round > section.zo-learning-task > .reading-region > h4.zo-learning-task {
+    border-top: 0;
+    padding-block: 0;
+  }
+  .site-reader #phieu-luyen:has(#dinh-huong-luyen-tap) > section.zo-learning-task,
+  .site-reader #phieu-luyen:has(#dinh-huong-luyen-tap) > section.zo-learning-task > .reading-region > h3.zo-learning-task,
+  .site-reader #sua-loi:has(#cach-thuc-hien-sua-loi [data-lesson-intro-end]) section.zo-learning-task,
+  .site-reader #sua-loi:has(#cach-thuc-hien-sua-loi [data-lesson-intro-end]) section.zo-learning-task > .reading-region > h4.zo-learning-task,
+  .site-reader #tu-kiem-tra:has(#dinh-huong-kiem-tra) section.zo-learning-task,
+  .site-reader #tu-kiem-tra:has(#dinh-huong-kiem-tra) section.zo-learning-task > .reading-region > :is(h3,h4).zo-learning-task {
+    border-top: 0;
+    padding-block: 0;
+  }
+  .site-reader:has(#cach-thuc-hien-on-lai [data-lesson-intro-end]) :is(#bai-hoc, #tu-kiem-tra, #on-lai) .reading-region > h4,
+  .site-reader #sua-loi:has(#cach-thuc-hien-sua-loi [data-lesson-intro-end]) .reading-region > h4,
+  .site-reader #on-nen:has(#huong-dan-on-nen [data-lesson-intro-end]) .r1-foundation-unit [data-zo-type="task"] > h4,
+  .site-reader #phieu-luyen:has(#dinh-huong-luyen-tap) > section > .reading-region > h3 {
+    font-size: 1.25em;
+  }
+  .site-reader:has(#cach-thuc-hien-on-lai [data-lesson-intro-end]) :is(#bai-hoc, #tu-kiem-tra) .reading-region > h3,
+  .site-reader:has(#cach-thuc-hien-on-lai [data-lesson-intro-end]) #on-lai .r01-review-round > summary,
+  .site-reader #loi-giai > section[data-zo-solution-group] > h3,
+  .site-reader #on-nen:has(#huong-dan-on-nen [data-lesson-intro-end]) .r1-foundation-unit > summary,
+  .site-reader #sua-loi:has(#cach-thuc-hien-sua-loi [data-lesson-intro-end]) section > .reading-region > h3,
+  .site-reader #phieu-luyen:has(#dinh-huong-luyen-tap) > section[data-zo-outline-group] > .reading-region > h3,
+  .site-reader #phieu-luyen:has(#dinh-huong-luyen-tap) > section > .reading-region > h3[data-zo-outline-group] {
+    font-size: 1.55em;
+  }
+  .site-reader .reading-outline {
+    scrollbar-gutter: stable;
+  }
+  .site-reader #loi-giai:has(#cach-thuc-hien-dung-loi-giai [data-lesson-intro-end])
+    section :is(summary, .reading-region) > [data-reading-label],
+  .site-reader #loi-giai > section[data-zo-solution-group] > section.level4 h4[data-anchor-id] {
+    display: none;
+  }
+  .site-reader #loi-giai .r1-solution-item > .reading-region {
+    font-size: inherit;
+  }
+  .site-reader #loi-giai > section[data-zo-solution-group] + section[data-zo-solution-group] {
+    margin-block-start: 32px;
+  }
+  .site-reader #loi-giai > section[data-zo-solution-group] > h3 {
+    margin-block: 0 16px;
+  }
+  .site-reader #loi-giai > section[data-zo-solution-group] > section.level4 {
+    margin-block: 20px;
+  }
+  .site-reader #loi-giai details.r1-solution > summary {
+    font-size: 1.1em;
+  }
+  .site-reader #loi-giai .answer-link {
+    font-size: .9em;
+  }
+  .site-reader #loi-giai details.zo-solution-prompt {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    font-size: .9em;
+  }
+  .site-reader #loi-giai .zo-solution-prompt-body {
+    margin-block-start: .3em;
+    padding-inline-start: .8em;
+  }
+  .site-reader #loi-giai .zo-solution-prompt-body > :last-child {
+    margin-block-end: 0;
+  }
+  .site-reader #loi-giai .zo-solution-prompt > summary {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 32px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: transparent;
+    color: var(--zo-red-6);
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .site-reader #loi-giai .zo-solution-prompt > summary:is(:hover, :focus-visible, :active) {
+    color: var(--zo-red-7);
+    text-decoration: none;
+  }
+  .site-reader #loi-giai .zo-solution-prompt > summary:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+  .site-reader #loi-giai .zo-solution-prompt > summary::-webkit-details-marker {
+    display: none;
+  }
+  .site-reader #loi-giai .zo-solution-prompt > summary::after {
+    content: none;
+  }
+  .site-reader #loi-giai .zo-solution-prompt:not([open]) .zo-solution-prompt-hide,
+  .site-reader #loi-giai .zo-solution-prompt[open] .zo-solution-prompt-show {
+    display: none;
+  }
+  .site-reader #loi-giai .zo-solution-context {
+    margin-block-end: .65em;
+  }
+  @media (max-width: 1200px) {
+    .site-reader .reading-column .mobile-reading-outline:not([hidden]) {
+      display: block;
+      margin: 0 0 24px;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--zo-gray-1);
+    }
+    .site-reader .reading-column .mobile-reading-outline > summary {
+      box-sizing: border-box;
+      display: grid;
+      align-content: center;
+      min-block-size: 44px;
+      margin: 0;
+      padding: 10px 40px 10px 16px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .site-reader .reading-column .mobile-reading-outline > summary::after {
+      right: 16px;
+    }
+    .site-reader .mobile-reading-outline nav { padding: 0 16px 10px; max-height: 50vh; overflow: auto; }
+    .site-reader .mobile-reading-outline a { display: block; padding-block: 7px; font-size: 14px; line-height: 1.7; }
+    .site-reader .mobile-reading-outline a[data-depth="1"] { padding-inline-start: 12px; }
+    .site-reader .mobile-reading-outline a:is([data-depth="2"], [data-depth="3"]) { font-size: 13px; }
+    .site-reader .mobile-reading-outline a[data-depth="2"] { padding-inline-start: 24px; }
+    .site-reader .mobile-reading-outline a[data-depth="3"] { padding-inline-start: 32px; }
+    .site-reader .mobile-reading-outline .mobile-outline-group { position: relative; }
+    .site-reader .mobile-reading-outline .mobile-outline-group:has(details) > a { padding-inline-end: 48px; }
+    .site-reader .mobile-reading-outline .mobile-outline-group > a { min-block-size: 44px; align-content: center; }
+    .site-reader .mobile-reading-outline .mobile-outline-group > details { margin: 0; padding: 0; border: 0; background: transparent; }
+    .site-reader .mobile-reading-outline .mobile-outline-group > details > summary {
+      position: absolute;
+      inset: 0 0 auto auto;
+      display: grid;
+      place-items: center;
+      inline-size: 44px;
+      block-size: 44px;
+      margin: 0;
+      padding: 0;
+    }
+    .site-reader .mobile-reading-outline .mobile-outline-group > details > summary::after {
+      position: static;
+      content: '+';
+    }
+    .site-reader .mobile-reading-outline .mobile-outline-group > details[open] > summary::after { content: '−'; }
+    .site-reader .mobile-reading-outline .mobile-outline-group > details > summary:focus-visible { outline-offset: -2px; }
+  }
+}
+/* /zo-section-style */
