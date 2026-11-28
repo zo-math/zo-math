@@ -1,12 +1,12 @@
 \clearpage
-{\scriptsize\color{zoLink}HỌC TIẾP CÙNG ZO MATH}\par\vspace{7mm}
+\newcommand{\zoCourseEntryURL}{https://zomath.vn/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html}
 \noindent\begin{minipage}[t]{.60\linewidth}\vspace{0pt}
-{\fontsize{23}{29}\selectfont\bfseries Chọn điều em\\muốn học tiếp.}\par\vspace{4mm}
-Em có thể bắt đầu với một nội dung đang học, muốn ôn lại hoặc còn vướng khi tự giải bài.
+{\fontsize{23}{29}\selectfont\bfseries Ôn thi Toán THPT 2027}\par\vspace{4mm}
+Khóa học miễn phí của ZO Math giúp em ôn Toán theo chuyên đề, luyện giải bài và tự kiểm tra để biết mình cần ôn thêm phần nào.
 \end{minipage}\hfill
 \begin{minipage}[t]{.32\linewidth}\vspace{0pt}\centering
-\qrcode[height=27mm]{https://zomath.vn/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html}\par\vspace{3mm}
-{\small\href{https://zomath.vn/content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html}{Mở học liệu\\của khóa học}}
+\href{\zoCourseEntryURL}{\qrcode[height=27mm]{\zoCourseEntryURL}}\par\vspace{3mm}
+{\small\href{\zoCourseEntryURL}{Mở trang khóa học}}
 \end{minipage}\par\vspace{16mm}
 \noindent\begin{tikzpicture}
 \node[draw=zoLine,line width=.6pt,rounded corners=2pt,inner sep=7mm] {\begin{minipage}{\dimexpr\linewidth-14mm-1.2pt\relax}
@@ -14,10 +14,18 @@ Em có thể bắt đầu với một nội dung đang học, muốn ôn lại h
 \begin{minipage}[t]{.81\linewidth}\vspace{0pt}
 {\fontsize{18}{24}\selectfont\bfseries\color{zoSupportHeading}\zoSupportTitle}\par\vspace{3mm}
 \zoSupportCopy\par\vspace{6mm}
-\begin{minipage}[t]{.33\linewidth}\vspace{0pt}\includegraphics[width=29mm]{zo-course-support-qr.jpg}\end{minipage}\hfill
-\begin{minipage}[t]{.60\linewidth}\vspace{0pt}{\fontsize{10}{14}\selectfont\zoSupportDetails}\end{minipage}\par\vspace{5mm}
+\newcommand{\zoSupportField}[2]{\noindent{\fontsize{7.5}{10}\selectfont\color{zoMuted}#1}\par
+\noindent{\fontsize{9.4}{12}\selectfont\bfseries #2}\par}
+\newcommand{\zoSupportColumn}[2]{\begin{minipage}[c]{#1}
+\vbox to 32mm{\setlength{\parskip}{1.4pt}#2}
+\end{minipage}}
+\noindent\begin{minipage}[c]{32mm}
+\includegraphics[width=\linewidth,height=32mm,keepaspectratio]{zo-course-support-qr.jpg}
+\end{minipage}\hspace{11mm}%
+\zoSupportColumn{27.5mm}{\zoSupportLeft}\hspace{5mm}%
+\zoSupportColumn{\dimexpr\linewidth-75.5mm\relax}{\zoSupportRight}\par\vspace{6mm}
 \href{\zoSupportURL}{\colorbox{zoYellow}{\strut\hspace{3mm}{\small\zoSupportCTA}\hspace{3mm}}}
 \end{minipage}\end{minipage}};
 \end{tikzpicture}
 \vfill
-{\scriptsize\color{zoMuted}Phiên bản nội dung \zoPrintVersion\ · Ngày tạo PDF: \zoBuildDate\par\smallskip\textcopyright{} \zoBuildYear\ ZO Math. Bản quyền nội dung thuộc ZO Math.}
+{\scriptsize\color{zoMuted}\textcopyright{} \zoBuildYear\ ZO Math. Bản quyền nội dung thuộc ZO Math.}

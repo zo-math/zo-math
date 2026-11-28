@@ -48,11 +48,13 @@ def adapt(path,output_root,package):
  if settings['opt_in'] not in original.body.get('class',[]):raise ValueError('Missing G02 R01 opt-in')
  root=copy.deepcopy(original.select_one('.zo-on-thi-package'))
  if root is None:raise ValueError('Missing canonical reader')
+ # Quarto adds a numbered placeholder to this compound figure. Its caption
+ # is already authored separately in the QMD and is rendered by the adapter.
+ for caption in root.select('.zo-graph-pair figure:has(figcaption[aria-hidden="true"]) > figcaption.quarto-uncaptioned'):
+  caption.decompose()
  if not canonical_math_matches(REPO/PACKAGE/'index.qmd',root):raise ValueError('Fresh G02 R01 mathematics differ from QMD')
- baseline=inv(root);binding=json.loads((REPO/PACKAGE/'giao_dien/he_nhan.json').read_text(encoding='utf-8'))
- normalize_source_notes(root)
- # The disclosure filter preserves the ID/class but drops arbitrary attributes.
- # Recover ownership from the actual QMD declaration, never from a frozen layout.
+ binding=json.loads((REPO/PACKAGE/'giao_dien/he_nhan.json').read_text(encoding='utf-8'))
+ # Recover supplementary-task ownership from the QMD declaration.
  source_text=(REPO/PACKAGE/'index.qmd').read_text(encoding='utf-8')
  declared_owners=dict(re.findall(r'\{#([\w-]+)[^}\n]*\.r1-foundation-confirmation[^}\n]*data-zo-owner="([^"]+)"',source_text))
  confirmations=list(root.select('.r1-foundation-confirmation'))
@@ -61,7 +63,11 @@ def adapt(path,output_root,package):
   owner_id=declared_owners[confirmation['id']];owner=root.find(id=owner_id)
   if owner is None or 'r1-foundation-unit' not in owner.get('class',[]):raise ValueError('Missing foundation confirmation owner')
   confirmation['data-zo-owner']=owner_id
-  owner.append(confirmation.extract())
+  return_note=owner.select_one('.r1-foundation-return')
+  if return_note is None:raise ValueError('Missing foundation return note for '+owner_id)
+  return_note.insert_before(confirmation.extract())
+ baseline=inv(root)
+ normalize_source_notes(root)
  root['class']=list(dict.fromkeys(root.get('class',[])+['reader-content']))
  root['data-r1-lesson-selector']=settings['lesson_selector']
  root['data-r1-review-rounds']=json.dumps(settings.get('review_rounds',[]),ensure_ascii=False)
@@ -118,7 +124,7 @@ def adapt(path,output_root,package):
   src=(REPO/raw.lstrip('/') if raw.startswith('/') else REPO/PACKAGE/raw).resolve()
   if not src.is_relative_to(REPO) or src.is_relative_to(REPO/'_audit') or not src.is_file():raise ValueError('Invalid canonical image '+str(src))
   img['src']=builder.materialize(src,'figures/'+src.name)
-  if src.name.startswith(('do_thi_', 'nen_do_thi_')):
+  if src.name.startswith(('do_thi_', 'nen_do_thi_', 'diem_dat_')):
    set_lesson_graph_size(img,src,REPO)
    img['class']=list(dict.fromkeys(img.get('class',[])+['zo-graph-04','math-illustration']))
    parent=img.find_parent('figure')
@@ -128,6 +134,10 @@ def adapt(path,output_root,package):
     img.wrap(viewport)
  for link in root.select('a[href]'):
   split=urlsplit(link['href'])
+  if split.hostname in {'zomath.vn', 'www.zomath.vn'} and re.fullmatch(
+      r'/content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g0[1-4]/index\.html', split.path):
+   link['href']=builder.href(output_root/split.path.lstrip('/'),split.query,split.fragment)
+   continue
   if split.scheme or split.netloc or not split.path:continue
   if split.path.endswith('.qmd'):split=split._replace(path=split.path[:-4]+'.html')
   target=(path.parent/unquote(split.path)).resolve()
@@ -225,7 +235,6 @@ def adapt(path,output_root,package):
   apply_pdf_state(result,REPO,PACKAGE)
   from zo_course_labels import apply_context_labels
   apply_context_labels(result,binding)
-  result.select_one('#tai-tai-lieu .zo-pdf-current-note').string='Các PDF đang giữ bản cũ, chưa phản ánh bản sửa R01. Chỉ xem và góp ý HTML trong 10 đợt sửa; PDF sẽ được xây dựng sau khi toàn bộ kết quả đạt yêu cầu.'
  from zo_course_html import write
  write(path,result)
  print('Package shell:',len(result.select('.reading-region')),'reading regions;',len(result.select('.zo-pdf-card')),'PDF downloads')

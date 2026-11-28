@@ -1,4 +1,4 @@
-"""Project the current shared HTML support component into print roles.
+"""Project the shared support component and course invitation into print roles.
 
 No account/copy registry lives in the PDF template. HTML markup remains owner.
 """
@@ -7,10 +7,13 @@ import hashlib
 import re
 from string import Template
 from bs4 import BeautifulSoup
+from zo_home_qmd import apply_support_copy, read_support_copy
 
 ROOT=Path(__file__).resolve().parents[1]
 KIT=ROOT/'_design/web_2027_mau_dung_chung'
 SUPPORT=KIT/'templates/support.html.tpl'
+COPY_SOURCE=Path('content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.qmd')
+COPY_INPUTS=(COPY_SOURCE,Path('scripts/zo_home_qmd.py'),Path('scripts/zo_pdf_support.py'))
 CSS=KIT/'web-shell.css'
 DESIGN=ROOT/'_design/ngon_ngu_thiet_ke_zo_math_0_4/07_mau_thi_giac'
 
@@ -24,6 +27,9 @@ def support_model():
         support_href='https://zomath.vn/content/support/donate.html',prototype_note='')
     soup=BeautifulSoup(html,'html.parser'); content=soup.select_one('.support-content')
     if content is None: raise ValueError('HTML support content role missing')
+    title, invitation, link = read_support_copy((ROOT/COPY_SOURCE).read_text(encoding='utf-8'))
+    # The print fonts do not include the decorative emoji used by the website.
+    apply_support_copy(soup, (title.removesuffix(' 🧋'), invitation, link))
     fields=[]
     for n in content.select('.r1-support-details dl>div'):
         if n.dt is None or n.dd is None: raise ValueError('HTML support label/value missing')
@@ -42,13 +48,21 @@ def support_model():
     return {'title':title,'copy':content.select_one(':scope>p').get_text(' ',strip=True),
             'fields':fields,'cta':content.select_one('.r1-support-link a').get_text(' ',strip=True),
             'url':content.select_one('.r1-support-link a')['href'],'heading_color':heading.group(1),
-            'qr_path':qr,'logo_path':png,'html':html,
+            'qr_path':qr,'logo_path':png,'html':str(soup),
             'input_hashes':{p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest()
-                            for p in [SUPPORT,CSS,qr,logo,png]}}
+                            for p in [SUPPORT,CSS,qr,logo,png,*(ROOT/v for v in COPY_INPUTS)]}}
 
 def support_tex(model):
-    details='\n'.join(r'{\scriptsize\color{zoMuted}'+tex(f['label'])+r'}\par\nopagebreak{\bfseries '+tex(f['value'])+r'}\par\vspace{2mm}'
-                      for f in model['fields'])
+    def field(item):
+        label, value = (tex(item[key]) for key in ('label', 'value'))
+        return r'\zoSupportField{'+label+'}{'+value+'}'
+
+    fields = [field(item) for item in model['fields']]
     values={'zoSupportTitle':model['title'],'zoSupportCopy':model['copy'],'zoSupportCTA':model['cta'],
             'zoSupportURL':model['url']}
-    return '\n'.join('\\newcommand{\\'+k+'}{'+tex(v)+'}' for k,v in values.items())+'\n'+r'\newcommand{\zoSupportDetails}{'+details+'}\n'
+    return '\n'.join([
+        *('\\newcommand{\\'+k+'}{'+tex(v)+'}' for k,v in values.items()),
+        r'\newcommand{\zoSupportLeft}{'+fields[0]+r'\vfill'+fields[2]+'}',
+        r'\newcommand{\zoSupportRight}{'+fields[1]+r'\vfill'+fields[3]+'}',
+        '',
+    ])

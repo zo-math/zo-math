@@ -79,7 +79,8 @@ def predicates(doc, data):
         local=local_answer_pair(q,a)
         qlinks=q.select('.answer-link a[href="#'+u['answer']+'"]') if q else []
         alinks=a.select('.answer-link a[href="#'+u['question']+'"]') if a else []
-        checks[u['id']+' question navigation matches ownership'] = bool(q and a) and len(qlinks)==(0 if local else 1)
+        shared_test = u.get('answer_owner') == 'loi-giai-kiem-tra'
+        checks[u['id']+' question navigation matches ownership'] = bool(q and a) and len(qlinks)==(0 if local or shared_test else 1)
         checks[u['id']+' answer navigation matches ownership'] = bool(q and a) and len(alinks)==(0 if local else 1)
         checks[u['id']+' matching title'] = bool(q and a) and u['title'] in q.get_text(' ',strip=True) and u['title'] in a.get_text(' ',strip=True)
         checks[u['id']+' question action is not redundant'] = bool(q) and len(qlinks)==(0 if local else 1)
@@ -95,7 +96,13 @@ def predicates(doc, data):
     checks['warmup and self-check use G01 task-title role'] = all(root.find(id=u['question']).select_one('.r1-task-label') for u in data['units'] if u['function'] in ['function.warmup','function.self_check'])
     from zo_course_numbering import html_checks as numbering_html_checks
     checks.update(numbering_html_checks(doc,data))
-    checks['three-stage overview uses the shared table component'] = bool(root.select_one('#r1-g02-table-t11.r1-table')) and len(root.select('#r1-g02-table-t11 tbody tr')) == 3
+    practice = root.find(id='phieu-luyen')
+    checks['practice introduction keeps earlier links without a table'] = all(
+        practice.select_one(f'#dinh-huong-luyen-tap #{anchor}:empty')
+        for anchor in ('lo-trinh-hoc', 'r1-g02-table-t11', 'r1-g02-table-t11-hint'))
+    groups = practice.select('section[data-zo-outline-group][id]')
+    checks['practice contents include three stages and separate extension'] = [
+        group['id'] for group in groups] == ['g02-c1', 'g02-c2', 'g02-c3', 'chuyen-giao']
     checks['foundation parent context labels valid'] = all(n.get_text(' ',strip=True).startswith('HỖ TRỢ KHI CẦN') for n in root.select('#on-nen [data-reading-label]'))
     checks['no heading duplicates its outer label'] = all(not p.find(['h2','h3','h4','h5']) or not p.find(attrs={'data-reading-label':True},recursive=False) or p.find(['h2','h3','h4','h5']).get_text(' ',strip=True).casefold()!=p.find(attrs={'data-reading-label':True},recursive=False).get_text(' ',strip=True).casefold() for p in root.select('.reading-region'))
     ids = [n['id'] for n in doc.select('[id]')]
@@ -107,6 +114,9 @@ def predicates(doc, data):
     guide = root.find(id='cách-học-với-tài-liệu-này').get_text(' ',strip=True)
     help_text = root.find(id='g02-ho-tro-khi-can').get_text(' ',strip=True)
     test = root.find(id='tu-kiem-tra').get_text(' ',strip=True)
+    checks['test has one shared answer link after the questions'] = len(
+        root.select('#tu-kiem-tra a[href="#loi-giai-kiem-tra"]')) == 1 and bool(
+        root.select_one('#sau-khi-hoan-thanh-kiem-tra a[href="#loi-giai-kiem-tra"]'))
     checks['test entry prepared OR confident, single attempt'] = all(t in test for t in ['chuẩn bị kĩ lưỡng hoặc đủ tự tin','không chia thành nhiều đợt','tự lực hoàn toàn','kết thúc lượt kiểm tra','kết quả sau hỗ trợ'])
     checks['retired independent entry rule absent'] = 'Chỉ thử Kiểm tra trực tiếp khi đã có bài làm độc lập' not in root.get_text(' ',strip=True)
     checks['retired interleaved schedule absent'] = 'Đọc xong một bước thì tự giải bài liên quan' not in root.get_text(' ',strip=True)
@@ -291,7 +301,7 @@ def check(page, raw, before, output, browser=False):
         ('foundation nested',lambda d:d.find(id='bai-hoc').append(d.find(id='on-nen').extract())),
         ('answer missing',lambda d:d.find(id=data['units'][0]['answer']).decompose()),
         ('disclosure open',lambda d:d.find('details').attrs.update(open='')),
-        ('stage overview missing',lambda d:d.find(id='r1-g02-table-t11').decompose()),
+        ('practice introduction anchor missing',lambda d:d.find(id='r1-g02-table-t11').decompose()),
         ('guide map split',lambda d:d.find(id='cách-học-với-tài-liệu-này').append(d.new_tag('div',attrs={'class':'reading-region'}))),
         ('old test condition',lambda d:d.find(id='tu-kiem-tra').append('Chỉ thử Kiểm tra trực tiếp khi đã có bài làm độc lập'))]:
         fixture=copy.deepcopy(doc);mutate(fixture)

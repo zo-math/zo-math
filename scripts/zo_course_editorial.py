@@ -45,6 +45,8 @@ def learner_lines(text):
 def paragraph_key(text):
     """Compare approved prose across Markdown links and HTML text-node spaces."""
     text=re.sub(r'\[([^\]]+)\]\([^)]+\)',r'\1',text)
+    text=re.sub(r'(?<!\\)\$[^$\n]*\$|<[^>]+>','',text)
+    text=re.sub(r'^[a-z]\)\s*','',text)
     text=text.lstrip('- ').replace('*','').replace('[','').replace(']','')
     return re.sub(r'\s+([.,;:?!])',r'\1',norm(text))
 
@@ -70,7 +72,7 @@ def approved_manuscript_paragraphs(path,root=ROOT):
         raise ValueError('Unknown approved-prose binding')
     if sha(receipt.read_bytes())!=data['approval_receipt_sha256']:
         raise ValueError('Approved manuscript/receipt changed')
-    if approval.get('status')!='both_manuscripts_owner_approved' or not any(
+    if approval.get('status') not in {'both_manuscripts_owner_approved', 'manuscripts_owner_approved'} or not any(
         x.get('path')==data['draft'] and x.get('sha256')==data['draft_sha256']
         for x in approval.get('sources',[])):
         raise ValueError('Missing owner approval of exact manuscript')
@@ -137,6 +139,8 @@ def source_checks(path,root=ROOT,text=None):
     if not governed(path):return {}
     root=Path(root);checks={}
     try:
+        from zo_course_presentation import source_checks as presentation_checks
+        checks.update(presentation_checks(path,root,text))
         p=policy(root)
         from zo_g01_revision_contract import review_for
         review=review_for(path,root)
@@ -161,6 +165,17 @@ def source_checks(path,root=ROOT,text=None):
         if review is None:
             from zo_d0_home_revision_contract import review_for as entry_review
             review=entry_review(path,root)
+        if review is None:
+            local=Path(path).parent/'_quy_trinh/ho_so/kiem_chuyen_qmd_bien_tap.json'
+            interface=Path(path).parent/'giao_dien/html.json'
+            if interface.is_file():
+                declared=json.loads(interface.read_text(encoding='utf-8')).get('editorial_review')
+                if declared:
+                    local=(Path(path).parent/declared).resolve()
+                    if not local.is_relative_to((Path(path).parent/'_quy_trinh/ho_so').resolve()):
+                        raise ValueError('Editorial review escapes package records')
+            if local.is_file():
+                review=json.loads(local.read_text(encoding='utf-8'))
         if review is None:review=json.loads((root/p['review']).read_text(encoding='utf-8'))
         checks['current editorial policy']=p['id']==review.get('decision')==RULE
         checks['editorial review is source-only']=review.get('status')=='source_reviewed_not_rendered' and review.get('owner_HTML_acceptance') is False
@@ -186,6 +201,18 @@ def html_checks(document,root=ROOT):
     if re.fullmatch(r'R\d+-G\d+',code):
         path=Path(root)/COURSE/'hoc_lieu'/code.lower().replace('-','_')/'index.qmd'
         accepted={paragraph_key(p) for p in approved_manuscript_paragraphs(path,root)}
+        title_review=path.parent/'_quy_trinh/ho_so/video_titles_review.json'
+        if title_review.is_file():
+            review=json.loads(title_review.read_text(encoding='utf-8'))
+            approved_labels=review.get('approved_video_labels',{})
+            source_video_titles={}
+            for title in BeautifulSoup(path.read_text(encoding='utf-8'),'html.parser').select('details.zo-learning-video[data-youtube-id] > summary'):
+                source_video_titles.setdefault(title.parent['data-youtube-id'],[]).append(title.get_text(' ',strip=True))
+            for node in clone.select('details.zo-learning-video[data-youtube-id] > summary'):
+                video_id=node.parent['data-youtube-id']
+                approved=approved_labels.get(video_id)
+                if approved is not None and source_video_titles.get(video_id)==[f'Video: {approved}'] and node.get_text(' ',strip=True)==f'Video: {approved}':
+                    node.decompose()
         for node in list(clone.select('p,li')):
             if node.parent is not None and paragraph_key(node.get_text(' ',strip=True)) in accepted:node.decompose()
     return {'rendered learner terminology and instructions':not scan(clone.get_text('\n',strip=True),root,raw=True)}

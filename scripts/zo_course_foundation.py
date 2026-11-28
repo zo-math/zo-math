@@ -3,6 +3,29 @@ from pathlib import Path
 from urllib.parse import urlsplit,unquote
 import json,re
 
+def validate_local_answers(reader, units, action):
+    """Keep the authored action for each numbered task's in-place solution."""
+    for unit in units:
+        if unit['function'] != 'function.foundation_confirmation':
+            continue
+        question = reader.find(id=unit['question'])
+        answer = reader.find(id=unit['answer'])
+        card = question.find_parent('details', class_='r1-foundation-unit') if question else None
+        summary = answer.find('summary', recursive=False) if answer else None
+        if (card is None or answer is None or answer.name != 'details'
+                or answer.find_parent('details', class_='r1-foundation-unit') is not card
+                or answer.has_attr('open') or summary is None
+                or summary.get_text(' ', strip=True) != action):
+            raise ValueError(f'Ôn nền: {unit["answer"]} must be a closed local solution labeled {action!r}')
+
+    for activity in reader.select('#on-nen .r1-foundation-confirmation[data-zo-owner]'):
+        card = activity.find_parent('details', class_='r1-foundation-unit')
+        trailing_note = activity.find_next_sibling(class_='r1-foundation-return')
+        if (activity.name != 'div' or card is None or card.get('id') != activity['data-zo-owner']
+                or trailing_note is None):
+            raise ValueError(f'Ôn nền: {activity["id"]} must appear before the return note in its own card')
+
+
 def source_checks(source,data):
  if data.get('foundation_mode')!='linked-shared':return {}
  from zo_course_labels import expand

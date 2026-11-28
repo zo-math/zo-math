@@ -1,11 +1,4 @@
-"""Validate printed-content equivalence without rewriting PDF build provenance.
-
-The original build contract remains strict. This additional read-only check can
-prove that a course PDF still represents the current printable source when the
-only additions are validated HTML-only video disclosures. Every other source,
-dependency (including external Graphics), variant, PDF byte and page count is
-still checked against the original build record. No historical hash is changed.
-"""
+"""Determine whether a course PDF still represents its printable inputs."""
 from __future__ import annotations
 
 import argparse
@@ -149,15 +142,20 @@ def print_projection(text: str, *, main: bool = False) -> tuple[str, list[str]]:
     return projected, ids
 
 
-def inspect_print_state(root: Path, source: Path, *, variant: str = 'full') -> dict:
+def _input_only_errors(errors, variant):
+    return set(errors) <= {
+        'source record does not match the current QMD',
+        'pipeline_inputs do not match the current dependency set and hashes',
+        f'input fingerprint drift: {variant}',
+    }
+
+
+def _inspect_legacy_print_state(root: Path, source: Path, *, variant: str = 'full') -> dict:
     root, source = root.resolve(), source.resolve()
     errors = contract.validate_canonical_pdf_provenance(root, source, variant=variant)
     report = {'status': 'stale' if errors else 'current', 'errors': errors, 'strict_build_errors': errors, 'web_only_videos': [], 'projected_inputs': []}
     if not errors: return report
-    allowed = {'source record does not match the current QMD',
-               'pipeline_inputs do not match the current dependency set and hashes',
-               f'input fingerprint drift: {variant}'}
-    if set(errors) - allowed: return report
+    if not _input_only_errors(errors, variant): return report
     try:
         payload = contract._load_manifest(contract.canonical_pdf_provenance_path(root, source))
         state = copy.deepcopy(contract.canonical_variant_input_state(root, source, variant))
@@ -190,6 +188,41 @@ def inspect_print_state(root: Path, source: Path, *, variant: str = 'full') -> d
     return report
 
 
+def _edition_equivalence(root, source, variant, report, evidence):
+    from zo_pdf_variant_state import record_variant
+
+    if not _input_only_errors(report['errors'], variant):
+        return report
+    saved = evidence['variants'].get(variant)
+    if not saved:
+        return report
+    try:
+        payload = contract._load_manifest(contract.canonical_pdf_provenance_path(root, source))
+        records, record_errors = contract._record_map(payload)
+        record = records[variant]
+        if (record_errors or saved['build_fingerprint'] != record['input_fingerprint']
+                or saved['pdf_sha256'] != record['output']['sha256']):
+            return report
+        pipeline = payload['pipeline_inputs'] if report['status'] == 'current' else None
+        if saved == record_variant(root, source, variant, record, pipeline=pipeline):
+            return dict(report, status='variant-equivalent', errors=[]) if report['errors'] else report
+        return dict(report, status='stale',
+                    errors=report['errors'] or [f'printable inputs changed: {variant}'])
+    except (ValueError, OSError, KeyError, TypeError) as exc:
+        return dict(report, status='stale',
+                    errors=report['errors'] or [f'cannot verify printable inputs: {variant}'],
+                    edition_projection_error=str(exc))
+
+
+def inspect_print_state(root: Path, source: Path, *, variant: str = 'full') -> dict:
+    from zo_pdf_variant_state import evidence
+
+    root, source = root.resolve(), source.resolve()
+    report = _inspect_legacy_print_state(root, source, variant=variant)
+    proof = evidence(root, source)
+    return _edition_equivalence(root, source, variant, report, proof) if proof else report
+
+
 def validate_pdf_print_provenance(root: Path, source: Path, *, variant: str = 'full') -> list[str]:
     return inspect_print_state(root, source, variant=variant)['errors']
 
@@ -200,14 +233,22 @@ def inspect_print_states(root: Path, source: Path) -> dict[str, dict]:
     The strict full-variant check already validates the complete registry,
     definitions and output paths. Do not repeat dependency discovery eight times.
     """
+    from zo_pdf_variant_state import evidence
+
     root, source = root.resolve(), source.resolve()
-    first = inspect_print_state(root, source)
+    first = _inspect_legacy_print_state(root, source)
     registry = contract._variant_registry(root, source)
+    proof = evidence(root, source)
     if first['errors']:
+        if proof:
+            return {name: _edition_equivalence(
+                root, source, name, first if name == 'full' else
+                _inspect_legacy_print_state(root, source, variant=name), proof)
+                for name in registry}
         return {name: copy.deepcopy(first) for name in registry}
     payload = contract._load_manifest(contract.canonical_pdf_provenance_path(root, source))
     records, _ = contract._record_map(payload)
-    results = {'full': first}
+    results = {'full': _edition_equivalence(root, source, 'full', first, proof) if proof else first}
     for name, definition in registry.items():
         if name == 'full': continue
         report = copy.deepcopy(first)
@@ -222,12 +263,12 @@ def inspect_print_states(root: Path, source: Path) -> dict[str, dict]:
         output = root / record['output']['path']
         try:
             if contract.sha256_file(output) != record['output']['sha256']: errors.append(f'PDF hash drift: {name}')
-            if contract.pdf_inventory(output) != record['inventory']: errors.append(f'PDF inventory drift: {name}')
+            elif contract.pdf_inventory(output) != record['inventory']: errors.append(f'PDF inventory drift: {name}')
         except (OSError, ValueError) as exc:
             errors.append(f'cannot validate PDF {name}: {exc}')
-        report.update(errors=errors, input_fingerprint=fingerprint)
+        report.update(errors=errors, strict_build_errors=list(errors), input_fingerprint=fingerprint)
         if errors: report['status'] = 'stale'
-        results[name] = report
+        results[name] = _edition_equivalence(root, source, name, report, proof) if proof else report
     return results
 
 

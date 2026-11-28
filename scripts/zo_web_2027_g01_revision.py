@@ -36,6 +36,7 @@ def apply_support_context(root):
 
 
 def adapt(path,output_root,package):
+ import yaml
  PACKAGE=Path(package)
  if PACKAGE.name!='r1_g01':raise ValueError('R01 adapter is G01-only')
  settings=json.loads((REPO/PACKAGE/'giao_dien/html.json').read_text(encoding='utf-8'));key=settings['runtime']
@@ -55,6 +56,9 @@ def adapt(path,output_root,package):
  root['data-r1-lesson-selector']=settings['lesson_selector']
  root['data-r1-review-rounds']=json.dumps(settings.get('review_rounds',[]),ensure_ascii=False)
  root['data-zo-reading-contract']='source-owned'
+ metadata=yaml.safe_load((REPO/PACKAGE/'index.qmd').read_text(encoding='utf-8').split('---',2)[1])
+ if metadata.get('zo-omit-context-labels') is True:
+  root['data-zo-omit-context-labels']='true'
  apply_support_context(root)
  from zo_course_contents import apply_contents
  apply_contents(root,settings)
@@ -113,6 +117,10 @@ def adapt(path,output_root,package):
    parent=img.find_parent('figure')
    if parent:
     parent['class']=list(dict.fromkeys(parent.get('class',[])+['math-figure']))
+    reason=settings.get('omitted_figure_captions',{}).get(src.name)
+    if reason and not parent.find('figcaption'):
+     img['data-zo-caption']='omitted'
+     img['data-zo-caption-reason']=reason
     viewport=doc.new_tag('div',attrs={'class':'figure-viewport zo-figure-scroll'})
     img.wrap(viewport)
  # Package-owned optional media assets travel with the projected reader.
@@ -208,8 +216,6 @@ def adapt(path,output_root,package):
   if kind=='style':result.head.append(result.new_tag('link',rel='stylesheet',href=href))
   else:result.body.append(result.new_tag('script',src=href))
  # Render downloads only when the package declares its complete PDF set.
- import yaml
- metadata=yaml.safe_load((REPO/PACKAGE/'index.qmd').read_text(encoding='utf-8').split('---',2)[1])
  if metadata.get('r1-download-files'):
   from zo_web_2027_downloads import apply as apply_downloads
   apply_downloads(result,path,output_root)
@@ -217,7 +223,6 @@ def adapt(path,output_root,package):
   apply_pdf_state(result,REPO,PACKAGE)
   from zo_course_labels import apply_context_labels
   apply_context_labels(result,binding)
-  result.select_one('#tai-tai-lieu .zo-pdf-current-note').string='Các PDF đang giữ bản cũ, chưa phản ánh bản sửa R01. Chỉ xem và góp ý HTML trong 10 đợt sửa; PDF sẽ được xây dựng sau khi toàn bộ kết quả đạt yêu cầu.'
  from zo_course_html import write
  write(path,result)
  print('Package shell:',len(result.select('.reading-region')),'reading regions;',len(result.select('.zo-pdf-card')),'PDF downloads')

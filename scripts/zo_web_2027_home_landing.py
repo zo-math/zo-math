@@ -82,7 +82,7 @@ def build(builder):
     root = raw.select_one('.home-landing-content')
     if root is None:
         raise ValueError('Editorial Home profile requires fresh editorial source; refuse old layout')
-    from zo_home_qmd import normalize_native_dom
+    from zo_home_qmd import apply_support_copy, normalize_native_dom
     editorial_text = (REPO / builder.profile['editorial_source']).read_text(encoding='utf-8')
     support_copy = normalize_native_dom(raw, root, editorial_text)
     original = inventory(root)
@@ -95,9 +95,7 @@ def build(builder):
     support = BeautifulSoup(template('support.html', support_href=builder.href(builder.output_root / 'content/support/donate.html'), prototype_note=''), 'html.parser')
     support.select_one('.prototype-note').decompose()
     support.select_one('.support-region')['class'] = ['support-region', 'home-paper', 'home-support']
-    # Home-only approved copy; keep the shared support template, bank and QR intact.
-    support.select_one('.support-content > p').string = support_copy[0]
-    support.select_one('.r1-support-link a').string = support_copy[1]
+    apply_support_copy(support, support_copy)
     styles = ['reading-regions.css', 'web-shell.css', 'appearance-inline.css', 'site-footer.css', 'course-home-landing.css']
     result = template('page.html', title=html.escape(builder.profile['title']), body_class='course-home home-editorial zo-web-2027-home',
         home_href=builder.href(builder.page), breadcrumb='', drawer_title='Trong trang Nhà', navigation=builder.navigation(),

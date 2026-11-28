@@ -13,8 +13,9 @@ from pypdf import PdfReader
 import zo_publish as p
 from zo_pdf_contract import (
     canonical_pdf_provenance_enabled, pdf_build_receipt_path, pdf_output_path,
-    pdf_variant, validate_canonical_pdf_provenance, validate_pdf_build_receipt,
+    pdf_variant, validate_pdf_build_receipt,
 )
+from zo_pdf_print_state import validate_pdf_print_provenance
 from zo_qmd_config import discover_project_config
 
 
@@ -77,7 +78,7 @@ def validate_pdfs(source_root, records, config, candidate=None):
             if record['contract'] == 'd0':
                 issues.extend(d0_pdf_issues(candidate or source_root, source_root))
             elif record['contract'] == 'canonical':
-                errors.extend(validate_canonical_pdf_provenance(
+                errors.extend(validate_pdf_print_provenance(
                     source_root, source_root / record['source'], variant=record['variant']))
                 if record['variant'] != 'full' and record['source'].startswith('content/thpt/on_thi_toan_thpt/hoc_lieu/r'):
                     from zo_pdf_course_check import opening_policy_checks

@@ -21,7 +21,8 @@ local function normalize(blocks)
       elseif s:match('^%s*</p>') and #stack>0 and stack[#stack].kind=='source-note' then
         local frame=table.remove(stack);local note=pandoc.Div(current,pandoc.Attr(frame.id,{'zo-source-note'}));current=frame.parent;current:insert(note)
       elseif s:match('^%s*<figure[%s>]') then
-        local frame={parent=current,body=pandoc.Blocks{},title=pandoc.Blocks{},kind='figure',id=s:match('id="([^"]+)"') or ''}
+        local frame={parent=current,body=pandoc.Blocks{},title=pandoc.Blocks{},kind='figure',
+          id=s:match('id="([^"]+)"') or '',panels=s:find('zo%-graph%-pair')}
         stack[#stack+1]=frame;current=frame.body
       elseif s:match('^%s*<figcaption[%s>]') then
         assert(#stack>0 and stack[#stack].kind=='figure','Caption without figure');stack[#stack].pending=true
@@ -35,6 +36,7 @@ local function normalize(blocks)
         end
         local fig=pandoc.Figure(content,pandoc.Caption(frame.title),pandoc.Attr(frame.id))
         fig.attributes['zo-explicit-caption']='true'
+        if frame.panels then fig.attributes['zo-keep-panels']='true' end
         current=frame.parent;current:insert(fig)
       elseif s:match('^%s*<details[%s>]') then
         local id=s:match('id="([^"]+)"') or ''
@@ -117,6 +119,11 @@ local function prepare(doc)
     local file=assert(io.open(pandoc.path.join({print_dir,'../tex/zo-course-print-runtime.json'}),'r'))
     layout=pandoc.json.decode(file:read('*a'));file:close()
   end
+  if variant=='student' or variant=='kiem_tra' then
+    doc=doc:walk({Div=function(d)
+      if d.classes:includes('zo-post-test-review') then return {} end
+    end})
+  end
   local root=nil
   for _,b in ipairs(doc.blocks) do if b.t=='Div' and b.classes:includes('zo-on-thi-package') then root=b end end
   assert(root,'Missing canonical package root')
@@ -131,10 +138,18 @@ local function prepare(doc)
     end
   end})
   if layout then
-    doc=doc:walk({Para=function(p)
-      if #p.content==1 and p.content[1].t=='Image' and p.content[1].src:match('figures_0_4/.+%.svg$') then
-        return pandoc.Figure({pandoc.Plain(p.content)},pandoc.Caption({}))
+    doc=doc:walk({traverse='topdown',Figure=function(fig)
+      return fig,false
+    end,Para=function(p)
+      local image=p.content[1]
+      if not image or image.t~='Image' or not image.src:match('figures_0_4/.+%.svg$') then return nil end
+      for j=2,#p.content do
+        local tail=p.content[j]
+        if tail.t~='Space' and not (tail.t=='RawInline' and tail.format=='html' and tail.text:match('^<!%-%-.*%-%->$')) then
+          return nil
+        end
       end
+      return pandoc.Figure({pandoc.Plain({image})},pandoc.Caption({}))
     end})
   end
   if layout then
@@ -143,6 +158,21 @@ local function prepare(doc)
         if d.identifier==id then return {pandoc.RawBlock('latex','\\clearpage'),d} end
       end
       return d
+    end})
+  end
+  if layout then
+    doc=doc:walk({Div=function(div)
+      if not div.classes:includes('r1-figure') or #div.content~=2 then return nil end
+      local first,second=div.content[1],div.content[2]
+      if first.t~='Figure' or second.t~='Figure' then return nil end
+      local content=pandoc.Blocks{}
+      content:extend(first.content);content:extend(second.content)
+      local caption=second.attributes['zo-explicit-caption']=='true' and second or first
+      local group=pandoc.Figure(content,caption.caption,pandoc.Attr(caption.identifier))
+      group.attributes['zo-explicit-caption']=caption.attributes['zo-explicit-caption']
+      group.attributes['zo-keep-panels']='true'
+      div.content=pandoc.Blocks{group}
+      return div
     end})
   end
   local original=ids(doc);local specs={}
@@ -165,6 +195,90 @@ local function prepare(doc)
     if keep then projected:insert(b) end
   end
   doc.blocks=projected
+  if layout then
+    local titles={}
+    doc:walk({Header=function(header)
+      if header.identifier~='' and str(header):match('^Nhiệm vụ%s+%d+') then
+        titles[header.identifier]=str(header):match('^Nhiệm vụ%s+%d+%s+([–—-].*)')
+      end
+    end})
+    doc=doc:walk({Para=function(para)
+      local button,stop
+      for index,inline in ipairs(para.content) do
+        if inline.t=='Str' and inline.text=='Bấm' then button=index end
+        if inline.t=='Span' and inline.attributes['data-zo-solution-return']=='inline' then stop=index;break end
+      end
+      if button and stop then
+        local instructions=pandoc.read('Để đọc lại đề, dùng liên kết **Xem đề bài** bên dưới lời giải.','markdown')
+        for index=stop,button,-1 do para.content:remove(index) end
+        for index,inline in ipairs(instructions.blocks[1].content) do para.content:insert(button+index-1,inline) end
+        return para
+      end
+    end,Div=function(div)
+      if div.classes:includes('zo-block-body') then
+        local grouped=pandoc.Blocks{}
+        local active=false
+        for _,block in ipairs(div.content) do
+          local strong=block.t=='Para' and block.content[1]
+          local link=strong and strong.t=='Strong' and strong.content[1]
+          local target=link and link.t=='Link' and link.target:match('^#(kt%d+)$')
+          if active and (target or block.t~='BulletList') then
+            grouped:insert(pandoc.RawBlock('latex','\\end{minipage}\\par\\medskip'))
+            active=false
+          end
+          if target and titles[target] then
+            strong.content=pandoc.Inlines{link,pandoc.Space(),pandoc.Str(titles[target])}
+            grouped:insert(pandoc.RawBlock('latex','\\begin{minipage}{\\linewidth}'))
+            active=true
+          end
+          grouped:insert(block)
+        end
+        if active then grouped:insert(pandoc.RawBlock('latex','\\end{minipage}')) end
+        div.content=grouped
+        return div
+      end
+      if not div.classes:includes('r1-summary') then return nil end
+      for _,block in ipairs(div.content) do
+        if (block.t=='Para' or block.t=='Plain') and str(block):match('^Nhiệm vụ%s+%d+') then
+          block.content:insert(1,pandoc.RawInline('latex','{\\sffamily\\bfseries '))
+          block.content:insert(pandoc.RawInline('latex','}'))
+        end
+      end
+      return div
+    end})
+  end
+  if layout then
+    doc=doc:walk({Div=function(div)
+      if div.attributes['data-zo-remediation']~='bottlenecks-v1' then return nil end
+      div.content=pandoc.Pandoc(div.content):walk({Table=function(tbl)
+        for _,body in ipairs(tbl.bodies) do
+          for _,row in ipairs(body.body) do
+            local cell=row.cells[4]
+            for _,block in ipairs(cell.contents) do
+              if block.t=='Plain' or block.t=='Para' then
+                local inlines=pandoc.Inlines{}
+                for _,inline in ipairs(block.content) do
+                  local label=str(inline)
+                  if inline.t=='Strong' and (label=='Sau Luyện tập:' or label=='Sau Kiểm tra:' or label=='Sau Ôn lại:') and #inlines>0 then
+                    if inlines[#inlines].t=='Space' then inlines:remove(#inlines) end
+                    inlines:insert(pandoc.RawInline('latex','\\newline{}'))
+                  elseif inline.t=='Link' then
+                    local short=label:match('^(Nhiệm vụ%s+%d+)%s+[–—]') or label:match('^(Ý cuối Nhiệm vụ%s+%d+)%s+[–—]')
+                    if short then inline.content=pandoc.Inlines{pandoc.Str(short)} end
+                  end
+                  inlines:insert(inline)
+                end
+                block.content=inlines
+              end
+            end
+            row.cells[4]=cell
+          end
+        end
+        return tbl
+      end}).blocks
+      return div
+    end})
+  end
   local retained=ids(doc)
   doc=doc:walk({Link=function(link)
     local id=link.target:match('^#(.+)$')
@@ -237,6 +351,11 @@ local function table_filter(t)
 end
 local function image_filter(i)
   if not latex then return nil end
+  -- Quarto's fig-alt is separate from the visible figure caption.
+  local alt=i.attributes['fig-alt']
+  if alt and alt~='' then
+    i.caption=pandoc.Inlines{pandoc.Str(alt)}
+  end
   local context=layout and layout.context_figures and layout.context_figures[i.src]
   if context then
     i.attributes['zo-context-source']=i.src
@@ -265,6 +384,21 @@ local function figure_filter(fig)
   local explicit=fig.attributes['zo-explicit-caption']=='true' or contextual and #fig.caption.long>0
   if not explicit then fig.caption.long=pandoc.Blocks{} end
   do
+    if fig.attributes['zo-keep-panels']=='true' and not wide then
+      local panels={}
+      for _,block in ipairs(fig.content) do
+        panels[#panels+1]=pandoc.write(pandoc.Pandoc({block}),'latex')
+      end
+      local tex='\\begin{figure}[H]\n\\centering\n'..table.concat(panels,'\\par\\vspace{5pt}\n')
+      if explicit then
+        local caption=pandoc.write(pandoc.Pandoc(fig.caption.long),'latex'):gsub('%s+$','')
+        local label=fig.identifier~='' and '\\label{'..fig.identifier..'}' or ''
+        tex='% zo-explicit-figure-caption\n'..tex..'\\par\n\\captionsetup{labelformat=empty}\\caption{'..caption..'}'..label..'\n'
+      else
+        tex=tex..'\\par\n'
+      end
+      return pandoc.RawBlock('latex',tex..'\\end{figure}\n\\nopagebreak[4]')
+    end
     local tex=pandoc.write(pandoc.Pandoc({fig}),'latex')
     local panels=0
     fig:walk({Image=function() panels=panels+1 end})
@@ -297,11 +431,16 @@ end
 local function blocks_filter(blocks)
   if not latex then return nil end
   local out=pandoc.Blocks{}
+  local area
   for index,b in ipairs(blocks) do
+    local hide_contents=false
     if b.t=='Header' then
       if layout and b.level==1 then
+        area=b.identifier
         local pagebreak=false
         for _,id in ipairs(layout.main_area_page_breaks or {'*'}) do if id=='*' or id==b.identifier then pagebreak=true end end
+        if variant~='full' and variant~='student' and area=='nguon' then pagebreak=false end
+        if (variant=='full' or variant=='student') and area=='sua-loi' then pagebreak=false end
         if pagebreak then out:insert(pandoc.RawBlock('latex','\\clearpage')) end
       end
       local function reserve(i)
@@ -334,12 +473,24 @@ local function blocks_filter(blocks)
         title:match('^Nhiệm vụ%s+%d+%s+—') or
         title:match('^Lời giải Nhiệm vụ%s+%d+%s+—') or
         title=='Sau khi tự làm') and true or false
-      if activity_title then out:insert(pandoc.RawBlock('latex','\\Needspace{4\\baselineskip}')) end
+      if activity_title then
+        -- Titles promoted by the r1-summary pass can precede a separately anchored solution body.
+        local first=b.content[1]
+        local summary_title=first and first.t=='RawInline' and first.text=='{\\sffamily\\bfseries '
+        local lines=summary_title and 8 or 4
+        out:insert(pandoc.RawBlock('latex','\\Needspace{'..lines..'\\baselineskip}'))
+      end
     end
     if layout and (b.t=='Para' or b.t=='Plain') and str(b):match('^Bảng%s+[IVX]+$') then
       out:insert(pandoc.RawBlock('latex','\\Needspace{10\\baselineskip}'))
     end
+    if layout and b.t=='Header' and area=='phieu-luyen' and (variant=='full' or variant=='student') then
+      local title=str(b)
+      hide_contents=b.level==2 and (title:match('^Nhiệm vụ%s+%d+') or title:match('^Điểm dừng%s+%d+'))
+    end
+    if hide_contents then out:insert(pandoc.RawBlock('latex','\\addtocontents{toc}{\\protect\\setcounter{tocdepth}{1}}')) end
     out:insert(b)
+    if hide_contents then out:insert(pandoc.RawBlock('latex','\\addtocontents{toc}{\\protect\\setcounter{tocdepth}{2}}')) end
     if activity_title or ((b.t=='Para' or b.t=='Plain') and pandoc.utils.stringify(b):match('^Nhiệm vụ%s+%d+')) then
       out:insert(pandoc.RawBlock('latex','\\nopagebreak[4]'))
     end

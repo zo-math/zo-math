@@ -91,6 +91,7 @@ def adapt(path,output_root):
   if not target.is_relative_to(output_root):raise ValueError('Link escapes output root')
   link['href']=builder.href(target,split.query,split.fragment)
  for details in root.select('details'):
+  if 'zo-learning-video' in details.get('class',[]):continue
   details.attrs.pop('open',None);guidance='zo-learning-guidance' in details.get('class',[])
   details['class']=list(dict.fromkeys(details.get('class',[])+(['r1-details','zo-block','zo-block-gray'] if guidance else ['r1-details','r1-solution','zo-learning-solution','solution','zo-block','zo-block-gray'])))
   summary=details.find('summary',recursive=False)

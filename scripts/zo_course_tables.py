@@ -178,14 +178,17 @@ def promote_d0_grid(doc):
         figure.select_one('.visually-hidden').decompose()
         viewport.append(native)
 
-def bind(doc,page_key):
+def bind(doc,page_key,*,only=None):
     root=doc.select_one('.reader-content')
     if root is None:raise ValueError('Missing course reader root')
-    from zo_course_math_assets import apply_native
-    apply_native(doc,page_key)
+    if only is None:
+        from zo_course_math_assets import apply_native
+        apply_native(doc,page_key)
     contract=load_contract();specs=table_specs(page_key);seen=set()
     from zo_course_table_roles import function_profile,apply_function
     for entry in contract['pages'][page_key]:
+        if only is not None and entry['selector'] != only:
+            continue
         matches=root.select(entry['selector'])
         if len(matches)!=1:raise ValueError('Missing or ambiguous table role: '+entry['selector'])
         table=matches[0]
@@ -245,6 +248,10 @@ def bind(doc,page_key):
         if function:
             apply_function(table,function,entry['function'],doc)
             frame['aria-label']=entry['role']+(' ; cuộn ngang khi cần' if function['responsive']=='scroll' else '')
+    if only is not None:
+        if len(seen) != 1:
+            raise ValueError('Missing scoped table role: '+only)
+        return len(seen)
     records=native_records(page_key);native_seen=set()
     for table in root.select('table.zo-variation-native'):
         rid=table['data-bbt'];record=records.get(rid)

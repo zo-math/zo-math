@@ -6,9 +6,12 @@ ROOT=Path(__file__).resolve().parents[1]
 
 def materialize(root, package, builder):
     for img in root.select('img[src]'):
-        figure=img.find_parent('figure',attrs={'data-zo-role':'context-illustration'})
+        figure=img.find_parent('figure',attrs={'data-zo-role':['context-illustration','lesson-graph']})
         if figure is None or not img.get('alt') or not img.get('width') or not img.get('height'):
             raise ValueError('Body image needs explicit contextual role, alt and dimensions')
+        if figure.get('data-zo-role')=='lesson-graph':
+            if img.find_parent(class_='figure-viewport') is None or 'zo-graph-asset' not in figure.get('class',[]):
+                raise ValueError('Lesson graph needs its native graph viewport')
         src=(package/img['src']).resolve()
         if not src.is_relative_to((package/'hinh').resolve()) or not src.is_file():
             raise ValueError('Illustration escapes canonical image directory')

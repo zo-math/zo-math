@@ -142,11 +142,23 @@ def pipeline_input_paths(root: Path, source: Path | None = None) -> tuple[Path, 
         return tuple(paths)
     if config.raw.get("extensions", {}).get("pdf_variants") is not None:
         paths.extend([config.config_path, Path("scripts/zo_pdf_contract.py")])
+    if config.raw.get('extensions',{}).get('course_pdf_shell'):
+        from zo_pdf_support import COPY_INPUTS
+        paths.extend(COPY_INPUTS)
     if config.raw.get('extensions',{}).get('course_pdf_shell',{}).get('layout')=='course-print-v2':
         from zo_course_pdf_layout import INPUTS
-        paths.extend(INPUTS)
+        from zo_pdf_course_shell import COVER_LOGO_SOURCE
+        paths.extend((*INPUTS, COVER_LOGO_SOURCE))
         from zo_course_cover import load_cover
-        paths.extend([Path('scripts/zo_course_cover.py'), (root/source).parent.relative_to(root)/'giao_dien/anh_bia.json', load_cover(root,(root/source).parent.name,allow_direction_approved=bool(config.raw['extensions']['course_pdf_shell'].get('allow_direction_approved_preview'))).relative_to(root)])
+        from zo_topic_art import REGISTRY, load_master, load_registry
+        package = (root / source).parent.name
+        registry = load_registry(root)
+        paths.extend([Path('scripts/zo_topic_art.py'), REGISTRY])
+        if package in registry['packages']:
+            manifest, _, artwork = load_master(root, package, registry)
+            paths.extend([manifest.relative_to(root), artwork.relative_to(root)])
+        else:
+            paths.extend([Path('scripts/zo_course_cover.py'), (root/source).parent.relative_to(root)/'giao_dien/anh_bia.json', load_cover(root,package,allow_direction_approved=bool(config.raw['extensions']['course_pdf_shell'].get('allow_direction_approved_preview'))).relative_to(root)])
     paths.extend(course_shared_label_inputs(root, source))
     declared = config.raw.get("extensions", {}).get("artifact_inputs", [])
     if not isinstance(declared, list) or not all(isinstance(p, str) for p in declared):

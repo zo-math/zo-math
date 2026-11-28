@@ -45,8 +45,9 @@ def source_checks(path,root=ROOT,text=None):
             c[f'row {n} reviewed task routes']=set(routes)==set(e['route_anchors'])
             c[f'row {n} link targets exist']=all(unquote(a) in anchors for a in knowledge+routes)
             c[f'row {n} route or explicit gap']=bool(routes) or 'Chưa có bài Sửa lỗi riêng' in r[3]
-        if layout=='question-remedy-v1':
-            c['layout bound in source']='data-zo-remediation-layout="'+layout+'"' in m[0]
+        if layout=='question-remedy-v1' or binding.get('return_routes'):
+            if layout=='question-remedy-v1':
+                c['layout bound in source']='data-zo-remediation-layout="'+layout+'"' in m[0]
             section=text[text.rfind('\n## ',0,m.start()):].split('\n## ',2)[1]
             routes=binding.get('return_routes',{})
             c['three contexts explicit']=set(routes)=={'practice','test','review'} and all(a in anchors and re.search(r'\]\(#'+re.escape(a)+r'\)',section) for a in routes.values())

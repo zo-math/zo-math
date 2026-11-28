@@ -71,14 +71,8 @@ def apply(target, page, output_root):
         card.clear()
         card['class'] = card.get('class', []) + ['zo-pdf-card']
         card.extend([copy_node, metric, link])
-    # This copy describes the actual downloads; do not imply current PDF parity.
-    intro = section.select_one('.reading-region > p')
-    if intro is None:raise ValueError('Missing source download introduction')
-    for node in intro.find_all(string=True):
-        if 'Số trang dưới đây' in str(node):
-            node.replace_with(str(node).replace(
-                'Số trang dưới đây được kiểm tra trực tiếp từ tệp PDF hiện hành.',
-                'Số trang được đọc từ các tệp PDF đang có; các bản PDF này chưa được đồng bộ với HTML mới.'))
+    if section.select_one('#huong-dan-tai-pdf, .reading-region > p') is None:
+        raise ValueError('Missing source download layout marker or introduction')
     trigger = target.select_one('.mobile-trigger')
     trigger['aria-label'] = 'Mở mục lục học liệu'
     trigger['title'] = 'Mở mục lục học liệu'

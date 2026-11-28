@@ -85,13 +85,19 @@ function M.references(doc,exact)
       doc = doc:walk({Div=function(div)
         if div.identifier ~= '' then
           div.content:insert(1,pandoc.RawBlock('latex',(exact and ('\\hypertarget{'..div.identifier..'}{}') or '')..'\\label{'..div.identifier..'}'))
+          -- The explicit anchor survives the print block transform. Clear the
+          -- identifier so the LaTeX writer does not emit a second label.
+          if exact then div.identifier='' end
         end
         if div.classes:includes('answer-link') then
           div.content:insert(1,pandoc.RawBlock('latex','\\nopagebreak[4]'))
         end
         return div
       end, Span=function(span)
-        if exact and span.identifier~='' then span.content:insert(1,pandoc.RawInline('latex','\\hypertarget{'..span.identifier..'}{}\\label{'..span.identifier..'}')) end
+        if exact and span.identifier~='' then
+          span.content:insert(1,pandoc.RawInline('latex','\\hypertarget{'..span.identifier..'}{}\\label{'..span.identifier..'}'))
+          span.identifier=''
+        end
         return span
       end, Link=function(link)
         if link.target:sub(1,1)=='#' then

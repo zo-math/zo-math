@@ -1,0 +1,36 @@
+% R1-G02, mục 4.1. Cùng tung độ 1, khác điều kiện đạt được.
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{backgrounds,arrows.meta}
+\input{zo_graph_v02.tex}
+\begin{document}
+\begin{tikzpicture}[zo graph v02 field]
+\zoGraphVTwoLayers
+\begin{axis}[
+  zo graph v02 axis,
+  xmin=-1.45,xmax=1.48,ymin=-0.26,ymax=1.33,
+  xtick={-1,1},ytick={1}
+]
+  \node[zo graph v02 font sentinel] at (axis cs:0,0) {x};
+  % Leave space for the ordinate label to the left of the y-axis.
+  \addplot[zo graph v02 auxiliary] coordinates {(-1,0) (-1,1) (-0.17,1)};
+  \addplot[zo graph v02 auxiliary] coordinates {(0,1) (1,1) (1,0)};
+  \addplot[zo graph v02 curve solid,domain=-1:1,samples=201,forget plot] {x^2};
+  \addplot[zo graph v02 point emphasized,forget plot] coordinates {(1,1)};
+  \addplot[zo graph v02 point open,forget plot] coordinates {(-1,1)};
+  \begin{pgfonlayer}{zoGraphVTwoTextLayer}
+    \node[zo graph v02 axis label,anchor=south east,inner sep=0pt,xshift=-5pt,yshift=5pt]
+      at (axis cs:\pgfkeysvalueof{/pgfplots/xmax},0) {$x$};
+    \node[zo graph v02 axis label,anchor=north west,inner sep=0pt,xshift=5pt,yshift=-5pt]
+      at (axis cs:0,\pgfkeysvalueof{/pgfplots/ymax}) {$y$};
+    \node[zo graph v02 protected label,anchor=south east,inner sep=0pt,xshift=-4pt,yshift=4pt]
+      at (axis cs:0.69,0.4761) {$y=x^2$};
+    \node[zo graph v02 tick label,anchor=north east,xshift=-2pt,yshift=-2pt]
+      at (axis cs:0,0) {$O$};
+  \end{pgfonlayer}
+\end{axis}
+\end{tikzpicture}
+\end{document}

@@ -127,7 +127,7 @@ def require_editorial_policy(document):
     require(lesson_display_checks(document,binding_path.parent.parent.name),"G03 graph layout HTML")
     for number,example in enumerate(examples,1):
         node=root.find(id=example['anchor'])
-        title=re.search(r'Ví dụ\s+(\d{2})\s+—\s+([^\n]+)',node.get_text(' ',strip=True)) if node else None
+        title=re.search(r'Ví dụ\s+(\d{2})(?:\s+\([^()]+\))?\s+—\s+([^\n]+)',node.get_text(' ',strip=True)) if node else None
         if not title or int(title.group(1))!=number:
             raise ValueError('Example title/continuous numbering differs from source binding: '+example['anchor'])
 
@@ -157,6 +157,10 @@ def presentation_checks(doc,data):
     """Four-page consistency contract, activated by its explicit package binding."""
     if not data.get('descriptive_task_titles'):return {}
     root=doc.select_one('.reader-content');checks={}
+    package=data['package'].lower().replace('-','_')
+    interface=ROOT/'content/thpt/on_thi_toan_thpt/hoc_lieu'/package/'giao_dien/html.json'
+    settings=json.loads(interface.read_text(encoding='utf-8')) if interface.is_file() else {}
+    presentation=settings.get('reading_presentation',{})
     from zo_course_reading_regions import require as require_reading_regions
     require_reading_regions(doc,data)
     for unit in data['units']:
@@ -164,7 +168,8 @@ def presentation_checks(doc,data):
         owner=root.find(id=unit['question']);title=owner.select_one('.zo-task-title') if owner else None
         checks[unit['id']+' shared visible question title']=bool(title and title.get_text(' ',strip=True)==unit['title'])
         if unit['function']=='function.guided_thinking':
-            checks[unit['id']+' invitation before explanation']=bool(owner and (('?' in owner.get_text(' ',strip=True)) if data.get('guided_prompt_contract')=='source-owned-question' else 'Thử trả lời trước khi đọc tiếp.' in owner.get_text(' ',strip=True)))
+            prompt_contract=presentation.get('guided_prompt_contract',data.get('guided_prompt_contract'))
+            checks[unit['id']+' invitation before explanation']=bool(owner and (('?' in owner.get_text(' ',strip=True)) if prompt_contract=='source-owned-question' else 'Thử trả lời trước khi đọc tiếp.' in owner.get_text(' ',strip=True)))
             checks[unit['id']+' local lesson prompt']=bool(owner and owner.find_parent(id='bai-hoc')) and not unit.get('answer')
             if unit.get('question_owner'):checks[unit['id']+' knowledge owner']=bool(owner and owner.find_parent(id=unit['question_owner']))
     for n,spec in enumerate(data.get('heading_context',[]),1):
@@ -181,7 +186,7 @@ def presentation_checks(doc,data):
     checks['source notes readable at the point of use']=not root.select('a.footnote-ref,section.footnotes') and all(n.get_text(' ',strip=True).startswith(tuple(data.get('source_note_prefixes',['Nguồn đối chiếu']))) and n.get_text(' ',strip=True).endswith('.') and not re.search(r'\b(?:SGK|KNTT|CTGDPT)\b|\btr\.',n.get_text(' ',strip=True)) for n in notes)
     checks['no bibliographic writing narration']=not any(re.search(r'Theo định nghĩa trong SGK|Theo phần .Chú ý. của SGK|Sách giáo khoa trình bày|Bản này dùng',p.get_text()) for p in root.select('#bai-hoc p') if not p.select('.zo-source-note'))
     calendar=root.find(id='on-lai').find('table')
-    calendar_spec=data.get('review_calendar',{})
+    calendar_spec=presentation.get('review_calendar',data.get('review_calendar',{}))
     if calendar_spec.get('format')=='prose':
         prose=root.find(id=calendar_spec.get('anchor',''))
         rounds=calendar_spec.get('rounds',[])
@@ -192,6 +197,14 @@ def presentation_checks(doc,data):
             and all(root.find(id=x) is not None for x in rounds)
             and 'ngày hoàn tất lượt chính' in prose.get_text(' ',strip=True)
             and 'ngày thực tế' in prose.get_text(' ',strip=True))
+    elif calendar_spec.get('format')=='round-intro':
+        intro=root.find(id=calendar_spec['anchor'])
+        rounds=settings.get('review_rounds',[])
+        headings={h.get('data-anchor-id'):h.get_text(' ',strip=True) for h in root.select('#on-lai h3[data-anchor-id]')}
+        checks['review calendar introduction and three round headings']=bool(
+            intro and len(rounds)==3 and len({r['view'] for r in rounds})==3
+            and {'#cp-kt','#nhat-ky'}<={a['href'] for a in intro.select('a[href]')}
+            and all(headings.get(r['view'])==r['label'] for r in rounds))
     else:
         checks['review calendar has three functional columns']=bool(calendar) and len(calendar.select('thead th'))==3 and len(calendar.select('tbody tr'))==3
     resources=[n for n in root.select('#on-nen details.r1-foundation-unit') if not n.find_parent('details')]

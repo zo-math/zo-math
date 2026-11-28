@@ -203,6 +203,7 @@ Khai báo tường minh bốn giới hạn của cửa sổ. Chọn theo đặc 
 - Với hàm bị chặn, cho thấy rõ các mức biên cần so sánh.
 - Với hàm tuần hoàn, vẽ số chu kỳ vừa đủ để đọc quy luật.
 - Giữ đối xứng cửa sổ khi nó giúp đọc đối xứng của hàm; không giữ chỉ để cân hình.
+- Khi phần âm của một trục không có dữ kiện cần đọc, chỉ chừa đoạn đủ để nhận ra gốc và chiều âm. Có thể rút ngắn phần này, như trục $Ox$ ở hình $y=x$ trên $[0;1)$ của R1-G02. Giữ các mốc, điểm, khoảng hở quanh gốc và tỉ lệ có ý nghĩa với nhiệm vụ.
 - Khi so sánh nhiều hình, dùng cùng thang đo nếu độ lớn là nội dung so sánh; nếu đổi thang phải nêu rõ.
 - Không mở rộng cửa sổ chỉ để nhét nhãn dài rồi làm phần dữ liệu chính nhỏ đi.
 
@@ -415,6 +416,8 @@ Không dùng quầng chữ dày hoặc viền trắng quanh từng ký tự làm
 
 Ưu tiên nhãn trực tiếp khi có một hoặc hai đường, công thức ngắn và vùng vẽ đủ thoáng. Đặt gần đường, thường gần phần cuối nhìn thấy nhưng không nằm trên mép cắt. Đường có thể chạm mép nền bảo vệ nhỏ của nhãn, nhưng không được chạy xuyên glyph; nền không được làm đường cong trông đứt hoặc che đặc điểm toán học.
 
+Dùng cùng một khoảng hở mục tiêu giữa mép hộp nhãn và nét đường mà nhãn gọi tên trong các đồ thị cùng kiểu. Chọn điểm neo trên đường, rồi đặt hộp chữ về phía thoáng bằng độ dịch theo đơn vị hiển thị. Chọn góc neo theo hướng của nét ngay tại chỗ đặt nhãn để cả hộp chữ cách đều mắt và không che nét. R1-G02 dùng mức thử 4 pt theo mỗi chiều khi dịch chéo và khoảng 5,7 pt khi dịch thẳng lên trên đoạn ngang. Đây là độ dịch của neo trong nguồn. Khoảng hở nhìn thấy còn tùy hướng của nét và kích thước hộp chữ, nên cần đối chiếu ở kích thước sử dụng.
+
 Nhãn công thức mặc định nằm ngang. Nhãn đường thẳng có thể nghiêng nhẹ theo hướng đường khi dễ đọc; không xoay nhãn gần thẳng đứng hoặc lộn ngược. Góc phải theo hướng hiển thị sau tỉ lệ trục, không lấy máy móc từ hệ số góc toán học.
 
 Không đặt công thức sát một đường khác hơn đường nó gọi tên. Không dùng nhãn “$f$” cho hai đường mà người đọc không thể phân biệt.
@@ -473,7 +476,7 @@ Giữ quy ước ZO Math về hai đầu mũi tên cho trục tiếp tục theo 
 
 Kiểu đầu mũi tên phải đồng nhất và được khóa trong style. Giữ kiểu `<->` của tài liệu nền làm điểm xuất phát; không chuyển sang một kiểu khác chỉ vì nó mới hơn.
 
-Nhãn $x$, $y$ ở gần đầu dương, ngoài đường trục và có khoảng thở. Không gắn cứng mọi nhãn vào cùng một góc cho tất cả hình.
+Với hệ trục ngang–dọc thông thường, lấy đầu mũi tên dương làm mốc. Đặt $x$ phía trên nét trục và lùi về trái so với đầu mũi tên. Đặt $y$ bên phải nét trục và lùi xuống dưới đầu mũi tên. Dùng cùng độ dịch theo đơn vị hiển thị cho các hình cùng kiểu và kiểm toàn bộ hộp nhãn để chữ tách khỏi nét trục, mũi tên và các dữ kiện gần đó. Mức thử trong R1-G02 là 5 pt theo mỗi chiều, với neo `south east` cho $x$ và `north west` cho $y$. Khi cửa sổ hoặc dữ kiện buộc phải đổi phía, kiểm lại khoảng hở và sự nhất quán của các hình đặt cạnh nhau.
 
 **Hiệu chỉnh thực thi AXIS-END-TICKS-20261019 theo chỉ thị chủ trì:** không có vạch chia (tick) tại hai đầu mũi tên của mỗi trục. Giữ mũi tên, tọa độ và nhãn số có ý nghĩa; không dịch giới hạn trục hoặc bỏ vạch bên trong để che lỗi. Không cần vạch phải dùng `\empty`, không dùng `{}` vì PGFPlots sẽ tự sinh vạch. Style 0.4 và phép kiểm nét vector của công cụ đồ thị thực thi quy tắc này; kiểm hash/phông hoặc quan sát ở ảnh thu nhỏ không thay được kiểm đầu trục.
 
@@ -520,6 +523,8 @@ Với khoảng trên trục số, đoạn hữu hạn có đầu mút phù hợp
 Chỉ chiếu những tọa độ phục vụ nhiệm vụ. Nếu điểm được dùng để đọc cặp tọa độ, mặc định chiếu tới hai trục; bỏ nhánh chiếu có độ dài bằng không hoặc không được nhiệm vụ yêu cầu.
 
 Đường chiếu không kéo xuyên toàn hình, không có mũi tên; kết thúc tại tâm điểm và được marker vẽ sau che đầu nét. Không tạo hai nhãn khác nhau cho cùng một vạch ở chân chiếu.
+
+Mỗi nét đứt chỉ nối điểm với mốc tọa độ cần đọc. Khi hai điểm cùng tung độ và cả hai hoành độ đều là dữ kiện, giữ đường chiếu đứng của từng điểm. Có thể dùng cùng một đường ngang để đọc tung độ chung và chừa chỗ cho nhãn số trên trục tung.
 
 ### 8.8. Miền tô
 
@@ -721,6 +726,7 @@ Người dùng nói “nút hoạt động” hoặc “không tràn” không c
 | V08 | Các đường cong chỉ dùng đỏ ZO Math, cùng 1,1 pt và đúng thứ tự liền/đứt/gạch–chấm | Đối chiếu nguồn, SVG và bản grayscale |
 | V09 | Nhãn trực tiếp hoặc mẫu nét chú giải gọi đúng đường; không cắt chữ, không nét xuyên glyph | Kiểm nguồn và ảnh ở kích thước dùng thật |
 | V10 | Đường phụ toán học không bị nhầm với đường cong nét đứt | Xem vai trò, nhãn, lớp và mẫu dash |
+| V11 | Nhãn trục đặt nhất quán và tách khỏi nét; nhãn đường có khoảng hở tương đương; phần âm của trục và các nét chiếu vừa đủ để đọc dữ kiện | So từng đồ thị và từng ô hình ghép ở kích thước sử dụng |
 | T01 | Dựng không có lỗi/thiếu font/style | Log và mã thoát |
 | T02 | PDF vector/SVG đúng hộp bao | Kiểm tài sản |
 | T03 | PDF và SVG tương đương | Đối chiếu hai bản |
@@ -962,4 +968,4 @@ Không sửa tệp cũ, không đổi cấu trúc repository, không thay hình/
 
 G01–G03 sở hữu TEX và cấu hình nhãn tại gói; máy dựng không sinh lại các TEX ấy. G04 sở hữu `du_lieu/hinh_do_thi.json` và `_quy_trinh/sinh_hinh.py`; TEX trong `hinh/` là đầu ra trung gian. Cả bốn gói gọi cùng máy đồ thị trong bộ `zo_math_graphics` qua adapter. Khi TEX G04 khác kết quả sinh từ nguồn khai báo, công cụ phải dừng trước ghi đè; chỉ dùng `--update-sources` sau khi đã đọc chênh lệch và sửa JSON/bộ sinh theo yêu cầu được duyệt. Không coi việc dùng đúng máy dựng là bằng chứng nhãn và toán đã đúng.
 
-Nhãn tọa độ phải gắn với đúng điểm được chú thích, đọc được và không che nét đồ thị hoặc vạch/nhãn trục. Kiểm nhãn tại hình độc lập và tại HTML/PDF sau chèn. Khi sửa, giữ công thức, điểm, cửa sổ toán và khung đã chốt; không sửa SVG/PDF đầu ra.
+Nhãn tọa độ phải gắn với đúng điểm được chú thích, đọc được và không che nét đồ thị hoặc vạch/nhãn trục. Kiểm nhãn tại hình độc lập và tại HTML/PDF sau chèn. Khi chỉnh bố cục, giữ công thức, miền đang xét, tọa độ và khung đã chốt. Chỉ điều chỉnh cửa sổ quan sát theo Mục 4.6. Sửa tại nguồn rồi dựng lại SVG/PDF vector.

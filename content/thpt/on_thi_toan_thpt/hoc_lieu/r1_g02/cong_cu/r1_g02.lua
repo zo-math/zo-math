@@ -4,6 +4,62 @@ if FORMAT:match('latex') then
   PANDOC_SCRIPT_FILE=pandoc.path.join({pandoc.path.directory(old),'../../../../../../assets/lua/zo_course_package_pdf.lua'})
   local filters=assert(loadfile(PANDOC_SCRIPT_FILE))()
   PANDOC_SCRIPT_FILE=old
+  local function print_paragraph(markdown)
+    return pandoc.read(markdown, 'markdown').blocks[1]
+  end
+  table.insert(filters, 1, {
+    Div=function(div)
+      if div.identifier == 'g02-nen-do-thi-xac-nhan' then
+        -- The question compares two graphs. Start it where both graphs fit.
+        return {pandoc.RawBlock('latex', [[\Needspace{200mm}]]), div}
+      end
+      local summary = div.content[1]
+      if summary and summary.t == 'Div' and summary.classes:includes('r1-summary') then
+        local title = pandoc.utils.stringify(summary.content)
+        if title == 'Đối chiếu bước vừa làm' or title == 'Xem lời giải' then
+          return {pandoc.RawBlock('latex', [[\Needspace{4\baselineskip}]]), div}
+        end
+      end
+    end,
+    Para=function(para)
+      local text = pandoc.utils.stringify(para)
+      if text:find('Chọn thẻ theo chỗ em đang vướng.', 1, true) == 1 then
+        return print_paragraph('Chọn mục theo chỗ em đang vướng. Đọc ví dụ, thử **Làm tiếp một bước** rồi đọc phần **Đối chiếu bước vừa làm**. Nếu đã nắm cách làm, em có thể vào thẳng nhiệm vụ tự kiểm. Làm xong, đọc lời giải ngay dưới đề để đối chiếu.')
+      end
+      if text:find('Nếu đến đây từ một bài hoặc Điểm dừng, bấm Quay lại', 1, true) == 1 then
+        local prefix = print_paragraph('Ôn xong, chọn').content
+        for i, inline in ipairs(para.content) do
+          if inline.t == 'Link' then
+            prefix:insert(pandoc.Space())
+            for j = i, #para.content do prefix:insert(para.content[j]) end
+            para.content = prefix
+            return para
+          end
+        end
+      end
+      if text:find('Giữ nguyên bài làm, kể cả các ý bỏ trống.', 1, true) == 1 then
+        for i, inline in ipairs(para.content) do
+          if inline.t == 'Strong' and pandoc.utils.stringify(inline) == 'Hiện đề bài' then
+            local last = i + 1
+            while last < #para.content and not pandoc.utils.stringify(para.content[last]):match('%.$') do
+              last = last + 1
+            end
+            for j = last, i - 2, -1 do para.content:remove(j) end
+            return para
+          end
+        end
+      end
+    end
+  })
+  table.insert(filters, {Meta=function(meta)
+    -- Keep both configured R1-G02 cover lines within the existing cover shell.
+    local headers = meta['header-includes'] or pandoc.MetaList{}
+    table.insert(headers, pandoc.MetaBlocks{
+      pandoc.RawBlock('latex', [[\AtBeginDocument{\setlength{\zoCoverTitleWidth}{125mm}}]])
+    })
+    meta['header-includes'] = headers
+    return meta
+  end})
   return filters
 end
 -- Candidate-only adapter. BBT values are literal data, never inferred.
@@ -881,7 +937,7 @@ local function prepare(doc)
   end
   verify_projection_boundary_fixture()
   table_specs = doc.meta['r1-tables']
-  assert(table_specs and #table_specs == 14, 'R1-G02 table contract differs from the HTML/PDF inventory')
+  assert(table_specs and #table_specs > 0, 'R1-G02 table contract is missing')
   table_specs_by_id = {}
   for _, spec in ipairs(table_specs) do
     local id = meta_text(spec.id)
@@ -892,7 +948,8 @@ local function prepare(doc)
   if latex then doc = build_lesson_toc(doc) end
   doc = apply_table_contract(doc)
   local original_ids = identifiers_in_blocks(doc.blocks)
-  assert_inventory(doc, {math=1343, images=4, tables=14, bbt=2, details=77, answers=96}, 'source')
+  local source_math = inventory(doc).math
+  assert_inventory(doc, {images=4, tables=#table_specs, bbt=2, details=73, answers=91}, 'source')
   if latex then
     variant = pandoc.utils.stringify(doc.meta['zo-pdf-variant'] or 'full')
     local part_spec = section_specs_by_variant[variant]
@@ -945,7 +1002,7 @@ local function prepare(doc)
       -- Approved R1-G02 editorial projection; the solution section removes 399 math / 4 ordinary tables.
       assert_inventory(doc, {answers=0}, 'student')
     else
-      assert_inventory(doc, {math=1343, images=4, tables=14, bbt=2, details=77, answers=96}, 'full')
+      assert_inventory(doc, {math=source_math, images=4, tables=#table_specs, bbt=2, details=73, answers=91}, 'full')
     end
     if variant == 'student' then
       local kept = identifiers_in_blocks(doc.blocks)

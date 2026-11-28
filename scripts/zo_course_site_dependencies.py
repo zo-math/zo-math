@@ -75,7 +75,7 @@ def build_sources(root, context):
             files.update(p for p in contracts.glob(pattern)
                          if p.name != 'ban_dang_duyet.json')
         files.update(p for p in contracts.rglob('*.yml')
-                     if 'lich_su' not in p.parts)
+                     if not {'lich_su', 'ban_thao'}.intersection(p.parts))
         files.update(p for p in contracts.rglob('*.yaml')
-                     if 'lich_su' not in p.parts)
+                     if not {'lich_su', 'ban_thao'}.intersection(p.parts))
     return files

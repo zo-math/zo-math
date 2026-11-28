@@ -152,9 +152,12 @@ def verify_print():
     return directory,receipt
 
 def verify_print_source(text,config):
-    references=re.findall(r'\]\(([^)]+do_thi_\d{2}(?:_[ab])?\.svg)\)',text)
+    from zo_course_editorial import closure
+    sources = closure(PACKAGE / 'index.qmd', ROOT, text)
+    pattern = r'\]\(([^)]+do_thi_\d{2}(?:_[ab])?\.(?:svg|pdf))\)'
+    references = {reference for source in sources.values() for reference in re.findall(pattern, source)}
     expected={config['asset_directory']+'/'+name+'.svg' for name in config['graphs']}
-    if set(references)!=expected or len(references)!=len(expected):
+    if references != expected:
         raise ValueError('QMD graph references must select exactly the current shared SVG/PDF pairs; legacy paths are forbidden.')
 
 def apply(target, page, output_root):

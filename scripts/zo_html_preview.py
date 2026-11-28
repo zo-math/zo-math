@@ -36,7 +36,9 @@ def occupied(port):
     try:
         with socket.create_connection(('127.0.0.1', port), timeout=.3):
             return True
-    except OSError:
+    except OSError as exc:
+        if isinstance(exc, PermissionError) or getattr(exc, 'winerror', None) == 10013:
+            raise PermissionError('Windows denied local preview socket access (10013); server readiness cannot be checked.') from exc
         return False
 
 
@@ -44,7 +46,10 @@ def matches(url, expected):
     try:
         with HTTP.open(url, timeout=2) as response:
             return response.status == 200 and hashlib.sha256(response.read()).hexdigest() == expected
-    except (OSError, URLError):
+    except (OSError, URLError) as exc:
+        cause = exc.reason if isinstance(exc, URLError) else exc
+        if isinstance(cause, PermissionError) or getattr(cause, 'winerror', None) == 10013:
+            raise PermissionError('Windows denied local preview socket access (10013); server readiness cannot be checked.') from exc
         return False
 
 

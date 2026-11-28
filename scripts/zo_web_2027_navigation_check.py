@@ -14,15 +14,15 @@ from zo_web_2027_navigation import ROOT, PAGES, require, destinations
 from unittest.mock import patch
 from zo_web_2027_check import Browser, edge_executable
 
-def source_checks(text_overrides=None):
+def source_checks(text_overrides=None, *, include_generated=True):
     """Check shared destinations without rendering or reading generated HTML."""
-    expected=['home','d0','g01','g02','g03','g04','g05','r2_g01','r2_g02']
+    expected=list(PAGES)
     output=ROOT/'docs'
     from zo_web_2027_production import runtime_source_checks
     values=runtime_source_checks(ROOT)
     from zo_build_on_thi import outputs,BuildError
     try:
-        for source,content in outputs().items():
+        for source,content in (outputs().items() if include_generated else []):
             values['course generated source current '+source.relative_to(ROOT).as_posix()]=(source.is_file() and source.read_text(encoding='utf-8')==content.rstrip()+'\n')
     except (BuildError,OSError,ValueError,KeyError,TypeError) as exc:
         values['course catalog and generated sources readable: '+str(exc)]=False

@@ -19,7 +19,23 @@ PAGES = {
     'g05': (BASE / 'hoc_lieu/r1_g05/index.html', 'Ứng dụng đạo hàm trong thực tiễn'),
     'r2_g01': (BASE / 'hoc_lieu/r2_g01/index.html', 'Đọc dữ liệu và đo xu thế trung tâm'),
     'r2_g02': (BASE / 'hoc_lieu/r2_g02/index.html', 'Đo độ phân tán của dữ liệu'),
+    'r3_g01': (BASE / 'hoc_lieu/r3_g01/index.html', 'Vectơ, tọa độ và tích vô hướng — từ mặt phẳng đến không gian'),
+    'r3_g02': (BASE / 'hoc_lieu/r3_g02/index.html', 'Đường thẳng trong mặt phẳng tọa độ'),
+    'r3_g03': (BASE / 'hoc_lieu/r3_g03/index.html', 'Đường tròn và tiếp tuyến trong mặt phẳng tọa độ'),
+    'r3_g04': (BASE / 'hoc_lieu/r3_g04/index.html', 'Đường thẳng và mặt phẳng trong không gian: xác định mặt phẳng, giao điểm và giao tuyến'),
+    'r3_g05': (BASE / 'hoc_lieu/r3_g05/index.html', 'Quan hệ song song trong không gian: hai đường thẳng và đường thẳng với mặt phẳng'),
 }
+# Keep the native intermediate menu aligned with the canonical catalog as
+# packages are integrated. Existing R1 aliases remain stable for callers.
+_catalog = yaml.safe_load((ROOT / BASE / 'tot_nghiep_thpt/2027/_data/chuong_trinh.yml').read_text(encoding='utf-8'))
+for _package in _catalog['packages']:
+    _id = _package['id']
+    _key = _id.removeprefix('r1_') if _id.startswith('r1_') else _id
+    if _key not in PAGES:
+        _relative = BASE / 'hoc_lieu' / _id / 'index.html'
+        _source = ROOT / _relative.with_suffix('.qmd')
+        _metadata = yaml.safe_load(_source.read_text(encoding='utf-8').split('---', 2)[1])
+        PAGES[_key] = (_relative, _metadata['title'])
 ICONS = {
     'home': '<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/>',
     'list': '<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
@@ -74,7 +90,9 @@ def require(doc, page, output_root, key, preview_entry=None):
 
 def apply(doc, page, output_root, runtime, key, preview_entry=None):
     from zo_web_2027_navigation_check import source_checks
-    failures=[name for name,passed in source_checks().items() if not passed]
+    # The native menu reads catalog/QMD sources, not Home's generated cards
+    # or covers. Their freshness belongs to the Home build, not this page.
+    failures=[name for name,passed in source_checks(include_generated=False).items() if not passed]
     if failures:raise ValueError('Course source navigation: '+'; '.join(failures))
     protected = [str(n) for n in doc.select('main,.rail,footer.site-footer')]
     logo = str(doc.select_one('.site-top > a:first-child'))

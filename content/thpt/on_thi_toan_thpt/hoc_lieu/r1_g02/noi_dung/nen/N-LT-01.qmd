@@ -3,11 +3,11 @@
 Liên tục và đạo hàm tại điểm ghép
 :::
 
-**Dùng khi:** em nhìn đạo hàm hai phía rồi bỏ qua giá trị ở điểm ghép hoặc nhầm liên tục với có đạo hàm.
+**Dùng thẻ này khi** hàm đổi công thức tại một điểm và em chưa biết cần tính gì ở đó.
 
-**Nhớ lại.** Kiểm tra liên tục tại một điểm bằng giá trị hàm và hai giới hạn một phía. Muốn kiểm tra đạo hàm tại điểm ghép, dùng các thương sai phân một phía dựa trên đúng giá trị hàm ở điểm đó. Có đạo hàm kéo theo liên tục; chiều ngược không luôn đúng.
+**Nhớ lại.** Nếu hàm có đạo hàm tại một điểm thì hàm liên tục tại điểm đó. Hàm liên tục tại một điểm vẫn có thể không có đạo hàm tại đó.
 
-**Ví dụ hướng dẫn.** $a(x)=|x|$ liên tục tại $0$. Với $h>0$, thương sai phân bằng $1$; với $h<0$, bằng $-1$. Hai giới hạn không bằng nhau nên $a^\prime(0)$ không tồn tại.
+
 
 **Cách tính tại điểm ghép.** Với điểm ghép $x_0$, tính giá trị $f(x_0)$ theo nhánh chứa điểm đó, rồi tính riêng giới hạn của hai nhánh khi $x$ tiến đến $x_0$ từ trái và từ phải. Hàm liên tục tại $x_0$ khi cả hai giới hạn tồn tại và bằng đúng $f(x_0)$.
 
@@ -19,9 +19,9 @@ $$
 
 Tính riêng giới hạn khi $h\to0^-$ và $h\to0^+$. Đạo hàm tại $x_0$ tồn tại khi hai giới hạn hữu hạn và bằng nhau. Không lấy đạo hàm của một nhánh rồi gán ngay cho điểm ghép.
 
-Ở ví dụ $a(x)=|x|$, ta có $a(0)=0$; hai giới hạn của $|x|$ đều bằng $0$. Thương sai phân là $\frac{\lvert h\rvert}{h}$, bằng $-1$ khi $h<0$ và bằng $1$ khi $h>0$. Vì vậy liên tục và có đạo hàm là hai câu hỏi khác nhau.
+**Ví dụ hướng dẫn.** Với $a(x)=\lvert x\rvert$, ta có $a(0)=0$ và hai giới hạn một phía của $a$ tại $0$ đều bằng $0$, nên $a$ liên tục tại $0$. Thương sai phân $\frac{\lvert h\rvert}{h}$ bằng $-1$ khi $h<0$ và bằng $1$ khi $h>0$. Hai giới hạn của thương này khác nhau, nên $a^\prime(0)$ không tồn tại.
 
-**Làm tiếp một bước.** Với $b(x)=\lvert x-1\rvert$, ta có $b(1)=0$ và hai giới hạn một phía đều bằng $0$. Điền các giá trị của $\frac{b(1+h)-b(1)}{h}=\frac{\lvert h\rvert}{h}$ khi $h<0$ và $h>0$. Khi tìm lớn nhất, nhỏ nhất trên $[0;3]$, có được bỏ $x=1$ khỏi danh sách cần xét không?
+**Làm tiếp một bước.** Với $b(x)=\lvert x-1\rvert$, ta có $b(1)=0$ và hai giới hạn một phía tại $1$ đều bằng $0$. Tính thương sai phân $\frac{b(1+h)-b(1)}{h}=\frac{\lvert h\rvert}{h}$ khi $h<0$ và khi $h>0$. Khi tìm giá trị lớn nhất và nhỏ nhất trên $[0;3]$, có cần xét $x=1$ không? Vì sao?
 
 :::: {.r1-details .zo-learning-guidance}
 ::: {.r1-summary .zo-learning-summary}
@@ -37,34 +37,39 @@ Thương sai phân bằng $-1$ khi $h<0$, bằng $1$ khi $h>0$, nên $b^\prime(1
 
 $$
 u(x)=\begin{cases}
-3x+2 & \text{khi } x<0,\\
-2-x & \text{khi } x\geq0.
+2x+1 & \text{khi } x<1,\\
+4-x & \text{khi } x\geq1.
 \end{cases}
 $$
 
-Kiểm tra tính liên tục và sự tồn tại của $u^\prime(0)$. Dấu dương bên trái, âm bên phải có cho phép kết luận cực đại tại $0$ không? Giải thích bằng định lí hoặc so sánh giá trị gần $0$.
+1. Hàm $u$ có liên tục tại $x=1$ không? Tại đó, $u$ có đạo hàm không?
+2. Khi tìm giá trị lớn nhất và nhỏ nhất của $u$ trên $[0;3]$, có cần xét $x=1$ không? Giải thích và nêu các điểm còn lại cần xét.
 
 :::: {#lg-nen-n-lt-01 .r1-details .r1-solution .zo-learning-solution}
 ::: {.r1-summary .zo-learning-summary}
-Đáp án và tiêu chí
+Xem lời giải
 :::
 
-Hai giới hạn và $u(0)$ đều bằng $2$, nên liên tục. Thương sai phân trái có giới hạn $3$, phải có giới hạn $-1$, nên không có đạo hàm tại $0$. Hàm đạt cực đại tại $0$ vì liên tục và đổi từ tăng sang giảm; cũng có thể thấy $u(x)<2=u(0)$ với mọi $x\ne0$ đủ gần. Đạt khi tách đủ ba câu hỏi: liên tục, đạo hàm, cực trị.
+Hai giới hạn một phía tại $1$ đều bằng $3=u(1)$, nên $u$ liên tục tại $1$. Với $h<0$, thương sai phân $\frac{u(1+h)-u(1)}{h}$ bằng $2$. Với $h>0$, thương đó bằng $-1$. Hai giới hạn một phía khác nhau nên $u^\prime(1)$ không tồn tại.
+
+Cần xét $x=1$ vì điểm này thuộc đoạn và hàm có giá trị tại đó dù $u^\prime(1)$ không tồn tại. Trên $(0;1)$, $u^\prime(x)=2$. Trên $(1;3)$, $u^\prime(x)=-1$. Đạo hàm không bằng $0$ trên cả hai khoảng này, nên ngoài $x=1$, chỉ cần xét hai đầu mút $x=0$ và $x=3$.
 
 ::::
 
 []{#nen-n-lt-01-xn02}
 
-**Xác nhận hẹp nếu lỗi là bỏ điều kiện liên tục.** Giữ hai công thức trên khi $x\ne0$ nhưng đặt giá trị tại $0$ bằng $4$. Có được dùng định lí đổi dấu đã học không; các giá trị ở đủ gần $0$ so với giá trị $4$ tại điểm ghép thế nào?
+**Làm thêm nếu em quên kiểm tra tính liên tục.** Giữ hai công thức trên khi $x\ne1$ và đặt $u(1)=0$. Có thể dùng định lí về dấu của đạo hàm để kết luận $u$ đạt cực đại tại $1$ không? So sánh $u(1)$ với $u(x)$ cho mọi $x\in[0;3]$ khác $1$, rồi kết luận về giá trị nhỏ nhất.
 
 :::: {#lg-nen-n-lt-01-xac-nhan .r1-details .r1-solution .zo-learning-solution}
 ::: {.r1-summary .zo-learning-summary}
-Đáp án xác nhận hẹp
+Xem lời giải
 :::
 
-Hàm không liên tục vì giới hạn là $2$ nhưng giá trị là $4$, nên không gọi định lí đó. Các giá trị ở đủ gần nhỏ hơn $4$. Không yêu cầu phân loại cực trị theo quy ước chưa dạy.
+Hai giới hạn một phía tại $1$ vẫn bằng $3$, còn $u(1)=0$, nên $u$ không liên tục tại $1$. Điều kiện liên tục của định lí về dấu của đạo hàm không được thỏa mãn.
+
+Với $0\le x<1$, ta có $u(x)=2x+1\ge 1$. Với $1<x\le3$, ta cũng có $u(x)=4-x\ge 1$. Vì $u(1)=0$, giá trị nhỏ nhất trên $[0;3]$ bằng $0$ và chỉ đạt tại $x=1$.
 
 ::::
 
-**Quay về:** đúng câu về điểm ghép hoặc Điểm dừng đã gọi. Tự làm câu xác nhận trước khi mở đáp án; câu hẹp chỉ xác nhận việc kiểm điều kiện liên tục, không chứng nhận toàn bộ kĩ năng ở điểm ghép. Nếu câu phù hợp đã gặp trước đó hoặc còn sai, ghi “Chưa có bài mới để xác nhận thêm ở mục tiêu này”, xem lại cách tính phía trên và ghi mục tiêu chưa xác nhận; không ghi đạt chỉ từ hình dáng quen thuộc hoặc làm lại đáp án đã biết.
+**Khi quay lại bài đang làm,** tính giá trị tại điểm ghép trước khi so sánh các giới hạn một phía. Giữ điểm ghép trong danh sách so sánh nếu nó thuộc tập đang xét.
 :::::

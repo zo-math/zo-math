@@ -16,7 +16,7 @@
   xmin=-5,xmax=7,ymin=-22,ymax=13,
   restrict y to domain=-22:13,
   xtick={-2,5},ytick=\empty,
-  xlabel={$x$},ylabel={$f^\prime(x)$},
+  xlabel={$x$},ylabel={$y$},
   every axis x label/.append style={at={(axis description cs:0.985,0.63)},anchor=south east},
   every axis y label/.append style={at={(axis description cs:0.42,0.985)},anchor=north west}
 ]
@@ -29,6 +29,8 @@
     {-(x+2)^2*(x-5)/8};
   \addplot[zo graph v02 point emphasized,forget plot] coordinates {(-2,0) (5,0)};
   \begin{pgfonlayer}{zoGraphVTwoTextLayer}
+    \node[zo graph v02 tick label,anchor=north west]
+      at (axis cs:-4.56,10.92) {$y=f^\prime(x)$};
     \node[zo graph v02 tick label,anchor=north east,xshift=-2pt,yshift=-2pt]
       at (axis cs:0,0) {$O$};
   \end{pgfonlayer}

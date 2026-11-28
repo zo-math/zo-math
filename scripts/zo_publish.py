@@ -789,7 +789,7 @@ def course_pdf_issues(public: Path, files: set[str], source_root: Path | None = 
         if result.returncode != 0:
             raise RuntimeError('Committed PDF validator failed: ' + result.stderr)
         return json.loads(result.stdout)
-    from zo_pdf_contract import validate_canonical_pdf_provenance
+    from zo_pdf_print_state import validate_pdf_print_provenance
     source_root = Path(__file__).resolve().parents[1]
     issues = []
     inherited_pdfs = inherited_pdfs or {}
@@ -806,7 +806,7 @@ def course_pdf_issues(public: Path, files: set[str], source_root: Path | None = 
             relative = prefix + '/' + definition['output']
             if relative not in files:
                 continue
-            errors = [] if relative in inherited_pdfs else validate_canonical_pdf_provenance(source_root, source_root / prefix / 'index.qmd', variant=variant)
+            errors = [] if relative in inherited_pdfs else validate_pdf_print_provenance(source_root, source_root / prefix / 'index.qmd', variant=variant)
             if errors:
                 issues.append({'type':'stale-course-pdf', 'path':relative, 'variant':variant, 'errors':errors})
             canonical = source_root / relative

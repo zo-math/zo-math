@@ -211,6 +211,7 @@ def apply(doc,data,area_labels=None,root=ROOT):
     require(binding_checks(data,root),"binding")
     if data.get("display_contract")!=VERSION:raise ValueError("Explicit QD_025 display contract required")
     reader=doc.select_one(".reader-content");vocab=contract(root)
+    omit_labels = omit_reader_context_labels(reader, root)
     for u in data["units"]:
         for target,kind in [(u["question"],"question"),(u.get("answer"),"answer")]:
             shown_label=context_unit_label(u,kind,data,root)
@@ -222,28 +223,28 @@ def apply(doc,data,area_labels=None,root=ROOT):
             node["data-zo-type"]="solution" if kind=="answer" else "task"
             node["data-zo-function"]=u["function"];node["data-zo-task"]=u["id"]
             if u.get("number") is not None:node["data-zo-number"]=str(u["number"])
-            put_label(doc,title,context_unit_label(u,kind,data,root))
+            if not omit_labels:put_label(doc,title,shown_label)
     for anchor,label in data["checkpoints"].items():
         if uses_context_labels(data):label=context_policy(root)["joiner"].join(data["checkpoint_context"][anchor]).upper()
         node=reader.find(id=anchor)
         if node is None:raise ValueError("Missing checkpoint "+anchor)
         headings=node.select("h2,h3,h4,h5,h6")
         if not headings:raise ValueError("Checkpoint lacks heading "+anchor)
-        put_label(doc,headings[0],label)
+        if not omit_labels:put_label(doc,headings[0],label)
     for u in data["knowledge_units"]:
         node=reader.find(id=u["anchor"])
         if node is None or not node.find_parent(id=u["owner"]):raise ValueError("Wrong knowledge owner "+u["id"])
         title=find_title(node,u["title"]);type_name=vocab["terms"][u["type"]]["name"]
         node["data-zo-type"]=u["type"].removeprefix("type.");node["data-zo-unit"]=u["id"]
-        if not omit_type_label(u["title"],type_name):put_label(doc,title,type_name)
+        if not omit_labels and not omit_type_label(u["title"],type_name):put_label(doc,title,type_name)
     for u in data["examples"]:
         node=reader.find(id=u["anchor"])
         if node is None or not node.find_parent(id=u["owner"]):raise ValueError("Wrong example owner "+u["id"])
         node["data-zo-type"]="example";node["data-zo-unit"]=u["id"]
         # The full example title already carries its type and number.
         title=find_title(node,u["title"])
-        if not omit_type_label(title.get_text(" ",strip=True),vocab["terms"]["type.example"]["name"]):put_label(doc,title,"Ví dụ")
-    for paper in reader.select(".reading-region"):
+        if not omit_labels and not omit_type_label(title.get_text(" ",strip=True),vocab["terms"]["type.example"]["name"]):put_label(doc,title,"Ví dụ")
+    for paper in ([] if omit_labels else reader.select(".reading-region")):
         typed=paper.find_parent(attrs={"data-zo-task":True}) or paper.find_parent(attrs={"data-zo-unit":True})
         if typed or paper.select("[data-reading-label]"):continue
         owner=next((n for n in paper.parents if n.get("id") in (area_labels or {})),None)
@@ -261,6 +262,7 @@ def html_checks(doc,data,root=ROOT):
     from zo_course_learning_goals import html_checks as goal_html_checks
     if data.get("learning_goals"):checks.update(goal_html_checks(doc,data["learning_goals"]))
     if reader is None:return {"reader exists for visible labels":False}
+    omit_labels = reader.get("data-zo-omit-context-labels") == "true"
     for u in data["units"]:
         for target,kind in [(u["question"],"question"),(u.get("answer"),"answer")]:
             shown_label=context_unit_label(u,kind,data,root)
@@ -269,7 +271,9 @@ def html_checks(doc,data,root=ROOT):
             label_owner=node.find_parent('details') if target=='lg-cg01' and node else node
             # A section may also own child explanations with the same short
             # area label. Exact title adjacency is checked separately below.
-            checks[key+" metadata/label same owner"]=bool(node and label_owner and node.get("data-zo-function")==u["function"] and node.get("data-zo-task")==u["id"] and any(n.get_text(" ",strip=True)==shown_label for n in label_owner.select("[data-reading-label]")))
+            checks[key+" task metadata matches binding"]=bool(node and node.get("data-zo-function")==u["function"] and node.get("data-zo-task")==u["id"])
+            if not omit_labels:
+                checks[key+" label within task owner"]=bool(label_owner and any(n.get_text(" ",strip=True)==shown_label for n in label_owner.select("[data-reading-label]")))
             if data.get("display_contract")==VERSION and node:
                 owner=node.find_parent(id=u.get(kind+"_owner")) if u.get(kind+"_owner") else None
                 checks[key+" structural owner matches binding"]=owner is not None
@@ -279,11 +283,17 @@ def html_checks(doc,data,root=ROOT):
                 wording=u.get("answer_title",u.get("title")) if kind=="answer" else u.get("title")
                 try:title=find_title(node,wording,u.get("title_selector") if kind=="question" else None)
                 except ValueError:title=None
-                label=(title.find(attrs={"data-reading-label":True},recursive=False) if title.name=="summary" else title.find_previous_sibling()) if title else None
-                checks[key+" label adjacent to title with shared style"]=bool(label and label.has_attr("data-reading-label") and "role" in label.get("class",[]) and label.get_text(" ",strip=True)==shown_label)
+                checks[key+" declared task title exists"]=title is not None
+                if not omit_labels:
+                    label=(title.find(attrs={"data-reading-label":True},recursive=False) if title.name=="summary" else title.find_previous_sibling()) if title else None
+                    checks[key+" label adjacent to title with shared style"]=bool(label and label.has_attr("data-reading-label") and "role" in label.get("class",[]) and label.get_text(" ",strip=True)==shown_label)
     for anchor,label in data.get("checkpoints",{}).items():
         if uses_context_labels(data):label=context_policy(root)["joiner"].join(data["checkpoint_context"][anchor]).upper()
-        node=reader.find(id=anchor);checks[anchor+" checkpoint visible label"]=bool(node and any(n.get_text(" ",strip=True)==label for n in node.select("[data-reading-label]")))
+        node=reader.find(id=anchor)
+        if omit_labels:
+            checks[anchor+" checkpoint has heading"]=bool(node and node.select_one("h2,h3,h4,h5,h6"))
+        else:
+            checks[anchor+" checkpoint visible label"]=bool(node and any(n.get_text(" ",strip=True)==label for n in node.select("[data-reading-label]")))
     vocab=contract(root)
     for u in data.get("knowledge_units",[]):
         node=reader.find(id=u["anchor"]);label=vocab["terms"][u["type"]]["name"]
@@ -314,6 +324,10 @@ def _context_policy_cached(path,mtime_ns):
 def context_policy(root=ROOT):
     path=Path(root)/CATALOG
     return _context_policy_cached(str(path.resolve()),path.stat().st_mtime_ns)
+
+def omit_reader_context_labels(reader, root=ROOT):
+    return (reader.get("data-zo-omit-context-labels") == "true"
+            or context_policy(root).get("omit_in_reader") is True)
 
 def context_unit_label(unit, kind, data, root=ROOT):
     if not uses_context_labels(data):
@@ -372,17 +386,25 @@ def apply_context_labels(doc,data,root=ROOT):
     if not uses_context_labels(data):return
     reader=doc.select_one(".reader-content")
     for label in list(reader.select("[data-reading-label]")):label.decompose()
+    reader["data-zo-context-labels"]=CONTEXT_MODE
+    if omit_reader_context_labels(reader, root):
+        reader["data-zo-omit-context-labels"]="true"
+        return
     for heading,unit,kind in context_targets(reader,data):
         label=doc.new_tag("span",attrs={"class":"role","data-reading-label":""})
         label.string=context_unit_label(unit,kind,data,root) if unit else context_heading_label(reader,heading,data,root)
         if heading.name=="summary":heading.insert(0,label)
         else:heading.insert_before(label)
-    reader["data-zo-context-labels"]=CONTEXT_MODE
 
 def context_html_checks(doc,data,root=ROOT):
     if not uses_context_labels(data):return {}
     reader=doc.select_one(".reader-content");checks={}
     if reader is None:return {"context reader exists":False}
+    from zo_course_numbering import html_checks as numbering_html_checks
+    if reader.get("data-zo-omit-context-labels") == "true":
+        checks["reader omits context labels"]=reader.select_one("[data-reading-label]") is None
+        checks.update(numbering_html_checks(doc,data))
+        return checks
     for index,(heading,unit,kind) in enumerate(context_targets(reader,data),1):
         label=heading.find(attrs={"data-reading-label":True},recursive=False) if heading.name=="summary" else heading.find_previous_sibling()
         expected=context_unit_label(unit,kind,data,root) if unit else context_heading_label(reader,heading,data,root)
@@ -390,6 +412,5 @@ def context_html_checks(doc,data,root=ROOT):
         checks[f"context/{index} label stays in reading region"]=bool(label and label.find_parent(class_="reading-region") is heading.find_parent(class_="reading-region"))
     checks["context small-dot separator only"]=all("•" not in n.get_text() for n in reader.select("[data-reading-label]"))
     checks["context at most branch and containing area"]=all(len(n.get_text().split(" · "))<=2 for n in reader.select("[data-reading-label]"))
-    from zo_course_numbering import html_checks as numbering_html_checks
     checks.update(numbering_html_checks(doc,data))
     return checks

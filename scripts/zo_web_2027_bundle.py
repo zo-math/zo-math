@@ -57,8 +57,9 @@ def checks(out):
         if key.startswith('g'):
             import yaml
             from pypdf import PdfReader
-            from zo_pdf_contract import validate_canonical_pdf_provenance
+            from zo_pdf_print_state import inspect_print_states
             source=ROOT/PAGES[key].with_suffix('.qmd')
+            states=inspect_print_states(ROOT,source)
             metadata=yaml.safe_load(source.read_text(encoding='utf-8').split('---',2)[1])
             specs=metadata['r1-download-files']+metadata['r1-section-download-files']
             by_name={spec['href']:spec for spec in specs}
@@ -79,7 +80,7 @@ def checks(out):
                 original=source.parent/name
                 count=len(PdfReader(original).pages)
                 text=' '.join(card.get_text(' ',strip=True).split())
-                values[key+' current PDF '+name]=card.get('data-pdf-current')=='true' and not validate_canonical_pdf_provenance(ROOT,source,variant=variants[name])
+                values[key+' current PDF '+name]=card.get('data-pdf-current')=='true' and not states[variants[name]]['errors']
                 values[key+' exact PDF bytes '+name]=target.is_file() and sha(target)==sha(original)
                 values[key+' download metadata '+name]=link['download']==spec['download'] and spec['title'] in text and spec['description'] in text and f'{count} trang' in text and ('pages' not in spec or spec['pages']==count)
         if key=='d0':

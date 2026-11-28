@@ -1,4 +1,4 @@
-"""Authored orientation for the six topics in the canonical course site.
+"""Legacy authored orientations for topics without a QMD overview fragment.
 
 Copy is based on the approved canonical learning material, not selected by paragraph or
 heading position. The complete learning goals remain owned by the source and
@@ -15,41 +15,11 @@ SOURCE_ANCHORS = {
         "prerequisites": ["bat-dau"],
         "choices": ["bat-dau", "bai-hoc", "phieu-luyen", "tu-kiem-tra", "on-lai"],
     }
-    for key in ("r1_g01", "r1_g02", "r1_g03", "r1_g04", "r1_g05", "r2_g01")
+    for key in ("r1_g02", "r1_g03", "r1_g04", "r1_g05", "r2_g01")
 }
 
 
 OVERVIEWS = {
-    "r1_g01": {
-        "intro": [
-            "Chuyên đề này giúp em xác định khoảng đồng biến, nghịch biến và cực trị "
-            "của hàm số từ công thức, dấu đạo hàm, bảng biến thiên hoặc đồ thị. "
-            "Trọng tâm là giải thích được vì sao dữ kiện cho phép kết luận như vậy "
-            "và nhận ra những điều chưa thể kết luận.",
-            "Các phần học đi từ ý nghĩa của đơn điệu và cực trị đến việc kết nối "
-            "các biểu diễn, đọc dữ kiện và sửa lập luận sai. Giá trị lớn nhất, "
-            "giá trị nhỏ nhất, tiệm cận và quy trình khảo sát đầy đủ được học "
-            "ở những chuyên đề khác.",
-        ],
-        "prerequisites": [
-            "Em cần biết tính đạo hàm đa thức, xét dấu biểu thức và đọc giá trị "
-            "hàm số. Khởi động giúp em nhận ra một số thao tác còn vướng để ôn "
-            "đúng phần cần dùng.",
-            "Riêng các bài về điểm ghép cần thêm giới hạn một phía đơn giản "
-            "và cách dùng thương sai phân một phía để kiểm tra đạo hàm tại "
-            "điểm đó. Hướng dẫn Ôn nền được đặt tại những bài cần dùng.",
-        ],
-        "choices": {
-            "bai-hoc": "Khi cần học hoặc học lại, tìm hiểu điều kiện dùng dấu đạo hàm "
-            "và cách đọc công thức, bảng biến thiên, đồ thị.",
-            "phieu-luyen": "Khi đã nắm kiến thức, tự làm các bài nối biểu diễn, "
-            "đọc dữ kiện và sửa lập luận; đối chiếu bài làm tại Điểm dừng.",
-            "tu-kiem-tra": "Khi đã chuẩn bị kĩ hoặc đủ tự tin, làm một lượt tự lực "
-            "để kiểm tra các mục tiêu của chuyên đề. Đây không phải đề thi thử.",
-            "on-lai": "Đến ngày đã hẹn, tự làm lượt ôn về đơn điệu và cực trị "
-            "trước khi đối chiếu để biết phần còn nhớ và phần cần học lại.",
-        },
-    },
     "r1_g02": {
         "intro": [
             "Tìm giá trị lớn nhất hoặc nhỏ nhất đòi hỏi xác định đúng tập đang xét, "

@@ -48,6 +48,10 @@ def apply(document, binding):
         pending = []
         first = None
         for node in list(container.find_all(recursive=False)):
+            # A disclosure label belongs directly to details. It is a control,
+            # not a separate reading paper before the independent tasks inside.
+            if container.name == 'details' and node.name == 'summary':
+                continue
             hits = count(node)
             if not hits:
                 pending.append(node)

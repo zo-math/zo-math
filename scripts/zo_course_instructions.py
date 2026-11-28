@@ -19,8 +19,8 @@ def spec(path):
     return data.get('instructions', {})
 
 def uppercase_start(text):
-    # Lists, Markdown emphasis, punctuation and anchor syntax are not letters.
-    text = re.sub(r'\[\]\{[^}]*\}', '', text)
+    # Source comments (including section markers) and anchors are not visible prose.
+    text = re.sub(r'<!--.*?-->|\[\]\{[^}]*\}', '', text, flags=re.S)
     first = next((c for c in text if c.isalpha()), '')
     return bool(first and first.isupper())
 

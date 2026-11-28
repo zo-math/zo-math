@@ -15,6 +15,16 @@ from zo_web_2027_figures import module, sha, GRAPH, VARIATION, PROFILE, ROOT
 PACKAGE = ROOT/'content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g02'
 CONFIG=PACKAGE/'giao_dien/web_2027_figures.json'
 
+
+def figure_sources():
+    data = json.loads(CONFIG.read_text(encoding='utf-8'))
+    return [PACKAGE/item['source'] for item in data['figures'] if item['role'] != 'cover']
+
+
+def figure_assets(sources):
+    return {p.stem+ext for p in sources for ext in ['.svg','.pdf']} | {'cover-light.svg'}
+
+
 def vector_dependencies():
     config=json.loads(CONFIG.read_text(encoding='utf-8'))
     paths=[CONFIG,Path(__file__),ROOT/'scripts/zo_course_cover_assets.py',GRAPH/'axis_ticks.py',GRAPH/'zo_graph_build.py',GRAPH/'tex/zo_graph_v02.tex',
@@ -26,12 +36,13 @@ def vector_dependencies():
 
 def build_vectors(output):
     """Reuse only complete verified pairs; otherwise build from canonical TeX."""
+    sources = figure_sources()
+    expected = figure_assets(sources)
     cache=PACKAGE/'giao_dien/assets/figures_0_4'
     manifest=cache/'manifest.json'
     if manifest.is_file():
         receipt=json.loads(manifest.read_text(encoding='utf-8'))
         if receipt['inputs']==vector_dependencies() and all((cache/n).is_file() and sha(cache/n)==h for n,h in receipt['assets'].items()):
-            expected={n+ext for n in ['do_thi_01','do_thi_02','nen_do_thi_01','nen_do_thi_02'] for ext in ['.svg','.pdf']}|{'cover-light.svg'}
             if set(receipt['assets'])==expected:
                 dest=output/'assets/figures04';dest.mkdir(parents=True,exist_ok=True)
                 for name in receipt['assets']:shutil.copyfile(cache/name,dest/name)
@@ -40,7 +51,6 @@ def build_vectors(output):
     graph = module('g02_graph04', GRAPH/'zo_graph_build.py')
     destination = output/'assets/figures04'
     destination.mkdir(parents=True,exist_ok=True)
-    sources = [PACKAGE/'hinh'/f'{name}.tex' for name in ['do_thi_01','do_thi_02','nen_do_thi_01','nen_do_thi_02']]
     inputs = vector_dependencies()
     for source in sources:
         print('G02 vector',source.stem,flush=True)
@@ -59,7 +69,6 @@ def build_vectors(output):
         verify_rebuild(ROOT,PACKAGE/'giao_dien/cover_g02.tex','transparent-light',cache/'cover-light.svg')
     shutil.copyfile(cache/'cover-light.svg',destination/'cover-light.svg')
     if inputs!=vector_dependencies():raise ValueError('G02 vector inputs changed during build')
-    expected={p.stem+ext for p in sources for ext in ['.svg','.pdf']}|{'cover-light.svg'}
     assets={p.name:sha(p) for p in destination.iterdir() if p.suffix in ['.svg','.pdf']}
     if set(assets)!=expected:raise ValueError('Incomplete G02 vector build')
     receipt={'profile':'0.4','inputs':inputs,'assets':assets,'cover_surface':'transparent-light',
@@ -74,7 +83,7 @@ def build_vectors(output):
 def verify_print():
     cache=PACKAGE/'giao_dien/assets/figures_0_4'
     receipt=json.loads((cache/'manifest.json').read_text(encoding='utf-8'))
-    expected={n+ext for n in ['do_thi_01','do_thi_02','nen_do_thi_01','nen_do_thi_02'] for ext in ['.svg','.pdf']}|{'cover-light.svg'}
+    expected=figure_assets(figure_sources())
     if receipt['inputs']!=vector_dependencies() or set(receipt['assets'])!=expected or not all((cache/n).is_file() and sha(cache/n)==h for n,h in receipt['assets'].items()):
         raise ValueError('G02 current paired figures missing or stale: regenerate before any book PDF render.')
     return cache,receipt
@@ -86,9 +95,11 @@ def apply(page,output, *, document=None):
     css=PROFILE/'production-figures.css'
     shutil.copyfile(css,output/css.name)
     doc.head.append(doc.new_tag('link',rel='stylesheet',href=css.name))
+    graph_names = {p.stem+'.svg' for p in figure_sources()}
     for image in doc.select('.reader-content .figure-viewport img'):
-        name=Path(image['src']).name.split('_',1)[-1]
-        if name not in ['do_thi_01.svg','do_thi_02.svg','nen_do_thi_01.svg','nen_do_thi_02.svg']:continue
+        name=Path(image['src']).name
+        if name not in graph_names:name=name.split('_',1)[-1]
+        if name not in graph_names:continue
         image['src']='assets/figures04/'+name
         from zo_graphics import set_lesson_graph_size
         set_lesson_graph_size(image,output/'assets/figures04'/name,ROOT)

@@ -1,13 +1,34 @@
 """Scoped G01 utility presentation; preserve titles, descriptions, IDs and URLs."""
 from pathlib import Path
+from string import Template
 import copy
 import os
 import shutil
+from bs4 import BeautifulSoup
 from pypdf import PdfReader
 
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = Path('content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01')
 CSS = PACKAGE / 'giao_dien/downloads.css'
+COURSE_HOME = ROOT / 'content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.qmd'
+
+def project_course_support(previous, page, output_root):
+    """Apply the course home support template to the PDF tab."""
+    from zo_home_qmd import apply_support_copy, read_support_copy
+    template = ROOT / '_design/web_2027_mau_dung_chung/templates/support.html.tpl'
+    support_url = Path(os.path.relpath(output_root / 'content/support/donate.html', page.parent)).as_posix()
+    markup = Template(template.read_text('utf-8')).substitute(support_href=support_url, prototype_note='')
+    block = BeautifulSoup(markup, 'html.parser').section
+    block.select_one('.prototype-note').decompose()
+    apply_support_copy(block, read_support_copy(COURSE_HOME.read_text('utf-8')))
+    block.attrs.pop('id')
+    block['class'] = ['r1-download-support', 'course-support', 'reader-course-support']
+    for image in block.select('img[src]'):
+        asset = output_root / 'assets/zo_web_2027/home' / image['src']
+        image['src'] = Path(os.path.relpath(asset, page.parent)).as_posix()
+    if previous.get('id'):
+        block['id'] = previous['id']
+    return block
 
 def project_source_section(section, layout_attrs):
     """Use fresh download content and retain its approved reading presentation."""
@@ -72,8 +93,7 @@ def apply(target, page, output_root):
         card['class'] = card.get('class', []) + ['zo-pdf-card']
         card.extend([copy_node, metric, link])
     # This copy describes the actual downloads; do not imply current PDF parity.
-    intro = section.select_one('p:has(strong)')
-    for node in intro.find_all(string=True):
+    for node in section.find_all(string=True):
         if 'Số trang dưới đây' in str(node):
             node.replace_with(str(node).replace(
                 'Số trang dưới đây được kiểm tra trực tiếp từ tệp PDF hiện hành.',

@@ -9,7 +9,16 @@ def review_for(path, root):
     settings=json.loads(config.read_text(encoding='utf-8'))
     if settings.get('adapter')!='g02-revision-source-v1':return None
     if settings.get('package')!='r1_g02':raise ValueError('Revision package mismatch')
-    review_path=path.parent/'_quy_trinh/ho_so/video_editorial_review.json'
+    records=path.parent/'_quy_trinh/ho_so'
+    declared=settings.get('editorial_review')
+    if declared:
+        review_path=(path.parent/declared).resolve()
+        if not review_path.is_relative_to(records.resolve()) or not review_path.is_file():
+            raise ValueError('Declared G02 review is missing or outside its records directory')
+    else:
+        review_path=records/'video_titles_review.json'
+    if not review_path.is_file():review_path=path.parent/'_quy_trinh/ho_so/video_availability_review.json'
+    if not review_path.is_file():review_path=path.parent/'_quy_trinh/ho_so/video_editorial_review.json'
     if not review_path.is_file():review_path=path.parent/'_quy_trinh/ho_so/course_format_20261103_review.json'
     if not review_path.is_file():review_path=path.parent/'_quy_trinh/ho_so/lesson_titles_20261103_review.json'
     if not review_path.is_file():review_path=path.parent/'_quy_trinh/ho_so/r01_editorial_review.json'

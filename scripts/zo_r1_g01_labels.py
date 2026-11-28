@@ -7,7 +7,7 @@ import json
 import re
 from pathlib import Path
 from bs4 import NavigableString
-from zo_course_labels import answer_action_labels
+from zo_course_labels import answer_action_labels, omit_reader_context_labels
 
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = Path('content/thpt/on_thi_toan_thpt/hoc_lieu/r1_g01')
@@ -39,6 +39,7 @@ def remove_local_answer_actions(root, units):
 def apply(document, binding_path=None):
     data = json.loads(Path(binding_path or BINDINGS).read_text(encoding='utf-8'))
     root = document.select_one('.reader-content')
+    omit_context_labels = omit_reader_context_labels(root)
     if data.get('package') not in ('R1-G01', 'R1-G02'):
         raise ValueError('Unsupported package semantic binding')
     targets = [a for u in data['units'] for a in (u['question'], u.get('answer')) if a]
@@ -83,7 +84,10 @@ def apply(document, binding_path=None):
                 link = document.new_tag('a',href='#'+unit['answer']);link.string=answer_action_labels()['forward']
                 action.append(link);holder.append(action)
                 node = holder
-            title = node.select_one(':scope > h2, :scope > h3, :scope > h4, :scope > .r1-task-label, :scope > p > .r1-task-label, :scope > p > strong, :scope > summary')
+            title = next((heading for heading in node.select('h2,h3,h4,h5,h6')
+                          if heading.get('data-anchor-id') == target), None)
+            if title is None:
+                title = node.select_one(':scope > h2, :scope > h3, :scope > h4, :scope > .r1-task-label, :scope > p > .r1-task-label, :scope > p > strong, :scope > summary')
             if title is None:
                 title = node.select_one(':scope > section > h3, :scope > section > h4, :scope > .reading-region > h3, :scope > .reading-region > h4')
             # The worked repair example has one summary, not a second title
@@ -95,6 +99,14 @@ def apply(document, binding_path=None):
                 inherited_summary=title is not None
             if title is None:
                 raise ValueError('Task/answer has no title: ' + target)
+            if (target == unit.get('answer') and title.name == 'summary'
+                    and node.find_parent(id='on-nen')
+                    and title.get_text(' ', strip=True) == answer_action_labels()['forward']):
+                # Local foundation solutions can use the action heading from QMD.
+                continue
+            if omit_context_labels:
+                title.string = unit['title']
+                continue
             if inherited_summary:
                 title.string=unit['title']
                 label=document.new_tag('span',attrs={'class':'role','data-reading-label':''})
@@ -119,6 +131,8 @@ def apply(document, binding_path=None):
                     outer.decompose()
     for anchor, context in data['checkpoints'].items():
         node=root.find(id=anchor);node['data-zo-type']='checkpoint'
+        if omit_context_labels:
+            continue
         label_owner = node
         if data['package'] == 'R1-G02' and 'reading-region' not in node.get('class', []):
             label_owner = node.select_one(':scope > .reading-region')

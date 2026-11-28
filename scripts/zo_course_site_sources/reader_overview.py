@@ -10,6 +10,9 @@ def overview_aliases(key):
         return {}
     aliases = {'bat-dau':'tong-quan', 'overview-lessons':'bai-hoc',
                'overview-practice':'phieu-luyen'}
+    if key.startswith('r3_g') or key in {'r4_g01', 'r4_g02', 'r4_g03', 'r4_g04', 'r4_g05', 'r4_g06', 'r5_g01', 'r5_g02', 'r5_g03','r5_g04','r5_g05','r5_g06','r5_g07','r5_g08','r5_g09'}:
+        aliases.update({'muc-tieu':'overview-goals',key.replace('_','')+'-table-01':'overview-goals'})
+        return aliases
     source_ids = {
         'r1_g01': (['học-xong-em-cần-làm-được-gì','r1-table-t02'], [],
                    ['cách-học-với-tài-liệu-này','chọn-nơi-bắt-đầu','bản-đồ-học']),
@@ -93,6 +96,19 @@ def overview_content(p, content, icon, btn):
     if start is None:
         raise ValueError('Missing source introduction: ' + p['id'])
     copy = OVERVIEWS.get(p['id'])
+    source_owned = p['id'].startswith('r3_g') or p['id'] in {'r4_g01', 'r4_g02', 'r4_g03', 'r4_g04', 'r4_g05', 'r4_g06', 'r5_g01', 'r5_g02', 'r5_g03','r5_g04','r5_g05','r5_g06','r5_g07','r5_g08','r5_g09'}
+    if source_owned:
+        paragraphs_in_start=start.find_all('p',recursive=False)
+        area=content.find(id='bat-dau')
+        prerequisites=next((s for s in area.select('section.level3')
+                            if s.find(['h3','h4']) and s.find(['h3','h4']).get_text(' ',strip=True).startswith('Tiên quyết')),None)
+        prerequisite=prerequisites.find('p') if prerequisites else None
+        if prerequisite is None:raise ValueError('Missing source prerequisites: '+p['id'])
+        copy={'intro':[], 'prerequisites':[], 'choices':{
+            'bai-hoc':'Cần học hoặc học lại thì vào Bài học.',
+            'phieu-luyen':'Đã hiểu và muốn tự vận dụng thì vào Luyện tập.',
+            'tu-kiem-tra':'Nếu đã chuẩn bị kĩ hoặc đủ tự tin, em có thể bắt đầu Kiểm tra.',
+            'on-lai':'Ôn lại dành cho việc tự huy động kiến thức sau khoảng trễ.'}}
     if p['id']=='r2_g02':
         paragraphs_in_start=start.find_all('p',recursive=False)
         prerequisite=next(n for n in paragraphs_in_start if n.get_text(' ',strip=True).startswith('Kiến thức cần có.'))
@@ -105,7 +121,7 @@ def overview_content(p, content, icon, btn):
     def paragraphs(values):
         return ''.join('<p>' + escape(value) + '</p>' for value in values)
     intro = ('<section class="overview-introduction" id="overview-introduction" aria-label="Giới thiệu chuyên đề">'
-             + (''.join('<p>'+_inline(n)+'</p>' for n in paragraphs_in_start[:2]) if p['id']=='r2_g02' else paragraphs(copy['intro'])) + '</section>')
+             + (''.join('<p>'+_inline(n)+'</p>' for n in paragraphs_in_start[:1 if source_owned else 2]) if p['id']=='r2_g02' or source_owned else paragraphs(copy['intro'])) + '</section>')
 
     goal_id = next(key for key,value in overview_aliases(p['id']).items()
                    if value == 'overview-goals' and 'table-' in key)
@@ -137,7 +153,7 @@ def overview_content(p, content, icon, btn):
             + '<section class="topic-overview-section" id="overview-goals"><h2>Học xong, em cần làm được gì?</h2>'
             + '<dl class="overview-goals">' + ''.join(goals) + '</dl></section>'
             + '<section class="topic-overview-section" id="overview-prerequisites"><h2>Kiến thức cần dùng</h2>'
-            + ('<p>'+_inline(prerequisite)+'</p>' if p['id']=='r2_g02' else paragraphs(copy['prerequisites'])) + '</section>'
+            + ('<p>'+_inline(prerequisite)+'</p>' if p['id']=='r2_g02' or source_owned else paragraphs(copy['prerequisites'])) + '</section>'
             + '<section class="topic-overview-section" id="overview-start"><h2>Chọn phần học</h2>'
             + '<p>Em có thể chọn phần phù hợp với việc mình cần làm, không phải hoàn thành lần lượt cả bốn phần.</p>'
             + '<nav class="overview-choices" aria-label="Chọn phần học">'

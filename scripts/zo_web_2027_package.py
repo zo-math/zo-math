@@ -29,6 +29,8 @@ def adapt(path,output_root,package):
  if settings.get('schema_version')!=1 or settings.get('package')!=PACKAGE.name:raise ValueError('Invalid package shell binding')
  from zo_course_labels import source_checks,require,apply as apply_labels
  require(source_checks(REPO/PACKAGE/'index.qmd'),'G05 source labels')
+ from zo_course_presentation import source_checks as presentation_source_checks, html_checks as presentation_html_checks, require as require_presentation
+ require_presentation(presentation_source_checks(REPO/PACKAGE/'index.qmd',REPO))
  original=BeautifulSoup(path.read_text(encoding='utf-8'),'html.parser')
  if original.body is None:return False
  if original.body.has_attr('data-zo-web-production'):return False
@@ -89,10 +91,17 @@ def adapt(path,output_root,package):
   if section is None:raise ValueError('Missing source area '+ident)
   regions(section)
  if inv(root)!=baseline:raise ValueError('Reading projection changed content, mathematics or IDs')
- builder=Builder(output_root,key);builder.output.mkdir(parents=True,exist_ok=True);builder.common_assets()
+ builder=Builder(output_root,key);builder.output.mkdir(parents=True,exist_ok=True)
+ content_only=settings.get('html_projection')=='current-reader-v1'
+ if content_only:
+  from zo_course_reader_content import prepare_assets
+  prepare_assets(builder)
+ else:builder.common_assets()
  from zo_course_cover import load_cover
- builder.materialize(load_cover(REPO,PACKAGE.name,allow_direction_approved=True),'assets/cover.svg')
- for name in ['r1-g02-adapter.css','site-footer.css','r1-consistency.css']:builder.materialize(KIT/name,name)
+ cover_source=load_cover(REPO,PACKAGE.name,allow_direction_approved=True)
+ cover_name='assets/cover'+cover_source.suffix
+ builder.materialize(cover_source,cover_name)
+ for name in ([] if content_only else ['r1-g02-adapter.css','site-footer.css','r1-consistency.css']):builder.materialize(KIT/name,name)
  from zo_course_illustrations import materialize as materialize_illustrations
  materialize_illustrations(root,REPO/PACKAGE,builder)
  for link in root.select('a[href]'):
@@ -103,6 +112,7 @@ def adapt(path,output_root,package):
   if not target.is_relative_to(output_root):raise ValueError('Link escapes output root')
   link['href']=builder.href(target,split.query,split.fragment)
  for details in root.select('details'):
+  if 'zo-learning-video' in details.get('class',[]):continue
   details.attrs.pop('open',None);guidance='zo-learning-guidance' in details.get('class',[])
   details['class']=list(dict.fromkeys(details.get('class',[])+(['r1-details','zo-block','zo-block-gray'] if guidance else ['r1-details','r1-solution','zo-learning-solution','solution','zo-block','zo-block-gray'])))
   summary=details.find('summary',recursive=False)
@@ -112,9 +122,14 @@ def adapt(path,output_root,package):
   for child in list(details.contents):
    if child is not summary:body.append(child.extract())
   details.append(body)
- title=root['data-r1-title'];subtitle=original.select_one('.subtitle').get_text(' ',strip=True)
+ if content_only:
+  from zo_course_reader_content import render as render_content
+  return render_content(root,binding,settings,builder,path,output_root,cover_name,REPO/PACKAGE/'index.qmd')
+ title=root['data-r1-title']
+ subtitle_node=original.select_one('.subtitle')
+ subtitle=subtitle_node.get_text(' ',strip=True) if subtitle_node else ''
  home=builder.href(output_root/'content/thpt/on_thi_toan_thpt/tot_nghiep_thpt/2027/index.html')
- hero='<section class="hero" aria-label="Bìa học liệu"><div class="hero-copy"><span class="eyebrow">'+html.escape(settings['eyebrow'])+'</span><h1>'+html.escape(title)+'</h1><p>'+html.escape(subtitle)+'</p></div><figure class="hero-art"><img src="assets/cover.svg" alt="'+html.escape(settings['cover_alt'],quote=True)+'"></figure></section>'
+ hero='<section class="hero" aria-label="Bìa học liệu"><div class="hero-copy"><span class="eyebrow">'+html.escape(settings['eyebrow'])+'</span><h1>'+html.escape(title)+'</h1>'+('<p>'+html.escape(subtitle)+'</p>' if subtitle else '')+'</div><figure class="hero-art"><img src="'+cover_name+'" alt="'+html.escape(settings['cover_alt'],quote=True)+'"></figure></section>'
  footer,_=builder.site_footer();support=template('support.html',support_href=builder.href(output_root/'content/support/donate.html'),prototype_note=settings.get('status_note','Bản HTML chờ duyệt.'))
  rendered=template('page.html',title=html.escape(title),body_class='g02-preview zo-web-2027-production',home_href=home,appearance=builder.appearance(),brand_thought=html.escape(BRAND_THOUGHT),navigation='<div id="nav-mount"></div>',breadcrumb=html.escape(title),hero=hero,content=str(root),support=support,site_footer=footer,drawer_title='Các phần của học liệu',styles='\n'.join(f'<link rel="stylesheet" href="{n}">' for n in ['reading-regions.css','web-shell.css','site-footer.css','appearance-inline.css','r1-g02-adapter.css','r1-consistency.css']),scripts='<script src="r1-controller.js"></script><script src="site-ui.js"></script>')
  result=BeautifulSoup(rendered,'html.parser');apply_labels(result,binding,{})
@@ -168,6 +183,7 @@ def adapt(path,output_root,package):
    if area is None:raise ValueError('Missing PDF area for revision notice')
    heading=area.find(['h2','h3']);heading.insert_after(notice)
  from zo_course_html import write
+ require_presentation(presentation_html_checks(result,REPO/PACKAGE/'index.qmd'))
  write(path,result)
  print('Package shell:',len(result.select('.reading-region')),'reading regions;',len(result.select('.zo-pdf-card')),'PDF downloads')
  return True
